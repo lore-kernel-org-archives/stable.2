@@ -1,155 +1,151 @@
-Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA06E3BBFBF;
-	Wed, 30 Sep 2026 10:13:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DDA83F8ECC;
+	Wed, 30 Sep 2026 10:15:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790763212; cv=none; b=L6e6Xuct35w34BZgJ37fyYTu/4XP8I04RSrlT8IDlXZg5vzA/AVJJixBBFz5+cM4krtj8g6bSN/JkcjtcN0Sy/KBo2NyELOM28pJjk6HGtXx0k2naBIvWVAR2MTOayqYQkOm9ZKZV094wxpfGCUEVUCyhaRdy3steYCcYMLL6YA=
+	t=1790763305; cv=none; b=tUPoP5nisdJuJYU3HtG0bk+z5rgixhhGdIpVrMtpAoqsSZ+O+9ZNQ92CvLRqDXOm1wlY3xXeBg6sELBIjnpWgPys8MuT9xMhm064H7+ZiM/av1lK4OZfpl3wsky/nNPFzQkETal6Roq9nmYpMJDnoQovPmNSyZQq0MJFwB205qs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790763212; c=relaxed/simple;
-	bh=FcdLUdFXlI6wsmRPpBcbBKr2+7aKuX4f72+AMDNJAWE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=F22ULMH6i4IcckoW0UJY0BXLZh2g9pWRjIFTY5N4X1evKqaI3Ns1AsC5vgxG68Q5RXTP1FO5vo4/Vy8UEVyGt2ZbaBTwGv4ZgY5qzTVZbPz5jCAXkRL1gR1e3T6X9BLluuHwbnvP7yp8mCzprYmyWJJs1hT2ISUfFUeKY5PHWOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org; spf=pass smtp.mailfrom=flapping.org; dkim=pass (2048-bit key) header.d=flapping.org header.i=@flapping.org header.b=jFk21V0M; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=QyQEMPnf; arc=none smtp.client-ip=202.12.124.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flapping.org
+	s=arc-20240116; t=1790763305; c=relaxed/simple;
+	bh=54Ipld09kO1PDJ/KNnkR/JdBcYQe+xP3ce5MeATcFHo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=MbVlyHb5cmJOxQ1Z+tdNHDr5ISjuYJfJGpdIH723q14ohleNdOV15gMhku6C9qYUcCqEQMCRpN7et3LHIM1BNoij+BF5xeiFbeXUlN/l5azyzfEgymvrpKcTV6uTy7YwWqHoko9/PLmwVXh0gHh406cWJ7uPN4n39dWlLurVO+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kOuYfvbi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flapping.org header.i=@flapping.org header.b="jFk21V0M";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="QyQEMPnf"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 428637A07E6;
-	Wed, 30 Sep 2026 06:13:29 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Wed, 30 Sep 2026 06:13:29 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flapping.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to; s=fm3; t=1790763209; x=1790849609; bh=RdQ15fTBCIw3BB41JZuI9
-	9EUXVLEbdksxycbVeaWNH0=; b=jFk21V0MQVL4zhaW5/EGnzaQl8DEJXLvV7V7T
-	vwp6MrD3sF1Bce4RvdIdlKlV/IIHU93Uar6Ry0VWgz1hZqn9p2kcc6Y1jZWOUIBZ
-	5IHIbMVMIFYr/X0CUkk1nDgTdPL2SiQ/AuqBBVql2csJuYltVnoCMq9HpICewPoK
-	oO221JTqUjD8ohu8aa0/eRZdkiQdJbAt4TJHPJPTkx7qObk50vDvR3ptN0+xQdJz
-	cb4gt81JfbgQuMI0ojB3TkfGywpnQlFckb/He7ewa2DzxtaOvohsDEcx0m8SoBek
-	+PawTIJfNJGkeYpq3CPqOXVPWIeDAUtGpFJ7E2NR65cIY64VA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1790763209; x=1790849609; bh=RdQ15fTBCIw3BB41JZuI99EUXVLEbdksxyc
-	bVeaWNH0=; b=QyQEMPnfYtxWpCZupuTYOgFymsMOhrbHGPBnGQHqOyXlAsZ12ag
-	H+KnTQgLFkoCroiDU44nwDCueo9slFqrE1sM/65bMepf0sYhI39uqkMV8/9j4E/q
-	Fj4kwv2JQSdyPpTStQnmkg2bxMaru/LEOzjZUkoZ6jUja41ww8/RxKODbgQYOYAD
-	0JG3NlW01eOEhurQsoIPkdkuzno9rgvD6kYjRXilxcQZS8bZWs+5nhz4PO82ZWKa
-	zYhCt7UtWavD2jy/jOHi2z3rn2qsW6pPtjffYb64EPf5rBUwjGqSOdznnuJHI9LG
-	An1AHsE/ylUOA8uS5DVFywXIg8hP5zy/QBQ==
-X-ME-Sender: <xms:yOC8anyR-xQYr82mAXqrxHF0-E-7TBwc7DfRAYnzlSaXHCScnhGVMQ>
-    <xme:yOC8ajj2HGgpAfyxRht2qaQLwtb3b6Ehu4zHm0yD6JyumRPFQMfiT8iChQQpr6i_G
-    BXzQp9BCGh46FxUqkVYn2kpAUQt0gQjAyVKVHmN3sy0_OXiVtK7fLID>
-X-ME-Received: <xmr:yOC8ak4ZfOcZdJY1cdAgwun4dsegEGjZWdWeHlIEKG8tXhLfeN2sC0YV39FCmw4qoIBqSP9SLWHiA5DE5y8>
-X-ME-Proxy-Cause: dmFkZTESPWaCPYjmflZ1CcqzfJY11iazwxpTYyd8FMAAJ1pSz45fUT14YP0CGfQApUd+xQ
-    evvDbn3MUe/syiRRDlOh+pLkd9dn5h5EJbaP4IK/j4yTvCjWGH/EuemWgTpQ2cmmGN/wbG
-    p8MkLVhpv74KRkfTSiwWef9ChM7F8D5Q0YdjqbNNrcba23BibYxhJZW6HGwRuKnGJBXlMK
-    QwSORU1B2oNxg77Y7k/gmt6o1KW3vOYpbLVwvKBeeCgdqeV3LJvK+1HP3jiZL7rcuca2SD
-    5yuDFwyREMbO80JRz7xzzWU1BKKURBz54dTdeK39XRQv6YR9VUTfyQeTsp7M/qiJ4WUgB9
-    i6VHFeDSBlptfd4xYUrLAnR+A5VnXaH8xNhjFxiA2wldSmc7JRFQ8RwKgUJcT5sVrejE+d
-    uWqdHy0+FPsOeUoXJLXaBOLlu4r92VwhYDmkVPNEyGGdIeUzowbcxE6WhA+m/O/AaI/206
-    zp/EwCq+YGJbVr21UnLVQHOlYE22yhkoaWnSsz+Cv8d/eT1dIG6q3K6Tptgx6yQ5tj2c5r
-    IKD7nMfh0nbcQi4dWfBeHOHLvqz4s546aOLiKOUHn4t+Ra3bd7yXuw3ozbrJzIZB3k86l7
-    QYlc/gjS8G6H9WIW1EguXPEPdTEMapKEGQFC0lQMSCO17tUIqdeJXRGgwtwQ
-X-ME-Proxy: <xmx:yOC8agrrpl71rHUMk39HfsQFFb_ugO97aHpkoFV2TPQWR5j1eeGs9w>
-    <xmx:yOC8aiXfF6q1VvSkMxGpruB4teIGKVx_4qhkmzqaxMmZUk4Nt-unlA>
-    <xmx:yOC8av6ZCUfKFh64ZJ4a_H7U4_kqtrocH4VFURcZCAQ5AHzgIEQvTg>
-    <xmx:yOC8ao0Mw-ffQFk7J8095GLsUU86CQyiblAbwf1WhAjgIHKCJY2DOw>
-    <xmx:yeC8ahkXKtpO_iyXmZRtpeLdzMTjevsil4vph5jhcD0z9fBB3n6Jds9g>
-Feedback-ID: i51fe4b43:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 30 Sep 2026 06:13:23 -0400 (EDT)
-From: FUJITA Tomonori <tomo@flapping.org>
-To: fustini@kernel.org,
-	guoren@kernel.org,
-	ukleinek@kernel.org,
-	wefu@redhat.com
-Cc: a.hindborg@kernel.org,
-	acourbot@nvidia.com,
-	aliceryhl@google.com,
-	bjorn3_gh@protonmail.com,
-	boqun@kernel.org,
-	dakr@kernel.org,
-	daniel.almeida@collabora.com,
-	gary@garyguo.net,
-	linux-riscv@lists.infradead.org,
-	lossin@kernel.org,
-	m.wilczynski@samsung.com,
-	ojeda@kernel.org,
-	tamird@kernel.org,
-	tmgross@umich.edu,
-	work@onurozkan.dev,
-	linux-pwm@vger.kernel.org,
-	rust-for-linux@vger.kernel.org,
-	FUJITA Tomonori <fujita.tomonori@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] pwm: th1520: Fix 32-bit build with COMPILE_TEST
-Date: Wed, 30 Sep 2026 19:12:57 +0900
-Message-ID: <20260930101257.1649945-1-tomo@flapping.org>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kOuYfvbi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54AC81F00893;
+	Wed, 30 Sep 2026 10:15:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790763303;
+	bh=NtupvILsbBdrVRwH08Wy0zosMmo163lp4SWgQYvg3s0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=kOuYfvbihP7q1bkBsrCG02IGNPzue0PBHqEYCA6QDfb33n6tRuPHlfhqgBOBfxftH
+	 vWH3VhMhgloU3prfw7HT7YKiQDdimou1xDcag4r08uldAxjXoMFauA7WlJZTnlmHEr
+	 qF8FkQLzVvtCD9O3Wc5kbGMfkHvNtAn12jsIB+XneHUskKjkFMzmrqtZXt+qSPHOZ9
+	 zAkZvyFf6R/TsWo0d2DFmisl2tDOd+yDEPlkL9TIih5ZXtf6mJ1/0xoPUi89fTm/8q
+	 k86kdEuml0bO14CBOHjCSzPXXwrmYZdZr72Y+K87/qMpyXUfSUCo2PgfRjwJl1aSsc
+	 yP4/Nq3kMa0CA==
+From: SJ Park <sj@kernel.org>
+To: stable@vger.kernel.org
+Cc: Liew Rui Yan <aethernet65535@gmail.com>,
+	damon@lists.linux.dev,
+	SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH 6.12.y v2] mm/damon/core: fix unconditionally skip last region
+Date: Wed, 30 Sep 2026 03:14:57 -0700
+Message-ID: <20260930101459.56041-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <2026092948-agency-overhand-3fd1@gregkh>
+References: <2026092948-agency-overhand-3fd1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: FUJITA Tomonori <fujita.tomonori@gmail.com>
+From: Liew Rui Yan <aethernet65535@gmail.com>
 
-Fix the following build error on 32-bit ARM with COMPILE_TEST:
+Once quota set, the charge_{target,addr}_from unconditionally skips and
+resets at the last region of the tracked target, so the last region can be
+skipped even when it has not been processed.
 
-  ERROR: modpost: drivers/pwm/pwm_th1520.ko: symbol '__aeabi_uldivmod' undefined!
+Example:
 
-The driver divides u64 values when it converts between nanoseconds and
-clock cycles. On 32-bit ARM, these divisions are compiled to calls to
-__aeabi_uldivmod, which the kernel does not provide.
+    1. Target has 2 regions: R1 (0-100 bytes) and R2 (100-200 bytes).
+    2. Quota is configured to process only 100 bytes per window.
+    3. Window 1: Processes R1 (0-100).  Quota is full.  charge_{target,
+       addr}_from is saved at (Target, 100).
+    4. Window 2: The loop reaches R2.  Because R2 is
+       damon_last_region(t), the old code unconditionally returns true,
+       skipping R2 entirely and resetting the charge_{target,addr}_from.
 
-The TH1520 is a 64-bit RISC-V SoC, so the driver is only used on
-64-bit kernels. There is no point in compile testing it on 32-bit.
-Limit COMPILE_TEST to 64BIT instead of changing the arithmetic to use
-the div64 helpers.
+    Result: R2 is permanently skipped even though it has never been
+    processed.
 
-Fixes: 3c180003dffb ("pwm: th1520: Fix missing Kconfig dependencies")
-Cc: stable@vger.kernel.org
-Reported-by: Andreas Hindborg <a.hindborg@kernel.org>
-Closes: https://rust-for-linux.zulipchat.com/#narrow/channel/291565-Help/topic/64bit.20division.20in.20.60pwm_th1520.2Ers.60/near/626825599
-Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
-Reviewed-by: Gary Guo <gary@garyguo.net>
-Signed-off-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
+However, it is important to note that this is a very minor issue.  This is
+because it is triggered only when the previous window saved/kept
+charge_{target,addr}_from, and in the next window, all regions except the
+last region were skipped by damos_skip_charged_region().
+
+Fix this by only resetting the charge_{target,addr}_from when last region
+is reached, only skipping when it is applied or cannot split.
+
+Link: https://lore.kernel.org/20260908134739.96919-1-sj@kernel.org
+Fixes: 50585192bc2e ("mm/damon/schemes: skip already charged targets and regions")
+Signed-off-by: Liew Rui Yan <aethernet65535@gmail.com>
+Reviewed-by: SJ Park <sj@kernel.org>
+Signed-off-by: SJ Park <sj@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Cc: <stable@vger.kernel.org> # v5.16.x
+(cherry picked from commit b3723b596b548c837a766aae3553c14a7b15af2b)
+Signed-off-by: SJ Park <sj@kernel.org>
 ---
-v2:
-- Fix a typo in the commit message
-- Add Cc: stable, Reported-by and Closes tags
-- Add Reviewed-by tags from Andreas and Gary
-- Rebase on v7.3-rc5
+Changes from v1
+- v1: https://lore.kernel.org/20260930092829.45885-1-sj@kernel.org
+- Add missed change for damon_sz_region(r) <= min_region_sz case.
 
-v1: https://lore.kernel.org/all/20260929095612.1072417-1-tomo@flapping.org/
----
- drivers/pwm/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ mm/damon/core.c | 24 ++++++++++++++----------
+ 1 file changed, 14 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/pwm/Kconfig b/drivers/pwm/Kconfig
-index 729776086879..abecd95b0c3c 100644
---- a/drivers/pwm/Kconfig
-+++ b/drivers/pwm/Kconfig
-@@ -772,7 +772,7 @@ config PWM_TEGRA
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 32737cc5f877b..cc7250f0936af 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -1322,37 +1322,41 @@ static bool damos_skip_charged_region(struct damon_target *t,
+ 	struct damon_region *r = *rp;
+ 	struct damos_quota *quota = &s->quota;
+ 	unsigned long sz_to_skip;
++	bool skip = false;
  
- config PWM_TH1520
- 	tristate "TH1520 PWM support"
--	depends on ARCH_THEAD || COMPILE_TEST
-+	depends on ARCH_THEAD || (COMPILE_TEST && 64BIT)
- 	depends on RUST
- 	depends on HAS_IOMEM && COMMON_CLK
- 	select RUST_PWM_ABSTRACTIONS
-
-base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+ 	/* Skip previously charged regions */
+ 	if (quota->charge_target_from) {
+ 		if (t != quota->charge_target_from)
+ 			return true;
+-		if (r == damon_last_region(t)) {
+-			quota->charge_target_from = NULL;
+-			quota->charge_addr_from = 0;
+-			return true;
+-		}
+ 		if (quota->charge_addr_from &&
+-				r->ar.end <= quota->charge_addr_from)
+-			return true;
++				r->ar.end <= quota->charge_addr_from) {
++			skip = true;
++			goto out;
++		}
+ 
+ 		if (quota->charge_addr_from && r->ar.start <
+ 				quota->charge_addr_from) {
+ 			sz_to_skip = ALIGN_DOWN(quota->charge_addr_from -
+ 					r->ar.start, DAMON_MIN_REGION);
+ 			if (!sz_to_skip) {
+-				if (damon_sz_region(r) <= DAMON_MIN_REGION)
+-					return true;
++				if (damon_sz_region(r) <= DAMON_MIN_REGION) {
++					skip = true;
++					goto out;
++				}
+ 				sz_to_skip = DAMON_MIN_REGION;
+ 			}
+ 			damon_split_region_at(t, r, sz_to_skip);
+ 			r = damon_next_region(r);
+ 			*rp = r;
++			skip = false;
+ 		}
++	}
++out:
++	if (r == damon_last_region(t)) {
+ 		quota->charge_target_from = NULL;
+ 		quota->charge_addr_from = 0;
+ 	}
+-	return false;
++	return skip;
+ }
+ 
+ static void damos_update_stat(struct damos *s,
 -- 
-2.43.0
+2.47.3
 
