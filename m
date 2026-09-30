@@ -1,79 +1,45 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 311005221E4
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 18:31:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E8F65226AB;
+	Wed, 30 Sep 2026 18:31:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790793110; cv=none; b=E34sUdoFC/Du7QOWilz5rFVlm2IgwvgP/JGmTwvSmscvyIZj8m8slQgylhqryzS8W0lo6i+Z6siMAT91gUkmhGgLYpEswzUh++OyBGgmRogM4FxjhhHCifj7Cer2F/IQV16+LNmUA6rQGdAKpFdY+PL0IxZ6sIZU4gB6/pwvCWM=
+	t=1790793112; cv=none; b=IN3Q0Xn1sDI/hf2LWSsdomhWQUm3GqV/6DiB7BjiRu6hbhr2OuFWVTaCow3HvbLsKe/YRZiZI8rkJVYgR7bKldBC+0rNPx0iuPauOECxzw5+MV0Mgpx0/8rqYIQVW5JkJ5zytvQ9q/52zWm5gH2r5Hw02kR/NU8Jo4sUyWMhvbk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790793110; c=relaxed/simple;
-	bh=vb82kHMjF7H/YB24C3WEANZjxyP2t2ChYpOBcIucziU=;
+	s=arc-20240116; t=1790793112; c=relaxed/simple;
+	bh=pxjVyP2Mqiueid2LLCGCI7+alsZLOqMn+TRSukOYvFc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NGGvOeULePev67NwdpxFQo2ZPew9FsJhJMziHllHGQA759amumLRPfXcRMkCeGvYckJZiS768mEZib1TbVCXWSTSeAjyQ5+OFIy4VmMbfiKrmx15YEeWaGNBkUxlq/PCw83IoyAsb9TFc5KCfQyCn2Kk4xJy22OI8Jl4Ys6mc88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y77D/LRT; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=H/tHLwfkyvVz0EC9w/Xfkb+OcEp7DS8Ci6JpGC3Uzfhy0SK6tQWhsdBEUWGX0FRTiQasVThsgVlP0fPL+CviYCoCsB/fpqVieCUdBZkO3a484Or8GbZJbEa7T4GLgl3i/NpU1VozNyZkVAtJxVDUW3jntNQvZ1y+9dGzbPPuuNA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Q7+gvf/D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y77D/LRT"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffb83bf7aso37027645e9.2
-        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 11:31:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790793106; x=1791397906; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2GhPsWLlSgMSNkt2f5+GEEY7rdFcZVTICkbFtx1WQ/w=;
-        b=Y77D/LRTMTasnQv5DHVfBKif3mOkS/d4BgGTJ0frbx2mygRmuodrMiPAsUodJRnIYW
-         agqDGC9MUefM2mJE0hvV9lc0Pk5p69naYsVhQInvDhnZzR6v1v1X9uZEBv5EA2wtOoOM
-         xI3UH4goebRubWgp6iu+DHufBmzUK81AKMxud7pW60zNZDOctyOliaE4W2o4toIITLfZ
-         sBka+pnPKgjnbm7EoD6gjr7zujW5h1YIuGIF0XSfGdnA24l1DboCL6ih/vhzAxuy0NJt
-         vYp8epcu4x+SaEb1qOHupeDHB1mn2Jfhi0wzsbLOebckJJxCDYE8PZoZwdfPrFyOg+Em
-         U2Zw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790793106; x=1791397906;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2GhPsWLlSgMSNkt2f5+GEEY7rdFcZVTICkbFtx1WQ/w=;
-        b=WJ19hH1hG+bGeUw0FpCVU/joNPJuRoEJdzq0sUljH9aQAQjGX9w/EyaXst9KIXlm22
-         cD8xFHd+C3TpAgNyM5vYJoUZzhq5U4ldifWZ+qYEumK8crvOL7uCZw4jYJc6Zy8uszFf
-         ITylIbWR6AzNiXbIwogmJm2YA6A0rv0PbqeEj2OpMr+RbXzFB4Txn0zXIJTyltVJ8WKv
-         GfTMVK+5BjplGrqNlaW/5NNhdNxpEH+P9HJ4L6XLNIXycBrbzsAZrb9hAATCvwjYIeEb
-         QukF66O1Uazl+stZyggUdlxXRGX4m7CazvOz1wz4X0sK3P5f4KHT+BIlE6IjlKsttllx
-         WPhg==
-X-Forwarded-Encrypted: i=1; AKwUvBwUsdrEcj3sfAjQOwyoZknIeHxFmu8OCSKlhBcY9tQUpYNIoX2jU7ac+cePRRvcv9XkvZ8fLr0=@vger.kernel.org
-X-Gm-Message-State: AFuF++m88Wsuia0V1WSqIUuJ5DX2jKsCqeA4dIXoOdlKbgPCmcL/pN6C
-	9MirjZhPNy7FQU0xN5vQUf5/PARy8jIVk2VmFPhFoU/THrjoVveYIj49
-X-Gm-Gg: AYBFou312mmWzsw3MKFFeTMVyFwK+9/yl1W3lpNmsuH49LHdaiOromHrGJSviyI4bFE
-	QEwTBNrDb1uT3SaAzAhSlgnjEePg71fWtluWq1x1+qdyR/5kanVJMpas9y8m+UQzyCZupoZKiFA
-	cYVNYORMcHzSW6ZU6s9fyTj0PRPpB8++TGHIAjnEVFawbtRcDs9tIrlvN58nHN2o3D0hMAt55Ig
-	oksuW3OR49JFn3B9Ua9MW7a9WVsWlS2prwOQE0y+CGs02q6u9eBNo/px+BcSxA12CIZgbnyuRed
-	MfC//CkpOZI5+8pyrIHjYbKY5pVulXjk61xeS9laJgp5fkksMAlHQYya3zLRX/eKf+grJwNKQHR
-	bKi81F/sOjkp/g7J7uZYOHe+Z1m65gH1BHjuik8STIRih5mIuB53rbkwliAuZ4OCFziyLkm7jMI
-	sg9mTNPcNlDJ5UMR5LeP3ylHl8cWsGafdT8Nmnv+mFbxh4UWesH2py30vov9CygQtpbwrfBaoZj
-	2RZ4oyA62vp6VHWtDzqVGeMUO4hCZRFp1GB/of0qQgp9zvjBIK1
-X-Received: by 2002:a05:600c:3b09:b0:49f:bd3c:bc23 with SMTP id 5b1f17b1804b1-4a01b12bedbmr39716805e9.30.1790793106089;
-        Wed, 30 Sep 2026 11:31:46 -0700 (PDT)
-Received: from fedora ([202.47.63.86])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f90cd4esm3294525e9.1.2026.09.30.11.31.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 11:31:45 -0700 (PDT)
-From: Muhammad Bilal <meatuni001@gmail.com>
-To: jorge.lopez2@hp.com,
-	hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com
-Cc: andy.shevchenko@gmail.com,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Muhammad Bilal <meatuni001@gmail.com>
-Subject: [PATCH v3 3/3] platform/x86: hp-bioscfg: return -E2BIG from validate_password_input()
-Date: Wed, 30 Sep 2026 23:30:18 +0500
-Message-ID: <20260930183018.49629-4-meatuni001@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Q7+gvf/D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 843621F000FF;
+	Wed, 30 Sep 2026 18:31:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790793110;
+	bh=urb6kGThVsTynWge3D0masBK4vF7E3jjkypIpP5UF4E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Q7+gvf/DQ1vxNMUeHZZR08BmzbD5PBE3BNkhs1qsy86v0K4zrr1g2QWNpzDWCm+hq
+	 nbD90VFoO9IFsmd6S3LuPqV7B0M9/d9Fbwu+qIaap3Zd/y3Ql/9vF/WUfrXM9M2f7Z
+	 7TVwXzOyv6jjUyywYrhKtAHS9vuOfaAxfogFg/bM=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	co+ac0a8c41de69121d@bugs.sh,
+	Weiming Shi <bestswngs@gmail.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 140/395] bpf: Reject dev-bound-only programs on other devices
+Date: Wed, 30 Sep 2026 17:26:42 +0200
+Message-ID: <20260930152343.681401499@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260930183018.49629-1-meatuni001@gmail.com>
-References: <20260930183018.49629-1-meatuni001@gmail.com>
+In-Reply-To: <20260930152340.591469096@linuxfoundation.org>
+References: <20260930152340.591469096@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -82,50 +48,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-validate_password_input() returns the positive INVALID_BIOS_AUTH on
-rejection. store_password_instance() skips the store on nonzero ret,
-but its final "return ret < 0 ? ret : count" treats the positive value
-as success, so userspace sees count instead of an error.
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-Return -E2BIG for an invalid password length.
+------------------
 
-Tested on HP EliteBook 840 G2 (Fedora 44, Linux 7.2.7): writing 999
-bytes to current_password returned 999 before this change.
+From: Weiming Shi <bestswngs@gmail.com>
 
-Fixes: 8646a3b5ee3a ("platform/x86: hp-bioscfg: passwdobj-attributes")
-Cc: stable@vger.kernel.org
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+[ Upstream commit 6db1ce73e9853f533eb7f413f14ba00f8ec6f80d ]
+
+__bpf_offload_dev_match() falls back to comparing offdev pointers after an
+exact netdev mismatch. Bound-only programs normally have NULL offdevs, so
+unrelated netdevs compare equal. A bound-only program on an
+offload-registered netdev can instead inherit a real offdev and match a
+sibling port. With CAP_BPF and CAP_NET_ADMIN, a caller can use
+bpf(BPF_LINK_CREATE) with a different target ifindex to run metadata kfuncs
+specialized for the bound driver on the target driver's xdp_buff. Running a
+veth-bound program on tun reads beyond tun's bare stack xdp_buff as a
+veth_xdp_buff.
+
+  Oops: general protection fault, probably for non-canonical address
+  KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
+  RIP: 0010:veth_xdp_rx_timestamp (drivers/net/veth.c:1673)
+  Call Trace:
+   ...
+   tun_build_skb (drivers/net/tun.c:1739)
+   tun_get_user (drivers/net/tun.c:1856)
+   tun_chr_write_iter (drivers/net/tun.c:2091)
+   vfs_write (fs/read_write.c:595 fs/read_write.c:687)
+   ksys_write (fs/read_write.c:739)
+   do_syscall_64 (arch/x86/entry/syscall_64.c:84)
+   entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+  Kernel panic - not syncing: Fatal exception in interrupt
+
+Restrict non-offloaded programs to exact netdev matches and retain the
+shared-offdev fallback only for genuinely offloaded multi-port programs.
+
+Fixes: 2b3486bc2d23 ("bpf: Introduce device-bound XDP programs")
+Reported-by: <co+ac0a8c41de69121d@bugs.sh>
+Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+Signed-off-by: Alexei Starovoitov <ast@kernel.org>
+Link: https://lore.kernel.org/bpf/20260917161335.1020405-2-bestswngs@gmail.com/
+Link: https://patch.msgid.link/20260920132303.4109240-3-bestswngs@gmail.com
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Changes in v3:
- - Return -E2BIG instead of -ERANGE (Andy)
+ kernel/bpf/offload.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Changes in v2:
- - New patch
-
- drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c
-index a9e1786..3f4c45d 100644
---- a/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c
-+++ b/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c
-@@ -70,12 +70,13 @@ static int validate_password_input(int instance_id, const char *buf)
- 		length--;
+diff --git a/kernel/bpf/offload.c b/kernel/bpf/offload.c
+index a9a036547c960..884f1eeaba2ef 100644
+--- a/kernel/bpf/offload.c
++++ b/kernel/bpf/offload.c
+@@ -708,6 +708,8 @@ static bool __bpf_offload_dev_match(struct bpf_prog *prog,
+ 		return false;
+ 	if (offload->netdev == netdev)
+ 		return true;
++	if (!bpf_prog_is_offloaded(prog->aux))
++		return false;
  
- 	if (length > MAX_PASSWD_SIZE)
--		return INVALID_BIOS_AUTH;
-+		return -E2BIG;
- 
- 	if (password_data->min_password_length > length ||
- 	    password_data->max_password_length < length)
--		return INVALID_BIOS_AUTH;
--	return SUCCESS;
-+		return -E2BIG;
-+
-+	return 0;
- }
- 
- ATTRIBUTE_N_PROPERTY_SHOW(is_enabled, password);
+ 	ondev1 = bpf_offload_find_netdev(offload->netdev);
+ 	ondev2 = bpf_offload_find_netdev(netdev);
 -- 
-2.43.0
+2.53.0
+
+
 
