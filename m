@@ -1,38 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FE0250255E;
-	Wed, 30 Sep 2026 16:05:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D9914FD267;
+	Wed, 30 Sep 2026 16:05:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790784317; cv=none; b=onHvxY7l7bLr/hxLI/kUV70kDx2NhjJCOm/Bof/NCf3qNTyV0VU3PW7/YS0Qj8iC3W2HlqqYk0R7scxQCSYY/TPxKwCf1TpEbuKiddj71JTvQl4BaRNn5TBrE8QvGCe37AK+ci51G2ahByXRXpNbbcGD6L1PtuMCnjf4LoVFomA=
+	t=1790784322; cv=none; b=d1Xmpoh+tmm0bFA7MoF5/4iw6Tn5SQwifVDEYdN0RI9sFTlQOETVtJ7qOxvyg3kLcw4dpbfTIkdSO6Nt8SRPdG2A4Dt7rFlCxWXEAuNQXRillTnm3l/hPKcHdETp5Bpka/ftL0lvTgg+lEx4w0fzxoWVGtdISrJAXsXAiT6MBks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790784317; c=relaxed/simple;
-	bh=T3RVKKBkP4YvuQBjupSP2cRvcdgwpg7yv9kk0yFV5Mk=;
+	s=arc-20240116; t=1790784322; c=relaxed/simple;
+	bh=YvdixY+UILDsjBHuaePw7uwgS62cGJbbPEa2KJY6x3w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rf2GsTUxEjf5xQMX5VknjshMRqLvKIIGo7WKA7dROtEGqRCF82iBifmiAzap1cW2u+EyTUtJCzDGDJOjuUjWzX7ILavMxSrJGOjez6XYyRfm9RHPUDhFxyF/MEdF4bcSBBZlu5YJ+a9nZ31dke1CUc5+O0jkYqa5chTcQJ62+6I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MJ3CR4pb; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=qdmnSmTKOxPLwRSTLjFxjZvhJR4K53lw4e2Uph5BhuwIb7vxbqbAeIK5FE+FykTZoJbfLRxlth3xIqzaszKhBUUykWAafrQKP9D7DIYc7/3Vt+4wP4OCi1MjKLnGsST3qZzQIoG3pzRGPtKvP4Bogiaf/jTuZPO7U2UzPldNcH0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=IDAiXxVp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MJ3CR4pb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 968861F000FF;
-	Wed, 30 Sep 2026 16:05:14 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="IDAiXxVp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 771B71F00898;
+	Wed, 30 Sep 2026 16:05:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790784315;
-	bh=UaKTxvaio+Hnum8OgyMpJMQtYPJSZC5dd0riFlDfzrM=;
+	s=korg; t=1790784318;
+	bh=z2fTlxKgUG57Nr0rJVnA8IOSFzB050nog5U8qjRLNSk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MJ3CR4pb9VuGNp1fHbq7XqjPIvT9eNZ5kO0VSF+t/+S5An3af5webiRdGGnlLeYtE
-	 zoFTjP362Wf3f7VVtZ9OanmuNEB1YRDEJKvwzfPKfbagVgp8Z1+TTjGrTpkbXOuo8R
-	 /LqaiuAplXqG6I5ze/lUoslykI0RSd1PmDtySq8s=
+	b=IDAiXxVpsjxNbU/oY1aadsbdgVjUswhyjki7XLG3Z9Oiu81iGjWfsCEmVbiAJg2O2
+	 +OXw39526xE75kM8IgBc3i7M8ItBrK+tBogt/wrN5m1Yt5fNwK/YPCGAKpE1pT/U2I
+	 jddiVx4sKMCPzIAPmwEj2eiMAFLmRe4R+n2d4R64=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	ikaros <void0red@gmail.com>,
+	Xiang Mei <xmei5@asu.edu>,
+	Weiming Shi <bestswngs@gmail.com>,
 	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 110/982] ACPICA: Enhance OEM ID and Table ID validation in acpi_ex_load_table_op()
-Date: Wed, 30 Sep 2026 17:14:06 +0200
-Message-ID: <20260930152419.175132979@linuxfoundation.org>
+Subject: [PATCH 6.1 111/982] ACPICA: Fix NULL pointer dereference in acpi_ns_custom_package()
+Date: Wed, 30 Sep 2026 17:14:07 +0200
+Message-ID: <20260930152419.196410287@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
 References: <20260930152416.775402466@linuxfoundation.org>
@@ -51,70 +52,55 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: ikaros <void0red@gmail.com>
+From: Weiming Shi <bestswngs@gmail.com>
 
-[ Upstream commit 485829e6999b7909f50761a1c708660304edc945 ]
+[ Upstream commit f8d14b7bb0063bbbd86c0e4d73edb8cea7b362bc ]
 
-Enhance OEM ID and Table ID validation in acpi_ex_load_table_op() to
-prevent buffer overflows.
+acpi_ns_custom_package() unconditionally dereferences the first element
+of the package to read the _BIX version number, without checking for
+NULL:
 
-Link: https://github.com/acpica/acpica/commit/f85a43098d65
-Signed-off-by: ikaros <void0red@gmail.com>
+    if ((*Elements)->Common.Type != ACPI_TYPE_INTEGER)
+
+When firmware returns a _BIX package whose first element is an
+unresolvable reference, ACPICA evaluates that entry to NULL.
+acpi_ns_remove_null_elements() does not strip NULL entries for
+ACPI_PTYPE_CUSTOM packages (fixed-position format would break if
+elements were shifted), so acpi_ns_custom_package() sees the NULL
+and causes a crash.
+
+Add a NULL check for the first element (version field) before
+dereferencing it. The caller then receives AE_AML_OPERAND_TYPE
+instead of crashing.
+
+Link: https://github.com/acpica/acpica/commit/f3f111b9013b
+Reported-by: Xiang Mei <xmei5@asu.edu>
+Reported-by: Weiming Shi <bestswngs@gmail.com>
 Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Link: https://patch.msgid.link/2230782.OBFZWjSADL@rafael.j.wysocki
+Link: https://patch.msgid.link/5674388.Sb9uPGUboI@rafael.j.wysocki
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/acpi/acpica/exconfig.c | 26 ++++++++++++++++++++++++--
- 1 file changed, 24 insertions(+), 2 deletions(-)
+ drivers/acpi/acpica/nsprepkg.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/acpi/acpica/exconfig.c b/drivers/acpi/acpica/exconfig.c
-index d7d74ef87b186..06f897bec4f14 100644
---- a/drivers/acpi/acpica/exconfig.c
-+++ b/drivers/acpi/acpica/exconfig.c
-@@ -90,6 +90,8 @@ acpi_ex_load_table_op(struct acpi_walk_state *walk_state,
- 	union acpi_operand_object *return_obj;
- 	union acpi_operand_object *ddb_handle;
- 	u32 table_index;
-+	char oem_id[ACPI_OEM_ID_SIZE + 1];
-+	char oem_table_id[ACPI_OEM_TABLE_ID_SIZE + 1];
+diff --git a/drivers/acpi/acpica/nsprepkg.c b/drivers/acpi/acpica/nsprepkg.c
+index 82932c9a774b4..887eb54942ffc 100644
+--- a/drivers/acpi/acpica/nsprepkg.c
++++ b/drivers/acpi/acpica/nsprepkg.c
+@@ -631,6 +631,13 @@ acpi_ns_custom_package(struct acpi_evaluate_info *info,
  
- 	ACPI_FUNCTION_TRACE(ex_load_table_op);
+ 	/* Get version number, must be Integer */
  
-@@ -102,12 +104,32 @@ acpi_ex_load_table_op(struct acpi_walk_state *walk_state,
- 
- 	*return_desc = return_obj;
- 
-+	/*
-+	 * Validate OEM ID and OEM Table ID string lengths.
-+	 * acpi_tb_find_table expects strings that can safely read
-+	 * ACPI_OEM_ID_SIZE and ACPI_OEM_TABLE_ID_SIZE bytes.
-+	 */
-+	if ((operand[1]->string.length > ACPI_OEM_ID_SIZE) ||
-+	    (operand[2]->string.length > ACPI_OEM_TABLE_ID_SIZE)) {
-+		return_ACPI_STATUS(AE_AML_STRING_LIMIT);
++	if (!(*elements)) {
++		ACPI_WARN_PREDEFINED((AE_INFO, info->full_pathname,
++				      info->node_flags,
++				      "Return Package has a NULL version element"));
++		return_ACPI_STATUS(AE_AML_OPERAND_TYPE);
 +	}
 +
-+	/*
-+	 * Copy OEM strings to local buffers with guaranteed null-termination.
-+	 * This prevents heap-buffer-overflow when acpi_tb_find_table reads
-+	 * ACPI_OEM_ID_SIZE/ACPI_OEM_TABLE_ID_SIZE bytes.
-+	 */
-+	memcpy(oem_id, operand[1]->string.pointer, operand[1]->string.length);
-+	oem_id[operand[1]->string.length] = 0;
-+	memcpy(oem_table_id, operand[2]->string.pointer,
-+	       operand[2]->string.length);
-+	oem_table_id[operand[2]->string.length] = 0;
-+
- 	/* Find the ACPI table in the RSDT/XSDT */
- 
- 	acpi_ex_exit_interpreter();
- 	status = acpi_tb_find_table(operand[0]->string.pointer,
--				    operand[1]->string.pointer,
--				    operand[2]->string.pointer, &table_index);
-+				    oem_id, oem_table_id, &table_index);
- 	acpi_ex_enter_interpreter();
- 	if (ACPI_FAILURE(status)) {
- 		if (status != AE_NOT_FOUND) {
+ 	if ((*elements)->common.type != ACPI_TYPE_INTEGER) {
+ 		ACPI_WARN_PREDEFINED((AE_INFO, info->full_pathname,
+ 				      info->node_flags,
 -- 
 2.53.0
 
