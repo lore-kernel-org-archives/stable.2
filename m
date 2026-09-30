@@ -1,116 +1,175 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7681E51DDFB
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 21:43:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A942E522EEB;
+	Wed, 30 Sep 2026 21:43:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790804602; cv=none; b=qcbb/9XpBumQ+6Agu57/Y10imE/A1PI03VjhC54nFDFz3jhviV0sqcTAzPnKDJeSkbU/QRcMHOwWZmvOBbrnRvwNRdkF7q9bfGO99jU+w7wedwr0S4gsc5tWvJR/v8QIXc87C1C3TKZQBOyN9Fogvchw/cABD81SNabnwU9UnVM=
+	t=1790804629; cv=none; b=riRnBEfq1/r29vHrFzMi7VBjbPjghVmceiiAZOVT93QJGmvvwnfmfdBKmPQbFaRToTiGPx9FkdEm6IKK5GUReUrQK7j7Hs4omJa0Bc7sR8UuCjSfR7Is2LoKrZy+8EyoqQtA4qpFMP8sfWMovqgVuTkoN7aabmIzSkNGIkBCFlo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790804602; c=relaxed/simple;
-	bh=bBR8nRQ8XAmNXA0T6elTngU/deKR9ybB3YQ04hMzTJc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=u8hCC0J83MeGm50NQz3YJcC7qomL02NrEr+nZHOQoBqcDrpKeXHTStFyj6JHb+6dNqHmA5fOrffov5+82VzrE7iQnKn6zdC162xu59zRgWhUySQaHi04b3yBAyRWyVcSlowsffp7xyP9uNlITYFT8vJ+ZIribj5sYosm/QfP1rI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=faaUXHNR; arc=none smtp.client-ip=74.125.229.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790804629; c=relaxed/simple;
+	bh=LcPOw36suuF+LxeNDiUp1b0eBkMSmoFooFyJMxCh9F4=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=DWfnUMdg1NZI2cnXweJeLcq24w5zHKGHIOZUYTwTxm6otSaFDLMW+M62p2etp6kr4qlPzcxFXGnc5WdD+RUqWg+Oa7pe7Eoo1jMhyUTqIPZBTpZRny+pHQQr1BHDwKs32JrANgoy0X42LYptkXmN1u1A1ikoyzIJUcv/kQwT6wo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V2sTokHF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="faaUXHNR"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33c0d931083so2220169eec.1
-        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 14:43:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790804600; x=1791409400; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8lkawhUgZ2z6Rbax51KT4StG2qQ9CPt6IcVwt464ZjQ=;
-        b=faaUXHNR4L8nRJ8vO/PYkNKPq3hSFqNds09T+IV8AWwxGnvjPxRB86HwDtkvVFPw+t
-         G24ffAKJxiI31zp9T3WnqZMPbx76R9PMm0VGbK3Njt8qXaM8naWrgd+Gr1CIQP3E9JEf
-         nN3JLJ+JBtUgtvqf5Wl1pIQkL5GC4q5wA5kj3wJSp35tuPtOqbYtdB7Iok5/fNfCodUv
-         f7AjpRPnKL1lXWArkdfOwqI1i2w//f5BZp56Q+eIw47zcgFoeQYr3DI2wzI3NW7UK8ir
-         mPUWF6ZexkkrBWuV1fDSsDqGcttQGF63mltpCKZNIbDTPUbowbuFCxFVjORL5EnuLNEi
-         5a3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790804600; x=1791409400;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8lkawhUgZ2z6Rbax51KT4StG2qQ9CPt6IcVwt464ZjQ=;
-        b=yQE9eDsRycihhbFNlJz1Ln3Qb0KAIwK0AcRT1Habg00ZSS96Wuy1hFHsBnDbrQUQhr
-         gKf3jX2BjSt1ctc32EUamLtVx/W1Wn4aHVTzq2/TRr8xd1QfiT/e3qMQXg8SJmuhIrEi
-         GxNFLRYfMxGYEZg6Y4hlEG4e9VbOEv2ZjGh3+5J8Y0NldyRs5xltLed2rr9RWRI80SwE
-         YuimdmJmT08sVj+Lfdj2Wfdmqtfvl8jCn3ODDg9186I5wXV4pkyLttOOG1OkSEJdLZ4O
-         ypxg503HsxuQFdz3X/Y3uohxBY1K5yZukJP9owHPPNfRiwgCYZetEAgGi1EnJN57UA+U
-         kOUA==
-X-Forwarded-Encrypted: i=1; AKwUvBxiHBmyG1fubr++1fkjF5hGwAYjz0bzjGYf0nI5A8DQ1kQSud9XP2Csef4cfUDT04VPru/0cdU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kJg810x4sM2gkbhDNFPGSDrWWe7AFmP6n7H3seH1P74rziP//0
-	oJm6hHp4RjhQ6IMY8c8d373IAE/dVrEGGSywFoaWL2QzD99rstM7/nGCWm1A0w==
-X-Gm-Gg: AYBFou1/ZQ2yaIYPHgJ1kNvz3+YXniZgFnwAoEzsBXymukCN/zfhpA0QJ4bC9aXSOIV
-	VA+4ge4z/rTZT9MhqIQdOJibjaegYFE0+KQmwnWRJyHhuyS+9lBraAxhe8SH1OdOBF6J7KAcwI4
-	IPzQn9L7nWH2qdFerxO/x+m2nlxJX4tg9XgXIex/u+Vh5kYTo+J5Hg7jbkC+JBkBDnwEn/pfu+F
-	UqRQFWlfCtS9Q3T7iI3KlyZMUbnQAvDgU4npwJa/Dy+qPMGgcTtpoyWLLOs4t9oN23mf0AXpjZB
-	2v6vrECPeuWa9KnVnzurwH4DYfxGCuBpV+2RDYCn3iGUDJjcuzDWwb4VZh+7nI1fzN0Qwuj7Jsm
-	wpAc0GItclw7rebXcE/3p7nfX1gJNqorHj6LJd62AIkcVDpA4zKAdW5VdRv2WxEfb5LF+QfTJtt
-	uhfb81kv3cf1xIxHJpj8vZtPPDiGUl5fKuv059tiClKD5pZxaQ/s8yPLMhgnR4jM3tFURWfVsvk
-	mQdx5HT8QvbWss1IsAvgSaLfce/CoyTHDh59j0=
-X-Received: by 2002:a05:701b:2914:b0:147:9ad0:cf15 with SMTP id a92af1059eb24-14dcf494d00mr686116c88.22.1790804600394;
-        Wed, 30 Sep 2026 14:43:20 -0700 (PDT)
-Received: from [192.168.1.3] (ip68-4-215-93.oc.oc.cox.net. [68.4.215.93])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14df48c45cdsm762620c88.16.2026.09.30.14.43.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Sep 2026 14:43:19 -0700 (PDT)
-Message-ID: <d7429656-810d-4146-aaf4-4c6997c4f030@gmail.com>
-Date: Wed, 30 Sep 2026 14:43:18 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V2sTokHF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9828D1F00898;
+	Wed, 30 Sep 2026 21:43:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790804627;
+	bh=YftQHoQAyYBcPvla/2ZMouwzid1zAPrZIMxlv7Wz66o=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=V2sTokHFckaW4oHyDb8RBF0Cpp9b2fP0ExQbkGZWWTcd7THxFl9I+zVCVDem7/YUj
+	 89TPuly4jzqd+UMGgxCO8ndZgyJ0wJB79PDUx38/eQEI0qmqZC6uv+bh6QFKqPLxvq
+	 sWuS5GrEDKLiO6yL63Z+HkzBNTladmm7IHAGDaAZu2pplxAwNy666uzPTLEnuvInOS
+	 zQyiOrYG1ZJ/DaG9SuSwTVJFJIaIuuxvshdlBcgB1Dqw48v4ChkRlZag5UylEXsQzt
+	 iSaSTt96tD5ihPUP0LS4CIsdL4Lqd/YjB6KXoa6SOh/WcR+fYxGC8uNVptoQgdTjzg
+	 I8cMG8/udVwsw==
+Subject:
+ Re: [PATCH net 1/2] netpoll: use a raw lock for the deferred transmit queue
+From: netdev-bot+sashiko@kernel.org
+To: kmehltretter@gmail.com
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, bigeasy@linutronix.de,
+ clrkwllms@kernel.org, rostedt@goodmis.org, stephen@networkplumber.org,
+ linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+ stable@vger.kernel.org
+Date: Wed, 30 Sep 2026 21:43:46 +0000
+Message-ID: <179080462613.434549.13889756869054930420@kernel.org>
+In-Reply-To: <20260928064239.32456-2-kmehltretter@gmail.com>
+References: <20260928064239.32456-2-kmehltretter@gmail.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.6 0000/1193] 6.6.158-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260930152434.301151190@linuxfoundation.org>
-Content-Language: en-US
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20260930152434.301151190@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
+Low priority / nit picks for your consideration:
 
-On 9/30/2026 8:11 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.6.158 release.
-> There are 1193 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Fri, 02 Oct 2026 15:23:04 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.6.158-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.6.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+- [Low] At this commit, queue_process() in net/core/netpoll.c still calls
+  HARD_TX_LOCK(dev, txq, smp_processor_id()) (line 169) right after…
+- [Low] The patch adds a raw_spin_lock_irqsave(&npinfo->txq_lock) to
+  every netpoll send, through netpoll_txq_empty()…
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
+--
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+netpoll: use a raw lock for the deferred transmit queue
+
+This patch adds a raw spinlock, txq_lock, to struct netpoll_info. All
+accesses to npinfo->txq now go through small helpers that take this lock
+and use the unlocked sk_buff_head operations, so the queue can be touched
+with hard IRQs disabled on PREEMPT_RT. On cleanup, the queue is spliced
+to a private list before its skbs are freed.
+
+> diff --git a/net/core/netpoll.c b/net/core/netpoll.c
+> index fe1e0cda5d6b..e0cfcb05468e 100644
+> --- a/net/core/netpoll.c
+> +++ b/net/core/netpoll.c
+> @@ -79,6 +79,68 @@ static netdev_tx_t netpoll_start_xmit(struct sk_buff *skb,
+>  	return status;
+>  }
+>  
+> +/*
+> + * Transmit paths can access txq with hard IRQs disabled. Use a raw lock
+> + * because the skb queue lock may sleep on PREEMPT_RT.
+> + */
+> +static bool netpoll_txq_empty(struct netpoll_info *npinfo)
+> +{
+> +	unsigned long flags;
+> +	bool empty;
+> +
+> +	raw_spin_lock_irqsave(&npinfo->txq_lock, flags);
+> +	empty = skb_queue_empty(&npinfo->txq);
+> +	raw_spin_unlock_irqrestore(&npinfo->txq_lock, flags);
+> +
+> +	return empty;
+> +}
+
+[Severity: Low]
+Is this lock needed here? Before the patch, __netpoll_send_skb() checked
+the queue without a lock:
+
+    if (skb_queue_len(&npinfo->txq) == 0 && !netpoll_owner_active(dev)) {
+
+and the direct transmit fast path took no txq lock at all. With this
+patch, every netpoll send takes txq_lock.
+
+The empty check and the later netpoll_txq_queue_tail() are separate
+critical sections, so the result of the check is only advisory in either
+case. The writers (__skb_insert() and __skb_unlink()) already use
+WRITE_ONCE().
+
+Would skb_queue_empty_lockless() be enough here?
+
+The new lock acquisition can also hang netconsole's atomic panic path.
+Netconsole's write_atomic (CON_NBCON_ATOMIC_UNSAFE) is only called from
+nbcon_atomic_flush_unsafe() at the end of vpanic(). That final flush
+could spin forever on txq_lock in two cases:
+
+  - the panic runs on a CPU that an NMI interrupted while it held
+    txq_lock in netpoll_txq_dequeue(), netpoll_txq_queue_head() or
+    netpoll_txq_queue_tail()
+
+  - another CPU was NMI-stopped inside one of those critical sections,
+    for example by crash_smp_send_stop() on x86 with
+    crash_kexec_post_notifiers set and no kdump image loaded
+
+In either case the panic log would not make it out over netconsole.
+
+This does not block the panic_timeout reboot. In vpanic(),
+emergency_restart() runs before nbcon_atomic_flush_unsafe(), so the hang
+can only happen with panic_timeout == 0. The same atomic path already
+takes other locks that are not NMI-safe: slab locks from
+alloc_skb(GFP_ATOMIC), skb_dequeue() on nt->skb_pool, and driver locks
+through netpoll_poll_dev().
+
+[ ... ]
+
+> @@ -107,7 +169,7 @@ static void queue_process(struct work_struct *work)
+>  		HARD_TX_LOCK(dev, txq, smp_processor_id());
+>  		if (netif_xmit_frozen_or_stopped(txq) ||
+>  		    !dev_xmit_complete(netpoll_start_xmit(skb, dev, txq))) {
+> -			skb_queue_head(&npinfo->txq, skb);
+> +			netpoll_txq_queue_head(npinfo, skb);
+>  			HARD_TX_UNLOCK(dev, txq);
+>  			local_irq_restore(flags);
+
+[Severity: Low]
+The commit message says:
+
+    The delayed transmit worker has the same problem when it requeues a busy
+    skb with skb_queue_head() after disabling interrupts.
+
+Does the worker actually reach this requeue on PREEMPT_RT? queue_process()
+calls local_irq_save() and then HARD_TX_LOCK() before the requeue. For
+devices without lltx, that becomes:
+
+queue_process()
+  local_irq_save(flags)
+  HARD_TX_LOCK(dev, txq, smp_processor_id())
+    __netif_tx_lock()
+      spin_lock(&txq->_xmit_lock)
+
+On PREEMPT_RT this spin_lock() is rt_spin_lock() with IRQs disabled. So
+the worker would seem to splat on the tx lock before it gets to
+netpoll_txq_queue_head().
+
+The next commit in the series, "netpoll: avoid blocking on the transmit
+lock in queue_process", replaces HARD_TX_LOCK() with HARD_TX_TRYLOCK()
+and requeues on failure. The final state of the series is fine, and this
+patch is no worse than the baseline.
+
+Could the commit message say that the worker hits HARD_TX_LOCK() first,
+and that the follow-up patch fixes that?
+
 -- 
-Florian
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928064239.32456-1-kmehltretter%40gmail.com
