@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 553EE4FDA65;
-	Wed, 30 Sep 2026 13:32:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34F8A4F798F;
+	Wed, 30 Sep 2026 13:32:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790775171; cv=none; b=eW/9CZZ6R0F+nXNX2xh/T4ijsVqfrVBVxq4QndRr72XPAdjT3Rm23YkQBBnUK+LgJFs39x7ZJ7qgTo3Jqz+Ir1GuVoBlWd1YthaiUHzCetMqBjxR+QTpAyX+0r7gS3ZBnyiWXuNWT0Dq0MyIxG+3VyRGqhfFQGK7UR2xLuryaL8=
+	t=1790775180; cv=none; b=kOtPj9ZAED4O9fT5IP/HmK0tqciPe4Ri9Np8GG4kjxgotWL6uKLtDrjUpY+fAlrEJVVAac6WvT/FGKl3zrgsqKCCPLY1KthbP4XZnDwk0QxO8UY+jiClmbRYpBkyo2ui+5upSghE75MgFmbbf3w9R0WLd/za5fVTPyOq3TTpuFA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790775171; c=relaxed/simple;
-	bh=aLAt3O000c+HgzM4kEJcEbm6sHc2kmKlwquloW5nlhw=;
+	s=arc-20240116; t=1790775180; c=relaxed/simple;
+	bh=xjaJpu71wtxZPaffO2t2mAezyGOcyI3WnNFVHcEk+cc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=PC1kixyGn5ayTcTjsH0AxTpPevqQUVrBM8YwZC8l1pT6Df9DRScUn3anN/tS+G99IiVWvP/zxE5/D975tUfEoV7zjffvvliZ5W4r74IxwCXvSOoQfqppHkpvGQnaSsI09AUIlpoUTN0BhmM7V8GUHaWD/Xim+K3iYs2tl+UQrwo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kypbNAEE; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=qscx+tJBDvH/uSbdOBmGneW9eZd2jXO1cfLOQaa5fugUOigv9KZ4X83mvPsmwmI84cj0NTw/OLLJJN1u3t4WH25KVPL9gIxzuBcPCnahWWfb4+8CFqwf2pgiokpTzLWtIbPktDoiRIx6JAJXx+fpMbBUNXOyGmQ9VyZb2MYT42g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SltihyvJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kypbNAEE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1204B1F00899;
-	Wed, 30 Sep 2026 13:32:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SltihyvJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 117CF1F000FF;
+	Wed, 30 Sep 2026 13:32:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790775163;
-	bh=bJfaNU1C8Yzvj+zzG4aPnzlR5aml+D+FHeWud95ZDJ4=;
+	s=k20260515; t=1790775154;
+	bh=Pv8aJ6WqYmcV1tWSgDtF3teD9TFSCiQrJlufI+kzIh4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=kypbNAEErueQjTZRCaiuFOYQUz3e3KNJ3MdTbkKwCkj3nL3GPx0vA5dC7EtCs8VCf
-	 PaKF+8qlB85KhHuYnCgsnaLz/8jxD7fcQGDC0hHVUiE3LtPj25LMddpdRXuCk7pcK1
-	 6qaw9iCeC/r4Cv2ZE07BixqOZa5o6l4kPIQ9nKr7pkIwc8g+2ECVP5wnORUo2ldj/x
-	 4lwuvUrOQdvu+sJEeto2buPOiGGYQT/tZ65GO/jIqX/Vx9fC7+EK1Ogwc8nIfrnBmU
-	 MOJ2ivUQgpoCOGq/UOemgNScMrdUBZ9pZDT0NDq6UZ+APHy2Ul//y14NPER7reHi0E
-	 EnyK+ADM5p+tQ==
+	b=SltihyvJqAkJna52Dga7eW795xyn+r0T0mwU/oqKzMqW1Uocij4aNQ8nPYjnRgvsA
+	 exjCEzoqJnSNSkg12GDMT4x19sTsg1ludHGo5XSKK1SBij6KXncl+PsW2IGyL2Z3OL
+	 heykTIjxPADwF4bume6mPe/SsglIME49Jjx4A8x2gcuQa3K7YbFTS8RWtGAWgp+rm9
+	 JORWvNTGTHjHF1/R06J/WjxyjOu7mbAu5k7S07D2R+oWDMlrTctorS49fLTBT9lt6G
+	 MrV/igt/3fXPd9l0nycin44ayt69IegjFkDrBylXTB9zee2NKzwTcaY8ehFGipipfN
+	 EmbtrpwF6dIsA==
 From: Christian Brauner <brauner@kernel.org>
-Date: Wed, 30 Sep 2026 15:32:06 +0200
-Subject: [PATCH 14/17] fsnotify: detach the connector before destroying its
- marks
+Date: Wed, 30 Sep 2026 15:32:03 +0200
+Subject: [PATCH 11/17] namespace: don't reconfigure internal superblocks
+ via remount and umount
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-work-mount-fixes-3-v1-14-be34c83956ae@kernel.org>
+Message-Id: <20260930-work-mount-fixes-3-v1-11-be34c83956ae@kernel.org>
 References: <20260930-work-mount-fixes-3-v1-0-be34c83956ae@kernel.org>
 In-Reply-To: <20260930-work-mount-fixes-3-v1-0-be34c83956ae@kernel.org>
 To: linux-fsdevel@vger.kernel.org
@@ -49,84 +49,68 @@ Cc: Linus Torvalds <torvalds@linux-foundation.org>,
  bpf@vger.kernel.org, "Christian Brauner (Amutable)" <brauner@kernel.org>, 
  stable@vger.kernel.org
 X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3181; i=brauner@kernel.org;
- h=from:subject:message-id; bh=aLAt3O000c+HgzM4kEJcEbm6sHc2kmKlwquloW5nlhw=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTt5fevtXht9JbHebKqhNuTYtdH2qv+Jju80v9Qs//Rf
- 5miG1f9O0pZGMS4GGTFFFkc2k3C5ZbzVGw2ytSAmcPKBDKEgYtTACZy1pjhv8+0N2q7v78X2nT8
- 5f9/rs5J2ovvnv3w6sbs23OKOKP+qjxm+F+gfiYrImJF72WV/1s3m2yXXMqj637q45T7C7e05fe
- tM2cFAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2162; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=xjaJpu71wtxZPaffO2t2mAezyGOcyI3WnNFVHcEk+cc=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTt5ffXaf7JFva8yOuG8XJ/vrXxsze87fL8vjtAXXd1x
+ YlmY8bdHaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABPZ1svwz0BxnY7W8QbVKCZN
+ xrN+eyPPveR26HKQnmTBkROSxHN1LSPDLnazrd4f2cx+7eY5ta1m1vvOnKOKoUWin/zZpzBLec3
+ lAAA=
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-fsnotify_destroy_marks() removes every mark of an object that goes away.
-It walks the mark list of the connector and has to drop the connector
-lock around fsnotify_destroy_mark() since that sleeps. Afterwards it
-continues from the mark it just destroyed. That mark stays on the list
-because the function holds a reference to it. But while the lock is
-dropped fsnotify_add_mark_list() can add a mark to the very same
-connector and put it in front of the current one when group priority
-dictates. fsnotify_grab_connector() hands out the connector until it is
-detached and it only gets detached after the walk.
+Commit 02587a4af82a ("fs: refuse fspick() on internal superblocks")
+blocked fspick() on SB_NOUSER superblocks. But that's not the only way
+to reconfigure_super(). mount(MS_REMOUNT) and umount() of the caller's
+root without MNT_DETACH. The root of an empty mount namespace is a
+nullfs mount and all mount namespaces share that superblock:
 
-So the walk never sees that mark. The connector is detached from the
-object with the new mark still attached to it. It never receives an
-event nor IN_IGNORED. For inotify that's a watch descriptor that never
-reports anything and doesn't show up in fdinfo either:
+  nullfs: fspick: FAIL errno=22 (Invalid argument)
+  nullfs: mount(MS_REMOUNT|MS_RDONLY): ok(0)
+  nullfs after remount: statfs(/): magic=0x4e554c4c flags=0x21 RDONLY
+  nullfs: umount2("/", 0): ok(0)
 
-  wd1 = inotify_add_watch(/proc/self/fd/6) = 2
-  events after the unlink:
-    wd 1 mask 0x400 IN_DELETE_SELF
-    wd 1 mask 0x8000 IN_IGNORED
-  events after write() to the file:
-    (none)
+Refuse both like fspick() does. Only root in the initial user namespace
+can do this and nullfs is empty and immutable so the flags don't buy
+anything. But they show up in statfs() for the root of every mount
+namespace on the host.
 
-Detach the connector from the object before the marks are destroyed.
-fsnotify_grab_connector() refuses a detached connector so a mark added
-from then on gets a connector of its own. Nothing during the destruction
-needs the connector. The inode reference of the connector is dropped
-after the marks are gone as before.
-
-Fixes: 6b3f05d24d35 ("fsnotify: Detach mark from object list when last reference is dropped")
-Cc: stable@vger.kernel.org
+Fixes: 9d4e752a24f7 ("namespace: allow creating empty mount namespaces")
+Cc: stable@vger.kernel.org # v7.1+
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- fs/notify/mark.c | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
+ fs/fs_context.c | 4 ++++
+ fs/fsopen.c     | 3 ---
+ 2 files changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/fs/notify/mark.c b/fs/notify/mark.c
-index b2640d836a71..f6891d39e42f 100644
---- a/fs/notify/mark.c
-+++ b/fs/notify/mark.c
-@@ -1112,6 +1112,16 @@ void fsnotify_destroy_marks(fsnotify_connp_t *connp)
- 	conn = fsnotify_grab_connector(connp);
- 	if (!conn)
- 		return;
-+	/*
-+	 * Detach the connector from the object first. Once conn->lock is
-+	 * dropped a mark could be added in front of the one we're at and the
-+	 * walk would miss it. fsnotify_grab_connector() refuses a detached
-+	 * connector so any mark added from now on gets a connector of its
-+	 * own. This also stops pinning the inode until all mark references
-+	 * get dropped. It would lead to strange results such as delaying
-+	 * inode deletion or blocking unmount.
-+	 */
-+	objp = fsnotify_detach_connector_from_object(conn, &type);
- 	/*
- 	 * We have to be careful since we can race with e.g.
- 	 * fsnotify_clear_marks_by_group() and once we drop the conn->lock, the
-@@ -1128,12 +1138,6 @@ void fsnotify_destroy_marks(fsnotify_connp_t *connp)
- 		fsnotify_destroy_mark(mark, mark->group);
- 		spin_lock(&conn->lock);
- 	}
--	/*
--	 * Detach list from object now so that we don't pin inode until all
--	 * mark references get dropped. It would lead to strange results such
--	 * as delaying inode deletion or blocking unmount.
--	 */
--	objp = fsnotify_detach_connector_from_object(conn, &type);
- 	spin_unlock(&conn->lock);
- 	if (old_mark)
- 		fsnotify_put_mark(old_mark);
+diff --git a/fs/fs_context.c b/fs/fs_context.c
+index 23ad66cd94e1..a50584df97be 100644
+--- a/fs/fs_context.c
++++ b/fs/fs_context.c
+@@ -315,6 +315,10 @@ struct fs_context *fs_context_for_reconfigure(struct dentry *dentry,
+ 					unsigned int sb_flags,
+ 					unsigned int sb_flags_mask)
+ {
++	/* kernel-internal superblocks are nobody's to reconfigure */
++	if (dentry->d_sb->s_flags & SB_NOUSER)
++		return ERR_PTR(-EINVAL);
++
+ 	return alloc_fs_context(dentry->d_sb->s_type, dentry, sb_flags,
+ 				sb_flags_mask, FS_CONTEXT_FOR_RECONFIGURE);
+ }
+diff --git a/fs/fsopen.c b/fs/fsopen.c
+index 9d5a7a22b529..ae19e5136598 100644
+--- a/fs/fsopen.c
++++ b/fs/fsopen.c
+@@ -190,9 +190,6 @@ SYSCALL_DEFINE3(fspick, int, dfd, const char __user *, path, unsigned int, flags
+ 	ret = -EINVAL;
+ 	if (target.mnt->mnt_root != target.dentry)
+ 		goto err_path;
+-	/* kernel-internal superblocks are nobody's to reconfigure */
+-	if (target.dentry->d_sb->s_flags & SB_NOUSER)
+-		goto err_path;
+ 
+ 	fc = fs_context_for_reconfigure(target.dentry, 0, 0);
+ 	if (IS_ERR(fc)) {
 
 -- 
 2.53.0
