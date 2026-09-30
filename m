@@ -1,73 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA6E95187EA;
-	Wed, 30 Sep 2026 17:15:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED5ED519912;
+	Wed, 30 Sep 2026 17:15:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790788522; cv=none; b=tcM6pjX6rVHod7k7isTXX6A6EfJHrnhWs7Y2wsClNYxgPpqpUHB3AV+bW0ZzxpOum3OofC3GJii5z63xA+3ou4toCrkqxHPtmEaZULg3hjuU5FX3a+wJj/HSS+i/A9vpN1SiyGwt41fEwnBpRSEWHDsgVRSeaUHDX6P4Ez+HyRc=
+	t=1790788525; cv=none; b=sGaXObFQT2Lh37YfLf3j6OukhBMt/rX1VUayJXiU6pT5vhpC66pbWlRV9TCVDRI0Zm19B2YdYM2pyuY3vKu/I2VvnsgZkGeQAJJ1xSN0rTIIxxX3Q+swBeS8jQLQNxv/YahObcWA47UwosU2l4q/EabqPffZM0/m9HVWvtnN6YY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790788522; c=relaxed/simple;
-	bh=Wu7ulRziLcS27Zfc7dqxAoWNHVNjTkfkWKXx36sj64c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FVzFX+KUUTjrV8dc8O+jHQ8E0mzWchhrM9co9jKHd/TF2Nw5VTM8dcqe4q7LbJxtpvxV4Pv3osojHFWqHMXyq2ahfrvtwscj9DjrNyxmhGcO0mL684kjjf/Ta7y4lilsuMrQl014UABs9II7/3aWDxxr9J9ixlF3wv0WgtPbVK8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=evvh/Egh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790788525; c=relaxed/simple;
+	bh=hNKaezMaljJ3WTROXEtqY0CPdsvBLppkzSetSeIPO5g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mbjPV51D6qKedqsMwq+vop8qpU/oiTd3dkG9b46EoBIfWeHEN53IGs4L2cjeP2xHhfuE+ccuLQy2+cqodKBQvmOHrV+B56PiGXI83y3EF1FrrC33wUmPjzQ8y67xytLTkwzA0JDeurKIr4qNwdBAo9N3DPop1S8hM5MIpN9292o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JcLHDz7q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="evvh/Egh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 816EF1F00898;
-	Wed, 30 Sep 2026 17:15:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790788521;
-	bh=7KKJP9qr0HOQ1QifqduNkacWuiGruyNWSL5MJp6keOs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=evvh/EghcuuzAXNa6Of+sqibY2Sx2AwIzS54X993i9UeaYdP7iBurkqV0UmoExgRb
-	 IAuSLYaJxaRNzWjwobIE3rmf3Ec+XFyXw2sddoiPEAVhrPnwL4kOdEH+oy/DjRDbH2
-	 h22URUd93XqXVW9h9SIwGWYnheFKE5WAJCXs7qBtpM5H4vyiQY5vsvPraNJinjINsj
-	 N2nZVfC96BaUD4mID4oJ+f5lVR0qM0+3jcvillgePXVvdkPzQEqTX13orEursa35kQ
-	 jPKlsEbTeV3CJp6yJsA8gMjzJkDQaVLEVTxXK1nMDhlMExLK8BKynukNWvbsfweIlN
-	 iSHdOvR4ZFPtw==
-Date: Wed, 30 Sep 2026 07:15:20 -1000
-From: Tejun Heo <tj@kernel.org>
-To: Hui Su <sh_def@163.com>
-Cc: sched-ext@lists.linux.dev, void@manifault.com, arighi@nvidia.com,
-	changwoo@igalia.com, mingo@redhat.com, peterz@infradead.org,
-	juri.lelli@redhat.com, vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
-	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] sched_ext: Hold DSQ refs for deferred reenqueues
-Message-ID: <ar1DqN6Ek2VwYLwO@slm.duckdns.org>
-References: <20260930143443.2862150-1-sh_def@163.com>
- <68e1d1e0cdfc633520a6593fdcdb3b72.sh_def@163.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JcLHDz7q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5062E1F000FF;
+	Wed, 30 Sep 2026 17:15:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790788523;
+	bh=W7gulRopiX/RNmMx5Ghn0jhp8uJE98G7tBnaGYrsGMg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=JcLHDz7qBLgHZMWmBXD09/svscR2I+rf7uuI1dBNHWzqazHB9RNMznqEaWnKPev6u
+	 yfYrwZN8TUiYabeZlHYoPCSk1+M+Uc/LDBuP5zqWwYOtaYkM3U+TyMKZW29qmAQDym
+	 JnptE4undnhU+5XNUAuX2LSb3F7iMYWre7ZV9Z3s=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Dmitriy Okunev <dokunevdmitriy@gmail.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12 153/877] net: mvpp2: prevent buffer overflow in page_pool allocation
+Date: Wed, 30 Sep 2026 17:17:44 +0200
+Message-ID: <20260930152418.023682506@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930152414.738996857@linuxfoundation.org>
+References: <20260930152414.738996857@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <68e1d1e0cdfc633520a6593fdcdb3b72.sh_def@163.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 01, 2026 at 12:20:49AM +0900, Hui Su wrote:
-> Please disregard this posting. This was intended to be v2, but I
-> accidentally omitted the version tag.
-> 
-> I am preparing v3 to address the review feedback. In particular, it
-> will serialize exit_dsq() with deferred detach/reference acquisition
-> using deferred_reenq_lock, and keep final DSQ reclamation out of the
-> deferred path while the rq raw spinlock is held.
-> 
-> The revised design keeps a single DSQ refcount and the existing
-> rcu_head, without polling the refcount from repeated RCU callbacks.
-> 
-> I will post v3 after revalidation. Sorry for the confusion.
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-Can you try to do it without refcnts? DSQ destructions are rare events and
-we can reliably detect whether the DSQ is full or not. I'd much rather make
-the destruction path expensive than adding refcnt to hot paths.
+------------------
 
-Thanks.
+From: Dmitriy Okunev <dokunevdmitriy@gmail.com>
 
+[ Upstream commit 14cb1e7702e5cb3c58888f6aed498381a73927d2 ]
+
+The per‑processor buffering scheme is supported only if the
+number of pools (nrxqs * 2) does not exceed MVPP2_BM_MAX_POOLS (8).
+This is already checked in mvpp2_probe() during the initial
+activation of percpu_pools.
+
+However, mvpp2_change_mtu() may later call
+mvpp2_bm_switch_buffers(priv, true) without this check, which can
+lead to an out-of-bounds access in the priv->page_pool array in
+mvpp2_bm_init(). The array is sized to hold MVPP2_PORT_MAX_RXQ
+entries, and mvpp2_get_nrxqs() may return exactly that value. The
+per-CPU scheme then doubles it to nrxqs * 2, exceeding the array
+bounds.
+
+Check that the hardware version is MVPP22 or newer and that the
+number of pools (nrxqs * 2) does not exceed MVPP2_BM_MAX_POOLS
+before switching to per-CPU mode.
+
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
+
+Fixes: 7d04b0b13b11 ("mvpp2: percpu buffers")
+Signed-off-by: Dmitriy Okunev <dokunevdmitriy@gmail.com>
+Link: https://patch.msgid.link/20260914091557.71769-1-dokunevdmitriy@gmail.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c b/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
+index 325a3a657249d..8096b46b654fd 100644
+--- a/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
++++ b/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
+@@ -5099,7 +5099,8 @@ static int mvpp2_change_mtu(struct net_device *dev, int mtu)
+ 			netdev_warn(dev, "mtu %d too high, switching to shared buffers", mtu);
+ 			mvpp2_bm_switch_buffers(priv, false);
+ 		}
+-	} else {
++	} else if (priv->hw_version >= MVPP22 &&
++		   mvpp2_get_nrxqs(priv) * 2 <= MVPP2_BM_MAX_POOLS) {
+ 		bool jumbo = false;
+ 		int i;
+ 
 -- 
-tejun
+2.53.0
+
+
+
