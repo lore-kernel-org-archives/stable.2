@@ -1,119 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx01.omp.ru (mx01.omp.ru [90.154.21.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED7754B95CC;
-	Wed, 30 Sep 2026 15:50:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B59284DD3BC;
+	Wed, 30 Sep 2026 15:50:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.154.21.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790783436; cv=none; b=rIhEvJH6ySHzClHEv042BVL+cnZaiK09UCaXmPsX++9/f59XqNEqc8kd3ksHgzBY38r65QnvtQWOO4MN6xwNMLOi3nsNvjRoTSdKqZuBl7Efi0SSxx/fQDxWC2L9fy3HN/eejo1KmTPOogXSI1xEZSWAevu8NCf5Dl6gJf2KIVY=
+	t=1790783438; cv=none; b=AC1hvN2ELPUmYKK2f3qbj2xIkC2bpnIe3zyUPT7G4YQLyTiXctcnUriy9uFwU5oLbTzYXyWjAW2Vrw8gp836gMNzlGUTUJ1aGulEIzKAb4FuovQ2cr8UucnDi0M7gtpHpD2Qc89qksHZwfJoGypsTsnlDq2GCrQLDnGEzQYLp3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790783436; c=relaxed/simple;
-	bh=DcKHWSMw4iMNiCyGT9ebFT4O87V68lkzctxRg9taIEg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LdEA7jpzmAFNOIpGbGlF63n4EDGvdR+69SCX41/GigRGvoYe/XUUWnC20uvm0d1ZGV8JgNH1XrU0K5npqJQxpQVclTbD9KsHeMMAhkUj3GcBcLjfL0KYBId379d3pZw0QT999oGGJUQJquRUzcYaD+0EhKO7Fbcnsas9zMRb1aY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=tKX0jdki; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tKX0jdki"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A67C1F00898;
-	Wed, 30 Sep 2026 15:50:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790783430;
-	bh=jNQBgSqlxH6JXy3vUK/XX/lGlu52tWuKMPrkNnB+UL4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=tKX0jdkig+aC1RDMeApgBxKPLHYJtZMC6RQo6U7JY8h2qOJIJRyjY0BAvx3Xfb/1A
-	 OtXMxFX1E1INK/96LLOIbu6Iwhnl4iVBTfegnEYZXebIOceQhEePyJZoc5QLpmZYAE
-	 oAaEit+4QaS5XAFER0ABmYpQ5sz/xCDEt57m4jic=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	syzbot+19da64013c46df87f971@syzkaller.appspotmail.com,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	Takashi Iwai <tiwai@suse.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 394/595] ALSA: pcm: set timer->private_data before registering the PCM timer
-Date: Wed, 30 Sep 2026 17:24:47 +0200
-Message-ID: <20260930152356.149606131@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260930152347.700140858@linuxfoundation.org>
-References: <20260930152347.700140858@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	s=arc-20240116; t=1790783438; c=relaxed/simple;
+	bh=57mrpYgHzBBAXueH2A0ztvKZGDWIA+x5hky2KaSslio=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=hFWlvtdD+pzzNQ0Sa0M1crH1L60My9hxJ/MDPuZArJSVSJSj/eQ4zry8Hks3XElaG5pYBkxcj2FOMFMuPgBMa3oLiWZBXGCdWafxFxkWNXWQb66TThspdLddnudjhCtamHEYxuJADOBDZLe7884kLZbMj0a4zuTFrQraqiWrNyE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=omp.ru; spf=pass smtp.mailfrom=omp.ru; arc=none smtp.client-ip=90.154.21.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=omp.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=omp.ru
+Received: from [192.168.2.104] (91.79.46.168) by msexch01.omp.ru (10.188.4.12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.1258.12; Wed, 30 Sep
+ 2026 18:50:14 +0300
+Message-ID: <b85d8dc9-b787-40e0-bbaf-027df2c3bf49@omp.ru>
+Date: Wed, 30 Sep 2026 18:50:13 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 6/7] net: ravb: fix resource teardown ordering
+To: jiale yao <19888972804@163.com>
+CC: =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, Paul
+ Barker <paul@pbarker.dev>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
+ Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Mitsuhiro Kimura
+	<mitsuhiro.kimura.kc@renesas.com>, Claudiu Beznea
+	<claudiu.beznea.uj@bp.renesas.com>, <netdev@vger.kernel.org>,
+	<linux-renesas-soc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+References: <20260927144741.1320558-1-yaojiale02@163.com>
+ <20260927144741.1320558-7-yaojiale02@163.com>
+ <3b43b4fb-8479-4eb2-be58-1df6f0f747b9@omp.ru>
+ <12190bf2.18c1.1a0f004c539.Coremail.19888972804@163.com>
+Content-Language: en-US
+From: Sergey Shtylyov <s.shtylyov@omp.ru>
+Organization: Open Mobile Platform
+In-Reply-To: <12190bf2.18c1.1a0f004c539.Coremail.19888972804@163.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: msexch01.omp.ru (10.188.4.12) To msexch01.omp.ru
+ (10.188.4.12)
+X-KSE-ServerInfo: msexch01.omp.ru, 9
+X-KSE-AntiSpam-Interceptor-Info: scan successful
+X-KSE-AntiSpam-Version: 6.1.1, Database issued on: 09/30/2026 15:30:53
+X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
+X-KSE-AntiSpam-Method: none
+X-KSE-AntiSpam-Rate: 19
+X-KSE-AntiSpam-Info: Lua profiles 206344 [Sep 30 2026]
+X-KSE-AntiSpam-Info: Version: 6.1.1.27
+X-KSE-AntiSpam-Info: Envelope from: s.shtylyov@omp.ru
+X-KSE-AntiSpam-Info: LuaCore: 126 0.3.126
+ e1c111e02c8860cfcff70cd549bb6eae82fc7c38
+X-KSE-AntiSpam-Info: {rep_avail}
+X-KSE-AntiSpam-Info: {diag_burst_silent}
+X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
+X-KSE-AntiSpam-Info: {SMTP from is not routable}
+X-KSE-AntiSpam-Info: {Found in DNSBL: 91.79.46.168 in (user) dbl.spamhaus.org}
+X-KSE-AntiSpam-Info:
+	127.0.0.199:7.1.2;omp.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1
+X-KSE-AntiSpam-Info: {Tracking_ip_hunter}
+X-KSE-AntiSpam-Info: FromAlignment: s
+X-KSE-AntiSpam-Info: ApMailHostAddress: 91.79.46.168
+X-KSE-AntiSpam-Info: {DNS response errors}
+X-KSE-AntiSpam-Info: Rate: 19
+X-KSE-AntiSpam-Info: Status: not_detected
+X-KSE-AntiSpam-Info: Method: none
+X-KSE-AntiSpam-Info: Auth:dmarc=temperror header.from=omp.ru;spf=temperror
+ smtp.mailfrom=omp.ru;dkim=none
+X-KSE-Antiphishing-Info: Clean
+X-KSE-Antiphishing-ScanningType: Heuristic
+X-KSE-Antiphishing-Method: None
+X-KSE-Antiphishing-Bases: 09/30/2026 15:32:00
+X-KSE-Antivirus-Interceptor-Info: scan successful
+X-KSE-Antivirus-Info: Clean, bases: 9/30/2026 11:38:00 AM
+X-KSE-Attachment-Filter-Triggered-Rules: Clean
+X-KSE-Attachment-Filter-Triggered-Filters: Clean
+X-KSE-BulkMessagesFiltering-Scan-Result: InTheLimit
 
-5.10-stable review patch.  If anyone has any objections, please let me know.
+On 9/30/26 4:53 AM, jiale yao wrote:
 
-------------------
+[...]
 
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+> Thanks for your review.
 
-[ Upstream commit 1e713f9bb2ac583521f06b0eb4e22440b1e3d078 ]
+   Top-posting on the kernel MLs is a bad idea... :-)
 
-snd_pcm_timer_init() calls snd_device_register() to link the new
-struct snd_timer into the global timer list while it still carries
-hw.c_resolution = snd_pcm_timer_resolution (and hw.start/hw.stop),
-and only afterwards sets timer->private_data = substream.
+> You're right — I'll split this into two patches:
+> One patch for the IRQ/netdev ordering issue.
+> One patch for the runtime PM resume failure handling.
+> I'll use --no-git-fallback next time, sorry for this.
 
-Once the timer is on the list under register_mutex, a concurrent
-reader can already reach it through the same mutex and invoke these
-callbacks. /proc/asound/timers does this via c_resolution(), and
-snd_timer_open()+snd_timer_start() reach start()/stop() the same way.
-All three dereference timer->private_data, which for this brief
-window is NULL, giving a NULL-pointer dereference:
+   Looking at it again, it seems like my dead email (and the others that
+I thought shouldn't be there) were added as a result of using the Fixes
+tags.
+   However, specifying --no-git-fallback seems a good idea generally... :-)
 
-  substream = timer->private_data;
-  return substream->runtime ? ...   // substream is NULL
+[...]
 
-Move the private_data/private_free assignment before
-snd_device_register() so the timer is never visible on the list
-without its private_data set. On the snd_device_register() failure
-path, private_free() (snd_pcm_timer_free()) can now run, but it only
-does substream->timer = NULL, which is already NULL at that point
-since substream->timer is set to the new timer just once, after a
-successful registration -- so the failure path stays safe.
-
-Reported-by: syzbot+19da64013c46df87f971@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=19da64013c46df87f971
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Link: https://patch.msgid.link/20260913134446.114724-1-ngocthang2710.1999@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/core/pcm_timer.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/sound/core/pcm_timer.c b/sound/core/pcm_timer.c
-index c43484b22b34c..725a7272cd076 100644
---- a/sound/core/pcm_timer.c
-+++ b/sound/core/pcm_timer.c
-@@ -112,12 +112,15 @@ void snd_pcm_timer_init(struct snd_pcm_substream *substream)
- 				"capture" : "playback",
- 			tid.card, tid.device, tid.subdevice);
- 	timer->hw = snd_pcm_timer;
-+	/* Set before registering: a concurrent reader can invoke our hw
-+	 * callbacks as soon as the timer is on the global list.
-+	 */
-+	timer->private_data = substream;
-+	timer->private_free = snd_pcm_timer_free;
- 	if (snd_device_register(timer->card, timer) < 0) {
- 		snd_device_free(timer->card, timer);
- 		return;
- 	}
--	timer->private_data = substream;
--	timer->private_free = snd_pcm_timer_free;
- 	substream->timer = timer;
- }
- 
--- 
-2.53.0
-
-
-
+MBR, Sergey
