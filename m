@@ -1,114 +1,179 @@
-Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2AFC3BFE4C;
-	Wed, 30 Sep 2026 09:18:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=119.15.109.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E8F8351C11;
+	Wed, 30 Sep 2026 09:19:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790759927; cv=none; b=dROjwyRpvzhbstokrj8HzeITPKVGMHN2EfCTEsFBMRyW7COyQiS3A44zQYz+AN/MSxtu+gRzFP0Nonmr2qipon3PfWgunoFizyk0rY+yoSVnhaOE9Dd7y/hzKc0HJilRDOW4IA2HzotnwTVNQJOGJ1dPfiltXzB36rew9sCd47Y=
+	t=1790759992; cv=none; b=VbK/ZxdqgsmsCvxfl85K/03sddpLopppAIbPVDEe+b7/7EJO7phON5bUQuAV2WZf+hrRcl8I4JUgTYx/xaeReqyrn55GKWxiB4+NMCXqUkbH3CeOw5Ebow18aXoeT7gsYEK8jW6Jfz2cfdfNWmNyHHwqNLJpN2le36cQGw+Wb3A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790759927; c=relaxed/simple;
-	bh=09qIv25SMIlrgx+Qp2nEH6oHH5JZxFNCI+xarH/FmP8=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=jM5mT+gNBaDE+ItZ42On6TASYkvvQ1ZeeS9oL0BapUglMJA2WOiJc1gZA97pV/WbGLT85vICCChojKZl3eQSSZDfW5t2RJfdxhUjGxfLYijbIzwI5i0vje4Gs5/sxSBUI9KInGtcQba1N2t/BAEaJHEzlPyXVg1/e0lfOp5r0lM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org; spf=pass smtp.mailfrom=d-silva.org; dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b=VXHCoEae; arc=none smtp.client-ip=119.15.109.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
+	s=arc-20240116; t=1790759992; c=relaxed/simple;
+	bh=ycAeeO2+O1u2/hRBiqcbFNxDPPw+N8Wmja8P3VugHxU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TxA1iG+S996SIX4S2p/8AA+YGdocc0RcS3Q7vYSr5i2qTv8myC3mgUB77hV69/hT0en5ZQ535cUfLwyvDVI68CwMQZJglzrHQp3GaBR6oOemMEx4kdAloPCDSSUxv+2uwjmr9k4jnxQ9qEQ4lPm+lPWWqxY0CZLoGTrV6uwv7Qo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EXs7FicP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b="VXHCoEae"
-Received: from hawking.lan (ntp.lan [10.0.1.1])
-	by www.nmnhosting.com (Postfix) with ESMTPSA id 7F01D403EF;
-	Wed, 30 Sep 2026 19:18:32 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1790759912;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=09qIv25SMIlrgx+Qp2nEH6oHH5JZxFNCI+xarH/FmP8=;
-	b=VXHCoEaeGl5zvjzw+uFCIITG9oQh3+wrnh6jNS25cJMKMcFFvcdHhzRckzeT0HTnJIBwi8
-	6CCMCzYTMGoLy+Nb8EeHXEyQMZaOWMCTmqnj40foGfQ0omNk4Xe9bO3tH6Xz9HhVM5WNdq
-	proIqpPpTDegNUYhTpW6/mEuGtoQBa4oAXESkBe7K3iH6CnKQ/JVohvfJvAJp5Q/KkJheI
-	t0rZJKUXLYZh4xkkwWDaXdEpxHeE/FB5VWyRc65xd2Mdt6O9IXmbisBaYyJVOQd1wDlN0v
-	b2a0NX6ABMDLQAxvwhydxiyNWw7iD0bpBdees5PFy7QhIfiVlosyPXZR7G5maA==
-X-GPT-Reason: legitimate; the email is a technical discussion regarding
-	a Linux kernel patch (rtw88 driver) which perfectly aligns with
-	the personal mailbox of alastair@d-silva.org; the From domain (d-silva.org)
-	matches the recipient domain, indicating a personal/professional
-	correspondence; the content contains specific technical details
-	(W1C semantics, RCU preempt kthread) and a valid commit hash (65371a3f14e7)
-	with no signs of marketing, phishing, or urgency.
-Message-ID: <46385ff62fd302329feafacfc37324a0510bb519.camel@d-silva.org>
-Subject: Re: [PATCH v2] wifi: rtw88: sdio: Fix unhandled RX request
- interrupt storm
-From: Alastair D'Silva <alastair@d-silva.org>
-To: Ping-Ke Shih <pkshih@realtek.com>, linux-wireless@vger.kernel.org
-Cc: Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Ulf Hansson
-	 <ulfh@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Kalle Valo
-	 <kvalo@kernel.org>, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Wed, 30 Sep 2026 19:18:32 +1000
-In-Reply-To: <20260930090714.2779699-1-alastair@d-silva.org>
-References: <20260930090714.2779699-1-alastair@d-silva.org>
-Autocrypt: addr=alastair@d-silva.org; prefer-encrypt=mutual;
- keydata=mQINBGactvoBEADBFM2HqfQUUM4j40ZQPyYzmnM8S6zrycO0ipDDPMs7nZMzyzGzOdqfS
- VB/tuYvZOOKVWzJuWJ5aT/YyHx54r3L+D5hTkEG0sXPVJky3yTS9sbHEMSLBHb8TVVuhPVPuieV4g
- Nkqg5POMTidk8xAw50WpV++tUlewXVSciehnuCQPXhXMP7FcCh4uO8LdN7E8m7ir1LafKTFfoWPah
- KVT8NGG9r+ucrFcN5F+VnHxTDaI68yRPkNdtUWmp22wIX1KwDCtKFrndYO4p5Hv2hlDKomsuIIHHn
- muQGRwuh0xpf0nVJNF8ETZHMzxQLfo3e/HvxBFOTkwY9w7CuuQFZchbhS0I3PfmGT0+jiNcdfqjDC
- fPPB5uhy+DkR6wO72vuwFYUrpU2mdliDSdKEtWBHulnXMJjpBOXetfIwhI8G2dTVg59lN5i9DvJZc
- 7y1Sp+qfZQ4P9qpYZyQEKR4GNDOdnm6F2LW2cZkcyAU/Ii765zdDMTQMIzZNSxT/FcDd0K1voTNRl
- QHbQw+kmIMhzSv2JefcC9oNbE0XYzcBDNP5T3O/4itOQ90GCKQEPAbIPeBjlQif7kkyvo/H6yv4s9
- duuK7zbJD9AID/+KGLkpU3p68VDB/C2ZSb9rQz3p1CJNSfsX/CPk7sPqA7RKZ4a2B0hSJ2pJCncNZ
- KXtMlkkm/FmewARAQABtCdBbGFzdGFpciBEJ1NpbHZhIDxhbGFzdGFpckBkLXNpbHZhLm9yZz6JAl
- EEEwEKADsWIQTQGemDFwqYyU/dBWv75AdnjVo60gUCZpy2+gIbAwULCQgHAgIiAgYVCgkICwIEFgI
- DAQIeBwIXgAAKCRD75AdnjVo60qHZEACJnLfpS71Hk8bX0CLCNJ5wgqdZD3pBHEdbv9Ux9kRlZp4a
- ZFwlg9ltwBjl2dZP3PLtD9xQdsdYKVippKd5a7ZZC2y81oDaHjeC9LnPYn8+ce3mGE/+gRyoNfToY
- N06DeUNJKSlZ9t11UIqZCgfp12u16/Yrigy8C4ihEeHXlLhNX6JkeJR5gsHXJnC7vSuMZY+Qz2R72
- ZidWg+cd2WDMGop5sbTvc+55q94A7vTMlWzaix5HdbEUA3sd2U0dMBju5QodRGGhDQMcCu64TydRD
- MtMzzOk9ThJ036ze3HASWGOppyQmaw58k+XNzbHlr9Sc1LsFUNF7zpWXac2rzlywbyRAdFIT/TC76
- hy9zOkwIo2nwA/tdIwLx1j0UZPpAMQmcDUvJqZh6sE+fv6HN0yMPr+sSYJmriMt8Z6leCEHQXOHVI
- SI5z5FvV3coMmHYRq6aXpfs/8SLiYgkV3B0HE/E18Y3j1OkeLYoqIH1VfzQZeCSL/S77NYvk60/MV
- 1HFSyqLdUR3uWZI4uZzoEcMoB0GX33uCTp2Ntc00+wSntwekCUQLCMLUb7dZrbpVuobHoWWtkiD2I
- uE5kAiaVwwwzM0BUwiM6VzVoKbeECz93rdsNtwoDqM0NtzoISC46H/BKVQ9mRNXDO4ThEBpJ4H2Tn
- mPNRYYcR0u2mNy1EJII04w==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-9 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EXs7FicP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 867601F000FF;
+	Wed, 30 Sep 2026 09:19:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790759990;
+	bh=EpZN4TiwJzawni07VrYz4UienjYO7F9KCDL/tcZI+Oc=;
+	h=From:To:Cc:Subject:Date;
+	b=EXs7FicPBhxtPr3DAvKdVi8FH/4A5/bvuGhH40S8d3QI2vbwmsyiGxj83PYK5DU3Q
+	 GGYo6JF22IoeuADdHrCVP8VBMWkpdTIzHKrhHX1U9hvIHdavIjsUtE9t68xs+NwAVy
+	 lq0mlu/9E4D1lYU4tVxt9PlkAv6oVm+79pDxZ2gbi7wTR9rx45BntwvfuYUpQLVX3c
+	 p6RRQzFtAXgE10oV8dguFrZum/L4EfYEqfgbNk7yIhT5/7A6OhdYOMfxFxmfOQBD0y
+	 eIa0YOqODKKWYTmddhgmB/0hFqcRFvuAxgNXcelRk1Uq2xjfalXgZXnVm2x9fjCOgI
+	 5XLa0ddhbbYHQ==
+Received: from johan by xi.lan with local (Exim 4.99.5)
+	(envelope-from <johan@kernel.org>)
+	id 1xBqTc-00000007CLj-0RxD;
+	Wed, 30 Sep 2026 11:19:48 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>
+Cc: David Lin <dtwlin@gmail.com>,
+	Alex Elder <elder@kernel.org>,
+	Oliver Neukum <oneukum@suse.com>,
+	linux-usb@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Johan Hovold <johan@kernel.org>,
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] tty: fix saved termios reset race
+Date: Wed, 30 Sep 2026 11:19:38 +0200
+Message-ID: <20260930091938.1715754-1-johan@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Wed, 2026-09-30 at 19:07 +1000, Alastair D'Silva wrote:
-> In rtw_sdio_handle_interrupt(), the HISR status register is cleared using
-> Write-1-to-Clear (W1C) semantics. However, the driver masks out the
-> REG_SDIO_HISR_RX_REQUEST bit in the local 'hisr' variable before writing
-> it back, causing a 0 to be written to that bit. This prevents the RX
-> request interrupt from being acknowledged and cleared in hardware, trappi=
-ng
-> the CPU core in an infinite interrupt storm loop (starving the RCU preemp=
-t
-> kthread and locking up the system).
->=20
-<snip>
-> Fixes: 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation for SDIO =
-based chipsets")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
->=20
+Resetting saved termios state on device registration is needed where a
+minor number can be reused for an entirely different device and where
+the old settings may prevent the port from even being opened (e.g. when
+CLOCAL is not set).
 
-Apologies, I omitted the required attribution tag per Documentation/process=
-/coding-assistants.rst:
+Not all TTY drivers guarantee that the minor number is no longer in use
+when registering devices however, something which can lead to a
+use-after-free when closing a TTY (and saving its termios) races with
+re-registration.
 
-Assisted-by: LLM
+Add a new TTY_DRIVER_RESET_SAVED_TERMIOS flag to request that any saved
+termios state is reset on registration and only set it for drivers that
+make sure that the minor number is no longer in use.
 
-Maintainers, please feel free to add this when applying, or let me know if =
-you would prefer a v3
-respin.
+Fixes: 93857edd9829 ("tty: reset termios state on device registration")
+Reported-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Link: https://lore.kernel.org/20260926184154.3017929-1-nicoyip.dev@gmail.com
+Cc: stable@vger.kernel.org	# 4.12
+Signed-off-by: Johan Hovold <johan@kernel.org>
+---
+ drivers/staging/greybus/uart.c  |  3 ++-
+ drivers/tty/tty_io.c            | 18 ++++++++++--------
+ drivers/usb/class/cdc-acm.c     |  2 +-
+ drivers/usb/serial/usb-serial.c |  3 ++-
+ include/linux/tty_driver.h      |  6 ++++++
+ 5 files changed, 21 insertions(+), 11 deletions(-)
 
-Cheers,
+diff --git a/drivers/staging/greybus/uart.c b/drivers/staging/greybus/uart.c
+index f2810b5ec824..d7df65088ef7 100644
+--- a/drivers/staging/greybus/uart.c
++++ b/drivers/staging/greybus/uart.c
+@@ -962,7 +962,8 @@ static int gb_tty_init(void)
+ 	int retval = 0;
+ 
+ 	gb_tty_driver = tty_alloc_driver(GB_NUM_MINORS, TTY_DRIVER_REAL_RAW |
+-					 TTY_DRIVER_DYNAMIC_DEV);
++					 TTY_DRIVER_DYNAMIC_DEV |
++					 TTY_DRIVER_RESET_SAVED_TERMIOS);
+ 	if (IS_ERR(gb_tty_driver)) {
+ 		pr_err("Can not allocate tty driver\n");
+ 		retval = PTR_ERR(gb_tty_driver);
+diff --git a/drivers/tty/tty_io.c b/drivers/tty/tty_io.c
+index 1c30faae9ec1..c9da7b25e3fb 100644
+--- a/drivers/tty/tty_io.c
++++ b/drivers/tty/tty_io.c
+@@ -3256,14 +3256,16 @@ struct device *tty_register_device_attr(struct tty_driver *driver,
+ 		goto err_put;
+ 
+ 	if (!(driver->flags & TTY_DRIVER_DYNAMIC_ALLOC)) {
+-		/*
+-		 * Free any saved termios data so that the termios state is
+-		 * reset when reusing a minor number.
+-		 */
+-		tp = driver->termios[index];
+-		if (tp) {
+-			driver->termios[index] = NULL;
+-			kfree(tp);
++		if (driver->flags && TTY_DRIVER_RESET_SAVED_TERMIOS) {
++			/*
++			 * Free any saved termios data so that the termios state is
++			 * reset when reusing a minor number.
++			 */
++			tp = driver->termios[index];
++			if (tp) {
++				driver->termios[index] = NULL;
++				kfree(tp);
++			}
+ 		}
+ 
+ 		retval = tty_cdev_add(driver, devt, index, 1);
+diff --git a/drivers/usb/class/cdc-acm.c b/drivers/usb/class/cdc-acm.c
+index 7edda9019d54..bf6ef1ecf2c5 100644
+--- a/drivers/usb/class/cdc-acm.c
++++ b/drivers/usb/class/cdc-acm.c
+@@ -2150,7 +2150,7 @@ static int __init acm_init(void)
+ {
+ 	int retval;
+ 	acm_tty_driver = tty_alloc_driver(ACM_TTY_MINORS, TTY_DRIVER_REAL_RAW |
+-			TTY_DRIVER_DYNAMIC_DEV);
++			TTY_DRIVER_DYNAMIC_DEV | TTY_DRIVER_RESET_SAVED_TERMIOS);
+ 	if (IS_ERR(acm_tty_driver))
+ 		return PTR_ERR(acm_tty_driver);
+ 	acm_tty_driver->driver_name = "acm",
+diff --git a/drivers/usb/serial/usb-serial.c b/drivers/usb/serial/usb-serial.c
+index f3c594f1a806..4a19621f08ba 100644
+--- a/drivers/usb/serial/usb-serial.c
++++ b/drivers/usb/serial/usb-serial.c
+@@ -1372,7 +1372,8 @@ static int __init usb_serial_init(void)
+ 	int result;
+ 
+ 	usb_serial_tty_driver = tty_alloc_driver(USB_SERIAL_TTY_MINORS,
+-			TTY_DRIVER_REAL_RAW | TTY_DRIVER_DYNAMIC_DEV);
++			TTY_DRIVER_REAL_RAW | TTY_DRIVER_DYNAMIC_DEV |
++			TTY_DRIVER_RESET_SAVED_TERMIOS);
+ 	if (IS_ERR(usb_serial_tty_driver))
+ 		return PTR_ERR(usb_serial_tty_driver);
+ 
+diff --git a/include/linux/tty_driver.h b/include/linux/tty_driver.h
+index 1f2896e56e77..62e459c5d3ae 100644
+--- a/include/linux/tty_driver.h
++++ b/include/linux/tty_driver.h
+@@ -73,6 +73,11 @@ struct serial_struct;
+  * @TTY_DRIVER_NO_WORKQUEUE:
+  *	Do not create workqueue when tty_register_driver(). Whenever set, flip
+  *	buffer workqueue can be set by tty_port_link_wq() for every port.
++ *
++ * @TTY_DRIVER_RESET_SAVED_TERMIOS
++ *	Reset any saved termios settings on device registration when reusing a
++ *	minor number. Must only be set by drivers that guarantee that the minor
++ *	number is no longer in use.
+  */
+ enum tty_driver_flag {
+ 	TTY_DRIVER_INSTALLED		= BIT(0),
+@@ -84,6 +89,7 @@ enum tty_driver_flag {
+ 	TTY_DRIVER_DYNAMIC_ALLOC	= BIT(6),
+ 	TTY_DRIVER_UNNUMBERED_NODE	= BIT(7),
+ 	TTY_DRIVER_NO_WORKQUEUE		= BIT(8),
++	TTY_DRIVER_RESET_SAVED_TERMIOS	= BIT(9),
+ };
+ 
+ enum tty_driver_type {
+-- 
+2.55.0
 
---=20
-Alastair D'Silva
