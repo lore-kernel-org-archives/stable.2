@@ -1,62 +1,64 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14FB634CFC2
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 01:03:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A337534F24E
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 01:03:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790730217; cv=none; b=j+q6Gp0QA3zMfLhvKd4tq1Lk9QqYolXqaZUBK+Foo6+WvuRnohlzI5Jp2RNve0QwVj/k/iE1zGEEeLqpq/ev1iC/iGUjVX29FgGlnVPTSM9YfXIScdiRQEoQeqlMzxfxRoKZfvUgbYseuoDBxa9yfMvGrm2U85GjpGgU8A9ySs8=
+	t=1790730224; cv=none; b=ObF5DYQQOJkmvKpQ/shvPRcQMmVJpCN5mpTWs8+NCKflnUwod4HqR3lCrpPKpS3Bj5yrvmETzElnKRC1dKioQKXHG7P1apo4/BMzBHp4hZhnGtssO+B9rmW/9PSVZJX3FuMagDjxBYeM4T5S6StzZKN5v3CVz+JiEdNJjj7jX2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790730217; c=relaxed/simple;
-	bh=SDpHHWh5CqXcS161Dm4ogLxatxdOjgWnT3fVKEyB58A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Crml0XmbXGcrOlZMuRbThL624Wft7d+2FjeAnHZOcZOZeH36kBTJK0zYG6kyFjMbIEu1/ZhIFP7Mw+uxttrShRo4how7bHZeWO4pq/EC3Mbn0sWre/ghR5LKvLg5btLYopOZYnAfvXm7UNI2nW3yL6pMnc9Adc2Y3hKd3MpoKP0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=HY1wDJ7V; arc=none smtp.client-ip=74.125.229.43
+	s=arc-20240116; t=1790730224; c=relaxed/simple;
+	bh=ZEC2U06TJD4tOdmJMt8cSCAl78bFLKVRDOpBZAVz0aE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=e0EMB5CIq2ElrONJbERMMSZWAk7Dt7uPQmPlpExNcOgV8zuT+/gmsbbQcBJeDp2v6PfTXt253BMJTgHQlMRc4Bi6UzwrtSZFIkSr7FGFI1HELtWSNau/xu9ZRc2VEK59DDaJq1yOwYzmOr3oO1S8l6Xzn4E2F42dZfB9ntySfo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=O1t38vVR; arc=none smtp.client-ip=74.125.229.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="HY1wDJ7V"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e46a156f4so2733171eec.0
-        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 18:03:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="O1t38vVR"
+Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-342773d94a7so2964827eec.0
+        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 18:03:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1790730214; x=1791335014; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=k02DnUfueq2SXs3UXLyiifb3Iga2OW/KGZeFQEVs3F0=;
-        b=HY1wDJ7VyRMmDpE94RaT3VKiDNIzYjyFr23nUYE8S96j6xFQPWuROP6t9dspKJTFxf
-         /WdeI2B7fHQIozbeFG3j0llSaLyu2DnlUDXsERbI5+B4I8ObOcmrI7bYJyk8xh2vzn/F
-         la6dHTeXLM3u9v2QDOH3V0dep8fPrvZlVVIz1gKUbnEXzsKwk6l09QppxlLDXO4y53sM
-         BdtOVXdn0hhKqFb9S0i2ggaNcibxz8pgOjuVu72olouuKyte8oi3FGlVWP05xPpJ1Q+/
-         jadtER7Vaw1E3HsxHKDDsmRiTiijsY0VRZjL8oTemEPYgicSGOVyhMEjS6ZBOVnwXms1
-         CJIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790730214; x=1791335014;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=trailofbits.com; s=google; t=1790730220; x=1791335020; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=k02DnUfueq2SXs3UXLyiifb3Iga2OW/KGZeFQEVs3F0=;
-        b=0XGfJwHIqbIJvxvJx2X1hmnyewDALFlZ3qIbVDwvXbNV0YGBQFUpLCvUZ0v0PAUHav
-         ngZiiZtvYZcn9xdi7+shsS/3/HNyMIi1thbvdH4N8757BFHXRehLuKgt+I2snxxqwHi3
-         sA6UBdl+m1UvlwJxCn+mFDqR1PZ5Ya0J1630VGAaFyYyFAI/0MkMmJVPM1mIcFGrRUv7
-         /5/8gj/QEg1M19mTb/qmTCUZKeU0cgEGnHtJdxFfbtLJ0MxUpR55ThBDVj0X2aSgs6RA
-         5oujN2/7sLVpCEhlJ79UGXI2tdALf44yN3i+8IVugzSL0Kp9NxCZjnuzn2Sw/LNkYwlv
-         qs5Q==
-X-Gm-Message-State: AFuF++niwkBbiQRwcAR58SelZKq/CBnRBzYHKKrzQA+/TyPpPjRPdNbH
-	cMyvajW9yfTAUErODMRzyYv3M73gCVxbKptRT4gYQ2f1HHwMQXrhQPJFWmQ++Gv8R4DpvPy9ftG
-	U6DlFgig=
-X-Gm-Gg: AYBFou3H2iF5hdyPPj/ZXhsJlxOK2NdWHdUEz2HNJMsX4ACLbscu/R7QzuYD6DkSuUx
-	z5SdkEIOWpHAIyFUTMqWkvv7cCMFd0lshaWivO+8lNLMmLfkMptBYW124p5fKNgQTXMDD2qpmfo
-	REGym1Ic9Jsx20OJX5FEe/xIxgjnsuhTsl6qcARNHFcOT2kNWNcGyDEUwhpFpxo8Yz0XtwMOYL/
-	fxxOv71LxIvxOyOWOyN9X5AZ+xtLXu0OsRJht5abz8O8+3gSwzAi1WO9k2cQG3ilSAMX+BcaMd6
-	B7miM8pkGgCrDssqrgD8C8LGMcOe7SL4yS5HK9RwPGLcEiifk/2o26FzTb8NN8TmAxl3Kp/D5+D
-	reXfWAb3QCjo7q3Jp567MDg92kp9C8Tfz+NFQ380k+Tbfokr+mdBfN3ICP4eA3dDOrTKsOi01wf
-	iLnuxCxox+PR6G4l0E0HNuN24d3UOM7YIqE/iYyUf/vd5j/KnfsDQqvA7x+AN3qHzsLmDhGpctq
-	Wdd4MHrphxMbklgBxAX267Egp4DBRWVpUNgxQggXumrDW+8P7kAhaM6E43Vt+eT4rslImU=
-X-Received: by 2002:a05:7301:4e46:b0:33b:f5b7:f4b3 with SMTP id 5a478bee46e88-34c646ce08emr1028241eec.27.1790730213667;
-        Tue, 29 Sep 2026 18:03:33 -0700 (PDT)
+        bh=PFwFCHroA09S10Beb/3mqXg3PAfAFcLcaaVX6WAqpVQ=;
+        b=O1t38vVRg/OP7ypsbSwMfLpK/7I2f+wv2aY/mZmjjsOkZgIzIwSB3ybxrv/BxiDoV8
+         naq8OjfvuuRb1/jdRUDA2l3jA+OPSnu9oqkXg/fO/uL9hBcIBuevqu+qBxv6V4JgTozS
+         eGU+ye2f3Ui7aOxOURuF2hDkw398thLlj6XDs7ExmYX1elpd8QSB/5j7oX/WzXvJtSVJ
+         VLup0Xtzmgug6bQTqCNO6T66tEX7KXVmGw79RmXrks9kLwulT2cjb1b9nkAYIoAraLWO
+         lfvD1OGzCxcw0ed2VzW0uEt79PhzqVjISP1ioiV2S9qwiUB4I1rYN036Bd/jUXrdf3Te
+         GMHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790730220; x=1791335020;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PFwFCHroA09S10Beb/3mqXg3PAfAFcLcaaVX6WAqpVQ=;
+        b=ii8/Uwl2MeqaHRfKKqpUIBwDZKZCXOVCUgGJscxnrE68xmyAiTsuaVREeKHch+ZHgO
+         8KGnssBHVJiO4JH09b3iofMZlwjHmOfogXyqxR5huxikFhxgYSoajmguYCDne7rAjEfY
+         wwHrqjswJ/tvrxvFAopg0xYrepGNv3/SK1UhjOiYPrcco8777Mt1PgVTM+kaRthty+5j
+         9+IG8sX325snVXxE4vx5ce01nUIa2GyKaIz2MzSIefCb0r+VuKG1Lhhs6EXTWNCZuhmu
+         KavutAJf35cki21EpnaKo6FyU3La9vYvtaWpndSv4HAouqqhwDU/xYSFmTfLDXJ3SziP
+         CRPQ==
+X-Gm-Message-State: AFuF++n8DdcmpFdrgi05Zysy44+XaQHv6itQbLdCuKkq7P3lbJJAVKBQ
+	KdZ4V9JKsoFDQlNH8g5kMqxhPX83fQc5eIB0dNvA380pqwK/jwBOgaL12axHlsAwfd9+ZSb8fsB
+	iqeuqaeQ=
+X-Gm-Gg: AYBFou3lJScoLYT0+kIXyx23F5d52G9CciV6TI/F9mdX2EgOqK4eqmezry/8IDCysLf
+	QNgCr5Q9peGrrYUqTR+MO+lNolXcuk8NCKy1W/MFbvyOIKd5oCU50zF/OT7iFFzDXo5v3iSGqPF
+	pOq+t1ozdcD2Hv8+T2sxUq/6rYwrJphFKUgqBzBn0DtxkLDUWM7mwZKVvV4Dn96ReZMBpYrPHSi
+	1cDDAEDh2NCgr/5AkpFp7tAb3IRxBHh8aZfoU+iinHOu5BUYWJpPJeBFrQA09LnjkXQ1V7A6X+R
+	UObwjDgd8IptCqR+smAPcC3R5HB0tTRYL7Y706azbNnQlwpmaXPt6P717BW0pmJexeTvzc6KYaa
+	84HzYCoDcu4nyDzLFXBfBqfDrHR95XIxMcPmJDbASam6ty5VN2Dujtt907+J5TtRvwI1oj/dolt
+	dbiU0ZQ9T5+yHQs1Thg71bxCD0r0uXPIBTj73SBOl78RIWDm84VJEm90qkLlgB4C9z6FXFeWvdK
+	LPI+ERs/rOoWAITR8TPiWY6ss0w7fCSCB+4O3a1ztb6aKaFwCB9dIpP509ynoMbc1994FA=
+X-Received: by 2002:a05:7301:701:b0:341:b570:8d75 with SMTP id 5a478bee46e88-34c6605302dmr1125938eec.14.1790730219815;
+        Tue, 29 Sep 2026 18:03:39 -0700 (PDT)
 Received: from localhost.localdomain ([2603:8001:5f01:8bab:3481:cbb6:f339:9e4e])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34c386c2723sm2179993eec.18.2026.09.29.18.03.27
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34c386c2723sm2179993eec.18.2026.09.29.18.03.33
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 29 Sep 2026 18:03:28 -0700 (PDT)
+        Tue, 29 Sep 2026 18:03:38 -0700 (PDT)
 From: Artem Dinaburg <artem@trailofbits.com>
 To: stable@vger.kernel.org
 Cc: Artem Dinaburg <artem@trailofbits.com>,
@@ -76,10 +78,12 @@ Cc: Artem Dinaburg <artem@trailofbits.com>,
 	intel-xe@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 6.6.y v2 0/2] drm/i915/hdcp: guard both capability checks
-Date: Tue, 29 Sep 2026 21:03:19 -0400
-Message-ID: <20260930010323.93999-1-artem@trailofbits.com>
+Subject: [PATCH 6.6.y v2 1/2] drm/i915/hdcp: Add encoder check in intel_hdcp_get_capability
+Date: Tue, 29 Sep 2026 21:03:20 -0400
+Message-ID: <20260930010323.93999-2-artem@trailofbits.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930010323.93999-1-artem@trailofbits.com>
+References: <20260930010323.93999-1-artem@trailofbits.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -88,58 +92,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Greg, Sasha, and i915 maintainers,
+From: Suraj Kandpal <suraj.kandpal@intel.com>
 
-Thanks for catching the second dereference.
+[ Upstream commit 31b42af516afa1e184d1a9f9dd4096c54044269a ]
 
-The code in patch 1 is unchanged from v1.
-As Sasha pointed out, on 6.6.y, however, intel_hdcp_info()
-calls intel_hdcp_capable() and then intel_hdcp2_capable(). Guarding only
-the first helper therefore moves the debugfs NULL dereference to the next
-call.
+Sometimes during hotplug scenario or suspend/resume scenario encoder is
+not always initialized when intel_hdcp_get_capability add
+a check to avoid kernel null pointer dereference.
 
-Patch 2 adapts upstream commit d34f4f058edf ("drm/i915/hdcp: Add encoder
-check in hdcp2_get_capability") to the older layout. The 6.6.y tree
-predates commit 130849f8ec14 ("drm/i915/hdcp: Use intel_connector as
-argument for hdcp_2_2_capable"), so its dereference is still in the common
-intel_hdcp2_capable() helper rather than the DP and HDMI shims. The
-adaptation puts the encoder guard before that dereference and returns
-false through the older bool interface.
+[ Backport to 6.6.y: this tree uses the older intel_hdcp_capable()
+  helper name. Apply the same guard there; the code change is otherwise
+  unchanged. ]
 
-The CNA record for CVE-2024-53050 starts its affected range at 6.7, but
-that range follows the later shim layout. The same unsafe conversion is
-already present in the common helper in 6.6.y.
-
-Together, the two patches make both debugfs capability checks return
-false before converting the missing encoder to a digital port. Both fixes
-entered mainline before v6.12, so every newer supported stable tree
-already contains them. The same common HDCP2 dereference is present in
-6.1.y and needs separate handling; this series is only for 6.6.y.
-
-Could you please queue both patches for 6.6.y?
-
-An LLM helped adapt and validate both patches; I reviewed the resulting code
-and validation evidence.
-
-Changes in v2:
-- add the adapted HDCP2 guard identified during review;
-- send the two guards as one series because both are required for the
-  debugfs path.
-
+Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+Reviewed-by: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
+Link: https://patchwork.freedesktop.org/patch/msgid/20240722064451.3610512-2-suraj.kandpal@intel.com
+Assisted-by: LLM
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+---
+CVE: CVE-2024-53051
+Upstream: 31b42af516afa1e184d1a9f9dd4096c54044269a
+Code change unchanged from v1; only the retained backport note was added.
 v1: https://lore.kernel.org/r/20260929031728.88004-1-artem@trailofbits.com
-Review: https://lore.kernel.org/r/2026-09-29-daily-reply-0012-re-i915-hdcp-encoder-check-v2-6-6@kernel.org
 
-Thanks,
-Artem Dinaburg
+ drivers/gpu/drm/i915/display/intel_hdcp.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-Suraj Kandpal (2):
-  drm/i915/hdcp: Add encoder check in intel_hdcp_get_capability
-  drm/i915/hdcp: Add encoder check in hdcp2_get_capability
-
- drivers/gpu/drm/i915/display/intel_hdcp.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
-
-
-base-commit: 79643295eba17affbd16ca97f3ef04c90266b28c
+diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
+index f377c4484e18..f7987fb90bb1 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdcp.c
++++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
+@@ -142,11 +142,16 @@ int intel_hdcp_read_valid_bksv(struct intel_digital_port *dig_port,
+ /* Is HDCP1.4 capable on Platform and Sink */
+ bool intel_hdcp_capable(struct intel_connector *connector)
+ {
+-	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
++	struct intel_digital_port *dig_port;
+ 	const struct intel_hdcp_shim *shim = connector->hdcp.shim;
+ 	bool capable = false;
+ 	u8 bksv[5];
+ 
++	if (!intel_attached_encoder(connector))
++		return capable;
++
++	dig_port = intel_attached_dig_port(connector);
++
+ 	if (!shim)
+ 		return capable;
+ 
 -- 
 2.39.5
