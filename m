@@ -1,40 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9C004E0B66;
-	Wed, 30 Sep 2026 15:36:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFEBA503BEE;
+	Wed, 30 Sep 2026 15:36:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790782618; cv=none; b=jL9G7vbHKWhUN1e/n4/iQM73Em8I7ON8SqoGUczPfDwE3v/+JXyvKkjKrxuSv0QTo8fthCra+9FfRaP42HE1QPtx1rCaIH+HO74/7ZgEfQBUl2ZsG4j5LdpsDIVW6QkucS/oTNF6mERUG+/XM5VnlYnZmeZqqPgvYzzp/5Ew7MU=
+	t=1790782622; cv=none; b=XW77f5pfYrzQLCizJQottduH4jQUCTZRuy77zb5aD9EbdxDRZ2J/NPpzSs/bskjl4/NIqdQxQkpN270S2KGAhhhNCioOJrrh35Ys8eVx/42tiT1ENI09AhcxzuO1ypALpINh6+2S0/i8Gk9WfW0eeJ2XIoqBSwK/jwvnjf7S1XM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790782618; c=relaxed/simple;
-	bh=d8WTajSMy92FkRY+NNyG1WkIn+a0PMTQnrwplD/UUdY=;
+	s=arc-20240116; t=1790782622; c=relaxed/simple;
+	bh=QBMrjs5Y9sn3RuEjOGOJO8pgV5avWVbv2QhTvZMyp04=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PP97fMwmwC6xXlhb00uLce3lr8EOMam+pU92cAP5oilP3On9qlsmv45g80hkiMrU9rLtDBXVsG8Ca8x+5ELk+Lksd3Fy38Bl+/6EoXCh9lfNOpPUS42IEldsDT0N+a/mjXD5CjIUkZ7NkvHMOEapqepylZ+953yrk8Du9223wGs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=fWRmzaah; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=GWqaAzBt+oPgsq8y50cYNAOnY4YhgV9a+ftyUyJbFk1ugOoiPROCF2DfDvu9qQbFppeUbrPcue9MStNVUUQdZygT922ZLh/VbKqMMxcOnm+oydX6BClJ7YxIvktveYXm5TmuE/+ieXJAXqOkKJ7o+CjWy2FgbZ0huvBVfFBBZZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=mYgJ47D/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fWRmzaah"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D42E1F000FF;
-	Wed, 30 Sep 2026 15:36:46 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mYgJ47D/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E342A1F00899;
+	Wed, 30 Sep 2026 15:36:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790782607;
-	bh=adVkXOQwLoB+OxnkA6h5uSRCDOgqGdVWBujp9LEpBxg=;
+	s=korg; t=1790782615;
+	bh=Qhf9eBjX97zPvYFXZlE4cDNbKCc7etb+JbBwVPm5j7U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fWRmzaahoZLg+3vC3g0Nm4/mNo3WIAzf7utK+buFXMM2ntAGi1Z7gIA00NxVg9O3c
-	 JFPsAz+VZ21Zp873PLHeH1iFgfHzNX8BU/ZFXKZg1+Xpa1RIQ0esbeWKIzPj7ZRn6P
-	 fsH0fzElc22CdSCgmhj/R2L1ED3kDmED2co2dvCI=
+	b=mYgJ47D/KB6PLIeg0hTDfZ4NAuwSduIbdtM+iadjuJZpLeNDNRHkA7kARNi9jeFL4
+	 18idXqrlStcQM+jCvH9mkEk8U4WukGNDpiDElAGTED0XTFTraFjmnATsN6E1FYVZ4H
+	 ZuI7pexi3Gga274mcB7zxlsFZZ/xerQVpu1w4XQk=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
-	Alexander Sverdlin <alexander.sverdlin@siemens.com>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+	Rosen Penev <rosenp@gmail.com>,
+	Fernando Fernandez Mancera <fmancera@suse.de>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 104/595] net: cpsw_new: unregister devlink on port registration failure
-Date: Wed, 30 Sep 2026 17:19:57 +0200
-Message-ID: <20260930152349.974554969@linuxfoundation.org>
+Subject: [PATCH 5.10 107/595] netfilter: nf_conntrack: use get_unaligned_be32() in tcp_sack()
+Date: Wed, 30 Sep 2026 17:20:00 +0200
+Message-ID: <20260930152350.039209816@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152347.700140858@linuxfoundation.org>
 References: <20260930152347.700140858@linuxfoundation.org>
@@ -53,52 +52,49 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Guangshuo Li <lgs201920130244@gmail.com>
+From: Rosen Penev <rosenp@gmail.com>
 
-[ Upstream commit b64f763b607426ac97e44b114f0b8844ac3b86dd ]
+[ Upstream commit d3bf9eae486490832bd08fd62ab0ac601f346bd4 ]
 
-cpsw_probe() registers devlink before registering the CPSW ports.
+The timestamp-only fast path dereferences the option stream as
+*(__be32 *)ptr, which assumes 4-byte alignment that the TCP option
+stream does not guarantee. Use get_unaligned_be32() instead, which
+reads the value safely and already returns host byte order, so the
+htonl() on the comparison constant can be dropped.
 
-If cpsw_register_ports() fails, the error path only unregisters the
-notifiers and then releases the lower level resources. It does not undo
-the successful cpsw_register_devlink() call, leaving the devlink instance
-and its parameters registered after probe has failed.
+This matches the existing get_unaligned_be32() use later in the same
+function.
 
-Add a devlink cleanup label for the path where devlink registration has
-already succeeded, and use it when port registration fails.
-
-Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
-Reviewed-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-Link: https://patch.msgid.link/20260604043115.1409134-1-lgs201920130244@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Assisted-by: Claude:Opus-4.7
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/ti/cpsw_new.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ net/netfilter/nf_conntrack_proto_tcp.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/net/ethernet/ti/cpsw_new.c b/drivers/net/ethernet/ti/cpsw_new.c
-index cc276241f3916..83de759bfb90a 100644
---- a/drivers/net/ethernet/ti/cpsw_new.c
-+++ b/drivers/net/ethernet/ti/cpsw_new.c
-@@ -2029,7 +2029,7 @@ static int cpsw_probe(struct platform_device *pdev)
+diff --git a/net/netfilter/nf_conntrack_proto_tcp.c b/net/netfilter/nf_conntrack_proto_tcp.c
+index 133e17715bbc2..7ddc751f979eb 100644
+--- a/net/netfilter/nf_conntrack_proto_tcp.c
++++ b/net/netfilter/nf_conntrack_proto_tcp.c
+@@ -411,11 +411,11 @@ static void tcp_sack(const struct sk_buff *skb, unsigned int dataoff,
+ 	BUG_ON(ptr == NULL);
  
- 	ret = cpsw_register_ports(cpsw);
- 	if (ret)
--		goto clean_unregister_notifiers;
-+		goto clean_unregister_devlink;
+ 	/* Fast path for timestamp-only option */
+-	if (length == TCPOLEN_TSTAMP_ALIGNED
+-	    && *(__be32 *)ptr == htonl((TCPOPT_NOP << 24)
+-				       | (TCPOPT_NOP << 16)
+-				       | (TCPOPT_TIMESTAMP << 8)
+-				       | TCPOLEN_TIMESTAMP))
++	if (length == TCPOLEN_TSTAMP_ALIGNED &&
++	    get_unaligned_be32(ptr) == ((TCPOPT_NOP << 24) |
++					(TCPOPT_NOP << 16) |
++					(TCPOPT_TIMESTAMP << 8) |
++					TCPOLEN_TIMESTAMP))
+ 		return;
  
- 	dev_notice(dev, "initialized (regs %pa, pool size %d) hw_ver:%08X %d.%d (%d)\n",
- 		   &ss_res->start, descs_pool_size,
-@@ -2041,6 +2041,8 @@ static int cpsw_probe(struct platform_device *pdev)
- 
- 	return 0;
- 
-+clean_unregister_devlink:
-+	cpsw_unregister_devlink(cpsw);
- clean_unregister_notifiers:
- 	cpsw_unregister_notifiers(cpsw);
- clean_cpts:
+ 	while (length > 0) {
 -- 
 2.53.0
 
