@@ -1,97 +1,155 @@
-Received: from smtpcmd12132.aruba.it (smtpcmd12132.aruba.it [62.149.156.132])
+Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A56FC4D0CFD
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 12:15:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.156.132
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AE393E410D
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 12:16:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.159
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790770511; cv=none; b=QXgC6CQvHkiXZfQYBTI66ajn6Fx/VtA3u/ikLC3AImhbNPsfTF/iRR+xVfpf72djrVoSk/izKnQIP9AA57f3qBlBghhyYe5Wf9GCfx/IiUSd4PmZkaHHAegUkjt8PtqvpcFW9wXury5cx0IeHsdHbUYi6oAkDV7AuasqrHMYnaY=
+	t=1790770574; cv=none; b=f7G9LBCkN+loOZEtruoxZdyZpbUBd5syvCzXg7rRc83TR6OSdM7UDViR7hWVkipIRTU+4UZoWx2rW3W5t+O+dg+0gZpmcgrsqjzXILqRbz8zJyR6dv7L4PeOsrJLgeZltUPp2eKlivJLkmoOAYJ3Lkhiiokj707ueplkP0+5VNo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790770511; c=relaxed/simple;
-	bh=7nR7ToxbmF2vXPy/2r05JJLxk0ahQyjYyzObpufFnqI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RWB+8XdhXl5yfPyqJ/td4a/KT6XgFebBo7KbbioWZgLRfdTFJIWzcq4gKijCih3P7kUcRE+OPgLBIq7X1LnE2wMqy5hCrdH3i1RxOayXDzJUqogkRzPbtRypgzxRtPiSowe6dFzOEQvPbbmvQ0MbZX8csdt6OyQ6j7JW79T5uac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com; spf=pass smtp.mailfrom=enneenne.com; dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b=KqMgfzH9; arc=none smtp.client-ip=62.149.156.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
+	s=arc-20240116; t=1790770574; c=relaxed/simple;
+	bh=evpMRTLjHStSr0r+igJRjIdHZ6IXkukufgTebdFF0ig=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FQ/2RwH6yRo/vWtbf+JDTcOuwSnlrHPOSiCT9J5KcxbLnpa4x+mPkn4A7uhDQUPpiU8omKhiuFaaLUu88XYf/8I2/uvw6AmW/SkxddbV76e7zQeErVdKrzmKf3L2E/6+L8b+1/RgnZc6hlOGsR5m0KJC2NFfNQT9Mqf20hL+is8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=Q/c1x3ZL; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Bdm/yuPf; arc=none smtp.client-ip=202.12.124.159
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b="KqMgfzH9"
-Received: from [192.168.0.186] ([101.57.122.26])
-	by Aruba SMTP with ESMTPSA
-	id Bt6Jxwm5xxUh5Bt6NxVwKy; Wed, 30 Sep 2026 14:08:00 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
-	t=1790770080; bh=7nR7ToxbmF2vXPy/2r05JJLxk0ahQyjYyzObpufFnqI=;
-	h=Date:MIME-Version:Subject:To:From:Content-Type;
-	b=KqMgfzH9MBaLdaPI+QSpYJj8Qa0DG8KfPVPdFedn+oOScNZwn9I7TOUOYVOU+VEc2
-	 cS6LUtg5sO+R2VwpkEq40txU0R5pIEy9gcZ0b8Uabzyq1yeSsSwtwpB01PHU+vp+3q
-	 3PMeA6847XxU0/dGh96pltZ7IHacryJS5HsYQrENVK14Ac4E4h4X5NkfkE36cFRKTG
-	 zhOXULpKdtJeDoHqupRN7fHfeSLLxS2zClYTXHc5bxbLXZZq1+MMZBgHsbAWv+VIkf
-	 RmhhqS0bzceThGfT32PcLQkSCcrRH4C8NwydgSuZ6Ouj4otXUYoBTaUSSyx6/PxJmI
-	 N9rDjFYfibEig==
-Message-ID: <83bf278d-ea13-4e1a-b6b2-a114051cd62c@enneenne.com>
-Date: Wed, 30 Sep 2026 14:07:59 +0200
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="Q/c1x3ZL";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Bdm/yuPf"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 9FA257A079B;
+	Wed, 30 Sep 2026 08:16:08 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Wed, 30 Sep 2026 08:16:09 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1790770568; x=1790856968; bh=ZmHZEXDUZF
+	KM/VaHVhVkQO2leXhRRiedRkNoW0jWPwc=; b=Q/c1x3ZLzb9eiLxFbY8TYUIlpC
+	VTO/pA+Ogae/vM8U6SjWfJgMm0+E19/PS4SJ6roWJhY69YnVkB1ELhpIH/70mgWN
+	+bpJ5QeQ53N/6yq9R/vUkdk72XnH+maaOjAjeDICC2Jxmy8CfHmSpoK42pPFCy4X
+	eX3IoMIumqfyCiLBzSXwvjvXo/61P2Hi0IPOMyVhmoXzPEKFu6RJe5NvadXQv0Cu
+	1v5TScQGv+IAz/SOm7M4gh1YrKq4tJKErVl/pTNxVTRQOwCBILMWyOtjovRBXOMs
+	Os2B4Ul+73LmRzDcbeVaK2+8rb79LZZbLgSP6TYW+0eMWnGze79dKJ6VUHMA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1790770568; x=1790856968; bh=ZmHZEXDUZFKM/VaHVhVkQO2leXhRRiedRkN
+	oW0jWPwc=; b=Bdm/yuPf/jawGKjOYBo/qcSDmZa/gk01OQebP7zd0hwyeTibl4E
+	MJzJvSZO/CSkfN6we3Xcdr7wrDVXY57/sDnamQa+F55YpKtWiHulB2+mwK3D8UFQ
+	ngUgVwqMvefo3Vcvm6+WXdauuW83DjAYUUychvCVTckPiFbYSCSGSc8toYuRrikP
+	zRrMz2rB0XtOEMPG/WyCaIMl9To92Ey3wN4EbP4dQ/M4pVCSg0LQkykcBWFpllYp
+	XYb+V6EUx++89mMvRlcx3eLW//cq3hxNfOyA9vhP2aO3VRSAKhxljSkMCywfD2IR
+	qVSyzJ2hmczpSlLJVYRLlH868Zuah0tlnng==
+X-ME-Sender: <xms:iP28asxoZbQGgWWnbAKrcY6np_0QjhRv-UP8X6QkR1oXMMvsnMl1Ug>
+    <xme:iP28alcu5Z_Rhj2-X6mxLIG3rb6RB3vCT3rKxYIKnF7REbuqDtoFBcdS9nYj6PC5Q
+    s2x5VPcv4X5UTmZFOdM1EgB3lwsT9n4uBOsjjzn2kYitLkTNVs>
+X-ME-Received: <xmr:iP28ahtt1UX6MiFFr2MjBsT-4Jj7MRD8xq5PPhouR9kY1yMVmtcnieUBTqY53mC6dZWjBoJCakZvJ0l6Cjw9Cg047iaThP3MBQGY9kH7Ips>
+X-ME-Proxy-Cause: dmFkZTELsU0zMqGT9imUbC7bonO6sSeLa5HcevSU2Es/G+IEtlPY+Jz6EV0UMgKrbiaAJ0
+    1KAOXRfEiFBjo1d9ywieXA/DOeJWTNGanxG4330/8tXq02qTNYsLTkvrGCFpcKD9zvbN7Y
+    7iSe+3hIHVQNbtt9HClKPlikYmQEJ183+hOZUiXofEsldN0qLn7KBd7F4EzNL5ojd0PYkG
+    voYLew14f7Q7gHtZYCsavB2b2YRrnfN1WztIq0TGq1DZVHA9KeMcZ43ogS1/neCq4WR8oi
+    K7mKav9Lmc/ls/cl8HJ8KyGqzcq3tvAfGLKW0uo2lmSc2Hdsps1gmrSuDGLRUna9kdSvJq
+    gYyu9ukh3qEIUgG8sif9WwhBsVSV8U3gg6m5aWJ1qzm2GFWEUAyy81rN8pNmQVH6/xoAsE
+    OAapdddLUlyuzB1cY7DSrNKdTuHSnCe5JZ+FFuWgnx1WjHiVDIUaSLlXZCUyYIzVvpArSf
+    1yUFmlczURhJrFzKGXPRiJ9gKECU/XeZ/qTKfevLq4knOYRJqajM4Gqx3Jlhu01Cas/2Ss
+    mVqc/TLT5xmg0fRoJBfW9pHOIgsojqvt3PE5ysWP7OT+MlDeuus+wxKywEN+peAeojN3of
+    muYc2KYzbwgAfrzYcvhjP7DaubNMQE/sAjGItGQ/IDp689OqH/197ihj7tAw
+X-ME-Proxy: <xmx:iP28aqD15xghvLVU2vvFFw_EbB4ZGe-y3Qrc0EdfiMGUflYlG5dEjA>
+    <xmx:iP28apHobBPvJQaZJDkj2pyoC_o-7lPDtp8r2WNrc0If3WwuKjNdmg>
+    <xmx:iP28aqvL3YKH1u_jE-7Rf9ed7e0tS8Z-Z3hNIGmA7LYhhSmgFPFlnw>
+    <xmx:iP28avnqykt9cX1RfkTeU9mA2SHxG-5J1E5kGZ1NHd8yAVZvDLu30Q>
+    <xmx:iP28apjjj6ngPqfFUKH2FJ6tM46gXV0PrjoGlJqLpl_1CihZdHrLTRf2>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 30 Sep 2026 08:16:07 -0400 (EDT)
+Date: Wed, 30 Sep 2026 14:16:01 +0200
+From: Greg KH <greg@kroah.com>
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org, Ilya Maximets <i.maximets@ovn.org>,
+	Aaron Conole <aconole@redhat.com>, Xin Long <lucien.xin@gmail.com>,
+	Jamal Hadi Salim <jhs@mojatatu.com>,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: Re: [PATCH 6.18.y 2/2] net/sched: act_ct: remove 'add_helper' dead
+ code
+Message-ID: <2026093052-late-daisy-1cf1@gregkh>
+References: <2026092956-avalanche-oversized-b625@gregkh>
+ <20260930002024.2934218-1-sashal@kernel.org>
+ <20260930002024.2934218-2-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] pps: generators: fix use-after-free when closing a
- removed device
-Content-Language: en-US
-To: Danish Khateeb <danishkhateeb03@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Calvin Owens <calvin@wbinvd.org>, Yibo Tan <lhfff@tju.edu.cn>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260929124937.51114-1-danishkhateeb03@gmail.com>
- <20260929124937.51114-2-danishkhateeb03@gmail.com>
-From: Rodolfo Giometti <giometti@enneenne.com>
-In-Reply-To: <20260929124937.51114-2-danishkhateeb03@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4xfIreEbdPnEpmxLjwIvayXYXH1yNzYXWLnxwLxBdlnMMVtLV8N7qkiM2+XxIaTkkRj5woJV7Gm76gb7bFp4F30EiZby5bmdjqsPobpCq43ZN6Es9lju7x
- lBwOwKXPl/t4Vp2Bu0Xdx+ZneV14Q4hi5BYKLUS8E95ZVKWCuik/+Nn9+jjwMS6XJLMlspzcj6AjcZl27jBuMtoI6eqDfdqfZs2iMMEmLa7xksCg+h2Egf34
- CmnaiHX4EM9T+T6QZuWG17WeGJfhoVUSacjE4k8BIotggX7ZaZjiUM4SeNlCN3UrFcisj4AFAH4dBVhKPSYA5NoAfjuD7KiyoFyQhh1dRtiW++1UQAW1dn0L
- 1h6ZoI1QUtqgyiJTLaqZ9WYQ8pFTycF6ZhBepbGvzqfOr1ScvbbZZV34VuhWa5iHy0S8J10C
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930002024.2934218-2-sashal@kernel.org>
 
-On Tue, 29 Sep 2026 07:49:34 -0500, Danish Khateeb wrote:
-> The cdev of a PPS generator is embedded in struct pps_gen_device, but
-> nothing ties the lifetime of that structure to the cdev: pps_gen is
-> freed by the release function of its device, and an open file holds a
-> device reference only until pps_gen_cdev_release() drops it.
->
-> When the generator is unregistered while /dev/pps-genN is open, that
-> put_device() drops the last reference and frees pps_gen, and __fput()
-> then calls cdev_put() on the freed cdev:
->
->   BUG: KASAN: slab-use-after-free in cdev_put+0x53/0x60
->   Read of size 8 at addr ffff88801383e138 by task ppsgen64/149
->   Call Trace:
->    cdev_put+0x53/0x60
->    __fput+0x745/0xad0
->    fput_close_sync+0xd9/0x1b0
->    __x64_sys_close+0x86/0xf0
->   ...
->   Freed by task 149:
->    kfree+0x25a/0x6d0
->    device_release+0xca/0x3c0
->    kobject_put+0x169/0x320
->    pps_gen_cdev_release+0x51/0x80
->    __fput+0x36a/0xad0
->
-> pps.c had the same bug, fixed in commit c79a39dc8d06 ("pps: Fix a
-> use-after-free").
->
-> Fix it the usual way: embed the struct device in pps_gen_device and
-> register both with cdev_device_add(). This makes the device the parent
-> of the cdev, so the cdev holds a device reference until the last file
-> is closed.
->
-> Fixes: 86b525bed275 ("drivers pps: add PPS generators support")
+On Tue, Sep 29, 2026 at 08:20:24PM -0400, Sasha Levin wrote:
+> From: Ilya Maximets <i.maximets@ovn.org>
+> 
+> [ Upstream commit 00df72e39f306e2f7adb68528a5c92109da6a0a9 ]
+> 
+> This variable can only become 'true' when the connection is not
+> confirmed, but it is only checked when it is confirmed.  So, it can be
+> treated as being always false and just removed.
+> 
+> Fixes: a21b06e73191 ("net: sched: add helper support in act_ct")
 > Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
+> Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
+> Reviewed-by: Aaron Conole <aconole@redhat.com>
+> Reviewed-by: Xin Long <lucien.xin@gmail.com>
+> Reviewed-by: Jamal Hadi Salim <jhs@mojatatu.com>
+> Link: https://patch.msgid.link/20260921145655.3167436-6-i.maximets@ovn.org
+> Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+> [ Retained `p->ct_action & TCA_CT_ACT_NAT` in place of the unavailable `nat` variable. ]
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>  net/sched/act_ct.c | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
+> 
+> diff --git a/net/sched/act_ct.c b/net/sched/act_ct.c
+> index cbac27ba76afc..a9ed504a9d020 100644
+> --- a/net/sched/act_ct.c
+> +++ b/net/sched/act_ct.c
+> @@ -985,7 +985,6 @@ TC_INDIRECT_SCOPE int tcf_ct_act(struct sk_buff *skb, const struct tc_action *a,
+>  	bool cached, commit, clear;
+>  	int nh_ofs, err, retval;
+>  	struct tcf_ct_params *p;
+> -	bool add_helper = false;
+>  	bool skb_is_ours = false;
+>  	bool skip_add = false;
+>  	bool defrag = false;
+> @@ -1081,14 +1080,14 @@ TC_INDIRECT_SCOPE int tcf_ct_act(struct sk_buff *skb, const struct tc_action *a,
+>  		err = __nf_ct_try_assign_helper(ct, p->tmpl, GFP_ATOMIC);
+>  		if (err)
+>  			goto drop;
+> -		add_helper = true;
+> +
+>  		if (p->ct_action & TCA_CT_ACT_NAT && !nfct_seqadj(ct)) {
+>  			if (!nfct_seqadj_ext_add(ct))
+>  				goto drop;
+>  		}
+>  	}
+>  
+> -	if (nf_ct_is_confirmed(ct) ? ((!cached && !skip_add) || add_helper) : commit) {
+> +	if (nf_ct_is_confirmed(ct) ? (!cached && !skip_add) : commit) {
+>  		err = nf_ct_helper(skb, ct, ctinfo, family);
+>  		if (err != NF_ACCEPT)
+>  			goto nf_error;
+> -- 
+> 2.53.0
+> 
+> 
 
-Acked-by: Rodolfo Giometti <giometti@enneenne.com>
+Does not apply :(
+
+Same for 7.2.y
+
+thanks,
+
+greg k-h
