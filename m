@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84462503BD0;
-	Wed, 30 Sep 2026 15:50:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FED14E3229;
+	Wed, 30 Sep 2026 15:50:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790783418; cv=none; b=OEmz3uCrISkCvC+cp7VYgH3cqARwobMPF1bB2Yd8HA7V+CSrY1Zi1gcpeTLKECPl2eGreWg7AcqZqqQ/6ymuWfRztIUFipAyMrAHUJdOcjA7wXU0b+h0q5YeXdjjszanP94DlQTZMpvXbG2W85O50heWpc+gQ0kXSoS3RLAajU8=
+	t=1790783421; cv=none; b=o7WzjU64LHNkRAvwrD/YvC+3c+HQzxon5S+pV3MwNQ3tmV3XtERKAI/lInzeFPurtftwUtCveIAzelNR2Fsx5lwjcDh7F60Es/jfzC3dWen2W5A9EZSPcF9a1MVv45uuwlHuLoQAtjONs7340yq3UNd0Zx0GO32ohnIKT55IPfE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790783418; c=relaxed/simple;
-	bh=lqiC5HkeWKJ1GDM2kgKpu5BR6LCxCR8AeA42oZWmy/k=;
+	s=arc-20240116; t=1790783421; c=relaxed/simple;
+	bh=ols5mxPTZw/eTntJqiHAEGjJFz6Rkyv50z92+kSZeec=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uHRUcmwe20yjeC0jbNg2X6tym1HKQsr6Ez4XbXRX/9uNFOklXl5s8/qwkbTciN5mzArcIHHkEHb1j517FO13opiQz0tbspBznWTdM7VhPwNf5+wVFNjZao4HZpbkMXLHcCKE8JDsWbxcvLQc/VMTqfRRO/Yx1gepXKFLd6Ilr04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Y3tGvpC6; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=IHp9/lP7vCqdvHGWDl3naNViha4cSzFhkEDbXQrk+Epcyi0pM9ADouw0bP0tNOb+OB5fdp1clFlFwJ3Tgmf46gFIbn3kC3k3UxWL4jZqmtvoLkaGGB0caBQKBYNlAl8t9vbKNHcNQ9hjHM20TIe1zFfr+Ys8IQCk1yl9SmmIqjA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KO54JJPr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Y3tGvpC6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40DAE1F000FF;
-	Wed, 30 Sep 2026 15:50:15 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KO54JJPr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 212F51F00893;
+	Wed, 30 Sep 2026 15:50:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790783415;
-	bh=l2fkJQQSVm017mDI8ldjKtR7FUCbXImQZTLrTkyBuYc=;
+	s=korg; t=1790783418;
+	bh=4RQ82h5RLX4TvD1u2dqUsnlx0PhWBadha4TuaKalqKw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Y3tGvpC6sScDIkYkRxmJWRgogCSDmvjZXa/z1nTIpJG9fBqdOo8ymTExU1PeB9gBz
-	 bQ1fxQpDos/txcfKO3Vr86O8g/ixEuVdGNWYgI586o22pRabsA7TTcVVHDZvjZfy8B
-	 dCPhRL7A+ZPo+Yrqqi7zQ7v3v9aJNDj+s+O7KUKI=
+	b=KO54JJPrWcjb1ubQHykUpWpPzb4qJCyCIJsXvZokEHwrf1LLLa/ai/kpZEEa2XfEr
+	 3Y3+/YhlmKsHwKU1YHc2gugULmW6Z86hor7lUWjIEUFXVH3EXdh/JWYI0HbSdrw5LI
+	 c9WcHzLNFVdhvcwN0SJS/B8xyAxwVCwCdAKN+kcU=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Theodor Arsenij Larionov Trichkine <theodorlarionov@gmail.com>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Xixin Liu <liuxixin@kylinos.cn>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 390/595] netfilter: nft_nat: fully initialise new_addr in netmap setup
-Date: Wed, 30 Sep 2026 17:24:43 +0200
-Message-ID: <20260930152356.063073054@linuxfoundation.org>
+Subject: [PATCH 5.10 355/595] firmware: arm_scpi: reject DVFS OPP count above MAX_DVFS_OPPS
+Date: Wed, 30 Sep 2026 17:24:08 +0200
+Message-ID: <20260930152355.313226115@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152347.700140858@linuxfoundation.org>
 References: <20260930152347.700140858@linuxfoundation.org>
@@ -51,43 +51,42 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Theodor Arsenij Larionov Trichkine <theodorlarionov@gmail.com>
+From: Xixin Liu <liuxixin@kylinos.cn>
 
-[ Upstream commit d313499df66159b4b7971d760d16729598ab7e5a ]
+[ Upstream commit 32471d84a487c7fd74532bc96be56f8028cf4a3f ]
 
-nft_nat_setup_netmap() builds the mapped address in an on-stack
-union nf_inet_addr. For an IPv4 mapping it writes only the 4-byte .ip
-member and the loop runs a single 32-bit iteration, but it then copies
-the whole 16-byte union into range->min_addr and range->max_addr, so the
-upper 12 bytes reach nf_nat_setup_info() uninitialised.
+scpi_dvfs_get_info() already rejected a zero opp_count, but still trusted
+any larger value from the SCP firmware. The shared-memory reply only holds
+MAX_DVFS_OPPS entries in buf.opps[]; a bigger count over-reads that array
+and then sizes the allocated OPP table incorrectly (garbage OPPs / OOB).
+The missing upper bound dates back to the original SCPI DVFS support.
 
-KMSAN reports an uninit-value in nf_nat_setup_info() reached from
-nft_nat_eval(). The IPv6 path fills all 16 bytes and is not affected.
+Reject zero and out-of-range counts in one check and return -EINVAL.
 
-Zero-initialise new_addr.
-
-Fixes: 3ff7ddb1353d ("netfilter: nft_nat: add netmap support")
-Signed-off-by: Theodor Arsenij Larionov Trichkine <theodorlarionov@gmail.com>
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+Fixes: 8cb7cf56c9fe ("firmware: add support for ARM System Control and Power Interface(SCPI) protocol")
+Signed-off-by: Xixin Liu <liuxixin@kylinos.cn>
+Link: https://patch.msgid.link/022802f0b38f.v2.1785200642.git.liuxixin@kylinos.cn
+Signed-off-by: Sudeep Holla <sudeep.holla@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/netfilter/nft_nat.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/firmware/arm_scpi.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/net/netfilter/nft_nat.c b/net/netfilter/nft_nat.c
-index 2e1ee7d9d9c3c..2538f0c32f88c 100644
---- a/net/netfilter/nft_nat.c
-+++ b/net/netfilter/nft_nat.c
-@@ -64,8 +64,8 @@ static void nft_nat_setup_netmap(struct nf_nat_range2 *range,
- 				 const struct nft_pktinfo *pkt,
- 				 const struct nft_nat *priv)
- {
-+	union nf_inet_addr new_addr = {};
- 	struct sk_buff *skb = pkt->skb;
--	union nf_inet_addr new_addr;
- 	__be32 netmask;
- 	int i, len = 0;
+diff --git a/drivers/firmware/arm_scpi.c b/drivers/firmware/arm_scpi.c
+index 3a1d77b882f7e..1ff0e759c6be8 100644
+--- a/drivers/firmware/arm_scpi.c
++++ b/drivers/firmware/arm_scpi.c
+@@ -627,8 +627,8 @@ static struct scpi_dvfs_info *scpi_dvfs_get_info(u8 domain)
+ 	if (ret)
+ 		return ERR_PTR(ret);
  
+-	if (!buf.opp_count)
+-		return ERR_PTR(-ENOENT);
++	if (!buf.opp_count || buf.opp_count > MAX_DVFS_OPPS)
++		return ERR_PTR(-EINVAL);
+ 
+ 	info = kmalloc(sizeof(*info), GFP_KERNEL);
+ 	if (!info)
 -- 
 2.53.0
 
