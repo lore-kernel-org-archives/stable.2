@@ -1,43 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5366D3DDAE9;
-	Wed, 30 Sep 2026 19:21:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 822743DDB19
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 19:21:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790796081; cv=none; b=MOaygeeW0TaS0wMYMnnInpNsFAsGTGepMRdHqj17b/1gvA058h3ikfuQJw7kIKi8l7lLJeuexVqd26g02DSJQ2R/YdmAaos8fo2RIg11zJkrMGhXyfM020kJllnIHHKpGxXIGvFYLpbM5joZT3OkmXBhFzUSshl1UWyxrY5dMmo=
+	t=1790796084; cv=none; b=fAYfiMPIXv1nUoDFbuf4JIesydyM2e4xughzNqZiPtp+XhsQ/l/u1LZGmsSuaQYnQOojGo9gUuRk+hYqVYB88oHJIpZo/mM7jqFcurQIRGVS/zk/SMLXCZ/iNR36XLGLDKCvoZgibqn80DD+XGGPrOpBYCxJOwO6BHbrkhxiwCc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790796081; c=relaxed/simple;
-	bh=3ahMmmYhyzXb6VzJgRHLpVAsEBCizEdkbz50zd8TUFU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iAz73v5nSLhJbcZU8TyoQ1XDX2FTOFEbrUOPdivY/saZu8h2wMC6ccabAiBY2/xFLvAllTY3lbjR4Nsa37CGwT74oKdjHr0tZHQI8aWnwx/ZMABYrGj5apdFin4PDo1wGXO680iD771QOCZrZKd0fLYDYl5Na8NuFUpEuD0ASr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=qfAlJpZ/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790796084; c=relaxed/simple;
+	bh=OaywG8qV2zmeQmYflGw/QkJAGzejff4a8mMmROTwgrc=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=WZiWot+va8PQZfHksAzuWg48PL1Q13bftFVNbM8p3UUkhyUlDKFEPKqzMWrtoJA89cwIw/xPN1SBCjkHIoq2KRTTSXhySekWPAgUb5QfBUUXdk6WIln+CY3WHv+u7BQe8SDpdxUVc2TtQSVybS+K0+Xer1Eotgk6WCYo0SCurjQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jEJjPHUb; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="qfAlJpZ/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE3081F000FF;
-	Wed, 30 Sep 2026 19:21:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790796080;
-	bh=/P6wjw597+fo84suaE+Z6DV9mI9TtuOt//t+onMSbvk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=qfAlJpZ/xqes8mGoBRSz65IBvFWuFWM/fip+1HrksIdK243Mbz4cXgfayAEMQ3dIs
-	 1mkSAUDS/xeEogWC5j7vHKIj01L6wYCnREJvF/Xr6mOCBJHw50COYQTMTOjCEX3nNA
-	 SGlbLYkDT02jvmET+8FmKeBSkq6I27EVJUA5tycQ=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Takashi Iwai <tiwai@suse.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 0786/1193] ALSA: 6fire: Clean ups with guard()
-Date: Wed, 30 Sep 2026 17:24:30 +0200
-Message-ID: <20260930152451.709343114@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260930152434.301151190@linuxfoundation.org>
-References: <20260930152434.301151190@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jEJjPHUb"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912df756so44294325e9.3
+        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 12:21:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790796081; x=1791400881; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Iy6PlywfDUA0Eh+zmjEhhc7NS3KUQphzxgwcZvfITKA=;
+        b=jEJjPHUbmttfA1XmPeosCkE+0BhwColxxMwMWoHG/RJnA3T2jIW6c9Zy8SeU124scU
+         xXYSQh+xjdoUNWR8eAH3HM9L3BYkucbxGrRKPTghRr238IUrnGT7cmWphcnFscAbUG1k
+         UjFS8JrXusvAD8p1k9jqzm/MjDH5NRvhQDRkwECFLD+AO2akMkPYRJm+SMrbogPgQL0M
+         kUnKH39a7Aq9myv7Y1ZBdCt3TWIGh1i9u1lAISXXGLGxbZ98EjVyjAqhqw6F88F5AOod
+         kS/Ky5OQCykhkoqycqC5cJ6mh2VOmdWwWKBapjgb5RAC2WMJycN+F+ybkcw2XxtP0k2u
+         C6oQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790796081; x=1791400881;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Iy6PlywfDUA0Eh+zmjEhhc7NS3KUQphzxgwcZvfITKA=;
+        b=NwWXU1eNnroN1wWSNs6dXB4QePYAS67koEa8OLsPAyVDQa5jyq24/ylVu7BaeJllN5
+         aAb7OXukHxc8nlaJYB9Ycx4LB5ZCQ43F1cO4GpU6Y4hFurNe4CbX242/6Rld4m/DEdGH
+         Z12vLkSAt9iL4c6ZWtpviTHhqIhOJFKoWbKImgU2pHJH95b6qCMdby4tsxmTwo/cwFJh
+         RTlAMZAG0f+t6L2z/AfBEEfbAKYDu6cSM1YCc6m4TpR5QrP7olpEyAj1uZe/1jD2e26Z
+         w4z63GNXlV9LmszLmyAIyg9OpbSMCpra+PUhNfOt8YRYs/xgPtfPhQPZ8E4nErSEdg0c
+         ZDDg==
+X-Forwarded-Encrypted: i=1; AKwUvBxRl1limal/NBA+t97Xn637bu/EHeXwZElVcG6SXPADPnvamUzQLb854IkDwq/0PBpnmrY4PAA=@vger.kernel.org
+X-Gm-Message-State: AFuF++m5QNS1gyNRih/jMJ54Xc7IR+Cu54/uYbdw+FyKQ8EZsZNDE2AR
+	igH/ZpZ1v5ZQHnVsHTTAX7JCr6/SxdpQnC1JKs0dqRnjkqDf5dVNFN69
+X-Gm-Gg: AYBFou2c09glmLC0UbvDdKZUpSvsOQhOfhx5+CJEW6Bls7bS800GqzS1mbfOt/WKprf
+	dwIyJGcpl66UeCGlA1P/79szULP6P31MTIs/2HTmoxyLOZa8z3ZiMdkz6bvAuOrOAPRi1DHkdRO
+	gabzIeDkQDbF00Ds7BAYfXxY1qyfjeL5rWQ4bLKZ4PKlxI7xe/tEKgNye4R9rEUTZhHERDerKUy
+	INkdjz4MF5XH18FR1EUjvzEY6WVPjOdaiRqcGRzquh2NhL8pFvwZEIIFRZGrHfwUqXx4eVcH14B
+	7fV0gjOS7pHUzDRjfVfWBYDUbJGneDqgzQbjKWKLXuQ5ANZ8tyZ/35gItdB+fHigJc21JWcIh2O
+	/PEqqfS1sWXwaleR4HJeMrhzKvA0n0+P1jfCV3Tx0yZi+C6JaZ8HqRKwG4WAyok2uNDal8NhELn
+	BhWcgitFOHewm3i702F0jFNHJesRq8L84OdeGPm/YQnwfGkRrykvSOGxKWb/IgM5/gnbc19TSXp
+	a9mor1HOXEm/OPxgho6DdQgDZvs5VHD+NdSbq2qfKbZbdARKHrQd0CViepoBigctwAr1LsNu8mx
+	pTqwtQfdWsMCs85WR2rAQDuJBWjhjQAD1zwNcxKkpJ1dH5VSwCak4BzsrsvUBVyn4zvup75IpuK
+	AgSBOh3uLiBA=
+X-Received: by 2002:a05:600c:4f8e:b0:49e:745d:c317 with SMTP id 5b1f17b1804b1-4a01b0087a5mr39314065e9.12.1790796080524;
+        Wed, 30 Sep 2026 12:21:20 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-b2b3-0101-b51c-a607-3dcc-3979.310.pool.telefonica.de. [2a02:3100:b2b3:101:b51c:a607:3dcc:3979])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f9248ccsm3513165e9.3.2026.09.30.12.21.19
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 30 Sep 2026 12:21:20 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Stephen Hemminger <stephen@networkplumber.org>,
+	Arend van Spriel <arend.vanspriel@broadcom.com>,
+	linux-kernel@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: [PATCH net v2 0/2] netpoll: fix PREEMPT_RT deferred transmit locking
+Date: Wed, 30 Sep 2026 21:21:01 +0200
+Message-Id: <20260930192103.62973-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20260928064239.32456-1-kmehltretter@gmail.com>
+References: <20260928064239.32456-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,376 +91,89 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+netpoll's deferred transmit path can acquire two sleeping locks with hard
+interrupts disabled on PREEMPT_RT. One is the sk_buff_head lock used by
+the sender and worker. The other is the device transmit lock used by the
+worker. They produce independent atomic-sleep reports.
 
-------------------
+Patch 1 gives the deferred skb queue a dedicated raw lock.
 
-From: Takashi Iwai <tiwai@suse.de>
+Patch 2 makes the worker try the device transmit lock and defer the skb
+again when the lock is busy. It uses the queue helper added by patch 1.
 
-[ Upstream commit 6ff0d95774f0c728f96b8f78367318e95e09ee64 ]
+Testing:
 
-Simple code cleanups with the guard() for spinlock and mutex.
-No functional changes.
+- Arm64 and x86_64 PREEMPT_RT W=1 builds passed.
+- An unpatched Pi 400 emitted the queue-lock report five times during a
+  one-hour run. Ten boots with the complete fix passed, including one
+  3,606-second run. Every trigger and post-trigger marker arrived, Wi-Fi
+  remained usable, and neither atomic-sleep warning occurred.
+- An arm64 PREEMPT_RT QEMU control reproduced both warnings under forced
+  transmit backpressure. Three boots with the complete fix passed.
+- An x86_64 QEMU control reproduced the queue-lock warning on PREEMPT_RT.
+  Three fixed RT boots passed; the non-RT control and treatment each
+  passed three boots.
+- An arm64 QEMU A/B test held the device transmit lock while queuing 64
+  skbs through a synthetic CYW43455 SDIO device. It used HZ=250 and ran
+  with PREEMPT_RT enabled and disabled. After releasing the lock, the
+  HZ / 10 version completed in 128-178 ms on RT and 108-109 ms on
+  non-RT. The one-jiffy version completed in 59-114 ms on RT and
+  28-55 ms on non-RT. All 64 skbs completed in every run.
+- The exact v2 series and pending brcmfmac fix passed 10/10 counted
+  physical boots across a Pi 400 and Pi 500+: three RT and two non-RT
+  boots per board. Every lock-contention run freed all 64 skbs without a
+  timeout. Each board and kernel flavor completed a 1,800-second stream,
+  ten TXHI stop/drain/wake cycles and a Wi-Fi reconnect. No counted boot
+  reported an atomic-sleep warning, new lockdep splat, stall or lockup.
 
-Link: https://patch.msgid.link/20250811082231.31498-1-tiwai@suse.de
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Stable-dep-of: 1589afe2d099 ("ALSA: 6fire: fix OOB write from device-reported iso length")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/usb/6fire/chip.c | 40 ++++++++++----------
- sound/usb/6fire/midi.c | 21 +++--------
- sound/usb/6fire/pcm.c  | 83 ++++++++++++++++++------------------------
- 3 files changed, 59 insertions(+), 85 deletions(-)
+The A/B test applied the same pending brcmfmac netpoll fix to both
+variants. The driver recorded zero or one dropped packet per run, and
+host capture lost the same number; both netpoll variants showed this.
 
-diff --git a/sound/usb/6fire/chip.c b/sound/usb/6fire/chip.c
-index e5916c6b75aea..30b240e06a8c8 100644
---- a/sound/usb/6fire/chip.c
-+++ b/sound/usb/6fire/chip.c
-@@ -83,24 +83,22 @@ static int usb6fire_chip_probe(struct usb_interface *intf,
- 	struct snd_card *card = NULL;
- 
- 	/* look if we already serve this card and return if so */
--	mutex_lock(&register_mutex);
--	for (i = 0; i < SNDRV_CARDS; i++) {
--		if (devices[i] == device) {
--			if (chips[i])
--				chips[i]->intf_count++;
--			usb_set_intfdata(intf, chips[i]);
--			mutex_unlock(&register_mutex);
--			return 0;
--		} else if (!devices[i] && regidx < 0)
--			regidx = i;
--	}
--	if (regidx < 0) {
--		mutex_unlock(&register_mutex);
--		dev_err(&intf->dev, "too many cards registered.\n");
--		return -ENODEV;
-+	scoped_guard(mutex, &register_mutex) {
-+		for (i = 0; i < SNDRV_CARDS; i++) {
-+			if (devices[i] == device) {
-+				if (chips[i])
-+					chips[i]->intf_count++;
-+				usb_set_intfdata(intf, chips[i]);
-+				return 0;
-+			} else if (!devices[i] && regidx < 0)
-+				regidx = i;
-+		}
-+		if (regidx < 0) {
-+			dev_err(&intf->dev, "too many cards registered.\n");
-+			return -ENODEV;
-+		}
-+		devices[regidx] = device;
- 	}
--	devices[regidx] = device;
--	mutex_unlock(&register_mutex);
- 
- 	/* check, if firmware is present on device, upload it if not */
- 	ret = usb6fire_fw_init(intf);
-@@ -175,10 +173,10 @@ static void usb6fire_chip_disconnect(struct usb_interface *intf)
- 	if (chip) { /* if !chip, fw upload has been performed */
- 		chip->intf_count--;
- 		if (!chip->intf_count) {
--			mutex_lock(&register_mutex);
--			devices[chip->regidx] = NULL;
--			chips[chip->regidx] = NULL;
--			mutex_unlock(&register_mutex);
-+			scoped_guard(mutex, &register_mutex) {
-+				devices[chip->regidx] = NULL;
-+				chips[chip->regidx] = NULL;
-+			}
- 
- 			/*
- 			 * Save card pointer before teardown.
-diff --git a/sound/usb/6fire/midi.c b/sound/usb/6fire/midi.c
-index de2691d58de6e..6c6bccc0c410d 100644
---- a/sound/usb/6fire/midi.c
-+++ b/sound/usb/6fire/midi.c
-@@ -23,9 +23,8 @@ static void usb6fire_midi_out_handler(struct urb *urb)
- {
- 	struct midi_runtime *rt = urb->context;
- 	int ret;
--	unsigned long flags;
- 
--	spin_lock_irqsave(&rt->out_lock, flags);
-+	guard(spinlock_irqsave)(&rt->out_lock);
- 
- 	if (rt->out) {
- 		ret = snd_rawmidi_transmit(rt->out, rt->out_buffer + 4,
-@@ -43,18 +42,14 @@ static void usb6fire_midi_out_handler(struct urb *urb)
- 		} else /* no more data to transmit */
- 			rt->out = NULL;
- 	}
--	spin_unlock_irqrestore(&rt->out_lock, flags);
- }
- 
- static void usb6fire_midi_in_received(
- 		struct midi_runtime *rt, u8 *data, int length)
- {
--	unsigned long flags;
--
--	spin_lock_irqsave(&rt->in_lock, flags);
-+	guard(spinlock_irqsave)(&rt->in_lock);
- 	if (rt->in)
- 		snd_rawmidi_receive(rt->in, data, length);
--	spin_unlock_irqrestore(&rt->in_lock, flags);
- }
- 
- static int usb6fire_midi_out_open(struct snd_rawmidi_substream *alsa_sub)
-@@ -73,14 +68,11 @@ static void usb6fire_midi_out_trigger(
- 	struct midi_runtime *rt = alsa_sub->rmidi->private_data;
- 	struct urb *urb = &rt->out_urb;
- 	__s8 ret;
--	unsigned long flags;
- 
--	spin_lock_irqsave(&rt->out_lock, flags);
-+	guard(spinlock_irqsave)(&rt->out_lock);
- 	if (up) { /* start transfer */
--		if (rt->out) { /* we are already transmitting so just return */
--			spin_unlock_irqrestore(&rt->out_lock, flags);
-+		if (rt->out) /* we are already transmitting so just return */
- 			return;
--		}
- 
- 		ret = snd_rawmidi_transmit(alsa_sub, rt->out_buffer + 4,
- 				MIDI_BUFSIZE - 4);
-@@ -99,7 +91,6 @@ static void usb6fire_midi_out_trigger(
- 		}
- 	} else if (rt->out == alsa_sub)
- 		rt->out = NULL;
--	spin_unlock_irqrestore(&rt->out_lock, flags);
- }
- 
- static void usb6fire_midi_out_drain(struct snd_rawmidi_substream *alsa_sub)
-@@ -125,14 +116,12 @@ static void usb6fire_midi_in_trigger(
- 		struct snd_rawmidi_substream *alsa_sub, int up)
- {
- 	struct midi_runtime *rt = alsa_sub->rmidi->private_data;
--	unsigned long flags;
- 
--	spin_lock_irqsave(&rt->in_lock, flags);
-+	guard(spinlock_irqsave)(&rt->in_lock);
- 	if (up)
- 		rt->in = alsa_sub;
- 	else
- 		rt->in = NULL;
--	spin_unlock_irqrestore(&rt->in_lock, flags);
- }
- 
- static const struct snd_rawmidi_ops out_ops = {
-diff --git a/sound/usb/6fire/pcm.c b/sound/usb/6fire/pcm.c
-index 32c39d8bd2e55..14d23e3103989 100644
---- a/sound/usb/6fire/pcm.c
-+++ b/sound/usb/6fire/pcm.c
-@@ -289,7 +289,7 @@ static void usb6fire_pcm_in_urb_handler(struct urb *usb_urb)
- 	struct pcm_urb *out_urb = in_urb->peer;
- 	struct pcm_runtime *rt = in_urb->chip->pcm;
- 	struct pcm_substream *sub;
--	unsigned long flags;
-+	bool period_elapsed;
- 	int total_length = 0;
- 	int frame_count;
- 	int frame;
-@@ -313,17 +313,18 @@ static void usb6fire_pcm_in_urb_handler(struct urb *usb_urb)
- 
- 	/* receive our capture data */
- 	sub = &rt->capture;
--	spin_lock_irqsave(&sub->lock, flags);
--	if (sub->active) {
--		usb6fire_pcm_capture(sub, in_urb);
--		if (sub->period_off >= sub->instance->runtime->period_size) {
--			sub->period_off %= sub->instance->runtime->period_size;
--			spin_unlock_irqrestore(&sub->lock, flags);
--			snd_pcm_period_elapsed(sub->instance);
--		} else
--			spin_unlock_irqrestore(&sub->lock, flags);
--	} else
--		spin_unlock_irqrestore(&sub->lock, flags);
-+	period_elapsed = false;
-+	scoped_guard(spinlock_irqsave, &sub->lock) {
-+		if (sub->active) {
-+			usb6fire_pcm_capture(sub, in_urb);
-+			if (sub->period_off >= sub->instance->runtime->period_size) {
-+				sub->period_off %= sub->instance->runtime->period_size;
-+				period_elapsed = true;
-+			}
-+		}
-+	}
-+	if (period_elapsed)
-+		snd_pcm_period_elapsed(sub->instance);
- 
- 	/* setup out urb structure */
- 	for (i = 0; i < PCM_N_PACKETS_PER_URB; i++) {
-@@ -338,17 +339,18 @@ static void usb6fire_pcm_in_urb_handler(struct urb *usb_urb)
- 
- 	/* now send our playback data (if a free out urb was found) */
- 	sub = &rt->playback;
--	spin_lock_irqsave(&sub->lock, flags);
--	if (sub->active) {
--		usb6fire_pcm_playback(sub, out_urb);
--		if (sub->period_off >= sub->instance->runtime->period_size) {
--			sub->period_off %= sub->instance->runtime->period_size;
--			spin_unlock_irqrestore(&sub->lock, flags);
--			snd_pcm_period_elapsed(sub->instance);
--		} else
--			spin_unlock_irqrestore(&sub->lock, flags);
--	} else
--		spin_unlock_irqrestore(&sub->lock, flags);
-+	period_elapsed = false;
-+	scoped_guard(spinlock_irqsave, &sub->lock) {
-+		if (sub->active) {
-+			usb6fire_pcm_playback(sub, out_urb);
-+			if (sub->period_off >= sub->instance->runtime->period_size) {
-+				sub->period_off %= sub->instance->runtime->period_size;
-+				period_elapsed = true;
-+			}
-+		}
-+	}
-+	if (period_elapsed)
-+		snd_pcm_period_elapsed(sub->instance);
- 
- 	/* setup the 4th byte of each sample (0x40 for analog channels) */
- 	dest = out_urb->buffer;
-@@ -392,7 +394,7 @@ static int usb6fire_pcm_open(struct snd_pcm_substream *alsa_sub)
- 	if (rt->panic)
- 		return -EPIPE;
- 
--	mutex_lock(&rt->stream_mutex);
-+	guard(mutex)(&rt->stream_mutex);
- 	alsa_rt->hw = pcm_hw;
- 
- 	if (alsa_sub->stream == SNDRV_PCM_STREAM_PLAYBACK) {
-@@ -408,14 +410,12 @@ static int usb6fire_pcm_open(struct snd_pcm_substream *alsa_sub)
- 	}
- 
- 	if (!sub) {
--		mutex_unlock(&rt->stream_mutex);
- 		dev_err(&rt->chip->dev->dev, "invalid stream type.\n");
- 		return -EINVAL;
- 	}
- 
- 	sub->instance = alsa_sub;
- 	sub->active = false;
--	mutex_unlock(&rt->stream_mutex);
- 	return 0;
- }
- 
-@@ -423,18 +423,17 @@ static int usb6fire_pcm_close(struct snd_pcm_substream *alsa_sub)
- {
- 	struct pcm_runtime *rt = snd_pcm_substream_chip(alsa_sub);
- 	struct pcm_substream *sub = usb6fire_pcm_get_substream(alsa_sub);
--	unsigned long flags;
- 
- 	if (rt->panic)
- 		return 0;
- 
--	mutex_lock(&rt->stream_mutex);
-+	guard(mutex)(&rt->stream_mutex);
- 	if (sub) {
- 		/* deactivate substream */
--		spin_lock_irqsave(&sub->lock, flags);
--		sub->instance = NULL;
--		sub->active = false;
--		spin_unlock_irqrestore(&sub->lock, flags);
-+		scoped_guard(spinlock_irqsave, &sub->lock) {
-+			sub->instance = NULL;
-+			sub->active = false;
-+		}
- 
- 		/* all substreams closed? if so, stop streaming */
- 		if (!rt->playback.instance && !rt->capture.instance) {
-@@ -442,7 +441,6 @@ static int usb6fire_pcm_close(struct snd_pcm_substream *alsa_sub)
- 			rt->rate = ARRAY_SIZE(rates);
- 		}
- 	}
--	mutex_unlock(&rt->stream_mutex);
- 	return 0;
- }
- 
-@@ -458,7 +456,7 @@ static int usb6fire_pcm_prepare(struct snd_pcm_substream *alsa_sub)
- 	if (!sub)
- 		return -ENODEV;
- 
--	mutex_lock(&rt->stream_mutex);
-+	guard(mutex)(&rt->stream_mutex);
- 	sub->dma_off = 0;
- 	sub->period_off = 0;
- 
-@@ -467,7 +465,6 @@ static int usb6fire_pcm_prepare(struct snd_pcm_substream *alsa_sub)
- 			if (alsa_rt->rate == rates[rt->rate])
- 				break;
- 		if (rt->rate == ARRAY_SIZE(rates)) {
--			mutex_unlock(&rt->stream_mutex);
- 			dev_err(&rt->chip->dev->dev,
- 				"invalid rate %d in prepare.\n",
- 				alsa_rt->rate);
-@@ -475,19 +472,15 @@ static int usb6fire_pcm_prepare(struct snd_pcm_substream *alsa_sub)
- 		}
- 
- 		ret = usb6fire_pcm_set_rate(rt);
--		if (ret) {
--			mutex_unlock(&rt->stream_mutex);
-+		if (ret)
- 			return ret;
--		}
- 		ret = usb6fire_pcm_stream_start(rt);
- 		if (ret) {
--			mutex_unlock(&rt->stream_mutex);
- 			dev_err(&rt->chip->dev->dev,
- 				"could not start pcm stream.\n");
- 			return ret;
- 		}
- 	}
--	mutex_unlock(&rt->stream_mutex);
- 	return 0;
- }
- 
-@@ -495,26 +488,22 @@ static int usb6fire_pcm_trigger(struct snd_pcm_substream *alsa_sub, int cmd)
- {
- 	struct pcm_substream *sub = usb6fire_pcm_get_substream(alsa_sub);
- 	struct pcm_runtime *rt = snd_pcm_substream_chip(alsa_sub);
--	unsigned long flags;
- 
- 	if (rt->panic)
- 		return -EPIPE;
- 	if (!sub)
- 		return -ENODEV;
- 
-+	guard(spinlock_irqsave)(&sub->lock);
- 	switch (cmd) {
- 	case SNDRV_PCM_TRIGGER_START:
- 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
--		spin_lock_irqsave(&sub->lock, flags);
- 		sub->active = true;
--		spin_unlock_irqrestore(&sub->lock, flags);
- 		return 0;
- 
- 	case SNDRV_PCM_TRIGGER_STOP:
- 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
--		spin_lock_irqsave(&sub->lock, flags);
- 		sub->active = false;
--		spin_unlock_irqrestore(&sub->lock, flags);
- 		return 0;
- 
- 	default:
-@@ -527,15 +516,13 @@ static snd_pcm_uframes_t usb6fire_pcm_pointer(
- {
- 	struct pcm_substream *sub = usb6fire_pcm_get_substream(alsa_sub);
- 	struct pcm_runtime *rt = snd_pcm_substream_chip(alsa_sub);
--	unsigned long flags;
- 	snd_pcm_uframes_t ret;
- 
- 	if (rt->panic || !sub)
- 		return SNDRV_PCM_POS_XRUN;
- 
--	spin_lock_irqsave(&sub->lock, flags);
-+	guard(spinlock_irqsave)(&sub->lock);
- 	ret = sub->dma_off;
--	spin_unlock_irqrestore(&sub->lock, flags);
- 	return ret;
- }
- 
+v1: https://lore.kernel.org/r/20260928064239.32456-1-kmehltretter@gmail.com/
+
+Changes in v2:
+
+- Retry device transmit lock contention on the next tick instead of
+  after HZ / 10. Keep HZ / 10 for a stopped transmit queue or a driver
+  which returns busy.
+- Add the arm64 QEMU A/B results and combined Pi 400/Pi 500+ RT and
+  non-RT hardware results.
+
+Karl Mehltretter (2):
+  netpoll: use a raw lock for the deferred transmit queue
+  netpoll: avoid blocking on the transmit lock in queue_process
+
+ include/linux/netpoll.h |  1 +
+ net/core/netpoll.c      | 83 +++++++++++++++++++++++++++++++++++++----
+ 2 files changed, 77 insertions(+), 7 deletions(-)
+
+Range-diff against v1:
+
+1:  b95097f73f29 = 1:  b95097f73f29 netpoll: use a raw lock for the deferred transmit queue
+2:  bb9c0adcd8a9 ! 2:  30f5c80cea9c netpoll: avoid blocking on the transmit lock in queue_process
+    @@ Commit message
+           process_one_work
+     
+         Use HARD_TX_TRYLOCK() instead. If another CPU owns the lock, put the skb
+    -    back at the head of the deferred queue, restore interrupts and retry
+    -    after the existing HZ / 10 delay.
+    +    back at the head of the deferred queue, restore interrupts and retry on
+    +    the next tick. Keep the longer HZ / 10 backoff for a stopped transmit
+    +    queue or a driver which returns busy.
+     
+         Fixes: 3640543df26f ("[PATCH] netpoll: fix netpoll lockup")
+         Cc: stable@vger.kernel.org # 6.12+
+    @@ net/core/netpoll.c: static void queue_process(struct work_struct *work)
+     +			netpoll_txq_queue_head(npinfo, skb);
+     +			local_irq_restore(flags);
+     +
+    -+			schedule_delayed_work(&npinfo->tx_work, HZ / 10);
+    ++			schedule_delayed_work(&npinfo->tx_work, 1);
+     +			return;
+     +		}
+      		if (netif_xmit_frozen_or_stopped(txq) ||
+
+base-commit: a7bfaba4823e3c165bb2004c74eff7c096672bc7
 -- 
 2.53.0
-
-
-
