@@ -1,38 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECF6A5158A4;
-	Wed, 30 Sep 2026 15:36:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCBD7501F21;
+	Wed, 30 Sep 2026 15:36:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790782575; cv=none; b=LsdSo9y9b5STtgOpBgYlo42FdiRiW0SpP+2k9koFepjyN2irMoZroOpb/CPxSUnnDhDoPgvEwJ+VSik3uDAXz1k//bggkO2Du7wJCejMfmzcsVxtIRvE1nlWJcq8agxG4FDpkhhQGlj3OA5S2QmiwStst363lcVqIj6jocxyZBc=
+	t=1790782576; cv=none; b=mcBR7OwTxP1s4C0EICIi7UtDjFno6cn/dP8VKKjyzDTd3EgNQZvJjTHFnzgGGIYZoq/POuzcqkhl5isKjbhEA/DyjVo0MC7XwrjGYMh40CdXmENEhwsHSTsmQmtWg+hvGBQVB7DPfkkGCxrRrFQQ8S6iMDlnbjlHnARnfBCQ6H8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790782575; c=relaxed/simple;
-	bh=NNIxCsJEttwm7s5gDIcMBEsQuCEfQkJ5VEDen6VQs7Q=;
+	s=arc-20240116; t=1790782576; c=relaxed/simple;
+	bh=5tc2uR0eET0lYWPJwnVdB2UhFaqvgItLUaVUg7dwCIU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dR4YXD6qoVvEWbMOJwwm9fn0frrxyp0VRi2SFCJvpOWkBbrof+jtUf10RjmfmDtx8y5GX5S9+cHVXbJuC8/kOU1oJN/7/oRvaI7P+tMwkmfbInTqLyL8v2+ADingOkUORoWPwuLAYc6LiO0WsOB4eESmXoQIFCRilKSgo/zmQew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=v/IXEHbw; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=f4FBCvpMgT75KpcuG6pm8qiFYwDKs4/lN+85o+Jf4HT2pgjuf6gBF5dWhMUSgV5fuquqGFg5ElwpP+UXMMMcZfc+Am/Ox+zsfeFdkaD3EF4PZOIOErat+cfVps0EOf3mVM1SBPdW1TA7+t6jUxlCuTIBGHMHzoYoqLLapX/uyfY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MsAHDLgW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="v/IXEHbw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01C021F0089A;
-	Wed, 30 Sep 2026 15:36:00 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MsAHDLgW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41FC51F00893;
+	Wed, 30 Sep 2026 15:36:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790782561;
-	bh=7RXB1SOJnekXEoybbbq3e8fQnsHJX33uciGJvgbM4VM=;
+	s=korg; t=1790782572;
+	bh=0BJd/1VEWLlCQxCzZmc0xCspB6+QgaPXCYCOHr5F+Vg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=v/IXEHbwbw+vzIs/Ajc0qi9xS9RChfqVqY4Lvq8pglP0d8MWqfvekF5Pl0Gzyzk6R
-	 6Ykb3JpSMFWoSe3JGcmJTJRlm/qr+7lcelds364OxnwsVAFLIkY5TsnfmXOSjrF/+d
-	 h/dV6lfCLbYZJXrcH5h21z5nm5oeF+680NZUC95o=
+	b=MsAHDLgWgwC4Us16MF7616OlA4dKeQg5RR0WJ6Q+krj7DgciBCg0wN5NIq83ReFDU
+	 6PmeU9sWwPgunC4SQA0jMxcVVUtDOI2i0k6Jij9b1/HSoMsMkPX3/IJwmnFQoyGkIw
+	 njBLTOY+zBa+G9L2fATpkJoNaoyFBTUgkCDcFUSU=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Mark Brown <broonie@kernel.org>,
+	Simon Xue <xxm@rock-chips.com>,
+	=?UTF-8?q?Sven=20P=C3=BCschel?= <s.pueschel@pengutronix.de>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Joerg Roedel <joerg.roedel@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 090/595] ASoC: codecs: pcm3168a: Drop CONFIG_PM-conditional preproc directive
-Date: Wed, 30 Sep 2026 17:19:43 +0200
-Message-ID: <20260930152349.673995696@linuxfoundation.org>
+Subject: [PATCH 5.10 093/595] iommu/rockchip: disable fetch dte time limit
+Date: Wed, 30 Sep 2026 17:19:46 +0200
+Message-ID: <20260930152349.740669503@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152347.700140858@linuxfoundation.org>
 References: <20260930152347.700140858@linuxfoundation.org>
@@ -45,77 +47,97 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 5.10-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Cezary Rojewski <cezary.rojewski@intel.com>
+From: Simon Xue <xxm@rock-chips.com>
 
-[ Upstream commit eb7107264da8545ba7381a76818bae553e1fd1e4 ]
+[ Upstream commit 8d4346ecd4950ae08cc76a6de327c264e846758c ]
 
-Revert changes done in commit 489db5d94150 ("ASoC: pcm3168a:
-Don't disable pcm3168a when CONFIG_PM defined") and add
-pm_runtime_status_suspended() check.
+Disable the Bit 31 of the AUTO_GATING iommu register, as it causes
+hangups with the RGA3 (Raster Graphics Acceleration 3) peripheral.
+The RGA3 register description of the TRM already states that the bit
+must be set to 1. The vendor kernel sets the bit unconditionally to
+1 to fix VOP (Video Output Processor) screen black issues. This patch
+squashes the 2 vendor kernel commits with the following commit messages:
 
-The suspended-check addresses regulator's "unbalanced disables"
-warning during driver removal even when CONFIG_PM is enabled.
+Master fetch data and cpu update page table may work in parallel, may
+have the following procedure:
 
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
-Link: https://patch.msgid.link/20260525201801.1336936-4-cezary.rojewski@intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+	master                  cpu
+	fetch dte               update page tabl
+	        |                       |
+	(make dte invalid)  <-  zap iotlb entry
+	        |                       |
+	fetch dte again
+	(make dte invalid)  <-  zap iotlb entry
+	        |                       |
+	fetch dte again
+	(make dte invalid)  <-  zap iotlb entry
+	        |                       |
+	fetch dte again
+	(make iommu block)  <-  zap iotlb entry
+
+New iommu version has the above bug, if fetch dte consecutively four
+times, then it will be blocked. Fortunately, we can set bit 31 of
+register MMU_AUTO_GATING to 1 to make it work as old version which does
+not have this issue.
+
+This issue only appears on RV1126 so far, so make a workaround dedicated
+to "rockchip,rv1126" machine type.
+
+iommu/rockchip: fix vop blocked and screen black on RK356X and RK3588
+
+RK3568 and RK3588 has the same issue as RV1126/RV1109 that caused by
+dte fetch time limit, So we can set BIT(31) of register 0x24 default
+to 1 as a workaround.
+
+Signed-off-by: Simon Xue <xxm@rock-chips.com>
+Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
+Acked-by: Heiko Stuebner <heiko@sntech.de>
+Signed-off-by: Joerg Roedel <joerg.roedel@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/pcm3168a.c | 20 +++++++-------------
- 1 file changed, 7 insertions(+), 13 deletions(-)
+ drivers/iommu/rockchip-iommu.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/sound/soc/codecs/pcm3168a.c b/sound/soc/codecs/pcm3168a.c
-index 821e7395f90f6..1056a38992cf1 100644
---- a/sound/soc/codecs/pcm3168a.c
-+++ b/sound/soc/codecs/pcm3168a.c
-@@ -813,15 +813,6 @@ int pcm3168a_probe(struct device *dev, struct regmap *regmap)
- }
- EXPORT_SYMBOL_GPL(pcm3168a_probe);
+diff --git a/drivers/iommu/rockchip-iommu.c b/drivers/iommu/rockchip-iommu.c
+index 12551dc117148..b6a656260dea0 100644
+--- a/drivers/iommu/rockchip-iommu.c
++++ b/drivers/iommu/rockchip-iommu.c
+@@ -75,6 +75,8 @@
+ #define SPAGE_ORDER 12
+ #define SPAGE_SIZE (1 << SPAGE_ORDER)
  
--static void pcm3168a_disable(struct device *dev)
--{
--	struct pcm3168a_priv *pcm3168a = dev_get_drvdata(dev);
--
--	regulator_bulk_disable(ARRAY_SIZE(pcm3168a->supplies),
--			       pcm3168a->supplies);
--	clk_disable_unprepare(pcm3168a->scki);
--}
--
- void pcm3168a_remove(struct device *dev)
- {
- 	struct pcm3168a_priv *pcm3168a = dev_get_drvdata(dev);
-@@ -833,10 +824,12 @@ void pcm3168a_remove(struct device *dev)
- 	 * The asserted level of GPIO_ACTIVE_LOW is LOW.
- 	 */
- 	gpiod_set_value_cansleep(pcm3168a->gpio_rst, 1);
++#define DISABLE_FETCH_DTE_TIME_LIMIT BIT(31)
 +
- 	pm_runtime_disable(dev);
--#ifndef CONFIG_PM
--	pcm3168a_disable(dev);
--#endif
-+	if (!pm_runtime_status_suspended(dev)) {
-+		regulator_bulk_disable(ARRAY_SIZE(pcm3168a->supplies), pcm3168a->supplies);
-+		clk_disable_unprepare(pcm3168a->scki);
-+	}
- }
- EXPORT_SYMBOL_GPL(pcm3168a_remove);
+  /*
+   * Support mapping any size that fits in one page table:
+   *   4 KiB to 4 MiB
+@@ -864,6 +866,7 @@ static int rk_iommu_enable(struct rk_iommu *iommu)
+ 	struct iommu_domain *domain = iommu->domain;
+ 	struct rk_iommu_domain *rk_domain = to_rk_domain(domain);
+ 	int ret, i;
++	u32 auto_gate;
  
-@@ -892,7 +885,8 @@ static int pcm3168a_rt_suspend(struct device *dev)
+ 	ret = clk_bulk_enable(iommu->num_clocks, iommu->clocks);
+ 	if (ret)
+@@ -882,6 +885,11 @@ static int rk_iommu_enable(struct rk_iommu *iommu)
+ 			       rk_domain->dt_dma);
+ 		rk_iommu_base_command(iommu->bases[i], RK_MMU_CMD_ZAP_CACHE);
+ 		rk_iommu_write(iommu->bases[i], RK_MMU_INT_MASK, RK_MMU_IRQ_MASK);
++
++		/* Workaround for iommu blocked, BIT(31) default to 1 */
++		auto_gate = rk_iommu_read(iommu->bases[i], RK_MMU_AUTO_GATING);
++		auto_gate |= DISABLE_FETCH_DTE_TIME_LIMIT;
++		rk_iommu_write(iommu->bases[i], RK_MMU_AUTO_GATING, auto_gate);
+ 	}
  
- 	regcache_cache_only(pcm3168a->regmap, true);
- 
--	pcm3168a_disable(dev);
-+	regulator_bulk_disable(ARRAY_SIZE(pcm3168a->supplies), pcm3168a->supplies);
-+	clk_disable_unprepare(pcm3168a->scki);
- 
- 	return 0;
- }
+ 	ret = rk_iommu_enable_paging(iommu);
 -- 
 2.53.0
 
