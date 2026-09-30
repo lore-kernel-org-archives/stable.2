@@ -1,39 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8CAD4FE2C9;
-	Wed, 30 Sep 2026 16:08:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32F984FD26F;
+	Wed, 30 Sep 2026 16:08:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790784522; cv=none; b=dtdykG+gWlKIdRLpgJ3pAAAuOiJcblAuW8Ft22Jyi9VLCmy/jkdfNfWQBRuxiK62TwCBot68s6jcfJpqeiRQhtmB47LkqhGT/swz9alXrWU7K3IsI15mOCOfkvPHTMcUczhxqppt6lEV9ayuXr/AHy8u7D5K6xCv8rQ/qAp6k+s=
+	t=1790784525; cv=none; b=UZsH3PQaJ/c8FgrgiuR16/sjIWfLA0Lc69/Hojirzs3pwoX3/o3MUmu9cpQxl2teuF7NHQR0c4rHUMU2eLHS7MgXfwsJlWsdbI1oaoIM8Oz1Pjq3FrbGxL4rDqXKN9vV6lxVLVUUae7bWIx+4JbymtQ/0FVvBqrK/uPlhIanHvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790784522; c=relaxed/simple;
-	bh=2Tzrc4Vu3XyYJhAympPvDhj2cqHIU0hQVyW/HwQAbvU=;
+	s=arc-20240116; t=1790784525; c=relaxed/simple;
+	bh=eXyEq21gyg6y9zYO51CmbFDz1Xdg/B4pvN8+iLL9DDc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZivrqPSDTFvVbHScIn4OPAzyrcIuVHLCfNjFqtGK4HJTq39RctADlWF9h9U0an+BGVooPwKt8ZeXwIi1VHhoqYDRSXiQQAEhKdCRL/ebnJDaRZ92WfThmj/xxKOfPXC5zgmc2TO2KFXEHJORUDVo0Qu5m92aTIZ1JfO7AOScwQU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=cEcH3QBE; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=T2iv88SMY+eIoyG5S8Z7FSigmdT9YOkdTJn5K2hoCHG/rGld9a83C2MuOuyBuNUFyGJKurVRhkByLqhQQcQzBtoSA34731f8S+QSJNZCW1gw889X8rChkwfpdiMk4nEif6rWk3wp2gZ5ABgWVf8wDrSTeSmUTktIwJu16L9UXGc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hHk+DbpZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="cEcH3QBE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 477EA1F00898;
-	Wed, 30 Sep 2026 16:08:38 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hHk+DbpZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CB7C1F000FF;
+	Wed, 30 Sep 2026 16:08:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790784518;
-	bh=mbKjB24RcoT+Swc1BZOvkKMnHi++dIgE9lqcXc5xuiE=;
+	s=korg; t=1790784516;
+	bh=850s2vaCvHpmDonqlgFz2QP89AV7Ok4czqlLBaUpgdM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cEcH3QBEK7ZTu7/w8vesm2jKTP7CiXmdQTYsrerb+uYKpNzE5BIZKUuR4IkzU4BD/
-	 hgorLMvDhR9yYlaUYfx9/hTZMsexEmQf67yoGDY0OgjRO3/ph2QAQEERftNjcawuLd
-	 S8XnpVHRWFmGtu4mJRAvDdpxJ4Lu7Q21TN4gXyNk=
+	b=hHk+DbpZZxv8dpJd4i6qM5/rL+Alg9dJeKg/FVupluP4KZDKwWluk/s3mQt5yEoXV
+	 fQrACSpyP7khPrhaTufwtCm3d9aj7rHAmmnXdtgsZuOhIR8mfh7N5cJPb+sic0iUTs
+	 QWZG260shaN5KHQ1AeSd8XFH9ckwjtwm8+1dSI5c=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Jan Kara <jack@suse.cz>,
-	Breno Leitao <leitao@debian.org>,
-	Al Viro <viro@zeniv.linux.org.uk>,
+	Samuel Moelius <sam.moelius@trailofbits.com>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 167/982] configfs_depend_prep(): pass configfs_dirent instead of dentry
-Date: Wed, 30 Sep 2026 17:15:03 +0200
-Message-ID: <20260930152420.400186036@linuxfoundation.org>
+Subject: [PATCH 6.1 184/982] Bluetooth: L2CAP: validate connectionless PSM length
+Date: Wed, 30 Sep 2026 17:15:20 +0200
+Message-ID: <20260930152420.770864977@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
 References: <20260930152416.775402466@linuxfoundation.org>
@@ -52,63 +51,48 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Al Viro <viro@zeniv.linux.org.uk>
+From: Samuel Moelius <sam.moelius@trailofbits.com>
 
-[ Upstream commit 764682e0118432260191d194edbdaff208260483 ]
+[ Upstream commit a40a5f922546b3bd7c094d882b29177db4f2abe0 ]
 
-Again, the only thing it uses dentry for is dentry->d_fsdata; for the
-recursive call the situation is the same as with configfs_detach_prep()
-and the same observation about ->s_dentry->d_fsdata applies.
+Connectionless L2CAP frames carry a two-byte PSM at the start of the
+payload.  l2cap_recv_frame() currently reads that PSM unconditionally
+after validating only the outer L2CAP length.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Breno Leitao <leitao@debian.org>
-Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
+A malformed connectionless frame with a zero- or one-byte payload can
+therefore make the parser read beyond the advertised skb payload and use
+tailroom bytes as part of the PSM.  A VHCI-backed QEMU reproducer
+injected a one-byte connectionless payload and reached the unchecked
+read.
+
+Reject connectionless frames that cannot contain the PSM before reading
+or pulling it.  This preserves all valid connectionless frames while
+dropping only structurally incomplete packets.
+
+Assisted-by: Codex:gpt-5.5-cyber-preview
+Signed-off-by: Samuel Moelius <sam.moelius@trailofbits.com>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/configfs/dir.c | 12 ++++--------
- 1 file changed, 4 insertions(+), 8 deletions(-)
+ net/bluetooth/l2cap_core.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/fs/configfs/dir.c b/fs/configfs/dir.c
-index 01c9d54833b30..69762a33dff6b 100644
---- a/fs/configfs/dir.c
-+++ b/fs/configfs/dir.c
-@@ -1060,15 +1060,12 @@ static int configfs_dump(struct configfs_dirent *sd, int level)
-  * much on the stack, though, so folks that need this function - be careful
-  * about your stack!  Patches will be accepted to make it iterative.
-  */
--static int configfs_depend_prep(struct dentry *origin,
-+static int configfs_depend_prep(struct configfs_dirent *sd,
- 				struct config_item *target)
- {
--	struct configfs_dirent *child_sd, *sd;
-+	struct configfs_dirent *child_sd;
- 	int ret = 0;
+diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
+index 836db84816d67..3097ffd654c1e 100644
+--- a/net/bluetooth/l2cap_core.c
++++ b/net/bluetooth/l2cap_core.c
+@@ -7137,6 +7137,11 @@ static void l2cap_recv_frame(struct l2cap_conn *conn, struct sk_buff *skb)
+ 		break;
  
--	BUG_ON(!origin || !origin->d_fsdata);
--	sd = origin->d_fsdata;
--
- 	if (sd->s_element == target)  /* Boo-yah */
- 		goto out;
- 
-@@ -1076,8 +1073,7 @@ static int configfs_depend_prep(struct dentry *origin,
- 		if ((child_sd->s_type & CONFIGFS_DIR) &&
- 		    !(child_sd->s_type & CONFIGFS_USET_DROPPING) &&
- 		    !(child_sd->s_type & CONFIGFS_USET_CREATING)) {
--			ret = configfs_depend_prep(child_sd->s_dentry,
--						   target);
-+			ret = configfs_depend_prep(child_sd, target);
- 			if (!ret)
- 				goto out;  /* Child path boo-yah */
- 		}
-@@ -1098,7 +1094,7 @@ static int configfs_do_depend_item(struct dentry *subsys_dentry,
- 
- 	spin_lock(&configfs_dirent_lock);
- 	/* Scan the tree, return 0 if found */
--	ret = configfs_depend_prep(subsys_dentry, target);
-+	ret = configfs_depend_prep(subsys_dentry->d_fsdata, target);
- 	if (ret)
- 		goto out_unlock_dirent_lock;
- 
+ 	case L2CAP_CID_CONN_LESS:
++		if (skb->len < L2CAP_PSMLEN_SIZE) {
++			kfree_skb(skb);
++			break;
++		}
++
+ 		psm = get_unaligned((__le16 *) skb->data);
+ 		skb_pull(skb, L2CAP_PSMLEN_SIZE);
+ 		l2cap_conless_channel(conn, psm, skb);
 -- 
 2.53.0
 
