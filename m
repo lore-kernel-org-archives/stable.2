@@ -1,131 +1,174 @@
-Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F0A5360EE5;
-	Wed, 30 Sep 2026 02:01:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.153
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9FA9361DAD;
+	Wed, 30 Sep 2026 02:18:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790733679; cv=none; b=XsRTVShN7tCR42hJXbKbbhJkLsoDtwC1IdRt69YuhRXIBdeNCPr62IHaG/uv6pEE/9Sgtxm57S0NbNRjIB44FBN58kDQvCmESKmLjG3PVH25VERi5zTE4bbDMIG24FBX6RnRaor1wkF5doiDKqUCEMw9J26KIzk1wobzpyrCqT0=
+	t=1790734726; cv=none; b=Ij8WpidQu4PD5P9uaWiSdcdhVn43GGzvwP9QykqJk3Cf0Cmw/8o1hNOKhPTne8eu2OSqNiep9mj7bb3whT4ATqdwp0osVZxp2Ov+soOyUeiKs5Kf+1RXs+CUi5bP0MtWCw+cQjdd7VeMr+ibAUglTAwTyqQ41MjqiQk/ZMj1KyM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790733679; c=relaxed/simple;
-	bh=6Pty6e/BsuARxstt0uljApujK3Ir0Y0DM1bCKScy6rU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GsNs0X4H6CQDwXGfBKEMA5EiglPbpp10uOBQLKA4WgzFh5jQeyjAO7al9BQUBgx1FYImIhYoHQ2TFq8e4MqW0qqx8NUb5KPRyObdPmyAiIxb24WkV/dFsnJ8N9lW8xepuuPTilph00kjVhmtEM2whI+AXlCauZOKJQlDz8iTn3w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kode54.net; spf=pass smtp.mailfrom=kode54.net; dkim=pass (2048-bit key) header.d=kode54.net header.i=@kode54.net header.b=b7+GjVH8; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=QfkNs7tN; arc=none smtp.client-ip=103.168.172.153
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kode54.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kode54.net
+	s=arc-20240116; t=1790734726; c=relaxed/simple;
+	bh=pyQO883NRPojRZfYjmQUGAsitV8JX0aRM2i7kZCM2tA=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=KollzBZnDeL/LbMXPsJV/8YHJ/qB4Sst9XghNNk14T/KcwbCQCAHNLu+quGLNg1HYJ99HyMEuxy2sRlo+cbjncIaH8T0GFtNrlXHgbX6RJwMJI5yLbK3/tXd4GL8VzDcYAxS7YVbl15r3MAKZSvHG52D3p4DX/ZOuLngE0TKhUE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QD6c7xJv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kode54.net header.i=@kode54.net header.b="b7+GjVH8";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="QfkNs7tN"
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 3E14C1400327;
-	Tue, 29 Sep 2026 22:01:16 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-01.internal (MEProxy); Tue, 29 Sep 2026 22:01:16 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kode54.net; h=cc
-	:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to; s=fm1; t=1790733676; x=1790820076; bh=Ly1y7IF0HFIJnT198Bnkw
-	vjYBp3S6axzsFhDj3HrqYg=; b=b7+GjVH8jDqsOJb07dLPqpckl5muwt5JQ5jj9
-	ChheHJCM+JPSUesXBSvqkhAaTEW6a65PEXGl9r+h5KfizEegZNUBtimNGF++nmzs
-	yn01i+DDLBme36oRQJsvfr35g3Ti5lvV28JqhX18wXGaVQl/l3mrQKP/Du0vNX9e
-	vhpSllUOaa+C/VmgjzhvUpGw/Zl9eNP7gKb+2SZvWvYHplDgYXHrf9wPlJ6BTKWg
-	hIMPJX8f0R4i/a3ogwCu6HPy9RUtMgooc+mDTURmZYbDFRGKHwkUoFmr5R8ksC7C
-	ZwiTNxMRV0ste3SgrJHaIxADexO/ekKccqUg5HcsypKjN99ag==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1790733676; x=1790820076; bh=Ly1y7IF0HFIJnT198BnkwvjYBp3S6axzsFh
-	Dj3HrqYg=; b=QfkNs7tNOw7vLOA2lNNeq7manuCMoUHx6QYDhhzhwX5BMGWW2aH
-	CSqJDHP423jMVwgVBY3iy4Sf2ZmCgHive5mKw2tpjtVpQ70SRIS+jl4LV7fs0wVm
-	PkvlyL2Tw2+0cyKIXiOAcR9c99/IYCgor+6tH+sKD1pF2wV/alGKMvNFynElfVol
-	xrZcD5zMkyzkFId7+fGCyRjfelHRgHDLF2jPDELW4eewRA1MVmy/0gYI8uIu/vkq
-	t3pC1Or28t0ovCr3OsWdjt5IBb18bX/7jQB/MvBJhAVMgfgXtfJcAzGs+p+5i9DC
-	X8pcy8e3s7J22sQ+mKdxuOKcyH4Qz/5ogaQ==
-X-ME-Sender: <xms:a228aruYAANBIZ_nTejCL87INVWs0jD0n0KkUet4Jm5ivk9fxHVP6w>
-    <xme:a228anYoDVab2hiCzassLdKASxVRK3m_eMfhkVk3sqI_PDQKirMeZ8O5tPuPPDbsX
-    JnG1X02EvZDnpiA45MlnUe7z1e1J26gu2wPcrckiYbDuGn20aiRMQs>
-X-ME-Received: <xmr:a228aty0xCR-Hfkp5qkpFLFEPK7PlhR5QydNOdwMztM_0ipyxkQ7JXmqEknbXo9VomNz0jtuAoluY7gr1ZEZtAo>
-X-ME-Proxy-Cause: dmFkZTEPMcW4vJDRdzUnK4djoVSsdnnwRjLFCruDVjPsainYLB3oKAY+Ex2CsDtt1nZMBo
-    26hA70uBS+4BCKyGravu0b+omsVL7olxrH2bXo3Yq4HauTMapEuzjlxhVWJcRVPjwXuxY3
-    Efb2SbE88HdXj3HYDi1+RTPwKr2u68xwBhhBGfvFk+TUG9VBMUldyuu1/e8xYuy2tBEAiK
-    zgxNU7y5s/o51HBmnBhk6G7SAHNVNRImGUU0FXy/zvvqdDB2b3Uf5ZGHMnOGcoZwQq4Qv2
-    opeg/GAk7/S8/wJIIeomnOA64/yxeGleGp4K2t1Fp9k+hvvc0mCY+sVQHTq3FAv3tTb3Iq
-    4BkFENAYsD8h9CllKFwYuIujipg6GmKBNyns9iW5mJ7DF+zh/65FtAYXLZKnw6vin8mHKF
-    qHvG4WdmGjnv46Lxkj7PUG2mzik/+poWG0HhRidWKKHP3GpwrbsZtYxZeKZP7XW+11kQJv
-    imi7+HlQcKlazV8MDTBdcMgKeSMiQbD8QK4xI0j/+Dk+h/OodZTMOBm/AYLObYrFx/0fNI
-    M0i/nOkmvtMUhMYNaDEPN3guS28p+kchTchSaeILx4ItD2uZmNQIrtTOrhYEK73Y+Y93h7
-    XaSC3DZ5MhGPoQVkgQLexAbtbsHzmhW99xSHJDhizml/L1wSy7apTWAyZeQg
-X-ME-Proxy: <xmx:a228avit3OORqY-347gSy4GgAr7ceZlBw6Qf1LlNAIjwkwGeU3iedw>
-    <xmx:a228apm-JqXDB4j7-W7eEXjPJxD9xImJJAzFXN-_iBCd6UiU4MyuBQ>
-    <xmx:a228algLeBKv6zUrk5wBHjkORrB0O9uUGv8Y4kWzeh9vdkiajSLXvA>
-    <xmx:a228at24IsT-BfZxoa18BY3LuR9d7NTEgDPtHzZ5xvypwOZK58cXSQ>
-    <xmx:bG28atDyTFSEw43bC4wdIccUpgL1tHMjJjvGuHONsjDJQMykGR3D7l-P>
-Feedback-ID: i9ec6488d:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 29 Sep 2026 22:01:14 -0400 (EDT)
-From: Christopher Snowhill <chris@kode54.net>
-To: "Mauro Carvalho Chehab" <mchehab@kernel.org>
-Cc: Christopher Snowhill <chris@kode54.net>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	"Bradford Love" <brad@nextdimension.cc>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: em28xx: fix inverted tuner capability check for VBI device
-Date: Tue, 29 Sep 2026 19:00:06 -0700
-Message-ID: <20260930020010.85250-2-chris@kode54.net>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QD6c7xJv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F9911F000FF;
+	Wed, 30 Sep 2026 02:18:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790734725;
+	bh=czR0nRm9zndX2MO0cGAliR6Gzy/xWJTBTrMUpOVt7/E=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=QD6c7xJv0aWYw7/xOP+DyARXqsG/eRnXAALehGoLHvVtqdDa6xTOFsHszmwt7HpLY
+	 Mi+PMgpIuKPRL86MYagoYbO2iQ7+BYGGbf+J5l4DYuZuKcitDaEjndMZokLhdcsNhg
+	 ks2SZNtKrT2VEJ9QzlFyCUamwIDONiavQCT5yitVv7UghW9To4IvKlivURgFFdCzll
+	 OytDCRwjA92OHesxOgriFjhJpIDOvlpp2PAjehlluxlU6bkhTts3aYzKYYDPArin2d
+	 K8invIJ6slkkV7moJCdHBf2J94E9Nt7UGkxj5qfHTq6HPnT9l5oI4oWQUlG0spkR44
+	 eA5mr1VvCgT9w==
+Subject:
+ Re: [PATCH net v2] tipc: reject name table updates with invalid origin node
+From: netdev-bot+sashiko@kernel.org
+To: juny24602@gmail.com
+Cc: tung.quang.nguyen@est.tech, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, jmaloy@redhat.com,
+ junvyyang@tencent.com, stable@vger.kernel.org, corvus@tencent.com
+Date: Wed, 30 Sep 2026 02:18:44 +0000
+Message-ID: <179073472418.434549.10884281621721922226@kernel.org>
+In-Reply-To: <20260928021807.7945-1-juny24602@gmail.com>
+References: <20260928021807.7945-1-juny24602@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Commit 8e53399c63c3 ("media: em28xx: Add support for Empia em2828X
-bridge") changed the condition for setting V4L2_CAP_TUNER on the VBI
-device from "dev->tuner_type != TUNER_ABSENT" to a check of the video
-device's capabilities, but inverted it: the VBI node now advertises a
-tuner only when the video node does not have one.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-On boards without a tuner (e.g. the MyGica iGrabber, card=105) the VBI
-device's device_caps therefore contain V4L2_CAP_TUNER, while the shared
-vidioc_querycap() correctly omits it from cap->capabilities. This trips
-the sanity check in v4l_querycap() whenever the VBI node is queried,
-for example by udev's v4l_id on every hotplug:
+Critical: 0 · High: 1 · Medium: 0 · Low: 0 (1)
 
-  WARNING: drivers/media/v4l2-core/v4l2-ioctl.c:1119 at v4l_querycap+0xff/0x110 [videodev]
-  (cap->capabilities & (vfd->device_caps | V4L2_CAP_DEVICE_CAPS)) != (vfd->device_caps | V4L2_CAP_DEVICE_CAPS)
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-It also leaves the tuner ioctls enabled on the VBI node of tuner-less
-boards and disables them on boards that do have a tuner.
+- [High] The fix is incomplete: it does not check the origin node against
+  the peer that sent the message, so the same stale binding_node use-…
 
-Restore the intended logic so the VBI device has V4L2_CAP_TUNER exactly
-when the video device does.
+Pre-existing issues:
+- [Low] This problem wasn't introduced by this patch, but the kernel-doc
+  for tipc_update_nametbl() in net/tipc/name_distr.c (lines 268-278)…
 
-Fixes: 8e53399c63c3 ("media: em28xx: Add support for Empia em2828X bridge")
-Assisted-by: LLM
-Signed-off-by: Christopher Snowhill <chris@kode54.net>
-Cc: stable@vger.kernel.org
----
- drivers/media/usb/em28xx/em28xx-video.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+--
 
-diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
-index c418add65bb5..cdf1dc692b08 100644
---- a/drivers/media/usb/em28xx/em28xx-video.c
-+++ b/drivers/media/usb/em28xx/em28xx-video.c
-@@ -3001,7 +3001,7 @@ static int em28xx_v4l2_init(struct em28xx *dev)
- 		v4l2->vbi_dev.queue->lock = &v4l2->vb_vbi_queue_lock;
- 		v4l2->vbi_dev.device_caps = V4L2_CAP_STREAMING |
- 			V4L2_CAP_READWRITE | V4L2_CAP_VBI_CAPTURE;
--		if ((v4l2->vdev.device_caps & V4L2_CAP_TUNER) == 0)
-+		if (v4l2->vdev.device_caps & V4L2_CAP_TUNER)
- 			v4l2->vbi_dev.device_caps |= V4L2_CAP_TUNER;
- 
- 		/* disable inapplicable ioctls */
+tipc: reject name table updates with invalid origin node
+
+This patch adds an in_own_node() check at the start of
+tipc_update_nametbl(). Name table updates whose origin node is 0 or the
+local address are now dropped before any publication is inserted or
+removed. The goal is to stop a stale binding_node from being left on a
+peer's publ_list after kfree_rcu().
+
+> diff --git a/net/tipc/name_distr.c b/net/tipc/name_distr.c
+> index ba4f4906e13b7..a496e2e9ef623 100644
+> --- a/net/tipc/name_distr.c
+> +++ b/net/tipc/name_distr.c
+> @@ -286,6 +286,9 @@ static bool tipc_update_nametbl(struct net *net, struct distr_item *i,
+>  	u32 key = ntohl(i->key);
+>  	struct tipc_uaddr ua;
+>
+> +	if (in_own_node(net, node))
+> +		return false;
+> +
+
+[Severity: High]
+Does this fully close the problem described in the commit message? The
+message names the root cause as orignode never being checked against the
+sending peer. This check only filters two special values, so any other
+spoofed origin X still gets through.
+
+In tipc_named_rcv() the origin still comes straight from the header:
+
+    node = msg_orignode(hdr);
+    ...
+    tipc_update_nametbl(net, item, node, msg_type(hdr));
+
+In tipc_rcv(), the peer n found through msg_prevnode() is not passed
+down, so nothing compares node with n->addr:
+
+    tipc_named_rcv(net, &n->bc_entry.namedq,
+                   &n->bc_entry.named_rcv_nxt,
+                   &n->bc_entry.named_open);
+
+Could a link peer A still reach the same list_del_init() use-after-free
+through a node X that is known but not up? That could be a node A creates
+with discovery frames, or a real node that went down recently. The
+sequence would be:
+
+1. A sends a PUBLICATION with origin X. tipc_node_subscribe() does not
+   check node_is_up(), so it links p->binding_node into X->publ_list:
+
+    tipc_node_write_lock(n);
+    list_add_tail(subscr, &n->publ_list);
+
+2. After delete_at expires, tipc_node_timeout()->tipc_node_cleanup()
+   removes X:
+
+    if (!node_is_up(peer) && time_after(jiffies, peer->delete_at)) {
+        tipc_node_clear_links(peer);
+        tipc_node_delete_from_list(peer);
+
+   X is then freed through tipc_node_put()->tipc_node_kref_release()->
+   tipc_node_free(). Nothing on that path empties publ_list. publ_list
+   is only purged on NODE_DOWN via tipc_publ_notify(), which has either
+   already run or never runs for a node that was never up.
+
+3. A recreates X with discovery, so tipc_node_create() allocates a new
+   node. A then sends a WITHDRAWAL with origin X and matching
+   type/lower/upper/port/key. tipc_node_unsubscribe() finds the new X and
+   runs:
+
+    list_del_init(subscr);
+
+   This goes through binding_node pointers that still point into the
+   freed tipc_node.
+
+A spoofed origin for a node that does not exist at all also looks like a
+problem. tipc_node_subscribe() only warns in that case, and the
+publication is not purged when A goes down. That would let a remote peer
+fill the name table with entries that are never cleaned up.
+
+Would it be better to require msg_orignode() == n->addr for the node that
+owns bc_entry.namedq? For example, n or its address could be passed into
+tipc_named_rcv() from both callers in net/tipc/node.c. That check would
+also cover the 0 and own-node cases, so it could replace this one rather
+than sit next to it.
+
+[Severity: Low]
+This is a pre-existing issue that this patch didn't introduce. The
+kernel-doc above tipc_update_nametbl() no longer matches the function:
+
+ * tipc_nametbl_lock must be held.
+ * Return: the publication item if successful, otherwise NULL.
+
+The function is static bool and returns only true or false. There is no
+tipc_nametbl_lock symbol. The caller tipc_named_rcv() actually holds
+tn->nametbl_lock through spin_lock_bh().
+
+This patch adds another return false path. Since the function is being
+changed anyway, could the comment be updated at the same time? The only
+caller ignores the return value, so there is no runtime impact.
+
+>  	/* A peer-advertised binding with lower > upper can never be matched
+>  	 * or withdrawn and would leak the publication; the local bind path
+>  	 * rejects such ranges, so reject ranges learned from the network too.
+
 -- 
-2.55.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928021807.7945-1-juny24602%40gmail.com
