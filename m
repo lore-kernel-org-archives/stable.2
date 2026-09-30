@@ -1,258 +1,307 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C50735C691
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 04:56:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790744195; cv=pass; b=dtC+kdm3sjtW9E4cEOLVt4j4dPu9yWzTlWQniWUFhvZe92NSb7YYek0cQtc7iecIsTNjWpxh8kjGOdD6kQDlsWXKemvDq0i6hRYnm+3SS8T3dNaCKsBxSfpLK3bJ/70QP/otDPgn+w/vf9O7zBD1OVNaWkt6LWcSfTPT2gAvqfE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790744195; c=relaxed/simple;
-	bh=aijIq6MG49th3NxWEi1RYjXRzGo8e6tnPdyVZG7VoU0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uSuwvppCLlzGqwC4nZa5z6g6BX/GZMmyGUc1zPxgfZ4qzhPiJvJ6ysuh51ElNgMguWhUYaFq7lsoGCniuTYWB9rQD0CUFggwTs/EUb1pSHgZ4MOJV2xEfyn8BnLQWzQEmPmwWL5b4T+9+jBRAwQYRPJOoQ805FQS0nxs/dlnLL8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BsPfNluM; arc=pass smtp.client-ip=74.125.224.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46B242EEE65
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 05:03:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790744610; cv=none; b=hMvIIB2Fa3nK/KwyULpMAMrpzYWa0piQ3watNkEX1IU7HORWoNXd2MizD5xiys+KCIk/UiLanTifP7PhaFcothJ060aiugfA61RYNpo0AiCyCBvF7yZ3IQ6WcWGGo52PuBmKUo7W1PTlXgtalcFginNqyu5xSyy+j6OhA8qAsLQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790744610; c=relaxed/simple;
+	bh=cz7Y88W1/MR7TOjVwtNAZwqRv3ta4ZweRoDB77wkbwU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VaD9fQNDXsYvg4xjyw0L5CkE1cV8u2owc7mOG9thcwPLCVNyX304tb3TGYN8alg1GnQV1YkRDHQbpuqh1li/eEcnGLJwMCWb2Yk1HAjDlTrkftG2U5lgT6jjJ1gIgQtP/bauwIKb60gBvpSk0QORP/4vwnzjf/TQ6psUvmJJy4o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TZPw6IMA; arc=none smtp.client-ip=74.125.229.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BsPfNluM"
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4ab22370so4383970d50.3
-        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 21:56:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790744193; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Wm9JetT12Zj466jLOhfamA6UA8zs0xUdrCtKOJPYX/+K7R+pRFGC9lktUHgAqy2kIs
-         JrtfigS+2ff8JzEzrCCma5JKM5Mb6c4cspuPON/9JY6gN1BCxEdDdCkmVSlbPRGpdpfY
-         snwX9qELIk1aRxq5wFmzNdlMsKMQBnqp35zu/1qf18dsSHiAjZQoSYxAYFMqYgk1Bh9/
-         0JNSeS3rcYLoMaOZOr9EzD/2nrcAWKxQI+xv8uC8lajST3XpH7bfvBNtupaC27DkMGkL
-         mzLFX9vN1apheSaJqLyTXuoy0+SL9o4NFi39qxWyyqB+Uoi6/W/oxl2AVBMlgQu5+ujA
-         C8fA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=YazpLo8uOEsrRzgBDuZEHvPTChLlaZapwZA6DqRFIGE=;
-        fh=DIm9aBAtvwP1+ewterpU/fl48p9g0Koq0byCLF70dCQ=;
-        b=oti6XAViafe/3JJl3NyBKfeTI1S1yKi7wnhHYQCEtV8wS/fBGPtAISiP0vDlantGdP
-         5TKaYOpJnNDSBp3kEnUPQCSpJkdrVoLv9xKMtyLUI463QXJvZp6JidlICBhnENPHhSSE
-         9PT1FhP4JrutxwmmMWRTwLC3rHsla+EHmmdUe8mQSe7pn10HgA1w3ecsSYMKeiD/reG7
-         lEvkfKno7ESBtg8K0Mosd46R6wmMalLhi9ZydFG2h0zgbBQkiMP+KVwT5Rkj9hWX5EtV
-         WcA+ysvrjZ+tLMG8EV35s2UPLkFUP6YjM1mua279i9uOFlUluVbdLyoiHp5jn7/29aDD
-         xZQQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TZPw6IMA"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e46a15703so4709589eec.0
+        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 22:03:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790744193; x=1791348993; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YazpLo8uOEsrRzgBDuZEHvPTChLlaZapwZA6DqRFIGE=;
-        b=BsPfNluMyV7VnbDx8bcRuJLa4SEFo0DgwXPjaEIuDdc0oWXf3kKnzF62jQE6biHBCH
-         ATxkbkB8adjFF3aqLYM3jJd7zMMyOCn/2gbDlAw9qpHgcbPKC0yCOtT/xh0fyZpKCLyB
-         hE7Jtmswmb0ySZxaORv2IoJb3Eax9+geI2nCpQrPxIzSdNLcdJFmRlgx2q+PtQxkDgbu
-         RdqY8j7SKp4Bgnvf0I1rLEHWHb1rxZbTOF8+Vk1ynsN6OQVzQCiSrL5jIYF0F5Dbk+iR
-         0cRkU66G08rWsPN5ECNwGrsR27YzbhwD+5HWxCOG7azhtfU15ApGqMOvTXE+cNPz/GIB
-         JWbg==
+        d=gmail.com; s=20251104; t=1790744608; x=1791349408; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=p812JoT9Qpf/qzrDI26kiElznMM0AcMiAysZGcluPEo=;
+        b=TZPw6IMAXb2rUwGv2ko6bI6GEop1jS66s7rmQ1CZZqble+iJy2VUo2jRD7a786ZwMY
+         Mpdvu1VOkmaqtr8X+p10S4TtCJM9EgRm8SWiMZj1Vn4WMHQuRNoQppBMt4I+CqAz2KAV
+         VRbXztFmUVzhxIpiQw9vV+mZqwUjdv00x5NeV5FGwj0Jl95xWdSSnYfTz1pOSSREOLE+
+         9/sGLvCag0ftfiNLRC+k/3KUdSwZGsEmSudkdPvgpP+sXdaRqWCUt800tw+NHbOVX3u1
+         vqPydA/NyhebMNxOCgLa+IeFsrgZ7DN1ure8kkmRxrhpmUerGYhJCrSiAkNh/6W7krvm
+         NK9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790744193; x=1791348993;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YazpLo8uOEsrRzgBDuZEHvPTChLlaZapwZA6DqRFIGE=;
-        b=iNwFpClCEtEUdwRSgsr/qv9ohAn3k4QxbiB4FQULBfz17zMomX/kDfEIeOcGwTySxh
-         OAqlnY2VS5ZYVe0khhfD4li5ngm8w1AnpBMMdxemzSk5UZSeSkVGPJb9xYLBaY2br0k/
-         oH0U54CeonBlIO9bZUgVCMd1KRAzJI+sN8i/CLRKHOn5B18cA8rxfr9+y6x1KJmBMHdC
-         gm6daAfJtic0pJkijv7cZvPjCSy1j72g7GoNqzFfuQUdK/dPehn5+HSNzN5bF136HVVW
-         2rQNsSa+k8Xp95zhJBIdgnerSoFbov5A2XKl7YNVUOZ38tGbdzxMzXgJBEYku6tvKLFz
-         beMw==
-X-Forwarded-Encrypted: i=1; AKwUvBwezqiZHt++cbDpuwtcUQetGP8PaZiBa2cDiONqiDAw5NtSvNSPqxSUs+aklMOQP3yo3czYI8U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLU3OMwglnmJbMJ+l/iLvQBCvZ8+77WCkJtULR9paC6o0Q3Iv88
-	GNTUi6zHUTZ5BdvrIwCzwrXFZN9xIFXVrPbgS6iNUfjI0x4uQzZ/06tqqhY9+O/gCtrIFzS6Dkx
-	60dz0eSTO0R0b1/8TUW4tNfp5JZ98cMU=
-X-Gm-Gg: AYBFou1Jz6FHO7RYHO5hkSyvGucDzax8MZhPbuohUvk3wpnU1OoR6LcoF2/l81R5ocO
-	/6lQP8XaH4mFb7U5x1iosnKxWI+HLhfWQENm4jpZsbANUPVjO6ymFmK6htKna/8mX2QwSDXcHp4
-	8iWb+raOYTkBPmKgbl3caKMXP65KCs4/CkklEQd+PZ/bbkBsI2C42w+F/Zo/67nIe1LRCTAZZz3
-	PhTpL3yZ0ixh+cdkLcew9i/mlSw1tJMbnsFgoyg+zh8uGEMeyYJzx+jr9RNf97cImsMOILMvijQ
-	a4ldH0uCmhWkAC7mH1LQecizKNbYYnLXfDx9gPhds5J5ho6NoI3i3/TfIxQlog6XZfQ=
-X-Received: by 2002:a05:690e:4197:b0:675:39f6:9bca with SMTP id
- 956f58d0204a3-676834a58f0mr102811d50.58.1790744193227; Tue, 29 Sep 2026
- 21:56:33 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790744608; x=1791349408;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=p812JoT9Qpf/qzrDI26kiElznMM0AcMiAysZGcluPEo=;
+        b=asEB2RBzEDgRqESH99ckoct7toyKvw7x9bSbaNCcp6ffgwMOtExE34rsm8iwlKXoZY
+         SQUuFIoFvWRxreOcv0qlOiS8s9mNaL+z5G1Fns2qks4cRd4CAEOFpBcJZdufCGxREo13
+         s+N44gIbL0ToH3v/U2qz2QWqTmeo5GI6TQPU1Qe8QMVdIODp1Q9eKOs4OLCAzOYJntKc
+         Y21lXVLvuLswhX5yeJ5pfo7BQ+Vrqvz2Qtcserle0AnO7yyEWk/TrMNC6zeLrBRSdOwx
+         1SKcd9IXfP4g4aH0CeMYjIdFCKsxwGLxD5x3nUcAwhtyi4CYWtu4RaYBCQ/ChoIZePZt
+         7lZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwCIXVg9NWko9zXHhMlfDSm5JGMmi6MV91A6pmgpRZVFch/Mu2B8zeHaThhO5RRXy9v/hRxAHg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJzl05nXr5/N7sknbiLuLyb4kYrME42KlmH1nd4jWHFMGb9mwic
+	AruuHmCQNmuBc+SMCk6/RpvzOFJaDkdPrUdcVPlGS9N/it2Sq5A7R6xn
+X-Gm-Gg: AYBFou0CGNqgp4Jk3+4dHlsLsiY2BSdIFoPhKayUYhuiT11DuAnTHxWKfJabxbN4bhk
+	hB9ar5IUK/CjXzoJbBhvnmrh4nyWXJX8r2fwWPt17Q26Y4B2tq70ctrnKzP1Hl11QEm9dO4733P
+	o8x2F4SUb51syZp9sBFIfmHASJdOX+PAc2mq5rqgo79pw1PjmfBkoby/nyLIZN2NEtYyQti5c/4
+	famzSGR/ez5e2JG+miTAGzVwYhEPIYCg60wcXvzgP5aa65bVKbCHhOYcQyPvQcMxT89eI/k+LyG
+	2QeWIjAgvR1XDwLn8lW7CEJ20S1wsdtXI92nKMlAw9rRVm75VO3KW22aYC7uf+BVwRVh/phD0Cw
+	bKEEYGlK+XQx+xDiTpZbBKHnnJudrPTuPVxCWUFMz5JxW5SsSU1KvcipvoHtXF93ZNtv0yOD/7w
+	XceYzZ4j45gBe4Kv3R9edf2sJe2KBAerZfokLzhHp2g7FBLOvAASs7C2OVJSEw4X/fxGtFXqs=
+X-Received: by 2002:a05:693c:2808:b0:34c:e77c:f92b with SMTP id 5a478bee46e88-34ce77cfa16mr437889eec.38.1790744608003;
+        Tue, 29 Sep 2026 22:03:28 -0700 (PDT)
+Received: from fox.. ([43.242.224.196])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34cf4a63ac9sm772160eec.10.2026.09.29.22.03.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 22:03:27 -0700 (PDT)
+From: Roshan Kumar <roshaen09@gmail.com>
+To: netdev@vger.kernel.org
+Cc: steffen.klassert@secunet.com,
+	herbert@gondor.apana.org.au,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	chopps@labn.net,
+	linux-kernel@vger.kernel.org,
+	lilly@aronleigh.au,
+	shubham@octane.security,
+	gio@octane.security,
+	robert@octane.security,
+	paolo@octane.security,
+	Roshan Kumar <roshaen09@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net v3 1/2] xfrm: iptfs: track independent drop deadlines
+Date: Wed, 30 Sep 2026 10:33:06 +0530
+Message-ID: <20260930050307.1978654-2-roshaen09@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260930050307.1978654-1-roshaen09@gmail.com>
+References: <20260930050307.1978654-1-roshaen09@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260920055519.3778269-1-lgs201920130244@gmail.com>
- <CAKfKVtGZH8OaXp0WtJSD7AAQb8BSWg=xo+x9jj1sbjSxjEanGg@mail.gmail.com> <CANUHTR_yAgnZN05PBLae3DSk3xo0haLRRgHyKxswSYDE2tHgFQ@mail.gmail.com>
-In-Reply-To: <CANUHTR_yAgnZN05PBLae3DSk3xo0haLRRgHyKxswSYDE2tHgFQ@mail.gmail.com>
-From: Shubhrajyoti Datta <shubhrajyoti.datta@gmail.com>
-Date: Wed, 30 Sep 2026 10:26:20 +0530
-X-Gm-Features: AclHuK_5dLBTDCM2a4gpvqnnswpJIWECN6q0YsymVQT1CjxevikTIfBgbHvWtBg
-Message-ID: <CAKfKVtFkZ-T==D2-3OJeWUsRAzCE7_YP9kW1dDA0d3kjVWfBFg@mail.gmail.com>
-Subject: Re: [PATCH] EDAC/versalnet: fix memory leak on device registration failure
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>, Borislav Petkov <bp@alien8.de>, 
-	Tony Luck <tony.luck@intel.com>, linux-edac@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 24, 2026 at 7:45=E2=80=AFPM Guangshuo Li <lgs201920130244@gmail=
-.com> wrote:
->
-> Hi Shubhrajyoti,
->
-> Thanks for pointing that out.
->
-> On Wed, 23 Sept 2026 at 23:03, Shubhrajyoti Datta
-> <shubhrajyoti.datta@gmail.com> wrote:
-> >
-> > On Sun, Sep 20, 2026 at 11:25=E2=80=AFAM Guangshuo Li <lgs201920130244@=
-gmail.com> wrote:
-> > >
-> > > init_one_mc() allocates dev with kzalloc() and registers it with
-> > > device_register(). If device_register() fails, the device has already
-> > > been initialized and holds its initial device reference.
-> > >
-> > > The current error path eventually frees dev directly with kfree().
-> > > This bypasses the device release path and can leak driver-core
-> > > resources associated with the initialized device. The existing
-> > > versal_edac_release() callback is responsible for freeing dev once th=
-e
-> > > device reference reaches zero.
-> > >
-> > > Call put_device() when device_register() fails so the initialized
-> > > device reference is dropped and versal_edac_release() performs the
-> > > proper cleanup. Return after freeing mci to avoid falling through to
-> > > the direct kfree() path, which remains necessary for failures that
-> > > occur before device_register() is called.
-> > >
-> > > The issue was identified by a static analysis tool I developed and
-> > > confirmed by manual review.
-> > >
-> > > Fixes: d5fe2fec6c40 ("EDAC: Add a driver for the AMD Versal NET DDR c=
-ontroller")
-> > > Cc: stable@vger.kernel.org
-> > > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> > > ---
-> > >  drivers/edac/versalnet_edac.c | 6 ++++--
-> > >  1 file changed, 4 insertions(+), 2 deletions(-)
-> > >
-> > > diff --git a/drivers/edac/versalnet_edac.c b/drivers/edac/versalnet_e=
-dac.c
-> > > index 3a06b41c1d84..db3bf5a1345b 100644
-> > > --- a/drivers/edac/versalnet_edac.c
-> > > +++ b/drivers/edac/versalnet_edac.c
-> > > @@ -829,8 +829,10 @@ static int init_one_mc(struct mc_priv *priv, str=
-uct platform_device *pdev, int i
-> > >         dev->release =3D versal_edac_release;
-> > >
-> > >         rc =3D device_register(dev);
-> > > -       if (rc)
-> > > +       if (rc) {
-> > > +               put_device(dev);
-> > >                 goto err_mc_free;
-> > > +       }
-> >
-> > There was a comment earlier from sashiko
-> >  failure path calls put_device() with dev->init_name still pointing at =
-a stack
-> > buffer before device_add() copies it. That's unsafe in
-> > principle (dev_name() would follow init_name)
-> > >
-> > >         mci->pdev =3D dev;
-> > >         mc_init(mci, dev);
-> > > @@ -852,9 +854,9 @@ static int init_one_mc(struct mc_priv *priv, stru=
-ct platform_device *pdev, int i
-> > >         device_unregister(mci->pdev);
-> > >  err_mc_free:
-> > >         edac_mc_free(mci);
-> > > +       return rc;
-> > >  err_dev_free:
-> > >         kfree(dev);
-> > > -
-> > >         return rc;
-> > >  }
-> > >
-> > > --
-> > > 2.43.0
-> > >
-> > >
->
-> Would splitting device_register() into device_initialize(), dev_set_name(=
-),
-> and device_add() be a reasonable way to handle this? For example:
->
-> diff --git a/drivers/edac/versalnet_edac.c b/drivers/edac/versalnet_edac.=
-c
-> --- a/drivers/edac/versalnet_edac.c
-> +++ b/drivers/edac/versalnet_edac.c
-> @@ -64,7 +64,6 @@
->  #define XDDR5_BUS_WIDTH_64 0
->  #define XDDR5_BUS_WIDTH_32 1
->  #define XDDR5_BUS_WIDTH_16 2
-> -#define MC_NAME_LEN 32
->
->  static int init_one_mc(struct mc_priv *priv, struct platform_device
-> *pdev, int i)
->  {
-> @@ -730,7 +729,6 @@ static int init_one_mc(struct mc_priv *priv,
-> struct platform_device *pdev, int i)
->   u32 num_chans, rank, dwidth, config;
->   struct edac_mc_layer layers[2];
->   struct mem_ctl_info *mci;
-> - char name[MC_NAME_LEN];
->   struct device *dev;
->   enum dev_type dt;
->   int rc;
-> @@ -773,13 +771,17 @@ static int init_one_mc(struct mc_priv *priv,
-> struct platform_device *pdev, int i)
->   goto err_dev_free;
->   }
->
-> - sprintf(name, "versal-net-ddrmc5-edac-%d", i);
-> -
-> - dev->init_name =3D name;
-> + device_initialize(dev);
->   dev->release =3D versal_edac_release;
->
-> - rc =3D device_register(dev);
-> + rc =3D dev_set_name(dev, "versal-net-ddrmc5-edac-%d", i);
-> + if (rc)
-> + goto err_mc_free;
-> +
-> + rc =3D device_add(dev);
->   if (rc)
->   goto err_mc_free;
->
-> @@ -800,10 +802,13 @@ static int init_one_mc(struct mc_priv *priv,
-> struct platform_device *pdev, int i)
->
->  err_unreg:
->   device_unregister(mci->pdev);
-> + edac_mc_free(mci);
-> + return rc;
->  err_mc_free:
->   edac_mc_free(mci);
-> + put_device(dev);
-> + return rc;
->  err_dev_free:
->   kfree(dev);
->
->   return rc;
->  }
->
-> This avoids keeping dev->init_name pointing at stack storage and uses
-> put_device() only after the device has been initialized. Would this look
-> reasonable to you? If this looks good to you, I=E2=80=99ll send v2 with t=
-his approach.
+IP-TFS uses one hrtimer for two independently queued states: an
+incomplete inner packet and the receive reorder window. Completing or
+aborting reassembly cancels that shared timer unconditionally, so packets
+in the reorder window can remain queued indefinitely.
 
-This is already addressed in the ongoing patch series:
+Merely leaving the timer armed is insufficient. If it was armed for a
+completed reassembly, its old deadline can expire a subsequent reassembly
+before that packet's own drop interval has elapsed. A reassembly created
+from a runt also does not arm the timer at all.
 
-https://lore.kernel.org/all/20260724171945.2812749-5-shubhrajyoti.datta@amd=
-.com/
+Record an absolute deadline for an in-progress reassembly. Whenever either
+kind of queued state changes, arm the shared timer for the earliest active
+deadline. On expiry, drop only state whose own deadline has passed and
+rearm the timer for anything that remains.
 
-Please have a look and let me know if you have any concerns.
->
-> Thanks,
-> Guangshuo
+Reported-by: Lilly Aronleigh <lilly@aronleigh.au>
+Link: https://lore.kernel.org/netdev/20260824072851.301644-3-lilly@aronleigh.au/
+Link: https://lore.kernel.org/netdev/apaRiWQn54Pr9hpm@secunet.com/
+Fixes: 075694765446 ("xfrm: iptfs: handle received fragmented inner packets")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Roshan Kumar <roshaen09@gmail.com>
+---
+ net/xfrm/xfrm_iptfs.c | 81 +++++++++++++++++++++++++++----------------
+ 1 file changed, 52 insertions(+), 29 deletions(-)
+
+diff --git a/net/xfrm/xfrm_iptfs.c b/net/xfrm/xfrm_iptfs.c
+index 6920940a35b4..e538cc98e257 100644
+--- a/net/xfrm/xfrm_iptfs.c
++++ b/net/xfrm/xfrm_iptfs.c
+@@ -143,6 +143,7 @@ struct skb_wseq {
+  * @drop_time_ns: timer intervan in nanoseconds.
+  * @ra_newskb: new pkt being reassembled.
+  * @ra_wantseq: expected next sequence for reassembly.
++ * @ra_drop_time: deadline for dropping @ra_newskb.
+  * @ra_runt: last pkt bytes from very end of last skb.
+  * @ra_runtlen: size of ra_runt.
+  */
+@@ -172,6 +173,7 @@ struct xfrm_iptfs_data {
+ 	/* Tunnel input reassembly */
+ 	struct sk_buff *ra_newskb; /* new pkt being reassembled */
+ 	u64 ra_wantseq;		   /* expected next sequence */
++	u64 ra_drop_time;	   /* reassembly drop deadline */
+ 	u8 ra_runt[6];		   /* last pkt bytes from last skb */
+ 	u8 ra_runtlen;		   /* count of ra_runt */
+ };
+@@ -703,15 +705,38 @@ static void iptfs_complete_inner_skb(struct xfrm_state *x, struct sk_buff *skb)
+ 	}
+ }
+ 
++/* Arm the shared timer for the earliest reassembly or reorder deadline. */
++static void iptfs_reset_drop_timer(struct xfrm_iptfs_data *xtfs)
++{
++	u64 expires = 0;
++	u64 now;
++
++	assert_spin_locked(&xtfs->drop_lock);
++
++	if (xtfs->ra_newskb)
++		expires = xtfs->ra_drop_time;
++	if (xtfs->w_savedlen &&
++	    (!expires || xtfs->w_saved[0].drop_time < expires))
++		expires = xtfs->w_saved[0].drop_time;
++	if (!expires) {
++		hrtimer_try_to_cancel(&xtfs->drop_timer);
++		return;
++	}
++
++	now = ktime_get_raw_fast_ns();
++	hrtimer_start(&xtfs->drop_timer, expires > now ? expires - now : 0,
++		      IPTFS_HRTIMER_MODE);
++}
++
+ static void __iptfs_reassem_done(struct xfrm_iptfs_data *xtfs, bool free)
+ {
+ 	assert_spin_locked(&xtfs->drop_lock);
+ 
+-	/* We don't care if it works locking takes care of things */
+-	hrtimer_try_to_cancel(&xtfs->drop_timer);
+ 	if (free)
+ 		kfree_skb(xtfs->ra_newskb);
+ 	xtfs->ra_newskb = NULL;
++	xtfs->ra_drop_time = 0;
++	iptfs_reset_drop_timer(xtfs);
+ }
+ 
+ /**
+@@ -845,6 +870,9 @@ static u32 iptfs_reassem_cont(struct xfrm_iptfs_data *xtfs, u64 seq,
+ 			goto abandon;
+ 		}
+ 		xtfs->ra_newskb = newskb;
++		xtfs->ra_drop_time = ktime_get_raw_fast_ns() +
++				     xtfs->drop_time_ns;
++		iptfs_reset_drop_timer(xtfs);
+ 
+ 		/* Copy the runt data into the buffer, but leave data
+ 		 * pointers the same as normal non-runt case. The extra `rrem`
+@@ -1162,12 +1190,9 @@ static bool __input_process_payload(struct xfrm_state *x, u32 data,
+ 
+ 			xtfs->ra_newskb = skb;
+ 			xtfs->ra_wantseq = seq + 1;
+-			if (!hrtimer_is_queued(&xtfs->drop_timer)) {
+-				/* softirq blocked lest the timer fire and interrupt us */
+-				hrtimer_start(&xtfs->drop_timer,
+-					      xtfs->drop_time_ns,
+-					      IPTFS_HRTIMER_MODE);
+-			}
++			xtfs->ra_drop_time = ktime_get_raw_fast_ns() +
++					     xtfs->drop_time_ns;
++			iptfs_reset_drop_timer(xtfs);
+ 
+ 			spin_unlock(&xtfs->drop_lock);
+ 
+@@ -1336,7 +1361,7 @@ static u32 __reorder_drop(struct xfrm_iptfs_data *xtfs, struct list_head *list)
+ 	u32 scount = 0;
+ 
+ 	if (xtfs->w_saved[0].drop_time > now)
+-		goto set_timer;
++		return 0;
+ 
+ 	++xtfs->w_wantseq;
+ 
+@@ -1363,13 +1388,6 @@ static u32 __reorder_drop(struct xfrm_iptfs_data *xtfs, struct list_head *list)
+ 		__vec_shift(xtfs, count);
+ 	}
+ 
+-	if (xtfs->w_savedlen) {
+-set_timer:
+-		/* Drifting is OK */
+-		hrtimer_start(&xtfs->drop_timer,
+-			      xtfs->w_saved[0].drop_time - now,
+-			      IPTFS_HRTIMER_MODE);
+-	}
+ 	return scount;
+ }
+ 
+@@ -1423,10 +1441,7 @@ static void iptfs_set_window_drop_times(struct xfrm_iptfs_data *xtfs, int index)
+ 	while (index-- > 0 && !s[index].skb)
+ 		s[index].drop_time = drop_time;
+ 
+-	/* If we walked all the way back, schedule the drop timer if needed */
+-	if (index == -1 && !hrtimer_is_queued(&xtfs->drop_timer))
+-		hrtimer_start(&xtfs->drop_timer, xtfs->drop_time_ns,
+-			      IPTFS_HRTIMER_MODE);
++	iptfs_reset_drop_timer(xtfs);
+ }
+ 
+ static void __reorder_future_fits(struct xfrm_iptfs_data *xtfs,
+@@ -1660,16 +1675,15 @@ static void iptfs_input_reorder(struct xfrm_iptfs_data *xtfs,
+  * The drop timer is set when we start an in progress reassembly, and also when
+  * we save a future packet in the window saved array.
+  *
+- * NOTE packets in the save window are always newer WRT drop times as
+- * they get further in the future. i.e. for:
++ * Packets in the save window are always newer WRT drop times as they get
++ * further in the future. i.e. for:
+  *
+  *    if slots (S0, S1, ... Sn) and `Dn` is the drop time for slot `Sn`,
+  *    then D(n-1) <= D(n).
+  *
+- * So, regardless of why the timer is firing we can always discard any inprogress
+- * fragment; either it's the reassembly timer, or slot 0 is going to be
+- * dropped as S0 must have the most recent drop time, and slot 0 holds the
+- * continuation fragment of the in progress packet.
++ * Reassembly and slot 0 keep independent deadlines. The shared timer is armed
++ * for the earlier one, and this callback expires only the state whose deadline
++ * has passed before rearming for any state that remains.
+  *
+  * Returns HRTIMER_NORESTART.
+  */
+@@ -1679,6 +1693,7 @@ static enum hrtimer_restart iptfs_drop_timer(struct hrtimer *me)
+ 	struct list_head list;
+ 	struct xfrm_iptfs_data *xtfs;
+ 	struct xfrm_state *x;
++	u64 now;
+ 	u32 count;
+ 
+ 	xtfs = container_of(me, typeof(*xtfs), drop_timer);
+@@ -1687,15 +1702,22 @@ static enum hrtimer_restart iptfs_drop_timer(struct hrtimer *me)
+ 	INIT_LIST_HEAD(&list);
+ 
+ 	spin_lock(&xtfs->drop_lock);
++	now = ktime_get_raw_fast_ns();
+ 
+-	/* Drop any in progress packet */
+-	skb = xtfs->ra_newskb;
+-	xtfs->ra_newskb = NULL;
++	/* Drop an in-progress packet only after its own deadline. */
++	if (xtfs->ra_newskb && xtfs->ra_drop_time <= now) {
++		skb = xtfs->ra_newskb;
++		xtfs->ra_newskb = NULL;
++		xtfs->ra_drop_time = 0;
++	} else {
++		skb = NULL;
++	}
+ 
+ 	/* Now drop as many packets as we should from the reordering window
+ 	 * saved array
+ 	 */
+ 	count = xtfs->w_savedlen ? __reorder_drop(xtfs, &list) : 0;
++	iptfs_reset_drop_timer(xtfs);
+ 
+ 	spin_unlock(&xtfs->drop_lock);
+ 
+@@ -2702,6 +2724,7 @@ static int iptfs_clone_state(struct xfrm_state *x, struct xfrm_state *orig)
+ 	xtfs->w_savedlen = 0;
+ 	xtfs->ra_newskb = NULL;
+ 	xtfs->ra_wantseq = 0;
++	xtfs->ra_drop_time = 0;
+ 	xtfs->ra_runtlen = 0;
+ 
+ 	__module_get(x->mode_cbs->owner);
+-- 
+2.43.0
+
