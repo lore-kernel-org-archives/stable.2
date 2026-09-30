@@ -1,90 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC1BE51DAE7;
-	Wed, 30 Sep 2026 18:24:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80CC251DAFE;
+	Wed, 30 Sep 2026 18:24:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790792650; cv=none; b=HnGx0VdPqgbtL+0NxgrgLoiaQVqXs3+Yvj66wcEERj1J451LjpVGbURcCGJAVe6quourfNKQGOAnxlr+cU9z3RKTDLlhTpyqxg1PG3kLfDxMjcquJ9s5gknXOlTSKGw6tCWRlWiNOJpI1z2Nxg9XJ8uxpRZfaHQXzqsDB0GPbQE=
+	t=1790792651; cv=none; b=IRd/h+QBLPXsVEL5f1pPVG3/nh3IBETxT9pNq3AGqLiFC+CP3jvou4ggD2UhpWH+mo15uCmiNSY0o5FuSVzFRwzxEqDZID/lsQ2p4uK3WMzgufbs3MCETQd9QCsoSj0hIQKNLbWW498HS7qTXdh00N5sDiLAEgcgjbkoDCDU1Dg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790792650; c=relaxed/simple;
-	bh=QAvOi4cchjKNlSCrsX1D95liAuQ9dq5OUbprIpUaeX8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nbQ8kNCXo0LB4jKq0ibjzceMOJaKAWukOPTiztVGjhgD9b6OcrhFLxISOKj0vdhZb1PgvL9f7DzraYA/++a153+jqS9bHfmUbhuDBZyvauK63vs4J+gvnIE5k3CcAZX5sEnCqiMmcfbzNAh0qHdmfBZIbUv+i4wGx2Pv8g98SiQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q3nm1bqH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790792651; c=relaxed/simple;
+	bh=WVFjh7OfgXSbolrxcqmmUpVbkbLI0Tk+mckhBKYj9Q0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KrJfHCBjXInbnBsV3agA0B1zJOztAnDjxt6i8hPv6+VDHn2vYwNhx8rrUtpZJZN2zAhy6PtV8JCGPrEVZVgPPvlrDQXJYiNrbrYjdrzlC0VuueCfYvjMHy0Dl/OfRFWGVyC/lnYjlp+ZqbdH6+OQaxfxYRbnDEAG3iR6ISzany8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Cfo1zx/u; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q3nm1bqH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D042B1F000FF;
-	Wed, 30 Sep 2026 18:24:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790792648;
-	bh=FunQvZwAH5B4DZ2KKVAQe9PaR1db9gvR3K0YtXguIiE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Q3nm1bqH7nevKq8YHNKNgJQTY046xcAqz7j8pKgxJCIcdNu5xd2F2b5ykJmycc5O/
-	 S4E0uPuPPAktCNmGa5JSzh2CgENEA10vJxxPdkXHO2CYbn8/N8bGwsFzxWiXeHhvsN
-	 Nk4iNlqQdWQtwRXAwHnbnm7ybo1RpyY4Pim9O/yYQAAjBsQ5+kH6ROevSTYcr7r5Hw
-	 7X3P+jQQrVPzgEvaGf3rk7cLgOH+uFawmA399Q24yZjAJsx5dKQVqJ7YjW5nDh5ZFs
-	 t3NPtngodXZtww1yXE/ZRMF3BH0FQcRZcFTYgs1OodcerpISIAb7nSMESXm2sJ/DcC
-	 sSQhCu0TlrhbA==
-Date: Wed, 30 Sep 2026 19:24:03 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Brian Geffon <bgeffon@google.com>, Minchan Kim <minchan@kernel.org>, 
-	Kiryl Shutsemau <kas@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 0/2] mm/mremap: fix two issues with MREMAP_DONTUNMAP
-Message-ID: <ar1TdGugvi9_RwG9@gremlin>
-References: <20260920-fix-dontunmap-partial-self-merge-v1-0-6ffb556f8f8b@kernel.org>
- <ux7od2uydetgsu3dpy6mmilhqm5phhnk2ioxn54w3nb3feohxf@2jqovoqzfs4n>
- <ar0y2odPFkCLMKk6@gremlin>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Cfo1zx/u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A1031F00899;
+	Wed, 30 Sep 2026 18:24:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790792650;
+	bh=pko7/HF/bOfSwCaYJj0OjadibP4SV342j7N7RkzDX7g=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Cfo1zx/uUAp9REweemGvNKaHwB0REcRsAi83yOrjVMkEuKCjnKgZJMkInPoFOjzVt
+	 gyHR6o5J1iNqRlWuP/2G8zIRmeN9EbmMXWWKLIuOqeYXVEIrHR0giX/ARwmVW8VHBF
+	 AQCkMtmBl3DFJbZ6eQ0Eb1i46qCKy0XpC7z9iYyA=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
+	Mike Christie <michael.christie@oracle.com>,
+	"Martin K. Petersen (Oracle)" <mkp@kernel.org>
+Subject: [PATCH 5.15 730/752] scsi: libiscsi_tcp: Check the data direction of a Data-In PDU
+Date: Wed, 30 Sep 2026 17:30:00 +0200
+Message-ID: <20260930152414.013210833@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930152358.131179731@linuxfoundation.org>
+References: <20260930152358.131179731@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ar0y2odPFkCLMKk6@gremlin>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 30, 2026 at 05:04:38PM +0100, Lorenzo Stoakes (ARM) wrote:
-> On Wed, Sep 30, 2026 at 10:59:50AM -0500, Anirudh Srinivasan wrote:
-> > On Sun, Sep 20, 2026 at 03:13:09PM +0100, Lorenzo Stoakes (ARM) wrote:
->
-> > > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > > ---
-> > > Lorenzo Stoakes (ARM) (2):
-> > >       mm/mremap: fix locked_vm leak from MREMAP_DONTUNMAP self-merge
-> > >       mm/mremap: fix locked_vm leak by splitting VMA for MREMAP_DONTUNMAP
-> >
-> > Hello,
-> >
-> > Apologies for the double mail. I did not hit reply all first time.
-> >
-> > I am seeing some failures in the proc_maps_race kselftests after
-> > this patch was added to linux-next. The failures are in
-> > test_maps_tearing_from_remap and test_maps_tearing_from_resize. I have
-> > attached some logs below
->
-> Ack thanks for the report. I'll dig into this and get back to you!
->
-> Instinctively I suspect the tests are making assumptions they shouldn't be,
-> given this series has the MREMAP_DONTUNMAP case split in advance.
+5.15-stable review patch.  If anyone has any objections, please let me know.
 
-OK, the tests seem fairly sensitive to change, but the correct solution here
-overall I think is to only split if the VMA is mlock()'d, so I'll do that and
-send a respin + cc you on that which you can check!
+------------------
 
-That should fix the tests and avoids unnecessary splits also.
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 
-Thanks again for the report! :)
+commit bce07e2f37b5e4a427d36fd6b1c14067b27591db upstream.
 
->
-> --
-> Cheers, Lorenzo
+The Data-In branch of iscsi_tcp_hdr_dissect() resolves the ITT to a task
+and copies the PDU's data segment into that command's scatterlist without
+asking whether the command was reading. iscsi_tcp_r2t_rsp() in the same
+file does ask, and rejects an R2T for a command that is not DMA_TO_DEVICE.
 
---
-Cheers, Lorenzo
+A target that answers a WRITE command's ITT with a Data-In therefore has
+the initiator write target-supplied bytes into the pages that write was
+about to send. Those are the caller's own pinned pages for an O_DIRECT
+write, and page cache pages for a buffered one.
+
+Observed against a test target that emits one 512-byte Data-In naming a 128
+KB write's ITT, after the R2T for that write. With O_DIRECT the caller's
+buffer ends up holding 512 bytes of the target's data while pwrite()
+returns 131072. Buffered is quieter: pwrite() and fsync() both succeed,
+nothing is logged, and reading those blocks back returns the target's bytes
+out of the page cache without a command going on the wire.
+
+Check the direction before using the scatterlist, the way the R2T path
+already does.
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Reviewed-by: Mike Christie <michael.christie@oracle.com>
+Link: https://patch.msgid.link/20260801133635.1986706-1-yhlee@isslab.korea.ac.kr
+Fixes: a081c13e39b5 ("[SCSI] iscsi_tcp: split module into lib and lld")
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/scsi/libiscsi_tcp.c |    3 +++
+ 1 file changed, 3 insertions(+)
+
+--- a/drivers/scsi/libiscsi_tcp.c
++++ b/drivers/scsi/libiscsi_tcp.c
+@@ -491,6 +491,9 @@ static int iscsi_tcp_data_in(struct iscs
+ 	int datasn = be32_to_cpu(rhdr->datasn);
+ 	unsigned total_in_length = task->sc->sdb.length;
+ 
++	if (task->sc->sc_data_direction != DMA_FROM_DEVICE)
++		return ISCSI_ERR_PROTO;
++
+ 	/*
+ 	 * lib iscsi will update this in the completion handling if there
+ 	 * is status.
+
+
