@@ -1,40 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C45A502554;
-	Wed, 30 Sep 2026 15:37:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA2274FDA77;
+	Wed, 30 Sep 2026 15:37:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790782673; cv=none; b=djAz0lCs2eZjzQbyJQPwpxh0OcWdVCcfZZvUqlJXs3iqd+zUzJsYR1Zg8YxiGe4wmbkApLaWNzE4EoXgeAvH3mOrAM95mv0ICisPuuUWKdfuMM0Buc4vxo3iIax7qpIAcydZh8l7k9PnvZOHMdKmvJkgQHXWVjfz/yUNzir6DcE=
+	t=1790782675; cv=none; b=ODn/4qSIAPEk0CdDFNdXRkeynb7FFs0acREUOIG6EEW4mB+XTfb/QrHGCldAaUrMZq2p9vNrT0MBBdAaJZwCofBW4Yta/pX7GGGIM4I/ttf8m5+96JizmPQ/1XlKBosSUaLLFK211CeJNIl/O9AbdV8dZrt0xqWQkyWP+vqY4IY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790782673; c=relaxed/simple;
-	bh=pXaR+pXxigscULlfbD0CFr8Pj/xPbXxKSMkpdylfb+Y=;
+	s=arc-20240116; t=1790782675; c=relaxed/simple;
+	bh=AcJDtc5bDQ81L5ZiuUM2u4h84nTsQFfTqMMRa1NZlhc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HvmU+95VRtjyyRpiIlS0iGQ+wB+xHPzQVh/wrZvFezwiwaBQyqHfyUt6sgOawm0rLodIbmQ/AP9Z4Gglfx8uE2KGtMxdGRxabcPMcBfaZCdkm8RHNiYM4Y04ZYmoXy78sLTDtLmoFKcUanxAfvgbTk+1Gj4tJH7LY/3rEaft+d0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=E0ehtTEV; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=N4YAJCfj2PhPorSr3Rk2mLlNWic3o8z7K5x/5lTQlSqVq1tejntcyN99xbnQ2LDagMmbzy42cQAEb6+9fdyVOQsRIeTl+KGDfLVgPVl6bqc8+d5P1ChceKyPTiVbDUMI9rDvkCqWQThqNCfeMpkIAUFYvqvKu3UU7a+dswXHJj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XMzRjh/K; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="E0ehtTEV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66A631F00898;
-	Wed, 30 Sep 2026 15:37:40 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XMzRjh/K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE5951F0089A;
+	Wed, 30 Sep 2026 15:37:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790782660;
-	bh=M8Lbropj7gG2ll2A7wnTP/kJgPhBSWpvHaKDRazHsbA=;
+	s=korg; t=1790782669;
+	bh=XsgqgkEL33Fk6OpG+K6Lh2pbMVurR5QwPyGeIkkxVwo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=E0ehtTEVW+Gl1Vf/+ACVimZTCekhQLrNIYdOqpIdCf6uzL+shGa+ClgMXCVKw0jL0
-	 Kj2+jiMMh7oHZPSexsS4MSH6kpTHC0mO2p2+z18XESBFzdsVeQodj5yLLVo1gCdOVV
-	 2x1GypBGF1AR6sbQ7FL+4RB92PdiYkvFabwlAAOo=
+	b=XMzRjh/K/OSBj9k2J8oPW9eFT9Ol/EsTmmJ8ggPWQ5X3CFxBPkc3BFtiVjK17Tl1p
+	 q3teevbSu4mRb0uRYZ9hes9C84bRWBfJS/FtdKEEr3yH2z9kHOyqA84RuI/OS2m+qE
+	 KRth3I2qGngaF/7BOYcDMH8K5fCSfaH11zpkGBZA=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Stefano Garzarella <sgarzare@redhat.com>,
-	Raf Dickson <rafdog35@gmail.com>,
-	Luigi Leonardi <leonardi@redhat.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+	Rosen Penev <rosenp@gmail.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Andreas Larsson <andreas@gaisler.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 126/595] vsock: use sk_acceptq_is_full() helper in all transports
-Date: Wed, 30 Sep 2026 17:20:19 +0200
-Message-ID: <20260930152350.449087366@linuxfoundation.org>
+Subject: [PATCH 5.10 129/595] sparc: Disable compat support with LLD
+Date: Wed, 30 Sep 2026 17:20:22 +0200
+Message-ID: <20260930152350.513277306@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152347.700140858@linuxfoundation.org>
 References: <20260930152347.700140858@linuxfoundation.org>
@@ -53,53 +52,43 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Raf Dickson <rafdog35@gmail.com>
+From: Rosen Penev <rosenp@gmail.com>
 
-[ Upstream commit 4ff2e84ff1b33d79fa0e3ae355ce4a334908ef9a ]
+[ Upstream commit 852fed2e8bfe195351fb0078ba7245d41154e7a5 ]
 
-Replace the open-coded backlog check with sk_acceptq_is_full().
-The helper uses > instead of >=, which is the correct comparison
-per commit 64a146513f8f ("[NET]: Revert incorrect accept queue
-backlog changes."), and adds READ_ONCE() for proper memory ordering.
+An LLVM=1 sparc64 allmodconfig enables COMPAT and then tries to
+build the 32-bit vDSO. That path cannot be linked with ld.lld:
 
-Suggested-by: Stefano Garzarella <sgarzare@redhat.com>
-Signed-off-by: Raf Dickson <rafdog35@gmail.com>
-Reviewed-by: Stefano Garzarella <sgarzare@redhat.com>
-Reviewed-by: Luigi Leonardi <leonardi@redhat.com>
-Link: https://patch.msgid.link/20260612045842.122207-1-rafdog35@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+  ld.lld: error: unknown emulation: elf32_sparc
+
+ld.lld does not support the 32-bit SPARC ELF emulation used for
+the compat vDSO, so keep COMPAT disabled when LLD is the linker.
+This avoids selecting an unsupported build path while leaving the
+existing GNU ld configuration unchanged.
+
+Assisted-by: Codex:GPT-5.5
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Acked-by: Nathan Chancellor <nathan@kernel.org>
+Reviewed-by: Andreas Larsson <andreas@gaisler.com>
+Link: https://lore.kernel.org/r/20260508000834.834824-1-rosenp@gmail.com
+Signed-off-by: Andreas Larsson <andreas@gaisler.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/vmw_vsock/hyperv_transport.c | 2 +-
- net/vmw_vsock/vmci_transport.c   | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ arch/sparc/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/net/vmw_vsock/hyperv_transport.c b/net/vmw_vsock/hyperv_transport.c
-index 974a33015f37c..f0c6291d39243 100644
---- a/net/vmw_vsock/hyperv_transport.c
-+++ b/net/vmw_vsock/hyperv_transport.c
-@@ -314,7 +314,7 @@ static void hvs_open_connection(struct vmbus_channel *chan)
- 		goto out;
- 
- 	if (conn_from_host) {
--		if (sk->sk_ack_backlog >= sk->sk_max_ack_backlog)
-+		if (sk_acceptq_is_full(sk))
- 			goto out;
- 
- 		new = vsock_create_connected(sk);
-diff --git a/net/vmw_vsock/vmci_transport.c b/net/vmw_vsock/vmci_transport.c
-index aa6f2a1429666..4085163bb92dd 100644
---- a/net/vmw_vsock/vmci_transport.c
-+++ b/net/vmw_vsock/vmci_transport.c
-@@ -1004,7 +1004,7 @@ static int vmci_transport_recv_listen(struct sock *sk,
- 	 * reset.  Otherwise we create and initialize a child socket and reply
- 	 * with a connection negotiation.
- 	 */
--	if (sk->sk_ack_backlog >= sk->sk_max_ack_backlog) {
-+	if (sk_acceptq_is_full(sk)) {
- 		vmci_transport_reply_reset(pkt);
- 		return -ECONNREFUSED;
- 	}
+diff --git a/arch/sparc/Kconfig b/arch/sparc/Kconfig
+index 7e2ce4c8d6571..7d0d1726a0898 100644
+--- a/arch/sparc/Kconfig
++++ b/arch/sparc/Kconfig
+@@ -496,6 +496,7 @@ endmenu
+ config COMPAT
+ 	bool
+ 	depends on SPARC64
++	depends on !LD_IS_LLD
+ 	default y
+ 	select COMPAT_BINFMT_ELF if BINFMT_ELF
+ 	select HAVE_UID16
 -- 
 2.53.0
 
