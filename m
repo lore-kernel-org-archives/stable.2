@@ -1,56 +1,57 @@
 Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 521C752BE3E;
-	Wed, 30 Sep 2026 17:38:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2F3252F294;
+	Wed, 30 Sep 2026 17:38:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790789924; cv=none; b=ewPHmUIH0CuAhiA+ISt7f+MM/CiY8ifc+HT9mX9Vfln9uI7d+FUmPvsmMe4mdEx8zD3WkV0BreqjIrhHUPyW/DWct2zD3h7idWGXr458qhuzsVibklgnVodr1wYklJFA/x5wWW14NVQ32cvs8sO48aGVynqpdSBfKKcP2POcAjk=
+	t=1790789926; cv=none; b=hSiat2EeH7lsnRfYg0inHBtS28sVJbehFbs3DUN4ymr8HdsghtqOGAECrzlrUWEi9GYhDSbIqlL46D2+7hcpojpt28HjgH8hKpGwJnMIpeK1m9dLaLJ1rk06j2ajiaaSN4nOuSwkuOls5Z9U94cOWyK8j3hX19Sqm/pGBKkONlU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790789924; c=relaxed/simple;
-	bh=v28171voK6ITDVbjCW9+8XZ002sbdQquEKk2lhMsh2Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=AKjtXxuYLWkm4Lb4gounpvZXhGWF6zXjRVM9T8fab5oZxMjYLDVnRZjOi49Wj8rV8eJO+325+3ZdTb629zVdINzHmR4sYE3op6kqy4jh7x5iNPuVNvvHAUubKp7Sq5NHMHd7LuZdEN8jNZFwSpUZ8g2fgKe6nyHxx3nKg/AIMU4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=CusY6HCP; arc=none smtp.client-ip=148.163.158.5
+	s=arc-20240116; t=1790789926; c=relaxed/simple;
+	bh=OAKkHFp1kQnEWZu2uh7np29DANFtgqqWtSiHQoGH/0A=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qEtpO6J68Sn263SAPXJAjLfeAqK+g085Z8Eu9NX73qNZwtoxRIWxxKugApK77FUCSKuD6F9Wnk1VCdKSnnFrwC3cgBiHyT0t3yyXCA30xS45yZ6oF1kYqDjA4YwDwWXRyCz+tzEgx1WDLpTyWUHzNZ5CHhglDmcwfqm/U1zV9LA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=SxdQXQ+6; arc=none smtp.client-ip=148.163.158.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="CusY6HCP"
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="SxdQXQ+6"
 Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UE5VdK2986280;
-	Wed, 30 Sep 2026 17:38:18 GMT
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UE5VdL2986280;
+	Wed, 30 Sep 2026 17:38:29 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pp1; bh=t0wlvl0FQ8sNawM9GeK+EIM7O/ri
-	c7+D+cGE/yCo4Y4=; b=CusY6HCPxYZmZ2DfRT4KFa/LvJKkKLM7yH7qkT7e8tok
-	kySTM8jW/Q3ln0QwK/eeD4idv0RYg6aenFhJoL/QThHan6bxa6P0iZRb6RZavsrb
-	6B1vES4x90CUOEdcnXp5Gs608AEvX1al1yRlZrEnr7Asdz5gvwzIG1IZdCUQpNPG
-	E46r7ZNYPqbQVArA6aSoeMzE/0tf/+ydb94Wx1G/5UFDHA5TDhpMTMfQQRjG84Cg
-	V4sIq6Nd07KUD7k5IPtw5rPr7foc/hp7p+zMJKjjtDjni3L59BChTx0xz02RTazH
-	7+eygEB5NCqwUheg3pQdBOYz0qadYRs3dV/W6n/eLQ==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx3fkdxnu-1
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=nEzg2jd6RuXkUQyzJ
+	FK96fLJits+zpgTCIBXNIAHffE=; b=SxdQXQ+6qH3iJCggvfPL2E3MmNiqcZ9DN
+	Z+L4oPNZbA4tJ7WEjeNYZPmqjcBvNQVG192cmT5oMU21JezylF8hYjP0VEs6Ddot
+	USB6Q26PiccHGEzH3chUFg0HSeaPezDGOBpTUBT1Ew4WP/yaQpJG3E68jItb8kBf
+	1eO5KclsIguBOYP4rS4e1JusZg6FpEDTAA5gRQ2PICLn2bPOBvX/vMA6sDw+b44M
+	i+FPEyL8KRwOYtoS2qAd4duMjELdF3FU3xlSb7blLhcQ+JIexlDrPFo8+lBfqyY4
+	QbtYMuCvWG4lSCJfQ8T9yVtYDM0R3RGGJx1QVlfWc+6eAZ4SLJo0A==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx3fkdxpn-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 30 Sep 2026 17:38:17 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68UE34W33576911;
-	Wed, 30 Sep 2026 17:38:16 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h0j23mtxv-1
+	Wed, 30 Sep 2026 17:38:29 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68UHXlm03541454;
+	Wed, 30 Sep 2026 17:38:28 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h0hfpd071-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 30 Sep 2026 17:38:16 +0000 (GMT)
+	Wed, 30 Sep 2026 17:38:28 +0000 (GMT)
 Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68UHcDIm51904852
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68UHcNx029032886
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 30 Sep 2026 17:38:13 GMT
+	Wed, 30 Sep 2026 17:38:23 GMT
 Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 2859B2004E;
-	Wed, 30 Sep 2026 17:38:13 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id B6FD32004D;
+	Wed, 30 Sep 2026 17:38:23 +0000 (GMT)
 Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1B49D2004B;
-	Wed, 30 Sep 2026 17:38:09 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id B57AF20040;
+	Wed, 30 Sep 2026 17:38:19 +0000 (GMT)
 Received: from localhost.localdomain (unknown [9.39.22.150])
 	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 30 Sep 2026 17:38:08 +0000 (GMT)
+	Wed, 30 Sep 2026 17:38:19 +0000 (GMT)
 From: Amit Machhiwal <amachhiw@linux.ibm.com>
 To: Madhavan Srinivasan <maddy@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org
 Cc: Amit Machhiwal <amachhiw@linux.ibm.com>,
@@ -65,38 +66,39 @@ Cc: Amit Machhiwal <amachhiw@linux.ibm.com>,
         R Nageswara Sastry <rnsastry@linux.ibm.com>,
         Alexander Graf <agraf@suse.de>, linux-hardening@vger.kernel.org,
         stable@vger.kernel.org, Avi Kivity <avi@redhat.com>
-Subject: [PATCH v2 0/3] KVM: PPC: Fixes for Book3S HV HPT locking and paired-single decoding
-Date: Wed, 30 Sep 2026 23:07:47 +0530
-Message-ID: <20260930173750.56759-1-amachhiw@linux.ibm.com>
+Subject: [PATCH v2 2/3] KVM: PPC: Book3S HV: Add preempt_disable() around virtual-mode HPTE bit-lock users
+Date: Wed, 30 Sep 2026 23:07:49 +0530
+Message-ID: <20260930173750.56759-3-amachhiw@linux.ibm.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260930173750.56759-1-amachhiw@linux.ibm.com>
+References: <20260930173750.56759-1-amachhiw@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
 X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: SeGuGoVlhZM0TlKSw8-iLKK7Dy4JUz8n
-X-Proofpoint-GUID: YESN-aB4JFFsTx0xJnLMF-GUMWB44y5K
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA3MCBTYWx0ZWRfXwuzjQc7pwhAT
- cjFYIB80mL729d5l3tVCNgHIhVaZjnLgXyKhEMM9h5NXkAdBwCRvoZKrO5bjoFpThlelksQudsH
- nDDdAusBdjKLP6bSNl8Y6VPuihJ/FPM=
-X-Authority-Analysis: v=2.4 cv=Vv62kO2n c=1 sm=1 tr=0 ts=6abd490a cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=r1Rob55TE6mfzCDdm84A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA3MCBTYWx0ZWRfX0y3XiOxxR0H2
- 8IVWtUYcYji8RXPWXY7KQ87cwaY24kQclpW2SmkQb/h9L+3Q8zYYGaWKs2QRS3Fm3chknCiT6hE
- PV9KIj0B8lXr3crEKPanrOc8/BqoZvM7FsbFCwPulSah6h6GMHkmLhEgQS6wDFIioIP/Y8GNco6
- nrhu45Gaok9dDSfHESyqFvxBOsw+/vg+MKcC2Cp1fvEsDQno7PMBKGMyzETXuEX22+bO36M/5iE
- /Hq9Z5I4JMhK/rul9CRxSm3QnnykqnYg/D7AKJczA6+lRku5JwvS50yBgxbsILX08btxrylkEJ1
- 56IVnAmIZKqy97tOTEJ8CcNhmIYjZhFSqIsPqE9r2s4EnJVGyBl4FS4NhRmMrToXiGVso5I507U
- zsT57gLN79YkeavhDuJ5GRyvl/S76i8UZjMndJsKKgVCsU9dggvnYbToqEg3IdzFQZPpS/80FMi
- pcs9xLGO5WEOrHPoHLQ==
+X-Proofpoint-ORIG-GUID: ukeUoTHfBZXM5eXrhSXxPu5zuYQSeLAV
+X-Proofpoint-GUID: P5mExd7rpMHmozzPuaNZnA6UexQVc5rE
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA3MCBTYWx0ZWRfXwp8NW8YfWSiC
+ 8i95mWxfYLoa7zEM5uNEYJxd4ZwVVvNq8prSYjXJ4VZ/fOBHVi/UV7wAGBcJt4+PzKVp4hiqwOy
+ 14Vq5+vbHw8TmZOxaQnGkVE9bsbmIeU=
+X-Authority-Analysis: v=2.4 cv=Vv62kO2n c=1 sm=1 tr=0 ts=6abd4915 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=7ra5lxVqLeyULECxJZQA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA3MCBTYWx0ZWRfXzhAyprID4Vsp
+ ipRc0W7EAnW4hE+fpqXvdVdoRkAkVc7xVTWN+a3kPOnBkD8WWeXBL1RTIVsHreB00yln0SLwNWP
+ m6wc2ta41wV0D55rOPPGe8snfS+EpJOdJ1qf+y+KrmM+IXdgQmWwlIpURDSb5sSFJ2lnvQhpZqB
+ 9YzR09MlXv3xv4ALkaU6aLjwistzdhhpNQgtV5e/23FkmvONcarxWTF5/P9OgG3YuGmuQJ1Fc/V
+ Hbt2nuKLXfNUbaaCE9Q+QEnTXvYSHTrdZS0xLA8A1hSu4DQeBKfWtm9LLvsuHEwE/2L9Rc7supp
+ XmJleoMBN7tR9b7aIlqrN7HIcDji1tOok7B52B+cLldhAkTgp+JOsSjadMh8ilT9dxuX+cGW3Z1
+ NuHK/FE23uAvgQa41GuXU1JEU8cUGL9eUXRRBj5ZT5U98buXtH399AbTGcTGnrvk/mh8+9J47tH
+ bSNWnW6+6R3AupnzZ9w==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-30_03,2026-09-21_02,2025-10-01_01
@@ -107,76 +109,189 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
  definitions=main-2609300070
 
-This series addresses bug fixes across KVM PPC Book3S HV
-locking/synchronization and paired-single instruction decoding.
+kvmppc_hv_find_lock_hpte() requires virtual-mode callers to run with
+preemption disabled, because it can return with HPTE_V_HVLOCK still held
+until the caller later unlocks the HPTE.  Existing virtual-mode callers
+in book3s_64_mmu_hv.c already follow that rule, but several paths do
+not.
 
-Patches 1 & 2 fix synchronization and preemption issues introduced in
-commit 6165d5dd99db ("KVM: PPC: Book3S HV: add virtual mode handlers for
-HPT hcalls and page faults"):
+kvmppc_handle_exit_hv() calls kvmppc_hpte_hv_fault() for hash-mode
+data-side and instruction-side faults after guest exit with preemption
+enabled.  kvmppc_pseries_do_hcall() executes virtual-mode HPT hcall
+handlers via kvmppc_pseries_do_hpt_hcall() with preemption enabled; the
+handlers for H_ENTER, H_REMOVE, H_READ, H_CLEAR_MOD, H_CLEAR_REF,
+H_PROTECT, and H_BULK_REMOVE all spin on try_lock_hpte() or lock_rmap().
+H_ENTER also reaches kvmppc_do_h_enter(), which uses arch_spin_lock() on
+kvm->mmu_lock.  That raw lock choice is intentional because
+kvmppc_do_h_enter() is also called from real-mode paths, so the correct
+fix is to establish the proper preemption context at the virtual-mode
+caller boundary.
 
-- Patch 1 adds SRCU read lock protection when walking memslots during
-  virtual-mode HPT hcalls to prevent use-after-free races with concurrent
-  memslot updates.
+On the host side, kvm_unmap_rmapp(), kvm_age_rmapp(),
+kvm_test_clear_dirty_npages(), and resize_hpt_rehash_hpte() also acquire
+HPTE_V_HVLOCK via try_lock_hpte() in process context with preemption
+enabled, serving MMU notifier callbacks, dirty-log harvesting, and HPT
+resize respectively.
 
-- Patch 2 adds preempt_disable() around all virtual-mode HPTE bit-lock
-  holders — both the guest vCPU paths (kvmppc_hpte_hv_fault() and
-  kvmppc_pseries_do_hpt_hcall()) and the host-side paths
-  (kvm_unmap_rmapp(), kvm_age_rmapp(), kvm_test_clear_dirty_npages(),
-  resize_hpt_rehash_hpte()) — to prevent CPU stalls and deadlocks on
-  preemption.
+If any of these threads is preempted while holding HPTE_V_HVLOCK, any
+other thread on the same CPU spinning on the same bit-lock can never
+make progress, as the lock owner cannot be rescheduled to release it.
+This is particularly acute when the spinning thread has preemption
+disabled: it will never yield, causing a permanent CPU hang.
 
-Patch 3 fixes paired-single D-form instruction emulation:
+Fix this by adding preempt_disable()/preempt_enable() pairs around the
+two kvmppc_hpte_hv_fault() call sites in kvmppc_handle_exit_hv(), around
+the kvmppc_pseries_do_hpt_hcall() invocation in kvmppc_pseries_do_hcall(),
+and around the try_lock_hpte() hold windows in kvm_unmap_rmapp(),
+kvm_age_rmapp(), kvm_test_clear_dirty_npages(), and resize_hpt_rehash_hpte().
+On failed lock acquisition the guard is released before the cpu_relax()
+spin so the lock owner can be scheduled.
 
-- Patch 3 fixes get_d_signext() to correctly extract the full 12-bit D
-  displacement field and perform proper two's-complement sign extension.
-
-Testing:
-========
-All test kernel builds were compiled with CONFIG_DEBUG_ATOMIC_SLEEP=y.
-The following scenarios were verified:
-
-1. Power9 PowerNV (L0) in Radix mode:
-   - Booted L0 host with kernel containing all 3 patches.
-   - Booted KVM guests in both Radix and Hash modes.
-   - Ran kernel build workload inside guests — no errors observed.
-   - Booted L1 guest with the same kernel — booted and ran cleanly.
-
-2. Power9 PowerNV (L0) in Hash mode:
-   - Booted L0 host with kernel containing all 3 patches.
-   - Booted KVM guest in Hash mode.
-   - Ran kernel build workload inside guest — no errors observed.
-   - Booted L1 nested guest with the same kernel — booted and ran cleanly.
-
-3. Power10 LPAR (L1):
-   - Booted Power10 LPAR with the patched kernel.
-   - Booted KVM guest and ran workloads — no errors observed.
-
+Fixes: 6165d5dd99db ("KVM: PPC: Book3S HV: add virtual mode handlers for HPT hcalls and page faults")
+Cc: stable@vger.kernel.org # v5.14+
+Signed-off-by: Amit Machhiwal <amachhiw@linux.ibm.com>
+---
 Changes in v2:
-==============
-- v1: https://lore.kernel.org/all/20260928122837.8782-1-amachhiw@linux.ibm.com/
-- Patch 2: Extended preempt_disable()/preempt_enable() coverage to also wrap
-  the HPTE bit-lock hold windows in four host-side virtual-mode functions:
-  kvm_unmap_rmapp(), kvm_age_rmapp(), kvm_test_clear_dirty_npages(), and
-  resize_hpt_rehash_hpte(). These were identified as vulnerable by Sashiko AI
-  review and confirmed correct by audit.
-- Dropped Reviewed-by from Ritesh as the patch was materially extended.
-- Patch 2: Added warning comment above kvmppc_pseries_do_hpt_hcall()
-  documenting the preemption requirement.
+- Extended preempt_disable()/preempt_enable() to also cover four
+  host-side virtual-mode HPTE bit-lock users in book3s_64_mmu_hv.c.
+- Added warning comment above kvmppc_pseries_do_hpt_hcall().
+- Dropped Reviewed-by as the patch was materially extended.
 
-Amit Machhiwal (3):
-  KVM: PPC: Book3S HV: Add SRCU protection for virtual-mode HPT hcalls
-  KVM: PPC: Book3S HV: Add preempt_disable() around virtual-mode HPTE
-    bit-lock users
-  KVM: PPC: Fix get_d_signext() 12-bit displacement for paired-single
-    D-form
+ arch/powerpc/kvm/book3s_64_mmu_hv.c | 12 ++++++++++++
+ arch/powerpc/kvm/book3s_hv.c        | 10 ++++++++++
+ 2 files changed, 22 insertions(+)
 
- arch/powerpc/kvm/book3s_64_mmu_hv.c      | 12 ++++
- arch/powerpc/kvm/book3s_hv.c             | 80 +++++++++++++-----------
- arch/powerpc/kvm/book3s_paired_singles.c |  7 +--
- 3 files changed, 58 insertions(+), 41 deletions(-)
-
-
-base-commit: 551c722f40809618230001baccf219193e22fc5a
+diff --git a/arch/powerpc/kvm/book3s_64_mmu_hv.c b/arch/powerpc/kvm/book3s_64_mmu_hv.c
+index 2ccb3d138f46..59da958e09cb 100644
+--- a/arch/powerpc/kvm/book3s_64_mmu_hv.c
++++ b/arch/powerpc/kvm/book3s_64_mmu_hv.c
+@@ -823,7 +823,9 @@ static void kvm_unmap_rmapp(struct kvm *kvm, struct kvm_memory_slot *memslot,
+ 		 */
+ 		i = *rmapp & KVMPPC_RMAP_INDEX;
+ 		hptep = (__be64 *) (kvm->arch.hpt.virt + (i << 4));
++		preempt_disable();
+ 		if (!try_lock_hpte(hptep, HPTE_V_HVLOCK)) {
++			preempt_enable();
+ 			/* unlock rmap before spinning on the HPTE lock */
+ 			unlock_rmap(rmapp);
+ 			while (be64_to_cpu(hptep[0]) & HPTE_V_HVLOCK)
+@@ -834,6 +836,7 @@ static void kvm_unmap_rmapp(struct kvm *kvm, struct kvm_memory_slot *memslot,
+ 		kvmppc_unmap_hpte(kvm, i, memslot, rmapp, gfn);
+ 		unlock_rmap(rmapp);
+ 		__unlock_hpte(hptep, be64_to_cpu(hptep[0]));
++		preempt_enable();
+ 	}
+ }
+ 
+@@ -909,7 +912,9 @@ static bool kvm_age_rmapp(struct kvm *kvm, struct kvm_memory_slot *memslot,
+ 		if (!(be64_to_cpu(hptep[1]) & HPTE_R_R))
+ 			continue;
+ 
++		preempt_disable();
+ 		if (!try_lock_hpte(hptep, HPTE_V_HVLOCK)) {
++			preempt_enable();
+ 			/* unlock rmap before spinning on the HPTE lock */
+ 			unlock_rmap(rmapp);
+ 			while (be64_to_cpu(hptep[0]) & HPTE_V_HVLOCK)
+@@ -928,6 +933,7 @@ static bool kvm_age_rmapp(struct kvm *kvm, struct kvm_memory_slot *memslot,
+ 			ret = true;
+ 		}
+ 		__unlock_hpte(hptep, be64_to_cpu(hptep[0]));
++		preempt_enable();
+ 	} while ((i = j) != head);
+ 
+ 	unlock_rmap(rmapp);
+@@ -1043,7 +1049,9 @@ static int kvm_test_clear_dirty_npages(struct kvm *kvm, unsigned long *rmapp)
+ 		    (!hpte_is_writable(hptep1) || vcpus_running(kvm)))
+ 			continue;
+ 
++		preempt_disable();
+ 		if (!try_lock_hpte(hptep, HPTE_V_HVLOCK)) {
++			preempt_enable();
+ 			/* unlock rmap before spinning on the HPTE lock */
+ 			unlock_rmap(rmapp);
+ 			while (hptep[0] & cpu_to_be64(HPTE_V_HVLOCK))
+@@ -1054,6 +1062,7 @@ static int kvm_test_clear_dirty_npages(struct kvm *kvm, unsigned long *rmapp)
+ 		/* Now check and modify the HPTE */
+ 		if (!(hptep[0] & cpu_to_be64(HPTE_V_VALID))) {
+ 			__unlock_hpte(hptep, be64_to_cpu(hptep[0]));
++			preempt_enable();
+ 			continue;
+ 		}
+ 
+@@ -1077,6 +1086,7 @@ static int kvm_test_clear_dirty_npages(struct kvm *kvm, unsigned long *rmapp)
+ 		v &= ~HPTE_V_ABSENT;
+ 		v |= HPTE_V_VALID;
+ 		__unlock_hpte(hptep, v);
++		preempt_enable();
+ 	} while ((i = j) != head);
+ 
+ 	unlock_rmap(rmapp);
+@@ -1219,6 +1229,7 @@ static unsigned long resize_hpt_rehash_hpte(struct kvm_resize_hpt *resize,
+ 	if (!(vpte & HPTE_V_VALID) && !(vpte & HPTE_V_ABSENT))
+ 		return 0; /* nothing to do */
+ 
++	preempt_disable();
+ 	while (!try_lock_hpte(hptep, HPTE_V_HVLOCK))
+ 		cpu_relax();
+ 
+@@ -1346,6 +1357,7 @@ static unsigned long resize_hpt_rehash_hpte(struct kvm_resize_hpt *resize,
+ 
+ out:
+ 	unlock_hpte(hptep, vpte);
++	preempt_enable();
+ 	return ret;
+ }
+ 
+diff --git a/arch/powerpc/kvm/book3s_hv.c b/arch/powerpc/kvm/book3s_hv.c
+index aa51968e206a..0b7743bb89d9 100644
+--- a/arch/powerpc/kvm/book3s_hv.c
++++ b/arch/powerpc/kvm/book3s_hv.c
+@@ -1159,6 +1159,10 @@ static long kvmppc_h_rpt_invalidate(struct kvm_vcpu *vcpu,
+ 	return H_SUCCESS;
+ }
+ 
++/*
++ * Must be called with preemption disabled. The HPT hcall handlers spin
++ * on HPTE bit-locks and cannot make any blocking/sleeping calls.
++ */
+ static long kvmppc_pseries_do_hpt_hcall(struct kvm_vcpu *vcpu, unsigned long req)
+ {
+ 	switch (req) {
+@@ -1212,9 +1216,11 @@ int kvmppc_pseries_do_hcall(struct kvm_vcpu *vcpu)
+ 	case H_CLEAR_REF:
+ 	case H_PROTECT:
+ 	case H_BULK_REMOVE:
++		preempt_disable();
+ 		idx = srcu_read_lock(&kvm->srcu);
+ 		ret = kvmppc_pseries_do_hpt_hcall(vcpu, req);
+ 		srcu_read_unlock(&kvm->srcu, idx);
++		preempt_enable();
+ 		if (ret == H_TOO_HARD)
+ 			return RESUME_HOST;
+ 		break;
+@@ -1834,8 +1840,10 @@ static int kvmppc_handle_exit_hv(struct kvm_vcpu *vcpu,
+ 		else
+ 			vsid = vcpu->arch.fault_gpa;
+ 
++		preempt_disable();
+ 		err = kvmppc_hpte_hv_fault(vcpu, vcpu->arch.fault_dar,
+ 				vsid, vcpu->arch.fault_dsisr, true);
++		preempt_enable();
+ 		if (err == 0) {
+ 			r = RESUME_GUEST;
+ 		} else if (err == -1 || err == -2) {
+@@ -1881,8 +1889,10 @@ static int kvmppc_handle_exit_hv(struct kvm_vcpu *vcpu,
+ 		else
+ 			vsid = vcpu->arch.fault_gpa;
+ 
++		preempt_disable();
+ 		err = kvmppc_hpte_hv_fault(vcpu, vcpu->arch.fault_dar,
+ 				vsid, vcpu->arch.fault_dsisr, false);
++		preempt_enable();
+ 		if (err == 0) {
+ 			r = RESUME_GUEST;
+ 		} else if (err == -1) {
 -- 
 2.54.0 (Apple Git-157)
 
