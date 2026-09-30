@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 088064BB299
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 15:13:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 929CB4BFE6D
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 15:13:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790781229; cv=none; b=GhL663WJ3dpEu2Tsa8gKwjWq/IWXt56loUnfkYnhXyI0GM0LRCpRvduMbDX5/wBir0PZaHNmejA64P4z8ITe1+97CJAyjma8sJacEPM91GtD7pV+cGfoaqlseT5nC/KRx5VfoTti573bvX9+w9CX4abppfqb7dT7vo6uySc5rGs=
+	t=1790781240; cv=none; b=h4IFazBauQxNcp7ed6W4nNP/HTeUvOPb2PHEh+FDpkhHl9KVu7Qdq4L/lv3F5kUTKIdbQa74U0rGQnMggmwRVw7Kst/oSF/BfaZi4XnywrwSn/tlOs+ObQiRP5EIIdww1yvA74QlgjyYBtwSSvREE6NeXhHwDC71k7is4GQ5hhI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790781229; c=relaxed/simple;
-	bh=2iJPsnOsQYpjabd5+/L38Qh6TvR7nNXxHCYhoqKjnQs=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Y9TB1eYan7q8DLKo/S6/qPdVeJGELlaaoXgeEwfAgPAdpnnLYVbO6Q5pbQLl7HpoPsdPZmtGPltzjApYCYbMEO2EjbBAhkJvgnPsfGykpHyFye7I/mjWSfef6Y5xQuBG3kYGkKlO1gMCQdhT/QY9HGd6KqgrO9WsQ8Tjm4qRFWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=pO16htan; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790781240; c=relaxed/simple;
+	bh=CMg0PiwAKl9BPA/Js9yzMhs0NzB+HuIyK5H05Ei3B3c=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Rsj8U0Xg4yfvuywIYmdFp0jgNutx9yeMBnQAkP2+s5UGu1J5HpVpz569w60O2NmMltmshkYg8lieXd6+hF6m+zRMPq3nBlyjfDxNHI8dmrilajTYV1j117IUX9VG8/sJOEMeyycNYkiI0+2yqZGzLdB+RBKmbsibXrSD6W5P7YQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xPAwW9hO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="pO16htan"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2DA31F000FF;
-	Wed, 30 Sep 2026 15:13:34 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xPAwW9hO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7641D1F0089F;
+	Wed, 30 Sep 2026 15:13:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790781215;
-	bh=QrM9lY5CKw49MP8DcW9SjtttuCBvEaCZc0vXzbZv9LM=;
+	s=korg; t=1790781228;
+	bh=nAAkc2++rg6O32zIOXRDaEoHwkwM8jCAvEMdTSe1exU=;
 	h=Subject:To:Cc:From:Date;
-	b=pO16htanFlbZkC4SleAa8AbJ6FXKPfqOWUqznsZGzCXXG4s0v5Ben7OOQTdztP5GG
-	 UV7eV/Oj4RH+GDuxXswTJ2j6Mdd8m9Pn3PChjUcJCrp9McJ38A0y6iagc42rf1Ng0T
-	 JObBOqAfWpVIirzz2DUHKC1g34RfH+sDH/WxY/k0=
-Subject: FAILED: patch "[PATCH] nvme-tcp: fix usage of page_frag_cache" failed to apply to 6.6-stable tree
-To: d.bogdanov@yadro.com,kbusch@kernel.org,wagi@kernel.org
+	b=xPAwW9hO43B3ReuppKk00+dfMfmVLl4UFz3M6LU8b0no5nTAySM9NFv4EHSOSEcO4
+	 u+2kYioR6fe/JgY24KsEcpN/PhQgT1uBXZN3+/jN/sj97MwRTmqg5oXUGBO9W6g4V2
+	 RtoNAMrDZuggbHmIWKPTaSg2t145eT7hn7+N64J8=
+Subject: FAILED: patch "[PATCH] smb/server: fix posix state check for directory rename" failed to apply to 6.6-stable tree
+To: chenxiaosong@kylinos.cn,linkinjeon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 30 Sep 2026 17:13:29 +0200
-Message-ID: <2026093029-shadily-cattle-6976@gregkh>
+Date: Wed, 30 Sep 2026 17:13:41 +0200
+Message-ID: <2026093041-subprime-padded-e4c5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 36ac05f7cfd59d90c597071304b14e98090d5dd1
+git cherry-pick -x 2d99fbd7ad36ef288700f00102aaee11bcae04b4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026093029-shadily-cattle-6976@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026093041-subprime-padded-e4c5@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,90 +62,124 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 36ac05f7cfd59d90c597071304b14e98090d5dd1 Mon Sep 17 00:00:00 2001
-From: Dmitry Bogdanov <d.bogdanov@yadro.com>
-Date: Thu, 16 Jul 2026 16:42:19 +0200
-Subject: [PATCH] nvme-tcp: fix usage of page_frag_cache
+From 2d99fbd7ad36ef288700f00102aaee11bcae04b4 Mon Sep 17 00:00:00 2001
+From: ChenXiaoSong <chenxiaosong@kylinos.cn>
+Date: Mon, 3 Aug 2026 17:21:17 +0900
+Subject: [PATCH] smb/server: fix posix state check for directory rename
 
-nvme uses page_frag_cache to preallocate PDU for each preallocated request
-of block device. Block devices are created in parallel threads,
-consequently page_frag_cache is used in not thread-safe manner.
-That leads to incorrect refcounting of backstore pages and premature free.
+Pass the source ksmbd_file to the rename helpers and use the per-handle
+POSIX create-context state when deciding whether open children block a
+directory rename.
 
-That can be catched by !sendpage_ok inside network stack:
+work->tcon->posix_extensions only records whether POSIX extensions were
+negotiated on the connection.  It does not indicate that the handles were
+opened with POSIX create contexts.
 
-WARNING: CPU: 7 PID: 467 at ../net/core/skbuff.c:6931 skb_splice_from_iter+0xfa/0x310.
-	tcp_sendmsg_locked+0x782/0xce0
-	tcp_sendmsg+0x27/0x40
-	sock_sendmsg+0x8b/0xa0
-	nvme_tcp_try_send_cmd_pdu+0x149/0x2a0
-Then random panic may occur.
+Reproducer:
 
-Fix that by serializing the usage of page_frag_cache.
+  1. server: systemctl start ksmbd
+  2. client: mount -t cifs //${server_ip}/export /mnt
+     # without posix option
+  3. client: mkdir /mnt/dir1/; touch /mnt/dir1/file
+  4. client: tail -f /mnt/dir1/file # open file
+  5. client: mv /mnt/dir1 /mnt/dir2
 
-Fixes: 4e893ca81170 ("nvme_core: scan namespaces asynchronously")
-Signed-off-by: Dmitry Bogdanov <d.bogdanov@yadro.com>
-Signed-off-by: Daniel Wagner <wagi@kernel.org>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
+Without this fix, the rename can succeed when it should fail with
+"Permission denied".
 
-diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
-index 0b2ac150b675..1d303e54e13e 100644
---- a/drivers/nvme/host/tcp.c
-+++ b/drivers/nvme/host/tcp.c
-@@ -108,6 +108,7 @@ struct nvme_tcp_queue {
+Fixes: c841bd3d8dec ("ksmbd: deny renaming directory with open children")
+Signed-off-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index e214d27e4d37..80f5791c687b 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -7690,7 +7690,7 @@ static int smb2_rename(struct ksmbd_work *work,
+ 		goto out;
  
- 	struct mutex		queue_lock;
- 	struct mutex		send_mutex;
-+	struct mutex		pf_cache_lock;
- 	struct llist_head	req_list;
- 	struct list_head	send_list;
- 
-@@ -552,9 +553,11 @@ static int nvme_tcp_init_request(struct blk_mq_tag_set *set,
- 	struct nvme_tcp_queue *queue = &ctrl->queues[queue_idx];
- 	u8 hdgst = nvme_tcp_hdgst_len(queue);
- 
-+	mutex_lock(&queue->pf_cache_lock);
- 	req->pdu = page_frag_alloc(&queue->pf_cache,
- 		sizeof(struct nvme_tcp_cmd_pdu) + hdgst,
- 		GFP_KERNEL | __GFP_ZERO);
-+	mutex_unlock(&queue->pf_cache_lock);
- 	if (!req->pdu)
- 		return -ENOMEM;
- 
-@@ -1419,9 +1422,11 @@ static int nvme_tcp_alloc_async_req(struct nvme_tcp_ctrl *ctrl)
- 	struct nvme_tcp_request *async = &ctrl->async_req;
- 	u8 hdgst = nvme_tcp_hdgst_len(queue);
- 
-+	mutex_lock(&queue->pf_cache_lock);
- 	async->pdu = page_frag_alloc(&queue->pf_cache,
- 		sizeof(struct nvme_tcp_cmd_pdu) + hdgst,
- 		GFP_KERNEL | __GFP_ZERO);
-+	mutex_unlock(&queue->pf_cache_lock);
- 	if (!async->pdu)
- 		return -ENOMEM;
- 
-@@ -1463,6 +1468,7 @@ static void nvme_tcp_free_queue(struct nvme_ctrl *nctrl, int qid)
- 	kfree(queue->pdu);
- 	mutex_destroy(&queue->send_mutex);
- 	mutex_destroy(&queue->queue_lock);
-+	mutex_destroy(&queue->pf_cache_lock);
- 
- #ifdef CONFIG_DEBUG_LOCK_ALLOC
- 	lockdep_unregister_key(&queue->nvme_tcp_sk_key);
-@@ -1790,6 +1796,7 @@ static int nvme_tcp_alloc_queue(struct nvme_ctrl *nctrl, int qid,
- 	INIT_LIST_HEAD(&queue->send_list);
- 	mutex_init(&queue->send_mutex);
- 	INIT_WORK(&queue->io_work, nvme_tcp_io_work);
-+	mutex_init(&queue->pf_cache_lock);
- 
- 	if (qid > 0)
- 		queue->cmnd_capsule_len = nctrl->ioccsz * 16;
-@@ -1930,6 +1937,7 @@ static int nvme_tcp_alloc_queue(struct nvme_ctrl *nctrl, int qid,
- err_destroy_mutex:
- 	mutex_destroy(&queue->send_mutex);
- 	mutex_destroy(&queue->queue_lock);
-+	mutex_destroy(&queue->pf_cache_lock);
- 	return ret;
+ 	smb_break_all_levII_oplock_rename(work, fp);
+-	rc = ksmbd_vfs_rename(work, &fp->filp->f_path, new_name, flags);
++	rc = ksmbd_vfs_rename(work, fp, new_name, flags);
+ out:
+ 	kfree(new_name);
+ 	return rc;
+diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
+index ff86e0e88177..0e7d66b0e899 100644
+--- a/fs/smb/server/vfs.c
++++ b/fs/smb/server/vfs.c
+@@ -678,9 +678,10 @@ int ksmbd_vfs_check_rename_share(struct ksmbd_work *work,
+ 	return err;
  }
  
+-int ksmbd_vfs_rename(struct ksmbd_work *work, const struct path *old_path,
++int ksmbd_vfs_rename(struct ksmbd_work *work, struct ksmbd_file *old_fp,
+ 			     char *newname, int flags)
+ {
++	const struct path *old_path = &old_fp->filp->f_path;
+ 	struct dentry *old_child = old_path->dentry;
+ 	struct path new_path;
+ 	struct qstr new_last;
+@@ -717,8 +718,7 @@ int ksmbd_vfs_rename(struct ksmbd_work *work, const struct path *old_path,
+ 	if (err)
+ 		goto out_drop_write;
+ 
+-	if (!work->tcon->posix_extensions && d_is_dir(old_child) &&
+-	    ksmbd_has_open_files(old_child)) {
++	if (d_is_dir(old_child) && ksmbd_has_open_files(old_fp)) {
+ 		err = -EACCES;
+ 		goto out3;
+ 	}
+diff --git a/fs/smb/server/vfs.h b/fs/smb/server/vfs.h
+index 1818b3f1971c..55d099de71f5 100644
+--- a/fs/smb/server/vfs.h
++++ b/fs/smb/server/vfs.h
+@@ -88,8 +88,8 @@ int ksmbd_vfs_remove_file(struct ksmbd_work *work, const struct path *path);
+ int ksmbd_vfs_link(struct ksmbd_work *work,
+ 		   const char *oldname, const char *newname);
+ int ksmbd_vfs_getattr(const struct path *path, struct kstat *stat);
+-int ksmbd_vfs_rename(struct ksmbd_work *work, const struct path *old_path,
+-			     char *newname, int flags);
++int ksmbd_vfs_rename(struct ksmbd_work *work, struct ksmbd_file *old_fp,
++			 char *newname, int flags);
+ int ksmbd_vfs_check_rename_share(struct ksmbd_work *work,
+ 				 const struct path *old_path);
+ int ksmbd_vfs_truncate(struct ksmbd_work *work,
+diff --git a/fs/smb/server/vfs_cache.c b/fs/smb/server/vfs_cache.c
+index a35df2ab59c9..eac9886eb6e3 100644
+--- a/fs/smb/server/vfs_cache.c
++++ b/fs/smb/server/vfs_cache.c
+@@ -1137,8 +1137,9 @@ struct ksmbd_file *ksmbd_lookup_fd_inode(struct dentry *dentry)
+ 	return NULL;
+ }
+ 
+-bool ksmbd_has_open_files(struct dentry *dentry)
++bool ksmbd_has_open_files(struct ksmbd_file *old_fp)
+ {
++	struct dentry *dentry = old_fp->filp->f_path.dentry;
+ 	struct ksmbd_file *fp;
+ 	unsigned int id;
+ 	bool ret = false;
+@@ -1151,6 +1152,8 @@ bool ksmbd_has_open_files(struct dentry *dentry)
+ 			continue;
+ 		if (fp_dentry == dentry)
+ 			continue;
++		if (old_fp->is_posix_ctxt && fp->is_posix_ctxt)
++			continue;
+ 		if (is_subdir(fp_dentry, dentry)) {
+ 			ret = true;
+ 			break;
+diff --git a/fs/smb/server/vfs_cache.h b/fs/smb/server/vfs_cache.h
+index d80f379d4e12..127ea4987e3f 100644
+--- a/fs/smb/server/vfs_cache.h
++++ b/fs/smb/server/vfs_cache.h
+@@ -212,7 +212,7 @@ bool ksmbd_has_stream_without_delete_share(struct ksmbd_file *fp);
+ int ksmbd_close_fd_app_instance_id(char *app_instance_id);
+ struct ksmbd_file *ksmbd_lookup_fd_cguid(char *cguid);
+ struct ksmbd_file *ksmbd_lookup_fd_inode(struct dentry *dentry);
+-bool ksmbd_has_open_files(struct dentry *dentry);
++bool ksmbd_has_open_files(struct ksmbd_file *old_fp);
+ unsigned int ksmbd_open_durable_fd(struct ksmbd_file *fp);
+ struct ksmbd_file *ksmbd_open_fd(struct ksmbd_work *work, struct file *filp);
+ void ksmbd_launch_ksmbd_durable_scavenger(void);
 
