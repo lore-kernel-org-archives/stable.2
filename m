@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1326B515899;
-	Wed, 30 Sep 2026 16:08:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 835205158B4;
+	Wed, 30 Sep 2026 16:08:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790784511; cv=none; b=WrVF5+kdlzIrTQBzb70HUGDyk6XIKQYgSuXzDWpnwUI0XTSVWk/NOZv0kQgFDfRvCSEv/dK0ZcXdRFT0/q3RzPi2iZNI0/37VCEm9uGl/s9VJwNbpbgspKKT3knsbgIDa76TSe1EzE/iwBRIjdvIlC7tem3wbsg5uuxFcwZv1ng=
+	t=1790784517; cv=none; b=HDdA9CIZCDue02xqn2nkUwTJ+WFU0QpakApriRmdnnGoJlnQkx6qTyCuYOsHXX/gk6ZkjRCaHR/LbcuJOEJz9kPuQ499zAl5Zw8vyo/LkO5DcD7juJnhdDgdfgqRUR27eU4gyWUo6rxY6aXQCEXPR/041RcuRwEKPkZ1Asjqz8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790784511; c=relaxed/simple;
-	bh=PAJrknLKRGP3V2GGx+llj71i7An9ua+wehFXY0JodOk=;
+	s=arc-20240116; t=1790784517; c=relaxed/simple;
+	bh=KdjNMNSNJWOT4oF3EYNeYbhKNWq4QoZMzSaDdSL9xTk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cO8JF8THNdsHMqhuy4aKMvWBKjD2aRN1m30yY/VXLWmyt9yMiRXOCCnOwmcWyvvyjuRBFPgBdx2QbvUtedEANkz3RAenp0S2dhnL70jsNC9XmFZpbBv06WwOFYUTgFtHI3JBAopPP67Jgbz3cOoPWBlW3FinwKYrtDjJq/hiKQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=og38jggc; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=tUdJ+BYaNACljKfY9wTzZ3ItSvn8/Aacl1cgmXLCESf7wC5RrBz3NDU5AVTC76xkJvp/tWxlnq081YaPHo+0gwoFQGQza9qICPgOLRxntB+QSHRAaCmVxQRvhfHvqp3JN5zMkob1z5z335DjXKDgbkl4AXFXajaFekwoNpvm5Z0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=IZCyy3fL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="og38jggc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86B921F00893;
-	Wed, 30 Sep 2026 16:08:21 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="IZCyy3fL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E86061F00899;
+	Wed, 30 Sep 2026 16:08:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790784502;
-	bh=mk8dCDaSndN9QLt2DjtF8y7Cs+LIiBGG/yIB4dPgIck=;
+	s=korg; t=1790784510;
+	bh=rRrQgBemBR17NanR1KyJpASR0bTcV54kBltqtzPW094=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=og38jggc/GcR4YBmVnzdam901T5VdmU30NT9fvuxKsAlQ4lfffCYrutyR5/AcuYuX
-	 R45ShlFHXNkHjwngQqAxJ5x96y3+TFNv7O/AV6MYkzvM7nF0r+NNIkI1DjHfOeFQoV
-	 Dw7yBbV4irRi7LX/79FT5kJr7gFoKN5WlF+Ccj4U=
+	b=IZCyy3fLMgptL1Oqlj5W995nL74LgN8S9FEIhBzkjVcz8phyAOuIIxaLCQqMztMVR
+	 BZa2KQOPBF7xjUBFtZVLpAgHlKdquHNaWzQZFCBSP/bJ6wzGRd8Q6xPQmI7FEaY+cn
+	 GwgoGxFRbA70j9oqS1+HgFVxb6jaFRDwMUSPq4FM=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Tze Yee Ng <tze.yee.ng@altera.com>,
-	Vinod Koul <vkoul@kernel.org>,
+	Hrvoje Nuic <hrvoje.nuic@gmail.com>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 179/982] dmaengine: dw-axi-dmac: fix PM for system sleep and channel alloc
-Date: Wed, 30 Sep 2026 17:15:15 +0200
-Message-ID: <20260930152420.658968491@linuxfoundation.org>
+Subject: [PATCH 6.1 182/982] Bluetooth: btusb: Add Mercusys MA530 for Realtek RTL8761BUV
+Date: Wed, 30 Sep 2026 17:15:18 +0200
+Message-ID: <20260930152420.724465292@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
 References: <20260930152416.775402466@linuxfoundation.org>
@@ -51,76 +51,37 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Tze Yee Ng <tze.yee.ng@altera.com>
+From: Hrvoje Nuic <hrvoje.nuic@gmail.com>
 
-[ Upstream commit df0c2dc68770cf43f15df40b184df030b850ea05 ]
+[ Upstream commit ce21a5cf3d1fd92b84ea9ad2b7c7240aff2162d2 ]
 
-The driver only had runtime PM callbacks. If a channel stayed allocated
-across system suspend/resume, the runtime usage count could remain
-non-zero while hardware state (DMAC_CFG, clocks) was lost, and
-axi_dma_runtime_resume() would not run to restore it.
+Add the USB ID for the Mercusys MA530 Bluetooth adapter. The device uses
+a Realtek RTL8761BUV controller and works with the existing Realtek setup
+path.
 
-Add system-sleep PM ops that use pm_runtime_force_suspend() and
-pm_runtime_force_resume() so suspend/resume reuses the existing
-axi_dma_suspend() and axi_dma_resume() paths.
+The device reports vendor ID 0x2c4e and product ID 0x0115, and loads the
+rtl_bt/rtl8761bu_fw.bin firmware successfully with this quirk.
 
-Replace pm_runtime_get() with pm_runtime_resume_and_get() in
-dma_chan_alloc_chan_resources() so clocks are enabled before a client
-can immediately submit a transfer and touch MMIO.
-
-Signed-off-by: Tze Yee Ng <tze.yee.ng@altera.com>
-Link: https://patch.msgid.link/18bf778a3a1cc2f377ef8eb0d1508d8ac6371896.1779688569.git.tze.yee.ng@altera.com
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
+Signed-off-by: Hrvoje Nuic <hrvoje.nuic@gmail.com>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ drivers/bluetooth/btusb.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
-index 46b080941b621..d313db5379f8c 100644
---- a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
-+++ b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
-@@ -464,11 +464,17 @@ static void dw_axi_dma_synchronize(struct dma_chan *dchan)
- static int dma_chan_alloc_chan_resources(struct dma_chan *dchan)
- {
- 	struct axi_dma_chan *chan = dchan_to_axi_dma_chan(dchan);
-+	int ret;
-+
-+	ret = pm_runtime_resume_and_get(chan->chip->dev);
-+	if (ret < 0)
-+		return ret;
+diff --git a/drivers/bluetooth/btusb.c b/drivers/bluetooth/btusb.c
+index acf58aaa551ef..0e38bf99d572b 100644
+--- a/drivers/bluetooth/btusb.c
++++ b/drivers/bluetooth/btusb.c
+@@ -659,6 +659,8 @@ static const struct usb_device_id blacklist_table[] = {
+ 	{ USB_DEVICE(0x2ff8, 0xb011), .driver_info = BTUSB_REALTEK },
  
- 	/* ASSERT: channel is idle */
- 	if (axi_chan_is_hw_enable(chan)) {
- 		dev_err(chan2dev(chan), "%s is non-idle!\n",
- 			axi_chan_name(chan));
-+		pm_runtime_put(chan->chip->dev);
- 		return -EBUSY;
- 	}
- 
-@@ -479,12 +485,11 @@ static int dma_chan_alloc_chan_resources(struct dma_chan *dchan)
- 					  64, 0);
- 	if (!chan->desc_pool) {
- 		dev_err(chan2dev(chan), "No memory for descriptors\n");
-+		pm_runtime_put(chan->chip->dev);
- 		return -ENOMEM;
- 	}
- 	dev_vdbg(dchan2dev(dchan), "%s: allocating\n", axi_chan_name(chan));
- 
--	pm_runtime_get(chan->chip->dev);
--
- 	return 0;
- }
- 
-@@ -1548,6 +1553,8 @@ static int dw_remove(struct platform_device *pdev)
- }
- 
- static const struct dev_pm_ops dw_axi_dma_pm_ops = {
-+	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
-+				pm_runtime_force_resume)
- 	SET_RUNTIME_PM_OPS(axi_dma_runtime_suspend, axi_dma_runtime_resume, NULL)
- };
- 
+ 	/* Additional Realtek 8761BUV Bluetooth devices */
++	{ USB_DEVICE(0x2c4e, 0x0115), .driver_info = BTUSB_REALTEK |
++						     BTUSB_WIDEBAND_SPEECH },
+ 	{ USB_DEVICE(0x2357, 0x0604), .driver_info = BTUSB_REALTEK |
+ 						     BTUSB_WIDEBAND_SPEECH },
+ 	{ USB_DEVICE(0x0b05, 0x190e), .driver_info = BTUSB_REALTEK |
 -- 
 2.53.0
 
