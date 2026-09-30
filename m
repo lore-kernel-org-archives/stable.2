@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCC0A3546CC
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 11:50:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 889323BBFBB
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 11:50:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790769006; cv=none; b=Gfd9d//4/3bAYWvgitHIl8i3Ck2QVH+ur5Nvkt1CqMsOJwhVSm7XFPSgBYjmpNNNA3wGeMGhB5cRXdaGVjUqZ3PkUgO2PDbVFKoku3IL0WXlL8/LIUxPFlSD1sgh6j802HdrgSMMjN50lEJF4P9x8DZF8roIN2YedW1cIp5T388=
+	t=1790769008; cv=none; b=fCH2wtwKvaGLhWI8H+bniJAr3/LTRcNtbMqJh6Et2myquphMCHD7m4tmOq4BqHgibkMQjHeXHwc1WX07pwFaoDSS6NG/UouJ+cph/ouyg5EVdJPJbxzBXJ3+D2/sSk2Ufx55HwHr/nUBLMHFDWabivfFGYEckHAayuZpkr8rbdE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790769006; c=relaxed/simple;
-	bh=q6LeiPIGhVDKSXQRqzQddasm24rJfcTiPX0Ej5fdyZc=;
+	s=arc-20240116; t=1790769008; c=relaxed/simple;
+	bh=YqTSpS+cikBo8pQ3tcBMSzgeVX5qeW0BeYSrDwutN0Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Y78NgKXBoOLLE0BZiHUU4STuG6swHR2BQrZPm/EGxBTdBSw6RQJDTaMszazDWo6WkqTZo+M9/AjWWigydEsiPPpQoWXMNtIAeYEhW+AK59OKNHzzCh8uQModjfx9SnkPW2DKT2VnXhvd2bYkj95zIEdj8HL1Y8YrbqJ9pulhilE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R+wWU4eE; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=sJE8wmBWW8w8c6Ju+tjwfncxNvKW5ogVqbvzLA5kEReVc8nctSpzXs8mHQze7f2YC/Vpg29D4f54Vg4sPjvXlqjJXIUmjGpc2Vjkicrc9PNNbG4Bk9SpxOAf4RdkJN9u6ExxQDiN1dNMAd0rSLzCtSPe/j7NqbE7JI1ytMahS7M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wrmej9hx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R+wWU4eE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA0121F000FF;
-	Wed, 30 Sep 2026 11:50:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wrmej9hx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2E861F00898;
+	Wed, 30 Sep 2026 11:50:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790769005;
-	bh=1o6w0H+qMBB0i1tPB1i/E4NA6X8G3XG4S/kUuODplA8=;
+	s=k20260515; t=1790769006;
+	bh=0vL5vO2PRYxEOvY+Pw6vB738p1bOBg5DpS3KZTB29ig=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=R+wWU4eEiKMrqahnxRaA+YLRGS506Zbo0yS6MYZsKrm/7tU8dHzRpFcFi4F+OA+0Y
-	 zDA/4EpfSN2iBzelbs10x8uHDMPa4ciebcGgQPodtmCatU8akxQxYZVTKDj30+Uwse
-	 KZsJEVu3rw/sSCjLC/1Bnh3xj0ayGNFzxpsVAwmOioMxc2WD/mZ5IEPa09MIEERE60
-	 eiMi/0ZYlhHsXpZHygzDpDr8emi+7NmhN7+79McvR5LeOqvhGnpsUwWz7yJtRylVAa
-	 N5GDaVrFrkhHHKsDRR6ocaMkH6U1h4j4uWJ4Pja+icnIoUiyfNS+wW7RlQ+6P2cDto
-	 T7dJYNXK0Weug==
+	b=Wrmej9hxptldV3Mv4ULQNy+2COdKmsRBswwNtNBxe7FCcwJOMNknxSwxBlFFhz0hx
+	 v7zYdncBn64+3zid6c/lh2YPkYVZ75Eb0gDgIQVUoFUTFBdBv4UULj3mB2OOPMVPTJ
+	 aZQqsV06Eb+Dc9OEIAHxEZwW8yKGatSA73K5OBIjQQUNJ6E1QN5Fs+iPp4tTu0ZE5E
+	 c6y5UZ70ZZl+ESdUW4zjef4sm58ezfO2UagF79OcOA9VdmPdMZuZguyjUoUnC+QAMG
+	 UF4yI2RhoheGvBScUtAomUcJaZ9Y6k7i8/e3oAHz96pd46cNGZquQqJuSgKv5lkAhX
+	 2JrythDlZNa2A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jiakai Xu <jiakaipeanut@gmail.com>,
-	Jiakai Xu <xujiakai2025@iscas.ac.cn>,
-	Jiakai Xu <jiakaiPeanut@gmail.com>,
+Cc: Xie Bo <xb@ultrarisc.com>,
 	Anup Patel <anup@brainfault.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] RISC-V: KVM: Fix null pointer dereference in kvm_riscv_aia_imsic_rw_attr()
-Date: Wed, 30 Sep 2026 07:50:02 -0400
-Message-ID: <20260930115003.1386871-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] RISC-V: KVM: Serialize IMSIC attributes with vCPU migration
+Date: Wed, 30 Sep 2026 07:50:03 -0400
+Message-ID: <20260930115003.1386871-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092914-dreadlock-impound-a776@gregkh>
+In-Reply-To: <20260930115003.1386871-1-sashal@kernel.org>
 References: <2026092914-dreadlock-impound-a776@gregkh>
+ <20260930115003.1386871-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,56 +46,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jiakai Xu <jiakaipeanut@gmail.com>
+From: Xie Bo <xb@ultrarisc.com>
 
-[ Upstream commit aeb1d17d1af5924f7357d7204a293bd8fc06ea13 ]
+[ Upstream commit 8ae12ccaec6ec74945d8c1ef39f2c1b8df779abc ]
 
-Add a null pointer check for imsic_state before dereferencing it in
-kvm_riscv_aia_imsic_rw_attr(). While the function checks that the
-vcpu exists, it doesn't verify that the vcpu's imsic_state has been
-initialized, leading to a null pointer dereference when accessed.
+KVM device ioctls are not serialized against KVM_RUN. As a result,
+kvm_riscv_aia_imsic_rw_attr() can snapshot the physical CPU and HGEI of
+an IMSIC VS-file before a concurrent vCPU migration releases it.
 
-The crash manifests as:
-  Unable to handle kernel paging request at virtual address
-  dfffffff00000006
-  ...
-  kvm_riscv_aia_imsic_rw_attr+0x2d8/0x854 arch/riscv/kvm/aia_imsic.c:958
-  aia_set_attr+0x2ee/0x1726 arch/riscv/kvm/aia_device.c:354
-  kvm_device_ioctl_attr virt/kvm/kvm_main.c:4744 [inline]
-  kvm_device_ioctl+0x296/0x374 virt/kvm/kvm_main.c:4761
-  vfs_ioctl fs/ioctl.c:51 [inline]
-  ...
+The HGEI can then be allocated to another vCPU before imsic_vsfile_rw()
+uses the stale tuple. A GET or SET attribute may consequently access the
+new owner's interrupt file.
 
-The fix adds a check to return -ENODEV if imsic_state is NULL and moves
-isel assignment after imsic_state NULL check.
+Serialize the entire IMSIC attribute operation with the target vCPU
+mutex. This prevents the VS-file from being migrated and recycled until
+the attribute access completes. Acquire the mutex killably so that the
+device ioctl remains interruptible while waiting for KVM_RUN to finish.
 
-Fixes: 5463091a51cfaa ("RISC-V: KVM: Expose IMSIC registers as attributes of AIA irqchip")
-Signed-off-by: Jiakai Xu <xujiakai2025@iscas.ac.cn>
-Signed-off-by: Jiakai Xu <jiakaiPeanut@gmail.com>
+Fixes: db8b7e97d613 ("RISC-V: KVM: Add in-kernel virtualization of AIA IMSIC")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xie Bo <xb@ultrarisc.com>
 Reviewed-by: Anup Patel <anup@brainfault.org>
-Link: https://lore.kernel.org/r/20260127072219.3366607-1-xujiakai2025@iscas.ac.cn
+Link: https://lore.kernel.org/r/20260810-imsic-attr-race-v2-1-00ed95ad321e@ultrarisc.com
 Signed-off-by: Anup Patel <anup@brainfault.org>
-Stable-dep-of: 8ae12ccaec6e ("RISC-V: KVM: Serialize IMSIC attributes with vCPU migration")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/riscv/kvm/aia_imsic.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ arch/riscv/kvm/aia_imsic.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
 diff --git a/arch/riscv/kvm/aia_imsic.c b/arch/riscv/kvm/aia_imsic.c
-index a8085cd8215e3..751b7ce356068 100644
+index 751b7ce356068..abc247f7c9034 100644
 --- a/arch/riscv/kvm/aia_imsic.c
 +++ b/arch/riscv/kvm/aia_imsic.c
-@@ -895,8 +895,10 @@ int kvm_riscv_aia_imsic_rw_attr(struct kvm *kvm, unsigned long type,
+@@ -895,9 +895,14 @@ int kvm_riscv_aia_imsic_rw_attr(struct kvm *kvm, unsigned long type,
  	if (!vcpu)
  		return -ENODEV;
  
--	isel = KVM_DEV_RISCV_AIA_IMSIC_GET_ISEL(type);
++	if (mutex_lock_killable(&vcpu->mutex))
++		return -EINTR;
++
  	imsic = vcpu->arch.aia_context.imsic_state;
-+	if (!imsic)
-+		return -ENODEV;
-+	isel = KVM_DEV_RISCV_AIA_IMSIC_GET_ISEL(type);
+-	if (!imsic)
+-		return -ENODEV;
++	if (!imsic) {
++		rc = -ENODEV;
++		goto out_unlock;
++	}
+ 	isel = KVM_DEV_RISCV_AIA_IMSIC_GET_ISEL(type);
  
  	read_lock_irqsave(&imsic->vsfile_lock, flags);
+@@ -921,6 +926,8 @@ int kvm_riscv_aia_imsic_rw_attr(struct kvm *kvm, unsigned long type,
+ 		rc = imsic_vsfile_rw(vsfile_hgei, vsfile_cpu, imsic->nr_eix,
+ 				     isel, write, val);
+ 
++out_unlock:
++	mutex_unlock(&vcpu->mutex);
+ 	return rc;
+ }
  
 -- 
 2.53.0
