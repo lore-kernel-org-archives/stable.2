@@ -1,66 +1,48 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77B44501291
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 17:43:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DB9C558210;
+	Wed, 30 Sep 2026 17:43:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790790191; cv=none; b=idtjzWVlXcJ+m2RU8KNSADDuNb9LMk8wZGF90UtFpa8svOqUniFcCGeyL3CzytMx+fMX6tp7kabPyIwagT3vCaqZ+VuVlnhO5WjuTPtFAv0nzsGpSiRhq5C7/ddMAQ0s57SxIqEzVYKY18YI9jGAeooQ7CBXbdHMDtA93+fupU8=
+	t=1790790192; cv=none; b=s0iioejYl8zg6+KrM9JAE38eYq2sIz77CTPrBzxB+yni8VovAiGa3HNzqYAtFlF0/RJAFRsdJW3g1oPTp2Vc3cn9yXx+saP8mJE8DiBG72T23b+AoWwNu2Wo05B0ng2kGZW/BJ+rBoYC/ylCXrgA09IHolvhAAXciuUdUoj4LYU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790790191; c=relaxed/simple;
-	bh=7/9yWL/vCrF1RDQj5OaXAqTJCeaG966wirQd+ktxyG8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=qNdF9iYGSZ0B2C48Ichrgdl44VrbvabYrUELMxu8toRz0uxsUHQlhRgtnKZn7XM/Rwe5czh/+rd+ytrT95JgFPzzSVACP8O28ahYzVa0A6F4PvIWtFtP7b0Lo4Hbkn1ffVxSRuHSMx/Eb6s9IcjwRJUUmxQ3Xy1TAxtt4t38E6w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GkQ9BfsA; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790790192; c=relaxed/simple;
+	bh=RZSJae2hJ1gsVzSStWGd9DJy2yMu863KHwPKXiZ1pas=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ksB73PfTvng25CdUzqRM6KfW2/HMGOtdvS/Hs59jOJQy9PN7F1/Jh2x1JhVPx01mI/+v2f2paSdw7WGym8eyOFlrxw4paPZmsB/iBTPZmp4ef11vd5XVtL7a823qJGUbbVU3oatfbYB6hbHpp94nIE67juhR4jFIdcmm5h7J4nM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=N4ahZYKm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GkQ9BfsA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790790189; x=1822326189;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=7/9yWL/vCrF1RDQj5OaXAqTJCeaG966wirQd+ktxyG8=;
-  b=GkQ9BfsAtnKtdkO3iOxvhZYywx/j2FbngS8K9UsbreiWpYNMwxTqnmPo
-   6ZVHxSrIGcxE6IhIOhK8+bgOzI/JK+aYrSj2PsH+kvlbmErGeWIdc8EOX
-   Pyk64Icy4jbFWYiTph3CyUZwdONSWu/fhcak0/PNzGVZjkIoM/LoyO1tR
-   8QeDCcrlhd03xQaQ809twG8APptDtnf2oV8v1cXVSBNHYTm9H3+dqV0a4
-   6KYjQWctxIaUxHeCaf1LUMicQbu7p/1jM1XfvadbDXlYVWU+55XtGWsVy
-   +pXIchuUbKzDhRmLAP6RbLD2biFpmXY308NJEVGLSMMWiSe3ga0D4J6d+
-   Q==;
-X-CSE-ConnectionGUID: bU5yNf9qTyuur+Ukx+RlnA==
-X-CSE-MsgGUID: JrZbOCLVSMGpkyQsT+Z4qg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="91633364"
-X-IronPort-AV: E=Sophos;i="6.27,133,1787036400"; 
-   d="scan'208";a="91633364"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 10:43:00 -0700
-X-CSE-ConnectionGUID: wZlnnmoNTWe4/s6bDtCgOw==
-X-CSE-MsgGUID: CAcoEbnIQo29W2hXHLXFrA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,133,1787036400"; 
-   d="scan'208";a="303684057"
-Received: from b04f130c83f2.jf.intel.com ([10.165.154.98])
-  by fmviesa001.fm.intel.com with ESMTP; 30 Sep 2026 10:43:00 -0700
-From: Tim Chen <tim.c.chen@linux.intel.com>
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: Davi Chaves Azevedo <davichazbh@gmail.com>,
-	Chen Yu <yu.c.chen@intel.com>,
-	Lu Wang <wanglu.priv@gmail.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	stable@vger.kernel.org,
-	Tim Chen <tim.c.chen@linux.intel.com>,
-	Ingo Molnar <mingo@kernel.org>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	stable@kernel.org
-Subject: [PATCH 7.2.y 7/7] sched/cache: Refresh LLC capacity across CPU hotplug, to fix capacity underestimation bug
-Date: Wed, 30 Sep 2026 10:48:09 -0700
-Message-Id: <db3e6401eac9d7779f1fd0987ba9f55696196b12.1790790344.git.tim.c.chen@linux.intel.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <cover.1790790344.git.tim.c.chen@linux.intel.com>
-References: <cover.1790790344.git.tim.c.chen@linux.intel.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="N4ahZYKm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD5CF1F000FF;
+	Wed, 30 Sep 2026 17:43:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790790190;
+	bh=4evWFOTQ9eblQhaZqlkJQu/iayJIiWc1UcFtsgsP6F0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=N4ahZYKm2xsjGJgr6Qi2rzbPzVJl4kNLMRspWErY36TO5pjPTDlnZJ6S59wwUvQaZ
+	 344McztefdwosN7qtoFTLOcyWN4vDCFAgWhLqx3KzeWcYDgSScQeohmjsIMOQtcFU3
+	 aaQAoyn9EYRXqAQoQH8nKaFDsRJXh2NJs7m5ADV8=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Paul Menzel <pmenzel@molgen.mpg.de>,
+	Krishneil Singh <krishneil.k.singh@intel.com>,
+	Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12 743/877] idpf: Fix kernel-doc descriptions to avoid warnings
+Date: Wed, 30 Sep 2026 17:27:34 +0200
+Message-ID: <20260930152430.726512313@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930152414.738996857@linuxfoundation.org>
+References: <20260930152414.738996857@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,166 +51,426 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Davi Chaves Azevedo <davichazbh@gmail.com>
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 3cb0243767fd033bdce95f4f1b5882172a2f8119 ]
+------------------
 
-The scheduler scales LLC capacity by the fraction of cache-sharing CPUs
-covered by a domain:
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-  llc_bytes = cache_size * span_weight / shared_weight
+[ Upstream commit 7fe9c81aa24a2374b1a9a2160d44f4afbf8ab80d ]
 
-During CPU teardown, sched_cpu_deactivate() rebuilds scheduler domains
-before cacheinfo_cpu_pre_down() removes the CPU from shared_cpu_map. The
-new domains therefore use the old sharing weight. The later call to
-sched_update_llc_bytes() looks up the departing CPU's sd_llc, which has
-already been detached, and returns without correcting the surviving CPUs.
+In many functions the Return section is missing. Fix kernel-doc
+descriptions to address that and other warnings.
 
-On a Ryzen 5 7535U with twelve logical CPUs sharing a 16 MiB LLC,
-offlining one SMT sibling left the remaining CPUs with:
+Before the change:
 
-  llc_bytes = floor(16777216 * 11 / 12) = 15379114 bytes
+$ scripts/kernel-doc -none -Wreturn drivers/net/ethernet/intel/idpf/idpf_txrx.c 2>&1 | wc -l
+85
 
-The correct capacity is still 16777216 bytes. On systems with active
-cache-aware scheduling, an underestimated capacity can cause
-exceed_llc_capacity() to reject aggregation for a process whose footprint
-would fit. Unchanged cpuset partitions sharing the physical cache can
-also retain stale capacity when a CPU comes online in another partition.
-
-Pass the cache-sharing mask already retained by cacheinfo to the
-scheduler update. Refresh every surviving CPU using its own LLC domain
-so that each partition receives the correct share. This also preserves
-the correction needed as cache-sharing maps grow during boot.
-
-Keep the existing CPU-hotplug and scheduler-domain synchronization. The
-update remains on the hotplug path; no steady-state scheduling operation
-or persistent allocation is added.
-
-Fixes: 7030513a0877 ("sched/cache: Calculate the LLC size and store it in sched_domain")
-Signed-off-by: Davi Chaves Azevedo <davichazbh@gmail.com>
-Signed-off-by: Tim Chen <tim.c.chen@linux.intel.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Reviewed-by: Chen Yu <yu.c.chen@intel.com>
-Reviewed-by: Tim Chen <tim.c.chen@linux.intel.com>
-Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com>
-Tested-by: Chen Yu <yu.c.chen@intel.com>
-Tested-by: K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: <stable@kernel.org> # v7.2.x
-Link: https://patch.msgid.link/6751d93e15889e624796c74db0bfe66603d60b1b.1790035273.git.tim.c.chen@linux.intel.com
-Signed-off-by: Tim Chen <tim.c.chen@linux.intel.com>
+Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
+Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Reviewed-by: Paul Menzel <pmenzel@molgen.mpg.de>
+Tested-by: Krishneil Singh <krishneil.k.singh@intel.com>
+Signed-off-by: Tony Nguyen <anthony.l.nguyen@intel.com>
+Stable-dep-of: 7dd4c829bac2 ("idpf: disable DIM work before freeing q_vectors")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/base/cacheinfo.c       | 11 ++++++-----
- include/linux/sched/topology.h |  4 ++--
- kernel/sched/topology.c        | 22 +++++++++++++---------
- 3 files changed, 21 insertions(+), 16 deletions(-)
+ drivers/net/ethernet/intel/idpf/idpf_txrx.c |   94 +++++++++++++++++-----------
+ 1 file changed, 58 insertions(+), 36 deletions(-)
 
-diff --git a/drivers/base/cacheinfo.c b/drivers/base/cacheinfo.c
-index 9f9c72727a059..7a47a392568a0 100644
---- a/drivers/base/cacheinfo.c
-+++ b/drivers/base/cacheinfo.c
-@@ -1040,9 +1040,10 @@ static int cacheinfo_cpu_online(unsigned int cpu)
- 	rc = cache_add_dev(cpu);
- 	if (rc)
- 		goto err;
--	if (cpu_map_shared_cache(true, cpu, &cpu_map))
-+	if (cpu_map_shared_cache(true, cpu, &cpu_map)) {
- 		update_per_cpu_data_slice_size(true, cpu, cpu_map);
--	sched_update_llc_bytes(cpu);
-+		sched_update_llc_bytes(cpu_map);
-+	}
- 	return 0;
- err:
- 	free_cache_attributes(cpu);
-@@ -1059,10 +1060,10 @@ static int cacheinfo_cpu_pre_down(unsigned int cpu)
- 		cpu_cache_sysfs_exit(cpu);
- 
- 	free_cache_attributes(cpu);
--	if (nr_shared > 1)
-+	if (nr_shared > 1) {
- 		update_per_cpu_data_slice_size(false, cpu, cpu_map);
--
--	sched_update_llc_bytes(cpu);
-+		sched_update_llc_bytes(cpu_map);
-+	}
- 
- 	return 0;
- }
-diff --git a/include/linux/sched/topology.h b/include/linux/sched/topology.h
-index b5d9d7c2b8add..f96812d71c515 100644
---- a/include/linux/sched/topology.h
-+++ b/include/linux/sched/topology.h
-@@ -281,9 +281,9 @@ static inline int task_node(const struct task_struct *p)
- }
- 
- #ifdef CONFIG_SCHED_CACHE
--extern void sched_update_llc_bytes(unsigned int cpu);
-+extern void sched_update_llc_bytes(const struct cpumask *cpus);
- #else
--static inline void sched_update_llc_bytes(unsigned int cpu) { }
-+static inline void sched_update_llc_bytes(const struct cpumask *cpus) { }
- #endif
- 
- #endif /* _LINUX_SCHED_TOPOLOGY_H */
-diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
-index 622e2e01974c4..70b63224a230d 100644
---- a/kernel/sched/topology.c
-+++ b/kernel/sched/topology.c
-@@ -985,8 +985,8 @@ void sched_cache_active_set(void)
- }
- 
- /*
-- * Update the bottom sched_domain's llc_bytes for @cpu and all its
-- * LLC siblings. Called from cacheinfo_cpu_online() or
-+ * Update the bottom sched_domain's llc_bytes for @cpus sharing a physical
-+ * LLC. Called from cacheinfo_cpu_online() or
-  * cacheinfo_cpu_pre_down() with cpu hotplug lock held.
-  *
-  * Note: get_effective_llc_bytes() returns 0 on PowerPC.
-@@ -996,17 +996,13 @@ void sched_cache_active_set(void)
-  * and does not populates the per-CPU struct cpu_cacheinfo array
-  * that get_cpu_cacheinfo_llc() reads.
+--- a/drivers/net/ethernet/intel/idpf/idpf_txrx.c
++++ b/drivers/net/ethernet/intel/idpf/idpf_txrx.c
+@@ -19,6 +19,8 @@ LIBETH_SQE_CHECK_PRIV(u32);
+  * Make sure we don't exceed maximum scatter gather buffers for a single
+  * packet.
+  * TSO case has been handled earlier from idpf_features_check().
++ *
++ * Return: %true if skb exceeds max descriptors per packet, %false otherwise.
   */
--void sched_update_llc_bytes(unsigned int cpu)
-+void sched_update_llc_bytes(const struct cpumask *cpus)
+ static bool idpf_chk_linearize(const struct sk_buff *skb,
+ 			       unsigned int max_bufs,
+@@ -148,7 +150,7 @@ static void idpf_tx_desc_rel_all(struct
+  * idpf_tx_buf_alloc_all - Allocate memory for all buffer resources
+  * @tx_q: queue for which the buffers are allocated
+  *
+- * Returns 0 on success, negative on failure
++ * Return: 0 on success, negative on failure
+  */
+ static int idpf_tx_buf_alloc_all(struct idpf_tx_queue *tx_q)
  {
- 	struct sched_domain *sd, *sdp;
- 	unsigned int i;
- 
- 	sched_domains_mutex_lock();
- 
--	sdp = rcu_dereference_sched_domain(per_cpu(sd_llc, cpu));
--	if (!sdp)
--		goto unlock;
--
- 	/*
- 	 * ci->shared_cpu_map is built incrementally as CPUs come
- 	 * online, so the first CPU in an LLC initially sees
-@@ -1014,14 +1010,22 @@ void sched_update_llc_bytes(unsigned int cpu)
- 	 * get_effective_llc_bytes().  Re-evaluating every LLC
- 	 * sibling on each online event corrects this once the full
- 	 * shared_cpu_map is known.
-+	 *
-+	 * The departing CPU's domains have already been detached when
-+	 * cacheinfo removes it. Use the surviving cache siblings instead.
-+	 * They may belong to different cpuset partitions, so use each CPU's
-+	 * own LLC domain to scale its share of the physical cache.
- 	 */
--	for_each_cpu(i, sched_domain_span(sdp)) {
-+	for_each_cpu(i, cpus) {
-+		sdp = rcu_dereference_sched_domain(per_cpu(sd_llc, i));
-+		if (!sdp)
-+			continue;
-+
- 		sd = rcu_dereference_sched_domain(cpu_rq(i)->sd);
- 		if (sd)
- 			sd->llc_bytes = get_effective_llc_bytes(i, sdp);
- 	}
- 
--unlock:
- 	sched_domains_mutex_unlock();
+@@ -172,7 +174,7 @@ static int idpf_tx_buf_alloc_all(struct
+  * @vport: vport to allocate resources for
+  * @tx_q: the tx ring to set up
+  *
+- * Returns 0 on success, negative on failure
++ * Return: 0 on success, negative on failure
+  */
+ static int idpf_tx_desc_alloc(const struct idpf_vport *vport,
+ 			      struct idpf_tx_queue *tx_q)
+@@ -264,7 +266,7 @@ static int idpf_compl_desc_alloc(const s
+  * idpf_tx_desc_alloc_all - allocate all queues Tx resources
+  * @vport: virtual port private structure
+  *
+- * Returns 0 on success, negative on failure
++ * Return: 0 on success, negative on failure
+  */
+ static int idpf_tx_desc_alloc_all(struct idpf_vport *vport)
+ {
+@@ -509,7 +511,7 @@ static void idpf_rx_buf_hw_update(struct
+  * idpf_rx_hdr_buf_alloc_all - Allocate memory for header buffers
+  * @bufq: ring to use
+  *
+- * Returns 0 on success, negative on failure.
++ * Return: 0 on success, negative on failure.
+  */
+ static int idpf_rx_hdr_buf_alloc_all(struct idpf_buf_queue *bufq)
+ {
+@@ -560,7 +562,7 @@ static void idpf_post_buf_refill(struct
+  * @bufq: buffer queue to post to
+  * @buf_id: buffer id to post
+  *
+- * Returns false if buffer could not be allocated, true otherwise.
++ * Return: %false if buffer could not be allocated, %true otherwise.
+  */
+ static bool idpf_rx_post_buf_desc(struct idpf_buf_queue *bufq, u16 buf_id)
+ {
+@@ -609,7 +611,7 @@ static bool idpf_rx_post_buf_desc(struct
+  * @bufq: buffer queue to post working set to
+  * @working_set: number of buffers to put in working set
+  *
+- * Returns true if @working_set bufs were posted successfully, false otherwise.
++ * Return: %true if @working_set bufs were posted successfully, %false otherwise.
+  */
+ static bool idpf_rx_post_init_bufs(struct idpf_buf_queue *bufq,
+ 				   u16 working_set)
+@@ -678,7 +680,7 @@ static int idpf_rx_bufs_init_singleq(str
+  * idpf_rx_buf_alloc_all - Allocate memory for all buffer resources
+  * @rxbufq: queue for which the buffers are allocated
+  *
+- * Returns 0 on success, negative on failure
++ * Return: 0 on success, negative on failure
+  */
+ static int idpf_rx_buf_alloc_all(struct idpf_buf_queue *rxbufq)
+ {
+@@ -706,7 +708,7 @@ rx_buf_alloc_all_out:
+  * @bufq: buffer queue to create page pool for
+  * @type: type of Rx buffers to allocate
+  *
+- * Returns 0 on success, negative on failure
++ * Return: 0 on success, negative on failure
+  */
+ static int idpf_rx_bufs_init(struct idpf_buf_queue *bufq,
+ 			     enum libeth_fqe_type type)
+@@ -737,7 +739,7 @@ static int idpf_rx_bufs_init(struct idpf
+  * idpf_rx_bufs_init_all - Initialize all RX bufs
+  * @vport: virtual port struct
+  *
+- * Returns 0 on success, negative on failure
++ * Return: 0 on success, negative on failure
+  */
+ int idpf_rx_bufs_init_all(struct idpf_vport *vport)
+ {
+@@ -790,7 +792,7 @@ int idpf_rx_bufs_init_all(struct idpf_vp
+  * @vport: vport to allocate resources for
+  * @rxq: Rx queue for which the resources are setup
+  *
+- * Returns 0 on success, negative on failure
++ * Return: 0 on success, negative on failure
+  */
+ static int idpf_rx_desc_alloc(const struct idpf_vport *vport,
+ 			      struct idpf_rx_queue *rxq)
+@@ -849,7 +851,7 @@ static int idpf_bufq_desc_alloc(const st
+  * idpf_rx_desc_alloc_all - allocate all RX queues resources
+  * @vport: virtual port structure
+  *
+- * Returns 0 on success, negative on failure
++ * Return: 0 on success, negative on failure
+  */
+ static int idpf_rx_desc_alloc_all(struct idpf_vport *vport)
+ {
+@@ -1038,7 +1040,7 @@ void idpf_vport_queues_rel(struct idpf_v
+  * dereference the queue from queue groups.  This allows us to quickly pull a
+  * txq based on a queue index.
+  *
+- * Returns 0 on success, negative on failure
++ * Return: 0 on success, negative on failure
+  */
+ static int idpf_vport_init_fast_path_txqs(struct idpf_vport *vport)
+ {
+@@ -1151,7 +1153,7 @@ void idpf_vport_calc_num_q_desc(struct i
+  * @vport_msg: message to fill with data
+  * @max_q: vport max queue info
+  *
+- * Return 0 on success, error value on failure.
++ * Return: 0 on success, error value on failure.
+  */
+ int idpf_vport_calc_total_qs(struct idpf_adapter *adapter, u16 vport_idx,
+ 			     struct virtchnl2_create_vport *vport_msg,
+@@ -1274,7 +1276,7 @@ static void idpf_rxq_set_descids(const s
+  * @vport: vport to allocate txq groups for
+  * @num_txq: number of txqs to allocate for each group
+  *
+- * Returns 0 on success, negative on failure
++ * Return: 0 on success, negative on failure
+  */
+ static int idpf_txq_group_alloc(struct idpf_vport *vport, u16 num_txq)
+ {
+@@ -1365,7 +1367,7 @@ err_alloc:
+  * @vport: vport to allocate rxq groups for
+  * @num_rxq: number of rxqs to allocate for each group
+  *
+- * Returns 0 on success, negative on failure
++ * Return: 0 on success, negative on failure
+  */
+ static int idpf_rxq_group_alloc(struct idpf_vport *vport, u16 num_rxq)
+ {
+@@ -1495,7 +1497,7 @@ err_alloc:
+  * idpf_vport_queue_grp_alloc_all - Allocate all queue groups/resources
+  * @vport: vport with qgrps to allocate
+  *
+- * Returns 0 on success, negative on failure
++ * Return: 0 on success, negative on failure
+  */
+ static int idpf_vport_queue_grp_alloc_all(struct idpf_vport *vport)
+ {
+@@ -1524,8 +1526,9 @@ err_out:
+  * idpf_vport_queues_alloc - Allocate memory for all queues
+  * @vport: virtual port
+  *
+- * Allocate memory for queues associated with a vport.  Returns 0 on success,
+- * negative on failure.
++ * Allocate memory for queues associated with a vport.
++ *
++ * Return: 0 on success, negative on failure.
+  */
+ int idpf_vport_queues_alloc(struct idpf_vport *vport)
+ {
+@@ -1737,7 +1740,7 @@ static void idpf_tx_handle_rs_completion
+  * @budget: Used to determine if we are in netpoll
+  * @cleaned: returns number of packets cleaned
+  *
+- * Returns true if there's any budget left (e.g. the clean is finished)
++ * Return: %true if there's any budget left (e.g. the clean is finished)
+  */
+ static bool idpf_tx_clean_complq(struct idpf_compl_queue *complq, int budget,
+ 				 int *cleaned)
+@@ -1903,7 +1906,7 @@ void idpf_tx_splitq_build_flow_desc(unio
  }
  
--- 
-2.32.0
+ /**
+- * idpf_tx_splitq_has_room - check if enough Tx splitq resources are available
++ * idpf_txq_has_room - check if enough Tx splitq resources are available
+  * @tx_q: the queue to be checked
+  * @descs_needed: number of descriptors required for this packet
+  * @bufs_needed: number of Tx buffers required for this packet
+@@ -2034,6 +2037,8 @@ unsigned int idpf_tx_res_count_required(
+  * idpf_tx_splitq_bump_ntu - adjust NTU and generation
+  * @txq: the tx ring to wrap
+  * @ntu: ring index to bump
++ *
++ * Return: the next ring index hopping to 0 when wraps around
+  */
+ static unsigned int idpf_tx_splitq_bump_ntu(struct idpf_tx_queue *txq, u16 ntu)
+ {
+@@ -2302,7 +2307,7 @@ static void idpf_tx_splitq_map(struct id
+  * @skb: pointer to skb
+  * @off: pointer to struct that holds offload parameters
+  *
+- * Returns error (negative) if TSO was requested but cannot be applied to the
++ * Return: error (negative) if TSO was requested but cannot be applied to the
+  * given skb, 0 if TSO does not apply to the given skb, or 1 otherwise.
+  */
+ int idpf_tso(struct sk_buff *skb, struct idpf_tx_offload_params *off)
+@@ -2380,6 +2385,8 @@ int idpf_tso(struct sk_buff *skb, struct
+  *
+  * Since the TX buffer rings mimics the descriptor ring, update the tx buffer
+  * ring entry to reflect that this index is a context descriptor
++ *
++ * Return: pointer to the next descriptor
+  */
+ static struct idpf_flex_tx_ctx_desc *
+ idpf_tx_splitq_get_ctx_desc(struct idpf_tx_queue *txq)
+@@ -2398,6 +2405,8 @@ idpf_tx_splitq_get_ctx_desc(struct idpf_
+  * idpf_tx_drop_skb - free the SKB and bump tail if necessary
+  * @tx_q: queue to send buffer on
+  * @skb: pointer to skb
++ *
++ * Return: always NETDEV_TX_OK
+  */
+ netdev_tx_t idpf_tx_drop_skb(struct idpf_tx_queue *tx_q, struct sk_buff *skb)
+ {
+@@ -2432,7 +2441,7 @@ static bool idpf_tx_splitq_need_re(struc
+  * @skb: send buffer
+  * @tx_q: queue to send buffer on
+  *
+- * Returns NETDEV_TX_OK if sent, else an error code
++ * Return: NETDEV_TX_OK if sent, else an error code
+  */
+ static netdev_tx_t idpf_tx_splitq_frame(struct sk_buff *skb,
+ 					struct idpf_tx_queue *tx_q)
+@@ -2549,7 +2558,7 @@ static netdev_tx_t idpf_tx_splitq_frame(
+  * @skb: send buffer
+  * @netdev: network interface device structure
+  *
+- * Returns NETDEV_TX_OK if sent, else an error code
++ * Return: NETDEV_TX_OK if sent, else an error code
+  */
+ netdev_tx_t idpf_tx_start(struct sk_buff *skb, struct net_device *netdev)
+ {
+@@ -2698,10 +2707,10 @@ idpf_rx_splitq_extract_csum_bits(const s
+  * @rx_desc: Receive descriptor
+  * @decoded: Decoded Rx packet type related fields
+  *
+- * Return 0 on success and error code on failure
+- *
+  * Populate the skb fields with the total number of RSC segments, RSC payload
+  * length and packet type.
++ *
++ * Return: 0 on success and error code on failure
+  */
+ static int idpf_rx_rsc(struct idpf_rx_queue *rxq, struct sk_buff *skb,
+ 		       const struct virtchnl2_rx_flex_desc_adv_nic_3 *rx_desc,
+@@ -2776,6 +2785,8 @@ static int idpf_rx_rsc(struct idpf_rx_qu
+  * This function checks the ring, descriptor, and packet information in
+  * order to populate the hash, checksum, protocol, and
+  * other fields within the skb.
++ *
++ * Return: 0 on success and error code on failure
+  */
+ static int
+ idpf_rx_process_skb_fields(struct idpf_rx_queue *rxq, struct sk_buff *skb,
+@@ -2894,6 +2905,7 @@ struct sk_buff *idpf_rx_build_skb(const
+  * @stat_err_field: field from descriptor to test bits in
+  * @stat_err_bits: value to mask
+  *
++ * Return: %true if any of given @stat_err_bits are set, %false otherwise.
+  */
+ static bool idpf_rx_splitq_test_staterr(const u8 stat_err_field,
+ 					const u8 stat_err_bits)
+@@ -2905,8 +2917,8 @@ static bool idpf_rx_splitq_test_staterr(
+  * idpf_rx_splitq_is_eop - process handling of EOP buffers
+  * @rx_desc: Rx descriptor for current buffer
+  *
+- * If the buffer is an EOP buffer, this function exits returning true,
+- * otherwise return false indicating that this is in fact a non-EOP buffer.
++ * Return: %true if the buffer is an EOP buffer, %false otherwise, indicating
++ * that this is in fact a non-EOP buffer.
+  */
+ static bool idpf_rx_splitq_is_eop(struct virtchnl2_rx_flex_desc_adv_nic_3 *rx_desc)
+ {
+@@ -2925,7 +2937,7 @@ static bool idpf_rx_splitq_is_eop(struct
+  * expensive overhead for IOMMU access this provides a means of avoiding
+  * it by maintaining the mapping of the page to the system.
+  *
+- * Returns amount of work completed
++ * Return: amount of work completed
+  */
+ static int idpf_rx_splitq_clean(struct idpf_rx_queue *rxq, int budget)
+ {
+@@ -3087,7 +3099,7 @@ skip_data:
+  * @buf_id: buffer ID
+  * @buf_desc: Buffer queue descriptor
+  *
+- * Return 0 on success and negative on failure.
++ * Return: 0 on success and negative on failure.
+  */
+ static int idpf_rx_update_bufq_desc(struct idpf_buf_queue *bufq, u32 buf_id,
+ 				    struct virtchnl2_splitq_rx_buf_desc *buf_desc)
+@@ -3214,6 +3226,7 @@ static void idpf_rx_clean_refillq_all(st
+  * @irq: interrupt number
+  * @data: pointer to a q_vector
+  *
++ * Return: always IRQ_HANDLED
+  */
+ static irqreturn_t idpf_vport_intr_clean_queues(int __always_unused irq,
+ 						void *data)
+@@ -3320,6 +3333,8 @@ static void idpf_vport_intr_dis_irq_all(
+ /**
+  * idpf_vport_intr_buildreg_itr - Enable default interrupt generation settings
+  * @q_vector: pointer to q_vector
++ *
++ * Return: value to be written back to HW to enable interrupt generation
+  */
+ static u32 idpf_vport_intr_buildreg_itr(struct idpf_q_vector *q_vector)
+ {
+@@ -3451,6 +3466,8 @@ void idpf_vport_intr_update_itr_ena_irq(
+ /**
+  * idpf_vport_intr_req_irq - get MSI-X vectors from the OS for the vport
+  * @vport: main vport structure
++ *
++ * Return: 0 on success, negative on failure
+  */
+ static int idpf_vport_intr_req_irq(struct idpf_vport *vport)
+ {
+@@ -3659,7 +3676,7 @@ static void idpf_vport_intr_napi_ena_all
+  * @budget: Used to determine if we are in netpoll
+  * @cleaned: returns number of packets cleaned
+  *
+- * Returns false if clean is not complete else returns true
++ * Return: %false if clean is not complete else returns %true
+  */
+ static bool idpf_tx_splitq_clean_all(struct idpf_q_vector *q_vec,
+ 				     int budget, int *cleaned)
+@@ -3686,7 +3703,7 @@ static bool idpf_tx_splitq_clean_all(str
+  * @budget: Used to determine if we are in netpoll
+  * @cleaned: returns number of packets cleaned
+  *
+- * Returns false if clean is not complete else returns true
++ * Return: %false if clean is not complete else returns %true
+  */
+ static bool idpf_rx_splitq_clean_all(struct idpf_q_vector *q_vec, int budget,
+ 				     int *cleaned)
+@@ -3725,6 +3742,8 @@ static bool idpf_rx_splitq_clean_all(str
+  * idpf_vport_splitq_napi_poll - NAPI handler
+  * @napi: struct from which you get q_vector
+  * @budget: budget provided by stack
++ *
++ * Return: how many packets were cleaned
+  */
+ static int idpf_vport_splitq_napi_poll(struct napi_struct *napi, int budget)
+ {
+@@ -3861,7 +3880,9 @@ static void idpf_vport_intr_map_vector_t
+  * idpf_vport_intr_init_vec_idx - Initialize the vector indexes
+  * @vport: virtual port
+  *
+- * Initialize vector indexes with values returened over mailbox
++ * Initialize vector indexes with values returned over mailbox.
++ *
++ * Return: 0 on success, negative on failure
+  */
+ static int idpf_vport_intr_init_vec_idx(struct idpf_vport *vport)
+ {
+@@ -3922,8 +3943,9 @@ static void idpf_vport_intr_napi_add_all
+  * idpf_vport_intr_alloc - Allocate memory for interrupt vectors
+  * @vport: virtual port
+  *
+- * We allocate one q_vector per queue interrupt. If allocation fails we
+- * return -ENOMEM.
++ * Allocate one q_vector per queue interrupt.
++ *
++ * Return: 0 on success, if allocation fails we return -ENOMEM.
+  */
+ int idpf_vport_intr_alloc(struct idpf_vport *vport)
+ {
+@@ -4004,7 +4026,7 @@ error:
+  * idpf_vport_intr_init - Setup all vectors for the given vport
+  * @vport: virtual port
+  *
+- * Returns 0 on success or negative on failure
++ * Return: 0 on success or negative on failure
+  */
+ int idpf_vport_intr_init(struct idpf_vport *vport)
+ {
+@@ -4043,7 +4065,7 @@ void idpf_vport_intr_ena(struct idpf_vpo
+  * idpf_config_rss - Send virtchnl messages to configure RSS
+  * @vport: virtual port
+  *
+- * Return 0 on success, negative on failure
++ * Return: 0 on success, negative on failure
+  */
+ int idpf_config_rss(struct idpf_vport *vport)
+ {
+
 
