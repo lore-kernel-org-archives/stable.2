@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08C2A4FDA5D;
-	Wed, 30 Sep 2026 15:41:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71700371049;
+	Wed, 30 Sep 2026 15:41:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790782882; cv=none; b=lCSv2Ed4Xaw8lhomTLLP5r2MKRVuw9gavyKmxo+GuRvFQzP1KkdbGoX0iJO8I+24b8IaozBfWvSYD/tYuCUidvJy1gT3htmR+pAp77qTtcKwvhTY/9JXRMcrmavbKHN04ca6oD5uiABMkz50vJco1H3HPmQ9QJ7W42oaD1M3Pyk=
+	t=1790782886; cv=none; b=fxSrnX24qJ659j/YwBjjsyJ/DhHEkCQP3khFFWd4PTcK9LpK6gw9zbBAlHuo8phW11F+5XV0zej7Tax7hO8NhjsyxhzhCGFVRX2YDi21mcPiD/wI81loXSB0YDKkabMpoL/RXiLN7rWmNL7rWhDBv5f3SjOI5HRP6J8gRwMW8k4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790782882; c=relaxed/simple;
-	bh=KYCOIQ2q+yykEBrjy+64YndWS6Ngl/zFwfVK/pruTOQ=;
+	s=arc-20240116; t=1790782886; c=relaxed/simple;
+	bh=yMLwjW1Yt0C3okUoLPitOHrDCUZv5dFfENS4IJkYEmI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hJglkOJc1u1wO82urAWuDA4+0gpUCMleBDKfxY6JFKELOBhaTTQEt9LzPL/i87hVB390MNYd1q2+NT9dk3QDK7xv8LtKkiqqKNU8ozloYAgTuEJbE0zfhDSDTDW8RDe7eLFrO9xtr3idsGuRAYIi7niSMZcggQ/59HrMk7N/UQw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=H6QdyQ0F; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=V61aHPodgA2TxEcLmglguL4At54q8PbsMq07/HLTUWCUtaRTo8hUsKx//Wq+nXM00mCEmleUoNTivyD0C1wEfWgap76ljiELPQXFssfd8Uu39ghJdvspJ3ZeXsyeInJC6DgYUY9a+llrynDLWCHUwdHPqRbPw6cWBjrMAJAfOms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=FNZS/66d; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="H6QdyQ0F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6504E1F0089B;
-	Wed, 30 Sep 2026 15:41:16 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="FNZS/66d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0024D1F000FF;
+	Wed, 30 Sep 2026 15:41:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790782876;
-	bh=dnSW5DiFdVoSPeUwg89EsaLJxiQ43261sMGr0Lj8Ec8=;
+	s=korg; t=1790782882;
+	bh=Zzt96EZuDygaPOG6/sY3MvK22DQSUdbXVsKO0f4nAD8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=H6QdyQ0FmEAOzdZqCadvpc7TgvElH9KZ3Hn9hLrt3CjVL2pSkEqrNBEHnI5Pcp1Yr
-	 ATV+cZ/2zVxu7qiYtrgsIou0NrqFMV2dq6iLzr1NOzyP5J5T5FFM44z9ve1vehklyt
-	 DGkvL3ygdaAahn2dJrKrhr+0MZ9V3iMpzEMcnwN0=
+	b=FNZS/66dWoBeKm6kiCejEt6x8zS6soKNGGPnj4H6/7gJuOlOy0l4uzwWvc5AbKhSN
+	 ADoRGZKgyu6uy+EMFDT4S1SArOT0OpWY7bbKU/pZIF/dr2uMg2PzrEC82TRj5Kf8V6
+	 iPtP4SHxYux/HUbSWHagHl5GObXF4WqGVkItwUyw=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Pauli Virtanen <pav@iki.fi>,
+	Gongwei Li <ligongwei@kylinos.cn>,
 	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 199/595] Bluetooth: L2CAP: fix chan mode for LE_CONN_REQ + EXT_FLOWCTL pchan
-Date: Wed, 30 Sep 2026 17:21:32 +0200
-Message-ID: <20260930152352.016598827@linuxfoundation.org>
+Subject: [PATCH 5.10 201/595] Bluetooth: hci_mrvl: Fix wrong return value check of wait_on_bit_timeout()
+Date: Wed, 30 Sep 2026 17:21:34 +0200
+Message-ID: <20260930152352.058711579@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152347.700140858@linuxfoundation.org>
 References: <20260930152347.700140858@linuxfoundation.org>
@@ -51,66 +51,45 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Pauli Virtanen <pav@iki.fi>
+From: Gongwei Li <ligongwei@kylinos.cn>
 
-[ Upstream commit 4ef05db5b08b176a551b4a6287372045998806b0 ]
+[ Upstream commit 2deb76c21b81e42b3282224f7dd2046fe73fd1e0 ]
 
-l2cap_new_connection() sets default value of channel mode to match the
-parent channel.  l2cap_le_connect_req() left this at the default, and
-created L2CAP_MODE_EXT_FLOWCTL channels if listening pchan has that
-mode.  This causes FLAG_DEFER_SETUP channels to reply to
-L2CAP_LE_CONN_REQ with L2CAP_ECRED_CONN_RSP, which is incorrect.
+wait_on_bit_timeout() returns 0 if the bit was cleared, -EINTR if the
+process received a signal and the mode permitted wake up on that signal,
+or -EAGAIN if the timeout elapsed.  It never returns 1.
 
-It can also result to stack OOB write (of l2cap_alloc_cid determined
-values) in l2cap_ecred_rsp_defer(), as l2cap_le_connect_req() does not
-limit maximum number of deferred channels or check for duplicate ident.
+Hence the check "err == 1" in mrvl_load_firmware() is dead code: when
+the waiting task is interrupted by a signal (-EINTR), the code falls
+into the "else if (err)" branch and misreports it as "Firmware request
+timeout" with -ETIMEDOUT instead of propagating -EINTR.
 
-Fix by setting chan->mode correctly in l2cap_le_connect_req().
+Fix this by testing for -EINTR so that an interrupted firmware load is
+properly detected and reported.
 
-Also check channel mode in l2cap_ecred_rsp_defer(), and do WARN_ON_ONCE
-instead of OOB write to make it less brittle.
-
-Fixes: 15f02b910562 ("Bluetooth: L2CAP: Add initial code for Enhanced Credit Based Mode")
-Signed-off-by: Pauli Virtanen <pav@iki.fi>
+Fixes: 162f812f23ba ("Bluetooth: hci_uart: Add Marvell support")
+Signed-off-by: Gongwei Li <ligongwei@kylinos.cn>
 Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/bluetooth/l2cap_core.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/bluetooth/hci_mrvl.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
-index b9031c92f99c7..df2daa2c2ef3a 100644
---- a/net/bluetooth/l2cap_core.c
-+++ b/net/bluetooth/l2cap_core.c
-@@ -4061,6 +4061,9 @@ static void l2cap_ecred_rsp_defer(struct l2cap_chan *chan, void *data)
- {
- 	struct l2cap_ecred_rsp_data *rsp = data;
- 
-+	if (chan->mode != L2CAP_MODE_EXT_FLOWCTL)
-+		return;
-+
- 	/* Check if channel for outgoing connection or if it wasn't deferred
- 	 * since in those cases it must be skipped.
- 	 */
-@@ -4071,6 +4074,10 @@ static void l2cap_ecred_rsp_defer(struct l2cap_chan *chan, void *data)
- 	/* Reset ident so only one response is sent */
- 	chan->ident = 0;
- 
-+	/* Unreachable, check in l2cap_ecred_conn_req. If reached, drop rest */
-+	if (WARN_ON_ONCE(rsp->count >= ARRAY_SIZE(rsp->pdu.scid)))
-+		rsp->pdu.rsp.result = cpu_to_le16(L2CAP_CR_LE_NO_MEM);
-+
- 	/* Include all channels pending with the same ident */
- 	if (!rsp->pdu.rsp.result)
- 		rsp->pdu.rsp.dcid[rsp->count++] = cpu_to_le16(chan->scid);
-@@ -6048,6 +6055,7 @@ static int l2cap_le_connect_req(struct l2cap_conn *conn,
- 	__set_chan_timer(chan, chan->ops->get_sndtimeo(chan));
- 
- 	chan->ident = cmd->ident;
-+	chan->mode = L2CAP_MODE_LE_FLOWCTL;
- 
- 	if (test_bit(FLAG_DEFER_SETUP, &chan->flags)) {
- 		l2cap_state_change(chan, BT_CONNECT2);
+diff --git a/drivers/bluetooth/hci_mrvl.c b/drivers/bluetooth/hci_mrvl.c
+index fbc3f7c3a5c71..b986bdbe09b56 100644
+--- a/drivers/bluetooth/hci_mrvl.c
++++ b/drivers/bluetooth/hci_mrvl.c
+@@ -297,9 +297,8 @@ static int mrvl_load_firmware(struct hci_dev *hdev, const char *name)
+ 		err = wait_on_bit_timeout(&mrvl->flags, STATE_FW_REQ_PENDING,
+ 					  TASK_INTERRUPTIBLE,
+ 					  msecs_to_jiffies(2000));
+-		if (err == 1) {
++		if (err == -EINTR) {
+ 			bt_dev_err(hdev, "Firmware load interrupted");
+-			err = -EINTR;
+ 			break;
+ 		} else if (err) {
+ 			bt_dev_err(hdev, "Firmware request timeout");
 -- 
 2.53.0
 
