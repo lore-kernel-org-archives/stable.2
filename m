@@ -1,260 +1,109 @@
-Received: from mta1.migadu.com (out-24.mta1.migadu.com [95.215.58.24])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 948072C21F7
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 23:07:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.24
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70FB2415F20
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 23:13:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790809665; cv=none; b=CVhiaYms3FbGMN/BO4Hc1RmnQylzCj0AdKUZ9bmQc7v++qp98/vgWXYJsGL6qipPkW/mpZFLM06/CaQExC2ChZ4BalFAq2Cb4sIzEq+RY/rq7GzWov18+Nclgh27pg1tlGYUe3o3XHzJfueS3ODUirGJcj+CLS5yLhA5iQ8SwCM=
+	t=1790810037; cv=none; b=mL9q9uIacKPDr6mym7l/mmTbixPO/l/59nSzV3dV43IPNR8G5n/RBDtO9iGnMvI1Vv8UrEtOgdmtNNZz4P2rsG84dsVGMP+QD38xxGgBU3J6uuPQNtCH6TcaAy4EolDv5sU2nbY2vebqTdoGsPTmGxvtx6OoHJWN45VPTB6G9GM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790809665; c=relaxed/simple;
-	bh=04ieIlc6aU4Ve4Y+NdGSZT+Urd6ATWlIU5xxlRqKmY0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=FaJrwQlRtWP4wauaPWKOKcvbXHaI7t8ozfqr7YHqdGVrlUdIEcnZeaiYuxWRDN13d8vI9JkrWU5ZW3BKzHqFkeuCX1I/v5q+PARM78oExBQxwW+ODmRUnENdkNo+C3dH1Kjiz7ZQ+DYVrctMOesjrVbDg/69NCCnLb7oLFj3c8g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=vOEddTjI; arc=none smtp.client-ip=95.215.58.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790810037; c=relaxed/simple;
+	bh=t7uuR+W9i2YGNWa5HHdEn8jUiqkHcG8l4ynJspZETIc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=aqXiRAsi1vqTS4nfwZLw/oP8UAM+83EkKqEKL9BPFz5lFlKrmF3ZU1+Gh75UVzn6Z21czo2EIswA7zyxdGbCERzZGbVYYGLDDdz558x5rr6X4SuIvnsv/yYOS4XZArTxKbr/+Fp+yndTZLvSDsdcc9yJ+scl40AEJko1uppFsdU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TmQZS3zD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="vOEddTjI"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=04ieIlc6aU4Ve4Y+NdGSZT+Urd6ATWlIU5xxlRqKmY0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790809658; v=1; x=1791414458;
- b=vOEddTjIRAERxbVyzBLH+HN1cWKmKSf0/AizpuweP1iO4W4ZkdWQsfTbusJYIvyTOAqxqVtJ
- DK+9u4r7Phxrc5DD7KSG2pJelEEHI75HhCViLOLaKK3gYneVvatD6C65x5MbxKz78dmeaf9CSbZ
- 6szyX/lL/22yhFL6mbepg2hw=
-X-Envelope-To: stable@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id cd417db66a4fe8dc;
-	Wed, 30 Sep 2026 23:07:38 +0000
-X-Mizu-Trace-ID: cd417db66a4fe8dc
-X-Migadu-Flow: FLOW_OUT
-From: Atish Patra <atish.patra@linux.dev>
-Date: Wed, 30 Sep 2026 16:07:31 -0700
-Subject: [PATCH 6.18.y] mm/execmem: make the populate and alloc atomic
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TmQZS3zD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 740F51F000FF;
+	Wed, 30 Sep 2026 23:13:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790810033;
+	bh=sxMxGOHaGYpE+8gLg1Z5X97KT/ICQc7hUje564wmw9w=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=TmQZS3zDzdHUWdwUhfFS0pNSMXZyQAa+LsYJ6NdIsGYapk1ezFX/db3XhG5EFU9T1
+	 a1URK6s54S108QGeFwP0+zxVPQwMlJWcQXlzJdZvJPERTdtqVW0R+Mdpc1ncT0xM+0
+	 b3PBcqDTev1XisDVq0bnIhs4Oab2ZpPwI6QvIHuSFoFDHR5mNmoSQIf7ardfEKDEfD
+	 veciH0Od7Oj2tqjrWnU9WebYf2ntkvANG798yFz+n5qH1dcHg+BDFoXAQV31MaIwtG
+	 P89BDgd/3zmxqXXwTOV90cSxGNLMDbQUyMmGgdf0M5gcg1DWyr/GV5XlEvKkTNiL1i
+	 haxKEHr172nSQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: ChenXiaoSong <chenxiaosong@kylinos.cn>,
+	Steve French <stfrench@microsoft.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/3] smb/client: use stack-allocated smb2_file_all_info in smb3_query_mf_symlink()
+Date: Wed, 30 Sep 2026 19:13:47 -0400
+Message-ID: <20260930231349.590269-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026092945-conclude-congrats-b326@gregkh>
+References: <2026092945-conclude-congrats-b326@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-execmem-atomic-6-18-y-v1-1-bd35d4523aab@meta.com>
-X-B4-Tracking: v=1; b=H4sIADKWvWoC/x3MQQ6DIBBG4auYWXcMqEHpVZouCPy2s0ANmEZiv
- HuJy2/x3kkZSZDp2ZyU8JMs61KhHw35r1s+YAnV1KnOKNsrxgEfEdntaxTPhvXEhYPV3g4OARi
- ptlvCLMf9fZFp9dQWel/XH6pK1+RvAAAA
-To: stable@vger.kernel.org
-Cc: Hubert Mazur <hmazur@google.com>, 
- Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Stanislaw Kardach <skardach@google.com>, 
- Michal Krawczyk <mikrawczyk@google.com>, Slawomir Rosek <srosek@google.com>, 
- Atish Patra <atishp@meta.com>
-X-Mailer: b4 0.13.0
+Content-Transfer-Encoding: 8bit
 
-From: Hubert Mazur <hmazur@google.com>
+From: ChenXiaoSong <chenxiaosong@kylinos.cn>
 
-[ Upstream commit 1871d548fc4feb007644efb6d669c93a4e191254 ]
+[ Upstream commit fc8789bb57e625e5f32ac57ca2e7d3e7b7fda225 ]
 
-When a block of memory is requested from the execmem manager it tries to
-find a suitable fragment by traversing the free_areas.  In case there is
-no such block, a new memory area is added to the free_areas and then
-allocated to the caller by traversing the free_area tree again.
+SMB2_open() only fills the fixed fields, so a stack-allocated
+smb2_file_all_info is sufficient here.
 
-The above operations of allocation and tree traversal are not atomic hence
-another request may consume this newly allocated memory block which
-results in the allocation failure for the original request.  Such
-occurrence can be spotted on devices running the 6.18 kernel during the
-parallel modules loading.
-
-To mitigate such resource races execute the cache population and
-allocation operations under one mutex lock.
-
-Link: https://lkml.kernel.org/r/20260320075723.779985-1-hmazur@google.com
-Signed-off-by: Hubert Mazur <hmazur@google.com>
-Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Stanislaw Kardach <skardach@google.com>
-Cc: Michal Krawczyk <mikrawczyk@google.com>
-Cc: Slawomir Rosek <srosek@google.com>
-Cc: Hubert Mazur <hmazur@google.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Atish Patra <atishp@meta.com>
+Signed-off-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
+Signed-off-by: Steve French <stfrench@microsoft.com>
+Stable-dep-of: 566820af017e ("smb: client: close handle after create-context parsing failure")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Please apply this fix to the 6.18.y stable tree.
+ fs/smb/client/link.c | 15 +++------------
+ 1 file changed, 3 insertions(+), 12 deletions(-)
 
-We noticed that kvm module loading failures on intel cooperlake/AMD
-Milan hosts recently. This race condition might have contributed to
-that. The issue was reproduced with a test module that widened the
-window beteen populate-to-allocate interval and queued the
-normal execmem cache-clean worker.
-
-On an unpatched 6.18.53 kernel, the forced race reproduced the missing
-/dev/kvm failure in 2 of 2 kexec boots.  A parallel module-load test
-running five modules for ten rounds produced 15 ENOMEM failures from 50
-loads.
-
-With the upstream fix applied, 10 of 10 kexec boots verified successuflly
-with no issues with kvm module loading. The same parallel module loading
-test completed with 50 iterations.
-
-The patch applies cleanly to v6.18.54 with no changes from upstream.
-Please let me know if anybody needs other information.
----
- mm/execmem.c | 55 +++++++++++++++++++++++++++++--------------------------
- 1 file changed, 29 insertions(+), 26 deletions(-)
-
-diff --git a/mm/execmem.c b/mm/execmem.c
-index 810a4ba9c9243..084a207e4278b 100644
---- a/mm/execmem.c
-+++ b/mm/execmem.c
-@@ -203,13 +203,6 @@ static int execmem_cache_add_locked(void *ptr, size_t size, gfp_t gfp_mask)
- 	return mas_store_gfp(&mas, (void *)lower, gfp_mask);
- }
+diff --git a/fs/smb/client/link.c b/fs/smb/client/link.c
+index d71feb3fdbd2c..ce76807cfe915 100644
+--- a/fs/smb/client/link.c
++++ b/fs/smb/client/link.c
+@@ -355,7 +355,7 @@ smb3_query_mf_symlink(unsigned int xid, struct cifs_tcon *tcon,
+ 	int buf_type = CIFS_NO_BUFFER;
+ 	__le16 *utf16_path;
+ 	__u8 oplock = SMB2_OPLOCK_LEVEL_NONE;
+-	struct smb2_file_all_info *pfile_info = NULL;
++	struct smb2_file_all_info file_info = {};
  
--static int execmem_cache_add(void *ptr, size_t size, gfp_t gfp_mask)
--{
--	guard(mutex)(&execmem_cache.mutex);
+ 	oparms = (struct cifs_open_parms) {
+ 		.tcon = tcon,
+@@ -371,20 +371,12 @@ smb3_query_mf_symlink(unsigned int xid, struct cifs_tcon *tcon,
+ 	if (utf16_path == NULL)
+ 		return -ENOMEM;
+ 
+-	pfile_info = kzalloc(sizeof(struct smb2_file_all_info) + PATH_MAX * 2,
+-			     GFP_KERNEL);
 -
--	return execmem_cache_add_locked(ptr, size, gfp_mask);
--}
+-	if (pfile_info == NULL) {
+-		kfree(utf16_path);
+-		return  -ENOMEM;
+-	}
 -
- static bool within_range(struct execmem_range *range, struct ma_state *mas,
- 			 size_t size)
- {
-@@ -225,18 +218,16 @@ static bool within_range(struct execmem_range *range, struct ma_state *mas,
- 	return false;
+-	rc = SMB2_open(xid, &oparms, utf16_path, &oplock, pfile_info, NULL,
++	rc = SMB2_open(xid, &oparms, utf16_path, &oplock, &file_info, NULL,
+ 		       NULL, NULL);
+ 	if (rc)
+ 		goto qmf_out_open_fail;
+ 
+-	if (pfile_info->EndOfFile != cpu_to_le64(CIFS_MF_SYMLINK_FILE_SIZE)) {
++	if (file_info.EndOfFile != cpu_to_le64(CIFS_MF_SYMLINK_FILE_SIZE)) {
+ 		/* it's not a symlink */
+ 		rc = -ENOENT; /* Is there a better rc to return? */
+ 		goto qmf_out;
+@@ -402,7 +394,6 @@ smb3_query_mf_symlink(unsigned int xid, struct cifs_tcon *tcon,
+ 	SMB2_close(xid, tcon, fid.persistent_fid, fid.volatile_fid);
+ qmf_out_open_fail:
+ 	kfree(utf16_path);
+-	kfree(pfile_info);
+ 	return rc;
  }
  
--static void *__execmem_cache_alloc(struct execmem_range *range, size_t size)
-+static void *execmem_cache_alloc_locked(struct execmem_range *range, size_t size)
- {
- 	struct maple_tree *free_areas = &execmem_cache.free_areas;
- 	struct maple_tree *busy_areas = &execmem_cache.busy_areas;
- 	MA_STATE(mas_free, free_areas, 0, ULONG_MAX);
- 	MA_STATE(mas_busy, busy_areas, 0, ULONG_MAX);
--	struct mutex *mutex = &execmem_cache.mutex;
- 	unsigned long addr, last, area_size = 0;
- 	void *area, *ptr = NULL;
- 	int err;
- 
--	mutex_lock(mutex);
- 	mas_for_each(&mas_free, area, ULONG_MAX) {
- 		area_size = mas_range_len(&mas_free);
- 
-@@ -245,7 +236,7 @@ static void *__execmem_cache_alloc(struct execmem_range *range, size_t size)
- 	}
- 
- 	if (area_size < size)
--		goto out_unlock;
-+		return NULL;
- 
- 	addr = mas_free.index;
- 	last = mas_free.last;
-@@ -254,7 +245,7 @@ static void *__execmem_cache_alloc(struct execmem_range *range, size_t size)
- 	mas_set_range(&mas_busy, addr, addr + size - 1);
- 	err = mas_store_gfp(&mas_busy, (void *)addr, GFP_KERNEL);
- 	if (err)
--		goto out_unlock;
-+		return NULL;
- 
- 	mas_store_gfp(&mas_free, NULL, GFP_KERNEL);
- 	if (area_size > size) {
-@@ -268,19 +259,25 @@ static void *__execmem_cache_alloc(struct execmem_range *range, size_t size)
- 		err = mas_store_gfp(&mas_free, ptr, GFP_KERNEL);
- 		if (err) {
- 			mas_store_gfp(&mas_busy, NULL, GFP_KERNEL);
--			goto out_unlock;
-+			return NULL;
- 		}
- 	}
- 	ptr = (void *)addr;
- 
--out_unlock:
--	mutex_unlock(mutex);
- 	return ptr;
- }
- 
--static int execmem_cache_populate(struct execmem_range *range, size_t size)
-+static void *__execmem_cache_alloc(struct execmem_range *range, size_t size)
-+{
-+	guard(mutex)(&execmem_cache.mutex);
-+
-+	return execmem_cache_alloc_locked(range, size);
-+}
-+
-+static void *execmem_cache_populate_alloc(struct execmem_range *range, size_t size)
- {
- 	unsigned long vm_flags = VM_ALLOW_HUGE_VMAP;
-+	struct mutex *mutex = &execmem_cache.mutex;
- 	struct vm_struct *vm;
- 	size_t alloc_size;
- 	int err = -ENOMEM;
-@@ -294,7 +291,7 @@ static int execmem_cache_populate(struct execmem_range *range, size_t size)
- 	}
- 
- 	if (!p)
--		return err;
-+		return NULL;
- 
- 	vm = find_vm_area(p);
- 	if (!vm)
-@@ -307,33 +304,39 @@ static int execmem_cache_populate(struct execmem_range *range, size_t size)
- 	if (err)
- 		goto err_free_mem;
- 
--	err = execmem_cache_add(p, alloc_size, GFP_KERNEL);
-+	/*
-+	 * New memory blocks must be allocated and added to the cache
-+	 * as an atomic operation, otherwise they may be consumed
-+	 * by a parallel call to the execmem_cache_alloc function.
-+	 */
-+	mutex_lock(mutex);
-+	err = execmem_cache_add_locked(p, alloc_size, GFP_KERNEL);
- 	if (err)
- 		goto err_reset_direct_map;
- 
--	return 0;
-+	p = execmem_cache_alloc_locked(range, size);
-+
-+	mutex_unlock(mutex);
-+
-+	return p;
- 
- err_reset_direct_map:
-+	mutex_unlock(mutex);
- 	execmem_set_direct_map_valid(vm, true);
- err_free_mem:
- 	vfree(p);
--	return err;
-+	return NULL;
- }
- 
- static void *execmem_cache_alloc(struct execmem_range *range, size_t size)
- {
- 	void *p;
--	int err;
- 
- 	p = __execmem_cache_alloc(range, size);
- 	if (p)
- 		return p;
- 
--	err = execmem_cache_populate(range, size);
--	if (err)
--		return NULL;
--
--	return __execmem_cache_alloc(range, size);
-+	return execmem_cache_populate_alloc(range, size);
- }
- 
- static inline bool is_pending_free(void *ptr)
-
----
-base-commit: 1b357ecb321392158d507b04672ffee57bfa071d
-change-id: 20260930-execmem-atomic-6-18-y-d91c94aedee7
-
-Best regards,
 -- 
-Atish Patra <atishp@meta.com>
+2.53.0
 
