@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D8AB18C332;
-	Wed, 30 Sep 2026 15:45:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FA4D385535;
+	Wed, 30 Sep 2026 15:45:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790783140; cv=none; b=cvMrerXzMNof/ETHrdysgMtaLJMduY+vUEAPUFWVVIGrNbOtFvai3ieduUesw2Vc+GeOC1PFNQPcvQUYrIn8OjWeegvBUF2xvqYwnzDrO0qlrTO5/bII5ye/XgGYrkgvV0a0SlqE+GWSvNQwwxUnceN9apwBi24iTnyh+CzzTrk=
+	t=1790783146; cv=none; b=fMIci1FWmbVLc6rK3rKeG6QuK8aB0pGA8C+t4+FnpcrpyMbxPa1dSb0G0wGKm6yO5CR9jHoaCGOzWgHD7A4ss71tzWfycFdnJqDu29cKpVowNn9roGvnu+JHet+QpWYrKcrG5NqHimOL44TkKGrBg/FmqYrlNpYiit+1q4QG/Kw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790783140; c=relaxed/simple;
-	bh=G5fxVJBThI/CtXrzLFLEtaI+XAIe/F9hlhlhUmIm5xY=;
+	s=arc-20240116; t=1790783146; c=relaxed/simple;
+	bh=zMS7U12D3KsqZlZBrNyQ1g/eb/M3NetT4EoA5VBvqdY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DiZYx7Fq6dZffDW7GNwi1gv5rxIzhjAJvOm2mBJjEA0rxtxTKdd/GQrNweKcvlm1Ty4/XOiwuyJ/YMR2O3SIxg9xNIs94P/sozqNIH0FtTWakeqwwpGeGFVnlBEVBNcSQUtKLgCj29f2Sm18inA8H8+JltpTbicznnIURMNzh5A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jTQ6e7Xs; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=lBG7BDloDjRw/UiNPL0KfgBuYMbY7VUJ9vXfOhJ0N0uMAFbGkMdKYjBNf3M+b7AXLYthfl+f441y8ROzLXevNJE86xT57NAFxbEGO1EQO0F9GmsG1O8NGirXfsQ46Y+om/azZWCiRzDgp13tLFZy6EH/+9YpwxyU7pzIj9PNjHw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=gB9dg4hX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jTQ6e7Xs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 076781F0089B;
-	Wed, 30 Sep 2026 15:45:33 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gB9dg4hX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1D871F000FF;
+	Wed, 30 Sep 2026 15:45:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790783134;
-	bh=V56KL13vwebt9P207CeHZOUSD0yLZGSspBL+tKx8CDY=;
+	s=korg; t=1790783137;
+	bh=pg7jRa257BS+lZArHi4PT3WdyS/yo/WBd/g6jGCreY0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jTQ6e7XsimJhsiya+zO6BkfhKhe3AXGPTBWRdaWSMXskqgJbNpKNZ28js6E5skOKL
-	 bXIhcE5uAK7x+IUuJApj/CU/Pg6VHX/0i0kNyzGuf4tgiIybbVz/LreTmmf22NY6Cr
-	 bfWFbMe8HKwUACJc78B38HE6hHdEZLLpcdEBlyu4=
+	b=gB9dg4hXqpRnzMYegr68jn1ovP/1+SLeZV4ng6kQALTQcRadihcn4d4GXA4kv2QFh
+	 dFXHjT2Cow4QiQsWtC/SW/Rd/EPtcLsw4EVBzrrVTpwygzaZ1hY2ObpN+uKmtYEqIR
+	 n5ihpt8d1STLnQRjcCKFrDqtZRPHf9EBhz9DxawI=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	James Hilliard <james.hilliard1@gmail.com>,
-	Guenter Roeck <linux@roeck-us.net>
-Subject: [PATCH 5.10 291/595] watchdog: sunxi_wdt: preserve boot-enabled watchdog
-Date: Wed, 30 Sep 2026 17:23:04 +0200
-Message-ID: <20260930152353.955146806@linuxfoundation.org>
+	Ali Ahmet Memis <ali@iusegentoo.com>,
+	Jan Kara <jack@suse.cz>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>
+Subject: [PATCH 5.10 292/595] ufs: create the root dentry after loading cylinder metadata
+Date: Wed, 30 Sep 2026 17:23:05 +0200
+Message-ID: <20260930152353.976853998@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152347.700140858@linuxfoundation.org>
 References: <20260930152347.700140858@linuxfoundation.org>
@@ -50,100 +51,77 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: James Hilliard <james.hilliard1@gmail.com>
+From: Ali Ahmet Memis <ali@iusegentoo.com>
 
-commit aab55360fa11a2c054798a484ac67ad606f563e4 upstream.
+commit 55a4c98abb9694b067c6a031d11501f06b6b523c upstream.
 
-sunxi_wdt_probe() unconditionally stops the watchdog even when firmware
-left it running. This opens an unprotected interval during boot and
-prevents CONFIG_WATCHDOG_HANDLE_BOOT_ENABLED from taking over the active
-watchdog.
+ufs_fill_super() installed sb->s_root before it loaded the cylinder
+group structures for a writable mount:
 
-Detect an enabled watchdog and decode its programmed interval. Preserve
-representable timeouts, and round the 0.5-second interval up to the
-minimum representable one-second timeout. Use the configured timeout for
-reserved interval encodings. Set the Linux reset mode and ping the
-watchdog without clearing its enable bit, then mark it hardware-running
-before registration so the watchdog core services it until userspace
-takes control. Leave disabled watchdogs untouched.
+	sb->s_root = d_make_root(inode);
+	...
+	if (!sb_rdonly(sb))
+		if (!ufs_read_cylinder_structures(sb))
+			goto failed;
 
-Fixes: d00680ed0026 ("watchdog: sunxi: New watchdog driver for Allwinner A10/A13")
+When ufs_read_cylinder_structures() failed, the error path freed the
+in-core superblock information and set sb->s_fs_info to NULL while
+sb->s_root stayed installed. get_tree_bdev() then reached
+deactivate_locked_super(), and because s_root was present,
+generic_shutdown_super() called sync_filesystem() and the put_super
+operation. Both dereference UFS_SB(sb), which is now NULL, so a mount
+that fails only while reading the cylinder groups oopses during
+teardown. A crafted image whose first cylinder group cannot be read
+reaches this path.
+
+Load the cylinder group metadata first and create the root dentry last,
+so the superblock is published to the VFS only once it is fully set up.
+ufs_setup_cstotal() and ufs_read_cylinder_structures() take only the
+super_block and do not use the root inode, so the reordering is safe.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-Link: https://patch.msgid.link/20260827-submit-sunxi-wdt-boot-enabled-v1-v2-1-610d37dccc97@gmail.com
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Signed-off-by: Ali Ahmet Memis <ali@iusegentoo.com>
+Link: https://patch.msgid.link/20260801071306.59484-2-ali@iusegentoo.com
+Reviewed-by: Jan Kara <jack@suse.cz>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/watchdog/sunxi_wdt.c |   45 ++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 44 insertions(+), 1 deletion(-)
+ fs/ufs/super.c |   17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
 
---- a/drivers/watchdog/sunxi_wdt.c
-+++ b/drivers/watchdog/sunxi_wdt.c
-@@ -125,6 +125,38 @@ static int sunxi_wdt_ping(struct watchdo
+--- a/fs/ufs/super.c
++++ b/fs/ufs/super.c
+@@ -1269,6 +1269,15 @@ magic_found:
+ 	sb->s_maxbytes = ufs_max_bytes(sb);
+ 	sb->s_max_links = UFS_LINK_MAX;
+ 
++	ufs_setup_cstotal(sb);
++	/*
++	 * Read cylinder group structures
++	 */
++	if (!sb_rdonly(sb))
++		if (!ufs_read_cylinder_structures(sb))
++			goto failed;
++
++	/* create the root dentry last, once UFS_SB(sb) is fully set up */
+ 	inode = ufs_iget(sb, UFS_ROOTINO);
+ 	if (IS_ERR(inode)) {
+ 		ret = PTR_ERR(inode);
+@@ -1280,14 +1289,6 @@ magic_found:
+ 		goto failed;
+ 	}
+ 
+-	ufs_setup_cstotal(sb);
+-	/*
+-	 * Read cylinder group structures
+-	 */
+-	if (!sb_rdonly(sb))
+-		if (!ufs_read_cylinder_structures(sb))
+-			goto failed;
+-
+ 	UFSD("EXIT\n");
  	return 0;
- }
  
-+static bool sunxi_wdt_is_running(struct watchdog_device *wdt_dev)
-+{
-+	struct sunxi_wdt_dev *sunxi_wdt = watchdog_get_drvdata(wdt_dev);
-+	const struct sunxi_wdt_reg *regs = sunxi_wdt->wdt_regs;
-+
-+	return readl(sunxi_wdt->wdt_base + regs->wdt_mode) & WDT_MODE_EN;
-+}
-+
-+static unsigned int sunxi_wdt_get_timeout(struct watchdog_device *wdt_dev)
-+{
-+	struct sunxi_wdt_dev *sunxi_wdt = watchdog_get_drvdata(wdt_dev);
-+	const struct sunxi_wdt_reg *regs = sunxi_wdt->wdt_regs;
-+	unsigned int timeout;
-+	u32 interval;
-+
-+	interval = readl(sunxi_wdt->wdt_base + regs->wdt_mode);
-+	interval >>= regs->wdt_timeout_shift;
-+	interval &= WDT_TIMEOUT_MASK;
-+	/* Round the 0.5-second interval up to the minimum representable timeout. */
-+	if (!interval)
-+		return WDT_MIN_TIMEOUT;
-+
-+	for (timeout = WDT_MIN_TIMEOUT;
-+	     timeout < ARRAY_SIZE(wdt_timeout_map); timeout++) {
-+		if (wdt_timeout_map[timeout] == interval)
-+			return timeout;
-+	}
-+
-+	/* Reserved interval encoding. */
-+	return 0;
-+}
-+
- static int sunxi_wdt_set_timeout(struct watchdog_device *wdt_dev,
- 		unsigned int timeout)
- {
-@@ -231,6 +263,7 @@ static int sunxi_wdt_probe(struct platfo
- {
- 	struct device *dev = &pdev->dev;
- 	struct sunxi_wdt_dev *sunxi_wdt;
-+	unsigned int running_timeout;
- 	int err;
- 
- 	sunxi_wdt = devm_kzalloc(dev, sizeof(*sunxi_wdt), GFP_KERNEL);
-@@ -258,7 +291,17 @@ static int sunxi_wdt_probe(struct platfo
- 
- 	watchdog_set_drvdata(&sunxi_wdt->wdt_dev, sunxi_wdt);
- 
--	sunxi_wdt_stop(&sunxi_wdt->wdt_dev);
-+	if (sunxi_wdt_is_running(&sunxi_wdt->wdt_dev)) {
-+		running_timeout = sunxi_wdt_get_timeout(&sunxi_wdt->wdt_dev);
-+		if (running_timeout)
-+			sunxi_wdt->wdt_dev.timeout = running_timeout;
-+
-+		err = sunxi_wdt_start(&sunxi_wdt->wdt_dev);
-+		if (err)
-+			return err;
-+
-+		set_bit(WDOG_HW_RUNNING, &sunxi_wdt->wdt_dev.status);
-+	}
- 
- 	watchdog_stop_on_reboot(&sunxi_wdt->wdt_dev);
- 	err = devm_watchdog_register_device(dev, &sunxi_wdt->wdt_dev);
 
 
