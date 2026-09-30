@@ -1,119 +1,144 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010009.outbound.protection.outlook.com [52.101.201.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBB3A3F660F;
-	Wed, 30 Sep 2026 09:58:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790762293; cv=none; b=RuN+gYMlAfPZtZiJxRiDxmvSD9NIS2d0m0nqZtHqgIkWk2bMtnNP1xLzH2Yj2QYXPnpo47DwpGXDKeu3VpNImPIXtlPAmFgJy5B3PGhu5qK22OUyjPYQYNU1B87vN06tTuUZq4tczduSOCiJBOBKZEZsSrUf5qEOyfeYRxeDqiE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790762293; c=relaxed/simple;
-	bh=oKsJDc73Zi+fxkCwnw1HfmEgyMWQ78AWNfJm26oHnWM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H47bzVTr9LQbEMQ+8AWceR53lAtKOxafyUuWvQI40djnJ7VEHJPvURdtVipVePGkwXeGGSJQYO2s9vwuVLtr5eJ814X8ZMYqr45MYK+FvBb/J/f8J4AKunX5VbDc06FK1uhAFrmiYAZQiliL5kNxxL0jxjpatKu/XJrKhnfz+Wg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VSMbZaq7; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA449317173;
+	Wed, 30 Sep 2026 09:59:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.9
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790762344; cv=fail; b=NFK/UQ6ebVUHbYzUHIaVfUlzFajnSolvbGTdAarzYrR0YTAQxN/mv5SWEy27o2v/gUGVtAKRs+vHblwZmHdjAHKHFF0Q1Z9QOBX7otfsmuOsTYMgsm1P4sidPrhLIvpYQU1sFZZoPCfUetQdm9RJ2zjfZ+/FG7V5JUMaHhbOgd4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790762344; c=relaxed/simple;
+	bh=7Qsju7Jprp/4kggu84KYQErncHTwO56nHkx0v8onAlw=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=GtZsHlYCjznkhxfvUTEpmubr1Odi1JXN4tkN7JrPTY4aSCcPilmubb5fPja1GKzV8EFaFqbb5fxR0LOaIwErzxQbct/eDWnATqor2ok2o9QTRhhvPuuxyviw7bn77pew9eBlih5v9ckhZkXzUOSWbK2PGN97ALy2dHFSoEFr23k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Wrht6u8Z; arc=fail smtp.client-ip=52.101.201.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VSMbZaq7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790762292; x=1822298292;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=oKsJDc73Zi+fxkCwnw1HfmEgyMWQ78AWNfJm26oHnWM=;
-  b=VSMbZaq7Wu2oaLMt452FxFx60ef7dCjUl6AWNxmlArwVEiuUER2ks++y
-   p3L+1Z8F4D7rpUX21C3DQCYOGpjcvW/PN3VqSi7LBvY0qxo5Se5s3uG8s
-   NwkqunpEqZREgCEzbqedssMcE5tSMZlWJ5uqOqfTwqoIV9LYrKHCCsk/e
-   GnXH+TlBV39nWSKjv0M4elL56KOa9Jb1JqEALDVABUnQQKnZ4wIYUBkI1
-   qaBzIoCbUodjX/ZwD/4sCwadk9rnzkWEZTeuKtP0yOhdcxTz8jxO4pxQg
-   Z2vCBcolMegAmdfBmHtOSwXppZF1COmRsYe7HVrKXuBdBQ+n6dbMZihFu
-   g==;
-X-CSE-ConnectionGUID: NBgdiB8WRZqh3VjxjBciDw==
-X-CSE-MsgGUID: pcEebxc3RUezInPru/VBOQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="102067195"
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="102067195"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 02:58:11 -0700
-X-CSE-ConnectionGUID: 4cnboKPaRhmQPjO+qr3xAA==
-X-CSE-MsgGUID: G7eqwfBURripQFb5y7//zQ==
-X-ExtLoop1: 1
-Received: from spandruv-desk1.amr.corp.intel.com (HELO localhost) ([10.245.245.137])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 02:58:08 -0700
-Date: Wed, 30 Sep 2026 12:58:06 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Karol Wrona <k.wrona@samsung.com>,
-	Kyungmin Park <kyungmin.park@samsung.com>,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: Re: [PATCH] iio: ssp: Serialize watchdog timer state changes
-Message-ID: <arzdLtzXQ4cvObrL@ashevche-desk.local>
-References: <20260930070319.2933744-1-runyu.xiao@seu.edu.cn>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Wrht6u8Z"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RyTSNFqYJkGStx3QxdKLUnuYY7IqBKJBfk2AlKsAS2zJ6pGKcFknpxKKhtuabx/kfyIZR7TM++cNTP9kAjh4yVgRwgYMVWl902PALiU4Ks1mwT93tOTJaevA7DMNFM/guX8PJXSf8p7B4Zfq5qDiwcwaljAB+IlN0WiKCSfZdttvbSvTFALL6kTSHotw7QWdimcg/2GtTF8TTBvhbsSUOK1NByI5uPtBVBlwh9Jw/d9iU87JPJHzWKHyrzG+VX2Oqwz2bXTgqLQ4BW/OM8HXOT+rCy3j8qxKwp+DIuLxhCJouc6/nnsqt1tRxydITn5LF+04k5JhlKJ5IafDKpVFqQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dP+Ppcrp5fRcM5GfGQY+bDeLbYqLs2YACroxgyxTZ00=;
+ b=U+CmzTAshAEA9s/cv895p/DkBA0fLgnU1q4i3I8NLtcmXKN7mhTP4ksuFj+uLwFZ5pJJpLJFWJP9yYUo523eAZfZWmE/hORR7SeorFCGHM2EZJvBFGET+aMoD26TAlbDDRtxSOCrEo8LLcojV1jctl8AWBtEkO+IY/1N3e6SBCqxsg7DKzEnyFIJv3GlCbk0efkQT8K/9+v/6eoFwN3iEmjL0Ge0VC5pmFdY5ann8XNcx/RR9jJVSHlaw+oUt/EnRHgUYdekIukZM+mE9qNlyNd1cRYYUIH+HMNvTaMPWJTpGUxkzdsZdL27pXMuwjo8vkb9Ep8CVDPZt5mBDaKZQw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dP+Ppcrp5fRcM5GfGQY+bDeLbYqLs2YACroxgyxTZ00=;
+ b=Wrht6u8ZgrTBbKe1nK0Wy2xwDobyoUbNFFtRU2QtMyLNBDbR3T/KKfc87SvcUu9f/6rPhmtZBKRrS6DNpJRraDvmquT7iIq4/P1vHXKftfUeWhv4Y8m8doeAy/iXlUQngBWaOfQbNzSJvevV8o8mgDye4jSSqHGwQK4CZBZSiN4=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL4PR12MB9505.namprd12.prod.outlook.com (2603:10b6:208:591::16)
+ by SJ5PPF816B88375.namprd12.prod.outlook.com (2603:10b6:a0f:fc02::99b) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Wed, 30 Sep
+ 2026 09:58:59 +0000
+Received: from BL4PR12MB9505.namprd12.prod.outlook.com
+ ([fe80::73aa:eb8c:a86b:5a83]) by BL4PR12MB9505.namprd12.prod.outlook.com
+ ([fe80::73aa:eb8c:a86b:5a83%5]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
+ 09:58:59 +0000
+Message-ID: <214ea1d6-8b3a-4d8f-b0f2-e2f1de9d5632@amd.com>
+Date: Wed, 30 Sep 2026 15:28:50 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] iommu/amd: Fix PCI device reference leak in
+ iommu_call_iopf_notifier()
+To: Wentao Liang <vulab@iscas.ac.cn>, iommu@lists.linux.dev
+Cc: jgg@ziepe.ca, joro@8bytes.org, linux-kernel@vger.kernel.org,
+ robin.murphy@arm.com, suravee.suthikulpanit@amd.com, wei.huang2@amd.com,
+ will@kernel.org, stable@vger.kernel.org
+References: <20260916185804.2093996-1-vulab@iscas.ac.cn>
+Content-Language: en-US
+From: Vasant Hegde <vasant.hegde@amd.com>
+In-Reply-To: <20260916185804.2093996-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA0PR01CA0077.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:ad::18) To BL4PR12MB9505.namprd12.prod.outlook.com
+ (2603:10b6:208:591::16)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260930070319.2933744-1-runyu.xiao@seu.edu.cn>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL4PR12MB9505:EE_|SJ5PPF816B88375:EE_
+X-MS-Office365-Filtering-Correlation-Id: a526ade2-7e74-47b6-125b-08df1ed9730b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|10067099003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	N1EidKnwvO0kHfe335JClDG1vxFzPIKhPffcuQIjChzEqGkHz6zBqK8Fml35e8kSUOD43ZOT01x4mxjBzyYt/INL6K6XvxvzKBCmGL/aVW+/CU9C1kv9C56JloIFAASzPvxCA65Pj7l1t0FU/9RPc9zYYdIWV9b2vt74BpSbuvCfM/4JDCL9/1vB9A7u33Ot7NKEGpdf+WeHVz8w7MUdUz62zqTkOuQnAce3z42dud3+XEvzp6x0rt2quxFGSB7mioPh2BocvsrUeTnTa9HYOADOYk10+F35zEZ3gxX+ZQe6YnUIXXOubl/AKBTftwjQ9n4ly3uIUZQOO5AkDs3eojMJCJPuuoKqiiBT1fhwvcIhG+A5dBfLfSxgofaFEIbANb6EuPsw2PYlDJhGJXN8yNaBt7FAjrOInbHFhxht0cJDt1C7opivZLYINTj488AO2Gu3QGQTQuAhErmdv0zlQtEnlLeWnpcyDrPb+EDiQ2OG7FHbllEVYRPfPY/HwclgYGncGsLpQ32tzJAWR3SA0c/Xdgb9WIjQi6if8jwi09uZl98ET+5oOs6mO52IShZhr3T38MzDOxP9wVgM1D2wpgclYd/2bHU+dd99wIUAqDVZRfqSYT5gB0MM0ZuOF8GG0aKju+Dm+MqRFrumrLUM+tUHILimdaZllQYQ5UrmtXM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL4PR12MB9505.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UGd3MlpQbWFqWXZxVEd3RHQ2NndtemdualJZaDJvWU11emRLT0pMajdubndO?=
+ =?utf-8?B?VDh6eTNKaFI5WHFuQmlMdDRiMjRvMnpEQzhKUmRqL1dlSitTZ1hoMHJNRjZa?=
+ =?utf-8?B?bWxtdTJheXFZenVJcDNHK1pLQjNoU3l5QzBWSVA3YU1vUTRkVm56Q2ZTbVpE?=
+ =?utf-8?B?T0gxUXpzcG5zQjRuS0RueXhnU0JsL2dBTVgyZm9odUh5b21NOWEwSlg0STFJ?=
+ =?utf-8?B?WlpHOENYVGJRVy9pb0tnMDJ1RE1OQmZVRTdBZ3Rmdm42b2hLWkU5cGx3Wld2?=
+ =?utf-8?B?RmJ5M21GVDAwS1lURjQveFJoQ0p5b2Z1N0NmQiswUkRQMGtBUWJqZGI4d01v?=
+ =?utf-8?B?dUVDbkM3c0dOeFdPRG12T1QvNmNrMGQyQk9pM0NLbS9VVFhqZnZFUG5yZVJQ?=
+ =?utf-8?B?RS96MDZOZlZEMWsxUzFKa2ozOExaTmpMUFZXVlV6b3RuRDFIdzBwSW51d0hT?=
+ =?utf-8?B?aGFybmFWcEw5ejRQRWpOZnI5WDdadzREblpYRWRvQTI3TzMyckgxVzJ0WVhZ?=
+ =?utf-8?B?M2hKaGZkSUFSTE1MNVVFQkUrNjRGTk1XeUNhSk9yR3I3SHE3blViUVJIMFh1?=
+ =?utf-8?B?YzVqQ1BUMkZhdW5tcndrZE5QYy9rMERZRzRCcUF2VG9BaUtwdXpRKzd2N2dJ?=
+ =?utf-8?B?UmplRUY5WHNkZ3VmSXlKczhDRkZad2J5eHlKTDR6VE84cEowM29SckJyckln?=
+ =?utf-8?B?OXpXZkdqbWZYY0tLSUhkM05mY0g0RFZpSk5JZDl3SjhoNTZkUDdiRDljdG05?=
+ =?utf-8?B?V0REK1hYYkx3OWdvVnBVVEpNYlUycXNwT0MvT1E4RlYvZGdoVFovODU3RXBN?=
+ =?utf-8?B?TmE0Z3MwTytyRnEyL1Y3RENuQUFEVEdjZVJjT01yNHRScjFYVzdwa002TXZq?=
+ =?utf-8?B?UnVZL0kxVU1ZcldOZ0l0SjN4TE9RaEVhWXp5ZEo0bDJZNm15TlJ1VjZ0S2Fi?=
+ =?utf-8?B?bEh2Umd6eTZONkxmN2k2aFlFZ0dIY3VvL3hXWDFZZXhrQk10VUM4cVJRSFdM?=
+ =?utf-8?B?aXpDeW9sQTVRUmJ2am1OTVZER2k1Nzd6c2tpRnBSdUtoendmNnBLQWxibW9h?=
+ =?utf-8?B?Ly9GejZtQVQ3NWQyL1NxSlIyNVhxTkZzQ0pEbDRzVFIybXZoVDB6NDRrZk5P?=
+ =?utf-8?B?WTNwUzJMNU92YU5xbTQxOFdoMEZvdHBRbFYvYWlYa2hXRzZFR3NkSVduY0lQ?=
+ =?utf-8?B?ZUQzc0xqTnJoWTJVSEZncEtjTStkQ0tRN293QnNPekg2Ky9qNDJVZ2VpcVVR?=
+ =?utf-8?B?Q2VQSjJCbW1OQVJ1TFVWMHJsL243TkNHTktiVC9ERmhVS2Z3R3poRVhGV3I2?=
+ =?utf-8?B?SUJCMUVPMG5YK2xrRHl2bWxvbVhuVU41dVRYYmRXSkRqdnl4cE1uOXdwUlhM?=
+ =?utf-8?B?QVN2YWVCQlJCWDRGdGJxNDRob0JmenRkTmRuUUl6SW80Slc2c3loM3NWeFhU?=
+ =?utf-8?B?ajVFKzM2K293WHFIMXBRMTRtdjFrK3RnU2pyQWhPVElrU0RGRTlBRkVaVCtY?=
+ =?utf-8?B?eE1UUXdYVGpyOWpMZ3hXMHpvK0RYbXBWM3hWZVIwK1NwVHlCVnVBMmh5RkdI?=
+ =?utf-8?B?YXRTMWhnQ3Y1WlhxNlJsNzVSMnEzOXM0a3VMUjlHSTNnYXZURkp2MmxuTTdk?=
+ =?utf-8?B?NlhHd21LbXVQU3Zzb200YWdyOXNnRklCcGtzdnpqWTEwYktndk5RYVNFMys4?=
+ =?utf-8?B?bDZsd09CQmpncEFyTFFNUTcxVXZ0b2xwMG9mTmlQOTM0dTVWblZYWitYbE9n?=
+ =?utf-8?B?MEQyUWZxck9UTlJNSDMvTlo2b3dYKzNmaGJIVmxGbjhrTTdlN3NOTVpkM2R3?=
+ =?utf-8?B?a3U4dG5DUkpiS2NBY3JtZittWS9pamIyZlNqWkZIRWlaTXdRbXg3YkwxbWor?=
+ =?utf-8?B?S0ozaUovdmphdHZWN1hrWUVubmRtbjJjZERnRDZPVlVHeHdsdDhKMzI4UnAz?=
+ =?utf-8?B?NG9lN2ZSU211SSt2S1F3NnlPaktPRmQ0VTZQTmp1YXQvRmthdElIaTh2Rm1h?=
+ =?utf-8?B?ZmQwbWVBTHhaSFl4bGk1d3lvWVF2NHNCTFRQaTVyaE82anl6dkpLVitoSld3?=
+ =?utf-8?B?Yk0yZWw5UzV5dXZ1YmRLY0JUSmFPQXA0ejZpeU9yU3hQVkRHQUVqRWxMSTlx?=
+ =?utf-8?B?bnBDUVU5UmIwM1V4cjVMNzlLN3VxSjJ3SVF2M2pYZTF5RmFPaGdaMWdFaUZT?=
+ =?utf-8?B?LzBqR1ZSVmUxZ2pnVU5OM3QwQmQvMmpXM0FWM0t3VW5PcXRaYW85SXlqSXdX?=
+ =?utf-8?B?RExObmFZclJLOWRoaUs5UVlVZktXZ083Rm0vN3Q3c3RIUGMzSVZxNUJKdi9J?=
+ =?utf-8?B?ZTYzL1JnZHZLeFIyK0k2MDQ1TzhpMExEMCtXdmZXbU5uL1drYzU4Zz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a526ade2-7e74-47b6-125b-08df1ed9730b
+X-MS-Exchange-CrossTenant-AuthSource: BL4PR12MB9505.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 09:58:59.7728
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XhX0SC41GTQJD6WFglYafjnt9Unq7yL7C6iTpljfm/5fjnk8c1f8jp4a2ZpdTjogM4G26qsU+jt7TmRVpXjgEA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF816B88375
 
-On Wed, Sep 30, 2026 at 03:03:19PM +0800, Runyu Xiao wrote:
-> The SSP watchdog timer rearms itself from its callback, but the driver uses
-> timer_delete_sync() when the last sensor is disabled and during suspend.
-> Those operations do not prevent a concurrent enable or callback from
-> rearming the timer after the deletion has completed.  The final remove path
-> also used timer_delete_sync(), which does not provide the shutdown
-> guarantee needed before releasing the device state.
+
+
+On 9/17/2026 12:28 AM, Wentao Liang wrote:
+> pci_get_domain_bus_and_slot() returns a PCI device with an elevated
+> reference count, but iommu_call_iopf_notifier() never drops it, neither
+> when the page request has been reported nor on the abort path.
 > 
-> Protect the watchdog state and enable reference count with a mutex.  The
-> callback checks a state flag before rearming. Reusable stops clear the flag
-> before deleting the timer. Use timer_shutdown_sync() for the final remove
-> path so that any later rearm attempt is rejected permanently.
-> 
-> Cancel watchdog work after releasing wdt_lock because the reset work can
-> wait for the threaded IRQ handler, which may synchronously wait for refresh
-> work that re-enables sensors and takes wdt_lock. Remove the MFD children
-> before destroying the locks because IIO child teardown can disable an
-> active sensor.
+> Put the device reference on both exits.
 
-...
+Its already addressed by commit af3b69b16383.
 
-> struct ssp_data {
-
->  	struct spi_device *spi;
->  	const struct ssp_sensorhub_info *sensorhub_info;
->  	struct timer_list wdt_timer;
-> +	struct mutex wdt_lock; /* protects watchdog timer state */
-> +	bool wdt_enabled;
->  	struct work_struct work_wdt;
->  	struct delayed_work work_refresh;
-
-Does `pahole` agree with the given layout?
-
->  _mod:
-> +	if (READ_ONCE(data->wdt_enabled))
-
-What are we going to do if just after this wdt_enabled becomes false?
-(Is it a possible case?)
-
-> +		mod_timer(&data->wdt_timer,
-> +			  jiffies + msecs_to_jiffies(SSP_WDT_TIME));
-> +}
-
-Same Q to all the below. Hmm... It seems they are all protected by the mutex?
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+-Vasant
 
