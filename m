@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF9A13CEB9E;
-	Wed, 30 Sep 2026 19:15:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AC873D45D5
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 19:15:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790795721; cv=none; b=cjbxNNwMlejPk693EFSk175VlpB4rVjelYQEgVtuHPpQItaO5bhrEJyqKyRXraN+mCGXwTp0HR0hc1SLHy+mSRRvfTh24DrbXc/u4yEx2TyiRS+Zxek9boINg7NBT4HD9lfSv068gNrGeuqAL0KF5R88+j7hzv840jBY5U8cZcc=
+	t=1790795721; cv=none; b=toBeVbWFs1YVvTeuJqT6SOHSpzggcXZ4U9tnp9Mqgy7kOff15lccZwkOJdnpjNQJNo8+aB1aHXfu8DU11yvFX5GIWVW5J+vDv3ryxdOQVEzHK6LuEZGwrmyr2Tdgld/ctR8WSErXtKOH2Hfsbs/nfD7XXMm1/ZwZ3pHdrG3GKSE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790795721; c=relaxed/simple;
-	bh=ZDXX8nDR5UmgNRVLM1zOCVEQCZ2gK9aH/50bVv63BQk=;
+	bh=TrAhsK9rxaWFjEGoQfcL38Co+85236MlD+g//SvEm6E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jlShxM2qt/qAmPa0JEQvBp/aTGWvaXS5vOUBdZYcyJDO94SRU6hRQ3InoAzaXRAVM2h1M/jR4n2EBQZDxB4Ue3NVC7hwyAvofoVR4YiZGQ9YhbyVzZDdTrt4Rf8zqkAQWSTu7LQr70nTDQk+4nE312bfDiheD4V9XxZO7RETVrw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VRQ8HGYz; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=DFNvXHJFeK8FZgCnjn9R+A61GgJ9G9IwIVWUrXG0NiDUbNZYXnlSfcR7BZ5wPmaF6Ar57CyTUS8Vb1AlKjheBfMVjK+wRqupT9R20ASl0wFtwfnL1uS/Z3LdmOnOOkPMbRNcebOblUDgUZYaaqDnxAfxp0GGopNb48YEv3miUDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i5ID8sjh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VRQ8HGYz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 297301F000FF;
-	Wed, 30 Sep 2026 19:15:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790795719;
-	bh=+IXJT/U8KaclSOqQDFumELYJ7pa50IaZ1h6J+zjEXRQ=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i5ID8sjh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AEFF1F0089B;
+	Wed, 30 Sep 2026 19:15:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790795719;
+	bh=3Sp5xL/pZ3/Ur3asunf3xX292LBXC2ezIteDNS40Sew=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VRQ8HGYzCFUbJd5GRfC1bgXmWHmx/Vc+mEDSW1d2JIDg62W0thKDx0VDcDPXFEhEI
-	 VzIL09T0gDnxtTXG+un7lsxqwSC870UgSorStL8xlgKu88fTydfZK5FPXo5ACl3j+j
-	 FHMbC1JZvQQ1ADbt1iKADhbDc+OOPLUiX5efxRMs=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=i5ID8sjhXkGsncIMaqU3dVYM0uhlU4aL/jwBSmwuMsY5YY96k76n8Ij2eOekfbIKM
+	 /xDyrGQDQeGM3O/ilShP3I14YvGC/u2HMPEE+DlD+vu8WmaGPYfCRW+QKolcnqxySt
+	 0t2WmW2XGGiZHkM+YkEH/0TWvWQU1qX/XuEoWCx46Z3zZyicGrz186jB2bda5ayKVl
+	 NzWsLsH0ZlECuHrJ6V+WD05NJXZ8A6LAZT7sTIHfpbpPZqaNDBMsZR8nA269EkUwKB
+	 aRkSRcNKntEu+oT24uMUVjsemDw8BoyCFzoMVkthsOD8GhhfPLMTjhPzZltTKnbIBs
+	 LGLZ12MMSDjiw==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Sashiko <sashiko-bot+sashiko@kernel.org>,
-	Joe Damato <joe@dama.to>,
-	Paolo Abeni <pabeni@redhat.com>
-Subject: [PATCH 6.6 0658/1193] bnxt_en: Propagate RX ring init failures in bnxt_init_nic()
-Date: Wed, 30 Sep 2026 17:22:22 +0200
-Message-ID: <20260930152448.860293207@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260930152434.301151190@linuxfoundation.org>
-References: <20260930152434.301151190@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Sean Christopherson <seanjc@google.com>,
+	Jinwoo Lee <rkskek9254@gmail.com>,
+	Stefan Teodorescu <fane@google.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 3/3] KVM: x86: Re-pend GET_NESTED_STATE_PAGES if getting said pages fails
+Date: Wed, 30 Sep 2026 15:15:16 -0400
+Message-ID: <20260930191516.523922-3-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260930191516.523922-1-sashal@kernel.org>
+References: <2026092946-smitten-oversleep-efa6@gregkh>
+ <20260930191516.523922-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,55 +47,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+From: Sean Christopherson <seanjc@google.com>
 
-------------------
+[ Upstream commit 10180a277549339020b08000206092c07e0bff5a ]
 
-From: Joe Damato <joe@dama.to>
+Re-pend GET_NESTED_STATE_PAGES before exiting to userspace if getting the
+nested pages fails in the KVM_RUN path.  If userspace re-runs the vCPU, and
+vmcs02 holds valid PFNs from the *previous* run of L2, then KVM could
+re-enter L2 with stale, unpinned PFNs mapped into e.g. the vAPIC page.
 
-commit 8e6a850c0746bb4be167aedf1ee57469fcda09a9 upstream.
+Note, both SVM and VMX (as of commit 11722439fb20 ("KVM: nVMX: Ensure
+KVM_REQ_GET_NESTED_STATE_PAGES is cleared on VM-Exit") ensure the request
+is cleared on VM-Exit (including the "forced" case), i.e. there is no risk
+of double-mapping due to emulated VMLAUNCH/VMRESUME/VMRUN *and* the request
+trying to map the nested pages.
 
-bnxt_init_rx_rings() returns an error when bnxt_alloc_one_rx_ring()
-fails, but bnxt_init_nic() discards that return value and calls
-bnxt_init_chip(), which enables TPA.
-
-If an allocation fails, this could leave rxr->rx_tpa[] partially zeroed
-and TPA would be enabled over an array with zeroed entries. This would
-lead to a zeroed DMA address being handed out if the agg_idx is
-translated to a SW index at a zeroed entry.
-
-Fix this by propagating the error out of bnxt_init_nic(). Both callers
-already check its return value and unwind with bnxt_free_skbs() and
-bnxt_free_mem(), which tolerate a partially initialized RX ring.
-
-Fixes: c0c050c58d84 ("bnxt_en: New Broadcom ethernet driver.")
-Reported-by: Sashiko <sashiko-bot+sashiko@kernel.org>
-Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260828190900.1767611-1-joe%40dama.to
+Fixes: 671ddc700fd0 ("KVM: nVMX: Don't leak L1 MMIO regions to L2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Joe Damato <joe@dama.to>
-Link: https://patch.msgid.link/20260902015652.2421609-6-joe@dama.to
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Reported-by: Jinwoo Lee <rkskek9254@gmail.com>
+Closes: https://lore.kernel.org/all/20260813043932.3214460-1-rkskek9254@gmail.com
+Reported-by: Stefan Teodorescu <fane@google.com>
+Link: https://patch.msgid.link/20260921211608.1030158-2-seanjc@google.com
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/broadcom/bnxt/bnxt.c |    7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ arch/x86/kvm/x86.c | 1 +
+ 1 file changed, 1 insertion(+)
 
---- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-+++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-@@ -8946,8 +8946,13 @@ static int bnxt_shutdown_nic(struct bnxt
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index a7349e29d2d23..6c51803c59f03 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -10603,6 +10603,7 @@ static int vcpu_enter_guest(struct kvm_vcpu *vcpu)
  
- static int bnxt_init_nic(struct bnxt *bp, bool irq_re_init)
- {
-+	int rc;
-+
- 	bnxt_init_cp_rings(bp);
--	bnxt_init_rx_rings(bp);
-+	rc = bnxt_init_rx_rings(bp);
-+	if (rc)
-+		return rc;
-+
- 	bnxt_init_tx_rings(bp);
- 	bnxt_init_ring_grps(bp, irq_re_init);
- 	bnxt_init_vnics(bp);
-
+ 		if (kvm_check_request(KVM_REQ_GET_NESTED_STATE_PAGES, vcpu)) {
+ 			if (unlikely(!kvm_nested_call(get_nested_state_pages)(vcpu))) {
++				kvm_make_request(KVM_REQ_GET_NESTED_STATE_PAGES, vcpu);
+ 				r = 0;
+ 				goto out;
+ 			}
+-- 
+2.53.0
 
