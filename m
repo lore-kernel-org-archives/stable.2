@@ -1,46 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E2774B8287
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 15:09:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60E664BE434
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 15:09:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790780984; cv=none; b=hqVr8GhSX3uR9PwMYDfXstkj39tYCcZMMBOdRg2CGohO0FNXSdjWcj8H6zd7yq8vSkCrsP6wEXnVPg7688jeve0ao96sqFastl1zC8F125eBdP4UWgujDBfMgmNonexRzO2No8PvyCh1/FjKczMyVFEfZ1kQ7vc7FXDjQ6IkMfU=
+	t=1790780993; cv=none; b=AjZ6KqE64rHGANugM3d+lZIcBGTGNEbA0LzPfU4iwdpVvhtH8p90aQxR10Kql7fCPGwhpQBQmA3aa6Upc5y3orezwYjOOr28+Xb3DFRrnAt0hBgRumXFJ5xlUS61eFkXPHAuFiJCKCaxEl8FAc1gxBSU5EvY13134K7gwagBhvc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790780984; c=relaxed/simple;
-	bh=U6mI7e3G/HEwoE3Tx754JgCBzraLsCpDigaP+r5pl6k=;
+	s=arc-20240116; t=1790780993; c=relaxed/simple;
+	bh=TFgpZN8lcCa1b9F4rajDACrHNtC16kUZD0clcTlog0o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=slxWMtmS758aBG6uK3cvoeCUyi8jkKvQZNleBxQvSEb/I/0bZrwVMOQkTzOEaG9mCWBxeTnDFHyGic8J2QCAYgyrEJDiTazIN6O9KWbE9x371p40YU96bJgk5A4WtYQRexZyTnIgV9dacvexWRPtSsRGzPjgmbn9e9NOglo3b2Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V9l3mJsO; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=mz0kL+pyqRBx+AUEVdl8hqSlQdg9mqFT6Gpdg+6C9rRj71BNGtOWe7yaql6RXQKSgEj/WVf42RcdVq7sDyG5WzaN2xDsM9sGh2fheB7r/kHHCBh1pEK5LRLV759dpvtWWOcio5nvUli8T0SscxAnAMAf7bZ9+GbSqr1rejxJyCI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DUA6ddBM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V9l3mJsO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CCE91F00898;
-	Wed, 30 Sep 2026 15:09:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DUA6ddBM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 252AC1F00893;
+	Wed, 30 Sep 2026 15:09:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790780977;
-	bh=XrC/mdYo4y91dasJtBk4QsBSf56f4vmUjzKXZxKUDKQ=;
+	s=k20260515; t=1790780983;
+	bh=rXDOaiNGLxUphCrcZft9w9mNkywmLa05NH/NsXu7sLU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=V9l3mJsOuz6rAbgQpcS8GtuRCw3t0syAeokC5hGwVOrELCT+c12kGhs0VUUS5EyVf
-	 7i9qBxJMo/l60Ui/ggqXm1ZtwerfUZafHCPhpkRlcglqmsGzrB5KslMgNAQUgtEhc6
-	 a+hSr4fNYGQ9hdGll7fOGC2lv243Sxq8VwW9XMyq/L5KZ55pGS0msVbBTyn5Dx4j6c
-	 NhIh81GwbJkG0maQxaCw7IYz7gC40b0T/UHciEA9g9Zk0VkpRbhHVpoJvRQFBwTQsR
-	 HCu4OihFyAsM/NBaD1KfziZ1td4gIsi8gHIwAYFiqWgeuvsJ3Qp7D9JYJiaxhDqYyz
-	 74fN/bmeDBiXw==
+	b=DUA6ddBMBZQY7NCxOHpQK+Ob5YFGoyf0JeomBYptaQ+OCAYzWJWS4hyeYs0ypy6OZ
+	 0VOVwvSihqsxblI38uB5dWyPhd2IvfyqowHfEPRkx2WBlx8wRJXgl1rjBxNo1dD5RF
+	 ZBMj+GuQiq0zmag4EIpXRCnbao21pBrbSpfCmDWgTx66fRHxc2ZOwGphz5r7HB7z4D
+	 W0Rw9wZEyT4jJSTd90njKYM26faU35SbL/gXP/NviZi/Cfn+prOi5t6dMlnFgdIWgs
+	 kbLaasACxdTtjXaObirGPzaBUuNzMXQsvcesrokIjZiPPROOsGRiD8fzdA7VvXBnCz
+	 LMMCMIx9/i6Sg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Marc Zyngier <maz@kernel.org>,
-	Shen Yongchao <grayhat@foxmail.com>,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Wei-Lin Chang <weilin.chang@arm.com>,
-	Oliver Upton <oupton@kernel.org>,
+Cc: Tejun Heo <tj@kernel.org>,
+	Andrea Righi <arighi@nvidia.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] KVM: arm64: nv: Fix life cycle of the nested_mmus array
-Date: Wed, 30 Sep 2026 11:09:34 -0400
-Message-ID: <20260930150934.2344555-1-sashal@kernel.org>
+Subject: [PATCH 7.2.y 1/2] sched_ext: Generalize local-DSQ handling to rq-owned DSQs
+Date: Wed, 30 Sep 2026 11:09:40 -0400
+Message-ID: <20260930150941.2349228-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092949-cider-outdated-8627@gregkh>
-References: <2026092949-cider-outdated-8627@gregkh>
+In-Reply-To: <2026092920-protector-confused-2f3e@gregkh>
+References: <2026092920-protector-confused-2f3e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,293 +45,125 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Marc Zyngier <maz@kernel.org>
+From: Tejun Heo <tj@kernel.org>
 
-[ Upstream commit 33346f8960c7bb6a3b4e273b5cfe25c5a8be349f ]
+[ Upstream commit bf6cf1886a56eaf929d8193a3f4b30be59a778e2 ]
 
-The nested_mmus array holds the shadow page tables that are used when
-a guest is running a nested context. These structures are allocated on
-VCPU_INIT for whole guest, which implies that they may have to be
-relocated as the array grows.
+The local DSQ is synchronized by the containing rq lock rather than its own
+dsq->lock. A later patch adds a second such DSQ. In preparation, factor the
+"rq owns the lock" test into dsq_is_rq_owned() and rename
+local_dsq_post_enq() to rq_owned_post_enq(), taking @rq explicitly.
 
-Should a VCPU_INIT occur whilst a vcpu is actively running an L2 and
-that the allocation requires relocation, that vcpu will still be
-running with a pointer to the previous structure, which will have been
-freed.
+No behavior change.
 
-Fix this by turning the array of structures to an array of pointers,
-which is now allocated at VM creation, sized to the absolute maximum
-that KVM can handle.
-
-In turn, each VCPU_INIT contributes S2_MMU_PER_VCPU to the pool. No
-reallocation is ever performed, and the life cycle of each object is
-much clearer:
-
-- the nested_mmus array is allocated in kvm_init_nested(), and freed
-  in kvm_arch_destroy_vm()
-
-- s2_mmu structures are allocated in kvm_vcpu_init_nested(), and freed
-  on kvm_arch_flush_shadow_all()
-
-Finally, the freeing of vcpu->arch.vncr_array is made consistent
-rather than being done on some failure paths, but not others.
-
-Fixes: 4f128f8e1aaa ("KVM: arm64: nv: Support multiple nested Stage-2 mmu structures")
-Reported-by: Shen Yongchao <grayhat@foxmail.com>
-Reported-by: Karl Mehltretter <kmehltretter@gmail.com>
-Suggested-by: Karl Mehltretter <kmehltretter@gmail.com>
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Link: https://lore.kernel.org/r/20260803224405.41468-1-kmehltretter@gmail.com
-Signed-off-by: Marc Zyngier <maz@kernel.org>
-Cc: stable@vger.kernel.org
-Reviewed-by: Wei-Lin Chang <weilin.chang@arm.com>
-Link: https://patch.msgid.link/20260911162203.1919330-2-maz@kernel.org
-Signed-off-by: Oliver Upton <oupton@kernel.org>
-[ adapted nested MMU initialization to the older kvrealloc-based code without VNCR/E2H0 support. ]
+Signed-off-by: Tejun Heo <tj@kernel.org>
+Reviewed-by: Andrea Righi <arighi@nvidia.com>
+Stable-dep-of: 7de9a6fb44ea ("sched_ext: Wait for SCX_OPSS_DISPATCHING before reenqueueing a task")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/include/asm/kvm_host.h   |  2 +-
- arch/arm64/include/asm/kvm_nested.h |  2 +-
- arch/arm64/kvm/arm.c                | 10 +++-
- arch/arm64/kvm/nested.c             | 88 +++++++++++++++--------------
- 4 files changed, 55 insertions(+), 47 deletions(-)
+ kernel/sched/ext/ext.c | 34 ++++++++++++++++++++++------------
+ 1 file changed, 22 insertions(+), 12 deletions(-)
 
-diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-index ab0402642f347..4f6afd2c042fe 100644
---- a/arch/arm64/include/asm/kvm_host.h
-+++ b/arch/arm64/include/asm/kvm_host.h
-@@ -292,7 +292,7 @@ struct kvm_arch {
- 	 * Stage 2 paging state for VMs with nested S2 using a virtual
- 	 * VMID.
- 	 */
--	struct kvm_s2_mmu *nested_mmus;
-+	struct kvm_s2_mmu **nested_mmus;
- 	size_t nested_mmus_size;
- 	int nested_mmus_next;
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index 906e4f08967f8..665825f1d1ff4 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -95,6 +95,17 @@ static atomic_long_t scx_hotplug_seq = ATOMIC_LONG_INIT(0);
+ /* Global cursor for the per-CPU tid allocator. Starts at 1; tid 0 is reserved. */
+ static atomic64_t scx_tid_cursor = ATOMIC64_INIT(1);
  
-diff --git a/arch/arm64/include/asm/kvm_nested.h b/arch/arm64/include/asm/kvm_nested.h
-index 233e655227164..d9250fa8cdd03 100644
---- a/arch/arm64/include/asm/kvm_nested.h
-+++ b/arch/arm64/include/asm/kvm_nested.h
-@@ -64,7 +64,7 @@ static inline u64 translate_ttbr0_el2_to_ttbr0_el1(u64 ttbr0)
- }
- 
- extern bool forward_smc_trap(struct kvm_vcpu *vcpu);
--extern void kvm_init_nested(struct kvm *kvm);
-+extern int kvm_init_nested(struct kvm *kvm);
- extern int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu);
- extern void kvm_init_nested_s2_mmu(struct kvm_s2_mmu *mmu);
- extern struct kvm_s2_mmu *lookup_s2_mmu(struct kvm_vcpu *vcpu);
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index 72e4c290d8fca..ec229e6a0b731 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -181,8 +181,6 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
- 	mutex_unlock(&kvm->lock);
- #endif
- 
--	kvm_init_nested(kvm);
--
- 	ret = kvm_share_hyp(kvm, kvm + 1);
- 	if (ret)
- 		return ret;
-@@ -201,6 +199,10 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
- 	if (ret)
- 		goto err_free_cpumask;
- 
-+	ret = kvm_init_nested(kvm);
-+	if (ret)
-+		goto err_uninit_mmu;
-+
- 	kvm_vgic_early_init(kvm);
- 
- 	kvm_timer_init_vm(kvm);
-@@ -214,6 +216,9 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
- 
- 	return 0;
- 
-+err_uninit_mmu:
-+	kvm_uninit_stage2_mmu(kvm);
-+	kvfree(kvm->arch.nested_mmus);
- err_free_cpumask:
- 	free_cpumask_var(kvm->arch.supported_cpus);
- err_unshare_kvm:
-@@ -270,6 +275,7 @@ void kvm_arch_destroy_vm(struct kvm *kvm)
- 
- 	kvm_unshare_hyp(kvm, kvm + 1);
- 
-+	kvfree(kvm->arch.nested_mmus);
- 	kvm_arm_teardown_hypercalls(kvm);
- }
- 
-diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-index c4b17d90fc49d..aae70f62133a6 100644
---- a/arch/arm64/kvm/nested.c
-+++ b/arch/arm64/kvm/nested.c
-@@ -27,10 +27,14 @@
-  */
- #define S2_MMU_PER_VCPU		2
- 
--void kvm_init_nested(struct kvm *kvm)
-+int kvm_init_nested(struct kvm *kvm)
- {
--	kvm->arch.nested_mmus = NULL;
-+	kvm->arch.nested_mmus = kvmalloc_objs(struct kvm_s2_mmu *,
-+					      KVM_MAX_VCPUS * S2_MMU_PER_VCPU,
-+					      GFP_KERNEL_ACCOUNT);
- 	kvm->arch.nested_mmus_size = 0;
-+
-+	return kvm->arch.nested_mmus ? 0 : -ENOMEM;
- }
- 
- static int init_nested_s2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu)
-@@ -51,42 +55,41 @@ static int init_nested_s2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu)
- int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu)
- {
- 	struct kvm *kvm = vcpu->kvm;
--	struct kvm_s2_mmu *tmp;
--	int num_mmus, ret = 0;
-+	int num_mmus;
-+
-+	lockdep_assert_held(&kvm->arch.config_lock);
- 
--	/*
--	 * Let's treat memory allocation failures as benign: If we fail to
--	 * allocate anything, return an error and keep the allocated array
--	 * alive. Userspace may try to recover by intializing the vcpu
--	 * again, and there is no reason to affect the whole VM for this.
--	 */
- 	num_mmus = atomic_read(&kvm->online_vcpus) * S2_MMU_PER_VCPU;
--	tmp = kvrealloc(kvm->arch.nested_mmus,
--			size_mul(sizeof(*kvm->arch.nested_mmus), num_mmus),
--			GFP_KERNEL_ACCOUNT | __GFP_ZERO);
--	if (!tmp)
--		return -ENOMEM;
- 
--	/*
--	 * If we went through a realocation, adjust the MMU back-pointers in
--	 * the previously initialised kvm_pgtable structures.
--	 */
--	if (kvm->arch.nested_mmus != tmp)
--		for (int i = 0; i < kvm->arch.nested_mmus_size; i++)
--			tmp[i].pgt->mmu = &tmp[i];
-+	if (num_mmus > kvm->arch.nested_mmus_size) {
-+		struct kvm_s2_mmu *tmp;
-+		int i, ret = 0;
- 
--	for (int i = kvm->arch.nested_mmus_size; !ret && i < num_mmus; i++)
--		ret = init_nested_s2_mmu(kvm, &tmp[i]);
-+		tmp = kvzalloc_objs(*tmp, S2_MMU_PER_VCPU, GFP_KERNEL_ACCOUNT);
-+		if (!tmp)
-+			ret = -ENOMEM;
- 
--	if (ret) {
--		for (int i = kvm->arch.nested_mmus_size; i < num_mmus; i++)
--			kvm_free_stage2_pgd(&tmp[i]);
-+		for (i = 0; !ret && i < S2_MMU_PER_VCPU; i++) {
-+			ret = init_nested_s2_mmu(kvm, &tmp[i]);
-+			if (ret)
-+				break;
-+		}
- 
--		return ret;
--	}
-+		if (ret) {
-+			while (--i >= 0)
-+				kvm_free_stage2_pgd(&tmp[i]);
- 
--	kvm->arch.nested_mmus_size = num_mmus;
--	kvm->arch.nested_mmus = tmp;
-+			kvfree(tmp);
-+			return ret;
-+		}
-+
-+		guard(write_lock)(&kvm->mmu_lock);
-+
-+		for (i = 0; i < S2_MMU_PER_VCPU; i++)
-+			kvm->arch.nested_mmus[i + kvm->arch.nested_mmus_size] = &tmp[i];
-+
-+		kvm->arch.nested_mmus_size += S2_MMU_PER_VCPU;
++/* is @dsq synchronized by the containing rq lock instead of dsq->lock? */
++static bool dsq_is_rq_owned(struct scx_dispatch_q *dsq)
++{
++	switch (dsq->id) {
++	case SCX_DSQ_LOCAL:
++		return true;
++	default:
++		return false;
 +	}
- 
- 	return 0;
- }
-@@ -541,7 +544,7 @@ void kvm_s2_mmu_iterate_by_vmid(struct kvm *kvm, u16 vmid,
- 	write_lock(&kvm->mmu_lock);
- 
- 	for (int i = 0; i < kvm->arch.nested_mmus_size; i++) {
--		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
-+		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
- 
- 		if (!kvm_s2_mmu_valid(mmu))
- 			continue;
-@@ -583,7 +586,7 @@ struct kvm_s2_mmu *lookup_s2_mmu(struct kvm_vcpu *vcpu)
- 	 *   if S2 translation is disabled.
- 	 */
- 	for (int i = 0; i < kvm->arch.nested_mmus_size; i++) {
--		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
-+		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
- 
- 		if (!kvm_s2_mmu_valid(mmu))
- 			continue;
-@@ -622,7 +625,7 @@ static struct kvm_s2_mmu *get_s2_mmu_nested(struct kvm_vcpu *vcpu)
- 	for (i = kvm->arch.nested_mmus_next;
- 	     i < (kvm->arch.nested_mmus_size + kvm->arch.nested_mmus_next);
- 	     i++) {
--		s2_mmu = &kvm->arch.nested_mmus[i % kvm->arch.nested_mmus_size];
-+		s2_mmu = kvm->arch.nested_mmus[i % kvm->arch.nested_mmus_size];
- 
- 		if (atomic_read(&s2_mmu->refcnt) == 0)
- 			break;
-@@ -748,7 +751,7 @@ void kvm_nested_s2_wp(struct kvm *kvm)
- 	lockdep_assert_held_write(&kvm->mmu_lock);
- 
- 	for (i = 0; i < kvm->arch.nested_mmus_size; i++) {
--		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
-+		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
- 
- 		if (kvm_s2_mmu_valid(mmu))
- 			kvm_stage2_wp_range(mmu, 0, kvm_phys_size(mmu));
-@@ -762,7 +765,7 @@ void kvm_nested_s2_unmap(struct kvm *kvm, bool may_block)
- 	lockdep_assert_held_write(&kvm->mmu_lock);
- 
- 	for (i = 0; i < kvm->arch.nested_mmus_size; i++) {
--		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
-+		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
- 
- 		if (kvm_s2_mmu_valid(mmu))
- 			kvm_stage2_unmap_range(mmu, 0, kvm_phys_size(mmu), may_block);
-@@ -776,7 +779,7 @@ void kvm_nested_s2_flush(struct kvm *kvm)
- 	lockdep_assert_held_write(&kvm->mmu_lock);
- 
- 	for (i = 0; i < kvm->arch.nested_mmus_size; i++) {
--		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
-+		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
- 
- 		if (kvm_s2_mmu_valid(mmu))
- 			kvm_stage2_flush_range(mmu, 0, kvm_phys_size(mmu));
-@@ -785,16 +788,15 @@ void kvm_nested_s2_flush(struct kvm *kvm)
- 
- void kvm_arch_flush_shadow_all(struct kvm *kvm)
- {
--	int i;
--
--	for (i = 0; i < kvm->arch.nested_mmus_size; i++) {
--		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
-+	for (int i = kvm->arch.nested_mmus_size - 1; i >= 0; i--) {
-+		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
- 
- 		if (!WARN_ON(atomic_read(&mmu->refcnt)))
- 			kvm_free_stage2_pgd(mmu);
++}
 +
-+		if ((i % S2_MMU_PER_VCPU) == 0)
-+			kvfree(mmu);
- 	}
--	kvfree(kvm->arch.nested_mmus);
--	kvm->arch.nested_mmus = NULL;
- 	kvm->arch.nested_mmus_size = 0;
- 	kvm_uninit_stage2_mmu(kvm);
+ #ifdef CONFIG_EXT_SUB_SCHED
+ /*
+  * The sub sched being enabled. Used by scx_disable_and_exit_task() to exit
+@@ -1466,11 +1477,10 @@ static void call_task_dequeue(struct scx_sched *sch, struct rq *rq,
+ 	p->scx.flags &= ~SCX_TASK_IN_CUSTODY;
  }
+ 
+-static void local_dsq_post_enq(struct scx_sched *sch, struct scx_dispatch_q *dsq,
+-			       struct task_struct *p, u64 enq_flags)
++static void rq_owned_post_enq(struct scx_sched *sch, struct rq *rq,
++			      struct scx_dispatch_q *dsq, struct task_struct *p,
++			      u64 enq_flags)
+ {
+-	struct rq *rq = container_of(dsq, struct rq, scx.local_dsq);
+-
+ 	call_task_dequeue(sch, rq, p, 0);
+ 
+ 	/*
+@@ -1530,13 +1540,13 @@ static void dispatch_enqueue(struct scx_sched *sch, struct rq *rq,
+ 			     struct scx_dispatch_q *dsq, struct task_struct *p,
+ 			     u64 enq_flags)
+ {
+-	bool is_local = dsq->id == SCX_DSQ_LOCAL;
++	bool is_rq_owned = dsq_is_rq_owned(dsq);
+ 
+ 	WARN_ON_ONCE(p->scx.dsq || !list_empty(&p->scx.dsq_list.node));
+ 	WARN_ON_ONCE((p->scx.dsq_flags & SCX_TASK_DSQ_ON_PRIQ) ||
+ 		     !RB_EMPTY_NODE(&p->scx.dsq_priq));
+ 
+-	if (!is_local) {
++	if (!is_rq_owned) {
+ 		raw_spin_lock_nested(&dsq->lock,
+ 			(enq_flags & SCX_ENQ_NESTED) ? SINGLE_DEPTH_NESTING : 0);
+ 
+@@ -1631,8 +1641,8 @@ static void dispatch_enqueue(struct scx_sched *sch, struct rq *rq,
+ 	 * ops_state first, both sides would modify p->scx.flags
+ 	 * concurrently in a non-atomic way.
+ 	 */
+-	if (is_local) {
+-		local_dsq_post_enq(sch, dsq, p, enq_flags);
++	if (is_rq_owned) {
++		rq_owned_post_enq(sch, rq, dsq, p, enq_flags);
+ 	} else {
+ 		/*
+ 		 * Task on global/bypass DSQ: leave custody, task on
+@@ -1679,7 +1689,7 @@ static void task_unlink_from_dsq(struct task_struct *p,
+ static void dispatch_dequeue(struct rq *rq, struct task_struct *p)
+ {
+ 	struct scx_dispatch_q *dsq = p->scx.dsq;
+-	bool is_local = dsq == &rq->scx.local_dsq;
++	bool is_rq_owned = dsq && dsq_is_rq_owned(dsq);
+ 
+ 	lockdep_assert_rq_held(rq);
+ 
+@@ -1703,7 +1713,7 @@ static void dispatch_dequeue(struct rq *rq, struct task_struct *p)
+ 		return;
+ 	}
+ 
+-	if (!is_local)
++	if (!is_rq_owned)
+ 		raw_spin_lock(&dsq->lock);
+ 
+ 	/*
+@@ -1725,7 +1735,7 @@ static void dispatch_dequeue(struct rq *rq, struct task_struct *p)
+ 	}
+ 	p->scx.dsq = NULL;
+ 
+-	if (!is_local)
++	if (!is_rq_owned)
+ 		raw_spin_unlock(&dsq->lock);
+ }
+ 
+@@ -2277,7 +2287,7 @@ static void move_local_task_to_local_dsq(struct scx_sched *sch,
+ 	dsq_inc_nr(dst_dsq, p, enq_flags);
+ 	p->scx.dsq = dst_dsq;
+ 
+-	local_dsq_post_enq(sch, dst_dsq, p, enq_flags);
++	rq_owned_post_enq(sch, dst_rq, dst_dsq, p, enq_flags);
+ }
+ 
+ /**
 -- 
 2.53.0
 
