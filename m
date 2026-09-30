@@ -1,106 +1,73 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FE233A3816;
-	Wed, 30 Sep 2026 07:40:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 669BE3B5303;
+	Wed, 30 Sep 2026 07:44:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790754034; cv=none; b=FHVa+OvYV4y0MiueQ+BJWRaqEgbea95A8pFrKsdXscgH3n71g1I1M2i89eYm9xY/Yi9s14vaZqiZc5CEq9TJmeKndPrbTfo/ya59FPI23UNGTepLcwBujCo2pvpEDvD60MyaOBAQ6zssFiV6+dy8ujHhtUQdHA0Vq2Z8VJoKSX8=
+	t=1790754259; cv=none; b=umT1n0xQ+q5G01XEGV/DUfuH4y5JSou2huVEOtYMk+M2dKwZhm48LDvJVqSwVLoyk7WxYDQ5j3WfnTF7KBSgC59udF4iAX/YO7PBSrG/u1InKeojL6LkhrIs4Am+s08uDZ9b7N4oz2Bka3zNptVZSs/PoJZd6jeJHnGgKISz74Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790754034; c=relaxed/simple;
-	bh=oyOiJYkJ/EWDLviWCX2is2ruTUp3N3AD7lWOUAhaWxs=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=eGSB4SPAJrFDmz7Ghcb5WlGTfoURbmQHqu0YQPs4EqrqjmaoTXh17uf3j/EXocENHn1Pf5Ug8Y1XUIV1iAU9BhTehmtCpZDEH0LKMPisq2DztXFmvWl+PdtUqQYD/9p3KDLO7iEI9SlleIhowIfFePJqbemmBVu7gnMovf7w1fE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=iMdulFhA; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1790754259; c=relaxed/simple;
+	bh=zvpmhm+BAUlfIVJ/6Kp9ShG7pA3G2q65FWBMzuTisWM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=t3BvYIn/RPLlxsdIVRcntRVhTPSZioYnrdoX+4CVWhmU6vSNwd7aOue0fgciK5wQ6wslJL3K/pwESa0haNX88G7otL4APBJ5u3r2qiVpOik0k1k7W0VUVWSn24JK+2gDGRsPeQEwjOcZCp1sWw4Rf+biNOUd0aZS6H9wKlDydfM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bTUZIhKd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="iMdulFhA"
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4f9ce8847;
-	Wed, 30 Sep 2026 15:40:28 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Sukhdeep Singh <sukhdeeps@marvell.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH] net: atlantic: only free the PTP IRQ after a successful request
-Date: Wed, 30 Sep 2026 15:40:23 +0800
-Message-Id: <20260930074023.2943213-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bTUZIhKd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BFC81F000FF;
+	Wed, 30 Sep 2026 07:44:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790754258;
+	bh=R4WIaVmgxMJzlsaERAlBqwLuDwVcuzfSzsQMDWtKV3E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=bTUZIhKd2N/OplkKvZHRqKyTUQz4po5AL68ifzVN90jZeq25Z5Hzc6c2oyul3VVM+
+	 1imvVMlJv/MYWtmle9Pncuw6k8zO4H4JhN4grgZYTY7x2r36Ug3J0Ko9U+X1z4qjPD
+	 nDv4Y8BbhdsvY4saMyizpCdPpPVqO5CVxLYGA03zbzo/X1ERb5KIeEjG5RlHavHHze
+	 JcgYX5btkF16IVDJCKiCdGgspmzlDvIFghVHHXGJCIovk4ALvvvDXPgsS0DMgY3L8e
+	 wFZszrS+88cqEfeDzGJ+GAzO4Ce9yxGZ75LPlH2DBPco/H8gWLAYtCKebXmm5FcJix
+	 ZrnJuVf4SpsWA==
+From: netdev-bot+sinfo@kernel.org
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: Sukhdeep Singh <sukhdeeps@marvell.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Richard Cochran <richardcochran@gmail.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: 
+ Re: [PATCH] net: atlantic: only free the PTP IRQ after a successful request
+Date: Wed, 30 Sep 2026 07:44:17 +0000
+Message-ID: <179075425701.31693.17457011245131119734@kernel.org>
+In-Reply-To: <20260930074023.2943213-1-runyu.xiao@seu.edu.cn>
+References: <20260930074023.2943213-1-runyu.xiao@seu.edu.cn>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0f141fa7203a1kunm04033f5326fc01
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSENMVkIdGRhCGR5LQ0oaSlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=iMdulFhAPcFv61U4S39ZIKHC5ARAgnEswSnxxbN79anvfTgznj+yaZeVSdeXjIrNubOZtfKiKhWbtQNFfE9qTLqTbE0zlUtQtitKc4/YjKjpIRe18PYhnKBMgTOhKcKIVhG7zZb0bYzxfuMYl/70ZXq9W6228iiijR6QCtdo0DQ=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=R5W59/fVYd+hNmXhpZXRzCWCoXxUcslCvKKG1I34EC8=;
-	h=date:mime-version:subject:message-id:from;
 
-aq_nic_start() requests the PTP IRQ before it finishes the rest of the NIC
-startup sequence. A later startup failure reaches aq_nic_stop(), which
-calls aq_ptp_irq_free() even when aq_ptp_irq_alloc() skipped request_irq()
-or when request_irq() failed.
+Hi!
 
-Track whether the PTP IRQ request succeeded. Only call free_irq() after a
-matching request_irq().
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Fixes: 04a1839950d9 ("net: aquantia: implement data PTP datapath")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/net/ethernet/aquantia/atlantic/aq_ptp.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
-diff --git a/drivers/net/ethernet/aquantia/atlantic/aq_ptp.c b/drivers/net/ethernet/aquantia/atlantic/aq_ptp.c
-index 558ac9237..a5b69f1c7 100644
---- a/drivers/net/ethernet/aquantia/atlantic/aq_ptp.c
-+++ b/drivers/net/ethernet/aquantia/atlantic/aq_ptp.c
-@@ -84,6 +84,7 @@ struct aq_ptp_s {
- 	struct ptp_tx_timeout ptp_tx_timeout;
- 
- 	unsigned int idx_ptp_vector;
-+	bool irq_allocated;
- 	struct napi_struct napi;
- 
- 	struct aq_ring_s ptp_tx;
-@@ -1033,6 +1034,8 @@ int aq_ptp_irq_alloc(struct aq_nic_s *aq_nic)
- 	if (pdev->msix_enabled || pdev->msi_enabled) {
- 		err = request_irq(pci_irq_vector(pdev, aq_ptp->idx_ptp_vector),
- 				  aq_ptp_isr, 0, aq_nic->ndev->name, aq_ptp);
-+		if (!err)
-+			aq_ptp->irq_allocated = true;
- 	} else {
- 		err = -EINVAL;
- 		goto err_exit;
-@@ -1050,7 +1053,11 @@ void aq_ptp_irq_free(struct aq_nic_s *aq_nic)
- 	if (!aq_ptp)
- 		return;
- 
-+	if (!aq_ptp->irq_allocated)
-+		return;
-+
- 	free_irq(pci_irq_vector(pdev, aq_ptp->idx_ptp_vector), aq_ptp);
-+	aq_ptp->irq_allocated = false;
- }
- 
- int aq_ptp_ring_init(struct aq_nic_s *aq_nic)
--- 
-2.34.1
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
+
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
