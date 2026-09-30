@@ -1,173 +1,125 @@
-Received: from mail-oo2-f39.google.com (mail-oo2-f39.google.com [74.125.231.167])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 262C54E4331
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 14:42:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.167
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC44C4FD26F;
+	Wed, 30 Sep 2026 14:46:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790779382; cv=none; b=SItM4yQ+wMdt+8XFYzahs2JQjp1DHdwUgubcayUzdP8jvj6fIga7dH60nUZSk5KtJFSz+alCY3o8trIQKpuFpIHo/qMC3NO6DKREmUYBIpoW7jUfIwLc1ZK8jyD/VHAaJ/1bfAhscCQDIMhQa+gRVDFEENme6Kqt8yuVOLa8be0=
+	t=1790779606; cv=none; b=eTKIvwBgabH6RkNTyMwVFqtEdq0szD/rkxLv1Cz+U7ALl3UoC6ZGSTVtssiPrlbgVFL82vPMFP3Vf3BSfITDvMbkPAHl13KmglwFZUV3EPgV4G3LlGdxBBpB/7FIIGsEKHP3eNyzmLSHGTxm/2eogO3om2wiewshhjLk6gbiDkg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790779382; c=relaxed/simple;
-	bh=8UcWVXM+EmggUJG9RPNWsrlMH3hzHO+NyygDLU1YsGw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HN4U+Q0T6M4AAw0Ahh3PuZ/ucggMTjf44Aw0HyEUjurJ9jBpSAbWfNJOauwDYVjodHgGj5vq9sAINfIPBc0CaTqNn2hjC7XgcS/a7EHyzxXWlJoxZbmM8RcOtVluLLcW3MkTw6G7F97C4wnnx3JCq3HLg9G08RjYUr+cj9UfiWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dy32UqnP; arc=none smtp.client-ip=74.125.231.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790779606; c=relaxed/simple;
+	bh=Gk2KmIM5HVHotjadVdw6XjNAUVYMQ7BHMns73y9zOcY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Va1jr+yXgLx2l6SH9QTrVacfty74V1xWKd61yCelKEG+NWCWkleNrrAhvQCQ7TkdfmgIuuy5V7NwQifdTRLhSAHjXFc4pRuFORR56ACbBYO4PHnHi62UTQfGwAG/IrXSpG1x2pMgwUAi5ZH2QB5aweLCSFvl1j/cm8bgkOoBVSU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=SxT29RnQ; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dy32UqnP"
-Received: by mail-oo2-f39.google.com with SMTP id 46e09a7af769-8209a96e0e3so254337a34.0
-        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 07:42:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790779371; x=1791384171; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lCYghwym+9Y4w6eXWM454UE/qTUCfuDedvhfnXRMawY=;
-        b=dy32UqnPl+BzkaikiClvupMqvPh0AuM/W63XwSJmOz3zVdaePgQuOESYOQyeo8Tc9R
-         PcH1UnP0d68nfvfRIpnqKYXCjNIHpkmIMDqTK4ekfip38Ur8PuKC7xRXpxyc2JXlU27H
-         HBApB4YGWEtZGNL4it5Dbokc2b1me2xYUnEmPhN21LCP5PmZYV5fOG0TdAaI90kTVORZ
-         OVbnnHvHJPsm+7BOsvUCZ0339uG7ptC7F/+lUEdn/KrhphQcXL8GeoYj6O2c4NLy2DPy
-         1lTbHy9V0T94+QeRMYLACUBLcOLzV73wvB402U48SBk5ZZjHXm+P0MSEMJpZ+cRIBNPf
-         OHWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790779371; x=1791384171;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lCYghwym+9Y4w6eXWM454UE/qTUCfuDedvhfnXRMawY=;
-        b=URdoOzj29HzVwGQHdFNs6sQ6L+Ehb7UeWexE4DszlE7iP55zd8N3xnVsKkD2bmh9PY
-         Yq9tDEjSpTFAnDRI0mzVWEJ9vePGKPJ7HmnXhJeYHr7KJf/b4mPbZCRAWclQjQ1AnNM2
-         zZUVcIlY6m9fKZL8sq6VtvJTGY2Cfbk8NJXcY0ZD9ZPGvGe2UBnJ7wjXhaGxTOH/KZz8
-         GbyCczL8CxwgfFhywHl9MHs6DiYdpES/sejghy3Y4hJFxtg3KS6sS9tYXWsDQFwG5zv+
-         39pUKxxxp+JllWvZ/WzSNKGuIGakggGAV/4A0kllCYMDr+59FLcJO0CxdugKTI0AW9t3
-         K3ig==
-X-Forwarded-Encrypted: i=1; AKwUvByzeyuDk9yO4UwTfjyI3c9jTVZxYJgB9E2oTyKWdHrFVhTu4Hwm7n3beX0SEWv8PKnvaRxGlmA=@vger.kernel.org
-X-Gm-Message-State: AFuF++ma7fJ5ydspWrEmTpjfKxgkfIBhC9e05bRJB3K+uMwulIyvrLPK
-	3NDUoUqz29bv9UIAVyi9+a+WQbjWFpGh8MSXcPJ98r2JNz1S2Fp1KsX4
-X-Gm-Gg: AYBFou2RnqUhUP5kkqt+PlAA/rJSDQVTCeOz4ykVOwEvpVAKyJkdP70SqSWJ8hEtKM2
-	z1liVry92DpG/v1Aa1HxJdNtKmfHKcONevaoMa5d6Paj2d6E49AhpUxSNvZyx6h/bJ4X7MY78Ah
-	hEDtw1gThkcB/ygg13h2QS1nP2cwOxZcOgKTxwrTwAvF9gE69ekuduYnWUldXNr4fjvGFusW8DO
-	c3dOoEfcNCokizta6cS2+0C/uz4UzLlvN+XdJayelNwHacltu0JiLnubTxCx5Psc6ltOIVSW9Ku
-	ppyemIdjVhN5MPkk0tXQ4euI9+R5ItpOkgvEFeyTBzyJNM+GBsQ+LOc8jYTl/jDA1sTTJ+CmFJW
-	JWAkO0BT/LEi3ycehDW8sSd/R2HnuZXFtMmPc0AzhZ/TUi4IsWjeNgnH9j53/cZu7MNjRmbuoBi
-	BqvG8nj8nZWfWrELlbKinMd6NFh1l5BFwRjG3ubQpIf9csEdDOrPl7i/uNF57voXYq8WuWm3SVG
-	nIylKvF7DzDJBms0EYu1fJDoCQE0vwoJTmg4Turi6pnOUoOe84=
-X-Received: by 2002:a05:6820:60f:b0:6b8:ce67:77d5 with SMTP id 006d021491bc7-6dcf1ab0479mr1793103eaf.13.1790779371494;
-        Wed, 30 Sep 2026 07:42:51 -0700 (PDT)
-Received: from archlinux.lan ([136.34.156.120])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-820635e68b3sm1091810a34.17.2026.09.30.07.42.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 07:42:50 -0700 (PDT)
-From: Danish Khateeb <danishkhateeb03@gmail.com>
-To: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Marco Elver <elver@google.com>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Danish Khateeb <danishkhateeb03@gmail.com>,
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="SxT29RnQ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
+	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=5S00ri3B76HtSzx2LYGc3AjujUsHHk4tkIRT7/LJzYc=; b=SxT29RnQ12aMAPY5sG2wohNgFD
+	i6PdamqxD990671MEr8GbvDJGyP8W0ygnmecjb/eoJemDwYqAGU8Zg/ro0CGOAB6MIjn1RvcIJwxs
+	RVhmuvHKEmat/+QTU/EEuLQPcnNirT++prcPgjiG4EBja8V7N7sAjFUWq84gmsSoyd+qyyX+8UKLH
+	yzeR+PwMOofSugs3i9MksrYWOnpcjBBV0WE5Dqstf7aE9vMUgCCBcMt/hbDfQb+U8shGxo73NO4hx
+	hqegwGnTOLzkYS+9jy4vj4hBGX1m5y+xOlNeR4qe0KZmCqVqVQ7PCT5jn+OvdY7+TyV2avKoAGm1C
+	H3X5nlBg==;
+Received: from [151.115.150.205] (port=44742 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1xBvZr-00000005QLT-0aLP;
+	Wed, 30 Sep 2026 16:46:32 +0200
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Steffen Klassert <steffen.klassert@secunet.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Sabrina Dubroca <sd@queasysnail.net>,
+	Saeed Mahameed <saeedm@nvidia.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	Tariq Toukan <tariqt@nvidia.com>,
+	Mark Bloch <mbloch@nvidia.com>,
+	Boris Pismenny <borisp@nvidia.com>,
+	netdev@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
 	stable@vger.kernel.org
-Subject: [PATCH v2] perf/core: Don't send SIGTRAP after exec removed the event
-Date: Wed, 30 Sep 2026 09:42:48 -0500
-Message-ID: <20260930144248.59858-1-danishkhateeb03@gmail.com>
-X-Mailer: git-send-email 2.55.0
+Subject: [PATCH ipsec 2/7] xfrm: esp4: use the current sequence number for the IV
+Date: Wed, 30 Sep 2026 14:45:19 +0000
+Message-ID: <20260930144523.435271-4-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260930144523.435271-2-Jeremy.Jean@oss.cyber.gouv.fr>
+References: <20260930144523.435271-2-Jeremy.Jean@oss.cyber.gouv.fr>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-A sigtrap event must also set remove_on_exec, so that its SIGTRAP never
-reaches a program after exec. But the signal is sent from task work,
-which only runs on the way back to user space. If the event overflows
-shortly before execve(), the task work can still be pending when the
-task enters execve(), and then runs when execve() returns. By then
-perf_event_exec() has removed the event and the new program has default
-signal handlers, so the SIGTRAP kills it.
+When a GSO packet is split in software for IPv4 ESP,
+validate_xmit_xfrm() calls esp_xmit() for each segment. These
+segments have XFRM_GSO_SEGMENT set, but after the split, skb_is_gso()
+returns false for each skb, so each call increments xo->seq.low by one
+after writing the ESP sequence number.
 
-The exec_stress test in the remove_on_exec selftest catches this and
-fails about half the time in a VM. A process that opens a sigtrap event
-on itself and then calls execve() is killed by SIGTRAP in 15% to 50% of
-runs, both on an AMD machine running v7.2 and in a VM, with or without
-close-on-exec on the event fd.
+The low bits are saved in seq before the increment, but esp.seqno is
+set afterwards, using the saved low bits and the high bits from
+xo->seq.hi.
 
-perf_event_exit_event() sets PERF_EVENT_STATE_EXIT when exec removes the
-event. If the event fd is close-on-exec and was the last reference to
-the file, exec also queues the file release as task work. Task work runs
-newest first, so perf_release() runs before the SIGTRAP work and moves
-the event on to PERF_EVENT_STATE_DEAD. Exit is already caught by the
-PF_EXITING check in perf_sigtrap(). So don't send the signal when the
-event state is PERF_EVENT_STATE_EXIT or lower, which means the event has
-been removed. That also covers PERF_EVENT_STATE_REVOKED, where the PMU
-is gone.
+When encryption is done in software with ESN enabled, the segment at
+(H, 0xffffffff) uses (H+1, 0xffffffff) to generate the AES-GCM IV
+because xo->seq.hi has already been incremented when the low bits
+wrapped. One full 32-bit cycle later, if the packet at
+(H+1, 0xffffffff) on the same SA is non-GSO, it generates the same IV.
 
-Fixes: 97ba62b27867 ("perf: Add support for SIGTRAP on perf events")
+Move the assignment to esp.seqno before xo->seq is advanced. This
+saves H before the wrap increments xo->seq.hi to H+1, so the segment
+at (H, 0xffffffff) generates its IV from (H, 0xffffffff).
+
+Fixes: 4b549ccce941 ("xfrm: replay: Fix ESN wrap around for GSO")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
 ---
+ net/ipv4/esp4_offload.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-Notes:
-    Changes in v2:
-    - Skip the signal for every state at or below PERF_EVENT_STATE_EXIT, not
-      only EXIT. With a close-on-exec event fd the file release runs first
-      and moves the event to PERF_EVENT_STATE_DEAD, so v1 still killed 360
-      of 2000 children. Reported by Sashiko.
-    - v1: https://lore.kernel.org/all/20260929182935.355892-1-danishkhateeb03@gmail.com/
-    
-    Tested on v7.3-rc5 x86_64 under virtme-ng (KASAN, lockdep, 8 vCPUs on an
-    AMD Zen 3 host):
-    
-    - selftests/perf_events/remove_on_exec: exec_stress failed in 9 of 20
-      runs before, all 20 pass after.
-    - The exec_stress pattern in a loop (30 inheriting children, 50 rounds):
-      a child was killed by SIGTRAP in 17 rounds before, in none after.
-    - Each child opens its own sigtrap + remove_on_exec event and execs:
-      756 of 2000 children were killed before, none after. With
-      PERF_FLAG_FD_CLOEXEC: 836 of 2000 before, 360 with v1, none after.
-      On the bare-metal host running v7.2.6 the same program kills 297 to
-      1033 of 2000 children across runs, and 1012 of 2000 with
-      PERF_FLAG_FD_CLOEXEC.
-    - sigtrap_threads, watermark_signal and mmap pass before and after. No
-      new kernel warnings.
-    
-    v7.2 fails the same way in the VM. I did not test kernels older than
-    v7.2. gcc W=1 and sparse show no new warnings.
-
- kernel/events/core.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index 634d2ccbab82..eabe6cdf7a88 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -7631,6 +7631,15 @@ static void perf_sigtrap(struct perf_event *event)
- 	if (current->flags & PF_EXITING)
- 		return;
+diff --git a/net/ipv4/esp4_offload.c b/net/ipv4/esp4_offload.c
+index abd77162f5e7..3a0aafe991f4 100644
+--- a/net/ipv4/esp4_offload.c
++++ b/net/ipv4/esp4_offload.c
+@@ -316,6 +316,7 @@ static int esp_xmit(struct xfrm_state *x, struct sk_buff *skb,  netdev_features_
+ 	}
  
-+	/*
-+	 * The event was removed after this signal was queued, e.g. by exec()
-+	 * (remove_on_exec), which may also have closed its fd (close-on-exec).
-+	 * The new program has default signal handlers, so a SIGTRAP would
-+	 * kill it.
-+	 */
-+	if (event->state <= PERF_EVENT_STATE_EXIT)
-+		return;
-+
- 	/*
- 	 * We'd expect this to only occur if the irq_work is delayed and either
- 	 * ctx->task or current has changed in the meantime. This can be the
-
-base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+ 	seq = xo->seq.low;
++	esp.seqno = cpu_to_be64(seq + ((u64)xo->seq.hi << 32));
+ 
+ 	esph = esp.esph;
+ 	esph->spi = x->id.spi;
+@@ -334,8 +335,6 @@ static int esp_xmit(struct xfrm_state *x, struct sk_buff *skb,  netdev_features_
+ 	if (xo->seq.low < seq)
+ 		xo->seq.hi++;
+ 
+-	esp.seqno = cpu_to_be64(seq + ((u64)xo->seq.hi << 32));
+-
+ 	if (hw_offload && encap_type == UDP_ENCAP_ESPINUDP) {
+ 		/* In the XFRM stack, the encapsulation protocol is set to iphdr->protocol by
+ 		 * setting *skb_mac_header(skb) (see esp_output_udp_encap()) where skb->mac_header
 -- 
-2.55.0
+2.47.3
 
