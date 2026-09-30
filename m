@@ -1,47 +1,53 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5D0F318146;
-	Wed, 30 Sep 2026 11:37:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E976D497B74;
+	Wed, 30 Sep 2026 11:37:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790768262; cv=none; b=H5djOMHFaH3O0pWg3qt+ROxajg+YEfH/J275TaFtD1/DwyNEcUlqkPzZPzCXynD5erMr4GuktfIOXDR4Gv/DujPeHOC/GyJz2VRsNGSM4sjeatEUJ3loaOC07aaV4aeytVfk8ly50qMWekAuMbhcGFIKt7h4eosjWv1sRvonvpQ=
+	t=1790768284; cv=none; b=Ma10PiTSoh+E7qVWecSq1b/kooVaulaqusR0XhbnPDHfIzC0WiMRsqQnknQNyb0p/lBi6KSJ5YPMrF/91tLkifEtgL8lxoUNkyYbQhvlrSIV2vJpkYmMF1ue3R4p3Pu5iGM1kvmFeQhTfLasncpUWU0kbPlNK3w1XATbWjHTpm4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790768262; c=relaxed/simple;
-	bh=WPUmm4x0j6sthZegG14XFdkTt4ANCL74A0r6femNKjE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=IF+sJwIaWKaGQ/3YMK1GTpKFux0c1C+qZyjxDCJ8q4e1epTnwdXJ1SrTnYqrniivSCXciDD5RpJHbFnuuvCYiyBoEgYv47AyhXncY41k9NhYv0VX1cN0wpHDZ2gSqqb7aTbv96+gKy9AG4EFVAu/RseciN3LJwKSW/x4QdgFcCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=oKIrs53u; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="oKIrs53u"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=TS
-	hkSJ3EKVJ+nT+YZSx3ZP/36ZacHpx0Z8A5KjGt3WI=; b=oKIrs53un0fYOrSZfZ
-	QzoJQseUe+CplqQS0WsJ/4//yhj/SRQ/z5Zv/vupEQg+Ygn/1GN5BLB2gFlW2NZk
-	QI/EfmdNrmj2VPvMhTVQbsFwi+VmX9GtFLvDxARyKRw/XkYb+XQrddSHTxc8+3W4
-	qCXPjP1T8nDUCxkF+p0IbsWvI=
-Received: from u2.. (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgCHVcgu9Lxqu8AVCA--.1276S2;
-	Wed, 30 Sep 2026 19:36:15 +0800 (CST)
-From: taozj888@163.com
-To: theo.lebrun@bootlin.com
-Cc: taozijin <taozj888@163.com>,
-	stable@vger.kernel.org,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Haavard Skinnemoen <hskinnemoen@atmel.com>,
-	Jeff Garzik <jeff@garzik.org>,
-	netdev@vger.kernel.org (open list:NETWORKING DRIVERS),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH net v2] net: macb: rate limit netdev error info print in the data path
-Date: Wed, 30 Sep 2026 11:35:20 +0000
-Message-Id: <20260930113520.392025-1-taozj888@163.com>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1790768284; c=relaxed/simple;
+	bh=9x4qz8SQWWXpLdxEcF1F+Sad7bmg0v/7RIHIFx8G5dw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=jw3R+HU0hfcQ5bbdzGTG04e/SCB8SD3JMKi9fad5Uu2MbQty+IlAX0TRziu2i20sMNO2UnvKoRECvzoLGehsFaQt3cqzkshjo7nno7JiRQViUU251DZfX8u5AU7jlhf/layBuPvQO3sQDAv+JZ3i69vTN1TtJjSprNS0chQNEBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 5df1cad6bcc311f19a56ed5b684f684d-20260930
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:d7ae2b3a-2e8c-4682-b202-cb33043ec94b,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-5
+X-CID-META: VersionHash:7db8b62,CLOUDID:5cac8d0b79f4a1459abfefed66604c0e,BulkI
+	D:nil,BulkQuantity:0,SF:102|123|850|865|898,TC:nil,Content:0|15|50|99,EDM:
+	-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,
+	AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 5df1cad6bcc311f19a56ed5b684f684d-20260930
+X-User: fengchenguang@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <fengchenguang@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 473731221; Wed, 30 Sep 2026 19:37:50 +0800
+From: fengchenguang@kylinos.cn
+To: s.nawrocki@samsung.com,
+	mchehab@kernel.org
+Cc: krzk@kernel.org,
+	peter.griffin@linaro.org,
+	alim.akhtar@samsung.com,
+	linux-media@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chenguang Feng <fengchenguang@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: exynos4-is: Fix control handler leak in fimc-isp
+Date: Wed, 30 Sep 2026 19:37:46 +0800
+Message-Id: <20260930113746.278395-1-fengchenguang@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,91 +55,37 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSgvCgCHVcgu9Lxqu8AVCA--.1276S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXFWrAry3tw18ZF1rGr1xXwb_yoW5AF4Upa
-	yUA398Ww4kJr47A3Z7try8Ar1rAr98Kry5WrWkK3W3Xw15Ar90gFyagryYkFW8Ga9xAw1S
-	yw1UZayqkan3ZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zES_MDUUUUU=
-X-CM-SenderInfo: hwdr6yqyyyqiywtou0bp/xtbC3g8S2Wq89C9-gAAA3o
 
-From: taozijin <taozj888@163.com>
+From: Chenguang Feng <fengchenguang@kylinos.cn>
 
-Now the MACB ethernet driver print the netdev error information
-directly by netdev_err(), which would lead to a large number of
-error information print if there was a significant number of
-error or just jumbo packets exceeding the MTU received when booting.
-For example, it would print a large number of:
+fimc_isp_subdev_create() initializes the control handler and adds
+controls before checking handler->error.  On the error path only the
+media entity is cleaned up and the handler memory is never freed;
+the caller in fimc_is_probe() returns directly, so nothing else
+releases it either.
 
-macb PHYT0036:00 eth0: not whole frame pointed by descriptor
-macb PHYT0036:00 eth0: not whole frame pointed by descriptor
-...
+Call v4l2_ctrl_handler_free() in the error path, mirroring
+fimc_isp_subdev_destroy().
 
-in gem_rx() by received a large number of packets without
-RX_EOF flag set, especially with unknown packet
-type that would penetrate the hardware offload for the IP packets.
-
-The unlimited prints here would greatly bother and delay
-the system booting process unless the source stop sending
-packets since they occupy the console output bandwidth and
-other processes have to wait for the completion of printing those
-messages.
-
-So rate limit the netdev error information print in the receive
-and transmit data path.
-
-Fixes: 89e5785fc8a6 ("[PATCH] Atmel MACB ethernet driver")
+Fixes: 9a761e436843f ("[media] exynos4-is: Add Exynos4x12 FIMC-IS driver")
 Cc: stable@vger.kernel.org
-
-Signed-off-by: Zijin Tao <taozj888@163.com>
+Signed-off-by: Chenguang Feng <fengchenguang@kylinos.cn>
 ---
- drivers/net/ethernet/cadence/macb_main.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+ drivers/media/platform/samsung/exynos4-is/fimc-isp.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index 8e5c034dc3a4..ca60960bec36 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -1617,16 +1617,16 @@ static int gem_rx(struct macb_queue *queue, struct napi_struct *napi,
- 		count++;
+diff --git a/drivers/media/platform/samsung/exynos4-is/fimc-isp.c b/drivers/media/platform/samsung/exynos4-is/fimc-isp.c
+index 3c5d7bee2655..896a1b0952ad 100644
+--- a/drivers/media/platform/samsung/exynos4-is/fimc-isp.c
++++ b/drivers/media/platform/samsung/exynos4-is/fimc-isp.c
+@@ -760,6 +760,7 @@ int fimc_isp_subdev_create(struct fimc_isp *isp)
  
- 		if (!(ctrl & MACB_BIT(RX_SOF) && ctrl & MACB_BIT(RX_EOF))) {
--			netdev_err(bp->netdev,
--				   "not whole frame pointed by descriptor\n");
-+			if (net_ratelimit())
-+				netdev_err(bp->netdev, "not whole frame pointed by descriptor\n");
- 			bp->netdev->stats.rx_dropped++;
- 			queue->stats.rx_dropped++;
- 			break;
- 		}
- 		skb = queue->rx_skbuff[entry];
- 		if (unlikely(!skb)) {
--			netdev_err(bp->netdev,
--				   "inconsistent Rx descriptor chain\n");
-+			if (net_ratelimit())
-+				netdev_err(bp->netdev, "inconsistent Rx descriptor chain\n");
- 			bp->netdev->stats.rx_dropped++;
- 			queue->stats.rx_dropped++;
- 			break;
-@@ -1829,7 +1829,8 @@ static int macb_rx(struct macb_queue *queue, struct napi_struct *napi,
- 		unsigned long flags;
- 		u32 ctrl;
- 
--		netdev_err(bp->netdev, "RX queue corruption: reset it\n");
-+		if (net_ratelimit())
-+			netdev_err(bp->netdev, "RX queue corruption: reset it\n");
- 
- 		spin_lock_irqsave(&bp->lock, flags);
- 
-@@ -2102,7 +2103,8 @@ static int macb_interrupt_misc(struct macb_queue *queue, u32 status)
- 
- 	if (status & MACB_BIT(HRESP)) {
- 		queue_work(system_bh_wq, &bp->hresp_err_bh_work);
--		netdev_err(netdev, "DMA bus error: HRESP not OK\n");
-+		if (net_ratelimit())
-+			netdev_err(netdev, "DMA bus error: HRESP not OK\n");
- 		macb_queue_isr_clear(bp, queue, MACB_BIT(HRESP));
+ 	if (handler->error) {
+ 		media_entity_cleanup(&sd->entity);
++		v4l2_ctrl_handler_free(handler);
+ 		return handler->error;
  	}
  
 -- 
-2.34.1
+2.25.1
 
