@@ -1,43 +1,39 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39AF63E40E0;
-	Wed, 30 Sep 2026 09:48:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0628C3ECBC7;
+	Wed, 30 Sep 2026 09:50:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790761740; cv=none; b=nACAPDWSGi5otTnuUL5JeJhva44TC+xeMBsETZqpUbqhAa0QS3fcwKQIIkP/W30OehBYywYrRcbgSJ58mmXuehon5A7Lg5S7Dz/UnkfsLjBmfQANM+ME6FEDx7yfc9cbu6P3vI2+5cKcUpUPxmNP2oHw+aSU4hqGzyX/Y83AXjk=
+	t=1790761830; cv=none; b=kWWnFBX8yx8nn63UfbZMl+1yV3WDWrAXI57/8QdUbvwGcjP6UhAt7miMIvcGfaWr7TL303q8u4unOYe7qeRkUwE+UZC6pNtP+o1No7KyP8uGrPcoKaUw/e57yImyxTidfK49eftYWaSWmYfXaJAyWzE+IodEGfdk+UjH3ctMw7c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790761740; c=relaxed/simple;
-	bh=SsJFafcydfK+cId6DIHrbXEjx31Yrp/pBnHbcQfg+/M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oqv0aqHQ25ucs6any7uU51Qk4P37KcCNQSiNB+K+fZgJ9o7vfhXMCP9Kxw/laRaxmngFN/RwAi8ixYDgjmaV4IGQJ8dlxGUsQX3rjB24cv64mvnRFcfhMC6hYtOgqYoRVHn/kJBhVlWPW0eYGY0/hk34hhxu1suFrFAFgEtF+tE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ALC3ltrK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790761830; c=relaxed/simple;
+	bh=qROqnn6bG2HRLaciAlBzV31dC2TmTgATRSfcEpIDRZ8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=d4vEVxSEyDLUe+XHYVy4Y5bAxa+2h+Rn6vzJEKU+byZXsv1Hul39Bgt9ENkm3KnGNobQ4kN+59v97rJnbvCDng1YmBA9Dr/EptzvBrFsmD1Ix4LVdiNDLSY79WEThsTYLxWkq48rQPeZQWgTQJPSEyLemVzk7Ufyn9ZfwDJ9Pts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=f5U48cze; arc=none smtp.client-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ALC3ltrK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5563C1F000FF;
-	Wed, 30 Sep 2026 09:48:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790761738;
-	bh=Nl9MeDTY24eQyQhffUb7xAuQNY3nKyWvog2voZwmldo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ALC3ltrKN3qos9OvyQMmGJkaw+ZmlpnFqbIdT1bYSF3Cb5SJESDXXkiJpZNOigxtI
-	 MoChgdvVQXgz6EthkGaeKysgMiPi7P+vU6bCU13PtDm4k4Fi+OV5GtnB1fcXybGEHP
-	 1PV2wiGf8yhhMkQm2UJNk6izPP7tsx9qvJSnxhWyq/xbGmC0MUHcad8P+EywX+gt1j
-	 6Hcn8c5VHWs3n0fhsWgUI+FImoPxGsnCyJ+QhRMCL41kkiazG2FzwpsYBmRDLR2+EB
-	 dVXFx5Bz8oWYwJD2C9kXtUkouL6qXsoMc6U62XO+7b6Tr2lzsdrYVmmn7LCqIh22Sz
-	 uj9OguUgr3+Lg==
-From: SJ Park <sj@kernel.org>
-To: stable@vger.kernel.org
-Cc: damon@lists.linux.dev,
-	Liew Rui Yan <aethernet65535@gmail.com>,
-	SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 6.1.y] mm/damon/core: fix unconditionally skip last region
-Date: Wed, 30 Sep 2026 02:48:53 -0700
-Message-ID: <20260930094853.52736-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <2026092949-surpass-thimble-02a8@gregkh>
-References: <2026092949-surpass-thimble-02a8@gregkh>
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="f5U48cze"
+Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4fa1ab678;
+	Wed, 30 Sep 2026 17:50:18 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Justin Tee <justin.tee@broadcom.com>,
+	Paul Ely <paul.ely@broadcom.com>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K . Petersen" <mkp@kernel.org>
+Cc: James Smart <jsmart2021@gmail.com>,
+	Dick Kennedy <dick.kennedy@broadcom.com>,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH] scsi: lpfc: shut down CPU hotplug poll timer during removal
+Date: Wed, 30 Sep 2026 17:50:01 +0800
+Message-Id: <20260930095001.2493-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,106 +41,92 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0f1b8d83003a1kunm0629d83b27799c
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSh1OVk4fSk9LQhpKSk9CTFYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
+	xVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=f5U48czeR84VWg2kT80pE/nkgz4aFgn/YTcIe9hFI8VNlk9l2/As7ySI2HnssvTQExnUwlCTFzBt2nCL5+aUR+ewjYBqn6D1hmhl+vMG8r+rMgihxyZyQCbqspT8+bZqolUGuFNLyYxHdwzoI0bqEQX3pyAp0qSE9+EUK1v1j1M=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=S8GZmAGNFMPJIOR684uBJaFIOjQB+ziHKOF5C+tsPXg=;
+	h=date:mime-version:subject:message-id:from;
 
-From: Liew Rui Yan <aethernet65535@gmail.com>
+The CPU hotplug removal path waits for the poll timer to retire with
+timer_delete_sync().  The poll callback can rearm the timer after the
+deletion, so the timer can continue to reference the HBA after the
+hotplug instance has been removed.
 
-Once quota set, the charge_{target,addr}_from unconditionally skips and
-resets at the last region of the tracked target, so the last region can be
-skipped even when it has not been processed.
+Use timer_shutdown_sync() only for the final HBA teardown.  lpfc_offline()
+also removes the CPU hotplug instance during recoverable offline/online
+cycles, so it must leave the timer reusable with timer_delete_sync().
+When the HBA is finally removed after such an offline transition, shut
+down the timer even though the CPU hotplug instance was already removed.
 
-Example:
-
-    1. Target has 2 regions: R1 (0-100 bytes) and R2 (100-200 bytes).
-    2. Quota is configured to process only 100 bytes per window.
-    3. Window 1: Processes R1 (0-100).  Quota is full.  charge_{target,
-       addr}_from is saved at (Target, 100).
-    4. Window 2: The loop reaches R2.  Because R2 is
-       damon_last_region(t), the old code unconditionally returns true,
-       skipping R2 entirely and resetting the charge_{target,addr}_from.
-
-    Result: R2 is permanently skipped even though it has never been
-    processed.
-
-However, it is important to note that this is a very minor issue.  This is
-because it is triggered only when the previous window saved/kept
-charge_{target,addr}_from, and in the next window, all regions except the
-last region were skipped by damos_skip_charged_region().
-
-Fix this by only resetting the charge_{target,addr}_from when last region
-is reached, only skipping when it is applied or cannot split.
-
-Link: https://lore.kernel.org/20260908134739.96919-1-sj@kernel.org
-Fixes: 50585192bc2e ("mm/damon/schemes: skip already charged targets and regions")
-Signed-off-by: Liew Rui Yan <aethernet65535@gmail.com>
-Reviewed-by: SJ Park <sj@kernel.org>
-Signed-off-by: SJ Park <sj@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: <stable@vger.kernel.org> # v5.16.x
-(cherry picked from commit b3723b596b548c837a766aae3553c14a7b15af2b)
-Signed-off-by: SJ Park <sj@kernel.org>
+Fixes: 93a4d6f40198 ("scsi: lpfc: Add registration for CPU Offline/Online events")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 ---
- mm/damon/core.c | 24 +++++++++++++++---------
- 1 file changed, 15 insertions(+), 9 deletions(-)
+ drivers/scsi/lpfc/lpfc_init.c | 20 ++++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 859a6a636ab0e..64ff03b15fdef 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -756,6 +756,7 @@ static void damon_do_apply_schemes(struct damon_ctx *c,
- 		unsigned long sz = damon_sz_region(r);
- 		struct timespec64 begin, end;
- 		unsigned long sz_applied = 0;
-+		bool skip = false;
+diff --git a/drivers/scsi/lpfc/lpfc_init.c b/drivers/scsi/lpfc/lpfc_init.c
+index 23355f12fb..1cdd484ad8 100644
+--- a/drivers/scsi/lpfc/lpfc_init.c
++++ b/drivers/scsi/lpfc/lpfc_init.c
+@@ -70,7 +70,7 @@ static enum cpuhp_state lpfc_cpuhp_state;
+ static uint32_t lpfc_present_cpu;
+ static bool lpfc_pldv_detect;
  
- 		if (!s->wmarks.activated)
- 			continue;
-@@ -768,14 +769,11 @@ static void damon_do_apply_schemes(struct damon_ctx *c,
- 		if (quota->charge_target_from) {
- 			if (t != quota->charge_target_from)
- 				continue;
--			if (r == damon_last_region(t)) {
--				quota->charge_target_from = NULL;
--				quota->charge_addr_from = 0;
--				continue;
--			}
- 			if (quota->charge_addr_from &&
--					r->ar.end <= quota->charge_addr_from)
--				continue;
-+					r->ar.end <= quota->charge_addr_from) {
-+				skip = true;
-+				goto clean_charge_from_skip;
-+			}
+-static void __lpfc_cpuhp_remove(struct lpfc_hba *phba);
++static void __lpfc_cpuhp_remove(struct lpfc_hba *phba, bool shutdown);
+ static void lpfc_cpuhp_remove(struct lpfc_hba *phba);
+ static void lpfc_cpuhp_add(struct lpfc_hba *phba);
+ static void lpfc_get_hba_model_desc(struct lpfc_hba *, uint8_t *, uint8_t *);
+@@ -3936,7 +3936,7 @@ lpfc_offline(struct lpfc_hba *phba)
+ 	 * in hba_unset
+ 	 */
+ 	if (test_bit(FC_OFFLINE_MODE, &phba->pport->fc_flag))
+-		__lpfc_cpuhp_remove(phba);
++		__lpfc_cpuhp_remove(phba, false);
  
- 			if (quota->charge_addr_from && r->ar.start <
- 					quota->charge_addr_from) {
-@@ -783,17 +781,25 @@ static void damon_do_apply_schemes(struct damon_ctx *c,
- 						r->ar.start, DAMON_MIN_REGION);
- 				if (!sz) {
- 					if (damon_sz_region(r) <=
--					    DAMON_MIN_REGION)
--						continue;
-+					    DAMON_MIN_REGION) {
-+						skip = true;
-+						goto clean_charge_from_skip;
-+					}
- 					sz = DAMON_MIN_REGION;
- 				}
- 				damon_split_region_at(t, r, sz);
- 				r = damon_next_region(r);
- 				sz = damon_sz_region(r);
-+				skip = false;
- 			}
-+		}
-+clean_charge_from_skip:
-+		if (r == damon_last_region(t)) {
- 			quota->charge_target_from = NULL;
- 			quota->charge_addr_from = 0;
- 		}
-+		if (skip)
-+			continue;
+ 	if (phba->cfg_xri_rebalancing)
+ 		lpfc_destroy_multixri_pools(phba);
+@@ -12745,7 +12745,7 @@ lpfc_cpuhp_get_eq(struct lpfc_hba *phba, unsigned int cpu,
+ 	return 0;
+ }
  
- 		if (!damos_valid_target(c, t, r, s))
- 			continue;
--- 
-2.47.3
-
+-static void __lpfc_cpuhp_remove(struct lpfc_hba *phba)
++static void __lpfc_cpuhp_remove(struct lpfc_hba *phba, bool shutdown)
+ {
+ 	if (phba->sli_rev != LPFC_SLI_REV4)
+ 		return;
+@@ -12757,16 +12757,24 @@ static void __lpfc_cpuhp_remove(struct lpfc_hba *phba)
+ 	 * timer. Wait for the poll timer to retire.
+ 	 */
+ 	synchronize_rcu();
+-	timer_delete_sync(&phba->cpuhp_poll_timer);
++	if (shutdown)
++		timer_shutdown_sync(&phba->cpuhp_poll_timer);
++	else
++		timer_delete_sync(&phba->cpuhp_poll_timer);
+ }
+ 
+ static void lpfc_cpuhp_remove(struct lpfc_hba *phba)
+ {
++	if (phba->sli_rev != LPFC_SLI_REV4)
++		return;
++
+ 	if (phba->pport &&
+-	    test_bit(FC_OFFLINE_MODE, &phba->pport->fc_flag))
++	    test_bit(FC_OFFLINE_MODE, &phba->pport->fc_flag)) {
++		timer_shutdown_sync(&phba->cpuhp_poll_timer);
+ 		return;
++	}
+ 
+-	__lpfc_cpuhp_remove(phba);
++	__lpfc_cpuhp_remove(phba, true);
+ }
+ 
+ static void lpfc_cpuhp_add(struct lpfc_hba *phba)
