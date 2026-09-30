@@ -1,39 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C4A850C29B;
-	Wed, 30 Sep 2026 15:32:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 233D350B8B1;
+	Wed, 30 Sep 2026 15:33:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790782388; cv=none; b=uhclwub9yqK5z/SZ74awT+6zd32kK5Shd7h8bS04QsNBZT8rJ8jqFKxhgYksIOTm1ZfQS47L7xuMmcSNulw1cIi8+ECR7Ld0sDSsSAZpZuMPpJNfSJptZ6PDyg5DCniZaqh0Pqc/5QbjNGGHQkLGV0hI9A594d0x5c8w0j4oFeQ=
+	t=1790782388; cv=none; b=cdKPJYI7I5RdEbJP9p3Ss8LO8aceyar3THOR9wtQypUd9hUrDgOEQFteYDls9Yv+7cEH0p5Wwr0udhrbMmgxA+EIUbKA9+rxx4QvlR50pEm0/bRCFP+eiA36BS8qRo2r7YtG7OXEo4+gMgf3O4eutn+hvJxMzFipxLoMlMsf7wE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790782388; c=relaxed/simple;
-	bh=NcATRM4sbtDwGKsVrKgpCJmimuyr2IzkGOHnNFvKDnM=;
+	bh=PPZGMGukImWcxH8kzXfAvmAQzBP/Qd9XDxEsUUejufU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=j9+2DkppZIqTRKg2wAb+KlSyEYpxKzgCEFdBKDGgm7BPd33Ve2cbvIp4NPH7rAdSFyJVPxkv3F3v3wJpYAnwk1auMgTlsQcxY1sM5VRtZcNm24vThCxqxfN7pU03QRZQ0RGZmmsuC0q/XJbFsKtKhaKIjgYj42FIAzqQnTrXjTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=nxFlvsyF; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=W0SYELTwzQl31gRsJI+JN7vVxvdKu19bSuRLsD2CCwYWxOd2Kl4cEQXM/YguhGE/F1WHZkwf+UmI/Zba31VV8vJKOTfSLQ9gXDwpyrV7Pj7prTdNZiq/nCNvMb1FE8P0K85ABncaMrbv2faCo6V9fS+rRsDzF9bw7e7SVb5QFdo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=sY3cFVPs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nxFlvsyF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6DFC1F00899;
-	Wed, 30 Sep 2026 15:32:53 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="sY3cFVPs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A12191F00893;
+	Wed, 30 Sep 2026 15:32:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790782374;
-	bh=Ys01xNvMlmfhuwdfn8u7mrl4vTNg6cCGWgxLhvgVHEA=;
+	s=korg; t=1790782380;
+	bh=1TSxRJeJYYEdupc7Zuzjdv2uKIIQLc+BZZfriBWmOL4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nxFlvsyFdxDxJjPjfIb1XizBjIFeUv62KrmKo5jZVnyNvPZA1Ln1MtrEqk0ru5AQU
-	 5eS8DEenz3Lh2OTuV5c/6d6esQo13umGgMjoTyoKpxAENpglgkqs/CvXw4x8x2aR0M
-	 5I93SwN9B/6ViCpwbtFVkRWhiTpAJCQs/9928ayw=
+	b=sY3cFVPsx3iSgY/ZSk7p0qtbYJr/066Em3IHwWha1fAnxtHlZCsk+rQaZCdKF4cHL
+	 s0x0zslfkg0sOzeQ1gCe1zDI5BoIF16eqHHj8OJbFerlTpbg2IWoMnsaYdF0a12jer
+	 VUu+a3S8BKGiYhrOmeFAw1zI692+Onm8JwK992mI=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Kumar Meiyappan <kumar.meiyappan@microchip.com>,
-	Sagar Biradar <sagar.biradar@microchip.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Thorsten Blum <thorsten.blum@linux.dev>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 025/595] scsi: pm8001: Reject non-fatal dump when controller is crashed
-Date: Wed, 30 Sep 2026 17:18:38 +0200
-Message-ID: <20260930152348.265875859@linuxfoundation.org>
+Subject: [PATCH 5.10 027/595] crypto: atmel-ecc - add support for atecc608b
+Date: Wed, 30 Sep 2026 17:18:40 +0200
+Message-ID: <20260930152348.311648843@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152347.700140858@linuxfoundation.org>
 References: <20260930152347.700140858@linuxfoundation.org>
@@ -52,48 +51,46 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Kumar Meiyappan <kumar.meiyappan@microchip.com>
+From: Thorsten Blum <thorsten.blum@linux.dev>
 
-[ Upstream commit aa3b8f56ef27ed72394a752820abdec4608b731c ]
+[ Upstream commit b668edaf8dcc8d09f6f1e71797422b44d4bd22a3 ]
 
-pm80xx_get_non_fatal_dump() can be called even after the controller has
-entered a fatal error state. In that case the forensic memory contents
-are not safe to access for a non-fatal dump request, and attempting to
-do so can trigger a call trace.
+Tested on hardware with an ATECC608B at 0x60. The device binds
+successfully, passes the driver's sanity check, and registers the
+ecdh-nist-p256 KPP algorithm.
 
-Check controller_fatal_error before reading the non-fatal dump buffer
-and return -EINVAL when the controller is already in a crashed state.
+The hardware ECDH path was also exercised using a minimal KPP test
+module, covering private key generation, public key derivation, and
+shared secret computation.
 
-This prevents non-fatal dump collection from running in an invalid
-controller state.
-
-Signed-off-by: Kumar Meiyappan <kumar.meiyappan@microchip.com>
-Signed-off-by: Sagar Biradar <sagar.biradar@microchip.com>
-Link: https://patch.msgid.link/20260416154650.415624-1-sagar.biradar@microchip.com
-Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
+Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/scsi/pm8001/pm80xx_hwi.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/crypto/atmel-ecc.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/scsi/pm8001/pm80xx_hwi.c b/drivers/scsi/pm8001/pm80xx_hwi.c
-index 89051722e04d6..64db45d24d803 100644
---- a/drivers/scsi/pm8001/pm80xx_hwi.c
-+++ b/drivers/scsi/pm8001/pm80xx_hwi.c
-@@ -400,6 +400,13 @@ ssize_t pm80xx_get_non_fatal_dump(struct device *cdev,
- 	char *buf_copy = buf;
+diff --git a/drivers/crypto/atmel-ecc.c b/drivers/crypto/atmel-ecc.c
+index 6fb1d02c2c30e..b7fa3ea7a3bef 100644
+--- a/drivers/crypto/atmel-ecc.c
++++ b/drivers/crypto/atmel-ecc.c
+@@ -360,6 +360,8 @@ static int atmel_ecc_remove(struct i2c_client *client)
+ static const struct of_device_id atmel_ecc_dt_ids[] = {
+ 	{
+ 		.compatible = "atmel,atecc508a",
++	}, {
++		.compatible = "atmel,atecc608b",
+ 	}, {
+ 		/* sentinel */
+ 	}
+@@ -369,6 +371,7 @@ MODULE_DEVICE_TABLE(of, atmel_ecc_dt_ids);
  
- 	temp = (u32 *)pm8001_ha->memoryMap.region[FORENSIC_MEM].virt_ptr;
-+
-+	if (pm8001_ha->controller_fatal_error) {
-+		pm8001_dbg(pm8001_ha, FAIL,
-+			   "non-fatal dump not available in fatal error state\n");
-+		return -EINVAL;
-+	}
-+
- 	if (++pm8001_ha->non_fatal_count == 1) {
- 		if (pm8001_ha->chip_id == chip_8001) {
- 			snprintf(pm8001_ha->forensic_info.data_buf.direct_data,
+ static const struct i2c_device_id atmel_ecc_id[] = {
+ 	{ "atecc508a" },
++	{ "atecc608b" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, atmel_ecc_id);
 -- 
 2.53.0
 
