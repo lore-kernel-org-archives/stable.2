@@ -1,112 +1,215 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFF334369A
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 00:04:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93FE81A268
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 00:04:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790726672; cv=none; b=TjyGC/KpxlcnDnEnsyUfeHsiYu6H/MKGfiUd52m8Xv6QEo6IY31Nad1s0RoOfIZbrLLV3wxCTU7u6OpoLHPe/rWUHWwGLUcSWukUZmG7805Tp3J0sAsS857GoCMocpkKEAPFP3/z1i9xjERIyaDpCDPVnewFyNYXid1dxS/4qJc=
+	t=1790726675; cv=none; b=NKZZ5sDY4jpGfpeagG9RQIYvomMHiwFQ5jvsQriKCEPa4KG4HPTkyVcYATQa9nYE77NhJXN7A227Ofti7ElEjI2HtQBh8ydDynLDaFUUlRMhWw3x/lTcv8Icul+EEL/710xLIgcnw2JwD6lO5qu8RhiJ7vQZExU8UHmclOIz+Ws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790726672; c=relaxed/simple;
-	bh=TgjnKaAgfMNYv56GrV9J+Rz3F6EqPTlINUwecSzJuyw=;
+	s=arc-20240116; t=1790726675; c=relaxed/simple;
+	bh=I6g7iCPc0IuRVz0lJQj4kBNrqGqT90dv8WG2KbE6ABk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Bi4UXL8GDK37uKov/l7uhR1jyPJGRoytr2YsrXxfFDkE5mqI2W0CZAMpIgT7LR01uE2TjMRXCBKjytvvERdvD2KLGRd8c34xaqcgcLE+MtVya5iEb9FT9n0IXS3kfkZI/94LSfeWogzpvxXSU7owNABp/cOwrDxdEFHl1W32820=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LXSUZrqv; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=MqQCf8sKIk0nBMav+3fsOivUbD7Nk3c+1cbRfYbiYkyEI8zyBZ56y95zELR+GZMv6ThYubhC/X48Lki2q2onln5jKw6QoMNA4eenYRRZ8DCYM1viyYkkPkAjnAYOfanb4UDyQhmHknuH4fFR8lR3qpJrbeJKmNeP1TB9HZgOPN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bZMfsmA9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LXSUZrqv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0957F1F00893;
-	Wed, 30 Sep 2026 00:04:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bZMfsmA9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0FF61F000FF;
+	Wed, 30 Sep 2026 00:04:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790726670;
-	bh=sQNALC3Df19rgmfwsrhPm5l46YbXP9eTYowDbcRsmfg=;
+	s=k20260515; t=1790726674;
+	bh=dPukKu9xa/S4J7ubV5/7QuO1x0lajGmmzPmntrDTXI0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LXSUZrqvLl5apKrNSbIDRD//TzIifwKZGqB0eLmq2/NsuIOPOGtLgevcRuLAp3S8R
-	 cLG0swpzvwjziH6dURGJ9AjNdrBbqAaszIalzX8ieuIW2qUWi27nCJW8H+OZ5XMQgQ
-	 959PqJfPgXSVCeWa0fcRjUKwyWI274dZ+4oon926Eb2+h1o5F7knRILiwGlnqUBVsY
-	 UFGljQBnXbVDldanjAsnoua7viZjUv2ih15Q2CHbEOXmqKqurdtw1ai/C418hr4EFx
-	 zpYRU+Od1oJRQ+2tbWW7CuHV1LYD1Gg2qfdZZ2aLFNWYHO/z7XsXxSkr3M6hq3Rj3M
-	 of/MXfdH9hR/A==
+	b=bZMfsmA9PfFlPmK0VUOCmLzNek7bT3uFeJctED8pinVx9X74Cb1So4d6K2MWcp3tG
+	 HLip+/aiVypRkGxuxZ9ViEYwWQgXcHLlXTbuBxLnKi/cGQrJAEzHV0xh0ts2naDyIy
+	 u3NdXylKjqwjCaTiLfTVrFxGP0gkBYh2mnwQSQrNO5/uTDZhg5cY6WGNlRxNPJWmE2
+	 sjQs2sjwJOj/+WDIufG/M9PxHRaoOgOijWBQBLC6E1BNW5cxLk1XjWTPTk0hkcC7g8
+	 WTQxGAKO6AHvVmxY+IcJGgJTHcU+c1yw2kckbeTMCD3KcCpVgpo8tYLVOM0X2HMKOC
+	 URQAsRTuHOVzw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chen Changcheng <chenchangcheng@kylinos.cn>,
-	Jiri Kosina <jkosina@suse.com>,
+Cc: Christian Brauner <brauner@kernel.org>,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	Jan Kara <jack@suse.cz>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] HID: alps: unregister DualPoint Stick input device on remove
-Date: Tue, 29 Sep 2026 20:04:27 -0400
-Message-ID: <20260930000427.2866647-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y] super: make iterate_supers_type() deletion-safe
+Date: Tue, 29 Sep 2026 20:04:32 -0400
+Message-ID: <20260930000432.2867161-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260930000427.2866647-1-sashal@kernel.org>
-References: <2026092954-curled-shabby-13d3@gregkh>
- <20260930000427.2866647-1-sashal@kernel.org>
+In-Reply-To: <2026092914-cruelness-unbounded-8ffd@gregkh>
+References: <2026092914-cruelness-unbounded-8ffd@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Chen Changcheng <chenchangcheng@kylinos.cn>
+From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit aa9dde93e05a837645fdfd577eea71f0733f0694 ]
+[ Upstream commit 2d2a2d7aa98741b58f54cacc99b52024e4d865f9 ]
 
-alps_input_configured() allocates a second input device ("DualPoint
-Stick") with input_allocate_device() and registers it, but the
-alps_driver struct has no .remove handler and input2 is not tracked in
-hdev->inputs.  The default remove path (hid_hw_stop -> hidinput_disconnect)
-only iterates hdev->inputs, so input2 is never unregistered and leaks
-on every device removal.
+iterate_supers_type() drops sb_lock while invoking the callback and keeps
+only a passive reference to the current superblock. That reference keeps
+the object allocated, but does not keep its s_instances node linked.
 
-Add a .remove handler that stops the device first (preventing URB
-callbacks from touching input2 during teardown) and then unregisters
-input2.
+After the iterator releases s_umount, final teardown can unlink the current
+s_instances node. The iterator then advances through a reinitialized node.
+With the current hlist it stops without visiting the remaining superblocks.
+The unlink moved from generic_shutdown_super() to kill_super_notify(), but
+the cursor lifetime has been unsafe since the helper was introduced.
 
-Fixes: 2562756dde55 ("HID: add Alps I2C HID Touchpad-Stick support")
+The CIFS DFS lookup can consequently miss a matching superblock and return
+-EINVAL.
+
+Move removal from fs_supers to put_super(), alongside removal from
+super_blocks, so a passive reference keeps both list nodes linked. Keep
+the filesystem module reference until then, since unlinking s_instances
+may touch type->fs_supers.
+
+Make sget_fc() skip SB_DEAD superblocks before invoking test(), and set
+SB_DEAD under sb_lock to serialize with those callbacks. This allows
+kernfs to free its private information after kill_anon_super() returns.
+Keep matching SB_DYING superblocks until SB_DEAD is set so concurrent
+mounts still wait for teardown before retrying.
+
+Fixes: 43e15cdbefea ("new helper: iterate_supers_type()")
+Reported-by: Karl Mehltretter <kmehltretter@gmail.com>
+Closes: https://lore.kernel.org/r/20260903013336.92081-1-kmehltretter@gmail.com
+Suggested-by: Jan Kara <jack@suse.cz>
 Cc: stable@vger.kernel.org
-Signed-off-by: Chen Changcheng <chenchangcheng@kylinos.cn>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
+Tested-by: Karl Mehltretter <kmehltretter@gmail.com>
+[kmehltretter: supplied the commit message]
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Link: https://patch.msgid.link/20260909193034.7467-1-kmehltretter@gmail.com
+Reviewed-by: Jan Kara <jack@suse.cz>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+[ adapted superblock handling to 6.6’s older reference-counting and lookup APIs. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hid/hid-alps.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+ fs/kernfs/mount.c |  4 ++--
+ fs/super.c        | 43 +++++++++++++++++++++++--------------------
+ 2 files changed, 25 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/hid/hid-alps.c b/drivers/hid/hid-alps.c
-index 67179e3fe39b7..370635f5b7043 100644
---- a/drivers/hid/hid-alps.c
-+++ b/drivers/hid/hid-alps.c
-@@ -823,6 +823,24 @@ static int alps_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 	return 0;
+diff --git a/fs/kernfs/mount.c b/fs/kernfs/mount.c
+index c4bf26142eec9..e5fe04e4f0f65 100644
+--- a/fs/kernfs/mount.c
++++ b/fs/kernfs/mount.c
+@@ -396,8 +396,8 @@ void kernfs_kill_sb(struct super_block *sb)
+ 	up_write(&root->kernfs_supers_rwsem);
+ 
+ 	/*
+-	 * Remove the superblock from fs_supers/s_instances
+-	 * so we can't find it, before freeing kernfs_super_info.
++	 * Mark the superblock dead so sget_fc() can't find it,
++	 * before freeing kernfs_super_info.
+ 	 */
+ 	kill_anon_super(sb);
+ 	kfree(info);
+diff --git a/fs/super.c b/fs/super.c
+index f8fe07501c9ff..cb7adc5672102 100644
+--- a/fs/super.c
++++ b/fs/super.c
+@@ -409,7 +409,10 @@ static struct super_block *alloc_super(struct file_system_type *type, int flags,
+ static void __put_super(struct super_block *s)
+ {
+ 	if (!--s->s_count) {
++		struct file_system_type *type = s->s_type;
++
+ 		list_del_init(&s->s_list);
++		hlist_del_init(&s->s_instances);
+ 		WARN_ON(s->s_dentry_lru.node);
+ 		WARN_ON(s->s_inode_lru.node);
+ 		WARN_ON(!list_empty(&s->s_mounts));
+@@ -417,6 +420,8 @@ static void __put_super(struct super_block *s)
+ 		put_user_ns(s->s_user_ns);
+ 		kfree(s->s_subtype);
+ 		call_rcu(&s->rcu, destroy_super_rcu);
++		/* The unlink above may touch type->fs_supers, so drop it last. */
++		put_filesystem(type);
+ 	}
  }
  
-+static void alps_remove(struct hid_device *hdev)
-+{
-+	struct alps_dev *data = hid_get_drvdata(hdev);
-+
-+	/*
-+	 * input2 ("DualPoint Stick") is allocated separately and is not
-+	 * tracked in hdev->inputs, so the default remove path
-+	 * (hid_hw_stop -> hidinput_disconnect) does not unregister it.
-+	 *
-+	 * Stop the device first so that no URB callback can touch input2
-+	 * while it is being unregistered, then drop it explicitly.
-+	 */
-+	hid_hw_stop(hdev);
-+
-+	if (data->input2)
-+		input_unregister_device(data->input2);
-+}
-+
- static const struct hid_device_id alps_id[] = {
- 	{ HID_DEVICE(HID_BUS_ANY, HID_GROUP_ANY,
- 		USB_VENDOR_ID_ALPS_JP, HID_DEVICE_ID_ALPS_U1_DUAL) },
-@@ -845,6 +863,7 @@ static struct hid_driver alps_driver = {
- 	.input_configured	= alps_input_configured,
- 	.resume			= pm_ptr(alps_post_resume),
- 	.reset_resume		= pm_ptr(alps_post_reset),
-+	.remove			= alps_remove,
- };
+@@ -442,24 +447,17 @@ static void kill_super_notify(struct super_block *sb)
+ 	if (sb->s_flags & SB_DEAD)
+ 		return;
  
- module_hid_driver(alps_driver);
+-	/*
+-	 * Remove it from @fs_supers so it isn't found by new
+-	 * sget{_fc}() walkers anymore. Any concurrent mounter still
+-	 * managing to grab a temporary reference is guaranteed to
+-	 * already see SB_DYING and will wait until we notify them about
+-	 * SB_DEAD.
+-	 */
+-	spin_lock(&sb_lock);
+-	hlist_del_init(&sb->s_instances);
+-	spin_unlock(&sb_lock);
+-
+ 	/*
+ 	 * Let concurrent mounts know that this thing is really dead.
+-	 * We don't need @sb->s_umount here as every concurrent caller
+-	 * will see SB_DYING and either discard the superblock or wait
+-	 * for SB_DEAD.
++	 * sget{_fc}() skips SB_DEAD superblocks and calls test() under
++	 * sb_lock, so set it under sb_lock: once we return no test()
++	 * runs on this superblock anymore and none will start. Everyone
++	 * else already saw SB_DYING and either discarded the superblock
++	 * or waits for SB_DEAD.
+ 	 */
++	spin_lock(&sb_lock);
+ 	super_wake(sb, SB_DEAD);
++	spin_unlock(&sb_lock);
+ }
+ 
+ /**
+@@ -490,7 +488,6 @@ void deactivate_locked_super(struct super_block *s)
+ 		list_lru_destroy(&s->s_dentry_lru);
+ 		list_lru_destroy(&s->s_inode_lru);
+ 
+-		put_filesystem(fs);
+ 		put_super(s);
+ 	} else {
+ 		super_unlock_excl(s);
+@@ -713,12 +710,12 @@ void generic_shutdown_super(struct super_block *sb)
+ 	}
+ 	/*
+ 	 * Broadcast to everyone that grabbed a temporary reference to this
+-	 * superblock before we removed it from @fs_supers that the superblock
+-	 * is dying. Every walker of @fs_supers outside of sget{_fc}() will now
+-	 * discard this superblock and treat it as dead.
++	 * superblock that it is dying. Every walker of @fs_supers outside
++	 * of sget{_fc}() will now discard this superblock and treat it as
++	 * dead.
+ 	 *
+-	 * We leave the superblock on @fs_supers so it can be found by
+-	 * sget{_fc}() until we passed sb->kill_sb().
++	 * sget{_fc}() keeps finding the superblock until SB_DEAD is set, so
++	 * a concurrent mounter waits until we passed sb->kill_sb().
+ 	 */
+ 	super_wake(sb, SB_DYING);
+ 	super_unlock_excl(sb);
+@@ -796,6 +793,9 @@ struct super_block *sget_fc(struct fs_context *fc,
+ 	spin_lock(&sb_lock);
+ 	if (test) {
+ 		hlist_for_each_entry(old, &fc->fs_type->fs_supers, s_instances) {
++			/* Only unlinked at the last passive reference. */
++			if (smp_load_acquire(&old->s_flags) & SB_DEAD)
++				continue;
+ 			if (test(old, fc))
+ 				goto share_extant_sb;
+ 		}
+@@ -879,6 +879,9 @@ struct super_block *sget(struct file_system_type *type,
+ 	spin_lock(&sb_lock);
+ 	if (test) {
+ 		hlist_for_each_entry(old, &type->fs_supers, s_instances) {
++			/* Only unlinked at the last passive reference. */
++			if (smp_load_acquire(&old->s_flags) & SB_DEAD)
++				continue;
+ 			if (!test(old, data))
+ 				continue;
+ 			if (user_ns != old->s_user_ns) {
 -- 
 2.53.0
 
