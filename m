@@ -1,110 +1,69 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39C344FE2F7;
-	Wed, 30 Sep 2026 20:36:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1398F4ABBA9;
+	Wed, 30 Sep 2026 20:38:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790800571; cv=none; b=seXe9pkrNigzDROXL/UvuMPRTQFiCs10SQ9Y3xHxbIh+SPETKmK4h/+ua4TFK+WPNVpF6Tjb4MIwyUkuHj1/EFAJm7YDYzVSyAxI3QbCz1swEYEt2f+PHMlu4mSkW8hMoi3O/n/X+6x+/XKIl5usxXg1aJw3ukERMJ/p5YAfyZ0=
+	t=1790800719; cv=none; b=JcZJrKjKu3Oyxg/35SB+AEzOYT5Fhr5ODuVQ8d4hOoeNhJ/3EDwJJjc4S0jQVfYOgdgreQaTZaaPf6aZgTAQcEXR5BaP26QBOyXtA4YJaHfiZhnlE3OkPEtEC1X1CyuWE9JkhEyBROJi59MQcDBdgKu6vYDQ4UanVSoCGtGm4us=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790800571; c=relaxed/simple;
-	bh=4qfgB6E/tWi2IIqs1u5twh0chMSpd3QQ65g3KPBxFsM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=TbrSO+Cfc+AM+QU6ERcai4eFK3RCO26efjrQaTuyPMYHAXJktsuUM2ACG2Phi1HyZtd7zGSfY2u/jN9h1SKcX+z5K4KNUzIiTFzI2fwjdYJdKhl4XpVGJ6ppLa8taUxq3MZ0erD8avtgAGWG4yPoTkuMWzh8IsAUiSKzJWYb0mg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=Nm5i+8dS; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1790800719; c=relaxed/simple;
+	bh=gp7PRv3WjAiMJrp0DvXpRvTv3mwC8R3NiezXzUE7FxE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=tbwf6rMPbYTGaJ2OPSsx9qmTiQfLbjMZkq8S6J/DyrIs0tXh9X+4RMgrw6V2nqFUYBmG1e69qFeMRUa6XfiH51EeBQcIpHoSYmItUUIn4vAjcGkZL/H+51r9R8x1UCZV0mBXKgkw3dE/qa5fC4nlo93aq4Y98zBMDKAP4OgICP0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GHXzwrQ6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="Nm5i+8dS"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=HW5z+gJzzTYLIYkL6WwaFQ5hSaSwpHHCI/ikDK9InO8=; b=Nm5i+8dSEIupJUMyxW8O4TL/cF
-	AQnYah2KH4CmUCCmr+TxdNj5f4IfrkmB3N2uvb93q/+k9zdjqb7+ridkheiQ7ikbcvWrQVht+g+QB
-	awvcFAtItfLXGnVbiNyak2Ncq4PaTgpafInu/bO9mgKbYjS0hTNARJrRFafmG7+xuNkdR3c/fMxSk
-	S029TUzNVmVTAxq3KK6h+uSiaTdiKMvB8zFQGQmW76qFTQ6derAdzz6u8KC6mPfqWCK2EAQ8Pq8dK
-	LOgBzj+vVFEMCVwcxZqS3yiM4UC6FIkWDhVeXUd0HtTH5uA8f6u7hA2Ct9URbcNV3aJd3H8h3Olc3
-	wrCeLBcQ==;
-Received: from [151.115.150.205] (port=36968 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xC125-0000000BqhO-2oUJ;
-	Wed, 30 Sep 2026 22:36:03 +0200
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: Sabrina Dubroca <sd@queasysnail.net>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	stable@vger.kernel.org
-Subject: [PATCH net] macsec: prevent AES-GCM nonce reuse after packet number wrap
-Date: Wed, 30 Sep 2026 20:33:33 +0000
-Message-ID: <20260930203333.598733-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GHXzwrQ6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 572B71F000FF;
+	Wed, 30 Sep 2026 20:38:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790800717;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=GHXzwrQ6e6Fln8ttaqH8dB/tcFXCGOQxwxNYh8L6GCFgD1jjwSxHriUmm2CBXqgA5
+	 0ya/34oTotZDVLoH0T14d0z7Zq1Qez+yvHJ82cXqRPEbhxpuvoltjjI7Ibx2VyTB44
+	 +DIjrz+rryOvSU8MunfFsS+jj9FMSaIyEWpflGX/UWxroaJhA8TWLwHRLS5yxcpNsu
+	 ZmRAUKpIk/ERpY/9Ae2zy9PCkzNstDMNcSmOIM5gk6el1RVVS5wKX72whyzX8sfqKB
+	 fKAXUaAegIjBhT2jl7uZ/Slog4vRVUbuf8n5bdEwQaLvgw9sj7LOAGG59AO+Mnt0DZ
+	 9hVTb3gCEBMKg==
+From: netdev-bot+sinfo@kernel.org
+To: =?utf-8?q?J=C3=A9r=C3=A9my?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: Sabrina Dubroca <sd@queasysnail.net>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: 
+ Re: [PATCH net] macsec: prevent AES-GCM nonce reuse after packet number wrap
+Date: Wed, 30 Sep 2026 20:38:36 +0000
+Message-ID: <179080071686.31693.6630251274230925732@kernel.org>
+In-Reply-To: <20260930203333.598733-2-Jeremy.Jean@oss.cyber.gouv.fr>
+References: <20260930203333.598733-2-Jeremy.Jean@oss.cyber.gouv.fr>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
 
-When MACsec uses 32-bit packet numbers, 0xffffffff is the last valid
-packet number, and after allocating it, MACsec deactivates the
-transmit SA and wraps the next packet number to zero. Packets already
-in flight can still be processed after that.
+Hi!
 
-The first late packet gets packet number zero and is dropped, but
-tx_sa_update_pn() has already advanced the stored counter to one before
-macsec_encrypt() drops it. A second late packet can then be sent with
-packet number one again, reusing the AES-GCM nonce from the start of the
-SA.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Keep next_pn at zero after wrap so all late packets are dropped.
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-Fixes: c09440f7dcb3 ("macsec: introduce IEEE 802.1AE driver")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
----
- drivers/net/macsec.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
-diff --git a/drivers/net/macsec.c b/drivers/net/macsec.c
-index 78a19b134632..233391acebb0 100644
---- a/drivers/net/macsec.c
-+++ b/drivers/net/macsec.c
-@@ -486,6 +486,9 @@ static pn_t tx_sa_update_pn(struct macsec_tx_sa *tx_sa,
- 	spin_lock_bh(&tx_sa->lock);
- 
- 	pn = tx_sa->next_pn_halves;
-+	if (unlikely(pn.full64 == 0))
-+		goto out;
-+
- 	if (secy->xpn)
- 		tx_sa->next_pn++;
- 	else
-@@ -493,6 +496,8 @@ static pn_t tx_sa_update_pn(struct macsec_tx_sa *tx_sa,
- 
- 	if (tx_sa->next_pn == 0)
- 		__macsec_pn_wrapped(secy, tx_sa);
-+
-+out:
- 	spin_unlock_bh(&tx_sa->lock);
- 
- 	return pn;
--- 
-2.47.3
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
