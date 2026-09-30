@@ -1,44 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 294632D0C92
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 00:30:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7232C22D7A9
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 00:30:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790728219; cv=none; b=Rl/OQJRGyjxwHO3XjF2b5pGZ7bl3dFAq/ByIP7IwLOBTzjEv+AuRpOKS+Nt+A6F9SDCAnCLQ8Zb7ZVTFhdvGyH0mhOdxotR/8I/Mh90UTMO7nhr4IV/IK/RzOF0kdQtI1xu9It5OY6X4IlMNTdlID9k5THzw47o8GU2eQ8pghWM=
+	t=1790728220; cv=none; b=NpiK1UtzEj7S/SdpUR9M2hn5xvMDkKJsSdKQ8T503/k7oin2uf7C/WbhaIR7IAUVsoEzdfSzvap4nwlmpBe5c4SW6S3xHHfr4+mKv0j78Gu/aHSGKQ3Wr/oLJL/+h6v5yVcgGiwd0ASWJrzcnhDe4Rb8KZcg3uz6GOAEq6LED04=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790728219; c=relaxed/simple;
-	bh=4DfrzgW29uoUkRtP85usvHpjlnlHUQjriJ6M6Poi8uc=;
+	s=arc-20240116; t=1790728220; c=relaxed/simple;
+	bh=OwUvQDNxyGejg9nt8X2fNGtcxSpmYhak+aYK9nG6mMU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qwejrbFch1UWKoBgwyWqOAG2y77UdD9RbnKXCvqOwbr+RM1DzTHginJQy0vR2soqNOzNAs3SGAg5KXJHa2G82k7OojoRbEXtwT/ep/ZeLm5yvaek/SZuoAjr65YaAoS7DcNeVBcpf/h3bI/tEODIgWQCEGcpm6bNNFRzAlL82Kg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KxAd8cmb; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=rHFczjHjJHCcfDwbBTRPO++DLPfbvAeIX8C43gteeHkH1Eqoen5kY88554D1Z0HYV+RAXOR2OVATAjidXvXV//qwgu5dPXu22ROUPXBEihboKjcnY90kfeh/6QhovwLcRSahDYthp54IC7RGcR3OlJ0RPIxjzvaoRfmQRV3tQLc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OVKkaQCf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KxAd8cmb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 648271F000FF;
-	Wed, 30 Sep 2026 00:30:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OVKkaQCf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FF451F00893;
+	Wed, 30 Sep 2026 00:30:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790728218;
-	bh=ehFjzQfupeCa/mPAq4j5xpmJqbjACk+CtOGS5Y6o0K4=;
+	s=k20260515; t=1790728219;
+	bh=ehFdptjm0GT7ekNfxRxOdrRqEwe8KvEqjKIqNz/uZyc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KxAd8cmblJnmr7PALHzaP1P+WxVrZdtLeND3ZznOBoW3Fux076bTHyfGN2/6MRHMR
-	 aw89mtmCf17A/HSaYO0cXiuUx4ySmQ8StLSthHymnxqoA3XdoHwkuaBh9iqfmSp3Zu
-	 IYl1/PRJqAYokCnUhrY08iO0gozlx5fQVaZU/GqJTslaClOhmwaEPRsXjkpRkIfx/v
-	 iSFACxpF/1XFAWKmH+ehQtEqyoNMJ0lnDluWfuuXE1AZ0zb0NuU11kdBRhwN4cO72v
-	 nq87nTWSDfZjPx4q7iDagjeMrIKA5K78ChSMkXQcd06fIRLXbnp6TSOuGz793A4n9S
-	 N0ujor0OJckIw==
+	b=OVKkaQCfU2WAMrU18SoBl4H0HvQz8eaIh1Fxoz/1NLA/d9O3KJewqb1C6ladNGoRK
+	 fg3KWQDsPLaL0G+OBXYu1yZ/cP1pu31K6TYYCOas8kyYlKEYy65uEgGNw8fdTgtJSy
+	 qDdWXy/JxP5SH9Ej+zCTENiFgxk6WdJ4L3VA1hS7bPIUfHmb1bPocUyPpE1VkXzd2q
+	 GAYkEp0TM29iR7NzIB2A7K52FjhWMLIQME/SAuYd3RDQTYonL7QWgLrNBjvUb/dGPT
+	 ee8FJ+KKexRv1T7s132fl9oAN5LM+e5tGSuAekyRQlLi8zcXB2p0P6aVenPIemmuVZ
+	 fjbBRajRcGsJQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Ilya Maximets <i.maximets@ovn.org>,
 	Axel Mierczuk <axel.mierczuk@1password.com>,
+	Xin Long <lucien.xin@gmail.com>,
+	Jamal Hadi Salim <jhs@mojatatu.com>,
 	Aaron Conole <aconole@redhat.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] net: openvswitch: conntrack: avoid modifying shared unconfirmed ct entry
-Date: Tue, 29 Sep 2026 20:30:14 -0400
-Message-ID: <20260930003015.2941506-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] net/sched: act_ct: fix helper UAF due to extensions realloc
+Date: Tue, 29 Sep 2026 20:30:15 -0400
+Message-ID: <20260930003015.2941506-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092924-carve-arrogant-1991@gregkh>
+In-Reply-To: <20260930003015.2941506-1-sashal@kernel.org>
 References: <2026092924-carve-arrogant-1991@gregkh>
+ <20260930003015.2941506-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,83 +52,81 @@ Content-Transfer-Encoding: 8bit
 
 From: Ilya Maximets <i.maximets@ovn.org>
 
-[ Upstream commit 26b2bd70d22457556e2fa01cbf1192cb1a94d619 ]
+[ Upstream commit dad19b59da050cb60d3f7023dac2a042a84bf0bd ]
 
-In a case where skb with an unconfirmed ct entry gets cloned, we may
-end up committing both but with different sets of extensions.
+While calling the helpers, a raw pointer to the extensions area is
+wired into expectations list:
 
-The series of events:
+  -> nf_ct_helper()
+   -> helper->help()
+    -> nf_ct_expect_related_report()
+     -> nf_ct_expect_insert()
+      -> hlist_add_head_rcu(&exp->lnode, &master_help->expectations)
 
- 1. The first clone wants to commit and runs the helpers wiring up
-    the extension pointer into the expectation list.
- 2. Then it looses the confirmation keeping the entry unconfirmed.
- 3. Second clone now wants to commit labels and adds the new extension
-    for that breaking the pointer in the expectation list causing
-    UAF on the destruction path later.
+In case the connection is not confirmed yet, more extensions can be
+added afterwards with *_ext_add() calls reallocating the extension
+space and leaving the now invalid pointer in the expectations list
+that is later accessed while removing the expectation.
 
-While this is possible to trigger, there should be no practical
-network pipeline where committing both clones without modifications
-into the same zone is needed.  So, let's just reset the entry in case
-for some reason we got an skb with a shared one during commit.  This
-doesn't affect any known use cases, but avoids any potential problems
-with sharing and modification of the unconfirmed ct entry.
+Make sure that helpers are called at the end after all the other
+extensions are already added.
 
-The fixes tag points to the introduction of helpers, since that's the
-main UAF trigger for the sharing.
+Note that the helper rejection now leaves the mark and labels set,
+but that's not different from how the NAT was handled before or how
+the mark and the labels were handled on confirmation failure.  And
+there are no atomicity guarantees provided by the API anyway.
 
-Fixes: cae3a2627520 ("openvswitch: Allow attaching helpers to ct action")
+Fixes: a21b06e73191 ("net: sched: add helper support in act_ct")
 Cc: stable@vger.kernel.org
 Reported-by: Axel Mierczuk <axel.mierczuk@1password.com>
 Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
+Reviewed-by: Xin Long <lucien.xin@gmail.com>
+Reviewed-by: Jamal Hadi Salim <jhs@mojatatu.com>
 Reviewed-by: Aaron Conole <aconole@redhat.com>
-Link: https://patch.msgid.link/20260921145655.3167436-2-i.maximets@ovn.org
+Link: https://patch.msgid.link/20260921145655.3167436-7-i.maximets@ovn.org
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: dad19b59da05 ("net/sched: act_ct: fix helper UAF due to extensions realloc")
+[ Preserved the existing add_helper condition that upstream had removed. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/net/netfilter/nf_conntrack.h |  5 +++++
- net/openvswitch/conntrack.c          | 12 ++++++++++++
- 2 files changed, 17 insertions(+)
+ net/sched/act_ct.c | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
 
-diff --git a/include/net/netfilter/nf_conntrack.h b/include/net/netfilter/nf_conntrack.h
-index 8cb70e7485e2f..3d938a19d332a 100644
---- a/include/net/netfilter/nf_conntrack.h
-+++ b/include/net/netfilter/nf_conntrack.h
-@@ -186,6 +186,11 @@ static inline void nf_ct_put(struct nf_conn *ct)
- 		nf_ct_destroy(&ct->ct_general);
- }
+diff --git a/net/sched/act_ct.c b/net/sched/act_ct.c
+index 8aed25cad9eef..98fc71fdf4292 100644
+--- a/net/sched/act_ct.c
++++ b/net/sched/act_ct.c
+@@ -1088,19 +1088,25 @@ TC_INDIRECT_SCOPE int tcf_ct_act(struct sk_buff *skb, const struct tc_action *a,
+ 		}
+ 	}
  
-+static inline bool nf_ct_shared(const struct nf_conn *ct)
-+{
-+	return refcount_read(&ct->ct_general.use) > 1;
-+}
-+
- /* load module; enable/disable conntrack in this namespace */
- int nf_ct_netns_get(struct net *net, u8 nfproto);
- void nf_ct_netns_put(struct net *net, u8 nfproto);
-diff --git a/net/openvswitch/conntrack.c b/net/openvswitch/conntrack.c
-index 3f51f19686541..bd858c166e748 100644
---- a/net/openvswitch/conntrack.c
-+++ b/net/openvswitch/conntrack.c
-@@ -734,6 +734,18 @@ static int __ovs_ct_lookup(struct net *net, struct sw_flow_key *key,
- 	enum ip_conntrack_info ctinfo;
- 	struct nf_conn *ct;
+-	if (nf_ct_is_confirmed(ct) ? ((!cached && !skip_add) || add_helper) : commit) {
+-		err = nf_ct_helper(skb, ct, ctinfo, family);
+-		if (err != NF_ACCEPT)
+-			goto nf_error;
+-	}
+-
+ 	if (commit) {
+ 		tcf_ct_act_set_mark(ct, p->mark, p->mark_mask);
+ 		tcf_ct_act_set_labels(ct, p->labels, p->labels_mask);
  
-+	/* If the ct entry is not confirmed and shared with some other skb,
-+	 * e.g., a cloned one, we can't just modify it with the commit as we
-+	 * must not modify the extension set.  Reset.
+ 		if (!nf_ct_is_confirmed(ct))
+ 			nf_conn_act_ct_ext_add(skb, ct, ctinfo);
++	}
+ 
++	/* Run helpers for the connection if nf_conntrack_in() was executed
++	 * or if we're about to commit.  This has to be done after all the
++	 * extensions are already added.
 +	 */
-+	if (cached && info->commit) {
-+		ct = nf_ct_get(skb, &ctinfo);
-+		if (ct && !nf_ct_is_confirmed(ct) && nf_ct_shared(ct)) {
-+			nf_reset_ct(skb);
-+			cached = false;
-+		}
++	if (nf_ct_is_confirmed(ct) ? ((!cached && !skip_add) || add_helper) : commit) {
++		err = nf_ct_helper(skb, ct, ctinfo, family);
++		if (err != NF_ACCEPT)
++			goto nf_error;
 +	}
 +
- 	if (!cached) {
- 		struct nf_hook_state state = {
- 			.hook = NF_INET_PRE_ROUTING,
++	if (commit) {
+ 		/* This will take care of sending queued events
+ 		 * even if the connection is already confirmed.
+ 		 */
 -- 
 2.53.0
 
