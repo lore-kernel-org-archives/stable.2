@@ -1,42 +1,75 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f37.google.com (mail-pz2-f37.google.com [74.125.228.37])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 327303E3DB8;
-	Wed, 30 Sep 2026 07:58:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAB9B3BE647
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 07:59:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790755094; cv=none; b=AvoWWdbHOTEnfHOMVU1ddFoI2ysNdMWUvYinVnVpGmbmXa/iJhnep1VFkkB7pOC+Ql6HWmkL8RxDGO7i0mAS5+1apb8jd3Xmgnk/Enoxdv5mm2Md3UbFpk5ALR01pDtF3I/gtKu78YM2BIMym59qbsy0Pjukv5uGwlc7wIBb818=
+	t=1790755164; cv=none; b=VW5ABWua8TLgLRGsn8+2jtcUUnz0301B64V+ZgoVFTmsP4sDQ5fne52ksDm+mPdG+cYGpusn7eMMU0bh5fiKjvuLCRZMlLDJXWNhWL44FnRDd+4NpUR1t4HWjrCcjP1yNb1oTAihkzPVNOEa1HJo9oZjCEeF24Ki6doz5s1+RrE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790755094; c=relaxed/simple;
-	bh=vyU1ylYRa1VYJwFXCzhmzCMq8+8oCUFfnZETjjTVHQs=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=PDFuCb2GnF6kco7gjIJzmkqn6+LSA4Obxgs1Z7DbH8NZxnmeQhlucKpTMRiUKpKllQNsL1adW5U7XF3+oECfrfE4EE3D9vpf7Lgp0lenLBN0tZWlg1TjSs+MxEyiKFS6mLRRJ2X+nuSINSEcB+0JNqN7hxt+5WascHO98nP9NAs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=IGM0DHlC; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1790755164; c=relaxed/simple;
+	bh=NI4deWyXYxlDZ5Psff3uegs1r20u4xH144iUxLKtfAw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=k4Bfu2d3OH7OGyOnwC5jewQ8jpZuMl/Es2vR7sZ7s/l8LBKjHdrPYI7Oa+GB9TVwMFVroncPAXURRHBiXtyUmst+9nr8CdbmEzyLAgkcQcqpcczwJrbmXpVxhbLinB+1WzBk3SPHgzm4di0p5WbMfdAwzN44dvJBUJSAp+LOLZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X2eNdHxO; arc=none smtp.client-ip=74.125.228.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="IGM0DHlC"
-Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4f9ce8add;
-	Wed, 30 Sep 2026 15:58:07 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Tyrel Datwyler <tyreld@linux.ibm.com>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K . Petersen" <martin.petersen@kernel.org>,
-	Brian King <brking@linux.vnet.ibm.com>,
-	linux-scsi@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X2eNdHxO"
+Received: by mail-pz2-f37.google.com with SMTP id d2e1a72fcca58-886ce63c1c5so163850b3a.0
+        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 00:59:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790755162; x=1791359962; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vfbBhg1DcI7KV0DOQuXjyz/HcnuOmRxLvnIDKvsQamY=;
+        b=X2eNdHxOz8hAbHiEVDXnjJ94ztLEUpz6coimQq6Drda5TD9sVliEdREHaU9Vk6jg/4
+         xPZL0nJXhwbU5JtRvwiqbne1MTrX5S5PDe5xpl3+c0No1I3uanhc1AXSo4zgpfDNL3Ap
+         1XEIbQbGoiaiXaFU+u+0YHjiRFfCpEC/G6t0MJAoDQqWOg60zHGer+ZtM6UeJ8s0XCk8
+         RPIm0v+mtOuMS1Vm0smiIxYubQUWdt0nhrUP4E9mMk0S1gU+PKRVsZQ86kZHS7w7Q46z
+         CLPDlHuj1pFVT8lZpttfeNEgvbBpRklOXxloDvDgCkxpCYT/bdmavf9Mop2p13gMGprq
+         l1XQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790755162; x=1791359962;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vfbBhg1DcI7KV0DOQuXjyz/HcnuOmRxLvnIDKvsQamY=;
+        b=ZqIg3A/MUpWrkGZ3NJjearHVarpRkFfswGaMo2vs6TcNZ9EH/S9P8yBAVcqoilq6bK
+         Q27fWzaDJ9PFyAnAfBMerPh6B7NRS2NnNkLqBfysKuGLzaaBIpGc0bSfmk8JwUfBHzCh
+         hfvfGNaosTZBZIgWtJ/l+c8TIqGxEbIMoSXvgtnqdw8KOS9jox5r9WNUa9rPn5Bt8Xtm
+         pBz+RoFqP0r4XukoK0x2Lf8RoC3d3MVAiZIdBUtrPqlw2ZI0d1K2+T/mPbT5PBZ5c7aN
+         iwEGXiFnxolH+ql14DFEkMiep/CsxCEFNWHvExJJGbTvhZkwFnxFior3VmpG1jxza+fZ
+         0JUQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz94OcD0fOMFDltaRtLBtuTO5nZqfbEHkjq537/YmkM5hDAggbktcZFqyr36Rbit4FfQZ8MwUE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mzEO+X4QrleRoguHV4T36cYZTqvxsQUQDirOWpfl41bKmvuiiC
+	6oFsN00aSofyaWGAZkMjJmznHbn6kUWh8Oshv+Ao4BRcCfKXeV871hCd
+X-Gm-Gg: AYBFou3Xosl7zD0aUfRufqhN5nPocjhwss01NEhTYkvCfVSSLddcGmEmAbFCKuccew7
+	KZ8XIIt8cYfDLsIm5l9I9aoY8FYRZadfLJcAxPmZGrXDbvcLSWSyhwXYiOD6Dsa6k+LOcF5KTlx
+	7nkHehr4VcMJ5BXBy+qS2Evk0tto+b/Njs61WEvrmY26lmv1/1QPwr6M4QT5I1crRA7oWVq1R68
+	IK11ucmoahHSEKuCHNLAv3H2ZfUlSLmGTJorenQUcBlMrv60pVWUlOyB4f03y26GLIZUxJo8TUf
+	PKeLY9VuRpN0oDtuDWUMnmwRAGAy8uHxW2apjWy+BGul6IW6KUiZXJ48eSGDb4BDxSepKQulDYp
+	vyTAsmqGwC7RpV+SW4sQf5FwRRHrCoTp8GRovqrSQ0eUiUaKpiJRX4PjfrG9raAlWBI1+Hw63Oe
+	Wm0sHac+pzIGgM3H5A6OWoj3RucnaS/PhRx52KVJFnFJf7dJxh3UQ3khIHasBgOsLaJUh3MNbN8
+	RD9QAIr6UymjqbwxbmczZX6i0PUuA/yHPi8Wt2abmgZCmvWEXybpTChios/x+qNMBh+xPuNneVq
+	/0aAWLsapg==
+X-Received: by 2002:a05:6a00:1da0:b0:874:705d:f656 with SMTP id d2e1a72fcca58-8874ba252a9mr413795b3a.36.1790755162269;
+        Wed, 30 Sep 2026 00:59:22 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (25.187.82.34.bc.googleusercontent.com. [34.82.187.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88725d684ccsm403996b3a.40.2026.09.30.00.59.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 00:59:21 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
+	Felipe Balbi <balbi@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH] scsi: ibmvfc: synchronize event timer completion
-Date: Wed, 30 Sep 2026 15:58:01 +0800
-Message-Id: <20260930075801.2949514-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	Hui Peng <benquike@gmail.com>
+Subject: [PATCH v4] usb: gadget: f_printer: bound PNP string copy length in printer_func_setup()
+Date: Wed, 30 Sep 2026 07:59:20 +0000
+Message-ID: <20260930075920.483189-1-benquike@gmail.com>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,174 +77,73 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0f15223fc03a1kunm3c39a5d2270ab8
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGksdVhkfQ0JITUkYTx5PTFYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
-	xVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=IGM0DHlCUI0ocTU9fMH2w7Jr5IhGm2zIKdcqFY5BTuJSyTVwYXN/UGX4UiMu0qHuDzacSOBLwTllk69uO4ZxApPFga19JbeoJKronBs8WqVYF77MtjCljfGsMHrm3Hd029eZCWT5Z20HP8vdQksLpP9QCmLGbB8mgGk5vn4x3Fw=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=BfUiU8sdifpY8ApVkV3WU0a/oKOyPdhWsydCFEavjao=;
-	h=date:mime-version:subject:message-id:from;
 
-The response and purge paths remove an event from their queue and
-complete it immediately after timer_delete(). A timer callback can still
-be running on another CPU and can access the event while its completion
-returns it to the event pool for reuse.
+In printer_func_setup(), when processing a GET_DEVICE_ID class setup
+request, the IEEE-1284 PNP string length value = strlen(*dev->pnp_string)
+is copied into buf without checking wLength (the host's requested buffer
+size):
 
-Use timer_delete_sync_try() in the interrupt-side completion path and defer
-the completion to workqueue context when the timer callback is active.
-Flush the work before releasing the event pool so an event cannot be reused
-or freed while its callback is still running.
+  value = strlen(*dev->pnp_string);
+  memcpy(buf + 2, *dev->pnp_string, value);
 
-Fixes: 072b91f9c651 ("[SCSI] ibmvfc: IBM Power Virtual Fibre Channel Adapter Client Driver")
+When the host issues a GET_DEVICE_ID request with wLength smaller than
+value + 2, memcpy() writes past the end of the transfer buffer, triggering
+a slab out-of-bounds heap buffer overflow in printer_func_setup():
+
+  BUG: KASAN: slab-out-of-bounds in printer_func_setup+0x280/0x450
+  Write of size 3074 at addr ffff8880024f8000 by task init/1
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x70/0xa0
+   print_report+0x153/0x4c6
+   kasan_report+0xf1/0x120
+   __asan_memcpy+0x3c/0x60
+   printer_func_setup+0x280/0x450
+
+Bound the PNP string copy length using min_t(u16, wLength, strlen() + 2) in
+printer_func_setup() so memcpy() never exceeds wLength.
+
+Tested in QEMU against Linux 7.3.0-rc3 with KASAN enabled by binding
+f_printer with a 3074-byte PNP string and issuing a GET_DEVICE_ID setup
+request with wLength = 64: on the unfixed kernel this triggers a KASAN
+slab-out-of-bounds write, whereas on the fixed kernel value is bounded to
+wLength and 0 KASAN faults occur.
+
+Fixes: b185f01a9ab7 ("usb: gadget: printer: factor out f_printer")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
- drivers/scsi/ibmvscsi/ibmvfc-core.c | 40 ++++++++++++++++++++++-------
- drivers/scsi/ibmvscsi/ibmvfc.h      |  2 ++
- 2 files changed, 33 insertions(+), 9 deletions(-)
+Changes in v4:
+- Re-target fix strictly to bound memcpy() size against wLength in
+  GET_DEVICE_ID handling in printer_func_setup().
 
-diff --git a/drivers/scsi/ibmvscsi/ibmvfc-core.c b/drivers/scsi/ibmvscsi/ibmvfc-core.c
-index 93b9f699c..072008411 100644
---- a/drivers/scsi/ibmvscsi/ibmvfc-core.c
-+++ b/drivers/scsi/ibmvscsi/ibmvfc-core.c
-@@ -811,6 +811,28 @@ static int ibmvfc_send_crq_init_complete(struct ibmvfc_host *vhost)
- 	return ibmvfc_send_crq(vhost, 0xC002000000000000LL, 0);
- }
- 
-+static void ibmvfc_complete_event_work(struct work_struct *work)
-+{
-+	struct ibmvfc_event *evt = container_of(work, struct ibmvfc_event,
-+						timer_work);
+ drivers/usb/gadget/function/f_printer.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/usb/gadget/function/f_printer.c b/drivers/usb/gadget/function/f_printer.c
+index a27792966287..f8726e3d849f 100644
+--- a/drivers/usb/gadget/function/f_printer.c
++++ b/drivers/usb/gadget/function/f_printer.c
+@@ -1033,9 +1033,13 @@ static int printer_func_setup(struct usb_function *f,
+ 			if (!*dev->pnp_string) {
+ 				value = 0;
+ 				break;
+ 			}
+-			value = strlen(*dev->pnp_string);
+-			buf[0] = (value >> 8) & 0xFF;
+-			buf[1] = value & 0xFF;
+-			memcpy(buf + 2, *dev->pnp_string, value);
++			value = min_t(u16, wLength, strlen(*dev->pnp_string) + 2);
++			if (value >= 2) {
++				u16 length = value - 2;
 +
-+	timer_delete_sync(&evt->timer);
-+	evt->done(evt);
-+}
-+
-+static void ibmvfc_complete_event(struct ibmvfc_event *evt)
-+{
-+	/* The response path can run in hardirq context, so defer only when the
-+	 * timer callback is already executing on another context.
-+	 */
-+	if (timer_delete_sync_try(&evt->timer) < 0) {
-+		schedule_work(&evt->timer_work);
-+		return;
-+	}
-+
-+	evt->done(evt);
-+}
-+
- /**
-  * ibmvfc_init_event_pool - Allocates and initializes the event pool for a host
-  * @vhost:	ibmvfc host who owns the event pool
-@@ -859,6 +881,7 @@ static int ibmvfc_init_event_pool(struct ibmvfc_host *vhost,
- 		 */
- 		atomic_set(&evt->active, -1);
- 		atomic_set(&evt->free, 1);
-+		INIT_WORK(&evt->timer_work, ibmvfc_complete_event_work);
- 		evt->crq.valid = 0x80;
- 		evt->crq.ioba = cpu_to_be64(pool->iu_token + (sizeof(*evt->xfer_iu) * i));
- 		evt->xfer_iu = pool->iu_storage + i;
-@@ -886,6 +909,7 @@ static void ibmvfc_free_event_pool(struct ibmvfc_host *vhost,
- 
- 	ENTER;
- 	for (i = 0; i < pool->size; ++i) {
-+		flush_work(&pool->events[i].timer_work);
- 		list_del(&pool->events[i].queue_list);
- 		BUG_ON(atomic_read(&pool->events[i].free) != 1);
- 		if (pool->events[i].ext_list)
-@@ -1134,7 +1158,7 @@ static void ibmvfc_complete_purge(struct list_head *purge_list)
- 	list_for_each_entry_safe(evt, pos, purge_list, queue_list) {
- 		list_del(&evt->queue_list);
- 		ibmvfc_trc_end(evt);
--		evt->done(evt);
-+		ibmvfc_complete_event(evt);
- 	}
- }
- 
-@@ -1162,7 +1186,7 @@ static void ibmvfc_fail_request(struct ibmvfc_event *evt, int error_code)
- 	else
- 		evt->xfer_iu->mad_common.status = cpu_to_be16(IBMVFC_MAD_DRIVER_FAILED);
- 
--	timer_delete(&evt->timer);
-+	timer_delete_sync_try(&evt->timer);
- }
- 
- /**
-@@ -1824,7 +1848,6 @@ int ibmvfc_send_event(struct ibmvfc_event *evt,
- 		atomic_set(&evt->active, 0);
- 		list_del(&evt->queue_list);
- 		spin_unlock_irqrestore(&evt->queue->l_lock, flags);
--		timer_delete(&evt->timer);
- 
- 		/* If send_crq returns H_CLOSED, return SCSI_MLQUEUE_HOST_BUSY.
- 		 * Firmware will send a CRQ with a transport event (0xFF) to
-@@ -1836,7 +1859,8 @@ int ibmvfc_send_event(struct ibmvfc_event *evt,
- 				dev_warn(vhost->dev, "Send warning. Receive queue closed, will retry.\n");
- 			if (evt->cmnd)
- 				scsi_dma_unmap(evt->cmnd);
--			ibmvfc_free_event(evt);
-+			evt->done = ibmvfc_free_event;
-+			ibmvfc_complete_event(evt);
- 			return SCSI_MLQUEUE_HOST_BUSY;
- 		}
- 
-@@ -1851,7 +1875,7 @@ int ibmvfc_send_event(struct ibmvfc_event *evt,
- 			evt->done = evt->_done;
- 		}
- 
--		evt->done(evt);
-+		ibmvfc_complete_event(evt);
- 	} else {
- 		spin_unlock_irqrestore(&evt->queue->l_lock, flags);
- 		ibmvfc_trc_start(evt);
-@@ -3925,10 +3949,9 @@ static void ibmvfc_tasklet(void *data)
- 	spin_unlock_irqrestore(vhost->host->host_lock, flags);
- 
- 	list_for_each_entry_safe(evt, temp, &evt_doneq, queue_list) {
--		timer_delete(&evt->timer);
- 		list_del(&evt->queue_list);
- 		ibmvfc_trc_end(evt);
--		evt->done(evt);
-+		ibmvfc_complete_event(evt);
- 	}
- }
- 
-@@ -4031,10 +4054,9 @@ static void ibmvfc_drain_sub_crq(struct ibmvfc_queue *scrq)
- 	spin_unlock_irqrestore(scrq->q_lock, flags);
- 
- 	list_for_each_entry_safe(evt, temp, &evt_doneq, queue_list) {
--		timer_delete(&evt->timer);
- 		list_del(&evt->queue_list);
- 		ibmvfc_trc_end(evt);
--		evt->done(evt);
-+		ibmvfc_complete_event(evt);
- 	}
- }
- 
-diff --git a/drivers/scsi/ibmvscsi/ibmvfc.h b/drivers/scsi/ibmvscsi/ibmvfc.h
-index ca80ceffe..fba2e3a23 100644
---- a/drivers/scsi/ibmvscsi/ibmvfc.h
-+++ b/drivers/scsi/ibmvscsi/ibmvfc.h
-@@ -14,6 +14,7 @@
- #include <linux/interrupt.h>
- #include <linux/list.h>
- #include <linux/types.h>
-+#include <linux/workqueue.h>
- #include <scsi/scsi_device.h>
- #include <scsi/viosrp.h>
- #include <linux/nvme.h>
-@@ -867,6 +868,7 @@ struct ibmvfc_event {
- 	struct completion comp;
- 	struct completion *eh_comp;
- 	struct timer_list timer;
-+	struct work_struct timer_work;
- 	u16 hwq;
- 	u8 reserved;
- };
++				buf[0] = (length >> 8) & 0xFF;
++				buf[1] = length & 0xFF;
++				memcpy(buf + 2, *dev->pnp_string, length);
++			}
+ 			DBG(dev, "1284 PNP String: %x %s\n", value,
+ 			    *dev->pnp_string);
+ 			break;
 -- 
-2.34.1
-
+2.47.3
