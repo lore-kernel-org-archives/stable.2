@@ -1,155 +1,282 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DB123BBFBB
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 710863D1A81
 	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 11:19:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790767176; cv=none; b=Ov7OSXDY93yBJ03wPXghS0dAjS2E3csWmBQ3wdUpyLKlYGptJHMLjb5RxN6YRC8cjk3dC1LpzUcOKvG1DWFo1bJTAkEdAymK9crVyiIFPnCUBO1QtjJO751WzCFT46cLIPrPd7NYjc8yJtbBgbnRrF68JjeT8hfzBvkTipJXG1g=
+	t=1790767176; cv=none; b=JXs/m/Z24jleI+NId8umrCZuyvTSQmIV5GBmdUnFFvB2P7ME7PFNO7ZDoBWT+Wwpz+Hje8dMetasQfnbm9R5ZKBfUCNM7GoAy04MTmtlUdj/VpZ6GwFSPTujp+H5242h2pYB35eRqQDVpV5ONTwvt6fgS++7cXFlLz5KMOMb4sM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790767176; c=relaxed/simple;
-	bh=nXYmygXfW+ggCNykgpuZ3WYarsVEqnrd6hS+jb0VA5k=;
+	bh=+rsBlmS4+AfMd1qbIiHUKVgVDfQMSYuls9hkKzXbttA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=U3KLctHTOMIiMeZ+PvFELOO/QW+tegMjLqvPHBhD20V+SELtGxJ7y8II/Vvr9Ta7mEoKWyfCmuLbuzM/lCi9Ih0ihrOLO8Nw8DkNnoBhLibnaTiu/Ul8fJVLO/HQ/+fEZ9WKlXCcUCHFXjMmvM5GNDKz5jTd6O0VI9pX4KOspwk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XJ7HpRhL; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=cj0t88LtcxxvPw804Ldgh2197WEvZ6Ao+ER3WYvO4TuDOnhGrS96TPY/flZlLXcnaA7LqvbBmpjs0e+YNcXDtvyAxJvvDM8bF8erRZBv/7uHO4zwhN4lDOti2FN4QTHwelUgUFEVg2QMXcZlee7Mxn7ZBS9ifEo+hKUL7kCm910=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fGcZJYqF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XJ7HpRhL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93C721F00899;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fGcZJYqF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB94C1F0089A;
 	Wed, 30 Sep 2026 11:19:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1790767175;
-	bh=TKfzxBz5UIqzpjCgHj8NPxvc618QbpjnFkGdYVuyDpo=;
+	bh=2aaJSmcOTqTyzlGGtsM723AchKGPS45SK4dcnXTc2Nc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XJ7HpRhLCWi32slzgJ6J4PxXmOnnoXxgg67Z6aTuxl5Sb7qdBYVf+E1iy7JU0zBgf
-	 SYmiM0mv0K75zXWKLJ7B6e6b6e5CZE4ST35kqrH8OuUgIYXnOgiZFs6lglzkcebuPa
-	 UQye5hWFQmHRxmfEoHAB+DtKL88EKmwrci6wPayBygQVyYe5wP8E76xBjq/w3MAyV0
-	 YJ1E9rvjhPBpfBjXN/X+nnbH1iQotmxmnaICSfBV54Xga6x01gdR+57tLcMLzj9xje
-	 0JIL//GqrmpwNzgbrsCe/ogtHGtyD1UMJwMnQ4YHINgCVuRBxobtBqjOz3S++Qtsw6
-	 6dYYirna63CCw==
+	b=fGcZJYqFRqBtBzejw/emhF9u3TWBPJR3edlF743aVbecnFokzV5g9mysBsk6H2SaX
+	 oDBjM15/gfKKUv/fotpsH0hiWGXk85UeRegeuIuZyyRw2dgZs7YbzrqjZ0jdKClB6z
+	 UaTjVjiREyZMesC0j+npW4xhxdRtIdL2tYiNd9wdnkWGK9frdYbCHPjPrqz/VkNHfT
+	 1ECVMPvbwPprp1t5lH7AcKUjp2huz0rH7HWaP8jqeASsAZZEVghl6uRWeaQfhrflmE
+	 FI551GfQPcXK0I/R6OLWFvmSL1o8NTXsDGEEav6lXjuYQhmNbzVA+ZDj5G3ymigao1
+	 HZ9MG+86LTtYA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Dr. David Alan Gilbert" <linux@treblig.org>,
-	David Arinzon <darinzon@amazon.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Ilya Titov <ilya.titov@wirenboard.com>,
+	Linus Walleij <linusw@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/2] net: ena: Remove autopolling mode
-Date: Wed, 30 Sep 2026 07:19:32 -0400
-Message-ID: <20260930111933.1214240-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 3/3] pinctrl: sunxi: keep a shadow copy of the data register output latches
+Date: Wed, 30 Sep 2026 07:19:31 -0400
+Message-ID: <20260930111931.1214201-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092919-casualty-fetch-4223@gregkh>
-References: <2026092919-casualty-fetch-4223@gregkh>
+In-Reply-To: <20260930111931.1214201-1-sashal@kernel.org>
+References: <2026092931-abreast-parameter-ef97@gregkh>
+ <20260930111931.1214201-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: "Dr. David Alan Gilbert" <linux@treblig.org>
+From: Ilya Titov <ilya.titov@wirenboard.com>
 
-[ Upstream commit b356b9170815f822394667010d478d53901ff581 ]
+[ Upstream commit a13f7f5d14af9baf34eb12c25962f8d3542b281d ]
 
-This manually reverts
-commit a4e262cde3cd ("net: ena: allow automatic fallback to polling mode")
+On Allwinner SoCs, reading a bank's data register returns the pin level,
+not the output latch, for pins that are muxed as inputs.  Writing a GPIO
+therefore corrupts the output latches of all input-muxed pins in the
+same bank: the read-modify-write in sunxi_pinctrl_gpio_set() reads back
+their pin levels and writes those into their latches.
 
-which is unused.
+This breaks emulated open-drain lines (e.g. a bit-banged I2C bus from
+i2c-gpio).  Such a line is released high by muxing it as input and
+letting the pull-up raise it, so any concurrent GPIO write in the same
+bank stores 1 into its latch.  Driving the line low afterwards is a
+non-atomic data-then-mux sequence in sunxi_pinctrl_gpio_direction_output();
+if the poisoning write lands between the two steps, the pin actively
+drives high (push-pull) instead of low.
 
-(I did it manually because there are other minor comment
-and function changes surrounding it).
-Build tested only.
+Observed in practice as sporadic glitches on a T507 board bit-banging
+I2C on port E while other PE GPIOs are toggled.  On a scope the failure
+is unmistakable: on a clock pulse where SCL should fall to GND, the line
+instead steps *above* its idle high level for the whole low phase — the
+pad drives a strong push-pull 3.3 V high, higher than the level the
+pull-up sustains on the loaded bus — before the next transition recovers
+it.  The same can hit SDA, corrupting data instead of clocks.
 
-Suggested-by: David Arinzon <darinzon@amazon.com>
-Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
-Link: https://patch.msgid.link/20241103194149.293456-1-linux@treblig.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: 9476b4468862 ("net: ena: fix MMIO read buffer leak on probe failure")
+Steps to reproduce on any sunxi board with a bit-banged (i2c-gpio) bus:
+
+  # background: toggle any other GPIO of the same bank, e.g. line 21
+  gpioset -c <chip> --toggle 100us 21=0 &
+
+  # foreground: keep the bit-banged bus busy
+  while :; do i2cdetect -y <bus> 0x50 0x57; done
+
+  # watch SCL/SDA with a scope or logic analyzer: sporadic clock-low
+  # phases driven high (above the pull-up level) instead of low
+
+The bank spinlock cannot help: the racing write is a perfectly valid
+whole-register RMW that faithfully writes back what the hardware
+returned.  There are no set/clear registers on this IP to write a single
+bit atomically.
+
+Fix it the same way gpio-mmio handles hardware whose data register read
+does not return the output latch: keep a shadow copy of each bank's
+latches, base the read-modify-write on the shadow, and only write the
+register.  The shadow is seeded from the hardware at probe time so pins
+left in output mode by the bootloader keep their state.  Pins that reach
+output mode through the gpiolib paths write their value (and thereby
+their shadow bit) before the mux switch in
+sunxi_pinctrl_gpio_direction_output(); pins muxed to gpio_out directly
+through a pinmux node bypass that path, so sunxi_pmx_set() refreshes
+their shadow bit from the latch (readable once the pin is in output
+mode) to keep them driving their pre-existing level.
+
+Seeding the shadow reads the PIO registers at probe time, which requires
+the bus clock to be enabled.  The clock was only requested at the very
+end of probe, after devm_pinctrl_register() had already claimed the pin
+hogs described in the device tree - which mux pins, and thus access
+registers, with the clock still gated.  Move the request ahead of both.
+Boards whose bootloader leaves the PIO clock running are unaffected,
+which is why the pre-existing hog problem has gone unnoticed since
+commit 950707c0eb5c ("pinctrl: sunxi: add clock support").
+
+Fixes: df7b34f4c3d2 ("pinctrl: sunxi: Fix gpio_set behaviour")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ilya Titov <ilya.titov@wirenboard.com>
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+[ Removed the pctl argument from two sunxi_data_reg() calls to match the older four-argument API. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/amazon/ena/ena_com.c | 25 +++++------------------
- drivers/net/ethernet/amazon/ena/ena_com.h | 14 -------------
- 2 files changed, 5 insertions(+), 34 deletions(-)
+ drivers/pinctrl/sunxi/pinctrl-sunxi.c | 76 +++++++++++++++++++++------
+ drivers/pinctrl/sunxi/pinctrl-sunxi.h |  7 +++
+ 2 files changed, 68 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/net/ethernet/amazon/ena/ena_com.c b/drivers/net/ethernet/amazon/ena/ena_com.c
-index 276f6a8631fb1..a7b98c0b5f285 100644
---- a/drivers/net/ethernet/amazon/ena/ena_com.c
-+++ b/drivers/net/ethernet/amazon/ena/ena_com.c
-@@ -763,25 +763,16 @@ static int ena_com_wait_and_process_admin_cq_interrupts(struct ena_comp_ctx *com
+diff --git a/drivers/pinctrl/sunxi/pinctrl-sunxi.c b/drivers/pinctrl/sunxi/pinctrl-sunxi.c
+index 1b419ebdc0110..deb249d6153af 100644
+--- a/drivers/pinctrl/sunxi/pinctrl-sunxi.c
++++ b/drivers/pinctrl/sunxi/pinctrl-sunxi.c
+@@ -778,6 +778,21 @@ static void sunxi_pmx_set(struct pinctrl_dev *pctldev,
+ 	writel((readl(pctl->membase + reg) & ~mask) | config << shift,
+ 	       pctl->membase + reg);
  
- 		if (comp_ctx->status == ENA_CMD_COMPLETED) {
- 			netdev_err(admin_queue->ena_dev->net_device,
--				   "The ena device sent a completion but the driver didn't receive a MSI-X interrupt (cmd %d), autopolling mode is %s\n",
--				   comp_ctx->cmd_opcode, admin_queue->auto_polling ? "ON" : "OFF");
--			/* Check if fallback to polling is enabled */
--			if (admin_queue->auto_polling)
--				admin_queue->polling = true;
-+				   "The ena device sent a completion but the driver didn't receive a MSI-X interrupt (cmd %d)\n",
-+				   comp_ctx->cmd_opcode);
- 		} else {
- 			netdev_err(admin_queue->ena_dev->net_device,
- 				   "The ena device didn't send a completion for the admin cmd %d status %d\n",
- 				   comp_ctx->cmd_opcode, comp_ctx->status);
- 		}
--		/* Check if shifted to polling mode.
--		 * This will happen if there is a completion without an interrupt
--		 * and autopolling mode is enabled. Continuing normal execution in such case
--		 */
--		if (!admin_queue->polling) {
--			admin_queue->running_state = false;
--			ret = -ETIME;
--			goto err;
--		}
-+		admin_queue->running_state = false;
-+		ret = -ETIME;
-+		goto err;
- 	}
- 
- 	ret = ena_com_comp_status_to_errno(admin_queue, comp_ctx->comp_status);
-@@ -1658,12 +1649,6 @@ void ena_com_set_admin_polling_mode(struct ena_com_dev *ena_dev, bool polling)
- 	ena_dev->admin_queue.polling = polling;
++	/*
++	 * A pin muxed to gpio_out directly through a pinmux node bypasses
++	 * sunxi_pinctrl_gpio_set() and drives whatever its output latch
++	 * holds.  Now that the pin is in output mode the data register
++	 * reads back the latch, so refresh the shadow to keep such pins
++	 * driving their pre-existing level.
++	 */
++	if (config == SUN4I_FUNC_OUTPUT) {
++		u32 *shadow = &pctl->dat_shadow[pin / PINS_PER_BANK];
++
++		sunxi_data_reg(pin, &reg, &shift, &mask);
++		*shadow = (*shadow & ~mask) |
++			  (readl(pctl->membase + reg) & mask);
++	}
++
+ 	raw_spin_unlock_irqrestore(&pctl->lock, flags);
  }
  
--void ena_com_set_admin_auto_polling_mode(struct ena_com_dev *ena_dev,
--					 bool polling)
--{
--	ena_dev->admin_queue.auto_polling = polling;
--}
--
- int ena_com_mmio_reg_read_request_init(struct ena_com_dev *ena_dev)
+@@ -929,21 +944,29 @@ static void sunxi_pinctrl_gpio_set(struct gpio_chip *chip,
+ 				unsigned offset, int value)
  {
- 	struct ena_com_mmio_read *mmio_read = &ena_dev->mmio_read;
-diff --git a/drivers/net/ethernet/amazon/ena/ena_com.h b/drivers/net/ethernet/amazon/ena/ena_com.h
-index 3c5081d9d25d6..bb33fe209eec0 100644
---- a/drivers/net/ethernet/amazon/ena/ena_com.h
-+++ b/drivers/net/ethernet/amazon/ena/ena_com.h
-@@ -227,9 +227,6 @@ struct ena_com_admin_queue {
- 	/* Indicate if the admin queue should poll for completion */
- 	bool polling;
+ 	struct sunxi_pinctrl *pctl = gpiochip_get_data(chip);
+-	u32 reg, shift, mask, val;
++	u32 *shadow = &pctl->dat_shadow[offset / PINS_PER_BANK];
++	u32 reg, shift, mask;
+ 	unsigned long flags;
  
--	/* Define if fallback to polling mode should occur */
--	bool auto_polling;
+ 	sunxi_data_reg(offset, &reg, &shift, &mask);
+ 
+ 	raw_spin_lock_irqsave(&pctl->lock, flags);
+ 
+-	val = readl(pctl->membase + reg);
 -
- 	u16 curr_cmd_id;
++	/*
++	 * Reading the data register returns the pin level, not the output
++	 * latch, for pins muxed as inputs.  A read-modify-write based on
++	 * the register would therefore corrupt the latches of input-muxed
++	 * pins in the same bank (e.g. an emulated open-drain I2C line
++	 * released high), making them drive the wrong level once switched
++	 * to output.  Base the read-modify-write on a shadow copy of the
++	 * latches instead.
++	 */
+ 	if (value)
+-		val |= mask;
++		*shadow |= mask;
+ 	else
+-		val &= ~mask;
++		*shadow &= ~mask;
  
- 	/* Indicate that the ena was initialized and can
-@@ -484,17 +481,6 @@ bool ena_com_get_admin_running_state(struct ena_com_dev *ena_dev);
-  */
- void ena_com_set_admin_polling_mode(struct ena_com_dev *ena_dev, bool polling);
+-	writel(val, pctl->membase + reg);
++	writel(*shadow, pctl->membase + reg);
  
--/* ena_com_set_admin_auto_polling_mode - Enable autoswitch to polling mode
-- * @ena_dev: ENA communication layer struct
-- * @polling: Enable/Disable polling mode
-- *
-- * Set the autopolling mode.
-- * If autopolling is on:
-- * In case of missing interrupt when data is available switch to polling.
-- */
--void ena_com_set_admin_auto_polling_mode(struct ena_com_dev *ena_dev,
--					 bool polling);
+ 	raw_spin_unlock_irqrestore(&pctl->lock, flags);
+ }
+@@ -1465,7 +1488,7 @@ int sunxi_pinctrl_init_with_variant(struct platform_device *pdev,
+ 	struct pinctrl_pin_desc *pins;
+ 	struct sunxi_pinctrl *pctl;
+ 	struct pinmux_ops *pmxops;
+-	int i, ret, last_pin, pin_idx;
++	int i, ret, last_pin, pin_idx, nbanks;
+ 	struct clk *clk;
+ 
+ 	pctl = devm_kzalloc(&pdev->dev, sizeof(*pctl), GFP_KERNEL);
+@@ -1490,6 +1513,37 @@ int sunxi_pinctrl_init_with_variant(struct platform_device *pdev,
+ 	if (!pctl->irq_array)
+ 		return -ENOMEM;
+ 
++	/*
++	 * The bus clock has to be enabled before the pinctrl device
++	 * registers, as the pin hogs claimed from there access registers.
++	 */
++	ret = of_clk_get_parent_count(node);
++	clk = devm_clk_get_enabled(&pdev->dev, ret == 1 ? NULL : "apb");
++	if (IS_ERR(clk))
++		return PTR_ERR(clk);
++
++	/*
++	 * Seed the output latch shadow from the hardware so pins the
++	 * bootloader left in output mode keep their state; see
++	 * sunxi_pinctrl_gpio_set() for why a shadow is needed.  This must
++	 * happen before the pinctrl device registers, as pin hogs can mux
++	 * pins to gpio_out and thereby update the shadow.
++	 */
++	last_pin = pctl->desc->pins[pctl->desc->npins - 1].pin.number;
++	nbanks = DIV_ROUND_UP(last_pin + 1 - pctl->desc->pin_base,
++			      PINS_PER_BANK);
++	pctl->dat_shadow = devm_kcalloc(&pdev->dev, nbanks,
++					sizeof(*pctl->dat_shadow), GFP_KERNEL);
++	if (!pctl->dat_shadow)
++		return -ENOMEM;
++
++	for (i = 0; i < nbanks; i++) {
++		u32 reg, shift, mask;
++
++		sunxi_data_reg(i * PINS_PER_BANK, &reg, &shift, &mask);
++		pctl->dat_shadow[i] = readl(pctl->membase + reg);
++	}
++
+ 	ret = sunxi_pinctrl_build_state(pdev);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "dt probe failed: %d\n", ret);
+@@ -1544,7 +1598,6 @@ int sunxi_pinctrl_init_with_variant(struct platform_device *pdev,
+ 	if (!pctl->chip)
+ 		return -ENOMEM;
+ 
+-	last_pin = pctl->desc->pins[pctl->desc->npins - 1].pin.number;
+ 	pctl->chip->owner = THIS_MODULE;
+ 	pctl->chip->request = gpiochip_generic_request;
+ 	pctl->chip->free = gpiochip_generic_free;
+@@ -1577,13 +1630,6 @@ int sunxi_pinctrl_init_with_variant(struct platform_device *pdev,
+ 			goto gpiochip_error;
+ 	}
+ 
+-	ret = of_clk_get_parent_count(node);
+-	clk = devm_clk_get_enabled(&pdev->dev, ret == 1 ? NULL : "apb");
+-	if (IS_ERR(clk)) {
+-		ret = PTR_ERR(clk);
+-		goto gpiochip_error;
+-	}
 -
- /* ena_com_admin_q_comp_intr_handler - admin queue interrupt handler
-  * @ena_dev: ENA communication layer struct
-  *
+ 	pctl->irq = devm_kcalloc(&pdev->dev,
+ 				 pctl->desc->irq_banks,
+ 				 sizeof(*pctl->irq),
+diff --git a/drivers/pinctrl/sunxi/pinctrl-sunxi.h b/drivers/pinctrl/sunxi/pinctrl-sunxi.h
+index 3f37e1fc05a79..86bf203445d6f 100644
+--- a/drivers/pinctrl/sunxi/pinctrl-sunxi.h
++++ b/drivers/pinctrl/sunxi/pinctrl-sunxi.h
+@@ -76,6 +76,7 @@
+ #define IO_BIAS_MASK		GENMASK(3, 0)
+ 
+ #define SUN4I_FUNC_INPUT	0
++#define SUN4I_FUNC_OUTPUT	1
+ #define SUN4I_FUNC_IRQ		6
+ 
+ #define PINCTRL_SUN5I_A10S	BIT(1)
+@@ -160,6 +161,12 @@ struct sunxi_pinctrl {
+ 	int				*irq;
+ 	unsigned			*irq_array;
+ 	raw_spinlock_t			lock;
++	/*
++	 * Output latch shadow, one word per bank.  Seeded lockless at
++	 * probe before the pinctrl device registers, protected by @lock
++	 * afterwards.
++	 */
++	u32				*dat_shadow;
+ 	struct pinctrl_dev		*pctl_dev;
+ 	unsigned long			variant;
+ };
 -- 
 2.53.0
 
