@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A763F4EF12C;
-	Wed, 30 Sep 2026 13:32:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BF684E0213;
+	Wed, 30 Sep 2026 13:32:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790775162; cv=none; b=KbpNeQFQuTRACGk7M5afaaXSws83YeqDEnEsjry8PwlZEAmc9SFE9fmHqmpycZkhQz/adC5v1hXDv481bBZvXlRgqsdlj28NHj/5uGfstcCTkv0Bpgpyp5PpSdtb/HGgDtLGbKFvwh0rKegDzNnBBsi+BeZH+XVIsCR4w/zQovo=
+	t=1790775165; cv=none; b=pUSo/29z+7Z1Ie9k3Cg1JOMlBVQxhPHuuMb3SqdkfIgcTybqkT4cVgTlOh5ScZpESsXbj08U8sGCPnHvaxiqgXTAVyj00N8Jlb8S5TC5PM/hPQrUrcmPHjl0FaCuZn3SZ3WsQ9ANHrsSb94zzszdCx2GODHmAMJwcLyXCeQ5gOs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790775162; c=relaxed/simple;
-	bh=UClxtGPI0ibPm3G6bsaEtUlSwDs52w9PWyIZUQ7YiG0=;
+	s=arc-20240116; t=1790775165; c=relaxed/simple;
+	bh=bwxyd+peEw7h9/qF9HlhYJK4VprP5WnYZvI4aeZmLmE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=co9x4DsEdsbALCyXmEHqMeVwuOamLAeQb6uspC947eBoJ7Df1/VUJPa377Ok9HF5sIQFDXnA8eC7CYdavlLNQT5QlbNbaAfi4uO+bQAY/4EL99o4tuDY08okNDmbrEPMk8bF+zqEX4Yh/u5oE1a7TlWXYXjuw93ErwgoUw9mCIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oRvlNTZi; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=UAeo+EJnExjjPlU8zeCFQyJf+NxMQxB/FQ1ZAjHwisXoNq41V2lKIS/ZfshiBabYhGU+Ceymt9pTEd9MjCiqSqA9yCpJmHYufMKNL0bVUe4MdB5U+C+rNqiewoWtZqtMnNEDtg2YiP2J626gmFzWhq0vhyblZqew7PS7L3wOXgI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W9k96XsW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oRvlNTZi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67B461F0089A;
-	Wed, 30 Sep 2026 13:32:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W9k96XsW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A49911F00893;
+	Wed, 30 Sep 2026 13:32:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790775151;
-	bh=Q642X3whE7UbZys6zBoQcPEhdQ6WIpL17INB6vaB8iM=;
+	s=k20260515; t=1790775160;
+	bh=3ZucXWECji4gkUktkefSBd5DcFs2vae6ciiEpDVZGOo=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=oRvlNTZiryyEDoX0MrpXiM2J3p4YxB2HbWUqLIIa7V1HmND52WCOFEsxFenUYFO6n
-	 /0IlUolkHJgvNFWMGTLKOdcVfQOjrhNGQgB7gBNy9go21E5uQrQpiBmQv7LnWeFweT
-	 /rTabdqzGtQZL0b0s7ozMvGb9YhTqMKrgmH/NhzjKa2VnB9EVpF9hqGEXUrn/2FNTi
-	 keuX9ynUZ8Skuo52bHWz3wUF2qywX2Qm3A6XtLqSc6/PYqQoWbC/Fr4mc9wHKO/Zij
-	 A9lJoVQ6ZCe+Qy7K5LrG1YfCnSzMbcdP6mPz/YQ+bpdao98463AUqVfzb0FNMGUC8M
-	 Oe9vUqCMrKR1w==
+	b=W9k96XsWCgYWvBwjG6tjVstj2F9lKPuUcWKYJHd7WPIgtiElrFifRCvovqvPbU5g3
+	 OYs5vqTdd4QHnRQXqIgBaM2F6ZrafrPLRVPtZpcwym3YVApB5Vt1k3a30CwQfiRHV7
+	 /XFEof+PebeDBSpgA4y7amETR7xzImZ/ST6Nu2i9upVdaU20TQFCygdHcXhQN3S+Of
+	 8yzpY7pPLLob7feAL6kwsYqY9aCsA/siQ+sw8Is4eYo1hinfO9Pf+9UMAzP5FWev4r
+	 Ib7SLd4IR2JRNthj5AL5Q/wI7te0x8+jQuyLPgqXMrISL5i19uxT61mdkq6vsZE9Oi
+	 12aixnDnTeh3w==
 From: Christian Brauner <brauner@kernel.org>
-Date: Wed, 30 Sep 2026 15:32:02 +0200
-Subject: [PATCH 10/17] namespace: check the mounts before reading their
- parents in pivot_root()
+Date: Wed, 30 Sep 2026 15:32:05 +0200
+Subject: [PATCH 13/17] namespace: remove the fsnotify marks of a mount
+ namespace in process context
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-work-mount-fixes-3-v1-10-be34c83956ae@kernel.org>
+Message-Id: <20260930-work-mount-fixes-3-v1-13-be34c83956ae@kernel.org>
 References: <20260930-work-mount-fixes-3-v1-0-be34c83956ae@kernel.org>
 In-Reply-To: <20260930-work-mount-fixes-3-v1-0-be34c83956ae@kernel.org>
 To: linux-fsdevel@vger.kernel.org
@@ -49,77 +49,68 @@ Cc: Linus Torvalds <torvalds@linux-foundation.org>,
  bpf@vger.kernel.org, "Christian Brauner (Amutable)" <brauner@kernel.org>, 
  stable@vger.kernel.org
 X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2701; i=brauner@kernel.org;
- h=from:subject:message-id; bh=UClxtGPI0ibPm3G6bsaEtUlSwDs52w9PWyIZUQ7YiG0=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTt5fc/Y7XiyM8KLQnPO9EPnWKWnG1e6ZMpeEcuvrbT5
- bR67/fsjlIWBjEuBlkxRRaHdpNwueU8FZuNMjVg5rAygQxh4OIUgIm4+jIyPGrebsiw5fW3Gzuj
- Xz5i4n2uduLZi3vFnXEZ/zo3OMXpmTAy9HvPFjWfPHn/zsaz6gd712QnX7HzKr4mda3x4f8EwYm
- PuQE=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2257; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=bwxyd+peEw7h9/qF9HlhYJK4VprP5WnYZvI4aeZmLmE=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTt5fePn8l/MOtv8Ra91W913wUILH+zX7R3U/3BlRV1x
+ z4+sdBv6ShlYRDjYpAVU2RxaDcJl1vOU7HZKFMDZg4rE8gQBi5OAZiI6wGGv/Jev3e63tbSmTPj
+ Zy7jozjugIDDb7pypE1fvevmnTn3RQgjw5Gvl7/xXrBv3aNcbRJe+LAp0m3Budutbupas33jeO6
+ 8YgEA
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-path_pivot_root() reads the parents of new_root and of the caller's root
-and checks whether they are shared before it checks that either mount is
-in the caller's mount namespace. Only namespace_sem is held. That's fine
-for a mount that is in the caller's mount namespace.
+mnt_ns_release() drops the last passive reference of a mount namespace
+and removes its fanotify marks via fsnotify_mntns_delete(). That takes
+the mutex of every group with a mark on the namespace and the spinlock
+of the connector. Fine from process context. But mnt_ns_tree_remove()
+hands the reference the namespace was allocated with to call_rcu() and
+so the marks are removed from the RCU softirq:
 
-But new_root can be a file descriptor to a mount that has been unmounted
-and that only the file descriptor keeps alive. If that mount stayed
-attached to its parent when it was unmounted nothing pins the parent for
-it. The final mntput() of the parent unhooks the children under
-mount_lock alone and frees the parent afterwards:
+  BUG: sleeping function called from invalid context at kernel/locking/mutex.c:623
+  in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 0, name: swapper/3
+   __mutex_lock+0x113/0x24b0
+   fsnotify_destroy_marks+0x11b/0x3d0
+   mnt_ns_release_rcu+0x57/0xa0
+   rcu_core+0x6b6/0x1e40
 
-  pivot_root()                     close(fd), last ref on the parent
-  ------------                     ---------------------------------
-  ex_parent = new_mnt->mnt_parent
-                                   mntput_no_expire_slowpath()
-                                     __umount_mnt(new_mnt)
-                                   cleanup_mnt()
-                                     call_rcu()
-  IS_MNT_SHARED(ex_parent)
+and lockdep complains about the connector lock being taken from softirq
+context. A fanotify group with a FAN_MARK_MNTNS mark on the mount
+namespace of another task is all that's needed. Root in a user
+namespace can do that for a mount namespace it owns. The task exits and
+the namespace is freed with the mark still on it.
 
-  BUG: KASAN: slab-use-after-free in path_pivot_root+0xf1a/0x1840
-  Read of size 4 at addr ffff8881047382f8 by task pivot_widen/157
-   path_pivot_root+0xf1a/0x1840
-   __x64_sys_pivot_root+0x165/0x190
+Remove the marks in free_mnt_ns() before the namespace is handed to RCU.
+That runs in process context once the last active reference is gone. A
+mark is added through a file descriptor to the namespace which holds an
+active reference so no mark can show up after that.
 
-The same goes for the caller's root via chroot(). Both outcomes of the
-check end in EINVAL so nothing but the read itself goes wrong. It's the
-same thing commit bb4609405752 ("statmount: read the parent of an
-unmounted mount under mount_lock") fixed for statmount().
-
-Check that both mounts are in the caller's namespace before their
-parents are read. Every path returns EINVAL either way.
-
-Fixes: e0c9c0afd2fc ("mnt: Update detach_mounts to leave mounts connected")
-Cc: stable@vger.kernel.org
+Fixes: bf630c401641 ("vfs: add notifications for mount attach and detach")
+Cc: stable@vger.kernel.org # v6.15+
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- fs/namespace.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ fs/namespace.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/fs/namespace.c b/fs/namespace.c
-index f66f4609ef9d..0a7d50db228d 100644
+index 0a7d50db228d..3c90d853e091 100644
 --- a/fs/namespace.c
 +++ b/fs/namespace.c
-@@ -4780,14 +4780,15 @@ int path_pivot_root(struct path *new, struct path *old)
+@@ -130,7 +130,6 @@ static void mnt_ns_release(struct mnt_namespace *ns)
+ {
+ 	/* keep alive for {list,stat}mount() */
+ 	if (ns && refcount_dec_and_test(&ns->passive)) {
+-		fsnotify_mntns_delete(ns);
+ 		put_user_ns(ns->user_ns);
+ 		kfree(ns);
+ 	}
+@@ -4279,6 +4278,8 @@ static void free_mnt_ns(struct mnt_namespace *ns)
+ 	if (!is_anon_ns(ns))
+ 		ns_common_free(ns);
+ 	dec_mnt_namespaces(ns->ucounts);
++	/* the last active reference is gone, no mark can show up anymore */
++	fsnotify_mntns_delete(ns);
+ 	mnt_ns_tree_remove(ns);
+ }
  
- 	new_mnt = real_mount(new->mnt);
- 	root_mnt = real_mount(root.mnt);
-+	/* only a mounted mount has a parent that namespace_sem pins */
-+	if (!check_mnt(root_mnt) || !check_mnt(new_mnt))
-+		return -EINVAL;
- 	ex_parent = new_mnt->mnt_parent;
- 	root_parent = root_mnt->mnt_parent;
- 	if (IS_MNT_SHARED(old_mnt) ||
- 		IS_MNT_SHARED(ex_parent) ||
- 		IS_MNT_SHARED(root_parent))
- 		return -EINVAL;
--	if (!check_mnt(root_mnt) || !check_mnt(new_mnt))
--		return -EINVAL;
- 	if (new_mnt->mnt.mnt_flags & MNT_LOCKED)
- 		return -EINVAL;
- 	if (d_unlinked(new->dentry))
 
 -- 
 2.53.0
