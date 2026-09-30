@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64F3B3CFF51
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 11:19:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75D7E3D1A81
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 11:19:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790767177; cv=none; b=X9FDWylRECjZiGldezaxCTa59qdV1BQKIySxtU8ZSDFFzTqCKNLFwp3o1v7zkkXb+SvtfRBxZC5WGGd3JPMt2f2ddktM4zVt2apO05YoN/+nk2H+Z412YBhKZkoqpSb4me50e8BLq9whOf2qL2nQBHtHvlanet3CxwBcmAelXRM=
+	t=1790767178; cv=none; b=Zg4rUrkJIsrdXDxoSP4YwshA03u3Qh4Bf9fxvXHUzOAtUI6TRUPACGzgUA5ODCIuPNaSqHJKpZHQyB+o4kKBpfzewSzpHid7jiq2c2UGkbqyrgjZRljrQqforPE2YUckM/+JQDcUOfIpvkyWIJvafPcfLeF05UUXqqMJWCHFPxk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790767177; c=relaxed/simple;
-	bh=++tAOMJANmjQlx4hiI4Resan3/kqvE0n21U5Ahttk/w=;
+	s=arc-20240116; t=1790767178; c=relaxed/simple;
+	bh=PI7pXMHtUHaJXGbsdYC61CEeHr8iKBXcK2TaHQiLHcU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GjcjN4wU+LgJpLdXvgeiyWQgPiyA32tpnw9G02MwsDCCqfD4PmmJEWBmw3jNYWOd3UGHmDcZekBdsnE1TvOlcLKwcZsvO+ybHPS5OrwIw2s5jIa+OoboPbZsHzZj3C7V6cOjLyFbDKHyKvgAIJ/u7Kksph4JleI5IuY/6KeqtcY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jExfCL5n; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=GN8c3AnH/5mx6QqjQrzUEi0TvYtrOA4Mlyqa38kNNhLOO9d8oWR2q/m687Auhnt1z8mjnm6pYfTdqkJi29BdV2Bfd+LgeXCIytWlss/ZHRH3eDAzl2Ug74ZpCiavRxT5ioHKOmASvYCfsZejkqrq47r0nIfrn1ZDhmGzSFxR9e0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KVAavnbh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jExfCL5n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C75F91F000FF;
-	Wed, 30 Sep 2026 11:19:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KVAavnbh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C0C21F0089B;
+	Wed, 30 Sep 2026 11:19:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790767176;
-	bh=6SV/ZKOGagBJv0EQI4l9dbWXe9EdcoJyawmZW3lW9Uk=;
+	s=k20260515; t=1790767177;
+	bh=ffH6igjRLwAJkD61ocrh2IsLlGOZ03IuTZTMLuC4t1U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jExfCL5nEqGbLtKFdMsVAJGMknLY7wGfbw04hTYZuYDCS6WOxjsWkh7NH1aLNMWvs
-	 Nx5128EwNnKxJ+g3HpCwZnQKLjpgeghOXsjkRrdME9Wpx579gN3R2ObgVGwwL+ScUT
-	 LvRnB8pZl0chWq49jlhS2gw8husbdkWkE9DXlcFuT93xCr3prFVng5fkxz4tyM9jB7
-	 rBKGTtNqBG0lPWudZd3d9YRsaTnkCdsJZ8fNDWrH3NFcY+VQyEaKAFQOLBMR0HIjDC
-	 LsU6R0IInD+uw0TcYVWs1bZ+wSf4Yct82SCNCwbCrsvfZ2aVjDR/2Ay4bm6GFovHVv
-	 wpd+0CNxwH7YA==
+	b=KVAavnbhw8QI5oGvTMa9UGBmbSxAcrhggtEcDSCrixIY/jtS/iwtwGQaZpyhUtvEo
+	 vyrcy+IxFJnrfa21luvDBY82UGldnLbhKxVinB5CESM24+p7HvNpGiiDCQ1P7fji+e
+	 9PJ3E54TZ7scYGmT6HDAnlaKojmdBQ91xtgxFCfPxg7HNZ7qKK46jFv0AObeE3M8GC
+	 BEXXOrWzaC9o1GAjl9Wb5ut4Xd94G9FLNH+OOSodd7jd+tGyEryEJ7Jr/F/zzyOrZy
+	 wcdw1A+pi2mSaTwDeSUPiUpIEG8t2n8K3Uw3sbfLQ41kOfYu4szT97s42I96R/vwGe
+	 Ba5XQkKWBBlmw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Dapeng Mi <dapeng1.mi@linux.intel.com>,
 	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
+	Ingo Molnar <mingo@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] perf/x86/intel: Update event constraints and cache_extra_regsfor LNL
-Date: Wed, 30 Sep 2026 07:19:33 -0400
-Message-ID: <20260930111934.1214295-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] perf/x86/intel: Remove incorrect LionCove PEBS data-source constraints
+Date: Wed, 30 Sep 2026 07:19:34 -0400
+Message-ID: <20260930111934.1214295-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092943-fleshy-frame-920b@gregkh>
+In-Reply-To: <20260930111934.1214295-1-sashal@kernel.org>
 References: <2026092943-fleshy-frame-920b@gregkh>
+ <20260930111934.1214295-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,86 +49,85 @@ Content-Transfer-Encoding: 8bit
 
 From: Dapeng Mi <dapeng1.mi@linux.intel.com>
 
-[ Upstream commit 331c3e4fa39a87560c09bdd878652090ae040b69 ]
+[ Upstream commit 7c944595cc43a664019edc22505b6d6f6039be5e ]
 
-Update perf hard-coded event constraints and cache_extra_regs[] for
-Lunarlake according to the latest LNL perfmon events (V1.22).
+On Lion Cove, PEBS data source is valid only for these events:
 
-LNL introduces new extra register values for the OCR L3 cache events,
-so introduce lnc_hw_cache_extra_regs[] and skt_hw_cache_extra_regs[] to
-reflect the changes.
+- MEM_TRANS_RETIRED.LOAD_LATENCY (0x1cd)
+- MEM_TRANS_RETIRED.STORE_SAMPLE (0x2cd)
 
-LNL perfmon events:
-https://github.com/intel/perfmon/blob/main/LNL/events/lunarlake_lioncove_core.json
-https://github.com/intel/perfmon/blob/main/LNL/events/lunarlake_skymont_core.json
+The perfmon database (https://github.com/intel/perfmon) previously
+tagged additional memory events such as MEM_INST_RETIRED.STLB_MISS_LOADS
+with L1_Hit_Indication, implying PEBS data-source support, which is
+incorrect. The database has since been fixed, but
+intel_lnc_pebs_event_constraints[] still follows the old definition and
+marks those events as data-source capable.
 
+As a result, get_data_src() may decode data-source information for
+events that do not provide valid PEBS data-source data and mislead
+users.
+
+Remove those non-data-source memory events from the Lion Cove PEBS
+constraint table so matching falls back to the regular non-PEBS
+constraints, which already provide the same counter constraints.
+
+Also update lnc_latency_data() to decode LOAD/STORE flags explicitly
+when setting memory operation direction, for consistency with other
+*_latency_data() helpers.
+
+Fixes: a932aa0e868f ("perf/x86: Add Lunar Lake and Arrow Lake support")
 Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Link: https://patch.msgid.link/20260515061143.338553-7-dapeng1.mi@linux.intel.com
-
-[Backport to 6.18: retain the Lion Cove PEBS constraint additions needed
-by 7c944595cc43 ("perf/x86/intel: Remove incorrect LionCove PEBS data-source
-constraints"). Keep the matching regular counter masks for
-TOPDOWN.MEMORY_BOUND_SLOTS (0x10a4, 0x8) and MEM_INST_RETIRED.ANY
-(0x87d0, 0x3ff), since that fix removes their PEBS-specific entries and
-falls back to the regular constraint table.
-
-Omit the unrelated cache extra-register tables and PMU initialization
-changes, which depend on cache-event refactoring and intel_pmu_init_cmt()
-absent from 6.18. Also omit the unrelated fixed-counter, non-PEBS OCR,
-0x00e0, and Skymont constraint updates. No functions are added.]
-
-Stable-dep-of: 7c944595cc43 ("perf/x86/intel: Remove incorrect LionCove PEBS data-source constraints")
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Cc: <stable@vger.kernel.org>
+Link: https://patch.msgid.link/20260917015234.981153-6-dapeng1.mi@linux.intel.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/events/intel/core.c | 3 ++-
- arch/x86/events/intel/ds.c   | 8 ++++++++
- 2 files changed, 10 insertions(+), 1 deletion(-)
+ arch/x86/events/intel/ds.c | 22 +++++-----------------
+ 1 file changed, 5 insertions(+), 17 deletions(-)
 
-diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
-index 27001daade100..37cc5f94b668f 100644
---- a/arch/x86/events/intel/core.c
-+++ b/arch/x86/events/intel/core.c
-@@ -411,11 +411,12 @@ static struct event_constraint intel_lnc_event_constraints[] = {
- 	INTEL_UEVENT_CONSTRAINT(0x0ca3, 0x4),
- 	INTEL_UEVENT_CONSTRAINT(0x04a4, 0x1),
- 	INTEL_UEVENT_CONSTRAINT(0x08a4, 0x1),
--	INTEL_UEVENT_CONSTRAINT(0x10a4, 0x1),
-+	INTEL_UEVENT_CONSTRAINT(0x10a4, 0x8),
- 	INTEL_UEVENT_CONSTRAINT(0x01b1, 0x8),
- 	INTEL_UEVENT_CONSTRAINT(0x01cd, 0x3fc),
- 	INTEL_UEVENT_CONSTRAINT(0x02cd, 0x3),
- 
-+	INTEL_UEVENT_CONSTRAINT(0x87d0, 0x3ff),
- 	INTEL_EVENT_CONSTRAINT_RANGE(0xd0, 0xdf, 0xf),
- 
- 	INTEL_UEVENT_CONSTRAINT(0x00e0, 0xf),
 diff --git a/arch/x86/events/intel/ds.c b/arch/x86/events/intel/ds.c
-index 39f5038f5ce4f..8afe088cb11d1 100644
+index 8afe088cb11d1..a3fc38b544245 100644
 --- a/arch/x86/events/intel/ds.c
 +++ b/arch/x86/events/intel/ds.c
-@@ -1179,6 +1179,13 @@ struct event_constraint intel_lnc_pebs_event_constraints[] = {
- 	INTEL_FLAGS_UEVENT_CONSTRAINT(0x100, 0x100000000ULL),	/* INST_RETIRED.PREC_DIST */
- 	INTEL_FLAGS_UEVENT_CONSTRAINT(0x0400, 0x800000000ULL),
+@@ -373,7 +373,11 @@ static u64 lnc_latency_data(struct perf_event *event, u64 status)
+ 		val |= P(BLK, NA);
  
-+	INTEL_FLAGS_UEVENT_CONSTRAINT(0x012a, 0x1),		/* OCR.* events */
-+	INTEL_FLAGS_UEVENT_CONSTRAINT(0x012b, 0x1),		/* OCR.* events */
-+
-+	INTEL_FLAGS_UEVENT_CONSTRAINT(0x04a4, 0x1),		/* TOPDOWN.BAD_SPEC_SLOTS */
-+	INTEL_FLAGS_UEVENT_CONSTRAINT(0x08a4, 0x1),		/* TOPDOWN.BR_MISPREDICT_SLOTS */
-+	INTEL_FLAGS_UEVENT_CONSTRAINT(0x10a4, 0x8),		/* TOPDOWN.MEMORY_BOUND_SLOTS */
-+
+ 	src.val = val;
+-	if (event->hw.flags & PERF_X86_EVENT_PEBS_ST_HSW)
++	if (event->hw.flags &
++	    (PERF_X86_EVENT_PEBS_LDLAT | PERF_X86_EVENT_PEBS_LD_HSW))
++		src.mem_op = P(OP, LOAD);
++	if (event->hw.flags &
++	    (PERF_X86_EVENT_PEBS_STLAT | PERF_X86_EVENT_PEBS_ST_HSW))
+ 		src.mem_op = P(OP, STORE);
+ 
+ 	return src.val;
+@@ -1182,24 +1186,8 @@ struct event_constraint intel_lnc_pebs_event_constraints[] = {
+ 	INTEL_FLAGS_UEVENT_CONSTRAINT(0x012a, 0x1),		/* OCR.* events */
+ 	INTEL_FLAGS_UEVENT_CONSTRAINT(0x012b, 0x1),		/* OCR.* events */
+ 
+-	INTEL_FLAGS_UEVENT_CONSTRAINT(0x04a4, 0x1),		/* TOPDOWN.BAD_SPEC_SLOTS */
+-	INTEL_FLAGS_UEVENT_CONSTRAINT(0x08a4, 0x1),		/* TOPDOWN.BR_MISPREDICT_SLOTS */
+-	INTEL_FLAGS_UEVENT_CONSTRAINT(0x10a4, 0x8),		/* TOPDOWN.MEMORY_BOUND_SLOTS */
+-
  	INTEL_HYBRID_LDLAT_CONSTRAINT(0x1cd, 0x3fc),
  	INTEL_HYBRID_STLAT_CONSTRAINT(0x2cd, 0x3),
- 	INTEL_FLAGS_UEVENT_CONSTRAINT_DATALA_LD(0x11d0, 0xf),	/* MEM_INST_RETIRED.STLB_MISS_LOADS */
-@@ -1188,6 +1195,7 @@ struct event_constraint intel_lnc_pebs_event_constraints[] = {
- 	INTEL_FLAGS_UEVENT_CONSTRAINT_DATALA_ST(0x42d0, 0xf),	/* MEM_INST_RETIRED.SPLIT_STORES */
- 	INTEL_FLAGS_UEVENT_CONSTRAINT_DATALA_LD(0x81d0, 0xf),	/* MEM_INST_RETIRED.ALL_LOADS */
- 	INTEL_FLAGS_UEVENT_CONSTRAINT_DATALA_ST(0x82d0, 0xf),	/* MEM_INST_RETIRED.ALL_STORES */
-+	INTEL_FLAGS_UEVENT_CONSTRAINT(0x87d0, 0x3ff),		/* MEM_INST_RETIRED.ANY */
+-	INTEL_FLAGS_UEVENT_CONSTRAINT_DATALA_LD(0x11d0, 0xf),	/* MEM_INST_RETIRED.STLB_MISS_LOADS */
+-	INTEL_FLAGS_UEVENT_CONSTRAINT_DATALA_ST(0x12d0, 0xf),	/* MEM_INST_RETIRED.STLB_MISS_STORES */
+-	INTEL_FLAGS_UEVENT_CONSTRAINT_DATALA_LD(0x21d0, 0xf),	/* MEM_INST_RETIRED.LOCK_LOADS */
+-	INTEL_FLAGS_UEVENT_CONSTRAINT_DATALA_LD(0x41d0, 0xf),	/* MEM_INST_RETIRED.SPLIT_LOADS */
+-	INTEL_FLAGS_UEVENT_CONSTRAINT_DATALA_ST(0x42d0, 0xf),	/* MEM_INST_RETIRED.SPLIT_STORES */
+-	INTEL_FLAGS_UEVENT_CONSTRAINT_DATALA_LD(0x81d0, 0xf),	/* MEM_INST_RETIRED.ALL_LOADS */
+-	INTEL_FLAGS_UEVENT_CONSTRAINT_DATALA_ST(0x82d0, 0xf),	/* MEM_INST_RETIRED.ALL_STORES */
+-	INTEL_FLAGS_UEVENT_CONSTRAINT(0x87d0, 0x3ff),		/* MEM_INST_RETIRED.ANY */
+-
+-	INTEL_FLAGS_EVENT_CONSTRAINT_DATALA_LD_RANGE(0xd1, 0xd4, 0xf),
+-
+-	INTEL_FLAGS_EVENT_CONSTRAINT(0xd0, 0xf),
  
- 	INTEL_FLAGS_EVENT_CONSTRAINT_DATALA_LD_RANGE(0xd1, 0xd4, 0xf),
- 
+ 	/*
+ 	 * Everything else is handled by PMU_FL_PEBS_ALL, because we
 -- 
 2.53.0
 
