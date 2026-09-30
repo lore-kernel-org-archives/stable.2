@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8C504FD27B
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 15:44:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCB034FB9A6;
+	Wed, 30 Sep 2026 15:44:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790783086; cv=none; b=rsA0rXWOTZnmVCna8+Bz89iRRPzH0QQBgmnzo4vk9SzuYL1e35JIykjFTDPO7EsLZ8wSQ+IYiDNKKw93uGM1OIJnV/QtDUi1b3gGC5fRr+ZdmnIq+M3C46SBuLBBxNbbzv0a2zhHYvCTQ1RXZVvk10AbbibQmLAELBnjO/7/MeM=
+	t=1790783092; cv=none; b=bfCtSQfNqmdhtjuuEn4vy5vurZdhRlzRHUWwg7IhxO2XFV7pt1B56O3QXHtvtqzlD5Z0R7Wy8uBoxXbfw0p2aBNvSLG9dpuXFA5mew8+0IhHZSjNKDc7PuvmvoXnM6zgGXQEjm4tqry5PMPqaFfz9lL+/H2CyoUpoC34e/ZpYGI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790783086; c=relaxed/simple;
-	bh=V5o6mG+2mlPYXrZzaZxAvZtP6B9Xa79Luj+Ud3xjwJ0=;
+	s=arc-20240116; t=1790783092; c=relaxed/simple;
+	bh=qh39BJsi3S1Jwg+Z6a2wK4sU5CKL4WIzLP+Zeeo+ck4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Fma0zUbQNMDuDlbt8m/di23dhlGlt1YLl0woPMGdHLDUno0DgAEMVOPakEGI10C+2/uvK+hHmH0sERHM0WvrfWhvLkSfMoQZ3iXvMKmiKnq67c5uY1or1abvlsf69lsjjxCG4T55EXDlPboPKRVEJQEgbauXU19CrDx+F66aJEM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nTRRuFKF; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Bqa3BC42LiIQL4fb0Q9My7rT0Hpa886lPqWgXj/6LnspQT/du2DF/Wjl+q7XVhQ7cmyzBHluyDlcOWjb6Sibdn+AjRVufEOdiX5Iv3+v906p3e3c6pe9sSoLPpRPISMBoAi33Z50ehMOqMgMXBsUJHt2VFAGdB03uV+FK1vy1Mk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ulDqv3kT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nTRRuFKF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F6BB1F00899;
-	Wed, 30 Sep 2026 15:44:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790783077;
-	bh=n76i/O8BrEpQ8ZAHuyFjNjr/WOV3dMZUSrC5wqjLcGQ=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ulDqv3kT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA8851F00893;
+	Wed, 30 Sep 2026 15:44:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790783083;
+	bh=3X5NPR2ssWh7pJKKXSq6mtOEPB1ID13wLZnt91FNTrE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nTRRuFKFHrFsMXdl0sehp6pDj8UU4gyWcxvRYkd/1xA5f2oNuY96m9iWXHVi6VYux
-	 GC6B2llgDthiQHdnO3eD9wYLVw47lkYXU6mZvn6S5goKyko0iABLdRtJnoWKTeN57o
-	 3I5sF1gOmEpld8QJRkfmm3wIHzNHjhcc18F898aLsIHNTzwBFTXiORrmkzovbQ/oud
-	 61N74MU/Ii0R4fviI3oo1ye9aF2F5yR20AndJK3ZzHkgIRZfZBN2ECzmy6YkFLNAsu
-	 nVFtSRjT62Q7eQXnudpIqMD7+r+wM62A64S+xXEF0JhVLK/lt5/Bday6/I3kpNNWzH
-	 UczWkTOmvxDzQ==
-From: Sasha Levin <sashal@kernel.org>
+	b=ulDqv3kTtvWBLlJENI2DHFqp9pySZ+xDxxY2bIlVKWuts+keedVS34peZm+FnE92V
+	 rWAmp9mEA54pfjql0xAwCJLpn6O+6NtY71cP+LpaMwqw6nWQ+CKExD+75VKp9R340U
+	 KpRX627L0e3R4dvZ/9SyFuTH68cMCLXfjfvSYifg=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Aohan Mei <henrymei@tencent.com>,
-	TencentOS Corvus AI <corvus@tencent.com>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	"hpp.iscas" <hppiscas@163.com>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] netfilter: nf_tables: skip expired catchall elements on insert and delete
-Date: Wed, 30 Sep 2026 11:44:34 -0400
-Message-ID: <20260930154434.2936893-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260930154434.2936893-1-sashal@kernel.org>
-References: <2026092923-masses-playroom-aefc@gregkh>
- <20260930154434.2936893-1-sashal@kernel.org>
+Subject: [PATCH 5.10 257/595] ASoC: bcm: bcm63xx: Publish the OF module aliases
+Date: Wed, 30 Sep 2026 17:22:30 +0200
+Message-ID: <20260930152353.237625403@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930152347.700140858@linuxfoundation.org>
+References: <20260930152347.700140858@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,81 +47,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Aohan Mei <henrymei@tencent.com>
+5.10-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 70194dc37670bd08e44b471389861cc01bd3a3c9 ]
+------------------
 
-nft_setelem_catchall_insert() looks up duplicates with
-nft_set_elem_active() only, while nft_set_catchall_lookup() and the
-dump path additionally skip expired elements.
+From: hpp.iscas <hppiscas@163.com>
 
-Once a catchall element with a timeout expires, this predicate drift
-makes it invisible to userspace dumps, yet it still blocks
-re-insertion: with NLM_F_EXCL the request fails with -EEXIST, and
-without it the request reports success but silently inserts nothing.
-The stale entry only goes away when the (user-tunable) gc interval
-elapses, so the catchall rule may silently stop matching for an
-arbitrarily long time after its first expiration.
+[ Upstream commit 32689f0fc54fd801f1cd11637666e534984cb04a ]
 
-The delete path shows the same drift: nft_setelem_catchall_deactivate()
-picks the first active-next entry in the catchall list, so with an
-expired entry still pending GC it retires the stale entry instead of
-the fresh one, and it deactivates an element that userspace no longer
-sees instead of failing with -ENOENT.
+The BCM63xx I2S platform driver matches brcm,bcm63xx-i2s using
+snd_soc_bcm_audio_match. With SND_BCM63XX_I2S_WHISTLER=m, the platform
+bus emits an OF modalias but snd-soc-63xx does not publish that table.
 
-Align both walks with the lookup and dump predicates: only an element
-that is active and not expired counts as a duplicate or delete
-candidate, using the per-netns timestamp taken at transaction start,
-in line with the set backend .insert/.deactivate and catchall GC sync
-paths.
+Export the existing OF IDs for module autoloading. The PCM companion
+and the probe path remain unchanged.
 
-Reported-by: TencentOS Corvus AI <corvus@tencent.com>
-Cc: stable@vger.kernel.org
-Fixes: aaa31047a6d2 ("netfilter: nftables: add catch-all set element support")
-Assisted-by: CodeBuddy:Kimi-K3
-Signed-off-by: Aohan Mei <henrymei@tencent.com>
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+Fixes: 88eb404ccc3e ("ASoC: brcm: Add DSL/PON SoC audio driver")
+Signed-off-by: hpp.iscas <hppiscas@163.com>
+Link: https://patch.msgid.link/20260905133103.63432-1-hppiscas@163.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/netfilter/nf_tables_api.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ sound/soc/bcm/bcm63xx-i2s-whistler.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/net/netfilter/nf_tables_api.c b/net/netfilter/nf_tables_api.c
-index c1dffddd31be6..feb830a78ee3b 100644
---- a/net/netfilter/nf_tables_api.c
-+++ b/net/netfilter/nf_tables_api.c
-@@ -6079,11 +6079,14 @@ static int nft_setelem_catchall_insert(const struct net *net,
- {
- 	struct nft_set_elem_catchall *catchall;
- 	u8 genmask = nft_genmask_next(net);
-+	u64 tstamp = nft_net_tstamp(net);
- 	struct nft_set_ext *ext;
+diff --git a/sound/soc/bcm/bcm63xx-i2s-whistler.c b/sound/soc/bcm/bcm63xx-i2s-whistler.c
+index 246a57ac66799..cf8a6cb47697d 100644
+--- a/sound/soc/bcm/bcm63xx-i2s-whistler.c
++++ b/sound/soc/bcm/bcm63xx-i2s-whistler.c
+@@ -299,6 +299,7 @@ static const struct of_device_id snd_soc_bcm_audio_match[] = {
+ 	{.compatible = "brcm,bcm63xx-i2s"},
+ 	{ }
+ };
++MODULE_DEVICE_TABLE(of, snd_soc_bcm_audio_match);
+ #endif
  
- 	list_for_each_entry(catchall, &set->catchall_list, list) {
- 		ext = nft_set_elem_ext(set, catchall->elem);
--		if (nft_set_elem_active(ext, genmask)) {
-+		if (nft_set_elem_active(ext, genmask) &&
-+		    !__nft_set_elem_expired(ext, tstamp) &&
-+		    !nft_set_elem_is_dead(ext)) {
- 			*priv = catchall->elem;
- 			return -EEXIST;
- 		}
-@@ -6144,11 +6147,14 @@ static int nft_setelem_catchall_deactivate(const struct net *net,
- 					   struct nft_set_elem *elem)
- {
- 	struct nft_set_elem_catchall *catchall;
-+	u64 tstamp = nft_net_tstamp(net);
- 	struct nft_set_ext *ext;
- 
- 	list_for_each_entry(catchall, &set->catchall_list, list) {
- 		ext = nft_set_elem_ext(set, catchall->elem);
--		if (!nft_is_active_next(net, ext))
-+		if (!nft_is_active_next(net, ext) ||
-+		    __nft_set_elem_expired(ext, tstamp) ||
-+		    nft_set_elem_is_dead(ext))
- 			continue;
- 
- 		kfree(elem->priv);
+ static struct platform_driver bcm63xx_i2s_driver = {
 -- 
 2.53.0
+
+
 
