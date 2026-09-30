@@ -1,72 +1,86 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D67B2ED16D;
-	Wed, 30 Sep 2026 07:33:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ACC81BD00C;
+	Wed, 30 Sep 2026 07:34:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790753633; cv=none; b=pcAhLBf6fXDn/PI+v6JxA0lJ/Wu9NkQnVpi2feddGkFNnvdcpXFEWr8uQzRUpVRnAHlXdfgLWD2mTWZMVg6VpQZ4RPauKhQUyj9IfYf/yHD5RjygWDp3Atdo6jWzOIkTfzoi6T5J+UmVyyoeI39Zc9dluOmn1I//sZyOp6bhU8s=
+	t=1790753677; cv=none; b=MICJuVv0ASaKpcXiCEfZBKrukJzs7iPSXm3X91WRnhGDxs+bEJIMiqzY/uRHlQ+LHWhcOLsoIFdyDQxlRsjdGE3UFEQ4eFtocOVjZ6Nmt31UIgeo/wb4gdzqkvY8YzRt/Bvi/X/BDAQhAYTzBAGoKw/CsxpPVBnEyR9A9RwMREs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790753633; c=relaxed/simple;
-	bh=gp7PRv3WjAiMJrp0DvXpRvTv3mwC8R3NiezXzUE7FxE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=EA+RtbLKhboSg2yD/9HszQyVeUUzXOezyIWSE/7AVV7yloCONCPj9Vsut5BknwWSqruv47KhKbAmAz8xlizxk3E3krFbnI3cRO6WlyTILqXy8IAKp5ttkwB0VsKKfz2FCqfUXNlJtdzJwynoG8ClwYyHn64YXwZTH3Fxf0d2v5c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KniRuBAs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790753677; c=relaxed/simple;
+	bh=q4Mww5UKlD02DAYB3cFdXC8xiTXbC0qbijbGPQV2a0U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=R6Dkt0y4hHmr5FGoLB74Oguu5bIFD+goKflKWrRNmmVUswn4HQ37RQasq9LRbRMPmDWLUkOocGrTg4C3fckpKNxQQ4ZpRmv2fT8FOU8iGje/7T+v8lhrNdaBXnpUZPOwqGHnbNFBL8oXcITtXOJWZ8bRo97IjFjBKxsqHHHc2p4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Go0VTqpn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KniRuBAs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 042EA1F000FF;
-	Wed, 30 Sep 2026 07:33:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Go0VTqpn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C20511F000FF;
+	Wed, 30 Sep 2026 07:34:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790753631;
-	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KniRuBAsP8MkgTNcFiK4tPsyMzetKaKNwLjUJdxAmGToss+vETid4zdtfz9rTXJry
-	 vDxNB8jeEgD/K5wXROauf1alrGeszfpOSzStHFKTdk/VPAGkn8sePbrLPg0WSzOxRK
-	 fk9BxtRWa1dwkCC8NvEo7T4DOof9WUjMbeHt3ksVPnghRvIoA/qi3uA9PM85medVR+
-	 6n+p6PuCfBdsUiWC/RMAffa4s4CoX0+zOG79J7O9V4wU+tEaDRRnIJxSfis8wO0bge
-	 z8WIyIvOBSNSWpAa1cCTRr3Oh0TopzRA4WHjKv7sjszkdt55yiteky229y8qpGxseV
-	 I5/nWn7zLNm7g==
-From: netdev-bot+sinfo@kernel.org
-To: Mahanta Jambigi <mjambigi@linux.ibm.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, alibuda@linux.alibaba.com,
- dust.li@linux.alibaba.com, sidraya@linux.ibm.com, hidayath@linux.ibm.com,
- pasic@linux.ibm.com, horms@kernel.org, tonylu@linux.alibaba.com,
- guwen@linux.alibaba.com, stable@vger.kernel.org, netdev@vger.kernel.org,
- linux-s390@vger.kernel.org, linux-rdma@vger.kernel.org
-Subject: Re: [PATCH net v7] net/smc: fix lgr/lnk lifetime vs diag reader race
-Date: Wed, 30 Sep 2026 07:33:50 +0000
-Message-ID: <179075363052.31693.7276499571222525560@kernel.org>
-In-Reply-To: <20260930073029.1201202-1-mjambigi@linux.ibm.com>
-References: <20260930073029.1201202-1-mjambigi@linux.ibm.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	s=k20260515; t=1790753675;
+	bh=+bgd0mVPJ948cD/Xsm5BN0c44HNmKafNptfUbdYM+II=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Go0VTqpn1bYrONXD4rNQJNPshyCFNDML7lv7CRp/Cd2Xun8FYaNeXiqYYEGAI5j6s
+	 Rs/sSXAfZbyeqO4Ufbq67H3Y4jym6hcqzaVXESJyqsi6lFkmS6rGx1eT//ABjKqPWe
+	 04gk0SVqCnZvIY6viAuWYzx9O2XuBOkCjF72LNhKDjNH5F7rveLNbvDqDs1ggKQVtq
+	 zJyX9r7IwNfxwghd6BS92xcb9OUF2M8o79ZMQDg0+GNLwg9cL+FBDt4WD+JTMXQwkc
+	 gzxsJT3XWQpBseL6UtVN+4LbhyPidYzffLSaVgzmpKAruPs8NXaMIpEuvw6qu3edp7
+	 VjF5Ap6LP7y+w==
+Message-ID: <6b7f77f5-32f7-46a8-9082-3a7752651037@kernel.org>
+Date: Wed, 30 Sep 2026 09:34:29 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] nvme: fix swapped ZRASF zone state values for full and
+ read only
+To: Andreas Hindborg <a.hindborg@kernel.org>, Keith Busch
+ <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+ Damien Le Moal <damien.lemoal@wdc.com>,
+ Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
+Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Karl Bonde Torp <k.torp@samsung.com>, stable@vger.kernel.org
+References: <20260929-nvme-zns-fabrics-field-fix-v1-1-f99b6ffb49fc@kernel.org>
+From: Damien Le Moal <dlemoal@kernel.org>
+Content-Language: en-US
+Organization: Western Digital Research
+In-Reply-To: <20260929-nvme-zns-fabrics-field-fix-v1-1-f99b6ffb49fc@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi!
+On 2026/09/29 16:25, Andreas Hindborg wrote:
+> From: Karl Bonde Torp <k.torp@samsung.com>
+> 
+> The Zone Management Receive command Zone Receive Action Specific (ZRASF)
+> reporting option values for the Full and Read Only zone states are swapped
+> compared to the NVM Express Zoned Namespace Command Set Specification,
+> Revision 1.5, Figure 35:
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Not only rev 1.5. The same definitions are in all ZNS spec versions.
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+> 
+> - 5h lists the zones in the ZSF:Full state.
+> - 6h lists the zones in the ZSRO:Read Only state.
+> 
+> The nvmet ZNS backend uses these constants to map the ZRASF value received
+> from the host to a block layer zone condition when filtering zones in
+> Report Zones. Because of the swap, a host asking for full zones was given
+> the read only zones, and a host asking for read only zones was given the
+> full zones.
+> 
+> Swap the values of NVME_ZRASF_ZONE_STATE_FULL and
+> NVME_ZRASF_ZONE_STATE_READONLY to match the specification.
+> 
+> Fixes: aaf2e048af27 ("nvmet: add ZBD over ZNS backend support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Karl Bonde Torp <k.torp@samsung.com>
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+-- 
+Damien Le Moal
+Western Digital Research
