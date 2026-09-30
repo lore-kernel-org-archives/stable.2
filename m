@@ -1,45 +1,43 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DF912F25F3;
-	Wed, 30 Sep 2026 08:49:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DCA73546D0
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 08:49:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790758171; cv=none; b=BUcw5KtxsZW1xf8yyLAjAfmnSv9EefzXG02W3v3fHmBGhzay/tAq7b8+mB/BuTBWsMtp8HTuKi+r+MFGdVt9i+/wKa9Hy2LDgB5PfBs2St0abqjORHwhaiFmMOLuS28TU3VE6iWnp7D90XZON9Uv4Idz5fWuaMjqoU27ZAZFXPU=
+	t=1790758184; cv=none; b=exRX2VkrnC3Ix2uE5k011ArCrlUJFuxr3mrHibA4sDqIkZDXo7IvY/7taUOKiGZ/7aNtu5wVgQl7PURbiCznMzjv0rrB4uIPmpK//vrYtzHeAaboPBB7agTe9UoHCm2Lk/YfXPxypz8senPvWE/7Rr2HyrhtQ9A1xLrBCODE/KU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790758171; c=relaxed/simple;
-	bh=2DmBzte+ZkQWQDh3ROSEnvVY5mEtFR2pyjh8HHEstM0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Ip25fvBSdKiFqGwqm9Zoxzy6znuYZoUPyXm99+xlkwUikoFaCiI/893xijC3waFgPstK9jCgG7uC1bWl9oGMZ/cgZYKtSEo4PcBMubIA9tgy/sBPA4umDEECubSrsvfDk2/xjrryNx3m8mhe58LDUdqaxHtxQU6AG1ibN+V6wqE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=EiB4m4XL; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1790758184; c=relaxed/simple;
+	bh=di4BZpr4iyJoFPd11E/eCFy183nA6wGksnOAfr3FRLw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PfwWVSODzIIJlqusx9S+tBzoqWcuEn1srjyKH0lVmejAxWc+DBRHStwU1ih5ewILWh04zUxSCg4i3lNsE4vglP3O3Y8T3Vp+jfGRYPKreWCtg/hN3da2dgq+gAYD9thtCyywf73mQxbWioBR+LTaWn/8j2P/1+g8dTX5YX7nkf4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WN9yblSg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="EiB4m4XL"
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4f9fcecbd;
-	Wed, 30 Sep 2026 16:49:23 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Tyrel Datwyler <tyreld@linux.ibm.com>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K . Petersen" <mkp@kernel.org>,
-	Brian King <brking@linux.vnet.ibm.com>,
-	linux-scsi@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WN9yblSg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3D461F000FF;
+	Wed, 30 Sep 2026 08:49:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790758183;
+	bh=UuO8ixk7+EzReG8y1ezb9hLXfBqKU5xbROZuLNwlwW8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=WN9yblSgO72cW6BRqdnoVviYsvWHVYyf/wV4taWI0yfZYZJu/iCVaYSr6WrSR2WZN
+	 WTTGslsx0Pu/s2js/FNrnu8FVkpYKvidgXgxpIF+47kzeVNRWDkYSS8WnHfUZYEBF6
+	 xiJJzKrK9TBzWwmi5ZrC0sXkoRFvR18eUMw4sbkG2dcSHcPytAylhOE+jlNdm5Amqn
+	 aet9SPQWLid8ihGxhwasVskmUvZr5opq8224V+XC7ZRmq+No3JrvSUQrODRyAh1laY
+	 6wQlbiBruT7MjYhcoZNREl+p9a3ML+YmfsLQluWvWvzvMAGe59Ds3qP4sjkJUKOBc3
+	 //N6sB5Vtrvvg==
+From: SJ Park <sj@kernel.org>
+To: Sasha Levin <sashal@kernel.org>
+Cc: SJ Park <sj@kernel.org>,
 	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH v2] scsi: ibmvfc: synchronize event timer completion
-Date: Wed, 30 Sep 2026 16:49:17 +0800
-Message-Id: <20260930084917.2965242-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260930075801.2949514-1-runyu.xiao@seu.edu.cn>
-References: <20260930075801.2949514-1-runyu.xiao@seu.edu.cn>
+	Liew Rui Yan <aethernet65535@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [PATCH 6.12.y 2/2] mm/damon/core: allow esz to be set to zero
+Date: Wed, 30 Sep 2026 01:49:38 -0700
+Message-ID: <20260930084939.14133-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260930000401.2861657-2-sashal@kernel.org>
+References: 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,218 +45,38 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0f181125f03a1kunm9341f46b27484f
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCQh9JVklPHxlLSU5LHkIfGVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=EiB4m4XLz0mrbtTyJo0X6DAbAvDpwr3ZaSrwem+0X8d70MjbWUjPAWWWsyfO+3qojHIN9mowCHHFZQsXuyiSm/lRIlrD2l+Ag2jP+ixDSY4AZL01zNNlOczNfajRqccVFek2J0NhwqavCg6FVg3Kexhm8N+7JsGHdCYwOdUkpnk=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=Jptl9/+U11paEdlC9elLjJR0bUP8PiTWBv4u6ik5r7s=;
-	h=date:mime-version:subject:message-id:from;
 
-An event completion may be deferred when the timer callback is active. MAD
-events normally use ibmvfc_locked_done(), but send failures replace the
-wrapper with the raw callback because the caller may already hold
-host_lock. Preserve that locking requirement when the completion runs from
-workqueue context.
+Hello Sasha,
 
-Flush every event completion work item before taking the event pool list
-lock, then remove the free-list entries while holding queue->l_lock. Route
-purge completions through the same timer synchronization helper so all
-completion paths obey the same ordering.
+On Tue, 29 Sep 2026 20:04:01 -0400 Sasha Levin <sashal@kernel.org> wrote:
 
-Fixes: 072b91f9c651 ("[SCSI] ibmvfc: IBM Power Virtual Fibre Channel Adapter Client Driver")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/scsi/ibmvscsi/ibmvfc-core.c | 61 ++++++++++++++++++++++++-----
- drivers/scsi/ibmvscsi/ibmvfc.h      |  3 ++
- 2 files changed, 55 insertions(+), 9 deletions(-)
+> From: Liew Rui Yan <aethernet65535@gmail.com>
+> 
+> [ Upstream commit 90179da203ba8b708c84a12a07cd44be0f346334 ]
+> 
+> When the temporal quota goal tuner determines that the goal has been
+> achieved (score >= 10000), it sets esz_bp to zero so that the esz becomes
+> zero.  However, damos_set_effective_quota() clamps the esz to
+> min_region_sz when quota->ms is set.
+> 
+> This is a minor issue, the main problem is that it doesn't match the
+> description in the documentation, which state that if the goal has already
+> been [over-]achieved, the quota will be set to zero.
+> 
+> Fix this by set quota (esz) as minimum as possible.
 
-diff --git a/drivers/scsi/ibmvscsi/ibmvfc-core.c b/drivers/scsi/ibmvscsi/ibmvfc-core.c
-index 93b9f699c..a3d016f6e 100644
---- a/drivers/scsi/ibmvscsi/ibmvfc-core.c
-+++ b/drivers/scsi/ibmvscsi/ibmvfc-core.c
-@@ -811,6 +811,35 @@ static int ibmvfc_send_crq_init_complete(struct ibmvfc_host *vhost)
- 	return ibmvfc_send_crq(vhost, 0xC002000000000000LL, 0);
- }
- 
-+static void ibmvfc_complete_event_work(struct work_struct *work)
-+{
-+	struct ibmvfc_event *evt = container_of(work, struct ibmvfc_event,
-+						timer_work);
-+	unsigned long flags;
-+
-+	timer_delete_sync(&evt->timer);
-+	if (evt->done_needs_host_lock) {
-+		spin_lock_irqsave(evt->vhost->host->host_lock, flags);
-+		evt->done(evt);
-+		spin_unlock_irqrestore(evt->vhost->host->host_lock, flags);
-+	} else {
-+		evt->done(evt);
-+	}
-+}
-+
-+static void ibmvfc_complete_event(struct ibmvfc_event *evt)
-+{
-+	/* The response path can run in hardirq context, so defer only when the
-+	 * timer callback is already executing on another context.
-+	 */
-+	if (timer_delete_sync_try(&evt->timer) < 0) {
-+		schedule_work(&evt->timer_work);
-+		return;
-+	}
-+
-+	evt->done(evt);
-+}
-+
- /**
-  * ibmvfc_init_event_pool - Allocates and initializes the event pool for a host
-  * @vhost:	ibmvfc host who owns the event pool
-@@ -859,6 +888,7 @@ static int ibmvfc_init_event_pool(struct ibmvfc_host *vhost,
- 		 */
- 		atomic_set(&evt->active, -1);
- 		atomic_set(&evt->free, 1);
-+		INIT_WORK(&evt->timer_work, ibmvfc_complete_event_work);
- 		evt->crq.valid = 0x80;
- 		evt->crq.ioba = cpu_to_be64(pool->iu_token + (sizeof(*evt->xfer_iu) * i));
- 		evt->xfer_iu = pool->iu_storage + i;
-@@ -882,18 +912,31 @@ static void ibmvfc_free_event_pool(struct ibmvfc_host *vhost,
- 				   struct ibmvfc_queue *queue)
- {
- 	int i;
-+	unsigned long flags;
- 	struct ibmvfc_event_pool *pool = &queue->evt_pool;
- 
- 	ENTER;
-+	if (!pool->size)
-+		goto out;
-+
-+	for (i = 0; i < pool->size; ++i)
-+		flush_work(&pool->events[i].timer_work);
-+
-+	spin_lock_irqsave(&queue->l_lock, flags);
- 	for (i = 0; i < pool->size; ++i) {
- 		list_del(&pool->events[i].queue_list);
- 		BUG_ON(atomic_read(&pool->events[i].free) != 1);
-+	}
-+	spin_unlock_irqrestore(&queue->l_lock, flags);
-+
-+	for (i = 0; i < pool->size; ++i) {
- 		if (pool->events[i].ext_list)
- 			dma_pool_free(vhost->sg_pool,
- 				      pool->events[i].ext_list,
- 				      pool->events[i].ext_list_token);
- 	}
- 
-+out:
- 	kfree(pool->events);
- 	dma_free_coherent(vhost->dev,
- 			  pool->size * sizeof(*pool->iu_storage),
-@@ -1134,7 +1177,7 @@ static void ibmvfc_complete_purge(struct list_head *purge_list)
- 	list_for_each_entry_safe(evt, pos, purge_list, queue_list) {
- 		list_del(&evt->queue_list);
- 		ibmvfc_trc_end(evt);
--		evt->done(evt);
-+		ibmvfc_complete_event(evt);
- 	}
- }
- 
-@@ -1162,7 +1205,7 @@ static void ibmvfc_fail_request(struct ibmvfc_event *evt, int error_code)
- 	else
- 		evt->xfer_iu->mad_common.status = cpu_to_be16(IBMVFC_MAD_DRIVER_FAILED);
- 
--	timer_delete(&evt->timer);
-+	timer_delete_sync_try(&evt->timer);
- }
- 
- /**
-@@ -1669,6 +1712,7 @@ void ibmvfc_init_event(struct ibmvfc_event *evt,
- 		evt->_done = done;
- 		evt->done = ibmvfc_locked_done;
- 	}
-+	evt->done_needs_host_lock = false;
- 	evt->hwq = 0;
- }
- 
-@@ -1824,7 +1868,6 @@ int ibmvfc_send_event(struct ibmvfc_event *evt,
- 		atomic_set(&evt->active, 0);
- 		list_del(&evt->queue_list);
- 		spin_unlock_irqrestore(&evt->queue->l_lock, flags);
--		timer_delete(&evt->timer);
- 
- 		/* If send_crq returns H_CLOSED, return SCSI_MLQUEUE_HOST_BUSY.
- 		 * Firmware will send a CRQ with a transport event (0xFF) to
-@@ -1836,7 +1879,8 @@ int ibmvfc_send_event(struct ibmvfc_event *evt,
- 				dev_warn(vhost->dev, "Send warning. Receive queue closed, will retry.\n");
- 			if (evt->cmnd)
- 				scsi_dma_unmap(evt->cmnd);
--			ibmvfc_free_event(evt);
-+			evt->done = ibmvfc_free_event;
-+			ibmvfc_complete_event(evt);
- 			return SCSI_MLQUEUE_HOST_BUSY;
- 		}
- 
-@@ -1849,9 +1893,10 @@ int ibmvfc_send_event(struct ibmvfc_event *evt,
- 		} else {
- 			evt->xfer_iu->mad_common.status = cpu_to_be16(IBMVFC_MAD_CRQ_ERROR);
- 			evt->done = evt->_done;
-+			evt->done_needs_host_lock = true;
- 		}
- 
--		evt->done(evt);
-+		ibmvfc_complete_event(evt);
- 	} else {
- 		spin_unlock_irqrestore(&evt->queue->l_lock, flags);
- 		ibmvfc_trc_start(evt);
-@@ -3925,10 +3970,9 @@ static void ibmvfc_tasklet(void *data)
- 	spin_unlock_irqrestore(vhost->host->host_lock, flags);
- 
- 	list_for_each_entry_safe(evt, temp, &evt_doneq, queue_list) {
--		timer_delete(&evt->timer);
- 		list_del(&evt->queue_list);
- 		ibmvfc_trc_end(evt);
--		evt->done(evt);
-+		ibmvfc_complete_event(evt);
- 	}
- }
- 
-@@ -4031,10 +4075,9 @@ static void ibmvfc_drain_sub_crq(struct ibmvfc_queue *scrq)
- 	spin_unlock_irqrestore(scrq->q_lock, flags);
- 
- 	list_for_each_entry_safe(evt, temp, &evt_doneq, queue_list) {
--		timer_delete(&evt->timer);
- 		list_del(&evt->queue_list);
- 		ibmvfc_trc_end(evt);
--		evt->done(evt);
-+		ibmvfc_complete_event(evt);
- 	}
- }
- 
-diff --git a/drivers/scsi/ibmvscsi/ibmvfc.h b/drivers/scsi/ibmvscsi/ibmvfc.h
-index ca80ceffe..912d250da 100644
---- a/drivers/scsi/ibmvscsi/ibmvfc.h
-+++ b/drivers/scsi/ibmvscsi/ibmvfc.h
-@@ -14,6 +14,7 @@
- #include <linux/interrupt.h>
- #include <linux/list.h>
- #include <linux/types.h>
-+#include <linux/workqueue.h>
- #include <scsi/scsi_device.h>
- #include <scsi/viosrp.h>
- #include <linux/nvme.h>
-@@ -867,6 +868,8 @@ struct ibmvfc_event {
- 	struct completion comp;
- 	struct completion *eh_comp;
- 	struct timer_list timer;
-+	struct work_struct timer_work;
-+	bool done_needs_host_lock;
- 	u16 hwq;
- 	u8 reserved;
- };
--- 
-2.34.1
+Thank you for doing this backport.
 
+> 
+> Link: https://lore.kernel.org/20260908135413.97570-1-sj@kernel.org
+> Fixes: 8bbde987c2b8 ("mm/damon/core: disallow time-quota setting zero esz")
+
+However, this patch also depends on temporal tuner feature, which was
+introduced by 7.1.  It is not in <7.1 stable kernels.  So this patch shouldn't
+be applied on those, including 6.12.y.  Could you please drop this patch?
+
+
+Thanks,
+SJ
+
+[...]
