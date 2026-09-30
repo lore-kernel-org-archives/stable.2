@@ -1,36 +1,42 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93905351C11;
-	Wed, 30 Sep 2026 09:26:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0C3139E17C;
+	Wed, 30 Sep 2026 09:28:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790760370; cv=none; b=WJuMT+uUI7xvSQlNwpv/HjWiH5SCU0t7AyqSkP/rSX+2AacPyiWjFp0kfmkLQTvuS6EM0wMWAb6wgGdlqQVMrxiYfqRaqFLoWSKoFUq+UkazyNcgTc9H02nv+JIcvogRV/uyNehjVRjmprzPV3IyoeZgr5kcJQlPXMmGSvzR89w=
+	t=1790760499; cv=none; b=r5IwekKBQlbT0iRkQPi4OgaNLNld7Kl557EnbKkqv2TyKcgtGak61eT4RK/DKt6F/4xFyWwDG6FB4lL9ve1cwO1Ra9xu96KbyQOmp7OEllaACmyxXmdP4FEq0w0JgbtUw8E5HAkmo78ZUhGIQ65ikL2tzFnkhVNdefR3M0YnVR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790760370; c=relaxed/simple;
-	bh=gHFxeGC83I52w7Kqn26hl48MzLaWSSiV1Vh+AYsdIzo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=jtk1H7RdocqiPmoC38FFLSlyw9h9UUOj0XMde0uz8LJfWv6Ws026VGafR6HXQ5LUMiCeGyxjAnOKN77cVdZKJ7elkZ/kMEwRLQI75hE0mvpl7xGULXY5MZspU3nSCNmFQTB3Dmv0z7u0T79aUCgDtnAaox03crt59GTX2FuuCxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=hAeUr06d; arc=none smtp.client-ip=101.71.155.101
+	s=arc-20240116; t=1790760499; c=relaxed/simple;
+	bh=Mzb59GhMFFnHJhKBKEpRat/tDE7AWzFkNb5M7FjWO9E=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=WOROD39L87Heoh2V7Y8YXb1UwZqJet4e/kJCnLMR/X39PrF9f1lP6WImIv1Ns/WuJC8buVYl8HkcQYYNRQmI1sbpq7zfZZwYqiWqFPD8ZdBqQS5Tvv6Xsgt8gpftoZ6uVC2eYb+qxrc2SHz+DQK9TlIHXADCdGo+HaQTW2axvHI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=Mpxx/oXI; arc=none smtp.client-ip=45.254.49.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="hAeUr06d"
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="Mpxx/oXI"
 Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4fa0978f4;
-	Wed, 30 Sep 2026 17:25:56 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4fa1ab3a0;
+	Wed, 30 Sep 2026 17:28:12 +0800 (GMT+08:00)
 From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Antoine Tenart <atenart@kernel.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
+To: Michael Chan <michael.chan@broadcom.com>,
+	Pavan Chebbi <pavan.chebbi@broadcom.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
 	"David S . Miller" <davem@davemloft.net>,
-	linux-crypto@vger.kernel.org,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Jeffrey Huang <huangjw@broadcom.com>,
+	Eddie Wai <eddie.wai@broadcom.com>,
+	Prashant Sreedharan <prashant@broadcom.com>,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Runyu Xiao <runyu.xiao@seu.edu.cn>,
 	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH] crypto: inside-secure: initialize EIP93 state before requesting IRQ
-Date: Wed, 30 Sep 2026 17:25:51 +0800
-Message-Id: <20260930092551.2976763-1-runyu.xiao@seu.edu.cn>
+Subject: [PATCH] bnxt: prevent timer rearming during teardown
+Date: Wed, 30 Sep 2026 17:28:06 +0800
+Message-Id: <20260930092806.2977763-1-runyu.xiao@seu.edu.cn>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -39,63 +45,46 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0f1a28a8703a1kunm3b8c0ff6276571
+X-HM-Tid: 0aa0f1a49f2303a1kunmdba71fac27677d
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCQkMfVh1PH0pPSU5LSEpPTFYeHw
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDQxhIVk4ZHhhLT05NTU5LGFYeHw
 	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
 	pPSExVSktLVUpCS0tZBg++
 DKIM-Signature: a=rsa-sha256;
-	b=hAeUr06diREDicqV35nZW5+nOOa0hLEOS8o3DcO896+adlwBeQPRom+1lm7O5CT4z34kOILd+3ze5zEUanQVzlSiVYxoGxkbJErKFdHGIUg9EGF1Bq1UdOXk1qr8PAZwciy5gYFkqJBeV29LGotdW3VLM5FVn3KfO/L4+b8eFfA=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=88+OFijJh0zX95cxLz82bXir1Qum2T2Rzvhc27AGbLw=;
+	b=Mpxx/oXITWkmTM2fTQ00ZWhonJdrc7OgEoKT32YGvHdU0mTXtVcAMaOYdxUY94Zi+eh3PHoT1zgKDF9x1GHJOilMeM/DBxEraKMRrm7e400hAxrp4idB3nK/QHc9mdqktG1EylZyN82FiJ2nvX640+z2hawd3OPFUlyd8x/VFVM=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=eVdOK0WzdLj4gAVVLttL2pagUYIRqRXoU9ctPHbEkRo=;
 	h=date:mime-version:subject:message-id:from;
 
-devm_request_threaded_irq() can invoke the handler as soon as
-registration starts.  The EIP93 probe currently requests the IRQ
-before allocating the descriptor rings and initializing the tasklet,
-locks, and IDR used by the handler.
+bnxt_timer() checks the interface state before processing timer work, but
+the final mod_timer() at bnxt_restart_timer is unconditional. If teardown
+clears BNXT_STATE_OPEN while the callback is running, the callback can
+rearm the timer after __bnxt_close_nic() has started deleting it.
 
-Initialize the software and hardware state, and disable the device
-interrupts, before requesting the IRQ.  The existing interrupt enable
-remains after successful IRQ registration.
+Check BNXT_STATE_OPEN again before rearming so teardown prevents a callback
+already in progress from starting another timer period.
 
-Fixes: 9739f5f93b78 ("crypto: eip93 - Add Inside Secure SafeXcel EIP-93 crypto engine support")
+Fixes: c0c050c58d84 ("bnxt_en: New Broadcom ethernet driver.")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 ---
- drivers/crypto/inside-secure/eip93/eip93-main.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/net/ethernet/broadcom/bnxt/bnxt.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/crypto/inside-secure/eip93/eip93-main.c b/drivers/crypto/inside-secure/eip93/eip93-main.c
-index e62785952..06c8d771a 100644
---- a/drivers/crypto/inside-secure/eip93/eip93-main.c
-+++ b/drivers/crypto/inside-secure/eip93/eip93-main.c
-@@ -430,12 +430,6 @@ static int eip93_crypto_probe(struct platform_device *pdev)
- 	if (eip93->irq < 0)
- 		return eip93->irq;
+diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+index d59bcca73..8a2e9e200 100644
+--- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
++++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+@@ -14484,7 +14484,8 @@ static void bnxt_timer(struct timer_list *t)
+ 		bnxt_queue_sp_work(bp, BNXT_RING_COAL_NOW_SP_EVENT);
  
--	ret = devm_request_threaded_irq(eip93->dev, eip93->irq, eip93_irq_handler,
--					NULL, IRQF_ONESHOT,
--					dev_name(eip93->dev), eip93);
--	if (ret)
--		return ret;
--
- 	ret = eip93_desc_init(eip93);
- 	if (ret)
- 		return ret;
-@@ -452,6 +446,12 @@ static int eip93_crypto_probe(struct platform_device *pdev)
+ bnxt_restart_timer:
+-	mod_timer(&bp->timer, jiffies + bp->current_interval);
++	if (test_bit(BNXT_STATE_OPEN, &bp->state))
++		mod_timer(&bp->timer, jiffies + bp->current_interval);
+ }
  
- 	eip93_initialize(eip93, algo_flags);
- 
-+	ret = devm_request_threaded_irq(eip93->dev, eip93->irq, eip93_irq_handler,
-+					NULL, IRQF_ONESHOT,
-+					dev_name(eip93->dev), eip93);
-+	if (ret)
-+		return ret;
-+
- 	/* Init finished, enable RDR interrupt */
- 	eip93_irq_enable(eip93, EIP93_INT_RDR_THRESH);
- 
+ static void bnxt_lock_sp(struct bnxt *bp)
 -- 
 2.34.1
