@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09E3B4D990D
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 13:48:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C15CD4EDCC3
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 13:48:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790776095; cv=none; b=RQaioJK4z4r9GBb+vEdPlZsef9MtS7lrrp3a6guFEkauqox6wbr5Q/lgFO41g1JmPXJsBmvGBbuhuTKrQaX9kSdaul2jHweUtRvLT16Q6H3HPaYvIaIESBOIvfNR/YkHUK/X2ZNk/HC8YZM6mPLLHe2BMY3plKN8ebT1gsWNBR8=
+	t=1790776095; cv=none; b=BV03PxvWe7bdjq0HbRjKeuK53BzbzxpvTYwQsIa2emRhAcDlCCmbhk08EIHjKq2L7fdtJPn5n9lonIGQPbTkAxB0o/VGwH/bi/MalQz7dZOa4bWI83Y4SyHzpnIc0m00DYSRGUdhRDZNCT9eJz6QXLbabb8bbgWXWkeQN1VJDIQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790776095; c=relaxed/simple;
-	bh=Wg8JKSDQDu58Sn7lILSHljoeFBeUnio47gRVTVUdwgc=;
+	bh=ktyYkB1ezgt650xT19nbQ+iV4U1egzwv/6HgGmPwYb8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nVvXCajXc4c+akIU23mvEcrLUY3zUr4dexpBNsF/HZN5ZhBXDxPpKq+hhY/l7jJnm+Y6IjNkT6WrBy1yojzxaMtsmGwfmIRso4S2zQSfuzwuYRJpqkqEqT8emR+RD2THp6KyTeTxQdaYxf7Mv+WJzVQgtStWPKMagsyP+vPpKUc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A/2ExVuJ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=pfxRcl9Sl9TwGT7JZPxnN06kZ/BJd73iZ+c4IddaG1guzA5l4XNakTbiFtCml11Q2mXp2b5lmsD+ftNUDJF9X6duFa0yv4lgEs/rkijYOuHffrzB+kP7h6Q50aeqS6JMtvX5y/Srtz77NTJBThJlHDZn3ZtByXMCQbIagyqNK0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A0PA75W5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A/2ExVuJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFCE51F00898;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A0PA75W5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 389081F0089B;
 	Wed, 30 Sep 2026 13:48:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790776082;
-	bh=xq6FViZgqbxhTaPQjnrnGEZuwl8OjT04weu/PJN47hE=;
+	s=k20260515; t=1790776081;
+	bh=QIuqba/8/5PNsWFbiH6yf7E1FTff64f6LEbRQxPPtSs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=A/2ExVuJN7VvS4ScATrTlOZOYc38Jc6fleuNLGT77ABjQgatULFTHr1HCtJE2QJVc
-	 Pg16PFuTvWULFULL46gDOPJykWSXu0ln6Ic5p1InPxXDx3fBnUIV8ZK8dT+CiD9q1I
-	 bv2xcMl6cDk61x6daSTK1FM+K2wVJGzTLgskd3XuUjEENRe9LxbdbwqFwygCdmeuQI
-	 uNYjQS34KS2oO1LUHwvhbAZRvfptQLOOIdFPH6wJjnee9A9rn+h5HgJq47LE58Owuj
-	 ENZco25LVz9MekFPDAgLrn8SLAhbHXz5zzgIhikIr4/X6LBx/3/wwZlXhcanmAlGqa
-	 M2YyfKHYGEGWw==
+	b=A0PA75W5wy7L32yWMU09tVlNDhOwCoyKRwLR3n2A0sanZL41Ge7Nn3vEgjMs/lPpq
+	 O5vZfHJHq6GfX7IaU6hnY2BzKuna3gLVhhGKAbU2AxdgP+XFq5+5FsMDLitNChWxBw
+	 g2vzriO6/7K9ChPZtDbl0eAo9++hKpB/LGfRc1jMlye5KwS3eVW/zLLaKVAEox5WHB
+	 wvYPyTsV9DXIL0uzmf7cVAwcC06G8FkqIGaPBHoHcMbgWvoNNssYMDfM62ctOZ5v2r
+	 7ogyTNdIV/bXV/rGIhBNbfYf/OWtjn/tM6B0124V0PwpljD2dBmM3NyS2z8cypK7za
+	 3Sxracc67P2Gw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
+Cc: Paolo Bonzini <pbonzini@redhat.com>,
+	Kai Huang <kai.huang@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 4/6] KVM: x86: Reject nested CAP enablement if nested virtualization is disabled
-Date: Wed, 30 Sep 2026 09:47:55 -0400
-Message-ID: <20260930134757.1797371-4-sashal@kernel.org>
+Subject: [PATCH 7.2.y 3/6] KVM: move TSS constants from kvm_host.h to tss.h
+Date: Wed, 30 Sep 2026 09:47:54 -0400
+Message-ID: <20260930134757.1797371-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260930134757.1797371-1-sashal@kernel.org>
 References: <2026092938-mantis-spearfish-5a96@gregkh>
@@ -46,134 +46,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sean Christopherson <seanjc@google.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
 
-[ Upstream commit b65699be2c606d2687593516d93e66d16a713b61 ]
+[ Upstream commit 35fdfa632e7cf8271189c7ae6f97e7c4b55f7f80 ]
 
-Add a flag to explicitly track if nested virtualization is enabled, and use
-it enumerate that various nested CAPs are unsupported, and to reject
-enablement of said CAPs.  When the nested ops hooks were moved to their
-own structure, KVM's NULL-by-default behavior was deliberately dropped,
-with the changelog asserting that all was well.  That wasn't quite true;
-there is no danger to KVM, but now KVM is over-reporting support for
-KVM_CAP_NESTED_STATE and KVM_CAP_HYPERV_ENLIGHTENED_VMCS.
-
-Fixes: 33b22172452f ("KVM: x86: move nested-related kvm_x86_ops to a separate struct")
-Reviewed-by: Vitaly Kuznetsov <vkuznets@redhat.com>
-Link: https://patch.msgid.link/20260630202828.440724-2-seanjc@google.com
-Signed-off-by: Sean Christopherson <seanjc@google.com>
+Suggested-by: Kai Huang <kai.huang@intel.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 Stable-dep-of: c1214f293d77 ("KVM: x86: Fill kvm_run exit fields in common get_nested_state_pages() error paths")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/include/asm/kvm_host.h |  2 ++
- arch/x86/kvm/hyperv.c           |  3 ++-
- arch/x86/kvm/svm/svm.c          |  1 +
- arch/x86/kvm/vmx/vmx.c          |  1 +
- arch/x86/kvm/x86.c              | 12 +++++++-----
- 5 files changed, 13 insertions(+), 6 deletions(-)
+ arch/x86/include/asm/kvm_host.h | 7 -------
+ arch/x86/kvm/tss.h              | 7 +++++++
+ arch/x86/kvm/vmx/vmx.c          | 1 +
+ 3 files changed, 8 insertions(+), 7 deletions(-)
 
 diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
-index a1f756ea0172a..1d5925fad271d 100644
+index 2dfd6199a10c6..a1f756ea0172a 100644
 --- a/arch/x86/include/asm/kvm_host.h
 +++ b/arch/x86/include/asm/kvm_host.h
-@@ -2019,6 +2019,8 @@ struct kvm_x86_ops {
+@@ -2433,13 +2433,6 @@ static inline void kvm_inject_gp(struct kvm_vcpu *vcpu, u32 error_code)
+ 	kvm_queue_exception_e(vcpu, GP_VECTOR, error_code);
+ }
+ 
+-#define TSS_IOPB_BASE_OFFSET 0x66
+-#define TSS_BASE_SIZE 0x68
+-#define TSS_IOPB_SIZE (65536 / 8)
+-#define TSS_REDIRECTION_SIZE (256 / 8)
+-#define RMODE_TSS_SIZE							\
+-	(TSS_BASE_SIZE + TSS_REDIRECTION_SIZE + TSS_IOPB_SIZE + 1)
+-
+ enum {
+ 	TASK_SWITCH_CALL = 0,
+ 	TASK_SWITCH_IRET = 1,
+diff --git a/arch/x86/kvm/tss.h b/arch/x86/kvm/tss.h
+index 3f9150125e701..117bf8bec07dc 100644
+--- a/arch/x86/kvm/tss.h
++++ b/arch/x86/kvm/tss.h
+@@ -57,4 +57,11 @@ struct tss_segment_16 {
+ 	u16 ldt;
  };
  
- struct kvm_x86_nested_ops {
-+	bool enabled;
++#define TSS_IOPB_BASE_OFFSET 0x66
++#define TSS_BASE_SIZE 0x68
++#define TSS_IOPB_SIZE (65536 / 8)
++#define TSS_REDIRECTION_SIZE (256 / 8)
++#define RMODE_TSS_SIZE							\
++	(TSS_BASE_SIZE + TSS_REDIRECTION_SIZE + TSS_IOPB_SIZE + 1)
 +
- 	void (*leave_nested)(struct kvm_vcpu *vcpu);
- 	bool (*is_exception_vmexit)(struct kvm_vcpu *vcpu, u8 vector,
- 				    u32 error_code);
-diff --git a/arch/x86/kvm/hyperv.c b/arch/x86/kvm/hyperv.c
-index 5f43ae345f87c..00915958c7e2f 100644
---- a/arch/x86/kvm/hyperv.c
-+++ b/arch/x86/kvm/hyperv.c
-@@ -2800,7 +2800,8 @@ int kvm_get_hv_cpuid(struct kvm_vcpu *vcpu, struct kvm_cpuid2 *cpuid,
- 	};
- 	int i, nent = ARRAY_SIZE(cpuid_entries);
- 
--	if (kvm_x86_ops.nested_ops->get_evmcs_version)
-+	if (kvm_x86_ops.nested_ops->enabled &&
-+	    kvm_x86_ops.nested_ops->get_evmcs_version)
- 		evmcs_ver = kvm_x86_ops.nested_ops->get_evmcs_version(vcpu);
- 
- 	if (cpuid->nent < nent)
-diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index 03fb9d7231c8d..d1423bab1a3aa 100644
---- a/arch/x86/kvm/svm/svm.c
-+++ b/arch/x86/kvm/svm/svm.c
-@@ -5662,6 +5662,7 @@ static __init int svm_hardware_setup(void)
- 		if (r)
- 			return r;
- 	}
-+	svm_nested_ops.enabled = nested;
- 
- 	/*
- 	 * KVM's MMU doesn't support using 2-level paging for itself, and thus
+ #endif
 diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
-index 8b75c70e60d26..61243d16febf0 100644
+index b8d745f6fd221..8b75c70e60d26 100644
 --- a/arch/x86/kvm/vmx/vmx.c
 +++ b/arch/x86/kvm/vmx/vmx.c
-@@ -8771,6 +8771,7 @@ __init int vmx_hardware_setup(void)
- 		if (r)
- 			return r;
- 	}
-+	vmx_nested_ops.enabled = nested;
- 
- 	kvm_set_posted_intr_wakeup_handler(pi_wakeup_handler);
- 
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 9822ff0450bb2..1e145e448b593 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -4517,7 +4517,7 @@ int kvm_vm_ioctl_check_extension(struct kvm *kvm, long ext)
- 			r &= ~KVM_X2APIC_ENABLE_SUPPRESS_EOI_BROADCAST;
- 		break;
- 	case KVM_CAP_NESTED_STATE:
--		r = kvm_x86_ops.nested_ops->get_state ?
-+		r = kvm_x86_ops.nested_ops->enabled ?
- 			kvm_x86_ops.nested_ops->get_state(NULL, NULL, 0) : 0;
- 		break;
- #ifdef CONFIG_KVM_HYPERV
-@@ -4525,7 +4525,8 @@ int kvm_vm_ioctl_check_extension(struct kvm *kvm, long ext)
- 		r = kvm_x86_ops.enable_l2_tlb_flush != NULL;
- 		break;
- 	case KVM_CAP_HYPERV_ENLIGHTENED_VMCS:
--		r = kvm_x86_ops.nested_ops->enable_evmcs != NULL;
-+		r = kvm_x86_ops.nested_ops->enabled &&
-+		    kvm_x86_ops.nested_ops->enable_evmcs != NULL;
- 		break;
- #endif
- 	case KVM_CAP_SMALLER_MAXPHYADDR:
-@@ -5567,7 +5568,8 @@ static int kvm_vcpu_ioctl_enable_cap(struct kvm_vcpu *vcpu,
- 			uint16_t vmcs_version;
- 			void __user *user_ptr;
- 
--			if (!kvm_x86_ops.nested_ops->enable_evmcs)
-+			if (!kvm_x86_ops.nested_ops->enabled ||
-+			    !kvm_x86_ops.nested_ops->enable_evmcs)
- 				return -ENOTTY;
- 			r = kvm_x86_ops.nested_ops->enable_evmcs(vcpu, &vmcs_version);
- 			if (!r) {
-@@ -6067,7 +6069,7 @@ long kvm_arch_vcpu_ioctl(struct file *filp,
- 		u32 user_data_size;
- 
- 		r = -EINVAL;
--		if (!kvm_x86_ops.nested_ops->get_state)
-+		if (!kvm_x86_ops.nested_ops->enabled)
- 			break;
- 
- 		BUILD_BUG_ON(sizeof(user_data_size) != sizeof(user_kvm_nested_state->size));
-@@ -6097,7 +6099,7 @@ long kvm_arch_vcpu_ioctl(struct file *filp,
- 		int idx;
- 
- 		r = -EINVAL;
--		if (!kvm_x86_ops.nested_ops->set_state)
-+		if (!kvm_x86_ops.nested_ops->enabled)
- 			break;
- 
- 		r = -EFAULT;
+@@ -72,6 +72,7 @@
+ #include "x86.h"
+ #include "x86_ops.h"
+ #include "smm.h"
++#include "tss.h"
+ #include "vmx_onhyperv.h"
+ #include "vmenter.h"
+ #include "posted_intr.h"
 -- 
 2.53.0
 
