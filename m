@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A17F4519E12
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 17:34:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69D4251A747;
+	Wed, 30 Sep 2026 17:34:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790789641; cv=none; b=p+xNU2RzhJgs9LMIVauCVIhIoZMnuBc6jRUvPNhTL6SxrFffzR17SOZO4XYlIeFt3SDvRqQUGAI19jVdAt7Uy0groG3RZrj7ksPjJO4w/AzVVd2O7rADYndCk0nyIrJy6OZTycdRdFRnjn2jaqzRB2hTVv4URwUq6KRnJ5he4E4=
+	t=1790789642; cv=none; b=u3LwS5orrGuFFR8/kJ4inIXNgA2sB3JEqmFvzUJKmsQrq4hyXbiW6JhmJoH654NU7i1hlsqI9JVlpgoLxGdrlqrxvs9I/A3c+aol8JNwoGcWz/hNa9l6pkxRXXHycOEG3s+46hyEmormR7HlH5g4hOyBRQB2wW5iOV5gQO9IKbs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790789641; c=relaxed/simple;
-	bh=UoqrkNW+nLv17GXlUFsEr/eiBmTXFxLlIjlnTbSakxw=;
+	s=arc-20240116; t=1790789642; c=relaxed/simple;
+	bh=HY1YYz0hpresBq3MmdbXvueG0YQGcfr2rkzN7JDAUYQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=knPdyCvA/x3rjDz7H1xlpuqmCjTOsG6fLG6iKVcyyb0gnlcSWnvdESDyNR/ULgApylgR1YKvyWha0T+KhItkAD/CA1aX0v98BHlgLee4bnjzFuMjFD9psTZSzFqZK7818YAAr44nDTD4QbstzblcqyvjLbRjLDUKTpnhczs4GkM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UoU/8Px0; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=qZigY+ZS/Ef80qIrFgyL+5JKorTSn8NtXlBRhjF9+oSksrJW+Q61rB+6guLOr1f3zD52vJNv3+rU/1uUvidbDMPZsf6UxS6/f41/QHrU7zZyG3JBpiP+YRi2M9iy1ZszluQ4exaaIiNX5b1oZ0H1nPVOnXa7NwhfgRjtaiA5wnA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=HJAq2PQv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UoU/8Px0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02A7F1F00898;
-	Wed, 30 Sep 2026 17:33:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790789640;
-	bh=tkcj9Yn+Jn1EHjljPMUkSlqVuZwgbXbaZO1QRgcBDyU=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="HJAq2PQv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4B221F00899;
+	Wed, 30 Sep 2026 17:34:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790789641;
+	bh=u1EgIXX6soIVW6THUbUQmN9y9Bl+nGPsgKFjqjcXIYg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UoU/8Px0ov5EWVl+PFCZ/AOhbrhxVoyt0/ukmTnujgvPjJkc0Mpao+AYDzVGY2BBc
-	 Xhrx4zD87FT03XcUULJRa6VwIjxfmD7yTl2rLLhTt5cjoc5JW68duQ3Qf+uM9Jrz4j
-	 rr7S0Ung81PeWQcI68J43mTXcaj6ANoXZEyaoR/jwvKCkYEWJTHC937uWimpIH12MG
-	 rnXoIIq8c4dWm83PIh67hiww83OuQ1QUNEnAMjT18ZbCcH1EGd/x9KXNvrccllBORO
-	 UOLI1OnSS0B7aCc/VR/2nlT37MWv4JGtVqDRs6io7bWdIv4I9nIVZ6psnqiibbgWdu
-	 qeQpf4afTAQWw==
-From: Sasha Levin <sashal@kernel.org>
+	b=HJAq2PQvRZRK8YFVy2qY4cfXO1CX+/IngMq1yLGATsX49z2X3+Jli7kVTGR6w0V+/
+	 0wB3EkOiq9raOxC0DTL4uixPnD6M3ibVs3z315yRjxaTUjkpTxy2ORJAj1Lu34kdGz
+	 8Jd4U3+Q5KMbLvOV/jEDR+OAWceewOVjfITQPZkY=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Steve French <stfrench@microsoft.com>,
-	"Paulo Alcantara (SUSE)" <pc@manguebit.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/2] smb3: make query_on_disk_id open context consistent and move to common code
-Date: Wed, 30 Sep 2026 13:33:57 -0400
-Message-ID: <20260930173358.3641932-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092930-badly-dust-d0e0@gregkh>
-References: <2026092930-badly-dust-d0e0@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Peiyang He <peiyang_he@smail.nju.edu.cn>,
+	Lyude Paul <lyude@redhat.com>
+Subject: [PATCH 6.12 494/877] drm/nouveau: dont bump pin count on failed re-pin in nouveau_bo_pin_locked()
+Date: Wed, 30 Sep 2026 17:23:25 +0200
+Message-ID: <20260930152425.322495653@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930152414.738996857@linuxfoundation.org>
+References: <20260930152414.738996857@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,109 +46,127 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Steve French <stfrench@microsoft.com>
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 1149c8467ddebfb6bb9aab37830f70a49cab7085 ]
+------------------
 
-cifs and ksmbd were using a slightly different version of the query_on_disk_id
-struct which could be confusing. Use the ksmbd version of this struct, and
-move it to common code.
+From: Peiyang He <peiyang_he@smail.nju.edu.cn>
 
-Reviewed-by: Paulo Alcantara (SUSE) <pc@manguebit.com>
-Signed-off-by: Steve French <stfrench@microsoft.com>
+commit 6a6870d3077faa501ca97760057ddca22b68418d upstream.
 
-[5.15 dependency adaptation for 67f4c1c6a1b:
-Keep the create-context declarations in the existing per-subsystem headers.
-This tree has not consolidated create_context into smbfs_common, and ksmbd
-still defines its own SMB2 headers. Moving the response into the common
-header would require unrelated header conversions.
+nouveau_bo_pin_locked() checks whether an already pinned BO is in a
+memory domain compatible with a new pin request. When the domains are
+incompatible, it sets -EBUSY but still calls ttm_bo_pin() before
+returning.
 
-Retain the client response rename and match ksmbd's 16-byte Reserved array,
-without changing the packed wire layout. Leave the ksmbd and common headers
-unchanged and omit the upstream common-header lease comments.
+Callers treat a failed nouveau_bo_pin() as not having acquired a new pin,
+so the extra pin count is never decreased by a matching unpin.
+This triggers the warning in ttm_bo_release():
 
-Rename the client's lease-break flag and both existing parser uses to the
-upstream _LE spelling. This is a value-preserving prerequisite for the
-target's lease-parser changes; no functions are added.]
+	WARN_ON_ONCE(bo->pin_count);
 
-[ sashal: Reduced backport -- upstream 1149c8467ddeb touches 4 file(s), this
-  backport carries 3. Not backported here:
-  fs/ksmbd/smb2pdu.h
-  fs/smbfs_common/smb2pdu.h
-  This note is generated from the file lists only; see the resolution record
-  for the reasoning. ]
+Found when fuzzing the nouveau driver with a modified Syzkaller:
 
-Stable-dep-of: 67f4c1c6a1b5 ("smb: client: fix create context out-of-bounds reads")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+	WARNING: drivers/gpu/drm/ttm/ttm_bo.c:256 at ttm_bo_release+0x827/0x9e0 drivers/gpu/drm/ttm/ttm_bo.c:256, CPU#1: syz.3.24/2212
+	Modules linked in:
+	CPU: 1 UID: 0 PID: 2212 Comm: syz.3.24 Not tainted 7.2.0 #24 PREEMPT(lazy)
+	nouveau 0000:01:00.0: gsp:msg fn:103 len:0x40/0x20 res:0x19 resp:0x19
+	Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+	RIP: 0010:ttm_bo_release+0x827/0x9e0 drivers/gpu/drm/ttm/ttm_bo.c:256
+	Code: 02 00 0f 85 51 01 00 00 48 8b 7b 08 e8 d2 20 01 00 e9 80 fd ff ff e8 d8 15 c0 fe 90 0f 0b 90 e9 e1 f8 ff ff e8 ca 15 c0 fe 90 <0f> 0b 90 e9 a4 f8 ff ff e8 bc 15 c0 fe be 03 00 00 00 4c 89 e7 e8
+	msg: 00000000: 05 00 d0 c1 04 00 f0 f1 01 30 00 00 2d 90 00 00  .........0..-...
+	RSP: 0018:ffffc9000f5cf710 EFLAGS: 00010293
+	RAX: 0000000000000000 RBX: ffff888018e5d2a8 RCX: ffffffff82bb1b36
+	RDX: ffff888017b68000 RSI: 0000000000000004 RDI: ffff888018e5d2a8
+	msg: 00000010: 19 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+	RBP: ffff88801261c720 R08: 0000000000000001 R09: ffffed10031cba55
+	R10: ffff888018e5d2ab R11: 00000000000000f3 R12: ffff888018e5d290
+	R13: ffff888018e5d2d4 R14: ffff88801b219c18 R15: dffffc0000000000
+	FS:  0000000000000000(0000) GS:ffff8880e0f6f000(0000) knlGS:0000000000000000
+	CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+	CR2: 0000001b31223ffc CR3: 0000000028e00005 CR4: 0000000000770ef0
+	PKRU: 80000000
+	Call Trace:
+	<TASK>
+	kref_put include/linux/kref.h:65 [inline]
+	ttm_bo_put drivers/gpu/drm/ttm/ttm_bo.c:325 [inline]
+	ttm_bo_fini+0x55/0x80 drivers/gpu/drm/ttm/ttm_bo.c:330
+	nouveau_gem_object_del+0xb2/0x1b0 drivers/gpu/drm/nouveau/nouveau_gem.c:90
+	drm_gem_object_free+0x5f/0x90 drivers/gpu/drm/drm_gem.c:1165
+	kref_put include/linux/kref.h:65 [inline]
+	__drm_gem_object_put include/drm/drm_gem.h:562 [inline]
+	drm_gem_object_put include/drm/drm_gem.h:575 [inline]
+	nouveau_abi16_chan_fini.constprop.0+0x44f/0x5a0 drivers/gpu/drm/nouveau/nouveau_abi16.c:195
+	nouveau 0000:01:00.0: syz.2.23[2209]: Unknown handle 0x00000000
+	nouveau_abi16_fini+0x1d0/0x340 drivers/gpu/drm/nouveau/nouveau_abi16.c:225
+	nouveau_drm_postclose+0x18b/0x3e0 drivers/gpu/drm/nouveau/nouveau_drm.c:1284
+	nouveau 0000:01:00.0: syz.2.23[2209]: validate_init
+	drm_file_free.part.0+0x6d6/0xb60 drivers/gpu/drm/drm_file.c:267
+	drm_file_free drivers/gpu/drm/drm_file.c:237 [inline]
+	drm_close_helper.isra.0+0x11a/0x160 drivers/gpu/drm/drm_file.c:290
+	drm_release+0x1ab/0x330 drivers/gpu/drm/drm_file.c:438
+	__fput+0x39c/0xa60 fs/file_table.c:512
+	nouveau 0000:01:00.0: syz.2.23[2209]: validate: -2
+	task_work_run+0x15a/0x230 kernel/task_work.c:233
+	exit_task_work include/linux/task_work.h:40 [inline]
+	do_exit+0x82b/0x25a0 kernel/exit.c:1009
+	do_group_exit+0xc2/0x280 kernel/exit.c:1152
+	get_signal+0x1d6e/0x1f30 kernel/signal.c:3046
+	arch_do_signal_or_restart+0x7d/0x6e0 arch/x86/kernel/signal.c:337
+	__exit_to_user_mode_loop kernel/entry/common.c:66 [inline]
+	exit_to_user_mode_loop+0xdf/0x440 kernel/entry/common.c:101
+	__exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
+	syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
+	syscall_exit_to_user_mode include/linux/entry-common.h:318 [inline]
+	do_syscall_64+0x4f8/0x690 arch/x86/entry/syscall_64.c:100
+	entry_SYSCALL_64_after_hwframe+0x77/0x7f
+	RIP: 0033:0x7f12bac8594d
+	Code: Unable to access opcode bytes at 0x7f12bac85923.
+	RSP: 002b:00007f12b96e70d8 EFLAGS: 00000246 ORIG_RAX: 00000000000000ca
+	RAX: 0000000000000001 RBX: 00007f12baf15fa8 RCX: 00007f12bac8594d
+	RDX: 00000000000f4240 RSI: 0000000000000081 RDI: 00007f12baf15fac
+	RBP: 00007f12baf15fa0 R08: 00007f12baee8000 R09: 0000000000000000
+	R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+	R13: 00007f12baf16038 R14: 0000000000000006 R15: 00007ffe2ed394b0
+	</TASK>
+	irq event stamp: 47867
+	hardirqs last  enabled at (47883): [<ffffffff815cafc6>] __up_console_sem+0x66/0x70 kernel/printk/printk.c:347
+	hardirqs last disabled at (47892): [<ffffffff815cafab>] __up_console_sem+0x4b/0x70 kernel/printk/printk.c:345
+	softirqs last  enabled at (47880): [<ffffffff81434277>] __do_softirq kernel/softirq.c:656 [inline]
+	softirqs last  enabled at (47880): [<ffffffff81434277>] invoke_softirq kernel/softirq.c:496 [inline]
+	softirqs last  enabled at (47880): [<ffffffff81434277>] __irq_exit_rcu+0x137/0x1c0 kernel/softirq.c:735
+	softirqs last disabled at (47875): [<ffffffff81434277>] __do_softirq kernel/softirq.c:656 [inline]
+	softirqs last disabled at (47875): [<ffffffff81434277>] invoke_softirq kernel/softirq.c:496 [inline]
+	softirqs last disabled at (47875): [<ffffffff81434277>] __irq_exit_rcu+0x137/0x1c0 kernel/softirq.c:735
+
+Fix by calling ttm_bo_pin() only when the existing placement is compatible
+with the new pin request. This matches the correct behavior in other DRM
+drivers such as amdgpu_bo_pin() in amdgpu.
+
+Cc: stable@vger.kernel.org
+Fixes: ad76b3f7c7a0 ("drm/nouveau: teach nouveau_bo_pin() how to force a contig vram allocation")
+Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+Assisted-by: LLM
+Reviewed-by: Lyude Paul <lyude@redhat.com>
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+Link: https://patch.msgid.link/EACEF2F4E098413F+20260918025312.2814889-1-peiyang_he@smail.nju.edu.cn
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- fs/cifs/smb2ops.c | 4 ++--
- fs/cifs/smb2pdu.c | 2 +-
- fs/cifs/smb2pdu.h | 6 +++---
- 3 files changed, 6 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/nouveau/nouveau_bo.c |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/fs/cifs/smb2ops.c b/fs/cifs/smb2ops.c
-index 3aaa45375d8ba..cd47852103da2 100644
---- a/fs/cifs/smb2ops.c
-+++ b/fs/cifs/smb2ops.c
-@@ -4405,7 +4405,7 @@ smb2_parse_lease_buf(void *buf, unsigned int *epoch, char *lease_key)
- 	struct create_lease *lc = (struct create_lease *)buf;
+--- a/drivers/gpu/drm/nouveau/nouveau_bo.c
++++ b/drivers/gpu/drm/nouveau/nouveau_bo.c
+@@ -501,8 +501,9 @@ int nouveau_bo_pin_locked(struct nouveau
+ 				      "0x%08x vs 0x%08x\n", bo,
+ 				 bo->resource->mem_type, domain);
+ 			ret = -EBUSY;
++		} else {
++			ttm_bo_pin(&nvbo->bo);
+ 		}
+-		ttm_bo_pin(&nvbo->bo);
+ 		goto out;
+ 	}
  
- 	*epoch = 0; /* not used */
--	if (lc->lcontext.LeaseFlags & SMB2_LEASE_FLAG_BREAK_IN_PROGRESS)
-+	if (lc->lcontext.LeaseFlags & SMB2_LEASE_FLAG_BREAK_IN_PROGRESS_LE)
- 		return SMB2_OPLOCK_LEVEL_NOCHANGE;
- 	return le32_to_cpu(lc->lcontext.LeaseState);
- }
-@@ -4416,7 +4416,7 @@ smb3_parse_lease_buf(void *buf, unsigned int *epoch, char *lease_key)
- 	struct create_lease_v2 *lc = (struct create_lease_v2 *)buf;
- 
- 	*epoch = le16_to_cpu(lc->lcontext.Epoch);
--	if (lc->lcontext.LeaseFlags & SMB2_LEASE_FLAG_BREAK_IN_PROGRESS)
-+	if (lc->lcontext.LeaseFlags & SMB2_LEASE_FLAG_BREAK_IN_PROGRESS_LE)
- 		return SMB2_OPLOCK_LEVEL_NOCHANGE;
- 	if (lease_key)
- 		memcpy(lease_key, &lc->lcontext.LeaseKey, SMB2_LEASE_KEY_SIZE);
-diff --git a/fs/cifs/smb2pdu.c b/fs/cifs/smb2pdu.c
-index e93dd51a88557..52e63bd6b717b 100644
---- a/fs/cifs/smb2pdu.c
-+++ b/fs/cifs/smb2pdu.c
-@@ -2019,7 +2019,7 @@ create_reconnect_durable_buf(struct cifs_fid *fid)
- static void
- parse_query_id_ctxt(struct create_context *cc, struct smb2_file_all_info *buf)
- {
--	struct create_on_disk_id *pdisk_id = (struct create_on_disk_id *)cc;
-+	struct create_disk_id_rsp *pdisk_id = (struct create_disk_id_rsp *)cc;
- 
- 	cifs_dbg(FYI, "parse query id context 0x%llx 0x%llx\n",
- 		pdisk_id->DiskFileId, pdisk_id->VolumeId);
-diff --git a/fs/cifs/smb2pdu.h b/fs/cifs/smb2pdu.h
-index 712d256c0d4f5..1a8dc46024877 100644
---- a/fs/cifs/smb2pdu.h
-+++ b/fs/cifs/smb2pdu.h
-@@ -571,7 +571,7 @@ struct create_context {
- #define SMB2_LEASE_HANDLE_CACHING	cpu_to_le32(0x02)
- #define SMB2_LEASE_WRITE_CACHING	cpu_to_le32(0x04)
- 
--#define SMB2_LEASE_FLAG_BREAK_IN_PROGRESS cpu_to_le32(0x00000002)
-+#define SMB2_LEASE_FLAG_BREAK_IN_PROGRESS_LE cpu_to_le32(0x00000002)
- #define SMB2_LEASE_FLAG_PARENT_LEASE_KEY_SET cpu_to_le32(0x00000004)
- 
- #define SMB2_LEASE_KEY_SIZE 16
-@@ -653,12 +653,12 @@ struct durable_reconnect_context_v2 {
- } __packed;
- 
- /* See MS-SMB2 2.2.14.2.9 */
--struct create_on_disk_id {
-+struct create_disk_id_rsp {
- 	struct create_context ccontext;
- 	__u8   Name[8];
- 	__le64 DiskFileId;
- 	__le64 VolumeId;
--	__u32  Reserved[4];
-+	__u8  Reserved[16];
- } __packed;
- 
- /* See MS-SMB2 2.2.14.2.12 */
--- 
-2.53.0
+
 
