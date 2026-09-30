@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B84E3B637C
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 15:09:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3C174F68A7
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 15:10:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790781003; cv=none; b=rfghNFybw53Tyi/k552p+FSLxvMmJnjMdJxgGoGkgbKqD0lKA4hOqxGxwY9L0s9SXDaSWs6kpCo7azb8AtfmsZgOLBFJozY12S7+DQlYOPleN/8/oUHGiFE+3AI1bYY9jJ3xHi0uhSQ2xNFrVnHd0AoMWUmd5ndAQlCL0oQNkPg=
+	t=1790781009; cv=none; b=QRPeyIPIdNU2/IBXH0OGhfZTXXst6EdRq4c/AYkKQ6TdDFG2qV4Dc3kHcZqAOUUvPoBRQN3mqIHllf+kHdqfYR0a5N8NdG00Oe+J3weQvUS1CKOvBL1oDSdYw/MN+dhKEthsbfJ6EJ0kzLR4HB0HbPHqUgglE4EuyDGLs/lI1CU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790781003; c=relaxed/simple;
-	bh=6xk0seWRDJmqihGfcZYYrCptTVX4OFJfVW1+IoDPaGs=;
+	s=arc-20240116; t=1790781009; c=relaxed/simple;
+	bh=w/nAq0ffg/emmBT/lvgUfecIcALpGl+k8H2xCN7+9Ds=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fnHI/jSbzKA4Gd+tJ910vfqCSVqyIHCpKMdc53O7LEZ9I+6o9JRqTpsC8qtF5DAQScp4ELqguLpDOgAXulr6kAcZBIfkOiyYiau79Rfqnik5NjqhDqczHxShFGQj1eVU23VJVHVKyAXwE66+A8MJS+2wwti8WHo1KFUUE1A1fKU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aW0ON50M; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=KYhyqxVSeY1lMmAh4N32Jbohr1XZn+/EJRFV3VOeKvNSQekyeWiRSiA9dckMb78su0X9n9QxqDubSjzEEEJ9UXfD0YZ+oZeNC/AM1S0s1ngeGr0t+v8JUCqr4YrGoko1Bs5IWlMZ5LmTL672whDYL4Tx+qi/+rPRIwYbSPeCkr0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hFP1vCe2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aW0ON50M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A06B81F00893;
-	Wed, 30 Sep 2026 15:09:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hFP1vCe2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D88FE1F0089E;
+	Wed, 30 Sep 2026 15:10:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790780999;
-	bh=2LZlEQMc9DsKwt33jKuirtSLtsOea9SANkMV5a8vcog=;
+	s=k20260515; t=1790781002;
+	bh=VQbR1ik7T3x3Tym7KPrzgkwU81oltJuq7iNbIn3pQBc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aW0ON50Md7ln1IPSsC9WA07V93yhWuvQXTRLb1om9iyjUQ6XIQMA1liq1qFrPiIKN
-	 ioqNqe4bRjBE3geMFMKXBSwG6kCZZYjlfQ1ET67HRPrKBSXm7rhVTQ+9Y/1hJn5Wvf
-	 4142rTGBEadg4hDAsA+XvnNmy+fvZCSEh96nGyA6jYvuKwuRj3mBq2fHeugx6vIytF
-	 ck28m9LyScpZ1yRmwvgaqc/wHnL3yQoo+NRJRR6WoOynVY5Ed0DJTKtdcqNcIsn4wu
-	 ZlrZWsice8kKfOAsCvceDlqFDii4Hz30CB7wHpb4XbH10KnjuKUO5w+T3Sz2nST9FP
-	 73BHfLO8NxRnQ==
+	b=hFP1vCe2cMLgnpPFyKY5gE8AOgIYvqhaOS2Umud4QW+j/RSM5zATWZpUekvCstECd
+	 cXN7uMkKtjlYhomabsibOaOzcEtlzumQJLLWu8bCfl4QqlJkIjyqwR6MY18ViYsIbx
+	 W7z8CuU9vhXLTKX02oi+7RU+izUP3FiZypOEQRkAv8uwpkIDPGg7v9In0oa6PWyih9
+	 KGn/C1YSjgb0v2yt8w7g4kd4MzkquDY3BZhUAE3r0XatqVvAGHX46Sz2NkKpAmRp96
+	 PqkzpqZJP697mnagIV4njtNpwJ7nqIsDarggGkben4/cFPlf2wiho1AM01vo8pTGZB
+	 TT4x3jSax4FPQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sean Christopherson <seanjc@google.com>,
-	Yosry Ahmed <yosry@kernel.org>,
-	Kai Huang <kai.huang@intel.com>,
-	Binbin Wu <binbin.wu@linux.intel.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
+	Jinwoo Lee <rkskek9254@gmail.com>,
+	Stefan Teodorescu <fane@google.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/5] KVM: x86: Move IRQ-related helper declarations from kvm_host.h => irq.h
-Date: Wed, 30 Sep 2026 11:09:53 -0400
-Message-ID: <20260930150957.2359214-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 5/5] KVM: x86: Re-pend GET_NESTED_STATE_PAGES if getting said pages fails
+Date: Wed, 30 Sep 2026 11:09:57 -0400
+Message-ID: <20260930150957.2359214-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092945-breath-candle-8e2c@gregkh>
+In-Reply-To: <20260930150957.2359214-1-sashal@kernel.org>
 References: <2026092945-breath-candle-8e2c@gregkh>
+ <20260930150957.2359214-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,86 +49,43 @@ Content-Transfer-Encoding: 8bit
 
 From: Sean Christopherson <seanjc@google.com>
 
-[ Upstream commit 0bdd2d6d7328a7debcf138a7d6ef95d01a26b1b8 ]
+[ Upstream commit 10180a277549339020b08000206092c07e0bff5a ]
 
-Move the function declaration for APIs to get/query pending IRQs from
-kvm_host.h to irq.h, as the APIs are only used by KVM x86 code.
+Re-pend GET_NESTED_STATE_PAGES before exiting to userspace if getting the
+nested pages fails in the KVM_RUN path.  If userspace re-runs the vCPU, and
+vmcs02 holds valid PFNs from the *previous* run of L2, then KVM could
+re-enter L2 with stale, unpinned PFNs mapped into e.g. the vAPIC page.
 
-No functional change intended.
+Note, both SVM and VMX (as of commit 11722439fb20 ("KVM: nVMX: Ensure
+KVM_REQ_GET_NESTED_STATE_PAGES is cleared on VM-Exit") ensure the request
+is cleared on VM-Exit (including the "forced" case), i.e. there is no risk
+of double-mapping due to emulated VMLAUNCH/VMRESUME/VMRUN *and* the request
+trying to map the nested pages.
 
-Reviewed-by: Yosry Ahmed <yosry@kernel.org>
+Fixes: 671ddc700fd0 ("KVM: nVMX: Don't leak L1 MMIO regions to L2")
+Cc: stable@vger.kernel.org
+Reported-by: Jinwoo Lee <rkskek9254@gmail.com>
+Closes: https://lore.kernel.org/all/20260813043932.3214460-1-rkskek9254@gmail.com
+Reported-by: Stefan Teodorescu <fane@google.com>
+Link: https://patch.msgid.link/20260921211608.1030158-2-seanjc@google.com
 Signed-off-by: Sean Christopherson <seanjc@google.com>
-Reviewed-by: Kai Huang <kai.huang@intel.com>
-Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
-Message-ID: <20260613000329.732085-25-seanjc@google.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-Stable-dep-of: 10180a277549 ("KVM: x86: Re-pend GET_NESTED_STATE_PAGES if getting said pages fails")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/include/asm/kvm_host.h | 5 -----
- arch/x86/kvm/irq.h              | 6 ++++++
- arch/x86/kvm/svm/nested.c       | 1 +
- arch/x86/kvm/vmx/nested.c       | 1 +
- 4 files changed, 8 insertions(+), 5 deletions(-)
+ arch/x86/kvm/x86.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
-index 03866683ac336..5f1ed8f88ec7c 100644
---- a/arch/x86/include/asm/kvm_host.h
-+++ b/arch/x86/include/asm/kvm_host.h
-@@ -2379,12 +2379,7 @@ enum {
- # define kvm_memslots_for_spte_role(kvm, role) __kvm_memslots(kvm, 0)
- #endif
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index 2ada9af819a58..ae33393c9b479 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -10708,6 +10708,7 @@ static int vcpu_enter_guest(struct kvm_vcpu *vcpu)
  
--int kvm_cpu_has_injectable_intr(struct kvm_vcpu *v);
--int kvm_cpu_has_interrupt(struct kvm_vcpu *vcpu);
--int kvm_cpu_has_extint(struct kvm_vcpu *v);
- int kvm_arch_interrupt_allowed(struct kvm_vcpu *vcpu);
--int kvm_cpu_get_extint(struct kvm_vcpu *v);
--int kvm_cpu_get_interrupt(struct kvm_vcpu *v);
- void kvm_vcpu_reset(struct kvm_vcpu *vcpu, bool init_event);
- 
- int kvm_pv_send_ipi(struct kvm *kvm, unsigned long ipi_bitmap_low,
-diff --git a/arch/x86/kvm/irq.h b/arch/x86/kvm/irq.h
-index 34f4a78a7a010..1a84ea31e7fd2 100644
---- a/arch/x86/kvm/irq.h
-+++ b/arch/x86/kvm/irq.h
-@@ -112,6 +112,12 @@ static inline int irqchip_in_kernel(struct kvm *kvm)
- 	return mode != KVM_IRQCHIP_NONE;
- }
- 
-+int kvm_cpu_has_injectable_intr(struct kvm_vcpu *v);
-+int kvm_cpu_has_interrupt(struct kvm_vcpu *vcpu);
-+int kvm_cpu_has_extint(struct kvm_vcpu *v);
-+int kvm_cpu_get_extint(struct kvm_vcpu *v);
-+int kvm_cpu_get_interrupt(struct kvm_vcpu *v);
-+
- void kvm_inject_pending_timer_irqs(struct kvm_vcpu *vcpu);
- void kvm_inject_apic_timer_irqs(struct kvm_vcpu *vcpu);
- void kvm_apic_nmi_wd_deliver(struct kvm_vcpu *vcpu);
-diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
-index 66b8955a1658e..df54df7ae2013 100644
---- a/arch/x86/kvm/svm/nested.c
-+++ b/arch/x86/kvm/svm/nested.c
-@@ -23,6 +23,7 @@
- 
- #include "kvm_emulate.h"
- #include "trace.h"
-+#include "irq.h"
- #include "mmu.h"
- #include "x86.h"
- #include "smm.h"
-diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
-index bc5aa7456aac9..69b96a6d76202 100644
---- a/arch/x86/kvm/vmx/nested.c
-+++ b/arch/x86/kvm/vmx/nested.c
-@@ -11,6 +11,7 @@
- #include "x86.h"
- #include "cpuid.h"
- #include "hyperv.h"
-+#include "irq.h"
- #include "mmu.h"
- #include "nested.h"
- #include "pmu.h"
+ 		if (kvm_check_request(KVM_REQ_GET_NESTED_STATE_PAGES, vcpu)) {
+ 			if (unlikely(!kvm_nested_call(get_nested_state_pages)(vcpu))) {
++				kvm_make_request(KVM_REQ_GET_NESTED_STATE_PAGES, vcpu);
+ 				r = 0;
+ 				goto out;
+ 			}
 -- 
 2.53.0
 
