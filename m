@@ -1,73 +1,162 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D4F3503BEF;
-	Wed, 30 Sep 2026 15:39:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B3CA4EDCA2;
+	Wed, 30 Sep 2026 15:39:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790782754; cv=none; b=szhQwlQF4QC5WC0ZQavPSIoqD9odYHRmvJT7CRhlKzym6zbEzkNM1pK8KXyYRyftzA6koujFoyVOZBRELLCdriEX2JRY/YV2ewoVQM+QNqNJ86KPNdthvmb8Y9HCIYow4k84jCw4QpNxMt2lNXf+hoZsEyG+QUYppPasDRNjyMU=
+	t=1790782755; cv=none; b=GRk5G34jv5bS695bYomDkQQth89UDFmw3ob0F8YfHuSYEGhRB72HS9EZ42S90MKeqbbwGdLPvEPfdxRL+QrCX9udnXFVWC3MQMaceBUG/345eQBAvYKiTwXpewwl9CLBICx20+4eEbiYQXHqIfmiRkWlnOUt7SvaF3fUT3ZVGb0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790782754; c=relaxed/simple;
-	bh=lFX3KZrfU92MnwavGd458xUvv9N7aTb4w8OPb37E7w4=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References; b=NWh73ffISGVQZqLK8H75CRXUY2jKw4NDzcw3IvY5mB9oz6dIRJtAVyCn+CmJQF71YDDCwfWSNX2W/eN4P3+9oMl7WetQB8kdi6AawIRr5FeRIXskt2mVUuQSMtVBef1uX06sss/Y2/7BlHPjACgJ0EdJkItKAAfHB9K3rhMXDlw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=c8oViUrZ; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790782755; c=relaxed/simple;
+	bh=SwoKgjmG3yGuIMiev/zeUouRP6IvUQlGPoStQ07e9DA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hGQ6KTHEWyTpOQ2geq4J2ZwHF7/4K6CV6W0yHsC2oW9XmBUKg7LFUFoaYLf4sfrEDqbbneR6GS3a/B4+2xuM34DQFVF38XrVIh1gqovjKlaN4P06c4CELyeomwaHKm3GdfnUID4BHiPdfTYItYV7dtr0T6vAABuVmeZA2mJttVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=powHj/P7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="c8oViUrZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:From:To:Subject:Date; bh=lFX3KZrfU92Mnwa
-	vGd458xUvv9N7aTb4w8OPb37E7w4=; b=c8oViUrZb745itfq7fMVxefKZ+XVeLl
-	78tvnQ9DmI6OjNiChVYcOPztcQyErfVR+fT6XeUboaHZ+TgHiqrSpGgCvOi9ElMu
-	fzdl6mNB/tm+KtoYC7UzT/mHG9qSV+iKP994uS2TlM5Jn1r/8o3TPmJGPsll8u1e
-	SRe/DAkwrgfo=
-Received: from localhost (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3xwClLL1qzuoqBw--.14516S2;
-	Wed, 30 Sep 2026 23:37:10 +0800 (CST)
-Message-ID: <68e1d1e0cdfc633520a6593fdcdb3b72.sh_def@163.com>
-From: Hui Su <sh_def@163.com>
-To: sched-ext@lists.linux.dev
-Cc: tj@kernel.org,
- void@manifault.com,
- arighi@nvidia.com,
- changwoo@igalia.com,
- mingo@redhat.com,
- peterz@infradead.org,
- juri.lelli@redhat.com,
- vincent.guittot@linaro.org,
- dietmar.eggemann@arm.com,
- rostedt@goodmis.org,
- bsegall@google.com,
- mgorman@suse.de,
- vschneid@redhat.com,
- kprateek.nayak@amd.com,
- linux-kernel@vger.kernel.org,
- Hui Su <sh_def@163.com>,
- stable@vger.kernel.org
-Subject: Re: [PATCH] sched_ext: Hold DSQ refs for deferred reenqueues
-Date: Thu, 01 Oct 2026 00:20:49 +0900
-In-Reply-To: <20260930143443.2862150-1-sh_def@163.com>
-References: <20260930143443.2862150-1-sh_def@163.com>
-X-CM-TRANSID:_____wD3xwClLL1qzuoqBw--.14516S2
-X-Coremail-Antispam: 1Uf129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjTRRuWlUUUUU
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwgY+nWq9LKZoPgAA3s
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="powHj/P7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBC371F00898;
+	Wed, 30 Sep 2026 15:39:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790782749;
+	bh=arqTP0iogtEYpufnZ83Gj0NVW//KOgqjSqahXeZn8hM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=powHj/P7HAy8+A/7niSV98gniKzmqNZpB5dlObebETHBcl9WlB5z5hMGcRdZWNLNH
+	 FZ/8tFmE0/+5m4CzEy4DwxU6nGwlFxrE/gCuh6tbHkQxlhpo4WbsiopzMJUAs3jeFn
+	 r36bSTCWPYYKNXa2fxAMJgTwQeqKRE4+6qRLkXFc=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Takashi Iwai <tiwai@suse.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10 154/595] ALSA: usb-audio: caiaq: validate EP1 reply lengths
+Date: Wed, 30 Sep 2026 17:20:47 +0200
+Message-ID: <20260930152351.046754602@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930152347.700140858@linuxfoundation.org>
+References: <20260930152347.700140858@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Please disregard this posting. This was intended to be v2, but I
-accidentally omitted the version tag.
+5.10-stable review patch.  If anyone has any objections, please let me know.
 
-I am preparing v3 to address the review feedback. In particular, it
-will serialize exit_dsq() with deferred detach/reference acquisition
-using deferred_reenq_lock, and keep final DSQ reclamation out of the
-deferred path while the rq raw spinlock is held.
+------------------
 
-The revised design keeps a single DSQ refcount and the existing
-rcu_head, without polling the refcount from repeated RCU callbacks.
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
 
-I will post v3 after revalidation. Sorry for the confusion.
+[ Upstream commit aba30af07d4fe499b50209801eba9da8a815522f ]
+
+usb_ep1_command_reply_dispatch() uses buf[0] as a command byte and then
+reads command-specific fixed items from the same URB buffer. Several
+paths use buf + 1, buf[1], buf[2], or buf + 3 without first proving that
+urb->actual_length contains those bytes.
+
+Add per-command length checks, use a payload length derived from the
+bytes after the command byte for the control-state copy, and reject short
+analog input payloads before the input helper reads fixed offsets from
+the EP1 reply.
+
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Link: https://patch.msgid.link/20260705084601.56400-1-pengpeng@iscas.ac.cn
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/usb/caiaq/device.c | 17 ++++++++++++++---
+ sound/usb/caiaq/input.c  |  6 ++++++
+ 2 files changed, 20 insertions(+), 3 deletions(-)
+
+diff --git a/sound/usb/caiaq/device.c b/sound/usb/caiaq/device.c
+index ba1029f8eeb7e..8594cefdeba2c 100644
+--- a/sound/usb/caiaq/device.c
++++ b/sound/usb/caiaq/device.c
+@@ -148,14 +148,22 @@ static void usb_ep1_command_reply_dispatch (struct urb* urb)
+ 	struct device *dev = &urb->dev->dev;
+ 	struct snd_usb_caiaqdev *cdev = urb->context;
+ 	unsigned char *buf = urb->transfer_buffer;
++	unsigned int payload_len;
++	unsigned int copy_len;
+ 
+ 	if (urb->status || !cdev) {
+ 		dev_warn(dev, "received EP1 urb->status = %i\n", urb->status);
+ 		return;
+ 	}
++	if (urb->actual_length < 1)
++		return;
++
++	payload_len = urb->actual_length - 1;
+ 
+ 	switch(buf[0]) {
+ 	case EP1_CMD_GET_DEVICE_INFO:
++		if (payload_len < sizeof(struct caiaq_device_spec))
++			break;
+ 	 	memcpy(&cdev->spec, buf+1, sizeof(struct caiaq_device_spec));
+ 		cdev->spec.fw_version = le16_to_cpu(cdev->spec.fw_version);
+ 		dev_dbg(dev, "device spec (firmware %d): audio: %d in, %d out, "
+@@ -171,18 +179,21 @@ static void usb_ep1_command_reply_dispatch (struct urb* urb)
+ 		wake_up(&cdev->ep1_wait_queue);
+ 		break;
+ 	case EP1_CMD_AUDIO_PARAMS:
++		if (payload_len < 1)
++			break;
+ 		cdev->audio_parm_answer = buf[1];
+ 		wake_up(&cdev->ep1_wait_queue);
+ 		break;
+ 	case EP1_CMD_MIDI_READ:
++		if (urb->actual_length < 3 || urb->actual_length - 3 < buf[2])
++			break;
+ 		snd_usb_caiaq_midi_handle_input(cdev, buf[1], buf + 3, buf[2]);
+ 		break;
+ 	case EP1_CMD_READ_IO:
+ 		if (cdev->chip.usb_id ==
+ 			USB_ID(USB_VID_NATIVEINSTRUMENTS, USB_PID_AUDIO8DJ)) {
+-			if (urb->actual_length > sizeof(cdev->control_state))
+-				urb->actual_length = sizeof(cdev->control_state);
+-			memcpy(cdev->control_state, buf + 1, urb->actual_length);
++			copy_len = min_t(unsigned int, payload_len, sizeof(cdev->control_state));
++			memcpy(cdev->control_state, buf + 1, copy_len);
+ 			wake_up(&cdev->ep1_wait_queue);
+ 			break;
+ 		}
+diff --git a/sound/usb/caiaq/input.c b/sound/usb/caiaq/input.c
+index 2db4d1332df1c..c12eeb9710002 100644
+--- a/sound/usb/caiaq/input.c
++++ b/sound/usb/caiaq/input.c
+@@ -203,6 +203,8 @@ static void snd_caiaq_input_read_analog(struct snd_usb_caiaqdev *cdev,
+ 
+ 	switch (cdev->chip.usb_id) {
+ 	case USB_ID(USB_VID_NATIVEINSTRUMENTS, USB_PID_RIGKONTROL2):
++		if (len < 6)
++			return;
+ 		snd_caiaq_input_report_abs(cdev, ABS_X, buf, 2);
+ 		snd_caiaq_input_report_abs(cdev, ABS_Y, buf, 0);
+ 		snd_caiaq_input_report_abs(cdev, ABS_Z, buf, 1);
+@@ -210,11 +212,15 @@ static void snd_caiaq_input_read_analog(struct snd_usb_caiaqdev *cdev,
+ 	case USB_ID(USB_VID_NATIVEINSTRUMENTS, USB_PID_RIGKONTROL3):
+ 	case USB_ID(USB_VID_NATIVEINSTRUMENTS, USB_PID_KORECONTROLLER):
+ 	case USB_ID(USB_VID_NATIVEINSTRUMENTS, USB_PID_KORECONTROLLER2):
++		if (len < 6)
++			return;
+ 		snd_caiaq_input_report_abs(cdev, ABS_X, buf, 0);
+ 		snd_caiaq_input_report_abs(cdev, ABS_Y, buf, 1);
+ 		snd_caiaq_input_report_abs(cdev, ABS_Z, buf, 2);
+ 		break;
+ 	case USB_ID(USB_VID_NATIVEINSTRUMENTS, USB_PID_TRAKTORKONTROLX1):
++		if (len < 16)
++			return;
+ 		snd_caiaq_input_report_abs(cdev, ABS_HAT0X, buf, 4);
+ 		snd_caiaq_input_report_abs(cdev, ABS_HAT0Y, buf, 2);
+ 		snd_caiaq_input_report_abs(cdev, ABS_HAT1X, buf, 6);
+-- 
+2.53.0
+
+
 
