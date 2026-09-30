@@ -1,77 +1,60 @@
-Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63FEA72630
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 01:07:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A857719067C;
+	Wed, 30 Sep 2026 01:11:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790730454; cv=none; b=FC58RgZko1u7y1xy+h5rVvrSRweHMH1Jf0DLzuRtVqV3VamW7fh8EdmFnoWsT2J0cnCXtmLHBRLYVHwaW8v42fqDLtpTEXbVlJNhWDRNnxk4tjNOMr6u7/TcJRmLG6d9FPNuJ5VtbrLE6HkbACP32Vnb/825jm4HU9GJiuBJpJ0=
+	t=1790730708; cv=none; b=HGMUC3zvFTVCPwNiw8SPcxb1/AC6nZ/HJzLa3u5iW4u+Q2XLY+s0U0497wspFaVxS7t97HstXSwORSW3hg/ZEnGnnh8Ni3MFfsLWF4LYimp731qGRBsRsdjzrAG9cG7FjKNCS85qjoQdLjMqyXQchPJZiyF/a+5aPd2o7U7Ra+Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790730454; c=relaxed/simple;
-	bh=dsrb2nnlzQKp7GUWZetEFF/tjXJmHfUQW8Pen/ISFcw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=C4sXTpsr9qBppIXl0Naf5y04ZhU/0nAW3pI9fNxAfGw+8SprINnj5EVnqsmnf8Fl9MCCrW93Lp7q6ONfJsWMn556bJgfNBhG/pWGLPqK7aM3jRZC0aONT+JDphUU3Y5IsNCotWMLluxJZv93W9s2XhYSCv8Hv0Qkz8XEChpzc3E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=Zb5mAF6I; arc=none smtp.client-ip=74.125.229.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	s=arc-20240116; t=1790730708; c=relaxed/simple;
+	bh=lnFlkAgbqG3i9PTWmV5t+5Vf2eSuw7VGoezcD0oekBg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nsAykRpRysJXEmdjnbgbIK/H+gmKI8/geHClg/bQb6vfosIEad7h6nW0NY7Wrh1SPUeTw5CEho6q1jvPhcX5IERkdiWTfEsS0X3RYNPggXngVyB4RYL72+mG2eCM8mKqPr8jWCbMiBpJsJAZhjzp7+TFMnlZEYaSvILNt1iAMVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=c5o2Setz; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=N5qLDJ1k; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="Zb5mAF6I"
-Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-142dd025d06so3500163c88.1
-        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 18:07:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1790730452; x=1791335252; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zaXHRhsayLLA899a0yLIQYT705UjULcNm+T5JbX4Jjk=;
-        b=Zb5mAF6IQZrXlI5N/aWj19PzFMOmZ+q+TVjjjFHCrraTcOOuIWzOToIzAH9N7pZFMT
-         roRmPxKo952Z8BH0eirYauEix1xC2dl2GWilTmD4qeL+TzANxi2CTNZ3p/ay/j0WymWO
-         BqNB7+HXRZ+Quf4XiugkoRlH15/CfKOVbens9YSxkrYCpH/aWXPKnG8Zeh3mNlFSI57H
-         ekJVVF8R2v3/2cIHbFIYT4k6nbqfS1pDlUUwSR9kZHwrqp5WCl7WnKiclwBlvJEjGPUU
-         BhBLH6ecBlkg4+arDafvDNnwNwlaTa92wyM7Y20Fj39ldCFQ/VBvIlCEiDJSBvM/airB
-         GvrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790730452; x=1791335252;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zaXHRhsayLLA899a0yLIQYT705UjULcNm+T5JbX4Jjk=;
-        b=nwAkivI0+u/AzjB6tJexLPfn2iRmtQhxgJiYep5bQaeWxp36qw2qGN02sTPOtJuRfY
-         k7mVWjkPvVgfZE8etkrOWzu4+wyHe820FCT48+b/y0j3ae7W8uSqEHVpLhohwLuI8uVX
-         z0v+W4NWFMP+5ezK/hQwNGq+B24wFWMcH5hQ4mI8KcS4fXLvOCbah3bWlzArts/ZvBxn
-         KY8jJ3fu1xyEtg8BIzegsajyDJmYCfynfICUKg0+6P4Ng5QWTKfwg8TB4CXXsxrghWZp
-         lZpol2DiZfwoisGisrYvllORePRHrbGV0I9qfCdL1rR15LX6fDyHMsDFrwkkrEV6Or3Z
-         R4ow==
-X-Gm-Message-State: AFuF++lwRb4oKOxUQOcdnm2QVVuTxf2gTZk1QG2Rg6IR85HdMTwcexzj
-	UbU2otNhPuFDjIeCkvbFKGfcW2x8O3hT/jjTLzRUu9wsphl69UEfRZPac/9+Daf14jg/pj8t69A
-	dw3PiSCg=
-X-Gm-Gg: AYBFou3Z92aZfwQHj30Qiz5WIu170n8ad8onUfovQ4Q4r91iPdoayw3m3NAxf7ZjTVV
-	0NTHVcILKGxSreEaheRIAKHqEJnzPHopXanS09+0Cf7PoZw42Je1xMuoKmmJjuTtK6VZ/wkzIdE
-	JSiLwpvauRDhOC85yuAd6ad843XlDx3D/mUYdQNAPpiAIOA0ffdUi0/mDZna1s7Z2SDxn5yASwS
-	QAXCD7LyZaWzpC0bEJ1/ooZ72i8ua47b1mD1dZSEfth9qJ4zyCPR/AdUANm+RmYlnCFcsrsVUKL
-	T9vIsuspBx9ostUxlXRvSC+BeydYtsa/VBpLcOHE507R/iwtldJ82Vso2i4WG4gVK5F0ZKKeOBJ
-	Nep9k0jwE/if8vR5y0Kf6EdpaJCl2GmsVNFCsGxc76gOAYPxJcRZQo0C/qdy/XhGFkCqU7jcaUV
-	qxh7DvWK1qATHy54WikZk4YQgw01Siaz7U5l42KEE3Sfpb6CGnFMtvrAJptdT1JTwS2UI0srMWy
-	z511rXq7zu7lWzktNr4zgXwFdr5a8ru/QNPBIOm8sPajP1g84yLb3v5nBqXwgZ05Nh8RIs=
-X-Received: by 2002:a05:701b:451b:10b0:146:606e:1f62 with SMTP id a92af1059eb24-14c9e29a175mr1040002c88.41.1790730452081;
-        Tue, 29 Sep 2026 18:07:32 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:3481:cbb6:f339:9e4e])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14c60c55ed9sm2223598c88.2.2026.09.29.18.07.31
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 29 Sep 2026 18:07:31 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: Artem Dinaburg <artem@trailofbits.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	Joseph Qi <joseph.qi@linux.alibaba.com>,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 6.6.y] ocfs2: Avoid touching renamed directory if parent does not change
-Date: Tue, 29 Sep 2026 21:07:26 -0400
-Message-ID: <20260930010728.94306-1-artem@trailofbits.com>
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="c5o2Setz";
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="N5qLDJ1k"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 19B6021DC2;
+	Wed, 30 Sep 2026 01:11:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1790730700; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=Aol+61QQXd1wmBRGoBNUTd1HUGPp6EPG8b3ctCKkIpo=;
+	b=c5o2SetzB9ZchfjxLGux+/Aos8iZA3UCaBVrfIfHiRnhfMzy22f3XMUpW8+bmsbkfVexKa
+	wnVgYdcPrrp5E9OTOg7BRNSEYPNwSDZCYtRDdBg0+ZQEadisqVs08zJsPpIahml9C0Ouip
+	u6IvIHA/7JOAlBP3vMcS1H/mI4TG0sU=
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=N5qLDJ1k
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1790730696; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=Aol+61QQXd1wmBRGoBNUTd1HUGPp6EPG8b3ctCKkIpo=;
+	b=N5qLDJ1kwzcqn4EztiaPLtaZXzbPjstnTfUvxRCx6k5plcLNFUkDvh4gxs42UX0+KzLxaz
+	xSkLlf9FNo7nUxVwPp8B2FO7M0IRAZE+4K5GN8L/MTFoJ97EJABYrGDsa2pnVSLUV0ybY0
+	EQSG7aFoqD0zBLOSR9kUoqAO7IIjfOI=
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3BA14136AE;
+	Wed, 30 Sep 2026 01:11:33 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id glKXIcVhvGrOBAAAD6G6ig
+	(envelope-from <wqu@suse.com>); Wed, 30 Sep 2026 01:11:33 +0000
+From: Qu Wenruo <wqu@suse.com>
+To: linux-btrfs@vger.kernel.org
+Cc: Bartosz Fenski <bartosz@fenski.pl>,
+	stable@vger.kernel.org
+Subject: [PATCH] btrfs: raid56: do not verify the content if there is no data checksum
+Date: Wed, 30 Sep 2026 10:41:15 +0930
+Message-ID: <2989cda015c8673ccd463a5225cb985dc9e36825.1790730674.git.wqu@suse.com>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -80,79 +63,128 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 19B6021DC2
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	NEURAL_HAM_SHORT(-0.20)[-0.998];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_THREE(0.00)[3];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:email,suse.com:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+]
+X-Spam-Flag: NO
+X-Spam-Score: -3.01
+X-Spam-Level: 
 
-From: Jan Kara <jack@suse.cz>
+[BUG]
+There is a bug report that fio can fail to sync the data on a degraded
+RAID56 mount:
 
-[ Upstream commit 9d618d19b29c2943527e3a43da0a35aea91062fc ]
+ # mkfs.btrfs -m raid1 -d raid5 -f $dev1 $dev2 $dev3
+ # mount $dev1 $mnt
+ # btrfs balance start -d $mnt
+ # umount $mnt
+ # btrfs dev scan -u $dev2
+ # wipefs -fa $dev2
+ # mount -o degraded $dev1 $mnt
+ # fio --name=degraded-write --directory=$mnt --rw=randwrite --fdatasync=4 \
+		--bs=4k --size=512M --randrepeat=1
 
-The VFS will not be locking moved directory if its parent does not
-change. Change ocfs2 rename code to avoid touching renamed directory if
-its parent does not change as without locking that can corrupt the
-filesystem.
+The run will fail at fsync:
 
-Signed-off-by: Jan Kara <jack@suse.cz>
-Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
-Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+ fio: io_u error on file /mnt/btrfs/degraded-write.0.0: Input/output error: datasync offset=142254080, buflen=0
+ fio: pid=2064, err=5/file:io_u.c:2008, func=io_u error, error=Input/output error
+
+[CAUSE]
+With extra debug output, it shows the problem pretty well:
+
+ rbio=2876243968 faila=0 sectornr=0
+ rbio=2876243968 error=0-15 csum=2 bio=15
+
+The first line shows the rbio's full stripe logical, and stripe/sector
+number when verify_one_sector() failed.
+
+The second line shows more detail about the rbio, the sector range [0, 16)
+is corrupted, which indicates the first data stripe is corrupted, matching
+the missing device.
+
+The important part is that the csum bitmap shows the data csum is only
+for sector number 2, meanwhile the failed verification is at sector
+number 0.
+
+This means we did the checksum verification even if no corresponding
+checksum is populated.
+
+[FIX]
+There is already a similar check at verify_bio_data_sectors(), but
+unfortunately there is no such check at verify_one_sector().
+
+Add the missing check to skip the csum verification if there is no
+corresponding data checksum.
+
+Reported-by: Bartosz Fenski <bartosz@fenski.pl>
+Link: https://lore.kernel.org/linux-btrfs/a72409af-45ef-45df-9970-2e38bcb22ea6@fenski.pl/
+Fixes: 7a3150723061 ("btrfs: raid56: do data csum verification during RMW cycle")
+Cc: stable@vger.kernel.org
+Signed-off-by: Qu Wenruo <wqu@suse.com>
 ---
-Hi Greg, Sasha, and fs ocfs2 maintainers,
+ fs/btrfs/raid56.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-I am working through the small CVE backports still missing from 6.6.y.
-This one addresses CVE-2023-52590. It avoids updating a renamed directory
-without the VFS lock when its parent is unchanged.
-
-The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not in 6.6.y.
-This fix also affects 6.1.y, which will need a separate backport; this
-submission contains only the 6.6.y patch.
-The code change is identical to upstream.
-
-Could you please queue it for 6.6.y?
-
-CVE: CVE-2023-52590
-Upstream: 9d618d19b29c2943527e3a43da0a35aea91062fc
-
-AI assistance: An LLM helped identify, adapt, and validate this backport; I
-reviewed the resulting code and validation evidence.
-
-Thanks,
-Artem Dinaburg
-
- fs/ocfs2/namei.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
-
-diff --git a/fs/ocfs2/namei.c b/fs/ocfs2/namei.c
-index 113102009431da..5776980402de95 100644
---- a/fs/ocfs2/namei.c
-+++ b/fs/ocfs2/namei.c
-@@ -1347,7 +1347,7 @@ static int ocfs2_rename(struct mnt_idmap *idmap,
- 		goto bail;
+diff --git a/fs/btrfs/raid56.c b/fs/btrfs/raid56.c
+index 8ec24dbb180f..38b48e53e11d 100644
+--- a/fs/btrfs/raid56.c
++++ b/fs/btrfs/raid56.c
+@@ -1889,6 +1889,8 @@ static int verify_one_sector(struct btrfs_raid_bio *rbio,
+ {
+ 	struct btrfs_fs_info *fs_info = rbio->bioc->fs_info;
+ 	phys_addr_t *paddrs;
++	const unsigned int total_sector_nr =
++		stripe_nr + rbio->stripe_nsectors + sector_nr;
+ 	u8 csum_buf[BTRFS_CSUM_SIZE];
+ 	u8 *csum_expected;
+ 
+@@ -1898,6 +1900,11 @@ static int verify_one_sector(struct btrfs_raid_bio *rbio,
+ 	/* No way to verify P/Q as they are not covered by data csum. */
+ 	if (stripe_nr >= rbio->nr_data)
+ 		return 0;
++
++	/* No data checksum for this sector. */
++	if (!test_bit(total_sector_nr, rbio->csum_bitmap))
++		return 0;
++
+ 	/*
+ 	 * If we're rebuilding a read, we have to use pages from the
+ 	 * bio list if possible.
+@@ -1908,9 +1915,7 @@ static int verify_one_sector(struct btrfs_raid_bio *rbio,
+ 		paddrs = rbio_stripe_paddrs(rbio, stripe_nr, sector_nr);
  	}
  
--	if (S_ISDIR(old_inode->i_mode)) {
-+	if (S_ISDIR(old_inode->i_mode) && new_dir != old_dir) {
- 		u64 old_inode_parent;
- 
- 		update_dot_dot = 1;
-@@ -1364,8 +1364,7 @@ static int ocfs2_rename(struct mnt_idmap *idmap,
- 			goto bail;
- 		}
- 
--		if (!new_inode && new_dir != old_dir &&
--		    new_dir->i_nlink >= ocfs2_link_max(osb)) {
-+		if (!new_inode && new_dir->i_nlink >= ocfs2_link_max(osb)) {
- 			status = -EMLINK;
- 			goto bail;
- 		}
-@@ -1608,6 +1607,9 @@ static int ocfs2_rename(struct mnt_idmap *idmap,
- 	if (update_dot_dot) {
- 		status = ocfs2_update_entry(old_inode, handle,
- 					    &old_inode_dot_dot_res, new_dir);
-+	}
-+
-+	if (S_ISDIR(old_inode->i_mode)) {
- 		drop_nlink(old_dir);
- 		if (new_inode) {
- 			drop_nlink(new_inode);
+-	csum_expected = rbio->csum_buf +
+-			(stripe_nr * rbio->stripe_nsectors + sector_nr) *
+-			fs_info->csum_size;
++	csum_expected = rbio->csum_buf + total_sector_nr * fs_info->csum_size;
+ 	calculate_block_csum_paddrs(fs_info, paddrs, csum_buf);
+ 	if (unlikely(memcmp(csum_buf, csum_expected, fs_info->csum_size) != 0))
+ 		return -EIO;
 -- 
-2.39.5
+2.55.0
 
