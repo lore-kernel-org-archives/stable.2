@@ -1,88 +1,45 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A799C3EA957
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 19:21:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05F203EEAE7;
+	Wed, 30 Sep 2026 19:21:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790796091; cv=none; b=mF2YP/rrp9fJ0j2BdDGfSGima1UnaPmCy3QJPRyB0sfLsxVJ9X9gV+tTZOS/C6g3NnJtT8NY2NRSe2hVlheDRGRk3jj/Ln7AIRtuIo8EfgF53HPI+bkhhpIwJt/4YTtsrkPeHL19KlQI8z/H29g8kanhRzNq9uC5ZdJT0lMQCiU=
+	t=1790796093; cv=none; b=FHd2QcZILwLHI8EpRJYwnqTcrt7EcTJRPUk46SUFbzxBQFzVT4i0DGWA2QkZnU19RNwucLpGD2E7tRD54n2lbHsQnnBhoYRcbGMFjM3fliGhyqQG4FAvPbPjb10+j7rrNxqSxjPZv1sEq5/Ks8j3qRaIbE336u1mqY+MlNoj2N4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790796091; c=relaxed/simple;
-	bh=uZKo3LvjIw/jQo2DcJhlrJtg2qwhUGJRKYHVpUos/Og=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=rXfjEiNUJOtOB/ftyUhS7EmZB5PZBM2fdwGQaWaTwH0wCGOYQX+Pf32JL4q1HeMnWysiAJku+65ZpFaLXGvYxU6RgpaVeNjhSbvY6OVul/A+QN7rhwu4pshgEr+72INeZeWJ60ycO+y1fhrm3pFywyuiDH9NVTBR0Sid3AwCsPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hqnxm1dA; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790796093; c=relaxed/simple;
+	bh=vlXAxyCxCYmwmMqOeNEUDaeyvj7UYApXa8i+/Yms18w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qoRDh/OtA4wOHYllaQhjXOAcr+k9yIaeDDbQOvatX3nM3pWA5h0kslhBrOeubuxo8KHgc4zPCLhZxvSlNrjOh4uRekMT26bQAEDtPsDVjdiJIB56EmYBnXAspQ6/dGFM00/Vey373xIX8vJDVDK2HXQ40wzx3N5gvyS6WTo/u9M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=rwWom8Zh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hqnxm1dA"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d822dso42642005e9.2
-        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 12:21:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790796088; x=1791400888; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SbYiN1Bd29zaEpgdDuLGxrhXKVFH4VSvfh3sFDNw4+w=;
-        b=Hqnxm1dAEAEa677uYh+YJ43K0Mn++1DKoDK4qXLcbbuWcS+jlZ/m34iUXIFccGiZjt
-         4j5yeLbpr66Aga2ReLQa/nI+9X/B26YpfT9z/Xn7C6NZ64HlzNmrl8S3rHC6X7Lc6cop
-         HGeOYc46AGQFIDS+2dmMz4pQ+r1T7jx+RSCfLLLvTN+Bgj4lbOON8xXqPTg1fxkrvpOg
-         7U8c2QAYD7eljHuCtkTfb/mqarM4XloSEt9uxNr4ctl0xYZ4Sn7orXfa/QIgFOnlbFCH
-         2TyrlOmmO4NWytRCCaS/dd4dAmhRGY7Vjker+yAxZ+lo6GQAdA96Yr1AxgfKd8Mbr3sU
-         e/DA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790796088; x=1791400888;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SbYiN1Bd29zaEpgdDuLGxrhXKVFH4VSvfh3sFDNw4+w=;
-        b=S+2Ia50hfsqChrfRWoQpT9Z3+pmwcS9EgqM7ZaBI6kb9SyAsA4vUd8t9xNJLPFbU3G
-         1QmSOX1X7z2dwax8l0ndQwIaMF8OJ8ym6NAxHG3dIVh8wsDu2eGa8WUsaO1slRY3sBGa
-         KeqexLb0L2TZ9BQnAlmDc5qrkcq1263uNlEvbevEHskFE3lOvxw3E+YI46/8R56YGwfq
-         xiOa8CeY8WLH91yR9obj51dhj9p96xKFPyNmzdIZEtKExX8sIAERdCSUixAQS3+JQX3M
-         G160D92QoAEmqsD/DmJ0RLOKrFNnhUSVtgQWhaIDeYLH19vVcH+bAmc1dEmHORf9SvDt
-         GYSw==
-X-Forwarded-Encrypted: i=1; AKwUvBy7Py4phQuehVM1uUYYhTLcFvhn+Z1/yM6Ri8Z1uDbMF2l9/foIJOU5cieC6fkCCNPtaXIx328=@vger.kernel.org
-X-Gm-Message-State: AFuF++k/xyVN8fb+WF+NjFpH3xMgriaYivwPSA2xB9gn+fvFCpKGLkeA
-	JQwc6PwucnUD0x6AXDsOjbojjhENnCAIG7VZfY0znvvzy+dN+J0UhFakYMawL2wm
-X-Gm-Gg: AYBFou3DzWiFql/FyMlzw8Fw4/6gLZfmonyoYdoa8YSphuB+RhK2c/sisI1srxpyj7L
-	kKiNCime0A+O+zBcUIFlW+VeZcUF5ijOtZu5r35BFV07TxjYXYcw9D5DrrWvMkgOvwpndoCOjys
-	POuoAonICGR0u2nJeY3OtYyxA/AJAvrrXo5WelpYXzMTHD0aWZicDRbd1LARdz0MlgPEQrB/es3
-	EZyeJWlyb/iC9kNmV2N+xogsYnAZwB5JAMroMqak/fa1ypor+8nKcav7m/6DOl4J1SAFSmT7q2z
-	1fnyCF2tUz1RV2txrJljZkt5oNhmkTyviqnUxTTb0/lIh1VYI+rj1RRLLvRuOGQ8Z6HV8qGegNq
-	iPbRZ6OmhbPehBwvd9deBs999RPd9J0ND59h58yuClcsPLapSFBMmV8h0OccbBuTxU3gjvvZmUe
-	gyXUJEj/bsdfxaAiAag9KrjC8wV2xiQJncbaTk814hplunZLPN+23hT5xS1z0VroPtGoF0lVmy4
-	yNmkWh5Srt+lEyFBb5g8bvDfQAFJBxlUTL2S0EyZlaz8SIulfRf+Bdd++Bc5o7EMsEFU7j3QGMf
-	h11Vdg1XZOGJP9ia1rhMPo1CJz7djMrUzI+AfjxDGWsR9ImN2qdhVUtA5IxVFbi2xGj28FFmX9w
-	c
-X-Received: by 2002:a05:600c:4687:b0:4a0:3a3:33e2 with SMTP id 5b1f17b1804b1-4a01adde08dmr42117895e9.5.1790796087622;
-        Wed, 30 Sep 2026 12:21:27 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-b2b3-0101-b51c-a607-3dcc-3979.310.pool.telefonica.de. [2a02:3100:b2b3:101:b51c:a607:3dcc:3979])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f9248ccsm3513165e9.3.2026.09.30.12.21.26
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 30 Sep 2026 12:21:26 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Stephen Hemminger <stephen@networkplumber.org>,
-	Arend van Spriel <arend.vanspriel@broadcom.com>,
-	linux-kernel@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: [PATCH net v2 2/2] netpoll: avoid blocking on the transmit lock in queue_process
-Date: Wed, 30 Sep 2026 21:21:03 +0200
-Message-Id: <20260930192103.62973-3-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20260928064239.32456-1-kmehltretter@gmail.com>
-References: <20260928064239.32456-1-kmehltretter@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="rwWom8Zh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 135641F000FF;
+	Wed, 30 Sep 2026 19:21:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790796091;
+	bh=4tuFkljn8c/yDQeyeMGXRtJKE7E+JOueEoYIFzX/MMc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=rwWom8Zh+dF7Km3a9dWPGg6tZaYiQF/9GKX4iF7OP/aecxm7FdDJAGxlsIqbPNLME
+	 9CsshNt21B6qyHmM0+zo1MYxqggJpN4bjEgLE+vQybmA9LW3/ANI+YD+d1vAD+Zxsd
+	 Am8eIaCxVE58BwbYqdWYR5v2IuhOZrCNuKZoLrmY=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Jocelyn Falempe <jfalempe@redhat.com>,
+	Sui Jingfeng <sui.jingfeng@linux.dev>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6 0790/1193] drm/ast: Automatically clean up poll helper
+Date: Wed, 30 Sep 2026 17:24:34 +0200
+Message-ID: <20260930152451.797180979@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930152434.301151190@linuxfoundation.org>
+References: <20260930152434.301151190@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -91,47 +48,108 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-queue_process() disables interrupts before taking the device transmit
-lock with HARD_TX_LOCK(). The lock may sleep on PREEMPT_RT:
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-  BUG: sleeping function called from invalid context
-  in_atomic(): 0, irqs_disabled(): 1, non_block: 0
-  Workqueue: events queue_process
-  rt_spin_lock
-  queue_process
-  process_one_work
+------------------
 
-Use HARD_TX_TRYLOCK() instead. If another CPU owns the lock, put the skb
-back at the head of the deferred queue, restore interrupts and retry on
-the next tick. Keep the longer HZ / 10 backoff for a stopped transmit
-queue or a driver which returns busy.
+From: Thomas Zimmermann <tzimmermann@suse.de>
 
-Fixes: 3640543df26f ("[PATCH] netpoll: fix netpoll lockup")
-Cc: stable@vger.kernel.org # 6.12+
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+[ Upstream commit 10021ef27310279c850cf6cb38542c443a995e92 ]
+
+Automatically clean up the conncetor-poll thread as part of the DRM
+device release. The new helper drmm_kms_helper_poll_init() provides
+a shared implementation for all drivers.
+
+v6:
+- fix kernel doc comment (Sui, kernel test robot)
+
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Jocelyn Falempe <jfalempe@redhat.com>
+Acked-by: Sui Jingfeng <sui.jingfeng@linux.dev>
+Link: https://patchwork.freedesktop.org/patch/msgid/20240325200855.21150-14-tzimmermann@suse.de
+Stable-dep-of: 073a30d75f30 ("drm/vc4: Use managed KMS polling to fix UAF on unbind")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/core/netpoll.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/ast/ast_mode.c     |  4 +++-
+ drivers/gpu/drm/drm_probe_helper.c | 27 +++++++++++++++++++++++++++
+ include/drm/drm_probe_helper.h     |  2 ++
+ 3 files changed, 32 insertions(+), 1 deletion(-)
 
-diff --git a/net/core/netpoll.c b/net/core/netpoll.c
-index e0cfcb05468e2..8d8e3c33cfdfe 100644
---- a/net/core/netpoll.c
-+++ b/net/core/netpoll.c
-@@ -166,7 +166,13 @@ static void queue_process(struct work_struct *work)
- 			skb_set_queue_mapping(skb, q_index);
- 		}
- 		txq = netdev_get_tx_queue(dev, q_index);
--		HARD_TX_LOCK(dev, txq, smp_processor_id());
-+		if (!HARD_TX_TRYLOCK(dev, txq)) {
-+			netpoll_txq_queue_head(npinfo, skb);
-+			local_irq_restore(flags);
+diff --git a/drivers/gpu/drm/ast/ast_mode.c b/drivers/gpu/drm/ast/ast_mode.c
+index 27e660e92489f..8303d808ce175 100644
+--- a/drivers/gpu/drm/ast/ast_mode.c
++++ b/drivers/gpu/drm/ast/ast_mode.c
+@@ -1976,7 +1976,9 @@ int ast_mode_config_init(struct ast_device *ast)
+ 
+ 	drm_mode_config_reset(dev);
+ 
+-	drm_kms_helper_poll_init(dev);
++	ret = drmm_kms_helper_poll_init(dev);
++	if (ret)
++		return ret;
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/drm_probe_helper.c b/drivers/gpu/drm/drm_probe_helper.c
+index c90afb5d08987..543ea28c312be 100644
+--- a/drivers/gpu/drm/drm_probe_helper.c
++++ b/drivers/gpu/drm/drm_probe_helper.c
+@@ -37,6 +37,7 @@
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_fourcc.h>
++#include <drm/drm_managed.h>
+ #include <drm/drm_modeset_helper_vtables.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+@@ -949,6 +950,32 @@ void drm_kms_helper_poll_fini(struct drm_device *dev)
+ }
+ EXPORT_SYMBOL(drm_kms_helper_poll_fini);
+ 
++static void drm_kms_helper_poll_init_release(struct drm_device *dev, void *res)
++{
++	drm_kms_helper_poll_fini(dev);
++}
 +
-+			schedule_delayed_work(&npinfo->tx_work, 1);
-+			return;
-+		}
- 		if (netif_xmit_frozen_or_stopped(txq) ||
- 		    !dev_xmit_complete(netpoll_start_xmit(skb, dev, txq))) {
- 			netpoll_txq_queue_head(npinfo, skb);
++/**
++ * drmm_kms_helper_poll_init - initialize and enable output polling
++ * @dev: drm_device
++ *
++ * This function initializes and then also enables output polling support for
++ * @dev similar to drm_kms_helper_poll_init(). Polling will automatically be
++ * cleaned up when the DRM device goes away.
++ *
++ * See drm_kms_helper_poll_init() for more information.
++ *
++ * Returns:
++ * 0 on success, or a negative errno code otherwise.
++ */
++int drmm_kms_helper_poll_init(struct drm_device *dev)
++{
++	drm_kms_helper_poll_init(dev);
++
++	return drmm_add_action_or_reset(dev, drm_kms_helper_poll_init_release, dev);
++}
++EXPORT_SYMBOL(drmm_kms_helper_poll_init);
++
+ static bool check_connector_changed(struct drm_connector *connector)
+ {
+ 	struct drm_device *dev = connector->dev;
+diff --git a/include/drm/drm_probe_helper.h b/include/drm/drm_probe_helper.h
+index fad3c4003b2b5..7066a3eca93c5 100644
+--- a/include/drm/drm_probe_helper.h
++++ b/include/drm/drm_probe_helper.h
+@@ -16,6 +16,8 @@ int drm_helper_probe_single_connector_modes(struct drm_connector
+ int drm_helper_probe_detect(struct drm_connector *connector,
+ 			    struct drm_modeset_acquire_ctx *ctx,
+ 			    bool force);
++
++int drmm_kms_helper_poll_init(struct drm_device *dev);
+ void drm_kms_helper_poll_init(struct drm_device *dev);
+ void drm_kms_helper_poll_fini(struct drm_device *dev);
+ bool drm_helper_hpd_irq_event(struct drm_device *dev);
 -- 
 2.53.0
+
+
+
