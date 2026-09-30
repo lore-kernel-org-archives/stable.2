@@ -1,253 +1,151 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1317A4F405E
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 18:42:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1756651CF4D;
+	Wed, 30 Sep 2026 18:42:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790793725; cv=none; b=qlXmQ4mmui2YMA2dMJFvNEeZghbnkSlVx6sp0x/Qcsk/wjwbZkgz7Z22ZFlEf58QBRxbFJbTKs6STVl1tSA3vGbBSqDrm7ZL9QGBGpUABJy0Q1byqJDU4K1i+nLUmphtIn6At9wkkZOmeqr8OZhE07nIHIMOh2WYQVAfHFesJy4=
+	t=1790793726; cv=none; b=XRNUn9ouVjyYKcaJDWPAVkggcyqfM6ddeYaGqgZn/i5foXTJSVPlobz2MY6v4i6B1CH18QWST48qBAr49QaLyptBl+jhtMtwWcDt4cbSMScpnyE0YEsdawiVwnrBM3WVKtH1YnB57tQ7G1pinKPEqeinIx5WmguLONKp+uaUxIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790793725; c=relaxed/simple;
-	bh=ZfaU+AhauaInRAZ/2IGGT2T/etCXdXOa20fa6HytRy0=;
+	s=arc-20240116; t=1790793726; c=relaxed/simple;
+	bh=oM7KpCkdNhYu84aX7n+QoMmjM+PEVeS4JKtsOA6inaY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MCIzVZnHzD4ObMx03fWsRBRfm3PzJkrGv/7qNAmZ3WELFGA3s/PRpFmQUFQXkvkmzo0ozc1Xv1yQMY1CYIeXeyn6xf7IidqoEGgFSDUwD1z05gsB7YFrKNThGt1Fy9WW1xmLY2OCha+e++mizw2g9pvlxbKAKPCGM3yXLzH5iWQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZdlpXyKp; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=D+Dmxw/fmDA2Mta7yNnndhCa8UJYh/6FfQzNajGkjim0wS93xLbkyGVc5zrKUSn0E5LFVOsKi+dbzfKhSmO4dag5xCkzxLLGds82mAV7FAvqh1/KeqHlVA04f196zxnkda3h5NMZXBQDzm7q3i2eHKLvhMKI/+qJb+bp57aZmi8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=wnnIR2P9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZdlpXyKp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 466351F00898;
-	Wed, 30 Sep 2026 18:42:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790793723;
-	bh=i2ylYKg+fFFkKTjt6WnKHBv2du2VCBZJyy2fnx3GsMA=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="wnnIR2P9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 345671F000FF;
+	Wed, 30 Sep 2026 18:42:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790793724;
+	bh=T8rZ/Wf+E/TLrSE5zYLlZX7vuh0mDmHtlUPN4Q2ta54=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZdlpXyKpLZ8XqXu36mGglu6Vw7UZ+bClddHBG404eQx+kHKapbW3KV7n8+VKv9dWw
-	 +0cNEzFnc3ra7o/zQogd6Iw/o+FOICEA+ue+le12ilb+8h7IFcnUskB8gK1O3qISKw
-	 fnmSjTilNdLrEOdtmy5oB3d+A8FSwReTK9bTaNYbDgURNhLZPjxow+e5xLAvNiq/i8
-	 jNLppJRO2l3s5f6EkNJR9SdnkG8YgGp01v6xziCPQZmpJgYiCxKglxhoXSoTr9zE2N
-	 pfbu8njZAaXOch4fHceq5oq1ICpvJaKtzx/H9XWFkGdvQok841ME6typWOZ9x/4gwJ
-	 RDWIhpb3xvcaQ==
-From: Sasha Levin <sashal@kernel.org>
+	b=wnnIR2P9iEd8jrqigHlFqAjZQRCmwjoQuhTRAKwVU1KXasq2FCgyIfuqJU4HG2VQj
+	 xf+EfSBm+gUDmPZtrKddevpXPWHL+MzeQYZcoGkjRdMj76BbuobSL1lJmLBikDTFK6
+	 0t4pi6hxnOYF9oGJLphlRYUMTiZe9F1GJtigyT1Q=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Zihan Xi <zihanx@nebusec.ai>,
-	Vega <vega@nebusec.ai>,
-	Luxing Yin <root@tr0jan.top>,
-	Frank Sorenson <sorenson@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	=?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
+	Mika Kahola <mika.kahola@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] smb: client: close completed creates on compound wait errors
-Date: Wed, 30 Sep 2026 14:42:00 -0400
-Message-ID: <20260930184200.249065-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092948-timid-gravel-59a7@gregkh>
-References: <2026092948-timid-gravel-59a7@gregkh>
+Subject: [PATCH 6.18 354/395] drm/i915/psr: Disable Panel Replay on Dell XPS 14 DA14260 as a quirk
+Date: Wed, 30 Sep 2026 17:30:16 +0200
+Message-ID: <20260930152348.364026588@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930152340.591469096@linuxfoundation.org>
+References: <20260930152340.591469096@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Zihan Xi <zihanx@nebusec.ai>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 6c5c547f037bc18f0b8d0b5db5a648f8f630ce85 ]
+------------------
 
-compound_send_recv() waits for responses in order. If a later wait is
-interrupted, or if a later MID fails during response synchronization, an
-earlier CREATE may already have opened a remote handle. The earlier mid
-is then released without invoking handle_cancelled_mid(), leaving the
-remote handle open because no FID was copied to the caller.
+From: Jouni Högander <jouni.hogander@intel.com>
 
-Mark completed earlier mids as cancelled when a compound wait or MID
-synchronization aborts. Keep their response buffers attached while the
-MIDs are synchronized, and transfer them only after synchronization of
-the processed responses, so the release path can inspect successful
-CREATE responses and queue SMB2_close() after a later failure. Account for
-a remote open only after the close work is allocated and before it is
-queued, since the caller has not yet updated num_remote_opens. Mark the
-create+close compound used by smb2_unlink() so it is not closed again.
-Non-CREATE responses and compounds that already include a close keep their
-existing behavior.
+[ Upstream commit 45c77d4bf8d4d15453d709b9b828e498898e0751 ]
 
-Fixes: e0bba0b85481 ("cifs: add compound_send_recv()")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Co-developed-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
-Tested-by: Frank Sorenson <sorenson@redhat.com>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ replaced the upstream cancellation helper with inline loops using midQ and MID_WAIT_CANCELLED under server->mid_lock. ]
+Add new quirk (QUIRK_DISABLE_PANEL_REPLAY) for disabling Panel Replay as
+quirk for problematic setups. Apply this newly added quirk on Dell XPS 14
+DA14260 if specific panel model is installed.
+
+We are observing problems with Dell XPS 14 DA14260. This device has certain
+LGD panel model which seems to be problematic. We have seen other LGD panel
+model with same OUI is working fine. Due to this we can't apply the quirk
+only based on panel OUI. There are also cases where same device model has
+differing panel model. We don't want to disable Panel Replay on such
+devices. Best we can do is to apply the quirk based on both device model
+and panel model.
+
+Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/7521
+Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
+Reviewed-by: Mika Kahola <mika.kahola@intel.com>
+Link: https://patch.msgid.link/20260317062402.1888624-1-jouni.hogander@intel.com
+Stable-dep-of: 5271d81f99dd ("drm/i915/quirks: Limit eDP rate to HBR2 on HP Pavilion Plus 14-ew1")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- fs/smb/client/smb2misc.c  |  9 +++--
- fs/smb/client/transport.c | 69 ++++++++++++++++++++++++++++++---------
- 2 files changed, 59 insertions(+), 19 deletions(-)
+ drivers/gpu/drm/i915/display/intel_psr.c    |    7 +++++++
+ drivers/gpu/drm/i915/display/intel_quirks.c |   17 ++++++++++++++++-
+ drivers/gpu/drm/i915/display/intel_quirks.h |    1 +
+ 3 files changed, 24 insertions(+), 1 deletion(-)
 
-diff --git a/fs/smb/client/smb2misc.c b/fs/smb/client/smb2misc.c
-index cd00bf48c9a56..ecab56c00f627 100644
---- a/fs/smb/client/smb2misc.c
-+++ b/fs/smb/client/smb2misc.c
-@@ -818,7 +818,8 @@ smb2_cancelled_close_fid(struct work_struct *work)
-  */
- static int
- __smb2_handle_cancelled_cmd(struct cifs_tcon *tcon, __u16 cmd, __u64 mid,
--			    __u64 persistent_fid, __u64 volatile_fid)
-+			    __u64 persistent_fid, __u64 volatile_fid,
-+			    bool account_remote_open)
- {
- 	struct close_cancelled_open *cancelled;
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -49,6 +49,7 @@
+ #include "intel_hdmi.h"
+ #include "intel_psr.h"
+ #include "intel_psr_regs.h"
++#include "intel_quirks.h"
+ #include "intel_snps_phy.h"
+ #include "intel_step.h"
+ #include "intel_vblank.h"
+@@ -592,6 +593,12 @@ static void _panel_replay_init_dpcd(stru
+ 	if (intel_dp->mst_detect == DRM_DP_MST)
+ 		return;
  
-@@ -832,6 +833,8 @@ __smb2_handle_cancelled_cmd(struct cifs_tcon *tcon, __u16 cmd, __u64 mid,
- 	cancelled->cmd = cmd;
- 	cancelled->mid = mid;
- 	INIT_WORK(&cancelled->work, smb2_cancelled_close_fid);
-+	if (account_remote_open)
-+		atomic_inc(&tcon->num_remote_opens);
- 	WARN_ON(queue_work(cifsiod_wq, &cancelled->work) == false);
- 
- 	return 0;
-@@ -868,7 +871,7 @@ smb2_handle_cancelled_close(struct cifs_tcon *tcon, __u64 persistent_fid,
- 	spin_unlock(&cifs_tcp_ses_lock);
- 
- 	rc = __smb2_handle_cancelled_cmd(tcon, SMB2_CLOSE_HE, 0,
--					 persistent_fid, volatile_fid);
-+					 persistent_fid, volatile_fid, false);
- 	if (rc)
- 		cifs_put_tcon(tcon, netfs_trace_tcon_ref_put_cancelled_close);
- 
-@@ -896,7 +899,7 @@ smb2_handle_cancelled_mid(struct mid_q_entry *mid, struct TCP_Server_Info *serve
- 					 le16_to_cpu(hdr->Command),
- 					 le64_to_cpu(hdr->MessageId),
- 					 rsp->PersistentFileId,
--					 rsp->VolatileFileId);
-+					 rsp->VolatileFileId, true);
- 	if (rc)
- 		cifs_put_tcon(tcon, netfs_trace_tcon_ref_put_cancelled_mid);
- 
-diff --git a/fs/smb/client/transport.c b/fs/smb/client/transport.c
-index b72d12a24056c..41a95cf59deed 100644
---- a/fs/smb/client/transport.c
-+++ b/fs/smb/client/transport.c
-@@ -1101,6 +1101,7 @@ compound_send_recv(const unsigned int xid, struct cifs_ses *ses,
- 		   int *resp_buf_type, struct kvec *resp_iov)
- {
- 	int i, j, optype, rc = 0;
-+	int num_processed = 0;
- 	struct mid_q_entry *midQ[MAX_COMPOUND];
- 	bool cancelled_mid[MAX_COMPOUND] = {false};
- 	struct cifs_credits credits[MAX_COMPOUND] = {
-@@ -1243,6 +1244,17 @@ compound_send_recv(const unsigned int xid, struct cifs_ses *ses,
- 			break;
- 	}
- 	if (rc != 0) {
-+		/*
-+		 * A completed CREATE earlier in the compound chain may have
-+		 * opened a remote handle even though a later wait was
-+		 * interrupted. Mark it cancelled so __release_mid() invokes
-+		 * the existing unmatched-open cleanup.
-+		 */
-+		spin_lock(&server->mid_lock);
-+		for (j = 0; j < i; j++)
-+			midQ[j]->mid_flags |= MID_WAIT_CANCELLED;
-+		spin_unlock(&server->mid_lock);
-+
- 		for (; i < num_rqst; i++) {
- 			cifs_server_dbg(FYI, "Cancelling wait for mid %llu cmd: %d\n",
- 				 midQ[i]->mid, le16_to_cpu(midQ[i]->command));
-@@ -1265,6 +1277,17 @@ compound_send_recv(const unsigned int xid, struct cifs_ses *ses,
- 
- 		rc = cifs_sync_mid_result(midQ[i], server);
- 		if (rc != 0) {
-+			/*
-+			 * A previous CREATE may have completed before this
-+			 * response failed. Mark it cancelled so its remote
-+			 * handle is closed when the mid is released.
-+			 */
-+			spin_lock(&server->mid_lock);
-+			for (j = 0; j < i; j++)
-+				midQ[j]->mid_flags |= MID_WAIT_CANCELLED;
-+			spin_unlock(&server->mid_lock);
-+			/* Keep their response buffers for cancelled-mid cleanup. */
-+			num_processed = 0;
- 			/* mark this mid as cancelled to not free it below */
- 			cancelled_mid[i] = true;
- 			goto out;
-@@ -1274,9 +1297,26 @@ compound_send_recv(const unsigned int xid, struct cifs_ses *ses,
- 		    midQ[i]->mid_state != MID_RESPONSE_READY) {
- 			rc = -EIO;
- 			cifs_dbg(FYI, "Bad MID state?\n");
-+			spin_lock(&server->mid_lock);
-+			for (j = 0; j < i; j++)
-+				midQ[j]->mid_flags |= MID_WAIT_CANCELLED;
-+			spin_unlock(&server->mid_lock);
-+			num_processed = 0;
- 			goto out;
- 		}
- 
-+		rc = server->ops->check_receive(midQ[i], server,
-+						     flags & CIFS_LOG_ERROR);
-+		num_processed = i + 1;
++	if (intel_has_dpcd_quirk(intel_dp, QUIRK_DISABLE_PANEL_REPLAY)) {
++		drm_dbg_kms(display->drm,
++			    "Panel Replay support not currently available for this setup\n");
++		return;
 +	}
 +
-+out:
-+	/*
-+	 * Delay moving response buffers out of their mids until response
-+	 * synchronization completes. This lets cancelled-mid cleanup inspect
-+	 * an earlier CREATE response if a later MID fails.
-+	 */
-+	for (i = 0; i < num_processed; i++) {
- 		buf = (char *)midQ[i]->resp_buf;
- 		resp_iov[i].iov_base = buf;
- 		resp_iov[i].iov_len = midQ[i]->resp_buf_size +
-@@ -1287,33 +1327,30 @@ compound_send_recv(const unsigned int xid, struct cifs_ses *ses,
- 		else
- 			resp_buf_type[i] = CIFS_SMALL_BUFFER;
+ 	ret = drm_dp_dpcd_read_data(&intel_dp->aux, DP_PANEL_REPLAY_CAP_SUPPORT,
+ 				    &intel_dp->pr_dpcd, sizeof(intel_dp->pr_dpcd));
+ 	if (ret < 0)
+--- a/drivers/gpu/drm/i915/display/intel_quirks.c
++++ b/drivers/gpu/drm/i915/display/intel_quirks.c
+@@ -86,6 +86,14 @@ static void quirk_edp_limit_rate_hbr2(st
+ 	drm_info(display->drm, "Applying eDP Limit rate to HBR2 quirk\n");
+ }
  
--		rc = server->ops->check_receive(midQ[i], server,
--						     flags & CIFS_LOG_ERROR);
++static void quirk_disable_panel_replay(struct intel_dp *intel_dp)
++{
++	struct intel_display *display = to_intel_display(intel_dp);
++
++	intel_set_dpcd_quirk(intel_dp, QUIRK_DISABLE_PANEL_REPLAY);
++	drm_info(display->drm, "Applying disable Panel Replay quirk\n");
++}
++
+ struct intel_quirk {
+ 	int device;
+ 	int subsystem_vendor;
+@@ -251,7 +259,14 @@ static const struct intel_dpcd_quirk int
+ 		.sink_oui = SINK_OUI(0x38, 0xec, 0x11),
+ 		.hook = quirk_fw_sync_len,
+ 	},
 -
- 		/* mark it so buf will not be freed by delete_mid */
- 		if ((flags & CIFS_NO_RSP_BUF) == 0)
- 			midQ[i]->resp_buf = NULL;
--
- 	}
++	/* Dell XPS 14 DA14260 */
++	{
++		.device = 0xb080,
++		.subsystem_vendor = 0x1028,
++		.subsystem_device = 0x0db9,
++		.sink_oui = SINK_OUI(0x00, 0x22, 0xb9),
++		.hook = quirk_disable_panel_replay,
++	},
+ };
  
- 	/*
- 	 * Compounding is never used during session establish.
- 	 */
--	spin_lock(&ses->ses_lock);
--	if ((ses->ses_status == SES_NEW) || (optype & CIFS_NEG_OP) || (optype & CIFS_SESS_OP)) {
--		struct kvec iov = {
--			.iov_base = resp_iov[0].iov_base,
--			.iov_len = resp_iov[0].iov_len
--		};
--		spin_unlock(&ses->ses_lock);
--		cifs_server_lock(server);
--		smb311_update_preauth_hash(ses, server, &iov, 1);
--		cifs_server_unlock(server);
-+	if (num_processed == num_rqst) {
- 		spin_lock(&ses->ses_lock);
-+		if ((ses->ses_status == SES_NEW) || (optype & CIFS_NEG_OP) || (optype & CIFS_SESS_OP)) {
-+			struct kvec iov = {
-+				.iov_base = resp_iov[0].iov_base,
-+				.iov_len = resp_iov[0].iov_len
-+			};
-+			spin_unlock(&ses->ses_lock);
-+			cifs_server_lock(server);
-+			smb311_update_preauth_hash(ses, server, &iov, 1);
-+			cifs_server_unlock(server);
-+			spin_lock(&ses->ses_lock);
-+		}
-+		spin_unlock(&ses->ses_lock);
- 	}
--	spin_unlock(&ses->ses_lock);
+ void intel_init_quirks(struct intel_display *display)
+--- a/drivers/gpu/drm/i915/display/intel_quirks.h
++++ b/drivers/gpu/drm/i915/display/intel_quirks.h
+@@ -21,6 +21,7 @@ enum intel_quirk_id {
+ 	QUIRK_NO_PPS_BACKLIGHT_POWER_HOOK,
+ 	QUIRK_FW_SYNC_LEN,
+ 	QUIRK_EDP_LIMIT_RATE_HBR2,
++	QUIRK_DISABLE_PANEL_REPLAY,
+ };
  
--out:
- 	/*
- 	 * This will dequeue all mids. After this it is important that the
- 	 * demultiplex_thread will not process any of these mids any futher.
--- 
-2.53.0
+ void intel_init_quirks(struct intel_display *display);
+
 
