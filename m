@@ -1,40 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5649F4F4D08;
-	Wed, 30 Sep 2026 15:32:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C4A850C29B;
+	Wed, 30 Sep 2026 15:32:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790782382; cv=none; b=glQfmEKOJQB494XyR6y5037uifXf70AQ1gFobiWwJN5fuDCYVoYen3ptYZTKJe8jGOp8VnYX+TidTYidFY1W1MbuBjA6gwGPkLoLTYqhm0n6XPX/cqaUxH/QOeoz3aGThkPNoZtjd8PBkOEXoMdhma02Fj/FAUD3/nsdVZGWY1U=
+	t=1790782388; cv=none; b=uhclwub9yqK5z/SZ74awT+6zd32kK5Shd7h8bS04QsNBZT8rJ8jqFKxhgYksIOTm1ZfQS47L7xuMmcSNulw1cIi8+ECR7Ld0sDSsSAZpZuMPpJNfSJptZ6PDyg5DCniZaqh0Pqc/5QbjNGGHQkLGV0hI9A594d0x5c8w0j4oFeQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790782382; c=relaxed/simple;
-	bh=Ctcp9Sbm0gmxBfPyKcucr0VV1KFH4x8FWhNQXMS8EQY=;
+	s=arc-20240116; t=1790782388; c=relaxed/simple;
+	bh=NcATRM4sbtDwGKsVrKgpCJmimuyr2IzkGOHnNFvKDnM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ud6tsfwRjZ1qWbhHeu9QkR7aYSde91p6iMZPk77kLdkvMAj1TBM4lG3zMYHRkMLdnpz/OHBduxQ2TVjwXDx6DcNZMFs0T4ZIzrpPudvEmjjbpC3j3wL7szJ8ZIkMDMywfSyTE1DtCqc6+25baHLm8x6BqHobEXa+z+26sWE/Wj8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Sl+Kaeiz; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=j9+2DkppZIqTRKg2wAb+KlSyEYpxKzgCEFdBKDGgm7BPd33Ve2cbvIp4NPH7rAdSFyJVPxkv3F3v3wJpYAnwk1auMgTlsQcxY1sM5VRtZcNm24vThCxqxfN7pU03QRZQ0RGZmmsuC0q/XJbFsKtKhaKIjgYj42FIAzqQnTrXjTI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=nxFlvsyF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Sl+Kaeiz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3A431F0089B;
-	Wed, 30 Sep 2026 15:32:56 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nxFlvsyF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6DFC1F00899;
+	Wed, 30 Sep 2026 15:32:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790782377;
-	bh=4jhlFpwqzGdjreNS2nsdWcXMHp6ytuvCELkXT1E+bEA=;
+	s=korg; t=1790782374;
+	bh=Ys01xNvMlmfhuwdfn8u7mrl4vTNg6cCGWgxLhvgVHEA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Sl+Kaeiz4IEBw94LFJbhLqI211LroqAAZhz2wgv7L7twetkiuee2/TD4pBBjJxK0I
-	 qxL4CzjOcfgjrxxAflgz96ui02E/SetUGmWIOLfi2yaUReWO1NlTA5/eO7Q00qWb3y
-	 VNOBVXyb7MrIp3Oaqqh4G64/YSdiXLgzsevxOKcg=
+	b=nxFlvsyFdxDxJjPjfIb1XizBjIFeUv62KrmKo5jZVnyNvPZA1Ln1MtrEqk0ru5AQU
+	 5eS8DEenz3Lh2OTuV5c/6d6esQo13umGgMjoTyoKpxAENpglgkqs/CvXw4x8x2aR0M
+	 5I93SwN9B/6ViCpwbtFVkRWhiTpAJCQs/9928ayw=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Lukas Wunner <lukas@wunner.de>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Sasha Levin <sashal@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 5.10 026/595] crypto: ecc - Unbreak the build on arm with CONFIG_KASAN_STACK=y
-Date: Wed, 30 Sep 2026 17:18:39 +0200
-Message-ID: <20260930152348.289682642@linuxfoundation.org>
+	Kumar Meiyappan <kumar.meiyappan@microchip.com>,
+	Sagar Biradar <sagar.biradar@microchip.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10 025/595] scsi: pm8001: Reject non-fatal dump when controller is crashed
+Date: Wed, 30 Sep 2026 17:18:38 +0200
+Message-ID: <20260930152348.265875859@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152347.700140858@linuxfoundation.org>
 References: <20260930152347.700140858@linuxfoundation.org>
@@ -53,78 +52,48 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Lukas Wunner <lukas@wunner.de>
+From: Kumar Meiyappan <kumar.meiyappan@microchip.com>
 
-[ Upstream commit c64ba13e2033c3c6dc1a097bf35f9f1fe457c3f7 ]
+[ Upstream commit aa3b8f56ef27ed72394a752820abdec4608b731c ]
 
-Andrew reports build breakage of arm allmodconfig, reproducible with gcc
-14.2.0 and 15.2.0:
+pm80xx_get_non_fatal_dump() can be called even after the controller has
+entered a fatal error state. In that case the forensic memory contents
+are not safe to access for a non-fatal dump request, and attempting to
+do so can trigger a call trace.
 
-  crypto/ecc.c: In function 'ecc_point_mult':
-  crypto/ecc.c:1380:1: error: the frame size of 1360 bytes is larger than 1280 bytes [-Werror=frame-larger-than=]
+Check controller_fatal_error before reading the non-fatal dump buffer
+and return -EINVAL when the controller is already in a crashed state.
 
-gcc aggressively inlines functions called by ecc_point_mult() (without
-there being any explicit inline declarations), which pushes stack usage
-close to the limit imposed by CONFIG_FRAME_WARN.  allmodconfig implies
-CONFIG_KASAN_STACK=y, which increases the stack above that limit.
+This prevents non-fatal dump collection from running in an invalid
+controller state.
 
-In the bugzilla entry linked below, gcc maintainers explain that gcc
-estimates extra stack usage caused by inlining, but ASAN instrumentation
-is added in post-IPA passes and thus the inlining heuristics cannot
-account for it.
-
-It could be argued that -Werror=frame-larger-than=1280 instructs the
-compiler to avoid inlining beyond that limit lest the build breaks,
-which would imply gcc behaves incorrectly.  But gcc maintainers reject
-this notion and believe that a warning switch should never affect code
-generation, even if it is promoted to an error.
-
-One way to unbreak the build is to limit inlining via -finline-limit=100
-or by explicitly declaring some functions noinline.  However while it
-does keep stack usage of individual functions below the limit, *total*
-stack usage increases.
-
-A longterm solution is to refactor ecc.c for reduced stack usage.  It
-currently performs ECC point multiplication with a Montgomery ladder
-which uses co-Z (conjugate) addition to trade off memory for speed.
-The algorithm is susceptible to timing attacks and needs to be replaced
-with a constant time Montgomery ladder, which should consume less memory
-and thus resolve the stack usage issue as a side effect.
-
-In the interim, raise the limit for ecc.c, as is already done for
-several other files in the source tree.
-
-Constrain to gcc because clang 19.1.7 does not exhibit the issue.  It
-makes do with a 724 bytes stack frame even though it inlines almost the
-same functions as gcc.
-
-Link: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=124949
-Reported-by: Andrew Morton <akpm@linux-foundation.org> # off-list
-Signed-off-by: Lukas Wunner <lukas@wunner.de>
-Acked-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Signed-off-by: Kumar Meiyappan <kumar.meiyappan@microchip.com>
+Signed-off-by: Sagar Biradar <sagar.biradar@microchip.com>
+Link: https://patch.msgid.link/20260416154650.415624-1-sagar.biradar@microchip.com
+Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- crypto/Makefile | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/scsi/pm8001/pm80xx_hwi.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/crypto/Makefile b/crypto/Makefile
-index 3d53cc1d8a867..413d333fceb9d 100644
---- a/crypto/Makefile
-+++ b/crypto/Makefile
-@@ -176,6 +176,11 @@ obj-$(CONFIG_CRYPTO_ECC) += ecc.o
- obj-$(CONFIG_CRYPTO_ESSIV) += essiv.o
- obj-$(CONFIG_CRYPTO_CURVE25519) += curve25519-generic.o
+diff --git a/drivers/scsi/pm8001/pm80xx_hwi.c b/drivers/scsi/pm8001/pm80xx_hwi.c
+index 89051722e04d6..64db45d24d803 100644
+--- a/drivers/scsi/pm8001/pm80xx_hwi.c
++++ b/drivers/scsi/pm8001/pm80xx_hwi.c
+@@ -400,6 +400,13 @@ ssize_t pm80xx_get_non_fatal_dump(struct device *cdev,
+ 	char *buf_copy = buf;
  
-+# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=124949
-+ifeq ($(CONFIG_ARM)$(CONFIG_KASAN_STACK)$(CONFIG_CC_IS_GCC),yyy)
-+CFLAGS_ecc.o += $(call cc-option,-Wframe-larger-than=1536)
-+endif
+ 	temp = (u32 *)pm8001_ha->memoryMap.region[FORENSIC_MEM].virt_ptr;
 +
- ecdh_generic-y += ecdh.o
- ecdh_generic-y += ecdh_helper.o
- obj-$(CONFIG_CRYPTO_ECDH) += ecdh_generic.o
++	if (pm8001_ha->controller_fatal_error) {
++		pm8001_dbg(pm8001_ha, FAIL,
++			   "non-fatal dump not available in fatal error state\n");
++		return -EINVAL;
++	}
++
+ 	if (++pm8001_ha->non_fatal_count == 1) {
+ 		if (pm8001_ha->chip_id == chip_8001) {
+ 			snprintf(pm8001_ha->forensic_info.data_buf.direct_data,
 -- 
 2.53.0
 
