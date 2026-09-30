@@ -1,38 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6A344D37B0;
-	Wed, 30 Sep 2026 16:25:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FB5934D916;
+	Wed, 30 Sep 2026 16:25:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790785538; cv=none; b=XNReOs1wlURAmwg+Ip7iNsTIkQRI6QJnWDXgiIuOMoR8jRumEp/uFtQqIdLPkeee5SnZ/WVRUZgQZRZ5dwuvYet1UIDDs0XaGEgR51o7rlZYf91LYQBYgpeKJF0putc2NL1WgH523CEZTx26An373Q6/QaMA897Nsh/9b0A5/wo=
+	t=1790785545; cv=none; b=KjPGRx7aKTADjadZcxSETEuckRc7jwxN+hY/Ot/rSIMSKxxHy4T5lzxyBr2o7GyIcBIBUBnXAGV/xldzfrMGNTw6OZTMtRLFzK6qiLv4eSk/WZEhTNBNbmwhEy5bROesx8rP2tpkCfETYWEHeHw6VqaV/aBJq6wE9YwPPSmJjnc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790785538; c=relaxed/simple;
-	bh=jMxl8qHwLvx3DnmYFyJ3UbdrK+J9frQw8pNXDlP0TAU=;
+	s=arc-20240116; t=1790785545; c=relaxed/simple;
+	bh=zZXCHPMbiy8viaPt9reAWXy2Q2iCgJxxHkGGgARsW2Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Gqf3Wtb6NKV1o+HUPAS6exDS3Vy0tzI3AuynyhsvGiPD/b8OX/X9OQQdfygBxgiKfSZqwvXO003b+/tTxwAu8kvWXLbn8Id81LCk/Qe4KNk1P5+It20l7RhhIBQzLk7S8t5PxK0BTf/MW+9RnKRg46leg1bv67KmHDpXpxaBtzo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=eApILOJm; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=sAf63W+2syKjJo63kE6vByAGwriO+WONqICCBk4EucOdyCBrhaiq0MM1nW3+/xh3ton9d6gm6UY2yNNk1ktoEqUPTE7B3ZH0PF0qT8GdCbV1Sv5sY0RXQKmm/njn+tyLPmAFdEzrkJ+Jyof21LmH+rWWGM+v1n40fZbsvjz+0o0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=CXywNjVx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="eApILOJm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82F761F000FF;
-	Wed, 30 Sep 2026 16:25:28 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="CXywNjVx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33E181F00899;
+	Wed, 30 Sep 2026 16:25:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790785529;
-	bh=NJ2VM9GkEaANNUo3yH/WKqE+lpaYkKwOsBeDgRt3LAw=;
+	s=korg; t=1790785534;
+	bh=3BM1sHZTPiGidKnFszRnVH51xRXkyVHYVTHjzCU0NrU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eApILOJmbSPbiV1KQ8lkXnQIQn7+XYkzblQkVMuD46V8HLHNVYH9SnNdds0VV0ClE
-	 z0BLkgHfjOd2tcc13MoHBz4foothUcrd8AmyQrXwB9RyrZWRHvUO7RuBwnK6LDS/+X
-	 UmYV2twv7GOSwz5BxjZuensFwFaqHD/FjnKnwHJo=
+	b=CXywNjVxI9IXVzIZXVTrI/ZcN6rITxF4F8F0yfY5EDHoKtB0NLw5pc1gteF+cGiZz
+	 jl8S8u5fswQ16ygLGMKri8h0tYIUV3qfSE5SiRw7059bqpQcnTUKXTN2ug1DHk5gsA
+	 0xpwcRXI2CN5vr/jlPq3a7G9VIpCJF6Cj5lnAe+I=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Sashiko <sashiko-bot+sashiko@kernel.org>,
-	Joe Damato <joe@dama.to>,
-	Paolo Abeni <pabeni@redhat.com>
-Subject: [PATCH 6.1 539/982] bnxt_en: Handle buffer allocation failure in bnxt_rx_ring_reset()
-Date: Wed, 30 Sep 2026 17:21:15 +0200
-Message-ID: <20260930152428.348324175@linuxfoundation.org>
+	Vega <vega@nebusec.ai>,
+	Luxing Yin <root@tr0jan.top>,
+	Zihan Xi <zihanx@nebusec.ai>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: [PATCH 6.1 498/982] ipv6: fix fib6 walker UAF on seq stop
+Date: Wed, 30 Sep 2026 17:20:34 +0200
+Message-ID: <20260930152427.478621697@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
 References: <20260930152416.775402466@linuxfoundation.org>
@@ -51,59 +53,58 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Joe Damato <joe@dama.to>
+From: Zihan Xi <zihanx@nebusec.ai>
 
-commit 961e2a17c5e3559b3f8654d2daabdd25a42e770a upstream.
+commit 19b4ed644d68098cc62ab612727f40d30f43476c upstream.
 
-bnxt_rx_ring_reset() frees the ring buffers and then reallocates them,
-ignoring the result.
+ipv6_route_iter_active() treats a walker in FWS_U at the table root as
+already unlinked. fib6_del_route() can move a still-linked walker into
+that same state when the current leaf is the last route at the root,
+so ipv6_route_native_seq_stop() skips fib6_walker_unlink(). The seq
+private object can then be freed while it remains on
+net->ipv6.fib6_walkers. A later route deletion walks the dangling list
+and uses the freed walker.
 
-bnxt_alloc_one_rx_ring() can fail in bnxt_alloc_one_tpa_info_data(), which
-returns -ENOMEM on the first failed allocation and leaves the remaining
-rxr->rx_tpa[] entries zeroed.
+Use the list head as membership state and reinitialize it when
+unlinking. Keep the existing w->node check so a never-started iterator
+with a zeroed private object is not treated as linked.
 
-The error isn't propagated up, so the loop in bnxt_rx_ring_reset
-continues and at the end the code re-enables TPA with partially
-unallocated rx_tpa array.
+The same stop helper is used by /proc/net/ipv6_route and by the BPF
+ipv6_route iterator. The BPF show path only widens the race.
 
-This means that when the agg_id from hardware is mapped to a SW index in
-rxr->rx_tpa[], an uninitialized slot can be chosen which would hand a
-zero DMA address to the device.
-
-Fix this by falling back to a global reset, which is what the existing
-code already does when other functions fail, but unlike the other
-failure cases this particular failure has to return because TPA can't
-be re-enabled since the allocation failed.
-
-Fixes: 8fbf58e17dce ("bnxt_en: Implement RX ring reset in response to buffer errors.")
-Reported-by: Sashiko <sashiko-bot+sashiko@kernel.org>
-Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260828190900.1767611-1-joe%40dama.to
+Fixes: 8d2ca1d7b5c3 ("ipv6: avoid high order memory allocations for /proc/net/ipv6_route")
 Cc: stable@vger.kernel.org
-Signed-off-by: Joe Damato <joe@dama.to>
-Link: https://patch.msgid.link/20260902015652.2421609-5-joe@dama.to
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Reported-by: Vega <vega@nebusec.ai>
+Co-developed-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Link: https://patch.msgid.link/89699735763f6c297584d7c2ff106239cc1e8ce0.1788837093.git.zihanx@nebusec.ai
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/net/ethernet/broadcom/bnxt/bnxt.c |    9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ net/ipv6/ip6_fib.c |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
---- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-+++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-@@ -11827,7 +11827,14 @@ static void bnxt_rx_ring_reset(struct bn
- 		rxr->rx_sw_agg_prod = 0;
- 		rxr->rx_next_cons = 0;
- 		rxr->bnapi->in_reset = false;
--		bnxt_alloc_one_rx_ring(bp, i);
-+		rc = bnxt_alloc_one_rx_ring(bp, i);
-+		if (rc) {
-+			netdev_warn(bp->dev, "RX ring reset failed to allocate buffers, rc = %d, falling back to global reset\n",
-+				    rc);
-+			bnxt_reset_task(bp, true);
-+			bnxt_rtnl_unlock_sp(bp);
-+			return;
-+		}
- 		cpr = &rxr->bnapi->cp_ring;
- 		cpr->sw_stats.rx.rx_resets++;
- 		if (bp->flags & BNXT_FLAG_AGG_RINGS)
+--- a/net/ipv6/ip6_fib.c
++++ b/net/ipv6/ip6_fib.c
+@@ -85,7 +85,7 @@ static void fib6_walker_link(struct net
+ static void fib6_walker_unlink(struct net *net, struct fib6_walker *w)
+ {
+ 	write_lock_bh(&net->ipv6.fib6_walker_lock);
+-	list_del(&w->lh);
++	list_del_init(&w->lh);
+ 	write_unlock_bh(&net->ipv6.fib6_walker_lock);
+ }
+ 
+@@ -2650,7 +2650,7 @@ static void *ipv6_route_seq_start(struct
+ static bool ipv6_route_iter_active(struct ipv6_route_iter *iter)
+ {
+ 	struct fib6_walker *w = &iter->w;
+-	return w->node && !(w->state == FWS_U && w->node == w->root);
++	return w->node && !list_empty(&w->lh);
+ }
+ 
+ static void ipv6_route_native_seq_stop(struct seq_file *seq, void *v)
 
 
