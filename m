@@ -1,145 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua2-f30.google.com (mail-ua2-f30.google.com [74.125.226.222])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E4DD3BFAFA;
-	Wed, 30 Sep 2026 18:57:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B442C3C0630
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 18:57:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.222
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790794650; cv=none; b=De2ER6xNjAIflnauCSocZCWFGhvtobRlguX49oR58r0CvfD45aYeXF80Ih4pJ4y5V+02CO6Ta4Shc6qYMI5V6dh/UrTdP+cJY7aKjf+FGIVL5iYOebnLwNb8IFa6jbs4dIV4WyKcYPzuZ9cI7rrLtdD2f8XxDn6yvuGioJ9tUrM=
+	t=1790794652; cv=none; b=iyX2wkZNrg4PxH1CyaPpgPP9Nx6jd1B2WNlXgkDwp6Y/3YgZfP4t/b1A1qc4Zu8ZLzi9XTCU5pRFuc7B5ioxQMPsoTsdysd48ZMB/gzHxYNO2bM7J5fHXZMSs4Pa3BaQrXWKSIR5gZc4x+yC/Mq8OGXx2VC2N+iUGcNpPXLM+RQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790794650; c=relaxed/simple;
-	bh=XEl5iYlBuJPBlPbaSiP1xriWvcLban4ouiZ8URB4gAM=;
+	s=arc-20240116; t=1790794652; c=relaxed/simple;
+	bh=3YipfBbJyYdWfgmMsJACajHIATDtDZV6pXG9BR40l5Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bgrxDVtf+E70BddlvS3LAoT6Xv+xiWFGBCuYWkButel/DhY4uki4RADEq0liw9fu+BnbNaFiML9PFtz3DjV4YveQjWNzL1TCAesUpPgUBS37122Dz1rOLHh+8w5She+3xvyFE65dL03eRzj3kHyqtSWItjkX6PLS7OsDVNV+rd0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=C9n69xMn; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=KnCw5bdjk3I4zs/68MMR6MLgJDHVMs/9NxVsj1WlcXPQ11Zc2MAsPa+5WgVnbesfthynyQmPKTOYCN2TmRGdKaj1+cL2Mzvh2p8iHvp1XoCqf8e6SLuNgjRPqM8YDmDJNovvbjP9a5Wkh/tJS80YwDCjXW5E/oH2LXsZg+tvgtQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TQfJ75Mk; arc=none smtp.client-ip=74.125.226.222
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="C9n69xMn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0463A1F000FF;
-	Wed, 30 Sep 2026 18:57:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790794648;
-	bh=1L0sF9dkbNxXskizThmRkyCno0Jr885ZRzAk5RXVKes=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=C9n69xMny9AIeN91+zTm37Pz2iB0QOVNlcIRkKfjI6Gc4DXFWcQ/4ClixoKqlLJwn
-	 yVnjdhMrV3OUN2IwPTVxwpnctRAJXnt25PzTYlHe4+Qll6yrzwMXeXV0X1CkP0Mz6N
-	 wsMXcTowGxCdpVc/vsLEFrFZzJ9NXI1EKRzU31N8=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Corentin Labbe <clabbe@baylibre.com>,
-	Stanislaw Gruszka <stf_xl@wp.pl>,
-	Johannes Berg <johannes.berg@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 0286/1193] wifi: ralink: RT2X00: init EEPROM properly
-Date: Wed, 30 Sep 2026 17:16:10 +0200
-Message-ID: <20260930152440.520962326@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260930152434.301151190@linuxfoundation.org>
-References: <20260930152434.301151190@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TQfJ75Mk"
+Received: by mail-ua2-f30.google.com with SMTP id a1e0cc1a2514c-97e7c7b4ed1so3216540241.1
+        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 11:57:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790794649; x=1791399449; darn=vger.kernel.org;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2ZtFG6FaQjG/i5XO1LEXu5NyAdlTlgZvpK3ElwDNrH0=;
+        b=TQfJ75MksWUYsr5uGwEruOFhOPPn1+84TsuGgNjFp6nMjeRBlhxjIe/GvU19eb8Ldx
+         WnVBfWrOarkn6ng9CY5fypdTUbJ9KVukk8sv1CS3mVB1e9rME6pYos4lUVuCG4gKWS+J
+         K0SafDZl50PIzJ5G4H27N2wRTqjyu/Pq5RxZ+Td+E9RdaEDTFvCEfv5xB4Ov3L6YuCxM
+         KtZqGpBFV2CsA+6PlsNBAIfvXAEpPf/D/X6HHx9o6zZNrivycx6N+qXry2I+hqQC63Sd
+         2r2Q1TB1DLSPCQvxK/uFJAlAW9vCq3fxFTBRJIqJHl5omi/vlCd4uLr65aTR4HN9xvPn
+         gtEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790794649; x=1791399449;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2ZtFG6FaQjG/i5XO1LEXu5NyAdlTlgZvpK3ElwDNrH0=;
+        b=lbdYIxo5E2D7fzvddHtR6cJgZ0stAJyEUPjmOGhR5mJ6gqnnSGbAdUpKr7rB/JuQ/4
+         8VujGQSI0Yztnu+1R2ZgXOUy4nf9ESHqk3JSWoKgYrCTggcGChSs5EbSb+iq7HocmMeJ
+         hoR8mfBUWACooiQjyyYU3zqk1TGxSqsDXdJvk6IpOCKY7qJw2Y1xy2TzOETyWXPEl6dh
+         hkCHTy7rqGZ/zROs74SLMqFUyD5SPAJe2VDsJfOQIqEPBFF0v2TZ66A1pkqWfkLjLI8M
+         ZroxEuMBcg+9gEW3pp9VcZY6wi+9YaZ7fHubldoBCh9haniHKqSZLvoVKROO1777JrJL
+         +HJw==
+X-Forwarded-Encrypted: i=1; AKwUvBworrwl3T/leO7qL1TZi0OaxRy87VlykBiqvu8Iue4x46rykp+zcPCwCfjyl8tnkb1Ek3+fIKk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL9xn8dOoVJj1PVsBXnZBE8XF4cH1+ecYrdP9sUCRaK/kuCYWKB
+	Bvs6uXpwlXH08T5XjXcnv+ldifQlP2rjowvIwzJqre8wMZ6bzCVQ21D60oEBLg==
+X-Gm-Gg: AYBFou2Fyo5vdpFoNoKax8B+2Bq+/kQGZh/KQ+5mDi8I8BxuM6SOOThs4xeq4yPlCij
+	XCGFrv7LxybWvzd4hLRkCCy0L9ZjiL6y3uv1VIc/XNYOfRXUXH2d/IM+NknflxbQLv/tw4nKe1H
+	8CgZvRw7JitHsTRmFKCLV9ViDsTuHZT5Ezr68JFxzPtWiy14CBoVygSVZThThear/Aq6155U4nA
+	SbGFHNIG2eRsUZKxvf8LwiXMwcvCmOiabDGviMSXt0o0S0kOjnNHe7B2GB2grc+zsIiHiR76wmi
+	wjI5Z6h+BgtGyZBVtE+iDwXhUPjeqxqHgCWT63lnCPqysBxrh2ZXdriNwGrGWfG3oroFqRPGECD
+	sLZLrA+ACeqVeBebHXFZxW/Ew8BzgfzcSezS37Vdp+RIZ9kD797ylHSK4TqGZJUTMCeWJ2Ey1xe
+	/egsSPfEixx4f+Ey4W3nxM5R8RY8bMiScPvHQv8IwMcnGPkv7SQPneOYxNDGQnkrufFAo9K7XWQ
+	vh8kS5KpdOCoq6Svmjuw6cQm2pKAj+9qEvT7kaeAZifSFkqqrEI11bGqa5kwHMb2JiierIE4hqH
+	/TgcpJKZpQ==
+X-Received: by 2002:a05:6102:6448:b0:7a6:c647:cf50 with SMTP id ada2fe7eead31-7be72eab3bdmr763211137.8.1790794649316;
+        Wed, 30 Sep 2026 11:57:29 -0700 (PDT)
+Received: from timur-max.localnet (ipagstaticip-88fc351e-cb28-db3e-3f52-ad13c70f08da.sdsl.bell.ca. [142.127.77.63])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7bfa70d3ec9sm176452137.11.2026.09.30.11.57.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 11:57:29 -0700 (PDT)
+From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+To: amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com
+Cc: harry.wentland@amd.com, alex.hung@amd.com, chiahsuan.chung@amd.com,
+ ray.wu@amd.com, Leo Li <sunpeng.li@amd.com>, stable@vger.kernel.org
+Subject: Re: [PATCH] drm/amd/display: disable self-refresh on tearing flips
+Date: Wed, 30 Sep 2026 14:57:27 -0400
+Message-ID: <4c1BfmguQ8O9e4vVyhq5cw@gmail.com>
+In-Reply-To: <20260930163222.557757-1-sunpeng.li@amd.com>
+References: <20260930163222.557757-1-sunpeng.li@amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+On 2026. szeptember 30., szerda 12:30:52 keleti =C3=A1llamokbeli ny=C3=A1ri=
+ id=C5=91=20
+sunpeng.li@amd.com wrote:
+> From: Leo Li <sunpeng.li@amd.com>
+>=20
+> [Why & How]
+>=20
+> Immediate (tearing) flips breaks self refresh state machine assumptions,
+> so disable PSR/Replay for them.
+>=20
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Leo Li <sunpeng.li@amd.com>
 
-------------------
+Patch fixes tearing updates on Strix Halo.
 
-From: Corentin Labbe <clabbe@baylibre.com>
+Tested-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
 
-[ Upstream commit 0a2581cbae9e442835f68d22044157db61cdf54d ]
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 19 +++++++++++++++++++
+>  1 file changed, 19 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c index
+> 6e5dbe0bd82e5..d4c814eeb56d6 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -3764,6 +3764,13 @@ VISIBLE_IF_KUNIT void
+> amdgpu_dm_enable_self_refresh(struct amdgpu_display_manage struct
+> amdgpu_dm_connector *aconn =3D
+>  		(struct amdgpu_dm_connector *)acrtc_state->stream-
+>dm_stream_context;
+>=20
+> +	if (!acrtc_state->base.async_flip) {
+> +		amdgpu_dm_psr_set_event(dm, acrtc_state->stream, false,
+> +			psr_event_immediate_flip, false);
+> +		amdgpu_dm_replay_set_event(dm, acrtc_state->stream,=20
+false,
+> +			replay_event_immediate_flip, false);
+> +	}
+> +
+>  	/* Decrement skip count when SR is enabled and we're doing fast=20
+updates.
+> */ if (acrtc_state->update_type =3D=3D UPDATE_TYPE_FAST &&
+>  	    (psr->psr_feature_enabled || pr->replay_feature_enabled)) {
+> @@ -4218,6 +4225,18 @@ static void amdgpu_dm_commit_planes(struct
+> drm_atomic_commit *state, spin_unlock_irqrestore(&pcrtc->dev->event_lock,
+> flags);
+>  		}
+>  		mutex_lock(&dm->dc_lock);
+> +		/*
+> +		 * Tearing (immediate) flips cannot work with panel self-
+refresh
+> +		 * features. The event is cleared by
+> +		 * amdgpu_dm_enable_self_refresh() once async flips stop.
+> +		 */
+> +		if (immediate_flip) {
+> +			dc_exit_ips_for_hw_access(dm->dc);
+> +			amdgpu_dm_psr_set_event(dm, acrtc_state-
+>stream, true,
+> +				psr_event_immediate_flip, true);
+> +			amdgpu_dm_replay_set_event(dm, acrtc_state-
+>stream, true,
+> +				replay_event_immediate_flip, true);
+> +		}
+>  		update_planes_and_stream_adapter(dm->dc,
+>  					 planes_count,
+>  					 acrtc_state->stream,
 
-I have an hostapd setup with a
-01:00.0 Network controller: Ralink corp. RT2790 Wireless 802.11n 1T/2R PCIe
-
-The setup work fine on 6.18.26-gentoo
-It breaks on 6.18.33-gentoo (and still broken on 6.18.37)
-
-I found an hint in dmesg:
-On 6.18.26-gentoo I see:
-May 31 15:48:45 trash01 kernel: ieee80211 phy0: rt2x00_set_rf: Info - RF chipset 0003 detected
-On 6.18.33-gentoo I see:
-May 31 15:22:57 trash01 kernel: ieee80211 phy0: rt2x00_set_rf: Info - RF chipset 0006 detected
-
-The RF chipset seems badly detected.
-
-The problem was the EEPROM which was badly initialized.
-Probably the origin was in some PCI change but unfortunately I couldn't play
-to bisect/reboot often the board with this card to do it.
-
-Signed-off-by: Corentin Labbe <clabbe@baylibre.com>
-Acked-by: Stanislaw Gruszka <stf_xl@wp.pl>
-Link: https://patch.msgid.link/20260703134932.3786771-1-clabbe@baylibre.com
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/wireless/ralink/rt2x00/rt2400pci.c | 2 +-
- drivers/net/wireless/ralink/rt2x00/rt2500pci.c | 2 +-
- drivers/net/wireless/ralink/rt2x00/rt2800pci.c | 2 +-
- drivers/net/wireless/ralink/rt2x00/rt61pci.c   | 2 +-
- 4 files changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/wireless/ralink/rt2x00/rt2400pci.c b/drivers/net/wireless/ralink/rt2x00/rt2400pci.c
-index 13dd672b825e7..992eeda4986cf 100644
---- a/drivers/net/wireless/ralink/rt2x00/rt2400pci.c
-+++ b/drivers/net/wireless/ralink/rt2x00/rt2400pci.c
-@@ -1429,7 +1429,7 @@ static irqreturn_t rt2400pci_interrupt(int irq, void *dev_instance)
-  */
- static int rt2400pci_validate_eeprom(struct rt2x00_dev *rt2x00dev)
- {
--	struct eeprom_93cx6 eeprom;
-+	struct eeprom_93cx6 eeprom = {};
- 	u32 reg;
- 	u16 word;
- 	u8 *mac;
-diff --git a/drivers/net/wireless/ralink/rt2x00/rt2500pci.c b/drivers/net/wireless/ralink/rt2x00/rt2500pci.c
-index ecddda4c471ea..dbb949815c511 100644
---- a/drivers/net/wireless/ralink/rt2x00/rt2500pci.c
-+++ b/drivers/net/wireless/ralink/rt2x00/rt2500pci.c
-@@ -1555,7 +1555,7 @@ static irqreturn_t rt2500pci_interrupt(int irq, void *dev_instance)
-  */
- static int rt2500pci_validate_eeprom(struct rt2x00_dev *rt2x00dev)
- {
--	struct eeprom_93cx6 eeprom;
-+	struct eeprom_93cx6 eeprom = {};
- 	u32 reg;
- 	u16 word;
- 	u8 *mac;
-diff --git a/drivers/net/wireless/ralink/rt2x00/rt2800pci.c b/drivers/net/wireless/ralink/rt2x00/rt2800pci.c
-index dcb56f708a5fc..1bc1aa315762a 100644
---- a/drivers/net/wireless/ralink/rt2x00/rt2800pci.c
-+++ b/drivers/net/wireless/ralink/rt2x00/rt2800pci.c
-@@ -108,7 +108,7 @@ static void rt2800pci_eepromregister_write(struct eeprom_93cx6 *eeprom)
- 
- static int rt2800pci_read_eeprom_pci(struct rt2x00_dev *rt2x00dev)
- {
--	struct eeprom_93cx6 eeprom;
-+	struct eeprom_93cx6 eeprom = {};
- 	u32 reg;
- 
- 	reg = rt2x00mmio_register_read(rt2x00dev, E2PROM_CSR);
-diff --git a/drivers/net/wireless/ralink/rt2x00/rt61pci.c b/drivers/net/wireless/ralink/rt2x00/rt61pci.c
-index 483723bf514bf..f2ca3290a194c 100644
---- a/drivers/net/wireless/ralink/rt2x00/rt61pci.c
-+++ b/drivers/net/wireless/ralink/rt2x00/rt61pci.c
-@@ -2298,7 +2298,7 @@ static irqreturn_t rt61pci_interrupt(int irq, void *dev_instance)
-  */
- static int rt61pci_validate_eeprom(struct rt2x00_dev *rt2x00dev)
- {
--	struct eeprom_93cx6 eeprom;
-+	struct eeprom_93cx6 eeprom = {};
- 	u32 reg;
- 	u16 word;
- 	u8 *mac;
--- 
-2.53.0
 
 
 
