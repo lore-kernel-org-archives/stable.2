@@ -1,38 +1,38 @@
 Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53DEF4D7D2C;
-	Wed, 30 Sep 2026 14:46:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07C475013AB;
+	Wed, 30 Sep 2026 14:46:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790779606; cv=none; b=C0QD12ak41Y1qhueSuNhp05VQtBqh9nNx/IAY1chLuPTqD2+wedNr90WMGIJT/FSd2N0U3XBQ07Zwx5cLxAJFcADWeUM8P2IF2rMWrPmd/BMdV4Q50ruo6Ox8h83H2xUGY3f2ZABbpcElPG0tePHiEzjhlvsOs8RaLUX/GfZWmA=
+	t=1790779606; cv=none; b=Kv2UAMMFNEKGkSOi03uuSd9cc8n+4DOSUaKR9hTVqWSLZUZ/LL5OGVUqXfWSHCDM33yfPLwWybkiqtaevmKKybh7FDKUBTV6kg7Yam3L3lsgOq/9VY4PnoIwmKplvfTtYevS6dpcPdv5dyn9voUeI8Bfh3iF/VyMt+Uofum6z4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790779606; c=relaxed/simple;
-	bh=zc/1DshwQZG3h0a1eESrUsDpJVJE60wypG9PdkT+ubI=;
+	bh=XnUiW5VFoedZY+eP3TUUjBeCi3VffUB6KdXAqhe/1k0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MarS0wLokd21OMW6y3QyvO7DIsLby5qLZjZf6W9FhE+/OFILW8FSMVaz67HTd5TNHi2bciiAHMePKxT3RDf5Rnb4hO9DibcOs/rV+ulI7gNK35Swa0olRcA/JMKlYdsUKqLkzFv/5IAZDzq0ZW64Wxeslx1MtRmNmmVP3Pii2xw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=U+nVFRha; arc=none smtp.client-ip=51.159.188.251
+	 MIME-Version:Content-Type; b=TOwMmCX7UT34Lxfbpy0j0lEFhffPxtvK1OOVTEQTmTbBCRN6xN/JW1mDEva5grLuowShKIpfj4LMgDpDl1j7WvMaoP4zZQyicDFNwlKd49U8151/8MQjLHUGoM0kldKPCQuLMZKFHeWHKklnZpFxwzPRzp2o3Cv3tg67ULNJ2sE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=AYJxYcfM; arc=none smtp.client-ip=51.159.188.251
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="U+nVFRha"
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="AYJxYcfM"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
 	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
 	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
 	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=14K/qMFZnosuQ0uLGotnnjgPLLQm6f4qGAoVyZOWJtM=; b=U+nVFRhaXLo86oPTh2yOqFrhm8
-	Xy0/dzG3ejZ3ViYJT5WciYrDNMySd6R6WSz0ml+v9BKNlBOlLUvg/4MF0BbDvllSxTwmmfsEYTwJ8
-	OoBMfzyM4DHc0yjNakOf9vnAd7ZqdL6r2MIRV3g2aeBAA6lkpGujYNhDi2D2GPhDsj97dLZXx2TkK
-	6APahDxDT5XRGiL10JequUHcwd5peV/5DZcRxZqiGfV7DPCCXlwUMdNnW/uMldhBa+XVXUUNzepHj
-	YNlWJeZgoWvM+BtdLxQ/0voV2q42IScJgJUKezwaFF2CuY3ZLgKaY6R+G+TNz6TO1hmlORI4lP8wL
-	vZNkAXvQ==;
+	bh=T5XblxZKsNW6EFSZ9hSjNIHRfko62QFiItjh35VdEHs=; b=AYJxYcfM/IhnUv+k1Ejax4FVLf
+	KGU+lK68f2379iOU2ErFRrvDabydvUwb8O0zHUqhpLPMewXg72mZppM9kCaMl1NjA3K1Vv4KndAO8
+	+8nRNqhmEGgGNOjMg9Bl4/ct8XJoVrBcC+/VntmR2kDQnaPtVTUsoK5+P+sbFBfMZ4YlsQrEAIYEK
+	+rJ/RpTuqXB7dKX3eOhbij/hRcq2Fcit8bx6wnOMOwZ27O7kcWxCWQCAvXwOGwDUvf682pxbhmgvc
+	wHFiakoknuR2yRa0OOQCTURuOrWEm4qQYOaP9orBt+xBHDOX8A6ecB9VDDFUx+jQwtCPWiBm/84v6
+	bzwaMiuQ==;
 Received: from [151.115.150.205] (port=44742 helo=gepetto..)
 	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
 	(Exim 4.100.1)
 	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xBvZt-00000005QLT-2f9N;
-	Wed, 30 Sep 2026 16:46:35 +0200
+	id 1xBvZq-00000005QLT-0zhG;
+	Wed, 30 Sep 2026 16:46:31 +0200
 From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
 To: Steffen Klassert <steffen.klassert@secunet.com>,
 	Herbert Xu <herbert@gondor.apana.org.au>
@@ -46,9 +46,9 @@ Cc: "David S . Miller" <davem@davemloft.net>,
 	netdev@vger.kernel.org,
 	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
 	stable@vger.kernel.org
-Subject: [PATCH ipsec 6/7] xfrm: segment untrusted GSO packets before sequence allocation
-Date: Wed, 30 Sep 2026 14:45:23 +0000
-Message-ID: <20260930144523.435271-8-Jeremy.Jean@oss.cyber.gouv.fr>
+Subject: [PATCH ipsec 1/7] xfrm: esp6: use the current sequence number for the IV
+Date: Wed, 30 Sep 2026 14:45:18 +0000
+Message-ID: <20260930144523.435271-3-Jeremy.Jean@oss.cyber.gouv.fr>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260930144523.435271-2-Jeremy.Jean@oss.cyber.gouv.fr>
 References: <20260930144523.435271-2-Jeremy.Jean@oss.cyber.gouv.fr>
@@ -71,56 +71,51 @@ X-Source:
 X-Source-Args: 
 X-Source-Dir: 
 
-Packets received through TUN or virtio-net can have gso_segs == 0,
-with SKB_GSO_DODGY set until the segmentation metadata is checked.
-When ESP defers segmentation, gso_segs is still zero, so the SA
-sequence counter is not advanced. The segments receive sequence
-numbers starting at oseq + 1, which subsequent packets can reuse,
-causing AES-GCM nonce reuse.
+When a GSO packet is split in software for IPv6 ESP,
+validate_xmit_xfrm() calls esp6_xmit() for each segment. These
+segments have XFRM_GSO_SEGMENT set, but after the split, skb_is_gso()
+returns false for each skb, so each call increments xo->seq.low by one
+after writing the ESP sequence number.
 
-This affects IPv4 and IPv6, with or without ESN, when the ESP offload
-type is registered. Hardware encryption is not required.
+When encryption is done in software, the AES-GCM IV is generated from
+the incremented value: if the last segment has sequence number 100, it
+uses 101 to generate its IV. A bug arises when the next ordinary
+packet is processed: it also goes through esp6_xmit() with sequence
+number 101, but since it does not have XFRM_GSO_SEGMENT, no increment
+happens and the same IV is reused.
 
-Segment SKB_GSO_DODGY packets in xfrm_output() before allocating
-sequence numbers, so each segment gets its own number. Set the ESP
-encapsulation flag in xfrm_output_one(), after early segmentation, so
-UFO fragment offsets and flags are filled in correctly.
+Save the full sequence number before incrementing xo->seq, and use
+that value to generate the IV.
 
-Fixes: d7dbefc45cf5 ("xfrm: Add xfrm_replay_overflow functions for offloading")
+Fixes: 3dca3f38cfb8 ("xfrm: Separate ESP handling from segmentation for GRO packets.")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
 ---
- net/xfrm/xfrm_output.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ net/ipv6/esp6_offload.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/net/xfrm/xfrm_output.c b/net/xfrm/xfrm_output.c
-index f6644daa68ba..30b95aba10f0 100644
---- a/net/xfrm/xfrm_output.c
-+++ b/net/xfrm/xfrm_output.c
-@@ -505,6 +505,9 @@ static int xfrm_output_one(struct sk_buff *skb, int err)
- 	if (err <= 0 || x->xso.type == XFRM_DEV_OFFLOAD_PACKET)
- 		goto resume;
+diff --git a/net/ipv6/esp6_offload.c b/net/ipv6/esp6_offload.c
+index 22895521a57d..05d13cce22e4 100644
+--- a/net/ipv6/esp6_offload.c
++++ b/net/ipv6/esp6_offload.c
+@@ -346,6 +346,7 @@ static int esp6_xmit(struct xfrm_state *x, struct sk_buff *skb,  netdev_features
+ 	}
  
-+	if (xfrm_offload(skb))
-+		skb->encapsulation = 1;
-+
- 	do {
- 		err = xfrm_skb_check_space(skb);
- 		if (err) {
-@@ -812,10 +815,10 @@ int xfrm_output(struct sock *sk, struct sk_buff *skb)
- 		xfrm_state_hold(x);
+ 	seq = xo->seq.low;
++	esp.seqno = cpu_to_be64(seq + ((u64)xo->seq.hi << 32));
  
- 		xfrm_get_inner_ipproto(skb, x);
--		skb->encapsulation = 1;
+ 	esp.esph = ip_esp_hdr(skb);
+ 	esp.esph->spi = x->id.spi;
+@@ -364,8 +365,6 @@ static int esp6_xmit(struct xfrm_state *x, struct sk_buff *skb,  netdev_features
+ 	if (xo->seq.low < seq)
+ 		xo->seq.hi++;
  
- 		if (skb_is_gso(skb)) {
--			if (skb->inner_protocol && x->props.mode == XFRM_MODE_TUNNEL)
-+			if ((skb_shinfo(skb)->gso_type & SKB_GSO_DODGY) ||
-+			    (skb->inner_protocol && x->props.mode == XFRM_MODE_TUNNEL))
- 				return xfrm_output_gso(net, sk, skb);
- 
- 			skb_shinfo(skb)->gso_type |= SKB_GSO_ESP;
+-	esp.seqno = cpu_to_be64(xo->seq.low + ((u64)xo->seq.hi << 32));
+-
+ 	len = skb->len - sizeof(struct ipv6hdr);
+ 	if (len > IPV6_MAXPLEN)
+ 		len = 0;
 -- 
 2.47.3
 
