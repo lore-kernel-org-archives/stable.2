@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C72CE4F68B5;
-	Wed, 30 Sep 2026 15:59:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79F754E01FA;
+	Wed, 30 Sep 2026 15:59:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790783952; cv=none; b=Af+zge+9l+iZRoQF+aP/1bPT3rk8K2YY2CGxnQLBRjmyaqAWq/NTzHd4v4td10j0oa53ofeLIuzM2HSgVJt/4BcZ093dX0OzJCKUhZwU3FunpvjNg7fxD/hxGtbO+iKy6dPDlN66xhYE13z0YakujBWaItj8AeTyuH+9X3+AVnc=
+	t=1790783954; cv=none; b=Pvk7ZZOtqtnzya+QCKn0RbhXl8mD/UYqvG6HJiHB5h8bUxWycjceBXa4p9ceQ024YtbiklLwVjVzjNlZ1SNCalDVpUd9OV3wu46s9gTY7qzOIV/esXXYj99joVs9QtURE3UG7GUye5hBMimHLL0wu0XShf3Ki4jllziAoWcBkpM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790783952; c=relaxed/simple;
-	bh=0brHsPSvoIBWoxhjOME0lgrbFk1zBZhqWe6bufgQRjI=;
+	s=arc-20240116; t=1790783954; c=relaxed/simple;
+	bh=gVcDVO8JLkzBbFi7TGy/Ht8jk0izFaZojdg+2CJ977Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=EBbztR4KRhjsyGfQ4AVB5ANTeXka9Udlo7si1usRsOUXdJ1OtYxedMUMhGphu9sw/srWCCwdNzKdG3Sumeq6mjvlUzpxCMziBtfCYah0wZG/bZfAdBYTQP27MHL4rvM6vVKurQd9tsE9CIDzZXkmwC6cMsiOFLgWip6EkKHf7c4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hDgRq6De; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=WpanGJPLTw8TsrMNTyaSl3hbheKYq4QSSgcpj+qFzdXObgRuh1Il+ls5vdDkzPuKULae+dHxOhw1RixoxSqorutFBhmH5z5LGzgW/g6maH7Mhs8+8lSWQCkrFkegjD7dxcwGed62J4U3ipyUQATqWD+Oo1j6Y8ebyTMbmyQdzrk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OxAaHe/Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hDgRq6De"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A52441F00898;
-	Wed, 30 Sep 2026 15:59:08 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OxAaHe/Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7949D1F00893;
+	Wed, 30 Sep 2026 15:59:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790783949;
-	bh=J1AqBbDMT8YWiclVWb8LcTIt9ubeQSfINyRV0yrolmc=;
+	s=korg; t=1790783952;
+	bh=FfHvAE3ZhPX6xBYlJ7BNDqM5kulTdKYqDq6+u2/g4gU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hDgRq6DepSOV9NVsoMbteTydaPCrYXMDyIuTo6rYpxPgRMcXTp1h7yTuwjXhwojlw
-	 MeWnVxrOxoKEg9ARm5YZ6Sd4IvRhQu+IT9F3z21wU3G+iPN3D9zzsnz22FJ3YCUuK8
-	 Ks2Rp5LwTCc/OSCK+uI6wp5DAuwFNzW+Tnrwfh2o=
+	b=OxAaHe/ZMPdRFR0qIxq7QXaK1SOi0N+bQ9Y8Qy3Gr6njQMs1Ve1KYKqEE5uMmNtLx
+	 w38NMkY+HrM5SaetB3FQqqjgskVkhPqM9hQhihDWEEklVyCeUOk94vMLOrm5Qgkao0
+	 RSeiG5391l6BNfbi1CPHP4yQj/8wkIC1tbII5+N4=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	=?UTF-8?q?Gajdos=20Tam=C3=A1s?= <tamas@rimpianto.com>,
-	Paolo Abeni <pabeni@redhat.com>
-Subject: [PATCH 5.10 578/595] net: atl1e: fix soft lockup on out-of-range hw_next_to_clean read
-Date: Wed, 30 Sep 2026 17:27:51 +0200
-Message-ID: <20260930152400.165985258@linuxfoundation.org>
+	Ming Wang <wangming01@loongson.cn>,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: [PATCH 5.10 579/595] net: usb: cdc_mbim: add MeiG Smart SRM821 to ZLP whitelist
+Date: Wed, 30 Sep 2026 17:27:52 +0200
+Message-ID: <20260930152400.187324198@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152347.700140858@linuxfoundation.org>
 References: <20260930152347.700140858@linuxfoundation.org>
@@ -44,45 +44,52 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 5.10-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Gajdos Tamás <tamas@rimpianto.com>
+From: Ming Wang <wangming01@loongson.cn>
 
-commit 374bf9e4b90f979e052332c4faca2d745c491a12 upstream.
+commit f75f21ef36285e5f56ee0c428bd2909ee81165b9 upstream.
 
-Same issue as atl1c (see the first commit in this series, "net:
-atl1c: fix soft lockup on out-of-range tpd_cons read"): the hardware
-can report an out-of-range hw_next_to_clean (seen as 0xffff) while
-the PCIe link/MAC is resetting. An out-of-range value can never be
-reached and the loop below would spin forever. Treat it as "nothing
-new to clean" instead.
+The MeiG Smart SRM821 5G module (0x2dee:0x4d53) crashes and drops off
+the USB bus when it receives a Zero Length Packet (ZLP) after sending
+or receiving an NTB of exactly 16384 bytes (tx_max).
 
-Fixes: a6a5325239c202 ("atl1e: Atheros L1E Gigabit Ethernet driver")
+According to the MBIM specification, devices do not require a ZLP
+if the NTB size is exactly dwNtbOutMaxSize. However, the cdc_mbim
+driver defaults to sending ZLPs for devices not explicitly whitelisted
+to accommodate non-conformant hardware. This default behavior breaks
+the strictly conformant MeiG SRM821 module.
+
+Add this device to the ZLP conformance whitelist (cdc_mbim_info) so
+the driver will pad the NTB to avoid sending ZLPs, preventing the
+device firmware from crashing.
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Gajdos Tamás <tamas@rimpianto.com>
-Link: https://patch.msgid.link/20260921091334.3571525-3-tamas@rimpianto.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Ming Wang <wangming01@loongson.cn>
+Link: https://patch.msgid.link/20260920074500.826121-1-wangming01@loongson.cn
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/net/ethernet/atheros/atl1e/atl1e_main.c |    3 +++
- 1 file changed, 3 insertions(+)
+ drivers/net/usb/cdc_mbim.c |    5 +++++
+ 1 file changed, 5 insertions(+)
 
---- a/drivers/net/ethernet/atheros/atl1e/atl1e_main.c
-+++ b/drivers/net/ethernet/atheros/atl1e/atl1e_main.c
-@@ -1234,6 +1234,9 @@ static bool atl1e_clean_tx_irq(struct at
- 	u16 hw_next_to_clean = AT_READ_REGW(&adapter->hw, REG_TPD_CONS_IDX);
- 	u16 next_to_clean = atomic_read(&tx_ring->next_to_clean);
+--- a/drivers/net/usb/cdc_mbim.c
++++ b/drivers/net/usb/cdc_mbim.c
+@@ -632,6 +632,11 @@ static const struct usb_device_id mbim_d
+ 	  .driver_info = (unsigned long)&cdc_mbim_info,
+ 	},
  
-+	if (unlikely(hw_next_to_clean >= tx_ring->count))
-+		hw_next_to_clean = next_to_clean;
++	/* MeiG Smart SRM821 ZLP conformance */
++	{ USB_DEVICE_AND_INTERFACE_INFO(0x2dee, 0x4d53, USB_CLASS_COMM, USB_CDC_SUBCLASS_MBIM, USB_CDC_PROTO_NONE),
++	  .driver_info = (unsigned long)&cdc_mbim_info,
++	},
 +
- 	while (next_to_clean != hw_next_to_clean) {
- 		tx_buffer = &tx_ring->tx_buffer[next_to_clean];
- 		if (tx_buffer->dma) {
+ 	/* Some Huawei devices, ME906s-158 (12d1:15c1) and E3372
+ 	 * (12d1:157d), are known to fail unless the NDP is placed
+ 	 * after the IP packets.  Applying the quirk to all Huawei
 
 
