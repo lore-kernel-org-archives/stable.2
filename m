@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E72D51CF5E;
-	Wed, 30 Sep 2026 18:42:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1317A4F405E
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 18:42:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790793723; cv=none; b=GTMX4LeqgJl3wN1DEpLaElETr6Ozu+Z/GV+Rv5uVht9/cEpP8147tWLBFlKcNbiHjFdHiFpSgPDJ0jSjzG6xsDZkr5NEBpA1HC2HhYD7wTmoXxZ0f9pv15aQxeP1tkgPcLo4GPnmUylV8U8rh1hPTlGdfPqedqrH3x48CcnpWUc=
+	t=1790793725; cv=none; b=qlXmQ4mmui2YMA2dMJFvNEeZghbnkSlVx6sp0x/Qcsk/wjwbZkgz7Z22ZFlEf58QBRxbFJbTKs6STVl1tSA3vGbBSqDrm7ZL9QGBGpUABJy0Q1byqJDU4K1i+nLUmphtIn6At9wkkZOmeqr8OZhE07nIHIMOh2WYQVAfHFesJy4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790793723; c=relaxed/simple;
-	bh=nGj2v+gp2TTGYrOc2OL73orw02KtpPdhLCbloL0UUVQ=;
+	s=arc-20240116; t=1790793725; c=relaxed/simple;
+	bh=ZfaU+AhauaInRAZ/2IGGT2T/etCXdXOa20fa6HytRy0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ucjtzv4W/Wco7uft5YJmD09AF4110e51nPnkXSncV1cAz2RHVeasxwjkS0mvBrLsvJqx4JaYANsIjRDOZ3c5WUg1jRUtW87HXSsUp/z8Fx6ugsIQyCH5NyrdroMhJA/phlFzuqLcqLWTdtS/b5kbqXYhHdJqGNwAG/bqec1+c/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=LQtWygpg; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=MCIzVZnHzD4ObMx03fWsRBRfm3PzJkrGv/7qNAmZ3WELFGA3s/PRpFmQUFQXkvkmzo0ozc1Xv1yQMY1CYIeXeyn6xf7IidqoEGgFSDUwD1z05gsB7YFrKNThGt1Fy9WW1xmLY2OCha+e++mizw2g9pvlxbKAKPCGM3yXLzH5iWQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZdlpXyKp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="LQtWygpg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 874EE1F000FF;
-	Wed, 30 Sep 2026 18:42:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790793721;
-	bh=SJQ1TZdQ0isJoWi5s40xU8WEFE+DHxBAU1DU42Wmscs=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZdlpXyKp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 466351F00898;
+	Wed, 30 Sep 2026 18:42:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790793723;
+	bh=i2ylYKg+fFFkKTjt6WnKHBv2du2VCBZJyy2fnx3GsMA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LQtWygpgz8jXxMRQY7m1pRfPK0bHHCt0sMSxs2VWxA+vPJVq97jUiPg4K2WaPJfsQ
-	 97yt4aXFLsXmV6wB59xuMr1khARa3ppFYnnl4GGoSY66dwsNlw33veqR7n4P9YAvPa
-	 8UWZ5sFBXKGZ7lRnW0hlyKuOs0Kbu1QGT7ymCL9I=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=ZdlpXyKpLZ8XqXu36mGglu6Vw7UZ+bClddHBG404eQx+kHKapbW3KV7n8+VKv9dWw
+	 +0cNEzFnc3ra7o/zQogd6Iw/o+FOICEA+ue+le12ilb+8h7IFcnUskB8gK1O3qISKw
+	 fnmSjTilNdLrEOdtmy5oB3d+A8FSwReTK9bTaNYbDgURNhLZPjxow+e5xLAvNiq/i8
+	 jNLppJRO2l3s5f6EkNJR9SdnkG8YgGp01v6xziCPQZmpJgYiCxKglxhoXSoTr9zE2N
+	 pfbu8njZAaXOch4fHceq5oq1ICpvJaKtzx/H9XWFkGdvQok841ME6typWOZ9x/4gwJ
+	 RDWIhpb3xvcaQ==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Myeonghun Pak <mhun512@gmail.com>,
-	Anup Patel <anup@brainfault.org>
-Subject: [PATCH 6.18 318/395] RISC-V: KVM: Synchronize hrtimer callback during teardown
-Date: Wed, 30 Sep 2026 17:29:40 +0200
-Message-ID: <20260930152347.558891317@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260930152340.591469096@linuxfoundation.org>
-References: <20260930152340.591469096@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Zihan Xi <zihanx@nebusec.ai>,
+	Vega <vega@nebusec.ai>,
+	Luxing Yin <root@tr0jan.top>,
+	Frank Sorenson <sorenson@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] smb: client: close completed creates on compound wait errors
+Date: Wed, 30 Sep 2026 14:42:00 -0400
+Message-ID: <20260930184200.249065-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026092948-timid-gravel-59a7@gregkh>
+References: <2026092948-timid-gravel-59a7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,85 +48,206 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Zihan Xi <zihanx@nebusec.ai>
 
-------------------
+[ Upstream commit 6c5c547f037bc18f0b8d0b5db5a648f8f630ce85 ]
 
-From: Myeonghun Pak <mhun512@gmail.com>
+compound_send_recv() waits for responses in order. If a later wait is
+interrupted, or if a later MID fails during response synchronization, an
+earlier CREATE may already have opened a remote handle. The earlier mid
+is then released without invoking handle_cancelled_mid(), leaving the
+remote handle open because no FID was copied to the caller.
 
-commit aaad136d56d91252517272b68cd533e5714698d5 upstream.
+Mark completed earlier mids as cancelled when a compound wait or MID
+synchronization aborts. Keep their response buffers attached while the
+MIDs are synchronized, and transfer them only after synchronization of
+the processed responses, so the release path can inspect successful
+CREATE responses and queue SMB2_close() after a later failure. Account for
+a remote open only after the close work is allocated and before it is
+queued, since the caller has not yet updated num_remote_opens. Mark the
+create+close compound used by smb2_unlink() so it is not closed again.
+Non-CREATE responses and compounds that already include a close keep their
+existing behavior.
 
-The non-Sstc hrtimer callback clears next_set before its final uses of
-the enclosing vCPU.  If teardown observes next_set as false while the
-callback is still running, kvm_riscv_vcpu_timer_cancel() skips
-hrtimer_cancel() and kvm_destroy_vcpus() can free the vCPU before the
-callback enters kvm_riscv_vcpu_set_interrupt().
-
-A guest can arm the timer with SBI TIME and request shutdown with SBI
-legacy shutdown or SRST.  A VMM that honors KVM_EXIT_SYSTEM_EVENT and
-destroys the VM supplies the teardown side of the race; no post-launch
-host ioctl is needed to arm or request teardown.
-
-On upstream master 62cc90241548, generic KASAN reported:
-
-  BUG: KASAN: slab-use-after-free in do_raw_spin_lock
-  Write of size 4 at addr ff60000005e58898
-
-  kvm_riscv_vcpu_set_interrupt
-  kvm_riscv_vcpu_hrtimer_expired
-  __hrtimer_run_queues
-  hrtimer_interrupt
-
-The object was allocated by KVM_CREATE_VCPU and freed concurrently by:
-
-  kvm_destroy_vcpus
-  kvm_arch_destroy_vm
-  kvm_destroy_vm
-  __fput
-
-For deterministic validation, I added mdelay(1000) immediately after
-the existing next_set = false assignment.  This only widens the
-existing post-clear callback window.  A no-delay trace build naturally
-reached the callback-after-teardown-start/before-deinit ordering in 12
-of 200 runs, but 1,500 stock-kernel stress iterations did not produce a
-KASAN report, so natural reproduction is timing-sensitive.
-
-Always invoke hrtimer_cancel() for an initialized timer.  Preserve the
-existing -EINVAL result when the timer is no longer set, but only after
-synchronizing with a running callback.
-
-With this patch, hrtimer_cancel() blocked for the full widened callback
-window before vCPU destruction.  KASAN reported no error in 100
-fixed-and-widened runs or 200 fix-only timing-sweep runs.
-
-Fixes: 3a9f66cb25e1 ("RISC-V: KVM: Add timer functionality")
+Fixes: e0bba0b85481 ("cifs: add compound_send_recv()")
 Cc: stable@vger.kernel.org
-Assisted-by: OpenAI:GPT-5.6
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Reviewed-by: Anup Patel <anup@brainfault.org>
-Link: https://lore.kernel.org/r/20260731163550.46991-1-mhun512@gmail.com
-Signed-off-by: Anup Patel <anup@brainfault.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Reported-by: Vega <vega@nebusec.ai>
+Assisted-by: LLM
+Co-developed-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+Tested-by: Frank Sorenson <sorenson@redhat.com>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+[ replaced the upstream cancellation helper with inline loops using midQ and MID_WAIT_CANCELLED under server->mid_lock. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/riscv/kvm/vcpu_timer.c |    5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ fs/smb/client/smb2misc.c  |  9 +++--
+ fs/smb/client/transport.c | 69 ++++++++++++++++++++++++++++++---------
+ 2 files changed, 59 insertions(+), 19 deletions(-)
 
---- a/arch/riscv/kvm/vcpu_timer.c
-+++ b/arch/riscv/kvm/vcpu_timer.c
-@@ -60,10 +60,13 @@ static enum hrtimer_restart kvm_riscv_vc
- 
- static int kvm_riscv_vcpu_timer_cancel(struct kvm_vcpu_timer *t)
+diff --git a/fs/smb/client/smb2misc.c b/fs/smb/client/smb2misc.c
+index cd00bf48c9a56..ecab56c00f627 100644
+--- a/fs/smb/client/smb2misc.c
++++ b/fs/smb/client/smb2misc.c
+@@ -818,7 +818,8 @@ smb2_cancelled_close_fid(struct work_struct *work)
+  */
+ static int
+ __smb2_handle_cancelled_cmd(struct cifs_tcon *tcon, __u16 cmd, __u64 mid,
+-			    __u64 persistent_fid, __u64 volatile_fid)
++			    __u64 persistent_fid, __u64 volatile_fid,
++			    bool account_remote_open)
  {
--	if (!t->init_done || !t->next_set)
-+	if (!t->init_done)
- 		return -EINVAL;
+ 	struct close_cancelled_open *cancelled;
  
- 	hrtimer_cancel(&t->hrt);
-+
-+	if (!t->next_set)
-+		return -EINVAL;
- 	t->next_set = false;
+@@ -832,6 +833,8 @@ __smb2_handle_cancelled_cmd(struct cifs_tcon *tcon, __u16 cmd, __u64 mid,
+ 	cancelled->cmd = cmd;
+ 	cancelled->mid = mid;
+ 	INIT_WORK(&cancelled->work, smb2_cancelled_close_fid);
++	if (account_remote_open)
++		atomic_inc(&tcon->num_remote_opens);
+ 	WARN_ON(queue_work(cifsiod_wq, &cancelled->work) == false);
  
  	return 0;
-
+@@ -868,7 +871,7 @@ smb2_handle_cancelled_close(struct cifs_tcon *tcon, __u64 persistent_fid,
+ 	spin_unlock(&cifs_tcp_ses_lock);
+ 
+ 	rc = __smb2_handle_cancelled_cmd(tcon, SMB2_CLOSE_HE, 0,
+-					 persistent_fid, volatile_fid);
++					 persistent_fid, volatile_fid, false);
+ 	if (rc)
+ 		cifs_put_tcon(tcon, netfs_trace_tcon_ref_put_cancelled_close);
+ 
+@@ -896,7 +899,7 @@ smb2_handle_cancelled_mid(struct mid_q_entry *mid, struct TCP_Server_Info *serve
+ 					 le16_to_cpu(hdr->Command),
+ 					 le64_to_cpu(hdr->MessageId),
+ 					 rsp->PersistentFileId,
+-					 rsp->VolatileFileId);
++					 rsp->VolatileFileId, true);
+ 	if (rc)
+ 		cifs_put_tcon(tcon, netfs_trace_tcon_ref_put_cancelled_mid);
+ 
+diff --git a/fs/smb/client/transport.c b/fs/smb/client/transport.c
+index b72d12a24056c..41a95cf59deed 100644
+--- a/fs/smb/client/transport.c
++++ b/fs/smb/client/transport.c
+@@ -1101,6 +1101,7 @@ compound_send_recv(const unsigned int xid, struct cifs_ses *ses,
+ 		   int *resp_buf_type, struct kvec *resp_iov)
+ {
+ 	int i, j, optype, rc = 0;
++	int num_processed = 0;
+ 	struct mid_q_entry *midQ[MAX_COMPOUND];
+ 	bool cancelled_mid[MAX_COMPOUND] = {false};
+ 	struct cifs_credits credits[MAX_COMPOUND] = {
+@@ -1243,6 +1244,17 @@ compound_send_recv(const unsigned int xid, struct cifs_ses *ses,
+ 			break;
+ 	}
+ 	if (rc != 0) {
++		/*
++		 * A completed CREATE earlier in the compound chain may have
++		 * opened a remote handle even though a later wait was
++		 * interrupted. Mark it cancelled so __release_mid() invokes
++		 * the existing unmatched-open cleanup.
++		 */
++		spin_lock(&server->mid_lock);
++		for (j = 0; j < i; j++)
++			midQ[j]->mid_flags |= MID_WAIT_CANCELLED;
++		spin_unlock(&server->mid_lock);
++
+ 		for (; i < num_rqst; i++) {
+ 			cifs_server_dbg(FYI, "Cancelling wait for mid %llu cmd: %d\n",
+ 				 midQ[i]->mid, le16_to_cpu(midQ[i]->command));
+@@ -1265,6 +1277,17 @@ compound_send_recv(const unsigned int xid, struct cifs_ses *ses,
+ 
+ 		rc = cifs_sync_mid_result(midQ[i], server);
+ 		if (rc != 0) {
++			/*
++			 * A previous CREATE may have completed before this
++			 * response failed. Mark it cancelled so its remote
++			 * handle is closed when the mid is released.
++			 */
++			spin_lock(&server->mid_lock);
++			for (j = 0; j < i; j++)
++				midQ[j]->mid_flags |= MID_WAIT_CANCELLED;
++			spin_unlock(&server->mid_lock);
++			/* Keep their response buffers for cancelled-mid cleanup. */
++			num_processed = 0;
+ 			/* mark this mid as cancelled to not free it below */
+ 			cancelled_mid[i] = true;
+ 			goto out;
+@@ -1274,9 +1297,26 @@ compound_send_recv(const unsigned int xid, struct cifs_ses *ses,
+ 		    midQ[i]->mid_state != MID_RESPONSE_READY) {
+ 			rc = -EIO;
+ 			cifs_dbg(FYI, "Bad MID state?\n");
++			spin_lock(&server->mid_lock);
++			for (j = 0; j < i; j++)
++				midQ[j]->mid_flags |= MID_WAIT_CANCELLED;
++			spin_unlock(&server->mid_lock);
++			num_processed = 0;
+ 			goto out;
+ 		}
+ 
++		rc = server->ops->check_receive(midQ[i], server,
++						     flags & CIFS_LOG_ERROR);
++		num_processed = i + 1;
++	}
++
++out:
++	/*
++	 * Delay moving response buffers out of their mids until response
++	 * synchronization completes. This lets cancelled-mid cleanup inspect
++	 * an earlier CREATE response if a later MID fails.
++	 */
++	for (i = 0; i < num_processed; i++) {
+ 		buf = (char *)midQ[i]->resp_buf;
+ 		resp_iov[i].iov_base = buf;
+ 		resp_iov[i].iov_len = midQ[i]->resp_buf_size +
+@@ -1287,33 +1327,30 @@ compound_send_recv(const unsigned int xid, struct cifs_ses *ses,
+ 		else
+ 			resp_buf_type[i] = CIFS_SMALL_BUFFER;
+ 
+-		rc = server->ops->check_receive(midQ[i], server,
+-						     flags & CIFS_LOG_ERROR);
+-
+ 		/* mark it so buf will not be freed by delete_mid */
+ 		if ((flags & CIFS_NO_RSP_BUF) == 0)
+ 			midQ[i]->resp_buf = NULL;
+-
+ 	}
+ 
+ 	/*
+ 	 * Compounding is never used during session establish.
+ 	 */
+-	spin_lock(&ses->ses_lock);
+-	if ((ses->ses_status == SES_NEW) || (optype & CIFS_NEG_OP) || (optype & CIFS_SESS_OP)) {
+-		struct kvec iov = {
+-			.iov_base = resp_iov[0].iov_base,
+-			.iov_len = resp_iov[0].iov_len
+-		};
+-		spin_unlock(&ses->ses_lock);
+-		cifs_server_lock(server);
+-		smb311_update_preauth_hash(ses, server, &iov, 1);
+-		cifs_server_unlock(server);
++	if (num_processed == num_rqst) {
+ 		spin_lock(&ses->ses_lock);
++		if ((ses->ses_status == SES_NEW) || (optype & CIFS_NEG_OP) || (optype & CIFS_SESS_OP)) {
++			struct kvec iov = {
++				.iov_base = resp_iov[0].iov_base,
++				.iov_len = resp_iov[0].iov_len
++			};
++			spin_unlock(&ses->ses_lock);
++			cifs_server_lock(server);
++			smb311_update_preauth_hash(ses, server, &iov, 1);
++			cifs_server_unlock(server);
++			spin_lock(&ses->ses_lock);
++		}
++		spin_unlock(&ses->ses_lock);
+ 	}
+-	spin_unlock(&ses->ses_lock);
+ 
+-out:
+ 	/*
+ 	 * This will dequeue all mids. After this it is important that the
+ 	 * demultiplex_thread will not process any of these mids any futher.
+-- 
+2.53.0
 
