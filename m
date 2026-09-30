@@ -1,39 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23B5A39022A;
-	Wed, 30 Sep 2026 16:21:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C0BC4F85CB;
+	Wed, 30 Sep 2026 16:21:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790785265; cv=none; b=boXFfYrFDdD6HK4GXoDF1YuKRT088slQdLe2c9JaTWRIamaNYlROVBo4twaP0fJkrMHwxa21DHU0rMIn78Rfv/9D0h3+vRzk8GoekRpYsLz3z/BwnvCRG2+Is21rU3hZ8hCu+sjxwjjOH5ACz4RnwwhHHX7+9EQE1S77PbWxues=
+	t=1790785268; cv=none; b=JZOjfrwDWS49Jqr79HnTckMkeI1Zp6jYu82D6vXrGjLqlxhy98TzvGBkrcyY6L1f7CXzlZ6AO0SPf09PI/l8Sp2nxL/YOvfFcqcQjWnQlMJnxTne/mgUDfW9uPtLCw6C3gZarrmWnhTZsZx833BWpDbqrMKAGsvmR8Q6c5uWmsA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790785265; c=relaxed/simple;
-	bh=vnoUtmL/2SLbQ9ilFmq8VRxDhweZR1mOT64sVeCtY3E=;
+	s=arc-20240116; t=1790785268; c=relaxed/simple;
+	bh=swEAOJioaP5TCy6J+HgxJwAdaSgvN2SnYbOLyxPOhOI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=vCKujFTXK2TBpf40CX5JJ0G5d+hCyvvnaz17t/WerTQ7FHcwS12peYY+FAEWhpaZG/u9CQFCIm5i2bEnVu5rMOfs01CsLLbthThYACrwtx9URSp8SThrgLmXqPQ6vW9gtw518/7x/m+2v8IYiH2PDFH0xzBKwNyx4o+r/99s6U8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OnwlRvnZ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=KGN2+lOkQRFRGOd62GN9ErZrkEPBie70spIIMxKhPrlAFXSGcH71XA7W7Osp7I25XPpo7qZ2KVSBb/nwE2ZkVU/KoJuVbvr5cUhERy+TfkqItDTgMHjlHyimHKdxSikvk8GcST5NDQDugZoAu2jyiJyQiJzO0kebkCuEVgQEmNY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=e5WM8J8w; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OnwlRvnZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BE1A1F00898;
-	Wed, 30 Sep 2026 16:20:59 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="e5WM8J8w"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5729B1F0089A;
+	Wed, 30 Sep 2026 16:21:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790785260;
-	bh=JpSXxMp2HZc+1zJDoJQMRcbNkj8mKsZ94Tj01OIU3jE=;
+	s=korg; t=1790785262;
+	bh=l7yuRfRtdt9s1vUBOolNa0n02+aaONfOBHx8gHE+4Zs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OnwlRvnZkUHdVYMzbs6+zxmQewjzcTxiMZvp2jaKkD58Olrmou1LU4jPFrg8yIJmt
-	 iKf9uc21DSMoiUb7urFUWw77gTsvaUH3Hv6Rzspu3b2CA3vY8V5Oiek/j59ggUhTQu
-	 l+GMp8PcoZUmtxk8Jr7rDKARYnG9o7KadwnVqOcw=
+	b=e5WM8J8wXxU/qbTSbbhR0RIYSt41xvrraGjW+cdLqWi+AHMYsRZh2zUNLj/n5FiwV
+	 +bMbIwOs/FuUBLA4dnYuK/JZbhY2qIaE+uOXsjR0fsLjrCSILgIMWTRuVxKx92uy5M
+	 33RewC2v+7OPeAk34H+hI9x0Z4Q2I1+V9BPSFZRo=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Alexei Starovoitov <ast@kernel.org>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	=?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 401/982] bpf: Fix NULL-ptr-deref in btf_var_show()
-Date: Wed, 30 Sep 2026 17:18:57 +0200
-Message-ID: <20260930152425.424111723@linuxfoundation.org>
+Subject: [PATCH 6.1 402/982] ALSA/ASoC: hda: ext: add ext prefix to snd_hdac_link_free_all
+Date: Wed, 30 Sep 2026 17:18:58 +0200
+Message-ID: <20260930152425.445472455@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
 References: <20260930152416.775402466@linuxfoundation.org>
@@ -46,72 +47,115 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 6.1-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-[ Upstream commit 5403a383f52fc0905703b488f7c3db4b2447dc58 ]
+[ Upstream commit 7f05ca9a7467f05b8703b37bdc1ddddd0e9f8876 ]
 
-btf_var_show() calls btf_type_id_resolve() unconditionally, which
-dereferences btf->resolved_ids. That is NULL for a base BTF - e.g. the
-vmlinux BTF that bpf_snprintf_btf() renders against - since base BTF is
-not resolved during parsing. btf_modifier_show() guards this with
-'if (btf->resolved_ids)', but btf_var_show() does not.
+No functionality change, just prefix addition to clearly identify that
+the helper only applies to the 'ext' part for Intel platforms.
 
-A BPF program that passes the type_id of a BTF_KIND_VAR from the vmlinux
-BTF to bpf_snprintf_btf() thus NULL-derefs:
-
-KASAN: probably user-memory-access in range [0x46638-0x4663f]
-RIP: 0010:btf_var_show (kernel/bpf/btf.c:2929)
-Call Trace:
- <TASK>
- btf_type_show (kernel/bpf/btf.c:8259)
- btf_type_snprintf_show (kernel/bpf/btf.c:8329)
- bpf_snprintf_btf (kernel/trace/bpf_trace.c:1047)
- bpf_prog_test_run_raw_tp (net/bpf/test_run.c:829)
- __sys_bpf (kernel/bpf/syscall.c:4804)
- do_syscall_64 (arch/x86/entry/syscall_64.c:84)
- entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
- </TASK>
-
-Resolve the var's type directly with btf_type_skip_modifiers() when
-resolved_ids is NULL, mirroring btf_modifier_show().
-
-Fixes: c4d0bfb45068 ("bpf: Add bpf_snprintf_btf helper")
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-Acked-by: Ihor Solodrai <ihor.solodrai@linux.dev>
-Link: https://lore.kernel.org/r/20260901104924.346187-4-jiayuan.chen@linux.dev
-Signed-off-by: Alexei Starovoitov <ast@kernel.org>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Link: https://lore.kernel.org/r/20221019162115.185917-6-pierre-louis.bossart@linux.intel.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Stable-dep-of: 559ea14b7ae7 ("ASoC: Intel: avs: Clean up the bus when fetching ML caps fails")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/bpf/btf.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ include/sound/hdaudio_ext.h         | 2 +-
+ sound/hda/ext/hdac_ext_controller.c | 6 +++---
+ sound/soc/intel/avs/core.c          | 2 +-
+ sound/soc/intel/skylake/skl.c       | 2 +-
+ sound/soc/sof/intel/hda.c           | 2 +-
+ 5 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/kernel/bpf/btf.c b/kernel/bpf/btf.c
-index da85fc671023c..cf6883e7b158f 100644
---- a/kernel/bpf/btf.c
-+++ b/kernel/bpf/btf.c
-@@ -2682,7 +2682,15 @@ static void btf_var_show(const struct btf *btf, const struct btf_type *t,
- 			 u32 type_id, void *data, u8 bits_offset,
- 			 struct btf_show *show)
- {
--	t = btf_type_id_resolve(btf, &type_id);
-+	/*
-+	 * btf_type_id_resolve() dereferences btf->resolved_ids, which is NULL
-+	 * for a base BTF (e.g. the vmlinux BTF that bpf_snprintf_btf() uses).
-+	 * Resolve the var's type directly in that case.
-+	 */
-+	if (btf->resolved_ids)
-+		t = btf_type_id_resolve(btf, &type_id);
-+	else
-+		t = btf_type_skip_modifiers(btf, t->type, &type_id);
+diff --git a/include/sound/hdaudio_ext.h b/include/sound/hdaudio_ext.h
+index 83aed26ab1433..9c1ec992ab53e 100644
+--- a/include/sound/hdaudio_ext.h
++++ b/include/sound/hdaudio_ext.h
+@@ -80,7 +80,7 @@ struct hdac_ext_stream {
+ int snd_hdac_ext_stream_init_all(struct hdac_bus *bus, int start_idx,
+ 				 int num_stream, int dir);
+ void snd_hdac_ext_stream_free_all(struct hdac_bus *bus);
+-void snd_hdac_link_free_all(struct hdac_bus *bus);
++void snd_hdac_ext_link_free_all(struct hdac_bus *bus);
+ struct hdac_ext_stream *snd_hdac_ext_stream_assign(struct hdac_bus *bus,
+ 					   struct snd_pcm_substream *substream,
+ 					   int type);
+diff --git a/sound/hda/ext/hdac_ext_controller.c b/sound/hda/ext/hdac_ext_controller.c
+index 80876b9a87f46..a2dae3abd541d 100644
+--- a/sound/hda/ext/hdac_ext_controller.c
++++ b/sound/hda/ext/hdac_ext_controller.c
+@@ -108,12 +108,12 @@ int snd_hdac_ext_bus_get_ml_capabilities(struct hdac_bus *bus)
+ EXPORT_SYMBOL_GPL(snd_hdac_ext_bus_get_ml_capabilities);
  
- 	btf_type_ops(t)->show(btf, t, type_id, data, bits_offset, show);
+ /**
+- * snd_hdac_link_free_all- free hdac extended link objects
++ * snd_hdac_ext_link_free_all- free hdac extended link objects
+  *
+  * @bus: the pointer to HDAC bus object
+  */
+ 
+-void snd_hdac_link_free_all(struct hdac_bus *bus)
++void snd_hdac_ext_link_free_all(struct hdac_bus *bus)
+ {
+ 	struct hdac_ext_link *l;
+ 
+@@ -123,7 +123,7 @@ void snd_hdac_link_free_all(struct hdac_bus *bus)
+ 		kfree(l);
+ 	}
  }
+-EXPORT_SYMBOL_GPL(snd_hdac_link_free_all);
++EXPORT_SYMBOL_GPL(snd_hdac_ext_link_free_all);
+ 
+ /**
+  * snd_hdac_ext_bus_link_at - get link at specified address
+diff --git a/sound/soc/intel/avs/core.c b/sound/soc/intel/avs/core.c
+index 04d0099adb8fb..44e5d2ed2b95a 100644
+--- a/sound/soc/intel/avs/core.c
++++ b/sound/soc/intel/avs/core.c
+@@ -528,7 +528,7 @@ static void avs_pci_remove(struct pci_dev *pci)
+ 	snd_hdac_bus_free_stream_pages(bus);
+ 	snd_hdac_ext_stream_free_all(bus);
+ 	/* reverse ml_capabilities */
+-	snd_hdac_link_free_all(bus);
++	snd_hdac_ext_link_free_all(bus);
+ 	snd_hdac_ext_bus_exit(bus);
+ 
+ 	avs_dsp_core_disable(adev, GENMASK(adev->hw_cfg.dsp_cores - 1, 0));
+diff --git a/sound/soc/intel/skylake/skl.c b/sound/soc/intel/skylake/skl.c
+index 7f058acd221f0..3d8cb8cb533b9 100644
+--- a/sound/soc/intel/skylake/skl.c
++++ b/sound/soc/intel/skylake/skl.c
+@@ -445,7 +445,7 @@ static int skl_free(struct hdac_bus *bus)
+ 		free_irq(bus->irq, (void *)bus);
+ 	snd_hdac_bus_free_stream_pages(bus);
+ 	snd_hdac_ext_stream_free_all(bus);
+-	snd_hdac_link_free_all(bus);
++	snd_hdac_ext_link_free_all(bus);
+ 
+ 	if (bus->remap_addr)
+ 		iounmap(bus->remap_addr);
+diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+index 63764afdcf617..b7d6a54bbb634 100644
+--- a/sound/soc/sof/intel/hda.c
++++ b/sound/soc/sof/intel/hda.c
+@@ -1224,7 +1224,7 @@ int hda_dsp_remove(struct snd_sof_dev *sdev)
+ 
+ 	hda_dsp_stream_free(sdev);
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
+-	snd_hdac_link_free_all(bus);
++	snd_hdac_ext_link_free_all(bus);
+ #endif
+ 
+ 	iounmap(sdev->bar[HDA_DSP_BAR]);
 -- 
 2.53.0
 
