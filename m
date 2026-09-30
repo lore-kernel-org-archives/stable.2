@@ -1,40 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AAC850B43A;
-	Wed, 30 Sep 2026 15:34:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 755774E324B;
+	Wed, 30 Sep 2026 15:34:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790782485; cv=none; b=soeenOuwdzDDiSMKKBRdlfB68ZotqrvCG+fdTK38rbXeMJt5flIP0F/3P2NydO8TqN8U0N0tlf0k/HHLNh3ajOVLw0WunX7Fk4uFZRfJX8M6CnOPkNeGWLNUPe9uUcGrOIVdOq/Cy6NCTGpI90WsHpNKo6S9h6td0afsoJutRjc=
+	t=1790782496; cv=none; b=KNkvyc8r58W7/eTyR/iU8h/GDej/3vl79E2NXTP+r1DO5RkyvAIbQ/myvbu3YLGCu2VNboIb+LwE/sHBs2S7ZIumeq0Yq1icHM9xh6GJoVr/ytfCgEm+gLB5kDAHb/9oEx146c6idjHy/zNazNKnZDGm7C/4bE9h2m4lAfQmuVc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790782485; c=relaxed/simple;
-	bh=ZqQtRT3wLnzdxRg/NCY2TL0xytlaTCDDWcJyu0qLrgA=;
+	s=arc-20240116; t=1790782496; c=relaxed/simple;
+	bh=C5J2xsg93/XPEOfgJgj1PpyRog+zZU+R4yRILYxWUoM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gHnPUK9ajmr9PR/BED/MrEaxaqLo77QbrQn9AbgZVgQgOl71FPnA05dCLeNZ07zpukpankIZ02MBHvUM7oIgPRzcssxud8IPEnYBC42JVmTq70ziubh1TJWatoLWNpCMujk1NDZ85+5PmUa+NMP7l+bW74DZ7c1cgKYeplFnAik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=I41dWVYT; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=e0JAPpHUov6v/ynngtXpkwHDy0G9kVeHy2HKhiQ4aZsfEZk/jolgV+ORaCqkQV9byxPyZsVsO1U3Wf3Y452thz9M2ZtjfY1YedfIhDzs86tFwLfg4QrlJmh9LTpZ73JMBbzfZ3axyxxQEG8tr6+xgQ/QCK2kRzsHD/zDGJz/jUc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TnbnrRHQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="I41dWVYT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C70B31F00899;
-	Wed, 30 Sep 2026 15:34:35 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TnbnrRHQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 777651F00898;
+	Wed, 30 Sep 2026 15:34:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790782476;
-	bh=P/UwR/FoRuP1O9bE89tQHU4uGSIi3QrQT5noPbIyv40=;
+	s=korg; t=1790782482;
+	bh=5RfNlNHeCmuDaVICUEDsP2q4ww8PdfRSYJ4Y5AkXPOg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=I41dWVYTKbzb15Drdcu2B4B7YuDJntr8z/4Q4/s+romaVTPQSSunf3xQz135hX1/5
-	 hcp0xFWSS/BwnyMFqvO4pTInGq/78dUGvYNZGJHgA3oPpm58Gqv12r0m5j+3JNBO7q
-	 U/yy7PgrejfbLyFtqaKWoUd6qXq4WKkH1yNwEf3Q=
+	b=TnbnrRHQli4hQftoC99cMm9aU0ljRIA/O4I6LZNdDFlreLUK4lXIOovABLIzs67aV
+	 Ccd1xhGAGdVc+7BJnDTWty3SSPKdVOqt+3YzJln5ICThIpHScc3twWnnq1m7/y9bcc
+	 DqbNWLg7jX4OwupqArIwMaaS5KiEjMZ+egjpKeRU=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	syzbot+fbf3648ae7f5bdb05c59@syzkaller.appspotmail.com,
-	Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Allison Henderson <achender@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
+	Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>,
+	Dinh Nguyen <dinguyen@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 058/595] rds: annotate data-race around rs_seen_congestion
-Date: Wed, 30 Sep 2026 17:19:11 +0200
-Message-ID: <20260930152348.981678523@linuxfoundation.org>
+Subject: [PATCH 5.10 060/595] clk: socfpga: agilex: implement l3_main_free_clk
+Date: Wed, 30 Sep 2026 17:19:13 +0200
+Message-ID: <20260930152349.026147130@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152347.700140858@linuxfoundation.org>
 References: <20260930152347.700140858@linuxfoundation.org>
@@ -47,69 +45,41 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 5.10-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
+From: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
 
-[ Upstream commit 67636cab273ed0c0b0f2adab6c9369a471cb7966 ]
+[ Upstream commit 1e7f56205813a2c48cdb3e9a4b0a24f49fd9a548 ]
 
-rs_seen_congestion is read in rds_poll() and written in rds_sendmsg()
-and rds_poll() without any lock.  Use READ_ONCE()/WRITE_ONCE() to
-annotate these lockless accesses and silence KCSAN.
+The AGILEX_L3_MAIN_FREE_CLK is defined in the dt-bindings header but
+was never implemented in the clock driver. Per the Agilex TRM,
+l3_main_free_clk has no divider or mux and is a fixed 1:1 derivative
+of noc_free_clk that clocks most of the interconnect datapath.
 
-Reported-by: syzbot+fbf3648ae7f5bdb05c59@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/netdev/6a0f8d94.050a0220.6b33c.0000.GAE@google.com/
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-Reviewed-by: Allison Henderson <achender@kernel.org> 
-Tested-by: Allison Henderson <achender@kernel.org>
-Link: https://patch.msgid.link/20260522011621.304470-1-jiayuan.chen@linux.dev
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
+Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/rds/af_rds.c | 4 ++--
- net/rds/send.c   | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ drivers/clk/socfpga/clk-agilex.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/net/rds/af_rds.c b/net/rds/af_rds.c
-index 9165d054e8e35..5fc38d2b411d5 100644
---- a/net/rds/af_rds.c
-+++ b/net/rds/af_rds.c
-@@ -217,7 +217,7 @@ static __poll_t rds_poll(struct file *file, struct socket *sock,
- 
- 	poll_wait(file, sk_sleep(sk), wait);
- 
--	if (rs->rs_seen_congestion)
-+	if (READ_ONCE(rs->rs_seen_congestion))
- 		poll_wait(file, &rds_poll_waitq, wait);
- 
- 	read_lock_irqsave(&rs->rs_recv_lock, flags);
-@@ -245,7 +245,7 @@ static __poll_t rds_poll(struct file *file, struct socket *sock,
- 
- 	/* clear state any time we wake a seen-congested socket */
- 	if (mask)
--		rs->rs_seen_congestion = 0;
-+		WRITE_ONCE(rs->rs_seen_congestion, 0);
- 
- 	return mask;
- }
-diff --git a/net/rds/send.c b/net/rds/send.c
-index 131c59cd5abb0..6d49fd32a78c9 100644
---- a/net/rds/send.c
-+++ b/net/rds/send.c
-@@ -1340,7 +1340,7 @@ int rds_sendmsg(struct socket *sock, struct msghdr *msg, size_t payload_len)
- 
- 	ret = rds_cong_wait(conn->c_fcong, dport, nonblock, rs);
- 	if (ret) {
--		rs->rs_seen_congestion = 1;
-+		WRITE_ONCE(rs->rs_seen_congestion, 1);
- 		goto out;
- 	}
- 	while (!rds_send_queue_rm(rs, conn, cpath, rm, rs->rs_bound_port,
+diff --git a/drivers/clk/socfpga/clk-agilex.c b/drivers/clk/socfpga/clk-agilex.c
+index 225636c2b5696..2ac87dcee45e4 100644
+--- a/drivers/clk/socfpga/clk-agilex.c
++++ b/drivers/clk/socfpga/clk-agilex.c
+@@ -247,6 +247,8 @@ static const struct stratix10_perip_cnt_clock agilex_main_perip_cnt_clks[] = {
+ 	   0, 0x3C, 0, 0, 0},
+ 	{ AGILEX_NOC_FREE_CLK, "noc_free_clk", NULL, noc_free_mux, ARRAY_SIZE(noc_free_mux),
+ 	  0, 0x40, 0, 0, 0},
++	{ AGILEX_L3_MAIN_FREE_CLK, "l3_main_free_clk", "noc_free_clk", NULL,
++	  1, 0, 0, 1, 0, 0},
+ 	{ AGILEX_L4_SYS_FREE_CLK, "l4_sys_free_clk", NULL, noc_mux, ARRAY_SIZE(noc_mux), 0,
+ 	  0, 4, 0x30, 1},
+ 	{ AGILEX_EMAC_A_FREE_CLK, "emaca_free_clk", NULL, emaca_free_mux, ARRAY_SIZE(emaca_free_mux),
 -- 
 2.53.0
 
