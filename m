@@ -1,43 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 474293C1D5E
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 11:14:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72175463B73
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 11:14:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790766860; cv=none; b=E2vGiaUEeHSKmATv6tmjIguMW+x0V/M9/l4YxXlFmazb65fPsGxB7u6KV3ebyt2L15NE+/StZkAZIdhDdTmMpVMxknBrkIwwHTDIarL4nET+BusKr/dU7i/AWKc5+Vygp5k3ooR1stl2PRrk7PfgMBhCgIzUcZGxQtTA8q2sjHU=
+	t=1790766862; cv=none; b=kDj4lxkbvdrhU63nOycQaheYRGytuBYtGPsbXMCmxOkdhvJYOpXwglIaR8evGahOsyiVRLBUz3PWC7NJNgBFg3tKNwC0i4Om35es2xRhpDf5TEdU3A5ibLBFC1BEYrT+0sqRi3svTPoT5aFxkPh1JboKZQqqAa47jEpXfGwlQq8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790766860; c=relaxed/simple;
-	bh=nXYmygXfW+ggCNykgpuZ3WYarsVEqnrd6hS+jb0VA5k=;
+	s=arc-20240116; t=1790766862; c=relaxed/simple;
+	bh=/eIfYOXGN/m3OXf6vosKYWhm5gaxLZmBNFGur06e4xE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aBon6m7Kafp61b5g2dV64h3qapaOwSnhk+rkbzjfj+rtCJcjy08vh5YbiZ8y+t/wFSN0AsFtFOxtTye9vThvbKxowy211oo8rKiPaFT+3vsMjc2vzhqmo5nci++LterX59VMjGqmi/STjAJ+EbJVC7ip1WQnLXrY31OeYiehpy8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a3bC6lGj; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=urjojm7eBabAaUL90KLfuoyDXezAGVB8zpVKz46eF9fVI4jmio2GmySh0R3Sp6ugHXCXLPXvqXcwXtW/41YKFw1PvIEfS85MdvQQIo4gZiXS7uaMtXjfOolE+DsILmrzaBmyAR2Kd5lNf5mEho9VM7HMFJv3So06enJ2AsKvxao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MHo/XY5a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a3bC6lGj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81B161F000FF;
-	Wed, 30 Sep 2026 11:14:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MHo/XY5a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED6231F000FF;
+	Wed, 30 Sep 2026 11:14:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790766858;
-	bh=TKfzxBz5UIqzpjCgHj8NPxvc618QbpjnFkGdYVuyDpo=;
+	s=k20260515; t=1790766861;
+	bh=IB/Yjv0INDC9uo9CiV9vyAI8wB6qGk8YWK5v6n2QwxA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=a3bC6lGjpCEwVWa4pY90Eu9ZGtDN53M3Tzn9tFTYU2XylwBxDlzHUsI0wX+ydjO4z
-	 tVyb6Y4ERlLmisTJwWCmR8159cGA6R04AASg8U6oLT9lfGO8FOnyGP4ja0P9zi5Qe4
-	 GY6WrmT4FJCkkgZ/MsgBFdPBjFfOCTSP2ZbUc34/pZF5nkLdEoKebQfK7LR5AFhTgG
-	 /zHE0MD6Bemj4mLXWpUrxXyRfdx9C1R7VX8y+fgqQCp6p2TMFzTt8jBd+DbZXUa4Un
-	 c8gomWnRQBSdQk2fQPZZwMusZwxYgnSHomodo/CeIrFWa/zL8XHR4t0VQO6i3YBTUf
-	 N3usQw/LKswMw==
+	b=MHo/XY5a9F2Zzu9IPreuz8GNRKrhlpZObFPtj9hF7mMDVSosYfHwFzJI9u3SDpxJH
+	 rNgAFpSeJiOn4K4UQsMDUBK0bewd5lRqRB5ps9aKJULF/l6GVqNGtjZpklj7+9etW7
+	 XJDpsY1uPsAFN3A6B8BKrd+dMLZLg2eN6d6/jOLmw+u4hrNm0zocLvIgXFeIaDTQ0o
+	 ef5UGlzorg1tNb3egE/cWQPoSH/TVZyrd0VUrw/FuySIASNZgdKMuw+JNwcodqYDoN
+	 QXGvW2mjFf3UAedmDW3enYTnNnK7vkg0ddn2JI6yD3tonXCkZ1Wc7NKcxhy3LGESBS
+	 h1WJP/TL7bmSg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Dr. David Alan Gilbert" <linux@treblig.org>,
-	David Arinzon <darinzon@amazon.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Pablo Neira Ayuso <pablo@netfilter.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/2] net: ena: Remove autopolling mode
-Date: Wed, 30 Sep 2026 07:14:15 -0400
-Message-ID: <20260930111416.1207140-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/3] netfilter: nf_tables: set->ops->insert returns opaque set element in case of EEXIST
+Date: Wed, 30 Sep 2026 07:14:17 -0400
+Message-ID: <20260930111419.1207335-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092919-valid-armadillo-00ba@gregkh>
-References: <2026092919-valid-armadillo-00ba@gregkh>
+In-Reply-To: <2026092922-sadly-mace-20a0@gregkh>
+References: <2026092922-sadly-mace-20a0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,110 +44,274 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Dr. David Alan Gilbert" <linux@treblig.org>
+From: Pablo Neira Ayuso <pablo@netfilter.org>
 
-[ Upstream commit b356b9170815f822394667010d478d53901ff581 ]
+[ Upstream commit 078996fcd657e6e0c3a72b7d5806d04c32e74250 ]
 
-This manually reverts
-commit a4e262cde3cd ("net: ena: allow automatic fallback to polling mode")
+Return struct nft_elem_priv instead of struct nft_set_ext for
+consistency with ("netfilter: nf_tables: expose opaque set element as
+struct nft_elem_priv") and to prepare the introduction of element
+timeout updates from control path.
 
-which is unused.
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
 
-(I did it manually because there are other minor comment
-and function changes surrounding it).
-Build tested only.
+Backport notes for Linux 6.6:
 
-Suggested-by: David Arinzon <darinzon@amazon.com>
-Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
-Link: https://patch.msgid.link/20241103194149.293456-1-linux@treblig.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: 9476b4468862 ("net: ena: fix MMIO read buffer leak on probe failure")
+The stable tree uses void * for private set elements and does not have
+struct nft_elem_priv or the backend priv members. Keep that representation:
+return the backend element through void ** and recover its extensions with
+nft_set_elem_ext() in the -EEXIST caller. Update all insert implementations
+consistently, including catchall insertion, so commit 70194dc37670 can be
+applied without modification.
+
+Preserve nft_add_set_elem()'s set_full handling and declaration order.
+Keep pipapo's existing initialization of e and return that element directly;
+do not introduce the unavailable nft_elem_priv_cast() helper. Correct the
+pipapo output-parameter documentation to describe private element data.
+
+Stable-dep-of: 70194dc37670 ("netfilter: nf_tables: skip expired catchall elements on insert and delete")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/amazon/ena/ena_com.c | 25 +++++------------------
- drivers/net/ethernet/amazon/ena/ena_com.h | 14 -------------
- 2 files changed, 5 insertions(+), 34 deletions(-)
+ include/net/netfilter/nf_tables.h |  2 +-
+ net/netfilter/nf_tables_api.c     | 15 +++++++++------
+ net/netfilter/nft_set_bitmap.c    |  4 ++--
+ net/netfilter/nft_set_hash.c      |  8 ++++----
+ net/netfilter/nft_set_pipapo.c    | 10 +++++-----
+ net/netfilter/nft_set_rbtree.c    | 10 +++++-----
+ 6 files changed, 26 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/net/ethernet/amazon/ena/ena_com.c b/drivers/net/ethernet/amazon/ena/ena_com.c
-index 276f6a8631fb1..a7b98c0b5f285 100644
---- a/drivers/net/ethernet/amazon/ena/ena_com.c
-+++ b/drivers/net/ethernet/amazon/ena/ena_com.c
-@@ -763,25 +763,16 @@ static int ena_com_wait_and_process_admin_cq_interrupts(struct ena_comp_ctx *com
- 
- 		if (comp_ctx->status == ENA_CMD_COMPLETED) {
- 			netdev_err(admin_queue->ena_dev->net_device,
--				   "The ena device sent a completion but the driver didn't receive a MSI-X interrupt (cmd %d), autopolling mode is %s\n",
--				   comp_ctx->cmd_opcode, admin_queue->auto_polling ? "ON" : "OFF");
--			/* Check if fallback to polling is enabled */
--			if (admin_queue->auto_polling)
--				admin_queue->polling = true;
-+				   "The ena device sent a completion but the driver didn't receive a MSI-X interrupt (cmd %d)\n",
-+				   comp_ctx->cmd_opcode);
- 		} else {
- 			netdev_err(admin_queue->ena_dev->net_device,
- 				   "The ena device didn't send a completion for the admin cmd %d status %d\n",
- 				   comp_ctx->cmd_opcode, comp_ctx->status);
+diff --git a/include/net/netfilter/nf_tables.h b/include/net/netfilter/nf_tables.h
+index 4056d22724873..55fc808761cf1 100644
+--- a/include/net/netfilter/nf_tables.h
++++ b/include/net/netfilter/nf_tables.h
+@@ -462,7 +462,7 @@ struct nft_set_ops {
+ 	int				(*insert)(const struct net *net,
+ 						  const struct nft_set *set,
+ 						  const struct nft_set_elem *elem,
+-						  struct nft_set_ext **ext);
++						  void **priv);
+ 	void				(*activate)(const struct net *net,
+ 						    const struct nft_set *set,
+ 						    const struct nft_set_elem *elem);
+diff --git a/net/netfilter/nf_tables_api.c b/net/netfilter/nf_tables_api.c
+index a9053667e3702..66bebe2f25f9e 100644
+--- a/net/netfilter/nf_tables_api.c
++++ b/net/netfilter/nf_tables_api.c
+@@ -6553,7 +6553,7 @@ EXPORT_SYMBOL_GPL(nft_set_catchall_lookup);
+ static int nft_setelem_catchall_insert(const struct net *net,
+ 				       struct nft_set *set,
+ 				       const struct nft_set_elem *elem,
+-				       struct nft_set_ext **pext)
++				       void **priv)
+ {
+ 	struct nft_set_elem_catchall *catchall;
+ 	u8 genmask = nft_genmask_next(net);
+@@ -6562,7 +6562,7 @@ static int nft_setelem_catchall_insert(const struct net *net,
+ 	list_for_each_entry(catchall, &set->catchall_list, list) {
+ 		ext = nft_set_elem_ext(set, catchall->elem);
+ 		if (nft_set_elem_active(ext, genmask)) {
+-			*pext = ext;
++			*priv = catchall->elem;
+ 			return -EEXIST;
  		}
--		/* Check if shifted to polling mode.
--		 * This will happen if there is a completion without an interrupt
--		 * and autopolling mode is enabled. Continuing normal execution in such case
--		 */
--		if (!admin_queue->polling) {
--			admin_queue->running_state = false;
--			ret = -ETIME;
--			goto err;
--		}
-+		admin_queue->running_state = false;
-+		ret = -ETIME;
-+		goto err;
+ 	}
+@@ -6580,14 +6580,15 @@ static int nft_setelem_catchall_insert(const struct net *net,
+ static int nft_setelem_insert(const struct net *net,
+ 			      struct nft_set *set,
+ 			      const struct nft_set_elem *elem,
+-			      struct nft_set_ext **ext, unsigned int flags)
++			      void **elem_priv,
++			      unsigned int flags)
+ {
+ 	int ret;
+ 
+ 	if (flags & NFT_SET_ELEM_CATCHALL)
+-		ret = nft_setelem_catchall_insert(net, set, elem, ext);
++		ret = nft_setelem_catchall_insert(net, set, elem, elem_priv);
+ 	else
+-		ret = set->ops->insert(net, set, elem, ext);
++		ret = set->ops->insert(net, set, elem, elem_priv);
+ 
+ 	return ret;
+ }
+@@ -6755,6 +6756,7 @@ static int nft_add_set_elem(struct nft_ctx *ctx, struct nft_set *set,
+ 	enum nft_registers dreg;
+ 	struct nft_trans *trans;
+ 	bool set_full = false;
++	void *elem_priv;
+ 	u64 timeout;
+ 	u64 expiration;
+ 	int err, i;
+@@ -7063,9 +7065,10 @@ static int nft_add_set_elem(struct nft_ctx *ctx, struct nft_set *set,
+ 
+ 	ext->genmask = nft_genmask_cur(ctx->net);
+ 
+-	err = nft_setelem_insert(ctx->net, set, &elem, &ext2, flags);
++	err = nft_setelem_insert(ctx->net, set, &elem, &elem_priv, flags);
+ 	if (err) {
+ 		if (err == -EEXIST) {
++			ext2 = nft_set_elem_ext(set, elem_priv);
+ 			if (nft_set_ext_exists(ext, NFT_SET_EXT_DATA) ^
+ 			    nft_set_ext_exists(ext2, NFT_SET_EXT_DATA) ||
+ 			    nft_set_ext_exists(ext, NFT_SET_EXT_OBJREF) ^
+diff --git a/net/netfilter/nft_set_bitmap.c b/net/netfilter/nft_set_bitmap.c
+index cbf7f7825f1b8..06b77100bef71 100644
+--- a/net/netfilter/nft_set_bitmap.c
++++ b/net/netfilter/nft_set_bitmap.c
+@@ -123,7 +123,7 @@ static void *nft_bitmap_get(const struct net *net, const struct nft_set *set,
+ 
+ static int nft_bitmap_insert(const struct net *net, const struct nft_set *set,
+ 			     const struct nft_set_elem *elem,
+-			     struct nft_set_ext **ext)
++			     void **elem_priv)
+ {
+ 	struct nft_bitmap *priv = nft_set_priv(set);
+ 	struct nft_bitmap_elem *new = elem->priv, *be;
+@@ -132,7 +132,7 @@ static int nft_bitmap_insert(const struct net *net, const struct nft_set *set,
+ 
+ 	be = nft_bitmap_elem_find(set, new, genmask);
+ 	if (be) {
+-		*ext = &be->ext;
++		*elem_priv = be;
+ 		return -EEXIST;
  	}
  
- 	ret = ena_com_comp_status_to_errno(admin_queue, comp_ctx->comp_status);
-@@ -1658,12 +1649,6 @@ void ena_com_set_admin_polling_mode(struct ena_com_dev *ena_dev, bool polling)
- 	ena_dev->admin_queue.polling = polling;
- }
+diff --git a/net/netfilter/nft_set_hash.c b/net/netfilter/nft_set_hash.c
+index 5a74ee4b7dfb3..60c0d72fb98b1 100644
+--- a/net/netfilter/nft_set_hash.c
++++ b/net/netfilter/nft_set_hash.c
+@@ -168,7 +168,7 @@ static bool nft_rhash_update(struct nft_set *set, const u32 *key,
  
--void ena_com_set_admin_auto_polling_mode(struct ena_com_dev *ena_dev,
--					 bool polling)
--{
--	ena_dev->admin_queue.auto_polling = polling;
--}
--
- int ena_com_mmio_reg_read_request_init(struct ena_com_dev *ena_dev)
+ static int nft_rhash_insert(const struct net *net, const struct nft_set *set,
+ 			    const struct nft_set_elem *elem,
+-			    struct nft_set_ext **ext)
++			    void **elem_priv)
  {
- 	struct ena_com_mmio_read *mmio_read = &ena_dev->mmio_read;
-diff --git a/drivers/net/ethernet/amazon/ena/ena_com.h b/drivers/net/ethernet/amazon/ena/ena_com.h
-index 3c5081d9d25d6..bb33fe209eec0 100644
---- a/drivers/net/ethernet/amazon/ena/ena_com.h
-+++ b/drivers/net/ethernet/amazon/ena/ena_com.h
-@@ -227,9 +227,6 @@ struct ena_com_admin_queue {
- 	/* Indicate if the admin queue should poll for completion */
- 	bool polling;
+ 	struct nft_rhash *priv = nft_set_priv(set);
+ 	struct nft_rhash_elem *he = elem->priv;
+@@ -185,7 +185,7 @@ static int nft_rhash_insert(const struct net *net, const struct nft_set *set,
+ 	if (IS_ERR(prev))
+ 		return PTR_ERR(prev);
+ 	if (prev) {
+-		*ext = &prev->ext;
++		*elem_priv = prev;
+ 		return -EEXIST;
+ 	}
+ 	return 0;
+@@ -588,7 +588,7 @@ static u32 nft_jhash(const struct nft_set *set, const struct nft_hash *priv,
  
--	/* Define if fallback to polling mode should occur */
--	bool auto_polling;
--
- 	u16 curr_cmd_id;
- 
- 	/* Indicate that the ena was initialized and can
-@@ -484,17 +481,6 @@ bool ena_com_get_admin_running_state(struct ena_com_dev *ena_dev);
-  */
- void ena_com_set_admin_polling_mode(struct ena_com_dev *ena_dev, bool polling);
- 
--/* ena_com_set_admin_auto_polling_mode - Enable autoswitch to polling mode
-- * @ena_dev: ENA communication layer struct
-- * @polling: Enable/Disable polling mode
-- *
-- * Set the autopolling mode.
-- * If autopolling is on:
-- * In case of missing interrupt when data is available switch to polling.
-- */
--void ena_com_set_admin_auto_polling_mode(struct ena_com_dev *ena_dev,
--					 bool polling);
--
- /* ena_com_admin_q_comp_intr_handler - admin queue interrupt handler
-  * @ena_dev: ENA communication layer struct
+ static int nft_hash_insert(const struct net *net, const struct nft_set *set,
+ 			   const struct nft_set_elem *elem,
+-			   struct nft_set_ext **ext)
++			   void **elem_priv)
+ {
+ 	struct nft_hash_elem *this = elem->priv, *he;
+ 	struct nft_hash *priv = nft_set_priv(set);
+@@ -600,7 +600,7 @@ static int nft_hash_insert(const struct net *net, const struct nft_set *set,
+ 		if (!memcmp(nft_set_ext_key(&this->ext),
+ 			    nft_set_ext_key(&he->ext), set->klen) &&
+ 		    nft_set_elem_active(&he->ext, genmask)) {
+-			*ext = &he->ext;
++			*elem_priv = he;
+ 			return -EEXIST;
+ 		}
+ 	}
+diff --git a/net/netfilter/nft_set_pipapo.c b/net/netfilter/nft_set_pipapo.c
+index 7c8d28a031ad5..b9d9218cb2ee3 100644
+--- a/net/netfilter/nft_set_pipapo.c
++++ b/net/netfilter/nft_set_pipapo.c
+@@ -1260,13 +1260,13 @@ static struct nft_pipapo_match *pipapo_maybe_clone(const struct nft_set *set)
+  * @net:	Network namespace
+  * @set:	nftables API set representation
+  * @elem:	nftables API element representation containing key data
+- * @ext2:	Filled with pointer to &struct nft_set_ext in inserted element
++ * @elem_priv:	Filled with pointer to private element data
   *
+  * Return: 0 on success, error pointer on failure.
+  */
+ static int nft_pipapo_insert(const struct net *net, const struct nft_set *set,
+ 			     const struct nft_set_elem *elem,
+-			     struct nft_set_ext **ext2)
++			     void **elem_priv)
+ {
+ 	const struct nft_set_ext *ext = nft_set_elem_ext(set, elem->priv);
+ 	union nft_pipapo_map_bucket rulemap[NFT_PIPAPO_MAX_FIELDS];
+@@ -1301,7 +1301,7 @@ static int nft_pipapo_insert(const struct net *net, const struct nft_set *set,
+ 
+ 		if (!memcmp(start, dup_key->data, sizeof(*dup_key->data)) &&
+ 		    !memcmp(end, dup_end->data, sizeof(*dup_end->data))) {
+-			*ext2 = &dup->ext;
++			*elem_priv = dup;
+ 			return -EEXIST;
+ 		}
+ 
+@@ -1317,7 +1317,7 @@ static int nft_pipapo_insert(const struct net *net, const struct nft_set *set,
+ 	if (PTR_ERR(dup) != -ENOENT) {
+ 		if (IS_ERR(dup))
+ 			return PTR_ERR(dup);
+-		*ext2 = &dup->ext;
++		*elem_priv = dup;
+ 		return -ENOTEMPTY;
+ 	}
+ 
+@@ -1379,7 +1379,7 @@ static int nft_pipapo_insert(const struct net *net, const struct nft_set *set,
+ 		put_cpu_ptr(m->scratch);
+ 	}
+ 
+-	*ext2 = &e->ext;
++	*elem_priv = e;
+ 
+ 	pipapo_map(m, rulemap, e);
+ 
+diff --git a/net/netfilter/nft_set_rbtree.c b/net/netfilter/nft_set_rbtree.c
+index 9c9b07f2def1b..ac0bd348a46c2 100644
+--- a/net/netfilter/nft_set_rbtree.c
++++ b/net/netfilter/nft_set_rbtree.c
+@@ -319,7 +319,7 @@ static struct nft_rbtree_elem *nft_rbtree_prev_active(struct nft_rbtree_elem *rb
+ 
+ static int __nft_rbtree_insert(const struct net *net, const struct nft_set *set,
+ 			       struct nft_rbtree_elem *new,
+-			       struct nft_set_ext **ext)
++			       void **elem_priv)
+ {
+ 	struct nft_rbtree_elem *rbe, *rbe_le = NULL, *rbe_ge = NULL, *rbe_prev;
+ 	struct rb_node *node, *next, *parent, **p, *first = NULL;
+@@ -437,7 +437,7 @@ static int __nft_rbtree_insert(const struct net *net, const struct nft_set *set,
+ 	 */
+ 	if (rbe_ge && !nft_rbtree_cmp(set, new, rbe_ge) &&
+ 	    nft_rbtree_interval_start(rbe_ge) == nft_rbtree_interval_start(new)) {
+-		*ext = &rbe_ge->ext;
++		*elem_priv = rbe_ge;
+ 		return -EEXIST;
+ 	}
+ 
+@@ -446,7 +446,7 @@ static int __nft_rbtree_insert(const struct net *net, const struct nft_set *set,
+ 	 */
+ 	if (rbe_le && !nft_rbtree_cmp(set, new, rbe_le) &&
+ 	    nft_rbtree_interval_end(rbe_le) == nft_rbtree_interval_end(new)) {
+-		*ext = &rbe_le->ext;
++		*elem_priv = rbe_le;
+ 		return -EEXIST;
+ 	}
+ 
+@@ -506,7 +506,7 @@ static int __nft_rbtree_insert(const struct net *net, const struct nft_set *set,
+ 
+ static int nft_rbtree_insert(const struct net *net, const struct nft_set *set,
+ 			     const struct nft_set_elem *elem,
+-			     struct nft_set_ext **ext)
++			     void **elem_priv)
+ {
+ 	struct nft_rbtree *priv = nft_set_priv(set);
+ 	struct nft_rbtree_elem *rbe = elem->priv;
+@@ -520,7 +520,7 @@ static int nft_rbtree_insert(const struct net *net, const struct nft_set *set,
+ 
+ 		write_lock_bh(&priv->lock);
+ 		write_seqcount_begin(&priv->count);
+-		err = __nft_rbtree_insert(net, set, rbe, ext);
++		err = __nft_rbtree_insert(net, set, rbe, elem_priv);
+ 		write_seqcount_end(&priv->count);
+ 		write_unlock_bh(&priv->lock);
+ 	} while (err == -EAGAIN);
 -- 
 2.53.0
 
