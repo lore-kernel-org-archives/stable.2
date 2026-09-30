@@ -1,60 +1,74 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07116348445
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 09:32:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3F113164B4;
+	Wed, 30 Sep 2026 09:34:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790760724; cv=none; b=oOqCjA4C0EdrLjkzs6qGUY0vnFqvFe8lePbRRKhyNs7vkY9tljkkNEKfUQMhW9sE2yG0XC87muPdmSRRWUiEGyOx1zQfAI72+6QZHxKTcwjx6hsqolMBN9C01ryt4ExRDgjawjTKKujOse/bBnVfUVFKereloQfRsxAuKwlTF/s=
+	t=1790760841; cv=none; b=cbRdEoG4TWkjw0+pSVYxULVlAoWlslrvou2VJ7+xUev6IUofRlHPCtLqvpIGh9YGyNvUdTuc1batM4nmV9dDVaw9LJ3BvEps/3Ml0TkP1bzwoBmTa6EVJjTz93hODKVebxRtaH64y/lyZJjGKEs1nTbBYJQnlwtpk4R74kQOJAE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790760724; c=relaxed/simple;
-	bh=SK9+hRX9I8JYd0FDEO4zp7AoQZGwDZd4UKZRluasWyc=;
+	s=arc-20240116; t=1790760841; c=relaxed/simple;
+	bh=zvpmhm+BAUlfIVJ/6Kp9ShG7pA3G2q65FWBMzuTisWM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qkz7aCw1LvUodVu4zgURcQB5gYjgEooKTUFgtc4mtOVZLO65NxO30kifWzxN7cZ/PUS0DDciqIX4eTiDQ1wIMziBlKDYG5NiiIDZAa7E1UOe2dhQArg7ednwkxwG7dtMwRTHZHjDmK/z7VEcm+UvRplE/sgl93vJiZixoFyPaCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OIEBGxId; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=eo5F0jT/r+J5hVwv/mZXBj10pkNh0Nxoygk0d8Q8E9HEu6yiudQzKbcUbV0lgr46rUSlQPZoDnVf8Ody9Xd3ET25eP6N00Pe3o9aqpmIVSxqQxRVu58h4cldnobXKPa/ExG2YICieGJ9p3Br1xAKGkD9CncU9LZ0plw5k+FQpu4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hWxG3nCD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OIEBGxId"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40BD11F000FF;
-	Wed, 30 Sep 2026 09:32:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hWxG3nCD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC0AA1F00893;
+	Wed, 30 Sep 2026 09:33:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790760722;
-	bh=AqP7K7fUWh7BhVqSMhbGNUiqNy/oZlniie0yIQdWnrs=;
+	s=k20260515; t=1790760840;
+	bh=R4WIaVmgxMJzlsaERAlBqwLuDwVcuzfSzsQMDWtKV3E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OIEBGxId9aktDWNFvzfiyoq98G8JDeYhIRKCvd6BtrJ/iBVMMY8RIhfj3ACVkMpFK
-	 A/ZOfm66qYgLx6sAoWMMJywzkjKYMfhdlbmcaCU+wCm9wL73KNgv0jrQ9qW67Rnli3
-	 OGCjiQb6Niauc7FtE/y/jUrQmyLrap8XDBLfqUBCS+jIEmfqerNxqZcgvvV/uKeKGP
-	 3qQP6I+swSudungWjeTSaIcW+oNbe7ecKSRTdYcewdRTB7lQfIKMTkLjxGtZxHPKxw
-	 2AOP3iGCIe0Pv9HjHdPldgTJkw0NjeKXgoYlsuPgqsn9PORE7htteTxUcUre8gYYWr
-	 Z9S0gmX9JxB8A==
-From: SJ Park <sj@kernel.org>
-To: SJ Park <sj@kernel.org>
-Cc: Sasha Levin <sashal@kernel.org>,
-	stable@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [PATCH 6.12.y 2/3] mm/damon: rename DAMON_MIN_REGION to DAMON_MIN_REGION_SZ
-Date: Wed, 30 Sep 2026 02:31:58 -0700
-Message-ID: <20260930093158.45932-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260930092449.43969-1-sj@kernel.org>
-References: 
+	b=hWxG3nCDZrWLmetbhbBgNsmr0c8/yZNTV7HdNINYkSC8C4rOdnSEXmuhJgTNWh4id
+	 96O+6zZPMPuRRpsebP+D0kt+QYTp7Us/ohmUS5C5zaw2iogWKhp9+xCC1tg+etCR5P
+	 9glXbuCP9rVqk/hOfhg5Pjv4lzeM58/i85HSr4KBbdl9FsnwKPwIbVPsKUGybMsGfg
+	 1d2Tej8E3m8XDDv1S0yts9DAcU525XcqkYg8qFLt30uYruhHu7R45rpxE8D88zgLfm
+	 ZKGJdGsitDzpn+pqTuy22Q8+HQ78c6OzqB62CQXuMjcvjQ+7ogsyeSUHSpg7+25DGt
+	 0h4Ya/NHSbQng==
+From: netdev-bot+sinfo@kernel.org
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: Michael Chan <michael.chan@broadcom.com>,
+ Pavan Chebbi <pavan.chebbi@broadcom.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Jeffrey Huang <huangjw@broadcom.com>, Eddie Wai <eddie.wai@broadcom.com>,
+ Prashant Sreedharan <prashant@broadcom.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: Re: [PATCH] bnxt: prevent timer rearming during teardown
+Date: Wed, 30 Sep 2026 09:33:59 +0000
+Message-ID: <179076083948.31693.5116207941809657090@kernel.org>
+In-Reply-To: <20260930092806.2977763-1-runyu.xiao@seu.edu.cn>
+References: <20260930092806.2977763-1-runyu.xiao@seu.edu.cn>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-On Wed, 30 Sep 2026 02:24:48 -0700 SJ Park <sj@kernel.org> wrote:
-[...]
-> I will post a manual backport.  Could we drop this series and use the
-> manual backport instead?
+Hi!
 
-Just sent my manual backport:
-https://lore.kernel.org/20260930092829.45885-1-sj@kernel.org
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
-Thanks,
-SJ
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
 
-[...]
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
