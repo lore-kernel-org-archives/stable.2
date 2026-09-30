@@ -1,41 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B41C4FECCF;
-	Wed, 30 Sep 2026 17:10:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5814650C2A4;
+	Wed, 30 Sep 2026 17:10:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790788216; cv=none; b=WWgrCCPLwBTIZFsL/gfTN+ZJiZfJQcgE3fatkNNlT2oQU7ZlxSJg57TG8DVvSayuzVRl6H6Lj15XokBwp7BZqRjaTJzl7p058rP+RwCu+7eQjcYb+f9ZeyU1+1acLnqBnYYDgZ5cbFw66xpHQXirf/0gGC19pEZg0so9Ul+3ICY=
+	t=1790788219; cv=none; b=AxA8+nSmrzzthZGKKmq3qop1sQ5DE6JVTf04twVl1fBvxccczFhbyrJjh8X3wlRPIFEziiL0VpzhFBrwr8JKla0l6Thps0yPKMlk08/5yQNT01G8mhbzv5wlIXnlr/pMJ4j8aD1eqR3VRfIpeRPTJWKyW/TpehWe8zEMzDlFal4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790788216; c=relaxed/simple;
-	bh=nBK/MpUP0aT1hCbYtlIF2JIBZfgQQqkhfNpKygnOaps=;
+	s=arc-20240116; t=1790788219; c=relaxed/simple;
+	bh=VA8KBfm36KiEwwBSqoBEFzsUbQ0daaGpt1oiSWELJqk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EqYI7YwxJm2mePTFjDGVqm6HaRPpyCIDzzaFqTK+3MgWaTPzOT0fKYuPhuMNPrzgteY6lB7bs+VuTcDBqrLppkBI93ALbo+Tcmr6g7NxSF9KrUdwo4UFxmH2mQxvPssh73vY58YpRFYsFG7kTVRo/Zd7D3xsL9UvUaVYLFi2/Yw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=W0L3aWW9; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=nj4wU3oNYLGWwg/2nOjhcOeLuld8KKVQvwTmYDJTKsIFCYXo8v2WXDq8KSKFqX33irUpYwr0mzLjpyNKnGJK+vuwV3/70pTFfMshVMPgEUaF/u3UCnZlDYQeZ+sEhoWWTkEQ56Uwd496r1UIaRrVKUuAbGBr3jgBN2lkXQcnJbw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=125rCbhj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="W0L3aWW9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98F601F00898;
-	Wed, 30 Sep 2026 17:10:14 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="125rCbhj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B4C31F000FF;
+	Wed, 30 Sep 2026 17:10:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790788215;
-	bh=ZBtxqNwdVH7z1tuHVOVAE/v4hgqQYr/LFhiRhl/p+t8=;
+	s=korg; t=1790788218;
+	bh=rbRHlPbtTHb+uZVFb4otW/uKLBe/L/CQHxvqUQanckA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=W0L3aWW91KNsCN6gYxrIHmHU8iPcLdGpSPTGa24vp0Mudv/qeOhoYqjJws1XVmGzJ
-	 4+xv639A/lgsKpOsr7T+easnndDy16jLtKJaGvhfholXok9Qxt8nsyk1xQV6pdUa7V
-	 EDXiBEnahRTsEJYo/F4wdUY5sTJDOl7xcbqUze44=
+	b=125rCbhjIhm6uurHyqoy0+5nxPE/nBay/MbEkFaNooFdXGm0QwlxIuvsi18khsytb
+	 V3VpIjGjfIxC1CLFeunj2RD4PFksWuAxr7C6MPe5fv1g4amHj4GqhiOzy/wqLt1T6f
+	 0aIdz5NbVmPbFxRhK/s1/gQfl9P/nYH5IOrU6p8I=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Ben Davies <ben.davies@gresearch.co.uk>,
-	Carolina Jubran <cjubran@nvidia.com>,
-	Cosmin Ratiu <cratiu@nvidia.com>,
-	Edward Srouji <edwards@nvidia.com>,
-	Leon Romanovsky <leon@kernel.org>,
+	syzbot+abff43d2d045e37c0bb2@syzkaller.appspotmail.com,
+	Johannes Berg <johannes.berg@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 045/877] IB/IPoIB: Avoid restoring OPER_UP after multicast flush
-Date: Wed, 30 Sep 2026 17:15:56 +0200
-Message-ID: <20260930152415.718446836@linuxfoundation.org>
+Subject: [PATCH 6.12 046/877] wifi: cfg80211: dont get the radio mask for netdev-less wdevs
+Date: Wed, 30 Sep 2026 17:15:57 +0200
+Message-ID: <20260930152415.742879048@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152414.738996857@linuxfoundation.org>
 References: <20260930152414.738996857@linuxfoundation.org>
@@ -54,169 +51,52 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Carolina Jubran <cjubran@nvidia.com>
+From: Johannes Berg <johannes.berg@intel.com>
 
-[ Upstream commit 9a141d3dc869d18b2eab35e999f4790a9b84e40f ]
+[ Upstream commit a7783e585360ee05dfe21d3173dbbe985c94f29e ]
 
-ipoib_ib_dev_flush_light() temporarily clears IPOIB_FLAG_OPER_UP to
-prevent multicast joins while ipoib_mcast_dev_flush() is running, and
-restores the flag afterwards if it was previously set.
+cfg80211_calculate_bi_data() calls rdev_get_radio_mask() with
+wdev->netdev, which can be NULL and then crashes in mac80211.
 
-This restore races with ipoib_ib_dev_down(). If the interface is brought
-down while the flush is in progress, ipoib_ib_dev_down() clears
-IPOIB_FLAG_OPER_UP, but the flush path may set it again after the device
-has already gone down.
+To avoid that, invert the order of checks since wdev->netdev
+is always valid for beaconing interfaces.
 
-Since commit 894021a75291 ("IB/ipoib: Make the carrier_on_task race
-aware"), ipoib_mcast_carrier_on_task() relies on IPOIB_FLAG_OPER_UP
-being cleared to terminate its rtnl_trylock() retry loop. If the flag is
-left set after shutdown, the workqueue retries forever, causing teardown
-to deadlock when ipoib_ndo_uninit() waits in destroy_workqueue() while
-holding RTNL.
-
-Instead of overloading IPOIB_FLAG_OPER_UP to block multicast joins
-during a light flush, introduce a dedicated IPOIB_FLAG_MCAST_FLUSH flag.
-Use it together with IPOIB_FLAG_OPER_UP to determine whether multicast
-joins are allowed, avoiding the race with device shutdown.
-
-Fixes: 344bacca8cd8 ("IB/ipoib: Don't allow MC joins during light MC flush")
-Reported-by: Ben Davies <ben.davies@gresearch.co.uk>
-Signed-off-by: Carolina Jubran <cjubran@nvidia.com>
-Reviewed-by: Cosmin Ratiu <cratiu@nvidia.com>
-Signed-off-by: Edward Srouji <edwards@nvidia.com>
-Link: https://patch.msgid.link/20260902-avoid-rest-oper-up-v1-1-04fcd4916cae@nvidia.com
-Signed-off-by: Leon Romanovsky <leon@kernel.org>
+Assisted-by: LLM
+Fixes: abb4cfe3661a ("wifi: cfg80211: extend interface combination check for multi-radio")
+Reported-by: syzbot+abff43d2d045e37c0bb2@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=abff43d2d045e37c0bb2
+Link: https://patch.msgid.link/20260904165614.2056a8b7dc91.I7412c5062d8166ad6c81ee7252cec49dea19a60f@changeid
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/infiniband/ulp/ipoib/ipoib.h           |  7 +++++++
- drivers/infiniband/ulp/ipoib/ipoib_ib.c        | 12 +++++++-----
- drivers/infiniband/ulp/ipoib/ipoib_multicast.c | 16 ++++++++--------
- 3 files changed, 22 insertions(+), 13 deletions(-)
+ net/wireless/util.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/infiniband/ulp/ipoib/ipoib.h b/drivers/infiniband/ulp/ipoib/ipoib.h
-index abe0522b7df46..ee23b8d37b977 100644
---- a/drivers/infiniband/ulp/ipoib/ipoib.h
-+++ b/drivers/infiniband/ulp/ipoib/ipoib.h
-@@ -87,6 +87,7 @@ enum {
- 	IPOIB_FLAG_INITIALIZED	  = 1,
- 	IPOIB_FLAG_ADMIN_UP	  = 2,
- 	IPOIB_PKEY_ASSIGNED	  = 3,
-+	IPOIB_FLAG_MCAST_FLUSH	  = 4,
- 	IPOIB_FLAG_SUBINTERFACE	  = 5,
- 	IPOIB_STOP_REAPER	  = 7,
- 	IPOIB_FLAG_ADMIN_CM	  = 9,
-@@ -419,6 +420,12 @@ struct ipoib_dev_priv {
- 	const struct net_device_ops	*rn_ops;
- };
+diff --git a/net/wireless/util.c b/net/wireless/util.c
+index 8478f3a0e9402..f565fb5ddd44a 100644
+--- a/net/wireless/util.c
++++ b/net/wireless/util.c
+@@ -2355,16 +2355,15 @@ static void cfg80211_calculate_bi_data(struct wiphy *wiphy, u32 new_beacon_int,
+ 		if (wdev->valid_links)
+ 			continue;
  
-+static inline bool ipoib_mcast_allowed(struct ipoib_dev_priv *priv)
-+{
-+	return test_bit(IPOIB_FLAG_OPER_UP, &priv->flags) &&
-+	       !test_bit(IPOIB_FLAG_MCAST_FLUSH, &priv->flags);
-+}
++		wdev_bi = cfg80211_wdev_bi(wdev);
++		if (!wdev_bi)
++			continue;
 +
- struct ipoib_ah {
- 	struct net_device *dev;
- 	struct ib_ah	  *ah;
-diff --git a/drivers/infiniband/ulp/ipoib/ipoib_ib.c b/drivers/infiniband/ulp/ipoib/ipoib_ib.c
-index 5cde275daa941..76850a7d300bb 100644
---- a/drivers/infiniband/ulp/ipoib/ipoib_ib.c
-+++ b/drivers/infiniband/ulp/ipoib/ipoib_ib.c
-@@ -1235,17 +1235,19 @@ static void __ipoib_ib_dev_flush(struct ipoib_dev_priv *priv,
- 	}
+ 		/* skip wdevs not active on the given wiphy radio */
+ 		if (radio_idx >= 0 &&
+ 		    !(rdev_get_radio_mask(rdev, wdev->netdev) & BIT(radio_idx)))
+ 			continue;
  
- 	if (level == IPOIB_FLUSH_LIGHT) {
--		int oper_up;
- 		ipoib_mark_paths_invalid(dev);
--		/* Set IPoIB operation as down to prevent races between:
-+		/* Set MCAST_FLUSH to prevent races between:
- 		 * the flush flow which leaves MCG and on the fly joins
- 		 * which can happen during that time. mcast restart task
- 		 * should deal with join requests we missed.
-+		 *
-+		 * Do not clear OPER_UP for this; restoring it races with
-+		 * ipoib_ib_dev_down() and can leave OPER_UP set after the
-+		 * device is down.
- 		 */
--		oper_up = test_and_clear_bit(IPOIB_FLAG_OPER_UP, &priv->flags);
-+		set_bit(IPOIB_FLAG_MCAST_FLUSH, &priv->flags);
- 		ipoib_mcast_dev_flush(dev);
--		if (oper_up)
--			set_bit(IPOIB_FLAG_OPER_UP, &priv->flags);
-+		clear_bit(IPOIB_FLAG_MCAST_FLUSH, &priv->flags);
- 		ipoib_reap_dead_ahs(priv);
- 	}
- 
-diff --git a/drivers/infiniband/ulp/ipoib/ipoib_multicast.c b/drivers/infiniband/ulp/ipoib/ipoib_multicast.c
-index 8a4ab9ff0a681..4f7639bbc7dc5 100644
---- a/drivers/infiniband/ulp/ipoib/ipoib_multicast.c
-+++ b/drivers/infiniband/ulp/ipoib/ipoib_multicast.c
-@@ -74,7 +74,7 @@ static void __ipoib_mcast_schedule_join_thread(struct ipoib_dev_priv *priv,
- 					       struct ipoib_mcast *mcast,
- 					       bool delay)
- {
--	if (!test_bit(IPOIB_FLAG_OPER_UP, &priv->flags))
-+	if (!ipoib_mcast_allowed(priv))
- 		return;
- 
- 	/*
-@@ -469,7 +469,7 @@ static int ipoib_mcast_join(struct net_device *dev, struct ipoib_mcast *mcast)
- 	int ret = 0;
- 
- 	if (!priv->broadcast ||
--	    !test_bit(IPOIB_FLAG_OPER_UP, &priv->flags))
-+	    !ipoib_mcast_allowed(priv))
- 		return -EINVAL;
- 
- 	init_completion(&mcast->done);
-@@ -555,7 +555,7 @@ void ipoib_mcast_join_task(struct work_struct *work)
- 	unsigned long delay_until = 0;
- 	struct ipoib_mcast *mcast = NULL;
- 
--	if (!test_bit(IPOIB_FLAG_OPER_UP, &priv->flags))
-+	if (!ipoib_mcast_allowed(priv))
- 		return;
- 
- 	if (ib_query_port(priv->ca, priv->port, &port_attr)) {
-@@ -577,7 +577,7 @@ void ipoib_mcast_join_task(struct work_struct *work)
- 	netif_addr_unlock_bh(dev);
- 
- 	spin_lock_irq(&priv->lock);
--	if (!test_bit(IPOIB_FLAG_OPER_UP, &priv->flags))
-+	if (!ipoib_mcast_allowed(priv))
- 		goto out;
- 
- 	if (!priv->broadcast) {
-@@ -749,7 +749,7 @@ void ipoib_mcast_send(struct net_device *dev, u8 *daddr, struct sk_buff *skb)
- 
- 	spin_lock_irqsave(&priv->lock, flags);
- 
--	if (!test_bit(IPOIB_FLAG_OPER_UP, &priv->flags)		||
-+	if (!ipoib_mcast_allowed(priv)				||
- 	    !priv->broadcast					||
- 	    !test_bit(IPOIB_MCAST_FLAG_ATTACHED, &priv->broadcast->flags)) {
- 		++dev->stats.tx_dropped;
-@@ -871,7 +871,7 @@ void ipoib_mcast_restart_task(struct work_struct *work)
- 	LIST_HEAD(remove_list);
- 	struct ib_sa_mcmember_rec rec;
- 
--	if (!test_bit(IPOIB_FLAG_OPER_UP, &priv->flags))
-+	if (!ipoib_mcast_allowed(priv))
- 		/*
- 		 * shortcut...on shutdown flush is called next, just
- 		 * let it do all the work
-@@ -965,9 +965,9 @@ void ipoib_mcast_restart_task(struct work_struct *work)
- 	ipoib_mcast_remove_list(&remove_list);
- 
- 	/*
--	 * Double check that we are still up
-+	 * Double check that we are still up and not flushing
- 	 */
--	if (test_bit(IPOIB_FLAG_OPER_UP, &priv->flags)) {
-+	if (ipoib_mcast_allowed(priv)) {
- 		spin_lock_irq(&priv->lock);
- 		__ipoib_mcast_schedule_join_thread(priv, NULL, 0);
- 		spin_unlock_irq(&priv->lock);
+-		wdev_bi = cfg80211_wdev_bi(wdev);
+-
+-		if (!wdev_bi)
+-			continue;
+-
+ 		if (!*beacon_int_gcd) {
+ 			*beacon_int_gcd = wdev_bi;
+ 			continue;
 -- 
 2.53.0
 
