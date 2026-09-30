@@ -1,102 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B29C36A033
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 14:57:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C67C5511E80
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 14:58:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790780283; cv=none; b=rq3Xu1+z6kpegLVxuy/R1CsdisCFqtuYSl8qWBpQUMEPQVr/SSrK3bGMoeXh051yatXKIS1hCINtixO1xbVR2DiCe8qRNAokT+wjv/0vYDfQG6dTgSsB8iRuvaIPMrlaI0anfq4BQE1VC0iZJu/RDsf1zxYorvEhf+LA158eWrs=
+	t=1790780338; cv=none; b=dtRx6Q6u7ZlFbhELyJNgoTpLOPI70Mq+7CUJj5SQ9EArxBkLxTj3eyQN4fa70oqYbT5AJURPS0wtWToK3j4NjbcL74WhuaoTACgtldEDEFspVzGXfjtavKddSD0oueUKgZhYCUr0qMn6WcV+d+9C6+aI2Zuqe3hg9+TiaD3m0ME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790780283; c=relaxed/simple;
-	bh=eeog8faJ4jm4hF+bPOAZxzhy80Dp06l2UFfBG/d/xYE=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=JKn7dVWc1A1tEBYBj1s6ak4JNyrs1W3mo3NDIhxcUHW9DiyD/mQfpmxv/v1OnNfw1l8xRHOOLqYerr/r6eanC2ke2D4JkoFcGXbps63nQxeQvTi4VhqIFeiooGKBu+4mwiW4arHoMvE8qJrJP7zC+CRt/LU5h+IGY6Zd3nG8ws4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=GgfF06ND; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790780338; c=relaxed/simple;
+	bh=2qdW7qPc33fgDVeHmWXq/lgAc7O3FAMhsbwbxQk6sSU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DAH7OqUeoWsmjsJi1LSWCVLlUAlmr8M0jdgGk9sYIcZ6d1M4NilwL0GNx826IDjagvszHIQjx75urRorro/85rc2bg16Qo9sAnqSX4ofhlnmMBxUoprskQsK00HZMWMLgQajzcIRjqvP81HXYEDfzSBXxbfPy0cxpLgbIXBrHGQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QZ0ZAEeA; arc=none smtp.client-ip=74.125.225.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="GgfF06ND"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A795E1F000FF;
-	Wed, 30 Sep 2026 14:57:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790780270;
-	bh=OTfp4UvHimenvbTC6AjEzOuYTbWfSJWJdouVDFFsjKU=;
-	h=Subject:To:Cc:From:Date;
-	b=GgfF06NDwtmdnbYMvofPReqD7CJKOVe10cbYXi7TmfPVKYcKXCMtuEwV+9KOb1O7p
-	 XMW4fgLIBKrVLFKEI9v3lQx9+EnBh6+qSzmYCDUE+OvJWoYo0FJ3yreDP8nelqyZ9j
-	 5Kq4hq5goPDPUfIrPxXLRMEEo5fRSMVLNG18YZ90=
-Subject: FAILED: patch "[PATCH] drm/amdgpu: Retain job->vm in amdgpu_job_prepare_job" failed to apply to 6.12-stable tree
-To: YuanShang.Mao@amd.com,alexander.deucher@amd.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 30 Sep 2026 16:57:44 +0200
-Message-ID: <2026093044-poach-unloader-d7d9@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QZ0ZAEeA"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48af4663da5so1549354f8f.3
+        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 07:58:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790780324; x=1791385124; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ul4pen9AeiIUu90Z55hg1G+SFMqGb/rwLYXQ+Sr+HfU=;
+        b=QZ0ZAEeAVGIoNgbYxkqO4amtVBbjKHraGACOKhRK55OWYGE5LhG87HuJEU1gFSmO7z
+         EovFa+ts/lxINGQGzD1sHGjnWVe/NSfCyU3xgip8tQTE+vr2/B4rcimmuvkGQqMgm+n2
+         E1RJeludAergDPXW+FcTXP02GTAohI7my7ACFTPO6xGdCULGb7XmQo9Mc4u+YT8dT1fT
+         SCjZvzzwixLTKYsrBy/YSJ3tq5FidZZ7P7QrtbUww/c5T2uv7BXl/tSKGdiDtY8ZqSmP
+         V+DT971+ux0PlGbZjuDr9kS78tPOaO+kNKf5BLFNc6FdtwM0mALlS+k7Hh7sG2IxPesC
+         EGhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790780324; x=1791385124;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ul4pen9AeiIUu90Z55hg1G+SFMqGb/rwLYXQ+Sr+HfU=;
+        b=QBMl8hjQSfU2gjewNuhT5ZyGuJOf/4RuGt0qrlS6j5NUWTq45qym1Ol9qw9y10GdNM
+         NprbpXXVw3aVoWwaJbQqCFS3pANCTmA6oz5QoQ2z8kShjO4sSJZbpcBRrtleDd+9LRGD
+         ByhgWsV005FfRkXQpdL14ggUo98lL9iEFx0P1O/O1EQy8UkwBxSOYlzS1iPZZGxLzGv+
+         ovPLcAPfVq2dqPtTknGzq5AgsLkT5K10jzlycD7/yF0aocFwVvmMPr6SOrdkz09HTBKf
+         9Oxhpx55QetRnFhcQBj+PrZKYhO70HgJIeWulngU9mBA3ST0LRuxS/n8JInuPdlLRri6
+         6hJw==
+X-Forwarded-Encrypted: i=1; AKwUvBxtI1rCemMfXi3mRbscBIwyPv2XzHRyZ8ycFA0u+9hmte4UWcl2afjajUhiNbiRjhY3uQr+J9k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLCl2exAj6y59CdzWmp1/42J4avjq8SBZyqH94Y/y0v2iEv3TVW
+	Nkvk8Z+b4QtOOxOkk+HGejwTFAl3YOHJntiLZu3MkH/RoPiZ8DNVEL6V
+X-Gm-Gg: AYBFou1zcBJyLnABhQkCtIIm7A0b2O9sF/KUFpFcQkCG6N3+i1UQgth2MMp1EE316mg
+	qxwi/13XqpVHetaxC+KvhnIeWn3m3duoo2lxywEh6G5jHKoYMaL38Av2mshuupfiO6/O5FGpa8x
+	prNi8lcEERSALMQdo7BKRJxCEpEWOK983QLHO23DIZ/pUpFzFFS0QWHzYul7kxmBQfSxus3/D7A
+	8ohixS6UTXPfFR4sxjv/rWgZlvyyuOXyVZku3X6B5d58mv70yQ4A2HJNXDG2EYGwwOLGcV2A10f
+	TjLvRyo8TkUtVnjywKcgNLyH+MIvJ9cGkY75gKtnJFI8+FtaMVGjm3shBqzKmooFl7RKXjZd7Rl
+	MA96OJ+91AuAL61zViJW+bQ59pHpw42TRNxsuBpPMLElA6gVCyNt8fGJQS5nTsy6NOGgn89nsKU
+	R41DlqBJnHqQBw1frW32xATA2+e12sMzpZLLbtsY4iL4bWXdkJChUBJ+NYjrVuXiO9M28waOULx
+	Siw
+X-Received: by 2002:a05:6000:4026:b0:487:c3f:5750 with SMTP id ffacd0b85a97d-48b02528ea5mr3207236f8f.40.1790780323426;
+        Wed, 30 Sep 2026 07:58:43 -0700 (PDT)
+Received: from archlinux ([2a02:a31d:a2c4:f100:d7a2:6e0f:6daf:6f30])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b029bf85dsm4430576f8f.13.2026.09.30.07.58.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 07:58:43 -0700 (PDT)
+From: Jakub Gawlik <jakubgawlik13@gmail.com>
+To: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jakub Gawlik <jakubgawlik13@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] ALSA: hda/realtek: Add micmute LED quirk for Acer Swift SFG16-72
+Date: Wed, 30 Sep 2026 16:58:39 +0200
+Message-ID: <20260930145839.374762-1-jakubgawlik13@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+The Acer Swift SFG16-72 (1025:173b) uses the ALC245 codec, but its
+mic-mute LED is not enabled by default. Apply the existing
+ALC245_FIXUP_ACER_MICMUTE_LED quirk to enable the mic-mute LED.
 
-The patch below does not apply to the 6.12-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
-
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
-git checkout FETCH_HEAD
-git cherry-pick -x c00d8b79fd2167c6ac65e096619535acdf8678d5
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026093044-poach-unloader-d7d9@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From c00d8b79fd2167c6ac65e096619535acdf8678d5 Mon Sep 17 00:00:00 2001
-From: YuanShang <YuanShang.Mao@amd.com>
-Date: Wed, 23 Jul 2025 16:44:49 +0800
-Subject: [PATCH] drm/amdgpu: Retain job->vm in amdgpu_job_prepare_job
-
-The field job->vm is used in function amdgpu_job_run to get the page
-table re-generation counter and decide whether the job should be skipped.
-
-Specifically, function amdgpu_vm_generation checks if the VM is valid for this job to use.
-For instance, if a gfx job depends on a cancelled sdma job from entity vm->delayed,
-then the gfx job should be skipped.
-
-Fixes: 26c95e838e63 ("drm/amdgpu: set the VM pointer to NULL in amdgpu_job_prepare")
-Signed-off-by: YuanShang <YuanShang.Mao@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit ed76936c6b10b547c6df4ca75412331e9ef6d339)
+Assisted-by: LLM
 Cc: stable@vger.kernel.org
+Signed-off-by: Jakub Gawlik <jakubgawlik13@gmail.com>
+---
+ sound/hda/codecs/realtek/alc269.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index e6061d45f142..9b1c55115921 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -365,13 +365,6 @@ amdgpu_job_prepare_job(struct drm_sched_job *sched_job,
- 			dev_err(ring->adev->dev, "Error getting VM ID (%d)\n", r);
- 			goto error;
- 		}
--		/*
--		 * The VM structure might be released after the VMID is
--		 * assigned, we had multiple problems with people trying to use
--		 * the VM pointer so better set it to NULL.
--		 */
--		if (!fence)
--			job->vm = NULL;
- 		return fence;
- 	}
- 
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+index 5127a111c59c..fbfa515a6b57 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -7198,6 +7198,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1025, 0x171e, "Acer Nitro ANV15-51", ALC245_FIXUP_ACER_MICMUTE_LED),
+ 	SND_PCI_QUIRK(0x1025, 0x1731, "Acer Predator PHN16-72", ALC2XX_FIXUP_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x1025, 0x173a, "Acer Swift SFG14-73", ALC245_FIXUP_ACER_MICMUTE_LED),
++	SND_PCI_QUIRK(0x1025, 0x173b, "Acer Swift SFG16-72", ALC245_FIXUP_ACER_MICMUTE_LED),
+ 	SND_PCI_QUIRK(0x1025, 0x1758, "Acer Nitro ANV15-41", ALC245_FIXUP_ACER_MICMUTE_LED),
+ 	SND_PCI_QUIRK(0x1025, 0x1826, "Acer Helios ZPC", ALC287_FIXUP_PREDATOR_SPK_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x1025, 0x182c, "Acer Helios ZPD", ALC287_FIXUP_PREDATOR_SPK_CS35L41_I2C_2),
+-- 
+2.55.0
 
