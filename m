@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A40A37CD22;
-	Wed, 30 Sep 2026 15:58:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22C604C4F58;
+	Wed, 30 Sep 2026 15:58:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790783896; cv=none; b=h48H0E6iy9mt/3wXzlZMTgd2HSbjDhj7b2aOnRd+s1/3UNBf4P6O4iys1qznYYfLYSc7eK5pEhpVzGOE8MOfS1DgCXpuui6UJH8Fg7G4NtKldYQHx+ZTeKsiJz7RDShsY8btzmByPMQagus5aDl7WhhF4/cJ/0VSG51B1fOovhM=
+	t=1790783901; cv=none; b=DNwfzns6Jeu+f+bMnvuxRXmYBQPultsi1SWDG18sCFYM4YNFgdVNjGOsjfy+x7FrLQMCWs3Rz+6DOzZMCRO4A8s83o4tR0RrE+YrDw3zZlYiXYYXQbdE4yKgn1U+v4Uy6iQpr7TkvvN/4B3bd/HabYQYxaaxg+XGah/3hpCBvb4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790783896; c=relaxed/simple;
-	bh=RstorgmMtELk9IVXdB+7bXKW1NfrWQB7KzuKtFjbnJ8=;
+	s=arc-20240116; t=1790783901; c=relaxed/simple;
+	bh=fSccKVqzINHYZN9bu7wpAYsEBPfQO1DERvgNgLjH93A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SzK2nDe85eU3T0X3pN2wSjPL/Cnn4/7OXg2MIpBy+oLbYpN3KaxfT7A35fsL99LB+T463nZxRtiPncyznAhWj0m/7vEZuzxFzpCRV9uTp8DvBGRpbvV3W3D0NLI5GDx2G6ysqRG8uEA9TsDQAtE/0P+C0oc6EtCXhRuoE1MdxUw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Wbt3Pj/0; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=thPJUngxBkU4+jbBs4IZWUGCU6n3xvF+TixlahKRWRo1EsfTua7AZGjA5fWUWov2VVu+DWWNeQo88bAA/sUUE28iEzf38bD/VAxYsAvu0WnRAx4k2txnX/1lE0WpiZ/RM7rWk1k/lGisKPYWswwX3RyVKauxgkSYxGcZvwHPbW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OQhG881k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Wbt3Pj/0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB4871F00893;
-	Wed, 30 Sep 2026 15:58:11 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OQhG881k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4E4C1F00898;
+	Wed, 30 Sep 2026 15:58:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790783892;
-	bh=TV75a+wkwYCrfOpmOGk3bWB7Hn2qwjGJcoAMoMJkWAE=;
+	s=korg; t=1790783895;
+	bh=KtfS/Ck3p9h/G1Hh97UECjIAutOUYX3FY0hBgU8IpcI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Wbt3Pj/0r0rA5Tb+pQftdN0yJwomDoDrbsS9AbYkVt8quDOL963+Ct3r0/md6zOyd
-	 hDuTBJR2S8xcevjnbx1osX9sSac6yFSmk1+WrK50u2p9ZgRrtC5drMf85Af7pc+WSU
-	 TPYVum6bWTG724kz68km1fVHVgqrEOw6Mf7WifiQ=
+	b=OQhG881ksV33CA+891OiqsvAhpyrCfmxlLpqYTn/V5NuLwjYf358bZAWUyvM38Irb
+	 Ndc5Wzfg2HkjcdEyz5HYfR7bOxr6Fi7rkFhNkmx3FnGXECO674Cdtdm4ZJX2h7ZbUZ
+	 fSAqdWYD99S+PrYo8jqm4qRGSVHdUQcb+MJJGJ5w=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Ridham Khurana <khurana.ridham222@gmail.com>,
 	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: [PATCH 5.10 560/595] gpio: arizona: Fix runtime PM leak in arizona_gpio_direction_out()
-Date: Wed, 30 Sep 2026 17:27:33 +0200
-Message-ID: <20260930152359.766189336@linuxfoundation.org>
+Subject: [PATCH 5.10 561/595] gpio: zynq: fix runtime PM leak on request error path
+Date: Wed, 30 Sep 2026 17:27:34 +0200
+Message-ID: <20260930152359.788084601@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152347.700140858@linuxfoundation.org>
 References: <20260930152347.700140858@linuxfoundation.org>
@@ -51,43 +50,49 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Wentao Liang <vulab@iscas.ac.cn>
+From: Ridham Khurana <khurana.ridham222@gmail.com>
 
-commit e9d810279f84b30738f7790c0ed15f8dd5b9024a upstream.
+commit e9438ab5328a177c9c0e5df87eb92a7162841e98 upstream.
 
-Switching a persistent GPIO line from input to output acquires a
-runtime PM reference on the parent device, but if the subsequent
-regmap_update_bits() fails the reference is never dropped and no later
-direction_in() can balance it since the direction was never changed.
-Drop the reference on the update failure path.
+pm_runtime_get_sync() leaves the usage counter incremented even when it
+fails, and zynq_gpio_request() returns the error without dropping it.
 
-Fixes: 27a49ed17e22 ("gpio: arizona: Add support for GPIOs that need to be maintained")
+gpiolib does not call ->free() when ->request() fails, so zynq_gpio_free(),
+which holds the only matching pm_runtime_put(), never runs. The reference
+is leaked and the controller can no longer runtime-suspend, so its clock
+stays enabled.
+
+Switch to pm_runtime_resume_and_get(), which only increments the usage
+counter on success.
+
+Fixes: 3242ba117e9b ("gpio: Add driver for Zynq GPIO controller")
 Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-Link: https://patch.msgid.link/20260916094701.2007509-1-vulab@iscas.ac.cn
+Signed-off-by: Ridham Khurana <khurana.ridham222@gmail.com>
+Link: https://patch.msgid.link/20260922092102.1053513-1-khurana.ridham222@gmail.com
 Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/gpio/gpio-arizona.c |    8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ drivers/gpio/gpio-zynq.c |   10 +---------
+ 1 file changed, 1 insertion(+), 9 deletions(-)
 
---- a/drivers/gpio/gpio-arizona.c
-+++ b/drivers/gpio/gpio-arizona.c
-@@ -118,8 +118,12 @@ static int arizona_gpio_direction_out(st
- 	if (value)
- 		value = ARIZONA_GPN_LVL;
+--- a/drivers/gpio/gpio-zynq.c
++++ b/drivers/gpio/gpio-zynq.c
+@@ -793,15 +793,7 @@ static int __maybe_unused zynq_gpio_runt
  
--	return regmap_update_bits(arizona->regmap, ARIZONA_GPIO1_CTRL + offset,
--				  ARIZONA_GPN_DIR | ARIZONA_GPN_LVL, value);
-+	ret = regmap_update_bits(arizona->regmap, ARIZONA_GPIO1_CTRL + offset,
-+				 ARIZONA_GPN_DIR | ARIZONA_GPN_LVL, value);
-+	if (ret < 0 && (val & ARIZONA_GPN_DIR) && persistent)
-+		pm_runtime_put_autosuspend(chip->parent);
-+
-+	return ret;
+ static int zynq_gpio_request(struct gpio_chip *chip, unsigned int offset)
+ {
+-	int ret;
+-
+-	ret = pm_runtime_get_sync(chip->parent);
+-
+-	/*
+-	 * If the device is already active pm_runtime_get() will return 1 on
+-	 * success, but gpio_request still needs to return 0.
+-	 */
+-	return ret < 0 ? ret : 0;
++	return pm_runtime_resume_and_get(chip->parent);
  }
  
- static void arizona_gpio_set(struct gpio_chip *chip, unsigned offset, int value)
+ static void zynq_gpio_free(struct gpio_chip *chip, unsigned int offset)
 
 
