@@ -1,86 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5F7651EDEE;
-	Wed, 30 Sep 2026 17:34:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC31A51EDF1
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 17:34:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790789656; cv=none; b=I3Ouh058FFOONdc0k3gEfl5wtSDRhEGY65FaUgnZtEosjupRZOyZiSyym4eWOC0G72IRHJSY0qUovU4qvRXQem22IH2vvaz3prWBbVoH384UrdP2cmgjD7VY1+LhsnHPUh2Gai98+LehusfVaSvFCAkJG83lrTK1wU1Qm5FYkO4=
+	t=1790789657; cv=none; b=TgG2dUaxtUdLBKTY34ryn6FkCkjzV5wFtUuWXkFpPptRG1spoegJ6xSwbRTMzxMWqH9COjql26IN3mEH5t8A2AwbFKA1ddvG62eaYLbhs0NIx3pJGy/r5Y4cqFj8dTs2XvmzUwX4xja6q/7CpCyOZmhCAPXkooVjzlTfJ9Th8Is=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790789656; c=relaxed/simple;
-	bh=h5JcY0BOH1cFBiCo7A32GDsZ5FaJ0cwJYpDiJ1dSJi0=;
+	s=arc-20240116; t=1790789657; c=relaxed/simple;
+	bh=SeJLcHSa1UU1HuiiAt6ShTENKLfmDB5EHwB//8VWXkw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=r03qljLVh8y78igQWTWwuqwvO4mEs6Rr8b6k2o0svf2L5htdZa5JV1S5guSkUNPWI3A5UzXrq+iK19yi+EcrXNUrDpdZuWG9qY3xccNFj5vIgChshS+W1ZGwBRg9onu8Y3JVoVtna32wlxP+GXOmog4e+kRmIL3zK/GrmYR8WzM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Vl2WrKrd; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=iV68dsCBo8VO7Lu7EQ+W59T10gamawYiVZwgcS83akSmDyBurKR4rwUqGs4DY0S1a4kML5LmtuYlnG6YudB/kz+nrye5bLS1MvBzoIb3ot5xNWtYTSTNZOyhLWx+dDCrsoeQzJx4V7tY3/+pSVza7fEoHyG9pc0oAd6e9KOc28I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JzeJWmc5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Vl2WrKrd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 095DB1F00898;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JzeJWmc5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDE701F000FF;
 	Wed, 30 Sep 2026 17:34:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790789655;
-	bh=NIzv6UlovlmfAQ9J7HHBeKMOe7++ocWqRJ2KgIRld6k=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790789655;
+	bh=zpj4YbffJ67kCLEPuCG3B7IE1jjHGsSNaHGvWWHNRdQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Vl2WrKrd3qsgXYaYF342omJA2iMRkUosoD1LGy3V9PwXR3njoVQzqoMgVU/19lV7Z
-	 NK0HU/rWyQ6Tb23pQFxym4rt2JklVDhy7yOolV3XqdlLtGQmkt1Qgs3aJPDMJe4+Sg
-	 IDY6g+KQ1U09ohzvfkEm8NTeP3H5EnrUlJJ+zu/c=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=JzeJWmc5zlsvbcgfH886l2nncU43LofiUa+PYfXTzrRJ/8dECuHz8AvzHJ68qs6lA
+	 qx4VIMD/kH00i5zn0I75TRJcOh2S4ZWQ+NcBkEOx2KW3G83Z1TnoKpfc4KO0g42+37
+	 nPFl5DgWoiKaSYEiezN8U1K9vWOwFpQedToHVZkaH+CLa/vuB35NHJWiBXMEb5ZVED
+	 6SblOEeMMuJhWXySk59BRVlpuqkkhQZbScBVO6kXtVvle9Xgl/hBouxnSPmTTjlFhp
+	 9Vgvkdxc8x2P2VmZ5fIbK0ZKmj+3EooPSt2jzYS3G8YlTBcEZOKig00jjO+w71mrUi
+	 rAYdsGfpJvqPg==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	"Darrick J. Wong" <djwong@kernel.org>,
+Cc: "Darrick J. Wong" <djwong@kernel.org>,
 	Christoph Hellwig <hch@lst.de>,
-	Carlos Maiolino <cem@kernel.org>
-Subject: [PATCH 6.12 555/877] xfs: fix blockgc group quota scanning when usrquota isnt enforced
-Date: Wed, 30 Sep 2026 17:24:26 +0200
-Message-ID: <20260930152426.620325185@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260930152414.738996857@linuxfoundation.org>
-References: <20260930152414.738996857@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	Carlos Maiolino <cem@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] xfs: don't let memory failures leak blocks and kill repairs
+Date: Wed, 30 Sep 2026 13:34:13 -0400
+Message-ID: <20260930173413.3642887-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026092928-daydream-aroma-1dc5@gregkh>
+References: <2026092928-daydream-aroma-1dc5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+From: "Darrick J. Wong" <djwong@kernel.org>
 
-------------------
+[ Upstream commit ab1c416d2377cdc16123ef521aac4da1c468c3d4 ]
 
-From: Darrick J. Wong <djwong@kernel.org>
+LOLLM complains that a memory allocation failure in
+xrep_newbt_add_blocks results in online repair leaking blocks that were
+previously allocated to write a new btree, but the problem is worse than
+that -- a limitation of the codebase is that the callers cannot undo the
+transaction /and/ return the error -- either you undo all changes and
+commit the transaction, or you error out and the filesystem goes down.
 
-commit f8f6382ff13109e19d0fc1d0224ff7d29641e56a upstream.
+However, the new btree space reservation object isn't that big (~48
+bytes).  Let's just do a NOFAIL allocation and the problem goes away.
 
-LOLLM noticed the copy-paste error here -- if user quotas aren't
-enforced but we're near the group quota limit, we fail to set FLAG_GID
-and hence we might not actually free any preallocations, causing
-unnecessary EDQUOT.  Fix that.
-
-Cc: stable@vger.kernel.org # v5.12
-Fixes: c237dd7c709432 ("xfs: flush eof/cowblocks if we can't reserve quota for inode creation")
+Cc: stable@vger.kernel.org # v6.8
+Fixes: be408417630427 ("xfs: implement block reservation accounting for btrees we're staging")
 Signed-off-by: Darrick J. Wong <djwong@kernel.org>
 Assisted-by: LOLLM # finding obvious bugs
 Reviewed-by: Christoph Hellwig <hch@lst.de>
 Signed-off-by: Carlos Maiolino <cem@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ Changed kmalloc_obj() to kmalloc(sizeof(struct xrep_newbt_resv), ...) to preserve the branch’s existing allocation syntax. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/xfs/xfs_icache.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/xfs/scrub/newbt.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
---- a/fs/xfs/xfs_icache.c
-+++ b/fs/xfs/xfs_icache.c
-@@ -1593,7 +1593,7 @@ xfs_blockgc_free_dquots(
- 		do_work = true;
- 	}
+diff --git a/fs/xfs/scrub/newbt.c b/fs/xfs/scrub/newbt.c
+index 951ae8b71566c..2a9547789c5c1 100644
+--- a/fs/xfs/scrub/newbt.c
++++ b/fs/xfs/scrub/newbt.c
+@@ -195,9 +195,11 @@ xrep_newbt_add_blocks(
+ 	struct xrep_newbt_resv		*resv;
+ 	int				error;
  
--	if (XFS_IS_UQUOTA_ENFORCED(mp) && gdqp && xfs_dquot_lowsp(gdqp)) {
-+	if (XFS_IS_GQUOTA_ENFORCED(mp) && gdqp && xfs_dquot_lowsp(gdqp)) {
- 		icw.icw_gid = make_kgid(mp->m_super->s_user_ns, gdqp->q_id);
- 		icw.icw_flags |= XFS_ICWALK_FLAG_GID;
- 		do_work = true;
-
+-	resv = kmalloc(sizeof(struct xrep_newbt_resv), XCHK_GFP_FLAGS);
+-	if (!resv)
+-		return -ENOMEM;
++	/*
++	 * We have no way to clean up the allocated space *and* return an
++	 * ENOMEM if we fail to allocate this control structure.
++	 */
++	resv = kmalloc(sizeof(struct xrep_newbt_resv), GFP_KERNEL | __GFP_NOFAIL);
+ 
+ 	INIT_LIST_HEAD(&resv->list);
+ 	resv->agbno = XFS_FSB_TO_AGBNO(mp, args->fsbno);
+-- 
+2.53.0
 
