@@ -1,197 +1,206 @@
-Received: from fhigh-b1-smtp.messagingengine.com (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA2164F55B5
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 13:54:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91E4C4D955C
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 13:55:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790776501; cv=none; b=EPvdLQYapfr+ggYQvnB7OlsxUiJypnxk5Ef3o5eCzRZvTTsThORAHJzZGl0fU3LM5j9P9OZhhyWObOqixkKfExMVE7qrv5I5TGVESGIlOt4XnVgDq1VNUfA/lZUXp8D1VSiO4yQ1q51xjLVSbwO/4qte1I2U1U69Yyi+PHFIJR0=
+	t=1790776540; cv=none; b=AQwNzZ8VO7FmFoMFWbXF0hpEWbkTqRpXwJ8Y0vxdvpnQJkbsT4WZHiW2TgFfAWyYll3/r8LSOqKj3AOYxeivomNZfbKTDtKNqchrlCJLUKSf5Xuk6pCPTYd4/fpHTj+JRyQ3FTncZ7cK5egJlBYn0cXKH9s3YZFjjk6RgIYMaiA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790776501; c=relaxed/simple;
-	bh=dzXnPVKKsfDXpEP6gWDmoVQdChtocWqreUrxOZB1ZO0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bC1/0wKxFyK/5yC1zvJVjdSVv9X76voNFdV7PqGk8UcaD6dAqfdqvnjhhkWB1mOXEJ61JbtClL4bd2ILyqM/2f4FqIHaiET3Am2FwphFNJN863cmqrqHUGGD/vBHOtMIl+H321b2fHVcZKYgK8VeEOk4MkpDI0mYi4cowq6CZbY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=FgInYH5H; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=CLordJIe; arc=none smtp.client-ip=202.12.124.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	s=arc-20240116; t=1790776540; c=relaxed/simple;
+	bh=Q2YIeHLIjncQH/pZteIlAeXjOiGREpwugsWYu5Q+Fq4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IjVyiRuXz7+fKS4zntYW1zAbJT0K0JZL7xZsM19XxxP7QmObG31lFDOvlhAXWVs/6EzI5yxKIdUK38aCRM/zKxpG98Ddy3WODyXpnlWKJUftfdG2cd6R/G2E6ZoJYsLT0y00dXhDdScEFnutcj1kVp1iCbkZWXUf8ssQsId061k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nmqDsMqF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="FgInYH5H";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="CLordJIe"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id BFDE67A079A;
-	Wed, 30 Sep 2026 09:54:42 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Wed, 30 Sep 2026 09:54:43 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1790776482; x=1790862882; bh=f3025BozWU
-	HE/l6kWWrP74Alx766xgYNMySd5+pCSmc=; b=FgInYH5Ht0EA2+zo7rwZ+mFHYd
-	sZWWhTTenQKicL5MecisZYLph20awJFMrz7FvoTAltTUVV8hzSpQz28iH6mst4ed
-	cp1bptE0THSuDgghJMvhPK4ppZX+s/VikQG6Hf825OAUPLqTABGqP3OGWNBb4C2D
-	hOZgCq9eqFGqcPrCpYLnKBFA+KkcM10b9mEJvSK/AOY1Gdu6RqMvhDkpvvpkz/p9
-	Jd6TbURU8ITnHjTpJw3qB56UucfxNqxh/NQRG6gZ4mPzHnvvewffH+l8MLw64yjh
-	79elHSm2kXK51j9BE9sRCZAZNR2CRvul9fOsPSevsukD3JWi8W9dmAmrypnQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1790776482; x=1790862882; bh=f3025BozWUHE/l6kWWrP74Alx766xgYNMyS
-	d5+pCSmc=; b=CLordJIebMB2LEYbZZYqPcD2F0GEJ7TOvmipTrXyYIayZkaZoYL
-	6ubSV+hX/JZz8htFWg6HanbdYCG5WQIgyUwJ40kwrG/vToX7eklJxF4pQcsBJ48P
-	oH9XElSka7blN1FvCiMZic7MLHklkSF2K3NVeXtiAZx+MvD+hoI3D3FbO4YOEidt
-	w9fuMcUBh+l44vMl1xtt7mRtHwF9rrD47TgySCaRc5+CybPAJayw4cQZPo6LK2Ks
-	WYm1OeD5PrwM5CE/zH8tuAofplE8aWi5GyykS4MJrgr09PrI+NckZtkxlHwmqmZv
-	EaKPEk1vqNzD5Rnfwa2RZ+5q3BfN+vMM92g==
-X-ME-Sender: <xms:ohS9ak33_eJ7iGIcS1TclwbSo1SGKwbQi3PcopRxFweo6gt4nBw-7g>
-    <xme:ohS9asdRa--lZwTBZSuR0FFdomS4l_vBYdHjhXt5BeSNYL0PNqk6FG9csbr3BuRfu
-    TaaH7rrV0Jq7lMN8UNFEWI34n5e0387Vin8rQ1tafr4goT5hQ>
-X-ME-Received: <xmr:ohS9akMToSrgFY3aIsdMo6QrCytjM7VBaC4EgZQy-jfGB8b_XSBOs_5tax2VkSmWLaCEL6VZl56z3HlUEwFVy7yPipfnbgges_0JHWviB38>
-X-ME-Proxy-Cause: dmFkZTGW3U9+lkwS0eF9Swmd9uNpOXYPUWMDeHtYWZ56OPeiRABqCpl8zTAFxdkKN6UWEE
-    3aNLcgOdFDtlFBcpfxCpo9vWR7UFcyYMp+qNXWcOz9DO40yCREFf24XvjvN+12vBvSxHcJ
-    8eNbo8trfVeteH8feoeq4IBaoPUmbAVPuARIFNmQ+1LuANUqCXa3jP3kvC7IlsvzC3LrfS
-    5xZa8UUaHg2G4Wp3Oh56THEWmDMfdbz6w5g3kjEhbYegr1wUA49tlyQzohZzUXQ+eZmjxQ
-    ZKE/Tgjf90/LAPWsT1XixroikLJUbN5PQYSIERaTVIbURjd6HB5SraQD9GlXBf2dbyZRae
-    kQb+Owqq3QnfVm1gTQTESUI6oa1CXupSwx6dGGGpQnvzZzFows4wR6TUy3jpgFH3CBE6JU
-    3h9soE7tPYr5gHJnkSp4nftQfmeWvlVJKobOiQ25ED2BNd5w9vynJCeTOxw4+Za0SJnfc7
-    cDw/L32nQ0/XiVNc1kIzggyz96P5d6sAtU1faE3ZCuFOxWi3TQbBm3E7WzW3O4krCBbzAI
-    RG2HqdFu/wfvJCJN3X41yDrfambY+AiWl8MStEVA5fwOukUbc24NEQOuhccTA8rhTeDM/W
-    VPc+v3dl1LWVzfp8kjq5QL5Kg9Ulm2jKVB6AcMa3ifZJwpdXTJyZQvWgKatA
-X-ME-Proxy: <xmx:ohS9aoXOZ01Z3ZHkz2945iA4go7npf8PH5k_0GcM1IudT5I2b8Vpnw>
-    <xmx:ohS9akx9zLNVRc9pPAxuYEXQkcoj5B9Xs-p4gdEeXmh0DZSWCx6ORA>
-    <xmx:ohS9an9jLjoxxtz22BZUdVWs6MeY6ra2H107lrH24NOqit7SjURFBA>
-    <xmx:ohS9ah_9sLBOw2HmWeJEhpvSCp9Hs3J0A0OjUQR0y9KOSO4Egj8cfg>
-    <xmx:ohS9asuRzWI4_MaYSTj8OrFjWULfBiLASd08tCutOPNYDC84RxWr8WVj>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 30 Sep 2026 09:54:42 -0400 (EDT)
-Date: Wed, 30 Sep 2026 15:54:37 +0200
-From: Greg KH <greg@kroah.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, Imre Deak <imre.deak@intel.com>,
-	Luca Coelho <luciano.coelho@intel.com>,
-	Jani Nikula <jani.nikula@intel.com>
-Subject: Re: [PATCH 6.12.y] drm/i915/dp_mst: Fix configuring TUs for a
- disconnected stream
-Message-ID: <2026093033-ravioli-rectify-dc1e@gregkh>
-References: <2026092957-hardening-slingshot-e073@gregkh>
- <20260929193021.823447-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nmqDsMqF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 709901F00893;
+	Wed, 30 Sep 2026 13:55:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790776527;
+	bh=AuRzwc8e3jc1u0C0DGc8AzEVAWJorEzGm3l+TzkNnEY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nmqDsMqFOcKJMf2M75BNxz4xjcVBXbzcoNRtBASAb/op59qNrAIFt6ICwt0k7UmcH
+	 Ip4sWp6GqLg06dWltWNnwpfBBALFLJ6SnfwcGjkzyt8k+vlqycrT8EZhBK/bVH+nPh
+	 A3j5wkT0dbHNw1fPKSw3vDnk1dTQaqD3GbSVMp0u1u62ELhA7cfkH1ZYaSgFJK8Xx3
+	 K9lg/rOO5NQX5T6tvyimcBtlClv816gAXBue8Dcy4cxmkqDBFyRZsewNovWs4bPGxt
+	 boF0bbFUifU012xAPRIOKKX+cSFe2Uto5gheN12aU7iMiYuhQtfkpno6e7nW20NXDl
+	 3UVPnoFrdrSRw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: fangqiurong <fangqiurong@kylinos.cn>,
+	Andrea Righi <arighi@nvidia.com>,
+	Tejun Heo <tj@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.2.y] sched_ext: Don't run ops.dequeue() with a DSQ lock held
+Date: Wed, 30 Sep 2026 09:55:24 -0400
+Message-ID: <20260930135525.1803695-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026092917-xerox-existing-569f@gregkh>
+References: <2026092917-xerox-existing-569f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929193021.823447-1-sashal@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 29, 2026 at 03:30:21PM -0400, Sasha Levin wrote:
-> From: Imre Deak <imre.deak@intel.com>
-> 
-> [ Upstream commit a443e0b8d647c1401b110d9f919d8c6cb8607260 ]
-> 
-> During an atomic commit after all the MST stream CRTC state is computed
-> the driver ensures that the sum of TUs of all the streams on a given MST
-> topology link is within limits (63 for 8b10 and 64 for 128b132b). For a
-> disconnected stream the DRM MST core's BW verification doesn't ensure
-> this, because the topology state it uses for this is destroyed as soon
-> as the stream (i.e. MST connector/port) is disconnected. The driver
-> should keep the link state valid even for such disconnected streams, as
-> userspace may disable them one-by-one only in a deferred way. Ensure the
-> link's sum of TUs stays within limits in this case by simply reusing the
-> maximum link BPP limit from the stream's (i.e. CRTC's) old state.
-> 
-> The disconnection can happen either via the whole topology getting
-> disconnected or via only the given stream's port getting disconnected.
-> Check for both of these conditions separately, as a connector gets
-> unregistered after a link disconnect event only in a deferred way.
-> 
-> Cc: stable@vger.kernel.org # v6.10+
-> Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16073
-> Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16384
-> Reviewed-by: Luca Coelho <luciano.coelho@intel.com>
-> Signed-off-by: Imre Deak <imre.deak@intel.com>
-> Link: https://patch.msgid.link/20260907174413.741851-2-imre.deak@intel.com
-> (cherry picked from commit ee00f8fbb2b202002ab90834e02e9ba372773a36)
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-> [ adapted MST field accesses to `mst_port` and `mst_mgr`, reusing a local `crtc` lookup. ]
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  drivers/gpu/drm/i915/display/intel_dp_mst.c  | 21 ++++++++++++++++++++
->  drivers/gpu/drm/i915/display/intel_dp_mst.h  |  2 ++
->  drivers/gpu/drm/i915/display/intel_link_bw.c |  7 ++++---
->  3 files changed, 27 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> index eeaedd979354b..eb0ee759569c3 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> @@ -2053,6 +2053,27 @@ bool intel_dp_mst_crtc_needs_modeset(struct intel_atomic_state *state,
->  	return false;
->  }
->  
-> +bool intel_dp_mst_stream_disconnected(struct intel_atomic_state *state,
-> +				      const struct intel_crtc *crtc)
-> +{
-> +	struct intel_connector *connector;
-> +
-> +	connector = get_connector_in_state_for_crtc(state, crtc);
-> +	if (!connector)
-> +		return false;
-> +
-> +	if (!connector->mst_port)
-> +		return false;
-> +
-> +	if (!connector->mst_port->mst_mgr.mst_state)
-> +		return true;
-> +
-> +	if (drm_connector_is_unregistered(&connector->base))
-> +		return true;
-> +
-> +	return false;
-> +}
-> +
->  /**
->   * intel_dp_mst_prepare_probe - Prepare an MST link for topology probing
->   * @intel_dp: DP port object
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.h b/drivers/gpu/drm/i915/display/intel_dp_mst.h
-> index 8343804ce3f8d..261a97e24d91e 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.h
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.h
-> @@ -27,6 +27,8 @@ int intel_dp_mst_atomic_check_link(struct intel_atomic_state *state,
->  				   struct intel_link_bw_limits *limits);
->  bool intel_dp_mst_crtc_needs_modeset(struct intel_atomic_state *state,
->  				     struct intel_crtc *crtc);
-> +bool intel_dp_mst_stream_disconnected(struct intel_atomic_state *state,
-> +				      const struct intel_crtc *crtc);
->  void intel_dp_mst_prepare_probe(struct intel_dp *intel_dp);
->  bool intel_dp_mst_verify_dpcd_state(struct intel_dp *intel_dp);
->  
-> diff --git a/drivers/gpu/drm/i915/display/intel_link_bw.c b/drivers/gpu/drm/i915/display/intel_link_bw.c
-> index e7a9b860fac6e..da4f0186311ba 100644
-> --- a/drivers/gpu/drm/i915/display/intel_link_bw.c
-> +++ b/drivers/gpu/drm/i915/display/intel_link_bw.c
-> @@ -32,11 +32,12 @@ void intel_link_bw_init_limits(struct intel_atomic_state *state,
->  	limits->force_fec_pipes = 0;
->  	limits->bpp_limit_reached_pipes = 0;
->  	for_each_pipe(display, pipe) {
-> +		struct intel_crtc *crtc = intel_crtc_for_pipe(i915, pipe);
->  		const struct intel_crtc_state *crtc_state =
-> -			intel_atomic_get_new_crtc_state(state,
-> -							intel_crtc_for_pipe(i915, pipe));
-> +			intel_atomic_get_new_crtc_state(state, crtc);
->  
-> -		if (state->base.duplicated && crtc_state) {
-> +		if ((state->base.duplicated && crtc_state) ||
-> +		    intel_dp_mst_stream_disconnected(state, crtc)) {
->  			limits->max_bpp_x16[pipe] = crtc_state->max_link_bpp_x16;
->  			if (crtc_state->fec_enable)
->  				limits->force_fec_pipes |= BIT(pipe);
-> -- 
-> 2.53.0
-> 
-> 
+From: fangqiurong <fangqiurong@kylinos.cn>
 
-Breaks the build :(
+[ Upstream commit cb86607ada73185f321baa7f9d94a08a3a40bbf5 ]
+
+ops.dequeue() is invoked with the source user DSQ's lock still held on
+the consume and move paths (scx_consume_dispatch_q(),
+move_task_between_dsqs()). A BPF scheduler which locks the source user
+DSQ from ops.dequeue() - e.g. by iterating it with bpf_iter_scx_dsq -
+self-deadlocks.
+
+ops.dequeue() can only call the "any" kfuncs and none of them can lock a
+builtin DSQ, so the global and bypass paths can't deadlock; however,
+all DSQ locks share one lockdep class, so iterating any user DSQ from
+ops.dequeue() on those paths trips the recursion check.
+
+Move the invocation after the DSQ unlock on all three paths.
+SCX_TASK_IN_CUSTODY is cleared under the lock serializing the transfer
+so that the callback is invoked exactly once.
+
+Fixes: ebf1ccff79c4 ("sched_ext: Fix ops.dequeue() semantics")
+Cc: stable@vger.kernel.org # v7.1+
+Acked-by: Andrea Righi <arighi@nvidia.com>
+Signed-off-by: fangqiurong <fangqiurong@kylinos.cn>
+Signed-off-by: Tejun Heo <tj@kernel.org>
+[ adapted upstream sched_ext helpers to their older static equivalents. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ kernel/sched/ext/ext.c | 48 +++++++++++++++++++++++-------------------
+ 1 file changed, 26 insertions(+), 22 deletions(-)
+
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index 906e4f08967f8..64669d3cea892 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -1450,20 +1450,14 @@ static inline bool task_scx_migrating(struct task_struct *p)
+ 	return p->scx.sticky_cpu >= 0;
+ }
+ 
+-/*
+- * Call ops.dequeue() if the task is in BPF custody and not migrating.
+- * Clears %SCX_TASK_IN_CUSTODY when the callback is invoked.
+- */
+-static void call_task_dequeue(struct scx_sched *sch, struct rq *rq,
+-			      struct task_struct *p, u64 deq_flags)
++/* Must be called under the lock serializing @p's custody transfers. */
++static bool task_leave_custody(struct task_struct *p)
+ {
+ 	if (!(p->scx.flags & SCX_TASK_IN_CUSTODY) || task_scx_migrating(p))
+-		return;
+-
+-	if (SCX_HAS_OP(sch, dequeue))
+-		SCX_CALL_OP_TASK(sch, dequeue, rq, p, deq_flags);
++		return false;
+ 
+ 	p->scx.flags &= ~SCX_TASK_IN_CUSTODY;
++	return true;
+ }
+ 
+ static void local_dsq_post_enq(struct scx_sched *sch, struct scx_dispatch_q *dsq,
+@@ -1471,7 +1465,8 @@ static void local_dsq_post_enq(struct scx_sched *sch, struct scx_dispatch_q *dsq
+ {
+ 	struct rq *rq = container_of(dsq, struct rq, scx.local_dsq);
+ 
+-	call_task_dequeue(sch, rq, p, 0);
++	if (task_leave_custody(p) && SCX_HAS_OP(sch, dequeue))
++		SCX_CALL_OP_TASK(sch, dequeue, rq, p, 0);
+ 
+ 	/*
+ 	 * Note that @rq's lock may be dropped between this enqueue and @p
+@@ -1634,16 +1629,28 @@ static void dispatch_enqueue(struct scx_sched *sch, struct rq *rq,
+ 	if (is_local) {
+ 		local_dsq_post_enq(sch, dsq, p, enq_flags);
+ 	} else {
++		bool call_dequeue = false;
++
+ 		/*
+-		 * Task on global/bypass DSQ: leave custody, task on
+-		 * non-terminal DSQ: enter custody.
++		 * Global and bypass DSQs are terminal - the task leaves the
++		 * scheduler's custody, so ops.dequeue() fires. It can run
++		 * without @p's rq lock (finish_dispatch() passes the dispatch
++		 * rq); that's safe because dequeue_task_scx() waits on
++		 * SCX_OPSS_DISPATCHING (see the ops_state note above) and so
++		 * can't race it. A non-terminal DSQ keeps the task in custody.
++		 * The custody transfer happens under @dsq->lock so that later
++		 * consumers see the flag clear; the callback runs after
++		 * @dsq->lock is dropped because it may lock a DSQ itself.
+ 		 */
+ 		if (dsq->id == SCX_DSQ_GLOBAL || dsq->id == SCX_DSQ_BYPASS)
+-			call_task_dequeue(sch, rq, p, 0);
++			call_dequeue = task_leave_custody(p);
+ 		else
+ 			p->scx.flags |= SCX_TASK_IN_CUSTODY;
+ 
+ 		raw_spin_unlock(&dsq->lock);
++
++		if (call_dequeue && SCX_HAS_OP(sch, dequeue))
++			SCX_CALL_OP_TASK(sch, dequeue, rq, p, 0);
+ 	}
+ 
+ 	/*
+@@ -2106,7 +2113,7 @@ static void ops_dequeue(struct rq *rq, struct task_struct *p, u64 deq_flags)
+ 		/*
+ 		 * A queued task must always be in BPF scheduler's custody. If
+ 		 * SCX_TASK_IN_CUSTODY is clear, finish_dispatch() on another
+-		 * CPU has already passed call_task_dequeue() (which clears the
++		 * CPU has already passed task_leave_custody() (which clears the
+ 		 * flag), but has not yet written SCX_OPSS_NONE. That final
+ 		 * store does not require this rq's lock, so retrying with
+ 		 * cpu_relax() is bounded: we will observe NONE (or DISPATCHING,
+@@ -2154,7 +2161,8 @@ static void ops_dequeue(struct rq *rq, struct task_struct *p, u64 deq_flags)
+ 	 * NONE but the task may still have %SCX_TASK_IN_CUSTODY set until
+ 	 * it is enqueued on the destination.
+ 	 */
+-	call_task_dequeue(sch, rq, p, deq_flags);
++	if (task_leave_custody(p) && SCX_HAS_OP(sch, dequeue))
++		SCX_CALL_OP_TASK(sch, dequeue, rq, p, deq_flags);
+ }
+ 
+ static bool dequeue_task_scx(struct rq *rq, struct task_struct *p, int core_deq_flags)
+@@ -2258,13 +2266,10 @@ static void wakeup_preempt_scx(struct rq *rq, struct task_struct *p, int wake_fl
+ 
+ static void move_local_task_to_local_dsq(struct scx_sched *sch,
+ 					 struct task_struct *p, u64 enq_flags,
+-					 struct scx_dispatch_q *src_dsq,
+ 					 struct rq *dst_rq)
+ {
+ 	struct scx_dispatch_q *dst_dsq = &dst_rq->scx.local_dsq;
+ 
+-	/* @dsq is locked and @p is on @dst_rq */
+-	lockdep_assert_held(&src_dsq->lock);
+ 	lockdep_assert_rq_held(dst_rq);
+ 
+ 	WARN_ON_ONCE(p->scx.holding_cpu >= 0);
+@@ -2508,9 +2513,8 @@ static struct rq *move_task_between_dsqs(struct scx_sched *sch,
+ 		/* @p is going from a non-local DSQ to a local DSQ */
+ 		if (src_rq == dst_rq) {
+ 			task_unlink_from_dsq(p, src_dsq);
+-			move_local_task_to_local_dsq(sch, p, enq_flags,
+-						     src_dsq, dst_rq);
+ 			raw_spin_unlock(&src_dsq->lock);
++			move_local_task_to_local_dsq(sch, p, enq_flags, dst_rq);
+ 		} else {
+ 			raw_spin_unlock(&src_dsq->lock);
+ 			move_remote_task_to_local_dsq(p, enq_flags,
+@@ -2561,8 +2565,8 @@ static bool consume_dispatch_q(struct scx_sched *sch, struct rq *rq,
+ 
+ 		if (rq == task_rq) {
+ 			task_unlink_from_dsq(p, dsq);
+-			move_local_task_to_local_dsq(sch, p, enq_flags, dsq, rq);
+ 			raw_spin_unlock(&dsq->lock);
++			move_local_task_to_local_dsq(sch, p, enq_flags, rq);
+ 			return true;
+ 		}
+ 
+-- 
+2.53.0
+
