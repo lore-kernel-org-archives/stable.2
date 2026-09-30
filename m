@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9CF5361DA8;
-	Wed, 30 Sep 2026 16:19:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92F08511197;
+	Wed, 30 Sep 2026 16:19:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790785179; cv=none; b=gAUfLrkuLjCd47FpFQa+ec5Z1JM5O+DJtJr5VvcqfywnheIvTpjd2vZHUvxzFsQLSvKzoNZ9MLDvu00sjdkTUX3+mMpORsbYjv45QA7DVhfA6r7O+voCbjgEQikWbZPcPtNDan6z8Yh5xmj19xqeoGsh2UM2AN36c9kxMFQ8I0o=
+	t=1790785184; cv=none; b=ACunkp0xqgSEmu/UZPQmJI2WfCr902M0C5Hxmx8kOJcNzsKr3BMW4FudHfC6vaJJUQz2v1ItXTPvt1ke6L1WDupxPq3px1fiQVt5sdekLXwjqX3dPxl40vOyBA77Rjgl1DR30dUlw6RvSSkjflRoRh07AlkyYiP1fApDkxVAEk0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790785179; c=relaxed/simple;
-	bh=7tUOCL7lzLBjUi3AlADos2kVkuak5Y79q/iy+Vv+zbA=;
+	s=arc-20240116; t=1790785184; c=relaxed/simple;
+	bh=YohwSiFGmsq1WbHCE4LrLAQADXj+AK0p3mTlL1Xs5B4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KJw/Pl6yQ/KrUz8XKOvxLNjJUgXB8hbZPIxW9c7KehhTmvYdTK+1SsgrxWxC0YHceCdrn7O/gkKwGNHatp2Cd1tiYnyArf3xYdfs14jqJJKIEqDxICyVePwPAgIL5H8FSoNq6qyRDmtbw7dLDARu4tv57u3Adlehf8ORTcclUvw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=0jGpi1Te; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=k7AZ3QeO9PgGb6fQIF7ClhLmXQkn0rzrP675zWtp9eB3nfKW5Qnu0ILbwuqkYvF2Q1s0v6At5T5TwDmRASlyxXjeoIwnHEnthlK+SEnUXUAPrIrCezt/5YEgRWuCwd1f+P8ChRfNHd0Gg59V5M2dqXMOgJebwkRbZ/HHw5Yy6f8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SSJbLDdA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0jGpi1Te"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B293D1F00893;
-	Wed, 30 Sep 2026 16:19:34 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SSJbLDdA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F4EC1F000FF;
+	Wed, 30 Sep 2026 16:19:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790785175;
-	bh=0SHqwcYVwuecGkowOIB8sxm4zevauXl/HXHDmbEyB5E=;
+	s=korg; t=1790785178;
+	bh=tfNog9FTzIBs2Z4BVymz/Oo0gIfKz/J3IRjjiSo7PMA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=0jGpi1Te9sDt6LWntlVCtriYzhhh3fKReC7TjAmjFjEg9bCby76QmHs3PCEYML9vS
-	 VCR+KuyxymB1YOCGiO8tOhYRvhFYWyrXmB6pwlGtESRn5WeArUmPWda/rw6AN2KsaS
-	 /AdjiBuWaHLpeFliFfPA/rLtIsl+tkg6lKJ6oXAE=
+	b=SSJbLDdAzbcPbglkMW39a6OzQsg0XrpOAFMcI2Dukx8tOZNTbMeTAoZJ7X1sXXrwl
+	 /ziRg65gf6lWIBbrxcF2kyIpuFtK7SHh/T+PNp4zWFIMnzYzVPmdTpiadgxKoTVYjr
+	 q4qjPzZWx1qhI8urYwRB9HED8CFRG239E7Sd4hWg=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Thorsten Blum <thorsten.blum@linux.dev>,
-	Sourabh Jain <sourabhjain@linux.ibm.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Xiang Mei <xmei5@asu.edu>,
+	Weiming Shi <bestswngs@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 416/982] powerpc/kexec_file: Use inclusive range checks in add_usable_mem()
-Date: Wed, 30 Sep 2026 17:19:12 +0200
-Message-ID: <20260930152425.739166557@linuxfoundation.org>
+Subject: [PATCH 6.1 417/982] net/sched: defer qdisc freeing after failed creation
+Date: Wed, 30 Sep 2026 17:19:13 +0200
+Message-ID: <20260930152425.760036052@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
 References: <20260930152416.775402466@linuxfoundation.org>
@@ -52,39 +52,103 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Thorsten Blum <thorsten.blum@linux.dev>
+From: Weiming Shi <bestswngs@gmail.com>
 
-[ Upstream commit c6755be4838d6ccd641effbcdc3d917b82631ff9 ]
+[ Upstream commit e6662f2100f8d33b0f4d0047c219efd6bba186ea ]
 
-add_usable_mem() adds usable memory ranges for the kdump kernel.
+An RTM_NEWQDISC request can make clsact bind a populated shared ingress
+block during ->init(), publishing an embedded mini_Qdisc to lockless
+readers.  If the same request has an invalid TCA_RATE, estimator setup
+fails after ->init(); the unwind removes the pointer but synchronously
+frees its containing qdisc while tc_run() may still hold it.
 
-The ranges are inclusive, but the partial overlap check uses exclusive
-comparisons. This skips ranges with base == loc_end or end == loc_base.
-Use inclusive comparisons instead.
+Retire failed qdiscs through the same RCU helper as normal destruction.
+Inline the synchronous free into the callback now that no direct callers
+remain.
 
-Fixes: 7c64e21a1c5a ("powerpc/kexec_file: Restrict memory usage of kdump kernel")
-Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
-Reviewed-by: Sourabh Jain <sourabhjain@linux.ibm.com>
-Signed-off-by: Madhavan Srinivasan <maddy@linux.ibm.com>
-Link: https://patch.msgid.link/20260809162403.18142-2-thorsten.blum@linux.dev
+Fixes: 51ab2994c387 ("net: sched: allow ingress and clsact qdiscs to share filter blocks")
+Reported-by: Xiang Mei <xmei5@asu.edu>
+Link: https://lore.kernel.org/netdev/20260805102505.740806-1-david.lee@trailofbits.com/
+Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+Link: https://patch.msgid.link/20260902155231.2149915-2-bestswngs@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/powerpc/kexec/file_load_64.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ include/net/sch_generic.h |  2 +-
+ net/sched/sch_api.c       |  2 +-
+ net/sched/sch_generic.c   | 20 ++++++++++----------
+ 3 files changed, 12 insertions(+), 12 deletions(-)
 
-diff --git a/arch/powerpc/kexec/file_load_64.c b/arch/powerpc/kexec/file_load_64.c
-index 9e3382e824311..d2a54bdc48468 100644
---- a/arch/powerpc/kexec/file_load_64.c
-+++ b/arch/powerpc/kexec/file_load_64.c
-@@ -479,7 +479,7 @@ static int add_usable_mem(struct umem_info *um_info, u64 base, u64 end)
- 		loc_end = um_info->ranges[i].end;
- 		if (loc_base >= base && loc_end <= end)
- 			add = true;
--		else if (base < loc_end && end > loc_base) {
-+		else if (base <= loc_end && end >= loc_base) {
- 			if (loc_base < base)
- 				loc_base = base;
- 			if (loc_end > end)
+diff --git a/include/net/sch_generic.h b/include/net/sch_generic.h
+index a0499bff7ff40..7ec1f5aa6adaf 100644
+--- a/include/net/sch_generic.h
++++ b/include/net/sch_generic.h
+@@ -721,7 +721,7 @@ void qdisc_offload_query_caps(struct net_device *dev,
+ struct Qdisc *qdisc_alloc(struct netdev_queue *dev_queue,
+ 			  const struct Qdisc_ops *ops,
+ 			  struct netlink_ext_ack *extack);
+-void qdisc_free(struct Qdisc *qdisc);
++void qdisc_free_rcu(struct Qdisc *qdisc);
+ struct Qdisc *qdisc_create_dflt(struct netdev_queue *dev_queue,
+ 				const struct Qdisc_ops *ops, u32 parentid,
+ 				struct netlink_ext_ack *extack);
+diff --git a/net/sched/sch_api.c b/net/sched/sch_api.c
+index 104a186a4dc8b..48e956724d3b2 100644
+--- a/net/sched/sch_api.c
++++ b/net/sched/sch_api.c
+@@ -1372,7 +1372,7 @@ static struct Qdisc *qdisc_create(struct net_device *dev,
+ err_out3:
+ 	lockdep_unregister_key(&sch->root_lock_key);
+ 	netdev_put(dev, &sch->dev_tracker);
+-	qdisc_free(sch);
++	qdisc_free_rcu(sch);
+ err_out2:
+ 	module_put(ops->owner);
+ err_out:
+diff --git a/net/sched/sch_generic.c b/net/sched/sch_generic.c
+index 54041342f1c6d..f58ec57e31f46 100644
+--- a/net/sched/sch_generic.c
++++ b/net/sched/sch_generic.c
+@@ -1045,21 +1045,21 @@ void qdisc_reset(struct Qdisc *qdisc)
+ }
+ EXPORT_SYMBOL(qdisc_reset);
+ 
+-void qdisc_free(struct Qdisc *qdisc)
++static void qdisc_free_cb(struct rcu_head *head)
+ {
+-	if (qdisc_is_percpu_stats(qdisc)) {
+-		free_percpu(qdisc->cpu_bstats);
+-		free_percpu(qdisc->cpu_qstats);
++	struct Qdisc *q = container_of(head, struct Qdisc, rcu);
++
++	if (qdisc_is_percpu_stats(q)) {
++		free_percpu(q->cpu_bstats);
++		free_percpu(q->cpu_qstats);
+ 	}
+ 
+-	kfree(qdisc);
++	kfree(q);
+ }
+ 
+-static void qdisc_free_cb(struct rcu_head *head)
++void qdisc_free_rcu(struct Qdisc *qdisc)
+ {
+-	struct Qdisc *q = container_of(head, struct Qdisc, rcu);
+-
+-	qdisc_free(q);
++	call_rcu(&qdisc->rcu, qdisc_free_cb);
+ }
+ 
+ static void __qdisc_destroy(struct Qdisc *qdisc)
+@@ -1084,7 +1084,7 @@ static void __qdisc_destroy(struct Qdisc *qdisc)
+ 
+ 	trace_qdisc_destroy(qdisc);
+ 
+-	call_rcu(&qdisc->rcu, qdisc_free_cb);
++	qdisc_free_rcu(qdisc);
+ }
+ 
+ void qdisc_destroy(struct Qdisc *qdisc)
 -- 
 2.53.0
 
