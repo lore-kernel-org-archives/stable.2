@@ -1,56 +1,51 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36F9946AA61;
-	Wed, 30 Sep 2026 15:16:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D94D74E36D0;
+	Wed, 30 Sep 2026 15:19:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790781395; cv=none; b=qejmlaPiEr6/AOcalAOBsKC1ZpGzJI7E6SMcSoxqC/PfDXZZQoJ0+5oNXEznuwH56VZv9SJwZmx7pMqh3zwa8CyYzWSuOt6wpGmtHMjn03qNQfybPZCFa72iFd/gKVmq645VM7p0P83ZFzVATjsdHWetq/+X3hiy92oTUG+tzvs=
+	t=1790781559; cv=none; b=BV2JxMZIVo3aQuAgDLDO1XY1iMH9CwvLSyxLmcH1zigYtqqkSA6hUEmf5PP+37vEzFD16hksmiPq4o3cIH5/HSPSUbFwZeGZ6gF1iMEUp4I+HIaLh5u2cPr4Qfot0R1eouYQNwlMp/xDDoqKGP1kiS0+oRvlcpUjfeBJ3QMDC6Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790781395; c=relaxed/simple;
-	bh=TrtuDblVCrqhzl9/Aclsdo8S4vvh9Qw/7twPbojMg3M=;
+	s=arc-20240116; t=1790781559; c=relaxed/simple;
+	bh=ecYM6eiIN0pEXVUN9eXpKkK+UfcpLhdrTpGuD0OnECc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qrCYn/9JJIEFjOzCeaZ5szPSq8Jnzm5UWYHmmtqm8VSkF7tKIAXMRr8s+6UyeVOpB7ZZv6iDBJImQ92yDlCu9yaufytZyvlkMvESz5bpu4OvNcitH2VTvCjiQutCd0JYBLDYsg2Dg66ifyGDEBHupwrYH4/G3UzAAOFYsyNcI/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=POYS0BFv; arc=none smtp.client-ip=90.155.50.34
+	 Content-Type:Content-Disposition:In-Reply-To; b=Mv7cVc6zdldXi57zYKrA1xhpYyQLTTZKFZ9dcRVS7nyogmxBqe/VGJ3acbh1iWhV7rW5HWiff7jx7AvscF5vLXqswzVGbpclmexHrRQYo3YQacvIGeAGOpTef7E5Jn4kYAVGndzJgbqz6sqzO23BWm1Tudcn6aFMl6D6cjOnDeI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=R2aQ0b4a; arc=none smtp.client-ip=90.155.92.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="POYS0BFv"
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="R2aQ0b4a"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
 	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=tAO7/NZ2ik1ulhsGeO4+BUNaazDF/WbZvDUywyLZkgA=; b=POYS0BFvgqAfqlrq9T8sAvkVGy
-	0hVvItZggom0M4O9HlezJbnds0pstUuPEnyv6OiUAqnO+xOfOHRz+tsAmorvDF964tQgq8ZWJ5vhj
-	m1obPIy7vtUAg25KQFe9qD3tbkpvoFIvbbMDjinh4qvpSc90GFyLgjixgvf56rwZ6IX2b1m3z7bzR
-	4JmFEUnCyyNMabMTBdwfldcvSDJG5fLgYA8TiySAC4vlWfYkSHGEFZPcxUky3yJs9z/IINM7bkvYE
-	S8XTpegohIal+UwTpBTnYafvvNV/PsOLb2OsGos7FG+ByrQlUtZeHg2dF+KoXI+hrTxIF2dCAvYGn
-	Csx5dQbw==;
+	bh=1AS38y78ktzj4kRDrJvghL/aAxLdHqWz3VNxFKE2lRY=; b=R2aQ0b4avTTW5wxyrVIQlXaik7
+	xlOfAblrDDetu/HEwhw6F1aqjF5CQqrnbXZWO248emvcbG1qgQHRbl9LzQ/iK76jEkhKwH26HtPhY
+	INABzb6n79Y7lXJ08vRbx+YiQHlayZetBVQr211AjndXn7h4Gr9LffPyNfnn8aUUaG2khvfeXdA8C
+	mpN5++iT7ua3vypo34K41aUJihJuv2EBKEnM9aGhxQQ3fmougOd2FxBfwsJqU5xPwBWnprmnzGDXO
+	rUg2KaY2SIJBKHFDlgL130eusvyyWgohx4PnYR6reB4Xw/AbOaAeIFqh9I8PQH6rHatcA9NZ/5XAu
+	sPAuHL/A==;
 Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xBw2V-0000000DrPg-0wVs;
-	Wed, 30 Sep 2026 15:16:11 +0000
+	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+	id 1xBw5I-00000003z5O-0myI;
+	Wed, 30 Sep 2026 15:19:04 +0000
 Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 1D92A300673; Wed, 30 Sep 2026 17:16:10 +0200 (CEST)
-Date: Wed, 30 Sep 2026 17:16:10 +0200
+	id BEEEF300673; Wed, 30 Sep 2026 17:19:02 +0200 (CEST)
+Date: Wed, 30 Sep 2026 17:19:02 +0200
 From: Peter Zijlstra <peterz@infradead.org>
-To: Danish Khateeb <danishkhateeb03@gmail.com>
-Cc: Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Marco Elver <elver@google.com>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] perf/core: Don't send SIGTRAP after exec removed the
- event
-Message-ID: <20260930151610.GN88198@noisy.programming.kicks-ass.net>
-References: <20260930144248.59858-1-danishkhateeb03@gmail.com>
+To: Johannes Weiner <hannes@cmpxchg.org>
+Cc: David Stevens <stevensd@google.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] sched/psi: clamp negative cpu_clock() skew
+Message-ID: <20260930151902.GO88198@noisy.programming.kicks-ass.net>
+References: <20260928233743.3777102-1-stevensd@google.com>
+ <20260929081004.GS4120091@noisy.programming.kicks-ass.net>
+ <20260929081740.GH4121620@noisy.programming.kicks-ass.net>
+ <ar0bPEyD5CBK331p@cmpxchg.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -59,38 +54,30 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260930144248.59858-1-danishkhateeb03@gmail.com>
+In-Reply-To: <ar0bPEyD5CBK331p@cmpxchg.org>
 
-On Wed, Sep 30, 2026 at 09:42:48AM -0500, Danish Khateeb wrote:
-> A sigtrap event must also set remove_on_exec, so that its SIGTRAP never
-> reaches a program after exec. But the signal is sent from task work,
-> which only runs on the way back to user space. If the event overflows
-> shortly before execve(), the task work can still be pending when the
-> task enters execve(), and then runs when execve() returns. By then
-> perf_event_exec() has removed the event and the new program has default
-> signal handlers, so the SIGTRAP kills it.
+On Wed, Sep 30, 2026 at 10:22:52AM -0400, Johannes Weiner wrote:
+> On Tue, Sep 29, 2026 at 10:17:40AM +0200, Peter Zijlstra wrote:
+> > On Tue, Sep 29, 2026 at 10:10:04AM +0200, Peter Zijlstra wrote:
+> > 
+> > > > When running browser workloads on an Intel N100 with a sustained
+> > > > psi.mem.some of 2-3%, this underflow is observed once every couple of
+> > > > hours.
+> > 
+> > Reading is hard. This is sad, that's a relatively modern chip :-(
 > 
-> The exec_stress test in the remove_on_exec selftest catches this and
-> fails about half the time in a VM. A process that opens a sigtrap event
-> on itself and then calls execve() is killed by SIGTRAP in 15% to 50% of
-> runs, both on an AMD machine running v7.2 and in a VM, with or without
-> close-on-exec on the event fd.
+> I'm still struggling, but I'm under the weather so bear with me.
 > 
-> perf_event_exit_event() sets PERF_EVENT_STATE_EXIT when exec removes the
-> event. If the event fd is close-on-exec and was the last reference to
-> the file, exec also queues the file release as task work. Task work runs
-> newest first, so perf_release() runs before the SIGTRAP work and moves
-> the event on to PERF_EVENT_STATE_DEAD. Exit is already caught by the
-> PF_EXITING check in perf_sigtrap(). So don't send the signal when the
-> event state is PERF_EVENT_STATE_EXIT or lower, which means the event has
-> been removed. That also covers PERF_EVENT_STATE_REVOKED, where the PMU
-> is gone.
-> 
-> Fixes: 97ba62b27867 ("perf: Add support for SIGTRAP on perf events")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
+> That's a cpu_clock() implementation issue, right? "The value for
+> cpu_clock(i) is monotonic for constant i". Presumably violating that
+> would be a problem beyond psi?
 
-Is this the same problem as this one?
+Yeah, although most everybody has a filter on top for some reason or
+another.
 
-  https://patch.msgid.link/20260920075026.990582-1-luogengkun2@huawei.com
+Mostly it could happen that when the watchdog would detect the TSC
+wasn't stable after all, you'd be up a creek if you didn't also have
+this filter.
+
+But I'm very sad to see modern chips have shit TSC, that wasn't supposed
+to happen.
