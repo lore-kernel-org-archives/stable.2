@@ -1,157 +1,220 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BB03EED8
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 00:04:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCCCA2AEF5;
+	Wed, 30 Sep 2026 00:06:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790726680; cv=none; b=c/SEh93qsZ10Zl6i8MEi+aGWUPKsP4t4iXZmKjAN0+Ztnec1aa90aN8ShAOsPT8v+n8QA9e4jhdHSblT3iRHFurRwRX+IN0lVTYlV+Ez+NxwBSa3ST9rx6EraG4rrrvPbiIfk1XjyDGSrcVlke65/UPie+ArCc0aN3VUUCjbZDU=
+	t=1790726820; cv=none; b=HoFMwirn3FDkXY7KzGzRtjJ2WdEE0SvExVylkojMVwO/AG0bDm6fyCozGgcNajudB41cW7KStsrPOzYnMl7nXgKy0M2rjv0H70F4G56DC5gThYoL9kWEuqBReUcAMYoQEXiK4QVIgKupFXPsxY0bFCf+0C9ioUbryZ8wIIMVLmU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790726680; c=relaxed/simple;
-	bh=zzJOQMSoOP+PpeSDqkVrkUGBSjfpZO0zDS0OT7yWRNE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tNzaKuumZ9tNqcBfjY9E4FWTnFFCYLX6U4I19JZhcxQSnxupzKKSAFIoTwz1Y7i0oaes9GhyGP2ueuDPcodwjMGiUR/JaV/3KPdauBXEJMRn6pbgksNXptmnnbmjJSvZlaYWUW7iUqVbgo4LjP8RQVR0Lbl8r2QzG9aZI8CyluY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jcSvCaqz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790726820; c=relaxed/simple;
+	bh=mPTPIKAUNjmfguNjYpT/EavXKWLKkJoW8vykJFb4ZrE=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=M1cTJG2jsE8RCWmKuBLjwCz2vk0PMpfHv8AxjHAURK8vRPL9stJbNWOAvLVPJVxkPpZWjh5kKzsGQotM9POKL7cEB5GFQmg7LqtU8M2AqCnv00mBc5zSVwWL6F1AwMkOBxHakhaOw+CzjACwss5IjIJgQVStnuSnLBofcJV8mnY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gAmquCZ9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jcSvCaqz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27A661F00893;
-	Wed, 30 Sep 2026 00:04:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gAmquCZ9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 714C31F000FF;
+	Wed, 30 Sep 2026 00:06:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790726679;
-	bh=J9k6hCosEss/3BDp9+ePrJG5i+iBXJVlR34llBMI6qo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jcSvCaqz4nPXmSJ16x4Y2R7TSqMfjv42sUW3nG359NJzq23qg39hMbXPDXIT8NkB6
-	 vbED8mcKTCy+x/F/09dS/DiKd2n4ZjyPXbXBfY4UtqVBk08tDB2/wpvlgTWV4fJEvg
-	 mS+9QTZG85yhyhnIksNG8xdXayl2YRjy0LjQxGUr81074jDl/fsquh0PmVPXl8FS8J
-	 PuIk5qujIZYn7m6bUO3Es5gXbuzochQIpYE+ppvF/YUbBWgPKV7CxkIeWTo3QnYBVL
-	 2B4+p6daJTsi82h794IunqYevRE3O8/Fb8nAEG+aIJf7oVEiygL0tFyLXIlvnPG8BC
-	 W5+xZ9XyNav0A==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ilya Maximets <i.maximets@ovn.org>,
-	Axel Mierczuk <axel.mierczuk@1password.com>,
-	Aaron Conole <aconole@redhat.com>,
-	Xin Long <lucien.xin@gmail.com>,
-	Jamal Hadi Salim <jhs@mojatatu.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 2/2] net/sched: act_ct: avoid modifying shared unconfirmed ct entry
-Date: Tue, 29 Sep 2026 20:04:35 -0400
-Message-ID: <20260930000435.2867626-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260930000435.2867626-1-sashal@kernel.org>
-References: <2026092927-fencing-hypnotize-05db@gregkh>
- <20260930000435.2867626-1-sashal@kernel.org>
+	s=k20260515; t=1790726818;
+	bh=xXVQ9W7M/mZGqFATe6fQKCdJL/j0F5r4P8laP4JUb4M=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=gAmquCZ94fV+KT6LSBOcB7E6THqPXKBtjapsF4kwQBEQTSvpU6vqKQODg6ns22w3X
+	 4SVmfb43jSSwAagke5mcGNJLhY+MID9zJN1O2EpfuVtVbp1r8S05AH9jon+te/HvWk
+	 CExEH2skWyjj/8K16h6YNuK/SFz6Qwp8SHjcKczL+6r8lttJa/YeBp/rwz8KQMfUIH
+	 oOskGXIrlIYBoWaR5ja2nGbwAnrYZAm/6oGK+WAyhYPrjICecoe9WDdfNAZ6kBpPiS
+	 BXgVYDObGov+WVDak8ljbKi7oyDB6nQ7rRDhS7cZg67w69H/h6NnLUockVsZMMJkJW
+	 8dk3814MZw8mw==
+Subject: Re: [PATCH net] net/smc: protect clcsock lifetime in smc_getname
+From: netdev-bot+sashiko@kernel.org
+To: nicoyip.dev@gmail.com
+Cc: alibuda@linux.alibaba.com, dust.li@linux.alibaba.com,
+ sidraya@linux.ibm.com, mjambigi@linux.ibm.com, tonylu@linux.alibaba.com,
+ guwen@linux.alibaba.com, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, ubraun@linux.ibm.com,
+ linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Wed, 30 Sep 2026 00:06:57 +0000
+Message-ID: <179072681701.434549.13763000893839581310@kernel.org>
+In-Reply-To: <20260926180404.2721010-1-nicoyip.dev@gmail.com>
+References: <20260926180404.2721010-1-nicoyip.dev@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Ilya Maximets <i.maximets@ovn.org>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-[ Upstream commit f85009dfcd65e5969526b0db7a49b5413746e630 ]
+Critical: 0 · High: 1 (2) · Medium: 0 · Low: 0
 
-In a case where skb with an unconfirmed ct entry gets cloned, we may
-end up processing both again but with different sets of extensions.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-The series of events:
+- [High] The patch fixes smc_getname(), and its commit message says
+  socket option handlers already guard clcsock.
 
- 1. The first clone wants to commit and runs the helpers wiring up
-    the extension pointer into the expectation list.
- 2. Then it looses the confirmation keeping the entry unconfirmed.
- 3. Second clone now wants to commit labels or run NAT and adds the
-    new extension for that breaking the pointer in the expectation
-    list causing UAF on the destruction path later.
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but
+  smc_diag_msg_common_fill() (net/smc/smc_diag.c:42-55) has the same…
+- [High] This problem wasn't introduced by this patch, but smc_shutdown()
+  (net/smc/af_smc.c:3011-3012) runs `if (do_shutdown && smc->clcsock)…
 
-While this is possible to trigger, there should be no practical
-network pipeline where we need to process both clones without
-modifications in the same zone.  So, let's just reset the entry in
-case for some reason we got an skb with a shared one.  This doesn't
-affect any known use cases, but avoids any potential problems with
-sharing and modification of the unconfirmed ct entry.
+--
 
-Unlike openvswitch module, act_ct allows for NAT without commit.
-Changing that would be a uAPI break.  So, act_ct needs to reset on NAT
-regardless of the commit flag to avoid reallocation of the extension
-space.  This, however, doesn't really change the picture for sensible
-networking cases as there should be no need to run the same packet
-twice (before and after the clone) through conntrack without packet
-header or zone changes and without commit.
+net/smc: protect clcsock lifetime in smc_getname
 
-The fixes tag points to the introduction of helpers, since that's the
-main UAF trigger for the sharing.
+This commit takes clcsock_release_lock in smc_getname() around the
+smc->clcsock NULL check and the getname() callback. If link-group
+termination has already released the CLC socket through
+smc_close_active_abort(), it returns -EBADF.
 
-Fixes: a21b06e73191 ("net: sched: add helper support in act_ct")
-Cc: stable@vger.kernel.org
-Reported-by: Axel Mierczuk <axel.mierczuk@1password.com>
-Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
-Reviewed-by: Aaron Conole <aconole@redhat.com>
-Reviewed-by: Xin Long <lucien.xin@gmail.com>
-Reviewed-by: Jamal Hadi Salim <jhs@mojatatu.com>
-Link: https://patch.msgid.link/20260921145655.3167436-5-i.maximets@ovn.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/sched/act_ct.c | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+> diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
+> index e9f93b3ab435b..8b3ee70f8433f 100644
+> --- a/net/smc/af_smc.c
+> +++ b/net/smc/af_smc.c
 
-diff --git a/net/sched/act_ct.c b/net/sched/act_ct.c
-index 370085ab6ea41..e77b6685dce7d 100644
---- a/net/sched/act_ct.c
-+++ b/net/sched/act_ct.c
-@@ -980,11 +980,11 @@ TC_INDIRECT_SCOPE int tcf_ct_act(struct sk_buff *skb, const struct tc_action *a,
- 				 struct tcf_result *res)
- {
- 	struct net *net = dev_net(skb->dev);
-+	bool cached, commit, clear, nat;
- 	enum ip_conntrack_info ctinfo;
- 	struct tcf_ct *c = to_ct(a);
- 	struct nf_conn *tmpl = NULL;
- 	struct nf_hook_state state;
--	bool cached, commit, clear;
- 	int nh_ofs, err, retval;
- 	struct tcf_ct_params *p;
- 	bool add_helper = false;
-@@ -999,6 +999,7 @@ TC_INDIRECT_SCOPE int tcf_ct_act(struct sk_buff *skb, const struct tc_action *a,
- 	retval = p->action;
- 	commit = p->ct_action & TCA_CT_ACT_COMMIT;
- 	clear = p->ct_action & TCA_CT_ACT_CLEAR;
-+	nat = p->ct_action & TCA_CT_ACT_NAT;
- 	tmpl = p->tmpl;
- 
- 	tcf_lastuse_update(&c->tcf_tm);
-@@ -1047,6 +1048,19 @@ TC_INDIRECT_SCOPE int tcf_ct_act(struct sk_buff *skb, const struct tc_action *a,
- 	 * different zone.
- 	 */
- 	cached = tcf_ct_skb_nfct_cached(net, skb, p);
-+
-+	/* If the ct entry is not confirmed and shared with some other skb,
-+	 * e.g., a cloned one, we can't just modify it with a commit or nat
-+	 * as we must not modify the extension set.  Reset.
-+	 */
-+	if (cached && (commit || nat)) {
-+		ct = nf_ct_get(skb, &ctinfo);
-+		if (ct && !nf_ct_is_confirmed(ct) && nf_ct_shared(ct)) {
-+			nf_reset_ct(skb);
-+			cached = false;
-+		}
-+	}
-+
- 	if (!cached) {
- 		if (tcf_ct_flow_table_lookup(p, skb, family)) {
- 			skip_add = true;
-@@ -1084,7 +1098,7 @@ TC_INDIRECT_SCOPE int tcf_ct_act(struct sk_buff *skb, const struct tc_action *a,
- 		if (err)
- 			goto drop;
- 		add_helper = true;
--		if (p->ct_action & TCA_CT_ACT_NAT && !nfct_seqadj(ct)) {
-+		if (nat && !nfct_seqadj(ct)) {
- 			if (!nfct_seqadj_ext_add(ct))
- 				goto drop;
- 		}
+[ ... ]
+
+> @@ -2791,7 +2792,11 @@ int smc_getname(struct socket *sock, struct sockaddr *addr,
+>  
+>  	smc = smc_sk(sock->sk);
+>  
+> -	return smc->clcsock->ops->getname(smc->clcsock, addr, peer);
+> +	mutex_lock(&smc->clcsock_release_lock);
+> +	if (smc->clcsock)
+> +		rc = smc->clcsock->ops->getname(smc->clcsock, addr, peer);
+> +	mutex_unlock(&smc->clcsock_release_lock);
+> +	return rc;
+>  }
+
+[Severity: High]
+The commit message says:
+
+    Hold clcsock_release_lock across the pointer check and the getname()
+    callback, as the socket option handlers already do.
+
+Does this hold for every socket option path? SMC does not set
+SOCK_CUSTOM_SOCKOPT. So setsockopt(fd, SOL_SOCKET, SO_KEEPALIVE, ...) on
+an AF_SMC socket never reaches smc_setsockopt():
+
+do_sock_setsockopt()
+  sock_setsockopt()
+    sk_setsockopt()
+      sk->sk_prot->keepalive(sk, valbool)
+        smc_set_keepalive()
+
+smc_set_keepalive() in net/smc/af_smc.c uses clcsock without a NULL check
+and without clcsock_release_lock:
+
+static void smc_set_keepalive(struct sock *sk, int val)
+{
+	struct smc_sock *smc = smc_sk(sk);
+
+	smc->clcsock->sk->sk_prot->keepalive(smc->clcsock->sk, val);
+}
+
+Take the sequence from the commit message: shutdown(SHUT_WR), then
+link-group termination. smc_close_active_abort() calls
+smc_clcsock_release(). That sets smc->clcsock to NULL and calls
+sock_release() while the SMC file is still open.
+
+Would a later setsockopt(SO_KEEPALIVE) then hit a NULL pointer dereference
+in smc_set_keepalive()? And if it runs while smc_clcsock_release() is in
+progress, could it become a use-after-free of the CLC socket?
+
+This is a pre-existing issue and was not introduced by this patch.
+smc_diag_msg_common_fill() in net/smc/smc_diag.c reads clcsock without
+a lock, the same pattern this patch removes from smc_getname():
+
+	if (!smc->clcsock)
+		return;
+	r->id.idiag_sport = htons(smc->clcsock->sk->sk_num);
+	r->id.idiag_dport = smc->clcsock->sk->sk_dport;
+	r->id.idiag_if = smc->clcsock->sk->sk_bound_dev_if;
+	...
+
+[Severity: High]
+The dump path is
+smc_diag_dump_proto()->__smc_diag_dump()->smc_diag_msg_common_fill(). It
+holds only read_lock(&prot->h.smc_hash->lock).
+
+The comment in smc_inet_destroy_sock() says the diag dumps stay safe only
+if the socket is unhashed before smc_clcsock_release(). __smc_release()
+does this. smc_close_active_abort() does not: it releases clcsock while
+the SMC socket is still hashed. It holds only clcsock_release_lock, which
+the diag reader never takes.
+
+Each store to r->id can force a reload of smc->clcsock. Can a dump pass
+the NULL check and then reload smc->clcsock as NULL? Could it also load
+clcsock->sk after __sock_release() has set it to NULL? The AF_SMC diag
+dump needs no privileges, so the result would be a NULL dereference
+inside the read_lock section.
+
+A mutex can't be taken under the rwlock. Would one of these work here?
+
+  - A single READ_ONCE() snapshot of clcsock and clcsock->sk, with NULL
+    checks, relying on the RCU-deferred socket free.
+  - Unhashing the socket before the release on the abort path.
+
+[Severity: High]
+This is also a pre-existing issue and was not introduced by this patch.
+smc_shutdown() in net/smc/af_smc.c uses clcsock while holding only
+lock_sock(sk):
+
+	if (do_shutdown && smc->clcsock)
+		rc1 = kernel_sock_shutdown(smc->clcsock, how);
+
+smc_close_active_abort() drops lock_sock before it releases clcsock:
+
+	if (release_clcsock) {
+		release_sock(sk);
+		smc_clcsock_release(smc);
+		lock_sock(sk);
+	}
+
+This means lock_sock(sk) alone does not keep clcsock alive. One possible
+interleaving:
+
+Thread A: shutdown(SHUT_WR) while in SMC_ACTIVE
+  smc_close_shutdown_write()
+    release_sock(sk);
+    cancel_delayed_work_sync(&conn->tx_work);
+
+Thread B: shutdown(SHUT_RDWR) or shutdown(SHUT_WR) on the same fd
+  socket moves to SMC_PEERCLOSEWAIT1
+
+Termination worker:
+  __smc_lgr_terminate()->smc_conn_kill()->smc_close_active_abort()
+    sk_state = SMC_CLOSED, release_clcsock = true
+    release_sock(sk);
+
+Thread A:
+    lock_sock(sk);
+    state != SMC_ACTIVE, goto again, no case matches, returns
+  smc_shutdown()
+    smc->clcsock is still non-NULL
+    kernel_sock_shutdown(smc->clcsock, how);
+
+Termination worker, concurrently:
+    smc_clcsock_release(smc)
+      __sock_release()
+        sock->sk = NULL;
+        sock->ops = NULL;
+        iput(SOCK_INODE(sock));
+
+Could this be a NULL dereference or a use-after-free of the CLC socket?
+Thread A can sleep in lock_sock() inside inet_shutdown(), outside any RCU
+read-side section.
+
 -- 
-2.53.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260926180404.2721010-1-nicoyip.dev%40gmail.com
