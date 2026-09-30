@@ -1,109 +1,92 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC73E3F54AE
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 11:59:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5534E4CDDE6;
+	Wed, 30 Sep 2026 12:03:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790769545; cv=none; b=KbLoQLoVehUs3oD1hbfoOT45IsUZw/2vwGkzIoZKONhFAdR7QfzIgBWGROJhesoghSgG4QlLNtBAozPKWjjincnVVkStgRAIrG4I+4YwpieVnrEGADWAcHq85o7Jx4jdodiwny4eUYQqhmQC0dMT/bdU3YATtk/OCZUBYVRilSs=
+	t=1790769812; cv=none; b=VYtKELaXPnMexSGggMCclOTobwDHA2BWlpHpwaHCGN12Bpq02xEjoHDEGWyFdjH6YbnTdcRqF3ScpGJ2Amfi3eXdgSzohiZ5NDSbvG01KBScI4ukU+QpxTGKO4gJQGdMS4/I74w/LJ/W4QIo2n/nzzTZW4+l9wsRTMZCvtRdK3o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790769545; c=relaxed/simple;
-	bh=Pq38pxeHfgPNq36kV2dwfYxcNIlmhKTBU8vrBDgd9R4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UZajzcfKxvYvBkM8O8nVy1a9af6DhrV/J2xTfQAAFGst3BawvIHeMie90/92WScARwyxarmlgDMjZ55fpr39KdSun2bjUHQOSodMmVPYo/+/AmOipo9GGVWRu3g5uLiye4Qy1JOtOgU2Og6vvZra2emSIcOpWhoCV23fUXkNVY4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g25YAEe3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790769812; c=relaxed/simple;
+	bh=6lbuV7NQgZFjl1ILQWUN4EDNHopI2RUwMC9WbbikSqE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lDDmLpypQnZ1P3I88hOmIQAgdMbEyafKslALZAv1djYoN0xjKm/lSWW3ugYDDQZ5Zw86G4+5ZGmXMSxuzOKbC34rtqybJmP0+xwDMViVYdBc3fChYObBiZcGVqluvmvrF2y6Z28N2WgEwnh95npQrsNQvWkZzep+Hyn2jvZf7cA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ph9oPahs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g25YAEe3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CDD31F00893;
-	Wed, 30 Sep 2026 11:59:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790769543;
-	bh=VwcLznU3PcmNxvpElANmNsYBzkBl6oqyMvVRrwWPlks=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=g25YAEe32UqIPMOI4vG59+38nrPVTJUCikrxduJpWr89w8PK0Q10pcyAZRNwSpcy2
-	 NIvdbgKXxBGNuv+fLC7c8XZgEOSt5KIwl8y9+3w2raOD2zCRSCPv6vtU77zwNpj0qP
-	 95scQCmWVEbY9RQQjTvt0zERPOD+bsQWYU/yLsI3ORXsj33UDTJfXcJRdA0ztlqKo5
-	 Duddr1V/cpWgoP+Tgyyoah2Ys679PIfSCTS20cnnX+HhikIXuX66wAoqewTmf8Pvwc
-	 jXkTm05PhG0efgAbgRJ8MaG/jrI7bmrJEgXDEsUHHzeg3yohQV46Hy8DY/T4MUH127
-	 mcECQ/RGm7RmA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Xie Bo <xb@ultrarisc.com>,
-	Anup Patel <anup@brainfault.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] RISC-V: KVM: Serialize IMSIC attributes with vCPU migration
-Date: Wed, 30 Sep 2026 07:59:00 -0400
-Message-ID: <20260930115900.1420640-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260930115900.1420640-1-sashal@kernel.org>
-References: <2026092917-extradite-anagram-9eaf@gregkh>
- <20260930115900.1420640-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ph9oPahs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 634501F000FF;
+	Wed, 30 Sep 2026 12:03:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790769810;
+	bh=BhAyzd9uTMpVYzVpHh6/1OjAKRboCVsQXnv3jAa2oYE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ph9oPahs4mfWZLa5gj+KoJ5Jo1gusei4vZ7+UW9pV5zt0CSy4LGiINv/z/EG2Sp6x
+	 J1TSqjebbNW/6v5i1+fkBFROUUrZGq8pvhRHaCmtAQO4HrgwZ4sud8K1KmEcVPHN0m
+	 7o+0gQFwEN4xVPByd5bEY+1sucP3iI9a4X790hdk=
+Date: Wed, 30 Sep 2026 14:03:24 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Daniel Salmun <salmundani@gmail.com>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	=?iso-8859-1?Q?Rapha=EBl?= Larocque <rlarocque@disroot.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	linux-input@vger.kernel.org
+Subject: Re: [PATCH 6.18 303/398] Input: synaptics - disable InterTouch on
+ ThinkPad T440p (board id 2722)
+Message-ID: <2026093008-ricotta-dealer-ad24@gregkh>
+References: <20260923140643.441954610@linuxfoundation.org>
+ <20260923140651.274430576@linuxfoundation.org>
+ <5ed0ee13-9502-42f1-94b7-a99607ca2bea@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <5ed0ee13-9502-42f1-94b7-a99607ca2bea@gmail.com>
 
-From: Xie Bo <xb@ultrarisc.com>
+On Sat, Sep 26, 2026 at 08:19:55PM -0300, Daniel Salmun wrote:
+> On 9/23/26 11:06, Greg Kroah-Hartman wrote:
+> > 6.18-stable review patch.  If anyone has any objections, please let
+> > me know.
+> > 
+> > ------------------
+> > 
+> > From: Raphaël Larocque <rlarocque@disroot.org>
+> > 
+> > commit 26eb3d92c7a4d7adb1ae1740ca6e8e100b11d1ec upstream.
+> > 
+> > The Lenovo ThinkPad T440p (PNP ID LEN0036, board id 2722) has a
+> > Synaptics touchpad whose SMBus companion is not ready at boot and
+> > takes roughly 200 seconds to appear.
+> [...]
+> > Disable SMBus InterTouch for board id 2722 so the touchpad and
+> > TrackPoint work immediately via PS/2 from boot.
+> 
+> I have a concern about this one. Board id 2722 isn't specific to the
+> T440p. My ThinkPad L440 has the same Synaptics board id, and this patch
+> would move it from SMBus/RMI4 to PS/2. I have never hit the issue this
+> commit fixes, and I haven't seen it reported on other potentially
+> affected models either.
+> 
+> I sent a patch [1] that limits the quirk to the T440p. Previous
+> attempts to move these touchpads to PS/2 were rejected [2], as
+> explained in that patch's commit message.
+> 
+> Could this be dropped from the stable queue until it's sorted out
+> upstream?
+> 
+> [1] https://lore.kernel.org/all/20260925230039.236786-1-
+> salmundani@gmail.com/
+> [2] https://lore.kernel.org/linux-
+> input/65C23A49-5A55-4CF4-9AFD-2DA504DAABF5@duggan.us/
+> 
 
-[ Upstream commit 8ae12ccaec6ec74945d8c1ef39f2c1b8df779abc ]
+Let's just queue up whatever gets commited in Linus's tree to resolve
+this.
 
-KVM device ioctls are not serialized against KVM_RUN. As a result,
-kvm_riscv_aia_imsic_rw_attr() can snapshot the physical CPU and HGEI of
-an IMSIC VS-file before a concurrent vCPU migration releases it.
+thanks,
 
-The HGEI can then be allocated to another vCPU before imsic_vsfile_rw()
-uses the stale tuple. A GET or SET attribute may consequently access the
-new owner's interrupt file.
-
-Serialize the entire IMSIC attribute operation with the target vCPU
-mutex. This prevents the VS-file from being migrated and recycled until
-the attribute access completes. Acquire the mutex killably so that the
-device ioctl remains interruptible while waiting for KVM_RUN to finish.
-
-Fixes: db8b7e97d613 ("RISC-V: KVM: Add in-kernel virtualization of AIA IMSIC")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xie Bo <xb@ultrarisc.com>
-Reviewed-by: Anup Patel <anup@brainfault.org>
-Link: https://lore.kernel.org/r/20260810-imsic-attr-race-v2-1-00ed95ad321e@ultrarisc.com
-Signed-off-by: Anup Patel <anup@brainfault.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- arch/riscv/kvm/aia_imsic.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
-
-diff --git a/arch/riscv/kvm/aia_imsic.c b/arch/riscv/kvm/aia_imsic.c
-index 562890ac5d0b0..22782b009e370 100644
---- a/arch/riscv/kvm/aia_imsic.c
-+++ b/arch/riscv/kvm/aia_imsic.c
-@@ -895,9 +895,14 @@ int kvm_riscv_aia_imsic_rw_attr(struct kvm *kvm, unsigned long type,
- 	if (!vcpu)
- 		return -ENODEV;
- 
-+	if (mutex_lock_killable(&vcpu->mutex))
-+		return -EINTR;
-+
- 	imsic = vcpu->arch.aia_context.imsic_state;
--	if (!imsic)
--		return -ENODEV;
-+	if (!imsic) {
-+		rc = -ENODEV;
-+		goto out_unlock;
-+	}
- 	isel = KVM_DEV_RISCV_AIA_IMSIC_GET_ISEL(type);
- 
- 	read_lock_irqsave(&imsic->vsfile_lock, flags);
-@@ -921,6 +926,8 @@ int kvm_riscv_aia_imsic_rw_attr(struct kvm *kvm, unsigned long type,
- 		rc = imsic_vsfile_rw(vsfile_hgei, vsfile_cpu, imsic->nr_eix,
- 				     isel, write, val);
- 
-+out_unlock:
-+	mutex_unlock(&vcpu->mutex);
- 	return rc;
- }
- 
--- 
-2.53.0
-
+greg k-h
