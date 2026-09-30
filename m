@@ -1,38 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 369F04F68A7;
-	Wed, 30 Sep 2026 15:35:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E60E50AC38;
+	Wed, 30 Sep 2026 15:35:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790782544; cv=none; b=d7ukUAMIv4RTLCDwNrh3xg/R6R1H6tC/h2aEdCns+M0Pzse77CPZK9uOu+Y40k4hPdufp6+YmonN4tb5TWtU9KQCuICAJhEVhctUHP1YtjdWfRjWd9KkTBWYeItpffTAPd1h9VAr4hq2nkMqnfltj/1aqf9RIAyr30mNBQ5DKpQ=
+	t=1790782548; cv=none; b=L7o+9J0eg1JKkcOu2Rj2RJuI8Sh8mhMeXLS0au5MmgEkVMJCwZlgczLo10iz5cqyfu3LtGnhDaYdBAvoUta0RUHHsID6BzwuJbAjG+Gt1fwJqtCr5HHd5k660D9i2PThzslmxaeSyo1Zd7mXg20AirQlJ6i2XFVx+q8H+gtYPNs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790782544; c=relaxed/simple;
-	bh=cu/hx0ITGlvCXySP4brIxBCDkXyyvYtWOhE3XdW387o=;
+	s=arc-20240116; t=1790782548; c=relaxed/simple;
+	bh=hXw0V20Deyk0v3Uz6gH6LsLIhrgm3MvjqYOppr3QDpY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=e8KVUmP75bdusr7CioxulV/+6+uuw0R5Nd+GqETjqL9YzdjEsWCWNHeB5VBp0V1GK0jbE4ykrd+yyOQw6y5zsN1lOnerMk1AdFA63HrBi78Mn7QtU6OqgcOtSQFfJV3NBlRyvqQsxCmMIkI/8YucWvthehRd/Geb3twrgxjsQoE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DCl1/w1c; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Qig+gkQC2+JM65SItShIHmeqMMFmwk2IjQX8eUsHc0SDPSe5tv9pIGWSPLelhdYrEOZ7tjUFMdSW439GyGo1Nwv9Eb+dOgmZ8BnlP7hWkxT6adaV1BmZ258y+kiwAuLlrmxH7iWMTzfv9ywi1WFORKjgw1tBNA06OqQLS1afgKI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OZdFK7Yh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DCl1/w1c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 244B61F0089B;
-	Wed, 30 Sep 2026 15:35:40 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OZdFK7Yh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E3171F00898;
+	Wed, 30 Sep 2026 15:35:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790782541;
-	bh=BccRhgv1C+bX41hVJlPQT/Lcg1JWbMYk2+oIx2H0mFA=;
+	s=korg; t=1790782538;
+	bh=tdXO17V0JC8dCZulkFo59LEZC7POJZlwWGFpDc440sI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DCl1/w1cvPrDCJZ0X0kFV8Wo96vTFo3f4n2VKlheDYq+XLWmORH0Xa/c2uHrA0dG/
-	 TOj/sWSuWBsDPC71lBNKVyxdqhrUQXyNJROwBm6Ok0hanhkitvNjUUXvxcX7K/Oh25
-	 GBbSi86QIsnR+PoRMEJ/oy3AHfRXrph40Pf4M9o0=
+	b=OZdFK7YhMd5povZiYQSYIcFUkA4tP9QqEBddE4aOFREoJ3uMLSOTlAB5Lajf1JpVF
+	 Lm92KJ1H8oPcn4PERqzLQjmrZw2DocrSBh9b9dv2eBj7fY2jXQ7i99o8km/OAG2sLB
+	 OeQwwAr7pinl3epvtQUw+Kfd+4nh9e55ENAWEb/w=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Nathan Chancellor <nathan@kernel.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Mostafa Saleh <smostafa@google.com>,
+	Thomas Gleixner <tglx@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 083/595] scripts: modpost: detect and report truncated buf_printf() output
-Date: Wed, 30 Sep 2026 17:19:36 +0200
-Message-ID: <20260930152349.524212880@linuxfoundation.org>
+Subject: [PATCH 5.10 065/595] irqchip/gic-v4: Dont advertise VLPIs if no ITS is probed
+Date: Wed, 30 Sep 2026 17:19:18 +0200
+Message-ID: <20260930152349.137030896@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152347.700140858@linuxfoundation.org>
 References: <20260930152347.700140858@linuxfoundation.org>
@@ -45,60 +46,56 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 5.10-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Alexandre Courbot <acourbot@nvidia.com>
+From: Mostafa Saleh <smostafa@google.com>
 
-[ Upstream commit d7231d8cb262b1e350c00271bf53d54414b4f3b1 ]
+[ Upstream commit e61654fbc3bc5d07ec9fafe29f33e19b2b5d0fd5 ]
 
-buf_printf() uses a fixed-size stack buffer. vsnprintf() returns the
-number of bytes that *would* have been written to that buffer, which can
-be larger than the size of said buffer if the formatted string is too
-long.
+When accidentally setting “kvm-arm.vgic_v4_enable=1” on a system that has
+no MSI controller device tree node and GICv4, it results a panic as
+“gic_domain” is NULL and the kernel attempts to access it.
 
-The problem is that whenever this happens buf_printf() currently passes
-this length, unchecked, to buf_write(), which silently reads past the
-stack buffer and copies invalid data into the output buffer.
+    Unable to handle kernel NULL pointer dereference at virtual address 0000000000000028
+    Mem abort info:
+      ESR = 0x0000000096000006
 
-Fix this by detecting vsnprintf() failures and truncations before
-appending to the output buffer, and report a fatal error instead of
-producing corrupt symbol names.
+    CPU: 1 UID: 0 PID: 295 Comm: lkvm-static Not tainted 7.1.0-rc4-ge3f15ad3970e #5 PREEMPT
+    Hardware name: linux,dummy-virt (DT)
+    pstate: 81402005 (Nzcv daif +PAN -UAO -TCO +DIT -SSBS BTYPE=--)
+    pc : __irq_domain_instantiate+0x1d4/0x578
+    lr : __irq_domain_instantiate+0x1cc/0x578
 
-Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
-Link: https://patch.msgid.link/20260527-nova-exports-v2-1-06de4c556d55@nvidia.com
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+Set vLPI support to false at init time if the host has no ITS, so it
+propagates properly to kvm_vgic_global_state.has_gicv4.
+
+Suggested-by: Marc Zyngier <maz@kernel.org>
+Signed-off-by: Mostafa Saleh <smostafa@google.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Acked-by: Marc Zyngier <maz@kernel.org>
+Link: https://patch.msgid.link/20260526125317.3672297-1-smostafa@google.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- scripts/mod/modpost.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ drivers/irqchip/irq-gic-v3-its.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/scripts/mod/modpost.c b/scripts/mod/modpost.c
-index 379d03d0c5e6d..f5c166bf20fdd 100644
---- a/scripts/mod/modpost.c
-+++ b/scripts/mod/modpost.c
-@@ -2146,8 +2146,17 @@ void __attribute__((format(printf, 2, 3))) buf_printf(struct buffer *buf,
+diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
+index b828737487bf0..2fd553bfa8f80 100644
+--- a/drivers/irqchip/irq-gic-v3-its.c
++++ b/drivers/irqchip/irq-gic-v3-its.c
+@@ -5426,6 +5426,7 @@ int __init its_init(struct fwnode_handle *handle, struct rdists *rdists,
+ 		its_acpi_probe();
  
- 	va_start(ap, fmt);
- 	len = vsnprintf(tmp, SZ, fmt, ap);
--	buf_write(buf, tmp, len);
- 	va_end(ap);
-+
-+	if (len < 0) {
-+		perror("vsnprintf failed");
-+		exit(1);
-+	}
-+	if (len >= SZ)
-+		fatal("buf_printf output truncated for string %s: %d bytes needed, %d available\n",
-+		      tmp, len + 1, SZ);
-+
-+	buf_write(buf, tmp, len);
- }
- 
- void buf_write(struct buffer *buf, const char *s, int len)
+ 	if (list_empty(&its_nodes)) {
++		rdists->has_vlpis = false;
+ 		pr_warn("ITS: No ITS available, not enabling LPIs\n");
+ 		return -ENXIO;
+ 	}
 -- 
 2.53.0
 
