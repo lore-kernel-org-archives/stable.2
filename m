@@ -1,43 +1,60 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.34.181.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91E4C4D955C
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 13:55:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C54714EBAFD;
+	Wed, 30 Sep 2026 13:55:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.34.181.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790776540; cv=none; b=AQwNzZ8VO7FmFoMFWbXF0hpEWbkTqRpXwJ8Y0vxdvpnQJkbsT4WZHiW2TgFfAWyYll3/r8LSOqKj3AOYxeivomNZfbKTDtKNqchrlCJLUKSf5Xuk6pCPTYd4/fpHTj+JRyQ3FTncZ7cK5egJlBYn0cXKH9s3YZFjjk6RgIYMaiA=
+	t=1790776561; cv=none; b=RkQHcPU7b7hRxkEEq9PwSpoABP1udGfE3yu6XFcaST4sF93aie1jHLAI8JJKzybqa0eZwscp4n//QQFv/gR1iUiHhsd0PYW/GAQiVDtpcUXWMb0qcTFaZG33KNewMMiWs7EPCLa6yG45OooZBtk9rfbFf8LFwu+56xd6uglY7/A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790776540; c=relaxed/simple;
-	bh=Q2YIeHLIjncQH/pZteIlAeXjOiGREpwugsWYu5Q+Fq4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IjVyiRuXz7+fKS4zntYW1zAbJT0K0JZL7xZsM19XxxP7QmObG31lFDOvlhAXWVs/6EzI5yxKIdUK38aCRM/zKxpG98Ddy3WODyXpnlWKJUftfdG2cd6R/G2E6ZoJYsLT0y00dXhDdScEFnutcj1kVp1iCbkZWXUf8ssQsId061k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nmqDsMqF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790776561; c=relaxed/simple;
+	bh=8jfen76L+5+BCio0zyoKB5ZapSrxCWBC1+MdvPmQNec=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=nh4N0Wd8un/XGYN76w0d4tcrFl12a5oKwdyuG+EU5/4Lw8FtPigd8WStqEgBBByMx6TPN36Vks5dlEAYQIXDKv3HMhkf7xOZhXAwnYhZdR7ewO0pbqp7lfCocXQ7wi5lhKT+V2yNOmhljBx81hNCrU6ePUJ0Eoa0XAeELyFVDD8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=YxpBh3FL; arc=none smtp.client-ip=52.34.181.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nmqDsMqF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 709901F00893;
-	Wed, 30 Sep 2026 13:55:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790776527;
-	bh=AuRzwc8e3jc1u0C0DGc8AzEVAWJorEzGm3l+TzkNnEY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nmqDsMqFOcKJMf2M75BNxz4xjcVBXbzcoNRtBASAb/op59qNrAIFt6ICwt0k7UmcH
-	 Ip4sWp6GqLg06dWltWNnwpfBBALFLJ6SnfwcGjkzyt8k+vlqycrT8EZhBK/bVH+nPh
-	 A3j5wkT0dbHNw1fPKSw3vDnk1dTQaqD3GbSVMp0u1u62ELhA7cfkH1ZYaSgFJK8Xx3
-	 K9lg/rOO5NQX5T6tvyimcBtlClv816gAXBue8Dcy4cxmkqDBFyRZsewNovWs4bPGxt
-	 boF0bbFUifU012xAPRIOKKX+cSFe2Uto5gheN12aU7iMiYuhQtfkpno6e7nW20NXDl
-	 3UVPnoFrdrSRw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: fangqiurong <fangqiurong@kylinos.cn>,
-	Andrea Righi <arighi@nvidia.com>,
-	Tejun Heo <tj@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y] sched_ext: Don't run ops.dequeue() with a DSQ lock held
-Date: Wed, 30 Sep 2026 09:55:24 -0400
-Message-ID: <20260930135525.1803695-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092917-xerox-existing-569f@gregkh>
-References: <2026092917-xerox-existing-569f@gregkh>
+	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="YxpBh3FL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
+  t=1790776555; x=1822312555;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=qDm+S6sd80/3qx2pFJFtn4/wG9Lxy2FLbqMAV5zF8p4=;
+  b=YxpBh3FLN5Rrinb1GXxRE/7H3KLKvxstnLDUcgDjw72zh/Pp3bcXZPh+
+   MqAIC2WV60GjMqqXihSpsjdJdSXf/doEjQs9JwywWiGRr2uiBTBgQ422T
+   JU90VsTwnlyZRySha0NAzZ8kA7xxscErbxC1QUqL+w4ttau5LSaE2TZj1
+   idFtHsD18UXJI/zjFBF9se1xupEFZTLJv7FKYLrWKVK78xES16bW7L1wW
+   TQ3auewKC/Lp+YiXNzrMHbtZZCZHQ1Aqux/2flhB/BnjL1EF5N3E8Evoe
+   d4q9Ldavy3+bAAmZWdW/Q4gBbz739jQlxr4F5Vrbk4c/Y/+2X+t8/TnzU
+   A==;
+X-CSE-ConnectionGUID: HqAKzGF4TQ6LS6dabDLcQw==
+X-CSE-MsgGUID: VGsL49ucQsmx8zd8igT4fg==
+X-IronPort-AV: E=Sophos;i="6.27,132,1787011200"; 
+   d="scan'208";a="30029825"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 13:55:45 +0000
+Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:2975]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.62.119:2525] with esmtp (Farcaster)
+ id 11173d28-5b50-48e8-8966-6d09cb52794d; Wed, 30 Sep 2026 13:55:45 +0000 (UTC)
+X-Farcaster-Flow-ID: 11173d28-5b50-48e8-8966-6d09cb52794d
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Wed, 30 Sep 2026 13:55:44 +0000
+Received: from dev-dsk-doebel-1a-7b355d76.us-east-1.amazon.com (10.169.119.5)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Wed, 30 Sep 2026 13:55:43 +0000
+From: Bjoern Doebel <doebel@amazon.de>
+To: Zhu Yanjun <zyjzyj2000@gmail.com>, Leon Romanovsky <leon@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>, Shuah Khan <shuah@kernel.org>
+CC: <linux-rdma@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <doebel@amazon.de>, <stable@vger.kernel.org>
+Subject: [PATCH] selftests/rdma: Skip rxe_sent_rcvd_bytes when rdma_rxe is missing
+Date: Wed, 30 Sep 2026 13:55:30 +0000
+Message-ID: <20260930135530.881281-1-doebel@amazon.de>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,162 +62,52 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D033UWA004.ant.amazon.com (10.13.139.85) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-From: fangqiurong <fangqiurong@kylinos.cn>
+On a kernel built without CONFIG_RDMA_RXE the test exits 1 instead of
+skipping:
 
-[ Upstream commit cb86607ada73185f321baa7f9d94a08a3a40bbf5 ]
+  # modprobe: FATAL: Module rdma_rxe not found in directory ...
+  not ok 467 selftests: rdma: rxe_sent_rcvd_bytes.sh # exit=1
 
-ops.dequeue() is invoked with the source user DSQ's lock still held on
-the consume and move paths (scx_consume_dispatch_q(),
-move_task_between_dsqs()). A BPF scheduler which locks the source user
-DSQ from ops.dequeue() - e.g. by iterating it with bpf_iter_scx_dsq -
-self-deadlocks.
+Every other test in this directory probes with modinfo and exits
+$KSFT_SKIP. Apply the same guard, identical to the one in the otherwise
+near-identical rxe_socket_with_netns.sh.
 
-ops.dequeue() can only call the "any" kfuncs and none of them can lock a
-builtin DSQ, so the global and bypass paths can't deadlock; however,
-all DSQ locks share one lockdep class, so iterating any user DSQ from
-ops.dequeue() on those paths trips the recursion check.
-
-Move the invocation after the DSQ unlock on all three paths.
-SCX_TASK_IN_CUSTODY is cleared under the lock serializing the transfer
-so that the callback is invoked exactly once.
-
-Fixes: ebf1ccff79c4 ("sched_ext: Fix ops.dequeue() semantics")
-Cc: stable@vger.kernel.org # v7.1+
-Acked-by: Andrea Righi <arighi@nvidia.com>
-Signed-off-by: fangqiurong <fangqiurong@kylinos.cn>
-Signed-off-by: Tejun Heo <tj@kernel.org>
-[ adapted upstream sched_ext helpers to their older static equivalents. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: c67bd973695c3 ("selftest/rxe: Add selftests for perf")
+Assisted-by: kiro:claude-opus-5
+Cc: stable@vger.kernel.org
+Signed-off-by: Bjoern Doebel <doebel@amazon.de>
 ---
- kernel/sched/ext/ext.c | 48 +++++++++++++++++++++++-------------------
- 1 file changed, 26 insertions(+), 22 deletions(-)
+ tools/testing/selftests/rdma/rxe_sent_rcvd_bytes.sh | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 906e4f08967f8..64669d3cea892 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -1450,20 +1450,14 @@ static inline bool task_scx_migrating(struct task_struct *p)
- 	return p->scx.sticky_cpu >= 0;
- }
+diff --git a/tools/testing/selftests/rdma/rxe_sent_rcvd_bytes.sh b/tools/testing/selftests/rdma/rxe_sent_rcvd_bytes.sh
+index 0e4fbfeebd228..89218ccfba4c1 100755
+--- a/tools/testing/selftests/rdma/rxe_sent_rcvd_bytes.sh
++++ b/tools/testing/selftests/rdma/rxe_sent_rcvd_bytes.sh
+@@ -4,6 +4,8 @@
+ PORT=4791
+ MODS=("tun" "rdma_rxe")
  
--/*
-- * Call ops.dequeue() if the task is in BPF custody and not migrating.
-- * Clears %SCX_TASK_IN_CUSTODY when the callback is invoked.
-- */
--static void call_task_dequeue(struct scx_sched *sch, struct rq *rq,
--			      struct task_struct *p, u64 deq_flags)
-+/* Must be called under the lock serializing @p's custody transfers. */
-+static bool task_leave_custody(struct task_struct *p)
- {
- 	if (!(p->scx.flags & SCX_TASK_IN_CUSTODY) || task_scx_migrating(p))
--		return;
--
--	if (SCX_HAS_OP(sch, dequeue))
--		SCX_CALL_OP_TASK(sch, dequeue, rq, p, deq_flags);
-+		return false;
- 
- 	p->scx.flags &= ~SCX_TASK_IN_CUSTODY;
-+	return true;
- }
- 
- static void local_dsq_post_enq(struct scx_sched *sch, struct scx_dispatch_q *dsq,
-@@ -1471,7 +1465,8 @@ static void local_dsq_post_enq(struct scx_sched *sch, struct scx_dispatch_q *dsq
- {
- 	struct rq *rq = container_of(dsq, struct rq, scx.local_dsq);
- 
--	call_task_dequeue(sch, rq, p, 0);
-+	if (task_leave_custody(p) && SCX_HAS_OP(sch, dequeue))
-+		SCX_CALL_OP_TASK(sch, dequeue, rq, p, 0);
- 
- 	/*
- 	 * Note that @rq's lock may be dropped between this enqueue and @p
-@@ -1634,16 +1629,28 @@ static void dispatch_enqueue(struct scx_sched *sch, struct rq *rq,
- 	if (is_local) {
- 		local_dsq_post_enq(sch, dsq, p, enq_flags);
- 	} else {
-+		bool call_dequeue = false;
++source "$(dirname "$0")/../kselftest/ktap_helpers.sh"
 +
- 		/*
--		 * Task on global/bypass DSQ: leave custody, task on
--		 * non-terminal DSQ: enter custody.
-+		 * Global and bypass DSQs are terminal - the task leaves the
-+		 * scheduler's custody, so ops.dequeue() fires. It can run
-+		 * without @p's rq lock (finish_dispatch() passes the dispatch
-+		 * rq); that's safe because dequeue_task_scx() waits on
-+		 * SCX_OPSS_DISPATCHING (see the ops_state note above) and so
-+		 * can't race it. A non-terminal DSQ keeps the task in custody.
-+		 * The custody transfer happens under @dsq->lock so that later
-+		 * consumers see the flag clear; the callback runs after
-+		 * @dsq->lock is dropped because it may lock a DSQ itself.
- 		 */
- 		if (dsq->id == SCX_DSQ_GLOBAL || dsq->id == SCX_DSQ_BYPASS)
--			call_task_dequeue(sch, rq, p, 0);
-+			call_dequeue = task_leave_custody(p);
- 		else
- 			p->scx.flags |= SCX_TASK_IN_CUSTODY;
+ exec > /dev/null
  
- 		raw_spin_unlock(&dsq->lock);
-+
-+		if (call_dequeue && SCX_HAS_OP(sch, dequeue))
-+			SCX_CALL_OP_TASK(sch, dequeue, rq, p, 0);
- 	}
+ # --- Helper: Cleanup Routine ---
+@@ -24,6 +26,10 @@ if [[ $EUID -ne 0 ]]; then
+ fi
  
- 	/*
-@@ -2106,7 +2113,7 @@ static void ops_dequeue(struct rq *rq, struct task_struct *p, u64 deq_flags)
- 		/*
- 		 * A queued task must always be in BPF scheduler's custody. If
- 		 * SCX_TASK_IN_CUSTODY is clear, finish_dispatch() on another
--		 * CPU has already passed call_task_dequeue() (which clears the
-+		 * CPU has already passed task_leave_custody() (which clears the
- 		 * flag), but has not yet written SCX_OPSS_NONE. That final
- 		 * store does not require this rq's lock, so retrying with
- 		 * cpu_relax() is bounded: we will observe NONE (or DISPATCHING,
-@@ -2154,7 +2161,8 @@ static void ops_dequeue(struct rq *rq, struct task_struct *p, u64 deq_flags)
- 	 * NONE but the task may still have %SCX_TASK_IN_CUSTODY set until
- 	 * it is enqueued on the destination.
- 	 */
--	call_task_dequeue(sch, rq, p, deq_flags);
-+	if (task_leave_custody(p) && SCX_HAS_OP(sch, dequeue))
-+		SCX_CALL_OP_TASK(sch, dequeue, rq, p, deq_flags);
- }
- 
- static bool dequeue_task_scx(struct rq *rq, struct task_struct *p, int core_deq_flags)
-@@ -2258,13 +2266,10 @@ static void wakeup_preempt_scx(struct rq *rq, struct task_struct *p, int wake_fl
- 
- static void move_local_task_to_local_dsq(struct scx_sched *sch,
- 					 struct task_struct *p, u64 enq_flags,
--					 struct scx_dispatch_q *src_dsq,
- 					 struct rq *dst_rq)
- {
- 	struct scx_dispatch_q *dst_dsq = &dst_rq->scx.local_dsq;
- 
--	/* @dsq is locked and @p is on @dst_rq */
--	lockdep_assert_held(&src_dsq->lock);
- 	lockdep_assert_rq_held(dst_rq);
- 
- 	WARN_ON_ONCE(p->scx.holding_cpu >= 0);
-@@ -2508,9 +2513,8 @@ static struct rq *move_task_between_dsqs(struct scx_sched *sch,
- 		/* @p is going from a non-local DSQ to a local DSQ */
- 		if (src_rq == dst_rq) {
- 			task_unlink_from_dsq(p, src_dsq);
--			move_local_task_to_local_dsq(sch, p, enq_flags,
--						     src_dsq, dst_rq);
- 			raw_spin_unlock(&src_dsq->lock);
-+			move_local_task_to_local_dsq(sch, p, enq_flags, dst_rq);
- 		} else {
- 			raw_spin_unlock(&src_dsq->lock);
- 			move_remote_task_to_local_dsq(p, enq_flags,
-@@ -2561,8 +2565,8 @@ static bool consume_dispatch_q(struct scx_sched *sch, struct rq *rq,
- 
- 		if (rq == task_rq) {
- 			task_unlink_from_dsq(p, dsq);
--			move_local_task_to_local_dsq(sch, p, enq_flags, dsq, rq);
- 			raw_spin_unlock(&dsq->lock);
-+			move_local_task_to_local_dsq(sch, p, enq_flags, rq);
- 			return true;
- 		}
+ for m in "${MODS[@]}"; do
++    if ! modinfo "$m" >/dev/null 2>&1; then
++        echo "SKIP: Kernel module '$m' not found." >&2
++        exit $KSFT_SKIP
++    fi
+     modprobe "$m" || { echo "Error: Failed to load $m"; exit 1; }
+ done
  
 -- 
-2.53.0
+2.50.1
 
