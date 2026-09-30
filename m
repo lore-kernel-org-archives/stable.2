@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24E6E364931
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 16:40:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B9BB51588E
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 16:40:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790786419; cv=none; b=dvGwU2+Y7Dy6/ODMMXqqVmrT2N9jJFY6tAr9ii2xGN4GtRvANl0WgP/5LuuYwTME/aqINFfjU5l9jFIOCIEpbPUzfQnq/gzBorm9ftGc4a7QS02yo+lP1xL6+nK5X5qgstx7IpdNOyT4Ycu0rM8PPQF/9OuxtqDEX81XQ9yfFnk=
+	t=1790786419; cv=none; b=dclxSNE1Jw+RoTBz2vvzzzbBqQwkP6Ldv5eSfUYtQLHf0Ax12icuCOQO73lvCUxRDAZhzYAN7yr8HuTpaayoq/BpWFJOaqP/5If9SpDZdLl7jsjBl71wQ05fFIpW8OQxlf7Wa8qKok3kp5Ds6rpmGwjxPGJbHAYUi0rTtIs7nOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790786419; c=relaxed/simple;
-	bh=lvACxM/15YRYdoq6hcxA8C7Wpa4fRJpZw5EeCrBMHsE=;
+	bh=2NAPzwB3pCM0UXuXRPzbx6adYz9U3+saSsABRKvspjQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dt6Jf2lt8M4y7n4ETDbVuMcSVnt7AQL48wOIby6x+AXpv1bkbrY/JI6XhIDgUnccbXtnewYr7CjCahf2Z8kB7+YE0aXCMeleQZfQpccwqJJYcJw6nB7jFDpf2cUR3Usdgb2fBdHgL4hHfKrR72+eliXX0fA5F9a1jWdZDIFJHhg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y45/NW8M; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=c9Nn7BAPX4jFF5VDr3jeRIAcN9oCwzOUvN+obOzQa+EqrF7RcNbclC3VeA83r6cBpPvlr3KwBE3f/hKWFFEh5DYGHhhJXMoChcma6QScAFu/Wkj3F1ld8dvd8nufFcNxH4NcHqC8CzwKg+62F/ABnKJLluqGG2lsplh1cDcZZ98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M5tHJGly; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y45/NW8M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83F811F00893;
-	Wed, 30 Sep 2026 16:40:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M5tHJGly"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 427AE1F00898;
+	Wed, 30 Sep 2026 16:40:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1790786416;
-	bh=RWDlGmX96lN4rPGvkZ8nQpz+D7mOsP/wHsztV0ZpgLU=;
+	bh=uOErqjupB5yz1uyURfu8txseTZl58EdRj5wzHqtP3EQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Y45/NW8M8GP62wp7cJsVOPqbN4Srfm0Evzej0XkaLhfLN+8GH4cmLRoskASAId8eM
-	 eLaOD8zV/9uMLDhgCISO24EUq0uuh6VPb2QOfhubeH6noFN4aIb3rrFxEeCsdwF4P7
-	 PRSNCsnZn4PE3Vj09Nap8yqGYNT18WywzJmoMja7tOHaPN1HaG81VLNG4JmgwRqDsX
-	 oieqPfS/1FKCxvetZj1nEaPnVUqvZWUnvLPKG0zUkv2Un1hzZW9PuCia1vnGqdJc3C
-	 2L707D77tFDornpQeX+0XodWgrYhhaSYsHlyzjZ7PtrNzNrWBY2iQ85mV2xJCqC2x3
-	 R7sC5m9ptPAdQ==
+	b=M5tHJGly58+3C800z9LHB+v9bWlEq6UCXuFmWMXoOMpAQuiFL3f1aNEIpQGad9F/o
+	 r9NyeNoYqTb59gfq8VDV0JgRtBjqqMUpisOozN4mSX+U4kIlminQZOALJ+xgqywoGQ
+	 al5RKgj4fINV7laS1i1vGfkPXU4CEKi4n/unCpna9NuSEbipBBT3hBIZ7A1yBvQXmQ
+	 DY9tVG62PKiVTHr+k37ymG4kxDt/xF2R3dEMbuQyqsuwvoVS5Ie66L/sEj4ZbCRYtp
+	 GuRUYxpCFElrvqyZN6IZDRSTBwltDFL5oxHVWP1fHCHKYMiQFn16Pl5s0DCIKl2Op4
+	 oAN3bltO4mFTw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Dapeng Mi <dapeng1.mi@linux.intel.com>,
 	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
+	Ingo Molnar <mingo@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/2] perf/x86/intel: Update event constraints and cache_extra_regsfor ADL
-Date: Wed, 30 Sep 2026 12:40:13 -0400
-Message-ID: <20260930164014.3227731-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/2] perf/x86/intel: Fix GRT PEBS load/store direction for latency events, to fix sample classification
+Date: Wed, 30 Sep 2026 12:40:14 -0400
+Message-ID: <20260930164014.3227731-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092920-backward-implant-a0a9@gregkh>
+In-Reply-To: <20260930164014.3227731-1-sashal@kernel.org>
 References: <2026092920-backward-implant-a0a9@gregkh>
+ <20260930164014.3227731-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,184 +49,78 @@ Content-Transfer-Encoding: 8bit
 
 From: Dapeng Mi <dapeng1.mi@linux.intel.com>
 
-[ Upstream commit 4ef863352bcde482d65722ed721c3fd3967a67d6 ]
+[ Upstream commit 89dc568e8c0be60e05e5fcd0b528c79077d7b84b ]
 
-Update perf hard-coded event constraints and cache_extra_regs[] for
-Alderlake according to the latest ADL perfmon events (V1.39).
+On Gracemont, intel_grt_pebs_event_constraints[] applies LAT_CONSTRAINT
+constraints to MEM_UOPS_RETIRED.{LOAD,STORE}_LATENCY, but does not set
+explicit LOAD/STORE flags for those events.
 
-One important note is that ADL has differences on the L3/node related
-OCR events although it shares same uarch with SPR server, e.g.,
-ADL has different extra MSR values and no node events. So some variants
-of structures and functions are introduced to reflect these
-differences, like adl_glc_hw_cache_event_ids[],
-adl_glc_hw_cache_extra_regs[] and intel_pmu_init_glc_hybrid(), etc.
+The PEBS latency path (pebs_latency_data(), via __grt_latency_data())
+uses the event flags to determine memory operation direction. Without an
+explicit STORE flag, samples from MEM_UOPS_RETIRED.STORE_LATENCY can be
+misclassified as LOADs.
 
-Please note these changes would temporarily impact other platforms like
-MTL/ARL-U which shares hard-coded event structures, but it would be
-fixed soon in subsequent patches.
+Set explicit LOAD/STORE flags in intel_grt_pebs_event_constraints[] for:
 
-ADL perfmon events:
-https://github.com/intel/perfmon/blob/main/ADL/events/alderlake_goldencove_core.json
-https://github.com/intel/perfmon/blob/main/ADL/events/alderlake_gracemont_core.json
+- MEM_UOPS_RETIRED.LOAD_LATENCY
+- MEM_UOPS_RETIRED.STORE_LATENCY
 
+Also update __grt_latency_data() to explicitly interpret these flags when
+assigning the sampled memory operation direction.
+
+This fixes incorrect STORE sample classification.
+
+Fixes: 39a41278f041 ("perf/x86/intel: Fix PEBS memory access info encoding for ADL")
 Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Link: https://patch.msgid.link/20260515061143.338553-5-dapeng1.mi@linux.intel.com
-
-[Backport preparation for 89dc568e8c0b on Linux 6.1:
- Retain the Gracemont STORE_LATENCY counter-mask update to 0x3f.
- Drop the upstream cache/extra-register and fixed-counter changes: they
- depend on newer PMU initialization infrastructure and are not needed
- by the target's PEBS sample-classification fix.
-
- Prepare the target's existing-function context without adding functions.
- Rename and adapt adl_latency_data_small() as __grt_latency_data(), with
- its record fields supplied by the caller. Rename load_latency_data()
- as grt_latency_data() and reuse it for Gracemont dispatch as well as
- its existing non-Gracemont load-latency path. Preserve the original
- TLB/lock/block decoding and update the callback and prototype names.
- Guard the hybrid-only assertion for non-hybrid Gracemont systems.
-
- Provide the upstream INTEL_HYBRID_LDLAT/STLAT_CONSTRAINT macros so the
- unmodified target can set direction flags while retaining hybrid
- latency decoding. The target itself remains a separate backport.]
-
-Stable-dep-of: 89dc568e8c0b ("perf/x86/intel: Fix GRT PEBS load/store direction for latency events, to fix sample classification")
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Cc: <stable@vger.kernel.org> # v7.2+
+Link: https://patch.msgid.link/20260917015234.981153-2-dapeng1.mi@linux.intel.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/events/intel/core.c |  4 ++--
- arch/x86/events/intel/ds.c   | 34 ++++++++++++++++++----------------
- arch/x86/events/perf_event.h | 10 +++++++++-
- 3 files changed, 29 insertions(+), 19 deletions(-)
+ arch/x86/events/intel/ds.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
-diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
-index b1bc81bef4083..8bbbc80bb6361 100644
---- a/arch/x86/events/intel/core.c
-+++ b/arch/x86/events/intel/core.c
-@@ -6182,7 +6182,7 @@ __init int intel_pmu_init(void)
- 		x86_pmu.flags |= PMU_FL_INSTR_LATENCY;
- 
- 		intel_pmu_pebs_data_source_grt();
--		x86_pmu.pebs_latency_data = adl_latency_data_small;
-+		x86_pmu.pebs_latency_data = grt_latency_data;
- 		x86_pmu.get_event_constraints = tnt_get_event_constraints;
- 		x86_pmu.limit_period = spr_limit_period;
- 		td_attr = tnt_events_attrs;
-@@ -6565,7 +6565,7 @@ __init int intel_pmu_init(void)
- 		x86_pmu.flags |= PMU_FL_MEM_LOADS_AUX;
- 		x86_pmu.lbr_pt_coexist = true;
- 		intel_pmu_pebs_data_source_adl();
--		x86_pmu.pebs_latency_data = adl_latency_data_small;
-+		x86_pmu.pebs_latency_data = grt_latency_data;
- 		x86_pmu.num_topdown_events = 8;
- 		static_call_update(intel_pmu_update_topdown_event,
- 				   &adl_update_topdown_event);
 diff --git a/arch/x86/events/intel/ds.c b/arch/x86/events/intel/ds.c
-index 4b7faa3180e57..d1cf9876c931d 100644
+index d1cf9876c931d..d05db7aeef78a 100644
 --- a/arch/x86/events/intel/ds.c
 +++ b/arch/x86/events/intel/ds.c
-@@ -221,24 +221,19 @@ static inline void pebs_set_tlb_lock(u64 *val, bool tlb, bool lock)
- }
- 
- /* Retrieve the latency data for e-core of ADL */
--u64 adl_latency_data_small(struct perf_event *event, u64 status)
-+static u64 __grt_latency_data(struct perf_event *event, u64 status,
-+			       u8 dse, bool tlb, bool lock, bool blk)
+@@ -224,6 +224,7 @@ static inline void pebs_set_tlb_lock(u64 *val, bool tlb, bool lock)
+ static u64 __grt_latency_data(struct perf_event *event, u64 status,
+ 			       u8 dse, bool tlb, bool lock, bool blk)
  {
--	union intel_x86_pebs_dse dse;
++	union perf_mem_data_src src;
  	u64 val;
  
--	WARN_ON_ONCE(hybrid_pmu(event->pmu)->cpu_type == hybrid_big);
-+	WARN_ON_ONCE(is_hybrid() &&
-+		     hybrid_pmu(event->pmu)->cpu_type == hybrid_big);
- 
--	dse.val = status;
-+	val = hybrid_var(event->pmu, pebs_data_source)[dse];
- 
--	val = hybrid_var(event->pmu, pebs_data_source)[dse.ld_dse];
-+	pebs_set_tlb_lock(&val, tlb, lock);
- 
--	/*
--	 * For the atom core on ADL,
--	 * bit 4: lock, bit 5: TLB access.
--	 */
--	pebs_set_tlb_lock(&val, dse.ld_locked, dse.ld_stlb_miss);
--
--	if (dse.ld_data_blk)
-+	if (blk)
- 		val |= P(BLK, DATA);
+ 	WARN_ON_ONCE(is_hybrid() &&
+@@ -238,7 +239,16 @@ static u64 __grt_latency_data(struct perf_event *event, u64 status,
  	else
  		val |= P(BLK, NA);
-@@ -246,15 +241,22 @@ u64 adl_latency_data_small(struct perf_event *event, u64 status)
- 	return val;
+ 
+-	return val;
++	src.val = val;
++
++	if (event->hw.flags &
++	    (PERF_X86_EVENT_PEBS_LDLAT | PERF_X86_EVENT_PEBS_LD_HSW))
++		src.mem_op = P(OP, LOAD);
++	if (event->hw.flags &
++	    (PERF_X86_EVENT_PEBS_STLAT | PERF_X86_EVENT_PEBS_ST_HSW))
++		src.mem_op = P(OP, STORE);
++
++	return src.val;
  }
  
--static u64 load_latency_data(struct perf_event *event, u64 status)
-+u64 grt_latency_data(struct perf_event *event, u64 status)
- {
- 	union intel_x86_pebs_dse dse;
- 	u64 val;
+ u64 grt_latency_data(struct perf_event *event, u64 status)
+@@ -839,8 +849,8 @@ struct event_constraint intel_glm_pebs_event_constraints[] = {
  
- 	dse.val = status;
- 
-+	/* Gracemont uses bit 4 for lock and bit 5 for TLB access. */
-+	if (event->hw.flags & PERF_X86_EVENT_PEBS_LAT_HYBRID)
-+		return __grt_latency_data(event, status, dse.ld_dse,
-+					  dse.ld_locked, dse.ld_stlb_miss,
-+					  dse.ld_data_blk);
-+
- 	/*
--	 * use the mapping table for bit 0-3
-+	 * For non-Gracemont load-latency events, use the mapping table
-+	 * for bit 0-3 and retain the legacy TLB, lock and block decoding.
- 	 */
- 	val = hybrid_var(event->pmu, pebs_data_source)[dse.ld_dse];
- 
-@@ -838,7 +840,7 @@ struct event_constraint intel_glm_pebs_event_constraints[] = {
  struct event_constraint intel_grt_pebs_event_constraints[] = {
  	/* Allow all events as PEBS with no flags */
- 	INTEL_HYBRID_LAT_CONSTRAINT(0x5d0, 0x3),
--	INTEL_HYBRID_LAT_CONSTRAINT(0x6d0, 0xf),
-+	INTEL_HYBRID_LAT_CONSTRAINT(0x6d0, 0x3f),
+-	INTEL_HYBRID_LAT_CONSTRAINT(0x5d0, 0x3),
+-	INTEL_HYBRID_LAT_CONSTRAINT(0x6d0, 0x3f),
++	INTEL_HYBRID_LDLAT_CONSTRAINT(0x5d0, 0x3),
++	INTEL_HYBRID_STLAT_CONSTRAINT(0x6d0, 0x3f),
  	EVENT_CONSTRAINT_END
  };
- 
-@@ -1511,7 +1513,7 @@ static u64 get_data_src(struct perf_event *event, u64 aux)
- 	bool fst = fl & (PERF_X86_EVENT_PEBS_ST | PERF_X86_EVENT_PEBS_HSW_PREC);
- 
- 	if (fl & PERF_X86_EVENT_PEBS_LDLAT)
--		val = load_latency_data(event, aux);
-+		val = grt_latency_data(event, aux);
- 	else if (fl & PERF_X86_EVENT_PEBS_STLAT)
- 		val = store_latency_data(event, aux);
- 	else if (fl & PERF_X86_EVENT_PEBS_LAT_HYBRID)
-diff --git a/arch/x86/events/perf_event.h b/arch/x86/events/perf_event.h
-index b95cab9846dd7..dc64de5691b1f 100644
---- a/arch/x86/events/perf_event.h
-+++ b/arch/x86/events/perf_event.h
-@@ -468,6 +468,14 @@ struct cpu_hw_events {
- 	__EVENT_CONSTRAINT(c, n, INTEL_ARCH_EVENT_MASK|X86_ALL_EVENT_FLAGS, \
- 			  HWEIGHT(n), 0, PERF_X86_EVENT_PEBS_LAT_HYBRID)
- 
-+#define INTEL_HYBRID_LDLAT_CONSTRAINT(c, n)	\
-+	__EVENT_CONSTRAINT(c, n, INTEL_ARCH_EVENT_MASK|X86_ALL_EVENT_FLAGS, \
-+			  HWEIGHT(n), 0, PERF_X86_EVENT_PEBS_LAT_HYBRID|PERF_X86_EVENT_PEBS_LD_HSW)
-+
-+#define INTEL_HYBRID_STLAT_CONSTRAINT(c, n)	\
-+	__EVENT_CONSTRAINT(c, n, INTEL_ARCH_EVENT_MASK|X86_ALL_EVENT_FLAGS, \
-+			  HWEIGHT(n), 0, PERF_X86_EVENT_PEBS_LAT_HYBRID|PERF_X86_EVENT_PEBS_ST_HSW)
-+
- /* Event constraint, but match on all event flags too. */
- #define INTEL_FLAGS_EVENT_CONSTRAINT(c, n) \
- 	EVENT_CONSTRAINT(c, n, ARCH_PERFMON_EVENTSEL_EVENT|X86_ALL_EVENT_FLAGS)
-@@ -1497,7 +1505,7 @@ void intel_pmu_disable_bts(void);
- 
- int intel_pmu_drain_bts_buffer(void);
- 
--u64 adl_latency_data_small(struct perf_event *event, u64 status);
-+u64 grt_latency_data(struct perf_event *event, u64 status);
- 
- extern struct event_constraint intel_core2_pebs_event_constraints[];
  
 -- 
 2.53.0
