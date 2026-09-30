@@ -1,65 +1,42 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1722E3BD63C
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 10:31:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B96AB4718D4
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 10:33:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790764278; cv=none; b=nWLuJvQ+0ltbTQaVLP/CdXN8uF7yIvzLYoZ3oEsnKN3pYMQu1nS/eA1qRRR49Ngu5q84fZDG2r5NiEXz11/3gOrHF98W7365wSAE3gvKysidfvF484Y/LylZjkMp1DaEoi+/WzsFHCjZ2nkcaE0f/9bAdYnUnh2spJcaH9bFx4o=
+	t=1790764407; cv=none; b=R31+Z32fr0fiiTqBI5fO8MbSu/DOes8xe6Atehxz1pwj0/gZwb+b+sjh1YEMYnrqYdOEudQ8/iXqf7iAPC62zfI/tqUU2mt0EA0AALwTEtL9iC5ByvSTot7Ic1xfECPLU5nuEf/tyajhZMAA8K0Vhc+ezE1B0HWZFzaXgZ//U2U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790764278; c=relaxed/simple;
-	bh=Fu+jSdaLQDE+olJSS3vucMCL+NeHBJSFwuuQjt2eqkw=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:Content-Type; b=glnLD3p81B8eqVhQ1V1HEF2y8mNsR4QBrLZOzToTHmHxp3Dqh3vkMz1+FwsagcfBdECV/MlKsWxLK+67iu9WZkf3mpVDNFbreH75Myx+YFmED9OUylWd1nYbiWAPMlWzeDa0JG+JYSNES8D7h2UsLWQZqko1bVsE/F2SUfjxJes=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=emv1ol1x; arc=none smtp.client-ip=74.125.229.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790764407; c=relaxed/simple;
+	bh=Afge1VGxYThuk4VFTZQjrw9p5H+Ni7gcE5O2Mz88XpE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=brOlF55nET+KGt7Qa3n0wZeOsK8A9YrmDBynWepocAZUxVELJw3OyzTuvcwEXNWrjeMhKSy3od7gK7qkqGrj8yeAV4gB4hDdUIszh1XzRC+5Jm/oMPlKADn8v0Nl19bL/99rItWXMY1FGOHaNd53OdR/78ZQcvYZ+R7j/FKEiPY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=E2lOBVIo; arc=none smtp.client-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="emv1ol1x"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b8ea203e5bso4392385e87.1
-        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 03:31:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790764275; x=1791369075; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:content-language:cc:to
-         :subject:from:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=bO+Sh6iBCBWZKHcrTvlNeLFX2oL2DPi6PGfh6wnC4qY=;
-        b=emv1ol1xlzSeNJv1roQjS5NcoO1Yzbz/J3x1eSvN5UO2T4TrBEociSBPTdsnbFDAXd
-         sAZVZ272niQr2QxM6+EdbjGDoxCwS08ErmfWtK2mcoV9zKBZR3cdePrEOtkQYtDAhzf1
-         H5p1WC52M/BlGhwLMwJrUYBur1TuZ0lcAX659a97o52HvQ1ZkXVTq7mZFRHnMHuUihtR
-         SLBWEnlB8IOQ3XMHiq+pD4cbNmBEJsSRg0ZsuwFsu7eV4+P19YlqtpOvAAEYlWHeEAua
-         8DXSG6wOdIAuS2tBzCGXdtljSxVp9sXVM4/jOgKR1dQ8sYNidChz2WBNsngAMv3qP7I6
-         uqiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790764275; x=1791369075;
-        h=content-transfer-encoding:content-type:content-language:cc:to
-         :subject:from:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bO+Sh6iBCBWZKHcrTvlNeLFX2oL2DPi6PGfh6wnC4qY=;
-        b=QD29eZNPvkdtMFynee2x8L0uRViZ6ht6dyhLEqZIc+2q/R/BgUeUUr0df5qDBfcoTd
-         XLxqbXcDp5P+dS+YAb2KOY/NntGApKYSR1mXYwJyxc/cGOpPM1zRAOXYSh25xWDod45b
-         S71YEXc3aOCbudJz0432PmcKgDgUSoZne2aSldcBANppeA1VdYg7jjQCzH4Og6DGmxe1
-         0IX6gLSnUXRwAYEXrL7i8k016RJQpRlzz+WFoky8eLggVATWLnI3cSZntfFZ0NkPTv/T
-         dw676rsCgZtwt9JMjWeg4qSVkAO+VfgipwOBXmaN8/k81YwlK+ZUH+xCu5jhFqwQhO4o
-         JHTg==
-X-Gm-Message-State: AFq9FYLJfZxgsYlmQmzlW4pTBvlkodv+Sn3MPKvwDQE3nEEpUpata+nk
-	J3vUGO4jLJSVq6iYM0gHyqbHAvuILYSBUyeIWBx4w4i9YZkUixkUabzwYEc0H7/p9i6gbA==
-X-Gm-Gg: AYBFou3A3uKlcG9pWaxNPsuLaG1XnnipvvUMVHPGSxYdv5aTdONh2ttmo2faj0c8XCZ
-	kCptxZ52IzsiBY3N9U7vBd/Fbz9gofKKj38yp/Ofo/tIyNT1rnUCDjK7b61IkN6DWfCMox+sQpz
-	3QVFmo2unPWgtYndf6kK/ItAIGd7Mpms2TxGValx0x1+2W1Q6xYdqeJw7v9hQ4E+gRTmSnA3glA
-	qZnT8lss2Qm+C2yUAhmV2tLTee7CYq1+uktCY8+D7iS+TcBW21f0h0aBH2EY07YYqKGKvo95dR8
-	nzIFBaG3gtfAzKcmcspNfJj79447eGflb90gjNg7eUQImVqII19vMjqllohsKmG0uwv43qHAN5Q
-	s643BnZuMbs9BdGrgXyEIPEW2l5sNX2VO3ryS5zphX9I1HyHMwBC91nAUVQJG23RMZCuxYCxLLE
-	WldT+50j83nPecO3GyfdvVPVrveapg0Qj3evRCLmARYWaEVCj5KUmnm6XKeGx3WgJsupw4esYSa
-	nEBmRsQLK8=
-X-Received: by 2002:a05:6512:6681:10b0:5ba:3ae4:7e25 with SMTP id 2adb3069b0e04-5ba405ea45dmr330489e87.15.1790764274689;
-        Wed, 30 Sep 2026 03:31:14 -0700 (PDT)
-Received: from [192.168.0.120] ([31.130.119.235])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ba3fc03f67sm258061e87.79.2026.09.30.03.31.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Sep 2026 03:31:14 -0700 (PDT)
-Message-ID: <46cb6054-6c05-4869-b4b3-d45eba082253@gmail.com>
-Date: Wed, 30 Sep 2026 13:31:10 +0300
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="E2lOBVIo"
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20260930103316euoutp0187885ff089d44dc32d3df6094d1a45cf~aErsCNMkl2549425494euoutp01L
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 10:33:16 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260930103316euoutp0187885ff089d44dc32d3df6094d1a45cf~aErsCNMkl2549425494euoutp01L
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1790764396;
+	bh=FJ+htCVvKAhLkwC8CUAuytt3OB7IBWbiwLyL2rvPoSg=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=E2lOBVIo/7n1IPo2fFD6qsSxcKMCFCoNKB79E6YI9JVI3ET/dGqoHL7EsoEM5F3d2
+	 kV0R6PwC6d+dXDLN/0VgElM3s3wu40j9RkJIhNAlFWC2Q1xj1VfKbje48WvsZoDLm3
+	 zLk3l3+dXG+F6trEvKNgxC4KIAldNa7VQ0vVtGJ4=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20260930103315eucas1p1dc6504dfed6803e1f6c1a9d4156e3da0~aErrrMstU2676926769eucas1p19;
+	Wed, 30 Sep 2026 10:33:15 +0000 (GMT)
+Received: from [192.168.1.44] (unknown [106.210.136.40]) by
+	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20260930103314eusmtip169db81e9f1c9f97f31c91e3ec55f06e6~aErqyiXeU0732407324eusmtip1b;
+	Wed, 30 Sep 2026 10:33:14 +0000 (GMT)
+Message-ID: <a95a44d9-6572-40f4-ab6d-1c160ecd5349@samsung.com>
+Date: Wed, 30 Sep 2026 12:33:14 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,61 +44,81 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Artem Martynenko <amartynenko140@gmail.com>
-Subject: [PATCH 6.18.y] hfsplus: avoid double unload_nls() on mount failure
-To: stable@vger.kernel.org
-Cc: slava@dubeyko.com, glaubitz@physik.fu-berlin.de, frank.li@vivo.com,
- linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH v2] pwm: th1520: Fix 32-bit build with COMPILE_TEST
+To: FUJITA Tomonori <tomo@flapping.org>, fustini@kernel.org,
+	guoren@kernel.org, ukleinek@kernel.org, wefu@redhat.com
+Cc: a.hindborg@kernel.org, acourbot@nvidia.com, aliceryhl@google.com,
+	bjorn3_gh@protonmail.com, boqun@kernel.org, dakr@kernel.org,
+	daniel.almeida@collabora.com, gary@garyguo.net,
+	linux-riscv@lists.infradead.org, lossin@kernel.org, ojeda@kernel.org,
+	tamird@kernel.org, tmgross@umich.edu, work@onurozkan.dev,
+	linux-pwm@vger.kernel.org, rust-for-linux@vger.kernel.org, FUJITA Tomonori
+	<fujita.tomonori@gmail.com>, stable@vger.kernel.org
 Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+In-Reply-To: <20260930101257.1649945-1-tomo@flapping.org>
 Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20260930103315eucas1p1dc6504dfed6803e1f6c1a9d4156e3da0
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260930101334eucas1p2ec64abcf499a296767711f13ad70c486
+X-EPHeader: CA
+X-CMS-RootMailID: 20260930101334eucas1p2ec64abcf499a296767711f13ad70c486
+References: <CGME20260930101334eucas1p2ec64abcf499a296767711f13ad70c486@eucas1p2.samsung.com>
+	<20260930101257.1649945-1-tomo@flapping.org>
 
-From: Shardul Bankar <shardulsb08@gmail.com>
 
-commit ebebb04baefdace1e0dc17f7779e5549063ca592 upstream.
 
-The recent commit "hfsplus: ensure sb->s_fs_info is always cleaned up"
-[1] introduced a custom ->kill_sb() handler (hfsplus_kill_super) that
-cleans up the s_fs_info structure (including the NLS table) on
-superblock destruction.
+On 9/30/26 12:12, FUJITA Tomonori wrote:
+> From: FUJITA Tomonori <fujita.tomonori@gmail.com>
+> 
+> Fix the following build error on 32-bit ARM with COMPILE_TEST:
+> 
+>   ERROR: modpost: drivers/pwm/pwm_th1520.ko: symbol '__aeabi_uldivmod' undefined!
+> 
+> The driver divides u64 values when it converts between nanoseconds and
+> clock cycles. On 32-bit ARM, these divisions are compiled to calls to
+> __aeabi_uldivmod, which the kernel does not provide.
+> 
+> The TH1520 is a 64-bit RISC-V SoC, so the driver is only used on
+> 64-bit kernels. There is no point in compile testing it on 32-bit.
+> Limit COMPILE_TEST to 64BIT instead of changing the arithmetic to use
+> the div64 helpers.
+> 
+> Fixes: 3c180003dffb ("pwm: th1520: Fix missing Kconfig dependencies")
+> Cc: stable@vger.kernel.org
+> Reported-by: Andreas Hindborg <a.hindborg@kernel.org>
+> Closes: https://rust-for-linux.zulipchat.com/#narrow/channel/291565-Help/topic/64bit.20division.20in.20.60pwm_th1520.2Ers.60/near/626825599
+> Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
+> Reviewed-by: Gary Guo <gary@garyguo.net>
+> Signed-off-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
+> ---
+> v2:
+> - Fix a typo in the commit message
+> - Add Cc: stable, Reported-by and Closes tags
+> - Add Reviewed-by tags from Andreas and Gary
+> - Rebase on v7.3-rc5
+> 
+> v1: https://lore.kernel.org/all/20260929095612.1072417-1-tomo@flapping.org/
+> ---
+>  drivers/pwm/Kconfig | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/pwm/Kconfig b/drivers/pwm/Kconfig
+> index 729776086879..abecd95b0c3c 100644
+> --- a/drivers/pwm/Kconfig
+> +++ b/drivers/pwm/Kconfig
+> @@ -772,7 +772,7 @@ config PWM_TEGRA
+>  
+>  config PWM_TH1520
+>  	tristate "TH1520 PWM support"
+> -	depends on ARCH_THEAD || COMPILE_TEST
+> +	depends on ARCH_THEAD || (COMPILE_TEST && 64BIT)
+>  	depends on RUST
+>  	depends on HAS_IOMEM && COMMON_CLK
+>  	select RUST_PWM_ABSTRACTIONS
+> 
+> base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
 
-However, the error handling path in hfsplus_fill_super() still calls
-unload_nls() before returning an error. Since the VFS layer calls
-->kill_sb() when fill_super fails, this results in unload_nls() being
-called twice for the same sbi->nls pointer: once in hfsplus_fill_super()
-and again in hfsplus_kill_super() (via delayed_free).
+Reviewed-by: Michal Wilczynski <m.wilczynski@samsung.com>
 
-Remove the explicit unload_nls() call from the error path in
-hfsplus_fill_super() to rely solely on the cleanup in ->kill_sb().
-
-[1] https://lore.kernel.org/r/20251201222843.82310-3-mehdi.benhadjkhelifa@gmail.com/
-
-Reported-by: Al Viro <viro@zeniv.linux.org.uk>
-Link: https://lore.kernel.org/r/20260203043806.GF3183987@ZenIV/
-Signed-off-by: Shardul Bankar <shardul.b@mpiricsoftware.com>
-Link: https://lore.kernel.org/r/20260204170440.1337261-1-shardul.b@mpiricsoftware.com
-Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
-Signed-off-by: Artem Martynenko <amartynenko140@gmail.com>
----
-Tested on 6.18.54 in QEMU: "modprobe nls_utf8; mount -t hfsplus" on a
-blank image fails as expected. Without the patch nls_utf8 refcnt goes
-to -1 afterwards, with the patch it stays at 0.
-Discussion: https://lore.kernel.org/linux-fsdevel/9AD67E49-86E9-4508-BBC0-26919C72FB6A@gmail.com
-
- fs/hfsplus/super.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/fs/hfsplus/super.c b/fs/hfsplus/super.c
-index d031c77fb..0d619945d 100644
---- a/fs/hfsplus/super.c
-+++ b/fs/hfsplus/super.c
-@@ -652,7 +652,6 @@ static int hfsplus_fill_super(struct super_block *sb, struct fs_context *fc)
- 	kfree(sbi->s_vhdr_buf);
- 	kfree(sbi->s_backup_vhdr_buf);
- out_unload_nls:
--	unload_nls(sbi->nls);
- 	unload_nls(nls);
- 	return err;
- }
--- 
-2.55.0
