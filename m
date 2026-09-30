@@ -1,81 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5296836E467;
-	Wed, 30 Sep 2026 20:03:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 070254FB9A6
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 20:22:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790798582; cv=none; b=R1Xqm2dISyawyvYafljHlODkGnJUdKkM92W4YgUf0x1oip1bymgGlQeINoHxauuERcblpW4sWY8xoRuUUgHIwiOU0gY1E8VoM5abmr3s3oof/gaQpyy4quwGs0tEyhvq9HUAfUjo2YDGoBK/I7wXUaAwr0JWzkbtjczNGKOIwew=
+	t=1790799748; cv=none; b=eAROk0d0yDYxbS2IW4PaUev1gWx7Eu42i3XqKaxTgzKhnmJNhforXGf4VX4KXGdZaNAUIT/IOosHKJUqFPoPmSCw+WggU4/BNzZLKPt9D7oyM39rlrG8zWB8wIg6AQfgzagaYyB0Jk7HtZYGaKJvOCb3f3SqOGV8ASRzReWEr10=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790798582; c=relaxed/simple;
-	bh=wdmewPuK0kw+vIRfKmx97qxuPpuP2nxQdBydnafiVTU=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=BtQfY+ZDHj6hmr7T7zQqXA9lRgyjiZspblhbiqOsqbjwp5UOhwq//Rl0KDx2aMxaF08H5+P51TYnkev3bq0wOi6CW4XAcu8lvVcfLgmypasd3VZkRFVn6bEPclACjixfly5+AADpWK4kqHJFoRCgRWGmsudL4+4yXbfJVls3cIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=ExlvIxdb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790799748; c=relaxed/simple;
+	bh=pN/G0+fViAWcFotxNNYaHvIrBf4dqFEFrepGUufaYk0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=N57MsT2axXk4c4Vmt29a5XAHhjEdzJY77O04QrzwA8raxqAOgUPqATQ0V1bkQYxZKA88vUX82VHPObyCBTp3ZPTF1estlxWamF1Re5ReuNc6itxk+UiXnAGY3QwfKOJEeAiantpw+2eJ61xsNcXH+th4kuGPUC2g8Ya725kJuQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=imNWqkwH; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="ExlvIxdb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B1381F000FF;
-	Wed, 30 Sep 2026 20:03:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="imNWqkwH"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48b059eae96so354096f8f.0
+        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 13:22:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1790798580;
-	bh=u08t18FaZZ/JoItkaTytwkoDNv5W489UK9Ej3SaW7sM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ExlvIxdbN8JjqNmq7VsmSrsVUc6pxFiLPpW5EV0yT5cQhwrumhMEM2DrYiSKwxFRB
-	 V0Ji2JQN3kuDi4RDUu8ZXgrmY/sbD74AO6RjhEG3qSGzjUDpJ5VTWQMmcxmI6c07ZZ
-	 uQFr429+DI/V4CQzuFxFOwzlTC6jfTnwaB51VOlE=
-Date: Wed, 30 Sep 2026 13:02:59 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Kiryl Shutsemau <kirill@shutemov.name>
-Cc: Vlastimil Babka <vbabka@kernel.org>, Johannes Weiner
- <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>, Suren
- Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Brendan
- Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>, Shakeel Butt
- <shakeel.butt@linux.dev>, Usama Arif <usama.arif@linux.dev>, Harry Yoo
- <harry@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH] mm: page_alloc: make defrag_mode retries follow the
- promoted order
-Message-Id: <20260930130259.8d7d967f4a38afa34e051145@linux-foundation.org>
-In-Reply-To: <ar0AiPWwfcZtksPu@thinkstation>
-References: <20260929174553.175333-1-kirill@shutemov.name>
-	<20260929125816.5a846a62943eeaf63725b525@linux-foundation.org>
-	<ar0AiPWwfcZtksPu@thinkstation>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=gmail.com; s=20251104; t=1790799744; x=1791404544; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QsbcUIyvcZ+zskSrFDYxowHlHtYifbo/michUtyrAnY=;
+        b=imNWqkwHvnjmoe4H8U8qhTs76+3le0J4bGoYKZAqS+xBMIc2VehVdeDHZ4JeYTyIUJ
+         GGZLhYh2mUQ8dRO/ZUjHxwt3XwTcZ5tZqadqJEesaxjbuOErUAAqkCU7Dmn1nbLbMiTV
+         Sr+hvZ65Y81w6Km4o15/GLe0+Qtkt9PHVUxu3TvrZAJUTK4UwjSa994lP/NYQoweGIdi
+         u5BVcufZYnZV7yKFdcSKUTbumgRdzapzukS6pZp3hQV2Lr77ja5iTiuHwCXkOjyr5VW7
+         1GBQ1I8u5M8YO5ORRVi8fFDaQpNpJsBleqwy8mkZ4IRmno/GrBoltVQWpLZQ0yv3GrHb
+         ihnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790799744; x=1791404544;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QsbcUIyvcZ+zskSrFDYxowHlHtYifbo/michUtyrAnY=;
+        b=vWubypXaywKNqKKA/Ch6/VONWT6kIL+9gshi50a7g+lDp2s4YS9DZmrTKhMGs2hms/
+         C/k97V8YM9bBzZTbjqHVAFR0Vx+og5T8ymnmiUnzE6KAdZOTFmg8HDWqa1CqYOwyBjVF
+         krzP3VJizUEZb4I9bFTo3x1Nqgb25u/h4igmiGDibAWMNerltqh5JXrA/QkQqZ0uIc/H
+         respD814U9UaGhhYvNbwiuqKY5xdD7J+fzP+bM/XNuLoVdv5yYgk6zg2yykh70BvwUNE
+         0blnJOBkgtes5qklniYFx8BAHvl39oePvlzDN7pQHSRIaJ3z+rBoDjaK2KAAqMaRX9c0
+         KSnA==
+X-Forwarded-Encrypted: i=1; AKwUvBzN+C6aem8f9au02TV/1V+KMxcWELFUV1jXxfO855DjWdI2D25OuOQu3fy+C09/bqcZuxTUUlA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI11L0GUIxPuezz0m8/bjAyU6iejWbmM64N1WR1Rb3hoh1cWa01
+	ssC5RKK1kQj+NBQLq2+VIesM9gsDr3Mhkm8KdiN41HclsIFpgiiv/acH
+X-Gm-Gg: AYBFou1Cy88Lmmr1hJHszzztrz2zY1a9+NcaVd0jCYhwjJlnL7r2OhwEMjE1YK5WKAK
+	EzTmMLe83t5xcs0/BXqF3nSTJ8qVHl+WcB6t0xDQB485VRYp3G57V40d1AWcLsEMEBXrC10Wdv3
+	jh/GtavMHdP9nN3p47bUKS2EFby5KmHEeYNNG+jhMQ3MsODIHAhOzbnJwjU6n0zAtISveRWkjbi
+	QFQuA2dyA++xCGawZBB0s2ZJOCfYbtXJHYsjwBM7OWZX49Z0SfSckPX+DgM3w1puGju1lF+xfiz
+	NVUPBv2EJ0gFvicLVOUlCzy8qR0tMFdFWHu091jwyJnwHU0KGS9/QzDRml3C7WQfmMcz8TyHQny
+	qc/rI8QrVmDbW3jEQf51pAfWcuSEfEHEqVWaK4cluR2qPfFhq/O77BewIBeXf40LgE27rdjy04B
+	BvwkWM5ZBnGsbN/GgDsKz9np4IKjb2sfHse6doGvNIC53ja4AjjqdwJPTOSNLs3r5ZDRcoGisFi
+	0ZkszNXu+FY9N3q
+X-Received: by 2002:a05:6000:4904:b0:488:6072:c0bc with SMTP id ffacd0b85a97d-48b02430da7mr4724064f8f.4.1790799743668;
+        Wed, 30 Sep 2026 13:22:23 -0700 (PDT)
+Received: from SurHub.localdomain ([102.213.68.159])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b068ff6eesm1457831f8f.11.2026.09.30.13.22.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 13:22:23 -0700 (PDT)
+From: Abdifatah Suruur <suruurism@gmail.com>
+To: cel@kernel.org,
+	jlayton@kernel.org
+Cc: linux-nfs@vger.kernel.org,
+	NeilBrown <neil@brown.name>,
+	Olga Kornievskaia <okorniev@redhat.com>,
+	Dai Ngo <Dai.Ngo@oracle.com>,
+	Tom Talpey <tom@talpey.com>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Abdifatah Suruur <suruurism@gmail.com>
+Subject: [PATCH] lockd: fix use-after-free in nlmsvc_retry_blocked()
+Date: Wed, 30 Sep 2026 23:22:12 +0300
+Message-ID: <20260930202212.1482-1-suruurism@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Wed, 30 Sep 2026 13:35:01 +0100 Kiryl Shutsemau <kirill@shutemov.name> wrote:
+A block queued on the nlm_blocked list holds exactly one kref, the
+list's: nlmsvc_create_block() hands out an initial reference,
+nlmsvc_insert_block_locked() takes the list reference, and
+nlmsvc_lock() releases the initial one at out:.
 
-> On Tue, Sep 29, 2026 at 12:58:16PM -0700, Andrew Morton wrote:
-> > On Tue, 29 Sep 2026 18:45:51 +0100 Kiryl Shutsemau <kirill@shutemov.name> wrote:
-> > 
-> > > From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-> > > 
-> > > Since commit 7e8756d7ad22 ("mm: page_alloc: fix non-movable reclaim
-> > > storm in defrag_mode"), direct reclaim and compaction for non-movable
-> > > requests under defrag_mode run at pageblock_order, to produce the whole
-> > > blocks that ALLOC_NOFRAGMENT needs. The retry decisions that follow
-> > > still use the request order. An order-0 request can therefore retry
-> > > indefinitely without ever reaching the ALLOC_NOFRAGMENT fallback:
-> > 
-> > 7e8756d7ad22 is new in 7.3-rcX, so no cc:stable needed.
-> 
-> The commit itself has cc:stable. And it is in 6.18.50 and 7.2.4.
-> The fix needs to follow it there.
+nlmsvc_retry_blocked() then drops nlm_blocked_lock and dereferences
+`block` (b_when, b_flags, b_deferred_req) and passes it to
+retry_deferred_block() or nlmsvc_grant_blocked() without holding any
+reference of its own.  Concurrently, an svc thread processing the
+client's GRANT_RES (nlmsvc_grant_reply()), a CANCEL or UNLOCK
+(nlmsvc_cancel_blocked()), or a host failover sweep
+(nlmsvc_traverse_blocks()) can find the same block, unlink it and drop
+the last kref, freeing it while the lockd kthread is still using the
+pointer.  The freed slab is then written through: kref_get() on the
+freed block, the B_TIMED_OUT flag, the list operations in
+nlmsvc_insert_block(), and the b_deferred_req revisit - a
+use-after-free on a remotely reachable path.
 
-doh.
+nlmsvc_notify_blocked() has the same problem: it moves the block to
+the head of the list and then calls svc_wake_up(block->b_daemon)
+after dropping nlm_blocked_lock.  Keep that wake-up under the
+spinlock, as nlmsvc_grant_deferred() already does.
 
-> We are running 7.1 with 7e8756d7ad22 backported. We found defrag mode
-> crucial if we want to use large folios in page cache.
-> 
-> But nobody besides us seems to test it :/
-> 
-> Can we make it default pretty please? :P
+Pin the block before dropping the spinlock in nlmsvc_retry_blocked()
+and release the pin after processing, so the block cannot be freed
+while it is in use.
 
-Send a patch ;)
+Cc: stable@vger.kernel.org
+Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
+---
+ fs/lockd/svclock.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/fs/lockd/svclock.c b/fs/lockd/svclock.c
+index e628b5d355071..38d02b10591ae 100644
+--- a/fs/lockd/svclock.c
++++ b/fs/lockd/svclock.c
+@@ -775,8 +775,8 @@ nlmsvc_notify_blocked(struct file_lock *fl)
+ 	list_for_each_entry(block, &nlm_blocked, b_list) {
+ 		if (nlm_compare_locks(&block->b_call->a_args.lock.fl, fl)) {
+ 			nlmsvc_insert_block_locked(block, 0);
+-			spin_unlock(&nlm_blocked_lock);
+ 			svc_wake_up(block->b_daemon);
++			spin_unlock(&nlm_blocked_lock);
+ 			return;
+ 		}
+ 	}
+@@ -1023,6 +1023,13 @@ nlmsvc_retry_blocked(struct svc_rqst *rqstp)
+ 			timeout = block->b_when - jiffies;
+ 			break;
+ 		}
++		/*
++		 * Pin the block before dropping nlm_blocked_lock: a
++		 * concurrent GRANT_RES, CANCEL or UNLOCK can unlink the
++		 * block and drop the last kref, freeing it while we are
++		 * still using it.
++		 */
++		kref_get(&block->b_count);
+ 		spin_unlock(&nlm_blocked_lock);
+ 
+ 		dprintk("nlmsvc_retry_blocked(%p, when=%ld)\n",
+@@ -1033,6 +1040,7 @@ nlmsvc_retry_blocked(struct svc_rqst *rqstp)
+ 			retry_deferred_block(block);
+ 		} else
+ 			nlmsvc_grant_blocked(block);
++		nlmsvc_release_block(block);
+ 		spin_lock(&nlm_blocked_lock);
+ 	}
+ 	spin_unlock(&nlm_blocked_lock);
+-- 
+2.53.0
+
