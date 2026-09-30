@@ -1,42 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C62DC51DE14
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 18:41:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 941C9523786;
+	Wed, 30 Sep 2026 18:41:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790793720; cv=none; b=m2pU1TZXkIKke7Nx5tnQiwh6Qz+E2dn/TejYFCDggOUGDRiOE5gA9GyeCp2oXKoXiVNGh46x/lGR/y+frYt+cl8EDdQ6UcR8PWTGbi4BT1rNI27ykhfmnzaHQOJuj4/z2KRbSU3Z354thzmLhE4XB5bI0oVqmDMKMFldjekfDgo=
+	t=1790793720; cv=none; b=V/1euVLlo0HJp6ALvde1AiLbblBVjSx/YR3sFopZ4+u8UQBpW3pec2ajprCr0NjocuAmi7tD9FoJT/NF30Tx8zDJM+oWEPzLP1W50x+fVYRMx+TTfWUFrAcPI1TIUpoZfmwwNvJ1htRNUJGpxd9GU/HJtR0j+AQ5ifCGH09DBMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790793720; c=relaxed/simple;
-	bh=O9tPl1pETkGCj8enOi+8HdQsjgb7Wxysol71CHQ1zV8=;
+	bh=F4g8xAHFR1p/9RPqDlkz163M6rLtVxpKecFgTNBrMSE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cNiz+6yZb6pSCZMuRyZDHp05jLAomKQilTZzGHunurCtj71Fhy9/A55njxloDCiuB7XyY1mC8LzaanvJLnpquECzTBOGInXoYZDXW0HyhpMr+bPW5SOLgC2dz3xq9d5WPtmWJu8JanrSgLmc+4TIMnGx5mhi/u7QwiUmcjpZqOs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XeQCptq/; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=nnexvLfYyfl5BXgI2jkDL45VfyvSKALwJ03/iTPHsDrZrqyiWuFm7kQ28nCqOhfSSDjR9bxWDd1Sy72Uvn54AgKHkQT8+IrBAuVyd9OHpi9zVXhfMSh5mOX5/wXK6L86jfMkVx4EsZ8wIreSnZ7zQJ03ditv06UsoHcrFsVEo8Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=HXa127K1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XeQCptq/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B71491F00898;
-	Wed, 30 Sep 2026 18:41:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790793718;
-	bh=rbNB2AIQGlm56m3md6t1CL19NmHEq8G+SeEsmbCatOk=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="HXa127K1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A74921F000FF;
+	Wed, 30 Sep 2026 18:41:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790793719;
+	bh=5tZALfByElTu+VAaKtX6mwu3GwZDJW/mAUJPvjSwY0o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XeQCptq/P1UPqAIPCy0z0OdQlHKKhHn9uMBw4+H6xqVlt0fYFuZ49UER6OoKB5ucx
-	 +1SLyMfWq7eEcSCu4+64sGZ52Uyd08G8sztYBBoTmbCf4qWpFZ7u5Mnyy7dLgKyy+f
-	 1zG/H9rDdoSxroqkGATaqmSg4aS+ufulPnfow1UBf/OkGTrw7NHt01fkSgSCjUSXLs
-	 U8ccTc2Blph/EHvvY66/S7zD4im7m7tgJFlCWNvS57gTWVoqLclsfW/UAutKMz+Eqi
-	 B/QAbNlFnfWw/iP203/sCXyfF4ZpypqlBo5xLc0doG/f9TG5w9FdLDrLZQVntB9iiD
-	 0dt/ZhyukqbvQ==
-From: Sasha Levin <sashal@kernel.org>
+	b=HXa127K1LYmjIbW5Eg4+NAHzXJZ4T+8pHsQn4xr/wvoB7ac2gOKpU2Xdg1uS+jwSU
+	 /g1c0h90u+YCvLF5pJ2AbRsHRVh8a+ymmd6HNzmjpLFDepmkhvLKrWyaeavrU546fo
+	 aVFEqNK/6rqzI99RVn2I+cLlWIXY+0Buj+poCjP8=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Namjae Jeon <linkinjeon@kernel.org>,
-	Paulo Alcantara <pc@manguebit.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
+	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] smb: client: use finish_no_open() for non-regular inodes
-Date: Wed, 30 Sep 2026 14:41:55 -0400
-Message-ID: <20260930184156.247870-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092924-unmolded-acts-04be@gregkh>
-References: <2026092924-unmolded-acts-04be@gregkh>
+Subject: [PATCH 6.18 353/395] i2c: qcom-geni: Fix hardcoded clock index in SE_GENI_CLK_SEL
+Date: Wed, 30 Sep 2026 17:30:15 +0200
+Message-ID: <20260930152348.341782080@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930152340.591469096@linuxfoundation.org>
+References: <20260930152340.591469096@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,155 +48,124 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Namjae Jeon <linkinjeon@kernel.org>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit e66cf1625ec4a3fe68346119f371def713fd0a4d ]
+------------------
 
-An O_CREAT open can find an existing symlink or another non-regular
-inode. cifs_atomic_open() calls finish_open() on it and attaches a
-cifsFileInfo. Symlink inodes have no CIFS release operation, so the
-dentry reference held by cifsFileInfo is leaked. FMODE_OPENED also
-prevents the VFS from following the symlink.
+From: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
 
-Track whether cifs_do_create() returned an open server handle. For
-non-regular inodes, close the handle if present, remove the pending
-open, and call finish_no_open() so the VFS can continue the lookup.
-Do not set FMODE_CREATED unless a regular file was opened. For
-O_NOFOLLOW with __O_REGULAR, return -ELOOP before the VFS's
--EFTYPE check.
+[ Upstream commit cb97bf3d4f91453b881acaf8e9f0cc47bb40b604 ]
 
-Defer closing a legacy POSIX handle on a non-regular inode until
-after inode lookup. This avoids closing it again if lookup fails.
+qcom_geni_i2c_conf() writes a hardcoded 0 to SE_GENI_CLK_SEL, which
+selects an index from the hardware clock performance table. This always
+picks the first table entry regardless of the actual source clock
+configuration. On platforms where the matching entry is not at index 0,
+the wrong source clock divider is active and the I2C bus runs at an
+incorrect frequency.
 
-Fixes: d2c127197dfc ("cifs: implement i_op->atomic_open()")
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Cc: stable@vger.kernel.org
+Use geni_se_clk_freq_match() in geni_i2c_clk_map_idx() to find the
+performance table index for the source clock (32 MHz or 19.2 MHz). Store
+the resolved index in a new clk_idx field in geni_i2c_dev and write it
+to SE_GENI_CLK_SEL instead of the hardcoded 0.
+
+Fixes: 37692de5d523 ("i2c: i2c-qcom-geni: Add bus driver for the Qualcomm GENI I2C controller")
+Signed-off-by: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+Cc: <stable@vger.kernel.org> # v4.19+
+Reviewed-by: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
+Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
+Link: https://patch.msgid.link/20260921-i2c-fix-se-clk-conf-v2-1-8b5537ceff2d@oss.qualcomm.com
+[ Applied initialization error handling in geni_i2c_probe() because geni_i2c_resources_init() is absent. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- fs/cifs/dir.c | 37 +++++++++++++++++++++++++++----------
- 1 file changed, 27 insertions(+), 10 deletions(-)
+ drivers/i2c/busses/i2c-qcom-geni.c |   38 ++++++++++++++++++++++++++++++++-----
+ 1 file changed, 33 insertions(+), 5 deletions(-)
 
-diff --git a/fs/cifs/dir.c b/fs/cifs/dir.c
-index 73d43d8911aa5..0366ac28ff07c 100644
---- a/fs/cifs/dir.c
-+++ b/fs/cifs/dir.c
-@@ -225,7 +225,7 @@ check_name(struct dentry *direntry, struct cifs_tcon *tcon)
- static int
- cifs_do_create(struct inode *inode, struct dentry *direntry, unsigned int xid,
- 	       struct tcon_link *tlink, unsigned oflags, umode_t mode,
--	       __u32 *oplock, struct cifs_fid *fid)
-+	       __u32 *oplock, struct cifs_fid *fid, bool *opened)
+--- a/drivers/i2c/busses/i2c-qcom-geni.c
++++ b/drivers/i2c/busses/i2c-qcom-geni.c
+@@ -77,6 +77,9 @@ enum geni_i2c_err_code {
+ #define XFER_TIMEOUT		HZ
+ #define RST_TIMEOUT		HZ
+ 
++#define GENI_SE_CLK_32MHZ	(32 * HZ_PER_MHZ)
++#define GENI_SE_CLK_19P2MHZ	19200000UL
++
+ struct geni_i2c_dev {
+ 	struct geni_se se;
+ 	u32 tx_wm;
+@@ -91,6 +94,7 @@ struct geni_i2c_dev {
+ 	struct clk *core_clk;
+ 	u32 clk_freq_out;
+ 	const struct geni_i2c_clk_fld *clk_fld;
++	u32 clk_idx;
+ 	int suspended;
+ 	void *dma_buf;
+ 	size_t xfer_len;
+@@ -165,19 +169,44 @@ static const struct geni_i2c_clk_fld gen
+ static int geni_i2c_clk_map_idx(struct geni_i2c_dev *gi2c)
  {
- 	int rc = -ENOENT;
- 	int create_options = CREATE_NOT_DIR;
-@@ -239,6 +239,7 @@ cifs_do_create(struct inode *inode, struct dentry *direntry, unsigned int xid,
- 	struct TCP_Server_Info *server = tcon->ses->server;
- 	struct cifs_open_parms oparms;
+ 	const struct geni_i2c_clk_fld *itr;
++	unsigned long res_freq;
  
-+	*opened = false;
- 	*oplock = 0;
- 	if (tcon->ses->server->oplocks)
- 		*oplock = REQ_OPLOCK;
-@@ -254,6 +255,7 @@ cifs_do_create(struct inode *inode, struct dentry *direntry, unsigned int xid,
- 				     oflags, oplock, &fid->netfid, xid);
- 		switch (rc) {
- 		case 0:
-+			*opened = true;
- 			if (newinode == NULL) {
- 				/* query inode info */
- 				goto cifs_create_get_file_info;
-@@ -270,11 +272,9 @@ cifs_do_create(struct inode *inode, struct dentry *direntry, unsigned int xid,
- 				/*
- 				 * The server may allow us to open things like
- 				 * FIFOs, but the client isn't set up to deal
--				 * with that. If it's not a regular file, just
--				 * close it and proceed as if it were a normal
--				 * lookup.
-+				 * with that. Keep the handle until the caller
-+				 * can finish the lookup.
- 				 */
--				CIFSSMBClose(xid, tcon, fid->netfid);
- 				goto cifs_create_get_file_info;
- 			}
- 			/* success, no need to query */
-@@ -370,6 +370,7 @@ cifs_do_create(struct inode *inode, struct dentry *direntry, unsigned int xid,
- 		cifs_dbg(FYI, "cifs_create returned 0x%x\n", rc);
- 		goto out;
- 	}
-+	*opened = true;
- 
- 	/*
- 	 * If Open reported that we actually created a file then we now have to
-@@ -452,7 +453,7 @@ cifs_do_create(struct inode *inode, struct dentry *direntry, unsigned int xid,
- 	return rc;
- 
- out_err:
--	if (server->ops->close)
-+	if (*opened && server->ops->close)
- 		server->ops->close(xid, tcon, fid);
- 	if (newinode)
- 		iput(newinode);
-@@ -472,6 +473,8 @@ cifs_atomic_open(struct inode *inode, struct dentry *direntry,
- 	struct cifs_pending_open open;
- 	__u32 oplock;
- 	struct cifsFileInfo *file_info;
-+	bool is_regular;
-+	bool opened;
- 
- 	/*
- 	 * Posix open is only called (at lookup time) for file create now. For
-@@ -526,16 +529,29 @@ cifs_atomic_open(struct inode *inode, struct dentry *direntry,
- 	cifs_add_pending_open(&fid, tlink, &open);
- 
- 	rc = cifs_do_create(inode, direntry, xid, tlink, oflags, mode,
--			    &oplock, &fid);
-+			    &oplock, &fid, &opened);
- 
- 	if (rc) {
- 		cifs_del_pending_open(&open);
- 		goto out;
- 	}
- 
--	if ((oflags & (O_CREAT | O_EXCL)) == (O_CREAT | O_EXCL))
-+	is_regular = d_is_reg(direntry);
-+	if (!is_regular || !opened) {
-+		if (opened && server->ops->close)
-+			server->ops->close(xid, tcon, &fid);
-+		cifs_del_pending_open(&open);
+-	if (clk_get_rate(gi2c->se.clk) == 32 * HZ_PER_MHZ)
++	/*
++	 * Frequency counter tables are calibrated for a specific source
++	 * clock frequency and are not valid for any multiple of it
++	 * (e.g. 64 MHz, 128 MHz).
++	 * Use exact=true and verify res_freq matches req_freq literally
++	 * to reject harmonics: a 64 MHz clock that divides evenly to
++	 * 32 MHz would pass exact matching but produce double the intended
++	 * I2C frequency with these counter values.
++	 */
++	if (!geni_se_clk_freq_match(&gi2c->se, GENI_SE_CLK_32MHZ,
++				    &gi2c->clk_idx, &res_freq, true) &&
++	    res_freq == GENI_SE_CLK_32MHZ) {
+ 		itr = geni_i2c_clk_map_32mhz;
+-	else
++	} else if (!geni_se_clk_freq_match(&gi2c->se, GENI_SE_CLK_19P2MHZ,
++					   &gi2c->clk_idx, &res_freq, true) &&
++		   res_freq == GENI_SE_CLK_19P2MHZ) {
+ 		itr = geni_i2c_clk_map_19p2mhz;
++	} else {
++		dev_err(gi2c->se.dev,
++			"Unsupported SE source clock: must be exactly 32 MHz or 19.2 MHz\n");
++		return -EINVAL;
 +	}
+ 
+ 	while (itr->clk_freq_out != 0) {
+ 		if (itr->clk_freq_out == gi2c->clk_freq_out) {
+ 			gi2c->clk_fld = itr;
++			dev_dbg(gi2c->se.dev,
++				"I2C clk selected: freq: %u Hz, clk_idx: %u\n",
++				gi2c->clk_freq_out, gi2c->clk_idx);
+ 			return 0;
+ 		}
+ 		itr++;
+ 	}
 +
-+	if (is_regular && opened &&
-+	    (oflags & (O_CREAT | O_EXCL)) == (O_CREAT | O_EXCL))
- 		file->f_mode |= FMODE_CREATED;
- 
-+	if (!is_regular || !opened) {
-+		rc = finish_no_open(file, NULL);
-+		goto out;
-+	}
++	dev_err(gi2c->se.dev, "Unsupported I2C output frequency %u Hz\n", gi2c->clk_freq_out);
 +
- 	rc = finish_open(file, direntry, generic_file_open);
- 	if (rc) {
- 		if (server->ops->close)
-@@ -585,6 +601,7 @@ int cifs_create(struct inode *inode, struct dentry *direntry, umode_t mode,
- 	struct TCP_Server_Info *server;
- 	struct cifs_fid fid;
- 	__u32 oplock;
-+	bool opened;
+ 	return -EINVAL;
+ }
  
- 	cifs_dbg(FYI, "cifs_create parent inode = 0x%p name is: %pd and dentry = 0x%p\n",
- 		 inode, direntry, direntry);
-@@ -601,8 +618,8 @@ int cifs_create(struct inode *inode, struct dentry *direntry, umode_t mode,
- 		server->ops->new_lease_key(&fid);
+@@ -186,7 +215,7 @@ static void qcom_geni_i2c_conf(struct ge
+ 	const struct geni_i2c_clk_fld *itr = gi2c->clk_fld;
+ 	u32 val;
  
- 	rc = cifs_do_create(inode, direntry, xid, tlink, oflags, mode,
--			    &oplock, &fid);
--	if (!rc && server->ops->close)
-+			    &oplock, &fid, &opened);
-+	if (!rc && opened && server->ops->close)
- 		server->ops->close(xid, tcon, &fid);
+-	writel_relaxed(0, gi2c->se.base + SE_GENI_CLK_SEL);
++	writel_relaxed(gi2c->clk_idx, gi2c->se.base + SE_GENI_CLK_SEL);
  
- 	cifs_put_tlink(tlink);
--- 
-2.53.0
+ 	val = (itr->clk_div << CLK_DIV_SHFT) | SER_CLK_EN;
+ 	writel_relaxed(val, gi2c->se.base + GENI_SER_M_CLK_CFG);
+@@ -823,8 +852,7 @@ static int geni_i2c_probe(struct platfor
+ 
+ 	ret = geni_i2c_clk_map_idx(gi2c);
+ 	if (ret)
+-		return dev_err_probe(dev, ret, "Invalid clk frequency %d Hz\n",
+-				     gi2c->clk_freq_out);
++		return ret;
+ 
+ 	gi2c->adap.algo = &geni_i2c_algo;
+ 	init_completion(&gi2c->done);
+
 
