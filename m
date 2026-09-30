@@ -1,42 +1,37 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42E9E47B405
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 09:24:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93905351C11;
+	Wed, 30 Sep 2026 09:26:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790760295; cv=none; b=q+5yhSQhLLlPmDtcpGc9FT2WUUNp6CezRD3AUlzxwgdGJ8CH4wfAtxADcZurSAN9EHDjn68DATycfPKwt/jZNdKg7ulaPuX1P1thTBEoD4UknhRt7zSOEChFT5GAfLmQeL4mhFbWeugCH1jZenKPBTfqyhZQFuHDQpP6u/lzRVY=
+	t=1790760370; cv=none; b=WJuMT+uUI7xvSQlNwpv/HjWiH5SCU0t7AyqSkP/rSX+2AacPyiWjFp0kfmkLQTvuS6EM0wMWAb6wgGdlqQVMrxiYfqRaqFLoWSKoFUq+UkazyNcgTc9H02nv+JIcvogRV/uyNehjVRjmprzPV3IyoeZgr5kcJQlPXMmGSvzR89w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790760295; c=relaxed/simple;
-	bh=TndFCE4sUIHFePM+3TgKXdItK3nrGGnlGXREl6k3uU8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EMU4PDKmSeCOke7WGJSZh4doJA7SOP1Ff6Gac1VuqvwEqVmqCMHJS6Op5NVw4D334CZFK8SBIN52+GLyRC9D9qmTEoMvfdn3t79zRTZjwkCRVZzvK4gDcrGP/xH1Ud8zAed6DX09sOHCtDr8IX1GAEBiYbcSERRGlHmIqnYBqWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S6cYRbu+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790760370; c=relaxed/simple;
+	bh=gHFxeGC83I52w7Kqn26hl48MzLaWSSiV1Vh+AYsdIzo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=jtk1H7RdocqiPmoC38FFLSlyw9h9UUOj0XMde0uz8LJfWv6Ws026VGafR6HXQ5LUMiCeGyxjAnOKN77cVdZKJ7elkZ/kMEwRLQI75hE0mvpl7xGULXY5MZspU3nSCNmFQTB3Dmv0z7u0T79aUCgDtnAaox03crt59GTX2FuuCxQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=hAeUr06d; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S6cYRbu+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB8F41F00893;
-	Wed, 30 Sep 2026 09:24:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790760293;
-	bh=PBJEQEPj+HzTE+1r3bAyj6Zgd8PZybh4Wwz7q4A7n3Y=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=S6cYRbu+OgFtY4E1aYYOa2VbN4JK59v8pJPaP0UiAY5+aP54KAYakkwNJGvbdcNQt
-	 ye3b7g/01L48R/ZHTC9YJHWegZ3IiOHAyYdvZMac8KIkuXmjT/G8e3ryUimkRGP1kO
-	 ToXFQXVRwW8IIw6gGD1HB0dEaiPVzUQxoB4dV4lTcqWQaomu5JLssrZhX8M/CDCfOT
-	 PxH95GtD4QNKj6cWS3OAQXUZa6q89iU4vabc9RcvuulABFepVRw9tr1rCxbZisGYMz
-	 ubfGvlYHE9TNHGmmztCOtlF0gTC47VYd51bBL5JHo+/Oo7zHRNuFAyKhapJz0bARPv
-	 uhjavJU55lHZw==
-From: SJ Park <sj@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: SJ Park <sj@kernel.org>,
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="hAeUr06d"
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4fa0978f4;
+	Wed, 30 Sep 2026 17:25:56 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Antoine Tenart <atenart@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S . Miller" <davem@davemloft.net>,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [PATCH 6.12.y 2/3] mm/damon: rename DAMON_MIN_REGION to DAMON_MIN_REGION_SZ
-Date: Wed, 30 Sep 2026 02:24:48 -0700
-Message-ID: <20260930092449.43969-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260930023401.3420697-2-sashal@kernel.org>
-References: 
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH] crypto: inside-secure: initialize EIP93 state before requesting IRQ
+Date: Wed, 30 Sep 2026 17:25:51 +0800
+Message-Id: <20260930092551.2976763-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,78 +39,63 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0f1a28a8703a1kunm3b8c0ff6276571
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCQkMfVh1PH0pPSU5LSEpPTFYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=hAeUr06diREDicqV35nZW5+nOOa0hLEOS8o3DcO896+adlwBeQPRom+1lm7O5CT4z34kOILd+3ze5zEUanQVzlSiVYxoGxkbJErKFdHGIUg9EGF1Bq1UdOXk1qr8PAZwciy5gYFkqJBeV29LGotdW3VLM5FVn3KfO/L4+b8eFfA=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=88+OFijJh0zX95cxLz82bXir1Qum2T2Rzvhc27AGbLw=;
+	h=date:mime-version:subject:message-id:from;
 
-Hello Sasha,
+devm_request_threaded_irq() can invoke the handler as soon as
+registration starts.  The EIP93 probe currently requests the IRQ
+before allocating the descriptor rings and initializing the tasklet,
+locks, and IDR used by the handler.
 
-On Tue, 29 Sep 2026 22:34:00 -0400 Sasha Levin <sashal@kernel.org> wrote:
+Initialize the software and hardware state, and disable the device
+interrupts, before requesting the IRQ.  The existing interrupt enable
+remains after successful IRQ registration.
 
-> From: SeongJae Park <sj@kernel.org>
-> 
-> [ Upstream commit dfb1b0c9dc0d61e422905640e1e7334b3cf6f384 ]
-> 
-> The macro is for the default minimum size of each DAMON region.  There was
-> a case that a reader was confused if it is the minimum number of total
-> DAMON regions, which is set on damon_attrs->min_nr_regions.  Make the name
-> more explicit.
-> 
-> Link: https://lkml.kernel.org/r/20260117175256.82826-8-sj@kernel.org
-> Signed-off-by: SeongJae Park <sj@kernel.org>
-> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-> 
-> Stable backport preparation for b3723b596b548 ("mm/damon/core: fix
-> unconditionally skip last region"):
-> 
-> Rename all uses present in 6.12, including the core KUnit override and
-> tests.  Drop changes to address-unit/minimum-size context fields and the
-> four-argument damon_set_regions() calls, which do not exist in this tree.
-> 
-> Match the target's quota helper preimage by passing the fixed region size
-> as min_region_sz and incorporating the existing-function changes from
-> 1745ccbd2907 ("mm/damon/core: do non-safe region walk on
-> kdamond_apply_schemes()").  The region walk must visit newly split tails
-> when the helper returns true for the already charged prefix.  Preserve
-> the existing target-validity check and leave the last-region fix to the
-> target commit.  No new functions or context fields are introduced.
-> 
-> [ sashal: Reduced backport -- upstream dfb1b0c9dc0d6 touches 7 file(s), this
->   backport carries 4. Not backported here:
->   mm/damon/lru_sort.c
->   mm/damon/reclaim.c
->   mm/damon/sysfs.c
->   mm/damon/tests/vaddr-kunit.h
->   This note is generated from the file lists only; see the resolution record
->   for the reasoning. ]
-> 
-> Stable-dep-of: b3723b596b54 ("mm/damon/core: fix unconditionally skip last region")
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
-[...]
-> @@ -1339,15 +1342,14 @@ static bool damos_skip_charged_region(struct damon_target *t,
->  		if (quota->charge_addr_from && r->ar.start <
->  				quota->charge_addr_from) {
->  			sz_to_skip = ALIGN_DOWN(quota->charge_addr_from -
-> -					r->ar.start, DAMON_MIN_REGION);
-> +					r->ar.start, min_region_sz);
->  			if (!sz_to_skip) {
-> -				if (damon_sz_region(r) <= DAMON_MIN_REGION)
-> +				if (damon_sz_region(r) <= min_region_sz)
->  					return true;
-> -				sz_to_skip = DAMON_MIN_REGION;
-> +				sz_to_skip = min_region_sz;
->  			}
->  			damon_split_region_at(t, r, sz_to_skip);
-> -			r = damon_next_region(r);
-> -			*rp = r;
-> +			return true;
+Fixes: 9739f5f93b78 ("crypto: eip93 - Add Inside Secure SafeXcel EIP-93 crypto engine support")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ drivers/crypto/inside-secure/eip93/eip93-main.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-As I mentioned [1] on the backport of this patch for 6.18, this looks wrong to
-me.  I will post a manual backport.  Could we drop this series and use the
-manual backport instead?
-
-[1] https://lore.kernel.org/20260930091245.43609-1-sj@kernel.org
-
-
-Thanks,
-SJ
-
-[...]
+diff --git a/drivers/crypto/inside-secure/eip93/eip93-main.c b/drivers/crypto/inside-secure/eip93/eip93-main.c
+index e62785952..06c8d771a 100644
+--- a/drivers/crypto/inside-secure/eip93/eip93-main.c
++++ b/drivers/crypto/inside-secure/eip93/eip93-main.c
+@@ -430,12 +430,6 @@ static int eip93_crypto_probe(struct platform_device *pdev)
+ 	if (eip93->irq < 0)
+ 		return eip93->irq;
+ 
+-	ret = devm_request_threaded_irq(eip93->dev, eip93->irq, eip93_irq_handler,
+-					NULL, IRQF_ONESHOT,
+-					dev_name(eip93->dev), eip93);
+-	if (ret)
+-		return ret;
+-
+ 	ret = eip93_desc_init(eip93);
+ 	if (ret)
+ 		return ret;
+@@ -452,6 +446,12 @@ static int eip93_crypto_probe(struct platform_device *pdev)
+ 
+ 	eip93_initialize(eip93, algo_flags);
+ 
++	ret = devm_request_threaded_irq(eip93->dev, eip93->irq, eip93_irq_handler,
++					NULL, IRQF_ONESHOT,
++					dev_name(eip93->dev), eip93);
++	if (ret)
++		return ret;
++
+ 	/* Init finished, enable RDR interrupt */
+ 	eip93_irq_enable(eip93, EIP93_INT_RDR_THRESH);
+ 
+-- 
+2.34.1
