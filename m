@@ -1,61 +1,43 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 998963B83F9;
-	Wed, 30 Sep 2026 09:48:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39AF63E40E0;
+	Wed, 30 Sep 2026 09:48:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790761689; cv=none; b=u1zCjnIPeM8SfMxzn53fs0BSeceowy7YZr76yCOQThwyhgQv1CmsAQdZtqmTRyItu1RTfkbIYRTOb/ixaztG8xH1g4UswA5BC66QyfKMx+gdfFaWLTPXYlDBM+HlNe1gq9KeuVEHSTBwtSHD4uV1m1LUs06ZGPqStgUY7x50Xqw=
+	t=1790761740; cv=none; b=nACAPDWSGi5otTnuUL5JeJhva44TC+xeMBsETZqpUbqhAa0QS3fcwKQIIkP/W30OehBYywYrRcbgSJ58mmXuehon5A7Lg5S7Dz/UnkfsLjBmfQANM+ME6FEDx7yfc9cbu6P3vI2+5cKcUpUPxmNP2oHw+aSU4hqGzyX/Y83AXjk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790761689; c=relaxed/simple;
-	bh=zm5VFrHmyz+/sNLaSW+Dt3U8QFai1/239D3Wu5zb/O0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=TvWe0DbO845fLZzLP6sRSL5+dAJT3wgzLF01cDohh/iux8PVYv4XqAsmvVvPUwnvlZcrj2mrYyZ/yeZJsiL24qrFWcizWJ/jzt4AvTjT7sk0ggsf06sIz/uKM831qPYPryHylsBEHOWJXmfzHCdoQtmBJRadv+dqzD+hmuO6bjA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 01a9e916bcb411f19a56ed5b684f684d-20260930
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:8edde7f8-6271-41aa-9eb6-c503825cf016,IP:0,U
-	RL:25,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACT
-	ION:release,TS:25
-X-CID-META: VersionHash:7db8b62,CLOUDID:dd6e600df21f98dd37a51a1cc52b3aa1,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|102|136|850|865|898,TC:nil,Content:0|15|50|9
-	9,EDM:5|-100,IP:nil,URL:11|95|82|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil
-	,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_ULN,TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 01a9e916bcb411f19a56ed5b684f684d-20260930
-X-User: zhangyunfei1@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zhangyunfei1@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1997194022; Wed, 30 Sep 2026 17:47:53 +0800
-From: Zhang Yunfei <zhangyunfei1@kylinos.cn>
-To: netdev@vger.kernel.org
-Cc: jiawenwu@trustnetic.com,
-	mengyuanlou@net-swift.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	aleksandr.loktionov@intel.com,
-	u.kleine-koenig@baylibre.com,
-	weirongguang@kylinos.cn,
-	zhangyunfei1@kylinos.cn,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	leitao@debian.org,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH net v3 1/2] net: ngbe: propagate resume errors to the PM core
-Date: Wed, 30 Sep 2026 17:47:47 +0800
-Message-Id: <20260930094748.1198085-2-zhangyunfei1@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260930094748.1198085-1-zhangyunfei1@kylinos.cn>
-References: <20260930094748.1198085-1-zhangyunfei1@kylinos.cn>
+	s=arc-20240116; t=1790761740; c=relaxed/simple;
+	bh=SsJFafcydfK+cId6DIHrbXEjx31Yrp/pBnHbcQfg+/M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oqv0aqHQ25ucs6any7uU51Qk4P37KcCNQSiNB+K+fZgJ9o7vfhXMCP9Kxw/laRaxmngFN/RwAi8ixYDgjmaV4IGQJ8dlxGUsQX3rjB24cv64mvnRFcfhMC6hYtOgqYoRVHn/kJBhVlWPW0eYGY0/hk34hhxu1suFrFAFgEtF+tE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ALC3ltrK; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ALC3ltrK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5563C1F000FF;
+	Wed, 30 Sep 2026 09:48:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790761738;
+	bh=Nl9MeDTY24eQyQhffUb7xAuQNY3nKyWvog2voZwmldo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ALC3ltrKN3qos9OvyQMmGJkaw+ZmlpnFqbIdT1bYSF3Cb5SJESDXXkiJpZNOigxtI
+	 MoChgdvVQXgz6EthkGaeKysgMiPi7P+vU6bCU13PtDm4k4Fi+OV5GtnB1fcXybGEHP
+	 1PV2wiGf8yhhMkQm2UJNk6izPP7tsx9qvJSnxhWyq/xbGmC0MUHcad8P+EywX+gt1j
+	 6Hcn8c5VHWs3n0fhsWgUI+FImoPxGsnCyJ+QhRMCL41kkiazG2FzwpsYBmRDLR2+EB
+	 dVXFx5Bz8oWYwJD2C9kXtUkouL6qXsoMc6U62XO+7b6Tr2lzsdrYVmmn7LCqIh22Sz
+	 uj9OguUgr3+Lg==
+From: SJ Park <sj@kernel.org>
+To: stable@vger.kernel.org
+Cc: damon@lists.linux.dev,
+	Liew Rui Yan <aethernet65535@gmail.com>,
+	SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH 6.1.y] mm/damon/core: fix unconditionally skip last region
+Date: Wed, 30 Sep 2026 02:48:53 -0700
+Message-ID: <20260930094853.52736-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <2026092949-surpass-thimble-02a8@gregkh>
+References: <2026092949-surpass-thimble-02a8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -64,109 +46,105 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-After a failed resume from suspend, the device stays detached from
-the networking stack: every attempt to bring the interface up fails
-the netif_device_present() check in __dev_open() with -ENODEV,
-while the PM core is told that resume succeeded.
+From: Liew Rui Yan <aethernet65535@gmail.com>
 
-ngbe_resume() declares err as u32 and unconditionally returns 0:
-the return value of ngbe_reset_hw() is ignored entirely, and
-failures of wx_init_interrupt_scheme() and ngbe_open() are silently
-swallowed. The interrupt scheme torn down at suspend is never
-rebuilt, so the device cannot self-heal.
+Once quota set, the charge_{target,addr}_from unconditionally skips and
+resets at the last region of the tracked target, so the last region can be
+skipped even when it has not been processed.
 
-Fix the type to int and propagate the errors, making the whole tail
-of the resume path consistent with the pci_enable_device_mem()
-failure path at the top. If the hardware reset fails, return early:
-the remaining resume steps cannot succeed. The suspend path may
-already have torn the interface down (ngbe_close() and
-wx_clear_interrupt_scheme()), leaving freed rings and IRQs behind
-while netif_running() still reports true, so set WX_STATE_RES_FREED
-on every failing return, the same mark ngbe_down_suspend() uses for
-the PCI error recovery path: a later ngbe_close() skips the
-teardown of the already-freed state, and ngbe_up_complete() clears
-the bit again so later opens are unaffected. This is safe on the
-wx_init_interrupt_scheme() failure path too, as it cleans up after
-itself.
+Example:
 
-Found by manual code inspection of the PM error paths; the missing
-ngbe_reset_hw() propagation was reported by Sashiko in its review
-of v1. The failure paths are unreachable without fault injection:
-a loadable test module injects failures into ngbe_reset_hw(),
-wx_init_interrupt_scheme() and ngbe_open(). In a QEMU VM the
-unfixed driver hits the kernel "Trying to free already-free IRQ"
-warning on the post-suspend close; with the fix, the error is
-reported and no warning appears. No physical ngbe device is
-involved.
+    1. Target has 2 regions: R1 (0-100 bytes) and R2 (100-200 bytes).
+    2. Quota is configured to process only 100 bytes per window.
+    3. Window 1: Processes R1 (0-100).  Quota is full.  charge_{target,
+       addr}_from is saved at (Target, 100).
+    4. Window 2: The loop reaches R2.  Because R2 is
+       damon_last_region(t), the old code unconditionally returns true,
+       skipping R2 entirely and resetting the charge_{target,addr}_from.
 
-Fixes: 6963e463256e ("net: ngbe: add Wake on Lan support")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917090050.1927999-1-zhangyunfei1%40kylinos.cn
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhang Yunfei <zhangyunfei1@kylinos.cn>
+    Result: R2 is permanently skipped even though it has never been
+    processed.
+
+However, it is important to note that this is a very minor issue.  This is
+because it is triggered only when the previous window saved/kept
+charge_{target,addr}_from, and in the next window, all regions except the
+last region were skipped by damos_skip_charged_region().
+
+Fix this by only resetting the charge_{target,addr}_from when last region
+is reached, only skipping when it is applied or cannot split.
+
+Link: https://lore.kernel.org/20260908134739.96919-1-sj@kernel.org
+Fixes: 50585192bc2e ("mm/damon/schemes: skip already charged targets and regions")
+Signed-off-by: Liew Rui Yan <aethernet65535@gmail.com>
+Reviewed-by: SJ Park <sj@kernel.org>
+Signed-off-by: SJ Park <sj@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Cc: <stable@vger.kernel.org> # v5.16.x
+(cherry picked from commit b3723b596b548c837a766aae3553c14a7b15af2b)
+Signed-off-by: SJ Park <sj@kernel.org>
 ---
-Changes in v3:
-- set WX_STATE_RES_FREED on every failing return of ngbe_resume()
-  (the pci_enable_device_mem() failure, the reset failure early return
-  and the wx_init_interrupt_scheme()/ngbe_open() failures), so that a
-  later ngbe_close() skips re-running the teardown on the already-freed
-  post-suspend state (Sashiko review of v2);
+ mm/damon/core.c | 24 +++++++++++++++---------
+ 1 file changed, 15 insertions(+), 9 deletions(-)
 
-Changes in v2:
-- also propagate the ngbe_reset_hw() failure, so the whole tail of
-  ngbe_resume() reports errors to the PM core;
-- drop the inaccurate "device can be re-probed" claim: the PM core
-  records and logs the failure, there is no re-probe.
-
- drivers/net/ethernet/wangxun/ngbe/ngbe_main.c | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/ethernet/wangxun/ngbe/ngbe_main.c b/drivers/net/ethernet/wangxun/ngbe/ngbe_main.c
-index 855dc963c610..8247f6c14be0 100644
---- a/drivers/net/ethernet/wangxun/ngbe/ngbe_main.c
-+++ b/drivers/net/ethernet/wangxun/ngbe/ngbe_main.c
-@@ -954,13 +954,14 @@ static int ngbe_resume(struct pci_dev *pdev)
- {
- 	struct net_device *netdev;
- 	struct wx *wx;
--	u32 err;
-+	int err;
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 859a6a636ab0e..64ff03b15fdef 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -756,6 +756,7 @@ static void damon_do_apply_schemes(struct damon_ctx *c,
+ 		unsigned long sz = damon_sz_region(r);
+ 		struct timespec64 begin, end;
+ 		unsigned long sz_applied = 0;
++		bool skip = false;
  
- 	wx = pci_get_drvdata(pdev);
- 	netdev = wx->netdev;
+ 		if (!s->wmarks.activated)
+ 			continue;
+@@ -768,14 +769,11 @@ static void damon_do_apply_schemes(struct damon_ctx *c,
+ 		if (quota->charge_target_from) {
+ 			if (t != quota->charge_target_from)
+ 				continue;
+-			if (r == damon_last_region(t)) {
+-				quota->charge_target_from = NULL;
+-				quota->charge_addr_from = 0;
+-				continue;
+-			}
+ 			if (quota->charge_addr_from &&
+-					r->ar.end <= quota->charge_addr_from)
+-				continue;
++					r->ar.end <= quota->charge_addr_from) {
++				skip = true;
++				goto clean_charge_from_skip;
++			}
  
- 	err = pci_enable_device_mem(pdev);
- 	if (err) {
-+		set_bit(WX_STATE_RES_FREED, wx->state);
- 		wx_err(wx, "Cannot enable PCI device from suspend\n");
- 		return err;
- 	}
-@@ -968,16 +969,23 @@ static int ngbe_resume(struct pci_dev *pdev)
- 	pci_set_master(pdev);
- 	device_wakeup_disable(&pdev->dev);
+ 			if (quota->charge_addr_from && r->ar.start <
+ 					quota->charge_addr_from) {
+@@ -783,17 +781,25 @@ static void damon_do_apply_schemes(struct damon_ctx *c,
+ 						r->ar.start, DAMON_MIN_REGION);
+ 				if (!sz) {
+ 					if (damon_sz_region(r) <=
+-					    DAMON_MIN_REGION)
+-						continue;
++					    DAMON_MIN_REGION) {
++						skip = true;
++						goto clean_charge_from_skip;
++					}
+ 					sz = DAMON_MIN_REGION;
+ 				}
+ 				damon_split_region_at(t, r, sz);
+ 				r = damon_next_region(r);
+ 				sz = damon_sz_region(r);
++				skip = false;
+ 			}
++		}
++clean_charge_from_skip:
++		if (r == damon_last_region(t)) {
+ 			quota->charge_target_from = NULL;
+ 			quota->charge_addr_from = 0;
+ 		}
++		if (skip)
++			continue;
  
--	ngbe_reset_hw(wx);
-+	err = ngbe_reset_hw(wx);
-+	if (err) {
-+		set_bit(WX_STATE_RES_FREED, wx->state);
-+		wx_err(wx, "Hardware reset failed: %d\n", err);
-+		return err;
-+	}
- 	rtnl_lock();
- 	err = wx_init_interrupt_scheme(wx);
- 	if (!err && netif_running(netdev))
- 		err = ngbe_open(netdev);
- 	if (!err)
- 		netif_device_attach(netdev);
-+	else
-+		set_bit(WX_STATE_RES_FREED, wx->state);
- 	rtnl_unlock();
- 
--	return 0;
-+	return err;
- }
- 
- static struct pci_driver ngbe_driver = {
+ 		if (!damos_valid_target(c, t, r, s))
+ 			continue;
 -- 
-2.25.1
+2.47.3
 
