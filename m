@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35DEE4EB865;
-	Wed, 30 Sep 2026 15:38:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AAED4FD27C;
+	Wed, 30 Sep 2026 15:38:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790782730; cv=none; b=eP7GIhp/cU2PBCjkof9QUBn+0p38UJWJ2l5/ehHOXSi5iOMVfWwmq/uaEX0sp1aZXzm6rvyjRlWb+vXEXLja7YyfJCt38kwZ8toCjTqvPKqoOg6sw/Nj0Y/bg0+HokOYho7HDfnmoeNfx3kRmEIe8gkg1K2H5jzeLnTgdMNZncE=
+	t=1790782734; cv=none; b=Hwq2vWVmvy8PY1tTjXdUv3t3NNC92DYcOjLEgIiA3lkUWSFxoSIamkxIm6HJxEHlx5raIap6aW3ZRE1eml5fUyfxcwVLQectU6VSVRS4AnFMjMvfO9x++KGszzYsyRYgafTLHwyBwvCFWQeH5VAx0rnwLyPichkfF3gWizKBCA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790782730; c=relaxed/simple;
-	bh=YZNQjsz12Y2Q3IYDpD6FTjHo088l/pgy5NRgUl9XTOY=;
+	s=arc-20240116; t=1790782734; c=relaxed/simple;
+	bh=jmvdI2REYyxb9HEyVJmh4OtD5oE6gzTGUH/V/mF+W2Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PjiVeuss3tNSY2srdVO5Y4Y2PWtbI0ddmFZidO2P02MLzwB8aSJNKmoNpHeOWBS5bdArhfQG6lC5XyeVqGTBH4ZXFAMEpsHDY+zMbvFvl7Ai0mhGMtZXHIZTmSEjLAjQsAVZxu0WMeu8T6Uphu9buOBQjsij0vBsJNoiD2mK0kk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XzYQFNdJ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=uc+enllBHKkjfGFGHiVKxHn/1xVQVNR1hMPFSCPeE1g8GwZAp62E0mG6l+pHdFyAbxC4tWYpuQV2UwOICCfqcvekLJOns7e08loFQ5RujI8c4ZFF60ZDwcnxIVTbPMAEaXLSvtDrLMUESX9qxDooQVggAgYuOjqNVszPPtMbDuQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=gQhugDNL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XzYQFNdJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE92C1F00899;
-	Wed, 30 Sep 2026 15:38:42 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gQhugDNL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CBC41F00898;
+	Wed, 30 Sep 2026 15:38:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790782723;
-	bh=G1rcU4aTt5CSfp8m9YnZ12vTbPp0rQ3IT6OaVcMd2gc=;
+	s=korg; t=1790782729;
+	bh=4mJQ9k6j4njzoB+MRVs9UqfS+ELrNknojZPovNuO5EU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XzYQFNdJ2dbh8CIKHwVWgQjpqkFTMpDPY7TqRO9LEqHbX0whLQuu0W7APCDHtSImc
-	 Mdboeiw1FrIqeYZ6NxZLsEgxsW3YhlFN/AkhW4eXVrU+4MZqxsc7yE9AAdHsum7azB
-	 wXmDsbPk9kqaEHElsKGlxeuZITKKS2R3WcSfXJBQ=
+	b=gQhugDNLNyKKpo3ePP9+ycwB2+EtNARwYtXE6YwJ0cEPf2GC+UevBkxL7dokjaDMH
+	 h58fPR8sCeSOSViJUwC/gz39xg8lCSSmQvhShPY//L90llhrbCINzrAZqB9u5eiIXd
+	 cbphlcGlwC1vYx8owg2h8nP3p67ydIKK0+QiAFnY=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Adriana Stancu <adriana@arista.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	=?UTF-8?q?Gustavo=20Kenji=20Mendon=C3=A7a=20Kaneko?= <kaneko.dev@pm.me>,
+	Liviu Dudau <liviu.dudau@arm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 146/595] rtc: bq32000: add delay between RTC reads
-Date: Wed, 30 Sep 2026 17:20:39 +0200
-Message-ID: <20260930152350.873393336@linuxfoundation.org>
+Subject: [PATCH 5.10 148/595] drm/arm/malidp: use clk_bulk API in runtime PM resume and suspend
+Date: Wed, 30 Sep 2026 17:20:41 +0200
+Message-ID: <20260930152350.919246140@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152347.700140858@linuxfoundation.org>
 References: <20260930152347.700140858@linuxfoundation.org>
@@ -45,67 +45,86 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 5.10-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Adriana Stancu <adriana@arista.com>
+From: Gustavo Kenji Mendonça Kaneko <kaneko.dev@pm.me>
 
-[ Upstream commit d4992b7050a10079bc760bdc5b8688e05a09dfc2 ]
+[ Upstream commit 46f715a16989f4e7bbbc2eb41447051874b027f3 ]
 
-When the RTC is used on systems without a interrupt line, userspace
-tools like `hwclock` fall back to a frequent polling loop to synchronize
-with the edge of the next second.
+malidp_runtime_pm_resume() calls clk_prepare_enable() three times
+without checking the return value. If any clock fails to enable, the
+driver silently proceeds with unclocked hardware, leading to undefined
+behavior.
 
-On the BQ32000, this aggressive polling can temporarly lock the register
-refresh cycle, because the continuous transfers prevent the hardware from
-updating the buffer. This results in stale data reads or select() timeouts
-in userspace.
+Convert both the resume and suspend paths to use the clk_bulk API:
+clk_bulk_prepare_enable() in resume checks the return value and rolls
+back any successfully enabled clocks on failure;
+clk_bulk_disable_unprepare() in suspend keeps the two paths symmetric.
 
-This patch introduces a delay before reading the RTC registers in order to
-provide a sufficient idle time for the hardware to sync with the register
-buffer.
+This issue was found by code review without access to Mali DP hardware.
 
-Signed-off-by: Adriana Stancu <adriana@arista.com>
-Link: https://patch.msgid.link/20260416142151.3385827-1-adriana@arista.com
-Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Signed-off-by: Gustavo Kenji Mendonça Kaneko <kaneko.dev@pm.me>
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+Link: https://patch.msgid.link/20260609130812.1065699-1-kaneko.dev@pm.me
+Signed-off-by: Liviu Dudau <liviu.dudau@arm.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/rtc/rtc-bq32k.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/gpu/drm/arm/malidp_drv.c | 22 ++++++++++++++++------
+ 1 file changed, 16 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/rtc/rtc-bq32k.c b/drivers/rtc/rtc-bq32k.c
-index 933e4237237dd..70907aa1fea62 100644
---- a/drivers/rtc/rtc-bq32k.c
-+++ b/drivers/rtc/rtc-bq32k.c
-@@ -15,6 +15,7 @@
- #include <linux/init.h>
- #include <linux/errno.h>
- #include <linux/bcd.h>
-+#include <linux/delay.h>
+diff --git a/drivers/gpu/drm/arm/malidp_drv.c b/drivers/gpu/drm/arm/malidp_drv.c
+index 69fee05c256cb..c547d13002080 100644
+--- a/drivers/gpu/drm/arm/malidp_drv.c
++++ b/drivers/gpu/drm/arm/malidp_drv.c
+@@ -670,6 +670,11 @@ static int malidp_runtime_pm_suspend(struct device *dev)
+ 	struct drm_device *drm = dev_get_drvdata(dev);
+ 	struct malidp_drm *malidp = drm->dev_private;
+ 	struct malidp_hw_device *hwdev = malidp->dev;
++	struct clk_bulk_data clks[] = {
++		{ .clk = hwdev->pclk },
++		{ .clk = hwdev->aclk },
++		{ .clk = hwdev->mclk },
++	};
  
- #define BQ32K_SECONDS		0x00	/* Seconds register address */
- #define BQ32K_SECONDS_MASK	0x7F	/* Mask over seconds value */
-@@ -88,9 +89,17 @@ static int bq32k_write(struct device *dev, void *data, uint8_t off, uint8_t len)
+ 	/* we can only suspend if the hardware is in config mode */
+ 	WARN_ON(!hwdev->hw->in_config_mode(hwdev));
+@@ -677,9 +682,7 @@ static int malidp_runtime_pm_suspend(struct device *dev)
+ 	malidp_se_irq_fini(hwdev);
+ 	malidp_de_irq_fini(hwdev);
+ 	hwdev->pm_suspended = true;
+-	clk_disable_unprepare(hwdev->mclk);
+-	clk_disable_unprepare(hwdev->aclk);
+-	clk_disable_unprepare(hwdev->pclk);
++	clk_bulk_disable_unprepare(ARRAY_SIZE(clks), clks);
  
- static int bq32k_rtc_read_time(struct device *dev, struct rtc_time *tm)
- {
-+	struct i2c_client *client = to_i2c_client(dev);
- 	struct bq32k_regs regs;
- 	int error;
- 
-+	/*
-+	 * When the device doesn't have the interrupt connected, prevent
-+	 * userpace from polling the RTC registers too frequently.
-+	 */
-+	if (client->irq <= 0)
-+		usleep_range(2000, 2500);
+ 	return 0;
+ }
+@@ -689,10 +692,17 @@ static int malidp_runtime_pm_resume(struct device *dev)
+ 	struct drm_device *drm = dev_get_drvdata(dev);
+ 	struct malidp_drm *malidp = drm->dev_private;
+ 	struct malidp_hw_device *hwdev = malidp->dev;
++	struct clk_bulk_data clks[] = {
++		{ .clk = hwdev->pclk },
++		{ .clk = hwdev->aclk },
++		{ .clk = hwdev->mclk },
++	};
++	int err;
 +
- 	error = bq32k_read(dev, &regs, 0, sizeof(regs));
- 	if (error)
- 		return error;
++	err = clk_bulk_prepare_enable(ARRAY_SIZE(clks), clks);
++	if (err)
++		return err;
+ 
+-	clk_prepare_enable(hwdev->pclk);
+-	clk_prepare_enable(hwdev->aclk);
+-	clk_prepare_enable(hwdev->mclk);
+ 	hwdev->pm_suspended = false;
+ 	malidp_de_irq_hw_init(hwdev);
+ 	malidp_se_irq_hw_init(hwdev);
 -- 
 2.53.0
 
