@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B79F8502D40;
-	Wed, 30 Sep 2026 16:23:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB88254705C;
+	Wed, 30 Sep 2026 16:23:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790785404; cv=none; b=HVSVLmujF971ooK+tDQjfYB3+I92PRb5ASklTIl+o8s68bzb6Bk5Xq3hNSnUvDd6XRUpWDqtrQjOXcuY18bc9HHgjwdoc5xpC2lmn63FmOrmntKQMDEaVJWTgEyBq7fk52dOQUQngV6AfnVUryZy7VgvmrvCmOiaqpLyeZSaKlM=
+	t=1790785410; cv=none; b=TVR9Gs4y2qzX+0eF/CMhX6wPcqNNJJXSKmzYSKj4pIb6RAY3XpjmXHRcckrOTTW6getNZMLoiSM7Ce61KMAzpxrTXG3mMPAd3GhOf1PriWx2raJe90M0zdepE2GnqSj38SsKGP/NrUC9NerNptbE4FbPAfE9ygrSm6brBMTMf3g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790785404; c=relaxed/simple;
-	bh=nceXatrEWCmygsXY3y3udCQFDCjXJMDCyPp7BqiaTPw=;
+	s=arc-20240116; t=1790785410; c=relaxed/simple;
+	bh=w4K0OnoEsoldxzk6WE6DEj4iELxXqMJQ51lpk+Ojzp8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FZLDf+42l62P3kIQIFWZlgVMiHxS45pVS33GbJxS+z63REM3KORln4gGyLbkmNzlY0ZYPjYC4pmxQS6pnXEpJW5WG/LDuYrIkIJYVKZHH7qZ99ygTgM36o+fhiSCDdVpiYAWvAzEsjatLoUS6rcnjPBwtoeGCkP0GPxZslP6J7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=zRcNEqpp; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=aiqf1wcDumbkS8r9f1pp/ONW5l2TUTLiN/g6eHBhJ+7VNe9nJYgaQOV0Ovzq9HkEMPmcE04CXpf4uxyqI+Dtpa+5habOviWWCwcT55+cNBHBnSARbawlLleq9GHHKVqWitNfS0iNN+yLUpgs+/c9JkKxKb9Zl9SZY6GphoNUoKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Hx4B2aex; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="zRcNEqpp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 424241F00898;
-	Wed, 30 Sep 2026 16:23:18 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Hx4B2aex"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1D891F00898;
+	Wed, 30 Sep 2026 16:23:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790785398;
-	bh=7P3hxSjBCP+HkWSX1zbU1NJibY/Ga6bDh/Y1PxQXIQA=;
+	s=korg; t=1790785407;
+	bh=QAi+Z4P/aAEXHB4KSxwqKAc9+DaUxJN9ap40LdT2Gto=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=zRcNEqpp4SiVm1ZgNXExPjKsgXI5rpN8LeWQJqPJduMoEoOKtK0Q/5lRM+twD61oH
-	 4ylKHxSO+VpiY1kQIbibrBXxIpj8i8ImMTI16arTbE6tA7qt/lWTElX1LCaf76zvDP
-	 Jdwu/UymikPfZ414pMiiOgd2SrCkeGt8aq/xaVFI=
+	b=Hx4B2aexeWRhpkXMAKGUFmDd6QjFdkj/jGAiUe/GpCnbSv0H46muXg2F8n+Q+Dd1A
+	 sTbmrVvWcGjRXdb5bS/yGCL1bFUMhp7GmuS5FBkiFruS3btcp82lAc/TJbQzWJzGVD
+	 rylmubqep3rN8D9Lycb9QeI7M51fnQZwBxiplJzQ=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Linus Walleij <linusw@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 450/982] net: ethernet: cortina: No mapping is a dropped rx
-Date: Wed, 30 Sep 2026 17:19:46 +0200
-Message-ID: <20260930152426.459882754@linuxfoundation.org>
+Subject: [PATCH 6.1 453/982] drm/logicvc: Drop the select of the nonexistent CONFIG_DRM_KMS_DMA_HELPER
+Date: Wed, 30 Sep 2026 17:19:49 +0200
+Message-ID: <20260930152426.522465562@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
 References: <20260930152416.775402466@linuxfoundation.org>
@@ -51,39 +51,43 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Linus Walleij <linusw@kernel.org>
+From: Karl Mehltretter <kmehltretter@gmail.com>
 
-[ Upstream commit 2cb156213093a62b80cf40b1ec71738e93491971 ]
+[ Upstream commit f97802dd98b27e45c04293f9926f07642578b23f ]
 
-Increase stats.rx_dropped++ even if this is the first fragment
-(skb == NULL) so we are doing proper accounting.
+CONFIG_DRM_KMS_CMA_HELPER was removed by commit 09717af7d13d ("drm:
+Remove CONFIG_DRM_KMS_CMA_HELPER option"). When commit 6bcfe8eaeef0
+("drm/fb: rename FB CMA helpers to FB DMA helpers") later renamed the
+select in this Kconfig to CONFIG_DRM_KMS_DMA_HELPER, no symbol of that
+name existed, and git log -S finds no Kconfig file that has defined one
+since. The select is silently ignored. The driver already selects
+CONFIG_DRM_GEM_DMA_HELPER, which is what it needs.
 
-Fixes: b266bacba796 ("net: ethernet: cortina: Drop half-assembled SKB")
-Link: https://sashiko.dev/#/patchset/20260505-gemini-ethernet-fix-v2-1-997c31d06079%40kernel.org
-Signed-off-by: Linus Walleij <linusw@kernel.org>
-Link: https://patch.msgid.link/20260509-gemini-ethernet-fixes-v1-1-6c5d20ddc35b@kernel.org
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Stable-dep-of: 6520198c430c ("net: ethernet: cortina: Count RX drops once per frame")
+Remove the dead line.
+
+Fixes: 6bcfe8eaeef0 ("drm/fb: rename FB CMA helpers to FB DMA helpers")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Link: https://patch.msgid.link/20260905080344.34077-1-kmehltretter@gmail.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/cortina/gemini.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/logicvc/Kconfig | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/cortina/gemini.c b/drivers/net/ethernet/cortina/gemini.c
-index 62ddaf3e99775..85d476301f3ea 100644
---- a/drivers/net/ethernet/cortina/gemini.c
-+++ b/drivers/net/ethernet/cortina/gemini.c
-@@ -1500,9 +1500,9 @@ static unsigned int gmac_rx(struct net_device *netdev, unsigned int budget)
- 		gpage = gmac_get_queue_page(geth, port, mapping + PAGE_SIZE);
- 		if (!gpage) {
- 			dev_err(geth->dev, "could not find mapping\n");
-+			port->stats.rx_dropped++;
- 			if (skb) {
- 				napi_free_frags(&port->napi);
--				port->stats.rx_dropped++;
- 				skb = NULL;
- 				frag_nr = 0;
- 			}
+diff --git a/drivers/gpu/drm/logicvc/Kconfig b/drivers/gpu/drm/logicvc/Kconfig
+index 1df22a852a23e..283dca51e4bdd 100644
+--- a/drivers/gpu/drm/logicvc/Kconfig
++++ b/drivers/gpu/drm/logicvc/Kconfig
+@@ -3,7 +3,6 @@ config DRM_LOGICVC
+ 	depends on DRM
+ 	depends on OF || COMPILE_TEST
+ 	select DRM_KMS_HELPER
+-	select DRM_KMS_DMA_HELPER
+ 	select DRM_GEM_DMA_HELPER
+ 	select REGMAP
+ 	select REGMAP_MMIO
 -- 
 2.53.0
 
