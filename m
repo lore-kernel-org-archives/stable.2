@@ -1,37 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FCCE3B47C6;
-	Wed, 30 Sep 2026 15:59:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FABE3812DE;
+	Wed, 30 Sep 2026 15:59:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790783953; cv=none; b=ox1HEN79UbDzw9pxSmDBs7hi920ZRNaeXa+tU2u6pPWN18s8+rgy05/5EDXX3ZrgcxSPKGvmMMtSdbX9j6/XiWXkGwyuJKuW3G/HLAEL+GU0ml6u2e2M6HqN3CVwKfJ92nmE+Ysl9x4ADV+q0Jamp69zCueIurW1KLn3mW+fiTQ=
+	t=1790783960; cv=none; b=iwHy5Xl7JqcYZ71oB0eteOUu/WE8cQ3SLq+FV8rKF3nHqzJNnFKa3wPfCKAqr/zbPbLXNEWG0PZ7D+Fz8QWmPW8c51B5IAklLHrJ4/K/apNd2VVOhSKSmcuakIqAGuejs/52dqEy9DT4/M/mbk75pZnhgr1r9Z+uTvZf2iHwTSA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790783953; c=relaxed/simple;
-	bh=vFWlQVI+1A53ykIXnnYB2gi40NHg4UhJ0pw1lOrJ618=;
+	s=arc-20240116; t=1790783960; c=relaxed/simple;
+	bh=+mofqlR7uYgrWx8+JpbeqYicEzq/N9FnlGx+hX8U+f0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SbHzrKOaW1n5WgXlMEuwdcaohBV47yN2qqVqDtetwQx7ozURk6vmt4s7ojSv6C/d9v99t06Zn3N7OpfmsHqAkBDcYV+Iq+CQ6jntfcJzyOwPHaViindnQGtVeww3rSPd7IF0E+AVViLZ3xJeMkoBTR6WfVa1kz6RVIusRW1PP6g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Xxj+zPwT; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=RqlBWpSAZ2l0m4Ft+AxptFm5iEhCOcuW7P/SzgNmzdMFyfoKIRuOPMSYtGnR0ZPNVGRonVwSW859m+f9t3TIAvX7IeJX8foIekWbjMBcCmwynNuNLgsTqCAGNeGi9+dGaWre+AmTOc4jkaEHPTcsopJc0uLf5KdYOW+axbmFTYs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=F30Z3FVp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Xxj+zPwT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6E831F000FF;
-	Wed, 30 Sep 2026 15:59:05 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="F30Z3FVp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EB9D1F000FF;
+	Wed, 30 Sep 2026 15:59:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790783946;
-	bh=XCRJh2uwwKpSeigQ/f++2QD1SYwWeeAw9PArBOs1pHw=;
+	s=korg; t=1790783954;
+	bh=OLcgcwf9avrpZar/PHzQnReluCMqB0TQtfSdHlpBVQc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Xxj+zPwTgO+rwC9DLORFXPovTfHOEq1kKK8kpu7HBTa82/Cjdni7ybloVxte6wFhP
-	 tY64c5FC0XpNPRdaYByLKEBunKyRsGAkWNzuzTVrqpxa21H6xqwP6ejg/IKdIoSYHY
-	 yhKO3tttxWCSOmr9MshY7Lp9fuq0aAC/8Eqde+pg=
+	b=F30Z3FVpAomRTvAjejlk8CigqtlAR7NRB0ewMGzjKZYqvA2eaHUMgw7DLt+eZg57v
+	 CCK2VWcs+0qdgIcWHkYvzR7EOs/hweCl5TRLOFtq5Agp5na55wzfImmVL2b2gbuWXj
+	 jQ4uu/x1VzJPXXuF/NYZqJAwe7VwHhhbRNKXhugQ=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	=?UTF-8?q?Gajdos=20Tam=C3=A1s?= <tamas@rimpianto.com>,
-	Paolo Abeni <pabeni@redhat.com>
-Subject: [PATCH 5.10 577/595] net: atl1c: fix soft lockup on out-of-range tpd_cons read
-Date: Wed, 30 Sep 2026 17:27:50 +0200
-Message-ID: <20260930152400.143677514@linuxfoundation.org>
+	co+459f67f4d8af8ce6@bugs.sh,
+	Florian Westphal <fw@strlen.de>,
+	Weiming Shi <bestswngs@gmail.com>,
+	Pablo Neira Ayuso <pablo@netfilter.org>
+Subject: [PATCH 5.10 580/595] netfilter: ip6t_rpfilter: reject routes without inet6_dev
+Date: Wed, 30 Sep 2026 17:27:53 +0200
+Message-ID: <20260930152400.208582327@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152347.700140858@linuxfoundation.org>
 References: <20260930152347.700140858@linuxfoundation.org>
@@ -44,74 +46,73 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 5.10-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Gajdos Tamás <tamas@rimpianto.com>
+From: Weiming Shi <bestswngs@gmail.com>
 
-commit 36c2009d90f2210ef92e6f4f2850e8b57b09e754 upstream.
+commit 1b9b5323725e458906c7620a3bc10398b51ad954 upstream.
 
-The hardware can report an out-of-range tpd_cons (seen as 0xffff)
-while the PCIe link/MAC is resetting. An out-of-range value can
-never be reached and the loop below would spin forever. To avoid
-a soft lockup treat it as "nothing new to clean" instead.
+ip6_route_lookup() can return an error-free route whose rt6i_idev is
+NULL. Lowering an external nexthop device's MTU below IPV6_MIN_MTU tears
+down its inet6_dev while fib6_ifdown() leaves routes using nexthop objects
+in the FIB. An unprivileged user can construct this state with rtnetlink
+in a private user and network namespace, then trigger a NULL dereference
+through an IPv6 rpfilter lookup:
 
-Reproduced on two machines, same NIC (Qualcomm Atheros AR8151 v2.0,
-4-port), triggered by rebooting a Mikrotik CCR2004 PCIe card that
-the ports are directly linked to:
+  Oops: general protection fault, probably for non-canonical address
+  0xdffffc0000000000
+  KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+  RIP: rpfilter_mt (net/ipv6/netfilter/ip6t_rpfilter.c:75)
+  Call Trace:
+  ip6t_do_table (net/ipv6/netfilter/ip6_tables.c:316)
+  nf_hook_slow (net/netfilter/core.c:619)
+  ipv6_rcv (net/ipv6/ip6_input.c:351)
+  __netif_receive_skb_one_core (net/core/dev.c:6216)
+  process_backlog (net/core/dev.c:6680)
+  __napi_poll (net/core/dev.c:7739)
+  net_rx_action (net/core/dev.c:7959)
+  handle_softirqs (kernel/softirq.c:622)
+  do_softirq.part.0 (kernel/softirq.c:523)
+  __local_bh_enable_ip (kernel/softirq.c:450)
+  __dev_queue_xmit (net/core/dev.c:4913)
+  packet_sendmsg (net/packet/af_packet.c:3139)
+  __sys_sendto (net/socket.c:2252)
+  __x64_sys_sendto (net/socket.c:2259)
+  do_syscall_64 (arch/x86/entry/syscall_64.c:94)
+  entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+  Kernel panic - not syncing: Fatal exception in interrupt
 
-- Ubuntu 26.04.1 LTS, kernel 7.0.0-31-generic. The link-flap
-  precursor, before the lockup was captured with a full trace
-  elsewhere:
+Reject routes without an inet6_dev immediately after lookup. Such routes
+are not eligible for reverse-path filtering, and the check protects all
+later rt6i_idev dereferences.
 
-    atl1c 0000:05:00.0 enp5s0f0: NETDEV WATCHDOG: CPU: 4: transmit queue 2 timed out 489984 ms
-    atl1c 0000:05:00.0: MAC state machine can't be idle since disabled for 10ms second
-    atl1c 0000:05:00.0: atl1c: enp5s0f0 NIC Link is Up<65535 Mbps Full Duplex>
-
-  65535 (0xffff) here is the same value tpd_cons reads back once the
-  loop below gets stuck.
-
-- Proxmox VE, kernel 7.0.14-11-pve. Same NIC/trigger, this time
-  caught by the soft lockup watchdog with a full stack trace:
-
-    watchdog: BUG: soft lockup - CPU#12 stuck for 354s! [napi/eth%d-0:329]
-    CPU: 12 UID: 0 PID: 329 Comm: napi/eth%d-0 Tainted: P O L 7.0.14-11-pve #1 PREEMPT(lazy)
-    RIP: 0010:atl1c_clean_tx+0x142/0x2d0 [atl1c]
-    Call Trace:
-     <TASK>
-     __napi_poll+0x32/0x1e0
-     napi_threaded_poll_loop+0x286/0x2e0
-     napi_threaded_poll+0xfd/0x140
-     kthread+0xf7/0x130
-     ret_from_fork+0x2da/0x3a0
-     ret_from_fork_asm+0x1a/0x30
-     </TASK>
-
-Fixes: 43250ddd75a35d ("atl1c: Atheros L1C Gigabit Ethernet driver")
+Fixes: e26f9a480fb6 ("netfilter: add ipv6 reverse path filter match")
+Reported-by: co+459f67f4d8af8ce6@bugs.sh
+Closes: https://lore.kernel.org/all/VtWUkE8QzJt5CroTj2V2v3ZQ0gwbXZ7nq7I3@bugs.sh/
+Suggested-by: Florian Westphal <fw@strlen.de>
+Assisted-by: Claude:gpt-5
 Cc: stable@vger.kernel.org
-Signed-off-by: Gajdos Tamás <tamas@rimpianto.com>
-Link: https://patch.msgid.link/20260921091334.3571525-2-tamas@rimpianto.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/net/ethernet/atheros/atl1c/atl1c_main.c |    3 +++
- 1 file changed, 3 insertions(+)
+ net/ipv6/netfilter/ip6t_rpfilter.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---- a/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
-+++ b/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
-@@ -1545,6 +1545,9 @@ static bool atl1c_clean_tx_irq(struct at
+--- a/net/ipv6/netfilter/ip6t_rpfilter.c
++++ b/net/ipv6/netfilter/ip6t_rpfilter.c
+@@ -61,7 +61,7 @@ static bool rpfilter_lookup_reverse6(str
+ 		fl6.flowi6_oif = dev->ifindex;
  
- 	AT_READ_REGW(&adapter->hw, reg, &hw_next_to_clean);
+ 	rt = (void *)ip6_route_lookup(net, &fl6, skb, lookup_flags);
+-	if (rt->dst.error)
++	if (rt->dst.error || !rt->rt6i_idev)
+ 		goto out;
  
-+	if (unlikely(hw_next_to_clean >= tpd_ring->count))
-+		hw_next_to_clean = next_to_clean;
-+
- 	while (next_to_clean != hw_next_to_clean) {
- 		buffer_info = &tpd_ring->buffer_info[next_to_clean];
- 		if (buffer_info->skb) {
+ 	if (rt->rt6i_flags & (RTF_REJECT|RTF_ANYCAST))
 
 
