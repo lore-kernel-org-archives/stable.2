@@ -1,114 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A47CC52E047;
-	Wed, 30 Sep 2026 17:58:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 088114FB9C0
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 17:58:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790791083; cv=none; b=aHnHKO5jBbbFnBWo6vFcaMWCo6O9ZxvUoL55dxEBDOVy+OlWbZQUGqqsSr+f4EUYAQ76wvS1Poxr+7+MH41DTKJSAniDfN9rtFT/k3lDszkO7n3XfbO48MWqOA0as2T75jGTMGGB65ZJl1W2+gtLb4wAFzlnWkPuz4gwjOCP+2Q=
+	t=1790791084; cv=none; b=n4bY+CImqaGCVqqjt7iSdeeRF+7fiB2YrIHfQQszpYltXUPwWk1P0LrBgF0el8SURVosBooapLnefjhsRWkUnDbyAC3+EsQ9pD4EgZHQgkfr3W+Dl+eTlZrmfiggXRcWBdgRVeOUQjoa2zM7Kxlhz1pQ15eSRVor7TNNW/IHu7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790791083; c=relaxed/simple;
-	bh=xG5DUowCRPTg9958+OAd96ZSDUdJ90qW9HvCEOcJTVE=;
+	s=arc-20240116; t=1790791084; c=relaxed/simple;
+	bh=+PFS+aouN++FP99YakQlILPwOQI/3jQKdtAO9iLGUHc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gqg513TD3EzD38Cir+bdbn2FijbCUVIWgWnYj9VR26qX7THZJ5KnOr/Ddbzvk3G0oLTSGJYMoKUDLuccTxoK8aU7dSp+tAQ5pC6ig3iuOGZWL+PBXw3qiEWZW3tlV6UbR6LhHeIQNzDvvGFBD/rViwuG4E9ufl6ZgrEJK/2vY+Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vHEnT05q; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=rrnlltZoiubPY5Gfh6+ejMiK4PMoMy5wiqqm21oss4Bcp6l/f+ltY+5OzccJVs2Bl1fdY+/gYcI87a6vlIdqKs45sTgb6M+bo8mZN6XUiJwkWb2dxqFuffQUVJLZs1MjH3fFJu465b15lPQAeYuaBsKPDr7bxX7NEVcgyrgvrS0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dPulzSZe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vHEnT05q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 247DB1F000FF;
-	Wed, 30 Sep 2026 17:58:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790791082;
-	bh=oV33ms4+D7xbT2z38AswQl9i+qaDMlzO1uMem/SDjoo=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dPulzSZe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CE731F00898;
+	Wed, 30 Sep 2026 17:58:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790791082;
+	bh=87E7vMYo772e3km+LEm1s3fiVEmzicTNPx0S0gRh1VY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=vHEnT05quzzxUxR4XpzfOsDBnNviJuMDEMEDMUmD02GuMe9ZVeSCX71ZdGhR+uVt8
-	 iGWaMRQpK++gQtyXFRVBO62eqfmX0rGyCqCgvxhbWmIEHP1SPas8xNKgWjwyJ0xDoC
-	 vjHEVv8PMkRrgFZ4VVEnrXEcRIZkXIVoT0MGXbpg=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=dPulzSZeqlc586es5T1PiFO+CWlYHJdAWSM2+y8tI783R7VWCzFQZXkiE51t7uk45
+	 DCdX6b+ebxp9BF5CiUhggfPqBSvl6+tGgUQGBh3Jo5Jz7HGSuI0T0F8ZLV0pcW3JqE
+	 X7lcFWVrAOsmr95WRL4/O8XDpTL7JL69OZqO0C+C1qGj6syKEpcXCktVkky2IQ/Vlr
+	 fyct318yHmvVyJFPbiyteqdDCOPSWh37O/T1ET/k2vI9/BtvQQ4neLnPdSUoSqrgYi
+	 V82lYeJrkY40Kj1gFc13ZwGQzHM1oAYpirEWd+ejOL+ZcQUkXmqeIUydIBVuH6GeEv
+	 vpJDtgVkWCwgQ==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Xu Rao <raoxu@uniontech.com>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Niklas Cassel <cassel@kernel.org>,
+Cc: "Darrick J. Wong" <djwong@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Carlos Maiolino <cem@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15 136/752] ata: libata-pmp: add JMicron JMS562 quirk
-Date: Wed, 30 Sep 2026 17:20:06 +0200
-Message-ID: <20260930152401.121906311@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260930152358.131179731@linuxfoundation.org>
-References: <20260930152358.131179731@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.12.y] xfs: don't let memory failures leak blocks and kill repairs
+Date: Wed, 30 Sep 2026 13:58:00 -0400
+Message-ID: <20260930175800.3938387-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026092928-handstand-epidermal-33bb@gregkh>
+References: <2026092928-handstand-epidermal-33bb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-5.15-stable review patch.  If anyone has any objections, please let me know.
+From: "Darrick J. Wong" <djwong@kernel.org>
 
-------------------
+[ Upstream commit ab1c416d2377cdc16123ef521aac4da1c468c3d4 ]
 
-From: Xu Rao <raoxu@uniontech.com>
+LOLLM complains that a memory allocation failure in
+xrep_newbt_add_blocks results in online repair leaking blocks that were
+previously allocated to write a new btree, but the problem is worse than
+that -- a limitation of the codebase is that the callers cannot undo the
+transaction /and/ return the error -- either you undo all changes and
+commit the transaction, or you error out and the filesystem goes down.
 
-[ Upstream commit c62aff1174cf88e10716c7513702443c47551fc6 ]
+However, the new btree space reservation object isn't that big (~48
+bytes).  Let's just do a NOFAIL allocation and the problem goes away.
 
-JMicron JMS562, as used in QNAP QDA-A2AR RAID1 adapters, may
-keep the exported ATA device not ready while the array is rebuilding.
-
-In this state, libata may repeatedly try to softreset and classify
-the fan-out link.  On the affected adapter, this can time out, make
-PMP/SCR access fail, and eventually disable the fan-out link before
-the RAID volume is exported.
-
-A failing boot shows the fan-out link failing SRST, PMP access
-timing out, SCR read failing, and the link being disabled:
-
-  ata4.00: softreset failed (device not ready)
-  ata4.15: qc timeout after 3000 msecs (cmd 0xe4)
-  ata4.00: failed to read SCR 0 (Emask=0x4)
-  ata4.00: failed to recover link after 3 tries, disabling
-
-After that, the root filesystem on the exported RAID volume cannot
-be found.
-
-Add JMS562 to the existing JMicron PMP quirk that disables LPM,
-avoids softreset on fan-out links, and assumes an ATA device.  This
-prevents libata from dropping the exported RAID volume during rebuild
-recovery.
-
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
-Signed-off-by: Niklas Cassel <cassel@kernel.org>
+Cc: stable@vger.kernel.org # v6.8
+Fixes: be408417630427 ("xfs: implement block reservation accounting for btrees we're staging")
+Signed-off-by: Darrick J. Wong <djwong@kernel.org>
+Assisted-by: LOLLM # finding obvious bugs
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+[ Changed kmalloc_obj() to kmalloc(sizeof(struct xrep_newbt_resv), ...) to preserve the branch’s existing allocation syntax. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/ata/libata-pmp.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ fs/xfs/scrub/newbt.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/ata/libata-pmp.c b/drivers/ata/libata-pmp.c
-index ba7be3f386171..5347ed88f6386 100644
---- a/drivers/ata/libata-pmp.c
-+++ b/drivers/ata/libata-pmp.c
-@@ -446,8 +446,13 @@ static void sata_pmp_quirks(struct ata_port *ap)
- 		 * otherwise.  Don't try hard to recover it.
- 		 */
- 		ap->pmp_link[ap->nr_pmp_links - 1].flags |= ATA_LFLAG_NO_RETRY;
--	} else if (vendor == 0x197b && (devid == 0x2352 || devid == 0x0325)) {
-+	} else if (vendor == 0x197b &&
-+		   (devid == 0x0562 || devid == 0x2352 || devid == 0x0325)) {
- 		/*
-+		 * 0x0562: JMicron JMS562, as used in QNAP QDA-A2AR RAID1
-+		 *         adapters.  The exported device may stay not ready
-+		 *         while the array is rebuilding, and SRST/classify can
-+		 *         time out before the RAID volume is exported.
- 		 * 0x2352: found in Thermaltake BlackX Duet, jmicron JMB350?
- 		 * 0x0325: jmicron JMB394.
- 		 */
+diff --git a/fs/xfs/scrub/newbt.c b/fs/xfs/scrub/newbt.c
+index 2aa14b7ab6306..1e362e6eb87a0 100644
+--- a/fs/xfs/scrub/newbt.c
++++ b/fs/xfs/scrub/newbt.c
+@@ -147,9 +147,11 @@ xrep_newbt_add_blocks(
+ 	struct xrep_newbt_resv		*resv;
+ 	int				error;
+ 
+-	resv = kmalloc(sizeof(struct xrep_newbt_resv), XCHK_GFP_FLAGS);
+-	if (!resv)
+-		return -ENOMEM;
++	/*
++	 * We have no way to clean up the allocated space *and* return an
++	 * ENOMEM if we fail to allocate this control structure.
++	 */
++	resv = kmalloc(sizeof(struct xrep_newbt_resv), GFP_KERNEL | __GFP_NOFAIL);
+ 
+ 	INIT_LIST_HEAD(&resv->list);
+ 	resv->agbno = XFS_FSB_TO_AGBNO(mp, args->fsbno);
 -- 
 2.53.0
-
-
 
