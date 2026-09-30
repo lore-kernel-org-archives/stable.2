@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3A8351E446;
-	Wed, 30 Sep 2026 17:34:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C55D51DE1B;
+	Wed, 30 Sep 2026 17:34:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790789654; cv=none; b=gg81PdCC2e7bvIKJHwPfHQp2g3Sp7KhmLbp9nMCKFiRHDnnGhy5Tkhfa+ZCYlAINyETJf4SDwjFnRW+tiDdeSDtMMz35xfz4YZz6wIt0TNfiWoA8zBxXq6VQrLWPyh4snwq5nfanzBDfghCEdAU++mXqhRWOW6IbHYuNCjZBs5U=
+	t=1790789654; cv=none; b=IYxzVgRoND3M2rczVwflUoz6a/20Zs3/mfuUUrJK9SHctndGTRfqVSBYKy41ja1wMOXoCXY6CCnzNru7/Y+tC6iQr+wOjOUnHAiQzKwScEA8w/Ej8hOimFWYEnXboaqz01gtoWtC6DgVRjiWkG5wKeR9g3DqszZ8F8EUMuvZTI0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790789654; c=relaxed/simple;
-	bh=A/q1BZk63kvj0vI+F8PB0Zv1pQ/E4YxFw1TtGf2ZH1o=;
+	bh=tSun6CEga66uu4c5qR7C6gyzIPJzp12kCZqLRTku4kI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gv6OaAFVTRBDK03c7cLnxaqcJJHgO6QJdNjNHT+PuNtf6qI5W1xRiMu0KIaX4pgUIoXAkuLNI7vJAu7e8IJryQL86COk01VWN/UXba9QPwGg/LSQHugv4WgSoYJOGnsuzD05wOYrdFF9HCUatTYSHmE1hhO5QloKsnQdWpRcCqQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=rjFQ9jKS; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=UqB02Fjrwy6mYBsaM++yQIhjOWzjZO1JOKYVD93TdpHnqv7QQMLUeedNjhM5k+GEQ2KVpTF84ZPgepFHnaa54w7Yv21OVVuSJTRKXDyAz84W6vHB04EwQboZzlzCbX/05rZwdAXvoIEcBnI6Wkdiw6wVp8eclVCbYvhjd6fxBC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QFRC0V9o; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="rjFQ9jKS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FF771F00898;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QFRC0V9o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A45B1F0089A;
 	Wed, 30 Sep 2026 17:34:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790789652;
-	bh=dJgrMWwdKbIcsRzoO6bzynViKmcZAfGkVD66bmTymrc=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790789652;
+	bh=0kke2jjjpfTjOajAHDwyfsWeVx21CXeMIbgHAdZrMmk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=rjFQ9jKSpF7E2hUYoMCb1/84Ssu26+L1IUSQY9skXHkoIyOuRQK+xBIWbBt8E6GzC
-	 VDwt5AVTWGOjnmBVLIZmto/mBD18kXZQTnR1P1VwoGwvzMnsoyVRixW9c7fLHQlxyd
-	 JxwyyNAgiTMgR9+8VphptQ9x2LzBBseYNSLPwFbY=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=QFRC0V9oVMeN0MJhjGz0q7L4QE1I3i1HA+yAQH4T1DRQ3gsb6AWWeYJnJ6BYS5Lqw
+	 bNvz+4uLvbjAoWpu11FEQCljqwWgpQ5SjIVA6uP3hOu7Dx2SZvmapuEGf3UqIt6pDW
+	 gT52gQpXmuNCZMUjyepSy+AUEPnMGueTYtVcSk2qRI7nrfDhOQXiGRQYCmWZPvx5lm
+	 YUAgtJzd1Ftzq+DavdMWzrQ/yc2H1CczM8f7I8WQxHBz8e2piWTn4nt3GxbVdVQca5
+	 cePbDHQJUm0I/fVh2zMoG28GSEy/Wg5G6E2WYh9U3k8eoXRZ+cHWtTh9Vy2dAuXMVw
+	 1QrdBRHv81gYA==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Carlos Maiolino <cem@kernel.org>
-Subject: [PATCH 6.12 554/877] xfs: drop dquot flush lock when we cant find a buffer to flush
-Date: Wed, 30 Sep 2026 17:24:25 +0200
-Message-ID: <20260930152426.598291693@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260930152414.738996857@linuxfoundation.org>
-References: <20260930152414.738996857@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: David Howells <dhowells@redhat.com>,
+	"Paulo Alcantara (Red Hat)" <pc@manguebit.org>,
+	linux-cifs@vger.kernel.org,
+	Steve French <stfrench@microsoft.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/3] cifs: Fix specification of function pointers
+Date: Wed, 30 Sep 2026 13:34:08 -0400
+Message-ID: <20260930173409.3642584-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260930173409.3642584-1-sashal@kernel.org>
+References: <2026092926-hedging-absolve-77a2@gregkh>
+ <20260930173409.3642584-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,56 +48,101 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+From: David Howells <dhowells@redhat.com>
 
-------------------
+[ Upstream commit 6a86a4cc281a5cfceda7af60ea6fa506b3db7430 ]
 
-From: Darrick J. Wong <djwong@kernel.org>
+Change the mid_receive_t, mid_callback_t and mid_handle_t function pointers
+to have the pointer marker in the typedef.
 
-commit ffb48dccce1960a9ea24463a2f3c21d124d6b672 upstream.
-
-LOLLM noticed that xfs_qm_flush_one fails to drop the dquot flush lock
-if it can't grab the buffer associated with the dquot.  Since there's no
-buffer, nobody else is going to drop the dqflock, so we need to do it
-ourselves.
-
-Cc: stable@vger.kernel.org # v6.13
-Fixes: ca378189fdfa89 ("xfs: convert quotacheck to attach dquot buffers")
-Signed-off-by: Darrick J. Wong <djwong@kernel.org>
-Assisted-by: LOLLM # finding obvious bugs
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: David Howells <dhowells@redhat.com>
+Reviewed-by: Paulo Alcantara (Red Hat) <pc@manguebit.org>
+cc: linux-cifs@vger.kernel.org
+Signed-off-by: Steve French <stfrench@microsoft.com>
+Stable-dep-of: 8f6f8a48399f ("smb: client: delete compound mids on send failure before unlock")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/xfs/xfs_qm.c |   10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ fs/smb/client/cifsglob.h  | 12 ++++++------
+ fs/smb/client/cifsproto.h |  8 ++++----
+ fs/smb/client/transport.c |  4 ++--
+ 3 files changed, 12 insertions(+), 12 deletions(-)
 
---- a/fs/xfs/xfs_qm.c
-+++ b/fs/xfs/xfs_qm.c
-@@ -1317,16 +1317,22 @@ xfs_qm_flush_one(
+diff --git a/fs/smb/client/cifsglob.h b/fs/smb/client/cifsglob.h
+index 1837f4820bd67..ae67ff3743fe2 100644
+--- a/fs/smb/client/cifsglob.h
++++ b/fs/smb/client/cifsglob.h
+@@ -1663,7 +1663,7 @@ static inline void cifs_stats_bytes_read(struct cifs_tcon *tcon,
+  * Returns zero on a successful receive, or an error. The receive state in
+  * the TCP_Server_Info will also be updated.
+  */
+-typedef int (mid_receive_t)(struct TCP_Server_Info *server,
++typedef int (*mid_receive_t)(struct TCP_Server_Info *server,
+ 			    struct mid_q_entry *mid);
  
- 	error = xfs_dquot_use_attached_buf(dqp, &bp);
- 	if (error)
--		goto out_unlock;
-+		goto out_dqflock;
- 	if (!bp) {
- 		error = -EFSCORRUPTED;
--		goto out_unlock;
-+		goto out_dqflock;
- 	}
+ /*
+@@ -1674,13 +1674,13 @@ typedef int (mid_receive_t)(struct TCP_Server_Info *server,
+  * - it will be called by cifsd, with no locks held
+  * - the mid will be removed from any lists
+  */
+-typedef void (mid_callback_t)(struct mid_q_entry *mid);
++typedef void (*mid_callback_t)(struct mid_q_entry *mid);
  
- 	error = xfs_qm_dqflush(dqp, bp);
- 	if (!error)
- 		xfs_buf_delwri_queue(bp, buffer_list);
- 	xfs_buf_relse(bp);
-+	mutex_unlock(&dqp->q_qlock);
-+	xfs_qm_dqrele(dqp);
-+	return error;
-+
-+out_dqflock:
-+	xfs_dqfunlock(dqp);
- out_unlock:
- 	xfs_dqunlock(dqp);
- 	return error;
-
+ /*
+  * This is the protopyte for mid handle function. This is called once the mid
+  * has been recognized after decryption of the message.
+  */
+-typedef int (mid_handle_t)(struct TCP_Server_Info *server,
++typedef int (*mid_handle_t)(struct TCP_Server_Info *server,
+ 			    struct mid_q_entry *mid);
+ 
+ /* one of these for every pending CIFS request to the server */
+@@ -1698,9 +1698,9 @@ struct mid_q_entry {
+ 	unsigned long when_sent; /* time when smb send finished */
+ 	unsigned long when_received; /* when demux complete (taken off wire) */
+ #endif
+-	mid_receive_t *receive; /* call receive callback */
+-	mid_callback_t *callback; /* call completion callback */
+-	mid_handle_t *handle; /* call handle mid callback */
++	mid_receive_t receive;	/* call receive callback */
++	mid_callback_t callback; /* call completion callback */
++	mid_handle_t handle;	/* call handle mid callback */
+ 	void *callback_data;	  /* general purpose pointer for callback */
+ 	struct task_struct *creator;
+ 	void *resp_buf;		/* pointer to received SMB header */
+diff --git a/fs/smb/client/cifsproto.h b/fs/smb/client/cifsproto.h
+index bde609041433d..e4386c109a7bd 100644
+--- a/fs/smb/client/cifsproto.h
++++ b/fs/smb/client/cifsproto.h
+@@ -97,10 +97,10 @@ extern int cifs_ipaddr_cmp(struct sockaddr *srcaddr, struct sockaddr *rhs);
+ extern bool cifs_match_ipaddr(struct sockaddr *srcaddr, struct sockaddr *rhs);
+ extern int cifs_discard_remaining_data(struct TCP_Server_Info *server);
+ extern int cifs_call_async(struct TCP_Server_Info *server,
+-			struct smb_rqst *rqst,
+-			mid_receive_t *receive, mid_callback_t *callback,
+-			mid_handle_t *handle, void *cbdata, const int flags,
+-			const struct cifs_credits *exist_credits);
++			   struct smb_rqst *rqst,
++			   mid_receive_t receive, mid_callback_t callback,
++			   mid_handle_t handle, void *cbdata, const int flags,
++			   const struct cifs_credits *exist_credits);
+ extern struct TCP_Server_Info *cifs_pick_channel(struct cifs_ses *ses);
+ extern int cifs_send_recv(const unsigned int xid, struct cifs_ses *ses,
+ 			  struct TCP_Server_Info *server,
+diff --git a/fs/smb/client/transport.c b/fs/smb/client/transport.c
+index 0d55714116a4b..4fedc4a845435 100644
+--- a/fs/smb/client/transport.c
++++ b/fs/smb/client/transport.c
+@@ -659,8 +659,8 @@ int wait_for_response(struct TCP_Server_Info *server, struct mid_q_entry *midQ)
+  */
+ int
+ cifs_call_async(struct TCP_Server_Info *server, struct smb_rqst *rqst,
+-		mid_receive_t *receive, mid_callback_t *callback,
+-		mid_handle_t *handle, void *cbdata, const int flags,
++		mid_receive_t receive, mid_callback_t callback,
++		mid_handle_t handle, void *cbdata, const int flags,
+ 		const struct cifs_credits *exist_credits)
+ {
+ 	int rc;
+-- 
+2.53.0
 
