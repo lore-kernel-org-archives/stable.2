@@ -1,47 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 363B41A5B9E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EABC261B71
 	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 00:20:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790727630; cv=none; b=fzrrbZsMmt50YcZqyV4H4waV32S5ssh59UmrOGVrs6Q+zDoW6QXiXwJwhORitnqb8v+NmQ3fh3YFLC37H2tt7pSIPR+0HsGpjOt/2HDkkExnhgtQAhCCgjo+EAAYTwJ2Wa71RqOxCJbD5jwrbC3CQ+clVV9G9Byy+WGGBOVYbxE=
+	t=1790727632; cv=none; b=QYHVoPyHEmEPjtoMVc7zAYFb4HRii0ABU/nIihtP76N74km4ox0QWAxjr3DJfOsaaQKCHxeCQIIh4VhUwjtDo8TrNMDCADVMhkN4O6c4cSYn2u4KnC1cQBVfYxdAiGHwCVeFFhA+BT1qyymkp4vkTCQdnuchzo9zao38fQOJyow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790727630; c=relaxed/simple;
-	bh=FJY8Ql2GDKgYntz4gsL5x8QiNErJZscacZpAiU9tgbQ=;
+	s=arc-20240116; t=1790727632; c=relaxed/simple;
+	bh=gWQww5V76Wk9Oa4Lnut11da8VCsJCDjuaDXmnZkU7BU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BTewTaZHTtKSi9DjNqcAP9Hcr+yP6+KNfnHrjjd9b/xcbQRvDFL3NIsLCPScwDVJY/148rhQmzW0jO0OdGASJAaxT+Bxi7EQYwgIWlWZbpLK0kSMgRYC8F9ewnjPWFALpfsyzSEYe8aeAUANv9XItETKUVeCeeMbGkumfj19FZU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oyHHHTR+; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=RllyJ1cC+zcNs+ui8o09+oqi02ph6EajoQ5FRa99AQTifrpFeAjsg0IZfqzufAInbI70RwcN2H3pAQ45Ifj6u7OaeFQrlRC7+xaARNbVypRx8dgSE/ypgSTDgmLxCpzH7sBcbZgPa3aAelwUTVT55S3P3B7lrF9K5om0RxpA0b8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iVJiw6ja; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oyHHHTR+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 479491F000FF;
-	Wed, 30 Sep 2026 00:20:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iVJiw6ja"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AA2D1F00893;
+	Wed, 30 Sep 2026 00:20:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1790727629;
-	bh=DGxYWVQlyUr9Lxl8AQyVcIS0Tq6FjJH4qbpYLCE1FBY=;
+	bh=CZncWslQ6z/LMT4/2sRx7I8VRqoKfdQqKJA8qi6B/RU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oyHHHTR+TXovqQVgNLF6VjhUBRzXsiTucXNN8rvDXICGL/HKgpHBvQVaNOBvn4Wfe
-	 ajfNbEL39PguNzhPg5t5xu5X4pF7/73Ql8vZmFgZS7bMXW0dE8nzvBnnP9N9T4de8n
-	 9Jh+AN6wyntYtg9viqsRo3hJenBnYqlVAhhMD+s3uUoqtwFOrn8ySzUaDUMflAFJqN
-	 3iBGIBG73GYjptIHscq2bq71l1sBUuQCjwjlNCPanCr7T6cNWd+W76v8VUTeebDVBY
-	 C085UMtgFo0aHMn5lCCdWLLsYSxJDPh4aU83xfzeteDoqckrsxdniuvp83+JpRwFGC
-	 Kqa3k76ZQnLjg==
+	b=iVJiw6jaxzQgwVkiu4aCRSUxvmbyQaOIUdTWVRUT25KTBcALxBvvu54RICyyF980n
+	 kWlrZNqy11vT0XpA1Hxm0kR0sQ2Zn+KQ+WJujFdfZiLuSVwDQofzwAXN8jtPLZkodC
+	 NqmmBzOk+VpC1gMTKHlt6Hj1ONm6h+szdaA2Pq08ZLqNoxytYSRUY+glkIih9sGgep
+	 wmYanG87+HXCiChs8QoWgQMFR0jRX/REdYkLEA6433Qqs3Y1yvaWyGBA6T25MLEPrP
+	 ezFoXZnYU7apTn0NE2VR/eQcwAV1HVYg5pHLaXUmIkWkPOCQu7drc16X/0/QoUwpzQ
+	 XxgTi6COQn8kQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ilya Maximets <i.maximets@ovn.org>,
-	Axel Mierczuk <axel.mierczuk@1password.com>,
-	Aaron Conole <aconole@redhat.com>,
-	Xin Long <lucien.xin@gmail.com>,
-	Jamal Hadi Salim <jhs@mojatatu.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Bastien Nocera <hadess@hadess.net>,
+	Jiri Kosina <jkosina@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] net/sched: act_ct: avoid modifying shared unconfirmed ct entry
-Date: Tue, 29 Sep 2026 20:20:25 -0400
-Message-ID: <20260930002025.2934307-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] HID: hid-alps: Use pm_ptr instead of #ifdef CONFIG_PM
+Date: Tue, 29 Sep 2026 20:20:26 -0400
+Message-ID: <20260930002027.2934444-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260930002025.2934307-1-sashal@kernel.org>
-References: <2026092927-flatness-surprise-1efc@gregkh>
- <20260930002025.2934307-1-sashal@kernel.org>
+In-Reply-To: <2026092955-onto-scouring-df20@gregkh>
+References: <2026092955-onto-scouring-df20@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,108 +45,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ilya Maximets <i.maximets@ovn.org>
+From: Bastien Nocera <hadess@hadess.net>
 
-[ Upstream commit f85009dfcd65e5969526b0db7a49b5413746e630 ]
+[ Upstream commit 5e130f58629a2819c9d053507ad368160d25eb65 ]
 
-In a case where skb with an unconfirmed ct entry gets cloned, we may
-end up processing both again but with different sets of extensions.
+This increases build coverage and allows to drop an #ifdef.
 
-The series of events:
-
- 1. The first clone wants to commit and runs the helpers wiring up
-    the extension pointer into the expectation list.
- 2. Then it looses the confirmation keeping the entry unconfirmed.
- 3. Second clone now wants to commit labels or run NAT and adds the
-    new extension for that breaking the pointer in the expectation
-    list causing UAF on the destruction path later.
-
-While this is possible to trigger, there should be no practical
-network pipeline where we need to process both clones without
-modifications in the same zone.  So, let's just reset the entry in
-case for some reason we got an skb with a shared one.  This doesn't
-affect any known use cases, but avoids any potential problems with
-sharing and modification of the unconfirmed ct entry.
-
-Unlike openvswitch module, act_ct allows for NAT without commit.
-Changing that would be a uAPI break.  So, act_ct needs to reset on NAT
-regardless of the commit flag to avoid reallocation of the extension
-space.  This, however, doesn't really change the picture for sensible
-networking cases as there should be no need to run the same packet
-twice (before and after the clone) through conntrack without packet
-header or zone changes and without commit.
-
-The fixes tag points to the introduction of helpers, since that's the
-main UAF trigger for the sharing.
-
-Fixes: a21b06e73191 ("net: sched: add helper support in act_ct")
-Cc: stable@vger.kernel.org
-Reported-by: Axel Mierczuk <axel.mierczuk@1password.com>
-Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
-Reviewed-by: Aaron Conole <aconole@redhat.com>
-Reviewed-by: Xin Long <lucien.xin@gmail.com>
-Reviewed-by: Jamal Hadi Salim <jhs@mojatatu.com>
-Link: https://patch.msgid.link/20260921145655.3167436-5-i.maximets@ovn.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Bastien Nocera <hadess@hadess.net>
+Signed-off-by: Jiri Kosina <jkosina@suse.com>
+Stable-dep-of: aa9dde93e05a ("HID: alps: unregister DualPoint Stick input device on remove")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sched/act_ct.c | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+ drivers/hid/hid-alps.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/net/sched/act_ct.c b/net/sched/act_ct.c
-index cbac27ba76afc..931ea6e99505b 100644
---- a/net/sched/act_ct.c
-+++ b/net/sched/act_ct.c
-@@ -978,11 +978,11 @@ TC_INDIRECT_SCOPE int tcf_ct_act(struct sk_buff *skb, const struct tc_action *a,
- 				 struct tcf_result *res)
- {
- 	struct net *net = dev_net(skb->dev);
-+	bool cached, commit, clear, nat;
- 	enum ip_conntrack_info ctinfo;
- 	struct tcf_ct *c = to_ct(a);
- 	struct nf_conn *tmpl = NULL;
- 	struct nf_hook_state state;
--	bool cached, commit, clear;
- 	int nh_ofs, err, retval;
- 	struct tcf_ct_params *p;
- 	bool add_helper = false;
-@@ -997,6 +997,7 @@ TC_INDIRECT_SCOPE int tcf_ct_act(struct sk_buff *skb, const struct tc_action *a,
- 	retval = p->action;
- 	commit = p->ct_action & TCA_CT_ACT_COMMIT;
- 	clear = p->ct_action & TCA_CT_ACT_CLEAR;
-+	nat = p->ct_action & TCA_CT_ACT_NAT;
- 	tmpl = p->tmpl;
+diff --git a/drivers/hid/hid-alps.c b/drivers/hid/hid-alps.c
+index 8c3f83532ce92..67179e3fe39b7 100644
+--- a/drivers/hid/hid-alps.c
++++ b/drivers/hid/hid-alps.c
+@@ -843,10 +843,8 @@ static struct hid_driver alps_driver = {
+ 	.raw_event		= alps_raw_event,
+ 	.input_mapping		= alps_input_mapping,
+ 	.input_configured	= alps_input_configured,
+-#ifdef CONFIG_PM
+-	.resume			= alps_post_resume,
+-	.reset_resume		= alps_post_reset,
+-#endif
++	.resume			= pm_ptr(alps_post_resume),
++	.reset_resume		= pm_ptr(alps_post_reset),
+ };
  
- 	tcf_lastuse_update(&c->tcf_tm);
-@@ -1045,6 +1046,19 @@ TC_INDIRECT_SCOPE int tcf_ct_act(struct sk_buff *skb, const struct tc_action *a,
- 	 * different zone.
- 	 */
- 	cached = tcf_ct_skb_nfct_cached(net, skb, p);
-+
-+	/* If the ct entry is not confirmed and shared with some other skb,
-+	 * e.g., a cloned one, we can't just modify it with a commit or nat
-+	 * as we must not modify the extension set.  Reset.
-+	 */
-+	if (cached && (commit || nat)) {
-+		ct = nf_ct_get(skb, &ctinfo);
-+		if (ct && !nf_ct_is_confirmed(ct) && nf_ct_shared(ct)) {
-+			nf_reset_ct(skb);
-+			cached = false;
-+		}
-+	}
-+
- 	if (!cached) {
- 		if (tcf_ct_flow_table_lookup(p, skb, family)) {
- 			skip_add = true;
-@@ -1082,7 +1096,7 @@ TC_INDIRECT_SCOPE int tcf_ct_act(struct sk_buff *skb, const struct tc_action *a,
- 		if (err)
- 			goto drop;
- 		add_helper = true;
--		if (p->ct_action & TCA_CT_ACT_NAT && !nfct_seqadj(ct)) {
-+		if (nat && !nfct_seqadj(ct)) {
- 			if (!nfct_seqadj_ext_add(ct))
- 				goto drop;
- 		}
+ module_hid_driver(alps_driver);
 -- 
 2.53.0
 
