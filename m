@@ -1,373 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E526F4DDB44
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 13:48:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9024C4F4059
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 13:49:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.145
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790776106; cv=none; b=o1M6pqFy4LvqKx5NyR5X/BYU6GwHe4Md9f6CbXertP4AYDeJBM+gaXUTPR4HOjSjA0Hjc+SeEo+PpjerD83aKUKXfecIQMaoy7QyFjW8d10vhmhrBLd8UcdjoFlcep7c/v22pru7abD1ZCYIVubP9gX7kZajQSGihe8alGzHpI4=
+	t=1790776166; cv=none; b=VwKoUya/ND70rapGug42fldNx/9f1NZRjuPfY01PRo/GdzaIaTjx5UBBR4oJ3KPXZo/9tZY24AtEXgP6aRmE1pm6fXT2WBZQwSeeiAezEDUzvRueg/jJK32n4/moj75V++pkOLS89KMNVm27qN4AJ1vX3iNOJHz2Xsj5G6ZWWIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790776106; c=relaxed/simple;
-	bh=dnctfDXlB+ckrc5EJLQXpVE+qLgjJd9/Cj+ci6fcGlY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JIbgwyIDGP+/Dft8Feg6SHvRjd6Bg13oKJixyE5YsPsJssxOkMz54ZEPE61p2jSxnFbCm0W20D0J3PC5py60yyobZqXYOrqmP9XhtzzcK2oTxSnF+nm4zr/ZtT5JZxGnXPgsx1gmkvlToSqG4uISh8iuePoc52n4u+dym7AC0KQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eakbd2oK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790776166; c=relaxed/simple;
+	bh=1HeYn2vBqBt7mSWjMrFVCHOgMQtHR0UpPOpmpCl+Yuc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qFQ6T7XnJEMSqByDW7l0SEsuifVABUnV15IvMhGzIaHE/DZcDOarHTaOdPfjLOfSBJzNSYC3HdNdYVBgPrFJvJBj1B+O0EuWv/p8RYWKvhIFwqoone/O/dW5qLG7yBQ61tjoQZxm06p107YhLjLX/H3NzkAKwRdTaPIz0Oj1iE8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=E0KwRFtv; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=JadpYvZd; arc=none smtp.client-ip=202.12.124.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eakbd2oK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1F191F0089C;
-	Wed, 30 Sep 2026 13:48:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790776083;
-	bh=oTQ8wp7hhumWlgPz4BlFTaO0yRBEi7fzr0Qln/MoX6A=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eakbd2oK7F+WCkIts/oDvPXH9XnGII7FtLhiGGgzIB901HJpyximv+ytw5kUNuXxk
-	 KFoBHBUQ1SdqsLoC/UbW+ZlyutWZsyIal9q0puyrUI0H3knShFcbV+SHtNRX/HE1Mi
-	 +lzvMc0OAr2+1pSQKbEbWMp9Di2QDcUiGgcsLA0ezT7Hkat9TxJUmB3B70RSMxlCcl
-	 W0jaB1X8C9LFEYLkJwr2sIrPT3c44KZUo09Nij7IUgdt3wiEFngoG9855X+Zzq7Uv0
-	 FkJweFRxP4YaoBSTLIUgbVXkfgPgQOWS+ftdu1iTae+96qBg+UHbNyKg5vJfCvMFQR
-	 hcnRLyzP42YlQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 5/6] KVM: x86: Add static calls for nested virtualization ops
-Date: Wed, 30 Sep 2026 09:47:56 -0400
-Message-ID: <20260930134757.1797371-5-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260930134757.1797371-1-sashal@kernel.org>
-References: <2026092938-mantis-spearfish-5a96@gregkh>
- <20260930134757.1797371-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="E0KwRFtv";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="JadpYvZd"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfout.stl.internal (Postfix) with ESMTP id A131A1D006C6;
+	Wed, 30 Sep 2026 09:49:10 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Wed, 30 Sep 2026 09:49:10 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1790776150;
+	 x=1790862550; bh=cmYPuBEprU7f9+AdD7zMdKvAWh7vzcegmqS82LCYVUU=; b=
+	E0KwRFtvM0Ij+jeUjUScGddVFHrIrNoBLI5VNS3cOn8DRa+P7C/3t0R/yQjlVR97
+	C1jIARrAkWpJYlZ9Y887PD6kh7U7MzO+8LxP2Qfi4o8rVzhIPp6qeiYurADgn6Iy
+	L+4o4m0ji5s3sflVTK9osRzDbBF/gABZIeY2z9q/PYKP7P4sCBDQ5ppFE9NNvdUQ
+	vfDzLQ24wSWH/69s8dE/5Y7JyXPNOKIZRJ7nIeuvvJb8bDaOF+r2fXzZJF8h+tQm
+	tzBQu3/pfRoRnagiFmGHxzFc266/BBi7lprdNnwIOO49Yo7PWp7eywmyUsI3k3sp
+	lHdLA6dDVukfEugHuxkdDA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790776150; x=
+	1790862550; bh=cmYPuBEprU7f9+AdD7zMdKvAWh7vzcegmqS82LCYVUU=; b=J
+	adpYvZd++noUTgxWdsKQv6XvMCDgR03K4lc+om+FgUtmFUhuHaT1bEsvMqutGXHw
+	SXZHmWLp4W3+kfbR39LxaNDd+049JbLponM2tJHRJOtmwr0fsULc2mqnmeI3gCK9
+	AhLvouP5PJmflHTOp6Rdq7lD98Eyx7IKZwS1GqqSZG4KS/qA3ZHtOtPgljKOLj6D
+	+6AR0VIMdBBs2ubCBK8OUpMSjAOfFEQijww/Na+N2w3LJixNnhyglflR2EMnAry9
+	1K8MkiCOAo6XOLSAZ8RIdj9fA0DOrx2IG1ZWVGWykmllXS4vdFA8YwYp37cHwUsB
+	R1TY5QA8Ibh/L88S+UIgw==
+X-ME-Sender: <xms:VhO9audK6YaMGU6q2mMK7xdTx7NftN0AeBjyss8343dXjz2DTgrizQ>
+    <xme:VhO9arRvCZpSaA1EWmvy3sH0wTv0_8tTv9zNu3Tv4_dyadZr2KPPucpeJAmSm4Spk
+    hXI--zSZK4xrGs5iOnsj8xl3UJPvVik4-eOLkg2snX2YSf2PHk>
+X-ME-Received: <xmr:VhO9aqIfbn690_lApT4Zw81rdzZ4Y7ymnm_yLXOdjtgHLVbGJbaf8bsBPSmdO_RittnRwqvgwU1D1yFSvKmDD_7vxRDrCpU_Q3oDP1dfFok>
+X-ME-Proxy-Cause: dmFkZTGm8YVUcO2t4FuFPT8SoTkvlG4/ho2J5SKyXmSA3Fua9TlfJgqKhFtf2oa/TzyEi8
+    VHGwgnl+p+W7PoR93gubJ+FMyyk79ukon0qLL+WNqacRmbMzxyhbXiGIKG64KRDIpRmwiJ
+    mKoapTlai/f9LF/26sEiAsGQP+Vt6jln7nSnI/ytlvrRlCiwRIvB9Gveomm0vL3zJZ88Ym
+    t10wJLALv7F2d8UoQB9sctj2l1jkV0jfCelwwFYQlKGkJvGtonG0YP4qc429rJKWByGa+O
+    J6R7BeBr2AZRnJPq+whf17IWW5BnKTatVBnN70uMq0Os4SEJoUifoa8gNfUHugEBwOfPN5
+    5nTykaAeIyFCR2iM9I+cN9AGDcH9sgLGwYii7+Dkob5zS+aCA/zGBI53yt4aZZhKdMyCPv
+    EvkA/h2SJGSGR84cgYYA22ga9UHEq0zA4wxpDWwGjmKPZbNXBIwylqWq5vTNcmjfU98HCV
+    8zupBgzpKfvUC9pAhEOjBvFPid2A4Uvgcp1Wjb/MTOKsxFUd9vgUiQ67SDSjHvvbhzoG9L
+    KYx1dokxOPMNpmpxU3m/7Tb+m8UdzIomr+HjdfQOHpYcDy0X+oCdKY6sUfGADCb5A2UNV1
+    90Jfyg4P49XjoHHtXAuy7BJAglL5mZ3ZfcyDR06xNajXKhINMrPNpOgYY+PQ
+X-ME-Proxy: <xmx:VhO9aoJ7qUMdvsntxrr7vm_ouz8RVjxZQ3UoMpUCsP0ef9kNtLDtuw>
+    <xmx:VhO9aljLuD9Fs7E8yp0hOgB5gSfujyxRKVLrf_xWcUR6d37jjYbUQg>
+    <xmx:VhO9aiO18a_wtzOHhKNi4dfSYf7BDfBnW-YD6Alu-CdLD2LMkzsPvw>
+    <xmx:VhO9agpUZvIYe9qaL0oSNAL_x8sbobw2nz49Z6ZH-vaGRFcdMzG_Rg>
+    <xmx:VhO9as-phAtOiPO1lO5t85eEAoJVjImMjERvS8837OTuW6qSW_QpeZWC>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 30 Sep 2026 09:49:10 -0400 (EDT)
+Date: Wed, 30 Sep 2026 15:49:05 +0200
+From: Greg KH <greg@kroah.com>
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org, Baineng Shou <shoubaineng@gmail.com>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>
+Subject: Re: [PATCH 6.12.y 2/2] misc: fastrpc: don't publish fd before
+ copy_to_user() succeeds
+Message-ID: <2026093034-backward-baguette-32e7@gregkh>
+References: <2026090820-pasta-equal-9989@gregkh>
+ <20260910155546.1134527-1-sashal@kernel.org>
+ <20260910155546.1134527-2-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260910155546.1134527-2-sashal@kernel.org>
 
-From: Sean Christopherson <seanjc@google.com>
+On Thu, Sep 10, 2026 at 11:55:46AM -0400, Sasha Levin wrote:
+> From: Baineng Shou <shoubaineng@gmail.com>
+> 
+> [ Upstream commit a4a1a2bfcb29785292d634d7787edc6fb550714d ]
+> 
+> fastrpc_ioctl_alloc_dmabuf() calls dma_buf_fd() which installs the fd
+> into the caller's fd table before copy_to_user() copies the fd number
+> back to userspace.  If copy_to_user() fails, the fd is already visible
+> to other threads in the same process but the ioctl returns -EFAULT.
+> The existing comment in the code even acknowledges the problem:
+> 
+>   "The usercopy failed, but we can't do much about it, as dma_buf_fd()
+>    already called fd_install()..."
+> 
+> Now that dma_buf_fd_install() is available (introduced to fix the same
+> issue in dma-heap), apply the same pattern here: reserve the fd with
+> get_unused_fd_flags(), attempt copy_to_user(), and only on success call
+> dma_buf_fd_install() to publish it atomically with the tracepoint.  On
+> copy_to_user() failure, put_unused_fd() and dma_buf_put() cleanly
+> unwind without any user-visible side effects.
+> 
+> Fixes: 6cffd79504ce ("misc: fastrpc: Add support for dmabuf exporter")
+> Cc: stable@vger.kernel.org
+> Acked-by: Christian König <christian.koenig@amd.com>
+> Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
+> Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
+> Link: https://lore.kernel.org/r/20260817050457.1005285-3-shoubaineng@gmail.com
+> Signed-off-by: Christian König <christian.koenig@amd.com>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>  drivers/misc/fastrpc.c | 16 ++++++----------
+>  1 file changed, 6 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+> index 576cd9e5b8079..f09702eaa3915 100644
+> --- a/drivers/misc/fastrpc.c
+> +++ b/drivers/misc/fastrpc.c
+> @@ -1682,24 +1682,20 @@ static int fastrpc_dmabuf_alloc(struct fastrpc_user *fl, char __user *argp)
+>  		return err;
+>  	}
+>  
+> -	bp.fd = dma_buf_fd(buf->dmabuf, O_ACCMODE);
+> +	bp.fd = get_unused_fd_flags(O_ACCMODE);
+>  	if (bp.fd < 0) {
+>  		dma_buf_put(buf->dmabuf);
+> -		return -EINVAL;
+> +		return bp.fd;
+>  	}
+>  
+>  	if (copy_to_user(argp, &bp, sizeof(bp))) {
+> -		/*
+> -		 * The usercopy failed, but we can't do much about it, as
+> -		 * dma_buf_fd() already called fd_install() and made the
+> -		 * file descriptor accessible for the current process. It
+> -		 * might already be closed and dmabuf no longer valid when
+> -		 * we reach this point. Therefore "leak" the fd and rely on
+> -		 * the process exit path to do any required cleanup.
+> -		 */
+> +		put_unused_fd(bp.fd);
+> +		dma_buf_put(buf->dmabuf);
+>  		return -EFAULT;
+>  	}
+>  
+> +	dma_buf_fd_install(buf->dmabuf, bp.fd);
+> +
+>  	return 0;
+>  }
+>  
+> -- 
+> 2.53.0
+> 
+> 
 
-[ Upstream commit 4b9819a50674dd40d176033f9ea2e23a70889dc6 ]
-
-Use static calls to invoke nested virtualization ops, as many of the calls
-are in relatively hot paths when L2 is active, e.g. checking for events,
-and because there's no reason not use static calls these days.
-
-Opportunistically use a RET0 static call for get_evmcs_version() instead
-of manually checking for a non-NULL vendor hook.
-
-Link: https://patch.msgid.link/20260630202828.440724-3-seanjc@google.com
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-
-Backport notes:
-- Retain the stable tree's kvm_x86_vendor_init()/exit() declarations and
-  ignore_msrs/report_ignored_msrs module parameters alongside the new
-  nested static-call declarations and definitions.
-- Initialize nested static calls directly in the existing kvm_ops_update()
-  instead of adding kvm_nested_ops_update(); no new C functions are needed.
-- Include the request re-pending change from upstream 10180a277549
-  ("KVM: x86: Re-pend GET_NESTED_STATE_PAGES if getting said pages fails").
-  This prevents retrying L2 with stale mappings and supplies the context
-  required to apply target c1214f293d77 unchanged.  This stable tree already
-  clears the request on both normal and forced SVM/VMX nested exits.
-
-Stable-dep-of: c1214f293d77 ("KVM: x86: Fill kvm_run exit fields in common get_nested_state_pages() error paths")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- arch/x86/include/asm/kvm-x86-nested-ops.h | 36 ++++++++++++++++
- arch/x86/include/asm/kvm_host.h           |  8 ++++
- arch/x86/kvm/hyperv.c                     |  7 ++--
- arch/x86/kvm/mmu.h                        |  5 +--
- arch/x86/kvm/mmu/paging_tmpl.h            |  2 +-
- arch/x86/kvm/x86.c                        | 51 +++++++++++++++--------
- arch/x86/kvm/x86.h                        |  2 +-
- 7 files changed, 84 insertions(+), 27 deletions(-)
- create mode 100644 arch/x86/include/asm/kvm-x86-nested-ops.h
-
-diff --git a/arch/x86/include/asm/kvm-x86-nested-ops.h b/arch/x86/include/asm/kvm-x86-nested-ops.h
-new file mode 100644
-index 0000000000000..4b1be5bcecaa4
---- /dev/null
-+++ b/arch/x86/include/asm/kvm-x86-nested-ops.h
-@@ -0,0 +1,36 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#if !defined(KVM_X86_NESTED_OP) || \
-+    !defined(KVM_X86_NESTED_OP_OPTIONAL) || \
-+    !defined(KVM_X86_NESTED_OP_OPTIONAL_RET0)
-+#error Missing one or more KVM_X86_NESTED_OP #defines
-+#else
-+/*
-+ * KVM_X86_NESTED_OP() and KVM_X86_NESTED_OP_OPTIONAL() are used to help
-+ * generate both DECLARE/DEFINE_STATIC_CALL() invocations and
-+ * "static_call_update()" calls.
-+ *
-+ * KVM_X86_NESTED_OP_OPTIONAL() can be used for those functions that can have
-+ * a NULL definition.  KVM_X86_NESTED_OP_OPTIONAL_RET0() can be used likewise
-+ * to make a definition optional, but in this case the default will
-+ * be __static_call_return0.
-+ */
-+KVM_X86_NESTED_OP(leave_nested)
-+KVM_X86_NESTED_OP(is_exception_vmexit)
-+KVM_X86_NESTED_OP(check_events)
-+KVM_X86_NESTED_OP_OPTIONAL_RET0(has_events)
-+KVM_X86_NESTED_OP(triple_fault)
-+KVM_X86_NESTED_OP(get_state)
-+KVM_X86_NESTED_OP(set_state)
-+KVM_X86_NESTED_OP(get_nested_state_pages)
-+KVM_X86_NESTED_OP_OPTIONAL_RET0(write_log_dirty)
-+KVM_X86_NESTED_OP(translate_nested_gpa)
-+#ifdef CONFIG_KVM_HYPERV
-+KVM_X86_NESTED_OP_OPTIONAL(enable_evmcs)
-+KVM_X86_NESTED_OP_OPTIONAL_RET0(get_evmcs_version)
-+KVM_X86_NESTED_OP(hv_inject_synthetic_vmexit_post_tlb_flush)
-+#endif
-+#endif
-+
-+#undef KVM_X86_NESTED_OP
-+#undef KVM_X86_NESTED_OP_OPTIONAL
-+#undef KVM_X86_NESTED_OP_OPTIONAL_RET0
-diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
-index 1d5925fad271d..4a0b5b5634fde 100644
---- a/arch/x86/include/asm/kvm_host.h
-+++ b/arch/x86/include/asm/kvm_host.h
-@@ -2077,6 +2077,14 @@ extern struct kvm_x86_ops kvm_x86_ops;
- #define KVM_X86_OP_OPTIONAL_RET0 KVM_X86_OP
- #include <asm/kvm-x86-ops.h>
- 
-+#define kvm_nested_call(func) static_call(kvm_x86_nested_##func)
-+
-+#define KVM_X86_NESTED_OP(func) \
-+	DECLARE_STATIC_CALL(kvm_x86_nested_##func, *(((struct kvm_x86_nested_ops *)0)->func));
-+#define KVM_X86_NESTED_OP_OPTIONAL KVM_X86_NESTED_OP
-+#define KVM_X86_NESTED_OP_OPTIONAL_RET0 KVM_X86_NESTED_OP
-+#include <asm/kvm-x86-nested-ops.h>
-+
- int kvm_x86_vendor_init(struct kvm_x86_init_ops *ops);
- void kvm_x86_vendor_exit(void);
- 
-diff --git a/arch/x86/kvm/hyperv.c b/arch/x86/kvm/hyperv.c
-index 00915958c7e2f..ddbd35ed255ba 100644
---- a/arch/x86/kvm/hyperv.c
-+++ b/arch/x86/kvm/hyperv.c
-@@ -2419,7 +2419,7 @@ static int kvm_hv_hypercall_complete(struct kvm_vcpu *vcpu, u64 result)
- 	ret = kvm_skip_emulated_instruction(vcpu);
- 
- 	if (tlb_lock_count)
--		kvm_x86_ops.nested_ops->hv_inject_synthetic_vmexit_post_tlb_flush(vcpu);
-+		kvm_nested_call(hv_inject_synthetic_vmexit_post_tlb_flush)(vcpu);
- 
- 	return ret;
- }
-@@ -2800,9 +2800,8 @@ int kvm_get_hv_cpuid(struct kvm_vcpu *vcpu, struct kvm_cpuid2 *cpuid,
- 	};
- 	int i, nent = ARRAY_SIZE(cpuid_entries);
- 
--	if (kvm_x86_ops.nested_ops->enabled &&
--	    kvm_x86_ops.nested_ops->get_evmcs_version)
--		evmcs_ver = kvm_x86_ops.nested_ops->get_evmcs_version(vcpu);
-+	if (kvm_x86_ops.nested_ops->enabled)
-+		evmcs_ver = kvm_nested_call(get_evmcs_version)(vcpu);
- 
- 	if (cpuid->nent < nent)
- 		return -E2BIG;
-diff --git a/arch/x86/kvm/mmu.h b/arch/x86/kvm/mmu.h
-index e1bb663ebbd58..bb6e018928527 100644
---- a/arch/x86/kvm/mmu.h
-+++ b/arch/x86/kvm/mmu.h
-@@ -308,9 +308,8 @@ static inline gpa_t kvm_translate_gpa(struct kvm_vcpu *vcpu,
- {
- 	if (mmu != &vcpu->arch.nested_mmu)
- 		return gpa;
--	return kvm_x86_ops.nested_ops->translate_nested_gpa(vcpu, gpa, access,
--							    exception,
--							    pte_access);
-+	return kvm_nested_call(translate_nested_gpa)(vcpu, gpa, access,
-+						     exception, pte_access);
- }
- 
- static inline bool kvm_has_mirrored_tdp(const struct kvm *kvm)
-diff --git a/arch/x86/kvm/mmu/paging_tmpl.h b/arch/x86/kvm/mmu/paging_tmpl.h
-index 1ba840a73b7ac..8d2c46bc6c0fb 100644
---- a/arch/x86/kvm/mmu/paging_tmpl.h
-+++ b/arch/x86/kvm/mmu/paging_tmpl.h
-@@ -233,7 +233,7 @@ static int FNAME(update_accessed_dirty_bits)(struct kvm_vcpu *vcpu,
- 				!(pte & PT_GUEST_DIRTY_MASK)) {
- 			trace_kvm_mmu_set_dirty_bit(table_gfn, index, sizeof(pte));
- #if PTTYPE == PTTYPE_EPT
--			if (kvm_x86_ops.nested_ops->write_log_dirty(vcpu, addr))
-+			if (kvm_nested_call(write_log_dirty)(vcpu, addr))
- 				return -EINVAL;
- #endif
- 			pte |= PT_GUEST_DIRTY_MASK;
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 1e145e448b593..b91c424042829 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -148,6 +148,13 @@ EXPORT_STATIC_CALL_GPL(kvm_x86_get_cs_db_l_bits);
- EXPORT_STATIC_CALL_GPL(kvm_x86_cache_reg);
- EXPORT_STATIC_CALL_GPL(kvm_x86_get_cpl);
- 
-+#define KVM_X86_NESTED_OP(func)							\
-+	DEFINE_STATIC_CALL_NULL(kvm_x86_nested_##func,				\
-+				*(((struct kvm_x86_nested_ops *)0)->func));
-+#define KVM_X86_NESTED_OP_OPTIONAL KVM_X86_NESTED_OP
-+#define KVM_X86_NESTED_OP_OPTIONAL_RET0 KVM_X86_NESTED_OP
-+#include <asm/kvm-x86-nested-ops.h>
-+
- static bool __read_mostly ignore_msrs = 0;
- module_param(ignore_msrs, bool, 0644);
- 
-@@ -833,7 +840,7 @@ static void kvm_multiple_exception(struct kvm_vcpu *vcpu, unsigned int nr,
- 	 * wants to intercept the exception.
- 	 */
- 	if (is_guest_mode(vcpu) &&
--	    kvm_x86_ops.nested_ops->is_exception_vmexit(vcpu, nr, error_code)) {
-+	    kvm_nested_call(is_exception_vmexit)(vcpu, nr, error_code)) {
- 		kvm_queue_exception_vmexit(vcpu, nr, has_error, error_code,
- 					   has_payload, payload);
- 		return;
-@@ -4518,7 +4525,7 @@ int kvm_vm_ioctl_check_extension(struct kvm *kvm, long ext)
- 		break;
- 	case KVM_CAP_NESTED_STATE:
- 		r = kvm_x86_ops.nested_ops->enabled ?
--			kvm_x86_ops.nested_ops->get_state(NULL, NULL, 0) : 0;
-+			kvm_nested_call(get_state)(NULL, NULL, 0) : 0;
- 		break;
- #ifdef CONFIG_KVM_HYPERV
- 	case KVM_CAP_HYPERV_DIRECT_TLBFLUSH:
-@@ -5571,7 +5578,7 @@ static int kvm_vcpu_ioctl_enable_cap(struct kvm_vcpu *vcpu,
- 			if (!kvm_x86_ops.nested_ops->enabled ||
- 			    !kvm_x86_ops.nested_ops->enable_evmcs)
- 				return -ENOTTY;
--			r = kvm_x86_ops.nested_ops->enable_evmcs(vcpu, &vmcs_version);
-+			r = kvm_nested_call(enable_evmcs)(vcpu, &vmcs_version);
- 			if (!r) {
- 				user_ptr = (void __user *)(uintptr_t)cap->args[0];
- 				if (copy_to_user(user_ptr, &vmcs_version,
-@@ -6077,8 +6084,7 @@ long kvm_arch_vcpu_ioctl(struct file *filp,
- 		if (get_user(user_data_size, &user_kvm_nested_state->size))
- 			break;
- 
--		r = kvm_x86_ops.nested_ops->get_state(vcpu, user_kvm_nested_state,
--						     user_data_size);
-+		r = kvm_nested_call(get_state)(vcpu, user_kvm_nested_state, user_data_size);
- 		if (r < 0)
- 			break;
- 
-@@ -6122,7 +6128,7 @@ long kvm_arch_vcpu_ioctl(struct file *filp,
- 			break;
- 
- 		idx = srcu_read_lock(&vcpu->kvm->srcu);
--		r = kvm_x86_ops.nested_ops->set_state(vcpu, user_kvm_nested_state, &kvm_state);
-+		r = kvm_nested_call(set_state)(vcpu, user_kvm_nested_state, &kvm_state);
- 		srcu_read_unlock(&vcpu->kvm->srcu, idx);
- 		break;
- 	}
-@@ -9560,6 +9566,8 @@ static void kvm_setup_efer_caps(void)
- 
- static inline void kvm_ops_update(struct kvm_x86_init_ops *ops)
- {
-+	const struct kvm_x86_nested_ops *nested_ops = ops->runtime_ops->nested_ops;
-+
- 	memcpy(&kvm_x86_ops, ops->runtime_ops, sizeof(kvm_x86_ops));
- 
- #define __KVM_X86_OP(func) \
-@@ -9573,6 +9581,17 @@ static inline void kvm_ops_update(struct kvm_x86_init_ops *ops)
- #include <asm/kvm-x86-ops.h>
- #undef __KVM_X86_OP
- 
-+#define __KVM_X86_NESTED_OP(func) \
-+	static_call_update(kvm_x86_nested_##func, nested_ops->func);
-+#define KVM_X86_NESTED_OP(func) \
-+	WARN_ON(!nested_ops->func); __KVM_X86_NESTED_OP(func)
-+#define KVM_X86_NESTED_OP_OPTIONAL __KVM_X86_NESTED_OP
-+#define KVM_X86_NESTED_OP_OPTIONAL_RET0(func) \
-+	static_call_update(kvm_x86_nested_##func, (void *)nested_ops->func ? : \
-+						  (void *)__static_call_return0);
-+#include <asm/kvm-x86-nested-ops.h>
-+#undef __KVM_X86_NESTED_OP
-+
- 	kvm_pmu_ops_update(ops->pmu_ops);
- }
- 
-@@ -10109,11 +10128,11 @@ static void post_kvm_run_save(struct kvm_vcpu *vcpu)
- int kvm_check_nested_events(struct kvm_vcpu *vcpu)
- {
- 	if (kvm_test_request(KVM_REQ_TRIPLE_FAULT, vcpu)) {
--		kvm_x86_ops.nested_ops->triple_fault(vcpu);
-+		kvm_nested_call(triple_fault)(vcpu);
- 		return 1;
- 	}
- 
--	return kvm_x86_ops.nested_ops->check_events(vcpu);
-+	return kvm_nested_call(check_events)(vcpu);
- }
- 
- static void kvm_inject_exception(struct kvm_vcpu *vcpu)
-@@ -10351,9 +10370,7 @@ static int kvm_check_and_inject_events(struct kvm_vcpu *vcpu,
- 			kvm_x86_call(enable_irq_window)(vcpu);
- 	}
- 
--	if (is_guest_mode(vcpu) &&
--	    kvm_x86_ops.nested_ops->has_events &&
--	    kvm_x86_ops.nested_ops->has_events(vcpu, true))
-+	if (is_guest_mode(vcpu) && kvm_nested_call(has_events)(vcpu, true))
- 		*req_immediate_exit = true;
- 
- 	/*
-@@ -10676,7 +10693,8 @@ static int vcpu_enter_guest(struct kvm_vcpu *vcpu)
- 		}
- 
- 		if (kvm_check_request(KVM_REQ_GET_NESTED_STATE_PAGES, vcpu)) {
--			if (unlikely(!kvm_x86_ops.nested_ops->get_nested_state_pages(vcpu))) {
-+			if (unlikely(!kvm_nested_call(get_nested_state_pages)(vcpu))) {
-+				kvm_make_request(KVM_REQ_GET_NESTED_STATE_PAGES, vcpu);
- 				r = 0;
- 				goto out;
- 			}
-@@ -10728,7 +10746,7 @@ static int vcpu_enter_guest(struct kvm_vcpu *vcpu)
- 		}
- 		if (kvm_test_request(KVM_REQ_TRIPLE_FAULT, vcpu)) {
- 			if (is_guest_mode(vcpu))
--				kvm_x86_ops.nested_ops->triple_fault(vcpu);
-+				kvm_nested_call(triple_fault)(vcpu);
- 
- 			if (kvm_check_request(KVM_REQ_TRIPLE_FAULT, vcpu)) {
- 				vcpu->run->exit_reason = KVM_EXIT_SHUTDOWN;
-@@ -11148,9 +11166,7 @@ bool kvm_vcpu_has_events(struct kvm_vcpu *vcpu)
- 	if (kvm_hv_has_stimer_pending(vcpu))
- 		return true;
- 
--	if (is_guest_mode(vcpu) &&
--	    kvm_x86_ops.nested_ops->has_events &&
--	    kvm_x86_ops.nested_ops->has_events(vcpu, false))
-+	if (is_guest_mode(vcpu) && kvm_nested_call(has_events)(vcpu, false))
- 		return true;
- 
- 	if (kvm_xen_has_pending_events(vcpu))
-@@ -11575,8 +11591,7 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
- 	 * a pending VM-Exit if L1 wants to intercept the exception.
- 	 */
- 	if (vcpu->arch.exception_from_userspace && is_guest_mode(vcpu) &&
--	    kvm_x86_ops.nested_ops->is_exception_vmexit(vcpu, ex->vector,
--							ex->error_code)) {
-+	    kvm_nested_call(is_exception_vmexit)(vcpu, ex->vector, ex->error_code)) {
- 		kvm_queue_exception_vmexit(vcpu, ex->vector,
- 					   ex->has_error_code, ex->error_code,
- 					   ex->has_payload, ex->payload);
-diff --git a/arch/x86/kvm/x86.h b/arch/x86/kvm/x86.h
-index bd2699bd3fe85..9973f905955a7 100644
---- a/arch/x86/kvm/x86.h
-+++ b/arch/x86/kvm/x86.h
-@@ -151,7 +151,7 @@ int kvm_check_nested_events(struct kvm_vcpu *vcpu);
- /* Forcibly leave the nested mode in cases like a vCPU reset */
- static inline void kvm_leave_nested(struct kvm_vcpu *vcpu)
- {
--	kvm_x86_ops.nested_ops->leave_nested(vcpu);
-+	kvm_nested_call(leave_nested)(vcpu);
- }
- 
- /*
--- 
-2.53.0
-
+breaks the build :(
