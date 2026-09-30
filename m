@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF2644F96C4
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 15:31:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 245C64EB879;
+	Wed, 30 Sep 2026 15:32:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790782297; cv=none; b=ScEv49mmrLy0prR16vJ+moJfsTCvh2WDgIj6J7uEYZjFmsZpZX0x57uGUwAGW971kxpjeziXLMLRsO1amerrLGfXLEpR1Cyz0xVLs+vooK7316brYy40quRUcryGPAqOlHC3fCj+Kw7areOD6/1rW/xWej9g7p/jK7IFEWT42J4=
+	t=1790782339; cv=none; b=r+XwR60pIkSVRClhM/09bm545/Th8ZQ5Razf0pMag/EWNLcQlhbcQ0St2aP8xLB02Dbnv04KRnvH1AyPcxu1+Iap8ruzJxsVp9SnOyZxdOkpt4jboyy8i7pFJBbZP8gjbFTXv9sl2mDYTKL6JZaJIC+xrvSLl4iNVmwbn1f4AZk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790782297; c=relaxed/simple;
-	bh=YaEkY7Prkm1t+dOiRdb9Jmao+BYlzcsJacUbsOBSR4Y=;
+	s=arc-20240116; t=1790782339; c=relaxed/simple;
+	bh=pgMR7FNrOrhbR/34fR5KpN+DL0AmA3bfq8iMlkg19ZA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sM1V9UxTlr2Gw/GERwdxVRTkMa/ctZpCFIaqfdtn4DVws1V8YW03hObofniZsBeTeE1wsC4t+7Y/1qRPPKTTkFuQx6iFDdxp9M/pZ2GO2BgC463HG5Kdwb4j1RxE6bcr/AJlWJFpUaY6IFdWoiDxDKzltWghnH7Omme24nsgvO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QZqMfig6; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=M9HlvUYagJcKLhzvRccCAjfZZ07G4qTYW+y6LxKfuMQjPqa/V33+A69TeZzwZsMyugE+SCNKgpWryScR+4oUjwHA4L/qVeA/vR/IIroq+00k88cZc3gO8xB55ddEyPiDRKjJgxtTHM3Q8H51uS24GHDt1Ha2zFu4COfxtCxrrNs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=PV3lUm/Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QZqMfig6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 606461F00899;
-	Wed, 30 Sep 2026 15:31:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790782278;
-	bh=lZCSLNY+RXTedXQ3watki34xMJQwJ22kmUjlREokVp8=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PV3lUm/Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53AF01F000FF;
+	Wed, 30 Sep 2026 15:32:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790782328;
+	bh=Ccjxr8nzCrTJH5jPlTtHNHl7weWbGlWvn5/3gbxzh2A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QZqMfig6CQvIrCemCAspncz99v0pFOl3cKie5vrdeogvLT3fO9Z63yLftBNfww/Wc
-	 0+RrUbte98h/FlWyXyXcnSEGsLqKPRqAbOt2tiLEt6T8oH82YFwrpQMlLWrTGhi/kj
-	 CcDAd4PgTEBEUvvOiYsDxGCu4PY9hHTq72vo5gzZgguJvdQGbRcdjjXVHp04jukThV
-	 NOrkQ2mNTTSuV7fyDmEYtI0F0aZLIdxB+7kJRj00WON/1em2P7qknA/OpcUL1vioyu
-	 nrT6V91rkFW9lH3g72wdZIp9RoCTNPf5B3FcTKGWYsWgitUr6Z/im6cp6A+Nwpyn+D
-	 vEvxC/g75DyLQ==
-From: Sasha Levin <sashal@kernel.org>
+	b=PV3lUm/Zd4GHpA6mAP8gjlV2W9x4QJhc65PF5STxX0C5QcdYrIozx28el4oyPpa39
+	 Bc3yf0ZT4h5Z8E5WFUX24rGDFq0U5A+2CWwZyLdwKGusZpx+QOLgmMC91o60rrEYtJ
+	 nsCpQ08TmH3mgg5cjLwfsyc50GWXTnBVQL4dFbwM=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Sashiko <sashiko-bot@kernel.org>,
+	Sven Eckelmann <sven@narfation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/4] Bluetooth: hci_core: Fix using {cis,bis}_capable for current settings
-Date: Wed, 30 Sep 2026 11:31:14 -0400
-Message-ID: <20260930153116.2781860-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260930153116.2781860-1-sashal@kernel.org>
-References: <2026092936-wildlife-vengeful-86d9@gregkh>
- <20260930153116.2781860-1-sashal@kernel.org>
+Subject: [PATCH 5.10 001/595] batman-adv: dat: atomically update mac addresses
+Date: Wed, 30 Sep 2026 17:18:14 +0200
+Message-ID: <20260930152347.739510634@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930152347.700140858@linuxfoundation.org>
+References: <20260930152347.700140858@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,199 +47,245 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+5.10-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 709788b154caf042874d765628ffa860f0bb0d1e ]
+------------------
 
-{cis,bis}_capable only indicates the controller supports the feature
-since it doesn't check that LE is enabled so it shall not be used for
-current setting, instead this introduces {cis,bis}_enabled macros that
-can be used to indicate that these features are currently enabled.
+From: Sven Eckelmann <sven@narfation.org>
 
-Fixes: 26afbd826ee3 ("Bluetooth: Add initial implementation of CIS connections")
-Fixes: eca0ae4aea66 ("Bluetooth: Add initial implementation of BIS connections")
-Fixes: ae7533613133 ("Bluetooth: Check for ISO support in controller")
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-Stable-dep-of: 0fcd4dad555c ("Bluetooth: ISO: release unused CIS holds after channel attach")
+commit e6de568d3eda3e3c01c868fabd7a9535d5ee4a73 upstream.
+
+When a MAC address is updated in batadv_dat_entry_add(), it is done using a
+simple copy function. A parallel reader might only see parts of this
+update. In worst case, the reader is transporting the half updated MAC
+address over the network or is creating an ARP response using it -
+poisoning the ARP cache.
+
+atomic64_t can be used to store the 48 bit of a mac address. A reader will
+then either see the old mac address or the new one - never a mixture of
+both.
+
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Fixes: 2f1dfbe18507 ("batman-adv: Distributed ARP Table - implement local storage")
+[ Context, integrate support for dat_cache debugfs file ]
+Signed-off-by: Sven Eckelmann <sven@narfation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/net/bluetooth/bluetooth.h |  4 ++--
- include/net/bluetooth/hci_core.h  | 13 ++++++++++++-
- net/bluetooth/hci_sync.c          |  4 ++--
- net/bluetooth/iso.c               | 14 +++++++-------
- net/bluetooth/mgmt.c              | 10 +++++-----
- 5 files changed, 28 insertions(+), 17 deletions(-)
+ net/batman-adv/distributed-arp-table.c | 65 ++++++++++++++++++--------
+ net/batman-adv/types.h                 |  2 +-
+ 2 files changed, 46 insertions(+), 21 deletions(-)
 
-diff --git a/include/net/bluetooth/bluetooth.h b/include/net/bluetooth/bluetooth.h
-index 32701b5fedafc..f0193e3bbc523 100644
---- a/include/net/bluetooth/bluetooth.h
-+++ b/include/net/bluetooth/bluetooth.h
-@@ -634,7 +634,7 @@ static inline void sco_exit(void)
- #if IS_ENABLED(CONFIG_BT_LE)
- int iso_init(void);
- int iso_exit(void);
--bool iso_enabled(void);
-+bool iso_inited(void);
- #else
- static inline int iso_init(void)
+diff --git a/net/batman-adv/distributed-arp-table.c b/net/batman-adv/distributed-arp-table.c
+index 4277fd832f4d0..6ff856a803dd1 100644
+--- a/net/batman-adv/distributed-arp-table.c
++++ b/net/batman-adv/distributed-arp-table.c
+@@ -377,18 +377,19 @@ batadv_dat_entry_hash_find(struct batadv_priv *bat_priv, __be32 ip,
+ static void batadv_dat_entry_add(struct batadv_priv *bat_priv, __be32 ip,
+ 				 u8 *mac_addr, unsigned short vid)
  {
-@@ -646,7 +646,7 @@ static inline int iso_exit(void)
- 	return 0;
- }
++	u64 u64_mac = ether_addr_to_u64(mac_addr);
+ 	struct batadv_dat_entry *dat_entry;
+ 	int hash_added;
  
--static inline bool iso_enabled(void)
-+static inline bool iso_inited(void)
- {
- 	return false;
- }
-diff --git a/include/net/bluetooth/hci_core.h b/include/net/bluetooth/hci_core.h
-index 4ed681b2dafea..4b9f3a6591b9f 100644
---- a/include/net/bluetooth/hci_core.h
-+++ b/include/net/bluetooth/hci_core.h
-@@ -1950,6 +1950,8 @@ void hci_conn_del_sysfs(struct hci_conn *conn);
- 				!hci_dev_test_flag(dev, HCI_RPA_EXPIRED))
- #define adv_rpa_valid(adv)     (bacmp(&adv->random_addr, BDADDR_ANY) && \
- 				!adv->rpa_expired)
-+#define le_enabled(dev)        (lmp_le_capable(dev) && \
-+				hci_dev_test_flag(dev, HCI_LE_ENABLED))
+ 	dat_entry = batadv_dat_entry_hash_find(bat_priv, ip, vid);
+ 	/* if this entry is already known, just update it */
+ 	if (dat_entry) {
+-		if (!batadv_compare_eth(dat_entry->mac_addr, mac_addr))
+-			ether_addr_copy(dat_entry->mac_addr, mac_addr);
++		atomic64_set(&dat_entry->mac_addr, u64_mac);
++
+ 		dat_entry->last_update = jiffies;
+ 		batadv_dbg(BATADV_DBG_DAT, bat_priv,
+ 			   "Entry updated: %pI4 %pM (vid: %d)\n",
+-			   &dat_entry->ip, dat_entry->mac_addr,
++			   &dat_entry->ip, mac_addr,
+ 			   batadv_print_vid(vid));
+ 		goto out;
+ 	}
+@@ -399,7 +400,7 @@ static void batadv_dat_entry_add(struct batadv_priv *bat_priv, __be32 ip,
  
- #define scan_1m(dev) (((dev)->le_tx_def_phys & HCI_LE_SET_PHY_1M) || \
- 		      ((dev)->le_rx_def_phys & HCI_LE_SET_PHY_1M))
-@@ -2020,14 +2022,23 @@ void hci_conn_del_sysfs(struct hci_conn *conn);
+ 	dat_entry->ip = ip;
+ 	dat_entry->vid = vid;
+-	ether_addr_copy(dat_entry->mac_addr, mac_addr);
++	atomic64_set(&dat_entry->mac_addr, u64_mac);
+ 	dat_entry->last_update = jiffies;
+ 	kref_init(&dat_entry->refcount);
  
- /* CIS Master/Slave and BIS support */
- #define iso_capable(dev) (cis_capable(dev) || bis_capable(dev))
-+#define iso_enabled(dev) (le_enabled(dev) && iso_capable(dev))
- #define cis_capable(dev) \
- 	(cis_central_capable(dev) || cis_peripheral_capable(dev))
-+#define cis_enabled(dev) (le_enabled(dev) && cis_capable(dev))
- #define cis_central_capable(dev) \
- 	((dev)->le_features[3] & HCI_LE_CIS_CENTRAL)
-+#define cis_central_enabled(dev) \
-+	(le_enabled(dev) && cis_central_capable(dev))
- #define cis_peripheral_capable(dev) \
- 	((dev)->le_features[3] & HCI_LE_CIS_PERIPHERAL)
-+#define cis_peripheral_enabled(dev) \
-+	(le_enabled(dev) && cis_peripheral_capable(dev))
- #define bis_capable(dev) ((dev)->le_features[3] & HCI_LE_ISO_BROADCASTER)
--#define sync_recv_capable(dev) ((dev)->le_features[3] & HCI_LE_ISO_SYNC_RECEIVER)
-+#define bis_enabled(dev) (le_enabled(dev) && bis_capable(dev))
-+#define sync_recv_capable(dev) \
-+	((dev)->le_features[3] & HCI_LE_ISO_SYNC_RECEIVER)
-+#define sync_recv_enabled(dev) (le_enabled(dev) && sync_recv_capable(dev))
- 
- #define mws_transport_config_capable(dev) (((dev)->commands[30] & 0x08) && \
- 	(!test_bit(HCI_QUIRK_BROKEN_MWS_TRANSPORT_CONFIG, &(dev)->quirks)))
-diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-index cc2b0b85426f3..ff44e838e557a 100644
---- a/net/bluetooth/hci_sync.c
-+++ b/net/bluetooth/hci_sync.c
-@@ -4651,14 +4651,14 @@ static int hci_le_set_host_feature_sync(struct hci_dev *hdev)
- {
- 	struct hci_cp_le_set_host_feature cp;
- 
--	if (!cis_capable(hdev))
-+	if (!iso_capable(hdev))
- 		return 0;
- 
- 	memset(&cp, 0, sizeof(cp));
- 
- 	/* Connected Isochronous Channels (Host Support) */
- 	cp.bit_number = 32;
--	cp.bit_value = 1;
-+	cp.bit_value = iso_enabled(hdev) ? 0x01 : 0x00;
- 
- 	return __hci_cmd_sync_status(hdev, HCI_OP_LE_SET_HOST_FEATURE,
- 				     sizeof(cp), &cp, HCI_CMD_TIMEOUT);
-diff --git a/net/bluetooth/iso.c b/net/bluetooth/iso.c
-index 52d8dcebb7828..b2a4cb12b6b70 100644
---- a/net/bluetooth/iso.c
-+++ b/net/bluetooth/iso.c
-@@ -2499,11 +2499,11 @@ static const struct net_proto_family iso_sock_family_ops = {
- 	.create	= iso_sock_create,
- };
- 
--static bool iso_inited;
-+static bool inited;
- 
--bool iso_enabled(void)
-+bool iso_inited(void)
- {
--	return iso_inited;
-+	return inited;
- }
- 
- int iso_init(void)
-@@ -2512,7 +2512,7 @@ int iso_init(void)
- 
- 	BUILD_BUG_ON(sizeof(struct sockaddr_iso) > sizeof(struct sockaddr));
- 
--	if (iso_inited)
-+	if (inited)
- 		return -EALREADY;
- 
- 	err = proto_register(&iso_proto, 0);
-@@ -2540,7 +2540,7 @@ int iso_init(void)
- 		iso_debugfs = debugfs_create_file("iso", 0444, bt_debugfs,
- 						  NULL, &iso_debugfs_fops);
- 
--	iso_inited = true;
-+	inited = true;
- 
- 	return 0;
- 
-@@ -2551,7 +2551,7 @@ int iso_init(void)
- 
- int iso_exit(void)
- {
--	if (!iso_inited)
-+	if (!inited)
- 		return -EALREADY;
- 
- 	bt_procfs_cleanup(&init_net, "iso");
-@@ -2565,7 +2565,7 @@ int iso_exit(void)
- 
- 	proto_unregister(&iso_proto);
- 
--	iso_inited = false;
-+	inited = false;
- 
- 	return 0;
- }
-diff --git a/net/bluetooth/mgmt.c b/net/bluetooth/mgmt.c
-index cdb2425a16a2c..28afc6f1ed195 100644
---- a/net/bluetooth/mgmt.c
-+++ b/net/bluetooth/mgmt.c
-@@ -920,16 +920,16 @@ static u32 get_current_settings(struct hci_dev *hdev)
- 	if (hci_dev_test_flag(hdev, HCI_WIDEBAND_SPEECH_ENABLED))
- 		settings |= MGMT_SETTING_WIDEBAND_SPEECH;
- 
--	if (cis_central_capable(hdev))
-+	if (cis_central_enabled(hdev))
- 		settings |= MGMT_SETTING_CIS_CENTRAL;
- 
--	if (cis_peripheral_capable(hdev))
-+	if (cis_peripheral_enabled(hdev))
- 		settings |= MGMT_SETTING_CIS_PERIPHERAL;
- 
--	if (bis_capable(hdev))
-+	if (bis_enabled(hdev))
- 		settings |= MGMT_SETTING_ISO_BROADCASTER;
- 
--	if (sync_recv_capable(hdev))
-+	if (sync_recv_enabled(hdev))
- 		settings |= MGMT_SETTING_ISO_SYNC_RECEIVER;
- 
- 	return settings;
-@@ -4613,7 +4613,7 @@ static int read_exp_features_info(struct sock *sk, struct hci_dev *hdev,
+@@ -415,7 +416,7 @@ static void batadv_dat_entry_add(struct batadv_priv *bat_priv, __be32 ip,
  	}
  
- 	if (IS_ENABLED(CONFIG_BT_LE)) {
--		flags = iso_enabled() ? BIT(0) : 0;
-+		flags = iso_inited() ? BIT(0) : 0;
- 		memcpy(rp->features[idx].uuid, iso_socket_uuid, 16);
- 		rp->features[idx].flags = cpu_to_le32(flags);
- 		idx++;
+ 	batadv_dbg(BATADV_DBG_DAT, bat_priv, "New entry added: %pI4 %pM (vid: %d)\n",
+-		   &dat_entry->ip, dat_entry->mac_addr, batadv_print_vid(vid));
++		   &dat_entry->ip, mac_addr, batadv_print_vid(vid));
+ 
+ out:
+ 	if (dat_entry)
+@@ -876,6 +877,8 @@ int batadv_dat_cache_seq_print_text(struct seq_file *seq, void *offset)
+ 	struct hlist_head *head;
+ 	unsigned long last_seen_jiffies;
+ 	int last_seen_msecs, last_seen_secs, last_seen_mins;
++	u8 mac[ETH_ALEN] __aligned(2);
++	u64 u64_mac;
+ 	u32 i;
+ 
+ 	primary_if = batadv_seq_print_text_primary_if_get(seq);
+@@ -897,8 +900,11 @@ int batadv_dat_cache_seq_print_text(struct seq_file *seq, void *offset)
+ 			last_seen_msecs = last_seen_msecs % 60000;
+ 			last_seen_secs = last_seen_msecs / 1000;
+ 
++			u64_mac = atomic64_read(&dat_entry->mac_addr);
++			u64_to_ether_addr(u64_mac, mac);
++
+ 			seq_printf(seq, " * %15pI4 %pM %4i %6i:%02i\n",
+-				   &dat_entry->ip, dat_entry->mac_addr,
++				   &dat_entry->ip, mac,
+ 				   batadv_print_vid(dat_entry->vid),
+ 				   last_seen_mins, last_seen_secs);
+ 		}
+@@ -927,6 +933,8 @@ batadv_dat_cache_dump_entry(struct sk_buff *msg, u32 portid,
+ 			    struct netlink_callback *cb,
+ 			    struct batadv_dat_entry *dat_entry)
+ {
++	u8 mac[ETH_ALEN];
++	u64 u64_mac;
+ 	int msecs;
+ 	void *hdr;
+ 
+@@ -939,11 +947,12 @@ batadv_dat_cache_dump_entry(struct sk_buff *msg, u32 portid,
+ 	genl_dump_check_consistent(cb, hdr);
+ 
+ 	msecs = jiffies_to_msecs(jiffies - dat_entry->last_update);
++	u64_mac = atomic64_read(&dat_entry->mac_addr);
++	u64_to_ether_addr(u64_mac, mac);
+ 
+ 	if (nla_put_in_addr(msg, BATADV_ATTR_DAT_CACHE_IP4ADDRESS,
+ 			    dat_entry->ip) ||
+-	    nla_put(msg, BATADV_ATTR_DAT_CACHE_HWADDRESS, ETH_ALEN,
+-		    dat_entry->mac_addr) ||
++	    nla_put(msg, BATADV_ATTR_DAT_CACHE_HWADDRESS, ETH_ALEN, mac) ||
+ 	    nla_put_u16(msg, BATADV_ATTR_DAT_CACHE_VID, dat_entry->vid) ||
+ 	    nla_put_u32(msg, BATADV_ATTR_LAST_SEEN_MSECS, msecs)) {
+ 		genlmsg_cancel(msg, hdr);
+@@ -1220,6 +1229,8 @@ bool batadv_dat_snoop_outgoing_arp_request(struct batadv_priv *bat_priv,
+ 	struct net_device *soft_iface = bat_priv->soft_iface;
+ 	int hdr_size = 0;
+ 	unsigned short vid;
++	u8 mac[ETH_ALEN];
++	u64 u64_mac;
+ 
+ 	if (!atomic_read(&bat_priv->distributed_arp_table))
+ 		goto out;
+@@ -1247,6 +1258,9 @@ bool batadv_dat_snoop_outgoing_arp_request(struct batadv_priv *bat_priv,
+ 
+ 	dat_entry = batadv_dat_entry_hash_find(bat_priv, ip_dst, vid);
+ 	if (dat_entry) {
++		u64_mac = atomic64_read(&dat_entry->mac_addr);
++		u64_to_ether_addr(u64_mac, mac);
++
+ 		/* If the ARP request is destined for a local client the local
+ 		 * client will answer itself. DAT would only generate a
+ 		 * duplicate packet.
+@@ -1255,7 +1269,7 @@ bool batadv_dat_snoop_outgoing_arp_request(struct batadv_priv *bat_priv,
+ 		 * additional DAT answer may trigger kernel warnings about
+ 		 * a packet coming from the wrong port.
+ 		 */
+-		if (batadv_is_my_client(bat_priv, dat_entry->mac_addr, vid)) {
++		if (batadv_is_my_client(bat_priv, mac, vid)) {
+ 			ret = true;
+ 			goto out;
+ 		}
+@@ -1265,18 +1279,16 @@ bool batadv_dat_snoop_outgoing_arp_request(struct batadv_priv *bat_priv,
+ 		 * the backbone gws belonging to our backbone has claimed the
+ 		 * destination.
+ 		 */
+-		if (!batadv_bla_check_claim(bat_priv,
+-					    dat_entry->mac_addr, vid)) {
++		if (!batadv_bla_check_claim(bat_priv, mac, vid)) {
+ 			batadv_dbg(BATADV_DBG_DAT, bat_priv,
+ 				   "Device %pM claimed by another backbone gw. Don't send ARP reply!",
+-				   dat_entry->mac_addr);
++				   mac);
+ 			ret = true;
+ 			goto out;
+ 		}
+ 
+ 		skb_new = batadv_dat_arp_create_reply(bat_priv, ip_dst, ip_src,
+-						      dat_entry->mac_addr,
+-						      hw_src, vid);
++						      mac, hw_src, vid);
+ 		if (!skb_new)
+ 			goto out;
+ 
+@@ -1319,6 +1331,8 @@ bool batadv_dat_snoop_incoming_arp_request(struct batadv_priv *bat_priv,
+ 	struct batadv_dat_entry *dat_entry = NULL;
+ 	bool ret = false;
+ 	unsigned short vid;
++	u8 mac[ETH_ALEN];
++	u64 u64_mac;
+ 	int err;
+ 
+ 	if (!atomic_read(&bat_priv->distributed_arp_table))
+@@ -1346,8 +1360,11 @@ bool batadv_dat_snoop_incoming_arp_request(struct batadv_priv *bat_priv,
+ 	if (!dat_entry)
+ 		goto out;
+ 
++	u64_mac = atomic64_read(&dat_entry->mac_addr);
++	u64_to_ether_addr(u64_mac, mac);
++
+ 	skb_new = batadv_dat_arp_create_reply(bat_priv, ip_dst, ip_src,
+-					      dat_entry->mac_addr, hw_src, vid);
++					      mac, hw_src, vid);
+ 	if (!skb_new)
+ 		goto out;
+ 
+@@ -1439,6 +1456,8 @@ bool batadv_dat_snoop_incoming_arp_reply(struct batadv_priv *bat_priv,
+ 	u8 *hw_src, *hw_dst;
+ 	bool dropped = false;
+ 	unsigned short vid;
++	u8 mac[ETH_ALEN];
++	u64 u64_mac;
+ 
+ 	if (!atomic_read(&bat_priv->distributed_arp_table))
+ 		goto out;
+@@ -1467,11 +1486,17 @@ bool batadv_dat_snoop_incoming_arp_reply(struct batadv_priv *bat_priv,
+ 	 * this frame would lead to doubled receive of an ARP reply.
+ 	 */
+ 	dat_entry = batadv_dat_entry_hash_find(bat_priv, ip_src, vid);
+-	if (dat_entry && batadv_compare_eth(hw_src, dat_entry->mac_addr)) {
+-		batadv_dbg(BATADV_DBG_DAT, bat_priv, "Doubled ARP reply removed: ARP MSG = [src: %pM-%pI4 dst: %pM-%pI4]; dat_entry: %pM-%pI4\n",
+-			   hw_src, &ip_src, hw_dst, &ip_dst,
+-			   dat_entry->mac_addr,	&dat_entry->ip);
+-		dropped = true;
++	if (dat_entry) {
++		u64_mac = atomic64_read(&dat_entry->mac_addr);
++		u64_to_ether_addr(u64_mac, mac);
++
++		if (batadv_compare_eth(hw_src, mac)) {
++			batadv_dbg(BATADV_DBG_DAT, bat_priv,
++				   "Doubled ARP reply removed: ARP MSG = [src: %pM-%pI4 dst: %pM-%pI4]; dat_entry: %pM-%pI4\n",
++				   hw_src, &ip_src, hw_dst, &ip_dst,
++				   mac, &dat_entry->ip);
++			dropped = true;
++		}
+ 	}
+ 
+ 	/* Update our internal cache with both the IP addresses the node got
+diff --git a/net/batman-adv/types.h b/net/batman-adv/types.h
+index 790f62abfe030..49cef1a85639a 100644
+--- a/net/batman-adv/types.h
++++ b/net/batman-adv/types.h
+@@ -2387,7 +2387,7 @@ struct batadv_dat_entry {
+ 	__be32 ip;
+ 
+ 	/** @mac_addr: the MAC address associated to the stored IPv4 */
+-	u8 mac_addr[ETH_ALEN];
++	atomic64_t mac_addr;
+ 
+ 	/** @vid: the vlan ID associated to this entry */
+ 	unsigned short vid;
 -- 
 2.53.0
+
+
 
