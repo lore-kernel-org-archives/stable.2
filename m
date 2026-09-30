@@ -1,348 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F76C34D916;
-	Wed, 30 Sep 2026 16:27:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52DCA4D9540
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 16:27:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790785655; cv=none; b=BwK/wGwLHJrGva6Nn1uy7JZUwEdrZTicgbqUjIGD7yvB68ibTbDW+A+/hkO2cfOCDx46DixGW0mBtoohQJGG6I+wnFmPGNP0p8bmyvNSJRlz0OKNenYwC30RLmYYPd2XSmeH2qsqeCa/ZhRgNsbkwiR3mqOyi/HdpExYbm4Rxks=
+	t=1790785657; cv=none; b=L9OTyJtrrWhsEsAZKEYrphKabtzHO7AquYS9AM398PpKF9xGV5wHLN/yJb+R+iuQWpNEUzjxDjhr38U6RXc9XcvYkX9WjIK3RW4uHT/OqaI0+q+k/S3fNXyhIuyqI79avKdu37ZZXn1KW2V63NOi2NCA2rC1wyEV0/nJIIKZKpY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790785655; c=relaxed/simple;
-	bh=vOSJd04Woejn4H7XWRmkyOKyJ1tm1S3dDbY9GlkVZYQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JGXQzby9idudbaRd4spYjN80krcE0OpSUObzh9oLkq7IjPGVs4qCEjZsjzMiLICwr5NS8c2IKOxUKAXyCT728Bphy1iLHBPiy+hsMRM8vBf2XVNTvdjqgK34LAZGeMmGp97KF6eMtO4twKS58V009fiYcyc3g0P0nLGP+Szgwmo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=sf3eXlJe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790785657; c=relaxed/simple;
+	bh=EF47LMwptAM1nQReMhccLj8feX+VPSlM1UdRK/A3Xl8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ETD4SX8MWJ3GpLAa9ywCuwei63A5uFenczS1AhIu+Mcx1ngYoahBvoS/OstZ8O9u91tBESjgLZryGZWciYkdn7EK9XdQy/LuyLO0y4/KkCxn5zLVr47nh9AoJ9/RQVmz83tlMXRqZlYBWxLG4U/1KONT7OGL09RCNkS9vtHLla4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EreaLwy5; arc=none smtp.client-ip=74.125.227.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="sf3eXlJe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1B361F00898;
-	Wed, 30 Sep 2026 16:27:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790785651;
-	bh=K3QIGU5kldFCm1yBk5Wh85PBo52blO3Y2l0K12Glvss=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=sf3eXlJeo4MqzvBXRBFcbULbH4QXaH3DVerChe815seOrFF1bJJ7o+6G7bbaIWEYs
-	 DkTRv/Le3LW7H1AF+Nv7ELCgi6i4hmPMHra97RJyKIvQXmBEVg6h6jgb5nVO52/H32
-	 WrgWAzKO53Y3aqXyEa/K8aqYd5MDtgxuTorrkH/U=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>,
-	=?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 582/982] selftests/landlock: Add tests for whiteout object creation
-Date: Wed, 30 Sep 2026 17:21:58 +0200
-Message-ID: <20260930152429.280343632@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
-References: <20260930152416.775402466@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EreaLwy5"
+Received: by mail-pj2-f40.google.com with SMTP id 98e67ed59e1d1-3a2adb9bc3cso2200798a91.2
+        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 09:27:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790785652; x=1791390452; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OrlU1pYKaIQMZzrdlwTiBa480D5W1n9HSK6HdsiooX8=;
+        b=EreaLwy5wXAiPjeXiINs9mj/XotAUuZ2TvTnqNiTiqhoDu5PE8X/2aHdG4DY1gdG5/
+         5CdcMhkIrHTXY+wY826pE6/ABwQCe3I5O331ULMbznzmnGPO+l+PF39zGRGWpSz6/NHX
+         vPQUFsm5KFdVP2pPP+UONqrRFN9TMoq9RCrZosf28xczbCDOq0gNz8EZ6dMjGgaaBxAO
+         HzgmcbG782VHtD5hyWJq/t8mJ1T/t4rXm/S6z+WjiIR0Gj4mb1oDyY4xjuckV7+64fwE
+         B0UoJeMj4/SVuoc2STC5Duq2KFLMKub/ymRxS0flSwQ1FqzQEMU174UJ2XqoAxxR3Ac/
+         7yaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790785652; x=1791390452;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OrlU1pYKaIQMZzrdlwTiBa480D5W1n9HSK6HdsiooX8=;
+        b=d3vP3AT+Izi7spXVCrYfzFS13i+ohKB7FxRC5vIaLJEwJbjrLq94mf3aC1ZcIxN7kj
+         8VR+tk6FBO5SR+uDIiZRGAPNB+VrE8ZqRWmiil9z5Cz71CiA09tp7mPDZV79H/pRe5rs
+         OVOyzzvjiH+kc4Mw+/PvVzW0H/UV8UoM4O8PDQt70z80m7SiPgz13fFVcvDwQ2Fjm6jW
+         Wor4UG9R011Gd+EPJLIDlzhOaI7skD/2Gp1MKyMQxedFP7BoerkIZJDVds1t+2pnmTlJ
+         ocDGvtD5t/p7ybJBd5S6T35JEgRIE4S/CXnWmoXF8X9I0zRHJfiGtoE//yn2EzaHpSSw
+         Rt6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBw6/k9HDuZmxwMCPMUEBWI0UbxgFaUmLqPlMXbGnALuEbwVQ9tdoW9pU84tbUMoqWNtQ1eDGSg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLTJryEOZx4ARtVz6Pg32qnIPpPmXGrQhrJZrra0wsbn0OGYANK
+	rU1WuTvaDDS4Z/CrvJkkck5ZMUOQCcGa44qy3OMwhhT7EwYUBbIP3yRi
+X-Gm-Gg: AYBFou1eiLoTWQexzJUorVJNK4xM13tr15QjV9x6QBz0CTK0OuWiL/m7mIxLIbkstg9
+	JClNM1U+6B5mWnWDjoh6eCKyCXhNhtQFPZ4wlVH6QgtT1jU1GUdBSgsInotHyQeTbqw3ztioLIb
+	Focox34j+w+vFFGZubZfd/6+cBqxMCIJAoNjLv2cwDWdoYdbwUpqaY8z2KZs8nHycsS6+L6yW3w
+	3IvRfROu2uoQJrPv09UTafWEg1ABsYprxXg5sJtX+GxgMogSG7eZBpN8XWgpoExN3TGNsvRieUo
+	BOEE67o7wqEVGjgR5WzIlzniDBFsDTWdkX+m6f+CblZobfARQCNbRfcReVOY5sYySZNdbeliyXA
+	0WYKGtkH7h3rmzASstnKW19J8S2jBB9P84mbwBD91IvQ1nDiOW3FraquPDjJBJ9jHmvTNi+kSdl
+	US2Ba/rUC8QhC8n7SAROpwkNUYkmwCtPLA9ft5DE3bgNlkfPN1nxkiWVpPpCz60QjUaUsxiQnjF
+	A==
+X-Received: by 2002:a17:90b:4b11:b0:3a0:d79d:b6bf with SMTP id 98e67ed59e1d1-3a4d14de36bmr811283a91.20.1790785651665;
+        Wed, 30 Sep 2026 09:27:31 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2a09:bac5:d45e:16c8::245:115])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4e66742acsm725485a91.4.2026.09.30.09.27.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 09:27:31 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: slava@dubeyko.com,
+	glaubitz@physik.fu-berlin.de,
+	frank.li@vivo.com
+Cc: linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+e390d66dda462b51fde1@syzkaller.appspotmail.com,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] hfs: don't give the extents overflow file overflow extents
+Date: Wed, 30 Sep 2026 23:27:26 +0700
+Message-ID: <20260930162726.144048-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+hfs_bmap_reserve() grows a b-tree's backing file via hfs_extend_file()
+while the caller holds tree->tree_lock. For the extents tree itself,
+once its three MDB extents are full and hfs_add_extent() returns
+-ENOSPC, hfs_extend_file() falls through to insert_extent and records
+an overflow extent for the extents file. The next extension then sees
+alloc_blocks != first_blocks and calls hfs_ext_read_extent(), which
+takes ext_tree->tree_lock again:
 
-------------------
+  hfs_ext_read_extent()           <- hfs_find_init(ext_tree)
+    __hfs_ext_write_extent()
+      hfs_bmap_reserve(ext_tree)
+        hfs_extend_file(ext inode)
+          hfs_ext_read_extent()   <- hfs_find_init(ext_tree): deadlock
 
-From: Günther Noack <gnoack@google.com>
+The extents overflow file can't have overflow extents of its own; its
+extents live only in the MDB. Fail with -ENOSPC instead, returning the
+just-allocated blocks to the bitmap. hfs_btree_open() already rejects
+an extents fork larger than its MDB extents, so this keeps
+alloc_blocks == first_blocks for the extents file for the whole mount.
 
-[ Upstream commit ee890889b30b22f9a21636061def7a04e4f89380 ]
+Reproducible with a plain mount + ftruncate on a fragmented volume with
+a small extents-file clump size.
 
-Add tests to check that whiteout object creation is guarded by
-LANDLOCK_ACCESS_FS_MAKE_REG, in the cases where these are created from
-userspace:
-
-* Conventional creation with mknod()
-* Linking or renaming an existing whiteout object
-* renameat2() with RENAME_WHITEOUT,
-  which creates a new whiteout object in the source location
-* renameat2() with RENAME_EXCHANGE,
-  with one of the renamed objects being a whiteout object
-
-Signed-off-by: Günther Noack <gnoack@google.com>
-Link: https://patch.msgid.link/20260813093157.1436894-4-gnoack@google.com
-[mic: Update commit message as requested]
-Signed-off-by: Mickaël Salaün <mic@digikod.net>
-[mic: Backport: adapt the tests to the older filesystem fixture and
-ruleset helper]
-Signed-off-by: Mickaël Salaün <mic@digikod.net>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: syzbot+e390d66dda462b51fde1@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=e390d66dda462b51fde1
+Cc: stable@vger.kernel.org
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 ---
- tools/testing/selftests/landlock/fs_test.c | 209 ++++++++++++++++++++-
- 1 file changed, 207 insertions(+), 2 deletions(-)
+Notes (not for the changelog):
 
-diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
-index 2a11c4a26d71..6885b5728e41 100644
---- a/tools/testing/selftests/landlock/fs_test.c
-+++ b/tools/testing/selftests/landlock/fs_test.c
-@@ -36,6 +36,10 @@ int renameat2(int olddirfd, const char *oldpath, int newdirfd,
- #define RENAME_EXCHANGE (1 << 1)
- #endif
+Reproduced in QEMU (x86_64, lockdep) with syzbot C repro 11c3a202580000,
+and more simply with mount + ftruncate(0x100c17a) on the same image:
+"possible recursive locking detected" on ext_tree->tree_lock followed by
+the task stuck forever in D state. The image's extents fork is
+consistent (one 4-block extent), with a 2048-byte XT clump and a
+fragmented bitmap, so the three MDB extents fill up after a few
+extensions and insert_extent runs for the extents file.
+
+With the patch, 3 runs of all five syzbot C repros plus the direct
+mount+ftruncate case: no lockdep report and no hung tasks. ftruncate
+still returns 0, since hfs_file_truncate() already ignores a failed
+extension.
+ fs/hfs/extent.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/fs/hfs/extent.c b/fs/hfs/extent.c
+index f066a99a863b..5e7a1f1eb395 100644
+--- a/fs/hfs/extent.c
++++ b/fs/hfs/extent.c
+@@ -457,6 +457,13 @@ int hfs_extend_file(struct inode *inode)
+ 	return res;
  
-+#ifndef RENAME_WHITEOUT
-+#define RENAME_WHITEOUT (1 << 2)
-+#endif
-+
- #define TMP_DIR "tmp"
- #define BINARY_PATH "./true"
- 
-@@ -62,6 +66,8 @@ static const char dir_s3d1[] = TMP_DIR "/s3d1";
- /* dir_s3d2 is a mount point. */
- static const char dir_s3d2[] = TMP_DIR "/s3d1/s3d2";
- static const char dir_s3d3[] = TMP_DIR "/s3d1/s3d2/s3d3";
-+static const char file1_s3d3[] = TMP_DIR "/s3d1/s3d2/s3d3/f1";
-+static const char file1_s3d4[] = TMP_DIR "/s3d1/s3d2/s3d4/f1";
- 
- /*
-  * layout1 hierarchy:
-@@ -258,7 +264,8 @@ static void create_layout1(struct __test_metadata *const _metadata)
- 	ASSERT_EQ(0, mount("tmp", dir_s3d2, "tmpfs", 0, "size=4m,mode=700"));
- 	clear_cap(_metadata, CAP_SYS_ADMIN);
- 
--	ASSERT_EQ(0, mkdir(dir_s3d3, 0700));
-+	create_file(_metadata, file1_s3d3);
-+	create_file(_metadata, file1_s3d4);
- }
- 
- static void remove_layout1(struct __test_metadata *const _metadata)
-@@ -275,7 +282,8 @@ static void remove_layout1(struct __test_metadata *const _metadata)
- 	EXPECT_EQ(0, remove_path(file1_s2d2));
- 	EXPECT_EQ(0, remove_path(file1_s2d1));
- 
--	EXPECT_EQ(0, remove_path(dir_s3d3));
-+	EXPECT_EQ(0, remove_path(file1_s3d3));
-+	EXPECT_EQ(0, remove_path(file1_s3d4));
- 	set_cap(_metadata, CAP_SYS_ADMIN);
- 	umount(dir_s3d2);
- 	clear_cap(_metadata, CAP_SYS_ADMIN);
-@@ -616,6 +624,27 @@ static void enforce_ruleset(struct __test_metadata *const _metadata,
- 	}
- }
- 
-+static void enforce_fs(struct __test_metadata *const _metadata,
-+		       const __u64 access_fs, const struct rule rules[])
-+{
-+	int ruleset_fd;
-+
-+	if (rules) {
-+		ruleset_fd = create_ruleset(_metadata, access_fs, rules);
-+	} else {
-+		const struct landlock_ruleset_attr ruleset_attr = {
-+			.handled_access_fs = access_fs,
-+		};
-+
-+		ruleset_fd = landlock_create_ruleset(&ruleset_attr,
-+						     sizeof(ruleset_attr), 0);
-+		ASSERT_LE(0, ruleset_fd);
+ insert_extent:
++	/* The extents file can't have overflow extents of its own */
++	if (inode->i_ino == HFS_EXT_CNID) {
++		hfs_clear_vbm_bits(sb, start, len);
++		res = -ENOSPC;
++		goto out;
 +	}
 +
-+	enforce_ruleset(_metadata, ruleset_fd);
-+	EXPECT_EQ(0, close(ruleset_fd));
-+}
-+
- TEST_F_FORK(layout1, proc_nsfs)
- {
- 	const struct rule rules[] = {
-@@ -1992,6 +2021,170 @@ TEST_F_FORK(layout1, rename_file)
- 			       RENAME_EXCHANGE));
- }
- 
-+TEST_F_FORK(layout1, rename_whiteout_denied)
-+{
-+	/* The affected file is a FIFO. */
-+	ASSERT_EQ(0, unlink(file1_s3d3));
-+	ASSERT_EQ(0, mknod(file1_s3d3, S_IFIFO | 0600, 0));
-+
-+	/* Deny MAKE_REG, but allow MAKE_FIFO. */
-+	enforce_fs(_metadata, LANDLOCK_ACCESS_FS_MAKE_REG, NULL);
-+
-+	/*
-+	 * Try to rename a file with RENAME_WHITEOUT.
-+	 * file1_s3d3 is in dir_s3d2 (tmpfs), so it supports RENAME_WHITEOUT.
-+	 * Denied, because whiteout creation is guarded with MAKE_REG.
-+	 */
-+	EXPECT_EQ(-1, renameat2(AT_FDCWD, file1_s3d3, AT_FDCWD,
-+				TMP_DIR "/s3d1/s3d2/s3d3/f2", RENAME_WHITEOUT));
-+	EXPECT_EQ(EACCES, errno);
-+}
-+
-+static bool is_whiteout(const char *const path)
-+{
-+	struct stat st;
-+
-+	if (stat(path, &st) == -1)
-+		return false;
-+
-+	return S_ISCHR(st.st_mode) && st.st_rdev == makedev(0, 0);
-+}
-+
-+static bool is_fifo(const char *const path)
-+{
-+	struct stat st;
-+
-+	return stat(path, &st) == 0 && S_ISFIFO(st.st_mode);
-+}
-+
-+TEST_F_FORK(layout1, rename_whiteout_allowed)
-+{
-+	const struct rule rules[] = {
-+		{
-+			.path = dir_s3d3,
-+			.access = LANDLOCK_ACCESS_FS_MAKE_REG,
-+		},
-+		{},
-+	};
-+
-+	/* The affected file is a FIFO. */
-+	ASSERT_EQ(0, unlink(file1_s3d3));
-+	ASSERT_EQ(0, mknod(file1_s3d3, S_IFIFO | 0600, 0));
-+
-+	/* Allow MAKE_REG below dir_s3d3. */
-+	enforce_fs(_metadata, LANDLOCK_ACCESS_FS_MAKE_REG, rules);
-+
-+	/*
-+	 * Rename a file with RENAME_WHITEOUT within the same directory.
-+	 * Allowed, because MAKE_REG is granted for the whiteout object which
-+	 * gets created in the source location.
-+	 */
-+	EXPECT_EQ(0, renameat2(AT_FDCWD, file1_s3d3, AT_FDCWD,
-+			       TMP_DIR "/s3d1/s3d2/s3d3/f2", RENAME_WHITEOUT));
-+
-+	/* A whiteout object took the place of the moved FIFO. */
-+	EXPECT_TRUE(is_whiteout(file1_s3d3));
-+	EXPECT_TRUE(is_fifo(TMP_DIR "/s3d1/s3d2/s3d3/f2"));
-+}
-+
-+TEST_F_FORK(layout1, rename_whiteout_reparenting)
-+{
-+	const struct rule rules[] = {
-+		{
-+			.path = dir_s3d2,
-+			.access = LANDLOCK_ACCESS_FS_REFER,
-+		},
-+		{
-+			.path = dir_s3d3,
-+			.access = LANDLOCK_ACCESS_FS_MAKE_REG,
-+		},
-+		{},
-+	};
-+
-+	/* The moved files are FIFOs. */
-+	ASSERT_EQ(0, unlink(file1_s3d3));
-+	ASSERT_EQ(0, mknod(file1_s3d3, S_IFIFO | 0600, 0));
-+	ASSERT_EQ(0, unlink(file1_s3d4));
-+	ASSERT_EQ(0, mknod(file1_s3d4, S_IFIFO | 0600, 0));
-+
-+	/* Allow REFER below dir_s3d2, but MAKE_REG only below dir_s3d3. */
-+	enforce_fs(_metadata,
-+		   LANDLOCK_ACCESS_FS_MAKE_REG | LANDLOCK_ACCESS_FS_REFER,
-+		   rules);
-+
-+	/*
-+	 * The whiteout object is created in the source directory: Moving the
-+	 * FIFO out of dir_s3d4 is denied because MAKE_REG is not granted
-+	 * there, even though it is granted in the destination directory
-+	 * dir_s3d3.
-+	 */
-+	EXPECT_EQ(-1, renameat2(AT_FDCWD, file1_s3d4, AT_FDCWD,
-+				TMP_DIR "/s3d1/s3d2/s3d3/f2", RENAME_WHITEOUT));
-+	EXPECT_EQ(EACCES, errno);
-+
-+	/*
-+	 * Moving the FIFO out of dir_s3d3 is allowed, because MAKE_REG is
-+	 * granted there for the created whiteout object.
-+	 */
-+	EXPECT_EQ(0, renameat2(AT_FDCWD, file1_s3d3, AT_FDCWD,
-+			       TMP_DIR "/s3d1/s3d2/s3d4/f2", RENAME_WHITEOUT));
-+
-+	/* A whiteout object took the place of the moved FIFO. */
-+	EXPECT_TRUE(is_whiteout(file1_s3d3));
-+	EXPECT_TRUE(is_fifo(TMP_DIR "/s3d1/s3d2/s3d4/f2"));
-+}
-+
-+TEST_F_FORK(layout1, rename_whiteout_exchange)
-+{
-+	const char *const whiteout_s3d3 = TMP_DIR "/s3d1/s3d2/s3d3/f2";
-+	const struct rule rules[] = {
-+		{
-+			.path = dir_s3d2,
-+			.access = LANDLOCK_ACCESS_FS_REFER,
-+		},
-+		{
-+			.path = dir_s3d3,
-+			.access = LANDLOCK_ACCESS_FS_MAKE_REG,
-+		},
-+		{},
-+	};
-+
-+	/* The exchanged files are FIFOs and an existing whiteout object. */
-+	ASSERT_EQ(0, unlink(file1_s3d3));
-+	ASSERT_EQ(0, mknod(file1_s3d3, S_IFIFO | 0600, 0));
-+	ASSERT_EQ(0, mknod(whiteout_s3d3, S_IFCHR | 0600, makedev(0, 0)));
-+	ASSERT_EQ(0, unlink(file1_s3d4));
-+	ASSERT_EQ(0, mknod(file1_s3d4, S_IFIFO | 0600, 0));
-+
-+	/* Allow REFER below dir_s3d2, but MAKE_REG only below dir_s3d3. */
-+	enforce_fs(_metadata,
-+		   LANDLOCK_ACCESS_FS_MAKE_REG | LANDLOCK_ACCESS_FS_REFER,
-+		   rules);
-+
-+	/*
-+	 * With RENAME_EXCHANGE, the whiteout object moves into the source
-+	 * directory of the rename: Exchanging the FIFO in dir_s3d4 with the
-+	 * whiteout object is denied because MAKE_REG is not granted in
-+	 * dir_s3d4, even though it is granted in the whiteout object's own
-+	 * directory dir_s3d3.
-+	 */
-+	EXPECT_EQ(-1, renameat2(AT_FDCWD, file1_s3d4, AT_FDCWD, whiteout_s3d3,
-+				RENAME_EXCHANGE));
-+	EXPECT_EQ(EACCES, errno);
-+
-+	/*
-+	 * Exchanging the FIFO in dir_s3d3 with the whiteout object is
-+	 * allowed, because MAKE_REG is granted in the directory into which
-+	 * the whiteout object moves.
-+	 */
-+	EXPECT_EQ(0, renameat2(AT_FDCWD, file1_s3d3, AT_FDCWD, whiteout_s3d3,
-+			       RENAME_EXCHANGE));
-+
-+	/* The FIFO and the whiteout object swapped places. */
-+	EXPECT_TRUE(is_whiteout(file1_s3d3));
-+	EXPECT_TRUE(is_fifo(whiteout_s3d3));
-+}
-+
- TEST_F_FORK(layout1, rename_dir)
- {
- 	const struct rule rules[] = {
-@@ -3008,6 +3201,18 @@ TEST_F_FORK(layout1, make_char)
- 		       makedev(1, 3));
- }
- 
-+TEST_F_FORK(layout1, make_whiteout)
-+{
-+	/*
-+	 * Creates a whiteout object (creation guarded by MAKE_REG).
-+	 *
-+	 * Contrary to the other character devices, this does not require
-+	 * CAP_MKNOD, cf. vfs_mknod().
-+	 */
-+	test_make_file(_metadata, LANDLOCK_ACCESS_FS_MAKE_REG, S_IFCHR,
-+		       makedev(0, 0));
-+}
-+
- TEST_F_FORK(layout1, make_block)
- {
- 	/* Creates a /dev/loop0 device. */
+ 	hfs_dbg("insert new extent\n");
+ 	res = hfs_ext_write_extent(inode);
+ 	if (res)
 -- 
-2.51.0
-
-
+2.43.0
 
