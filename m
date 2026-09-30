@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3F7B51A720;
-	Wed, 30 Sep 2026 17:09:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD55151356C;
+	Wed, 30 Sep 2026 17:09:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790788147; cv=none; b=jeRvAf3VA5znJvOFfeqj177hj32V12h5p810RvICVXXw7UDNZqE5C/rABXS28EFdnZPI2B9B/ITBwCYiR6i7+5v7ukpZQzXt43QY8wh9lqEIplN6bwYcHmG737uIAACliEGVFdzCf/7iltbpW+dYm4b8Z65U4jbYntE3/b6Xt/0=
+	t=1790788151; cv=none; b=FR8PoZwWwKPQyUKqUKl1g3N98D4Mja5ArairXvhxUpIqiBXKIHatjZAYQlCRhNtHAIaki4gnaGILlzKTrHmltP/UbnQHojwBLM0NwdDHDV/tXDo+oqUj1YzE1C28jCKt2Kobgv+GBV+/x6f4bKTqmSOlOTSOAtTcOHZFw5c9MPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790788147; c=relaxed/simple;
-	bh=xyn1eIOQFpKSR7aFcl2yGqCC6XAep5bhQ6g0Ksb/gXY=;
+	s=arc-20240116; t=1790788151; c=relaxed/simple;
+	bh=creUA8fYdc6AvJleUUf+5CDl4KPMOUs2SY3vnX0Oj4Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=K4dfHNCGw1Ptqc0Fx3Wt6XFOd50Z9UZl2MybDdnHeBiad76q1W05RbJI07UuAK0j+ROfH1FmNBj9orV0Z3g62Zg+hcHw4kt+yOrxwlX/sI49Tya19L/sSQWZhC9jSlSL4MJED55qv9bQrMlziaXNmsZOkopikVM8NIrq//LYZVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dg7AppsO; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=cyh2hIh3VPqONcZRhVajeK2IqCB3DpOMFLRbOTuLTzHIBIAAoU1RTa5rUJbp2X1YNng4kp4UB7Bofl2vqMinUIs7CG5p143Z7wwoCeOvMpl6jAWRSoiUQPALPwdksu9S5X4hTM1UZAujTZG3cHJ8YLKsozJlt2okgeQCUU+PFvY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OWjxK05x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dg7AppsO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CAD31F000FF;
-	Wed, 30 Sep 2026 17:09:05 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OWjxK05x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF9861F000FF;
+	Wed, 30 Sep 2026 17:09:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790788146;
-	bh=egZJmGEIzm1zkxkznED+GyZ5alXxz26gnbS1urjF7P4=;
+	s=korg; t=1790788149;
+	bh=M7D3WN86SNymKrXEUYSBG77v6k8ULYU9ftX5C+K1DCg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dg7AppsO5GCB9fbqm7zaBjYZKXlw3NIVphNBz7HY3UgkPPmHv0YT6jZK+/tqpZBDm
-	 JluGlzXg3Lh6BXHfYZ7+WYNLmvrMng9XgNHiS5vGDmolI7yTI4egzV/Tacn3P1l40S
-	 PVcgZbJcOoRPUlJlOFfZISaWONbK225jjpNRT8j4=
+	b=OWjxK05xBeGgyoz/QRbrDJJw7dJ2zGzdvRCXtPQPEWXJB2imr2xBeDd7HvyprbL0+
+	 gQAgX6OIOR5PS2ZLqKqDlNkd265Qyi9wwdGdjhpkhY4t2KNbqQ3uFsjtCxzIIwx0Zv
+	 gIKGlbKneMX8G6PLn0NG1wTarzg8DbeQYcxSq6fY=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+	Kyle Zeng <kylebot@openai.com>,
+	David Lee <david.lee@trailofbits.com>,
+	Steffen Klassert <steffen.klassert@secunet.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 015/877] ipv6: mcast: Dont hold RTNL for IPV6_ADD_MEMBERSHIP and MCAST_JOIN_GROUP.
-Date: Wed, 30 Sep 2026 17:15:26 +0200
-Message-ID: <20260930152415.073963410@linuxfoundation.org>
+Subject: [PATCH 6.12 024/877] xfrm: fix compat ALLOCSPI request use-after-free
+Date: Wed, 30 Sep 2026 17:15:35 +0200
+Message-ID: <20260930152415.265658717@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152414.738996857@linuxfoundation.org>
 References: <20260930152414.738996857@linuxfoundation.org>
@@ -52,116 +52,71 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Kuniyuki Iwashima <kuniyu@google.com>
+From: Kyle Zeng <kylebot@openai.com>
 
-[ Upstream commit 1767bb2d47b715a106287a8f963d9ec6cbab4e69 ]
+[ Upstream commit d1ebd9081879fd9ae9c8fb7e8928f19cc88ae320 ]
 
-In __ipv6_sock_mc_join(), per-socket mld data is protected by lock_sock(),
-and only __dev_get_by_index() requires RTNL.
+xfrm_state_netlink() builds the ALLOCSPI response with
+dump_one_state(), which already calls alloc_compat() with the response
+skb and header.
 
-Let's use dev_get_by_index() and drop RTNL for IPV6_ADD_MEMBERSHIP and
-MCAST_JOIN_GROUP.
+xfrm_alloc_userspi() then calls alloc_compat() again, but passes the
+original request skb and its header. For a compat request, the
+translator therefore interprets the 228-byte compat xfrm_userspi_info
+as the 232-byte native layout and reads four bytes past the declared
+payload. It also publishes the translated child through the request's
+frag_list.
 
-Note that we must call rt6_lookup() and dev_hold() under RCU.
+A multicast clone of the request shares skb_shared_info and can observe
+that child. xfrm_user_rcv_msg() frees it after the request handler
+returns, racing a compat receiver which may still be copying from it and
+resulting in a use-after-free.
 
-If rt6_lookup() returns an entry from the exception table, dst_dev_put()
-could change rt->dev.dst to loopback concurrently, and the original device
-could lose the refcount before dev_hold() and unblock device registration.
+Remove the redundant conversion. The response keeps its correct compat
+translation from dump_one_state(), and no child is attached to the
+inbound request.
 
-dst_dev_put() is called from NETDEV_UNREGISTER and synchronize_net() follows
-it, so as long as rt6_lookup() and dev_hold() are called within the same
-RCU critical section, the dev is alive.
-
-Even if the race happens, they are synchronised by idev->dead and mcast
-addresses are cleaned up.
-
-For the racy access to rt->dst.dev, we use dst_dev().
-
-Signed-off-by: Kuniyuki Iwashima <kuniyu@google.com>
-Reviewed-by: Eric Dumazet <edumazet@google.com>
-Link: https://patch.msgid.link/20250702230210.3115355-7-kuni1840@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Fixes: 5f3eea6b7e8f ("xfrm/compat: Attach xfrm dumps to 64=>32 bit translator")
+Assisted-by: Codex:gpt-5.6-sol Codex:gpt-5.5-cyber
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Co-developed-by: David Lee <david.lee@trailofbits.com>
+Signed-off-by: David Lee <david.lee@trailofbits.com>
+Signed-off-by: Steffen Klassert <steffen.klassert@secunet.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv6/ipv6_sockglue.c |  2 --
- net/ipv6/mcast.c         | 24 +++++++++++++-----------
- 2 files changed, 13 insertions(+), 13 deletions(-)
+ net/xfrm/xfrm_user.c | 12 ------------
+ 1 file changed, 12 deletions(-)
 
-diff --git a/net/ipv6/ipv6_sockglue.c b/net/ipv6/ipv6_sockglue.c
-index c2ea92c0f9166..385321a43a19b 100644
---- a/net/ipv6/ipv6_sockglue.c
-+++ b/net/ipv6/ipv6_sockglue.c
-@@ -121,11 +121,9 @@ static bool setsockopt_needs_rtnl(int optname)
- {
- 	switch (optname) {
- 	case IPV6_ADDRFORM:
--	case IPV6_ADD_MEMBERSHIP:
- 	case IPV6_DROP_MEMBERSHIP:
- 	case IPV6_JOIN_ANYCAST:
- 	case IPV6_LEAVE_ANYCAST:
--	case MCAST_JOIN_GROUP:
- 	case MCAST_LEAVE_GROUP:
- 	case MCAST_JOIN_SOURCE_GROUP:
- 	case MCAST_LEAVE_SOURCE_GROUP:
-diff --git a/net/ipv6/mcast.c b/net/ipv6/mcast.c
-index 212c2d8efe0f5..61046543302d4 100644
---- a/net/ipv6/mcast.c
-+++ b/net/ipv6/mcast.c
-@@ -172,14 +172,12 @@ static int unsolicited_report_interval(struct inet6_dev *idev)
- static int __ipv6_sock_mc_join(struct sock *sk, int ifindex,
- 			       const struct in6_addr *addr, unsigned int mode)
- {
--	struct net_device *dev = NULL;
--	struct ipv6_mc_socklist *mc_lst;
- 	struct ipv6_pinfo *np = inet6_sk(sk);
-+	struct ipv6_mc_socklist *mc_lst;
- 	struct net *net = sock_net(sk);
-+	struct net_device *dev = NULL;
- 	int err;
+diff --git a/net/xfrm/xfrm_user.c b/net/xfrm/xfrm_user.c
+index c37f8e518f1e3..c1e753d554e75 100644
+--- a/net/xfrm/xfrm_user.c
++++ b/net/xfrm/xfrm_user.c
+@@ -1765,7 +1765,6 @@ static int xfrm_alloc_userspi(struct sk_buff *skb, struct nlmsghdr *nlh,
+ 	struct net *net = sock_net(skb->sk);
+ 	struct xfrm_state *x;
+ 	struct xfrm_userspi_info *p;
+-	struct xfrm_translator *xtr;
+ 	struct sk_buff *resp_skb;
+ 	xfrm_address_t *daddr;
+ 	int family;
+@@ -1831,17 +1830,6 @@ static int xfrm_alloc_userspi(struct sk_buff *skb, struct nlmsghdr *nlh,
+ 		goto out;
+ 	}
  
--	ASSERT_RTNL();
+-	xtr = xfrm_get_translator();
+-	if (xtr) {
+-		err = xtr->alloc_compat(skb, nlmsg_hdr(skb));
 -
- 	if (!ipv6_addr_is_multicast(addr))
- 		return -EINVAL;
- 
-@@ -199,13 +197,18 @@ static int __ipv6_sock_mc_join(struct sock *sk, int ifindex,
- 
- 	if (ifindex == 0) {
- 		struct rt6_info *rt;
-+
-+		rcu_read_lock();
- 		rt = rt6_lookup(net, addr, NULL, 0, NULL, 0);
- 		if (rt) {
--			dev = rt->dst.dev;
-+			dev = dst_dev(&rt->dst);
-+			dev_hold(dev);
- 			ip6_rt_put(rt);
- 		}
--	} else
--		dev = __dev_get_by_index(net, ifindex);
-+		rcu_read_unlock();
-+	} else {
-+		dev = dev_get_by_index(net, ifindex);
-+	}
- 
- 	if (!dev) {
- 		sock_kfree_s(sk, mc_lst, sizeof(*mc_lst));
-@@ -216,12 +219,11 @@ static int __ipv6_sock_mc_join(struct sock *sk, int ifindex,
- 	mc_lst->sfmode = mode;
- 	RCU_INIT_POINTER(mc_lst->sflist, NULL);
- 
--	/*
--	 *	now add/increase the group membership on the device
--	 */
+-		xfrm_put_translator(xtr);
+-		if (err) {
+-			kfree_skb(resp_skb);
+-			goto out;
+-		}
+-	}
 -
-+	/* now add/increase the group membership on the device */
- 	err = __ipv6_dev_mc_inc(dev, addr, mode);
+ 	err = nlmsg_unicast(xfrm_net_nlsk(net, skb), resp_skb, NETLINK_CB(skb).portid);
  
-+	dev_put(dev);
-+
- 	if (err) {
- 		sock_kfree_s(sk, mc_lst, sizeof(*mc_lst));
- 		return err;
+ out:
 -- 
 2.53.0
 
