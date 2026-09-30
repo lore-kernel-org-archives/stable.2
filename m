@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEB3B509F0D;
-	Wed, 30 Sep 2026 15:49:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2794F50EBFE;
+	Wed, 30 Sep 2026 15:49:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790783351; cv=none; b=rylCAw19N9qmNhAc+geEXKUKLdqufA4I7W4o/z2zs10dJtWePJGHptKGAUxlidDLWTXmMzbQR2bhYER8eh8Cy/lyl7L1X/TGSmttSNXq0VlEpHKXD8XKtcNfW43EpyZ5YpmdDwuUFtjpaD3gfF3E4NxsUub8A/Difnn7E4y2ri4=
+	t=1790783353; cv=none; b=WiAnED6vI8qRAc6XQrTaN+prMiz8q3nbUMFUNIAOxj6gL0SB7O64CQI69jBS+dSzKUQr96ZefCoJ8TdODJ7GYVyPUTvMXZm5fk3ZiRxXDj+qdosXPWddodBgXmDMf55sHMnDd7+DeMTjXVfz8S03pQVqQr2iI5fFdLMyvb75wiQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790783351; c=relaxed/simple;
-	bh=xQyfo+I9xX9DL+dPNiktO57Shphip5tdGd8BEG4ih+s=;
+	s=arc-20240116; t=1790783353; c=relaxed/simple;
+	bh=XW2OK80j1MFl9vOAG5G18UE4koRoeAw2xKSH4Mh6DnM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IISaKoECsQuGJ1cQTq4E2WuSTYg5nTtAgkcqQ3PpfOgEDd/DpOzyB0+51wV7qRHorX8fV16IDZmr8jUyqNhdFNOJ37m2ySoq6lzOWu98y7nRgmPjSOgl6EwEf+wAzLwkBevci6qOGt3R2FL90Iy7778ZUqKRIumWRHOkZJrFprw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=O3EV+rru; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=KqljYyqMwfzzmcQYN//5H01lt7xuYPE72F4eyHYJ4Znhc4mlIS0hbMyyk5A6A6q6rWw4RGhogEyorqr4keRsLYXraxH7SrX2yv5tg4UB0ms4FZng98paRJz3KLOQZGUvbedFTJHb4Pm8S4/9Rzr+d7tl/gmhQS+QQXA6zwwqBcI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Ts86d6fF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="O3EV+rru"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3FBD1F00893;
-	Wed, 30 Sep 2026 15:49:01 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Ts86d6fF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AC631F00898;
+	Wed, 30 Sep 2026 15:49:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790783342;
-	bh=2gmdqG/CsRVhJFTNpj9A39IvSyUYzeDukGRjgVIHxso=;
+	s=korg; t=1790783348;
+	bh=6DCDWVyVUm3Vrsft9J1iQLGi+yUZM4sGAvevoE+fy/w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=O3EV+rrumMFflpTPfzMiujp9iQZR3w5eB8xcKFwk/9t+viV5GFh/WzsG9i6TfaWyz
-	 abKzJHhnOTxHHXMsT84F9I7KV4WqV6KH68mZ4ciUH8bQ7ctIoBrZ1Gedr+5scsw4OX
-	 bP2M3b5ZmwNuS9hy3XpYGOQ97qGh4y/xfPupbmKQ=
+	b=Ts86d6fFZKgeKDT1yXUmlndy7i5U95QM/gA8LOtFV1w/0J1/efYN500iac6iM53Hd
+	 qfeOewNKeEdINT7LkoWxyzj8MAn8Qi26naGy496gOct0FgtpA8RZ4zAPhZIVMBhFLf
+	 HLUqh8r6HtkFVc/ZbRKY/PsSSrqxd4EbpXnCIEc8=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Li RongQing <lirongqing@baidu.com>,
-	Leon Romanovsky <leon@kernel.org>,
+	Mariano Baragiola <mbaragiola@linux.com>,
+	Johannes Berg <johannes.berg@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 366/595] RDMA/mad: Fix receive buffer leak when PKey enforcement fails
-Date: Wed, 30 Sep 2026 17:24:19 +0200
-Message-ID: <20260930152355.549598703@linuxfoundation.org>
+Subject: [PATCH 5.10 368/595] wifi: virt_wifi: free skb when disconnected
+Date: Wed, 30 Sep 2026 17:24:21 +0200
+Message-ID: <20260930152355.591644614@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152347.700140858@linuxfoundation.org>
 References: <20260930152347.700140858@linuxfoundation.org>
@@ -51,56 +51,38 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Li RongQing <lirongqing@baidu.com>
+From: Mariano Baragiola <mbaragiola@linux.com>
 
-[ Upstream commit 3476c28c9addfa253f505e6bd87f1f5598b961d0 ]
+[ Upstream commit f9edf7cf63b96d2b776fca8d258d3c5256e40c8e ]
 
-ib_mad_complete_recv() initializes mad_recv_wc->rmpp_list and then runs
-ib_mad_enforce_security() before linking recv_buf onto that list.  On
-failure it calls ib_free_recv_mad(), which only walks rmpp_list and frees
-the ib_mad_private of every buffer found there.  As the list is still
-empty at that point, nothing is freed at all.
+When the simulated link is disconnected, virt_wifi_start_xmit() returns
+NET_XMIT_DROP without freeing the skb. dev_hard_start_xmit() treats this
+return value as consumed, so every packet sent while disconnected leaks its
+skb.
 
-The caller cannot clean up either: ib_mad_recv_done() sets recv to NULL
-right after ib_mad_complete_recv() returns, assuming the MAD layer took
-ownership of the buffer.  Every MAD that fails the PKey check therefore
-leaks one ib_mad_private (about 300 bytes per IB port MAD, ~2K for OPA),
-and a remote node can trigger this repeatedly by sending MADs with a
-wrong PKey.
+Free the skb before returning the drop status.
 
-Link recv_buf onto rmpp_list right after the list is initialized, so the
-error path has something to free.
-
-Fixes: 47a2b338fe63 ("IB/core: Enforce security on management datagrams")
-Signed-off-by: Li RongQing <lirongqing@baidu.com>
-Link: https://patch.msgid.link/20260826073216.2367-1-lirongqing@baidu.com
-Signed-off-by: Leon Romanovsky <leon@kernel.org>
+Fixes: c7cdba31ed8b ("mac80211-next: rtnetlink wifi simulation device")
+Signed-off-by: Mariano Baragiola <mbaragiola@linux.com>
+Link: https://patch.msgid.link/20260809124947.3590270-1-mbaragiola@linux.com
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/infiniband/core/mad.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/net/wireless/virt_wifi.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/infiniband/core/mad.c b/drivers/infiniband/core/mad.c
-index 10d29167b585c..1be9513b8966b 100644
---- a/drivers/infiniband/core/mad.c
-+++ b/drivers/infiniband/core/mad.c
-@@ -1810,6 +1810,8 @@ static void ib_mad_complete_recv(struct ib_mad_agent_private *mad_agent_priv,
- 	int ret;
- 
- 	INIT_LIST_HEAD(&mad_recv_wc->rmpp_list);
-+	list_add(&mad_recv_wc->recv_buf.list, &mad_recv_wc->rmpp_list);
-+
- 	ret = ib_mad_enforce_security(mad_agent_priv,
- 				      mad_recv_wc->wc->pkey_index);
- 	if (ret) {
-@@ -1818,7 +1820,6 @@ static void ib_mad_complete_recv(struct ib_mad_agent_private *mad_agent_priv,
- 		return;
+diff --git a/drivers/net/wireless/virt_wifi.c b/drivers/net/wireless/virt_wifi.c
+index dd6675436bda6..e6dfb1180b19a 100644
+--- a/drivers/net/wireless/virt_wifi.c
++++ b/drivers/net/wireless/virt_wifi.c
+@@ -430,6 +430,7 @@ static netdev_tx_t virt_wifi_start_xmit(struct sk_buff *skb,
+ 	priv->tx_packets++;
+ 	if (!priv->is_connected) {
+ 		priv->tx_failed++;
++		dev_kfree_skb_any(skb);
+ 		return NET_XMIT_DROP;
  	}
  
--	list_add(&mad_recv_wc->recv_buf.list, &mad_recv_wc->rmpp_list);
- 	if (is_kernel_rmpp_data_response(mad_agent_priv, mad_recv_wc)) {
- 		spin_lock_irqsave(&mad_agent_priv->lock, flags);
- 		mad_send_wr = ib_find_send_mad(mad_agent_priv, mad_recv_wc);
 -- 
 2.53.0
 
