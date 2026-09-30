@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE82E4ED196;
-	Wed, 30 Sep 2026 15:34:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 805EB50B43D;
+	Wed, 30 Sep 2026 15:35:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790782507; cv=none; b=lUNgrkpMJP1WTC0TlKjNDhaI4cO8VYpfBSYmu1bYLYpMovqnsviua3bvt1vfzM/EhCjojN6ITusJ5dNj2Gp0Yio4ril6+/F7txNh6SENGiLP8dgq1C7tDi6ul7sgeshWmDINHmnjb8swu55OiQc1QU/74arHYZD0CCnGDfr9VLQ=
+	t=1790782514; cv=none; b=FRPjLJ4f9haAY1CWTXwF2sLZI4YnN5kqRwyA7Y03ErfTDkKp/y2cfg1TN9Uus/ZalWnOCflWOaTjP+u/8SrGv8r/5DZiXPyjd/VBJgstuJPJpuE18jGYO3o7YDj2EuJ33emsDV8X0QLb9BxzjadI9QLbqiiF3IXJyzxfwyk5Mw8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790782507; c=relaxed/simple;
-	bh=MgQsUH9eEAC3lYYYcSpnT4T06sw5B2QBD4T3aQ1vbo4=;
+	s=arc-20240116; t=1790782514; c=relaxed/simple;
+	bh=EAOfewgs0RjXyQ3ZYkVh+aK1ZFcyoSHFJHMasfPi1eE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=I65v2kDsMYEMHJQmQuPfX6W/ggeNO/qus6GxdoxxjL4ol02CFmtLO5AgHz2lt7HUmeJ77vabgf1WCYLbZP4XABhbBglTyBmSCjR4RHf+6yrHMHHGy8uCuO1o9t4pwAXuKNBzR6+BwbGHqPzNRjLMqVmyBMjOw7Qb6uDm6rPEldE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=y9j4aRvs; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=AoCNoQDrD3kNW6fOCIF+X+Vz3R57OhgqlaQ2kp2AUklS9Ed+Z6JjP05bh/pSegz48JanmDTKubYYxLr1PtAIPB4OcYiPv8Jtu7Kc7u+mTvfYuKFwZg4JahcukF5aekRQrvNe0z0TSTXMogJc4cangeuD9POU0Yp4W+jkE1FXfqQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OIg/dAIu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="y9j4aRvs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBC831F0089B;
-	Wed, 30 Sep 2026 15:34:52 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OIg/dAIu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 557611F00893;
+	Wed, 30 Sep 2026 15:35:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790782493;
-	bh=FHoLXTEjM2UBEbdoEHp2D0vhDwxdMA0UGilqw/i4G/g=;
+	s=korg; t=1790782501;
+	bh=hb30ZHxCDiPvB46P7lkvvxdIiUKcTa1LOQIrX0v8q8U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=y9j4aRvssjIituyZmokdLWeS3b3hRrwFiU/I0/FAgNHHxEpjJbfxnbe9eCPlyarLT
-	 MxVW/gtxYaWQeWAI7r6xVir8xfSbr9xeCMznbsu9gI3FxG2J874yRkO7huXrZ5AC10
-	 BbtwGojeV4vqPgcPbBnS8lOiN6n6ZccZT5uOoNm4=
+	b=OIg/dAIum831wBZcTQLR7cXKaWLqvgH/bCDmW2LygfuriFfPUPA9EFIDlJMjh5SCa
+	 1tvB2xAlvu4FUf2Haz5KLbgmN8guVoAvUUETk+nH5lUzaIDA4l20c7713OtR0tr8TD
+	 qvpSVJctvGuBAhTfkolAxRLaejdJ4HrfFQAf7maY=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Stepan Ionichev <sozdayvek@gmail.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Ulf Hansson <ulf.hansson@linaro.org>,
+	Kumar Meiyappan <kumar.meiyappan@microchip.com>,
+	Sagar Biradar <sagar.biradar@microchip.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 021/595] mmc: davinci: avoid NULL deref of host->data in IRQ handler
-Date: Wed, 30 Sep 2026 17:18:34 +0200
-Message-ID: <20260930152348.180417575@linuxfoundation.org>
+Subject: [PATCH 5.10 024/595] scsi: pm8001: Reject firmware update in fatal error state
+Date: Wed, 30 Sep 2026 17:18:37 +0200
+Message-ID: <20260930152348.245563459@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152347.700140858@linuxfoundation.org>
 References: <20260930152347.700140858@linuxfoundation.org>
@@ -52,79 +52,46 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Stepan Ionichev <sozdayvek@gmail.com>
+From: Kumar Meiyappan <kumar.meiyappan@microchip.com>
 
-[ Upstream commit 4f28846aaf8db9668e338b8987973f8935edff34 ]
+[ Upstream commit 2a8fbcfb04aa9db189bfa3842d4f586aecd0e631 ]
 
-mmc_davinci_irq() returns early only when both host->cmd and
-host->data are NULL:
+pm8001_store_update_fw() allows a firmware update request even when the
+controller has already entered a fatal error state.
 
-  if (host->cmd == NULL && host->data == NULL) {
-          ...
-          return IRQ_NONE;
-  }
+Firmware update is not valid once the controller is in that state, and
+attempting it can lead to a call trace. Reject the request early by
+checking controller_fatal_error, set the firmware status to
+FAIL_PARAMETERS, and return -EINVAL.
 
-So we may legitimately reach the rest of the handler with
-host->data == NULL (and therefore data == NULL). The DATDNE branch
-already guards against this with an explicit "if (data != NULL)"
-check, but the subsequent TOUTRD ("read data timeout") and
-CRCWR/CRCRD ("data CRC error") branches dereference data
-unconditionally:
-
-  if (qstatus & MMCST0_TOUTRD) {
-          data->error = -ETIMEDOUT;        <-- NULL deref
-          ...
-          davinci_abort_data(host, data);
-  }
-
-  if (qstatus & (MMCST0_CRCWR | MMCST0_CRCRD)) {
-          data->error = -EILSEQ;           <-- NULL deref
-          ...
-  }
-
-If either bit is set in qstatus while host->data is NULL, the kernel
-will crash inside the IRQ handler. smatch flags this:
-
-  drivers/mmc/host/davinci_mmc.c:933 mmc_davinci_irq() error: we
-    previously assumed 'data' could be null (see line 914)
-
-Gate both branches on a non-NULL data, matching the existing pattern
-used by the DATDNE branch.
-
-No functional change for callers where data is non-NULL, which is
-the only case in which these branches did meaningful work before
-this change.
-
-Signed-off-by: Stepan Ionichev <sozdayvek@gmail.com>
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Signed-off-by: Ulf Hansson <ulf.hansson@linaro.org>
+Signed-off-by: Kumar Meiyappan <kumar.meiyappan@microchip.com>
+Signed-off-by: Sagar Biradar <sagar.biradar@microchip.com>
+Link: https://patch.msgid.link/20260416153757.414896-1-sagar.biradar@microchip.com
+Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/mmc/host/davinci_mmc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/scsi/pm8001/pm8001_ctl.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/mmc/host/davinci_mmc.c b/drivers/mmc/host/davinci_mmc.c
-index 77258948440f9..f026ffc4dc1af 100644
---- a/drivers/mmc/host/davinci_mmc.c
-+++ b/drivers/mmc/host/davinci_mmc.c
-@@ -934,7 +934,7 @@ static irqreturn_t mmc_davinci_irq(int irq, void *dev_id)
- 		}
+diff --git a/drivers/scsi/pm8001/pm8001_ctl.c b/drivers/scsi/pm8001/pm8001_ctl.c
+index 467f77664efb9..8101d9463ca55 100644
+--- a/drivers/scsi/pm8001/pm8001_ctl.c
++++ b/drivers/scsi/pm8001/pm8001_ctl.c
+@@ -822,6 +822,14 @@ static ssize_t pm8001_store_update_fw(struct device *cdev,
+ 		goto out;
  	}
  
--	if (qstatus & MMCST0_TOUTRD) {
-+	if (data && (qstatus & MMCST0_TOUTRD)) {
- 		/* Read data timeout */
- 		data->error = -ETIMEDOUT;
- 		end_transfer = 1;
-@@ -946,7 +946,7 @@ static irqreturn_t mmc_davinci_irq(int irq, void *dev_id)
- 		davinci_abort_data(host, data);
- 	}
- 
--	if (qstatus & (MMCST0_CRCWR | MMCST0_CRCRD)) {
-+	if (data && (qstatus & (MMCST0_CRCWR | MMCST0_CRCRD))) {
- 		/* Data CRC error */
- 		data->error = -EILSEQ;
- 		end_transfer = 1;
++	if (pm8001_ha->controller_fatal_error) {
++		pm8001_dbg(pm8001_ha, FAIL,
++			   "controller in fatal error state, firmware update rejected\n");
++		pm8001_ha->fw_status = FAIL_PARAMETERS;
++		ret = -EINVAL;
++		goto out;
++	}
++
+ 	for (i = 0; flash_command_table[i].code != FLASH_CMD_NONE; i++) {
+ 		if (!memcmp(flash_command_table[i].command,
+ 				 cmd_ptr, strlen(cmd_ptr))) {
 -- 
 2.53.0
 
