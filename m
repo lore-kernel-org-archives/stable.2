@@ -1,45 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 386524E4308;
-	Wed, 30 Sep 2026 16:34:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AA2550EC15
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 16:34:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790786057; cv=none; b=YwCAiqGMOoGDNXBueKIr+ZaIprpU0OYeCwHYjisqKoGdNsffzQpNKvVR6jrUxxuP7picKlv0Hl2ITyLamV4EQYWGQ0GwI4JZjtcc3+hU/txe7c6SEFOiSppewUCyfNCRB2pR9RmWuZJtnrCW9+byZq4j+c0C+xHUwF5U401Tuaw=
+	t=1790786059; cv=none; b=GxYhUU8AkoguPCET7UtG/OtdtOGIIPpMoTS8bUvMXV0rEWuh1NMsMlBEr2sdcI3hjWpeJuaFXHmBYS+JtOlkfYP0f1Zrs32MylK5SgeQ15vUvEbxiRwJaov31axpSS9b8U5y3sbHLpt8ZjSnIld8DfRXVHgO9rma/SrozIuOrUQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790786057; c=relaxed/simple;
-	bh=Ggn8aQ+Fyg0j9bQ763f4q9gcmQ2PztpnAkbFur7z8P8=;
+	s=arc-20240116; t=1790786059; c=relaxed/simple;
+	bh=DHdndg8Qi6YGHwDNthJkbY11WTHHzupOrZV2sH93tkc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=I9HNlcncbWUX++g3TRO/tP6TL/A/Uf6L6P+O48rQZ1jkthnLuipeTZ0bUiXUduPniWVAAQm0U56ysIMSGtwo5tk12WWxL9QKJJ3Gf0UnGvvDrX8wREkP65H8Yj4qbCZF1wkNFqOkcBxCYmkHUIHNgrPHa55sNyCAVFrwVhLFPrY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ik3E2Ye1; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=B013oAOo76M5vPGRR6vgbZtjzP2w2B8mSapMi0rJHd8otAHwf1uN8QBjSN5KZn+r5jWdwq0EB0Egu0GC9YNyErMj1qULjt/19aSJpO8XaLx3UqfWU/COVnBOIzYIQVVXxE5ettxwc7U8I1ATCowRkXyCeOZtcJ5lDAuYD3tUATw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dp3qoXxE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ik3E2Ye1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9167A1F000FF;
-	Wed, 30 Sep 2026 16:34:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790786056;
-	bh=o4J3kLy5l8AOTgyGobaidwWUa+oGx5Ngh89ejnGXJQs=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dp3qoXxE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 494831F00893;
+	Wed, 30 Sep 2026 16:34:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790786057;
+	bh=1UYZNMXAes3Kmu2cfGNSYQAWa5acJhamwYKZE8/GQkc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ik3E2Ye1VYNIcCcH2zCX4+G4Bnwy617JbJjBA4Ru+XU6i3zHbX+6iOiAbCrdxzNFG
-	 jS2M1xieZISvITF1vYCpvZnjlJyeXy27HVFdgJ0qUDelLs5QaYf3+mfIQfPZB2NMKb
-	 CfoLw02a/i1cdFVkDQMiARTvGwyNon44yqPr2Ymk=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=Dp3qoXxEI2xzb1huvhAsjE/55gHUYOiI38FPARVjtvWwB6XacBicmo/yKJtJ92JFx
+	 xm82YkRNm1hp6V08V48atjoX51Yi0FDjvOpx/6lMU39ZM25Bp/q0uc6xQ2Ev5uOAoL
+	 kSBff+GdoXVf0LPCrN/wwHLAbHwyZR8j1e6w/YChoxoxyifo1BpqwpXpC1J9+frVCJ
+	 raIX3bhxOItdYg1lmrwCi0jzQPqTcpbrpzpepQrPK/CTWFErV7wFv2yNcpSD7P//n1
+	 f86lvC4Y/MzMRRxH9Omly+xlAzuV8JRtFo/09T9zz/aKgn4cyeqGLWVjgXTi3u6/HV
+	 mH9Dhr5oJ49mg==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	co+6a581c4284f721d4@bugs.sh,
-	Stefano Garzarella <sgarzare@redhat.com>,
-	Srish Srinivasan <ssrish@linux.ibm.com>,
-	Jarkko Sakkinen <jarkko@kernel.org>
-Subject: [PATCH 6.1 725/982] KEYS: trusted: Fix tpm2_load_cmd() boundary check
-Date: Wed, 30 Sep 2026 17:24:21 +0200
-Message-ID: <20260930152432.324243761@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
-References: <20260930152416.775402466@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Namjae Jeon <linkinjeon@kernel.org>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] smb: client: use finish_no_open() for non-regular inodes
+Date: Wed, 30 Sep 2026 12:34:15 -0400
+Message-ID: <20260930163415.3202882-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026092923-stuffed-sift-28b2@gregkh>
+References: <2026092923-stuffed-sift-28b2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,83 +45,157 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+From: Namjae Jeon <linkinjeon@kernel.org>
 
-------------------
+[ Upstream commit e66cf1625ec4a3fe68346119f371def713fd0a4d ]
 
-From: Jarkko Sakkinen <jarkko@kernel.org>
+An O_CREAT open can find an existing symlink or another non-regular
+inode. cifs_atomic_open() calls finish_open() on it and attaches a
+cifsFileInfo. Symlink inodes have no CIFS release operation, so the
+dentry reference held by cifsFileInfo is leaked. FMODE_OPENED also
+prevents the VFS from following the symlink.
 
-commit 114f00d738f15dd8c7318369edcdc53dd6d08763 upstream.
+Track whether cifs_do_create() returned an open server handle. For
+non-regular inodes, close the handle if present, remove the pending
+open, and call finish_no_open() so the VFS can continue the lookup.
+Do not set FMODE_CREATED unless a regular file was opened. For
+O_NOFOLLOW with __O_REGULAR, return -ELOOP before the VFS's
+-EFTYPE check.
 
-tpm2_load_cmd() does boundary checks against the ASN.1 size i.e.,
-payload->blob_len. Address this by passing the decoded blob size to
-tpm2_load_cmd(), and use it for the boundary checks.
+Defer closing a legacy POSIX handle on a non-regular inode until
+after inode lookup. This avoids closing it again if lookup fails.
 
-Cc: stable@vger.kernel.org # v5.13+
-Fixes: f2219745250f ("security: keys: trusted: use ASN.1 TPM2 key format for the blobs")
-Reported-by: co+6a581c4284f721d4@bugs.sh
-Closes: https://bugs.sh/b/6a581c4284f721d4/
-Reviewed-by: Stefano Garzarella <sgarzare@redhat.com>
-Tested-by: Srish Srinivasan <ssrish@linux.ibm.com>
-Link: https://lore.kernel.org/r/20260901205809.2028454-1-jarkko@kernel.org
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Fixes: d2c127197dfc ("cifs: implement i_op->atomic_open()")
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Cc: stable@vger.kernel.org
+[ replaced S_ISREG(inode->i_mode) with d_is_reg(direntry) because the older cifs_do_create() already attaches the inode. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- security/keys/trusted-keys/trusted_tpm2.c |   12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+ fs/smb/client/dir.c | 39 +++++++++++++++++++++++++++++----------
+ 1 file changed, 29 insertions(+), 10 deletions(-)
 
---- a/security/keys/trusted-keys/trusted_tpm2.c
-+++ b/security/keys/trusted-keys/trusted_tpm2.c
-@@ -108,7 +108,7 @@ struct tpm2_key_context {
+diff --git a/fs/smb/client/dir.c b/fs/smb/client/dir.c
+index b5b64b061b715..d34230b8e1246 100644
+--- a/fs/smb/client/dir.c
++++ b/fs/smb/client/dir.c
+@@ -176,7 +176,8 @@ check_name(struct dentry *direntry, struct cifs_tcon *tcon)
  
- static int tpm2_key_decode(struct trusted_key_payload *payload,
- 			   struct trusted_key_options *options,
--			   u8 **buf)
-+			   u8 **buf, unsigned int *blob_len)
+ static int cifs_do_create(struct inode *inode, struct dentry *direntry, unsigned int xid,
+ 			  struct tcon_link *tlink, unsigned int oflags, umode_t mode, __u32 *oplock,
+-			  struct cifs_fid *fid, struct cifs_open_info_data *buf)
++			  struct cifs_fid *fid, struct cifs_open_info_data *buf,
++			  bool *opened)
  {
- 	int ret;
- 	struct tpm2_key_context ctx;
-@@ -129,6 +129,7 @@ static int tpm2_key_decode(struct truste
- 		return -ENOMEM;
+ 	int rc = -ENOENT;
+ 	int create_options = CREATE_NOT_DIR;
+@@ -191,6 +192,7 @@ static int cifs_do_create(struct inode *inode, struct dentry *direntry, unsigned
+ 	struct cifs_open_parms oparms;
+ 	int rdwr_for_fscache = 0;
  
- 	*buf = blob;
-+	*blob_len = ctx.priv_len + ctx.pub_len;
- 	options->keyhandle = ctx.parent;
++	*opened = false;
+ 	*oplock = 0;
+ 	if (tcon->ses->server->oplocks)
+ 		*oplock = REQ_OPLOCK;
+@@ -213,6 +215,7 @@ static int cifs_do_create(struct inode *inode, struct dentry *direntry, unsigned
+ 				     oflags, oplock, &fid->netfid, xid);
+ 		switch (rc) {
+ 		case 0:
++			*opened = true;
+ 			if (newinode == NULL) {
+ 				/* query inode info */
+ 				goto cifs_create_get_file_info;
+@@ -229,11 +232,9 @@ static int cifs_do_create(struct inode *inode, struct dentry *direntry, unsigned
+ 				/*
+ 				 * The server may allow us to open things like
+ 				 * FIFOs, but the client isn't set up to deal
+-				 * with that. If it's not a regular file, just
+-				 * close it and proceed as if it were a normal
+-				 * lookup.
++				 * with that. Keep the handle until the caller
++				 * can finish the lookup.
+ 				 */
+-				CIFSSMBClose(xid, tcon, fid->netfid);
+ 				goto cifs_create_get_file_info;
+ 			}
+ 			/* success, no need to query */
+@@ -333,6 +334,7 @@ static int cifs_do_create(struct inode *inode, struct dentry *direntry, unsigned
+ 		}
+ 		goto out;
+ 	}
++	*opened = true;
+ 	if (rdwr_for_fscache == 2)
+ 		cifs_invalidate_cache(inode, FSCACHE_INVAL_DIO_WRITE);
  
- 	memcpy(blob, ctx.priv, ctx.priv_len);
-@@ -384,10 +385,11 @@ static int tpm2_load_cmd(struct tpm_chip
- 	int rc;
- 	u32 attrs;
+@@ -423,7 +425,7 @@ static int cifs_do_create(struct inode *inode, struct dentry *direntry, unsigned
+ 	return rc;
  
--	rc = tpm2_key_decode(payload, options, &blob);
-+	rc = tpm2_key_decode(payload, options, &blob, &blob_len);
+ out_err:
+-	if (server->ops->close)
++	if (*opened && server->ops->close)
+ 		server->ops->close(xid, tcon, fid);
+ 	if (newinode)
+ 		iput(newinode);
+@@ -442,6 +444,8 @@ cifs_atomic_open(struct inode *inode, struct dentry *direntry,
+ 	struct cifs_fid fid = {};
+ 	struct cifs_pending_open open;
+ 	__u32 oplock;
++	bool is_regular;
++	bool opened;
+ 	struct cifsFileInfo *file_info;
+ 	struct cifs_open_info_data buf = {};
+ 
+@@ -501,15 +505,28 @@ cifs_atomic_open(struct inode *inode, struct dentry *direntry,
+ 	cifs_add_pending_open(&fid, tlink, &open);
+ 
+ 	rc = cifs_do_create(inode, direntry, xid, tlink, oflags, mode,
+-			    &oplock, &fid, &buf);
++			    &oplock, &fid, &buf, &opened);
  	if (rc) {
- 		/* old form */
- 		blob = payload->blob;
-+		blob_len = payload->blob_len;
- 		payload->old_format = 1;
- 	} else {
- 		/* Bind for cleanup: */
-@@ -399,17 +401,17 @@ static int tpm2_load_cmd(struct tpm_chip
- 		return -EINVAL;
+ 		cifs_del_pending_open(&open);
+ 		goto out;
+ 	}
  
- 	/* must be big enough for at least the two be16 size counts */
--	if (payload->blob_len < 4)
-+	if (blob_len < 4)
- 		return -EINVAL;
+-	if ((oflags & (O_CREAT | O_EXCL)) == (O_CREAT | O_EXCL))
++	is_regular = d_is_reg(direntry);
++	if (!is_regular || !opened) {
++		if (opened && server->ops->close)
++			server->ops->close(xid, tcon, &fid);
++		cifs_del_pending_open(&open);
++	}
++
++	if (is_regular && opened &&
++	    (oflags & (O_CREAT | O_EXCL)) == (O_CREAT | O_EXCL))
+ 		file->f_mode |= FMODE_CREATED;
  
- 	private_len = get_unaligned_be16(blob);
++	if (!is_regular || !opened) {
++		rc = finish_no_open(file, NULL);
++		goto out;
++	}
++
+ 	rc = finish_open(file, direntry, generic_file_open);
+ 	if (rc) {
+ 		if (server->ops->close)
+@@ -564,6 +581,7 @@ int cifs_create(struct user_namespace *mnt_userns, struct inode *inode,
+ 	struct TCP_Server_Info *server;
+ 	struct cifs_fid fid;
+ 	__u32 oplock;
++	bool opened;
+ 	struct cifs_open_info_data buf = {};
  
- 	/* must be big enough for following public_len */
--	if (private_len + 2 + 2 > (payload->blob_len))
-+	if (private_len + 2 + 2 > blob_len)
- 		return -E2BIG;
+ 	cifs_dbg(FYI, "cifs_create parent inode = 0x%p name is: %pd and dentry = 0x%p\n",
+@@ -585,8 +603,9 @@ int cifs_create(struct user_namespace *mnt_userns, struct inode *inode,
+ 	if (server->ops->new_lease_key)
+ 		server->ops->new_lease_key(&fid);
  
- 	public_len = get_unaligned_be16(blob + 2 + private_len);
--	if (private_len + 2 + public_len + 2 > payload->blob_len)
-+	if (private_len + 2 + public_len + 2 > blob_len)
- 		return -E2BIG;
+-	rc = cifs_do_create(inode, direntry, xid, tlink, oflags, mode, &oplock, &fid, &buf);
+-	if (!rc && server->ops->close)
++	rc = cifs_do_create(inode, direntry, xid, tlink, oflags, mode,
++			    &oplock, &fid, &buf, &opened);
++	if (!rc && opened && server->ops->close)
+ 		server->ops->close(xid, tcon, &fid);
  
- 	pub = blob + 2 + private_len + 2;
-
+ 	cifs_free_open_info(&buf);
+-- 
+2.53.0
 
