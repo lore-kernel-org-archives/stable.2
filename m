@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAB254F68C3;
-	Wed, 30 Sep 2026 16:24:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B400537CD22;
+	Wed, 30 Sep 2026 16:24:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790785466; cv=none; b=Tj7DofBj7t/j3+p1mOejZwaEQnGDMUBlaFs0jC0m7mgyW6sPkbf+jRfxX17befAadU8vLSJ+cnOkqzHSFeSHNBzjNDx3pQTziMGkTKPmS+acXgr/xwCFveuf4wBNHa2SRVB1emRkjo87E9RLHQ6dPbWJX0CIYpiGpjsbWTFo6RI=
+	t=1790785469; cv=none; b=WhIkKpEToVhXSUz4xxi0XplyNy/JK5bTvSaqs2KQ1EYW7WCNgwGWqZy4Ey1mw8Q+EX72Dj36A+LR3R0Wc1+POwrLkQ034M7VM8PO71aevcoW7Dnysrf8wv8mhGHlTVo84xNDLm+DEG1xnP3KUXqufjnb48E7OZZzKGN2H58aIoU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790785466; c=relaxed/simple;
-	bh=W25Kf6Z5GplfO6eHyrI/VKV45huboxdcbXdr8SIc5vw=;
+	s=arc-20240116; t=1790785469; c=relaxed/simple;
+	bh=Cdg7PHqIW6CK1t1QYHxfS8Ff76yFQY9MY5Ei3EZTlnM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kmqDl6nLZO9ledCK5WbBOQRw2G2eHwU0XGHA8Re6VvTVM+xPEWY+9iy2JG7C7XW+f4RsEQr3i1j9SNfvy6ONeDf5MZIM+ue1Ltp23Nl4vcMJm7PBgsxFSpsUkFJO5SXBCG+KitVVdQEIaKEhWa4eAxoKZCUt+Gcj0cnA2x2F/g4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=IdK1pkk/; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=dtfbNgmNbFmIV/+j0vA+9jt4ugYuJ562UJ8DzaX1DPhpR4CD9UlGlMMHVJyYtDs1u/vyvrlOYr0cv58A/qq/4SWDSWQTkX/gdtFg8+3OaqCiNfBBL4yqIX3AuiNSgzdhQjw1QO93LxRtNvNHSQ8d8ZcjSY89t0U1zmCRDpg3+9s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JwEe1iqj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="IdK1pkk/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D1181F00893;
-	Wed, 30 Sep 2026 16:24:20 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JwEe1iqj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 482DF1F00898;
+	Wed, 30 Sep 2026 16:24:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790785461;
-	bh=3j+r/S/jIp6zdfFbX4tRZAhWfEo+JikjlqQ9NyzfaeM=;
+	s=korg; t=1790785463;
+	bh=sOQQHkC9YHnXuroy45Spge745mAS89fslZGkNcKJ2GA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IdK1pkk/GEGvzyM94chqCAGuVsyHuxTacHaDc0Cm66j0adO/XWQXz87iY3Pd3W3YF
-	 2MKxrB3V4R9Xa8a0sJMamZnuLpzwfpc6X2Wz5SM2X7/Zn2xbfg/kVXBxLvEajPnZDo
-	 NsCXiBQuRnowtLzyIugkFaYMbEh/qRgW/sjBlNsc=
+	b=JwEe1iqjdMxW3tYET0NuKSmCExMT+qZ7gky63ULKG2Afl04dcNEoW/3ebVbXigWG4
+	 It/tFFbEhc2GSVqaH2ZBFXy8iE9Lg+0AzV/qnn+sl+GUYxANCvDsgCEJfR19ybFpuq
+	 l3+2W/r0B7CGGPP+WOktKAtApdEVFDQyCL5FwE2E=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Thorsten Blum <thorsten.blum@linux.dev>,
-	Andi Shyti <andi.shyti@linux.intel.com>,
-	Jani Nikula <jani.nikula@intel.com>
-Subject: [PATCH 6.1 517/982] drm/i915: Fix memory leak in query_perf_config_list()
-Date: Wed, 30 Sep 2026 17:20:53 +0200
-Message-ID: <20260930152427.882672273@linuxfoundation.org>
+	Vincent Donnefort <vdonnefort@google.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Steven Rostedt <rostedt@goodmis.org>
+Subject: [PATCH 6.1 518/982] ring-buffer: Acquire the lock with irqsave in rb_wake_up_waiters()
+Date: Wed, 30 Sep 2026 17:20:54 +0200
+Message-ID: <20260930152427.903782650@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
 References: <20260930152416.775402466@linuxfoundation.org>
@@ -51,39 +51,52 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Thorsten Blum <thorsten.blum@linux.dev>
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-commit cbd3dafc2003db679ccd2f6c6a2551db79657049 upstream.
+commit 815e07c8fe885a87751c2496a30ae0dcd4118210 upstream.
 
-When krealloc() fails, free the original oa_config_ids before returning
-to avoid a memory leak.
+rb_wake_up_waiters() is a irq_work callback which is initialized with
+init_irq_work(). As such it will be invoked in thread context on
+PREEMPT_RT. Invoking the callback in IRQ context on PREEMPT_RT is not an
+option due its usage of wake_up_all().  Since this callback may run in
+thread context, it needs to acquire ring_buffer_per_cpu::reader_lock with
+disabling interrupts and may not assume that they are disabled.
 
-Fixes: 4f6ccc74a85c ("drm/i915: add support for perf configuration queries")
-Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
-Cc: <stable@vger.kernel.org> # v5.5+
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
-Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
-Link: https://patch.msgid.link/20260823205028.178597-2-thorsten.blum@linux.dev
-(cherry picked from commit 9977e9d84f46d4f12ad35fbbc0ec4638554bce87)
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+Use raw_spinlock_irqsave() to acquire ring_buffer_per_cpu::reader_lock.
+
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260911102152.YEtwkBj9@linutronix.de
+Fixes: 68282dd930ea3 ("ring-buffer: Fix resetting of shortest_full")
+Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/gpu/drm/i915/i915_query.c |    4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ kernel/trace/ring_buffer.c |   13 ++++++-------
+ 1 file changed, 6 insertions(+), 7 deletions(-)
 
---- a/drivers/gpu/drm/i915/i915_query.c
-+++ b/drivers/gpu/drm/i915/i915_query.c
-@@ -400,8 +400,10 @@ static int query_perf_config_list(struct
- 		ids = krealloc(oa_config_ids,
- 			       n_configs * sizeof(*oa_config_ids),
- 			       GFP_KERNEL);
--		if (!ids)
-+		if (!ids) {
-+			kfree(oa_config_ids);
- 			return -ENOMEM;
+--- a/kernel/trace/ring_buffer.c
++++ b/kernel/trace/ring_buffer.c
+@@ -912,14 +912,13 @@ static void rb_wake_up_waiters(struct ir
+ 		struct ring_buffer_per_cpu *cpu_buffer =
+ 			container_of(rbwork, struct ring_buffer_per_cpu, irq_work);
+ 
+-		/* Called from interrupt context */
+-		raw_spin_lock(&cpu_buffer->reader_lock);
+-		rbwork->wakeup_full = false;
+-		rbwork->full_waiters_pending = false;
++		scoped_guard(raw_spinlock_irqsave, &cpu_buffer->reader_lock) {
++			rbwork->wakeup_full = false;
++			rbwork->full_waiters_pending = false;
+ 
+-		/* Waking up all waiters, they will reset the shortest full */
+-		cpu_buffer->shortest_full = 0;
+-		raw_spin_unlock(&cpu_buffer->reader_lock);
++			/* Waking up all waiters, they will reset the shortest full */
++			cpu_buffer->shortest_full = 0;
 +		}
  
- 		alloc = fetch_and_zero(&n_configs);
- 
+ 		wake_up_all(&rbwork->full_waiters);
+ 	}
 
 
