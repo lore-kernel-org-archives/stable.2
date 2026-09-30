@@ -1,137 +1,110 @@
-Received: from smtpcmd12131.aruba.it (smtpcmd12131.aruba.it [62.149.156.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 320354D37D1
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 12:13:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.156.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7170E4CDA08;
+	Wed, 30 Sep 2026 12:13:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790770396; cv=none; b=gqAgM8qUxNfRYR3X7Yx5OTKTP5Iisskml/ZhKJcOF6lTMsDC0wo2ozGuBB+EgaLEI8jvFXSCCpzl7mDkWgmitx7Nst/ih+GSt6lXkC1oO83/fzh8BGaAHR4BUF15tTiWISu2X9vY2Zg1dpHXdLH2KaRc/ZJzqjvAMKM51q+jtb0=
+	t=1790770397; cv=none; b=ZWf9W9hk5H7Pxbpt0L9kQsdpD6MwsN/NN45ip+JebB2xVZt8O/joovqYRL8R+sNUCa5K3im2kHkI1lu0Q0GAeDFL+QrlSDAS1UDszydqpni4GW8F/xxV1jQM4d1jSRcl42+piMeHvf3FVBDKGH/yIWO1jX+4b29cBPD7V/ilyck=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790770396; c=relaxed/simple;
-	bh=Nx9YWV6XI3NauaHHm2JdhBoF5yEbTx/VtF5q9345wlk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tzpVcfpIcD2SAEaibw+l+sF6XVoMkpJX5SyJNufMrCGgPkx04e/EAw1jejsr6klD2ZSLlFCsXUaND4Fy3mXLUJ7D0Zfg5R4HX09A3hzxVOcC0mpuRMyrx3/ndAhAajCo2PkuZRkyifDCzXKfUcv9uLgersT9gxDIMQk2ZyWulQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com; spf=pass smtp.mailfrom=enneenne.com; dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b=PXjYOmMW; arc=none smtp.client-ip=62.149.156.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
+	s=arc-20240116; t=1790770397; c=relaxed/simple;
+	bh=6MSj9+4ueSWYrzoILlxvE20QnybguvccKIIuyspV3l4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DPdkF1ucxbgPr3I5wp6btNE9KWRV74wEcUtiVY9tD4Qsb3S3Nw3VMwzHFmOhXho5xkssa1B65hMQDZvfUm+2LFz5qX0E0u0MK8H3Uf0XP0nPU9T73AKDSJDuJmlpgK51pzMG5n3pBdLkJQWXG754ArQIxZXyAA31icXwaLxSgEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=wpl2uOHG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b="PXjYOmMW"
-Received: from [192.168.0.186] ([101.57.122.26])
-	by Aruba SMTP with ESMTPSA
-	id Bt8KxwoBsxUh5Bt8KxVwuX; Wed, 30 Sep 2026 14:10:00 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
-	t=1790770200; bh=Nx9YWV6XI3NauaHHm2JdhBoF5yEbTx/VtF5q9345wlk=;
-	h=Date:MIME-Version:Subject:To:From:Content-Type;
-	b=PXjYOmMW5hnae8Lnk39sVK29qGLuGQVcVJ8au4BYss4iGF/LABcHCAhC/OVAtTQEO
-	 ApQ/GXGnYp2sF6quyz9s7p0adtMhmBy1GGOLajgrcIgUNkQXcTJ2PZYQMSCNAq4Xiv
-	 pUqUhPCUVXsYHHlSygYsu8pZpjclWBXdTMOqADymCkWIisJzYN1y5nL6zMfCAFbOqT
-	 odFEmcU+t3sSTEGkDFCjRInyy8rdIceSfSh5J0mook3JrlgQYv246nKwrzo4kr6Eqc
-	 9wMGcqN+Vq+Vt8OiMCnfnbURwqifZwa1+oeoFHhmiTN9tQ7jSrr+LS5uDacwP3NpoY
-	 8mqxKP4/77W3w==
-Message-ID: <72e36b18-c501-4b54-b415-fb1b73faa463@enneenne.com>
-Date: Wed, 30 Sep 2026 14:10:00 +0200
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="wpl2uOHG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3DAD1F00898;
+	Wed, 30 Sep 2026 12:13:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790770390;
+	bh=3si7iANsd/lOTKEE8IEi+h9CFFD4ddDFNfdaI30rXqQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=wpl2uOHGJSJ8I9SNpYxeTNvRARnraDePEmxr0krNvEDN9Yl7EJmGzbyqID+22XCYk
+	 63S25HyzC6oT2sikV3NniSRe0ozZHtlNVIZOlhyo56H0KOTTsw8FFv6z96iqtTGg7S
+	 Xj8Aozhzfn/WDYzLX609IBw2pyuVQl/Sc8/RJfMg=
+Date: Wed, 30 Sep 2026 14:13:03 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: =?iso-8859-1?Q?Andr=E9?= Pinheiro <andre@pepdata.pt>
+Cc: stable@vger.kernel.org, Sasha Levin <sashal@kernel.org>,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	Antheas Kapenekakis <lkml@antheas.dev>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	linux-input@vger.kernel.org, regressions@lists.linux.dev
+Subject: Re: [REGRESSION] 6.18.y: HID: asus: ROG keyboard 0b05:19b6 stops
+ working after 56d1b33e644c backport; missing buffer size fix e82ae34af29e
+Message-ID: <2026093029-elevating-pungent-b8ad@gregkh>
+References: <14ed23dd-b171-4ffb-b368-5c717f56188c@pepdata.pt>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] pps: generators: stop the generator on unregister
-Content-Language: en-US
-To: Danish Khateeb <danishkhateeb03@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Calvin Owens <calvin@wbinvd.org>, Yibo Tan <lhfff@tju.edu.cn>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260929124937.51114-1-danishkhateeb03@gmail.com>
- <20260929124937.51114-4-danishkhateeb03@gmail.com>
-From: Rodolfo Giometti <giometti@enneenne.com>
-In-Reply-To: <20260929124937.51114-4-danishkhateeb03@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4xfHboRSRnK23J/i9rY12IO7cWM+J2f6i1BWkpbGAqxeKCdCrGkCEivYlSS7EbRz9X+ibl8Uzd5JecG4nU4lassT97TnzDzPuchJ5WWDJKA44hwAraXJwu
- 47Ru/4l+MyYFg3tRfRVKxi/8Se6Wxdp0IGEbb/nbY4pCabBtyOw31/YF/qQHre32gZp1/6T0YznG2qM5UyNS65Ovhvc4CT0dTjMgf1wM1UJC62nxvxvrgVO0
- OiuyTS//Op+HmKBZAAmS/469MawQmB0mTKJX8/xSx2tOZJ9xnhovKVGrnSfCEMt0n2EqKiVK1Vd2LHtkJmPNmFQ/k1PKJvByQW+WAYFm56RHqaxkyC4k6BSc
- 5N+D/oSMGsRTnZsogMQrmJWjq3NaIL+gEA11TqQOJLqb7Bcsw+MMLLDTehNTpw/iVaEfIAI7
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <14ed23dd-b171-4ffb-b368-5c717f56188c@pepdata.pt>
 
-On Tue, 29 Sep 2026 07:49:36 -0500, Danish Khateeb wrote:
-> Both generator drivers stop their timer and then call
-> pps_gen_unregister_source(): pps_gen_tio_remove() cancels its hrtimer
-> and disables the TIO, and pps_gen_dummy_exit() deletes its timer. But
-> /dev/pps-genN and the sysfs "enable" attribute are still there until
-> the unregister, and a PPS_GEN_SETENABLE or a write to "enable" in
-> between starts the timer again. Nothing stops it after that: TIO's
-> hrtimer keeps running in the devm memory freed by the unbind, and the
-> dummy's timer is left in the unloaded module.
->
-> The drivers can't avoid this by unregistering first, as TIO's timer
-> callback uses pps_gen, which the unregister may free.
->
-> Stop the generator in pps_gen_unregister_cdev() instead, under
-> info_lock after the device and its sysfs files are gone, when nothing
-> can enable it again. pps_gen_unregister_source() then also does what
-> its kernel-doc says: "it disables the generator so no pulses are
-> generated anymore".
->
-> Fixes: 86b525bed275 ("drivers pps: add PPS generators support")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Rodolfo Giometti <giometti@enneenne.com>
-> Assisted-by: LLM
-> Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
-> ---
->
-> Notes:
->     Tested in the same setup, with patches 1/4 and 2/4 applied. The test
->     driver got a periodic hrtimer in its devm memory, like TIO's, and a
->     remove() that cancels it and then enables the generator again before
->     unregistering, as a PPS_GEN_SETENABLE landing there would. Without this
->     patch the timer keeps running after the unbind:
->     
->       BUG: KASAN: slab-use-after-free in rb_erase+0x174d/0x1a70
->        __remove_hrtimer+0x138/0x450
->        __hrtimer_run_queues+0x2c5/0x7f0
->        hrtimer_interrupt+0x3db/0x910
->       ...
->       Freed by task 175:
->        kfree+0x25a/0x6d0
->        release_nodes+0xd1/0x140
->        devres_release_all+0x10e/0x1a0
->        device_unbind_cleanup+0x71/0x250
->        device_release_driver_internal+0x41b/0x570
->        unbind_store+0xd9/0x100
->     
->     With it, unregister calls enable(false), the timer is stopped, and
->     there are no reports. Unbinding the test driver while enabled, and
->     unloading pps_gen-dummy while its file is open and enabled, are clean
->     too.
->
->  drivers/pps/generators/pps_gen.c | 11 ++++++++++-
->  1 file changed, 10 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/pps/generators/pps_gen.c b/drivers/pps/generators/pps_gen.c
-> index d80e28dc31dc..452cc12a96f2 100644
-> --- a/drivers/pps/generators/pps_gen.c
-> +++ b/drivers/pps/generators/pps_gen.c
-> @@ -228,9 +228,18 @@ static void pps_gen_unregister_cdev(struct pps_gen_device *pps_gen)
->  	 * An open file keeps pps_gen around, but the driver may free info as
->  	 * soon as we return. The sysfs files are gone now, so wait for the
->  	 * ioctls using info and make later ones fail.
-> +	 *
-> +	 * The driver may have stopped the generator before calling us, but
-> +	 * userspace could have enabled it again since. Nothing can enable it
-> +	 * after this point, so stop it here for good.
->  	 */
-> -	scoped_guard(mutex, &pps_gen->info_lock)
-> +	scoped_guard(mutex, &pps_gen->info_lock) {
-> +		if (pps_gen->enabled) {
-> +			pps_gen->info->enable(pps_gen, false);
-> +			pps_gen->enabled = false;
-> +		}
->  		pps_gen->info = NULL;
-> +	}
->  
->  	put_device(&pps_gen->dev);
->  }
+On Wed, Sep 30, 2026 at 05:24:59AM +0100, André Pinheiro wrote:
+> Hi,
+> 
+> Since 6.18.49, the internal keyboard of ASUS ROG Zephyrus G16 GU605MV
+> (USB 0b05:19b6, ITE Device(8910), bcdDevice 0.03) can stop sending input
+> events. 6.18.42 works. 6.18.51 is broken. I did not test 6.18.49/6.18.50.
+> 
+> Cause: the backport of 56d1b33e644c ("HID: asus: simplify RGB init
+> sequence") made asus_kbd_get_functions() run for QUIRK_ROG_NKEY_KEYBOARD
+> devices too. That function reads feature report 0x5A into a buffer of
+> FEATURE_KBD_REPORT_SIZE = 16 bytes. This device answers with 63 bytes, so
+> the transfer fails with EOVERFLOW. The buffer size fix is in mainline as
+> e82ae34af29e ("HID: asus: fortify keyboard handshake",
+> FEATURE_KBD_REPORT_SIZE
+> 16 -> 64; its message says "Since the response is more than 16 bytes,
+> increase the buffer size to 64 as well to avoid overflow errors"). It is in
+> the same series as 56d1b33e644c but was not backported. v7.0 has the value
+> 64 (checked in the source, not booted on this machine).
+> 
+> Symptom (6.18.51):
+>   asus 0003:0B05:19B6.0001: Asus failed to request functions: -75
+>   asus 0003:0B05:19B6.0001: Failed to initialize backlight.
+> usbmon:
+>   S Ci:1:002:0 s a1 01 035a 0000 0010 16 <
+>   C Ci:1:002:0 -75 0
+> 
+> The HID report descriptor (1102 bytes, from sysfs) declares Feature report
+> 0x5A as 62 data bytes plus the report ID (63). The device matches its own
+> descriptor; the driver buffer is too small.
+> 
+> Evidence. Same physical device and USB host controller (xhci on 6.18.42) in
+> both runs, only the guest kernel driving the HID device changes; bytes read
+> from the evdev node while typing:
+>   guest 6.18.42: 16776 bytes in 12 s
+>   guest 6.18.51: -75 as above, 0 bytes in 12 s
+> 
+> Requests sent by hand on 6.18.42 through hidraw (HIDIOCGFEATURE on report
+> 0x5A), device re-enumerated before each case, bytes in 5 s windows:
+>   GET 16, no SET before:  7488 -> EOVERFLOW -> 0
+>   GET 32, no SET before:  7776 -> EOVERFLOW -> 0
+>   GET 64, no SET before:  8208 -> ok, 63 bytes returned -> 8568
+>   SET 5a 05 20 31 00 08, then GET 64: 8496 -> ok, 63 bytes -> 7920
+>   SET, then GET 16:       7848 -> EOVERFLOW -> 7056 (did not silence this
+> run)
+>   (an earlier run of SET, GET 16: 2736 -> 6984 after SET -> 0 after GET)
+> With a 64-byte buffer byte 6 of the reply is 0x83, i.e.
+> SUPPORT_KBD_BACKLIGHT
+> is set. So with the fix the driver would register the backlight instead of
+> failing. One or two runs per case, only this device tested.
+> 
+> Request: please backport e82ae34af29e (or at least the
+> FEATURE_KBD_REPORT_SIZE
+> 16 -> 64 change) to 6.18.y, and to any other stable branch that received
+> 56d1b33e644c. Alternatively drop 56d1b33e644c there.
 
-Acked-by: Rodolfo Giometti <giometti@enneenne.com>
+That commit is already in the 6.18.54 kernel release, can you test the
+latest one to verify it is now working?  6.18.51 is a few weeks old now.
+
+thanks,
+
+greg k-h
