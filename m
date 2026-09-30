@@ -1,44 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC6413C09F5
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 19:01:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E61F3C10AA;
+	Wed, 30 Sep 2026 19:01:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790794884; cv=none; b=RUaHoUv6kmVIylrgRAY3zcOmZd8Lao23nEum4ecIVeHxx9BIOB44pj9wM0uqL4xFUWSKlpqq6VDPobk5SdhQMYUhBrEIAd9ijtcSIRDKGqHsO8KTcPWZ5bVpW0lMawbAjyGbEmvgfttFNygPo8LmoKoRDjb9AjiTPtqL17YLJyc=
+	t=1790794884; cv=none; b=pftmBd9YpRhIEdxrZJQshDhN/vYsSLRH7lI7BZGAJT5eeafWN8xXOrvKRBEvzr9xLeFdfJyMRujQmjHuyYc/kJkhPMqKklh4qcpqjl2Iijg7QMnePFxxNr2++vVIDNk8zlqpC7NVaRvmJXpLuiFjB5Qfes/hW5MiF4SFCpV2HwU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790794884; c=relaxed/simple;
-	bh=O1VulZiqhPliYjqJTayGsllCN3ESElOn0lYwgHt/x18=;
+	bh=soyqY6XHnFVJz2LHEX1qR7OlsXV6AFY/x3iXsB8PY3M=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cJHXYie4h5PZ5a8Ywaat5WDmEVSlwP9r+ARq2gg4n9O6ogQf/yHLADCd+H4rXLUQoD9SsJAJUlDSSV/c1ZkD6htcx512PMC56Fs02GU5NK+hlkIec59YDEfWKsGWd2x5X3nm6lLomPsnVlKRNJNbDlzuSdNMR6FrDNUj+5h38LQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h9ZYwdm7; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=CpgWsm+Zq0b29kmvpY7sxq9prhifGoq01CIc4/VN8A7Oid0FtUHFNwG+hODUoUKwF4sR6aM+J1qGCyZ7amFXogxU+AyH7j1hp9AJpDlHvySjX/MwUGFmqAA4q6N/zW1ZqGuXWD5vgy598nYqgQZ1hnwKlhDd/uecA2MxXafGFos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VwRT+/Xn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h9ZYwdm7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 441101F0089F;
-	Wed, 30 Sep 2026 19:01:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790794864;
-	bh=2TeEPDz9+WyLBNvTDV99rUIOJcvx4iI8Hro4FbDQ8YA=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VwRT+/Xn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 548EB1F008A3;
+	Wed, 30 Sep 2026 19:01:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790794872;
+	bh=cgsGlWAED5JZhzHLTLM4v2t4ATZiF/doR9J6SROsfeg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=h9ZYwdm74ufrNM3q+K4ibhvTDu44AD0pPcuqmF1nJvMjxqpp5lY8H+SAU7nlelvsh
-	 QaHygmYIq0TG5xDpfkif1G3wtN6Zd6c3o5Q5mDNYPQ4IlwOrzOOuGGN5S6I1n+Ltou
-	 hrx3hj3jO097ag9jn2guyBZ+gbe6FZQNWDRoomv2sVoOZIG1Jb2hBMzpxlfPmkEk17
-	 //Z+m/6g0XUY7/HkwWKK5MUqyTzIQM6Z6bxOoBMbU/xzD0gp80PjznGoUmCQuca9K0
-	 mn64VltqiiHq2+D6TftpsAdt49tE6rRrLePCi+KXuRRiaJ2gPVnAS3GMmrQTokHcyv
-	 /QT7F8edRSnLg==
-From: Sasha Levin <sashal@kernel.org>
+	b=VwRT+/Xn9k5gZBtQ+XI/MH0e+krBIhlU72zs+1s52/dKtEXmGmpEgEB/Kl11ucxuU
+	 voQUtj0xUCroaeARJasW5zL5MXTRDKjRPu/fsunvKrHVt5mjvA12G7JaIUZy8XlNpY
+	 Ywe49c8VDu9lAV+f9Tfm0PaIHoSZbyXCP7UreQc0=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Adarsh Das <adarshdas950@gmail.com>,
-	syzbot+eeb58d2197d88720a228@syzkaller.appspotmail.com,
-	Paulo Alcantara <pc@manguebit.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	syzbot+cb2aa2390ac024e25f5c@syzkaller.appspotmail.com,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Ido Schimmel <idosch@nvidia.com>,
+	David Ahern <dsahern@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/3] smb: client: delete compound mids on send failure before unlock
-Date: Wed, 30 Sep 2026 15:01:00 -0400
-Message-ID: <20260930190100.383713-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260930190100.383713-1-sashal@kernel.org>
-References: <2026092927-uproar-implement-c4b4@gregkh>
- <20260930190100.383713-1-sashal@kernel.org>
+Subject: [PATCH 6.6 0362/1193] ipv4: fib: Dont dump dying fib_info in fib_leaf_notify().
+Date: Wed, 30 Sep 2026 17:17:26 +0200
+Message-ID: <20260930152442.219149452@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930152434.301151190@linuxfoundation.org>
+References: <20260930152434.301151190@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,54 +50,133 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Adarsh Das <adarshdas950@gmail.com>
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 8f6f8a48399f82f4a83f7b9f25b9707e0062a4f9 ]
+------------------
 
-When sending a compound request fails, smb_send_rqst() kicks off a
-reconnect. compound_send_recv() still has those mids on pending_mid_q,
-but it unlocks the server without removing them first.
+From: Kuniyuki Iwashima <kuniyu@google.com>
 
-During reconnect, cifs_abort_connection() walks pending_mid_q and runs
-each mid callback. With no response yet, those callbacks return credits
-and drop in_flight. Then compound_send_recv()'s send-error path returns
-the same credits again. in_flight ends up decremented twice and
-smb2_add_credits() WARNs.
+[ Upstream commit 06b693d2eb6651a63ad85bad8673de3b7d4edd6d ]
 
-syzbot hits this during SMB2_negotiate when the socket send fails.
+syzbot reported use-after-free in nsim_fib4_prepare_event(). [0]
 
-cifs_call_async() already calls delete_mid() before unlock on send
-failure. Do the same for compound chains and set cancelled_mid[] so the
-out: path does not delete them again.
+The problem is that the following functions call fib_info_hold() /
+refcount_inc() while dumping fib_info under RCU, which is unsafe.
 
-Fixes: ee258d79159a ("CIFS: Move credit processing to mid callbacks for SMB3")
-Reported-by: syzbot+eeb58d2197d88720a228@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/r/6a727d22.40259c87.584f4.04ce.GAE@google.com
-Tested-by: syzbot+eeb58d2197d88720a228@syzkaller.appspotmail.com
-Assisted-by: LLM
-Cc: stable@vger.kernel.org
-Signed-off-by: Adarsh Das <adarshdas950@gmail.com>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+  * mlxsw_sp_router_fib4_event()
+  * rocker_router_fib_event()
+  * nsim_fib4_prepare_event()
+
+refcount_inc_not_zero() must be used, but it would be too late
+there.
+
+Let's guarantee the lifetime of fib_info in fib_leaf_notify().
+
+Note that IPv6 does not need the corresponding change since
+fib6_table_dump() holds fib6_table.tb6_lock.
+
+[0]:
+refcount_t: addition on 0; use-after-free.
+WARNING: lib/refcount.c:25 at refcount_warn_saturate+0x9f/0x110 lib/refcount.c:25, CPU#0: kworker/u8:15/3420
+Modules linked in:
+CPU: 0 UID: 0 PID: 3420 Comm: kworker/u8:15 Not tainted syzkaller #0 PREEMPT_{RT,(full)}
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 04/18/2026
+Workqueue: netns cleanup_net
+RIP: 0010:refcount_warn_saturate+0x9f/0x110 lib/refcount.c:25
+Code: eb 66 85 db 74 3e 83 fb 01 75 4c e8 1b f1 22 fd 48 8d 3d 84 cb f1 0a 67 48 0f b9 3a eb 4a e8 08 f1 22 fd 48 8d 3d 81 cb f1 0a <67> 48 0f b9 3a eb 37 e8 f5 f0 22 fd 48 8d 3d 7e cb f1 0a 67 48 0f
+RSP: 0018:ffffc9000f2c7270 EFLAGS: 00010293
+RAX: ffffffff84a18858 RBX: 0000000000000002 RCX: ffff888032ff9ec0
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffffffff8f9353e0
+RBP: 0000000000000000 R08: ffff888032ff9ec0 R09: 0000000000000005
+R10: 0000000000000100 R11: 0000000000000004 R12: ffff8880570cc000
+R13: dffffc0000000000 R14: ffff88802b40563c R15: ffff8880570cc000
+FS:  0000000000000000(0000) GS:ffff888126173000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fb1f4d5d000 CR3: 000000006072a000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ __refcount_add include/linux/refcount.h:-1 [inline]
+ __refcount_inc include/linux/refcount.h:366 [inline]
+ refcount_inc include/linux/refcount.h:383 [inline]
+ fib_info_hold include/net/ip_fib.h:629 [inline]
+ nsim_fib4_prepare_event drivers/net/netdevsim/fib.c:930 [inline]
+ nsim_fib_event_schedule_work drivers/net/netdevsim/fib.c:1000 [inline]
+ nsim_fib_event_nb+0x1055/0x1240 drivers/net/netdevsim/fib.c:1043
+ call_fib_notifier+0x45/0x80 net/core/fib_notifier.c:25
+ call_fib_entry_notifier net/ipv4/fib_trie.c:90 [inline]
+ fib_leaf_notify net/ipv4/fib_trie.c:2176 [inline]
+ fib_table_notify net/ipv4/fib_trie.c:2194 [inline]
+ fib_notify+0x36b/0x5e0 net/ipv4/fib_trie.c:2217
+ fib_net_dump net/core/fib_notifier.c:70 [inline]
+ register_fib_notifier+0x184/0x360 net/core/fib_notifier.c:108
+ nsim_fib_create+0x85d/0x9f0 drivers/net/netdevsim/fib.c:1596
+ nsim_dev_reload_create drivers/net/netdevsim/dev.c:1604 [inline]
+ nsim_dev_reload_up+0x374/0x7c0 drivers/net/netdevsim/dev.c:1058
+ devlink_reload+0x501/0x8d0 net/devlink/dev.c:475
+ devlink_pernet_pre_exit+0x1ff/0x420 net/devlink/core.c:558
+ ops_pre_exit_list net/core/net_namespace.c:161 [inline]
+ ops_undo_list+0x187/0x940 net/core/net_namespace.c:234
+ cleanup_net+0x56e/0x800 net/core/net_namespace.c:702
+ process_one_work kernel/workqueue.c:3314 [inline]
+ process_scheduled_works+0xb5d/0x1860 kernel/workqueue.c:3397
+ worker_thread+0xa53/0xfc0 kernel/workqueue.c:3478
+ kthread+0x388/0x470 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+Fixes: 0ae3eb7b4611 ("netdevsim: fib: Perform the route programming in a non-atomic context")
+Fixes: c3852ef7f2f8 ("ipv4: fib: Replay events when registering FIB notifier")
+Reported-by: syzbot+cb2aa2390ac024e25f5c@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/netdev/6a290011.39669fcc.33b062.00b1.GAE@google.com/
+Signed-off-by: Kuniyuki Iwashima <kuniyu@google.com>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Reviewed-by: David Ahern <dsahern@kernel.org>
+Link: https://patch.msgid.link/20260610061744.2030996-2-kuniyu@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/transport.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ include/net/ip_fib.h | 5 +++++
+ net/ipv4/fib_trie.c  | 4 ++++
+ 2 files changed, 9 insertions(+)
 
-diff --git a/fs/smb/client/transport.c b/fs/smb/client/transport.c
-index 7b882bafc5a5e..1b0d965e2dcae 100644
---- a/fs/smb/client/transport.c
-+++ b/fs/smb/client/transport.c
-@@ -1180,6 +1180,10 @@ compound_send_recv(const unsigned int xid, struct cifs_ses *ses,
- 	if (rc < 0) {
- 		revert_current_mid(server, num_rqst);
- 		server->sequence_number -= 2;
-+		for (i = 0; i < num_rqst; i++) {
-+			delete_mid(server, mid[i]);
-+			cancelled_mid[i] = true;
-+		}
- 	}
+diff --git a/include/net/ip_fib.h b/include/net/ip_fib.h
+index b6fc9924ef7a0..a41e7c299af8d 100644
+--- a/include/net/ip_fib.h
++++ b/include/net/ip_fib.h
+@@ -576,6 +576,11 @@ static inline void fib_info_hold(struct fib_info *fi)
+ 	refcount_inc(&fi->fib_clntref);
+ }
  
- 	cifs_server_unlock(server);
++static inline bool fib_info_hold_safe(struct fib_info *fi)
++{
++	return refcount_inc_not_zero(&fi->fib_clntref);
++}
++
+ static inline void fib_info_put(struct fib_info *fi)
+ {
+ 	if (refcount_dec_and_test(&fi->fib_clntref))
+diff --git a/net/ipv4/fib_trie.c b/net/ipv4/fib_trie.c
+index 53e7664eeb0a2..f40a774686ebf 100644
+--- a/net/ipv4/fib_trie.c
++++ b/net/ipv4/fib_trie.c
+@@ -2178,10 +2178,14 @@ static int fib_leaf_notify(struct key_vector *l, struct fib_table *tb,
+ 		if (fa->fa_slen == last_slen)
+ 			continue;
+ 
++		if (!fib_info_hold_safe(fa->fa_info))
++			continue;
++
+ 		last_slen = fa->fa_slen;
+ 		err = call_fib_entry_notifier(nb, FIB_EVENT_ENTRY_REPLACE,
+ 					      l->key, KEYLENGTH - fa->fa_slen,
+ 					      fa, extack);
++		fib_info_put(fa->fa_info);
+ 		if (err)
+ 			return err;
+ 	}
 -- 
 2.53.0
+
+
 
