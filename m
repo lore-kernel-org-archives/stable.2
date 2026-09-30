@@ -1,38 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91DFE4E36E9;
-	Wed, 30 Sep 2026 16:04:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C8A450E587;
+	Wed, 30 Sep 2026 16:04:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790784263; cv=none; b=pHsnzUmSa6+2ISgb0kZWRsrfR6ywgJwQSPplIw+4tSk27+DAO4eHe8gFnGGEa64A1dtpk1jG0lUbUQg4KeLDKcQbS4y3roO+yLLlAbLQOCKAWYe+bxTCIFKFeCeQEcpK3bbY2ETaXn6ymcS3QP2tp9F/M0D59G/FFLH8nM/5tcs=
+	t=1790784268; cv=none; b=Yoq6b0+ZCglM8vtsnZTks/5BYRUXJA80fxjTd3EGnNLKzkWmWS9cdXxqmtri/m73KpdAeAwGKmzvcZkttldWGgz1Yj3ysYi+baNDW1AXS4VX3D5mdMeY2rC2IoKnyvuaP5BM/a98G2FmbUB4L5BrQkbIoaCzoHOHLKaIWD8z9z0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790784263; c=relaxed/simple;
-	bh=Hqz57n7o69tAFQBZZt0vhX2rVKa9jAOQM5qB7qfLxOI=;
+	s=arc-20240116; t=1790784268; c=relaxed/simple;
+	bh=k0jXveZWVhtN9z+WXYq3Wi1rtH+7PvOHr/Uy6XNhukg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ERfAvVBXG4aXZEfhkDrER04blN2vVZQQ/Yg1THrZh8syz0WhuYSpAc3CM0hLpuu+ePT4Y3fcubK525NBD/Se2Pp0LhWfl0sywuL3jVHUERd0jhhGOT1xMeyLKT1QXeUhbjKFhzmvlCh39udvw8/Wnp8fmF/YndNV83Wk1jtz+a0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=NNB2eEHr; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=TCmNOQi7pAflEMW4uYb5NPCo66KtJ9QTh9EUnH3JaQC+FFNvsw2U9cN0V3BaA9Hq7aGR+tFVIv8MdLqyZH9FXuqkGmpTBiEREEMkme4leCZzfjnixOOVpVrz7J0YWnR4tvu3LGrJYnfFOoYj5Q05lMgrhheLZnrhCQkK4Rc3zp0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=z97I1WBS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NNB2eEHr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83B391F00899;
-	Wed, 30 Sep 2026 16:04:20 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="z97I1WBS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 648A31F000FF;
+	Wed, 30 Sep 2026 16:04:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790784261;
-	bh=nXSSXO0l9Kf14f9Z6L18a5egV86Z1rY108T9DOK56KI=;
+	s=korg; t=1790784263;
+	bh=9aOGzC2bSAzobA9F4Tc8VbAGw1mR1pb9ZafUjrDA8Rc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NNB2eEHr03QXE/J8Pk8tAhq3puDWZIp+nlb76lKPhsigbRgnWN/QAa9+zoXo6Cj2r
-	 gh9FmVex+hQZ6sznbbu83koACOPVTwAzmyRSwFG9OA8kUSR8RXGqCo8vwIcjvgacug
-	 mGjVwt36Ma+Ka6Y+c5prt0J69eN6XzcE2gqVBNJU=
+	b=z97I1WBSp/7Yx+vRam7jJDZjd04a+3Zz5B2+fLkHmc+yQaV9NF6HgiPSxwmUY2syA
+	 evSyJAdJUw++diIaWBa/d3/QHOjTFJGUlZiNO8GDwKBNryjJi2vWPZzvcL3ZfD2qQc
+	 0G2dAILhx8lMRMgeFitwWR35tZlTUct+dMe1Htxg=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Stepan Ionichev <sozdayvek@gmail.com>,
-	Jonathan Cameron <jic23@kernel.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Mostafa Saleh <smostafa@google.com>,
+	Thomas Gleixner <tglx@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 093/982] iio: adc: qcom-spmi-iadc: balance enable_irq_wake() on driver unbind
-Date: Wed, 30 Sep 2026 17:13:49 +0200
-Message-ID: <20260930152418.809605198@linuxfoundation.org>
+Subject: [PATCH 6.1 094/982] irqchip/gic-v4: Dont advertise VLPIs if no ITS is probed
+Date: Wed, 30 Sep 2026 17:13:50 +0200
+Message-ID: <20260930152418.830957108@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
 References: <20260930152416.775402466@linuxfoundation.org>
@@ -45,70 +46,56 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 6.1-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Stepan Ionichev <sozdayvek@gmail.com>
+From: Mostafa Saleh <smostafa@google.com>
 
-[ Upstream commit 929fec2964f71d4b1ac664ee963d8226c5cf01c6 ]
+[ Upstream commit e61654fbc3bc5d07ec9fafe29f33e19b2b5d0fd5 ]
 
-iadc_probe() calls enable_irq_wake() after a successful
-devm_request_irq(), but the driver has no remove callback or
-matching disable_irq_wake(), so the wake reference count on the
-IRQ is leaked on module unload or driver unbind.
+When accidentally setting “kvm-arm.vgic_v4_enable=1” on a system that has
+no MSI controller device tree node and GICv4, it results a panic as
+“gic_domain” is NULL and the kernel attempts to access it.
 
-Check the IRQ request error first, then register a devm action
-that calls disable_irq_wake() so the wake reference is released
-in the same scope as the enable. While here, drop the inverted
-"if (!ret) ... else return ret" in favour of the standard
-"if (ret) return ret;" pattern.
+    Unable to handle kernel NULL pointer dereference at virtual address 0000000000000028
+    Mem abort info:
+      ESR = 0x0000000096000006
 
-Signed-off-by: Stepan Ionichev <sozdayvek@gmail.com>
-Signed-off-by: Jonathan Cameron <jic23@kernel.org>
+    CPU: 1 UID: 0 PID: 295 Comm: lkvm-static Not tainted 7.1.0-rc4-ge3f15ad3970e #5 PREEMPT
+    Hardware name: linux,dummy-virt (DT)
+    pstate: 81402005 (Nzcv daif +PAN -UAO -TCO +DIT -SSBS BTYPE=--)
+    pc : __irq_domain_instantiate+0x1d4/0x578
+    lr : __irq_domain_instantiate+0x1cc/0x578
+
+Set vLPI support to false at init time if the host has no ITS, so it
+propagates properly to kvm_vgic_global_state.has_gicv4.
+
+Suggested-by: Marc Zyngier <maz@kernel.org>
+Signed-off-by: Mostafa Saleh <smostafa@google.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Acked-by: Marc Zyngier <maz@kernel.org>
+Link: https://patch.msgid.link/20260526125317.3672297-1-smostafa@google.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/adc/qcom-spmi-iadc.c | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
+ drivers/irqchip/irq-gic-v3-its.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/iio/adc/qcom-spmi-iadc.c b/drivers/iio/adc/qcom-spmi-iadc.c
-index acbda6636dc58..c57c50aeeffd7 100644
---- a/drivers/iio/adc/qcom-spmi-iadc.c
-+++ b/drivers/iio/adc/qcom-spmi-iadc.c
-@@ -482,6 +482,11 @@ static const struct iio_chan_spec iadc_channels[] = {
- 	},
- };
+diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
+index 84b00e14860eb..105b8e24905ed 100644
+--- a/drivers/irqchip/irq-gic-v3-its.c
++++ b/drivers/irqchip/irq-gic-v3-its.c
+@@ -5583,6 +5583,7 @@ int __init its_init(struct fwnode_handle *handle, struct rdists *rdists,
+ 		its_acpi_probe();
  
-+static void iadc_disable_irq_wake(void *data)
-+{
-+	disable_irq_wake((unsigned long)data);
-+}
-+
- static int iadc_probe(struct platform_device *pdev)
- {
- 	struct device_node *node = pdev->dev.of_node;
-@@ -539,9 +544,16 @@ static int iadc_probe(struct platform_device *pdev)
- 	if (!iadc->poll_eoc) {
- 		ret = devm_request_irq(dev, irq_eoc, iadc_isr, 0,
- 					"spmi-iadc", iadc);
--		if (!ret)
--			enable_irq_wake(irq_eoc);
--		else
-+		if (ret)
-+			return ret;
-+
-+		ret = enable_irq_wake(irq_eoc);
-+		if (ret)
-+			return ret;
-+
-+		ret = devm_add_action_or_reset(dev, iadc_disable_irq_wake,
-+					       (void *)(unsigned long)irq_eoc);
-+		if (ret)
- 			return ret;
- 	} else {
- 		device_init_wakeup(iadc->dev, 1);
+ 	if (list_empty(&its_nodes)) {
++		rdists->has_vlpis = false;
+ 		pr_warn("ITS: No ITS available, not enabling LPIs\n");
+ 		return -ENXIO;
+ 	}
 -- 
 2.53.0
 
