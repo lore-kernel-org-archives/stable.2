@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BCCC4E2F05
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 13:07:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 396674FDE70
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 13:12:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790773646; cv=none; b=styeKn+RsmSLIkI3q8dO+UvjqiWGj8M/s6JeRAnDGD0obNaxgh+mNz02lLguoNiXaxzyp145htHakFQLfrN8L9zm8+iMlTqIDJLHHkL6hXv2obprjFaE1MJhfpmAnoBGlzG0kV1rWn9ZFynwmnd4hZ7Hyrk5AoLZSsGZtOg7Ju8=
+	t=1790773981; cv=none; b=A2SZ/1QLIKXUZh32Kbt72qMTSKlKVEplqcI5IEQYGkYIYY4PsNQuoxeZRM83BVfcNzPerCRNgkI9pMSEe8KEB5gtF+cEI18yd8PSu6eeveFVzmOiWGZFsiCb7DjE6KnprXLi9GluNH8dM5VHx4dVKp7jonniMLJi8hxvp3ZDt8c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790773646; c=relaxed/simple;
-	bh=GHkuGoVjXPPM5ETetQoBRIIASZBxZYDDe4sdbS4PyLE=;
+	s=arc-20240116; t=1790773981; c=relaxed/simple;
+	bh=/bgsH/+GB7rlHcErhPuRDiwrXXnAx1GBQVfd7Qby9yo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=U5HMz9BaEZSa5PZxO9c3RfD2aK5uGHMbOTDfcOUOBpGKF5On7Vpi26FvaBDgp6dBvegw++Kh9PX5rRdR5F11zSZ6YwYQijeR6Nlj5w8T4Mfqk4xAjrin9kOX8Z87CTHMtQxRLZjze9vIyBeTgTL995B+bNZtetqJoeXCq3jDUBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jshMjPbt; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=T4HLGD74K1JmCeXeC6PM7TAyB6zB0NQkdIYR8QGuXL9vXO5ZndlmEkIX0jHivilfeZrT9a5x5m8hjicoaDsfeMYwUd2H8WHE2Htmm1ZIN5wGdbm8M0nQqAuebb7IToI2iwiM8zqGip5981140RBGe1KTMlr2JriZQL/gvTAEBuI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jIdItA9C; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jshMjPbt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69DDB1F00898;
-	Wed, 30 Sep 2026 13:07:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jIdItA9C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 575841F000FF;
+	Wed, 30 Sep 2026 13:12:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790773632;
-	bh=2BeySd5RSCq9XcjtthlodS5n8mHQcSwspNS4l8cY0Q8=;
+	s=k20260515; t=1790773968;
+	bh=83u/aicJGsyhw5MyBgvJtOx3l6WAXG8sFN0rDYsJrRg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jshMjPbtG7cr8SNjJB9v4OAmLbu/d/T1Fa2sDa4+haLUzDKPrfvmdTy9hWGvFro6o
-	 K+G1nm2K1wb7D61oaR+rox6F9z5esvGQyCcB7cBd8NTGIsQ6GNY9APXmdVlyd2+VTK
-	 Isit181vcRzogjelRxbQzdLP9OiFIvyGlyvo6V9SveUkfLAgE+KM/6cTLoG1CkhjB3
-	 X7suT7pCfgQsa16k058nX7MPTGv3krbCJKabQIJhr826mxgxW5hIITA+7Ps9/FB17C
-	 N4T2davcTnD5MPDXYPr3MHUFl7dkdBXwcvJuYoyzg+6vkKl21YcM1PAkd46vfLiV1t
-	 aQ8xtlqzzAUGg==
+	b=jIdItA9CnusEa1o5Mt96omAjUfDjctfQ2K8OizQxjuqgTrNubPUm3QctQ4YSm8eEi
+	 9n0oqN049vcBD3tvXkY7I6gI5KcB5UMkJ1a5k1lH2XQfRqqBUktI4D+eXdD7fDEt67
+	 yec+ba4WyqjjLy/1nZS816XH/AWqjwPSHTO9g/18/o6vU9eWvSH83RnOBx0kLFmMdE
+	 Ce/JUDUPA3MLHJU1DBJs44qZzrBqT8Rkwjnn8I8lfTxTm6vUjBwHRBxkXXv0KTPAj1
+	 3b+jhBfKEbttmPMTicYTZMTxw8bjq4lAtkWbSBrmN8RMqg5Mr+Rt0lkspLKAoaxP6d
+	 yNlRB7ymKGgmQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Ilya Maximets <i.maximets@ovn.org>,
@@ -33,12 +33,12 @@ Cc: Ilya Maximets <i.maximets@ovn.org>,
 	Aaron Conole <aconole@redhat.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] net: openvswitch: conntrack: fix helper UAF due to extensions realloc
-Date: Wed, 30 Sep 2026 09:07:09 -0400
-Message-ID: <20260930130709.1705026-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] net: openvswitch: conntrack: fix helper UAF due to extensions realloc
+Date: Wed, 30 Sep 2026 09:12:45 -0400
+Message-ID: <20260930131245.1728178-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092937-subprime-mulch-2753@gregkh>
-References: <2026092937-subprime-mulch-2753@gregkh>
+In-Reply-To: <2026092937-camera-idiom-4390@gregkh>
+References: <2026092937-camera-idiom-4390@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -87,10 +87,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 13 insertions(+), 7 deletions(-)
 
 diff --git a/net/openvswitch/conntrack.c b/net/openvswitch/conntrack.c
-index 0645ec3d96b8b..699d259653dfd 100644
+index 45a4e39d8bcb7..fbec6c3dcd4e8 100644
 --- a/net/openvswitch/conntrack.c
 +++ b/net/openvswitch/conntrack.c
-@@ -1039,14 +1039,14 @@ static int __ovs_ct_lookup(struct net *net, struct sw_flow_key *key,
+@@ -1026,14 +1026,14 @@ static int __ovs_ct_lookup(struct net *net, struct sw_flow_key *key,
  			}
  		}
  
@@ -112,7 +112,7 @@ index 0645ec3d96b8b..699d259653dfd 100644
  		    ovs_ct_helper(skb, info->family) != NF_ACCEPT) {
  			return -EINVAL;
  		}
-@@ -1262,6 +1262,12 @@ static int ovs_ct_commit(struct net *net, struct sw_flow_key *key,
+@@ -1241,6 +1241,12 @@ static int ovs_ct_commit(struct net *net, struct sw_flow_key *key,
  					 &info->labels.mask);
  		if (err)
  			return err;
