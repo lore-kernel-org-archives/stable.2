@@ -1,157 +1,248 @@
-Received: from fhigh-b1-smtp.messagingengine.com (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 497464EFFAB
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 13:45:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 920844E322D
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 13:48:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790775940; cv=none; b=uVfDnEZNcApzxxRijuNPvXlg0qJhP8rgT8cail1nEtV2sRcV9z8+UEDwEV7dTec5LJfrDCSACImXDkbCW1/VRIYag3uMPMdEBBYm0vRyUf9IUfRPLghb+ZG8rmE9qjZddoZLM4FmKJkjyejiqawbl9MOCTvXx0foszucjd1M+XU=
+	t=1790776092; cv=none; b=H1DPZZ4Volr9yz1zhQxxptaruzAGohh0vV8r+S5HxDTjXDMjgRZ/OVWxdHk3oNThNruWXlZomLlyEn7qqBXQyaD/o78Gg3brUmFocV4XkorkVUjY9evDvElKiVUpbu6ovtiA7c9qTLojH/fpjIMcj4W7N2tRtNK9tzhx6Ldf/So=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790775940; c=relaxed/simple;
-	bh=w/x7F/a+7XF20gXIfx4TZvj/EbHGssE2mhDtWNw1S1U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WmVNe1OTn9QcZE3HC9Y5bixYqnqDeSFsOQa77nb9X3lOJtbzJyaSEiLczaE7mgkdxdE9oCxvQSlvqeRXoTpfCUvOEhJq8crwdMcTq3g6mSUZzFmhL4vTfSySUn3P70/YvO7PRpacJnziRZIBZiwFoZJoGk4qXVrpd2XjrsagJlg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=iM3+OM0d; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=xa9r804C; arc=none smtp.client-ip=202.12.124.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	s=arc-20240116; t=1790776092; c=relaxed/simple;
+	bh=kUhrWKIeE5bKEzcJRFnpwP70oBc1PjJQ90z+r8DGLEM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=DzILj77pcRrv2jAMZ8PeO3Xkep2mMkBF1Om9JnyxzgKkFhjn8xIG2ypw1O8qdaTGIghB6nLwMteE0X5CNSXHMoh5arEVJPmst2oX/XrWJ078rk8Cm44vxn3Nog50hs2OnyJow8YleIJS0D8U3+kfgsC/a1YGIcAThri/SbBsgtQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZP/mZcmR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="iM3+OM0d";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="xa9r804C"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 291917A0742;
-	Wed, 30 Sep 2026 09:45:25 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-06.internal (MEProxy); Wed, 30 Sep 2026 09:45:25 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1790775925; x=1790862325; bh=eIdNM/swN+
-	bBA2sqwhv4CMafgisuLTpdSKacjY59c7c=; b=iM3+OM0dOSDC6tK6mjjf4/cj9N
-	DuBYaP87cB66z1+QTHMZ7P1Bg2AeozvssinucOAugPRcEmvNj8N+CQQ+FnP7HgIi
-	pfDRMCFi6zAQEnIef0dbD0D8wArzLCW12CuhZNMRXryAbUKfECPpAMURFmXwYQVj
-	xqMpRdfffQ4BeUhlXXSlxpdqU1Kvs7F+GL2t01/NtqBTHhDcAtC1MpP6wl/ZWTed
-	1vAlxpKPeALJj3Z08JcQeweCeM/7saC5hMTSPhkdOGDIi948R0iRQKU8hMx9LSub
-	K84r48cnRton+l7FVgk6xaGCelsK1n2aLT8CWsLkhul6I/HeItJPg+YLIPEg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1790775925; x=1790862325; bh=eIdNM/swN+bBA2sqwhv4CMafgisuLTpdSKa
-	cjY59c7c=; b=xa9r804Ci+en2+4hT/IDP3xkp+Hvjo9tYBklQNOOwYaNAGS9B3Q
-	cJxB1DKOgIDPc6EO2qjGItWNss77S4BXal8dsJefrkS7DpoQbRIfrhKmURnOq5t3
-	oAc+fCr+mcY6+hVVtazeXfaPX8lViyFKHwK2p35jF7tlUyxPc+0QCXEH3FSFm+uW
-	vm27Adoq1IOr5mHT+37uA7W8RHt+U+lZ7+ha2ZhEBr/8lVcAtZcjNcNpTWPVUdp4
-	igTIcOZlXpY/8526I4zKjHn+yxPjEB39bgxrPfJWf6TsGLbUO6pOkR6uwiIycm5H
-	75RXv39P9D/X/zfUWTkrWTiUuGsLBVZCsuA==
-X-ME-Sender: <xms:dBK9aq2McCLNlhct4xrRiU-suHIpSmgPfUL3lHEO3ckVIZnygKcohA>
-    <xme:dBK9anFxtPIYXxYKgihPNqK23RsO5A9zcishDF_D0Cfu7Ka51yDps6bkGR7qfB4hL
-    7BcvqgHFbjWXKS4Kn2Hyarx9_lvDfGblnVU-JNFQ37YnPkGsg>
-X-ME-Received: <xmr:dBK9aphhKi-Z2HTxBDPEiit1tgXWTx0A-nlX94LyIZrWLyeXEM7isDOPGgjbwS9Ih0X70Gdm27F6D8vvAofVIiaSr0LtY3gXU1eHZMSrs3k>
-X-ME-Proxy-Cause: dmFkZTGqTedq4KSAHCiCZP1StgCgB3oHSgIQzZURPPvE3xFZj265vYX5j6tmiIUxw3BsNV
-    iihKpftYhSmlvfdmWzubgkSRoVErkCVvDptedxkATRcojcte8LaqvJ2ZHk/oNP8HDmzB5Z
-    jGH9w4amV1INSyYBADNl9lf36Ga9swwNYJ8cWlXlz+W0owHDah/LPbBoG3N4Iz/l23cdId
-    XYpQ02R285dzrSIhGzzb+/MPcnXx4eNNNT6POS8fG4xSA0zjyBVrG1U2UHWKtn91ML1ZFq
-    p308Z6D6Rr/keJltsrkaVpgNZ+GO5kMbXrQEQwTM7mgIrYJIEj2lNrt25yRHH8Tenzwwga
-    o8owm0ANY4nVF9XA/aF0mtO0gNydMkjYYX51k7Dn8joNz8Qq/0lkjsotbVXMa7gZoLHcLc
-    +T4MmWlNGhO+oPH141yTk6NcR7wbOgoWBJOaQ6hiGNZCW6aT/Fmt4gFGSeAs8CN+gJH1/E
-    2tYXj+Zrp9xj5t6WKA3Jpx9NfNPosR1WqZmf4beJxPSPH2c2ID+zBAOUY6QWQ67ElxqjfV
-    bcF6zKU6TUGI+DbANZ36zrI5mTtOE8VjCvQdrv+PgmHxWbwy8VyPZGt8EPOY5/+o/J/FDn
-    Ke2MFysWTWefxxF/0UVPPcxQFcSmXXv2tL55OJCJqu77AmUcFs9PSWkVCfMw
-X-ME-Proxy: <xmx:dBK9aqAbktEccTpa2wOa07YOEb7CGiltZxcjYHgPbeD6vEs3ePGSzA>
-    <xmx:dBK9arTTSjqjqzhpAYTRGjG-aNWVZSKfO9URGqCWKnZRN9fxGqz8WQ>
-    <xmx:dBK9avW7s4CZcYs4A3dq9-xx6P9TcqAwh6QRRrUBt71lcVRA99FdEg>
-    <xmx:dBK9akf6Xor48EBpo0jZlC_Ghbr2kU-CXhIeEAoRbetqYsTi64Fu9w>
-    <xmx:dRK9ap9m_Ux7_-IEhYAeshm2WAWd2-s-lyTpTz0i6OaBV9muNtUE9Mjt>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 30 Sep 2026 09:45:24 -0400 (EDT)
-Date: Wed, 30 Sep 2026 15:45:19 +0200
-From: Greg KH <greg@kroah.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org,
-	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
-	lei lu <llfamsec@gmail.com>
-Subject: Re: [PATCH 6.12.y 1/4] fs/ntfs3: Add more checks in mi_enum_attr
- (part 2)
-Message-ID: <2026093016-basin-decaf-16c0@gregkh>
-References: <2026090803-refract-segment-1a96@gregkh>
- <20260910012610.3866859-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZP/mZcmR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33FE51F00899;
+	Wed, 30 Sep 2026 13:48:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790776081;
+	bh=Tv6cgtL+V4y+8dj42r3W1ZXrbP3oSvJRlQ90CvG8L3g=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ZP/mZcmRrXEK7oqguR6PqGefnQkN+7FDY1XW6mHn6rz+28r+lhgxmkqg8DIAvx9oQ
+	 mpwxhX79yCT12zBdrolWgCzW03NysD1vxO6Gl0vKagULJWLA7Aw4DppF9jdtwzOJF3
+	 kDNvXJfsWN4vHtZdvRcDXG8DeeXnvLg6VI1DrzbSANdnlaZ/UBEKWEYKfxGLHLesG5
+	 ULQ0sg3eQF5oQMs6BNmoaJzClvkP/Z7rR8rxNP88PMQRhltWvLoRe5yLg6J8IQfZZE
+	 +Ol6SpNsSYajv6JC3vDqKPcFuy1ZYtpSWizYsgaUJ7HXP2utIPn9lj6u6Df0XlTKwE
+	 m48sErMOpZ+PQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sean Christopherson <seanjc@google.com>,
+	Yosry Ahmed <yosry@kernel.org>,
+	Kai Huang <kai.huang@intel.com>,
+	Binbin Wu <binbin.wu@linux.intel.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.2.y 2/6] KVM: x86/mmu: Move kvm_mmu_do_page_fault() from mmu_internal.h => mmu.c
+Date: Wed, 30 Sep 2026 09:47:53 -0400
+Message-ID: <20260930134757.1797371-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260930134757.1797371-1-sashal@kernel.org>
+References: <2026092938-mantis-spearfish-5a96@gregkh>
+ <20260930134757.1797371-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910012610.3866859-1-sashal@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 09, 2026 at 09:26:07PM -0400, Sasha Levin wrote:
-> From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-> 
-> [ Upstream commit a8f659ce14f8f734894227ba2c5ca78c8451501e ]
-> 
-> Add offset check before access to attr->non_res field as mentioned in [1].
-> 
-> [1] https://lore.kernel.org/ntfs3/20241010110005.42792-1-llfamsec@gmail.com/
-> 
-> Suggested-by: lei lu <llfamsec@gmail.com>
-> Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-> Stable-dep-of: 7c4841e2a627 ("fs/ntfs3: fix slab-out-of-bounds write in ni_create_attr_list()")
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  fs/ntfs3/record.c | 16 +++++++++++++---
->  1 file changed, 13 insertions(+), 3 deletions(-)
-> 
-> diff --git a/fs/ntfs3/record.c b/fs/ntfs3/record.c
-> index f810f0419d25e..61d53d39f3b9f 100644
-> --- a/fs/ntfs3/record.c
-> +++ b/fs/ntfs3/record.c
-> @@ -212,7 +212,7 @@ struct ATTRIB *mi_enum_attr(struct mft_inode *mi, struct ATTRIB *attr)
->  			return NULL;
->  
->  		if (off >= used || off < MFTRECORD_FIXUP_OFFSET_1 ||
-> -		    !IS_ALIGNED(off, 4)) {
-> +		    !IS_ALIGNED(off, 8)) {
->  			return NULL;
->  		}
->  
-> @@ -236,8 +236,11 @@ struct ATTRIB *mi_enum_attr(struct mft_inode *mi, struct ATTRIB *attr)
->  		off += asize;
->  	}
->  
-> -	/* Can we use the first field (attr->type). */
-> -	/* NOTE: this code also checks attr->size availability. */
-> +	/*
-> +	 * Can we use the first fields:
-> +	 * attr->type,
-> +	 * attr->size
-> +	 */
->  	if (off + 8 > used) {
->  		static_assert(ALIGN(sizeof(enum ATTR_TYPE), 8) == 8);
->  		return NULL;
-> @@ -259,10 +262,17 @@ struct ATTRIB *mi_enum_attr(struct mft_inode *mi, struct ATTRIB *attr)
->  
->  	asize = le32_to_cpu(attr->size);
->  
-> +	if (!IS_ALIGNED(asize, 8))
-> +		return NULL;
-> +
->  	/* Check overflow and boundary. */
->  	if (off + asize < off || off + asize > used)
->  		return NULL;
->  
-> +	/* Can we use the field attr->non_res. */
-> +	if (off + 9 > used)
-> +		return NULL;
-> +
->  	/* Check size of attribute. */
->  	if (!attr->non_res) {
->  		/* Check resident fields. */
-> -- 
-> 2.53.0
-> 
-> 
+From: Sean Christopherson <seanjc@google.com>
 
-did not apply
+[ Upstream commit 20fe9252460524f9028b515f0f672442ffe6779b ]
+
+Move kvm_mmu_do_page_fault() into mmu.c, as there are no users outside of
+mmu.c, and the function typically isn't inlined by the compiler anyways.
+This will allow moving the EMULTYPE_xxx definitions into x86.h without
+having to include x86.h in mmu_internal.h, i.e. will help preserve the
+goal of making x86.h KVM x86's "top-level" include.
+
+No functional change intended.
+
+Reviewed-by: Yosry Ahmed <yosry@kernel.org>
+Reviewed-by: Kai Huang <kai.huang@intel.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
+Message-ID: <20260613000329.732085-30-seanjc@google.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Stable-dep-of: c1214f293d77 ("KVM: x86: Fill kvm_run exit fields in common get_nested_state_pages() error paths")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ arch/x86/kvm/mmu/mmu.c          | 67 ++++++++++++++++++++++++++++++++-
+ arch/x86/kvm/mmu/mmu_internal.h | 66 --------------------------------
+ 2 files changed, 66 insertions(+), 67 deletions(-)
+
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index ab1cbc0ff0eb9..49a5fb103194a 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -4957,7 +4957,7 @@ static int kvm_tdp_mmu_page_fault(struct kvm_vcpu *vcpu,
+ }
+ #endif
+ 
+-int kvm_tdp_page_fault(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault)
++static int kvm_tdp_page_fault(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault)
+ {
+ #ifdef CONFIG_X86_64
+ 	if (tdp_mmu_enabled)
+@@ -4967,6 +4967,71 @@ int kvm_tdp_page_fault(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault)
+ 	return direct_page_fault(vcpu, fault);
+ }
+ 
++static int kvm_mmu_do_page_fault(struct kvm_vcpu *vcpu, gpa_t cr2_or_gpa,
++				 u64 err, bool prefetch, int *emulation_type,
++				 u8 *level)
++{
++	struct kvm_page_fault fault = {
++		.addr = cr2_or_gpa,
++		.error_code = err,
++		.exec = err & PFERR_FETCH_MASK,
++		.write = err & PFERR_WRITE_MASK,
++		.present = err & PFERR_PRESENT_MASK,
++		.rsvd = err & PFERR_RSVD_MASK,
++		.user = err & PFERR_USER_MASK,
++		.prefetch = prefetch,
++		.is_tdp = likely(vcpu->arch.mmu->page_fault == kvm_tdp_page_fault),
++		.nx_huge_page_workaround_enabled =
++			is_nx_huge_page_enabled(vcpu->kvm),
++
++		.max_level = KVM_MAX_HUGEPAGE_LEVEL,
++		.req_level = PG_LEVEL_4K,
++		.goal_level = PG_LEVEL_4K,
++		.is_private = err & PFERR_PRIVATE_ACCESS,
++
++		.pfn = KVM_PFN_ERR_FAULT,
++	};
++	int r;
++
++	if (vcpu->arch.mmu->root_role.direct) {
++		/*
++		 * Things like memslots don't understand the concept of a shared
++		 * bit. Strip it so that the GFN can be used like normal, and the
++		 * fault.addr can be used when the shared bit is needed.
++		 */
++		fault.gfn = gpa_to_gfn(fault.addr) & ~kvm_gfn_direct_bits(vcpu->kvm);
++		fault.slot = kvm_vcpu_gfn_to_memslot(vcpu, fault.gfn);
++	}
++
++	/*
++	 * With retpoline being active an indirect call is rather expensive,
++	 * so do a direct call in the most common case.
++	 */
++	if (IS_ENABLED(CONFIG_MITIGATION_RETPOLINE) && fault.is_tdp)
++		r = kvm_tdp_page_fault(vcpu, &fault);
++	else
++		r = vcpu->arch.mmu->page_fault(vcpu, &fault);
++
++	/*
++	 * Not sure what's happening, but punt to userspace and hope that
++	 * they can fix it by changing memory to shared, or they can
++	 * provide a better error.
++	 */
++	if (r == RET_PF_EMULATE && fault.is_private) {
++		pr_warn_ratelimited("kvm: unexpected emulation request on private memory\n");
++		kvm_mmu_prepare_memory_fault_exit(vcpu, &fault);
++		return -EFAULT;
++	}
++
++	if (fault.write_fault_to_shadow_pgtable && emulation_type)
++		*emulation_type |= EMULTYPE_WRITE_PF_TO_SP;
++	if (level)
++		*level = fault.goal_level;
++
++	return r;
++}
++
++
+ static int kvm_tdp_page_prefault(struct kvm_vcpu *vcpu, gpa_t gpa,
+ 				 u64 error_code, u8 *level)
+ {
+diff --git a/arch/x86/kvm/mmu/mmu_internal.h b/arch/x86/kvm/mmu/mmu_internal.h
+index 73cdcbccc89e8..c29002c601265 100644
+--- a/arch/x86/kvm/mmu/mmu_internal.h
++++ b/arch/x86/kvm/mmu/mmu_internal.h
+@@ -290,8 +290,6 @@ struct kvm_page_fault {
+ 	bool write_fault_to_shadow_pgtable;
+ };
+ 
+-int kvm_tdp_page_fault(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault);
+-
+ /*
+  * Return values of handle_mmio_page_fault(), mmu.page_fault(), fast_page_fault(),
+  * and of course kvm_mmu_do_page_fault().
+@@ -337,70 +335,6 @@ static inline void kvm_mmu_prepare_memory_fault_exit(struct kvm_vcpu *vcpu,
+ 				      fault->is_private);
+ }
+ 
+-static inline int kvm_mmu_do_page_fault(struct kvm_vcpu *vcpu, gpa_t cr2_or_gpa,
+-					u64 err, bool prefetch,
+-					int *emulation_type, u8 *level)
+-{
+-	struct kvm_page_fault fault = {
+-		.addr = cr2_or_gpa,
+-		.error_code = err,
+-		.exec = err & PFERR_FETCH_MASK,
+-		.write = err & PFERR_WRITE_MASK,
+-		.present = err & PFERR_PRESENT_MASK,
+-		.rsvd = err & PFERR_RSVD_MASK,
+-		.user = err & PFERR_USER_MASK,
+-		.prefetch = prefetch,
+-		.is_tdp = likely(vcpu->arch.mmu->page_fault == kvm_tdp_page_fault),
+-		.nx_huge_page_workaround_enabled =
+-			is_nx_huge_page_enabled(vcpu->kvm),
+-
+-		.max_level = KVM_MAX_HUGEPAGE_LEVEL,
+-		.req_level = PG_LEVEL_4K,
+-		.goal_level = PG_LEVEL_4K,
+-		.is_private = err & PFERR_PRIVATE_ACCESS,
+-
+-		.pfn = KVM_PFN_ERR_FAULT,
+-	};
+-	int r;
+-
+-	if (vcpu->arch.mmu->root_role.direct) {
+-		/*
+-		 * Things like memslots don't understand the concept of a shared
+-		 * bit. Strip it so that the GFN can be used like normal, and the
+-		 * fault.addr can be used when the shared bit is needed.
+-		 */
+-		fault.gfn = gpa_to_gfn(fault.addr) & ~kvm_gfn_direct_bits(vcpu->kvm);
+-		fault.slot = kvm_vcpu_gfn_to_memslot(vcpu, fault.gfn);
+-	}
+-
+-	/*
+-	 * With retpoline being active an indirect call is rather expensive,
+-	 * so do a direct call in the most common case.
+-	 */
+-	if (IS_ENABLED(CONFIG_MITIGATION_RETPOLINE) && fault.is_tdp)
+-		r = kvm_tdp_page_fault(vcpu, &fault);
+-	else
+-		r = vcpu->arch.mmu->page_fault(vcpu, &fault);
+-
+-	/*
+-	 * Not sure what's happening, but punt to userspace and hope that
+-	 * they can fix it by changing memory to shared, or they can
+-	 * provide a better error.
+-	 */
+-	if (r == RET_PF_EMULATE && fault.is_private) {
+-		pr_warn_ratelimited("kvm: unexpected emulation request on private memory\n");
+-		kvm_mmu_prepare_memory_fault_exit(vcpu, &fault);
+-		return -EFAULT;
+-	}
+-
+-	if (fault.write_fault_to_shadow_pgtable && emulation_type)
+-		*emulation_type |= EMULTYPE_WRITE_PF_TO_SP;
+-	if (level)
+-		*level = fault.goal_level;
+-
+-	return r;
+-}
+-
+ int kvm_mmu_max_mapping_level(struct kvm *kvm, struct kvm_page_fault *fault,
+ 			      const struct kvm_memory_slot *slot, gfn_t gfn);
+ void kvm_mmu_hugepage_adjust(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault);
+-- 
+2.53.0
+
