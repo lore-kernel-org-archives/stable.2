@@ -1,134 +1,104 @@
-Received: from mail-qk2-f40.google.com (mail-qk2-f40.google.com [74.125.230.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECB1534104E
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 07:31:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27A383B8958;
+	Wed, 30 Sep 2026 07:32:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790753480; cv=none; b=NMtqP39So8clFtHEkWYmZSDuGqo7erh5/vZXeT1VmTBsu0Gr+qDHamXbprat9m0E+/VfGYZ7q2/H5yjDF2iA6zOCkEqs2yTk8KcZr1EKYqvva2n9ba383bXbCQHJ2ZjA0RON8Ec19Z1ssVOCPIvEuRQvqC/+9997YKsGEz6Lolc=
+	t=1790753569; cv=none; b=YNKFX5GKv/HXWCjG0/kkY+wV4xMoRo8e6HTMdFAFppdM6E6y0qEEduLzlSeIEEeJ4mUA+nO48Fq0b1s3fngeIVOyjVnQvWKrPjlcdZjFhzWKwE72ocot2FAaH0NEs1dLO2I6l/8Vnz6fpVD3srt7LPTLL/+DMNNH1P1cMtuV6eE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790753480; c=relaxed/simple;
-	bh=aluq6XDX77di7kfn43swR2cM2XeDL6dQliyhlLnI1Cw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=KmO272C+u7FK8iaziZDG82lmB5apbJtea5EPYwajXRSMiM9X4y6wxS+wnaCIL5pdqHIQLztrYf+Dnk4U6BfHDQEuvD+TmKPBEyp/YXWsf7khwFs+GA9V+ZMGXfN0KFHPn1hAeNbFFeHVNK/d2oPvatAJBtc6EapCIBOba40aEsI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=hRBsyt43; arc=none smtp.client-ip=74.125.230.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	s=arc-20240116; t=1790753569; c=relaxed/simple;
+	bh=gOLCtVRmaBN+1rWxqGAsnpdL2Fs9Tw1hwDh3KmQQ/SM=;
+	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Hl8UA0XeDiwLeWSwZP//ctgWuz3VEtD0qqnES4N3FKsT4u5H6wzYMvyT5RaGWFY0zI0tTgy9QMPCMryUUIM6oYGKaZ6XK/zBo87uK4YhzCEtuXvWpurQZNWEVMh4H71YydXiAd1winG+u/E1Vkcz2rczn3Rj2Tyev8Fb1CBjwvs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=r236zFUl; arc=none smtp.client-ip=60.244.123.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="hRBsyt43"
-Received: by mail-qk2-f40.google.com with SMTP id af79cd13be357-93c5d67aa05so462965385a.0
-        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 00:31:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1790753478; x=1791358278; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=R9i+4Nh+hm2eKyiJR0k0Xb2So8Jv28e3f/mMEot2DDY=;
-        b=hRBsyt43Y5GR1842RI0Vpm5mhMmPtZelsPovzhGBvHDPmrkJmwMLwyFRKxq0XxD/T3
-         KcHjBEtvcwVGKsWd/puACt3KdKoh1/mCdg/2wGvjo22nfme58njEoBZqiNBaTnUFgubg
-         +E2o1nhixWNCpw9AVGDGVzs2yLo4CsrCy/ul0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790753478; x=1791358278;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=R9i+4Nh+hm2eKyiJR0k0Xb2So8Jv28e3f/mMEot2DDY=;
-        b=aD1p14fzao9qWpUoFfBr/tRGa/a5bQI2BRJ/WyYoU70gugc2v0szsNGWaaBdLk6o54
-         XhLO/2uDTmqgoJTkfd9tqXivrs1mzt00tMF3zxFSBQQxRtXIrux5Rw7y1LWQxdDM9hko
-         je2W+lCVeJ2yAbaNQY7W7sN5DkuCXqmfMjDb8WMWFAYFuoVf1zKs++PAVXbsG37rh1ZW
-         ZIdMptM3djSQl6gRFYgb5SNT3jlkghQW9osTA4zHIx7ob94O2Dg79s4pPkXy0mtiSM7x
-         e+YTyk9FlLwS5TZYWubN/LYsIJTAs4xlYldLnG3jedwADNWxR/7tFsicXXOr01pfXUJK
-         PGTw==
-X-Forwarded-Encrypted: i=1; AKwUvBxh568ZwwNFZFyukUjNJiaz2JYLwc/89t6QKTQ0YPMrFW58ZrWMTrnf4XcgQdb26ptKZpILqmI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lA0dEwFUdAEn8jOpLNclRNj/xQ/zbI5VMW3r/W9JJvDU4Hd9TH
-	k8qHZX/3JtG7pWuKfT9dNfHWVKj8SsbP8GLoOBsqalBimHvbmSGEUXrT+FTIIco26Q==
-X-Gm-Gg: AYBFou0BzoogJSPomLrb7/4SR6UkoiztGoY2Ba1wQcZ3CCNQMnCvX7wcWfVDR1CCe0z
-	w4wNkxBjQDO6R7UE9hV7YCpH9pjPJvET+3Uoop1v6bv7pdY0pdPd6TRCLLh7g0JdJrt3fx536hY
-	TwgvbDVWljZKx9JTHcUo5LNLDz8n7PXX8bLjiNlYcFoJKNPUwCKSus1rNun19txn4pZVIHuItvB
-	47sT6t3+N+FRHnG/EE/jCZwvc4hGGqIpTXPQ9ub/W1wK4T4e/DUZIyivG2GMuenWOuMTdrxUsl6
-	FP1VUfPpCYKliaQa3mz00mDxBSBYXJelpTbf8NYAXE9RI2Sd+QdJ8BCoqiZrb9/dTnqXeKkrt8e
-	J+XMH/F4UunhaD8k8FBLWhMF6rrgoSvkslBtvplzVq/t66YoGXUES5qwQyrXvxrzi2lB/hGgE8k
-	kQ9nxd4xI7xK47Hd96YmBClhvoGG/S/6mAngY9zzByoukmbTOEBf+Fz2Jaz/bP7f1nM8cxtxeyr
-	Q3BpQJv3Y9kBMDFpG6iBEHLcGS2uw0cKwFQG7EB/UhCuRpW8g==
-X-Received: by 2002:a05:620a:4713:b0:939:6132:62cc with SMTP id af79cd13be357-93ca96c72f7mr82625885a.27.1790753477544;
-        Wed, 30 Sep 2026 00:31:17 -0700 (PDT)
-Received: from majuu.waya ([184.147.180.207])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ca82ea561sm55706785a.33.2026.09.30.00.31.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 00:31:17 -0700 (PDT)
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-To: netdev@vger.kernel.org
-Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Victor Nogueira <victor@mojatatu.com>,
-	Thomas Graf <tgraf@suug.ch>,
-	hybris <hybris@mojatatu.ai>,
-	Sashiko <sashiko-bot@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH net] net/sched: em_text: reject unterminated algo before autoload
-Date: Wed, 30 Sep 2026 03:31:02 -0400
-Message-Id: <QDISC-2DIU.v1.20260929183844@mojatatu.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="r236zFUl"
+X-UUID: 1f3082d2bca111f1b1788b6acf885367-20260930
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID; bh=gOLCtVRmaBN+1rWxqGAsnpdL2Fs9Tw1hwDh3KmQQ/SM=;
+	b=r236zFUlEO4225puLzKYQgyz9zRnO4NoXe/pZ68UK8gj177oyDHvQXlSdQGfAQJLHGLGDvJd2mUdgJccM73FmeJJSbGV/wTp+xhk+kVB3AcehzL6KsDoDH9+jVQKIPooN8F0JGaydkNp+MFVu9vkGErfeubOCk/py6t83fIiJg0=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.20,REQID:f1a4caf9-d1ae-4811-8409-80426c9f9105,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:291e20b,CLOUDID:49267775-a994-4a3a-ab0d-b7638be1f94c,B
+	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|136|836|865|888|898,TC:-5,Cont
+	ent:0|15|50|99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:
+	-1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 1f3082d2bca111f1b1788b6acf885367-20260930
+Received: from mtkmbs09n1.mediatek.inc [(172.21.101.35)] by mailgw01.mediatek.com
+	(envelope-from <peter.wang@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 217409389; Wed, 30 Sep 2026 15:32:42 +0800
+Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
+ mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Wed, 30 Sep 2026 15:32:41 +0800
+Received: from [10.233.130.16] (10.233.130.16) by mtkmbs13n2.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
+ Transport; Wed, 30 Sep 2026 15:32:41 +0800
+Message-ID: <c7ce0c71efb432696a40a1ee8b4d403822c8cbec.camel@mediatek.com>
+Subject: Re: [PATCH v3 2/2] scsi: ufs: core: Decouple CQ sweep from request
+ iterator in MCQ
+From: Peter Wang <peter.wang@mediatek.com>
+To: Stanley Jhu <stanleyjhu@google.com>, "Martin K . Petersen"
+	<martin.petersen@oracle.com>, Bean Huo <beanhuo@micron.com>, "Bart Van
+ Assche" <bvanassche@acm.org>
+CC: Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@wdc.com>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, Manivannan
+ Sadhasivam <mani@kernel.org>, <linux-scsi@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Date: Wed, 30 Sep 2026 15:32:41 +0800
+In-Reply-To: <20260928035816.1294326-3-stanleyjhu@google.com>
+References: <20260928035816.1294326-1-stanleyjhu@google.com>
+	 <20260928035816.1294326-3-stanleyjhu@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MTK: N
 
+On Mon, 2026-09-28 at 11:58 +0800, Stanley Jhu wrote:
+> In MCQ mode, ufshcd_mcq_compl_pending_transfer() uses
+> blk_mq_tagset_busy_iter() to iterate over busy requests during error
+> recovery and host reset. However, both iterator callbacks perform
+> whole-queue operations redundantly for each visited request:
+>=20
+> - force_compl =3D=3D true: ufshcd_mcq_force_compl_one() calls
+> =C2=A0 ufshcd_mcq_compl_all_cqes_lock() on every busy request, sweeping
+> the
+> =C2=A0 entire completion ring (hwq->max_entries slots) once per active
+> =C2=A0 request under spin_lock_irqsave even though the first sweep alread=
+y
+> =C2=A0 cleared all completion entries.
+> - force_compl =3D=3D false: ufshcd_mcq_compl_one() acquires cq_lock and
+> =C2=A0 polls CQTPy over MMIO via ufshcd_mcq_poll_cqe_lock() for every bus=
+y
+> =C2=A0 request without doing any per-request work.
+>=20
+> Sweep or poll each hardware queue (hba->uhq[i]) once at the start of
+> ufshcd_mcq_compl_pending_transfer(). When force_compl is true, run
+> blk_mq_tagset_busy_iter() afterward to complete residual in-flight
+> requests with DID_REQUEUE, and remove the now-unused
+> ufshcd_mcq_compl_one() callback.
+>=20
+> Fixes: ab248643d3d6 ("scsi: ufs: core: Add error handling for MCQ
+> mode")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+> Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
 
-This is a follow-up to commit 9c572a83037a ("net/sched: fix potential
-stack infoleak in em_text_dump()"), which zero-initialised the dump-side
-struct. Sashiko pointed at a pre-existing bug that exposed the change-side
-input-validation gap open.
-
-em_text_change() casts the raw netlink attribute payload to struct
-tcf_em_text and passes conf->algo, a 16-byte array with no enforced NUL
-terminator, to textsearch_prepare().  On the TS_AUTOLOAD retry
-textsearch_prepare() calls request_module("ts_%s", algo); vsnprintf()
-walks %s until it finds a NUL, so an algo[] with no NUL reads past the
-array into the adjacent struct fields and payload and feeds those bytes
-to the usermode helper command line.  This is an out-of-bounds read and
-a kernel memory disclosure.
-
-Reject the attribute when no NUL exists within TC_EM_TEXT_ALGOSIZ bytes,
-matching the check xt_string has had since 3ab720881b6e.
-
-Conditions to recreate the bug:
-- CAP_NET_ADMIN on the target netns (namespace-local via unshare -Urn
-  is enough)
-- install clsact on an interface, then add a basic filter with one text
-  ematch whose algo[] is 16 bytes with no NUL (e.g. "A"*16) and
-  pattern_len at least 1
-- the add fails with -ENOENT and the kernel invokes modprobe with a
-  module name made of "ts_" plus the 16 bytes and the adjacent payload
-
-Fixes: d675c989ed2d4 ("[PKT_SCHED]: Packet classification based on textsearch (ematch)")
-Reported-by: Sashiko (gemini) <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260918133953.12494-1-bernard.ladenthin%40gmail.com
-Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
----
- net/sched/em_text.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/net/sched/em_text.c b/net/sched/em_text.c
-index 4132f8c3c5fc..bc45edb8c03b 100644
---- a/net/sched/em_text.c
-+++ b/net/sched/em_text.c
-@@ -58,6 +58,9 @@ static int em_text_change(struct net *net, void *data, int len,
- 	if (len < sizeof(*conf) || len < (sizeof(*conf) + conf->pattern_len))
- 		return -EINVAL;
- 
-+	if (!memchr(conf->algo, '\0', sizeof(conf->algo)))
-+		return -EINVAL;
-+
- 	if (conf->from_layer > conf->to_layer)
- 		return -EINVAL;
- 
--- 
-2.43.0
+Reviewed-by: Peter Wang <peter.wang@mediatek.com>
 
