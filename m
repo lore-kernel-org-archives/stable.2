@@ -1,41 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A4AC515897;
-	Wed, 30 Sep 2026 16:19:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2475D509F18;
+	Wed, 30 Sep 2026 16:19:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790785185; cv=none; b=oGbhlpZSDksLuAfDVHfg/KOh5irK9nz8r5sx6f1o5kaV5OtvJ50KjlUHy4pl5EHpeOSmEupDe9k4ka/Iwl99bVaewlR+9n0QiVLjy3dA+lcUEIdKF4s9mgUDMPr+l18Cc/2orxqzBeEgFe6M8iNQAvVqJ7sf+ESAfGbHzuOSY7c=
+	t=1790785189; cv=none; b=Z31DJTONWhB4AlrlC2MhPEwYALJAQlVCPK878ZC5Z1u5fJsW0IHSR8qkdy45WzxPcb7MmeFGMnzqEExvIW03SlDAON9gqAB916HlbYspi2PFDwkx/+Ifk4mGO2OAGyRl5kgVq5C2mE/j5qtTOZ/kXDS2UPoB6LkPY/FMngeK0/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790785185; c=relaxed/simple;
-	bh=+jIpz0kyD6XpAWd+/Oz9a5Frf+VJeJX+1GJg2ho2nwA=;
+	s=arc-20240116; t=1790785189; c=relaxed/simple;
+	bh=qBdS83I45ch2+B4ceZq8hRn3blOthspMOwOULT9TOEo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=I4M5gzYxefWsHeviRzsPZb4tqF4Q+NMnfw/OJ0mxIircbWCbcn6Dk6Dgt/35mVoDGz/20c65E3Tqk1hB4ckFZPkGXG9kuEF1C0vAeQ17/znb7b23iotwWqr97RX3nMkdnEEDfVMr1qt6fIvlOvBG8FT9gEZ0Mwx27zY+b5feFus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=K0q3bRBN; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=DB9qg4Mu1Gg5DcNJk33Rfgz9gkRA18jOvaPXENKQPLstyRgusHa4UOeE2dbuaZeLa/yqiHFO7wzdn8K7fejOs3IsC/ofWIjg7IwSBMcbcIBunXMP/I6m8NUZTLk65xhyhUmhqZdfqlm2Dzod+SekMZhf7UIbiB5oUnU1WyM3rjI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=grlGIRij; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="K0q3bRBN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50EB11F00893;
-	Wed, 30 Sep 2026 16:19:40 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="grlGIRij"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB5C11F00899;
+	Wed, 30 Sep 2026 16:19:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790785180;
-	bh=+LgtGh21DD0pu2h4Mh3crN+BFZyNHCDiQ/75znN8gO4=;
+	s=korg; t=1790785186;
+	bh=SPrfeX9SjGSRh5n6+HP/YSz2kP+mXPF7cik7KAvL2Os=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=K0q3bRBNCTcdZtFsClMoRsaptdsLTbJp2QCFXI7+B1pEZ/DidauUy6dtJuoHR+Z57
-	 kDCuAtukJYD8c0z7PCxHLAXsuJrzcpOlf0oCtYOctH0jM2XqSijaxAu+/RQaqquOW+
-	 e3o4WE+FdpaYC6t1fKzNwzzm0kSvGXf10uA1RIlM=
+	b=grlGIRijOHB5isxs6isJbYPE1uBfjbew6RTrkMRRdBxh/sOHUSYV1vnXoJYzrbHaD
+	 67JvMj1PoLrJ/Uaztpe2xcxqJmEw4aMLobYULs9RQhSLRxm3xAKNNf0eUA4RXCyDIB
+	 Zz/IaZDgFb69kRMRWkfQYnZDhMuppJ9Mj2u/HkNw=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
+	Carolina Jubran <cjubran@nvidia.com>,
 	Shahar Shitrit <shshitrit@nvidia.com>,
-	Dragos Tatulea <dtatulea@nvidia.com>,
-	Yael Chemla <ychemla@nvidia.com>,
 	Tariq Toukan <tariqt@nvidia.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 418/982] net/mlx5e: Fix setting RS FEC after remapping
-Date: Wed, 30 Sep 2026 17:19:14 +0200
-Message-ID: <20260930152425.781238237@linuxfoundation.org>
+Subject: [PATCH 6.1 420/982] net/mlx5e: Fix use-after-free race in sample_restore_put()
+Date: Wed, 30 Sep 2026 17:19:16 +0200
+Message-ID: <20260930152425.824471280@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
 References: <20260930152416.775402466@linuxfoundation.org>
@@ -54,86 +53,51 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Shahar Shitrit <shshitrit@nvidia.com>
+From: Carolina Jubran <cjubran@nvidia.com>
 
-[ Upstream commit b9d755c5a37519fb1354034db1dfeb30e1ba6856 ]
+[ Upstream commit af3aef0245abbab5e9f6302e7a7d6407187afb71 ]
 
-When a user sets a FEC mode via ethtool, the driver maps the ethtool
-FEC type to the lowest mlx5 bit of that type. For RS FEC, this is
-MLX5E_FEC_RS_528_514 (bit 2). The driver then checks whether this
-bit is supported by at least one link mode by inspecting the
-fec_override_cap fields via mlx5e_fec_in_caps(), and returns
--EOPNOTSUPP if not.
+Concurrent teardown of TC sample rules sharing the same restore
+context may re-read restore->count after dropping restore_lock.
+At that point another thread may already have completed cleanup and
+freed the restore object.
 
-This check is incorrect. RS FEC has three supported hardware variants:
-RS_528_514 (bit 2), RS_544_514_INTERLEAVED_QUAD (bit 4), and
-RS_544_514 (bit 7). mlx5e_remap_fec_conf_mode() already remaps bit 2
-to the appropriate RS variant per link mode when writing the admin
-fields, but the early capability check is done against the raw
-unmapped bit. As a result, a device that supports RS_544_514 or
-RS_544_514_INTERLEAVED_QUAD but not RS_528_514 will incorrectly reject
-the user's RS FEC request.
+Use the result of the refcount decrement while holding restore_lock to
+determine whether cleanup is needed.
 
-Remove the early support check from mlx5e_set_fec_mode() and fold
-it into the existing write loop, checking caps against the remapped
-policy per link mode. Return -EOPNOTSUPP before the final register
-write if no link mode accepted the policy.
-
-Fixes: 2608a2f831c4 ("net/mlx5e: Fix return status when setting unsupported FEC mode")
-Signed-off-by: Shahar Shitrit <shshitrit@nvidia.com>
-Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
-Reviewed-by: Yael Chemla <ychemla@nvidia.com>
+Fixes: 36a3196256bf ("net/mlx5e: TC, Add sampler restore handle API")
+Signed-off-by: Carolina Jubran <cjubran@nvidia.com>
+Reviewed-by: Shahar Shitrit <shshitrit@nvidia.com>
 Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
-Link: https://patch.msgid.link/20260902164634.3657606-3-tariqt@nvidia.com
+Link: https://patch.msgid.link/20260902193341.3668809-1-tariqt@nvidia.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/mellanox/mlx5/core/en/port.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+ drivers/net/ethernet/mellanox/mlx5/core/en/tc/sample.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en/port.c b/drivers/net/ethernet/mellanox/mlx5/core/en/port.c
-index 505ba41195b93..fe1428d3e57a9 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en/port.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en/port.c
-@@ -614,6 +614,7 @@ int mlx5e_set_fec_mode(struct mlx5_core_dev *dev, u16 fec_policy)
- 	u32 in[MLX5_ST_SZ_DW(pplm_reg)] = {};
- 	int sz = MLX5_ST_SZ_BYTES(pplm_reg);
- 	u16 fec_policy_auto = 0;
-+	bool fec_set = false;
- 	int err;
- 	int i;
- 
-@@ -626,9 +627,6 @@ int mlx5e_set_fec_mode(struct mlx5_core_dev *dev, u16 fec_policy)
- 	if (fec_policy >= (1 << MLX5E_FEC_LLRS_272_257_1) && !fec_50g_per_lane)
- 		return -EOPNOTSUPP;
- 
--	if (fec_policy && !mlx5e_fec_in_caps(dev, fec_policy))
--		return -EOPNOTSUPP;
--
- 	MLX5_SET(pplm_reg, in, local_port, 1);
- 	err = mlx5_core_access_reg(dev, in, sz, out, sz, MLX5_REG_PPLM, 0, 0);
- 	if (err)
-@@ -655,12 +653,17 @@ int mlx5e_set_fec_mode(struct mlx5_core_dev *dev, u16 fec_policy)
- 		mlx5e_get_fec_cap_field(out, &fec_caps, i);
- 
- 		/* policy supported for link speed */
--		if (fec_caps & conf_fec)
-+		if (fec_caps & conf_fec) {
- 			mlx5e_fec_admin_field(out, &conf_fec, 1, i);
--		else
--			/* set FEC to auto*/
-+			fec_set = true;
-+		} else {
-+			/* set FEC to auto */
- 			mlx5e_fec_admin_field(out, &fec_policy_auto, 1, i);
-+		}
- 	}
- 
-+	if (fec_policy && !fec_set)
-+		return -EOPNOTSUPP;
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en/tc/sample.c b/drivers/net/ethernet/mellanox/mlx5/core/en/tc/sample.c
+index c57b097275241..705455472d96a 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en/tc/sample.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en/tc/sample.c
+@@ -311,12 +311,15 @@ sample_restore_get(struct mlx5e_tc_psample *tc_psample, u32 obj_id,
+ static void
+ sample_restore_put(struct mlx5e_tc_psample *tc_psample, struct mlx5e_sample_restore *restore)
+ {
++	bool last;
 +
- 	return mlx5_core_access_reg(dev, out, sz, out, sz, MLX5_REG_PPLM, 0, 1);
- }
+ 	mutex_lock(&tc_psample->restore_lock);
+-	if (--restore->count == 0)
++	last = --restore->count == 0;
++	if (last)
+ 		hash_del(&restore->hlist);
+ 	mutex_unlock(&tc_psample->restore_lock);
+ 
+-	if (!restore->count) {
++	if (last) {
+ 		mlx5_del_flow_rules(restore->rule);
+ 		mlx5_modify_header_dealloc(tc_psample->esw->dev, restore->modify_hdr);
+ 		kfree(restore);
 -- 
 2.53.0
 
