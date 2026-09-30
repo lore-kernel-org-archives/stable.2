@@ -1,73 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 669BE3B5303;
-	Wed, 30 Sep 2026 07:44:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECE123A3816;
+	Wed, 30 Sep 2026 07:44:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.190.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790754259; cv=none; b=umT1n0xQ+q5G01XEGV/DUfuH4y5JSou2huVEOtYMk+M2dKwZhm48LDvJVqSwVLoyk7WxYDQ5j3WfnTF7KBSgC59udF4iAX/YO7PBSrG/u1InKeojL6LkhrIs4Am+s08uDZ9b7N4oz2Bka3zNptVZSs/PoJZd6jeJHnGgKISz74Q=
+	t=1790754266; cv=none; b=o0mxStsfnLLF2JBagfiImgHlB5NC0tRgDrg9dkUSZ/hhhUSJHU8F73R53m327auIjaLj0zDrOvIo/9+sPwW3yN8GS4pNIPKjt+zfiH6uInlDfU83MlmLBvtEnFGitZUbVN0EtOJS2OgagtokRtkEjoF5JqYhJEhUpOI+N7eRB/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790754259; c=relaxed/simple;
-	bh=zvpmhm+BAUlfIVJ/6Kp9ShG7pA3G2q65FWBMzuTisWM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=t3BvYIn/RPLlxsdIVRcntRVhTPSZioYnrdoX+4CVWhmU6vSNwd7aOue0fgciK5wQ6wslJL3K/pwESa0haNX88G7otL4APBJ5u3r2qiVpOik0k1k7W0VUVWSn24JK+2gDGRsPeQEwjOcZCp1sWw4Rf+biNOUd0aZS6H9wKlDydfM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bTUZIhKd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790754266; c=relaxed/simple;
+	bh=/weW6rnVijy8vSTemtwP1eLFyLUfnmqKLwbzit3/6oA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XN9rSGIkIGp3Y8lXIqIZXsda6bHTtp135dtyXIFVEd0GZz22XAlxng8zTtWpr+eR9GZ8kordjH59+ZgRiTti10XLQlP/2VVhKa4HwTbRYkZcHOvXkyKfHEjnu1DFiNfTPhO48xhtqZ/0S9y4Ms1E2U5ufVcnnnd2Cxin7AAMBMg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org; spf=pass smtp.mailfrom=netfilter.org; dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b=YSnhgYPl; arc=none smtp.client-ip=217.70.190.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bTUZIhKd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BFC81F000FF;
-	Wed, 30 Sep 2026 07:44:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790754258;
-	bh=R4WIaVmgxMJzlsaERAlBqwLuDwVcuzfSzsQMDWtKV3E=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bTUZIhKd2N/OplkKvZHRqKyTUQz4po5AL68ifzVN90jZeq25Z5Hzc6c2oyul3VVM+
-	 1imvVMlJv/MYWtmle9Pncuw6k8zO4H4JhN4grgZYTY7x2r36Ug3J0Ko9U+X1z4qjPD
-	 nDv4Y8BbhdsvY4saMyizpCdPpPVqO5CVxLYGA03zbzo/X1ERb5KIeEjG5RlHavHHze
-	 JcgYX5btkF16IVDJCKiCdGgspmzlDvIFghVHHXGJCIovk4ALvvvDXPgsS0DMgY3L8e
-	 wFZszrS+88cqEfeDzGJ+GAzO4Ce9yxGZ75LPlH2DBPco/H8gWLAYtCKebXmm5FcJix
-	 ZrnJuVf4SpsWA==
-From: netdev-bot+sinfo@kernel.org
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: Sukhdeep Singh <sukhdeeps@marvell.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Richard Cochran <richardcochran@gmail.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: 
- Re: [PATCH] net: atlantic: only free the PTP IRQ after a successful request
-Date: Wed, 30 Sep 2026 07:44:17 +0000
-Message-ID: <179075425701.31693.17457011245131119734@kernel.org>
-In-Reply-To: <20260930074023.2943213-1-runyu.xiao@seu.edu.cn>
-References: <20260930074023.2943213-1-runyu.xiao@seu.edu.cn>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b="YSnhgYPl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
+	s=2025; t=1790754261;
+	bh=Ge8bwGslcUKX3/2Xkn6n3BQLAuDJsMDCpJIOuOrcxt4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=YSnhgYPlFgDzPEadIKqNJ1Fs0uET8Yr4uUIP/+YV5jQKX7T3tL8LEswYe+DyMzAnr
+	 ndFzhirkFtrOwh9dXSXMz6u4klK96e3wPVfNsbflHZo0GX1UklZol9m9nrjo6hiqD1
+	 vWVZfp/ZpfBX8BcWbmqd07OeJG9xDVfs0oi2j0SGLLVNLdpi5LXkqAXbpZfF0ZH/mJ
+	 bzUyWktZedoscAIZP/vVbc1zHiEPgnPEBzk2oMNCgGZWg/sWvqrOWIko0rVUQGjqXl
+	 0E7JHt8RNuflOLqgQU6FsmkJxQlVKPPcwMXYrUKI10gF+DCpdbFDX6KXlr3y3jwjhu
+	 PmpNi6VUGBZQA==
+Received: from netfilter.org (mail-agni [217.70.190.124])
+	by mail.netfilter.org (Postfix) with UTF8SMTPSA id 3E8B1608AC;
+	Wed, 30 Sep 2026 09:44:21 +0200 (CEST)
+Date: Wed, 30 Sep 2026 09:44:18 +0200
+From: Pablo Neira Ayuso <pablo@netfilter.org>
+To: tjdqudcks0424@naver.com
+Cc: horms@verge.net.au, ja@ssi.bg, netdev@vger.kernel.org,
+	lvs-devel@vger.kernel.org, netfilter-devel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net] ipvs: prevent LBLCR destination leak after entry
+ expiry
+Message-ID: <ary90qdwBnCVwv0p@chamomile>
+References: <20260929170747.503223-1-tjdqudcks0424@naver.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260929170747.503223-1-tjdqudcks0424@naver.com>
 
-Hi!
+Please, stop posting fixes for patches that already exist.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+If you want to use a LLM to fix bugs that's great, but you have to
+track what is going on the mailing list already.
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+Thank you.
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
-
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+On Wed, Sep 30, 2026 at 02:07:46AM +0900, tjdqudcks0424@naver.com wrote:
+> From: 성병찬 <tjdqudcks0424@naver.com>
+> 
+> ip_vs_lblcr_schedule() looks up a cache entry under RCU before taking
+> svc->sched_lock.  The expiry timer can remove that entry from the hash
+> table and erase its destination set before the scheduler takes the lock.
+> 
+> RCU keeps the stale entry itself alive, so the scheduler can continue and
+> insert a new destination-set element into it.  Since the entry is already
+> unhashed and its set was already erased, no later path finds the new
+> element.  Both the element and its destination reference are leaked when
+> the parent entry is freed.
+> 
+> Recheck the address mapping while holding svc->sched_lock and update the
+> set only when the hash table still maps the address to the entry obtained
+> by the scheduler.
+> 
+> This was found during an AI-assisted source audit.  Diagnostic-only timing
+> instrumentation forced expiry after lookup on a two-vCPU x86-64 QEMU
+> guest.  The unmodified code inserted into the stale entry and left one
+> element outstanding in each of three runs; kmemleak reported the related
+> allocation in one run.  With this change, the same stale-entry condition
+> was reached in three runs, but no stale insertion or outstanding element
+> remained.
+> 
+> An unforced 679-second run processed 65,536 marked packets without hitting
+> the race.  The result therefore confirms the lifetime leak and the effect
+> of the fix under forced timing, but does not establish practical remote
+> resource exhaustion.
+> 
+> Fixes: c5549571f975 ("ipvs: convert lblcr scheduler to rcu")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: 성병찬 <tjdqudcks0424@naver.com>
+> ---
+>  net/netfilter/ipvs/ip_vs_lblcr.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/net/netfilter/ipvs/ip_vs_lblcr.c b/net/netfilter/ipvs/ip_vs_lblcr.c
+> index f53f05ceea36..ef18f3c9d5da 100644
+> --- a/net/netfilter/ipvs/ip_vs_lblcr.c
+> +++ b/net/netfilter/ipvs/ip_vs_lblcr.c
+> @@ -686,7 +686,8 @@ ip_vs_lblcr_schedule(struct ip_vs_service *svc, const struct sk_buff *skb,
+>  
+>  		/* Update our cache entry */
+>  		spin_lock_bh(&svc->sched_lock);
+> -		if (!tbl->dead)
+> +		if (!tbl->dead &&
+> +		    ip_vs_lblcr_get(svc->af, tbl, &iph->daddr) == en)
+>  			ip_vs_dest_set_insert(&en->set, dest, true);
+>  		spin_unlock_bh(&svc->sched_lock);
+>  		goto out;
+> -- 
+> 2.43.0
+> 
