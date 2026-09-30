@@ -1,97 +1,92 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC31A51EDF1
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 17:34:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D32251AFE5;
+	Wed, 30 Sep 2026 17:34:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790789657; cv=none; b=TgG2dUaxtUdLBKTY34ryn6FkCkjzV5wFtUuWXkFpPptRG1spoegJ6xSwbRTMzxMWqH9COjql26IN3mEH5t8A2AwbFKA1ddvG62eaYLbhs0NIx3pJGy/r5Y4cqFj8dTs2XvmzUwX4xja6q/7CpCyOZmhCAPXkooVjzlTfJ9Th8Is=
+	t=1790789659; cv=none; b=Rwp43ULT+VJZVrwgQRZqhZ6CYUM13w9j8ZKClUHbU1bXmelkJzjISBsDZJ5hAxHY/JidqH1lDBuWQJcjiYZtsSdsPMY1K92VoO2/QU2vleB5A3QoXg5n1itvE1edMtvm5twfNU6ANDd1RfG4NK2FS5/+mtql2yoYihlaQRH1tFg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790789657; c=relaxed/simple;
-	bh=SeJLcHSa1UU1HuiiAt6ShTENKLfmDB5EHwB//8VWXkw=;
+	s=arc-20240116; t=1790789659; c=relaxed/simple;
+	bh=9plsavT4VWLMjQLEfkXvRvose3rRCNbo5dv7NC3H7Ko=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=iV68dsCBo8VO7Lu7EQ+W59T10gamawYiVZwgcS83akSmDyBurKR4rwUqGs4DY0S1a4kML5LmtuYlnG6YudB/kz+nrye5bLS1MvBzoIb3ot5xNWtYTSTNZOyhLWx+dDCrsoeQzJx4V7tY3/+pSVza7fEoHyG9pc0oAd6e9KOc28I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JzeJWmc5; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=jba7GX/1i50JU2ConCedhBxoQqr/Dz44sKIq1CCuQCe2GPgjjxr5ybLxVRPhFrctFEURAk4KgNoKzn9QmdAyj3lpi8T/KoYXxNr9wcknVziAbeJLgHupvEwhmaDs3HEUrqtuNH3hkLKTEMkITicQvngWm/Yt45u1UgDRXnzLn+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=G2w/NBv0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JzeJWmc5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDE701F000FF;
-	Wed, 30 Sep 2026 17:34:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790789655;
-	bh=zpj4YbffJ67kCLEPuCG3B7IE1jjHGsSNaHGvWWHNRdQ=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="G2w/NBv0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D74D61F00898;
+	Wed, 30 Sep 2026 17:34:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790789658;
+	bh=JoB8WUrzarH7sxf3OFVZvnJGtK2rImsNo1WuNK55/nI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JzeJWmc5zlsvbcgfH886l2nncU43LofiUa+PYfXTzrRJ/8dECuHz8AvzHJ68qs6lA
-	 qx4VIMD/kH00i5zn0I75TRJcOh2S4ZWQ+NcBkEOx2KW3G83Z1TnoKpfc4KO0g42+37
-	 nPFl5DgWoiKaSYEiezN8U1K9vWOwFpQedToHVZkaH+CLa/vuB35NHJWiBXMEb5ZVED
-	 6SblOEeMMuJhWXySk59BRVlpuqkkhQZbScBVO6kXtVvle9Xgl/hBouxnSPmTTjlFhp
-	 9Vgvkdxc8x2P2VmZ5fIbK0ZKmj+3EooPSt2jzYS3G8YlTBcEZOKig00jjO+w71mrUi
-	 rAYdsGfpJvqPg==
-From: Sasha Levin <sashal@kernel.org>
+	b=G2w/NBv0Lx6IuiKHxde2CV1Zn9izGfZ0nkB1zhbNylqxUkwZPAK97HOsPPKO71a0g
+	 mYQccKIvWpVN4nTq2Bs5Vb0iuq6Y9vcS0AQH25K27kdO8YEiDRJeNlH7SCf4THBRYo
+	 HVrwzaYDJ1Nti3EGIHK6VA4ieLGLij98cge46P1Q=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: "Darrick J. Wong" <djwong@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Carlos Maiolino <cem@kernel.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] xfs: don't let memory failures leak blocks and kill repairs
-Date: Wed, 30 Sep 2026 13:34:13 -0400
-Message-ID: <20260930173413.3642887-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092928-daydream-aroma-1dc5@gregkh>
-References: <2026092928-daydream-aroma-1dc5@gregkh>
+Subject: [PATCH 6.12 556/877] net: tls: fix silent data drop under pipe back-pressure
+Date: Wed, 30 Sep 2026 17:24:27 +0200
+Message-ID: <20260930152426.642393820@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930152414.738996857@linuxfoundation.org>
+References: <20260930152414.738996857@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: "Darrick J. Wong" <djwong@kernel.org>
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit ab1c416d2377cdc16123ef521aac4da1c468c3d4 ]
+------------------
 
-LOLLM complains that a memory allocation failure in
-xrep_newbt_add_blocks results in online repair leaking blocks that were
-previously allocated to write a new btree, but the problem is worse than
-that -- a limitation of the codebase is that the callers cannot undo the
-transaction /and/ return the error -- either you undo all changes and
-commit the transaction, or you error out and the filesystem goes down.
+From: Jakub Kicinski <kuba@kernel.org>
 
-However, the new btree space reservation object isn't that big (~48
-bytes).  Let's just do a NOFAIL allocation and the problem goes away.
+[ Upstream commit 7e7be31bfdb066c1c780dcd6b1224078fc54063f ]
 
-Cc: stable@vger.kernel.org # v6.8
-Fixes: be408417630427 ("xfs: implement block reservation accounting for btrees we're staging")
-Signed-off-by: Darrick J. Wong <djwong@kernel.org>
-Assisted-by: LOLLM # finding obvious bugs
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
-[ Changed kmalloc_obj() to kmalloc(sizeof(struct xrep_newbt_resv), ...) to preserve the branch’s existing allocation syntax. ]
+tls_sw_splice_read() uses len when advancing rxm->offset / rxm->full_len
+after skb_splice_bits(), rather than copied (the actual number of bytes
+successfully spliced into the pipe). When the destination pipe cannot
+accept all the requested bytes, splice_to_pipe() returns fewer bytes
+than len, and 'len - copied' of data is effectively skipped over.
+
+Fixes: e062fe99cccd ("tls: splice_read: fix accessing pre-processed records")
+Link: https://patch.msgid.link/20260429222944.2139041-2-kuba@kernel.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/xfs/scrub/newbt.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ net/tls/tls_sw.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/fs/xfs/scrub/newbt.c b/fs/xfs/scrub/newbt.c
-index 951ae8b71566c..2a9547789c5c1 100644
---- a/fs/xfs/scrub/newbt.c
-+++ b/fs/xfs/scrub/newbt.c
-@@ -195,9 +195,11 @@ xrep_newbt_add_blocks(
- 	struct xrep_newbt_resv		*resv;
- 	int				error;
+diff --git a/net/tls/tls_sw.c b/net/tls/tls_sw.c
+index a41fd85279bcd..323ac8b1ad0c8 100644
+--- a/net/tls/tls_sw.c
++++ b/net/tls/tls_sw.c
+@@ -2337,9 +2337,9 @@ ssize_t tls_sw_splice_read(struct socket *sock,  loff_t *ppos,
+ 	if (copied < 0)
+ 		goto splice_requeue;
  
--	resv = kmalloc(sizeof(struct xrep_newbt_resv), XCHK_GFP_FLAGS);
--	if (!resv)
--		return -ENOMEM;
-+	/*
-+	 * We have no way to clean up the allocated space *and* return an
-+	 * ENOMEM if we fail to allocate this control structure.
-+	 */
-+	resv = kmalloc(sizeof(struct xrep_newbt_resv), GFP_KERNEL | __GFP_NOFAIL);
+-	if (chunk < rxm->full_len) {
+-		rxm->offset += len;
+-		rxm->full_len -= len;
++	if (copied < rxm->full_len) {
++		rxm->offset += copied;
++		rxm->full_len -= copied;
+ 		goto splice_requeue;
+ 	}
  
- 	INIT_LIST_HEAD(&resv->list);
- 	resv->agbno = XFS_FSB_TO_AGBNO(mp, args->fsbno);
 -- 
 2.53.0
+
+
 
