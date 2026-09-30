@@ -1,37 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A5704E50B5;
-	Wed, 30 Sep 2026 16:25:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E1A24FDA5A;
+	Wed, 30 Sep 2026 16:25:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790785546; cv=none; b=HdORKI30MtIsiPLLL4PL47sJSuXqNl5Zh8cKg83WJ0sgD9ogtSiK92Txrs42fU9iVCVZZTRHQtdoEmSjH6I6M59rD8HN8PaoHgpS16P+fJbYFeD/88Cmiroo8h7/aI63DVhn93DN21l8DeWLF4ECdHlzrCRrd18kPjDztnqMm9E=
+	t=1790785545; cv=none; b=YSPePUfXs25v2hXTjY8OZajeAyWjkqcYMxve5XlRiM20hfhXCOAAX3OX4LmWdT6lX4RsgIVBq8cW5thHnM2CYn/UmUR/QFfSYDJ3a2+BkPOsapLtklqN2Rzwr7GDq/bTlLm3j561CvOYoTb3b/PLKcL4kWuNP1QiQBvu7VNJ9Cw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790785546; c=relaxed/simple;
-	bh=zxpbOtwwzK3XCDU8zAGPkAu0S0abAkMbWf4sJo9rAhc=;
+	s=arc-20240116; t=1790785545; c=relaxed/simple;
+	bh=F5/+c08ibUb1aILY54CZhw6qALtpnQ9NTYI57CqhPkk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tIamgZkH4+LYr6sqJfDN2TtKX/h0mDcLCiYry6ca3a+Dieqzk7an0WzwzPM9Z+wODLKQuXkCAFzbQahRJbyMzJx9ghizWRl6Nw0VFDK+e6umeWt8jHh+Z96fVmz8dGT6vTEX7QxJhUEHzQcCuPsCnhknwjxcpMLL6z5IgaJgU/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xNosc4Wt; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=pD7yp5MbQUJfXBfIMABaQqbFCXVpjAvGfzEkjMuGDcwkwzC3DBs8/2I7yN6R5n8ZGuK725+oUPBcPllYKiaYzqbLo00ldzyIxvZyNjnZJ2YaMmvez5xbLdXmi3d3gY6wO4ksNcUha+3g12t7qfLbsInR6Y5N4xVlZy1PG9UHauQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Y5OKb3Kq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xNosc4Wt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D2111F00898;
-	Wed, 30 Sep 2026 16:25:36 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Y5OKb3Kq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B3951F00893;
+	Wed, 30 Sep 2026 16:25:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790785537;
-	bh=rczwMcQ9cuKwlGGHZ4NkpAekiD28Pvq4F2drzdrdmxA=;
+	s=korg; t=1790785531;
+	bh=M8gF9wMpcFXThwg83aWT2hP5++Gk+zo7fv64DOJATuw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=xNosc4WtU522ULjlfLRxGeWh5KAJLJValbzdqHwHUeW6XBWt7RHl81WqY31Jstuov
-	 8N0xY26xolTl0nLRq2gtGof+DX/5nuMAA2AMd3x63jvXvuBz9cUNvhagCeA7/XjNqx
-	 w2RymkAeM2+7+/asbCU47fV5ST8B7zqKT9FUo9FI=
+	b=Y5OKb3Kq0fQYR66cvaj682MfMkHFdkfXpNUI7t2tK4PgBaOecg9u76DkHyCMpH81z
+	 vN0tIuB0R0t6VYRo+IkmYVapMEMM6YocwZwhrI8PtWmhS+IJ943F06sBKwa8DnaQXJ
+	 ZSgQ/H8l2CPUNDZwtgRSLRAniYplrczGDWAtNfP8=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Roman Prucha <zorgan.roman@gmail.com>,
-	Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH 6.1 499/982] ALSA: ctxfi: Fix CA20K2 S/PDIF passthrough
-Date: Wed, 30 Sep 2026 17:20:35 +0200
-Message-ID: <20260930152427.500917914@linuxfoundation.org>
+	stable <stable@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shivaprasad G Bhat <sbhat@linux.ibm.com>,
+	Amit Machhiwal <amachhiw@linux.ibm.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>
+Subject: [PATCH 6.1 497/982] powerpc/eeh: Fix recursive locking on devices without EEH sensitive driver
+Date: Wed, 30 Sep 2026 17:20:33 +0200
+Message-ID: <20260930152427.457563168@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
 References: <20260930152416.775402466@linuxfoundation.org>
@@ -50,54 +53,57 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Roman Prucha <zorgan.roman@gmail.com>
+From: Shivaprasad G Bhat <sbhat@linux.ibm.com>
 
-commit b26a7a80e6bbf8dd17dacb127d12435d79375cf2 upstream.
+commit c5e68706527968282e49de205cc2b935823cb88a upstream.
 
-dao_rsc_init() encodes the DAIO configuration as
+The commit 1010b4c012b0 ("powerpc/eeh: Make EEH driver device hotplug
+safe") refactored the EEH code such that the pci_rescan_remove_lock is
+held at the beginning of eeh_handle_normal_event() and the
+eeh_reset_device() is called with that lock being held. Looks like the
+commit missed to remove the existing lock/unlock inside eeh_rmv_device()
+which is no longer necessary. This is causing the eehd to hang on the
+lock which it actually holds when that code path is taken.
 
-    conf = (desc->msr & 0x7) | (desc->passthru << 3);
+[<0>] 0xc00000011c78f870
+[<0>] __switch_to+0xfc/0x1a0
+[<0>] pci_lock_rescan_remove+0x30/0x44
+[<0>] eeh_rmv_device+0x290/0x2e0
+[<0>] eeh_pe_dev_traverse+0x80/0x130
+[<0>] eeh_reset_device+0xcc/0x23c
+[<0>] eeh_handle_normal_event+0x830/0xa80
+[<0>] eeh_event_handler+0xf8/0x190
+[<0>] kthread+0x194/0x1b0
+[<0>] start_kernel_thread+0x14/0x18
 
-S/PDIF passthrough uses msr=1 and passthru=1, resulting in
-conf=9.
+The issue is seen for cases where the errors are detected on the PHB
+directly AND|OR for devices where the driver error_detected() returns
+PCI_ERS_RESULT_NEED_RESET, and driver being not EEH sensitive(i.e no
+error handlers like slot_reset(), resume() etc defined).
 
-daio_mgr_dao_init() masks conf with 0xf, but handles only values
-1, 2, 4 and 8 when programming ATXCTL_NUC. As a result, conf=9
-falls through to the default case and leaves NUC at its previous
-setting.
-
-On a Creative X-Fi Titanium HD SB1270 (CA20K2), this breaks AC3
-IEC61937 passthrough when snd_ctxfi runs with
-reference_rate=48000,multiple=2. The receiver detects a non-audio
-stream but cannot decode the AC3 payload.
-
-With the unmodified driver, multiple=1 makes the same stream work.
-Handle conf=9 through the same NUC=0 path as conf=1.
-
-The change was runtime tested on the SB1270 with multiple=2 using
-IEC958 stereo PCM, pre-encoded AC3 IEC61937 passthrough and ALSA
-A52 live 5.1 encoding.
-
-Fixes: 26a9630c72eb ("ALSA: ctxfi: cthw20k2: fix mask on conf to allow 4 bits")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Roman Prucha <zorgan.roman@gmail.com>
-Link: https://patch.msgid.link/20260903-ctxfi-spdif-conf9-fix-v1-1-5e4e3e1f801c@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Fixes: 1010b4c012b0 ("powerpc/eeh: Make EEH driver device hotplug safe")
+Cc: stable <stable@kernel.org>
+Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+Signed-off-by: Shivaprasad G Bhat <sbhat@linux.ibm.com>
+Reviewed-by: Amit Machhiwal <amachhiw@linux.ibm.com>
+Signed-off-by: Madhavan Srinivasan <maddy@linux.ibm.com>
+Link: https://patch.msgid.link/178404937381.913.2759874335293830160.stgit@linux.ibm.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- sound/pci/ctxfi/cthw20k2.c |    1 +
- 1 file changed, 1 insertion(+)
+ arch/powerpc/kernel/eeh_driver.c |    2 --
+ 1 file changed, 2 deletions(-)
 
---- a/sound/pci/ctxfi/cthw20k2.c
-+++ b/sound/pci/ctxfi/cthw20k2.c
-@@ -993,6 +993,7 @@ static int daio_mgr_dao_init(void *blk,
- 		/* S/PDIF output */
- 		switch ((conf & 0xf)) {
- 		case 1:
-+		case 9:
- 			set_field(&ctl->txctl[idx], ATXCTL_NUC, 0);
- 			break;
- 		case 2:
+--- a/arch/powerpc/kernel/eeh_driver.c
++++ b/arch/powerpc/kernel/eeh_driver.c
+@@ -533,9 +533,7 @@ static void eeh_rmv_device(struct eeh_de
+ 		if (rmv_data)
+ 			list_add(&edev->rmv_entry, &rmv_data->removed_vf_list);
+ 	} else {
+-		pci_lock_rescan_remove();
+ 		pci_stop_and_remove_bus_device(dev);
+-		pci_unlock_rescan_remove();
+ 	}
+ }
+ 
 
 
