@@ -1,39 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A15F37BE7A;
-	Wed, 30 Sep 2026 16:15:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50A5F5158B7;
+	Wed, 30 Sep 2026 16:15:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790784926; cv=none; b=et3Rytj1ItULywE9OhlucVguCCuyI35B1yqoKXeSS08t03LlrZBLGuFlr8uKSiQQAr7YlO3BcK5sYxUQAjuUI+oQ/x9aHZF+zuFHWP+H0LPa1rHg14wJWg+h7GQjOCvJyDq39UVh6D9qmh1Ngi4OtdB38sFxxWuMvZ3GZMPHfLQ=
+	t=1790784928; cv=none; b=XXGGybwlHElEe3yRLXRBu6OEg4I7WChEUVvFpXnM1Ejk+fFJbiYARd0EgT1I6XyTlL2go5obhkvEQQX0Fl6mEm8UdtKSSyv/tcdHlbqPZHeZNzQmUxJTUfWKcU91Sape4zLyGF7mRikpfXG28xR+q7yiB9sthWEm7Lqk2sYUn0g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790784926; c=relaxed/simple;
-	bh=zOwrnmZybzcHw6CNTfoms1liqjsWOr7859gM+1e6iv0=;
+	s=arc-20240116; t=1790784928; c=relaxed/simple;
+	bh=ECPWj4WxtOk8inKVU3Y7A4YISpIlVJnRYRwhApmXUmU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=M6jvhzo1O8xczJjw88DouOby6P6oI4YDkSzWWKltepwyvJXeBYtc2mLtnwESEGrnTp/itx3Cx0E4+ie6azG98xK0Ml9KN6oQsqsNesn04Sej7uWTBNl4/u9bRVBfueWZOjArh3WHVdtYNiUzw9H3orO3xyFAuPSWLGCrraP6wd4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=f70rFsmV; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=p0lcHAJ2/s3UZ+4IcGgDNOw/twqU9sqC9dx89MINa7YRPC3QDUsCRRohCJaAr1FFj9pkbGNSiK+W1lJvrSYFVsEW9S2qnVDCLKXR09tvtaGWm+RC46uHlWUnZzkYXNbqXyKudbKUMGrF99lPI9cBzVs8sgFyRnzbiTEN4cQdhCs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZHuMKGMK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="f70rFsmV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACB161F00898;
-	Wed, 30 Sep 2026 16:15:17 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZHuMKGMK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BF4A1F00899;
+	Wed, 30 Sep 2026 16:15:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790784918;
-	bh=GP4QuSj9CpaePI69BBPt+etFaWg7O5NyOtEoiWFIwjM=;
+	s=korg; t=1790784923;
+	bh=B41is2ehM8YtQIG3VuBAtwH3R5TrBDP8UleIaJ5PXn4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=f70rFsmVgUTyB6+4GOiDX78zpUfEGcZTCCIdBGNM+7X6BlVK+Km0+ZIpA0TG8ifQH
-	 gpHcLWA111eBnOw6zEXy+dnYs185D4xmzKNjZboyuhgiW1NIj05twTZiULAjaoZoQY
-	 xObAjFmtruSFuRf1NNeIuqKZPcQaV5qkpXpCZn0Q=
+	b=ZHuMKGMKDU0bjKZQmPKaTXPlETfclL6LwG51CiEVdnIS8CvP8zx+eL12OZ47zb+KS
+	 oSpcfXDbdWQurv+DWCyLu2QiRYRJJRFfhnkUaZG7TvSP7StRJ/KeXn4rrBnkSvFKlp
+	 ir7yvMb+z7oUQmEBH3PT2RuCdwexjYbq0GITYXTk=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Christoph Hellwig <hch@lst.de>,
-	Xixin Liu <liuxixin@kylinos.cn>,
-	Keith Busch <kbusch@kernel.org>,
+	syzbot+6d2762674103618994b0@syzkaller.appspotmail.com,
+	Eric Dumazet <edumazet@google.com>,
+	Peilin He <he.peilin@zte.com.cn>,
+	xu xin <xu.xin16@zte.com.cn>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Jiayuan Chen <jiayuan.chen@linux.dev>,
+	David Ahern <dsahern@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 325/982] nvme-rdma: fix -EIO cleanup order in queue_rq
-Date: Wed, 30 Sep 2026 17:17:41 +0200
-Message-ID: <20260930152423.799269043@linuxfoundation.org>
+Subject: [PATCH 6.1 327/982] net: icmp: avoid invalid transport header access in icmp_send tracepoint
+Date: Wed, 30 Sep 2026 17:17:43 +0200
+Message-ID: <20260930152423.842422948@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
 References: <20260930152416.775402466@linuxfoundation.org>
@@ -52,66 +57,89 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Xixin Liu <liuxixin@kylinos.cn>
+From: Eric Dumazet <edumazet@google.com>
 
-[ Upstream commit d61828199c6cb4b76d48403c77023cd4bb9d09fc ]
+[ Upstream commit 7fcc2fe39fed1cb98a7374a113ff3800e8f9af80 ]
 
-On -EIO, the RDMA queue_rq path reports a host path error and then
-still cleans up the command and unmaps the SQE DMA. The path error
-helper completes the request, so that is double cleanup and DMA unmap
-after the request is already complete.
+syzbot reported a WARNING triggered by DEBUG_NET_WARN_ON_ONCE():
 
-Unmap the SQE first, then report the host path error. Skip the outer
-command cleanup on that path.
+ WARNING: at skb_transport_header include/linux/skbuff.h:3087 [inline]
+ WARNING: at udp_hdr include/linux/udp.h:23 [inline]
+ WARNING: at do_trace_event_raw_event_icmp_send include/trace/events/icmp.h:30 [inline]
+ WARNING: at trace_event_raw_event_icmp_send+0x48c/0x6ec include/trace/events/icmp.h:11
+ Call trace:
+  skb_transport_header include/linux/skbuff.h:3087 [inline]
+  udp_hdr include/linux/udp.h:23 [inline]
+  do_trace_event_raw_event_icmp_send include/trace/events/icmp.h:30 [inline]
+  trace_event_raw_event_icmp_send+0x48c/0x6ec include/trace/events/icmp.h:11
+  __traceiter_icmp_send include/trace/events/icmp.h:11 [inline]
+  __do_trace_icmp_send include/trace/events/icmp.h:11 [inline]
+  trace_icmp_send+0x320/0x49c include/trace/events/icmp.h:11
+  __icmp_send+0xcfc/0x11d8 net/ipv4/icmp.c:1013
+  ipv4_send_dest_unreach net/ipv4/route.c:1280 [inline]
+  ipv4_link_failure+0x57c/0x8dc net/ipv4/route.c:1287
+  dst_link_failure include/net/dst.h:438 [inline]
+  vti_tunnel_xmit+0xe40/0x17a4 net/ipv4/ip_vti.c:307
 
-Fixes: 62eca39722fd ("nvme-rdma: handle nvme_rdma_post_send failures better")
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Xixin Liu <liuxixin@kylinos.cn>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
+TP_fast_assign() unconditionally calls udp_hdr(skb) before checking
+whether the packet is UDP. Furthermore, __icmp_send() can be invoked
+from paths (e.g., link failures, ARP errors, forwarding, AF_PACKET)
+where skb->transport_header was never initialized (~0U).
+
+Under CONFIG_DEBUG_NET=y, calling skb_transport_header(skb) triggers
+DEBUG_NET_WARN_ON_ONCE(!skb_transport_header_was_set(skb)).
+
+Fix this by:
+1. Only parsing transport info when iph->protocol == IPPROTO_UDP.
+2. Using skb_header_pointer() at skb_network_offset(skb) + (iph->ihl << 2)
+   to safely fetch the UDP header without assuming transport_header is set.
+
+Fixes: db3efdcf70c7 ("net/ipv4: add tracepoint for icmp_send")
+Reported-by: syzbot+6d2762674103618994b0@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/netdev/6a8d5538.91706f20.ef82.0009.GAE@google.com/T/#u
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Cc: Peilin He <he.peilin@zte.com.cn>
+Cc: xu xin <xu.xin16@zte.com.cn>
+Cc: Steven Rostedt <rostedt@goodmis.org>
+Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Reviewed-by: David Ahern <dsahern@kernel.org>
+Link: https://patch.msgid.link/20260825084551.1562967-1-edumazet@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/nvme/host/rdma.c | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
+ include/trace/events/icmp.h | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/nvme/host/rdma.c b/drivers/nvme/host/rdma.c
-index 8f511240addd7..ac76f1ac17090 100644
---- a/drivers/nvme/host/rdma.c
-+++ b/drivers/nvme/host/rdma.c
-@@ -2022,7 +2022,7 @@ static blk_status_t nvme_rdma_queue_rq(struct blk_mq_hw_ctx *hctx,
- 	struct ib_device *dev;
- 	bool queue_ready = test_bit(NVME_RDMA_Q_LIVE, &queue->flags);
- 	blk_status_t ret;
--	int err;
-+	int err = 0;
+diff --git a/include/trace/events/icmp.h b/include/trace/events/icmp.h
+index 31559796949a7..acfcf2b132d60 100644
+--- a/include/trace/events/icmp.h
++++ b/include/trace/events/icmp.h
+@@ -27,17 +27,20 @@ TRACE_EVENT(icmp_send,
  
- 	WARN_ON_ONCE(rq->tag < 0);
+ 		TP_fast_assign(
+ 			struct iphdr *iph = ip_hdr(skb);
+-			struct udphdr *uh = udp_hdr(skb);
+-			int proto_4 = iph->protocol;
++			struct udphdr _uh, *uh = NULL;
+ 			__be32 *p32;
  
-@@ -2078,16 +2078,18 @@ static blk_status_t nvme_rdma_queue_rq(struct blk_mq_hw_ctx *hctx,
- err_unmap:
- 	nvme_rdma_unmap_data(queue, rq);
- err:
--	if (err == -EIO)
--		ret = nvme_host_path_error(rq);
--	else if (err == -ENOMEM || err == -EAGAIN)
--		ret = BLK_STS_RESOURCE;
--	else
--		ret = BLK_STS_IOERR;
--	nvme_cleanup_cmd(rq);
-+	if (err != -EIO) {
-+		nvme_cleanup_cmd(rq);
-+		if (err == -ENOMEM || err == -EAGAIN)
-+			ret = BLK_STS_RESOURCE;
-+		else
-+			ret = BLK_STS_IOERR;
-+	}
- unmap_qe:
- 	ib_dma_unmap_single(dev, req->sqe.dma, sizeof(struct nvme_command),
- 			    DMA_TO_DEVICE);
-+	if (err == -EIO)
-+		return nvme_host_path_error(rq);
- 	return ret;
- }
+ 			__entry->skbaddr = skb;
+ 			__entry->type = type;
+ 			__entry->code = code;
  
+-			if (proto_4 != IPPROTO_UDP || (u8 *)uh < skb->head ||
+-				(u8 *)uh + sizeof(struct udphdr)
+-				> skb_tail_pointer(skb)) {
++			if (iph->protocol == IPPROTO_UDP)
++				uh = skb_header_pointer(skb,
++							skb_network_offset(skb) +
++							(iph->ihl << 2),
++							sizeof(_uh), &_uh);
++
++			if (!uh) {
+ 				__entry->sport = 0;
+ 				__entry->dport = 0;
+ 				__entry->ulen = 0;
 -- 
 2.53.0
 
