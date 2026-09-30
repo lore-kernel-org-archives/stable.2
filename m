@@ -1,177 +1,206 @@
-Received: from FR4P281CU032.outbound.protection.outlook.com (mail-germanywestcentralazon11022073.outbound.protection.outlook.com [40.107.149.73])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f33.google.com (mail-ed2-f33.google.com [74.125.228.97])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0881535AC01;
-	Wed, 30 Sep 2026 15:21:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.149.73
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790781694; cv=fail; b=eERgiQmpGQ6ZgRDABsJfp9YJyYacGlhFwdXbI0+fxle8InGikDLZXQnNveA9VUWWTWobwGLHEW3+R2chMbflDbbY6nQlyOm0xfcHFxSDRZeCVmJUdW6l6idw/GkKwrhycOTPxyi2luDhI6dt7R/HAiShNt6ntu2ZRPU7mN9G7ZM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790781694; c=relaxed/simple;
-	bh=qDE0qzmTQAKN9okg0JVXv/7ljl2EFhprvtRjcmNwCQ8=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14D5533BBCD
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 15:23:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.97
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790781801; cv=none; b=NwoPe1ZwthUFlYJyD+XGoEdcY2scqOfyc8qBuMHzdiKD+LyC/bY0M6B31qViknsPwDAh67w2QCZzJoeJzRDMWeBWNZBrebg2593ngxladQLmASlkahq+z/oKz5JAhviQgladIuvO/gfVR8e85kHYGTfhAhLOaoMh3S/2JfTmDxM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790781801; c=relaxed/simple;
+	bh=sdM5OqfoRJtAgwFkFqSFmLUbG2Nc3dHxv4AAkg6BVbA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=cBroLSZqKwqsLvXvFX02mqGU1STUW+bnnQFl1UNMjcj38ykYCzZAY0EhshIvHIrKpwatwGc3LjNg6RvE43b7EjCwD8q+yGZ572Sxt11YijO+Z+JGaY9VGbHn0RTTZxCddRcbOob8tR4GAu1Cbbk+NcfM8/ioUBhMO5vO9NYlF+8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cyberus-technology.de; spf=pass smtp.mailfrom=cyberus-technology.de; dkim=pass (2048-bit key) header.d=cyberus-technology.de header.i=@cyberus-technology.de header.b=CtpzKyun; arc=fail smtp.client-ip=40.107.149.73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cyberus-technology.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberus-technology.de
+	 MIME-Version; b=uHghtneSGBkjiST8iiiPa4heoaX9Sl9k7M0DfDFtJmkGnEOZc8TdhU+P8XThQPoWcQgNIJDgrJ5ZfLPoqZWDSi8AIVI8yf7UON+o3heeLX7LJ0HQNCYzrMTtjlE71eIgZwUSTROd4fYM0Ukl/HikI7ceEuDqkuWcYiVwqOgZWFc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu; spf=pass smtp.mailfrom=cs.unc.edu; dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b=kn6Vmu0c; arc=none smtp.client-ip=74.125.228.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cyberus-technology.de header.i=@cyberus-technology.de header.b="CtpzKyun"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nYf7Q56wPVQx+lmJKDLEmXTTsFiNix54B5m3h1H10wggI7haXA4RkysQeM4wUMAk5ZYbDtB1PNCd6PCivljffEr6pYpPj5SXSP4vXSaes0L7JC+fZwjFcgi8wDTWuR3IvtgULGZcwGsQzPBy1qgCay/J/WWx3halEHaVJ1zWTNmGfTSPmHby2K3EQs5dJZl1jemp45iM+o5aK8Q8MJizZUSp2N/1erBieEkh0z/9lmqVwJmWeqJIO1zvRBHe6BniRHLcqmfzH4rAoHDQtO58t6+TlQqn38sd0pr7IlgyUY56PdBmV3lov56DIwDvuwDjqkbyNPI6bnXnvQfr2bNlqA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qDE0qzmTQAKN9okg0JVXv/7ljl2EFhprvtRjcmNwCQ8=;
- b=QoDkNC77GRcWVKmknGObkg3JpiR1YiTEHMdwCV+RwZMe/NW+xvUoFX4wgdT4HOR6BUvyPxjr27fMYhWb7tb/QHGxdUfxi65FY3e2vNpHCNF8yL0bby3qRQrCSdehJE/j7Pm5e0VqWoQTRX5h6ooNURqFZ/Vmf5b2+7e0JJqQ/Kx/CTDu4PIDF7D2PtlCzOlWX8CP0iwIXgaK60g5NIbbqGaO2m2c5rylOASPJZy/iQ1gmi+TNpdO3AxCejEz0N4MFfVG5L5z//8r7OBe/EYUxRXbEAdNJ6jAhhPHeflzhPmstTDR7kKaLP/y07o7ffVV9o0JMKZKvljx1aG2fVsXJg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=cyberus-technology.de; dmarc=pass action=none
- header.from=cyberus-technology.de; dkim=pass header.d=cyberus-technology.de;
- arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberus-technology.de;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qDE0qzmTQAKN9okg0JVXv/7ljl2EFhprvtRjcmNwCQ8=;
- b=CtpzKyunLcr2VX395ucfz/poLWQPUF7KmZiBXy0wYpwkOMneIAEYyMg94wMOi/LDaja6D07/b69b+QBxQ/DEayagOXTOymOch2ajEihXZZZTtjjVdZnfLv7BRrbb7XrGIniBmRc5dHfAx3S1oWGoqL4wUovxbA8pAmdITKTAZzb+yA4CQy5tAxOHACQIKj73qUnk2zD4VWfVY9q2MjaDYRg+lWBvKuKpEq0edFGQyV6WcRpK2fmSQaRqYYBEDknsgPLrOcnyTVqY1+e/IXFysRqU6XTn4ylsIKvA6gkZSQiaA93Ov+nnHPeQr/LlsWBlKaR9SG1PWyyAsR/Jpv+5ug==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=cyberus-technology.de;
-Received: from BE0P281MB0148.DEUP281.PROD.OUTLOOK.COM (2603:10a6:b10:11::16)
- by BEXP281MB0135.DEUP281.PROD.OUTLOOK.COM (2603:10a6:b10:1::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Wed, 30 Sep
- 2026 15:21:11 +0000
-Received: from BE0P281MB0148.DEUP281.PROD.OUTLOOK.COM
- ([fe80::3363:e0c5:e17c:912d]) by BE0P281MB0148.DEUP281.PROD.OUTLOOK.COM
- ([fe80::3363:e0c5:e17c:912d%3]) with mapi id 15.21.0472.015; Wed, 30 Sep 2026
- 15:21:11 +0000
-From: Philipp Schuster <philipp.schuster@cyberus-technology.de>
-To: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-Cc: Philipp Schuster <philipp.schuster@cyberus-technology.de>,
-	Petr Oros <poros@redhat.com>,
-	Jacob Keller <jacob.e.keller@intel.com>,
-	David Laight <david.laight.linux@gmail.com>,
-	John Ousterhout <ouster@cs.stanford.edu>,
-	stable@vger.kernel.org,
-	"Anthony L . Nguyen" <anthony.l.nguyen@intel.com>,
-	intel-wired-lan@lists.osuosl.org,
-	Przemyslaw Kitszel <przemyslaw.kitszel@intel.com>,
-	netdev@vger.kernel.org
-Subject: Re: [Intel-wired-lan] [PATCH net v3] ice: fix packet corruption due to extraneous page flip
-Date: Wed, 30 Sep 2026 17:21:00 +0200
-Message-ID: <20260930152101.1503079-1-philipp.schuster@cyberus-technology.de>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <ah2qcDLxMlGYNhgf@boxer>
-References: <ah2qcDLxMlGYNhgf@boxer>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BE1P281CA0174.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:b10:66::20) To BE0P281MB0148.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:b10:11::16)
+	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b="kn6Vmu0c"
+Received: by mail-ed2-f33.google.com with SMTP id 4fb4d7f45d1cf-6ab0c3c3af6so6738264a12.1
+        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 08:23:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cs.unc.edu; s=google; t=1790781792; x=1791386592; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dZiN99RMvoVLUY5C2k2n+LK4gqTaVAVijYhxlYv7sT8=;
+        b=kn6Vmu0cWpKlboHA8mjFZfz8pzCN5pDEARsBWZ2BAvk1R5r4VwGkExL1o5nHNHX8kR
+         LF1iWeKDT28Oc+ekMQJ5eqbb9LvuZJCMDVJA5j2Rms/qy40Ntx3v+VZgM5/uMUfOHWCQ
+         xBWlSY/mNygvXevb+qw/Hi8WN+ECLD6yV4mPD6YEV+kbQgx/JVimZrfJ+376+E5Ng3kB
+         cGhA0tzPjLv9YuE1CMSRClFEWsu3pfC+PC1hQD2xaFx8yvmaheH7cgSEWkgNcVWP4z8W
+         Dz7jVNEUqdievka/P9MUgnccQJPpe92gR7Z395qjt2LWaNiRmRlPGk9jKF6K4laB9YtY
+         0dzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790781792; x=1791386592;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dZiN99RMvoVLUY5C2k2n+LK4gqTaVAVijYhxlYv7sT8=;
+        b=kuKNnlP2Ms/Bn33anYFImySxoihq5d0zYMNVSqvxP3SmtxMK5eafs5PmWEPzJFNHev
+         BRg/3LGETCs7lQ1TZ/RXaTwc4gkFZijjBmHwPbWIgpooMVoP3F5uPf0uUghixW4ow1Lj
+         j3Ao32dM0+3U3Z9YBw8OtDOUCx8yBBYn3aoar+mN5TicHDLn5PmQuRYuEg8B0PoY7gSw
+         7aPc/wM2vLWuW7pStEmSujeRonr/jMiJy6OcqMA7iL1iuAXJ5nrm4KoLnr8kkerAqFLO
+         bgRgCpmLiWXw113ZYZE2D/ZwBYUhDSaINOtTyW4mjxxrxtOVvhk58THpKJZAvm/S8XsQ
+         PnWw==
+X-Forwarded-Encrypted: i=1; AKwUvBxSnkalmUvYXpZbEZ1qwRVEInEzO/tzHe6ijHre3zMnbP8/MJDfSLFnDtq1jhq8kRx15/ceB48=@vger.kernel.org
+X-Gm-Message-State: AFuF++mSZ9yaGp0r9PI4uUn8KwNzgSbkGtrclQ527teWb6b0kyQqfQ+M
+	BmcEHXdeNawSLaDgh2Jl6hpXdaYhjOCnkxkgyftZR7Z2wc9+Sv7nfQcrPjpJLq+/7w==
+X-Gm-Gg: AYBFou0IJi3TTmvrQ/hWCKnzNEAb2yv7SAXgiUVR25wRjRgZCYJ/mvaPA1dz9GR9z7x
+	gHON4L+2SWliA5Z9BfsIUU1LKsLII+k1JEaCZ1O4bo5m4XM4WIcGxY9XgRY5u9upydvyLbM/Der
+	6lTTKdtGQEUGOGEcN49WsH58GkA1KWQD3q0Wqtk5Ig4XYew1C25VV+d5FGaug8RJiLVPw5NfDY+
+	bt29HFJ+FF4iZ2j9wJGwkExYpiOVq8yZu+w/Z/mkT871yBNAscFIa9HnSJtp3MPIaVBxZOI6xg+
+	SKujVf/Cg/HnzBMQ1XQ5wimhyqna2WiS8uwnj6TZSJL7yROGJbUabOoS6uXp18bovJ15setsp/M
+	wROwAdPjvy90KELKQi8G5nFAbPi2w6Ov8XYeHDJ4HJ9LTHx4o4cPXbO6duRlNDFozistS7s0LOO
+	qTzkLfOi+Oeg5KvjMoiCk6KGz4C4mTrOhQQtMDbb/T/3+1AmLHXC6Vvpf33uDfTloyxS6Tdocnp
+	qy2D44XAYMJyRkSQfHwlg==
+X-Received: by 2002:a17:907:9688:b0:c29:5151:16b8 with SMTP id a640c23a62f3a-c2e23763c99mr142129866b.2.1790781791769;
+        Wed, 30 Sep 2026 08:23:11 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e31ce6499sm23874966b.33.2026.09.30.08.23.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 08:23:10 -0700 (PDT)
+From: hengyul@cs.unc.edu
+To: netdev@vger.kernel.org
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Jiayuan Chen <jiayuan.chen@shopee.com>,
+	Jiayuan Chen <jiayuan.chen@linux.dev>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hengyu Liang <hengyul@cs.unc.edu>,
+	stable@vger.kernel.org
+Subject: [PATCH net 1/2] ipv6: route: do not validate nexthop of routes promoted to reject routes
+Date: Wed, 30 Sep 2026 11:22:28 -0400
+Message-ID: <20260930152229.1453929-2-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260930152229.1453929-1-hengyul@cs.unc.edu>
+References: <20260930152229.1453929-1-hengyul@cs.unc.edu>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BE0P281MB0148:EE_|BEXP281MB0135:EE_
-X-MS-Office365-Filtering-Correlation-Id: 45e481c1-f70f-4e86-1018-08df1f06755a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|23010399003|1800799024|376014|366016|10070799003|5023799004|56012099006|10067099003|3023799007|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	zlWG4N0xtwM8QvLwSTUCtWKHJPPAoqN3nSEgfGuwHx91H3tIBg/IrZbc+XKStvZegaO3q+dfTy9ZnYUp+nLhxo9RmtT/3wci8T/5rsF2YTqnY8Aa0U9IDpqT1446gmvoQ29jETtlNg24R/LSyEzWy+CEUycJs9PcblediHdbyhUzjMF/A1RI57Dc/R1YKNqgidME/Ix36u71N0NPRekhWldv0Z3HIfxkG1N9UK0caAl0I6Bk3wgl4BOQvHSBnLjkbwdRPTyJwbNQSQbk8tZ6g2+Ie0OUWHlzF8yTCvzE3pANvsHXtx/WuBcL+atlbudyfQ7ixCjD2eAX5Fo3KLEVPYC72swDBcnjeKfc2ub9jo2PicR06/C6L21APXFmPyf6SO/Hh2EKFq5DpMmKSqMOQFxB+6TesnNzxsDAGsKs1d5+tkBE0Ku2jlPGQD4V2lPCrO7pAHYTnnNNkET4Uzm3ie2jkZ1pZbHSsGVdG9aSQgTi1YxNpxh3chMnjyzwQXh4jwDl9Hkc21esZaUzH8lgIbCMC/wmz/W6COD0IkmV8PxKsMjEWk1fFVXvAIOs1U4RAemjbkePB4iwq02S7TPyMPzC5FT728ZdGVpImbeKL5L29IlF4mAkQAGPQj4B5kBncDuL4xhWksOjjitNJQABvbw4Y/XvMQfz8ZkRiT2C/JU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BE0P281MB0148.DEUP281.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(1800799024)(376014)(366016)(10070799003)(5023799004)(56012099006)(10067099003)(3023799007)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?AWqvARL6uwumf58Ni7SuoTGA2pP/KOG85RL1JiF+LTkM6Uz2+8DpedwFIJ6y?=
- =?us-ascii?Q?Biqy/yA5l6E93fQRfkz5dVSvTsRUKxJ5DOdfkP19h1VsSGjVzpstJx56kpNr?=
- =?us-ascii?Q?cBgzOX9y8OtFz9HPhe40oY0OsR76qzgpSbn404v5STflLVhiR3mzJXNGW8z2?=
- =?us-ascii?Q?y5gNkraj92WPAgnVyNXh367NPhh4WTq1V3ihkFy2yYWh7braeZ5J1H6BBaPr?=
- =?us-ascii?Q?hNGg+vTt53OEFVP/hgq2NuFbs8mJ/mw0Wv55PYsEGgN9NzLXCJeN+vc5daXO?=
- =?us-ascii?Q?/XlCgznfk3hhLbIZAGBLgRzQkYZ9Fo5IRHStQaRlPhT7XkcGRogUZhYpmITx?=
- =?us-ascii?Q?jfT7JKA0Dd4oGL6mAyaFnA2XLBxnO+4cHGUm/0e1WlEr/EshuJ47K1QYM4w+?=
- =?us-ascii?Q?/oGqcmdukaCtXJ1PQIT2zcFR8COnCMfhjdPLYFsNajqrzcvz2dbR890eq6o8?=
- =?us-ascii?Q?nuVIxMFSlqW0mBViX7E2QLOH58zd1H7rYHKElCNxqAte3ltfJdqSeNt7X/kP?=
- =?us-ascii?Q?GUruFUAT1nRDIsd4BkQAedPJ8BARybzpHOKjNCBU8jjSJ0FBmVjLywxf04Nk?=
- =?us-ascii?Q?xaxyxbEVKuaw6ChbcA47bSrMtMzIZ+w4QWjXTKYieZnOuM/rH67LljU0W8sS?=
- =?us-ascii?Q?jo/Q0LgMK59rkxLmCny3Hw1QfvJZLOKBcV7HYklYGR8pmmUNgueA4kb2NMJX?=
- =?us-ascii?Q?fDD5uo6tWeTuTUxWMNozPlJ0OaD5qQDyVE7g0ZvteeEGBeUftJGf4OfqoS68?=
- =?us-ascii?Q?GS+oyiAOfihuvXnu/ZHz6ZBgBTvlikiUwINA1PFCP/5tuFi4tO6x4oo/ET2r?=
- =?us-ascii?Q?Sdr2WioTFJtaS5TcYKXDcNenvn2Am023WfyBJMv5w/A13Fq5ni4QUfV2z+Qi?=
- =?us-ascii?Q?3Ix3HRzoeOs5zuYP1H0BSL5RKsHGRX0HeFYkokL9zZjrBvazUTn7ZO0gAE94?=
- =?us-ascii?Q?/hiVQQDt35XXFvfhk7n7br870DVLeQz1YqH1S7K8u0hek7vtw+atWpXr1fDe?=
- =?us-ascii?Q?a/856pCJShNrCzWkPrWdo5hj0UwVPTf/l+c8McJM5Js87HRjVWN2pnf5LrRn?=
- =?us-ascii?Q?bMk3NMq3o1wpF6XgSNlwgxYOo0xTwasxL1vyEeenTrstduDIgdJ2YeLEcdbH?=
- =?us-ascii?Q?17XnaNKqhuLRwYc86NfKB/Wn6A8y2hfVJ4q6vaXyqGyKNAfAnK5KN43HlwT0?=
- =?us-ascii?Q?tFW+cMxJgVH2dFMGzHrxi/cxApf9IJIsfKFMhhwElin4t0FLYmVHwESDuLug?=
- =?us-ascii?Q?5aSxNDSmFo7wFQ8BEizy/+LZnn+4Ph+Sp7nLc3aFRx8o2qVk+z48I5lBPN/n?=
- =?us-ascii?Q?XlnI0jgPXmaANIuAVRyc/pDb/PkNgzGY6yMUw7CCafhmE36ZFydDP0bT088t?=
- =?us-ascii?Q?tHt/TWw+dOinA0Y6niLVb/n4kFXOPYIkTCDbRdeJuov0P5m5f2B2OE9PwZWO?=
- =?us-ascii?Q?CAxMQvjlDHmabFWcABoFhUXAPLgKYJ5P3EylleIXHG0Pqvnc4pgWMo1BpSmQ?=
- =?us-ascii?Q?bp8FQV4BE4LOfLXAZSly3pO32vxWRR1yiNKA+aNn5HN+hfu48a7vgGiVNyUx?=
- =?us-ascii?Q?QDWHmzb7uqBTOSoIAVDGU30wFisVbdQuZRqpWEQM2LsOt4E3O9fM1tpb/LlX?=
- =?us-ascii?Q?qSrN0C6hQ3z8JLVHQb1n9lTXGDH4A48OM6qnqYVRZ8Xtnbc8/B23zWYaL+ED?=
- =?us-ascii?Q?+RfaoZbXR7Z2bvuh4cLYAMbMhQMwIF08A+nboZyKpqKXvGom46Z1I4JBHbzX?=
- =?us-ascii?Q?AsAoJRIHOtoFa0gMgA/gie3qyNFKRxMo0wkEQPiOKcWkbELpF6dGg2dfaUhs?=
-X-MS-Exchange-AntiSpam-MessageData-1:
-	+q7yATAoNkAyXxEVRcrTNQgKMXEaF/NjzWZC0SMdhe+ROfO8IuRtgx82
-X-OriginatorOrg: cyberus-technology.de
-X-MS-Exchange-CrossTenant-Network-Message-Id: 45e481c1-f70f-4e86-1018-08df1f06755a
-X-MS-Exchange-CrossTenant-AuthSource: BE0P281MB0148.DEUP281.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 15:21:11.1927
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f4e0f4e0-9d68-4bd6-a95b-0cba36dbac2e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7Ae87/diGGtC4XfMtgbemojioWYcaB9Pq026vTPuTHR3GzdySQHkLs5sWK95Da1p/cUXepP2pnMS7JNkCXm1mqPBOU1PP35xGZUX33+orLKa9hbr0Aldin/sWDTAHHqd
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BEXP281MB0135
+Content-Transfer-Encoding: 8bit
 
-Hi there,
+From: Hengyu Liang <hengyul@cs.unc.edu>
 
-We were hitting this bug pretty reliably in one of our setups and it
-looks like this patch is fixing our problems. Is there any update on
-that? For now, we've moved to a newer kernel (7.2.8) but it might still
-be relevant to many folks out there.
+ip6_route_info_create_nh() promotes routes that use the loopback device
+as their nexthop device to reject routes, except for local and anycast
+routes and routes to the loopback address, as true routes via the
+loopback device would result in kernel looping.
 
-I did not monitor memory growth during these tests.
+Before commit 21ec92774d15 ("net: ipv6: fix panic when IPv4 route
+references loopback IPv6 nexthop"), fib6_nh_init() also treated these
+routes as reject routes, so it neither validated their gateway nor
+checked the state of the loopback device. That commit restricted the
+check in fib6_nh_init() to explicit reject routes to fix IPv6 nexthop
+objects that use the loopback device. As a side effect, the nexthop of a
+route via the loopback device is now validated like the nexthop of a
+regular route before the route is promoted to a reject route, and adding
+such a route fails in cases that used to work:
 
-A few details about my observation. Please note that I heavily used
-an LLM to track down the issue and to create a reproducer. The LLM's
-output and reproducer seemed valid to me:
+  # ip link set dev lo down
+  # ip -6 route add 2001:db8::/32 dev lo
+  Error: Nexthop device is not up.
+  # ip link set dev lo up
+  # ip -6 route add 2001:db8::/32 via 2001:db8:1::1 dev lo
+  RTNETLINK answers: No route to host
+  # ip -6 route add default via ::ffff:192.0.2.1 dev lo
+  RTNETLINK answers: No route to host
+  # sysctl -qw net.ipv6.conf.lo.disable_ipv6=1
+  # ip -6 route add 2001:db8::/32 dev lo
+  Error: IPv6 is disabled on nexthop device.
 
-I ran into this bug while benchmarking live migration with Cloud
-Hypervisor between two hosts with Intel E810 NICs (ice, MTU 9000,
-6.18.41). We migrate a VM with 120 vCPUs and 20 GiB of memory under a
-write-heavy load, using TLS over 8 parallel TCP connections at about
-8 GiB/s. On the receiver, up to 5 of 6 migrations failed because TLS
-could not decrypt a record, and once even the plaintext record header
-was broken. First I suspected our own code. But an in-process check
-that decrypted 1.1 billion records again right after encryption found
-no mismatch, and switching to another cipher did not help. So the data
-was still correct when it left userspace. A plain-TCP test tool with
-bulk traffic transferred more than 1.4 TB without any error, so the
-trigger had to depend on the traffic pattern. At this point I found this
-LKML thread. With the patched ice module on the receiver, my reproducer
-passed all runs without a failure (432 GiB). Without the patch, 2 out of
-3 runs had corrupted data.
+As the loopback device is down in a new network namespace, the first
+case affects routes added before the loopback device is brought up. The
+SIOCADDRT ioctl fails in the same way.
 
-The reproducer is a small C program (about 290 lines) that uses plain
-TCP. To trigger the bug reliably, it does four things. First, it chooses
-the write lengths so that frames exactly fill one or two 3 KiB Rx
-buffers, and it uses TCP_NODELAY so that these frames are really sent
-this way. Second, the sender is bursty and fast: 9 parallel connections,
-plus 120 busy threads that simulate the vCPUs of a large VM with dirty
-page tracking. Third, the receiver keeps many packets queued, because it
-reads into scattered locations of a large buffer. Fourth, the stream
-content is deterministic, so the receiver can check every byte. Without
-the busy threads, 720 GiB went through without errors, and in single
-test runs, leaving out one of the other conditions also made the
-corruption disappear. Each corrupt block was at most one Rx buffer long
-and contained data from the same connection, about 11 MiB later in the
-stream. TCP itself reported no error.
+Restore the previous check in fib6_nh_init() for routes created by
+ip6_route_info_create_nh(). IPv6 nexthop objects and IPv4 routes with an
+IPv6 gateway are never promoted to reject routes, so they keep the
+current check and the panic fixed by the above commit does not come
+back.
 
-Thanks,
-Philipp
+Fixes: 21ec92774d15 ("net: ipv6: fix panic when IPv4 route references loopback IPv6 nexthop")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+---
+ net/ipv6/route.c | 29 +++++++++++++++++++++++------
+ 1 file changed, 23 insertions(+), 6 deletions(-)
+
+diff --git a/net/ipv6/route.c b/net/ipv6/route.c
+index 153ce16628c1..49ff87aa3756 100644
+--- a/net/ipv6/route.c
++++ b/net/ipv6/route.c
+@@ -3592,13 +3592,14 @@ static bool fib6_is_reject(u32 flags, struct net_device *dev, int addr_type)
+ 	return false;
+ }
+ 
+-int fib6_nh_init(struct net *net, struct fib6_nh *fib6_nh,
+-		 struct fib6_config *cfg, gfp_t gfp_flags,
+-		 struct netlink_ext_ack *extack)
++static int __fib6_nh_init(struct net *net, struct fib6_nh *fib6_nh,
++			  struct fib6_config *cfg, bool lo_reject,
++			  gfp_t gfp_flags, struct netlink_ext_ack *extack)
+ {
+ 	netdevice_tracker *dev_tracker = &fib6_nh->fib_nh_dev_tracker;
+ 	struct net_device *dev = NULL;
+ 	struct inet6_dev *idev = NULL;
++	bool reject;
+ 	int err;
+ 
+ 	if (!ipv6_mod_enabled()) {
+@@ -3646,9 +3647,17 @@ int fib6_nh_init(struct net *net, struct fib6_nh *fib6_nh,
+ 	fib6_nh->fib_nh_weight = 1;
+ 
+ 	/* Reset the nexthop device to the loopback device in case of reject
+-	 * routes.
++	 * routes. If requested, also treat routes via the loopback device as
++	 * reject routes, as ip6_route_info_create_nh() promotes them to reject
++	 * routes and their nexthop does not need to be validated.
+ 	 */
+-	if (cfg->fc_flags & RTF_REJECT) {
++	if (lo_reject)
++		reject = fib6_is_reject(cfg->fc_flags, dev,
++					ipv6_addr_type(&cfg->fc_dst));
++	else
++		reject = cfg->fc_flags & RTF_REJECT;
++
++	if (reject) {
+ 		/* hold loopback dev/idev if we haven't done so. */
+ 		if (dev != net->loopback_dev) {
+ 			if (dev) {
+@@ -3725,6 +3734,13 @@ int fib6_nh_init(struct net *net, struct fib6_nh *fib6_nh,
+ 	return err;
+ }
+ 
++int fib6_nh_init(struct net *net, struct fib6_nh *fib6_nh,
++		 struct fib6_config *cfg, gfp_t gfp_flags,
++		 struct netlink_ext_ack *extack)
++{
++	return __fib6_nh_init(net, fib6_nh, cfg, false, gfp_flags, extack);
++}
++
+ void fib6_nh_release(struct fib6_nh *fib6_nh)
+ {
+ 	struct rt6_exception_bucket *bucket;
+@@ -3917,7 +3933,8 @@ static int ip6_route_info_create_nh(struct fib6_info *rt,
+ 	} else {
+ 		int addr_type;
+ 
+-		err = fib6_nh_init(net, rt->fib6_nh, cfg, gfp_flags, extack);
++		err = __fib6_nh_init(net, rt->fib6_nh, cfg, true, gfp_flags,
++				     extack);
+ 		if (err)
+ 			goto out_release;
+ 
+-- 
+2.53.0
+
