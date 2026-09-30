@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3024D502554;
-	Wed, 30 Sep 2026 15:33:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B1AF511E8C;
+	Wed, 30 Sep 2026 15:33:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790782416; cv=none; b=AmqaeKEpquZkwlsI9LL42f0EDZvAthgNc28doxnI7D9FWJKhUlnwzATbX6BZfK7P3A3wthcVjNJPTLbGimeoxJweCkrE9VColLebeWoLC40eeihL3xoiu2ozZrVP7shPP7eUGvdkX+hP0UV25+2GfzCAh2oERGn0VywImG9p/ug=
+	t=1790782421; cv=none; b=qp3ENFuAh6wJ7uwOUb4R/mfPaZpFaBsK2JnkVHZ4t/yFradEiaa6fovEo4CIJbPWhkNpC0d99XJV4QrXisQt1WshvIYea2tARo1uY+MEtZFHzdoyoTStXsxYfzAUbUhLajwK1QM8LZBQyxVEM/NsvjV40JEqC+CZ+2X9RPKVeO8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790782416; c=relaxed/simple;
-	bh=me+FadVDJuA5iUiEk9TZxB4rCERDhBhzm5iHCuBJM/E=;
+	s=arc-20240116; t=1790782421; c=relaxed/simple;
+	bh=PEfqFahkBNrCJZv52NTa5eKOOAvL7TgyxlCPvugGTrE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WMno7yBRtY77k5fpP8RXKORrr6b9ei3sI9Oyis+zT198fud3lXcOhl74BCSczcv4er/kRecUW23RJqs6lH727wob1M/oLWGfoUboXfhkQAtySXEEmvyliDhlGFwD5nWNuLYMYaqeOpVSjvHTTQjhmdGnPBtjn3euXPExnFb2UPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=try75uzT; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=jW5RwTgOf5QZtzKAN/ZiW8WdNwPymXO/3oIlZ+ASi6e7voyGeNm15P5Mm4BlGdQpYsXXFdfboIJN3S2YDDJJpNQJo9ltmUPS78sjZq5Qyb9COX64cOs5I+5z0byThYqVgQ5j5MZUf4ZdIISJVvF8CnqQOIfeqYOvY8tMemTpnWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=h19zfgYW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="try75uzT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B91841F00899;
-	Wed, 30 Sep 2026 15:33:13 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="h19zfgYW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C266E1F000FF;
+	Wed, 30 Sep 2026 15:33:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790782394;
-	bh=g3mpvFrDPS1/ud7St/GhZcFFo0++zcK1F5zXqjqCwHk=;
+	s=korg; t=1790782411;
+	bh=vsiIE9ubbSZCQBQWgf8fS/IXvd9xxt2Ak+OPrJ3gMLI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=try75uzTX5/f/1Q1F+vofFa0S9uQq2Zp6gQacLI9ggW+intA1jT4CWQAEG1fDderb
-	 vrglZtE0Or+vv/KehKlkMyrUSPMv7yW9dd4xIDRVyaBIcLPS1Zp/apvtC/F61inojd
-	 ijH162hRD4EHnCubuYCzW2MiXAvVp+FhQAwEmKwI=
+	b=h19zfgYWNq91ofBnabgriWYew7C+ewDwZIexcABQKGOS3eTgorSdvPswzr3Btgc9T
+	 ED17qCGApo1hM0hzjbR08M+OtjvbFund7b9rBHaauFaEZzhtXKygFEMKUXZ0fZ0rwy
+	 VMNk71LlzBQs9RK1Qah0FHliX7J4ENJOkF1Kah/g=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Pierre Barre <pierre@barre.sh>,
-	Dominique Martinet <asmadeus@codewreck.org>,
+	Jan Volckaert <janvolck@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 032/595] 9p: invalidate readdir buffer on seek
-Date: Wed, 30 Sep 2026 17:18:45 +0200
-Message-ID: <20260930152348.417579527@linuxfoundation.org>
+Subject: [PATCH 5.10 037/595] net: usb: qmi_wwan: add MeiG SRM813Q
+Date: Wed, 30 Sep 2026 17:18:50 +0200
+Message-ID: <20260930152348.525372255@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152347.700140858@linuxfoundation.org>
 References: <20260930152347.700140858@linuxfoundation.org>
@@ -51,106 +51,93 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Pierre Barre <pierre@barre.sh>
+From: Jan Volckaert <janvolck@gmail.com>
 
-[ Upstream commit e661e17ddbed524b5fbda789a091b48b6b677067 ]
+[ Upstream commit 9758c11fc6c138a79a28a5659feeaa3abde7aa6a ]
 
-The per-fid readdir buffer (fid->rdir) is populated lazily and only
-refilled when fully drained (rdir->head == rdir->tail). userspace
-lseek() on a directory fd updates file->f_pos via generic_file_llseek()
-but does not touch the cached buffer, so the next getdents() iterates
-the stale cache and emits entries from the previous position instead
-of the one the caller asked for.
+Add support for the Qualcomm Technology Snapdragon X35-based MeiG SRM813Q
+module.
 
-Track the file position the cached data corresponds to in
-struct p9_rdir, and drop the cache on entry to iterate_shared when it
-no longer matches ctx->pos. The 9p protocol's Tread/Treaddir already
-take an arbitrary offset on every request, so a refill at the new
-position is always legal; no .llseek override or seek restriction is
-needed.
+The module can be put in different modes via AT commands
+to enable/disable GPS functionality:
 
-Reported-by: Pierre Barre <pierre@barre.sh>
-Link: https://lore.kernel.org/v9fs/496d10b9-40fe-4f81-8014-37497c37ff63@app.fastmail.com/
-Signed-off-by: Pierre Barre <pierre@barre.sh>
-Message-ID: <20260512132032.369281-2-pierre@barre.sh>
-Signed-off-by: Dominique Martinet <asmadeus@codewreck.org>
+MODEM - PPP mode(2dee:4d63): AT+SER=1,1
+
+If#= 0: RMNET
+If#= 1: DIAG/ADB
+If#= 2: MODEM
+If#= 3: AT
+
+P:  Vendor=2dee ProdID=4d63 Rev=05.15
+S:  Manufacturer=MEIG
+S:  Product=LTE-A Module
+S:  SerialNumber=1bd51f0e
+C:  #Ifs= 4 Cfg#= 1 Atr=80 MxPwr=500mA
+I:  If#= 0 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=50 Driver=qmi_wwan
+E:  Ad=01(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=81(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=82(I) Atr=03(Int.) MxPS=   8 Ivl=32ms
+I:  If#= 1 Alt= 0 #EPs= 2 Cls=ff(vend.) Sub=ff Prot=30 Driver=option
+E:  Ad=02(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=83(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+I:  If#= 2 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=40 Driver=option
+E:  Ad=03(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=84(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=85(I) Atr=03(Int.) MxPS=  10 Ivl=32ms
+I:  If#= 3 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=40 Driver=option
+E:  Ad=04(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=86(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=87(I) Atr=03(Int.) MxPS=  10 Ivl=32ms
+
+NMEA mode(2dee:4d64): AT+SER=51,1
+
+If#= 0: RMNET
+If#= 1: DIAG/ADB
+If#= 2: NMEA
+If#= 3: AT
+
+P:  Vendor=2dee ProdID=4d64 Rev=05.15
+S:  Manufacturer=MEIG
+S:  Product=LTE-A Module
+S:  SerialNumber=1bd51f0e
+C:  #Ifs= 4 Cfg#= 1 Atr=80 MxPwr=500mA
+I:  If#= 0 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=50 Driver=qmi_wwan
+E:  Ad=01(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=81(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=82(I) Atr=03(Int.) MxPS=   8 Ivl=32ms
+I:  If#= 1 Alt= 0 #EPs= 2 Cls=ff(vend.) Sub=ff Prot=30 Driver=option
+E:  Ad=02(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=83(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+I:  If#= 2 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=60 Driver=option
+E:  Ad=03(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=84(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=85(I) Atr=03(Int.) MxPS=  10 Ivl=32ms
+I:  If#= 3 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=40 Driver=option
+E:  Ad=04(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=86(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=87(I) Atr=03(Int.) MxPS=  10 Ivl=32ms
+
+Signed-off-by: Jan Volckaert <janvolck@gmail.com>
+Link: https://patch.msgid.link/20260517153237.55995-2-janvolck@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/9p/vfs_dir.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ drivers/net/usb/qmi_wwan.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/fs/9p/vfs_dir.c b/fs/9p/vfs_dir.c
-index 67438cef1d34b..9e0979078719e 100644
---- a/fs/9p/vfs_dir.c
-+++ b/fs/9p/vfs_dir.c
-@@ -30,6 +30,7 @@
-  * struct p9_rdir - readdir accounting
-  * @head: start offset of current dirread buffer
-  * @tail: end offset of current dirread buffer
-+ * @offset: file position the data at @head corresponds to
-  * @buf: dirread buffer
-  *
-  * private structure for keeping track of readdir
-@@ -39,6 +40,7 @@
- struct p9_rdir {
- 	int head;
- 	int tail;
-+	loff_t offset;
- 	uint8_t buf[];
- };
+diff --git a/drivers/net/usb/qmi_wwan.c b/drivers/net/usb/qmi_wwan.c
+index 0805452b7a5d6..ecba25ff23478 100644
+--- a/drivers/net/usb/qmi_wwan.c
++++ b/drivers/net/usb/qmi_wwan.c
+@@ -1384,6 +1384,8 @@ static const struct usb_device_id products[] = {
+ 	{QMI_QUIRK_SET_DTR(0x1546, 0x1342, 4)},	/* u-blox LARA-L6 */
+ 	{QMI_QUIRK_SET_DTR(0x33f8, 0x0104, 4)}, /* Rolling RW101 RMNET */
+ 	{QMI_FIXED_INTF(0x2dee, 0x4d22, 5)},    /* MeiG Smart SRM825L */
++	{QMI_QUIRK_SET_DTR(0x2dee, 0x4d63, 0)}, /* MeiG SRM813Q w/ Modem(PPP) */
++	{QMI_QUIRK_SET_DTR(0x2dee, 0x4d64, 0)}, /* MeiG SRM813Q w/ NMEA */
  
-@@ -104,6 +106,9 @@ static int v9fs_dir_readdir(struct file *file, struct dir_context *ctx)
- 	kvec.iov_base = rdir->buf;
- 	kvec.iov_len = buflen;
- 
-+	if (rdir->head < rdir->tail && rdir->offset != ctx->pos)
-+		rdir->head = rdir->tail = 0;
-+
- 	while (1) {
- 		if (rdir->tail == rdir->head) {
- 			struct iov_iter to;
-@@ -118,6 +123,7 @@ static int v9fs_dir_readdir(struct file *file, struct dir_context *ctx)
- 
- 			rdir->head = 0;
- 			rdir->tail = n;
-+			rdir->offset = ctx->pos;
- 		}
- 		while (rdir->head < rdir->tail) {
- 			err = p9stat_read(fid->clnt, rdir->buf + rdir->head,
-@@ -135,6 +141,7 @@ static int v9fs_dir_readdir(struct file *file, struct dir_context *ctx)
- 
- 			rdir->head += err;
- 			ctx->pos += err;
-+			rdir->offset = ctx->pos;
- 		}
- 	}
- }
-@@ -162,6 +169,9 @@ static int v9fs_dir_readdir_dotl(struct file *file, struct dir_context *ctx)
- 	if (!rdir)
- 		return -ENOMEM;
- 
-+	if (rdir->head < rdir->tail && rdir->offset != ctx->pos)
-+		rdir->head = rdir->tail = 0;
-+
- 	while (1) {
- 		if (rdir->tail == rdir->head) {
- 			err = p9_client_readdir(fid, rdir->buf, buflen,
-@@ -171,6 +181,7 @@ static int v9fs_dir_readdir_dotl(struct file *file, struct dir_context *ctx)
- 
- 			rdir->head = 0;
- 			rdir->tail = err;
-+			rdir->offset = ctx->pos;
- 		}
- 
- 		while (rdir->head < rdir->tail) {
-@@ -191,6 +202,7 @@ static int v9fs_dir_readdir_dotl(struct file *file, struct dir_context *ctx)
- 
- 			ctx->pos = curdirent.d_off;
- 			rdir->head += err;
-+			rdir->offset = ctx->pos;
- 		}
- 	}
- }
+ 	/* 4. Gobi 1000 devices */
+ 	{QMI_GOBI1K_DEVICE(0x05c6, 0x9212)},	/* Acer Gobi Modem Device */
 -- 
 2.53.0
 
