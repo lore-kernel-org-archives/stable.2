@@ -1,106 +1,79 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D26D4E73D2
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 14:59:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC1334E01EB
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 15:00:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790780373; cv=none; b=iRxZW9iThYdJqVdVLhhimbDagQApz9rAUshHEDQGZm9wfqt7yjsQk++bxsGvwjDWc4pBlU1eVBFWDyps81muBBy9+zQyNV9iVjd5UwguCyF185WQFyuUjeUXFXzqWG9YPjreHVFpoq3qAEdMy9ZNyqPrAozTBtCOBJ/4QcCoP2U=
+	t=1790780417; cv=none; b=Uw8gZEBot5IRfT6KnaPf+ORP9ZS2TTGEC50BitMEVHSi8cGtivOpojOBS/1WpfSouVuteSyt4M5vGAuXzd6wH4MUFElLgtvfY/9HqCmISGRrCNxnB/5h6U+6n5kS00dWIObvZMx6FEMzMn9pmxhCcPctVF40tH2oN0lkwqvrNcc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790780373; c=relaxed/simple;
-	bh=P4gnwfzavaVZtBY3nKcWd9a9hlh2CV4MbeksVJY9cYU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=sm9Jq1xtl5XyNlaSuWG/NNiRcZGazW5Yy0ux6KMGU3mAgRS4DyR4dyU9sPDerwbNcw7CM3J9PwEa+lIKrELX3sFXmZgwk8VIMkGcPgLZJsvSB92XqNvk/qHrn6EovT5qy43kwQorL89pCb6X8ZCev80gGhxzmxe/YcnBeQWCxhg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=FxwQduE5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790780417; c=relaxed/simple;
+	bh=N64Kife8Wv3pNPtxuDBHaxGts8CS4MjcJ/Qp1zUz/as=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gDtHban+f6QiIb0s1OqrGXzaEz3Dwt9pw1BVJt1Xlm3qhnUidr2SqLXaWsIwegGHI1KtuxdRlfdDTpXjb9T8FmW1fmAW7mZRVq4PWdUwjcEB1r4Y91b8sHmc5mq9zuXuzMDMwYHzEvCQyNmk7Xi3UkYUMVUn7k94XcUvUKpyrYA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wirenboard.com; spf=pass smtp.mailfrom=wirenboard.com; dkim=pass (2048-bit key) header.d=wirenboard.com header.i=@wirenboard.com header.b=F8RW3fmv; arc=none smtp.client-ip=74.125.225.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wirenboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wirenboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="FxwQduE5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C0F21F000FF;
-	Wed, 30 Sep 2026 14:59:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790780365;
-	bh=FuFiG2Iea/MAI7MWgcLVaDQutoJdCd8Jz2T0IsdFBfA=;
-	h=Subject:To:Cc:From:Date;
-	b=FxwQduE56pzTXns5GP7me45fCMqUulXmEq1d5Wjn0yTqmGh4Q2BxXsj5TK8xLsATU
-	 GOkFw/YStMr3Zh8NWYEVNAy1oLQ3h0cPKRah+N9GFzBRBHfxdsky03UAZbzCEMIBnK
-	 KjiZzj/VZf6lZYJsfby9b5VAGO8fqHOZxaqEBjrg=
-Subject: FAILED: patch "[PATCH] io_uring/waitid: fix KCSAN warning on io_waitid->head" failed to apply to 6.12-stable tree
-To: axboe@kernel.dk
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 30 Sep 2026 16:59:19 +0200
-Message-ID: <2026093018-boneless-remorse-ee12@gregkh>
+	dkim=pass (2048-bit key) header.d=wirenboard.com header.i=@wirenboard.com header.b="F8RW3fmv"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48b017a3be3so690458f8f.2
+        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 08:00:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=wirenboard.com; s=google; t=1790780407; x=1791385207; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=N64Kife8Wv3pNPtxuDBHaxGts8CS4MjcJ/Qp1zUz/as=;
+        b=F8RW3fmvSsQEBBFMGzNQe6AKDFOS07PNQnNg5iQlEU5mPSBLnyFhBhG1Z0OuteD7OM
+         LiB84yO/xsbCh6Chrcbutrbp/Ft56velzW9HwHuBmF+E4qzrTeId+Kf8TIy3T/7FHLeV
+         eQZ+TQ+Atf+9sIkB3u01NheS9D6lwcZAjySsHmuzJaKcJplYfgBtV+edjsuHDj50lU4q
+         oN6cWXcenuPVk5+1IHSUBVtTcppw7gk81NmR8U6LWOpUZKMzbETs4Gf9nWMkXN22pr9V
+         3Bx94BXSD85E+BOmxRpahtV99D9vYFvLCNt7aEIQuVE/++J7FpWJtGX7qS/yUZolgvKd
+         90/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790780407; x=1791385207;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=N64Kife8Wv3pNPtxuDBHaxGts8CS4MjcJ/Qp1zUz/as=;
+        b=tCIKhSsMcyzCl8b2EKubfMSffMZ9oWBONhA7RHn07fnTM/34nUHln5wW/HXUJOf3V6
+         B5mf1Xk7hbmMqwu/M/oCCId1fAc+m2JZw6o2MbkJ/YmOHvzb/hjisWv0Azh53KE7rp7N
+         GysQ/yiCubzJdWGgMnyymWX6uocExmTVmHd+NMn6YW32Y/m8dIbVSA3nc27iTC4s8yRM
+         i5E/Hq1StJ+mjflwzYtxVdO+8pgrewJWvfowv2y8X2sw/JdOHKX9gSDeRglcJyA0diph
+         m6E6OYL45V7vDuwcuwDaStQWvXfr7Su2bHQvMPG48yBFnjFRezMURucR0LD2UiG/3tBj
+         GsIw==
+X-Gm-Message-State: AFq9FYJz1aMgtJfhkNsy4dCjxg3T+Vq/i/+gC/54BFrnUKpa9adwPGFa
+	VklMR/Yl6jSSv8JnodEHZ7SjO3LTLtn2wKHFA/R6VSCcRpsz33vLLZgpVws3o7nJ0xM=
+X-Gm-Gg: AYBFou0Wp4wlhfT5O46pWRH5RIJeuZbV+Uv7jXalpvT06QzTalzi121ETjjeaA+GS2I
+	wtUVYRhvDdye8Y9qDZtN0rOGspbpiJHG+vWRbMjOc6KZJQGHh5KT7C+6m2+uLUr63fC7PmrVC8e
+	G7KEClE8QYkehPnSaappZPfgcAOYtfjYlD8h2df9AnHp7hiEOc883T0s8aiIABM+UgxzBWN5eb5
+	ZuNvLUK/elTocqUwWYVTf4ubG4K1WNR+HL1z+K/vulB0GdYmROITdNbRwqDekzoGS9/jUt8XUHi
+	1j09PHNSHu+gv/bd65qQFPRfmnkILNX8rvTHtxxBLF73dRXkTM7pFawaJXjPx90blqw9CaMDZ12
+	Pe7RBtRQJ+t0Dda4iic3bti0s8A42C8GAoTI00+TRmYDDCvcnXDML56sY53kdLrzDftJP+89JBh
+	3hG8HUP7ym+lqR4ZJrrlI5+lm6ph9gwhDI5cvPvDhBJPQCbkYgnJPVt7fFn1BJk+XNnD28vDZB+
+	5gTZKIbyipXqDbxaVEltT3PV3QHlYGY
+X-Received: by 2002:a05:6000:2284:b0:488:8859:b0dc with SMTP id ffacd0b85a97d-48b02554433mr3462451f8f.56.1790780406941;
+        Wed, 30 Sep 2026 08:00:06 -0700 (PDT)
+Received: from localhost.localdomain ([85.137.25.106])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b028b237esm4605274f8f.0.2026.09.30.08.00.06
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 30 Sep 2026 08:00:06 -0700 (PDT)
+From: Ilya Titov <ilya.titov@wirenboard.com>
+To: sashal@kernel.org
+Cc: stable@vger.kernel.org,
+	linusw@kernel.org
+Subject: Re: [PATCH 5.15.y 3/3] pinctrl: sunxi: keep a shadow copy of the data register output latches
+Date: Wed, 30 Sep 2026 18:00:03 +0300
+Message-ID: <20260930150004.37497-1-ilya.titov@wirenboard.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260930111402.1206529-3-sashal@kernel.org>
+References: <20260930111402.1206529-3-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-
-The patch below does not apply to the 6.12-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
-
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
-git checkout FETCH_HEAD
-git cherry-pick -x b994ace83a2bc7699420f6a4c6b860c8da133159
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026093018-boneless-remorse-ee12@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From b994ace83a2bc7699420f6a4c6b860c8da133159 Mon Sep 17 00:00:00 2001
-From: Jens Axboe <axboe@kernel.dk>
-Date: Mon, 19 Jan 2026 19:46:26 -0700
-Subject: [PATCH] io_uring/waitid: fix KCSAN warning on io_waitid->head
-
-Storing of the iw->head entry inside the wait_queue callback, or when
-removing a waitid item, really should use proper load/store
-acquire/release semantics, and KCSAN correctly warns of that. Ensure
-that they do so.
-
-Reported-by: syzbot+eb441775f4f948a0902f@syzkaller.appspotmail.com
-Fixes: a48c0cbf28c0 ("io_uring/waitid: have io_waitid_complete() remove wait queue entry")
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-
-diff --git a/io_uring/waitid.c b/io_uring/waitid.c
-index 2d4cbd47c67c..d25d60aed6af 100644
---- a/io_uring/waitid.c
-+++ b/io_uring/waitid.c
-@@ -114,11 +114,11 @@ static void io_waitid_remove_wq(struct io_kiocb *req)
- 	struct io_waitid *iw = io_kiocb_to_cmd(req, struct io_waitid);
- 	struct wait_queue_head *head;
- 
--	head = READ_ONCE(iw->head);
-+	head = smp_load_acquire(&iw->head);
- 	if (head) {
- 		struct io_waitid_async *iwa = req->async_data;
- 
--		iw->head = NULL;
-+		smp_store_release(&iw->head, NULL);
- 		spin_lock_irq(&head->lock);
- 		list_del_init(&iwa->wo.child_wait.entry);
- 		spin_unlock_irq(&head->lock);
-@@ -246,7 +246,7 @@ static int io_waitid_wait(struct wait_queue_entry *wait, unsigned mode,
- 		return 0;
- 
- 	list_del_init(&wait->entry);
--	iw->head = NULL;
-+	smp_store_release(&iw->head, NULL);
- 
- 	/* cancel is in progress */
- 	if (atomic_fetch_inc(&iw->refs) & IO_WAITID_REF_MASK)
-
+Looks good to me. Thanks a lot for doing the backports!
