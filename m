@@ -1,65 +1,63 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-pz2-f39.google.com (mail-pz2-f39.google.com [74.125.228.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42CD544E66B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 416B73F824D
 	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 06:59:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790751572; cv=none; b=CQt3n+5gtQ/EjNZKV80uz56wC4I8Vs5M6RkzvIgYmeDpHB9Ehlai5TXTjbKHQtgIyZCXSp1loUln5RSELinSBmrcefQDszkXsia0Bd5Qm1FwvbwamQqGHDIyCgrX28UXNRyvgrx/2+ZOkfF+kIUXaegsLhR3gwug7ggqNKE5WFk=
+	t=1790751571; cv=none; b=YK07afk9EaXv6aJYeLlA1H+m6GS8DpJFLV/pzRfWEH5UG8SAmL3uPqIqPI/GNTy4hAEoHvt/UMA7RIz+BBLmPTZzkh9IaTcK2BdccrD0wrRRjzJGT/9oc+5Za9fi6fECqy4SQCSWHaJDXWA+dHmJob/mUoUxxyVXy0nT9so+i0g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790751572; c=relaxed/simple;
-	bh=t+ru+dXoc7YmwrVkOFBKYfit9x/psLRjtu6nAJCBRpE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RkS+nsyBYSKmBen68upH+S4Q0UkWeA0QK2VE3j9THR4OwulhV6SYnPptUmHB8/DS+cSZveUufd7IovpRvaw8EnVYeNUzQt9XzhupokxWXWETt/j2ADwHHIkQFX60cl57dS26TVoSQsTWVupeLOBDXHfkYqudlvJ4w07T4Vov17g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aD+w8GAk; arc=none smtp.client-ip=74.125.227.140
+	s=arc-20240116; t=1790751571; c=relaxed/simple;
+	bh=6BdjSvBTfW4KpzxkiX9ADLPmoRyL16y/wUOpfb5VEvY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KheoPeezfi0qO26WXkJBbZ0ibcOm+eDRSxipi1zni5xGg63IzZ/w6w3dHqOxqTxIkwwQMlauvK9in4JO9iJnEg/5ZS7G6Ol0WESIMDIu9x05b7aZjdzJGYaa5g/qesOCTT0w6MMoSGPEi+JCujrdbnyypeBdK7EwPFmQWEDAnqU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NiX0HdV7; arc=none smtp.client-ip=74.125.228.39
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aD+w8GAk"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39dacf053eeso2537633a91.2
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NiX0HdV7"
+Received: by mail-pz2-f39.google.com with SMTP id 41be03b00d2f7-cc79a5bdf9fso829216a12.1
         for <stable@vger.kernel.org>; Tue, 29 Sep 2026 23:59:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790751558; x=1791356358; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gnkiJ0/c9WOQ2H9znsdbaGBhfqk/SIJ50HBt6f4ERZ4=;
-        b=aD+w8GAkL7/4DCFF3FQVGFCzDp94E4zZGRgdyjp0eqCLM7kS8/Rr/cjFqCCof5A39F
-         3eokI+/8H1lRGnPU1jUy00NTJrHpO7mRkbQSHk3TpYSCQNrrgygqNKmDNeo1J6nxWcPD
-         nEyjF5lAE+meikMJ5OifH1rrZ44Vvj8upk9JRpVeKylrybYrfXx15NUcYjHj8RQN+J7O
-         WC2O1QHIW5DQWwl2SpJ/Fs9EnuLYBz4T254D64+45GWowfifWuUIQaif6k0Llj17IHiC
-         wrlIQV9A4OoWzp75vCIReIUBU8vEHwQ1JYIAXPKiusXRzWWg7jkphv+tuKz/1TRRpbgj
-         moHQ==
+        d=gmail.com; s=20251104; t=1790751557; x=1791356357; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mx0iaoPR7zXZchCwtDWxvwWQjv0it6r14y9G6mnX/DE=;
+        b=NiX0HdV7dEnKt6KwlC8zoBxXmpRewPvK1Tp1FKaWfAD3b94iA3gVTb8QpZkToJZ7u0
+         O0WCmSgOQvR2x+9m3TP1NPMqZco2paLoEFEBODbgDUGLZ3AE4y5oQjoxHHFuULfnXX7H
+         wHyuGIdtMYsEDQNWLjOHoOR7VqP3Hb1qX+tZQbc9G7dv8Y85jc1PUxlrNeYgkXnKpXFO
+         BcMdj/PaV4FfcDcI5TQ1P14TY/gCimX7R14j4rXzipCgiv33rZzEnCr9jZWpWes09oKo
+         YsgvWC3U3HOYYHxg3U3IUUDgIjzyi6bVTBchcSgcvGTM9L7N/vd5SDzJlO0dV2CslS9h
+         zGpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790751558; x=1791356358;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gnkiJ0/c9WOQ2H9znsdbaGBhfqk/SIJ50HBt6f4ERZ4=;
-        b=d6qAzmHm2YTN8w9A0QT95iIBKQ0D9hfLKrdCd9aNFqxqNJY+co1fmKSo4szYb0DIt0
-         CnCkMv2KEzvHd1btcnWS2DOwxzNFo5vBjNbLywIXfpseR4uvc2xuG1g4kXYHADMnuaqW
-         rxzbaIYengerx2rGcCfDO2ya6I9D1kU5PSdvWxae+XN8KwtkOTtcEgyAQeFItlldSZje
-         adFdbVvFKYxEtYd1AbuyB0czzID5uHcvCFDasvpoo/wiNUF0FMxV9EiMs1VPO+cqkBBr
-         sLsf+X9peS7uCdudRYKlfqwMwqTkn6oHXKH6pFqpRHAR20GMa24xKCKt0bZhcNS5EUMq
-         nk1A==
-X-Forwarded-Encrypted: i=1; AKwUvBzaWZNlm1HCRv9cptDXhprCIHnClB7vqWVcDSd3q1C2AfBkIRLf3kwMrvtRwDCAh54euuT9oWo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLmGuhJJuYSBT7REMXKNCDa1ATtiUjfxVxDjSRK4GjRUMfOYhgG
-	biI6aHtPOW9Jia9jat7G4xwJxTHImiZgTe+lBXs2vjfFCb4GVZxT37j6
-X-Gm-Gg: AYBFou3wv0VM3jX7QhepvqxL6zAS7/weMKml+VNz8SMmZVJJWrvxOmi7KIbgDwajSCr
-	MhlnvLdCIX/42fZ/7kQkCb41yaMK1GF9g5Yz67KHNgNYp/5nOONzE8pQYQxg2VEHjb/0reQSIRw
-	GqkEYzlofoVxT9NScNh/rgtMNbvfB86KAIJmTTjlki7hdrwDy5NlWL2pY2595sOH9PykQjDMbN4
-	rZwl7a3Dj2xCaracq26h1VDr9q44Fzz6URuZJ0KXYwTfsB6iGlQH5bXWk2ajQlKZJ9R+weAGjU5
-	otjAgavfiFfCLGv+kh3LHWVp+cf0FEQCkyEzranhzWs9HW4H4imrj5VvAvhsGCebM9PXQO7/uZF
-	Suc2th+vIIHCYwZb83DJ9MW0M04QMV0d4ZVNAdLqMFtfsUrb50rU8GJrgNCDbYgIEMDl8C71b2C
-	uCMiMkz32nd+PCUQbk3/w9WSYCULwyccsCqxR7BU9/E2p0jWrnsclgdGO8yZJo4zB5uOInM4xXY
-	+NOS2dpUUSYpH+lwXi0HKvotlJC5ILmFY5OM19/dLrl3v6LDc1ze2etznpMLPDWlVeMtMuch3xW
-	b7dZc9UJMA==
-X-Received: by 2002:a17:90b:5446:b0:3a4:acde:1e3b with SMTP id 98e67ed59e1d1-3a4d197e168mr401773a91.13.1790751557599;
-        Tue, 29 Sep 2026 23:59:17 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790751557; x=1791356357;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mx0iaoPR7zXZchCwtDWxvwWQjv0it6r14y9G6mnX/DE=;
+        b=jo+iEEwrXcJvu80B61ZsL/A6dlw9wwRub2knTycerW9RhnjfTuyqnasqps9Q2w0X4j
+         lWzFLtB+83iu2qKo8XwesRvjDjBdyK76zb6e23oCBsTqa18wH5it/pCx9HvZ4YNDzRsn
+         OxKo9CZqKWFFDTR1ye1KjVHMIQrGTDFnAyyJ+5OeuuS9J12zh8UACB8EOGFO41zvBG25
+         bzcJPZlTIxwMyrNsLq/Vsq52Tg8jJ7zEMEs1YyMPTTFtMEhP01ojuKPC9BBXilfxtAe9
+         y4Q2D/7kzNBnjsTGzgt9k4RKdS9EMrrTe8PK1hb/+Ezpc40CbqmyqgTGzaMDAh76mb2+
+         wOXw==
+X-Forwarded-Encrypted: i=1; AKwUvByNonfjbPWId56hD8FQa+LVObU8AalDr6BrR6OPf5vdvZF/QBPLAVTY3kog8sQilhpysmEIQ6E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKuQUfGFyDXCmbV2hC1RSop7WCbcmpvSQfIYKHcr3wi+JIDTHB0
+	sYt08TKHWOFY1lSKSXyb6t/zYJWE9N0ezTXK6MEhlq7aP8u93IUYKLjd
+X-Gm-Gg: AYBFou1/HT4ThDqnrVsPht1OUy8CTEASd+mA/+RosO30BzuhCJUXvwcUAPwBY4exIMI
+	arBIP/ESp8lNFvf2IDt8DoZbvNuGgTQ7mWiLwlLguqSxNhcPcAUfTWf3d32jSgOK4c7sVKjeBZt
+	2vEC6sAL1UcXmkGqUw+beiTuxnUy4zcwpSWRHN4M2FKOIaDZahT/C3t5Ssm1o0iByPNoeF4XlYH
+	TAS0UfpGjr/yua24/w6rkFnKbqWDG9aOSaWu4w+b6Om+1pU2SZ2oeSVes+rUXz1hsWwHYcC8+m8
+	w3KTW6924VEeU6kxrGsgny8oVJWhf51cNoRiszs05WkbqMATQV5R4errMExHNZ0WROAsARuGP/d
+	EASb+7yFYvidxcLTNF6xGjRrV6xIAxEcr98pNgbDmyrlm/4hGscDZgpeo5x/un4O/t9ZQowepJQ
+	O41HdDxg/cZGCUV+JA3aZIvoi1qshJlUcnUaflY6p/iVZJtJfj6c/JaBu/c7PdADLpeDT2bU2br
+	LtJ1fYnbfqKX1zlrNBHmuo9SCL7hLy4bXs86pO7HbAyYRNT+UQ/MT+dtBGEnNOY6cAaVnqhXzgb
+	yadZw9K7cA==
+X-Received: by 2002:a17:90a:dfc8:b0:3a4:b3a4:e7a6 with SMTP id 98e67ed59e1d1-3a4d276b9bamr261177a91.11.1790751556720;
+        Tue, 29 Sep 2026 23:59:16 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (25.187.82.34.bc.googleusercontent.com. [34.82.187.25])
         by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4cae9ffaesm2010442a91.16.2026.09.29.23.59.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 23:59:17 -0700 (PDT)
+        Tue, 29 Sep 2026 23:59:16 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
 To: =?UTF-8?q?Noralf=20Tr=C3=B8nnes?= <noralf@tronnes.org>,
 	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -71,12 +69,10 @@ Cc: dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Hui Peng <benquike@gmail.com>
-Subject: [PATCH v2 1/5] drm/gud: Fix probe failure on non-DMA devices by moving descriptor check
-Date: Wed, 30 Sep 2026 06:59:10 +0000
-Message-ID: <20260930065914.393939-2-benquike@gmail.com>
+Subject: [PATCH v2 0/5] drm/gud: fix probe validation, shadow_buf UAF, and bulk_len divide-by-zero
+Date: Wed, 30 Sep 2026 06:59:09 +0000
+Message-ID: <20260930065914.393939-1-benquike@gmail.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-In-Reply-To: <20260930065914.393939-1-benquike@gmail.com>
-References: <20260930065914.393939-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -85,43 +81,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In gud_probe(), evaluating drm->mode_config.min_width before
-drmm_mode_config_init() and before assigning fields from the display
-descriptor causes the check to evaluate against 0, returning -EINVAL
-and unconditionally failing driver probe on non-DMA USB display devices.
+This patch series addresses multiple memory safety, concurrency, and
+validation bugs in drivers/gpu/drm/gud/:
 
-Move the display descriptor min/max width and height validation to after
-drmm_mode_config_init() and field assignments.
+- Patch 1 moves display descriptor validation in gud_probe() to after
+  drmm_mode_config_init() and field assignments, preventing unconditional
+  probe failure (-EINVAL) on non-DMA USB display devices.
+- Patch 2 aligns both x1 and x2 coordinates to block_width in
+  gud_flush_damage(), keeping rectangle width aligned for compressed
+  block display formats.
+- Patch 3 flushes pending background work (flush_work(&gdrm->work)) prior
+  to freeing gdrm->shadow_buf on framebuffer resize, eliminating the
+  Use-After-Free (UAF) race between queue_damage and gud_flush_work().
+- Patch 4 guards lines = gdrm->bulk_len / pitch against zero pitch or
+  lines in gud_flush_damage(), preventing divide-by-zero in DIV_ROUND_UP().
+- Patch 5 resets damage state on vcalloc() ENOMEM failure in
+  gud_fb_queue_damage(), preventing damage height underflow in subsequent
+  flushes.
 
-Tested in QEMU against Linux 7.3.0-rc3 with a non-DMA USB GUD display
-device: on the unfixed kernel gud_probe() evaluates zero-initialized
-drm->mode_config fields before drmm_mode_config_init() and returns -EINVAL
-(failing device initialization); whereas with this fix applied, gud_probe()
-validates descriptor min/max bounds after initialization, allowing the
-driver to probe cleanly.
+All 5 patches have been dynamically verified in QEMU against Linux 7.3.0-rc3
+with KASAN enabled; detailed test methods and outcomes are documented in
+each commit body.
 
-Fixes: 40e1a70b4aed ("drm: Add GUD USB Display driver")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Hui Peng <benquike@gmail.com>
----
- drivers/gpu/drm/gud/gud_drv.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+Changes in v2:
+- Split single monolithic patch into 5 distinct, single-purpose patches
+  as requested by maintainers and reviewers.
+- Included QEMU test methods, expected vs unfixed behaviors, and KASAN trace
+  details in commit bodies.
 
-diff --git a/drivers/gpu/drm/gud/gud_drv.c b/drivers/gpu/drm/gud/gud_drv.c
-index 3a1b9e2a2eaa..f7826e3d849f 100644
---- a/drivers/gpu/drm/gud/gud_drv.c
-+++ b/drivers/gpu/drm/gud/gud_drv.c
-@@ -506,6 +506,12 @@ static int gud_probe(struct usb_interface *intf, const struct usb_device_id *id
- 	drm->mode_config.max_width = le32_to_cpu(desc.max_width);
- 	drm->mode_config.min_height = le32_to_cpu(desc.min_height);
- 	drm->mode_config.max_height = le32_to_cpu(desc.max_height);
-+
-+	if (!drm->mode_config.min_width || !drm->mode_config.min_height ||
-+	    drm->mode_config.max_width < drm->mode_config.min_width ||
-+	    drm->mode_config.max_height < drm->mode_config.min_height)
-+		return -EINVAL;
-+
- 	drm->mode_config.funcs = &gud_mode_config_funcs;
- 	drm->mode_config.helper_private = &gud_mode_config_helpers;
- 
+Hui Peng (5):
+  drm/gud: Fix probe failure on non-DMA devices by moving descriptor check
+  drm/gud: Align both x1 and x2 to block_width in gud_flush_damage()
+  drm/gud: Prevent shadow_buf UAF by flushing work before reallocating
+  drm/gud: Fix bulk_len divide-by-zero in gud_flush_damage()
+  drm/gud: Reset damage state on vcalloc ENOMEM failure
+
+ drivers/gpu/drm/gud/gud_drv.c  |  6 ++++++
+ drivers/gpu/drm/gud/gud_pipe.c | 22 +++++++++++++++++++++-
+ 2 files changed, 27 insertions(+), 1 deletion(-)
+
+-- 
+2.47.3
