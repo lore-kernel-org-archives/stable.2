@@ -1,40 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62E0E379C35;
-	Wed, 30 Sep 2026 15:57:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E6B94E324D;
+	Wed, 30 Sep 2026 15:57:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790783841; cv=none; b=EcHRNuWscUlbwROVnVSGuBWX9exJS36t3Gssj8RVoFIITMCmSVa+cOR1vKcE42pNTtcTd24125Y+2WrFIBPBoLNbjFL6jM8m3RN65gfz7I37CdZaCRRqv+PgdvCxN8JIhjun+Sgw1mWpxFpl0Zf3w7zlX8fDkIaBp9UD72YmKeY=
+	t=1790783847; cv=none; b=Rhm1vjHEZC+C1keX7R4w33lIKxkdhBaDrA7hWi8gEmhm/sUvAVVTHpIBGBCAKxVPZOgvmx7yNsct1565Nfx9dR1/Vfss2Zh99nU0gS7aFT0uXPDAkfpK6aczJ2n1r90+hn5ROzBEyeZXqzi6gCwTbugg4GuryMtK2xqp8SQGGxg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790783841; c=relaxed/simple;
-	bh=VNjzi6VDWqfxDQLyMUdvZhvQfRKSs5Z/pPdxeNmDb3Q=;
+	s=arc-20240116; t=1790783847; c=relaxed/simple;
+	bh=yStJPiNDf13r0Cnjw/Pc4x9K21/q8Tt33XUhmWwQY8M=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VG57x/LaZnsXJdnDvPfRE1oFpXl78szyO4S+RbSYiHYnyZZ5ECjQ71NeiK1TkKWcvA0q7N1YgYjjn9/2wYUTSjXnWyxY5r5Y5cEaB7RRPGFVvC7GPaEnbV0ZPH/9Ch/i3JMTz5cjtimX3zJBRMRQZ7o4ngSpgjhZxxON31ec2o4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=A7TPSzMG; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=KF0oemenodIam8BMWqQcMXILJHW2hK4SkeAZIC14LmYtKShQU4TfozdgbWN9411MNsTCbkqKBfwmOfkmvJnzpbDPPMBmt3e5dI5v9vBmEPeN3qTAdAEelKNnJoi4IZvHfg2oJRUFGWxhVUC8aO0zhpmH44bqtG3rJ1m6utXnqVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=0JzqVRjs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="A7TPSzMG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3D6E1F00893;
-	Wed, 30 Sep 2026 15:57:14 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0JzqVRjs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A258C1F000FF;
+	Wed, 30 Sep 2026 15:57:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790783835;
-	bh=3uokCi/QnGuYFrL3aUDx5yw9V6cX1ZGi46O3M9/Pgd8=;
+	s=korg; t=1790783841;
+	bh=/sZtxvt9wDoZn/0c2IS3LS29mPwVae93I/u+rQQngYw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=A7TPSzMGhJUW8ZRTwdcZXhNWieiJsV4fIoQpijAi1NJtmQTbOVZXxmSYfqST2htxF
-	 PEd1TTmgtCud2Skr5nnJuHvlGnwVXMX2U4hA6zWR3zj2WkC80e2PokCt01BctiPBJU
-	 ZZC3wOyXA9EsdtaL+/sRGhxT9+qy1Xz4INPe/ZEU=
+	b=0JzqVRjsJc8EsYIJZ2HQ3vEyffZsoOR2qjJL/nclZCtyojCN4aqx6azh4O/mhBA6T
+	 vnE0DIQy9BziRy71HjQ+kh4qO4LHIyWPHZWsOI0mGpRBbWbwDo+ijHrEQ7QjW/pwg5
+	 MvkfqHDbPJCRt+FVtT9DEiVk830zWvR+hWsNBXqI=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Xuanqiang Luo <luoxuanqiang@kylinos.cn>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Hangbin Liu <liuhangbin@kylinos.cn>,
+	Norbert Szetei <norbert@doyensec.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 537/595] ip_gre: Reject enabling collect metadata through changelink
-Date: Wed, 30 Sep 2026 17:27:10 +0200
-Message-ID: <20260930152359.258456510@linuxfoundation.org>
+Subject: [PATCH 5.10 539/595] net: xps: reject an out of range traffic class
+Date: Wed, 30 Sep 2026 17:27:12 +0200
+Message-ID: <20260930152359.301988702@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152347.700140858@linuxfoundation.org>
 References: <20260930152347.700140858@linuxfoundation.org>
@@ -53,65 +51,69 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+From: Norbert Szetei <norbert@doyensec.com>
 
-[ Upstream commit a3f315be9d30eeb6938d11fa17fd4b32d52f7c42 ]
+[ Upstream commit 4da3b7b8b50f3e2fde54a4c18a82a8e3f6223910 ]
 
-ipgre_netlink_parms() can enable collect_md on an existing GRE, GRETAP
-or ERSPAN device. Unlike newlink, changelink does not enforce metadata
-tunnel uniqueness. Converting a non-metadata device can therefore
-replace the metadata receive entry for another device of the same type
-in the same netns. Deleting either device then clears the shared entry,
-breaking metadata receive lookup for the surviving device.
+Only the entries below dev->num_tc are valid in dev->tc_to_txq[], and
+dev->prio_tc_map[] may only name classes below it. netdev_set_num_tc()
+lowers dev->num_tc without touching either array.
 
-If parameter validation fails after collect_md is set, deleting the
-modified device can also clear an entry it never owned.
+netdev_txq_to_tc() walks all TC_MAX_QUEUE slots and
+netdev_get_prio_tc_map() returns the entry as it stands, so a leftover
+entry is handed out as a traffic class >= dev->num_tc. Taking that
+class from netdev_txq_to_tc(), __netif_set_xps_queue() rejects only a
+negative one and indexes an XPS map sized for dev->num_tc classes:
 
-Reject enabling metadata mode in both changelink callbacks before any
-encapsulation or tunnel parameters are modified. Allow requests that
-repeat the metadata attribute on an existing metadata device.
+	tci = j * num_tc + tc;
+	RCU_INIT_POINTER(new_dev_maps->attr_map[tci], map);
 
-Fixes: 2e15ea390e6f ("ip_gre: Add support to collect tunnel metadata.")
-Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
-Link: https://patch.msgid.link/20260921031859.9283-1-xuanqiang.luo@linux.dev
+attr_map[] holds nr_ids * num_tc entries and j runs over the ids named
+in the mask, so a class that is not below num_tc pushes tci past the end
+of the map for the last ids and the store overruns it.
+
+Any caller that lowers num_tc leaves such entries behind, and
+mqprio_destroy() tears down with netdev_set_num_tc(dev, 0) rather than
+netdev_reset_tc(). After mqprio with 8 classes then 1, tc_to_txq[1..7]
+still describe txq 1..7. The splat is from an XPS write to txq 2 on a
+veth with 8 rx queues: attr_map[] has 8 * 1 entries, tci = j + 2, and
+j == 6 stores one past the end of the 88-byte map:
+
+  BUG: KASAN: slab-out-of-bounds in __netif_set_xps_queue (net/core/dev.c:2954)
+  Write of size 8 at addr ffff88813016bc58 by task xps_oob/634
+   __netif_set_xps_queue (net/core/dev.c:2954)
+   xps_rxqs_store (net/core/net-sysfs.c:1880)
+   netdev_queue_attr_store (net/core/net-sysfs.c:1390)
+  Allocated by task 634:
+   __kmalloc_noprof (mm/slub.c:5439)
+   __netif_set_xps_queue (net/core/dev.c:2937)
+  The buggy address is located 0 bytes to the right of
+   allocated 88-byte region [ffff88813016bc00, ffff88813016bc58)
+
+Reject a class the map has no room for.
+
+Fixes: 184c449f91fe ("net: Add support for XPS with QoS via traffic classes")
+Signed-off-by: Norbert Szetei <norbert@doyensec.com>
+Link: https://patch.msgid.link/162DD16F-54C6-444A-9E09-0B8CB3D591F2@doyensec.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv4/ip_gre.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ net/core/dev.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/ipv4/ip_gre.c b/net/ipv4/ip_gre.c
-index 213d29fe190c1..edab2f31fd85a 100644
---- a/net/ipv4/ip_gre.c
-+++ b/net/ipv4/ip_gre.c
-@@ -1410,6 +1410,12 @@ static int ipgre_changelink(struct net_device *dev, struct nlattr *tb[],
- 	if (!rtnl_dev_link_net_capable(dev, t->net))
- 		return -EPERM;
+diff --git a/net/core/dev.c b/net/core/dev.c
+index 3e41d02fe28ce..244dc6f7929d0 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -2638,7 +2638,7 @@ int __netif_set_xps_queue(struct net_device *dev, const unsigned long *mask,
+ 		dev = netdev_get_tx_queue(dev, index)->sb_dev ? : dev;
  
-+	if (data && data[IFLA_GRE_COLLECT_METADATA] && !t->collect_md) {
-+		NL_SET_ERR_MSG(extack,
-+			       "Enabling collect_md on an existing device is not supported");
-+		return -EOPNOTSUPP;
-+	}
-+
- 	err = ipgre_newlink_encap_setup(dev, data);
- 	if (err)
- 		return err;
-@@ -1442,6 +1448,12 @@ static int erspan_changelink(struct net_device *dev, struct nlattr *tb[],
- 	if (!rtnl_dev_link_net_capable(dev, t->net))
- 		return -EPERM;
+ 		tc = netdev_txq_to_tc(dev, index);
+-		if (tc < 0)
++		if (tc < 0 || tc >= num_tc)
+ 			return -EINVAL;
+ 	}
  
-+	if (data && data[IFLA_GRE_COLLECT_METADATA] && !t->collect_md) {
-+		NL_SET_ERR_MSG(extack,
-+			       "Enabling collect_md on an existing device is not supported");
-+		return -EOPNOTSUPP;
-+	}
-+
- 	err = ipgre_newlink_encap_setup(dev, data);
- 	if (err)
- 		return err;
 -- 
 2.53.0
 
