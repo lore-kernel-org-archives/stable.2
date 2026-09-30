@@ -1,45 +1,79 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BF2E5221C3;
-	Wed, 30 Sep 2026 18:31:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 311005221E4
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 18:31:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790793108; cv=none; b=Is0LcqW4oyvR+HmJYkEj3IJrKyfElMNpA6f50HjT+1SY8Wnqi/iqC0pRnONTxWUEBWNDpLZ+jY8vuAnM8kxV794FRkIMcg6bd0E0XXU+HGaqb7od7SKvtDcJDwWRI5+rHIu+kCM1k+lT5DYgLx+vA/CTsix42ffT2oHvfy6adQk=
+	t=1790793110; cv=none; b=E34sUdoFC/Du7QOWilz5rFVlm2IgwvgP/JGmTwvSmscvyIZj8m8slQgylhqryzS8W0lo6i+Z6siMAT91gUkmhGgLYpEswzUh++OyBGgmRogM4FxjhhHCifj7Cer2F/IQV16+LNmUA6rQGdAKpFdY+PL0IxZ6sIZU4gB6/pwvCWM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790793108; c=relaxed/simple;
-	bh=ueGFMNSP7iXffoNHfnnk7GpMzaDrZz7mTEPx9ljm6h0=;
+	s=arc-20240116; t=1790793110; c=relaxed/simple;
+	bh=vb82kHMjF7H/YB24C3WEANZjxyP2t2ChYpOBcIucziU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kjRIQWJEl1igx1KxJHLFeDkOGo5j2aFEW8V/wZjBAuKB8PGkHXOrltS4VvFm87wd1J34VH2hAplRzRIRX12QSbti9Pe0bC/v6Rqel9ULJ1TfS292AiAhCKlvMxj6SDFSuW/9SPHp+Yz2qKbNXEwB3HIQgrtjwKRQJzi1KBxa2No=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jVeyQlJH; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=NGGvOeULePev67NwdpxFQo2ZPew9FsJhJMziHllHGQA759amumLRPfXcRMkCeGvYckJZiS768mEZib1TbVCXWSTSeAjyQ5+OFIy4VmMbfiKrmx15YEeWaGNBkUxlq/PCw83IoyAsb9TFc5KCfQyCn2Kk4xJy22OI8Jl4Ys6mc88=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y77D/LRT; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jVeyQlJH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A99951F000FF;
-	Wed, 30 Sep 2026 18:31:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790793107;
-	bh=ljSctgWiH4KAhanLaQ5hh7Q+z2zSI/2Gywh1AtDnuCE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jVeyQlJHbIHkWSsUfehE75YrvfjLaEYbEdfpo2c8nON4zfVAJSzt1cOlRKgfCHNSa
-	 jzKz5h9a7byFoRRtgneA3Kj2EpFMGKdV3aFtwnfXKBZwa/X62GRPUHXE0HToTNOP8q
-	 ntQs8iuz+QxeYZU2qvj4fYHrZisE0LRY8+VKUP68=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Bernard Ladenthin <bernard.ladenthin@gmail.com>,
-	Jamal Hadi Salim <jhs@mojatatu.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 139/395] net/sched: fix potential stack infoleak in em_text_dump()
-Date: Wed, 30 Sep 2026 17:26:41 +0200
-Message-ID: <20260930152343.659896710@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y77D/LRT"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffb83bf7aso37027645e9.2
+        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 11:31:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790793106; x=1791397906; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2GhPsWLlSgMSNkt2f5+GEEY7rdFcZVTICkbFtx1WQ/w=;
+        b=Y77D/LRTMTasnQv5DHVfBKif3mOkS/d4BgGTJ0frbx2mygRmuodrMiPAsUodJRnIYW
+         agqDGC9MUefM2mJE0hvV9lc0Pk5p69naYsVhQInvDhnZzR6v1v1X9uZEBv5EA2wtOoOM
+         xI3UH4goebRubWgp6iu+DHufBmzUK81AKMxud7pW60zNZDOctyOliaE4W2o4toIITLfZ
+         sBka+pnPKgjnbm7EoD6gjr7zujW5h1YIuGIF0XSfGdnA24l1DboCL6ih/vhzAxuy0NJt
+         vYp8epcu4x+SaEb1qOHupeDHB1mn2Jfhi0wzsbLOebckJJxCDYE8PZoZwdfPrFyOg+Em
+         U2Zw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790793106; x=1791397906;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2GhPsWLlSgMSNkt2f5+GEEY7rdFcZVTICkbFtx1WQ/w=;
+        b=WJ19hH1hG+bGeUw0FpCVU/joNPJuRoEJdzq0sUljH9aQAQjGX9w/EyaXst9KIXlm22
+         cD8xFHd+C3TpAgNyM5vYJoUZzhq5U4ldifWZ+qYEumK8crvOL7uCZw4jYJc6Zy8uszFf
+         ITylIbWR6AzNiXbIwogmJm2YA6A0rv0PbqeEj2OpMr+RbXzFB4Txn0zXIJTyltVJ8WKv
+         GfTMVK+5BjplGrqNlaW/5NNhdNxpEH+P9HJ4L6XLNIXycBrbzsAZrb9hAATCvwjYIeEb
+         QukF66O1Uazl+stZyggUdlxXRGX4m7CazvOz1wz4X0sK3P5f4KHT+BIlE6IjlKsttllx
+         WPhg==
+X-Forwarded-Encrypted: i=1; AKwUvBwUsdrEcj3sfAjQOwyoZknIeHxFmu8OCSKlhBcY9tQUpYNIoX2jU7ac+cePRRvcv9XkvZ8fLr0=@vger.kernel.org
+X-Gm-Message-State: AFuF++m88Wsuia0V1WSqIUuJ5DX2jKsCqeA4dIXoOdlKbgPCmcL/pN6C
+	9MirjZhPNy7FQU0xN5vQUf5/PARy8jIVk2VmFPhFoU/THrjoVveYIj49
+X-Gm-Gg: AYBFou312mmWzsw3MKFFeTMVyFwK+9/yl1W3lpNmsuH49LHdaiOromHrGJSviyI4bFE
+	QEwTBNrDb1uT3SaAzAhSlgnjEePg71fWtluWq1x1+qdyR/5kanVJMpas9y8m+UQzyCZupoZKiFA
+	cYVNYORMcHzSW6ZU6s9fyTj0PRPpB8++TGHIAjnEVFawbtRcDs9tIrlvN58nHN2o3D0hMAt55Ig
+	oksuW3OR49JFn3B9Ua9MW7a9WVsWlS2prwOQE0y+CGs02q6u9eBNo/px+BcSxA12CIZgbnyuRed
+	MfC//CkpOZI5+8pyrIHjYbKY5pVulXjk61xeS9laJgp5fkksMAlHQYya3zLRX/eKf+grJwNKQHR
+	bKi81F/sOjkp/g7J7uZYOHe+Z1m65gH1BHjuik8STIRih5mIuB53rbkwliAuZ4OCFziyLkm7jMI
+	sg9mTNPcNlDJ5UMR5LeP3ylHl8cWsGafdT8Nmnv+mFbxh4UWesH2py30vov9CygQtpbwrfBaoZj
+	2RZ4oyA62vp6VHWtDzqVGeMUO4hCZRFp1GB/of0qQgp9zvjBIK1
+X-Received: by 2002:a05:600c:3b09:b0:49f:bd3c:bc23 with SMTP id 5b1f17b1804b1-4a01b12bedbmr39716805e9.30.1790793106089;
+        Wed, 30 Sep 2026 11:31:46 -0700 (PDT)
+Received: from fedora ([202.47.63.86])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f90cd4esm3294525e9.1.2026.09.30.11.31.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 11:31:45 -0700 (PDT)
+From: Muhammad Bilal <meatuni001@gmail.com>
+To: jorge.lopez2@hp.com,
+	hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com
+Cc: andy.shevchenko@gmail.com,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Muhammad Bilal <meatuni001@gmail.com>
+Subject: [PATCH v3 3/3] platform/x86: hp-bioscfg: return -E2BIG from validate_password_input()
+Date: Wed, 30 Sep 2026 23:30:18 +0500
+Message-ID: <20260930183018.49629-4-meatuni001@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260930152340.591469096@linuxfoundation.org>
-References: <20260930152340.591469096@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+In-Reply-To: <20260930183018.49629-1-meatuni001@gmail.com>
+References: <20260930183018.49629-1-meatuni001@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,67 +82,50 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+validate_password_input() returns the positive INVALID_BIOS_AUTH on
+rejection. store_password_instance() skips the store on nonzero ret,
+but its final "return ret < 0 ? ret : count" treats the positive value
+as success, so userspace sees count instead of an error.
 
-------------------
+Return -E2BIG for an invalid password length.
 
-From: Bernard Ladenthin <bernard.ladenthin@gmail.com>
+Tested on HP EliteBook 840 G2 (Fedora 44, Linux 7.2.7): writing 999
+bytes to current_password returned 999 before this change.
 
-[ Upstream commit 9c572a83037a7dcd653ba3a9cc468c16b857d0c9 ]
-
-em_text_dump() allocates struct tcf_em_text on the stack without zeroing
-it.  strscpy() writes the algorithm name and a NUL terminator into
-conf.algo[], leaving the remaining bytes uninitialised.  nla_put_nohdr()
-then copies the full struct to the netlink response.
-
-KMSAN on Linux 7.2-rc6 reports two kernel-infoleak splats from this path,
-one triggered via "tc filter show" and one via a raw RTM_GETTFILTER dump:
-
-  BUG: KMSAN: kernel-infoleak in _copy_to_iter+0x1c9/0x2620
-    nla_put_nohdr+0x83/0x130
-    em_text_dump+0x291/0x550
-  Local variable conf created at: em_text_dump+0x5d/0x550
-  Bytes 168-179 of 199 are uninitialized
-
-I am not certain whether this constitutes a real security problem in
-practice: the test was conducted in a controlled KMSAN environment and
-the leaked stack bytes may or may not carry sensitive data on actual
-production kernels.  I am reporting it because KMSAN flagged it as a
-kernel-infoleak and the fix is straightforward.  I can provide a
-userspace reproducer on request.
-
-The original code used strncpy() which zero-pads to the destination size.
-Commit b04202d6065c ("net/sched: replace strncpy with strscpy") replaced
-it with strscpy(), which does not pad, creating this condition.
-Zero-initialising the struct closes it.
-
-Fixes: b04202d6065c ("net/sched: replace strncpy with strscpy")
-Link: https://lore.kernel.org/netdev/20250327143733.187438-1-richard120310@gmail.com/
-Assisted-by: Claude:claude-sonnet-4-6 [KMSAN]
-Signed-off-by: Bernard Ladenthin <bernard.ladenthin@gmail.com>
-Acked-by: Jamal Hadi Salim <jhs@mojatatu.com>
-Link: https://patch.msgid.link/20260918133953.12494-1-bernard.ladenthin@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 8646a3b5ee3a ("platform/x86: hp-bioscfg: passwdobj-attributes")
+Cc: stable@vger.kernel.org
+Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
 ---
- net/sched/em_text.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes in v3:
+ - Return -E2BIG instead of -ERANGE (Andy)
 
-diff --git a/net/sched/em_text.c b/net/sched/em_text.c
-index 692e2be1793e9..8052c55b2f4d0 100644
---- a/net/sched/em_text.c
-+++ b/net/sched/em_text.c
-@@ -113,7 +113,7 @@ static void em_text_destroy(struct tcf_ematch *m)
- static int em_text_dump(struct sk_buff *skb, struct tcf_ematch *m)
- {
- 	struct text_match *tm = EM_TEXT_PRIV(m);
--	struct tcf_em_text conf;
-+	struct tcf_em_text conf = {};
+Changes in v2:
+ - New patch
+
+ drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c
+index a9e1786..3f4c45d 100644
+--- a/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c
++++ b/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c
+@@ -70,12 +70,13 @@ static int validate_password_input(int instance_id, const char *buf)
+ 		length--;
  
- 	strscpy(conf.algo, tm->config->ops->name);
- 	conf.from_offset = tm->from_offset;
+ 	if (length > MAX_PASSWD_SIZE)
+-		return INVALID_BIOS_AUTH;
++		return -E2BIG;
+ 
+ 	if (password_data->min_password_length > length ||
+ 	    password_data->max_password_length < length)
+-		return INVALID_BIOS_AUTH;
+-	return SUCCESS;
++		return -E2BIG;
++
++	return 0;
+ }
+ 
+ ATTRIBUTE_N_PROPERTY_SHOW(is_enabled, password);
 -- 
-2.53.0
-
-
+2.43.0
 
