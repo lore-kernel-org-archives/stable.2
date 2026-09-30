@@ -1,215 +1,131 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93FE81A268
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 00:04:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 002D31A268
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 00:04:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790726675; cv=none; b=NKZZ5sDY4jpGfpeagG9RQIYvomMHiwFQ5jvsQriKCEPa4KG4HPTkyVcYATQa9nYE77NhJXN7A227Ofti7ElEjI2HtQBh8ydDynLDaFUUlRMhWw3x/lTcv8Icul+EEL/710xLIgcnw2JwD6lO5qu8RhiJ7vQZExU8UHmclOIz+Ws=
+	t=1790726679; cv=none; b=nOEAwYzQTmyM0a7/oGoHDLDaWayFl1/r9aRK+XBMPSWuQRQ8jJWBPYKm9kbvFZqu7g15BHT4iVOLv1KE3TZRboi9bL71ktROUb8OiKWSNOb+eUNuR9bcAD499gjpm+C1qt/m2o6UeZ99lCDgeZrAMg1mAeQRA2plNpDcrx9mTpg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790726675; c=relaxed/simple;
-	bh=I6g7iCPc0IuRVz0lJQj4kBNrqGqT90dv8WG2KbE6ABk=;
+	s=arc-20240116; t=1790726679; c=relaxed/simple;
+	bh=U7ODC03SLBfdmrRQEivJ8ZkdcSYBk1qJiZvFhCZwXJw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MqQCf8sKIk0nBMav+3fsOivUbD7Nk3c+1cbRfYbiYkyEI8zyBZ56y95zELR+GZMv6ThYubhC/X48Lki2q2onln5jKw6QoMNA4eenYRRZ8DCYM1viyYkkPkAjnAYOfanb4UDyQhmHknuH4fFR8lR3qpJrbeJKmNeP1TB9HZgOPN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bZMfsmA9; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=uQOyr3yiO39byRFxEhmXIyMQKZUQD1YURKX1PLUZQSPOVNU5KdWSVLg+AXKVYxFI4MoZbri7A59A02AQqIh7WlC6NWEIMDttoBl7MdVME957nPetbrEc9m5l8WMZ1e6C+mwb0B8c8NhxHI+dP3WzccrN9bbsY8oecw9BqsQxVcY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nTTHdYT6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bZMfsmA9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0FF61F000FF;
-	Wed, 30 Sep 2026 00:04:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nTTHdYT6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35D8D1F000FF;
+	Wed, 30 Sep 2026 00:04:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790726674;
-	bh=dPukKu9xa/S4J7ubV5/7QuO1x0lajGmmzPmntrDTXI0=;
+	s=k20260515; t=1790726677;
+	bh=6h/xhcxon1D7dX7gFB5puvqgvnaqcU3EoxKTZBs97WQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bZMfsmA9PfFlPmK0VUOCmLzNek7bT3uFeJctED8pinVx9X74Cb1So4d6K2MWcp3tG
-	 HLip+/aiVypRkGxuxZ9ViEYwWQgXcHLlXTbuBxLnKi/cGQrJAEzHV0xh0ts2naDyIy
-	 u3NdXylKjqwjCaTiLfTVrFxGP0gkBYh2mnwQSQrNO5/uTDZhg5cY6WGNlRxNPJWmE2
-	 sjQs2sjwJOj/+WDIufG/M9PxHRaoOgOijWBQBLC6E1BNW5cxLk1XjWTPTk0hkcC7g8
-	 WTQxGAKO6AHvVmxY+IcJGgJTHcU+c1yw2kckbeTMCD3KcCpVgpo8tYLVOM0X2HMKOC
-	 URQAsRTuHOVzw==
+	b=nTTHdYT6Ia8e0QNR61xy4N2/XK0rtvAM2t1yn400yLSYBWNrxp4NoAMP4ug4B+zid
+	 fnoIC8Ukb2fP7iqY6WemGLK3b4ev2yV0TSIzfA8Bq5UD8VU2TBkgMH3r0IQUdZwl6R
+	 jr90hYV3qt2v8Ypc8kO2N95WCFA9i6TjU1rMI2hx1WTJR2cvSdfsc6/t2YurJOUeyz
+	 G1wPARqw3FclJdTZdSaNIPTBIUHatfY0P8SanqhvodMqIM5bq6VgNmKpjbomTHbLdw
+	 4rHpqp5gMKnMONhy46tSg0RFm583TJqJuFBAA9vwY8iF14mFVVCyoQ3nug6Fv55jIo
+	 8N01yUiXeutLg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	Jan Kara <jack@suse.cz>,
+Cc: Ilya Maximets <i.maximets@ovn.org>,
+	Axel Mierczuk <axel.mierczuk@1password.com>,
+	Aaron Conole <aconole@redhat.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] super: make iterate_supers_type() deletion-safe
-Date: Tue, 29 Sep 2026 20:04:32 -0400
-Message-ID: <20260930000432.2867161-1-sashal@kernel.org>
+Subject: [PATCH 7.2.y 1/2] net: openvswitch: conntrack: avoid modifying shared unconfirmed ct entry
+Date: Tue, 29 Sep 2026 20:04:34 -0400
+Message-ID: <20260930000435.2867626-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092914-cruelness-unbounded-8ffd@gregkh>
-References: <2026092914-cruelness-unbounded-8ffd@gregkh>
+In-Reply-To: <2026092927-fencing-hypnotize-05db@gregkh>
+References: <2026092927-fencing-hypnotize-05db@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Christian Brauner <brauner@kernel.org>
+From: Ilya Maximets <i.maximets@ovn.org>
 
-[ Upstream commit 2d2a2d7aa98741b58f54cacc99b52024e4d865f9 ]
+[ Upstream commit 26b2bd70d22457556e2fa01cbf1192cb1a94d619 ]
 
-iterate_supers_type() drops sb_lock while invoking the callback and keeps
-only a passive reference to the current superblock. That reference keeps
-the object allocated, but does not keep its s_instances node linked.
+In a case where skb with an unconfirmed ct entry gets cloned, we may
+end up committing both but with different sets of extensions.
 
-After the iterator releases s_umount, final teardown can unlink the current
-s_instances node. The iterator then advances through a reinitialized node.
-With the current hlist it stops without visiting the remaining superblocks.
-The unlink moved from generic_shutdown_super() to kill_super_notify(), but
-the cursor lifetime has been unsafe since the helper was introduced.
+The series of events:
 
-The CIFS DFS lookup can consequently miss a matching superblock and return
--EINVAL.
+ 1. The first clone wants to commit and runs the helpers wiring up
+    the extension pointer into the expectation list.
+ 2. Then it looses the confirmation keeping the entry unconfirmed.
+ 3. Second clone now wants to commit labels and adds the new extension
+    for that breaking the pointer in the expectation list causing
+    UAF on the destruction path later.
 
-Move removal from fs_supers to put_super(), alongside removal from
-super_blocks, so a passive reference keeps both list nodes linked. Keep
-the filesystem module reference until then, since unlinking s_instances
-may touch type->fs_supers.
+While this is possible to trigger, there should be no practical
+network pipeline where committing both clones without modifications
+into the same zone is needed.  So, let's just reset the entry in case
+for some reason we got an skb with a shared one during commit.  This
+doesn't affect any known use cases, but avoids any potential problems
+with sharing and modification of the unconfirmed ct entry.
 
-Make sget_fc() skip SB_DEAD superblocks before invoking test(), and set
-SB_DEAD under sb_lock to serialize with those callbacks. This allows
-kernfs to free its private information after kill_anon_super() returns.
-Keep matching SB_DYING superblocks until SB_DEAD is set so concurrent
-mounts still wait for teardown before retrying.
+The fixes tag points to the introduction of helpers, since that's the
+main UAF trigger for the sharing.
 
-Fixes: 43e15cdbefea ("new helper: iterate_supers_type()")
-Reported-by: Karl Mehltretter <kmehltretter@gmail.com>
-Closes: https://lore.kernel.org/r/20260903013336.92081-1-kmehltretter@gmail.com
-Suggested-by: Jan Kara <jack@suse.cz>
+Fixes: cae3a2627520 ("openvswitch: Allow attaching helpers to ct action")
 Cc: stable@vger.kernel.org
-Tested-by: Karl Mehltretter <kmehltretter@gmail.com>
-[kmehltretter: supplied the commit message]
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Link: https://patch.msgid.link/20260909193034.7467-1-kmehltretter@gmail.com
-Reviewed-by: Jan Kara <jack@suse.cz>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ adapted superblock handling to 6.6’s older reference-counting and lookup APIs. ]
+Reported-by: Axel Mierczuk <axel.mierczuk@1password.com>
+Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
+Reviewed-by: Aaron Conole <aconole@redhat.com>
+Link: https://patch.msgid.link/20260921145655.3167436-2-i.maximets@ovn.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: f85009dfcd65 ("net/sched: act_ct: avoid modifying shared unconfirmed ct entry")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/kernfs/mount.c |  4 ++--
- fs/super.c        | 43 +++++++++++++++++++++++--------------------
- 2 files changed, 25 insertions(+), 22 deletions(-)
+ include/net/netfilter/nf_conntrack.h |  5 +++++
+ net/openvswitch/conntrack.c          | 12 ++++++++++++
+ 2 files changed, 17 insertions(+)
 
-diff --git a/fs/kernfs/mount.c b/fs/kernfs/mount.c
-index c4bf26142eec9..e5fe04e4f0f65 100644
---- a/fs/kernfs/mount.c
-+++ b/fs/kernfs/mount.c
-@@ -396,8 +396,8 @@ void kernfs_kill_sb(struct super_block *sb)
- 	up_write(&root->kernfs_supers_rwsem);
+diff --git a/include/net/netfilter/nf_conntrack.h b/include/net/netfilter/nf_conntrack.h
+index bc42dd0e10e65..c39425e54d87d 100644
+--- a/include/net/netfilter/nf_conntrack.h
++++ b/include/net/netfilter/nf_conntrack.h
+@@ -185,6 +185,11 @@ static inline void nf_ct_put(struct nf_conn *ct)
+ 		nf_ct_destroy(&ct->ct_general);
+ }
  
- 	/*
--	 * Remove the superblock from fs_supers/s_instances
--	 * so we can't find it, before freeing kernfs_super_info.
-+	 * Mark the superblock dead so sget_fc() can't find it,
-+	 * before freeing kernfs_super_info.
- 	 */
- 	kill_anon_super(sb);
- 	kfree(info);
-diff --git a/fs/super.c b/fs/super.c
-index f8fe07501c9ff..cb7adc5672102 100644
---- a/fs/super.c
-+++ b/fs/super.c
-@@ -409,7 +409,10 @@ static struct super_block *alloc_super(struct file_system_type *type, int flags,
- static void __put_super(struct super_block *s)
- {
- 	if (!--s->s_count) {
-+		struct file_system_type *type = s->s_type;
++static inline bool nf_ct_shared(const struct nf_conn *ct)
++{
++	return refcount_read(&ct->ct_general.use) > 1;
++}
 +
- 		list_del_init(&s->s_list);
-+		hlist_del_init(&s->s_instances);
- 		WARN_ON(s->s_dentry_lru.node);
- 		WARN_ON(s->s_inode_lru.node);
- 		WARN_ON(!list_empty(&s->s_mounts));
-@@ -417,6 +420,8 @@ static void __put_super(struct super_block *s)
- 		put_user_ns(s->s_user_ns);
- 		kfree(s->s_subtype);
- 		call_rcu(&s->rcu, destroy_super_rcu);
-+		/* The unlink above may touch type->fs_supers, so drop it last. */
-+		put_filesystem(type);
- 	}
- }
+ /* load module; enable/disable conntrack in this namespace */
+ int nf_ct_netns_get(struct net *net, u8 nfproto);
+ void nf_ct_netns_put(struct net *net, u8 nfproto);
+diff --git a/net/openvswitch/conntrack.c b/net/openvswitch/conntrack.c
+index 757cce7a658e1..93c1b499ab4aa 100644
+--- a/net/openvswitch/conntrack.c
++++ b/net/openvswitch/conntrack.c
+@@ -734,6 +734,18 @@ static int __ovs_ct_lookup(struct net *net, struct sw_flow_key *key,
+ 	enum ip_conntrack_info ctinfo;
+ 	struct nf_conn *ct;
  
-@@ -442,24 +447,17 @@ static void kill_super_notify(struct super_block *sb)
- 	if (sb->s_flags & SB_DEAD)
- 		return;
- 
--	/*
--	 * Remove it from @fs_supers so it isn't found by new
--	 * sget{_fc}() walkers anymore. Any concurrent mounter still
--	 * managing to grab a temporary reference is guaranteed to
--	 * already see SB_DYING and will wait until we notify them about
--	 * SB_DEAD.
--	 */
--	spin_lock(&sb_lock);
--	hlist_del_init(&sb->s_instances);
--	spin_unlock(&sb_lock);
--
- 	/*
- 	 * Let concurrent mounts know that this thing is really dead.
--	 * We don't need @sb->s_umount here as every concurrent caller
--	 * will see SB_DYING and either discard the superblock or wait
--	 * for SB_DEAD.
-+	 * sget{_fc}() skips SB_DEAD superblocks and calls test() under
-+	 * sb_lock, so set it under sb_lock: once we return no test()
-+	 * runs on this superblock anymore and none will start. Everyone
-+	 * else already saw SB_DYING and either discarded the superblock
-+	 * or waits for SB_DEAD.
- 	 */
-+	spin_lock(&sb_lock);
- 	super_wake(sb, SB_DEAD);
-+	spin_unlock(&sb_lock);
- }
- 
- /**
-@@ -490,7 +488,6 @@ void deactivate_locked_super(struct super_block *s)
- 		list_lru_destroy(&s->s_dentry_lru);
- 		list_lru_destroy(&s->s_inode_lru);
- 
--		put_filesystem(fs);
- 		put_super(s);
- 	} else {
- 		super_unlock_excl(s);
-@@ -713,12 +710,12 @@ void generic_shutdown_super(struct super_block *sb)
- 	}
- 	/*
- 	 * Broadcast to everyone that grabbed a temporary reference to this
--	 * superblock before we removed it from @fs_supers that the superblock
--	 * is dying. Every walker of @fs_supers outside of sget{_fc}() will now
--	 * discard this superblock and treat it as dead.
-+	 * superblock that it is dying. Every walker of @fs_supers outside
-+	 * of sget{_fc}() will now discard this superblock and treat it as
-+	 * dead.
- 	 *
--	 * We leave the superblock on @fs_supers so it can be found by
--	 * sget{_fc}() until we passed sb->kill_sb().
-+	 * sget{_fc}() keeps finding the superblock until SB_DEAD is set, so
-+	 * a concurrent mounter waits until we passed sb->kill_sb().
- 	 */
- 	super_wake(sb, SB_DYING);
- 	super_unlock_excl(sb);
-@@ -796,6 +793,9 @@ struct super_block *sget_fc(struct fs_context *fc,
- 	spin_lock(&sb_lock);
- 	if (test) {
- 		hlist_for_each_entry(old, &fc->fs_type->fs_supers, s_instances) {
-+			/* Only unlinked at the last passive reference. */
-+			if (smp_load_acquire(&old->s_flags) & SB_DEAD)
-+				continue;
- 			if (test(old, fc))
- 				goto share_extant_sb;
- 		}
-@@ -879,6 +879,9 @@ struct super_block *sget(struct file_system_type *type,
- 	spin_lock(&sb_lock);
- 	if (test) {
- 		hlist_for_each_entry(old, &type->fs_supers, s_instances) {
-+			/* Only unlinked at the last passive reference. */
-+			if (smp_load_acquire(&old->s_flags) & SB_DEAD)
-+				continue;
- 			if (!test(old, data))
- 				continue;
- 			if (user_ns != old->s_user_ns) {
++	/* If the ct entry is not confirmed and shared with some other skb,
++	 * e.g., a cloned one, we can't just modify it with the commit as we
++	 * must not modify the extension set.  Reset.
++	 */
++	if (cached && info->commit) {
++		ct = nf_ct_get(skb, &ctinfo);
++		if (ct && !nf_ct_is_confirmed(ct) && nf_ct_shared(ct)) {
++			nf_reset_ct(skb);
++			cached = false;
++		}
++	}
++
+ 	if (!cached) {
+ 		struct nf_hook_state state = {
+ 			.hook = NF_INET_PRE_ROUTING,
 -- 
 2.53.0
 
