@@ -1,151 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 797AD35E55D;
-	Wed, 30 Sep 2026 00:58:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D8EC29992B;
+	Wed, 30 Sep 2026 01:00:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790729919; cv=none; b=jXg1HrGe8f77GDzRtN0/P8tkuU6Dkqy904AloefAiRGRP1bhiKe4QXLg8pXlMMA1jlJlEc9HVgbvFC1f62gwLCB32DjV+lfFUR++ZRI6ptSLLBKjlqhAaKnFBLH1cCqtlskHO2CHMC+MTZ2e77VOKq3roVyEdSnpykCXmkgGmZA=
+	t=1790730008; cv=none; b=Pi4JLLbe6saFhcoPQXNrno2rybwADAjHBN0ltAPyXs3bz02U+dTnEJb/QWhVyDZfJwXH22AaCuQGthpvAXFvh89zv0KueOxu1ct9IyRXmaSjlrvRsaSGVkUUBQfHtmroMmM3IHyC30aBOM7qxHKPuBY8luAYAlTpusoS6zjbNtg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790729919; c=relaxed/simple;
-	bh=Ur0Ddvl6ESmvpEVe3Qy5gR5GrC7locnWkov2f0hw4jk=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=S1uUZtyVJuoWJfAUsQtIQmSyV9ISbVIiQDKpngp4hP+ev8+zi2YjHEIFsEMZOF1yv49sco1+n+uwGRPpcwnVtGH3RMUAkDVMpuwB2UHyMxVDtdtAQoZdvK2WopTMJ1jFYDi87kQCbFnAvZKYO7T1vqiEfCALHn9xu1K8SfFqh3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=as8nCVTW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790730008; c=relaxed/simple;
+	bh=g4lqI+UlLP2jTMRtKnIafFUzmgTUXqRcHQxt3HYYiyQ=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=njN5aBVPfIYcH3YtCP/e6PDON7kjZP/ecvuJPrRE3kZkTEgcklbknFnFZTTA1EbD7VfwCO1fy07DA2kjr2eb7IgMK8QKJkEDVM6GOE+dYkgQKx4Ytvss4QsbXeUQLPrfsKs8dKOHnc10qjLG9bn1S0Atki7GyUcgKbYGaf6OPPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kXlQilXt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="as8nCVTW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 315FD1F00893;
-	Wed, 30 Sep 2026 00:58:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kXlQilXt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2C5A1F000FF;
+	Wed, 30 Sep 2026 01:00:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790729918;
-	bh=6kP8kJQ6VA2Bt5fAEy7dftrFS4PHFNFwS4y8INrIUcM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=as8nCVTWFHmWQ0Wixey/K1CVNy4ORvwOJo12snhzGMRvht6HcMRyZjtOxLKl30DaP
-	 pMvo25rhZraedYXfEx/0GwHnSiqgivUWeLvfyPimWS4ESJsg8NYnt2bHG7IaztX1Lk
-	 NQHMwSuBo9BRvhf94gT14FmC9dCjGmyLyUjbnew9rOHlx6voWS7Qp2pdFAfEG5MliX
-	 oBvdxqmwtPwN9ETr5fWVaoAI0KsKVj/HH/bgw43hwUKgeJqS11w/eKcsWvl5tKRG59
-	 o5kLEsgfQ2T+IYpHam176nE8qf3AVHkw0XZTY26MKjXDPM707powRNMBjRqHeUBmAr
-	 4JATqacFtXGcQ==
-Subject: Re: [PATCH net 6/6] iavf: cap advertised max_pkt_size at the
- single-buffer HW limit
-From: netdev-bot+sashiko@kernel.org
-To: anthony.l.nguyen@intel.com
-Cc: davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com,
- edumazet@kernel.org, andrew+netdev@lunn.ch, netdev@vger.kernel.org,
- david.butler@appgate.com, emil.s.tantilov@intel.com, luoxuanqiang@kylinos.cn,
- bryan.fraschetti@canonical.com, tristan@talencesecurity.com,
- tomasz.lichwala@linux.intel.com, horms@kernel.org,
- aleksander.lobakin@intel.com, stable@vger.kernel.org,
- jacob.e.keller@intel.com, aleksandr.loktionov@intel.com
-Date: Wed, 30 Sep 2026 00:58:36 +0000
-Message-ID: <179072991678.434549.17815320009417499641@kernel.org>
-In-Reply-To: <20260928230429.495442-7-anthony.l.nguyen@intel.com>
-References: <20260928230429.495442-7-anthony.l.nguyen@intel.com>
-X-sashiko-severity: Medium
+	s=k20260515; t=1790730006;
+	bh=gBwoenYYaanfEUjFb75TeKF849XqV21SDq/Ipm1oCOo=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=kXlQilXt/jQ6C/PpMmxLhS1r8ATYgeozIzySOVxGgikqMGTMKm8+h+7s9NtLAW39c
+	 OZ9if6LIzi4LTLKWJCPtxS+/6aYKgcw2yNKrMDTJsaS+msNRbx9HqSRi5BgpVeVvlZ
+	 2H5MD/4aNFNqrvwDkKGNScjbPnB5LXdDByA/4niw6qgmudNgykF8qhtAsqK4ZpOCNv
+	 Ea75DcxjmwvWzr3hKGOMZDObHIVpKQ9MbIA0RFDfXowvLuGd/99wfr6Ue4z5jnLm0i
+	 mRhBE0ptvzJPKHB9zaXfE0ifUzfbV+Wtd0HD9gp1VZykDOhtd3ZiZO2hER9n4U/VdD
+	 5MEDqbZ1SIGxQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B44C83924FEA;
+	Wed, 30 Sep 2026 01:00:06 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v4] net: cap skb->queue_mapping when the tx queue is
+ picked
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179073000531.1189496.11934598043526371680.git-patchwork-notify@kernel.org>
+Date: Wed, 30 Sep 2026 01:00:05 +0000
+References: <QDISC-9R8V.v4.20260928081529@mojatatu.com>
+In-Reply-To: <QDISC-9R8V.v4.20260928081529@mojatatu.com>
+To: Jamal Hadi Salim <jhs@mojatatu.com>
+Cc: netdev@vger.kernel.org, pablo@netfilter.org, fw@strlen.de, phil@nwl.cc,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ jiri@resnulli.us, vinicius.gomes@intel.com, horms@kernel.org,
+ xiangxia.m.yue@gmail.com, bigeasy@linutronix.de, clrkwllms@kernel.org,
+ rostedt@goodmis.org, victor@mojatatu.com, zdi-disclosures@trendmicro.com,
+ hybris@mojatatu.ai, netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+ linux-rt-devel@lists.linux.dev, stable@vger.kernel.org, edumazet@google.com
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Hello:
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+On Mon, 28 Sep 2026 08:46:16 -0400 you wrote:
+> skbedit can set skb->queue_mapping and raise the per-CPU skip_txqueue
+> flag so __dev_queue_xmit() honours the mapping. __dev_queue_xmit()
+> cleared the flag before sch_handle_egress() and only read it afterwards,
+> so the flag was not confined to the xmit that set it: a nested xmit
+> (mirred redirect or mirror, or a drop after skbedit) could set the flag
+> and the outer xmit would consume it for an skb that never went through
+> skbedit.
+> 
+> [...]
 
-- [Medium] The patch caps the Rx max_pkt_size sent to the PF (the per-
-  queue Rx context 'rxmax') at LIBIE_MAX_RX_BUF_LEN (9728) in…
+Here is the summary with links:
+  - [net,v4] net: cap skb->queue_mapping when the tx queue is picked
+    https://git.kernel.org/netdev/net/c/ea4d4b5dddb5
 
---
-
-iavf: cap advertised max_pkt_size at the single-buffer HW limit
-
-This commit caps the max_pkt_size that iavf_configure_queues() sends to
-the PF in VIRTCHNL_OP_CONFIG_VSI_QUEUES at LIBIE_MAX_RX_BUF_LEN (9728).
-Without the cap, a PF that advertises vf_res->max_mtu as 0 (the ESXi icen
-PF on E810) receives 16382 and rejects the queue configuration.
-
-Link: https://community.intel.com/t5/Ethernet-Products/E810-C-iavf-driver-issue-on-Linux-6-12/m-p/1737490
-Link: https://access.redhat.com/solutions/6973766
-Link: https://knowledge.broadcom.com/external/article/404315/sriov-enabled-vms-network-adaptor-goes-d.html
-
-> diff --git a/drivers/net/ethernet/intel/iavf/iavf_virtchnl.c b/drivers/net/ethernet/intel/iavf/iavf_virtchnl.c
-> index ec234cc8bd9db..680a28a739bf0 100644
-> --- a/drivers/net/ethernet/intel/iavf/iavf_virtchnl.c
-> +++ b/drivers/net/ethernet/intel/iavf/iavf_virtchnl.c
-> @@ -382,6 +382,14 @@ void iavf_configure_queues(struct iavf_adapter *adapter)
->  
->  	max_frame = LIBIE_MAX_RX_FRM_LEN(adapter->rx_rings->pp->p.offset);
->  	max_frame = min_not_zero(adapter->vf_res->max_mtu, max_frame);
-> +	/* The PF programs max_pkt_size into the per-queue Rx context "rxmax".
-> +	 * LIBIE_MAX_RX_FRM_LEN is the multi-descriptor (S/G) frame ceiling
-> +	 * (16382), but that exceeds the E810 max MAC frame size (9728); some
-> +	 * PFs reject the out-of-range value with VIRTCHNL_STATUS_ERR_PARAM.
-> +	 * Cap it at the single-buffer HW limit (== the MAC frame max),
-> +	 * restoring the pre-Page-Pool behaviour.
-> +	 */
-> +	max_frame = min(max_frame, LIBIE_MAX_RX_BUF_LEN);
-
-[Severity: Medium]
-
-Should netdev->max_mtu be clamped to match? Rx max_pkt_size is now capped
-at 9728. However, iavf_init_config_adapter() in iavf_main.c still derives
-the MTU ceiling from the 16382 S/G limit when the PF sends max_mtu == 0:
-
-drivers/net/ethernet/intel/iavf/iavf_main.c:iavf_init_config_adapter() {
-    ...
-	if (!adapter->vf_res->max_mtu) {
-		netdev->max_mtu = LIBIE_MAX_MTU;
-	} else if (adapter->vf_res->max_mtu < LIBETH_RX_LL_LEN + ETH_MIN_MTU ||
-		   adapter->vf_res->max_mtu >
-			   LIBETH_RX_LL_LEN + LIBIE_MAX_MTU) {
-		...
-		netdev->max_mtu = LIBIE_MAX_MTU;
-	} else {
-		netdev->max_mtu = adapter->vf_res->max_mtu - LIBETH_RX_LL_LEN;
-	}
-    ...
-}
-
-LIBIE_MAX_MTU is 16382 - 26 = 16356. A PF-advertised frame size above
-9728 that still passes the range check also gives a max_mtu above 9702.
-
-In the icen case this patch targets, can a user still set an MTU the
-queues can't carry? For example:
-
-    ip link set dev ethX mtu 12000
-
-dev_validate_mtu() only checks against dev->max_mtu. iavf_change_mtu()
-stores the new MTU and triggers a reset without a check of its own. The
-queues are then reprogrammed with max_pkt_size = 9728.
-
-Received frames larger than 9728 bytes would then be silently dropped by
-the Rx queue context, instead of the MTU change failing. Per the commit
-message, E810 also discards Tx frames above MAX_TXFRAME (9728).
-
-Before this patch, rxmax and max_mtu both came from the 16382 ceiling and
-matched each other.
-
-The commit message and the new comment both describe this as "restoring
-the pre-Page-Pool behaviour". Commit 5fa4caff59f2 changed two things. It
-changed max_frame from IAVF_MAX_RXBUFFER to LIBIE_MAX_RX_FRM_LEN(). It
-also changed netdev->max_mtu from IAVF_MAX_RXBUFFER - IAVF_PACKET_HDR_PAD
-(9710) to LIBIE_MAX_MTU. This patch only reverts the first change.
-
-Could netdev->max_mtu also be clamped to LIBIE_MAX_RX_BUF_LEN -
-LIBETH_RX_LL_LEN, in both the zero-value branch and the invalid-value
-fallback?
-
-[ ... ]
-
+You are awesome, thank you!
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928230429.495442-1-anthony.l.nguyen%40intel.com
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
