@@ -1,34 +1,34 @@
 Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B6123750AC;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AADD3749F2;
 	Wed, 30 Sep 2026 03:28:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790738913; cv=none; b=FMrx4lgZi97yxDNUau1XCk2CehUOd5nkrYoa0ZqVRJTCY2Iz4xM/zaF9bkU/+MQawJMESsKSw3dfXxcqcuqmDPGXgcQ0pEk0HdilHWCF3MDoqkuj6YicQRV3QOLV8iVTqTXtHykSYx5F6RLU10EYAxCMVSUPvuwbJ7eLrHgRlgI=
+	t=1790738913; cv=none; b=IpP8OQ8Gvy3Uk+Tfcn3ZmevvA0dN/KVQ4Hq+s73X5fCwWEiA4fkke0v9++NxK3oSZ7FWyKM+H2INzgniBwFbshaSyp5JHvf8JxLdfSQ9m7cfAC1T2fbnRjAHiy1MGXKd6XX863WxGtCwDLL96o+jli2X9fnlMfPsf72qpVr4DPM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790738913; c=relaxed/simple;
-	bh=KGfIvBlCbx/6hTHchRqWbEpxqs+q/TBXo5o9Dai4OFI=;
+	bh=0d/hu/gae2j7PbcSDAaAR36gV+qh7sI3dfrrRrmBp9k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aDBxuas2NIuVkKHHG2U+Izm/Z/VjmE04eoEJRUW3E2nhdN2dOXa42nFgsj7xQeL8ASKKDDeq6+cweO+WIleUm5r9cRnNqTgkWRUvQq4yGpTB4R8kJyuzOyqFTDUalyKDZ40nuedOYdtzHyoZFOp1FLKzyglmHZSsuNA+O0DaNf4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=va8ZKLDi; arc=none smtp.client-ip=143.255.12.172
+	 MIME-Version; b=LCGjSDKOi7gInFe4lsZazxWRkxl6Cs+ogkQPdXpc64mZrztdC8eAjn9WAzPMWU1DJXy1e/mTYCrdWm6RunmleyVclE8C/xSXXPIouvBsYf6RanqlCD8zlKGF88eGql7NdJr2mdDrYvzCk6Q55L0ynthGR7aTGO5xh3t3I/eC1A0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=t0UkF3/1; arc=none smtp.client-ip=143.255.12.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="va8ZKLDi"
+	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="t0UkF3/1"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:MIME-Version:References:
 	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Content-Type:Reply-To:
 	Content-ID:Content-Description;
-	bh=BJ17WV1GnN5OT1URP0DH96YYJBOm5GXPtRjLgtxPpZw=; b=va8ZKLDil1TggCSNs9SG443ug1
-	+m+BI3zxRcsbXW1WQcJmTiuU4W8RjCM9fKY+Oq5CehxUqojTFNFrZ/+3+jbtjBur6rPrS5OHxThPn
-	iRIg+2Ya2r8aeXdIA2oVHGlbJaevrsWzLRfD18diBBRwwcqkXGNKNQi3pRsBr+BZ+qpiqpjE+bQ5N
-	COp6a8HtvW8+kPiK3nMSdkeWr8bTp/HO4AIWzoGs3MwlTitsR5lx+UEXZeWtF7Axwhx8x+fdN8KdJ
-	G9gZKLe2RyGAbaraib4RHM6ne23V9fJBQDlFgSLhQS8e1U/A58TOqC42a1oXI/+sVkiLXwep5dtvK
-	Oao+OW1A==;
+	bh=lGsxV2+pzmPukrcM8q282w3TJOJshuueXIlYwbdX0+o=; b=t0UkF3/1bQssvsa2njfAsgjfcE
+	21FGIL1OAeEZHKOUGtL7nxcrpba0Ey4kiFUwDUeCHKvhx/7qWuOWqbMkWgClr6u+kpn+MjLo5aBL1
+	+53btlRKk2knGxQt3GdZEY0L0P8/iFzFwGp9X66n55k2F4Lx2loNP/r/EDMjxv8xjw7Cfh9hrSIz3
+	Ay+N8ObXSFxz0B8WFEwMSjgEbX/IK692NFt4QaQ4nDnMMYMHQ31EU1sIx5ZZlruO4cx4dXgF8nYuh
+	FsKIDANW/trum2j0XctmGZAR4D85vrMSivSFkqTdhmoeby1YsrWBnWL1fIZg0I0ZTITnauHEPP11i
+	jlmdjpHQ==;
 Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
-	id 1xBkzb-00000002ast-3DMN;
-	Wed, 30 Sep 2026 00:28:27 -0300
+	id 1xBkzZ-00000002asK-1PQE;
+	Wed, 30 Sep 2026 00:28:25 -0300
 From: Paulo Alcantara <pc@manguebit.org>
 To: linux-cifs@vger.kernel.org,
 	netfs@lists.linux.dev
@@ -41,9 +41,9 @@ Cc: Christian Brauner <brauner@kernel.org>,
 	Tom Talpey <tom@talpey.com>,
 	Bharath SM <bharathsm@microsoft.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v3 13/15] netfs: zero the tail of a short DIO/unbuffered read
-Date: Wed, 30 Sep 2026 00:28:20 -0300
-Message-ID: <20260930032822.1835287-14-pc@manguebit.org>
+Subject: [PATCH v3 06/15] smb: client: flush and commit data before querying allocated ranges
+Date: Wed, 30 Sep 2026 00:28:13 -0300
+Message-ID: <20260930032822.1835287-7-pc@manguebit.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930032822.1835287-1-pc@manguebit.org>
 References: <20260930032822.1835287-1-pc@manguebit.org>
@@ -55,24 +55,36 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The buffered read collector zero-fills the tail of a short read that
-stops below the inode's i_size (netfs_clear_unread()), so a read that
-races an extending write still returns the expected number of bytes.
-The non-buffered collector path does no such thing: it just records
-how much was transferred.
+The mode 0 / FALLOC_FL_KEEP_SIZE fallocate emulation for small interior
+ranges in smb3_simple_fallocate_range() issues
+FSCTL_QUERY_ALLOCATED_RANGES and zero-fills any sub-range the server
+reports as an unallocated hole, to force block allocation without
+changing file contents.
 
-Add the same zero-fill for the non-buffered case, gated on
-NETFS_SREQ_CLEAR_TAIL: a subreq's source sets that flag when a short
-result from it is known to be safe to treat as a hole, as opposed to
-NETFS_SREQ_HIT_EOF, which means the read genuinely ran off the end of
-the file and should be reported short as-is. Only CLEAR_TAIL should
-zero-fill here; a real EOF must stay a real short read.
+This is unsafe against Windows servers.  Per the Win32 documentation,
+FSCTL_QUERY_ALLOCATED_RANGES only reports ranges that *may* contain
+nonzero data and is explicitly not coherent with recently written data:
 
-No source currently sets CLEAR_TAIL on an unbuffered/DIO subrequest,
-so this is inert on its own -- a following change teaches cifs to set
-it in the one case that needs it.
+  "a call to FSCTL_QUERY_ALLOCATED_RANGES [after writing to a network
+   file] would not necessarily return a correct list of allocated
+   regions.  To ensure coherency [...] flush the data to the file"
 
-Fixes: e2d46f2ec332 ("netfs: Change the read result collector to only use one work item")
+fsx (generic/363) reproduces the resulting corruption against Windows
+Server 2022: a range is written, an uncached read returns the data, yet
+the next FSCTL_QUERY_ALLOCATED_RANGES on that range reports it as a whole
+hole, so the emulation overwrites live data with zeroes.  A network trace
+confirmed the WRITE, the READ returning data and the query returning an
+empty range list within microseconds.  Samba does not exhibit this; its
+query is coherent with the written data.
+
+Write back the dirty pages, drain any outstanding I/O and issue an SMB2
+FLUSH to force the server to commit the data before querying the
+allocated ranges, so the query reflects the data actually present.
+
+With this, generic/363 passes against both Windows Server 2022 and Samba
+over 100000 fsx operations.
+
+Fixes: 966a3cb7c7db ("cifs: improve fallocate emulation")
 Reviewed-by: David Howells <dhowells@redhat.com>
 Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
@@ -85,51 +97,94 @@ Cc: Tom Talpey <tom@talpey.com>
 Cc: Bharath SM <bharathsm@microsoft.com>
 Cc: stable@vger.kernel.org
 ---
- fs/netfs/read_collect.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ fs/smb/client/smb2ops.c | 32 ++++++++++++++++++++++++++------
+ 1 file changed, 26 insertions(+), 6 deletions(-)
 
-diff --git a/fs/netfs/read_collect.c b/fs/netfs/read_collect.c
-index a94197ef0181..c5bfaf2c6f25 100644
---- a/fs/netfs/read_collect.c
-+++ b/fs/netfs/read_collect.c
-@@ -33,6 +33,22 @@ static void netfs_clear_unread(struct netfs_io_subrequest *subreq)
- 		__set_bit(NETFS_SREQ_HIT_EOF, &subreq->flags);
- }
+diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
+index 849cfd2de705..1c41d3b24c6d 100644
+--- a/fs/smb/client/smb2ops.c
++++ b/fs/smb/client/smb2ops.c
+@@ -3750,6 +3750,24 @@ static int smb3_simple_fallocate_range(unsigned int xid,
+ 		goto out;
+ 	}
  
-+static void netfs_clear_unread_dio(struct netfs_io_subrequest *subreq)
-+{
-+	uoff_t pos = subreq->start + subreq->transferred;
-+	struct netfs_io_request *rreq = subreq->rreq;
-+	size_t fill;
++	filemap_invalidate_lock(inode->i_mapping);
 +
-+	if (pos >= rreq->i_size)
-+		return;
++	/*
++	 * Flush and commit the data to the server, otherwise
++	 * FSCTL_QUERY_ALLOCATED_RANGES might report recently written data as
++	 * unallocated holes on Windows Servers, and the loop below would
++	 * then zero-fill them and corrupt the file.
++	 */
++	rc = filemap_write_and_wait_range(inode->i_mapping, off,
++					  off + len - 1);
++	if (rc)
++		goto out_unlock;
++	netfs_wait_for_outstanding_io(inode);
++	rc = SMB2_flush(xid, tcon, cfile->fid.persistent_fid,
++			cfile->fid.volatile_fid);
++	if (rc)
++		goto out_unlock;
 +
-+	fill = min_t(uoff_t, rreq->i_size - pos,
-+		     subreq->len - subreq->transferred);
-+
-+	netfs_reset_iter(subreq);
-+	subreq->transferred += iov_iter_zero(fill, &subreq->io_iter);
-+}
-+
- /*
-  * Cancel the copy-to-cache mark on a folio.
-  */
-@@ -311,6 +327,14 @@ static void netfs_collect_read_results(struct netfs_io_request *rreq)
- 			    test_bit(NETFS_SREQ_HIT_EOF, &front->flags))
- 				netfs_read_unlock_folios(rreq, &notes);
- 		} else {
-+			if (!(notes & HIT_PENDING) &&
-+			    front->error == 0 &&
-+			    transferred < front->len &&
-+			    test_bit(NETFS_SREQ_CLEAR_TAIL, &front->flags)) {
-+				netfs_clear_unread_dio(front);
-+				transferred = front->transferred;
-+				trace_netfs_sreq(front, netfs_sreq_trace_clear);
-+			}
- 			stream->collected_to = front->start + transferred;
- 			rreq->collected_to = stream->collected_to;
+ 	in_data.file_offset = cpu_to_le64(off);
+ 	in_data.length = cpu_to_le64(len);
+ 	rc = SMB2_ioctl(xid, tcon, cfile->fid.persistent_fid,
+@@ -3759,7 +3777,7 @@ static int smb3_simple_fallocate_range(unsigned int xid,
+ 			1024 * sizeof(struct file_allocated_range_buffer),
+ 			(char **)&out_data, &out_data_len);
+ 	if (rc)
+-		goto out;
++		goto out_unlock;
+ 
+ 	tmp_data = out_data;
+ 	while (len) {
+@@ -3769,12 +3787,12 @@ static int smb3_simple_fallocate_range(unsigned int xid,
+ 		if (out_data_len == 0) {
+ 			rc = smb3_simple_fallocate_write_range(xid, tcon,
+ 					       cfile, off, len, buf);
+-			goto out;
++			goto out_unlock;
  		}
+ 
+ 		if (out_data_len < sizeof(struct file_allocated_range_buffer)) {
+ 			rc = -EINVAL;
+-			goto out;
++			goto out_unlock;
+ 		}
+ 
+ 		range_start = le64_to_cpu(tmp_data->file_offset);
+@@ -3782,7 +3800,7 @@ static int smb3_simple_fallocate_range(unsigned int xid,
+ 		if (check_add_overflow(range_start, range_len, &range_end) ||
+ 		    range_end > S64_MAX) {
+ 			rc = -EINVAL;
+-			goto out;
++			goto out_unlock;
+ 		}
+ 
+ 		if (off < range_start) {
+@@ -3797,11 +3815,11 @@ static int smb3_simple_fallocate_range(unsigned int xid,
+ 			rc = smb3_simple_fallocate_write_range(xid, tcon,
+ 					       cfile, off, l, buf);
+ 			if (rc)
+-				goto out;
++				goto out_unlock;
+ 			off = off + l;
+ 			len = len - l;
+ 			if (len == 0)
+-				goto out;
++				goto out_unlock;
+ 		}
+ 		/*
+ 		 * We are at a section of allocated data, just skip forward
+@@ -3820,6 +3838,8 @@ static int smb3_simple_fallocate_range(unsigned int xid,
+ 		out_data_len -= sizeof(struct file_allocated_range_buffer);
+ 	}
+ 
++ out_unlock:
++	filemap_invalidate_unlock(inode->i_mapping);
+  out:
+ 	kfree(out_data);
+ 	kvfree(buf);
 -- 
 2.55.0
 
