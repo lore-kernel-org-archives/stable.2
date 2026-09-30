@@ -1,40 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E1A24FDA5A;
-	Wed, 30 Sep 2026 16:25:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54893509EF3;
+	Wed, 30 Sep 2026 16:25:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790785545; cv=none; b=YSPePUfXs25v2hXTjY8OZajeAyWjkqcYMxve5XlRiM20hfhXCOAAX3OX4LmWdT6lX4RsgIVBq8cW5thHnM2CYn/UmUR/QFfSYDJ3a2+BkPOsapLtklqN2Rzwr7GDq/bTlLm3j561CvOYoTb3b/PLKcL4kWuNP1QiQBvu7VNJ9Cw=
+	t=1790785551; cv=none; b=Hd979vdIDjyCyxPNqM+JzjcMixVa+CaRn9InQtlP8AgOzB1nyOOQJsTcJ8jRqR3HwcmrRuig85FuvsVzPsO9dUmrYdxvHySDpKwHeLQWeNbsrljoTG/oZuSbQ4qCx2aygPpT259Nj5DeGzNBFhqfUMZALF4dqju/3hztfeeNPDM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790785545; c=relaxed/simple;
-	bh=F5/+c08ibUb1aILY54CZhw6qALtpnQ9NTYI57CqhPkk=;
+	s=arc-20240116; t=1790785551; c=relaxed/simple;
+	bh=Y2yy9DXgLwp6Kgp94Q+uf4DF8rzAHQxZZPuxbaHeiF4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pD7yp5MbQUJfXBfIMABaQqbFCXVpjAvGfzEkjMuGDcwkwzC3DBs8/2I7yN6R5n8ZGuK725+oUPBcPllYKiaYzqbLo00ldzyIxvZyNjnZJ2YaMmvez5xbLdXmi3d3gY6wO4ksNcUha+3g12t7qfLbsInR6Y5N4xVlZy1PG9UHauQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Y5OKb3Kq; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=mF3xvktE4AWemABsJXRncM7a1qXtboERAGG8TnASlDdNfDfa2Bp5WruzXiMqG7iMjwUBzSlTigSNR06s/G5wf5xeXyOvi7Kur5AIroCkukH53oRLwbq2B23FHkYfD1dAlM4lwTowa6ZYy7kVPHxnHIF1qX7EqZMJRPfo+bXNSZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=WVoMfdwQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Y5OKb3Kq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B3951F00893;
-	Wed, 30 Sep 2026 16:25:31 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WVoMfdwQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E66331F000FF;
+	Wed, 30 Sep 2026 16:25:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790785531;
-	bh=M8gF9wMpcFXThwg83aWT2hP5++Gk+zo7fv64DOJATuw=;
+	s=korg; t=1790785540;
+	bh=mu/j39lpftBdUC9GC1n1G7CoKdnAtAaTBploMrmRhSE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Y5OKb3Kq0fQYR66cvaj682MfMkHFdkfXpNUI7t2tK4PgBaOecg9u76DkHyCMpH81z
-	 vN0tIuB0R0t6VYRo+IkmYVapMEMM6YocwZwhrI8PtWmhS+IJ943F06sBKwa8DnaQXJ
-	 ZSgQ/H8l2CPUNDZwtgRSLRAniYplrczGDWAtNfP8=
+	b=WVoMfdwQsg3Z17dcBxoYkiNZC/OF2G6hRUc+Z5ssxKvwthP3VIF8JeFPQ0g3JPYkk
+	 vtxuaFgOR+wYwIwcZcGjePNBuDbBj3iKR3TCQAhwHN43cNKabGIaL2N6YeF/NNurW3
+	 UPwLFbwZaKwqA5mS+OCZwkrw64vFftXqaGtjEk6E=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	stable <stable@kernel.org>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Shivaprasad G Bhat <sbhat@linux.ibm.com>,
-	Amit Machhiwal <amachhiw@linux.ibm.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>
-Subject: [PATCH 6.1 497/982] powerpc/eeh: Fix recursive locking on devices without EEH sensitive driver
-Date: Wed, 30 Sep 2026 17:20:33 +0200
-Message-ID: <20260930152427.457563168@linuxfoundation.org>
+	Tristan Madani <tristan@talencesecurity.com>,
+	Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH 6.1 500/982] ALSA: usbusx2y: fix in04_last array size mismatch with in04_buf
+Date: Wed, 30 Sep 2026 17:20:36 +0200
+Message-ID: <20260930152427.522543494@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
 References: <20260930152416.775402466@linuxfoundation.org>
@@ -53,57 +50,84 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Shivaprasad G Bhat <sbhat@linux.ibm.com>
+From: Tristan Madani <tristan@talencesecurity.com>
 
-commit c5e68706527968282e49de205cc2b935823cb88a upstream.
+commit 861111a14740e12c36d363e9830f8daa734279c9 upstream.
 
-The commit 1010b4c012b0 ("powerpc/eeh: Make EEH driver device hotplug
-safe") refactored the EEH code such that the pci_rescan_remove_lock is
-held at the beginning of eeh_handle_normal_event() and the
-eeh_reset_device() is called with that lock being held. Looks like the
-commit missed to remove the existing lock/unlock inside eeh_rmv_device()
-which is no longer necessary. This is causing the eehd to hang on the
-lock which it actually holds when that code path is taken.
+The in04_last array in struct usx2ydev is declared as char[24], but
+in04_buf is allocated as sizeof(struct us428_ctls) which is 21 bytes.
+In i_usx2y_in04_int(), when ctl_snapshot_last == -2 (initialization
+path):
 
-[<0>] 0xc00000011c78f870
-[<0>] __switch_to+0xfc/0x1a0
-[<0>] pci_lock_rescan_remove+0x30/0x44
-[<0>] eeh_rmv_device+0x290/0x2e0
-[<0>] eeh_pe_dev_traverse+0x80/0x130
-[<0>] eeh_reset_device+0xcc/0x23c
-[<0>] eeh_handle_normal_event+0x830/0xa80
-[<0>] eeh_event_handler+0xf8/0x190
-[<0>] kthread+0x194/0x1b0
-[<0>] start_kernel_thread+0x14/0x18
+    memcpy(usx2y->in04_last, usx2y->in04_buf, sizeof(usx2y->in04_last));
 
-The issue is seen for cases where the errors are detected on the PHB
-directly AND|OR for devices where the driver error_detected() returns
-PCI_ERS_RESULT_NEED_RESET, and driver being not EEH sensitive(i.e no
-error handlers like slot_reset(), resume() etc defined).
+This copies 24 bytes from a 21-byte slab allocation, reading 3 bytes
+past the end of the source object.
 
-Fixes: 1010b4c012b0 ("powerpc/eeh: Make EEH driver device hotplug safe")
-Cc: stable <stable@kernel.org>
-Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-Signed-off-by: Shivaprasad G Bhat <sbhat@linux.ibm.com>
-Reviewed-by: Amit Machhiwal <amachhiw@linux.ibm.com>
-Signed-off-by: Madhavan Srinivasan <maddy@linux.ibm.com>
-Link: https://patch.msgid.link/178404937381.913.2759874335293830160.stgit@linux.ibm.com
+Introduce a USX2Y_IN04_SIZE constant defined as sizeof(struct
+us428_ctls) and use it consistently for the in04_last array, the
+in04_buf allocation, the URB transfer length, and the comparison loop,
+replacing the bare 24 and 21 literals throughout.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+Link: https://patch.msgid.link/20260904205826.4071119-1-tristmd@gmail.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- arch/powerpc/kernel/eeh_driver.c |    2 --
- 1 file changed, 2 deletions(-)
+ sound/usb/usx2y/usbusx2y.c |    6 +++---
+ sound/usb/usx2y/usbusx2y.h |    4 +++-
+ 2 files changed, 6 insertions(+), 4 deletions(-)
 
---- a/arch/powerpc/kernel/eeh_driver.c
-+++ b/arch/powerpc/kernel/eeh_driver.c
-@@ -533,9 +533,7 @@ static void eeh_rmv_device(struct eeh_de
- 		if (rmv_data)
- 			list_add(&edev->rmv_entry, &rmv_data->removed_vf_list);
- 	} else {
--		pci_lock_rescan_remove();
- 		pci_stop_and_remove_bus_device(dev);
--		pci_unlock_rescan_remove();
+--- a/sound/usb/usx2y/usbusx2y.c
++++ b/sound/usb/usx2y/usbusx2y.c
+@@ -197,7 +197,7 @@ static void i_usx2y_in04_int(struct urb
+ 			memcpy(usx2y->in04_last, usx2y->in04_buf, sizeof(usx2y->in04_last));
+ 			us428ctls->ctl_snapshot_last = -1;
+ 		} else {
+-			for (i = 0; i < 21; i++) {
++			for (i = 0; i < USX2Y_IN04_SIZE; i++) {
+ 				if (usx2y->in04_last[i] != ((char *)usx2y->in04_buf)[i]) {
+ 					if (diff < 0)
+ 						diff = i;
+@@ -306,7 +306,7 @@ int usx2y_in04_init(struct usx2ydev *usx
+ 		goto error;
  	}
- }
  
+-	usx2y->in04_buf = kmalloc(21, GFP_KERNEL);
++	usx2y->in04_buf = kmalloc(USX2Y_IN04_SIZE, GFP_KERNEL);
+ 	if (!usx2y->in04_buf) {
+ 		err = -ENOMEM;
+ 		goto error;
+@@ -314,7 +314,7 @@ int usx2y_in04_init(struct usx2ydev *usx
+ 
+ 	init_waitqueue_head(&usx2y->in04_wait_queue);
+ 	usb_fill_int_urb(usx2y->in04_urb, usx2y->dev, usb_rcvintpipe(usx2y->dev, 0x4),
+-			 usx2y->in04_buf, 21,
++			 usx2y->in04_buf, USX2Y_IN04_SIZE,
+ 			 i_usx2y_in04_int, usx2y,
+ 			 10);
+ 	if (usb_urb_ep_type_check(usx2y->in04_urb)) {
+--- a/sound/usb/usx2y/usbusx2y.h
++++ b/sound/usb/usx2y/usbusx2y.h
+@@ -5,6 +5,8 @@
+ #include "../midi.h"
+ #include "usbus428ctldefs.h"
+ 
++#define USX2Y_IN04_SIZE	sizeof(struct us428_ctls)
++
+ #define NRURBS	        2
+ 
+ /* Default value used for nr of packs per urb.
+@@ -55,7 +57,7 @@ struct usx2ydev {
+ 	int			stride;
+ 	struct urb		*in04_urb;
+ 	void			*in04_buf;
+-	char			in04_last[24];
++	char			in04_last[USX2Y_IN04_SIZE];
+ 	unsigned int		in04_int_calls;
+ 	struct snd_usx2y_urb_seq	*us04;
+ 	wait_queue_head_t	in04_wait_queue;
 
 
