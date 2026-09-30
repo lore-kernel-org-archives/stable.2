@@ -1,36 +1,36 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 100ED50AC30;
-	Wed, 30 Sep 2026 16:26:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB8974E324D;
+	Wed, 30 Sep 2026 16:26:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790785572; cv=none; b=radZt+uhC8+P82vUq0Z60t7TxptSjoZPBxSLC3amW+XmfivsNfMUl36JPCjRqMRxuVYg0FV6wBLXbxYHkYmK3Wgyem9CqjnLf5JKoBvKPSxPn3NGk5ohVFaTKZHFXsa4xZOHeDYWHCadhtDautmX5orIxMw7KDvftmBtIceaZt0=
+	t=1790785582; cv=none; b=RsK+U8Bx4oQGl+NZQSX01cRsWfrRXT7xZldV7FL0QHO0WqHjYvuSccYsKnrmgIVaomDtlHeeNFsG5iaWnXerfnqLSqtI3r38qSoVm7oTbglUnIbWG5yZvgYVGfY96sDBkGRhPLUqNy9sh0gbMMwcwcYfSP/8ov2ZwyJCQp8ofBI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790785572; c=relaxed/simple;
-	bh=kblKfVXzyB3Q16pyDrOjTpoHhPLnbzkV+f9f9apwVNI=;
+	s=arc-20240116; t=1790785582; c=relaxed/simple;
+	bh=aDstJmnSt8iKTOlXqEN5PJaM1IVYPc7LxB/9+iRaIjE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UrDL+LtM8fzQ/cKT21Mg38iYKLDc8l0DXmncL60nURPhysdz6OqTnMCvHf4X37fQLLkv0b308gEHQWtLzeaEVyHGrgFZTtVYDnD7TgVjVOat3ikhJwnOi5E+MnSfl4/1DWVlJYyNZjWLF3KR24IoXXeAnnoallTcsZ9tyyDnw2g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TBXhhgB+; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=qjqwLZN1RbayGINsdpTjyHWseZp5CcS5AVZ33IegKXoCVk6GRW5EcVkV932AgWjmkY9TjRUijSMC8rd+P2V2uF9kbffmJ+qHUSlT1OfY9yrdtvQ/d8DS6vWBaFiM2vCBC+YQ+egCkJh56Ha1wMgVvrWN1/1mVIkS2GZ1Vp3TqUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=aVAULzQW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TBXhhgB+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DA571F00898;
-	Wed, 30 Sep 2026 16:26:07 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="aVAULzQW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE3F61F00893;
+	Wed, 30 Sep 2026 16:26:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790785568;
-	bh=LCbFfO2G8Yy8C0DZDD6QNtnqulAefu3kj+2cFkxGw7s=;
+	s=korg; t=1790785574;
+	bh=Oxc7z+pFCtKzLcHeduwfMcxfvYVe5ijWh3NAcyxfjmQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TBXhhgB+7BLFW2XK2P6QPgAZ5IfRU+AkAi7ewayWqAiu7XZaZVVI0YeXHCebJt2/Q
-	 DMZPCTqZ/zI0Li4YT9TRGZ+OiaW9ocSt53HorCLb3iwuRpX944x9BVlETGcL3TrkX+
-	 aiLDYKEf9uNO9FN0RB/2DrjsTXBzORXbiHPFnZEs=
+	b=aVAULzQWMYpaZYKARE1VKWmlHcg+qgXLBSQ6d4RU5MIIIeZIBahkgj5EDrboWDZGL
+	 jfQ5MTMBHAZdPfEGh3t4QFfXpSueqvUAhwvziamUubzjlwK+p61iOPDnOX3PUGL/3p
+	 K//DFDCD5dJORWZ17yjx5A8YF06PygwXGsof2qdo=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 556/982] Revert "nvme-apple: Reset q->sq_tail during queue init"
-Date: Wed, 30 Sep 2026 17:21:32 +0200
-Message-ID: <20260930152428.716596084@linuxfoundation.org>
+Subject: [PATCH 6.1 558/982] Revert "nvme-apple: Drop the PRP null check chicken bit"
+Date: Wed, 30 Sep 2026 17:21:34 +0200
+Message-ID: <20260930152428.759559692@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
 References: <20260930152416.775402466@linuxfoundation.org>
@@ -49,25 +49,45 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-This reverts commit 225b7af1dbd589c33faabe90b5bd85bd6a73b8b6.
+This reverts commit 201edb5f22d4d126a48fb69850a2a7f190982e59.
 
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/nvme/host/apple.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/nvme/host/apple.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
 diff --git a/drivers/nvme/host/apple.c b/drivers/nvme/host/apple.c
-index e46048b755d17..060f80c5ebeda 100644
+index 6fb881f3807c5..778cd619aeebd 100644
 --- a/drivers/nvme/host/apple.c
 +++ b/drivers/nvme/host/apple.c
-@@ -1009,7 +1009,6 @@ static void apple_nvme_init_queue(struct apple_nvme_queue *q)
- 	unsigned int depth = apple_nvme_queue_depth(q);
- 	struct apple_nvme *anv = queue_to_apple_nvme(q);
+@@ -47,6 +47,9 @@
+ #define APPLE_ANS_BOOT_STATUS	 0x1300
+ #define APPLE_ANS_BOOT_STATUS_OK 0xde71ce55
  
--	q->sq_tail = 0;
- 	q->cq_head = 0;
- 	q->cq_phase = 1;
- 	if (anv->hw->has_lsq_nvmmu)
++#define APPLE_ANS_UNKNOWN_CTRL	 0x24008
++#define APPLE_ANS_PRP_NULL_CHECK BIT(11)
++
+ #define APPLE_ANS_LINEAR_SQ_CTRL 0x24908
+ #define APPLE_ANS_LINEAR_SQ_EN	 BIT(0)
+ 
+@@ -1111,6 +1114,17 @@ static void apple_nvme_reset_work(struct work_struct *work)
+ 		/* Setup the NVMMU for the maximum admin and IO queue depth */
+ 		writel(anv->hw->max_queue_depth - 1,
+ 			anv->mmio_nvme + APPLE_NVMMU_NUM_TCBS);
++
++		/*
++		 * This is probably a chicken bit: without it all commands
++		 * where any PRP is set to zero (including those that don't use
++		 * that field) fail and the co-processor complains about
++		 * "completed with err BAD_CMD-" or a "NULL_PRP_PTR_ERR" in the
++		 * syslog
++		 */
++		writel(readl(anv->mmio_nvme + APPLE_ANS_UNKNOWN_CTRL) &
++			~APPLE_ANS_PRP_NULL_CHECK,
++			anv->mmio_nvme + APPLE_ANS_UNKNOWN_CTRL);
+ 	}
+ 
+ 	/* Setup the admin queue */
 -- 
 2.53.0
 
