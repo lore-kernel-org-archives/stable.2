@@ -1,110 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D602517BCB;
-	Wed, 30 Sep 2026 16:08:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 66D06511E9C
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 16:07:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790784486; cv=none; b=d9KUOqZOH9kDJ7DuZOFYxsk3qhrhU4WCJl8Es5kX7Sww2UQhz2MrZuUIcirM+G0XJHeuyyZWRuh4w2HljLtu94nSqYlTNVhPLUey0PbRs5C1mNcOjGaKV9sFZCaw61lJ1b2XfZSlMj7GAsbCYOpFE4OsLh6gflFYhidAU3VCpk0=
+	t=1790784486; cv=none; b=TpFzSM9dc+/k/nDgkfXn69aKIqkyJr4cWJPVEVliRfTSv9B83pHr63yoSWjMY0frtkP6t9zOKUjauf2uygs3Yg/XG7sfSAigzFsF07rH/p5QD5idiEXhFnrLk04o0lT01m+lKUlX5XeOBDJ9DleqyGuMgSuHRmcvt2HN5A1+3SI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790784486; c=relaxed/simple;
-	bh=b8OFyFtmV4YkyzK8x4IeXnH9IopNtLkx6bX4FqOU7bA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BfhrQGT4c4ch1667NVRyJIPgsfW/CvHx8WHTxhmdFwvgnWYeq7h02v5Pl16UCgrHWF1nJ1KOeGDWwFXl7K5pXnduJQXOGcAIX8gn/FrlOeVHLuXdEgjtUdQtX/REvg6Hly2WYDiUwTbpNtTFi7x5DlawiVTtJcL9v/KJ7Y31cMA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vbwTfDsx; arc=none smtp.client-ip=100.103.45.18
+	bh=AzoXOLzGjyaVfPtVwerDXKD7G1qpD1+GSMFpiLIuzMQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=I7K+107ShEdaBfoIPUkcOX1BXrTZDAusE/775xlwUnyJfStJct2il31X7LfKR+KCWVHlDtORya9i2PolAsD0TgiDvezVJTQckX0Qehw07oPtiWLjFwQCve5uRMlv1GYu3wOpCoSN66wUY/DumwBgGNpwj/8dUwXKd8ZcLJDWUK0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=B+h3A4yE; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vbwTfDsx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A16EA1F000FF;
-	Wed, 30 Sep 2026 16:08:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790784482;
-	bh=8aj/Z+BffbbeYx5wtOZNE8DL3fZv9izwSr0vjtGjJps=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=vbwTfDsxQnN2ty/T2xSK0KfbO3QUSPNAipi4Nuee1JvntkBo+aQaSNNYQ59yvWm0n
-	 oyKnp4jLSF/wHmdRqbxBRUUjnyqDF2LcXCbxqmUejI0JUQlM0PxWY7yH/3K2U17jCD
-	 Rnc9atdki7Nt6guf77I+ZkI8RYQaWYLbU35GUrFo=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Dai Ngo <dai.ngo@oracle.com>,
-	Anna Schumaker <anna.schumaker@hammerspace.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 164/982] NFS: fix eof updates after NFSv4.2 fallocate/zero-range
-Date: Wed, 30 Sep 2026 17:15:00 +0200
-Message-ID: <20260930152420.333433611@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
-References: <20260930152416.775402466@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="B+h3A4yE"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7B8E9169E
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 09:07:52 -0700 (PDT)
+Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id A51C13FBF5
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 09:07:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790784475; bh=AzoXOLzGjyaVfPtVwerDXKD7G1qpD1+GSMFpiLIuzMQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=B+h3A4yESqwRasYUGXIgddEaWuzuSSIUfNO779YGTRra8MxAOQI5rtyLjGp78NSG7
+	 z54HVyMmQzivWnu0RUFdSALQ6oKGyGKG5Y1FKLVkY8HaR3/nVSfu5T3Zg97RJATKb7
+	 yy1SUrL13ZbfdLmmEKGi1Q3nDAZzQ1zjJKWQkd2M=
+Date: Wed, 30 Sep 2026 17:07:43 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Osama Abdelkader <osama.abdelkader@gmail.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Heiko Stuebner <heiko@sntech.de>, dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/panthor: validate userspace queue count against
+ initialized firmware slot count
+Message-ID: <ar0zz1IS8f4eUpXg@e142607>
+References: <20260804160048.174148-1-osama.abdelkader@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260804160048.174148-1-osama.abdelkader@gmail.com>
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+On Tue, Aug 04, 2026 at 06:00:47PM +0200, Osama Abdelkader wrote:
+> In panthor_drv.c:panthor_ioctl_group_create(),
+> the queue count is validated against the hardcoded maximum:
+> 
+> 	if (!args->queues.count || args->queues.count > MAX_CS_PER_CSG)
+> 		return -EINVAL;
+> 
+> However, if the firmware reports fewer slots than MAX_CS_PER_CSG,
+> panthor_fw_init_ifaces() will only initialize that smaller number of
+> stream interfaces.
+> 
+> If unprivileged userspace requests more queues than the firmware reported
+> (but no more than MAX_CS_PER_CSG), cs_slot_prog_locked() fetches an
+> uninitialized stream interface and may crash when dereferencing
+> cs_iface->input->ringbuf_base.
+> 
+> Fixes: de8548813824 ("drm/panthor: Add the scheduler logical block")
+> Cc: stable@vger.kernel.org
+> Reported-by: sashiko-bot@kernel.org
+> Closes: https://sashiko.dev/#/patchset/20260803141149.68182-1-osama.abdelkader@gmail.com?part=1
+> Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
 
-------------------
+Sorry for the delay caused by holidays and other things, this patch has now been merged.
 
-From: Dai Ngo <dai.ngo@oracle.com>
+Best regards,
+Liviu
 
-[ Upstream commit 35168eb947f230aaa35fd8416a30563ef89f5421 ]
+> ---
+>  drivers/gpu/drm/panthor/panthor_sched.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+> index 5832dccfc093..64749750e6ee 100644
+> --- a/drivers/gpu/drm/panthor/panthor_sched.c
+> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
+> @@ -3673,6 +3673,9 @@ int panthor_group_create(struct panthor_file *pfile,
+>  	    hweight64(group_args->tiler_core_mask) < group_args->max_tiler_cores)
+>  		return -EINVAL;
+>  
+> +	if (group_args->queues.count > sched->cs_slot_count)
+> +		return -EINVAL;
+> +
+>  	group = kzalloc_obj(*group);
+>  	if (!group)
+>  		return -ENOMEM;
+> -- 
+> 2.43.0
+> 
 
-Generic/075 reliably exposes a regression when the client holds an
-NFSv4 write delegation: ZERO_RANGE/ALLOCATE extends the file on the
-server, but the local inode keeps the old i_size. The test then fails
-with 'Size error' because the post-op attribute refresh refuses to
-touch i_size while a delegation is outstanding, and the cached EOF
-was never marked stale.
-
-Update _nfs42_proc_fallocate() so that on success it:
-
-- bumps i_size when the operation extends the file, and
-- marks NFS_INO_INVALID_BLOCKS since the block count can also change
-
-Tested with xfstests generic/075 over NFSv4.2.
-
-Signed-off-by: Dai Ngo <dai.ngo@oracle.com>
-Signed-off-by: Anna Schumaker <anna.schumaker@hammerspace.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/nfs/nfs42proc.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
-
-diff --git a/fs/nfs/nfs42proc.c b/fs/nfs/nfs42proc.c
-index 923ccd3b540f5..ad0ab93c1bb04 100644
---- a/fs/nfs/nfs42proc.c
-+++ b/fs/nfs/nfs42proc.c
-@@ -79,12 +79,17 @@ static int _nfs42_proc_fallocate(struct rpc_message *msg, struct file *filep,
- 	status = nfs4_call_sync(server->client, server, msg,
- 				&args.seq_args, &res.seq_res, 0);
- 	if (status == 0) {
--		if (nfs_should_remove_suid(inode)) {
--			spin_lock(&inode->i_lock);
-+		loff_t newsize = offset + len;
-+
-+		spin_lock(&inode->i_lock);
-+		if (newsize > i_size_read(inode))
-+			i_size_write(inode, newsize);
-+		nfs_set_cache_invalid(inode, NFS_INO_INVALID_BLOCKS);
-+		if (nfs_should_remove_suid(inode))
- 			nfs_set_cache_invalid(inode,
--				NFS_INO_REVAL_FORCED | NFS_INO_INVALID_MODE);
--			spin_unlock(&inode->i_lock);
--		}
-+					      NFS_INO_REVAL_FORCED |
-+					      NFS_INO_INVALID_MODE);
-+		spin_unlock(&inode->i_lock);
- 		status = nfs_post_op_update_inode_force_wcc(inode,
- 							    res.falloc_fattr);
- 	}
 -- 
-2.53.0
-
-
-
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
