@@ -1,168 +1,128 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB1404D1781;
-	Wed, 30 Sep 2026 11:29:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5227B3AFD06
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 11:31:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790767769; cv=none; b=IwhAkr0adXjrdk6P1Pj6Zrv8uLdzlmpYIQCNdp64tmbxpZRyXQK7f4P/JpJrrVGCJG2OFEGTWKk/zeQ3WccA9x7LQ1W8Ory0f6W+UrF/nNEzmSEvzIY6REX+/A1hUORPSRnq7flEIBpd4Vl+sk6RU7GJO6BmxBR22GYzYbl8lCs=
+	t=1790767901; cv=none; b=Xf2r2wJZxCXF/+NiEVjxpJIGVHQsRacugls7mA76NepBBVQo+4KKb6pN34K8tI38shYAZ0yKb0n0esCWIjw3O4ERVAbqFD5HNvVUg6MXpn9dDcFzOayaODFJId1qXL9R8URq/lJCe6ChOejaueVGzZyQAOhmSiyJKv9gTdAHT0A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790767769; c=relaxed/simple;
-	bh=Y+YqHRTyQd67P+coEMZYjNTxVdlkJ+wHPGQuPRvSz1c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PD5FArJRhfso3RPLKc398/mJ0p7Qyz1mjG1HYUMcY/9ZtXBrErCim0fvVs2Z6Ej38hoysHqlg/gAHQoz4RRTD+ZxpJ8izNaFqQ9JaMEr/Umg2I+aYZYnSX3sZwTQZpwPygLtA6fyT/jrvlyBOZKsdYWQpU/Rzm+duiUTjghTeqk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=C1yQtHZq; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=iNpY1vID; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=p3i3HRQT; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=G5ppi8Fg; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1790767901; c=relaxed/simple;
+	bh=WPUmm4x0j6sthZegG14XFdkTt4ANCL74A0r6femNKjE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=sCjpXg+KkrTYWnPOIl6SdYd8k/6cEOWO9XRbzHnpS/D+ajE1ZYW0thiKiBUOOEpUWpDb9ho720SRnf428Ck5QOufvTvieNXQ3u2VwbYapNdTbXCrp03j8hToZnhrosKnfA93X+5e8+czjksJ094emtfObYTOsv1z1f+1+KI/RDs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=R9Xj4S0T; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="C1yQtHZq";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="iNpY1vID";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="p3i3HRQT";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="G5ppi8Fg"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 7B5A91F88D;
-	Wed, 30 Sep 2026 11:29:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1790767755; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=czHfmONilSqBZ5eKgfPANF0ary+HpblwUS8HlTqFfi0=;
-	b=C1yQtHZquN5QPzok5t64LFf9KwbY6XIQwXiEmal7JWvGMcgwGYIjKO1paeDxTYnTgHSgeI
-	5p9kPiMy1Uy8D80gwoKX6Z5IJKO5F7Uf4bLY0lxWMtTvJTG+yTxGlBDC4UOvGa3JNdDRce
-	iB2dUM0GL17iSTEbyxfYn5cAD3NlReo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1790767755;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=czHfmONilSqBZ5eKgfPANF0ary+HpblwUS8HlTqFfi0=;
-	b=iNpY1vIDfVPm9i2IfUMs+QFipq+nv4ASUbZ6QEgdDHv6umXyDiXOOIXsroAujy7KNf4QWk
-	ljGvzLOAoAEhBUAA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1790767751; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=czHfmONilSqBZ5eKgfPANF0ary+HpblwUS8HlTqFfi0=;
-	b=p3i3HRQTcwxFvYducP7oYeUievk3BvWGevzVzbJam/2I2CpExwPlEA7Px6PbkqBACW3YlB
-	KrtelWcEkpTBPQG7UILyNYkiDXkYEyTwKMC+4YScAIkTvC2v70n46Z7vf24+3+iECGIVJw
-	kGh76IqtkxwJTHIPuxm0V5usWVldj3g=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1790767751;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=czHfmONilSqBZ5eKgfPANF0ary+HpblwUS8HlTqFfi0=;
-	b=G5ppi8Fg0IvFPrU0LHm5mYDpPzYVMcUA1fcH2Mq6RdykfD5qEkxeW4NcrxTsEheiHC3XQU
-	dO0R7dQd7/FPqEBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5571B13722;
-	Wed, 30 Sep 2026 11:29:11 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id n78LDIfyvGpfOAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 30 Sep 2026 11:29:11 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id CCC4EA13AD; Wed, 30 Sep 2026 13:29:10 +0200 (CEST)
-Date: Wed, 30 Sep 2026 13:29:10 +0200
-From: Jan Kara <jack@suse.cz>
-To: Giorgi Kobakhia <gkobakhi@asu.edu>
-Cc: Jan Kara <jack@suse.com>, linux-kernel@vger.kernel.org, 
-	Xiang Mei <xmei5@asu.edu>, stable@vger.kernel.org
-Subject: Re: [PATCH] udf: fix return value for non-recorded-allocated extents
- in udf_map_block()
-Message-ID: <hyp53lrzwckzp2sblhciocql4sidxvk2ujhc4zml2r72i2qkwv@ospm4msdwrto>
-References: <20260928200445.18722-1-gkobakhi@asu.edu>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="R9Xj4S0T"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=TS
+	hkSJ3EKVJ+nT+YZSx3ZP/36ZacHpx0Z8A5KjGt3WI=; b=R9Xj4S0Te9NVncurnV
+	MyFn5bktq++uPMmccDUjFY7aTymp/lKufrdVqXT0Xuo13EdgjIcfW7OXvqIkzZnL
+	zNmW8XFj8/KVhhKnj02L1SZc/mSCR4rkImsrYjkDjlmIPnvCLPmyWsGGkaO2Ok23
+	tW1sgXn8f5MOwtKBFig/+R8Zk=
+Received: from u2.. (unknown [])
+	by gzsmtp2 (Coremail) with SMTP id PSgvCgD3X9sT87xqUk0VCA--.2041S2;
+	Wed, 30 Sep 2026 19:31:32 +0800 (CST)
+From: taozj888@163.com
+To: taozj888@163.com
+Cc: stable@vger.kernel.org
+Subject: [PATCH net v2] net: macb: rate limit netdev error info print in the data path
+Date: Wed, 30 Sep 2026 11:31:27 +0000
+Message-Id: <20260930113127.388863-1-taozj888@163.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260928200445.18722-1-gkobakhi@asu.edu>
-X-Spamd-Result: default: False [-3.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[asu.edu:email,epos.bh:url,imap1.dmz-prg2.suse.org:helo,suse.com:email]
-X-Spam-Flag: NO
-X-Spam-Score: -3.80
-X-Spam-Level: 
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PSgvCgD3X9sT87xqUk0VCA--.2041S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXFWrAry3tw18ZF1rGr1xXwb_yoW5AF4Upa
+	yUA398Ww4kJr47A3Z7try8Ar1rAr98Kry5WrWkK3W3Xw15Ar90gFyagryYkFW8Ga9xAw1S
+	yw1UZayqkan3ZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRQeOLUUUUU=
+X-CM-SenderInfo: hwdr6yqyyyqiywtou0bp/xtbC3hTLk2q88xRpJgAA3s
 
-On Mon 28-09-26 13:04:45, Giorgi Kobakhia wrote:
-> In the if (!(map->iflags & UDF_MAP_CREATE)) check the ret is set to
-> inode_bmap(inode, map->lblk, &epos, &eloc, &elen, &offset, &etype),
-> which returns 1 on success, -errno on error and 0 on EOF. ret is set
-> back to 0 only if the etype of the extent is EXT_RECORDED_ALLOCATED.
-> In other cases the ret is still equal to 1, which is not a valid return
-> value for udf_map_block() and is later accessed in page_get_link().
-> 
->  Oops: general protection fault
->  KASAN: maybe wild-memory-access
->  RIP: 0010:page_get_link (fs/namei.c:6503)
->  Call Trace:
->   vfs_readlink (fs/namei.c:6419)
->   do_readlinkat (fs/stat.c:583)
->   __x64_sys_readlink (fs/stat.c:605 fs/stat.c:602 fs/stat.c:602)
-> 
-> Move the reset to 0 line outside the if, so udf_map_block() returns either
-> 0 or -errno, even if the extent type is not EXT_RECORDED_ALLOCATED.
-> 
-> Fixes: c226964ec786 ("udf: refactor inode_bmap() to handle error")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Tested-by: Xiang Mei <xmei5@asu.edu>
-> Signed-off-by: Giorgi Kobakhia <gkobakhi@asu.edu>
+From: taozijin <taozj888@163.com>
 
-Thanks for the fix! I've just rewritten the changelog to explain this can
-happen only for corrupted filesystems and added the fix to my tree.
+Now the MACB ethernet driver print the netdev error information
+directly by netdev_err(), which would lead to a large number of
+error information print if there was a significant number of
+error or just jumbo packets exceeding the MTU received when booting.
+For example, it would print a large number of:
 
-								Honza
+macb PHYT0036:00 eth0: not whole frame pointed by descriptor
+macb PHYT0036:00 eth0: not whole frame pointed by descriptor
+...
 
-> ---
->  fs/udf/inode.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/fs/udf/inode.c b/fs/udf/inode.c
-> index e45e546a739a..2f04c4f0e1b8 100644
-> --- a/fs/udf/inode.c
-> +++ b/fs/udf/inode.c
-> @@ -372,8 +372,8 @@ static int udf_map_block(struct inode *inode, struct udf_map_rq *map)
->  			map->pblk = udf_get_lb_pblock(inode->i_sb, &eloc,
->  							offset);
->  			map->oflags |= UDF_BLK_MAPPED;
-> -			ret = 0;
->  		}
-> +		ret = 0;
->  out_read:
->  		up_read(&iinfo->i_data_sem);
->  		brelse(epos.bh);
-> -- 
-> 2.43.0
-> 
+in gem_rx() by received a large number of packets without
+RX_EOF flag set, especially with unknown packet
+type that would penetrate the hardware offload for the IP packets.
+
+The unlimited prints here would greatly bother and delay
+the system booting process unless the source stop sending
+packets since they occupy the console output bandwidth and
+other processes have to wait for the completion of printing those
+messages.
+
+So rate limit the netdev error information print in the receive
+and transmit data path.
+
+Fixes: 89e5785fc8a6 ("[PATCH] Atmel MACB ethernet driver")
+Cc: stable@vger.kernel.org
+
+Signed-off-by: Zijin Tao <taozj888@163.com>
+---
+ drivers/net/ethernet/cadence/macb_main.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
+index 8e5c034dc3a4..ca60960bec36 100644
+--- a/drivers/net/ethernet/cadence/macb_main.c
++++ b/drivers/net/ethernet/cadence/macb_main.c
+@@ -1617,16 +1617,16 @@ static int gem_rx(struct macb_queue *queue, struct napi_struct *napi,
+ 		count++;
+ 
+ 		if (!(ctrl & MACB_BIT(RX_SOF) && ctrl & MACB_BIT(RX_EOF))) {
+-			netdev_err(bp->netdev,
+-				   "not whole frame pointed by descriptor\n");
++			if (net_ratelimit())
++				netdev_err(bp->netdev, "not whole frame pointed by descriptor\n");
+ 			bp->netdev->stats.rx_dropped++;
+ 			queue->stats.rx_dropped++;
+ 			break;
+ 		}
+ 		skb = queue->rx_skbuff[entry];
+ 		if (unlikely(!skb)) {
+-			netdev_err(bp->netdev,
+-				   "inconsistent Rx descriptor chain\n");
++			if (net_ratelimit())
++				netdev_err(bp->netdev, "inconsistent Rx descriptor chain\n");
+ 			bp->netdev->stats.rx_dropped++;
+ 			queue->stats.rx_dropped++;
+ 			break;
+@@ -1829,7 +1829,8 @@ static int macb_rx(struct macb_queue *queue, struct napi_struct *napi,
+ 		unsigned long flags;
+ 		u32 ctrl;
+ 
+-		netdev_err(bp->netdev, "RX queue corruption: reset it\n");
++		if (net_ratelimit())
++			netdev_err(bp->netdev, "RX queue corruption: reset it\n");
+ 
+ 		spin_lock_irqsave(&bp->lock, flags);
+ 
+@@ -2102,7 +2103,8 @@ static int macb_interrupt_misc(struct macb_queue *queue, u32 status)
+ 
+ 	if (status & MACB_BIT(HRESP)) {
+ 		queue_work(system_bh_wq, &bp->hresp_err_bh_work);
+-		netdev_err(netdev, "DMA bus error: HRESP not OK\n");
++		if (net_ratelimit())
++			netdev_err(netdev, "DMA bus error: HRESP not OK\n");
+ 		macb_queue_isr_clear(bp, queue, MACB_BIT(HRESP));
+ 	}
+ 
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.34.1
+
