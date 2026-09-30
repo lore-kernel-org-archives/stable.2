@@ -1,94 +1,128 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEAC6455616
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 19:49:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8DA9443E28;
+	Wed, 30 Sep 2026 19:50:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790797760; cv=none; b=iKTj4WDrsA1L2Ha+Q2I4DpdQYpuZczuz9xh4fHv0OBlq5w+eMUaHAlaJwzA2WGMHrAuymSr5z4ofXeO72JjEVX1jSTqfZJ8/qIy0hxE3Ntg2C0neBVNUviXy8q0f0T9LKdGGJpqXpI4Xjiva+VU+tntRu19Dtasc23uH+4F5/xM=
+	t=1790797814; cv=none; b=PiLf5ETrCjNwC53Y+XcoJ/Iy4uLn5m6Ilksa4WqMpG0y4evvTEvxbWIhyJI8rKEWx+EGgt4gTKssmO4YHINvsRd650579wTajfKBv4uR1HH0m/9wd4OLip5OjAwX+0ZTQlEoaxXAwCw932W8eWQYQGCllaD1u4+ZXcqJSy1k5lE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790797760; c=relaxed/simple;
-	bh=fpC/5qtbMu2abo0VSdYaGDLyQdJ484RYZUSMDY3ms1k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bmBP5mhdlvKA5R1lHV+QOXlUvq70/z6ap+lc0EsBvAquSPxYWi1Hgsc7IOQgndrKFtEyWQLzj9tsHWRO/GMN5iF+Gc0YBJWUfec+twf/gbOol5UZLC82ai772e0ftL7xT9W1Qmqct7IUDv4zVZk2f102mpEQh9CeglOYP9dXbCQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F9JF74fV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790797814; c=relaxed/simple;
+	bh=r64/YGNqeKa/6cWMFRJ2ShfQThhxpAU8t2rpVlkX/xE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=GQdOrWV9RnOpcZbFjSJk55SIxvmeiYqxcKYb5zdq/yaDN3nWQ5QiZ397iyXDIuS38J1GJIOKG2FGyoB3HORX8WyL7Q6BmYPinqiHp5rHFo0uyxWc6qwecdLGAAPqp38CRLbklgJQckQ/JTCw85VnQ1Tx5gqWbtx80oVQKpDcjdo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WMCJ/Vfn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F9JF74fV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 398591F000FF;
-	Wed, 30 Sep 2026 19:49:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WMCJ/Vfn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 311641F000FF;
+	Wed, 30 Sep 2026 19:50:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790797756;
-	bh=eW77hB/aQjvwJfwPLN54TQ8KaKLOm9LOEDgOE0wCgqE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=F9JF74fVlURPWwCROTLzBXu1qXZFvwvS6hX6bKqqGugVk33KBJm0W9LdHLaC3sdEV
-	 YqYMDNi25hmbj8AyQdRRY8M/gOfFfX5yAEwMfPRJZOplj/6R7WMWskZg0ufn6P6qDy
-	 zWRlqetI6sc6eCIOMateQOyW7hCnwbYiBRlHJ2Th2ItHe5VmjESWWndu2neNv44NKD
-	 NSmFgTfPSnuOGv386XGO4BQ5otCIkc/5NJD86P39XqxqvRUpRxPHfmVz+pDk8zEJ8n
-	 9+TzAbPeqEkmgiLNb+7FwA+WXq44aVq92SoOa5aoclJPr7GAcORTerj9igUrTxY7Lp
-	 sTK1IQLtYCDbA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Zihan Xi <zihanx@nebusec.ai>,
-	Vega <vega@nebusec.ai>,
-	Luxing Yin <root@tr0jan.top>,
-	Frank Sorenson <sorenson@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/3] smb: client: close handle after create-context parsing failure
-Date: Wed, 30 Sep 2026 15:49:11 -0400
-Message-ID: <20260930194911.886968-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260930194911.886968-1-sashal@kernel.org>
-References: <2026092945-chowder-rearview-c340@gregkh>
- <20260930194911.886968-1-sashal@kernel.org>
+	s=k20260515; t=1790797811;
+	bh=RdjWz/lV3EZK739lTtEqZ4pnzC5Y8vW4LYebFMoQQmA=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=WMCJ/VfnLq/+bhqf9NwAj05iZJwhJMSV9tlZ8zUMftderxjWUyAAMtL0oQ0DrWIn4
+	 fcOYSZ3xUU4T6JdNQnTB/vCSrLNzIGd1JCKe0wXiAxgoSFZVECg18PNQPDJV5r/Cub
+	 k2/miVS3iqdFK2jNmAskwfpOQCMkevMWPPjVQeaBdx5zO/3eqT7uUHkNigsht7qoSz
+	 SZhsn1BniXa3ASqkWpi2vk8psvkLJ/kvjGV/hc8GUL4IlOj0sonyrm9c1bVWfziTBL
+	 f7Nw/S7oB/B7dbFOP1ZUAKE3SAiI4zzBIgF129FB+jYGbtEq4fTPC0znG9akaphUqI
+	 X/ixEouMTuZew==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+To: Gary Guo <gary@garyguo.net>, Thorsten Leemhuis <linux@leemhuis.info>,
+ Jens Axboe <axboe@kernel.dk>
+Cc: Boqun Feng <boqun@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Gary Guo
+ <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn?= Roy Baron
+ <bjorn3_gh@protonmail.com>, Benno
+ Lossin <lossin@kernel.org>, Alice
+ Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo
+ Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
+ <acourbot@nvidia.com>, Onur =?utf-8?Q?=C3=96zkan?= <work@onurozkan.dev>,
+ linux-block@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Alvin
+ Sun <alvin.sun@linux.dev>, stable@vger.kernel.org, Priya Bala
+ Govindasamy <pgovind2@uci.edu>, Dylan Zueck <dzueck@uci.edu>, Yuan Tan
+ <ytan089@ucr.edu>, Sophon Z <aiqubits@hotmail.com>, Qingxiao Xu
+ <qingxiao@tamu.edu>, Malte Wechter <maltewechter@gmail.com>, Mark Brown
+ <broonie@kernel.org>, Linux kernel regressions list
+ <regressions@lists.linux.dev>, Linux Next Mailing List
+ <linux-next@vger.kernel.org>
+Subject: Re: [GIT PULL PATCH 0/9] Rust changes for v7.4-rc1
+In-Reply-To: <DLSRC2ORPMSV.2W8O7S95JLAXM@garyguo.net>
+References: <20260929-rust-block-for-v7-4-rc1-b4-v1-0-642a4c1aebd7@kernel.org>
+ <179068244058.1205226.1765319338142659278.b4-ty@b4>
+ <d1381ed8-eab8-4fd7-8b15-1e94876d7099@leemhuis.info>
+ <DLSRC2ORPMSV.2W8O7S95JLAXM@garyguo.net>
+Date: Wed, 30 Sep 2026 21:49:56 +0200
+Message-ID: <87zewya597.fsf@t14s.mail-host-address-is-not-set>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-From: Zihan Xi <zihanx@nebusec.ai>
+"Gary Guo" <gary@garyguo.net> writes:
 
-[ Upstream commit 566820af017e81497fb5e9d3ad6e7ffe2828bc8b ]
+> On Wed Sep 30, 2026 at 4:06 PM BST, Thorsten Leemhuis wrote:
+>> On 9/29/26 13:47, Jens Axboe wrote:
+>>> On Tue, 29 Sep 2026 11:33:58 +0200, Andreas Hindborg wrote:
+>>>> I have a number of Rust block layer patches I would ask you to pick for
+>>>> v7.4. I have collected them into a patch series as well as a pull request
+>>>> so you can use whatever is easier.
+>>>>
+>>>> The changes cover
+>>>>
+>>>>  - Style and formatting changes.
+>>>>  - Documentation fixes.
+>>>>  - Fixes for missing trait bounds that can cause API unsoundness.
+>>>>  - A change to set the owner of the file operations vtable in `GenDisk`.
+>>>>  - Two bug fixes for the rnull driver.
+>>>>
+>>>> [...]
+>>> 
+>>> Applied, thanks!
+>>>  [...]
+>>
+>> This series showed up in next today and broke the build for me on
+>> various Fedora releases for aarch64 and x86_64; reverting this series
+>> fixed that from a quick build test limited to drivers/block/rnull/
+>>
+>> The full error msg is quote long, find the top of it below. Full log:
+>> https://download.copr.fedorainfracloud.org/results/@kernel-vanilla/next/fedora-rawhide-aarch64/11055137-next-next-all/builder-live.log.gz
+>
+> The `Child: Send` bound is introduced in configfs:
+> https://lore.kernel.org/all/tencent_05937A22D2DA2BAE808EF19E491AA109BC09@qq.com/.
+> So this is more or less a semantic conflict.
 
-SMB2_open() accounts a successful CREATE response as a remote open before
-parsing its create contexts.  If smb2_parse_contexts() rejects malformed
-context data, SMB2_open() returns without closing the handle, leaving the
-server-side handle open and num_remote_opens elevated.
+I did not consider the interactions of the two trees together. Good
+thing we have linux-next.
 
-Close the handle after a post-CREATE context parsing failure so the error
-path releases the remote resource and balances the open count.
+> However, the fundamental issue is that TagSet never implements Send/Sync, which
+> means that "rust: block: fix `Send` bound for `GenDisk`" will unconditionally
+> strip away the Send implementation, which is problematic.
+>
+> Something like this should fix the issue:
+>
+>     unsafe impl<T: Operations<QueueData: Send>> Send for TagSet<T> {}
+>     unsafe impl<T: Operations<QueueData: Send>> Sync for TagSet<T> {}
+>
+> That said, I am not sure why the GenDisk need to carry `Arc<TagSet<T>>: Send`
+> bound in the first place. Removing it should also fix the issue.
 
-Fixes: af1689a9b770 ("smb: client: fix potential OOBs in smb2_parse_contexts()")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Co-developed-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
-Tested-by: Frank Sorenson <sorenson@redhat.com>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/smb/client/smb2pdu.c | 3 +++
- 1 file changed, 3 insertions(+)
+`GenDisk<T>` has a field of type `Arc<TagSet<T>>`, so for `GenDisk` to be
+send, so must `Arc<TagSet<T>>`. That `Arc` may be dropped with the
+`GenDisk` if it is the last reference.
 
-diff --git a/fs/smb/client/smb2pdu.c b/fs/smb/client/smb2pdu.c
-index a2dc353b6e691..2e339a2062b5f 100644
---- a/fs/smb/client/smb2pdu.c
-+++ b/fs/smb/client/smb2pdu.c
-@@ -3285,6 +3285,9 @@ SMB2_open(const unsigned int xid, struct cifs_open_parms *oparms, __le16 *path,
- 
- 	rc = smb2_parse_contexts(server, &rsp_iov, &oparms->fid->epoch,
- 				 oparms->fid->lease_key, oplock, file_info, posix);
-+	if (rc)
-+		SMB2_close(xid, tcon, oparms->fid->persistent_fid,
-+			   oparms->fid->volatile_fid);
- 
- 	trace_smb3_open_done(xid, rsp->PersistentFileId, tcon->tid, ses->Suid,
- 			     oparms->create_options, oparms->desired_access);
--- 
-2.53.0
+> Also, the `QueueData: Send` bound should be part of the `Operations` trait and
+> not carried around everywhere.
+
+`QueueData` is not involved here. An unconditional implementation is
+fine. I submitted a patch here [1], hopefully Jens can pick it soon so
+next can be unbroken tomorrow.
+
+Best regards,
+Andreas Hindborg
+
+[1] https://lore.kernel.org/r/20260930-tag-set-send-sync-v1-1-51acdb36f4bb@kernel.org
 
