@@ -1,39 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB3B950B8C6;
-	Wed, 30 Sep 2026 15:38:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EA1D503900;
+	Wed, 30 Sep 2026 15:38:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790782726; cv=none; b=Nn3VeSfnCsxk3LSaYdZEfuHvwtce1GIukRw2UNByCCJCqTyou1eJfRa28Qm1nOLDdKeAOGKQKoyyJCDndlONPxeEerrPb4fKWDyCtjdEpt/CYVFG51/cZGVLnXN+vQ3swEPwszA18I/vE6+M6RE9ZBqtgLWEdaDK/MEKGXxfnHw=
+	t=1790782730; cv=none; b=ugZxZrpUtLCDWrat7iwcoVB9xkqTGUtC9W6vkHBto74pKurY8B9FbvT/ZA5D+gsn+kry+1hmI4LkzqbFMP+fNDrUUifAidDAjtbLoOfvmCdRy1bj/WAFRr62PTK2LOxNUuhDYuxa9fl2ScnS5bJ5VXomWZbihS1SRHO51hmmKV0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790782726; c=relaxed/simple;
-	bh=IBxnHGVqeVQ8j5eaTo1T3r+dEP3txI034bACb6FQbks=;
+	s=arc-20240116; t=1790782730; c=relaxed/simple;
+	bh=kms/fOXmilRhaTL/KG67UD4R0Uu4DraxmWgWLCsIz6o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=okgM0FPtmNsqq+gLthBxH0XzGeudGCKALy9p1ddu01vrgLSt5MRj2nDlnZzr8opYJIgO6Q31BbuPTHin5mJj28RwFnrcFkwAjl/8YQ8v6Q6AYAD/Keh4zLM0r8BrQNoQWtH6LWdWrQHmyS6DHbPYIC/Uw22GSBInCnZY91Xux0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=J7CPghCq; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=nNjg0+QKfua41uGpnobFm7hCzAs3SwYkwJXUdg6Nks9R/6I11K4mQDm5VHu+m3ICYkW5SQ9ESN2v5/EjcC0BifvVWOa3hSbjdPbGRjxJ0ZN6mdDYLy+/a/rdLkkVKKvusr0VkTt7kjkwcXrEMy/XL14msdrndEBZDqt+nB94iP4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=gAbp7xl2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="J7CPghCq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20B521F00898;
-	Wed, 30 Sep 2026 15:38:39 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gAbp7xl2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3C761F000FF;
+	Wed, 30 Sep 2026 15:38:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790782720;
-	bh=oQ/AjHrtI+uHB8Trs7dC+kkO+Y3AoBRj2lz3MIpH9ik=;
+	s=korg; t=1790782726;
+	bh=ICcTfNDNUJbMqn2SpV29IGQhcKvObhfPl68kSDKRDOg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J7CPghCqLV95n+cn+WmbA9F228CxnfF0DTODxrPQdx3XnfjdsGiPwiF2F1b6MdBUX
-	 kD5i1alLCrkUmtKesPXjt7cnlc3a0cShrf02uOguQNlYRrOXe67L/f5BHumdFveon6
-	 Ppbs8+eX1QowjVmJJJTrKv/lh84bUQjtK5ImR0tM=
+	b=gAbp7xl2C5Sh4mSbAKfRq8cpbe/UtRWhYBGV6mq9looH1lI89nDuiFl35+argMZ8Q
+	 VeQPQ+y1Cz4wz2wd5cswaiam6H+0Qvh/gtl0YsucgfGbtDGONC/ZAPCDUx9ATwtTvY
+	 xgHUSME8BdNoyanlMAV6ywDCz4wsfTOZUa68SmMM=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Simon Horman <horms@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
+	Haoxiang Li <haoxiang_li2024@163.com>,
+	Helge Deller <deller@gmx.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 145/595] net: au1000: move free_irq out of the close-time spinlocked section
-Date: Wed, 30 Sep 2026 17:20:38 +0200
-Message-ID: <20260930152350.851831992@linuxfoundation.org>
+Subject: [PATCH 5.10 147/595] fbdev: pm2fb: unwind WC setup on probe failure
+Date: Wed, 30 Sep 2026 17:20:40 +0200
+Message-ID: <20260930152350.895871966@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152347.700140858@linuxfoundation.org>
 References: <20260930152347.700140858@linuxfoundation.org>
@@ -52,55 +51,33 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+From: Haoxiang Li <haoxiang_li2024@163.com>
 
-[ Upstream commit f48763beab4eea41fc480c9702ec6eebe8d75e4f ]
+[ Upstream commit 16eb19f0c90af03bda6ba66586d7bb0e9cf85b43 ]
 
-au1000_close() calls free_irq() while aup->lock is still held with
-spin_lock_irqsave(). free_irq() can sleep because it takes the IRQ
-descriptor request mutex, so it does not belong inside the close-time
-spinlocked section.
+Add arch_phys_wc_del() on error path to keep the
+write-combining setup balanced when later probe
+steps fail.
 
-This was found by our static analysis tool and then confirmed by manual
-review of the in-tree au1000_close() .ndo_stop path. The reviewed path
-keeps aup->lock held across the MAC reset, queue stop and
-free_irq(dev->irq, dev).
-
-A directed runtime validation kept that ndo_stop carrier and the same
-free_irq(dev->irq, dev) operation under the driver lock. Lockdep reported
-"BUG: sleeping function called from invalid context" and "Invalid wait
-context" while free_irq() was taking desc->request_mutex, with
-au1000_close() and free_irq() on the stack.
-
-Drop aup->lock before freeing the IRQ. The protected close-time work still
-stops the device and queue before IRQ teardown, but the sleepable IRQ core
-path now runs outside the spinlocked section.
-
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Link: https://patch.msgid.link/20260619151816.1144289-1-runyu.xiao@seu.edu.cn
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+Signed-off-by: Helge Deller <deller@gmx.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/amd/au1000_eth.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/video/fbdev/pm2fb.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/net/ethernet/amd/au1000_eth.c b/drivers/net/ethernet/amd/au1000_eth.c
-index 19e195420e243..d3ad4716d72ac 100644
---- a/drivers/net/ethernet/amd/au1000_eth.c
-+++ b/drivers/net/ethernet/amd/au1000_eth.c
-@@ -943,9 +943,10 @@ static int au1000_close(struct net_device *dev)
- 	/* stop the device */
- 	netif_stop_queue(dev);
- 
-+	spin_unlock_irqrestore(&aup->lock, flags);
-+
- 	/* disable the interrupt */
- 	free_irq(dev->irq, dev);
--	spin_unlock_irqrestore(&aup->lock, flags);
- 
- 	return 0;
- }
+diff --git a/drivers/video/fbdev/pm2fb.c b/drivers/video/fbdev/pm2fb.c
+index 87b6a929a6b39..d7145a6c73545 100644
+--- a/drivers/video/fbdev/pm2fb.c
++++ b/drivers/video/fbdev/pm2fb.c
+@@ -1706,6 +1706,7 @@ static int pm2fb_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+  err_exit_both:
+ 	kfree(info->pixmap.addr);
+  err_exit_pixmap:
++	arch_phys_wc_del(default_par->wc_cookie);
+ 	iounmap(info->screen_base);
+ 	release_mem_region(pm2fb_fix.smem_start, pm2fb_fix.smem_len);
+  err_exit_mmio:
 -- 
 2.53.0
 
