@@ -1,152 +1,100 @@
-Received: from mail-ua2-f30.google.com (mail-ua2-f30.google.com [74.125.226.222])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B442C3C0630
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 18:57:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.222
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E3583B05A4;
+	Wed, 30 Sep 2026 18:57:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790794652; cv=none; b=iyX2wkZNrg4PxH1CyaPpgPP9Nx6jd1B2WNlXgkDwp6Y/3YgZfP4t/b1A1qc4Zu8ZLzi9XTCU5pRFuc7B5ioxQMPsoTsdysd48ZMB/gzHxYNO2bM7J5fHXZMSs4Pa3BaQrXWKSIR5gZc4x+yC/Mq8OGXx2VC2N+iUGcNpPXLM+RQ=
+	t=1790794652; cv=none; b=YjBzjCE+vJ1YpR43G9gp5RDvIP92fpJM9/GEGsdDfHVhypwNB7muY0DYxPwdK/trMpPlvHRWuafIwnnWJJHDIlcGi3WqzAjiy+axNUq5BTBJo7aQM7Ne812MFu21HvmzbqO7GU5E1G0WSW7Osj8Mi5n8tELWHn06BTikPnOfKf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790794652; c=relaxed/simple;
-	bh=3YipfBbJyYdWfgmMsJACajHIATDtDZV6pXG9BR40l5Y=;
+	bh=wI8AJXWR4OtV5LeKwIh78BOZRoxHpLOMDYYHreaQoaU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KnCw5bdjk3I4zs/68MMR6MLgJDHVMs/9NxVsj1WlcXPQ11Zc2MAsPa+5WgVnbesfthynyQmPKTOYCN2TmRGdKaj1+cL2Mzvh2p8iHvp1XoCqf8e6SLuNgjRPqM8YDmDJNovvbjP9a5Wkh/tJS80YwDCjXW5E/oH2LXsZg+tvgtQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TQfJ75Mk; arc=none smtp.client-ip=74.125.226.222
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=Kn1uCNWC0yp7fxu1lg0T67HyvNENCuz2cPoS5v2FFKrvjlohKqlqL86PIHzmgFKR9UXKL9FaXBazBDWxxr4HsvDPgb0GTMRmJvkqVO7v0ry4hvnejGGBLfX+7agTYb5xNv/KY98aSQwwjPYZ7iixsv39KW+aNF+77L42gSOx1m0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=k4nB62YK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TQfJ75Mk"
-Received: by mail-ua2-f30.google.com with SMTP id a1e0cc1a2514c-97e7c7b4ed1so3216540241.1
-        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 11:57:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790794649; x=1791399449; darn=vger.kernel.org;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2ZtFG6FaQjG/i5XO1LEXu5NyAdlTlgZvpK3ElwDNrH0=;
-        b=TQfJ75MksWUYsr5uGwEruOFhOPPn1+84TsuGgNjFp6nMjeRBlhxjIe/GvU19eb8Ldx
-         WnVBfWrOarkn6ng9CY5fypdTUbJ9KVukk8sv1CS3mVB1e9rME6pYos4lUVuCG4gKWS+J
-         K0SafDZl50PIzJ5G4H27N2wRTqjyu/Pq5RxZ+Td+E9RdaEDTFvCEfv5xB4Ov3L6YuCxM
-         KtZqGpBFV2CsA+6PlsNBAIfvXAEpPf/D/X6HHx9o6zZNrivycx6N+qXry2I+hqQC63Sd
-         2r2Q1TB1DLSPCQvxK/uFJAlAW9vCq3fxFTBRJIqJHl5omi/vlCd4uLr65aTR4HN9xvPn
-         gtEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790794649; x=1791399449;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2ZtFG6FaQjG/i5XO1LEXu5NyAdlTlgZvpK3ElwDNrH0=;
-        b=lbdYIxo5E2D7fzvddHtR6cJgZ0stAJyEUPjmOGhR5mJ6gqnnSGbAdUpKr7rB/JuQ/4
-         8VujGQSI0Yztnu+1R2ZgXOUy4nf9ESHqk3JSWoKgYrCTggcGChSs5EbSb+iq7HocmMeJ
-         hoR8mfBUWACooiQjyyYU3zqk1TGxSqsDXdJvk6IpOCKY7qJw2Y1xy2TzOETyWXPEl6dh
-         hkCHTy7rqGZ/zROs74SLMqFUyD5SPAJe2VDsJfOQIqEPBFF0v2TZ66A1pkqWfkLjLI8M
-         ZroxEuMBcg+9gEW3pp9VcZY6wi+9YaZ7fHubldoBCh9haniHKqSZLvoVKROO1777JrJL
-         +HJw==
-X-Forwarded-Encrypted: i=1; AKwUvBworrwl3T/leO7qL1TZi0OaxRy87VlykBiqvu8Iue4x46rykp+zcPCwCfjyl8tnkb1Ek3+fIKk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL9xn8dOoVJj1PVsBXnZBE8XF4cH1+ecYrdP9sUCRaK/kuCYWKB
-	Bvs6uXpwlXH08T5XjXcnv+ldifQlP2rjowvIwzJqre8wMZ6bzCVQ21D60oEBLg==
-X-Gm-Gg: AYBFou2Fyo5vdpFoNoKax8B+2Bq+/kQGZh/KQ+5mDi8I8BxuM6SOOThs4xeq4yPlCij
-	XCGFrv7LxybWvzd4hLRkCCy0L9ZjiL6y3uv1VIc/XNYOfRXUXH2d/IM+NknflxbQLv/tw4nKe1H
-	8CgZvRw7JitHsTRmFKCLV9ViDsTuHZT5Ezr68JFxzPtWiy14CBoVygSVZThThear/Aq6155U4nA
-	SbGFHNIG2eRsUZKxvf8LwiXMwcvCmOiabDGviMSXt0o0S0kOjnNHe7B2GB2grc+zsIiHiR76wmi
-	wjI5Z6h+BgtGyZBVtE+iDwXhUPjeqxqHgCWT63lnCPqysBxrh2ZXdriNwGrGWfG3oroFqRPGECD
-	sLZLrA+ACeqVeBebHXFZxW/Ew8BzgfzcSezS37Vdp+RIZ9kD797ylHSK4TqGZJUTMCeWJ2Ey1xe
-	/egsSPfEixx4f+Ey4W3nxM5R8RY8bMiScPvHQv8IwMcnGPkv7SQPneOYxNDGQnkrufFAo9K7XWQ
-	vh8kS5KpdOCoq6Svmjuw6cQm2pKAj+9qEvT7kaeAZifSFkqqrEI11bGqa5kwHMb2JiierIE4hqH
-	/TgcpJKZpQ==
-X-Received: by 2002:a05:6102:6448:b0:7a6:c647:cf50 with SMTP id ada2fe7eead31-7be72eab3bdmr763211137.8.1790794649316;
-        Wed, 30 Sep 2026 11:57:29 -0700 (PDT)
-Received: from timur-max.localnet (ipagstaticip-88fc351e-cb28-db3e-3f52-ad13c70f08da.sdsl.bell.ca. [142.127.77.63])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7bfa70d3ec9sm176452137.11.2026.09.30.11.57.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 11:57:29 -0700 (PDT)
-From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
-To: amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com
-Cc: harry.wentland@amd.com, alex.hung@amd.com, chiahsuan.chung@amd.com,
- ray.wu@amd.com, Leo Li <sunpeng.li@amd.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/amd/display: disable self-refresh on tearing flips
-Date: Wed, 30 Sep 2026 14:57:27 -0400
-Message-ID: <4c1BfmguQ8O9e4vVyhq5cw@gmail.com>
-In-Reply-To: <20260930163222.557757-1-sunpeng.li@amd.com>
-References: <20260930163222.557757-1-sunpeng.li@amd.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="k4nB62YK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8DDF1F000FF;
+	Wed, 30 Sep 2026 18:57:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790794651;
+	bh=WbGurcfOZ7Pqe+pJokJvKeU2G057su/YS5tYkTKnChY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=k4nB62YK8U0fynyj9sWesxBpjzEXO5C2vWH7ng2Det9NOy7TtOJjXInyD1FZe4daE
+	 iE8qkGvdVvzGFqIMvvyotEBLG+vKd7GwqPInLajH5tXqhlUGlhCXSr5HSU5Pe7s0u0
+	 q4U/WPWt/6jLXw1gP0XVG12nJm0avZmrDhaZveCY=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Zhao Li <enderaoelyther@gmail.com>,
+	Johannes Berg <johannes.berg@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6 0287/1193] wifi: mac80211: validate deauth frame length before reason access
+Date: Wed, 30 Sep 2026 17:16:11 +0200
+Message-ID: <20260930152440.541650720@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930152434.301151190@linuxfoundation.org>
+References: <20260930152434.301151190@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On 2026. szeptember 30., szerda 12:30:52 keleti =C3=A1llamokbeli ny=C3=A1ri=
- id=C5=91=20
-sunpeng.li@amd.com wrote:
-> From: Leo Li <sunpeng.li@amd.com>
->=20
-> [Why & How]
->=20
-> Immediate (tearing) flips breaks self refresh state machine assumptions,
-> so disable PSR/Replay for them.
->=20
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Leo Li <sunpeng.li@amd.com>
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-Patch fixes tearing updates on Strix Halo.
+------------------
 
-Tested-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+From: Zhao Li <enderaoelyther@gmail.com>
 
-> ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 19 +++++++++++++++++++
->  1 file changed, 19 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c index
-> 6e5dbe0bd82e5..d4c814eeb56d6 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -3764,6 +3764,13 @@ VISIBLE_IF_KUNIT void
-> amdgpu_dm_enable_self_refresh(struct amdgpu_display_manage struct
-> amdgpu_dm_connector *aconn =3D
->  		(struct amdgpu_dm_connector *)acrtc_state->stream-
->dm_stream_context;
->=20
-> +	if (!acrtc_state->base.async_flip) {
-> +		amdgpu_dm_psr_set_event(dm, acrtc_state->stream, false,
-> +			psr_event_immediate_flip, false);
-> +		amdgpu_dm_replay_set_event(dm, acrtc_state->stream,=20
-false,
-> +			replay_event_immediate_flip, false);
-> +	}
-> +
->  	/* Decrement skip count when SR is enabled and we're doing fast=20
-updates.
-> */ if (acrtc_state->update_type =3D=3D UPDATE_TYPE_FAST &&
->  	    (psr->psr_feature_enabled || pr->replay_feature_enabled)) {
-> @@ -4218,6 +4225,18 @@ static void amdgpu_dm_commit_planes(struct
-> drm_atomic_commit *state, spin_unlock_irqrestore(&pcrtc->dev->event_lock,
-> flags);
->  		}
->  		mutex_lock(&dm->dc_lock);
-> +		/*
-> +		 * Tearing (immediate) flips cannot work with panel self-
-refresh
-> +		 * features. The event is cleared by
-> +		 * amdgpu_dm_enable_self_refresh() once async flips stop.
-> +		 */
-> +		if (immediate_flip) {
-> +			dc_exit_ips_for_hw_access(dm->dc);
-> +			amdgpu_dm_psr_set_event(dm, acrtc_state-
->stream, true,
-> +				psr_event_immediate_flip, true);
-> +			amdgpu_dm_replay_set_event(dm, acrtc_state-
->stream, true,
-> +				replay_event_immediate_flip, true);
-> +		}
->  		update_planes_and_stream_adapter(dm->dc,
->  					 planes_count,
->  					 acrtc_state->stream,
+[ Upstream commit 4a360c6e18dfa9d70006c7247a6a8cc8dfe0d60f ]
 
+ieee80211_rx_mgmt_deauth() reads the deauth reason code before checking
+that the fixed field is actually present in the received frame.
+
+Validate the deauth frame length first and only then read the reason
+code.
+
+Assisted-by: Codex:gpt-5.5
+Assisted-by: Claude:claude-opus-4.8
+Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+Link: https://patch.msgid.link/20260612185042.66260-6-enderaoelyther@gmail.com
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/mac80211/mlme.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/net/mac80211/mlme.c b/net/mac80211/mlme.c
+index 496f2b36a0bed..ac3c2c3334fdf 100644
+--- a/net/mac80211/mlme.c
++++ b/net/mac80211/mlme.c
+@@ -3826,13 +3826,15 @@ static void ieee80211_rx_mgmt_deauth(struct ieee80211_sub_if_data *sdata,
+ 				     struct ieee80211_mgmt *mgmt, size_t len)
+ {
+ 	struct ieee80211_if_managed *ifmgd = &sdata->u.mgd;
+-	u16 reason_code = le16_to_cpu(mgmt->u.deauth.reason_code);
++	u16 reason_code;
+ 
+ 	sdata_assert_lock(sdata);
+ 
+-	if (len < 24 + 2)
++	if (len < offsetofend(struct ieee80211_mgmt, u.deauth.reason_code))
+ 		return;
+ 
++	reason_code = le16_to_cpu(mgmt->u.deauth.reason_code);
++
+ 	if (!ether_addr_equal(mgmt->bssid, mgmt->sa)) {
+ 		ieee80211_tdls_handle_disconnect(sdata, mgmt->sa, reason_code);
+ 		return;
+-- 
+2.53.0
 
 
 
