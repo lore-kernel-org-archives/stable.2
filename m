@@ -1,74 +1,137 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3F113164B4;
-	Wed, 30 Sep 2026 09:34:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAAC63793A5;
+	Wed, 30 Sep 2026 09:37:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790760841; cv=none; b=cbRdEoG4TWkjw0+pSVYxULVlAoWlslrvou2VJ7+xUev6IUofRlHPCtLqvpIGh9YGyNvUdTuc1batM4nmV9dDVaw9LJ3BvEps/3Ml0TkP1bzwoBmTa6EVJjTz93hODKVebxRtaH64y/lyZJjGKEs1nTbBYJQnlwtpk4R74kQOJAE=
+	t=1790761047; cv=none; b=KWr7OoTIwBQzabH1vQTKCiVVX05mDQK5yEGf7plZPFjpsw4S3SDtgIDJa77lovjXCxkZxunxNN27ca5PesR564ozeSQ6VL7MyNJuqOCdqq0eHMVBDOsiUX+/8T+N30zOBmoEl+WH0QDYkCY6RaEyX6pTl9yCNWzQTz/a8eBF7Ew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790760841; c=relaxed/simple;
-	bh=zvpmhm+BAUlfIVJ/6Kp9ShG7pA3G2q65FWBMzuTisWM=;
+	s=arc-20240116; t=1790761047; c=relaxed/simple;
+	bh=+EkrZEMmFnWOQsnZgC6gn1VpWaNzay67cH2YrkxYNEA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=eo5F0jT/r+J5hVwv/mZXBj10pkNh0Nxoygk0d8Q8E9HEu6yiudQzKbcUbV0lgr46rUSlQPZoDnVf8Ody9Xd3ET25eP6N00Pe3o9aqpmIVSxqQxRVu58h4cldnobXKPa/ExG2YICieGJ9p3Br1xAKGkD9CncU9LZ0plw5k+FQpu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hWxG3nCD; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=KJblWA+CxbQlISTl/BKO9vNXGaipMLqf+QNlx65tkJPpzG27jnnBIwJsZ0nipo7tvuZ1QSgjMw4CBfRVhirjBqc9TgCkj9z0wwewxRse5O20OKU9DrJkfe1T2aC3ZNnELr6ZO2XgYCb03Rbpy/v9gMzw0GuRJ5lYNHop2/i9Kx4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gPijUOYF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hWxG3nCD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC0AA1F00893;
-	Wed, 30 Sep 2026 09:33:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gPijUOYF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BC7C1F000FF;
+	Wed, 30 Sep 2026 09:37:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790760840;
-	bh=R4WIaVmgxMJzlsaERAlBqwLuDwVcuzfSzsQMDWtKV3E=;
+	s=k20260515; t=1790761045;
+	bh=TJhwfM7LT6ym6ruDowV8au+YTRMbhrcGdOAEosWhPaE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hWxG3nCDZrWLmetbhbBgNsmr0c8/yZNTV7HdNINYkSC8C4rOdnSEXmuhJgTNWh4id
-	 96O+6zZPMPuRRpsebP+D0kt+QYTp7Us/ohmUS5C5zaw2iogWKhp9+xCC1tg+etCR5P
-	 9glXbuCP9rVqk/hOfhg5Pjv4lzeM58/i85HSr4KBbdl9FsnwKPwIbVPsKUGybMsGfg
-	 1d2Tej8E3m8XDDv1S0yts9DAcU525XcqkYg8qFLt30uYruhHu7R45rpxE8D88zgLfm
-	 ZKGJdGsitDzpn+pqTuy22Q8+HQ78c6OzqB62CQXuMjcvjQ+7ogsyeSUHSpg7+25DGt
-	 0h4Ya/NHSbQng==
-From: netdev-bot+sinfo@kernel.org
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: Michael Chan <michael.chan@broadcom.com>,
- Pavan Chebbi <pavan.chebbi@broadcom.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Jeffrey Huang <huangjw@broadcom.com>, Eddie Wai <eddie.wai@broadcom.com>,
- Prashant Sreedharan <prashant@broadcom.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: Re: [PATCH] bnxt: prevent timer rearming during teardown
-Date: Wed, 30 Sep 2026 09:33:59 +0000
-Message-ID: <179076083948.31693.5116207941809657090@kernel.org>
-In-Reply-To: <20260930092806.2977763-1-runyu.xiao@seu.edu.cn>
-References: <20260930092806.2977763-1-runyu.xiao@seu.edu.cn>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	b=gPijUOYFBY30whKuElizvUvyUjYt+04gtiid8sSvsY6VYVxmYt8e/gXTp6fRfCJcp
+	 dLuwLlA6PBNCe2OUTyDisXpCEzgvT9bzfnoAcKT1VFIYHEnoPhA7qtTUtg2bUF004z
+	 4c3hr3yfEPump9x1zWbrmuFK4lDqpArWr2vkmyMHsz20AKCsmKKTQ4xng5j3YH+Q/6
+	 fgBcDa8/0rrJdEt9qzQRcoTC6yvTinooUOkOL0IbmGLEUkmNp1CLznSyMugcZUccNm
+	 ifL94d2gY8NxjjShq627tQlNd2WWH2Ca7AfPGz+B5hRPFEmH+A0JSiD+qj7gaSZje2
+	 jKA/QHXUfzNew==
+From: SJ Park <sj@kernel.org>
+To: stable@vger.kernel.org
+Cc: damon@lists.linux.dev,
+	Liew Rui Yan <aethernet65535@gmail.com>,
+	SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH 6.6.y] mm/damon/core: fix unconditionally skip last region
+Date: Wed, 30 Sep 2026 02:37:07 -0700
+Message-ID: <20260930093707.48739-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <2026092948-moonrise-persecute-3597@gregkh>
+References: <2026092948-moonrise-persecute-3597@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi!
+From: Liew Rui Yan <aethernet65535@gmail.com>
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Once quota set, the charge_{target,addr}_from unconditionally skips and
+resets at the last region of the tracked target, so the last region can be
+skipped even when it has not been processed.
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+Example:
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
+    1. Target has 2 regions: R1 (0-100 bytes) and R2 (100-200 bytes).
+    2. Quota is configured to process only 100 bytes per window.
+    3. Window 1: Processes R1 (0-100).  Quota is full.  charge_{target,
+       addr}_from is saved at (Target, 100).
+    4. Window 2: The loop reaches R2.  Because R2 is
+       damon_last_region(t), the old code unconditionally returns true,
+       skipping R2 entirely and resetting the charge_{target,addr}_from.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+    Result: R2 is permanently skipped even though it has never been
+    processed.
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+However, it is important to note that this is a very minor issue.  This is
+because it is triggered only when the previous window saved/kept
+charge_{target,addr}_from, and in the next window, all regions except the
+last region were skipped by damos_skip_charged_region().
+
+Fix this by only resetting the charge_{target,addr}_from when last region
+is reached, only skipping when it is applied or cannot split.
+
+Link: https://lore.kernel.org/20260908134739.96919-1-sj@kernel.org
+Fixes: 50585192bc2e ("mm/damon/schemes: skip already charged targets and regions")
+Signed-off-by: Liew Rui Yan <aethernet65535@gmail.com>
+Reviewed-by: SJ Park <sj@kernel.org>
+Signed-off-by: SJ Park <sj@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Cc: <stable@vger.kernel.org> # v5.16.x
+(cherry picked from commit b3723b596b548c837a766aae3553c14a7b15af2b)
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+ mm/damon/core.c | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
+
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 0713fda22682c..5ede1733369f5 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -883,19 +883,17 @@ static bool damos_skip_charged_region(struct damon_target *t,
+ 	struct damon_region *r = *rp;
+ 	struct damos_quota *quota = &s->quota;
+ 	unsigned long sz_to_skip;
++	bool skip = false;
+ 
+ 	/* Skip previously charged regions */
+ 	if (quota->charge_target_from) {
+ 		if (t != quota->charge_target_from)
+ 			return true;
+-		if (r == damon_last_region(t)) {
+-			quota->charge_target_from = NULL;
+-			quota->charge_addr_from = 0;
+-			return true;
+-		}
+ 		if (quota->charge_addr_from &&
+-				r->ar.end <= quota->charge_addr_from)
+-			return true;
++				r->ar.end <= quota->charge_addr_from) {
++			skip = true;
++			goto out;
++		}
+ 
+ 		if (quota->charge_addr_from && r->ar.start <
+ 				quota->charge_addr_from) {
+@@ -909,11 +907,15 @@ static bool damos_skip_charged_region(struct damon_target *t,
+ 			damon_split_region_at(t, r, sz_to_skip);
+ 			r = damon_next_region(r);
+ 			*rp = r;
++			skip = false;
+ 		}
++	}
++out:
++	if (r == damon_last_region(t)) {
+ 		quota->charge_target_from = NULL;
+ 		quota->charge_addr_from = 0;
+ 	}
+-	return false;
++	return skip;
+ }
+ 
+ static void damos_update_stat(struct damos *s,
+-- 
+2.47.3
+
