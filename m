@@ -1,45 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483103CBE6E
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 19:15:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B1E43CBE6E;
+	Wed, 30 Sep 2026 19:15:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790795724; cv=none; b=uS3cW2ZJ2dA3W9UhDs2hmoe4BiyX6PLvy3sXoXIKIHljAtTZdo09yZgyVVJrSvQFL1dPI4lIIPXHji7jJzacOv+a8T9EeKJ9LV294+NUqDhb6JU8A7iROsVhfCrpEKwTWF5WQGOVUMxZZN2vM+WmRPZWLPhHjYwnJ41T7UTo0UU=
+	t=1790795726; cv=none; b=lqnAyuzqyu5VxFbbDP2nel7XwP0PMBMuGubT2WE0fQBsDcK7EFqN4OGlPApgdR+uEr5zBp0FIvfK5IS9w/KnpzlouAMfAoEclCQYdV/YoN3z/u8ynsl2tq6MJUMg5R2PstFFHikTdiIAoKVqqbw5ETwLAc+NUVZ6OYiu+cPCLm0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790795724; c=relaxed/simple;
-	bh=t+aB8jzeApKHm6rSfNDzuLqAZJn5N0/mZZfYZybIib8=;
+	s=arc-20240116; t=1790795726; c=relaxed/simple;
+	bh=dUXWTGiU2tGRH/d44SN/d2cE7wwwJcAJBEB06VQTS94=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AVoFM5G9dw5oqVDu6ek8m0AP84X0iEufXX0w5lZZ3GFMsANpH9EtKWRH2LQg9HsumPAR5AKvI5Snzhj67iUm3iayzrkzEBYyHcShmOWdd2ZkMJlwgmAvsGFfWP4B+MBiGSZ6jByVf752wxZQfH6bsDFfJxlQ514JxqQ0OGyBDEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gqOpclaQ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=GZJHD2+97XKGFc+SmG6ucWZdG3tbIr+eZP6kI43RBtgzHAIysocn91lrGE5Ku4M5gK4d6R1mqjNcUzZWuUVPwKOCx2tqSIcPRGYMSIer4Y5DN8Tq8361STcH7LL7IrOHDjPcEQHHzF8q1Cp+jHhDzWZfooHVrwYXlg9dyrmy6Gc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=aFQSUce2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gqOpclaQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C3191F00898;
-	Wed, 30 Sep 2026 19:15:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790795723;
-	bh=Ym7HK+pU2PQzT+7dU6L3bZSoFrD7fiIGSvz/fbp8TF8=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="aFQSUce2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDE451F000FF;
+	Wed, 30 Sep 2026 19:15:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790795725;
+	bh=+eUBD0lfXCoRftPrf8vw4bXwvsMzICmNPPn5GifXMMk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gqOpclaQoLmDXsQgcZiVAGQlucCcMSpmrUcdjao8QkRzylXPPZhAAgDogiIcQgYGL
-	 ObVGiq34BostgAqYpF583WHEjzCpZM05/tYAkwR+RYa/rmEO9evH8hxhXfjvK894C/
-	 7MnUiT05VIQO66ZjHNo1NgzSDSwf6Z1wF77BJpJw1KngeM5QSP9zzTY7bcza0r+dpb
-	 R7dLajTG80uiixR3B4moAdQt7mZo+BT0nELSvbFC5GQYWap8HH83tBjiXCcP4RHlAe
-	 Z3CfXOgeNo1Wj0QbkhEDk5t7UlpKb5eGtpsXOWwxy/7dBhjHLJ3uK+K3tVX5j7Vrqt
-	 kJBxh/XhvmOfg==
-From: Sasha Levin <sashal@kernel.org>
+	b=aFQSUce2AezFlkhTYzqqFPGSm/+KQRkc65JCkXRm4TwPse05sDCAOLSHJvIBb6DBu
+	 W/4BcZR8td1FHaqZaMSfcATIlUznNxMFL65DT1iSdvuibAyAxfuIe8nmSjiFe00sp+
+	 j445jOyU2RRD1Yq7sm1UCSkxJanh7xV4dVDQgfY8=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Zihan Xi <zihanx@nebusec.ai>,
-	Vega <vega@nebusec.ai>,
-	Luxing Yin <root@tr0jan.top>,
-	Frank Sorenson <sorenson@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] smb: client: clean up failed cached directory opens
-Date: Wed, 30 Sep 2026 15:15:20 -0400
-Message-ID: <20260930191520.524028-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092903-oyster-vicinity-b159@gregkh>
-References: <2026092903-oyster-vicinity-b159@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	sashiko-bot@kernel.org,
+	Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
+	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>
+Subject: [PATCH 6.6 0616/1193] tracing: Keep the entry count when the histogram stats allocation fails
+Date: Wed, 30 Sep 2026 17:21:40 +0200
+Message-ID: <20260930152447.931626741@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930152434.301151190@linuxfoundation.org>
+References: <20260930152434.301151190@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,142 +48,110 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zihan Xi <zihanx@nebusec.ai>
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit d2ff5fb93ea83034025850266b5eed391f96b825 ]
+------------------
 
-open_cached_dir() sends CREATE and QUERY_INFO as a compound request. If
-the CREATE succeeds but a later command returns an error, the function
-must retain the CREATE FID so common cleanup can issue SMB2_close(). It
-also must not treat a response error as a valid CREATE.
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 
-Validate the CREATE response before using its fields, record the FIDs, and
-mark the handle open before handling errors from later compound commands.
-Move the -EREMCHG reconnect handling before response validation so a
-missing response does not hide the reconnect request. Count the handle
-when it is marked open; confirmed close responses decrement the counter,
-while existing close retry behavior remains best effort on transport
-failures.
+commit 06f5634ec5584954177f9a22e36b3bfb398a971b upstream.
 
-Fixes: b0f6df737a1c ("cifs: cache FILE_ALL_INFO for the shared root handle")
+print_entries() uses n_entries both as the number of sort entries and as
+its own return value, so the -ENOMEM it stores when the stats allocation
+fails overwrites the count that the cleanup still needs:
+
+	n_entries = tracing_map_sort_entries(map, ...);
+	if (n_entries < 0)
+		return n_entries;
+	...
+			if (!stats) {
+				n_entries = -ENOMEM;
+				goto out;
+			}
+	...
+ out:
+	tracing_map_destroy_sort_entries(sort_entries, n_entries);
+
+tracing_map_destroy_sort_entries() takes an unsigned int and loops up to
+it, so -ENOMEM arrives as 4294967284. It walks an array of at most
+map->max_elts pointers and calls destroy_sort_entry(), which dereferences
+and frees, on whatever lies past the end.
+
+Reading the hist file of a trigger with a .percent value, with that
+allocation forced to fail:
+
+  BUG: KASAN: vmalloc-out-of-bounds in tracing_map_destroy_sort_entries+0xa0/0xb0
+  Read of size 8 at addr ffffc90000045000 by task init/1
+   tracing_map_destroy_sort_entries+0xa0/0xb0
+   hist_show+0x6f7/0x1df0
+   seq_read_iter+0x2b8/0x1190
+   vfs_read+0x176/0xa40
+  The buggy address belongs to a 4-page vmalloc region starting at
+  ffffc90000041000 allocated at tracing_map_sort_entries+0x5c/0xd50
+
+A few pages further the fault is fatal. The registers at the oops confirm
+the bound: the loop's end pointer less the array start, over the pointer
+size, is 4294967284.
+
+Return the error in a separate variable and leave n_entries holding the
+count, the way tracing_map_sort_entries() does on its own error path.
+
+The stats block is only entered for a value carrying .percent or .graph,
+which __create_val_field() has rejected since v6.3, so this cannot be
+reached in mainline as it stands. It becomes reachable again with
+"tracing: hist: let values keep the percent and graph modifiers", so it
+should be applied first.
+
 Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Co-developed-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
-Tested-by: Frank Sorenson <sorenson@redhat.com>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ Adapted cached-directory cleanup to the older shared-root cache in fs/cifs/smb2ops.c. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: abaa5258ce5e ("tracing: Add .percent suffix option to histogram values")
+Link: https://patch.msgid.link/20260907060323.480728-1-donggeunyoo.kernel@gmail.com
+Reported-by: sashiko-bot@kernel.org
+Closes: https://lore.kernel.org/all/20260907053113.1CED91F00A3A@smtp.kernel.org/
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- fs/cifs/smb2ops.c | 54 ++++++++++++++++++++++++++++-------------------
- 1 file changed, 32 insertions(+), 22 deletions(-)
+ kernel/trace/trace_events_hist.c |    8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/fs/cifs/smb2ops.c b/fs/cifs/smb2ops.c
-index 3aaa45375d8ba..1539e834e8b55 100644
---- a/fs/cifs/smb2ops.c
-+++ b/fs/cifs/smb2ops.c
-@@ -761,6 +761,7 @@ int open_cached_dir(unsigned int xid, struct cifs_tcon *tcon,
- 	u8 oplock = SMB2_OPLOCK_LEVEL_II;
- 	struct cifs_fid *pfid;
- 	struct dentry *dentry;
-+	bool is_open = false;
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -5638,7 +5638,7 @@ static int print_entries(struct seq_file
+ {
+ 	struct tracing_map_sort_entry **sort_entries = NULL;
+ 	struct tracing_map *map = hist_data->map;
+-	int i, j, n_entries;
++	int i, j, n_entries, ret;
+ 	struct hist_val_stat *stats = NULL;
+ 	u64 val;
  
- 	if (tcon->nohandlecache)
- 		return -ENOTSUPP;
-@@ -843,6 +844,28 @@ int open_cached_dir(unsigned int xid, struct cifs_tcon *tcon,
- 	rc = compound_send_recv(xid, ses, server,
- 				flags, 2, rqst,
- 				resp_buftype, rsp_iov);
-+	if (rc == -EREMCHG) {
-+		tcon->need_reconnect = true;
-+		pr_warn_once("server share %s deleted\n",
-+			     tcon->treeName);
-+	}
+@@ -5648,6 +5648,8 @@ static int print_entries(struct seq_file
+ 	if (n_entries < 0)
+ 		return n_entries;
+ 
++	ret = n_entries;
 +
-+	if (!rsp_iov[0].iov_base || rsp_iov[0].iov_len < sizeof(*o_rsp)) {
-+		if (!rc)
-+			rc = -EIO;
-+		goto oshr_free;
-+	}
-+
-+	o_rsp = (struct smb2_create_rsp *)rsp_iov[0].iov_base;
-+	if (o_rsp->hdr.Status != STATUS_SUCCESS) {
-+		if (!rc)
-+			rc = -EIO;
-+		goto oshr_free;
-+	}
-+
-+	is_open = true;
-+	atomic_inc(&tcon->num_remote_opens);
-+
- 	mutex_lock(&tcon->crfid.fid_mutex);
+ 	/* Calculate the max and the total for each field if needed. */
+ 	for (j = 0; j < hist_data->n_vals; j++) {
+ 		if (!(hist_data->fields[j]->flags &
+@@ -5657,7 +5659,7 @@ static int print_entries(struct seq_file
+ 			stats = kcalloc(hist_data->n_vals, sizeof(*stats),
+ 				       GFP_KERNEL);
+ 			if (!stats) {
+-				n_entries = -ENOMEM;
++				ret = -ENOMEM;
+ 				goto out;
+ 			}
+ 		}
+@@ -5678,7 +5680,7 @@ static int print_entries(struct seq_file
+ out:
+ 	tracing_map_destroy_sort_entries(sort_entries, n_entries);
  
- 	/*
-@@ -855,8 +878,8 @@ int open_cached_dir(unsigned int xid, struct cifs_tcon *tcon,
- 
- 		/* stash fids for close() later */
- 		struct cifs_fid fid = {
--			.persistent_fid = pfid->persistent_fid,
--			.volatile_fid = pfid->volatile_fid,
-+			.persistent_fid = o_rsp->PersistentFileId,
-+			.volatile_fid = o_rsp->VolatileFileId,
- 		};
- 
- 		/*
-@@ -867,26 +890,17 @@ int open_cached_dir(unsigned int xid, struct cifs_tcon *tcon,
- 
- 		mutex_unlock(&tcon->crfid.fid_mutex);
- 
--		if (rc == 0) {
--			/* close extra handle outside of crit sec */
--			SMB2_close(xid, tcon, fid.persistent_fid, fid.volatile_fid);
--		}
-+		/* close extra handle outside of crit sec */
-+		SMB2_close(xid, tcon, fid.persistent_fid, fid.volatile_fid);
- 		rc = 0;
- 		goto oshr_free;
- 	}
- 
- 	/* Cached root is still invalid, continue normaly */
- 
--	if (rc) {
--		if (rc == -EREMCHG) {
--			tcon->need_reconnect = true;
--			pr_warn_once("server share %s deleted\n",
--				     tcon->treeName);
--		}
-+	if (rc)
- 		goto oshr_exit;
--	}
- 
--	o_rsp = (struct smb2_create_rsp *)rsp_iov[0].iov_base;
- 	oparms.fid->persistent_fid = o_rsp->PersistentFileId;
- 	oparms.fid->volatile_fid = o_rsp->VolatileFileId;
- #ifdef CONFIG_CIFS_DEBUG2
-@@ -936,17 +950,13 @@ int open_cached_dir(unsigned int xid, struct cifs_tcon *tcon,
- oshr_free:
- 	SMB2_open_free(&rqst[0]);
- 	SMB2_query_info_free(&rqst[1]);
-+	if (rc && is_open)
-+		SMB2_close(0, tcon, o_rsp->PersistentFileId,
-+			   o_rsp->VolatileFileId);
- 	free_rsp_buf(resp_buftype[0], rsp_iov[0].iov_base);
- 	free_rsp_buf(resp_buftype[1], rsp_iov[1].iov_base);
--	if (rc) {
--		if (tcon->crfid.is_valid)
--			SMB2_close(0, tcon, oparms.fid->persistent_fid,
--				   oparms.fid->volatile_fid);
--	}
--	if (rc == 0) {
-+	if (rc == 0)
- 		*cfid = &tcon->crfid;
--		atomic_inc(&tcon->num_remote_opens);
--	}
- 	return rc;
+-	return n_entries;
++	return ret;
  }
  
--- 
-2.53.0
+ static void hist_trigger_show(struct seq_file *m,
+
 
