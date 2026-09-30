@@ -1,42 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E51E247A0DD
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 16:22:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 117A54CE67C;
+	Wed, 30 Sep 2026 16:22:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790785368; cv=none; b=TV2vXWQhaMD0+Fri7TZ7yUdk9q3cGgBpTjW7RNFNSyvEyytl1K+7STSPJXcPpCXbqfYiVNYA9+zDxiA2OHuxnTiWybjuux5l/vNAPGhkVKOWEOtsojmKslLF/wvYHodmHjBlo0RgBITCfgMiPyTSzayhWVWplYnhrJgt7aLSgQs=
+	t=1790785371; cv=none; b=gTbfak6uyzGS+/z5f4SkbzNoA+4DxfdAGDHpZwgRFbBRELT2iUGdnLAg+WJQcdt+QtGgq8XG2YZtPpsxWwefbxurpwDIJKgSZd1Z4OMdZkpLRRNjzYaL1ON1+I4v9Kz3cOlCwIwknRJ5kfoHOPA5weHNtIjfeMuMKJONAiXFALc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790785368; c=relaxed/simple;
-	bh=stSXW9Itw7j8HpKMvJIa6waNOV6QzAuD87N19+4gFM4=;
+	s=arc-20240116; t=1790785371; c=relaxed/simple;
+	bh=VW8zsiCBYUf1ThrzvzlqjEM+RhTkJHvVQbo2Zzdw86Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Y3XSwLZHBMvUtxveSM+Xh7BjlBDDkwH68j6gAgG8WtQ1u5rpI8AjhXDo8zRsO9ettZvFXfqV7DLpcJ6IoYCvsmKq9pde6+fJ05d36waX9+DO/9hHrX5nZgf8WQQTql7xA1fCYPlqn6Srf5Ds3C1vGFL/4rjeA9wK+LQEagaDYsk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kvFN4mMK; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=bVZpAbNEdmVgBKTlsw8427SD2B1wpjLaXi2yWBNBzyVsS+adKHuazNSiuzpfSOuJ0ZG1YGhpsEHVZT6hWq+wUVbATsDvVVWMkeCGMZT+jGn5WGJ9ue/hqOWMNCFIvohCwca9EMjASyKjvZ2x8ZR872VTJWW45Zq9ZWkl1/1EYAk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=tjiXASI1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kvFN4mMK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB0A71F00898;
-	Wed, 30 Sep 2026 16:22:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790785361;
-	bh=tkmE+BNMkJqbGxTZ67gq8tq0QrwGXplSrBsq89FQmSk=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tjiXASI1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3045D1F0089C;
+	Wed, 30 Sep 2026 16:22:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790785364;
+	bh=3xm3trFg0r80SDvtuLEuYtXICpgGAwDEzEFCQ0aOQ1c=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kvFN4mMKf8Za0emhdg7vmYEdNM92wyy7/L1UzttyJsCHIQZxo3UgDJ+PQ3LJeA9pg
-	 W9SQeLJFT2zb14nDiIdTS1ONxUHwtKJVImTF3si0wq1YAZSNrRIgc3564g6lz5YVb2
-	 W5KUMmf65HhwHHpb4yZdDCr2UrQxhhREPRXc3ehmao5AkJLgf6tOAGuS6L6RMLq69p
-	 XnxbKkDNhNJWpG4J1bjiEn2Q+D3nUV6+oyDhkwgnsPQSV/sBkqMIYDSaKfyH1/VK76
-	 5P3bNVDdZDOryZwNQsWN1X/pO9x7ZCRpztncnZuut1p/hyVFz8EMhD3wgI8+zXnLnP
-	 OcGYYXR0965SQ==
-From: Sasha Levin <sashal@kernel.org>
+	b=tjiXASI1X+y8FsgLRp7MF1n4mubNRrjZUyI5u/6oZpZvJoOCncA4IVRfmYznyxpIp
+	 GeZPSr7FZWZTzaIPp7cgHbwA7C0q/ZzSvynr7DnB2mfwVX260rAwYI1bukcKppuW/o
+	 w66BpsTWOJhe+nmYGK/2YmU9JwkkFhUGLa+BgYYs=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Namjae Jeon <linkinjeon@kernel.org>,
-	Paulo Alcantara <pc@manguebit.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Taras Madan <tarasmadan@google.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Jamal Hadi Salim <jhs@mojatatu.com>,
+	hybris@mojatatu.ai,
+	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] smb: client: use finish_no_open() for non-regular inodes
-Date: Wed, 30 Sep 2026 12:22:39 -0400
-Message-ID: <20260930162239.3062414-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092923-overcoat-pacifist-c3f0@gregkh>
-References: <2026092923-overcoat-pacifist-c3f0@gregkh>
+Subject: [PATCH 6.1 482/982] net/sched: cls_api: Dont replay RTM_GETCHAIN in tc_ctl_chain().
+Date: Wed, 30 Sep 2026 17:20:18 +0200
+Message-ID: <20260930152427.133149721@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
+References: <20260930152416.775402466@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,157 +50,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Namjae Jeon <linkinjeon@kernel.org>
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit e66cf1625ec4a3fe68346119f371def713fd0a4d ]
+------------------
 
-An O_CREAT open can find an existing symlink or another non-regular
-inode. cifs_atomic_open() calls finish_open() on it and attaches a
-cifsFileInfo. Symlink inodes have no CIFS release operation, so the
-dentry reference held by cifsFileInfo is leaked. FMODE_OPENED also
-prevents the VFS from following the symlink.
+From: Kuniyuki Iwashima <kuniyu@google.com>
 
-Track whether cifs_do_create() returned an open server handle. For
-non-regular inodes, close the handle if present, remove the pending
-open, and call finish_no_open() so the VFS can continue the lookup.
-Do not set FMODE_CREATED unless a regular file was opened. For
-O_NOFOLLOW with __O_REGULAR, return -ELOOP before the VFS's
--EFTYPE check.
+[ Upstream commit dff39930ad5e53d202bfdfb14687d1d2fd753b4d ]
 
-Defer closing a legacy POSIX handle on a non-regular inode until
-after inode lookup. This avoids closing it again if lookup fails.
+If a netlink socket sends RTM_GETCHAIN requests repeatedly
+without recv()ing the responses, tc_ctl_chain() hogs CPU and
+triggers Hung Task splat. [0]
 
-Fixes: d2c127197dfc ("cifs: implement i_op->atomic_open()")
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Cc: stable@vger.kernel.org
-[ replaced S_ISREG(inode->i_mode) with d_is_reg(direntry) because the older cifs_do_create() already attaches the inode. ]
+As caught in the stack trace, netlink_attachskb() could confuse
+tc_ctl_chain() by returning -EAGAIN when the userspace netlink
+socket's receive buffer is full.
+
+The replay: label exists since commit 32a4f5ecd738 ("net: sched:
+introduce chain object to uapi") but was not used initially.
+
+Since commit 9f407f1768d3 ("net: sched: introduce chain templates"),
+the label is needed for RTM_NEWCHAIN because tcf_proto_lookup_ops()
+may release RTNL to call request_module().
+
+However, the replay logic is unnecessary for RTM_GETCHAIN.
+
+Let's apply the replay logic only for RTM_NEWCHAIN.
+
+[0]:
+INFO: task repro:1018 is blocked on a mutex likely owned by task repro:1022.
+task:repro           state:R  running task     stack:14096 pid:1022  tgid:1014  ppid:961    task_flags:0x400040 flags:0x00080000
+Call Trace:
+ <TASK>
+ ? clockevents_program_event (kernel/time/clockevents.c:372)
+ ? pskb_expand_head (net/core/skbuff.c:615)
+ ? skb_release_data (net/core/skbuff.c:1122)
+ ? netlink_attachskb (./include/linux/skbuff.h:1323 ./include/linux/skbuff.h:1332 net/netlink/af_netlink.c:1232)
+ ? __netlink_lookup (./include/linux/rcupdate.h:882 ./include/linux/rhashtable.h:711 net/netlink/af_netlink.c:499)
+ ? tc_chain_notify (net/sched/cls_api.c:3045)
+ ? tc_chain_notify (./include/linux/skbuff.h:1384 net/sched/cls_api.c:3041)
+ ? netlink_unicast (net/netlink/af_netlink.c:1335)
+ ? rtnl_unicast (./include/net/netlink.h:1198 net/core/rtnetlink.c:985)
+ ? tc_ctl_chain (net/sched/cls_api.c:3242)
+ ? rtnetlink_rcv_msg (net/core/rtnetlink.c:7146)
+ ? netlink_unicast (net/netlink/af_netlink.c:1354)
+ ? __pfx_rtnetlink_rcv_msg (net/core/rtnetlink.c:7177)
+ ? netlink_rcv_skb (net/netlink/af_netlink.c:2556)
+ ? netlink_unicast (net/netlink/af_netlink.c:1319)
+ ? netlink_sendmsg (net/netlink/af_netlink.c:1900)
+ ? __sock_sendmsg (net/socket.c:800)
+ ? __sys_sendto (net/socket.c:2281)
+ ? __x64_sys_sendto (net/socket.c:2288 net/socket.c:2284 net/socket.c:2284)
+ ? do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:84)
+ ? entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+ </TASK>
+
+Fixes: 2ed9db3074fc ("net: sched: cls_api: fix dead code in switch")
+Reported-by: Taras Madan <tarasmadan@google.com>
+Signed-off-by: Kuniyuki Iwashima <kuniyu@google.com>
+Reviewed-by: Jamal Hadi Salim <jhs@mojatatu.com>
+Tested-by: hybris@mojatatu.ai
+Link: https://patch.msgid.link/20260908205537.863484-1-kuniyu@google.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/dir.c | 39 +++++++++++++++++++++++++++++----------
- 1 file changed, 29 insertions(+), 10 deletions(-)
+ net/sched/cls_api.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/smb/client/dir.c b/fs/smb/client/dir.c
-index 6bb0e98462a98..66bf81d159625 100644
---- a/fs/smb/client/dir.c
-+++ b/fs/smb/client/dir.c
-@@ -176,7 +176,8 @@ check_name(struct dentry *direntry, struct cifs_tcon *tcon)
- 
- static int cifs_do_create(struct inode *inode, struct dentry *direntry, unsigned int xid,
- 			  struct tcon_link *tlink, unsigned int oflags, umode_t mode, __u32 *oplock,
--			  struct cifs_fid *fid, struct cifs_open_info_data *buf)
-+			  struct cifs_fid *fid, struct cifs_open_info_data *buf,
-+			  bool *opened)
- {
- 	int rc = -ENOENT;
- 	int create_options = CREATE_NOT_DIR;
-@@ -191,6 +192,7 @@ static int cifs_do_create(struct inode *inode, struct dentry *direntry, unsigned
- 	struct cifs_open_parms oparms;
- 	int rdwr_for_fscache = 0;
- 
-+	*opened = false;
- 	*oplock = 0;
- 	if (tcon->ses->server->oplocks)
- 		*oplock = REQ_OPLOCK;
-@@ -213,6 +215,7 @@ static int cifs_do_create(struct inode *inode, struct dentry *direntry, unsigned
- 				     oflags, oplock, &fid->netfid, xid);
- 		switch (rc) {
- 		case 0:
-+			*opened = true;
- 			if (newinode == NULL) {
- 				/* query inode info */
- 				goto cifs_create_get_file_info;
-@@ -229,11 +232,9 @@ static int cifs_do_create(struct inode *inode, struct dentry *direntry, unsigned
- 				/*
- 				 * The server may allow us to open things like
- 				 * FIFOs, but the client isn't set up to deal
--				 * with that. If it's not a regular file, just
--				 * close it and proceed as if it were a normal
--				 * lookup.
-+				 * with that. Keep the handle until the caller
-+				 * can finish the lookup.
- 				 */
--				CIFSSMBClose(xid, tcon, fid->netfid);
- 				goto cifs_create_get_file_info;
- 			}
- 			/* success, no need to query */
-@@ -333,6 +334,7 @@ static int cifs_do_create(struct inode *inode, struct dentry *direntry, unsigned
- 		}
- 		goto out;
- 	}
-+	*opened = true;
- 	if (rdwr_for_fscache == 2)
- 		cifs_invalidate_cache(inode, FSCACHE_INVAL_DIO_WRITE);
- 
-@@ -423,7 +425,7 @@ static int cifs_do_create(struct inode *inode, struct dentry *direntry, unsigned
- 	return rc;
- 
- out_err:
--	if (server->ops->close)
-+	if (*opened && server->ops->close)
- 		server->ops->close(xid, tcon, fid);
- 	if (newinode)
- 		iput(newinode);
-@@ -442,6 +444,8 @@ cifs_atomic_open(struct inode *inode, struct dentry *direntry,
- 	struct cifs_fid fid = {};
- 	struct cifs_pending_open open;
- 	__u32 oplock;
-+	bool is_regular;
-+	bool opened;
- 	struct cifsFileInfo *file_info;
- 	struct cifs_open_info_data buf = {};
- 
-@@ -501,15 +505,28 @@ cifs_atomic_open(struct inode *inode, struct dentry *direntry,
- 	cifs_add_pending_open(&fid, tlink, &open);
- 
- 	rc = cifs_do_create(inode, direntry, xid, tlink, oflags, mode,
--			    &oplock, &fid, &buf);
-+			    &oplock, &fid, &buf, &opened);
- 	if (rc) {
- 		cifs_del_pending_open(&open);
- 		goto out;
- 	}
- 
--	if ((oflags & (O_CREAT | O_EXCL)) == (O_CREAT | O_EXCL))
-+	is_regular = d_is_reg(direntry);
-+	if (!is_regular || !opened) {
-+		if (opened && server->ops->close)
-+			server->ops->close(xid, tcon, &fid);
-+		cifs_del_pending_open(&open);
-+	}
-+
-+	if (is_regular && opened &&
-+	    (oflags & (O_CREAT | O_EXCL)) == (O_CREAT | O_EXCL))
- 		file->f_mode |= FMODE_CREATED;
- 
-+	if (!is_regular || !opened) {
-+		rc = finish_no_open(file, NULL);
-+		goto out;
-+	}
-+
- 	rc = finish_open(file, direntry, generic_file_open);
- 	if (rc) {
- 		if (server->ops->close)
-@@ -564,6 +581,7 @@ int cifs_create(struct mnt_idmap *idmap, struct inode *inode,
- 	struct TCP_Server_Info *server;
- 	struct cifs_fid fid;
- 	__u32 oplock;
-+	bool opened;
- 	struct cifs_open_info_data buf = {};
- 
- 	cifs_dbg(FYI, "cifs_create parent inode = 0x%p name is: %pd and dentry = 0x%p\n",
-@@ -585,8 +603,9 @@ int cifs_create(struct mnt_idmap *idmap, struct inode *inode,
- 	if (server->ops->new_lease_key)
- 		server->ops->new_lease_key(&fid);
- 
--	rc = cifs_do_create(inode, direntry, xid, tlink, oflags, mode, &oplock, &fid, &buf);
--	if (!rc && server->ops->close)
-+	rc = cifs_do_create(inode, direntry, xid, tlink, oflags, mode,
-+			    &oplock, &fid, &buf, &opened);
-+	if (!rc && opened && server->ops->close)
- 		server->ops->close(xid, tcon, &fid);
- 
- 	cifs_free_open_info(&buf);
+diff --git a/net/sched/cls_api.c b/net/sched/cls_api.c
+index 0db96c920ea58..341128a00420c 100644
+--- a/net/sched/cls_api.c
++++ b/net/sched/cls_api.c
+@@ -2998,7 +2998,7 @@ static int tc_ctl_chain(struct sk_buff *skb, struct nlmsghdr *n,
+ 	tcf_chain_put(chain);
+ errout_block:
+ 	tcf_block_release(q, block, true);
+-	if (err == -EAGAIN)
++	if (err == -EAGAIN && n->nlmsg_type == RTM_NEWCHAIN)
+ 		/* Replay the request. */
+ 		goto replay;
+ 	return err;
 -- 
 2.53.0
+
+
 
