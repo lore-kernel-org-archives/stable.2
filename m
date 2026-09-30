@@ -1,46 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7507352CCE2
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 17:49:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D622852F27A;
+	Wed, 30 Sep 2026 17:49:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790790545; cv=none; b=laCkzlnpBBi+cUDCwYyf+xr+uOW7u2qyCVLTLiFEh4wYzYGBL8owXKq+X8q2CfO2IcQVCqRjpTCgYz0It2IIo+NmLuc6wSfDSMNM8l5ty8sP3S1u2g+J9U2Jyh3xUK42mhlZ06S8G8uidXGIxquR+XZTCJTbzWbqrs5tVhe1DA4=
+	t=1790790547; cv=none; b=ZOzNTqlgXUWE3ntFoDd5pyhaZA0wyubrwrth90WYEnCBgljkSMnkXpbW3gkonQ3eTrQIwMjhsTzEzn+6thmMY+S3qTVtFyTduoQw3HHub/00rukhDQQOtD/xH8VSi5LOO3nHmhiMLyrj9iT5JfvrgZOlpN0EKq3ymZ+C4fhPP7k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790790545; c=relaxed/simple;
-	bh=aE1T5HqvDApXQuHfKPcN2FB2xx2fdI3snDDXzNuB/Dc=;
+	s=arc-20240116; t=1790790547; c=relaxed/simple;
+	bh=RtcvjS6deIS9yyQ6uuj33YjM+AvFXwaYWWTi7pVGN74=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HAiyRiJK1lSP0I3SoCzhbz484UfDMT/j2HQPUNsTVDblqE3W2j5lWdQmRi46aRvfSj2uKqpdDAlEk0MAsDNXzt9LHjytSyCg+Ts3GfKE6qLHt0sV2c49qeVuL1dho1nkUJ9IeaoMxmTE3+gm/DBZlsqvuB5Z/7MVSMZE7Cny9N0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P7ZhJ8Ok; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=AB+P3UhmVnKSsvQbipbb5fQLhOKxXLiRvBukzn3GDSfhbkUvmi3GxGXCQFgdN9pdwLN7ikqGEyPJTcodG2S9FhtlIP3u8kxyhxcGKsvMtfpwljt2cdkDqvqrx9tySvjjZyhhBHXbg04inknbJtPHir5slJB7NFzKb1nyZ5uhyIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=zjNqFJgk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P7ZhJ8Ok"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 828651F0089A;
-	Wed, 30 Sep 2026 17:49:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790790544;
-	bh=+kcevSSOmQojKMS5MkOKvh067eWqxy6ruAGLnlWgi/Y=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="zjNqFJgk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E1971F000FF;
+	Wed, 30 Sep 2026 17:49:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790790545;
+	bh=dqVFSPxbaTA6ZtH7Slbao5qGn5zLXSNgG3txJIzIgmI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=P7ZhJ8OkD4Ya52mAczD9mVuMiSo6yn08hi3DJ5XRvxI3FCaGNaqGf+MT1q5Q1sZlt
-	 u8iPupGebdwxYBVQ/m1hMZ/AHURxeci+nPGrb7QGu/BRakwgGwZpNYTFwZGA3bjwdO
-	 lA5c1qHBA4BdO92/J3UOp548t/xbYlkBJPBCxnQsbR4NZQN+OPdfefTnOE22spYE44
-	 MqANGs1m7TP74b48mBUokRIf+J7gxMOQnyG7o9OYkX18jsCDpKda6EN2nsn6RSGbGR
-	 Y8S20iQ+7xjO0ALuuEDlHC0ye8vlUuxItP4cyIed+G0+6jcJHNhTosdyzacIPCcVeS
-	 mXjuWlJXgjNJQ==
-From: Sasha Levin <sashal@kernel.org>
+	b=zjNqFJgkta6KnO7q+5hdrqm8g5k6Apuxg0Xk77HbN2gkETSxHb+S8FkMGRJKorbLA
+	 oiYnfWTPUuTCZmpCc5KylQvz3pS78XcXs6CDh+pnMjthHqu6y5f3CyLhK5DXiSU71j
+	 Mfg/jFmMVhRgme6KVGAqmFP0ucaKnWJPwxAfMvfs=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Zihan Xi <zihanx@nebusec.ai>,
-	Vega <vega@nebusec.ai>,
-	Luxing Yin <root@tr0jan.top>,
-	Frank Sorenson <sorenson@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] smb: client: fix create context out-of-bounds reads
-Date: Wed, 30 Sep 2026 13:49:01 -0400
-Message-ID: <20260930174901.3771743-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260930174901.3771743-1-sashal@kernel.org>
-References: <2026092930-lisp-onyx-a9f8@gregkh>
- <20260930174901.3771743-1-sashal@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Bernard Pidoux <bernard.f6bvp@gmail.com>
+Subject: [PATCH 6.12 866/877] rose: cancel neighbour timers in rose_neigh_put() before freeing
+Date: Wed, 30 Sep 2026 17:29:37 +0200
+Message-ID: <20260930152433.422386624@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930152414.738996857@linuxfoundation.org>
+References: <20260930152414.738996857@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,197 +45,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zihan Xi <zihanx@nebusec.ai>
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 67f4c1c6a1b51e203d986779299824d1c2c590a6 ]
+------------------
 
-smb2_parse_contexts() validates the complete create-context area but
-does not limit each record to its Next field before dispatching it.  A
-malformed chain can therefore expose bytes beyond the current context to
-a handler.  The QFid handler also used a full response-structure cast
-although it only reads DiskFileId.
+From: Bernard Pidoux <bernard.f6bvp@gmail.com>
 
-The SMB2/SMB3 lease parsers made the same layout assumption: they read
-LeaseState and LeaseFlags at canonical offsets rather than at
-DataOffset.  A valid non-canonical DataOffset could therefore yield
-unrelated in-bounds data, while a short DataLength was still accepted.
+commit 9b222cb1d23ff210975e9df5ebab7b011acb6fad upstream.
 
-Limit each context to its Next value, reject offsets before the context
-header, and reject malformed chains.  Bound the name range by the current
-context and do not dispatch a known handler when DataLength is zero.  Read
-the QFid DiskFileId only when the context data covers that field.  Parse the
-lease context from DataOffset and require DataLength to match the v1 or v2
-lease_context size used by ksmbd.  A size mismatch skips lease parsing
-without failing the open.
+rose_neigh_put() kfree()s the neighbour but never cancels its ftimer and
+t0timer. Until now every caller that dropped the final reference first
+called rose_remove_neigh(), which deletes those timers. The socket
+heartbeat reaping path drops the last reference directly, so a neighbour
+could be freed with t0timer still armed -- it re-arms itself in
+rose_t0timer_expiry() -- leading to a use-after-free write in
+enqueue_timer().
 
-Fixes: b8c32dbb0deb ("CIFS: Request SMB2.1 leases")
-Fixes: f047390a097e ("CIFS: Add create lease v2 context for SMB3")
-Fixes: 89a5bfa350fa ("smb3: optimize open to not send query file internal info")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Co-developed-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
-Tested-by: Frank Sorenson <sorenson@redhat.com>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Cancel both timers with timer_delete_sync() (the synchronous variant, to
+wait out a concurrently running, self-rearming handler) in the
+refcount-zero branch of rose_neigh_put().
+
+Signed-off-by: Bernard Pidoux <bernard.f6bvp@gmail.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- fs/cifs/smb2ops.c | 28 ++++++++++++++++++++--------
- fs/cifs/smb2pdu.c | 44 ++++++++++++++++++++++++++++++++++----------
- 2 files changed, 54 insertions(+), 18 deletions(-)
+ include/net/rose.h |   12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/fs/cifs/smb2ops.c b/fs/cifs/smb2ops.c
-index 00ee7ef3bcf1a..9711cfc21e362 100644
---- a/fs/cifs/smb2ops.c
-+++ b/fs/cifs/smb2ops.c
-@@ -4157,25 +4157,37 @@ smb3_create_lease_buf(u8 *lease_key, u8 oplock)
- static __u8
- smb2_parse_lease_buf(void *buf, unsigned int *epoch, char *lease_key)
+--- a/include/net/rose.h
++++ b/include/net/rose.h
+@@ -160,6 +160,18 @@ static inline void rose_neigh_hold(struc
+ static inline void rose_neigh_put(struct rose_neigh *rose_neigh)
  {
--	struct create_lease *lc = (struct create_lease *)buf;
-+	struct create_context *cc = buf;
-+	struct lease_context lc;
- 
- 	*epoch = 0; /* not used */
--	if (lc->lcontext.LeaseFlags & SMB2_LEASE_FLAG_BREAK_IN_PROGRESS_LE)
-+	if (le32_to_cpu(cc->DataLength) != sizeof(lc))
-+		return 0;
-+
-+	memcpy(&lc, (u8 *)cc + le16_to_cpu(cc->DataOffset), sizeof(lc));
-+	if (lc.LeaseFlags & SMB2_LEASE_FLAG_BREAK_IN_PROGRESS_LE)
- 		return SMB2_OPLOCK_LEVEL_NOCHANGE;
--	return le32_to_cpu(lc->lcontext.LeaseState);
-+	return le32_to_cpu(lc.LeaseState);
- }
- 
- static __u8
- smb3_parse_lease_buf(void *buf, unsigned int *epoch, char *lease_key)
- {
--	struct create_lease_v2 *lc = (struct create_lease_v2 *)buf;
-+	struct create_context *cc = buf;
-+	struct lease_context_v2 lc;
-+
-+	if (le32_to_cpu(cc->DataLength) != sizeof(lc)) {
-+		*epoch = 0;
-+		return 0;
-+	}
- 
--	*epoch = le16_to_cpu(lc->lcontext.Epoch);
--	if (lc->lcontext.LeaseFlags & SMB2_LEASE_FLAG_BREAK_IN_PROGRESS_LE)
-+	memcpy(&lc, (u8 *)cc + le16_to_cpu(cc->DataOffset), sizeof(lc));
-+	*epoch = le16_to_cpu(lc.Epoch);
-+	if (lc.LeaseFlags & SMB2_LEASE_FLAG_BREAK_IN_PROGRESS_LE)
- 		return SMB2_OPLOCK_LEVEL_NOCHANGE;
- 	if (lease_key)
--		memcpy(lease_key, &lc->lcontext.LeaseKey, SMB2_LEASE_KEY_SIZE);
--	return le32_to_cpu(lc->lcontext.LeaseState);
-+		memcpy(lease_key, lc.LeaseKey, SMB2_LEASE_KEY_SIZE);
-+	return le32_to_cpu(lc.LeaseState);
- }
- 
- static unsigned int
-diff --git a/fs/cifs/smb2pdu.c b/fs/cifs/smb2pdu.c
-index a10431a9f9e99..0205307d0f9cd 100644
---- a/fs/cifs/smb2pdu.c
-+++ b/fs/cifs/smb2pdu.c
-@@ -1955,11 +1955,17 @@ create_reconnect_durable_buf(struct cifs_fid *fid)
- static void
- parse_query_id_ctxt(struct create_context *cc, struct smb2_file_all_info *buf)
- {
--	struct create_disk_id_rsp *pdisk_id = (struct create_disk_id_rsp *)cc;
-+	u16 doff = le16_to_cpu(cc->DataOffset);
-+	u32 dlen = le32_to_cpu(cc->DataLength);
-+	u8 *beg;
- 
--	cifs_dbg(FYI, "parse query id context 0x%llx 0x%llx\n",
--		pdisk_id->DiskFileId, pdisk_id->VolumeId);
--	buf->IndexNumber = pdisk_id->DiskFileId;
-+	if (dlen < sizeof(__le64))
-+		return;
-+
-+	beg = (u8 *)cc + doff;
-+	memcpy(&buf->IndexNumber, beg, sizeof(__le64));
-+	cifs_dbg(FYI, "parse query id context 0x%llx\n",
-+		 le64_to_cpu(buf->IndexNumber));
- }
- 
- static void
-@@ -2007,6 +2013,7 @@ int smb2_parse_contexts(struct TCP_Server_Info *server,
- 	struct smb2_create_rsp *rsp = rsp_iov->iov_base;
- 	struct create_context *cc;
- 	size_t rem, off, len;
-+	size_t cc_len;
- 	size_t doff, dlen;
- 	size_t noff, nlen;
- 	char *name;
-@@ -2029,29 +2036,41 @@ int smb2_parse_contexts(struct TCP_Server_Info *server,
- 		buf->IndexNumber = 0;
- 
- 	while (rem >= sizeof(*cc)) {
-+		off = le32_to_cpu(cc->Next);
-+		if (off) {
-+			if ((off & 0x7) || off >= rem || off < sizeof(*cc))
-+				return -EINVAL;
-+			cc_len = off;
-+		} else {
-+			cc_len = rem;
-+		}
-+
- 		doff = le16_to_cpu(cc->DataOffset);
- 		dlen = le32_to_cpu(cc->DataLength);
--		if (check_add_overflow(doff, dlen, &len) || len > rem)
-+		if (doff < sizeof(*cc) ||
-+		    check_add_overflow(doff, dlen, &len) || len > cc_len)
- 			return -EINVAL;
- 
- 		noff = le16_to_cpu(cc->NameOffset);
- 		nlen = le16_to_cpu(cc->NameLength);
--		if (noff + nlen > doff)
-+		if (noff < sizeof(*cc) ||
-+		    check_add_overflow(noff, nlen, &len) || len > cc_len ||
-+		    (dlen && len > doff))
- 			return -EINVAL;
- 
- 		name = (char *)cc + noff;
- 		switch (nlen) {
- 		case 4:
--			if (!strncmp(name, SMB2_CREATE_REQUEST_LEASE, 4)) {
-+			if (dlen && !strncmp(name, SMB2_CREATE_REQUEST_LEASE, 4)) {
- 				*oplock = server->ops->parse_lease_buf(cc, epoch,
- 								       lease_key);
--			} else if (buf &&
-+			} else if (dlen && buf &&
- 				   !strncmp(name, SMB2_CREATE_QUERY_ON_DISK_ID, 4)) {
- 				parse_query_id_ctxt(cc, buf);
- 			}
- 			break;
- 		case 16:
--			if (posix && !memcmp(name, smb3_create_tag_posix, 16))
-+			if (dlen && posix && !memcmp(name, smb3_create_tag_posix, 16))
- 				parse_posix_ctxt(cc, buf, posix);
- 			break;
- 		default:
-@@ -2063,13 +2082,18 @@ int smb2_parse_contexts(struct TCP_Server_Info *server,
- 		}
- 
- 		off = le32_to_cpu(cc->Next);
--		if (!off)
-+		if (!off) {
-+			rem = 0;
- 			break;
-+		}
- 		if (check_sub_overflow(rem, off, &rem))
- 			return -EINVAL;
- 		cc = (struct create_context *)((u8 *)cc + off);
- 	}
- 
-+	if (rem)
-+		return -EINVAL;
-+
- 	if (rsp->OplockLevel != SMB2_OPLOCK_LEVEL_LEASE)
- 		*oplock = rsp->OplockLevel;
- 
--- 
-2.53.0
+ 	if (refcount_dec_and_test(&rose_neigh->use)) {
++		/* We are dropping the last reference, so we are about to free the
++		 * neighbour.  Its timers may still be armed -- t0timer in particular
++		 * re-arms itself in rose_t0timer_expiry().  rose_remove_neigh()
++		 * cancels them before its own put, but callers that drop the final
++		 * reference without first calling rose_remove_neigh() (the socket
++		 * heartbeat reaping path) would otherwise kfree() a neighbour with a
++		 * live timer -> use-after-free.  timer_delete_sync() (not the async
++		 * variant) is required: it waits out a concurrently running handler
++		 * and loops until the self-rearming timer stays stopped.
++		 */
++		timer_delete_sync(&rose_neigh->ftimer);
++		timer_delete_sync(&rose_neigh->t0timer);
+ 		if (rose_neigh->ax25)
+ 			ax25_cb_put(rose_neigh->ax25);
+ 		kfree(rose_neigh->digipeat);
+
 
