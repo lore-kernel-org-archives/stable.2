@@ -1,112 +1,117 @@
-Received: from va-1-115.ptr.blmpb.com (va-1-115.ptr.blmpb.com [209.127.230.115])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93E873AFAE6
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 09:44:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.115
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 028123DDB0A;
+	Wed, 30 Sep 2026 09:47:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790761454; cv=none; b=aQfOch/cB/qBonBhYLoaXZGie92YPFrjthyJOLKJ5+VuC4ETJTxbB4k1ZYXAgeuW7lQ73TVDhh1fseLy+orvXTuAcnBjRCuT5PZ7Qjp3DEF3uvgM/+0MBAkQUiZEa0ikV6lZcMx6FnjlEWXOaqIbA+gX/BRdr1uQfZMFMslxmEI=
+	t=1790761680; cv=none; b=ovHUmopMjbeI0XbuVQlgKdfQfCqFCuDu5vO9xDgDF+n7U1rXGUMPPQDQWgnUNiokrfsloXW9naRib3SrevtkMJkCMnoKFQVugAHeMFEvM7ch8K3uYyOWRgBQMVLG/otZXSSOC+vVQs9rMx8lUDVP3LVC/pawZ7gLRCfWHq50eHo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790761454; c=relaxed/simple;
-	bh=7TStImU1e6YwnQO/Ay+2LKUSO0Mvld8Qf7pStg711GY=;
-	h=Subject:From:In-Reply-To:Message-Id:To:Mime-Version:References:
-	 Content-Type:Date:Cc; b=N0tBetRgcT/ga+o0Nqd4xIhRvh3xgRQ4gye6xefIdw5tdszc1NogBuCRjHuS+WtMFumbK8jqxaLSAvdxvGgGDrxY2yIklo2iYqydjsk2vkTBGB3a146TBNr/HSowu3FCglPLO+Ee/CxnTnYKw8atebTwXNgRVVjS86pwFgo3qMs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=BwbmG6WR; arc=none smtp.client-ip=209.127.230.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="BwbmG6WR"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1790761446; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=7TStImU1e6YwnQO/Ay+2LKUSO0Mvld8Qf7pStg711GY=;
- b=BwbmG6WR67K9vvHhoKnvqVWF5i2d6dAofVb/NUpU7E9S61RWaC0usL6JyMSdq9crcBjJe4
- FOkDMavRnwmWYceyrmwevkWZXfw7dfp9YFyBmLFavNuAqH0cvjx4gmmRKPH8MIaCn9+XGB
- ktdmymZVcGZ1pxy6NRyLXW0NkwUrSRfUReDWsL6Q5e3RQVaL3vBNnqv5jcKp7zHnlx+iiE
- SEkyGI/EQvj1FPNfDIy8WyZmB99O6noXR51sS2L8RK1fZcpQqopM+lIpeeGHKg9y0nD23B
- whqD9Hsri4/SbdJxAT1392+HUv7dXXegsQJ8VpWzkupHIXrBCGSx03N8G8WmLw==
-Subject: Re: [PATCH] x86/fpu: Free dynamic fpstate on exec()
-From: "Guixiong Wei" <weiguixiong@bytedance.com>
-In-Reply-To: <e3cba491-9fdb-4907-9843-c427c96c3237@intel.com>
-X-Lms-Return-Path: <lba+16abcd9e4+9f170e+vger.kernel.org+weiguixiong@bytedance.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <451788d5e97cba38274e663d2b7952c593e959be.88da3c26.f733.4725.a593.8b7f73967bdc@bytedance.com>
-To: "Chang S. Bae" <chang.seok.bae@intel.com>
+	s=arc-20240116; t=1790761680; c=relaxed/simple;
+	bh=B7sU+JYKVX69Tn8BilhYZIlgBnfPnitcXAXiwOWYmds=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=BXpwURqWPCFzTdaBvMosMGZbkZABGmX2/rBcTxCFlByCyxYijGWAM6JskNJKcMBSy2gHvp6eL7vMm2XoS2PRaLPXo0buz0qlUiunLCUg4WT4iVwKx5ggQZgtrl9FiWHMgKpaaL2hQlDXs3C0nYQwKHCwliStEstaPFocY6i5Fhg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 010f6dbebcb411f19a56ed5b684f684d-20260930
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:4f68d59d-f336-4019-998e-c8b25ca05050,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+	ON:release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:e81a37adf8bbab61fd4706f2095968cd,BulkI
+	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
+	5|-100,IP:nil,URL:1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
+	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 010f6dbebcb411f19a56ed5b684f684d-20260930
+X-User: zhangyunfei1@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zhangyunfei1@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 2083579561; Wed, 30 Sep 2026 17:47:52 +0800
+From: Zhang Yunfei <zhangyunfei1@kylinos.cn>
+To: netdev@vger.kernel.org
+Cc: jiawenwu@trustnetic.com,
+	mengyuanlou@net-swift.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	aleksandr.loktionov@intel.com,
+	u.kleine-koenig@baylibre.com,
+	weirongguang@kylinos.cn,
+	zhangyunfei1@kylinos.cn,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	leitao@debian.org
+Subject: [PATCH net v3 0/2] net: ngbe: fix error handling in resume and open paths
+Date: Wed, 30 Sep 2026 17:47:46 +0800
+Message-Id: <20260930094748.1198085-1-zhangyunfei1@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260929151013.81562-2-weiguixiong@bytedance.com>
-	<e3cba491-9fdb-4907-9843-c427c96c3237@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 30 Sep 2026 17:44:02 +0800
-Cc: <x86@kernel.org>, "Thomas Gleixner" <tglx@kernel.org>, 
-	"Ingo Molnar" <mingo@redhat.com>, "Borislav Petkov" <bp@alien8.de>, 
-	"Dave Hansen" <dave.hansen@linux.intel.com>, 
-	"H . Peter Anvin" <hpa@zytor.com>, <linux-kernel@vger.kernel.org>, 
-	<stable@vger.kernel.org>, "Guixiong Wei" <weiguixiong@bytedance.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+
+Two error-handling fixes for the ngbe PM/open paths.
+
+ngbe_resume() declared err as u32 and returned 0 unconditionally, so a
+failed ngbe_reset_hw(), wx_init_interrupt_scheme() or ngbe_open() left
+the device in netif_device_detach() state with a broken interrupt
+scheme while the PM core was told the resume succeeded; the reset task
+bails out on the missing netif_device_present() check, so the device
+cannot self-heal. Patch 1 fixes the type and propagates all of these
+errors, making the whole tail of the resume path consistent with the
+pci_enable_device_mem() failure path at the top, which already reports
+its error.
+
+ngbe_open() sets the WX_CFG_PORT_CTL_DRV_LOAD bit to tell the
+management firmware the host has taken over the port, but no error
+path cleared it, leaving the firmware owning a port whose rings and
+IRQs are gone. Patch 2 rolls the bit back on all open error paths,
+matching ngbe_close() and ngbe_dev_shutdown().
+
+---
+Changes in v3:
+- patch 1: set WX_STATE_RES_FREED on every failing return of
+  ngbe_resume() (the pci_enable_device_mem() failure, the hardware
+  reset failure early return and the wx_init_interrupt_scheme()/
+  ngbe_open() failures), so that a later ngbe_close() (ndo_stop or
+  unregister_netdev()) skips re-running the teardown on the
+  already-freed post-suspend state instead of freeing IRQs that are no
+  longer requested (Sashiko review of v2);
+- patch 2: correct the Fixes tag to a1cf597b99a7, the commit that
+  introduced the bug (the first ngbe_open() failure path after the
+  DRV_LOAD bit is set; v2 pointed at e7956139a6cf, which added more
+  failing returns but not the first one); no code change.
+
+Changes in v2:
+- also propagate the ngbe_reset_hw() failure, so the whole tail of
+  ngbe_resume() reports errors to the PM core (Sashiko review of v1);
+- drop the inaccurate "device can be re-probed" claim: the PM core
+  records and logs the failure, there is no re-probe (Sashiko review
+  of v1);
+- patch 2/2 unchanged.
+
+Link: https://lore.kernel.org/netdev/20260922100836.1147718-1-zhangyunfei1@kylinos.cn/T/#u/
 
 
-> From: "Chang S. Bae"<chang.seok.bae@intel.com>
-> Date:=C2=A0 Wed, Sep 30, 2026, 14:51
-> Subject:=C2=A0 Re: [PATCH] x86/fpu: Free dynamic fpstate on exec()
-> To: "Guixiong Wei"<weiguixiong@bytedance.com>, <x86@kernel.org>
-> Cc: "Thomas Gleixner"<tglx@kernel.org>, "Ingo Molnar"<mingo@redhat.com>, =
-"Borislav Petkov"<bp@alien8.de>, "Dave Hansen"<dave.hansen@linux.intel.com>=
-, "H . Peter Anvin"<hpa@zytor.com>, <linux-kernel@vger.kernel.org>, <stable=
-@vger.kernel.org>
-> On 9/29/2026 8:10 AM, Guixiong Wei wrote:
-> > The fpstate embedded in struct fpu only accommodates the default
-> > xfeatures. When a task first uses a dynamically enabled xfeature,
-> > fpstate_realloc() installs a larger fpstate allocated with vzalloc().
-> >=C2=A0
-> > fpu_flush_thread() resets fpu->fpstate to the embedded fpstate on exec(=
-)
-> > without freeing the dynamically allocated one. Once the pointer is
-> > overwritten, arch_release_task_struct() cannot free the allocation when
-> > the task exits.
->=C2=A0
-> Thanks for the finding and fixing this. I see Dave has given good=C2=A0
-> suggestions. I think you can follow those into a revision.
+Zhang Yunfei (2):
+  net: ngbe: propagate resume errors to the PM core
+  net: ngbe: clear DRV_LOAD bit when ngbe_open() fails
 
-Sure. I will add function test_exec to tools/testing/selftests/x86/amx.c,
-covering the AMX use and exec sequence in the next revision.
+ drivers/net/ethernet/wangxun/ngbe/ngbe_main.c | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
 
->=C2=A0
-> ...
->=C2=A0
-> > On an AMX-capable system, 1000 iterations of requesting XTILEDATA
-> > permission, executing TILEZERO and calling execve() on the same image
-> > left 1000 16 KiB allocations attributed to __xfd_enable_feature() in
-> > /proc/vmallocinfo. None remained after this change.
->=C2=A0
-> I would be interested in turning this into a selftest if possible. It=C2=
-=A0
-> would be great if you could.
->=C2=A0
-> Otherwise, I wrote a case (using XRSTOR instead) and then saw that=C2=A0
-> amount from fpstate_relloac() in vmallocinfo:
->=C2=A0
-> =C2=A0 =C2=A0Caller/Module =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Difference
-> =C2=A0 =C2=A0---------------------------------------------------
-> =C2=A0 =C2=A0fpstate_realloc.constprop.0 (pages=3D3) =C2=A0 =C2=A0+163840=
-00
-> =C2=A0 =C2=A0...
->=C2=A0
-> BTW, just curious if it happens with real-world applications. The=C2=A0
-> permission is revoked on exec(), that is a very edge of the TMUL use if=
-=C2=A0
-> so. Is it a case running another application right after matrix=C2=A0
-> multiplications?
->=C2=A0
 
-I found this while developing an AMX application that calls exec()
-after performing AMX computations.
+base-commit: 93f51579e7df248780214094418f205253383cc5
+-- 
+2.25.1
 
-> Thanks,
-> Chang
->=C2=A0
