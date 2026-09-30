@@ -1,40 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A2F14F96A6;
-	Wed, 30 Sep 2026 15:59:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04E59157A5A;
+	Wed, 30 Sep 2026 15:59:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790783961; cv=none; b=psU+RlJj0siDMBxbWOmcURt4/S4SWMKczXsZf6XVzdxg3kvHhQOvLNLNuleUfcXDqqNk9KqXwW0gaj1Me58s2Ssq8GRe4fGQFAhHT2WnOz5jmFyJVhMVBBaoH+fs6sOP9l9OdPm3sivH4esufWevntOP9M8qNf1fNPgBa1XHzxI=
+	t=1790783970; cv=none; b=DkTrqYgw0EOabUm+m0Za9mHSVZBmKkZRTlrb0EhKBKEc3sXlxmfGXI2BjX6q1nYXHsIveg5071vmisoFFKoZTvcBPHtyyraKvmhzUg+upuczxOaoDkDR6828vUie4VjNz40fYWIvomBxAnwxfwr1bZtTk9MFtQgTLumQW47YP/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790783961; c=relaxed/simple;
-	bh=1aTmFV7lUl6sKof2eu4QXR2mzDq5SglbzdNc6oMntq0=;
+	s=arc-20240116; t=1790783970; c=relaxed/simple;
+	bh=xTdmb7I7n/cI3VFEkL7USgSUojMdQpYN7Yeg61CKHJo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sS/LtcjDlZ71gC+/sqr6hqjxqdz+GCX2JefoVzo69CuuGJy6lQi9XubajSCyPEQFL6PbNhs1fSDff4eSUOxOZSnZpiyx1jCQIBBPousUVDqSOVbnLNwvoFe8LZhIjHKNJm7K3kzy1otkZLNVeMCwBgCk5Dw6NIGG4gLBGxFkA9o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=LOX45+SA; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=uRYjb6cNTtA40e4ddisLqCivDEEHKXG3EApnZaiTPhqStUN6n+u6DYmkLu9A/qMwp9aJmM/icbRcz9CMctC9W7SY/dFmTC26Lnswi6QlOLNvGRE6bEEYLsr/fJ23l/GnXLx1jaSJEFwE8QqDSsN64sf1/LLTOQ3Lb9MMm8whCMM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=uCYBlv5L; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="LOX45+SA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F6921F00893;
-	Wed, 30 Sep 2026 15:59:17 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="uCYBlv5L"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D68A41F000FF;
+	Wed, 30 Sep 2026 15:59:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790783957;
-	bh=Rc6KvBqOU/AH5kirpAbzseYDP/0eA9rAdwTZrKwzKfU=;
+	s=korg; t=1790783963;
+	bh=wxeibSQeLY8S4WrXys/TVR3vMFOfHeRR/TW5Y4r93mA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LOX45+SA1030SqY3dWbf4/QYQ3qZKJixSVo06RfjS4TQbJxi6TFfQO9dwq0j8vLl4
-	 ZDl9E+dbwM/GG9xjsFuXbbE1IhUPTiz5Eyi5uEfy/G4j/TTxA8vlAyouTk2nSBQU+4
-	 Mw4cMx4lIGFV2mF5Ji4kX5inPlx1qS5dPGZbdEMY=
+	b=uCYBlv5LYO9iYZhT1VNBy5RwNbk4O7DJJ44yLYaiOKO3/ZXUWWZpgSSrUo9EEImn2
+	 53n26wUNT0koAeNipkIcEuE8umf73wj9PuISLEGh+8+3eGE63jIfoZMVWyuVfhelnY
+	 wJrVKGcew90NzNKI/T85QKDkqpNUjhX46f3Onw+Q=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Vega <vega@nebusec.ai>,
-	Florian Westphal <fw@strlen.de>,
-	Luxiao Xu <rakukuip@gmail.com>,
-	Ren Wei <weir@nebusec.ai>,
-	Pablo Neira Ayuso <pablo@netfilter.org>
-Subject: [PATCH 5.10 581/595] netfilter: ip6t_rt: fix zero-address non-strict match out-of-bounds read
-Date: Wed, 30 Sep 2026 17:27:54 +0200
-Message-ID: <20260930152400.230483040@linuxfoundation.org>
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Sasha Levin <sashal@kernel.org>,
+	"Benjamin Robin (Schneider Electric)" <benjamin.robin@bootlin.com>
+Subject: [PATCH 5.10 547/595] netfilter: nf_tables: join hook list via splice_list_rcu() in commit phase
+Date: Wed, 30 Sep 2026 17:27:20 +0200
+Message-ID: <20260930152359.478483641@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152347.700140858@linuxfoundation.org>
 References: <20260930152347.700140858@linuxfoundation.org>
@@ -53,86 +51,41 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Luxiao Xu <rakukuip@gmail.com>
+From: Pablo Neira Ayuso <pablo@netfilter.org>
 
-commit 82313c169eddc02b1bf5ba6b427803e272d3ec42 upstream.
+[ Upstream commit a6134e62dba2ea4f760b29d5226907f447c92400 ]
 
-rt_mt6_check() permits rules to be configured with rtinfo->addrnr == 0
-even when address matching (IP6T_RT_FST_MASK) is requested.
+Publish new hooks in the list into the basechain/flowtable using
+splice_list_rcu() to ensure netlink dump list traversal via rcu is safe
+while concurrent ruleset update is going on.
 
-In the IP6T_RT_FST_NSTRICT path, rt_mt6() evaluates packet routing
-addresses against rtinfo->addrs[i] and terminates backwards at the bottom
-of the loop:
-
-    if (ipv6_addr_equal(ap, &rtinfo->addrs[i])) {
-        i++;
-    }
-    if (i == rtinfo->addrnr)
-        break;
-
-When addrnr is 0, if the first packet address matches rtinfo->addrs[0],
-i is incremented to 1. Because i is now strictly greater than addrnr (0),
-the loop termination condition (i == rtinfo->addrnr) is bypassed and will
-never be satisfied.
-
-If a crafted IPv6 packet contains matching routing addresses, i will
-advance past IP6T_RT_HOPS (16). The subsequent call to ipv6_addr_equal()
-reads beyond struct ip6t_rt, triggering UBSAN/KASAN out-of-bounds warnings
-or kernel panics.
-
-Fix this by:
-1. Rejecting rules in rt_mt6_check() where IP6T_RT_FST_MASK is set but
-   rtinfo->addrnr is zero.
-2. In rt_mt6(), moving the termination condition (i < rtinfo->addrnr)
-   into the for-loop header condition and removing the backwards break
-   at the end of the loop body.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Suggested-by: Florian Westphal <fw@strlen.de>
-Assisted-by: LLM
-Signed-off-by: Luxiao Xu <rakukuip@gmail.com>
-Signed-off-by: Ren Wei <weir@nebusec.ai>
+Fixes: 78d9f48f7f44 ("netfilter: nf_tables: add devices to existing flowtable")
+Fixes: b9703ed44ffb ("netfilter: nf_tables: support for adding new devices to an existing netdev chain")
 Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Benjamin Robin (Schneider Electric) <benjamin.robin@bootlin.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv6/netfilter/ip6t_rt.c |   11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ net/netfilter/nf_tables_api.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
---- a/net/ipv6/netfilter/ip6t_rt.c
-+++ b/net/ipv6/netfilter/ip6t_rt.c
-@@ -96,7 +96,8 @@ static bool rt_mt6(const struct sk_buff
- 			unsigned int i = 0;
- 
- 			for (temp = 0;
--			     temp < (unsigned int)((hdrlen - 8) / 16);
-+			     temp < (unsigned int)((hdrlen - 8) / 16) &&
-+			     i < rtinfo->addrnr;
- 			     temp++) {
- 				ap = skb_header_pointer(skb,
- 							ptr
-@@ -112,8 +113,6 @@ static bool rt_mt6(const struct sk_buff
- 
- 				if (ipv6_addr_equal(ap, &rtinfo->addrs[i]))
- 					i++;
--				if (i == rtinfo->addrnr)
--					break;
- 			}
- 			if (i == rtinfo->addrnr)
- 				return ret;
-@@ -162,6 +161,12 @@ static int rt_mt6_check(const struct xt_
- 		pr_debug("too many addresses specified\n");
- 		return -EINVAL;
- 	}
-+
-+	if ((rtinfo->flags & IP6T_RT_FST_MASK) && !rtinfo->addrnr) {
-+		pr_info_ratelimited("address list match requested but addrnr is 0\n");
-+		return -EINVAL;
-+	}
-+
- 	if ((rtinfo->flags & (IP6T_RT_RES | IP6T_RT_FST_MASK)) &&
- 	    (!(rtinfo->flags & IP6T_RT_TYP) ||
- 	     (rtinfo->rt_type != 0) ||
+diff --git a/net/netfilter/nf_tables_api.c b/net/netfilter/nf_tables_api.c
+index 5e3f863c487f6..63592c73a7a17 100644
+--- a/net/netfilter/nf_tables_api.c
++++ b/net/netfilter/nf_tables_api.c
+@@ -8797,8 +8797,8 @@ static int nf_tables_commit(struct net *net, struct sk_buff *skb)
+ 							   nft_trans_flowtable(trans),
+ 							   &nft_trans_flowtable_hooks(trans),
+ 							   NFT_MSG_NEWFLOWTABLE);
+-				list_splice(&nft_trans_flowtable_hooks(trans),
+-					    &nft_trans_flowtable(trans)->hook_list);
++				list_splice_rcu(&nft_trans_flowtable_hooks(trans),
++						&nft_trans_flowtable(trans)->hook_list);
+ 			} else {
+ 				nft_clear(net, nft_trans_flowtable(trans));
+ 				nf_tables_flowtable_notify(&trans->ctx,
+-- 
+2.53.0
+
 
 
