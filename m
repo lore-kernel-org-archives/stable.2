@@ -1,39 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 925CE51A14A
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 18:01:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7AD9509F06
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 18:01:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790791308; cv=none; b=tFKeY1pitmmOQ2DGbov5xKPz4lsiSlmLGVn+zSopjDR8740KSZECqyf3tbxY9eabaRwS8u0llqySPzoD/8gA8lw8LGIcS1oXyLS+lYjqupz4wzWUJO2pEL1Rv3HS4xCBSZr0yS81Q3e3YDaZnJ6aMwnbQIEy2cYGGFDjlrGu4OY=
+	t=1790791309; cv=none; b=iGCIR5vP/JhA/gk4GdVgTfrnF5UcBJOMnVjuhYqpMVvbtGU7pjsoxP/1B4Vnin5iPF5NmNMATHPzmUNTSN+CUYXBcIdpvV/Y0JVztH2OFWlFvvqYV/b3dgt+2BcAk87d1OsYplgbCTz00FwgDTDtkspk4sX/OEskuBGyc6YcLl0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790791308; c=relaxed/simple;
-	bh=8Pj4Ef0YaIxVpDXpOcUqy6hfxtttJdEBl2MTDL+SG7k=;
+	s=arc-20240116; t=1790791309; c=relaxed/simple;
+	bh=qJfzVez0bW9BCsbyvoxLMEhLAA2t7gfbP2PtySSwxuE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OpZXVHzxsf3Xgv47FKpzeKVBMcNFszGLbQLMLXawu7w4hdHRw5aVhdP3xODaPnCiBF5Okix+KuYl0fFltB0Y4f4mz1bZpzmOf7FglgbkXDQ/YtfDPkkN4iFz4gt5W7OnNOjuxl0r88Ir2/PINQbN2VztZ9CuFLDAzHJYNeQ9kIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cnViZoxB; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=k4MCGtGKpQwsgb9LxoQSEIa23nvVo4iJApFldSY90WBL0QEpShXmHN2UHR4a9BDWbyTifo/aznCbVO1wucx6QxM7oRqY1PKfi7AbMj2+MoxWpsWtJlRAED2wi5iXQ36W4jzXE93qbIxMEsfk+oTcXXDxg8tl2swksGzF6ZE/U6M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mnz1EgN7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cnViZoxB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDB691F0089A;
-	Wed, 30 Sep 2026 18:01:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mnz1EgN7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BD071F0089C;
+	Wed, 30 Sep 2026 18:01:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790791306;
-	bh=0xUG3f5jlkhHSN80SssKyuQLpQlTMndcPH7jfiP3XXU=;
+	s=k20260515; t=1790791307;
+	bh=Aq7U+X2RHhiC3L8E/hszKrdHowAlEZp0yKERSrJBFwA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cnViZoxBfRaqA/VKugRBy946dbcr+RmhaZ5P+QyQPWRWgS8w9WA0ccm/kt6Lc16ug
-	 GCWaJ8QWakfQJC+c5myooxEJ7Zsf6QVq0FTxnTWsmE+Y2tZl9XxxA2ZOI6PZ7g38BL
-	 b8BrMwx2/moButrBGrFvGh6qDXGTJ3EeV8v/oz520b0i2soZtXQfwgmddlALEVttt3
-	 FJdCyLY9zBdL5Z6YfHJkzUO9BneP6xn11Z/Yfh93/tXECh5yv0tW9OlmGEGwyNZmi2
-	 U8snxXb+7BgtJOpEYdMciLpHJbC54ZbQGnDHbhNX4phsJWaAOSxz3nS+7Zr1JcTIbO
-	 hUA5ID54AkC9g==
+	b=mnz1EgN7f+xuAlrJfvSMSLagPuwKxNNmLqX6RQFVj5m6DccukjyQ4CCqYt6Sxhx2u
+	 lncF5z7DDuS1MDdMn4YSAQaTfFgjacy159GWVDpYe7OrdWj6OV+QbK8JM00qYivy1n
+	 FnLNQZIoJsHcP6wlCjw9c/OAlI0cxcdXzXqjC7i+eDmd5mc8A6/jUbuMmjshhcZeC7
+	 t5FBvdScO6rBxNNtbyqCPcH4PhS8hZGIkD2PCEgM9Em3s1Lg+LDwa6DHJ16064wQRm
+	 SbdYAbMIijGU+W6iPzAVrLN+vQNf4vSyUeLUvyCRy1pJuD7wpN+9ZMXBiUzVBfv4fc
+	 VnwHmsnGwgCyw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Paulo Alcantara <pc@manguebit.com>,
-	Steve French <stfrench@microsoft.com>,
+Cc: Zihan Xi <zihanx@nebusec.ai>,
+	Vega <vega@nebusec.ai>,
+	Luxing Yin <root@tr0jan.top>,
+	Frank Sorenson <sorenson@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/3] smb: client: fix use-after-free in smb2_query_info_compound()
-Date: Wed, 30 Sep 2026 14:01:42 -0400
-Message-ID: <20260930180143.3974994-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y 3/3] smb: client: clean up failed cached directory opens
+Date: Wed, 30 Sep 2026 14:01:43 -0400
+Message-ID: <20260930180143.3974994-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260930180143.3974994-1-sashal@kernel.org>
 References: <2026092902-hacksaw-legwork-e770@gregkh>
@@ -46,294 +49,104 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Paulo Alcantara <pc@manguebit.com>
+From: Zihan Xi <zihanx@nebusec.ai>
 
-[ Upstream commit 5c86919455c1edec99ebd3338ad213b59271a71b ]
+[ Upstream commit d2ff5fb93ea83034025850266b5eed391f96b825 ]
 
-The following UAF was triggered when running fstests generic/072 with
-KASAN enabled against Windows Server 2022 and mount options
-'multichannel,max_channels=2,vers=3.1.1,mfsymlinks,noperm'
+open_cached_dir() sends CREATE and QUERY_INFO as a compound request. If
+the CREATE succeeds but a later command returns an error, the function
+must retain the CREATE FID so common cleanup can issue SMB2_close(). It
+also must not treat a response error as a valid CREATE.
 
-  BUG: KASAN: slab-use-after-free in smb2_query_info_compound+0x423/0x6d0 [cifs]
-  Read of size 8 at addr ffff888014941048 by task xfs_io/27534
+Validate the CREATE response before using its fields, record the FIDs, and
+mark the handle open before handling errors from later compound commands.
+Move the -EREMCHG reconnect handling before response validation so a
+missing response does not hide the reconnect request. Count the handle
+when it is marked open; confirmed close responses decrement the counter,
+while existing close retry behavior remains best effort on transport
+failures.
 
-  CPU: 0 PID: 27534 Comm: xfs_io Not tainted 6.6.0-rc7 #1
-  Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS
-  rel-1.16.2-3-gd478f380-rebuilt.opensuse.org 04/01/2014
-  Call Trace:
-   dump_stack_lvl+0x4a/0x80
-   print_report+0xcf/0x650
-   ? srso_alias_return_thunk+0x5/0x7f
-   ? srso_alias_return_thunk+0x5/0x7f
-   ? __phys_addr+0x46/0x90
-   kasan_report+0xda/0x110
-   ? smb2_query_info_compound+0x423/0x6d0 [cifs]
-   ? smb2_query_info_compound+0x423/0x6d0 [cifs]
-   smb2_query_info_compound+0x423/0x6d0 [cifs]
-   ? __pfx_smb2_query_info_compound+0x10/0x10 [cifs]
-   ? srso_alias_return_thunk+0x5/0x7f
-   ? __stack_depot_save+0x39/0x480
-   ? kasan_save_stack+0x33/0x60
-   ? kasan_set_track+0x25/0x30
-   ? ____kasan_slab_free+0x126/0x170
-   smb2_queryfs+0xc2/0x2c0 [cifs]
-   ? __pfx_smb2_queryfs+0x10/0x10 [cifs]
-   ? __pfx___lock_acquire+0x10/0x10
-   smb311_queryfs+0x210/0x220 [cifs]
-   ? __pfx_smb311_queryfs+0x10/0x10 [cifs]
-   ? srso_alias_return_thunk+0x5/0x7f
-   ? __lock_acquire+0x480/0x26c0
-   ? lock_release+0x1ed/0x640
-   ? srso_alias_return_thunk+0x5/0x7f
-   ? do_raw_spin_unlock+0x9b/0x100
-   cifs_statfs+0x18c/0x4b0 [cifs]
-   statfs_by_dentry+0x9b/0xf0
-   fd_statfs+0x4e/0xb0
-   __do_sys_fstatfs+0x7f/0xe0
-   ? __pfx___do_sys_fstatfs+0x10/0x10
-   ? srso_alias_return_thunk+0x5/0x7f
-   ? lockdep_hardirqs_on_prepare+0x136/0x200
-   ? srso_alias_return_thunk+0x5/0x7f
-   do_syscall_64+0x3f/0x90
-   entry_SYSCALL_64_after_hwframe+0x6e/0xd8
-
-  Allocated by task 27534:
-   kasan_save_stack+0x33/0x60
-   kasan_set_track+0x25/0x30
-   __kasan_kmalloc+0x8f/0xa0
-   open_cached_dir+0x71b/0x1240 [cifs]
-   smb2_query_info_compound+0x5c3/0x6d0 [cifs]
-   smb2_queryfs+0xc2/0x2c0 [cifs]
-   smb311_queryfs+0x210/0x220 [cifs]
-   cifs_statfs+0x18c/0x4b0 [cifs]
-   statfs_by_dentry+0x9b/0xf0
-   fd_statfs+0x4e/0xb0
-   __do_sys_fstatfs+0x7f/0xe0
-   do_syscall_64+0x3f/0x90
-   entry_SYSCALL_64_after_hwframe+0x6e/0xd8
-
-  Freed by task 27534:
-   kasan_save_stack+0x33/0x60
-   kasan_set_track+0x25/0x30
-   kasan_save_free_info+0x2b/0x50
-   ____kasan_slab_free+0x126/0x170
-   slab_free_freelist_hook+0xd0/0x1e0
-   __kmem_cache_free+0x9d/0x1b0
-   open_cached_dir+0xff5/0x1240 [cifs]
-   smb2_query_info_compound+0x5c3/0x6d0 [cifs]
-   smb2_queryfs+0xc2/0x2c0 [cifs]
-
-This is a race between open_cached_dir() and cached_dir_lease_break()
-where the cache entry for the open directory handle receives a lease
-break while creating it.  And before returning from open_cached_dir(),
-we put the last reference of the new @cfid because of
-!@cfid->has_lease.
-
-Besides the UAF, while running xfstests a lot of missed lease breaks
-have been noticed in tests that run several concurrent statfs(2) calls
-on those cached fids
-
-  CIFS: VFS: \\w22-root1.gandalf.test No task to wake, unknown frame...
-  CIFS: VFS: \\w22-root1.gandalf.test Cmd: 18 Err: 0x0 Flags: 0x1...
-  CIFS: VFS: \\w22-root1.gandalf.test smb buf 00000000715bfe83 len 108
-  CIFS: VFS: Dump pending requests:
-  CIFS: VFS: \\w22-root1.gandalf.test No task to wake, unknown frame...
-  CIFS: VFS: \\w22-root1.gandalf.test Cmd: 18 Err: 0x0 Flags: 0x1...
-  CIFS: VFS: \\w22-root1.gandalf.test smb buf 000000005aa7316e len 108
-  ...
-
-To fix both, in open_cached_dir() ensure that @cfid->has_lease is set
-right before sending out compounded request so that any potential
-lease break will be get processed by demultiplex thread while we're
-still caching @cfid.  And, if open failed for some reason, re-check
-@cfid->has_lease to decide whether or not put lease reference.
-
+Fixes: b0f6df737a1c ("cifs: cache FILE_ALL_INFO for the shared root handle")
 Cc: stable@vger.kernel.org
-Signed-off-by: Paulo Alcantara (SUSE) <pc@manguebit.com>
-Signed-off-by: Steve French <stfrench@microsoft.com>
-
-Stable dependency adaptation for d2ff5fb93ea8:
-
-The preceding stable dependency already preserves the caller reference
-through concurrent lease-break cleanup using an explicit cache-ownership
-flag and close_cached_dir(). Keep that lifetime model and the current
-error-returning smb2_parse_contexts() API.
-
-Retain the rejected-response error handling: fail a CREATE without a
-lease, a lease without read caching, or a short FILE_ALL_INFO result.
-Restore success only after the directory has been fully cached. Route
-prefix-path errors through common reference cleanup, bypassing the
-request buffers that have not yet been initialized.
-
-Omit early lease publication and the associated lookup/dentry and
-cleanup rewrites. This branch clears has_lease in deferred lease-break
-work, so testing that flag alone cannot establish ownership of the lease
-reference. The existing cache-ownership tracking must not be replaced by
-the upstream unconditional free path. No functions are added, and the
-compound-response and final cleanup context is kept for the target.
-
-Move the existing smb2status.h unchanged from client/ to common/ and
-adjust its seven existing users. The target includes the common path,
-which does not exist in this stable tree; without this preparation the
-target applies cleanly but fails to compile. This relocates definitions
-only and does not import the newer status-table implementation.
-
-Stable-dep-of: d2ff5fb93ea8 ("smb: client: clean up failed cached directory opens")
+Reported-by: Vega <vega@nebusec.ai>
+Assisted-by: LLM
+Co-developed-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+Tested-by: Frank Sorenson <sorenson@redhat.com>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/cached_dir.c             | 8 ++++++--
- fs/smb/client/smb2file.c               | 2 +-
- fs/smb/client/smb2inode.c              | 2 +-
- fs/smb/client/smb2maperror.c           | 2 +-
- fs/smb/client/smb2misc.c               | 2 +-
- fs/smb/client/smb2ops.c                | 2 +-
- fs/smb/client/smb2pdu.c                | 2 +-
- fs/smb/client/smb2transport.c          | 2 +-
- fs/smb/{client => common}/smb2status.h | 0
- 9 files changed, 13 insertions(+), 9 deletions(-)
- rename fs/smb/{client => common}/smb2status.h (100%)
+ fs/smb/client/cached_dir.c | 32 ++++++++++++++++++++++----------
+ 1 file changed, 22 insertions(+), 10 deletions(-)
 
 diff --git a/fs/smb/client/cached_dir.c b/fs/smb/client/cached_dir.c
-index f6c72c6567f9d..d7cab84644a45 100644
+index d7cab84644a45..476ef68ba0c68 100644
 --- a/fs/smb/client/cached_dir.c
 +++ b/fs/smb/client/cached_dir.c
-@@ -182,8 +182,7 @@ int open_cached_dir(unsigned int xid, struct cifs_tcon *tcon,
- 	npath = path_no_prefix(cifs_sb, path);
- 	if (IS_ERR(npath)) {
- 		rc = PTR_ERR(npath);
--		kfree(utf16_path);
--		return rc;
-+		goto out;
+@@ -8,6 +8,7 @@
+ #include <linux/namei.h>
+ #include "cifsglob.h"
+ #include "cifsproto.h"
++#include "../common/smb2status.h"
+ #include "cifs_debug.h"
+ #include "smb2proto.h"
+ #include "cached_dir.h"
+@@ -250,25 +251,37 @@ int open_cached_dir(unsigned int xid, struct cifs_tcon *tcon,
+ 	rc = compound_send_recv(xid, ses, server,
+ 				flags, 2, rqst,
+ 				resp_buftype, rsp_iov);
+-	if (rc) {
+-		if (rc == -EREMCHG) {
+-			tcon->need_reconnect = true;
+-			pr_warn_once("server share %s deleted\n",
+-				     tcon->tree_name);
+-		}
+-		goto oshr_free;
++	if (rc == -EREMCHG) {
++		tcon->need_reconnect = true;
++		pr_warn_once("server share %s deleted\n",
++			     tcon->tree_name);
  	}
+-	cfid->is_open = true;
  
- 	/*
-@@ -273,6 +272,7 @@ int open_cached_dir(unsigned int xid, struct cifs_tcon *tcon,
+-	spin_lock(&cfids->cfid_list_lock);
++	if (!rsp_iov[0].iov_base || rsp_iov[0].iov_len < sizeof(*o_rsp)) {
++		if (!rc)
++			rc = -EIO;
++		goto oshr_free;
++	}
+ 
+ 	o_rsp = (struct smb2_create_rsp *)rsp_iov[0].iov_base;
++	if (o_rsp->hdr.Status != STATUS_SUCCESS) {
++		if (!rc)
++			rc = -EIO;
++		goto oshr_free;
++	}
++
+ 	oparms.fid->persistent_fid = o_rsp->PersistentFileId;
+ 	oparms.fid->volatile_fid = o_rsp->VolatileFileId;
+ #ifdef CONFIG_CIFS_DEBUG2
+ 	oparms.fid->mid = le64_to_cpu(o_rsp->hdr.MessageId);
+ #endif /* CIFS_DEBUG2 */
++	cfid->is_open = true;
++	atomic_inc(&tcon->num_remote_opens);
+ 
++	if (rc)
++		goto oshr_free;
++
++	spin_lock(&cfids->cfid_list_lock);
  
  	if (o_rsp->OplockLevel != SMB2_OPLOCK_LEVEL_LEASE) {
  		spin_unlock(&cfids->cfid_list_lock);
-+		rc = -EINVAL;
- 		goto oshr_free;
+@@ -342,7 +355,6 @@ int open_cached_dir(unsigned int xid, struct cifs_tcon *tcon,
+ 		close_cached_dir(cfid);
+ 	} else {
+ 		*ret_cfid = cfid;
+-		atomic_inc(&tcon->num_remote_opens);
  	}
+ 	kfree(utf16_path);
  
-@@ -283,6 +283,7 @@ int open_cached_dir(unsigned int xid, struct cifs_tcon *tcon,
- 	spin_unlock(&cfids->cfid_list_lock);
- 	if (rc)
- 		goto oshr_free;
-+	rc = -EINVAL;
- 	if (!(oplock & SMB2_LEASE_READ_CACHING_HE))
- 		goto oshr_free;
- 	qi_rsp = (struct smb2_query_info_rsp *)rsp_iov[1].iov_base;
-@@ -310,12 +311,15 @@ int open_cached_dir(unsigned int xid, struct cifs_tcon *tcon,
- 	cfid->has_lease = true;
- 	cached = true;
- 	spin_unlock(&cfids->cfid_list_lock);
-+	/* At this point the directory handle is fully cached */
-+	rc = 0;
- 
- oshr_free:
- 	SMB2_open_free(&rqst[0]);
- 	SMB2_query_info_free(&rqst[1]);
- 	free_rsp_buf(resp_buftype[0], rsp_iov[0].iov_base);
- 	free_rsp_buf(resp_buftype[1], rsp_iov[1].iov_base);
-+out:
- 	spin_lock(&cfids->cfid_list_lock);
- 	if (rc && !cfid->has_lease) {
- 		if (cfid->on_list) {
-diff --git a/fs/smb/client/smb2file.c b/fs/smb/client/smb2file.c
-index 2d0dd87dae0dd..4bf62a2487bb7 100644
---- a/fs/smb/client/smb2file.c
-+++ b/fs/smb/client/smb2file.c
-@@ -20,7 +20,7 @@
- #include "cifs_unicode.h"
- #include "fscache.h"
- #include "smb2proto.h"
--#include "smb2status.h"
-+#include "../common/smb2status.h"
- 
- static struct smb2_symlink_err_rsp *symlink_data(const struct kvec *iov)
- {
-diff --git a/fs/smb/client/smb2inode.c b/fs/smb/client/smb2inode.c
-index 452a60e09cbed..9dc7b1877a75b 100644
---- a/fs/smb/client/smb2inode.c
-+++ b/fs/smb/client/smb2inode.c
-@@ -24,7 +24,7 @@
- #include "smb2pdu.h"
- #include "smb2proto.h"
- #include "cached_dir.h"
--#include "smb2status.h"
-+#include "../common/smb2status.h"
- 
- static void
- free_set_inf_compound(struct smb_rqst *rqst)
-diff --git a/fs/smb/client/smb2maperror.c b/fs/smb/client/smb2maperror.c
-index 194799ddd3828..4c63d3439bf4f 100644
---- a/fs/smb/client/smb2maperror.c
-+++ b/fs/smb/client/smb2maperror.c
-@@ -12,7 +12,7 @@
- #include "cifs_debug.h"
- #include "smb2pdu.h"
- #include "smb2proto.h"
--#include "smb2status.h"
-+#include "../common/smb2status.h"
- #include "smb2glob.h"
- #include "trace.h"
- 
-diff --git a/fs/smb/client/smb2misc.c b/fs/smb/client/smb2misc.c
-index cd00bf48c9a56..c67b77c4858f4 100644
---- a/fs/smb/client/smb2misc.c
-+++ b/fs/smb/client/smb2misc.c
-@@ -13,7 +13,7 @@
- #include "smb2proto.h"
- #include "cifs_debug.h"
- #include "cifs_unicode.h"
--#include "smb2status.h"
-+#include "../common/smb2status.h"
- #include "smb2glob.h"
- #include "nterr.h"
- #include "cached_dir.h"
-diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
-index 2b38e8e7efd4e..fbd9f7f03fdfc 100644
---- a/fs/smb/client/smb2ops.c
-+++ b/fs/smb/client/smb2ops.c
-@@ -21,7 +21,7 @@
- #include "cifsproto.h"
- #include "cifs_debug.h"
- #include "cifs_unicode.h"
--#include "smb2status.h"
-+#include "../common/smb2status.h"
- #include "smb2glob.h"
- #include "cifs_ioctl.h"
- #include "smbdirect.h"
-diff --git a/fs/smb/client/smb2pdu.c b/fs/smb/client/smb2pdu.c
-index 98d6fcdf22365..9ea286d20f88a 100644
---- a/fs/smb/client/smb2pdu.c
-+++ b/fs/smb/client/smb2pdu.c
-@@ -30,7 +30,7 @@
- #include "cifs_unicode.h"
- #include "cifs_debug.h"
- #include "ntlmssp.h"
--#include "smb2status.h"
-+#include "../common/smb2status.h"
- #include "smb2glob.h"
- #include "cifspdu.h"
- #include "cifs_spnego.h"
-diff --git a/fs/smb/client/smb2transport.c b/fs/smb/client/smb2transport.c
-index 3a69f3500acde..797a147366851 100644
---- a/fs/smb/client/smb2transport.c
-+++ b/fs/smb/client/smb2transport.c
-@@ -24,7 +24,7 @@
- #include "cifsproto.h"
- #include "smb2proto.h"
- #include "cifs_debug.h"
--#include "smb2status.h"
-+#include "../common/smb2status.h"
- #include "smb2glob.h"
- 
- static int
-diff --git a/fs/smb/client/smb2status.h b/fs/smb/common/smb2status.h
-similarity index 100%
-rename from fs/smb/client/smb2status.h
-rename to fs/smb/common/smb2status.h
 -- 
 2.53.0
 
