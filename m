@@ -1,111 +1,141 @@
-Received: from pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.83.148.184])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E10B24E1C88;
-	Wed, 30 Sep 2026 20:27:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.83.148.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 404CB2EEE63;
+	Wed, 30 Sep 2026 20:28:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790800022; cv=none; b=rR3ifjlX7hnwVK639RyFG9oP2e+EEY4K7iEBwfAXg0ID2OTk5gZPiIDcsfqBgCPFxOgP7DfC9LNdpPO6LQqQz8D0n1W7Grnk+UEo9ApNoK/ZnUj9Ab9LuEJTuEpGDZQq9MMkDOsIiNBCTHzqkRzvF9ENbKL8NdsNlm6Uesov+fA=
+	t=1790800104; cv=none; b=UxA5O/Ok6yqbqJ2Gk91MhEtjsfpwTHPsQXkgvqnzndtSr47JMgSX4djzplBWv2IET3+D3Jp+3HWCzNbQRc2Qq97y0rwpUSNT3GHdv0eq+zveYVlElfQ8NmanODKzKhHiWFMq3mOLoqZhfi4Mqhdkka8JBmK2LSMy3xlyQPpHNxY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790800022; c=relaxed/simple;
-	bh=gBxbbz8+38Y+s40Za87dlwU4FYsCKhVptdzqeBxOssw=;
-	h=MIME-Version:Content-Type:Subject:From:To:CC:In-Reply-To:
-	 References:Date:Message-ID; b=XXAonpSlMeNIIrdZ8C89I4kljSRqUy6PNCm0ye5UTgVpJE+fTuiBhJyphQIG6EH47Fe1BH1X0WNwEYAPzlzIT0iBQcACD7bhtIskKvtfCqePdLTbiDOZEoo5QTzGQXC0bejMuWaZdBIlfuBbxGEBTH64XeBHN8nU64/9fSZ+Vq0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=rQ8NtPMt; arc=none smtp.client-ip=35.83.148.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	s=arc-20240116; t=1790800104; c=relaxed/simple;
+	bh=9rktf2hgl/uVrRZ4iHt8YW+bXpVafwJlLDS7CU4phOw=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=AhZVr6fshc9v2jQIPDHweWEcWNwhcTRlC93R8bNLJZBowHL4Asbw8ohObQfHZAu+O52p7vELzLYvmFu9bNX0ZhR98bjTmoCcqRaVVFufVqZwv82CCp6l14kdH7K/RvDA+tLPGp99iMe9SzWP1rGoHZh44fvWLk1juAXkQPFHZDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WyXbAwo3; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="rQ8NtPMt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1790800020; x=1822336020;
-  h=mime-version:content-transfer-encoding:subject:from:to:
-   cc:in-reply-to:references:date:message-id;
-  bh=Pv29v2l3ni5xtNbu+pW0MmRMAzR9cn9ltBlcm3SKBcY=;
-  b=rQ8NtPMtChraEeiH1NTgZGrfDxbbgekm7hDsmp0Ex8g6LLO0k3xLlqYs
-   twkMhKnqPAdfp2LCCb62REnHXy7HEs7IyCvHAQ3ku+/d2w7iIlopPkWG0
-   ggTRGTI8NdrzyxzF6db+3f0poCerj9FTgc7K0Iit0M9B/4OIQnCBHhW4l
-   UlTrtu8DkgniXFUiqZv6bmjKDRalmmOwqz8NnxS8AaKi7ujLKvtkD4H9v
-   hYcMAj4hBz7TjS8q5Y9vv/RSR/F3WmwePdot2/1XR/9p9SGjICAlVjaiD
-   T83oKMmC1irsOSLHp8JRNZ3cs5Co4YvYOcMXkOJr7GKiO5VlayhXkAYW9
-   w==;
-X-CSE-ConnectionGUID: 2EzWEmH8R6iGbrHniBJoiw==
-X-CSE-MsgGUID: 4/5r+YDDSu2VXhf35/sWKg==
-X-IronPort-AV: E=Sophos;i="6.27,133,1787011200"; 
-   d="scan'208";a="29865497"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 20:26:58 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:24754]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.43.208:2525] with esmtp (Farcaster)
- id f3afff18-fd90-4d02-847a-62fbc03cd098; Wed, 30 Sep 2026 20:26:58 +0000 (UTC)
-X-Farcaster-Flow-ID: f3afff18-fd90-4d02-847a-62fbc03cd098
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Wed, 30 Sep 2026 20:26:57 +0000
-Received: from dev-dsk-akiyano-1c-2138b29d.eu-west-1.amazon.com (172.19.83.6)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Wed, 30 Sep 2026 20:26:55 +0000
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WyXbAwo3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790800103; x=1822336103;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=9rktf2hgl/uVrRZ4iHt8YW+bXpVafwJlLDS7CU4phOw=;
+  b=WyXbAwo3Yc4tgY1aGjXeozymZTtGy57YozuZD5DMmEIaP6djGm8swULl
+   EIG/zv4EP8kKIUUOg4LUPAtzX1qh9VkY8y8LS2O5wYZwbrZyq180kbYk5
+   +kqJJJJStN4do9tKosfjKV7YIEzlZTdvBowVkDa1HKj5QZZzLHRIahxMY
+   lnYIxIkp82wQcN/umIPthTDiODtcrIWb4RQ6KknJnv6P9Xu/2r+Pz2/tw
+   SUea+wzokOmqwDVaBZFLFr4wd77parRpRshyh4B2C6yxrZRkMlbbjY2rZ
+   4aAYHYqyAAoiOT7pcCXswVvwArjM0TfJfsGv1xGcus2pS8jdzwwtGYMZz
+   Q==;
+X-CSE-ConnectionGUID: O/3wNvmjSP+39QUL+12FEA==
+X-CSE-MsgGUID: 9xzOCQQSSoWPFtpbDRt0mg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="90585429"
+X-IronPort-AV: E=Sophos;i="6.27,133,1787036400"; 
+   d="scan'208";a="90585429"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 13:28:22 -0700
+X-CSE-ConnectionGUID: TrL2uQ2PRJiq6Hj8/WZkXw==
+X-CSE-MsgGUID: w0BQJxGNRV+xYIrTGfGHPA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,133,1787036400"; 
+   d="scan'208";a="275329860"
+Received: from spandruv-desk1.amr.corp.intel.com ([10.124.223.41])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 13:28:22 -0700
+Message-ID: <f3f665ca76f9d914bf4b91cf03358223596d922d.camel@linux.intel.com>
+Subject: Re: [PATCH] platform/x86/intel-uncore-freq: Continue restoring
+ limits on resume
+From: srinivas pandruvada <srinivas.pandruvada@linux.intel.com>
+To: Guixiong Wei <weiguixiong@bytedance.com>
+Cc: hansg@kernel.org, ilpo.jarvinen@linux.intel.com,
+ rafael.j.wysocki@intel.com, 	platform-driver-x86@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 	wangyijia.yeah@bytedance.com,
+ stable@vger.kernel.org
+Date: Wed, 30 Sep 2026 13:28:20 -0700
+In-Reply-To: <20260929163133.14326-2-weiguixiong@bytedance.com>
+References: <20260929163133.14326-2-weiguixiong@bytedance.com>
+Autocrypt: addr=srinivas.pandruvada@linux.intel.com; prefer-encrypt=mutual;
+ keydata=mQGNBGYHNAsBDAC7tv5u9cIsSDvdgBBEDG0/a/nTaC1GXOx5MFNEDL0LWia2p8Asl7igx
+ YrB68fyfPNLSIgtCmps0EbRUkPtoN5/HTbAEZeJUTL8Xdoe6sTywf8/6/DMheEUzprE4Qyjt0HheW
+ y1JGvdOA0f1lkxCnPXeiiDY4FUqQHr3U6X4FPqfrfGlrMmGvntpKzOTutlQl8eSAprtgZ+zm0Jiwq
+ NSiSBOt2SlbkGu9bBYx7mTsrGv+x7x4Ca6/BO9o5dIvwJOcfK/cXC/yxEkr1ajbIUYZFEzQyZQXrT
+ GUGn8j3/cXQgVvMYxrh3pGCq9Q0Q6PAwQYhm97ipXa86GcTpP5B2ip9xclPtDW99sihiL8euTWRfS
+ TUsEI+1YzCyz5DU32w3WiXr3ITicaMV090tMg9phIZsjfFbnR8hY03n0kRNWWFXi/ch2MsZCCqXIB
+ oY/SruNH9Y6mnFKW8HSH762C7On8GXBYJzH6giLGeSsbvis2ZmV/r+LmswwZ6ACcOKLlvvIukAEQE
+ AAbQ5U3Jpbml2YXMgUGFuZHJ1dmFkYSA8c3Jpbml2YXMucGFuZHJ1dmFkYUBsaW51eC5pbnRlbC5j
+ b20+iQHRBBMBCAA7FiEEdki2SeUi0wlk2xcjOqtdDMJyisMFAmYHNAsCGwMFCwkIBwICIgIGFQoJC
+ AsCBBYCAwECHgcCF4AACgkQOqtdDMJyisMobAv+LLYUSKNuWhRN3wS7WocRPCi3tWeBml+qivCwyv
+ oZbmE2LcxYFnkcj6YNoS4N1CHJCr7vwefWTzoKTTDYqz3Ma0D0SbR1p/dH0nDgN34y41HpIHf0tx0
+ UxGMgOWJAInq3A7/mNkoLQQ3D5siG39X3bh9Ecg0LhMpYwP/AYsd8X1ypCWgo8SE0J/6XX/HXop2a
+ ivimve15VklMhyuu2dNWDIyF2cWz6urHV4jmxT/wUGBdq5j87vrJhLXeosueRjGJb8/xzl34iYv08
+ wOB0fP+Ox5m0t9N5yZCbcaQug3hSlgp9hittYRgIK4GwZtNO11bOzeCEMk+xFYUoa5V8JWK9/vxrx
+ NZEn58vMJ/nxoJzkb++iV7KBtsqErbs5iDwFln/TRJAQDYrtHJKLLFB9BGUDuaBOmFummR70Rbo55
+ J9fvUHc2O70qteKOt5A0zv7G8uUdIaaUHrT+VOS7o+MrbPQcSk+bl81L2R7TfWViCmKQ60sD3M90Y
+ oOfCQxricddC
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2 (3.56.2-2.fc42) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 6.6.y] net: ena: Add validation for completion
- descriptors consistency
-From: Arthur Kiyanovski <akiyano@amazon.com>
-To: <netdev-bot+sinfo@kernel.org>
-CC: Artem Dinaburg <artem@trailofbits.com>, <stable@vger.kernel.org>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, Sasha Levin <sashal@kernel.org>,
-	David Arinzon <darinzon@amazon.com>, Shahar Itzko <itzko@amazon.com>, "Simon
- Horman" <horms@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Shay Agroskin
-	<shayagr@amazon.com>, Arthur Kiyanovski <akiyano@amazon.com>, Noam Dagan
-	<ndagan@amazon.com>, Saeed Bishara <saeedb@amazon.com>, "David S. Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
-	<pabeni@redhat.com>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>
-In-Reply-To: <179073622069.31693.3189368668972123840@kernel.org>
-References: <20260930024101.96014-1-artem@trailofbits.com>
- <179073622069.31693.3189368668972123840@kernel.org>
-Date: Wed, 30 Sep 2026 20:26:50 +0000
-Message-ID: <179080001006.18939.13526551078215165644.b4-reply@b4>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: EX19D039UWB004.ant.amazon.com (10.13.138.57) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On 2026-09-30 02:43:40+00:00, netdev-bot+sinfo@kernel.org wrote:
-> Hi!
-> 
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
-> 
->  - How the issue was discovered, e.g. hit in production, hit during
->    development, syzbot report, manual code inspection, LLM or static
->    analysis tool scan.
-> 
->  - Whether the issue was actually triggered, or is only theoretical
->    (e.g. found by code inspection). If it was triggered please include
->    the symptoms, like the stack trace or error messages.
-> 
->  - What hardware the change was tested on. For driver fixes please
->    mention the device (and if relevant firmware version) used for
->    testing, or say that the change was not tested on real hardware.
-> 
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account. If the series needs another revision for
-> other reasons, please include the information in the commit messages
-> then.
-> 
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
+On Wed, 2026-09-30 at 00:31 +0800, Guixiong Wei wrote:
+> The PM notifier iterates over every uncore frequency instance to
+> restore
+> user-configured MSR_UNCORE_RATIO_LIMIT values after resume. Entries
+> that
+> have never been configured legitimately have stored_uncore_data set
+> to
+> zero.
+>=20
+> The refactoring that split common and enumeration code changed the
+> iteration from active control CPUs to all allocated instances. It
+> also
+> changed the skip for an invalid or unconfigured entry from continue
+> to
+> return, causing that entry to terminate the entire restore operation.
+>=20
+> On a multi-package or multi-die system, configuring only a later
+> instance
+> therefore leaves its limit unrestored after suspend, hibernation, or
+> restore if an earlier entry is invalid or unconfigured.
+>=20
+> Use continue to skip only the current entry and restore all remaining
+> configured instances.
+>=20
+> Fixes: dbce412a7733 ("platform/x86/intel-uncore-freq: Split common
+> and enumeration part")
+> Cc: stable@vger.kernel.org
+> Tested-by: Yijia Wang <wangyijia.yeah@bytedance.com>
+> Signed-off-by: Guixiong Wei <weiguixiong@bytedance.com>
 
-Issue was real, and was hit in production. When a faulty device creates
-corrupted descriptors this commit stops the corruption from propagating
-further, and reset to driver either fixes the issue, or if it continues,
-helps AWS detect it and replace faulty devices
+ Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
 
+> ---
+> =C2=A0drivers/platform/x86/intel/uncore-frequency/uncore-frequency.c | 2
+> +-
+> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/platform/x86/intel/uncore-frequency/uncore-
+> frequency.c b/drivers/platform/x86/intel/uncore-frequency/uncore-
+> frequency.c
+> index 667f2c8b9594a..c44e7e38cae25 100644
+> --- a/drivers/platform/x86/intel/uncore-frequency/uncore-frequency.c
+> +++ b/drivers/platform/x86/intel/uncore-frequency/uncore-frequency.c
+> @@ -211,7 +211,7 @@ static int uncore_pm_notify(struct notifier_block
+> *nb, unsigned long mode,
+> =C2=A0			struct uncore_data *data =3D
+> &uncore_instances[i];
+> =C2=A0
+> =C2=A0			if (!data || !data->valid || !data-
+> >stored_uncore_data)
+> -				return 0;
+> +				continue;
+> =C2=A0
+> =C2=A0			wrmsrq_on_cpu(data->control_cpu,
+> MSR_UNCORE_RATIO_LIMIT,
+> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 data->stored_uncore_data);
