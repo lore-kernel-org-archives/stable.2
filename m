@@ -1,118 +1,181 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D80B51EDE1;
-	Wed, 30 Sep 2026 16:13:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 096D2515983
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 16:13:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790784808; cv=none; b=UIMvQqbBh5fXeiSDS+irihsPvG15i2KLAkbwy1FiNLedu6K3VIFFawy+J+/oJrNczeXEbM1xlgIW5EYK6Sm/P6YK2S9DRP6/CZiGXpV+Lw40JEuC/RLCh1Fb4o9wQhcNemJRiXIMCCE+EUKeVQh4cfFpWItuNMyhasbNGvpMs0U=
+	t=1790784808; cv=none; b=HVb2Zn8q/qUhnvB1ah0HzQFuEouostAlJiJPEgRSXV3QkLGywAlTIoDdX4ctr+9Ygg2WrFNezufVYzl4EW5EQiP/fDXhhsYsOZQetd1XGBzZnHUCndXlU8xXu+zZMg6S8/V8TXg+ciEgPmf0edETQBB1dNLWK6EQRrF+68iR7U0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790784808; c=relaxed/simple;
-	bh=UzVknkm1kW2LqgaeUj9h2HEr/p5sL+RhSuMDB/lIyWY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Mg/0SFhpglwxeE2SlmDm/tixlWixVgEc0CALEh+uKYAZU6ix8HBStvPF1hrZT4RA3e34AM5EIP/x7C52wLcQEu3SGfyiiZb07xaKJuoelR9/oNMcazbK3frcrkpg8WGCRIoP5t3UnFgQmWLgqEti69DQcz4+SspxIwEG/re+aUw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vts5kJVp; arc=none smtp.client-ip=100.103.45.18
+	bh=vuq+i0+bCMQ9/9d/xtbVztfdytZENeiCb9lc3buC0uc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=oi7X0Z+uMHTqW7f6uKYSxcBTrr/sTMK4TQfBKwYsRwE3mxkW0p1OSeYraymfzr3KSOriCQkkzrHIk8ExP5+NOGJOqwLxzgkix9Hs8ax1Y255PVEI66HTYr7p75LaL+zhkjUWehVwaUon9GoYtHFGLtwl+1Hp0vMXH72XA+KGlW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=dakHQUqF; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vts5kJVp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 526291F000FF;
-	Wed, 30 Sep 2026 16:13:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790784804;
-	bh=0RebDvW98cCowKHgttsZh9qPNuv+a6RO7AWwzaeel0A=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=vts5kJVpAV4GcC3Ur+Yd40VZD8w9unRbwL+s7BDtQL0U52+bACG1ytygJaF0HdX45
-	 pPJMRxIfzdkTUawVQDvnr+OB6JFre/IoRTaAsbrLd6Ljs1Qp/RJDp1XnzYNYixrrVF
-	 NRyILRREmmd9eDbauAdcCU1YrYxP/u5XgpBXm6jM=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Vaibhav Jain <vaibhav@linux.ibm.com>,
-	Anushree Mathur <anushree.mathur@linux.ibm.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 284/982] powerpc/pseries: Ensure vpa,slb_shadow & dtl are unregistered during crash
-Date: Wed, 30 Sep 2026 17:17:00 +0200
-Message-ID: <20260930152422.901190746@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
-References: <20260930152416.775402466@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="dakHQUqF"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd5462b69so31455885e9.1
+        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 09:13:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=flipper.net; s=google; t=1790784801; x=1791389601; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=phJsUqb9NaFMguRfrpAljTIHGvzpGMajrsq7kQa1w8o=;
+        b=dakHQUqFVoP8/DH5/4ZNOcnswKRERe67T0uVckYeu0iF9+fcJzwEmXcpvOQOl7kUMt
+         se2JJGrR1ERDEAzTXZis3KQ+AbJIQMaTaP8gFN9vlE40HKJN1gvwNgLVcFJ708Xc6+j8
+         US/yezwHUwBHJIgCCPF/OfZ91VV6MonTffWtE7gIbLDagOszGgPp7zRybbcRdh/9UWx9
+         k83iaYbb2DmaPxOCN/S0iNkcytrIjFDKwKC9aVt+Z0JMGs6ab3w8VWGyKTPkbIkb91dD
+         03pyPDEe4gCA7dIZghHoKYQ9RBOgFUI4J+U+DEEuNGeHJGF31YUaRB1U4iXmH8VLGINl
+         7nqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790784801; x=1791389601;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=phJsUqb9NaFMguRfrpAljTIHGvzpGMajrsq7kQa1w8o=;
+        b=f0cnW3hMWVmKnwTU/705R0y9wUCa7KmJ26TWFp8xgDuDpnWXbpvMSYHsr+R18+DAps
+         kM79SxxNH55AYFrf+tjZynRW7cGhmacQ2lpnAy6Pq597dt2s2mzDQJgrnbVZMHAo3Mbj
+         1QnboG6YWHl54jInWvJsNq4buY2F8KIv3VQC+lNmrl/NEsGg2WJlLVAvfa2CQdcxVIX/
+         XKJo7AITyjnw929fHKufVDdo88gfT57BbcK9+rqncZPdifV1ipN5PQnP3f9lOsAHRatF
+         0Qzz/6H496DRJTZGFRxbKrBI9jTjkEzSOoawbrmagPnrHCeFz2Uh8hZm0n0FQGvazrJu
+         f7mQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx/THKtOvF86XxYjHQG2Ug+9bt3gUM0qnog1Ej7OF0P9nVwXmMnIfJcHUemfZq7uU+ipzo79ak=@vger.kernel.org
+X-Gm-Message-State: AFuF++k4X1Q6Ro19t8/BwPbETWIC1BP+79p5Uy1RU5QaApdCg28f9dLU
+	JUUV4mZ9JWGRexxcIW45cq1jd6EnbLVINMj0WmyqE3EOgd/z1ZZLonosmt30DHZNG1A=
+X-Gm-Gg: AYBFou3bMJs5jBKYhtQjOQLT1S+RAE1CNVeH5U2lDpO19tcMJBPoMFW6VXzPGWnvYhc
+	r9MDti9W9yJfpP5v1cNHQAJM7DxLfOvzWaRygy1zNmCeoljp/Jh2d8daBKQCxZ8yTfESwpcsC/l
+	drikqwfyx77sY8FWoitz9nEBMul/lMZLgWSgU1ua6ZD5KG7+U8p0kdH2UFbneq4wsd2ig5fWk2/
+	z/BFDhk8UOal0ciwo2YZ6BVz2tFDTyA4u5hAqHnDW+w31udrHVz+ulBa50ykugMvMD6kIYwjgt2
+	p4NirzKpq7gSnVICUky2BTw4NWhOWBDRbE6jiiDpStditI5zP46BQ8ru+h/YGsojTzk8b0a6xKD
+	fouSvvfIxXndQ+qCsOynow/WAp8NHZSvTAzKj8Ijb/m2kFUq4nPPnZsL+ldoZ7IPNZB+NYaPVaG
+	3AjGqrC0W2SNGWoC2womSiiuLb+ZMl9pxs4H79B306sevDySe18trublEji+kvZBxHZZGngNjm3
+	kZ1n4q59iSIcY/7
+X-Received: by 2002:a05:600c:800e:b0:4a0:3c3:1ad4 with SMTP id 5b1f17b1804b1-4a01b11de4amr32375055e9.22.1790784801391;
+        Wed, 30 Sep 2026 09:13:21 -0700 (PDT)
+Received: from alchark-surface.localdomain ([5.194.93.183])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b068bc9d1sm119384f8f.5.2026.09.30.09.13.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 09:13:16 -0700 (PDT)
+From: Alexey Charkov <alchark@flipper.net>
+Date: Wed, 30 Sep 2026 20:13:03 +0400
+Subject: [PATCH v2 1/2] regulator: of: fill in supply names in
+ of_regulator_bulk_get_all()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260930-regulator-get-all-v2-1-ca82070d22f2@flipper.net>
+References: <20260930-regulator-get-all-v2-0-ca82070d22f2@flipper.net>
+In-Reply-To: <20260930-regulator-get-all-v2-0-ca82070d22f2@flipper.net>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Corentin Labbe <clabbe@baylibre.com>
+Cc: Alexey Charkov <alchark@flipper.net>, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3165; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=vuq+i0+bCMQ9/9d/xtbVztfdytZENeiCb9lc3buC0uc=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWTtNRWXn9fF8OjO5LzWZ1JRLw5N+66q7/3CLmvSjhOLW
+ BNUg5VvdExkYRDjYrAUU2SZ+22J7VQjvlm7PDy+wsxhZQIZIi3SwAAELAx8uYl5pUY6Rnqm2oZ6
+ hkY6xjpGDFycAjDVkqwM/+wljylkcOizaIhuv97WW3nBe559BOv0h0kT270Wnvlx6isjw5d3zCv
+ +KLDuXfwo/eFrmeZZp1b6NHA8rg4qU9xwKaOBmxUA
+X-Developer-Key: i=alchark@flipper.net; a=openpgp;
+ fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+of_regulator_bulk_get_all() returns an array it allocated itself, and
+fills in only the consumer of each entry. Every other way of getting a
+bulk array has the supply name set, because the caller provides it, and
+the core expects it to be there: regulator_bulk_enable() prints it when
+a supply fails to enable, so a caller that hands such an array to it
+dereferences uninitialised memory on that path.
 
-------------------
+Copy each name into the array's own allocation, right behind the
+entries, so that it shares the array's lifetime and callers still have
+nothing extra to free. That also retires the fixed 64 byte stack buffer
+the names were assembled in, which is_supply_name() never bounded the
+copy against.
 
-From: Vaibhav Jain <vaibhav@linux.ibm.com>
-
-[ Upstream commit 810d07fb4cf7577847f85a6fd6273b69cad8d580 ]
-
-Currently pseries_kexec_cpu_down() skips unregistering vpa, slb_shadow and
-dtl areas during a crash and kexec shutdown path. It was done to avoid
-doing an HCALL while crashing. However recently Anushree reported that
-during kernel crash while the kdump kernel was coming up, Hypervisor
-reported invalid values for 'vpa.yield_count' while it dispatching L2-KVM
-Guest vcpus. The error manifested as debug build Hypervisor assert
-triggering to indicate possible VPA corruption.
-
-Looking at the kexec cpu offline path it was discovered that during crash
-kernel doesn't unregister the VPA/SLB-Shadow/DTL area with
-Hypervisor. Instead it re-allocates and re-registers these areas
-for cpus during boot. During kexec boot the previously allocated areas
-can get overwritten with new content without hypervisor knowledge. This
-creates a small window where while kexec kernel boots and the L2-VCPUs are
-being dispatched, Hypervisor may try to read/write to a wrong memory area
-which previously belonged to older VPA.
-
-Fix this possible race and memory corruption by updating
-pseries_kexec_cpu_down() to also unregister vpa,slb_shadow & dtl areas
-during a kernel crash.
-
-Signed-off-by: Vaibhav Jain <vaibhav@linux.ibm.com>
-Tested-by: Anushree Mathur <anushree.mathur@linux.ibm.com>
-Signed-off-by: Madhavan Srinivasan <maddy@linux.ibm.com>
-Link: https://patch.msgid.link/20260708015802.274271-1-vaibhav@linux.ibm.com
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260928-b4-rk3576-reboot-mode-v1-0-65486b03bd41@flipper.net?part=3
+Fixes: 27b9ecc7a9ba ("regulator: Add of_regulator_bulk_get_all")
+Signed-off-by: Alexey Charkov <alchark@flipper.net>
 ---
- arch/powerpc/platforms/pseries/kexec.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+ drivers/regulator/of_regulator.c | 24 +++++++++++++++++-------
+ 1 file changed, 17 insertions(+), 7 deletions(-)
 
-diff --git a/arch/powerpc/platforms/pseries/kexec.c b/arch/powerpc/platforms/pseries/kexec.c
-index 431be156ca9bb..29f7c97ff1932 100644
---- a/arch/powerpc/platforms/pseries/kexec.c
-+++ b/arch/powerpc/platforms/pseries/kexec.c
-@@ -20,12 +20,15 @@
- void pseries_kexec_cpu_down(int crash_shutdown, int secondary)
+diff --git a/drivers/regulator/of_regulator.c b/drivers/regulator/of_regulator.c
+index c0cc6cc0afd8..785b7a11dfc6 100644
+--- a/drivers/regulator/of_regulator.c
++++ b/drivers/regulator/of_regulator.c
+@@ -935,15 +935,15 @@ static int is_supply_name(const char *name)
+ int of_regulator_bulk_get_all(struct device *dev, struct device_node *np,
+ 			      struct regulator_bulk_data **consumers)
  {
+-	int num_consumers = 0;
++	int num_consumers = 0, names_len = 0;
+ 	struct regulator *tmp;
+ 	struct regulator_bulk_data *_consumers = NULL;
+ 	struct property *prop;
++	char *names;
+ 	int i, n = 0, ret;
+-	char name[64];
+ 
  	/*
--	 * Don't risk a hypervisor call if we're crashing
--	 * XXX: Why? The hypervisor is not crashing. It might be better
--	 * to at least attempt unregister to avoid the hypervisor stepping
--	 * on our memory.
-+	 * Ensure vpa/slb_shadow/dtl cleanup even while we are crashing.
-+	 * Why? The hypervisor is not crashing so at least attempt unregister to
-+	 * avoid the hypervisor stepping on our memory. If hypervisor or kexec
-+	 * kernel steps on the old memory allocated to these areas before the
-+	 * new kexec-kernel happens to allocate and register new areas,
-+	 * the hypervisor will see invalid content which may cause
-+	 * unexpected behavior.
+-	 * first pass: get numbers of xxx-supply
++	 * first pass: get numbers of xxx-supply and the room their names take
+ 	 * second pass: fill consumers
  	 */
--	if (firmware_has_feature(FW_FEATURE_SPLPAR) && !crash_shutdown) {
-+	if (firmware_has_feature(FW_FEATURE_SPLPAR)) {
- 		int ret;
- 		int cpu = smp_processor_id();
- 		int hwcpu = hard_smp_processor_id();
+ restart:
+@@ -953,16 +953,19 @@ int of_regulator_bulk_get_all(struct device *dev, struct device_node *np,
+ 			continue;
+ 		if (!_consumers) {
+ 			num_consumers++;
++			names_len += i + 1;
+ 			continue;
+ 		} else {
+-			memcpy(name, prop->name, i);
+-			name[i] = '\0';
+-			tmp = regulator_get(dev, name);
++			memcpy(names, prop->name, i);
++			names[i] = '\0';
++			tmp = regulator_get(dev, names);
+ 			if (IS_ERR(tmp)) {
+ 				ret = PTR_ERR(tmp);
+ 				goto error;
+ 			}
++			_consumers[n].supply = names;
+ 			_consumers[n].consumer = tmp;
++			names += i + 1;
+ 			n++;
+ 			continue;
+ 		}
+@@ -973,9 +976,16 @@ int of_regulator_bulk_get_all(struct device *dev, struct device_node *np,
+ 	}
+ 	if (num_consumers == 0)
+ 		return 0;
+-	_consumers = kmalloc_objs(struct regulator_bulk_data, num_consumers);
++	/*
++	 * The supply names are kept in the same allocation as the array, so
++	 * that they share its lifetime and the caller has nothing extra to
++	 * free.
++	 */
++	_consumers = kzalloc(size_add(size_mul(num_consumers, sizeof(*_consumers)),
++				      names_len), GFP_KERNEL);
+ 	if (!_consumers)
+ 		return -ENOMEM;
++	names = (char *)(_consumers + num_consumers);
+ 	goto restart;
+ 
+ error:
+
 -- 
-2.53.0
-
-
+2.55.0
 
