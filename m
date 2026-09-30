@@ -1,46 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0597F4E06CC
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 16:40:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83A52513555;
+	Wed, 30 Sep 2026 16:40:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790786422; cv=none; b=KBbXHcesVC8q17NocB1zFeYN31kGNmtKvEPU5nHilo/rlt2hzRXgD1eTTEJUKBcb6lNvp09QCz8CPqbbu01pAdeSEHxsf5sk6L/uPQ7iO0ke6S4tAvmeJnm4XsI/BjlwlVFNluVZJgIjgsWPWMZnashrYyy4MrBiAgrNAzzA6eQ=
+	t=1790786422; cv=none; b=mWLaVBf9JQgh+EfxxiPbI8/CsEASXr8Z5Nf/MVDHaqSQNUzFoedp4p7xeIW8xMpxAX9J64hqTM23r+sEOlFzzuKd26kZQgcCNnqaK4NWF/tT1GNZXguXcBP8K+a5PTAfRLV+qdCuFscC2IAygC2y6ikOtHLNq+N+YQVvKel5Aak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790786422; c=relaxed/simple;
-	bh=5uvH3cCH6f5gR1B3+D9Bfj9xJzvLJD8aIIn++hZdlKY=;
+	bh=LGK34u1WAP+DIkpT6U3PXS76dKo7gUDHZurqphfSB9w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=R8TvBjSvSNakPl8g3fgJFOEMJ9MFf4TM05zY37s+q/n7+1nlPNa7BgY0OU25D6Ka6AQ7C1WRuwjIDj7unOBH36R1fbk9AJglqzGT18RCx9DZIORVUMMsmbrf/gCoEsVkJsMbr/yblw4dwL+jSrSSVmcjjefJS4GOMN7f/Woe40E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wu3kqiC7; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=KFoygxHmx//AfVzzbnIgUaxTXtmO66Loo4a4AfbylMPBbvWeE0ckfYxSheMfBapeNXY9HA0LUb0Ey9gbyRNT/aGUgomRe+UZBhygXVwjsktx+pc3BTrewfMSSGNEvpohdaEv1wL3pjDfcxxRb304L9FaqD3w+uI13O/1dLjfH5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1Qh34JsJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wu3kqiC7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D76B81F000FF;
-	Wed, 30 Sep 2026 16:40:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790786420;
-	bh=eax5NAl/lapCUthKRENcCaTPpAdF7KiSA5Ji9fWMQtc=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1Qh34JsJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C972A1F00893;
+	Wed, 30 Sep 2026 16:40:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790786421;
+	bh=pTqn+8qJ8KkfGwf0yY3EHKIy+ADgIXhia5883nXchNM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Wu3kqiC7+DwwXnr5am3HkhDsfzGjt0dhCL7eHiIMFVzv7NkfGvqslnwgZ4h90nNL8
-	 jMG+dbn3hqR1tZzrBnOZi7bNCBWfNJr6C6ZoMBSGy8395zDtJaF9sXsXNXTh2k7eA8
-	 Virp+9ADXvriRO9FhhrH56sE4Ee64OI68F5wKSJYMMuIC/ls/2gMLK+SkaGNH3Q3d0
-	 FhGos1M2GlX05vUbYdw6I50qdVvCaOKDqmEwhhKE6jFp1wcBMubwef8MOu1J0sgjPi
-	 YcFIkIeo86JSKilgE8uo+XWmjI5+4TZ/MfqazuUtpiNmbE/3njEyV1DGZ5hrOLSDCi
-	 fP3RP+aafpcvA==
-From: Sasha Levin <sashal@kernel.org>
+	b=1Qh34JsJ4xAw/xkN5Qtl9VBA0lZRiAl805f9nIqyo/UKHVYSu3JwcHA7UuhdL9JYb
+	 Uexzvv+infDN3nFGG2krI53T80sigkIjFEp0BCSDS74pj2S04yw77uMdnU5ZNUtYeL
+	 jUFfTG+/wBkd3w3p8I6azOKh47qjeoMztIhIejv8=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Zihan Xi <zihanx@nebusec.ai>,
-	Vega <vega@nebusec.ai>,
-	Luxing Yin <root@tr0jan.top>,
-	Frank Sorenson <sorenson@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Mikhail Zaslonko <zaslonko@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] smb: client: close completed creates on compound wait errors
-Date: Wed, 30 Sep 2026 12:40:17 -0400
-Message-ID: <20260930164017.3227931-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260930164017.3227931-1-sashal@kernel.org>
-References: <2026092947-pull-universe-5b22@gregkh>
- <20260930164017.3227931-1-sashal@kernel.org>
+Subject: [PATCH 6.1 856/982] s390/debug: Do not register views for failed static debug areas
+Date: Wed, 30 Sep 2026 17:26:32 +0200
+Message-ID: <20260930152435.132913506@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
+References: <20260930152416.775402466@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,219 +47,112 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zihan Xi <zihanx@nebusec.ai>
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 6c5c547f037bc18f0b8d0b5db5a648f8f630ce85 ]
+------------------
 
-compound_send_recv() waits for responses in order. If a later wait is
-interrupted, or if a later MID fails during response synchronization, an
-earlier CREATE may already have opened a remote handle. The earlier mid
-is then released without invoking handle_cancelled_mid(), leaving the
-remote handle open because no FID was copied to the caller.
+From: Mikhail Zaslonko <zaslonko@linux.ibm.com>
 
-Mark completed earlier mids as cancelled when a compound wait or MID
-synchronization aborts. Keep their response buffers attached while the
-MIDs are synchronized, and transfer them only after synchronization of
-the processed responses, so the release path can inspect successful
-CREATE responses and queue SMB2_close() after a later failure. Account for
-a remote open only after the close work is allocated and before it is
-queued, since the caller has not yet updated num_remote_opens. Mark the
-create+close compound used by smb2_unlink() so it is not closed again.
-Non-CREATE responses and compounds that already include a close keep their
-existing behavior.
+[ Upstream commit 28e29992b034acffc9342df216c06097825ce610 ]
 
-Fixes: e0bba0b85481 ("cifs: add compound_send_recv()")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Co-developed-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
-Tested-by: Frank Sorenson <sorenson@redhat.com>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+__REGISTER_STATIC_DEBUG_INFO() calls debug_register_view()
+unconditionally, even when debug_register_static() has failed. In that
+case _debug_register() was never reached and id->debugfs_root_entry is
+still NULL, so debugfs_create_file() places the view file in the debugfs
+root directory. For sclp_err this leaves a /sys/kernel/debug/hex_ascii
+file with nothing to indicate which debug log it belongs to.
+
+debug_register_static() is not exported and the macro is its only
+caller, so let it return an error code and skip the view registration
+when it fails. No debugfs files are created for such an area then.
+
+Reproduce by booting with s390dbf=sclp_err::100000000. The sclp_err
+registration fails, no s390dbf/sclp_err/ directory is created, and a
+hex_ascii file appears in the debugfs root instead.
+
+Fixes: d72541f94512 ("s390/debug: add early tracing support")
+Signed-off-by: Mikhail Zaslonko <zaslonko@linux.ibm.com>
+Reviewed-by: Heiko Carstens <hca@linux.ibm.com>
+Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/smb2inode.c |  2 +-
- fs/smb/client/smb2misc.c  |  9 ++++--
- fs/smb/client/transport.c | 67 +++++++++++++++++++++++++++++++--------
- 3 files changed, 61 insertions(+), 17 deletions(-)
+ arch/s390/include/asm/debug.h |  8 ++++++--
+ arch/s390/kernel/debug.c      | 12 +++++++++---
+ 2 files changed, 15 insertions(+), 5 deletions(-)
 
-diff --git a/fs/smb/client/smb2inode.c b/fs/smb/client/smb2inode.c
-index 2e28a965a25d1..6ac6ec9bd77e9 100644
---- a/fs/smb/client/smb2inode.c
-+++ b/fs/smb/client/smb2inode.c
-@@ -1218,7 +1218,7 @@ smb2_unlink(const unsigned int xid, struct cifs_tcon *tcon, const char *name,
- 	struct kvec close_iov;
- 	int resp_buftype[2];
- 	struct cifs_fid fid;
--	int flags = 0;
-+	int flags = CIFS_CP_CREATE_CLOSE_OP;
- 	__u8 oplock;
- 	int rc;
+diff --git a/arch/s390/include/asm/debug.h b/arch/s390/include/asm/debug.h
+index ac665b9670c5d..0c56b1b4a171d 100644
+--- a/arch/s390/include/asm/debug.h
++++ b/arch/s390/include/asm/debug.h
+@@ -451,7 +451,11 @@ static int VNAME(var, active_entries)[EARLY_AREAS] __initdata
+ #define __REGISTER_STATIC_DEBUG_INFO(var, name, pages, areas, view)	\
+ static int __init VNAME(var, reg)(void)					\
+ {									\
+-	debug_register_static(&var, (pages), (areas));			\
++	int rc;								\
++									\
++	rc = debug_register_static(&var, (pages), (areas));		\
++	if (rc)								\
++		return rc;						\
+ 	debug_register_view(&var, (view));				\
+ 	return 0;							\
+ }									\
+@@ -483,7 +487,7 @@ static debug_info_t __refdata var =					\
+ 	__DEBUG_INFO_INIT(var, (name), (buf_size));			\
+ __REGISTER_STATIC_DEBUG_INFO(var, name, pages, nr_areas, view)
  
-diff --git a/fs/smb/client/smb2misc.c b/fs/smb/client/smb2misc.c
-index d701bdfa585f0..34d2401c6c665 100644
---- a/fs/smb/client/smb2misc.c
-+++ b/fs/smb/client/smb2misc.c
-@@ -830,7 +830,8 @@ smb2_cancelled_close_fid(struct work_struct *work)
+-void debug_register_static(debug_info_t *id, int pages_per_area, int nr_areas);
++int debug_register_static(debug_info_t *id, int pages_per_area, int nr_areas);
+ 
+ #endif /* MODULE */
+ 
+diff --git a/arch/s390/kernel/debug.c b/arch/s390/kernel/debug.c
+index 8cc747b39c84d..ea7c31b407023 100644
+--- a/arch/s390/kernel/debug.c
++++ b/arch/s390/kernel/debug.c
+@@ -703,8 +703,12 @@ EXPORT_SYMBOL(debug_register);
+  *
+  * Note: This function is called automatically via an initcall generated by
+  *	 DEFINE_STATIC_DEBUG_INFO.
++ *
++ * Return:
++ * - 0 on success
++ * - negative error code on failure
   */
- static int
- __smb2_handle_cancelled_cmd(struct cifs_tcon *tcon, __u16 cmd, __u64 mid,
--			    __u64 persistent_fid, __u64 volatile_fid)
-+			    __u64 persistent_fid, __u64 volatile_fid,
-+			    bool account_remote_open)
+-void debug_register_static(debug_info_t *id, int pages_per_area, int nr_areas)
++int debug_register_static(debug_info_t *id, int pages_per_area, int nr_areas)
  {
- 	struct close_cancelled_open *cancelled;
+ 	unsigned long flags;
+ 	debug_info_t *copy;
+@@ -712,7 +716,7 @@ void debug_register_static(debug_info_t *id, int pages_per_area, int nr_areas)
+ 	if (!initialized) {
+ 		pr_err("Tried to register debug feature %s too early\n",
+ 		       id->name);
+-		return;
++		return -EINVAL;
+ 	}
  
-@@ -844,6 +845,8 @@ __smb2_handle_cancelled_cmd(struct cifs_tcon *tcon, __u16 cmd, __u64 mid,
- 	cancelled->cmd = cmd;
- 	cancelled->mid = mid;
- 	INIT_WORK(&cancelled->work, smb2_cancelled_close_fid);
-+	if (account_remote_open)
-+		atomic_inc(&tcon->num_remote_opens);
- 	WARN_ON(queue_work(cifsiod_wq, &cancelled->work) == false);
+ 	copy = debug_info_alloc("", pages_per_area, nr_areas, id->buf_size,
+@@ -727,7 +731,7 @@ void debug_register_static(debug_info_t *id, int pages_per_area, int nr_areas)
+ 		id->active_entries = NULL;
+ 		spin_unlock_irqrestore(&id->lock, flags);
  
- 	return 0;
-@@ -880,7 +883,7 @@ smb2_handle_cancelled_close(struct cifs_tcon *tcon, __u64 persistent_fid,
- 	spin_unlock(&tcon->tc_lock);
+-		return;
++		return -ENOMEM;
+ 	}
  
- 	rc = __smb2_handle_cancelled_cmd(tcon, SMB2_CLOSE_HE, 0,
--					 persistent_fid, volatile_fid);
-+					 persistent_fid, volatile_fid, false);
- 	if (rc)
- 		cifs_put_tcon(tcon, netfs_trace_tcon_ref_put_cancelled_close);
- 
-@@ -908,7 +911,7 @@ smb2_handle_cancelled_mid(struct mid_q_entry *mid, struct TCP_Server_Info *serve
- 					 le16_to_cpu(hdr->Command),
- 					 le64_to_cpu(hdr->MessageId),
- 					 rsp->PersistentFileId,
--					 rsp->VolatileFileId);
-+					 rsp->VolatileFileId, true);
- 	if (rc)
- 		cifs_put_tcon(tcon, netfs_trace_tcon_ref_put_cancelled_mid);
- 
-diff --git a/fs/smb/client/transport.c b/fs/smb/client/transport.c
-index 53db53a78d6c5..342664eae295a 100644
---- a/fs/smb/client/transport.c
-+++ b/fs/smb/client/transport.c
-@@ -804,6 +804,18 @@ cifs_cancelled_callback(struct mid_q_entry *mid)
- 	release_mid(mid);
+ 	/* Replace static trace area with dynamic copy. */
+@@ -745,6 +749,8 @@ void debug_register_static(debug_info_t *id, int pages_per_area, int nr_areas)
+ 	mutex_lock(&debug_mutex);
+ 	_debug_register(id);
+ 	mutex_unlock(&debug_mutex);
++
++	return 0;
  }
  
-+static void
-+cifs_mark_compound_mids_cancelled(struct mid_q_entry **mid, int count)
-+{
-+	int i;
-+
-+	for (i = 0; i < count; i++) {
-+		spin_lock(&mid[i]->mid_lock);
-+		mid[i]->wait_cancelled = true;
-+		spin_unlock(&mid[i]->mid_lock);
-+	}
-+}
-+
- /*
-  * cifs_pick_channel - pick an eligible channel for network operations
-  *
-@@ -864,6 +876,7 @@ compound_send_recv(const unsigned int xid, struct cifs_ses *ses,
- 		   int *resp_buf_type, struct kvec *resp_iov)
- {
- 	int i, j, optype, rc = 0;
-+	int num_processed = 0;
- 	struct mid_q_entry *mid[MAX_COMPOUND];
- 	bool cancelled_mid[MAX_COMPOUND] = {false};
- 	struct cifs_credits credits[MAX_COMPOUND] = {
-@@ -1006,6 +1019,14 @@ compound_send_recv(const unsigned int xid, struct cifs_ses *ses,
- 			break;
- 	}
- 	if (rc != 0) {
-+		/*
-+		 * A completed CREATE earlier in the compound chain may have
-+		 * opened a remote handle even though a later wait was
-+		 * interrupted. Mark it cancelled so __release_mid() invokes
-+		 * the existing unmatched-open cleanup.
-+		 */
-+		cifs_mark_compound_mids_cancelled(mid, i);
-+
- 		for (; i < num_rqst; i++) {
- 			cifs_server_dbg(FYI, "Cancelling wait for mid %llu cmd: %d\n",
- 				 mid[i]->mid, le16_to_cpu(mid[i]->command));
-@@ -1027,6 +1048,14 @@ compound_send_recv(const unsigned int xid, struct cifs_ses *ses,
- 
- 		rc = cifs_sync_mid_result(mid[i], server);
- 		if (rc != 0) {
-+			/*
-+			 * A previous CREATE may have completed before this
-+			 * response failed. Mark it cancelled so its remote
-+			 * handle is closed when the mid is released.
-+			 */
-+			cifs_mark_compound_mids_cancelled(mid, i);
-+			/* Keep their response buffers for cancelled-mid cleanup. */
-+			num_processed = 0;
- 			/* mark this mid as cancelled to not free it below */
- 			cancelled_mid[i] = true;
- 			goto out;
-@@ -1036,13 +1065,24 @@ compound_send_recv(const unsigned int xid, struct cifs_ses *ses,
- 		    mid[i]->mid_state != MID_RESPONSE_READY) {
- 			rc = -EIO;
- 			cifs_dbg(FYI, "Bad MID state?\n");
-+			cifs_mark_compound_mids_cancelled(mid, i);
-+			num_processed = 0;
- 			goto out;
- 		}
- 
- 		rc = server->ops->check_receive(mid[i], server,
- 						flags & CIFS_LOG_ERROR);
-+		num_processed = i + 1;
-+	}
- 
--		if (resp_iov) {
-+out:
-+	/*
-+	 * Delay moving response buffers out of their mids until response
-+	 * synchronization completes. This lets cancelled-mid cleanup inspect
-+	 * an earlier CREATE response if a later MID fails.
-+	 */
-+	if (resp_iov) {
-+		for (i = 0; i < num_processed; i++) {
- 			buf = (char *)mid[i]->resp_buf;
- 			resp_iov[i].iov_base = buf;
- 			resp_iov[i].iov_len = mid[i]->resp_buf_size +
-@@ -1062,21 +1102,22 @@ compound_send_recv(const unsigned int xid, struct cifs_ses *ses,
- 	/*
- 	 * Compounding is never used during session establish.
- 	 */
--	spin_lock(&ses->ses_lock);
--	if ((ses->ses_status == SES_NEW) || (optype & CIFS_NEG_OP) || (optype & CIFS_SESS_OP)) {
--		struct kvec iov = {
--			.iov_base = resp_iov[0].iov_base,
--			.iov_len = resp_iov[0].iov_len
--		};
--		spin_unlock(&ses->ses_lock);
--		cifs_server_lock(server);
--		smb311_update_preauth_hash(ses, server, &iov, 1);
--		cifs_server_unlock(server);
-+	if (num_processed == num_rqst) {
- 		spin_lock(&ses->ses_lock);
-+		if ((ses->ses_status == SES_NEW) || (optype & CIFS_NEG_OP) || (optype & CIFS_SESS_OP)) {
-+			struct kvec iov = {
-+				.iov_base = resp_iov[0].iov_base,
-+				.iov_len = resp_iov[0].iov_len
-+			};
-+			spin_unlock(&ses->ses_lock);
-+			cifs_server_lock(server);
-+			smb311_update_preauth_hash(ses, server, &iov, 1);
-+			cifs_server_unlock(server);
-+			spin_lock(&ses->ses_lock);
-+		}
-+		spin_unlock(&ses->ses_lock);
- 	}
--	spin_unlock(&ses->ses_lock);
- 
--out:
- 	/*
- 	 * This will dequeue all mids. After this it is important that the
- 	 * demultiplex_thread will not process any of these mids any further.
+ /* Remove debugfs entries. */
 -- 
 2.53.0
+
+
 
