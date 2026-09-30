@@ -1,46 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48B504DF4D5;
-	Wed, 30 Sep 2026 16:22:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E51E247A0DD
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 16:22:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790785368; cv=none; b=CCtIwfxTGKicqYOne8TfJ30TYMkUJzFZUpUz6TFt7Y02GCYB7ZVB/XkobX9CiFgsghSn4Gw3YJbGBwZ/zt1BU9QnWfShtlY9O+vJuenvfHBp5427+u6oFCcdHHOMGRnYWoXlqzC4D7eBKxu1wfyiSby2ZCvoUtriZx2Wrr1p7lU=
+	t=1790785368; cv=none; b=TV2vXWQhaMD0+Fri7TZ7yUdk9q3cGgBpTjW7RNFNSyvEyytl1K+7STSPJXcPpCXbqfYiVNYA9+zDxiA2OHuxnTiWybjuux5l/vNAPGhkVKOWEOtsojmKslLF/wvYHodmHjBlo0RgBITCfgMiPyTSzayhWVWplYnhrJgt7aLSgQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790785368; c=relaxed/simple;
-	bh=lYzUAUeQHH7sOBa/WlNMmaPKt2hpwEVAXyrLxfYX0VU=;
+	bh=stSXW9Itw7j8HpKMvJIa6waNOV6QzAuD87N19+4gFM4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dulfJocamMDMzLEwfHUGP05lxBK56pYZf3Nby2Vd5WzjTb1ke4BUCVzLdDygzKaj2+6RZAYS7UQD+1YdvimB9NIUYo0uQO5+WzrzyBJrQ/iqDwcPxEkNfzWPapnFlLrMUO2qoDa4Yvh4zSpvR/BGMgXkj2tiVfSfKxpvWsEH5Oc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Q8tXTmXY; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Y3XSwLZHBMvUtxveSM+Xh7BjlBDDkwH68j6gAgG8WtQ1u5rpI8AjhXDo8zRsO9ettZvFXfqV7DLpcJ6IoYCvsmKq9pde6+fJ05d36waX9+DO/9hHrX5nZgf8WQQTql7xA1fCYPlqn6Srf5Ds3C1vGFL/4rjeA9wK+LQEagaDYsk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kvFN4mMK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Q8tXTmXY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AD4C1F0089A;
-	Wed, 30 Sep 2026 16:22:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790785361;
-	bh=jEJxly9veOOdiSZKMPws53AoKwd5CTuuq1+9yLe0X6g=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kvFN4mMK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB0A71F00898;
+	Wed, 30 Sep 2026 16:22:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790785361;
+	bh=tkmE+BNMkJqbGxTZ67gq8tq0QrwGXplSrBsq89FQmSk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Q8tXTmXYORc1uoXRaBz2N3PNHJdjTnLsO0Ln3sK7RCaF44ly1pgc0rOo4n9iWtByB
-	 99dFhQMpYTtBvutJMppwus6irkaSVs5wkhIDmQuVaUgozVX9FjiP0rlEicn6CI3iYn
-	 nMxIzjYgjiFGczLnUcmV6BHH8C5mWy1e6v5WSWAQ=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=kvFN4mMKf8Za0emhdg7vmYEdNM92wyy7/L1UzttyJsCHIQZxo3UgDJ+PQ3LJeA9pg
+	 W9SQeLJFT2zb14nDiIdTS1ONxUHwtKJVImTF3si0wq1YAZSNrRIgc3564g6lz5YVb2
+	 W5KUMmf65HhwHHpb4yZdDCr2UrQxhhREPRXc3ehmao5AkJLgf6tOAGuS6L6RMLq69p
+	 XnxbKkDNhNJWpG4J1bjiEn2Q+D3nUV6+oyDhkwgnsPQSV/sBkqMIYDSaKfyH1/VK76
+	 5P3bNVDdZDOryZwNQsWN1X/pO9x7ZCRpztncnZuut1p/hyVFz8EMhD3wgI8+zXnLnP
+	 OcGYYXR0965SQ==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Vega <vega@nebusec.ai>,
-	Jamal Hadi Salim <jhs@mojatatu.com>,
-	Victor Nogueira <victor@mojatatu.com>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: Namjae Jeon <linkinjeon@kernel.org>,
+	Paulo Alcantara <pc@manguebit.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 481/982] net/sched: cls_route: free emptied bucket on filter move
-Date: Wed, 30 Sep 2026 17:20:17 +0200
-Message-ID: <20260930152427.112224622@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
-References: <20260930152416.775402466@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.6.y] smb: client: use finish_no_open() for non-regular inodes
+Date: Wed, 30 Sep 2026 12:22:39 -0400
+Message-ID: <20260930162239.3062414-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026092923-overcoat-pacifist-c3f0@gregkh>
+References: <2026092923-overcoat-pacifist-c3f0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,168 +45,157 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+From: Namjae Jeon <linkinjeon@kernel.org>
 
-------------------
+[ Upstream commit e66cf1625ec4a3fe68346119f371def713fd0a4d ]
 
-From: Victor Nogueira <victor@mojatatu.com>
+An O_CREAT open can find an existing symlink or another non-regular
+inode. cifs_atomic_open() calls finish_open() on it and attaches a
+cifsFileInfo. Symlink inodes have no CIFS release operation, so the
+dentry reference held by cifsFileInfo is leaked. FMODE_OPENED also
+prevents the VFS from following the symlink.
 
-[ Upstream commit 1853f30cf5c84971f99788a76207c6f745380896 ]
+Track whether cifs_do_create() returned an open server handle. For
+non-regular inodes, close the handle if present, remove the pending
+open, and call finish_no_open() so the VFS can continue the lookup.
+Do not set FMODE_CREATED unless a regular file was opened. For
+O_NOFOLLOW with __O_REGULAR, return -ELOOP before the VFS's
+-EFTYPE check.
 
-route4_change can move an existing filter to a different top-level
-bucket: route4_set_parms recomputes the handle from TCA_ROUTE4_TO/
-FROM/IIF, and the handle-mismatch check is gated on the 'new' flag, so
-for an existing filter the new handle may differ from the old one and
-land in a different bucket. When this happens, the filter is unlinked
-from the old bucket, but the bucket itself is never freed once it goes
-empty. The stale empty bucket remains in head->table[], causing
-route4_delete to report *last=false even after the last live filter is
-gone. That pins the empty tcf_proto and causes a leak.
+Defer closing a legacy POSIX handle on a non-regular inode until
+after inode lookup. This avoids closing it again if lookup fails.
 
-Fix this by refcounting the filters linked to a bucket and freeing the
-bucket when the count drops to zero. The existing scan in route4_delete
-goes away with it.
-
-The count is updated at all sites that link or unlink a filter during add,
-change and delete, and the bucket is dropped from head->table[] as soon as
-it reaches zero.
-
-Conditions to recreate the bug:
-  CONFIG_NET_CLS_ROUTE4=y, CONFIG_NET_SCH_INGRESS=y, CONFIG_NET_CLS_ACT=y.
-
-  tc qdisc replace dev lo clsact
-  tc filter add dev lo ingress protocol ip pref 100 route from 1 to 1
-  tc filter change dev lo ingress protocol ip pref 100 handle 0x10001 \
-    route from 1 to 2
-  tc filter del dev lo ingress protocol ip pref 100 handle 0x10002 \
-    route from 1 to 2
-  tc filter show dev lo ingress | grep -c 'pref 100 route chain 0 '
-
-Fixes: 1e052be69d04 ("net_sched: destroy proto tp when all filters are gone")
-Reported-by: Vega <vega@nebusec.ai>
-Acked-by: Jamal Hadi Salim <jhs@mojatatu.com>
-Signed-off-by: Victor Nogueira <victor@mojatatu.com>
-Link: https://patch.msgid.link/20260907192133.2639067-2-victor@mojatatu.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Fixes: d2c127197dfc ("cifs: implement i_op->atomic_open()")
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Cc: stable@vger.kernel.org
+[ replaced S_ISREG(inode->i_mode) with d_is_reg(direntry) because the older cifs_do_create() already attaches the inode. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sched/cls_route.c | 45 +++++++++++++++++++++----------------------
- 1 file changed, 22 insertions(+), 23 deletions(-)
+ fs/smb/client/dir.c | 39 +++++++++++++++++++++++++++++----------
+ 1 file changed, 29 insertions(+), 10 deletions(-)
 
-diff --git a/net/sched/cls_route.c b/net/sched/cls_route.c
-index 6c205fcb65475..c7fe52f59521c 100644
---- a/net/sched/cls_route.c
-+++ b/net/sched/cls_route.c
-@@ -11,6 +11,7 @@
- #include <linux/kernel.h>
- #include <linux/string.h>
- #include <linux/errno.h>
-+#include <linux/refcount.h>
- #include <linux/skbuff.h>
- #include <net/dst.h>
- #include <net/route.h>
-@@ -40,6 +41,7 @@ struct route4_head {
- struct route4_bucket {
- 	/* 16 FROM buckets + 16 IIF buckets + 1 wildcard bucket */
- 	struct route4_filter __rcu	*ht[16 + 16 + 1];
-+	refcount_t			filters_ref;
- 	struct rcu_head			rcu;
- };
+diff --git a/fs/smb/client/dir.c b/fs/smb/client/dir.c
+index 6bb0e98462a98..66bf81d159625 100644
+--- a/fs/smb/client/dir.c
++++ b/fs/smb/client/dir.c
+@@ -176,7 +176,8 @@ check_name(struct dentry *direntry, struct cifs_tcon *tcon)
  
-@@ -334,7 +336,7 @@ static int route4_delete(struct tcf_proto *tp, void *arg, bool *last,
- 	struct route4_filter *nf;
- 	struct route4_bucket *b;
- 	unsigned int h = 0;
--	int i, h1;
-+	int h1;
+ static int cifs_do_create(struct inode *inode, struct dentry *direntry, unsigned int xid,
+ 			  struct tcon_link *tlink, unsigned int oflags, umode_t mode, __u32 *oplock,
+-			  struct cifs_fid *fid, struct cifs_open_info_data *buf)
++			  struct cifs_fid *fid, struct cifs_open_info_data *buf,
++			  bool *opened)
+ {
+ 	int rc = -ENOENT;
+ 	int create_options = CREATE_NOT_DIR;
+@@ -191,6 +192,7 @@ static int cifs_do_create(struct inode *inode, struct dentry *direntry, unsigned
+ 	struct cifs_open_parms oparms;
+ 	int rdwr_for_fscache = 0;
  
- 	if (!head || !f)
- 		return -EINVAL;
-@@ -360,23 +362,14 @@ static int route4_delete(struct tcf_proto *tp, void *arg, bool *last,
- 			tcf_exts_get_net(&f->exts);
- 			tcf_queue_work(&f->rwork, route4_delete_filter_work);
- 
--			/* Strip RTNL protected tree */
--			for (i = 0; i <= 32; i++) {
--				struct route4_filter *rt;
--
--				rt = rtnl_dereference(b->ht[i]);
--				if (rt)
--					goto out;
-+			if (refcount_dec_and_test(&b->filters_ref)) {
-+				RCU_INIT_POINTER(head->table[to_hash(h)], NULL);
-+				kfree_rcu(b, rcu);
++	*opened = false;
+ 	*oplock = 0;
+ 	if (tcon->ses->server->oplocks)
+ 		*oplock = REQ_OPLOCK;
+@@ -213,6 +215,7 @@ static int cifs_do_create(struct inode *inode, struct dentry *direntry, unsigned
+ 				     oflags, oplock, &fid->netfid, xid);
+ 		switch (rc) {
+ 		case 0:
++			*opened = true;
+ 			if (newinode == NULL) {
+ 				/* query inode info */
+ 				goto cifs_create_get_file_info;
+@@ -229,11 +232,9 @@ static int cifs_do_create(struct inode *inode, struct dentry *direntry, unsigned
+ 				/*
+ 				 * The server may allow us to open things like
+ 				 * FIFOs, but the client isn't set up to deal
+-				 * with that. If it's not a regular file, just
+-				 * close it and proceed as if it were a normal
+-				 * lookup.
++				 * with that. Keep the handle until the caller
++				 * can finish the lookup.
+ 				 */
+-				CIFSSMBClose(xid, tcon, fid->netfid);
+ 				goto cifs_create_get_file_info;
  			}
--
--			/* OK, session has no flows */
--			RCU_INIT_POINTER(head->table[to_hash(h)], NULL);
--			kfree_rcu(b, rcu);
- 			break;
+ 			/* success, no need to query */
+@@ -333,6 +334,7 @@ static int cifs_do_create(struct inode *inode, struct dentry *direntry, unsigned
  		}
+ 		goto out;
+ 	}
++	*opened = true;
+ 	if (rdwr_for_fscache == 2)
+ 		cifs_invalidate_cache(inode, FSCACHE_INVAL_DIO_WRITE);
+ 
+@@ -423,7 +425,7 @@ static int cifs_do_create(struct inode *inode, struct dentry *direntry, unsigned
+ 	return rc;
+ 
+ out_err:
+-	if (server->ops->close)
++	if (*opened && server->ops->close)
+ 		server->ops->close(xid, tcon, fid);
+ 	if (newinode)
+ 		iput(newinode);
+@@ -442,6 +444,8 @@ cifs_atomic_open(struct inode *inode, struct dentry *direntry,
+ 	struct cifs_fid fid = {};
+ 	struct cifs_pending_open open;
+ 	__u32 oplock;
++	bool is_regular;
++	bool opened;
+ 	struct cifsFileInfo *file_info;
+ 	struct cifs_open_info_data buf = {};
+ 
+@@ -501,15 +505,28 @@ cifs_atomic_open(struct inode *inode, struct dentry *direntry,
+ 	cifs_add_pending_open(&fid, tlink, &open);
+ 
+ 	rc = cifs_do_create(inode, direntry, xid, tlink, oflags, mode,
+-			    &oplock, &fid, &buf);
++			    &oplock, &fid, &buf, &opened);
+ 	if (rc) {
+ 		cifs_del_pending_open(&open);
+ 		goto out;
  	}
  
--out:
- 	*last = true;
- 	for (h1 = 0; h1 <= 256; h1++) {
- 		if (rcu_access_pointer(head->table[h1])) {
-@@ -453,6 +446,7 @@ static int route4_set_parms(struct net *net, struct tcf_proto *tp,
- 		if (b == NULL)
- 			return -ENOBUFS;
- 
-+		refcount_set(&b->filters_ref, 1);
- 		rcu_assign_pointer(head->table[h1], b);
- 	} else {
- 		unsigned int h2 = from_hash(nhandle >> 16);
-@@ -462,6 +456,8 @@ static int route4_set_parms(struct net *net, struct tcf_proto *tp,
- 		     fp = rtnl_dereference(fp->next))
- 			if (fp->handle == f->handle)
- 				return -EEXIST;
+-	if ((oflags & (O_CREAT | O_EXCL)) == (O_CREAT | O_EXCL))
++	is_regular = d_is_reg(direntry);
++	if (!is_regular || !opened) {
++		if (opened && server->ops->close)
++			server->ops->close(xid, tcon, &fid);
++		cifs_del_pending_open(&open);
++	}
 +
-+		refcount_inc(&b->filters_ref);
- 	}
++	if (is_regular && opened &&
++	    (oflags & (O_CREAT | O_EXCL)) == (O_CREAT | O_EXCL))
+ 		file->f_mode |= FMODE_CREATED;
  
- 	if (tb[TCA_ROUTE4_TO])
-@@ -495,7 +491,7 @@ static int route4_change(struct net *net, struct sk_buff *in_skb,
- 	struct route4_bucket *b;
- 	struct nlattr *opt = tca[TCA_OPTIONS];
- 	struct nlattr *tb[TCA_ROUTE4_MAX + 1];
--	unsigned int h, th;
-+	unsigned int h;
- 	int err;
- 	bool new = true;
- 
-@@ -553,17 +549,20 @@ static int route4_change(struct net *net, struct sk_buff *in_skb,
- 	rcu_assign_pointer(*fp, f);
- 
- 	if (fold) {
--		th = to_hash(fold->handle);
-+		b = fold->bkt;
- 		h = from_hash(fold->handle >> 16);
--		b = rtnl_dereference(head->table[th]);
--		if (b) {
--			fp = &b->ht[h];
--			for (pfp = rtnl_dereference(*fp); pfp;
--			     fp = &pfp->next, pfp = rtnl_dereference(*fp)) {
--				if (pfp == fold) {
--					rcu_assign_pointer(*fp, fold->next);
--					break;
-+		fp = &b->ht[h];
-+		for (pfp = rtnl_dereference(*fp); pfp;
-+		     fp = &pfp->next, pfp = rtnl_dereference(*fp)) {
-+			if (pfp == fold) {
-+				rcu_assign_pointer(*fp, fold->next);
-+				if (refcount_dec_and_test(&b->filters_ref)) {
-+					unsigned int th = to_hash(fold->handle);
++	if (!is_regular || !opened) {
++		rc = finish_no_open(file, NULL);
++		goto out;
++	}
 +
-+					RCU_INIT_POINTER(head->table[th], NULL);
-+					kfree_rcu(b, rcu);
- 				}
-+				break;
- 			}
- 		}
- 	}
+ 	rc = finish_open(file, direntry, generic_file_open);
+ 	if (rc) {
+ 		if (server->ops->close)
+@@ -564,6 +581,7 @@ int cifs_create(struct mnt_idmap *idmap, struct inode *inode,
+ 	struct TCP_Server_Info *server;
+ 	struct cifs_fid fid;
+ 	__u32 oplock;
++	bool opened;
+ 	struct cifs_open_info_data buf = {};
+ 
+ 	cifs_dbg(FYI, "cifs_create parent inode = 0x%p name is: %pd and dentry = 0x%p\n",
+@@ -585,8 +603,9 @@ int cifs_create(struct mnt_idmap *idmap, struct inode *inode,
+ 	if (server->ops->new_lease_key)
+ 		server->ops->new_lease_key(&fid);
+ 
+-	rc = cifs_do_create(inode, direntry, xid, tlink, oflags, mode, &oplock, &fid, &buf);
+-	if (!rc && server->ops->close)
++	rc = cifs_do_create(inode, direntry, xid, tlink, oflags, mode,
++			    &oplock, &fid, &buf, &opened);
++	if (!rc && opened && server->ops->close)
+ 		server->ops->close(xid, tcon, &fid);
+ 
+ 	cifs_free_open_info(&buf);
 -- 
 2.53.0
-
-
 
