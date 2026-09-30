@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A942E522EEB;
-	Wed, 30 Sep 2026 21:43:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFBC4522F17;
+	Wed, 30 Sep 2026 21:43:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790804629; cv=none; b=riRnBEfq1/r29vHrFzMi7VBjbPjghVmceiiAZOVT93QJGmvvwnfmfdBKmPQbFaRToTiGPx9FkdEm6IKK5GUReUrQK7j7Hs4omJa0Bc7sR8UuCjSfR7Is2LoKrZy+8EyoqQtA4qpFMP8sfWMovqgVuTkoN7aabmIzSkNGIkBCFlo=
+	t=1790804630; cv=none; b=FDLNLfZawU1VmnP8PEdymOjMgmU1nntqBsNJl/jqlpoeOJVxc/M6D8bLVaTdGviLiGqo+Te/313EJaUkFHzkqG6J/cLuXNA6IDYJ+5qdra+Fsi1O9XQJmBKqv85cjJrgeSy38c0BLsMxvnKEaU8xfj6clCf+e8GICQnn9J7Vk3o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790804629; c=relaxed/simple;
-	bh=LcPOw36suuF+LxeNDiUp1b0eBkMSmoFooFyJMxCh9F4=;
+	s=arc-20240116; t=1790804630; c=relaxed/simple;
+	bh=wPyhWcrM0uuOBjAQDrcDVwA0qDOFM59sMf05oEBZi/Q=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=DWfnUMdg1NZI2cnXweJeLcq24w5zHKGHIOZUYTwTxm6otSaFDLMW+M62p2etp6kr4qlPzcxFXGnc5WdD+RUqWg+Oa7pe7Eoo1jMhyUTqIPZBTpZRny+pHQQr1BHDwKs32JrANgoy0X42LYptkXmN1u1A1ikoyzIJUcv/kQwT6wo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V2sTokHF; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=pQEqkH/oQ7eefuPb9SwYtRMbCuTHEnJdY/fKV+AgIwACsnrWcldv6aydI2AXi5UEj3mE3x8KWYCS9pDAt3agkMHlQAAbItCSdLbN8FFmqA8HVpWrjTfaRnqu/CoNH4WzyJWqgkoCYYbPRFdarLtrZJDX/xO0Hioq/hMJYyG06H8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AP0a9pAM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V2sTokHF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9828D1F00898;
-	Wed, 30 Sep 2026 21:43:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AP0a9pAM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F34EE1F000FF;
+	Wed, 30 Sep 2026 21:43:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790804627;
-	bh=YftQHoQAyYBcPvla/2ZMouwzid1zAPrZIMxlv7Wz66o=;
+	s=k20260515; t=1790804628;
+	bh=Lfh3oRoEkMv5tTvUrjMf1DhZrS8JjM0GkDJ+tT37dFA=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=V2sTokHFckaW4oHyDb8RBF0Cpp9b2fP0ExQbkGZWWTcd7THxFl9I+zVCVDem7/YUj
-	 89TPuly4jzqd+UMGgxCO8ndZgyJ0wJB79PDUx38/eQEI0qmqZC6uv+bh6QFKqPLxvq
-	 sWuS5GrEDKLiO6yL63Z+HkzBNTladmm7IHAGDaAZu2pplxAwNy666uzPTLEnuvInOS
-	 zQyiOrYG1ZJ/DaG9SuSwTVJFJIaIuuxvshdlBcgB1Dqw48v4ChkRlZag5UylEXsQzt
-	 iSaSTt96tD5ihPUP0LS4CIsdL4Lqd/YjB6KXoa6SOh/WcR+fYxGC8uNVptoQgdTjzg
-	 I8cMG8/udVwsw==
-Subject:
- Re: [PATCH net 1/2] netpoll: use a raw lock for the deferred transmit queue
+	b=AP0a9pAMTaqM1UhaL+ysCyXXjR7f0TtX5/5PDeX61zDShdZQgN6B4HbB8URIbhvCB
+	 iwBDMR0RQi7V+EarDFOhyfZdEvrI1/OIO+VRB3OKvs/us8zln45qgyosrPdwtVWf+S
+	 Ez7XdFVFl1slSRIyOVHhBACP5jQ3qv0sUarZBFEub8C1RDywzS2opSU1UBVEsbNmht
+	 4tXiVOsAbBGdiuMykCYUaGfBSsOsN9yRu36JOef8jPQ9UVxcrnAWDo8x/2PXigUB2w
+	 VAKps1YyZctAGoDU69ihPqmIa1wqL+j154iDGiKTojSW4LwOnlwzGf2VcJYGFElP1J
+	 cDYyjZGmZaHaA==
+Subject: Re: [PATCH net 2/2] netpoll: avoid blocking on the transmit lock in
+ queue_process
 From: netdev-bot+sashiko@kernel.org
 To: kmehltretter@gmail.com
 Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
@@ -35,11 +35,11 @@ Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
  clrkwllms@kernel.org, rostedt@goodmis.org, stephen@networkplumber.org,
  linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
  stable@vger.kernel.org
-Date: Wed, 30 Sep 2026 21:43:46 +0000
-Message-ID: <179080462613.434549.13889756869054930420@kernel.org>
-In-Reply-To: <20260928064239.32456-2-kmehltretter@gmail.com>
-References: <20260928064239.32456-2-kmehltretter@gmail.com>
-X-sashiko-severity: Low
+Date: Wed, 30 Sep 2026 21:43:47 +0000
+Message-ID: <179080462753.434549.2732454412343201890@kernel.org>
+In-Reply-To: <20260928064239.32456-3-kmehltretter@gmail.com>
+References: <20260928064239.32456-3-kmehltretter@gmail.com>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -49,127 +49,137 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Low priority / nit picks for your consideration:
+Critical: 0 · High: 2 · Medium: 0 · Low: 0
 
-- [Low] At this commit, queue_process() in net/core/netpoll.c still calls
-  HARD_TX_LOCK(dev, txq, smp_processor_id()) (line 169) right after…
-- [Low] The patch adds a raw_spin_lock_irqsave(&npinfo->txq_lock) to
-  every netpoll send, through netpoll_txq_empty()…
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] On PREEMPT_RT the patch does not fix the bug it claims to fix.
+- [High] net: severe latency in netpoll queue_process on lock contention
 
 --
 
-netpoll: use a raw lock for the deferred transmit queue
+netpoll: avoid blocking on the transmit lock in queue_process
 
-This patch adds a raw spinlock, txq_lock, to struct netpoll_info. All
-accesses to npinfo->txq now go through small helpers that take this lock
-and use the unlocked sk_buff_head operations, so the queue can be touched
-with hard IRQs disabled on PREEMPT_RT. On cleanup, the queue is spliced
-to a private list before its skbs are freed.
+This patch replaces HARD_TX_LOCK() with HARD_TX_TRYLOCK() in
+queue_process() to avoid a sleeping function called from invalid context
+splat on PREEMPT_RT. If the transmit lock is contended, the skb is put back
+at the head of the deferred queue and the work is rescheduled after
+HZ / 10.
 
 > diff --git a/net/core/netpoll.c b/net/core/netpoll.c
-> index fe1e0cda5d6b..e0cfcb05468e 100644
+> index e0cfcb05468e..a3c94f0b3f76 100644
 > --- a/net/core/netpoll.c
 > +++ b/net/core/netpoll.c
-> @@ -79,6 +79,68 @@ static netdev_tx_t netpoll_start_xmit(struct sk_buff *skb,
->  	return status;
->  }
->  
-> +/*
-> + * Transmit paths can access txq with hard IRQs disabled. Use a raw lock
-> + * because the skb queue lock may sleep on PREEMPT_RT.
-> + */
-> +static bool netpoll_txq_empty(struct netpoll_info *npinfo)
-> +{
-> +	unsigned long flags;
-> +	bool empty;
+> @@ -166,7 +166,13 @@ static void queue_process(struct work_struct *work)
+>  			skb_set_queue_mapping(skb, q_index);
+>  		}
+>  		txq = netdev_get_tx_queue(dev, q_index);
+> -		HARD_TX_LOCK(dev, txq, smp_processor_id());
+> +		if (!HARD_TX_TRYLOCK(dev, txq)) {
+> +			netpoll_txq_queue_head(npinfo, skb);
+> +			local_irq_restore(flags);
 > +
-> +	raw_spin_lock_irqsave(&npinfo->txq_lock, flags);
-> +	empty = skb_queue_empty(&npinfo->txq);
-> +	raw_spin_unlock_irqrestore(&npinfo->txq_lock, flags);
-> +
-> +	return empty;
-> +}
-
-[Severity: Low]
-Is this lock needed here? Before the patch, __netpoll_send_skb() checked
-the queue without a lock:
-
-    if (skb_queue_len(&npinfo->txq) == 0 && !netpoll_owner_active(dev)) {
-
-and the direct transmit fast path took no txq lock at all. With this
-patch, every netpoll send takes txq_lock.
-
-The empty check and the later netpoll_txq_queue_tail() are separate
-critical sections, so the result of the check is only advisory in either
-case. The writers (__skb_insert() and __skb_unlink()) already use
-WRITE_ONCE().
-
-Would skb_queue_empty_lockless() be enough here?
-
-The new lock acquisition can also hang netconsole's atomic panic path.
-Netconsole's write_atomic (CON_NBCON_ATOMIC_UNSAFE) is only called from
-nbcon_atomic_flush_unsafe() at the end of vpanic(). That final flush
-could spin forever on txq_lock in two cases:
-
-  - the panic runs on a CPU that an NMI interrupted while it held
-    txq_lock in netpoll_txq_dequeue(), netpoll_txq_queue_head() or
-    netpoll_txq_queue_tail()
-
-  - another CPU was NMI-stopped inside one of those critical sections,
-    for example by crash_smp_send_stop() on x86 with
-    crash_kexec_post_notifiers set and no kdump image loaded
-
-In either case the panic log would not make it out over netconsole.
-
-This does not block the panic_timeout reboot. In vpanic(),
-emergency_restart() runs before nbcon_atomic_flush_unsafe(), so the hang
-can only happen with panic_timeout == 0. The same atomic path already
-takes other locks that are not NMI-safe: slab locks from
-alloc_skb(GFP_ATOMIC), skb_dequeue() on nt->skb_pool, and driver locks
-through netpoll_poll_dev().
-
-[ ... ]
-
-> @@ -107,7 +169,7 @@ static void queue_process(struct work_struct *work)
->  		HARD_TX_LOCK(dev, txq, smp_processor_id());
+> +			schedule_delayed_work(&npinfo->tx_work, HZ / 10);
+> +			return;
+> +		}
 >  		if (netif_xmit_frozen_or_stopped(txq) ||
 >  		    !dev_xmit_complete(netpoll_start_xmit(skb, dev, txq))) {
-> -			skb_queue_head(&npinfo->txq, skb);
-> +			netpoll_txq_queue_head(npinfo, skb);
->  			HARD_TX_UNLOCK(dev, txq);
->  			local_irq_restore(flags);
 
-[Severity: Low]
-The commit message says:
+[Severity: High]
+Is HZ / 10 the right backoff for a failed trylock?
 
-    The delayed transmit worker has the same problem when it requeues a busy
-    skb with skb_queue_head() after disabling interrupts.
+The existing HZ/10 retry further down covers a frozen or stopped queue,
+or a driver returning NETDEV_TX_BUSY. That usually means the ring is
+full and will take some time to drain.
 
-Does the worker actually reach this requeue on PREEMPT_RT? queue_process()
-calls local_irq_save() and then HARD_TX_LOCK() before the requeue. For
-devices without lltx, that becomes:
+A failed HARD_TX_TRYLOCK() here means something much smaller: another
+CPU is inside ndo_start_xmit() on the same txq. That lock is normally
+held for only a few microseconds.
+
+With this change, every time queue_process() races with regular
+traffic on that queue, the deferred skb waits 100ms. So does everything
+queued behind it in npinfo->txq.
+
+__netpoll_send_skb() only transmits directly when npinfo->txq is empty.
+That means new netconsole messages keep being appended to the deferred
+queue for the whole backoff as well.
+
+On a busy interface this can cut netconsole down to a handful of
+packets per second per queue. The deferred queue keeps growing and
+console output falls further and further behind. Anything still sitting
+in npinfo->txq when the machine hangs is never sent, and those are
+exactly the messages netconsole users care about most.
+
+This also changes behaviour on !PREEMPT_RT kernels. There,
+HARD_TX_LOCK() was not a problem and simply waited out the short
+critical section.
+
+Could the retry on trylock failure be much shorter, for example a delay
+of 0 or 1 jiffy? Alternatively, would it be better to avoid the trylock
+altogether by not running this path with hard IRQs disabled, so the
+normal tx lock can be taken?
+
+[Severity: High]
+Does this fully fix the PREEMPT_RT splat described in the commit message?
+
+The earlier local_irq_save(flags) in queue_process() is unchanged. That
+means hard IRQs are still disabled when the driver's ndo_start_xmit() runs
+after a successful trylock:
 
 queue_process()
-  local_irq_save(flags)
-  HARD_TX_LOCK(dev, txq, smp_processor_id())
-    __netif_tx_lock()
-      spin_lock(&txq->_xmit_lock)
+  local_irq_save(flags);
+  HARD_TX_TRYLOCK(dev, txq)
+  netpoll_start_xmit()
+    netdev_start_xmit()
+      ndo_start_xmit()
 
-On PREEMPT_RT this spin_lock() is rt_spin_lock() with IRQs disabled. So
-the worker would seem to splat on the tx lock before it gets to
-netpoll_txq_queue_head().
+Several non-lltx drivers take a spinlock_t in their xmit path. On
+PREEMPT_RT a spinlock_t is an rtmutex. For example:
 
-The next commit in the series, "netpoll: avoid blocking on the transmit
-lock in queue_process", replaces HARD_TX_LOCK() with HARD_TX_TRYLOCK()
-and requeues on failure. The final state of the series is fine, and this
-patch is no worse than the baseline.
+drivers/net/ethernet/broadcom/genet/bcmgenet.c:bcmgenet_xmit() {
+    ...
+	spin_lock(&ring->lock);
+    ...
+}
 
-Could the commit message say that the worker hits HARD_TX_LOCK() first,
-and that the follow-up patch fixes that?
+rtl8139_start_xmit() takes spin_lock_irqsave(&tp->lock, flags), and
+macb_start_xmit() takes spin_lock_irqsave(&queue->tx_ptr_lock, flags).
+HARD_TX_TRYLOCK() takes no core lock for lltx drivers, and those drivers do
+their own spinlock_t locking, so they have the same problem.
+
+On PREEMPT_RT, rt_spin_lock()->__rt_spin_lock() calls
+rtlock_might_resched(), and __might_resched() prints "BUG: sleeping
+function called from invalid context" whenever irqs_disabled() is true.
+Won't the same splat still fire, just one frame deeper?
+
+  rt_spin_lock
+  bcmgenet_xmit
+  netpoll_start_xmit
+  queue_process
+
+If the driver lock is contended, for example by threaded NAPI TX reclaim on
+RT, rtlock_slowlock() can actually block while hard IRQs are disabled.
+
+The trylock only seems to silence the txq lock case, because
+__rt_spin_trylock() skips rtlock_might_resched(). The sibling path
+__netpoll_send_skb() already uses HARD_TX_TRYLOCK() under local_irq_save(),
+and it still runs driver xmit and netpoll_poll_dev() with IRQs disabled.
+
+Documentation/networking/netdevices.rst says ndo_start_xmit "will be called
+with interrupts disabled by netconsole". On RT, that conflicts with drivers
+that use a plain spinlock_t in xmit.
+
+queue_process() runs from a workqueue in process context. Would it be
+better to stop disabling hard IRQs here instead of changing the lock
+primitive? For example, it could use local_bh_disable() plus the normal tx
+lock, as the regular xmit path does.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928064239.32456-1-kmehltretter%40gmail.com
