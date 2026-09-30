@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74C114D37B0;
-	Wed, 30 Sep 2026 16:24:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E27E94DE722;
+	Wed, 30 Sep 2026 16:24:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790785448; cv=none; b=TQmnXCsdPjQStSNUfv7if057dZVcjC2JoFpqvLlAmDdm4rxuYe/2Y+CxXZ9Ey42ZjaLFOMxeTiz4yz4TPifgbh0ZOW3IB6OHhRoups0uSRBQ3LNCVj5S+J21IAQWP3dghfNgnFO/wyqpC9XlVKUmvxtlQC19sHuaqZfV5Xy4lBs=
+	t=1790785451; cv=none; b=kd6WjBBk7AfriGBGDL8vy8JjPmqL18OhUucI2VAUzuoRQqI5okLgXdr92PWpFuPgWFHxmZar+pzJ7XHOtjEf3bQRhu28eIbvWDbP6Fg4IAZ6x1SM/wwuZp/LGcba0wNSsv4fV1UuD0gNnc9ANC9N6zjBrc9Mf1rYZOwqMIc2/RE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790785448; c=relaxed/simple;
-	bh=n4wC8EhhpBiHfFNetMCrzsKvT8Nfi4ZNQzl7k82eNM4=;
+	s=arc-20240116; t=1790785451; c=relaxed/simple;
+	bh=st0zgxgqkGUO82DqdVoZu3rWycNMuqMJfrihbsa8OXo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qPsjUAdhd0w5NM8r353gtFJonUgRLAZh9zGG8t+g0ksqiY5LkdCfr6ZlA/wyn2tKEJ+jxPOMimW5rtl0P2c+K5Y9Ugnu+O9glylYkNkbhT8MSwR2WuvrDLJYXEIL5uojPbZxWtY9bsIUTV0BCswomLtU73aXHlWmiM84lMwoTKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Cxviun83; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=pOvW7FyhOE7uyJZX5xwg8kSSMEK8EkLY3XsTUHG8ET/a7qXQSpvE2CSFrMhRByph+VbYCEE0btxhhvyfYeMZbLTalGemmrAuvh9chQeXX38FCroKEywD0ebgc0KAuIKUMcjj0jXc5phD65IYdrb7W8gF5RYslcRLlkFStf6WOoI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=gY0u4PxM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Cxviun83"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B94781F00899;
-	Wed, 30 Sep 2026 16:23:57 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gY0u4PxM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45FFC1F000FF;
+	Wed, 30 Sep 2026 16:24:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790785438;
-	bh=tX5YS538P0qVN/xxXNGBmaVcooeppZyTSx/miJeJm4w=;
+	s=korg; t=1790785446;
+	bh=5NBHVTM4m3OKIWwObQ+/2mwz7d6oDk5kQZbqsAeYx5E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Cxviun83HpdmD1RhILSzG6ntns8JbMha7t620/0wy8O4N/iNZFnhKIKRWkG+7XUu9
-	 SrLlPGrhQOadJscXclADOznIIs/RDw/FKsgpbRfqezmz8c/LFfAgzCdWG3expc8a6n
-	 yl1p1p1k+si2U8S9v0z6tejE7LatIVNJby2OF71M=
+	b=gY0u4PxMzoahH81fpcPyZNu0ie5icc7dY9GkhCjoj6nkt0DWHBb1VjYZ3GT5UXr1a
+	 qhKeKMmSNbka2cE/0C7guayzMer+dh59T9R2+nurzA4IYhcfOH0cDzMl0RZkY91/uM
+	 N/vDLdoHy82NAWK6OTC97jidm9QVITWd9Pq3aVlo=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>
-Subject: [PATCH 6.1 510/982] tracing: Let histogram values keep the percent and graph modifiers
-Date: Wed, 30 Sep 2026 17:20:46 +0200
-Message-ID: <20260930152427.732315817@linuxfoundation.org>
+	Tianchu Chen <flynnnchen@tencent.com>,
+	Mark Brown <broonie@kernel.org>
+Subject: [PATCH 6.1 512/982] ASoC: sprd: validate compress buffer sizes against fixed allocations
+Date: Wed, 30 Sep 2026 17:20:48 +0200
+Message-ID: <20260930152427.774163501@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
 References: <20260930152416.775402466@linuxfoundation.org>
@@ -50,71 +50,78 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+From: Tianchu Chen <flynnnchen@tencent.com>
 
-commit 3d617bfd79330ae3acf94862c18bb3ccf5f5a0f9 upstream.
+commit 7a4ce92d150b9e7ecf1a710a34d8cdeb590d3751 upstream.
 
-The .percent and .graph modifiers exist only for histogram values, but a
-value carrying either of them has been rejected since v6.3. The example
-in Documentation/trace/histogram.rst,
+sprd_platform_compr_open() allocates the stage 0 IRAM buffer (32K data
+area) and the stage 1 DDR buffer (2M data area) with fixed sizes, but
+sprd_platform_compr_copy() derives all copy lengths from the user
+controlled runtime->fragment_size and the write() count, never
+comparing them against the physical buffer sizes. The compress core
+only checks fragment_size * fragments for an u32 overflow in
+snd_compress_check_input(), so a local user can configure a logical
+buffer of up to ~4GB via SNDRV_COMPRESS_SET_PARAMS, far exceeding the
+fixed allocations.
 
-  # echo 'hist:keys=prev_comm:vals=hitcount.percent:nohitcount' > \
-	 events/sched/sched_switch/trigger
+A fragment_size larger than the 32K IRAM data area makes the stage 0
+copy_from_user() overflow past the IRAM allocation, and a buffer_size
+larger than the 2M DDR buffer makes the wrapping copy at the end of
+sprd_platform_compr_copy() write fully user controlled data past the
+buffer. No SNDRV_PCM_TRIGGER_START is needed, a write() in SETUP
+state reaches the copy callback directly.
 
-returns -EINVAL.
+Reject parameters that do not fit into the fixed buffers in
+set_params(), and fix the advertised max fragment size: 128K never
+fitted into the 32K IRAM buffer. The caps values may have been carried over
+from the qdsp6 driver, which allocates its buffers according to the
+advertised maxima, unlike this driver. With 32K as max fragment size
+the advertised limits are self-consistent: 32K * 64 = 2M equals the
+DDR buffer size.
 
-parse_field() sets the two flags only when the field is neither a key nor
-a variable, that is, only on a value:
+Discovered by Atuin - Automated Vulnerability Discovery Engine.
 
-	} else if (strncmp(modifier, "percent", 7) == 0) {
-		if (*flags & (HIST_FIELD_FL_VAR | HIST_FIELD_FL_KEY))
-			goto error;
-		*flags |= HIST_FIELD_FL_PERCENT;
-
-__create_val_field() then rejects a value for carrying them, so no field
-can reach hist_trigger_print_val(), where both are implemented.
-
-commit e0213434fe3e ("tracing: Do not let histogram values have some
-modifiers") added the check after a value with .buckets oopsed in
-hist_field_name(). That happens because .buckets and .log2 make
-create_hist_field() build a nested field in operands[0] which
-hist_field_name() then walks into. The percent and graph flags do not
-create an operand and are not read by hist_field_name(); they are only
-used when printing a value.
-
-Stop rejecting the two flags on a value. The check for variables is left
-alone, where they are unreachable anyway because parse_field() rejects a
-variable carrying them first.
-
-With the two flags removed, the trigger above installs and prints as
-documented:
-
-  { prev_comm: rcu_preempt  }  hitcount (%):   0.00
-  { prev_comm: init         }  hitcount (%):  99.98
-  Totals:
-      Hits: 237896
-
+Fixes: cce1396936ef ("ASoC: sprd: Add Spreadtrum audio compress offload support")
 Cc: stable@vger.kernel.org
-Fixes: e0213434fe3e ("tracing: Do not let histogram values have some modifiers")
-Link: https://patch.msgid.link/20260907052113.430818-1-donggeunyoo.kernel@gmail.com
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+Assisted-by: LLM
+Signed-off-by: Tianchu Chen <flynnnchen@tencent.com>
+Link: https://patch.msgid.link/4386bc53631b052c1866a91061715b009d98b04f@linux.dev
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- kernel/trace/trace_events_hist.c |    3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ sound/soc/sprd/sprd-pcm-compress.c |   15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -4181,8 +4181,7 @@ static int __create_val_field(struct his
- 			goto err;
- 	} else {
- 		/* Value */
--		if (hist_field->flags & (HIST_FIELD_FL_GRAPH | HIST_FIELD_FL_PERCENT |
--					 HIST_FIELD_FL_BUCKET | HIST_FIELD_FL_LOG2 |
-+		if (hist_field->flags & (HIST_FIELD_FL_BUCKET | HIST_FIELD_FL_LOG2 |
- 					 HIST_FIELD_FL_SYM | HIST_FIELD_FL_SYM_OFFSET |
- 					 HIST_FIELD_FL_SYSCALL | HIST_FIELD_FL_STACKTRACE))
- 			goto err;
+--- a/sound/soc/sprd/sprd-pcm-compress.c
++++ b/sound/soc/sprd/sprd-pcm-compress.c
+@@ -17,7 +17,7 @@
+ 
+ /* Default values if userspace does not set */
+ #define SPRD_COMPR_MIN_FRAGMENT_SIZE	SZ_8K
+-#define SPRD_COMPR_MAX_FRAGMENT_SIZE	SZ_128K
++#define SPRD_COMPR_MAX_FRAGMENT_SIZE	SZ_32K
+ #define SPRD_COMPR_MIN_NUM_FRAGMENTS	4
+ #define SPRD_COMPR_MAX_NUM_FRAGMENTS	64
+ 
+@@ -272,6 +272,19 @@ static int sprd_platform_compr_set_param
+ 	int ret;
+ 
+ 	/*
++	 * The stage 0 IRAM buffer and the stage 1 DDR buffer are allocated
++	 * with fixed sizes at open time, so the requested fragment size and
++	 * fragments must fit into them, otherwise sprd_platform_compr_copy()
++	 * would overflow the buffers. Note the compress core only checks the
++	 * fragment size and fragments against an u32 overflow, not against
++	 * the buffer sizes advertised by get_caps.
++	 */
++	if (params->buffer.fragment_size > SPRD_COMPR_IRAM_BUF_SIZE ||
++	    (u64)params->buffer.fragment_size * params->buffer.fragments >
++	    SPRD_COMPR_AREA_BUF_SIZE)
++		return -EINVAL;
++
++	/*
+ 	 * Configure the DMA engine 2-stage transfer mode. Channel 1 set as the
+ 	 * destination channel, and channel 0 set as the source channel, that
+ 	 * means once the source channel's transaction is done, it will trigger
 
 
