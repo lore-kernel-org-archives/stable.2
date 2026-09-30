@@ -1,137 +1,128 @@
-Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 299C93A5E7A
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 22:00:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 155B13B9D91;
+	Wed, 30 Sep 2026 22:02:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790805656; cv=none; b=U0ri8OIKrOZpwMTSvd2R15DrcI/Zpv8kmfEUAvW6Yup5rv4Jj7B5418Gf06k4nYochmGh9HTZaJuzeHZ4lnNEZv66aGZgVUAQOao4lddtpiJtpFWJmR5/uA2/vQGv9+GSkWAbRxDLzNvTNYEL6WdleZXHwqya2E1+M0iXYnGPN4=
+	t=1790805746; cv=none; b=rskaUDnmnCNDAfMGh8NNV+se+kz0LopXgCto+kYthgedMk3x+IWMnhK8kcOVTDv+U7Pwrx11NMRLkZ4VKIVzOkDRMJGzHJ3lIFBnl1PkIVN4EJsuekVOUkhb9vUn3qxLEb0+vttrmg5QmrBEoEkWwvFZuG14HmYSHbX7/MZJonU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790805656; c=relaxed/simple;
-	bh=ajVLTPYPMxooezsmIGyNkv1OpESRlX7H7stGt6jgjlo=;
-	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=bg6cbp55rw6Rjxx4zEDINPoCfMql/6yQwFG5P7yPYAfzlpOWAtBH8RxhYb44QX4mPl04QEgadiQlTpxMpNUpVnHwvXhKqJgBOMv8NG8185Qn10JbdpbH6XCryJHuhE/guHyUv2eHsegHsRHkeCRshEsgro7yXyKzHz7hMeIlDyU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=gP+93SUs; arc=none smtp.client-ip=74.125.229.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
+	s=arc-20240116; t=1790805746; c=relaxed/simple;
+	bh=Pni3qt6SQR0WSSoYxhV/3fWi+ppfTQbsXTLwAc7Nkgs=;
+	h=Date:Message-Id:To:Cc:Subject:From:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=nZDakSle2JNmAdAap/ENGtKEuX8Z0jF1sU5ilibbCWfEILpx9q+sOas9EBbzMMXe84+sMCkALQaLLaw5DVDKgb6MbZHWP7ileO+hu/yW2d/LdqysJtGJPZPx2cN9J6uoI+ADphh3YpzMbswZv3tIG1/e2Czd5Zl2o2xavrIAGDk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org; spf=pass smtp.mailfrom=flapping.org; dkim=pass (2048-bit key) header.d=flapping.org header.i=@flapping.org header.b=hICjf1Gy; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=vLqhHXG3; arc=none smtp.client-ip=202.12.124.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flapping.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="gP+93SUs"
-Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34d2d25127aso587033eec.1
-        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 15:00:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1790805654; x=1791410454; darn=vger.kernel.org;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=WwAG8qRjpy5gU0l3GqUietypVK7nuoTL8C+SRuk0OOE=;
-        b=gP+93SUsw/rkQ1nkM0oQr0kGt0u9gZcK6THaCk6CqnaJiANzg1JAtDX0l6Porqd7JA
-         uab/uFh+n2tC5t4kxUf79pSjWR5cZkNPelZjl4h6E8D1X7pNS2reh+5w/H3QBjd1tbXg
-         7Ih1ZEHP7gJDpu8l6fCLHuqfwCzb7bG/SP6iLS4hG1kKMoxqiM0tKi0bJmjZ47zGMh+8
-         tGYcq+8h1hXFvBv9IFGYnQAl8ek2YQPmq6z4TeajBuLuNjMrxIKGaF5/kfbsk4h+A7c9
-         8pN7d64sZs8/0E96sygOOCEJPvPYXm7av/2o+Cb9x/jG1N/xKLZ/Ltwuf9x43BX9A50P
-         5KHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790805654; x=1791410454;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WwAG8qRjpy5gU0l3GqUietypVK7nuoTL8C+SRuk0OOE=;
-        b=eDwdJN3kc/iN4PBMlRWfldV+rsaVlqxkI19RSvjZyJGpj89fmkQ5Z41yareu7J7itz
-         A+JleTTy/ylxZzLogGHqiTESLxZXOxkQ5xrfjemkl4gKw7W4yUXt+t7UKEcERsr+Q36z
-         eX/dCTiZfxgyyP8kz7fY7AlC4xVAspwGigsTPB+Juv9xeDPD+PyOz+qVUkVyB5LlkU7z
-         QmJbTPVsnhEWrxKPS7+E2nojt+UQCPo7BKFAGWOCewYsW6Ey9kAzWqOsE4nZLYY60A9j
-         gIWsUqS/ZMmSXFKuXbCmHFBNJknfPwEGm3Lwc/6ebNpMW3xzZ6K0Ne0/td/5FRWOGvOD
-         QS+Q==
-X-Gm-Message-State: AFq9FYJ5BT8mjFjtRXW9qFZfibh3NN8UMnhX6rz4KRJ4wosmW81ZiQ2Z
-	WJUzLFdUHcLizTr5bRfBBoYzxaHWgEq0oI/9Lt3p/2lcEqk+NAjGHdIIzd1tL7HcK73CYMLJFdF
-	xW5FJ
-X-Gm-Gg: AYBFou1WAY1sdbHj3DCc7hF1hn7U0X8W107dh5tXLGecYwGrc7K6Mf4BF6YajX7IwLa
-	8iz/bUAHTzjuhvq81bGDBn1DwMCF5iuRuHVQ/eK5AwGFVbTc7onX2XNpoysjftaHP0o3qtaGItL
-	7t/cahudSFWQuuP72VFd5b28kMaGupHpHZHFatL61YJ63qAySelLaCXako8iUm3xHGfhZk8rNwx
-	cet287+WE5N4DfgWqt7lscsEDyKY1qS0tAyrAxIkbY09yed3hPAFDVFyNqT89bRr8gQlt39gV+u
-	0fHSHTOrcnWwP47IIm3XclrN/uZESR037UIKe5qsiI9dj+GBDP9azddf6qiX4lS2f0fqxusmPYs
-	A+/YW2UTEsiAHjDpNOrAQT5XvT6IeBhSC22hRlM3cx5dV7uR9ZXBenCO3a14O0a6bEHtZLDw6vg
-	471B0s6sKnuP3EvYLdThrlPN/2EUvY9iIeu90rPLpGFRoX4mtJfBUoaCb4BKzfrZg+Wfo+KW/kt
-	g==
-X-Received: by 2002:a05:7301:9a81:b0:33b:c24c:d31c with SMTP id 5a478bee46e88-34cdc0cd8dfmr2710851eec.7.1790805652393;
-        Wed, 30 Sep 2026 15:00:52 -0700 (PDT)
-Received: from 5a6d9a2c18a2 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34db4d1d560sm1493013eec.29.2026.09.30.15.00.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 15:00:51 -0700 (PDT)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=flapping.org header.i=@flapping.org header.b="hICjf1Gy";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="vLqhHXG3"
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfout.stl.internal (Postfix) with ESMTP id AA5FB1D00060;
+	Wed, 30 Sep 2026 18:02:23 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Wed, 30 Sep 2026 18:02:24 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flapping.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1790805743;
+	 x=1790892143; bh=+7vzyzmPNyBsCrlSJl2Rf6M5M3oPOAwKb0gYKlfEvRU=; b=
+	hICjf1GyQ/UqyyDNFehn5s+vguTlIU89BjeIOAAz74NblGtZZ3s8WJoGmZp+N/fb
+	gzJjhvpntD0FvkOwsiHnZ4/NAfAKaFaAtnxm6K923Bub6XCiaG347ciF6rFcjf4r
+	EPR+ImEzAq6En1j95Wp/lvsGmYpZrDlawVDLN18dZJPlfGxoBr4DS49vUPRHIhpx
+	oSMRpOe6hnTOlVRoyEi2D97oSw/JS7i55gvmc5XcWYUBhorsMWuxFa4gpttSzds2
+	XETFQjc01F1bk7nlwe0iWPIs9B+z2eYSJQMyewLXA02gTGvSV7/JOuAIYNtPNyJp
+	WH3UzmzMXCXXvu0Lx3ewBQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790805743; x=
+	1790892143; bh=+7vzyzmPNyBsCrlSJl2Rf6M5M3oPOAwKb0gYKlfEvRU=; b=v
+	LqhHXG3hwWHSqLdAQdxixh7PS/BdDA0eZVOa88zAHusLwDTcT3wu03qFuZ5UOByH
+	WyCsgLjjr2pr7AZoQjfEJs4qwXONXkROxjK3XtZAF3TLmdDm7INOH9/u16mu2abg
+	gFo2EuRUOHoxHf0Yp97JkwZmWIkygHOyoJFaWd8cpyFfQTueByrxPwQ1eZnv9juB
+	WpoErhUC70/Hzy7QpEXHfq5IBGxgxfWQJIzgtfVJzvIdQDigLEjOlCjR8//q6ldk
+	oSojeqX6c99hyPB0gG55uOE3NlMgOUy79i83ZwQ5HWuCQ346SRr2hd4P9Q7KRGas
+	V/f70B7l6O7rTb3eGmKXg==
+X-ME-Sender: <xms:74a9aoc5uF06efgQBMXQFmJ5FNynnWA-AM4KIxHLTOTDABfNDPC6EQ>
+    <xme:74a9auIPvlOYpXkA3TNoVHJCGTcNWdWryAPjFTr-0j7CmmbR1irZmcMsOKA-IQfrK
+    tQhQRWk8xcaAewgTvYP1Gljq9XR3qrwOj9Plyiwb8jlDtQXcCfycBoY>
+X-ME-Received: <xmr:74a9aiAPR1MHh3h4mZ4kYGjuJ9Mq2hPoCXZhdwIlssJoFhklqa41XBXLyZ6i6o_vZsRnAyqaT_TFjKY1_V9x5BEh>
+X-ME-Proxy-Cause: dmFkZTEh8a5mtMwJjm4OP/JFppemW1RPRtmhJ6QT5a6YrkqSaMjdfLQr1wK/lXFXXVqtLN
+    dfY5ZMQ533nSdgeO5vEeYT9mwMP0Grqc6B3CAICqST+5eeAq5FOxfz8ZHLeopm8rwIwKYp
+    AFGFm7XF+qXfB00CeOPH/mjk2W0d8pvz0382nekCbaDcgFuc83qPtWIQsuoA/Jc0eAC5mY
+    J4pzDFaTl00fjaYL2d3KgJvqxELXgjQP3vgY8op3EK5Eppion9z1GafN4NZljdrR34E1GG
+    Pl71NsKJMrjyw3U/dbnaJ3IiGmM8lnXBVyMfnSEIhCozL8tlU4XQH1yWzYqooyGK4qyPLL
+    MMgA2dDQtFM+R20LjuDrWtGDxiZ8N8TjjWTGyEGRRY7jMdJ8+3icRjXcsL6XplUizqBfey
+    y6sy180EWVponJsHkYa3L+aLaXe+aOfMUUtRniJ6xVk1YSp1cnG1HM1hLV1L0OQsyH/PSL
+    YHsrVMUu62G+jTtJSj5Y7/Vny24vPdVsVRepXpKC0IJAByo9s4p22bvWHCp4Tnkgkh+zJs
+    Tg4HZ6aSTqT7gZ0bVnk5vlBxxLAe8Xd4SDkpBWGVPfKe+STSALZySObNwsdY2djRk7KVxk
+    LBQ6ewd0BN92ObzVQL4Lw1kDQlQR91fxZ6ayOyMc2sFD/fPt9Z9xt//bBNBQ
+X-ME-Proxy: <xmx:74a9anhBNHB88LHwst52qfSLgee25CC83rWEMBkiKaLBmtWISFwTfA>
+    <xmx:74a9asMCevJLDsqFBWPyJgNAYbYFtuQ7DK19Ca3sO8z5oewGubaWJA>
+    <xmx:74a9auZwe4Ehqm-RoFo8rVkzkBJped0UgM-cY4FemIpKnMdh6mQMOQ>
+    <xmx:74a9ah_c9uDL884P0e1u19fneWBEhYj3z3xBmbBPwLjSzt2LI_5hzg>
+    <xmx:74a9ajrClykasys3hw2_ryqoUOh4n4UQLdNeRMA04s1D5lmidAs2sfK->
+Feedback-ID: i51fe4b43:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 30 Sep 2026 18:02:18 -0400 (EDT)
+Date: Thu, 01 Oct 2026 07:02:15 +0900 (JST)
+Message-Id: <20261001.070215.521963012921142699.tomo@flapping.org>
+To: ukleinek@kernel.org
+Cc: tomo@flapping.org, fustini@kernel.org, guoren@kernel.org,
+ wefu@redhat.com, a.hindborg@kernel.org, acourbot@nvidia.com,
+ aliceryhl@google.com, bjorn3_gh@protonmail.com, boqun@kernel.org,
+ dakr@kernel.org, daniel.almeida@collabora.com, gary@garyguo.net,
+ linux-riscv@lists.infradead.org, lossin@kernel.org,
+ m.wilczynski@samsung.com, ojeda@kernel.org, tamird@kernel.org,
+ tmgross@umich.edu, work@onurozkan.dev, linux-pwm@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, fujita.tomonori@gmail.com,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v2] pwm: th1520: Fix 32-bit build with COMPILE_TEST
+From: FUJITA Tomonori <tomo@flapping.org>
+In-Reply-To: <arz487DLBlaBrWLN@monoceros>
+References: <20260930101257.1649945-1-tomo@flapping.org>
+	<arz487DLBlaBrWLN@monoceros>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [REGRESSION] stable-rc/linux-5.10.y: (build)cleanup argument not a
- function in
- arch/s390/kvm/interrupt.o (arch/...
-From: KernelCI bot <bot@kernelci.org>
-To: kernelci-results@groups.io
-Cc: stable@vger.kernel.org
-Reply-To: kernelci@lists.linux.dev
-Date: Wed, 30 Sep 2026 22:00:51 -0000
-Message-ID: <179080562511.116660.6014762431387053958@kernelci.org>
+Mime-Version: 1.0
+Content-Type: Text/Plain; charset=iso-8859-1
+Content-Transfer-Encoding: quoted-printable
 
-New build issue found on stable-rc/linux-5.10.y:
+On Wed, 30 Sep 2026 13:57:31 +0200
+Uwe Kleine-K=F6nig <ukleinek@kernel.org> wrote:
 
----
-cleanup argument not a function in arch/s390/kvm/interrupt.o (arch/s390/kvm/interrupt.c) [logspec:kbuild,kbuild.compiler.error]
----
+>> diff --git a/drivers/pwm/Kconfig b/drivers/pwm/Kconfig
+>> index 729776086879..abecd95b0c3c 100644
+>> --- a/drivers/pwm/Kconfig
+>> +++ b/drivers/pwm/Kconfig
+>> @@ -772,7 +772,7 @@ config PWM_TEGRA
+>>  =
 
-Log excerpt:
-=====================================================
-/tmp/kci/linux/arch/s390/kvm/interrupt.c:2930:16: error: cleanup argument not a function
- 2930 |         struct kvm_s390_irq *buf __free(kvfree) = NULL;
-      |                ^~~~~~~~~~~~
-In file included from /tmp/kci/linux/include/linux/preempt.h:11,
-                 from /tmp/kci/linux/include/linux/percpu.h:6,
-                 from /tmp/kci/linux/include/linux/context_tracking_state.h:5,
-                 from /tmp/kci/linux/include/linux/hardirq.h:5,
-                 from /tmp/kci/linux/include/linux/interrupt.h:11,
-                 from /tmp/kci/linux/arch/s390/kvm/interrupt.c:13:
-/tmp/kci/linux/include/linux/cleanup.h:112:9: error: ‘for’ loop initial declarations are only allowed in C99 or C11 mode
-  112 |         for (CLASS(_name, scope)(args),                                 \
-      |         ^~~
-/tmp/kci/linux/arch/s390/kvm/interrupt.c:2942:9: note: in expansion of macro ‘scoped_guard’
- 2942 |         scoped_guard(spinlock, &li->lock) {
-      |         ^~~~~~~~~~~~
-/tmp/kci/linux/include/linux/cleanup.h:112:9: note: use option ‘-std=c99’, ‘-std=gnu99’, ‘-std=c11’ or ‘-std=gnu11’ to compile your code
-  112 |         for (CLASS(_name, scope)(args),                                 \
-      |         ^~~
-/tmp/kci/linux/arch/s390/kvm/interrupt.c:2942:9: note: in expansion of macro ‘scoped_guard’
- 2942 |         scoped_guard(spinlock, &li->lock) {
-      |         ^~~~~~~~~~~~
+>>  config PWM_TH1520
+>>  	tristate "TH1520 PWM support"
+>> -	depends on ARCH_THEAD || COMPILE_TEST
+>> +	depends on ARCH_THEAD || (COMPILE_TEST && 64BIT)
+>>  	depends on RUST
+>>  	depends on HAS_IOMEM && COMMON_CLK
+>>  	select RUST_PWM_ABSTRACTIONS
+> =
 
-=====================================================
+> Can't we do better than that? For C code the right thing to do is to =
+use
+> one of the div helpers instead of a plain / for types bigger than lon=
+g.
 
-When fixing this issue, please attribute this report according to the
-patch submission rules:
+Indeed. Rust code already uses some div helpers. However, the kernel
+crate does not have Rust wrappers for the helpers this driver needs,
+such as mul_u64_u64_div_u64(), so we need to add them first. The
+changes would be too large for stable.
 
-Reported-by: kernelci.org bot <bot@kernelci.org>
+So how about merging this as a fix? I will work on patches to use div
+helpers in the driver.
 
-For complete logs and details about the environment used, see the issue
-on the KernelCI dashboard:
-
-- dashboard: https://d.kernelci.org/i/maestro:198d88d6c2a9310ead35770f1e32000ccb7cfd2f
-- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-- commit HEAD:  bcfba26b751025aedcc05637fb90c7e513a483ab
-
-# Builds where the incident occurred:
-
-## defconfig on (s390):
-- compiler: gcc-14
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6abd3cfd5ec73975aa0a64be
-
-#kernelci issue maestro:198d88d6c2a9310ead35770f1e32000ccb7cfd2f
-
---
-This is an experimental report format. Please send feedback in!
-Talk to us at kernelci@lists.linux.dev
-
-Made with love by the KernelCI team - https://kernelci.org
