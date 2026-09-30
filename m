@@ -1,122 +1,131 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E74C78F3A;
-	Wed, 30 Sep 2026 01:55:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F0A5360EE5;
+	Wed, 30 Sep 2026 02:01:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.153
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790733315; cv=none; b=UJYmogtzIJgOQPqmxtEvkLfLKgXARmHRy2sKrwO6yLzqWOVzVTuVxOhf0ucoG7cclWRdyvAUprQbm/TuKMLU6WlSXiZWPvv65QkIBGcwUhj3+0tUBTqQGlw0YG3Cb5L94PLA5Csy1XET7OJMfkEF9SVWgBkbQWZ4Z4m6WIMktw8=
+	t=1790733679; cv=none; b=XsRTVShN7tCR42hJXbKbbhJkLsoDtwC1IdRt69YuhRXIBdeNCPr62IHaG/uv6pEE/9Sgtxm57S0NbNRjIB44FBN58kDQvCmESKmLjG3PVH25VERi5zTE4bbDMIG24FBX6RnRaor1wkF5doiDKqUCEMw9J26KIzk1wobzpyrCqT0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790733315; c=relaxed/simple;
-	bh=ALEbsJltOkykfd6BXNzzWhlmAYuW9n9nkjjO2PKULX4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=oLF8ql8Ybt+hITpY2x93Spu9g4wPBHHATk1rdjJdxe04sq3GOEmArjp1QLSEkEClQc6FdPgF+rm6t6DX+RfYy1hDi3GB+KnpV944iEM3+iNcUXs43J+9NI7QTnOwV4hDOpYPWSnHcdRW/tUoljnnfhlrYYAS0MFlJkKNVgy3jHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=JBPae0KO; arc=none smtp.client-ip=117.135.210.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790733679; c=relaxed/simple;
+	bh=6Pty6e/BsuARxstt0uljApujK3Ir0Y0DM1bCKScy6rU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GsNs0X4H6CQDwXGfBKEMA5EiglPbpp10uOBQLKA4WgzFh5jQeyjAO7al9BQUBgx1FYImIhYoHQ2TFq8e4MqW0qqx8NUb5KPRyObdPmyAiIxb24WkV/dFsnJ8N9lW8xepuuPTilph00kjVhmtEM2whI+AXlCauZOKJQlDz8iTn3w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kode54.net; spf=pass smtp.mailfrom=kode54.net; dkim=pass (2048-bit key) header.d=kode54.net header.i=@kode54.net header.b=b7+GjVH8; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=QfkNs7tN; arc=none smtp.client-ip=103.168.172.153
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kode54.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kode54.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="JBPae0KO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=ALEbsJltOkykfd6BXNzzWhlmAYuW9n9nkjjO2PKULX4=; b=J
-	BPae0KO32wEDNzRUqiM03x4zjHSqjEBAt988tx7zqrsYPViVc00kjIQslbiQfYgQ
-	m00MnPV3W36ZfVfB4h4ODHxJSEu04TvyWClpbj4fzgh6rHY3fV6SNsQgPo9QVwW4
-	MA1eVuhKzCRiJyV9tB3pV6convlQAUdIQ27fBPehrc=
-Date: Wed, 30 Sep 2026 09:53:59 +0800 (CST)
-From: "jiale yao" <19888972804@163.com>
-To: "Sergey Shtylyov" <s.shtylyov@omp.ru>
-Cc: =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
-	"Paul Barker" <paul@pbarker.dev>,
-	"Andrew Lunn" <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	"Eric Dumazet" <edumazet@google.com>,
-	"Jakub Kicinski" <kuba@kernel.org>,
-	"Paolo Abeni" <pabeni@redhat.com>,
-	"Mitsuhiro Kimura" <mitsuhiro.kimura.kc@renesas.com>,
-	"Claudiu Beznea" <claudiu.beznea.uj@bp.renesas.com>,
-	netdev@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re:Re: [PATCH v2 6/7] net: ravb: fix resource teardown ordering
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <3b43b4fb-8479-4eb2-be58-1df6f0f747b9@omp.ru>
-References: <20260927144741.1320558-1-yaojiale02@163.com>
- <20260927144741.1320558-7-yaojiale02@163.com>
- <3b43b4fb-8479-4eb2-be58-1df6f0f747b9@omp.ru>
-X-NTES-SC: AL_Qu2SAvuYvEoo7yaYZOkdnEkQgO0/WsS1vfQu2Y5Wc+8GoB7n+ToEZnBvNlr04eWOBi+JjBKMXilN6cVecJZ2eEB1MuQwr0ubnaC2dOtXcA==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (2048-bit key) header.d=kode54.net header.i=@kode54.net header.b="b7+GjVH8";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="QfkNs7tN"
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 3E14C1400327;
+	Tue, 29 Sep 2026 22:01:16 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Tue, 29 Sep 2026 22:01:16 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kode54.net; h=cc
+	:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=fm1; t=1790733676; x=1790820076; bh=Ly1y7IF0HFIJnT198Bnkw
+	vjYBp3S6axzsFhDj3HrqYg=; b=b7+GjVH8jDqsOJb07dLPqpckl5muwt5JQ5jj9
+	ChheHJCM+JPSUesXBSvqkhAaTEW6a65PEXGl9r+h5KfizEegZNUBtimNGF++nmzs
+	yn01i+DDLBme36oRQJsvfr35g3Ti5lvV28JqhX18wXGaVQl/l3mrQKP/Du0vNX9e
+	vhpSllUOaa+C/VmgjzhvUpGw/Zl9eNP7gKb+2SZvWvYHplDgYXHrf9wPlJ6BTKWg
+	hIMPJX8f0R4i/a3ogwCu6HPy9RUtMgooc+mDTURmZYbDFRGKHwkUoFmr5R8ksC7C
+	ZwiTNxMRV0ste3SgrJHaIxADexO/ekKccqUg5HcsypKjN99ag==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1790733676; x=1790820076; bh=Ly1y7IF0HFIJnT198BnkwvjYBp3S6axzsFh
+	Dj3HrqYg=; b=QfkNs7tNOw7vLOA2lNNeq7manuCMoUHx6QYDhhzhwX5BMGWW2aH
+	CSqJDHP423jMVwgVBY3iy4Sf2ZmCgHive5mKw2tpjtVpQ70SRIS+jl4LV7fs0wVm
+	PkvlyL2Tw2+0cyKIXiOAcR9c99/IYCgor+6tH+sKD1pF2wV/alGKMvNFynElfVol
+	xrZcD5zMkyzkFId7+fGCyRjfelHRgHDLF2jPDELW4eewRA1MVmy/0gYI8uIu/vkq
+	t3pC1Or28t0ovCr3OsWdjt5IBb18bX/7jQB/MvBJhAVMgfgXtfJcAzGs+p+5i9DC
+	X8pcy8e3s7J22sQ+mKdxuOKcyH4Qz/5ogaQ==
+X-ME-Sender: <xms:a228aruYAANBIZ_nTejCL87INVWs0jD0n0KkUet4Jm5ivk9fxHVP6w>
+    <xme:a228anYoDVab2hiCzassLdKASxVRK3m_eMfhkVk3sqI_PDQKirMeZ8O5tPuPPDbsX
+    JnG1X02EvZDnpiA45MlnUe7z1e1J26gu2wPcrckiYbDuGn20aiRMQs>
+X-ME-Received: <xmr:a228aty0xCR-Hfkp5qkpFLFEPK7PlhR5QydNOdwMztM_0ipyxkQ7JXmqEknbXo9VomNz0jtuAoluY7gr1ZEZtAo>
+X-ME-Proxy-Cause: dmFkZTEPMcW4vJDRdzUnK4djoVSsdnnwRjLFCruDVjPsainYLB3oKAY+Ex2CsDtt1nZMBo
+    26hA70uBS+4BCKyGravu0b+omsVL7olxrH2bXo3Yq4HauTMapEuzjlxhVWJcRVPjwXuxY3
+    Efb2SbE88HdXj3HYDi1+RTPwKr2u68xwBhhBGfvFk+TUG9VBMUldyuu1/e8xYuy2tBEAiK
+    zgxNU7y5s/o51HBmnBhk6G7SAHNVNRImGUU0FXy/zvvqdDB2b3Uf5ZGHMnOGcoZwQq4Qv2
+    opeg/GAk7/S8/wJIIeomnOA64/yxeGleGp4K2t1Fp9k+hvvc0mCY+sVQHTq3FAv3tTb3Iq
+    4BkFENAYsD8h9CllKFwYuIujipg6GmKBNyns9iW5mJ7DF+zh/65FtAYXLZKnw6vin8mHKF
+    qHvG4WdmGjnv46Lxkj7PUG2mzik/+poWG0HhRidWKKHP3GpwrbsZtYxZeKZP7XW+11kQJv
+    imi7+HlQcKlazV8MDTBdcMgKeSMiQbD8QK4xI0j/+Dk+h/OodZTMOBm/AYLObYrFx/0fNI
+    M0i/nOkmvtMUhMYNaDEPN3guS28p+kchTchSaeILx4ItD2uZmNQIrtTOrhYEK73Y+Y93h7
+    XaSC3DZ5MhGPoQVkgQLexAbtbsHzmhW99xSHJDhizml/L1wSy7apTWAyZeQg
+X-ME-Proxy: <xmx:a228avit3OORqY-347gSy4GgAr7ceZlBw6Qf1LlNAIjwkwGeU3iedw>
+    <xmx:a228apm-JqXDB4j7-W7eEXjPJxD9xImJJAzFXN-_iBCd6UiU4MyuBQ>
+    <xmx:a228algLeBKv6zUrk5wBHjkORrB0O9uUGv8Y4kWzeh9vdkiajSLXvA>
+    <xmx:a228at24IsT-BfZxoa18BY3LuR9d7NTEgDPtHzZ5xvypwOZK58cXSQ>
+    <xmx:bG28atDyTFSEw43bC4wdIccUpgL1tHMjJjvGuHONsjDJQMykGR3D7l-P>
+Feedback-ID: i9ec6488d:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 29 Sep 2026 22:01:14 -0400 (EDT)
+From: Christopher Snowhill <chris@kode54.net>
+To: "Mauro Carvalho Chehab" <mchehab@kernel.org>
+Cc: Christopher Snowhill <chris@kode54.net>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	"Bradford Love" <brad@nextdimension.cc>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: em28xx: fix inverted tuner capability check for VBI device
+Date: Tue, 29 Sep 2026 19:00:06 -0700
+Message-ID: <20260930020010.85250-2-chris@kode54.net>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <12190bf2.18c1.1a0f004c539.Coremail.19888972804@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:kygvCgD3FwK3a7xqAetQAA--.481W
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzRfRDGq8a7eSJAAA37
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
 
-SGkgU2VyZ2V5LAoKVGhhbmtzIGZvciB5b3VyIHJldmlldy4KWW91J3JlIHJpZ2h0IOKAlCBJJ2xs
-IHNwbGl0IHRoaXMgaW50byB0d28gcGF0Y2hlczoKT25lIHBhdGNoIGZvciB0aGUgSVJRL25ldGRl
-diBvcmRlcmluZyBpc3N1ZS4KT25lIHBhdGNoIGZvciB0aGUgcnVudGltZSBQTSByZXN1bWUgZmFp
-bHVyZSBoYW5kbGluZy4KSSdsbCB1c2UgLS1uby1naXQtZmFsbGJhY2sgbmV4dCB0aW1lLCBzb3Jy
-eSBmb3IgdGhpcy4KCkF0IDIwMjYtMDktMzAgMDM6MDc6NTIsICJTZXJnZXkgU2h0eWx5b3YiIDxz
-LnNodHlseW92QG9tcC5ydT4gd3JvdGU6Cj5IZWxsbyEKPgo+ICAgSSBndWVzcyB5b3UgdXNlZCBz
-Y3JpcHRzL2dldF9tYWludGFpbmVyLnBsIC0tIGlmIHNvLCBJIHN1Z2dlc3QgdGhhdAo+eW91IGFk
-ZCAtLW5vLWdpdC1mYWxsYmFjayBuZXh0IHRpbWUuIFlvdXIgY3VycmVudCBUbzogbGlzdCBpcyBw
-YWluZnVsbHkKPmxvbmcgYW5kIGNvbnRhaW5zIHNvbWUgbG9uZyBkZWZ1bmN0IGFkZHJlc3NlcyAo
-bGlrZSBtaW5lKS4uLgo+Cj5PbiA5LzI3LzI2IDU6NDcgUE0sIEppYWxlIFlhbyB3cm90ZToKPgo+
-PiByYXZiX3JlbW92ZSgpIGZyZWVzIHRoZSBuZXRkZXYgYmVmb3JlIGRldnJlcyByZWxlYXNlcyB0
-aGUgbWFuYWdlZCBJUlFzLgo+PiBUaGUgaGFuZGxlcnMgdXNlIHRoZSBuZXRkZXYgYXMgdGhlaXIg
-ZGF0YSBwb2ludGVyLCBzbyBhbiBpbnRlcnJ1cHQgZHVyaW5nCj4+IHRoYXQgd2luZG93IGNhbiBh
-Y2Nlc3MgZnJlZWQgbWVtb3J5LiBQcm9iZSBlcnJvciBwYXRocyBoYXZlIHRoZSBzYW1lCj4+IG9y
-ZGVyaW5nIHByb2JsZW0uCj4+IAo+PiBUaGUgcmVtb3ZlIGNhbGxiYWNrIGFsc28gcmV0dXJucyB3
-aGVuIHJ1bnRpbWUgcmVzdW1lIGZhaWxzLiBUaGF0IGxlYXZlcwo+PiB0aGUgbmV0ZGV2IHJlZ2lz
-dGVyZWQgd2hpbGUgdGhlIGRyaXZlciBjb3JlIHN0aWxsIHJlbGVhc2VzIGl0cyBtYW5hZ2VkCj4+
-IHJlc291cmNlcy4gQSBydW5uaW5nIGludGVyZmFjZSBhbHJlYWR5IGhvbGRzIGEgcnVudGltZSBQ
-TSByZWZlcmVuY2UsIHNvCj4+IHRoZSBleHRyYSBnZXQgY2Fubm90IGludm9rZSBhIGZhaWxpbmcg
-cmVzdW1lLiBBIHJlc3VtZSBmYWlsdXJlIHRoZXJlZm9yZQo+PiBvY2N1cnMgd2hpbGUgdGhlIGlu
-dGVyZmFjZSBpcyBkb3duIGFuZCBuZG9fc3RvcCgpIHdpbGwgbm90IGJlIGNhbGxlZC4KPgo+ICAg
-U2VlbXMgbGlrZSBhIHNlcGFyYXRlIHByb2JsZW0/Cj4KPj4gUGxhY2UgdGhlIElSUSByZXNvdXJj
-ZXMgaW4gYSBkZWRpY2F0ZWQgZGV2cmVzIGdyb3VwIGFuZCByZWxlYXNlIGl0IGJlZm9yZQo+PiBm
-cmVlaW5nIHRoZSBuZXRkZXYuIENvbnRpbnVlIHVucmVnaXN0ZXJpbmcgYW5kIGZyZWVpbmcgc29m
-dHdhcmUgcmVzb3VyY2VzCj4+IHdoZW4gcnVudGltZSByZXN1bWUgZmFpbHMsIGJ1dCBza2lwIHRo
-ZSB1bm1hdGNoZWQgcnVudGltZSBQTSBwdXQuCj4+IAo+PiBGaXhlczogYzE1NjYzM2YxMzUzICgi
-UmVuZXNhcyBFdGhlcm5ldCBBVkIgZHJpdmVyIHByb3BlciIpCj4+IEZpeGVzOiA0OGY4OTRhYjA3
-YzQgKCJuZXQ6IHJhdmI6IEFkZCBydW50aW1lIFBNIHN1cHBvcnQiKQo+PiBDYzogc3RhYmxlQHZn
-ZXIua2VybmVsLm9yZwo+PiBTaWduZWQtb2ZmLWJ5OiBKaWFsZSBZYW8gPHlhb2ppYWxlMDJAMTYz
-LmNvbT4KPj4gLS0tCj4+ICBkcml2ZXJzL25ldC9ldGhlcm5ldC9yZW5lc2FzL3JhdmJfbWFpbi5j
-IHwgMjMgKysrKysrKysrKysrKysrKystLS0tLS0KPj4gIDEgZmlsZSBjaGFuZ2VkLCAxNyBpbnNl
-cnRpb25zKCspLCA2IGRlbGV0aW9ucygtKQo+PiAKPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbmV0
-L2V0aGVybmV0L3JlbmVzYXMvcmF2Yl9tYWluLmMgYi9kcml2ZXJzL25ldC9ldGhlcm5ldC9yZW5l
-c2FzL3JhdmJfbWFpbi5jCj4+IGluZGV4IGVhMWM3ZTUzNjc5MS4uYTI1ZjVhYzcwNjJmIDEwMDY0
-NAo+PiAtLS0gYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9yZW5lc2FzL3JhdmJfbWFpbi5jCj4+ICsr
-KyBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L3JlbmVzYXMvcmF2Yl9tYWluLmMKPlsuLi5dPiBAQCAt
-MzEyNCw2ICszMTMxLDggQEAgc3RhdGljIGludCByYXZiX3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9k
-ZXZpY2UgKnBkZXYpCj4+ICAgICAgICAgcG1fcnVudGltZV9kaXNhYmxlKCZwZGV2LT5kZXYpOwo+
-PiAgICAgICAgIHBtX3J1bnRpbWVfZG9udF91c2VfYXV0b3N1c3BlbmQoJnBkZXYtPmRldik7Cj4+
-ICAgICAgICAgY2xrX3VucHJlcGFyZShwcml2LT5yZWZjbGspOwo+PiArb3V0X3JlbGVhc2VfaXJx
-czoKPgo+ICAgU29tZXdoYXQgdW5vYnZpb3VzIGxhYmVsIG5hbWUsIGdpdmVuIHRoZSBmb2xsb3dp
-bmcgY2FsbC4uLgo+Cj4+ICsgICAgICAgZGV2cmVzX3JlbGVhc2VfZ3JvdXAoJnBkZXYtPmRldiwg
-cHJpdik7Cj4+ICBvdXRfcmVzZXRfYXNzZXJ0Ogo+PiAgICAgICAgIHJlc2V0X2NvbnRyb2xfYXNz
-ZXJ0KHJzdGMpOwo+PiAgb3V0X2ZyZWVfbmV0ZGV2Ogo+PiBAQCAtMzE0MSw5ICszMTUwLDEwIEBA
-IHN0YXRpYyB2b2lkIHJhdmJfcmVtb3ZlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4+
-IAo+PiAgICAgICAgIGVycm9yID0gcG1fcnVudGltZV9yZXN1bWVfYW5kX2dldChkZXYpOwo+PiAg
-ICAgICAgIGlmIChlcnJvciA8IDApCj4+IC0gICAgICAgICAgICAgICByZXR1cm47Cj4+ICsgICAg
-ICAgICAgICAgICBkZXZfd2FybihkZXYsICJmYWlsZWQgdG8gcmVzdW1lIGRldmljZTogJWRcbiIs
-IGVycm9yKTsKPj4gCj4+ICAgICAgICAgdW5yZWdpc3Rlcl9uZXRkZXYobmRldik7Cj4+ICsgICAg
-ICAgZGV2cmVzX3JlbGVhc2VfZ3JvdXAoZGV2LCBwcml2KTsKPj4gICAgICAgICBpZiAoaW5mby0+
-bmNfcXVldWVzKQo+PiAgICAgICAgICAgICAgICAgbmV0aWZfbmFwaV9kZWwoJnByaXYtPm5hcGlb
-UkFWQl9OQ10pOwo+PiAgICAgICAgIG5ldGlmX25hcGlfZGVsKCZwcml2LT5uYXBpW1JBVkJfQkVd
-KTsKPj4gQEAgLTMxNTMsNyArMzE2Myw4IEBAIHN0YXRpYyB2b2lkIHJhdmJfcmVtb3ZlKHN0cnVj
-dCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4+ICAgICAgICAgZG1hX2ZyZWVfY29oZXJlbnQobmRl
-di0+ZGV2LnBhcmVudCwgcHJpdi0+ZGVzY19iYXRfc2l6ZSwgcHJpdi0+ZGVzY19iYXQsCj4+ICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgcHJpdi0+ZGVzY19iYXRfZG1hKTsKPj4gCj4+IC0gICAg
-ICAgcG1fcnVudGltZV9wdXRfc3luY19zdXNwZW5kKCZwZGV2LT5kZXYpOwo+PiArICAgICAgIGlm
-IChlcnJvciA+PSAwKQo+PiArICAgICAgICAgICAgICAgcG1fcnVudGltZV9wdXRfc3luY19zdXNw
-ZW5kKCZwZGV2LT5kZXYpOwo+Cj4gICBIbSwgZGVmaW5pdGVseSBzZWVtcyBsaWtlIGEgbWF0ZXJp
-YWwgZm9yIGEgc2VwYXJhdGUgcGF0Y2guLi4KPgo+Wy4uLl0KPgo+TUJSLCBTZXJnZXkKSmlhbGUK
+Commit 8e53399c63c3 ("media: em28xx: Add support for Empia em2828X
+bridge") changed the condition for setting V4L2_CAP_TUNER on the VBI
+device from "dev->tuner_type != TUNER_ABSENT" to a check of the video
+device's capabilities, but inverted it: the VBI node now advertises a
+tuner only when the video node does not have one.
+
+On boards without a tuner (e.g. the MyGica iGrabber, card=105) the VBI
+device's device_caps therefore contain V4L2_CAP_TUNER, while the shared
+vidioc_querycap() correctly omits it from cap->capabilities. This trips
+the sanity check in v4l_querycap() whenever the VBI node is queried,
+for example by udev's v4l_id on every hotplug:
+
+  WARNING: drivers/media/v4l2-core/v4l2-ioctl.c:1119 at v4l_querycap+0xff/0x110 [videodev]
+  (cap->capabilities & (vfd->device_caps | V4L2_CAP_DEVICE_CAPS)) != (vfd->device_caps | V4L2_CAP_DEVICE_CAPS)
+
+It also leaves the tuner ioctls enabled on the VBI node of tuner-less
+boards and disables them on boards that do have a tuner.
+
+Restore the intended logic so the VBI device has V4L2_CAP_TUNER exactly
+when the video device does.
+
+Fixes: 8e53399c63c3 ("media: em28xx: Add support for Empia em2828X bridge")
+Assisted-by: LLM
+Signed-off-by: Christopher Snowhill <chris@kode54.net>
+Cc: stable@vger.kernel.org
+---
+ drivers/media/usb/em28xx/em28xx-video.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
+index c418add65bb5..cdf1dc692b08 100644
+--- a/drivers/media/usb/em28xx/em28xx-video.c
++++ b/drivers/media/usb/em28xx/em28xx-video.c
+@@ -3001,7 +3001,7 @@ static int em28xx_v4l2_init(struct em28xx *dev)
+ 		v4l2->vbi_dev.queue->lock = &v4l2->vb_vbi_queue_lock;
+ 		v4l2->vbi_dev.device_caps = V4L2_CAP_STREAMING |
+ 			V4L2_CAP_READWRITE | V4L2_CAP_VBI_CAPTURE;
+-		if ((v4l2->vdev.device_caps & V4L2_CAP_TUNER) == 0)
++		if (v4l2->vdev.device_caps & V4L2_CAP_TUNER)
+ 			v4l2->vbi_dev.device_caps |= V4L2_CAP_TUNER;
+ 
+ 		/* disable inapplicable ioctls */
+-- 
+2.55.0
 
