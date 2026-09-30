@@ -1,33 +1,32 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from zxbjcas.zhaoxin.com (zxbjcas.zhaoxin.com [124.127.214.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ACC81BD00C;
-	Wed, 30 Sep 2026 07:34:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CB3E38DC66;
+	Wed, 30 Sep 2026 07:35:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.127.214.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790753677; cv=none; b=MICJuVv0ASaKpcXiCEfZBKrukJzs7iPSXm3X91WRnhGDxs+bEJIMiqzY/uRHlQ+LHWhcOLsoIFdyDQxlRsjdGE3UFEQ4eFtocOVjZ6Nmt31UIgeo/wb4gdzqkvY8YzRt/Bvi/X/BDAQhAYTzBAGoKw/CsxpPVBnEyR9A9RwMREs=
+	t=1790753744; cv=none; b=eymoTHa/ZwWg5vHKzZRNSqnQA7wgTYmRT/jPqYnDRd3NRp0j4HA0ueRtrmLgXE9rxWjVtpileOidWRqOjqxbIznUkoLZiyD6+da8y4NY615KsRgQs4leJcKRysi+ekjRu0nBQcXxkkmbFkv9dLsJIi19UX/jUjTVzy8Rl0mLFpw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790753677; c=relaxed/simple;
-	bh=q4Mww5UKlD02DAYB3cFdXC8xiTXbC0qbijbGPQV2a0U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=R6Dkt0y4hHmr5FGoLB74Oguu5bIFD+goKflKWrRNmmVUswn4HQ37RQasq9LRbRMPmDWLUkOocGrTg4C3fckpKNxQQ4ZpRmv2fT8FOU8iGje/7T+v8lhrNdaBXnpUZPOwqGHnbNFBL8oXcITtXOJWZ8bRo97IjFjBKxsqHHHc2p4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Go0VTqpn; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Go0VTqpn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C20511F000FF;
-	Wed, 30 Sep 2026 07:34:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790753675;
-	bh=+bgd0mVPJ948cD/Xsm5BN0c44HNmKafNptfUbdYM+II=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Go0VTqpn1bYrONXD4rNQJNPshyCFNDML7lv7CRp/Cd2Xun8FYaNeXiqYYEGAI5j6s
-	 Rs/sSXAfZbyeqO4Ufbq67H3Y4jym6hcqzaVXESJyqsi6lFkmS6rGx1eT//ABjKqPWe
-	 04gk0SVqCnZvIY6viAuWYzx9O2XuBOkCjF72LNhKDjNH5F7rveLNbvDqDs1ggKQVtq
-	 zJyX9r7IwNfxwghd6BS92xcb9OUF2M8o79ZMQDg0+GNLwg9cL+FBDt4WD+JTMXQwkc
-	 gzxsJT3XWQpBseL6UtVN+4LbhyPidYzffLSaVgzmpKAruPs8NXaMIpEuvw6qu3edp7
-	 VjF5Ap6LP7y+w==
-Message-ID: <6b7f77f5-32f7-46a8-9082-3a7752651037@kernel.org>
-Date: Wed, 30 Sep 2026 09:34:29 +0200
+	s=arc-20240116; t=1790753744; c=relaxed/simple;
+	bh=ZQQTnOKjRcmPnugUYEaXBYs7GYtutxvtXmQFddBxHLY=;
+	h=From:Message-ID:Date:MIME-Version:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=qzTZTQTU6Dmm1cyK/iISpyxkm0q7diQYU2cHhlDpK78Po7gHwnq6dEGPWakadOU9e3U2AwByT3x3O1fuUIH4DsostILG8VglfXHFUOHexBmLPr8SMJ1NYKJPVWQp1JHMN0MHs9spGs6kvKkILcxz2Sw09YKJRsdj71InvjlT0Mg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zhaoxin.com; spf=pass smtp.mailfrom=zhaoxin.com; arc=none smtp.client-ip=124.127.214.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zhaoxin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zhaoxin.com
+Received: from zhaoxin.com ([10.28.140.201])
+	by zxbjcas.zhaoxin.com with ESMTP id 68U7Y0sK022291;
+	Wed, 30 Sep 2026 15:34:00 +0800 (GMT-8)
+	(envelope-from weitaowang-oc@zhaoxin.com)
+Received: from [10.29.8.50] ([10.29.8.50] [10.29.8.50])
+	by zhaoxin.com (8.30) with ESMTPf33c0b30f82ad74634b62c1d0c3550f6
+	Wed, 30 Sep 2026 15:33:59 +0800
+X-Eyou-Smtpauth: weitaowang-oc@zhaoxin.com
+X-Eyou-EnvelopeSender: weitaowang-oc@zhaoxin.com
+X-Eyou-From: zhaoxinweitaowangoc <weitaowang-oc@zhaoxin.com>
+From: "=?UTF-8?B?V2VpdGFvV2FuZy1vYw==?=" <weitaowang-oc@zhaoxin.com>
+Message-ID: <345d4bc2-1c50-4f10-ba5c-ca49e4843507@zhaoxin.com>
+Date: Wed, 30 Sep 2026 15:33:47 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,52 +34,54 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] nvme: fix swapped ZRASF zone state values for full and
- read only
-To: Andreas Hindborg <a.hindborg@kernel.org>, Keith Busch
- <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
- Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
- Damien Le Moal <damien.lemoal@wdc.com>,
- Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
-Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
- Karl Bonde Torp <k.torp@samsung.com>, stable@vger.kernel.org
-References: <20260929-nvme-zns-fabrics-field-fix-v1-1-f99b6ffb49fc@kernel.org>
-From: Damien Le Moal <dlemoal@kernel.org>
+Subject: Re: [PATCH] x86/apic/msi: Fix MSI interrupt affinity configuration
+To: Koichiro Den <den@valinux.co.jp>
+Cc: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
+        dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+        linux-kernel@vger.kernel.org, WeitaoWang@zhaoxin.com, wwt8723@163.com,
+        CobeChen@zhaoxin.com, stable@vger.kernel.org
+References: <20260928164839.6381-1-WeitaoWang-oc@zhaoxin.com>
+ <6mg2eqdehsmb5fh6hf7icsha2547xfdfvulnycawiit2czhhmh@6bbmicaoz2zd>
 Content-Language: en-US
-Organization: Western Digital Research
-In-Reply-To: <20260929-nvme-zns-fabrics-field-fix-v1-1-f99b6ffb49fc@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <6mg2eqdehsmb5fh6hf7icsha2547xfdfvulnycawiit2czhhmh@6bbmicaoz2zd>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Eyou-Sender: <weitaowang-oc@zhaoxin.com>
+X-DNSRBL: 
+X-SPAM-SOURCE-CHECK: pass
+X-MAIL:zxbjcas.zhaoxin.com 68U7Y0sK022291
 
-On 2026/09/29 16:25, Andreas Hindborg wrote:
-> From: Karl Bonde Torp <k.torp@samsung.com>
+On 9/30/26 00:29, Koichiro Den wrote:
+> On Tue, Sep 29, 2026 at 12:48:39AM +0800, WeitaoWang-oc wrote:
+>> commit b56ebe7c896d ("x86/apic/msi: Fix misconfigured non-maskable MSI
+>> quirk") try to fix the issue of misconfigured non-maskable MSI quirk.
+>> For non-maskable MSI interrupts, use the slow path to fix the MSI affinity
+>> race. Maskable MSI interrupts use the direct path to update configuration
+>> info. However, the current code logic is the opposite as only maskable
+>> MSI interrupts will enable reservation mode.
 > 
-> The Zone Management Receive command Zone Receive Action Specific (ZRASF)
-> reporting option values for the Full and Read Only zone states are swapped
-> compared to the NVM Express Zoned Namespace Command Set Specification,
-> Revision 1.5, Figure 35:
+> Hi Weitao, thanks for catching this.
+> 
+>>
+>> Fixes: ef8dd01538ea ("genirq/msi: Make interrupt allocation less convoluted")
+> 
+> I'd rather (or also) add:
+> 
+>    Fixes: b56ebe7c896d ("x86/apic/msi: Fix misconfigured non-maskable MSI quirk")
+> 
+> As I recall, I started out trying to fix the issue, but then got too focused on
+> removing the flag. I missed that the check needed to be inverted. This
+> left the race unfixed and also made maskable interrupts possibly take the slow
+> path unnecessarily. Sorry for the trouble. Feel free to use this if it helps:
+> 
+>    Reviewed-by: Koichiro Den <den@valinux.co.jp>
+> 
+> Best regards,
+> Koichiro
 
-Not only rev 1.5. The same definitions are in all ZNS spec versions.
+Hi Koichiro,
 
-> 
-> - 5h lists the zones in the ZSF:Full state.
-> - 6h lists the zones in the ZSRO:Read Only state.
-> 
-> The nvmet ZNS backend uses these constants to map the ZRASF value received
-> from the host to a block layer zone condition when filtering zones in
-> Report Zones. Because of the swap, a host asking for full zones was given
-> the read only zones, and a host asking for read only zones was given the
-> full zones.
-> 
-> Swap the values of NVME_ZRASF_ZONE_STATE_FULL and
-> NVME_ZRASF_ZONE_STATE_READONLY to match the specification.
-> 
-> Fixes: aaf2e048af27 ("nvmet: add ZBD over ZNS backend support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Karl Bonde Torp <k.torp@samsung.com>
+Thank you four suggestion and review. I'll send a v2 patch.
 
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
-
--- 
-Damien Le Moal
-Western Digital Research
+Best Regards,
+Weitao
