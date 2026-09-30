@@ -1,38 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E1E251CF41;
-	Wed, 30 Sep 2026 16:12:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29C8351DDE9;
+	Wed, 30 Sep 2026 16:12:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790784755; cv=none; b=FnDrTqbCO2qKQUxkukSfHHJcT7JAQx3pI32w9uq3s//XtN6iMzyf0nAyvwQu0R/3NY1R5knBsFtwYY0mvb9oEzOyzdVuYbKskjVvd9CYrXssM4R4LubWcuL7iM8RE2PMcd0iZe/lp2Z7gJ64bQ8JOvnOpjWRAXFqGAhqvVzwx1Y=
+	t=1790784759; cv=none; b=quckgBmrRuy2jl9aZkp/XgcE2+mUYtwkc3nJ+xECTVbJP4I+FwkNIGoF1E8lqnC1rfvvgTimkvRfYQpwCksaLjL+d1yj5oPcL+tmEiDF5uKaVbIhGloTaq8BaxqhO2lVP235Td6JiLolOIl39fsmH9JKO7UCKQ1fCO1U4EFecv4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790784755; c=relaxed/simple;
-	bh=w9bBobOvinbejBIPul8UkC2fdNtNea9iwsm3/8l0cCE=;
+	s=arc-20240116; t=1790784759; c=relaxed/simple;
+	bh=jLmbTZ+f9hFfk2SVl0GKjbNiCCNQ2NJwdKzMV6/efh8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OWmLMylH5lErY7rVF3gIvAk57wdaarV3bgo72YlZQL2ujPbeiXhDqMcCPi7/FLbuOW9NeMyZs5wG19uU7QVnfJM39ZE9/oefLToDuFxeEId2OL49pcScRn5CyFgR2PUtKnen/OCM87b6qJ7cGYhBlBekj8z36LNWayGomJf23U8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hki5ZqEi; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Nf1gojLD2V3zbfX6AYsblHpQWqw7SMcWjJIFDgl6JBSjtv7XZJSVzerWz42tQynwRJbP/XaAW0hQcI+CkXXGGfKnljtJepB73pC26PFqGd85wAuqwW0gVc0hh2OUdABVMD5kikLNTJNSzdSiZiy1/elPDtcuRrDXTg0oNooFcv8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=HuiKH6pR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hki5ZqEi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD4621F00898;
-	Wed, 30 Sep 2026 16:12:30 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="HuiKH6pR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 871F21F00899;
+	Wed, 30 Sep 2026 16:12:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790784751;
-	bh=KzCpmy7GR94DyTnQ3Iiy+aTTGNtbmyrJmMosdcQcIPA=;
+	s=korg; t=1790784754;
+	bh=1bkPtTWr+G8FWwIgjILTZEho4R2vTUOQUytTQSs2vvU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hki5ZqEi7IwzhiqWL0Cjs/+o85Ag7wPqJdxD1ChdwKq4ZgwY/JUTEq74kLVo6jb+X
-	 ZzGd9h+4dXbO7uS669nWnOI/9TeVk780iat+KGJ/FT0Lonu3pUCoYMj9/ufK4tuNl2
-	 oowkrmAb//XeGKb8htxOW9hcP6RDQ8goBawd8lxQ=
+	b=HuiKH6pREnnFBV71m429rwjq2LJk8aaAZY6Ko4kBKaBaTwUH/NS3Mm/CaXizBYJvL
+	 fOuCsAyZPpDcIlIwDZjCO1KHGdfWvyj9VO7zccaaMom7IuK/wfMWx5iyJeiC8MNGpf
+	 9rYuZyenXWF/XoqZg5LysGmlg+ZWfebyc8EKLHoo=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	=?UTF-8?q?Marcel=20K=C5=82os?= <marcel@marmak.net.pl>,
-	Takashi Iwai <tiwai@suse.de>,
+	Tejun Heo <tj@kernel.org>,
+	Tao Cui <cuitao@kylinos.cn>,
+	Jens Axboe <axboe@kernel.dk>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 267/982] ALSA: hda/realtek: Add quirk for HP EliteBook 830 G8 (8AB8) to enable mute LEDs
-Date: Wed, 30 Sep 2026 17:16:43 +0200
-Message-ID: <20260930152422.538473022@linuxfoundation.org>
+Subject: [PATCH 6.1 268/982] blk-cgroup: fix leaks and online flag on radix_tree_insert failure
+Date: Wed, 30 Sep 2026 17:16:44 +0200
+Message-ID: <20260930152422.559790310@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
 References: <20260930152416.775402466@linuxfoundation.org>
@@ -52,38 +53,58 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Marcel Kłos <marcel@marmak.net.pl>
+From: Tao Cui <cuitao@kylinos.cn>
 
-[ Upstream commit 728d34ebf91c0e80b63a66b237dd0dfc5a8e5b4d ]
+[ Upstream commit dbbca20764382b4d411ec2918f4e278ffe547acc ]
 
-The sound and microphone mute LEDs do not function on this newer
-revision of the board (8AB8) while they do on the older 880D models.
-I have verified this on another laptop which was manufactured before
-the one with the issue.
-Added the ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED from a G9 model, which
-uses the same codec, to make it work. Tested on kernel version 7.1.3 on
-the aforementioned newer revision notebook.
+When radix_tree_insert() fails in blkg_create(), the error path has two
+issues:
 
-Signed-off-by: Marcel Kłos <marcel@marmak.net.pl>
-Link: https://patch.msgid.link/4dab5622-9100-4730-8c99-b58da939549b@marmak.net.pl
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+1. blkg->online is set to true unconditionally, even when the blkg was
+   never fully inserted.  Move the assignment inside the success block.
+
+2. The error path calls blkg_put() without first calling
+   percpu_ref_kill().  Because the refcount is still in percpu mode,
+   percpu_ref_put() only does this_cpu_sub() without checking for zero,
+   so blkg_release() is never triggered.  This permanently leaks the
+   blkg memory, its percpu iostat, policy data, the parent blkg
+   reference, and the cgroup css reference — the latter preventing the
+   cgroup from ever being destroyed.
+
+Fix by replacing blkg_put() with percpu_ref_kill(), matching the pattern
+used in blkg_destroy().
+
+Acked-by: Tejun Heo <tj@kernel.org>
+Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+Link: https://patch.msgid.link/20260715132407.1469777-1-cui.tao@linux.dev
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/pci/hda/patch_realtek.c | 1 +
- 1 file changed, 1 insertion(+)
+ block/blk-cgroup.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index e79eb082810d7..c2b941bf338db 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -10038,6 +10038,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x103c, 0x8aa3, "HP ProBook 450 G9 (MB 8AA1)", ALC236_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8aa8, "HP EliteBook 640 G9 (MB 8AA6)", ALC236_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8aab, "HP EliteBook 650 G9 (MB 8AA9)", ALC236_FIXUP_HP_GPIO_LED),
-+	SND_PCI_QUIRK(0x103c, 0x8ab8, "HP EliteBook 830 G8 Notebook PC (MB 8AB8)", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8ab9, "HP EliteBook 840 G8 (MB 8AB8)", ALC285_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8abb, "HP ZBook Firefly 14 G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8ad1, "HP EliteBook 840 14 inch G9 Notebook PC", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+diff --git a/block/blk-cgroup.c b/block/blk-cgroup.c
+index c02292b0bd694..7d7c99d93bdb8 100644
+--- a/block/blk-cgroup.c
++++ b/block/blk-cgroup.c
+@@ -334,15 +334,15 @@ static struct blkcg_gq *blkg_create(struct blkcg *blkcg, struct gendisk *disk,
+ 				blkg->pd[i]->online = true;
+ 			}
+ 		}
++		blkg->online = true;
+ 	}
+-	blkg->online = true;
+ 	spin_unlock(&blkcg->lock);
+ 
+ 	if (!ret)
+ 		return blkg;
+ 
+ 	/* @blkg failed fully initialized, use the usual release path */
+-	blkg_put(blkg);
++	percpu_ref_kill(&blkg->refcnt);
+ 	return ERR_PTR(ret);
+ 
+ err_put_css:
 -- 
 2.53.0
 
