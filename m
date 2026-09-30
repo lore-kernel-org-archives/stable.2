@@ -1,37 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F3314F30C4;
-	Wed, 30 Sep 2026 16:25:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A76894FE2E6;
+	Wed, 30 Sep 2026 16:25:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790785519; cv=none; b=rZvua8jtiVrHvTzxDyPwd9/CnzBNDWQeBLrAjK0I8dpkQU4GZHlvhAAE1yjiNzrRncojYDb82sPXg7vWOMls1DW602G21M+vF+TMjRSRuowmcmk3+ozhRlSkMX8NZk0DnI/vEtilB2iuX0+DOQeXLiw7254ZPJGaZSgYREA02pY=
+	t=1790785525; cv=none; b=Vv3euDJ+rIgFCIoN8zbpWZQKtIQJuJ6dK/gzamMBzmlHtx/g8s17fTsjOY1fhlAEhmMX87W5CLpGe7rRrJ+IGUfzT6gdqdlh9eOCNpUWB1rAeGO/FeYEZyy8Xcj8qU8sYUS85VC1seqJXQvaIUfy7D+kcCkb6eb4PZWXa+pFXnc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790785519; c=relaxed/simple;
-	bh=IyrRc3GqrYL+q9OIetHeSzhNfC/nIDrhQyrIKgSg9L8=;
+	s=arc-20240116; t=1790785525; c=relaxed/simple;
+	bh=FcD/HT+f6OtEYkLadMo1xy+qKD9YSTLaslZvPT2ULHE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qUVfNwJ6tNsYIU5XfgdqtjUrQ3oxeV1ULodJwONwNcglyrzhgVNdK1gfyDKNo0OWBdVRHZep6rvn5dVEyjLokVLfYn1p0ZWH4GpAL4DbbT/6QpZaTa4MeGsGY/5PuIsqNRfy/qq3RzI5NlmWwDGh3r8zPrMZORNSbYPuc08y2jM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=V9VL3se6; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=u1JFGS+4f2THIvubIQgcs+Xyaq6WN/Z1h/srmu14CDc22wP261FEzxqZzhXlSyPkjy7Up2pNVWmdwhnET6p3DzhX8LyD6l2Ay97AYbQBdG9bYrb4/rc2nSA2/5KmeAyG3kjpPsMFQgClQXI5EIWzVE7b66/33seFDvQO0nkyPfw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=P9Of7LFV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="V9VL3se6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70AD91F00898;
-	Wed, 30 Sep 2026 16:25:11 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="P9Of7LFV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 090721F00898;
+	Wed, 30 Sep 2026 16:25:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790785512;
-	bh=qpjrmmFTYMHlqxNvcSH0VcWDcxVqPEgJc9C+TFOZzqI=;
+	s=korg; t=1790785520;
+	bh=MMtotpXjd8pXaV2f0Kf/HPHUEUuFt5mlScj0SCjQqKE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=V9VL3se62T9LmqGZNGRGByScWZumy8zAAWCN77I+NRYvBCm3G4qyT0mA+i0VskaDR
-	 ncfy2lliCxOBnTiwsIl6FA8D390ENiPnd4oKHXH5RySHs28041A3ynk63EguIHykWC
-	 q6XXGigxChTdXdfQp8CMTH7VFRigOd7Ge9X8gq3w=
+	b=P9Of7LFVV6+YoVilMUNkCLUu905FNeVMU4ONoeHSat2lLomFTV8m8rcZfEy1AcEVP
+	 Rkfpv8wiBrtQWLdogPC9z9BTzVxpwg58wZf7UmLVB27ZXQ6L1ei1di5Rtjy03ebZ7k
+	 RG94wQBX3ztRClCshA/CWkj38xT0JRiDemLo1JUo=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Vishnu Razdan <vrazdan@openai.com>,
-	Guenter Roeck <linux@roeck-us.net>
-Subject: [PATCH 6.1 533/982] hwmon: (pmbus) Clear generic status alarms with CLEAR_FAULTS
-Date: Wed, 30 Sep 2026 17:21:09 +0200
-Message-ID: <20260930152428.220368301@linuxfoundation.org>
+	Nicolas Dufresne <nicolas@ndufresne.ca>,
+	Haotian Zhang <vulab@iscas.ac.cn>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: [PATCH 6.1 536/982] media: v4l2-h264: Fix memcmp() size in B1 reference list comparison
+Date: Wed, 30 Sep 2026 17:21:12 +0200
+Message-ID: <20260930152428.282852902@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
 References: <20260930152416.775402466@linuxfoundation.org>
@@ -50,54 +52,43 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Vishnu Razdan <vrazdan@openai.com>
+From: Haotian Zhang <vulab@iscas.ac.cn>
 
-commit 6d760f8b41aed74de4402440e4db663d261478bd upstream.
+commit 10e59fbdef13597836bd6459095caa02c80af3d7 upstream.
 
-Some hwmon alarms fall back to STATUS_WORD summary bits when no
-individual limit alarm is available. On PMBus 1.2 and newer devices,
-pmbus_get_boolean() acknowledges these alarms with the same byte-data
-write used for detailed status registers. For example, PB_STATUS_INPUT
-is 0x2000, so it is truncated to zero when passed to
-_pmbus_write_byte_data(). The resulting write cannot acknowledge the
-input alarm.
+In v4l2_h264_build_b_ref_lists(), the B0/B1 list equality
+check passes the entry count builder->num_valid to memcmp()
+instead of a byte size. Since struct v4l2_h264_reference is
+two bytes (fields and index), only half of each list is
+compared, so distinct lists can be wrongly treated as equal
+and trigger an incorrect swap(b1_reflist[0], b1_reflist[1]).
 
-PMBus 1.3 Part II, sections 10.2.4 and 10.2.5, excludes ordinary
-STATUS_BYTE and STATUS_WORD summary bits from individual clearing.
-Their summary bits clear when the underlying status bits clear, so
-changing this to a word-data write would not fix the generic input
-alarm either.
+Change the memcmp() size argument to sizeof(b1_reflist[0]) *
+builder->num_valid so that the full byte length of both
+reference lists is compared.
 
-Use the existing page CLEAR_FAULTS path for generic STATUS_WORD
-alarms, including devices whose status accessor uses STATUS_BYTE.
-Keep individual byte writes for detailed status registers on PMBus
-1.2 and newer devices. As with the existing older-device fallback,
-CLEAR_FAULTS can clear other latched status; an active condition can
-reassert its status.
-
-Fixes: 35f165f08950 ("hwmon: (pmbus) Clear pmbus fault/warning bits after read")
+Fixes: 624922a2739b ("media: v4l2-core: Add helpers to build the H264 P/B0/B1 reflists")
+Suggested-by: Nicolas Dufresne <nicolas@ndufresne.ca>
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Vishnu Razdan <vrazdan@openai.com>
-Link: https://patch.msgid.link/20260824-vrazdan-pmbus-status-word-b4-v1-1-2606ecd0c029@openai.com
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/hwmon/pmbus/pmbus_core.c |    4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/media/v4l2-core/v4l2-h264.c |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
---- a/drivers/hwmon/pmbus/pmbus_core.c
-+++ b/drivers/hwmon/pmbus/pmbus_core.c
-@@ -1095,7 +1095,9 @@ static int pmbus_get_boolean(struct i2c_
+--- a/drivers/media/v4l2-core/v4l2-h264.c
++++ b/drivers/media/v4l2-core/v4l2-h264.c
+@@ -440,7 +440,8 @@ v4l2_h264_build_b_ref_lists(const struct
+ 	}
  
- 	regval = status & mask;
- 	if (regval) {
--		if (data->revision >= PMBUS_REV_12) {
-+		/* Generic STATUS_WORD alarms are not individually clearable. */
-+		if (data->revision >= PMBUS_REV_12 &&
-+		    reg != PMBUS_STATUS_WORD) {
- 			ret = _pmbus_write_byte_data(client, page, reg, regval);
- 			if (ret)
- 				goto unlock;
+ 	if (builder->num_valid > 1 &&
+-	    !memcmp(b1_reflist, b0_reflist, builder->num_valid))
++	    !memcmp(b1_reflist, b0_reflist,
++			sizeof(b1_reflist[0]) * builder->num_valid))
+ 		swap(b1_reflist[0], b1_reflist[1]);
+ 
+ 	print_ref_list_b(builder, b0_reflist, 0);
 
 
