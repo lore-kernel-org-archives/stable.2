@@ -1,41 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 942865172E3;
-	Wed, 30 Sep 2026 16:14:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E26A5172F3;
+	Wed, 30 Sep 2026 16:14:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790784846; cv=none; b=LqkgbozDOLdM2UMAHcedyWwNVz+h/zLbUdlnWYXBKOmQlYxK6cpUM4J/CWjC1kSihGxvnHR8Ho1BEHAgwCyJiG0mkoa9HQ4b7q9VKJEojEnqmsCFAPPT8YlNa9JBYh+6cTh/vX7fyxCE6BwloZ0aekX4WWaS+TXJmMZPTHF3fLU=
+	t=1790784851; cv=none; b=fnqAow2C1xhIXmHyXRLz8ej/faz8Kxe+zPvuq+x2psKoij5reF9Qt0NAh4b+MyqZSVMxiIOyqnhGHbdrXsgRv8iQFyx5tgELKzzm1D4BFYGKj5hDcjolJnkzRuGLF7qUD7ObyKqWDRNWMBXeBFGCQSXXvmTYilXf0//qckz45uk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790784846; c=relaxed/simple;
-	bh=Yp+FseEHpvvQmgCSK0O0JikXj5531af8YYLeHumGglQ=;
+	s=arc-20240116; t=1790784851; c=relaxed/simple;
+	bh=8UH+ZZBL3S4V1z+8DRDAzChTTw5a+Lz5E5TanlAgeEg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HUvBy0mthiA/OTcjUDoWnpCDMTqaTRhf3axAOGAIc1uCyeUB+s87+Sav+8muqTX0TBBZ71JEnIceFkQxpCs3dA0xoDiBMSB5hEo7QSQI8I131T8wqDues3qPSGfBw4u1mwEX2uNWbbc92Tk1JLm1xY6ySBaahvWUQ8m05B7N9dM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KPaAt2RX; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=b0VBzzWrB/R5uSW/MWzadl1ccL1ROfAves920jQlI47tTBz1YuT8XR3xQG3nuwfr3/4e98VATh/Z6iOsh7NkUlh0qbrpL6Db1dvrwGF21FKXU+oCm1sjtAi3VIwje3s47i7W1hec2AD7FvTSyxJD3CHCY/ZABFVmsQeWalMXyr8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=mQe45oxy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KPaAt2RX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB16B1F000FF;
-	Wed, 30 Sep 2026 16:14:03 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mQe45oxy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B43851F00898;
+	Wed, 30 Sep 2026 16:14:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790784844;
-	bh=C5o6oS9RWFeFo8dMENUP7miIdILEEGKS3YyiVpwUJtA=;
+	s=korg; t=1790784847;
+	bh=/lPc5z/LflaEO2HR/VyBsEf4o68g2cjH/L0m4m577bc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KPaAt2RXk4HOYx9m8kY4HFzuzDFkjVJ2SSj/neXMp1/1CjT56z01aK451Qnah5AmV
-	 x0E27ycc2eJS35KJ4a916C41Tdb1FXFDEPq0Dx5cMn4lI0lsEs4Df6gCzc7V9lnkyr
-	 8c6s7eDxcQCRnfBE+QrxS+pOPmyxkk65p1kvHxqg=
+	b=mQe45oxywTnKt1ow7li1EchgIXPTPNlCpgSf9zwwq4NYS80SxaoqpZ+9hEZBA/nVv
+	 /yV0bkdmBZV3dRMBL6KbzMYL3LainGwHzPOdEYh7eSH77K/sEinn2xzSoN4+fJ7t8M
+	 wecfHxBTNfjqXpjztAC6b50boyC/9NtsRS9nYaWY=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Yury Norov <yury.norov@gmail.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Laxman Acharya Padhya <acharyalaxman8848@gmail.com>,
+	Felix Fietkau <nbd@nbd.name>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 297/982] clk: at91: pmc: #undef field_{get,prep}() before definition
-Date: Wed, 30 Sep 2026 17:17:13 +0200
-Message-ID: <20260930152423.185484262@linuxfoundation.org>
+Subject: [PATCH 6.1 298/982] wifi: mt76: mt7921: validate CLC firmware records
+Date: Wed, 30 Sep 2026 17:17:14 +0200
+Message-ID: <20260930152423.207820889@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
 References: <20260930152416.775402466@linuxfoundation.org>
@@ -54,40 +51,92 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Geert Uytterhoeven <geert+renesas@glider.be>
+From: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
 
-[ Upstream commit dbfe51513aae6bace00cc390e11cb486a64a63d2 ]
+[ Upstream commit 9417c5818a0146980c2608fda94c908e604eb033 ]
 
-Prepare for the advent of globally available common field_get() and
-field_prep() macros by undefining the symbols before defining local
-variants.  This prevents redefinition warnings from the C preprocessor
-when introducing the common macros later.
+The CLC region is supplied by firmware, but the loader trusts the
+region count and each record length. A malformed image can make the
+region table pointer precede the firmware buffer, make the record loop
+fail to advance, or index phy->clc past its end. Validate the table and
+record bounds before dereferencing or copying.
 
-Suggested-by: Yury Norov <yury.norov@gmail.com>
-Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Acked-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Acked-by: Stephen Boyd <sboyd@kernel.org>
-Acked-by: Claudiu Beznea <claudiu.beznea@tuxon.dev>
-Signed-off-by: Yury Norov (NVIDIA) <yury.norov@gmail.com>
+Fixes: 23bdc5d8cadf ("wifi: mt76: mt7921: introduce Country Location Control support")
+Signed-off-by: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
+Link: https://patch.msgid.link/CAMyXUJmh=WfwC4_KHupNxYR5e2Gy5QhBDL5TSG6XEW-XLa+X4Q@mail.gmail.com
+Signed-off-by: Felix Fietkau <nbd@nbd.name>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/clk/at91/pmc.h | 2 ++
- 1 file changed, 2 insertions(+)
+ .../net/wireless/mediatek/mt76/mt7921/mcu.c   | 28 ++++++++++++++++---
+ 1 file changed, 24 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/clk/at91/pmc.h b/drivers/clk/at91/pmc.h
-index efe4975bddc3b..7509fd83b7bac 100644
---- a/drivers/clk/at91/pmc.h
-+++ b/drivers/clk/at91/pmc.h
-@@ -114,7 +114,9 @@ struct at91_clk_pms {
- 	unsigned int parent;
- };
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7921/mcu.c b/drivers/net/wireless/mediatek/mt76/mt7921/mcu.c
+index 9d719dc62f3bd..d34a2a3f9326c 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7921/mcu.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7921/mcu.c
+@@ -369,7 +369,8 @@ static int mt7921_load_clc(struct mt7921_dev *dev, const char *fw_name)
+ 	struct mt76_dev *mdev = &dev->mt76;
+ 	struct mt7921_phy *phy = &dev->phy;
+ 	const struct firmware *fw;
+-	int ret, i, len, offset = 0;
++	size_t clc_len, fw_data_len, len, offset = 0;
++	int ret, i;
+ 	u8 *clc_base = NULL, hw_encap = 0;
  
-+#undef field_get
- #define field_get(_mask, _reg) (((_reg) & (_mask)) >> (ffs(_mask) - 1))
-+#undef field_prep
- #define field_prep(_mask, _val) (((_val) << (ffs(_mask) - 1)) & (_mask))
+ 	if (mt7921_disable_clc ||
+@@ -394,13 +395,21 @@ static int mt7921_load_clc(struct mt7921_dev *dev, const char *fw_name)
+ 	}
  
- #define ndck(a, s) (a[s - 1].id + 1)
+ 	hdr = (const void *)(fw->data + fw->size - sizeof(*hdr));
++	if (hdr->n_region > (fw->size - sizeof(*hdr)) / sizeof(*region)) {
++		dev_err(mdev->dev, "Invalid firmware region table\n");
++		ret = -EINVAL;
++		goto out;
++	}
++	fw_data_len = fw->size - sizeof(*hdr) -
++		      hdr->n_region * sizeof(*region);
++
+ 	for (i = 0; i < hdr->n_region; i++) {
+ 		region = (const void *)((const u8 *)hdr -
+ 					(hdr->n_region - i) * sizeof(*region));
+ 		len = le32_to_cpu(region->len);
+ 
+ 		/* check if we have valid buffer size */
+-		if (offset + len > fw->size) {
++		if (len > fw_data_len - offset) {
+ 			dev_err(mdev->dev, "Invalid firmware region\n");
+ 			ret = -EINVAL;
+ 			goto out;
+@@ -417,8 +426,19 @@ static int mt7921_load_clc(struct mt7921_dev *dev, const char *fw_name)
+ 	if (!clc_base)
+ 		goto out;
+ 
+-	for (offset = 0; offset < len; offset += le32_to_cpu(clc->len)) {
++	for (offset = 0; offset < len; offset += clc_len) {
++		if (len - offset < sizeof(*clc)) {
++			ret = -EINVAL;
++			goto out;
++		}
++
+ 		clc = (const struct mt7921_clc *)(clc_base + offset);
++		clc_len = le32_to_cpu(clc->len);
++		if (clc_len < sizeof(*clc) || clc_len > len - offset ||
++		    clc->idx >= ARRAY_SIZE(phy->clc)) {
++			ret = -EINVAL;
++			goto out;
++		}
+ 
+ 		/* do not init buf again if chip reset triggered */
+ 		if (phy->clc[clc->idx])
+@@ -430,7 +450,7 @@ static int mt7921_load_clc(struct mt7921_dev *dev, const char *fw_name)
+ 			continue;
+ 
+ 		phy->clc[clc->idx] = devm_kmemdup(mdev->dev, clc,
+-						  le32_to_cpu(clc->len),
++						  clc_len,
+ 						  GFP_KERNEL);
+ 
+ 		if (!phy->clc[clc->idx]) {
 -- 
 2.53.0
 
