@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 275B54E0B8D
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 13:07:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BCCC4E2F05
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 13:07:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790773640; cv=none; b=gCQbawnQrky/fEXUaO6s0adtGxYD601Zwat8g56pt62NXZTg7wsbP9utnHAc/2hJz2zWoHzyDfWROKb+Uqrt8e3qG8Y3jHANj7RvMSQ/cpnjwFS11mBQ1gF7WT9Hoatur3GX7T5nmEZtcgBylhRfAiGmDiVKTvIaU3x1TMwqanQ=
+	t=1790773646; cv=none; b=styeKn+RsmSLIkI3q8dO+UvjqiWGj8M/s6JeRAnDGD0obNaxgh+mNz02lLguoNiXaxzyp145htHakFQLfrN8L9zm8+iMlTqIDJLHHkL6hXv2obprjFaE1MJhfpmAnoBGlzG0kV1rWn9ZFynwmnd4hZ7Hyrk5AoLZSsGZtOg7Ju8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790773640; c=relaxed/simple;
-	bh=Z4NU9XWmkHtsh2SM32HrRLPVP57H9Le/8i6kFtTTVZM=;
+	s=arc-20240116; t=1790773646; c=relaxed/simple;
+	bh=GHkuGoVjXPPM5ETetQoBRIIASZBxZYDDe4sdbS4PyLE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=a6gl9sGnfcAfw9PLkEtsmmvSqVE/OK82d5noSHrgyZKeXktbGVRxfeYwnLReL4Pf9JUg/4qfTti0SGRLUyqwPyIPnJFWCRjiMSXNb73Zbg0kTUU+Wn1LMGAIx0qiYhhPU9yAcOO75T1sXh1ZFLGQKvBC4vA7T8eKOBv5xm5APk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GMeUbuyP; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=U5HMz9BaEZSa5PZxO9c3RfD2aK5uGHMbOTDfcOUOBpGKF5On7Vpi26FvaBDgp6dBvegw++Kh9PX5rRdR5F11zSZ6YwYQijeR6Nlj5w8T4Mfqk4xAjrin9kOX8Z87CTHMtQxRLZjze9vIyBeTgTL995B+bNZtetqJoeXCq3jDUBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jshMjPbt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GMeUbuyP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A33861F000FF;
-	Wed, 30 Sep 2026 13:07:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jshMjPbt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69DDB1F00898;
+	Wed, 30 Sep 2026 13:07:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790773628;
-	bh=0G3A5ISEUtBFDtNfZwfaLyNVonzuc4/e/bI9UmH1JuY=;
+	s=k20260515; t=1790773632;
+	bh=2BeySd5RSCq9XcjtthlodS5n8mHQcSwspNS4l8cY0Q8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GMeUbuyPIW516TrR9xHCcn3akQwJ1Snu4l/M1C0fKzctlTgcfyyBg456m9ehmW6bG
-	 waKuE512vHDWl48Tfnkq7LDfCS4OANk4cqQQl0WhTZEBdAdKe+Cji84jRl+jxIkBAU
-	 FIOAQL+vhVsCXx4rjwOhCyJoZkNS4yBGDBWL9RX3cyQYLPwsLx3G0DhmcEjco68J0z
-	 UzwX+tAYRumNCejhQ0pRjg+HZ2nrugMrHUgYkWXYW1HBu/PbJTKVifeBrBm7RrXJEX
-	 ukKeJSkWkmnQa0cgmENy6VY7FXVA8DqauP5ZOpXjpLJw55R6YY+DrUVDDebOYiBtMW
-	 B/DdNooCkRjgw==
+	b=jshMjPbtG7cr8SNjJB9v4OAmLbu/d/T1Fa2sDa4+haLUzDKPrfvmdTy9hWGvFro6o
+	 K+G1nm2K1wb7D61oaR+rox6F9z5esvGQyCcB7cBd8NTGIsQ6GNY9APXmdVlyd2+VTK
+	 Isit181vcRzogjelRxbQzdLP9OiFIvyGlyvo6V9SveUkfLAgE+KM/6cTLoG1CkhjB3
+	 X7suT7pCfgQsa16k058nX7MPTGv3krbCJKabQIJhr826mxgxW5hIITA+7Ps9/FB17C
+	 N4T2davcTnD5MPDXYPr3MHUFl7dkdBXwcvJuYoyzg+6vkKl21YcM1PAkd46vfLiV1t
+	 aQ8xtlqzzAUGg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+Cc: Ilya Maximets <i.maximets@ovn.org>,
+	Axel Mierczuk <axel.mierczuk@1password.com>,
+	Aaron Conole <aconole@redhat.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] net: ena: fix MMIO read buffer leak on probe failure
-Date: Wed, 30 Sep 2026 09:07:06 -0400
-Message-ID: <20260930130706.1704870-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] net: openvswitch: conntrack: fix helper UAF due to extensions realloc
+Date: Wed, 30 Sep 2026 09:07:09 -0400
+Message-ID: <20260930130709.1705026-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092920-urgency-education-bc42@gregkh>
-References: <2026092920-urgency-education-bc42@gregkh>
+In-Reply-To: <2026092937-subprime-mulch-2753@gregkh>
+References: <2026092937-subprime-mulch-2753@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,48 +47,84 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Guangshuo Li <lgs201920130244@gmail.com>
+From: Ilya Maximets <i.maximets@ovn.org>
 
-[ Upstream commit 9476b4468862927297c94c440863cd8ed1e7cc83 ]
+[ Upstream commit 1a4151e6be57b098b7a5ebfbde58585e83200cdc ]
 
-ena_device_init() initializes the MMIO read mechanism with
-ena_com_mmio_reg_read_request_init(), which allocates a coherent DMA
-buffer for MMIO read responses.
+While calling the helpers, a raw pointer to the extensions area is
+wired into expectations list:
 
-The normal removal path releases this buffer through
-ena_com_mmio_reg_read_request_destroy(). However, if ena_probe() fails
-after ena_device_init() succeeds, the error path destroys the admin
-resources and eventually frees ena_dev without destroying the MMIO read
-request, leaving the coherent DMA buffer allocated.
+  -> nf_ct_helper()
+   -> helper->help()
+    -> nf_ct_expect_related_report()
+     -> nf_ct_expect_insert()
+      -> hlist_add_head_rcu(&exp->lnode, &master_help->expectations)
 
-Call ena_com_mmio_reg_read_request_destroy() in the probe error path
-before releasing the remaining device resources.
+In case the connection is not confirmed yet, more extensions can be
+added afterwards with *_ext_add() calls reallocating the extension
+space and leaving the now invalid pointer in the expectations list
+that is later accessed while removing the expectation.
 
-This issue was found by manual code inspection.
+Make sure that helpers are called at the end after all the other
+extensions are already added.
 
-Fixes: 1738cd3ed342 ("net: ena: Add a driver for Amazon Elastic Network Adapters (ENA)")
+Note that the helper rejection now leaves the mark and labels set,
+but that's not different from how the NAT was handled before or how
+the mark and the labels were handled on confirmation failure.  And
+there are no atomicity guarantees provided by the API anyway.
+
+Fixes: cae3a2627520 ("openvswitch: Allow attaching helpers to ct action")
 Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-Link: https://patch.msgid.link/20260921154202.471662-3-lgs201920130244@gmail.com
+Reported-by: Axel Mierczuk <axel.mierczuk@1password.com>
+Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
+Reviewed-by: Aaron Conole <aconole@redhat.com>
+Link: https://patch.msgid.link/20260921145655.3167436-4-i.maximets@ovn.org
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ adjusted context for missing PHC, devlink, and customer-metrics cleanup in Linux 5.10. ]
+[ adapted nf_ct_helper() calls to the existing ovs_ct_helper() API. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/amazon/ena/ena_netdev.c | 1 +
- 1 file changed, 1 insertion(+)
+ net/openvswitch/conntrack.c | 20 +++++++++++++-------
+ 1 file changed, 13 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/net/ethernet/amazon/ena/ena_netdev.c b/drivers/net/ethernet/amazon/ena/ena_netdev.c
-index d054ad138d5f0..221315404cfcc 100644
---- a/drivers/net/ethernet/amazon/ena/ena_netdev.c
-+++ b/drivers/net/ethernet/amazon/ena/ena_netdev.c
-@@ -4356,6 +4356,7 @@ static int ena_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- err_device_destroy:
- 	ena_com_delete_host_info(ena_dev);
- 	ena_com_admin_destroy(ena_dev);
-+	ena_com_mmio_reg_read_request_destroy(ena_dev);
- err_free_region:
- 	ena_release_bars(ena_dev, pdev);
- err_free_ena_dev:
+diff --git a/net/openvswitch/conntrack.c b/net/openvswitch/conntrack.c
+index 0645ec3d96b8b..699d259653dfd 100644
+--- a/net/openvswitch/conntrack.c
++++ b/net/openvswitch/conntrack.c
+@@ -1039,14 +1039,14 @@ static int __ovs_ct_lookup(struct net *net, struct sw_flow_key *key,
+ 			}
+ 		}
+ 
+-		/* Call the helper only if:
+-		 * - nf_conntrack_in() was executed above ("!cached") or a
+-		 *   helper was just attached ("add_helper") for a confirmed
+-		 *   connection, or
+-		 * - When committing an unconfirmed connection.
++		/* Call the helper only if nf_conntrack_in() was executed
++		 * above ("!cached") or a helper was just attached ("add_helper").
++		 *
++		 * For unconfirmed connections it will be called later during
++		 * commit as we need to have all the other extensions allocated
++		 * before the call.
+ 		 */
+-		if ((nf_ct_is_confirmed(ct) ? !cached || add_helper :
+-					      info->commit) &&
++		if (nf_ct_is_confirmed(ct) && (!cached || add_helper) &&
+ 		    ovs_ct_helper(skb, info->family) != NF_ACCEPT) {
+ 			return -EINVAL;
+ 		}
+@@ -1262,6 +1262,12 @@ static int ovs_ct_commit(struct net *net, struct sw_flow_key *key,
+ 					 &info->labels.mask);
+ 		if (err)
+ 			return err;
++
++		/* Call the helpers now.  We couldn't do this before as
++		 * all the extensions must be allocated before the call.
++		 */
++		if (ovs_ct_helper(skb, info->family) != NF_ACCEPT)
++			return -EINVAL;
+ 	} else if (IS_ENABLED(CONFIG_NF_CONNTRACK_LABELS) &&
+ 		   labels_nonzero(&info->labels.mask)) {
+ 		err = ovs_ct_set_labels(ct, key, &info->labels.value,
 -- 
 2.53.0
 
