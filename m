@@ -1,203 +1,180 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010025.outbound.protection.outlook.com [52.101.85.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41EFA44F564;
-	Wed, 30 Sep 2026 07:02:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790751783; cv=none; b=A8SKYo6nmOFBYtQwOQSoVpo1hnkZe+7tJ1KLGEZSFidW2WcDDA1pNYzeK4Y2DT19hn2X8IzYUWx15FJcQDtH2ESVdGlXfQNFvrDOdwKKrNItjQYJ4A5zAkoRJ4LMkAPvh4CuKCznP1a2OU1H2NgVKCpSSN+CHSzxQxbmKa/Fe+8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790751783; c=relaxed/simple;
-	bh=XIyRTnWIRaVSAIb/81hvoHZfnI1fRBFmB0t2MlaWbkY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Uq7fKzi9fglTCU8Gx40KeAvyYj/JgQTNSj/uNKgo7V1IGot93f8VunKBQG173VwxWKisQWuJab/bROEvCNmpsnlBhf478/USn4tSQjNUmAEldvvaMJtD9fQeA/vqEWxNSmwuiU2tPXiPOIgR2j/vOrhrTt48mztlnYvMLCQHzTU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=IOGlqbQ+; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49272459AD5;
+	Wed, 30 Sep 2026 07:03:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.25
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790751812; cv=fail; b=VsBkVDF/m/qWDFoKXkviOwi1+LxVZuJkCl4yo3Gp7JuFU6i8Yr132H6d7gOQGJOofuFpi2zaHXF1oGY+dq3k/7D9m6JuwzPt0BJY4K4PAStRWM1ozdRlRRNFzuwj/Bg5344Z5VXFqGTzOXtJDBmLKRMOnFc9r850aEYl2afs3bg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790751812; c=relaxed/simple;
+	bh=LleY10jWVKcioh2cCgFT1XCzTPL49EuhQjhBg3LPyYE=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=AwG+1t+cX1rAkXX/M2v/lfg+wB41V1otCDCDW3/FiKfWo1RmS3p2hHY8b0JhM0n9erejzu9lhhkjtck7bml9xLGOmr2lr56pDfbwSXlHmKbTzTuhfI616kfUswiqEC711vh8rLUPz2M2D/XhsUpyEhm5ABw1YBxn5G5J5Wzejb4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=1EcJUWZw; arc=fail smtp.client-ip=52.101.85.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="IOGlqbQ+"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TNa9b41396084;
-	Wed, 30 Sep 2026 07:02:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=qUBD5W2/1rgO3xyMc
-	qc3u/pRDCV16OZnPPXxRKq4t40=; b=IOGlqbQ+7haFYLl9WH2ycXHaSDV9oIHsj
-	r7R6INqfKnEIZqWu53/q+xoSL+AZdLQkc5dO9rB/OEjNfHXLNXM8ms85TNQHFxok
-	VSk/oQXMK0UL6SDhYzaEBPqS2vkMQIL17buti/lQTGsxmG9DYLhyKVnl3DnOBDph
-	yJdk+Px50jPHxdUM5dOqMzutGkaHUE6RAfDCNCVhYAqMlrBIiC+HgcEofQOt/43X
-	T4R/lNrMO0r5JPf7L6EThSabe7LU/bdVpd5W68G/w6EXIxvbcAtsnEYiqd+ljkq2
-	j6LF4OZ9tvwmV2HaWyFeQAjxXlN8ze+WoU3EgU4yaI19g1H74v+AA==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx5j5bhwm-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 30 Sep 2026 07:02:45 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68U4m5Fn2589585;
-	Wed, 30 Sep 2026 07:02:44 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h0g8e2xrq-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 30 Sep 2026 07:02:44 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
-	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68U72eqO42336546
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 30 Sep 2026 07:02:40 GMT
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0F71420049;
-	Wed, 30 Sep 2026 07:02:40 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id BD83120040;
-	Wed, 30 Sep 2026 07:02:39 +0000 (GMT)
-Received: from t83lp71.lnxne.boe (unknown [9.87.84.240])
-	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 30 Sep 2026 07:02:39 +0000 (GMT)
-From: Nagamani PV <nagamani@linux.ibm.com>
-To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-        kuba@kernel.org, pabeni@redhat.com
-Cc: wintera@linux.ibm.com, aswin@linux.ibm.com, hca@linux.ibm.com,
-        gor@linux.ibm.com, agordeev@linux.ibm.com, borntraeger@linux.ibm.com,
-        svens@linux.ibm.com, kees@kernel.org, linux-s390@vger.kernel.org,
-        netdev@vger.kernel.org, Nagamani PV <nagamani@linux.ibm.com>,
-        stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH net v4 2/2] s390/ctcm: Fix use-after-free in channel_remove()
-Date: Wed, 30 Sep 2026 09:02:34 +0200
-Message-ID: <20260930070234.569500-3-nagamani@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260930070234.569500-1-nagamani@linux.ibm.com>
-References: <20260930070234.569500-1-nagamani@linux.ibm.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="1EcJUWZw"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=n5KP66IU/lMNf42l7VsWwAQoFB97WhEya6mGwmv7PK4n+pbsvFy6mhfDDwM24NIJNVKZNQ9dvHCN0TMIyglaLMc4HG2UcKulp9hWtSHEJx/OoiiHeyiAvJK4af4dWZvyRJ0NR1dgAW1DD474a+K6b1aEY2yon+dO1Hikg/GBBgEIvQSctrNnYyBbh3t1da1/tpEBhel8XmuVBsJXGCIJv3RiLwblnETswY6lNtbo0IZZYNliamwgsRkgt9Fk4xM+BDZq5cz37ZA+V8uQmQ1BTZiwKJA9ipyxwXGiFRZ1VG86KA8WZzS4abGS1Rr6vw7mrXnTmIW0gQ/MfjjLNxMo3g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TIGqYt8SGKQwTUO8HUhpZPTbl9msBETf/+epdvUAfig=;
+ b=gZKGHS6V9I+Gj4wN3kl45mOOaaw3hBZjvM566G+RWvzl615KAupwhmXh8x7rLOSHPwAp9uIjRn7z30gEA3glao0blpztNZEZkRKkL4b+r+8Tp7H38wHTRC/JQH+7vOD5oLHxOCUjGb1XQOfKe05ObHXzjChcufzgSdGNYjVKNX27m1AjIgRmWcjmoiaJu0g1VNcuky3OWFeeYalx66spqD2wH9A3IKXquNeYTNPHvo1Cdf2Oyg3KczvFRjEcbdL66Tbxx3YS682DE4QDNaZtcqdZi/eFNdmPUc+eQV58Qg+2Fd4wp9M3mPeAuPye6Lvfe0NKG46DZvnAZKSeb1zlLw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TIGqYt8SGKQwTUO8HUhpZPTbl9msBETf/+epdvUAfig=;
+ b=1EcJUWZwwXks5oNDUJ4GXRcK034KqNzPSW9UbJxWCf03n9pDu0a+MVTwuUWhvOZyD8O4KeDAVzMsFkJJ9vvQ2LZ66kozaOfZalyqeR2FSdsxBliJNwa41UWWa5D3MkX7wj4gpn0Scec5UnGMMg9hEhZDuUh7EnZNPjdPeb5io7s=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from LV0PR12MB999069.namprd12.prod.outlook.com
+ (2603:10b6:408:32a::19) by SA3PR12MB7903.namprd12.prod.outlook.com
+ (2603:10b6:806:307::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
+ 2026 07:03:11 +0000
+Received: from LV0PR12MB999069.namprd12.prod.outlook.com
+ ([fe80::6d95:9938:bff0:cd99]) by LV0PR12MB999069.namprd12.prod.outlook.com
+ ([fe80::6d95:9938:bff0:cd99%4]) with mapi id 15.21.0451.026; Wed, 30 Sep 2026
+ 07:03:11 +0000
+Message-ID: <e3c3dd49-a1ad-4a94-81ac-4d5759e847b5@amd.com>
+Date: Wed, 30 Sep 2026 12:33:05 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] EDAC/amd64: Mask UMC chip select to the four
+ implemented selects
+To: Yazen Ghannam <yazen.ghannam@amd.com>
+Cc: bp@alien8.de, tony.luck@intel.com, linux-edac@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260928180935.472319-1-Vishal.Badole@amd.com>
+ <20260928180935.472319-2-Vishal.Badole@amd.com>
+ <20260929165549.GA3082391@yaz-khff2.amd.com>
+Content-Language: en-US
+From: "Badole, Vishal" <vishal.badole@amd.com>
+In-Reply-To: <20260929165549.GA3082391@yaz-khff2.amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN4PR01CA0035.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:273::16) To LV0PR12MB999069.namprd12.prod.outlook.com
+ (2603:10b6:408:32a::19)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDAyNiBTYWx0ZWRfXwKb1ZX1leOWl
- QITqWFY1K8qJ6bhSbZGYskfjIAhJWuhFQHcK8QMRqrfKNbZeeV495gt3Hss0COaka3WFXUi2xzj
- XzOh27IoedvkYaCiBTT5mnB0eQtkw+E=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDAyNiBTYWx0ZWRfX7AVbHaIZndNE
- 2ffsXVnTeloaNKC1m3qwOVfjqNUEFmIfBZZd3vscdNNg8hhOKnXSEj2J0fIssv6KlWIhO86p0lR
- 0bR96gKuMzm6ZrReQBbe6M2mm4kyo70QMgsEQ9jk2Zsw7P4oE0ExY61dDnaRk+VuwLIO1hjoUsv
- q+OGC0fUtBdc1troDVWO/Yv+YdXQYw+ife68MMepS9Us/akYArRUoR7oRkwhzP25twGUrHEoLlu
- t6Lygdi/q6nysQaomD2DMCy8mA5OAAzVRNu8G3VhaCe+SqcpDnYRUOInhWFAwqiLHf1+aSZ55W0
- BwGIuL3Wo7Rk3xIuSN0YdrqGN8O1HXkkOgrS2/U+vKiMi7o2q5Ui6dsjORL69y5pJPIWjyaK/yu
- djN53UBQpewlFGEiGUKzQ0fnxaMKug8Tn62G5QMX4bR4umCJnikwL0JM8WRQsKqvNndDSPhbJKD
- 3w/1Y2dnqzEgrvSHmpA==
-X-Proofpoint-GUID: cP8dcVZMZrfifdZFaroFYg6DXy8WT42D
-X-Authority-Analysis: v=2.4 cv=RKcmjIi+ c=1 sm=1 tr=0 ts=6abcb415 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=iQ6ETzBq9ecOQQE5vZCe:22 a=c92rfblmAAAA:8 a=VnNF1IyMAAAA:8 a=VwQbUJbxAAAA:8
- a=t-MDMg0rlNtVIxhSxYUA:9 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-ORIG-GUID: MZFBJvQTXQXBw5GZbjAya2ixvgGjXhd6
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-29_05,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 spamscore=0 bulkscore=0 impostorscore=0
- adultscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300026
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV0PR12MB999069:EE_|SA3PR12MB7903:EE_
+X-MS-Office365-Filtering-Correlation-Id: f11d8e5c-ad9f-4592-5616-08df1ec0e3b4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|18002099003|22082099003|4143699003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	wMcjhjc/nCidYy2L0+zjcV1GbJfmbkTKJc4YBEySf/RUUUDp+XptgOePTQmAzxgAwdrPK/yxy5Jw7SmQU0/4EkzaKR7XjJEYKozaVZj5B8Gnb0hN0J9kChjEjcQR4+lOpX70FFOBlnYj4WeuOFhSNEU+nn60NJMn3VBqZW8UYBK/7XOFs9EIEXxchimYQ/vWOLRnE2R50S0STY19mJWdXDPiS1LjtxKz43UBCLB0erhUhBwrmcglpBnxdxwtByXGRXKuBo9gldu5TcAv+swdsmI75HB/3YZzuPDyM1wnQ/5UiRDG7LgR0IKPiU8IC/jWDGmKBMSZEq13pOMMESb/cLz6mQep7Kn4b3ru01TKxQ+8L37Wlu56cm1t6gNNe2XShUkKuc5zUWSTDhEzw1UNTn+C2678J3rLMWPHJEfPbk/DQ1+QAILCLGvWZx9GyaWPp/P8i/Lvqdg5MAcNmGoKKwCjkiRlCxhFkBRS1QJ6TcZEDMYlItF0uh8hzCIG+iJiMzbSVI94+b7d/JBgkeA3dYIN1nudm4N9iphW/+bArHP41sO8OPphH0ePDE/PQH7nWJaAEWGT54IZXOay/zayHe4uZZWa8SSl9gMyadIjz+r6dLfNFTNag4pWPNccQJkcjhMfehA5ZKpbsGzblDK8S41vsVh9PUCyePcyIJa3fnE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV0PR12MB999069.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(18002099003)(22082099003)(4143699003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Q0FWKzBDNy8xaXZqRi8xVjkxdE5YK1BEZFd6REorU2dwZDBjTW9JcUd5SmNy?=
+ =?utf-8?B?aFFhcFd6WlIvbHJ4OWlCRTBmNjJJaUE1U09GWUMzcEV1Qk9meUFwNkdIWWZB?=
+ =?utf-8?B?dlBwVU1YRW95VE5vRHRWT1dTVHIyTVhoQ2gxNDRMQ1lWb1FiYk9NYm9Nc092?=
+ =?utf-8?B?cThpODZmUU56VEtHaFlIWHJPSDVmdmJJUWJJRTREc0JJVHI1MDdta3dKbTBW?=
+ =?utf-8?B?QWdTSG9CcFdrbEJFck1Lem9aa0dBTVRFTmFZZkFESHE4UnpaSkNTOWtXU0dT?=
+ =?utf-8?B?MVMyb1BrK3BweFd3SXBFa3gwRzF5MkVHQ1dmK0ZScFk2US8rQUhveTl0T2Jn?=
+ =?utf-8?B?SGlXSTlxdXNWMnBJRXFobGVYWkxZUDdpM0xCclgxZlVGZmlrTnEySHpIQyt3?=
+ =?utf-8?B?U1ZaN1NRR0VCcGYvMit0eXBya0paN3JxdWI1RTQ5OE1iMHZFWlpyc1hJczhE?=
+ =?utf-8?B?RlpTMkdqWlVITmQxYklKWXc0Z1Zzc0RjRUxHWXdLVE9iRkw0M0hKSWlhTHNp?=
+ =?utf-8?B?dUZoNXN6a2ZHdnhkYXZGVU9abFQzK3E5U1VuOVg5bWt3Rmdja3JHTEk2ZGRW?=
+ =?utf-8?B?L3doYStDYlpPN0R1ZWkyL212WnhEZGIzSmlnRXF5Z013QVphc28wc0I3M2sv?=
+ =?utf-8?B?K1RUcW40SHIvL2NPLzVncVgyOHJsS1lROGFIVzRHNEZjMXI1WUxwdkFacGdX?=
+ =?utf-8?B?R0hVMWRaMGc3V2tJajgwb0xHWko5ODJuRWZ1ckNJRXIrNW4vU2h1STUzanRG?=
+ =?utf-8?B?TmtSUHB2Ky9qYWFreVNGNWFMcEhrWTRMYkd4bnpjVlBGcUFJWjlkbmVDcnNC?=
+ =?utf-8?B?N3JJRVI3S2xuaitibzRJam9KdW5QTU1PMUVWcm9nZVlpZkw5Zm9GQWFlbTZX?=
+ =?utf-8?B?NTNDRWRxVENRaUF4QWQ4U25PVTc5bGx6T3A5YnphYytsbXFPejdVdjMycmk5?=
+ =?utf-8?B?YWo0c1lFaDlIcFZidzJNVVp5Z1ZuK3c3U2dyZ2l3alpBSVBpS2hKdWQzUE9S?=
+ =?utf-8?B?cGM0dkNxSFQ0ejdCUHkxUHdCSTNibHpaWUJhMG5pSU0xZzFPNHdFcllDNGRE?=
+ =?utf-8?B?YlZNTkk2bXpyMitzb0Jqbjg5NW9VT0g0T2JVdHRNVXdqQnRGdmxRbWJ3WFA5?=
+ =?utf-8?B?YzliSlNLOStJME1SRXkxSmNPS3d6c3FaWmgxbFRNZXFQU1FWWkE5RXNrZ1hr?=
+ =?utf-8?B?RmlBbGViMXdqYnpYSXE1TTFVVndvU3VFL2lTQmNZaWZtQlVaWGwwSHluRzFY?=
+ =?utf-8?B?VGhLZG9GNkF5Q1IySUEzenVwMkJkRFJZS2crTW0zMGZBWXE5bUhVSzZoc3p3?=
+ =?utf-8?B?b1JIc1pTdk44cWh3alNmbndqYzJxMCtzY0ZqcVJ4SEJpSkFXcGM5Qkw5QW1p?=
+ =?utf-8?B?cXJhdjZ5NlEvTnJMZWU5UWVwZHByamRuL0FrNHN0SzFUSEx6VXBzT0lsWWZh?=
+ =?utf-8?B?NXdWMHI4WEpoNGxCY3Fqbjd2dkRRcm5YblU3VEd3OHAwam1YbmFndDlKcXl6?=
+ =?utf-8?B?Q3dhVWQxVlllZ3Zhd1JRM3IwNlFGNTBnMVRvMGJXL1Fob3M2a3ZIblpnZnhq?=
+ =?utf-8?B?dHNQcEwvQ3gzMHJMTlVwa2FLbVFYdzM4TWdXVkFhTlhnUEh6b09uV1MzQlh6?=
+ =?utf-8?B?a1I1T0h0Qkp6RStZVzNvLzFMbFpsdEhnMWlXVmlseWhDSXA0L3YwYWNjM2lY?=
+ =?utf-8?B?RmJPcE85VGljTnh3MDhVdExaRnlDUnBRamFyQ3QybDQwak5rTkZmUEhlcVQ5?=
+ =?utf-8?B?a2NpZXJRaXFwcWlTZ29wUTZEVTg4ZW51TEpWaTd5NjQ1RHNoaXAyMWFMZVhs?=
+ =?utf-8?B?aDc5UituSGpDYXFReG5FZmFqL1I4UXhZUkRlWEtaK3FpVi8rd1RVVnFVYkI1?=
+ =?utf-8?B?WnFKRXJDOU9EUUE3VGZaUzlCWW9jcEkvNnErYTIxbHphUjBrdWcwN3dEU1M4?=
+ =?utf-8?B?VW92NXlJSC9aclc1UVV3ZlArYlhWall6bmdLMVRDK1JWNDI1MHpSZHUyYjNj?=
+ =?utf-8?B?MHpJckJMMnV3dXVRMExWRW1QWHpEQUpORis3Q29wTnN6TlA2eHQ1NEovYm9o?=
+ =?utf-8?B?RDZWcGpiTnAxczVXNzdQME1TM0sxYzlMT2NmN3Q2NmduU3BFVkgrNVhDSmZv?=
+ =?utf-8?B?eFl5dUJyNm9yWFNacXRLT3Fkc21nOHY3dy9iU2VqRnYrNmpiaFJsWUZ1eWFE?=
+ =?utf-8?B?cjhEcEw0dkxKNnZGMXorSTVCNXlVMVFFZzBiMXZIeUFrdXdYTjhlNkI0SWl5?=
+ =?utf-8?B?WHk5VkYrSXVzakVCZ0g3b3NIUXZmeEtmTlI0aFdha2ZZMUdaZnhDalJKdlJ2?=
+ =?utf-8?B?amhwdnlzQ3ZBMVFKb2dSYmVnUE1QMjlhK2pYYXdTYmxFbStBclkwQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f11d8e5c-ad9f-4592-5616-08df1ec0e3b4
+X-MS-Exchange-CrossTenant-AuthSource: LV0PR12MB999069.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 07:03:11.5595
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aqP+40yroc19aoM5FRaU6LK3FieSaJRucvbAY2VW0BXt6PLplgxjBkrsxJxTSXceW/QPdQmCZL0AqlBhf4UsJw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7903
 
-channel_remove() uses fsm_deltimer() which calls timer_delete(),
-returning immediately even if the timer callback is running on
-another CPU. This leaves a window where fsm_expire_timer() accesses
-ch->fsm after kfree_fsm().
 
-For MPC channels the teardown has a circular dependency:
 
-  ch->timer callback -> ctcm_chx_txretry() -> mpc_action_go_inop()
-    -> tasklet_hi_schedule(&ch->ch_disc_tasklet)
+On 9/29/2026 10:25 PM, Yazen Ghannam wrote:
+> On Mon, Sep 28, 2026 at 11:39:34PM +0530, Vishal Badole wrote:
+>> umc_get_err_info() masks the Chip Select from MCA_SYND with 0x7, a
+>> leftover from Zen 1 where the architecture reserved space for up to
+>> eight chip selects. Only four have ever been implemented, and newer
+>> products document this as MCA_SYND_UMC[1:0] = Chip Select.
+>>
+>> Since only four csrows are allocated, a syndrome with bit 2 set decodes
+>> to an out-of-range csrow and trips:
+>>
+>>    EDAC MC0: INTERNAL ERROR: csrow value is out of range (5 >= 4)
+>>
+>> Mask with 0x3 to match the four implemented chip selects.
+>>
+>> Fixes: 713ad54675fd ("EDAC, amd64: Define and register UMC error decode function")
+>> Cc: <stable@vger.kernel.org>
+>> Suggested-by: Yazen Ghannam <yazen.ghannam@amd.com>
+>> Signed-off-by: Vishal Badole <Vishal.Badole@amd.com>
+>> Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
+>> ---
+>>   drivers/edac/amd64_edac.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/edac/amd64_edac.c b/drivers/edac/amd64_edac.c
+>> index 475235c402e8..ec4cc306b726 100644
+>> --- a/drivers/edac/amd64_edac.c
+>> +++ b/drivers/edac/amd64_edac.c
+>> @@ -2802,7 +2802,7 @@ static inline void decode_bus_error(int node_id, struct mce *m)
+>>   static void umc_get_err_info(struct mce *m, struct err_info *err)
+>>   {
+>>   	err->channel = (m->ipid & GENMASK(31, 0)) >> 20;
+>> -	err->csrow = m->synd & 0x7;
+>> +	err->csrow = m->synd & 0x3;
+>>   }
+>>   
+>>   static void decode_umc_error(int node_id, struct mce *m)
+>> -- 
+> 
+> I just noticed that the code comment above this function needs an update
+> too.
+Sure, I will correct it in the next patch revision.
 
-  ch_tasklet -> ctcmpc_send_sweep_resp() -> fsm_addtimer(&ch->sweep_timer)
-
-  sweep_timer callback -> fsm_addtimer(&ch->timer)
-
-Use timer_shutdown_sync() for both timers: it waits for any running
-callback and permanently prevents rearming. Shut down sweep_timer
-first (its callback rearms ch->timer at ctcm_fsms.c), then
-ch->timer. Only then call tasklet_kill() -- catching any tasklet
-scheduled by an in-flight callback before shutdown.
-kfree(ch->discontact_th) follows tasklet_kill(ch_disc_tasklet) since
-ch->ccw[15].cda points to discontact_th and
-mpc_action_send_discontact() starts I/O through ch->ccw[15].
-
-timer_shutdown_sync() is also used for non-MPC ch->timer:
-ctcm_chx_txretry() (CTC_STATE_TX + CTC_EVENT_TIMER) calls
-fsm_addtimer(&ch->timer) on both paths.
-
-Depends on "s390/ctcm: Fix timer corruption in fsm_addtimer()" which
-replaces add_timer() with mod_timer(). mod_timer() on a shut-down
-timer is discarded; without it fsm_addtimer() calls timer_setup()
-defeating timer_shutdown_sync(). Backporting without that
-prerequisite is unsafe.
-
-Fixes: 293d984f0e36 ("ctcm: infrastructure for replaced ctc driver")
-Cc: stable@vger.kernel.org # depends on: s390/ctcm: Fix timer corruption in fsm_addtimer()
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/patchset/20260922101913.239103-1-nagamani@linux.ibm.com?part=2
-Signed-off-by: Nagamani PV <nagamani@linux.ibm.com>
----
-Changes in v4:
-- Shut down timers before tasklet_kill() rather than after,
-  shutting down sweep_timer before ch->timer.
-- Use timer_shutdown_sync() for ch->timer on both MPC and non-MPC paths.
-- Name prerequisite by commit title and add structured stable tag
-  dependency (Jakub Kicinski).
-- Code changed; Reviewed-by and Tested-by dropped.
-
-Changes in v3:
-- Kill ch_tasklet and ch_disc_tasklet before stopping the timers and
-  freeing ch->fsm: closes freed ch->fsm access from tasklet context and
-  eliminates tasklet-driven sweep_timer re-arm.
-- Shut down sweep_timer with timer_shutdown_sync() before deleting
-  ch->timer to prevent sweep_timer callback from re-arming ch->timer.
-- Move kfree(ch->discontact_th) after tasklet_kill(ch_disc_tasklet).
-- Drop Reviewed-by and Tested-by; please re-review and re-test the
-  new teardown order.
-
-Changes in v2:
-- Add Fixes: and Cc: stable@vger.kernel.org tags.
----
- drivers/s390/net/ctcm_main.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/s390/net/ctcm_main.c b/drivers/s390/net/ctcm_main.c
-index 8b0d76a47d9f..27a22dbc9280 100644
---- a/drivers/s390/net/ctcm_main.c
-+++ b/drivers/s390/net/ctcm_main.c
-@@ -211,9 +211,14 @@ static void channel_remove(struct channel *ch)
- 	while (*c) {
- 		if (*c == ch) {
- 			*c = ch->next;
--			fsm_deltimer(&ch->timer);
- 			if (IS_MPC(ch))
--				fsm_deltimer(&ch->sweep_timer);
-+				timer_shutdown_sync(&ch->sweep_timer.tl);
-+			timer_shutdown_sync(&ch->timer.tl);
-+			if (IS_MPC(ch)) {
-+				tasklet_kill(&ch->ch_tasklet);
-+				tasklet_kill(&ch->ch_disc_tasklet);
-+				kfree(ch->discontact_th);
-+			}
- 
- 			kfree_fsm(ch->fsm);
- 			clear_normalized_cda(&ch->ccw[4]);
-@@ -221,11 +226,6 @@ static void channel_remove(struct channel *ch)
- 				clear_normalized_cda(&ch->ccw[1]);
- 				dev_kfree_skb_any(ch->trans_skb);
- 			}
--			if (IS_MPC(ch)) {
--				tasklet_kill(&ch->ch_tasklet);
--				tasklet_kill(&ch->ch_disc_tasklet);
--				kfree(ch->discontact_th);
--			}
- 			kfree(ch->ccw);
- 			kfree(ch->irb);
- 			kfree(ch);
--- 
-2.53.0
+> 
+> Thanks,
+> Yazen
 
