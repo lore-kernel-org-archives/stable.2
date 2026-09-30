@@ -1,45 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AC5251357A;
-	Wed, 30 Sep 2026 16:40:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24E6E364931
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 16:40:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790786418; cv=none; b=lTCCt54mbUQKdDkHUQFvm3/nzk+R/onRqDOaLJO6Td2euQo5MU63+uSBwNsrT1cg7zrEwm3sTk8rxJ4kU9ME9izN3rfjq9Bw6ZhdbbH94wBE4n2ZtIB350JXjlEu2jgulr6JDJAJyyhvZHidvcmPhDcDUkJaFXfawSi/Neh5jxg=
+	t=1790786419; cv=none; b=dvGwU2+Y7Dy6/ODMMXqqVmrT2N9jJFY6tAr9ii2xGN4GtRvANl0WgP/5LuuYwTME/aqINFfjU5l9jFIOCIEpbPUzfQnq/gzBorm9ftGc4a7QS02yo+lP1xL6+nK5X5qgstx7IpdNOyT4Ycu0rM8PPQF/9OuxtqDEX81XQ9yfFnk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790786418; c=relaxed/simple;
-	bh=moXzIbvoLzg2ZwoRIgAvbfGW0lE35XVFLnvczY28eYQ=;
+	s=arc-20240116; t=1790786419; c=relaxed/simple;
+	bh=lvACxM/15YRYdoq6hcxA8C7Wpa4fRJpZw5EeCrBMHsE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=A87HXnGgXCYqaTBIslabyhkbWbOn1OpZDLE/evX/BCoXnsuwsook1jUQPH/2z1wFOc99xYD+uixkDEhjCJUlzwgI9Mo4toYjbDG6zX78WWlwEk/TL27J3NPJtFmrMMGYDV/MEJtmSrL5TTCHtkk6BXnOQJeVbZiGAAYu0rCPtUI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=CpuBT+EC; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=dt6Jf2lt8M4y7n4ETDbVuMcSVnt7AQL48wOIby6x+AXpv1bkbrY/JI6XhIDgUnccbXtnewYr7CjCahf2Z8kB7+YE0aXCMeleQZfQpccwqJJYcJw6nB7jFDpf2cUR3Usdgb2fBdHgL4hHfKrR72+eliXX0fA5F9a1jWdZDIFJHhg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y45/NW8M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="CpuBT+EC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 204251F000FF;
-	Wed, 30 Sep 2026 16:40:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790786415;
-	bh=HtsKt8eVrb+MmQKZAXoAqtmdxlxPne0WIBsd8MCHKzY=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y45/NW8M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83F811F00893;
+	Wed, 30 Sep 2026 16:40:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790786416;
+	bh=RWDlGmX96lN4rPGvkZ8nQpz+D7mOsP/wHsztV0ZpgLU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CpuBT+EC8pCOnWjRh8Kz8Q03fE3aAF9taN9pZbuL6BFbpuao0dKEPbceDMe8pB+7K
-	 1BKevWMyHUWj9XjZTsXP/eYr75WWbln1E0Uv0oV6Matpi1ZevB/MS43BhMtwiG8rVi
-	 jeRb5tsAe7uQRK4IEL9+CNHcEmW1rRFByYzXjKUU=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=Y45/NW8M8GP62wp7cJsVOPqbN4Srfm0Evzej0XkaLhfLN+8GH4cmLRoskASAId8eM
+	 eLaOD8zV/9uMLDhgCISO24EUq0uuh6VPb2QOfhubeH6noFN4aIb3rrFxEeCsdwF4P7
+	 PRSNCsnZn4PE3Vj09Nap8yqGYNT18WywzJmoMja7tOHaPN1HaG81VLNG4JmgwRqDsX
+	 oieqPfS/1FKCxvetZj1nEaPnVUqvZWUnvLPKG0zUkv2Un1hzZW9PuCia1vnGqdJc3C
+	 2L707D77tFDornpQeX+0XodWgrYhhaSYsHlyzjZ7PtrNzNrWBY2iQ85mV2xJCqC2x3
+	 R7sC5m9ptPAdQ==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
-	Pengpeng Hou <hppiscas@163.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Dapeng Mi <dapeng1.mi@linux.intel.com>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 854/982] net: usb: sr9700: include receive overhead in the length check
-Date: Wed, 30 Sep 2026 17:26:30 +0200
-Message-ID: <20260930152435.091195727@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
-References: <20260930152416.775402466@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.1.y 1/2] perf/x86/intel: Update event constraints and cache_extra_regsfor ADL
+Date: Wed, 30 Sep 2026 12:40:13 -0400
+Message-ID: <20260930164014.3227731-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026092920-backward-implant-a0a9@gregkh>
+References: <2026092920-backward-implant-a0a9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,53 +45,187 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+From: Dapeng Mi <dapeng1.mi@linux.intel.com>
 
-------------------
+[ Upstream commit 4ef863352bcde482d65722ed721c3fd3967a67d6 ]
 
-From: Pengpeng Hou <hppiscas@163.com>
+Update perf hard-coded event constraints and cache_extra_regs[] for
+Alderlake according to the latest ADL perfmon events (V1.39).
 
-[ Upstream commit c06bde80ae7a7b595732f7cabcb92cf08db9d56a ]
+One important note is that ADL has differences on the L3/node related
+OCR events although it shares same uarch with SPR server, e.g.,
+ADL has different extra MSR values and no node events. So some variants
+of structures and functions are introduced to reflect these
+differences, like adl_glc_hw_cache_event_ids[],
+adl_glc_hw_cache_extra_regs[] and intel_pmu_init_glc_hybrid(), etc.
 
-The receive fixup subtracts the Ethernet CRC from the reported packet
-length, but compares that payload length against the whole remaining
-receive buffer. The following copy starts after the three-byte header,
-and the cursor advance consumes both that header and the four-byte CRC.
+Please note these changes would temporarily impact other platforms like
+MTL/ARL-U which shares hard-coded event structures, but it would be
+fixed soon in subsequent patches.
 
-Require the payload to fit after SR_RX_OVERHEAD before copying it or
-advancing to the next packet. The loop already ensures that the
-remaining buffer is larger than the overhead, so the subtraction is
-safe.
+ADL perfmon events:
+https://github.com/intel/perfmon/blob/main/ADL/events/alderlake_goldencove_core.json
+https://github.com/intel/perfmon/blob/main/ADL/events/alderlake_gracemont_core.json
 
-The issue was found by our static-analysis tool.
+Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Link: https://patch.msgid.link/20260515061143.338553-5-dapeng1.mi@linux.intel.com
 
-Fixes: c9b37458e956 ("USB2NET : SR9700 : One chip USB 1.1 USB2NET SR9700Device Driver Support")
-Reviewed-by: Ethan Nelson-Moore <enelsonmoore@gmail.com>
-Tested-by: Ethan Nelson-Moore <enelsonmoore@gmail.com>
-Signed-off-by: Pengpeng Hou <hppiscas@163.com>
-Link: https://patch.msgid.link/20260920034745.18468-1-hppiscas@163.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[Backport preparation for 89dc568e8c0b on Linux 6.1:
+ Retain the Gracemont STORE_LATENCY counter-mask update to 0x3f.
+ Drop the upstream cache/extra-register and fixed-counter changes: they
+ depend on newer PMU initialization infrastructure and are not needed
+ by the target's PEBS sample-classification fix.
+
+ Prepare the target's existing-function context without adding functions.
+ Rename and adapt adl_latency_data_small() as __grt_latency_data(), with
+ its record fields supplied by the caller. Rename load_latency_data()
+ as grt_latency_data() and reuse it for Gracemont dispatch as well as
+ its existing non-Gracemont load-latency path. Preserve the original
+ TLB/lock/block decoding and update the callback and prototype names.
+ Guard the hybrid-only assertion for non-hybrid Gracemont systems.
+
+ Provide the upstream INTEL_HYBRID_LDLAT/STLAT_CONSTRAINT macros so the
+ unmodified target can set direction flags while retaining hybrid
+ latency decoding. The target itself remains a separate backport.]
+
+Stable-dep-of: 89dc568e8c0b ("perf/x86/intel: Fix GRT PEBS load/store direction for latency events, to fix sample classification")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/usb/sr9700.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ arch/x86/events/intel/core.c |  4 ++--
+ arch/x86/events/intel/ds.c   | 34 ++++++++++++++++++----------------
+ arch/x86/events/perf_event.h | 10 +++++++++-
+ 3 files changed, 29 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/net/usb/sr9700.c b/drivers/net/usb/sr9700.c
-index e4d7bcd0d99c2..202bb55e811f4 100644
---- a/drivers/net/usb/sr9700.c
-+++ b/drivers/net/usb/sr9700.c
-@@ -403,7 +403,8 @@ static int sr9700_rx_fixup(struct usbnet *dev, struct sk_buff *skb)
- 		/* ignore the CRC length */
- 		len = (skb->data[1] | (skb->data[2] << 8)) - 4;
+diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
+index b1bc81bef4083..8bbbc80bb6361 100644
+--- a/arch/x86/events/intel/core.c
++++ b/arch/x86/events/intel/core.c
+@@ -6182,7 +6182,7 @@ __init int intel_pmu_init(void)
+ 		x86_pmu.flags |= PMU_FL_INSTR_LATENCY;
  
--		if (len > ETH_FRAME_LEN || len > skb->len || len < 0)
-+		if (len > ETH_FRAME_LEN || len < 0 ||
-+		    len > skb->len - SR_RX_OVERHEAD)
- 			return 0;
+ 		intel_pmu_pebs_data_source_grt();
+-		x86_pmu.pebs_latency_data = adl_latency_data_small;
++		x86_pmu.pebs_latency_data = grt_latency_data;
+ 		x86_pmu.get_event_constraints = tnt_get_event_constraints;
+ 		x86_pmu.limit_period = spr_limit_period;
+ 		td_attr = tnt_events_attrs;
+@@ -6565,7 +6565,7 @@ __init int intel_pmu_init(void)
+ 		x86_pmu.flags |= PMU_FL_MEM_LOADS_AUX;
+ 		x86_pmu.lbr_pt_coexist = true;
+ 		intel_pmu_pebs_data_source_adl();
+-		x86_pmu.pebs_latency_data = adl_latency_data_small;
++		x86_pmu.pebs_latency_data = grt_latency_data;
+ 		x86_pmu.num_topdown_events = 8;
+ 		static_call_update(intel_pmu_update_topdown_event,
+ 				   &adl_update_topdown_event);
+diff --git a/arch/x86/events/intel/ds.c b/arch/x86/events/intel/ds.c
+index 4b7faa3180e57..d1cf9876c931d 100644
+--- a/arch/x86/events/intel/ds.c
++++ b/arch/x86/events/intel/ds.c
+@@ -221,24 +221,19 @@ static inline void pebs_set_tlb_lock(u64 *val, bool tlb, bool lock)
+ }
  
- 		/* the last packet of current skb */
+ /* Retrieve the latency data for e-core of ADL */
+-u64 adl_latency_data_small(struct perf_event *event, u64 status)
++static u64 __grt_latency_data(struct perf_event *event, u64 status,
++			       u8 dse, bool tlb, bool lock, bool blk)
+ {
+-	union intel_x86_pebs_dse dse;
+ 	u64 val;
+ 
+-	WARN_ON_ONCE(hybrid_pmu(event->pmu)->cpu_type == hybrid_big);
++	WARN_ON_ONCE(is_hybrid() &&
++		     hybrid_pmu(event->pmu)->cpu_type == hybrid_big);
+ 
+-	dse.val = status;
++	val = hybrid_var(event->pmu, pebs_data_source)[dse];
+ 
+-	val = hybrid_var(event->pmu, pebs_data_source)[dse.ld_dse];
++	pebs_set_tlb_lock(&val, tlb, lock);
+ 
+-	/*
+-	 * For the atom core on ADL,
+-	 * bit 4: lock, bit 5: TLB access.
+-	 */
+-	pebs_set_tlb_lock(&val, dse.ld_locked, dse.ld_stlb_miss);
+-
+-	if (dse.ld_data_blk)
++	if (blk)
+ 		val |= P(BLK, DATA);
+ 	else
+ 		val |= P(BLK, NA);
+@@ -246,15 +241,22 @@ u64 adl_latency_data_small(struct perf_event *event, u64 status)
+ 	return val;
+ }
+ 
+-static u64 load_latency_data(struct perf_event *event, u64 status)
++u64 grt_latency_data(struct perf_event *event, u64 status)
+ {
+ 	union intel_x86_pebs_dse dse;
+ 	u64 val;
+ 
+ 	dse.val = status;
+ 
++	/* Gracemont uses bit 4 for lock and bit 5 for TLB access. */
++	if (event->hw.flags & PERF_X86_EVENT_PEBS_LAT_HYBRID)
++		return __grt_latency_data(event, status, dse.ld_dse,
++					  dse.ld_locked, dse.ld_stlb_miss,
++					  dse.ld_data_blk);
++
+ 	/*
+-	 * use the mapping table for bit 0-3
++	 * For non-Gracemont load-latency events, use the mapping table
++	 * for bit 0-3 and retain the legacy TLB, lock and block decoding.
+ 	 */
+ 	val = hybrid_var(event->pmu, pebs_data_source)[dse.ld_dse];
+ 
+@@ -838,7 +840,7 @@ struct event_constraint intel_glm_pebs_event_constraints[] = {
+ struct event_constraint intel_grt_pebs_event_constraints[] = {
+ 	/* Allow all events as PEBS with no flags */
+ 	INTEL_HYBRID_LAT_CONSTRAINT(0x5d0, 0x3),
+-	INTEL_HYBRID_LAT_CONSTRAINT(0x6d0, 0xf),
++	INTEL_HYBRID_LAT_CONSTRAINT(0x6d0, 0x3f),
+ 	EVENT_CONSTRAINT_END
+ };
+ 
+@@ -1511,7 +1513,7 @@ static u64 get_data_src(struct perf_event *event, u64 aux)
+ 	bool fst = fl & (PERF_X86_EVENT_PEBS_ST | PERF_X86_EVENT_PEBS_HSW_PREC);
+ 
+ 	if (fl & PERF_X86_EVENT_PEBS_LDLAT)
+-		val = load_latency_data(event, aux);
++		val = grt_latency_data(event, aux);
+ 	else if (fl & PERF_X86_EVENT_PEBS_STLAT)
+ 		val = store_latency_data(event, aux);
+ 	else if (fl & PERF_X86_EVENT_PEBS_LAT_HYBRID)
+diff --git a/arch/x86/events/perf_event.h b/arch/x86/events/perf_event.h
+index b95cab9846dd7..dc64de5691b1f 100644
+--- a/arch/x86/events/perf_event.h
++++ b/arch/x86/events/perf_event.h
+@@ -468,6 +468,14 @@ struct cpu_hw_events {
+ 	__EVENT_CONSTRAINT(c, n, INTEL_ARCH_EVENT_MASK|X86_ALL_EVENT_FLAGS, \
+ 			  HWEIGHT(n), 0, PERF_X86_EVENT_PEBS_LAT_HYBRID)
+ 
++#define INTEL_HYBRID_LDLAT_CONSTRAINT(c, n)	\
++	__EVENT_CONSTRAINT(c, n, INTEL_ARCH_EVENT_MASK|X86_ALL_EVENT_FLAGS, \
++			  HWEIGHT(n), 0, PERF_X86_EVENT_PEBS_LAT_HYBRID|PERF_X86_EVENT_PEBS_LD_HSW)
++
++#define INTEL_HYBRID_STLAT_CONSTRAINT(c, n)	\
++	__EVENT_CONSTRAINT(c, n, INTEL_ARCH_EVENT_MASK|X86_ALL_EVENT_FLAGS, \
++			  HWEIGHT(n), 0, PERF_X86_EVENT_PEBS_LAT_HYBRID|PERF_X86_EVENT_PEBS_ST_HSW)
++
+ /* Event constraint, but match on all event flags too. */
+ #define INTEL_FLAGS_EVENT_CONSTRAINT(c, n) \
+ 	EVENT_CONSTRAINT(c, n, ARCH_PERFMON_EVENTSEL_EVENT|X86_ALL_EVENT_FLAGS)
+@@ -1497,7 +1505,7 @@ void intel_pmu_disable_bts(void);
+ 
+ int intel_pmu_drain_bts_buffer(void);
+ 
+-u64 adl_latency_data_small(struct perf_event *event, u64 status);
++u64 grt_latency_data(struct perf_event *event, u64 status);
+ 
+ extern struct event_constraint intel_core2_pebs_event_constraints[];
+ 
 -- 
 2.53.0
-
-
 
