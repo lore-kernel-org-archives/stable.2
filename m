@@ -1,44 +1,51 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BAB527727
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 00:04:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E9E45B1EB
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 00:04:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790726642; cv=none; b=iy4LIlR2wGTnJcb2wgVggtgI0ZhdlPr2AgboszRb25MrkaM0ElDcEjsi8YI1X36Y8DAM24qFGilljVH8JV/lTLZUir9YyYlIUcViOS5YHA4gRI4jpVc77X7LXfuTLNQFC+2WM39mXjo3WfSBDaJs6Lf80/eMHXg9E7WLg4nsKDs=
+	t=1790726643; cv=none; b=Ol0IzJngUxy8mEKJ324vabuZ76wedUIAfrJNY6F+xUEMIbigAH29zJYTzTXCZmN9vWlnel78320hLbOZotvS8rAlUzsaKyAOhyrCPX5NG+J1YJvjLC4eKeGAwATyAm0vy6tXOc8dhakfXKi53s9AyPZ8xs3XBPtiSF272mHhU1c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790726642; c=relaxed/simple;
-	bh=zfliBmflzjlBVFTUGNUobF3XhlPJNBsLevKNQETobhE=;
+	s=arc-20240116; t=1790726643; c=relaxed/simple;
+	bh=kzEubOw8Yue0CpYEIu8/MI6p+g0z53BdQlZHK3rjUqQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=m6fPlr81js7ugRzN+Nm5ijomGeKYobMSvdMgLYhPXlcyuDeAFCG165cCS0Tg8pj6cMbB4xRP6iS2IjtBz8av9nl1YnQQn907UpjWpjaMFmRFpAdIZQy65VpIWHf/lCbRLvRvz0xJufXVf4a4WbWgXQI/9HLwhokXWPuHtZyVwc8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Srl/AvmC; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=KPcTB0VFdv4OB/cRzMblQGpriSAcumRDZ/BH1R2NRqrgS2Nbe0r9/L0ys/WpKW8BbgMUwaV13ACScmci7da/11ULfee1e8KbV5Jn/EbVt4uvSissJtJx8Jpm8Els4U9gpsMD0yPtFOlrsBf+0Jo+N6usVlTNtiCsQDL6eCzKC1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SB/m+6xh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Srl/AvmC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A23E31F00893;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SB/m+6xh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F03CE1F00898;
 	Wed, 30 Sep 2026 00:04:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790726641;
-	bh=5zs6hq5GzB+6HX0HaqupieJ2fJ2aPf8oPs2h+hygmyI=;
+	s=k20260515; t=1790726642;
+	bh=byHXUOAtMr4pe0LkgQBvT4z636PoEVB8DamUnNqt9sc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Srl/AvmCOIbF/sWRwYk+YcFk63s1BlUHNTLZReFvkMMqerHhop7vRhrymMmbrCL+M
-	 LsLcp7SG7SkQqGBdG+Wpoi86fF7iNFpphQAHuMWoTHSfpyVGfJoMZWKmZwKCKNgam3
-	 my0QZ+3cgCb+5IgxkZDIsDSI98r3DDJEEc0wsfVmP16zrpZacj98MDglF9w76Q4sdZ
-	 SuCU3BR6oTr7fwYlsAcov2lkHRrsbW9oAxg8m8m5ZqSbIoklqxwdd4s1bSaaxo1vP2
-	 +vucfK7//LWIEP5hUlPyjTlXVNPB43BXmRA35VppmRmvwAEMW98p+O/Nci4nZlVezV
-	 WarylIJ5sJxfA==
+	b=SB/m+6xhL/7LtKjoxwx+8URpY3HxEf3Wjr+9J/kkN1BHUPDlj4cqSgm35PVRmr0dS
+	 JNsJTaD6Ie8fT3tuF+Str+lqmXvBohtjLzmriz0TAlivFlq2+2Lz4etdf26PIDR5kv
+	 r991XzIgUmAlr+sG6TAIb18kwx3BN9OJmeVLEpTc6CXL27QnaVi7/rMBprIjr7IuBo
+	 cuj1QPJF6q/cXWa1hYgX3/yY7WoXwHFjW3mhgE/WOXo28z7D+FX0qmBZimIXgESJvS
+	 +oiFsLEE7Q74Kjr0K7GLYZoQyx5tsRbDmhWWbJn1EIneOHFHHtM28/1nG3UyZwD5Ql
+	 lFSnjCQvSHhUw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Liew Rui Yan <aethernet65535@gmail.com>,
-	SJ Park <sj@kernel.org>,
+Cc: Usama Arif <usamaarif642@gmail.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Kefeng Wang <wangkefeng.wang@huawei.com>,
+	David Hildenbrand <david@redhat.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Rik van Riel <riel@surriel.com>,
+	SeongJae Park <sj@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 5/5] mm/damon/core: fix unconditionally skip last region
-Date: Tue, 29 Sep 2026 20:03:54 -0400
-Message-ID: <20260930000354.2861391-5-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/3] mm/hugetlb: create hstate_is_gigantic_no_runtime helper
+Date: Tue, 29 Sep 2026 20:03:57 -0400
+Message-ID: <20260930000358.2861523-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260930000354.2861391-1-sashal@kernel.org>
-References: <2026092947-shush-encode-1e48@gregkh>
- <20260930000354.2861391-1-sashal@kernel.org>
+In-Reply-To: <20260930000358.2861523-1-sashal@kernel.org>
+References: <2026092904-singer-headphone-fefa@gregkh>
+ <20260930000358.2861523-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,102 +54,110 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Liew Rui Yan <aethernet65535@gmail.com>
+From: Usama Arif <usamaarif642@gmail.com>
 
-[ Upstream commit b3723b596b548c837a766aae3553c14a7b15af2b ]
+[ Upstream commit a743e0af503a633e4ca68a100d9b2a1a071fe8ae ]
 
-Once quota set, the charge_{target,addr}_from unconditionally skips and
-resets at the last region of the tracked target, so the last region can be
-skipped even when it has not been processed.
+This is a common condition used to skip operations that cannot be
+performed on gigantic pages when runtime support is disabled.  This helper
+is introduced as the condition will exist even more when allowing
+"overcommit" of gigantic hugepages.  No functional change intended with
+this patch.
 
-Example:
-
-    1. Target has 2 regions: R1 (0-100 bytes) and R2 (100-200 bytes).
-    2. Quota is configured to process only 100 bytes per window.
-    3. Window 1: Processes R1 (0-100).  Quota is full.  charge_{target,
-       addr}_from is saved at (Target, 100).
-    4. Window 2: The loop reaches R2.  Because R2 is
-       damon_last_region(t), the old code unconditionally returns true,
-       skipping R2 entirely and resetting the charge_{target,addr}_from.
-
-    Result: R2 is permanently skipped even though it has never been
-    processed.
-
-However, it is important to note that this is a very minor issue.  This is
-because it is triggered only when the previous window saved/kept
-charge_{target,addr}_from, and in the next window, all regions except the
-last region were skipped by damos_skip_charged_region().
-
-Fix this by only resetting the charge_{target,addr}_from when last region
-is reached, only skipping when it is applied or cannot split.
-
-Link: https://lore.kernel.org/20260908134739.96919-1-sj@kernel.org
-Fixes: 50585192bc2e ("mm/damon/schemes: skip already charged targets and regions")
-Signed-off-by: Liew Rui Yan <aethernet65535@gmail.com>
-Reviewed-by: SJ Park <sj@kernel.org>
-Signed-off-by: SJ Park <sj@kernel.org>
+Link: https://lkml.kernel.org/r/20251009172433.4158118-1-usamaarif642@gmail.com
+Signed-off-by: Usama Arif <usamaarif642@gmail.com>
+Suggested-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Shakeel Butt <shakeel.butt@linux.dev>
+Reviewed-by: Kefeng Wang <wangkefeng.wang@huawei.com>
+Acked-by: David Hildenbrand <david@redhat.com>
+Acked-by: Oscar Salvador <osalvador@suse.de>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: SeongJae Park <sj@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: <stable@vger.kernel.org> # v5.16.x
+
+For the 6.6 dependency backport, implement the shared predicate as a
+macro so no new functions are introduced.  Its argument is evaluated
+once and the original short-circuit condition is preserved at all five
+existing call sites.  Keep the 6.6 freeing and CMA paths: the upstream
+hugetlb_free_folio() context and clear_flag local belong to later changes
+and are not needed here.
+
+This supplies hstate_is_gigantic_no_runtime() for a363c62a653c without
+changing the existing hugepage behavior or importing unrelated refactors.
+
+Stable-dep-of: a363c62a653c ("mm/hugetlb: do not dissolve gigantic pages without runtime support")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/damon/core.c | 25 ++++++++++++++-----------
- 1 file changed, 14 insertions(+), 11 deletions(-)
+ mm/hugetlb.c | 19 ++++++++++++++-----
+ 1 file changed, 14 insertions(+), 5 deletions(-)
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 3920ce7d07925..38d3dc0d84735 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -1748,36 +1748,39 @@ static bool damos_skip_charged_region(struct damon_target *t,
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 2b12644e47848..f5b434f2ac474 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -102,6 +102,15 @@ static void hugetlb_unshare_pmds(struct vm_area_struct *vma,
+ 		unsigned long start, unsigned long end, bool take_locks);
+ static struct resv_map *vma_resv_map(struct vm_area_struct *vma);
+ 
++/*
++ * Check if the hstate represents gigantic pages but gigantic page
++ * runtime support is not available. This is a common condition used to
++ * skip operations that cannot be performed on gigantic pages when runtime
++ * support is disabled.
++ */
++#define hstate_is_gigantic_no_runtime(h) \
++	(hstate_is_gigantic(h) && !gigantic_page_runtime_supported())
++
+ static inline bool subpool_is_free(struct hugepage_subpool *spool)
  {
- 	struct damos_quota *quota = &s->quota;
- 	unsigned long sz_to_skip;
-+	bool skip = false;
+ 	if (spool->count)
+@@ -1656,7 +1665,7 @@ static void __remove_hugetlb_folio(struct hstate *h, struct folio *folio,
+ 	VM_BUG_ON_FOLIO(hugetlb_cgroup_from_folio_rsvd(folio), folio);
  
- 	/* Skip previously charged regions */
- 	if (quota->charge_target_from) {
- 		if (t != quota->charge_target_from)
- 			return true;
--		if (r == damon_last_region(t)) {
--			quota->charge_target_from = NULL;
--			quota->charge_addr_from = 0;
--			return true;
--		}
- 		if (quota->charge_addr_from &&
--				r->ar.end <= quota->charge_addr_from)
--			return true;
-+				r->ar.end <= quota->charge_addr_from) {
-+			skip = true;
-+			goto out;
-+		}
+ 	lockdep_assert_held(&hugetlb_lock);
+-	if (hstate_is_gigantic(h) && !gigantic_page_runtime_supported())
++	if (hstate_is_gigantic_no_runtime(h))
+ 		return;
  
- 		if (quota->charge_addr_from && r->ar.start <
- 				quota->charge_addr_from) {
- 			sz_to_skip = ALIGN_DOWN(quota->charge_addr_from -
- 					r->ar.start, min_region_sz);
- 			if (!sz_to_skip) {
--				if (damon_sz_region(r) <= min_region_sz)
--					return true;
-+				if (damon_sz_region(r) <= min_region_sz) {
-+					skip = true;
-+					goto out;
-+				}
- 				sz_to_skip = min_region_sz;
- 			}
- 			damon_split_region_at(t, r, sz_to_skip);
--			return true;
-+			skip = true;
- 		}
-+	}
-+out:
-+	if (r == damon_last_region(t)) {
- 		quota->charge_target_from = NULL;
- 		quota->charge_addr_from = 0;
- 	}
--	return false;
-+	return skip;
- }
+ 	list_del(&folio->lru);
+@@ -1750,7 +1759,7 @@ static void add_hugetlb_folio(struct hstate *h, struct folio *folio,
+ static void __update_and_free_hugetlb_folio(struct hstate *h,
+ 						struct folio *folio)
+ {
+-	if (hstate_is_gigantic(h) && !gigantic_page_runtime_supported())
++	if (hstate_is_gigantic_no_runtime(h))
+ 		return;
  
- static void damos_update_stat(struct damos *s,
+ 	/*
+@@ -2659,7 +2668,7 @@ static void return_unused_surplus_pages(struct hstate *h,
+ 	/* Uncommit the reservation */
+ 	h->resv_huge_pages -= unused_resv_pages;
+ 
+-	if (hstate_is_gigantic(h) && !gigantic_page_runtime_supported())
++	if (hstate_is_gigantic_no_runtime(h))
+ 		goto out;
+ 
+ 	/*
+@@ -3376,7 +3385,7 @@ static void __init hugetlb_init_hstates(void)
+ 		 * - If CMA allocation is possible, we can not demote
+ 		 *   HUGETLB_PAGE_ORDER or smaller size pages.
+ 		 */
+-		if (hstate_is_gigantic(h) && !gigantic_page_runtime_supported())
++		if (hstate_is_gigantic_no_runtime(h))
+ 			continue;
+ 		if (hugetlb_cma_size && h->order <= HUGETLB_PAGE_ORDER)
+ 			continue;
+@@ -3773,7 +3782,7 @@ static ssize_t __nr_hugepages_store_common(bool obey_mempolicy,
+ 	int err;
+ 	nodemask_t nodes_allowed, *n_mask;
+ 
+-	if (hstate_is_gigantic(h) && !gigantic_page_runtime_supported())
++	if (hstate_is_gigantic_no_runtime(h))
+ 		return -EINVAL;
+ 
+ 	if (nid == NUMA_NO_NODE) {
 -- 
 2.53.0
 
