@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE12F4E1C73
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 13:13:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 276E14DEC0B
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 13:13:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790774012; cv=none; b=LGNJohatcTB8FMtem6mWMQ0fqQ1G2ebh7lI45GgN1jP0wr8eMJahvUnCQxDXu1Y/AtUTdq2mKHhGRjn1MJ0MyueYEDht1I6LCJiM5JBalLJcbKFBSgbOgB5/PKA0FgT1urZSKD3fktDwO+rQRRVfB4qgRoWRo8ora0D4v4Ge80o=
+	t=1790774012; cv=none; b=WbpCpAcW7SkdvFbwOywn/X2vjVyi+5SVO3CtqfA08X4swQIR3O31DRY6WI57/E4bf0fSPYNDyg29trSQAoI0N66GIyZurAbO3apmghRjmb1PDfFl53a3X7xJWr56pQBj4EgFEl3TaG7UsoBe3MfP7ToffT1QR0IQHAFmfYgYukw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790774012; c=relaxed/simple;
-	bh=yEFKt5IwexE8xlrGRk6NfjDUAzyK8RHYZhli8zo6I4Q=;
+	bh=UcEFCW5p7zScJCfC0M5hyvQ388AmUUX/XnrcDa/4kp0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FjvMotJY8Sup4TS+cydnXOFDvTUD/oKYwH6PKA3g5/ediRA8n2BtMall57vMBJiGC9bEHYrJe1Z92fbZ/sPB22aqD8Zi7Kj1eUkt0De/H1UKre+Gfv50e+Lkg1TkmIM+Q9W3ZXxGRiW8sz62TQHGdvz1kWhoLf0Tf1wdAmzFVXI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yob9tURu; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Kf4nXuvdX+ZoWzaNrumY7pHn7eg126fjdi3yLwfXAj3NRwoeBKeRvhrXch4wqPyy6VN7avoIWxzzcjmcHLHwNS/FiU3rf35LTVD7hKQlpm6K6pQeuHUJX8sWxedrdnF3ocB3c6/hs4PlriWZw8cUXX7YzNPZbNyFqcufxerbO4c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XmUGG7zC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yob9tURu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 433B51F00899;
-	Wed, 30 Sep 2026 13:13:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XmUGG7zC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37C191F0089C;
+	Wed, 30 Sep 2026 13:13:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790773993;
-	bh=dDWWgXqcutcoSTd8po7tQeiZ7Ir37y2S4ygc0ja/t58=;
+	s=k20260515; t=1790773981;
+	bh=GJUa+kOL98z2f0+t/asgPIOqzwsHbGASneQKVZu3CF8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Yob9tURu5OLZCF+U+C/ezVCvGkPUtotswcvvCDonK390AHUTniUv3d02FqENCydUv
-	 QdA9GXMHSlEtWaylKaR+NY03/yeTmAvV2Iot3mMoUZeZX2HTZB1pSAiJ21xrGyq7Un
-	 TaHFRuHSKUnMm3wOPjx2UIVAprt66JLye6GAlyvJQWCmU9GpoUL2RY1ymfWuY6ELFD
-	 b/2VwHSoww8+MNzI5jpecBHtY4B95hKhcM05lN30LGZVnqZ2vQfpqnBy+wKJ5q972/
-	 2rwipVumOY8FN8Bjn2UQXRjhcBsvc8XIumf0IEtfROneLg7AWEXjORFB7UcPetpRLo
-	 O5ONeOi3dt3Og==
+	b=XmUGG7zC/QBnwUhY5saJTXdCIaiSOtpfsHX27kyFeuKM2znjHjcerl+eUqJITE2Qx
+	 BGMOUcxvByPSPGTmkDdkBeRh8vaVcdmAdd8RRRbEWUeRFgQpkOC//EAn5GBM5ekoYl
+	 STcnzHM/19i7Y5L+IdB9wpeB2I0HkbmsoYlzR6tGWJqsiCMWsdM46viIvGGtcSVf1d
+	 0bowAGqgHkZikp+a1AgsJ9Orx+BLkGSP0QXCScJDn0yzv9etjLQRiY6wTaF5azTK1G
+	 NeHFvLel8YkXWUoUKva36ZTkS0G03d/g72hV5/1SHV/tq4Auy5C5VTL5p4UJFQynaL
+	 806LtL+b72kvw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Dapeng Mi <dapeng1.mi@linux.intel.com>,
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
-	Ingo Molnar <mingo@kernel.org>,
+Cc: Paolo Bonzini <pbonzini@redhat.com>,
+	Kai Huang <kai.huang@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] perf/x86/intel: Fix GRT PEBS load/store direction for latency events, to fix sample classification
-Date: Wed, 30 Sep 2026 09:13:11 -0400
-Message-ID: <20260930131311.1729508-2-sashal@kernel.org>
+Subject: [PATCH 7.2.y 5/8] KVM: move TSS constants from kvm_host.h to tss.h
+Date: Wed, 30 Sep 2026 09:12:52 -0400
+Message-ID: <20260930131256.1728861-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260930131311.1729508-1-sashal@kernel.org>
-References: <2026092920-overjoyed-siren-0a53@gregkh>
- <20260930131311.1729508-1-sashal@kernel.org>
+In-Reply-To: <20260930131256.1728861-1-sashal@kernel.org>
+References: <2026092945-unzip-pluck-7c40@gregkh>
+ <20260930131256.1728861-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,81 +46,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Dapeng Mi <dapeng1.mi@linux.intel.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
 
-[ Upstream commit 89dc568e8c0be60e05e5fcd0b528c79077d7b84b ]
+[ Upstream commit 35fdfa632e7cf8271189c7ae6f97e7c4b55f7f80 ]
 
-On Gracemont, intel_grt_pebs_event_constraints[] applies LAT_CONSTRAINT
-constraints to MEM_UOPS_RETIRED.{LOAD,STORE}_LATENCY, but does not set
-explicit LOAD/STORE flags for those events.
-
-The PEBS latency path (pebs_latency_data(), via __grt_latency_data())
-uses the event flags to determine memory operation direction. Without an
-explicit STORE flag, samples from MEM_UOPS_RETIRED.STORE_LATENCY can be
-misclassified as LOADs.
-
-Set explicit LOAD/STORE flags in intel_grt_pebs_event_constraints[] for:
-
-- MEM_UOPS_RETIRED.LOAD_LATENCY
-- MEM_UOPS_RETIRED.STORE_LATENCY
-
-Also update __grt_latency_data() to explicitly interpret these flags when
-assigning the sampled memory operation direction.
-
-This fixes incorrect STORE sample classification.
-
-Fixes: 39a41278f041 ("perf/x86/intel: Fix PEBS memory access info encoding for ADL")
-Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Cc: <stable@vger.kernel.org> # v7.2+
-Link: https://patch.msgid.link/20260917015234.981153-2-dapeng1.mi@linux.intel.com
+Suggested-by: Kai Huang <kai.huang@intel.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Stable-dep-of: 10180a277549 ("KVM: x86: Re-pend GET_NESTED_STATE_PAGES if getting said pages fails")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/events/intel/ds.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+ arch/x86/include/asm/kvm_host.h | 7 -------
+ arch/x86/kvm/tss.h              | 7 +++++++
+ arch/x86/kvm/vmx/vmx.c          | 1 +
+ 3 files changed, 8 insertions(+), 7 deletions(-)
 
-diff --git a/arch/x86/events/intel/ds.c b/arch/x86/events/intel/ds.c
-index 76b09d951c061..1814d875d6d2c 100644
---- a/arch/x86/events/intel/ds.c
-+++ b/arch/x86/events/intel/ds.c
-@@ -259,6 +259,7 @@ static inline void pebs_set_tlb_lock(u64 *val, bool tlb, bool lock)
- static u64 __grt_latency_data(struct perf_event *event, u64 status,
- 			       u8 dse, bool tlb, bool lock, bool blk)
- {
-+	union perf_mem_data_src src;
- 	u64 val;
- 
- 	WARN_ON_ONCE(is_hybrid() &&
-@@ -274,7 +275,16 @@ static u64 __grt_latency_data(struct perf_event *event, u64 status,
- 	else
- 		val |= P(BLK, NA);
- 
--	return val;
-+	src.val = val;
-+
-+	if (event->hw.flags &
-+	    (PERF_X86_EVENT_PEBS_LDLAT | PERF_X86_EVENT_PEBS_LD_HSW))
-+		src.mem_op = P(OP, LOAD);
-+	if (event->hw.flags &
-+	    (PERF_X86_EVENT_PEBS_STLAT | PERF_X86_EVENT_PEBS_ST_HSW))
-+		src.mem_op = P(OP, STORE);
-+
-+	return src.val;
+diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
+index a89beb6f8eade..0da2268800f6c 100644
+--- a/arch/x86/include/asm/kvm_host.h
++++ b/arch/x86/include/asm/kvm_host.h
+@@ -2433,13 +2433,6 @@ static inline void kvm_inject_gp(struct kvm_vcpu *vcpu, u32 error_code)
+ 	kvm_queue_exception_e(vcpu, GP_VECTOR, error_code);
  }
  
- u64 grt_latency_data(struct perf_event *event, u64 status)
-@@ -892,8 +902,8 @@ struct event_constraint intel_glm_pebs_event_constraints[] = {
- 
- struct event_constraint intel_grt_pebs_event_constraints[] = {
- 	/* Allow all events as PEBS with no flags */
--	INTEL_HYBRID_LAT_CONSTRAINT(0x5d0, 0x3),
--	INTEL_HYBRID_LAT_CONSTRAINT(0x6d0, 0x3f),
-+	INTEL_HYBRID_LDLAT_CONSTRAINT(0x5d0, 0x3),
-+	INTEL_HYBRID_STLAT_CONSTRAINT(0x6d0, 0x3f),
- 	EVENT_CONSTRAINT_END
+-#define TSS_IOPB_BASE_OFFSET 0x66
+-#define TSS_BASE_SIZE 0x68
+-#define TSS_IOPB_SIZE (65536 / 8)
+-#define TSS_REDIRECTION_SIZE (256 / 8)
+-#define RMODE_TSS_SIZE							\
+-	(TSS_BASE_SIZE + TSS_REDIRECTION_SIZE + TSS_IOPB_SIZE + 1)
+-
+ enum {
+ 	TASK_SWITCH_CALL = 0,
+ 	TASK_SWITCH_IRET = 1,
+diff --git a/arch/x86/kvm/tss.h b/arch/x86/kvm/tss.h
+index 3f9150125e701..117bf8bec07dc 100644
+--- a/arch/x86/kvm/tss.h
++++ b/arch/x86/kvm/tss.h
+@@ -57,4 +57,11 @@ struct tss_segment_16 {
+ 	u16 ldt;
  };
  
++#define TSS_IOPB_BASE_OFFSET 0x66
++#define TSS_BASE_SIZE 0x68
++#define TSS_IOPB_SIZE (65536 / 8)
++#define TSS_REDIRECTION_SIZE (256 / 8)
++#define RMODE_TSS_SIZE							\
++	(TSS_BASE_SIZE + TSS_REDIRECTION_SIZE + TSS_IOPB_SIZE + 1)
++
+ #endif
+diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
+index b8d745f6fd221..8b75c70e60d26 100644
+--- a/arch/x86/kvm/vmx/vmx.c
++++ b/arch/x86/kvm/vmx/vmx.c
+@@ -72,6 +72,7 @@
+ #include "x86.h"
+ #include "x86_ops.h"
+ #include "smm.h"
++#include "tss.h"
+ #include "vmx_onhyperv.h"
+ #include "vmenter.h"
+ #include "posted_intr.h"
 -- 
 2.53.0
 
