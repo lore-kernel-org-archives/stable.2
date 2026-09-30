@@ -1,103 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-1-115.ptr.blmpb.com (va-1-115.ptr.blmpb.com [209.127.230.115])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A566A3D669A
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 08:58:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15B953F5BE4
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 08:58:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.115
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790758716; cv=none; b=Jn9wvhudKei8CMfKQIUFU/5fJUMvIYBkvtqrQV7HiF5TZMCdU1rTvUnOLUKVAokNvcKhzoC8q4k9v/ZvJiLzhlKrv3y97aisH/FiGyMKB5zAy8A48oe7G4/7Aqd6WOPuswZoQwlny/8nUsiTVIyETZzdpIIaTgeHWz4/H4NHwSU=
+	t=1790758717; cv=none; b=sUzUCy9E/0OavqvopvET78rWylkuW0MbLrAxOr9KZtOKNxgw/L+6gymlRkpI77UeKaggtbrvSwm0lCX/CKrY4e0z5JkMN0d/YD+539wxwXnxeXYCPsIhjyxEaUDLMB/Qlwk2rvWYkKbfh68YT+2EmXydCTzoSN4pWMr7BhmGg9I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790758716; c=relaxed/simple;
-	bh=NS6BZf4rOF7Ll2unaGSb5GJXwIo0S5ZB9zyitM93p00=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=R9XBEMqbNmecaMFXuHztrPcCIECoVqIfGBN+6txYWl4LTQOq9dx6iQdDnz2Y0eTmcExkpqAssSqdQ38m8FRorpBSwDs4ViytE7F6ouLMw+6OlMEKG5cAd8k/UX9Pl+QNRav9b/puATQIoriduZzF36WwWJmVzgOvk1+ax7eiE+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nO+NED5L; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790758717; c=relaxed/simple;
+	bh=YPAWUlci+6KqrVcy+i04kgZt2T/4sid87XUoL9gAJWI=;
+	h=Date:Subject:References:Content-Type:Message-Id:To:Cc:From:
+	 Mime-Version:In-Reply-To; b=vFYuZ9Z7UprlpMyqYZi8GOw64DoHccH7FGHoK8adhLP1JZrl5TDefdaTU+biYSroZLAgKHqBkYezjXlPLMctEg1/LXK4+fvfFVKuC59Vaa0CrZLk5y9e+DxtW4xjj4tedT04p7sKlytOhUqyJ492TqEe9zLD7m6hf5Dg/dmtp7A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=mKyesHNr; arc=none smtp.client-ip=209.127.230.115
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nO+NED5L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4D001F000FF;
-	Wed, 30 Sep 2026 08:58:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790758715;
-	bh=FfLC8PJiiUMVKR9WkomrEQZWwfS1GSXvR6IupdX2EMU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nO+NED5LyBB0JRkVsMwRdZkOjbK+OtKx8nfePOQzaYPz1O5b/vhvALPa1rs6Krk6h
-	 fV0H9HLi/GWgWousjvTpAXJLnCwf+2fAhFBMPnzdGmvoJvhxqbvajv19igW2Q8fq6D
-	 tQxt4pZ6qisny9Qi2WaWQqLkyyUVLXAF3AHgbQjuRoNdZsnBlPtsFGWSQ5spsk9MI0
-	 tnMMAj8JbNTcEQe9AQAW/KE1nw/2kGukZi7tYLlqq5bn+uEF+OEOEXAkMZ8po0YMWo
-	 ezp6SJIWBiuXcfMVzwhF4Gmguao4XU0oA9Z5D032K7Kr+Y4dq27+Df/b+lk8wwC42s
-	 g93ClAEJOzHZQ==
-From: SJ Park <sj@kernel.org>
-To: gregkh@linuxfoundation.org
-Cc: SJ Park <sj@kernel.org>,
-	aethernet65535@gmail.com,
-	akpm@linux-foundation.org,
-	stable@vger.kernel.org
-Subject: Re: FAILED: patch "[PATCH] mm/damon/core: allow esz to be set to zero" failed to apply to 6.6-stable tree
-Date: Wed, 30 Sep 2026 01:58:29 -0700
-Message-ID: <20260930085830.43139-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <2026092900-finalize-hungry-54dc@gregkh>
-References: 
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="mKyesHNr"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1790758710; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=YPAWUlci+6KqrVcy+i04kgZt2T/4sid87XUoL9gAJWI=;
+ b=mKyesHNr4LWtT9wc54jSbilbg9m1us5nwyGYF4PAUo4rciRxCZ7yWvKb/S9OHqSmDZ80+D
+ TpgKiZZ/O89OiFyA4Tm8LypjisqXe/5fY8obJdN29nnfHF4Td1bgkqLaokEub4Sd/Qn9Pi
+ c+WWO12MtvpFYA4WHxmo5n6BDOA2600+M9fI8aymcS3WJJvgq4iUnuovh+NoYnMkpA10Yd
+ 8wrdicoCfhqWWO7TUSYYCNlhXZYpOMp95jfGNmWsjFVtAlMZGx56bbayv0dup875GOPEF3
+ A4BVhcwAD3yuLtta/1guLWHhgAiovZGYdlJJcLnOUGqMxcXIH8WJFRA4J0fihw==
+Date: Wed, 30 Sep 2026 16:58:25 +0800
+Subject: Re: [PATCH] x86/fpu: Free dynamic fpstate on exec()
+References: <20260929151013.81562-2-weiguixiong@bytedance.com>
+	<7e945daf-2e1e-468b-8701-db6bbd4ef085@intel.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Message-Id: <451788d5e97cba38274e663d2b7952c593e959be.3ef67f1d.c8de.4e95.a8c9.5c96c6940a95@bytedance.com>
+To: "Dave Hansen" <dave.hansen@intel.com>
+Cc: <x86@kernel.org>, "Thomas Gleixner" <tglx@kernel.org>, 
+	"Ingo Molnar" <mingo@redhat.com>, "Borislav Petkov" <bp@alien8.de>, 
+	"Dave Hansen" <dave.hansen@linux.intel.com>, 
+	"H . Peter Anvin" <hpa@zytor.com>, 
+	"Chang S . Bae" <chang.seok.bae@intel.com>, 
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
+	=?utf-8?q?=E9=AD=8F=E6=A1=82=E9=9B=84?= <weiguixiong@bytedance.com>
+From: =?utf-8?q?=E9=AD=8F=E6=A1=82=E9=9B=84?= <weiguixiong@bytedance.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-
-On Tue, 29 Sep 2026 10:28:00 +0200 <gregkh@linuxfoundation.org> wrote:
-
-> 
-> The patch below does not apply to the 6.6-stable tree.
-> If someone wants it applied there, or to any other stable or longterm
-> tree, then please email the backport, including the original git commit
-> id to <stable@vger.kernel.org>.
-> 
-> To reproduce the conflict and resubmit, you may use the following commands:
-> 
-> git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
-> git checkout FETCH_HEAD
-> git cherry-pick -x 90179da203ba8b708c84a12a07cd44be0f346334
-> # <resolve conflicts, build, test, etc.>
-> git commit -s
-> git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092900-finalize-hungry-54dc@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
-> 
-> Possible dependencies:
-> 
-> 
-> 
-> thanks,
-> 
-> greg k-h
-> 
-> ------------------ original commit in Linus's tree ------------------
-> 
-> >From 90179da203ba8b708c84a12a07cd44be0f346334 Mon Sep 17 00:00:00 2001
-> From: Liew Rui Yan <aethernet65535@gmail.com>
-> Date: Tue, 8 Sep 2026 06:54:11 -0700
-> Subject: [PATCH] mm/damon/core: allow esz to be set to zero
-> 
-> When the temporal quota goal tuner determines that the goal has been
-> achieved (score >= 10000), it sets esz_bp to zero so that the esz becomes
-> zero.  However, damos_set_effective_quota() clamps the esz to
-> min_region_sz when quota->ms is set.
-> 
-> This is a minor issue, the main problem is that it doesn't match the
-> description in the documentation, which state that if the goal has already
-> been [over-]achieved, the quota will be set to zero.
-> 
-> Fix this by set quota (esz) as minimum as possible.
-> 
-> Link: https://lore.kernel.org/20260908135413.97570-1-sj@kernel.org
-> Fixes: 8bbde987c2b8 ("mm/damon/core: disallow time-quota setting zero esz")
-
-This patch also depends on temporal tuner feature.  It is introduced in 7.1.
-Because it is a feature, <7.1 stable kernels don't have the features.  So this
-patch shouldn't be applied on 6.6.y.  Please don't port it on 6.6.y.
+Mime-Version: 1.0
+In-Reply-To: <7e945daf-2e1e-468b-8701-db6bbd4ef085@intel.com>
+X-Lms-Return-Path: <lba+16abccf34+372945+vger.kernel.org+weiguixiong@bytedance.com>
 
 
-Thanks,
-SJ
+> From: "Dave Hansen"<dave.hansen@intel.com>
+> Date:=C2=A0 Wed, Sep 30, 2026, 00:54
+> Subject:=C2=A0 Re: [PATCH] x86/fpu: Free dynamic fpstate on exec()
+> To: "Guixiong Wei"<weiguixiong@bytedance.com>, <x86@kernel.org>
+> Cc: "Thomas Gleixner"<tglx@kernel.org>, "Ingo Molnar"<mingo@redhat.com>, =
+"Borislav Petkov"<bp@alien8.de>, "Dave Hansen"<dave.hansen@linux.intel.com>=
+, "H . Peter Anvin"<hpa@zytor.com>, "Chang S . Bae"<chang.seok.bae@intel.co=
+m>, <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+> On 9/29/26 08:10, Guixiong Wei wrote:
+> > Preserve the old fpstate pointer across fpstate_reset() and free it onl=
+y
+> > after fpu_reset_fpstate_regs() has invalidated FPU register ownership.
+> > This ordering prevents a context switch from saving FPU registers throu=
+gh
+> > a freed fpstate pointer.
+>=C2=A0
+> Are there any fpstate_reset() paths where this matters?
+>=C2=A0
+> I mean, the init task, obviously not. It doesn't have a dynamic fpstate.
+> During exec() this reset happens while:
+>=C2=A0
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0 bprm->mm =3D NULL;
+>=C2=A0
+> among other things, so I really don't think it's even remotely in the
+> context of getting context-switched to.
+>=C2=A0
+> For clone(), the destination task is also not in any condition to be
+> context-switched to.
+>=C2=A0
+> So why defend against context switching? What am I missing?
+>=C2=A0
+You are right. Neither existing fpstate_reset() call path needs
+to defend against a context switch. I overcomplicated the ordering
+rationale and will drop it.
 
-[...]
+I will move the dynamic fpstate cleanup into fpstate_reset() as you
+suggested. It will preserve the old pointer, install and initialize the
+embedded fpstate, and then free the old allocation. This makes
+fpstate_reset() own the complete state transition.
+
+I will also update the subject and describe the leak.
