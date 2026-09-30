@@ -1,46 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1790C35C6B5
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 02:25:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1832A1E1A3D
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 02:25:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790735117; cv=none; b=coK/cKX3e256hu95Ve8eJXSIn9b94Q0/1/pttkpD8H0EEKF/zwp0aCizBys8GmeQuoOjcHHuWlEr1UGANIf+BgYM3ZaPyVjnzCVIrACPzBNNhGSWHVIM7PgPXjK+jIUH2z29A3IvQAUXpdV0iTA+O17eL0i7dVGXYI6OC2kiLyE=
+	t=1790735122; cv=none; b=beZFDHfJTBwhSme4E5jJDslVIRZj0B+22ExD7EqORxmabnkap/UIKGXY+2h0oHluhV9yBT9UKrH/WY4HB1kohsUexxTG9q/n5HXIbRGnCYqGAdo3gdcu2WFCG2Q9zND+qScSKSFpeOxTj2w4x8+xK9mkH+LPQlajad8D0AIiw98=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790735117; c=relaxed/simple;
-	bh=oESAgeSBI0CTYdmf9rDW5DWmmFQWyn9BCSpN7mgq1TQ=;
+	s=arc-20240116; t=1790735122; c=relaxed/simple;
+	bh=q2NwNqUAtuZTXur1zZT5XCEhMK79x2bKJAO5DFY7WKU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iYU9h89Hd2m8NVyL1CAnXqPvIgvMGj8Yig1kIy9r4iAjW8ew/5JkHkgds1VHggigz27H2ZdUhKulM9uSjLv60QzAG4UFTj/px/reprsb1LhDqjeAyS+yEtZQ+V0wMwoFJ9YW8UTHIhn0xulLG9RG1fDQDLxOmfrbqGPBL51G8MA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SAE23DV3; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=CNGZfVJbp4EzGx+DcFxwqvYFk7mpDpAXpneFLDziKGSCOBCR6W7Rnn1YIx1n7IdmOxAzrP0l8LwglS4ClEkfdFvrLubgEKwUntSsoLo97raCqg2Nhhh+ev4kpZLCAV3Upl/6skdzcrzrxa5KT//HBjsZ75X+eX5txs+umD8r0P4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EVBPfmPD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SAE23DV3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43D0D1F00898;
-	Wed, 30 Sep 2026 02:25:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EVBPfmPD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67F041F008A2;
+	Wed, 30 Sep 2026 02:25:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790735116;
-	bh=WryDRRgqDz9Nx+z9qqf6bKnx2PozYCp/CZ4CXLgAlgk=;
+	s=k20260515; t=1790735121;
+	bh=wLukpWb7JHiSQQu/rE+BRBzbVMr82vx1FqKZx6GO6sc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SAE23DV3EeCzEvI0uVVQlLiKaky/nRWITqjXBpkxq5giLU+z52UtsoliH5c776jBt
-	 OfL/IQm8YgOlrGQ7smORnuH9e2yPChHSs5wGbVvu0rr0yk8zmB/q0z1ZUsjxsvC4NE
-	 DjKVVOc5RqrVpN8N7CjqU/bka0De3rfuMfiwnXIBx+uQyPfdXY7bEbiFEzzbT4lA6Z
-	 tMPmo9Wf6n62p80ZSDVaCSy5DqCbbSrccK8BGFNtLkv2D2LcGbMXNmYNMNjjgMgGVV
-	 vx8XuYDM877SbNyYAqbp6rWJoOf7qMXuI+Ye8YcP3wx8cOiXcHrtKRruMno4p1WrQv
-	 GVL38CoNrIkqA==
+	b=EVBPfmPDX8cIne41SI2Jiv/P3CnL6gqUvlCUtDsUlTdAUNlphhCZ/f9EI5p57YADY
+	 qc+h3tCbKJjHcCDGSSZfN30C2sY4CREzW4DaTKgmn63dwCt4B0+HCxrRuKsb3VVmVw
+	 a2Lmb1wEH/oTxsAUORieW7+Rma0GAkh5ZdloC7pLPz89i2SNsVn//4TZjPevhNEpI5
+	 mKC40kUo2bI0MAPG3Arqw+Jt+/DtbdBmtBlN6+oGsNpGYmmwRA137DXlPbB25s0Fgu
+	 A1+nZluHDGSAthkj9SnoE+Dy6REOHpSSbTDEIJSv/O4gFqnabjpUYli15Avj23hnIR
+	 28a6JF8WiDscQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yuqi Xu <xuyuqiabc@gmail.com>,
-	Vega <vega@nebusec.ai>,
-	Ren Wei <weir@nebusec.ai>,
-	Simon Horman <horms@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: "Dr. David Alan Gilbert" <linux@treblig.org>,
+	David Arinzon <darinzon@amazon.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] net: ipconfig: bound DHCP option construction
-Date: Tue, 29 Sep 2026 22:25:12 -0400
-Message-ID: <20260930022512.3388377-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] net: ena: Remove autopolling mode
+Date: Tue, 29 Sep 2026 22:25:17 -0400
+Message-ID: <20260930022518.3389176-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260930022512.3388377-1-sashal@kernel.org>
-References: <2026092953-flinch-greeting-14e5@gregkh>
- <20260930022512.3388377-1-sashal@kernel.org>
+In-Reply-To: <2026092918-goldfish-rocker-07f7@gregkh>
+References: <2026092918-goldfish-rocker-07f7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,117 +46,110 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yuqi Xu <xuyuqiabc@gmail.com>
+From: "Dr. David Alan Gilbert" <linux@treblig.org>
 
-[ Upstream commit e47a1958e12abc3a17b5231a4f21c8f1bf662e08 ]
+[ Upstream commit b356b9170815f822394667010d478d53901ff581 ]
 
-ic_dhcp_init_options() appends the hostname (option 12), vendor-class
-(option 60) and client-ID (option 61) options into the fixed 312-byte
-bootp_pkt.exten[] buffer.  Only the client-ID branch checked the
-remaining space; the hostname and vendor-class writes were unbounded.
+This manually reverts
+commit a4e262cde3cd ("net: ena: allow automatic fallback to polling mode")
 
-A 64-byte hostname together with the maximum 252-byte dhcpclass=
-identifier needs 18 + (2 + 64) + (2 + 252) = 338 of the 312 available
-bytes even before the terminating END marker, so the vendor-class memcpy
-runs past the end of exten[].  With CONFIG_FORTIFY_SOURCE this is
-reported as a field-spanning write and, when the kernel is booted with
-panic_on_warn=1, aborts boot with a panic.
+which is unused.
 
-Route the optional options through a common helper that makes sure the
-option, its 2-byte header and the END marker all fit and drops an option
-that would not.  Configurations with short options keep sending exactly
-the same bytes as before.
+(I did it manually because there are other minor comment
+and function changes surrounding it).
+Build tested only.
 
-Fixes: 130c0f47fdf9 ("ipconfig: send host-name in DHCP requests")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Signed-off-by: Yuqi Xu <xuyuqiabc@gmail.com>
-Reviewed-by: Ren Wei <weir@nebusec.ai>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Link: https://patch.msgid.link/7808dfbfa2162dfd0b19f59aff5742d6e0db2abb.1789798023.git.xuyuqiabc@gmail.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Suggested-by: David Arinzon <darinzon@amazon.com>
+Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
+Link: https://patch.msgid.link/20241103194149.293456-1-linux@treblig.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: 9476b4468862 ("net: ena: fix MMIO read buffer leak on probe failure")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv4/ipconfig.c | 45 ++++++++++++++++++++++++++-------------------
- 1 file changed, 26 insertions(+), 19 deletions(-)
+ drivers/net/ethernet/amazon/ena/ena_com.c | 25 +++++------------------
+ drivers/net/ethernet/amazon/ena/ena_com.h | 14 -------------
+ 2 files changed, 5 insertions(+), 34 deletions(-)
 
-diff --git a/net/ipv4/ipconfig.c b/net/ipv4/ipconfig.c
-index a7f5182c97fba..024c54a5b0e13 100644
---- a/net/ipv4/ipconfig.c
-+++ b/net/ipv4/ipconfig.c
-@@ -673,6 +673,24 @@ static const u8 ic_bootp_cookie[4] = { 99, 130, 83, 99 };
+diff --git a/drivers/net/ethernet/amazon/ena/ena_com.c b/drivers/net/ethernet/amazon/ena/ena_com.c
+index d958cda9e58ba..b23331ea2478a 100644
+--- a/drivers/net/ethernet/amazon/ena/ena_com.c
++++ b/drivers/net/ethernet/amazon/ena/ena_com.c
+@@ -763,25 +763,16 @@ static int ena_com_wait_and_process_admin_cq_interrupts(struct ena_comp_ctx *com
  
- #ifdef IPCONFIG_DHCP
- 
-+static bool __init
-+ic_dhcp_add_option(u8 **options, const u8 *end, u8 type, const void *value,
-+		   int len)
-+{
-+	u8 *e = *options;
-+
-+	/* leave room for the option header and the END marker */
-+	if (len > U8_MAX || end - e < len + 3)
-+		return false;
-+
-+	*e++ = type;
-+	*e++ = len;
-+	memcpy(e, value, len);
-+	*options = e + len;
-+
-+	return true;
-+}
-+
- static void __init
- ic_dhcp_init_options(u8 *options, struct ic_device *d)
- {
-@@ -688,6 +706,7 @@ ic_dhcp_init_options(u8 *options, struct ic_device *d)
- 		42,	/* NTP servers */
- 	};
- 	u8 mt = (ic_servaddr == NONE) ? DHCPDISCOVER : DHCPREQUEST;
-+	u8 *end = options + sizeof(((struct bootp_pkt *)0)->exten);
- 	u8 *e = options;
- 	int len;
- 
-@@ -718,31 +737,19 @@ ic_dhcp_init_options(u8 *options, struct ic_device *d)
- 	e += sizeof(ic_req_params);
- 
- 	if (ic_host_name_set) {
--		*e++ = 12;	/* host-name */
- 		len = strlen(utsname()->nodename);
--		*e++ = len;
--		memcpy(e, utsname()->nodename, len);
--		e += len;
-+		ic_dhcp_add_option(&e, end, 12, utsname()->nodename, len);
+ 		if (comp_ctx->status == ENA_CMD_COMPLETED) {
+ 			netdev_err(admin_queue->ena_dev->net_device,
+-				   "The ena device sent a completion but the driver didn't receive a MSI-X interrupt (cmd %d), autopolling mode is %s\n",
+-				   comp_ctx->cmd_opcode, admin_queue->auto_polling ? "ON" : "OFF");
+-			/* Check if fallback to polling is enabled */
+-			if (admin_queue->auto_polling)
+-				admin_queue->polling = true;
++				   "The ena device sent a completion but the driver didn't receive a MSI-X interrupt (cmd %d)\n",
++				   comp_ctx->cmd_opcode);
+ 		} else {
+ 			netdev_err(admin_queue->ena_dev->net_device,
+ 				   "The ena device didn't send a completion for the admin cmd %d status %d\n",
+ 				   comp_ctx->cmd_opcode, comp_ctx->status);
+ 		}
+-		/* Check if shifted to polling mode.
+-		 * This will happen if there is a completion without an interrupt
+-		 * and autopolling mode is enabled. Continuing normal execution in such case
+-		 */
+-		if (!admin_queue->polling) {
+-			admin_queue->running_state = false;
+-			ret = -ETIME;
+-			goto err;
+-		}
++		admin_queue->running_state = false;
++		ret = -ETIME;
++		goto err;
  	}
- 	if (*vendor_class_identifier) {
--		pr_info("DHCP: sending class identifier \"%s\"\n",
--			vendor_class_identifier);
--		*e++ = 60;	/* Class-identifier */
- 		len = strlen(vendor_class_identifier);
--		*e++ = len;
--		memcpy(e, vendor_class_identifier, len);
--		e += len;
-+		if (ic_dhcp_add_option(&e, end, 60, vendor_class_identifier, len))
-+			pr_info("DHCP: sending class identifier \"%s\"\n",
-+				vendor_class_identifier);
- 	}
- 	len = strlen(dhcp_client_identifier + 1);
--	/* the minimum length of identifier is 2, include 1 byte type,
--	 * and can not be larger than the length of options
--	 */
--	if (len >= 1 && len < 312 - (e - options) - 1) {
--		*e++ = 61;
--		*e++ = len + 1;
--		memcpy(e, dhcp_client_identifier, len + 1);
--		e += len + 1;
--	}
-+	/* the minimum length of identifier is 2, include 1 byte type */
-+	if (len >= 1)
-+		ic_dhcp_add_option(&e, end, 61, dhcp_client_identifier, len + 1);
  
- 	*e++ = 255;	/* End of the list */
+ 	ret = ena_com_comp_status_to_errno(admin_queue, comp_ctx->comp_status);
+@@ -1650,12 +1641,6 @@ void ena_com_set_admin_polling_mode(struct ena_com_dev *ena_dev, bool polling)
+ 	ena_dev->admin_queue.polling = polling;
  }
+ 
+-void ena_com_set_admin_auto_polling_mode(struct ena_com_dev *ena_dev,
+-					 bool polling)
+-{
+-	ena_dev->admin_queue.auto_polling = polling;
+-}
+-
+ int ena_com_mmio_reg_read_request_init(struct ena_com_dev *ena_dev)
+ {
+ 	struct ena_com_mmio_read *mmio_read = &ena_dev->mmio_read;
+diff --git a/drivers/net/ethernet/amazon/ena/ena_com.h b/drivers/net/ethernet/amazon/ena/ena_com.h
+index a372c5e768a74..975876cfe720c 100644
+--- a/drivers/net/ethernet/amazon/ena/ena_com.h
++++ b/drivers/net/ethernet/amazon/ena/ena_com.h
+@@ -224,9 +224,6 @@ struct ena_com_admin_queue {
+ 	/* Indicate if the admin queue should poll for completion */
+ 	bool polling;
+ 
+-	/* Define if fallback to polling mode should occur */
+-	bool auto_polling;
+-
+ 	u16 curr_cmd_id;
+ 
+ 	/* Indicate that the ena was initialized and can
+@@ -493,17 +490,6 @@ bool ena_com_get_admin_running_state(struct ena_com_dev *ena_dev);
+  */
+ void ena_com_set_admin_polling_mode(struct ena_com_dev *ena_dev, bool polling);
+ 
+-/* ena_com_set_admin_auto_polling_mode - Enable autoswitch to polling mode
+- * @ena_dev: ENA communication layer struct
+- * @polling: Enable/Disable polling mode
+- *
+- * Set the autopolling mode.
+- * If autopolling is on:
+- * In case of missing interrupt when data is available switch to polling.
+- */
+-void ena_com_set_admin_auto_polling_mode(struct ena_com_dev *ena_dev,
+-					 bool polling);
+-
+ /* ena_com_admin_q_comp_intr_handler - admin queue interrupt handler
+  * @ena_dev: ENA communication layer struct
+  *
 -- 
 2.53.0
 
