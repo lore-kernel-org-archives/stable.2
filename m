@@ -1,95 +1,96 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A7D75187F2;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F92050C287;
 	Wed, 30 Sep 2026 18:15:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790792133; cv=none; b=TGL4fpIgYPdiex3B60GWAa3ISmRrwuD2uzjAvEsuKpAFBPdTyrcsor9ePcVTiJu6fnqPjoZ7CxbEqXmk9LsDAwj0fOdaS50ES+c/OpV9R+MQ8rqvjN0rrsVAYkB6lOIndW4LC9C44LKBCJGB/lxLytYmsGf89RqS8vF2xYYiy8o=
+	t=1790792133; cv=none; b=NIPsF4r+7Q5IQVzV3+9MKybzCRn+RXxLg0MhzejnKmMBkXSiK0/R1fvaDYblWZPweyFHl9Dgh5Mb5L3yQKm3ueCMrqngK6s7K2k1aFSjJnid8UPIyuG2uLQYM9Kgsnw+NJRqgBHvnogDzW0Ubh8RBwXW0X+NkZfqaWQUv+2zMDI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790792133; c=relaxed/simple;
-	bh=9kclRhNa+pdcx2zC17CGOe8yWS8pzYlG0y1InHUdTDc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=t1I5fxyjfTNcQE4NvsFUEZd7C1VxOnF0MajCWPmllI/m7oV8j2UamF+l3iueY1QVGzoVX6vwfMdbtTeFl8Fr4OGmBHk+1eXhm1aSYwH6HGvDj+7VTEpfQyUZNolTzwKg4/Pflcytqs3pNx4eMAZ+CvEcTi0dwVOhCN+ejcAzHFU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kcPUuqYm; arc=none smtp.client-ip=100.103.45.18
+	bh=VcEXHaP267WcwLOcpnVHQWrvuCFhqzFSOIJ8bptY+rw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=CONGjXhyKYpxOJZvP195bse6lg1jev2btg3HeyoLCYBi9DMaqz28uWLcFjAv5uHcMWnXVrjqrqloP5ADPxjejd6BmOmJ/wgRM4+vg9rw5rFNBm8ldKHAuBjJwXXsYVJbDcBOMOWQnxuJNPti2qtastIKziocMPgFBgWGU84U48Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=L5RwlUW4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kcPUuqYm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4872D1F00898;
-	Wed, 30 Sep 2026 18:15:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790792132;
-	bh=FMhj9LPnggBc3k7PWtzDXIA2bZfV2+53XsnLhzsJWyo=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=kcPUuqYmmbImumhD621BfOC59ga9ygnENuCJdqtPzcs5bFriF1UJDjwc+7IRh/bM4
-	 D9mP/oM9kJOVjeLOfFGxqnZmFRMt2Blm6Cg8NoC7L8s6wTH38JW8V25g9nkAqXY5Vz
-	 gePjpd3g4DzetiUvomaDIKvIkpNpAzZEJgdWtGcEJJN6MFnk1UJCTkp+tDr/OWDpu1
-	 B5k/xTCRKX17lAmMCZMxg/0I+z7kIod5I/esAkoevtKJi0Ch0vWxUWUrFceMyXHh8D
-	 B+VpEysb086S08teoMLfC1gUn0pEfELWCma9FpNYY/MP8oO1K9SogEv6dW+1CZAFxg
-	 p/SvFYSY8YjFA==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, 
- Ridham Khurana <khurana.ridham222@gmail.com>
-Cc: linux-kernel@vger.kernel.org, 
- Nirmala Devi Mal Nadar <m.nirmaladevi@ltts.com>, 
- Bhargav Raviprakash <bhargav.r@ltts.com>, Lee Jones <lee@kernel.org>, 
- Shuah Khan <shuah@kernel.org>, Jori Koolstra <jkoolstra@xs4all.nl>, 
- Brigham Campbell <me@brighamcampbell.com>, 
- linux-kernel-mentees@lists.linux.dev, stable@vger.kernel.org
-In-Reply-To: <20260930105333.3522412-1-khurana.ridham222@gmail.com>
-References: <20260930105333.3522412-1-khurana.ridham222@gmail.com>
-Subject: Re: [PATCH] regulator: tps6594-regulator: Fix n_linear_ranges for
- TPS65224 BUCK2-4
-Message-Id: <179077659988.116826.5599228318428196647.b4-ty@b4>
-Date: Wed, 30 Sep 2026 14:56:39 +0100
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="L5RwlUW4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D0B51F000FF;
+	Wed, 30 Sep 2026 18:15:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790792132;
+	bh=mKVtPq/URHsDBn9REX1mKc2Lz1Tffz5BKZ4Lfq2l5j0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=L5RwlUW4XlQ1KLLP6fdonnSnDwrViX15LOeVDrsZZSrcyCYPC1f+j9qGKMBekpsZn
+	 p2hv+oGcyO7VCuBK83//qHO/SCBKL326u99uNT4Kv4ct91rE/vQ0tzFaJAtjyv4oZ5
+	 ALC67T09n7ZmZsymJoTJHJdVx2kcSlF+R2u7x5Uw=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Fan Wu <fanwu01@zju.edu.cn>,
+	Ulf Hansson <ulfh@kernel.org>
+Subject: [PATCH 5.15 546/752] mmc: mxcmmc: cancel data work and watchdog on remove
+Date: Wed, 30 Sep 2026 17:26:56 +0200
+Message-ID: <20260930152410.059690217@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930152358.131179731@linuxfoundation.org>
+References: <20260930152358.131179731@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1168; i=broonie@kernel.org;
- h=from:subject:message-id; bh=9kclRhNa+pdcx2zC17CGOe8yWS8pzYlG0y1InHUdTDc=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqvVG/xqKWEo2c3uvKQck9L+WyHaScNcEEKGRM4
- oIitsGrd26JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCar1RvwAKCRAk1otyXVSH
- 0JeWB/9JVzKZQuoO434mCKdykiGdKmQpbPP1jirj5S6oHNOckC/rn7OXc/VSbJ+SoofuS7b8vhb
- DUxJ4MdBBpUb9UDcr6olCDxupcCvUhg7zwA6iCFZmNneqZBc/qsLIQN3BFbnAMRQyWsEPI/a1om
- 0qxVsCijAgvBWNFsHJYYCiaODKATzn3RgbEajE+tT35PwTSv1QRQl5OI/efD87uzlKvXzjwdtMG
- n/Mp6zVZxnsUj2au4B+rp5uve2mELWf4fG/Oz07oX6KnktLlYvxpbzX26kmgYNaT+LtaMRtCWny
- uBlNcmBPlqxtnqcnjGE4n5b5HnbInvYYwuONT/wzpaAVo4AG
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
 
-On Wed, 30 Sep 2026 10:53:25 +0000, Ridham Khurana wrote:
-> regulator: tps6594-regulator: Fix n_linear_ranges for TPS65224 BUCK2-4
+5.15-stable review patch.  If anyone has any objections, please let me know.
 
-Applied to
+------------------
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.3
+From: Fan Wu <fanwu01@zju.edu.cn>
 
-Thanks!
+commit d3a421c82412344022982d5b91ba23194a0a6f29 upstream.
 
-[1/1] regulator: tps6594-regulator: Fix n_linear_ranges for TPS65224 BUCK2-4
-      https://git.kernel.org/broonie/regulator/c/2f15518682c7
+mxcmci_remove() frees the host through the devm tail, but neither it nor
+mmc_remove_host() drains the driver's own asynchronous state.
+host->watchdog, a 10 s timer armed on the DMA path in mxcmci_setup_data(),
+is deleted only by the DMA- and IRQ-complete paths, which the remove path
+does not explicitly drain; it can therefore fire after the host is freed
+and dereference it in mxcmci_watchdog().  host->datawork, armed from the
+IRQ handler on the PIO path, is not cancelled by the remove path either.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Free the devm-registered IRQ, then cancel datawork and delete the watchdog
+in mxcmci_remove(), before dma_release_channel().  Freeing the IRQ first
+keeps a trailing handler from re-arming datawork between the cancel and
+the host free.  Both callbacks are non-self-rearming.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+This issue was found by an in-house static analysis tool.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+Fixes: f6ad0a481342 ("mmc: mxcmmc: fix bug that may block a data transfer forever")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Signed-off-by: Ulf Hansson <ulfh@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/mmc/host/mxcmmc.c |    4 ++++
+ 1 file changed, 4 insertions(+)
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+--- a/drivers/mmc/host/mxcmmc.c
++++ b/drivers/mmc/host/mxcmmc.c
+@@ -1171,6 +1171,10 @@ static int mxcmci_remove(struct platform
+ 
+ 	mmc_remove_host(mmc);
+ 
++	devm_free_irq(&pdev->dev, platform_get_irq(pdev, 0), host);
++	cancel_work_sync(&host->datawork);
++	timer_delete_sync(&host->watchdog);
++
+ 	if (host->pdata && host->pdata->exit)
+ 		host->pdata->exit(&pdev->dev, mmc);
+ 
 
-Thanks,
-Mark
 
