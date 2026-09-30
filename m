@@ -1,37 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5392502568;
-	Wed, 30 Sep 2026 15:38:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E254F68C3;
+	Wed, 30 Sep 2026 15:38:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790782737; cv=none; b=ile21fp433CtU5/fyRffiAmm/m2jqt9HzAmlSwUCmDmMlq8vibiE2cYeG4Og8dD88wvXir7488qBYr45WyFeMGfym+pWaHQJt9jLywzKCFnTIEj88MUpRrEAAZLHRRqBHK4XbHyJN8l2tBii2Fzx4rpdE/9ZXC7dI+WtLWVpCFA=
+	t=1790782740; cv=none; b=hQbsnZ0izInvWxOfyXJ+x/ZXwD4Fgc5rEjxJJO7AVQxyWrQza3Usc984xgrZdPS8ZIUH1ssXfW+04TMUIJ43L0w7rVtT98gKNVMxR6Jeqp9JKH0qXgq2L1e6MUSTQA4eYjPKv1vKID3cIyh9q15jlGNJgtRmYVUTFOlslz580Mw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790782737; c=relaxed/simple;
-	bh=anhpjOEmyAuz1Wtfmb/uboPq9cfoptc6zBF5Iq/6fG8=;
+	s=arc-20240116; t=1790782740; c=relaxed/simple;
+	bh=j8CyGueCorRrHK4ZxuKSCzml0A9HXkRV48LMAMtEc7c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=btcXCI7Y6W3+x9vDDnNUYYCA5lSZ6kxAswROnMyuho6yeCTxSJUhNpzDzfjAg9+x9FMBmSfcPrg1E1UzZbuMwa8/FHZxnaCizKCm6Ix3jmELTOXaDLt08jB+PfMyso0zo5ZyOTLhkFHrv+NisqaiIGL0aqfaD8IzfhVeETNm5dU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Q/mXqiWD; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=MR6KYnyXzHHBN3mwqDMcID9vwZ4RQ9qCwef+h9nHu5qktkRoJf4x+gTWpvg3MfmNEB62lwnEgtLV3U+eUmhcYZBTRPXDIaCnRY+rdP3fxED0MXEuyPQEFL1ZPbWEHzyAIjJ4qZ3z03+dqLXtBPDAuZ79rtBb+QPlnWXSnGd4d7I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dwRCwIhd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Q/mXqiWD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77FF11F000FF;
-	Wed, 30 Sep 2026 15:38:51 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dwRCwIhd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 303CC1F00898;
+	Wed, 30 Sep 2026 15:38:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790782732;
-	bh=pd3kcSQl9Fzw0HQ2EY6JgcOvp7dDRFME2NBCx1YVVEw=;
+	s=korg; t=1790782737;
+	bh=4nxuXO0MMUBHQKUkyZtUw900z0+k3ORVhRfxlJj7X0A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Q/mXqiWD2ByFKGi1nfdi5UGohclUPo4XoJnbgcZ+tLdIUUf7QdAoNFdH0CpnljE9v
-	 cJJk/ekG1CKbkP70XojoiPSeiYAv640N+Mr9lq87yS8QoKAKHeTSKmlUgNdLdygSCu
-	 MgB2vFpCcAfADqm27KFe8S1XgGnUVZzS7szR40AM=
+	b=dwRCwIhd/49JJMEovFfIAmJ5U81fHiRuOOSZ6Jwpvh0mnjHG9dFNa7XDchkYDa3tn
+	 JeTlBDqPHGAcdzsroUwlEUqriq5FBZArX53PYCEJOISK0/3q5ekvPVT4NSZyMfDuZR
+	 wGjvs+zvhwnutnzwF8R+Gh6KbFtx4L7pS98hkFy4=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Florian Westphal <fw@strlen.de>,
+	Xu Rao <raoxu@uniontech.com>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 149/595] netfilter: nf_conntrack_expect: zero at allocation time
-Date: Wed, 30 Sep 2026 17:20:42 +0200
-Message-ID: <20260930152350.939517048@linuxfoundation.org>
+Subject: [PATCH 5.10 115/595] ata: libata-pmp: add JMicron JMS562 quirk
+Date: Wed, 30 Sep 2026 17:20:08 +0200
+Message-ID: <20260930152350.212209109@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152347.700140858@linuxfoundation.org>
 References: <20260930152347.700140858@linuxfoundation.org>
@@ -50,81 +52,61 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Florian Westphal <fw@strlen.de>
+From: Xu Rao <raoxu@uniontech.com>
 
-[ Upstream commit 241ccd2fed9051db443aadce248fc0ab30f55e97 ]
+[ Upstream commit c62aff1174cf88e10716c7513702443c47551fc6 ]
 
-There are occasional LLM hints wrt. leaking uninitialized data to
-userspace via ctnetlink.  Just zero at allocation time,
-expectations are not frequently used these days.
+JMicron JMS562, as used in QNAP QDA-A2AR RAID1 adapters, may
+keep the exported ATA device not ready while the array is rebuilding.
 
-Intentionally keeps _init as-is because we could theoretically
-support re-init, so add the missing exp->dir there.
+In this state, libata may repeatedly try to softreset and classify
+the fan-out link.  On the affected adapter, this can time out, make
+PMP/SCR access fail, and eventually disable the fan-out link before
+the RAID volume is exported.
 
-Signed-off-by: Florian Westphal <fw@strlen.de>
+A failing boot shows the fan-out link failing SRST, PMP access
+timing out, SCR read failing, and the link being disabled:
+
+  ata4.00: softreset failed (device not ready)
+  ata4.15: qc timeout after 3000 msecs (cmd 0xe4)
+  ata4.00: failed to read SCR 0 (Emask=0x4)
+  ata4.00: failed to recover link after 3 tries, disabling
+
+After that, the root filesystem on the exported RAID volume cannot
+be found.
+
+Add JMS562 to the existing JMicron PMP quirk that disables LPM,
+avoids softreset on fan-out links, and assumes an ATA device.  This
+prevents libata from dropping the exported RAID volume during rebuild
+recovery.
+
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
+Signed-off-by: Niklas Cassel <cassel@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/netfilter/nf_conntrack_expect.c  |  3 ++-
- net/netfilter/nf_conntrack_netlink.c | 11 +----------
- 2 files changed, 3 insertions(+), 11 deletions(-)
+ drivers/ata/libata-pmp.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/net/netfilter/nf_conntrack_expect.c b/net/netfilter/nf_conntrack_expect.c
-index 516a9f05a87a7..3ea601a090e5d 100644
---- a/net/netfilter/nf_conntrack_expect.c
-+++ b/net/netfilter/nf_conntrack_expect.c
-@@ -283,7 +283,7 @@ struct nf_conntrack_expect *nf_ct_expect_alloc(struct nf_conn *me)
- {
- 	struct nf_conntrack_expect *new;
- 
--	new = kmem_cache_alloc(nf_ct_expect_cachep, GFP_ATOMIC);
-+	new = kmem_cache_zalloc(nf_ct_expect_cachep, GFP_ATOMIC);
- 	if (!new)
- 		return NULL;
- 
-@@ -347,6 +347,7 @@ void nf_ct_expect_init(struct nf_conntrack_expect *exp, unsigned int class,
- #if IS_ENABLED(CONFIG_NF_NAT)
- 	memset(&exp->saved_addr, 0, sizeof(exp->saved_addr));
- 	memset(&exp->saved_proto, 0, sizeof(exp->saved_proto));
-+	exp->dir = 0;
- #endif
- }
- EXPORT_SYMBOL_GPL(nf_ct_expect_init);
-diff --git a/net/netfilter/nf_conntrack_netlink.c b/net/netfilter/nf_conntrack_netlink.c
-index 46bdc38081164..2acfdf019bf0b 100644
---- a/net/netfilter/nf_conntrack_netlink.c
-+++ b/net/netfilter/nf_conntrack_netlink.c
-@@ -3540,8 +3540,6 @@ ctnetlink_alloc_expect(const struct nlattr * const cda[], struct nf_conn *ct,
- 	if (cda[CTA_EXPECT_FLAGS]) {
- 		exp->flags = ntohl(nla_get_be32(cda[CTA_EXPECT_FLAGS]));
- 		exp->flags &= ~NF_CT_EXPECT_USERSPACE;
--	} else {
--		exp->flags = 0;
- 	}
- 	if (cda[CTA_EXPECT_FN]) {
- 		const char *name = nla_data(cda[CTA_EXPECT_FN]);
-@@ -3553,8 +3551,7 @@ ctnetlink_alloc_expect(const struct nlattr * const cda[], struct nf_conn *ct,
- 			goto err_out;
- 		}
- 		exp->expectfn = expfn->expectfn;
--	} else
--		exp->expectfn = NULL;
-+	}
- 
- 	exp->class = class;
- 	exp->master = ct;
-@@ -3568,12 +3565,6 @@ ctnetlink_alloc_expect(const struct nlattr * const cda[], struct nf_conn *ct,
- 						 exp, nf_ct_l3num(ct));
- 		if (err < 0)
- 			goto err_out;
--#if IS_ENABLED(CONFIG_NF_NAT)
--	} else {
--		memset(&exp->saved_addr, 0, sizeof(exp->saved_addr));
--		memset(&exp->saved_proto, 0, sizeof(exp->saved_proto));
--		exp->dir = 0;
--#endif
- 	}
- 	return exp;
- err_out:
+diff --git a/drivers/ata/libata-pmp.c b/drivers/ata/libata-pmp.c
+index 79f2aeeb482ab..452baa43d77ef 100644
+--- a/drivers/ata/libata-pmp.c
++++ b/drivers/ata/libata-pmp.c
+@@ -446,8 +446,13 @@ static void sata_pmp_quirks(struct ata_port *ap)
+ 		 * otherwise.  Don't try hard to recover it.
+ 		 */
+ 		ap->pmp_link[ap->nr_pmp_links - 1].flags |= ATA_LFLAG_NO_RETRY;
+-	} else if (vendor == 0x197b && (devid == 0x2352 || devid == 0x0325)) {
++	} else if (vendor == 0x197b &&
++		   (devid == 0x0562 || devid == 0x2352 || devid == 0x0325)) {
+ 		/*
++		 * 0x0562: JMicron JMS562, as used in QNAP QDA-A2AR RAID1
++		 *         adapters.  The exported device may stay not ready
++		 *         while the array is rebuilding, and SRST/classify can
++		 *         time out before the RAID volume is exported.
+ 		 * 0x2352: found in Thermaltake BlackX Duet, jmicron JMB350?
+ 		 * 0x0325: jmicron JMB394.
+ 		 */
 -- 
 2.53.0
 
