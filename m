@@ -1,37 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BC5F513555;
-	Wed, 30 Sep 2026 15:52:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1218511E66;
+	Wed, 30 Sep 2026 15:53:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790783577; cv=none; b=ZNXC1Y9vpTifRyb0Zbv8UsFKT8R6SQySNYf/mfdcsFfGrACMqnQV1AJ5rH3L4C3//fF9Um5U6Hznm47I5sS7WW9EgoDp34dQMCJAqi21lToqwDh6czMQxDrvBBFHehPq5fBklJQfZTj/v2OQEv/fb+5/LU/H9Jrh4P/ZOuo+JHI=
+	t=1790783584; cv=none; b=qN3JnspOPW7CQ0ZpJm92W7Lf93g2U9QWttTLxWOc56AfGRWhhu6unq0iPoHdfzxdFF+BbMzwMsQlhGsJeSEw5NFcOQolJV8PKQCZJXFQkeIEdQ0q2X/nFXMdu7y8rF+lImKof/7CR1kWDjPoAm1FSlbRX/jtYw+IuAXh5JzMoek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790783577; c=relaxed/simple;
-	bh=ImSR7kDUXDeN0x4Dohn0pqvPr/xrR0t+SCqRTzyueWM=;
+	s=arc-20240116; t=1790783584; c=relaxed/simple;
+	bh=T2mxn5FdrA9Tl3DHbNUQCwyjQxTe+8wddiuD0HWa7Wk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jdJsflBHy+VP2PLgPx36dlVJHDu9lDLDf77i2ERXCdA0cxacQoHu9xev2gkYJWuw4WlWgmc+283STPanZ/Vk2Igz2iWualR/NyKCTle/4xP/NBRDgv51Xz56rLSC0NfD67hFqr50r48v2TZ8ZlYPNa9Fp2N414hLjZUQmSiGQfU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=c1guwMnP; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=uSufrNZhlQf+u1Wn0cEbKO4BtPRV67eTnBw/5VB5tKv6/3IoM5DmaUVrAl0vlXtr5HsUQtAOpmEqxIQJKfl+4ejh9QHuIKoFmNYEqeUV6hQWvm+6H98UlMejrM0WFOoKrAIO+ScCdjYw2jRI0Gu/6QLw7EhOvPeqsB3x3L4WUHA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=qgeAp8NH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="c1guwMnP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0437F1F000FF;
-	Wed, 30 Sep 2026 15:52:50 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="qgeAp8NH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9ACD01F000FF;
+	Wed, 30 Sep 2026 15:52:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790783571;
-	bh=IrRJJ8JYqxOMgvEU8X+a5915TRZpso/A+glKBm/czYw=;
+	s=korg; t=1790783580;
+	bh=2P/58Hh5Ei/7h5QHNwh6Mkql5UEX2ja4MPZlxadaI6U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=c1guwMnPxZlp9ugO5tvHR3JQqCpMhRMFN0HAZBceJifznJuvsNnNOWcN1sDRARkgP
-	 tVkoKqQVWsuz3o2vXf1IRVeAl7OX5d+BTDXfDN2pjfmdM7DJ7nZ4rREAaHYW9qu4/A
-	 UkEUFJ/SwdP8BChlixwOQe2CFnRg8T+A45q3pK4Y=
+	b=qgeAp8NHqau2JyXOU7GUJ38/MTPUc+URvsYpOkF4KyKJYaCTPyrZiTOCG6oIapfHV
+	 77kLwBVQycKglkPL5A8PNKJoMkYotFzuVPz42ChZQuND1EEtb+TYEGQrtU7mVfqHJh
+	 bsz2lcY/SopuE8OuHsnRZq3juydKnR3fgUeDmnmM=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Felix Gu <ustc.gu@gmail.com>,
-	Ulf Hansson <ulfh@kernel.org>
-Subject: [PATCH 5.10 444/595] mmc: sdio_uart: fix xmit_fifo leak when the port table is full
-Date: Wed, 30 Sep 2026 17:25:37 +0200
-Message-ID: <20260930152357.231596346@linuxfoundation.org>
+	Baineng Shou <shoubaineng@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10 404/595] dmaengine: mmp_pdma: fix wrong sg length in mmp_pdma_prep_slave_sg()
+Date: Wed, 30 Sep 2026 17:24:57 +0200
+Message-ID: <20260930152356.364815071@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152347.700140858@linuxfoundation.org>
 References: <20260930152347.700140858@linuxfoundation.org>
@@ -50,38 +52,48 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Felix Gu <ustc.gu@gmail.com>
+From: Baineng Shou <shoubaineng@gmail.com>
 
-commit 53823e25793a97d07e6e98e0904bbf74cac8bc76 upstream.
+[ Upstream commit 075bc7b1d3dde5ed43fbaabbc1a69f09b7fc3a47 ]
 
-sdio_uart_add_port() allocates the transmit fifo before claiming a
-slot in sdio_uart_table[].  When all UART_NR slots are taken, it
-returns -EBUSY with the fifo still allocated, but the probe error
-path only kfree()s the port, leaking the transmit fifo.
+In mmp_pdma_prep_slave_sg(), for_each_sg() iterates the scatterlist
+putting each entry into 'sg', but the entry length is read from 'sgl'
+(the list head) instead of 'sg' (the current entry):
 
-Free the fifo in the failure path of sdio_uart_add_port() itself so
-the function retains nothing on error.
+    for_each_sg(sgl, sg, sg_len, i) {
+        addr = sg_dma_address(sg);
+        avail = sg_dma_len(sgl);   /* should be 'sg' */
 
-Fixes: 8b197a5ce7a7 ("sdio_uart: Use kfifo instead of the messy circ stuff")
-Signed-off-by: Felix Gu <ustc.gu@gmail.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Ulf Hansson <ulfh@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Consequently 'avail' is always the length of the first entry. For
+multi-sg lists this causes out-of-bounds reads when a later entry is
+shorter than the first, and silent data loss when it is longer.
+Single-sg or uniformly-sized lists happen to mask the issue.
+
+Fixes: c8acd6aa6bed3 ("dmaengine: mmp-pdma support")
+Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Link: https://patch.msgid.link/20260910021652.1296640-1-shoubaineng@gmail.com
+Signed-off-by: Vinod Koul <vkoul@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/mmc/core/sdio_uart.c |    3 +++
- 1 file changed, 3 insertions(+)
+ drivers/dma/mmp_pdma.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---- a/drivers/mmc/core/sdio_uart.c
-+++ b/drivers/mmc/core/sdio_uart.c
-@@ -103,6 +103,9 @@ static int sdio_uart_add_port(struct sdi
- 	}
- 	spin_unlock(&sdio_uart_table_lock);
+diff --git a/drivers/dma/mmp_pdma.c b/drivers/dma/mmp_pdma.c
+index 4eb63f1ad2247..8f1eebf608b27 100644
+--- a/drivers/dma/mmp_pdma.c
++++ b/drivers/dma/mmp_pdma.c
+@@ -543,7 +543,7 @@ mmp_pdma_prep_slave_sg(struct dma_chan *dchan, struct scatterlist *sgl,
  
-+	if (ret)
-+		kfifo_free(&port->xmit_fifo);
-+
- 	return ret;
- }
+ 	for_each_sg(sgl, sg, sg_len, i) {
+ 		addr = sg_dma_address(sg);
+-		avail = sg_dma_len(sgl);
++		avail = sg_dma_len(sg);
  
+ 		do {
+ 			len = min_t(size_t, avail, PDMA_MAX_DESC_BYTES);
+-- 
+2.53.0
+
 
 
