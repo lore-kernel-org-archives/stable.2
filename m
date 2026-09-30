@@ -1,128 +1,175 @@
-Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 155B13B9D91;
-	Wed, 30 Sep 2026 22:02:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FC9A3A874C;
+	Wed, 30 Sep 2026 22:11:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790805746; cv=none; b=rskaUDnmnCNDAfMGh8NNV+se+kz0LopXgCto+kYthgedMk3x+IWMnhK8kcOVTDv+U7Pwrx11NMRLkZ4VKIVzOkDRMJGzHJ3lIFBnl1PkIVN4EJsuekVOUkhb9vUn3qxLEb0+vttrmg5QmrBEoEkWwvFZuG14HmYSHbX7/MZJonU=
+	t=1790806273; cv=none; b=bqbdlazrQevh+9nXgoWcNzJbOX0qRx/Ff9X4xVaf7BaOIQ7oRi2wAC73tR99mRhrFkEBZO68AIhYTSo3r7o2I18sFjtMYoCMFgpd7H0ODDwSEv+greGsg7t56pGAPRTQBNpoT4o83szpzOjZD6hilR54TKcHrPnUbrJhkfsg+oM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790805746; c=relaxed/simple;
-	bh=Pni3qt6SQR0WSSoYxhV/3fWi+ppfTQbsXTLwAc7Nkgs=;
-	h=Date:Message-Id:To:Cc:Subject:From:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=nZDakSle2JNmAdAap/ENGtKEuX8Z0jF1sU5ilibbCWfEILpx9q+sOas9EBbzMMXe84+sMCkALQaLLaw5DVDKgb6MbZHWP7ileO+hu/yW2d/LdqysJtGJPZPx2cN9J6uoI+ADphh3YpzMbswZv3tIG1/e2Czd5Zl2o2xavrIAGDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org; spf=pass smtp.mailfrom=flapping.org; dkim=pass (2048-bit key) header.d=flapping.org header.i=@flapping.org header.b=hICjf1Gy; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=vLqhHXG3; arc=none smtp.client-ip=202.12.124.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flapping.org
+	s=arc-20240116; t=1790806273; c=relaxed/simple;
+	bh=aw/ik4YFXZlKmWS5MVdAPt0tfd7AREzMzoi/Ayk+qrg=;
+	h=Date:To:From:Subject:Message-Id; b=ZdAV1q+BEmUuM5yQIySJOuR/oFEVi1qpgsCsTmWc1oMGWiLK0KvBkKDCAOT5HdL3L2EIj2XwQ9yuS9SuHv0r2YuwuF8q6+GvELkXdQkJ0Bblov6PUPuikgzbEJKQ33WvMbeo8sKDV7bzqWAGkuWO7s4H2zmDMsaDTHBZh1kbV7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=jdWmQVgh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flapping.org header.i=@flapping.org header.b="hICjf1Gy";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="vLqhHXG3"
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfout.stl.internal (Postfix) with ESMTP id AA5FB1D00060;
-	Wed, 30 Sep 2026 18:02:23 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-01.internal (MEProxy); Wed, 30 Sep 2026 18:02:24 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flapping.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1790805743;
-	 x=1790892143; bh=+7vzyzmPNyBsCrlSJl2Rf6M5M3oPOAwKb0gYKlfEvRU=; b=
-	hICjf1GyQ/UqyyDNFehn5s+vguTlIU89BjeIOAAz74NblGtZZ3s8WJoGmZp+N/fb
-	gzJjhvpntD0FvkOwsiHnZ4/NAfAKaFaAtnxm6K923Bub6XCiaG347ciF6rFcjf4r
-	EPR+ImEzAq6En1j95Wp/lvsGmYpZrDlawVDLN18dZJPlfGxoBr4DS49vUPRHIhpx
-	oSMRpOe6hnTOlVRoyEi2D97oSw/JS7i55gvmc5XcWYUBhorsMWuxFa4gpttSzds2
-	XETFQjc01F1bk7nlwe0iWPIs9B+z2eYSJQMyewLXA02gTGvSV7/JOuAIYNtPNyJp
-	WH3UzmzMXCXXvu0Lx3ewBQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790805743; x=
-	1790892143; bh=+7vzyzmPNyBsCrlSJl2Rf6M5M3oPOAwKb0gYKlfEvRU=; b=v
-	LqhHXG3hwWHSqLdAQdxixh7PS/BdDA0eZVOa88zAHusLwDTcT3wu03qFuZ5UOByH
-	WyCsgLjjr2pr7AZoQjfEJs4qwXONXkROxjK3XtZAF3TLmdDm7INOH9/u16mu2abg
-	gFo2EuRUOHoxHf0Yp97JkwZmWIkygHOyoJFaWd8cpyFfQTueByrxPwQ1eZnv9juB
-	WpoErhUC70/Hzy7QpEXHfq5IBGxgxfWQJIzgtfVJzvIdQDigLEjOlCjR8//q6ldk
-	oSojeqX6c99hyPB0gG55uOE3NlMgOUy79i83ZwQ5HWuCQ346SRr2hd4P9Q7KRGas
-	V/f70B7l6O7rTb3eGmKXg==
-X-ME-Sender: <xms:74a9aoc5uF06efgQBMXQFmJ5FNynnWA-AM4KIxHLTOTDABfNDPC6EQ>
-    <xme:74a9auIPvlOYpXkA3TNoVHJCGTcNWdWryAPjFTr-0j7CmmbR1irZmcMsOKA-IQfrK
-    tQhQRWk8xcaAewgTvYP1Gljq9XR3qrwOj9Plyiwb8jlDtQXcCfycBoY>
-X-ME-Received: <xmr:74a9aiAPR1MHh3h4mZ4kYGjuJ9Mq2hPoCXZhdwIlssJoFhklqa41XBXLyZ6i6o_vZsRnAyqaT_TFjKY1_V9x5BEh>
-X-ME-Proxy-Cause: dmFkZTEh8a5mtMwJjm4OP/JFppemW1RPRtmhJ6QT5a6YrkqSaMjdfLQr1wK/lXFXXVqtLN
-    dfY5ZMQ533nSdgeO5vEeYT9mwMP0Grqc6B3CAICqST+5eeAq5FOxfz8ZHLeopm8rwIwKYp
-    AFGFm7XF+qXfB00CeOPH/mjk2W0d8pvz0382nekCbaDcgFuc83qPtWIQsuoA/Jc0eAC5mY
-    J4pzDFaTl00fjaYL2d3KgJvqxELXgjQP3vgY8op3EK5Eppion9z1GafN4NZljdrR34E1GG
-    Pl71NsKJMrjyw3U/dbnaJ3IiGmM8lnXBVyMfnSEIhCozL8tlU4XQH1yWzYqooyGK4qyPLL
-    MMgA2dDQtFM+R20LjuDrWtGDxiZ8N8TjjWTGyEGRRY7jMdJ8+3icRjXcsL6XplUizqBfey
-    y6sy180EWVponJsHkYa3L+aLaXe+aOfMUUtRniJ6xVk1YSp1cnG1HM1hLV1L0OQsyH/PSL
-    YHsrVMUu62G+jTtJSj5Y7/Vny24vPdVsVRepXpKC0IJAByo9s4p22bvWHCp4Tnkgkh+zJs
-    Tg4HZ6aSTqT7gZ0bVnk5vlBxxLAe8Xd4SDkpBWGVPfKe+STSALZySObNwsdY2djRk7KVxk
-    LBQ6ewd0BN92ObzVQL4Lw1kDQlQR91fxZ6ayOyMc2sFD/fPt9Z9xt//bBNBQ
-X-ME-Proxy: <xmx:74a9anhBNHB88LHwst52qfSLgee25CC83rWEMBkiKaLBmtWISFwTfA>
-    <xmx:74a9asMCevJLDsqFBWPyJgNAYbYFtuQ7DK19Ca3sO8z5oewGubaWJA>
-    <xmx:74a9auZwe4Ehqm-RoFo8rVkzkBJped0UgM-cY4FemIpKnMdh6mQMOQ>
-    <xmx:74a9ah_c9uDL884P0e1u19fneWBEhYj3z3xBmbBPwLjSzt2LI_5hzg>
-    <xmx:74a9ajrClykasys3hw2_ryqoUOh4n4UQLdNeRMA04s1D5lmidAs2sfK->
-Feedback-ID: i51fe4b43:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 30 Sep 2026 18:02:18 -0400 (EDT)
-Date: Thu, 01 Oct 2026 07:02:15 +0900 (JST)
-Message-Id: <20261001.070215.521963012921142699.tomo@flapping.org>
-To: ukleinek@kernel.org
-Cc: tomo@flapping.org, fustini@kernel.org, guoren@kernel.org,
- wefu@redhat.com, a.hindborg@kernel.org, acourbot@nvidia.com,
- aliceryhl@google.com, bjorn3_gh@protonmail.com, boqun@kernel.org,
- dakr@kernel.org, daniel.almeida@collabora.com, gary@garyguo.net,
- linux-riscv@lists.infradead.org, lossin@kernel.org,
- m.wilczynski@samsung.com, ojeda@kernel.org, tamird@kernel.org,
- tmgross@umich.edu, work@onurozkan.dev, linux-pwm@vger.kernel.org,
- rust-for-linux@vger.kernel.org, fujita.tomonori@gmail.com,
- stable@vger.kernel.org
-Subject: Re: [PATCH v2] pwm: th1520: Fix 32-bit build with COMPILE_TEST
-From: FUJITA Tomonori <tomo@flapping.org>
-In-Reply-To: <arz487DLBlaBrWLN@monoceros>
-References: <20260930101257.1649945-1-tomo@flapping.org>
-	<arz487DLBlaBrWLN@monoceros>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="jdWmQVgh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AECB1F000FF;
+	Wed, 30 Sep 2026 22:11:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1790806271;
+	bh=PvVNdBZrhLvbSzQ99WPPHWzLYyK2uS5akF0EqyEjuKs=;
+	h=Date:To:From:Subject;
+	b=jdWmQVghAKWW8fSJM2xjcuP62+vhl8Nk1NIZqnjihXX6GD8zRAQg0O7KLULO0S+f0
+	 OjIsLZxHIVRLpk/9wqqYh8TglkfgYz2aeKKM80EdQ8XKL19pKvW4dRBsyMgVtxu3TS
+	 1ak+3B+apSeviqYi1hfF1N0Foz739thQPLEiAY64=
+Date: Wed, 30 Sep 2026 15:11:10 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,jarkko@kernel.org,dhowells@redhat.com,4ncienth@gmail.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + assoc_array-discard-shortcut-when-collapsing-a-leaf-only-node.patch added to mm-hotfixes-unstable branch
+Message-Id: <20260930221111.7AECB1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: Text/Plain; charset=iso-8859-1
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, 30 Sep 2026 13:57:31 +0200
-Uwe Kleine-K=F6nig <ukleinek@kernel.org> wrote:
 
->> diff --git a/drivers/pwm/Kconfig b/drivers/pwm/Kconfig
->> index 729776086879..abecd95b0c3c 100644
->> --- a/drivers/pwm/Kconfig
->> +++ b/drivers/pwm/Kconfig
->> @@ -772,7 +772,7 @@ config PWM_TEGRA
->>  =
+The patch titled
+     Subject: assoc_array: discard shortcut when collapsing a leaf-only node
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     assoc_array-discard-shortcut-when-collapsing-a-leaf-only-node.patch
 
->>  config PWM_TH1520
->>  	tristate "TH1520 PWM support"
->> -	depends on ARCH_THEAD || COMPILE_TEST
->> +	depends on ARCH_THEAD || (COMPILE_TEST && 64BIT)
->>  	depends on RUST
->>  	depends on HAS_IOMEM && COMMON_CLK
->>  	select RUST_PWM_ABSTRACTIONS
-> =
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/assoc_array-discard-shortcut-when-collapsing-a-leaf-only-node.patch
 
-> Can't we do better than that? For C code the right thing to do is to =
-use
-> one of the div helpers instead of a plain / for types bigger than lon=
-g.
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Indeed. Rust code already uses some div helpers. However, the kernel
-crate does not have Rust wrappers for the helpers this driver needs,
-such as mul_u64_u64_div_u64(), so we need to add them first. The
-changes would be too large for stable.
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-So how about merging this as a fix? I will work on patches to use div
-helpers in the driver.
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Daehyeon Ko <4ncienth@gmail.com>
+Subject: assoc_array: discard shortcut when collapsing a leaf-only node
+Date: Fri, 25 Sep 2026 17:05:48 +0900
+
+assoc_array_delete() can collapse a subtree into a node that contains only
+leaves while retaining the shortcut that led to it.  If that node later
+fills, all_leaves_cluster_together replaces it with another shortcut.  The
+first shortcut then points directly to the second one.
+
+assoc_array_apply_edit() publishes this topology and propagates branch
+counts from the new child node.  It skips the inner shortcut, encounters
+the outer shortcut where it requires a node and triggers the BUG_ON().
+
+Linux v7.2 and v6.12.105 are affected.  The same root remains at the
+base-commit below and in every supported stable branch checked down to
+5.10.  It requires CONFIG_KEYS, but no capability, user namespace or race.
+A UID/GID 1000 process produced:
+
+  CONTROL_BEGIN mode=exact uid=1000 gid=1000
+  CONTROL_CapEff: 0000000000000000
+  kernel BUG at lib/assoc_array.c:1388!
+  Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+  CPU: 0 UID: 1000 PID: 154 Comm: exploit
+  RIP: assoc_array_apply_edit+0x4aa/0x690
+  Call Trace:
+   __key_link
+   __key_instantiate_and_link
+   __key_create_or_update
+   __do_sys_add_key
+  Kernel panic - not syncing: Fatal exception
+
+When deletion produces a leaf-only node, bypass its preceding shortcut as
+garbage collection already does.  Retire the shortcut and old node
+together after an RCU grace period; reused leaves keep their references
+and the deleted leaf is still freed separately.
+
+The exact trigger reached the BUG in 3/3 unmodified v7.2 KASAN boots and
+completed cleanly in 3/3 fixed boots.  Fixed v6.12.105 also passed 3/3.  A
+source reproducer is available privately on request.
+
+Link: https://lore.kernel.org/20260925080548.2505640-1-4ncienth@gmail.com
+Fixes: 3cb989501c26 ("Add a generic associative array implementation.")
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+Assisted-by: LLM
+Cc: David Howells <dhowells@redhat.com>
+Cc: <stable@vger.kernel.org>
+---
+
+ lib/assoc_array.c |   36 ++++++++++++++++++++++--------------
+ 1 file changed, 22 insertions(+), 14 deletions(-)
+
+--- a/lib/assoc_array.c~assoc_array-discard-shortcut-when-collapsing-a-leaf-only-node
++++ a/lib/assoc_array.c
+@@ -1210,8 +1210,22 @@ found_leaf:
+ 				goto enomem;
+ 			edit->new_meta[0] = assoc_array_node_to_ptr(new_n0);
+ 
+-			new_n0->back_pointer = node->back_pointer;
+-			new_n0->parent_slot = node->parent_slot;
++			/* A shortcut above a leaf-only node is redundant.  Drop it as
++			 * GC does so that a later split can't create two shortcuts in a row.
++			 */
++			ptr = node->back_pointer;
++			if (assoc_array_ptr_is_shortcut(ptr)) {
++				struct assoc_array_shortcut *s =
++					assoc_array_ptr_to_shortcut(ptr);
++
++				new_n0->back_pointer = s->back_pointer;
++				new_n0->parent_slot = s->parent_slot;
++				edit->excised_subtree = ptr;
++			} else {
++				new_n0->back_pointer = ptr;
++				new_n0->parent_slot = node->parent_slot;
++				edit->excised_subtree = assoc_array_node_to_ptr(node);
++			}
+ 			new_n0->nr_leaves_on_branch = node->nr_leaves_on_branch;
+ 			edit->adjust_count_on = new_n0;
+ 
+@@ -1225,21 +1239,15 @@ found_leaf:
+ 			pr_devel("collapsed %d,%lu\n", collapse.slot, new_n0->nr_leaves_on_branch);
+ 			BUG_ON(collapse.slot != new_n0->nr_leaves_on_branch - 1);
+ 
+-			if (!node->back_pointer) {
++			if (!new_n0->back_pointer) {
+ 				edit->set[1].ptr = &array->root;
+-			} else if (assoc_array_ptr_is_leaf(node->back_pointer)) {
+-				BUG();
+-			} else if (assoc_array_ptr_is_node(node->back_pointer)) {
+-				struct assoc_array_node *p =
+-					assoc_array_ptr_to_node(node->back_pointer);
+-				edit->set[1].ptr = &p->slots[node->parent_slot];
+-			} else if (assoc_array_ptr_is_shortcut(node->back_pointer)) {
+-				struct assoc_array_shortcut *s =
+-					assoc_array_ptr_to_shortcut(node->back_pointer);
+-				edit->set[1].ptr = &s->next_node;
++			} else {
++				struct assoc_array_node *p;
++
++				p = assoc_array_ptr_to_node(new_n0->back_pointer);
++				edit->set[1].ptr = &p->slots[new_n0->parent_slot];
+ 			}
+ 			edit->set[1].to = assoc_array_node_to_ptr(new_n0);
+-			edit->excised_subtree = assoc_array_node_to_ptr(node);
+ 		}
+ 	}
+ 
+_
+
+Patches currently in -mm which might be from 4ncienth@gmail.com are
+
+assoc_array-discard-shortcut-when-collapsing-a-leaf-only-node.patch
+ipc-mqueue-release-notification-resources-during-inode-eviction.patch
 
