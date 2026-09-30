@@ -1,75 +1,59 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.35.192.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7339E233942
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 04:21:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2DE23988F1;
+	Wed, 30 Sep 2026 04:23:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.35.192.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790742112; cv=none; b=TvRY714Jz/F56MeqovSq3IYeaIlmMT5TozU5IxPV7MgSd5DAihsMyJM2ILjL9p2Z9Wj3jE6ZV6Z8Hc0chjSzhinFRTiZYtcB+m8YSUAnHJ6GWSDWS8kw5ayCxyd4gEyxM4slqQmEVFlhCk8qlVUaNNHwJPBBOY1eKmCFCxwXzmY=
+	t=1790742229; cv=none; b=lh+j9srww16irO4JwrMiyaJfzT5CX3yuSVz1jvwhMiBDBnK8vOI13QrdoyEGfKnC259mlktpkr9++51zyq4Y8trhzYNodVmEAQBXBn91snQOumMBktfQ+nE34oJZwcY7u5d+lFCqwCjisSXWzRRoT8wlRSoq/lzybnDW7SpsaI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790742112; c=relaxed/simple;
-	bh=KlrsJ+xWx55By5AGQiDhl1NdRFnMonqmoIeuB7vdp5w=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Z07deNiD7xZQY2Q2QMtSecqkDKjN1MtBawQnNbrQpHn/EgtWPpIBCcMLPSrNnAgIqIpIJ/yNYVHuwHKk4+iRdUFMTIq+3ICkhTw55FFUwm/8CXEshFNm8Ok9RTV2hQW3ZLZyTrNXJPpcrNSZCJJUk7JcRpN1QRcp65eF/vL/70I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M6I1ZE8V; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790742229; c=relaxed/simple;
+	bh=tEvoVm92SRcc3wR2MAis5aion0yu5fgJNFcw/tBO724=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Wc1FXdvmMEmxnodbuOVA4UKUP57WPCgBfR/KyFp4qA36EOjJ/5WGo+alOA6L5mGADZjxXlk3s+xFBdZZHEfTPkGulSHp7AX1fgPGYwm6e5lMQgIOXd5xctMuwaoAjRA57Gx6GYUdaY3MjUCHXNvokTWExJW3X4+BGfV/KDGeYPI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=MkPkekU5; arc=none smtp.client-ip=52.35.192.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M6I1ZE8V"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccb1a98fso3551484a91.1
-        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 21:21:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="MkPkekU5"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790742111; x=1791346911; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lB7hyHSXLltAudB1hHTz2rUZpBJb7tlLLr+gvCXCEhQ=;
-        b=M6I1ZE8VQEL0mOxpa2ldxq5B70o2L1x7Pjf8x2D+eKezNYulT74YXRWCsGqKX3FalI
-         Lb2NfYn+L7VzRfazfa0lqwZ6C6FMLjoTvUC68md5tBQROsg3euwFmJx5vABJOQyRLlap
-         YaUZp5Mg5WxOViPynjOZtJHcBbw5rZuRMhENz5CniMbqGEtYOWPLjqG3DY1VNi0rI0yx
-         qITaw+sjlOiadPA5DZKe4VZS5W2uv/lSFH5zb3+Ekg9nonWmVhszr97zeTMnP+bsInbY
-         onmpPFtOBN8Z2YePob1Idlvr337JVW5585XX7t/mdLk18ijM4i2XeV+etplUGUJz5r02
-         AOfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790742111; x=1791346911;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lB7hyHSXLltAudB1hHTz2rUZpBJb7tlLLr+gvCXCEhQ=;
-        b=CyO9sNqADGCh8YgCvArdvBR+o+IAK8J0qG0CJ36HEt0a+5QDmjO0Rfkg5Fi4Dr4rr/
-         ST8w1asx2Vq7h3UTK4tY917qNcqLaKByeXOIJUMEFDGN82w8WCkuVrDXetGlCyIZV4Fz
-         /xKaudtCwmqsUcqZ/lFAKyM+gBXEvRN/15dfoq/6vxmDY+TQUKy7aac2fwACYPWxdDxX
-         FqLGe0IDX6VT9vbjArvxK3H3G4i1hoAUvPvXmy7VYMK0MDtwbei2bKKyp/7mVwc9RpHA
-         5zrC/buyDnycikRRBR1ISPfPZvITWXxvutm7hr09IbToApVpUslxO8WRfQapToI9i933
-         H2WQ==
-X-Forwarded-Encrypted: i=1; AKwUvByOaqfTt783dV4G1hPMXHaFi431xJQWzmSqE/uNL2MjWPtxL7n6SKL8x4Ucbl2vSZeFKGyQNWE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIR7gr5HNqJYCrhDrpNJ7WOBbYWSkC6xHsaCX7Ul3Ue4NwGuVW9
-	cH+NXBxzwh/6ub3rt6zD6udjk5LZtnhP6AdPsrQWlb3UIs57x8nZbs4Y
-X-Gm-Gg: AYBFou2U9/2Ej45orX1iMe+EIUT+FjKwbv2AnfR5LmxmdtW7lzTSN+Vdioo402WVk4A
-	4usSNxB0vjUzHJQDUJG/YE9gm/ppKVDrFgUUT5KaN4UFIFaaf3hGObIipzC7oFEfApHE63ClN2r
-	feNMrSkOI4bVY5kthnrzYNagUlzlT1H+lTXcK6a0DDsXMBTtzCq6Ii26aXxw+a4nuSmsFZNmRvD
-	EanTy1fKSN2EkKkW5zfz4ByZNedeDhlXvKgpUBuEw3YLrOFQOqaPWEADmnc3nIqii49pXfRpn/h
-	ykY+xMWAt/QRyUksbazVxd5fVOebKlcON/pfafBPyuIufno/d/0CA6o8TPiX62CLPorxSXf5ihX
-	91WMSVZ1eha3bYIEL7lCDFJDZDqOFsUBPMfyMmkxquL825Aix3G+lEf961KN69IfAN+mbEC+OI3
-	EoL2WavuWiErSNoic8cJffkC5IRCCFYDzwqw+Kt1AFbQ+24hLSJJqNt5n4SEx+OWjRN90BWniSa
-	GOMweZBbxmlxjdg5ZsW+f+ZSB5qkIB88XBjRK3Qzt6kgqP2vBHy7SZFxaBaf+3fO/yiHjo5tPpN
-	FNrS1AamSg==
-X-Received: by 2002:a17:90b:1d4e:b0:3a0:4023:bb09 with SMTP id 98e67ed59e1d1-3a4d193d3bfmr194422a91.56.1790742110485;
-        Tue, 29 Sep 2026 21:21:50 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com (25.187.82.34.bc.googleusercontent.com. [34.82.187.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4cdf25c6csm857427a91.5.2026.09.29.21.21.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 21:21:50 -0700 (PDT)
-From: Hui Peng <benquike@gmail.com>
-To: Jan Kara <jack@suse.cz>
-Cc: Matthias Goergens <matthias.goergens@gmail.com>,
-	Anders Larsen <al@alarsen.net>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hui Peng <benquike@gmail.com>
-Subject: [PATCH v2] isofs: bound empty directory blocks in isofs_read_level3_size()
-Date: Wed, 30 Sep 2026 04:21:48 +0000
-Message-ID: <20260930042148.169831-1-benquike@gmail.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1790742226; x=1822278226;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=RQ6LqhJbtStj/8tHMNPMmnW3TQt00oYBZzWuVKWCB3Q=;
+  b=MkPkekU582gC53PSM1CoPia5UWPvOuE3oMzmgA1SIwNtySYw+58tOogn
+   K70KFW3r0AGTsY8zffuMiW1VsS0OZh0AsLfie50qjN8Hwk15MiGcPEkAk
+   O2tb+zrMtirAMBWzoVsjUGLMX1bvCZsXxrbxYUfXzN9n/vnU9HFnNZgxu
+   FcD2ZWL1rCfEknBzt6CWKUH/crKrTiltUWU/cc/dqSr8FF/nKcpxiec7I
+   7zK0INTFRrqlYTilYSRfLVXBJ+Zd072X+jlG4gQgBR/P+1ocX5quVQT6u
+   b4SHpAek0XqJOsoenchqPTyyFWWxJtOZm8ze8KP3M6TZcfpCTT499vJdP
+   w==;
+X-CSE-ConnectionGUID: cdD7yDeQRGqxoLYNo2TGHg==
+X-CSE-MsgGUID: aIOTW6p8QnOm+r5EJIID6w==
+X-IronPort-AV: E=Sophos;i="6.27,130,1787011200"; 
+   d="scan'208";a="29768869"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+  by internal-pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 04:23:45 +0000
+Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.234:20470]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.2.150:2525] with esmtp (Farcaster)
+ id 1ec46623-0066-4971-b55b-0db7cef9ddf5; Wed, 30 Sep 2026 04:23:45 +0000 (UTC)
+X-Farcaster-Flow-ID: 1ec46623-0066-4971-b55b-0db7cef9ddf5
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Wed, 30 Sep 2026 04:23:45 +0000
+Received: from 6c7e67c92ceb.amazon.com (10.187.170.60) by
+ EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Wed, 30 Sep 2026 04:23:45 +0000
+From: Nathan Gao <zcgao@amazon.com>
+To: Ming Lei <tom.leiming@gmail.com>, Jens Axboe <axboe@kernel.dk>
+CC: <linux-block@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>, Nathan Gao <zcgao@amazon.com>
+Subject: [PATCH] ublk: return from ublk_wait_dev_ready_and_lock() on group exit
+Date: Tue, 29 Sep 2026 21:23:35 -0700
+Message-ID: <20260930042335.16199-1-zcgao@amazon.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -77,92 +61,86 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D036UWC003.ant.amazon.com (10.13.139.214) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-isofs_read_level3_size() walks the sections of a level-3 (multi-extent)
-directory record and, on encountering a zero length byte (de_len == 0),
-moves on to the next block without bound. A crafted image with a long run
-of empty blocks between two sections of a multi-extent file can force the
-walk to read every block to the end of the device.
+START_DEV and END_USER_RECOVERY wait in ublk_wait_dev_ready_and_lock()
+until the server has issued a FETCH for every I/O tag. ublk defers both
+commands to io-wq, so the wait runs on one of the server's io-wq
+workers.
 
-Count empty blocks (de_len == 0 at offset == 0) towards the existing
-100-section limit. Track empty_blocks in a separate variable from section
-count 'i' rather than incrementing 'i' directly, because 'if (i == 1)'
-records the start of the second section (ei->i_next_section_block/offset);
-incrementing 'i' on empty blocks before the second section is read would
-cause 'i' to jump past 1, leaving the next-section pointer uninitialized
-(0) and reading past the first extent into unrelated disk data.
+If the server is killed after fetching only some of the tags, the device
+can never become ready, and the wait can only end on a signal. The
+worker receives the SIGKILL too, but io-wq workers consume it without
+exiting and then run the queued command anyway, so the wait starts with
+no signal pending and never wakes up. Meanwhile the dying server waits
+for that worker in io_wq_put_and_exit(), because io_uring_files_cancel()
+does not cancel a uring_cmd on a non-io_uring file.
 
-Tested in QEMU against Linux 7.3.0-rc3 with KASAN enabled using a crafted
-ISO image containing 150 consecutive empty blocks between two extents:
-on the unfixed kernel the loop reads all 150 blocks; whereas with this fix
-applied, the loop aborts with "isofs_read_level3_size: More than 100 file
-sections/empty blocks ?!?".
+The server is left unkillable in D state, and a warning shows up in
+dmesg from WARN_ON_ONCE(time_after(jiffies, warn_timeout)) in
+io_wq_exit_workers():
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+  WARNING: io_uring/io-wq.c:1373 at io_wq_put_and_exit+0x10f/0x2d0, CPU#5: kublk/215924
+  Call Trace:
+   io_uring_clean_tctx+0x85/0xb0
+   io_uring_cancel_generic+0x171/0x340
+   do_exit+0xb7/0x470
+   do_group_exit+0x2c/0x80
+   get_signal+0x8f8/0x940
+   arch_do_signal_or_restart+0x24/0xf0
+   exit_to_user_mode_loop+0xed/0x440
+   do_syscall_64+0x22d/0x500
+   entry_SYSCALL_64_after_hwframe+0x76/0x7e
+
+tools/testing/selftests/ublk/test_generic_17.sh, which kills the server
+part-way through a recovery fetch, hits this in a few percent of runs.
+
+Fix it by returning -EINTR at the top of the wait loop once
+SIGNAL_GROUP_EXIT is set. The flag lives in the signal_struct shared by
+all threads, is set before SIGKILL is sent to each of them, and is never
+cleared, so the worker still sees it after its SIGKILL is gone. If the
+kill arrives after the check, the worker is woken with SIGKILL pending
+and the wait is interrupted as before.
+
+The hang goes back to commit fa8e442e832a ("ublk: honor
+IO_URING_F_NONBLOCK for handling control command"), which moved these
+commands onto io-wq; before it, the wait ran in the thread that receives
+the fatal signal.
+
+Fixes: fa8e442e832a ("ublk: honor IO_URING_F_NONBLOCK for handling control command")
 Cc: stable@vger.kernel.org
-Suggested-by: Jan Kara <jack@suse.cz>
-Co-developed-by: Matthias Goergens <matthias.goergens@gmail.com>
-Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
 Assisted-by: LLM
-Signed-off-by: Hui Peng <benquike@gmail.com>
+Signed-off-by: Nathan Gao <zcgao@amazon.com>
 ---
-Changes in v2:
-- Document in code comment why empty_blocks is tracked separately from
-  section count 'i' rather than incrementing 'i' directly (preserving
-  the 'if (i == 1)' check for the second section pointer), answering Jan
-  Kara's reviewer feedback.
+Tested on v7.3-rc5: unpatched, test_generic_17.sh hangs within 3-45
+iterations; patched, 150 iterations with no hang.
 
-Changes in v1:
-- Combined section and empty-block bounds check into i + empty_blocks > 100.
+ drivers/block/ublk_drv.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
- fs/isofs/inode.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
+index 66eb55e7162e..dac3084cb86a 100644
+--- a/drivers/block/ublk_drv.c
++++ b/drivers/block/ublk_drv.c
+@@ -4440,6 +4440,14 @@ static bool ublk_validate_user_pid(struct ublk_device *ub, pid_t ublksrv_pid)
+ static int ublk_wait_dev_ready_and_lock(struct ublk_device *ub)
+ {
+ 	while (true) {
++		/*
++		 * A dying server can never make the device ready. On an io-wq
++		 * worker the SIGKILL may already have been consumed, so check
++		 * the group exit flag rather than signal_pending().
++		 */
++		if (READ_ONCE(current->signal->flags) & SIGNAL_GROUP_EXIT)
++			return -EINTR;
++
+ 		if (wait_var_event_interruptible(&ub->nr_queue_ready,
+ 						 ublk_dev_ready(ub)))
+ 			return -EINTR;
 
-diff --git a/fs/isofs/inode.c b/fs/isofs/inode.c
-index 184350d2e6ad..d7b324029a1b 100644
---- a/fs/isofs/inode.c
-+++ b/fs/isofs/inode.c
-@@ -1173,6 +1173,7 @@ static int isofs_read_level3_size(struct inode *inode)
- 	struct buffer_head *bh = NULL;
- 	unsigned long block, offset, block_saved, offset_saved;
- 	int i = 0;
-+	int empty_blocks = 0;
- 	int more_entries = 0;
- 	struct iso_directory_record *tmpde = NULL;
- 	struct iso_inode_info *ei = ISOFS_I(inode);
-@@ -1200,6 +1201,17 @@ static int isofs_read_level3_size(struct inode *inode)
- 		de_len = *(unsigned char *) de;
+base-commit: 551c722f40809618230001baccf219193e22fc5a
+-- 
+2.50.1
 
- 		if (de_len == 0) {
-+			/*
-+			 * A zero length byte at the start of a block (offset == 0)
-+			 * means the whole block is empty. Count that towards the
-+			 * same 100 limit as file sections, or a chain of empty
-+			 * blocks could be walked without bound.
-+			 * Track empty_blocks separately from section count 'i'
-+			 * so that 'if (i == 1)' correctly identifies the start of
-+			 * the second section even if an empty block precedes it.
-+			 */
-+			if (offset == 0 && ++empty_blocks + i > 100)
-+				goto out_toomany;
- 			brelse(bh);
- 			bh = NULL;
- 			++block;
-@@ -1241,7 +1253,7 @@ static int isofs_read_level3_size(struct inode *inode)
- 		more_entries = de->flags[-high_sierra] & 0x80;
-
- 		i++;
--		if (i > 100)
-+		if (i + empty_blocks > 100)
- 			goto out_toomany;
- 	} while (more_entries);
- out:
-@@ -1258,7 +1270,7 @@ static int isofs_read_level3_size(struct inode *inode)
- 	return -EIO;
-
- out_toomany:
--	printk(KERN_INFO "%s: More than 100 file sections ?!?, aborting...\n"
-+	printk(KERN_INFO "%s: More than 100 file sections/empty blocks ?!?, aborting...\n"
- 		"isofs_read_level3_size: inode=%llu\n",
- 		__func__, inode->i_ino);
- 	goto out;
