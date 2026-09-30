@@ -1,38 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE4CF518133;
-	Wed, 30 Sep 2026 16:10:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04AA1519DF2;
+	Wed, 30 Sep 2026 16:10:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790784629; cv=none; b=TROmymomewcl09FwEbpcKzC+iKPtvKMPUOJqL23oH8gTdzVKgVPGTAdwloufMSSfUPWZVD7Do+vEFE6kl3BkO5ZDnIBbcj2XKRcIBf/AJQVWPATq5nLZRMqhJQ/rtXI9AEq7HK3l+eiVGkFyMOeZJN6sYCkPtOsVOMoe36TcwRw=
+	t=1790784634; cv=none; b=EnvJ0r0GFMHt0WvR3ObZp7keEheaG04rkjdCWCaSixmEGasWiEwTDX1t5156pzZ8mBMK7La6zZyFv4wGdLST3yxjS8GnEmJZNmoTx/yqLANZRHjTssYFg2KdcarQZXg19SFJcjvyeAN9S9pSZ/0+LLKFsLJCCN7bWrRqWSRX788=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790784629; c=relaxed/simple;
-	bh=tHNFcKB1cyDrYPmInQkcME2Do94EEDBi+3CFseC/SJA=;
+	s=arc-20240116; t=1790784634; c=relaxed/simple;
+	bh=GDNf+o/PZVt2Ay930QQWHyxQJL99J4VvOPaA9nTqg38=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MlQAFOtXgz19g/cX5AFZY1g9cp9ItQN3zeynNgnvGZtZ7gR4LuS73NoNdhdgYSvaAkpY76pQKva8Jlv0IS6Jz/ack/yHYx8tCJ90JNlu88mMB9n0XDEskfC1F94IrcCkb7azCvDlUj32FNMmS6kDNPenFBfNk+5/zJscbhyKalU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=b8HnyqxW; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=VI7onvCQp9BtM6KCjS/s/Ew2QNy/CFyUdhp2Fd6clSe6+X8tWNEuxcQjSkhTmczeTM2I2sxZ7pug9s1QrJlKDzV+h04ZsXH8wbXZbsIIqrA+0OiXpuQQErlK8T+gYF9OQfHmrK/WFVaq/EJsBdFR7qKF2Om87tI7OuRVhYGqprw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=FDg5jrjw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="b8HnyqxW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A8C61F000FF;
-	Wed, 30 Sep 2026 16:10:20 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="FDg5jrjw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F19DB1F00898;
+	Wed, 30 Sep 2026 16:10:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790784620;
-	bh=9okC6m329XxuN89Kvy2oQ+672yoEPcBNUDT+u9ITVB8=;
+	s=korg; t=1790784626;
+	bh=q2KHmVpAghKsu70wvnndZ+EAebnuEGMDa8NaUG4grDA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=b8HnyqxWXelMoDJnJ1B2syt2yz5MiVUenSa4VrkjNpmnRAQKXyxXHSOS8IE6WI3gZ
-	 eT/8Kp4poWFUZYtj0VRMvyHQk5WUnhIkoHDz3ylGBsahLsZRb7RUx8p+BkitmQQ/Wn
-	 YnOvugXyFdN1bJVS1OZQxIcIw2oMekghGNwIIcn8=
+	b=FDg5jrjwwFTNA0DRdVcuUr60/VrJCGEdQCm3WrXsPzrG2ogd2IYPkF/cb5+YAyIMx
+	 n94J76Vu3UukeQSw5JFdNA/5ktq7CWWGdTC3paxHnyTowjKtXUqxrkh4kifUS/W2Ub
+	 /gsbSlDR53Asfrjw2SyRHeLmZ5k4ArVKVbCzT4dQ=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Steve French <stfrench@microsoft.com>,
+	Shuan He <heshuan@bytedance.com>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 221/982] ksmbd: start file id allocation at 1
-Date: Wed, 30 Sep 2026 17:15:57 +0200
-Message-ID: <20260930152421.548984019@linuxfoundation.org>
+Subject: [PATCH 6.1 223/982] PCI/proc: Fix race between pci_proc_init() and pci_bus_add_device()
+Date: Wed, 30 Sep 2026 17:15:59 +0200
+Message-ID: <20260930152421.590094788@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
 References: <20260930152416.775402466@linuxfoundation.org>
@@ -45,72 +46,195 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 6.1-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Namjae Jeon <linkinjeon@kernel.org>
+From: Krzysztof Wilczyński <kwilczynski@kernel.org>
 
-[ Upstream commit 6b375be0b4e1be89e9a817880515311503a19114 ]
+[ Upstream commit 8857f6578b001bcf5f53c8c6a3936647f05291a8 ]
 
-ksmbd allocates both the volatile id (per-session file table) and the
-persistent id (global file table) with idr_alloc_cyclic() starting at 0.
-The first open after the module loads therefore gets volatile id 0 and
-persistent id 0, and ksmbd returns an SMB2 FileId of {0, 0} in the create
-response.
+pci_proc_attach_device() creates procfs entries for PCI devices and is
+called from pci_bus_add_device().  It lazily creates the per-bus procfs
+directory (bus->procdir) via proc_mkdir() on first use, and returns early
+if proc_initialized is not yet set.
 
-Clients treat an all-zero FileId as a null handle. smbtorture's
-smb2_util_handle_empty() considers {0, 0} empty, so tests that guard the
-close with it (e.g. smb2.oplock.statopen1, smb2.lease.statopen*) never
-close that first handle. The leaked open keeps the inode's oplock count
-non-zero, so a later batch oplock request on the same file is downgraded
-to level II and the test fails.
+On x86 with ACPI, PCI enumeration occurs at subsys_initcall, before
+pci_proc_init() sets proc_initialized at device_initcall.  The
+for_each_pci_dev() loop in pci_proc_init() then creates procfs entries for
+these already-enumerated devices, but runs without holding
+pci_rescan_remove_lock.
 
-Start the id allocation at 1 (KSMBD_START_FID) so no handle is ever
-assigned a {0, 0} FileId, matching the behaviour of other SMB servers.
+On ARM64 with devicetree, PCI host bridges probe at device_initcall.  With
+async probing enabled, pci_bus_add_device() can run concurrently with
+pci_proc_init(), and both may call pci_proc_attach_device() for the same
+device or for different devices on the same bus.  As pci_host_probe() holds
+pci_rescan_remove_lock while pci_proc_init() does not, there is no
+serialisation between the two paths.
 
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Steve French <stfrench@microsoft.com>
+When two threads concurrently call pci_proc_attach_device() for devices on
+the same bus, both observe bus->procdir as NULL and both call proc_mkdir().
+The proc filesystem serialises directory creation internally, so only one
+caller succeeds.  The other results in a warning like:
+
+  proc_dir_entry '000c:00/00.0' already registered
+
+The caller receives NULL (duplicate entry) and unconditionally stores it to
+bus->procdir, corrupting the valid pointer set by the first caller.
+
+Serialise access to proc_initialized, proc_bus_pci_dir, bus->procdir and
+dev->procent with a new mutex local to drivers/pci/proc.c, and store the
+created entries to bus->procdir and dev->procent only on success, so a
+failed creation can never overwrite a valid pointer.
+
+Additionally, wrap the for_each_pci_dev() loop in pci_proc_init() with
+pci_lock_rescan_remove() to serialise against concurrent PCI bus
+operations, add an early return in pci_proc_attach_device() when
+dev->procent is already set to make the function idempotent, and clear
+bus->procdir in pci_proc_detach_bus() to prevent use of a dangling pointer
+after proc_remove().
+
+Reported-by: Shuan He <heshuan@bytedance.com>
+Closes: https://lore.kernel.org/linux-pci/20250702155112.40124-2-heshuan@bytedance.com/
+Signed-off-by: Krzysztof Wilczyński <kwilczynski@kernel.org>
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Link: https://lore.kernel.org/r/20260611150543.511422-1-kwilczynski@kernel.org
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/server/vfs_cache.c | 3 ++-
- fs/smb/server/vfs_cache.h | 7 ++++++-
- 2 files changed, 8 insertions(+), 2 deletions(-)
+ drivers/pci/proc.c | 79 ++++++++++++++++++++++++++++++++--------------
+ 1 file changed, 56 insertions(+), 23 deletions(-)
 
-diff --git a/fs/smb/server/vfs_cache.c b/fs/smb/server/vfs_cache.c
-index 5b3a55bd700dc..9eb9f892ac2b5 100644
---- a/fs/smb/server/vfs_cache.c
-+++ b/fs/smb/server/vfs_cache.c
-@@ -556,7 +556,8 @@ static int __open_id(struct ksmbd_file_table *ft, struct ksmbd_file *fp,
+diff --git a/drivers/pci/proc.c b/drivers/pci/proc.c
+index ac3c105fcf8fc..2967e4d2918dc 100644
+--- a/drivers/pci/proc.c
++++ b/drivers/pci/proc.c
+@@ -20,6 +20,7 @@
+ #include "pci.h"
  
- 	idr_preload(GFP_KERNEL);
- 	write_lock(&ft->lock);
--	ret = idr_alloc_cyclic(ft->idr, fp, 0, INT_MAX - 1, GFP_NOWAIT);
-+	ret = idr_alloc_cyclic(ft->idr, fp, KSMBD_START_FID, INT_MAX - 1,
-+			       GFP_NOWAIT);
- 	if (ret >= 0) {
- 		id = ret;
- 		ret = 0;
-diff --git a/fs/smb/server/vfs_cache.h b/fs/smb/server/vfs_cache.h
-index 8d1bf34eb4a18..ffa2737e279af 100644
---- a/fs/smb/server/vfs_cache.h
-+++ b/fs/smb/server/vfs_cache.h
-@@ -22,7 +22,12 @@
- #define	FILE_GENERIC_WRITE	0x120116
- #define	FILE_GENERIC_EXECUTE	0X1200a0
+ static int proc_initialized;	/* = 0 */
++static DEFINE_MUTEX(pci_proc_lock);
  
--#define KSMBD_START_FID		0
-+/*
-+ * Start volatile/persistent file id allocation at 1. A file id of 0 yields an
-+ * SMB2 FileId of {0, 0}, which clients (e.g. Windows, Samba) treat as a null
-+ * handle and never close, leaking the open on the server.
-+ */
-+#define KSMBD_START_FID		1
- #define KSMBD_NO_FID		(INT_MAX)
- #define SMB2_NO_FID		(0xFFFFFFFFFFFFFFFFULL)
+ static loff_t proc_bus_pci_lseek(struct file *file, loff_t off, int whence)
+ {
+@@ -426,40 +427,64 @@ static const struct seq_operations proc_bus_pci_devices_op = {
  
+ static struct proc_dir_entry *proc_bus_pci_dir;
+ 
+-int pci_proc_attach_device(struct pci_dev *dev)
++static int __pci_proc_attach_bus(struct pci_bus *bus)
+ {
+-	struct pci_bus *bus = dev->bus;
+-	struct proc_dir_entry *e;
++	struct proc_dir_entry *dir;
+ 	char name[16];
+ 
++	lockdep_assert_held(&pci_proc_lock);
++
+ 	if (!proc_initialized)
+ 		return -EACCES;
+ 
+-	if (!bus->procdir) {
+-		if (pci_proc_domain(bus)) {
+-			sprintf(name, "%04x:%02x", pci_domain_nr(bus),
+-					bus->number);
+-		} else {
+-			sprintf(name, "%02x", bus->number);
+-		}
+-		bus->procdir = proc_mkdir(name, proc_bus_pci_dir);
+-		if (!bus->procdir)
+-			return -ENOMEM;
+-	}
++	if (bus->procdir)
++		return 0;
++
++	if (pci_proc_domain(bus))
++		sprintf(name, "%04x:%02x", pci_domain_nr(bus), bus->number);
++	else
++		sprintf(name, "%02x", bus->number);
++
++	dir = proc_mkdir(name, proc_bus_pci_dir);
++	if (!dir)
++		return -ENOMEM;
++
++	bus->procdir = dir;
++
++	return 0;
++}
++
++int pci_proc_attach_device(struct pci_dev *dev)
++{
++	struct pci_bus *bus = dev->bus;
++	struct proc_dir_entry *entry;
++	char name[16];
++	int ret;
++
++	guard(mutex)(&pci_proc_lock);
++
++	if (dev->procent)
++		return 0;
++
++	ret = __pci_proc_attach_bus(bus);
++	if (ret)
++		return ret;
+ 
+ 	sprintf(name, "%02x.%x", PCI_SLOT(dev->devfn), PCI_FUNC(dev->devfn));
+-	e = proc_create_data(name, S_IFREG | S_IRUGO | S_IWUSR, bus->procdir,
+-			     &proc_bus_pci_ops, dev);
+-	if (!e)
++	entry = proc_create_data(name, S_IFREG | S_IRUGO | S_IWUSR,
++				 bus->procdir, &proc_bus_pci_ops, dev);
++	if (!entry)
+ 		return -ENOMEM;
+-	proc_set_size(e, dev->cfg_size);
+-	dev->procent = e;
++
++	proc_set_size(entry, dev->cfg_size);
++	dev->procent = entry;
+ 
+ 	return 0;
+ }
+ 
+ int pci_proc_detach_device(struct pci_dev *dev)
+ {
++	guard(mutex)(&pci_proc_lock);
+ 	proc_remove(dev->procent);
+ 	dev->procent = NULL;
+ 	return 0;
+@@ -467,19 +492,27 @@ int pci_proc_detach_device(struct pci_dev *dev)
+ 
+ int pci_proc_detach_bus(struct pci_bus *bus)
+ {
++	guard(mutex)(&pci_proc_lock);
+ 	proc_remove(bus->procdir);
++	bus->procdir = NULL;
+ 	return 0;
+ }
+ 
+ static int __init pci_proc_init(void)
+ {
+ 	struct pci_dev *dev = NULL;
+-	proc_bus_pci_dir = proc_mkdir("bus/pci", NULL);
+-	proc_create_seq("devices", 0, proc_bus_pci_dir,
+-		    &proc_bus_pci_devices_op);
+-	proc_initialized = 1;
++
++	scoped_guard(mutex, &pci_proc_lock) {
++		proc_bus_pci_dir = proc_mkdir("bus/pci", NULL);
++		proc_create_seq("devices", 0, proc_bus_pci_dir,
++				&proc_bus_pci_devices_op);
++		proc_initialized = 1;
++	}
++
++	pci_lock_rescan_remove();
+ 	for_each_pci_dev(dev)
+ 		pci_proc_attach_device(dev);
++	pci_unlock_rescan_remove();
+ 
+ 	return 0;
+ }
 -- 
 2.53.0
 
