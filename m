@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0315850279A
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 18:01:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCE1751993C;
+	Wed, 30 Sep 2026 18:01:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790791307; cv=none; b=GP3pXSbGlTpx0bzPoMbYokNuVpAU2LV+ndko84HTUDMCuIY00k1IYxStUHtYc4HjBXKYqqMOHHIdZU/3CU68+EOrAjfnaXyoVkVGfacRd/XOuhkenWzqLR2HQqxq+mKdTpOwNLmNKKkdU8izGtzVPCjeR5z48gJ3EnmarCaFWi0=
+	t=1790791308; cv=none; b=U9DmVvLNMOfETpECa6FkOZNYT7UfeiW5xfL4/gIu8nT8AXiLaixvoJQvqFA7IBJo2+RuyDbOVVyYvmuGzwVlyVd3Aifturoze3VIRm+hazA9ygBuB999/xopZPit8guVnKJ1+iGMsQ/11dEjbKzVG9i+cGBNcJoC3X5J2XT6FDY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790791307; c=relaxed/simple;
-	bh=fVsgPq0whtRKYAYetz0qKAjZkIA0410CSa0uKAt8mJw=;
+	s=arc-20240116; t=1790791308; c=relaxed/simple;
+	bh=O425LNdSSXEWxd9UvqUsgwVjEu6O3B8DGlw+AsZos3g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kUYqxh914xXIJygBBcKMFWiAfp9snb0kF+vIbOtBkEbxITz6GH7AIWAtM2vC3l9uTyh7wjmPkJeHKZ38PCDMgHQVOk7ZDXqrwwjouVxjeolUGIGRG6AsWCzCgONe5gMFkR9z4sDoEwEBxpyjE9p0Oc08DEStHg5YB0v2vkvgaD8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FJdKoe8e; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=dI6S6XF5gEz4LY/v7aO4gi7VOZPabUa1yKB/Cpct9ocl40DEnFESlK9F047egDRZpkzyQVgke5jXSMn5zdZ12mR9uoXnZcwZ03GACDXYbNsAqb07w+OV5WJ/rs4vSmY2kimCqHR7jgsuLz9kMEh+c48gZFhvTZA1kd9BGa0hACI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xlmZEm8Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FJdKoe8e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04B4B1F00898;
-	Wed, 30 Sep 2026 18:01:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790791305;
-	bh=UNcKXy9LxcWA2K2grlLwIw7eg0iTlqpm5qXxsdncbtI=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xlmZEm8Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 177231F000FF;
+	Wed, 30 Sep 2026 18:01:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790791306;
+	bh=t8xiukdxInfoGwiAKaw9kTMFvFB239RxY+WYY5M+fRs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FJdKoe8eXiAaVHL2SiITs6+2jOb24XmpG3xy2i3+DmaBbUuwaOd6KrISYssDE83YY
-	 v3G120VILVPmpydFOjvHWIj/5wVO5cafcCgbb8hY2y+10xsUDHEDH0f6PGJOeQCLnb
-	 HAyOo272kKzK4kGWsgRkqA3NQakIakBhc6sR1gkoHqzZ2fiyGgPAvj6/JHJwgWwKue
-	 hWYPXeGd7SLQ2t84eZZaa1yezQZB0D/bgFppK0umzoBY+nQyWhTVNJfGtwxRdTX8AR
-	 3e8tkQ8zyWAsBLXfsEmiqnK/cz8sCKTOA8humpPIC4MUQghdOlhQ06RzQncNJI/X1B
-	 2v4JEz6KAgFaw==
-From: Sasha Levin <sashal@kernel.org>
+	b=xlmZEm8ZZSFj63y1rUH7YMQYLylgRY55GTR1mDwFDJ1XhZN/mW2wWk3PBsq88TxE9
+	 HWz3IKrluQbryoyvf4++UII3ngHoD1KJaLyjau8KDw6/8jw7Eors4h7WovNIjz8YyX
+	 l9L/xscLbrWIJdbzxyIL8JczyerkM+Fm7xK7xtZE=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Paulo Alcantara <pc@manguebit.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Steve French <stfrench@microsoft.com>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Linus Walleij <linusw@kernel.org>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/3] smb: client: prevent new fids from being removed by laundromat
-Date: Wed, 30 Sep 2026 14:01:41 -0400
-Message-ID: <20260930180143.3974994-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092902-hacksaw-legwork-e770@gregkh>
-References: <2026092902-hacksaw-legwork-e770@gregkh>
+Subject: [PATCH 5.15 255/752] ASoC: ab8500: Reset the audio block before configuring it
+Date: Wed, 30 Sep 2026 17:22:05 +0200
+Message-ID: <20260930152403.797875863@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930152358.131179731@linuxfoundation.org>
+References: <20260930152358.131179731@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,217 +47,90 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Paulo Alcantara <pc@manguebit.com>
+5.15-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 81ba10959970d15c388bf29866b01b62f387e6a3 ]
+------------------
 
-Check if @cfid->time is set in laundromat so we guarantee that only
-fully cached fids will be selected for removal.  While we're at it,
-add missing locks to protect access of @cfid fields in order to avoid
-races with open_cached_dir() and cfids_laundromat_worker(),
-respectively.
+From: Linus Walleij <linusw@kernel.org>
 
-Signed-off-by: Paulo Alcantara (SUSE) <pc@manguebit.com>
-Reviewed-by: Shyam Prasad N <sprasad@microsoft.com>
-Signed-off-by: Steve French <stfrench@microsoft.com>
+[ Upstream commit 8e839bca7793a0b03c005f4b2b0825464290d425 ]
 
-Stable dependency adaptation for d2ff5fb93ea8:
+ResetAudn is active low, but the codec probe only deasserts it. It also
+clears Clk32kOut2Dis despite claiming to disable that output, and writes
+codec registers before releasing reset.
 
-The 6.1 tree has no cached-directory laundromat worker or its supporting
-fields, so omit the worker-only hunks instead of introducing that feature.
+Pulse ResetAudn before the first audio-bank access and leave the unused
+32 kHz output disabled.
 
-Keep the cache lookup and existing-lease check under one list lock, and
-protect response parsing and publication of the cached directory. Move
-the tcon assignment ahead of the request so the target's compound-response
-error path can close a successful CREATE.
-
-Use the existing close_cached_dir() for common error cleanup. Track whether
-the prospective lease reference was handed to the cache so a concurrent
-lease break cannot cause cleanup to drop that reference twice. Keep the
-response and final cleanup context needed for d2ff5fb93ea8 to apply without
-changes. No functions are added.
-
-Stable-dep-of: d2ff5fb93ea8 ("smb: client: clean up failed cached directory opens")
+Fixes: 679d7abdc754 ("ASoC: codecs: Add AB8500 codec-driver")
+Assisted-by: LLM
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+Link: https://patch.msgid.link/20260831-ab8500-codec-fixes-v1-1-f85024e717e3@kernel.org
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/cached_dir.c | 60 ++++++++++++++++++--------------------
- 1 file changed, 28 insertions(+), 32 deletions(-)
+ sound/soc/codecs/ab8500-codec.c | 26 +++++++++++++-------------
+ 1 file changed, 13 insertions(+), 13 deletions(-)
 
-diff --git a/fs/smb/client/cached_dir.c b/fs/smb/client/cached_dir.c
-index fca8656929399..f6c72c6567f9d 100644
---- a/fs/smb/client/cached_dir.c
-+++ b/fs/smb/client/cached_dir.c
-@@ -22,7 +22,6 @@ static struct cached_fid *find_or_create_cached_dir(struct cached_fids *cfids,
+diff --git a/sound/soc/codecs/ab8500-codec.c b/sound/soc/codecs/ab8500-codec.c
+index eaf12c28db83b..4b472f4f64f28 100644
+--- a/sound/soc/codecs/ab8500-codec.c
++++ b/sound/soc/codecs/ab8500-codec.c
+@@ -1919,18 +1919,18 @@ enum ab8500_filter {
+ static int ab8500_audio_init_audioblock(struct snd_soc_component *component)
  {
- 	struct cached_fid *cfid;
+ 	int status;
++	u8 mask = AB8500_STW4500CTRL3_CLK32KOUT2DIS |
++		  AB8500_STW4500CTRL3_RESETAUDN;
  
--	spin_lock(&cfids->cfid_list_lock);
- 	list_for_each_entry(cfid, &cfids->entries, entry) {
- 		if (!strcmp(cfid->path, path)) {
- 			/*
-@@ -31,25 +30,20 @@ static struct cached_fid *find_or_create_cached_dir(struct cached_fids *cfids,
- 			 * being deleted due to a lease break.
- 			 */
- 			if (!cfid->has_lease) {
--				spin_unlock(&cfids->cfid_list_lock);
- 				return NULL;
- 			}
- 			kref_get(&cfid->refcount);
--			spin_unlock(&cfids->cfid_list_lock);
- 			return cfid;
- 		}
- 	}
- 	if (lookup_only) {
--		spin_unlock(&cfids->cfid_list_lock);
- 		return NULL;
- 	}
- 	if (cfids->num_entries >= MAX_CACHED_FIDS) {
--		spin_unlock(&cfids->cfid_list_lock);
- 		return NULL;
- 	}
- 	cfid = init_cached_dir(path);
- 	if (cfid == NULL) {
--		spin_unlock(&cfids->cfid_list_lock);
- 		return NULL;
- 	}
- 	cfid->cfids = cfids;
-@@ -57,7 +51,6 @@ static struct cached_fid *find_or_create_cached_dir(struct cached_fids *cfids,
- 	list_add(&cfid->entry, &cfids->entries);
- 	cfid->on_list = true;
- 	kref_get(&cfid->refcount);
--	spin_unlock(&cfids->cfid_list_lock);
- 	return cfid;
+ 	dev_dbg(component->dev, "%s: Enter.\n", __func__);
+ 
+-	/* Reset audio-registers and disable 32kHz-clock output 2 */
+-	status = ab8500_sysctrl_write(AB8500_STW4500CTRL3,
+-				AB8500_STW4500CTRL3_CLK32KOUT2DIS |
+-					AB8500_STW4500CTRL3_RESETAUDN,
+-				AB8500_STW4500CTRL3_RESETAUDN);
++	/* Reset the audio registers and disable the unused 32 kHz output. */
++	status = ab8500_sysctrl_write(AB8500_STW4500CTRL3, mask,
++				      AB8500_STW4500CTRL3_CLK32KOUT2DIS);
+ 	if (status < 0)
+ 		return status;
+ 
+-	return 0;
++	return ab8500_sysctrl_write(AB8500_STW4500CTRL3, mask, mask);
  }
  
-@@ -143,6 +136,7 @@ int open_cached_dir(unsigned int xid, struct cifs_tcon *tcon,
- 	struct cached_fid *cfid;
- 	struct cached_fids *cfids;
- 	const char *npath;
-+	bool cached = false;
+ static int ab8500_audio_setup_mics(struct snd_soc_component *component,
+@@ -2463,6 +2463,13 @@ static int ab8500_codec_probe(struct snd_soc_component *component)
  
- 	if (tcon == NULL || tcon->cfids == NULL || tcon->nohandlecache ||
- 	    is_smb1_server(tcon->ses->server))
-@@ -162,21 +156,21 @@ int open_cached_dir(unsigned int xid, struct cifs_tcon *tcon,
- 	if (!utf16_path)
- 		return -ENOMEM;
+ 	ab8500_codec_of_probe(dev, np, &codec_pdata);
  
-+	spin_lock(&cfids->cfid_list_lock);
- 	cfid = find_or_create_cached_dir(cfids, path, lookup_only);
- 	if (cfid == NULL) {
-+		spin_unlock(&cfids->cfid_list_lock);
- 		kfree(utf16_path);
- 		return -ENOENT;
- 	}
--	/*
--	 * At this point we either have a lease already and we can just
--	 * return it. If not we are guaranteed to be the only thread accessing
--	 * this cfid.
--	 */
-+	/* Return an existing leased fid while still holding the list lock. */
- 	if (cfid->has_lease) {
-+		spin_unlock(&cfids->cfid_list_lock);
- 		*ret_cfid = cfid;
- 		kfree(utf16_path);
- 		return 0;
- 	}
-+	spin_unlock(&cfids->cfid_list_lock);
- 
- 	/*
- 	 * Skip any prefix paths in @path as lookup_positive_unlocked() ends up
-@@ -202,6 +196,7 @@ int open_cached_dir(unsigned int xid, struct cifs_tcon *tcon,
- 	if (smb3_encryption_required(tcon))
- 		flags |= CIFS_TRANSFORM_REQ;
- 
-+	cfid->tcon = tcon;
- 	pfid = &cfid->fid;
- 	server->ops->new_lease_key(pfid);
- 
-@@ -264,9 +259,10 @@ int open_cached_dir(unsigned int xid, struct cifs_tcon *tcon,
- 		}
- 		goto oshr_free;
- 	}
--	cfid->tcon = tcon;
- 	cfid->is_open = true;
- 
-+	spin_lock(&cfids->cfid_list_lock);
-+
- 	o_rsp = (struct smb2_create_rsp *)rsp_iov[0].iov_base;
- 	oparms.fid->persistent_fid = o_rsp->PersistentFileId;
- 	oparms.fid->volatile_fid = o_rsp->VolatileFileId;
-@@ -274,13 +270,17 @@ int open_cached_dir(unsigned int xid, struct cifs_tcon *tcon,
- 	oparms.fid->mid = le64_to_cpu(o_rsp->hdr.MessageId);
- #endif /* CIFS_DEBUG2 */
- 
--	if (o_rsp->OplockLevel != SMB2_OPLOCK_LEVEL_LEASE)
-+
-+	if (o_rsp->OplockLevel != SMB2_OPLOCK_LEVEL_LEASE) {
-+		spin_unlock(&cfids->cfid_list_lock);
- 		goto oshr_free;
++	status = ab8500_audio_init_audioblock(component);
++	if (status < 0) {
++		dev_err(dev, "%s: failed to init audio-block (%d)!\n",
++			__func__, status);
++		return status;
 +	}
- 
- 	rc = smb2_parse_contexts(server, rsp_iov,
- 			    &oparms.fid->epoch,
- 			    oparms.fid->lease_key,
- 			    &oplock, NULL, NULL);
-+	spin_unlock(&cfids->cfid_list_lock);
- 	if (rc)
- 		goto oshr_free;
- 	if (!(oplock & SMB2_LEASE_READ_CACHING_HE))
-@@ -304,12 +304,14 @@ int open_cached_dir(unsigned int xid, struct cifs_tcon *tcon,
- 			goto oshr_free;
- 		}
++
+ 	status = ab8500_audio_setup_mics(component, &codec_pdata.amics);
+ 	if (status < 0) {
+ 		pr_err("%s: Failed to setup mics (%d)!\n", __func__, status);
+@@ -2475,13 +2482,6 @@ static int ab8500_codec_probe(struct snd_soc_component *component)
+ 		return status;
  	}
-+	spin_lock(&cfids->cfid_list_lock);
- 	cfid->dentry = dentry;
- 	cfid->time = jiffies;
- 	cfid->has_lease = true;
-+	cached = true;
-+	spin_unlock(&cfids->cfid_list_lock);
  
- oshr_free:
--	kfree(utf16_path);
- 	SMB2_open_free(&rqst[0]);
- 	SMB2_query_info_free(&rqst[1]);
- 	free_rsp_buf(resp_buftype[0], rsp_iov[0].iov_base);
-@@ -324,27 +326,21 @@ int open_cached_dir(unsigned int xid, struct cifs_tcon *tcon,
- 		rc = -ENOENT;
- 	}
- 	spin_unlock(&cfids->cfid_list_lock);
--	if (!rc && !cfid->has_lease) {
--		/*
--		 * We are guaranteed to have two references at this point.
--		 * One for the caller and one for a potential lease.
--		 * Release the Lease-ref so that the directory will be closed
--		 * when the caller closes the cached handle.
--		 */
--		kref_put(&cfid->refcount, smb2_close_cached_fid);
--	}
-+	/*
-+	 * A new entry has a caller reference and a prospective lease reference.
-+	 * Release the latter unless it was handed to the cache.  Once cached,
-+	 * lease-break or invalidation work owns that reference, even if it has
-+	 * already cleared has_lease by the time we get here.
-+	 */
-+	if (!cached)
-+		close_cached_dir(cfid);
- 	if (rc) {
--		if (cfid->is_open)
--			SMB2_close(0, cfid->tcon, cfid->fid.persistent_fid,
--				   cfid->fid.volatile_fid);
--		free_cached_dir(cfid);
--		cfid = NULL;
+-	status = ab8500_audio_init_audioblock(component);
+-	if (status < 0) {
+-		dev_err(dev, "%s: failed to init audio-block (%d)!\n",
+-			__func__, status);
+-		return status;
 -	}
 -
--	if (rc == 0) {
-+		close_cached_dir(cfid);
-+	} else {
- 		*ret_cfid = cfid;
- 		atomic_inc(&tcon->num_remote_opens);
- 	}
-+	kfree(utf16_path);
- 
- 	return rc;
- }
+ 	/* Override HW-defaults */
+ 	snd_soc_component_write(component, AB8500_ANACONF5,
+ 		      BIT(AB8500_ANACONF5_HSAUTOEN));
 -- 
 2.53.0
+
+
 
