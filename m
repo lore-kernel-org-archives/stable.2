@@ -1,28 +1,28 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7FDF4E7802;
-	Wed, 30 Sep 2026 16:15:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 942984E0B70;
+	Wed, 30 Sep 2026 16:15:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790784953; cv=none; b=ck5aveAP5tarbH+8lrUaQQGee7uE2k5J1Gy3UHSmIuS7U0+Kwb4Io4OHW/4gA/FWJJKjFUj0gJRCdMXn1ztdKlNUg0ja1cBKv/o4qjFZzC8b/yHrQsAFTYol0jRvvsZGC/piyYg3P5EA4XN0tBaDPiquQnb9Jds7hHdj7sp2jxU=
+	t=1790784959; cv=none; b=B4+bDGYI2VpkySBMpy1qwm2X9QanWWRyolAqmaBBk7X+VteDuga4F2woQfr60iFZQF050OTg9s+5eR16Ry4zoIl9yR+7DJUhp1J4kP3+zPmqIWBx0xrVcrocJbZTqPUB0yCNS7YBgVzJg3iiIEGVkvMxwmqt6nTjz/R/XtNjwlI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790784953; c=relaxed/simple;
-	bh=MuBFTvwNZAQmaGa5+Hin7Yc1Rhoc7yFFFgIQqDGzhho=;
+	s=arc-20240116; t=1790784959; c=relaxed/simple;
+	bh=ANZCBEujKI6tDdnzr3iGoq1V793PxZhsGnzqSbDA18Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=caLC9VrtMW9jvncmXeVn9viM/ZMAajLz4SvrRd4kJmnklNeSvIuaU3nMAC62Zg3TK4XRnhmWLpAz0Mp+Kn/SneUbx4kT9xiGO3Bn4sakH6ze1gUcvKJQylmtm9jnexTQwVM8OAqlvdAKf/OtEJIg8s2hWTXSHiUbmIHpWDhyVTU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vzkzRgcb; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=tuu3ulv2tLHi9lJL0KSMUFs4HCWQsjI6MYWPxdNflwxx8oSgEcy8bAwvv7pl7KGuPiUr2HKQSuV4iBJy9P5YHEo3g9utE2j4jvWqeCfyu2HXWu4h2zWLX+/I24VmjbHSfB8qXVRn+6iEiNv+aEEaj5a10CSnhlb1kAfxu3+Szog=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=j72jg54q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vzkzRgcb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5C1A1F00893;
-	Wed, 30 Sep 2026 16:15:48 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="j72jg54q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76EE91F000FF;
+	Wed, 30 Sep 2026 16:15:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790784949;
-	bh=dFElVqNyN9B0rnW7k8hdbSOw1WdLABsT2KlmFhj4R9s=;
+	s=korg; t=1790784952;
+	bh=si4wTbgT1+f45QbonRHkdrIrOF4iRrmAvPlr4jLPxQk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=vzkzRgcbDMoV/Bod/KQUcon/9a1EmqDdkigHs8zVlQjilx1bViawThSW21QtacCm0
-	 R3/fYyOU7iXoStPmjjf/9tW9D7gFGOdNdq9/FSvrXDAFq8M2YZmMovXrdf4/o3ymbT
-	 +7pRQhFkmskfiIwfiPvO/rPwZqnSZlyq9kodgEKI=
+	b=j72jg54q2AJnC6CV/UTT5tDHLz6tP+UFawhiw+Y1W2cnYUpguyAOEN+MjINNXPiAL
+	 RaLB9azCE8cZXbtd18A3qEbQa9VXKldO2JJHxBNRc+XP77aenNIdSoVRtwEZCamrSz
+	 1EocJVekvWQTfGBUYdTn44hpSN4Tq3hJ+UZ4nsCk=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -31,9 +31,9 @@ Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Laurence Oberman <loberman@redhat.com>,
 	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 335/982] scsi: mpi3mr: Fix NULL pointer dereference in mpi3mr_sas_port_add()
-Date: Wed, 30 Sep 2026 17:17:51 +0200
-Message-ID: <20260930152424.015929222@linuxfoundation.org>
+Subject: [PATCH 6.1 336/982] scsi: mpi3mr: Fix target device refcount leak in mpi3mr_sas_port_add()
+Date: Wed, 30 Sep 2026 17:17:52 +0200
+Message-ID: <20260930152424.037261371@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
 References: <20260930152416.775402466@linuxfoundation.org>
@@ -54,46 +54,41 @@ Content-Transfer-Encoding: 8bit
 
 From: Milan P. Gandhi <mgandhi@redhat.com>
 
-[ Upstream commit dba9e2181ca5e875f98b8b9b4535cdaab87dcb0d ]
+[ Upstream commit 419d129f970aaa6567dbac366b0c93784bf9ec97 ]
 
-sas_port_alloc_num() can return NULL on memory allocation failure. The
-return value is passed directly to sas_port_add() without a NULL check,
-which causes a NULL pointer dereference.
+mpi3mr_get_tgtdev_by_addr() increments the target device kref when it
+returns a device. If a subsequent error triggers a goto out_fail after
+the tgtdev reference is acquired, the reference is never released
+because the out_fail path does not call mpi3mr_tgtdev_put(). This
+prevents the target device structure from ever being freed.
 
-Additionally, if sas_port_add() fails, the allocated port is not freed
-before jumping to out_fail, leaking the sas_port structure. Call
-sas_port_free() to properly release it.
+Add a tgtdev put in the out_fail path, guarded by a NULL check since
+tgtdev is only acquired for SAS_END_DEVICE types and the same cleanup
+path is shared by earlier error cases where tgtdev is still NULL.
 
 Fixes: e22bae30667a ("scsi: mpi3mr: Add expander devices to STL")
 Signed-off-by: Milan P. Gandhi <mgandhi@redhat.com>
 Reviewed-by: Laurence Oberman <loberman@redhat.com>
-Link: https://patch.msgid.link/20260812103344.174247-2-mgandhi@redhat.com
+Link: https://patch.msgid.link/20260812103344.174247-3-mgandhi@redhat.com
 Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/scsi/mpi3mr/mpi3mr_transport.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/scsi/mpi3mr/mpi3mr_transport.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/drivers/scsi/mpi3mr/mpi3mr_transport.c b/drivers/scsi/mpi3mr/mpi3mr_transport.c
-index f5001fadd5b12..b56fa01894f46 100644
+index b56fa01894f46..9a25d819b417a 100644
 --- a/drivers/scsi/mpi3mr/mpi3mr_transport.c
 +++ b/drivers/scsi/mpi3mr/mpi3mr_transport.c
-@@ -1404,9 +1404,15 @@ static struct mpi3mr_sas_port *mpi3mr_sas_port_add(struct mpi3mr_ioc *mrioc,
- 	}
- 
- 	port = sas_port_alloc_num(mr_sas_node->parent_dev);
-+	if (!port) {
-+		ioc_err(mrioc, "failure at %s:%d/%s()!\n",
-+		    __FILE__, __LINE__, __func__);
-+		goto out_fail;
-+	}
- 	if ((sas_port_add(port))) {
- 		ioc_err(mrioc, "failure at %s:%d/%s()!\n",
- 		    __FILE__, __LINE__, __func__);
-+		sas_port_free(port);
- 		goto out_fail;
- 	}
- 
+@@ -1483,6 +1483,8 @@ static struct mpi3mr_sas_port *mpi3mr_sas_port_add(struct mpi3mr_ioc *mrioc,
+ 	list_for_each_entry_safe(mr_sas_phy, next, &mr_sas_port->phy_list,
+ 	    port_siblings)
+ 		list_del(&mr_sas_phy->port_siblings);
++	if (tgtdev)
++		mpi3mr_tgtdev_put(tgtdev);
+ 	kfree(mr_sas_port);
+ 	return NULL;
+ }
 -- 
 2.53.0
 
