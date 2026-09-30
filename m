@@ -1,125 +1,116 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0135A51AEDC;
-	Wed, 30 Sep 2026 17:25:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEF0A51AFD2;
+	Wed, 30 Sep 2026 17:25:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790789138; cv=none; b=CDUkTp4aS7B8F06Mryfjm+Hoelsush+toGiimN94wiweJAwaEQE2reB9QaDqUck9lCtbOnhjoTyjccUQtSAwmm/0h0iXj+4rJqQrA9dhDlsj5WgHdFbS1U5scQMxU6Jt2dlRrWaw8+AtOShAyjs1ZmcX+lmGOF01AQRu330ecNk=
+	t=1790789140; cv=none; b=GX4s5+cX/GVEqcpAhPU53QXXHozhUY84AhiUThg4dKPjHsYOVh05+oJCC5TwlPdxj1pPTLffS5mJM3F7Ro5hutS+3tT3DMq2qvCbaSf8QYDVMTgj3JESSh3FyoHVUWUcNTs6LnBGf4K5WHrtHPZ3v8jd4x4YS06t6FAhYTNCq/g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790789138; c=relaxed/simple;
-	bh=gFelgWEJNky+O1pg+cxnRSafEvWBGEUOgEVMGQvT7jk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=F6xX5A6LMS4LX5bmlOaQZsgi6AquE2MmVN97XYzBEvJD6AUGVN88/U0B4r66aaO+Hv2AI6MnJu9P67pHT7qP4JAk06CfZwkjVC4WwXWQlqW0qCmR30PHLX/73zWFQkLCNKmPF4whIG7cyZ6gaAvl4yX5w5O+8vA+JG3YinfytoE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=XYWB+uYn; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790789140; c=relaxed/simple;
+	bh=4jGBqnbhAYp2EVM3EX4gbEAGHpzJHypxbAEuohVixbw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HKhvpCWq6IQH6htlo8gbETi9QDcS3GlG7S7Cm+TNNrWV3UUtW8jLbcFwVcu+DwnAESo7T2PBbbeUJdsLzhbsyIHxL2Eu/+wK6IZzRARjLsmbGEnGPlX7Kj18irWUD/e1Yb1aBv6RmlQuNEgSleViG7WWD2+oO0hpcpgmD/nIRN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=I997qXEY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="XYWB+uYn"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 5583C4E410D4;
-	Wed, 30 Sep 2026 17:25:34 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 294D160749;
-	Wed, 30 Sep 2026 17:25:34 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9F5F2103291EA;
-	Wed, 30 Sep 2026 19:25:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790789132; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=Bo30wP78bh+sDEn1sCbZk+nfv9Cu1zBtQsbKdC+QipU=;
-	b=XYWB+uYnke/3v/cjD6s9SPMSzlzFjX2k1qh2GqNOwJVBMf+mx2P3eCNAdQvIZeVKt+e+Jh
-	NjVpx/N6xAn7QnxLj5uNH8etN13N2WFvWoP628WvUKJCwTssLnvIYgKxtANdZKsoxKJAWo
-	RsfeyoZutwb/KAKvFedyO78iOGxOgNeTL/jMFCboaaLBh0dHKmgoSi2xCrFMMyma+2TLua
-	xoLVF3JKRNiG+jgafknuBddSTgg8U29kEV+bdYjCF7NKGsnHVK4q5eJv/ad8KNqOIacsbl
-	VrKnsBjalaEb/JHjRDornSsia6LBZqRKfS56FG5WPYlt1izVKoeWN23jqK3GXA==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Wed, 30 Sep 2026 19:24:48 +0200
-Subject: [PATCH v6 02/12] dt-bindings: clock: ma35d1: Document the missing
- crystal inputs
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="I997qXEY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 439311F00899;
+	Wed, 30 Sep 2026 17:25:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790789138;
+	bh=YjhvwOZXfZKT9uXdJ5hGX5oDUWXB2dvQj+rKPaz4JZc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=I997qXEYRX1j0lCQ3utB+M5pCgp2cC5gP17C4UScQ1KalIqmuhjTI7WbBcu3bjarQ
+	 MnGZcT6oTaOspF6Vmd5B+gCT7EMmNLWQfrJ15eoaPh2yKRG8S8nuDuvbZpXAQpKSwZ
+	 UDeDxXTXq2HSuW0Wcpmt5ELp7t3SCGgMEa8XKjhE=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Junrui Luo <moonafterrain@outlook.com>,
+	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12 372/877] drm/virtio: release the GEM object on virtio_gpu_vram_create() errors
+Date: Wed, 30 Sep 2026 17:21:23 +0200
+Message-ID: <20260930152422.703595336@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930152414.738996857@linuxfoundation.org>
+References: <20260930152414.738996857@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-perso-ma35d1-upstream-clk-v6-2-48937ee6c9bb@bootlin.com>
-References: <20260930-perso-ma35d1-upstream-clk-v6-0-48937ee6c9bb@bootlin.com>
-In-Reply-To: <20260930-perso-ma35d1-upstream-clk-v6-0-48937ee6c9bb@bootlin.com>
-To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
- Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
- Miquel Raynal <miquel.raynal@bootlin.com>, stable@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-The MA35D1 clock controller takes two crystal oscillator inputs from
-the board:
-- HXT, a high-speed 24 MHz crystal for most of the system
-- LXT, a low-speed 32.768 kHz crytal for the RTC and low power modes
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-So far the binding was expecting a single crystal. The example named it
-HXT, but no real definition for it was given. LXT was not even
-described. In order to remain backward compatible, we will continue to
-allow either one (HXT) or two (HXT then LXT) input clocks. I propose to
-give those phandles a name to clarify what these entries expect, but I'm
-not listing the clock-names property in the required block, for backward
-compatibility. The rates are fixed by the TRM, so even if the second
-oscillator is not described, the OS can make an educated guess.
+------------------
 
-Fixes: 2f8b5eb589cb ("dt-bindings: clock: nuvoton: add binding for ma35d1 clock controller")
-Cc: stable@vger.kernel.org
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+From: Junrui Luo <moonafterrain@outlook.com>
+
+[ Upstream commit 036d28db1818af2f9d80db771f5405da84d7732d ]
+
+virtio_gpu_vram_create() frees the object with a bare kfree(vram) on
+both error paths after drm_gem_private_object_init() has run, and on the
+second one after drm_gem_create_mmap_offset() has linked obj->vma_node
+into the device's VMA offset manager. The freed object stays in that
+interval tree, so a later lookup or insertion walks freed memory, and
+the dma_resv and gpuva lock are never destroyed.
+
+Call drm_gem_object_release() before kfree() on both paths.
+
+Fixes: 16845c5d5409 ("drm/virtio: implement blob resources: implement vram object")
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
+Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Link: https://patch.msgid.link/20260915-fixes-v2-4-a0d799e4db66@outlook.com
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../devicetree/bindings/clock/nuvoton,ma35d1-clk.yaml    | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/virtio/virtgpu_vram.c | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/clock/nuvoton,ma35d1-clk.yaml b/Documentation/devicetree/bindings/clock/nuvoton,ma35d1-clk.yaml
-index 8f0c43683729..9649feda8d7a 100644
---- a/Documentation/devicetree/bindings/clock/nuvoton,ma35d1-clk.yaml
-+++ b/Documentation/devicetree/bindings/clock/nuvoton,ma35d1-clk.yaml
-@@ -29,7 +29,18 @@ properties:
-     const: 1
+diff --git a/drivers/gpu/drm/virtio/virtgpu_vram.c b/drivers/gpu/drm/virtio/virtgpu_vram.c
+index 25df81c027837..47a886824cd71 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_vram.c
++++ b/drivers/gpu/drm/virtio/virtgpu_vram.c
+@@ -202,16 +202,12 @@ int virtio_gpu_vram_create(struct virtio_gpu_device *vgdev,
  
-   clocks:
--    maxItems: 1
-+    minItems: 1
-+    maxItems: 2
-+    description:
-+      The controller takes 2 crystal oscillator inputs from the board.
-+      HXT is a 24 MHz crystal feeding the internal PLLs. LXT is a 32.768
-+      kHz crystal, for RTC and low power operations.
+ 	/* Create fake offset */
+ 	ret = drm_gem_create_mmap_offset(obj);
+-	if (ret) {
+-		kfree(vram);
+-		return ret;
+-	}
++	if (ret)
++		goto err_release_obj;
+ 
+ 	ret = virtio_gpu_resource_id_get(vgdev, &vram->base.hw_res_handle);
+-	if (ret) {
+-		kfree(vram);
+-		return ret;
+-	}
++	if (ret)
++		goto err_release_obj;
+ 
+ 	virtio_gpu_cmd_resource_create_blob(vgdev, &vram->base, params, NULL,
+ 					    0);
+@@ -225,4 +221,9 @@ int virtio_gpu_vram_create(struct virtio_gpu_device *vgdev,
+ 
+ 	*bo_ptr = &vram->base;
+ 	return 0;
 +
-+  clock-names:
-+    minItems: 1
-+    items:
-+      - const: hxt
-+      - const: lxt
- 
-   nuvoton,pll-mode:
-     description:
-@@ -58,6 +69,7 @@ examples:
-         compatible = "nuvoton,ma35d1-clk";
-         reg = <0x40460200 0x100>;
-         #clock-cells = <1>;
--        clocks = <&clk_hxt>;
-+        clocks = <&clk_hxt>, <&clk_lxt>;
-+        clock-names = "hxt", "lxt";
-     };
- ...
-
++err_release_obj:
++	drm_gem_object_release(obj);
++	kfree(vram);
++	return ret;
+ }
 -- 
-2.55.0
+2.53.0
+
+
 
