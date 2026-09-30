@@ -1,109 +1,108 @@
-Received: from mx01.omp.ru (mx01.omp.ru [90.154.21.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B59284DD3BC;
-	Wed, 30 Sep 2026 15:50:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.154.21.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76C334BD786;
+	Wed, 30 Sep 2026 15:50:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790783438; cv=none; b=AC1hvN2ELPUmYKK2f3qbj2xIkC2bpnIe3zyUPT7G4YQLyTiXctcnUriy9uFwU5oLbTzYXyWjAW2Vrw8gp836gMNzlGUTUJ1aGulEIzKAb4FuovQ2cr8UucnDi0M7gtpHpD2Qc89qksHZwfJoGypsTsnlDq2GCrQLDnGEzQYLp3E=
+	t=1790783442; cv=none; b=GAGguawtshDu+PQlsCos4bH0eoWfMJf2Ksp9n6rAPSNAMM3MZjJmtJB6uSAwjfDo3NuxCewaapg39ei6IlM8RAn2A0mcrnI2o/r6eUeqhU/RFCzxys01CRwSaH56Br2lj0m/EunZtOLRYGstlOT40A1WbTieR9ADAc3aF3p8jtY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790783438; c=relaxed/simple;
-	bh=57mrpYgHzBBAXueH2A0ztvKZGDWIA+x5hky2KaSslio=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=hFWlvtdD+pzzNQ0Sa0M1crH1L60My9hxJ/MDPuZArJSVSJSj/eQ4zry8Hks3XElaG5pYBkxcj2FOMFMuPgBMa3oLiWZBXGCdWafxFxkWNXWQb66TThspdLddnudjhCtamHEYxuJADOBDZLe7884kLZbMj0a4zuTFrQraqiWrNyE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=omp.ru; spf=pass smtp.mailfrom=omp.ru; arc=none smtp.client-ip=90.154.21.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=omp.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=omp.ru
-Received: from [192.168.2.104] (91.79.46.168) by msexch01.omp.ru (10.188.4.12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.1258.12; Wed, 30 Sep
- 2026 18:50:14 +0300
-Message-ID: <b85d8dc9-b787-40e0-bbaf-027df2c3bf49@omp.ru>
-Date: Wed, 30 Sep 2026 18:50:13 +0300
+	s=arc-20240116; t=1790783442; c=relaxed/simple;
+	bh=vUBO9IihuPIMDU+eQ6PlN+f72B76wdC0g61egcB8A8k=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oi3SvcVQXW3NQwD6vgMhcYoXx59o9q8LdZ2GWZG44olAnZvIQFmxIDQYc9d8rbn7t4TTSDWOMsZxXzAW8a3Skhw1v6EW883NLCLux2IRk8qRFrEUYa2i4BiKbobTb+aYOxoPGx7AoCNWjecgzY0Wpz/zPHLA3SAAc0eJOYtC2TA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ipbV3nPu; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ipbV3nPu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 304F01F00893;
+	Wed, 30 Sep 2026 15:50:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790783435;
+	bh=LlgCHA9ssYaRfg/NJmvrSc+GSy3Ss7J8eBU558Rdp84=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ipbV3nPup01RDlD6fR44ea/uIClPyHurvlC1KmZ66c32eP7qoGxPh/FmvqtuUVpbN
+	 EpHGqaHQ+W6zXLR+Ntey6QQ4xaDFZmuuH8FY2B+LvqeMtDwKqjXSFCyOqqKZL8/beX
+	 7NLsYn2EF/BRLm8LRQle24B2X3/nlsghlBMwQhJo=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Vega <vega@nebusec.ai>,
+	Luxing Yin <root@tr0jan.top>,
+	Zihan Xi <zihanx@nebusec.ai>,
+	Johannes Berg <johannes.berg@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10 396/595] wifi: virt_wifi: dont transfer operstate before register
+Date: Wed, 30 Sep 2026 17:24:49 +0200
+Message-ID: <20260930152356.191829439@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930152347.700140858@linuxfoundation.org>
+References: <20260930152347.700140858@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 6/7] net: ravb: fix resource teardown ordering
-To: jiale yao <19888972804@163.com>
-CC: =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, Paul
- Barker <paul@pbarker.dev>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
- Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Mitsuhiro Kimura
-	<mitsuhiro.kimura.kc@renesas.com>, Claudiu Beznea
-	<claudiu.beznea.uj@bp.renesas.com>, <netdev@vger.kernel.org>,
-	<linux-renesas-soc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>
-References: <20260927144741.1320558-1-yaojiale02@163.com>
- <20260927144741.1320558-7-yaojiale02@163.com>
- <3b43b4fb-8479-4eb2-be58-1df6f0f747b9@omp.ru>
- <12190bf2.18c1.1a0f004c539.Coremail.19888972804@163.com>
-Content-Language: en-US
-From: Sergey Shtylyov <s.shtylyov@omp.ru>
-Organization: Open Mobile Platform
-In-Reply-To: <12190bf2.18c1.1a0f004c539.Coremail.19888972804@163.com>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: msexch01.omp.ru (10.188.4.12) To msexch01.omp.ru
- (10.188.4.12)
-X-KSE-ServerInfo: msexch01.omp.ru, 9
-X-KSE-AntiSpam-Interceptor-Info: scan successful
-X-KSE-AntiSpam-Version: 6.1.1, Database issued on: 09/30/2026 15:30:53
-X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
-X-KSE-AntiSpam-Method: none
-X-KSE-AntiSpam-Rate: 19
-X-KSE-AntiSpam-Info: Lua profiles 206344 [Sep 30 2026]
-X-KSE-AntiSpam-Info: Version: 6.1.1.27
-X-KSE-AntiSpam-Info: Envelope from: s.shtylyov@omp.ru
-X-KSE-AntiSpam-Info: LuaCore: 126 0.3.126
- e1c111e02c8860cfcff70cd549bb6eae82fc7c38
-X-KSE-AntiSpam-Info: {rep_avail}
-X-KSE-AntiSpam-Info: {diag_burst_silent}
-X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
-X-KSE-AntiSpam-Info: {SMTP from is not routable}
-X-KSE-AntiSpam-Info: {Found in DNSBL: 91.79.46.168 in (user) dbl.spamhaus.org}
-X-KSE-AntiSpam-Info:
-	127.0.0.199:7.1.2;omp.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1
-X-KSE-AntiSpam-Info: {Tracking_ip_hunter}
-X-KSE-AntiSpam-Info: FromAlignment: s
-X-KSE-AntiSpam-Info: ApMailHostAddress: 91.79.46.168
-X-KSE-AntiSpam-Info: {DNS response errors}
-X-KSE-AntiSpam-Info: Rate: 19
-X-KSE-AntiSpam-Info: Status: not_detected
-X-KSE-AntiSpam-Info: Method: none
-X-KSE-AntiSpam-Info: Auth:dmarc=temperror header.from=omp.ru;spf=temperror
- smtp.mailfrom=omp.ru;dkim=none
-X-KSE-Antiphishing-Info: Clean
-X-KSE-Antiphishing-ScanningType: Heuristic
-X-KSE-Antiphishing-Method: None
-X-KSE-Antiphishing-Bases: 09/30/2026 15:32:00
-X-KSE-Antivirus-Interceptor-Info: scan successful
-X-KSE-Antivirus-Info: Clean, bases: 9/30/2026 11:38:00 AM
-X-KSE-Attachment-Filter-Triggered-Rules: Clean
-X-KSE-Attachment-Filter-Triggered-Filters: Clean
-X-KSE-BulkMessagesFiltering-Scan-Result: InTheLimit
 
-On 9/30/26 4:53 AM, jiale yao wrote:
+5.10-stable review patch.  If anyone has any objections, please let me know.
 
-[...]
+------------------
 
-> Thanks for your review.
+From: Zihan Xi <zihanx@nebusec.ai>
 
-   Top-posting on the kernel MLs is a bad idea... :-)
+[ Upstream commit e5c8d7acd31b27057ea42cd405d0b3ece097bc89 ]
 
-> You're right — I'll split this into two patches:
-> One patch for the IRQ/netdev ordering issue.
-> One patch for the runtime PM resume failure handling.
-> I'll use --no-git-fallback next time, sorry for this.
+virt_wifi_newlink() calls netif_stacked_transfer_operstate() before
+register_netdevice(). If the lower device is dormant, that queues the
+new netdev on lweventlist while it is still uninitialized. If
+registration fails after that, for example because of an invalid name
+such as "bad/name", free_netdev() immediately frees the object. A
+later linkwatch_fire_event() then use-after-frees the list entry.
 
-   Looking at it again, it seems like my dead email (and the others that
-I thought shouldn't be there) were added as a result of using the Fixes
-tags.
-   However, specifying --no-git-fallback seems a good idea generally... :-)
+Move the transfer to after netdev_upper_dev_link(), as macvlan and
+ipvlan already do.
 
-[...]
+Fixes: c7cdba31ed8b ("mac80211-next: rtnetlink wifi simulation device")
+Reported-by: Vega <vega@nebusec.ai>
+Assisted-by: LLM
+Co-developed-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+Link: https://patch.msgid.link/f5a832fb0ab228ce6e2b5a91fba4ca8b79198a2f.1788948455.git.zihanx@nebusec.ai
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/net/wireless/virt_wifi.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-MBR, Sergey
+diff --git a/drivers/net/wireless/virt_wifi.c b/drivers/net/wireless/virt_wifi.c
+index e6dfb1180b19a..a2bb8542c6f92 100644
+--- a/drivers/net/wireless/virt_wifi.c
++++ b/drivers/net/wireless/virt_wifi.c
+@@ -552,7 +552,6 @@ static int virt_wifi_newlink(struct net *src_net, struct net_device *dev,
+ 	}
+ 
+ 	eth_hw_addr_inherit(dev, priv->lowerdev);
+-	netif_stacked_transfer_operstate(priv->lowerdev, dev);
+ 
+ 	SET_NETDEV_DEV(dev, &priv->lowerdev->dev);
+ 	dev->ieee80211_ptr = kzalloc(sizeof(*dev->ieee80211_ptr), GFP_KERNEL);
+@@ -579,6 +578,8 @@ static int virt_wifi_newlink(struct net *src_net, struct net_device *dev,
+ 		goto unregister_netdev;
+ 	}
+ 
++	netif_stacked_transfer_operstate(priv->lowerdev, dev);
++
+ 	dev->priv_destructor = virt_wifi_net_device_destructor;
+ 	priv->being_deleted = false;
+ 	priv->is_connected = false;
+-- 
+2.53.0
+
+
+
