@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD00C4F3ECC
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 15:39:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72431511E96;
+	Wed, 30 Sep 2026 15:39:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790782781; cv=none; b=l5mehZFyRqqrAZZGzchkGKylrAOowjlGl60uonvaAXlWwq3G3TX6awvp1EQ6aNOuLXBD9M/rp2q/8Z+7/WmH8IdpI0RAuOvxL2GF1QqDHKG06s0ZgDsEZ0XtCnY8ub9ShzW7/sQYl9QcHRQGVKMdh8RQK8oOpbphXFaa/zVNAzM=
+	t=1790782783; cv=none; b=g9elWG9x4e/Qwt7QRFc1FyJlv/VyBrAhKrdaPz4ZojCJAqdXT405NICpYGmYf+sESvS9L2kB1Z3yyoDlfWiU1IfBsYLUsNJlhJ3mkq64vlZ1A6dc/jcBscKcZCPGb1Dx8/RTOA5YFTSmLKE2TE+I0NTlNO6CUmjV8DBgLy6ugKg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790782781; c=relaxed/simple;
-	bh=SZbDA542HiQRtfyijtrcf2ejPBiI+MuZC/dsey7iLnI=;
+	s=arc-20240116; t=1790782783; c=relaxed/simple;
+	bh=BGULv7p0JCzt/6Na6WR1bFg2EWiznPg2kKQdWSyV70k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dG+i3EEBPF1yc4eb07DNSTpkeN+PrgJc1Hi6ZPI9eUoGHLu9NzxKoSgg3+ZUanyusWOjWHNwBbYNocBUDf/E9gs8mS0BXAx+PT7AMsrSFw3Y67rv+ys5SgOIoK22ATcWX1B7o8sY+6XL2aEtOAXmKJ+IRrMJ3scxoiOI6kobYbc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uym5sFiH; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=dU3+CCFm9H6wuVIK3YLMOR3cgRHQ7Ph8qLaj8rfNj33B17LXBtawXV/KMwjKQD5vdpZ3Iq98kQZZPviONDJksRykLhQDskAIIevrZKBn5491xhyHF97kDe5kwyl9m2LlbzugJYyyk79AZGtgcrSUN8WhVOAFez1+weZYSNdNeS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=bvAw4OsP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uym5sFiH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59F641F0089D;
-	Wed, 30 Sep 2026 15:39:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790782777;
-	bh=GauKHFPcp2LCYhH+rvV/qeRq7lldfbC70+8apKipcwQ=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="bvAw4OsP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A7931F00893;
+	Wed, 30 Sep 2026 15:39:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790782774;
+	bh=PIpG8seWZ0mDidS7IIaeFu6rnOaDZ27I/WpHouScbPQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Uym5sFiHaTXzURBeWZYTyneyoYgGIoDwFsi917/ZKdl3GVQOGrdWUFpkj646NHAJz
-	 rzWREG00wDSf2pSY4hxX0GDBhEk3Rnn34UIhfk/5U+trvqcR0kJS/M1a0WimPLHhT3
-	 hN4fQPgbNMJ1eDn9xihFypVFLhwdw0c9DxsCrOYSvPr4AmQ7OR/5PpYZXZVjIMz71e
-	 56qRAJuINzXHwuP40FL074AyQobbNMqPOrDSBfrV6E1nIHqqFpThpLCTf0w+1iSf0i
-	 74aY3g5aFGDJic+RZ/r6UUX2HMDYoxgHxs+6wstXX8g/5TURKuqCbLT/3TTl3Lqi/V
-	 xrCb5zIiRYWZg==
-From: Sasha Levin <sashal@kernel.org>
+	b=bvAw4OsPEivFsg3mQw9se1mSPOCS4iJSkq6EQFVmrXq7HipqrAYC4pxHvrj7e6u4E
+	 ANpEn65qeUTOIn1J/MNWQDYsOnw51segXMp/eaSbrh8cfvXL086rTWRHmxesu8rE2I
+	 /myGErAdEAP6VAjH7Rm5JqTjE49m6LW5wvadMYVg=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Samuel Moelius <sam.moelius@trailofbits.com>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/4] KVM: x86: Reject nested CAP enablement if nested virtualization is disabled
-Date: Wed, 30 Sep 2026 11:39:32 -0400
-Message-ID: <20260930153934.2895211-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260930153934.2895211-1-sashal@kernel.org>
-References: <2026092938-celibate-sarcastic-e56f@gregkh>
- <20260930153934.2895211-1-sashal@kernel.org>
+Subject: [PATCH 5.10 120/595] Bluetooth: L2CAP: validate connectionless PSM length
+Date: Wed, 30 Sep 2026 17:20:13 +0200
+Message-ID: <20260930152350.321095699@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930152347.700140858@linuxfoundation.org>
+References: <20260930152347.700140858@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,134 +47,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sean Christopherson <seanjc@google.com>
+5.10-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit b65699be2c606d2687593516d93e66d16a713b61 ]
+------------------
 
-Add a flag to explicitly track if nested virtualization is enabled, and use
-it enumerate that various nested CAPs are unsupported, and to reject
-enablement of said CAPs.  When the nested ops hooks were moved to their
-own structure, KVM's NULL-by-default behavior was deliberately dropped,
-with the changelog asserting that all was well.  That wasn't quite true;
-there is no danger to KVM, but now KVM is over-reporting support for
-KVM_CAP_NESTED_STATE and KVM_CAP_HYPERV_ENLIGHTENED_VMCS.
+From: Samuel Moelius <sam.moelius@trailofbits.com>
 
-Fixes: 33b22172452f ("KVM: x86: move nested-related kvm_x86_ops to a separate struct")
-Reviewed-by: Vitaly Kuznetsov <vkuznets@redhat.com>
-Link: https://patch.msgid.link/20260630202828.440724-2-seanjc@google.com
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Stable-dep-of: c1214f293d77 ("KVM: x86: Fill kvm_run exit fields in common get_nested_state_pages() error paths")
+[ Upstream commit a40a5f922546b3bd7c094d882b29177db4f2abe0 ]
+
+Connectionless L2CAP frames carry a two-byte PSM at the start of the
+payload.  l2cap_recv_frame() currently reads that PSM unconditionally
+after validating only the outer L2CAP length.
+
+A malformed connectionless frame with a zero- or one-byte payload can
+therefore make the parser read beyond the advertised skb payload and use
+tailroom bytes as part of the PSM.  A VHCI-backed QEMU reproducer
+injected a one-byte connectionless payload and reached the unchecked
+read.
+
+Reject connectionless frames that cannot contain the PSM before reading
+or pulling it.  This preserves all valid connectionless frames while
+dropping only structurally incomplete packets.
+
+Assisted-by: Codex:gpt-5.5-cyber-preview
+Signed-off-by: Samuel Moelius <sam.moelius@trailofbits.com>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/include/asm/kvm_host.h |  2 ++
- arch/x86/kvm/hyperv.c           |  3 ++-
- arch/x86/kvm/svm/svm.c          |  1 +
- arch/x86/kvm/vmx/vmx.c          |  1 +
- arch/x86/kvm/x86.c              | 12 +++++++-----
- 5 files changed, 13 insertions(+), 6 deletions(-)
+ net/bluetooth/l2cap_core.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
-index 0008a3c4fc452..5202b0a708807 100644
---- a/arch/x86/include/asm/kvm_host.h
-+++ b/arch/x86/include/asm/kvm_host.h
-@@ -1954,6 +1954,8 @@ struct kvm_x86_ops {
- };
+diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
+index 1122566c4b500..b9031c92f99c7 100644
+--- a/net/bluetooth/l2cap_core.c
++++ b/net/bluetooth/l2cap_core.c
+@@ -8106,6 +8106,11 @@ static void l2cap_recv_frame(struct l2cap_conn *conn, struct sk_buff *skb)
+ 		break;
  
- struct kvm_x86_nested_ops {
-+	bool enabled;
+ 	case L2CAP_CID_CONN_LESS:
++		if (skb->len < L2CAP_PSMLEN_SIZE) {
++			kfree_skb(skb);
++			break;
++		}
 +
- 	void (*leave_nested)(struct kvm_vcpu *vcpu);
- 	bool (*is_exception_vmexit)(struct kvm_vcpu *vcpu, u8 vector,
- 				    u32 error_code);
-diff --git a/arch/x86/kvm/hyperv.c b/arch/x86/kvm/hyperv.c
-index 380a211f56f00..4753d084e2567 100644
---- a/arch/x86/kvm/hyperv.c
-+++ b/arch/x86/kvm/hyperv.c
-@@ -2799,7 +2799,8 @@ int kvm_get_hv_cpuid(struct kvm_vcpu *vcpu, struct kvm_cpuid2 *cpuid,
- 	};
- 	int i, nent = ARRAY_SIZE(cpuid_entries);
- 
--	if (kvm_x86_ops.nested_ops->get_evmcs_version)
-+	if (kvm_x86_ops.nested_ops->enabled &&
-+	    kvm_x86_ops.nested_ops->get_evmcs_version)
- 		evmcs_ver = kvm_x86_ops.nested_ops->get_evmcs_version(vcpu);
- 
- 	if (cpuid->nent < nent)
-diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index a24a6871b6936..e3daa6e57192d 100644
---- a/arch/x86/kvm/svm/svm.c
-+++ b/arch/x86/kvm/svm/svm.c
-@@ -5461,6 +5461,7 @@ static __init int svm_hardware_setup(void)
- 		if (r)
- 			return r;
- 	}
-+	svm_nested_ops.enabled = nested;
- 
- 	/*
- 	 * KVM's MMU doesn't support using 2-level paging for itself, and thus
-diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
-index 6b51f352d2826..5bae3d5ce6eec 100644
---- a/arch/x86/kvm/vmx/vmx.c
-+++ b/arch/x86/kvm/vmx/vmx.c
-@@ -8642,6 +8642,7 @@ __init int vmx_hardware_setup(void)
- 		if (r)
- 			return r;
- 	}
-+	vmx_nested_ops.enabled = nested;
- 
- 	r = alloc_kvm_area();
- 	if (r && nested)
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index f08a34d3ff3d9..91d38d709d8a7 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -4604,7 +4604,7 @@ int kvm_vm_ioctl_check_extension(struct kvm *kvm, long ext)
- 			r &= ~KVM_X2APIC_ENABLE_SUPPRESS_EOI_BROADCAST;
- 		break;
- 	case KVM_CAP_NESTED_STATE:
--		r = kvm_x86_ops.nested_ops->get_state ?
-+		r = kvm_x86_ops.nested_ops->enabled ?
- 			kvm_x86_ops.nested_ops->get_state(NULL, NULL, 0) : 0;
- 		break;
- #ifdef CONFIG_KVM_HYPERV
-@@ -4612,7 +4612,8 @@ int kvm_vm_ioctl_check_extension(struct kvm *kvm, long ext)
- 		r = kvm_x86_ops.enable_l2_tlb_flush != NULL;
- 		break;
- 	case KVM_CAP_HYPERV_ENLIGHTENED_VMCS:
--		r = kvm_x86_ops.nested_ops->enable_evmcs != NULL;
-+		r = kvm_x86_ops.nested_ops->enabled &&
-+		    kvm_x86_ops.nested_ops->enable_evmcs != NULL;
- 		break;
- #endif
- 	case KVM_CAP_SMALLER_MAXPHYADDR:
-@@ -5650,7 +5651,8 @@ static int kvm_vcpu_ioctl_enable_cap(struct kvm_vcpu *vcpu,
- 			uint16_t vmcs_version;
- 			void __user *user_ptr;
- 
--			if (!kvm_x86_ops.nested_ops->enable_evmcs)
-+			if (!kvm_x86_ops.nested_ops->enabled ||
-+			    !kvm_x86_ops.nested_ops->enable_evmcs)
- 				return -ENOTTY;
- 			r = kvm_x86_ops.nested_ops->enable_evmcs(vcpu, &vmcs_version);
- 			if (!r) {
-@@ -6150,7 +6152,7 @@ long kvm_arch_vcpu_ioctl(struct file *filp,
- 		u32 user_data_size;
- 
- 		r = -EINVAL;
--		if (!kvm_x86_ops.nested_ops->get_state)
-+		if (!kvm_x86_ops.nested_ops->enabled)
- 			break;
- 
- 		BUILD_BUG_ON(sizeof(user_data_size) != sizeof(user_kvm_nested_state->size));
-@@ -6180,7 +6182,7 @@ long kvm_arch_vcpu_ioctl(struct file *filp,
- 		int idx;
- 
- 		r = -EINVAL;
--		if (!kvm_x86_ops.nested_ops->set_state)
-+		if (!kvm_x86_ops.nested_ops->enabled)
- 			break;
- 
- 		r = -EFAULT;
+ 		psm = get_unaligned((__le16 *) skb->data);
+ 		skb_pull(skb, L2CAP_PSMLEN_SIZE);
+ 		l2cap_conless_channel(conn, psm, skb);
 -- 
 2.53.0
+
+
 
