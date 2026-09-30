@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 276E14DEC0B
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 13:13:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43D554D9F96
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 13:13:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790774012; cv=none; b=WbpCpAcW7SkdvFbwOywn/X2vjVyi+5SVO3CtqfA08X4swQIR3O31DRY6WI57/E4bf0fSPYNDyg29trSQAoI0N66GIyZurAbO3apmghRjmb1PDfFl53a3X7xJWr56pQBj4EgFEl3TaG7UsoBe3MfP7ToffT1QR0IQHAFmfYgYukw=
+	t=1790774016; cv=none; b=eR+jjmvvZwol9/hwZW34XcrcFT7hbqsz8a0NL7RzAoiB8g0QyWK17oYd18qFAB8jrUZB1p6rVN5+ojx7EBBL9jrd0mKLAGKHhqKynoqYLOyaguL2fHfdh3b+QIrvE6g6Af1Akm0NVK5gIL4aSjLckQaedsc+02AS8nU2OpmunFc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790774012; c=relaxed/simple;
-	bh=UcEFCW5p7zScJCfC0M5hyvQ388AmUUX/XnrcDa/4kp0=;
+	s=arc-20240116; t=1790774016; c=relaxed/simple;
+	bh=k8V0kj3DZLktIf2VQ1SxthBx+IdOU+eTQaRQKWx3bSs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Kf4nXuvdX+ZoWzaNrumY7pHn7eg126fjdi3yLwfXAj3NRwoeBKeRvhrXch4wqPyy6VN7avoIWxzzcjmcHLHwNS/FiU3rf35LTVD7hKQlpm6K6pQeuHUJX8sWxedrdnF3ocB3c6/hs4PlriWZw8cUXX7YzNPZbNyFqcufxerbO4c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XmUGG7zC; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=i7nnw4/a169eQ9eF/S0A6JqUWQghXvzYrPhtGZiRlV2l3+b1vogFgfaOC8SNALm6fQd6gF/7ikT0LXdoXh87veNYfRd9PEC1W6J1N9ha4yfQFqi7XM1txQOJe9RLcYUNb244Q9fSelNQjGfmyQahi94zLi90vwu+v5dsqooFZXY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=muMUX/nV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XmUGG7zC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37C191F0089C;
-	Wed, 30 Sep 2026 13:13:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="muMUX/nV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D8C81F00893;
+	Wed, 30 Sep 2026 13:13:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790773981;
-	bh=GJUa+kOL98z2f0+t/asgPIOqzwsHbGASneQKVZu3CF8=;
+	s=k20260515; t=1790773993;
+	bh=QPNRa7UV7vcoCu6hkPvU59FrpcrgSxI09IvwWD71ggk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XmUGG7zC/QBnwUhY5saJTXdCIaiSOtpfsHX27kyFeuKM2znjHjcerl+eUqJITE2Qx
-	 BGMOUcxvByPSPGTmkDdkBeRh8vaVcdmAdd8RRRbEWUeRFgQpkOC//EAn5GBM5ekoYl
-	 STcnzHM/19i7Y5L+IdB9wpeB2I0HkbmsoYlzR6tGWJqsiCMWsdM46viIvGGtcSVf1d
-	 0bowAGqgHkZikp+a1AgsJ9Orx+BLkGSP0QXCScJDn0yzv9etjLQRiY6wTaF5azTK1G
-	 NeHFvLel8YkXWUoUKva36ZTkS0G03d/g72hV5/1SHV/tq4Auy5C5VTL5p4UJFQynaL
-	 806LtL+b72kvw==
+	b=muMUX/nVNte2zBvXHBwV1cwZ26GiV5p/FWwU8YmhTIzj/a1Iz7YD1ZLIEqOmaoJvS
+	 851ncySU9lGSYRC+sSRPSFfYa29gabFHjfno02VOKVYEdp4Fp1jI9yGL4g/TEiazzd
+	 IryB6OAR3+4Lltlo84lIrZnrmcN0S+qvCCQpyPmd9CuImTWgrMM+hVP8KP3fE1gHV/
+	 5er6tPJ/Mf7n5GdDUtdLLbj1qGAvVzKLHmS/E1ZU/iCNhk94rENlfjYSW/AJqnhuQg
+	 ljwSK219YBS/ruEvOxZIQdizZX/94UroF9rGQlWmdLXhblTfxaBejZ60ueE2LqAStR
+	 G+jq+LMakSvdQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Paolo Bonzini <pbonzini@redhat.com>,
-	Kai Huang <kai.huang@intel.com>,
+Cc: Dapeng Mi <dapeng1.mi@linux.intel.com>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 5/8] KVM: move TSS constants from kvm_host.h to tss.h
-Date: Wed, 30 Sep 2026 09:12:52 -0400
-Message-ID: <20260930131256.1728861-5-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] perf/x86/intel: Update event constraints and cache_extra_regsfor ADL
+Date: Wed, 30 Sep 2026 09:13:10 -0400
+Message-ID: <20260930131311.1729508-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260930131256.1728861-1-sashal@kernel.org>
-References: <2026092945-unzip-pluck-7c40@gregkh>
- <20260930131256.1728861-1-sashal@kernel.org>
+In-Reply-To: <2026092920-overjoyed-siren-0a53@gregkh>
+References: <2026092920-overjoyed-siren-0a53@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,66 +45,171 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Paolo Bonzini <pbonzini@redhat.com>
+From: Dapeng Mi <dapeng1.mi@linux.intel.com>
 
-[ Upstream commit 35fdfa632e7cf8271189c7ae6f97e7c4b55f7f80 ]
+[ Upstream commit 4ef863352bcde482d65722ed721c3fd3967a67d6 ]
 
-Suggested-by: Kai Huang <kai.huang@intel.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-Stable-dep-of: 10180a277549 ("KVM: x86: Re-pend GET_NESTED_STATE_PAGES if getting said pages fails")
+Update perf hard-coded event constraints and cache_extra_regs[] for
+Alderlake according to the latest ADL perfmon events (V1.39).
+
+One important note is that ADL has differences on the L3/node related
+OCR events although it shares same uarch with SPR server, e.g.,
+ADL has different extra MSR values and no node events. So some variants
+of structures and functions are introduced to reflect these
+differences, like adl_glc_hw_cache_event_ids[],
+adl_glc_hw_cache_extra_regs[] and intel_pmu_init_glc_hybrid(), etc.
+
+Please note these changes would temporarily impact other platforms like
+MTL/ARL-U which shares hard-coded event structures, but it would be
+fixed soon in subsequent patches.
+
+ADL perfmon events:
+https://github.com/intel/perfmon/blob/main/ADL/events/alderlake_goldencove_core.json
+https://github.com/intel/perfmon/blob/main/ADL/events/alderlake_gracemont_core.json
+
+Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Link: https://patch.msgid.link/20260515061143.338553-5-dapeng1.mi@linux.intel.com
+
+Backport dependency preparation for Linux 6.6:
+
+Retain the Gracemont store-latency counter mask update from 0xf to
+0x3f. Drop the unrelated cache tables, offcore register masks and PMU
+initialization changes: they depend on newer refactoring and are not
+needed by target 89dc568e8c0be60e05e5fcd0b528c79077d7b84b.
+
+Prepare that target's existing latency path by renaming the ADL helper
+and callback to __grt_latency_data() and grt_latency_data(), updating
+all callers and the declaration. These are existing functions, not new
+ones. Guard the hybrid-only warning with is_hybrid(), retaining the
+6.6 cpu_type field and existing data-source mask.
+
+Include only the two hybrid load/store latency constraint macros from
+608f6976c3097, preserving the hybrid decoder dispatch while making the
+target's explicit direction flags available. Leave the actual direction
+correction to the target commit.
+
+Stable-dep-of: 89dc568e8c0b ("perf/x86/intel: Fix GRT PEBS load/store direction for latency events, to fix sample classification")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/include/asm/kvm_host.h | 7 -------
- arch/x86/kvm/tss.h              | 7 +++++++
- arch/x86/kvm/vmx/vmx.c          | 1 +
- 3 files changed, 8 insertions(+), 7 deletions(-)
+ arch/x86/events/intel/core.c |  4 ++--
+ arch/x86/events/intel/ds.c   | 23 ++++++++++++-----------
+ arch/x86/events/perf_event.h | 10 +++++++++-
+ 3 files changed, 23 insertions(+), 14 deletions(-)
 
-diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
-index a89beb6f8eade..0da2268800f6c 100644
---- a/arch/x86/include/asm/kvm_host.h
-+++ b/arch/x86/include/asm/kvm_host.h
-@@ -2433,13 +2433,6 @@ static inline void kvm_inject_gp(struct kvm_vcpu *vcpu, u32 error_code)
- 	kvm_queue_exception_e(vcpu, GP_VECTOR, error_code);
+diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
+index 8d1ec1d888da7..dbdc37b5074ec 100644
+--- a/arch/x86/events/intel/core.c
++++ b/arch/x86/events/intel/core.c
+@@ -6366,7 +6366,7 @@ __init int intel_pmu_init(void)
+ 		x86_pmu.flags |= PMU_FL_INSTR_LATENCY;
+ 
+ 		intel_pmu_pebs_data_source_grt();
+-		x86_pmu.pebs_latency_data = adl_latency_data_small;
++		x86_pmu.pebs_latency_data = grt_latency_data;
+ 		x86_pmu.get_event_constraints = tnt_get_event_constraints;
+ 		x86_pmu.limit_period = spr_limit_period;
+ 		td_attr = tnt_events_attrs;
+@@ -6786,7 +6786,7 @@ __init int intel_pmu_init(void)
+ 		x86_pmu.flags |= PMU_FL_NO_HT_SHARING;
+ 		x86_pmu.flags |= PMU_FL_INSTR_LATENCY;
+ 		x86_pmu.lbr_pt_coexist = true;
+-		x86_pmu.pebs_latency_data = adl_latency_data_small;
++		x86_pmu.pebs_latency_data = grt_latency_data;
+ 		x86_pmu.num_topdown_events = 8;
+ 		static_call_update(intel_pmu_update_topdown_event,
+ 				   &adl_update_topdown_event);
+diff --git a/arch/x86/events/intel/ds.c b/arch/x86/events/intel/ds.c
+index 7dcf5305d695d..76b09d951c061 100644
+--- a/arch/x86/events/intel/ds.c
++++ b/arch/x86/events/intel/ds.c
+@@ -256,12 +256,13 @@ static inline void pebs_set_tlb_lock(u64 *val, bool tlb, bool lock)
  }
  
--#define TSS_IOPB_BASE_OFFSET 0x66
--#define TSS_BASE_SIZE 0x68
--#define TSS_IOPB_SIZE (65536 / 8)
--#define TSS_REDIRECTION_SIZE (256 / 8)
--#define RMODE_TSS_SIZE							\
--	(TSS_BASE_SIZE + TSS_REDIRECTION_SIZE + TSS_IOPB_SIZE + 1)
--
- enum {
- 	TASK_SWITCH_CALL = 0,
- 	TASK_SWITCH_IRET = 1,
-diff --git a/arch/x86/kvm/tss.h b/arch/x86/kvm/tss.h
-index 3f9150125e701..117bf8bec07dc 100644
---- a/arch/x86/kvm/tss.h
-+++ b/arch/x86/kvm/tss.h
-@@ -57,4 +57,11 @@ struct tss_segment_16 {
- 	u16 ldt;
+ /* Retrieve the latency data for e-core of ADL */
+-static u64 __adl_latency_data_small(struct perf_event *event, u64 status,
+-				     u8 dse, bool tlb, bool lock, bool blk)
++static u64 __grt_latency_data(struct perf_event *event, u64 status,
++			       u8 dse, bool tlb, bool lock, bool blk)
+ {
+ 	u64 val;
+ 
+-	WARN_ON_ONCE(hybrid_pmu(event->pmu)->cpu_type == hybrid_big);
++	WARN_ON_ONCE(is_hybrid() &&
++		     hybrid_pmu(event->pmu)->cpu_type == hybrid_big);
+ 
+ 	dse &= PERF_PEBS_DATA_SOURCE_MASK;
+ 	val = hybrid_var(event->pmu, pebs_data_source)[dse];
+@@ -276,15 +277,15 @@ static u64 __adl_latency_data_small(struct perf_event *event, u64 status,
+ 	return val;
+ }
+ 
+-u64 adl_latency_data_small(struct perf_event *event, u64 status)
++u64 grt_latency_data(struct perf_event *event, u64 status)
+ {
+ 	union intel_x86_pebs_dse dse;
+ 
+ 	dse.val = status;
+ 
+-	return __adl_latency_data_small(event, status, dse.ld_dse,
+-					dse.ld_locked, dse.ld_stlb_miss,
+-					dse.ld_data_blk);
++	return __grt_latency_data(event, status, dse.ld_dse,
++				  dse.ld_locked, dse.ld_stlb_miss,
++				  dse.ld_data_blk);
+ }
+ 
+ /* Retrieve the latency data for e-core of MTL */
+@@ -294,9 +295,9 @@ u64 mtl_latency_data_small(struct perf_event *event, u64 status)
+ 
+ 	dse.val = status;
+ 
+-	return __adl_latency_data_small(event, status, dse.mtl_dse,
+-					dse.mtl_stlb_miss, dse.mtl_locked,
+-					dse.mtl_fwd_blk);
++	return __grt_latency_data(event, status, dse.mtl_dse,
++				  dse.mtl_stlb_miss, dse.mtl_locked,
++				  dse.mtl_fwd_blk);
+ }
+ 
+ static u64 load_latency_data(struct perf_event *event, u64 status)
+@@ -892,7 +893,7 @@ struct event_constraint intel_glm_pebs_event_constraints[] = {
+ struct event_constraint intel_grt_pebs_event_constraints[] = {
+ 	/* Allow all events as PEBS with no flags */
+ 	INTEL_HYBRID_LAT_CONSTRAINT(0x5d0, 0x3),
+-	INTEL_HYBRID_LAT_CONSTRAINT(0x6d0, 0xf),
++	INTEL_HYBRID_LAT_CONSTRAINT(0x6d0, 0x3f),
+ 	EVENT_CONSTRAINT_END
  };
  
-+#define TSS_IOPB_BASE_OFFSET 0x66
-+#define TSS_BASE_SIZE 0x68
-+#define TSS_IOPB_SIZE (65536 / 8)
-+#define TSS_REDIRECTION_SIZE (256 / 8)
-+#define RMODE_TSS_SIZE							\
-+	(TSS_BASE_SIZE + TSS_REDIRECTION_SIZE + TSS_IOPB_SIZE + 1)
+diff --git a/arch/x86/events/perf_event.h b/arch/x86/events/perf_event.h
+index 4ca15be45cb80..90fc33977e1cd 100644
+--- a/arch/x86/events/perf_event.h
++++ b/arch/x86/events/perf_event.h
+@@ -470,6 +470,14 @@ struct cpu_hw_events {
+ 	__EVENT_CONSTRAINT(c, n, INTEL_ARCH_EVENT_MASK|X86_ALL_EVENT_FLAGS, \
+ 			  HWEIGHT(n), 0, PERF_X86_EVENT_PEBS_LAT_HYBRID)
+ 
++#define INTEL_HYBRID_LDLAT_CONSTRAINT(c, n)	\
++	__EVENT_CONSTRAINT(c, n, INTEL_ARCH_EVENT_MASK|X86_ALL_EVENT_FLAGS, \
++			  HWEIGHT(n), 0, PERF_X86_EVENT_PEBS_LAT_HYBRID|PERF_X86_EVENT_PEBS_LD_HSW)
 +
- #endif
-diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
-index b8d745f6fd221..8b75c70e60d26 100644
---- a/arch/x86/kvm/vmx/vmx.c
-+++ b/arch/x86/kvm/vmx/vmx.c
-@@ -72,6 +72,7 @@
- #include "x86.h"
- #include "x86_ops.h"
- #include "smm.h"
-+#include "tss.h"
- #include "vmx_onhyperv.h"
- #include "vmenter.h"
- #include "posted_intr.h"
++#define INTEL_HYBRID_STLAT_CONSTRAINT(c, n)	\
++	__EVENT_CONSTRAINT(c, n, INTEL_ARCH_EVENT_MASK|X86_ALL_EVENT_FLAGS, \
++			  HWEIGHT(n), 0, PERF_X86_EVENT_PEBS_LAT_HYBRID|PERF_X86_EVENT_PEBS_ST_HSW)
++
+ /* Event constraint, but match on all event flags too. */
+ #define INTEL_FLAGS_EVENT_CONSTRAINT(c, n) \
+ 	EVENT_CONSTRAINT(c, n, ARCH_PERFMON_EVENTSEL_EVENT|X86_ALL_EVENT_FLAGS)
+@@ -1499,7 +1507,7 @@ void intel_pmu_disable_bts(void);
+ 
+ int intel_pmu_drain_bts_buffer(void);
+ 
+-u64 adl_latency_data_small(struct perf_event *event, u64 status);
++u64 grt_latency_data(struct perf_event *event, u64 status);
+ 
+ u64 mtl_latency_data_small(struct perf_event *event, u64 status);
+ 
 -- 
 2.53.0
 
