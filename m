@@ -1,188 +1,107 @@
-Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74EEA34DB72
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 01:12:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EDE634E774
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 01:13:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790730738; cv=none; b=TMbHamQV5xE3tVHnBV/jXH+qXbdWVz9e0Q5ZrJ57XvSOc97zOuVJoytGWZmQ8nfZ4eNZ6DiGPuol5tAonLWnkHyWBK54nFNT5a0nEJGLoZbasnDsiiuzZSkEDC3kWFuasvpCfL7RSqivkQWv71Dr1Blf+xAri8fY70Pu2wa+c6Y=
+	t=1790730784; cv=none; b=YDupwsVpA3gcppY4aKU5bGL1gK5CAIcHpvOemjeHMSMz3VhzR2MbA2WEr9mwyPaM5qX2rfAq9lI1jH4xZKT+ssgzrnlJFpaKmX/j0zvFgKq0IwhPmqN65wbdbu+vvZwWXq0DLAygsBkORmbVdLN4a1vlDcYyO7Rkj2PlXYO2ZGs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790730738; c=relaxed/simple;
-	bh=r6QEHOpOYHWj7FufqyeEcfQM5mfa/urPcEzDnrQ04Kg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=F3BsE6cv0EJAs9oha/yEhXp8ifLKCi6eU28C7UB2VVyyLoxtk1NwQT/D0YF5D1PQprku90dGvQMMgQr3Js0zqr9Ok+K8XvgsOYcc5X2lm81ObPIpn/6i/vmmTLB1dGv+LsBp38mwbTwm//1OOI++aAbkqT0r4wZxAfHBLsuvQMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=N+EUxWqL; arc=none smtp.client-ip=74.125.229.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	s=arc-20240116; t=1790730784; c=relaxed/simple;
+	bh=U9hUDvq5HwkPT3TJZtXNQ0ri12NaTsaBw19ReDYw9Ts=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=fMj6Fn2/5dx8Os+4s0NQWRlhryphGy+BK8HoFA5hJO/GF/wc8rxcD7fg4EaXgLO/EmobFOmKDFC51zWcGGxayQh1V0IOimCvuLFwzt7ngs7yhJuYP+nnf1GIsvpNx//Gshm9WxWVSGrKeTho3gpTpF5KsiM4Pm0iHa4LPWOO+I8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WbFtUdx0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="N+EUxWqL"
-Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-344447f9c3dso2348323eec.0
-        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 18:12:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1790730735; x=1791335535; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=o/GYHJr9V/8fnSGwEk+BZPbvKDBaM+5fMSFs2YxkmV0=;
-        b=N+EUxWqLuu9vcw01cgL5F8i1PXMyFJgmJAVoow9mmlYX9u65gpz8Hu1r9AwpL1Ran2
-         cNIc/eWwd8z4U3MBDxdgQECPeSfXC8zq9EfKGWxNUWPJ9sv8ygIoQ8ZKH9adbRsTASPZ
-         +XbTa4xpDWUfgKPP+KZK+10DVBhOjdM8aQu3BKUmuQCZ/lLmVFIn8p5oeRVWKrAyVedp
-         QJtYVdq2fsInoAlF9E5kDLftJIRaUF5Z6TBVh4ROtxsboYmeNA+ozBYcgM2eOWqbrmlQ
-         ZXS8N9Pp2usEGUS1JDEm+LA84VvTfUVK8COpegCXY2+JE1+WxI9up97aIU74Pn0ZbIno
-         5u9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790730735; x=1791335535;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=o/GYHJr9V/8fnSGwEk+BZPbvKDBaM+5fMSFs2YxkmV0=;
-        b=hAl9JcrUqwTAo1yPRNOeZ7tmjSyJZsWZ2n4MHnsoONgTn3tobmBb30J/KT2+wOMgAl
-         ZkglQn8raCs6lchUst53fqMLl2QKdzdqi5O2eEteXOaiCwuuServzDLb1FXVnfArRPVg
-         TGgKW5Ro8IYVjU3e5P2NdNSxJD2TjBnKYr9AG7ghw5vrkXOOY8DovG1Kh4oafs+a1b3b
-         GFpcKsrmbBMCt//kwHZKpjiu6kqXfDQWemDpme0svfuipXujKafPuwQvK5YIrY8Pdidp
-         DZbveS7G68ncVfmG8o3ysGnbYLhQ14x1+Z5NuDVndKC7h4Qxxk4GWKDdrj7PSHlTpEhQ
-         abmA==
-X-Gm-Message-State: AFq9FYJEkqiZb0Kt63oPpBWdNuMhgtgcezogdWq4ilonWR4JJx0manhA
-	WePzpjGi5XXW2YHSjhrnQFLp7rw7msIVnQqdqikymw1jNI8T64jPZLg9WtHVx75jQE7cw+wkLof
-	Msc2e2+E=
-X-Gm-Gg: AYBFou1pu4Y18vTWzFqLzE8znrt+jhNfUhIt8zRozSi1bU6IlyMaBzKZlGRD5MSj1uT
-	VhQ6MDYhgJwU18acYVO4oKUdZIGfzrLYNwomfNAEc8YGU8EF7k6MHVFgMBgoGvXtc2C5e7ZnHRH
-	9FeNu5vMvmZldQIM89tbjlPsBjlplh0MZwuc2jUAKjFbXLgu3aVPzsapqIviZu3HhaQ90gtQ9lp
-	AjL+1/weyVueEMZX1vCrwlxg35P0+Oosb9BUDkoIC92GA5nPTZ7Ldxlsj79ByIev5cOSfaWU1rj
-	8TTkXzTKWw5Rxy9A7tDSKePeX9yf7ZYNxPu7Nm2ZpmU3mAhs48/SwwdSS7uhnVl/UV3tfZp6qu8
-	oJvdTyKt+REJn7Dt9+jKNxcXpJ6L/B4kdoZ0KFrb95Oxp7Y+8suP7gYHKs7d509QwFxSuqWCoyv
-	/spE9RTPj29RAf6M8+WZiKat3kQP4BdvLF9yzkaN9EGm0anastQ66kdeIOhOGhfYzgOQ742087X
-	ZrFT/S2rAMb+zV524xUF5DMKvNP2PgIYoWEnYegUr7n08YLHrltJCTdTgvu3dYcnpTTsA0=
-X-Received: by 2002:a05:7301:23af:b0:342:a328:fe1c with SMTP id 5a478bee46e88-34c672e2943mr1274302eec.27.1790730735387;
-        Tue, 29 Sep 2026 18:12:15 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:3481:cbb6:f339:9e4e])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34c388f4e19sm2290684eec.22.2026.09.29.18.12.13
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 29 Sep 2026 18:12:14 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WbFtUdx0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B0CB1F000FF;
+	Wed, 30 Sep 2026 01:13:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790730783;
+	bh=wfUsCdUx9Iiz8bjQ1bpU9wFshtyZeYSRmKpmq+r3H8o=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=WbFtUdx0XiJZIvOfsd/gDIqTNxpK0KwHapDRzbi2In7x5tnCknrn2shx0Y52/i6gp
+	 oMreOi5iJFqijscBASF794mj2NkPDiPq+3PIW/avflOTml+8TsYhU4/xitb/QMKdNJ
+	 xyLwxlNbp2OShhmgZoJbs6l5pfdwYCaDLmOtA375XstNVU+ozqcuRHU7i/0gYYBNal
+	 AHxa+eBaPJxUtL2xvNkW8k+SwODQkY8AHAbKlVY3WBUI+znI3TC0tVjcaonlsZxGu5
+	 KCE+uAqgslVuPvxtu+mP6nsTC/5bT2a2Ip9jQA7tb8HazHr0/rF2SkEFxqnayJSoyq
+	 RR+u4TG/3IRmw==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Artem Dinaburg <artem@trailofbits.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Christoph Schlameuss <schlameuss@linux.ibm.com>,
-	Claudio Imbrenda <imbrenda@linux.ibm.com>,
-	Janosch Frank <frankja@linux.ibm.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	David Hildenbrand <david@kernel.org>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	kvm@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	Sean Christopherson <seanjc@google.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	avi@redhat.com,
-	cotte@de.ibm.com,
-	david@redhat.com,
-	mtosatti@redhat.com
-Subject: [PATCH 6.6.y] kvm: s390: Reject memory region operations for ucontrol VMs
-Date: Tue, 29 Sep 2026 21:12:08 -0400
-Message-ID: <20260930011211.94657-1-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+Cc: =?UTF-8?q?Th=C3=A9o=20Lebrun?= <theo.lebrun@bootlin.com>,
+	Nicolai Buchwitz <nb@tipi-net.de>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] net: macb: fix dma_alloc_coherent() leak on macb_alloc() error paths
+Date: Tue, 29 Sep 2026 21:13:00 -0400
+Message-ID: <20260930011300.3257219-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026092901-evaluator-improvise-eb56@gregkh>
+References: <2026092901-evaluator-improvise-eb56@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Christoph Schlameuss <schlameuss@linux.ibm.com>
+From: Théo Lebrun <theo.lebrun@bootlin.com>
 
-[ Upstream commit 7816e58967d0e6cadce05c8540b47ed027dc2499 ]
+[ Upstream commit 23d42b9a3bcd55b17d3b371544fedc708c2397e9 ]
 
-This change rejects the KVM_SET_USER_MEMORY_REGION and
-KVM_SET_USER_MEMORY_REGION2 ioctls when called on a ucontrol VM.
-This is necessary since ucontrol VMs have kvm->arch.gmap set to 0 and
-would thus result in a null pointer dereference further in.
-Memory management needs to be performed in userspace and using the
-ioctls KVM_S390_UCAS_MAP and KVM_S390_UCAS_UNMAP.
+Fix 3 leaks in macb_alloc() error paths:
+- Tx buffer allocated but crossing a 4G boundary: Tx leaked.
+- Rx buffer allocation fails: Tx leaked.
+- Rx buffer allocated but crossing a 4G boundary: Tx & Rx leaked.
 
-Also improve s390 specific documentation for KVM_SET_USER_MEMORY_REGION
-and KVM_SET_USER_MEMORY_REGION2.
+This is because our error handling calls macb_free(bp) which in turn
+frees the buffers stored in bp->queues[0], but nothing has been stored
+in there. Fix by storing allocated buffers into bp->queues[0] ASAP.
 
-[ Backport to 6.6.y: omitted KVM_SET_USER_MEMORY_REGION2 documentation
-  because that ioctl is absent from 6.6.y. ]
-
-Signed-off-by: Christoph Schlameuss <schlameuss@linux.ibm.com>
-Fixes: 27e0393f15fc ("KVM: s390: ucontrol: per vcpu address spaces")
-Reviewed-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
-Link: https://lore.kernel.org/r/20240624095902.29375-1-schlameuss@linux.ibm.com
-Signed-off-by: Janosch Frank <frankja@linux.ibm.com>
-[frankja@linux.ibm.com: commit message spelling fix, subject prefix fix]
-Message-ID: <20240624095902.29375-1-schlameuss@linux.ibm.com>
-Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+Fixes: 78d901897b3c ("net: macb: single dma_alloc_coherent() for DMA descriptors")
+Cc: stable@vger.kernel.org
+Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
+Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+Link: https://patch.msgid.link/20260918-macb-alloc-leak-v1-1-aba9a3d4f6e3@bootlin.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Hi Greg, Sasha, and kvm s390 maintainers,
+ drivers/net/ethernet/cadence/macb_main.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
-I am working through the small CVE backports still missing from 6.6.y.
-This one addresses CVE-2024-43819. It rejects memory-region ioctls before a
-ucontrol VM can dereference its NULL gmap.
-
-I (sadly) do not have an s390 to run the fix, but it built and the adaptation
-makes sense.
-
-The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not in 6.6.y.
-This fix also affects 6.1.y, which will need a separate backport; this
-submission contains only the 6.6.y patch.
-The target-specific adjustment is recorded in the bracketed note above.
-
-Could you please queue it for 6.6.y?
-
-CVE: CVE-2024-43819
-Upstream: 7816e58967d0e6cadce05c8540b47ed027dc2499
-
-AI assistance: An LLM helped identify, adapt, and validate this backport; I
-reviewed the resulting code and validation evidence.
-
-Thanks,
-Artem Dinaburg
-
- Documentation/virt/kvm/api.rst | 6 ++++++
- arch/s390/kvm/kvm-s390.c       | 3 +++
- 2 files changed, 9 insertions(+)
-
-diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
-index 21a7578142a18b..0f7177c7653bd3 100644
---- a/Documentation/virt/kvm/api.rst
-+++ b/Documentation/virt/kvm/api.rst
-@@ -1363,6 +1363,12 @@ Instead, an abort (data abort if the cause of the page-table update
- was a load or a store, instruction abort if it was an instruction
- fetch) is injected in the guest.
+diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
+index 02fd4bd04487a..1eaf9be483153 100644
+--- a/drivers/net/ethernet/cadence/macb_main.c
++++ b/drivers/net/ethernet/cadence/macb_main.c
+@@ -2663,14 +2663,24 @@ static int macb_alloc_consistent(struct macb *bp)
  
-+S390:
-+^^^^^
-+
-+Returns -EINVAL if the VM has the KVM_VM_S390_UCONTROL flag set.
-+Returns -EINVAL if called on a protected VM.
-+
- 4.36 KVM_SET_TSS_ADDR
- ---------------------
+ 	size = bp->num_queues * macb_tx_ring_size_per_queue(bp);
+ 	tx = dma_alloc_coherent(dev, size, &tx_dma, GFP_KERNEL);
+-	if (!tx || upper_32_bits(tx_dma) != upper_32_bits(tx_dma + size - 1))
++	if (!tx)
++		goto out_err;
++	/* Record the buffer so that the error path frees it. */
++	bp->queues[0].tx_ring = tx;
++	bp->queues[0].tx_ring_dma = tx_dma;
++	if (upper_32_bits(tx_dma) != upper_32_bits(tx_dma + size - 1))
+ 		goto out_err;
+ 	netdev_dbg(bp->dev, "Allocated %zu bytes for %u TX rings at %08lx (mapped %p)\n",
+ 		   size, bp->num_queues, (unsigned long)tx_dma, tx);
  
-diff --git a/arch/s390/kvm/kvm-s390.c b/arch/s390/kvm/kvm-s390.c
-index cf075a89342263..97b436ae0012c5 100644
---- a/arch/s390/kvm/kvm-s390.c
-+++ b/arch/s390/kvm/kvm-s390.c
-@@ -5769,6 +5769,9 @@ int kvm_arch_prepare_memory_region(struct kvm *kvm,
- {
- 	gpa_t size;
- 
-+	if (kvm_is_ucontrol(kvm))
-+		return -EINVAL;
-+
- 	/* When we are protected, we should not change the memory slots */
- 	if (kvm_s390_pv_get_handle(kvm))
- 		return -EINVAL;
+ 	size = bp->num_queues * macb_rx_ring_size_per_queue(bp);
+ 	rx = dma_alloc_coherent(dev, size, &rx_dma, GFP_KERNEL);
+-	if (!rx || upper_32_bits(rx_dma) != upper_32_bits(rx_dma + size - 1))
++	if (!rx)
++		goto out_err;
++	/* Record the buffer so that the error path frees it. */
++	bp->queues[0].rx_ring = rx;
++	bp->queues[0].rx_ring_dma = rx_dma;
++	if (upper_32_bits(rx_dma) != upper_32_bits(rx_dma + size - 1))
+ 		goto out_err;
+ 	netdev_dbg(bp->dev, "Allocated %zu bytes for %u RX rings at %08lx (mapped %p)\n",
+ 		   size, bp->num_queues, (unsigned long)rx_dma, rx);
 -- 
-2.39.5
+2.53.0
 
