@@ -1,86 +1,35 @@
-Received: from mail-ed2-f33.google.com (mail-ed2-f33.google.com [74.125.228.97])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14D5533BBCD
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 15:23:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80762332614;
+	Wed, 30 Sep 2026 15:23:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790781801; cv=none; b=NwoPe1ZwthUFlYJyD+XGoEdcY2scqOfyc8qBuMHzdiKD+LyC/bY0M6B31qViknsPwDAh67w2QCZzJoeJzRDMWeBWNZBrebg2593ngxladQLmASlkahq+z/oKz5JAhviQgladIuvO/gfVR8e85kHYGTfhAhLOaoMh3S/2JfTmDxM=
+	t=1790781804; cv=none; b=c4ETTMdppTINKlBE9IINwSnXaFNaX8m3XcVg2OZM7NnKU+yxaeBZvSZ/QKK0HkOolG+S+ss8eY1X7tA1yX1HLOZy6+WkzgX8pOYxHVTGNumvXcsk4VdtwvhqXIQ9fC+6S1xPSSXVZdmpg1nZGZ42SJYBjWURG+/dRg/IjrhMWlM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790781801; c=relaxed/simple;
-	bh=sdM5OqfoRJtAgwFkFqSFmLUbG2Nc3dHxv4AAkg6BVbA=;
+	s=arc-20240116; t=1790781804; c=relaxed/simple;
+	bh=Ctae4GbCsR+ZIcRGbALIdMVB0JGtBJgthgoy1B3RCIw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uHghtneSGBkjiST8iiiPa4heoaX9Sl9k7M0DfDFtJmkGnEOZc8TdhU+P8XThQPoWcQgNIJDgrJ5ZfLPoqZWDSi8AIVI8yf7UON+o3heeLX7LJ0HQNCYzrMTtjlE71eIgZwUSTROd4fYM0Ukl/HikI7ceEuDqkuWcYiVwqOgZWFc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu; spf=pass smtp.mailfrom=cs.unc.edu; dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b=kn6Vmu0c; arc=none smtp.client-ip=74.125.228.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b="kn6Vmu0c"
-Received: by mail-ed2-f33.google.com with SMTP id 4fb4d7f45d1cf-6ab0c3c3af6so6738264a12.1
-        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 08:23:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1790781792; x=1791386592; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dZiN99RMvoVLUY5C2k2n+LK4gqTaVAVijYhxlYv7sT8=;
-        b=kn6Vmu0cWpKlboHA8mjFZfz8pzCN5pDEARsBWZ2BAvk1R5r4VwGkExL1o5nHNHX8kR
-         LF1iWeKDT28Oc+ekMQJ5eqbb9LvuZJCMDVJA5j2Rms/qy40Ntx3v+VZgM5/uMUfOHWCQ
-         xBWlSY/mNygvXevb+qw/Hi8WN+ECLD6yV4mPD6YEV+kbQgx/JVimZrfJ+376+E5Ng3kB
-         cGhA0tzPjLv9YuE1CMSRClFEWsu3pfC+PC1hQD2xaFx8yvmaheH7cgSEWkgNcVWP4z8W
-         Dz7jVNEUqdievka/P9MUgnccQJPpe92gR7Z395qjt2LWaNiRmRlPGk9jKF6K4laB9YtY
-         0dzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790781792; x=1791386592;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dZiN99RMvoVLUY5C2k2n+LK4gqTaVAVijYhxlYv7sT8=;
-        b=kuKNnlP2Ms/Bn33anYFImySxoihq5d0zYMNVSqvxP3SmtxMK5eafs5PmWEPzJFNHev
-         BRg/3LGETCs7lQ1TZ/RXaTwc4gkFZijjBmHwPbWIgpooMVoP3F5uPf0uUghixW4ow1Lj
-         j3Ao32dM0+3U3Z9YBw8OtDOUCx8yBBYn3aoar+mN5TicHDLn5PmQuRYuEg8B0PoY7gSw
-         7aPc/wM2vLWuW7pStEmSujeRonr/jMiJy6OcqMA7iL1iuAXJ5nrm4KoLnr8kkerAqFLO
-         bgRgCpmLiWXw113ZYZE2D/ZwBYUhDSaINOtTyW4mjxxrxtOVvhk58THpKJZAvm/S8XsQ
-         PnWw==
-X-Forwarded-Encrypted: i=1; AKwUvBxSnkalmUvYXpZbEZ1qwRVEInEzO/tzHe6ijHre3zMnbP8/MJDfSLFnDtq1jhq8kRx15/ceB48=@vger.kernel.org
-X-Gm-Message-State: AFuF++mSZ9yaGp0r9PI4uUn8KwNzgSbkGtrclQ527teWb6b0kyQqfQ+M
-	BmcEHXdeNawSLaDgh2Jl6hpXdaYhjOCnkxkgyftZR7Z2wc9+Sv7nfQcrPjpJLq+/7w==
-X-Gm-Gg: AYBFou0IJi3TTmvrQ/hWCKnzNEAb2yv7SAXgiUVR25wRjRgZCYJ/mvaPA1dz9GR9z7x
-	gHON4L+2SWliA5Z9BfsIUU1LKsLII+k1JEaCZ1O4bo5m4XM4WIcGxY9XgRY5u9upydvyLbM/Der
-	6lTTKdtGQEUGOGEcN49WsH58GkA1KWQD3q0Wqtk5Ig4XYew1C25VV+d5FGaug8RJiLVPw5NfDY+
-	bt29HFJ+FF4iZ2j9wJGwkExYpiOVq8yZu+w/Z/mkT871yBNAscFIa9HnSJtp3MPIaVBxZOI6xg+
-	SKujVf/Cg/HnzBMQ1XQ5wimhyqna2WiS8uwnj6TZSJL7yROGJbUabOoS6uXp18bovJ15setsp/M
-	wROwAdPjvy90KELKQi8G5nFAbPi2w6Ov8XYeHDJ4HJ9LTHx4o4cPXbO6duRlNDFozistS7s0LOO
-	qTzkLfOi+Oeg5KvjMoiCk6KGz4C4mTrOhQQtMDbb/T/3+1AmLHXC6Vvpf33uDfTloyxS6Tdocnp
-	qy2D44XAYMJyRkSQfHwlg==
-X-Received: by 2002:a17:907:9688:b0:c29:5151:16b8 with SMTP id a640c23a62f3a-c2e23763c99mr142129866b.2.1790781791769;
-        Wed, 30 Sep 2026 08:23:11 -0700 (PDT)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e31ce6499sm23874966b.33.2026.09.30.08.23.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 08:23:10 -0700 (PDT)
-From: hengyul@cs.unc.edu
-To: netdev@vger.kernel.org
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Jiayuan Chen <jiayuan.chen@shopee.com>,
-	Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hengyu Liang <hengyul@cs.unc.edu>,
-	stable@vger.kernel.org
-Subject: [PATCH net 1/2] ipv6: route: do not validate nexthop of routes promoted to reject routes
-Date: Wed, 30 Sep 2026 11:22:28 -0400
-Message-ID: <20260930152229.1453929-2-hengyul@cs.unc.edu>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260930152229.1453929-1-hengyul@cs.unc.edu>
-References: <20260930152229.1453929-1-hengyul@cs.unc.edu>
+	 MIME-Version; b=klAsqz/ZfgcO0Ig3h01c83MFhwmxtMHP9Fw/V3OY1YgVZ4HXD0wTWTmud3sq7mlN/v475i7rdAJSXAncA3+4Q2RtwJ8NoYkeoAf+PlrlipzboXL9I+qQUCr3Bn1Yw8gzXFJ2hvBCCh33IzNmQv5dYhEoC1MisQ1uS2RJ+SKh4ps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A7161F00893;
+	Wed, 30 Sep 2026 15:23:16 +0000 (UTC)
+From: Dave Jiang <dave.jiang@intel.com>
+To: linux-cxl@vger.kernel.org
+Cc: dave@stgolabs.net,
+	jic23@kernel.org,
+	alison.schofield@intel.com,
+	ming.li@zohomail.com,
+	icheng@nvidia.com,
+	stable@vger.kernel.org,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	"Gregory Price (Meta)" <gourry@gourry.net>
+Subject: [PATCH v3 1/3] cxl/port: Clear cached dport pointers when a dport is removed
+Date: Wed, 30 Sep 2026 08:23:09 -0700
+Message-ID: <20260930152311.4164036-2-dave.jiang@intel.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260930152311.4164036-1-dave.jiang@intel.com>
+References: <20260930152311.4164036-1-dave.jiang@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -89,118 +38,95 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hengyu Liang <hengyul@cs.unc.edu>
+Switch decoders cache dport pointers in cxlsd->target[], and nothing
+clears them when a dport is freed. Readers then dereference freed memory.
 
-ip6_route_info_create_nh() promotes routes that use the loopback device
-as their nexthop device to reject routes, except for local and anycast
-routes and routes to the loopback address, as true routes via the
-loopback device would result in kernel looping.
+KASAN caught it under a cxl_test load/unload loop with concurrent sysfs
+reads (abbreviated).
 
-Before commit 21ec92774d15 ("net: ipv6: fix panic when IPv4 route
-references loopback IPv6 nexthop"), fib6_nh_init() also treated these
-routes as reject routes, so it neither validated their gateway nor
-checked the state of the loopback device. That commit restricted the
-check in fib6_nh_init() to explicit reject routes to fix IPv6 nexthop
-objects that use the loopback device. As a side effect, the nexthop of a
-route via the loopback device is now validated like the nexthop of a
-regular route before the route is promoted to a reject route, and adding
-such a route fails in cases that used to work:
+Clear the matching slots from cxl_dport_remove(), walking the port's
+decoders the way cxl_port_update_decoder_targets() does on the add side.
+Scan all nr_targets slots, the target[] allocation size, and clear every
+hit.
 
-  # ip link set dev lo down
-  # ip -6 route add 2001:db8::/32 dev lo
-  Error: Nexthop device is not up.
-  # ip link set dev lo up
-  # ip -6 route add 2001:db8::/32 via 2001:db8:1::1 dev lo
-  RTNETLINK answers: No route to host
-  # ip -6 route add default via ::ffff:192.0.2.1 dev lo
-  RTNETLINK answers: No route to host
-  # sysctl -qw net.ipv6.conf.lo.disable_ipv6=1
-  # ip -6 route add 2001:db8::/32 dev lo
-  Error: IPv6 is disabled on nexthop device.
-
-As the loopback device is down in a new network namespace, the first
-case affects routes added before the loopback device is brought up. The
-SIOCADDRT ioctl fails in the same way.
-
-Restore the previous check in fib6_nh_init() for routes created by
-ip6_route_info_create_nh(). IPv6 nexthop objects and IPv4 routes with an
-IPv6 gateway are never promoted to reject routes, so they keep the
-current check and the panic fixed by the above commit does not come
-back.
-
-Fixes: 21ec92774d15 ("net: ipv6: fix panic when IPv4 route references loopback IPv6 nexthop")
+Fixes: 8330671c57c7 ("cxl: Add helper to delete dport")
 Cc: stable@vger.kernel.org
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+Signed-off-by: Dave Jiang <dave.jiang@intel.com>
+Assisted-by: LLM
+Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Reviewed-by: Li Ming <ming.li@zohomail.com>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
 ---
- net/ipv6/route.c | 29 +++++++++++++++++++++++------
- 1 file changed, 23 insertions(+), 6 deletions(-)
+Found by KASAN while stress-testing a separate dport locking fix, not from a
+failure report.
 
-diff --git a/net/ipv6/route.c b/net/ipv6/route.c
-index 153ce16628c1..49ff87aa3756 100644
---- a/net/ipv6/route.c
-+++ b/net/ipv6/route.c
-@@ -3592,13 +3592,14 @@ static bool fib6_is_reject(u32 flags, struct net_device *dev, int addr_type)
- 	return false;
+Reproducer: cxl_test, CONFIG_KASAN=y, 12 concurrent readers cat'ing
+/sys/bus/cxl/devices/*/target_list while cxl_test is unloaded and reloaded.
+
+With the fix reverted the UAF lands ~1s into the first unload, on the trace
+above. With it applied, 36 cycles across two runs are clean: no KASAN
+report, no WARNING, lockdep never self-disables. clear_decoder_target()
+fired 2916 times during those runs, so the new path ran under the load.
+
+KASAN only reports once per boot unless kasan_multi_shot is set
+(report_enabled(), mm/kasan/report.c), so the reverted-fix run cannot show
+a per-cycle count - one report is the ceiling, not the frequency.
+
+target_list output is unaffected. Clearing a slot truncates the list at the
+first NULL, so that was the regression to watch for: 88 target_list files,
+no empty values before or after, and the multiset of values is unchanged
+once the ida-assigned decoder names are stripped.
+
+Enumeration is unchanged too: 15 memdev, 12 port, 15 endpoint, 192 decoder.
+---
+ drivers/cxl/core/port.c | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
+
+diff --git a/drivers/cxl/core/port.c b/drivers/cxl/core/port.c
+index 625e4aa427db..6ff3353865e3 100644
+--- a/drivers/cxl/core/port.c
++++ b/drivers/cxl/core/port.c
+@@ -1089,11 +1089,40 @@ static void cond_cxl_root_unlock(struct cxl_port *port)
+ 		device_unlock(&port->dev);
  }
  
--int fib6_nh_init(struct net *net, struct fib6_nh *fib6_nh,
--		 struct fib6_config *cfg, gfp_t gfp_flags,
--		 struct netlink_ext_ack *extack)
-+static int __fib6_nh_init(struct net *net, struct fib6_nh *fib6_nh,
-+			  struct fib6_config *cfg, bool lo_reject,
-+			  gfp_t gfp_flags, struct netlink_ext_ack *extack)
- {
- 	netdevice_tracker *dev_tracker = &fib6_nh->fib_nh_dev_tracker;
- 	struct net_device *dev = NULL;
- 	struct inet6_dev *idev = NULL;
-+	bool reject;
- 	int err;
- 
- 	if (!ipv6_mod_enabled()) {
-@@ -3646,9 +3647,17 @@ int fib6_nh_init(struct net *net, struct fib6_nh *fib6_nh,
- 	fib6_nh->fib_nh_weight = 1;
- 
- 	/* Reset the nexthop device to the loopback device in case of reject
--	 * routes.
-+	 * routes. If requested, also treat routes via the loopback device as
-+	 * reject routes, as ip6_route_info_create_nh() promotes them to reject
-+	 * routes and their nexthop does not need to be validated.
- 	 */
--	if (cfg->fc_flags & RTF_REJECT) {
-+	if (lo_reject)
-+		reject = fib6_is_reject(cfg->fc_flags, dev,
-+					ipv6_addr_type(&cfg->fc_dst));
-+	else
-+		reject = cfg->fc_flags & RTF_REJECT;
-+
-+	if (reject) {
- 		/* hold loopback dev/idev if we haven't done so. */
- 		if (dev != net->loopback_dev) {
- 			if (dev) {
-@@ -3725,6 +3734,13 @@ int fib6_nh_init(struct net *net, struct fib6_nh *fib6_nh,
- 	return err;
- }
- 
-+int fib6_nh_init(struct net *net, struct fib6_nh *fib6_nh,
-+		 struct fib6_config *cfg, gfp_t gfp_flags,
-+		 struct netlink_ext_ack *extack)
++static int clear_decoder_target(struct device *dev, void *data)
 +{
-+	return __fib6_nh_init(net, fib6_nh, cfg, false, gfp_flags, extack);
++	struct cxl_dport *dport = data;
++	struct cxl_switch_decoder *cxlsd;
++
++	if (!is_switch_decoder(dev))
++		return 0;
++
++	cxlsd = to_cxl_switch_decoder(dev);
++	guard(rwsem_write)(&cxl_rwsem.region);
++
++	/*
++	 * A dport can occupy more than one position of an interleave, so
++	 * scan the whole target list rather than stopping at the first hit.
++	 */
++	for (int i = 0; i < cxlsd->nr_targets; i++) {
++		if (cxlsd->target[i] != dport)
++			continue;
++		cxlsd->target[i] = NULL;
++		dev_dbg(dev, "dport%d removed from target list, index %d\n",
++			dport->port_id, i);
++	}
++
++	return 0;
 +}
 +
- void fib6_nh_release(struct fib6_nh *fib6_nh)
+ static void cxl_dport_remove(void *data)
  {
- 	struct rt6_exception_bucket *bucket;
-@@ -3917,7 +3933,8 @@ static int ip6_route_info_create_nh(struct fib6_info *rt,
- 	} else {
- 		int addr_type;
+ 	struct cxl_dport *dport = data;
+ 	struct cxl_port *port = dport->port;
  
--		err = fib6_nh_init(net, rt->fib6_nh, cfg, gfp_flags, extack);
-+		err = __fib6_nh_init(net, rt->fib6_nh, cfg, true, gfp_flags,
-+				     extack);
- 		if (err)
- 			goto out_release;
- 
++	/* counterpart of cxl_port_update_decoder_targets() */
++	device_for_each_child(&port->dev, dport, clear_decoder_target);
++
+ 	port->nr_dports--;
+ 	xa_erase(&port->dports, (unsigned long) dport->dport_dev);
+ 	put_device(dport->dport_dev);
 -- 
-2.53.0
+2.54.0
 
