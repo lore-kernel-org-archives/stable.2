@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 117364FC33E
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 14:05:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E69A4E2F3D
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 14:05:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790777149; cv=none; b=lDWd3oGjL743EVylot5OTXugDQrUoB8wB5xk+jZ0bbZSOp4efdDK8w/IJJRplcPm64BeNx6Za53+7ErpliQkW8dr9e2KG6UsQEBzk1xE1uFrOxGNMMt4egQVWsyGsgOHr0LLwk21RwxsEklrOOs3Aoc3ac95IRNykszELt7teRI=
+	t=1790777151; cv=none; b=BsJncJVf+aTpVA7zRXJRqLAtMO0qOXl0ktOSCkanjyjbR/w4WS891BiFZYLgGAcREMrNhpfNE9O/TkDgtEAb6qK6uP09XlVgbiOfBBlm+za1z9wVdLiC4XfJIxZ46U+G8VyjnVfM8pP/4a3wdDSwKW1He7RJyRR/5PmqVab4Wm8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790777149; c=relaxed/simple;
-	bh=mVDys4gkD788vYBpq5bSHkKtk/RYx9qHuU5XLg9nH5U=;
+	s=arc-20240116; t=1790777151; c=relaxed/simple;
+	bh=AkgR6yT/KmcB0yhzLobZ4lqIjW+gPRQcFZquaw0Mp6U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uDCEwXh96Hny+7+9i+65+HEHSe4VQmDDupV4zDCvBApWtEdvvuASXeOYfNe7nYxnpuh90NSMr8/1h/8lfgdJBjwbQyE+sN2ffoaLCEaAyUafaABjbd3y1/LF8s5LxYgKDwbF/xYvB7XlQ7TfQqGsFGbK3pzh57uuuy6vE0Gq6HE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z5CmKfF1; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=DrxDdSEsZjmbnOjCMru1AHwx2bI1q0azrwsEhg+1B+xhWZWD3vHNaqqfvuSn47Gso+KdP3JKlEqiYiljKFI+20IDdMzX4EwGmqg3KUUymB8+v/z6CwKw5gIQa0L0VD8cKNKwlm8xrXjvNk1CUCLt9fBivBz8nGtmxAvXOqmhlCE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GJbGixcR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z5CmKfF1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE5961F0089C;
-	Wed, 30 Sep 2026 14:05:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GJbGixcR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E992F1F0089E;
+	Wed, 30 Sep 2026 14:05:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790777136;
-	bh=kuV4QadfumiI6CTj1BHvfIQVZvFEUflifed6JP0D0ek=;
+	s=k20260515; t=1790777140;
+	bh=CEn/dfQdHbZBWyq9gSycx18IwUSA0WebqYhb/TeB3sw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Z5CmKfF1zcMI8Z6EfqGQ0gnPTbDGO7xgAK0olXn6Y+JlCw/Ld9/nLSIyoANx4TksF
-	 ipr/VNj+/gd6qXYEoIswuwYMHksbaBVKsEi1pXTeX+/of3Or91jICTOIQr1md6Vku5
-	 Ut1wgfH51cyVntC+FvVvJmytsH5EY/PzDXQPYYZquB0ioHHULvVD0kT4iTc4MrDsQ3
-	 v2p1BVUZKN0vc5+iOys+phgCfbsFvK/1m4rWYaJBIrolasOWq7xiaAeYjq37MnthEa
-	 aESYgR/OPlmSm2eO5ZxD7uouU+RNoI4mvRCb6lWux8VOHYcJw/zwT6x8duhruqqtdJ
-	 e1GPn+tz7T7bQ==
+	b=GJbGixcRBeiJx2KFWLERfwXghwzNPHVs9dC1YUZCfeKLtM1eXy7ikrYA81UWXWNIk
+	 aA6DeEmXrsdYpLIOHvzSIfcvY7sBreW2snxzwC5taRpIR6WCcaTZlzq2BPEXbN8w2c
+	 5S8P2M8KgW3g98i84ivEpufhJ8cXKwA/zudGVmoDEocA4Z/znWVBOB7dVMiyE/N52t
+	 2sbJ/hki4220cQ+Eq3L7efVrMMabeLFvqYhDlMDwX/ePvE+AIYO7PK4qzL/bm3FWXC
+	 uoWihKOgker3xi21SJVae0CHX+cFR0iuO833kz3kO78VUTXVQvscPB/sQoEPgdBIWM
+	 ps8A6TDY8j7Jw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Aohan Mei <henrymei@tencent.com>,
-	TencentOS Corvus AI <corvus@tencent.com>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
+Cc: Marc Zyngier <maz@kernel.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Wei-Lin Chang <weilin.chang@arm.com>,
+	Oliver Upton <oupton@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] netfilter: nf_tables: skip expired catchall elements on insert and delete
-Date: Wed, 30 Sep 2026 10:05:33 -0400
-Message-ID: <20260930140533.1823830-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] KVM: arm64: nv: Delay freeing of shadow S2 structures until VM destruction
+Date: Wed, 30 Sep 2026 10:05:37 -0400
+Message-ID: <20260930140537.1824583-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260930140533.1823830-1-sashal@kernel.org>
-References: <2026092923-thievish-makeshift-9a83@gregkh>
- <20260930140533.1823830-1-sashal@kernel.org>
+In-Reply-To: <20260930140537.1824583-1-sashal@kernel.org>
+References: <2026092944-deviation-elude-f3dc@gregkh>
+ <20260930140537.1824583-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,81 +48,106 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Aohan Mei <henrymei@tencent.com>
+From: Marc Zyngier <maz@kernel.org>
 
-[ Upstream commit 70194dc37670bd08e44b471389861cc01bd3a3c9 ]
+[ Upstream commit e5843f4effaa2ffac3e789ecd4456403564961d4 ]
 
-nft_setelem_catchall_insert() looks up duplicates with
-nft_set_elem_active() only, while nft_set_catchall_lookup() and the
-dump path additionally skip expired elements.
+We free the shadow S2 structures from kvm_arch_flush_shadow_all(), which
+is a Bad Idea(tm). Freeing the page tables is fair game (this is what
+this callback is for), but freeing the container that could still be
+referenced by another part of the system is not great.
 
-Once a catchall element with a timeout expires, this predicate drift
-makes it invisible to userspace dumps, yet it still blocks
-re-insertion: with NLM_F_EXCL the request fails with -EEXIST, and
-without it the request reports success but silently inserts nothing.
-The stale entry only goes away when the (user-tunable) gc interval
-elapses, so the catchall rule may silently stop matching for an
-arbitrarily long time after its first expiration.
+Instead, grow separate destructors that gets called when we tear the VM
+down for good. From there, we can nuke both the individual MMUs as well
+as the global array that points to them, safe in the knowledge that the
+vcpus themselves have been destroyed already.
 
-The delete path shows the same drift: nft_setelem_catchall_deactivate()
-picks the first active-next entry in the catchall list, so with an
-expired entry still pending GC it retires the stale entry instead of
-the fresh one, and it deactivates an element that userspace no longer
-sees instead of failing with -ENOENT.
-
-Align both walks with the lookup and dump predicates: only an element
-that is active and not expired counts as a duplicate or delete
-candidate, using the per-netns timestamp taken at transaction start,
-in line with the set backend .insert/.deactivate and catchall GC sync
-paths.
-
-Reported-by: TencentOS Corvus AI <corvus@tencent.com>
+Fixes: 4f128f8e1aaac ("KVM: arm64: nv: Support multiple nested Stage-2 mmu structures")
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Marc Zyngier <maz@kernel.org>
 Cc: stable@vger.kernel.org
-Fixes: aaa31047a6d2 ("netfilter: nftables: add catch-all set element support")
-Assisted-by: CodeBuddy:Kimi-K3
-Signed-off-by: Aohan Mei <henrymei@tencent.com>
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+Reviewed-by: Wei-Lin Chang <weilin.chang@arm.com>
+Link: https://patch.msgid.link/20260911162203.1919330-3-maz@kernel.org
+Signed-off-by: Oliver Upton <oupton@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/netfilter/nf_tables_api.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ arch/arm64/include/asm/kvm_nested.h |  1 +
+ arch/arm64/kvm/arm.c                |  4 ++--
+ arch/arm64/kvm/nested.c             | 15 ++++++++++-----
+ 3 files changed, 13 insertions(+), 7 deletions(-)
 
-diff --git a/net/netfilter/nf_tables_api.c b/net/netfilter/nf_tables_api.c
-index 5238241c9a0b3..b64f25ef13dd7 100644
---- a/net/netfilter/nf_tables_api.c
-+++ b/net/netfilter/nf_tables_api.c
-@@ -6222,11 +6222,14 @@ static int nft_setelem_catchall_insert(const struct net *net,
+diff --git a/arch/arm64/include/asm/kvm_nested.h b/arch/arm64/include/asm/kvm_nested.h
+index 30d4c8ae28d3e..dda7fffe0bd92 100644
+--- a/arch/arm64/include/asm/kvm_nested.h
++++ b/arch/arm64/include/asm/kvm_nested.h
+@@ -66,6 +66,7 @@ static inline u64 translate_ttbr0_el2_to_ttbr0_el1(u64 ttbr0)
+ extern bool forward_smc_trap(struct kvm_vcpu *vcpu);
+ extern bool forward_debug_exception(struct kvm_vcpu *vcpu);
+ extern int kvm_init_nested(struct kvm *kvm);
++extern void kvm_destroy_nested(struct kvm *kvm);
+ extern int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu);
+ extern void kvm_init_nested_s2_mmu(struct kvm_s2_mmu *mmu);
+ extern struct kvm_s2_mmu *lookup_s2_mmu(struct kvm_vcpu *vcpu);
+diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+index 6a26367943320..cec58e6328323 100644
+--- a/arch/arm64/kvm/arm.c
++++ b/arch/arm64/kvm/arm.c
+@@ -219,7 +219,7 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
+ 
+ err_uninit_mmu:
+ 	kvm_uninit_stage2_mmu(kvm);
+-	kvfree(kvm->arch.nested_mmus);
++	kvm_destroy_nested(kvm);
+ err_free_cpumask:
+ 	free_cpumask_var(kvm->arch.supported_cpus);
+ err_unshare_kvm:
+@@ -276,7 +276,7 @@ void kvm_arch_destroy_vm(struct kvm *kvm)
+ 
+ 	kvm_unshare_hyp(kvm, kvm + 1);
+ 
+-	kvfree(kvm->arch.nested_mmus);
++	kvm_destroy_nested(kvm);
+ 	kvm_arm_teardown_hypercalls(kvm);
+ }
+ 
+diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+index 144b72743a5c6..3440b7709f39f 100644
+--- a/arch/arm64/kvm/nested.c
++++ b/arch/arm64/kvm/nested.c
+@@ -54,6 +54,15 @@ int kvm_init_nested(struct kvm *kvm)
+ 	return kvm->arch.nested_mmus ? 0 : -ENOMEM;
+ }
+ 
++void kvm_destroy_nested(struct kvm *kvm)
++{
++	for (int i = 0; i < kvm->arch.nested_mmus_size; i+= S2_MMU_PER_VCPU)
++		kvfree(kvm->arch.nested_mmus[i]);
++
++	kvm->arch.nested_mmus_size = 0;
++	kvfree(kvm->arch.nested_mmus);
++}
++
+ static int init_nested_s2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu)
  {
- 	struct nft_set_elem_catchall *catchall;
- 	u8 genmask = nft_genmask_next(net);
-+	u64 tstamp = nft_net_tstamp(net);
- 	struct nft_set_ext *ext;
+ 	/*
+@@ -1171,16 +1180,12 @@ void kvm_nested_s2_flush(struct kvm *kvm)
  
- 	list_for_each_entry(catchall, &set->catchall_list, list) {
- 		ext = nft_set_elem_ext(set, catchall->elem);
--		if (nft_set_elem_active(ext, genmask)) {
-+		if (nft_set_elem_active(ext, genmask) &&
-+		    !__nft_set_elem_expired(ext, tstamp) &&
-+		    !nft_set_elem_is_dead(ext)) {
- 			*priv = catchall->elem;
- 			return -EEXIST;
- 		}
-@@ -6287,11 +6290,14 @@ static int nft_setelem_catchall_deactivate(const struct net *net,
- 					   struct nft_set_elem *elem)
+ void kvm_arch_flush_shadow_all(struct kvm *kvm)
  {
- 	struct nft_set_elem_catchall *catchall;
-+	u64 tstamp = nft_net_tstamp(net);
- 	struct nft_set_ext *ext;
+-	for (int i = kvm->arch.nested_mmus_size - 1; i >= 0; i--) {
++	for (int i = 0; i < kvm->arch.nested_mmus_size; i++) {
+ 		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
  
- 	list_for_each_entry(catchall, &set->catchall_list, list) {
- 		ext = nft_set_elem_ext(set, catchall->elem);
--		if (!nft_is_active_next(net, ext))
-+		if (!nft_is_active_next(net, ext) ||
-+		    __nft_set_elem_expired(ext, tstamp) ||
-+		    nft_set_elem_is_dead(ext))
- 			continue;
+ 		if (!WARN_ON(atomic_read(&mmu->refcnt)))
+ 			kvm_free_stage2_pgd(mmu);
+-
+-		if ((i % S2_MMU_PER_VCPU) == 0)
+-			kvfree(mmu);
+ 	}
+-	kvm->arch.nested_mmus_size = 0;
+ 	kvm_uninit_stage2_mmu(kvm);
+ }
  
- 		kfree(elem->priv);
 -- 
 2.53.0
 
