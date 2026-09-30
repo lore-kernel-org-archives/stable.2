@@ -1,45 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E69A4E2F3D
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 14:05:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0EDC4E9C11
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 14:05:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790777151; cv=none; b=BsJncJVf+aTpVA7zRXJRqLAtMO0qOXl0ktOSCkanjyjbR/w4WS891BiFZYLgGAcREMrNhpfNE9O/TkDgtEAb6qK6uP09XlVgbiOfBBlm+za1z9wVdLiC4XfJIxZ46U+G8VyjnVfM8pP/4a3wdDSwKW1He7RJyRR/5PmqVab4Wm8=
+	t=1790777156; cv=none; b=i2xyE6jr+mxkUHKH2w7ivX9n42DHJvZHH3XQvXd+/6U8b7DdFRzLaqIMrEdnmlh7Jo5vmo/rN837AZwKttdSHLFdLVrnlzwUdBQIVga1Ngt/vVnOoLx1gqSB1sq8zqfq2rwDjFQjqnoP+KM/iI1HJwwU1F4J15P2pGMStBVGikU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790777151; c=relaxed/simple;
-	bh=AkgR6yT/KmcB0yhzLobZ4lqIjW+gPRQcFZquaw0Mp6U=;
+	s=arc-20240116; t=1790777156; c=relaxed/simple;
+	bh=LhUPPtZ7g+i/jouAYAsFRR9DmtWgdzXAubDZqqOeF1c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DrxDdSEsZjmbnOjCMru1AHwx2bI1q0azrwsEhg+1B+xhWZWD3vHNaqqfvuSn47Gso+KdP3JKlEqiYiljKFI+20IDdMzX4EwGmqg3KUUymB8+v/z6CwKw5gIQa0L0VD8cKNKwlm8xrXjvNk1CUCLt9fBivBz8nGtmxAvXOqmhlCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GJbGixcR; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=oT4ze3sGZwgQ+e+TF4CpuwVkp3nvu6JLbxWYAkYH4vWfi2EB/m9vXJJ/nUQCRK96AsHB2hFxoi+Owu0oBEJSjI3a5NhhQb0KuQu6uDCylBOAcTh5q3sEgGUB5bXZBXDp5pSJC1V2G4X4x/ijgwy9biHEOkoKOMwV3WvLAhyymeE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RsbEW2rI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GJbGixcR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E992F1F0089E;
-	Wed, 30 Sep 2026 14:05:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RsbEW2rI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 390C11F00899;
+	Wed, 30 Sep 2026 14:05:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790777140;
-	bh=CEn/dfQdHbZBWyq9gSycx18IwUSA0WebqYhb/TeB3sw=;
+	s=k20260515; t=1790777143;
+	bh=EevO0VX5//cBOuPufRuscbH4YihGHA6VQoft7hU+Zss=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GJbGixcRBeiJx2KFWLERfwXghwzNPHVs9dC1YUZCfeKLtM1eXy7ikrYA81UWXWNIk
-	 aA6DeEmXrsdYpLIOHvzSIfcvY7sBreW2snxzwC5taRpIR6WCcaTZlzq2BPEXbN8w2c
-	 5S8P2M8KgW3g98i84ivEpufhJ8cXKwA/zudGVmoDEocA4Z/znWVBOB7dVMiyE/N52t
-	 2sbJ/hki4220cQ+Eq3L7efVrMMabeLFvqYhDlMDwX/ePvE+AIYO7PK4qzL/bm3FWXC
-	 uoWihKOgker3xi21SJVae0CHX+cFR0iuO833kz3kO78VUTXVQvscPB/sQoEPgdBIWM
-	 ps8A6TDY8j7Jw==
+	b=RsbEW2rIm/XSLu3u2zyRUDej/RGboYEar4Bu/FT9V6YkoiSlNDVjpmOqOr6qtzjJY
+	 RdRRLejaGzus/zM9OG8qJP/XpZnq35I57pyy7Aje5thHNNj86/ZVNben29nAZBCxR+
+	 ed/MjbcYWKz8rn0YMU2g2XG/ANdlPxys62lLSry8GnzwBuzsVvXpaqI0VcOKrmcOiE
+	 RLGLp5YnB84xVh905/JBgzY2Job0dUCRRjc59iNgB+VJ5X0sASvbGGypPf+7iwtSxF
+	 mA753iFo9nmJluIFC68cnpZlvTQhvL+MqnhJWyqq6tVhwkUb+e4YAtJqLB/VBhGB3E
+	 MVkDQMhQ28Lyw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Marc Zyngier <maz@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Wei-Lin Chang <weilin.chang@arm.com>,
-	Oliver Upton <oupton@kernel.org>,
+Cc: Willem de Bruijn <willemb@google.com>,
+	Katherine Leaver <kleaver@janestreet.com>,
+	Bjoern Doebel <doebel@amazon.de>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] KVM: arm64: nv: Delay freeing of shadow S2 structures until VM destruction
-Date: Wed, 30 Sep 2026 10:05:37 -0400
-Message-ID: <20260930140537.1824583-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/2] packet: use ubuf_info completion for TX_RING packets
+Date: Wed, 30 Sep 2026 10:05:40 -0400
+Message-ID: <20260930140540.1824859-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260930140537.1824583-1-sashal@kernel.org>
-References: <2026092944-deviation-elude-f3dc@gregkh>
- <20260930140537.1824583-1-sashal@kernel.org>
+In-Reply-To: <20260930140540.1824859-1-sashal@kernel.org>
+References: <2026092951-await-radiator-1fb3@gregkh>
+ <20260930140540.1824859-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,106 +48,271 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Marc Zyngier <maz@kernel.org>
+From: Willem de Bruijn <willemb@google.com>
 
-[ Upstream commit e5843f4effaa2ffac3e789ecd4456403564961d4 ]
+[ Upstream commit 9518405613863d0bf0700927a21367f5942cf058 ]
 
-We free the shadow S2 structures from kvm_arch_flush_shadow_all(), which
-is a Bad Idea(tm). Freeing the page tables is fair game (this is what
-this callback is for), but freeing the container that could still be
-referenced by another part of the system is not great.
+tpacket_snd sends skbs with frags pointing into its ring slots. Slots
+are released when skb->destructor is called.
 
-Instead, grow separate destructors that gets called when we tear the VM
-down for good. From there, we can nuke both the individual MMUs as well
-as the global array that points to them, safe in the knowledge that the
-vcpus themselves have been destroyed already.
+A call to skb_orphan calls skb->destructor before the skb is freed.
+This can cause the slot to be reused while still linked into the skb.
 
-Fixes: 4f128f8e1aaac ("KVM: arm64: nv: Support multiple nested Stage-2 mmu structures")
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Marc Zyngier <maz@kernel.org>
+Switch to standard zerocopy completion (ubuf_info) so the slot is only
+released once all references to the payload are freed or copied.
+Restore skb->destructor to standard sock_wfree.
+
+The ubuf_info completion callback can be called with a NULL skb, but
+only from net_zcopy_put and related API, used by zerocopy implementations
+that hold their own reference on the uarg, such as MSG_ZEROCOPY. This
+uarg is only ever completed from skb_zcopy_clear, so skb is always set.
+
+To prevent userspace from aliasing in-flight state on shared ring
+slots, allocate tpacket_uarg per packet, rather than per slot. This
+adds a small allocation to the transmit path. Use standard kmalloc to
+allow backporting to stable kernels.
+
+The uarg holds an sk_wmem_alloc reference, rather than an sk_refcnt
+reference. packet_free_tx_ring waits on sk_wmem_alloc before freeing
+the ring pages. Always allocate vec->deferred for tx_ring so page-backed
+rings also wait on sk_wmem_alloc when skb_copy_ubufs drops page refs
+before calling tpacket_ubuf_complete.
+
+Drop the tx_ring.pg_vec test that tpacket_destruct_skb performed before
+accessing the slot. The sk_wmem_alloc reference now guarantees that the
+slot is valid. The test is also not sufficient by itself, as it reads
+pg_vec without pg_vec_lock, so it can race with packet_set_ring.
+
+As a result a slot is released when its payload is copied, which can
+be before transmission (e.g., in skb_orphan_frags_rx). If copied
+before skb_tx_timestamp() is called, no slot timestamp is recorded,
+similar to when skb_orphan() was called early in the datapath before
+this patch.
+
+Revert the now unused previous skb_zcopy_.._nouarg infra.
+
+Depends on commit 992cc9f94ca9 ("net/packet: defer vmalloc TX_RING
+free until skbs finish").
+
+Reported-by: Katherine Leaver <kleaver@janestreet.com>
+Reported-by: Bjoern Doebel <doebel@amazon.de>
+Closes: https://lore.kernel.org/netdev/20260909085542.3370986-1-doebel@amazon.de/
+Fixes: 5cd8d46ea156 ("packet: copy user buffers before orphan or clone")
 Cc: stable@vger.kernel.org
-Reviewed-by: Wei-Lin Chang <weilin.chang@arm.com>
-Link: https://patch.msgid.link/20260911162203.1919330-3-maz@kernel.org
-Signed-off-by: Oliver Upton <oupton@kernel.org>
+Signed-off-by: Willem de Bruijn <willemb@google.com>
+Link: https://patch.msgid.link/20260919004748.1463985-3-willemdebruijn.kernel@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/include/asm/kvm_nested.h |  1 +
- arch/arm64/kvm/arm.c                |  4 ++--
- arch/arm64/kvm/nested.c             | 15 ++++++++++-----
- 3 files changed, 13 insertions(+), 7 deletions(-)
+ include/linux/skbuff.h |  19 +-------
+ net/packet/af_packet.c | 102 ++++++++++++++++++++++++++---------------
+ 2 files changed, 65 insertions(+), 56 deletions(-)
 
-diff --git a/arch/arm64/include/asm/kvm_nested.h b/arch/arm64/include/asm/kvm_nested.h
-index 30d4c8ae28d3e..dda7fffe0bd92 100644
---- a/arch/arm64/include/asm/kvm_nested.h
-+++ b/arch/arm64/include/asm/kvm_nested.h
-@@ -66,6 +66,7 @@ static inline u64 translate_ttbr0_el2_to_ttbr0_el1(u64 ttbr0)
- extern bool forward_smc_trap(struct kvm_vcpu *vcpu);
- extern bool forward_debug_exception(struct kvm_vcpu *vcpu);
- extern int kvm_init_nested(struct kvm *kvm);
-+extern void kvm_destroy_nested(struct kvm *kvm);
- extern int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu);
- extern void kvm_init_nested_s2_mmu(struct kvm_s2_mmu *mmu);
- extern struct kvm_s2_mmu *lookup_s2_mmu(struct kvm_vcpu *vcpu);
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index 6a26367943320..cec58e6328323 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -219,7 +219,7 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
- 
- err_uninit_mmu:
- 	kvm_uninit_stage2_mmu(kvm);
--	kvfree(kvm->arch.nested_mmus);
-+	kvm_destroy_nested(kvm);
- err_free_cpumask:
- 	free_cpumask_var(kvm->arch.supported_cpus);
- err_unshare_kvm:
-@@ -276,7 +276,7 @@ void kvm_arch_destroy_vm(struct kvm *kvm)
- 
- 	kvm_unshare_hyp(kvm, kvm + 1);
- 
--	kvfree(kvm->arch.nested_mmus);
-+	kvm_destroy_nested(kvm);
- 	kvm_arm_teardown_hypercalls(kvm);
+diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
+index 5ab013ecb5946..b9b3159250dda 100644
+--- a/include/linux/skbuff.h
++++ b/include/linux/skbuff.h
+@@ -1736,22 +1736,6 @@ static inline void skb_zcopy_set(struct sk_buff *skb, struct ubuf_info *uarg,
+ 	}
  }
  
-diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-index 144b72743a5c6..3440b7709f39f 100644
---- a/arch/arm64/kvm/nested.c
-+++ b/arch/arm64/kvm/nested.c
-@@ -54,6 +54,15 @@ int kvm_init_nested(struct kvm *kvm)
- 	return kvm->arch.nested_mmus ? 0 : -ENOMEM;
+-static inline void skb_zcopy_set_nouarg(struct sk_buff *skb, void *val)
+-{
+-	skb_shinfo(skb)->destructor_arg = (void *)((uintptr_t) val | 0x1UL);
+-	skb_shinfo(skb)->flags |= SKBFL_ZEROCOPY_FRAG;
+-}
+-
+-static inline bool skb_zcopy_is_nouarg(struct sk_buff *skb)
+-{
+-	return (uintptr_t) skb_shinfo(skb)->destructor_arg & 0x1UL;
+-}
+-
+-static inline void *skb_zcopy_get_nouarg(struct sk_buff *skb)
+-{
+-	return (void *)((uintptr_t) skb_shinfo(skb)->destructor_arg & ~0x1UL);
+-}
+-
+ static inline void net_zcopy_put(struct ubuf_info *uarg)
+ {
+ 	if (uarg)
+@@ -1774,8 +1758,7 @@ static inline void skb_zcopy_clear(struct sk_buff *skb, bool zerocopy_success)
+ 	struct ubuf_info *uarg = skb_zcopy(skb);
+ 
+ 	if (uarg) {
+-		if (!skb_zcopy_is_nouarg(skb))
+-			uarg->ops->complete(skb, uarg, zerocopy_success);
++		uarg->ops->complete(skb, uarg, zerocopy_success);
+ 
+ 		skb_shinfo(skb)->flags &= ~SKBFL_ALL_ZEROCOPY;
+ 	}
+diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+index acf78fd6bb543..06b15508ab5f9 100644
+--- a/net/packet/af_packet.c
++++ b/net/packet/af_packet.c
+@@ -2589,26 +2589,6 @@ static int tpacket_rcv(struct sk_buff *skb, struct net_device *dev,
+ 	goto drop_n_restore;
  }
  
-+void kvm_destroy_nested(struct kvm *kvm)
-+{
-+	for (int i = 0; i < kvm->arch.nested_mmus_size; i+= S2_MMU_PER_VCPU)
-+		kvfree(kvm->arch.nested_mmus[i]);
+-static void tpacket_destruct_skb(struct sk_buff *skb)
+-{
+-	struct packet_sock *po = pkt_sk(skb->sk);
+-
+-	if (likely(po->tx_ring.pg_vec)) {
+-		void *ph;
+-		__u32 ts;
+-
+-		ph = skb_zcopy_get_nouarg(skb);
+-
+-		ts = __packet_set_timestamp(po, ph, skb);
+-		__packet_set_status(po, ph, TP_STATUS_AVAILABLE | ts);
+-
+-		packet_dec_pending(&po->tx_ring);
+-		complete(&po->skb_completion);
+-	}
+-
+-	sock_wfree(skb);
+-}
+-
+ static int __packet_snd_vnet_parse(struct virtio_net_hdr *vnet_hdr, size_t len)
+ {
+ 	if ((vnet_hdr->flags & VIRTIO_NET_HDR_F_NEEDS_CSUM) &&
+@@ -2638,27 +2618,56 @@ static int packet_snd_vnet_parse(struct msghdr *msg, size_t *len,
+ 	return __packet_snd_vnet_parse(vnet_hdr, *len);
+ }
+ 
++struct tpacket_uarg {
++	struct ubuf_info	ubuf;
++	struct packet_sock	*po;
++	void			*ph;
++};
 +
-+	kvm->arch.nested_mmus_size = 0;
-+	kvfree(kvm->arch.nested_mmus);
++static void tpacket_ubuf_complete(struct sk_buff *skb, struct ubuf_info *uarg,
++				  bool success)
++{
++	struct tpacket_uarg *tu = container_of(uarg, struct tpacket_uarg, ubuf);
++	struct packet_sock *po = tu->po;
++	void *ph = tu->ph;
++	__u32 ts;
++
++	DEBUG_NET_WARN_ON_ONCE(!skb);
++
++	if (!refcount_dec_and_test(&uarg->refcnt))
++		return;
++
++	ts = __packet_set_timestamp(po, ph, skb);
++	__packet_set_status(po, ph, TP_STATUS_AVAILABLE | ts);
++
++	packet_dec_pending(&po->tx_ring);
++	complete(&po->skb_completion);
++
++	kfree(tu);
++	sk_free(&po->sk);
 +}
 +
- static int init_nested_s2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu)
++static const struct ubuf_info_ops tpacket_ubuf_ops = {
++	.complete = tpacket_ubuf_complete,
++};
++
+ static int tpacket_fill_skb(struct packet_sock *po, struct sk_buff *skb,
+-		void *frame, struct net_device *dev, void *data, int tp_len,
++		struct net_device *dev, void *data, int tp_len,
+ 		__be16 proto, unsigned char *addr, int hlen, int copylen,
+ 		int hard_header_len,
+ 		const struct sockcm_cookie *sockc)
  {
- 	/*
-@@ -1171,16 +1180,12 @@ void kvm_nested_s2_flush(struct kvm *kvm)
+-	union tpacket_uhdr ph;
+ 	int to_write, offset, len, nr_frags, len_max;
+ 	struct socket *sock = po->sk.sk_socket;
+ 	struct page *page;
+ 	int err;
  
- void kvm_arch_flush_shadow_all(struct kvm *kvm)
- {
--	for (int i = kvm->arch.nested_mmus_size - 1; i >= 0; i--) {
-+	for (int i = 0; i < kvm->arch.nested_mmus_size; i++) {
- 		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
- 
- 		if (!WARN_ON(atomic_read(&mmu->refcnt)))
- 			kvm_free_stage2_pgd(mmu);
+-	ph.raw = frame;
 -
--		if ((i % S2_MMU_PER_VCPU) == 0)
--			kvfree(mmu);
- 	}
--	kvm->arch.nested_mmus_size = 0;
- 	kvm_uninit_stage2_mmu(kvm);
- }
+ 	skb->protocol = proto;
+ 	skb->dev = dev;
+ 	skb->priority = READ_ONCE(po->sk.sk_priority);
+ 	skb->mark = READ_ONCE(po->sk.sk_mark);
+ 	skb->tstamp = sockc->transmit_time;
+ 	skb_setup_tx_timestamp(skb, sockc);
+-	skb_zcopy_set_nouarg(skb, ph.raw);
  
+ 	skb_reserve(skb, hlen);
+ 	skb_reset_network_header(skb);
+@@ -2797,6 +2806,7 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
+ 	struct virtio_net_hdr vnet_hdr;
+ 	bool has_vnet_hdr = false;
+ 	struct sockcm_cookie sockc;
++	struct tpacket_uarg *uarg;
+ 	__be16 proto;
+ 	int err, reserve = 0;
+ 	void *ph;
+@@ -2924,7 +2934,7 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
+ 				err = len_sum;
+ 			goto out_status;
+ 		}
+-		tp_len = tpacket_fill_skb(po, skb, ph, dev, data, tp_len, proto,
++		tp_len = tpacket_fill_skb(po, skb, dev, data, tp_len, proto,
+ 					  addr, hlen, copylen, hard_header_len,
+ 					  &sockc);
+ 		if (likely(tp_len >= 0) &&
+@@ -2956,7 +2966,24 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
+ 			virtio_net_hdr_set_proto(skb, &vnet_hdr);
+ 		}
+ 
+-		skb->destructor = tpacket_destruct_skb;
++		uarg = kmalloc(sizeof(*uarg), GFP_KERNEL);
++		if (unlikely(!uarg)) {
++			if (likely(len_sum > 0))
++				err = len_sum;
++			else
++				err = -ENOMEM;
++			goto out_status;
++		}
++		uarg->po = po;
++		uarg->ph = ph;
++		uarg->ubuf.ops = &tpacket_ubuf_ops;
++		uarg->ubuf.flags = SKBFL_ZEROCOPY_FRAG;
++		refcount_set(&uarg->ubuf.refcnt, 1);
++
++		/* Hold a sk_wmem_alloc reference until completion */
++		refcount_inc(&po->sk.sk_wmem_alloc);
++		skb_zcopy_init(skb, &uarg->ubuf);
++
+ 		__packet_set_status(po, ph, TP_STATUS_SENDING);
+ 		packet_inc_pending(&po->tx_ring);
+ 
+@@ -4509,21 +4536,20 @@ static struct pgv *alloc_pg_vec(struct tpacket_req *req, int order, bool tx_ring
+ 	vec->len = block_nr;
+ 	pg_vec = vec->pg_vec;
+ 
++	if (tx_ring) {
++		vec->deferred = kzalloc_obj(*vec->deferred,
++					    GFP_KERNEL | __GFP_NOWARN);
++		if (!vec->deferred)
++			goto out_free_pgvec;
++		vec->deferred->vec = vec;
++		INIT_DELAYED_WORK(&vec->deferred->work,
++				  packet_free_pg_vec_work);
++	}
++
+ 	for (i = 0; i < block_nr; i++) {
+ 		pg_vec[i].buffer = alloc_one_pg_vec_page(order);
+ 		if (unlikely(!pg_vec[i].buffer))
+ 			goto out_free_pgvec;
+-
+-		if (tx_ring && !vec->deferred &&
+-		    is_vmalloc_addr(pg_vec[i].buffer)) {
+-			vec->deferred = kzalloc_obj(*vec->deferred,
+-						    GFP_KERNEL | __GFP_NOWARN);
+-			if (!vec->deferred)
+-				goto out_free_pgvec;
+-			vec->deferred->vec = vec;
+-			INIT_DELAYED_WORK(&vec->deferred->work,
+-					  packet_free_pg_vec_work);
+-		}
+ 	}
+ 
+ out:
 -- 
 2.53.0
 
