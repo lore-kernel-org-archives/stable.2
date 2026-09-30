@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2201502560;
-	Wed, 30 Sep 2026 15:38:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 099214CCDC1;
+	Wed, 30 Sep 2026 15:38:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790782699; cv=none; b=RKuX94GlLLS6dBIUC3y1mjKpL0VOml0UjrGTy4m75VDiQrVfe03kXDmCPZIeOIaPwVFBDbFNLHmBNWw5LSPvtMk/QyJDG7cNRJPA+4H+mZOsUw8yZ4Mzh9uDnl1Yg67fb4r5tzqTeo1b99jsucgkn2fhvaKdx6lQljX/OhT3dGM=
+	t=1790782700; cv=none; b=bHsxgYxe7D32GVm5LMDOgECwm449LIIVBPvGODfehpAXoyAiZax2K1hwQM5RLxi9g1l9njm7jqyfpjIxjpM6hbqNWhbpBqiUcTZOic7ggNRno7QAphZ+iDLbSp5kn9+8cS9ZTJ0KqQw/AA3EHE+/wy8Ykz9rYRYlh5Vs9bz+Ggk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790782699; c=relaxed/simple;
-	bh=4VrbfkK6zvUZQ4bzHxz+lKAGBQsXg2kboB31KpDaPwU=;
+	s=arc-20240116; t=1790782700; c=relaxed/simple;
+	bh=XiY6qkN+qI+DhohqWBU3k4tcbnMIYAFqmHhGPCgu8pE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cJ2bELlc589PvnkpVfqKetJ9RSPLlRxUW6PR2qNVieqbhkvsHGQGNcfmKnHtRGnKkSx7Rb0BglZLE0DzwV4TDp85sG4oq/2nHWf/B4Y/WitpbNj+n6CAsp6HJzd1ZxYcP5LeD++qeIsaUSr/Nd82DhbvwfJMA6MuwNkhxxSzbdU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=CzDVPaLQ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=E+TSxBDDezageyC65rl4TzesqUNJzZhujSpt5FQjF73OpdU2HHKioVkG2XaLjP1YuLisy5ue4Hns+hKktc7/ong8QaarlW6qS8LoBmd3WjQInQbsSn9SG/hgbbPTHt3+k13FKFlghkNIwK8LKxmL2CL3be+Snlkuxn67ybuXAN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=z1oJGAtf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="CzDVPaLQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEDF21F00893;
-	Wed, 30 Sep 2026 15:38:05 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="z1oJGAtf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E9191F000FF;
+	Wed, 30 Sep 2026 15:37:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790782686;
-	bh=n9LpA02V/hhhaWQWaXz2189+Q3vS+wpbk7IqPghQ0GA=;
+	s=korg; t=1790782678;
+	bh=K03rCuUC8JgJfCSlAp4Zq+9li2oKL/azdjxN/CoZz2k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CzDVPaLQR4I9/zuMKnTsj/h9qOSGzj7861sxRCF3KB/lcUxaunnHdq6KRr7j7LzNG
-	 9xrmVrSr0e6YWp32BaXoN3r5rHie6oDURMymqfpG1RARs+QpWAwnUxx52BUU8PBFeq
-	 1Xi9WWd9FqXWocLjbAbNCYSpTqnnYWNatNXptSi4=
+	b=z1oJGAtfPOoDjdE10fwJRkboeKsCnTMt3EapoCCHJvAeDFkFWfwN+CHdpmS1O9hZT
+	 fnv7YeIXcUxaUulzM10UbwRxTx/U4+vhfKWND4wSPc4gLvMJPDW+IvBE5K5PSMSx8P
+	 nq77yJyly9/HzZ1ntYJccvxvQA4RwHLmePy7u0To=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Yousef Alhouseen <alhouseenyousef@gmail.com>,
-	Lee Jones <lee@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 134/595] leds: uleds: Return -EFAULT on copy_to_user() failure
-Date: Wed, 30 Sep 2026 17:20:27 +0200
-Message-ID: <20260930152350.618604153@linuxfoundation.org>
+Subject: [PATCH 5.10 131/595] scsi: bfa: Reduce kernel stack usage in bfa_fcs_lport_fdmi_build_portattr_block()
+Date: Wed, 30 Sep 2026 17:20:24 +0200
+Message-ID: <20260930152350.556123589@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152347.700140858@linuxfoundation.org>
 References: <20260930152347.700140858@linuxfoundation.org>
@@ -51,47 +51,46 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Yousef Alhouseen <alhouseenyousef@gmail.com>
+From: Arnd Bergmann <arnd@arndb.de>
 
-[ Upstream commit 61ed78f55a46e12afd4b464c4ba736f55ff33c5e ]
+[ Upstream commit 57a6ed0b41677ccc5e28cc0976e495c1dfa33747 ]
 
-uleds_read() copies the current brightness value to userspace but
-ignores copy_to_user() failures. It then clears the pending update and
-reports a successful full read even when no data was copied.
+bfa_fcs_fdmi_get_portattr() gets inlined into multiple places and has
+two fairly large variables on the stack, to the point of causing a
+warning in some randconfig builds:
 
-Return -EFAULT when the copy fails and leave the update pending so a
-later read can retry.
+drivers/scsi/bfa/bfa_fcs_lport.c:2198:1: error: stack frame size (1560) exceeds limit (1280) in 'bfa_fcs_lport_fdmi_build_portattr_block' [-Werror,-Wframe-larger-than]
+ 2198 | bfa_fcs_lport_fdmi_build_portattr_block(struct bfa_fcs_lport_fdmi_s *fdmi,
+      | ^
+drivers/scsi/bfa/bfa_fcs_lport.c:1856:1: error: stack frame size (1600) exceeds limit (1280) in 'bfa_fcs_lport_fdmi_build_rhba_pyld' [-Werror,-Wframe-larger-than]
+ 1856 | bfa_fcs_lport_fdmi_build_rhba_pyld(struct bfa_fcs_lport_fdmi_s *fdmi, u8 *pyld)
+      | ^
 
-Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
-Link: https://patch.msgid.link/20260521181205.15130-1-alhouseenyousef@gmail.com
-Signed-off-by: Lee Jones <lee@kernel.org>
+Mark the inner function as noinline_for_stack to keep it separate from
+the other variables and prevent multiple copies of the same variable to
+get inlined here.
+
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Link: https://patch.msgid.link/20260611125601.3385418-1-arnd@kernel.org
+Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/leds/uleds.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ drivers/scsi/bfa/bfa_fcs_lport.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/leds/uleds.c b/drivers/leds/uleds.c
-index 90e54370fe7ea..3e47cb74f49ab 100644
---- a/drivers/leds/uleds.c
-+++ b/drivers/leds/uleds.c
-@@ -148,10 +148,13 @@ static ssize_t uleds_read(struct file *file, char __user *buffer, size_t count,
- 		} else if (!udev->new_data && (file->f_flags & O_NONBLOCK)) {
- 			retval = -EAGAIN;
- 		} else if (udev->new_data) {
--			retval = copy_to_user(buffer, &udev->brightness,
--					      sizeof(udev->brightness));
--			udev->new_data = false;
--			retval = sizeof(udev->brightness);
-+			if (copy_to_user(buffer, &udev->brightness,
-+					 sizeof(udev->brightness))) {
-+				retval = -EFAULT;
-+			} else {
-+				udev->new_data = false;
-+				retval = sizeof(udev->brightness);
-+			}
- 		}
+diff --git a/drivers/scsi/bfa/bfa_fcs_lport.c b/drivers/scsi/bfa/bfa_fcs_lport.c
+index 3486e402bfc1f..c61008224745a 100644
+--- a/drivers/scsi/bfa/bfa_fcs_lport.c
++++ b/drivers/scsi/bfa/bfa_fcs_lport.c
+@@ -2665,7 +2665,7 @@ bfa_fcs_fdmi_get_hbaattr(struct bfa_fcs_lport_fdmi_s *fdmi,
  
- 		mutex_unlock(&udev->mutex);
+ }
+ 
+-static void
++static noinline_for_stack void
+ bfa_fcs_fdmi_get_portattr(struct bfa_fcs_lport_fdmi_s *fdmi,
+ 			  struct bfa_fcs_fdmi_port_attr_s *port_attr)
+ {
 -- 
 2.53.0
 
