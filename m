@@ -1,39 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19CDA4C651B;
-	Wed, 30 Sep 2026 16:03:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B2DE4E0B66;
+	Wed, 30 Sep 2026 16:03:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790784203; cv=none; b=YiqpRpJm0FBc24Gi6q5vcCV8KOv8tE2SCP9Plb8FX71OGC1CgTQ1vW0pgRnULtJyy1G9zz4rn2gkRiSoblgDTF5dEkzX/cPnY5vbHKav2sX1paPYjP3/JZUkBLDOQI/oKEXXyKZwhce4Jo3g8MhQ6x69CCyTNd7rpLq7bmhzNZg=
+	t=1790784206; cv=none; b=P/umllzxEBZOUKjvpwY34Pc3PhXmPEgEIA2cIpd7c3kpYTa4UYMpbL+Vccxo1YrN8bRTjYp4Fp3MZHpUHp1z/qQXTIp+rzh5wrAJqXgSx+nZzA9/mCchTq6FpSF4JwTrMT2/GMXztMZSnUqs8eEu5pPwweo0FkUFh7d5saqe1EY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790784203; c=relaxed/simple;
-	bh=h7qArIMQ9sX4FE4yF7eM0J08J3YPUPpzG+QHmo035nU=;
+	s=arc-20240116; t=1790784206; c=relaxed/simple;
+	bh=sejGuCW6NX0NQixCXfy+PKA/9dC/lXA5p9ApaVtt6lM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Hk0dc4Ym3IUSZfXZijeJDApnhM5R6qryO83wAnfSCQvKkqonGx7DRa2erurxtrfXdjl+TMOsZeJ3lDQlMJfYrB6+rvblWUhZu83TUVgSMdMWQ2atQhFG1x1TD8AdGflW7k5u5xOB6F0pESfgUYKhHBUmRhUXG7Y1+o6e0OTbJOU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=bFjLpc8J; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=CCHHx2BZCnDzL/oN3dx4t4QemSnDhSo76s7XQl1Aguk58iMES+MoRBUMofgghspE97v5guZxW9yquiqArZmAzd5t+/2bqazm79QnjEV+sNle3NAJ4ijNvMPMIzFDQqQ4wboRDagYImi3hQc86siXj9kXVpJq4+YAHjsodCyybCs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JsCRUqgw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="bFjLpc8J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55C6D1F000FF;
-	Wed, 30 Sep 2026 16:03:18 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JsCRUqgw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 354391F00898;
+	Wed, 30 Sep 2026 16:03:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790784198;
-	bh=oebRXmC9ENZ/C8dsXZwilVg2EUEJ5G7COo0DJ+EzaBg=;
+	s=korg; t=1790784201;
+	bh=30m9h/LJmSLO5HVQSgOR/EU5tGWr0+xvze7PKf/8bAU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bFjLpc8J5bdVht/SjVWgzDw17R74deCwM5tTF3ijAwbOLKt470nGU51HIbxhujZmh
-	 dN7ShPseGyRE6GdC5pdkEG7uFO8BC2Jk6HxB1M4DoqvqeNdEke8rCwuluS3TNAZB16
-	 kzCqeLa+ik8e04+E5iSOFUoQuSpouvGiwAGbDmPw=
+	b=JsCRUqgwjjlB5GrpqFfY7dEb/b64UFzgiJGtKsA+K2E0VMNaffHDAY8Ma7NUaDu0m
+	 QDSQASA/Puhl5oSSZ1/em7liJqhFKjd1xeFnkQ6N21o6DJjfoVLw4x9PJ9/ZxDI3O4
+	 EihdkxOJYYIqxSHj2AtuQmETfC+dWUzI3rb8aUIE=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Ben Reed <Ben.Reed@microchip.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
+	=?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 025/982] PCI: switchtec: Add Gen6 Device IDs
-Date: Wed, 30 Sep 2026 17:12:41 +0200
-Message-ID: <20260930152417.338359328@linuxfoundation.org>
+Subject: [PATCH 6.1 026/982] net: dsa: mv88e6xxx: define .pot_clear() for 6321
+Date: Wed, 30 Sep 2026 17:12:42 +0200
+Message-ID: <20260930152417.359954682@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
 References: <20260930152416.775402466@linuxfoundation.org>
@@ -46,72 +45,41 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 6.1-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Ben Reed <Ben.Reed@microchip.com>
+From: Marek Behún <kabel@kernel.org>
 
-[ Upstream commit 5e6c21c56998e1e58d2f314e70779989ea0fee5d ]
+[ Upstream commit 17826d9708a57d27011d0a6efdebb628d6f8299a ]
 
-Add device IDs for the next generation of switchtec products.
+Commit 9e907d739cc3 ("net: dsa: mv88e6xxx: add POT operation") did not
+add the .pot_clear() method to the 6321 switch operations structure.
+Add them now.
 
-No changes to the driver were required with the new version of the
-hardware.
-
-[logang: rewrote commit message]
-
-Signed-off-by: Ben Reed <Ben.Reed@microchip.com>
-Signed-off-by: Logan Gunthorpe <logang@deltatee.com>
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Link: https://patch.msgid.link/20260505161633.67454-1-logang@deltatee.com
+Signed-off-by: Marek Behún <kabel@kernel.org>
+Link: https://patch.msgid.link/20260504153227.1390546-4-kabel@kernel.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/pci/switch/switchtec.c | 16 ++++++++++++++++
- include/linux/switchtec.h      |  1 +
- 2 files changed, 17 insertions(+)
+ drivers/net/dsa/mv88e6xxx/chip.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/pci/switch/switchtec.c b/drivers/pci/switch/switchtec.c
-index 9011518b1d132..37c5ba40d959f 100644
---- a/drivers/pci/switch/switchtec.c
-+++ b/drivers/pci/switch/switchtec.c
-@@ -1853,6 +1853,22 @@ static const struct pci_device_id switchtec_pci_tbl[] = {
- 	SWITCHTEC_PCI_DEVICE(0x5552, SWITCHTEC_GEN5),  /* PAXA 52XG5 */
- 	SWITCHTEC_PCI_DEVICE(0x5536, SWITCHTEC_GEN5),  /* PAXA 36XG5 */
- 	SWITCHTEC_PCI_DEVICE(0x5528, SWITCHTEC_GEN5),  /* PAXA 28XG5 */
-+	SWITCHTEC_PCI_DEVICE(0x6048, SWITCHTEC_GEN6),  /* PFXs 48XG6 */
-+	SWITCHTEC_PCI_DEVICE(0x6064, SWITCHTEC_GEN6),  /* PFXs 64XG6 */
-+	SWITCHTEC_PCI_DEVICE(0x6044, SWITCHTEC_GEN6),  /* PFXs 144XG6 */
-+	SWITCHTEC_PCI_DEVICE(0x6060, SWITCHTEC_GEN6),  /* PFXs 160XG6 */
-+	SWITCHTEC_PCI_DEVICE(0x6148, SWITCHTEC_GEN6),  /* PSXs 48XG6 */
-+	SWITCHTEC_PCI_DEVICE(0x6164, SWITCHTEC_GEN6),  /* PSXs 64XG6 */
-+	SWITCHTEC_PCI_DEVICE(0x6144, SWITCHTEC_GEN6),  /* PSXs 144XG6 */
-+	SWITCHTEC_PCI_DEVICE(0x6160, SWITCHTEC_GEN6),  /* PSXs 160XG6 */
-+	SWITCHTEC_PCI_DEVICE(0x6248, SWITCHTEC_GEN6),  /* PFX 48XG6 */
-+	SWITCHTEC_PCI_DEVICE(0x6264, SWITCHTEC_GEN6),  /* PFX 64XG6 */
-+	SWITCHTEC_PCI_DEVICE(0x6244, SWITCHTEC_GEN6),  /* PFX 144XG6 */
-+	SWITCHTEC_PCI_DEVICE(0x6260, SWITCHTEC_GEN6),  /* PFX 160XG6 */
-+	SWITCHTEC_PCI_DEVICE(0x6348, SWITCHTEC_GEN6),  /* PSX 48XG6 */
-+	SWITCHTEC_PCI_DEVICE(0x6364, SWITCHTEC_GEN6),  /* PSX 64XG6 */
-+	SWITCHTEC_PCI_DEVICE(0x6344, SWITCHTEC_GEN6),  /* PSX 144XG6 */
-+	SWITCHTEC_PCI_DEVICE(0x6360, SWITCHTEC_GEN6),  /* PSX 160XG6 */
- 	SWITCHTEC_PCI100X_DEVICE(0x1001, SWITCHTEC_GEN4),  /* PCI1001 16XG4 */
- 	SWITCHTEC_PCI100X_DEVICE(0x1002, SWITCHTEC_GEN4),  /* PCI1002 12XG4 */
- 	SWITCHTEC_PCI100X_DEVICE(0x1003, SWITCHTEC_GEN4),  /* PCI1003 16XG4 */
-diff --git a/include/linux/switchtec.h b/include/linux/switchtec.h
-index 8d8fac1626bd9..32980f2f76e09 100644
---- a/include/linux/switchtec.h
-+++ b/include/linux/switchtec.h
-@@ -42,6 +42,7 @@ enum switchtec_gen {
- 	SWITCHTEC_GEN3,
- 	SWITCHTEC_GEN4,
- 	SWITCHTEC_GEN5,
-+	SWITCHTEC_GEN6,
- };
- 
- struct mrpc_regs {
+diff --git a/drivers/net/dsa/mv88e6xxx/chip.c b/drivers/net/dsa/mv88e6xxx/chip.c
+index 783d7035f065e..ac325b3abcae9 100644
+--- a/drivers/net/dsa/mv88e6xxx/chip.c
++++ b/drivers/net/dsa/mv88e6xxx/chip.c
+@@ -5245,6 +5245,7 @@ static const struct mv88e6xxx_ops mv88e6321_ops = {
+ 	.set_egress_port = mv88e6095_g1_set_egress_port,
+ 	.watchdog_ops = &mv88e6390_watchdog_ops,
+ 	.mgmt_rsvd2cpu = mv88e6352_g2_mgmt_rsvd2cpu,
++	.pot_clear = mv88e6xxx_g2_pot_clear,
+ 	.hardware_reset_pre = mv88e6xxx_g2_eeprom_wait,
+ 	.hardware_reset_post = mv88e6xxx_g2_eeprom_wait,
+ 	.reset = mv88e6352_g1_reset,
 -- 
 2.53.0
 
