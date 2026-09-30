@@ -1,33 +1,33 @@
 Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 480B42BEFEE;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483282C21F7;
 	Wed, 30 Sep 2026 00:39:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790728765; cv=none; b=lJrGXoWuo8ECiAD3egVZnI/QFptGr2SxaoFvVXEdXKcOZBFwcsIijMhrfvIKdIPIdsQU4Xh3e4HqaPpmsz+Y3cuEGRxaD5D4FErMX9DKSStuT+nCoKjxiVcIwUhMqKNRfm4fci4z+zP630KHVgd9XGIWwtj2KosugKqQu4oWl0U=
+	t=1790728765; cv=none; b=TP5k8sg51Sgf/sa95ZtBC2dj49kcdMLQHNfWyX1qelE+UWg3i4E/DxZI6UDV+s4eWiTsV9NOu1xABIPjrc5OMeKeBhFJRzyNdbWLVVqALYH2ho4tPfR3O4eUr3Zx+F1a7DPKSMXQF+3oXxyd043kleefnGkRByOpeE0En6LPnt8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790728765; c=relaxed/simple;
-	bh=0tnEn1bDI3qFevjxwiTHDIfa5aI8cDl75A1XHNtNhRI=;
+	bh=VUVie2MWQi6X2KFIT8UZeemC/aGYXuqwzqhAzLOcKzk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VIiZjCPiIvdTE5FZY3huenUNAvPj1MmwmpQW//Wv/LPL1zB9M+jJDhkv8wcWi6qtivYZxX3C2xqn0d/eN7QvDbguSDSH0/K6k5sQgsPANazX/5s1fhUHKmMLDMbucFQx1buDpcjiO3hFkLyQ8GPV+D6yqc+4VPECSYlaGSTORX0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=LvU4GdAH; arc=none smtp.client-ip=143.255.12.172
+	 MIME-Version; b=egeCVNUM25pgkJQt6/qNmQ1BRFep+5+eWnl+KoZH0Psi6C9TcBKDkXbwJG2umCRjnnNYaVanDeJlWDy5GZnGtPEREiELDAC0i5DrBabh0Z2JcmODvNre4h8rMF0HxijOxDaf6BIV+KzM0suwT4P0umkvgIE5T388ZK1UgJJ3ABY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=lqgM3ytF; arc=none smtp.client-ip=143.255.12.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="LvU4GdAH"
+	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="lqgM3ytF"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:MIME-Version:References:
 	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Content-Type:Reply-To:
 	Content-ID:Content-Description;
-	bh=3lQExb4eI1F2JhY6HrkcA4Img8VSvnTyH8rAbiN/V2M=; b=LvU4GdAHu9gMQV2Mgo9HVJfN9P
-	h57BbBcjj2zZSdYZJBS8vRWwnXYbg4y+toJ3yNnTNrSiIiv7slDIFJkXE+tB2AzV9LojS3AKeOcWC
-	m9TNDxl5ftOq5cQMto4CvXtjjbBFe/xEJVNUMHTJ65ha5gxt6hpL7dRLcP1Nj2He2C8p49XsMBc4l
-	ItXtis51qO7O4TlJqMO/nN/SjEnN8rQx1sRDOuyURb1RUU6ke/v+jO93846oyI3WKZqZI26z8ZLHo
-	wZYh+bcMt+wZe8MU9R7W+ABPrZFGlbDiYd+IrAYcLj6vsurklJxmm8WYPoBCcBvzDSO2LPB3IH1L+
-	4ZKHiP+Q==;
+	bh=N/lP/whLBpJOFNuizvVIGkNRD6JoVxEHCDGh0QyoT08=; b=lqgM3ytFrKotVVXe4In7SPCumk
+	Wjcc7vs+bet2Cm0B1U5HkTD9zMSuETcT4W6Q8+10J8y80A1IMzq3MagmKTlTRlz80KpvpF3zyV61F
+	4pp6anhPst59Nb/VCrT5H58d2wiQi/UoPkzzBftLigedTKZOEPZ9GeEWx05q4KJR9S4vGWj+RSmG5
+	fvnCvVWUrAFemkJLXwdJq+qVk2tm5V+7jbs/Zku/xmnSQLbpiLxzBKTxFBH2JmoyBF006yI12qCdc
+	pimeUbeUu0DelzJjny5FOqxeE6jShAp55O0yER229VatKiZNde/JG5TFdbjpojM681ACHxBFl81gj
+	ZgFNi4EA==;
 Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
-	id 1xBiLn-00000002aDn-2IKz;
+	id 1xBiLn-00000002aDs-3l2A;
 	Tue, 29 Sep 2026 21:39:11 -0300
 From: Paulo Alcantara <pc@manguebit.org>
 To: linux-cifs@vger.kernel.org,
@@ -40,11 +40,10 @@ Cc: Christian Brauner <brauner@kernel.org>,
 	Shyam Prasad N <sprasad@microsoft.com>,
 	Tom Talpey <tom@talpey.com>,
 	Bharath SM <bharathsm@microsoft.com>,
-	Frank Sorenson <sorenson@redhat.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v2 07/15] smb: client: drain outstanding I/O before truncating on O_TRUNC open
-Date: Tue, 29 Sep 2026 21:39:00 -0300
-Message-ID: <20260930003908.1703770-8-pc@manguebit.org>
+Subject: [PATCH v2 08/15] smb: client: flush dirty data before zeroing a range
+Date: Tue, 29 Sep 2026 21:39:01 -0300
+Message-ID: <20260930003908.1703770-9-pc@manguebit.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930003908.1703770-1-pc@manguebit.org>
 References: <20260930003908.1703770-1-pc@manguebit.org>
@@ -56,16 +55,26 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-cifs_do_truncate() flushes the pagecache with filemap_write_and_wait()
-before resetting the file size to zero, but that does not wait for
-direct/async I/O that was already in flight, which can complete after the
-truncate and reinstate stale data past the new EOF.
+smb3_zero_range() emulates FALLOC_FL_ZERO_RANGE by invalidating the
+page cache over the target range with truncate_pagecache_range() and
+then issuing FSCTL_SET_ZERO_DATA to the server.
 
-Drain outstanding netfs I/O with netfs_wait_for_outstanding_io()
-before resizing the file.
+Dirty data was only flushed conditionally, when the range reached or
+extended EOF.  For a purely interior zero range that does not reach
+EOF, no flush happened, so a dirty folio overlapping the range could
+be written back to the server after the FSCTL and refill the range
+that was just zeroed with stale data.
 
-Reported-by: Frank Sorenson <sorenson@redhat.com>
-Fixes: a8603b52b39f ("smb: client: fix data corruption with concurrent writes and O_TRUNC")
+Fix this by unconditionally flushing and waiting for dirty data in the
+range before invalidating the page cache and issuing
+FSCTL_SET_ZERO_DATA, exactly as was done for smb3_punch_hole() in
+commit d7d2adcd022b ("smb/client: flush dirty data before punching a
+hole"); the two paths are structurally identical here.
+
+This is observed as generic/363 randomly reading stale data where a
+zeroed range is expected against Windows Server.
+
+Fixes: 91d1dfae4649 ("cifs: Fix FALLOC_FL_ZERO_RANGE to preflush buffered part of target region")
 Reviewed-by: David Howells <dhowells@redhat.com>
 Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
@@ -78,22 +87,31 @@ Cc: Tom Talpey <tom@talpey.com>
 Cc: Bharath SM <bharathsm@microsoft.com>
 Cc: stable@vger.kernel.org
 ---
- fs/smb/client/file.c | 2 ++
- 1 file changed, 2 insertions(+)
+ fs/smb/client/smb2ops.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
-diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
-index 4bcb87610897..11355d6bf89d 100644
---- a/fs/smb/client/file.c
-+++ b/fs/smb/client/file.c
-@@ -1012,6 +1012,8 @@ static int cifs_do_truncate(const unsigned int xid, struct dentry *dentry)
- 	}
- 	mapping_set_error(inode->i_mapping, rc);
+diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
+index 1c41d3b24c6d..a0fcb564e7a3 100644
+--- a/fs/smb/client/smb2ops.c
++++ b/fs/smb/client/smb2ops.c
+@@ -3549,13 +3549,11 @@ static long smb3_zero_range(struct file *file, struct cifs_tcon *tcon,
+ 	filemap_invalidate_lock(inode->i_mapping);
  
-+	netfs_wait_for_outstanding_io(inode);
-+
- 	cfile = find_writable_file(cinode, FIND_FSUID_ONLY);
- 	rc = cifs_file_flush(xid, inode, cfile);
- 	if (!rc) {
+ 	netfs_read_sizes(inode, &i_size, &remote_i_size, &zero_point);
+-	if (offset + len >= remote_i_size && offset < i_size) {
+-		unsigned long long top = umin(offset + len, i_size);
+ 
+-		rc = filemap_write_and_wait_range(inode->i_mapping, offset, top - 1);
+-		if (rc < 0)
+-			goto zero_range_exit;
+-	}
++	rc = filemap_write_and_wait_range(inode->i_mapping, offset,
++					  offset + len - 1);
++	if (rc < 0)
++		goto zero_range_exit;
+ 
+ 	/*
+ 	 * We zero the range through ioctl, so we need remove the page caches
 -- 
 2.55.0
 
