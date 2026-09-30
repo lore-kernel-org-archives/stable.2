@@ -1,40 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF7B94F30C3;
-	Wed, 30 Sep 2026 16:20:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E851250C2B7;
+	Wed, 30 Sep 2026 16:20:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790785241; cv=none; b=gOR+fB5a2flzx8CoWrT5Fez6Js7GbZuN9Eyau+NJlFZJT2oU7LQB2Ov0i1I2ieOV5TKUS5XzCQhR9gHSvtrTcsRXdj9Y/+KtN3lI4y9cBEpIYfdMZmTUO4XSeL9adkyxiW99BLr/5bDmRpSG1I9qKDfWXmq8akYQlBqHNHL0OPA=
+	t=1790785247; cv=none; b=hV1skycdvk/2FVCiAo4PzXMjzM56YDvihfQM9i+L8XtoF+B4HPD1HsTwBqPZ/XfEYI3WT+pNqP4EQ8eovZj1mnGCpqLenbk3cJCPUa/xKKXB0jOmh/suV7U1woldEoTnP1P2Wwou99kTReMhfaIqZoYKYatSFv3a01c82rnHa4Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790785241; c=relaxed/simple;
-	bh=KDYcpYYBo7W6m43BjobCyST7pF6FUeSsnpaDlaShkhY=;
+	s=arc-20240116; t=1790785247; c=relaxed/simple;
+	bh=yrzc3/NUYvkaqoH2S8Eck8vvHLpm6S7+LALYwiptEdQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Pi6jAAo8t0mzYixhWVKoEXs9L6oNhw29iiftviriRRg/jqqF5jweCbJa2Pn2rMK5c1LQm4ZB0l+oNWLgVISQtxV4CGAZz4DxuvfcAKlINwRvV5iYSDZRANB19fBv01WRMYotvccIe6vXkLISgbxLg0nzhj+SNT4ZfELCGgxJXUk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=iiAXq479; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ez2XH6z12HoLq5bSj1DYfqJa3F0U5c1oUaGulwpmIyc/FmIueiQi3fWp5ICu9Yrnrv5oXtTNdQgGdJ9eSBJ84w1KXvDXSZiTop5HxbbfT7OX6y5Kjq2zVAFLrbPhBjf+mfIEdr4lPNW+kSOyRweQh9QdBcuP4YYkPvkX8mBny94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=NnbE1yar; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="iiAXq479"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE11C1F000FF;
-	Wed, 30 Sep 2026 16:20:36 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NnbE1yar"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77BDC1F000FF;
+	Wed, 30 Sep 2026 16:20:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790785237;
-	bh=p2bX/0a7WT69hXHZHKr2cusN8kYGDgkIIZIR0PnoURM=;
+	s=korg; t=1790785243;
+	bh=bxMmgnGmL1IcrCfn0ScUFskTfXStY3rh1QNgcvo0onk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iiAXq479hWNxk07QClBZZGOM9gL3BdFDmGpiTGWAY+cop4RM1++ewcIZpwfSeq4Gh
-	 N4kzs5rBuJpzoJUwT3x2dSVkqYpj0BQ0LkJJUBDInB8xbxe1GUIg6BrJUhipK4lUXV
-	 BI4+WWgcOKtf7UzlVfj5UeJ+0OX2E7Y5AXqppB1g=
+	b=NnbE1yar3Xk0sbYW6WIYjPYmiUSfTbAp85koeSRMLAotiauPfoUTYY6NKkUDtkV6s
+	 dyIfHgB2T7uLt5ndV5pVD3pTkQdLPf7SvqXAWrQDR2kiYKGqIz3Dz38vUFjDDVibKt
+	 DgKaM88buPivWR7onT7PygiNy8nFPlnRlIkqv8sk=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Eulgyu Kim <eulgyukim@snu.ac.kr>,
-	Jaeyoung Chung <jjy600901@snu.ac.kr>,
-	Florian Westphal <fw@strlen.de>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
+	"hpp.iscas" <hppiscas@163.com>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 436/982] netfilter: nfnetlink_log: cope with concurrent instance destruction
-Date: Wed, 30 Sep 2026 17:19:32 +0200
-Message-ID: <20260930152426.159718414@linuxfoundation.org>
+Subject: [PATCH 6.1 438/982] ASoC: mt6351: Publish the OF module alias
+Date: Wed, 30 Sep 2026 17:19:34 +0200
+Message-ID: <20260930152426.201795923@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
 References: <20260930152416.775402466@linuxfoundation.org>
@@ -53,62 +51,38 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Florian Westphal <fw@strlen.de>
+From: hpp.iscas <hppiscas@163.com>
 
-[ Upstream commit 387d744fa7e499d2c3748a4e60e02ebb24e7fb16 ]
+[ Upstream commit 9c3882ec10399c14c59b7e4599d33c4395367c37 ]
 
-Instances are refcounted. However, only memory release happens on the
-1 -> 0 transition; the unlink from hashes can occur with any refcount.
+The MT6351 codec platform driver uses mt6351_of_match to bind devices
+with compatible mediatek,mt6351-sound. The codec can be a separate
+module, but the OF table is not exported to module alias metadata.
 
-Uncooperative userspace can force a situation where a queue is pending
-for destruction from netlink event while a different socket with same
-portid processes an UNBIND request.
+Publish the existing table without changing codec matching, register
+access or the machine-driver configuration.
 
-With right timing, this will unhash the instance again:
-
-Oops: general protection fault, [..]
-Call Trace:
- <TASK>
- nfulnl_recv_config+0x31a/0xd50
- nfnetlink_rcv_msg+0x7c2/0xeb0
-
-Fixes: 0597f2680d66 ("[NETFILTER]: Add new "nfnetlink_log" userspace packet logging facility")
-Reported-by: Eulgyu Kim <eulgyukim@snu.ac.kr>
-Reported-by: Jaeyoung Chung <jjy600901@snu.ac.kr>
-Signed-off-by: Florian Westphal <fw@strlen.de>
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+Fixes: a74d51ba0e17 ("ASoC: add mt6351 codec driver")
+Signed-off-by: hpp.iscas <hppiscas@163.com>
+Link: https://patch.msgid.link/20260905133210.63803-1-hppiscas@163.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/netfilter/nfnetlink_log.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ sound/soc/codecs/mt6351.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/net/netfilter/nfnetlink_log.c b/net/netfilter/nfnetlink_log.c
-index d3c43897250a5..60c73d3188896 100644
---- a/net/netfilter/nfnetlink_log.c
-+++ b/net/netfilter/nfnetlink_log.c
-@@ -218,13 +218,18 @@ static void __nfulnl_flush(struct nfulnl_instance *inst);
- static void
- __instance_destroy(struct nfulnl_instance *inst)
- {
-+	spin_lock(&inst->lock);
-+	if (inst->copy_mode == NFULNL_COPY_DISABLED) {
-+		/* attempt to UNBIND a queue already pending
-+		 * destruction via netlink close event. Ignore.
-+		 */
-+		spin_unlock(&inst->lock);
-+		return;
-+	}
-+
- 	/* first pull it out of the global list */
- 	hlist_del_rcu(&inst->hlist);
+diff --git a/sound/soc/codecs/mt6351.c b/sound/soc/codecs/mt6351.c
+index d2cf4847eead1..c333393ce6f26 100644
+--- a/sound/soc/codecs/mt6351.c
++++ b/sound/soc/codecs/mt6351.c
+@@ -1479,6 +1479,7 @@ static const struct of_device_id mt6351_of_match[] = {
+ 	{.compatible = "mediatek,mt6351-sound",},
+ 	{}
+ };
++MODULE_DEVICE_TABLE(of, mt6351_of_match);
  
--	/* then flush all pending packets from skb */
--
--	spin_lock(&inst->lock);
--
- 	/* lockless readers wont be able to use us */
- 	inst->copy_mode = NFULNL_COPY_DISABLED;
- 
+ static struct platform_driver mt6351_codec_driver = {
+ 	.driver = {
 -- 
 2.53.0
 
