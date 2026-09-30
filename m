@@ -1,39 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A59993C8728
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 12:09:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3459B3C8728
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 12:10:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790770193; cv=none; b=Ltq73XgZ5Wt585SMOusqlNIe8fwDr6s3+e3vHUVgjKddSnCo555z8yb/mecWjIkPf6TtiyK8KAx2XXF/UjTx5FTZgnBQzKPWCD3XKicxIAPh4HeOhkRdev3J6KdpX0ykil02EtTFqEZFZTlJrC8mjrsALPrqfVwArQpqu8h9L+k=
+	t=1790770212; cv=none; b=R0ko2Hwxaf8bNDvXGiuwN3kNn8I/W4TOWLg3xle3u15O80vlGoK5VadJ5pBjgOZe5FM3mdE33fIis0hBDM6M0NwUIF7qv+0CTUuV1i2OfMRjoFAWZk3DTYe7fWS9ubhgz1Rw/pG5rBIUy+U8z+3seNG+5k2aHa3F/is17SSasLY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790770193; c=relaxed/simple;
-	bh=vOAxurFJOhyy5hPm2tTqeL/Tg7dmEjb61QCq40EF6sQ=;
+	s=arc-20240116; t=1790770212; c=relaxed/simple;
+	bh=uusixSFs+hHWeHjYQO6cNQyxarokof1WWTgfonvIi10=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KjdQJo9OV0E3oFMVhCJPz/9Elj8ReYnpdEjR5YcSgC6tjHSA6nXZpN8OF/Fu42czbKl5HRg3BKnNRfxytOoOaSfJ6rDd8H1YWfiwJ2PrjZfpTDXpJVf8nCVlpIwKbdCoa9vujlf04pe4Q9kZ4qutWhGW1jUWL88mIKUd6Ij9Hjo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=w05IdtV8; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=TA6Ej26zjfK+DK7RZmLe4jxUKgRzNr5B21idhaFKoECksR7uvKaQ7DSYf9S3ah4uGGzk4lq3ll+mpsjjLR9VkE2iTJjmGB7x5gKOWpg4n9dRNM2V1Rcy0X/EoYoyXl2rJdyiGwV7W9fs18s+lR6C9caoSgW2LOX7+1rrpz52+kA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Ydis2Qo1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="w05IdtV8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC7C71F000FF;
-	Wed, 30 Sep 2026 12:09:51 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Ydis2Qo1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AC651F000FF;
+	Wed, 30 Sep 2026 12:10:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790770192;
-	bh=3uquKuBqXCRLhMJFzZV4E9LRHvABkoHEmBpKGeVhL7Q=;
+	s=korg; t=1790770210;
+	bh=4dlrMeM4QWoqXEkRYB8TrXyY03Si1Ddql5tWqzapgbQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=w05IdtV8JY2TEUDPp232Xys+lfDuKXJWqQCnSlyTJ3TU5LSf0fm3kbc+n/DW/Zuo8
-	 61r2GI+7oVNE4hSzFoFDjQwZIK1nIYWC+UR/qTK2trVFweCwr5pr/aSQZCcoGT+Kag
-	 5zac5dkx4CRg79XZ3s/HU7igBnQUnPXBfas81kuM=
-Date: Wed, 30 Sep 2026 14:09:46 +0200
+	b=Ydis2Qo18+EDInolH4E7e8eiv7QOppSN5hW5w6/lE9YYhEeRTdcBXN0KA+giRsmiA
+	 3VUhq1wrr5Vwvpm4fg9z3hgEsU/lfnQxgPkzduMSPK4V6Que8NwONt3y5ebAMnRH69
+	 3/cR8WGwrQvdYEyMvZ4whWLW2roxJoScg4C4QoXs=
+Date: Wed, 30 Sep 2026 14:10:04 +0200
 From: Greg KH <gregkh@linuxfoundation.org>
 To: Tim Chen <tim.c.chen@linux.intel.com>
-Cc: kayracizmeci@gmail.com, mingo@kernel.org, peterz@infradead.org,
-	stable@kernel.org, yu.c.chen@intel.com, zhanxusheng@xiaomi.com,
-	stable@vger.kernel.org
-Subject: Re: FAILED: patch "[PATCH] sched/cache: Keep nr_pref_llc_running in
- the runnable domain," failed to apply to 7.2-stable tree
-Message-ID: <2026093010-repave-debit-afee@gregkh>
-References: <2026092932-unmanaged-nectar-23d8@gregkh>
- <f74faef913c4d49cdede9c43581e979317c00829.camel@linux.intel.com>
+Cc: yu.c.chen@intel.com, mingo@kernel.org, peterz@infradead.org,
+	stable@kernel.org, stable@vger.kernel.org
+Subject: Re: FAILED: patch "[PATCH] sched/cache: Skip kernel threads for
+ cache aware scheduling" failed to apply to 7.2-stable tree
+Message-ID: <2026093056-santa-ecology-041c@gregkh>
+References: <2026092935-angelic-kick-1d0a@gregkh>
+ <850294df0f51d6ccb131557af74d4a42dde00b3a.camel@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -42,9 +41,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <f74faef913c4d49cdede9c43581e979317c00829.camel@linux.intel.com>
+In-Reply-To: <850294df0f51d6ccb131557af74d4a42dde00b3a.camel@linux.intel.com>
 
-On Tue, Sep 29, 2026 at 03:12:01PM -0700, Tim Chen wrote:
+On Tue, Sep 29, 2026 at 03:45:46PM -0700, Tim Chen wrote:
 > On Tue, 2026-09-29 at 13:43 +0200, gregkh@linuxfoundation.org wrote:
 > > The patch below does not apply to the 7.2-stable tree.
 > > If someone wants it applied there, or to any other stable or longterm
@@ -55,26 +54,20 @@ On Tue, Sep 29, 2026 at 03:12:01PM -0700, Tim Chen wrote:
 > > 
 > > git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 > > git checkout FETCH_HEAD
-> > git cherry-pick -x 0d6526f82c3cdefcca47f73f5fc08dc6f335eac6
+> > git cherry-pick -x 65efcccddc83d6a19e8a2e2a6117811e39e589bf
+> > # <resolve conflicts, build, test, etc.>
+> > git commit -s
+> > git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026092935-angelic-kick-1d0a@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
+> > 
+> > Possible dependencies:
+> > 
 > 
-> This patch seems to apply cleanly on latest 7.2.8:
-> commit 9a66fdc0d7fd55f54235524a73435af99051e46f (tag: v7.2.8, stable/linux-7.2.y)
-> 
-> [tim@b04f130c83f2 linux]$ git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
-> >From https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux
->  * branch                        linux-7.2.y -> FETCH_HEAD
-> [tim@b04f130c83f2 linux]$ git checkout FETCH_HEAD
-> HEAD is now at 9a66fdc0d7fd5 Linux 7.2.8
-> [tim@b04f130c83f2 linux]$ git cherry-pick -x 0d6526f82c3cdefcca47f73f5fc08dc6f335eac6
-> Auto-merging kernel/sched/fair.c
-> [detached HEAD 9d0e82dcbce41] sched/cache: Keep nr_pref_llc_running in the runnable domain, to fix LLC mis-scheduling bug
->  Date: Mon Sep 21 17:37:22 2026 -0700
->  1 file changed, 58 insertions(+), 5 deletions(-)
-> 
+> These patches in upstream needs to be applied first before this patch:
+> f0d243a96f268 sched/fair: Avoid creating misfits during cache-aware balancing (should be included in stable)
+> 28f9c0e0a0b94 sched/cache: Decouple sched_cache_group from mm to fix UAF  (just merged in stable)
+> b636fef85bda7 sched/cache: Introduce task_struct->sched_cache_grp to fix UAF (should be included in stable)
 
-Does not apply now, perhaps due to other patches in the queue?
-
-Again, can you send a series?
+Can you send a proper series?
 
 thanks,
 
