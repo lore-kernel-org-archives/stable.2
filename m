@@ -1,100 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DD373D1A97
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 18:50:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D9AB3CFF66;
+	Wed, 30 Sep 2026 18:50:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790794212; cv=none; b=Eub0omi8OFOClGT0MmN4Dl2li+zqTlgBmCt1p5nyajhAQgOWuyItBBqKwu+AwDmQkMagGfIpFNdY+OgMhlzGwhQ+wGxkaFjc+iAypOOU/rkS+oDFu6y69d5tULypVGiYmNJbVM6mM/KY/OzKG3r46BTEWvlKHNGtoNDeKa47RD0=
+	t=1790794214; cv=none; b=OBqqtIalgV8j0qOBzvowRy06z2kwrB7UpYADVZMTXtcupAzTfC1STRZB/lRuH41nx4BxcbOxBojzObK4JlnPaTK9XxkV+JE1rpkvlAzcu8uOd2HBYmnIU6mpmLMU8a1Ti5oVLafGpkZT5nXy4eACrowVujG2iYHApU8UGtQuyhs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790794212; c=relaxed/simple;
-	bh=vV9UjkLOrEdFe8QT+q9z6IENIPWK9hQtUIVx9jzhXKg=;
+	s=arc-20240116; t=1790794214; c=relaxed/simple;
+	bh=iNq05gmP8ZIbfDjPE2myx/v84+Ppv8LQAOY+voUrUfM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WX6406WBbr1RtfUOSTrWdBw+JpsaNy0VUh++S87hcJySjjw15PcBAgbZ/X9vcRQ000avjiZDSOzWDPvu/yp5PhTzOU3XKm3Bwa8FEoHVBzGN/nR2b38G2KgqOi2Jh0eE/r9ogK2F0+b0D6PPvgOSDcUbj5pFMuv2oqg1cJU9HZ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jorFUYqO; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=KZj1TFBVbwYjIuNvRg8PfOm2oFHf4jTIcqrFGq9xS1DgsoyquoOrLoDeNaYJ2JZ9BwqyuYo9+VEjSzxT7Bh44jXDbjQA8LAMqC7/aY3j3p0/Ra6uG4CR6eytTawVq8H6QO/ratYy+gu6ppm/QrkzTCIC6WSxUVUmOn0XPiJg0eU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZYx6DQuf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jorFUYqO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C6F21F000FF;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZYx6DQuf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD07F1F0089A;
 	Wed, 30 Sep 2026 18:50:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790794211;
-	bh=NA7RqzyVZ3rN2IVqd9zkwJxn7a2XRbWr7Dr7h1wf9qU=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790794211;
+	bh=mHh5qJgPMvLO8HkNKPI+MHlIAxzn0SnMHy6jEAlcfmo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jorFUYqODpwNMeu388SHSmMaVk17vPEHj2ZXVE6XKL+ehR/BOQLS/xh3Oa7KxThqH
-	 TWcbWuof3d0nyyHVqdRfA9WZpxik5da1LRNsiZil/gVtln50DOKlbOa7Q0mPNMXZTk
-	 IeeO6KkcNVOvF64qzR4bgtPQ0IpntfOckPzfNPYq3igUbTrPRHb4Rvu+EGJYcMFZ3z
-	 u1uxeTyV46duSJTeJTMYim3F5YLdSMdLRk0Dsxf3h2XnNqjmO+3j7SKWwEqbqgUEKU
-	 hZspT5J1OWctVSTNbrrZ4KPciVYYvlM9qrW7iu3WVzrEiViLJJb7iT8ZZsjQZwTJ9G
-	 juyJ/iaJlrnsw==
-From: Sasha Levin <sashal@kernel.org>
+	b=ZYx6DQufaHOpeKMeVBZ1agYhFGUcJvK7Y8IyKfQo6FRIfI8+R0oOPyDE/0dXqAH7j
+	 /2J+boKHU32/ldX/amJMcXZdNZRWmDkRfl3X2Q4pxl/R0+t9aUib+uynr24Qm7Q/sf
+	 xn89Hamre0SU4f4SD7m7iudjn2fwvicR4EgNw8aw=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Adarsh Das <adarshdas950@gmail.com>,
-	syzbot+eeb58d2197d88720a228@syzkaller.appspotmail.com,
-	Paulo Alcantara <pc@manguebit.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	syzbot+fbf3648ae7f5bdb05c59@syzkaller.appspotmail.com,
+	Jiayuan Chen <jiayuan.chen@linux.dev>,
+	Allison Henderson <achender@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 3/3] smb: client: delete compound mids on send failure before unlock
-Date: Wed, 30 Sep 2026 14:50:06 -0400
-Message-ID: <20260930185006.338236-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260930185006.338236-1-sashal@kernel.org>
-References: <2026092926-stopwatch-rumbling-2993@gregkh>
- <20260930185006.338236-1-sashal@kernel.org>
+Subject: [PATCH 6.6 0104/1193] rds: annotate data-race around rs_seen_congestion
+Date: Wed, 30 Sep 2026 17:13:08 +0200
+Message-ID: <20260930152436.542947035@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930152434.301151190@linuxfoundation.org>
+References: <20260930152434.301151190@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Adarsh Das <adarshdas950@gmail.com>
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 8f6f8a48399f82f4a83f7b9f25b9707e0062a4f9 ]
+------------------
 
-When sending a compound request fails, smb_send_rqst() kicks off a
-reconnect. compound_send_recv() still has those mids on pending_mid_q,
-but it unlocks the server without removing them first.
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
 
-During reconnect, cifs_abort_connection() walks pending_mid_q and runs
-each mid callback. With no response yet, those callbacks return credits
-and drop in_flight. Then compound_send_recv()'s send-error path returns
-the same credits again. in_flight ends up decremented twice and
-smb2_add_credits() WARNs.
+[ Upstream commit 67636cab273ed0c0b0f2adab6c9369a471cb7966 ]
 
-syzbot hits this during SMB2_negotiate when the socket send fails.
+rs_seen_congestion is read in rds_poll() and written in rds_sendmsg()
+and rds_poll() without any lock.  Use READ_ONCE()/WRITE_ONCE() to
+annotate these lockless accesses and silence KCSAN.
 
-cifs_call_async() already calls delete_mid() before unlock on send
-failure. Do the same for compound chains and set cancelled_mid[] so the
-out: path does not delete them again.
-
-Fixes: ee258d79159a ("CIFS: Move credit processing to mid callbacks for SMB3")
-Reported-by: syzbot+eeb58d2197d88720a228@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/r/6a727d22.40259c87.584f4.04ce.GAE@google.com
-Tested-by: syzbot+eeb58d2197d88720a228@syzkaller.appspotmail.com
-Assisted-by: LLM
-Cc: stable@vger.kernel.org
-Signed-off-by: Adarsh Das <adarshdas950@gmail.com>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Reported-by: syzbot+fbf3648ae7f5bdb05c59@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/netdev/6a0f8d94.050a0220.6b33c.0000.GAE@google.com/
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Reviewed-by: Allison Henderson <achender@kernel.org> 
+Tested-by: Allison Henderson <achender@kernel.org>
+Link: https://patch.msgid.link/20260522011621.304470-1-jiayuan.chen@linux.dev
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/transport.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ net/rds/af_rds.c | 4 ++--
+ net/rds/send.c   | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/fs/smb/client/transport.c b/fs/smb/client/transport.c
-index f3eb7c6b641d1..ec22ce90c0f60 100644
---- a/fs/smb/client/transport.c
-+++ b/fs/smb/client/transport.c
-@@ -1183,6 +1183,10 @@ compound_send_recv(const unsigned int xid, struct cifs_ses *ses,
- 	if (rc < 0) {
- 		revert_current_mid(server, num_rqst);
- 		server->sequence_number -= 2;
-+		for (i = 0; i < num_rqst; i++) {
-+			delete_mid(server, mid[i]);
-+			cancelled_mid[i] = true;
-+		}
- 	}
+diff --git a/net/rds/af_rds.c b/net/rds/af_rds.c
+index 528336ac1cb11..85f6471ee6543 100644
+--- a/net/rds/af_rds.c
++++ b/net/rds/af_rds.c
+@@ -217,7 +217,7 @@ static __poll_t rds_poll(struct file *file, struct socket *sock,
  
- 	cifs_server_unlock(server);
+ 	poll_wait(file, sk_sleep(sk), wait);
+ 
+-	if (rs->rs_seen_congestion)
++	if (READ_ONCE(rs->rs_seen_congestion))
+ 		poll_wait(file, &rds_poll_waitq, wait);
+ 
+ 	read_lock_irqsave(&rs->rs_recv_lock, flags);
+@@ -245,7 +245,7 @@ static __poll_t rds_poll(struct file *file, struct socket *sock,
+ 
+ 	/* clear state any time we wake a seen-congested socket */
+ 	if (mask)
+-		rs->rs_seen_congestion = 0;
++		WRITE_ONCE(rs->rs_seen_congestion, 0);
+ 
+ 	return mask;
+ }
+diff --git a/net/rds/send.c b/net/rds/send.c
+index 4a24ee9c22d7c..1fc84bd899534 100644
+--- a/net/rds/send.c
++++ b/net/rds/send.c
+@@ -1339,7 +1339,7 @@ int rds_sendmsg(struct socket *sock, struct msghdr *msg, size_t payload_len)
+ 
+ 	ret = rds_cong_wait(conn->c_fcong, dport, nonblock, rs);
+ 	if (ret) {
+-		rs->rs_seen_congestion = 1;
++		WRITE_ONCE(rs->rs_seen_congestion, 1);
+ 		goto out;
+ 	}
+ 	while (!rds_send_queue_rm(rs, conn, cpath, rm, rs->rs_bound_port,
 -- 
 2.53.0
+
+
 
