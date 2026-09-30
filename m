@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F60F4F3ECC
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 13:13:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C12C14DDB44
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 13:13:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790773989; cv=none; b=On81y8SOTQCMnlPbCrSzEHhVnkoq1/o/RC9L3GCAL35OTqWW6oBBhJJSZWEDIFhkZDcCGAeTqv9/OvHEZ2C9ekC0OONlKCWo1/olKnyfgpqvk9Nny+t7bigiAwcbmVQMz3XhhTQ6pvjgOGcCHB5TDrhYWNMOWbU87gzdh9eiIsA=
+	t=1790773991; cv=none; b=En7XJw2lthyNwmRsHOAQ1dOGfZ47JvJGFubXfUplYiDhckwfAqQkCVpa8Q8RzVaVN9Kcnfy6dvUxXmL0BECCIeZo4rsK6+sV9sJWYQ3jUKBQ2GqEbiqYZCoSXg2pX89kR/3R53UBOUzBp1dqlZDpkFR9QsehDpWhH+fZiCBoyi0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790773989; c=relaxed/simple;
-	bh=LNp5e60PEd8MWO8nLQWKW7KNgq0QB4BGpCMYExxPJWg=;
+	s=arc-20240116; t=1790773991; c=relaxed/simple;
+	bh=5XS94RpiLyMoZUvgX1xk8YVKP5Bl4fhIYoUZw2YPbCQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ngSYm/vtIqaswcJDGWXzmxYlld/LwUMzuATGDaiqTr6Gj/0Bzim2MMBvRFpdxgSqi3ZvFziBcboS0/rLYD/JNh9lRIqK+S2CSR7m2h8OPTHW8KRKfh/o3Wd/b+5Bi0knoMAK1zSw7rr/IxFVf1JnhohGq0YKUnFxxY+tdScRk78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MxBtillp; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ri8YA3rOGitw1tZo550bhRI1RFIyLyD3jY9ELYXusJSgUh9RYQgQd7tIHLCdoNBsDvvwMrOJ2+KefDHM0BYbIfNKKgj4hNM2xIwN7gbpzvrTbUEb2i48HTQiTgdslMoLQcBXWyLzXPzgwy6rNYeTIwq6auXwUwIO88lp27JOu/E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hcuIKWBd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MxBtillp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39B4D1F00899;
-	Wed, 30 Sep 2026 13:13:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hcuIKWBd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36BEE1F0089A;
+	Wed, 30 Sep 2026 13:12:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790773981;
-	bh=+KBgxevcBRGPvTVY+CojCt/EvZ63Oa4v0nbgbX87KMY=;
+	s=k20260515; t=1790773980;
+	bh=yFmSkpyzonOCeUTKT7AmZB2htnJ0fBj8GhexPjqPDuE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MxBtillphxbK1CRXzyGdjgv7opM9qhZJohBSRLh1Kdfj99myNab4QQ3HXm7DJaRQ1
-	 cKZRi9aHdzYR30a5uRWNTHZx2L8Azst8Bo37BLCN8tQ6efi5TbmmEep2y6ev4h1lrT
-	 PB/KhONEALUNkMjvf48CWFdU3nQTK0/VcvxwROjFzc/4Tco1e2sEyeMLc5ZC2X7+l5
-	 NKncpw4laRjSDktjns+SXJS7PVxmpH7Ke37VeA6yVHcRaGcw2MmKeScVBqhfXzSXbo
-	 QA903DxVkjRKX6b6K+UGpwnSwCkR/kICRQ+Ra8i0rdXOo7SdgghoUh48rkNsy9MSAJ
-	 NYyVXTfMe1e0Q==
+	b=hcuIKWBd7URExoX3fjNfnemFaFeHGjNcHhVTmBzRKA+/h+OKXD9sypIfR6XY88Ikq
+	 2kSpI67kIi31e/Utb4hnwax5Y62q9+vjYCVVLOY1E1h1d+2Wvk4Om5oTfXw2/mXqXG
+	 B5Mlp+EJzCMfNEXlpFxjLPWKltVPtitUvqpWd+UTig01xlESWWLq7gakDHQDV69VWE
+	 73lxkOodBBg5CQoVQGpIPx4FygkBnB94Q6PBn8a7Fv5KecSq8fVkE9uXNMY3L2wbbX
+	 fwEx6xRspznK5GbuVs/aCfY7CCOogQPC/q//WtcRKgl3PRdSdx47h4UP8K0sWR3Fbh
+	 7dLVYXsdSvzOQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sean Christopherson <seanjc@google.com>,
@@ -34,9 +34,9 @@ Cc: Sean Christopherson <seanjc@google.com>,
 	Binbin Wu <binbin.wu@linux.intel.com>,
 	Paolo Bonzini <pbonzini@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 4/8] KVM: x86/mmu: Move kvm_mmu_do_page_fault() from mmu_internal.h => mmu.c
-Date: Wed, 30 Sep 2026 09:12:51 -0400
-Message-ID: <20260930131256.1728861-4-sashal@kernel.org>
+Subject: [PATCH 7.2.y 3/8] KVM: x86/mmu: Move kvm_arch_async_page_ready() below kvm_tdp_page_fault()
+Date: Wed, 30 Sep 2026 09:12:50 -0400
+Message-ID: <20260930131256.1728861-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260930131256.1728861-1-sashal@kernel.org>
 References: <2026092945-unzip-pluck-7c40@gregkh>
@@ -51,13 +51,11 @@ Content-Transfer-Encoding: 8bit
 
 From: Sean Christopherson <seanjc@google.com>
 
-[ Upstream commit 20fe9252460524f9028b515f0f672442ffe6779b ]
+[ Upstream commit 31a2cf735cc00c01526bcb676f111d5c0b711d17 ]
 
-Move kvm_mmu_do_page_fault() into mmu.c, as there are no users outside of
-mmu.c, and the function typically isn't inlined by the compiler anyways.
-This will allow moving the EMULTYPE_xxx definitions into x86.h without
-having to include x86.h in mmu_internal.h, i.e. will help preserve the
-goal of making x86.h KVM x86's "top-level" include.
+Move the implementation of kvm_arch_async_page_ready() "down" in mmu.c so
+that it lives below kvm_tdp_page_fault().  This will allow moving
+kvm_mmu_do_page_fault() into mmu.c without needing a forward declaration.
 
 No functional change intended.
 
@@ -65,184 +63,94 @@ Reviewed-by: Yosry Ahmed <yosry@kernel.org>
 Reviewed-by: Kai Huang <kai.huang@intel.com>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
-Message-ID: <20260613000329.732085-30-seanjc@google.com>
+Message-ID: <20260613000329.732085-29-seanjc@google.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 Stable-dep-of: 10180a277549 ("KVM: x86: Re-pend GET_NESTED_STATE_PAGES if getting said pages fails")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/kvm/mmu/mmu.c          | 67 ++++++++++++++++++++++++++++++++-
- arch/x86/kvm/mmu/mmu_internal.h | 66 --------------------------------
- 2 files changed, 66 insertions(+), 67 deletions(-)
+ arch/x86/kvm/mmu/mmu.c | 62 +++++++++++++++++++++---------------------
+ 1 file changed, 31 insertions(+), 31 deletions(-)
 
 diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index ab1cbc0ff0eb9..49a5fb103194a 100644
+index 51ba46aa6b7e5..ab1cbc0ff0eb9 100644
 --- a/arch/x86/kvm/mmu/mmu.c
 +++ b/arch/x86/kvm/mmu/mmu.c
-@@ -4957,7 +4957,7 @@ static int kvm_tdp_mmu_page_fault(struct kvm_vcpu *vcpu,
- }
- #endif
- 
--int kvm_tdp_page_fault(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault)
-+static int kvm_tdp_page_fault(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault)
- {
- #ifdef CONFIG_X86_64
- 	if (tdp_mmu_enabled)
-@@ -4967,6 +4967,71 @@ int kvm_tdp_page_fault(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault)
- 	return direct_page_fault(vcpu, fault);
+@@ -4600,37 +4600,6 @@ static bool kvm_arch_setup_async_pf(struct kvm_vcpu *vcpu,
+ 				  kvm_vcpu_gfn_to_hva(vcpu, fault->gfn), &arch);
  }
  
-+static int kvm_mmu_do_page_fault(struct kvm_vcpu *vcpu, gpa_t cr2_or_gpa,
-+				 u64 err, bool prefetch, int *emulation_type,
-+				 u8 *level)
-+{
-+	struct kvm_page_fault fault = {
-+		.addr = cr2_or_gpa,
-+		.error_code = err,
-+		.exec = err & PFERR_FETCH_MASK,
-+		.write = err & PFERR_WRITE_MASK,
-+		.present = err & PFERR_PRESENT_MASK,
-+		.rsvd = err & PFERR_RSVD_MASK,
-+		.user = err & PFERR_USER_MASK,
-+		.prefetch = prefetch,
-+		.is_tdp = likely(vcpu->arch.mmu->page_fault == kvm_tdp_page_fault),
-+		.nx_huge_page_workaround_enabled =
-+			is_nx_huge_page_enabled(vcpu->kvm),
-+
-+		.max_level = KVM_MAX_HUGEPAGE_LEVEL,
-+		.req_level = PG_LEVEL_4K,
-+		.goal_level = PG_LEVEL_4K,
-+		.is_private = err & PFERR_PRIVATE_ACCESS,
-+
-+		.pfn = KVM_PFN_ERR_FAULT,
-+	};
-+	int r;
-+
-+	if (vcpu->arch.mmu->root_role.direct) {
-+		/*
-+		 * Things like memslots don't understand the concept of a shared
-+		 * bit. Strip it so that the GFN can be used like normal, and the
-+		 * fault.addr can be used when the shared bit is needed.
-+		 */
-+		fault.gfn = gpa_to_gfn(fault.addr) & ~kvm_gfn_direct_bits(vcpu->kvm);
-+		fault.slot = kvm_vcpu_gfn_to_memslot(vcpu, fault.gfn);
-+	}
-+
-+	/*
-+	 * With retpoline being active an indirect call is rather expensive,
-+	 * so do a direct call in the most common case.
-+	 */
-+	if (IS_ENABLED(CONFIG_MITIGATION_RETPOLINE) && fault.is_tdp)
-+		r = kvm_tdp_page_fault(vcpu, &fault);
-+	else
-+		r = vcpu->arch.mmu->page_fault(vcpu, &fault);
-+
-+	/*
-+	 * Not sure what's happening, but punt to userspace and hope that
-+	 * they can fix it by changing memory to shared, or they can
-+	 * provide a better error.
-+	 */
-+	if (r == RET_PF_EMULATE && fault.is_private) {
-+		pr_warn_ratelimited("kvm: unexpected emulation request on private memory\n");
-+		kvm_mmu_prepare_memory_fault_exit(vcpu, &fault);
-+		return -EFAULT;
-+	}
-+
-+	if (fault.write_fault_to_shadow_pgtable && emulation_type)
-+		*emulation_type |= EMULTYPE_WRITE_PF_TO_SP;
-+	if (level)
-+		*level = fault.goal_level;
-+
-+	return r;
-+}
-+
-+
- static int kvm_tdp_page_prefault(struct kvm_vcpu *vcpu, gpa_t gpa,
- 				 u64 error_code, u8 *level)
- {
-diff --git a/arch/x86/kvm/mmu/mmu_internal.h b/arch/x86/kvm/mmu/mmu_internal.h
-index 73cdcbccc89e8..c29002c601265 100644
---- a/arch/x86/kvm/mmu/mmu_internal.h
-+++ b/arch/x86/kvm/mmu/mmu_internal.h
-@@ -290,8 +290,6 @@ struct kvm_page_fault {
- 	bool write_fault_to_shadow_pgtable;
- };
- 
--int kvm_tdp_page_fault(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault);
--
- /*
-  * Return values of handle_mmio_page_fault(), mmu.page_fault(), fast_page_fault(),
-  * and of course kvm_mmu_do_page_fault().
-@@ -337,70 +335,6 @@ static inline void kvm_mmu_prepare_memory_fault_exit(struct kvm_vcpu *vcpu,
- 				      fault->is_private);
- }
- 
--static inline int kvm_mmu_do_page_fault(struct kvm_vcpu *vcpu, gpa_t cr2_or_gpa,
--					u64 err, bool prefetch,
--					int *emulation_type, u8 *level)
+-void kvm_arch_async_page_ready(struct kvm_vcpu *vcpu, struct kvm_async_pf *work)
 -{
--	struct kvm_page_fault fault = {
--		.addr = cr2_or_gpa,
--		.error_code = err,
--		.exec = err & PFERR_FETCH_MASK,
--		.write = err & PFERR_WRITE_MASK,
--		.present = err & PFERR_PRESENT_MASK,
--		.rsvd = err & PFERR_RSVD_MASK,
--		.user = err & PFERR_USER_MASK,
--		.prefetch = prefetch,
--		.is_tdp = likely(vcpu->arch.mmu->page_fault == kvm_tdp_page_fault),
--		.nx_huge_page_workaround_enabled =
--			is_nx_huge_page_enabled(vcpu->kvm),
--
--		.max_level = KVM_MAX_HUGEPAGE_LEVEL,
--		.req_level = PG_LEVEL_4K,
--		.goal_level = PG_LEVEL_4K,
--		.is_private = err & PFERR_PRIVATE_ACCESS,
--
--		.pfn = KVM_PFN_ERR_FAULT,
--	};
 -	int r;
 -
--	if (vcpu->arch.mmu->root_role.direct) {
--		/*
--		 * Things like memslots don't understand the concept of a shared
--		 * bit. Strip it so that the GFN can be used like normal, and the
--		 * fault.addr can be used when the shared bit is needed.
--		 */
--		fault.gfn = gpa_to_gfn(fault.addr) & ~kvm_gfn_direct_bits(vcpu->kvm);
--		fault.slot = kvm_vcpu_gfn_to_memslot(vcpu, fault.gfn);
--	}
+-	if (WARN_ON_ONCE(work->arch.error_code & PFERR_PRIVATE_ACCESS))
+-		return;
+-
+-	if ((vcpu->arch.mmu->root_role.direct != work->arch.direct_map) ||
+-	      work->wakeup_all)
+-		return;
+-
+-	r = kvm_mmu_reload(vcpu);
+-	if (unlikely(r))
+-		return;
+-
+-	if (!vcpu->arch.mmu->root_role.direct &&
+-	      work->arch.cr3 != kvm_mmu_get_guest_pgd(vcpu, vcpu->arch.mmu))
+-		return;
+-
+-	r = kvm_mmu_do_page_fault(vcpu, work->cr2_or_gpa, work->arch.error_code,
+-				  true, NULL, NULL);
 -
 -	/*
--	 * With retpoline being active an indirect call is rather expensive,
--	 * so do a direct call in the most common case.
+-	 * Account fixed page faults, otherwise they'll never be counted, but
+-	 * ignore stats for all other return times.  Page-ready "faults" aren't
+-	 * truly spurious and never trigger emulation
 -	 */
--	if (IS_ENABLED(CONFIG_MITIGATION_RETPOLINE) && fault.is_tdp)
--		r = kvm_tdp_page_fault(vcpu, &fault);
--	else
--		r = vcpu->arch.mmu->page_fault(vcpu, &fault);
--
--	/*
--	 * Not sure what's happening, but punt to userspace and hope that
--	 * they can fix it by changing memory to shared, or they can
--	 * provide a better error.
--	 */
--	if (r == RET_PF_EMULATE && fault.is_private) {
--		pr_warn_ratelimited("kvm: unexpected emulation request on private memory\n");
--		kvm_mmu_prepare_memory_fault_exit(vcpu, &fault);
--		return -EFAULT;
--	}
--
--	if (fault.write_fault_to_shadow_pgtable && emulation_type)
--		*emulation_type |= EMULTYPE_WRITE_PF_TO_SP;
--	if (level)
--		*level = fault.goal_level;
--
--	return r;
+-	if (r == RET_PF_FIXED)
+-		vcpu->stat.pf_fixed++;
 -}
 -
- int kvm_mmu_max_mapping_level(struct kvm *kvm, struct kvm_page_fault *fault,
- 			      const struct kvm_memory_slot *slot, gfn_t gfn);
- void kvm_mmu_hugepage_adjust(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault);
+ static void kvm_mmu_finish_page_fault(struct kvm_vcpu *vcpu,
+ 				      struct kvm_page_fault *fault, int r)
+ {
+@@ -5088,6 +5057,37 @@ long kvm_arch_vcpu_pre_fault_memory(struct kvm_vcpu *vcpu,
+ 	return min(range->size, end - range->gpa);
+ }
+ 
++void kvm_arch_async_page_ready(struct kvm_vcpu *vcpu, struct kvm_async_pf *work)
++{
++	int r;
++
++	if (WARN_ON_ONCE(work->arch.error_code & PFERR_PRIVATE_ACCESS))
++		return;
++
++	if ((vcpu->arch.mmu->root_role.direct != work->arch.direct_map) ||
++	      work->wakeup_all)
++		return;
++
++	r = kvm_mmu_reload(vcpu);
++	if (unlikely(r))
++		return;
++
++	if (!vcpu->arch.mmu->root_role.direct &&
++	      work->arch.cr3 != kvm_mmu_get_guest_pgd(vcpu, vcpu->arch.mmu))
++		return;
++
++	r = kvm_mmu_do_page_fault(vcpu, work->cr2_or_gpa, work->arch.error_code,
++				  true, NULL, NULL);
++
++	/*
++	 * Account fixed page faults, otherwise they'll never be counted, but
++	 * ignore stats for all other return times.  Page-ready "faults" aren't
++	 * truly spurious and never trigger emulation
++	 */
++	if (r == RET_PF_FIXED)
++		vcpu->stat.pf_fixed++;
++}
++
+ #ifdef CONFIG_KVM_GUEST_MEMFD
+ static void kvm_assert_gmem_invalidate_lock_held(struct kvm_memory_slot *slot)
+ {
 -- 
 2.53.0
 
