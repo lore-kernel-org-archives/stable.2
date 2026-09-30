@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20B71503BF7;
-	Wed, 30 Sep 2026 15:33:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 093864FE2F2;
+	Wed, 30 Sep 2026 15:33:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790782410; cv=none; b=DCPNFopjubBPqPAxQlVlbHrAtlM+gtaVlQy/WgSCOE6GvBz/VvhG3/Az42O3eqaOWcx/N0IXvAGqgVyiAu/BYUrDthTA1KkbQdQWCB76SbUtj8hFgxNH3rbCrkHTvigfThB/F5ZByGdOOnyYKpNSXULSppdOwWskePuJwfdb7b0=
+	t=1790782416; cv=none; b=RyJ0KQS6gr61tVY/7/fEg6mtFXR800y2qpZPzJRFZBBZjf7uy7dY51X0+DZQPxzIQk6cK1ja5ySNL0pk4Ev8tM3TsqnzmR/a4fyneoHqR7QJbAg3iLo6h3k8rK4ANXgkvZ04rej8Ij0cRhUQrDsPMNo2pIBbpBcPerN9AZQPp2U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790782410; c=relaxed/simple;
-	bh=LyHXrXzQxKwIzc7rYB3KPXxm2XrXTMkcYX4pidGAoy4=;
+	s=arc-20240116; t=1790782416; c=relaxed/simple;
+	bh=p3UsBFo7DFK/dUjQVCKvErnRXKxLBSTrwBjXjeeWeLM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SHZAEN2AYNtR91tt5omLHznQauuGhpPH1b0MAGknMUPzKQQRsEiQRHYkU35s3WGLstFadJ7/GpxZAYTzabwpKfnvgmRGHL7POysZ9gH9aY/V5swZ4ftMVO5sl5A8Cg7K2J6D+Kjn688s/dyp5WKFGI/N+0mdhX5upglFrMJBZLY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VdPfjZyY; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=s/NUqnyrE6HCW6K2BvtbBMmEdYYLaS7csxxhBWK0YZ8dzzhABnnQxc4mINMxZR9Yix3rS83rvTCpO0E9cQzLUy15V2FrPSL3MN854oDAgYZlHhhGkVtNfPTx83j8W9ZoVCXbvfEiWdNm0WPfnqbljgTsSd6D4uT1qtzKBwM/GO0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=qkaoIfca; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VdPfjZyY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68B2A1F000FF;
-	Wed, 30 Sep 2026 15:33:19 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="qkaoIfca"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4DCD1F0089A;
+	Wed, 30 Sep 2026 15:33:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790782399;
-	bh=l5OLZvawuv8/SVKWyY/ui4uhyX3BOwS6WqoptvYBg1w=;
+	s=korg; t=1790782408;
+	bh=T4cP13/ozps7N3UB6Ahw3oDlXaz/PoQkUcFh5wgpfZk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VdPfjZyYHodNdvQ9zt3jb8cE8yK6eTLZR1OQ0lqnjJpX5BYmyomVp/uOJYB6Mz5mU
-	 /dRMp3mGxPW9Sdeb06iFzZxGCI3Kw7IT83deNeoauYu5kXpJUraqTUsbZkTxjlKeTa
-	 4+aTKEIU0nai8fvXuJZcUWjJknncmYs5xlhvFslA=
+	b=qkaoIfca/cDkcZE8X/PLP42mq9CF59Ex6Y7c3xF6fLWAvDG8PFtdZqIhpxfeGoOCZ
+	 LleNQZcnnJeTPy7h0x+shsd7bGBxRXNDG11zzHM75u5+JvMR1NOScauIyE0zp5nLiH
+	 hRQ9dSWu164xISqComA4n8HlJKYQcl59EcWvz5b4=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Sudeep Holla <sudeep.holla@kernel.org>,
+	Matt Coster <matt.coster@imgtec.com>,
+	Yury Norov <ynorov@nvidia.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 034/595] firmware: arm_scmi: Validate BASE_ERROR_EVENT payload size
-Date: Wed, 30 Sep 2026 17:18:47 +0200
-Message-ID: <20260930152348.460921454@linuxfoundation.org>
+Subject: [PATCH 5.10 036/595] bitfield: wire __bf_shf to __builtin_ctzll
+Date: Wed, 30 Sep 2026 17:18:49 +0200
+Message-ID: <20260930152348.504010260@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152347.700140858@linuxfoundation.org>
 References: <20260930152347.700140858@linuxfoundation.org>
@@ -50,59 +51,49 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Sudeep Holla <sudeep.holla@kernel.org>
+From: Yury Norov <ynorov@nvidia.com>
 
-[ Upstream commit 56e7e64cdd0e7209a58c8ec66028d63387402919 ]
+[ Upstream commit 09472f591aa0b72c2dd6c693f48b2d6fea66c7ba ]
 
-BASE_ERROR_EVENT carries a variable number of message reports,
-with the count encoded in error_status. The notification parser used
-that count without checking whether the received payload contained all
-reported entries.
+__bf_shf() is currently based on built-in ffsll. It's more
+straightforward to wire it to __builtin_ctzll, which makes it a pure
+rename.
 
-Reject truncated payloads before copying the report array.
+Worth to notice that __builtin_ffsll() is buggy on GCC before 14.1:
 
-Link: https://patch.msgid.link/20260517-scmi_fixes-v1-2-d86daec4defd@kernel.org
-Signed-off-by: Sudeep Holla <sudeep.holla@kernel.org>
+  int main() {
+      sizeof(struct {
+          int t : !(__builtin_ffsll(~0ULL) + 1 < 0);
+      });
+  }
+
+  test.c: In function 'main':
+  test.c:3:21: error: bit-field 't' width not an integer constant
+      3 |                 int t : !(__builtin_ffsll(~0ULL) + 1 < 0);
+        |                     ^
+
+Link: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=124699
+Reported-by: Matt Coster <matt.coster@imgtec.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202603222211.A2XiR1YU-lkp@intel.com/
+Signed-off-by: Yury Norov <ynorov@nvidia.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/firmware/arm_scmi/base.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+ include/linux/bitfield.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/firmware/arm_scmi/base.c b/drivers/firmware/arm_scmi/base.c
-index e51d28ba2833d..9cb95ebda50eb 100644
---- a/drivers/firmware/arm_scmi/base.c
-+++ b/drivers/firmware/arm_scmi/base.c
-@@ -280,6 +280,8 @@ static void *scmi_base_fill_custom_report(const struct scmi_handle *handle,
- 					  void *report, u32 *src_id)
- {
- 	int i;
-+	u32 error_status;
-+	size_t expected_sz;
- 	const struct scmi_base_error_notify_payld *p = payld;
- 	struct scmi_base_error_report *r = report;
+diff --git a/include/linux/bitfield.h b/include/linux/bitfield.h
+index 3db9434afcfea..78beaebb58155 100644
+--- a/include/linux/bitfield.h
++++ b/include/linux/bitfield.h
+@@ -40,7 +40,7 @@
+  *  reg |= FIELD_PREP(REG_FIELD_C, c);
+  */
  
-@@ -293,10 +295,19 @@ static void *scmi_base_fill_custom_report(const struct scmi_handle *handle,
- 	if (evt_id != SCMI_EVENT_BASE_ERROR_EVENT || sizeof(*p) < payld_sz)
- 		return NULL;
+-#define __bf_shf(x) (__builtin_ffsll(x) - 1)
++#define __bf_shf __builtin_ctzll
  
-+	expected_sz = offsetof(typeof(*p), msg_reports);
-+	if (payld_sz < expected_sz)
-+		return NULL;
-+
- 	r->timestamp = timestamp;
- 	r->agent_id = le32_to_cpu(p->agent_id);
--	r->fatal = IS_FATAL_ERROR(le32_to_cpu(p->error_status));
--	r->cmd_count = ERROR_CMD_COUNT(le32_to_cpu(p->error_status));
-+	error_status = le32_to_cpu(p->error_status);
-+	r->fatal = IS_FATAL_ERROR(error_status);
-+	r->cmd_count = ERROR_CMD_COUNT(error_status);
-+	expected_sz += r->cmd_count * sizeof(p->msg_reports[0]);
-+	if (payld_sz < expected_sz)
-+		return NULL;
-+
- 	for (i = 0; i < r->cmd_count; i++)
- 		r->reports[i] = le64_to_cpu(p->msg_reports[i]);
- 	*src_id = 0;
+ #define __scalar_type_to_unsigned_cases(type)				\
+ 		unsigned type:	(unsigned type)0,			\
 -- 
 2.53.0
 
