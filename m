@@ -1,121 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B18942F7EFE;
-	Wed, 30 Sep 2026 09:20:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1D0F4718E9;
+	Wed, 30 Sep 2026 09:23:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790760044; cv=none; b=WGzFDersizqmz1Ap0PCdvKFOB+pp9ibng9asg2yrNoke+15SlFkwgs2dTh1dXjoKIwBd0vLdCjvWfS0Yckkm8NVLa+hcoVl9+RvNno9rnhwAzeRG9yQAsgnwEn0JnnCBuBrtLknz/KG+sCzIYdt3tnIgFGFArqwIdnMZQTYLgAs=
+	t=1790760196; cv=none; b=JkdbWrnojq0Qh43kCzkk/VRbOF/iSncXYsGBKrbmk0+llFImfIsSFcssAirbJEUEd561k09mgeb9NAffee6vBJW182YHDLCbHKQUNJ7RC8KaPMlQn242KMBFqmfnDnoMK+EbSA6/UxSOeO34/YhLk2Im8It+bf74/Lh9WqBhakw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790760044; c=relaxed/simple;
-	bh=nMq/8/xUGwQmipCSKRoQE/783HgZexu879zNJvfmrGU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uyLzt0m6oumCrutnuHXNGPABLETBjNC+SNN1fK2087pFJD/4+H053D7f5ZOw1pbcL/09WD9wJB+HR6PDOOg2Pb7Xhl+1nD95BuAq6EAQO9L5nhevnwC8sFLmexNQ2tw/tkVOiKlsaBrnOOuA9kz0TlzDl9bK9AHXx0rplms1/uc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lkiJYWKX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790760196; c=relaxed/simple;
+	bh=CjyHv2Xo02Ky3iBL7MJ3DnZ16ucdhlgmQ50S0J3M2Tg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=DFWtJGIUj0yPdIIPU5NUBWYg1v60J6GFxf+TXNd0uQ+wsgYU/fFVXh2T+kwugnX00AjSkywBKneQrzAxzXY/bdwFeq0GBvXq+ewRyhERQoYcq2kNySYeyg8RxOYucxQQ89UID6hstLs7X1OETu5v/HG/tpG0cpBSnpTMvMZblh0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=b9VLn/Jv; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lkiJYWKX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E23C1F000FF;
-	Wed, 30 Sep 2026 09:20:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790760043;
-	bh=MnV8IZQVj1FFMg9BAGwsZdL2OW//NUa9sSpDcZKLue0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lkiJYWKX/TkVanp7NKtC0wKL2v0/mCDIHUA19O8Gz/Csl0Yk+WYxB6dFYElkj3ZAh
-	 uNEFeI4FNe+Q9D2+U+9W05ud8yYG8fsaxT70BEpxtOtFr1EARI82j5t19c8o+bvpnU
-	 Zi3QoiKGZQ1wg1pSBehN6a9yE36l/7OKkZAWKCor70489X1p7kqXc1upgsUNqLni9p
-	 YI5f72Bi3ru40UWBsqhe8POw2Abq0NBkNrmIdjqjUnjl55Yadt/H4sCDC8A/246Be8
-	 DUqeZZSE+nOYhsx1y+c6bOdTAxdlU+wIHZb3V7DiayCcNgbBHYPnUXAwVIV/WPLLrl
-	 KVNT/SeFZeZfw==
-Received: from johan by xi.lan with local (Exim 4.99.5)
-	(envelope-from <johan@kernel.org>)
-	id 1xBqUT-00000007COo-1WwW;
-	Wed, 30 Sep 2026 11:20:41 +0200
-Date: Wed, 30 Sep 2026 11:20:41 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Chengfeng Ye <nicoyip.dev@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] tty: Serialize saved termios access with device
- registration
-Message-ID: <arzUadtDI86btAMj@hovoldconsulting.com>
-References: <20260926184154.3017929-1-nicoyip.dev@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="b9VLn/Jv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790760195; x=1822296195;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=CjyHv2Xo02Ky3iBL7MJ3DnZ16ucdhlgmQ50S0J3M2Tg=;
+  b=b9VLn/Jv4uv7SEnhkfywHAKcwsJQXyrCwZf9NgAcG8Fu/52Rx66W4u+G
+   hHSYKMo1nwfDDI9t6T7xGvItiP7/AHpQL+XW8rNobT9fo3/DEugG//E8L
+   Q/9yhL2cCpJn2lKrUpiXgedzIbClliS3CeE9Rdv8qR4CtVWA7UgeAovtX
+   7KOE5HZ6jANk9DXoVO5RZa/gxtsbpnkS9yyrAMuXlMwPOQVwkaD20qvcH
+   nHPPooRMas+9rmubgAiWdXU4a0GToEa3sM0BQXw5MkVEQfmrjHA+Yru/h
+   pOY2gASaQEBvHeytWB1f0pU5BFhcsZLLNt9AwhzVuInEGXSZxjj5RjOPj
+   A==;
+X-CSE-ConnectionGUID: iQMWRCAeTua1WhI9TM/+Rg==
+X-CSE-MsgGUID: OWiXT+ahQHGhw9uy0tYOhw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="102020381"
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="102020381"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 02:23:15 -0700
+X-CSE-ConnectionGUID: IPqJJQwTQDaVrhCN+DnEtA==
+X-CSE-MsgGUID: ztAq+Vb8TZiJZvdmwc11kQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="275202797"
+Received: from weis0040.iil.intel.com ([10.12.217.108])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 02:23:13 -0700
+From: Miri Korenblit <miriam.rachel.korenblit@intel.com>
+To: miriam.rachel.korenblit@intel.com
+Cc: linux-wireless@vger.kernel.org,
+	Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
+	stable@vger.kernel.org
+Subject: [PATCH iwlwifi-fixes 4/5] wifi: iwlwifi: mvm: don't send LARI_CONFIG_CHANGE to old FW
+Date: Wed, 30 Sep 2026 12:25:06 +0300
+Message-Id: <20260930122439.a23d894e48dc.I245ab48bfddddf51e5f2bd4dad7fb316f27b93f5@changeid>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260930122439.f8a1ea3af242.I282fab02ab2f183633df0f070229fb5a2d5c9ec3@changeid>
+References: <20260930122439.f8a1ea3af242.I282fab02ab2f183633df0f070229fb5a2d5c9ec3@changeid>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260926184154.3017929-1-nicoyip.dev@gmail.com>
+Organization: Intel Israel (74) Limited
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 27, 2026 at 02:41:54AM +0800, Chengfeng Ye wrote:
-> tty_register_device_attr() frees saved termios data when reusing a minor
-> number without serializing with tty_init_termios() or tty_save_termios().
-> The tty_mutex held by the open and close paths does not protect against
-> this registration-side free.
-> 
-> For example, an n_gsm mux reconfiguration can register a device while its
-> previous tty is being released. tty_save_termios() loads the saved pointer,
-> registration clears the array entry and frees the object, and
-> tty_save_termios() then writes through its stale pointer.
+From: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
 
-Thanks for reporting this. The intention here was that the TTY drivers
-would not be reusing a minor number while it is still in use, but that
-is clearly not adhered to everywhere.
+Lari is not supported by 7260. The firmware doesn't understand this
+command and crashes with BAD_COMMAND.
+Devices 7260 / 3160 and 7265 that use -17.ucode are affected.
+Don't sent it to firmwares that are too old to support this command.
 
-> The saved-termios
-> copy in tty_init_termios() is vulnerable to the same lifetime race.
+Fixes: f5b1cb2e615f ("iwlwifi: acpi: evaluate dsm to enable 5.2 bands in Indonesia")
+Closes: https://bugzilla.kernel.org/show_bug.cgi?id=222030
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
+Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>
+---
+ drivers/net/wireless/intel/iwlwifi/mvm/fw.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-How could this happen? TTY drivers should hang up their ports during
-deregistration so this shouldn't be an issue unless we have a driver bug
-(which we do in n_gsm apparently).
+diff --git a/drivers/net/wireless/intel/iwlwifi/mvm/fw.c b/drivers/net/wireless/intel/iwlwifi/mvm/fw.c
+index 43a7230f1ab4..e3503f01171a 100644
+--- a/drivers/net/wireless/intel/iwlwifi/mvm/fw.c
++++ b/drivers/net/wireless/intel/iwlwifi/mvm/fw.c
+@@ -1553,6 +1553,9 @@ static void iwl_mvm_lari_cfg(struct iwl_mvm *mvm)
+ 	size_t cmd_size;
+ 	int ret;
+ 
++	if (mvm->fw->ucode_ver < 26)
++		return;
++
+ 	/*
+ 	 * LARI_CONFIG_CHANGE triggers a profile update, so send
+ 	 * LARI_CONFIG_EXTENSION first to make sure its data is applied
+-- 
+2.34.1
 
-> KASAN reported:
-> 
->   BUG: KASAN: slab-use-after-free in tty_save_termios+0x39a/0x3d0
->   Write of size 44 at addr ffff8881012e8180 by task poc/114
-> 
->   Call Trace:
->    tty_save_termios+0x39a/0x3d0
->    release_tty+0xb3/0x7a0
->    tty_release_struct+0xa0/0xd0
->    tty_release+0xc1b/0x11b0
->    __fput+0x2f8/0x9e0
->    fput_close_sync+0xe2/0x190
->    __x64_sys_close+0x78/0xd0
-> 
->   Allocated by task 110:
->    tty_save_termios+0x2c1/0x3d0
->    release_tty+0xb3/0x7a0
->    tty_release_struct+0xa0/0xd0
->    tty_release+0xc1b/0x11b0
-> 
->   Freed by task 113:
->    kfree+0x131/0x3c0
->    tty_register_device_attr+0x498/0x8b0
->    gsm_activate_mux+0xfb/0x210
->    gsmld_ioctl+0x92f/0x14d0
->    tty_ioctl+0x915/0x1240
->    __x64_sys_ioctl+0x134/0x1c0
-> 
-> Serialize the saved-termios copies and reset with a private mutex. Taking
-> tty_mutex during registration would invert existing driver lock ordering:
-> UART registration holds port->mutex, while tty_find_polling_driver() holds
-> tty_mutex when calling uart_poll_init(), which takes port->mutex. Keep the
-> new lock confined to the saved-termios operations, with no driver callbacks
-> inside the critical sections.
-
-I'm a bit torn about this, but I think we should avoid adding another
-mutex in favouring of making the saved termios reset opt-in.
-
-Clearing the saved termios state on device registration doesn't make
-much sense if a minor number may still be in use as an open TTY would
-prevent the termios from being reset.
-
-I've just posted a patch for this here:
-
-	https://lore.kernel.org/r/20260930091938.1715754-1-johan@kernel.org
-
-Johan
