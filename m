@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C851F5B1EB
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 00:04:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBA62125A0
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 00:04:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790726668; cv=none; b=J/3DTkukK09eG/RnRWsdGOqlpkPUVQFQZ8lF4VoioQrgbmVyScAKGFtWZZSWh/CahqD1YuJUkN1HZ8gXqa3qi4mgN9X7lUFv0sWyIIwKqhUC7hJypnWOCYe62mYoBIf0joP3hohHd8GfduGJK65SQwecKvrl6qvPdX/klhN3keM=
+	t=1790726671; cv=none; b=b+pfrqc4/NYM1JNbFJcqMJ37+WoNA5wHrze4YK7lcL6y3iW2sYIH1R8PngMNksDBR6E79SaB5RVDMjJtrWzQliNh2CgOTGs+nRwFF903LV4s/WtYoRjb+zSWS03QccXpiDAIdfiwxWdmC+Db3v3kFgLN5pQ+Am4/3oq5h95CGR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790726668; c=relaxed/simple;
-	bh=p4yxsEl2aOFI36iX6LcS6xNRgbUol7QcE+V6MfUjXig=;
+	s=arc-20240116; t=1790726671; c=relaxed/simple;
+	bh=gWQww5V76Wk9Oa4Lnut11da8VCsJCDjuaDXmnZkU7BU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NTGcqsMxnCAtkfIXeMwp0flgu6KrSBZSBPcFBxsrbqSdsi/xgPFstLAFyD67SRYLB14VKFyUmmO5h3dYTircKURA+Madns/inm4eKIufq9NQpeHJljVCz9FM6EzFvn56IXFWEwGP9KcVJcv/iZst+8K/tL7OPPiJO6vmvJ3HKJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NMH9hpxM; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=BD/7YqhPVM9AcPFI3ozKuovRMZD+3enq9OAEhMM1BSCgMtireyNkXQk6eF0fkmvGKDzvuhraAqIs/NBDshy0SB8kwzj6g1wBQKcwWj3TdG5SMtL7+WdwNMhesJSyc7EzymtuC/oznft/aiuYHCLOoZD0JQEQLj4wKsPSA/tvVWc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IyhhOk0J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NMH9hpxM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 106551F00899;
-	Wed, 30 Sep 2026 00:04:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IyhhOk0J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 465231F000FF;
+	Wed, 30 Sep 2026 00:04:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790726666;
-	bh=OSMKQ5FCc7jK5oAvDWnhOmtCYrtbSey5Y89lTKi5XKw=;
+	s=k20260515; t=1790726669;
+	bh=CZncWslQ6z/LMT4/2sRx7I8VRqoKfdQqKJA8qi6B/RU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NMH9hpxMCFHk+ssqL2jqM4mYHrUfuDJL1RdolVeOXKOBazlHES+laex/fedlwRBz0
-	 DholTPCaC0S29EdY6xPt5bzh+du3JmJkryvNGO0hCrparpwvlx3jGyJtXwxT/32y4o
-	 c5eIm3UvXFTxMFhbGKSke88MrTkVAskaWodmTNHEWihkTKIo3CljxRzFCLkQmGfKol
-	 R7bGVmj1jJ9gU5KtHKQTpt0Nz135MnXaebKQkY+aeCTUCHz28lBgsLiAhWMK0Miwei
-	 OTfHdgbrPg3hefjtrwH9evtICnU8MBi6TJykX6Z+rifUMWIuUqryf1czlmXGSi0mQh
-	 GvdXZO3Ma40ZA==
+	b=IyhhOk0Jew9chjbTRxj8scTxIkBk81b7YCE9qwtKh41BEdYX1If6TkyyJTafYZTyn
+	 1Begcu4/nyGTKWLusZfxYDojS5izg1iD4tvLvxsadDrQRiba9SWcgxb+5q+xBZxpXp
+	 pS6g/ax0hN1G8WnyEI7iGyPMuQyQa1ODZ+HU9y3qOhHGfPKkpwA2a5EgAYBD+DvZr/
+	 Z2mxDwwIEY7H5wch7wbhlJxtIpnPqICns4wfIBahXTbCuKue/eNNgTkD8Zn+QzKWfi
+	 EgESPWSuplyDDGdE7cTEnRpJ8g3JoAI2grSe7OL51GRUuNQrhVYVtaerDS7gU6NRdV
+	 by6IeXEwUwUvw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Willem de Bruijn <willemb@google.com>,
-	Katherine Leaver <kleaver@janestreet.com>,
-	Bjoern Doebel <doebel@amazon.de>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Bastien Nocera <hadess@hadess.net>,
+	Jiri Kosina <jkosina@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] packet: use ubuf_info completion for TX_RING packets
-Date: Tue, 29 Sep 2026 20:04:24 -0400
-Message-ID: <20260930000424.2866277-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] HID: hid-alps: Use pm_ptr instead of #ifdef CONFIG_PM
+Date: Tue, 29 Sep 2026 20:04:26 -0400
+Message-ID: <20260930000427.2866647-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092950-anyway-haziness-2a11@gregkh>
-References: <2026092950-anyway-haziness-2a11@gregkh>
+In-Reply-To: <2026092954-curled-shabby-13d3@gregkh>
+References: <2026092954-curled-shabby-13d3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,272 +45,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Willem de Bruijn <willemb@google.com>
+From: Bastien Nocera <hadess@hadess.net>
 
-[ Upstream commit 9518405613863d0bf0700927a21367f5942cf058 ]
+[ Upstream commit 5e130f58629a2819c9d053507ad368160d25eb65 ]
 
-tpacket_snd sends skbs with frags pointing into its ring slots. Slots
-are released when skb->destructor is called.
+This increases build coverage and allows to drop an #ifdef.
 
-A call to skb_orphan calls skb->destructor before the skb is freed.
-This can cause the slot to be reused while still linked into the skb.
-
-Switch to standard zerocopy completion (ubuf_info) so the slot is only
-released once all references to the payload are freed or copied.
-Restore skb->destructor to standard sock_wfree.
-
-The ubuf_info completion callback can be called with a NULL skb, but
-only from net_zcopy_put and related API, used by zerocopy implementations
-that hold their own reference on the uarg, such as MSG_ZEROCOPY. This
-uarg is only ever completed from skb_zcopy_clear, so skb is always set.
-
-To prevent userspace from aliasing in-flight state on shared ring
-slots, allocate tpacket_uarg per packet, rather than per slot. This
-adds a small allocation to the transmit path. Use standard kmalloc to
-allow backporting to stable kernels.
-
-The uarg holds an sk_wmem_alloc reference, rather than an sk_refcnt
-reference. packet_free_tx_ring waits on sk_wmem_alloc before freeing
-the ring pages. Always allocate vec->deferred for tx_ring so page-backed
-rings also wait on sk_wmem_alloc when skb_copy_ubufs drops page refs
-before calling tpacket_ubuf_complete.
-
-Drop the tx_ring.pg_vec test that tpacket_destruct_skb performed before
-accessing the slot. The sk_wmem_alloc reference now guarantees that the
-slot is valid. The test is also not sufficient by itself, as it reads
-pg_vec without pg_vec_lock, so it can race with packet_set_ring.
-
-As a result a slot is released when its payload is copied, which can
-be before transmission (e.g., in skb_orphan_frags_rx). If copied
-before skb_tx_timestamp() is called, no slot timestamp is recorded,
-similar to when skb_orphan() was called early in the datapath before
-this patch.
-
-Revert the now unused previous skb_zcopy_.._nouarg infra.
-
-Depends on commit 992cc9f94ca9 ("net/packet: defer vmalloc TX_RING
-free until skbs finish").
-
-Reported-by: Katherine Leaver <kleaver@janestreet.com>
-Reported-by: Bjoern Doebel <doebel@amazon.de>
-Closes: https://lore.kernel.org/netdev/20260909085542.3370986-1-doebel@amazon.de/
-Fixes: 5cd8d46ea156 ("packet: copy user buffers before orphan or clone")
-Cc: stable@vger.kernel.org
-Signed-off-by: Willem de Bruijn <willemb@google.com>
-Link: https://patch.msgid.link/20260919004748.1463985-3-willemdebruijn.kernel@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ Retained sockc->tsflags instead of sockc in skb_setup_tx_timestamp() for the older helper signature. ]
+Signed-off-by: Bastien Nocera <hadess@hadess.net>
+Signed-off-by: Jiri Kosina <jkosina@suse.com>
+Stable-dep-of: aa9dde93e05a ("HID: alps: unregister DualPoint Stick input device on remove")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/skbuff.h |  19 +-------
- net/packet/af_packet.c | 102 ++++++++++++++++++++++++++---------------
- 2 files changed, 65 insertions(+), 56 deletions(-)
+ drivers/hid/hid-alps.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
-index 1bfdc03e0d94e..0441bb09ae7d4 100644
---- a/include/linux/skbuff.h
-+++ b/include/linux/skbuff.h
-@@ -1807,22 +1807,6 @@ static inline void skb_zcopy_set(struct sk_buff *skb, struct ubuf_info *uarg,
- 	}
- }
+diff --git a/drivers/hid/hid-alps.c b/drivers/hid/hid-alps.c
+index 8c3f83532ce92..67179e3fe39b7 100644
+--- a/drivers/hid/hid-alps.c
++++ b/drivers/hid/hid-alps.c
+@@ -843,10 +843,8 @@ static struct hid_driver alps_driver = {
+ 	.raw_event		= alps_raw_event,
+ 	.input_mapping		= alps_input_mapping,
+ 	.input_configured	= alps_input_configured,
+-#ifdef CONFIG_PM
+-	.resume			= alps_post_resume,
+-	.reset_resume		= alps_post_reset,
+-#endif
++	.resume			= pm_ptr(alps_post_resume),
++	.reset_resume		= pm_ptr(alps_post_reset),
+ };
  
--static inline void skb_zcopy_set_nouarg(struct sk_buff *skb, void *val)
--{
--	skb_shinfo(skb)->destructor_arg = (void *)((uintptr_t) val | 0x1UL);
--	skb_shinfo(skb)->flags |= SKBFL_ZEROCOPY_FRAG;
--}
--
--static inline bool skb_zcopy_is_nouarg(struct sk_buff *skb)
--{
--	return (uintptr_t) skb_shinfo(skb)->destructor_arg & 0x1UL;
--}
--
--static inline void *skb_zcopy_get_nouarg(struct sk_buff *skb)
--{
--	return (void *)((uintptr_t) skb_shinfo(skb)->destructor_arg & ~0x1UL);
--}
--
- static inline void net_zcopy_put(struct ubuf_info *uarg)
- {
- 	if (uarg)
-@@ -1845,8 +1829,7 @@ static inline void skb_zcopy_clear(struct sk_buff *skb, bool zerocopy_success)
- 	struct ubuf_info *uarg = skb_zcopy(skb);
- 
- 	if (uarg) {
--		if (!skb_zcopy_is_nouarg(skb))
--			uarg->ops->complete(skb, uarg, zerocopy_success);
-+		uarg->ops->complete(skb, uarg, zerocopy_success);
- 
- 		skb_shinfo(skb)->flags &= ~SKBFL_ALL_ZEROCOPY;
- 	}
-diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-index b0021b41b2289..974b154a1eeb7 100644
---- a/net/packet/af_packet.c
-+++ b/net/packet/af_packet.c
-@@ -2580,26 +2580,6 @@ static int tpacket_rcv(struct sk_buff *skb, struct net_device *dev,
- 	goto drop_n_restore;
- }
- 
--static void tpacket_destruct_skb(struct sk_buff *skb)
--{
--	struct packet_sock *po = pkt_sk(skb->sk);
--
--	if (likely(po->tx_ring.pg_vec)) {
--		void *ph;
--		__u32 ts;
--
--		ph = skb_zcopy_get_nouarg(skb);
--
--		ts = __packet_set_timestamp(po, ph, skb);
--		__packet_set_status(po, ph, TP_STATUS_AVAILABLE | ts);
--
--		packet_dec_pending(&po->tx_ring);
--		complete(&po->skb_completion);
--	}
--
--	sock_wfree(skb);
--}
--
- static int __packet_snd_vnet_parse(struct virtio_net_hdr *vnet_hdr, size_t len)
- {
- 	if ((vnet_hdr->flags & VIRTIO_NET_HDR_F_NEEDS_CSUM) &&
-@@ -2639,27 +2619,56 @@ static int packet_snd_vnet_parse(struct msghdr *msg, size_t *len,
- 	return 0;
- }
- 
-+struct tpacket_uarg {
-+	struct ubuf_info	ubuf;
-+	struct packet_sock	*po;
-+	void			*ph;
-+};
-+
-+static void tpacket_ubuf_complete(struct sk_buff *skb, struct ubuf_info *uarg,
-+				  bool success)
-+{
-+	struct tpacket_uarg *tu = container_of(uarg, struct tpacket_uarg, ubuf);
-+	struct packet_sock *po = tu->po;
-+	void *ph = tu->ph;
-+	__u32 ts;
-+
-+	DEBUG_NET_WARN_ON_ONCE(!skb);
-+
-+	if (!refcount_dec_and_test(&uarg->refcnt))
-+		return;
-+
-+	ts = __packet_set_timestamp(po, ph, skb);
-+	__packet_set_status(po, ph, TP_STATUS_AVAILABLE | ts);
-+
-+	packet_dec_pending(&po->tx_ring);
-+	complete(&po->skb_completion);
-+
-+	kfree(tu);
-+	sk_free(&po->sk);
-+}
-+
-+static const struct ubuf_info_ops tpacket_ubuf_ops = {
-+	.complete = tpacket_ubuf_complete,
-+};
-+
- static int tpacket_fill_skb(struct packet_sock *po, struct sk_buff *skb,
--		void *frame, struct net_device *dev, void *data, int tp_len,
-+		struct net_device *dev, void *data, int tp_len,
- 		__be16 proto, unsigned char *addr, int hlen, int copylen,
- 		int hard_header_len,
- 		const struct sockcm_cookie *sockc)
- {
--	union tpacket_uhdr ph;
- 	int to_write, offset, len, nr_frags, len_max;
- 	struct socket *sock = po->sk.sk_socket;
- 	struct page *page;
- 	int err;
- 
--	ph.raw = frame;
--
- 	skb->protocol = proto;
- 	skb->dev = dev;
- 	skb->priority = READ_ONCE(po->sk.sk_priority);
- 	skb->mark = READ_ONCE(po->sk.sk_mark);
- 	skb_set_delivery_type_by_clockid(skb, sockc->transmit_time, po->sk.sk_clockid);
- 	skb_setup_tx_timestamp(skb, sockc->tsflags);
--	skb_zcopy_set_nouarg(skb, ph.raw);
- 
- 	skb_reserve(skb, hlen);
- 	skb_reset_network_header(skb);
-@@ -2799,6 +2808,7 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
- 	struct virtio_net_hdr vnet_hdr;
- 	bool has_vnet_hdr = false;
- 	struct sockcm_cookie sockc;
-+	struct tpacket_uarg *uarg;
- 	__be16 proto;
- 	int err, reserve = 0;
- 	void *ph;
-@@ -2926,7 +2936,7 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
- 				err = len_sum;
- 			goto out_status;
- 		}
--		tp_len = tpacket_fill_skb(po, skb, ph, dev, data, tp_len, proto,
-+		tp_len = tpacket_fill_skb(po, skb, dev, data, tp_len, proto,
- 					  addr, hlen, copylen, hard_header_len,
- 					  &sockc);
- 		if (likely(tp_len >= 0) &&
-@@ -2958,7 +2968,24 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
- 			virtio_net_hdr_set_proto(skb, &vnet_hdr);
- 		}
- 
--		skb->destructor = tpacket_destruct_skb;
-+		uarg = kmalloc(sizeof(*uarg), GFP_KERNEL);
-+		if (unlikely(!uarg)) {
-+			if (likely(len_sum > 0))
-+				err = len_sum;
-+			else
-+				err = -ENOMEM;
-+			goto out_status;
-+		}
-+		uarg->po = po;
-+		uarg->ph = ph;
-+		uarg->ubuf.ops = &tpacket_ubuf_ops;
-+		uarg->ubuf.flags = SKBFL_ZEROCOPY_FRAG;
-+		refcount_set(&uarg->ubuf.refcnt, 1);
-+
-+		/* Hold a sk_wmem_alloc reference until completion */
-+		refcount_inc(&po->sk.sk_wmem_alloc);
-+		skb_zcopy_init(skb, &uarg->ubuf);
-+
- 		__packet_set_status(po, ph, TP_STATUS_SENDING);
- 		packet_inc_pending(&po->tx_ring);
- 
-@@ -4527,21 +4554,20 @@ static struct pgv *alloc_pg_vec(struct tpacket_req *req, int order, bool tx_ring
- 	vec->len = block_nr;
- 	pg_vec = vec->pg_vec;
- 
-+	if (tx_ring) {
-+		vec->deferred = kzalloc_obj(*vec->deferred,
-+					    GFP_KERNEL | __GFP_NOWARN);
-+		if (!vec->deferred)
-+			goto out_free_pgvec;
-+		vec->deferred->vec = vec;
-+		INIT_DELAYED_WORK(&vec->deferred->work,
-+				  packet_free_pg_vec_work);
-+	}
-+
- 	for (i = 0; i < block_nr; i++) {
- 		pg_vec[i].buffer = alloc_one_pg_vec_page(order);
- 		if (unlikely(!pg_vec[i].buffer))
- 			goto out_free_pgvec;
--
--		if (tx_ring && !vec->deferred &&
--		    is_vmalloc_addr(pg_vec[i].buffer)) {
--			vec->deferred = kzalloc_obj(*vec->deferred,
--						    GFP_KERNEL | __GFP_NOWARN);
--			if (!vec->deferred)
--				goto out_free_pgvec;
--			vec->deferred->vec = vec;
--			INIT_DELAYED_WORK(&vec->deferred->work,
--					  packet_free_pg_vec_work);
--		}
- 	}
- 
- out:
+ module_hid_driver(alps_driver);
 -- 
 2.53.0
 
