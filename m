@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EF154DAF9B;
-	Wed, 30 Sep 2026 15:40:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C4DA509EE4;
+	Wed, 30 Sep 2026 15:40:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790782817; cv=none; b=dmxSQk3LRm9TY0phkPhRvbm/7a8kDusFlGhBOI8MV6Ec5sqmRMg6B2WcxEo+OY6Nk/vU+QIDlukEpZtTy7i2yms31cm97Awp7UCQwyb1Q3au/mfFJtnXVJNI82fxMJSqf8S7eVeP/LDaAG/cOYUxVs4OMM6u9pX+buPFc8DeySM=
+	t=1790782821; cv=none; b=f2Gvff15l1W7cDpvoY6LMXu7Df8K6p9OXUHHFrAEJpdwL9gDIHWRBvOqBvxt/yCM3z6juIdQ1itCS7fCvELlCUDvWlu/Dgif1uFSBMr9klIp1tgaHwZ37U2vR8suOjuDGROySfdXAw6q8FQa7h4XxDBUB+09gZWC8FVBxnPm4nA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790782817; c=relaxed/simple;
-	bh=MbgR2GyNCRjkhN9XM857g9qWaYajCp+KrX12TabANA0=;
+	s=arc-20240116; t=1790782821; c=relaxed/simple;
+	bh=NYMrhdxa6cO+7sox2QyLguazJL20G2dzNuDdNMMHsRM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JFXbuEIusw+KvngrtpOUQP1+fmxr/nOIsVOrC9ogGnoiNbog8EmXm972d2z4MuhmLeUkWyUzbZj+A6pK3V3bkWGXvjwAEmmIsMH9Nmuqg0+7NeY2/IdKyHiObjGSxed+c1hwW0Zn5TCZ71GAVhbdjRuwomquGmhyNVk1PXj4c38=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=IB77ZTbF; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=kEOp+XD0qe8RLVZUmlz7mbbzvm9Qcb//TJQvN5t7gMbwDI8oYu6SZBJKAj4MWuqgMexlbX7crBTZbNdjG09H2tng9/fjyrC6ZKYaMSRp5LrOZ+NY84z8cTKO8n+KamHrC7tt3Z6sLzzZ6fx+xvWn8YSgQbSker021J+Fg8MEaPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=pVch+1US; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="IB77ZTbF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5231B1F0089B;
-	Wed, 30 Sep 2026 15:40:11 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="pVch+1US"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05D751F00899;
+	Wed, 30 Sep 2026 15:40:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790782811;
-	bh=PxRo33XwHgOhPRxWUSI6ZcjtqCn/MaorpclHtJ2bkgU=;
+	s=korg; t=1790782817;
+	bh=/bYmoJ3pP1RCE3/E6WP9v1bWsRCbEf7zASZdKfqjlH8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IB77ZTbFEbNh00gSPlFJipem3ufqk61uEfs0dVc/y1FMuCQpLm1YpjR/GYyFsXZWf
-	 XaSxgQQVoJpGzAvADCJ10sFS0hk9ER49LBZtD7MGm3rCjK2x0o6aJJFYnRuKHM7S7Q
-	 vDR1m2T1hKTCp5y05FQSyS7lILDrbIn5uq2L0Otw=
+	b=pVch+1USZ4gUzb+1b62C3v0Zpbu6bwojKN4hAE0SZwhbRIY3m/gO2t16L06fUjjIG
+	 4YXUkjRNeor+xUJ5kCxSgTa3BQRdGVhwAGjw9OoqtOICrLNQy4sqEOICBKX0PdS8NG
+	 QqJYxeVRUmoJVGmHpB31HneLRl3FBWKdOFjT86N4=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Jozsef Kadlecsik <kadlec@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
+	Jiale Yao <yaojiale02@163.com>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 161/595] netfilter: ipset: mark the rcu locked areas properly
-Date: Wed, 30 Sep 2026 17:20:54 +0200
-Message-ID: <20260930152351.198912823@linuxfoundation.org>
+Subject: [PATCH 5.10 180/595] Bluetooth: RFCOMM: validate skb length in rfcomm_recv_frame
+Date: Wed, 30 Sep 2026 17:21:13 +0200
+Message-ID: <20260930152351.612620329@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152347.700140858@linuxfoundation.org>
 References: <20260930152347.700140858@linuxfoundation.org>
@@ -51,73 +51,54 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Jozsef Kadlecsik <kadlec@netfilter.org>
+From: Jiale Yao <yaojiale02@163.com>
 
-[ Upstream commit 5d0c22e73656d050daffad10a2ba8765ce8441c8 ]
+[ Upstream commit b230e5bf501c5edaf2eb0991cb862ac142031d4b ]
 
-When we bump the uref counter, there's no need to keep
-the rcu lock because the referred hash table can't
-disappear. Also, from the same reason in mtype_gc we
-need the rcu lock and not a spinlock.
+rfcomm_recv_frame() casts skb->data to struct rfcomm_hdr and dereferences
+hdr->addr and hdr->ctrl without validating skb->len first. A truncated
+frame with skb->len less than the minimum header size causes an
+out-of-bounds read of uninitialized memory. Additionally, a zero-length
+frame causes skb->len-- to underflow to UINT_MAX, making
+skb_tail_pointer() read far past the buffer.
 
-Signed-off-by: Jozsef Kadlecsik <kadlec@netfilter.org>
-Signed-off-by: Florian Westphal <fw@strlen.de>
+Commit 23882b828c3c ("Bluetooth: RFCOMM: validate skb length in MCC
+handlers") fixed the same class of missing-length-check bugs in the MCC
+sub-handlers, but the top-level rfcomm_recv_frame() was left unfixed.
+KMSAN reports:
+
+  BUG: KMSAN: uninit-value in rfcomm_run
+  ...
+  Uninit was created at:
+    __alloc_skb+0x474/0xb60
+    vhci_write+0xe9/0x870
+
+Fix this by rejecting frames smaller than sizeof(struct rfcomm_hdr) + 1
+(the minimum frame must have a 3-byte header and a 1-byte FCS).
+
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/netfilter/ipset/ip_set_hash_gen.h | 13 +++++--------
- 1 file changed, 5 insertions(+), 8 deletions(-)
+ net/bluetooth/rfcomm/core.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/net/netfilter/ipset/ip_set_hash_gen.h b/net/netfilter/ipset/ip_set_hash_gen.h
-index 25550a694edca..6412215e638b3 100644
---- a/net/netfilter/ipset/ip_set_hash_gen.h
-+++ b/net/netfilter/ipset/ip_set_hash_gen.h
-@@ -581,9 +581,10 @@ mtype_gc(struct work_struct *work)
- 	set = gc->set;
- 	h = set->data;
- 
--	spin_lock_bh(&set->lock);
--	t = ipset_dereference_set(h->table, set);
-+	rcu_read_lock_bh();
-+	t = rcu_dereference_bh(h->table);
- 	atomic_inc(&t->uref);
-+	rcu_read_unlock_bh();
- 	numof_locks = ahash_numof_locks(t->htable_bits);
- 	r = gc->region++;
- 	if (r >= numof_locks) {
-@@ -592,7 +593,6 @@ mtype_gc(struct work_struct *work)
- 	next_run = (IPSET_GC_PERIOD(set->timeout) * HZ) / numof_locks;
- 	if (next_run < HZ/10)
- 		next_run = HZ/10;
--	spin_unlock_bh(&set->lock);
- 
- 	mtype_gc_do(set, h, t, r);
- 
-@@ -868,15 +868,13 @@ mtype_add(struct ip_set *set, void *value, const struct ip_set_ext *ext,
- 	key = HKEY(value, h->initval, t->htable_bits);
- 	r = ahash_region(key);
- 	atomic_inc(&t->uref);
-+	rcu_read_unlock_bh();
- 	elements = t->hregion[r].elements;
- 	maxelem = t->maxelem;
- 	if (elements >= maxelem) {
- 		u32 e;
--		if (SET_WITH_TIMEOUT(set)) {
--			rcu_read_unlock_bh();
-+		if (SET_WITH_TIMEOUT(set))
- 			mtype_gc_do(set, h, t, r);
--			rcu_read_lock_bh();
--		}
- 		maxelem = h->maxelem;
- 		elements = 0;
- 		for (e = 0; e < ahash_numof_locks(t->htable_bits); e++)
-@@ -884,7 +882,6 @@ mtype_add(struct ip_set *set, void *value, const struct ip_set_ext *ext,
- 		if (elements >= maxelem && SET_WITH_FORCEADD(set))
- 			forceadd = true;
+diff --git a/net/bluetooth/rfcomm/core.c b/net/bluetooth/rfcomm/core.c
+index 828c18d91e829..05f576463a27f 100644
+--- a/net/bluetooth/rfcomm/core.c
++++ b/net/bluetooth/rfcomm/core.c
+@@ -1782,6 +1782,11 @@ static struct rfcomm_session *rfcomm_recv_frame(struct rfcomm_session *s,
+ 		return s;
  	}
--	rcu_read_unlock_bh();
  
- 	spin_lock_bh(&t->hregion[r].lock);
- 	n = rcu_dereference_bh(hbucket(t, key));
++	if (skb->len < sizeof(*hdr) + 1) {
++		kfree_skb(skb);
++		return s;
++	}
++
+ 	dlci = __get_dlci(hdr->addr);
+ 	type = __get_type(hdr->ctrl);
+ 
 -- 
 2.53.0
 
