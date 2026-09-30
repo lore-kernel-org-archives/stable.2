@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B8BE51DAEF
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 21:24:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DC9F3769FF
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 21:25:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790803502; cv=none; b=Kg5X9Xjr+TTOCU4SXWVk8WUuyKfrRnDBPOs6+3GKYOZ0nBIJIK4ct3vsupaRepEh7zkPEPKd2sFsiXsBfduG5MPwmQ1MR04a4dIAvH9i1kmbgwwylT6dgS7FU4I2dxeVYhILWE6GjR6JJsK1/3eA4n1r89DPH+dNRSGCoR1sTlw=
+	t=1790803505; cv=none; b=q393+D/5EVvNtuKzRiaLuo0ejHRtJd7Ok0mHaQ8FWgA91HhEwGzcXRDVRZbsFbw3XQWfCncgEm0OeFdn9fsIiTnB6NU+sO1MH01yUJ3xFOOFTzJwqEMnhHVbdZ3ZMx6RZwXnP7KGlgJFJ7jGaMxHZ0tWeWxyDhXtgKmEe0z4NrY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790803502; c=relaxed/simple;
-	bh=AnAEugQIUgamwKX/p928eb4sUD5K7Bb7cPghvbeX92s=;
+	s=arc-20240116; t=1790803505; c=relaxed/simple;
+	bh=h/bpOc4zRujZZ7cSPfzNMtoeuc6cRHPih7/dJnr6kPY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hAQhtaJQRECSSDd44t8H5SdRlbwoBxerJIUY/ceTMqKJxptzu/tvWnDeQZpYhPgYenmnPl4ho1mPYWDgFSd+JVX6SK6rLjfGsML6enWV+8/YDa21tqQ6+ue+uI6eclEAhIyFMmfR6CGpl1v2CptuXhbU0R9jFY7FAmMZ2YX38CM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mvneZOA3; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=RXqrKnCJyQq13B9atLstFncJ7S8BhnUY+975vcIk393g4kUrZ7qYmZoCKkYpL6GpL3NHaSEQHC8T4HwaQsfdMTOM0JRIgMP6PzGZT2Kxj1wU5f2S21jn3ldomoi0Bp/vaM6KM+Jp77NpMW+zTyXrJ4uf+/xDjYENOREhh9MIpQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TFMwQ0cL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mvneZOA3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D1A61F0089A;
-	Wed, 30 Sep 2026 21:24:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TFMwQ0cL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09F211F000FF;
+	Wed, 30 Sep 2026 21:25:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790803499;
-	bh=usEUdQo+YBz5RB5Rcdyrvtbr4dr3pVPcIN034rlMGSs=;
+	s=k20260515; t=1790803503;
+	bh=7jkUzNoRBlb7xQNXjw7ImvCQ0BtcUx0ml/EtmP7MjRo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mvneZOA3Bj7sOu/x0ka443FsXFU1UHyBJnTskcQgteW6r+hnyF3Z+HlFgwwnTitjP
-	 CJEGPIV5Ona71J1pCnCGijCpWN9kcw6EWLmRCE9z7KENTi2LXTOIh/HIlOwWzSFCKD
-	 Sgcur2DrB02BPUy68huByDUoli9r9FCnXxlPsRit/Kmwvx32g0xoMvKeuEw0CQeh/o
-	 aMLrW/JjuB8KtHDEog18kw8PF+Bo4Fv6p9FM2TjLAjIrrATrnXFhmggjP+Ob58sgYi
-	 U3ftW/VCmZ7lo5v+vZZiHClblf6eKwOC5UUOCd1mc1FEaBMfRffw7PrbFi3IFvDDDn
-	 Nn7tMlBwK6EKQ==
+	b=TFMwQ0cLw3q6R2IDsGsEAzRGbtp2Ps4R0lII8f4t+ny+aw6Iv6Fg13qIhOp0n5wF8
+	 1Ln+2QhJJEXqKe0smQiPfJCpB2uMCLZSGaX7duhwye9yVdSGcHrd2dtFIA2MvnRP9a
+	 qMKJEPxAT80KRZjCjvl5lxKfC2775qx8hIp8jY6FGMFGi+jQmhre3K1B4itV1p7cPA
+	 n3kFg9cTYMYJZM8XY29aSmt9ZcAd1x4hhb/IE8dO2Vj8OaHMQe2GAEHxbwgsjwCAcP
+	 JCVclVRIrVNsO5lC9HBvcSD+8tCqAbbK0nK9JOb7/ccua1KbjwAm12j9tFb3GqEgFz
+	 TC06YB0v6tUOQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>,
-	Jinwoo Lee <rkskek9254@gmail.com>,
-	Stefan Teodorescu <fane@google.com>,
+Cc: Zihan Xi <zihanx@nebusec.ai>,
+	Vega <vega@nebusec.ai>,
+	Luxing Yin <root@tr0jan.top>,
+	Frank Sorenson <sorenson@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] KVM: x86: Fill kvm_run exit fields in common get_nested_state_pages() error paths
-Date: Wed, 30 Sep 2026 17:24:57 -0400
-Message-ID: <20260930212457.3174359-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y] smb: client: clean up failed cached directory opens
+Date: Wed, 30 Sep 2026 17:25:01 -0400
+Message-ID: <20260930212501.3174867-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260930212457.3174359-1-sashal@kernel.org>
-References: <2026092940-tractor-spiritual-64e5@gregkh>
- <20260930212457.3174359-1-sashal@kernel.org>
+In-Reply-To: <2026092903-carrousel-elevate-94c7@gregkh>
+References: <2026092903-carrousel-elevate-94c7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,114 +48,106 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sean Christopherson <seanjc@google.com>
+From: Zihan Xi <zihanx@nebusec.ai>
 
-[ Upstream commit c1214f293d77c6e425a379f90d09bdb4815993a8 ]
+[ Upstream commit d2ff5fb93ea83034025850266b5eed391f96b825 ]
 
-Fill kvm_run with "internal error, emulation" in the common error handling
-paths for getting nested state pages, as requiring each check to manually
-fill kvm_run is error prone and requires a non-trivial amount of copy+paste.
+open_cached_dir() sends CREATE and QUERY_INFO as a compound request. If
+the CREATE succeeds but a later command returns an error, the function
+must retain the CREATE FID so common cleanup can issue SMB2_close(). It
+also must not treat a response error as a valid CREATE.
 
-Specifically, both SVM and VMX fail to fill kvm_run if load_pdptrs() fails,
-and SVM fails to fill kvm_run if kvm_hv_verify_vp_assist() fails.  If those
-flows fail, the *best* case scenario is that KVM will exit to userspace
-with KVM_EXIT_UNKNOWN.  The worst case scenario is that KVM exits with a
-stale exit_reason and confuses userspace.
+Validate the CREATE response before using its fields, record the FIDs, and
+mark the handle open before handling errors from later compound commands.
+Move the -EREMCHG reconnect handling before response validation so a
+missing response does not hide the reconnect request. Count the handle
+when it is marked open; confirmed close responses decrement the counter,
+while existing close retry behavior remains best effort on transport
+failures.
 
-Note, SVM never exits to userspace if something goes sideways when dealing
-with vmcb12 assets while emulating VMRUN, i.e. lack of SVM-specific code is
-not a bug.
-
-Fixes: 0f85722341b0 ("KVM: nVMX: delay loading of PDPTRs to KVM_REQ_GET_NESTED_STATE_PAGES")
-Fixes: 232f75d3b4b5 ("KVM: nSVM: call nested_svm_load_cr3 on nested state load")
-Fixes: 3f4a812edf5c ("KVM: nSVM: hyper-v: Enable L2 TLB flush")
+Fixes: b0f6df737a1c ("cifs: cache FILE_ALL_INFO for the shared root handle")
 Cc: stable@vger.kernel.org
-Reported-by: Jinwoo Lee <rkskek9254@gmail.com>
-Closes: https://lore.kernel.org/all/20260813043932.3214460-1-rkskek9254@gmail.com
-Reported-by: Stefan Teodorescu <fane@google.com>
-Link: https://patch.msgid.link/20260921211608.1030158-3-seanjc@google.com
-Signed-off-by: Sean Christopherson <seanjc@google.com>
+Reported-by: Vega <vega@nebusec.ai>
+Assisted-by: LLM
+Co-developed-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+Tested-by: Frank Sorenson <sorenson@redhat.com>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+[ adapted open_cached_dir() changes to the older open_shroot() implementation. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/kvm/svm/nested.c |  7 +------
- arch/x86/kvm/vmx/nested.c | 15 +++++----------
- arch/x86/kvm/x86.c        |  3 +++
- 3 files changed, 9 insertions(+), 16 deletions(-)
+ fs/cifs/smb2ops.c | 43 +++++++++++++++++++++++++++++--------------
+ 1 file changed, 29 insertions(+), 14 deletions(-)
 
-diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
-index 1984df18802ae..2fa4bb44ab8c0 100644
---- a/arch/x86/kvm/svm/nested.c
-+++ b/arch/x86/kvm/svm/nested.c
-@@ -1722,13 +1722,8 @@ static bool svm_get_nested_state_pages(struct kvm_vcpu *vcpu)
- 		if (CC(!load_pdptrs(vcpu, vcpu->arch.cr3)))
- 			return false;
- 
--	if (!nested_svm_merge_msrpm(vcpu)) {
--		vcpu->run->exit_reason = KVM_EXIT_INTERNAL_ERROR;
--		vcpu->run->internal.suberror =
--			KVM_INTERNAL_ERROR_EMULATION;
--		vcpu->run->internal.ndata = 0;
-+	if (!nested_svm_merge_msrpm(vcpu))
- 		return false;
--	}
- 
- 	return true;
- }
-diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
-index e853dd7daf75b..e13669f0a371b 100644
---- a/arch/x86/kvm/vmx/nested.c
-+++ b/arch/x86/kvm/vmx/nested.c
-@@ -3220,10 +3220,6 @@ static bool nested_get_vmcs12_pages(struct kvm_vcpu *vcpu)
- 		} else {
- 			pr_debug_ratelimited("%s: no backing for APIC-access address in vmcs12\n",
- 					     __func__);
--			vcpu->run->exit_reason = KVM_EXIT_INTERNAL_ERROR;
--			vcpu->run->internal.suberror =
--				KVM_INTERNAL_ERROR_EMULATION;
--			vcpu->run->internal.ndata = 0;
- 			return false;
- 		}
- 	}
-@@ -3287,11 +3283,6 @@ static bool vmx_get_nested_state_pages(struct kvm_vcpu *vcpu)
- 	if (!nested_get_evmcs_page(vcpu)) {
- 		pr_debug_ratelimited("%s: enlightened vmptrld failed\n",
- 				     __func__);
--		vcpu->run->exit_reason = KVM_EXIT_INTERNAL_ERROR;
--		vcpu->run->internal.suberror =
--			KVM_INTERNAL_ERROR_EMULATION;
--		vcpu->run->internal.ndata = 0;
--
- 		return false;
- 	}
- 
-@@ -3686,8 +3677,12 @@ static int nested_vmx_run(struct kvm_vcpu *vcpu, bool launch)
- 
- vmentry_failed:
- 	vcpu->arch.nested_run_pending = 0;
--	if (status == NVMX_VMENTRY_KVM_INTERNAL_ERROR)
-+	if (status == NVMX_VMENTRY_KVM_INTERNAL_ERROR) {
-+		vcpu->run->exit_reason = KVM_EXIT_INTERNAL_ERROR;
-+		vcpu->run->internal.suberror = KVM_INTERNAL_ERROR_EMULATION;
-+		vcpu->run->internal.ndata = 0;
- 		return 0;
+diff --git a/fs/cifs/smb2ops.c b/fs/cifs/smb2ops.c
+index 51f8ea0c89065..94a604dd2866b 100644
+--- a/fs/cifs/smb2ops.c
++++ b/fs/cifs/smb2ops.c
+@@ -766,6 +766,33 @@ int open_shroot(unsigned int xid, struct cifs_tcon *tcon,
+ 	rc = compound_send_recv(xid, ses, server,
+ 				flags, 2, rqst,
+ 				resp_buftype, rsp_iov);
++	if (rc == -EREMCHG) {
++		tcon->need_reconnect = true;
++		pr_warn_once("server share %s deleted\n",
++			     tcon->treeName);
 +	}
- 	if (status == NVMX_VMENTRY_VMEXIT)
- 		return 1;
- 	WARN_ON_ONCE(status != NVMX_VMENTRY_VMFAIL);
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 75c3347db920c..b6aae860322bd 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -10659,6 +10659,9 @@ static int vcpu_enter_guest(struct kvm_vcpu *vcpu)
- 		}
- 		if (kvm_check_request(KVM_REQ_GET_NESTED_STATE_PAGES, vcpu)) {
- 			if (unlikely(!kvm_nested_call(get_nested_state_pages)(vcpu))) {
-+				vcpu->run->exit_reason = KVM_EXIT_INTERNAL_ERROR;
-+				vcpu->run->internal.suberror = KVM_INTERNAL_ERROR_EMULATION;
-+				vcpu->run->internal.ndata = 0;
- 				kvm_make_request(KVM_REQ_GET_NESTED_STATE_PAGES, vcpu);
- 				r = 0;
- 				goto out;
++
++	if (!rsp_iov[0].iov_base || rsp_iov[0].iov_len < sizeof(*o_rsp)) {
++		if (!rc)
++			rc = -EIO;
++		goto oshr_free;
++	}
++
++	o_rsp = (struct smb2_create_rsp *)rsp_iov[0].iov_base;
++	if (o_rsp->hdr.Status != STATUS_SUCCESS) {
++		if (!rc)
++			rc = -EIO;
++		goto oshr_free;
++	}
++
++	atomic_inc(&tcon->num_remote_opens);
++
++	if (rc) {
++		SMB2_close(xid, tcon, o_rsp->PersistentFileId,
++			   o_rsp->VolatileFileId);
++		goto oshr_free;
++	}
++
+ 	mutex_lock(&tcon->crfid.fid_mutex);
+ 
+ 	/*
+@@ -778,8 +805,8 @@ int open_shroot(unsigned int xid, struct cifs_tcon *tcon,
+ 
+ 		/* stash fids for close() later */
+ 		struct cifs_fid fid = {
+-			.persistent_fid = pfid->persistent_fid,
+-			.volatile_fid = pfid->volatile_fid,
++			.persistent_fid = o_rsp->PersistentFileId,
++			.volatile_fid = o_rsp->VolatileFileId,
+ 		};
+ 
+ 		/*
+@@ -802,18 +829,6 @@ int open_shroot(unsigned int xid, struct cifs_tcon *tcon,
+ 
+ 	/* Cached root is still invalid, continue normaly */
+ 
+-	if (rc) {
+-		if (rc == -EREMCHG) {
+-			tcon->need_reconnect = true;
+-			pr_warn_once("server share %s deleted\n",
+-				     tcon->treeName);
+-		}
+-		goto oshr_exit;
+-	}
+-
+-	atomic_inc(&tcon->num_remote_opens);
+-
+-	o_rsp = (struct smb2_create_rsp *)rsp_iov[0].iov_base;
+ 	oparms.fid->persistent_fid = o_rsp->PersistentFileId;
+ 	oparms.fid->volatile_fid = o_rsp->VolatileFileId;
+ #ifdef CONFIG_CIFS_DEBUG2
 -- 
 2.53.0
 
