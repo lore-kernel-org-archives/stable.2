@@ -1,161 +1,318 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11021076.outbound.protection.outlook.com [40.107.130.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 961AF4F7CDC
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 14:53:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790780022; cv=none; b=aQSj4zCYDsfLeLfXW4ZXUPA5JA5xAPY8b4zmnn8tR41NFPnwoQQpcCx/zA/eZy5HCWrNA6+iZQn8VfLQjcQVP4KTMoa64zCAHfUBI07dGnKc/HlIEXL7kUzuKTh/6UVrVERujprZknjoewJEf7hqdalqnK4QJx6VQOUzbzWUZzA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790780022; c=relaxed/simple;
-	bh=JZyE0TSsY8yTDDRDYQK5DaOgzrr/7j8+8yrGGTSByWw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BEZL4v3GN+R6wOe/30XLOcHVT0yAWsr2ouARH10zZfI/Mj19mUr5Mu/0ZbWq4awcG5gb6HtlpQse9F+71wy49aCJ07m5ynW9DUE3jIoEGPlVFtbAheIER79OaDeO++3l0jyJw/IjSNPNbZdYB5dLIujqUGFbbR6ew8wAziWYzaA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MZXec6i7; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B5FA4D7D5B;
+	Wed, 30 Sep 2026 14:57:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790780238; cv=fail; b=pac6nibTTGIZOcO6Ylv+pC7ZpoJ9AzWcM+Glpl4s2WOAj5u49mvbrBtKBV+NoIx13hviEZkhRRpAHyusQN7eljajHg5o18YlZyEf4AJaotV8MqtPYO94lb7Rtdv6eLM4Ya0MJJ3J0uhp8plPsf/1NSqPJpGYt6/Qffb9/eXf5Oc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790780238; c=relaxed/simple;
+	bh=nsa7j2hw36Mmv26JG8VNexH9lvOmDUDGr91uiN6MOow=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=YYuYriB2IjpNkhEWzCYGkH58Oiowww0iqCUf/qj3uJ0NGyQ747dKSl3tNBiKMFKOn/UwKwclIlvrOwYbjQmSQZ+Gv2Bex4LfvTyzuv3qA3IlxZkEFyjDEnY15+Neo0DIISvCJ087Y5e/65Ryd+8vkiThJbwrdaSTjSPc4kRr67w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziehl-abegg.de; spf=pass smtp.mailfrom=ziehl-abegg.de; dkim=pass (1024-bit key) header.d=ziehl-abegg.de header.i=@ziehl-abegg.de header.b=YvOVf+m7; arc=fail smtp.client-ip=40.107.130.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziehl-abegg.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziehl-abegg.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MZXec6i7"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48b0503e39fso206459f8f.0
-        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 07:53:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790780006; x=1791384806; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6zdfU6kH9W4A1u2b61CrKgFGeF1s5pIwREN6zM1W5nY=;
-        b=MZXec6i76soIInLWRjoIjYEtG9pSwqM073PeJGVzFbSp+17YEbdvi7wuAEVy5NOz71
-         5SO2nqKZGoFJXSa5XJmPb9oXk4SeqlV77u7A6LlnJSd/MJ4SymyB79OKu+eTiAdeFref
-         sXxQ0v2LfxlOhln9FdRp2vOxwkjdFKNHhn69OfwBQQFYACMw2/su/EWsIQdG4wNsn0fJ
-         exPiPWegFCTJj97ZUdBtcx2OK1gLwNsM19klB+gHRCBWLQpe0GJMNZQvBN/yBgh2ofeP
-         JkKdaa4/QdBoYjkyPvQJm8/4uQwxCGTxpFJDupB8If1ifbI+6sCE9xloXEJ0sK00HPRc
-         BgBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790780006; x=1791384806;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6zdfU6kH9W4A1u2b61CrKgFGeF1s5pIwREN6zM1W5nY=;
-        b=NPOZMgEM3wab+rqnkGBHJOFAfk2bxi/RXMI6JGY0h1BIZd5yz5umQ8bU4BnJZEEn1g
-         qVfn9hVdR2H8VhgrPnc7khOsGEjxJhbHEyk41chgFv/qLBqpjanC8xFv2WlkTdEGaS3a
-         ql7Ge0jIqIgrGF0odsCQUoph9DmyLVwaaUd5/YdQVzVrOG7wDNMRx3HS6gvfQcr3irw2
-         nEjYYs/O3pCH3fqK12GIGwYxbQfPAEUHEUqQfeAKBgfXwkvwHv229tU9TN6zf1iUtm9J
-         4rpB4xbA7XxIVdBaHVpbXwklQElXYIgzwVmklM5gFV12LdRzQJbqGaRlPQYYw9KNYuvb
-         zgyA==
-X-Forwarded-Encrypted: i=1; AKwUvBwGcJ9pMy4EXuM/J6DDSu24l9EExAYEA/y0ceyUt2MsOcpFvxM2wR0kJKYPzkGEDrr/4ne92TE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIVUoWojHgRvcmqckbChZTtv0VTPxKPWN8syBvYtIQaa5liy5gN
-	u7dQOFsJEblcyqDxFsEPDcx69bWnkf22A/UFFKuFo6KEFrkmxPaAoyAS
-X-Gm-Gg: AYBFou0EXqd3Z2rZH9+7pXBx+px33yCH/OarTfn4qAdLlCnoZyIkMPndk7SOOH/mV16
-	GtnLQOrY5VYnvzb7yl+ZIpaEZVX/LxNGULElCt7HZ9o6Pyd7vEOa0PfELiaCKSndy/uB/KxyjP/
-	Rgu3C2U2mwgqtcqZblL9J+U7DPwcVZffX6IRX37cowoIZNppvj2dLFx62lMurhJlKQiTrlq1wP8
-	eVUC48cq4NPoJp9PBaz7Bmk6P/tqjoEXg7N08UvsAzRf0xAPNKQA/ZE1AcOA7xyJ2K35pbYiMb/
-	oMUe0jDmEdKUq/0fLM53asT6FYisfTZaATvTzGVEx/DBhDRj6rw/JuztnSOJPQnWVlXgc6psRbp
-	MQLj8OfsWNqvwFEIs+PlftC3AwFsPivkVurs7MNFlZBnJHZ2MY1NhPIdxrKkKU/+7fKfvV0E2Tw
-	sooL9IHHXIvYwxu0r0EvDFvSffMvG1l7N6KhVlMYy024CX+5yUSNFl5XiUOrA6WOW6jp9vs3Aq9
-	QdfZajEgsOfXf3SiwnLSq7JYtlFtEHhUQ==
-X-Received: by 2002:a05:6000:491a:b0:48a:f509:c22a with SMTP id ffacd0b85a97d-48b02380f7fmr3587230f8f.0.1790780006195;
-        Wed, 30 Sep 2026 07:53:26 -0700 (PDT)
-Received: from eldamar.lan (c-82-192-247-196.customer.ggaweb.ch. [82.192.247.196])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b029f2b0dsm3897832f8f.25.2026.09.30.07.53.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 07:53:25 -0700 (PDT)
-Sender: Salvatore Bonaccorso <salvatore.bonaccorso@gmail.com>
-Received: by eldamar.lan (Postfix, from userid 1000)
-	id 8B690DC07B3; Wed, 30 Sep 2026 16:53:24 +0200 (CEST)
-Date: Wed, 30 Sep 2026 16:53:24 +0200
-From: Salvatore Bonaccorso <carnil@debian.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: =?iso-8859-1?Q?Andr=E9?= Pinheiro <andre@pepdata.pt>,
-	stable@vger.kernel.org, Sasha Levin <sashal@kernel.org>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	Antheas Kapenekakis <lkml@antheas.dev>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	linux-input@vger.kernel.org, regressions@lists.linux.dev
-Subject: Re: [REGRESSION] 6.18.y: HID: asus: ROG keyboard 0b05:19b6 stops
- working after 56d1b33e644c backport; missing buffer size fix e82ae34af29e
-Message-ID: <ar0iZO7lkEl888x_@eldamar.lan>
-References: <14ed23dd-b171-4ffb-b368-5c717f56188c@pepdata.pt>
- <2026093029-elevating-pungent-b8ad@gregkh>
+	dkim=pass (1024-bit key) header.d=ziehl-abegg.de header.i=@ziehl-abegg.de header.b="YvOVf+m7"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lvm9y1HYce8qAJK9CujZaH5qGTStIpYE04zxQoMZMtt3R9JHoq5Lve1F/CpOfLnsVcJfVfdCvfThmvDO9VDyuXjlFB1KWC38J+/cUnR7kkgm7zYOn83PzbU0O2xHBWwOCtds+7uLr4ydmPRylJDxei2zzVejkQQiVPzerWErLp3S5quAQ2ml7RcgieTovpP+bM1oDyo2VoDopHxjhbmMN89NuFMC4uMkTi6NK66mBXJXa4K2/pGuCU/u75K/5Mml40sXX2s6uh9fadIMGsKbbyvb6AUbX7FHXQ0nq2v2Nevrt49rrmWpzIx16JdA/rnLQZTCww/hu4TRNPmXKXCHXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=W/P83rFvKQd20/0T3KZslJ5nA3so+FACb0HPfBilsmY=;
+ b=yI+k6FF/xN6ONAksyYKt+nS5Iz42A0pwgYUc+BOOUUmMz1mkA6tMrgAwYYXyYCDOPP5PBRs8RTjAEAOy3vdYflnWAJKFTuB7Z2NCaIsVJqWAbL97Hx8f5tbCTexbUINtpesbN7/Utk9VqpuUVchikd43PgzosY7eYtBdmH/NuSsKbLuz+j+HwF70IUiQm9wbfDdOcOZH2GxjEZJE8Sw3RuzEnxYbSVGmWkSHomwZHjmq4Hr/A/9CoH7AvVX1n0uWm8thXvwbzh1lUcdQmrXhQ96N/RgCx/rl4qHOol/i1x9PjaAAZ4bmj8adYpQxMXdoOTAKuDbVOSRsYCh6+7Q5PQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 13.74.137.176) smtp.rcpttodomain=linuxfoundation.org
+ smtp.mailfrom=ziehl-abegg.de; dmarc=pass (p=quarantine sp=quarantine pct=100)
+ action=none header.from=ziehl-abegg.de; dkim=none (message not signed);
+ arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziehl-abegg.de;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=W/P83rFvKQd20/0T3KZslJ5nA3so+FACb0HPfBilsmY=;
+ b=YvOVf+m7BTzY8Lw659a0B9W2CTzKImygnHGSbTovkIAohzSbviUbGkoXF9egtqsrgWKIJsygN80y4o85+Ys0fx/YDXM4C/d/ibeK0WNqcXF7zECsOJdO8z2NPA/fzW1zOMdAMYFRWE078WzbALLx4doAnFtqoBVhg8LrEdsG6SI=
+Received: from DUZPR01CA0354.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4b8::6) by DU4PR02MB11309.eurprd02.prod.outlook.com
+ (2603:10a6:10:5d2::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
+ 2026 14:56:59 +0000
+Received: from MA3PEPF00000405.eurprd04.prod.outlook.com
+ (2603:10a6:10:4b8:cafe::31) by DUZPR01CA0354.outlook.office365.com
+ (2603:10a6:10:4b8::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.16 via Frontend Transport; Wed,
+ 30 Sep 2026 14:56:59 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 13.74.137.176) smtp.mailfrom=ziehl-abegg.de; dkim=none (message not
+ signed) header.d=none;dmarc=pass action=none header.from=ziehl-abegg.de;
+Received-SPF: Pass (protection.outlook.com: domain of ziehl-abegg.de
+ designates 13.74.137.176 as permitted sender)
+ receiver=protection.outlook.com; client-ip=13.74.137.176;
+ helo=eu21-emailsignatures-cloud.codetwo.com; pr=C
+Received: from eu21-emailsignatures-cloud.codetwo.com (13.74.137.176) by
+ MA3PEPF00000405.mail.protection.outlook.com (10.167.241.150) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 14:56:58 +0000
+Received: from DB6PR07CU003.outbound.protection.outlook.com (40.93.64.90) by eu21-emailsignatures-cloud.codetwo.com with CodeTwo SMTP Server (TLS12) via SMTP; Wed, 30 Sep 2026 14:56:57 +0000
+Received: from VI1P190CA0041.EURP190.PROD.OUTLOOK.COM (2603:10a6:800:1bb::8)
+ by DB4PR02MB8725.eurprd02.prod.outlook.com (2603:10a6:10:382::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
+ 2026 14:56:53 +0000
+Received: from MI3PEPF0000847D.eurprd02.prod.outlook.com
+ (2603:10a6:800:1bb:cafe::1b) by VI1P190CA0041.outlook.office365.com
+ (2603:10a6:800:1bb::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.16 via Frontend Transport; Wed,
+ 30 Sep 2026 14:56:53 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 91.26.242.194) smtp.mailfrom=ziehl-abegg.de; dkim=none (message not
+ signed) header.d=none;dmarc=fail action=quarantine
+ header.from=ziehl-abegg.de;
+Received-SPF: Fail (protection.outlook.com: domain of ziehl-abegg.de does not
+ designate 91.26.242.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=91.26.242.194; helo=mail.za.ziehl-abegg.de;
+Received: from mail.za.ziehl-abegg.de (91.26.242.194) by
+ MI3PEPF0000847D.mail.protection.outlook.com (10.167.240.164) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 14:56:52 +0000
+Received: from vEX02.za.ziehl-abegg.de (10.1.201.106) by
+ DEKUN-EX02.za.ziehl-abegg.de (10.1.200.170) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.49; Wed, 30 Sep 2026 16:56:40 +0200
+Received: from localhost (10.1.200.37) by vEX02.za.ziehl-abegg.de
+ (10.1.201.106) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.61; Wed, 30 Sep
+ 2026 16:56:40 +0200
+From: Paul Mbewe <paultyson.mbewe@ziehl-abegg.de>
+To: <gregkh@linuxfoundation.org>, <jirislaby@kernel.org>
+CC: <linux-serial@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<hugo@hugovil.com>, <tobias.gannert@ziehl-abegg.de>,
+	<joachim.knorr@ziehl-abegg.de>, <david.laight.linux@gmail.com>,
+	<Maarten.Brock@sttls.nl>, <crescentcy.hsieh@moxa.com>, Paul Mbewe
+	<paultyson.mbewe@ziehl-abegg.de>, <stable@vger.kernel.org>
+Subject: [PATCH v2 RESEND 1/2] serial: sc16is7xx: refill TX FIFO below trigger using fresh TXLVL
+Date: Wed, 30 Sep 2026 16:56:27 +0200
+Message-ID: <20260930145628.566535-2-paultyson.mbewe@ziehl-abegg.de>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260930145628.566535-1-paultyson.mbewe@ziehl-abegg.de>
+References: <20260930145628.566535-1-paultyson.mbewe@ziehl-abegg.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <2026093029-elevating-pungent-b8ad@gregkh>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
+X-ClientProxiedBy: DEKUN-EX01.za.ziehl-abegg.de (10.1.200.169) To
+ vEX02.za.ziehl-abegg.de (10.1.201.106)
+X-TM-AS-Product-Ver: SMEX-14.0.0.3239-9.1.2019-30228.007
+X-TM-AS-Result: No-10--22.781000-8.000000
+X-TMASE-MatchedRID: xgjD+b8BcNEjT1OtLjNOO8FwCSR9lLGIA7zAJOd7U7GO46CtGFNzgB6x
+	6GATv0yu33N9hXGm/eBrBIZaYgb6df713DZdglzA2fOmnfHgOUoKfUYWORZ3hY73XtTiMnCgOR9
+	TNr9jiqpZz/xdoRU2o/GNtF37Q9hm0l0AwoUm6S0ftZuMZfm2SU9Xke28M87NCw80CQ95LdC0WV
+	EGd9ktR/CiYQ9xUzmAYsRtQSiXxwevrjrl9OcF/dcjNr80SqOVgT7JgSKmNS/PxctgaqKz4WACf
+	vAIOBO2kvfSBv8G5HjTWEuZKnxXM3kkrpVn/L8lju2XlcEx9HQta64Tt5lszJASM5lkTKECfDRR
+	zBqJajaC4coG9a/q4eL95qFX87s3vYow2p/EmQJSU7TOghylToHV87ajhAZwVpazjfYi2Wy6dDg
+	bOwQH7Hi2yHSIHoZsnbZX7Kshm6n9xFOSC4OKya39Nxr6In/3fH+EesxtKNVRCkSxJRCOByAtOk
+	0TFyJTeNIWTzSSH53yHvs7OKapzNvUNTm/lfkGlEJO70qtU7ajg0lrtKMWyiT/9g75F2ivWjsaY
+	I4lh3U7nRP0DvgcK7YURQHAp3zKlExlQIQeRG0=
+X-TM-AS-User-Approved-Sender: No
+X-TM-AS-User-Blocked-Sender: No
+X-TMASE-Result: 10--22.781000-8.000000
+X-TMASE-Version: SMEX-14.0.0.3239-9.1.2019-30228.007
+X-TM-SNTS-SMTP: 9B340118C0BDE41DD1F2E2E8D9F066FB9C4E522329365570E2E03E81581D15EC2000:8
+X-EOPAttributedMessage: 1
+X-MS-TrafficTypeDiagnostic:
+	MI3PEPF0000847D:EE_|DB4PR02MB8725:EE_|MA3PEPF00000405:EE_|DU4PR02MB11309:EE_
+X-MS-Office365-Filtering-Correlation-Id: 79a9630c-8da2-499b-b8a5-08df1f031412
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|1800799024|376014|82310400026|23010399003|36860700016|13003099007|22082099003|18002099003|6133799003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info-Original:
+ bjTVCdQcsYlvzNWwNU5TNb43/4vNdqY/7WJAIsbNwT1DaLzUkatmjhbEfG0qxgoSEcivKkRKK/PJzSaXkuwybxeDfTNywXcxXjXUO6yqNT07VJeDdqv9kyYYWerO1VSE82ZmJaZ4odPgkWqMlxQPimp/xa0hw3kc7SFs20YkGHqqIHzFZo7Gn7hDUUbwpAzuwj3DKDtEwu3mLn/BPvYyTgmu/wSflfxwW5oCMZTdaBocKmBjSqTI60eD0uA7pVEhPlRn3Nc+Mp9+GLVmAHLxi5ehw2JzRGvxRH8fInrtDwjIgBW6YlOZmAgmGdRBSY4zJIGDfwonYrZwoexOgxdwVEVnbTiWz4TuHEWbI94yfkRDdiMDZ5t6n41hqG39EDFfih81HHo1stCnIDu37j1cZYu09bZ8B+kBPegQuWKt7Ag02W7McXyu549bPy6+sbhCN9YKEiKkBPsgV/p8nAZQxtBeEQeUf4tt2Tqo/SOODWgZW/jETJ8d8e5/sOkGV7bG9bvij/uYRAaMnrb0348sw3CkpyQ0Xtc8bQij+8DRwkgrMns13TTKoRK8Ne2nPCabXBUKby2YmDyyXqdQCbeOZ3WvD+N9VZgiyb06iH1sZFx8yR+Dg1I5mPrd1o7Z5lxTeu0BQ2GofywvU9QsNWx70ijPn1i/VhPl+jaZGg5KWo8=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:91.26.242.194;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.za.ziehl-abegg.de;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(82310400026)(23010399003)(36860700016)(13003099007)(22082099003)(18002099003)(6133799003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1102;
+X-Exchange-RoutingPolicyChecked: uCIOIgsPthad5jP9MvCrwrF4FUCanunplj4iTv3e87oCyz7+ppaCqPYVyRY8+E85xDigkw3XUFXaUhd+z5SQWnT8WFTij00s8MbFXEhBotFCeFwDkkia3QqfPun1DHYt6UF76IC6DVijRiA9zc5JcyFoP/TsFUDZ1rrXPTFJq1LCvgLwPfwGh31cQTGFOdwr/za5G1owfR8sG0LrqxM53eXhTGv/Jh05q4jD2SCaZBratNIZLln7yCjE/aqP7NWMS2TeNH1VD0V7EhMFqRb580edzQOOvcyBPHujB+2nLMqCba6Z9EWO9a3ssvyLDT8xKUNByfskgart2qa3eTGcPQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB4PR02MB8725
+X-CodeTwo-MessageID: afd93e67-0d17-4789-aa3e-fa5154116fe5.20260930145657@eu21-emailsignatures-cloud.codetwo.com
+X-CodeTwoProcessed: true
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ MA3PEPF00000405.eurprd04.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	0e2676b2-ba07-4f90-f28d-08df1f031046
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|14060799003|35042699022|82310400026|36860700016|22082099003|18002099003|13003099007|6133799003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	RyfLOlzoPXj4mlfG6P4J6ukCEHPjs9GjeVf5qBUe40IyOTWd6ycMNkwitfbqS0kpSs6JzDnBn5Y6yy138YzKrwdChvcZdgjXYreMW6oKaRCCU4AhwS1rEXnthk2dhBXiH3bCFaZq4MVez+L8Ia5Ov6vBxGihZDPVQ+vW0KQB8tOZlTYb3oWpscJ5m8Rsc9/8YggiNcP/mIE847Ad/e9kC58hU9VshLsMxI94O6u5MDGJN3X36yNKRjVnRYpLjWcgKM8lC5dT7oD7nTXUYM/9IG8x76HHxVTtLUnFyu6a6OuWMilRkj1GSYSuxsAvdtbgkjPh1fAVbIR8n0ZC3bcv6jB5c3m9sRluVi7ew5FIA44F1u+F+reHbBK9N9hsOBqXyrW2xfxXEMN//63yTGezIgRo4yWoxvY31ZmakUp6cCI1t7r7cTkKbHhVGC7O1E94Wk0VWiYrNVfso11IwxSwfUuN7tJRayR9yXaLi/u4RNu8+m6lM2feWpo0sIJJ/+G1PVDOHMS8hv178Hx7bRerwSBDw6tHWCIAEh2MInnxjEOAhL16ACEmkZFsWzXXMKAEdS22PUKwCKQzv7sdz9GSA7WXRqW9mMiWnU3e5Ce/GhuD6QAETiyeahQ6BuSsGF+saCA8ML12ZyPdRvigVBUt4JmVsuU7SijpB4zxjGnkYUk=
+X-Forefront-Antispam-Report:
+	CIP:13.74.137.176;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:eu21-emailsignatures-cloud.codetwo.com;PTR:eu21-emailsignatures-cloud.codetwo.com;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(14060799003)(35042699022)(82310400026)(36860700016)(22082099003)(18002099003)(13003099007)(6133799003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	0SfBwima7wAp6DivoCvK84zIdloelcXKuc00gE/yo6Doa1tigDWNJ7i+SkOcQ+tU/r4WmtdUaVVzX771gLHs2hOJPzDWl62aqTcDJX9I72URtpU5H9VNaCMitbvm116tVA/ZNQdJAwHVcyYSA14YIQ+DGs87dvBe+YHW4BItckZ2LgpXPLkCbby9BUpCti522T1zDyzhBoLsDYW/fGDyueOMkJ2ALwNtkdNEhQXe6evQ+d9qNnXwAmilRuNioJp2Xugyj5Vlora2bzt0KVFAfN5iXpRHjWUimgCGgtphDeiHrqTl9Z9lxZfJjQm0um3mRAEaJwAYotexvseMqY9Hc5HDy/zVKFxP3B5yFMJQb5/Cz2FvsCyhX7rByhj9WDfasxHGIJ/nKX9D7hrHhOLhdNeyfMsxkxaI+/K4pEUm0oENFLUZ9bI1GvmMgrUfpTu9
+X-OriginatorOrg: ziehl-abegg.de
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 14:56:58.8814
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 79a9630c-8da2-499b-b8a5-08df1f031412
+X-MS-Exchange-CrossTenant-Id: 11a5c065-3ef5-41f0-92f9-a77cbf208c03
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=11a5c065-3ef5-41f0-92f9-a77cbf208c03;Ip=[13.74.137.176];Helo=[eu21-emailsignatures-cloud.codetwo.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MA3PEPF00000405.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR02MB11309
 
-Hi,
+sc16is7xx_handle_tx() reads TXLVL once and sizes the hardware TX FIFO
+write from that value. TXLVL reports free space in the hardware TX FIFO.
 
-On Wed, Sep 30, 2026 at 02:13:03PM +0200, Greg Kroah-Hartman wrote:
-> On Wed, Sep 30, 2026 at 05:24:59AM +0100, André Pinheiro wrote:
-> > Hi,
-> > 
-> > Since 6.18.49, the internal keyboard of ASUS ROG Zephyrus G16 GU605MV
-> > (USB 0b05:19b6, ITE Device(8910), bcdDevice 0.03) can stop sending input
-> > events. 6.18.42 works. 6.18.51 is broken. I did not test 6.18.49/6.18.50.
-> > 
-> > Cause: the backport of 56d1b33e644c ("HID: asus: simplify RGB init
-> > sequence") made asus_kbd_get_functions() run for QUIRK_ROG_NKEY_KEYBOARD
-> > devices too. That function reads feature report 0x5A into a buffer of
-> > FEATURE_KBD_REPORT_SIZE = 16 bytes. This device answers with 63 bytes, so
-> > the transfer fails with EOVERFLOW. The buffer size fix is in mainline as
-> > e82ae34af29e ("HID: asus: fortify keyboard handshake",
-> > FEATURE_KBD_REPORT_SIZE
-> > 16 -> 64; its message says "Since the response is more than 16 bytes,
-> > increase the buffer size to 64 as well to avoid overflow errors"). It is in
-> > the same series as 56d1b33e644c but was not backported. v7.0 has the value
-> > 64 (checked in the source, not booted on this machine).
-> > 
-> > Symptom (6.18.51):
-> >   asus 0003:0B05:19B6.0001: Asus failed to request functions: -75
-> >   asus 0003:0B05:19B6.0001: Failed to initialize backlight.
-> > usbmon:
-> >   S Ci:1:002:0 s a1 01 035a 0000 0010 16 <
-> >   C Ci:1:002:0 -75 0
-> > 
-> > The HID report descriptor (1102 bytes, from sysfs) declares Feature report
-> > 0x5A as 62 data bytes plus the report ID (63). The device matches its own
-> > descriptor; the driver buffer is too small.
-> > 
-> > Evidence. Same physical device and USB host controller (xhci on 6.18.42) in
-> > both runs, only the guest kernel driving the HID device changes; bytes read
-> > from the evdev node while typing:
-> >   guest 6.18.42: 16776 bytes in 12 s
-> >   guest 6.18.51: -75 as above, 0 bytes in 12 s
-> > 
-> > Requests sent by hand on 6.18.42 through hidraw (HIDIOCGFEATURE on report
-> > 0x5A), device re-enumerated before each case, bytes in 5 s windows:
-> >   GET 16, no SET before:  7488 -> EOVERFLOW -> 0
-> >   GET 32, no SET before:  7776 -> EOVERFLOW -> 0
-> >   GET 64, no SET before:  8208 -> ok, 63 bytes returned -> 8568
-> >   SET 5a 05 20 31 00 08, then GET 64: 8496 -> ok, 63 bytes -> 7920
-> >   SET, then GET 16:       7848 -> EOVERFLOW -> 7056 (did not silence this
-> > run)
-> >   (an earlier run of SET, GET 16: 2736 -> 6984 after SET -> 0 after GET)
-> > With a 64-byte buffer byte 6 of the reply is 0x83, i.e.
-> > SUPPORT_KBD_BACKLIGHT
-> > is set. So with the fix the driver would register the backlight instead of
-> > failing. One or two runs per case, only this device tested.
-> > 
-> > Request: please backport e82ae34af29e (or at least the
-> > FEATURE_KBD_REPORT_SIZE
-> > 16 -> 64 change) to 6.18.y, and to any other stable branch that received
-> > 56d1b33e644c. Alternatively drop 56d1b33e644c there.
-> 
-> That commit is already in the 6.18.54 kernel release, can you test the
-> latest one to verify it is now working?  6.18.51 is a few weeks old now.
+On this SPI-backed path, hardirq/softirq activity, RT scheduling, and
+waiting for synchronous SPI transfers can delay the refill while the UART
+continues draining. The TXLVL value can therefore become stale before the
+hardware TX FIFO write completes.
 
-FWIW, the commit is missing in the 6.12.y series yet (but I see it has
-been already queued for the next review round, thanks!).
+One failing ftrace with the default 8-free-space trigger showed:
 
-We got in Debian a related report at:
-https://bugs.debian.org/1149499
+  tx_start       txlvl=3D9  txlvl_read_us=3D580
+  tx_pre_write   sent=3D9   pre_write_us=3D16
+  tx_segment     sent=3D9   seg_us=3D364
+  tx_post_write  txlvl_before=3D9 sent=3D9 txlvl_after=3D12 pending_after=
+=3D29
+                 post_gap_us=3D12 post_txlvl_us=3D130
 
-Regards,
-Salvatore
+The driver read 9 free spaces and wrote 9 bytes to the hardware TX FIFO,
+but the post-write TXLVL read still reported 12 free spaces while 29 bytes
+remained queued in the xmit kfifo. Even allowing for the post-write read
+window, the hardware TX FIFO had not been filled below the 8-free-space
+trigger, so no new threshold crossing was expected.
+
+The captured failing samples had the same pattern: data remained queued
+in the xmit kfifo while post-write TXLVL remained above the hardware
+trigger. The hardware TX FIFO then drained empty before another refill
+was requested, producing an unintended gap on the wire.
+
+Fix this by re-reading TXLVL after each hardware TX FIFO write while data
+remains queued in the xmit kfifo. If TXLVL is still at or above the
+trigger, top up the hardware TX FIFO again. Stop when the xmit kfifo is
+empty or a TXLVL read confirms that hardware TX FIFO free space is
+strictly below the trigger.
+
+Stopping when TXLVL was equal to the trigger still allowed TX gaps in the
+tested workload. Continuing until TXLVL was strictly below the trigger
+eliminated the observed gaps caused by stale-TXLVL under-fill.
+
+Program the hardware TX trigger explicitly through TLR using the same
+constant as the refill-loop threshold. This prevents the software refill
+condition from diverging from the programmed hardware trigger.
+
+Tested on SC16IS752 over 1 MHz SPI on an i.MX6ULL single-core
+PREEMPT_RT system, transmitting RS-485 at 115200 baud 8N1 under
+continuous Modbus RTU load.
+
+Fixes: dfeae619d781 ("serial: sc16is7xx")
+Cc: stable@vger.kernel.org
+Reported-by: Tobias Gannert <tobias.gannert@ziehl-abegg.de>
+Link: https://lore.kernel.org/linux-serial/20260623112225.82386-3-paultyson=
+.mbewe@ziehl-abegg.de/
+Signed-off-by: Paul Mbewe <paultyson.mbewe@ziehl-abegg.de>
+---
+Changes in v2:
+  - New patch arising from review of v1 patch 2
+  - Added a fresh TXLVL read after each hardware TX FIFO write
+  - Continue refilling until TXLVL is strictly below the trigger
+  - Explicitly program the hardware trigger from the same constant used
+    by the refill loop
+  - Corrected the root cause from trigger-level margin to stale-TXLVL
+    under-fill
+  - Removed the max310x comparison
+
+ drivers/tty/serial/sc16is7xx.c | 38 +++++++++++++++++++++++++++-------
+ 1 file changed, 30 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/tty/serial/sc16is7xx.c b/drivers/tty/serial/sc16is7xx.=
+c
+index fa7805d2cde2..1f7e98c2b570 100644
+--- a/drivers/tty/serial/sc16is7xx.c
++++ b/drivers/tty/serial/sc16is7xx.c
+@@ -216,6 +216,8 @@
+ #define SC16IS7XX_TLR_TX_TRIGGER(words)	((((words) / 4) & 0x0f) << 0)
+ #define SC16IS7XX_TLR_RX_TRIGGER(words)	((((words) / 4) & 0x0f) << 4)
+=20
++#define SC16IS7XX_TX_TRIGGER_LEVEL	8
++
+ /* IOControl register bits (Only 75x/76x) */
+ #define SC16IS7XX_IOCONTROL_LATCH_BIT	BIT(0)   /* Enable input latching */
+ #define SC16IS7XX_IOCONTROL_MODEM_A_BIT	BIT(1)   /* Enable GPIO[7:4] as mo=
+dem A pins */
+@@ -647,6 +649,21 @@ static void sc16is7xx_handle_rx(struct uart_port *port=
+, unsigned int rxlen,
+ 	tty_flip_buffer_push(&port->state->port);
+ }
+=20
++static unsigned int sc16is7xx_txlvl(struct uart_port *port)
++{
++	unsigned int txlvl;
++
++	txlvl =3D sc16is7xx_port_read(port, SC16IS7XX_TXLVL_REG);
++	if (txlvl > SC16IS7XX_FIFO_SIZE) {
++		dev_err_ratelimited(port->dev,
++				    "chip reports %u free bytes in TX FIFO, but it only has %u\n",
++				    txlvl, SC16IS7XX_FIFO_SIZE);
++		return 0;
++	}
++
++	return txlvl;
++}
++
+ static void sc16is7xx_handle_tx(struct uart_port *port)
+ {
+ 	struct tty_port *tport =3D &port->state->port;
+@@ -668,13 +685,7 @@ static void sc16is7xx_handle_tx(struct uart_port *port=
+)
+ 	}
+=20
+ 	/* Limit to space available in TX FIFO */
+-	txlen =3D sc16is7xx_port_read(port, SC16IS7XX_TXLVL_REG);
+-	if (txlen > SC16IS7XX_FIFO_SIZE) {
+-		dev_err_ratelimited(port->dev,
+-			"chip reports %d free bytes in TX fifo, but it only has %d",
+-			txlen, SC16IS7XX_FIFO_SIZE);
+-		txlen =3D 0;
+-	}
++	txlen =3D sc16is7xx_txlvl(port);
+=20
+ 	/* Handle circular buffer wrap-around by sending multiple segments */
+ 	while (txlen > 0 && !kfifo_is_empty(&tport->xmit_fifo)) {
+@@ -687,7 +698,14 @@ static void sc16is7xx_handle_tx(struct uart_port *port=
+)
+=20
+ 		sc16is7xx_fifo_write(port, tail, to_send);
+ 		uart_xmit_advance(port, to_send);
+-		txlen -=3D to_send;
++
++		if (kfifo_is_empty(&tport->xmit_fifo))
++			break;
++
++		/* Refill below the trigger to enable the next THRI crossing. */
++		txlen =3D sc16is7xx_txlvl(port);
++		if (txlen < SC16IS7XX_TX_TRIGGER_LEVEL)
++			break;
+ 	}
+=20
+ 	uart_port_lock_irqsave(port, &flags);
+@@ -1139,6 +1157,10 @@ static int sc16is7xx_startup(struct uart_port *port)
+ 			     SC16IS7XX_TCR_RX_RESUME(24) |
+ 			     SC16IS7XX_TCR_RX_HALT(48));
+=20
++	/* Sync hardware and software TX trigger levels */
++	sc16is7xx_port_write(port, SC16IS7XX_TLR_REG,
++			     SC16IS7XX_TLR_TX_TRIGGER(SC16IS7XX_TX_TRIGGER_LEVEL));
++
+ 	/* Disable TCR/TLR access */
+ 	sc16is7xx_port_update(port, SC16IS7XX_MCR_REG, SC16IS7XX_MCR_TCRTLR_BIT, =
+0);
+=20
+--=20
+2.43.0
