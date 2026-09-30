@@ -1,44 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E98A026ED46;
-	Wed, 30 Sep 2026 00:35:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6491B293458;
+	Wed, 30 Sep 2026 00:38:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790728544; cv=none; b=WBy5YkIkefZ7NFPRYPwqE58Z4HdL3XBvuLAs3FE9YCN5IKoH9McECyet7jRD+huQAF5iBozZDBlxArAfE2zojqVwImhRNSCsIvrHdOEm4nyMjgFKUpH+BpuzpqBC+3ur4GWT4j6iLYMT+izUHaHDcssX4KZMJScDzWd17xUYfU0=
+	t=1790728735; cv=none; b=mUtl00QBYJfmC2bgCqkTpiKDhZhW2bZwvn0Mrp8KK+l33kwRMw/fz43adbiqLQ1EMT/Fcf/gT4CYITrVg68gMlVBkGEi2O6WRipYRWqo59jkIz7LnAUIY1Lxfl0k/QFPubZ+rLhvHfvcC/qX/ILmm9Z/QCFpaCUGs0pdbZjkT50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790728544; c=relaxed/simple;
-	bh=UY4kEf4o17Ueqrxaz1S5FHuuiMkn/bARZckim7dOR9k=;
+	s=arc-20240116; t=1790728735; c=relaxed/simple;
+	bh=QOeaVmFIaBL7oqMH+zKUhKp040UX1CCwuVq/9yJDKbM=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=u40toExlUYuohr9Q87TpHAEN+/wIwWNP8IgT6W4dU6qo0Xan20sy/zIWLs62efHvu51pTaeN48dGN7eXk+R9R4DC6DpEtjSX4pkkCLnFPmAkPKbn6rC+Jt0aPQ2+VnIwptpYpJyp2PZL0zGQ1eEl+8tWQUocgSoQghg/xrI7Y14=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hIfcwLnb; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=CR/+2i/UET7n2nGf17mb+Cn/XeogZ5r38J9CVjVSDRDOghcvzeWV2V89a4gwvDZPI80COdp2OrlO0ww+ILPVBjoijLIuOLKXvNbevjcLgr8jO3HhLgLqBQmbaQcvv++2i+r8Tgvvrtp/iEy/qDcbFsEToO45rOTkFlop5ecU+Ak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l5jjgGdl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hIfcwLnb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 401571F000FF;
-	Wed, 30 Sep 2026 00:35:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l5jjgGdl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4D711F000FF;
+	Wed, 30 Sep 2026 00:38:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790728542;
-	bh=q0xMTP6T56JNk6y3Kd0qtlVFnQS8SfW8P8FGeo17Hbc=;
+	s=k20260515; t=1790728733;
+	bh=ySMC+3pDeUNfqhFGyV+XZJLe1lbeVK0MZMq/Y1ewzJk=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=hIfcwLnbCWI1TbBkB5aZWKi1aj0fsaXErc09NdBrHodotUiSwiVmANi36SJxot/T3
-	 n/Sjdj4r/ybWqb0/RgJDa7Yz0yg3wLjGi/tFYa0iGEbry/sNrTjJt5B+tIC7EwGagg
-	 Q6malW8Mx18GCfn6vTE31Dbk1QgRex5T9pZOXAI7MBCdbqRUL0gbDpmeX2l3McLi29
-	 wE+g33TJS664pBBh65RyHRBbSeHcYhFF+fU/pZtJGQ1TylWnsHSmy4sQON6cNmnOJ7
-	 bPu76PrCLP00teKpyKJ20YSWm/Mixr1qDOj4lUddunu4UKj7usigVLCiIEsq5utOtH
-	 4e2ANLk98QpOg==
+	b=l5jjgGdl8BF1iPaXt87uyE0IHCygIU2uAcS4o8/jEwSM6P7XKu75TMFLIE1jUspIm
+	 LHP1FKeIgn9P1fi0QxSLq+hfdGzo2bPyhm3PNfuFx767mwfEDGalPfv2XwlqK+6fwS
+	 mqPjITgEmwQc3Gws2TLxdVfCDFSHBgS0XJ45mPJpNvde9XaVA3F29BvodDoKeS4qNQ
+	 9F1V29N82wqRi21DEWhUp9byvlOuV/hGlsnngi16+0unPG1tROHeBVNmhCILU8NVWS
+	 k/7bJfcV6jtMxlABe2ii9Er0cOFLEXIcgDgLkVoX0oCrOLyIZyJYS4/VnlRAYnivTd
+	 8JDyu+yHnvXSg==
 Subject:
- Re: [PATCH net] net-sysfs: release the TX queue tracker before allowing reuse
+ Re: [PATCH net] net/smc: Serialize early link group cleanup with termination
 From: netdev-bot+sashiko@kernel.org
 To: nicoyip.dev@gmail.com
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, broonie@kernel.org, brauner@kernel.org,
- atenart@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Date: Wed, 30 Sep 2026 00:35:41 +0000
-Message-ID: <179072854183.434549.13632882104417529326@kernel.org>
-In-Reply-To: <20260926173315.2452612-1-nicoyip.dev@gmail.com>
-References: <20260926173315.2452612-1-nicoyip.dev@gmail.com>
-X-sashiko-severity: Medium
+Cc: alibuda@linux.alibaba.com, dust.li@linux.alibaba.com,
+ sidraya@linux.ibm.com, mjambigi@linux.ibm.com, tonylu@linux.alibaba.com,
+ guwen@linux.alibaba.com, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, ubraun@linux.ibm.com,
+ kgraul@linux.ibm.com, linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Wed, 30 Sep 2026 00:38:52 +0000
+Message-ID: <179072873236.434549.5842458403458661428@kernel.org>
+In-Reply-To: <20260927063607.3691520-1-nicoyip.dev@gmail.com>
+References: <20260927063607.3691520-1-nicoyip.dev@gmail.com>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -48,10 +50,10 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
+Thank you for your contribution! Sashiko AI review found 2 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 (1) · Low: 0
+Critical: 0 · High: 1 · Medium: 1 · Low: 0 (1)
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -59,127 +61,177 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] The patch fixes the ordering in netdev_queue_release() (TX)
-  but leaves the same ordering in the RX sibling, rx_queue_release() in…
+- [High] The patch covers only one of the two callers of
+  smc_lgr_cleanup_early().
+- [Medium] Early cleanup can free the link group while a
+  smc_lgr_free_work() callback that has already started is still using…
 
 Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but the lockless
-  reuse gate built on kobj->state_initialized does not act as a real…
+- [Low] In __smc_lgr_terminate() (net/smc/smc_core.c:1573-1574), the
+  comment says "cancel free_work sync, will terminate when lgr->freeing…
 
 --
 
-net-sysfs: release the TX queue tracker before allowing reuse
+net/smc: Serialize early link group cleanup with termination
 
-The patch changes the order of operations in netdev_queue_release(). The
-dev_tracker is now freed and an smp_mb() issued before the kobject is
-cleared, and the device reference is dropped last. This keeps a concurrent
-netdev_queue_add_kobject() from installing a new tracker that the old
-release then frees.
+This commit makes smc_lgr_cleanup_early() check and claim lgr->freeing
+under lgr_lock before it calls __smc_lgr_terminate(). This stops early
+cleanup from racing with the other teardown paths. It also makes
+smc_conn_abort() hold a temporary link group reference across
+smc_conn_free() and early cleanup.
 
-> diff --git a/net/core/net-sysfs.c b/net/core/net-sysfs.c
-> index 352173df75785..b9aadc4c000c4 100644
-> --- a/net/core/net-sysfs.c
-> +++ b/net/core/net-sysfs.c
-> @@ -1906,8 +1906,11 @@ static void netdev_queue_release(struct kobject *kobj)
->  {
->  	struct netdev_queue *queue = to_netdev_queue(kobj);
+> diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
+> index e9f93b3ab435b..97b0a0b510664 100644
+> --- a/net/smc/af_smc.c
+> +++ b/net/smc/af_smc.c
+> @@ -1011,12 +1011,16 @@ static void smc_conn_abort(struct smc_sock *smc, int local_first)
+>  	struct smc_link_group *lgr = conn->lgr;
+>  	bool lgr_valid = false;
 >  
-> +	netdev_tracker_free(queue->dev, &queue->dev_tracker);
-> +	/* Finish using the tracker before allowing the queue to be re-added. */
-> +	smp_mb();
->  	memset(kobj, 0, sizeof(*kobj));
+> -	if (smc_conn_lgr_valid(conn))
+> +	if (local_first && smc_conn_lgr_valid(conn)) {
+>  		lgr_valid = true;
+> +		smc_lgr_hold(lgr);
+> +	}
 
-[Severity: Medium]
-This is a pre-existing issue and was not introduced by this patch. Does
-the state_initialized check really publish the rest of the kobject reset?
+[Severity: High]
+This adds a reference for the smc_conn_abort() caller, because the new
+lgr->freeing check needs the link group to still be allocated. Does the
+other caller of smc_lgr_cleanup_early() need the same protection?
 
-The smp_mb() orders the tracker free before the memset() as a whole. The
-memset() clears state_initialized, and it also zeroes name, entry, parent,
-kset, ktype, sd, kref and, with CONFIG_DEBUG_KOBJECT_RELEASE, the trailing
-struct delayed_work release. Nothing orders those stores against each
-other.
-
-netdev_queue_add_kobject() (and rx_queue_add_kobject()) reads the bit
-under RTNL without any marking, then writes to the same storage:
-
-	if (unlikely(kobj->state_initialized)) {
-	...
-	netdev_hold(queue->dev, &queue->dev_tracker, GFP_KERNEL);
-
-	kobj->kset = dev->queues_kset;
-	error = kobject_init_and_add(kobj, &netdev_queue_ktype, NULL,
-
-On a weakly ordered CPU, could the re-adder see state_initialized cleared
-while older zeroing stores from the release are still pending? A late zero
-could then overwrite the new kset, entry, name or parent.
-
-With CONFIG_DEBUG_KOBJECT_RELEASE and a preemptible kernel, there is a
-second case. The old release could be preempted partway through the
-memset(), after it clears the bitfield word but before it reaches
-kobj->release. If the queue is then re-added and removed again under
-RTNL, kobject_release() does:
-
-	INIT_DELAYED_WORK(&kobj->release, kobject_delayed_cleanup);
-
-	schedule_delayed_work(&kobj->release, delay);
-
-Would the resumed memset() then zero a live timer and work item?
-
-The plain read of the bitfield also races with the memset() store, so
-KCSAN may report it.
-
-> -	netdev_put(queue->dev, &queue->dev_tracker);
-> +	__dev_put(queue->dev);
->  }
-
-[Severity: Medium]
-The same ordering is still present in rx_queue_release() in
-net/core/net-sysfs.c:
-
-net/core/net-sysfs.c:rx_queue_release() {
+net/smc/smc_core.c:smc_conn_create() {
     ...
-	memset(kobj, 0, sizeof(*kobj));
-	netdev_put(queue->dev, &queue->dev_tracker);
+		write_lock_bh(&lgr->conns_lock);
+		rc = smc_lgr_register_conn(conn, true);
+		write_unlock_bh(&lgr->conns_lock);
+		if (rc) {
+			smc_lgr_cleanup_early(lgr);
+			goto out;
+		}
+	}
+	smc_lgr_hold(conn->lgr); /* lgr_put in smc_conn_free() */
+    ...
 }
 
-rx_queue_add_kobject() uses the same lockless reuse check before it
-installs a new tracker in queue->dev_tracker:
+The hold is only taken after registration succeeds. On the failure path,
+smc_lgr_cleanup_early() runs without a reference of its own.
 
-	if (unlikely(kobj->state_initialized)) {
-		netdev_warn_once(dev, "Cannot re-add rx queues before their removal completed");
-		return -EAGAIN;
-	}
-	...
-	netdev_hold(queue->dev, &queue->dev_tracker, GFP_KERNEL);
+For SMC-R first contact, smc_lgr_register_conn() fails through
+smcr_lgr_conn_assign_link() only when the new link is no longer
+SMC_LNK_ACTIVATING. As far as I can tell, that happens only when
+__smcr_link_clear() resets the link inside a teardown's smc_lgr_free(). That
+teardown drops the link's lgr reference and then the initial one. For
+example:
 
-RX attributes don't go through sysfs_rtnl_lock(), so the trigger described
-in the commit message doesn't apply to them. With
-CONFIG_DEBUG_KOBJECT_RELEASE, though, kobject_release() defers the cleanup
-to a delayed work item that runs without RTNL:
+smc_smcr_terminate_all(NULL)   /* reboot notifier via smc_lgrs_shutdown() */
+    list_splice_init(&smc_lgr_list.list, &lgr_free_list);
+    lgr->freeing = 1;
+    __smc_lgr_terminate(lgr, false)
+        smc_lgr_free()
+            smcr_link_clear()->__smcr_link_clear()  /* link UNUSED, lgr put */
+            smc_lgr_put(lgr); /* theoretically last lgr_put */
+                __smc_lgr_free()->kfree(lgr)
 
-netif_set_real_num_rx_queues()
-  net_rx_queue_update_kobjects()
-    kobject_put()                 /* under RTNL */
-      kobject_release()
-        schedule_delayed_work(&kobj->release, delay)
+The connecting thread (connect() or the smc_hs_wq listen worker) then sees
+registration fail and calls smc_lgr_cleanup_early() on the freed lgr. There,
+smc_lgr_list_head() reads lgr->is_smcd and the new check reads
+lgr->freeing.
 
-kobject_delayed_cleanup()         /* later, without RTNL */
-  kobject_cleanup()
-    rx_queue_release()
+The commit message says:
 
-Can a later netif_set_real_num_rx_queues(), for example from ethtool -L,
-re-add the rx queue between the memset() and the netdev_put() in that work
-item? If so, the old release would free the new tracker.
+    The extra reference keeps the group alive until early cleanup has
+    checked teardown ownership.
 
-With CONFIG_NET_DEV_REFCNT_TRACKER, the old tracker would leak. The next
-rx queue release would then hit the same "ref_tracker: reference already
-released" warning.
-
-Should rx_queue_release() use the same order as the TX fix:
-netdev_tracker_free(), then smp_mb(), then memset(), then __dev_put()?
+The smc_conn_create() caller has the same lifetime requirement. Is a
+use-after-free from early cleanup racing with termination still reachable
+through that path? The window is narrow. It looks like it needs a teardown
+such as a reboot to run during an SMC-R first-contact handshake.
 
 >  
->  static const struct ns_common *netdev_queue_namespace(const struct kobject *kobj)
+>  	smc_conn_free(conn);
+> -	if (local_first && lgr_valid)
+> +	if (lgr_valid) {
+>  		smc_lgr_cleanup_early(lgr);
+> +		smc_lgr_put(lgr);
+> +	}
+>  }
+>  
+>  /* check if there is a rdma device available for this connection. */
+> diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
+> index 9974149659c2f..b166a379753c7 100644
+> --- a/net/smc/smc_core.c
+> +++ b/net/smc/smc_core.c
+> @@ -688,6 +688,11 @@ void smc_lgr_cleanup_early(struct smc_link_group *lgr)
+>  
+>  	smc_lgr_list_head(lgr, &lgr_lock);
+>  	spin_lock_bh(lgr_lock);
+> +	if (lgr->freeing) {
+> +		spin_unlock_bh(lgr_lock);
+> +		return;
+> +	}
+> +	lgr->freeing = 1;
+
+[Severity: Medium]
+Can early cleanup free the link group while a smc_lgr_free_work() callback
+that has already started is still using it?
+
+After freeing is claimed here, __smc_lgr_terminate() only does a
+non-synchronous cancel:
+
+net/smc/smc_core.c:__smc_lgr_terminate() {
+    ...
+	/* cancel free_work sync, will terminate when lgr->freeing is set */
+	cancel_delayed_work(&lgr->free_work);
+	lgr->terminating = 1;
+    ...
+}
+
+free_work is queued on system_percpu_wq, not lgr->tx_wq. So
+destroy_workqueue(lgr->tx_wq) in smc_lgr_free() does not flush it. The
+callback also holds no lgr reference.
+
+Suppose the callback has started but has not yet reached the freeing check:
+
+net/smc/smc_core.c:smc_lgr_free_work() {
+    ...
+	smc_lgr_list_head(lgr, &lgr_lock);
+	spin_lock_bh(lgr_lock);
+	if (lgr->freeing) {
+    ...
+}
+
+Teardown can then run to completion. smc_lgr_free() drops the initial
+reference, and the new smc_lgr_put() in smc_conn_abort() drops the last
+one. __smc_lgr_free() then frees the lgr and its embedded free_work, and
+the callback goes on to dereference freed memory.
+
+The commit message says:
+
+    This also prevents early cleanup from racing with the delayed free
+    worker
+
+It looks like the freeing flag only prevents a second teardown while the
+object is still allocated. It does not keep the lgr alive for a worker that
+lost the race. Is the commit message accurate here?
+
+To trigger this, the SMC_LGR_FREE_DELAY_* timer has to expire during the
+creator's abort. That looks like it needs an unusual stall or a jiffies
+jump.
+
+[Severity: Low]
+This isn't a bug introduced by this patch, but the comment in
+__smc_lgr_terminate() quoted above says "cancel free_work sync". The code
+calls cancel_delayed_work(), which does not wait for a callback that is
+already running.
+
+What protects a pending smc_lgr_free_work() is its own re-check of
+lgr->freeing under lgr_lock, not a synchronous cancel. Early cleanup now
+reaches this code after claiming freeing. Could the comment be updated to
+match the code?
+
+>  	/* do not use this link group for new connections */
+>  	if (!list_empty(&lgr->list))
+>  		list_del_init(&lgr->list);
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260926173315.2452612-1-nicoyip.dev%40gmail.com
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260927063607.3691520-1-nicoyip.dev%40gmail.com
