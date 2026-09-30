@@ -1,132 +1,155 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D5254C67F3;
-	Wed, 30 Sep 2026 15:29:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790782176; cv=none; b=PJ4cp4t80BifAISSl5UQY8v7B5DrIxbcUutt9/j9TkC7QCZ/KxAi142l0MZjis+jk57/jiwab180nlIjWhSPZIT7aB6Lr8IQQzDAsgSpf7zUy1Es7bRXLHYLjhtj53/Ec1GtgeE4+oinsu750+FvzOyrPoOB/zBDp6YQA8sd0+c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790782176; c=relaxed/simple;
-	bh=rgOEJWLF8fMjQxtHHXuWmE11tv/fj/B2PNNtkYOwXsQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P6aNpwzD1mdHTwWh4siOizX5W2W5dw/oTegkQx56FEWJmjhQ2fXeyQyA7wD86cj9mhjgxZkEI1iFcQUpMC0q+1UfH6HEq6lHphYlTC3dwyanhUMgIkpQ3mKb0pbaS3jf+r3q68gcPN8t6vqBcb1XA8dAS8s2Od/NB8nVyYnQER8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=ro0Xaq7j; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D86AF4F30C3
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 15:30:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790782255; cv=pass; b=iP3mm9Ojeqz5b5DkYGckzSlCQYUE4XHyWJZrXFuxkjI6BaBkIAwZO3X8m7uDCCnWOtWl/m+MRH+1ZHr1PtNOts3XOY1RJ8MaSToQaOHk3Jq5hUzQZs5uY7ITXFHHI+/tnGb2CusBesPE6M9eyff3KPTLnWicbn3V9qaDmqMfQ2o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790782255; c=relaxed/simple;
+	bh=00CT11zds5LLvEUih7SkHxE2iwVGb/CEnwh2GAbFAFg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tySdk40qog7HBpm1DgOgZeZ0B5TwUhmpTI6zK4K6co1TxmWU46HqgXUKa90lo3DEvSGLoAQHzeTLaZpgP9vchrhRVKOrG9BelmXDRudm5SDhukSd627yBmhbzLCh7pPlzTEx9z5XQ7g+ffJjTElU14QHp6M6kITjtGLCyWg9m8s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=BH1dIPdw; arc=pass smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="ro0Xaq7j"
-Received: from ideasonboard.com (unknown [93.65.100.155])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 2BA6B593;
-	Wed, 30 Sep 2026 17:27:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790782050;
-	bh=rgOEJWLF8fMjQxtHHXuWmE11tv/fj/B2PNNtkYOwXsQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ro0Xaq7jepzZHoQYwP4oaYSE8okA/yRG9K2EU1Pi4LG2Eze2kVxKkZlpTEphjbvM2
-	 GNnEWGlD11DH+ibPAJ8JRmmu2GPh3zvIPfeCxG3Hz5FPTxAtS1P1C7FskMRNpb4VhP
-	 ZuaarDRks4i2pk47k1UAk8EeNF7dv52CEvVofgO0=
-Date: Wed, 30 Sep 2026 17:29:18 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: David Carlier <devnexen@gmail.com>
-Cc: linux-media@vger.kernel.org, dan.scally@ideasonboard.com, 
-	jacopo.mondi@ideasonboard.com, mchehab@kernel.org, nayden.kanchev@arm.com, 
-	hverkuil+cisco@kernel.org, stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] media: mali-c55: Check the statistics buffer address
- before filling
-Message-ID: <ar0qrapmUzt_TMdY@zed>
-References: <20260906092429.50046-1-devnexen@gmail.com>
- <20260906092429.50046-2-devnexen@gmail.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="BH1dIPdw"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a018493d57so13615e9.0
+        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 08:30:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790782246; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Vi3TXEvppzWWlNImNCGSIQOG2bAN62PIogO/SMPXZB+ZTZg4TDe63e0vBRD0Ff4HQs
+         l6s2jzF+sAM7MoYQEQXXO2kVD6IQaEqDfcaC5TbfhNq5IQhprJ49N5zt3kgcImueqsYY
+         sNfZFt1yYz65Ey8+udBactfCqGJLD9FkQPmZHMkHrAOgRti9+LzXrEeyWW8H4TvaUFyJ
+         cYS7KFQFcZuMwbj6M4YK/UfdqUL3DnpAH9QuhlxFl8C1tcMhR0eK31Tqi6jI1sY3AHab
+         R6eMG4uwkt3Yllt5FyChdVFx4moeX9aUvcrkdtfVzu2X+cJQBj3UlmfAvec0FGNHyfBA
+         RhGA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=00CT11zds5LLvEUih7SkHxE2iwVGb/CEnwh2GAbFAFg=;
+        fh=TaWe0PIqxP3qzlWlvhjjxLHX8ShZgt3cw8Zhqv3dGmQ=;
+        b=pA5l67dfOU4jmIPKu6qo8DhAQlzKK+LiQzTw903DkPhN46pNRvM23qeANTAM82UWuR
+         BUSWsv4uFvuDRjstJAc5bNGtttCR73krTLM4AuL/sYU+NTdUgPrWXolVc4cryUZfDV3M
+         aCi6mnIILJXUpsXZUgCq0+BFUVkoamFx3/aW91yu5Ww2yqUzcYVpnAgl74GhYogBYv8l
+         DuyR60hIn3XrUN1DMHauu9v+5iXS4k3ZsasvsCAoHB/eFkXiZX7GRviTE5u9pXy1lWi5
+         kvSMHKbFm3OCzAaW+1czYFrDXn8hqeNX5OyXTbCDddUsgYv0LiVzbvJHQkw2cTS2dUUy
+         gbHA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790782246; x=1791387046; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=00CT11zds5LLvEUih7SkHxE2iwVGb/CEnwh2GAbFAFg=;
+        b=BH1dIPdwLOQI5jiwdl/+Y440AwkV/P9oDNq8vMeQG6+MDtNayf+QFybKW/MouG+Lvr
+         +LpQ8MwTUSug85rMbjVIa2++rcVhI2sC89+TKeiQK0AwvrDsqlcc7t93zRD+pFrEEvcw
+         BfSo3QrU28xenu9t29td6/OoD/ki/vdL5xqJvOsgIqdbVqV8LF3DG3eX2GAAzeRgBvdH
+         SEPItpKwT0Zyx05VrrfyiLgZsuXw1cq69Ua/Z10N+Ic/J15Xa8OIXiXAA4Pls91sB916
+         CLv3kXoIdbnX+/5YXfS/JPUWnyOIrP+/CYUhFQ4PZemW2kZlmU//wjoeWUwLLmQPkcnY
+         0w6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790782246; x=1791387046;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=00CT11zds5LLvEUih7SkHxE2iwVGb/CEnwh2GAbFAFg=;
+        b=O9RYAp//oh4bVNM99z96lX5lWDFEpsyh5gT2fFT0MbeS2HYcTUCcA2PJjmJAciRl8V
+         5SsD7X9qFnpgXiwt9SlHepxhbe1t9Bl4fjF07T+yDdv3JfvTt92kWRPTdnG9C0gmtCi0
+         xt57KBldURwjWT5b+mFY0nm9o1c9Yx7RAoL/8v8tEWdnR5mBs8r1gdipytD/rsvxwN+4
+         VEtq39xdrWQP2uNo+qaiMEumuqdXDNGbWM87/Fo02W+sKOdfXeDzJyWjK3N5fjRMajmG
+         kkGminq1KgV0nb1Tiz0jEgR+GgBqfaloZ6RmI9fDRJugb2ggQmWVRKZkx/DwLR7K3oEL
+         9ERA==
+X-Forwarded-Encrypted: i=1; AKwUvBySQXe6xrZvDUhwfD7O7P3fdwzeKXLN9EBlVd3ym2yxVlHNWsiU5kQP9qCoBwydR5Q4CqgQTdc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lNq9qxIRuVByTtTj9yMjivc4DOa7A9cmy5J84XcxeGiK+n/Y8t
+	h6dH6hJIHTax65q/Tkus3IKH0cZ40/8Njn6FC0Xr7h+wRrab9WdgXGxjrpSl7IEExqvvgQ0V7w2
+	uB+1jlCCM9AGgAi5pbFJxDl35ERS2BdmNedLOWg8q
+X-Gm-Gg: AYBFou39ocqpF2v+3LAaqMdUW2X9XFKnPhdquUGzog8wjwQ/6C4IRvWEAlXPtF8inTH
+	6Jq1lSFysUQU/xC97JtIEHi8VT0wdeJGgOXnDJXLvzpIszBUjILInRZEzvf2CD0apvnODZa25Em
+	2k27Q6aAM2AfdDDJkBcAUGfo9QKOEManj+uwutkoUQ6kEuco13q7FLgj8T/iK58qVok8nMYdp5H
+	jCUaflpD1jcpgXh5KMGt+8IzF4k6X9EnnkxPIRDSkowAhw/o3VuCuGsxRKI6qX1XBtilREZCMXQ
+	0tKJ4ofSsdUETBiD9fK6IFVG3DlUO2l+sZLQFoIyzBfzRW2eifQV3XlPq+9Tea4WQqq4SIXe2Fl
+	xwnH/xgjzjg==
+X-Received: by 2002:a7b:ce89:0:b0:4a0:1004:c2d4 with SMTP id
+ 5b1f17b1804b1-4a014a8ac71mr876185e9.5.1790782245240; Wed, 30 Sep 2026
+ 08:30:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260906092429.50046-2-devnexen@gmail.com>
+References: <20260928233743.3777102-1-stevensd@google.com> <20260929081004.GS4120091@noisy.programming.kicks-ass.net>
+ <20260929081740.GH4121620@noisy.programming.kicks-ass.net>
+ <ar0bPEyD5CBK331p@cmpxchg.org> <20260930151902.GO88198@noisy.programming.kicks-ass.net>
+In-Reply-To: <20260930151902.GO88198@noisy.programming.kicks-ass.net>
+From: David Stevens <stevensd@google.com>
+Date: Wed, 30 Sep 2026 08:30:33 -0700
+X-Gm-Features: AclHuK9iAsAIpzefYDTrYfo6uYpC5DrbFBPO-pYQ944j_YWb1VpgmqVfpwJuq_g
+Message-ID: <CAOiLmNF7m96HVP0Wv+6+r5bYdXuyJ=mzOwg8iJd+aMdsdWmVbg@mail.gmail.com>
+Subject: Re: [PATCH] sched/psi: clamp negative cpu_clock() skew
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Ingo Molnar <mingo@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi David
+On Wed, Sep 30, 2026 at 8:19=E2=80=AFAM Peter Zijlstra <peterz@infradead.or=
+g> wrote:
+>
+> On Wed, Sep 30, 2026 at 10:22:52AM -0400, Johannes Weiner wrote:
+> > On Tue, Sep 29, 2026 at 10:17:40AM +0200, Peter Zijlstra wrote:
+> > > On Tue, Sep 29, 2026 at 10:10:04AM +0200, Peter Zijlstra wrote:
+> > >
+> > > > > When running browser workloads on an Intel N100 with a sustained
+> > > > > psi.mem.some of 2-3%, this underflow is observed once every coupl=
+e of
+> > > > > hours.
+> > >
+> > > Reading is hard. This is sad, that's a relatively modern chip :-(
+> >
+> > I'm still struggling, but I'm under the weather so bear with me.
+> >
+> > That's a cpu_clock() implementation issue, right? "The value for
+> > cpu_clock(i) is monotonic for constant i". Presumably violating that
+> > would be a problem beyond psi?
+>
+> Yeah, although most everybody has a filter on top for some reason or
+> another.
+>
+> Mostly it could happen that when the watchdog would detect the TSC
+> wasn't stable after all, you'd be up a creek if you didn't also have
+> this filter.
+>
+> But I'm very sad to see modern chips have shit TSC, that wasn't supposed
+> to happen.
 
-On Sun, Sep 06, 2026 at 10:24:25AM +0100, David Carlier wrote:
-> mali_c55_stats_cpu_read() copies the metering registers into the buffer
-> returned by vb2_plane_vaddr() without checking it. As for the parameters
-> queue, a DMABUF whose exporter cannot be vmapped yields NULL, and the
-> memcpy_fromio() then dereferences it from the threaded interrupt
-> handler.
->
-> Report the failure to mali_c55_stats_fill_buffer() and complete the
-> buffer with VB2_BUF_STATE_ERROR.
->
-> Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Carlier <devnexen@gmail.com>
+I ran artificial memory pressure tests on the other two devices I have
+at hand - one with an Intel i5-1245U and one with an Intel Ultra 5
+325. Both devices also observed negative elapsed durations. The
+artificial workloads were much heavier and actually produced negative
+elapsed durations every couple of minutes. So this doesn't look like a
+platform-specific issue.
 
-Same as the previous one
-Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+For reference, the negative elapsed durations I saw averaged a little
+under 100ns. The largest duration I saw was 371ns.
 
-> ---
->  .../platform/arm/mali-c55/mali-c55-stats.c     | 18 +++++++++++++-----
->  1 file changed, 13 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-stats.c b/drivers/media/platform/arm/mali-c55/mali-c55-stats.c
-> index 655e52a5f288..a9c28b090b2a 100644
-> --- a/drivers/media/platform/arm/mali-c55/mali-c55-stats.c
-> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-stats.c
-> @@ -200,9 +200,9 @@ static const struct vb2_ops mali_c55_stats_vb2_ops = {
->  	.stop_streaming = mali_c55_stats_stop_streaming,
->  };
->
-> -static void mali_c55_stats_cpu_read(struct mali_c55_stats *stats,
-> -				    struct mali_c55_stats_buf *buf,
-> -				    enum mali_c55_config_spaces cfg_space)
-> +static int mali_c55_stats_cpu_read(struct mali_c55_stats *stats,
-> +				   struct mali_c55_stats_buf *buf,
-> +				   enum mali_c55_config_spaces cfg_space)
->  {
->  	struct mali_c55 *mali_c55 = stats->mali_c55;
->  	const void __iomem *src;
-> @@ -211,12 +211,18 @@ static void mali_c55_stats_cpu_read(struct mali_c55_stats *stats,
->
->  	src = mali_c55->base + MALI_C55_REG_1024BIN_HIST;
->  	dst = vb2_plane_vaddr(&buf->vb.vb2_buf, 0);
-> +
-> +	if (!dst)
-> +		return -EFAULT;
-> +
->  	memcpy_fromio(dst, src, MALI_C55_1024BIN_HIST_SIZE);
->
->  	src = mali_c55->base + metering_space_addrs[cfg_space];
->  	dst += MALI_C55_1024BIN_HIST_SIZE;
->  	length = sizeof(struct mali_c55_stats_buffer) - MALI_C55_1024BIN_HIST_SIZE;
->  	memcpy_fromio(dst, src, length);
-> +
-> +	return 0;
->  }
->
->  void mali_c55_stats_fill_buffer(struct mali_c55 *mali_c55,
-> @@ -224,6 +230,7 @@ void mali_c55_stats_fill_buffer(struct mali_c55 *mali_c55,
->  {
->  	struct mali_c55_stats *stats = &mali_c55->stats;
->  	struct mali_c55_stats_buf *buf = NULL;
-> +	int ret;
->
->  	spin_lock(&stats->buffers.lock);
->  	if (!list_empty(&stats->buffers.queue)) {
-> @@ -239,8 +246,9 @@ void mali_c55_stats_fill_buffer(struct mali_c55 *mali_c55,
->  	buf->vb.sequence = mali_c55->isp.frame_sequence;
->  	buf->vb.vb2_buf.timestamp = ktime_get_boottime_ns();
->
-> -	mali_c55_stats_cpu_read(stats, buf, cfg_space);
-> -	vb2_buffer_done(&buf->vb.vb2_buf, VB2_BUF_STATE_DONE);
-> +	ret = mali_c55_stats_cpu_read(stats, buf, cfg_space);
-> +	vb2_buffer_done(&buf->vb.vb2_buf,
-> +			ret ? VB2_BUF_STATE_ERROR : VB2_BUF_STATE_DONE);
->  }
->
->  void mali_c55_unregister_stats(struct mali_c55 *mali_c55)
-> --
-> 2.55.0
->
->
+If I'm following the code correctly, cpu_clock() on x86 ends up
+calling rdtsc() via sched_clock(). The rdtsc() function is documented
+to produce non-monotonic results when compared across CPUs, since the
+rdtsc instruction can read the tsc out of order relative to other
+instructions. If that results in get_recent_times() reading the tsc
+before it reads the psi state, then I think that would explain the
+negative skew. I added a rbm() immediately before the call to
+cpu_clock() in get_recent_times() to match the behavior of
+rdtsc_ordered(), and with that I didn't see any negative elapsed
+durations during overnight testing. This does suggest that calling
+through to sched_clock() might not provide strong enough guarantees on
+x86 to satisfy the cpu_clock() contract.
+
+-David
