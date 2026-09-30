@@ -1,75 +1,45 @@
-Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52DCA4D9540
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 16:27:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07F1E5038F7;
+	Wed, 30 Sep 2026 16:27:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790785657; cv=none; b=L9OTyJtrrWhsEsAZKEYrphKabtzHO7AquYS9AM398PpKF9xGV5wHLN/yJb+R+iuQWpNEUzjxDjhr38U6RXc9XcvYkX9WjIK3RW4uHT/OqaI0+q+k/S3fNXyhIuyqI79avKdu37ZZXn1KW2V63NOi2NCA2rC1wyEV0/nJIIKZKpY=
+	t=1790785658; cv=none; b=pyL8uBondmWIulcrl0kv0QA+JpNiI5F777XcUiHvLI/qtmgWmijs1i/wbQm8E9B0FxUC7mVRuoBh6a7DqnUSNl13m05ODFC8dWg30d4CSxHlE3HGShJzwHkzuFmgLDeB9rEF+6wVvTFQ4tN6HzxaKisEb7rcBNWD6hm7j5SCcA4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790785657; c=relaxed/simple;
-	bh=EF47LMwptAM1nQReMhccLj8feX+VPSlM1UdRK/A3Xl8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ETD4SX8MWJ3GpLAa9ywCuwei63A5uFenczS1AhIu+Mcx1ngYoahBvoS/OstZ8O9u91tBESjgLZryGZWciYkdn7EK9XdQy/LuyLO0y4/KkCxn5zLVr47nh9AoJ9/RQVmz83tlMXRqZlYBWxLG4U/1KONT7OGL09RCNkS9vtHLla4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EreaLwy5; arc=none smtp.client-ip=74.125.227.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790785658; c=relaxed/simple;
+	bh=2b1kuQvwAVVrEM8qeSGEfLwJC0WjwAs8jVbvLMM/88A=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=trRn1vMf32EugQazIksXE0BNTQgv81CB3FB81QkQA3zKEtIkDXA0qFCA6Z/MiB2XttL92+KguJ5oEjRlyjicT+U924URtOgLP4TR8bR3Fxm59mgSNLcgp9SI21rAjVk796Zio2gn1C5gUM5NFn6YamgHVPGEXNoj6bqn6SXy74U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=eMu8m4ql; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EreaLwy5"
-Received: by mail-pj2-f40.google.com with SMTP id 98e67ed59e1d1-3a2adb9bc3cso2200798a91.2
-        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 09:27:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790785652; x=1791390452; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OrlU1pYKaIQMZzrdlwTiBa480D5W1n9HSK6HdsiooX8=;
-        b=EreaLwy5wXAiPjeXiINs9mj/XotAUuZ2TvTnqNiTiqhoDu5PE8X/2aHdG4DY1gdG5/
-         5CdcMhkIrHTXY+wY826pE6/ABwQCe3I5O331ULMbznzmnGPO+l+PF39zGRGWpSz6/NHX
-         vPQUFsm5KFdVP2pPP+UONqrRFN9TMoq9RCrZosf28xczbCDOq0gNz8EZ6dMjGgaaBxAO
-         HzgmcbG782VHtD5hyWJq/t8mJ1T/t4rXm/S6z+WjiIR0Gj4mb1oDyY4xjuckV7+64fwE
-         B0UoJeMj4/SVuoc2STC5Duq2KFLMKub/ymRxS0flSwQ1FqzQEMU174UJ2XqoAxxR3Ac/
-         7yaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790785652; x=1791390452;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OrlU1pYKaIQMZzrdlwTiBa480D5W1n9HSK6HdsiooX8=;
-        b=d3vP3AT+Izi7spXVCrYfzFS13i+ohKB7FxRC5vIaLJEwJbjrLq94mf3aC1ZcIxN7kj
-         8VR+tk6FBO5SR+uDIiZRGAPNB+VrE8ZqRWmiil9z5Cz71CiA09tp7mPDZV79H/pRe5rs
-         OVOyzzvjiH+kc4Mw+/PvVzW0H/UV8UoM4O8PDQt70z80m7SiPgz13fFVcvDwQ2Fjm6jW
-         Wor4UG9R011Gd+EPJLIDlzhOaI7skD/2Gp1MKyMQxedFP7BoerkIZJDVds1t+2pnmTlJ
-         ocDGvtD5t/p7ybJBd5S6T35JEgRIE4S/CXnWmoXF8X9I0zRHJfiGtoE//yn2EzaHpSSw
-         Rt6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBw6/k9HDuZmxwMCPMUEBWI0UbxgFaUmLqPlMXbGnALuEbwVQ9tdoW9pU84tbUMoqWNtQ1eDGSg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLTJryEOZx4ARtVz6Pg32qnIPpPmXGrQhrJZrra0wsbn0OGYANK
-	rU1WuTvaDDS4Z/CrvJkkck5ZMUOQCcGa44qy3OMwhhT7EwYUBbIP3yRi
-X-Gm-Gg: AYBFou1eiLoTWQexzJUorVJNK4xM13tr15QjV9x6QBz0CTK0OuWiL/m7mIxLIbkstg9
-	JClNM1U+6B5mWnWDjoh6eCKyCXhNhtQFPZ4wlVH6QgtT1jU1GUdBSgsInotHyQeTbqw3ztioLIb
-	Focox34j+w+vFFGZubZfd/6+cBqxMCIJAoNjLv2cwDWdoYdbwUpqaY8z2KZs8nHycsS6+L6yW3w
-	3IvRfROu2uoQJrPv09UTafWEg1ABsYprxXg5sJtX+GxgMogSG7eZBpN8XWgpoExN3TGNsvRieUo
-	BOEE67o7wqEVGjgR5WzIlzniDBFsDTWdkX+m6f+CblZobfARQCNbRfcReVOY5sYySZNdbeliyXA
-	0WYKGtkH7h3rmzASstnKW19J8S2jBB9P84mbwBD91IvQ1nDiOW3FraquPDjJBJ9jHmvTNi+kSdl
-	US2Ba/rUC8QhC8n7SAROpwkNUYkmwCtPLA9ft5DE3bgNlkfPN1nxkiWVpPpCz60QjUaUsxiQnjF
-	A==
-X-Received: by 2002:a17:90b:4b11:b0:3a0:d79d:b6bf with SMTP id 98e67ed59e1d1-3a4d14de36bmr811283a91.20.1790785651665;
-        Wed, 30 Sep 2026 09:27:31 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2a09:bac5:d45e:16c8::245:115])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4e66742acsm725485a91.4.2026.09.30.09.27.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 09:27:31 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: slava@dubeyko.com,
-	glaubitz@physik.fu-berlin.de,
-	frank.li@vivo.com
-Cc: linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+e390d66dda462b51fde1@syzkaller.appspotmail.com,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] hfs: don't give the extents overflow file overflow extents
-Date: Wed, 30 Sep 2026 23:27:26 +0700
-Message-ID: <20260930162726.144048-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="eMu8m4ql"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 922BE1F000FF;
+	Wed, 30 Sep 2026 16:27:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790785654;
+	bh=613PTElfDtyGz9+5HydwLOhuQj+P6ClMs5qrRVRPRWg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=eMu8m4qlnTWD2/MAimmrMxOx61p6Ya3MVUZY40yr1Dy3AhbodF+F7LhmtoNx+AMSh
+	 RAo3Cg8ydqxsIZQnuAyGqZE2OhXyrvZ6+tVWNwgrvdEpJu/U2EsR3BbM9VzM41ZlYr
+	 8SwaqXC7huIupm6Us+me2ywtx6iHVyBZpKkDOSQY=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	Stian Halseth <stian@itx.no>,
+	Jens Axboe <axboe@kernel.dk>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1 583/982] sunvdc: fix -EIO issue due to lack of retries
+Date: Wed, 30 Sep 2026 17:21:59 +0200
+Message-ID: <20260930152429.301452497@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
+References: <20260930152416.775402466@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,70 +48,78 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-hfs_bmap_reserve() grows a b-tree's backing file via hfs_extend_file()
-while the caller holds tree->tree_lock. For the extents tree itself,
-once its three MDB extents are full and hfs_add_extent() returns
--ENOSPC, hfs_extend_file() falls through to insert_extent and records
-an overflow extent for the extents file. The next extension then sees
-alloc_blocks != first_blocks and calls hfs_ext_read_extent(), which
-takes ext_tree->tree_lock again:
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-  hfs_ext_read_extent()           <- hfs_find_init(ext_tree)
-    __hfs_ext_write_extent()
-      hfs_bmap_reserve(ext_tree)
-        hfs_extend_file(ext inode)
-          hfs_ext_read_extent()   <- hfs_find_init(ext_tree): deadlock
+------------------
 
-The extents overflow file can't have overflow extents of its own; its
-extents live only in the MDB. Fail with -ENOSPC instead, returning the
-just-allocated blocks to the bitmap. hfs_btree_open() already rejects
-an extents fork larger than its MDB extents, so this keeps
-alloc_blocks == first_blocks for the extents file for the whole mount.
+From: Jens Axboe <axboe@kernel.dk>
 
-Reproducible with a plain mount + ftruncate on a fragmented volume with
-a small extents-file clump size.
+[ Upstream commit 5067d4ba713961d8ccea1e06cd4c453793f3121e ]
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: syzbot+e390d66dda462b51fde1@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=e390d66dda462b51fde1
-Cc: stable@vger.kernel.org
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+John reports that since commit:
+
+a11f6ca9aef9 ("sunvdc: Do not spin in an infinite loop when vio_ldc_send() returns EAGAIN")
+
+users of Linux inside Solaris ldom see occasional -EIO errors because
+the request send loop now times out. The current loop does 10 retries,
+and inside vio_ldc_send() a further 1000 1usec retries are done as well.
+Even with 10.5 msec of busy loop retries that's apparently not enough to
+always succeed.
+
+Rather than introduce continued busy looping, requeue the request and
+have the delayed queue kicking retry the request after another 10ms.
+This obviously isn't ideal, but there's seemingly no way to wait for
+this type of event. And if 10ms of busy looping was not enough to make
+progress, then presumably this is an edge condition and we just need to
+guarantee to make forward progress at some later point in time. That's
+more suitably done through letting the CPU tend to other work, rather
+than sitting in a tight loop retrying.
+
+[stian: rebased on top of the cookie-unmap fix, without which every
+ requeued attempt leaks LDC map table entries; tested on an
+ UltraSPARC T4 LDOM where the vdc_tx_trigger failure condition was
+ reproduced and absorbed by the requeue with no I/O error]
+
+Reported-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Link: https://lore.kernel.org/all/20251006100226.4246-2-glaubitz@physik.fu-berlin.de/
+Link: https://lore.kernel.org/all/418310b3-2b77-4534-b2fd-27dcc11e333c@kernel.dk/
+Signed-off-by: Stian Halseth <stian@itx.no>
+Link: https://patch.msgid.link/20260901173947.3292110-3-stian@itx.no
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Notes (not for the changelog):
+ drivers/block/sunvdc.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-Reproduced in QEMU (x86_64, lockdep) with syzbot C repro 11c3a202580000,
-and more simply with mount + ftruncate(0x100c17a) on the same image:
-"possible recursive locking detected" on ext_tree->tree_lock followed by
-the task stuck forever in D state. The image's extents fork is
-consistent (one 4-block extent), with a 2048-byte XT clump and a
-fragmented bitmap, so the three MDB extents fill up after a few
-extensions and insert_extent runs for the extents file.
-
-With the patch, 3 runs of all five syzbot C repros plus the direct
-mount+ftruncate case: no lockdep report and no hung tasks. ftruncate
-still returns 0, since hfs_file_truncate() already ignores a failed
-extension.
- fs/hfs/extent.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/fs/hfs/extent.c b/fs/hfs/extent.c
-index f066a99a863b..5e7a1f1eb395 100644
---- a/fs/hfs/extent.c
-+++ b/fs/hfs/extent.c
-@@ -457,6 +457,13 @@ int hfs_extend_file(struct inode *inode)
- 	return res;
+diff --git a/drivers/block/sunvdc.c b/drivers/block/sunvdc.c
+index f03bf77da8c4d..11bdbf5b2f963 100644
+--- a/drivers/block/sunvdc.c
++++ b/drivers/block/sunvdc.c
+@@ -557,6 +557,7 @@ static blk_status_t vdc_queue_rq(struct blk_mq_hw_ctx *hctx,
+ 	struct vdc_port *port = hctx->queue->queuedata;
+ 	struct vio_dring_state *dr;
+ 	unsigned long flags;
++	int ret;
  
- insert_extent:
-+	/* The extents file can't have overflow extents of its own */
-+	if (inode->i_ino == HFS_EXT_CNID) {
-+		hfs_clear_vbm_bits(sb, start, len);
-+		res = -ENOSPC;
-+		goto out;
-+	}
-+
- 	hfs_dbg("insert new extent\n");
- 	res = hfs_ext_write_extent(inode);
- 	if (res)
+ 	dr = &port->vio.drings[VIO_DRIVER_TX_RING];
+ 
+@@ -578,7 +579,13 @@ static blk_status_t vdc_queue_rq(struct blk_mq_hw_ctx *hctx,
+ 		return BLK_STS_DEV_RESOURCE;
+ 	}
+ 
+-	if (__send_request(bd->rq) < 0) {
++	ret = __send_request(bd->rq);
++	if (ret == -EAGAIN) {
++		spin_unlock_irqrestore(&port->vio.lock, flags);
++		/* already spun for 10msec, defer 10msec and retry */
++		blk_mq_delay_kick_requeue_list(hctx->queue, 10);
++		return BLK_STS_DEV_RESOURCE;
++	} else if (ret < 0) {
+ 		spin_unlock_irqrestore(&port->vio.lock, flags);
+ 		return BLK_STS_IOERR;
+ 	}
 -- 
-2.43.0
+2.53.0
+
+
 
