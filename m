@@ -1,42 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C12C14DDB44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C942D4DA9D2
 	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 13:13:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790773991; cv=none; b=En7XJw2lthyNwmRsHOAQ1dOGfZ47JvJGFubXfUplYiDhckwfAqQkCVpa8Q8RzVaVN9Kcnfy6dvUxXmL0BECCIeZo4rsK6+sV9sJWYQ3jUKBQ2GqEbiqYZCoSXg2pX89kR/3R53UBOUzBp1dqlZDpkFR9QsehDpWhH+fZiCBoyi0=
+	t=1790773992; cv=none; b=o99I5vhIyowE1RJtZfllLvRq0j01krDEknhRsVO6Aw143F1GE6wkqeop/R6P3f1/gySdasXOJpTykPDd0DEftmk//GM829aZKFt4ZU8V9/PfVgb1JC4ZIHoy+e0brih/cTW5tYpFS9BP4+B6l9RlqEu78X5gaDfmrOHlVE/YCdc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790773991; c=relaxed/simple;
-	bh=5XS94RpiLyMoZUvgX1xk8YVKP5Bl4fhIYoUZw2YPbCQ=;
+	s=arc-20240116; t=1790773992; c=relaxed/simple;
+	bh=G4d9zBopmqb3XCN0o6mWayxAYurtSJg/ua/mX6AMlxQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ri8YA3rOGitw1tZo550bhRI1RFIyLyD3jY9ELYXusJSgUh9RYQgQd7tIHLCdoNBsDvvwMrOJ2+KefDHM0BYbIfNKKgj4hNM2xIwN7gbpzvrTbUEb2i48HTQiTgdslMoLQcBXWyLzXPzgwy6rNYeTIwq6auXwUwIO88lp27JOu/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hcuIKWBd; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=dHBZbAMIbeMOZ0G8j7K3SePN0j0P0zTY0Jn0Ka7TeJNvhMFBmq+rvxAG4jbuup0WfVuLeYgwwODWKSu/lzQ5mAt04O0znVz1c5VV7NGZsc1b5cwOCrtJ8NZuIlZ/Vi/FO2u0/Wpd4KTRpUV2CQefSLWGeIdXagi8tqSpk48t4Jc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NeVRel43; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hcuIKWBd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36BEE1F0089A;
-	Wed, 30 Sep 2026 13:12:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NeVRel43"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 648F21F00898;
+	Wed, 30 Sep 2026 13:12:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790773980;
-	bh=yFmSkpyzonOCeUTKT7AmZB2htnJ0fBj8GhexPjqPDuE=;
+	s=k20260515; t=1790773979;
+	bh=DEefKooOeJuj0IjIUuHobNgJvLNbx52ZxQtA7liCY8o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hcuIKWBd7URExoX3fjNfnemFaFeHGjNcHhVTmBzRKA+/h+OKXD9sypIfR6XY88Ikq
-	 2kSpI67kIi31e/Utb4hnwax5Y62q9+vjYCVVLOY1E1h1d+2Wvk4Om5oTfXw2/mXqXG
-	 B5Mlp+EJzCMfNEXlpFxjLPWKltVPtitUvqpWd+UTig01xlESWWLq7gakDHQDV69VWE
-	 73lxkOodBBg5CQoVQGpIPx4FygkBnB94Q6PBn8a7Fv5KecSq8fVkE9uXNMY3L2wbbX
-	 fwEx6xRspznK5GbuVs/aCfY7CCOogQPC/q//WtcRKgl3PRdSdx47h4UP8K0sWR3Fbh
-	 7dLVYXsdSvzOQ==
+	b=NeVRel43JH+hyFzQ91M7gGgcBTIOyKPHQbtAt/Ypx2yJ0vjAo1HwmaqZwWNuzyF7q
+	 ePBWU6cvW45Y3HWKpFA+s0mhXFoKcDURGhZG8wzHVS33Mge7JGwHE1Z0tKF6LYNqKK
+	 TDlCZCr83RJVPnC6ObsXi4OVkT5lxm5V/SLmSTE2QtRSIu7WkJmul14KLaCYfZFaKW
+	 bWv1/sq9GANfmP7f5ATYLrRfl4AzB/4t2fMcMCknKHBDsLqsG23KSLXTObilRg4l5n
+	 AuMxYcSmoiULoMatn/G46g8FFjg/r+A9k/8VFNipSdU2ToAcpqy6PjDfrPI9zR8q2c
+	 BoE+EogRVTbCw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sean Christopherson <seanjc@google.com>,
 	Yosry Ahmed <yosry@kernel.org>,
-	Kai Huang <kai.huang@intel.com>,
-	Binbin Wu <binbin.wu@linux.intel.com>,
 	Paolo Bonzini <pbonzini@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 3/8] KVM: x86/mmu: Move kvm_arch_async_page_ready() below kvm_tdp_page_fault()
-Date: Wed, 30 Sep 2026 09:12:50 -0400
-Message-ID: <20260930131256.1728861-3-sashal@kernel.org>
+Subject: [PATCH 7.2.y 2/8] KVM: x86: Rework kvm_arch_interrupt_allowed() into kvm_is_interrupt_allowed()
+Date: Wed, 30 Sep 2026 09:12:49 -0400
+Message-ID: <20260930131256.1728861-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260930131256.1728861-1-sashal@kernel.org>
 References: <2026092945-unzip-pluck-7c40@gregkh>
@@ -51,106 +49,110 @@ Content-Transfer-Encoding: 8bit
 
 From: Sean Christopherson <seanjc@google.com>
 
-[ Upstream commit 31a2cf735cc00c01526bcb676f111d5c0b711d17 ]
+[ Upstream commit 5b9585bc5b883bb64f02bf171fd7c676caecd16f ]
 
-Move the implementation of kvm_arch_async_page_ready() "down" in mmu.c so
-that it lives below kvm_tdp_page_fault().  This will allow moving
-kvm_mmu_do_page_fault() into mmu.c without needing a forward declaration.
+Rename kvm_arch_interrupt_allowed() to kvm_is_interrupt_allowed() and
+change its return type to a boolean, as the purpose of the helper is purely
+to check if interrupts are architecturally allowed.  I.e. whether or not
+interrupts are temporarily disallowed due a pending nested VM-Enter is
+irrelevant (and callers are most definitely not supposed to care).
 
-No functional change intended.
+Opportunistically bury the helper in x86.c, as it hasn't been referenced by
+arch-neutral code since commit a1b37100d9e2 ("KVM: Reduce runnability
+interface with arch support code"), and has long since gained _very_
+x86-specific semantics (see above).
 
-Reviewed-by: Yosry Ahmed <yosry@kernel.org>
-Reviewed-by: Kai Huang <kai.huang@intel.com>
+Opportunistically add a comment to call out that treating -EBUSY as
+"allowed" is intentional.
+
+For all intents and purposes, no functional change intended (KVM treats
+-EBUSY as "allowed" before and after).
+
+Cc: Yosry Ahmed <yosry@kernel.org>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
-Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
-Message-ID: <20260613000329.732085-29-seanjc@google.com>
+Message-ID: <20260613000329.732085-28-seanjc@google.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 Stable-dep-of: 10180a277549 ("KVM: x86: Re-pend GET_NESTED_STATE_PAGES if getting said pages fails")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/kvm/mmu/mmu.c | 62 +++++++++++++++++++++---------------------
- 1 file changed, 31 insertions(+), 31 deletions(-)
+ arch/x86/include/asm/kvm_host.h |  1 -
+ arch/x86/kvm/x86.c              | 23 +++++++++++++++--------
+ 2 files changed, 15 insertions(+), 9 deletions(-)
 
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index 51ba46aa6b7e5..ab1cbc0ff0eb9 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -4600,37 +4600,6 @@ static bool kvm_arch_setup_async_pf(struct kvm_vcpu *vcpu,
- 				  kvm_vcpu_gfn_to_hva(vcpu, fault->gfn), &arch);
+diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
+index cb07b2b8093db..a89beb6f8eade 100644
+--- a/arch/x86/include/asm/kvm_host.h
++++ b/arch/x86/include/asm/kvm_host.h
+@@ -2462,7 +2462,6 @@ enum {
+ # define kvm_memslots_for_spte_role(kvm, role) __kvm_memslots(kvm, 0)
+ #endif
+ 
+-int kvm_arch_interrupt_allowed(struct kvm_vcpu *vcpu);
+ void kvm_vcpu_reset(struct kvm_vcpu *vcpu, bool init_event);
+ 
+ int kvm_pv_send_ipi(struct kvm *kvm, unsigned long ipi_bitmap_low,
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index 9822ff0450bb2..bd05ef7aa966f 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -4911,6 +4911,18 @@ static int kvm_vcpu_ioctl_set_lapic(struct kvm_vcpu *vcpu,
+ 	return 0;
  }
  
--void kvm_arch_async_page_ready(struct kvm_vcpu *vcpu, struct kvm_async_pf *work)
--{
--	int r;
--
--	if (WARN_ON_ONCE(work->arch.error_code & PFERR_PRIVATE_ACCESS))
--		return;
--
--	if ((vcpu->arch.mmu->root_role.direct != work->arch.direct_map) ||
--	      work->wakeup_all)
--		return;
--
--	r = kvm_mmu_reload(vcpu);
--	if (unlikely(r))
--		return;
--
--	if (!vcpu->arch.mmu->root_role.direct &&
--	      work->arch.cr3 != kvm_mmu_get_guest_pgd(vcpu, vcpu->arch.mmu))
--		return;
--
--	r = kvm_mmu_do_page_fault(vcpu, work->cr2_or_gpa, work->arch.error_code,
--				  true, NULL, NULL);
--
--	/*
--	 * Account fixed page faults, otherwise they'll never be counted, but
--	 * ignore stats for all other return times.  Page-ready "faults" aren't
--	 * truly spurious and never trigger emulation
--	 */
--	if (r == RET_PF_FIXED)
--		vcpu->stat.pf_fixed++;
--}
--
- static void kvm_mmu_finish_page_fault(struct kvm_vcpu *vcpu,
- 				      struct kvm_page_fault *fault, int r)
- {
-@@ -5088,6 +5057,37 @@ long kvm_arch_vcpu_pre_fault_memory(struct kvm_vcpu *vcpu,
- 	return min(range->size, end - range->gpa);
- }
- 
-+void kvm_arch_async_page_ready(struct kvm_vcpu *vcpu, struct kvm_async_pf *work)
++static bool kvm_is_interrupt_allowed(struct kvm_vcpu *vcpu)
 +{
-+	int r;
-+
-+	if (WARN_ON_ONCE(work->arch.error_code & PFERR_PRIVATE_ACCESS))
-+		return;
-+
-+	if ((vcpu->arch.mmu->root_role.direct != work->arch.direct_map) ||
-+	      work->wakeup_all)
-+		return;
-+
-+	r = kvm_mmu_reload(vcpu);
-+	if (unlikely(r))
-+		return;
-+
-+	if (!vcpu->arch.mmu->root_role.direct &&
-+	      work->arch.cr3 != kvm_mmu_get_guest_pgd(vcpu, vcpu->arch.mmu))
-+		return;
-+
-+	r = kvm_mmu_do_page_fault(vcpu, work->cr2_or_gpa, work->arch.error_code,
-+				  true, NULL, NULL);
-+
 +	/*
-+	 * Account fixed page faults, otherwise they'll never be counted, but
-+	 * ignore stats for all other return times.  Page-ready "faults" aren't
-+	 * truly spurious and never trigger emulation
++	 * Note, .interrupt_allowed() returns -EBUSY if interrupts are allowed
++	 * based on CPU state, but can't be immediately delivered due to a
++	 * pending nested VM-Enter.  Treat that case as "allowed", because
++	 * the goal here is just to check if interrupts are architecturally
++	 * allowed, not to check if they can be injected.
 +	 */
-+	if (r == RET_PF_FIXED)
-+		vcpu->stat.pf_fixed++;
++	return kvm_x86_call(interrupt_allowed)(vcpu, false);
 +}
 +
- #ifdef CONFIG_KVM_GUEST_MEMFD
- static void kvm_assert_gmem_invalidate_lock_held(struct kvm_memory_slot *slot)
+ static int kvm_cpu_accept_dm_intr(struct kvm_vcpu *vcpu)
  {
+ 	/*
+@@ -4936,7 +4948,7 @@ static int kvm_vcpu_ready_for_interrupt_injection(struct kvm_vcpu *vcpu)
+ 	 * or KVM_SET_SREGS.  For that to work, we must be at an
+ 	 * instruction boundary and with no events half-injected.
+ 	 */
+-	return (kvm_arch_interrupt_allowed(vcpu) &&
++	return (kvm_is_interrupt_allowed(vcpu) &&
+ 		kvm_cpu_accept_dm_intr(vcpu) &&
+ 		!kvm_event_needs_reinjection(vcpu) &&
+ 		!kvm_is_exception_pending(vcpu));
+@@ -11140,7 +11152,7 @@ bool kvm_vcpu_has_events(struct kvm_vcpu *vcpu)
+ 	if (kvm_test_request(KVM_REQ_UPDATE_PROTECTED_GUEST_STATE, vcpu))
+ 		return true;
+ 
+-	if (kvm_arch_interrupt_allowed(vcpu) && kvm_cpu_has_interrupt(vcpu))
++	if (kvm_is_interrupt_allowed(vcpu) && kvm_cpu_has_interrupt(vcpu))
+ 		return true;
+ 
+ 	if (kvm_hv_has_stimer_pending(vcpu))
+@@ -13004,11 +13016,6 @@ int kvm_arch_vcpu_should_kick(struct kvm_vcpu *vcpu)
+ 	return kvm_vcpu_exiting_guest_mode(vcpu) == IN_GUEST_MODE;
+ }
+ 
+-int kvm_arch_interrupt_allowed(struct kvm_vcpu *vcpu)
+-{
+-	return kvm_x86_call(interrupt_allowed)(vcpu, false);
+-}
+-
+ static inline u32 kvm_async_pf_hash_fn(gfn_t gfn)
+ {
+ 	BUILD_BUG_ON(!is_power_of_2(ASYNC_PF_PER_VCPU));
+@@ -13144,7 +13151,7 @@ bool kvm_can_do_async_pf(struct kvm_vcpu *vcpu)
+ 	 * If interrupts are off we cannot even use an artificial
+ 	 * halt state.
+ 	 */
+-	return kvm_arch_interrupt_allowed(vcpu);
++	return kvm_is_interrupt_allowed(vcpu);
+ }
+ 
+ bool kvm_arch_async_page_not_present(struct kvm_vcpu *vcpu,
 -- 
 2.53.0
 
