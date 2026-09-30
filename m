@@ -1,111 +1,147 @@
-Received: from mail-wr2-f42.google.com (mail-wr2-f42.google.com [74.125.225.106])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79441420480
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 21:40:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.106
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D213502D4A;
+	Wed, 30 Sep 2026 21:42:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790804455; cv=none; b=W+e1L1vzRJMvn8fOM9/bRHcynjaZ3m4X4V5eIS7ionjonp7sJZmvmSwSn9ZtUJMGDYcL3yOxO7dprtjQD+pTm74mNVHOdtihjoi2Koh0FUElio+hekd/LDtJtZ9a7Te2mn9kzydnM79KpCM3ZPPN9NHm9b4GTyBS02pExuU3Mdw=
+	t=1790804551; cv=none; b=obi7oXGsoi5pfO9jDGhbluSvs/oodalc2z9lBajh7jN7Jl8geaWDw8sfrL6sjrWlowEZZbyoJtDdWMVRMwChU1lRVWOPc98FgXV+Y1biBcdJEZ9fsZgKTvNT9rFWjkpgHQKbGOsq0dSK+8alPHsHWkO7otH2LzVB9TSX6Nb5wL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790804455; c=relaxed/simple;
-	bh=lu1+SJCXQ2EpuIPYLuobvbha9EEZ2hsucDtrScwJEVg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=u3bxJuaaf7kH5sVaWbYUlZ8YRH5ThlaesYDXqrKjdXXuLamgb6aAn5XqORgbVlvlVj8lqcWosLReJZ8cUbAblqhOzIPJv3+o+r0B49Ouou09xBlIcviMqFh4Z26WBAfm9EkbBdcVfObgxivNka6qLmV5gaRG41UaxtYPTE63zC4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=MFg5OLDi; arc=none smtp.client-ip=74.125.225.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	s=arc-20240116; t=1790804551; c=relaxed/simple;
+	bh=aGMgxQPcL+0hh6QJlN5804oXJax6z2VFnRLl4tSmuEw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TIdhDU4mxtQVGsE4iqhh4nkufxi8K8EhpIl9iw5OG6GTOFZfh/P2AzfwE4n4acKc+YzV4aDmX4iLF+snOH3rfWCy2R17JWIvry4tFTkD4NndLaIiUUoHiOTh2BFYZNJBfzfH4E3oRTGNo1xwqWx7BgnsrzVPDjUZg9Vm2tZwHqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q3VK3rId; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="MFg5OLDi"
-Received: by mail-wr2-f42.google.com with SMTP id ffacd0b85a97d-48b0622cc90so201724f8f.1
-        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 14:40:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20251104; t=1790804452; x=1791409252; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PGfnmzZ1b/kZEE0OkLpLBVu8C0jcPTvby9i4SQKX6jk=;
-        b=MFg5OLDiKj6uOPQe16pR16HT37eJMisIdBUIE59EBRiqjCNFCRYruzkB5HGJQrkMuh
-         WqLSJ+syPOemkCB7Tu5Rzv/ALGzmpMNQw0eGmcLACkyeh1LQerxlFwIJQ69IBMHaeXli
-         IVCbLT1sZcfyyR3i/jzRsnAZejP0WZNrvwyMLGLwLw1uZGZEgDCK8z7qTJSNmIwK5u3I
-         ccFpR46JruT9Xhdw12p5yX515MOGnIg7tb9ECdZg/cDzD41cuLWgUkyRHi+7p+QxHT3K
-         JC3pDsDvAh+dvt5AmuZSUunCmv5Z+xKv3dn8lYxXKcPHQfS6x0o50QdHFardk/ZL6dQt
-         ZK1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790804452; x=1791409252;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PGfnmzZ1b/kZEE0OkLpLBVu8C0jcPTvby9i4SQKX6jk=;
-        b=Qh19offrzHsqxPk29WCBiIv2ucvK//Lxe+DAJBJcPVaNlaNSPdR7+6Qh6Q2+h6IsSu
-         3AuSwWjbIWvsQqRDZf9nkB+nEkw8Scq+9qGoA27Df+Hsgp1JUb924rdnqXwCJXX+XxjY
-         6W9GT+jcoVRXyXVR80QpWDznpvWivaUw1QFFLiRrvsSiNr4/iovz70d4ZgK3AuCFo+/+
-         Il6oPea+Yp2kvFJGK2aE3DXVwBbDtKGdp4LEB/960r3D2e+Gju/2eSq8kT3rqVX2753t
-         J49lCaFtxRUzdvc395FvzXsFqojb5fi98rc7x/r2dgNb7KPilLi1ADl8R+RI53edy78t
-         Xghg==
-X-Forwarded-Encrypted: i=1; AKwUvByf3EuIDEiRq7ibX+XgkoOYCuA9J+lbYDrXrp9eFVNvIsAL3PmJvjcJTPwo2gPR/S1/yccVfTQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIt5t+q+AEaIwsoes7+XC+1n3jAuXh70+TEVbKHshaiv1esjE3g
-	jeSJ3BmLTupEHdsLVxd2riqH6nUtg4b1XaL+VEJrtW1vS6PGx2ajL/0=
-X-Gm-Gg: AYBFou1bvkMeNDwf/bA8xIb5+pRvYpXMz7v8zU5uTPHnflOIop2yI2JA0HOgIQIOMvS
-	T8H4eq8qrI++3CH1R+OqF11lDXCxuRmyZvwqeePl3xgaq3AtlETxEIpW21vcU8cq1NcJk/t4NGz
-	/dehEgBOPd+y5AHH9zOvJFkx33H3utzdek126Q1SNIXTK9HdD5BCIS0TKRVe9g6+2l7I1QfC0md
-	C8PXn3khcraGGnz5C5hhm7sPUoAbzbLMlb+3fZy1ot29h1BUvK1r1PblSWmI+4Jr1izXdebyDU0
-	t6VlZZx3ytlu8ipJ2mQwbJYjxqmKbyH1qIX9c747zlQhCiNTofYbv8k8TPVO5DjNZgMNqPtXdlg
-	UdQw+2wk74h5rU7KrZdBvjv77m15USaWNF6Y38qe6bHiOZg3viTd2ZAr4smRbqapyywkPadKHSt
-	WcLdrXCRE2KhobYK3OKB7JJDktk14jr6WhDp24/1fezCJlbhTLW6vsUKroW40tqXve8Tc5e7PWh
-	pPeqTU2LEIcCtvByaCAb16Ha7paYfUj09uxGHUVgO2AT3W5w0M=
-X-Received: by 2002:a05:6000:1ac7:b0:488:823d:5060 with SMTP id ffacd0b85a97d-48b02544bf6mr4972784f8f.48.1790804451479;
-        Wed, 30 Sep 2026 14:40:51 -0700 (PDT)
-Received: from [192.168.1.3] (p5b057568.dip0.t-ipconnect.de. [91.5.117.104])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b06a2fc98sm1736606f8f.35.2026.09.30.14.40.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Sep 2026 14:40:51 -0700 (PDT)
-Message-ID: <b6209a1e-953e-40b9-a893-64a54e475728@googlemail.com>
-Date: Wed, 30 Sep 2026 23:40:50 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q3VK3rId"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E1381F000FF;
+	Wed, 30 Sep 2026 21:42:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790804550;
+	bh=VTD5ooBhlbkcZMaV3t/m1ZONzVpYyqNeWvY3G7FY8Bo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Q3VK3rIdIxxJqtVcImy3yOtjdE/4bpuKG7LZ5XW1ybS5j5V6ATlUGiaqfDDJSaxRu
+	 P9bYFqaOIWB3ZjnM2e+ohcfyVZmZVlS/Cd16g0wP4IaZWoNJiv9+kxhH/5Ls8lZrFg
+	 I3wK3emP1Zzi9vgGn96/4CtYRsP29yUZYHjE4WCob7QFD7DUfgxVJeEPGHl3DX1R8G
+	 rZqLZIDH3p0qpcoW8GggOlL5l8Y0hMdVBgNAjNbYllzImJvlUQdh3vZKHN+ZeydkDL
+	 L0gKRk7Q2Vj6JVs3RDV6YCBZdSCMrl+GhjOVesWAyPR/wwSnvEnStxiJlxC5NehtgO
+	 GpBzaP9d+VXbQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: David Howells <dhowells@redhat.com>,
+	"Paulo Alcantara (Red Hat)" <pc@manguebit.org>,
+	linux-cifs@vger.kernel.org,
+	Steve French <stfrench@microsoft.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/3] cifs: Fix specification of function pointers
+Date: Wed, 30 Sep 2026 17:42:25 -0400
+Message-ID: <20260930214227.3484209-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026092900-threefold-unblessed-1235@gregkh>
+References: <2026092900-threefold-unblessed-1235@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 6.1 000/982] 6.1.189-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260930152416.775402466@linuxfoundation.org>
-Content-Language: de-DE
-From: Peter Schneider <pschneider1968@googlemail.com>
-In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Am 30.09.2026 um 17:12 schrieb Greg Kroah-Hartman:
-> This is the start of the stable review cycle for the 6.1.189 release.
-> There are 982 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+From: David Howells <dhowells@redhat.com>
 
-Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697v2 server. No dmesg oddities or regressions found.
+[ Upstream commit 6a86a4cc281a5cfceda7af60ea6fa506b3db7430 ]
 
-Tested-by: Peter Schneider <pschneider1968@googlemail.com>
+Change the mid_receive_t, mid_callback_t and mid_handle_t function pointers
+to have the pointer marker in the typedef.
 
+Signed-off-by: David Howells <dhowells@redhat.com>
+Reviewed-by: Paulo Alcantara (Red Hat) <pc@manguebit.org>
+cc: linux-cifs@vger.kernel.org
+Signed-off-by: Steve French <stfrench@microsoft.com>
+Stable-dep-of: 8f6f8a48399f ("smb: client: delete compound mids on send failure before unlock")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/cifs/cifsglob.h  | 12 ++++++------
+ fs/cifs/cifsproto.h |  8 ++++----
+ fs/cifs/transport.c |  4 ++--
+ 3 files changed, 12 insertions(+), 12 deletions(-)
 
-Beste Grüße,
-Peter Schneider
-
+diff --git a/fs/cifs/cifsglob.h b/fs/cifs/cifsglob.h
+index 9b08020634f19..616305a32e34a 100644
+--- a/fs/cifs/cifsglob.h
++++ b/fs/cifs/cifsglob.h
+@@ -1515,7 +1515,7 @@ static inline void cifs_stats_bytes_read(struct cifs_tcon *tcon,
+  * Returns zero on a successful receive, or an error. The receive state in
+  * the TCP_Server_Info will also be updated.
+  */
+-typedef int (mid_receive_t)(struct TCP_Server_Info *server,
++typedef int (*mid_receive_t)(struct TCP_Server_Info *server,
+ 			    struct mid_q_entry *mid);
+ 
+ /*
+@@ -1526,13 +1526,13 @@ typedef int (mid_receive_t)(struct TCP_Server_Info *server,
+  * - it will be called by cifsd, with no locks held
+  * - the mid will be removed from any lists
+  */
+-typedef void (mid_callback_t)(struct mid_q_entry *mid);
++typedef void (*mid_callback_t)(struct mid_q_entry *mid);
+ 
+ /*
+  * This is the protopyte for mid handle function. This is called once the mid
+  * has been recognized after decryption of the message.
+  */
+-typedef int (mid_handle_t)(struct TCP_Server_Info *server,
++typedef int (*mid_handle_t)(struct TCP_Server_Info *server,
+ 			    struct mid_q_entry *mid);
+ 
+ /* one of these for every pending CIFS request to the server */
+@@ -1550,9 +1550,9 @@ struct mid_q_entry {
+ 	unsigned long when_sent; /* time when smb send finished */
+ 	unsigned long when_received; /* when demux complete (taken off wire) */
+ #endif
+-	mid_receive_t *receive; /* call receive callback */
+-	mid_callback_t *callback; /* call completion callback */
+-	mid_handle_t *handle; /* call handle mid callback */
++	mid_receive_t receive;	/* call receive callback */
++	mid_callback_t callback; /* call completion callback */
++	mid_handle_t handle;	/* call handle mid callback */
+ 	void *callback_data;	  /* general purpose pointer for callback */
+ 	struct task_struct *creator;
+ 	void *resp_buf;		/* pointer to received SMB header */
+diff --git a/fs/cifs/cifsproto.h b/fs/cifs/cifsproto.h
+index 5cfe41b2fe4ae..8525d47f09494 100644
+--- a/fs/cifs/cifsproto.h
++++ b/fs/cifs/cifsproto.h
+@@ -92,10 +92,10 @@ extern int smb3_parse_opt(const char *options, const char *key, char **val);
+ extern bool cifs_match_ipaddr(struct sockaddr *srcaddr, struct sockaddr *rhs);
+ extern int cifs_discard_remaining_data(struct TCP_Server_Info *server);
+ extern int cifs_call_async(struct TCP_Server_Info *server,
+-			struct smb_rqst *rqst,
+-			mid_receive_t *receive, mid_callback_t *callback,
+-			mid_handle_t *handle, void *cbdata, const int flags,
+-			const struct cifs_credits *exist_credits);
++			   struct smb_rqst *rqst,
++			   mid_receive_t receive, mid_callback_t callback,
++			   mid_handle_t handle, void *cbdata, const int flags,
++			   const struct cifs_credits *exist_credits);
+ extern struct TCP_Server_Info *cifs_pick_channel(struct cifs_ses *ses);
+ extern int cifs_send_recv(const unsigned int xid, struct cifs_ses *ses,
+ 			  struct TCP_Server_Info *server,
+diff --git a/fs/cifs/transport.c b/fs/cifs/transport.c
+index 65a225a9c6cf8..d30183fac942e 100644
+--- a/fs/cifs/transport.c
++++ b/fs/cifs/transport.c
+@@ -800,8 +800,8 @@ cifs_setup_async_request(struct TCP_Server_Info *server, struct smb_rqst *rqst)
+  */
+ int
+ cifs_call_async(struct TCP_Server_Info *server, struct smb_rqst *rqst,
+-		mid_receive_t *receive, mid_callback_t *callback,
+-		mid_handle_t *handle, void *cbdata, const int flags,
++		mid_receive_t receive, mid_callback_t callback,
++		mid_handle_t handle, void *cbdata, const int flags,
+ 		const struct cifs_credits *exist_credits)
+ {
+ 	int rc;
 -- 
-Climb the mountain not to plant your flag, but to embrace the challenge,
-enjoy the air and behold the view. Climb it so you can see the world,
-not so the world can see you.                    -- David McCullough Jr.
+2.53.0
 
-OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
-Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
