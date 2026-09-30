@@ -1,101 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8A4A4ABBA5;
-	Wed, 30 Sep 2026 18:24:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC1BE51DAE7;
+	Wed, 30 Sep 2026 18:24:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790792648; cv=none; b=GF11Lq3pLtkuzaRpPvF3KcBHuleMupQd/vP6EJP/mwLqsq6n/oA/4lMXuTPmWbOnWDS6IPQhxO1v1vpqqavTo2u+iIPjb1k8Ff3inihXE0YPyxr4eR6Q3tBKmGBMH4J9Pqv/slyZOWqKj8VlwMjUPSSc/vpbcQbX1Crg0sdh2+0=
+	t=1790792650; cv=none; b=HnGx0VdPqgbtL+0NxgrgLoiaQVqXs3+Yvj66wcEERj1J451LjpVGbURcCGJAVe6quourfNKQGOAnxlr+cU9z3RKTDLlhTpyqxg1PG3kLfDxMjcquJ9s5gknXOlTSKGw6tCWRlWiNOJpI1z2Nxg9XJ8uxpRZfaHQXzqsDB0GPbQE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790792648; c=relaxed/simple;
-	bh=8Joa8uNYP55aFKujixPYUMRi8ml7SR9PhSJokZLavn0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UZMgIpUcSw+TUAA5MUJHQk/3QsQHpccmEVYRUg0Kluw770O/isMIq5NFOH3mQGoIU2g9FdjVWrBUyfRNsXi89uVfJ4AjpTPa2N2ojTGv9qvb3iUdX2BAkHQogM6S6D97dwPkb0HoFlhOMaC9cPLLBctWcalikkhcnwDeFtUiBdQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=nzPTnaeG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790792650; c=relaxed/simple;
+	bh=QAvOi4cchjKNlSCrsX1D95liAuQ9dq5OUbprIpUaeX8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nbQ8kNCXo0LB4jKq0ibjzceMOJaKAWukOPTiztVGjhgD9b6OcrhFLxISOKj0vdhZb1PgvL9f7DzraYA/++a153+jqS9bHfmUbhuDBZyvauK63vs4J+gvnIE5k3CcAZX5sEnCqiMmcfbzNAh0qHdmfBZIbUv+i4wGx2Pv8g98SiQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q3nm1bqH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nzPTnaeG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3C481F00899;
-	Wed, 30 Sep 2026 18:24:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790792647;
-	bh=l7vStYZ5V9GktHdVN/sP/AoNKaZeEQYAnE3rScrfcuU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nzPTnaeGlabNiAupLvrCRiTwdhsAdLuqk65YEPwASjI3uuHI/7jnXs1F8qHYc4fd+
-	 4nASrq+6XgLSH/bCXtkXL2r8RDcdBR4zc8nHuCWFTnrMW/JvcCwO0lyq4+RgzO9sBa
-	 KD6bMOw3TSU2fVgHo7J5pxwIf8Vkj8ymuC2S7oWg=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Doruk Tan Ozturk <doruk@0sec.ai>,
-	Simon Horman <horms@kernel.org>,
-	David Heidelberg <david@ixit.cz>
-Subject: [PATCH 5.15 729/752] nfc: port100: reject frames whose declared length exceeds the received data
-Date: Wed, 30 Sep 2026 17:29:59 +0200
-Message-ID: <20260930152413.991724722@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260930152358.131179731@linuxfoundation.org>
-References: <20260930152358.131179731@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q3nm1bqH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D042B1F000FF;
+	Wed, 30 Sep 2026 18:24:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790792648;
+	bh=FunQvZwAH5B4DZ2KKVAQe9PaR1db9gvR3K0YtXguIiE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Q3nm1bqH7nevKq8YHNKNgJQTY046xcAqz7j8pKgxJCIcdNu5xd2F2b5ykJmycc5O/
+	 S4E0uPuPPAktCNmGa5JSzh2CgENEA10vJxxPdkXHO2CYbn8/N8bGwsFzxWiXeHhvsN
+	 Nk4iNlqQdWQtwRXAwHnbnm7ybo1RpyY4Pim9O/yYQAAjBsQ5+kH6ROevSTYcr7r5Hw
+	 7X3P+jQQrVPzgEvaGf3rk7cLgOH+uFawmA399Q24yZjAJsx5dKQVqJ7YjW5nDh5ZFs
+	 t3NPtngodXZtww1yXE/ZRMF3BH0FQcRZcFTYgs1OodcerpISIAb7nSMESXm2sJ/DcC
+	 sSQhCu0TlrhbA==
+Date: Wed, 30 Sep 2026 19:24:03 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Brian Geffon <bgeffon@google.com>, Minchan Kim <minchan@kernel.org>, 
+	Kiryl Shutsemau <kas@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH 0/2] mm/mremap: fix two issues with MREMAP_DONTUNMAP
+Message-ID: <ar1TdGugvi9_RwG9@gremlin>
+References: <20260920-fix-dontunmap-partial-self-merge-v1-0-6ffb556f8f8b@kernel.org>
+ <ux7od2uydetgsu3dpy6mmilhqm5phhnk2ioxn54w3nb3feohxf@2jqovoqzfs4n>
+ <ar0y2odPFkCLMKk6@gremlin>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ar0y2odPFkCLMKk6@gremlin>
 
-5.15-stable review patch.  If anyone has any objections, please let me know.
+On Wed, Sep 30, 2026 at 05:04:38PM +0100, Lorenzo Stoakes (ARM) wrote:
+> On Wed, Sep 30, 2026 at 10:59:50AM -0500, Anirudh Srinivasan wrote:
+> > On Sun, Sep 20, 2026 at 03:13:09PM +0100, Lorenzo Stoakes (ARM) wrote:
+>
+> > > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > > ---
+> > > Lorenzo Stoakes (ARM) (2):
+> > >       mm/mremap: fix locked_vm leak from MREMAP_DONTUNMAP self-merge
+> > >       mm/mremap: fix locked_vm leak by splitting VMA for MREMAP_DONTUNMAP
+> >
+> > Hello,
+> >
+> > Apologies for the double mail. I did not hit reply all first time.
+> >
+> > I am seeing some failures in the proc_maps_race kselftests after
+> > this patch was added to linux-next. The failures are in
+> > test_maps_tearing_from_remap and test_maps_tearing_from_resize. I have
+> > attached some logs below
+>
+> Ack thanks for the report. I'll dig into this and get back to you!
+>
+> Instinctively I suspect the tests are making assumptions they shouldn't be,
+> given this series has the MREMAP_DONTUNMAP case split in advance.
 
-------------------
+OK, the tests seem fairly sensitive to change, but the correct solution here
+overall I think is to only split if the VMA is mlock()'d, so I'll do that and
+send a respin + cc you on that which you can check!
 
-From: Doruk Tan Ozturk <doruk@0sec.ai>
+That should fix the tests and avoids unnecessary splits also.
 
-commit 092c6a605cbd6414ef499834c2e0da69c2c3388e upstream.
+Thanks again for the report! :)
 
-port100_recv_response() passes the URB transfer buffer to
-port100_rx_frame_is_valid(), which checksums le16_to_cpu(frame->datalen)
-bytes of frame->data. datalen is a 16-bit field supplied by the device
-and is never checked against the number of bytes actually received
-(urb->actual_length), so a device reporting a datalen larger than the
-received frame makes port100_data_checksum() read out of bounds past the
-transfer buffer.
+>
+> --
+> Cheers, Lorenzo
 
-Reject a response whose declared frame size does not fit the received
-length before validating it.
-
-Found by 0sec (https://0sec.ai) using automated source analysis; the
-missing bound is evident from source. Compile-tested.
-
-Fixes: 562d4d59b8a1 ("NFC: Sony Port-100 Series driver")
-Cc: stable@vger.kernel.org
-Assisted-by: 0sec:claude-opus-4-8
-Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Link: https://patch.msgid.link/20260711123651.32595-1-doruk@0sec.ai
-Signed-off-by: David Heidelberg <david@ixit.cz>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/nfc/port100.c |    7 +++++++
- 1 file changed, 7 insertions(+)
-
---- a/drivers/nfc/port100.c
-+++ b/drivers/nfc/port100.c
-@@ -636,6 +636,13 @@ static void port100_recv_response(struct
- 
- 	in_frame = dev->in_urb->transfer_buffer;
- 
-+	if (urb->actual_length < PORT100_FRAME_HEADER_LEN ||
-+	    urb->actual_length < port100_rx_frame_size(in_frame)) {
-+		nfc_err(&dev->interface->dev, "Received a truncated frame\n");
-+		cmd->status = -EIO;
-+		goto sched_wq;
-+	}
-+
- 	if (!port100_rx_frame_is_valid(in_frame)) {
- 		nfc_err(&dev->interface->dev, "Received an invalid frame\n");
- 		cmd->status = -EIO;
-
-
+--
+Cheers, Lorenzo
