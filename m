@@ -1,37 +1,36 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 342F450B8DE;
-	Wed, 30 Sep 2026 16:26:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F384D4F93DB;
+	Wed, 30 Sep 2026 16:26:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790785591; cv=none; b=crBMYJTUTIZ9/l/N4FhUaPkajAB9ao8E7wZBb4bfGRrDZ2PEs2151wZr8L9qYlbF9g8DDaknIh8IXUe9LvHQ+J4Wo3Q3BhJLetfDkeCFConI8nkw6gECcktKk4VFn9MjK0x/pX7NHpbqIj7c7eJptAs2YM1p0OKLmpcZATO2dD4=
+	t=1790785595; cv=none; b=FIVKYDLSikf9GivFgXqr5GERwP+MnmBdgMbXjLSUVNpiNBPkinEdJL7SzAABQt+rK93tUPeM411oMT+MVv68uBC6tC7poqXYPp68jJ3dxbBAprVeWEnrlkbHWD9mQnACKu1S1sMqLQnr7G4P1hc0SX6M8FkvhkAQW1lWx15DsTM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790785591; c=relaxed/simple;
-	bh=gjtNXmBwjT5QXJdaM/ewEUBOICHy/vTv+IPjlBMnfBE=;
+	s=arc-20240116; t=1790785595; c=relaxed/simple;
+	bh=DrJamwhJmmwfn3d/TXvqSXeKPP27xSXq5Vi0VpnmhTU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Rn5dxYK8M5iqaf+KH329rA2ov50rOSkUHja8rBoAkp43tv1u46ke9/Qeh4WR4VMjCilt238+IeV3l3PDk/S51Yqtl4f8CdlleKOSjNkk5BP/D57eW6MlTybtu/ZVvYc719+QB+eu0ZurHU3gCZqFd5waghh9/kaCbq8ojKjMJU4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=0v/zf/6o; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=TbpMFkDrH6duUfQW5K1mIOvXa/W4JCwNkl+g1sp/XgI50tNN0KuSjJ/VTE+3qSy40KiSxVthuBV+wTsxWKUk4Lh0mBllifbL5iv9Bz7/LnUeYDVRoRuOpaAfbj1iosnLbe+52cVuJ3L6gdxqaQP3H1vouVJ+9qw2sN3ABpSsBZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Lr3AE3mJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0v/zf/6o"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 187301F0089A;
-	Wed, 30 Sep 2026 16:26:24 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Lr3AE3mJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 467231F00899;
+	Wed, 30 Sep 2026 16:26:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790785585;
-	bh=O0zBgg4bFEjbp86rLfJmj0l5Mcxb3HNVZpPZgjrJMAI=;
+	s=korg; t=1790785582;
+	bh=LarswIPy2/zm1EhgRvyDNsOdaynNdk+kJN6tbgC36lw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=0v/zf/6oyuSDITdNeHU3o8DXymMP3vvYpXQlANxshjH5O5L+LhuA7d3Ce46203x8c
-	 32VrzvuFxU01jnbDewe+QPZ6Xwu5NQGLhQwe25rxjWdd8e2lK64ByKqU6HOv6DnQQH
-	 qMfN1EKa9mK4mjgncLGjoNAHojqgTFyoUHZ0xY9g=
+	b=Lr3AE3mJQuzg+cNbbI3bPmvpriqWyhg2OV1uFeTVIdx0USHPoHKGvVttCOlMDD0vW
+	 poct9kNKBoTeDOWaMV9e5L6IQEBsL3klDEY4o791bnjVCyzp+pBnDDHQsyGsnW/Ou9
+	 RLmvL7QfyqsXhF/3CV1jeH+jOoCWqgWmoEvN5TN4=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Gary Guo <gary@garyguo.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 561/982] usb: xusbatm: dont rely on id table pointer arithmetic
-Date: Wed, 30 Sep 2026 17:21:37 +0200
-Message-ID: <20260930152428.822683833@linuxfoundation.org>
+Subject: [PATCH 6.1 560/982] Revert "perf tests: Fix flakiness in BPF counters test on hybrid systems"
+Date: Wed, 30 Sep 2026 17:21:36 +0200
+Message-ID: <20260930152428.802376231@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
 References: <20260930152416.775402466@linuxfoundation.org>
@@ -50,58 +49,77 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Gary Guo <gary@garyguo.net>
+This reverts commit 08c1316f983d3e1777f9087bb466dc5cf9a476f8.
 
-[ Upstream commit eb6cd6d3d8abeac5d7e8251b898067184afdad8a ]
-
-The current code is broken when dynamic ID is involved; in such cases
-usb_device_id parameter of probe lives on the heap and the pointer
-arithmetic will get an index that is wildly out of bound. xusbatm
-initialize the USB device IDs dynamically so it can just use driver_info
-too.
-
-Even with conversion, xusbatm still cannot support dynamic IDs, so also set
-no_dynamic_id.
-
-Signed-off-by: Gary Guo <gary@garyguo.net>
-Link: https://patch.msgid.link/20260707-usb_dyn_id_uaf-v2-6-632dcf3adfba@garyguo.net
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/atm/xusbatm.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ tools/perf/tests/shell/stat_bpf_counters.sh | 28 ++++++++-------------
+ 1 file changed, 10 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/usb/atm/xusbatm.c b/drivers/usb/atm/xusbatm.c
-index 0befbf63d1cc8..5c1e1f5215555 100644
---- a/drivers/usb/atm/xusbatm.c
-+++ b/drivers/usb/atm/xusbatm.c
-@@ -79,7 +79,7 @@ static int xusbatm_bind(struct usbatm_data *usbatm,
- 			struct usb_interface *intf, const struct usb_device_id *id)
+diff --git a/tools/perf/tests/shell/stat_bpf_counters.sh b/tools/perf/tests/shell/stat_bpf_counters.sh
+index 76d4a7f15a43d..b776ee2e445a6 100755
+--- a/tools/perf/tests/shell/stat_bpf_counters.sh
++++ b/tools/perf/tests/shell/stat_bpf_counters.sh
+@@ -4,26 +4,21 @@
+ 
+ set -e
+ 
+-# Get the first allowed CPU
+-CPU=$(taskset -c -p $$ | awk -F': ' '{print $2}' | awk -F'[,-]' '{print $1}')
+-if [ -z "$CPU" ]; then
+-	CPU=0
+-fi
+-workload=(taskset -c "$CPU" awk 'BEGIN { for (i=0; i<10000000; i++) sum+=i }')
++workload="perf test -w sqrtloop"
+ 
+-# check whether $2 is within +/- 15% of $1
++# check whether $2 is within +/- 20% of $1
+ compare_number()
  {
- 	struct usb_device *usb_dev = interface_to_usbdev(intf);
--	int drv_ix = id - xusbatm_usb_ids;
-+	int drv_ix = id->driver_info;
- 	int rx_alt = rx_altsetting[drv_ix];
- 	int tx_alt = tx_altsetting[drv_ix];
- 	struct usb_interface *rx_intf = xusbatm_find_intf(usb_dev, rx_alt, rx_endpoint[drv_ix]);
-@@ -168,7 +168,8 @@ static struct usb_driver xusbatm_usb_driver = {
- 	.name		= xusbatm_driver_name,
- 	.probe		= xusbatm_usb_probe,
- 	.disconnect	= usbatm_usb_disconnect,
--	.id_table	= xusbatm_usb_ids
-+	.id_table	= xusbatm_usb_ids,
-+	.no_dynamic_id	= 1,
- };
+ 	first_num=$1
+ 	second_num=$2
  
- static int __init xusbatm_init(void)
-@@ -190,6 +191,7 @@ static int __init xusbatm_init(void)
- 		xusbatm_usb_ids[i].match_flags	= USB_DEVICE_ID_MATCH_DEVICE;
- 		xusbatm_usb_ids[i].idVendor	= vendor[i];
- 		xusbatm_usb_ids[i].idProduct	= product[i];
-+		xusbatm_usb_ids[i].driver_info	= i;
+-	# upper bound is first_num * 115%
+-	upper=$(expr $first_num + $first_num / 20 \* 3 )
+-	# lower bound is first_num * 85%
+-	lower=$(expr $first_num - $first_num / 20 \* 3 )
++	# upper bound is first_num * 120%
++	upper=$(expr $first_num + $first_num / 5 )
++	# lower bound is first_num * 80%
++	lower=$(expr $first_num - $first_num / 5 )
  
- 		xusbatm_drivers[i].driver_name	= xusbatm_driver_name;
- 		xusbatm_drivers[i].bind		= xusbatm_bind;
+ 	if [ $second_num -gt $upper ] || [ $second_num -lt $lower ]; then
+-		echo "The difference between $first_num and $second_num are greater than 15%."
++		echo "The difference between $first_num and $second_num are greater than 20%."
+ 		exit 1
+ 	fi
+ }
+@@ -46,12 +41,11 @@ check_counts()
+ test_bpf_counters()
+ {
+ 	printf "Testing --bpf-counters "
+-	base_instructions=$(perf stat --no-big-num -e instructions:u -- "${workload[@]}" 2>&1 | \
++	base_instructions=$(perf stat --no-big-num -e instructions -- $workload 2>&1 | \
+ 				awk -v i=0 -v c=0 '/instructions/ { \
+ 					if ($1 != "<not") { i++; c += $1 } \
+ 				} END { if (i > 0) printf "%.0f", c; else print "<not" }')
+-	bpf_instructions=$(perf stat --no-big-num --bpf-counters -e instructions:u \
+-				-- "${workload[@]}"  2>&1 | \
++	bpf_instructions=$(perf stat --no-big-num --bpf-counters -e instructions -- $workload  2>&1 | \
+ 				awk -v i=0 -v c=0 '/instructions/ { \
+ 					if ($1 != "<not") { i++; c += $1 } \
+ 				} END { if (i > 0) printf "%.0f", c; else print "<not" }')
+@@ -63,9 +57,7 @@ test_bpf_counters()
+ test_bpf_modifier()
+ {
+ 	printf "Testing bpf event modifier "
+-	stat_output=$(perf stat --no-big-num \
+-		-e instructions/name=base_instructions/u,instructions/name=bpf_instructions/bu \
+-		-- "${workload[@]}" 2>&1)
++	stat_output=$(perf stat --no-big-num -e instructions/name=base_instructions/,instructions/name=bpf_instructions/b -- $workload 2>&1)
+ 	base_instructions=$(echo "$stat_output"| \
+ 				awk -v i=0 -v c=0 '/base_instructions/ { \
+ 					if ($1 != "<not") { i++; c += $1 } \
 -- 
 2.53.0
 
