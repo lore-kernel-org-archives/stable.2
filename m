@@ -1,45 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91A3C519E12;
-	Wed, 30 Sep 2026 17:33:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A17F4519E12
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 17:34:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790789640; cv=none; b=sighCgjOFEpr2iFw6bEU5SspQfHli0BSkIF3okxK8qz22qiY86JJb1TiJ6CMZ0W9aQMdFQI0XSlr5VamaYldDNtuB84FNSi7iVA+uGi1h7VHMID4ElZeYhtkoBztmUlRdc4jcXfSsQRTSO2OEOoIoWtYc7Uxpa2LYaZ2roIgnaY=
+	t=1790789641; cv=none; b=p+xNU2RzhJgs9LMIVauCVIhIoZMnuBc6jRUvPNhTL6SxrFffzR17SOZO4XYlIeFt3SDvRqQUGAI19jVdAt7Uy0groG3RZrj7ksPjJO4w/AzVVd2O7rADYndCk0nyIrJy6OZTycdRdFRnjn2jaqzRB2hTVv4URwUq6KRnJ5he4E4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790789640; c=relaxed/simple;
-	bh=K7mwAtllseLmoRDuM0pOIx0I+FyYetVBKLXXrJGHm5g=;
+	s=arc-20240116; t=1790789641; c=relaxed/simple;
+	bh=UoqrkNW+nLv17GXlUFsEr/eiBmTXFxLlIjlnTbSakxw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RWXHTYw1kAXIeEPXgSSQ7sHKbLXb26E57kR/Rm0v/dFJy27Raa3PPFtEgH5g4CN+kurl4UOy8EY9QD9rXLQCYeo9Zy/l4wrYsV2dMj7ht3eGMsFBv3tJ9RL0TKD5vJt1QIfrhY1usowcaKO+nIU2ik82KOgl0l8jcwTO6CVE2LU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XMEvGmeT; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=knPdyCvA/x3rjDz7H1xlpuqmCjTOsG6fLG6iKVcyyb0gnlcSWnvdESDyNR/ULgApylgR1YKvyWha0T+KhItkAD/CA1aX0v98BHlgLee4bnjzFuMjFD9psTZSzFqZK7818YAAr44nDTD4QbstzblcqyvjLbRjLDUKTpnhczs4GkM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UoU/8Px0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XMEvGmeT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB9391F000FF;
-	Wed, 30 Sep 2026 17:33:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790789638;
-	bh=u4OIDEbwQsLe/rBSN4BTnJesyQLPWKA0rg3UCKostw4=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UoU/8Px0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02A7F1F00898;
+	Wed, 30 Sep 2026 17:33:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790789640;
+	bh=tkcj9Yn+Jn1EHjljPMUkSlqVuZwgbXbaZO1QRgcBDyU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XMEvGmeTOWxS+dEYyfH13equw7ogD4yNpi7IEM5GjPzYcNpBxZbMA8iLAnTFwFY7g
-	 FAxkUeUgRSfUVwZJnZhBxV9d7qKXu8x/ygZajdTTFsooIbPKcH3te/UISKlgXXXJMC
-	 nh0Waz0J1mmEgdCYnRVf4s8KV+Zrm/0oUyPKwrnI=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=UoU/8Px0ov5EWVl+PFCZ/AOhbrhxVoyt0/ukmTnujgvPjJkc0Mpao+AYDzVGY2BBc
+	 Xhrx4zD87FT03XcUULJRa6VwIjxfmD7yTl2rLLhTt5cjoc5JW68duQ3Qf+uM9Jrz4j
+	 rr7S0Ung81PeWQcI68J43mTXcaj6ANoXZEyaoR/jwvKCkYEWJTHC937uWimpIH12MG
+	 rnXoIIq8c4dWm83PIh67hiww83OuQ1QUNEnAMjT18ZbCcH1EGd/x9KXNvrccllBORO
+	 UOLI1OnSS0B7aCc/VR/2nlT37MWv4JGtVqDRs6io7bWdIv4I9nIVZ6psnqiibbgWdu
+	 qeQpf4afTAQWw==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Jason Gerecke <killertofu@gmail.com>,
-	Wei Jie Law <98lawweijie@gmail.com>,
-	Jason Gerecke <jason.gerecke@wacom.com>,
-	Jiri Kosina <jkosina@suse.com>
-Subject: [PATCH 6.12 503/877] HID: wacom: fix OOB read in wacom_wac_pen_serial_enforce()
-Date: Wed, 30 Sep 2026 17:23:34 +0200
-Message-ID: <20260930152425.516987898@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260930152414.738996857@linuxfoundation.org>
-References: <20260930152414.738996857@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Steve French <stfrench@microsoft.com>,
+	"Paulo Alcantara (SUSE)" <pc@manguebit.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] smb3: make query_on_disk_id open context consistent and move to common code
+Date: Wed, 30 Sep 2026 13:33:57 -0400
+Message-ID: <20260930173358.3641932-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026092930-badly-dust-d0e0@gregkh>
+References: <2026092930-badly-dust-d0e0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,66 +45,109 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+From: Steve French <stfrench@microsoft.com>
 
-------------------
+[ Upstream commit 1149c8467ddebfb6bb9aab37830f70a49cab7085 ]
 
-From: Wei Jie LAW <98lawweijie@gmail.com>
+cifs and ksmbd were using a slightly different version of the query_on_disk_id
+struct which could be confusing. Use the ksmbd version of this struct, and
+move it to common code.
 
-commit 9aa237cf66495b2426ddde8532e9b08a0ed83aaa upstream.
+Reviewed-by: Paulo Alcantara (SUSE) <pc@manguebit.com>
+Signed-off-by: Steve French <stfrench@microsoft.com>
 
-The 'wacom_wac_pen_serial_enforce()' function may calculate and pass an
-invalid offset to hid_field_extract(), resulting in memory reads at
-incorrect addresses -- possibly beyond the end of the report.  If a
-field in the HID descriptor lists more usages than its Report Count
-actually reserves space for, the function's inner 'j' will walk past
-the end of the field:
+[5.15 dependency adaptation for 67f4c1c6a1b:
+Keep the create-context declarations in the existing per-subsystem headers.
+This tree has not consolidated create_context into smbfs_common, and ksmbd
+still defines its own SMB2 headers. Moving the response into the common
+header would require unrelated header conversions.
 
-	for (i = 0; i < report->maxfield; i++) {
-		for (j = 0; j < report->field[i]->maxusage; j++) {
-			...
-			value = hid_field_extract(hdev, raw_data + 1,
-						  offset + j * size, size);
+Retain the client response rename and match ksmbd's 16-byte Reserved array,
+without changing the packed wire layout. Leave the ksmbd and common headers
+unchanged and omit the upstream common-header lease comments.
 
-A descriptor listing 12288 usages against Report Count 1 has the loop
-extract the usage at index 12287 from bit offset 98296 -- about 12 KB
-past a 2-byte received report.  The value is stored in
-wacom_wac->serial[0] and can reach userspace as an MSC_SERIAL event,
-making this an information disclosure.
+Rename the client's lease-break flag and both existing parser uses to the
+upstream _LE spelling. This is a value-preserving prerequisite for the
+target's lease-parser changes; no functions are added.]
 
-Clamp the loop to field->report_count, the number of value slots the
-report holds.  Value slots past the last declared usage are still
-scanned; they reuse that usage (HID 1.11, 6.2.2.8).
+[ sashal: Reduced backport -- upstream 1149c8467ddeb touches 4 file(s), this
+  backport carries 3. Not backported here:
+  fs/ksmbd/smb2pdu.h
+  fs/smbfs_common/smb2pdu.h
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
 
-Verified on v6.12.105 with a UHID reproducer: a 2-byte report from
-such a descriptor trips KASAN before the patch and not after it.
-
-Fixes: 83417206427b ("HID: wacom: Queue events with missing type/serial data for later processing")
-Suggested-by: Jason Gerecke <killertofu@gmail.com>
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5
-Assisted-by: GLM:glm-5.3
-Signed-off-by: Wei Jie Law <98lawweijie@gmail.com>
-Reviewed-by: Jason Gerecke <jason.gerecke@wacom.com>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: 67f4c1c6a1b5 ("smb: client: fix create context out-of-bounds reads")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hid/wacom_sys.c |    5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ fs/cifs/smb2ops.c | 4 ++--
+ fs/cifs/smb2pdu.c | 2 +-
+ fs/cifs/smb2pdu.h | 6 +++---
+ 3 files changed, 6 insertions(+), 6 deletions(-)
 
---- a/drivers/hid/wacom_sys.c
-+++ b/drivers/hid/wacom_sys.c
-@@ -97,8 +97,9 @@ static int wacom_wac_pen_serial_enforce(
+diff --git a/fs/cifs/smb2ops.c b/fs/cifs/smb2ops.c
+index 3aaa45375d8ba..cd47852103da2 100644
+--- a/fs/cifs/smb2ops.c
++++ b/fs/cifs/smb2ops.c
+@@ -4405,7 +4405,7 @@ smb2_parse_lease_buf(void *buf, unsigned int *epoch, char *lease_key)
+ 	struct create_lease *lc = (struct create_lease *)buf;
  
- 	/* Queue events which have invalid tool type or serial number */
- 	for (i = 0; i < report->maxfield; i++) {
--		for (j = 0; j < report->field[i]->maxusage; j++) {
--			struct hid_field *field = report->field[i];
-+		struct hid_field *field = report->field[i];
-+
-+		for (j = 0; j < field->report_count; j++) {
- 			struct hid_usage *usage = &field->usage[j];
- 			unsigned int equivalent_usage = wacom_equivalent_usage(usage->hid);
- 			unsigned int offset;
-
+ 	*epoch = 0; /* not used */
+-	if (lc->lcontext.LeaseFlags & SMB2_LEASE_FLAG_BREAK_IN_PROGRESS)
++	if (lc->lcontext.LeaseFlags & SMB2_LEASE_FLAG_BREAK_IN_PROGRESS_LE)
+ 		return SMB2_OPLOCK_LEVEL_NOCHANGE;
+ 	return le32_to_cpu(lc->lcontext.LeaseState);
+ }
+@@ -4416,7 +4416,7 @@ smb3_parse_lease_buf(void *buf, unsigned int *epoch, char *lease_key)
+ 	struct create_lease_v2 *lc = (struct create_lease_v2 *)buf;
+ 
+ 	*epoch = le16_to_cpu(lc->lcontext.Epoch);
+-	if (lc->lcontext.LeaseFlags & SMB2_LEASE_FLAG_BREAK_IN_PROGRESS)
++	if (lc->lcontext.LeaseFlags & SMB2_LEASE_FLAG_BREAK_IN_PROGRESS_LE)
+ 		return SMB2_OPLOCK_LEVEL_NOCHANGE;
+ 	if (lease_key)
+ 		memcpy(lease_key, &lc->lcontext.LeaseKey, SMB2_LEASE_KEY_SIZE);
+diff --git a/fs/cifs/smb2pdu.c b/fs/cifs/smb2pdu.c
+index e93dd51a88557..52e63bd6b717b 100644
+--- a/fs/cifs/smb2pdu.c
++++ b/fs/cifs/smb2pdu.c
+@@ -2019,7 +2019,7 @@ create_reconnect_durable_buf(struct cifs_fid *fid)
+ static void
+ parse_query_id_ctxt(struct create_context *cc, struct smb2_file_all_info *buf)
+ {
+-	struct create_on_disk_id *pdisk_id = (struct create_on_disk_id *)cc;
++	struct create_disk_id_rsp *pdisk_id = (struct create_disk_id_rsp *)cc;
+ 
+ 	cifs_dbg(FYI, "parse query id context 0x%llx 0x%llx\n",
+ 		pdisk_id->DiskFileId, pdisk_id->VolumeId);
+diff --git a/fs/cifs/smb2pdu.h b/fs/cifs/smb2pdu.h
+index 712d256c0d4f5..1a8dc46024877 100644
+--- a/fs/cifs/smb2pdu.h
++++ b/fs/cifs/smb2pdu.h
+@@ -571,7 +571,7 @@ struct create_context {
+ #define SMB2_LEASE_HANDLE_CACHING	cpu_to_le32(0x02)
+ #define SMB2_LEASE_WRITE_CACHING	cpu_to_le32(0x04)
+ 
+-#define SMB2_LEASE_FLAG_BREAK_IN_PROGRESS cpu_to_le32(0x00000002)
++#define SMB2_LEASE_FLAG_BREAK_IN_PROGRESS_LE cpu_to_le32(0x00000002)
+ #define SMB2_LEASE_FLAG_PARENT_LEASE_KEY_SET cpu_to_le32(0x00000004)
+ 
+ #define SMB2_LEASE_KEY_SIZE 16
+@@ -653,12 +653,12 @@ struct durable_reconnect_context_v2 {
+ } __packed;
+ 
+ /* See MS-SMB2 2.2.14.2.9 */
+-struct create_on_disk_id {
++struct create_disk_id_rsp {
+ 	struct create_context ccontext;
+ 	__u8   Name[8];
+ 	__le64 DiskFileId;
+ 	__le64 VolumeId;
+-	__u32  Reserved[4];
++	__u8  Reserved[16];
+ } __packed;
+ 
+ /* See MS-SMB2 2.2.14.2.12 */
+-- 
+2.53.0
 
