@@ -1,77 +1,44 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2F3252F294;
-	Wed, 30 Sep 2026 17:38:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E4CE52FE4C;
+	Wed, 30 Sep 2026 17:38:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790789926; cv=none; b=hSiat2EeH7lsnRfYg0inHBtS28sVJbehFbs3DUN4ymr8HdsghtqOGAECrzlrUWEi9GYhDSbIqlL46D2+7hcpojpt28HjgH8hKpGwJnMIpeK1m9dLaLJ1rk06j2ajiaaSN4nOuSwkuOls5Z9U94cOWyK8j3hX19Sqm/pGBKkONlU=
+	t=1790789926; cv=none; b=NVc4g/1LEq90bHvmczklE09Y55RUwjU5jSB0Z51RmWWw1J+5e1eUEQUi2yBRu1MiCXS+WQFQ0F/JdQU1HPhGGXUYnB+/I3kOH6+8A8iPOug9QwD1TvZku+6mvdXbvz/uspY2SYJL8d0OfJcQculW9CY43NBj+ZiJ2zbnvZS3Y94=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790789926; c=relaxed/simple;
-	bh=OAKkHFp1kQnEWZu2uh7np29DANFtgqqWtSiHQoGH/0A=;
+	bh=ckfDUyI+nKNdxYovv/oUo5EzNGK9cITUccZojLzBdpU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qEtpO6J68Sn263SAPXJAjLfeAqK+g085Z8Eu9NX73qNZwtoxRIWxxKugApK77FUCSKuD6F9Wnk1VCdKSnnFrwC3cgBiHyT0t3yyXCA30xS45yZ6oF1kYqDjA4YwDwWXRyCz+tzEgx1WDLpTyWUHzNZ5CHhglDmcwfqm/U1zV9LA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=SxdQXQ+6; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	 MIME-Version; b=lETfXSAyPI9/+5Kpsis83SgiC3VVcbmEZxAgoBMMxyxDFNyeLMdPl6oDpcXuTm6GUohZnM0kHIG2cs922U09ijo8rNUpklbGfupZHaUHYXJPN/Ng5r/XBZburXqenJ/15Ux8QfbBKDvNB42wDoye1ierb66tQqQSM/lO+WoC4Ek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ACriTLLR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="SxdQXQ+6"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UE5VdL2986280;
-	Wed, 30 Sep 2026 17:38:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=nEzg2jd6RuXkUQyzJ
-	FK96fLJits+zpgTCIBXNIAHffE=; b=SxdQXQ+6qH3iJCggvfPL2E3MmNiqcZ9DN
-	Z+L4oPNZbA4tJ7WEjeNYZPmqjcBvNQVG192cmT5oMU21JezylF8hYjP0VEs6Ddot
-	USB6Q26PiccHGEzH3chUFg0HSeaPezDGOBpTUBT1Ew4WP/yaQpJG3E68jItb8kBf
-	1eO5KclsIguBOYP4rS4e1JusZg6FpEDTAA5gRQ2PICLn2bPOBvX/vMA6sDw+b44M
-	i+FPEyL8KRwOYtoS2qAd4duMjELdF3FU3xlSb7blLhcQ+JIexlDrPFo8+lBfqyY4
-	QbtYMuCvWG4lSCJfQ8T9yVtYDM0R3RGGJx1QVlfWc+6eAZ4SLJo0A==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx3fkdxpn-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 30 Sep 2026 17:38:29 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68UHXlm03541454;
-	Wed, 30 Sep 2026 17:38:28 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h0hfpd071-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 30 Sep 2026 17:38:28 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68UHcNx029032886
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 30 Sep 2026 17:38:23 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id B6FD32004D;
-	Wed, 30 Sep 2026 17:38:23 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id B57AF20040;
-	Wed, 30 Sep 2026 17:38:19 +0000 (GMT)
-Received: from localhost.localdomain (unknown [9.39.22.150])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 30 Sep 2026 17:38:19 +0000 (GMT)
-From: Amit Machhiwal <amachhiw@linux.ibm.com>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org
-Cc: Amit Machhiwal <amachhiw@linux.ibm.com>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-        Shrikanth Hegde <sshegde@linux.ibm.com>, kvm-ppc@vger.kernel.org,
-        kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Gautam Menghani <gautam@linux.ibm.com>,
-        Harsh Prateek Bora <harshpb@linux.ibm.com>,
-        R Nageswara Sastry <rnsastry@linux.ibm.com>,
-        Alexander Graf <agraf@suse.de>, linux-hardening@vger.kernel.org,
-        stable@vger.kernel.org, Avi Kivity <avi@redhat.com>
-Subject: [PATCH v2 2/3] KVM: PPC: Book3S HV: Add preempt_disable() around virtual-mode HPTE bit-lock users
-Date: Wed, 30 Sep 2026 23:07:49 +0530
-Message-ID: <20260930173750.56759-3-amachhiw@linux.ibm.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260930173750.56759-1-amachhiw@linux.ibm.com>
-References: <20260930173750.56759-1-amachhiw@linux.ibm.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ACriTLLR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B754C1F00898;
+	Wed, 30 Sep 2026 17:38:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790789925;
+	bh=MruW6iK1k9AwQcTVORcT3UOsznUNC+IDN0516zCNjK4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ACriTLLRV6X49MokM5dbddlnLE3hnRbLwY37D8gQWoBymME9zAc7P/27GmeXYm6Wl
+	 l33cv6aPY9/7nfqM//96lEg5BJftlhwK9nRA82W7FZIKXOm6LQcCeRdxw3MAyEeAZA
+	 JXkS3F3UAE0UhTiYVzlwdESy9fWWPnMVBYFgDNDw=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Li Chen <me@linux.beauty>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12 650/877] nvdimm: virtio_pmem: stop allocating child flush bio
+Date: Wed, 30 Sep 2026 17:26:01 +0200
+Message-ID: <20260930152428.688186283@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930152414.738996857@linuxfoundation.org>
+References: <20260930152414.738996857@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -79,219 +46,270 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: ukeUoTHfBZXM5eXrhSXxPu5zuYQSeLAV
-X-Proofpoint-GUID: P5mExd7rpMHmozzPuaNZnA6UexQVc5rE
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA3MCBTYWx0ZWRfXwp8NW8YfWSiC
- 8i95mWxfYLoa7zEM5uNEYJxd4ZwVVvNq8prSYjXJ4VZ/fOBHVi/UV7wAGBcJt4+PzKVp4hiqwOy
- 14Vq5+vbHw8TmZOxaQnGkVE9bsbmIeU=
-X-Authority-Analysis: v=2.4 cv=Vv62kO2n c=1 sm=1 tr=0 ts=6abd4915 cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=7ra5lxVqLeyULECxJZQA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA3MCBTYWx0ZWRfXzhAyprID4Vsp
- ipRc0W7EAnW4hE+fpqXvdVdoRkAkVc7xVTWN+a3kPOnBkD8WWeXBL1RTIVsHreB00yln0SLwNWP
- m6wc2ta41wV0D55rOPPGe8snfS+EpJOdJ1qf+y+KrmM+IXdgQmWwlIpURDSb5sSFJ2lnvQhpZqB
- 9YzR09MlXv3xv4ALkaU6aLjwistzdhhpNQgtV5e/23FkmvONcarxWTF5/P9OgG3YuGmuQJ1Fc/V
- Hbt2nuKLXfNUbaaCE9Q+QEnTXvYSHTrdZS0xLA8A1hSu4DQeBKfWtm9LLvsuHEwE/2L9Rc7supp
- XmJleoMBN7tR9b7aIlqrN7HIcDji1tOok7B52B+cLldhAkTgp+JOsSjadMh8ilT9dxuX+cGW3Z1
- NuHK/FE23uAvgQa41GuXU1JEU8cUGL9eUXRRBj5ZT5U98buXtH399AbTGcTGnrvk/mh8+9J47tH
- bSNWnW6+6R3AupnzZ9w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-30_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 phishscore=0 bulkscore=0 adultscore=0
- priorityscore=1501 malwarescore=0 clxscore=1015 lowpriorityscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609300070
 
-kvmppc_hv_find_lock_hpte() requires virtual-mode callers to run with
-preemption disabled, because it can return with HPTE_V_HVLOCK still held
-until the caller later unlocks the HPTE.  Existing virtual-mode callers
-in book3s_64_mmu_hv.c already follow that rule, but several paths do
-not.
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-kvmppc_handle_exit_hv() calls kvmppc_hpte_hv_fault() for hash-mode
-data-side and instruction-side faults after guest exit with preemption
-enabled.  kvmppc_pseries_do_hcall() executes virtual-mode HPT hcall
-handlers via kvmppc_pseries_do_hpt_hcall() with preemption enabled; the
-handlers for H_ENTER, H_REMOVE, H_READ, H_CLEAR_MOD, H_CLEAR_REF,
-H_PROTECT, and H_BULK_REMOVE all spin on try_lock_hpte() or lock_rmap().
-H_ENTER also reaches kvmppc_do_h_enter(), which uses arch_spin_lock() on
-kvm->mmu_lock.  That raw lock choice is intentional because
-kvmppc_do_h_enter() is also called from real-mode paths, so the correct
-fix is to establish the proper preemption context at the virtual-mode
-caller boundary.
+------------------
 
-On the host side, kvm_unmap_rmapp(), kvm_age_rmapp(),
-kvm_test_clear_dirty_npages(), and resize_hpt_rehash_hpte() also acquire
-HPTE_V_HVLOCK via try_lock_hpte() in process context with preemption
-enabled, serving MMU notifier callbacks, dirty-log harvesting, and HPT
-resize respectively.
+From: Li Chen <me@linux.beauty>
 
-If any of these threads is preempted while holding HPTE_V_HVLOCK, any
-other thread on the same CPU spinning on the same bit-lock can never
-make progress, as the lock owner cannot be rescheduled to release it.
-This is particularly acute when the spinning thread has preemption
-disabled: it will never yield, causing a permanent CPU hang.
+[ Upstream commit 40f356e610df95728074b1fc2e2ccb54ca1b5659 ]
 
-Fix this by adding preempt_disable()/preempt_enable() pairs around the
-two kvmppc_hpte_hv_fault() call sites in kvmppc_handle_exit_hv(), around
-the kvmppc_pseries_do_hpt_hcall() invocation in kvmppc_pseries_do_hcall(),
-and around the try_lock_hpte() hold windows in kvm_unmap_rmapp(),
-kvm_age_rmapp(), kvm_test_clear_dirty_npages(), and resize_hpt_rehash_hpte().
-On failed lock acquisition the guard is released before the cpu_relax()
-spin so the lock owner can be scheduled.
+pmem_submit_bio() passes the parent bio to nvdimm_flush() for
+REQ_FUA. For virtio-pmem this makes async_pmem_flush() allocate
+and submit a child PREFLUSH bio chained to the parent.
 
-Fixes: 6165d5dd99db ("KVM: PPC: Book3S HV: add virtual mode handlers for HPT hcalls and page faults")
-Cc: stable@vger.kernel.org # v5.14+
-Signed-off-by: Amit Machhiwal <amachhiw@linux.ibm.com>
+That child allocation is in the block submit path. Making it
+blocking with GFP_NOIO can consume the same global bio mempool that
+submit_bio() uses, while making it GFP_ATOMIC can fail under
+pressure. A forced failure of the child allocation produced:
+
+virtio_pmem: forcing child bio allocation failure for test
+Buffer I/O error on dev pmem0, logical block 0, lost sync page write
+EXT4-fs (pmem0): I/O error while writing superblock
+EXT4-fs (pmem0): mount failed
+
+Avoid the child bio without turning REQ_FUA into a synchronous
+submit-path wait. Let provider flush callbacks return
+NVDIMM_FLUSH_ASYNC after taking ownership of parent bio completion.
+pmem_submit_bio() returns in that case, and virtio-pmem queues an
+ordered WQ_MEM_RECLAIM work item that runs the existing host flush
+path and completes the parent bio.
+
+This keeps the asynchronous completion model of the child-bio path
+while removing the child bio allocation from the submit path.
+
+Signed-off-by: Li Chen <me@linux.beauty>
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+Message-ID: <20260630092338.2094628-5-me@linux.beauty>
+
+Backport notes for 6.12:
+Drop the freeze callback hunk: this tree does not have the upstream
+virtio-pmem freeze/restore callbacks. Keep the workqueue allocation,
+probe error cleanup, and removal drain without adding those callbacks.
+
+Use the available kmalloc_obj() helper for the existing request allocation,
+matching upstream without changing its GFP_KERNEL behavior. This keeps the
+following GFP_NOIO dependency applicable. Correct the existing "repsonse"
+comment typo to match the context of the wait-flag dependency. The remaining
+request-wakeup and wait-flag dependencies are still needed before the
+refcount target.
+
+Stable-dep-of: e57140944b5a ("nvdimm: virtio_pmem: refcount requests for token lifetime")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
-Changes in v2:
-- Extended preempt_disable()/preempt_enable() to also cover four
-  host-side virtual-mode HPTE bit-lock users in book3s_64_mmu_hv.c.
-- Added warning comment above kvmppc_pseries_do_hpt_hcall().
-- Dropped Reviewed-by as the patch was materially extended.
+ drivers/nvdimm/nd_virtio.c   |   58 +++++++++++++++++++++++++++++--------------
+ drivers/nvdimm/pmem.c        |    5 ++-
+ drivers/nvdimm/region_devs.c |    2 +
+ drivers/nvdimm/virtio_pmem.c |   14 +++++++++-
+ drivers/nvdimm/virtio_pmem.h |    4 ++
+ include/linux/libnvdimm.h    |    9 ++++++
+ 6 files changed, 72 insertions(+), 20 deletions(-)
 
- arch/powerpc/kvm/book3s_64_mmu_hv.c | 12 ++++++++++++
- arch/powerpc/kvm/book3s_hv.c        | 10 ++++++++++
- 2 files changed, 22 insertions(+)
-
-diff --git a/arch/powerpc/kvm/book3s_64_mmu_hv.c b/arch/powerpc/kvm/book3s_64_mmu_hv.c
-index 2ccb3d138f46..59da958e09cb 100644
---- a/arch/powerpc/kvm/book3s_64_mmu_hv.c
-+++ b/arch/powerpc/kvm/book3s_64_mmu_hv.c
-@@ -823,7 +823,9 @@ static void kvm_unmap_rmapp(struct kvm *kvm, struct kvm_memory_slot *memslot,
- 		 */
- 		i = *rmapp & KVMPPC_RMAP_INDEX;
- 		hptep = (__be64 *) (kvm->arch.hpt.virt + (i << 4));
-+		preempt_disable();
- 		if (!try_lock_hpte(hptep, HPTE_V_HVLOCK)) {
-+			preempt_enable();
- 			/* unlock rmap before spinning on the HPTE lock */
- 			unlock_rmap(rmapp);
- 			while (be64_to_cpu(hptep[0]) & HPTE_V_HVLOCK)
-@@ -834,6 +836,7 @@ static void kvm_unmap_rmapp(struct kvm *kvm, struct kvm_memory_slot *memslot,
- 		kvmppc_unmap_hpte(kvm, i, memslot, rmapp, gfn);
- 		unlock_rmap(rmapp);
- 		__unlock_hpte(hptep, be64_to_cpu(hptep[0]));
-+		preempt_enable();
- 	}
- }
+--- a/drivers/nvdimm/nd_virtio.c
++++ b/drivers/nvdimm/nd_virtio.c
+@@ -9,6 +9,12 @@
+ #include "virtio_pmem.h"
+ #include "nd.h"
  
-@@ -909,7 +912,9 @@ static bool kvm_age_rmapp(struct kvm *kvm, struct kvm_memory_slot *memslot,
- 		if (!(be64_to_cpu(hptep[1]) & HPTE_R_R))
- 			continue;
- 
-+		preempt_disable();
- 		if (!try_lock_hpte(hptep, HPTE_V_HVLOCK)) {
-+			preempt_enable();
- 			/* unlock rmap before spinning on the HPTE lock */
- 			unlock_rmap(rmapp);
- 			while (be64_to_cpu(hptep[0]) & HPTE_V_HVLOCK)
-@@ -928,6 +933,7 @@ static bool kvm_age_rmapp(struct kvm *kvm, struct kvm_memory_slot *memslot,
- 			ret = true;
- 		}
- 		__unlock_hpte(hptep, be64_to_cpu(hptep[0]));
-+		preempt_enable();
- 	} while ((i = j) != head);
- 
- 	unlock_rmap(rmapp);
-@@ -1043,7 +1049,9 @@ static int kvm_test_clear_dirty_npages(struct kvm *kvm, unsigned long *rmapp)
- 		    (!hpte_is_writable(hptep1) || vcpus_running(kvm)))
- 			continue;
- 
-+		preempt_disable();
- 		if (!try_lock_hpte(hptep, HPTE_V_HVLOCK)) {
-+			preempt_enable();
- 			/* unlock rmap before spinning on the HPTE lock */
- 			unlock_rmap(rmapp);
- 			while (hptep[0] & cpu_to_be64(HPTE_V_HVLOCK))
-@@ -1054,6 +1062,7 @@ static int kvm_test_clear_dirty_npages(struct kvm *kvm, unsigned long *rmapp)
- 		/* Now check and modify the HPTE */
- 		if (!(hptep[0] & cpu_to_be64(HPTE_V_VALID))) {
- 			__unlock_hpte(hptep, be64_to_cpu(hptep[0]));
-+			preempt_enable();
- 			continue;
- 		}
- 
-@@ -1077,6 +1086,7 @@ static int kvm_test_clear_dirty_npages(struct kvm *kvm, unsigned long *rmapp)
- 		v &= ~HPTE_V_ABSENT;
- 		v |= HPTE_V_VALID;
- 		__unlock_hpte(hptep, v);
-+		preempt_enable();
- 	} while ((i = j) != head);
- 
- 	unlock_rmap(rmapp);
-@@ -1219,6 +1229,7 @@ static unsigned long resize_hpt_rehash_hpte(struct kvm_resize_hpt *resize,
- 	if (!(vpte & HPTE_V_VALID) && !(vpte & HPTE_V_ABSENT))
- 		return 0; /* nothing to do */
- 
-+	preempt_disable();
- 	while (!try_lock_hpte(hptep, HPTE_V_HVLOCK))
- 		cpu_relax();
- 
-@@ -1346,6 +1357,7 @@ static unsigned long resize_hpt_rehash_hpte(struct kvm_resize_hpt *resize,
- 
- out:
- 	unlock_hpte(hptep, vpte);
-+	preempt_enable();
- 	return ret;
- }
- 
-diff --git a/arch/powerpc/kvm/book3s_hv.c b/arch/powerpc/kvm/book3s_hv.c
-index aa51968e206a..0b7743bb89d9 100644
---- a/arch/powerpc/kvm/book3s_hv.c
-+++ b/arch/powerpc/kvm/book3s_hv.c
-@@ -1159,6 +1159,10 @@ static long kvmppc_h_rpt_invalidate(struct kvm_vcpu *vcpu,
- 	return H_SUCCESS;
- }
- 
-+/*
-+ * Must be called with preemption disabled. The HPT hcall handlers spin
-+ * on HPTE bit-locks and cannot make any blocking/sleeping calls.
-+ */
- static long kvmppc_pseries_do_hpt_hcall(struct kvm_vcpu *vcpu, unsigned long req)
++struct virtio_pmem_flush_work {
++	struct work_struct work;
++	struct nd_region *nd_region;
++	struct bio *bio;
++};
++
+  /* The interrupt handler */
+ void virtio_pmem_host_ack(struct virtqueue *vq)
  {
- 	switch (req) {
-@@ -1212,9 +1216,11 @@ int kvmppc_pseries_do_hcall(struct kvm_vcpu *vcpu)
- 	case H_CLEAR_REF:
- 	case H_PROTECT:
- 	case H_BULK_REMOVE:
-+		preempt_disable();
- 		idx = srcu_read_lock(&kvm->srcu);
- 		ret = kvmppc_pseries_do_hpt_hcall(vcpu, req);
- 		srcu_read_unlock(&kvm->srcu, idx);
-+		preempt_enable();
- 		if (ret == H_TOO_HARD)
- 			return RESUME_HOST;
- 		break;
-@@ -1834,8 +1840,10 @@ static int kvmppc_handle_exit_hv(struct kvm_vcpu *vcpu,
- 		else
- 			vsid = vcpu->arch.fault_gpa;
+@@ -55,7 +61,7 @@ static int virtio_pmem_flush(struct nd_r
+ 		return -EIO;
+ 	}
  
-+		preempt_disable();
- 		err = kvmppc_hpte_hv_fault(vcpu, vcpu->arch.fault_dar,
- 				vsid, vcpu->arch.fault_dsisr, true);
-+		preempt_enable();
- 		if (err == 0) {
- 			r = RESUME_GUEST;
- 		} else if (err == -1 || err == -2) {
-@@ -1881,8 +1889,10 @@ static int kvmppc_handle_exit_hv(struct kvm_vcpu *vcpu,
- 		else
- 			vsid = vcpu->arch.fault_gpa;
+-	req_data = kmalloc(sizeof(*req_data), GFP_KERNEL);
++	req_data = kmalloc_obj(*req_data);
+ 	if (!req_data)
+ 		return -ENOMEM;
  
-+		preempt_disable();
- 		err = kvmppc_hpte_hv_fault(vcpu, vcpu->arch.fault_dar,
- 				vsid, vcpu->arch.fault_dsisr, false);
-+		preempt_enable();
- 		if (err == 0) {
- 			r = RESUME_GUEST;
- 		} else if (err == -1) {
--- 
-2.54.0 (Apple Git-157)
+@@ -98,7 +104,7 @@ static int virtio_pmem_flush(struct nd_r
+ 		dev_info(&vdev->dev, "failed to send command to virtio pmem device\n");
+ 		err = -EIO;
+ 	} else {
+-		/* A host repsonse results in "host_ack" getting called */
++		/* A host response results in "host_ack" getting called */
+ 		wait_event(req_data->host_acked, req_data->done);
+ 		err = le32_to_cpu(req_data->resp.ret);
+ 	}
+@@ -107,30 +113,46 @@ static int virtio_pmem_flush(struct nd_r
+ 	return err;
+ };
+ 
++static void virtio_pmem_flush_work(struct work_struct *work)
++{
++	struct virtio_pmem_flush_work *flush;
++	int err;
++
++	flush = container_of(work, struct virtio_pmem_flush_work, work);
++	err = virtio_pmem_flush(flush->nd_region);
++	if (err > 0)
++		err = -EIO;
++	if (err)
++		flush->bio->bi_status = errno_to_blk_status(err);
++	bio_endio(flush->bio);
++	kfree(flush);
++}
++
+ /* The asynchronous flush callback function */
+ int async_pmem_flush(struct nd_region *nd_region, struct bio *bio)
+ {
+-	/*
+-	 * Create child bio for asynchronous flush and chain with
+-	 * parent bio. Otherwise directly call nd_region flush.
+-	 */
+-	if (bio && bio->bi_iter.bi_sector != -1) {
+-		struct bio *child = bio_alloc(bio->bi_bdev, 0,
+-					      REQ_OP_WRITE | REQ_PREFLUSH,
+-					      GFP_ATOMIC);
++	struct virtio_device *vdev = nd_region->provider_data;
++	struct virtio_pmem *vpmem = vdev->priv;
++	struct virtio_pmem_flush_work *flush;
++	int err;
+ 
+-		if (!child)
++	if (bio && bio->bi_iter.bi_sector != -1) {
++		flush = kmalloc_obj(*flush, GFP_NOIO);
++		if (!flush)
+ 			return -ENOMEM;
+-		bio_clone_blkg_association(child, bio);
+-		child->bi_iter.bi_sector = -1;
+-		bio_chain(child, bio);
+-		submit_bio(child);
+-		return 0;
++
++		INIT_WORK(&flush->work, virtio_pmem_flush_work);
++		flush->nd_region = nd_region;
++		flush->bio = bio;
++		queue_work(vpmem->flush_wq, &flush->work);
++		return NVDIMM_FLUSH_ASYNC;
+ 	}
+-	if (virtio_pmem_flush(nd_region))
++
++	err = virtio_pmem_flush(nd_region);
++	if (err > 0)
+ 		return -EIO;
+ 
+-	return 0;
++	return err;
+ };
+ EXPORT_SYMBOL_GPL(async_pmem_flush);
+ MODULE_DESCRIPTION("Virtio Persistent Memory Driver");
+--- a/drivers/nvdimm/pmem.c
++++ b/drivers/nvdimm/pmem.c
+@@ -236,8 +236,11 @@ static void pmem_submit_bio(struct bio *
+ 	if (do_acct)
+ 		bio_end_io_acct(bio, start);
+ 
+-	if ((bio->bi_opf & REQ_FUA) && !bio->bi_status)
++	if ((bio->bi_opf & REQ_FUA) && !bio->bi_status) {
+ 		ret = nvdimm_flush(nd_region, bio);
++		if (ret == NVDIMM_FLUSH_ASYNC)
++			return;
++	}
+ 
+ 	if (ret)
+ 		bio->bi_status = errno_to_blk_status(ret);
+--- a/drivers/nvdimm/region_devs.c
++++ b/drivers/nvdimm/region_devs.c
+@@ -1113,6 +1113,8 @@ int nvdimm_flush(struct nd_region *nd_re
+ 		rc = generic_nvdimm_flush(nd_region);
+ 	else {
+ 		rc = nd_region->flush(nd_region, bio);
++		if (rc > 0)
++			return rc;
+ 		if (rc && rc != -ENOMEM)
+ 			rc = -EIO;
+ 	}
+--- a/drivers/nvdimm/virtio_pmem.c
++++ b/drivers/nvdimm/virtio_pmem.c
+@@ -67,10 +67,17 @@ static int virtio_pmem_probe(struct virt
+ 	mutex_init(&vpmem->flush_lock);
+ 	vpmem->vdev = vdev;
+ 	vdev->priv = vpmem;
++	vpmem->flush_wq = alloc_ordered_workqueue("virtio-pmem-flush",
++						  WQ_MEM_RECLAIM);
++	if (!vpmem->flush_wq) {
++		err = -ENOMEM;
++		goto out_err;
++	}
++
+ 	err = init_vq(vpmem);
+ 	if (err) {
+ 		dev_err(&vdev->dev, "failed to initialize virtio pmem vq's\n");
+-		goto out_err;
++		goto out_wq;
+ 	}
+ 
+ 	if (virtio_has_feature(vdev, VIRTIO_PMEM_F_SHMEM_REGION)) {
+@@ -131,6 +138,8 @@ out_nd:
+ 	nvdimm_bus_unregister(vpmem->nvdimm_bus);
+ out_vq:
+ 	vdev->config->del_vqs(vdev);
++out_wq:
++	destroy_workqueue(vpmem->flush_wq);
+ out_err:
+ 	return err;
+ }
+@@ -138,10 +147,13 @@ out_err:
+ static void virtio_pmem_remove(struct virtio_device *vdev)
+ {
+ 	struct nvdimm_bus *nvdimm_bus = dev_get_drvdata(&vdev->dev);
++	struct virtio_pmem *vpmem = vdev->priv;
+ 
+ 	nvdimm_bus_unregister(nvdimm_bus);
++	drain_workqueue(vpmem->flush_wq);
+ 	vdev->config->del_vqs(vdev);
+ 	virtio_reset_device(vdev);
++	destroy_workqueue(vpmem->flush_wq);
+ }
+ 
+ static unsigned int features[] = {
+--- a/drivers/nvdimm/virtio_pmem.h
++++ b/drivers/nvdimm/virtio_pmem.h
+@@ -15,6 +15,7 @@
+ #include <linux/libnvdimm.h>
+ #include <linux/mutex.h>
+ #include <linux/spinlock.h>
++#include <linux/workqueue.h>
+ 
+ struct virtio_pmem_request {
+ 	struct virtio_pmem_req req;
+@@ -39,6 +40,9 @@ struct virtio_pmem {
+ 	/* Serialize flush requests to the device. */
+ 	struct mutex flush_lock;
+ 
++	/* Complete asynchronous FUA flushes outside the submit path. */
++	struct workqueue_struct *flush_wq;
++
+ 	/* nvdimm bus registers virtio pmem device */
+ 	struct nvdimm_bus *nvdimm_bus;
+ 	struct nvdimm_bus_descriptor nd_desc;
+--- a/include/linux/libnvdimm.h
++++ b/include/linux/libnvdimm.h
+@@ -122,6 +122,15 @@ struct nd_mapping_desc {
+ };
+ 
+ struct nd_region;
++
++/*
++ * Provider flush callback return values:
++ *   0: flush completed synchronously
++ *  <0: flush failed
++ *  >0: flush completion was queued and @bio will be completed later
++ */
++#define NVDIMM_FLUSH_ASYNC 1
++
+ struct nd_region_desc {
+ 	struct resource *res;
+ 	struct nd_mapping_desc *mapping;
+
 
