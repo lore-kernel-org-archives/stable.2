@@ -1,129 +1,72 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.aaazen.com (99-33-87-210.lightspeed.sntcca.sbcglobal.net [99.33.87.210])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64C034CDDE9
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 21:26:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4E98466B01;
+	Wed, 30 Sep 2026 21:37:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=99.33.87.210
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790803568; cv=none; b=m2nRGJ862X7LsHI34CsEsYDue99+ybj9WlLtAfsqQu8NuLGdaCdvNzXImL9jtOsLQHwQ+9WywMyceyqdc5p6mOlbjizOEJnKZHIoPuyUqkUHjgHjXpXmZ21mH/bKKwaWbVjFvmDcoCXBOfwuVY22ER/QSRf5jCFH0VOZVi4Sbzo=
+	t=1790804268; cv=none; b=WXSA5oo9ElUSZmfWkdnXlGcBfEBnNjb10x/I0399oJCQ0gwc5oZbg7XWsuewTwQ4sVQtVrB42lZRb7j9vpaJONATRN/t8Zn9sqTufMG2GtAZodaeOEkwhvffCbLu+P64jg5Nd6R1qHVvp7sWDGksFdd/fKef+XQWJcEAOC6ghgw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790803568; c=relaxed/simple;
-	bh=iXpeLJ2IQz6dj06pIp8CpdyiSrvgdjV2iaNmpg8p4ck=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=h0giWS44/w8I2uafOrkP8UdP8SlbQIJaZttQkw9SMsoBIma4OormHDdVNKC/4+aT8tEhNaEfk0wtdCRMPzSZ5Vr/slTNVoWbzAuRn6p5P8ZdOlL8jmx4VvU3BwX2iaiKS1ZT143VbqVPScsxOgc23ipwNjsewGjGu229ro7gRDs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NsVxrfn2; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NsVxrfn2"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6c0fce17so31929165e9.1
-        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 14:26:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790803564; x=1791408364; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6NcEBo2bS8P+fcdvedqvJ3Az2pTigqmXIzaSqCZiwQc=;
-        b=NsVxrfn2Kljkmos8XO1C4TcS63vOjOpRnApgTy+8RX/0eZ5tiYSQZ+DSYvtv8OFqwR
-         KCyb/UI4nPc23lkbaYA+3GqL1O2o6EHU8il03ie9jKkcg2Q1kK9gNTk7xRUvQiEdbTHf
-         Juhh2qiKRVNEvF8/lDV6f8CJv9/MSXEoDllGrwwZM08eVe6VTceAOJtCS+G4MuBcTdhL
-         G1y9o5CJarQu3i9y0iNVxTYPNY59GWmepUTaEm5lQix4DROPQgNlPCD4Y2zOiNfcZOAO
-         2WOPdEGb8Uu2Muyr7ozNvxIQL+E/zjnFKw8BVHw9WAhoQxo8HnjEFaxh/+MrwQRnyhXh
-         1iDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790803564; x=1791408364;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6NcEBo2bS8P+fcdvedqvJ3Az2pTigqmXIzaSqCZiwQc=;
-        b=GVvdBXD+iqB+NlqwTBZ1cFr3RiqrQpxX+/3Khmd5ydb21kJnEXHnhoaAkKLj79uXZK
-         m9itpvSwmhbrnSzeRZUScEfQp8MT/wUScwshq3WmBPzVKBK55T4wBLGWvdMyAnhxrX4D
-         dF2oJcuH41zbpZpqWK9EpFl8RPTNbk/gJNQhQ6YAo1istNvigL0zQUyzbAvClPYwVA85
-         sRbyvAoQWXDCJgute5tbgOd4fBONlQhFirJ5pIXE9M/mdZuu2HgLUlBorKvrTLie92Ev
-         gCRfG9LmBEg5Ukhq0qyQMK11IHAn18omd8EfW/B2+l5mDgAnM2vOtu+mW//Jued2Kvga
-         W9Tg==
-X-Forwarded-Encrypted: i=1; AKwUvByQOu7UxDpTtdTdijn6Rdn+l83DDrRQDbFKGTemIS5fePHiIhPIjmQqCzOFvG58NCAmmxKGyQA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLU4NGNWkMO3sp1w7u990qZOzflkFpHyhE/uZ2BaUFN3i6bpbJE
-	qNMheZi3Y8UD/k4p+KBIlV1xxRBTcIG/iOYhRIgoEtMhbF2zjanOPjRh
-X-Gm-Gg: AYBFou3hC9RIpKyaCyqkjxSojCBXcFejQ6TFw88fPViSNbUqAzz415Xtv6GjYlFQIuS
-	dkLf/6uHmXoFilXbmBCqX1imDyr/Ax9bm0esJTjxDXnJlXK4WiU/+GUpE/UwGoy/yio3ji2HjbS
-	8JbCcUX9bYECfLb7wZALjBXEAa48049lfnRa7u8ePEg+6m1xqW3+5cg/aZ8gGK264EqZ0rSf7WI
-	BP+yApmFSiJgPIr7w03Te9By9HgzWXAz33AOM+ONWbqeUV9xKBNZILOvi0HEn5AWZk8dOr9O3qB
-	5WtoGf8UE8CAxOQEDVfmmFRnZDbzuUK1kUe0UxVMNXHOBrQwTveCFN0eem4xKhvmf9jXf0O3fNq
-	00t4/7rMP909a9YvnvVaNYiaVoF4ReBoqb5GYoXx8d7umxedG6whTA4niovVuMZ6q7co0nBEvcc
-	k8FcgLxKVjJURmylsYSdc3PKyd7hO+JEspy5iAoGo0AUpTtPB6Qja790mLm/I=
-X-Received: by 2002:a05:6000:40ca:b0:488:6561:b324 with SMTP id ffacd0b85a97d-48b024dc409mr4686934f8f.9.1790803564433;
-        Wed, 30 Sep 2026 14:26:04 -0700 (PDT)
-Received: from gmail.com ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b068bd8c9sm1825610f8f.2.2026.09.30.14.26.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 14:26:04 -0700 (PDT)
-Date: Wed, 30 Sep 2026 23:26:01 +0200
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-To: Imre Kaloz <kaloz@kernel.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
-	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Jann Horn <jannh@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/slab: sample slab_state once in kmem_cache_destroy()
-Message-ID: <ar153_VaZlIY3qeQ@gmail.com>
-References: <20260930195110.13296-1-kaloz@kernel.org>
+	s=arc-20240116; t=1790804268; c=relaxed/simple;
+	bh=/4wrKAVpOlwTgxrgixAZVYhhfCFrT3oMrw51Fa71xSY=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=pbEcXHpmJNZf8C1UIXIY4Tdd/ilhbn57o3ILYNMpNvMQIvQk7uAtW5PKSuohCGb4mrK1S4IksZ9ITJFeKbaSPSjepnUXSeVCJ3Bd9Fde6YpjNW79nV8effqZtWJvJ8noiB1ObdXUFwA4FtfOZLbs86GDb0gn6Csb8tlHzxMN+kU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=aaazen.com; spf=pass smtp.mailfrom=aaazen.com; arc=none smtp.client-ip=99.33.87.210
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=aaazen.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aaazen.com
+Received: from localhost (localhost [127.0.0.1])
+	by thursday.test (OpenSMTPD) with ESMTP id 82c01583;
+	Wed, 30 Sep 2026 13:37:45 -0700 (PDT)
+Date: Wed, 30 Sep 2026 13:37:45 -0700 (PDT)
+From: Richard Narron <richard@aaazen.com>
+X-X-Sender: richard@thursday.test
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+cc: Linux stable <stable@vger.kernel.org>, patches@lists.linux.dev, 
+    Linux kernel <linux-kernel@vger.kernel.org>, 
+    Linus Torvalds <torvalds@linux-foundation.org>, akpm@linux-foundation.org, 
+    linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org, 
+    lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com, 
+    f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de, 
+    conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
+    achill@achill.org, sr@sladewatkins.com
+Subject: Re: [PATCH 5.15 000/752] 5.15.222-rc1 review
+In-Reply-To: <20260930152358.131179731@linuxfoundation.org>
+Message-ID: <2558e7d5-1e-50e8-8c7b-eeb089fbe8d0@aaazen.com>
+References: <20260930152358.131179731@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260930195110.13296-1-kaloz@kernel.org>
+Content-Type: text/plain; charset=US-ASCII
 
-On Wed, Sep 30, 2026 at 09:51:09PM +0200, Imre Kaloz wrote:
-> kmem_cache_destroy() tests slab_state >= FULL for sysfs_slab_unlink()
-> and again in kmem_cache_release() for sysfs_slab_release(), with the
-> cache already off slab_caches in between. If slab_late_init() runs in
-> that gap it sets slab_state to FULL but never calls sysfs_slab_add() for
-> the unlinked cache, so kmem_cache_release() ends up in kobject_put() on
-> a kobject that was never initialized:
+On Wed, 30 Sep 2026, Greg Kroah-Hartman wrote:
+
+> This is the start of the stable review cycle for the 5.15.222 release.
+> There are 752 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 >
->   WARNING: lib/kobject.c:734 at kobject_put+0x64/0x2c0, CPU#1: kworker/u8:3/55
->   kobject: '(null)' ((____ptrval____)): is not initialized, yet kobject_put() is being called.
->   refcount_t: underflow; use-after-free.
->   kobject_put+0x64/0x2c0
->   sysfs_slab_release+0xc/0x20
->   kmem_cache_destroy+0x104/0x1e0
->   bioset_exit+0x13c/0x1e0
->   disk_release+0x54/0x140
->   put_disk+0x18/0x40
->   floppy_async_init+0xbec/0xd10
+> Responses should be made by Fri, 02 Oct 2026 15:23:04 +0000.
+> Anything received after that time might be too late.
 >
-> Seen on sparc64 at boot, where the asynchronous floppy init tears down
-> its bio slab while the late initcalls are running.
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.15.222-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.15.y
+> and the diffstat can be found below.
 >
-> Read slab_state once, under slab_mutex which slab_late_init() holds when
-> it sets FULL, and use the result for both the unlink and the release.
-> The kobject flags (state_initialized, state_in_sysfs) were considered as
-> the key instead, but slab_state is what cache creation and
-> slab_late_init() decide on.
-
-the enum has nothing between UP and FULL, and the create path skips
-sysfs_slab_add() while slab_state <= UP, so both tests are the one that
-decides whether the kobject exists, and a false value cannot skip a
-kobject_put() that was owed.
-
-it would read better to me if the changelog said that. otherwise LGTM.
-
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-
-> debugfs_slab_release() is not part of the race: it only looks the cache
-> up by name in the debugfs root and does nothing before that root exists.
+> thanks,
 >
-> Fixes: 4ec10268ed98 ("mm, slab: unlink slabinfo, sysfs and debugfs immediately")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+> greg k-h
+>
 
---
-cheers,
-jose a. p-a
+Tested on AMD64 12-core and 4-core systems
+and    on Intel x86-64 4-core and x86 1-core systems
+
+Tested-by: Richard Narron <richard@aaazen.com>
+
+---------------------------------------------------------------------
+There's no real need to do housework -- after four years it doesn't get
+any worse.
