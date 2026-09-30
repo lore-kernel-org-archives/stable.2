@@ -1,154 +1,111 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.83.148.184])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 070254FB9A6
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 20:22:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E10B24E1C88;
+	Wed, 30 Sep 2026 20:27:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.83.148.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790799748; cv=none; b=eAROk0d0yDYxbS2IW4PaUev1gWx7Eu42i3XqKaxTgzKhnmJNhforXGf4VX4KXGdZaNAUIT/IOosHKJUqFPoPmSCw+WggU4/BNzZLKPt9D7oyM39rlrG8zWB8wIg6AQfgzagaYyB0Jk7HtZYGaKJvOCb3f3SqOGV8ASRzReWEr10=
+	t=1790800022; cv=none; b=rR3ifjlX7hnwVK639RyFG9oP2e+EEY4K7iEBwfAXg0ID2OTk5gZPiIDcsfqBgCPFxOgP7DfC9LNdpPO6LQqQz8D0n1W7Grnk+UEo9ApNoK/ZnUj9Ab9LuEJTuEpGDZQq9MMkDOsIiNBCTHzqkRzvF9ENbKL8NdsNlm6Uesov+fA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790799748; c=relaxed/simple;
-	bh=pN/G0+fViAWcFotxNNYaHvIrBf4dqFEFrepGUufaYk0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=N57MsT2axXk4c4Vmt29a5XAHhjEdzJY77O04QrzwA8raxqAOgUPqATQ0V1bkQYxZKA88vUX82VHPObyCBTp3ZPTF1estlxWamF1Re5ReuNc6itxk+UiXnAGY3QwfKOJEeAiantpw+2eJ61xsNcXH+th4kuGPUC2g8Ya725kJuQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=imNWqkwH; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790800022; c=relaxed/simple;
+	bh=gBxbbz8+38Y+s40Za87dlwU4FYsCKhVptdzqeBxOssw=;
+	h=MIME-Version:Content-Type:Subject:From:To:CC:In-Reply-To:
+	 References:Date:Message-ID; b=XXAonpSlMeNIIrdZ8C89I4kljSRqUy6PNCm0ye5UTgVpJE+fTuiBhJyphQIG6EH47Fe1BH1X0WNwEYAPzlzIT0iBQcACD7bhtIskKvtfCqePdLTbiDOZEoo5QTzGQXC0bejMuWaZdBIlfuBbxGEBTH64XeBHN8nU64/9fSZ+Vq0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=rQ8NtPMt; arc=none smtp.client-ip=35.83.148.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="imNWqkwH"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48b059eae96so354096f8f.0
-        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 13:22:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="rQ8NtPMt"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790799744; x=1791404544; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QsbcUIyvcZ+zskSrFDYxowHlHtYifbo/michUtyrAnY=;
-        b=imNWqkwHvnjmoe4H8U8qhTs76+3le0J4bGoYKZAqS+xBMIc2VehVdeDHZ4JeYTyIUJ
-         GGZLhYh2mUQ8dRO/ZUjHxwt3XwTcZ5tZqadqJEesaxjbuOErUAAqkCU7Dmn1nbLbMiTV
-         Sr+hvZ65Y81w6Km4o15/GLe0+Qtkt9PHVUxu3TvrZAJUTK4UwjSa994lP/NYQoweGIdi
-         u5BVcufZYnZV7yKFdcSKUTbumgRdzapzukS6pZp3hQV2Lr77ja5iTiuHwCXkOjyr5VW7
-         1GBQ1I8u5M8YO5ORRVi8fFDaQpNpJsBleqwy8mkZ4IRmno/GrBoltVQWpLZQ0yv3GrHb
-         ihnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790799744; x=1791404544;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QsbcUIyvcZ+zskSrFDYxowHlHtYifbo/michUtyrAnY=;
-        b=vWubypXaywKNqKKA/Ch6/VONWT6kIL+9gshi50a7g+lDp2s4YS9DZmrTKhMGs2hms/
-         C/k97V8YM9bBzZTbjqHVAFR0Vx+og5T8ymnmiUnzE6KAdZOTFmg8HDWqa1CqYOwyBjVF
-         krzP3VJizUEZb4I9bFTo3x1Nqgb25u/h4igmiGDibAWMNerltqh5JXrA/QkQqZ0uIc/H
-         respD814U9UaGhhYvNbwiuqKY5xdD7J+fzP+bM/XNuLoVdv5yYgk6zg2yykh70BvwUNE
-         0blnJOBkgtes5qklniYFx8BAHvl39oePvlzDN7pQHSRIaJ3z+rBoDjaK2KAAqMaRX9c0
-         KSnA==
-X-Forwarded-Encrypted: i=1; AKwUvBzN+C6aem8f9au02TV/1V+KMxcWELFUV1jXxfO855DjWdI2D25OuOQu3fy+C09/bqcZuxTUUlA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI11L0GUIxPuezz0m8/bjAyU6iejWbmM64N1WR1Rb3hoh1cWa01
-	ssC5RKK1kQj+NBQLq2+VIesM9gsDr3Mhkm8KdiN41HclsIFpgiiv/acH
-X-Gm-Gg: AYBFou1Cy88Lmmr1hJHszzztrz2zY1a9+NcaVd0jCYhwjJlnL7r2OhwEMjE1YK5WKAK
-	EzTmMLe83t5xcs0/BXqF3nSTJ8qVHl+WcB6t0xDQB485VRYp3G57V40d1AWcLsEMEBXrC10Wdv3
-	jh/GtavMHdP9nN3p47bUKS2EFby5KmHEeYNNG+jhMQ3MsODIHAhOzbnJwjU6n0zAtISveRWkjbi
-	QFQuA2dyA++xCGawZBB0s2ZJOCfYbtXJHYsjwBM7OWZX49Z0SfSckPX+DgM3w1puGju1lF+xfiz
-	NVUPBv2EJ0gFvicLVOUlCzy8qR0tMFdFWHu091jwyJnwHU0KGS9/QzDRml3C7WQfmMcz8TyHQny
-	qc/rI8QrVmDbW3jEQf51pAfWcuSEfEHEqVWaK4cluR2qPfFhq/O77BewIBeXf40LgE27rdjy04B
-	BvwkWM5ZBnGsbN/GgDsKz9np4IKjb2sfHse6doGvNIC53ja4AjjqdwJPTOSNLs3r5ZDRcoGisFi
-	0ZkszNXu+FY9N3q
-X-Received: by 2002:a05:6000:4904:b0:488:6072:c0bc with SMTP id ffacd0b85a97d-48b02430da7mr4724064f8f.4.1790799743668;
-        Wed, 30 Sep 2026 13:22:23 -0700 (PDT)
-Received: from SurHub.localdomain ([102.213.68.159])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b068ff6eesm1457831f8f.11.2026.09.30.13.22.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 13:22:23 -0700 (PDT)
-From: Abdifatah Suruur <suruurism@gmail.com>
-To: cel@kernel.org,
-	jlayton@kernel.org
-Cc: linux-nfs@vger.kernel.org,
-	NeilBrown <neil@brown.name>,
-	Olga Kornievskaia <okorniev@redhat.com>,
-	Dai Ngo <Dai.Ngo@oracle.com>,
-	Tom Talpey <tom@talpey.com>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Abdifatah Suruur <suruurism@gmail.com>
-Subject: [PATCH] lockd: fix use-after-free in nlmsvc_retry_blocked()
-Date: Wed, 30 Sep 2026 23:22:12 +0300
-Message-ID: <20260930202212.1482-1-suruurism@gmail.com>
-X-Mailer: git-send-email 2.53.0
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1790800020; x=1822336020;
+  h=mime-version:content-transfer-encoding:subject:from:to:
+   cc:in-reply-to:references:date:message-id;
+  bh=Pv29v2l3ni5xtNbu+pW0MmRMAzR9cn9ltBlcm3SKBcY=;
+  b=rQ8NtPMtChraEeiH1NTgZGrfDxbbgekm7hDsmp0Ex8g6LLO0k3xLlqYs
+   twkMhKnqPAdfp2LCCb62REnHXy7HEs7IyCvHAQ3ku+/d2w7iIlopPkWG0
+   ggTRGTI8NdrzyxzF6db+3f0poCerj9FTgc7K0Iit0M9B/4OIQnCBHhW4l
+   UlTrtu8DkgniXFUiqZv6bmjKDRalmmOwqz8NnxS8AaKi7ujLKvtkD4H9v
+   hYcMAj4hBz7TjS8q5Y9vv/RSR/F3WmwePdot2/1XR/9p9SGjICAlVjaiD
+   T83oKMmC1irsOSLHp8JRNZ3cs5Co4YvYOcMXkOJr7GKiO5VlayhXkAYW9
+   w==;
+X-CSE-ConnectionGUID: 2EzWEmH8R6iGbrHniBJoiw==
+X-CSE-MsgGUID: 4/5r+YDDSu2VXhf35/sWKg==
+X-IronPort-AV: E=Sophos;i="6.27,133,1787011200"; 
+   d="scan'208";a="29865497"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+  by internal-pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 20:26:58 +0000
+Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:24754]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.43.208:2525] with esmtp (Farcaster)
+ id f3afff18-fd90-4d02-847a-62fbc03cd098; Wed, 30 Sep 2026 20:26:58 +0000 (UTC)
+X-Farcaster-Flow-ID: f3afff18-fd90-4d02-847a-62fbc03cd098
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Wed, 30 Sep 2026 20:26:57 +0000
+Received: from dev-dsk-akiyano-1c-2138b29d.eu-west-1.amazon.com (172.19.83.6)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Wed, 30 Sep 2026 20:26:55 +0000
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 6.6.y] net: ena: Add validation for completion
+ descriptors consistency
+From: Arthur Kiyanovski <akiyano@amazon.com>
+To: <netdev-bot+sinfo@kernel.org>
+CC: Artem Dinaburg <artem@trailofbits.com>, <stable@vger.kernel.org>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>, Sasha Levin <sashal@kernel.org>,
+	David Arinzon <darinzon@amazon.com>, Shahar Itzko <itzko@amazon.com>, "Simon
+ Horman" <horms@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Shay Agroskin
+	<shayagr@amazon.com>, Arthur Kiyanovski <akiyano@amazon.com>, Noam Dagan
+	<ndagan@amazon.com>, Saeed Bishara <saeedb@amazon.com>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
+	<pabeni@redhat.com>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>
+In-Reply-To: <179073622069.31693.3189368668972123840@kernel.org>
+References: <20260930024101.96014-1-artem@trailofbits.com>
+ <179073622069.31693.3189368668972123840@kernel.org>
+Date: Wed, 30 Sep 2026 20:26:50 +0000
+Message-ID: <179080001006.18939.13526551078215165644.b4-reply@b4>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: EX19D039UWB004.ant.amazon.com (10.13.138.57) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-A block queued on the nlm_blocked list holds exactly one kref, the
-list's: nlmsvc_create_block() hands out an initial reference,
-nlmsvc_insert_block_locked() takes the list reference, and
-nlmsvc_lock() releases the initial one at out:.
+On 2026-09-30 02:43:40+00:00, netdev-bot+sinfo@kernel.org wrote:
+> Hi!
+> 
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+> 
+>  - How the issue was discovered, e.g. hit in production, hit during
+>    development, syzbot report, manual code inspection, LLM or static
+>    analysis tool scan.
+> 
+>  - Whether the issue was actually triggered, or is only theoretical
+>    (e.g. found by code inspection). If it was triggered please include
+>    the symptoms, like the stack trace or error messages.
+> 
+>  - What hardware the change was tested on. For driver fixes please
+>    mention the device (and if relevant firmware version) used for
+>    testing, or say that the change was not tested on real hardware.
+> 
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
+> 
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
 
-nlmsvc_retry_blocked() then drops nlm_blocked_lock and dereferences
-`block` (b_when, b_flags, b_deferred_req) and passes it to
-retry_deferred_block() or nlmsvc_grant_blocked() without holding any
-reference of its own.  Concurrently, an svc thread processing the
-client's GRANT_RES (nlmsvc_grant_reply()), a CANCEL or UNLOCK
-(nlmsvc_cancel_blocked()), or a host failover sweep
-(nlmsvc_traverse_blocks()) can find the same block, unlink it and drop
-the last kref, freeing it while the lockd kthread is still using the
-pointer.  The freed slab is then written through: kref_get() on the
-freed block, the B_TIMED_OUT flag, the list operations in
-nlmsvc_insert_block(), and the b_deferred_req revisit - a
-use-after-free on a remotely reachable path.
-
-nlmsvc_notify_blocked() has the same problem: it moves the block to
-the head of the list and then calls svc_wake_up(block->b_daemon)
-after dropping nlm_blocked_lock.  Keep that wake-up under the
-spinlock, as nlmsvc_grant_deferred() already does.
-
-Pin the block before dropping the spinlock in nlmsvc_retry_blocked()
-and release the pin after processing, so the block cannot be freed
-while it is in use.
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
----
- fs/lockd/svclock.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/fs/lockd/svclock.c b/fs/lockd/svclock.c
-index e628b5d355071..38d02b10591ae 100644
---- a/fs/lockd/svclock.c
-+++ b/fs/lockd/svclock.c
-@@ -775,8 +775,8 @@ nlmsvc_notify_blocked(struct file_lock *fl)
- 	list_for_each_entry(block, &nlm_blocked, b_list) {
- 		if (nlm_compare_locks(&block->b_call->a_args.lock.fl, fl)) {
- 			nlmsvc_insert_block_locked(block, 0);
--			spin_unlock(&nlm_blocked_lock);
- 			svc_wake_up(block->b_daemon);
-+			spin_unlock(&nlm_blocked_lock);
- 			return;
- 		}
- 	}
-@@ -1023,6 +1023,13 @@ nlmsvc_retry_blocked(struct svc_rqst *rqstp)
- 			timeout = block->b_when - jiffies;
- 			break;
- 		}
-+		/*
-+		 * Pin the block before dropping nlm_blocked_lock: a
-+		 * concurrent GRANT_RES, CANCEL or UNLOCK can unlink the
-+		 * block and drop the last kref, freeing it while we are
-+		 * still using it.
-+		 */
-+		kref_get(&block->b_count);
- 		spin_unlock(&nlm_blocked_lock);
- 
- 		dprintk("nlmsvc_retry_blocked(%p, when=%ld)\n",
-@@ -1033,6 +1040,7 @@ nlmsvc_retry_blocked(struct svc_rqst *rqstp)
- 			retry_deferred_block(block);
- 		} else
- 			nlmsvc_grant_blocked(block);
-+		nlmsvc_release_block(block);
- 		spin_lock(&nlm_blocked_lock);
- 	}
- 	spin_unlock(&nlm_blocked_lock);
--- 
-2.53.0
+Issue was real, and was hit in production. When a faulty device creates
+corrupted descriptors this commit stops the corruption from propagating
+further, and reset to driver either fixes the issue, or if it continues,
+helps AWS detect it and replace faulty devices
 
