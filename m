@@ -1,41 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E738519DFC;
-	Wed, 30 Sep 2026 16:07:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39FDE511208;
+	Wed, 30 Sep 2026 16:07:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790784471; cv=none; b=isb4HVfKiI3fk+S6So0iUcVKegvRAYfQq/oGADAifr+5pjb7rxQBPOwOWYyZo7CTv6XOvmxP0EM7dcpqXYPLK8O3wpQSsSwrKk2UjaAm7i6JJTKQtXhZtC8BgzgQzwaxo7XifGrwDJpeL86k/lPmlsoeV9QQrSknlBetLNdn12M=
+	t=1790784475; cv=none; b=XwyS8Sjj274yWV1boAFjia7iw3PnnM6pyoe+kVUmZI558bzemis6etetKpmUsRu8NnWlPhupZC9Z8OHIUbB3/Bdn1ybquWck0JOrLPPRBpo467qss0ZKC2aXRIiAh1hkL8VoSRW1cgyo732JV1DNQB2TasjcMKpP4eEPMfLCZIE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790784471; c=relaxed/simple;
-	bh=8QOp0o3oyuasT3hhOiMTqY4eX59Q7ZBXOfWjPu3x6g0=;
+	s=arc-20240116; t=1790784475; c=relaxed/simple;
+	bh=LDPuw+s4OOG1SAscbFlsUYC7rq1JAZsDWIQZgw53T/0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BrmHAdYPP+bQRouDeLfmI8BzXZsomtQcIbSWuU5gHaJK93Yb5RFVsSZccJ8u+UlPhmjeyz5xX2K4R2Rmdx7lsw3qea5odrlmt3jQRAAfZhhSizt5+XCDeMF+KjN3TlYDb7bcnA/LJjG1PpMgGKfAr5A/0+bAYsDLRTxNxt7AuV8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=EwIxWs+g; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=oTQ3zxqzYWMLqyB7gw72694UDb4wPXMZ1ZfgCF1vvubuzBh4qKuALHuNBUqRG8QtvJCxBPfXIqcKV3hj3nknPrvlhzIZ9dY4hbFGQA+jMZSWgjmZSCCJWWlB9RBYUWpgudgzC7r3LBG4Vyjoch4fvLZ5G27Pwxa5EgYS3RWom84=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Kgg497IV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="EwIxWs+g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A18C1F00893;
-	Wed, 30 Sep 2026 16:07:47 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Kgg497IV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8E341F008A2;
+	Wed, 30 Sep 2026 16:07:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790784468;
-	bh=qjoaWfjccPVfUsYW+5mpPc37BPpGcb2WrGVmgNMDyEc=;
+	s=korg; t=1790784462;
+	bh=9p1D6b4d4P2gNd1dj16o75x15lns9Td7BG8uV8KuENk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EwIxWs+g79KH1BNDW558ZnJajYAy7ZOitWl05X+PRSAUbTZLUNzbUt0OqCurixSie
-	 wh13o0SvqeWfcEzSRByLW3dQRcUnTBhshBr1FE7qjYBTvMfHDtwxzmSchgOmGWI4Hd
-	 uDmOnHMGSm6JnWK7L9qYMcxDboatn6cYR0Hl8Jzw=
+	b=Kgg497IVR8A9aY42snK82S1j8NXYiYfphFybJc69IrBr5KlMKh+fpKRwjCCa0OIPn
+	 I5iEhMAFjezbU9npLMixMnM/U1S3MT3MiDgan1hogGyF2Th3crCaHs7msFcVWiuTO8
+	 r48ioYI8VFfjeUMyDx9RbsNtms8cLNYNOQ4kdaqQ=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	=?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	Vinod Koul <vkoul@kernel.org>,
+	ZhengYuan Huang <gality369@gmail.com>,
+	David Sterba <dsterba@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 121/982] soundwire: only handle alert events when the peripheral is attached
-Date: Wed, 30 Sep 2026 17:14:17 +0200
-Message-ID: <20260930152419.417731860@linuxfoundation.org>
+Subject: [PATCH 6.1 162/982] btrfs: balance: fix potential bg lookup failure in btrfs_may_alloc_data_chunk()
+Date: Wed, 30 Sep 2026 17:14:58 +0200
+Message-ID: <20260930152420.289923152@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
 References: <20260930152416.775402466@linuxfoundation.org>
@@ -48,47 +45,75 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 6.1-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
+From: ZhengYuan Huang <gality369@gmail.com>
 
-[ Upstream commit 38cd651ebce7065a81c7e950d9e2ea1572304605 ]
+[ Upstream commit 18d32b0013efba19f7ad3e5b08d7aee813d604a6 ]
 
-It doesn't make sense to handle an alert event when the peripheral is
-not attached. The slave->status could be SDW_SLAVE_ATTACHED or
-SDW_SLAVE_ALERT when it is attached on the bus.
+[BUG]
+Running btrfs balance can trigger a null-ptr-deref before relocating a
+data chunk when metadata corruption leaves a chunk in the chunk tree
+without a corresponding block group in the in-memory cache:
 
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-Link: https://patch.msgid.link/20260520025720.1999367-1-yung-chuan.liao@linux.intel.com
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
+  KASAN: null-ptr-deref in range [0x0000000000000088-0x000000000000008f]
+  RIP: 0010:btrfs_may_alloc_data_chunk+0x40/0x1c0 fs/btrfs/volumes.c:3601
+  Call Trace:
+    __btrfs_balance fs/btrfs/volumes.c:4217 [inline]
+    btrfs_balance+0x2516/0x42b0 fs/btrfs/volumes.c:4604
+    btrfs_ioctl_balance fs/btrfs/ioctl.c:3577 [inline]
+    btrfs_ioctl+0x25cf/0x5b90 fs/btrfs/ioctl.c:5313
+    ...
+
+[CAUSE]
+__btrfs_balance() iterates the on-disk chunk tree and passes the chunk
+logical bytenr to btrfs_may_alloc_data_chunk() before relocating a data
+chunk. That helper then queries the in-memory block group cache:
+
+  cache = btrfs_lookup_block_group(fs_info, chunk_offset);
+  chunk_type = cache->flags;   /* cache may be NULL */
+
+A corrupt image can contain a chunk item whose matching block group
+item is missing, so no block group is ever inserted into the cache. In
+that case btrfs_lookup_block_group() returns NULL.
+
+The code only guards this with ASSERT(cache), which becomes a no-op when
+CONFIG_BTRFS_ASSERT is disabled. The subsequent dereference of
+cache->flags therefore crashes the kernel.
+
+[FIX]
+Add a NULL check after btrfs_lookup_block_group() in
+btrfs_may_alloc_data_chunk() and print and error message for clarity.
+
+Signed-off-by: ZhengYuan Huang <gality369@gmail.com>
+Reviewed-by: David Sterba <dsterba@suse.com>
+Signed-off-by: David Sterba <dsterba@suse.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/soundwire/bus.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ fs/btrfs/volumes.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-index 1b6ba23edf0fa..46bb9026a6c61 100644
---- a/drivers/soundwire/bus.c
-+++ b/drivers/soundwire/bus.c
-@@ -1874,6 +1874,10 @@ int sdw_handle_slave_status(struct sdw_bus *bus,
- 			break;
+diff --git a/fs/btrfs/volumes.c b/fs/btrfs/volumes.c
+index 9f5d5f5c53131..e0a310bd0421f 100644
+--- a/fs/btrfs/volumes.c
++++ b/fs/btrfs/volumes.c
+@@ -3495,7 +3495,11 @@ static int btrfs_may_alloc_data_chunk(struct btrfs_fs_info *fs_info,
+ 	u64 chunk_type;
  
- 		case SDW_SLAVE_ALERT:
-+			if (slave->status != SDW_SLAVE_ATTACHED &&
-+			    slave->status != SDW_SLAVE_ALERT)
-+				continue;
-+
- 			ret = sdw_handle_slave_alerts(slave);
- 			if (ret < 0)
- 				dev_err(&slave->dev,
+ 	cache = btrfs_lookup_block_group(fs_info, chunk_offset);
+-	ASSERT(cache);
++	if (unlikely(!cache)) {
++		btrfs_err(fs_info, "balance: chunk at bytenr %llu has no corresponding block group",
++			  chunk_offset);
++		return -EUCLEAN;
++	}
+ 	chunk_type = cache->flags;
+ 	btrfs_put_block_group(cache);
+ 
 -- 
 2.53.0
 
