@@ -1,90 +1,46 @@
-Received: from mail-wr2-f17.google.com (mail-wr2-f17.google.com [74.125.225.81])
+Received: from mta1.migadu.com (out-57.mta1.migadu.com [95.215.58.57])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17695246783
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 05:13:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EA0330C147
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 05:36:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.57
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790745214; cv=none; b=GeS+bi4S3NIM/guge/LlQ1papzghZyNyJgQD0tESAdP+wcjgaBiuvL0P/+BnuB2Yz8WPlYPVkr5dfxPDdw+SBkPOiIkR4Pap1HwilcnS/bsIq1cdUAw7NNWf7Ogit08nxbRiDzQYPD/2Idd527sMS0NMaKsXz8csxZMqHv9tagw=
+	t=1790746596; cv=none; b=nThOPE3tyXRt7X9pUWMSiUWLqFS9XDFu03pHrZePTJlGk/lD2TbBqnHIx8e+bLt/uN2JEb+Tz3MKecVk8kPkNVdXrxS3/3KJz8cgZtawSx35XwDloQrF7aAciBoKgxKAyM+HjtmXRmrK7km6QSTe8BcWwCstt1P8yAlBlE+YNwo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790745214; c=relaxed/simple;
-	bh=MypcxZlDJd+r7SofOnuSEe+Q+SDR8+gy+W2gDGm+htI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qWV4Um1pYpHQmi4IPn8qVfRyGJd6/YVOhf61Yhj2nzEhjHlWmq9xzfkX1fY6fhMwH2h9WUogx7Z7w8v2luwVERfz2kgBmoSycw9XSX8N1O5HTH4AU9YNQeP0i4DKGT5p/HzsPBYDElxMKgYJ2wuw0n2L2MQNWpaiV11SY7cGePs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZaF26YjB; arc=none smtp.client-ip=74.125.225.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790746596; c=relaxed/simple;
+	bh=weGHAUr2l8CJamIsh5doUiVjsBwz2X9koep9k05v1c4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=i0zFJ0iNT3Q8v5PviuezXlafcms0ePl7IVGdsFUuxGq2uVn/TeTsdQll++GXcWFgWAXmzKERxin4qriuYFL+sjzXtfuMfXXRS/0W6OdSLYoE5vbZ9r+ciFT2PrF5VrH3F+hAlBz9zqN9HvrAMFJmgvgKeCLmW2EOO3N/suv1wVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cjM5qCkv; arc=none smtp.client-ip=95.215.58.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZaF26YjB"
-Received: by mail-wr2-f17.google.com with SMTP id ffacd0b85a97d-48af51f6182so167138f8f.2
-        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 22:13:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790745211; x=1791350011; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+c4qh3TxeW41f6Urn6eqBomxhi1RyxqZL+PP0oFbtfA=;
-        b=ZaF26YjBt5Tf/Urlb2fYs5tk03xGtB3BHGKJFDGiWK/Ka5s/QlKBoY0KoPnJiDYOjl
-         eGELlzxatMebJa68buj5kVv7/7tycHuzILBYZ2fZf0gjLH76W10IjH143CVhf7hku/Od
-         QxxK4kvkO4thY+4LeyfMs09wCczdpZHXDA9JUVvhsR9lceYGf5A0y2+fgXHZCfnyDVEn
-         gM6La1pqqJ2oRhK7jrBs+YRQE9M2B/dzh5JvV/OCbvp2STYr3mHCq7sKL3584XIiuJ1S
-         abXtjqYzusLnHCnuo/d3V0Aaox8bJDuwlJpTms2UOS2VdOrsETQcX6PIqxAA/73UvvFP
-         cOYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790745211; x=1791350011;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+c4qh3TxeW41f6Urn6eqBomxhi1RyxqZL+PP0oFbtfA=;
-        b=abdtHh3ygqlSEJUNPu2Jqu0NvFidhX3ROXBHoZsbxXDJVddDcA9rJ1vfARNluTV1Wk
-         6UkoDfoiuvMPSv2kqVhVPVgTEnx8gqUqd6na2HsJv6q5RlGr31ReN0cJUqbnUORpl3dp
-         2WIysdN9Xo6tgL2YuZWF9mFxWI3MUUTcIQxZyDzJ8VUG2/QT0oYDjeii6aWyblgXsQpi
-         b9ewJUCj4GfRlWlozCFRugkVXEN4uKh7TdXlAsqY7lvU2ClIqD1RjSrb9pj0it7Q137K
-         blu6Vi0rZotfxz+qYdsggnJyNcWUO4uLGxpy5RWFLO3nZMyPxRAx4o1etNugM4OaoHbw
-         dYaQ==
-X-Forwarded-Encrypted: i=1; AKwUvByy8fuqf44QNgyg7FPoVB9aqDNwEXGA4cvvDQiRK5oeFqCV1V6Z14Qp4GYsvxwfZvaORYtSkwI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nArT6qHS6BD5l8GVs2IpSrxXVUfIXemKvyP8XIAiGlObXm6knJ
-	Y+MszvSUBiHT0LZT4SqNY7ma5ubyHoyNGlnbtyIzD3iRXP7MMCBpU/0R
-X-Gm-Gg: AYBFou3fsjHnmAudgX3mPq1R5QSCKqAuN513E558vXIx8jaO0kTLb6/ViGgoAnYiv+b
-	kL5JIXVcS4vC+bYLVISP84aNflB7Oy0TY6uqL4FPCiU3WzGmbKgb4LKegt9apHPB6azzs7PBXaB
-	96i0mgVbsGhObuGS+FJzBBTfYJndaNZeCq06yzUrxEyF8AyWF4LUSe56IK+Dzz3lmPHNdLUBqjZ
-	w24sL1HkV0Nh6idqWZdGNJHKAReYDKHPJU+55QGVxEbs8Xae3mO5DgN7oocAmQA2SbF1XZ8jWee
-	swyIIhHf7CSe9MORZnPbDtdt5u3xWIdvo9xMybpnDVJxnWFXIzjJckxmxRsRXA5H59zuT28UNBn
-	QZW6USFYxcth/rszPPFDZCtpo0PX/vmh3vAfHgVXznPMmM2YY6Go8brDZUrv04Z24rF4rNFvgQA
-	n59JaUWu3VAeaa9xU9oCydVdHCUtd6gfhvQEx1FD5mTgimL9uFadjoDxc+GrBgKK78gaWhoSAsN
-	3zim9C+PVZDOugHidCY
-X-Received: by 2002:a05:600d:82e5:b0:4a0:1a3:bf6 with SMTP id 5b1f17b1804b1-4a01ab4f1abmr2284165e9.0.1790745211216;
-        Tue, 29 Sep 2026 22:13:31 -0700 (PDT)
-Received: from lima-kdev.local ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0174d8738sm36542285e9.2.2026.09.29.22.13.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 22:13:30 -0700 (PDT)
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: tim.c.chen@linux.intel.com
-Cc: KPrateek.Nayak@amd.com,
-	Vishal.Badole@amd.com,
-	justinstitt@google.com,
-	kayracizmeci@gmail.com,
-	klaus.kusche@computerix.info,
-	linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev,
-	mario.limonciello@amd.com,
-	mingo@redhat.com,
-	morbo@google.com,
-	nathan@kernel.org,
-	ndesaulniers@google.com,
-	peterz@infradead.org,
-	platform-driver-x86@vger.kernel.org,
-	ricardo.neri@intel.com,
-	stable@vger.kernel.org,
-	x86@kernel.org,
-	yu.c.chen@intel.com
-Subject: Re: [PATCH] sched/cache: Honor asym packing over cache aware scheduling on hybrid system 
-Date: Wed, 30 Sep 2026 08:13:27 +0300
-Message-ID: <20260930051327.206529-1-kayracizmeci@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <7790ab6c5da3aeac42f6878f0a167c6cddebb354.camel@linux.intel.com>
-References: <7790ab6c5da3aeac42f6878f0a167c6cddebb354.camel@linux.intel.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cjM5qCkv"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=weGHAUr2l8CJamIsh5doUiVjsBwz2X9koep9k05v1c4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790746593; v=1; x=1791351393;
+ b=cjM5qCkvvDjcjTgWHdYcRQsQ4ZDdoNBwIX/uGfn60CRTRqg4INCPX7b28mBuaBR4MrC0GEyq
+ kKIoiaVkv7Ij7mXF46PPz2sogDsWxj0AFZUr8rLJLRQlayqiH8PLAVqN0w2X6ABu9G+vQOTHjXK
+ 4LiXIa0z1bCkrWnUpz6eOa+0=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 67e0a92a6b2b4068;
+	Wed, 30 Sep 2026 05:36:32 +0000
+X-Mizu-Trace-ID: 67e0a92a6b2b4068
+X-Migadu-Flow: FLOW_OUT
+From: Leon Hwang <leon.hwang@linux.dev>
+To: Naveen N Rao <naveen@kernel.org>,
+	"David S . Miller" <davem@davemloft.net>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Ingo Molnar <mingo@elte.hu>
+Cc: linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	Leon Hwang <leon.hwang@linux.dev>,
+	stable@vger.kernel.org
+Subject: [PATCH] kprobes: Skip disarmed probes when checking optkprobe overlap
+Date: Wed, 30 Sep 2026 13:36:18 +0800
+Message-ID: <20260930053618.104498-1-leon.hwang@linux.dev>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -93,24 +49,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Are you saying that we should update the first chunk to add an env->idle check
-> to match the asym_packing migration pre-requisite? Like below?
+On x86, an optkprobe at A replaces five bytes with a jump. If a disabled
+probe B is at A+2, get_optimized_kprobe() stops at B when arming a new
+probe C at A+4. It leaves A optimized:
 
-> @@ -10847,6 +10849,10 @@ static enum llc_mig can_migrate_llc_task(struct lb_env *env,
->  	if (cpu < 0 || cpus_share_cache(src_cpu, dst_cpu))
->  		return mig_unrestricted;
+              A    A+1  A+2  A+3  A+4
+  A's jump  | e9 | d0 | d1 | d2 | d3 |
+  after C   | e9 | d0 | d1 | d2 | cc |
+
+The INT3 for C overwrites the last byte of A's jump displacement, so
+execution can jump to the wrong address. B can have prepared optinsns
+while disarmed, but has no jump to unoptimize.
+
+Continue past disarmed and unprepared probes to find the active optimized
+probe before arming a probe in its jump.
+
+Fixes: afd66255b9a4 ("kprobes: Introduce kprobes jump optimization")
+Cc: stable@vger.kernel.org
+Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
+---
+ kernel/kprobes.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/kernel/kprobes.c b/kernel/kprobes.c
+index 6337da5cab9e..e6f6e18fa1b5 100644
+--- a/kernel/kprobes.c
++++ b/kernel/kprobes.c
+@@ -495,14 +495,16 @@ static bool kprobe_queued(struct kprobe *p)
+ static struct kprobe *get_optimized_kprobe(kprobe_opcode_t *addr)
+ {
+ 	int i;
+-	struct kprobe *p = NULL;
++	struct kprobe *p;
+ 	struct optimized_kprobe *op;
  
-> +	/* Prioritize asym packing over cache awareness */
-> +	if (env->idle && sched_asym(env->sd, dst_cpu, src_cpu))
-> +		return mig_unrestricted;
-> +  
-
-> I think this is a valid point.
-
-Yeah. :>.
-
-Thaks,
-Kayra
-
-> Tim
+ 	/* Don't check i == 0, since that is a breakpoint case. */
+-	for (i = 1; !p && i < MAX_OPTIMIZED_LENGTH / sizeof(kprobe_opcode_t); i++)
++	for (i = 1; i < MAX_OPTIMIZED_LENGTH / sizeof(kprobe_opcode_t); i++) {
+ 		p = get_kprobe(addr - i);
++		/* A disabled probe can have prepared, but inactive, optinsns. */
++		if (!p || !kprobe_optready(p) || kprobe_disarmed(p))
++			continue;
+ 
+-	if (p && kprobe_optready(p)) {
+ 		op = container_of(p, struct optimized_kprobe, kp);
+ 		if (arch_within_optimized_kprobe(op, addr))
+ 			return p;
+-- 
+2.55.0
 
