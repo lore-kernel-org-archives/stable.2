@@ -1,125 +1,73 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D42A31D366;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D4F3503BEF;
 	Wed, 30 Sep 2026 15:39:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790782752; cv=none; b=Fyy9WG7kUItd00ibfKS6DBp/3C/qxs/qY6GZI9oQbmXQAX+pNugirrVbFwO5ki2zqFZ9GylBZYB2WhKYvMyWTDYJREeW00WXYZibFNdj5H38Fq8JfTNWz2nGINBH+a3uAshxVhIG4xpUeqi4l0kgVn4ZiVG1ftzn8+5xJDkfygo=
+	t=1790782754; cv=none; b=szhQwlQF4QC5WC0ZQavPSIoqD9odYHRmvJT7CRhlKzym6zbEzkNM1pK8KXyYRyftzA6koujFoyVOZBRELLCdriEX2JRY/YV2ewoVQM+QNqNJ86KPNdthvmb8Y9HCIYow4k84jCw4QpNxMt2lNXf+hoZsEyG+QUYppPasDRNjyMU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790782752; c=relaxed/simple;
-	bh=wBdkLOujItxWKeREStz18P5IHwbEQd3kffM0reIBxx0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Awtjq11ltBqHvtg7q0dbMaHQWHeT9jtp6Bws+RlksgIUvceSfWpeV3dLy/o0HHi6SYAf1Hw2gWnvRf3wNN5vofUFh/8GW2nhcNRT5d1sMXi9Dsyv6SLnoY5jpBhgYKpCMzS2c3mprmzo5O6QKpb9kyDZj8Uook4u+aX6p4lHe/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=qZgAU6UZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790782754; c=relaxed/simple;
+	bh=lFX3KZrfU92MnwavGd458xUvv9N7aTb4w8OPb37E7w4=;
+	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References; b=NWh73ffISGVQZqLK8H75CRXUY2jKw4NDzcw3IvY5mB9oz6dIRJtAVyCn+CmJQF71YDDCwfWSNX2W/eN4P3+9oMl7WetQB8kdi6AawIRr5FeRIXskt2mVUuQSMtVBef1uX06sss/Y2/7BlHPjACgJ0EdJkItKAAfHB9K3rhMXDlw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=c8oViUrZ; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="qZgAU6UZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA3351F000FF;
-	Wed, 30 Sep 2026 15:39:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790782746;
-	bh=j50hhx2UZEyyhZCH5/kQ0i2i25OZ6D/57iRMzXpW6cI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=qZgAU6UZ1IbaLDQIfVFkuuDGwVT7tgW4Zuj7kHV99emCfj0zQNFk5kW7SjkyZh3vD
-	 ACGmFQKLFacdldWmqPgFOfT0pVfogK5arEEMOeLCHcQ6xp/heWlccJRdnb4nDVvGX4
-	 Yu1Iet5mSJKQm6KJW/k3a/KOWxQLXl5eIt+Cirqo=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Yousef Alhouseen <alhouseenyousef@gmail.com>,
-	Juergen Gross <jgross@suse.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 153/595] xen/gntalloc: validate grant count before allocation
-Date: Wed, 30 Sep 2026 17:20:46 +0200
-Message-ID: <20260930152351.025539148@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260930152347.700140858@linuxfoundation.org>
-References: <20260930152347.700140858@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="c8oViUrZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:From:To:Subject:Date; bh=lFX3KZrfU92Mnwa
+	vGd458xUvv9N7aTb4w8OPb37E7w4=; b=c8oViUrZb745itfq7fMVxefKZ+XVeLl
+	78tvnQ9DmI6OjNiChVYcOPztcQyErfVR+fT6XeUboaHZ+TgHiqrSpGgCvOi9ElMu
+	fzdl6mNB/tm+KtoYC7UzT/mHG9qSV+iKP994uS2TlM5Jn1r/8o3TPmJGPsll8u1e
+	SRe/DAkwrgfo=
+Received: from localhost (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3xwClLL1qzuoqBw--.14516S2;
+	Wed, 30 Sep 2026 23:37:10 +0800 (CST)
+Message-ID: <68e1d1e0cdfc633520a6593fdcdb3b72.sh_def@163.com>
+From: Hui Su <sh_def@163.com>
+To: sched-ext@lists.linux.dev
+Cc: tj@kernel.org,
+ void@manifault.com,
+ arighi@nvidia.com,
+ changwoo@igalia.com,
+ mingo@redhat.com,
+ peterz@infradead.org,
+ juri.lelli@redhat.com,
+ vincent.guittot@linaro.org,
+ dietmar.eggemann@arm.com,
+ rostedt@goodmis.org,
+ bsegall@google.com,
+ mgorman@suse.de,
+ vschneid@redhat.com,
+ kprateek.nayak@amd.com,
+ linux-kernel@vger.kernel.org,
+ Hui Su <sh_def@163.com>,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] sched_ext: Hold DSQ refs for deferred reenqueues
+Date: Thu, 01 Oct 2026 00:20:49 +0900
+In-Reply-To: <20260930143443.2862150-1-sh_def@163.com>
+References: <20260930143443.2862150-1-sh_def@163.com>
+X-CM-TRANSID:_____wD3xwClLL1qzuoqBw--.14516S2
+X-Coremail-Antispam: 1Uf129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjTRRuWlUUUUU
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwgY+nWq9LKZoPgAA3s
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-5.10-stable review patch.  If anyone has any objections, please let me know.
+Please disregard this posting. This was intended to be v2, but I
+accidentally omitted the version tag.
 
-------------------
+I am preparing v3 to address the review feedback. In particular, it
+will serialize exit_dsq() with deferred detach/reference acquisition
+using deferred_reenq_lock, and keep final DSQ reclamation out of the
+deferred path while the rq raw spinlock is held.
 
-From: Yousef Alhouseen <alhouseenyousef@gmail.com>
+The revised design keeps a single DSQ refcount and the existing
+rcu_head, without polling the refcount from repeated RCU callbacks.
 
-[ Upstream commit 2299822f3f466b5dcad2377bf63986199f881a6b ]
-
-gntalloc_ioctl_alloc() allocates the grant-id array before checking
-whether the requested count fits within the global grant limit. Counts
-above that limit cannot succeed, so reject them before the
-user-controlled allocation reaches kcalloc().
-
-Use a subtraction-based check while holding gref_mutex so adding the
-requested count cannot wrap. Also cast the count before advancing the
-per-file index so the page-size multiplication is performed in 64-bit
-arithmetic.
-
-Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
-Reviewed-by: Juergen Gross <jgross@suse.com>
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Message-ID: <20260626223805.43781-3-alhouseenyousef@gmail.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/xen/gntalloc.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/xen/gntalloc.c b/drivers/xen/gntalloc.c
-index edb0acd0b8323..e95dd0b9b6ba9 100644
---- a/drivers/xen/gntalloc.c
-+++ b/drivers/xen/gntalloc.c
-@@ -275,6 +275,7 @@ static long gntalloc_ioctl_alloc(struct gntalloc_file_private_data *priv,
- 	int rc = 0;
- 	struct ioctl_gntalloc_alloc_gref op;
- 	uint32_t *gref_ids;
-+	unsigned int limit_snapshot;
- 
- 	pr_debug("%s: priv %p\n", __func__, priv);
- 
-@@ -283,6 +284,12 @@ static long gntalloc_ioctl_alloc(struct gntalloc_file_private_data *priv,
- 		goto out;
- 	}
- 
-+	limit_snapshot = READ_ONCE(limit);
-+	if (op.count > limit_snapshot) {
-+		rc = -ENOSPC;
-+		goto out;
-+	}
-+
- 	gref_ids = kcalloc(op.count, sizeof(gref_ids[0]), GFP_KERNEL);
- 	if (!gref_ids) {
- 		rc = -ENOMEM;
-@@ -295,14 +302,16 @@ static long gntalloc_ioctl_alloc(struct gntalloc_file_private_data *priv,
- 	 * are about to enforce, removing them here is a good idea.
- 	 */
- 	do_cleanup();
--	if (gref_size + op.count > limit) {
-+	limit_snapshot = READ_ONCE(limit);
-+	if (gref_size > limit_snapshot ||
-+	    op.count > limit_snapshot - gref_size) {
- 		mutex_unlock(&gref_mutex);
- 		rc = -ENOSPC;
- 		goto out_free;
- 	}
- 	gref_size += op.count;
- 	op.index = priv->index;
--	priv->index += op.count * PAGE_SIZE;
-+	priv->index += (uint64_t)op.count * PAGE_SIZE;
- 	mutex_unlock(&gref_mutex);
- 
- 	rc = add_grefs(&op, gref_ids, priv);
--- 
-2.53.0
-
-
+I will post v3 after revalidation. Sorry for the confusion.
 
