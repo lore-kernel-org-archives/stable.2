@@ -1,198 +1,133 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 068D83E1D13
-	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 07:09:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4B2A78F3A;
+	Wed, 30 Sep 2026 07:09:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790752155; cv=none; b=StF3PLAj1wKb76/tTeLWLt2iKcZjjGnbmFuCqas1B3Kbk5X8qUe0LKmY7JnBbzdR9CcnRIkAO7sDlRKqL5mmh1sE49df8GBloh4LulKj5FJkCn/S02tcuCHykIRoneeBkimvcZysMxTVjJzUu65rYR/bwlSFNI7xlXVtALE15W4=
+	t=1790752204; cv=none; b=MonIngzqY5UrhBrXXBwWhwLoYC4FIgCKiz1MrwLqAxRia6EXQuVX4u5iwt2hXngav9ZmPRzfb4LbsUeR9R3+O8je5VdURWhAz3De1pPqN4uCX93R5+Xpvx85moLjDuMySz1YzZ1cvj2PIQGRsS5LPY6nsDdW2BJ/cIwdojaBReQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790752155; c=relaxed/simple;
-	bh=kUJ6AZwh1W1UbN+W0pIvxx+NYxdVnJ7wO2p2cLzdAzw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=De4PQNoHPCpu09k16ErDLIBfg+1RLlnUUQb7IDqpS5tZaOro+MICf2y+yGg1kXFzX3PaN//suIY1cpKaNArZAGRoa5FnN1cZOjhcbIOMsWPQMMmMh2ET8hEk7XAnhx93+Osug5vMtGpO7AqqEQKZ4mnR6F8mB3xTlq4wkhYTa1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=H957+iZL; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790752204; c=relaxed/simple;
+	bh=MDPDxXr/HwSX2pavh2LwYaCQfmqbvXG0OAX42Imozoc=;
+	h=From:Content-Type:Mime-Version:Subject:Message-Id:Date:Cc:To; b=Gcmg1GgCBZFMBbqWZ52gltxe++ZmoYsBV2N4OlDPzcTXzQLevaP4sSw3h9hPPjudXouc0SseaZeMQk+1JBV15ZMpg99SOFUeNRyiG2AMcJKP7UZszQ5uPOmmD/KmerxtP1vhcNJXUhbA0IWC0leODSaSiyjKfGUJvz3l+1Y02cA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.pku.edu.cn; spf=pass smtp.mailfrom=stu.pku.edu.cn; dkim=pass (1024-bit key) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.b=DzfevVMI; arc=none smtp.client-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.pku.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.pku.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="H957+iZL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790752152;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=g2+MnM/YIgixxkMmTeuWBOIVUrZVmFR9eLMZG/rNhnQ=;
-	b=H957+iZLmUjZK6OWcxOlGUFFyPsol821CMajzb2TR+p0o42LSmSK0Hd9vrNMkc6C1SxO2B
-	t9Mn8cpi72t7UgMAJmJfCUDqw7nFT7mp3k3Mq+KDejYZ7hb49H0yMjhthZyYhHeNmImP6/
-	pZgCIOJnPFRHNwRJ2EKEvv3OzHLqjYg=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-14-HqjLmjYlNGKACq-MU47iYg-1; Wed,
- 30 Sep 2026 03:09:09 -0400
-X-MC-Unique: HqjLmjYlNGKACq-MU47iYg-1
-X-Mimecast-MFC-AGG-ID: HqjLmjYlNGKACq-MU47iYg_1790752146
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 5522B1955EAB;
-	Wed, 30 Sep 2026 07:09:06 +0000 (UTC)
-Received: from localhost (unknown [10.74.80.98])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 21A9C180035F;
-	Wed, 30 Sep 2026 07:09:04 +0000 (UTC)
-From: Vaibhav Nagare <vnagare@redhat.com>
-To: davem@davemloft.net,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	edumazet@google.com,
-	michael.chan@broadcom.com,
-	pavan.chebbi@broadcom.com
-Cc: ast@kernel.org,
-	daniel@iogearbox.net,
-	hawk@kernel.org,
-	john.fastabend@gmail.com,
-	sdf@fomichev.me,
-	andrew+netdev@lunn.ch,
-	netdev@vger.kernel.org,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	nagarevaibhav@gmail.com,
-	Vaibhav Nagare <vnagare@redhat.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] bnxt_en: don't leave an XDP program installed when the open fails
-Date: Wed, 30 Sep 2026 12:39:01 +0530
-Message-ID: <20260930070901.1218980-1-vnagare@redhat.com>
+	dkim=pass (1024-bit key) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.b="DzfevVMI"
+Received: from smtpclient.apple (unknown [124.126.139.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4f9bbcb4a;
+	Wed, 30 Sep 2026 15:09:55 +0800 (GMT+08:00)
+From: Yuanfu Xie <yuanfuxie@stu.pku.edu.cn>
+Content-Type: text/plain;
+	charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
+Subject: [PATCH] ceph: fail readdir when the MDS reply carries no dirfrag
+Message-Id: <912FC30C-9C0A-4D68-A49C-A13CE6C9DE8E@stu.pku.edu.cn>
+Date: Wed, 30 Sep 2026 15:09:45 +0800
+Cc: ceph-devel@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org,
+ "Yan, Zheng" <zheng.z.yan@intel.com>,
+ Sage Weil <sage@inktank.com>
+To: Ilya Dryomov <idryomov@gmail.com>,
+ Alex Markuze <amarkuze@redhat.com>,
+ Viacheslav Dubeyko <slava@dubeyko.com>
+X-Mailer: Apple Mail (2.3901.100.1.1.11)
+X-HM-Tid: 0aa0f12603cc03a1kunma877d13626e267
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGklJVkJLQk5KQ08ZSElKT1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKSU9VSklNVUpIQlVDTVlXWRYaDxIVHRRZQVlPS0hVSktISk
+	5MTlVKS0tVSkJLS1kG
+DKIM-Signature: a=rsa-sha256;
+	b=DzfevVMIlYUbfrU6/K6EgwiBU51vM473Pg3KLCxnO8SjA6hjUOh6vxOO8JqB0fXfWryr1pIZlzB0JlDFy5Q9fM5fhjExM2k1tBuJQgnDaybPet8oPglv1bNeOg8l0J7o8ZZw3gJ3xmLCu8lGjWoA9+tZ6QwEbCXxYA6XqWXgzJ0=; c=relaxed/relaxed; s=default; d=stu.pku.edu.cn; v=1;
+	bh=AkwvRPb3tHKPXkrgdAG82shJ9QGp21uHFh511UI8vbc=;
+	h=date:mime-version:subject:message-id:from;
 
-bnxt_xdp_set() stores the new program and drops the reference on the old
-one before reopening the NIC.  If bnxt_open_nic() then fails, ndo_bpf()
-returns an error with the new program still in bp->xdp_prog.  The caller
-treats the error as "nothing was installed" and drops its own reference,
-so bp->xdp_prog is left pointing at a freed program and the next XDP
-update dereferences it:
+A ceph mount oopses in ceph_readdir() when the MDS answers a READDIR
+request with a reply whose extra blob is empty.  parse_reply_info()
+skips reply blobs whose length is zero, so parse_reply_info_readdir()
+never runs, r_reply_info.dir_dir stays NULL, and the reply still
+parses as successful.  ceph_mdsc_do_request() returns 0 and
+ceph_readdir() then reads rinfo->dir_dir->frag with no NULL check:
 
-  BUG: unable to handle page fault for address: ff78ecc80ddd1038
-  RIP: 0010:__bpf_prog_put+0x5/0x80
-  Call Trace:
-   bnxt_xdp_set+0xad/0x1b0 [bnxt_en]
-   dev_xdp_propagate+0x36/0xa0
-   bond_xdp_set+0xeb/0x2d0 [bonding]
-   dev_xdp_install+0x1b1/0x350
-   bpf_xdp_link_update+0xc5/0x1b0
-   link_update+0x104/0x1e0
-   __sys_bpf+0x662/0xcf0
+	/* extra */
+	ceph_decode_32_safe(&p, end, len, bad);
+	if (len > 0) {
+		...
+		err =3D parse_reply_info_extra(&p, p + len, req, =
+features, s);
+		...
+	}
 
-Seen on a 6.12 based kernel after bnxt_alloc_mem() failed an order-4
-allocation on a fragmented host:
+The oops on v7.3.0-rc4-00537-ga3ff15db6820, one getdents64(2) on the
+mount root after an ms_mode=3Dlegacy mount, trimmed:
 
-  bnxt_en 0000:a0:00.1 ens4f1np1: nic open fail (rc: fffffff4)
-  bond1: (slave ens4f1np1): Error -12 calling ndo_bpf
+BUG: KASAN: null-ptr-deref in range =
+[0x0000000000000000-0x0000000000000007]
+Oops: general protection fault, probably for non-canonical address =
+0xdffffc0000000000: 0000 [#1] SMP KASAN NOPTI
+CPU: 1 UID: 0 PID: 266 Comm: ls Tainted: G                 N  =
+7.3.0-rc4-00537-ga3ff15db6820 #1 PREEMPT(lazy)
+RIP: 0010:ceph_readdir+0xbff/0x3ea0
+Call Trace:
+ <TASK>
+ ? __pfx_ceph_readdir+0x10/0x10
+ wrap_directory_iterator+0xa2/0xe0
+ iterate_dir+0x1da/0x5d0
+ __x64_sys_getdents64+0x13b/0x2a0
+ do_syscall_64+0xdd/0x4a0
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+ </TASK>
 
-Bonding is not required to hit this; a plain XDP attach on a bnxt
-interface takes the same path.
+The unconditional frag read came in with 81c6aea5275ea ("ceph: handle
+frag mismatch between readdir request and reply"), so the bug is old.
 
-Restore the previous program when the open fails and release it only
-once the change has been committed.  Also restore the ring and feature
-configuration that was in service before the change: without it a
-failed detach leaves bp->xdp_prog set while page mode is off, so
-bnxt_init_one_rx_ring() never assigns rxr->xdp_prog on a later open and
-the program is reported as attached while no packet ever reaches it.
+Treat a reply with no dirfrag as a protocol violation: warn once,
+drop the request and return -EIO, the same way ceph_readdir() already
+handles the two malformed-reply cases later in the function.
 
-Fixes: c6d30e8391b8 ("bnxt_en: Add basic XDP support.")
+Tested on v7.3.0-rc4-00537-ga3ff15db6820 (KASAN).  Unpatched, the
+getdents64(2) above takes the machine down (oops=3Dpanic) on the first
+READDIR reply.  With the patch it warns once and getdents64(2)
+returns -EIO, no oops, no hang.  A conformant reply for an empty
+directory =E2=80=94 dirfrag present, zero entries, =
+FRAG_END|FRAG_COMPLETE =E2=80=94
+still lists "." and ".." and returns EOF on both kernels, so normal
+readdir behavior is unchanged.  The oops is still present in
+v7.3-rc5 (72d3fcf802c45).
+
+Fixes: 81c6aea5275ea ("ceph: handle frag mismatch between readdir =
+request and reply")
 Cc: stable@vger.kernel.org
-Signed-off-by: Vaibhav Nagare <vnagare@redhat.com>
+Signed-off-by: Yuanfu Xie <yuanfuxie@stu.pku.edu.cn>
 ---
-v2:
- - also restore the ring and feature configuration on the error path,
-   not just bp->xdp_prog, so a later successful open cannot bring the
-   device up with the driver state and the XDP program out of sync
-   (Michael Chan)
- - v1: https://lore.kernel.org/netdev/20260928131458.1012180-1-vnagare@redhat.com/
+ fs/ceph/dir.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
- drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c | 48 ++++++++++++-------
- 1 file changed, 32 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c b/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
-index 9e5009be8e98..edfd751a601a 100644
---- a/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
-+++ b/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
-@@ -381,11 +381,31 @@ int bnxt_xdp_xmit(struct net_device *dev, int num_frames,
- 	return nxmit;
- }
- 
-+static void bnxt_xdp_apply_cfg(struct bnxt *bp, int tx_xdp)
-+{
-+	struct net_device *dev = bp->dev;
-+	int tc = bp->num_tc ? : 1;
-+
-+	if (bp->xdp_prog) {
-+		bnxt_set_rx_skb_mode(bp, true);
-+		xdp_features_set_redirect_target_locked(dev, true);
-+	} else {
-+		xdp_features_clear_redirect_target_locked(dev);
-+		bnxt_set_rx_skb_mode(bp, false);
-+	}
-+	bp->tx_nr_rings_xdp = tx_xdp;
-+	bp->tx_nr_rings = bp->tx_nr_rings_per_tc * tc + tx_xdp;
-+	bnxt_set_cp_rings(bp, true);
-+	bnxt_set_tpa_flags(bp);
-+	bnxt_set_ring_params(bp);
-+}
-+
- static int bnxt_xdp_set(struct bnxt *bp, struct bpf_prog *prog)
- {
- 	struct net_device *dev = bp->dev;
- 	int tx_xdp = 0, rc, tc;
- 	struct bpf_prog *old;
-+	int old_tx_xdp;
- 
- 	netdev_assert_locked(dev);
- 
-@@ -418,25 +438,21 @@ static int bnxt_xdp_set(struct bnxt *bp, struct bpf_prog *prog)
- 	if (netif_running(dev))
- 		bnxt_close_nic(bp, true, false);
- 
-+	old_tx_xdp = bp->tx_nr_rings_xdp;
- 	old = xchg(&bp->xdp_prog, prog);
--	if (old)
--		bpf_prog_put(old);
--
--	if (prog) {
--		bnxt_set_rx_skb_mode(bp, true);
--		xdp_features_set_redirect_target_locked(dev, true);
--	} else {
--		xdp_features_clear_redirect_target_locked(dev);
--		bnxt_set_rx_skb_mode(bp, false);
-+	bnxt_xdp_apply_cfg(bp, tx_xdp);
-+
-+	if (netif_running(dev)) {
-+		rc = bnxt_open_nic(bp, true, false);
-+		if (rc) {
-+			WRITE_ONCE(bp->xdp_prog, old);
-+			bnxt_xdp_apply_cfg(bp, old_tx_xdp);
-+			return rc;
+diff --git a/fs/ceph/dir.c b/fs/ceph/dir.c
+index 2e5c0ccb1b346..d7d48d3c3baf0 100644
+--- a/fs/ceph/dir.c
++++ b/fs/ceph/dir.c
+@@ -466,6 +466,10 @@ static int ceph_readdir(struct file *file, struct =
+dir_context *ctx)
+ 		      (int)req->r_reply_info.hash_order);
+=20
+ 		rinfo =3D &req->r_reply_info;
++		if (WARN_ON_ONCE(!rinfo->dir_dir)) {
++			ceph_mdsc_put_request(req);
++			return -EIO;
 +		}
- 	}
--	bp->tx_nr_rings_xdp = tx_xdp;
--	bp->tx_nr_rings = bp->tx_nr_rings_per_tc * tc + tx_xdp;
--	bnxt_set_cp_rings(bp, true);
--	bnxt_set_tpa_flags(bp);
--	bnxt_set_ring_params(bp);
- 
--	if (netif_running(dev))
--		return bnxt_open_nic(bp, true, false);
-+	if (old)
-+		bpf_prog_put(old);
- 
- 	return 0;
- }
--- 
-2.55.0
+ 		if (le32_to_cpu(rinfo->dir_dir->frag) !=3D frag) {
+ 			frag =3D le32_to_cpu(rinfo->dir_dir->frag);
+ 			if (!rinfo->hash_order) {
+--=20
+2.43.0
 
