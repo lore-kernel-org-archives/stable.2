@@ -1,51 +1,52 @@
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 235B04A260E;
-	Wed, 30 Sep 2026 11:38:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F86B4C8C54;
+	Wed, 30 Sep 2026 11:39:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790768339; cv=none; b=EwlIulG2cB4IvDpFlLneyP0O6X28nFLnhKRf2DawD8v9m+3Gsrmmqu3EBSkb4+DYbk3yoL5WbDILW3z+ESaGapAJ8l2Gcsb+6lu4qZ0d+JfjhIWizSHo8op7Pkr03Fz7VdjZlq/GyuTcMtsneKIHmy1T8QUG5WlacUEUQZ1PgnM=
+	t=1790768345; cv=none; b=sQspQDukF/Un4yyYJZfHykNqC7unybn5rJc6YDKXTMbo3frpGYgxusl6+6sn6ZXiKOBcvHg61K1HPl3FrALnRu2XUZceb/2zWP3+S8VX0D/GRe+JSc99qz4PA4/KH1gpdbsVjRSULI6WgBSww7cPdmChQ8zNdkGNXZ0osgT/FOs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790768339; c=relaxed/simple;
-	bh=cNZbAkIhSgjYO/F/LH/0/Ke2lFVlsMxsLsGsPUURqnY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=W/6aqvjsfxrmtjHo8EHc3HHrfYyaQTwpXmNLlghgEB9HOqet5xk3QBKr9eqeTJ5s4WaNAuTIEzYcvlsqmcYVIb4cBsbckqevxZV6Sr2/YnxkTJkmY8fMAohIGnFp8j0JP4UvK+IuHypwY+AbqiE0f/MPlIM+alkve1hpIbO6FaU=
+	s=arc-20240116; t=1790768345; c=relaxed/simple;
+	bh=4Din0es4th5rhmV7FCjMKnTdoqh6ej4HAim9DGVgPnQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=E04/YOhv5jUcSukhdTWbPeqxQP8LBeOcm2DdWRGTf6kAxII2VsN+6o9nevELdAL2P3ewvFlzePX/sj7RtpkD4QtfJibQOQWUcwACade6SJ4e1rB3xFlzvFCJ7d7P9E3yX+zATvXfNJfCiJsEpTt8ToFbNWxqhu+2PI3oPzUxRPw=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 7f7f53a8bcc311f19a56ed5b684f684d-20260930
+X-UUID: 839f7742bcc311f19a56ed5b684f684d-20260930
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:2aa2846d-902d-4eb2-950c-40bda623fea3,IP:0,U
-	RL:0,TC:0,Content:0,EDM:-20,RT:1,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-19
-X-CID-META: VersionHash:7db8b62,CLOUDID:5e03f16cf577fed6d904c64fe7baafd8,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:1|-1
-	00,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,
+X-CID-O-INFO: VERSION:1.3.19,REQID:280b0e8d-6cfc-47f6-afc8-4b5b180206af,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:-25
+X-CID-META: VersionHash:7db8b62,CLOUDID:c46ceab0234235c5706ee733755f32d0,BulkI
+	D:nil,BulkQuantity:0,SF:102|123|850|865|898,TC:nil,Content:0|15|50|99,EDM:
+	-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,
 	AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
 X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 7f7f53a8bcc311f19a56ed5b684f684d-20260930
-X-User: lilinmao@kylinos.cn
+X-UUID: 839f7742bcc311f19a56ed5b684f684d-20260930
+X-User: fengchenguang@kylinos.cn
 Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <lilinmao@kylinos.cn>)
+	(envelope-from <fengchenguang@kylinos.cn>)
 	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1759642515; Wed, 30 Sep 2026 19:38:46 +0800
-From: Linmao Li <lilinmao@kylinos.cn>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Xiangqian Zhang <zhangxiangqian@kylinos.cn>,
-	netdev@vger.kernel.org,
+	with ESMTP id 126679322; Wed, 30 Sep 2026 19:38:53 +0800
+From: fengchenguang@kylinos.cn
+To: s.nawrocki@samsung.com,
+	mchehab@kernel.org
+Cc: krzk@kernel.org,
+	peter.griffin@linaro.org,
+	alim.akhtar@samsung.com,
+	linux-media@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Linmao Li <lilinmao@kylinos.cn>,
+	Chenguang Feng <fengchenguang@kylinos.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH net] net: mii: Fix unknown speed after link up
-Date: Wed, 30 Sep 2026 19:38:42 +0800
-Message-Id: <20260930113842.2640928-1-lilinmao@kylinos.cn>
+Subject: [PATCH] media: exynos4-is: Fix runtime PM usage counter leak in fimc-isp
+Date: Wed, 30 Sep 2026 19:38:49 +0800
+Message-Id: <20260930113849.278562-1-fengchenguang@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -55,47 +56,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mii_ethtool_get_link_ksettings() reads BMSR only once. Since
-BMSR_LSTATUS is latched low, the first query after link up can
-report SPEED_UNKNOWN even though the link is already up.
+From: Chenguang Feng <fengchenguang@kylinos.cn>
 
-This is seen with r8152, which detects carrier using a MAC register
-without clearing the BMSR latch. NetworkManager can then keep
-reporting 0 Mb/s until the next carrier change.
+fimc_isp_subdev_s_power() increments the usage counter with
+pm_runtime_resume_and_get() and releases it if fimc_is_start_firmware()
+fails, but not when fimc_is_hw_initialize() fails further down: the
+function then returns with the counter still held, and the device can
+never runtime-suspend afterwards.
 
-Read BMSR twice to obtain the current link status, as mii_link_ok()
-already does.
+Call pm_runtime_put() on the fimc_is_hw_initialize() error path as
+well, like the fimc_is_start_firmware() path already does.
 
-Tested on an RTL8153B with a 6.6-based kernel. Traces confirmed
-LSTATUS=0 followed by LSTATUS=1 in the same query in 20 rebind runs.
-NetworkManager reported 1000 Mb/s in all 10 managed-device runs.
-With the cable unplugged or the PHY powered down, the speed is still
-reported as unknown.
-
-Fixes: f6f2e946aa4d ("net: mii: Fix the Speed display when the network cable is not connected")
+Fixes: 9a761e436843f ("[media] exynos4-is: Add Exynos4x12 FIMC-IS driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
+Signed-off-by: Chenguang Feng <fengchenguang@kylinos.cn>
 ---
-Runtime testing used a 6.6-based kernel containing the change identified
-by the Fixes tag. The tested drivers/net/mii.c is identical to the
-patched version based on net/main.
+ drivers/media/platform/samsung/exynos4-is/fimc-isp.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
- drivers/net/mii.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/net/mii.c b/drivers/net/mii.c
-index 37bc3131d31a..bd4fdcb55df3 100644
---- a/drivers/net/mii.c
-+++ b/drivers/net/mii.c
-@@ -163,6 +163,8 @@ void mii_ethtool_get_link_ksettings(struct mii_if_info *mii,
- 	advertising = ADVERTISED_TP | ADVERTISED_MII;
+diff --git a/drivers/media/platform/samsung/exynos4-is/fimc-isp.c b/drivers/media/platform/samsung/exynos4-is/fimc-isp.c
+index 896a1b0952ad..8d4efb552424 100644
+--- a/drivers/media/platform/samsung/exynos4-is/fimc-isp.c
++++ b/drivers/media/platform/samsung/exynos4-is/fimc-isp.c
+@@ -322,6 +322,11 @@ static int fimc_isp_subdev_s_power(struct v4l2_subdev *sd, int on)
+ 		set_bit(IS_ST_PWR_SUBIP_ON, &is->state);
  
- 	bmcr = mii->mdio_read(dev, mii->phy_id, MII_BMCR);
-+	/* BMSR_LSTATUS is latched low, dummy read to get the current state */
-+	mii->mdio_read(dev, mii->phy_id, MII_BMSR);
- 	bmsr = mii->mdio_read(dev, mii->phy_id, MII_BMSR);
- 	if (mii->supports_gmii) {
- 		ctrl1000 = mii->mdio_read(dev, mii->phy_id, MII_CTRL1000);
+ 		ret = fimc_is_hw_initialize(is);
++		if (ret < 0) {
++			v4l2_err(sd, "hardware initialization failed\n");
++			pm_runtime_put(&is->pdev->dev);
++			return ret;
++		}
+ 	} else {
+ 		/* Close sensor */
+ 		if (!test_bit(IS_ST_PWR_ON, &is->state)) {
 -- 
 2.25.1
 
