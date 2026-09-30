@@ -1,143 +1,97 @@
-Received: from mx.ssi.bg (mx.ssi.bg [193.238.174.39])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74D914D7D59;
-	Wed, 30 Sep 2026 15:39:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.238.174.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 887164D7D50;
+	Wed, 30 Sep 2026 15:39:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790782760; cv=none; b=tn4YBWqmKp3HLjlP2v9eTi6h/XRIF0bK800NI+HD6tue8cZYlZ/lFpg6j83saShLGh5qE0YJ4nno4kaXfA5fqAjLbbOjbl5lC/tRtw5tfj0POdK5qe+Tjj4+dBfIO7B9Q4Lrts8sY0tVi5aB8ofk7vSs9y0reB9/Rs4D2riY+2k=
+	t=1790782763; cv=none; b=gx3/zUm5Dt3v87A68C7DZnP4vUW4lXyHl1Zntx5WTtbxSvmymeQxPrnL61MPWc2Vo9bB6tcVf7I7x4JKGKfjhwXPyDyerJv4mzimLGbqz4rtQsjT9XmuyaJcZOLUmO98k6vANH0f7EP+VfW/9pOJG8PiSOUIRNAct/kufNSC1Ow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790782760; c=relaxed/simple;
-	bh=VcicJ3YX/UXJ4/si3fMKitkg0df0A/q4ji+gZn9CgGg=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=eJTLsoabL8XDe6sBIWmwY5LNo3JnYx1GGPPbSUFCDeinsuxszc+fZBYEgz52DvcAfqcQHxcxqOuhoPp7HWuK9aTdUnzpRF5lTbTYwk5UAm08wap134juXXB4ZdDNWVIJr/q60M/Q92XHNBeNDyEMiScS9tZf04qqgdUbnL++fl0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg; spf=pass smtp.mailfrom=ssi.bg; dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b=1ifjt6Fr; arc=none smtp.client-ip=193.238.174.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ssi.bg
+	s=arc-20240116; t=1790782763; c=relaxed/simple;
+	bh=LsHDNUDepHbGVxZGAg+1fgQPHolUPCyk9FwJgBC62Bo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bNa/S6mq/+AtBRNA5q/1OkwxM2K7i+hNKzyRq0dHCEkSSYbXetPpeaPPSN9LZccJJWTv0gKwEdVgsyyMvNLd51E6tzcmfbmcUR7yrrZCf1sSBRTv0OpbPhvrngLhy/MYQk0tTd2RR6R44rQMurEGF09QNP2eSyosOFg6RHWnrA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=fmgL+j6N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b="1ifjt6Fr"
-Received: from mx.ssi.bg (localhost [127.0.0.1])
-	by mx.ssi.bg (Potsfix) with ESMTP id 7094322271;
-	Wed, 30 Sep 2026 18:38:57 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ssi.bg; h=cc:cc
-	:content-type:content-type:date:from:from:in-reply-to:message-id
-	:mime-version:references:reply-to:subject:subject:to:to; s=ssi;
-	 bh=cNmTv4TtOPMC5q2qjvkw+1q58TUfw7qWbiEy3UveYaQ=; b=1ifjt6FrRwEv
-	aX2GxxFU5iw7NFfCuDWrRsDTqFFtQOxOC6N+YZvx2HhmBsC4wY/rGZqUN3sGdKZ7
-	PQKtqMH6+f9n3OW8Ji1a3YQT+0mWjQGDScV5dmjuRskV7NJUv7qqkzujX3wPjBT7
-	nwZOp3JM4yDKdMVYBKL0bO0JRHhL9SuGDBPLCskCo0oZgx+Ob2bM/KDikajOVp7c
-	U29BumzYQi03OE6f0M3IAbPJWzRq+tjbupT0G8ytqYrKwB8jO+bdjoznLm93Nddm
-	gG1dn3eXXEaRTSt57HEwz48mWw7HSG+FHdByelOuXrTKlJI/n7gdQXHJF7qmd3Rg
-	ApJGT2WWttW3QD/eZsdjBjvjdRu28l0+l6oiRpxyN8310hPRNPaHI4CXuIU71ZCP
-	LxydnYLIM9ghX2YUoZ0ecC/LLvcj2VxxCHGh5Rdt7ILDf0Idd3+RgWAnAKW0dQhB
-	lmhp+NyAqO4PFcjg97nZzcUeGaVZna3Pc44RI6O6QwyUFcnJLwT6Eq/fCfJ1jB+0
-	G/RibZRT/MVjFZPFl86xv+hFMKVkgs876KpQhGbRjS6OJfhYy8RkuqGrQRjaSwy4
-	PqDiumqIZH42iKZRlHaPjQkg3UEEhVFLasSfh5PjCqA7j7189kVcQ4qSMa5Mtep5
-	oXc30sPOhBrO0dLLJoIZQMxY0iyeg1A=
-Received: from box.ssi.bg (box.ssi.bg [193.238.174.46])
-	by mx.ssi.bg (Potsfix) with ESMTPS;
-	Wed, 30 Sep 2026 18:38:57 +0300 (EEST)
-Received: from ja.ssi.bg (unknown [213.16.62.126])
-	by box.ssi.bg (Potsfix) with ESMTPSA id 9542F60722;
-	Wed, 30 Sep 2026 18:38:59 +0300 (EEST)
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by ja.ssi.bg (8.18.2/8.18.2) with ESMTP id 68UFcoMG064203;
-	Wed, 30 Sep 2026 18:38:51 +0300
-Date: Wed, 30 Sep 2026 18:38:50 +0300 (EEST)
-From: Julian Anastasov <ja@ssi.bg>
-To: =?UTF-8?B?7ISx67OR7LCs?= <tjdqudcks0424@naver.com>
-cc: horms@verge.net.au, pablo@netfilter.org, netdev@vger.kernel.org,
-        lvs-devel@vger.kernel.org, netfilter-devel@vger.kernel.org,
-        stable@vger.kernel.org
-Subject: Re: [PATCH net] ipvs: prevent LBLCR destination leak after entry
- expiry
-In-Reply-To: <20260929170747.503223-1-tjdqudcks0424@naver.com>
-Message-ID: <3ed677db-8c85-a603-6c9e-3cf21535a488@ssi.bg>
-References: <20260929170747.503223-1-tjdqudcks0424@naver.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fmgL+j6N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4501B1F00898;
+	Wed, 30 Sep 2026 15:39:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790782757;
+	bh=/PWVn3+Gjnvzob0vNmaANn+P29ffZzRu6N78DN/X5bU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=fmgL+j6Nmqd3qXSLVuwuzi4ckurv6/tJkh4clIvRV8GI1DaQikO8rD106u7TbGTGD
+	 h8BMVOcIFABX/P3/29FEDeH9h69w13Md3gy148K1zX23qKRzyH6IGm1nVdYolsBg/j
+	 Xp4raV37sITjjKdkgFN9xz8RzXBcrDPlnjEbW3fQ=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Johannes Berg <johannes.berg@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10 157/595] wifi: rsi: avoid reading TKIP MIC keys for non-TKIP ciphers
+Date: Wed, 30 Sep 2026 17:20:50 +0200
+Message-ID: <20260930152351.113172185@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930152347.700140858@linuxfoundation.org>
+References: <20260930152347.700140858@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="-1463811672-754341913-1790782732=:37112"
+Content-Transfer-Encoding: 8bit
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+5.10-stable review patch.  If anyone has any objections, please let me know.
 
----1463811672-754341913-1790782732=:37112
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+------------------
+
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+
+[ Upstream commit 843fe9bc583b7686ca68312ac9319c9240a73c03 ]
+
+rsi_hal_load_key() copies tx_mic_key and rx_mic_key from data[16] and
+data[24] whenever key data is present. Those offsets are only part of
+the 32-byte TKIP key layout. Shorter keys used by other ciphers, such as
+CCMP, do not provide those bytes, so the unconditional copies can read
+past the supplied key buffer.
+
+Only copy the MIC keys for TKIP, and reject malformed TKIP keys that are
+shorter than the expected 32-byte layout.
+
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Link: https://patch.msgid.link/20260701053414.34015-1-pengpeng@iscas.ac.cn
+[drop useless length check]
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/net/wireless/rsi/rsi_91x_mgmt.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/wireless/rsi/rsi_91x_mgmt.c b/drivers/net/wireless/rsi/rsi_91x_mgmt.c
+index 9000a5d510034..74c8ea9795176 100644
+--- a/drivers/net/wireless/rsi/rsi_91x_mgmt.c
++++ b/drivers/net/wireless/rsi/rsi_91x_mgmt.c
+@@ -848,8 +848,10 @@ int rsi_hal_load_key(struct rsi_common *common,
+ 		} else {
+ 			memcpy(&set_key->key[0][0], data, key_len);
+ 		}
+-		memcpy(set_key->tx_mic_key, &data[16], 8);
+-		memcpy(set_key->rx_mic_key, &data[24], 8);
++		if (cipher == WLAN_CIPHER_SUITE_TKIP) {
++			memcpy(set_key->tx_mic_key, &data[16], 8);
++			memcpy(set_key->rx_mic_key, &data[24], 8);
++		}
+ 	} else {
+ 		memset(&set_key[FRAME_DESC_SZ], 0, frame_len - FRAME_DESC_SZ);
+ 	}
+-- 
+2.53.0
 
 
-	Hello,
-
-On Wed, 30 Sep 2026, tjdqudcks0424@naver.com wrote:
-
-> From: 성병찬 <tjdqudcks0424@naver.com>
-> 
-> ip_vs_lblcr_schedule() looks up a cache entry under RCU before taking
-> svc->sched_lock.  The expiry timer can remove that entry from the hash
-> table and erase its destination set before the scheduler takes the lock.
-> 
-> RCU keeps the stale entry itself alive, so the scheduler can continue and
-> insert a new destination-set element into it.  Since the entry is already
-> unhashed and its set was already erased, no later path finds the new
-> element.  Both the element and its destination reference are leaked when
-> the parent entry is freed.
-> 
-> Recheck the address mapping while holding svc->sched_lock and update the
-> set only when the hash table still maps the address to the entry obtained
-> by the scheduler.
-> 
-> This was found during an AI-assisted source audit.  Diagnostic-only timing
-> instrumentation forced expiry after lookup on a two-vCPU x86-64 QEMU
-> guest.  The unmodified code inserted into the stale entry and left one
-> element outstanding in each of three runs; kmemleak reported the related
-> allocation in one run.  With this change, the same stale-entry condition
-> was reached in three runs, but no stale insertion or outstanding element
-> remained.
-> 
-> An unforced 679-second run processed 65,536 marked packets without hitting
-> the race.  The result therefore confirms the lifetime leak and the effect
-> of the fix under forced timing, but does not establish practical remote
-> resource exhaustion.
-> 
-> Fixes: c5549571f975 ("ipvs: convert lblcr scheduler to rcu")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: 성병찬 <tjdqudcks0424@naver.com>
-> ---
->  net/netfilter/ipvs/ip_vs_lblcr.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/net/netfilter/ipvs/ip_vs_lblcr.c b/net/netfilter/ipvs/ip_vs_lblcr.c
-> index f53f05ceea36..ef18f3c9d5da 100644
-> --- a/net/netfilter/ipvs/ip_vs_lblcr.c
-> +++ b/net/netfilter/ipvs/ip_vs_lblcr.c
-> @@ -686,7 +686,8 @@ ip_vs_lblcr_schedule(struct ip_vs_service *svc, const struct sk_buff *skb,
->  
->  		/* Update our cache entry */
->  		spin_lock_bh(&svc->sched_lock);
-> -		if (!tbl->dead)
-> +		if (!tbl->dead &&
-> +		    ip_vs_lblcr_get(svc->af, tbl, &iph->daddr) == en)
-
-	ip_vs_dest_set_eraseall() does not update set->size, what if
-we use atomic_set(&set->size, -1) there and to check it here to
-avoid inserting dest into dying en? This should reduce the time
-while we hold sched_lock.
-
-		if (!tbl->dead && atomic_read(&en->set.size) >= 0)
-
->  			ip_vs_dest_set_insert(&en->set, dest, true);
->  		spin_unlock_bh(&svc->sched_lock);
->  		goto out;
-> -- 
-> 2.43.0
-
-Regards
-
---
-Julian Anastasov <ja@ssi.bg>
----1463811672-754341913-1790782732=:37112--
 
