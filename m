@@ -1,220 +1,279 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCCCA2AEF5;
-	Wed, 30 Sep 2026 00:06:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34C2F18FDBD
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 00:16:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790726820; cv=none; b=HoFMwirn3FDkXY7KzGzRtjJ2WdEE0SvExVylkojMVwO/AG0bDm6fyCozGgcNajudB41cW7KStsrPOzYnMl7nXgKy0M2rjv0H70F4G56DC5gThYoL9kWEuqBReUcAMYoQEXiK4QVIgKupFXPsxY0bFCf+0C9ioUbryZ8wIIMVLmU=
+	t=1790727371; cv=none; b=LlClgV3OcjFtEs5zXMzY0NyYm+J4UNDlWzLqSvadbicr9lH0L9jTEePlto+R8csWXgsepRFtJz0eT1+j5aRbfEbBUdHUlHsjg41TogYBWhXuJRRyuiPzlKgJOvznXLnOV0V3SAaNuOEFIUGcow9HcSc8PJoGZuyxGgOxtGuUtfA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790726820; c=relaxed/simple;
-	bh=mPTPIKAUNjmfguNjYpT/EavXKWLKkJoW8vykJFb4ZrE=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=M1cTJG2jsE8RCWmKuBLjwCz2vk0PMpfHv8AxjHAURK8vRPL9stJbNWOAvLVPJVxkPpZWjh5kKzsGQotM9POKL7cEB5GFQmg7LqtU8M2AqCnv00mBc5zSVwWL6F1AwMkOBxHakhaOw+CzjACwss5IjIJgQVStnuSnLBofcJV8mnY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gAmquCZ9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790727371; c=relaxed/simple;
+	bh=z0utDSC05FDwr6CjVgyhIQ7Fa08nu0sk8qyJZ8N5+gI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QmAvrAXf+BMOAsHqTORLemvP7h1h89f2KFOBBeSiScz1lXw2pe1PwWUXwA7h1rhVpRGRlXirxAXetQBOOnD6+8cSQ4lmx0AYV0gfWD5I29ZsuI+b1cnhWkGuTsRyX8ONDlGAIiY1Y3SFl6bKjwhwV2UbjH/PNcpdnWaGtf31faU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rqV/JHVD; arc=none smtp.client-ip=74.125.229.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gAmquCZ9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 714C31F000FF;
-	Wed, 30 Sep 2026 00:06:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790726818;
-	bh=xXVQ9W7M/mZGqFATe6fQKCdJL/j0F5r4P8laP4JUb4M=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=gAmquCZ94fV+KT6LSBOcB7E6THqPXKBtjapsF4kwQBEQTSvpU6vqKQODg6ns22w3X
-	 4SVmfb43jSSwAagke5mcGNJLhY+MID9zJN1O2EpfuVtVbp1r8S05AH9jon+te/HvWk
-	 CExEH2skWyjj/8K16h6YNuK/SFz6Qwp8SHjcKczL+6r8lttJa/YeBp/rwz8KQMfUIH
-	 oOskGXIrlIYBoWaR5ja2nGbwAnrYZAm/6oGK+WAyhYPrjICecoe9WDdfNAZ6kBpPiS
-	 BXgVYDObGov+WVDak8ljbKi7oyDB6nQ7rRDhS7cZg67w69H/h6NnLUockVsZMMJkJW
-	 8dk3814MZw8mw==
-Subject: Re: [PATCH net] net/smc: protect clcsock lifetime in smc_getname
-From: netdev-bot+sashiko@kernel.org
-To: nicoyip.dev@gmail.com
-Cc: alibuda@linux.alibaba.com, dust.li@linux.alibaba.com,
- sidraya@linux.ibm.com, mjambigi@linux.ibm.com, tonylu@linux.alibaba.com,
- guwen@linux.alibaba.com, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, ubraun@linux.ibm.com,
- linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Wed, 30 Sep 2026 00:06:57 +0000
-Message-ID: <179072681701.434549.13763000893839581310@kernel.org>
-In-Reply-To: <20260926180404.2721010-1-nicoyip.dev@gmail.com>
-References: <20260926180404.2721010-1-nicoyip.dev@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rqV/JHVD"
+Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-341d0522b4dso7290136eec.1
+        for <stable@vger.kernel.org>; Tue, 29 Sep 2026 17:16:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790727369; x=1791332169; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kHaVwoQqqsaFc44XhEBuGJgq8D6uzQWj5p1fBX2eTGs=;
+        b=rqV/JHVD+A8EGPBls340aTZ/yhhSmLkh7TRW1Fi3awhRRL3HVXSkIIodngBv73AGz1
+         xclk2B1ooD0S2hJLlenW5NBzPgvvja3SOhUoHR0Rr6l2EC7X7wT9SzhtOeuCbEELZFXq
+         ep/d1oyBWc+HmUk3j3qrnEepHV5zcZh8WwwKQBJDnVF5fjaOQ7Nsl3rxEvgYB5oWemJV
+         rxIPNAl4DdpuEk0XWG88GiK9+dA/EeJqtHp+ROJfV7796oQuKNHRGqQNqirHF1Ikfz32
+         Vw+g85WMCL9amB8ZdDgRCgtB2ikPLeB524JHMFZw2cWoWZCfF1sr0KxJ3qjyxSvZcXjL
+         5Z8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790727369; x=1791332169;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kHaVwoQqqsaFc44XhEBuGJgq8D6uzQWj5p1fBX2eTGs=;
+        b=qlWY57nU+/sDysZFZZv9srxG6wxbhoSfpO33E4WHrfnW+3mIw9Ebmg6MPYaryOJAyM
+         5k+tZOg/EW5rySvWDE0IUqqI9LQt2FjN/RAdheKyiCEdGhNRwAfzm6q5hUr8SAb6SFSp
+         C9GuzERY+46ROZkA5CZmzpnsLlEPfQIzNiR3lvUGCXzjA3sBl4Lj/0Skf0/2XTkRlwG3
+         O2IXX/6zncYSn/u6cHzug+9fYlc2nXuSdpdzC12DtYP61exIq+KD0UKJPAsz1No8zt1q
+         4aCc5UezJYjuAUDsQ5XOY9VsPBlVUnn6F8gxcLya7/3Ygn4K1JAkOHvmU4wQCEv/3Mt8
+         n1JQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxpx7VugB83IBWEfzU0TS/YnkimdxrKsKyyJp4Al7QzfIYCfMPTTPfDaLhZGrnnhv/mQbRBzK4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKjVjTikQbJko86BMn7nlhJX6sQxEpJaw1UY+r58SzGQMbumTI3
+	VcFtbLuyIhZ5yO7jutf8DIShbSPZZLsZAzO0OtN2ECnJYmSx77G+AKoR
+X-Gm-Gg: AYBFou1JU0howQ+GrJZM1nlHYwRQZZfC9up43YKLiy/tCYyEl6J7WTkF4/JqbNSlaFs
+	fJg1APW8t7K9qqPA+CP0PYVEop2CbOpLTVy2gDoSGpvWQBaXxEudPc4yeFcBivBbEcWEXK9//2L
+	QBp+Iu9/kB254Zy4IWStDHJeQ2d+DjlynmEYd9fglX4H7NfxlY7yiF74PPcmtgIOxSduL39Yc7t
+	3Z21qc62RusWGlTrBxcv0nfYDgZFeOgGInELQd47HL89cUXGuKgoz/s4mboXmp4kYRLnhHRLRjh
+	xYF9iOpJfBkkYO+qbzwbS5Y/L8ftgJXdrZ9BpjgzR7n/gi1nXGA1oGjTmSZk/J9VSSA3G7QIvlC
+	23h4ZXauN59H2flVQwWWSGEM3cY8lJOIE3sJAIvol3XWzvG2vyYkqlqNW8I6IppS76MQCBQG4Yi
+	9NgS+8t4inf4CwOf7yfHN47GxQZvMmjrq6jEj8lppXso0YqlQV+hWeNN4JGzW8a7QsTA==
+X-Received: by 2002:a05:693c:69d3:b0:346:c69f:2ea5 with SMTP id 5a478bee46e88-34c675ce6fdmr1057300eec.26.1790727368971;
+        Tue, 29 Sep 2026 17:16:08 -0700 (PDT)
+Received: from localhost ([8.219.155.192])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34c378ca8basm1870623eec.9.2026.09.29.17.16.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 17:16:08 -0700 (PDT)
+From: Dairui Zhang <zhangdairui@gmail.com>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: linux-cifs@vger.kernel.org,
+	smfrench@gmail.com,
+	senozhatsky@chromium.org,
+	tom@talpey.com,
+	pc@manguebit.org,
+	stable@vger.kernel.org,
+	Dairui Zhang <zhangdairui@gmail.com>
+Subject: [PATCH] ksmbd: rework ksmbd_validate_name_reconnect() to use a dentry walk
+Date: Wed, 30 Sep 2026 08:16:05 +0800
+Message-ID: <20260930001605.1917523-1-zhangdairui@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260928052026.1789765-1-zhangdairui@gmail.com>
+References: 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Namjae,
 
-Critical: 0 · High: 1 (2) · Medium: 0 · Low: 0
+I went over my v2 patch again and found some problems with it.
+Sorry for the issues in my earlier patch. I wrote a more
+rigorous version; could you please take a look and let me know
+if you see any problems with it?
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+The string prefix check in v2 rejects legitimate durable
+reconnects when the share path contains a symlink, because
+d_path() of the fp is resolved while the configured string is
+not. The new version replaces the string check with a dentry
+walk towards share->vfs_path, and also fixes the older case of
+a share exported at "/".
 
-- [High] The patch fixes smc_getname(), and its commit message says
-  socket option handlers already guard clcsock.
+From c8efcc786146a951091588e5fa7e3c754850cb3c Mon Sep 17 00:00:00 2001
+From: Dairui Zhang <zhangdairui@gmail.com>
+Date: Wed, 30 Sep 2026 03:10:00 +0800
+Subject: [PATCH] ksmbd: rework ksmbd_validate_name_reconnect() to use a
+ dentry walk
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but
-  smc_diag_msg_common_fill() (net/smc/smc_diag.c:42-55) has the same…
-- [High] This problem wasn't introduced by this patch, but smc_shutdown()
-  (net/smc/af_smc.c:3011-3012) runs `if (do_shutdown && smc->clcsock)…
+The name check in ksmbd_validate_name_reconnect() compares
+d_path() of the durable fp against share->path as strings. The
+fp path is resolved, the configured string is not, so when an
+intermediate component of the share path is a symlink, a
+legitimate reconnect to the same file on the same share is
+rejected. Example: /a/link -> /real with the share configured
+as /a/link/b: a durable handle for /real/b/foo is rejected.
 
---
+Replace the string checks with an object-based walk from the
+fp's dentry towards share->vfs_path, the same root the open
+paths use. Each component is compared against the requested
+name from its end, under rename_lock so a concurrent rename
+cannot mix snapshots. Mount roots are detected by mnt_root and
+crossed with follow_up(), so files in nested mounts (crossmnt)
+keep working. Reaching the filesystem root without meeting the
+share root means the fp does not belong to the share. The share
+root itself only matches an empty name, and an unlinked fp is
+rejected explicitly. Each walk is limited to 8192 hops and 16
+walk attempts, returning -EAGAIN when a limit is hit.
 
-net/smc: protect clcsock lifetime in smc_getname
+This also fixes reconnects through a share exported at "/",
+where the original code compared "oo" for /foo. With no PATH_MAX
+buffer or d_path() left in this function, the out-of-bounds
+read fixed by v1/v2 cannot reoccur.
 
-This commit takes clcsock_release_lock in smc_getname() around the
-smc->clcsock NULL check and the getname() callback. If link-group
-termination has already released the CLC socket through
-smc_close_active_abort(), it returns -EBADF.
+Fixes: c8efcc786146 ("ksmbd: add support for durable handles v1/v2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Dairui Zhang <zhangdairui@gmail.com>
+---
+Follow-up to the v2 patch in ksmbd-for-next: the string prefix
+check still rejects legitimate reconnects on symlinked share
+paths, this rework fixes that and the older root-"/" case.
+- v2: https://lore.kernel.org/linux-cifs/20260928052026.1789765-1-zhangdairui@gmail.com/
+---
+ fs/smb/server/vfs_cache.c | 115 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 88 insertions(+), 27 deletions(-)
 
-> diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
-> index e9f93b3ab435b..8b3ee70f8433f 100644
-> --- a/net/smc/af_smc.c
-> +++ b/net/smc/af_smc.c
-
-[ ... ]
-
-> @@ -2791,7 +2792,11 @@ int smc_getname(struct socket *sock, struct sockaddr *addr,
->  
->  	smc = smc_sk(sock->sk);
->  
-> -	return smc->clcsock->ops->getname(smc->clcsock, addr, peer);
-> +	mutex_lock(&smc->clcsock_release_lock);
-> +	if (smc->clcsock)
-> +		rc = smc->clcsock->ops->getname(smc->clcsock, addr, peer);
-> +	mutex_unlock(&smc->clcsock_release_lock);
-> +	return rc;
->  }
-
-[Severity: High]
-The commit message says:
-
-    Hold clcsock_release_lock across the pointer check and the getname()
-    callback, as the socket option handlers already do.
-
-Does this hold for every socket option path? SMC does not set
-SOCK_CUSTOM_SOCKOPT. So setsockopt(fd, SOL_SOCKET, SO_KEEPALIVE, ...) on
-an AF_SMC socket never reaches smc_setsockopt():
-
-do_sock_setsockopt()
-  sock_setsockopt()
-    sk_setsockopt()
-      sk->sk_prot->keepalive(sk, valbool)
-        smc_set_keepalive()
-
-smc_set_keepalive() in net/smc/af_smc.c uses clcsock without a NULL check
-and without clcsock_release_lock:
-
-static void smc_set_keepalive(struct sock *sk, int val)
-{
-	struct smc_sock *smc = smc_sk(sk);
-
-	smc->clcsock->sk->sk_prot->keepalive(smc->clcsock->sk, val);
-}
-
-Take the sequence from the commit message: shutdown(SHUT_WR), then
-link-group termination. smc_close_active_abort() calls
-smc_clcsock_release(). That sets smc->clcsock to NULL and calls
-sock_release() while the SMC file is still open.
-
-Would a later setsockopt(SO_KEEPALIVE) then hit a NULL pointer dereference
-in smc_set_keepalive()? And if it runs while smc_clcsock_release() is in
-progress, could it become a use-after-free of the CLC socket?
-
-This is a pre-existing issue and was not introduced by this patch.
-smc_diag_msg_common_fill() in net/smc/smc_diag.c reads clcsock without
-a lock, the same pattern this patch removes from smc_getname():
-
-	if (!smc->clcsock)
-		return;
-	r->id.idiag_sport = htons(smc->clcsock->sk->sk_num);
-	r->id.idiag_dport = smc->clcsock->sk->sk_dport;
-	r->id.idiag_if = smc->clcsock->sk->sk_bound_dev_if;
-	...
-
-[Severity: High]
-The dump path is
-smc_diag_dump_proto()->__smc_diag_dump()->smc_diag_msg_common_fill(). It
-holds only read_lock(&prot->h.smc_hash->lock).
-
-The comment in smc_inet_destroy_sock() says the diag dumps stay safe only
-if the socket is unhashed before smc_clcsock_release(). __smc_release()
-does this. smc_close_active_abort() does not: it releases clcsock while
-the SMC socket is still hashed. It holds only clcsock_release_lock, which
-the diag reader never takes.
-
-Each store to r->id can force a reload of smc->clcsock. Can a dump pass
-the NULL check and then reload smc->clcsock as NULL? Could it also load
-clcsock->sk after __sock_release() has set it to NULL? The AF_SMC diag
-dump needs no privileges, so the result would be a NULL dereference
-inside the read_lock section.
-
-A mutex can't be taken under the rwlock. Would one of these work here?
-
-  - A single READ_ONCE() snapshot of clcsock and clcsock->sk, with NULL
-    checks, relying on the RCU-deferred socket free.
-  - Unhashing the socket before the release on the abort path.
-
-[Severity: High]
-This is also a pre-existing issue and was not introduced by this patch.
-smc_shutdown() in net/smc/af_smc.c uses clcsock while holding only
-lock_sock(sk):
-
-	if (do_shutdown && smc->clcsock)
-		rc1 = kernel_sock_shutdown(smc->clcsock, how);
-
-smc_close_active_abort() drops lock_sock before it releases clcsock:
-
-	if (release_clcsock) {
-		release_sock(sk);
-		smc_clcsock_release(smc);
-		lock_sock(sk);
-	}
-
-This means lock_sock(sk) alone does not keep clcsock alive. One possible
-interleaving:
-
-Thread A: shutdown(SHUT_WR) while in SMC_ACTIVE
-  smc_close_shutdown_write()
-    release_sock(sk);
-    cancel_delayed_work_sync(&conn->tx_work);
-
-Thread B: shutdown(SHUT_RDWR) or shutdown(SHUT_WR) on the same fd
-  socket moves to SMC_PEERCLOSEWAIT1
-
-Termination worker:
-  __smc_lgr_terminate()->smc_conn_kill()->smc_close_active_abort()
-    sk_state = SMC_CLOSED, release_clcsock = true
-    release_sock(sk);
-
-Thread A:
-    lock_sock(sk);
-    state != SMC_ACTIVE, goto again, no case matches, returns
-  smc_shutdown()
-    smc->clcsock is still non-NULL
-    kernel_sock_shutdown(smc->clcsock, how);
-
-Termination worker, concurrently:
-    smc_clcsock_release(smc)
-      __sock_release()
-        sock->sk = NULL;
-        sock->ops = NULL;
-        iput(SOCK_INODE(sock));
-
-Could this be a NULL dereference or a use-after-free of the CLC socket?
-Thread A can sleep in lock_sock() inside inet_shutdown(), outside any RCU
-read-side section.
-
+diff --git a/fs/smb/server/vfs_cache.c b/fs/smb/server/vfs_cache.c
+--- a/fs/smb/server/vfs_cache.c
++++ b/fs/smb/server/vfs_cache.c
+@@ -11,6 +11,7 @@
+ #include <linux/kthread.h>
+ #include <linux/freezer.h>
+ #include <linux/dcache.h>
++#include <linux/namei.h>
+ 
+ #include "glob.h"
+ #include "vfs_cache.h"
+@@ -1701,38 +1702,98 @@
+ int ksmbd_validate_name_reconnect(struct ksmbd_share_config *share,
+ 				  struct ksmbd_file *fp, char *name)
+ {
+-	char *pathname, *ab_pathname;
++	const struct path *root = &share->vfs_path;
++	struct path cur;
++	const char *p, *end;
++	unsigned int seq, attempts = 0, hops;
+ 	int ret = 0;
+ 
+-	pathname = kmalloc(PATH_MAX, KSMBD_DEFAULT_GFP);
+-	if (!pathname)
+-		return -EACCES;
+-
+-	ab_pathname = d_path(&fp->filp->f_path, pathname, PATH_MAX);
+-	if (IS_ERR(ab_pathname)) {
+-		kfree(pathname);
+-		return -EACCES;
+-	}
+-
+-	if (name) {
+-		size_t len = strlen(ab_pathname);
+-
+-		if (len == share->path_sz && !strncmp(ab_pathname, share->path, len)) {
+-			/* the durable fp is the share root itself */
+-			if (name[0])
++	if (!name)
++		return 0;
++	if (name[0] == '/' || d_unlinked(fp->filp->f_path.dentry))
++		return -EINVAL;
++
++	for (;;) {
++		if (++attempts > 16)
++			return -EAGAIN;
++		ret = 0;
++		p = name;
++		end = name + strlen(name);
++		cur = fp->filp->f_path;
++		path_get(&cur);
++		seq = read_seqbegin(&rename_lock);
++		hops = 0;
++		for (;;) {
++			const char *comp;
++			size_t clen;
++			struct dentry *parent;
++
++			/* Bound the walk so mount/rename storms cannot spin forever. */
++			if (++hops > 8192) {
++				ret = -EAGAIN;
++				break;
++			}
++
++			if (cur.dentry == root->dentry &&
++			    cur.mnt == root->mnt) {
++				/* the share root itself only matches an empty name */
++				if (end != p)
++					ret = -EINVAL;
++				break;
++			}
++
++			if (cur.dentry == cur.mnt->mnt_root) {
++				/*
++				 * Mount root: hop into the parent mount and
++				 * let its mountpoint supply the component.
++				 * Mount topology can change mid-walk
++				 * (mount_lock is not available here), but
++				 * racing that needs local mount privileges.
++				 */
++				if (!follow_up(&cur)) {
++					ret = -EINVAL;
++					break;
++				}
++				continue;
++			}
++
++			for (comp = end; comp > p && comp[-1] != '/'; comp--)
++				;
++			clen = end - comp;
++			if (!clen) {
++				/* name exhausted while the fp is deeper, or empty component */
+ 				ret = -EINVAL;
+-		} else if (len <= share->path_sz ||
+-			   strncmp(ab_pathname, share->path, share->path_sz) ||
+-			   ab_pathname[share->path_sz] != '/' ||
+-			   strcmp(&ab_pathname[share->path_sz + 1], name)) {
+-			ret = -EINVAL;
+-		}
+-		if (ret)
+-			ksmbd_debug(SMB, "invalid name reconnect %s\n", name);
+-	}
++				break;
++			}
+ 
+-	kfree(pathname);
++			spin_lock(&cur.dentry->d_lock);
++			if (cur.dentry->d_name.len != clen ||
++			    memcmp(cur.dentry->d_name.name, comp, clen))
++				ret = -EINVAL;
++			spin_unlock(&cur.dentry->d_lock);
++			if (ret)
++				break;
++
++			parent = dget_parent(cur.dentry);
++			if (parent == cur.dentry) {
++				/* escaped the mount without reaching the share root */
++				dput(parent);
++				ret = -EINVAL;
++				break;
++			}
++			dput(cur.dentry);
++			cur.dentry = parent;
+ 
++			end = comp;
++			if (end > p && end[-1] == '/')
++				end--;
++		}
++		path_put(&cur);
++		if (!read_seqretry(&rename_lock, seq))
++			break;
++	}
++	if (ret)
++		ksmbd_debug(SMB, "invalid name reconnect %s\n", name);
+ 	return ret;
+ }
+ 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260926180404.2721010-1-nicoyip.dev%40gmail.com
+2.53.0
