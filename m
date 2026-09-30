@@ -1,63 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45FBC4DA9D2;
-	Wed, 30 Sep 2026 21:12:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4FA84DA9D2
+	for <stable@vger.kernel.org>; Wed, 30 Sep 2026 21:13:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790802751; cv=none; b=oWA3KAbynLLtbrnIQg2owGFM01+joGE5pb6HMAM+d1kiEotIXNZxjjS4EBB72fiRmbVHnrwWDY2EJRYhpscL5GLT5waQhxi3R1vqvPk4kKATxIbcAVO5jIGF5ezAVFVqpdzCo7wom6RuzFW0GL2eldU5P9q1i9CKIevJkpEMhtk=
+	t=1790802816; cv=none; b=dd7dm7mPH+VRRAoJNep/9MLGUWqNdYtswnmVUDaJ8+dyDvTiR0KkACd8O31hZvkU/0JSy7z+9gLmlEBf7NRJbntJWq1phbDd/dA13oh5Z5SqMLjgaw83Nvkk0wYAFIHqO1qRjZSrgPS7pIsVEj/YksqoKG/P6PrDUhur7R5VSWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790802751; c=relaxed/simple;
-	bh=nhGFUue6W3/azyptdndfI71M0av0dF5gpG/2hedrUNA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C2GBvXSnTH3qxYp70C/C/pDtKCSlWUlqBc3Yb+c8V1/r3VurztXACwalMrQTuz8ZyVOpepQ6/8eN7tWRtgrf8128O1mIOxEutCMRLRhuN6l9rKeoJ0xEMvmhP3siLiMP55bM42O7fX+wyd9OD2QYoXKcvJUYDsIuQH5grW6Yr7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kmQ5O6B/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790802816; c=relaxed/simple;
+	bh=o4a0qUdaCSeRTwNJi1IOPcOPxBAbrFqAapS0BQWB/no=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=H2XV/ss5y/7dhXM6JI3QP5keuzg4p6Ndvg18vKfwGeE+ESgMSn3EheOk7lHtz7r0iHpCsgzFOR+pJScwoTnk3FnPBTxkGDjL9t3P98qmhQnExXsivRxywo2/7lyPDughUNckO9FdAWql+aQb7kyEYC+ppsjeM07oOtSDuc2e/7E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lUo0tNMR; arc=none smtp.client-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kmQ5O6B/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A39721F000FF;
-	Wed, 30 Sep 2026 21:12:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790802749;
-	bh=8HYVJZF3emcaxpxNaf7IY/+PsW+gK43mDYKZSJ0KbX8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kmQ5O6B/uwLgRKNhPdej41UUORlhkCJJNdFVyz8XqTHGQMO5VPgBMfR6BORZBdEi4
-	 I6O1hNANoyVg7CViQA/WascVsFrkAQogZQL3JT4lA3JsIFrmYpQWlW06u67Tlqqd2c
-	 xjsF/vGnjDOKAgrHSBU6gdtOjS8riVvxqy85c1V3APZErS0Svd+QOjAkSgpFUPo67j
-	 vzilJ8MkRSjE3Zdoga+DBorigO+lt/KVbx0CZ/3v1C2Xg18R1mKDiNGmFTWHw9SeHX
-	 nIHW8IYcEUWqk2Ur2mGfxB4nNvIthQ8apBqqUy2HCtUmVk7AlwCmXEMizbziaUWc4K
-	 NjdZJojvU2D5Q==
-Date: Wed, 30 Sep 2026 16:12:28 -0500
-From: Rob Herring <robh@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	maz@kernel.org, robin.murphy@arm.com, saravanak@kernel.org,
-	will@kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] of: Fix phandle_node reference leak in of_map_id()
-Message-ID: <20260930211228.GA271514-robh@kernel.org>
-References: <20260917124039.2151588-1-vulab@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lUo0tNMR"
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3115c4451c8so200048eec.1
+        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 14:13:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790802813; x=1791407613; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SP935/Mgxo94G/ukIIaM0Nv0lGPr7XbT3BTHdxiOkHE=;
+        b=lUo0tNMRObaU895AFRkXtuGJoCIEZSZJGQUjQnVtA6TLQEtUYRm4VMDaqLxGPWJTks
+         rXjWz0Rbjh8cDZzXuOgUQxdIAkZf62evLE45Y3c6hnQXW3APVt8B9sArSbpKFsBvuOwb
+         FR+ZJ45EvXKil0DKTVoTWRrwKk2zMNiguJirmxN+UAnn9i7QkvSEg3w+xGpu3+TMongr
+         MT01hwuir8fYg8ioVUPx+nUar62gj3CdjioKgLiIoQ++eD7tanWymKTWZ+1bxxlrkSxY
+         bf5NnLOgBPo5gO7tx84ygHLAaHrpzfp3J3Tbgn9yEvZC+rUohx54LSCIsoutIARSsuVY
+         U+LQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790802813; x=1791407613;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SP935/Mgxo94G/ukIIaM0Nv0lGPr7XbT3BTHdxiOkHE=;
+        b=auOtvfscGljgEVEOX5nQqfojGrJeNBsQ+grwVCs9YmE+KOJ51A9DE7Y38bmeS2W1oh
+         JXw6qzPc5b8Q/6CsezvMxq1hLt7tRgmRsHA8JvpXhYpieit8brl5Dx7Ii4/oFbOMyOEu
+         BD40m1KGs3vX7td+I5YJT+M5bpODzzT6U8IbusQEQUOxtarf/TqRnDwObh5ovGeWHfU0
+         yDFzbYucyrTkWPkjQ2N6tpda31jbsRnNbsQn1GKriohukEjnTkKYXUbpmbHRLE3iyDPg
+         JDZjuoP5VSEp532pNDFoj3I0b0QeHGBLIfjlcB6ChIO6NyzryGNyZ3Vbcn+JZUXaLpE1
+         AApg==
+X-Forwarded-Encrypted: i=1; AKwUvBwlKhZElcoyc1PsR07x5p+S6FjD5FLtZvd/kaRefBgs0/eDcaQZ1t9i01eGgcZ0PWf1IeQpv3A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJEEXvCtsb6TLEBBCwwRo2uJOufS/tIp70w7fUdOZ/EVPJNLvFE
+	SYKPkh82yPdQ1hkU/wU3UeF3c9XCqI6Cin2Yj7eEWy66m8O1aJKFn4pb
+X-Gm-Gg: AYBFou12pQFtD9vonClh1Cb+n173GG8lKVuIse7HnSBmZlQOml7UJQLNunjwGyUkzmk
+	L4me/zmQBiKXx07CpzPHkxsajGUweLsQSxpKmLEl1JhH/GxHoOykLW6FCWhRY1M96WuczUVCwf4
+	rq4b5JsY3gp1OzmxnLgUB4Qqh8aE8wlaybRqOwlWlFz/0Q3Sq0NxKpsG2Lq+6xB720QWoBB1TD3
+	NdPzJKq3BJNqj3EdJbTPOYJr02tA1OD+A2ES5lPm68dCBpxeVnz9Ke+UFealfgqeuv+UxRCHbrm
+	gnU8HganM6WJsm1BrxUtiw5wWoegQbuUodcBUBlMLH5732cC8+UvDjpr564luB03KjhdR8SUSY8
+	qXZuE8R+L6UeKRU+i6P1MnuxPKsKhWVs92Y6PIMsl5BJKLykdiJZUEe1DIs1xIRVX4p4QM+16+m
+	6s+gftMpH0U2foJSNSp+o38ssUKI0X8uhQOXLPUFhzWovC8XC+57J+9W1+7TYmYP1lMbGxNJEm4
+	Ym0DbY7TAgFqaAw0ez7D+cSFnm1u7mN8f0cYNI=
+X-Received: by 2002:a05:7300:f282:b0:341:6bbe:b9d6 with SMTP id 5a478bee46e88-34db13785b1mr695867eec.1.1790802812513;
+        Wed, 30 Sep 2026 14:13:32 -0700 (PDT)
+Received: from [192.168.1.3] (ip68-4-215-93.oc.oc.cox.net. [68.4.215.93])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34db31623b6sm1428918eec.7.2026.09.30.14.13.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 30 Sep 2026 14:13:31 -0700 (PDT)
+Message-ID: <4e73ef22-ee24-42ab-8e24-5f6d911bc5f8@gmail.com>
+Date: Wed, 30 Sep 2026 14:13:31 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917124039.2151588-1-vulab@iscas.ac.cn>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18 000/395] 6.18.55-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20260930152340.591469096@linuxfoundation.org>
+Content-Language: en-US
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20260930152340.591469096@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 17, 2026 at 12:40:39PM +0000, Wentao Liang wrote:
-> of_find_node_by_phandle() returns a node with an elevated reference
-> count. When the caller passes target == NULL it only wants the
-> translated ID, so that reference is never handed over and must be
-> dropped before returning success.
+
+
+On 9/30/2026 8:24 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.18.55 release.
+> There are 395 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> Fixes: 987068fcbdb7 ("of/irq: Break out msi-map lookup (again)")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/of/base.c | 2 ++
->  1 file changed, 2 insertions(+)
+> Responses should be made by Fri, 02 Oct 2026 15:23:04 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.55-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-This doesn't apply on current code.
+On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
+BMIPS_GENERIC:
 
-Rob
+Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+-- 
+Florian
+
