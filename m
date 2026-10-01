@@ -1,320 +1,344 @@
-Received: from pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com [34.218.115.239])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADF6447ACE8;
-	Thu,  1 Oct 2026 16:52:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.218.115.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 013274A0EF5;
+	Thu,  1 Oct 2026 16:53:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790873552; cv=none; b=OuKMLjio+TZW24Y6EN42fwiqvuRJdJRml80J7AI8uyfZLqIkxZD8YWC0yVeZ87j1jL6OCb7xQLFaWsN/lcRAT2kUi03MsYdHmxxndCiwxvkfZNd2fiG1lZYNMgGeTwJwIHyk1AJvDhJ1xswstaaui99U2MHZDL/Vq8eEbj2oMI8=
+	t=1790873638; cv=none; b=F1IUFKAnP3OxlNs4EAMjxsTqdIFmKFTbULyDGxiSLKqio8I/ymCPD7PZe/Upk7KxEyjCtUkT0xga4StCROq43EFMc4rc30jG269IDuQ0VJ5lq7D89sIre5CLC8txBk/ZQx/tKR0jWsc+ADV0F9W2ck/ZXcDPHmfJ894Z2ojrZsA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790873552; c=relaxed/simple;
-	bh=8FLyCC91b1rsFUOeCnyR+8v2XdvK3oZAihcOcV8pvu0=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=X22KDYC17l3FeSd88yBJwcfHpVropZcWhk5YMA2pGfORJDhk4/YkxPqx3Cqz391sIxuRP39d4ckDcNcMFxiHDRDQyej879wux6+MVgBtR/Du5/al2SJF8wlvu4MtZk5NqCqtf8xPqJwTCqhegMC2HwCoI2d5Sr4ZRT6P+OL3RAs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=oJ/6RCuM; arc=none smtp.client-ip=34.218.115.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	s=arc-20240116; t=1790873638; c=relaxed/simple;
+	bh=cr0JgBaOGxeUmAV0tHlURp58ssiAgVzvnQYRPZLSJdo=;
+	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
+	 Content-Type; b=DJ2zXXNNCB+0BeRY7nTYfBI+B5YOCmBUDG3eVrOrItY5Iae10cwZIg+hfQKj1aTWQrlRtfBxLcdlGMXs7X+YP7DR5rf3qoZ5V/ZWSTt89bXaxzvk70ZSjgXsvZMsqVvnKnUvCcA7tIiUK8abz+bRSS7F6E2fuo16o5glHXsP1Uc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=ndmShuIe; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=FG+EBxqY; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="oJ/6RCuM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1790873550; x=1822409550;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=oJADvi9bQbjeZEkz1664pvHvx+Q0QnfSBeRW4PklGcI=;
-  b=oJ/6RCuMF+rno8XxAK/l9Gv4qb3oKqbwpdfjpKrhBXe5/sW1RoMc6hOg
-   ydq19CP/JEbI8juamLLeeMRQLHL48b+S4XeyyDpjYJ7oanH2JQZtrTPW1
-   IcTJxW5RLnuKJDH2RCixDfQF0cdQTTrT+0W3p5NJYBCB1HgNc70iRjcak
-   b6BATFiVPbhVsT6mAmoXgk739JVJr65Yup3SRhsQ2Rl+10zq9s/gOnDR7
-   mnBCRMbRt2YSPpZbCQTBt+QTB52P+X56r4wNKCkqNI6wnolvnnxWA9qL0
-   hCJnuYj0OgL/MXDnqUXruWwBxCQuCDJjNspmf/J6HOPLa/fhtZW3d1T3x
-   w==;
-X-CSE-ConnectionGUID: xP9HTyvaSE2yifRvAZ5m8A==
-X-CSE-MsgGUID: V2B4enN5TWmoMx/6Jm80CA==
-X-IronPort-AV: E=Sophos;i="6.27,134,1787011200"; 
-   d="scan'208";a="29935166"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 16:52:28 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.51:3110]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.44.113:2525] with esmtp (Farcaster)
- id 1fcb3460-3f26-4047-b0d8-50afc37e1ac3; Thu, 1 Oct 2026 16:52:28 +0000 (UTC)
-X-Farcaster-Flow-ID: 1fcb3460-3f26-4047-b0d8-50afc37e1ac3
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Thu, 1 Oct 2026 16:52:27 +0000
-Received: from dev-dsk-doebel-1a-7b355d76.us-east-1.amazon.com (10.169.119.5)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Thu, 1 Oct 2026 16:52:26 +0000
-From: Bjoern Doebel <doebel@amazon.de>
-To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
-	<x86@kernel.org>
-CC: Peter Zijlstra <peterz@infradead.org>, "H. Peter Anvin" <hpa@zytor.com>,
-	Shuah Khan <shuah@kernel.org>, Andy Lutomirski <luto@kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>, "Bjoern
- Doebel" <doebel@amazon.de>, <stable@vger.kernel.org>
-Subject: [PATCH v2] selftests/x86: Skip fsgsbase segment setup when int $0x80 is unavailable
-Date: Thu, 1 Oct 2026 16:52:12 +0000
-Message-ID: <20261001165212.1938867-1-doebel@amazon.de>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260923201409.2187200-1-doebel@amazon.de>
-References: <20260923201409.2187200-1-doebel@amazon.de>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="ndmShuIe";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="FG+EBxqY"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1790873628; bh=v9VYgedc7ex7x73J5M0VpTW
+	DDlACxkXFTUO7YiK3ajA=; b=ndmShuIeVrwejOG1JzT+1rvSzEPcrdILiTs4XpF2UUjrAf8EF+
+	NJeUlLOLbzsphpRBWIdQlVfiVe2NRY24dXR/1TH7N1tIPjXhYK5hrt69N65ZVZO4KzbtpXnt1VW
+	b/en18xFHJiYDjGbb+ROiVtm3OtosuJfkqNEUDihixLmwx8Ddr8zO4DKE+qlGtb5eUmXcylwN+f
+	aD7HdZrNnmOcn4+BYeHg1RXvp6SbsdMsmEy8jP5EGh3NJTV1AygRRGHL1o/EEyiORJ4ECzgID0s
+	xLiwmx0c1CDp2KFUb2EFtkdaNwsgBXGMlNVYRBQ9DpSQ3zaJI9FUc8o2iOBLQGF5nEA==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1790873628; bh=v9VYgedc7ex7x73J5M0VpTW
+	DDlACxkXFTUO7YiK3ajA=; b=FG+EBxqYRCr89xS5YdTOxtt4GfocqDlGPWx5DvLMq37IKctK+l
+	YBCmqkLPkUr179OIvhldBwsRbIZWLVhP9zCQ==;
+Date: Thu, 01 Oct 2026 17:53:49 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: vaknins33@gmail.com
+CC: brauner@kernel.org, ebiederm@xmission.com, linux-kernel@vger.kernel.org,
+ linux-pm@vger.kernel.org, oleg@redhat.com, ptikhomirov@virtuozzo.com,
+ rafael@kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] pid_namespace: make zap_pid_ns_processes() freezable
+In-Reply-To: <20261001121254.883973-1-vaknins33@gmail.com>
+Message-ID: <795B0CD0-C64F-48D5-963C-544B83539A07@mainlining.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D035UWA002.ant.amazon.com (10.13.139.60) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-The fsgsbase{_restore} tests' load_gs() helper needs a nonzero-based
-FS/GS segment, i.e. a selector whose hidden base differs from the
-kernel's saved thread base, to exercise the selector/base state
-tracking. 64-bit userspace can only create such a segment via
-modify_ldt() or, failing that, via the 32-bit set_thread_area syscall
-over int $0x80.
+On 1 October 2026 13:12:54 BST, Aviv Vaknin <vaknins33@gmail.com> wrote:
+>When the init of a pid namespace exits, zap_pid_ns_processes() waits
+>until every other pid in the namespace has been freed. That wait has no
+>upper bound: a tracer outside the namespace that doesn't reap its traced
+>zombies keeps their pids allocated (see the comment above the final
+>loop). While a task waits there, every suspend attempt fails:
+>
+>  Freezing user space processes failed after 20.006 seconds (2 tasks refusing to freeze, wq_busy=0):
+>  task:pidns-freeze-re state:S stack:14200 pid:104   tgid:104   ppid:99     task_flags:0x40014c flags:0x00080000
+>  task:pidns-freeze-re state:S stack:14160 pid:109   tgid:105   ppid:104    task_flags:0x40044c flags:0x00080802
+>
+>and keeps failing until the tracer reaps or exits, because neither wait
+>can be frozen:
+>
+>- The first loop sleeps in kernel_wait4(). The freezer's fake signal
+>  ends that wait with -ERESTARTSYS, then the loop clears TIF_SIGPENDING
+>  and waits again without ever calling try_to_freeze().
+>
+>- The final loop sleeps in TASK_INTERRUPTIBLE without TASK_FREEZABLE.
+>  Worse, nothing clears the TIF_SIGPENDING that the fake signal set, so
+>  from the first suspend attempt on schedule() returns at once and the
+>  task spins at 100% CPU for as long as the wait lasts.
+>
+>Neither loop has ever been freezable. The spin came with
+>commit b9a985db9896 ("pid_ns: Sleep in TASK_INTERRUPTIBLE in
+>zap_pid_ns_processes"),
+>which replaced TASK_UNINTERRUPTIBLE to keep such long waits from
+>triggering the hung task detector.
+>
+>This happens in practice with Chromium-based browsers, whose renderers
+>are pid namespace inits. If a renderer crashes while the browser shuts
+>down, crashpad (outside the namespace) ptrace-attaches its threads to
+>dump it. When the renderer is SIGKILLed mid-dump, crashpad keeps the
+>dead threads as unreaped traced zombies, and it can then block in
+>waitpid() on the renderer's last thread, which is itself waiting in
+>zap_pid_ns_processes() for those zombies. One such renderer blocks
+>suspend system-wide until crashpad is killed or the machine reboots.
+>The userspace side is being reported to Chromium separately.
+>
+>Call try_to_freeze() after kernel_wait4() in the first loop, and sleep
+>in TASK_IDLE | TASK_FREEZABLE in the final loop, as coredump_task_exit()
+>already does on the same exit path. Like TASK_INTERRUPTIBLE, TASK_IDLE
+>keeps the hung task detector quiet and adds no load, but it is not
+>woken by signals, so a pending signal can no longer turn the wait into
+>a busy loop. TASK_FREEZABLE lets the freezer freeze the task in place;
+>a free_pid() wakeup that arrives while it is frozen is kept in
+>->saved_state and acted on at thaw.
+>
+>Tested on v7.3-rc5 in QEMU with PROVE_LOCKING, DEBUG_ATOMIC_SLEEP and
+>DETECT_HUNG_TASK (10 s timeout), using a reproducer in which a tracer
+>PTRACE_SEIZEs two threads of a nested pid namespace init and doesn't
+>reap them (it works unprivileged too, from a user namespace), and using
+>the real browser and crashpad trigger:
+>
+>- before: freezing fails after 20 s, and afterwards the final loop
+>  spins (500 ticks of system time per 5 s).
+>- after: freezing completes in 0.001 s, the waiting task sits in state
+>  I without using CPU, no hung task or lockdep report appears over
+>  30-45 s, and the task exits as soon as the zombies are reaped.
+>
+>Fixes: 3eb07c8c8adb ("pid namespaces: destroy pid namespace on init's death")
+>Fixes: b9a985db9896 ("pid_ns: Sleep in TASK_INTERRUPTIBLE in zap_pid_ns_processes")
+>Cc: stable@vger.kernel.org # 6.1+
+>Assisted-by: Claude:claude-opus-5-5
+>Signed-off-by: Aviv Vaknin <vaknins33@gmail.com>
+>---
+>Based on vfs kernel-7.4.signal (also in next-20260930), on top of
+>5c0985dd3c32 ("pid_namespace: prevent TIF_NOTIFY_SIGNAL from
+>interrupting the reaper"). That commit keeps TIF_NOTIFY_SIGNAL from
+>waking the reaper; this one is about the freezer, whose fake signal
+>sets TIF_SIGPENDING, which the guard doesn't cover. Retested on this
+>base with the reproducer below (same debug config): freezing completes
+>in 0.000 s, no spin, no warnings. A version for v7.3-rc5 is available
+>if wanted.
+>
+>Reproducer (run as root in a VM, then follow its instructions):
+>
+>  // SPDX-License-Identifier: GPL-2.0
+>  /*
+>   * pidns-freeze-repro: a task waiting in zap_pid_ns_processes() blocks suspend.
+>   *
+>   *   main (tracer, root pid ns)
+>   *    `- A: pid 1 of pid ns A, single-threaded
+>   *       `- B: pid 1 of nested pid ns B, multithreaded
+>   *
+>   * main PTRACE_SEIZEs non-leader threads of B, then A exits.  zap(A) kills B;
+>   * the seized threads stay traced zombies until main reaps them, keeping ns B's
+>   * pids allocated.  B's last thread waits in zap's final loop, A in zap's first
+>   * loop (kernel_wait4() for B).  While "stuck" is shown, run as root:
+>   *   echo freezer > /sys/power/pm_test; echo mem > /sys/power/state
+>   * Unpatched, freezing fails after 20 s ("2 tasks refusing to freeze") and B's
+>   * thread then busy-loops in zap.  At the end main reaps, ending the hang.
+>   *
+>   * Build: gcc -O2 -Wall -pthread -o pidns-freeze-repro pidns-freeze-repro.c
+>   * Usage: ./pidns-freeze-repro [hold_seconds]  (root, in a VM; default: Enter)
+>   * With -DUSERNS, A also gets a new user ns, so no privilege is needed.
+>   */
+>  #define _GNU_SOURCE
+>  #include <dirent.h>
+>  #include <pthread.h>
+>  #include <sched.h>
+>  #include <signal.h>
+>  #include <stdarg.h>
+>  #include <stdio.h>
+>  #include <stdlib.h>
+>  #include <string.h>
+>  #include <sys/ptrace.h>
+>  #include <sys/wait.h>
+>  #include <unistd.h>
+>
+>  #ifdef USERNS
+>  #define NS_FLAGS (CLONE_NEWUSER | CLONE_NEWPID)
+>  #else
+>  #define NS_FLAGS CLONE_NEWPID
+>  #endif
+>  #define NTHREADS 4	/* B's threads besides its leader */
+>  #define NSEIZE   2	/* how many of them main seizes */
+>
+>  static int ready[2], go[2];	/* B -> main: threads are up; main -> A: exit */
+>  static char stack_a[256 << 10], stack_b[256 << 10];
+>
+>  static void *idle_thread(void *arg) { for (;;) pause(); return arg; }
+>
+>  static int init_b(void *arg)		/* pid 1 of ns B */
+>  {
+>  	pthread_t t;
+>
+>  	for (int i = 0; i < NTHREADS; i++)
+>  		pthread_create(&t, NULL, idle_thread, arg);
+>  	if (write(ready[1], "r", 1) != 1)
+>  		_exit(1);
+>  	for (;;) pause();
+>  }
+>
+>  static int init_a(void *arg)		/* pid 1 of ns A */
+>  {
+>  	close(go[1]);			/* only main may hold the write end */
+>  	if (clone(init_b, stack_b + sizeof(stack_b), CLONE_NEWPID | SIGCHLD, arg) < 0)
+>  		_exit(1);
+>  	while (read(go[0], &arg, 1) > 0)	/* EOF: main has seized */
+>  		;
+>  	_exit(0);			/* -> zap_pid_ns_processes(A) */
+>  }
+>
+>  /* Read a small /proc file into buf ("" if it is gone). */
+>  static char *slurp(char *buf, size_t len, const char *fmt, ...)
+>  {
+>  	char path[300];
+>  	va_list ap;
+>  	FILE *f;
+>
+>  	va_start(ap, fmt);
+>  	vsnprintf(path, sizeof(path), fmt, ap);
+>  	va_end(ap);
+>  	buf[0] = 0;
+>  	if ((f = fopen(path, "r"))) {
+>  		buf[fread(buf, 1, len - 1, f)] = 0;
+>  		fclose(f);
+>  	}
+>  	return buf;
+>  }
+>
+>  /* Global pid of A's child B: the process whose PPid is A. */
+>  static pid_t child_of(pid_t parent)
+>  {
+>  	DIR *d = opendir("/proc");
+>  	struct dirent *e;
+>  	char buf[512], *p;
+>  	int ppid;
+>
+>  	while (d && (e = readdir(d))) {
+>  		p = strrchr(slurp(buf, sizeof(buf), "/proc/%s/stat", e->d_name), ')');
+>  		if (p && sscanf(p + 2, "%*c %d", &ppid) == 1 && ppid == parent)
+>  			return atoi(e->d_name);	/* (leaks d; fine here) */
+>  	}
+>  	return -1;
+>  }
+>
+>  /* Print a task's state and wchan; return whether it is exiting (PF_EXITING). */
+>  static int show(const char *what, pid_t pid, pid_t tid)
+>  {
+>  	char st[512], wchan[64], *p, c = '?';
+>  	unsigned int flags = 0;
+>
+>  	p = strrchr(slurp(st, sizeof(st), "/proc/%d/task/%d/stat", pid, tid), ')');
+>  	if (p)
+>  		sscanf(p + 2, "%c %*d %*d %*d %*d %*d %u", &c, &flags);
+>  	slurp(wchan, sizeof(wchan), "/proc/%d/task/%d/wchan", pid, tid);
+>  	printf("  %s tid %d: state %c, flags %#x, wchan %s\n", what, tid, c, flags, wchan);
+>  	return flags & 0x4;
+>  }
+>
+>  int main(int argc, char **argv)
+>  {
+>  	pid_t a, b, tid, seized[NSEIZE];
+>  	int n = 0, status;
+>  	struct dirent *e;
+>  	char buf[64];
+>  	DIR *d;
+>
+>  	if (pipe(ready) || pipe(go))
+>  		return perror("pipe"), 1;
+>  	if ((a = clone(init_a, stack_a + sizeof(stack_a), NS_FLAGS | SIGCHLD, NULL)) < 0)
+>  		return perror("clone (run as root)"), 1;
+>  	if (read(ready[0], buf, 1) != 1 || (b = child_of(a)) < 0)
+>  		return fprintf(stderr, "setup failed\n"), 1;
+>
+>  	/* From outside both namespaces, seize non-leader threads of B. */
+>  	snprintf(buf, sizeof(buf), "/proc/%d/task", b);
+>  	for (d = opendir(buf); d && (e = readdir(d)) && n < NSEIZE; )
+>  		if ((tid = atoi(e->d_name)) > 0 && tid != b && !ptrace(PTRACE_SEIZE, tid, 0, 0))
+>  			seized[n++] = tid;
+>  	printf("A=%d B=%d: seized %d threads of B\n", a, b, n);
+>
+>  	close(go[1]);				/* A exits now */
+>  	sleep(2);
+>  	if (!n || waitpid(a, &status, WNOHANG) != 0 || !show("A", a, a))
+>  		return printf("not reproduced\n"), 1;
+>  	for (rewinddir(d); (e = readdir(d)); )
+>  		if ((tid = atoi(e->d_name)) > 0)
+>  			show("B", b, tid);
+>  	printf("stuck: A and B can't finish exiting until main reaps its %d traced threads\n", n);
+>  	printf("now run: echo freezer > /sys/power/pm_test; echo mem > /sys/power/state\n");
+>  	fflush(stdout);
+>  	if (argc > 1)
+>  		sleep(atoi(argv[1]));
+>  	else
+>  		getchar();
+>
+>  	/* Reap the traced zombies: ns B empties, then B and A finish exiting. */
+>  	for (int i = 0, left = n; left && i < 500; i++, usleep(10000))
+>  		for (int k = 0; k < n; k++)
+>  			if (seized[k] && waitpid(seized[k], &status, __WALL | WNOHANG) == seized[k])
+>  				seized[k] = 0, left--;
+>  	for (int i = 0; i < 500; i++, usleep(10000))
+>  		if (waitpid(a, &status, WNOHANG) == a)
+>  			return printf("reaped the zombies: hang resolved\n"), 0;
+>  	printf("still stuck after reaping\n");
+>  	return 2;
+>  }
+>
+> kernel/pid_namespace.c | 14 +++++++++++++-
+> 1 file changed, 13 insertions(+), 1 deletion(-)
+>
+>diff --git a/kernel/pid_namespace.c b/kernel/pid_namespace.c
+>index 8bc9edb40..abdc05462 100644
+>--- a/kernel/pid_namespace.c
+>+++ b/kernel/pid_namespace.c
+>@@ -23,6 +23,7 @@
+> #include <linux/sched/task.h>
+> #include <linux/sched/signal.h>
+> #include <linux/idr.h>
+>+#include <linux/freezer.h>
+> #include <linux/nstree.h>
+> #include <uapi/linux/wait.h>
+> #include "pid_sysctl.h"
+>@@ -243,6 +244,11 @@ void zap_pid_ns_processes(struct pid_namespace *pid_ns)
+> 	do {
+> 		clear_thread_flag(TIF_SIGPENDING);
+> 		rc = kernel_wait4(-1, NULL, __WALL, NULL);
+>+		/*
+>+		 * The freezer's fake signal ends the wait with -ERESTARTSYS;
+>+		 * freeze here, or one stuck pid namespace blocks suspend.
+>+		 */
+>+		try_to_freeze();
+> 	} while (rc != -ECHILD);
+> 
+> 	/*
+>@@ -269,7 +275,13 @@ void zap_pid_ns_processes(struct pid_namespace *pid_ns)
+> 	 * free_pid() will awaken this task.
+> 	 */
+> 	for (;;) {
+>-		set_current_state(TASK_INTERRUPTIBLE);
+>+		/*
+>+		 * TASK_IDLE: no hung task warning or load for a wait that can
+>+		 * last as long as a tracer keeps a zombie, and a pending signal
+>+		 * (e.g. the freezer's fake one) can't turn it into a busy loop.
+>+		 * TASK_FREEZABLE: let the freezer freeze us while we wait.
+>+		 */
+>+		set_current_state(TASK_IDLE | TASK_FREEZABLE);
+> 		if (pid_ns->pid_allocated == init_pids)
+> 			break;
+> 		schedule();
+>
+>base-commit: ed14a591175bb5f56c2936b082cffb9e4b935e6d
+>
 
-On kernels built with CONFIG_MODIFY_LDT_SYSCALL=n, modify_ldt() fails
-and the test falls back to int $0x80. If the kernel is also built
-with CONFIG_IA32_EMULATION=n, no IDT gate is installed for vector
-0x80, so executing int $0x80 raises a #GP fault and the test dies
-with SIGSEGV instead of reporting results:
+Fair enough:
 
-  traps: fsgsbase_64[5460] general protection fault ip:4012a1
-  sp:7f38eb124de0 error:402 in fsgsbase_64[12a1,400000+2000]
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
 
-With both options disabled, pure 64-bit userspace cannot install a
-nonzero-based FS/GS segment at all, so this scenario is untestable.
-Probe for a working int $0x80 at startup and skip the affected
-subtests when neither mechanism is available instead of crashing.
 
-While at it, replace the magic syscall numbers in the int $0x80
-inline asm with named __NR_ia32_getpid / __NR_ia32_set_thread_area
-constants. These deliberately use the ia32 syscall table numbering,
-which differs from the x86-64 numbering exported by <sys/syscall.h>
-on 64-bit builds.
 
-Fixes: 0051202f6ad5f ("selftests/x86: Test the FSBASE/GSBASE API and context switching")
-Signed-off-by: Bjoern Doebel <doebel@amazon.de>
-Assisted-by: opencode:kimi-k3
-Cc: stable@vger.kernel.org
----
-v2
-- fsgsbase_restore needs that segment treatment as well
----
- tools/testing/selftests/x86/fsgsbase.c        | 51 ++++++++++++-
- .../testing/selftests/x86/fsgsbase_restore.c  | 72 ++++++++++++++++++-
- 2 files changed, 119 insertions(+), 4 deletions(-)
-
-diff --git a/tools/testing/selftests/x86/fsgsbase.c b/tools/testing/selftests/x86/fsgsbase.c
-index 0a75252d31b6a..8538ceb6c5785 100644
---- a/tools/testing/selftests/x86/fsgsbase.c
-+++ b/tools/testing/selftests/x86/fsgsbase.c
-@@ -218,6 +218,40 @@ static void do_remote_base()
- 
- static __thread int set_thread_area_entry_number = -1;
- 
-+/*
-+ * int $0x80 dispatches through the ia32 syscall table, whose numbers
-+ * differ from the x86-64 table exposed by <sys/syscall.h> on an
-+ * x86_64 build. Define the ia32 numbers we need explicitly.
-+ */
-+#define __NR_ia32_getpid		20
-+#define __NR_ia32_set_thread_area	243
-+
-+static bool have_int80;
-+
-+static void sigsegv_int80(int sig, siginfo_t *si, void *ctx_void)
-+{
-+	siglongjmp(jmpbuf, 1);
-+}
-+
-+static bool probe_int80(void)
-+{
-+	/*
-+	 * Check whether int $0x80 is available.  Kernels built without
-+	 * CONFIG_IA32_EMULATION do not install an IDT entry for vector
-+	 * 0x80, so executing int $0x80 causes a #GP fault.
-+	 */
-+	sethandler(SIGSEGV, sigsegv_int80, 0);
-+	if (sigsetjmp(jmpbuf, 1) == 0) {
-+		long ret;
-+		/* getpid -- harmless if it works */
-+		asm volatile ("int $0x80" : "=a" (ret) : "a" (__NR_ia32_getpid));
-+		clearhandler(SIGSEGV);
-+		return true;
-+	}
-+	clearhandler(SIGSEGV);
-+	return false;
-+}
-+
- static unsigned short load_gs(void)
- {
- 	/*
-@@ -245,7 +279,7 @@ static unsigned short load_gs(void)
- 		printf("\tusing LDT slot 0\n");
- 		asm volatile ("mov %0, %%gs" : : "rm" ((unsigned short)0x7));
- 		return 0x7;
--	} else {
-+	} else if (have_int80) {
- 		/* No modify_ldt for us (configured out, perhaps) */
- 
- 		struct user_desc *low_desc = mmap(
-@@ -260,7 +294,7 @@ static unsigned short load_gs(void)
- 		long ret;
- 		asm volatile ("int $0x80"
- 			      : "=a" (ret), "+m" (*low_desc)
--			      : "a" (243), "b" (low_desc)
-+			      : "a" (__NR_ia32_set_thread_area), "b" (low_desc)
- 			      : "r8", "r9", "r10", "r11");
- 		memcpy(&desc, low_desc, sizeof(desc));
- 		munmap(low_desc, sizeof(desc));
-@@ -275,6 +309,9 @@ static unsigned short load_gs(void)
- 		unsigned short gs = (unsigned short)((desc.entry_number << 3) | 0x3);
- 		asm volatile ("mov %0, %%gs" : : "rm" (gs));
- 		return gs;
-+	} else {
-+		printf("[NOTE]\tno way to create a nonzero-based segment\n");
-+		return 0;
- 	}
- }
- 
-@@ -516,6 +553,11 @@ static void test_ptrace_write_gsbase(void)
- 
- 		gs = ptrace(PTRACE_PEEKUSER, child, gs_offset, NULL);
- 
-+		if (*shared_scratch == 0) {
-+			printf("[SKIP]\tCould not create a nonzero GS selector\n");
-+			goto END;
-+		}
-+
- 		if (gs != *shared_scratch) {
- 			nerrs++;
- 			printf("[FAIL]\tGS is not prepared with nonzero\n");
-@@ -587,6 +629,11 @@ int main()
- 	}
- 	clearhandler(SIGILL);
- 
-+	/* Probe int $0x80 (32-bit syscall entry) */
-+	have_int80 = probe_int80();
-+	if (!have_int80)
-+		printf("\tint $0x80 is unavailable (CONFIG_IA32_EMULATION=n?)\n");
-+
- 	sethandler(SIGSEGV, sigsegv, 0);
- 
- 	check_gs_value(0);
-diff --git a/tools/testing/selftests/x86/fsgsbase_restore.c b/tools/testing/selftests/x86/fsgsbase_restore.c
-index 224058c1e4b2e..bc2c1a2ceaf85 100644
---- a/tools/testing/selftests/x86/fsgsbase_restore.c
-+++ b/tools/testing/selftests/x86/fsgsbase_restore.c
-@@ -30,9 +30,68 @@
- #include <sys/ptrace.h>
- #include <sys/wait.h>
- #include <stdint.h>
-+#include <setjmp.h>
-+#include <signal.h>
- 
- #define EXPECTED_VALUE 0x1337f00d
- 
-+/*
-+ * int $0x80 dispatches through the ia32 syscall table, whose numbers
-+ * differ from the x86-64 table exposed by <sys/syscall.h> on an
-+ * x86_64 build. Define the ia32 numbers we need explicitly.
-+ */
-+#define __NR_ia32_getpid		20
-+#define __NR_ia32_set_thread_area	243
-+
-+static sigjmp_buf jmpbuf;
-+
-+static void sigsegv_int80(int sig, siginfo_t *si, void *ctx_void)
-+{
-+	siglongjmp(jmpbuf, 1);
-+}
-+
-+static void sethandler_int80(int sig, void (*handler)(int, siginfo_t *, void *))
-+{
-+	struct sigaction sa;
-+
-+	memset(&sa, 0, sizeof(sa));
-+	sa.sa_sigaction = handler;
-+	sa.sa_flags = SA_SIGINFO;
-+	sigemptyset(&sa.sa_mask);
-+	if (sigaction(sig, &sa, 0))
-+		err(1, "sigaction");
-+}
-+
-+static void clearhandler_int80(int sig)
-+{
-+	struct sigaction sa;
-+
-+	memset(&sa, 0, sizeof(sa));
-+	sa.sa_handler = SIG_DFL;
-+	sigemptyset(&sa.sa_mask);
-+	if (sigaction(sig, &sa, 0))
-+		err(1, "sigaction");
-+}
-+
-+static bool probe_int80(void)
-+{
-+	/*
-+	 * Check whether int $0x80 is available.  Kernels built without
-+	 * CONFIG_IA32_EMULATION do not install an IDT entry for vector
-+	 * 0x80, so executing int $0x80 causes a #GP fault.
-+	 */
-+	sethandler_int80(SIGSEGV, sigsegv_int80);
-+	if (sigsetjmp(jmpbuf, 1) == 0) {
-+		long ret;
-+		/* getpid -- harmless if it works */
-+		asm volatile ("int $0x80" : "=a" (ret) : "a" (__NR_ia32_getpid));
-+		clearhandler_int80(SIGSEGV);
-+		return true;
-+	}
-+	clearhandler_int80(SIGSEGV);
-+	return false;
-+}
-+
- #ifdef __x86_64__
- # define SEG "%gs"
- #else
-@@ -72,7 +131,7 @@ static void init_seg(void)
- 	if (syscall(SYS_modify_ldt, 1, &desc, sizeof(desc)) == 0) {
- 		printf("\tusing LDT slot 0\n");
- 		asm volatile ("mov %0, %" SEG :: "rm" ((unsigned short)0x7));
--	} else {
-+	} else if (probe_int80()) {
- 		/* No modify_ldt for us (configured out, perhaps) */
- 
- 		struct user_desc *low_desc = mmap(
-@@ -87,7 +146,7 @@ static void init_seg(void)
- 		long ret;
- 		asm volatile ("int $0x80"
- 			      : "=a" (ret), "+m" (*low_desc)
--			      : "a" (243), "b" (low_desc)
-+			      : "a" (__NR_ia32_set_thread_area), "b" (low_desc)
- #ifdef __x86_64__
- 			      : "r8", "r9", "r10", "r11"
- #endif
-@@ -103,6 +162,15 @@ static void init_seg(void)
- 
- 		unsigned short sel = (unsigned short)((desc.entry_number << 3) | 0x3);
- 		asm volatile ("mov %0, %" SEG :: "rm" (sel));
-+	} else {
-+		/*
-+		 * Neither modify_ldt() (CONFIG_MODIFY_LDT_SYSCALL=n) nor
-+		 * int $0x80 (CONFIG_IA32_EMULATION=n) is available, so a
-+		 * nonzero-based segment cannot be created at all.  There is
-+		 * nothing to test; skip instead of crashing on int $0x80.
-+		 */
-+		printf("[NOTE]\tno way to create a nonzero-based segment -- can't test anything\n");
-+		exit(0);
- 	}
- }
- 
--- 
-2.50.1
-
+--- Thanks!
+"I'm not a very positive person" - Linus torvalds
