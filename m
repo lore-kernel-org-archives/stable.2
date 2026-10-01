@@ -1,130 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F26534E13E0;
-	Thu,  1 Oct 2026 10:11:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBDDE3F8709
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 10:14:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790849475; cv=none; b=gQqycb4qHzdhfUO0/jyg7+nPV7/g2BjLvypcttimWrCYMgA8SvJEwphEGyWFiQBLBQw8yPbMATRXjM3trvmTirsuHoCwpUPvhhDU0ujVGtXZWmycd19rIy9a+4HrM6ypx7CUlipBk4vqB7CKstlWsHtEdZvVK7aa7NdThS1I4QI=
+	t=1790849685; cv=none; b=pO5hdiJX0XKhU9nysUk9HpBlNiDyfNkUkGJS3OJR3yhJgZQmQWeLIUAZqG6lfujvDzxh9yd6NXhyCf8ch/Eh5A4IY2Va7eEFsuLw8I5r5YrNWdg6GwC7m+CSLP5NETiWy7SzDhzwUV3bOBSwrMa0MVkpQXTkDkOhkzhwwfWALcM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790849475; c=relaxed/simple;
-	bh=HmmSMWq2rCjwo05n7HQB4k8lsgm+ZEbjZF351Q8CZHs=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=nzlI4rBb9vT053YN5knNAlRREbzr5O/JLMw7DZX+8PamzvQzZ8RmccHRkOXed6gW4Onepav9nD7DgSDBM2TNLdltyraVZGqwaztpQ2EXDgCsAug9z6+yAMYmmOVe9YHQuqXurMtRq2tE85BOgJTiSKn6Nhmk/AIplqoq83LSE5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wd3YtjkK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790849685; c=relaxed/simple;
+	bh=zNYMMASuVkfNXipT9zG0D2/RD9OFsrjXnkOdkjtQAwk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mOhgNqkKMmn386rrWEGx15XrgbFBrzpYP9+y4zXXanIskaAFvjvihNpsD1Ric0ywnTk7E2gWPFQxTjpHISI6undD7KMyKJJxGigcCFbrCSlrz8JKbfRwbDpTvTABDWcLKdgr39FjJuGEVbyAZBnNMzTZ0gbTPxYAjnm6i0HiMcc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=UC8GhJUd; arc=none smtp.client-ip=44.202.169.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wd3YtjkK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A20471F00898;
-	Thu,  1 Oct 2026 10:10:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790849462;
-	bh=mLZRTSg0T1/OZPn8CyCkwzpUfqzpp0DZEYvr2NUeX/Q=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=Wd3YtjkK5yoJLGS0TCoiSUyMA5uTPCgROv0hTBhuPGpl7Zy+tJLoNFvjg1RtRVCp1
-	 /Q2+knwi9a9n/3fMe5WOUdbLXdkGgZnQD8LcXx03lvzXao4ng77nVWwOpY7GFaZz/B
-	 XihZOqckAxtzyCzDeI9aiVj2PrENlXn/IGqH/bULIDAzsTH5Kjtj+h1+b8d8L3l5oi
-	 v24Uqnm4Qj/T6ik2QWFZobZiz15PAYjxxMaYkFgXj0A/J4JyhjsHtZEaiFD2eTRC+0
-	 BosTEcMYEEF4TX0yX3sON5ZGorpDUWZkSnHo3L2ZndhbWTuk66Sp9j8WzZgW3R6jGK
-	 IxNQR6QX6Vgxw==
-From: Andreas Hindborg <a.hindborg@kernel.org>
-To: FUJITA Tomonori <tomo@flapping.org>
-Cc: chenhan0017.work@gmail.com, rust-for-linux@vger.kernel.org,
- boqun@kernel.org, fujita.tomonori@gmail.com, frederic@kernel.org,
- lyude@redhat.com, tglx@kernel.org, anna-maria@linutronix.de,
- jstultz@google.com, sboyd@kernel.org, ojeda@kernel.org, gary@garyguo.net,
- bjorn3_gh@protonmail.com, lossin@kernel.org, aliceryhl@google.com,
- tmgross@umich.edu, dakr@kernel.org, daniel.almeida@collabora.com,
- tamird@kernel.org, acourbot@nvidia.com, work@onurozkan.dev,
- miguel.ojeda.sandonis@gmail.com, tomo@flapping.org,
- georgeandrout13@gmail.com, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH v2] rust: time: make Delta division and remainder fail
- consistently
-In-Reply-To: <20261001.183120.1111705981110043336.tomo@flapping.org>
-References: <6z5gg2l6ctq6aQIEoJ5hBjZr03ffUqGeECNSGQcVv5eyiZz35kWClxv9o5N7Y-PPk2R2dgpdDxEDLfG7GpkGog==@protonmail.internalid>
- <20261001042942.109012-1-chenhan0017.work@gmail.com>
- <87wls1alk5.fsf@t14s.mail-host-address-is-not-set>
- <wURmlSiujLNG9rpTlhXlgbGsxDFPFGRmZBsH1vX_HLcTsVnQFFSDbkQEVQ8Q2auAdvdukDKwRtCfdaL_VsFzaQ==@protonmail.internalid>
- <20261001.183120.1111705981110043336.tomo@flapping.org>
-Date: Thu, 01 Oct 2026 12:10:51 +0200
-Message-ID: <87tsn5afys.fsf@t14s.mail-host-address-is-not-set>
+	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="UC8GhJUd"
+Received: from eig-obgw-5003b.ext.cloudfilter.net ([10.0.29.155])
+	by cmsmtp with ESMTPS
+	id CD1sxcfknJFmFCDo8xsexu; Thu, 01 Oct 2026 10:14:32 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id CDo7xVLuAFB8dCDo7x4WRC; Thu, 01 Oct 2026 10:14:31 +0000
+X-Authority-Analysis: v=2.4 cv=HcoUTjE8 c=1 sm=1 tr=0 ts=6abe3288
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=pF4DXh_ntd8qpgTqFRsA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=8F2aHt8iXBiooy/jOsQTX2APuS4aBTvgaZpOR1e05xM=; b=UC8GhJUd1nGUgnZSHDTxuTajor
+	dt17h+RSmdN+r/76UW7YEvA/jiWgv/oaA3fDr+LdjuGiUmtvR3TCu+V1fc+cLnvzOMLZUrKmVcxfu
+	NOvPM/pZB0roGc/bLigs7kU6TC87rzuO5A2VoMRdL9XQN5vxatjw3fBzCnc7teOoCOrq8WQVrJX52
+	inig7JOShpd9J3vr2fht+P7JgRAjC+pWFl/PjDqAVMrT0dK9t/BCDuhMsP2DTYpM3qFqHl0AZdQKx
+	7VHLDA1B8dhJnSAwZ6e7P42GIh8itdRbwo2Gz4DCpCzVDQWsCk4moQ8AZ2EQIIqUEpnUsaAIHZC4x
+	5pNKxeCQ==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:40388 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100.1)
+	(envelope-from <re@w6rz.net>)
+	id 1xCDo6-000000024sC-37tM;
+	Thu, 01 Oct 2026 04:14:30 -0600
+Message-ID: <35c8c03e-f440-4bab-b53e-9d457ed2149d@w6rz.net>
+Date: Thu, 1 Oct 2026 03:14:28 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.6 0000/1193] 6.6.158-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260930152434.301151190@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20260930152434.301151190@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1xCDo6-000000024sC-37tM
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:40388
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 59
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfP2xnTtK8KWhBqcOSstJy3mRlTuwKbORBKtVuBCJWy27r+e0iRpnHxxh1Coj4mLMb9JzHEFvi9+GcBT9a7SnupHNIMJ6yNJ+us4wnTIFIumutbMWsu7H
+ ECOZGsYzAc9kCg0zFfJBJ7DWeJpLtDyz9M8fNhOavi7Fa9SVPF2pW31NSivloYGlhv0eolb/z4FSuA==
 
-"FUJITA Tomonori" <tomo@flapping.org> writes:
-
-> On Thu, 01 Oct 2026 10:10:02 +0200
-> Andreas Hindborg <a.hindborg@kernel.org> wrote:
+On 9/30/26 08:11, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.6.158 release.
+> There are 1193 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 >
->> "chenhan" <chenhan0017.work@gmail.com> writes:
->>
->>> Delta's division and rem_nanos() use Rust operators on 64-bit and C
->>> helpers on 32-bit. The report shows that rem_nanos(0) can return 10 for
->>> a 10 ns dividend on ARMv7, while the same call panics on x86-64. The
->>> i64::MIN / -1 case also differs, and neither API documents these inputs.
->>>
->>> Use Rust's signed division and remainder semantics on both architectures,
->>> as discussed in the report. Div should behave like i64 division, and
->>> rem_nanos() supplies the corresponding remainder operation with a 32-bit
->>> divisor. Both reject zero divisors and i64::MIN with -1, even when Rust
->>> overflow checks are disabled.
->>>
->>> Check these inputs before entering the architecture-specific code and
->>> document the panic conditions. This preserves the API signatures and
->>> valid-input results, but intentionally makes invalid inputs panic on
->>> 32-bit too. No in-tree callers of either API were found at the base
->>> commit. Correct the rem_nanos() parameter name to divisor as well.
->>>
->>> Tested on x86-64 and ARMv7 QEMU with a built-in Rust module that passes
->>> runtime operands to both APIs. Separate boots verify each panic case;
->>> valid-input tests cover mixed signs, signed extrema and full-width
->>> division operands.
->>>
->>> Fixes: 4521438fb076 ("rust: time: Implement basic arithmetic operations for Delta")
->>> Reported-by: Georgios Androutsopoulos <georgeandrout13@gmail.com>
->>> Closes: https://github.com/Rust-for-Linux/linux/issues/1254
->>> Link: https://github.com/Rust-for-Linux/linux/issues/1254#issuecomment-5869573842
->>> Link: https://github.com/Rust-for-Linux/linux/issues/1254#issuecomment-5869925737
->>> Cc: stable@vger.kernel.org
->>> Assisted-by: LLM
->>> Signed-off-by: chenhan <chenhan0017.work@gmail.com>
->>> ---
->>> Changes in v2:
->>> - Put the checks directly in div() and rem_nanos(), following Tomonori's
->>>   suggestion. Each proposed helper had only one caller, and no other
->>>   concrete users were found to justify a math module.
->>
->> Even so, I think we should get the math module started and move the
->> division helpers there. This discussion is not the first on this
->> problem. Having the helpers available will help everyone, and create
->> precedence for further helpers down the line.
+> Responses should be made by Fri, 02 Oct 2026 15:23:04 +0000.
+> Anything received after that time might be too late.
 >
-> I'm not against starting the math module. Uwe asked for div helpers in
-> pwm_th1520 [1], and I plan to add the math module for them.
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.6.158-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.6.y
+> and the diffstat can be found below.
 >
-> However, if this patch is backported to stable, I think it should be
-> as small as possible. Also, v2 does not add any new div helpers. It
-> only adds checks to the existing code.
+> thanks,
 >
-> How about merging this fix as is, and adding the math module in a
-> separate patch?
+> greg k-h
 
-I'm not a stable expert, but I think adding the math module on stable
-should be fine?
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
-If you really want to, I guess we could have this patch be a 2-patch
-series with this as the first patch with the stable Cc and then the 2nd
-patch moving the code to the helpers from v1, but placed in the math
-module.
-
-Then we can pick patch 1 for fixes and have plenty time to discuss patch
-2?
-
-Best regards,
-Andreas Hindborg
+Tested-by: Ron Economos <re@w6rz.net>
 
