@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9C954D7957;
-	Thu,  1 Oct 2026 00:00:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45F854FD292;
+	Thu,  1 Oct 2026 00:00:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790812811; cv=none; b=IJhLb/TQroD4Qv1DMNB9TzU7yv9kpHkfFBpkypgH87LDxPoFuDKXP9XPnS/Qb/tFQObWS/Lm+8PoWLKK+9OmHNn2/r95shlR/pMFLoqjb5W9zokzg+SlXFqPeQvWkQuKts9BG5vNUnizhWlLeSQXYVMjPeDWsFXzUJAo+IvviIE=
+	t=1790812814; cv=none; b=p6tl7V881cfw2EtSJ8QlJ+jPrhqqjfMc9yypFNXXshuuTVWQnZ10+X4O/fNS/WWHWmlCymhnJLE9VXnnWzU0SX+RvrAIACFA16eK5NmrpYk08AjE6WYk7no6+lLaJlgaN4kVOwP1QtcSaqWZTomMwjpMA4ps4pCWj/3JdXVA25k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790812811; c=relaxed/simple;
-	bh=GuSentHMa62HhKbCmsHJIdwrlnUNOOsQQ+U3vx6mEw4=;
+	s=arc-20240116; t=1790812814; c=relaxed/simple;
+	bh=vMLXNZBW6nTdbZEXwzrav/arTlUDVQZVDGZvwT/hj+g=;
 	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=OmIV7FXnfKBAtslx5wRxGy43F05+j2xFlJ9Vfqn+KlVI/pACjypV1rmAl+7PF16nGk4+oQuieKFFPOyuNbQnhVJIzGViBrefVCB1XLi+hdMreX7/IO6RjgdKCvAmP+2NRYkufugsxUrliMKLmUwmbaEmogxtubJdT1qO12vPjSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kGI2aYlD; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=uTMgHFvxv/GbYb3Rv5nFjJcfATsVdPtJF2kTh/ZkGuExQMJ9QRK/FcWafl69lubScAhwk8PIbAXdJKMiiuHjwnXe6Xm0VoMvyZ8BPhIrrwDxkos5tyJ1kGyTUfod0wCg4RblkN8u8YrcBitn7+NTaQ6Vo6HaYcz2ox6Gv+f5774=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DyV5aOto; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kGI2aYlD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 450191F000FF;
-	Thu,  1 Oct 2026 00:00:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DyV5aOto"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCF881F00899;
+	Thu,  1 Oct 2026 00:00:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790812810;
-	bh=m6YsxEBh3PP1LMHxC7LJSLju1ESDaiUsv95jhHIbkUM=;
+	s=k20260515; t=1790812811;
+	bh=cgp4s+cXj4zAn91cYbbDDtwTCvHsmGb6CLljxkm15wc=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=kGI2aYlD0dcVyu64QjX8OsIFQfDflvSrBdRXKggFDPG+YjnTkcUcMRegUZnrP9FDV
-	 8WEsBNVWxwEvqXKq4jdtCDBJMOAaumo48SdlMWFwj/QM6RvP83NCDQ2EtIlpIIxY66
-	 CPdaTp0D227gpw3X1Jsmcht3bJGhRxwfCADuvfRN7tz4dxJPlSa4acmUkqRNAUyFvS
-	 nyWRba/hMG9NUIVtMjC4GIZdf7zlCSSdjvIflxjre7j6luCRMrreOizvGt4DNic9dM
-	 iJKoarvGZ4fAknF7UmWq9w8YcalmTwHK86PQaC1rElJGhzUg9OPDINsF36rV/hJA5/
-	 yekaF8zuz+/XA==
+	b=DyV5aOtoPVCRrAm0a8pPS4sSzS1VlWjp5MXhwVqAFTOKqbOZkDG9cQXsngt2I8b0y
+	 HDRSRqbyNRa8Tuf8Ox7nM6JCOg3LTFACnwBKAD6bFF64HeigzMQoV3lGZpvUgmslRm
+	 a+7sIbFEweNsuNt36OCUknHsgkLv0DTTwgnQxDyrUZ6xJPgIxZ3qO5PFDOeq6KxKbN
+	 4bQsRXsgjWTD6U9UXS6nMDIKkiszYdC41QAsqN+44TXbGYbnOekoxsMx42KrZT6FrG
+	 YfkXNh3JThkEiQ/6T0XVOR2BQuafo7L+gkC1ZAxtpRK/LQkksrAB5gubIUdJn+9Jx7
+	 WQgEYiAoTFpPA==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A1D23AA6A61;
-	Thu,  1 Oct 2026 00:00:10 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B44A03AA6A61;
+	Thu,  1 Oct 2026 00:00:11 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -37,45 +37,39 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] net/smc: Serialize link activation with teardown
+Subject: Re: [PATCH net] net: macb: init workqueues before register_netdev()
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <179081280877.2182141.2612806468126362677.git-patchwork-notify@kernel.org>
-Date: Thu, 01 Oct 2026 00:00:08 +0000
-References: <20260927074547.3694742-1-nicoyip.dev@gmail.com>
-In-Reply-To: <20260927074547.3694742-1-nicoyip.dev@gmail.com>
-To: Chengfeng Ye <nicoyip.dev@gmail.com>
-Cc: alibuda@linux.alibaba.com, dust.li@linux.alibaba.com,
- sidraya@linux.ibm.com, mjambigi@linux.ibm.com, tonylu@linux.alibaba.com,
- guwen@linux.alibaba.com, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, kgraul@linux.ibm.com,
- ubraun@linux.ibm.com, linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+ <179081281028.2182141.10765407391197004447.git-patchwork-notify@kernel.org>
+Date: Thu, 01 Oct 2026 00:00:10 +0000
+References: <20260925-macb-netdev-register-race-v1-1-752f90ce1c39@bootlin.com>
+In-Reply-To: 
+ <20260925-macb-netdev-register-race-v1-1-752f90ce1c39@bootlin.com>
+To: =?utf-8?q?Th=C3=A9o_Lebrun_=3Ctheo=2Elebrun=40bootlin=2Ecom=3E?=@aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org
+Cc: conor.dooley@microchip.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ kuba@kernel.org, pabeni@redhat.com, edumazet@kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, nb@tipi-net.de,
+ vladimir.kondratiev@mobileye.com, gregory.clement@bootlin.com,
+ thomas.petazzoni@bootlin.com, stable@vger.kernel.org, sashiko@sashiko.dev
 
 Hello:
 
 This patch was applied to netdev/net-next.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Sun, 27 Sep 2026 15:45:47 +0800 you wrote:
-> smc_llc_link_active() marks a link active before scheduling its testlink
-> work. The first-link confirmation paths call it without llc_conf_mutex,
-> allowing link-down processing to clear the link between these operations:
+On Fri, 25 Sep 2026 15:15:08 +0200 you wrote:
+> register_netdev() exposes the interface to userspace which might trigger
+> operations like close on it. Those access the HRESP/LPI tasks and
+> might therefore use them uninitialised.
 > 
->   Connection setup                    Link-down worker
->   smc_llc_link_active()
->     link->state = SMC_LNK_ACTIVE
->                                       smcr_link_clear()
->                                         link->clearing = 1
->                                         smc_llc_link_clear()
->                                           cancel_delayed_work_sync()
->     schedule_delayed_work()
+> Fix this race by initialising both `struct work_struct` before
+> register_netdev().
 > 
 > [...]
 
 Here is the summary with links:
-  - [net] net/smc: Serialize link activation with teardown
-    https://git.kernel.org/netdev/net-next/c/6cccd4b720e2
+  - [net] net: macb: init workqueues before register_netdev()
+    https://git.kernel.org/netdev/net-next/c/0ac396fbc25c
 
 You are awesome, thank you!
 -- 
