@@ -1,124 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FBED369D72
-	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 01:07:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7513385D9F
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 01:10:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790816867; cv=none; b=dbLwDKHayCynQA9CIX5C1qy9oiLw79XA0PIpYPdjw8TTy9BkMlQk/EwDTa7RGfYn7Lvu6HXJ1fZ1B+BffxC70rdYhd9YI2adJJsZN8iLqJe/f5zMZXs+4Z/dOIPrpsmF7uZuOlMdxLtO6+LVQyKeq+2i01GFk+J7lgW21usbg5o=
+	t=1790817020; cv=none; b=E81iBxlhi1M0qbQDvDkMSm+zNw6fn9GQD67KxZlM3cxfi8pT0Tuazd5nbZux6sYTa29CKMmKDC1g9aYat3HH67A99CdnYGWT9t2bfmFUnWVS9WmXe20naBGwdD3Mgx6bS/WDVKYO5hhrmaKE3yGwwsUj6ygxIDv+y/9IWfscRUo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790816867; c=relaxed/simple;
-	bh=RT5A/9HMue+O1wWjxQ4Pjn4DNG4xsbTmgAuu0oIfJCo=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=WTTwznkjmEbPpYDMyT0Bi+dgKwUEgeYMJA7BwsvA693/vakN15opSo9ZuXzNQ3xV05hqicZyApJjGf42mqnoMoGtB5bBGidypxFiqwyAo2nWcXmWkAfMxmL6PpkoK3XwNVBUoXqPvp/VUewxKz9Z/FSg5dPjMGIhyz0R0Euv2Mg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LFgJ3oXx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790817020; c=relaxed/simple;
+	bh=Tq+EEQZZUSkW/OHULP4X5a3jFtNXvLlkqUIM3wN+i+A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GI+Yyn6zawDJCyl4bY9ULXpLo4X2CMQawfN7xUq/n+OmYzSb+iHa7XRaw/PhaqIjB+yIAsjfoDAjXDok9CB7t1UmdiZaE0sELNZzvqgulez/XtNOyKna5UwHc4pTJKjJvDoQybu7wjVz+zm1rRbsr6dRqPDC851Z2ra0lhtoAbg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=k6xd6uAN; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LFgJ3oXx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E5801F00899;
-	Thu,  1 Oct 2026 01:07:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790816864;
-	bh=CwGxd9g4HHs/84Ge8XmhcajbmFBf0YozaOvMHk6FYmU=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=LFgJ3oXx9MSfEpsQSHbl4GynYqe+Qtnoc27HQH0v3epUoDivaGRy+emKM1oIRQQeN
-	 2l43p7i0I7+o7fx2MVmD2XfAgf8uIh2FWChL+7EYeG4qA7HTMkx9dimkNMDDlCVAv5
-	 ERP83MNm4WFGldYdh3XXStQW5lHml78EwpwvjYXTTJdIL+ywScvkJ13heqodzIVNYE
-	 ACr6KZOyBUSIJf2T2YUeGyKTaRHKcHbQ9UWDqBT6SJy4zX0uUCOHLei1CLSI9wkhAo
-	 tjK9SaXj7LZr3AfA6n2Id90b5vJG3VRaAUGm/CJvEcej7TAyg+/FXZZTZPVdGXVood
-	 rAvQyHXZp14hQ==
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 6D97AF40068;
-	Wed, 30 Sep 2026 21:07:43 -0400 (EDT)
-Received: from phl-imap-15 ([10.202.2.104])
-  by phl-compute-10.internal (MEProxy); Wed, 30 Sep 2026 21:07:43 -0400
-X-ME-Sender: <xms:X7K9agIdF9tRWgveFzyyfEuUnDVk3iXGPzBiBqboEg_ooU6WOlzn8A>
-    <xme:X7K9aq_5TWJE-hWCwmg9zWl01ylfAIHY16oiVQzLJrL-CZaki7EZI40WkX1n_r12A
-    FLlUsg59Jvy2lMnMH6PTH1crnA2vIYjGB8xmaZmNI9KgGabdLe4BKH20Q>
-X-ME-Proxy-Cause: dmFkZTEV/a2fjBtwvOeO/zFaNy52ZxTsEZH1L0We3+jzDQcLzqY5tCsX3mQtn/I9WA99/8
-    w3zcW93Vpp59fRkTUzBDjlNFLWfnh1NSc3muGBYHpV9FWSoxgJ2wycM6lkJds8A40LSLO1
-    Re0SSxugGsc9miYclrDglYx6X+/UivPAsTeRj7o4KLBXlrmCiJxCXs/P660KAHByI5OcLe
-    ZvNap1Lh6BnOXmNSIN0IGRR9EqhSFQ/C+1VdqfFBOgaXOTeA6frV34UL+aed0NEWsol8ln
-    Jg6NoHr7fPtY0YTv3FB8mbEvR8pu+txLOgW6fmcRfOgRYXOfZDfVxPDyb4GMjwaIw9a9ks
-    58tyMw6G2PVKcRF6Ctz45j/3bYgqQJQlmv/j17ClqnZcuSMb8tFRRQz3628Mc+ZMfs8gqW
-    3liianVqpV3pz1zprE+Ma+1YPPNkBI4KSi5ZTSFUbSSs6QasVteoVZK6eU2tn4wP6/9ZZs
-    NLzCRPfa7bJM3gxuoOsW4oPtEOiuUg9AHN3tUnYOY8RjvgK6ytWL3kyrBZ7H6d1+VZegb2
-    slIjjNh4lRpfnAGSuB0xgNwjFHkQZ9u4sqFTlNqUpX75eq/rLmnxV/E4mBp2rDT9jGr+M1
-    aLYAYCjb/k3cYZMWhdZlI/NIpq1sefSPWPqXZAAuk0EjRGVzNf0GeEVyrh7Q
-X-ME-Proxy: <xmx:X7K9aiq65aDhsoKw-D7VuUbJHbQaVXbtbLAli5kQAKdRUGbTZ_38Yg>
-    <xmx:X7K9atPmlWn0Brsrd-dgIHAtxKE880UbP3HxlUCDzkaxKQQGGzgspw>
-    <xmx:X7K9aroSX9q4glimWV5AuYONP_j9WQf6Zt7s2ckPRoOM1QLnHwsTng>
-    <xmx:X7K9aosWOyWU_I_Ezb-TLHjdajWPBY3qSg6FX5FUizySHk0yvLOd3Q>
-    <xmx:X7K9ai1Tq56RRpi7_egbaGGWYfdbY0ayVIwz0xSjh_F1F7_c_ueohLBv>
-Feedback-ID: ifa6e4810:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 4B985780070; Wed, 30 Sep 2026 21:07:43 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="k6xd6uAN"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48b05fdb2f9so446612f8f.0
+        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 18:10:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20251104; t=1790817015; x=1791421815; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2Hqg7fvezYx0gMAe4vTkP11iGpswB7iKcMQUSEGGhy4=;
+        b=k6xd6uAN2j9hAboy+qkp71mKUnYkHa23MOSi8NYL0SrQC9P3OuoiNrhzBo38iyxFDr
+         Q5t8uX+EgqWNH+kpAwzIb/oLn3TrM+VlVpcYuLuFNeKBEz7r+XNQGuSl+0aIqndBuaWJ
+         phrXRC/WfJABx8wCv8Rksf2G1m0v7m7OrwzxBcBAd7WQueWsnExLzR2ldMI8woc60D+y
+         GEBAqHTBChCGu9xb6ClC9D4T5s/5AX8OKsjQP2Zg7e9nZWKGjvMXpFH3XAjbPeopbtiP
+         /gioLEM1m0MgF8l/dkve0AfIjzdLHV3wud1mJFmTncqsXxcfr29WAi5k0tU5iqL7L2Kt
+         6HMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790817015; x=1791421815;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2Hqg7fvezYx0gMAe4vTkP11iGpswB7iKcMQUSEGGhy4=;
+        b=oevdT8Pb5yUDRLa3JHorV6huYVnXpSr7JUUhggXEMKc6qetOfLL2y/LBAKiHmNO0mE
+         MWXw2JxcHEqqbtzCgF3s2U/Vd8mgtGcC0CgIH0PGpmYS24uqks7xSqa4VPrcfFu69+C/
+         y3Wq6ava+D/gFmyxzfB4bPa28HRqpLFsQwyBQONeEhxQ/GpjoZj+Lnh5grU/MZHuYGEj
+         LU4tg4TUgWh0wD8SsMimuFs5Qg5wD8ZkIOhg/lxmbUa2RPhf3AN0cfVWMwHr0/njFqqs
+         thAK2zN7zaFsaoxiVwiZ0cyrgCgcN0b/W7Wn5RB9WP0r2Z2asIMTszbwnrqbennuZgkv
+         hJEQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwaxWSk55E5KHSfCfvBd85MUderx0A7HGM+Vnwk59+ALWBISHXMWLlX8OdqPK3C4sENzA73xMA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mufJTzhxYX0rEDE/J2UsGWGLMXb6PqDanCb2hFMyH7bmu5aiG/
+	RINqtO4qlHqjUVeiDeqSf4MrqJ8+5pirVC3tkjshYxYRX4RAtyJT4KA=
+X-Gm-Gg: AYBFou1D6NWmxXt+zt1N+X1m5TUAVNIDkNfjnv0/BHNv5IUQfCzXEofOEaDG6gY4kXP
+	kwrmlUD3O0mC5aL21pKoGwd8AHZcxTJNgtaWwjtUZxdEvqGAOPXe/TqihgKVGjaCvEyFCENhiWX
+	cxKx5fnNQTrvCqrgH/627L5VDTI5mzaZpUobSrdUWanTSrziKMHONU2eomDOwdONI/wHqcMbEeL
+	Hl7k7C0Det/to7tvZNxMFV2FlaL5JfT0eOLk0pdVLS07eDAqgn55IdFVtdZbMl/rkRtT6FieCTf
+	/tCWbqGTOPDxIHC6uz4IWUdw1V0I2QWdiBdOQmhkKbjuDPm4ZnuubQY2+Mb0Y34o5KQ/jqu5c5Y
+	MhS0XgjsCr1wbf8q8KZc6F7vNlGQNEA5w7fxjmQ4155udN4z5qTPK/RTa+d6Z7u5q2n3pHH6zEk
+	Acbvzg0eaYSa6HfgWc/9/MG6clYkS/j1dKt0pj2mNZIKT0Hj2rDrj52Df0fy3w5ju12r6vQIv78
+	0fEnmC9UnU1vltg3Qoa/ZbpOD40Sid/80mpk7W7TSslRJxZbLFnwUkKtnol
+X-Received: by 2002:a05:600c:8b88:b0:49f:e8bf:8f9b with SMTP id 5b1f17b1804b1-4a01ad98373mr50081855e9.4.1790817015182;
+        Wed, 30 Sep 2026 18:10:15 -0700 (PDT)
+Received: from [192.168.1.3] (p5b057568.dip0.t-ipconnect.de. [91.5.117.104])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f952931sm26870905e9.13.2026.09.30.18.10.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 30 Sep 2026 18:10:14 -0700 (PDT)
+Message-ID: <f7456596-f978-4d75-b949-f61e21f4c798@googlemail.com>
+Date: Thu, 1 Oct 2026 03:10:14 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: APE9iFNf_byJ
-Date: Wed, 30 Sep 2026 18:07:23 -0700
-From: "Chuck Lever" <cel@kernel.org>
-To: "Abdifatah Suruur" <suruurism@gmail.com>
-Cc: jlayton@kernel.org, linux-nfs@vger.kernel.org,
- NeilBrown <neil@brown.name>, "Olga Kornievskaia" <okorniev@redhat.com>,
- "Dai Ngo" <Dai.Ngo@oracle.com>, "Tom Talpey" <tom@talpey.com>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Message-Id: <6dbeec76-a55d-4e41-9115-99d199997497@slotpi15m67>
-In-Reply-To: <20260930202212.1482-1-suruurism@gmail.com>
-References: <20260930202212.1482-1-suruurism@gmail.com>
-Subject: Re: [PATCH] lockd: fix use-after-free in nlmsvc_retry_blocked()
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 6.18 000/395] 6.18.55-rc1 review
+Content-Language: de-DE
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260930152340.591469096@linuxfoundation.org>
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20260930152340.591469096@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Abdifatah,
+Am 30.09.2026 um 17:24 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 6.18.55 release.
+> There are 395 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-Thanks for looking at this code. I'm not going to take this patch,
-for the reasons below.
+Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697v2 server. No dmesg oddities or regressions found.
 
-On Wed, Sep 30, 2026 at 11:22:12PM +0300, Abdifatah Suruur wrote:
-> Pin the block before dropping the spinlock in nlmsvc_retry_blocked()
-> and release the pin after processing, so the block cannot be freed
-> while it is in use.
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
 
-This part is already fixed. The nfsd-testing branch carries
 
-  lockd: Fix use-after-free in nlmsvc_retry_blocked
-  lockd: Serialize block retries against host teardown
-
-The first takes the same reference in the same place, so your patch
-no longer applies there. For lockd and NFSD work, please base patches
-on the nfsd-testing branch of
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/cel/linux.git
-
-> nlmsvc_notify_blocked() has the same problem: it moves the block to
-> the head of the list and then calls svc_wake_up(block->b_daemon)
-> after dropping nlm_blocked_lock.  Keep that wake-up under the
-> spinlock, as nlmsvc_grant_deferred() already does.
-
-This one appears to be unreachable.
-
-nlmsvc_notify_blocked() is the lm_notify callback. It is called from
-__locks_wake_up_blocks() with blocked_lock_lock held, and that
-function clears waiter->flc_blocker only after lm_notify returns.
-
-The block is on nlm_blocked when the callback finds it, so the list
-holds a reference. A block whose file_lock is waiting comes off that
-list through nlmsvc_unlink_block(), which calls locks_delete_block()
-on the block's file_lock before it calls nlmsvc_remove_block(). That
-covers GRANT_RES, CANCEL, nlmsvc_traverse_blocks(), and
-nlmsvc_grant_blocked().
-
-While the callback is running, flc_blocker is still set, so
-locks_delete_block() cannot take its lockless early return. It has to
-acquire blocked_lock_lock, and it waits there until the callback has
-returned. The list reference therefore cannot be dropped between the
-spin_unlock() and the svc_wake_up().
-
+Beste Grüße,
+Peter Schneider
 
 -- 
-Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
+
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
