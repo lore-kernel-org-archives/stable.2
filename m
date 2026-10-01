@@ -1,35 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 101241A3160;
-	Thu,  1 Oct 2026 00:40:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60721351C1C
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 00:46:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790815222; cv=none; b=TF8Rgip4cvSkP3dK81zq6DB00JLQLjLQ1+EeOiw1r9B8ztJt/d9A8Rdo09svkM323FtXEDIPbXpTbnY1YALsTbjwtKD9wtRBB/XmCYbTNf157UOJ9sNwDGXt6Ya0Z/+dOFnBo2xcp3KjQR8eoa10XECRTPU9TVqJAmeQMnuoTHA=
+	t=1790815596; cv=none; b=G7HDWlEm/yOMYv4oAOaBDlDXhS+Xo8SGfXRfOC+FwSZnbIGrUhewETjmyFHk2x7xQENPuceFuKVPePw/4+WVUYs3/b9ho4tYcK+oK8IuGuochZtgf0iHoXTY8GOhwxvTbNEO89dw+P1w4zJogDUvv0DnmRTNfXwEQ9R4zVg30Mk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790815222; c=relaxed/simple;
-	bh=oMIaEeEoP4t05NtYSsN9pnpsf/KG6qmo5wQqzyQTWWQ=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=Z/H+Dkmxylxt/Wx1WcACYc9rphSE6mQx7B+t4dSy5eD7DA34wAfWuYlV9TC0x6qSgrqQ9xxKktRzsaTe7dsz3FLYoL72XTDaimcb+INGR9vTWGflZWVASVbWfVemkEMeO1PosccMLPNn9UiSgsrqk9LkImJj1OdnsfVtTn63YFM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZnT8NEjG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790815596; c=relaxed/simple;
+	bh=uf8I7s1+24jGWy8mkKdk7Hu3Uf4I4ZzvX6kAT5SAvFQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=usfY2o1IooWKxSZA4orfLrUg74uO64RZ2n5oFUQ4MwOqVI62csWcRoz/wXHkMkBuYQ724VpGtsZreJOWRLV0bALJYtaKMUiki0xBWfPxpemrwrHBN1xKVHCSVtt9XIPWsSl5hlxVOyyH6mdjjiB60BmB+q6+IUwL3QKwgG9IenY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L48XSBhU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZnT8NEjG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 052BF1F000FF;
-	Thu,  1 Oct 2026 00:40:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L48XSBhU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2C3F1F000FF;
+	Thu,  1 Oct 2026 00:46:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790815207;
-	bh=fUtbI7rZ9fegY1v3Djr5d50iTf6BrLJeMWhDfB4fX2c=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=ZnT8NEjGanW77Wkv0CBg90+CYTJh+ReUQMVdwadreY2SmDXue5fOw67R2Wp6Xs5so
-	 lZvIk8uWJN/tK6wz7oog7m5Y/Wn9piMZdTypk0K5nZe83jkFF+zzENd/v9CMYVw1E7
-	 j+zlWDuDs/hm9AEwUWOsuteADMyqXzuW6wt8MJsP4RVK4+pO5SeUC2QDi3tHpH3uZn
-	 T6SzyUB80yLE8LmJ9hY+4ql+fus3vvF/vPRJWUm2PoruxXMviRibEr0gu9GbOfAZeG
-	 m/RHmYniDG/Hj8UodVy8lLcY70q6Lp8nbxh3zeYtdz5TNbia1lVq7l2oilSfyidRxx
-	 GgUXRETa2rc/w==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F145E3AA6A61;
-	Thu,  1 Oct 2026 00:40:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1790815595;
+	bh=fca2JWqmaQb+0SrKATVLsQ7hwXwJUEvIbjv6G5X2tNQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=L48XSBhU/dcSatlOH2vkqEQx3oT6/wFFElYbV9B6WOAOCtNe4Q62GBilKDcKZlpIm
+	 0QzyLtHmPXZqlRXZYlivTV/WE+a9TawDlIAQ24O1pj4QZ35lYl1k+domWGiCRkZmnB
+	 rWi+rZH21ZUka85OVxWV82GrFJrK7puGzIKKGM885w7f9jCqlRLax3Y1Xq6Pyok6mq
+	 2OYlji096AnGD/bBSY9mbuEUHsRhO2WY/2jLCaeFTiTaG2lxZCW3vfXYTT8Vi74Cf0
+	 4G+JjKAx38GiKX4qgjcOsea0wCHJTAS43ou0chlPyZPlY5MvzqgOhqjGGiaj+tTSVE
+	 IXoxl8l4JRJlg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sean Christopherson <seanjc@google.com>,
+	Jinwoo Lee <rkskek9254@gmail.com>,
+	Stefan Teodorescu <fane@google.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/2] KVM: x86: Fill kvm_run exit fields in common get_nested_state_pages() error paths
+Date: Wed, 30 Sep 2026 20:46:32 -0400
+Message-ID: <20261001004632.2232201-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261001004632.2232201-1-sashal@kernel.org>
+References: <2026092940-distress-hardship-4b3d@gregkh>
+ <20261001004632.2232201-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,43 +46,115 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v2] s390/ism: Zerorize dmb at allocation
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179081520578.2192623.15327890080313694045.git-patchwork-notify@kernel.org>
-Date: Thu, 01 Oct 2026 00:40:05 +0000
-References: <20260928151420.383105-1-wintera@linux.ibm.com>
-In-Reply-To: <20260928151420.383105-1-wintera@linux.ibm.com>
-To: Alexandra Winter <wintera@linux.ibm.com>
-Cc: aswin@linux.ibm.com, gbayer@linux.ibm.com, davem@davemloft.net,
- kuba@kernel.org, pabeni@redhat.com, edumazet@google.com,
- andrew+netdev@lunn.ch, julianr@linux.ibm.com, netdev@vger.kernel.org,
- linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org, hca@linux.ibm.com,
- gor@linux.ibm.com, agordeev@linux.ibm.com, borntraeger@linux.ibm.com,
- svens@linux.ibm.com, horms@kernel.org, stable@vger.kernel.org
 
-Hello:
+From: Sean Christopherson <seanjc@google.com>
 
-This patch was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+[ Upstream commit c1214f293d77c6e425a379f90d09bdb4815993a8 ]
 
-On Mon, 28 Sep 2026 17:14:20 +0200 you wrote:
-> Sashiko reported [1] that 'Missing __GFP_ZERO in folio_alloc() causes
-> uninitialized kernel memory to be exposed in the receive message buffer'.
-> An ism dmb is receive-only, so the data is not leaked to a remote peer. In
-> general the smc kernel module (dibs client) will only push newly received
-> data to userspace. We still should not have uninitialized data in a receive
-> buffer.
-> 
-> [...]
+Fill kvm_run with "internal error, emulation" in the common error handling
+paths for getting nested state pages, as requiring each check to manually
+fill kvm_run is error prone and requires a non-trivial amount of copy+paste.
 
-Here is the summary with links:
-  - [net,v2] s390/ism: Zerorize dmb at allocation
-    https://git.kernel.org/netdev/net-next/c/a0227fa24e8a
+Specifically, both SVM and VMX fail to fill kvm_run if load_pdptrs() fails,
+and SVM fails to fill kvm_run if kvm_hv_verify_vp_assist() fails.  If those
+flows fail, the *best* case scenario is that KVM will exit to userspace
+with KVM_EXIT_UNKNOWN.  The worst case scenario is that KVM exits with a
+stale exit_reason and confuses userspace.
 
-You are awesome, thank you!
+Note, SVM never exits to userspace if something goes sideways when dealing
+with vmcb12 assets while emulating VMRUN, i.e. lack of SVM-specific code is
+not a bug.
+
+Fixes: 0f85722341b0 ("KVM: nVMX: delay loading of PDPTRs to KVM_REQ_GET_NESTED_STATE_PAGES")
+Fixes: 232f75d3b4b5 ("KVM: nSVM: call nested_svm_load_cr3 on nested state load")
+Fixes: 3f4a812edf5c ("KVM: nSVM: hyper-v: Enable L2 TLB flush")
+Cc: stable@vger.kernel.org
+Reported-by: Jinwoo Lee <rkskek9254@gmail.com>
+Closes: https://lore.kernel.org/all/20260813043932.3214460-1-rkskek9254@gmail.com
+Reported-by: Stefan Teodorescu <fane@google.com>
+Link: https://patch.msgid.link/20260921211608.1030158-3-seanjc@google.com
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ arch/x86/kvm/svm/nested.c |  7 +------
+ arch/x86/kvm/vmx/nested.c | 15 +++++----------
+ arch/x86/kvm/x86.c        |  3 +++
+ 3 files changed, 9 insertions(+), 16 deletions(-)
+
+diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
+index 08f30b5ebe30f..7b3f0d506a986 100644
+--- a/arch/x86/kvm/svm/nested.c
++++ b/arch/x86/kvm/svm/nested.c
+@@ -1439,13 +1439,8 @@ static bool svm_get_nested_state_pages(struct kvm_vcpu *vcpu)
+ 		if (CC(!load_pdptrs(vcpu, vcpu->arch.walk_mmu, vcpu->arch.cr3)))
+ 			return false;
+ 
+-	if (!nested_svm_merge_msrpm(vcpu)) {
+-		vcpu->run->exit_reason = KVM_EXIT_INTERNAL_ERROR;
+-		vcpu->run->internal.suberror =
+-			KVM_INTERNAL_ERROR_EMULATION;
+-		vcpu->run->internal.ndata = 0;
++	if (!nested_svm_merge_msrpm(vcpu))
+ 		return false;
+-	}
+ 
+ 	return true;
+ }
+diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
+index 1b87dded131dc..dbd16e08da396 100644
+--- a/arch/x86/kvm/vmx/nested.c
++++ b/arch/x86/kvm/vmx/nested.c
+@@ -3222,10 +3222,6 @@ static bool nested_get_vmcs12_pages(struct kvm_vcpu *vcpu)
+ 		} else {
+ 			pr_debug_ratelimited("%s: no backing 'struct page' for APIC-access address in vmcs12\n",
+ 					     __func__);
+-			vcpu->run->exit_reason = KVM_EXIT_INTERNAL_ERROR;
+-			vcpu->run->internal.suberror =
+-				KVM_INTERNAL_ERROR_EMULATION;
+-			vcpu->run->internal.ndata = 0;
+ 			return false;
+ 		}
+ 	}
+@@ -3289,11 +3285,6 @@ static bool vmx_get_nested_state_pages(struct kvm_vcpu *vcpu)
+ 	if (!nested_get_evmcs_page(vcpu)) {
+ 		pr_debug_ratelimited("%s: enlightened vmptrld failed\n",
+ 				     __func__);
+-		vcpu->run->exit_reason = KVM_EXIT_INTERNAL_ERROR;
+-		vcpu->run->internal.suberror =
+-			KVM_INTERNAL_ERROR_EMULATION;
+-		vcpu->run->internal.ndata = 0;
+-
+ 		return false;
+ 	}
+ 
+@@ -3681,8 +3672,12 @@ static int nested_vmx_run(struct kvm_vcpu *vcpu, bool launch)
+ 
+ vmentry_failed:
+ 	vcpu->arch.nested_run_pending = 0;
+-	if (status == NVMX_VMENTRY_KVM_INTERNAL_ERROR)
++	if (status == NVMX_VMENTRY_KVM_INTERNAL_ERROR) {
++		vcpu->run->exit_reason = KVM_EXIT_INTERNAL_ERROR;
++		vcpu->run->internal.suberror = KVM_INTERNAL_ERROR_EMULATION;
++		vcpu->run->internal.ndata = 0;
+ 		return 0;
++	}
+ 	if (status == NVMX_VMENTRY_VMEXIT)
+ 		return 1;
+ 	WARN_ON_ONCE(status != NVMX_VMENTRY_VMFAIL);
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index aa459fb327682..f0223a8beac31 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -9779,6 +9779,9 @@ static int vcpu_enter_guest(struct kvm_vcpu *vcpu)
+ 		}
+ 		if (kvm_check_request(KVM_REQ_GET_NESTED_STATE_PAGES, vcpu)) {
+ 			if (unlikely(!kvm_nested_call(get_nested_state_pages)(vcpu))) {
++				vcpu->run->exit_reason = KVM_EXIT_INTERNAL_ERROR;
++				vcpu->run->internal.suberror = KVM_INTERNAL_ERROR_EMULATION;
++				vcpu->run->internal.ndata = 0;
+ 				kvm_make_request(KVM_REQ_GET_NESTED_STATE_PAGES, vcpu);
+ 				r = 0;
+ 				goto out;
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.53.0
 
