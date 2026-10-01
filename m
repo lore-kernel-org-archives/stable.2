@@ -1,604 +1,143 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f39.google.com (mail-yx2-f39.google.com [74.125.224.167])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EA974028E2;
-	Thu,  1 Oct 2026 18:45:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3732E3C9EE4
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 18:45:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790880318; cv=none; b=GTHt/DlH7MA9v3D5XgarOLmgvZeGjHwrlN/BiiPxKexbkrXCa6o62L+UgJThs0NHAGHeoU1ns4Ipm1NSVI/ZXfS1Q3vvte3WsC3dVHYmcUr3Mtpw95b2JEw15Z3FXmhGgU+L0RYMEA8YXN2x6JU6OXL4OSORfz8IKtPlzIg6u1Q=
+	t=1790880345; cv=none; b=XnoP2+Cti+8w+5kVD2blrCh7zDY7DxTVBIxqJnp4XaxjHsKT/lqH7eAhcXv3EbZl7E9znJnz1u59l4jUKsn6I0JVRWzjldmplfGQzGBFevSj55z/Ix7MfwUfe9PShyJeVl04vnYv9ZQ49EXk4jqq0Bdh/hJ2UFOowV3eCfCSGlk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790880318; c=relaxed/simple;
-	bh=BtX4OO4dmAAaeUYf0vVk03ZBu7O7xjoxnfEwMpV6Vek=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Gzf/FItoWJGtZIAWmERKjHcHwKFoRhDDTh1EYoEwQ4Q8rjHFtVNQjdCt/uLYd/gtLmj11dUEtpn2lndve1VwZ8cApSgEhJaV3IsECLaJHaKtlHZB8HNz3++reMvXw0TzTFznFY8Wf2OtYhSRKdhltkDZ+V3x4NfETBd810KkuV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=jy773Y8i; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790880345; c=relaxed/simple;
+	bh=nCDRU72fQOMhTad157rSB6/1ns7EC6CJYlfxPDRmfOQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fDUZ6MUDnaKzR4+G5x/jVL3tVZqgeXqQggt78/frQNRPlIbuwWJbteGfTHNtkE0stu3c3Bc+2IO6vPXY2rVe5bPIJydeCAuuq13rsdpFzAFSV1aOAZpgmoVkqBh0VcnOOj9c1rn88PgZzOWhjoHA8ASLpznY3CwBDd8NO00J6mI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SgxCwUQF; arc=none smtp.client-ip=74.125.224.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="jy773Y8i"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 691G5Xl32202370;
-	Thu, 1 Oct 2026 18:44:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=xt11Mg
-	6zqBfgxWDeKSA5He4gIfz+mbaUP7Dp7gWNarE=; b=jy773Y8iHTeQeFwlbXjYxX
-	T5RdRjVpOo1fihnadOuukvLRXuOe1G51xQPdhF63PTMHbgoKCJc6EWEb2bIlJ01/
-	Z2Fxw6f6noHev/h9CFCD+EWh7wNpVU7LlZek2GC0J+2WgT24KxAShUsby6N+cEf6
-	E8IEjWys4ddSW/cmKEAQNNZ/jFED+ji4amTDcGTW4uNkntpHO/hRKXXvGBu/2Imk
-	iim3gaBTg/ImL1PnM4WYlkMBNE+wfR460F1YzUKP1HeJp1C/L+IEF0ZGtPK6ynKC
-	b/zmLryItyITGZZNNKH9/BSMKsZdXxi/16hnMnVeBxPkZeR3UA/XWlSz/tRO+3EA
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx5ptkrsp-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 01 Oct 2026 18:44:21 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 691G2dC54073442;
-	Thu, 1 Oct 2026 18:44:20 GMT
-Received: from smtprelay07.wdc07v.mail.ibm.com ([172.16.1.74])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h0q4pgsas-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 01 Oct 2026 18:44:20 +0000 (GMT)
-Received: from smtpav02.wdc07v.mail.ibm.com (smtpav02.wdc07v.mail.ibm.com [10.39.53.229])
-	by smtprelay07.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 691IiJ537668238
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 1 Oct 2026 18:44:20 GMT
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id D95F15805D;
-	Thu,  1 Oct 2026 18:44:19 +0000 (GMT)
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0FE6E58058;
-	Thu,  1 Oct 2026 18:44:19 +0000 (GMT)
-Received: from [9.47.158.153] (unknown [9.47.158.153])
-	by smtpav02.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Thu,  1 Oct 2026 18:44:18 +0000 (GMT)
-Message-ID: <81ccfbb9-aec8-4f16-8b7e-2c0dd46acf9a@linux.ibm.com>
-Date: Thu, 1 Oct 2026 14:44:18 -0400
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SgxCwUQF"
+Received: by mail-yx2-f39.google.com with SMTP id 00721157ae682-8ac8e048735so24459137b3.3
+        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 11:45:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790880337; x=1791485137; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LEuPwFxcSXPt6vU49ypeUwJ6niYWnQ/MOBnEtBhOy/c=;
+        b=SgxCwUQF31s1YjW2UqtfeP1Lcj3I63ms0YmLNi0EjZ+2L41ALd/1zH0ZNHj7DcQQkl
+         zhS/0VfK19p6V89gfu7PljgP3RfnfocM+h4ithyr1jLKuX+tcdOgzLKc7pf1SrVGCQav
+         D9U0ctd5TmYuKUC0Csv4DFI8Cl5Vp3YLAG94zDj8BxfNGKWaWqYiARvAWTFauTTPE2AM
+         HHlk/oLQMsUsQPC/KJnXy2FgRAx2LfOVPIFDBCy/B4XDhvqVjMjkonZcMth2G+aYTYJ2
+         KGpGNbHJX16fkYvuf1DgWgcEWBBJ+30q9scL6mnYJOrjLgAWJHrIw3Hg/Mm5e3CnC7to
+         Xx+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790880337; x=1791485137;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LEuPwFxcSXPt6vU49ypeUwJ6niYWnQ/MOBnEtBhOy/c=;
+        b=rQVBrfBZDDrFcY7J7N7z7/UTnTinmUcPsD+1vkyrnwggeztCyypNtVZxcGe3r7gkUN
+         TZe9NskcqwNYxqQehvp78APF/+z31pHgnbbHkcMSunDSzL2cxscZKLhreovdVzMcL6NS
+         G2bf1uqVQ4HvCNHvMu2PQS7zxt+zH13dBo76NtijshHpS+Dl1+mcDaV/8UkQuKP8cy4N
+         64WuKCDbB7tcgbmpcl4tZ9JfvcfTOCxA0TiztK6VXKc8arsmUvbxTNOnO33+dPiubYt/
+         PBYbLbLc5xHBgl7vfK78LP8nJmnRHjUMKSkfzXa3IN8VLUnQQzKSWEFyCGRghg9qfDYa
+         dsZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzpeYcAf4Io6qvbuJMwad0UhwuqkoJ181YAcBjz2sYI9KBeeQkrIJ47KU6Sjcbuc4JmpCzKzpc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ3DJCjJ5eoML67qlNqj8z6UnxXecxl3bqiRNd2FVygJLz3LkLL
+	SJ6hAWJwoyGP70yE//TiuOQ1uXg+FkY/UylL5eHhXxayTfJdSKOtBQ7b
+X-Gm-Gg: AYBFou1B9cZ3qiKCOvMx6VJ8Tv57FcXtPmZ54BStDRiORnYGDL4s/hNRlFhn8PdCSWK
+	OPeGpYB/oiLi3YnGQFOBM7S8P9BDSup3ZXSO0/36OJqtATbDoZoAyW5sd8QlNo7Sp8T8aY7ZhgC
+	OqpjgJv/EsaVkLAkCO3r5r0YyvNLtXCoKPoeeROqBOg6AjG6rslmhz57D50yHmGt/0ZTMPsJxB8
+	AXirbtLwtMz1RgK4+HtHnGZXSSLoEapxiB5Q2ENIG+jP0ndDMpR0gwCFdxISgPrjVdz38LN/0P4
+	DvRrMANC9g7cSczoQP23f3uRRbb2fTupbivfz/nlh7wCo7NWy4bF14nXZVYDzYQcdEeWbSRt0RW
+	ZR6VkuLsGKUGuxPQU+cjEjAnOokPUggqUAkI+0Csll2gyoMyJl7Ki9kh8K5LZYDpVLHb+opzbWG
+	yhUUqWPALHACU9ggWG8NjU8xwOJqotqdbyI3K8pf+Y1mEnZEoN3IQB4X3iKp2q8aqes3nVkmyyb
+	bRpPnaJHabgPbpsz/18Oa/v5perbrUE73fqpCZzZg==
+X-Received: by 2002:a05:690c:4:b0:8a3:5310:664 with SMTP id 00721157ae682-8ae39c0903bmr804627b3.41.1790880337475;
+        Thu, 01 Oct 2026 11:45:37 -0700 (PDT)
+Received: from chris (h106.25.184.173.dynamic.ip.windstream.net. [173.184.25.106])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8ae323ee0dcsm953887b3.17.2026.10.01.11.45.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 11:45:37 -0700 (PDT)
+From: Chris Kelly <hoopyfrood42@gmail.com>
+To: linux-wireless@vger.kernel.org
+Cc: nbd@nbd.name,
+	lorenzo@kernel.org,
+	ryder.lee@mediatek.com,
+	shayne.chen@mediatek.com,
+	sean.wang@mediatek.com,
+	deren.wu@mediatek.com,
+	mingyen.hsieh@mediatek.com,
+	lucid_duck@justthetip.ca,
+	Chris Kelly <hoopyfrood42@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH wireless] wifi: mt76: connac3: check headroom before pushing EHT radiotap TLVs
+Date: Thu,  1 Oct 2026 14:45:29 -0400
+Message-ID: <20261001184529.502048-1-hoopyfrood42@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] crypto: ecc - Handle exceptional points in Shamir
- multiplication
-To: Ignat Korchagin <ignat@linux.win>,
-        =?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <Jeremy.Jean@oss.cyber.gouv.fr>
-Cc: Lukas Wunner <lukas@wunner.de>, Herbert Xu <herbert@gondor.apana.org.au>,
-        "David S. Miller" <davem@davemloft.net>, linux-crypto@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260926204323.1913803-4-Jeremy.Jean@oss.cyber.gouv.fr>
- <CAOs+rJX+aJ1n0F5atuUMQc41eh6-kZcLjAVuVZB_Q3OkeLUSeA@mail.gmail.com>
-Content-Language: en-US
-From: Stefan Berger <stefanb@linux.ibm.com>
-In-Reply-To: <CAOs+rJX+aJ1n0F5atuUMQc41eh6-kZcLjAVuVZB_Q3OkeLUSeA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: BX-HNLyEcljDsdBdoIQVzjKDgkiLgQqf
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA3NCBTYWx0ZWRfX8/LEKYtGodJN
- 5OLVOEDP9bc7xaDOpaDIiJTR+MdWyKvOXQWaiZ3n5S87rI6y3QgoM6zYDoEm3Gxc7SsXmVhBGFB
- t1CtdPA0eKUZ/5Bgjj+qdFdibwaU973jLkkt/CpDfsnksFKjjet2EKqyujzsXzLcYRuiWDwsDrZ
- ieLOMYNNYcDOlo5J4QQpULZliSbpESlnQBAvAk6NzAJb6a68TVD0jv+21ng+DcD89ytKRWghSVS
- feJEL1vrdIbOtD3mUD7F8VwLW0fofBaa4MRO+cTUwq3gBOuc7gFRAsepAtwIxVfZ/vRs6CXEvnz
- 8cDQfLLax2Lkc6w9vVeBPQHdVapWzrAnEETxo4WrjQFikrE+vNQNSFbSj/pwr/lkILoVC2pRBho
- vX08XQVSMXVvj5xnUKxDfHEyCEWZzAnDvgwucvWcLhv1P+jnqlaurwUMUJtVA5Jf4HovYkHNVfB
- SEWjD3+vP7mAQsUEpOg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA3NCBTYWx0ZWRfX6tiGQlK5CD7G
- bQLc4LYHgdemv5yMuAczbXewfUjigkORtfLdDBhacM8Co8ET1M5VdA15xA+aMdTfTwRdvicIP35
- iBbXgWxLuZ/WugVTEVE80DdeD2leFOY=
-X-Authority-Analysis: v=2.4 cv=EY5d0/mC c=1 sm=1 tr=0 ts=6abeaa05 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=5CVL3ePYhZNyaVx0hjcA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: BX-HNLyEcljDsdBdoIQVzjKDgkiLgQqf
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-01_04,2026-10-01_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 suspectscore=0 adultscore=0 clxscore=1011
- malwarescore=0 impostorscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610010074
 
+mt76_connac3_mac_decode_eht_radiotap() pushes the EHT and U-SIG radiotap
+TLVs, 64 bytes, in front of the frame without checking that the skb has
+room for them. It may not: the rx skb is built over the buffer with
+nothing reserved -- mt76u_build_rx_skb() with MT_DRV_RX_DMA_HDR on USB,
+mt76_dma_rx_process() with a zero buf_offset on PCIe -- so the only
+headroom is the RX descriptor that mt7925_mac_fill_rx() pulls. A
+descriptor carrying the P-RXV (group 3) but no C-RXV (group 5) leaves 48
+bytes: the EHT TLV takes all of them and the U-SIG push runs past
+skb->head.
 
+Seen once on an MT7925 USB adapter in monitor mode, hopping channels:
 
-On 9/28/26 6:27 AM, Ignat Korchagin wrote:
-> On Sat, Sep 26, 2026 at 9:44 PM Jérémy Jean
-> <Jeremy.Jean@oss.cyber.gouv.fr> wrote:
->>
->> Shamir multiplication mishandles equal points, opposite points and the
->> point at infinity. This rejects valid ECDSA signatures and can accept
->> invalid digest/signature tuples when the public key is G or -G. The
->> kernel incorrectly rejects 16 valid signatures from Wycheproof.
->>
->> Handle doubling, cancellation and the point at infinity in precomputation
->> and accumulation. Add regression tests for P-256 ECDSA and 256/512-bit
->> EC-RDSA. The valid vectors are Wycheproof P1363 secp256r1/SHA-256 cases
->> 60 and 210 converted to X9.62, two constructed ECDSA signatures for
->> Q = +/-G with k = 2, and six constructed EC-RDSA signatures for Q = G,
->> -G and -2G. Also add two invalid P-256 digest/signature tuples for
->> Q = +/-G that must return -EKEYREJECTED.
->>
->> Fixes: 0d7a78643f69 ("crypto: ecrdsa - add EC-RDSA (GOST 34.10) algorithm")
->> Cc: stable@vger.kernel.org
->> Assisted-by: LLM
->> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-> 
-> Reviewed-by: Ignat Korchagin <ignat@linux.win>
+  skbuff: skb_under_panic: text:ffffffffc16f4a3c len:164 put:16 head:ffff8d4132ca3000 data:ffff8d4132ca2ff0 tail:0x94 end:0xec0 dev:<NULL>
+  kernel BUG at net/core/skbuff.c:214!
+  RIP: 0010:skb_panic+0x59/0x5b
+  Call Trace:
+   skb_push.cold+0x14/0x14
+   mt76_connac3_mac_radiotap_push_tlv+0x1c/0x80 [mt76_connac_lib]
+   mt76_connac3_mac_decode_eht_radiotap+0x7a/0x1d0 [mt76_connac_lib]
+   mt7925_queue_rx_skb+0x686/0xde0 [mt7925_common]
+   mt76u_process_rx_entry+0x2eb/0x330 [mt76_usb]
+   mt76u_rx_worker+0xeb/0x2b0 [mt76_usb]
 
-Reviewed-by: Stefan Berger <stefanb@linux.ibm.com>
+Leave the EHT fields out of the radiotap header when there is no room
+for them; the frame is still delivered with the rest.
 
-> 
->> ---
->>   crypto/ecc.c     |  33 ++++-
->>   crypto/testmgr.c |  11 +-
->>   crypto/testmgr.h | 327 ++++++++++++++++++++++++++++++++++++++++++++++-
->>   3 files changed, 363 insertions(+), 8 deletions(-)
->>
->> diff --git a/crypto/ecc.c b/crypto/ecc.c
->> index 3250a464b852..c7366eb7ce1f 100644
->> --- a/crypto/ecc.c
->> +++ b/crypto/ecc.c
->> @@ -1423,9 +1423,22 @@ static void ecc_point_add(const struct ecc_point *result,
->>          vli_set(result->x, q->x, ndigits);
->>          vli_set(result->y, q->y, ndigits);
->>          vli_mod_sub(z, result->x, p->x, curve->p, ndigits);
->> +       if (vli_is_zero(z, ndigits)) {
->> +               if (vli_cmp(p->y, q->y, ndigits)) {
->> +                       /* P + (-P) is the point at infinity. */
->> +                       vli_clear(result->x, ndigits);
->> +                       vli_clear(result->y, ndigits);
->> +                       return;
->> +               }
->> +               /* The co-Z addition formula does not handle P == Q. */
->> +               z[0] = 1;
->> +               ecc_point_double_jacobian(result->x, result->y, z, curve);
->> +               goto out;
->> +       }
->>          vli_set(px, p->x, ndigits);
->>          vli_set(py, p->y, ndigits);
->>          xycz_add(px, py, result->x, result->y, curve);
->> +out:
->>          vli_mod_inv(z, z, curve->p, ndigits);
->>          apply_z(result->x, result->y, z, curve);
->>   }
->> @@ -1465,22 +1478,38 @@ void ecc_point_mult_shamir(const struct ecc_point *result,
->>          vli_set(rx, point->x, ndigits);
->>          vli_set(ry, point->y, ndigits);
->>          vli_clear(z + 1, ndigits - 1);
->> -       z[0] = 1;
->> +       z[0] = !ecc_point_is_zero(point);
->>
->>          for (--i; i >= 0; i--) {
->>                  ecc_point_double_jacobian(rx, ry, z, curve);
->>                  idx = !!vli_test_bit(u1, i);
->>                  idx |= (!!vli_test_bit(u2, i)) << 1;
->>                  point = points[idx];
->> -               if (point) {
->> +               if (point && !ecc_point_is_zero(point)) {
->>                          u64 tx[ECC_MAX_DIGITS];
->>                          u64 ty[ECC_MAX_DIGITS];
->>                          u64 tz[ECC_MAX_DIGITS];
->>
->> +                       if (vli_is_zero(z, ndigits)) {
->> +                               /* Adding to infinity starts a new accumulator. */
->> +                               vli_set(rx, point->x, ndigits);
->> +                               vli_set(ry, point->y, ndigits);
->> +                               z[0] = 1;
->> +                               continue;
->> +                       }
->>                          vli_set(tx, point->x, ndigits);
->>                          vli_set(ty, point->y, ndigits);
->>                          apply_z(tx, ty, z, curve);
->>                          vli_mod_sub(tz, rx, tx, curve->p, ndigits);
->> +                       if (vli_is_zero(tz, ndigits)) {
->> +                               if (!vli_cmp(ry, ty, ndigits))
->> +                                       ecc_point_double_jacobian(rx, ry, z,
->> +                                                                 curve);
->> +                               else
->> +                                       /* Adding opposite points yields infinity. */
->> +                                       vli_clear(z, ndigits);
->> +                               continue;
->> +                       }
->>                          xycz_add(tx, ty, rx, ry, curve);
->>                          vli_mod_mult_fast(z, z, tz, curve);
->>                  }
->> diff --git a/crypto/testmgr.c b/crypto/testmgr.c
->> index 4958211fbfa9..9419d61d0602 100644
->> --- a/crypto/testmgr.c
->> +++ b/crypto/testmgr.c
->> @@ -3958,16 +3958,17 @@ static int test_sig_one(struct crypto_sig *tfm, const struct sig_testvec *vecs)
->>           */
->>          err = crypto_sig_verify(tfm, vecs->c, vecs->c_size,
->>                                  vecs->m, vecs->m_size);
->> -       if (err) {
->> -               pr_err("alg: sig: verify test failed: err %d\n", err);
->> -               return err;
->> +       if (err != vecs->verify_error) {
->> +               pr_err("alg: sig: verify test failed: expected %d, got %d\n",
->> +                      vecs->verify_error, err);
->> +               return err ?: -EINVAL;
->>          }
->>
->>          /*
->>           * Don't invoke sign test (which requires a private key)
->> -        * for vectors with only a public key.
->> +        * for vectors with only a public key or an invalid signature.
->>           */
->> -       if (vecs->public_key_vec)
->> +       if (vecs->public_key_vec || vecs->verify_error)
->>                  return 0;
->>
->>          sig_size = crypto_sig_maxsize(tfm);
->> diff --git a/crypto/testmgr.h b/crypto/testmgr.h
->> index c4a15e714ecd..0ee15a8fae27 100644
->> --- a/crypto/testmgr.h
->> +++ b/crypto/testmgr.h
->> @@ -161,6 +161,7 @@ struct sig_testvec {
->>          unsigned int param_len;
->>          unsigned int m_size;
->>          unsigned int c_size;
->> +       int verify_error;
->>          bool public_key_vec;
->>          enum OID algo;
->>   };
->> @@ -1443,6 +1444,140 @@ static const struct sig_testvec x962_ecdsa_nist_p192_tv_template[] = {
->>   };
->>
->>   static const struct sig_testvec x962_ecdsa_nist_p256_tv_template[] = {
->> +       /* Invalid signature: Q = G, r = s, e = 3r mod n. */
->> +       {
->> +       .key =
->> +       "\x04\x6b\x17\xd1\xf2\xe1\x2c\x42\x47\xf8\xbc\xe6\xe5\x63\xa4\x40"
->> +       "\xf2\x77\x03\x7d\x81\x2d\xeb\x33\xa0\xf4\xa1\x39\x45\xd8\x98\xc2"
->> +       "\x96\x4f\xe3\x42\xe2\xfe\x1a\x7f\x9b\x8e\xe7\xeb\x4a\x7c\x0f\x9e"
->> +       "\x16\x2b\xce\x33\x57\x6b\x31\x5e\xce\xcb\xb6\x40\x68\x37\xbf\x51"
->> +       "\xf5",
->> +       .key_len = 65,
->> +       .m =
->> +       "\xb2\xc3\x09\x72\x03\x17\x9d\xaa\x5c\x4a\xd8\xff\x02\xfe\xcb\x15"
->> +       "\x21\x53\x81\x77\x45\xec\x45\x24\x3d\x68\x10\xb9\xf2\xa5\x88\x3a",
->> +       .m_size = 32,
->> +       .c =
->> +       "\x30\x46\x02\x21\x00\x90\xeb\xad\xd0\x56\x5d\x34\x8e\x74\x18\xf2"
->> +       "\xff\xab\xaa\x43\xb1\x9f\x68\xd4\x0c\x4f\x01\x4b\xe3\x10\x60\x9e"
->> +       "\x7e\xfa\x58\x39\xd9\x02\x21\x00\x90\xeb\xad\xd0\x56\x5d\x34\x8e"
->> +       "\x74\x18\xf2\xff\xab\xaa\x43\xb1\x9f\x68\xd4\x0c\x4f\x01\x4b\xe3"
->> +       "\x10\x60\x9e\x7e\xfa\x58\x39\xd9",
->> +       .c_size = 72,
->> +       .verify_error = -EKEYREJECTED,
->> +       .public_key_vec = true,
->> +       },
->> +       /* Invalid signature: Q = -G, r = s, e = 3r mod n. */
->> +       {
->> +       .key =
->> +       "\x04\x6b\x17\xd1\xf2\xe1\x2c\x42\x47\xf8\xbc\xe6\xe5\x63\xa4\x40"
->> +       "\xf2\x77\x03\x7d\x81\x2d\xeb\x33\xa0\xf4\xa1\x39\x45\xd8\x98\xc2"
->> +       "\x96\xb0\x1c\xbd\x1c\x01\xe5\x80\x65\x71\x18\x14\xb5\x83\xf0\x61"
->> +       "\xe9\xd4\x31\xcc\xa9\x94\xce\xa1\x31\x34\x49\xbf\x97\xc8\x40\xae"
->> +       "\x0a",
->> +       .key_len = 65,
->> +       .m =
->> +       "\xb2\xc3\x09\x72\x03\x17\x9d\xaa\x5c\x4a\xd8\xff\x02\xfe\xcb\x15"
->> +       "\x21\x53\x81\x77\x45\xec\x45\x24\x3d\x68\x10\xb9\xf2\xa5\x88\x3a",
->> +       .m_size = 32,
->> +       .c =
->> +       "\x30\x46\x02\x21\x00\x90\xeb\xad\xd0\x56\x5d\x34\x8e\x74\x18\xf2"
->> +       "\xff\xab\xaa\x43\xb1\x9f\x68\xd4\x0c\x4f\x01\x4b\xe3\x10\x60\x9e"
->> +       "\x7e\xfa\x58\x39\xd9\x02\x21\x00\x90\xeb\xad\xd0\x56\x5d\x34\x8e"
->> +       "\x74\x18\xf2\xff\xab\xaa\x43\xb1\x9f\x68\xd4\x0c\x4f\x01\x4b\xe3"
->> +       "\x10\x60\x9e\x7e\xfa\x58\x39\xd9",
->> +       .c_size = 72,
->> +       .verify_error = -EKEYREJECTED,
->> +       .public_key_vec = true,
->> +       },
->> +       /* Wycheproof secp256r1/SHA-256 tcId 60. */
->> +       {
->> +       .key =
->> +       "\x04\x29\x27\xb1\x05\x12\xba\xe3\xed\xdc\xfe\x46\x78\x28\x12\x8b"
->> +       "\xad\x29\x03\x26\x99\x19\xf7\x08\x60\x69\xc8\xc4\xdf\x6c\x73\x28"
->> +       "\x38\xc7\x78\x79\x64\xea\xac\x00\xe5\x92\x1f\xb1\x49\x8a\x60\xf4"
->> +       "\x60\x67\x66\xb3\xd9\x68\x50\x01\x55\x8d\x1a\x97\x4e\x73\x41\x51"
->> +       "\x3e",
->> +       .key_len = 65,
->> +       .m =
->> +       "\x70\x23\x9d\xd8\x77\xf7\xc9\x44\xc4\x22\xf4\x4d\xea\x4e\xd1\xa5"
->> +       "\x2f\x26\x27\x41\x6f\xaf\x2f\x07\x2f\xa5\x0c\x77\x2e\xd6\xf8\x07",
->> +       .m_size = 32,
->> +       .c =
->> +       "\x30\x44\x02\x20\x64\xa1\xaa\xb5\x00\x0d\x0e\x80\x4f\x3e\x2f\xc0"
->> +       "\x2b\xde\xe9\xbe\x8f\xf3\x12\x33\x4e\x2b\xa1\x6d\x11\x54\x7c\x97"
->> +       "\x71\x1c\x89\x8e\x02\x20\x6a\xf0\x15\x97\x1c\xc3\x0b\xe6\xd1\xa2"
->> +       "\x06\xd4\xe0\x13\xe0\x99\x77\x72\xa2\xf9\x1d\x73\x28\x6f\xfd\x68"
->> +       "\x3b\x9b\xb2\xcf\x4f\x1b",
->> +       .c_size = 70,
->> +       .public_key_vec = true,
->> +       },
->> +       /* Wycheproof secp256r1/SHA-256 tcId 210. */
->> +       {
->> +       .key =
->> +       "\x04\xc6\xa7\x71\x52\x70\x24\x22\x77\x92\x17\x0a\x6f\x8e\xee\x73"
->> +       "\x5b\xf3\x2b\x7f\x98\xaf\x66\x9e\xad\x29\x98\x02\xe3\x2d\x7c\x31"
->> +       "\x07\xbc\x3b\x4b\x5e\x65\xab\x88\x7b\xbd\x34\x35\x72\xb3\xe5\x61"
->> +       "\x92\x61\xfe\x3a\x07\x3e\x2f\xfd\x78\x41\x2f\x72\x68\x67\xdb\x58"
->> +       "\x9e",
->> +       .key_len = 65,
->> +       .m =
->> +       "\xbb\x5a\x52\xf4\x2f\x9c\x92\x61\xed\x43\x61\xf5\x94\x22\xa1\xe3"
->> +       "\x00\x36\xe7\xc3\x2b\x27\x0c\x88\x07\xa4\x19\xfe\xca\x60\x50\x23",
->> +       .m_size = 32,
->> +       .c =
->> +       "\x30\x45\x02\x20\x7c\xf2\x7b\x18\x8d\x03\x4f\x7e\x8a\x52\x38\x03"
->> +       "\x04\xb5\x1a\xc3\xc0\x89\x69\xe2\x77\xf2\x1b\x35\xa6\x0b\x48\xfc"
->> +       "\x47\x66\x99\x78\x02\x21\x00\xb6\xdb\x6d\xb6\x24\x92\x49\x25\x49"
->> +       "\x24\x92\x49\x24\x92\x49\x24\x62\x5b\xd7\xa0\x9b\xec\x4c\xa8\x1b"
->> +       "\xcd\xd9\xf8\xfd\x6b\x63\xcc",
->> +       .c_size = 71,
->> +       .public_key_vec = true,
->> +       },
->> +       /* Q = G, d = 1, k = 2. */
->> +       {
->> +       .key =
->> +       "\x04\x6b\x17\xd1\xf2\xe1\x2c\x42\x47\xf8\xbc\xe6\xe5\x63\xa4\x40"
->> +       "\xf2\x77\x03\x7d\x81\x2d\xeb\x33\xa0\xf4\xa1\x39\x45\xd8\x98\xc2"
->> +       "\x96\x4f\xe3\x42\xe2\xfe\x1a\x7f\x9b\x8e\xe7\xeb\x4a\x7c\x0f\x9e"
->> +       "\x16\x2b\xce\x33\x57\x6b\x31\x5e\xce\xcb\xb6\x40\x68\x37\xbf\x51"
->> +       "\xf5",
->> +       .key_len = 65,
->> +       .m =
->> +       "\x35\x9d\x17\x29\xb9\x1a\x52\xe9\x8b\xb5\x95\xc3\x86\x28\x3c\x10"
->> +       "\x30\x44\x95\x1a\xa1\x08\x20\xf0\xa0\x22\xc4\x18\xc2\x71\xa0\xcc",
->> +       .m_size = 32,
->> +       .c =
->> +       "\x30\x44\x02\x20\x7c\xf2\x7b\x18\x8d\x03\x4f\x7e\x8a\x52\x38\x03"
->> +       "\x04\xb5\x1a\xc3\xc0\x89\x69\xe2\x77\xf2\x1b\x35\xa6\x0b\x48\xfc"
->> +       "\x47\x66\x99\x78\x02\x20\x59\x47\xc9\x21\x23\x0e\xd1\x34\x0b\x03"
->> +       "\xe6\xe3\x45\x6e\xab\x69\xf8\x66\xff\x7e\x8c\x7d\x1e\x13\x23\x17"
->> +       "\x06\x8a\x84\xec\x1d\x22",
->> +       .c_size = 70,
->> +       .public_key_vec = true,
->> +       },
->> +       /* Q = -G, d = n - 1, k = 2. */
->> +       {
->> +       .key =
->> +       "\x04\x6b\x17\xd1\xf2\xe1\x2c\x42\x47\xf8\xbc\xe6\xe5\x63\xa4\x40"
->> +       "\xf2\x77\x03\x7d\x81\x2d\xeb\x33\xa0\xf4\xa1\x39\x45\xd8\x98\xc2"
->> +       "\x96\xb0\x1c\xbd\x1c\x01\xe5\x80\x65\x71\x18\x14\xb5\x83\xf0\x61"
->> +       "\xe9\xd4\x31\xcc\xa9\x94\xce\xa1\x31\x34\x49\xbf\x97\xc8\x40\xae"
->> +       "\x0a",
->> +       .key_len = 65,
->> +       .m =
->> +       "\x35\x9d\x17\x29\xb9\x1a\x52\xe9\x8b\xb5\x95\xc3\x86\x28\x3c\x10"
->> +       "\x30\x44\x95\x1a\xa1\x08\x20\xf0\xa0\x22\xc4\x18\xc2\x71\xa0\xcc",
->> +       .m_size = 32,
->> +       .c =
->> +       "\x30\x45\x02\x20\x7c\xf2\x7b\x18\x8d\x03\x4f\x7e\x8a\x52\x38\x03"
->> +       "\x04\xb5\x1a\xc3\xc0\x89\x69\xe2\x77\xf2\x1b\x35\xa6\x0b\x48\xfc"
->> +       "\x47\x66\x99\x78\x02\x21\x00\xdc\x55\x4e\x07\x96\x0b\x81\xb6\x80"
->> +       "\xb1\xae\xe0\x40\xb9\x90\xa5\xf4\xc4\x90\x49\xbb\xa2\xa1\x62\x70"
->> +       "\xc5\x88\x51\x39\xe8\xa8\xfb",
->> +       .c_size = 71,
->> +       .public_key_vec = true,
->> +       },
->>          {
->>          .key = /* secp256r1(sha1) */
->>          "\x04\xb9\x7b\xbb\xd7\x17\x64\xd2\x7e\xfc\x81\x5d\x87\x06\x83\x41"
->> @@ -1827,7 +1962,8 @@ static const struct sig_testvec p1363_ecdsa_nist_p256_tv_template[] = {
->>   };
->>
->>   /*
->> - * EC-RDSA test vectors are generated by gost-engine.
->> + * EC-RDSA test vectors generated by gost-engine, followed by constructed
->> + * exceptional-point regression vectors.
->>    */
->>   static const struct sig_testvec ecrdsa_tv_template[] = {
->>          {
->> @@ -1973,6 +2109,195 @@ static const struct sig_testvec ecrdsa_tv_template[] = {
->>          .m_size = 64,
->>          .public_key_vec = true,
->>          },
->> +       /*
->> +        * Constructed EC-RDSA exceptional-point vectors.
->> +        * With Q = dG, choose k = z1 + d*z2 (mod n), r = x(kG) mod n,
->> +        * e = -r/z2 (mod n), and s = r*d + k*e (mod n).
->> +        * The input digest is e, encoded little-endian.
->> +        */
->> +       /* cp256a: Q=G, z1 = 3, z2 = 1. */
->> +       {
->> +       .key =
->> +       "\x04\x40\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
->> +       "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
->> +       "\x00\x00\x14\x1e\x9f\x9e\x9c\xc9\xac\x22\xb1\xe3\x23\xdf\x2d\x4f"
->> +       "\x29\x35\x76\x2b\x3f\x45\x5a\x50\xdf\x27\xda\x9c\x98\xe0\x71\xe4"
->> +       "\x91\x8d",
->> +       .key_len = 66,
->> +       .params = /* OID_gostCPSignA */
->> +       "\x30\x13\x06\x07\x2a\x85\x03\x02\x02\x23\x01\x06\x08\x2a\x85\x03"
->> +       "\x07\x01\x01\x02\x02",
->> +       .param_len = 21,
->> +       .c =
->> +       "\x1a\xed\x44\xae\xd4\x4a\xed\x44\xae\xd4\x4a\xed\x44\xae\xd4\x49"
->> +       "\x32\x67\xe0\x26\x16\xfd\xb7\xaf\xa4\xd7\x3e\x61\xd4\xf9\x7b\x94"
->> +       "\xf7\x06\x3e\x70\x63\xe7\x06\x3e\x70\x63\xe7\x06\x3e\x70\x63\xe7"
->> +       "\x06\x3e\x70\x63\xe7\x06\x3e\x70\x63\xe7\x06\x3e\x70\x63\xe4\xb7",
->> +       .c_size = 64,
->> +       .m =
->> +       "\xdc\xd3\xfd\x46\xcb\x14\x9d\xe1\x8f\x92\x54\xb2\x0c\xa0\x22\x66"
->> +       "\x18\x9c\x8f\xc1\xf9\x18\x9c\x8f\xc1\xf9\x18\x9c\x8f\xc1\xf9\x08",
->> +       .m_size = 32,
->> +       .algo = OID_gost2012PKey256,
->> +       .public_key_vec = true,
->> +       },
->> +       /* cp256a: Q=-G, z1 = 7, z2 = 6. */
->> +       {
->> +       .key =
->> +       "\x04\x40\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
->> +       "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
->> +       "\x00\x00\x83\xdf\x60\x61\x63\x36\x53\xdd\x4e\x1c\xdc\x20\xd2\xb0"
->> +       "\xd6\xca\x89\xd4\xc0\xba\xa5\xaf\x20\xd8\x25\x63\x67\x1f\x8e\x1b"
->> +       "\x6e\x72",
->> +       .key_len = 66,
->> +       .params = /* OID_gostCPSignA */
->> +       "\x30\x13\x06\x07\x2a\x85\x03\x02\x02\x23\x01\x06\x08\x2a\x85\x03"
->> +       "\x07\x01\x01\x02\x02",
->> +       .param_len = 21,
->> +       .c =
->> +       "\x2a\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa"
->> +       "\x92\x10\x2d\x68\x19\x8f\x22\xd5\x60\xeb\x59\xd6\xf3\xe5\x9e\xc2"
->> +       "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
->> +       "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01",
->> +       .c_size = 64,
->> +       .m =
->> +       "\xc3\x9e\xe5\xf3\xd6\x59\xeb\x60\xd5\x22\x8f\x19\x68\x2d\x10\x92"
->> +       "\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\x2a",
->> +       .m_size = 32,
->> +       .algo = OID_gost2012PKey256,
->> +       .public_key_vec = true,
->> +       },
->> +       /* cp256a: Q=-2G, z1 = 5, z2 = 2. */
->> +       {
->> +       .key =
->> +       "\x04\x40\x95\xfd\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
->> +       "\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
->> +       "\xff\xff\x14\x1e\x9f\x9e\x9c\xc9\xac\x22\xb1\xe3\x23\xdf\x2d\x4f"
->> +       "\x29\x35\x76\x2b\x3f\x45\x5a\x50\xdf\x27\xda\x9c\x98\xe0\x71\xe4"
->> +       "\x91\x8d",
->> +       .key_len = 66,
->> +       .params = /* OID_gostCPSignA */
->> +       "\x30\x13\x06\x07\x2a\x85\x03\x02\x02\x23\x01\x06\x08\x2a\x85\x03"
->> +       "\x07\x01\x01\x02\x02",
->> +       .param_len = 21,
->> +       .c =
->> +       "\x7f\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
->> +       "\xb6\x30\x88\x38\x4c\xad\x68\x80\x22\xc2\x0d\x84\xdb\xb0\xdc\x47"
->> +       "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
->> +       "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01",
->> +       .c_size = 64,
->> +       .m =
->> +       "\x49\xdc\xb0\xdb\x84\x0d\xc2\x22\x80\x68\xad\x4c\x38\x88\x30\xb6"
->> +       "\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\x7f",
->> +       .m_size = 32,
->> +       .algo = OID_gost2012PKey256,
->> +       .public_key_vec = true,
->> +       },
->> +       /* tc512a: Q=G, z1 = 3, z2 = 1. */
->> +       {
->> +       .key =
->> +       "\x04\x81\x80\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
->> +       "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
->> +       "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
->> +       "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
->> +       "\x00\x00\x00\xa4\xf2\x15\x52\xcb\x89\xa5\x89\xb8\xf5\x35\xc2\x5f"
->> +       "\xfe\x28\x80\xe9\x41\x3a\x0e\xa5\xe6\x75\x3d\xe9\x36\xd0\x4f\xbe"
->> +       "\x26\x16\xdf\x21\xa9\xef\xcb\xfd\x64\x80\x77\xc1\xab\xf1\xac\x93"
->> +       "\x1c\x5e\xce\xe6\x50\x54\xe2\x16\x88\x1b\xa6\xe3\x6a\x83\x7a\xe8"
->> +       "\xcf\x03\x75",
->> +       .key_len = 131,
->> +       .params = /* OID_gostTC26Sign512A */
->> +       "\x30\x0b\x06\x09\x2a\x85\x03\x07\x01\x02\x01\x02\x01",
->> +       .param_len = 13,
->> +       .c =
->> +       "\xd8\xc0\xd7\xe3\xfb\xa6\xca\xff\x6a\xd1\xb4\xb4\x82\x1d\x15\x6f"
->> +       "\xa7\xc7\xbd\x63\x95\xb8\x29\x0d\xd4\xfa\xb1\x1c\x36\xbd\x32\x8d"
->> +       "\x1a\xba\xf1\x2e\xbc\x7b\xf2\x02\x96\xf8\xef\x2a\x5e\x72\x64\x86"
->> +       "\x67\x62\xfb\x62\x8e\x83\x53\x63\xb7\xe6\x78\x3c\x42\xd7\x0d\x1d"
->> +       "\xb7\xbf\xb8\x09\x56\xc8\x67\x00\x31\xba\x19\x19\x29\xf6\x4e\x30"
->> +       "\x1d\x68\x16\x34\x23\x6d\x47\xa6\x0e\x57\x1a\x4b\xed\xc0\xef\x25"
->> +       "\x74\x52\xef\x78\xb5\xb9\x8d\xbb\x3d\x9f\x31\x29\xd9\x34\x94\x33"
->> +       "\xce\x2a\x3a\x35\xcb\x51\x9c\x91\xe2\xd6\x33\xd7\xb3\x73\xae\x16",
->> +       .c_size = 128,
->> +       .m =
->> +       "\x5f\x04\x9d\x6b\x69\x7d\xf7\xe7\xcb\x1b\x81\x2f\x76\xfe\x20\xcd"
->> +       "\x2c\xcc\xd0\x74\x63\xfa\x52\x32\x56\xfb\xd3\x3e\xba\xa5\x93\xb3"
->> +       "\xd9\x10\x3f\x12\xb4\xe5\xa8\xf1\x59\xb8\x92\xdc\xcb\xe9\x97\xe2"
->> +       "\xcf\xb1\x09\xd6\xe6\xe6\x45\xce\xff\x98\x37\xa9\xf6\x47\x40\x48",
->> +       .m_size = 64,
->> +       .algo = OID_gost2012PKey512,
->> +       .public_key_vec = true,
->> +       },
->> +       /* tc512a: Q=-G, z1 = 7, z2 = 6. */
->> +       {
->> +       .key =
->> +       "\x04\x81\x80\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
->> +       "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
->> +       "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
->> +       "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
->> +       "\x00\x00\x00\x23\x0b\xea\xad\x34\x76\x5a\x76\x47\x0a\xca\x3d\xa0"
->> +       "\x01\xd7\x7f\x16\xbe\xc5\xf1\x5a\x19\x8a\xc2\x16\xc9\x2f\xb0\x41"
->> +       "\xd9\xe9\x20\xde\x56\x10\x34\x02\x9b\x7f\x88\x3e\x54\x0e\x53\x6c"
->> +       "\xe3\xa1\x31\x19\xaf\xab\x1d\xe9\x77\xe4\x59\x1c\x95\x7c\x85\x17"
->> +       "\x30\xfc\x8a",
->> +       .key_len = 131,
->> +       .params = /* OID_gostTC26Sign512A */
->> +       "\x30\x0b\x06\x09\x2a\x85\x03\x07\x01\x02\x01\x02\x01",
->> +       .param_len = 13,
->> +       .c =
->> +       "\x7f\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
->> +       "\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
->> +       "\x93\xf3\x4a\x99\x7a\x46\xc4\x88\xb7\xf9\x15\xc6\xa7\x02\xb0\x30"
->> +       "\x4d\xa5\x9c\x55\xfd\x69\x5c\x2e\xe5\x66\xd8\xa0\x8f\x88\x59\x37"
->> +       "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
->> +       "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
->> +       "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
->> +       "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03",
->> +       .c_size = 128,
->> +       .m =
->> +       "\x3a\x59\x88\x8f\xa0\xd8\x66\xe5\x2e\x5c\x69\xfd\x55\x9c\xa5\x4d"
->> +       "\x30\xb0\x02\xa7\xc6\x15\xf9\xb7\x88\xc4\x46\x7a\x99\x4a\xf3\x93"
->> +       "\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
->> +       "\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\x7f",
->> +       .m_size = 64,
->> +       .algo = OID_gost2012PKey512,
->> +       .public_key_vec = true,
->> +       },
->> +       /* tc512a: Q=-2G, z1 = 5, z2 = 2. */
->> +       {
->> +       .key =
->> +       "\x04\x81\x80\x7c\x13\xea\xd2\xd9\xaf\x82\xb9\x1f\xb2\xfd\xe1\x8d"
->> +       "\xf4\x5b\x37\xe4\xf2\x04\x6a\x2a\x1d\x15\x16\x95\x2a\x5d\x40\xcd"
->> +       "\xbb\x34\x44\x2f\x2b\x13\x0a\x47\xb0\xf6\xe5\xa5\x58\x3a\xf4\x54"
->> +       "\x09\xb0\x1d\xf5\x5c\xf1\xbf\x9d\x86\xa5\x97\xab\x96\x29\x62\xfc"
->> +       "\xdc\x89\x3b\x76\x3d\x50\x6e\x8a\xcf\x02\x4c\x74\x0e\x6e\xe0\x1f"
->> +       "\x28\xab\x27\x9b\x20\x02\xc8\xc4\x12\xcb\x8a\xe3\xa4\x27\xce\x39"
->> +       "\x62\xdf\x35\x6d\xc1\x65\x7f\x7b\x48\x90\x11\x8f\x19\x7c\x1e\x67"
->> +       "\x91\x97\xeb\x90\x85\x25\xfc\x86\xb3\x88\x6e\x5c\x57\x1f\x1d\x1d"
->> +       "\x3b\xec\x37",
->> +       .key_len = 131,
->> +       .params = /* OID_gostTC26Sign512A */
->> +       "\x30\x0b\x06\x09\x2a\x85\x03\x07\x01\x02\x01\x02\x01",
->> +       .param_len = 13,
->> +       .c =
->> +       "\x7f\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
->> +       "\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
->> +       "\x93\xf3\x4a\x99\x7a\x46\xc4\x88\xb7\xf9\x15\xc6\xa7\x02\xb0\x30"
->> +       "\x4d\xa5\x9c\x55\xfd\x69\x5c\x2e\xe5\x66\xd8\xa0\x8f\x88\x59\x33"
->> +       "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
->> +       "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
->> +       "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
->> +       "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03",
->> +       .c_size = 128,
->> +       .m =
->> +       "\x39\x59\x88\x8f\xa0\xd8\x66\xe5\x2e\x5c\x69\xfd\x55\x9c\xa5\x4d"
->> +       "\x30\xb0\x02\xa7\xc6\x15\xf9\xb7\x88\xc4\x46\x7a\x99\x4a\xf3\x93"
->> +       "\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
->> +       "\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\x7f",
->> +       .m_size = 64,
->> +       .algo = OID_gost2012PKey512,
->> +       .public_key_vec = true,
->> +       },
->>   };
->>
->>   /*
->>
->> base-commit: 165768bb70265b5c38cf0b73fafd75be235f8b14
->> --
->> 2.47.3
->>
->>
-> 
-> Thanks
+Fixes: 97d7ab9f51ec ("wifi: mt76: mt7925: add EHT radiotap support in monitor mode")
+Cc: stable@vger.kernel.org
+Tested-by: Devin Wittmayer <lucid_duck@justthetip.ca>
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Chris Kelly <hoopyfrood42@gmail.com>
+---
+ drivers/net/wireless/mediatek/mt76/mt76_connac3_mac.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/drivers/net/wireless/mediatek/mt76/mt76_connac3_mac.c b/drivers/net/wireless/mediatek/mt76/mt76_connac3_mac.c
+index 651fcd4..0ed8ee7 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt76_connac3_mac.c
++++ b/drivers/net/wireless/mediatek/mt76/mt76_connac3_mac.c
+@@ -210,6 +210,17 @@ void mt76_connac3_mac_decode_eht_radiotap(struct sk_buff *skb, __le32 *rxv,
+ 		      "Should push tlv at the top of mac hdr"))
+ 		return;
+ 
++	/* The TLVs are pushed in front of the frame, into its headroom. The
++	 * skb is built over the rx buffer with nothing reserved, on USB and
++	 * PCIe alike, so that headroom is only the RX descriptor just pulled:
++	 * 48 bytes with the P-RXV and no C-RXV, less than the 64 the EHT and
++	 * U-SIG TLVs take, and skb_push() past skb->head is a kernel BUG.
++	 * Leave the EHT fields out then.
++	 */
++	if (skb_headroom(skb) < 2 * sizeof(struct ieee80211_radiotap_tlv) +
++				sizeof(*eht) + sizeof(u32) + sizeof(*usig))
++		return;
++
+ 	eht = mt76_connac3_mac_radiotap_push_tlv(skb, IEEE80211_RADIOTAP_EHT,
+ 						 sizeof(*eht) + sizeof(u32));
+ 	usig = mt76_connac3_mac_radiotap_push_tlv(skb, IEEE80211_RADIOTAP_EHT_USIG,
+-- 
+2.55.0.windows.3
 
