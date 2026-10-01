@@ -1,77 +1,76 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-qk2-f41.google.com (mail-qk2-f41.google.com [74.125.230.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA5123B4EBD
-	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 09:57:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29B3646983C
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 10:01:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790848631; cv=none; b=EbhVzUylYUdyXi16ClIS/izMoWR/9OcCxqJBdwR8W/t+9ZZLMA+AH+H7QdyYknMBd+Lw9R5hs6FWe9ERYt3coZCmQ76p1KAXJntPJyCGM/DqDSbDAoVODUuyXvjya8EW+od/DiGjyIlVQXKEtZbLoPyj3QMJthRVCdcsyEBwazo=
+	t=1790848872; cv=none; b=SHDujX7GHx9DM+8CEsx9g+d7UrzEniuDRoK0uT1mkXe7fhpreP+ftDMA7U0nEurgAPr7x6QQ1+PyJC5LpyFeqQ1zWiM81JkCfXFG2yKdTeefOrSs/sThEZ2zoyWm69/NRK4TugfpCA8qe6O0+dSXqQ9rm1O4KZEVIkI2XuJVYrg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790848631; c=relaxed/simple;
-	bh=C2eBZXTj7z4JargxfKoe48rn4iOm6Qbo6aOlsrmLXyg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bT4gC+B+zrDOpPJ9hTZFSoGueubNQj9ez4Qia7zYT9/6libWQbwl44rs6mPTr5bZhjNNu9gFifZP0pqrTYtESCXMqbQUtkWqI9gnrWWdaUR2NnZBB0uff62MktOumJrMEu8076JnAeXhY2gNC5/GOV+TAID1QwrpZV8ETdAXtcY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m0MVjWAZ; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790848872; c=relaxed/simple;
+	bh=ipiq9H8XzNQS+o0+COYIT39cFbKB4Awtyn7z3MAMDvI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=c/iUCI4AZTY671BUVL7Ltu4zPKD1NqJkoZ8MpcK63ExxCLoqCRlFrO/DlcVOj96oa8UGLIRppJizroL/BKoa9jFjbNIIHI+68d510AuanblEV5j09it3FPm5/PKp8OVys7TPg1BGVW3INznhpyzGv7rdadeWZwwOlMxhx6PUdy8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=bmzJnsBD; arc=none smtp.client-ip=74.125.230.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m0MVjWAZ"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so38804275e9.0
-        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 02:57:07 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="bmzJnsBD"
+Received: by mail-qk2-f41.google.com with SMTP id af79cd13be357-93c5818c4a4so430882785a.3
+        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 03:01:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790848626; x=1791453426; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BzZubT1XUHSGbDZM1zvSP0sHOYv28Uuy2JZcRRHm8fc=;
-        b=m0MVjWAZYekfTNHpYDmSS91S/p9gd9tkwNst2XbJe4+jSWJPFor0zO3jgeqoAVHFEL
-         pTL8tEpXB5njnNDs/SkpWcO5UanmvMRidArD2dYkMK85fXifRmVuiapKQwBbJSfzT7T3
-         t+L5e8mu+pa+Xyqd7B0+QvErC7H1KEX2NwtXviixpBUbib3VvTrQcgDjZ2vw1DbN+wsu
-         4ZncLN68cRp1ctv3Q5sInN3BP2iXsnZ/EPPmYdWrJx6wgaltbWjHYCTd8JaiTmXPWAh9
-         dzMsvG+UAuCjoXvX/TcXTZ0QWrsK/HaZyVuUz+DMuuR9WWX3kwN99fVvOOU9LptOEm+q
-         EJsw==
+        d=mojatatu.com; s=google; t=1790848869; x=1791453669; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=esnKie285mrgRlYsWWtvumiQ8ekXK64tqRDiZaGoaeo=;
+        b=bmzJnsBDt5N1w9D/imk8FNrWCye+R8KYUXb9Ld1Fa9C4zOyx1KbqnswcGz0YZEar4q
+         pdaegERJk4xbwqbTJzjisXfaSbJyuQf+bhEWFUMK6sw9wrDJClKKTrVTdPWPL5Qmf2hf
+         Gois91/QodIa8DmginwSnaHlv2hMIihuz75PA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790848626; x=1791453426;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BzZubT1XUHSGbDZM1zvSP0sHOYv28Uuy2JZcRRHm8fc=;
-        b=aH6wCogIiwhvdk5bO3H0BLHjFRy3g3ZhDjRyNxHoNvPb0EgVgSsOtu6yiFf19v1aRY
-         u7Ed/bQ/0ZPMWWpS0bom3TJ2vEYhzfKd2mYxay+7vT1Xc9rWgxlnehmv2cQ69rEnCvHE
-         v52SkfB7lTxryox9WRl6gIXnr8xXa0pXgsWhcc7/uNyg1A7nwYj5JMqLa6rpLASKG24L
-         9TSY8uQx/4+h7D2OWMVN+JFLzsZ7qkSsZZTgz58PSHCTtiyZeGP83Qp7hXyeuWnT0kXn
-         rVJsBQ+6CaBQEFrhXF1Remz2oJQaqVMPdW5SiNcKjOnxjk/LQtlKnTspEFLKkRyfLM1y
-         PDZQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwAW9JgTAYu1gu7tSKrQeggUKp/zmf8+0VHTnXsXugSnK7TcCzAEscTBhXIXLF8bM7X5sovTRk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mdXvCbu+awpGeO7knHZmMAOTMh1rCvRF2hF6fQT1+YqmQTPbHH
-	NLfu9tQFXEHiBx+pgyMtmrxCSbNh+Oa/BgvKWu9BL8hxASFK/KlUmGfs
-X-Gm-Gg: AYBFou3OQZYeTuBy3J6ZUq3VaXgRx0F/TnnZJZc2pIc9V31EVoqWNV2vohOHZHXZIrP
-	74yWmGj7GS3ivI2Fyl0xnnvlqvxwKRG/OGdRtigzd8wBF3K7TAoHimHLAQiHjTh4lBSQ1X/r30L
-	ecCHqd+xWYyO8PfTROpifDqLfRZMrgTo7tPFnHPClEPaK8s51tu5JL30sduTDOWWYoC5L9RjBwO
-	gcusVkemH/P8X27t+P8N0/D+zXc7vh5PUBuyB/vbQ7LeKQt63pNxp9yW3MW/92ohOZ+dJAvhtRn
-	ZJWo5xOSsmfAVIXvKOojdnloduKYiz8SS9EC7axnJ0EstgZHKKRvhHRY2c6arz6kVO9PKk50L14
-	C0RD0YAUsu/MdVGKRF6rYE4xniZKW5sHd2hOr6nOW9TCvdYOJ7lJTzfDvFTCAynU8/Z+K9T5cIl
-	6Z5U4d07nsyuNuQJIWKz7BMjOlK/aiHJO0irkJO4aCa4ZPMf1/E8mO2Bln//q/UrfbwuZIyXYtq
-	0Hh8NFhYnepYJx5dSFTtEuE
-X-Received: by 2002:a05:600c:19cb:b0:4a0:1c17:4fb2 with SMTP id 5b1f17b1804b1-4a01c175025mr58235685e9.31.1790848625739;
-        Thu, 01 Oct 2026 02:57:05 -0700 (PDT)
-Received: from fedora.tail922d40.ts.net ([213.55.185.65])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f99a332sm105855845e9.12.2026.10.01.02.57.04
+        d=1e100.net; s=20260707; t=1790848869; x=1791453669;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=esnKie285mrgRlYsWWtvumiQ8ekXK64tqRDiZaGoaeo=;
+        b=SsAx1tycRhIkdktWY9MgdckEPAThL+PkzbSpETOzvdD1n3ToRkANgJ+fqTMPPEwOPZ
+         jxzhVpLDhwTWimqnsJdsfxWBZZKXSKy7HHOVxXuS0MjlWZujptBEtw4NEUk+JPAXkccj
+         4+nQGZg7EJMqf6agquzod48LtQUOD8Ok3oX0gC43BStQbps5ZsJyD8OgsXNspws7N63v
+         C3KtO6hths9ALxfGLQrzYHxPMpST7knOyOp3JQuDgwbCK5IwThqORtlTRuucD0G/AwPT
+         hlHaV8MFBwjmOZCewn2gOA/Up2f2fNaeOTYN51guB+pifsqyD573PE87fZ5fcUWxTqdF
+         g+og==
+X-Forwarded-Encrypted: i=1; AKwUvBxEs1kN7VXo8IopI2WT730DcDQAGXitJXNtRcQ0lrhtyWduA9Ka+Rhs89hMHjt/gDac7rbtSjs=@vger.kernel.org
+X-Gm-Message-State: AFuF++kyg8+ji01UQHz8c4BXvdytdi8KdlWLQdWm4D40vqMSO+3Xykml
+	cbky3/moE5CZhcwqD3Ir0d+oAregwkQY9haaIckTOiSfDyfHHfLN2kE5Wt5Qm/HsWQ==
+X-Gm-Gg: AYBFou1ozyrcWIWvW75mdhrZjLuMyJQGriePmdFLjzJtLNfmFsFw5KYzH1s5nSfQF+F
+	tfwz6hCHeyyWsYTiK7W1aWMbi1Zh/lqwqzkdWP25hLPh9h1/y7K26cD3fYbV7WhPD1nEHx/rjgy
+	wNUz6TUIwRUhH20K2ZDcvLxsb6g+kc+c45XQINAq3zE/htc704j3LdYprPegrhC/bY52LejTqdi
+	A5Tree9Xyf4BuwnTGaayWg53w2QKMWPmWOIOc/5pkx1AQffrbEwqFXLEMAaHYqSdIRC+eeNYUOK
+	cKcrtoGBqnIyla7KhayGimI71SPzfaTA9vcissOC91L03rm8xzdQ5K4Dq+kRV06gx3VAst7KT9B
+	ReBsmkk/5UvrHLBkBufyI6xPBCgXUWXAZcvaMMPOAr4Sw+SmDfexM6PJGuNGGh5wjCYEvexVajK
+	jG+aRNoKkLUGwU8n6kA1m8XfyvHuH+zTBQnAfBGHrZXAKRJtQrUeZdvNhIOiLJKcVjmsqGO3ATG
+	xClM3BtZ/P6u5c5SjT6czTS2t3pem4Gb2E1ZwhsOx2qGtMF8awQjsWKZKjm
+X-Received: by 2002:a05:620a:2253:10b0:93c:bb75:d8f0 with SMTP id af79cd13be357-93cbb75f281mr147814085a.27.1790848868695;
+        Thu, 01 Oct 2026 03:01:08 -0700 (PDT)
+Received: from majuu.waya ([184.147.180.207])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93cb657a11csm176651085a.35.2026.10.01.03.01.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 02:57:05 -0700 (PDT)
-From: Michal Szpakowski <michi.szpakowski@gmail.com>
-To: linux-input@vger.kernel.org,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: =?UTF-8?q?Ronald=20Tschal=C3=A4r?= <ronald@innovation.ch>,
-	Aditya Garg <gargaditya08@live.com>,
-	Lukas Wunner <lukas@wunner.de>,
+        Thu, 01 Oct 2026 03:01:07 -0700 (PDT)
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+To: netdev@vger.kernel.org
+Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
+	Victor Nogueira <victor@mojatatu.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	sashiko-bot@kernel.org,
+	hybris <hybris@mojatatu.ai>,
 	stable@vger.kernel.org
-Subject: [PATCH v2] Input: applespi - turn the keyboard backlight off across suspend
-Date: Thu,  1 Oct 2026 11:56:58 +0200
-Message-ID: <20261001095658.5821-1-michi.szpakowski@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261001084154.4703-1-michi.szpakowski@gmail.com>
-References: <20261001084154.4703-1-michi.szpakowski@gmail.com>
+Subject: [PATCH net] net/sched: act_gate: reject oversized dumps instead of wrapping them
+Date: Thu,  1 Oct 2026 06:00:54 -0400
+Message-Id: <QDISC-H19Z.v1.20261001053234@mojatatu.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,132 +79,108 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The keyboard backlight of the SPI topcase stays lit through s2idle: the
-driver's suspend handler only switches the caps-lock LED off, and the
-backlight LED is registered without LED_CORE_SUSPENDRESUME, so the LED
-core never gets to blank it. Under deep (S3) the rails go down anyway,
-which is why it only shows on machines that default to s2idle.
+This is a follow-up to commit cfa165cbfbed ("net/sched: act_gate: budget
+the per-entry list in get_fill_size") caught by Sashiko.
+cfa165cbfbed sized the add/get reply from the action's real dump but did
+not bound the entry count. An oversized gate therefore installs and its
+dump emits a structurally corrupt message instead of failing cleanly.
 
-Set the flag, and deal with the two things that follow from the LED
-core now sending a command of its own right before applespi_suspend():
+Sashiko also flagged the enlarged reply as potentially something that
+will crash the kernel with a memory-amplification / OOM vector.
+We were able to recreate this using panic_on_oom=1 (128 concurent
+threads GET on a VM sized at 1024M). In the past we have used
+panic_on_oom=1; however,  I am weighing-in that: if i have to
+create a crash using panic_on_oom=1 then that is a "hardening" issue
+and therefore left to net-next. See the discussion with Jakub
+(https://lore.kernel.org/netdev/20260914191108.55a1a4f1@kernel.org/).
+Note: The issue is resolvable using an entry-count cap, but:
+an entry-count cap would also reject gate configurations that work today,
+so it cannot justify a stable backport - so policy cap is for net-next;
+this patch closes only the malformed uAPI the sizing fix introduced.
 
-- The LED is a child of the SPI device, so its "off" command is queued
-  just before applespi_suspend() runs. The driver keeps one command in
-  flight, so the caps-lock command was skipped while that one was still
-  out, and then dropped by the drain. Wait for the write to finish first;
-  the completion now wakes the drain queue unconditionally so that this
-  wait has something to wake it.
+parse_gate_list() accepts any number of TCA_GATE_ONE_ENTRY elements; the
+only bound is the nlattr header, whose u16 nla_len caps the request at
+~5460 minimal 12-byte entries. That is fine for the request, but
+tcf_gate_dump() emits ~36 bytes per entry, so past ~1820 entries the
+TCA_GATE_ENTRY_LIST nest exceeds U16_MAX and nla_nest_end() writes a
+wrapped length. The enclosing TCA_ACT_OPTIONS and per-action nests wrap
+the same way, and the outermost TCA_ACT_TAB wraps first, at ~1815
+entries, so an oversized reply is already corrupt from there on.
 
-- The level the LED core blanks to would be what poweroff_late and
-  shutdown save to EFI for the next boot. Keep the last level the user
-  asked for in its own field, updated only while the LED is not
-  suspended, and save that instead.
+Close those four wrap-capable nests with nla_nest_end_safe(). It returns
+-EMSGSIZE instead of writing a wrapped length, and each site already has
+an error label that trims and fails the dump. The output is byte
+identical for every message that serializes; a message that would wrap
+now fails through the same path that returned a clean error before
+cfa165cbfbed, so no configuration that works today changes behavior.
 
-Tested on a MacBookPro13,1 (2016): 30 s of s2idle with the backlight at
-200/255 leaves it lit on the stock kernel; with this patch it goes dark
-at suspend and is back at 200 on wake, and a caps-lock LED that was on
-at suspend is off during the sleep and on again afterwards. A
-hibernation with the backlight at 200 leaves the level for 200 in the
-EFI variable instead of the blanked minimum.
+Conditions to recreate the bug: CONFIG_NET_SCH_ACT_GATE=y; install a gate
+with 1815 or more minimal TCA_GATE_ONE_ENTRY elements (12 bytes each on
+the wire, only TCA_GATE_ENTRY_INTERVAL set) and dump it with
+RTM_GETACTION. Up to 1814 entries the reply is well formed; from 1815 the
+outermost TCA_ACT_TAB nest length wraps (1821 for the innermost
+TCA_GATE_ENTRY_LIST). CONFIG_DEBUG_NET=y (default n) additionally trips a
+WARN in nla_nest_end(). Installing the gate needs CAP_NET_ADMIN in a user
+namespace; the RTM_GETACTION trigger needs no capability once the gate
+exists.
 
-Fixes: 038b1a05eae6 ("Input: add Apple SPI keyboard and trackpad driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Michal Szpakowski <michi.szpakowski@gmail.com>
+Fixes: cfa165cbfbed ("net/sched: act_gate: budget the per-entry list in get_fill_size")
+Reported-by: Sashiko (nipa) <sashiko-bot@kernel.org>
+Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260824153903.4143642-1-victor@mojatatu.com
+Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
 ---
-v2: address the two points from the automated review on v1 - the
-    caps-lock command racing the LED core's backlight command at
-    suspend, and the blanked level being saved to EFI at power-off.
+ net/sched/act_api.c  | 9 ++++++---
+ net/sched/act_gate.c | 3 ++-
+ 2 files changed, 8 insertions(+), 4 deletions(-)
 
- drivers/input/keyboard/applespi.c | 30 +++++++++++++++++++++++++-----
- 1 file changed, 25 insertions(+), 5 deletions(-)
-
---- a/drivers/input/keyboard/applespi.c
-+++ b/drivers/input/keyboard/applespi.c
-@@ -407,6 +407,7 @@
- 	bool				have_cl_led_on;
- 	unsigned int			want_bl_level;
- 	unsigned int			have_bl_level;
-+	unsigned int			bl_level_persist;
- 	unsigned int			cmd_msg_cntr;
- 	/* lock to protect the above parameters and flags below */
- 	spinlock_t			cmd_msg_lock;
-@@ -724,7 +725,7 @@
- 	if (is_write_msg)
- 		applespi->write_active = false;
- 
--	if (applespi->drain && !applespi->write_active)
-+	if (!applespi->write_active)
- 		wake_up_all(&applespi->drain_complete);
- 
- 	if (is_write_msg) {
-@@ -923,6 +924,14 @@
- 			 KBD_BL_LEVEL_MIN);
+diff --git a/net/sched/act_api.c b/net/sched/act_api.c
+index e45a63be397c..c7e87491a9fc 100644
+--- a/net/sched/act_api.c
++++ b/net/sched/act_api.c
+@@ -549,7 +549,8 @@ tcf_action_dump_1(struct sk_buff *skb, struct tc_action *a, int bind, int ref)
+ 		goto nla_put_failure;
+ 	err = tcf_action_dump_old(skb, a, bind, ref);
+ 	if (err > 0) {
+-		nla_nest_end(skb, nest);
++		if (nla_nest_end_safe(skb, nest) < 0)
++			goto nla_put_failure;
+ 		return err;
  	}
  
-+	/*
-+	 * The LED core blanks the backlight around suspend; that level is
-+	 * not what the user wants restored after a power-off, so keep the
-+	 * last one they asked for separately.
-+	 */
-+	if (!(led_cdev->flags & LED_SUSPENDED))
-+		applespi->bl_level_persist = applespi->want_bl_level;
-+
- 	applespi_send_cmd_msg(applespi);
- }
- 
-@@ -1772,6 +1781,7 @@
- 	applespi->backlight_info.name            = "spi::kbd_backlight";
- 	applespi->backlight_info.default_trigger = "kbd-backlight";
- 	applespi->backlight_info.brightness_set  = applespi_set_bl_level;
-+	applespi->backlight_info.flags           = LED_CORE_SUSPENDRESUME;
- 
- 	sts = devm_led_classdev_register(&spi->dev, &applespi->backlight_info);
- 	if (sts)
-@@ -1791,6 +1801,14 @@
- 	return 0;
- }
- 
-+static void applespi_wait_for_write(struct applespi_data *applespi)
-+{
-+	guard(spinlock_irqsave)(&applespi->cmd_msg_lock);
-+
-+	wait_event_lock_irq(applespi->drain_complete, !applespi->write_active,
-+			    applespi->cmd_msg_lock);
-+}
-+
- static void applespi_drain_writes(struct applespi_data *applespi)
- {
- 	guard(spinlock_irqsave)(&applespi->cmd_msg_lock);
-@@ -1829,7 +1847,7 @@
- {
- 	struct applespi_data *applespi = spi_get_drvdata(spi);
- 
--	applespi_save_bl_level(applespi, applespi->have_bl_level);
-+	applespi_save_bl_level(applespi, applespi->bl_level_persist);
- }
- 
- static int applespi_poweroff_late(struct device *dev)
-@@ -1837,7 +1855,7 @@
- 	struct spi_device *spi = to_spi_device(dev);
- 	struct applespi_data *applespi = spi_get_drvdata(spi);
- 
--	applespi_save_bl_level(applespi, applespi->have_bl_level);
-+	applespi_save_bl_level(applespi, applespi->bl_level_persist);
+@@ -1270,7 +1271,8 @@ int tcf_action_dump(struct sk_buff *skb, struct tc_action *actions[],
+ 			tcf_action_dump_1(skb, a, bind, ref);
+ 		if (err < 0)
+ 			goto errout;
+-		nla_nest_end(skb, nest);
++		if (nla_nest_end_safe(skb, nest) < 0)
++			goto nla_put_failure;
+ 	}
  
  	return 0;
- }
-@@ -1849,6 +1867,14 @@
- 	acpi_status acpi_sts;
- 	int sts;
+@@ -1684,7 +1686,8 @@ static int tca_get_fill(struct sk_buff *skb, struct tc_action *actions[],
+ 	if (tcf_action_dump(skb, actions, bind, ref, false) < 0)
+ 		goto out_nlmsg_trim;
  
-+	/*
-+	 * The backlight LED is a child of this device, so the LED core has
-+	 * just sent its "off" command; wait for it, or the caps-lock command
-+	 * is skipped (one command in flight at a time) and then dropped by the
-+	 * drain below.
-+	 */
-+	applespi_wait_for_write(applespi);
-+
- 	/* turn off caps-lock - it'll stay on otherwise */
- 	sts = applespi_set_capsl_led(applespi, false);
- 	if (sts)
+-	nla_nest_end(skb, nest);
++	if (nla_nest_end_safe(skb, nest) < 0)
++		goto out_nlmsg_trim;
+ 
+ 	nlh->nlmsg_len = skb_tail_pointer(skb) - b;
+ 
+diff --git a/net/sched/act_gate.c b/net/sched/act_gate.c
+index 6d6d45e03c07..14801c604bd9 100644
+--- a/net/sched/act_gate.c
++++ b/net/sched/act_gate.c
+@@ -654,7 +654,8 @@ static int tcf_gate_dump(struct sk_buff *skb, struct tc_action *a,
+ 			goto nla_put_failure;
+ 	}
+ 
+-	nla_nest_end(skb, entry_list);
++	if (nla_nest_end_safe(skb, entry_list) < 0)
++		goto nla_put_failure;
+ 
+ 	tcf_tm_dump(&t, &gact->tcf_tm);
+ 	if (nla_put_64bit(skb, TCA_GATE_TM, sizeof(t), &t, TCA_GATE_PAD))
+-- 
+2.43.0
+
