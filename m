@@ -1,149 +1,109 @@
-Received: from mail-yx2-f40.google.com (mail-yx2-f40.google.com [74.125.224.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA43652845D
-	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 15:32:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 301B3530DF0
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 15:35:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790868736; cv=none; b=Cgr7Dgp3oW9sfCtAkXJ7RSwqk8Z9ekuBDP8FCoThBc/mr8p0pvLTULWxGSQtZQrgLm3meDLftTpgnHJ6K3fWTXShwAWNrzVKuZTuI8XzwegLdLvy2d2BdwJoVl8TVDbUzY8vrMekYrwRx5nlU49FiW6MzK1XbPruoqmvMLe19is=
+	t=1790868932; cv=none; b=L/1L98r40jCHQG1V4fW4VVeln0skTHIj12wo1DNyEpElttdC51TUQku/F56y5ujvXDLlvWABEvwm44Yaakad+4Q4x66OUJi+itfd4MwzPzxiDwXPySa86eqoNkkdzexSEhvkbfOusmjDKg99yB6feHyBE0KhfQA9Q7XcoxGwkrE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790868736; c=relaxed/simple;
-	bh=awPd430K7tvGhVtyXPwAmbf2+LPoDRBKF7lw1teNL/g=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rQEFpL2Tn7c/InCMRPUQLLbQd0E/hOWQE23Vvas5xrXgcCvWvzIA6yNAofYkgC8ZgsvwRKuX5GE/pnDr5A/Wy05X/FUhMcGA5hWFxbXkTT8uozd/ihGmEPxqccL96TE/Dz14+zxaSIQ8i9CPbZajKFQ42n6VO5Ow1HtIi5tLKt4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=eV7eeuE6; arc=none smtp.client-ip=74.125.224.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	s=arc-20240116; t=1790868932; c=relaxed/simple;
+	bh=kjrBaOIQzRodXYyVE29/glCVcdUU681z5IQunrw2auU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LhPxIR3amhrqQhRkdzqy+RiHiIOPu7Uz+Qaer/K3zC8jcrufpHQyYNZD6kAoKs6b6QxHTxmwxhnBLylkWBHnnbFU/r/FEGmo7nxf+V3LVpnL4A85C4tJJaeu2K1DM/bqBc44cyxVoGAeIiLnprK8htoK1NN/Ua4eO/8EwZECeqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fDQcMqrA; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="eV7eeuE6"
-Received: by mail-yx2-f40.google.com with SMTP id 00721157ae682-8ab445ac183so39668767b3.3
-        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 08:32:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1790868733; x=1791473533; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=B9KRC60eFYvt53Jmqs4DofnspBBJHdkc+l+n5E9GJWo=;
-        b=eV7eeuE6xT+0koCYiaGSPYb0Kg7X7hmqxeZ/M8XgfcmUleWt7wedv1Vdp55sMuoco0
-         vhfg3F0DWmkzpVvgn9UsHDYaayEe79CKEwHIZA1yE3ifMsVOWGGYkMiyDTy6UTphftTx
-         UWqu94qASnfEUXjFNh4Zj1UhLmBcED+lLLF4o=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790868733; x=1791473533;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=B9KRC60eFYvt53Jmqs4DofnspBBJHdkc+l+n5E9GJWo=;
-        b=sAafYDwHwmtGW/2eb3+3Yae7q2O4pYOHvpVXJs1xVw30oebjiNvQOsMVSRr+/yp+Gy
-         E4beQ/hsFmdysFyUZxYsI5zLzfudE2DWqsYqTUW2KxqyUrdYUsXMFA1R62QQx0XDmzz3
-         0eadEeSXMJT8IK4VNswbMiAl4ozZ2V+TY/m7ODff+puOdaq3zA0uJ5BdCSSMtRYJD2yJ
-         CsWrwv8LEPkNzxF96z7z/wxdqV/RFH8yrRMChVSTxUb2uDC+Sj0A45OUWpuM7UIVblq4
-         MHgs44/4N9kx2HLt9WsWsK8fu/SkfGRZc16DzWa6FSPi5une6nplDRMbaRNtBRF3X81B
-         bPVw==
-X-Forwarded-Encrypted: i=1; AKwUvBy1jtJnV2QbUHRNt1YjkmeKechqMkmOSxxm6AdVJVrIqMv08JdeyNNouOMIpsxseLV3ebWSqU8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLZlMQCtn2aLVKvDhVDc5icdndYpZynB2aVSfxjzNnCOB+LpoXN
-	H7MwBJ/4orWk909ZKfluP4YgZElDmCl5sjOez00TpU0PQRCN+PYD2dzr/Ft25DOGQg==
-X-Gm-Gg: AYBFou0enFnVdYsaY/+J86drOz+LsNo4Hk0K75XH20jByg/kj2t4FOVUhLWQi1wctMn
-	ZkJHMpydddYxNkEnnWeHR5RN/3urY2rsFua+mdQGVRf9M6CAWHGcADPV01N+yBZ7knI7uhZeLIj
-	rrA4SjaKzMZ471u64qawo/dzv1XFWzTgEey/hrUbf4d668HXWjmjz05U5CxgdBHsYKdBZGUXZck
-	KO6lBLGagDQeAlPaUd69vAsHzcoRlmFpNOdthiWFs332DeJ4pacHZAYsThMQamLzbVGUPQW7cRc
-	wvVpNPHsk0VQwPAH4Z2Q5dWMozBv4+k09dyr1gGMIpnSVjdMaCr6G46DW57Q2UsyyGbddj9YJso
-	VjVK+I90vSWRwgxWNMHXcuEk4M0UsH7KUgWpanzr7P4KS6hJmxBNDsADSGnRkP5qBfwn06dRnLJ
-	BeZ9G81TWtPsg7tgRo32DchKhHItX/FYpAh7BfNLIba+SRoNgs1L591BQybhdFSsWrkX0cdW27b
-	fQ9
-X-Received: by 2002:a05:690c:113:b0:8a9:8021:5cd1 with SMTP id 00721157ae682-8ac908d539cmr25909637b3.6.1790868733308;
-        Thu, 01 Oct 2026 08:32:13 -0700 (PDT)
-Received: from exu-caveira.tail33bf8.ts.net ([2804:14d:5c54:4d67::2000])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8acdad046b1sm12059277b3.30.2026.10.01.08.32.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 08:32:12 -0700 (PDT)
-From: Victor Nogueira <victor@mojatatu.com>
-To: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	jhs@mojatatu.com,
-	jiri@resnulli.us,
-	netdev@vger.kernel.org
-Cc: horms@kernel.org,
-	Eric Dumazet <edumazet@kernel.org>,
-	stable@vger.kernel.org,
-	hybris <hybris@mojatatu.ai>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH net 1/2] net/sched: cls_route: reject change with no routing attribute
-Date: Thu,  1 Oct 2026 12:32:00 -0300
-Message-ID: <QDISC-0JB3.v1.20260929143022@mojatatu.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fDQcMqrA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790868930;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DRkuIUECUxJhe8ANm3v3u37Ui3/ef2M1wF0nlt+w2i8=;
+	b=fDQcMqrA2SPr3+kyTkdPQCvk56jwhNfgH/nEHBEWZOP0rL0B42fQa5S4udSYmoScNctYbs
+	lNqZaqOpe/ZHJZWOJIvvgactnF5Ga78SaE3TN1X/eMeoaaA3z4ZcVVKyATErgWQViD/JhE
+	lN5gfaHtjMBP1XKLRNSr+AhYsV6YihQ=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-641-nz2JhCNpPSGjempuhP8A-Q-1; Thu,
+ 01 Oct 2026 11:35:26 -0400
+X-MC-Unique: nz2JhCNpPSGjempuhP8A-Q-1
+X-Mimecast-MFC-AGG-ID: nz2JhCNpPSGjempuhP8A-Q_1790868925
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 3AA1D1955F0B;
+	Thu,  1 Oct 2026 15:35:25 +0000 (UTC)
+Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id CF38E1800361;
+	Thu,  1 Oct 2026 15:35:22 +0000 (UTC)
+Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
+	oleg@redhat.com; Thu,  1 Oct 2026 17:35:24 +0200 (CEST)
+Date: Thu, 1 Oct 2026 17:35:21 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: Aviv Vaknin <vaknins33@gmail.com>
+Cc: Christian Brauner <brauner@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
+	"Eric W. Biederman" <ebiederm@xmission.com>,
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] pid_namespace: make zap_pid_ns_processes() freezable
+Message-ID: <ar59uapn1SrPXlWe@redhat.com>
+References: <20261001121254.883973-1-vaknins33@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001121254.883973-1-vaknins33@gmail.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-route4_change on a filter change that supplies no routing attribute
-at all (no to/from/iif) reaches route4_set_parms with fold set, so the
-handle-mismatch check -- which only fires when creating -- is skipped.
-nhandle is built as the all-wildcard bucket (0x8000 | 0xFFFF << 16) and
-the filter is rekeyed to 0xFFFF8000, so the handle userspace already
-stored no longer addresses the filter. (The netlink reply carries the
-new handle; what goes stale is the handle the caller holds.)
+Hi Aviv,
 
-The rekey actually misclassifies the packets. The new handle's from_hash
-is the wildcard chain (route4_hash_wild), whose filters route4_classify
-applies without any id/iif comparison, and its bucket (256) is reached
-by every packet through the h < 256 restart. A filter that matched only
-a specific realm therefore becomes an unconditional catch-all that applies
-its classid and actions to all otherwise-unmatched traffic.
+Thanks, at first glance your patch makes sense... but for some reasons
+I can't read the source code today and perhaps tomorrow.
 
-Reject a change that would rekey the filter this way, with the
-routing-attributes-required error. A change that names at least one of
-to/from/iif, and an in-place replace that keeps the routing identity via
-a supplied attribute, are unaffected. A change of a filter that already
-sits at the wildcard handle is a metadata-only update and remains valid,
-so only a change that actually moves the handle is rejected.
+let me ask a couple of questions right now.
 
-This is a follow-up to commit 41e85e54e564 ("net/sched: cls_route: Fix
-in-place replace"); this patch closes the no-routing-attribute variant
-that the parent series did not address.
+On 10/01, Aviv Vaknin wrote:
+>
+> @@ -243,6 +244,11 @@ void zap_pid_ns_processes(struct pid_namespace *pid_ns)
+>  	do {
+>  		clear_thread_flag(TIF_SIGPENDING);
+>  		rc = kernel_wait4(-1, NULL, __WALL, NULL);
+> +		/*
+> +		 * The freezer's fake signal ends the wait with -ERESTARTSYS;
+> +		 * freeze here, or one stuck pid namespace blocks suspend.
+> +		 */
+> +		try_to_freeze();
 
-Conditions to recreate the bug:
-  tc qdisc add dev lo clsact
-  tc filter add dev lo ingress protocol ip pref 100 route from 1 to 1
-  tc filter change dev lo ingress protocol ip pref 100 handle 0x10001 \
-      route classid 1:2
-  tc filter show dev lo ingress   # handle became 0xffff8000; iproute2's
-                                  # stored 0x10001 no longer addresses it
+Well, I don't really like this another callsite of try_to_freeze(). Perhaps
+we can change the kernel_wait4() paths to use schedule(INTERRUPTIBLE | FREEZABLE)
+instead? Not sure, please recheck...
 
-A change of a filter already at the wildcard handle, e.g. one created by
-"tc filter add dev lo ingress protocol ip pref 100 route classid 1:1"
-(iproute2 defaults the handle to 0xffff8000), stays a valid metadata-only
-update.
+>  	for (;;) {
+> -		set_current_state(TASK_INTERRUPTIBLE);
+> +		/*
+> +		 * TASK_IDLE: no hung task warning or load for a wait that can
+> +		 * last as long as a tracer keeps a zombie, and a pending signal
+> +		 * (e.g. the freezer's fake one) can't turn it into a busy loop.
+> +		 * TASK_FREEZABLE: let the freezer freeze us while we wait.
+> +		 */
+> +		set_current_state(TASK_IDLE | TASK_FREEZABLE);
+>  		if (pid_ns->pid_allocated == init_pids)
+>  			break;
+>  		schedule();
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260907192133.2639067-1-victor@mojatatu.com
-Reviewed-by: Jamal Hadi Salim <jhs@mojatatu.com>
-Signed-off-by: Victor Nogueira <victor@mojatatu.com>
----
- net/sched/cls_route.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+Looks "obviously good", but I need to recall why this code uses TASK_INTERRUPTIBLE,
+not TASK_IDLE.
 
-diff --git a/net/sched/cls_route.c b/net/sched/cls_route.c
-index 0f211f030fd9..dca812a75269 100644
---- a/net/sched/cls_route.c
-+++ b/net/sched/cls_route.c
-@@ -434,6 +434,12 @@ static int route4_set_parms(struct net *net, struct tcf_proto *tp,
- 	if (handle && (!fold || nhandle == (handle & ~0x7F00)))
- 		nhandle |= handle & 0x7F00;
- 
-+	if (fold && !tb[TCA_ROUTE4_TO] && !tb[TCA_ROUTE4_FROM] &&
-+	    !tb[TCA_ROUTE4_IIF] && nhandle != fold->handle) {
-+		NL_SET_ERR_MSG(extack, "Routing attributes required");
-+		return -EINVAL;
-+	}
-+
- 	if (handle && !fold && nhandle != handle) {
- 		NL_SET_ERR_MSG_FMT(extack,
- 				   "Handle mismatch constructed: %x (expected: %x)",
--- 
-2.43.0
+Oleg.
 
