@@ -1,50 +1,35 @@
-Received: from mta0.migadu.com (out-45.mta0.migadu.com [91.218.175.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98ADF369D59
-	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 00:35:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 101241A3160;
+	Thu,  1 Oct 2026 00:40:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790814917; cv=none; b=LCx10hXgAQiRqE08A7yoc6nfHBNtjIfe5a1/TMs0BuUPaY7DLL7gEfZu8uXdDqpbRMb7NEtEAGuBH+vo9Nn3uI/N/e76z4ra7kFd6SGpI/YqHGV9XQPmpPz7aeEb1ZQSHuNJqq49pka85XPLdKos05P5z2YivLq7507eGxvWQ/8=
+	t=1790815222; cv=none; b=TF8Rgip4cvSkP3dK81zq6DB00JLQLjLQ1+EeOiw1r9B8ztJt/d9A8Rdo09svkM323FtXEDIPbXpTbnY1YALsTbjwtKD9wtRBB/XmCYbTNf157UOJ9sNwDGXt6Ya0Z/+dOFnBo2xcp3KjQR8eoa10XECRTPU9TVqJAmeQMnuoTHA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790814917; c=relaxed/simple;
-	bh=XP0uLIKc7uD/gvJmK2M/9HInEogfnzAWga4JpZMlWrI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Mt6WPfPdGvizQS1l2EupdXDYnoxncsEPFERVVbhzbe2T/z6GPoNJX/bVEC6F98cySMgLJV9EKwluxF514HuFOdNVkq5sqhrRcTHeiTLwQoUIgMiMSnbQBdvojACPHA0vwmM4ptH6ztIFlSwOVpMOwHZs+r3BUEqJwPkv5pB5nMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=justthetip.ca; spf=pass smtp.mailfrom=justthetip.ca; dkim=pass (2048-bit key) header.d=justthetip.ca header.i=@justthetip.ca header.b=sGS39MCW; arc=none smtp.client-ip=91.218.175.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=justthetip.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=justthetip.ca
+	s=arc-20240116; t=1790815222; c=relaxed/simple;
+	bh=oMIaEeEoP4t05NtYSsN9pnpsf/KG6qmo5wQqzyQTWWQ=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=Z/H+Dkmxylxt/Wx1WcACYc9rphSE6mQx7B+t4dSy5eD7DA34wAfWuYlV9TC0x6qSgrqQ9xxKktRzsaTe7dsz3FLYoL72XTDaimcb+INGR9vTWGflZWVASVbWfVemkEMeO1PosccMLPNn9UiSgsrqk9LkImJj1OdnsfVtTn63YFM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZnT8NEjG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=justthetip.ca header.i=@justthetip.ca header.b="sGS39MCW"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=XP0uLIKc7uD/gvJmK2M/9HInEogfnzAWga4JpZMlWrI=;
- c=simple/simple; d=justthetip.ca;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790814906; v=1; x=1791419706;
- b=sGS39MCWeBEEYsh0moZ5Aw4by4/TZympxmyGDh0xc0dLtH4n/w1lNhZP2AaM1+2r/+l9oGcb
- O+y/cuw1W+b7VkAAPBVowdKpuQnXnnoo+cYhceErmUc2lp04Vs6jyatNafnCwRskq2sPZOnVS/q
- VUnlFuLWYZyDplc1E/qIffiDVZWf99lZsuIAcKrXj09l5DB/zAjuDGi9kf5m7L+Ps929o/E9Y6w
- cOLPi6S4tqmM7H5lU8hFJLihSiq1OEldFpvL3tY5sfFYX6z7gaRu+bpwDRIRCInhZRKgIjqdcf6
- tbpX3FB3xLgUUjjn2VkGTo6poLEKCUEgaVn3zThHvtrTQ==
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 92f0de8b0071edec;
-	Thu, 01 Oct 2026 00:35:04 +0000
-X-Mizu-Trace-ID: 92f0de8b0071edec
-X-Migadu-Flow: FLOW_OUT
-From: Devin Wittmayer <lucid_duck@justthetip.ca>
-To: Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>
-Cc: Deren Wu <deren.wu@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Shayne Chen <shayne.chen@mediatek.com>,
-	Chris <hoopyfrood42@gmail.com>,
-	linux-wireless@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	stable@vger.kernel.org
-Subject: [PATCH wireless v2] wifi: mt76: move the channel survey when the channel changes
-Date: Wed, 30 Sep 2026 17:35:01 -0700
-Message-ID: <20261001003501.2425492-1-lucid_duck@justthetip.ca>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZnT8NEjG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 052BF1F000FF;
+	Thu,  1 Oct 2026 00:40:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790815207;
+	bh=fUtbI7rZ9fegY1v3Djr5d50iTf6BrLJeMWhDfB4fX2c=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=ZnT8NEjGanW77Wkv0CBg90+CYTJh+ReUQMVdwadreY2SmDXue5fOw67R2Wp6Xs5so
+	 lZvIk8uWJN/tK6wz7oog7m5Y/Wn9piMZdTypk0K5nZe83jkFF+zzENd/v9CMYVw1E7
+	 j+zlWDuDs/hm9AEwUWOsuteADMyqXzuW6wt8MJsP4RVK4+pO5SeUC2QDi3tHpH3uZn
+	 T6SzyUB80yLE8LmJ9hY+4ql+fus3vvF/vPRJWUm2PoruxXMviRibEr0gu9GbOfAZeG
+	 m/RHmYniDG/Hj8UodVy8lLcY70q6Lp8nbxh3zeYtdz5TNbia1lVq7l2oilSfyidRxx
+	 GgUXRETa2rc/w==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F145E3AA6A61;
+	Thu,  1 Oct 2026 00:40:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,117 +37,43 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v2] s390/ism: Zerorize dmb at allocation
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179081520578.2192623.15327890080313694045.git-patchwork-notify@kernel.org>
+Date: Thu, 01 Oct 2026 00:40:05 +0000
+References: <20260928151420.383105-1-wintera@linux.ibm.com>
+In-Reply-To: <20260928151420.383105-1-wintera@linux.ibm.com>
+To: Alexandra Winter <wintera@linux.ibm.com>
+Cc: aswin@linux.ibm.com, gbayer@linux.ibm.com, davem@davemloft.net,
+ kuba@kernel.org, pabeni@redhat.com, edumazet@google.com,
+ andrew+netdev@lunn.ch, julianr@linux.ibm.com, netdev@vger.kernel.org,
+ linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org, hca@linux.ibm.com,
+ gor@linux.ibm.com, agordeev@linux.ibm.com, borntraeger@linux.ibm.com,
+ svens@linux.ibm.com, horms@kernel.org, stable@vger.kernel.org
 
-mt7921 and mt7925 report every survey counter against one channel and
-never mark the one in use. Both use channel contexts, so the code that
-moves the survey never runs.
+Hello:
 
-Move it when a context is assigned or changed, after booking the time
-spent on the old channel.
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-Tested on MT7922 over PCIe, MT7921AU and MT7925 over USB.
+On Mon, 28 Sep 2026 17:14:20 +0200 you wrote:
+> Sashiko reported [1] that 'Missing __GFP_ZERO in folio_alloc() causes
+> uninitialized kernel memory to be exposed in the receive message buffer'.
+> An ism dmb is receive-only, so the data is not leaked to a remote peer. In
+> general the smc kernel module (dibs client) will only push newly received
+> data to userspace. We still should not have uninitialized data in a receive
+> buffer.
+> 
+> [...]
 
-Fixes: 41ac53c899bd ("wifi: mt76: mt7921: introduce chanctx support")
-Cc: stable@vger.kernel.org
-Reported-by: Chris <hoopyfrood42@gmail.com>
-Closes: https://lore.kernel.org/linux-wireless/CAHaeJsT8O8Nhq351hFp3NAL8e0iU85N-LBdYZ9nYHFHVy7t_hQ@mail.gmail.com/
+Here is the summary with links:
+  - [net,v2] s390/ism: Zerorize dmb at allocation
+    https://git.kernel.org/netdev/net-next/c/a0227fa24e8a
 
-Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
----
-v2: aim it at the wireless tree and tag it for stable. No code change.
-
- drivers/net/wireless/mediatek/mt76/mac80211.c   | 17 +++++++++++++++++
- drivers/net/wireless/mediatek/mt76/mt76.h       |  2 ++
- .../net/wireless/mediatek/mt76/mt7921/main.c    |  1 +
- .../net/wireless/mediatek/mt76/mt7925/main.c    |  2 ++
- .../net/wireless/mediatek/mt76/mt792x_core.c    |  1 +
- 5 files changed, 23 insertions(+)
-
-diff --git a/drivers/net/wireless/mediatek/mt76/mac80211.c b/drivers/net/wireless/mediatek/mt76/mac80211.c
-index abbe65cbcd89..fdfdb324ab98 100644
---- a/drivers/net/wireless/mediatek/mt76/mac80211.c
-+++ b/drivers/net/wireless/mediatek/mt76/mac80211.c
-@@ -1045,6 +1045,23 @@ void mt76_update_survey(struct mt76_phy *phy)
- }
- EXPORT_SYMBOL_GPL(mt76_update_survey);
- 
-+/* For drivers that retune without __mt76_set_channel(): book the time spent
-+ * on the old channel before moving the survey to the new one.
-+ */
-+void mt76_set_survey_channel(struct mt76_phy *phy,
-+			     struct cfg80211_chan_def *chandef)
-+{
-+	if (!chandef->chan)
-+		return;
-+
-+	mt76_update_survey(phy);
-+
-+	phy->chandef = *chandef;
-+	phy->main_chandef = *chandef;
-+	phy->chan_state = mt76_channel_state(phy, chandef->chan);
-+}
-+EXPORT_SYMBOL_GPL(mt76_set_survey_channel);
-+
- int __mt76_set_channel(struct mt76_phy *phy, struct cfg80211_chan_def *chandef,
- 		       bool offchannel)
- {
-diff --git a/drivers/net/wireless/mediatek/mt76/mt76.h b/drivers/net/wireless/mediatek/mt76/mt76.h
-index 62b41c8bb7c0..2cbe9884ab46 100644
---- a/drivers/net/wireless/mediatek/mt76/mt76.h
-+++ b/drivers/net/wireless/mediatek/mt76/mt76.h
-@@ -1548,6 +1548,8 @@ void mt76_sta_ps_transition(struct mt76_dev *dev, struct mt76_wcid *wcid,
- bool mt76_has_tx_pending(struct mt76_phy *phy);
- int mt76_update_channel(struct mt76_phy *phy);
- void mt76_update_survey(struct mt76_phy *phy);
-+void mt76_set_survey_channel(struct mt76_phy *phy,
-+			     struct cfg80211_chan_def *chandef);
- void mt76_update_survey_active_time(struct mt76_phy *phy, ktime_t time);
- int mt76_get_survey(struct ieee80211_hw *hw, int idx,
- 		    struct survey_info *survey);
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7921/main.c b/drivers/net/wireless/mediatek/mt76/mt7921/main.c
-index 68a059504e83..915d6789c668 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7921/main.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7921/main.c
-@@ -1423,6 +1423,7 @@ mt7921_change_chanctx(struct ieee80211_hw *hw,
- 	} else {
- 		mt76_connac_mcu_uni_set_chctx(mvif->phy->mt76, &mvif->bss_conf.mt76, ctx);
- 	}
-+	mt76_set_survey_channel(mvif->phy->mt76, &ctx->def);
- 	mt792x_mutex_release(phy->dev);
- }
- 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7925/main.c b/drivers/net/wireless/mediatek/mt76/mt7925/main.c
-index 5993b31e1aae..e21bd79dcc56 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7925/main.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7925/main.c
-@@ -2063,6 +2063,7 @@ mt7925_change_chanctx(struct ieee80211_hw *hw,
- 						      link_conf, ctx);
- 		}
- 	}
-+	mt76_set_survey_channel(mvif->phy->mt76, &ctx->def);
- 
- 	mt792x_mutex_release(phy->dev);
- }
-@@ -2399,6 +2400,7 @@ static int mt7925_assign_vif_chanctx(struct ieee80211_hw *hw,
- 
- 	mconf->mt76.ctx = ctx;
- 	mctx->bss_conf = mconf;
-+	mt76_set_survey_channel(mvif->phy->mt76, &ctx->def);
- 	mutex_unlock(&dev->mt76.mutex);
- 
- 	return 0;
-diff --git a/drivers/net/wireless/mediatek/mt76/mt792x_core.c b/drivers/net/wireless/mediatek/mt76/mt792x_core.c
-index 0ad33f74c228..6a0d5b2c2d59 100644
---- a/drivers/net/wireless/mediatek/mt76/mt792x_core.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt792x_core.c
-@@ -472,6 +472,7 @@ int mt792x_assign_vif_chanctx(struct ieee80211_hw *hw,
- 	mutex_lock(&dev->mt76.mutex);
- 	mvif->bss_conf.mt76.ctx = ctx;
- 	mctx->bss_conf = &mvif->bss_conf;
-+	mt76_set_survey_channel(&dev->mphy, &ctx->def);
- 	mutex_unlock(&dev->mt76.mutex);
- 
- 	return 0;
+You are awesome, thank you!
 -- 
-2.55.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
