@@ -1,112 +1,114 @@
-Received: from pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.42.203.116])
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42C1E45041A;
-	Thu,  1 Oct 2026 11:46:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.42.203.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4A343F1AD5;
+	Thu,  1 Oct 2026 11:48:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790855202; cv=none; b=l+5il2I/LB927wUqGIRwlBIuQD0FKO2WHhypEEZkT62653mvMnMOiJejd4zD0dvPixG2HjtaDGo8bfKvqOk/O/01t0WJmiJYhG2wdbZ9bE3Ga4eFDBN9HxJtJwnTNOIo1sW9/AspPLMeOmo1AdRxXNmv/qjhM/q1+x6/g9kxom0=
+	t=1790855342; cv=none; b=X4Inr7TbdWZ/9mRVQ9Mv6txvCg+oJAgnDkaYM+542fYAzOYAmUM8+HBZ7uUl3Mhr1ie81um0n1i1r+xIL3FkRnhU3zamWssTzoBb2rmATKFVP55QkpfPbrK7i5ggiR+yeteMHITAcRDYTY2C6ZRiLOUJgHSaXz46LYT2f+iWiJA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790855202; c=relaxed/simple;
-	bh=22mN/Zqb8A3WZth5RnngnxilDkAVgwgza0/+NBs3OhE=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=hw/yT12KtVlGGBaoGUrcq2Pke1GhUYvSbZqHSqBdiLA7AifWgQUeyOKjP1zEgGx7K1aHmn83K3WrA++9my5KzVu/1ZOMANAEavz8TW7gkm6BAPsuQSBOsXfHDIvHJUEGdY//byP13zA9OXyqjesYJFfT8XaxNI+CdkodvHXCMpU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=pvzzaByO; arc=none smtp.client-ip=52.42.203.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	s=arc-20240116; t=1790855342; c=relaxed/simple;
+	bh=UylmzUQGEvArnSFwtRmwcnvgZ4nhVSm5y5o+XJr9YRE=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=E22YvlR9KFnUYi5FaGDs5gl4PNmSfp710bc/64EvVluyeDvZ78lWTKcZEa84OuD5OSI3xRYmL4Hpc9M0wFT73sf9F62s6EbhVGZXDwWobfzHYfT5CzJYsYCiEQyKg28k3H3M6hOtPXOANuZRVQWO4j+Uel4xGgEX6Uqvt8FXEUs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=Ghc03kGa; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="pvzzaByO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1790855189; x=1822391189;
-  h=from:to:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=cJ+4x9N5O37S/cvApiktNuhQViEjgHjtRgvMmynWYqY=;
-  b=pvzzaByO0LEG6ra+7ZsvaWCp7boXHZLyYl2jfMzfJW8mBMl5LTCLNIZH
-   VIOXaaca9V26J1WHgQmZTkrn6w3+ro3oHOlXa36XQTWU/OkzBrGO9qFEi
-   ugtGOns1UmCD8NUSJ+Jx+EgtxHfW59UT37Ic5hONSUH4/P/KzAu3YP0P4
-   Sf8Q2klpA4rsszhvGJ1hx2DPEbQFxb6U4aI+a0AxpK8/7Xj/qo4kN+atm
-   Mmw7wOg0Ud5O2hu7kHPrDPsbySpKdCQ9WONZn3hC867e3VkP+AlDpYzrU
-   dwssAjZZtBTffmsAkrjjWbGdw9YtjLZOTwTgsGG5cY55LUTAQJxlI+0Do
-   A==;
-X-CSE-ConnectionGUID: XpgKx7vcQjeaxpS3P9De1A==
-X-CSE-MsgGUID: 1wgvd0sFRs6e4O5r+4A8EQ==
-X-IronPort-AV: E=Sophos;i="6.27,134,1787011200"; 
-   d="scan'208";a="30159232"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 11:46:05 +0000
-Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.105:3490]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.24.164:2525] with esmtp (Farcaster)
- id 7509f975-4b3f-4900-bdec-e7b1082dd49d; Thu, 1 Oct 2026 11:46:05 +0000 (UTC)
-X-Farcaster-Flow-ID: 7509f975-4b3f-4900-bdec-e7b1082dd49d
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Thu, 1 Oct 2026 11:46:04 +0000
-Received: from dev-dsk-nagornyi-2b-f14a9408.us-west-2.amazon.com
- (10.153.215.117) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49; Thu, 1 Oct 2026
- 11:46:04 +0000
-From: Nikita Nagornyi <nagornyi@amazon.de>
-To: <stable@vger.kernel.org>, Konstantin Komarov
-	<almaz.alexandrovich@paragon-software.com>, <ntfs3@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH 6.1.y 0/4] fs/ntfs3: backport slab-out-of-bounds fix (CVE-2026-90048)
-Date: Thu, 1 Oct 2026 11:45:45 +0000
-Message-ID: <20261001114549.162469-1-nagornyi@amazon.de>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="Ghc03kGa"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
+	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=aT9YUfg2DMWZxrRjOl+juSwohUp0W3fpSP96rBnYKPg=; b=Ghc03kGauDYkA5Cy/LjZrxTaZx
+	2W0pjXUbdqVu+AfFtb5MZxFELFaGYIdtJ62Df0Jnjpm5e6Ju27+lR076M0jjSBWvAw2Bli8Z8BWUr
+	RVVJy0OJLi9M3KP/+T2xydnh1eYaxl/G94Lc7ca9VUyeAsbj41cYoOdInD/ugUsAewMbMq9YY9agq
+	HAsgbd4WpnLp5AMfiUc+QKbH3j4LkCKhnAxJZCU33rEkxwpRF5xznGD3tFATkaV06prOt3TS4A1gW
+	mdrXKSfxmPz0vD5bGziYUFt3qRx3jjBpkdzlkItTmV5AYEcVDCOZGYKJcs/jDa66krSd1mPgTbixt
+	1/3ZRGdw==;
+Received: from [::1] (port=41106 helo=pf-012.whm.fr-par.scw.cloud)
+	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
+	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
+	id 1xCFHV-00000009o0n-42No;
+	Thu, 01 Oct 2026 13:48:54 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+Date: Thu, 01 Oct 2026 13:48:54 +0200
+From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
+To: Sabrina Dubroca <sd@queasysnail.net>
+Cc: Steffen Klassert <steffen.klassert@secunet.com>, Herbert Xu
+ <herbert@gondor.apana.org.au>, "David S . Miller" <davem@davemloft.net>,
+ Saeed Mahameed <saeedm@nvidia.com>, Leon Romanovsky <leon@kernel.org>, Tariq
+ Toukan <tariqt@nvidia.com>, Mark Bloch <mbloch@nvidia.com>, Boris Pismenny
+ <borisp@nvidia.com>, netdev@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH ipsec 7/7] xfrm: leave the sequence counter unchanged on
+ ESN overflow
+In-Reply-To: <ar5H87hRaIpERAZ4@krikkit>
+References: <20260930144523.435271-2-Jeremy.Jean@oss.cyber.gouv.fr>
+ <20260930144523.435271-9-Jeremy.Jean@oss.cyber.gouv.fr>
+ <ar5C8DDMwWn-30iV@krikkit>
+ <69f80ed58e34f787305f85b12eb3ecdb@oss.cyber.gouv.fr>
+ <ar5H87hRaIpERAZ4@krikkit>
+User-Agent: Roundcube Webmail/1.6.19
+Message-ID: <86612356acc73d5b26ed34d5941cb692@oss.cyber.gouv.fr>
+X-Sender: jeremy.jean@oss.cyber.gouv.fr
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: EX19D033UWA004.ant.amazon.com (10.13.139.85) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-This series backports the fix for a slab-out-of-bounds write in the ntfs3
-driver (CVE-2026-90048, an Important / CVSS 7.8 issue) to 6.1.y, together
-with its stable dependency chain.
+On 2026-10-01 13:45, Sabrina Dubroca wrote:
+> 2026-10-01, 13:37:54 +0200, Jérémy Jean wrote:
+>> Hello Sabrina,
+>> 
+>> On 2026-10-01 13:24, Sabrina Dubroca wrote:
+>> > 2026-09-30, 14:45:24 +0000, Jérémy Jean wrote:
+>> > > When the 64-bit ESN counter overflows,
+>> > > xfrm_replay_overflow_offload_esn()
+>> > > rejects the packet and rolls back the stored counter. It decrements
+>> > > replay_esn->oseq even though only the local oseq has advanced, which
+>> > > can later induce a reuse of the last sequence number and the
+>> > > corresponding AES-GCM nonce. Both IPv4 and IPv6 are affected, yet,
+>> > > processing about 2^64 packets under a single key is required to
+>> > > trigger this bug, which is highly unlikely in regular use cases.
+>> > >
+>> > > Leave the stored low word unchanged on overflow. The high word still
+>> > > needs to be restored because it was already incremented.
+>> >
+>> > nit: using "low word" and "high word" instead of the actual variable
+>> > names doesn't help the readability of your commit messages
+>> 
+>> Right, I could specify that. How do you suggest I do that? Should I 
+>> send
+>> a v2 for this single 7/7 patch, resend a v2 for the full 7-patch 
+>> series
+>> (possibly in a couple of days in case there are some other public
+>> comments), or another option? Thanks.
+> 
+> Unless there are other reasons to send a v2 (ie some more important
+> issues in a patch/in the series), or if someone requests it, then no,
+> it's not necessary. That's just a preference in wording (and possibly
+> just mine, maybe it doesn't bother anyone else).
 
-Four commits do not cherry-pick cleanly onto 6.1.y, so each carries a comment,
-where adapted. Applied in order:
+Okay, I'm not doing anything just yet then.
 
-  a8f659ce14f8 ("fs/ntfs3: Add more checks in mi_enum_attr (part 2)")
-      - dependency
-  2afd4d267e6d ("fs/ntfs3: Mark inode as bad as soon as error detected in
-      mi_enum_attr()")
-      - dependency; introduces the struct ntfs_inode *ni parameter threaded
-        through mi_enum_attr()/mi_find_attr()/mi_insert_attr()/mi_new_attt_id()
-  5f33da04e6ce ("fs/ntfs3: fix KMSAN uninit-value in ni_create_attr_list")
-      - dependency
-  7c4841e2a627 ("fs/ntfs3: fix slab-out-of-bounds write in
-      ni_create_attr_list()")
-      - the fix
+> In general, do not resend a single patch, always the full series.
 
-Built and boot-tested on x86_64 and aarch64. Tested on Amazon EC2 using our
-internal test suite, including xfstests, kselftest, LTP; passed with no regressions.
+Noted, thanks for the advice.
 
-HE WEI（ギカク） (1):
-  fs/ntfs3: fix slab-out-of-bounds write in ni_create_attr_list()
-
-Konstantin Komarov (2):
-  fs/ntfs3: Add more checks in mi_enum_attr (part 2)
-  fs/ntfs3: Mark inode as bad as soon as error detected in
-    mi_enum_attr()
-
-Nirbhay Sharma (1):
-  fs/ntfs3: fix KMSAN uninit-value in ni_create_attr_list
-
- fs/ntfs3/attrib.c  | 11 +++---
- fs/ntfs3/frecord.c | 81 +++++++++++++++++++++++++----------------
- fs/ntfs3/ntfs_fs.h | 23 ++++++------
- fs/ntfs3/record.c  | 91 +++++++++++++++++++++++++++-------------------
- 4 files changed, 120 insertions(+), 86 deletions(-)
-
-
-base-commit: 1a8763b93150b2c8f3992c27a5ce7857fee4ab0f
---
-2.50.1
-
+Cheers,
+Jérémy
