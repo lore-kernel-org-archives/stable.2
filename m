@@ -1,194 +1,121 @@
-Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4194C3F2101
-	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 04:45:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CDA3389104;
+	Thu,  1 Oct 2026 05:25:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790829945; cv=none; b=HEkPXG40Slq+iOeqRjKsf9CejgJqGZWSix3yeT2VEDQacXqr9GAQN9wzztL2dvuhW+OWeIi64zNlkAv7E0Y4+4ciiltTGjjxfqeuxGd64Ltos4TIwKwt7056HjH6+nk2l45Zg5OSaf18pORsZ4Qpe13KRHr903UrXYbiJuSfgb8=
+	t=1790832335; cv=none; b=VpX3meDd/OOY5Yvs5rYYKdgLbcXyJHlGinHEMJ8rXK/r8ylzXBQPhanjC/sKwOmg3vWSEGMen5CCv9hS1Emc2i2wgXH/U3bMn8SuNwMKGi/YUMxqG+loYoAHbhDxs1iB9Fwt8N5a9SyKHh4Tv9jiR6UK72PQk3q2S/ku1lPInGk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790829945; c=relaxed/simple;
-	bh=Kl59HLPtGA0YGI1jSQ31FQyI2MljJt0I0JDgqMd96vQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GYk8LyoL7jmKPvilmTcZqDkYbRjZoRhaqelz7ZHO3n/YAoyDtw3Vk9j1yP4GOJu0JoQKoig+q0F6T3h3sFXmK7nl//xHWkKfK+yO6KiXf51bfPXIfomCjmDdWkr0LWTRLAqsuqyxxlmBUczujAGzPYEeRExhAt9HiMyV/mFiQ0E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KtGUEc1M; arc=none smtp.client-ip=74.125.229.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790832335; c=relaxed/simple;
+	bh=lsQMBdLcRX7PmWUQ5J/QEEvsnF/ZjUYdTGcRytEQyO8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IUcRtpA89Fmpy56/GW3v8iTgPEFCcuOOh5AGOovNJVvk74ZZg3ZMlYS+Wl9bg5pmIHBIo3S43lSfhnFfYNluQg1MeO58r2mNDDHLmYu91ndYZTCcg6/3h4LKns0Dz0xPmdQrACzE6YISRP9Eb/Ul5Vt6biFHA64hD6HBQAYSMvE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=IyyrDGRt; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=igN0LVf9; arc=none smtp.client-ip=202.12.124.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KtGUEc1M"
-Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-33e630052ebso6963731eec.0
-        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 21:45:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790829942; x=1791434742; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YUMtS5RjOq3z0OjJOB6QJzFPbiRJk8TU9R7d+42yRmI=;
-        b=KtGUEc1MpzaMNdo0AEU8WdAS4UbLweNXb6eZ6LJPvwu2fuQ12KMrCLQWB3qMOidHUu
-         S/BJPNxFmZg4isUf3JwxrbCmP7NKOr2F/ERwoFSGkuHpEAzXBZ8FOM++VkeVxu6x+LlA
-         yysfDny6CuPAPStbeQde1Gn5oaW8dTpybOUVq7M+03gL9cOs5FOz3ocC0cFOZEisHJWV
-         n2n1HD4qzipBXpQx2tDw46PYEvlF2nCwMhqtGoQRdquPf7xxU0UBJLUiD+/IWzDiqpfB
-         GJYGdg6jSzg9JfX/RmiX9AVoUkbhXC3muRBDsm9uG/gwhhcBScfCwuIDLZvSx8Eca04Y
-         lLoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790829942; x=1791434742;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YUMtS5RjOq3z0OjJOB6QJzFPbiRJk8TU9R7d+42yRmI=;
-        b=lFprZso0+Iw6tT2hT+BtWPT1cVVvs9pZh94r6bLkTMNu3E1LTkm607PLSgmBgqAkqL
-         43itWnfWoNGNrvVcJq7JHUhrA6UZlkZXiv2TRrTPuPjQwOm84TbuGYRcS7Yv9Wg/3fJR
-         THH3Jeijim4k6swCaFobhEuxjIulFIdnSBZPxBO7306qJGJC+Jd3XVe2PF+7TddGMHOU
-         YDPak+nVPPPtiB/xd+qv6+b7iAycbtgAsaiH5FYjJreNRfYy4aVgydK7+2xMdxwehMxr
-         uYEEmXaaDYqxEdMnlGojErTLRRt/VBnjfFWnWuMj3CSHk9Jq/MDUHIzbtJ3QgJSyaIn0
-         kI6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBw34zcmfkVRj8B4GpJfdNFK1eaVoVC41cR/5SoNoi9ei6LuINqEa+cQwC1Mjd/4YbYA22BD8Ug=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ+Li/sqKzto54SCxGhMBLvTwA1+ET9WoD+tI4kW49p9X2/p0lN
-	a5esuvyT733siL6joQXqE8D5xL2WUgHSMovr0T+GW4gFvv8XiCQegL8K+CBUZXde
-X-Gm-Gg: AYBFou2TBxbOgZerVdE0W2CI5iEQBMbvkzMNx/TTL6FCO4M0KM8or88POMl47kvYL7l
-	mT4t97/IT3CR3/lR4gqGtlqmCdtUGA5Qy7o1RglWpkmllOPQOAfS7QG4vVqhglhiiJOlbJ+AmEf
-	jJIQHw2f+gXNG0qUKrTlsuPwNK00/IYBNAz1nZRQ5A8uSIaydj27m3g6M3puqWX/iKqhbUPFtAO
-	Cd+YqS35vpZhaXop8RZUm3SXxlvPDCNwm0wKbNgmscn4YPzodRf2+Dp6TUp2Pc53oBuc0duDUK6
-	AjyNZD7I7NnsM0gZE8ubU/3P5qEQ84soTS3PPn6v4QOBxWHmrhDlHHI/M+CeUwtsr7wvBBYwgCv
-	OhLlCgD5nXQThbn7QBIwiLBVblRrVYrbe+PfSBplQASJ5PyVTDGL69fgK039idiik8267KPZzAx
-	cs8a0wSNVofgrsly3qGO/joWz8/eYQOVSGB4woCVDb8INUkyxIx5K5AnAc8pHoqOQLv+VN8p+3N
-	852boeiOI4/yUBeQh3BCH7+AVkYA7IL8Ia+ct5mreI5kNzZ4YZQtnhNTb/qbgU=
-X-Received: by 2002:a05:7301:730e:b0:34c:d1f2:b56d with SMTP id 5a478bee46e88-34cdc0cd8a4mr3523736eec.25.1790829942306;
-        Wed, 30 Sep 2026 21:45:42 -0700 (PDT)
-Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:9835:e0ad:476f:74a9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34db3e3414asm3891332eec.19.2026.09.30.21.45.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 21:45:41 -0700 (PDT)
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Date: Wed, 30 Sep 2026 21:45:31 -0700
-Subject: [PATCH 2/2] wifi: carl9170: Revert "carl9170: devres-ing
- hwrng_register usage"
+	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="IyyrDGRt";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="igN0LVf9"
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfout.stl.internal (Postfix) with ESMTP id 823341D00101;
+	Thu,  1 Oct 2026 01:25:32 -0400 (EDT)
+Received: from phl-frontend-01 ([10.202.2.160])
+  by phl-compute-03.internal (MEProxy); Thu, 01 Oct 2026 01:25:33 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1790832332;
+	 x=1790918732; bh=DYe71L+mDbbwttT1897OI7k1IUNPmXiRDqp4jV2KsIc=; b=
+	IyyrDGRtGugT5+TdoGc8NhL8YxZrai4YNFuYN3dLoa3iiAwfjIj0dhcqNOKN77hx
+	q3XGEMPw7/KTe7RT5aLSUmFJbMvdlIWVWBzjDuVii7TCR50+ux3Q25cpU/vtJtwt
+	dcD1tnh6NzHWcuZIw2lwL61o0K6CdLFkjaq44mt7M6ojOQmgXePYvgom0y4dHoP7
+	YpeF3g0dkVZtgv28f+X3wwVNp9rDpgAZIWFRXpVEmmRTfe8aypYUTfRNjmSOfBkl
+	MknUKENJrfY8cWtxlAs+utcF/+uUnIe8kn3+Q0IGUkwK/AVOUPNyZmQsELNZ8L6i
+	S3XsL0kff8xDfAHBmtwiSA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790832332; x=
+	1790918732; bh=DYe71L+mDbbwttT1897OI7k1IUNPmXiRDqp4jV2KsIc=; b=i
+	gN0LVf9I/weJaTJw9z144q11EHbGOcae7ScFsT1r5tSTJ+yuDNOeBql6fldoCj0W
+	GJEH+01l7IozyzefamETMCXVhtyPfScRTnDLR7rssZf1YSxaFKusEFB4p7Ayu/58
+	ftEMkbyNrSRKqmT5CT+ecR6yUvpKLMjt5wddgRZZ9qIrt74MvUeSbv5xO9QmDz9I
+	p5C6cloH4IJofE97EZTI5L9DOiarstZQIp+wlYuxANm6rgr4eA1fLsXoXnRfHLyN
+	R0xiMS4zlxpcDX+2pj0KPYkXLpDfirlrwKWyIpmCwJsQ9hFnWqlNz1dlb4B9viv6
+	v4vAMcJKGms5t0INLsUqA==
+X-ME-Sender: <xms:y-69ahH6HDwrbJW-OL4lbdBN8up0LdjG4YFVEQDl2CBzP1m6Sj3ifQ>
+    <xme:y-69aiMOscI_aOFTOr_ykSN5qPpLoE2A3GEfddDn-ntoDfwedFc7DOKXnVn7YgRSk
+    2WTS18pLJ7LmPSQrWhxvL4PxNW-RJFWK9PGVlOX8nTo5dg7357YhJOl>
+X-ME-Received: <xmr:y-69aupdbmMe9KAmBI5cLuCoXH4FIeaJ3EFH3LNu4VVanBVGqsKPA8SStmqoa9MXUj_B0i9QXE9pWgPZ6f5s_6wx24YoIKb7>
+X-ME-Proxy-Cause: dmFkZTF8BPCiDwND0Mh4xnIYhVyPpph8ui90Syrb3L0zQW/6p/684YSFsNUG1NlE+RIwBT
+    wDek5GsYyShQP6dIqOcjpWV5ao615gK1zACtEWiWfOg45Cyp4jBI/UPGsM4nS2zOre+E91
+    wevRW4Kzocgrx65HoYwAqbovvLuWy4Eq2qqXseUq/UfeXJy1Fh8S5nQXyvzUcqK6LCIJmO
+    lKz/3eC9qx+wO4jOge28wmpdkPv/2Ji9vZil1/22zGQKFb+bdlg6WN1GrWLh8wurOcfbHr
+    VXF+HcWojgFXk/4ijv/f+dHFIRY/QsT5n+l27ntLEnMQDYqeij7kfBhG2OzVNO6KmUBZI3
+    gJoeK481E4jObwOqhcvPlodJnpKxyoZF4Bz8IutjB8cDAaZKh3zvo/4ezwxRanKboLjQd8
+    2wLTpmx3hQp4Vgs7Fw1PNSNhNZoKl0q8kSwe+RktWo3tHp/Flmas4mOKrRU7LOln3/Gbxw
+    jBfCMO1+xDRFh/NFQD0htt0+cJouH4WILsbHzpzCgTacV0BbNj/yEqgKSAOTtbkr3ALL1/
+    9QApYGcvNQ/dgs7fweNiWjCQo//CNjEHflDPsAzfC3ndKtDZj2nZGOYfO+s4V9p4xRnKfG
+    BhV4/XWnm3Z4ecUpEiSRV0dhRi8kPqL2aiUAMkgiaeEkRg52EGYDl9hX2xWw
+X-ME-Proxy: <xmx:y-69arAiiVH47vKuSL_1d06DRUFqDdyGlTFMOLKu65WIyJbPH3XNPQ>
+    <xmx:y-69avOdOQK_su9g_OVQtVEaRLn3htwdRQceXYpnpH0jVRlaxsvQXQ>
+    <xmx:y-69ahAp0Mwu3bWm7tNO5RWTZKx53JLWcNO79EaTBpWEA6IaWXaK1Q>
+    <xmx:y-69al_9D_6qzhWAg70B1ptC7b1KgTw-anZHT2AnbYwCwU2FOO5MYQ>
+    <xmx:zO69akqMf7-z9fZQMsru6lITi9wKoK-z-RhjeVav6hhZrKDmSUsUu-Jo>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 1 Oct 2026 01:25:27 -0400 (EDT)
+Message-ID: <4f1487f4-872a-4c54-b367-cec8ab5a6621@pobox.com>
+Date: Wed, 30 Sep 2026 22:25:24 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.12 000/877] 6.12.112-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260930152414.738996857@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20260930152414.738996857@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-carl9170-reverts-v1-2-7033b5716c14@gmail.com>
-References: <20260930-carl9170-reverts-v1-0-7033b5716c14@gmail.com>
-In-Reply-To: <20260930-carl9170-reverts-v1-0-7033b5716c14@gmail.com>
-To: Christian Lamparter <chunkeey@googlemail.com>, 
- Kalle Valo <kvalo@kernel.org>
-Cc: Christian Lamparter <chunkeey@gmail.com>, 
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-X-Mailer: b4 0.17-dev-6c14f
 
-This reverts commit 23de0fa0d2a05ff71c7bc8df9d12c9f23be83f13.
+On 9/30/26 8:15 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.12.112 release.
+> There are 877 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Fri, 02 Oct 2026 15:23:04 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.112-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-carl9170_register() is invoked asynchronously from the
-request_firmware_nowait() callback after carl9170_usb_probe() has
-already returned, and carl9170_usb_disconnect() calls
-carl9170_unregister() followed immediately by carl9170_free(), which
-frees struct ar9170 (including struct hwrng ar->rng.rng and
-ar->rng.name).
+Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
+no regressions observed.
 
-Registering the hardware random number generator via
-devm_hwrng_register(&ar->udev->dev, &ar->rng.rng) ties its
-unregistration to the parent struct usb_device rather than the driver
-lifecycle. Furthermore, if carl9170_rng_get() fails at the end of
-carl9170_register_hwrng(), or when the interface is disconnected and
-carl9170_free() frees struct ar9170 before devres_release_all() runs,
-the embedded struct hwrng remains registered on the global rng_list in
-freed memory, causing a use-after-free.
-
-Fixes: 23de0fa0d2a0 ("carl9170: devres-ing hwrng_register usage")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
----
- drivers/net/wireless/ath/carl9170/carl9170.h |  1 +
- drivers/net/wireless/ath/carl9170/main.c     | 29 +++++++++++++++++++++++++---
- 2 files changed, 27 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/wireless/ath/carl9170/carl9170.h b/drivers/net/wireless/ath/carl9170/carl9170.h
-index e66e3e2ae952..03a94a5a209b 100644
---- a/drivers/net/wireless/ath/carl9170/carl9170.h
-+++ b/drivers/net/wireless/ath/carl9170/carl9170.h
-@@ -454,6 +454,7 @@ struct ar9170 {
- # define CARL9170_HWRNG_CACHE_SIZE	CARL9170_MAX_CMD_PAYLOAD_LEN
- 	struct {
- 		struct hwrng rng;
-+		bool initialized;
- 		char name[30 + 1];
- 		u16 cache[CARL9170_HWRNG_CACHE_SIZE / sizeof(u16)];
- 		unsigned int cache_idx;
-diff --git a/drivers/net/wireless/ath/carl9170/main.c b/drivers/net/wireless/ath/carl9170/main.c
-index 702b6d113b18..8ca76e9044de 100644
---- a/drivers/net/wireless/ath/carl9170/main.c
-+++ b/drivers/net/wireless/ath/carl9170/main.c
-@@ -1545,7 +1545,7 @@ static int carl9170_rng_get(struct ar9170 *ar)
- 
- 	BUILD_BUG_ON(RB > CARL9170_MAX_CMD_PAYLOAD_LEN);
- 
--	if (!IS_ACCEPTING_CMD(ar))
-+	if (!IS_ACCEPTING_CMD(ar) || !ar->rng.initialized)
- 		return -EAGAIN;
- 
- 	count = ARRAY_SIZE(ar->rng.cache);
-@@ -1591,6 +1591,14 @@ static int carl9170_rng_read(struct hwrng *rng, u32 *data)
- 	return sizeof(u16);
- }
- 
-+static void carl9170_unregister_hwrng(struct ar9170 *ar)
-+{
-+	if (ar->rng.initialized) {
-+		hwrng_unregister(&ar->rng.rng);
-+		ar->rng.initialized = false;
-+	}
-+}
-+
- static int carl9170_register_hwrng(struct ar9170 *ar)
- {
- 	int err;
-@@ -1601,14 +1609,25 @@ static int carl9170_register_hwrng(struct ar9170 *ar)
- 	ar->rng.rng.data_read = carl9170_rng_read;
- 	ar->rng.rng.priv = (unsigned long)ar;
- 
--	err = devm_hwrng_register(&ar->udev->dev, &ar->rng.rng);
-+	if (WARN_ON(ar->rng.initialized))
-+		return -EALREADY;
-+
-+	err = hwrng_register(&ar->rng.rng);
- 	if (err) {
- 		dev_err(&ar->udev->dev, "Failed to register the random "
- 			"number generator (%d)\n", err);
- 		return err;
- 	}
- 
--	return carl9170_rng_get(ar);
-+	ar->rng.initialized = true;
-+
-+	err = carl9170_rng_get(ar);
-+	if (err) {
-+		carl9170_unregister_hwrng(ar);
-+		return err;
-+	}
-+
-+	return 0;
- }
- #endif /* CONFIG_CARL9170_HWRNG */
- 
-@@ -2053,6 +2072,10 @@ void carl9170_unregister(struct ar9170 *ar)
- 	}
- #endif /* CONFIG_CARL9170_WPC */
- 
-+#ifdef CONFIG_CARL9170_HWRNG
-+	carl9170_unregister_hwrng(ar);
-+#endif /* CONFIG_CARL9170_HWRNG */
-+
- 	carl9170_cancel_worker(ar);
- 	cancel_work_sync(&ar->restart_work);
- 
+Tested-by: Barry K. Nathan <barryn@pobox.com>
 
 -- 
-2.56.0.rc1.315.gc6ed9934b7-goog
-
+-Barry K. Nathan  <barryn@pobox.com>
