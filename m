@@ -1,155 +1,93 @@
-Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C90C4D4890;
-	Thu,  1 Oct 2026 08:46:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.190.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 528953EC684;
+	Thu,  1 Oct 2026 08:50:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790844420; cv=none; b=dQb8ijAn4Oy5OBs8lpyZdvWYlP5uYjWwpt9LUnKZcKBnBwR/kZWPYQvej27uD0m6V4mQS9GkFNOheRnt+7suGeglg/LhSDE4cr0NFexw/SzVxVFesLjm/CGCZZDdNWqz2zxwvqqZjll6GTTPQdr30zbn17s0T5ebjEuzYsDInXo=
+	t=1790844613; cv=none; b=m6Dq0Z1A8D8wlsWwkkfu+1ZkKW4rvsH3Lebkvcw3HyZX3l9vv3lO5QOIBd2C5E4bzm84OMkJ+9LLzCZfpTnTKkegh0++McFD6fFl1HdAuRS0U8NT4pBiAYAINOLl3R8veeQimiCo8tyW3NKCtkbqmMUpqmj5M2hDG7xv7cxZUas=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790844420; c=relaxed/simple;
-	bh=u4z+zKpl5MpoZUZDIi5i1L+Yt0tNb8zpb6NWbVEKlts=;
+	s=arc-20240116; t=1790844613; c=relaxed/simple;
+	bh=pxUzKT425ODQD3RlKjWqvW2ou19MMC+s5ZTzGwRIumk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IqI5wqeY4WpJtGLB0rvdgiVfM+/P3GUTN97sXX1vCvknz+NtU0vef7gegk0TlVJJhNZHrmuJjqCQm3haQ46uEah7v/ar+IwHxe93feJODe0/JUdQrujMbykrrXCnHRS3NoxlEzzk4wDupImLT7aNlmtjlkAcpLf8q7m3vmzHjxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org; spf=pass smtp.mailfrom=netfilter.org; dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b=vAPk79nq; arc=none smtp.client-ip=217.70.190.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=Hco7CZzM7oC1h6XB0tB6ot7fWb/zX2Z/sN52dZ8w7ioBg3T6AjNMpN6tqHu2K8X/lpgsm1OItHMD2vhhMfBuuPLRSPBGtDrOSI9wvLeXoBgvpOq8vIhHusKlLnsqWjDerXJJCtLUalKUN0J01T1nkzPqF1UA6HVzfcIyKmEmpNs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JPTyr9/a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b="vAPk79nq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
-	s=2025; t=1790844415;
-	bh=qfwqIlO/B9d/gQZcSXC89TRJ7a33VpkcIh9JA/58SYM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=vAPk79nqDBMD+uffHv5rZhnxSc1Zehm758wIA/3edGI7Dgs5O77iP5WeCo7phXVHr
-	 Pud2de0zewRIlm3jeS1lwGdj4q4abSIV/ECiTTo86UGQlYtxt8XCuqx5Y+80xtpNc7
-	 LrMhH/mNz5161UT5Ph8Y/g8dWPbcXB5wxV2ywRIUFXYZSUK7vPUnOnupdCrH3a2pYo
-	 JvVl8FhV/pkVb6bsyu6MNwVSoXDz+b9L8iMnLJFcFwHrQKJzuDq9XumCcd3KwAyOMA
-	 QkOgGBsdkS4lQwjMxTo+oUDM0+o60M7ukQid2zZ/6SKmSIAx7lKnLcmmO1VlkoBH+r
-	 XyBexLKPM9vkg==
-Received: from netfilter.org (mail-agni [217.70.190.124])
-	by mail.netfilter.org (Postfix) with UTF8SMTPSA id 7235160076;
-	Thu,  1 Oct 2026 10:46:55 +0200 (CEST)
-Date: Thu, 1 Oct 2026 10:46:52 +0200
-From: Pablo Neira Ayuso <pablo@netfilter.org>
-To: Ma Xinmeng <1564938642@qq.com>
-Cc: Florian Westphal <fw@strlen.de>, netfilter-devel@vger.kernel.org,
-	stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 6.1] netfilter: nf_tables: fix UAF in
- nf_tables_netdev_event walker
-Message-ID: <ar4d_JbuojZJuazs@chamomile>
-References: <2026-09-25-daily-reply-0003-re-nf-tables-netdev-event-uaf@kernel.org>
- <tencent_CD037FFEEB8CA462C8403FB30F50EEC6DF06@qq.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JPTyr9/a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 483741F000FF;
+	Thu,  1 Oct 2026 08:50:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790844611;
+	bh=Xt/qPIC7xIUoeVEu27a44z9OYbE4U4n6riy6EtW3WXw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JPTyr9/aIwPTkz4BBavBehl9c6+SMAmta7nZXlP5rIMrUOPDJ9CB3oVC/N1bSrvtR
+	 Erop4lMBBua+FO9L7ZpRb6DJctUYIZdobq6Bv718mqAgqsPGo/oog0a6qj5U3ETXw1
+	 28rgiw//yXKj7DH5rYFQuIcfSekiGpW6y/6xDyh0=
+Date: Thu, 1 Oct 2026 10:50:05 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Hui Peng <benquike@gmail.com>
+Cc: Jiri Slaby <jirislaby@kernel.org>,
+	John Ogness <john.ogness@linutronix.de>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v7 0/2] serial: core: fix baud rate fallback loop and
+ baud_base overflow
+Message-ID: <2026100102-retract-colonial-3ceb@gregkh>
+References: <20260930125901.778868-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <tencent_CD037FFEEB8CA462C8403FB30F50EEC6DF06@qq.com>
+In-Reply-To: <20260930125901.778868-1-benquike@gmail.com>
 
-On Thu, Oct 01, 2026 at 11:51:30AM +0800, Ma Xinmeng wrote:
-> This is a 6.1-only fix. Mainline already fixed this bug in fc0133428e7a
-> ("netfilter: nf_tables: Tolerate chains with no remaining hooks"), which
-> 6.1 cannot take because it lacks 207296f1a03b ("netfilter: nf_tables:
-> allow to create netdev chain without device") and b9703ed44ffb
-> ("netfilter: nf_tables: support for adding new devices to an existing
-> netdev chain").
-
-Then, why not add those patches you refer to as -stable dependencies?
--stable trees will become hard to maintain if they start deviating too
-much from upstream.
-
-> So 6.1 keeps dropping the chain on the last
-> NETDEV_UNREGISTER, and this patch only makes the walker safe.
+On Wed, Sep 30, 2026 at 12:58:59PM +0000, Hui Peng wrote:
+> This series addresses two issues in serial core:
+> 1. Division-by-zero WARN/Oops during baud rate fallback in uart_get_baud_rate().
+> 2. 32-bit unsigned overflow in uart_set_info() when multiplying new_info->baud_base by 16.
 > 
-> nf_tables_netdev_event() walks table->chains with
-> list_for_each_entry_safe(). On the last NETDEV_UNREGISTER for a base
-> chain, nft_netdev_event() calls __nft_release_basechain(), which removes
-> that base chain (nft_chain_del()) and destroys its rules. A JUMP/GOTO rule
-> targeting an NFT_CHAIN_BINDING chain deactivates and frees that successor
-> (nft_immediate_destroy() -> nf_tables_chain_destroy()), so the walker's
-> saved "nr" iterator can point at freed memory, triggering a
-> slab-use-after-free.
+> Note on v6 1/3:
+> Patch 1/3 from v6 ("serial: 8250: fix deadlock in serial8250_register_ports")
+> has been dropped. The hash_mutex race condition was originally found and
+> reproduced on Linux 6.18.14 (where guard(mutex)(&hash_mutex) was dropped
+> inside serial_get_or_create_irq_info() before serial_link_irq_chain() linked
+> the port). We did not realize that it was already fixed in mainline by
+> commit b339809edda1 ("serial: 8250: use guard()s"), which refactored to
+> serial_get_or_create_irq_info_locked() with guard(mutex)(&hash_mutex) moved
+> into serial_link_irq_chain(). Apologies for the noise in v6 1/3.
 > 
-> Fix it by restarting the table->chains walk whenever nft_netdev_event()
-> released a chain. __nft_release_basechain() removes the base chain from
-> the list before returning, so a restart cannot revisit the freed chain and
-> the walk terminates.
+> All remaining patches are ported to the latest tip of mainline (551c722f4080)
+> and dynamically verified in QEMU KVM with CONFIG_KASAN=y.
 > 
-> Signed-off-by: Ma Xinmeng <1564938642@qq.com>
-> ---
->  net/netfilter/nft_chain_filter.c | 14 +++++++++-----
->  1 file changed, 9 insertions(+), 5 deletions(-)
+> Changes in v7:
+> - Dropped patch 1/3 (already resolved in mainline).
+> - Clarified in cover letter that 1/3 was found and reproduced on 6.18.14 and
+>   we did not realize it was already fixed in mainline.
+> - Retained patch 1/2 and patch 2/2 using check_mul_overflow() as requested
+>   by Jiri Slaby.
 > 
-> diff --git a/net/netfilter/nft_chain_filter.c b/net/netfilter/nft_chain_filter.c
-> index d170758..ca6450a 100644
-> --- a/net/netfilter/nft_chain_filter.c
-> +++ b/net/netfilter/nft_chain_filter.c
-> @@ -318,7 +318,7 @@ static const struct nft_chain_type nft_chain_filter_netdev = {
->  	},
->  };
->  
-> -static void nft_netdev_event(unsigned long event, struct net_device *dev,
-> +static bool nft_netdev_event(unsigned long event, struct net_device *dev,
->  			     struct nft_ctx *ctx)
->  {
->  	struct nft_base_chain *basechain = nft_base_chain(ctx->chain);
-> @@ -326,7 +326,7 @@ static void nft_netdev_event(unsigned long event, struct net_device *dev,
->  	int n = 0;
->  
->  	if (event != NETDEV_UNREGISTER)
-> -		return;
-> +		return false;
->  
->  	list_for_each_entry(hook, &basechain->hook_list, list) {
->  		if (hook->ops.dev == dev)
-> @@ -335,7 +335,7 @@ static void nft_netdev_event(unsigned long event, struct net_device *dev,
->  		n++;
->  	}
->  	if (!found)
-> -		return;
-> +		return false;
->  
->  	if (n > 1) {
->  		if (!(ctx->chain->table->flags & NFT_TABLE_F_DORMANT))
-> @@ -343,7 +343,7 @@ static void nft_netdev_event(unsigned long event, struct net_device *dev,
->  
->  		list_del_rcu(&found->list);
->  		kfree_rcu(found, rcu);
-> -		return;
-> +		return false;
->  	}
->  
->  	/* UNREGISTER events are also happening on netns exit.
-> @@ -353,6 +353,8 @@ static void nft_netdev_event(unsigned long event, struct net_device *dev,
->  	 * so we cannot skip exiting net namespaces.
->  	 */
->  	__nft_release_basechain(ctx);
-> +
-> +	return true;
->  }
->  
->  static int nf_tables_netdev_event(struct notifier_block *this,
-> @@ -380,6 +382,7 @@ static int nf_tables_netdev_event(struct notifier_block *this,
->  
->  		ctx.family = table->family;
->  		ctx.table = table;
-> +restart:
->  		list_for_each_entry_safe(chain, nr, &table->chains, list) {
->  			if (!nft_is_base_chain(chain))
->  				continue;
-> @@ -390,7 +393,8 @@ static int nf_tables_netdev_event(struct notifier_block *this,
->  				continue;
->  
->  			ctx.chain = chain;
-> -			nft_netdev_event(event, dev, &ctx);
-> +			if (nft_netdev_event(event, dev, &ctx))
-> +				goto restart;
->  		}
->  	}
->  	mutex_unlock(&nft_net->commit_mutex);
+> Hui Peng (2):
+>   serial: core: fix baud rate fallback in uart_get_baud_rate()
+>   serial: core: reject baud_base values that overflow port->uartclk in
+>     uart_set_info()
+> 
+>  drivers/tty/serial/serial_core.c | 11 ++++++++---
+>  1 file changed, 8 insertions(+), 3 deletions(-)
 > -- 
-> 2.49.0.windows.1
-> 
+> 2.47.3
+
+You have sent 3 versions of this series in one day.  Please relax and
+slow down.  I've now deleted all of these patches from my review queue.
+Please wait a few days, take the time to make sure the submission is
+correct, and then send a new version.  Don't overwhelm reviewers without
+helping them with review of other submissions, to do otherwise is not
+very kind.
+
+thanks,
+
+greg k-h
