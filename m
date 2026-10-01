@@ -1,148 +1,164 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from fhigh-a8-smtp.messagingengine.com (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B540931F986
-	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 12:28:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2B4F3161BA
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 12:31:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.159
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790857738; cv=none; b=lhnXjvI0qzFgxGAAqAe//wahcqZ7d+eKeJDr6VT9kB0HwQQXY0Qi1YqDK3L+4Wb3+QsK45+oOLTvbpujTGpranOlx+qIVjE2rLFHshGifpSIkyRUqHisdKvj1hGhaXRWpMP1cwnpl6Q1poysXsWK1ZucwygP3IO2qkC7cCsUQD0=
+	t=1790857882; cv=none; b=cj5zzcU/qBWriTYPyaCfOqxiWzF5DMuCJ4FLCuBS37MidrsPwI91Jlg3dD45pZkRyXu8L6zfrPEufDdpFpcPJBdBYT5A8cQc0rG7jjUpHWwuTsf9L9gfdUekirlCp2tNcvHy3t1Vb93qihDBpOEc3MPEEIEw09XS3lFVsvyu+Mo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790857738; c=relaxed/simple;
-	bh=dXYL09udpZGlmeEtYkW5pfuwxpM/XXs97rRTP2AfWyE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kOrVUrv+7SnmuOgdSZpl81c72TpmrBdKZneweFd5tyqivVH9b6jDmnVBojO9vXLTxDjQhmyflv7mffdFdUmrA+A8duNYpT4/jF76K8yvvkPsdTtCv7EgO4gP3cP6kSuHpMvSd7wdISMrs62q3ZwAPHFUiSqhay0Fq+paTekklkA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kG5ijOQr; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eOBuGGHX; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790857882; c=relaxed/simple;
+	bh=twM53lvJ3VhYvfBx9KT0LL7hdlFMgjTFuP5pELddS2k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Dua7pNTGOqWz3Dx5xycVZYk4Dm6TNyHoJugteXPHwxJj64O9xZ/5Gga3qGpePjgsZjP7mkpAhtCuaqPcxxOde5tkR803OTepBUq4GnTWVA4vTsT56u1X471aWCi1B1VXPrHam3A6n7ewuD5pQcyLgoJgHR04bLk5Qn6tOfcQYIM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org; spf=pass smtp.mailfrom=flapping.org; dkim=pass (2048-bit key) header.d=flapping.org header.i=@flapping.org header.b=RltVOv+i; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=q/YmZUJU; arc=none smtp.client-ip=103.168.172.159
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flapping.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kG5ijOQr";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eOBuGGHX"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6916xNmH1062184
-	for <stable@vger.kernel.org>; Thu, 1 Oct 2026 12:28:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	9WInQ6TGJlF0IbIU9ZSYlxJslOJO6BnvCO552rLSGEs=; b=kG5ijOQrlrhh7EmI
-	KcBeswqUG33eMQXt9Urzc4ZpQPUm+BFG57j6i/h4wFMXGL6yx5IHJ0qXWOoOEOZj
-	Eai7VEN5IlufjtAdYM/NeKImPwsOiRq6xiZtkZZpzzTgsdHlRkCcHX/yuLsKoNJU
-	PyVL1uvSKJigzxh3Mh+ZsTEVeJ1usepFbMG8oR9tEEmQj6Jkq4zuGImwJWii0eU3
-	zVIndBdrOxKUxKUY7zjOHdBmJG7rcmA6U2oVD8fJZev0+xHJAIK/C2Hv/d4BE/AX
-	tNVuwK9P/zhyTC3lF21a006aUr8AjexhYH7o9XhKgQDJEsN2kolnGkBiGdP8w35G
-	dQkAnQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h17mvuthh-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Thu, 01 Oct 2026 12:28:54 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93cb98809caso122973785a.1
-        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 05:28:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790857734; x=1791462534; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9WInQ6TGJlF0IbIU9ZSYlxJslOJO6BnvCO552rLSGEs=;
-        b=eOBuGGHX9Y+v+e5TDcMzypsFyriA0RmLH7P07SMwPN9cI4RiDEHk7NVTxp0OKD2kJC
-         eIlA6H2BsWoNRKzxAlkhOqqe35jWOoeeVpFs38OXp/oSUoXtZPY3PBnO0Jokp70AEKMs
-         geVwV2fXFCN8WUskVAnTgs/2hN/52AIlEEdSPN3aJh1rpYFcRR9CpUMbPZP10ZklKHDc
-         EJSNESbJVexxwAs3sXecjyR5PBMXgsyP7kuK42/2w5OYdJxGse/HJmzAqwu0KlNAk2IN
-         v3cc7WvmahYOtNqnxVQiFhYvGOMJXuVuihIg4hKezXRQ4Kc7EDoKN+Spu2jOJlNhm0gK
-         P/Nw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790857734; x=1791462534;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9WInQ6TGJlF0IbIU9ZSYlxJslOJO6BnvCO552rLSGEs=;
-        b=BdNFd0kEYUPTEQST1P0H/yijk+5fOZuz0cOvBS4yG5GKlroOpsvSpwgVwQIsD/c+Um
-         zgHDGYBYx6Ri58kfpSen/zZMiSMdIeoRup3tHD7KDdtuYuViRNxyEaNQZ5Ehc/0WHjWA
-         ZPz1feqVs2i6mkCFCaG5IkNllGsZKxpjRyYFcavDUlOemC+uQczzl0abkMYMKTxfs8DM
-         iwA81iGESQ4iWfbOPlT+8u1wVAiBijvUdeGK94jkSoQpsjx5deSHNqaFPukLdDWUSo7R
-         gSYPdzy4JzVa+LNKkpu8UnVPvjmWsPOlJpX5dDvfCzD2AhdOBMtcMjA/QV8rIyEIv/zT
-         1caQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy5OLNvIx0FIsNaeMNRhOcdegwfx+ZdUmeyA9xaXZVkhowWTGS8j06gxjN90pS0SkC2khcegvo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mX/QSMBIYUC8qrmXcwW9+2yyQzqd4d3+flS0FLj4i/apEob28X
-	PaFiUBXztfmCBFoXvm2oKZdCmOmq4GvPGWolsHC5Ob8rRBeXhbirgx8BwpZ0IS9qk4FiV4x/iSb
-	1Jc2oTbx0EK6gojlORjqx5fmougmBACQ0XzPZ1JRf8fSqe1Sb3bQ1Q0RnRiEzk9QH/3I=
-X-Gm-Gg: AYBFou1IPK0y+J1nHZUoe7dWGeZb9jSvkDkkzRNK9cOT5SCnqiSFaBrQ/7Hs0zLsyLK
-	ngjo1KAnuoN6n4Itxg0ZmfrKGqrMmfv/tltCZpQ0zFam2sk8mvTfyvLpVDHIL7hg66PJjpxhzsd
-	FD9Ttcdahs9Kc/acYy4pSZwOU/6hApPUWJhyhsodR+nWHW8CUoqXz9daJ0UjtRL/Z0d1HGd42WS
-	uUIEbQ4GjNRHlORrbtDzfJQYP1hcCG42sXQBS7d6EQmX6pOCCt8lBqHL3UuU5FaOlC2efhOXz/L
-	MjY9X+3hGjOm77XP8BJDsxf+lTS3A4W8fhCn0qJTKXBqybl5kgVvzD6ejhJb5ynzN0aM+O7N8k5
-	ZOTT4eqHhdgk7vmrG95Dq+FQgpIY=
-X-Received: by 2002:a05:620a:370a:b0:93c:b47b:26f with SMTP id af79cd13be357-93cb47b0cd1mr567072085a.49.1790857733776;
-        Thu, 01 Oct 2026 05:28:53 -0700 (PDT)
-X-Received: by 2002:a05:620a:370a:b0:93c:b47b:26f with SMTP id af79cd13be357-93cb47b0cd1mr567068185a.49.1790857733295;
-        Thu, 01 Oct 2026 05:28:53 -0700 (PDT)
-Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b068bd8c9sm5915602f8f.2.2026.10.01.05.28.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 05:28:52 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: linusw@kernel.org, brgl@kernel.org, Fan Wu <fanwu01@zju.edu.cn>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org, songl@zju.edu.cn
-Subject: Re: [PATCH v3] gpio: mpsse: fix race when arming the IRQ poll worker
-Date: Thu,  1 Oct 2026 14:28:50 +0200
-Message-ID: <179085772818.11030.1529408482067612830.b4-ty@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260929093646.18419-1-fanwu01@zju.edu.cn>
-References: <20260929093646.18419-1-fanwu01@zju.edu.cn>
+	dkim=pass (2048-bit key) header.d=flapping.org header.i=@flapping.org header.b="RltVOv+i";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="q/YmZUJU"
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id BE705140012B
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 08:31:19 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Thu, 01 Oct 2026 08:31:19 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flapping.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=fm3; t=1790857879; x=1790944279; bh=Wc/XaUzu4zm/FTuCYjNq4
+	8N/EyN6DPB0fjJUcT4PstY=; b=RltVOv+iFl019WFm9zEwIUhx3rf3AwFVQJlCW
+	IazUo/S+EQesb0BLvYiYiYGLHu8xPjg4jw9F0yS7fHuvHjgSL0NEO+qQ8rJrg5Vv
+	hG6wWPjhLDSwoOKvOvCb8+BKsfiPxPRKeW+xP+nPTnKwYtdX0GYJJK3lVWNgJ2Pz
+	FG4AFufVVABNpN6ELLQNxvggGlFrHzkoHAFtlpQB9REYNmMjIN/mVSQlYHGN32Le
+	zM8Gki/3DP3Uwie4qMKXTuqnzInXJrRBJBW6wRmInzTmbegstJ+0xCwL9r2RAfTm
+	PjCVWh+wITUOGQ6j6Wv0al0Pw319/GMOmZgkK3um3t29sq7sw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1790857879; x=1790944279; bh=Wc/XaUzu4zm/FTuCYjNq48N/EyN6DPB0fjJ
+	UcT4PstY=; b=q/YmZUJUI2/0HoWoK3pW3kEW/fMxFzaL97MVprN0fm4P136VAwJ
+	L/I8DTApGqo/iMHC/DARgPuLjkgSgI7qTevUPjo2kmwOSG3SUc0cyXnMftCA3vR8
+	RqLqoIsNnngf1X6O4TmLyDz78Sqdjt4p1pj7dQxqjiG2thpEVQcYawIRZXayhoqN
+	QPpeUZuwrcV9C3umKVSxXm84+DNm/wAeoG9eQUdbojIN6n8IVpJEng6YN1jeEQ+F
+	cI3ToRBjnJ8kpu3ekBsNZKeCLr2hNVyrr13Ve+xeKdE6JHy0rkkNkd/jw5h4QYl3
+	TUCk5E6YycIpjSk2sOG9LZ5uPFISgpeNhMg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=sign d=flapping.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1790857879; d=flapping.org;
+	mf=PHRvbW9AZmxhcHBpbmcub3JnPg==;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:KdQu4FoRw/tfoUQbm31PubL7yPbSWpB4bul6xFxQ3ke7C01
+	VN+yuIUaHhjXqEA6ClRhuUiw7W5MBbLGJQxv4yD0aR3uJz3aZz73nyiRntdISJCP
+	eUzKKc8LsdwcnLi9+yEG9YyC89vVgQ/4Mn0QaiWQ4RzXtluzzpMzs5Gi6vOyXryp
+	tN1/WneVfrtgH6rwr162CWD2q8MaWg5B8klc3215Vpo6IofuzM6dGSlpA6CgJ45S
+	cqupCd+7xDwxwvIgjE+8MOHr64PWItioGEBMH5K/SFq64+idA9bEUiJ5niBeTYQk
+	LA65k/SSHryu10iHhPMkoE32E3pyixIyf3PCmWQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:elZ88t6N8IC91EdShLwDg5uZGEGWOCpiT01GTlZ8A0k=:twM53lvJ3VhYvfBx9KT0LL7hdlFMgjTFuP5pELddS2k=;
+X-ME-Sender: <xms:llK-aiF47X1ORNVVTOHiWfYl5KKkTnfhmZaiuzKR7EX-wbgyyRXthw>
+    <xme:llK-aqZi0RQljVCyoTnth_rpM5vE8awnwtqLS3hBIvK04PlZH7GdJgNeHZNUqm_aR
+    SsBdMJAgxBg1xsOMkFlhta2bFPw5_DX3-au-pscIhcBX9r0_KS3hqLP>
+X-ME-Received: <xmr:llK-aj1Gmup7AhY5sGj6MKXhU9y60zKWXArB60JXymh9EAfoMiAkBJKl-RVqh7g1BEn_czdSp98gYMPaqtY>
+X-ME-Proxy-Cause: dmFkZTFwS70LB3erJYzbaTJsyLPdABAp/zeskGV2WMC+BSrmSlE9v0pqkD/yg1RYHMkSNn
+    I7wLTPwb90zziHO/mKGNl2k67luwVI4dTo6f40kR6JVbFk/T7h82hO/07U2LKJJkLwnxGZ
+    KXODYm9O6Htiu9yUb5W0zYNr3iuXfKo0ACrU4QRJD2hE9SHbeV8hFTYJ4uLBQZG1ZiAgma
+    iA1ybPD1zBZ5uK8zNsifAzmwSoJXmHWyiDc73S1YRr0pa0ig0R/Q4z6/40tFsaamcegK2i
+    WsAq9X0kaYu4LVu+Pkd5PdnM8DBhWkf3bx7CQO+b4cegfnJF8ry2prnHQEKijVcDETzNSN
+    udpUm89d9L7IrEtYQb4s8fnTbcU8P+mPrDav0dKmbl9s+Ko5ES/WcPFTyHJLKxUCQzDecx
+    bKy3mwYKe8ow+bIvKkoNHlNW9L1K1KQTLYsh9BDa1K3fUgZXySstfePWJPSvdwOxPJ0Y+p
+    Spf0V7Eru5YH3OfAhn8zazMmb+udVmsDSft7dga9hCMWAhBp3Wh38oIg7WNL5fHs5cgaEW
+    ePEwzspA2k3wI3hKVjGE0lcAEOCRpAuEgUiJYsqOjHMwivbqzWtJaudp9lh326DlnVYLIL
+    lSkhJ6zyeg08K8jYl8ErM+rXTlCBVk6js0XJ3c8TUR7dGicgGaT3Tg9onuKw
+X-ME-Proxy: <xmx:llK-aidqFe_5go7kpExN4t24SlmAvaaPURI-553oUgbAakh2U-V-VA>
+    <xmx:llK-alBKKza8lqcFWfs54IeuRTl5g47tNXycj1pCJPsu3xl-orTMVQ>
+    <xmx:llK-ak01xHQ3m5XSmknJ1cMaKhgl7TNvyuTGoTRqbTD3WlBNFJFh5Q>
+    <xmx:llK-alPkmIPC1XPPkCRXK5zjVVGZOg3y6OjpeB5VLSC0sVvdbTiZdA>
+    <xmx:l1K-av4OhgThdwQQ3S42Pi8iX2B5zb5F5uRZDWmLiVp1PrlNL0Vz9viR>
+Feedback-ID: i51fe4b43:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 1 Oct 2026 08:31:13 -0400 (EDT)
+From: FUJITA Tomonori <tomo@flapping.org>
+To: ojeda@kernel.org
+Cc: a.hindborg@kernel.org,
+	acourbot@nvidia.com,
+	aliceryhl@google.com,
+	bjorn3_gh@protonmail.com,
+	boqun@kernel.org,
+	dakr@kernel.org,
+	daniel.almeida@collabora.com,
+	gary@garyguo.net,
+	lossin@kernel.org,
+	tamird@kernel.org,
+	tmgross@umich.edu,
+	work@onurozkan.dev,
+	rust-for-linux@vger.kernel.org,
+	richard@nod.at,
+	anton.ivanov@cambridgegreys.com,
+	johannes@sipsolutions.net,
+	linux-um@lists.infradead.org,
+	david@davidgow.net,
+	FUJITA Tomonori <fujita.tomonori@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v1] rust: bug: pass TAINT_WARN to warn_slowpath_fmt() on UML
+Date: Thu,  1 Oct 2026 21:31:03 +0900
+Message-ID: <20261001123103.2198104-1-tomo@flapping.org>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: _UzYDa3Z-Lnnmp_zGGIzXuVepp9ZiyQ-
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA0OSBTYWx0ZWRfX5BTcvZURTtLl
- t+KCZobgbT53CiHB9lgVPhuI8/2ajTm1Ot9PPP5+mLI56+dWMCgmlpqd4rWPZWfGzortmC4rxnw
- hIqkj6vv8U/D4PFAqmuVXhSnFKGmY8aSkjo/swgCcnFfgwuE8Q7LxqSaQFILa7pt+3ECvUDxvMV
- NdgFRXDl6//aNGCQdMS7uvEsZeBBrpfPpBilyWxuG8c/UAx9MV5mRZFR2bjvDgbJfK///jHDCG0
- /HERadVUbWfxzgWRe1g89ZRd2avdF7b8wtAA56vFDUXUHf/pw0NqwpUt0PDSE008f1JbH6/75D9
- OKzwknc8lENF4gwynoaSpg7n1quR9ZagbSKhdL+Fk0sPZ20J7de7YqtY0DmaNd5s6gztYgm1FM/
- tecQvszzhYzk3d9mUaYC4drA15KL90nVm3/efwb/2kugeZXwf4VaRsVFFeHL8uQ9k46dfjwdMe2
- 6Df8TMD3bbCyo0/7gBQ==
-X-Proofpoint-GUID: _UzYDa3Z-Lnnmp_zGGIzXuVepp9ZiyQ-
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA0OSBTYWx0ZWRfX1/AWPW4oRYre
- zoUJbC7V13HqOj4Bnx5x/egvkfkiqaW0fFYVC+5S3r9RjIJn7GjO0qXSQKb+kbHKM5e8FoMppm1
- d1MabLYVShg1UFJUSxnQstITXZsPPig=
-X-Authority-Analysis: v=2.4 cv=KuvYSmWN c=1 sm=1 tr=0 ts=6abe5206 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=KvT2gXNad9s2oUHfL34A:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-01_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 spamscore=0 phishscore=0 impostorscore=0
- adultscore=0 suspectscore=0 priorityscore=1501 clxscore=1015
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610010049
+Content-Transfer-Encoding: 7bit
 
+From: FUJITA Tomonori <fujita.tomonori@gmail.com>
 
-On Tue, 29 Sep 2026 09:36:46 +0000, Fan Wu wrote:
-> gpio_mpsse_irq_enable() arms the poll worker before publishing it:
-> schedule_work() runs before the worker is added to priv->workers. If
-> gpio_mpsse_disconnect() walks the list in that window it misses the
-> worker, and once disconnect returns, the USB core frees mpsse_priv
-> while the orphaned gpio_mpsse_poll() work keeps accessing it, causing
-> a use-after-free.
-> 
-> [...]
+On UML, `warn_flags!` calls `warn_slowpath_fmt()` directly. Its third
+argument is a taint number, but `warn_on!` passes its bug flags there.
 
-Applied, thanks!
+As a result, `add_taint()` gets 2304 instead of 9 (`TAINT_WARN`). The
+warning is not recorded: `/proc/sys/kernel/tainted` stays 0 after
+`warn_on!` fires, where it should be 512. It also causes an
+out-of-bounds write in `add_taint()`.
 
-[1/1] gpio: mpsse: fix race when arming the IRQ poll worker
-      https://git.kernel.org/brgl/c/7efa1a1953cd6b20b23a3524d5b4b81789c6ef25
+Pass `TAINT_WARN` directly, as C does on UML.
 
-Best regards,
+Cc: stable@vger.kernel.org
+Fixes: dff64b072708 ("rust: Add warn_on macro")
+Signed-off-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
+---
+ rust/kernel/bug.rs | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/rust/kernel/bug.rs b/rust/kernel/bug.rs
+index 3566f0234ca4..af8eba4563de 100644
+--- a/rust/kernel/bug.rs
++++ b/rust/kernel/bug.rs
+@@ -85,6 +85,7 @@ macro_rules! warn_flags {
+     ($file:expr, $flags:expr) => {
+         if false {
+             _ = $file;
++            _ = $flags;
+         }
+ 
+         // SAFETY: It is always safe to call `warn_slowpath_fmt()`
+@@ -93,7 +94,7 @@ macro_rules! warn_flags {
+             $crate::bindings::warn_slowpath_fmt(
+                 $crate::str::CStrExt::as_char_ptr($crate::c_str!(::core::file!())),
+                 line!() as $crate::ffi::c_int,
+-                $flags as $crate::ffi::c_uint,
++                $crate::bindings::TAINT_WARN,
+                 ::core::ptr::null(),
+             );
+         }
+
+base-commit: 551c722f40809618230001baccf219193e22fc5a
 -- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+2.43.0
+
