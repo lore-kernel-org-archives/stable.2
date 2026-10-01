@@ -1,259 +1,128 @@
-Received: from mail-yx2-f39.google.com (mail-yx2-f39.google.com [74.125.224.167])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-b6-smtp.messagingengine.com (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 920C32F7EE0
-	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 09:42:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.167
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790847738; cv=pass; b=jtJm3dMK5T74+I4B0u1hx1Phmrxryde0QXbzxuT6ktxQzdtAWpkUPu+WRS3CBB07rzM5uVEEBm7IE6i1nxE5Yhf1p/tR1wWuKWodAK5pXW3GAcUYXpCMyJmGeJksSBWj0bhJ6MoCOCOyfzU6rH7eihxn4ApfMTl1cjBY094If/o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790847738; c=relaxed/simple;
-	bh=Ypn/sllLHY+q691coE2q5hvwYIfWukXrF6EaTXqu8+8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oyRuMt+Azi142mtQ1NOYtPQ4hdgMzFQOBe8efcks1c567jLID/oOAyqNBKtvTuXTS9xtOXB+KbdflvP8r2KL0P73l2upzCnGU1bJIQdZ+Gl8dO0Q8hMq5+Ms25UnZcuaBpXB8gWWw0wFxt+7QbNdkaEEO91D+DGKx/VD0LK5Wm0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W+JbqdSR; arc=pass smtp.client-ip=74.125.224.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C61454BF94F;
+	Thu,  1 Oct 2026 09:43:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.157
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790847794; cv=none; b=LCWMu3rfMU+E9AEXxPrBz4Kg89I8fM3mvegfhhpwX5DJ1NBEMw/heq8/zoPNvjdR/7Wyud/8IW+7xWrnYdcZFGuTWPUnc39IMmxFIA/66KIDqXaK2APwMgmk93qJkQvtT+LPE7g0GMNTkD4Bx3THtPYcRi08EMZQl7ahfHA6EM4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790847794; c=relaxed/simple;
+	bh=aTOh2uYr/Zfwj4dE0uQ+wLez7SFg750t2JTGvp2gFos=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PKZB9uLTf2FEgd8MyewGqJTI1xWe0DpjqCxCI+P/QTLswOvXkprXYm3ch/8w+SRmBRYb1WUgOnQFeSbMclzbGSXzRt3QOuxE1EzvaM/OFmNybOfrNVV0knRq0IAVvYOKSg2Ri6nSVgtWpb0OOHtEwtBR8NscrhctRfX/WEuN0no=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net; spf=pass smtp.mailfrom=queasysnail.net; dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b=T8FSFjmm; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=vfRnCntF; arc=none smtp.client-ip=202.12.124.157
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=queasysnail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W+JbqdSR"
-Received: by mail-yx2-f39.google.com with SMTP id 00721157ae682-8ac8e048735so15528237b3.3
-        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 02:42:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790847735; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CEO9tCA8JfjJodWSdRESQc8VOQLh8jgiqXomn6SpwXN6VavlrzWtHGP7+VsUinpJwQ
-         AhU9rJQuNLhK6oTH6beYXBkKk3gywf6xhIGraGjO5nUSNaTBpbSLVG3ptnNBWQANuaNe
-         sojzNOO0fTXANWgvnZDRmTCBWEDO6KU2REj5I2NqIGfy5XBOueNo2jRs7ELY3TXQ/aiq
-         VwCzWPDtFo86TRloNUTfbZJn0DdP8Dj9ZgwJGsgt2HCzGALdMV5sCjSPPHouGLM84Cu/
-         kl1Rvgd3vjLGqGP5GC7/tbQ4ROOt8zNGRUUMFAdcG3QLnoMas8Nf27x6EGMWW6JtL6g6
-         9e7w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=cp7MMTlo9Epi7EBkM5Wv17VJLo8EMbC/QdZsdYaWY6k=;
-        fh=LFV86uyKo1z6KxM2uT9tEoYygIUneymYmNhk9NtYKqc=;
-        b=NOOTqOa0viag2J0oPDNCbknOmSLyXv0SsJ/+m4hZUawromdXuEJg5WrvfSlGL65QnZ
-         uhOjTlh6lJLmYe/0bYJFuYXysr0XNwCCLm8f/X3w3uHtoHufHmaGkM+DJIobqy1lf3KD
-         CyrZC2bBXNig2WrR+1JPf3+aOFEu099+QxU1M9n4tH+cGnJiCiRNXLJPVFlAkzd4TUWh
-         0w0eOjB8uwtd7cpHF1qVH0dGPJbDSbsKA97glLLpnuu0/hos5XEwMS8Ju3yMB/Rti5ks
-         Z0HWxOaG55OTLF1jdpVJQbS8u4fwImnwhyUngnMEiaPOoPdvHuzsQJDJxF5scMc8rNo3
-         sieA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790847735; x=1791452535; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cp7MMTlo9Epi7EBkM5Wv17VJLo8EMbC/QdZsdYaWY6k=;
-        b=W+JbqdSR8F9PLSOnTF4RTv8RgWo8lkpWcw60oh1/BB1aUf1qaxfXhTB/DMmVQfGm7U
-         B6rXDYTQxhgj/Roon4r2cOCLkG4wIwNeyPkVsu4FZKxRideCqdNnupEOsapz6jTl7ZcD
-         EJuoxZsam480p1suwM/wv2c4Z6oNKw5WrABozTDDN9mdWOinZCWfPUYbjW4MRYw8LE5y
-         QarXMKRmLFbVgy8J237PHKZLCHafupcRTiz8ADoYJWSegFR8rTwUwdBG2ADTGVLV+pTh
-         4e19iMD2fhJ0dUbPgTNMJW9OdbxFskKP0J0wh5ZpLTDqcQnYgZ7Pq53j5t706ffpB8dO
-         dUyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790847735; x=1791452535;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cp7MMTlo9Epi7EBkM5Wv17VJLo8EMbC/QdZsdYaWY6k=;
-        b=Hrngurds8BpbXfNm5f3kwbCG+e1FXYp6cIumSo1mkDk1+bZ7QYiZzIE5UDs+M4T1Wa
-         I1bpUsSmexinpq4UK9ZuWInuesmPstNo+J1ZcRgg7ClS9QduG1TaKuMBJneH7wIrmp4t
-         9wVcv1GFyfFs7//2o4xh5gmCJLdDSb/ZDWuDsul3NkgDEcJQ8VFEe89i09Q6ajsvGIl4
-         RVIcOM/48oOWlbYXsxSEPFBVfExk1ewA/iitFJH4lJImRaBJLIpqur4YKRuK5fx9JJt5
-         42aRJFcQyRH+xILAsKKCIzh3nu8KS6flJCjzn+gZXjkaL8G10UBjGnpEg2R5LVLkkt3w
-         yFtA==
-X-Gm-Message-State: AFq9FYIBOoAVG/ig/ENQoiasJFywVK9+MeSYFho/zbqbmf+QKQrOZ1I2
-	ChBhqnr/QaCgL6Rc7KWm4BvqUSMCWSSCj1wFO7DFreg0m4spQdatTyNGFKhWs81rn1qZtPrNo+S
-	VUelpYGUVhDIGGVxppHSLhW2k2ucFEf8=
-X-Gm-Gg: AYBFou1So5zHGQOAXG2y+7DQJC4jG6CACoIYDhtMVLSuiocm0EMPlsBLuo1Feo89dUM
-	x4CqUgmGNdP8+a3cieeXxMQiZHLRgbHUyjN3tVtxVXvkVtKQZkFQzGxGE1hp0EghlO6lWsWoczW
-	6I8QtAJULiVaGvmQidIdYAZjap92m0G3ApvcqR2ejr2/k617ucYWB/ZgESHL4j0V1a46HvNKVdu
-	EYGtaRGIAhPgiC+CwQ3U1ZfBodUVVNu5QOFcqbyOU79czNDVlnuHmIkAQ+m0ZcRykg+8Zl93ijo
-	Io8dJb/YpVuxtJQcoGs0sFEdP40cuj+iwTfTuSxZrkKqkZj3+8oh648=
-X-Received: by 2002:a05:690c:113:b0:8a6:1901:30d9 with SMTP id
- 00721157ae682-8ac93df3db3mr14307357b3.37.1790847735347; Thu, 01 Oct 2026
- 02:42:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b="T8FSFjmm";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="vfRnCntF"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 8C6B27A0090;
+	Thu,  1 Oct 2026 05:43:10 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Thu, 01 Oct 2026 05:43:10 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=queasysnail.net;
+	 h=cc:cc:content-transfer-encoding:content-type:content-type
+	:date:date:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:subject:subject:to:to; s=fm2;
+	 t=1790847790; x=1790934190; bh=0Od092CjJ6wZcmKWTEOEVG5cubRv6lXM
+	tEGzr08dRVQ=; b=T8FSFjmmuzIBmmRbmFIKNFDvilcgRvD6Xak7kw1y15A1zbq1
+	oSiu6/zGaYra/hQO7scZafNcwYHTvjUP9BN0r1Y0Zq3ItfJJ+aDrR6uOyfffTYzf
+	NJf1sqdcJeePqzCHl43cRNyAl3NWiBA0XZsQmZwZnWcFSs2ma890d6EvsO82E/sR
+	H8ar3n6qlSrHpEEMPpXwWvr1x+96Y6zXJr8wjj6gxl7YJachCuojdC9aUqAUNqlH
+	Yx7EQOwA1HPy6tdMqu750K3TbYyzsAziZGdHo0FQbho6Gsv/EVkYBB/qF3x0zV1D
+	8Gzm9EL7YXMXlcUdwoV/bLwDifO1ycyVtAjLJg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790847790; x=
+	1790934190; bh=0Od092CjJ6wZcmKWTEOEVG5cubRv6lXMtEGzr08dRVQ=; b=v
+	fRnCntFCZ8lvBDmQWMg98ScV2QO+gcYmjmHVVShrmlq8tnUh2iQi13RR58sKeend
+	4JDU+DEd7UQPIFVRO+YYJndIFv492KgzGSMBSJkug5jQq8bUmRIVth7uBq9FVUF7
+	6LB9JJR+QxX+7kJqnUKRYMoSipc3JjN+IYGeUten3nigBwDgtbhl1kYSdRhiCJj4
+	R5SNrbq3w89T1N0q9XmcdaQLw2pXp2Xxt2qBC0n9ILb2cR5ojWN9ngqPBmcP1ksx
+	YwfYToNfVKvHZa0XUYo93j+laIeQC0QQN83zwEUs1BpwJUPk4qHY+/4TrvQJdK+f
+	j7tx+Dott+UG9VatjRpLg==
+X-ME-Sender: <xms:LSu-apzClId97LjGUNGvHZHJQTUk8SQdjTYqLPmmNn9-CuMVP34UMw>
+    <xme:LSu-aqwuoJZbMx7CgGKiiank0pZdViDOcljTNAku8ufLLhHO6CxJHHUtjz0yEyKx-
+    _n01DBWZvkqwvoU_qX8AEUA_4cW1MUEPXFwH7uN4A74JsgJB78yqQ>
+X-ME-Received: <xmr:LSu-ajYkyG-fiTJWNry7CKPKL4HvazpH6WYYQanKJl8hFzTSIi7pbwp9Z8Vv>
+X-ME-Proxy-Cause: dmFkZTF/B8rAEk8rK7fLcnFT+wAiFTzXt5p+pkTnYvhBgJhFaxMk/WopBRLxJiEWF/tHOO
+    1KmcqYdtveJEURgf/XtVP0YELY8GPEETynSJ0VUT51D8rgldYwF/xkGQevwXVOQZRJThnc
+    op8FXp5aSBoZv17J816+tyMED7CYSDWHqQBEEGZAo6urqDJVWDVG+QovWI7+WwfKPFVb7L
+    1CMHNgYvwfsLE7mOOo7R4Z0cqGj3iWbInOTWq5SpkP0ln8V4fDVXelp6YtX7RhLD13A7kr
+    hvwF1/9MkHzK3pxbUR3i2bG2g56bycmAbRPpMvkzMEQuYIZoVKGyiid19xcVc+wT+NvfNY
+    PMHR96YV2+buNan/EmLZwHsunhm7Ltp1t+nJ6kUoGyF8H9KK/7KBpqtjIAYEqYaCpyiTqx
+    p/f2eseYRsV1/yTYIJCGwLFBDuNXXPJLFVh9K3xoGkGup+b4BdfIXh4/xFK87UYmn5Y+9o
+    sZtbVWc6Y/8G3nMaEtHtbhpgptBjI0pvddJvIwHjH0zaAPVv/C75OjRXWInNDFoU358HlF
+    OssT76vEVqoBQb914hh3GEzAZ4vnUpd1MY4PrDt3gLxgAZLRZa8pdU5roeLfdRvFwSlY/l
+    E6UolqtaXnm86chnSp9Zof1GBww3le+NBFgMnPmsUaBMJzZkCNOennmKtzRQ
+X-ME-Proxy: <xmx:LSu-arVIhKKcYzCvwsmOCD6p4n2xA2HrLiohaNzvjj5-MCjhEpdwWw>
+    <xmx:LSu-ahjbul5O143xuqmU2petlQWQskOeWKhAYE8etFtjhrA3OVU2jQ>
+    <xmx:LSu-apsa-PcaVKdZd75zrKuUs4MdV31FvvQf5yl-YFS2UdQRInzFfA>
+    <xmx:LSu-aq7wMbZcgpNmAxmpkeIxpktVDy2E9CUrA3EtAR5vZySDUiTMgw>
+    <xmx:Liu-aiZ_v2y0dDIOYLfW6gxBKHhCU2sPdV97RdjiX-Ej8J4Y7nfYGhDd>
+Feedback-ID: i934648bf:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 1 Oct 2026 05:43:09 -0400 (EDT)
+Date: Thu, 1 Oct 2026 11:43:07 +0200
+From: Sabrina Dubroca <sd@queasysnail.net>
+To: =?utf-8?B?SsOpcsOpbXk=?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net] macsec: prevent AES-GCM nonce reuse after packet
+ number wrap
+Message-ID: <ar4rKxYd7Csm6l2t@krikkit>
+References: <20260930203333.598733-2-Jeremy.Jean@oss.cyber.gouv.fr>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930152414.738996857@linuxfoundation.org> <20260930152433.381204859@linuxfoundation.org>
-In-Reply-To: <20260930152433.381204859@linuxfoundation.org>
-From: Bernard Pidoux <bernard.f6bvp@gmail.com>
-Date: Thu, 1 Oct 2026 11:42:03 +0200
-X-Gm-Features: AclHuK-JLWPdhKydTxrm6JLYXSIGwu6I_U39_3wTrHQIdvuK301QhQ_vWvJW0zQ
-Message-ID: <CAFAa3YBUKBAD4cHHO5PdMauxLJ46V2_9SU0U=FtnZjgKP-o1Nw@mail.gmail.com>
-Subject: Re: [PATCH 6.12 864/877] rose: release netdev ref and destroy
- orphaned incoming sockets
-To: gregkh@linuxfoundation.org
-Cc: stable@vger.kernel.org, patches@lists.linux.dev, kuba@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260930203333.598733-2-Jeremy.Jean@oss.cyber.gouv.fr>
 
-Hi Greg,
+2026-09-30, 20:33:33 +0000, Jérémy Jean wrote:
+> When MACsec uses 32-bit packet numbers, 0xffffffff is the last valid
+> packet number
 
-Thanks a lot for queuing the ROSE series for 6.12.y and the four extra
-fixes for 6.18.y.
+This makes it sound like it's only a problem for 32b packet numbers,
+but I think it affects both? Sure it's unlikely with 64b unless we
+start from a large offset, but a well-behaved userspace should also
+rekey and switch SAs before we ever wrap to avoid losing packets while
+the rekey completes (but yes, "losing packets" is not as bad as
+"breaking crypto").
 
-One heads-up on this particular patch (commit df12be096302), before the
-6.12.y release goes out: since it was written I have found a regression
-in it, and the fix is not merged yet.
+> and after allocating it, MACsec deactivates the
+> transmit SA and wraps the next packet number to zero. Packets already
+> in flight can still be processed after that.
 
-The problem: with this patch, rose_heartbeat_expiry() reaps an incoming
-socket that was cleared by the caller before accept(). But the skb of
-that call is still on the listening socket's receive queue, with
-skb->sk pointing at the socket that has just been freed (no reference
-is held for the queue). Then:
+So this is more of a race condition than a full "forever" bug. I think
+commit messages should be clear about that (and that doesn't mean it's
+not bad or not worth patching, but it's worth mentioning).
 
-- closing the listening socket makes rose_destroy_socket() walk the
-queue and touch the freed socket, or
-- accept() can hand the freed socket to user space.
-
-I hit it on 26 September on one of my live nodes, on a 6.12.94 KASAN
-kernel carrying this series, while stopping the FPAC daemons:
-
-BUG: KASAN: slab-use-after-free in rose_destroy_socket+0x24a/0x570 [rose]
-Write of size 8 ... by task fpacwpd
-rose_destroy_socket
-rose_release
-Allocated by task 0: ... rose_rx_call_request <- rose_loopback_timer
-Freed by task ...: ... sk_free <- rose_heartbeat_expiry
-refcount_t: addition on 0; use-after-free.
-
-followed a few seconds later by a page fault in the re-armed heartbeat
-and a panic. It needs an incoming call dropped before accept() and then
-the listener being closed (or accepting), so it is not frequent, but it
-is a real use-after-free.
-
-The fix is "rose: hold a reference on incoming sockets queued for
-accept()", with
-
-Fixes: df12be096302 ("rose: release netdev ref and destroy orphaned
-incoming sockets")
-
-It is pull request #25 in linux-netdev/mod-orphan, waiting for review,
-so it has no upstream commit id yet. It has been running on all seven
-of my nodes since 26 September (6.1, 6.12, 6.18 and 7.0 based kernels)
-without any recurrence.
-
-So, as things stand, 6.18.y already carries the regression (this patch
-was part of the first fifteen-patch series) and 6.12.y is about to get
-it. I do not know which you prefer:
-
-- keep 864 in this 6.12.y round and take the fix as soon as it is
-merged, for both 6.18.y and 6.12.y; or
-- hold 864 back until the fix is available. Note that 868/877 ("rose:
-don't free fd-owned sockets when reaping in the heartbeat") changes
-the same reaping code, so dropping 864 alone may not be
-straightforward.
-
-Either way I will send you the backport of the fix for 6.18.y and
-6.12.y, tested with "git am" on both, as soon as it has a commit id.
-Sorry for not flagging this earlier.
-
-Jakub, I put you in Cc only so that you know why I would be grateful
-if #25 could be looked at before the rest of the pending ROSE/NetRom
-pull requests.
-
-Thanks,
-Bernard Pidoux, F6BVP
+Once TX operations hit macsec_encrypt -> macsec_txsa_get and see
+!sa->active, packets will be dropped and nonce reuse stops.
 
 
-Le mer. 30 sept. 2026 =C3=A0 19:49, Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> a =C3=A9crit :
+> The first late packet gets packet number zero and is dropped, but
+> tx_sa_update_pn() has already advanced the stored counter to one before
+> macsec_encrypt() drops it. A second late packet can then be sent with
+> packet number one again, reusing the AES-GCM nonce from the start of the
+> SA.
 >
-> 6.12-stable review patch.  If anyone has any objections, please let me kn=
-ow.
->
-> ------------------
->
-> From: Bernard Pidoux <bernard.f6bvp@gmail.com>
->
-> commit df12be096302d2c947388acc25764456c7f18cc1 upstream.
->
-> Two related cleanup gaps left the module unremovable after a loopback
-> session:
->
-> 1. rose_destroy_socket() did not release the device reference.  When
->    an unaccepted incoming socket (created by rose_rx_call_request()) is
->    destroyed via rose_heartbeat_expiry(), it is removed from rose_list
->    before rose_kill_by_device() can find it, so the netdev_hold() taken
->    in rose_rx_call_request() was never matched by netdev_put().  Add the
->    release at the top of rose_destroy_socket() guarded by a NULL check
->    so that rose_release() and rose_kill_by_device(), which already call
->    netdev_put() and set device =3D NULL, are not affected.
->
-> 2. rose_heartbeat_expiry() STATE_0 cleanup required TCP_LISTEN in
->    addition to SOCK_DEAD.  Unaccepted incoming sockets are
->    TCP_ESTABLISHED, so the condition was never true and those sockets
->    lingered forever, holding the module use count above zero and
->    blocking rmmod.  Drop the TCP_LISTEN restriction: any STATE_0 +
->    SOCK_DEAD socket is orphaned and should be destroyed.
->
-> Together with the earlier rose_make_new() double-hold fix these three
-> patches allow clean rmmod after loopback sessions.
->
-> Signed-off-by: Bernard Pidoux <bernard.f6bvp@gmail.com>
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> ---
->  net/rose/af_rose.c    |    9 +++++++++
->  net/rose/rose_timer.c |    9 +++++----
->  2 files changed, 14 insertions(+), 4 deletions(-)
->
-> --- a/net/rose/af_rose.c
-> +++ b/net/rose/af_rose.c
-> @@ -363,6 +363,7 @@ static void rose_destroy_timer(struct ti
->   */
->  void rose_destroy_socket(struct sock *sk)
->  {
-> +       struct rose_sock *rose =3D rose_sk(sk);
->         struct sk_buff *skb;
->
->         rose_remove_socket(sk);
-> @@ -370,6 +371,14 @@ void rose_destroy_socket(struct sock *sk
->         rose_stop_idletimer(sk);
->         rose_stop_timer(sk);
->
-> +       /* Drop any device reference not already released by rose_kill_by=
-_device()
-> +        * or rose_release() -- e.g. incoming sockets that were never acc=
-epted.
-> +        */
-> +       if (rose->device) {
-> +               netdev_put(rose->device, &rose->dev_tracker);
-> +               rose->device =3D NULL;
-> +       }
-> +
->         rose_clear_queues(sk);          /* Flush the queues */
->
->         while ((skb =3D skb_dequeue(&sk->sk_receive_queue)) !=3D NULL) {
-> --- a/net/rose/rose_timer.c
-> +++ b/net/rose/rose_timer.c
-> @@ -128,10 +128,11 @@ static void rose_heartbeat_expiry(struct
->         }
->         switch (rose->state) {
->         case ROSE_STATE_0:
-> -               /* Magic here: If we listen() and a new link dies before =
-it
-> -                  is accepted() it isn't 'dead' so doesn't get removed. =
-*/
-> -               if (sock_flag(sk, SOCK_DESTROY) ||
-> -                   (sk->sk_state =3D=3D TCP_LISTEN && sock_flag(sk, SOCK=
-_DEAD))) {
-> +               /* Destroy any orphaned STATE_0 socket: either explicitly
-> +                * flagged SOCK_DESTROY, or SOCK_DEAD (covers both unacce=
-pted
-> +                * incoming connections and listening sockets whose link =
-died).
-> +                */
-> +               if (sock_flag(sk, SOCK_DESTROY) || sock_flag(sk, SOCK_DEA=
-D)) {
->                         bh_unlock_sock(sk);
->                         rose_destroy_socket(sk);
->                         sock_put(sk);
->
->
+> Keep next_pn at zero after wrap so all late packets are dropped.
+
+"late packet" is defined on the RX side, but it doesn't make sense on
+the TX path.
+
+The diff looks good to me.
+
+-- 
+Sabrina
