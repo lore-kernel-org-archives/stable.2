@@ -1,259 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4B472DF6E6;
-	Thu,  1 Oct 2026 17:39:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E43213FFF9D
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 17:44:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790876360; cv=none; b=t3TbGgSRaq+UAz+cCM5+EtLCUaag98TxqJ56VEXYkkm/9NQCpVWeiqubK4uhZiMHZbBWtC034FlNEbfn0djU9Qvds6L1D1/pwKcQk83o6sxCNUnFtL3NuhHd8/9CIk0kPnGS6HyjZkWuAO+N0luzsgIPyt33jrC36ze3mlB8Y00=
+	t=1790876675; cv=none; b=C2WuXNqlC+6+f1xbdXj+MicNQv4lF4IA6Toc2oxRG2a9xsuJXREnqyWJUJ2hHAU0g+EINtebcQ1CXaWbYrEeiZS53q/iv42d4S7N3AhgqqhWhulAYhCTfmscmYM6L8eL7ldg9JgfedbkKh9w58xfkyIe0oPykFjkYm7v/8hwosQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790876360; c=relaxed/simple;
-	bh=3AnBrlFtlpDzLVxH/zDW23dDoB0PDoNLlzth8ZTAM8k=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=T7nQbfokvq7PVkObWhv668iNruV9fcbvB1wA5UA/ZiaBwMvEn9XZBL7pkSwp/TPN/zYcGLnfz0tDhJ2Kw9ZBfpm3e+mkppYr9GhY0ZtpPC55zadDqNZDyB9CtDl234Oz0NbwHRacY3jjRYlB14qyGKx+GUrsQbFYEjIm9C0UrHk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JCSq0uc3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790876675; c=relaxed/simple;
+	bh=zHqd7QjbJisb1OxTDd16xV189s2QN2BXGOp3wOvu2i0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gF7TfCJUQdxkO1qg6ta0lrztzkezDs5ZqV93e/qAkzY06AIaCnYlW1lLwInE4SZ7BUlwQ6QXIsqZoho/VA7NpSnd3zRIVH7kb+VeiLDsGm0iexudDFIW4CTqblLzVRlAAVhXcjiVA/8hwWWhPV6Gj1VVGTb68pOmHzgpWlr9xOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MI7JAK0m; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JCSq0uc3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9B701F000FF;
-	Thu,  1 Oct 2026 17:39:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790876358;
-	bh=lgqeNL93HiCcB16MEYCbQ841RII6fEAvBZGg+LCWL6Y=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=JCSq0uc3PcgXpPzLrVev4kJd3GxtIlujXolWVJRGnR9Zv5awb87sDMDPPnhkzJpsH
-	 I7B5l8/YW0iyJlXF7K51NohG6h6HoPg/OGzl0sW5KucivPrDyjzpYpX8bczHBOZYAt
-	 luSbJYzLfvCB46lKD9j9YlZxDBBCEsOdl4cPo5nNL4SjoIVfblCcC/affa6vXdhssX
-	 uVrjSRPCfeLbvbD9RBNJ+BHKbaf7krSam2jKwWPP5rNyQeFWV3eUG9CsQjtSZxDspm
-	 V+9CPgBv9k6HkXpovfvb9EWP5/k0jBYMhxsC6EG/XEoS/3CO0dbnwaEhaTK6rHksHa
-	 ppNoirj3DO8rw==
-Subject: Re: [PATCH v2] net: wwan: t7xx: validate the HS2 message data length
-From: netdev-bot+sashiko@kernel.org
-To: zhugl3@xiaopeng.com
-Cc: chandrashekar.devegowda@intel.com, loic.poulain@oss.qualcomm.com,
- ryazanov.s.a@gmail.com, haijun.liu@mediatek.com,
- ricardo.martinez@linux.intel.com, johannes@sipsolutions.net,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, guozh23@xiaopeng.com
-Date: Thu, 01 Oct 2026 17:39:17 +0000
-Message-ID: <179087635719.434549.7704184034967242243@kernel.org>
-In-Reply-To: <20260929023914.247374-1-zhugl3@xiaopeng.com>
-References: <20260929023914.247374-1-zhugl3@xiaopeng.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MI7JAK0m"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790876672; x=1822412672;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=zHqd7QjbJisb1OxTDd16xV189s2QN2BXGOp3wOvu2i0=;
+  b=MI7JAK0m4xJs0YHpvmA+7phH1hACsh76o0j5s8Py5GWjkuGnfVozaSKW
+   y1zMeMv2JNCfvd4g4jWUUyheaERhjEdSRdoghonm80IXPY4k2OKpGbKSw
+   x32tYyZsq9dpT+ELO4LGYPW0DaNwxsR7O24daguk53ss/6yDYHez+gA12
+   a8M/obG/1LsLof/iuIDN1D/+Bz620awSMsn61IYqLSh9rEDpYBwZ7lTWh
+   cRbs5J6v95Hwrz5CU0OR3rnHp54Ok/FU+aqhfSqW0al8XTC8ENvZSWDoL
+   8oqHUJoJHGLLh4Bj4SsItFpulG09N1yxXAuvZxiZ6FFTfS4yUMB4ArhD2
+   w==;
+X-CSE-ConnectionGUID: BGmLJCI/QVm4DI2+Q4chwA==
+X-CSE-MsgGUID: hZG98gonTO6/vscF3cLDhQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="102165683"
+X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
+   d="scan'208";a="102165683"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 10:44:25 -0700
+X-CSE-ConnectionGUID: W+j+l9WbTPmM+YFaCXKPBg==
+X-CSE-MsgGUID: gmfdfWXRS7C2OQrao0T8MA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
+   d="scan'208";a="274686395"
+Received: from cpetruta-mobl1.ger.corp.intel.com (HELO [10.245.244.54]) ([10.245.244.54])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 10:44:24 -0700
+Message-ID: <85663499-b6bd-40b6-9fbc-062393e809df@intel.com>
+Date: Thu, 1 Oct 2026 18:44:21 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] drm/xe: Fix stale pinned_link entry when fb-pin
+ performs the final unpin
+To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-xe@lists.freedesktop.org
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, stable@vger.kernel.org,
+ Matthew Brost <matthew.brost@intel.com>
+References: <20261001134018.111553-1-thomas.hellstrom@linux.intel.com>
+ <20261001134018.111553-3-thomas.hellstrom@linux.intel.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <20261001134018.111553-3-thomas.hellstrom@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On 01/10/2026 14:40, Thomas Hellström wrote:
+> xe_bo_pin_external() and xe_bo_unpin_external() maintain the bo's
+> pinned_link list membership in xe->pinned.late.external, based on
+> whether the current call is the outermost pin or the final unpin.
+> However, the same external bo's pin_count can also be raised and
+> lowered directly by __xe_pin_fb_vma()/__xe_unpin_fb_vma(), which pin
+> the bo as a display scanout buffer without going through
+> xe_bo_pin_external()/xe_bo_unpin_external() at all, and have no
+> notion of, or ownership over, pinned_link.
+> 
+> If a bo is pinned both externally (e.g. dma-buf export) and as an fb,
+> and the external unpin happens first, xe_bo_unpin_external() correctly
+> observes pin_count > 1 and leaves the bo on pinned_link. When the fb
+> unpin later performs the true last unpin (pin_count 1 -> 0), it never
+> touches pinned_link, leaving the bo linked on xe->pinned.late.external
+> indefinitely. Once the bo is subsequently freed, this stale list entry
+> points into freed memory, corrupting the list and risking a
+> use-after-free the next time the list is walked or spliced.
+> 
+> The backup object pin/unpin sites in xe_bo_notifier_prepare_pinned()/
+> xe_bo_notifier_unprepare_pinned() have the same bypass characteristic,
+> though they never add their bo to a pinned list, so are not affected
+> by this particular list-corruption issue.
+> 
+> Move the pinned_link removal into xe_bo_account_unpin(), which already
+> runs on every unpin path (kernel, external, framebuffer, backup
+> object) right before the true 1 -> 0 pin_count transition. Since
+> list_del_init() only operates on the node itself, this removal is
+> list-agnostic and safe to perform regardless of which list (external
+> or kernel_bo_present) the bo happens to be linked on, or which code
+> path is performing the final unpin. Drop the now-redundant explicit
+> list_del_init() calls in xe_bo_unpin_external() and xe_bo_unpin().
+> 
+> Fixes: 44e694958b95 ("drm/xe/display: Implement display support")
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> Cc: intel-xe@lists.freedesktop.org
+> Cc: <stable@vger.kernel.org> # v6.8+
+> Assisted-by: LLM
+> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 
-Critical: 0 · High: 0 (1) · Medium: 1 (1) · Low: 0 (1)
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] The patch checks the control-header length in only one place:
-  inside the CTL_ID_HS2_MSG arm of control_msg_handler()…
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but
-  control_msg_handler() in drivers/net/wwan/t7xx/t7xx_port_ctrl_msg.c…
-- [Medium] When t7xx_core_hk_handler() fails, it jumps to err_free_event
-  without clearing core_info->handshake_ongoing.
-- [Low] The kernel-doc for t7xx_port_enum_msg_handler() in
-  drivers/net/wwan/t7xx/t7xx_port_ctrl_msg.c lists only 0 and -EFAULT as…
-
---
-
-net: wwan: t7xx: validate the HS2 message data length
-
-In control_msg_handler(), this patch rejects a CTL_ID_HS2_MSG message
-when it is shorter than struct ctrl_msg_header, or when its data_length
-is larger than what is left in the skb. It also makes
-t7xx_prepare_device_rt_data() reject a runtime data payload shorter
-than struct feature_query.
-
-> diff --git a/drivers/net/wwan/t7xx/t7xx_modem_ops.c b/drivers/net/wwan/t7xx/t7xx_modem_ops.c
-> index adb29d30c63fe..de689aa3f8822 100644
-> --- a/drivers/net/wwan/t7xx/t7xx_modem_ops.c
-> +++ b/drivers/net/wwan/t7xx/t7xx_modem_ops.c
-
-[ ... ]
-
-> @@ -563,7 +568,8 @@ static void t7xx_core_hk_handler(struct t7xx_modem *md, struct t7xx_sys_info *co
->  	if (ctl->exp_flg)
->  		goto err_free_event;
->  
-> -	ret = t7xx_prepare_device_rt_data(core_info, dev, event->data);
-> +	ret = t7xx_prepare_device_rt_data(core_info, dev, event->data,
-> +					  event->length);
->  	if (ret) {
->  		dev_err(dev, "Device failure parsing runtime data: %d", ret);
->  		goto err_free_event;
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but the new data_length
-check in t7xx_prepare_device_rt_data() is one more way into this
-error path. The err_free_event path leaves core_info->handshake_ongoing
-set.
-
-A zero-length HS2 payload, or a t7xx_parse_host_rt_data() failure,
-already reached the same path before this patch.
-
-Suppose t7xx_md_hk_wq() exits here while t7xx_ap_hk_wq() is still
-waiting. When fsm_routine_starting() later times out, it runs:
-
-	if (!md->core_md.ready) {
-		dev_err(dev, "MD handshake timeout\n");
-		if (md->core_md.handshake_ongoing)
-			t7xx_fsm_append_event(ctl, FSM_EVENT_MD_HS2_EXIT, NULL, 0);
-
-		fsm_routine_exception(ctl, NULL, EXCEPTION_HS_TIMEOUT);
-		return -ETIMEDOUT;
-
-It returns without appending FSM_EVENT_AP_HS2_EXIT.
-
-Nothing is left to consume FSM_EVENT_MD_HS2_EXIT. The MD worker is
-gone, and the AP worker only matches FSM_EVENT_AP_HS2 and
-FSM_EVENT_AP_HS2_EXIT.
-
-The AP worker waits in t7xx_core_hk_handler() on:
-
-		wait_event_interruptible(ctl->event_wq, !list_empty(&ctl->event_queue) ||
-					 kthread_should_stop());
-
-That wait returns at once while the queue is non-empty, and
-kthread_should_stop() is always false in a kworker.
-
-Could the AP kworker busy-loop here until an AP HS2 message arrives or
-the next MD handshake clears the stale event?
-
-> diff --git a/drivers/net/wwan/t7xx/t7xx_port_ctrl_msg.c b/drivers/net/wwan/t7xx/t7xx_port_ctrl_msg.c
-> index f869e4ed9ee9a..5ed07c406a5ed 100644
-> --- a/drivers/net/wwan/t7xx/t7xx_port_ctrl_msg.c
-> +++ b/drivers/net/wwan/t7xx/t7xx_port_ctrl_msg.c
-> @@ -178,22 +178,39 @@ static int control_msg_handler(struct t7xx_port *port, struct sk_buff *skb)
->  
->  	ctrl_msg_h = (struct ctrl_msg_header *)skb->data;
->  	switch (le32_to_cpu(ctrl_msg_h->ctrl_msg_id)) {
-> -	case CTL_ID_HS2_MSG:
-> -		skb_pull(skb, sizeof(*ctrl_msg_h));
-> +	case CTL_ID_HS2_MSG: {
-> +		u32 data_length;
-> +
-> +		if (skb->len < sizeof(*ctrl_msg_h)) {
-> +			dev_err(port->dev,
-> +				"Invalid HS2 message: need %zu, have %u\n",
-> +				sizeof(*ctrl_msg_h), skb->len);
-> +			ret = -EINVAL;
-> +			dev_kfree_skb_any(skb);
-> +			break;
-> +		}
-
-[Severity: Medium]
-The commit message says:
-
-  Reject the message when it is shorter than the control header
-
-The check is only in the CTL_ID_HS2_MSG arm, though. By the time it
-runs, the switch has already read ctrl_msg_h->ctrl_msg_id to pick the
-arm.
-
-Nothing upstream sets a minimum length. t7xx_port_proxy_recv_skb()
-calls skb_pull(skb, sizeof(*ccci_h)) and forwards whatever is left, so
-skb->len here can be anywhere from 0 to 11.
-
-For such a message, the CTL_ID_MD_EX* and CTL_ID_DRV_VER_ERROR arms
-still call fsm_ee_message_handler(). It logs ctrl_msg_h->ex_msg and
-uses it to decide whether to reply to the modem and queue
-FSM_EVENT_MD_EX or FSM_EVENT_MD_EX_REC_OK, without any length check:
-
-	case CTL_ID_MD_EX:
-		if (le32_to_cpu(ctrl_msg_h->ex_msg) != MD_EX_CHK_ID) {
-
-The CTL_ID_PORT_ENUM arm still has the same no-op skb_pull() the
-commit message describes. Only the msg_len check in
-t7xx_port_enum_msg_handler() rejects the message there.
-
-These reads stay inside the CLDMA RX buffer, so there is no heap
-overread. However, stale buffer contents still decide which arm runs
-and whether replies and FSM events are generated.
-
-Would a single skb->len < sizeof(*ctrl_msg_h) check before the switch
-(free the skb, return -EINVAL) cover all arms, instead of the check
-inside the HS2 arm?
-
-[ ... ]
-
->  		dev_kfree_skb_any(skb);
->  		break;
-> +	}
->  
->  	case CTL_ID_MD_EX:
->  	case CTL_ID_MD_EX_ACK:
-
-[Severity: High]
-This isn't a bug introduced by this patch, but since this function is
-being changed anyway: do the CTL_ID_PORT_ENUM and default arms of
-control_msg_handler() leak the skb?
-
-port_ctl_rx_thread() passes ownership to the handler and never frees
-the skb itself:
-
-		skb = __skb_dequeue(&port->rx_skb_list);
-		spin_unlock_irqrestore(&port->rx_wq.lock, flags);
-
-		control_msg_handler(port, skb);
-
-The HS2 and MD_EX arms call dev_kfree_skb_any(). These two arms do
-not, and nothing frees the skb after the switch:
-
-	case CTL_ID_PORT_ENUM:
-		skb_pull(skb, sizeof(*ctrl_msg_h));
-		ret = t7xx_port_enum_msg_handler(ctl->md, (struct port_msg *)skb->data, skb->len);
-		...
-		break;
-
-	default:
-		ret = -EINVAL;
-		dev_err(port->dev, "Unknown control message ID to FSM %x\n",
-			le32_to_cpu(ctrl_msg_h->ctrl_msg_id));
-		break;
-
-If so, every port enumeration message leaks a whole CLDMA RX buffer
-(3584 bytes on shared queues, about 63KB on the jumbo queue), and so
-does every message with an unknown ctrl_msg_id. The modem controls
-this input and can send it over and over.
-
-[Severity: Low]
-This is a pre-existing issue, but the kernel-doc for
-t7xx_port_enum_msg_handler() lists only 0 and -EFAULT as return values:
-
- * Return:
- * * 0		- Success.
- * * -EFAULT	- Message check failure.
-
-The function also returns -EINVAL from both length checks:
-
-	if (msg_len < sizeof(*port_msg)) {
-		...
-		return -EINVAL;
-	}
-	...
-	if (msg_len < struct_size(port_msg, data, port_count)) {
-		...
-		return -EINVAL;
-	}
-
-Should -EINVAL be added to the kernel-doc?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260929023914.247374-1-zhugl3%40xiaopeng.com
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
