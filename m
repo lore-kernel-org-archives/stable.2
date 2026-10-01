@@ -1,153 +1,133 @@
-Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
+Received: from mta1.migadu.com (out-38.mta1.migadu.com [95.215.58.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87D744EB866
-	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 17:45:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790876747; cv=pass; b=LQZ7Fd+BH89yc37S7hc41E/vmIxq+f9hI+uJ1HlQuqq7Q2csONcHRkjSbfq+2LeRbTQfFafpPxAQ1UfvPj7O6dh5P4AaQ16M7UER+QncsFm6R8aKRxiRo+a+Zj8N59u29a2Lz8cKczpQ9X09tWpfnpQViTr9axB+58+HUxbOCdI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790876747; c=relaxed/simple;
-	bh=DVS+yU4MeXSTJA0MnoG2/WnDRMIiZcABsJSeQLqj3C8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Bs7XQGicY0wGpq9zM3l4aflwxCRQY5FcH69857yQaYaoxG6MP+tIGsJXMp64Lil08UNhNjSiweeQtrIBQ8kg0H0JH2SbEw4AIKh0DWewSacE+DDQDur6Ptg2gky6rlFCrbXzM5ItdcSUwY7i/k16PJWTWSfyAQN+dRt8eIe7XYQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=CXfqQQXu; arc=pass smtp.client-ip=74.125.229.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E24B952CCE6
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 17:50:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.38
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790877041; cv=none; b=SRZOSblgp8AjeWEVpDDqQG+81f0pphY67H1KBmIR9nygTNi9NKZ1Q2laIxhNlzcDFQS3t1FCGxVMmxFriaIYLuuTld88kYft5Rua4dO/ISagem8z0vpDg1zPKHAbnCtBu3IBqmraQjqqNzJvYBq7m+RGmXwYPfJ7HI9dFyrb0Yc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790877041; c=relaxed/simple;
+	bh=5qZRzE2q0bC/tB2+khGBe/7kTI+CJ+9jMEj2xjkmVhw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uC3NAASITLALVh+dY8KLwC2EocEl8fE86I4bewEmtTAyHdxnIsV5GR4zoT605phL2hFRhueKhTObr9HFl/KcnBLTyQheTjLjVS0cKLt3r+oitVFnEgFUXPzwRY1Wij9TmMWejeFGAzv3XKkrD9ktwvGmutMzLqnAnAO4IgmztOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=q+kq4dPs; arc=none smtp.client-ip=95.215.58.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="CXfqQQXu"
-Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-142dd025d07so5838846c88.2
-        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 10:45:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790876737; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LBEZUkdLCjCZ64DEiRxRwSh5aDPV6XZ3JfYTtvRi2FS3xdt7SsD5XYS4UNTZ0oYEX7
-         KtiTB+aMwATUtYgbq/r1cOoQZSPvtWvpjejthkcN1y+IzLP2fiLpZESceuQMdszKYeZs
-         6Qf98qzMVjFsPxrVkHvJylKgk1WnaTmgMnn6V3lXBIvgE8HI4/jG+yhryOdEtTLn2H+p
-         NeYVDrri7zCMZx4FbOb8ARyfB41wcYX8d9MCwgsUfl0yNysdXlc822z/aYZbBaHZlTIy
-         z8xMj6iTkB3Q3+5fD6mk8Ezz84FWcxrtEVfsopbC/U9bL7M3OOt+mU4xtfMWZfD9k5vg
-         mWFA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Kd+gDsb79tDRiS43i4aFe0o9+muNoh8xdfZbWxrNkr4=;
-        fh=7mVCyzGDAXH/xwbcAbaR3JzmJUtP7jwWL2GtkJ1KEsQ=;
-        b=s1ImBcsc1KJ2um2/ur/m0Gx+TPXJvq1VmnwITUMuvxgJAM0kfqVJhJL5d2qSp0p4oa
-         njsYe2QWMklUOU1UBxU2VnB3wlqdv2tnVrEpiBlp9T95suOgK0zqWH2tbAmMKLyArXvT
-         JQTT6Srcy1oZRjGAT3Lkml5S3QGeZbYNLrsiO7bkSORJtZ4qNPNvoXEEYbSqt0nk0CdZ
-         COA+TynXbtMvYSCtnK+GYnPilWUElQJZ6SNl8j1SSKqGcZE2pU5PSJvfwcDoTaXmmkJN
-         Udaw7aHHDCWeQGg5theOdsrCDW+oi1dFvuUfGPcEzStl3yZrVot7knDUSliruZuu3YRN
-         Iyqw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790876737; x=1791481537; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Kd+gDsb79tDRiS43i4aFe0o9+muNoh8xdfZbWxrNkr4=;
-        b=CXfqQQXubnpxgTH6zg6wVuh1/JFqqzU/09wtg7nHBjucGOvSnsW0obUHgU8Ka6r+O6
-         YM7ate41qmImXWLsp12wECInySar2PF46Rwp5l7EebSEEdrvLe/KYCGCJLn0JIqB0+gv
-         sMn2KStt3690fA1ZWbhnuhjDl5dMPK9dDLzJscjsSc2pvOzJ9rrV2qeun8/4uGABd6Ze
-         4vr/rYVgRN4E9A/Uto3ADqdUYTAiLyeooO572Na21rsyXY6pf5vzIcl6Ouxqo3zp0jmY
-         uXr7Vmq9gHH7//7hKsV1uLKMmRlm+XhXPtDCHTXHYGzbHGb2FOn8Xyk6OdfkMmOlP4Eo
-         Z4Fw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790876737; x=1791481537;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Kd+gDsb79tDRiS43i4aFe0o9+muNoh8xdfZbWxrNkr4=;
-        b=gc7Nlp844d+uvlR1zYSSA5SObTxybB5VmgJ76GzYgEnvMKu5MhUTmaGslPgItmzhN+
-         4mnvePoamoRv2HsUikMmiDmxFBgGBzlPz0G8N2H/GGUlgsarZEo8ZxrS6huT2rY54rx6
-         MrlC0pPJUFU9xe5jpPsiZmThnoaJ3DWinv5WK5mvmU8M4YuRNByCsSi8eXRpU+HRnm/S
-         ZbIXlTEZX8fCy1GQOrUESNonTL48KM19LlGSHuvB4kbGNhTqYiIssrbGpq0LXTWI/Zau
-         AKxJh0uCft+I9co4vs3OmGQKBN/ML7SPdDd3mg1CDqvBULFGWZINutYhKRA2jFpmxEuI
-         CArA==
-X-Forwarded-Encrypted: i=1; AKwUvBzXaavG7haMQKz2dyHEIT0+fKE/1r/6N35XequBvPKA7T2iiPtaWYIdwyWt8yx+yAYV41KMGbA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nQ7gYFOlUAfDr5asBAtI4/EdxFFcIMV0USXh/PTeo2W0x56Jub
-	iDP9/iiEyOwds2F0224jvgJGk/UNoVjY0k40Y245Xxhug7vYR3+yl/B4qAQ15dDMy2uw7f20rEd
-	Cr6P0mx+KzxiXkzClohHLKklhxAy/qOhuuBiFKgei
-X-Gm-Gg: AYBFou35TuwH46DmWuFY0ALg8xM9xDUDnvcyig3Ip0q/tszR1l8i8YONXpkFKETSHrS
-	tq+UtFeiv4kag9EorixWwpuCcO00HfZBNrSrsbMYhBOAWGM34CnCeE3q2nvVp5fGrIXJ0EfyATV
-	AjrrJnYlsVRoe9DZoI56+aaiyEucFY2/VPyOGAFfRJtNbO3VDrJhb5W8BlEHLrXK4agsLrmmR96
-	h6QWeKsWHoMy8+vnogAqB9stVUPLCgTn2rRj1ROWIGgrUJeqc6aDH3xnYbyXAt6XCZAxMV/bxDn
-	sAp3MqQlEK6GDSpDZARFVlDOzzW9T6g0kXzP2BSQpyyd0g5dbnODSPlGYwbkh4vzbPxtvP7fFh4
-	UH3BXQUhoFapBoERm/+k0TcpTzvD23yS0fojJoOqf6aCRn5QNjXsE4FzvY4mao4wG1VN3/Fvddg
-	WhQo5OkL8IE2QeTC/TmIiAnzlv
-X-Received: by 2002:a05:7022:fe09:b0:144:eb46:be0 with SMTP id
- a92af1059eb24-14d31c6d959mr7036975c88.13.1790876735713; Thu, 01 Oct 2026
- 10:45:35 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="q+kq4dPs"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=5qZRzE2q0bC/tB2+khGBe/7kTI+CJ+9jMEj2xjkmVhw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790877032; v=1; x=1791481832;
+ b=q+kq4dPs7L12HtbGoBspJ2GlWa28bZM64sO4shCLczBr7UlM/nkF4byYEQCiAZkv6Ytce/1x
+ FNbvuT5jfvX/WKFmrRWRnDjZC5wwHfIZCNIGyiNBnO9YpMenPL0yLHF0Tigjo1w4ayOCV/rGefq
+ wOZT7/RFzvwrlHen3ooK/eHQ=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c97e4dad9acc5470;
+	Thu, 01 Oct 2026 17:50:31 +0000
+X-Mizu-Trace-ID: c97e4dad9acc5470
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <9977c651-2e54-4f94-b971-e9929351a06e@linux.dev>
+Date: Thu, 1 Oct 2026 10:50:29 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261001143040.28467-1-parri.andrea@gmail.com>
-In-Reply-To: <20261001143040.28467-1-parri.andrea@gmail.com>
-From: Kuniyuki Iwashima <kuniyu@google.com>
-Date: Thu, 1 Oct 2026 10:45:22 -0700
-X-Gm-Features: AclHuK_PRj6kNhTkNAge75mh0uRy0R-jClYZQl-fhXQ_Zc5OUMVS0wPKh2mqOHc
-Message-ID: <CAAVpQUCPBAoofDeDMdQii=5P6FyRnKOdN932fTuocHtb4H+m1g@mail.gmail.com>
-Subject: Re: [PATCH net v2] rtnetlink: wait for RCU readers in rtnl_link_unregister()
-To: Andrea Parri <parri.andrea@gmail.com>
-Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] RDMA/rxe: bound the WQE opcode before indexing
+ rxe_wr_opcode_info[]
+To: Youngsung Ahn <ays511.kr@gmail.com>
+Cc: linux-rdma@vger.kernel.org, stable@vger.kernel.org
+References: <20260930180221.2497908-1-ays511.kr@gmail.com>
+ <20261001152407.3259261-1-ays511.kr@gmail.com>
+From: Zhu Yanjun <yanjun.zhu@linux.dev>
+In-Reply-To: <20261001152407.3259261-1-ays511.kr@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 1, 2026 at 7:30=E2=80=AFAM Andrea Parri <parri.andrea@gmail.com=
-> wrote:
->
-> rtnl_link_ops_get() finds ops on link_ops under rcu_read_lock() and only
-> then takes ops->srcu. rtnl_link_unregister() unlinks ops, then calls
-> synchronize_srcu() and cleanup_srcu_struct() without first waiting for
-> RCU readers. A reader that found ops before list_del_rcu() and has not ye=
-t
-> taken ops->srcu is not waited for.
->
-> Such a reader then locks a cleaned-up srcu_struct and keeps using ops
-> after the module that owns it is gone. rtnl_newlink() and
-> rtnl_dump_ifinfo() both look up ops without RTNL, the latter for any
-> user that dumps links filtered by kind.
->
-> With delays added between the lookup and srcu_read_lock() in
-> rtnl_link_ops_get(), and before rtnl_link_ops_put() in
-> rtnl_dump_ifinfo(), running "ip link show type dummy" alongside
-> "rmmod dummy" on a KASAN kernel gives:
->
->   BUG: KASAN: vmalloc-out-of-bounds in __srcu_read_unlock+0x57/0x70
->   Read of size 8 at addr ffffffffc02ff318 by task ip/147
->   Call Trace:
->    __srcu_read_unlock+0x57/0x70
->    rtnl_dump_ifinfo.cold+0x30/0x3b
->    rtnl_dumpit+0x7a/0x1b0
->    netlink_dump+0x486/0x11b0
->    __netlink_dump_start+0x661/0x910
->    rtnetlink_rcv_msg+0x611/0x9e0
->    netlink_rcv_skb+0x126/0x380
->    netlink_unicast+0x605/0x830
->    netlink_sendmsg+0x6d0/0xbb0
->    __sys_sendto+0x335/0x3a0
->
-> Call synchronize_rcu() before synchronize_srcu(), as
-> rtnl_af_unregister() already does. This should be enough because
-> rtnl_link_ops_get() is the only RCU walker of link_ops, and it takes
-> ops->srcu before rcu_read_unlock(), so every reader that found ops is
-> covered by synchronize_srcu() once the RCU grace period ends. The extra
-> grace period only costs time at module unload.
->
-> Readers and the writer were serialized by RTNL until link_ops got its
-> own mutex, which is why the missing RCU wait did not matter before.
->
-> Fixes: 6b57ff21a310 ("rtnetlink: Protect link_ops by mutex.")
+在 2026/10/1 8:24, Youngsung Ahn 写道:
+> wr_opcode_mask() indexes the global rxe_wr_opcode_info[] array with
+> a caller-supplied opcode and no bounds check. For a user QP the WQE
+> comes from an mmap'd SQ ring, so wqe->wr.opcode is an
+> attacker-controlled __u32 read back by the requester
+> (req_next_wqe() -> rxe_requester()); rxe_post_send() takes the
+> qp->is_user branch and never runs validate_send_wr(), whose only
+> opcode check is itself !wr_opcode_mask() (it indexes before it
+> checks). rxe_wr_opcode_info[] has entries only up to IB_WR_REG_MR,
+> so an out-of-range opcode reads out of bounds and the result is used
+> as a mask and dereferenced; observed as a KASAN global-out-of-bounds
+> "Read of size 4" and a wild-pointer oops.
+> 
+> Return a zero mask for an out-of-range opcode, matching how
+> validate_send_wr() already treats a zero mask (an invalid WR), so no
+> path indexes the array out of bounds.
+> 
+> Fixes: 8700e3e7c485 ("Soft RoCE driver")
 > Cc: stable@vger.kernel.org
-> Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+> Signed-off-by: Youngsung Ahn <ays511.kr@gmail.com>
 > Assisted-by: LLM
-> Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+> ---
+> Notes (not part of the commit):
+> Reproduced on a KASAN x86-64 build of 7.3-rc4 as uid 1000. Present unchanged
+> in mainline 551c722f4080 (2026-09-29) and rdma for-next. Compile-tested
+> (KASAN+RDMA_RXE), not runtime-tested. Per security-bugs.rst this is public and
+> a reproducer can be shared on request. IB_WR_REG_MR is the highest index the
+> array initializes; an ARRAY_SIZE(rxe_wr_opcode_info) bound would be equivalent
+> but the array is extern to this header.
 
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+The function wr_opcode_mask() is used in the following three functions:
+"
+validate_send_wr()
+req_retry()
+req_next_wqe()
+"
 
-Thanks
+In validate_send_wr() and req_next_wqe(), if wr_opcode_mask() returns 0, 
+it is relatively clear from the surrounding code how the invalid opcode 
+is handled.
+
+However, for req_retry(), it is less clear to me what the subsequent 
+control flow is when wr_opcode_mask() returns 0. In particular, I would 
+like to understand whether returning 0 for an out-of-range opcode is 
+sufficient to safely handle the invalid WQE in this path.
+
+You mentioned that you were able to reproduce the issue on your local 
+host. Would you be able to share the reproducer with us? It would help 
+us better understand the failure path and verify the fix, especially for 
+the req_retry() case.
+
+Also, please follow Leon's advice and send v2 as a standalone patch.
+
+Thanks a lot.
+Yanjun Zhu
+
+> 
+> v2: no code change. The irregular indentation in v1 was email mangling (HTML),
+> not a coding-style problem -- as Willy Tarreau noted on the ODP thread; resent
+> as plain text with tabs preserved via git send-email. Added Cc: stable, fixed
+> the author/Signed-off-by match, and added Assisted-by: LLM.
+> 
+>   drivers/infiniband/sw/rxe/rxe_loc.h | 3 +++
+>   1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/infiniband/sw/rxe/rxe_loc.h b/drivers/infiniband/sw/rxe/rxe_loc.h
+> index 64d636bf80fd..dcc0788db90a 100644
+> --- a/drivers/infiniband/sw/rxe/rxe_loc.h
+> +++ b/drivers/infiniband/sw/rxe/rxe_loc.h
+> @@ -184,6 +184,9 @@ void rxe_comp_queue_pkt(struct rxe_qp *qp, struct sk_buff *skb);
+> 
+>   static inline unsigned int wr_opcode_mask(int opcode, struct rxe_qp *qp)
+>   {
+> +	if (unlikely(opcode < 0 || opcode > IB_WR_REG_MR))
+> +		return 0;
+> +
+>   	return rxe_wr_opcode_info[opcode].mask[qp->ibqp.qp_type];
+>   }
+> 
+> --
+> 2.43.0
+
