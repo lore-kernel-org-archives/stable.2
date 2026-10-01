@@ -1,133 +1,133 @@
-Received: from mta1.migadu.com (out-38.mta1.migadu.com [95.215.58.38])
+Received: from mail-qv2-f41.google.com (mail-qv2-f41.google.com [74.125.230.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E24B952CCE6
-	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 17:50:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.38
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 605D252BE5E
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 17:55:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790877041; cv=none; b=SRZOSblgp8AjeWEVpDDqQG+81f0pphY67H1KBmIR9nygTNi9NKZ1Q2laIxhNlzcDFQS3t1FCGxVMmxFriaIYLuuTld88kYft5Rua4dO/ISagem8z0vpDg1zPKHAbnCtBu3IBqmraQjqqNzJvYBq7m+RGmXwYPfJ7HI9dFyrb0Yc=
+	t=1790877323; cv=none; b=CiVTpyBp2PSAPC34K/nPo6xAR8HCT+C1/MnCjis0uRttnoZOshr7wsYKAULhbQYuHy6r/t7NXS7OTSTtSbuKN0NQbrpda69gm2qS7ETCnxlpvEeknjwk5D+U3ZIdUpCGFfbuS+UfZaePNyzfvFRYfttlYu6LJHTAgMYo37GDzwU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790877041; c=relaxed/simple;
-	bh=5qZRzE2q0bC/tB2+khGBe/7kTI+CJ+9jMEj2xjkmVhw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uC3NAASITLALVh+dY8KLwC2EocEl8fE86I4bewEmtTAyHdxnIsV5GR4zoT605phL2hFRhueKhTObr9HFl/KcnBLTyQheTjLjVS0cKLt3r+oitVFnEgFUXPzwRY1Wij9TmMWejeFGAzv3XKkrD9ktwvGmutMzLqnAnAO4IgmztOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=q+kq4dPs; arc=none smtp.client-ip=95.215.58.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790877323; c=relaxed/simple;
+	bh=j5qbuXrDX2plwlT/z3lSzoNInbPkdLmaRYkhQoo2lGM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=DDC20cE1QTseVi+ZmMHPbNRJwgmLeYZogeI4WfEUGYANvZBy6c5L+8YtE58pvQEDHxu0Yn2Yh7uj5v5VtnHHpv/+OGjVId1u0JTZ5hXeYEVZz9VH1SWAapNHF2ZdBoh4rIozmmtBuypHn0duLi9xhZ7kJQgXnAqVRPxTbiXx+kA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qIPTZDM0; arc=none smtp.client-ip=74.125.230.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="q+kq4dPs"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=5qZRzE2q0bC/tB2+khGBe/7kTI+CJ+9jMEj2xjkmVhw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790877032; v=1; x=1791481832;
- b=q+kq4dPs7L12HtbGoBspJ2GlWa28bZM64sO4shCLczBr7UlM/nkF4byYEQCiAZkv6Ytce/1x
- FNbvuT5jfvX/WKFmrRWRnDjZC5wwHfIZCNIGyiNBnO9YpMenPL0yLHF0Tigjo1w4ayOCV/rGefq
- wOZT7/RFzvwrlHen3ooK/eHQ=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c97e4dad9acc5470;
-	Thu, 01 Oct 2026 17:50:31 +0000
-X-Mizu-Trace-ID: c97e4dad9acc5470
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <9977c651-2e54-4f94-b971-e9929351a06e@linux.dev>
-Date: Thu, 1 Oct 2026 10:50:29 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qIPTZDM0"
+Received: by mail-qv2-f41.google.com with SMTP id 6a1803df08f44-91788e38a27so32161536d6.3
+        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 10:55:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790877308; x=1791482108; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Lfjo9pAawGhp175tsWiMgt+u8R0WsNzuMBsHkL3MrJQ=;
+        b=qIPTZDM0c/Gj6EXjjDOZV3mYA0aDWCjPwJar//JToJ1LZ5D11gltJ9OJJetbSryOu0
+         AejFTNqt2ER9Pd3f2mQFUCAFqlTBqNoP5uqhx+gfkW1DXrY/ayQRZwuV4tpPa4mSp/Ij
+         fElMqfqDoksjJ+unPLXT4o3XNxDpEcw8Hokq8MOTaV/FOexBlLPyayEyfcrpVSC2tgBl
+         is+A0BmfBhGSQfcEU8RudiDd/OktcUniDscZJEiSV8yzEEXuRRfrWJJn+anMl3jkfsuI
+         auNZmBFHn689J2FcTXmqHLIvNRb/KPRfqJiz13oyTcr7D6RcMk3QZz78ePjXzSn3W74r
+         DcXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790877308; x=1791482108;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Lfjo9pAawGhp175tsWiMgt+u8R0WsNzuMBsHkL3MrJQ=;
+        b=VtpoXbLXlbqu3HWM1TzYCZWXdKwUpb2/XWAvPr/RmyEfktj5Ykr4dR488Hq/zELfvX
+         3mS/YNttmfJz6y+ehQc/Jai7EZLpjwZ4EcJDUdEh0sx9tUeZO2ymlXlXEobAkpW5AIB/
+         D5KDy+Zd11N0J5cxCvoLumCzu0wu0zp9kvqK2U5zTayam32fbWt+WS8/RaA28XDvCgkJ
+         1kYk4zrJjSqcrngzH6dbPmciLFQOY2QKS8HFDFJ0WAzfOCl2PlT+bngpinOo40MXChj2
+         YWzqZXCg2m0mdppLPQITxdTZW1zWIQsBGgmXpKp3WG6ovZdjqHF13q2gP2W98+HqJZ2F
+         F7nw==
+X-Forwarded-Encrypted: i=1; AKwUvBxZBgy7G8+EjNkU3VNNSaOpJBfYKmc2CVowbLfMWdXgDM8iVpRLeAVo4/5QbpWREbGJ3lFOKb0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI4i/6e9DP2XG+nhxOFcd9jdDFANquziYfjJ1lAiHN21YRZSVRq
+	HsL3/fNXqaEZnKqx9UZSqCxLovN0CSxP/AtO6tcYU36TK0PBIU391cQ=
+X-Gm-Gg: AYBFou2t0TIOEQDKtNLpTdg/+wRVLXxEoZT9gnEWZ9+RHFEaHur7acJGCvelDEdTSKo
+	fEQEX4gcwxkYzkENgW3EFVt4p+wCQEZTmJp4rr6G81z2RkNJXXrUB5qXJYYbiix8UtesLy00+MZ
+	wUUU2pxRO0LpqJjw0IIlocOnnKuVb5cPaNEtHfzhqVpWjiSPFaAb83xnKxju5ib4MvfA/Lxu10/
+	5dd+9np80pAYsLlG965brIzwt7JSBcWMzFMQorCwIR86tnCw6+1af6hna0tKcZ4pmoOYU7jdQqi
+	Fw6d2nTDTRKJlrnui3jW+VTpNCYPoL5ibDLvlONla9svOZvtVUcO40tNQbhtoEtt0FCVLroJ3xB
+	bttfOJ0/z89emumvuRF4RiBL88LAkCtqs86KfQB1+3nfj8oJNxWDaoyC6iU3GmXNqvt4S94Ibav
+	x9JQ4uJaZ14Lkq1RuI7SCfgk+JBDz7ZYgOnC6Bj6XVuxrxY37n8ozIHHYsZicc5/7PJqO8zCpFB
+	N6r1TSYyD7L5AAtfXe2didjVrC86O8h8rpDB3XA668P4hdD8n/TYK8WscKKDdODPy5TbUNRCu1B
+	W/evNCt1Y/xeOduBP+ZHI5qRf7LC8xUurc8XfWw=
+X-Received: by 2002:ad4:5fc7:0:b0:917:8aaf:bb9a with SMTP id 6a1803df08f44-917c0087891mr4797716d6.22.1790877308033;
+        Thu, 01 Oct 2026 10:55:08 -0700 (PDT)
+Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917a8a22f96sm32077796d6.32.2026.10.01.10.55.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 10:55:07 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+Cc: mhun512@gmail.com,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH v4 1/2] media: venus: hfi: disable IRQ before freeing HFI device
+Date: Thu,  1 Oct 2026 13:55:01 -0400
+Message-ID: <20261001175502.4045853-2-mhun512@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261001175502.4045853-1-mhun512@gmail.com>
+References: <20260925191653.3144006-1-mhun512@gmail.com>
+ <20261001175502.4045853-1-mhun512@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] RDMA/rxe: bound the WQE opcode before indexing
- rxe_wr_opcode_info[]
-To: Youngsung Ahn <ays511.kr@gmail.com>
-Cc: linux-rdma@vger.kernel.org, stable@vger.kernel.org
-References: <20260930180221.2497908-1-ays511.kr@gmail.com>
- <20261001152407.3259261-1-ays511.kr@gmail.com>
-From: Zhu Yanjun <yanjun.zhu@linux.dev>
-In-Reply-To: <20261001152407.3259261-1-ays511.kr@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-在 2026/10/1 8:24, Youngsung Ahn 写道:
-> wr_opcode_mask() indexes the global rxe_wr_opcode_info[] array with
-> a caller-supplied opcode and no bounds check. For a user QP the WQE
-> comes from an mmap'd SQ ring, so wqe->wr.opcode is an
-> attacker-controlled __u32 read back by the requester
-> (req_next_wqe() -> rxe_requester()); rxe_post_send() takes the
-> qp->is_user branch and never runs validate_send_wr(), whose only
-> opcode check is itself !wr_opcode_mask() (it indexes before it
-> checks). rxe_wr_opcode_info[] has entries only up to IB_WR_REG_MR,
-> so an out-of-range opcode reads out of bounds and the result is used
-> as a mask and dereferenced; observed as a KASAN global-out-of-bounds
-> "Read of size 4" and a wild-pointer oops.
-> 
-> Return a zero mask for an out-of-range opcode, matching how
-> validate_send_wr() already treats a zero mask (an invalid WR), so no
-> path indexes the array out of bounds.
-> 
-> Fixes: 8700e3e7c485 ("Soft RoCE driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Youngsung Ahn <ays511.kr@gmail.com>
-> Assisted-by: LLM
-> ---
-> Notes (not part of the commit):
-> Reproduced on a KASAN x86-64 build of 7.3-rc4 as uid 1000. Present unchanged
-> in mainline 551c722f4080 (2026-09-29) and rdma for-next. Compile-tested
-> (KASAN+RDMA_RXE), not runtime-tested. Per security-bugs.rst this is public and
-> a reproducer can be shared on request. IB_WR_REG_MR is the highest index the
-> array initializes; an ARRAY_SIZE(rxe_wr_opcode_info) bound would be equivalent
-> but the array is extern to this header.
+venus_hfi_destroy() releases the interface queues and frees hdev before
+calling disable_irq(). An IRQ handler that has already read core->priv
+can continue to access hdev and its queues after they are freed. Clearing
+core->priv does not revoke the handler's local pointer.
 
-The function wr_opcode_mask() is used in the following three functions:
-"
-validate_send_wr()
-req_retry()
-req_next_wqe()
-"
+Commit 640803003cd9 ("media: venus: hfi: explicitly release IRQ during
+teardown") added disable_irq(), but placed it after kfree(hdev), too late
+to protect a handler already using hdev.
 
-In validate_send_wr() and req_next_wqe(), if wr_opcode_mask() returns 0, 
-it is relatively clear from the surrounding code how the invalid opcode 
-is handled.
+Disable the IRQ first so that both the hard IRQ and threaded handler have
+completed before clearing core->priv or releasing hdev.
 
-However, for req_retry(), it is less clear to me what the subsequent 
-control flow is when wr_opcode_mask() returns 0. In particular, I would 
-like to understand whether returning 0 for an out-of-range opcode is 
-sufficient to safely handle the invalid WQE in this path.
+Fixes: d96d3f30c0f2 ("[media] media: venus: hfi: add Venus HFI files")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260612103333.5585D1F000E9@smtp.kernel.org/
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
+ drivers/media/platform/qcom/venus/hfi_venus.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-You mentioned that you were able to reproduce the issue on your local 
-host. Would you be able to share the reproducer with us? It would help 
-us better understand the failure path and verify the fix, especially for 
-the req_retry() case.
-
-Also, please follow Leon's advice and send v2 as a standalone patch.
-
-Thanks a lot.
-Yanjun Zhu
-
-> 
-> v2: no code change. The irregular indentation in v1 was email mangling (HTML),
-> not a coding-style problem -- as Willy Tarreau noted on the ODP thread; resent
-> as plain text with tabs preserved via git send-email. Added Cc: stable, fixed
-> the author/Signed-off-by match, and added Assisted-by: LLM.
-> 
->   drivers/infiniband/sw/rxe/rxe_loc.h | 3 +++
->   1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/infiniband/sw/rxe/rxe_loc.h b/drivers/infiniband/sw/rxe/rxe_loc.h
-> index 64d636bf80fd..dcc0788db90a 100644
-> --- a/drivers/infiniband/sw/rxe/rxe_loc.h
-> +++ b/drivers/infiniband/sw/rxe/rxe_loc.h
-> @@ -184,6 +184,9 @@ void rxe_comp_queue_pkt(struct rxe_qp *qp, struct sk_buff *skb);
-> 
->   static inline unsigned int wr_opcode_mask(int opcode, struct rxe_qp *qp)
->   {
-> +	if (unlikely(opcode < 0 || opcode > IB_WR_REG_MR))
-> +		return 0;
-> +
->   	return rxe_wr_opcode_info[opcode].mask[qp->ibqp.qp_type];
->   }
-> 
-> --
-> 2.43.0
+diff --git a/drivers/media/platform/qcom/venus/hfi_venus.c b/drivers/media/platform/qcom/venus/hfi_venus.c
+index bd82066bb6e7..e7e4e78a186a 100644
+--- a/drivers/media/platform/qcom/venus/hfi_venus.c
++++ b/drivers/media/platform/qcom/venus/hfi_venus.c
+@@ -1689,11 +1689,11 @@ void venus_hfi_destroy(struct venus_core *core)
+ {
+ 	struct venus_hfi_device *hdev = to_hfi_priv(core);
+ 
++	disable_irq(core->irq);
+ 	core->priv = NULL;
+ 	venus_interface_queues_release(hdev);
+ 	mutex_destroy(&hdev->lock);
+ 	kfree(hdev);
+-	disable_irq(core->irq);
+ 	core->ops = NULL;
+ }
+ 
+-- 
+2.53.0
 
