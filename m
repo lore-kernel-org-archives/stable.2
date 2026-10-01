@@ -1,60 +1,35 @@
-Received: from pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.35.192.45])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 762584B8DF2;
-	Thu,  1 Oct 2026 08:24:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.35.192.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D27094B827C;
+	Thu,  1 Oct 2026 08:30:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790843080; cv=none; b=PjyVI95qiXRax7yVcbdhoeLmQAXdHAXzSWHqX/L4sKqOBir2QccGAE87ID0LjPG7kpWXxf0fi9VNiL6Yiaw5g9RQ+WZ16myWn/DGmnRuiW/Z0pI/5hPQS4QuAZ0pGqiEHFULKG9TKzLKRB9Gv/J2F7s2tcNzgAQNSG6tLHzIspA=
+	t=1790843414; cv=none; b=kLAwiJWquFd0mQRiiPeWGYIokKeQtHAjaULTaNGgEmQnYbHB6p6BybcvvzN3VZ5v32L2GLDqoV03wqSTOrgK52TjXExy4ucAVQ7hgyosE24aRiHsydxWXox8OdDXvmQX9SsreGUR3ANKyzx4It+jPgrVtASTLP2UIitky7UOdmg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790843080; c=relaxed/simple;
-	bh=uUxVbAJFD0ONKElLX279ok1VDHKLisqJOgNdYvH1EM8=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=GmHLwclDfaQLatXsaeb6ib8tb2RUQN/ncum8xZkXj2oz+pA2Gkj+vR68aVUNRg+7IfVnEwB3B5i4r+Vf8F1TWorL+sX6l6mtYqPkiCl/ieKCXXBgrKK1XEUdqURYAeR/DJcEhUPtGRQ3EMtHGMLWRYT3cOfXbUWdn14VBhmngzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=AV/+hu+Y; arc=none smtp.client-ip=52.35.192.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	s=arc-20240116; t=1790843414; c=relaxed/simple;
+	bh=w0QSNKMPvMNwWEzZGS6hCPEc+nmrywKd7ktFYHv8O2w=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=WqtDBg17EU378kPb0IhIznCGJPqaOsvw43+2O53ojdnkZeVyh8guXl0KzXme2hxndCxDGrOqh4rQFWz+jlzxbBFBdMCD65qx/uCWUQkkrozOu3+bx/i9IGK76yPle50Q8A/qXaKCVTOa2LW/KErB8uUogKDO5kyuLUZkWOiYUIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=byDw1osX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="AV/+hu+Y"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1790843074; x=1822379074;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=dwZ6+Ny11M89ZBPSWHCcY4nVqs3E53TyZaHaH2FNxjU=;
-  b=AV/+hu+YSyvhUrq3r+y9vT8WJR/g9cpvdlPGTW2GWDefG3n3x4OHHsgJ
-   J2HKzpfaDWp+krAbe/ksrqlEEh/SyDGrSqGVje7/Yb7QLmRHSQyTb9loj
-   aw3B1/ZXovgqpbS77JEELVu1w1Cw+DXTedQNlvxQ9A1hP+vQsc1R4KC55
-   GAuAs5ye40rHMzzL/yaiDgG5p1TUe8cpdGqRqSj5O/I6/a+OgYu9+TY4J
-   1u2s3pWTSHOSHMk3+vGe3OtgdVH3wHaQHAaF5HJASXe0e4/vN3BsIbnK9
-   ZNxcHyp8/eucanUl2bewyv3yOnkYcJj4X/gy6bgQhni5QWO8DLi5KJLQ/
-   w==;
-X-CSE-ConnectionGUID: Rg9+v9BFRVey2C7lw34VuQ==
-X-CSE-MsgGUID: 2lZptLmrSLOH0UT76MqrXw==
-X-IronPort-AV: E=Sophos;i="6.27,134,1787011200"; 
-   d="scan'208";a="29880503"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 08:24:26 +0000
-Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.51:4411]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.12.131:2525] with esmtp (Farcaster)
- id 585c572d-5cd2-4dd5-95a8-6793cabf42c1; Thu, 1 Oct 2026 08:24:26 +0000 (UTC)
-X-Farcaster-Flow-ID: 585c572d-5cd2-4dd5-95a8-6793cabf42c1
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Thu, 1 Oct 2026 08:24:26 +0000
-Received: from dev-dsk-doebel-1a-7b355d76.us-east-1.amazon.com (10.169.119.5)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Thu, 1 Oct 2026 08:24:25 +0000
-From: Bjoern Doebel <doebel@amazon.de>
-To: Christian Brauner <brauner@kernel.org>, Shuah Khan <shuah@kernel.org>
-CC: Jan Kara <jack@suse.cz>, <linux-kselftest@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Bjoern Doebel <doebel@amazon.de>,
-	<stable@vger.kernel.org>
-Subject: [PATCH] selftests/filesystems: Fix idmapped_tmpfile layer dir ownership
-Date: Thu, 1 Oct 2026 08:24:11 +0000
-Message-ID: <20261001082411.1493072-1-doebel@amazon.de>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="byDw1osX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C09F1F00898;
+	Thu,  1 Oct 2026 08:30:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790843408;
+	bh=dymhJU7LE7PbeKqUDP3nU7/VgxqoggQ+VbnMCZhERnY=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=byDw1osXZ+/H1VZ2eU89EzCA9n5Hf21vLbCdMw7CZvXGXGBLjvzkFMk31w/CVrmKP
+	 pP0P9AcKc+sxvoGGgRosCzgCLIWoir5W6JhKjRvliE7rWmtjUCYSFOLdw4Ju7iUPD2
+	 pTZsBUcDcYj1lpkmAquO7bbdDopMnb6Lg4eISZOSQLc2oRdGmrfgDbMDxZIvGvuCTh
+	 Q610AWOmTgW0kLNXD9jD8/moHLWfYiBA9Mc1NtMfTamVIKbLgVGNM7BvDzaTkH7kAA
+	 8sRMZUUr5Ih+ZNUkGEwM4Z28ugjoESwcNdrJL9Zmc3ncndZc25merovSeQGIhPURM1
+	 LI0+eJwQ8YlTg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A457380CFF9;
+	Thu,  1 Oct 2026 08:30:08 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -62,48 +37,77 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D039UWB001.ant.amazon.com (10.13.138.119) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Subject: Re: [PATCH net-next v15 0/9] net: stmmac: qcom-ethqos: add support
+ for
+ SCMI power domains
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179084340677.2325520.95323259899491825.git-patchwork-notify@kernel.org>
+Date: Thu, 01 Oct 2026 08:30:06 +0000
+References: <20260923-qcom-sa8255p-emac-v15-0-e82f33720737@oss.qualcomm.com>
+In-Reply-To: <20260923-qcom-sa8255p-emac-v15-0-e82f33720737@oss.qualcomm.com>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com, vkoul@kernel.org,
+ peppe.cavallaro@st.com, wens@kernel.org, jernej.skrabec@gmail.com,
+ neil.armstrong@linaro.org, khilman@baylibre.com, jbrunet@baylibre.com,
+ shawnguo@kernel.org, festevam@gmail.com, jan.petrous@oss.nxp.com,
+ s32@nxp.com, mohd.anwar@oss.qualcomm.com, romain.gantois@bootlin.com,
+ geert+renesas@glider.be, magnus.damm@gmail.com, mripard@kernel.org,
+ christophe.roullier@foss.st.com, brgl@kernel.org, radu@rendec.net,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, dfustini@tenstorrent.com,
+ linux-sunxi@lists.linux.dev, linux-amlogic@lists.infradead.org,
+ linux-mips@vger.kernel.org, imx@lists.linux.dev,
+ linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ sophgo@lists.linux.dev, linux-riscv@lists.infradead.org,
+ bartosz.golaszewski@linaro.org, stable@vger.kernel.org,
+ krzysztof.kozlowski@oss.qualcomm.com, martin.blumenstingl@googlemail.com,
+ prabhakar.mahadev-lad.rj@bp.renesas.com
 
-The recent idmapped_tmpfile selftest creates a new directory in tmpfs
-owned by user ID 0. It then idmaps the mount as caller [0,10000) to disk
-[10000,20000). The original uid 0 owner does not exist in the mapped
-range. As a result, mapped_caller_creates_and_links fails at the
-O_TMPFILE open because inode_permission() rejects MAY_WRITE access:
+Hello:
 
-  idmapped_tmpfile.c:145:mapped_caller_creates_and_links:
-  Expected fd (-1) >= 0 (0)
+This series was applied to netdev/net.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-Chown the directory into the mapped range to satisfy the UID
-requirement.
+On Wed, 23 Sep 2026 17:14:34 +0200 you wrote:
+> This iteration addresses several issues raised by Sashiko. Some are not
+> addressed as they were false positives (nothing in the PHY driver ever
+> calls phy_runtime_get() on the parent device) or I decided they make no
+> sense - like the suggestion to remove the power-domain-names property
+> because there's only one power domain.
+> 
+> --
+> 
+> [...]
 
-Fixes: d943e68edc5cb ("selftests/filesystems: test O_TMPFILE creation on idmapped mounts")
-Cc: stable@vger.kernel.org # 7.2+
-Assisted-by: kiro:claude-opus-5
-Signed-off-by: Bjoern Doebel <doebel@amazon.de>
----
- tools/testing/selftests/filesystems/idmapped_tmpfile.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+Here is the summary with links:
+  - [net-next,v15,1/9] net: phy: aquantia: fix system interface type not updated in forced mode
+    https://git.kernel.org/netdev/net/c/6e0022b5ae3d
+  - [net-next,v15,2/9] dt-bindings: phy: document the serdes PHY on sa8255p
+    (no matching commit)
+  - [net-next,v15,3/9] phy: qcom: add the SGMII SerDes PHY driver for SCMI systems
+    (no matching commit)
+  - [net-next,v15,4/9] dt-bindings: net: qcom: document the ethqos device for SCMI-based systems
+    (no matching commit)
+  - [net-next,v15,5/9] net: stmmac: qcom-ethqos: set serdes mode before powerup
+    (no matching commit)
+  - [net-next,v15,6/9] net: stmmac: qcom-ethqos: update phy_mode to the resolved interface in mac_finish()
+    (no matching commit)
+  - [net-next,v15,7/9] net: stmmac: qcom-ethqos: reuse the address of ethqos_emac_driver_data
+    (no matching commit)
+  - [net-next,v15,8/9] net: stmmac: qcom-ethqos: factor out linux-level setup into a separate function
+    (no matching commit)
+  - [net-next,v15,9/9] net: stmmac: qcom-ethqos: add support for sa8255p
+    (no matching commit)
 
-diff --git a/tools/testing/selftests/filesystems/idmapped_tmpfile.c b/tools/testing/selftests/filesystems/idmapped_tmpfile.c
-index bc411ab8281ea..77b96d0943578 100644
---- a/tools/testing/selftests/filesystems/idmapped_tmpfile.c
-+++ b/tools/testing/selftests/filesystems/idmapped_tmpfile.c
-@@ -91,6 +91,13 @@ FIXTURE_SETUP(idmapped_tmpfile)
- 	ASSERT_EQ(mkdir(self->dir, 0777), 0);
- 	/* World-writable so an unmapped caller still passes permission(). */
- 	ASSERT_EQ(chmod(self->dir, 0777), 0);
-+	/*
-+	 * The directory itself must be inside the range the mount maps.
-+	 * Left owned by 0 it has no mapping in the mount, and
-+	 * inode_permission() then fails MAY_WRITE via HAS_UNMAPPED_ID()
-+	 * before any of the tmpfile logic is reached, regardless of mode.
-+	 */
-+	ASSERT_EQ(chown(self->dir, MAP_HOST, MAP_HOST), 0);
- }
- 
- FIXTURE_TEARDOWN(idmapped_tmpfile)
+You are awesome, thank you!
 -- 
-2.50.1
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
