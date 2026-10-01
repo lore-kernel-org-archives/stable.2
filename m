@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E05D23BD02;
-	Thu,  1 Oct 2026 10:34:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99CF64D0CE4;
+	Thu,  1 Oct 2026 10:34:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790850884; cv=none; b=uRmSyIcZsI3yu2fZdlAXCDmu5UVBiRNgNDGjVScZgKeB1Z5NJtLZ8uacYzhju/+7/5KyO3CBibai7ORhWKs0UxSDq0A3Jf5q2wCfwehB9ZTffUh1eAGZ5SUB400hZbQlcXaZlDdOxse9z05Z55HksA7Cj+SyXhKdwurR/+dEaAY=
+	t=1790850903; cv=none; b=MFV37eEWZyBvqwX40qYQEyrALt2ZbdidyW20agsVt/h6SWKKK16rNMThMNiZKfF84BWey1RKV+m+bSP6rrs1QzLKjS7jKBo9px1TXPpv0lxFtHq2aVKCcnchl1ivHxKWTN/I6NMKezVXsn/kOhS/85NyVf7UDXNd9YUXSxB1FEo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790850884; c=relaxed/simple;
-	bh=NA4UfQaKMdlLmbsZ6BTMhZW6cV/+cUvseTFf1qzBP78=;
+	s=arc-20240116; t=1790850903; c=relaxed/simple;
+	bh=3BN5c/4XJBQ5yVxxKfSTUKE9X7xv5p1hMiVlkdKUKfo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IvIVhiWCLCQ6wxGoe46U0qB53FwPmSlQeRDwoezsVyDWxtundjQvpDpDVQ7y2Y6dPkTt4LVY35mBgt3q7RKjltQOzOsjpMoekPopwR1/NummA/pAEcpzEIK0cxXIwGC4vO+WV29CZ2l5aXtxbFD+o0080a/98GwbLbBl8BUPlFA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gA7+gvYM; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=loRJBAGRmPI2FmNBHaes3+Tme8ftoZ1t3YvjkF/6psFUNSkSSokS1ttQChSu0fT5oevb5OQZ9GcDHPOdYYEXJuwdCk4tuQ2JioNsRPAU0P/FhYxHd+VG0ZELaNjyjDZ28fONNotIcePUbMnrsvMQbaXDTLUOPczw/sBT3NOw3VY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cl+T3eCi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gA7+gvYM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 511F91F00899;
-	Thu,  1 Oct 2026 10:34:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cl+T3eCi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5504D1F000FF;
+	Thu,  1 Oct 2026 10:34:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790850878;
-	bh=gQaIQECuB+QV7CujPIoQXpEGrYXnLWBwF7qVAUDB8Sc=;
+	s=k20260515; t=1790850891;
+	bh=cpnAERfwWcpJPCQJOiMYKzskczfBLAmXZOfaiGrPW9s=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=gA7+gvYMrSGKwkFCUCTrIFkvtraBkGuN8kUYVWNEXDC3NbKAmZYtIwGTwuO5Ih9xV
-	 sIi05onQywdUtoorgbOZdpeXv7mCR7POTZ2UE4nIAS8tQgFpm289TJwPfwSP8mwVcQ
-	 /2hsQvOPLkp5RzYIhr+VRyPoIMpLLImUmgW/Cb/2i+7h88+r4Q3OM7wrfsSd7vGpHG
-	 nnPEqHlJqAf+Cfsbo16HRWafwnM0FUfBnbf4q+guZa8fPL0N/zfCaCzxXak2afAUgK
-	 4v4Gfs/vlpIgZF3u2ubjVbOafSk5m5YgR1haai5UpIHJZ+UR/dRYa/brhmUceNrhIa
-	 mbh2sVFruywtg==
-Message-ID: <5e7ed934-ec0a-4383-aa85-ae384b07e752@kernel.org>
-Date: Thu, 1 Oct 2026 12:34:23 +0200
+	b=cl+T3eCizG7WiIcmVcH8Ez5A4rlX6y7uy2BLgB7lq20a7ulfYXUm64BsNtPmRr2N0
+	 s7bjBo1ykwKVoa9BSdZDoo2u9ZLi9Fvaa07bk4xm6dPjwvMPSD0rIvkA1TIBMp27F5
+	 +iIyy+4G+tcskX6T38MAAkG49ESye8v7pq/44dmtKP1rvHXDkTucSE+AqAwnXEbaJR
+	 oXkNbB92rXh4v+4m/kxJLN6zOrnEoNo7gSIey1ZgVh/GGbNq0LGvlY5brF3GLA+7Y2
+	 8atinXm/CykmIiPli6VB37IBghZQBo2QIDfWdgSVCmHNlFV1YhodM0lQdLmnWVMRLL
+	 zOKG92U7/DmNA==
+Message-ID: <742ced29-d490-4b33-8fff-d6d503c0ee95@kernel.org>
+Date: Thu, 1 Oct 2026 12:34:37 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,8 +35,8 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/7] mm: allow shared folios to be promoted to a fast
- tier
+Subject: Re: [PATCH v4 3/7] sched/numa: scan read-only file mappings in
+ tiering mode
 To: Gregory Price <gourry@gourry.net>, linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
  akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org,
@@ -53,7 +53,7 @@ Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
  shy828301@gmail.com, osalvador@suse.de, raghavendra.kt@amd.com,
  stable@vger.kernel.org
 References: <20260930112206.205083-1-gourry@gourry.net>
- <20260930112206.205083-3-gourry@gourry.net>
+ <20260930112206.205083-4-gourry@gourry.net>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -100,33 +100,37 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20260930112206.205083-3-gourry@gourry.net>
+In-Reply-To: <20260930112206.205083-4-gourry@gourry.net>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 9/30/26 13:22, Gregory Price wrote:
 > From: "Gregory Price (Meta)" <gourry@gourry.net>
 > 
-> NUMA balancing rejects shared copy-on-write folios and executable
-> file folios mapped by multiple processes to avoid east-west
-> migration bouncing. These checks break promotion from slow memory.
+> Commit 4591ce4f2d22 ("sched/numa: Do not trap hinting faults for
+> shared libraries") excludes file-backed read-only VMAs from NUMA
+> hint faulting to prevent east-west placement bouncing.
 > 
-> Allow such folios to participate when the folio being migrated is
-> a low-tier folio and the destination is top-tier (south->north).
-> This allows promotion, but prevents east-west or north->south
-> migrations (north->south is handled by reclaim demotion).
+> This filter hides hot file folios on slow memory from promotion.
 > 
-> Keep the existing restrictions for ordinary placement and for
-> migrations that are not slow-to-top-tier promotions.
+> Scan those VMAs when tiering is enabled, but make their scans promotion
+> only to retain the existing restriction. Keep the historical VMA
+> predicate unchanged for backport-ability.
 > 
-> Rename folio_use_access_time() to folio_numab_promotable() so the name
-> captures the combined memory-tiering and source-tier test. The helper
-> retains its existing behavior.
+> Decide the walk type for each VMA from the balancing-mode snapshot
+> taken in task_numa_work(). A VMA gets a placement scan only when normal
+> balancing is enabled and it is not a read-only file mapping. Otherwise
+> the walk is promotion-only, and without tiering the VMA is skipped as
+> before.
+> 
+> On a host with 768 GB of DRAM and 256 GB of CXL memory running two
+> database services using ~430GB each, 169 MB of their shared 185 MB
+> main binary accumulated on CXL and was permanently stuck there.
+> 
+> With the change, the binary tier residency tracks its runtime hotness.
 > 
 > Fixes: c574bbe91703 ("NUMA balancing: optimize page placement for memory tiering system")
 > Cc: stable@vger.kernel.org
-> Suggested-by: Zi Yan <ziy@nvidia.com>
-> Link: https://lore.kernel.org/r/DLHS4KFPQ86I.1J4LN3352RI71@nvidia.com
 > Assisted-by: LLM
 > Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 > ---
