@@ -1,87 +1,87 @@
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com [205.220.177.32])
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D29C2528433;
-	Thu,  1 Oct 2026 14:53:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.177.32
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 445585372C2;
+	Thu,  1 Oct 2026 14:53:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.165.32
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790866386; cv=fail; b=lcMGXKLXOUWXJRy+zGdHev50SvQKJbULz7CEiom8u4L/YpGudtmQCRhx9vwlvbReLt3OP6na3wwj7OHVHTWNiMY22hOonG7SaepytuqQ+osYdrdN2PRTk1er+OAglr9WMvUkWV0lMC26tqe3kfGDvbR1rjvlF7CLEdUyC7h3vjQ=
+	t=1790866391; cv=fail; b=UiMPVKgVVm91pV7/45Mwl7E5oqFyGcaybvcD9mS/cqk8WB0s3coJzHeeD9zb/59bqMjCDKh1RGGkhlzm964VjSp28wlYVcQ/vezJRfNXC0alqtqNyGO8zuWq/DnDclLceIo7n7fR28+OUzmIOINxTaOgW7gWnnDaprrRcUwFxyA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790866386; c=relaxed/simple;
-	bh=emW44mA64NMaqCYDzQ5QAos4YIRnffdly9YBdTsf2zQ=;
+	s=arc-20240116; t=1790866391; c=relaxed/simple;
+	bh=SppN22fDh0kPZgpBHiDaDUp90wDhO9cno1gesPR9zWU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=sW0I0FZzB0CxTSehtnrOeq1XvaM8RlDyqhgyjqI8AuBKz2dWRVP3Abo17WJ2B0kNeceR+cC61ETONNgy73/fgGN8LjL6lOWcH/qo2vMx/BoidF+p5UMTVTTK0YZcRgYPjcnThHe/35wGYMLufC7vO/AlenXCvksQxZ9stRXi2jU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=cQs3peiw; dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b=i0OzSHhZ; arc=fail smtp.client-ip=205.220.177.32
+	 Content-Type:MIME-Version; b=ci1uX7AlawdM1vDNxufZmxJ2gOvDcljyFSDxk+3LOo8XP1qAESjki/qJmlRsFWfVJVDtYRyjvUYJzPP+/XWRUzfFZOwgigmRen318XGZPms2KoUb+abjdQqzUv3T1r1BDGyYCnXSid5H02pe8Fc4msDRsl96b+cCXiSwzEAOLBA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=ZZR0UzRs; dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b=X1M5EFny; arc=fail smtp.client-ip=205.220.165.32
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="cQs3peiw";
-	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="i0OzSHhZ"
-Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 691DMcfQ539266;
-	Thu, 1 Oct 2026 14:52:58 GMT
+	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="ZZR0UzRs";
+	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="X1M5EFny"
+Received: from pps.filterd (m0246617.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 691DMwWU490636;
+	Thu, 1 Oct 2026 14:53:04 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=
-	corp-2025-04-25; bh=CFftGCHDvDnERBZoHEXtjsYPNy8xUirCR0ggbbh47y8=; b=
-	cQs3peiwVZzas6Zpzfc0U4CVhZUDxVVvVW4DUy6VIMrXX6RAo/34P7Ui5ZEnj4Ve
-	Cne7+/i4Wv25rsP4mTuR2GDHkw1OjIT38AVCAwvFCULoCwi8tgtLaotpfo7oFfP3
-	2/CLYTZU9nX41S5Ye6+fxlIBtN+PLTSWRL3E4RkyA1HxWlF3qa4LSZrUnKS4UhTi
-	AY6rhvevUEWhbD2toITM3kbfC2tKLTUzSg7SIIul01mRpYCHsOu3R7lZEJwYp6et
-	oe36Q0FOrHORRP0XFoQBMupK8nkvfDzJbzIyyX1mQ3PiceRa6Ci00D3BqaKGdVzF
-	LdcT1VvBRU/Qv550UI7K0A==
+	corp-2025-04-25; bh=0/tXizU+1Y2jeTo7M87SSS+bAdXFfjUhRoctztKVTks=; b=
+	ZZR0UzRs7Cf1/iCGZGcA/dBcN8ao1PBjB0uhB704tGBq09nqOdQtA7j9JeIint2Y
+	pyJwF3aB9q6rEcXc/yyvaJB72ZDe1A5s899OZOM7Bmf3MGBuTsIVZJ6ZokUOlSyh
+	3SWehdHKGCeVfrVYuhfQn0QJCWYzjGCTmMJpdBPV14JtIxO2ntU5HML+ty7KDRA7
+	9qzBwzMJvRKkWOfj/YBLE4bDZaijpOsqojDNAtCvl78xZV+izozMKV23kA0Sfm78
+	11BoBi5c+/qfW0rsAoBn/WJ8a0WodToFJOvtQGZ4ipRg+Il4JOl2xaCst9FcdFT+
+	vGkJGB4hMMh+68WjSWzuVw==
 Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4gx4fbgyq3-1
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4gx6ks945k-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 01 Oct 2026 14:52:58 +0000 (GMT)
+	Thu, 01 Oct 2026 14:53:04 +0000 (GMT)
 Received: from pps.filterd (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
-	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 691EoUTN031897;
-	Thu, 1 Oct 2026 14:52:57 GMT
-Received: from mw6pr02cu001.outbound.protection.outlook.com (mail-westus2azon11012060.outbound.protection.outlook.com [52.101.48.60])
-	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id 4gx4gsd45m-2
+	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 691EoSIQ031727;
+	Thu, 1 Oct 2026 14:53:03 GMT
+Received: from mw6pr02cu001.outbound.protection.outlook.com (mail-westus2azon11012027.outbound.protection.outlook.com [52.101.48.27])
+	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id 4gx4gsd499-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 01 Oct 2026 14:52:57 +0000 (GMT)
+	Thu, 01 Oct 2026 14:53:03 +0000 (GMT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=P+X3A/OrI6q3XDLzuXuIZV/oNuk4S+5w+pws/WKLmtvcKTIOUwibZpxYqaaMniPEnVDu8WjApDS6au9C8T2AGux6i25IGKJxnVBuGuLMjKq/MzFbUczUUEQURwSfZjFkofSrZ2SxzW4iPcX/M9NAXnx6D93WMJE757Bz2JeRJRPwO+xQmHRnOPVD9KtpTO+x9ZxGK1QMhi4P9sY89Y7R6/URw5VKLZjRpkduNG61PXWjJYr06M0Bpe4jSThHPGAAWB1z0RaIOIKDanVDDvXcav5qpaUBmQCEUY/1Bh5E1/vjxg434AskZPob8E/mnqBuE7W3ndQ/K4Gwrx2q+OVxFw==
+ b=Righ4k4HZPL3qnBJvgg0DAIaLkXHiR+egUiG8q2OoyQS0AXesLfuQS90yDv8bju5GUWWqkIS8LPq8iFBGJRCV69UBe8mYoSbSoxDXjBBRheg80j58bmy49JZCCcC8XE0VDgUar7fWgeMSYmVIzMzLVASk59A2ahwnhlQXGWGD2Q/MnLW9u1R5U6nWgx7plGY8Mx2NzDsBppBwSe1NA3kuS6MSCaSNeKQNDOuLjzZCGyLkCsdafjeufwfgCFCSSHxv7BT7EhzspmemMD20pbvguIgKjPVn0yH6Op0ys9V72+MxKYWcFCncRug/Ie8hrIxpE+F3+jjqbsqjHL3wP3Ftg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CFftGCHDvDnERBZoHEXtjsYPNy8xUirCR0ggbbh47y8=;
- b=zM/BEIJJ6QteTpnzGb6fS88H+OamH+3hLF7IxT90k1VzBzEGxJPSLrPuaqabwdC+5DeOAo39isOa1QZs47X9qPXmxetl9j+SyafAvImDq0E0illWRwoG2qVaqBU0JrbJNgPL0sHaCEaz0/oHL2B1FcxtIndCWR/60jFNBuQmhIp+eZbtBXQ4Tto9Jmluut7xsp1woJD9IkY2ZXHmiHnWSwAVOV5ojQjrXy3OlTvbF7GS6qPfKUCG4snVw0vsCQRPmRHOg4iXfVfXge//wv4gZIHYed8vlkICJcKxmfKZr4Gl6D53B0EoXdiKQC7T4Tt3lGfJF0Q+A/+fGmHNNRkXNA==
+ bh=0/tXizU+1Y2jeTo7M87SSS+bAdXFfjUhRoctztKVTks=;
+ b=xVyEcc4Oy6fZqdC5Rb+E9FJHzqHK7NolJugqt1tg7tcur3Ulw+IloRR07UqgF3eqlVVdc2pECDDDk6TgpwLxkYpWht+cUHCqE0FM6huU5iQUXQnUsJUU5dimUIOg/SwnPeYdScqbxDFanMO8CB7bbsW2vfnSUiWVxcxFE/17GeHFDx5ZmmB12b7IQ6Vh4ZgrJv8Mor8Ggo1x2ThICwhie2B0Rdsn9LDgdFqMNrpmPYQMuZZsdUreTLsh9/c61be+TETv+5+n88Z9oodvNNMrvrWMWcnnpvarYe8TYRa/Su/FHCMXngpu0hNp089ZJgsQJuTMzIFMK4RJAiflBEAOLQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
  dkim=pass header.d=oracle.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CFftGCHDvDnERBZoHEXtjsYPNy8xUirCR0ggbbh47y8=;
- b=i0OzSHhZXudMnB1r6xx1A6EmKwpK9ayGRt2vjUuYHvjouYrGwcgZmUYadIGNI/4zJLC8gG1EKKbxikekWIBjyZqjIk+7GijWnXR2HrH0i0hTl8Bi2FBwifdEXQlcbJ3aczYTbW0+xfBhqcgZJu0qQc71Q0gDcbbv3/bggj1QdY8=
+ bh=0/tXizU+1Y2jeTo7M87SSS+bAdXFfjUhRoctztKVTks=;
+ b=X1M5EFnyhPQ6JTBgSFJsUTQTJGODzmJ11NyGG1d2f0LSmAkE2IP6cPZ2wXkQP6O1u/FMiw3oSWts3HwVo9VB/dKaoDw7Aq3Gy5OmmootcGSnJ3oyNMiu7HfENie8FF9YzeL8VsCburHUgzHxqoP3B0iQYcoRZM1kyS6ArCVLddI=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oracle.com;
 Received: from DM4PR10MB7505.namprd10.prod.outlook.com (2603:10b6:8:18a::7) by
  PH7PR10MB6556.namprd10.prod.outlook.com (2603:10b6:510:207::17) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.14; Thu, 1 Oct
- 2026 14:52:54 +0000
+ 2026 14:52:59 +0000
 Received: from DM4PR10MB7505.namprd10.prod.outlook.com
  ([fe80::f14:5389:d117:967c]) by DM4PR10MB7505.namprd10.prod.outlook.com
  ([fe80::f14:5389:d117:967c%4]) with mapi id 15.21.0472.015; Thu, 1 Oct 2026
- 14:52:54 +0000
+ 14:52:59 +0000
 From: Siddh Raman Pant <siddh.raman.pant@oracle.com>
 To: stable@vger.kernel.org, Greg KH <gregkh@linuxfoundation.org>,
         "Darrick J . Wong" <djwong@kernel.org>,
         Dave Chinner <dchinner@redhat.com>
 Cc: linux-kernel@vger.kernel.org, Mark Tinguely <mark.tinguely@oracle.com>
-Subject: [PATCH 5.10 11/21] xfs: remove xfs_buf_t typedef
-Date: Thu,  1 Oct 2026 20:21:24 +0530
-Message-ID: <e6db2355d9b08513fd9da1fd5452e6002ab462c8.1790866131.git.siddh.raman.pant@oracle.com>
+Subject: [PATCH 5.10 12/21] xfs: fix super block buf log item UAF during force shutdown
+Date: Thu,  1 Oct 2026 20:21:25 +0530
+Message-ID: <fe2f35d57b5e66b57ba6ca024590681e6b2d1091.1790866131.git.siddh.raman.pant@oracle.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1790866131.git.siddh.raman.pant@oracle.com>
 References: <cover.1790866131.git.siddh.raman.pant@oracle.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: PNYPR01CA0047.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:25b::7) To DM4PR10MB7505.namprd10.prod.outlook.com
+X-ClientProxiedBy: PNYPR01CA0023.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:23f::28) To DM4PR10MB7505.namprd10.prod.outlook.com
  (2603:10b6:8:18a::7)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -91,63 +91,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DM4PR10MB7505:EE_|PH7PR10MB6556:EE_
-X-MS-Office365-Filtering-Correlation-Id: bdca7abc-b698-4317-3c42-08df1fcbac0e
+X-MS-Office365-Filtering-Correlation-Id: 6fdc86ee-4476-402d-2a7f-08df1fcbaf1d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|10070799003|18002099003|22082099003|10067099003|260925021911599003|260925022911599003|260925021311599003|56012099006|3023799007;
+	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|10070799003|18002099003|22082099003|10067099003|260925021911599003|260925022911599003|260925021311599003|56012099006|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	7RwCQHlp+SvyBvGjdZ1yXvna3hKENeOchuoryB77UWJMw3sEkw8ZfHWokRMUbfhwBn9c7SgiUSiFSEUPiFnvOvjjhI13Bt7chEtfD+IeRvbiXA3u4O+CR23cCG5kxxoeb3+b8c9CfzKg00SEXxblRd+S4aPXoKZnp7hgp+xMSPjPtlt4x2/9KtaWYPmgz/Rp+H5MhHrJikLITf8vjy9uU5bT5xwxlchAp53WHrWxdIMybBlChFiokLvD2zcQH/mOMEITFIvphPfSAv7zZO9WcaLDa1KKA8+tn/kAGVoJVMbO0dzQyixZaYjVLDOtOCk1wVPp4xxhRe1qwnD7WY9YtV9+Z9uVftaI268p5Jhin3foEFML9LtpUfHQOzzKjSBmqcm5IXF77wdGgt8sHW6d7dEHLce/cYoMq96y5+6efYw9cEz4Cn+8f6XpZtuGLP2o58WxmylTlWaIZrW84UjKO2nYjFdm0y+EANoKbEBUXG9zkGfB/aW+a0QgP5/b3f8+VD7dtCCPRUukjW7xvw0gGO5xOLJz6tameajQFWRH9+1t9YlyfR4At3LyRxkTfVDBGTWEqhrHlLtaFBO+9qHUyc6fFe3tZWQpf1adANvmNgi3BHl8IuElJqzK+bUyldoAmCaAxvzfUJK1FbYW8m+kBxHoKbgyZ6PxUBlxikM92Qw=
+	Kmg3k6HToVK/W69UPbpDIvmkEpi2OcMfcdVSnz0EzDlSd20vtrj3wQf5Dv3OZ4t8GvFBHnN6PD2CtwUUXrkV8eNXzd1jmcrRTZvliQWckvfUQl1PKKO5TDP7/rstvSUfSaHiE5EG4Jv0txDKkkaGBisViCiVqDLZVjjn42rbwTm20e3jvX0suxdzULewSbedzSmdUySk1hgcTz6E7C9vMk4yvBh9clRKzbYeMb46yUAqkWISlBUA8zpBAzZtpXEbO8mIrxC7YuuEyjgUiGs1D+TGyxn+2+Q5iBn3kaa0+4ca4enOBqHzjrA1Xd5H1XkI0Ylo9Jb4iLPXqUPhG1e4BAL3c4PFq/el8XCByr+BblU1g0gmwVtnEguw9JE4am4rKvOb/kJQp/WIFv1qzfqQTUbH37cSo4nsw3vWMJ0SnmbyTPtG+E7Q2XqJXKvO+rBDoxTCuPb9OmfyWLJgSM71F1rZxIS3h+N42jQwSBGmw7Uiqsq1UgXSuMIlUg5vbnCiBKiaw39dCn3mkWVPPImNpNM90Pf9xzaL7RAX+jY69IJOG8sMMzsfckNWEe1FH4ZfWDfnV4pXVbR5NQxmTmcIXQ4LC/3YqKyTEkU+5AX4yJWr2UEeYY93zUYKWWK+tHUPMoERJWB18IRPvTp9Z/Yhk3fHLWBADzqFa8lKiUzu7Tw=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR10MB7505.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(10070799003)(18002099003)(22082099003)(10067099003)(260925021911599003)(260925022911599003)(260925021311599003)(56012099006)(3023799007);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR10MB7505.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(10070799003)(18002099003)(22082099003)(10067099003)(260925021911599003)(260925022911599003)(260925021311599003)(56012099006)(6133799003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?tHx5Z5BytXC21eyRvAKBe1yzNbeUbexAe6FLIbdm1KMwTwqortEFoBgzKZ6o?=
- =?us-ascii?Q?c8FnDtXTIttN3ysyR/JkCzRChA3iiVVawS3zRll7RmTuzg4aGY48243dMnbY?=
- =?us-ascii?Q?5Bozgvt21TYAZrlS/oBPCy89cDBZ34CxNyFUvGVEdEwwprXkqDSEGwFuRobD?=
- =?us-ascii?Q?LC2fwxwmtk/8frSXJrgnF3GVNvcksMMfjKxU7STpYxNylJN5icJ4yq5K0l6F?=
- =?us-ascii?Q?d4LbdD5eg5MkFNQ+TandZ+VfM8iqp8iTkAKErSyG92ODHldfH55zG81dGGnF?=
- =?us-ascii?Q?7DIPgXuS2UJUjtUiZFoGh4fInDDkFX8Oo/ChMBQMAzk7VEgm6aFRwgJVZz0H?=
- =?us-ascii?Q?3Z+ue7mBwdzu9uFp3c43peu9GVIDys5pwcMV04SDPlxkBF2320HiLeJwpsRu?=
- =?us-ascii?Q?calFaF0zpLGvmr4nTFTtFOqjAlQsj1W0J5x1zY0Zl+pqKJu12vufhRMSl+99?=
- =?us-ascii?Q?K7Frdin39JGqH9qfsRKY4w9xE58egtztxf0kL3LhtpVbfNezXUibvIhFHfoT?=
- =?us-ascii?Q?k1vuC/ikTSSSDcLAZ78vP0h6I/IUN+JwWz9dKe2dwpqm4we+Jab3+mzSUBBe?=
- =?us-ascii?Q?TGYfiZcKoKrh1mgrA1hBFhfqU9AN8bQ12XkXcnIiStijV1xwoGjYKyoNfS6Z?=
- =?us-ascii?Q?bCiguGdFfG5Nins3UMPNWsz/uA2mK4OE8DN6OjOQ7Z06iKNNfCDH4f1naW0i?=
- =?us-ascii?Q?Wh3pjctlcPQItYGkLM1HxI1GIgEcAnLmZNEPCUw/dI/v5WIeXuoK5j5VR/n+?=
- =?us-ascii?Q?tnTVzWTDTcVAoVE//rCZdmRwV2fPGw1ETED7OMfYzV0r8OdkenZfayzyTeNH?=
- =?us-ascii?Q?Z7hrB8dEUGtE5i1hM2gnFtDcXrJm43LzyeqFfpV6y/brROXZdAPY6RXpcujL?=
- =?us-ascii?Q?DRi/oBPII1wuNUED3Y7XdtxMYKbgsUS+jAqNbH1ZUwWqPN9tFnCAB1BkaCI/?=
- =?us-ascii?Q?kwOPJvoaVWpAcr3Qlqc9eJoyvu5zulrRaF/XX1DxKMdGlMalP5lJt22YTR2R?=
- =?us-ascii?Q?ZOHSAhnJey4FXGKGVpZxv7P4Yfj5sx6FfzsNPqRLPd3IrhFL60A58wwDljC+?=
- =?us-ascii?Q?QEUBjjvs80XKE7q3pLzMpZjIvJiTDer6WcKlMYUQhP0JKr8ipL++e/LRjRdw?=
- =?us-ascii?Q?4BwZezXfcnk3QZaMIl4FP1Db86sca2M2DnSBvy0A182cRowasd7GulNISnbL?=
- =?us-ascii?Q?3Q3MHFue42x5yPWsoQemBsTWuLQm84W9pUKr0ZCXst6yOtuzLL1RyFy2tHyG?=
- =?us-ascii?Q?pnLy4WL2UiPR8kImvS7pbN7OOOYHrau2FQ8vu+crJHl/ymRbsSAhrFJyyqZV?=
- =?us-ascii?Q?9ItAYff8oJR9qGVkDz2A8eVhZv4KTu0CoOog5oO/LmajXjuwt9+5nfSP0CgL?=
- =?us-ascii?Q?XJznKR+DHfhCboe2sj19OC8xkmaWDIa6zEgGqM3LRotSIDjw7Tj1bgJwS1vT?=
- =?us-ascii?Q?WNhIdKHJ1rLF2meFs8jWpIIEEy05Xo7wtu7CI2TlLhUjnwShB+THvkQQ9X1A?=
- =?us-ascii?Q?KgacmDWF/j11YtD9V3z5YoAiEaLofzPXOs/nzSNPGqnc3zop6LDb4cTooktL?=
- =?us-ascii?Q?La9WtB/BlmfqQx6TcqEKumrrFhNE9rmlfdH1QYt3pKwKEsgehr3aTUr4MPyR?=
- =?us-ascii?Q?wpVjEwMPQv7OOeuE3CPRSjhjAW8DDxm13qq6TOcaYI54YZA/ygK96IfAzI+L?=
- =?us-ascii?Q?+nht1RUu35RudY8zg81pcT4/SMyOcK+NTbqt5ENuxaRs6qvepv4/ymHQ8sOT?=
- =?us-ascii?Q?himaytNTMosdiL8UfJ23/L59ooI4mzpsd7qzgwM7sAV4sYfcavXiuewEA1TL?=
-X-MS-Exchange-AntiSpam-MessageData-1: cf6TMv/8kzM3mwJ59B0nPhwzw7qfD47XRVw=
+	=?us-ascii?Q?scjMslf3zJ2nmpNvmvfHHmUHxUOUOqK1Y+Si/jZ4juTMDnGd41IDNNASFjTK?=
+ =?us-ascii?Q?WNDKZnHk7bGKAL5OA8RM/n+7zGwpNlSbtWsjuFaD/LezQjLwqeuVosh21J4v?=
+ =?us-ascii?Q?Dc0hEDa2hUHXLhSdybiziHY3eAYkdyG4lisZkM5P5erGD3a5npAcW6EO/SIK?=
+ =?us-ascii?Q?PAKTALUr2g3Tpwl/qIQOFggweRRr6iGZ7CaZeLGy8BWF3FlgJ+QZ4mtWQbX0?=
+ =?us-ascii?Q?8K/ZPj+pHds7IMZB+yS4uw1kMXq59E5D46DEM+U0sfFNtq+xBZZmgO6GU+uz?=
+ =?us-ascii?Q?8YkYv5xAZb+S7slGGLYIHo4jWtFKgOGWUJUcfD4VRW4RSmRaDd0DwMsuvhDo?=
+ =?us-ascii?Q?V+YGLW6OmnIPHzhrpqyaIp3yiNOYCWO3OfyReVc16yvM7rw1WcnDlpFJ+fhH?=
+ =?us-ascii?Q?35ieDFKpcZvWLsI63UhqSuUAcBZTbGUtlh97JTpt+GSdPPy6yvGp9gsPpURP?=
+ =?us-ascii?Q?F2dpZtM1a2rvuAnUWyMzlR/X/iKBM43dCVYZxtT2tLt1FcwgD5SFNwUaAwzO?=
+ =?us-ascii?Q?wHYZhPxOrB2KkwHQIb3hFRDGpBHfpGiSusw+y/jjpBUf5ibGtxAWRuonhrIu?=
+ =?us-ascii?Q?LYykAPzgwDMoQxKmfytxQ/CadKL6Oq7KVWfuldDol5ybN5bixg80xtFPeViY?=
+ =?us-ascii?Q?oMcKhx23ELWyufCgz76X0DfOx/jTTTZKyysFcyUmhp0qAuE7WHqfadmEbT8d?=
+ =?us-ascii?Q?HLNrRqPX7fIICVkjsxT29MnQjoKeG/EwoLinbXNviYheNW0zgFozkGDvCyXk?=
+ =?us-ascii?Q?eReIon9mIjQFtEbrgbOs73clMifTJTivOkarirSEw8PIxDCRsj0uZD/pGW54?=
+ =?us-ascii?Q?cm+1n/q8WU4Tg4FuigeEFi7RwqXE3h1OVk0+XM7yO1meKEdJdHf6Ch+fwJqW?=
+ =?us-ascii?Q?Fdxj5guyxetjiI4cQkbgAqN83ChADQTNcVY0rBgi945IolPGk3msB/0YI7Qz?=
+ =?us-ascii?Q?McfzwKrQVTUV/Fl5XMksKblAtG38ykRO+hVOSU3f6DDFlVPO5DzMaKOYgl6J?=
+ =?us-ascii?Q?43A9c/g5tcOQYc6CEoT5NK4EVg/vcQSiicEoxgKrXjpfXgqEAUglE6SJvB8+?=
+ =?us-ascii?Q?Tn0mNa/UCSPVEsddqaoEvZnVZptS8wlPCKt6t2W9+9+QVeu4xWq41W7oFtI7?=
+ =?us-ascii?Q?AIkuHbqbA1YcIyIY8an0Y/F+/e6Yl/Tf3Z2ckDaIFCzIKNZ+BOqDT3Rt5YEq?=
+ =?us-ascii?Q?9XfYwxCCWTupp1p7ojMFwLBPe2XfYQiAM1QGQPxt8Hb3YbZL5LATNukcX3Nx?=
+ =?us-ascii?Q?VuKRzDnu9N26EU6EJeF7aNrS4iPkcZLyKiuw7emc9yhoKeNsPD00LYsFZbh2?=
+ =?us-ascii?Q?8kGEc8bUrSbDIuNbS1d42RYpPQKKtT45Jx9BjCz6fMhfdbC/3MPFSq0EJbkZ?=
+ =?us-ascii?Q?InGirXYKkziuvc4voRJk0clVBDlWFpWW+9dUyMguWFu8LlVqOeMl3uOqW4gW?=
+ =?us-ascii?Q?6F9UgL2edRMDCHse6F3YMbCba+DKRL4lZxa0LWigw578QLqnPuorSnGPSKt7?=
+ =?us-ascii?Q?xaGq95N3ZXnlP1k3HdXqipR5rLsGsBXF8sdGa01Q+oN5WHPJJaMhgzMY4naV?=
+ =?us-ascii?Q?9v1NX4skOO8DjH/ed9KdLIum9L+JLqaF4wd+qeRuN2MAYBQ/Kxi0RbM+OYWp?=
+ =?us-ascii?Q?Gsq6GRb4VJ77xwuIPo1ZJYwh9ZnVNeCVjo5VUOMPnYLRxBdxClT6jG8bvKEt?=
+ =?us-ascii?Q?LLvXDw7PPt+InhTZQ2U72nExv53YHG/dgGqqsMmYomslygTG4rdHlcUmavuG?=
+ =?us-ascii?Q?sEpptuOlnQ2FB6aghLlGoEk6jl75kPv2N8VMFBQLdPNW7k/LTCjWj/6I7cZ7?=
+X-MS-Exchange-AntiSpam-MessageData-1: u9t0M9igF/1+U+AHHP0VNvC23qLRNZQZdBs=
 X-Exchange-RoutingPolicyChecked:
-	r0JUUjguVzu5oYT1EeY5jAAHZ0uXEIkeV6NQVF6id0iNxJ2a8Q+efBfYXzNH2AWgIfbOG4vbcQa+v4yApnzUIRYfcnZcuWGgmdAlcP4NoFODyXAwkJUBo/hgXL50GARWO1KHh7lvxoc1p7WjZzRLlrIKsW2PLu6Xl3vTiJlPSuOQkZWWqoOu1otjGDW6Ii6sChroG7i3dmYrREnAv5nhJRFs82KdzkCWz8E/Q/WvQ7rGeuLf0eQMSJ9n2nL79hDtpMQAiSKD4GtFu39S4YZW4oLw3Bw8D15CqfX+1+R1IiTGhdp/aaeYfKlmZAvPluCV+02yiKAWwvXTITlQvC6HtA==
+	xEnqhrlfKyAplQxZktxD+aOL9AdMzklkfzI+tVWd674hYn1nlXgDmdxYMrEt/fY/vCYAUHf+rBNVMff6j+jhDh6fxefhwru2CoNTtvtz/8CbyPE3VdkdaKA72fL3oPoAiOOogryndh8X36INrlNIWR4+0CaxiR8HKM3HgQgQqJO1/QzzAa/X7RfxD8aZ306xAkKmIUqEK/VYVFvwbslwvTpVXyF26s0t9WrbkBTtngcoti4I2YiTGeZOeCpYzKIq0pzFNI0YEhpyLpQgnBoHMESdb7+wNxu2nTpOdr4VnD8K5ygz7sAs0zPIQKQmvY6AH7+lRgC8ioVRro8yQe7Vyw==
 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	ApBe82Ug2iVgv5FebFKfAi1Xf62mltDY6SkK+uarlO0avdPPFxEB6OoMhU7UVuaD5uhhZ8Ujn/0+21yAAck7y5FRD6CgrUawwthrADybSuItodXF/aXngbte63AkMs8Xb+oEVltjO8OT9DOJxD7Kd4r3oFiyqg2qqYIkJuLTKhryCM+S+H1rGXOMel3mS2GpqSIfSlY2IyGH6IcDjn4Z/dWDb3gDhCR4Bi2yAHr6Px9lf1mNTYMiAYW4omvNqnJl4M14gr4MpXDDSijBKv6+i24v7S0A36hgNrvD1rnawE4JvMU6IHjNqnlIvgk+hQpeu6U4bnKeaPFeUoABYkCOCygm1P607j+BQETxX2HdY4Ldfchr7la9Tl7OCt1OEbxGPflAn8CRpSW+gChQDWOlR8uts0ffH9Qtu374bJY9odZ54zqqOPhWIQMZPEgtQXKXWLjrxZuKjvzd8nJR0R47ogrhOthjzeyn5dxlCnblo9wDRI702hWozQZOmCO2V9e37HaxOvXdQcwgzFkaj6ueYTeunCbrNYtpiwmSx0u1F3v/GG+X9AydclKmD4KlmYk56v9lp5YAycrqBr1Y8K5uS8BaHjPeDjbi9pfeYP/wMkg=
+	/AJo3SzITwFe07wCAxxLQFAgE8j/bbA/COo/fPkCGsm6+Nn3Agb1MceWwALDd+f4G7Oeyw2iRhJm0jIbYGsR90hVniqBYJuGNxkLeMJ+nhlPcBGYMzzezie/onnNqbqxx+yo++LxfahnEOP2jEzpu9S08Nz2ajlJ+CkTfXrxP5fFTHS7huD89CvQMkNhUMTL/lszVsMyWTvBIWgDc6ZxEUYnBZGzlhEGf72ybBu1IBxOVWy+XrHd3ra/cxntnzoyknsb4Tix9MmScjXjzj9ElXzRsVZ07yxKzDDMUlRmdB+c0hDS0gJvpucAUOSHSW00yW8SSRUAPHBg1QtQeNv6JReSpjxe30y1XZt2lVuAJm5wDe4pAC4+BzW25rU4mROoGWLZVz3wsrtgShump/6zZqNgn75J15nsM3fhqdBUNjyaI2WA66E+cjXAAaljpKfpdsUSHAOJ/iT58rxJpplqn/7sGS3vGtmXthGqWJwac7aciLRLowg9U8TBCBauF64DPe6C4W1gKuWlm797fap7gpbgUw1xVSvkrwgLA979V2lCFmLG1gRC/pYHrObjXiIWV75k+oo7+sqJAsmBydY4NzCGBkaWH6dBl8bimnFTZJc=
 X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bdca7abc-b698-4317-3c42-08df1fcbac0e
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6fdc86ee-4476-402d-2a7f-08df1fcbaf1d
 X-MS-Exchange-CrossTenant-AuthSource: DM4PR10MB7505.namprd10.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 14:52:53.9445
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 14:52:59.0006
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cRLKtEVH6YaoOH47ok1Ks20Xy2j3zEAAesCtxoPADLwBVyxbrDwxOMTJ2FrLa+Ya9Xxseo94vvYdUOAC5p3+NfgTHDvCLl3pq5Y+FbqMNTA=
+X-MS-Exchange-CrossTenant-UserPrincipalName: oUhNxZITVPafdPuoj2fAjAFMZU6sqYoWI1gu4hvJcqP8mdTktk5TJmtwdZFaucQL2opIngNe98hT/W1az8oDzKNRD1Pbvf47Yin0gicFBeE=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR10MB6556
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
@@ -156,792 +156,173 @@ X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
  bulkscore=0 spamscore=0 malwarescore=0 mlxlogscore=999 phishscore=0
  suspectscore=0 mlxscore=0 lowpriorityscore=0 classifier=spam adjust=0
  reason=mlx scancount=1 engine=8.19.0-2609040000 definitions=main-2610010059
-X-Proofpoint-ORIG-GUID: 9fQH1iZ5jOIVFEN7TxY2hZ9uzW0QQ_PL
-X-Proofpoint-GUID: 9fQH1iZ5jOIVFEN7TxY2hZ9uzW0QQ_PL
-X-Authority-Analysis: v=2.4 cv=eJCGH3p1 c=1 sm=1 tr=0 ts=6abe73ca b=1 cx=c_pps
+X-Proofpoint-GUID: t_qHc_X4PmvLRGn0mxQJOQHm_C-sfU8O
+X-Authority-Analysis: v=2.4 cv=U/gHnuru c=1 sm=1 tr=0 ts=6abe73d0 b=1 cx=c_pps
  a=e1sVV491RgrpLwSTMOnk8w==:117 a=e1sVV491RgrpLwSTMOnk8w==:17
  a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
  a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=660iZSQnnn4A:10
  a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22
- a=x4eqshVgHu-cdnggieHk:22 a=20KFwNOVAAAA:8 a=yPCof4ZbAAAA:8
- a=rWiefVkh0gDNh2EwC_cA:9 a=5yU3S35YU4bGjq-dph-N:22 a=Bho9c0fBagfJEIQBS7DQ:22
+ a=7Gl3-_t3PgB9XO-mQDs3:22 a=i0EeH86SAAAA:8 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8
+ a=ag1SF4gXAAAA:8 a=yPCof4ZbAAAA:8 a=X1hi7w48wxXEZvHpCekA:9
+ a=Yupwre4RP9_Eg_Bd0iYG:22 a=5yU3S35YU4bGjq-dph-N:22 a=Bho9c0fBagfJEIQBS7DQ:22
  cc=ntf awl=host:13537
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA1OSBTYWx0ZWRfX+m1g4CxNIwt0
- A8cWiNKRO5kkHnc4vzczTZBfgxO4ymuGEes3JTpSOleJYgLwGuptlj5U0CATjjsWVwD0+a4IvO3
- DbLtDKiDP+8kAaqBg+yHKDmswRMxVzrt20jdQm5su+9MOwNM/b/B
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA1OSBTYWx0ZWRfXyNdeGKEKDyQl
- fE2QpMBVcLQBt+TOqeGjiAQ++WTSsQEcmSvDil8iFP///Lk9e7LkMh/wKltVfAZOGOciCMJd/O/
- f5P3q3YkuXB/8xkdGo2dI7YJVDwqzjoVpX1SzAvKbjeW+cZ7lZixWA//nH9Fce34sD4SUYp5Ujf
- ZniU88SARgdtgTS6E4n76AGcaZ6t0HSRWb5cMMlhnGwvl7qzciFA/QU4AgF6PBk43D0Z6LNdGTD
- RL/JXgDH0yVetkS6FEB2oPCGssxr74+0LvkTEpxUtV2pvh1w1HyIOxO7hu2yLLFf2QVuS2F9vH5
- AiHXOJDO2b++nck2Tj+2yBKkxOyDVwSEDXIl8N6NiiwHgwl97y4E2X14T+C25ZzX8Jv1+OBvyf/
- Me1HG5xFl+/4hoaPxzBsBD9LLusDTLVrT8G8kt2VtgxPUXycV7cu4YWCDepGJqlrNGXY87r7m5d
- CJmonYfHLdzUybjmkvIVohDvzhkD1LJum4EPa2xA=
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA1OSBTYWx0ZWRfX54F1yqaQb3E3
+ cIjmieFTDFdVgOYGwE3i1wy1gn6xnezhqNQ0f17arS1I5kTXmPwgfRIicySpDZjlMA7O9I53MU+
+ 8W/FrslVkvdBxPVuECIkP4PJgtzU6qgPfB3af1UF7M1LPvK/fO/8
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA1OSBTYWx0ZWRfXzedcFQxyiEOl
+ Mj4O7nPx/zEORRiGiItZWxTGmO2n2NDZQj1rFUXl4GC+wLevfPJXmYF1AD0qfRmirzrx3e6oRgw
+ H3QVfk/PLiZUB1mn01Y8L2+WXAy7NCO5eJPEhLcOdVNgxfkDRVUib33deu21LUNR2Yj9fCIm1yo
+ M+kvDcDC7YXZT811iQCf2rK0GVrgRIvepGKj8v6rPd9o6ONQiDvWhUMbsU5EvN8JRrTS6QxIAVL
+ f62FR6DpmV6BPgetzWa5J3KOtA3I97fAuCqaQFxHV9hrZBFFtVfKFr3ywvDX7hL3I0wBDGDb6Yc
+ XBosJ7d1bG/Deyj+M4OiDKKH+ocoJruCyDyjCMp+HPAXk9A9lWEnVl4C6omaFXFJUKXvavyYi47
+ lYHNfF38HV+frscVMTObA+9+YHlTbdXR/Ri2qa1VLybYkwr2wTNSxOdV/XGtLz2lt5gvyVfIIUn
+ ChwqDMc276eVpZNCkmmv92J2qabaVAz9DC1pbDfA=
+X-Proofpoint-ORIG-GUID: t_qHc_X4PmvLRGn0mxQJOQHm_C-sfU8O
 
-From: Dave Chinner <dchinner@redhat.com>
+From: Guo Xuenan <guoxuenan@huawei.com>
 
-Prepare for kernel xfs_buf  alignment by getting rid of the
-xfs_buf_t typedef from userspace.
+[ Upstream commit 575689fc0ffa6c4bb4e72fd18e31a6525a6124e0 ]
 
-[darrick: This patch is a port of a userspace patch removing the
-xfs_buf_t typedef in preparation to make the userspace xfs_buf code
-behave more like its kernel counterpart.]
+xfs log io error will trigger xlog shut down, and end_io worker call
+xlog_state_shutdown_callbacks to unpin and release the buf log item.
+The race condition is that when there are some thread doing transaction
+commit and happened not to be intercepted by xlog_is_shutdown, then,
+these log item will be insert into CIL, when unpin and release these
+buf log item, UAF will occur. BTW, add delay before `xlog_cil_commit`
+can increase recurrence probability.
 
-Signed-off-by: Dave Chinner <dchinner@redhat.com>
-Reviewed-by: Darrick J. Wong <darrick.wong@oracle.com>
-Signed-off-by: Darrick J. Wong <darrick.wong@oracle.com>
-Reviewed-by: Dave Chinner <dchinner@redhat.com>
-(cherry picked from commit e82226138b20d4f638426413e83c6b5db532c6a2)
+The following call graph actually encountered this bad situation.
+fsstress                    io end worker kworker/0:1H-216
+                            xlog_ioend_work
+                              ->xlog_force_shutdown
+                                ->xlog_state_shutdown_callbacks
+                                  ->xlog_cil_process_committed
+                                    ->xlog_cil_committed
+                                      ->xfs_trans_committed_bulk
+->xfs_trans_apply_sb_deltas             ->li_ops->iop_unpin(lip, 1);
+  ->xfs_trans_getsb
+    ->_xfs_trans_bjoin
+      ->xfs_buf_item_init
+        ->if (bip) { return 0;} //relog
+->xlog_cil_commit
+  ->xlog_cil_insert_items //insert into CIL
+                                           ->xfs_buf_ioend_fail(bp);
+                                             ->xfs_buf_ioend
+                                               ->xfs_buf_item_done
+                                                 ->xfs_buf_item_relse
+                                                   ->xfs_buf_item_free
+
+when cil push worker gather percpu cil and insert super block buf log item
+into ctx->log_items then uaf occurs.
+
+==================================================================
+BUG: KASAN: use-after-free in xlog_cil_push_work+0x1c8f/0x22f0
+Write of size 8 at addr ffff88801800f3f0 by task kworker/u4:4/105
+
+CPU: 0 PID: 105 Comm: kworker/u4:4 Tainted: G W
+6.1.0-rc1-00001-g274115149b42 #136
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS
+1.13.0-1ubuntu1.1 04/01/2014
+Workqueue: xfs-cil/sda xlog_cil_push_work
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0x4d/0x66
+ print_report+0x171/0x4a6
+ kasan_report+0xb3/0x130
+ xlog_cil_push_work+0x1c8f/0x22f0
+ process_one_work+0x6f9/0xf70
+ worker_thread+0x578/0xf30
+ kthread+0x28c/0x330
+ ret_from_fork+0x1f/0x30
+ </TASK>
+
+Allocated by task 2145:
+ kasan_save_stack+0x1e/0x40
+ kasan_set_track+0x21/0x30
+ __kasan_slab_alloc+0x54/0x60
+ kmem_cache_alloc+0x14a/0x510
+ xfs_buf_item_init+0x160/0x6d0
+ _xfs_trans_bjoin+0x7f/0x2e0
+ xfs_trans_getsb+0xb6/0x3f0
+ xfs_trans_apply_sb_deltas+0x1f/0x8c0
+ __xfs_trans_commit+0xa25/0xe10
+ xfs_symlink+0xe23/0x1660
+ xfs_vn_symlink+0x157/0x280
+ vfs_symlink+0x491/0x790
+ do_symlinkat+0x128/0x220
+ __x64_sys_symlink+0x7a/0x90
+ do_syscall_64+0x35/0x80
+ entry_SYSCALL_64_after_hwframe+0x63/0xcd
+
+Freed by task 216:
+ kasan_save_stack+0x1e/0x40
+ kasan_set_track+0x21/0x30
+ kasan_save_free_info+0x2a/0x40
+ __kasan_slab_free+0x105/0x1a0
+ kmem_cache_free+0xb6/0x460
+ xfs_buf_ioend+0x1e9/0x11f0
+ xfs_buf_item_unpin+0x3d6/0x840
+ xfs_trans_committed_bulk+0x4c2/0x7c0
+ xlog_cil_committed+0xab6/0xfb0
+ xlog_cil_process_committed+0x117/0x1e0
+ xlog_state_shutdown_callbacks+0x208/0x440
+ xlog_force_shutdown+0x1b3/0x3a0
+ xlog_ioend_work+0xef/0x1d0
+ process_one_work+0x6f9/0xf70
+ worker_thread+0x578/0xf30
+ kthread+0x28c/0x330
+ ret_from_fork+0x1f/0x30
+
+The buggy address belongs to the object at ffff88801800f388
+ which belongs to the cache xfs_buf_item of size 272
+The buggy address is located 104 bytes inside of
+ 272-byte region [ffff88801800f388, ffff88801800f498)
+
+The buggy address belongs to the physical page:
+page:ffffea0000600380 refcount:1 mapcount:0 mapping:0000000000000000
+index:0xffff88801800f208 pfn:0x1800e
+head:ffffea0000600380 order:1 compound_mapcount:0 compound_pincount:0
+flags: 0x1fffff80010200(slab|head|node=0|zone=1|lastcpupid=0x1fffff)
+raw: 001fffff80010200 ffffea0000699788 ffff88801319db50 ffff88800fb50640
+raw: ffff88801800f208 000000000015000a 00000001ffffffff 0000000000000000
+page dumped because: kasan: bad access detected
+
+Memory state around the buggy address:
+ ffff88801800f280: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff88801800f300: fb fb fb fc fc fc fc fc fc fc fc fc fc fc fc fc
+>ffff88801800f380: fc fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                                                             ^
+ ffff88801800f400: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff88801800f480: fb fb fb fc fc fc fc fc fc fc fc fc fc fc fc fc
+==================================================================
+Disabling lock debugging due to kernel taint
+
+Signed-off-by: Guo Xuenan <guoxuenan@huawei.com>
+Reviewed-by: Darrick J. Wong <djwong@kernel.org>
+Signed-off-by: Darrick J. Wong <djwong@kernel.org>
+Signed-off-by: Leah Rumancik <leah.rumancik@gmail.com>
+Acked-by: Darrick J. Wong <djwong@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+(cherry picked from commit 0d889ae85fcf0cf9bc6e998fca2ec760e08e0b46)
 Stable-dep-of: d2fe5c4c8d25 ("xfs: rearrange code in xfs_buf_item.c")
-
-5.10:
-
-2 extra conversions in fs/xfs/xfs_inode.c due to missing:
-	1abcf261016e ("xfs: move on-disk inode allocation out of xfs_ialloc()")
-
 Signed-off-by: Siddh Raman Pant <siddh.raman.pant@oracle.com>
 ---
- fs/xfs/libxfs/xfs_alloc.c    | 16 ++++++++--------
- fs/xfs/libxfs/xfs_bmap.c     |  6 +++---
- fs/xfs/libxfs/xfs_btree.c    | 10 +++++-----
- fs/xfs/libxfs/xfs_ialloc.c   |  4 ++--
- fs/xfs/libxfs/xfs_rtbitmap.c | 22 +++++++++++-----------
- fs/xfs/xfs_buf.c             | 24 ++++++++++++------------
- fs/xfs/xfs_buf.h             | 14 +++++++-------
- fs/xfs/xfs_buf_item.c        |  4 ++--
- fs/xfs/xfs_fsops.c           |  2 +-
- fs/xfs/xfs_inode.c           |  4 ++--
- fs/xfs/xfs_log_recover.c     |  8 ++++----
- fs/xfs/xfs_rtalloc.c         | 20 ++++++++++----------
- fs/xfs/xfs_rtalloc.h         |  4 ++--
- fs/xfs/xfs_symlink.c         |  4 ++--
- fs/xfs/xfs_trans.c           |  2 +-
- fs/xfs/xfs_trans_buf.c       | 16 ++++++++--------
- 16 files changed, 80 insertions(+), 80 deletions(-)
+ fs/xfs/xfs_buf_item.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/fs/xfs/libxfs/xfs_alloc.c b/fs/xfs/libxfs/xfs_alloc.c
-index 15640015be9d..7cb9f064ac64 100644
---- a/fs/xfs/libxfs/xfs_alloc.c
-+++ b/fs/xfs/libxfs/xfs_alloc.c
-@@ -690,9 +690,9 @@ xfs_alloc_read_agfl(
- 	xfs_mount_t	*mp,		/* mount point structure */
- 	xfs_trans_t	*tp,		/* transaction pointer */
- 	xfs_agnumber_t	agno,		/* allocation group number */
--	xfs_buf_t	**bpp)		/* buffer for the ag free block array */
-+	struct xfs_buf	**bpp)		/* buffer for the ag free block array */
- {
--	xfs_buf_t	*bp;		/* return value */
-+	struct xfs_buf	*bp;		/* return value */
- 	int		error;
- 
- 	ASSERT(agno != NULLAGNUMBER);
-@@ -2647,12 +2647,12 @@ xfs_alloc_fix_freelist(
- int				/* error */
- xfs_alloc_get_freelist(
- 	xfs_trans_t	*tp,	/* transaction pointer */
--	xfs_buf_t	*agbp,	/* buffer containing the agf structure */
-+	struct xfs_buf	*agbp,	/* buffer containing the agf structure */
- 	xfs_agblock_t	*bnop,	/* block address retrieved from freelist */
- 	int		btreeblk) /* destination is a AGF btree */
- {
- 	struct xfs_agf	*agf = agbp->b_addr;
--	xfs_buf_t	*agflbp;/* buffer for a.g. freelist structure */
-+	struct xfs_buf	*agflbp;/* buffer for a.g. freelist structure */
- 	xfs_agblock_t	bno;	/* block number returned */
- 	__be32		*agfl_bno;
- 	int		error;
-@@ -2711,7 +2711,7 @@ xfs_alloc_get_freelist(
- void
- xfs_alloc_log_agf(
- 	xfs_trans_t	*tp,	/* transaction pointer */
--	xfs_buf_t	*bp,	/* buffer for a.g. freelist header */
-+	struct xfs_buf	*bp,	/* buffer for a.g. freelist header */
- 	int		fields)	/* mask of fields to be logged (XFS_AGF_...) */
- {
- 	int	first;		/* first byte offset */
-@@ -2757,7 +2757,7 @@ xfs_alloc_pagf_init(
- 	xfs_agnumber_t		agno,	/* allocation group number */
- 	int			flags)	/* XFS_ALLOC_FLAGS_... */
- {
--	xfs_buf_t		*bp;
-+	struct xfs_buf		*bp;
- 	int			error;
- 
- 	error = xfs_alloc_read_agf(mp, tp, agno, flags, &bp);
-@@ -2772,8 +2772,8 @@ xfs_alloc_pagf_init(
- int					/* error */
- xfs_alloc_put_freelist(
- 	xfs_trans_t		*tp,	/* transaction pointer */
--	xfs_buf_t		*agbp,	/* buffer for a.g. freelist header */
--	xfs_buf_t		*agflbp,/* buffer for a.g. free block array */
-+	struct xfs_buf		*agbp,	/* buffer for a.g. freelist header */
-+	struct xfs_buf		*agflbp,/* buffer for a.g. free block array */
- 	xfs_agblock_t		bno,	/* block being freed */
- 	int			btreeblk) /* block came from a AGF btree */
- {
-diff --git a/fs/xfs/libxfs/xfs_bmap.c b/fs/xfs/libxfs/xfs_bmap.c
-index de9c27ef68d8..5483572512ed 100644
---- a/fs/xfs/libxfs/xfs_bmap.c
-+++ b/fs/xfs/libxfs/xfs_bmap.c
-@@ -321,7 +321,7 @@ xfs_bmap_check_leaf_extents(
- 	struct xfs_ifork	*ifp = XFS_IFORK_PTR(ip, whichfork);
- 	struct xfs_btree_block	*block;	/* current btree block */
- 	xfs_fsblock_t		bno;	/* block # of "block" */
--	xfs_buf_t		*bp;	/* buffer for "block" */
-+	struct xfs_buf		*bp;	/* buffer for "block" */
- 	int			error;	/* error return value */
- 	xfs_extnum_t		i=0, j;	/* index into the extents list */
- 	int			level;	/* btree level, for checking */
-@@ -592,7 +592,7 @@ xfs_bmap_btree_to_extents(
- 	struct xfs_btree_block	*rblock = ifp->if_broot;
- 	struct xfs_btree_block	*cblock;/* child btree block */
- 	xfs_fsblock_t		cbno;	/* child block number */
--	xfs_buf_t		*cbp;	/* child block's buffer */
-+	struct xfs_buf		*cbp;	/* child block's buffer */
- 	int			error;	/* error return value */
- 	__be64			*pp;	/* ptr to block address */
- 	struct xfs_owner_info	oinfo;
-@@ -830,7 +830,7 @@ xfs_bmap_local_to_extents(
- 	int		flags;		/* logging flags returned */
- 	struct xfs_ifork *ifp;		/* inode fork pointer */
- 	xfs_alloc_arg_t	args;		/* allocation arguments */
--	xfs_buf_t	*bp;		/* buffer for extent block */
-+	struct xfs_buf	*bp;		/* buffer for extent block */
- 	struct xfs_bmbt_irec rec;
- 	struct xfs_iext_cursor icur;
- 
-diff --git a/fs/xfs/libxfs/xfs_btree.c b/fs/xfs/libxfs/xfs_btree.c
-index 0926363179a7..aaa59daa77d0 100644
---- a/fs/xfs/libxfs/xfs_btree.c
-+++ b/fs/xfs/libxfs/xfs_btree.c
-@@ -394,7 +394,7 @@ xfs_btree_dup_cursor(
- 	xfs_btree_cur_t	*cur,		/* input cursor */
- 	xfs_btree_cur_t	**ncur)		/* output cursor */
- {
--	xfs_buf_t	*bp;		/* btree block's buffer pointer */
-+	struct xfs_buf	*bp;		/* btree block's buffer pointer */
- 	int		error;		/* error return value */
- 	int		i;		/* level number of btree block */
- 	xfs_mount_t	*mp;		/* mount structure for filesystem */
-@@ -698,7 +698,7 @@ xfs_btree_firstrec(
- 	int			level)	/* level to change */
- {
- 	struct xfs_btree_block	*block;	/* generic btree block pointer */
--	xfs_buf_t		*bp;	/* buffer containing block */
-+	struct xfs_buf		*bp;	/* buffer containing block */
- 
- 	/*
- 	 * Get the block pointer for this level.
-@@ -728,7 +728,7 @@ xfs_btree_lastrec(
- 	int			level)	/* level to change */
- {
- 	struct xfs_btree_block	*block;	/* generic btree block pointer */
--	xfs_buf_t		*bp;	/* buffer containing block */
-+	struct xfs_buf		*bp;	/* buffer containing block */
- 
- 	/*
- 	 * Get the block pointer for this level.
-@@ -990,7 +990,7 @@ STATIC void
- xfs_btree_setbuf(
- 	xfs_btree_cur_t		*cur,	/* btree cursor */
- 	int			lev,	/* level in btree */
--	xfs_buf_t		*bp)	/* new buffer to set */
-+	struct xfs_buf		*bp)	/* new buffer to set */
- {
- 	struct xfs_btree_block	*b;	/* btree block */
- 
-@@ -1633,7 +1633,7 @@ xfs_btree_decrement(
- 	int			*stat)		/* success/failure */
- {
- 	struct xfs_btree_block	*block;
--	xfs_buf_t		*bp;
-+	struct xfs_buf		*bp;
- 	int			error;		/* error return value */
- 	int			lev;
- 	union xfs_btree_ptr	ptr;
-diff --git a/fs/xfs/libxfs/xfs_ialloc.c b/fs/xfs/libxfs/xfs_ialloc.c
-index 7e8ba9698aba..8fcb5c6810e9 100644
---- a/fs/xfs/libxfs/xfs_ialloc.c
-+++ b/fs/xfs/libxfs/xfs_ialloc.c
-@@ -2454,7 +2454,7 @@ xfs_imap(
- void
- xfs_ialloc_log_agi(
- 	xfs_trans_t	*tp,		/* transaction pointer */
--	xfs_buf_t	*bp,		/* allocation group header buffer */
-+	struct xfs_buf	*bp,		/* allocation group header buffer */
- 	int		fields)		/* bitmask of fields to log */
- {
- 	int			first;		/* first byte number */
-@@ -2675,7 +2675,7 @@ xfs_ialloc_pagi_init(
- 	xfs_trans_t	*tp,		/* transaction pointer */
- 	xfs_agnumber_t	agno)		/* allocation group number */
- {
--	xfs_buf_t	*bp = NULL;
-+	struct xfs_buf	*bp = NULL;
- 	int		error;
- 
- 	error = xfs_ialloc_read_agi(mp, tp, agno, &bp);
-diff --git a/fs/xfs/libxfs/xfs_rtbitmap.c b/fs/xfs/libxfs/xfs_rtbitmap.c
-index 6c1aba16113c..fe3a49575ff3 100644
---- a/fs/xfs/libxfs/xfs_rtbitmap.c
-+++ b/fs/xfs/libxfs/xfs_rtbitmap.c
-@@ -56,9 +56,9 @@ xfs_rtbuf_get(
- 	xfs_trans_t	*tp,		/* transaction pointer */
- 	xfs_rtblock_t	block,		/* block number in bitmap or summary */
- 	int		issum,		/* is summary not bitmap */
--	xfs_buf_t	**bpp)		/* output: buffer for the block */
-+	struct xfs_buf	**bpp)		/* output: buffer for the block */
- {
--	xfs_buf_t	*bp;		/* block buffer, result */
-+	struct xfs_buf	*bp;		/* block buffer, result */
- 	xfs_inode_t	*ip;		/* bitmap or summary inode */
- 	xfs_bmbt_irec_t	map;
- 	int		nmap = 1;
-@@ -101,7 +101,7 @@ xfs_rtfind_back(
- 	xfs_rtword_t	*b;		/* current word in buffer */
- 	int		bit;		/* bit number in the word */
- 	xfs_rtblock_t	block;		/* bitmap block number */
--	xfs_buf_t	*bp;		/* buf for the block */
-+	struct xfs_buf	*bp;		/* buf for the block */
- 	xfs_rtword_t	*bufp;		/* starting word in buffer */
- 	int		error;		/* error value */
- 	xfs_rtblock_t	firstbit;	/* first useful bit in the word */
-@@ -276,7 +276,7 @@ xfs_rtfind_forw(
- 	xfs_rtword_t	*b;		/* current word in buffer */
- 	int		bit;		/* bit number in the word */
- 	xfs_rtblock_t	block;		/* bitmap block number */
--	xfs_buf_t	*bp;		/* buf for the block */
-+	struct xfs_buf	*bp;		/* buf for the block */
- 	xfs_rtword_t	*bufp;		/* starting word in buffer */
- 	int		error;		/* error value */
- 	xfs_rtblock_t	i;		/* current bit number rel. to start */
-@@ -447,11 +447,11 @@ xfs_rtmodify_summary_int(
- 	int		log,		/* log2 of extent size */
- 	xfs_rtblock_t	bbno,		/* bitmap block number */
- 	int		delta,		/* change to make to summary info */
--	xfs_buf_t	**rbpp,		/* in/out: summary block buffer */
-+	struct xfs_buf	**rbpp,		/* in/out: summary block buffer */
- 	xfs_fsblock_t	*rsb,		/* in/out: summary block number */
- 	xfs_suminfo_t	*sum)		/* out: summary info for this block */
- {
--	xfs_buf_t	*bp;		/* buffer for the summary block */
-+	struct xfs_buf	*bp;		/* buffer for the summary block */
- 	int		error;		/* error value */
- 	xfs_fsblock_t	sb;		/* summary fsblock */
- 	int		so;		/* index into the summary file */
-@@ -517,7 +517,7 @@ xfs_rtmodify_summary(
- 	int		log,		/* log2 of extent size */
- 	xfs_rtblock_t	bbno,		/* bitmap block number */
- 	int		delta,		/* change to make to summary info */
--	xfs_buf_t	**rbpp,		/* in/out: summary block buffer */
-+	struct xfs_buf	**rbpp,		/* in/out: summary block buffer */
- 	xfs_fsblock_t	*rsb)		/* in/out: summary block number */
- {
- 	return xfs_rtmodify_summary_int(mp, tp, log, bbno,
-@@ -539,7 +539,7 @@ xfs_rtmodify_range(
- 	xfs_rtword_t	*b;		/* current word in buffer */
- 	int		bit;		/* bit number in the word */
- 	xfs_rtblock_t	block;		/* bitmap block number */
--	xfs_buf_t	*bp;		/* buf for the block */
-+	struct xfs_buf	*bp;		/* buf for the block */
- 	xfs_rtword_t	*bufp;		/* starting word in buffer */
- 	int		error;		/* error value */
- 	xfs_rtword_t	*first;		/* first used word in the buffer */
-@@ -690,7 +690,7 @@ xfs_rtfree_range(
- 	xfs_trans_t	*tp,		/* transaction pointer */
- 	xfs_rtblock_t	start,		/* starting block to free */
- 	xfs_extlen_t	len,		/* length to free */
--	xfs_buf_t	**rbpp,		/* in/out: summary block buffer */
-+	struct xfs_buf	**rbpp,		/* in/out: summary block buffer */
- 	xfs_fsblock_t	*rsb)		/* in/out: summary block number */
- {
- 	xfs_rtblock_t	end;		/* end of the freed extent */
-@@ -773,7 +773,7 @@ xfs_rtcheck_range(
- 	xfs_rtword_t	*b;		/* current word in buffer */
- 	int		bit;		/* bit number in the word */
- 	xfs_rtblock_t	block;		/* bitmap block number */
--	xfs_buf_t	*bp;		/* buf for the block */
-+	struct xfs_buf	*bp;		/* buf for the block */
- 	xfs_rtword_t	*bufp;		/* starting word in buffer */
- 	int		error;		/* error value */
- 	xfs_rtblock_t	i;		/* current bit number rel. to start */
-@@ -969,7 +969,7 @@ xfs_rtfree_extent(
- 	int		error;		/* error value */
- 	xfs_mount_t	*mp;		/* file system mount structure */
- 	xfs_fsblock_t	sb;		/* summary file block number */
--	xfs_buf_t	*sumbp = NULL;	/* summary file block buffer */
-+	struct xfs_buf	*sumbp = NULL;	/* summary file block buffer */
- 
- 	mp = tp->t_mountp;
- 
-diff --git a/fs/xfs/xfs_buf.c b/fs/xfs/xfs_buf.c
-index 118819030dbb..78f6f5bce3e0 100644
---- a/fs/xfs/xfs_buf.c
-+++ b/fs/xfs/xfs_buf.c
-@@ -278,7 +278,7 @@ _xfs_buf_alloc(
-  */
- STATIC int
- _xfs_buf_get_pages(
--	xfs_buf_t		*bp,
-+	struct xfs_buf		*bp,
- 	int			page_count)
- {
- 	/* Make sure that we have a page list */
-@@ -302,7 +302,7 @@ _xfs_buf_get_pages(
-  */
- STATIC void
- _xfs_buf_free_pages(
--	xfs_buf_t	*bp)
-+	struct xfs_buf	*bp)
- {
- 	if (bp->b_pages != bp->b_page_array) {
- 		kmem_free(bp->b_pages);
-@@ -319,7 +319,7 @@ _xfs_buf_free_pages(
-  */
- static void
- xfs_buf_free(
--	xfs_buf_t		*bp)
-+	struct xfs_buf		*bp)
- {
- 	trace_xfs_buf_free(bp, _RET_IP_);
- 
-@@ -352,7 +352,7 @@ xfs_buf_free(
-  */
- STATIC int
- xfs_buf_allocate_memory(
--	xfs_buf_t		*bp,
-+	struct xfs_buf		*bp,
- 	uint			flags)
- {
- 	size_t			size;
-@@ -463,7 +463,7 @@ xfs_buf_allocate_memory(
-  */
- STATIC int
- _xfs_buf_map_pages(
--	xfs_buf_t		*bp,
-+	struct xfs_buf		*bp,
- 	uint			flags)
- {
- 	ASSERT(bp->b_flags & _XBF_PAGES);
-@@ -590,7 +590,7 @@ xfs_buf_find(
- 	struct xfs_buf		**found_bp)
- {
- 	struct xfs_perag	*pag;
--	xfs_buf_t		*bp;
-+	struct xfs_buf		*bp;
- 	struct xfs_buf_map	cmap = { .bm_bn = map[0].bm_bn };
- 	xfs_daddr_t		eofs;
- 	int			i;
-@@ -762,7 +762,7 @@ xfs_buf_get_map(
- 
- int
- _xfs_buf_read(
--	xfs_buf_t		*bp,
-+	struct xfs_buf		*bp,
- 	xfs_buf_flags_t		flags)
- {
- 	ASSERT(!(flags & XBF_WRITE));
-@@ -1005,7 +1005,7 @@ xfs_buf_get_uncached(
-  */
- void
- xfs_buf_hold(
--	xfs_buf_t		*bp)
-+	struct xfs_buf		*bp)
- {
- 	trace_xfs_buf_hold(bp, _RET_IP_);
- 	atomic_inc(&bp->b_hold);
-@@ -1017,7 +1017,7 @@ xfs_buf_hold(
-  */
- void
- xfs_buf_rele(
--	xfs_buf_t		*bp)
-+	struct xfs_buf		*bp)
- {
- 	struct xfs_perag	*pag = bp->b_pag;
- 	bool			release;
-@@ -1161,7 +1161,7 @@ xfs_buf_unlock(
- 
- STATIC void
- xfs_buf_wait_unpin(
--	xfs_buf_t		*bp)
-+	struct xfs_buf		*bp)
- {
- 	DECLARE_WAITQUEUE	(wait, current);
- 
-@@ -1373,7 +1373,7 @@ xfs_buf_ioend_work(
- 	struct work_struct	*work)
- {
- 	struct xfs_buf		*bp =
--		container_of(work, xfs_buf_t, b_ioend_work);
-+		container_of(work, struct xfs_buf, b_ioend_work);
- 
- 	xfs_buf_ioend(bp);
- }
-@@ -1388,7 +1388,7 @@ xfs_buf_ioend_async(
- 
- void
- __xfs_buf_ioerror(
--	xfs_buf_t		*bp,
-+	struct xfs_buf		*bp,
- 	int			error,
- 	xfs_failaddr_t		failaddr)
- {
-diff --git a/fs/xfs/xfs_buf.h b/fs/xfs/xfs_buf.h
-index bfd2907e7bc4..5d91a31298a4 100644
---- a/fs/xfs/xfs_buf.h
-+++ b/fs/xfs/xfs_buf.h
-@@ -124,7 +124,7 @@ struct xfs_buf_ops {
- 	xfs_failaddr_t (*verify_struct)(struct xfs_buf *bp);
- };
- 
--typedef struct xfs_buf {
-+struct xfs_buf {
- 	/*
- 	 * first cacheline holds all the fields needed for an uncontended cache
- 	 * hit to be fully processed. The semaphore straddles the cacheline
-@@ -190,7 +190,7 @@ typedef struct xfs_buf {
- 	int			b_last_error;
- 
- 	const struct xfs_buf_ops	*b_ops;
--} xfs_buf_t;
-+};
- 
- /* Finding and Reading Buffers */
- struct xfs_buf *xfs_buf_incore(struct xfs_buftarg *target,
-@@ -253,16 +253,16 @@ int _xfs_buf_read(struct xfs_buf *bp, xfs_buf_flags_t flags);
- void xfs_buf_hold(struct xfs_buf *bp);
- 
- /* Releasing Buffers */
--extern void xfs_buf_rele(xfs_buf_t *);
-+extern void xfs_buf_rele(struct xfs_buf *);
- 
- /* Locking and Unlocking Buffers */
--extern int xfs_buf_trylock(xfs_buf_t *);
--extern void xfs_buf_lock(xfs_buf_t *);
--extern void xfs_buf_unlock(xfs_buf_t *);
-+extern int xfs_buf_trylock(struct xfs_buf *);
-+extern void xfs_buf_lock(struct xfs_buf *);
-+extern void xfs_buf_unlock(struct xfs_buf *);
- #define xfs_buf_islocked(bp) \
- 	((bp)->b_sema.count <= 0)
- 
--static inline void xfs_buf_relse(xfs_buf_t *bp)
-+static inline void xfs_buf_relse(struct xfs_buf *bp)
- {
- 	xfs_buf_unlock(bp);
- 	xfs_buf_rele(bp);
 diff --git a/fs/xfs/xfs_buf_item.c b/fs/xfs/xfs_buf_item.c
-index 132acdf0aac0..7794bd956861 100644
+index 7794bd956861..73c548d5b593 100644
 --- a/fs/xfs/xfs_buf_item.c
 +++ b/fs/xfs/xfs_buf_item.c
-@@ -403,7 +403,7 @@ xfs_buf_item_unpin(
- 	int			remove)
- {
- 	struct xfs_buf_log_item	*bip = BUF_ITEM(lip);
--	xfs_buf_t		*bp = bip->bli_buf;
-+	struct xfs_buf		*bp = bip->bli_buf;
- 	int			stale = bip->bli_flags & XFS_BLI_STALE;
- 	int			freed;
+@@ -938,6 +938,8 @@ xfs_buf_item_relse(
+ 	trace_xfs_buf_item_relse(bp, _RET_IP_);
+ 	ASSERT(!test_bit(XFS_LI_IN_AIL, &bip->bli_item.li_flags));
  
-@@ -931,7 +931,7 @@ xfs_buf_item_free(
-  */
- void
- xfs_buf_item_relse(
--	xfs_buf_t	*bp)
-+	struct xfs_buf	*bp)
- {
- 	struct xfs_buf_log_item	*bip = bp->b_log_item;
- 
-diff --git a/fs/xfs/xfs_fsops.c b/fs/xfs/xfs_fsops.c
-index 775f833146e3..cb3d54893fbe 100644
---- a/fs/xfs/xfs_fsops.c
-+++ b/fs/xfs/xfs_fsops.c
-@@ -28,7 +28,7 @@ xfs_growfs_data_private(
- 	xfs_mount_t		*mp,		/* mount point for filesystem */
- 	xfs_growfs_data_t	*in)		/* growfs data input struct */
- {
--	xfs_buf_t		*bp;
-+	struct xfs_buf		*bp;
- 	int			error;
- 	xfs_agnumber_t		nagcount;
- 	xfs_agnumber_t		nagimax = 0;
-diff --git a/fs/xfs/xfs_inode.c b/fs/xfs/xfs_inode.c
-index 2de204f46216..5c04c61964ce 100644
---- a/fs/xfs/xfs_inode.c
-+++ b/fs/xfs/xfs_inode.c
-@@ -799,7 +799,7 @@ xfs_ialloc(
- 	xfs_nlink_t	nlink,
- 	dev_t		rdev,
- 	prid_t		prid,
--	xfs_buf_t	**ialloc_context,
-+	struct xfs_buf	**ialloc_context,
- 	xfs_inode_t	**ipp)
- {
- 	struct inode	*dir = pip ? VFS_I(pip) : NULL;
-@@ -956,7 +956,7 @@ xfs_dir_ialloc(
- {
- 	xfs_trans_t	*tp;
- 	xfs_inode_t	*ip;
--	xfs_buf_t	*ialloc_context = NULL;
-+	struct xfs_buf	*ialloc_context = NULL;
- 	int		code;
- 	void		*dqinfo;
- 	uint		tflags;
-diff --git a/fs/xfs/xfs_log_recover.c b/fs/xfs/xfs_log_recover.c
-index 46b1213e8ff3..7cb7a0aa6c9a 100644
---- a/fs/xfs/xfs_log_recover.c
-+++ b/fs/xfs/xfs_log_recover.c
-@@ -2633,7 +2633,7 @@ xlog_recover_clear_agi_bucket(
- {
- 	xfs_trans_t	*tp;
- 	xfs_agi_t	*agi;
--	xfs_buf_t	*agibp;
-+	struct xfs_buf	*agibp;
- 	int		offset;
- 	int		error;
- 
-@@ -2751,7 +2751,7 @@ xlog_recover_process_iunlinks(
- 	xfs_mount_t	*mp;
- 	xfs_agnumber_t	agno;
- 	xfs_agi_t	*agi;
--	xfs_buf_t	*agibp;
-+	struct xfs_buf	*agibp;
- 	xfs_agino_t	agino;
- 	int		bucket;
- 	int		error;
-@@ -3502,8 +3502,8 @@ xlog_recover_check_summary(
- 	struct xlog	*log)
- {
- 	xfs_mount_t	*mp;
--	xfs_buf_t	*agfbp;
--	xfs_buf_t	*agibp;
-+	struct xfs_buf	*agfbp;
-+	struct xfs_buf	*agibp;
- 	xfs_agnumber_t	agno;
- 	uint64_t	freeblks;
- 	uint64_t	itotal;
-diff --git a/fs/xfs/xfs_rtalloc.c b/fs/xfs/xfs_rtalloc.c
-index 915bc2950d4a..d9ed4210fc98 100644
---- a/fs/xfs/xfs_rtalloc.c
-+++ b/fs/xfs/xfs_rtalloc.c
-@@ -32,7 +32,7 @@ xfs_rtget_summary(
- 	xfs_trans_t	*tp,		/* transaction pointer */
- 	int		log,		/* log2 of extent size */
- 	xfs_rtblock_t	bbno,		/* bitmap block number */
--	xfs_buf_t	**rbpp,		/* in/out: summary block buffer */
-+	struct xfs_buf	**rbpp,		/* in/out: summary block buffer */
- 	xfs_fsblock_t	*rsb,		/* in/out: summary block number */
- 	xfs_suminfo_t	*sum)		/* out: summary info for this block */
- {
-@@ -50,7 +50,7 @@ xfs_rtany_summary(
- 	int		low,		/* low log2 extent size */
- 	int		high,		/* high log2 extent size */
- 	xfs_rtblock_t	bbno,		/* bitmap block number */
--	xfs_buf_t	**rbpp,		/* in/out: summary block buffer */
-+	struct xfs_buf	**rbpp,		/* in/out: summary block buffer */
- 	xfs_fsblock_t	*rsb,		/* in/out: summary block number */
- 	int		*stat)		/* out: any good extents here? */
- {
-@@ -104,7 +104,7 @@ xfs_rtcopy_summary(
- 	xfs_trans_t	*tp)		/* transaction pointer */
- {
- 	xfs_rtblock_t	bbno;		/* bitmap block number */
--	xfs_buf_t	*bp;		/* summary buffer */
-+	struct xfs_buf	*bp;		/* summary buffer */
- 	int		error;		/* error return value */
- 	int		log;		/* summary level number (log length) */
- 	xfs_suminfo_t	sum;		/* summary data */
-@@ -144,7 +144,7 @@ xfs_rtallocate_range(
- 	xfs_trans_t	*tp,		/* transaction pointer */
- 	xfs_rtblock_t	start,		/* start block to allocate */
- 	xfs_extlen_t	len,		/* length to allocate */
--	xfs_buf_t	**rbpp,		/* in/out: summary block buffer */
-+	struct xfs_buf	**rbpp,		/* in/out: summary block buffer */
- 	xfs_fsblock_t	*rsb)		/* in/out: summary block number */
- {
- 	xfs_rtblock_t	end;		/* end of the allocated extent */
-@@ -226,7 +226,7 @@ xfs_rtallocate_extent_block(
- 	xfs_extlen_t	maxlen,		/* maximum length to allocate */
- 	xfs_extlen_t	*len,		/* out: actual length allocated */
- 	xfs_rtblock_t	*nextp,		/* out: next block to try */
--	xfs_buf_t	**rbpp,		/* in/out: summary block buffer */
-+	struct xfs_buf	**rbpp,		/* in/out: summary block buffer */
- 	xfs_fsblock_t	*rsb,		/* in/out: summary block number */
- 	xfs_extlen_t	prod,		/* extent product factor */
- 	xfs_rtblock_t	*rtblock)	/* out: start block allocated */
-@@ -345,7 +345,7 @@ xfs_rtallocate_extent_exact(
- 	xfs_extlen_t	minlen,		/* minimum length to allocate */
- 	xfs_extlen_t	maxlen,		/* maximum length to allocate */
- 	xfs_extlen_t	*len,		/* out: actual length allocated */
--	xfs_buf_t	**rbpp,		/* in/out: summary block buffer */
-+	struct xfs_buf	**rbpp,		/* in/out: summary block buffer */
- 	xfs_fsblock_t	*rsb,		/* in/out: summary block number */
- 	xfs_extlen_t	prod,		/* extent product factor */
- 	xfs_rtblock_t	*rtblock)	/* out: start block allocated */
-@@ -424,7 +424,7 @@ xfs_rtallocate_extent_near(
- 	xfs_extlen_t	minlen,		/* minimum length to allocate */
- 	xfs_extlen_t	maxlen,		/* maximum length to allocate */
- 	xfs_extlen_t	*len,		/* out: actual length allocated */
--	xfs_buf_t	**rbpp,		/* in/out: summary block buffer */
-+	struct xfs_buf	**rbpp,		/* in/out: summary block buffer */
- 	xfs_fsblock_t	*rsb,		/* in/out: summary block number */
- 	xfs_extlen_t	prod,		/* extent product factor */
- 	xfs_rtblock_t	*rtblock)	/* out: start block allocated */
-@@ -626,7 +626,7 @@ xfs_rtallocate_extent_size(
- 	xfs_extlen_t	minlen,		/* minimum length to allocate */
- 	xfs_extlen_t	maxlen,		/* maximum length to allocate */
- 	xfs_extlen_t	*len,		/* out: actual length allocated */
--	xfs_buf_t	**rbpp,		/* in/out: summary block buffer */
-+	struct xfs_buf	**rbpp,		/* in/out: summary block buffer */
- 	xfs_fsblock_t	*rsb,		/* in/out: summary block number */
- 	xfs_extlen_t	prod,		/* extent product factor */
- 	xfs_rtblock_t	*rtblock)	/* out: start block allocated */
-@@ -900,7 +900,7 @@ xfs_growfs_rt(
- 	xfs_growfs_rt_t	*in)		/* growfs rt input struct */
- {
- 	xfs_rtblock_t	bmbno;		/* bitmap block number */
--	xfs_buf_t	*bp;		/* temporary buffer */
-+	struct xfs_buf	*bp;		/* temporary buffer */
- 	int		error;		/* error return value */
- 	xfs_mount_t	*nmp;		/* new (fake) mount structure */
- 	xfs_rfsblock_t	nrblocks;	/* new number of realtime blocks */
-@@ -1154,7 +1154,7 @@ xfs_rtallocate_extent(
- 	int		error;		/* error value */
- 	xfs_rtblock_t	r;		/* result allocated block */
- 	xfs_fsblock_t	sb;		/* summary file block number */
--	xfs_buf_t	*sumbp;		/* summary file block buffer */
-+	struct xfs_buf	*sumbp;		/* summary file block buffer */
- 
- 	ASSERT(xfs_isilocked(mp->m_rbmip, XFS_ILOCK_EXCL));
- 	ASSERT(minlen > 0 && minlen <= maxlen);
-diff --git a/fs/xfs/xfs_rtalloc.h b/fs/xfs/xfs_rtalloc.h
-index 93e77b221355..ed885620589c 100644
---- a/fs/xfs/xfs_rtalloc.h
-+++ b/fs/xfs/xfs_rtalloc.h
-@@ -115,10 +115,10 @@ int xfs_rtmodify_range(struct xfs_mount *mp, struct xfs_trans *tp,
- 		       xfs_rtblock_t start, xfs_extlen_t len, int val);
- int xfs_rtmodify_summary_int(struct xfs_mount *mp, struct xfs_trans *tp,
- 			     int log, xfs_rtblock_t bbno, int delta,
--			     xfs_buf_t **rbpp, xfs_fsblock_t *rsb,
-+			     struct xfs_buf **rbpp, xfs_fsblock_t *rsb,
- 			     xfs_suminfo_t *sum);
- int xfs_rtmodify_summary(struct xfs_mount *mp, struct xfs_trans *tp, int log,
--			 xfs_rtblock_t bbno, int delta, xfs_buf_t **rbpp,
-+			 xfs_rtblock_t bbno, int delta, struct xfs_buf **rbpp,
- 			 xfs_fsblock_t *rsb);
- int xfs_rtfree_range(struct xfs_mount *mp, struct xfs_trans *tp,
- 		     xfs_rtblock_t start, xfs_extlen_t len,
-diff --git a/fs/xfs/xfs_symlink.c b/fs/xfs/xfs_symlink.c
-index 8d3abf06c54f..c835827ae389 100644
---- a/fs/xfs/xfs_symlink.c
-+++ b/fs/xfs/xfs_symlink.c
-@@ -154,7 +154,7 @@ xfs_symlink(
- 	const char		*cur_chunk;
- 	int			byte_cnt;
- 	int			n;
--	xfs_buf_t		*bp;
-+	struct xfs_buf		*bp;
- 	prid_t			prid;
- 	struct xfs_dquot	*udqp = NULL;
- 	struct xfs_dquot	*gdqp = NULL;
-@@ -366,7 +366,7 @@ STATIC int
- xfs_inactive_symlink_rmt(
- 	struct xfs_inode *ip)
- {
--	xfs_buf_t	*bp;
-+	struct xfs_buf	*bp;
- 	int		done;
- 	int		error;
- 	int		i;
-diff --git a/fs/xfs/xfs_trans.c b/fs/xfs/xfs_trans.c
-index 4e1400ea6a99..5cd296a75fbd 100644
---- a/fs/xfs/xfs_trans.c
-+++ b/fs/xfs/xfs_trans.c
-@@ -460,7 +460,7 @@ xfs_trans_apply_sb_deltas(
- 	xfs_trans_t	*tp)
- {
- 	xfs_dsb_t	*sbp;
--	xfs_buf_t	*bp;
-+	struct xfs_buf	*bp;
- 	int		whole = 0;
- 
- 	bp = xfs_trans_getsb(tp);
-diff --git a/fs/xfs/xfs_trans_buf.c b/fs/xfs/xfs_trans_buf.c
-index 42d63b830cb9..9aced0a00003 100644
---- a/fs/xfs/xfs_trans_buf.c
-+++ b/fs/xfs/xfs_trans_buf.c
-@@ -121,7 +121,7 @@ xfs_trans_get_buf_map(
- 	xfs_buf_flags_t		flags,
- 	struct xfs_buf		**bpp)
- {
--	xfs_buf_t		*bp;
-+	struct xfs_buf		*bp;
- 	struct xfs_buf_log_item	*bip;
- 	int			error;
- 
-@@ -401,7 +401,7 @@ xfs_trans_brelse(
- void
- xfs_trans_bhold(
- 	xfs_trans_t		*tp,
--	xfs_buf_t		*bp)
-+	struct xfs_buf		*bp)
- {
- 	struct xfs_buf_log_item	*bip = bp->b_log_item;
- 
-@@ -422,7 +422,7 @@ xfs_trans_bhold(
- void
- xfs_trans_bhold_release(
- 	xfs_trans_t		*tp,
--	xfs_buf_t		*bp)
-+	struct xfs_buf		*bp)
- {
- 	struct xfs_buf_log_item	*bip = bp->b_log_item;
- 
-@@ -538,7 +538,7 @@ xfs_trans_log_buf(
- void
- xfs_trans_binval(
- 	xfs_trans_t		*tp,
--	xfs_buf_t		*bp)
-+	struct xfs_buf		*bp)
- {
- 	struct xfs_buf_log_item	*bip = bp->b_log_item;
- 	int			i;
-@@ -593,7 +593,7 @@ xfs_trans_binval(
- void
- xfs_trans_inode_buf(
- 	xfs_trans_t		*tp,
--	xfs_buf_t		*bp)
-+	struct xfs_buf		*bp)
- {
- 	struct xfs_buf_log_item	*bip = bp->b_log_item;
- 
-@@ -618,7 +618,7 @@ xfs_trans_inode_buf(
- void
- xfs_trans_stale_inode_buf(
- 	xfs_trans_t		*tp,
--	xfs_buf_t		*bp)
-+	struct xfs_buf		*bp)
- {
- 	struct xfs_buf_log_item	*bip = bp->b_log_item;
- 
-@@ -643,7 +643,7 @@ xfs_trans_stale_inode_buf(
- void
- xfs_trans_inode_alloc_buf(
- 	xfs_trans_t		*tp,
--	xfs_buf_t		*bp)
-+	struct xfs_buf		*bp)
- {
- 	struct xfs_buf_log_item	*bip = bp->b_log_item;
- 
-@@ -737,7 +737,7 @@ xfs_trans_buf_copy_type(
- void
- xfs_trans_dquot_buf(
- 	xfs_trans_t		*tp,
--	xfs_buf_t		*bp,
-+	struct xfs_buf		*bp,
- 	uint			type)
- {
- 	struct xfs_buf_log_item	*bip = bp->b_log_item;
++	if (atomic_read(&bip->bli_refcount))
++		return;
+ 	bp->b_log_item = NULL;
+ 	xfs_buf_rele(bp);
+ 	xfs_buf_item_free(bip);
 -- 
 2.53.0
 
