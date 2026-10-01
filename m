@@ -1,230 +1,295 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 762D342E8E6;
-	Thu,  1 Oct 2026 03:57:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BD8A28CF4A;
+	Thu,  1 Oct 2026 04:17:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790827047; cv=none; b=Cb1W+awvfhVKnrpk8RcgbunKE4z/THBMe3J8/4rbqP4I9SLOT/CiLCCdwngS9lsUrK2jZF0Jpw0BVR/7dZtcE0SPAGXZD7B28wRx9EE5QgKuMBUxG2YrVwhXmv5lh2ssgcuCz3cQm5mGC27JlcrrdlDsQD4i7tzziFs7vxzUpTQ=
+	t=1790828233; cv=none; b=A8Au5S5d15fomS1t7xCLPIg4x9Eg4tNesfMf4fWo1W8z7B4amMs+7CfaJYYQstxRPMj71xyThmSwm84SDEtFmLv+u0m3+SSVJ6jD96YdtgLT0sOUnSaWBv9gdhFw4lBICkD1GHk50uw/dnT8CufpAcelTHjX+bWuAo91rYDx3sI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790827047; c=relaxed/simple;
-	bh=hQ8NYmadh8Vr9SUtn0nSGku5dnhZbFMbNf/Yo47e5Pk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Vw6uIV/+h6rQeqzFJr3jI2Jmtr7pzFJ9ftM8x+Wvy7MKbamIaHli3X0LsA5rf8KAJ/Ap0MYgUggertZZTcJWYZG1sIEpsL+8UTbDxsUDL3OjytWEjpS824gAkXpPnD3FHJxEdUdLR1gDMiGUPViMaaOExc6qLXybiyfXtlWy2Ak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=rj3iqbLl; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790828233; c=relaxed/simple;
+	bh=HNqC9ImeKXpKoY0L7IHJNUVcHX0wDeqcR9lyrPGeDDw=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=O1eHYwrMpVUGuKCCe6Rx6sc0lLKxVfpsIQ/LBulR4CuBi/K/oJtYUA/4m7+tepTldpkudj0EOBJjZoMoV27DQWThS+N7Dqbb/tCUzYseldYLvWQyzfBLgU1RSWxUE9m1NesJOfnWgEuRn7OvkBgfrJfX0fmKbSBmISHtcpPrPBY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BpDKSKjo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="rj3iqbLl"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69115eZ43277034;
-	Thu, 1 Oct 2026 03:57:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=j3C1jtCzYOB/7ct9Ws2eH5RhJT8FVt
-	vOQDQxv8iP5/A=; b=rj3iqbLlO89Sl6vnzzUsGzN+CzC/8kNzEtBsMPDdQiDjeO
-	6UyzGokWniiMPIbJSqq+uxgveOYqweZmZRFQgUjSRaoPuaPwi86MpPim2TarDQ9L
-	qpuJhUKdpgKx5ztszruVhCjR0/fPuRuZJX4DUYAu6+PLmEvNufusnq3GpNI4HF8S
-	ZKClON2j1CR6ll8XwRYinyYtkibfR+UwvBF58FoDaG7XNJaRfgq/caOWf8bZx/y8
-	zGsIVVdw79LPf7K40EGaKwGFiUSWQE8JsbCSF6i+wt+Ny2ukIfaQiWaZbq/HM79J
-	CQu/DqgT5HHMZXxpN0nMAG5rrorGmqs0I0ZGj34Q==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx4fefwge-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 01 Oct 2026 03:57:03 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6913le46306270;
-	Thu, 1 Oct 2026 03:57:03 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h0hfpeyes-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 01 Oct 2026 03:57:03 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6913uwAW47972792
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 1 Oct 2026 03:56:58 GMT
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 7EBA420040;
-	Thu,  1 Oct 2026 03:56:58 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id CA3092004B;
-	Thu,  1 Oct 2026 03:56:54 +0000 (GMT)
-Received: from li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibm.com (unknown [9.124.215.84])
-	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Thu,  1 Oct 2026 03:56:54 +0000 (GMT)
-Date: Thu, 1 Oct 2026 09:28:56 +0530
-From: Gautam Menghani <gautam@linux.ibm.com>
-To: Narayana Murty N <nnmlinux@linux.ibm.com>
-Cc: maddy@linux.ibm.com, npiggin@gmail.com, mpe@ellerman.id.au,
-        chleroy@kernel.org, ritesh.list@gmail.com, sshegde@linux.ibm.com,
-        amachhiw@linux.ibm.com, linuxppc-dev@lists.ozlabs.org,
-        kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org,
-        Timothy Pearson <tpearson@raptorengineering.com>
-Subject: Re: [PATCH v3] KVM: PPC: Book3S HV: Avoid spurious interrupts caused
- by LPCR_MER bit
-Message-ID: <ar3ZrgzhSwkgPuZf@li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibm.com>
-References: <20260921111043.49825-1-gautam@linux.ibm.com>
- <ed756a12-182f-4933-8788-8b54a4e8912a@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BpDKSKjo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41D471F000FF;
+	Thu,  1 Oct 2026 04:17:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790828231;
+	bh=DCTdZnnXkfiaYcO3EIy7ViyhvYACkMSzwEco8DzSd50=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=BpDKSKjoE5FtOqCOrseyvfB5rmvRMUxZiiQICQeIekNnQNW9buTiIiX4Lhj4xk3bL
+	 h4rufKUuq4Pwf43rlVFO4Yc/lb8pWQ3xKdvBGpIcvhO3dJc0mOyHNommpG1UOe00w+
+	 QL4l/j/KSdIi0HHMAM0oReAq+D9jFaSrfTvs/uaqDAwwiuk0VBvBlVmiNbZeFlQyXF
+	 1Fd+H4UN4JGLozTLuqY10NB1tzjeREcoWd2LKnD3t3Gl9CZ5ThjVnOk90A/HcLP5tc
+	 39xZafnaBMkMOWx5Xq/e8FlWJsYFOXHSMxBgDjJK82MfDrRafvBuY23qVYTnsBorss
+	 RX2mc01B/76LQ==
+Subject: Re: [PATCH net] bnxt_en: don't leave an XDP program installed when
+ the open fails
+From: netdev-bot+sashiko@kernel.org
+To: nagarevaibhav@gmail.com
+Cc: ast@kernel.org, daniel@iogearbox.net, davem@davemloft.net, kuba@kernel.org,
+ hawk@kernel.org, john.fastabend@gmail.com, sdf@fomichev.me,
+ michael.chan@broadcom.com, pavan.chebbi@broadcom.com, andrew+netdev@lunn.ch,
+ edumazet@google.com, pabeni@redhat.com, netdev@vger.kernel.org,
+ bpf@vger.kernel.org, linux-kernel@vger.kernel.org, vnagare@redhat.com,
+ stable@vger.kernel.org
+Date: Thu, 01 Oct 2026 04:17:09 +0000
+Message-ID: <179082822982.434549.8559527057158002010@kernel.org>
+In-Reply-To: <20260928131458.1012180-1-vnagare@redhat.com>
+References: <20260928131458.1012180-1-vnagare@redhat.com>
+X-sashiko-severity: Critical
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ed756a12-182f-4933-8788-8b54a4e8912a@linux.ibm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=FYWiV5+6 c=1 sm=1 tr=0 ts=6abdda10 cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
- a=yKAn6K1XAAAA:8 a=_AprYWD3AAAA:8 a=VnNF1IyMAAAA:8 a=9HMC7dwcUNEby-kk_2AA:9
- a=CjuIK1q_8ugA:10 a=6M1ixcW_PCWoKiWyFx5v:22 a=fKH2wJO7VO9AkD4yHysb:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAxNCBTYWx0ZWRfX0Mwwp8a+mcA+
- kBRtTKDNRB8DfhDmk5KpUFnbXJfo7/81uwd1qUkTj+Reo/NS0D6oE0MHsdbhX9S8nkeZKiaXWWK
- x/M2ILMvWU/iYEwU9xg1R2DcQ/RUQJU=
-X-Proofpoint-ORIG-GUID: b4ol1MZLxroLxsstq4uGJlIotdzkNjSm
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAxNCBTYWx0ZWRfX3adJ90NN5pRW
- kH1dhiitnZwaxcGerX+0jbDkISq/9wOKDPg5gMseRkw4mWJvGvWIznIuGfSTZcnEm73vylVs6gW
- JtozuE+THOxtwK2lfsh0mqw3VsPM5iw10OxGmvn9hMtkFj4zLwNe6xdh+KYQabZwQWxed2EzQx6
- 9V7Da6MPirZgsBJGVKLwZQabTnag8j8TRMefljS9WEltgn2Lkr9RS2+eaKtaU1oo3brx/RHKl2a
- AAkvdqOlS+QUmx18z0kpxwnU1QkgQDfnKeUEXy8ulkcyet6jiVtvneigW1VwPPmmTc9IJnD62G7
- ftiR5b8DW+Nh4sz0igqpbfDU6ZFKN4x6pSyPQpcezPSv7KVfqKmE4pB+BcFwyonYEIlnEOdlabm
- AV+EUyL9s0MfdYysW/fwA2l/lY5E6OluTY68k4PW1jzMyeP4/8LMSep8iCpW8xkkzN36gTnlIJf
- Zgueu6JIVWf/S2vjzZw==
-X-Proofpoint-GUID: MLpu277iUP6UEDeVLkicwtUv15akBGR7
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-01_01,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 impostorscore=0 spamscore=0 phishscore=0
- priorityscore=1501 malwarescore=0 bulkscore=0 lowpriorityscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610010014
 
-On Wed, Sep 23, 2026 at 09:08:57AM +0530, Narayana Murty N wrote:
-> Hi Gautam,
-> 
-> On 21/09/26 4:40 PM, Gautam Menghani wrote:
-> > A huge number of spurious interrupts can be seen immediately after a KVM
-> > on PowerNV guest boots up in XIVE mode.
-> > 
-> > $ cat /proc/interrupts  | grep SPU
-> > SPU:     223705     192439     273526     147623   Spurious interrupts
-> > 
-> > This bug was introduced by commit ecd10702baae5 ("KVM: PPC: Book3S HV:
-> > Handle pending exceptions on guest entry with MSR_EE"). The root cause
-> > is that once LPCR_MER bit is set, it is supposed to be reset by
-> > software. But when a vCPU starts running with LPCR_MER set, the vCPU does
-> > not exit back to the host until the decrementer expires or there is an
-> > hcall, etc. This is because KVM on PowerNV guests have support for
-> > native XIVE, so they are not dependent on host for interrupt emulation.
-> > Due to this behaviour, a huge number of spurious interrupts are seen
-> > since LPCR_MER continues to be set and LPCR_MER cannot be reset until the
-> > vCPU exits to the host.
-> > 
-> > Fix this behaviour by not using the LPCR_MER bit whenever native XIVE is
-> > available (currently in case of KVM on PowerNV only), as the XIVE hardware
-> > can present interrupts to the KVM guest vCPU directly. So the LPCR_MER
-> > functionality is not required. This reduces the number of spurious
-> > interrupts drastically.
-> > 
-> > Fixes: ecd10702baae5 ("KVM: PPC: Book3S HV: Handle pending exceptions on guest entry with MSR_EE")
-> > Cc: stable@vger.kernel.org # 6.8+
-> > Reported-by: Timothy Pearson <tpearson@raptorengineering.com>
-> > Closes: https://lore.kernel.org/linuxppc-dev/582904882.11159.1786719390349.JavaMail.zimbra@raptorengineeringinc.com
-> > Signed-off-by: Gautam Menghani <gautam@linux.ibm.com>
-> > ---
-> > v3:
-> > 1. Continue the use of LPCR_MER when kernel-irqchip=off (Sashiko)
-> > 
-> > v2:
-> > 1. Handle the case where xive_interrupt_pending() is true and also the
-> > external exception bit is set. (Narayana)
-> > 
-> >   arch/powerpc/include/asm/kvm_ppc.h | 7 +++++++
-> >   arch/powerpc/kvm/book3s_hv.c       | 2 +-
-> >   2 files changed, 8 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/arch/powerpc/include/asm/kvm_ppc.h b/arch/powerpc/include/asm/kvm_ppc.h
-> > index 169ea6a7fbad..580ad2548c2b 100644
-> > --- a/arch/powerpc/include/asm/kvm_ppc.h
-> > +++ b/arch/powerpc/include/asm/kvm_ppc.h
-> > @@ -747,6 +747,11 @@ static inline int kvmppc_xive_enabled(struct kvm_vcpu *vcpu)
-> >   	return vcpu->arch.irq_type == KVMPPC_IRQ_XIVE;
-> >   }
-> > +static inline bool kvmppc_xive_native_enabled(struct kvm *kvm)
-> > +{
-> > +	return kvm->arch.xive_devices.native;
-> > +}
-> Also, should 'kvmppc_xive_native_enabled()' check the active XIVE
-> device rather than just whether a native device has been created?
-> 
-> 'kvmppc_xive_native_release()' clears 'kvm->arch.xive', but explicitly
-> keeps the 'kvmppc_xive' pointer under 'xive_devices' for reuse. The
-> comment in 'book3s_xive.c' also says that when switching between XICS
-> and native XIVE, the previous KVM device is released before the new one
-> is created.
-> 
-> So 'xive_devices.native != NULL' seems to mean that a native XIVE
-> device has been allocated/cached, rather than that it is currently
-> active.
+Thank you for your contribution! Sashiko AI review found 5 potential
+issue(s) to consider.
 
+Critical: 1 · High: 2 · Medium: 1 · Low: 1
 
-In a KVM guest on PowerNV, whatever interrupt mode the guest is booted
-in (XIVE/ XICS), you cannot switch it with kexec. So if
-'xive_devices.native' exists, we can be confident that native XIVE is
-being used. So the code in the patch should be fine.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-> 
-> Would this be more appropriate?
-> 
-> return kvm->arch.xive_devices.native &&
->        kvm->arch.xive == kvm->arch.xive_devices.native;
-> 
-> > +
-> >   extern int kvmppc_xive_native_connect_vcpu(struct kvm_device *dev,
-> >   					   struct kvm_vcpu *vcpu, u32 cpu);
-> >   extern void kvmppc_xive_native_cleanup_vcpu(struct kvm_vcpu *vcpu);
-> > @@ -782,6 +787,8 @@ static inline bool kvmppc_xive_rearm_escalation(struct kvm_vcpu *vcpu) { return
-> >   static inline int kvmppc_xive_enabled(struct kvm_vcpu *vcpu)
-> >   	{ return 0; }
-> > +static inline bool kvmppc_xive_native_enabled(struct kvm *kvm) { return false; }
-> > +
-> >   static inline int kvmppc_xive_native_connect_vcpu(struct kvm_device *dev,
-> >   			  struct kvm_vcpu *vcpu, u32 cpu) { return -EBUSY; }
-> >   static inline void kvmppc_xive_native_cleanup_vcpu(struct kvm_vcpu *vcpu) { }
-> > diff --git a/arch/powerpc/kvm/book3s_hv.c b/arch/powerpc/kvm/book3s_hv.c
-> > index dbac3573b2c8..cb2bb29451a7 100644
-> > --- a/arch/powerpc/kvm/book3s_hv.c
-> > +++ b/arch/powerpc/kvm/book3s_hv.c
-> > @@ -4980,7 +4980,7 @@ int kvmhv_run_single_vcpu(struct kvm_vcpu *vcpu, u64 time_limit,
-> >   			if (!kvmhv_on_pseries() && (__kvmppc_get_msr_hv(vcpu) & MSR_EE))
-> >   				kvmppc_inject_interrupt_hv(vcpu,
-> >   							   BOOK3S_INTERRUPT_EXTERNAL, 0);
-> > -			else
-> > +			else if (!kvmppc_xive_native_enabled(vcpu->kvm))
-> >   				lpcr |= LPCR_MER;
-> Is the intent here to suppress LPCR_MER only for interrupts that
-> native XIVE can deliver directly?
-> 
-> BOOK3S_IRQPRIO_EXTERNAL is a separate software-pending exception. If
-> MSR_EE is clear it remains pending, so it seems this path should still
-> set MER even when native XIVE is active.
-> 
-> IOW, should the behavior be:
-> 
-> else if (!kvmppc_xive_native_enabled(vcpu->kvm) ||
-> 	 test_bit(BOOK3S_IRQPRIO_EXTERNAL,
-> 		  &vcpu->arch.pending_exceptions))
-> 	lpcr |= LPCR_MER;
-> 
-> so that only the native-XIVE-pending case suppresses MER?
+- [Critical] When an XDP attach fails (old == NULL, prog == P,
+  bnxt_open_nic() fails), bnxt_xdp_set() resets bp->xdp_prog to NULL but…
+- [High] The rollback in bnxt_xdp_set() also runs when a program is being
+  removed (prog == NULL).
+- [High] When an XDP detach fails (old == P, prog == NULL,
+  bnxt_open_nic() fails), bnxt_xdp_set() leaves the no-XDP configuration…
+- [Medium] When a replace (old == O, prog == N) fails in bnxt_open_nic(),
+  dev->max_mtu keeps the value __bnxt_set_rx_skb_mode() computed from…
+- [Low] The From: author (Vaibhav Nagare <nagarevaibhav@gmail.com>) does
+  not match the only Signed-off-by (Vaibhav Nagare <vnagare@redhat.com>).
 
-No this would still result in spurious flood. If native XIVE is being
-used, LPCR_MER cannot be set in any case. Software interrupts will
-continue to work in the same way they work in an LPAR.
+--
+
+bnxt_en: don't leave an XDP program installed when the open fails
+
+This patch changes bnxt_xdp_set() so it keeps the reference on the previous
+XDP program until bnxt_open_nic() succeeds. If the open fails, the previous
+program is written back into bp->xdp_prog. The ring and feature
+configuration computed for the rejected program is left in place on
+purpose.
+
+> Signed-off-by: Vaibhav Nagare <vnagare@redhat.com>
+
+[Severity: Low]
+This isn't a bug, but the From: address (nagarevaibhav@gmail.com) doesn't
+match the Signed-off-by: address (vnagare@redhat.com). checkpatch reports
+this as FROM_SIGN_OFF_MISMATCH.
+
+Could the sign-off use the From: address, or the From: be changed to match?
+
+> diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c b/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
+> index 9e5009be8e98..f30ce644e377 100644
+> --- a/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
+> +++ b/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
+> @@ -419,8 +419,6 @@ static int bnxt_xdp_set(struct bnxt *bp, struct bpf_prog *prog)
+>  		bnxt_close_nic(bp, true, false);
+>  
+>  	old = xchg(&bp->xdp_prog, prog);
+> -	if (old)
+> -		bpf_prog_put(old);
+>  
+>  	if (prog) {
+>  		bnxt_set_rx_skb_mode(bp, true);
+> @@ -435,8 +433,16 @@ static int bnxt_xdp_set(struct bnxt *bp, struct bpf_prog *prog)
+>  	bnxt_set_tpa_flags(bp);
+>  	bnxt_set_ring_params(bp);
+>  
+> -	if (netif_running(dev))
+> -		return bnxt_open_nic(bp, true, false);
+> +	if (netif_running(dev)) {
+> +		rc = bnxt_open_nic(bp, true, false);
+> +		if (rc) {
+> +			WRITE_ONCE(bp->xdp_prog, old);
+> +			return rc;
+> +		}
+> +	}
+> +
+> +	if (old)
+> +		bpf_prog_put(old);
+
+[Severity: High]
+Does this rollback also run when a program is being removed (prog == NULL)?
+
+In that case old is the attached program P. If bnxt_open_nic() fails, P is
+written back into bp->xdp_prog and bpf_prog_put(old) is skipped, so bnxt
+keeps both P and its reference.
+
+Some callers treat a failed removal as finished anyway.
+dev_xdp_detach_link() is reached from bpf_xdp_link_release() when the last
+link fd is closed, and from BPF_LINK_DETACH. It does:
+
+net/core/dev.c:dev_xdp_detach_link() {
+    ...
+	WARN_ON(dev_xdp_install(dev, mode, bpf_op, NULL, 0, NULL));
+	dev_xdp_set_link(dev, mode, NULL);
+    ...
+}
+
+__bond_release_one() only warns before it releases the slave:
+
+drivers/net/bonding/bond_main.c:__bond_release_one() {
+    ...
+		if (dev_xdp_propagate(slave_dev, &xdp))
+			slave_warn(bond_dev, slave_dev, "failed to unload XDP program\n");
+    ...
+}
+
+The rollback loop in bond_xdp_set() behaves the same way when it goes back
+to old_prog == NULL.
+
+After any of these, the core has no program for the device. At unregister,
+dev_xdp_uninstall() therefore skips the mode:
+
+		prog = dev_xdp_prog(dev, mode);
+		if (!prog)
+			continue;
+
+so ndo_bpf(NULL) is never called. bnxt only drops the reference held in
+bp->xdp_prog from bnxt_xdp_set(). Does this leak P and its maps?
+
+bnxt also keeps treating P as live. bnxt_fix_features() strips LRO/GRO_HW,
+and bnxt_change_mtu() does:
+
+	if (READ_ONCE(bp->xdp_prog))
+		bnxt_set_rx_skb_mode(bp, true);
+
+After an MTU change and the next open, could P run on RX even though
+userspace sees no attached program?
+
+Before this patch, this path dropped P and left bp->xdp_prog == NULL, which
+matched the core's view. For the removal case, would it be better to commit
+the removal and put old even when the reopen fails?
+
+[Severity: High]
+On the same removal failure path, only the pointer is rolled back. The
+following state stays as computed for "no XDP":
+
+- bnxt_set_rx_skb_mode(bp, false) has cleared BNXT_FLAG_RX_PAGE_MODE, set
+  rx_dir = DMA_FROM_DEVICE and set dev->max_mtu = bp->max_mtu.
+- xdp_features have been cleared.
+- tx_nr_rings_xdp is 0, and tx_nr_rings has no XDP rings.
+
+On a plain reopen, bnxt_init_one_rx_ring() won't attach P because page mode
+is clear:
+
+	if (BNXT_RX_PAGE_MODE(bp) && bp->xdp_prog) {
+		bpf_prog_add(bp->xdp_prog, 1);
+		rxr->xdp_prog = bp->xdp_prog;
+	}
+
+so P silently doesn't run.
+
+If the MTU is changed later, bnxt_change_mtu() sees bp->xdp_prog != NULL
+and turns page mode back on. The XDP TX rings are not recreated, and the
+MTU/frags check at the top of bnxt_xdp_set() is not repeated.
+
+With tx_nr_rings_xdp == 0, bnxt_alloc_mem() sets up every TX ring as a
+stack queue completed by bnxt_tx_int(). That makes bnapi->tx_ring[0] a
+netdev TX ring. On XDP_TX, bnxt_rx_xdp() posts to that ring from NAPI:
+
+	txr = rxr->bnapi->tx_ring[0];
+	/* BNXT_RX_PAGE_MODE(bp) when XDP enabled */
+
+and it does so without the txq lock. Can this race bnxt_start_xmit() on the
+same producer index and doorbell?
+
+Those XDP BDs are then completed by __bnxt_tx_int(), which expects an skb:
+
+		if (unlikely(!skb)) {
+			bnxt_sched_reset_txr(bp, txr, cons);
+			return rc;
+		}
+
+Would this trigger TX ring resets? Would it also skip the RX producer
+bookkeeping that bnxt_tx_int_xdp() normally does?
+
+[Severity: Critical]
+In the attach case (old == NULL, prog == P), bp->xdp_prog goes back to NULL,
+but the page mode setup computed for P stays. The commit message says:
+
+  The ring and feature configuration is left as computed for the rejected
+  program; the device stays down on this path, and reconciling it is left
+  for a separate change.
+
+The admin can still change the MTU and bring the device back up. Is it safe
+to reopen from this state?
+
+Several things stay as they were set for P:
+
+- BNXT_FLAG_RX_PAGE_MODE stays set.
+- BNXT_FLAG_NO_AGG_RINGS stays set. __bnxt_set_rx_skb_mode() sets it when
+  MTU <= BNXT_MAX_PAGE_MODE_MTU.
+- rx_dir stays DMA_BIDIRECTIONAL.
+- dev->max_mtu stays raised if P supports frags.
+- The XDP TX rings stay in tx_nr_rings.
+
+Suppose the MTU is then raised, e.g. to 9000. bnxt_change_mtu() skips
+bnxt_set_rx_skb_mode() because bp->xdp_prog is NULL, and
+bnxt_set_ring_params() runs with the stale flags:
+
+	if (rx_space > PAGE_SIZE && !(bp->flags & BNXT_FLAG_NO_AGG_RINGS)) {
+
+JUMBO is skipped and TPA is off, so agg_factor is 0. That means the page
+mode rx_size clamp inside the agg_factor block is skipped too, and
+bp->rx_buf_use_size ends up around 9K.
+
+On ifup, bnxt_alloc_rx_data() still takes the BNXT_RX_PAGE_MODE branch and
+backs each BD with one order-0 page_pool page. Meanwhile
+bnxt_init_one_rx_ring_rxbd() programs:
+
+	type = (bp->rx_buf_use_size << RX_BD_LEN_SHIFT) |
+		RX_BD_TYPE_RX_PACKET_BD | RX_BD_FLAGS_EOP;
+
+Can the NIC then DMA a received jumbo frame past the end of that page?
+
+NDO_XMIT also stays advertised in xdp_features, but bnxt_xdp_xmit() rejects
+every frame:
+
+	if (!test_bit(BNXT_STATE_OPEN, &bp->state) ||
+	    !bp->tx_nr_rings_xdp ||
+	    !xdp_prog)
+		return -EINVAL;
+
+Should the RX mode and ring configuration be reverted here as well as the
+pointer?
+
+[Severity: Medium]
+In the replace case (old == O, prog == N), bnxt_set_rx_skb_mode(bp, true)
+ran while bp->xdp_prog was N. That means __bnxt_set_rx_skb_mode() computed
+dev->max_mtu from N:
+
+		if (bp->xdp_prog->aux->xdp_has_frags)
+			dev->max_mtu = min_t(u16, bp->max_mtu, BNXT_MAX_MTU);
+
+If N supports frags and O doesn't, max_mtu stays above
+BNXT_MAX_PAGE_MODE_MTU after O is restored, and IFLA_MAX_MTU reports that
+higher limit.
+
+Can the MTU then be raised past BNXT_MAX_PAGE_MODE_MTU while the non-frags
+O is attached? The check at the top of bnxt_xdp_set() is meant to prevent
+that.
+
+bnxt_change_mtu() would then call bnxt_set_rx_skb_mode(bp, true) and select
+BNXT_FLAG_JUMBO and bnxt_rx_multi_page_skb. O would then receive
+multi-buffer xdp_buffs, which it never declared support for.
+
+>  
+>  	return 0;
+>  }
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928131458.1012180-1-vnagare%40redhat.com
