@@ -1,110 +1,242 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7513385D9F
-	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 01:10:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790817020; cv=none; b=E81iBxlhi1M0qbQDvDkMSm+zNw6fn9GQD67KxZlM3cxfi8pT0Tuazd5nbZux6sYTa29CKMmKDC1g9aYat3HH67A99CdnYGWT9t2bfmFUnWVS9WmXe20naBGwdD3Mgx6bS/WDVKYO5hhrmaKE3yGwwsUj6ygxIDv+y/9IWfscRUo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790817020; c=relaxed/simple;
-	bh=Tq+EEQZZUSkW/OHULP4X5a3jFtNXvLlkqUIM3wN+i+A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GI+Yyn6zawDJCyl4bY9ULXpLo4X2CMQawfN7xUq/n+OmYzSb+iHa7XRaw/PhaqIjB+yIAsjfoDAjXDok9CB7t1UmdiZaE0sELNZzvqgulez/XtNOyKna5UwHc4pTJKjJvDoQybu7wjVz+zm1rRbsr6dRqPDC851Z2ra0lhtoAbg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=k6xd6uAN; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 537DD19C54E
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 01:25:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790817957; cv=pass; b=mDP2g+FFJW4xArnFG8HwYfUx+f74qRHLCHOEX3Lpk40GWxtB6Xa5OKGpyI1UaYScV430IDv3L75mn6MKjh2NoNxovxqtcg2Vv/oT1Nt7lGfikK81b2OUF+BzQN6xgZwEFs7cuRN7JhtYXH1dvJb4a3wtoGtkG7IvhOwpgM90ZvY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790817957; c=relaxed/simple;
+	bh=r6ctB+l5Dfn9MACz7F6BggHrrpU6bwM9aCqlAtWjz7k=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YFgBFt6Xwd6FD0Slazlm6wUZyl6I2WigUdeUeWum0vG/mjORH9v2nUM+/FZW8omgrXdIKSJVGk29JhWvTnyx3II9RNXVBcd9+UCE2SiOdmKyfb4c6joDnzHGXUHENhEfIZeKG1942qmv5UMdHXNl1yKFe/CT3OI2Z+VFQKtoM70=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c/Q+237S; arc=pass smtp.client-ip=74.125.228.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="k6xd6uAN"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48b05fdb2f9so446612f8f.0
-        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 18:10:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c/Q+237S"
+Received: by mail-pz2-f42.google.com with SMTP id d2e1a72fcca58-86e6d007703so2854098b3a.0
+        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 18:25:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790817953; cv=none;
+        d=google.com; s=arc-20260327;
+        b=h4z+PYM1zuHr2o8kvrN7vPUxrcF+YXzSAte2fdeP8MGvh1fh3pMkNfOG2ozwdUXVSq
+         gUIFIrDJZ8OgylLBF3EJlKrF95F06q27CcBpnNDixJwVL8QgzgLGA0hP4AMV2+wtV9HH
+         wHqKerqDdzVy8zUqINL5G9FD33XHOF+oOruRuXkCkzyrQOD7DkSSS3ss1KG+YN2C7/6A
+         JxT26512AxSlKDl7wUILRZFlDilyslqKc/BJ9s7lYcsvodjGqNxOigM2yQ3BM1qhpLl1
+         vSF1wXKedLdGDrcJioxDW08osbYeKqfGJJl2Eph21JB27D9ikkuLA/NBweRJwt2i86h5
+         wFIA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=rFT97ZWRBz3ey/79pcQ9Crf/WiVH/cFfH5FZgLCxjms=;
+        fh=I1onv+b6vy+krJOCfBC9Zdg6gl+MjVGED5D8fVPGQU0=;
+        b=hkjl2FxhI5p7x7HyD2IrBcWFbAqB1Fnc6Z9ZlmYIPiGadyiBXS5HDbNX58+GDTH0j2
+         Cy1QL5mNk0T79IuZFckH0BNXAY+0j77LMsoKBl1OkSGv/y4ZmA/T07oNSuBO/xaQ7aOq
+         ng/Ij7IIQyNVFmGrftRrAt8WLNKgnjmYwCOdENFYrKHTUpFctLI4FeL5PqINYGb/8ISF
+         6b9F52WICa/nxhESf51lXzawX8JnKLG/xwPzQUCIFCm+gESifYVujbss16D+cUvR0dPY
+         nDhbUNaXnytYSJQEMOFR5HQK01flm42tXWI1U0g83YCOeFv6Yt2q/t1lhdkS4PL65EAy
+         LJ7Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20251104; t=1790817015; x=1791421815; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2Hqg7fvezYx0gMAe4vTkP11iGpswB7iKcMQUSEGGhy4=;
-        b=k6xd6uAN2j9hAboy+qkp71mKUnYkHa23MOSi8NYL0SrQC9P3OuoiNrhzBo38iyxFDr
-         Q5t8uX+EgqWNH+kpAwzIb/oLn3TrM+VlVpcYuLuFNeKBEz7r+XNQGuSl+0aIqndBuaWJ
-         phrXRC/WfJABx8wCv8Rksf2G1m0v7m7OrwzxBcBAd7WQueWsnExLzR2ldMI8woc60D+y
-         GEBAqHTBChCGu9xb6ClC9D4T5s/5AX8OKsjQP2Zg7e9nZWKGjvMXpFH3XAjbPeopbtiP
-         /gioLEM1m0MgF8l/dkve0AfIjzdLHV3wud1mJFmTncqsXxcfr29WAi5k0tU5iqL7L2Kt
-         6HMg==
+        d=gmail.com; s=20251104; t=1790817953; x=1791422753; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rFT97ZWRBz3ey/79pcQ9Crf/WiVH/cFfH5FZgLCxjms=;
+        b=c/Q+237SYhdPkmYP0tTeXj3muhEKmyxyGItznzkKGywBJ7oJku+J1uGZ4Ouj4ZhYop
+         P/ZCgRJZqNzrGaISbV6B9dQPQdxZGZWh/+xD7I/ewNbA5OLIPkgKyRWlGIeFjWI28LuF
+         YALYfYntaYDEKyKuxNNoRbvMzURcYxAM4NIVHQ2JiT99JMUcKXwmD8Ur25+Oyq5w3OfN
+         DLGuUtM/jK+yfsMeDwzByFSD2/ekCFpqLHsK2hGkYvvIpqzxUc1KvhTExfOT0+NgtJ6O
+         gk6eKTqV6NEZ2HXYmqkCIx8T4Lpil5GxdKI8Hga3xjPmJQYxlW6W69JFw+dy+BuvZ8hM
+         3Zjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790817015; x=1791421815;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2Hqg7fvezYx0gMAe4vTkP11iGpswB7iKcMQUSEGGhy4=;
-        b=oevdT8Pb5yUDRLa3JHorV6huYVnXpSr7JUUhggXEMKc6qetOfLL2y/LBAKiHmNO0mE
-         MWXw2JxcHEqqbtzCgF3s2U/Vd8mgtGcC0CgIH0PGpmYS24uqks7xSqa4VPrcfFu69+C/
-         y3Wq6ava+D/gFmyxzfB4bPa28HRqpLFsQwyBQONeEhxQ/GpjoZj+Lnh5grU/MZHuYGEj
-         LU4tg4TUgWh0wD8SsMimuFs5Qg5wD8ZkIOhg/lxmbUa2RPhf3AN0cfVWMwHr0/njFqqs
-         thAK2zN7zaFsaoxiVwiZ0cyrgCgcN0b/W7Wn5RB9WP0r2Z2asIMTszbwnrqbennuZgkv
-         hJEQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwaxWSk55E5KHSfCfvBd85MUderx0A7HGM+Vnwk59+ALWBISHXMWLlX8OdqPK3C4sENzA73xMA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mufJTzhxYX0rEDE/J2UsGWGLMXb6PqDanCb2hFMyH7bmu5aiG/
-	RINqtO4qlHqjUVeiDeqSf4MrqJ8+5pirVC3tkjshYxYRX4RAtyJT4KA=
-X-Gm-Gg: AYBFou1D6NWmxXt+zt1N+X1m5TUAVNIDkNfjnv0/BHNv5IUQfCzXEofOEaDG6gY4kXP
-	kwrmlUD3O0mC5aL21pKoGwd8AHZcxTJNgtaWwjtUZxdEvqGAOPXe/TqihgKVGjaCvEyFCENhiWX
-	cxKx5fnNQTrvCqrgH/627L5VDTI5mzaZpUobSrdUWanTSrziKMHONU2eomDOwdONI/wHqcMbEeL
-	Hl7k7C0Det/to7tvZNxMFV2FlaL5JfT0eOLk0pdVLS07eDAqgn55IdFVtdZbMl/rkRtT6FieCTf
-	/tCWbqGTOPDxIHC6uz4IWUdw1V0I2QWdiBdOQmhkKbjuDPm4ZnuubQY2+Mb0Y34o5KQ/jqu5c5Y
-	MhS0XgjsCr1wbf8q8KZc6F7vNlGQNEA5w7fxjmQ4155udN4z5qTPK/RTa+d6Z7u5q2n3pHH6zEk
-	Acbvzg0eaYSa6HfgWc/9/MG6clYkS/j1dKt0pj2mNZIKT0Hj2rDrj52Df0fy3w5ju12r6vQIv78
-	0fEnmC9UnU1vltg3Qoa/ZbpOD40Sid/80mpk7W7TSslRJxZbLFnwUkKtnol
-X-Received: by 2002:a05:600c:8b88:b0:49f:e8bf:8f9b with SMTP id 5b1f17b1804b1-4a01ad98373mr50081855e9.4.1790817015182;
-        Wed, 30 Sep 2026 18:10:15 -0700 (PDT)
-Received: from [192.168.1.3] (p5b057568.dip0.t-ipconnect.de. [91.5.117.104])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f952931sm26870905e9.13.2026.09.30.18.10.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Sep 2026 18:10:14 -0700 (PDT)
-Message-ID: <f7456596-f978-4d75-b949-f61e21f4c798@googlemail.com>
-Date: Thu, 1 Oct 2026 03:10:14 +0200
+        d=1e100.net; s=20260707; t=1790817953; x=1791422753;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rFT97ZWRBz3ey/79pcQ9Crf/WiVH/cFfH5FZgLCxjms=;
+        b=LbjiqRGIcGM+eqLcmMCZIJG37fMi/oUHh/Joto7ukE6XqX+dvUE1Siequhu9Vfa5ve
+         zNsPOEj/PnJ8zvzf8mjS1sTFC9CiEPxs66RdS8yMsDSB/8R6Qm0EdDS/vvSD0WZqtAVi
+         30LSQZI939xucw+ey5sSl2vOsHE0MA3qFkaVBrndh5osD6SyVSMzScQv/ZaVhPDyQrQt
+         uiT3upOBQkrW7Tn4S07ZBtb2E0QGP/bZpzuJ7OlgoGj0KuWUnQUP3K2rh9bP2uqH/T0c
+         Qeu5g0QL1HVyXsXmwMPOMVTEbYtWEpHZsh0bE0T0sBrskzQWAjCVDqusQjG6EFFqRvSw
+         7uPw==
+X-Forwarded-Encrypted: i=1; AKwUvBycKy+qT/JMdRMBV+LHhdzvvronJk5ORgpQhBioSHYZPTrU0UfwgSqEA1Au065cwAZuKn0GRiY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mV62IiZyQnGed1ZZ3m/2rfUU7mdR9YkMrre7YWKiqjlomtSj0B
+	VGshpYtMJAb9M3i1VtGEeUQP6UyPXlGrbDPG8ZVm1cxUmp1LW2cZyEJ3rWblMSb1c7YYKzFpYBr
+	DbP3t3qxNys7CAjqamEIYDSJ/FrBowCE=
+X-Gm-Gg: AYBFou3YZOi7/CK1JrGAKfuBnQW3MS4L9Sx6X3X4kwfw2+LHFEFGnXC3dqNm36ZjE/L
+	gpBnz3h+NpQ1OyCvHYibuH6a7F3MbGNw8UuPoCb3UlPCMZ8dOGyMySoW6E/XqRTgaflnOtAwbDk
+	d1p9f5hQzq24BQdinYfTILr8YvlrhOCNw1o8he/V8YBVyWl9WX/SoTKM8DbL9HDzWa2jmw7SqxG
+	5Yk8jAgZa9i5mfdyTxOA82YOOOxDX9VUIbDZ5H2cqOaW357IU+JOEKSKv+FA7IBuQLsW0+KlfNk
+	JWYPseHuLTazo4IQUBJe6wNyr2/M0F9xKHN664gUxpzdN7kAIQCZaHAy
+X-Received: by 2002:a05:6a00:2da0:b0:880:5a44:9367 with SMTP id
+ d2e1a72fcca58-8874a69ec71mr2480685b3a.30.1790817953484; Wed, 30 Sep 2026
+ 18:25:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 6.18 000/395] 6.18.55-rc1 review
-Content-Language: de-DE
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260930152340.591469096@linuxfoundation.org>
-From: Peter Schneider <pschneider1968@googlemail.com>
-In-Reply-To: <20260930152340.591469096@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20261001003501.2425492-1-lucid_duck@justthetip.ca>
+In-Reply-To: <20261001003501.2425492-1-lucid_duck@justthetip.ca>
+From: Chris <hoopyfrood42@gmail.com>
+Date: Wed, 30 Sep 2026 21:25:41 -0400
+X-Gm-Features: AclHuK8_KWE1UfLVbGLDncG3ZFM4xVbCeQcbtCCHGsIVNzIJFDtLu7YJF8SsscU
+Message-ID: <CAHaeJsSaqTJZ+Os-fxGq-g=wH7842n3Kt-_hmohdwN8qUwijiQ@mail.gmail.com>
+Subject: Re: [PATCH wireless v2] wifi: mt76: move the channel survey when the
+ channel changes
+To: Devin Wittmayer <lucid_duck@justthetip.ca>
+Cc: Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>, Ryder Lee <ryder.lee@mediatek.com>, 
+	Deren Wu <deren.wu@mediatek.com>, Sean Wang <sean.wang@mediatek.com>, 
+	Shayne Chen <shayne.chen@mediatek.com>, linux-wireless@vger.kernel.org, 
+	linux-mediatek@lists.infradead.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Am 30.09.2026 um 17:24 schrieb Greg Kroah-Hartman:
-> This is the start of the stable review cycle for the 6.18.55 release.
-> There are 395 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On Wed, Sep 30, 2026 at 8:35=E2=80=AFPM Devin Wittmayer
+<lucid_duck@justthetip.ca> wrote:
+>
+> mt7921 and mt7925 report every survey counter against one channel and
+> never mark the one in use. Both use channel contexts, so the code that
+> moves the survey never runs.
+>
+> Move it when a context is assigned or changed, after booking the time
+> spent on the old channel.
+>
+> Tested on MT7922 over PCIe, MT7921AU and MT7925 over USB.
+>
+> Fixes: 41ac53c899bd ("wifi: mt76: mt7921: introduce chanctx support")
+> Cc: stable@vger.kernel.org
+> Reported-by: Chris <hoopyfrood42@gmail.com>
+> Closes: https://lore.kernel.org/linux-wireless/CAHaeJsT8O8Nhq351hFp3NAL8e=
+0iU85N-LBdYZ9nYHFHVy7t_hQ@mail.gmail.com/
+>
+> Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
+> ---
+> v2: aim it at the wireless tree and tag it for stable. No code change.
+>
+>  drivers/net/wireless/mediatek/mt76/mac80211.c   | 17 +++++++++++++++++
+>  drivers/net/wireless/mediatek/mt76/mt76.h       |  2 ++
+>  .../net/wireless/mediatek/mt76/mt7921/main.c    |  1 +
+>  .../net/wireless/mediatek/mt76/mt7925/main.c    |  2 ++
+>  .../net/wireless/mediatek/mt76/mt792x_core.c    |  1 +
+>  5 files changed, 23 insertions(+)
+>
+> diff --git a/drivers/net/wireless/mediatek/mt76/mac80211.c b/drivers/net/=
+wireless/mediatek/mt76/mac80211.c
+> index abbe65cbcd89..fdfdb324ab98 100644
+> --- a/drivers/net/wireless/mediatek/mt76/mac80211.c
+> +++ b/drivers/net/wireless/mediatek/mt76/mac80211.c
+> @@ -1045,6 +1045,23 @@ void mt76_update_survey(struct mt76_phy *phy)
+>  }
+>  EXPORT_SYMBOL_GPL(mt76_update_survey);
+>
+> +/* For drivers that retune without __mt76_set_channel(): book the time s=
+pent
+> + * on the old channel before moving the survey to the new one.
+> + */
+> +void mt76_set_survey_channel(struct mt76_phy *phy,
+> +                            struct cfg80211_chan_def *chandef)
+> +{
+> +       if (!chandef->chan)
+> +               return;
+> +
+> +       mt76_update_survey(phy);
+> +
+> +       phy->chandef =3D *chandef;
+> +       phy->main_chandef =3D *chandef;
+> +       phy->chan_state =3D mt76_channel_state(phy, chandef->chan);
+> +}
+> +EXPORT_SYMBOL_GPL(mt76_set_survey_channel);
+> +
+>  int __mt76_set_channel(struct mt76_phy *phy, struct cfg80211_chan_def *c=
+handef,
+>                        bool offchannel)
+>  {
+> diff --git a/drivers/net/wireless/mediatek/mt76/mt76.h b/drivers/net/wire=
+less/mediatek/mt76/mt76.h
+> index 62b41c8bb7c0..2cbe9884ab46 100644
+> --- a/drivers/net/wireless/mediatek/mt76/mt76.h
+> +++ b/drivers/net/wireless/mediatek/mt76/mt76.h
+> @@ -1548,6 +1548,8 @@ void mt76_sta_ps_transition(struct mt76_dev *dev, s=
+truct mt76_wcid *wcid,
+>  bool mt76_has_tx_pending(struct mt76_phy *phy);
+>  int mt76_update_channel(struct mt76_phy *phy);
+>  void mt76_update_survey(struct mt76_phy *phy);
+> +void mt76_set_survey_channel(struct mt76_phy *phy,
+> +                            struct cfg80211_chan_def *chandef);
+>  void mt76_update_survey_active_time(struct mt76_phy *phy, ktime_t time);
+>  int mt76_get_survey(struct ieee80211_hw *hw, int idx,
+>                     struct survey_info *survey);
+> diff --git a/drivers/net/wireless/mediatek/mt76/mt7921/main.c b/drivers/n=
+et/wireless/mediatek/mt76/mt7921/main.c
+> index 68a059504e83..915d6789c668 100644
+> --- a/drivers/net/wireless/mediatek/mt76/mt7921/main.c
+> +++ b/drivers/net/wireless/mediatek/mt76/mt7921/main.c
+> @@ -1423,6 +1423,7 @@ mt7921_change_chanctx(struct ieee80211_hw *hw,
+>         } else {
+>                 mt76_connac_mcu_uni_set_chctx(mvif->phy->mt76, &mvif->bss=
+_conf.mt76, ctx);
+>         }
+> +       mt76_set_survey_channel(mvif->phy->mt76, &ctx->def);
+>         mt792x_mutex_release(phy->dev);
+>  }
+>
+> diff --git a/drivers/net/wireless/mediatek/mt76/mt7925/main.c b/drivers/n=
+et/wireless/mediatek/mt76/mt7925/main.c
+> index 5993b31e1aae..e21bd79dcc56 100644
+> --- a/drivers/net/wireless/mediatek/mt76/mt7925/main.c
+> +++ b/drivers/net/wireless/mediatek/mt76/mt7925/main.c
+> @@ -2063,6 +2063,7 @@ mt7925_change_chanctx(struct ieee80211_hw *hw,
+>                                                       link_conf, ctx);
+>                 }
+>         }
+> +       mt76_set_survey_channel(mvif->phy->mt76, &ctx->def);
+>
+>         mt792x_mutex_release(phy->dev);
+>  }
+> @@ -2399,6 +2400,7 @@ static int mt7925_assign_vif_chanctx(struct ieee802=
+11_hw *hw,
+>
+>         mconf->mt76.ctx =3D ctx;
+>         mctx->bss_conf =3D mconf;
+> +       mt76_set_survey_channel(mvif->phy->mt76, &ctx->def);
+>         mutex_unlock(&dev->mt76.mutex);
+>
+>         return 0;
+> diff --git a/drivers/net/wireless/mediatek/mt76/mt792x_core.c b/drivers/n=
+et/wireless/mediatek/mt76/mt792x_core.c
+> index 0ad33f74c228..6a0d5b2c2d59 100644
+> --- a/drivers/net/wireless/mediatek/mt76/mt792x_core.c
+> +++ b/drivers/net/wireless/mediatek/mt76/mt792x_core.c
+> @@ -472,6 +472,7 @@ int mt792x_assign_vif_chanctx(struct ieee80211_hw *hw=
+,
+>         mutex_lock(&dev->mt76.mutex);
+>         mvif->bss_conf.mt76.ctx =3D ctx;
+>         mctx->bss_conf =3D &mvif->bss_conf;
+> +       mt76_set_survey_channel(&dev->mphy, &ctx->def);
+>         mutex_unlock(&dev->mt76.mutex);
+>
+>         return 0;
+> --
+> 2.55.0
+>
 
-Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697v2 server. No dmesg oddities or regressions found.
+Tested on a Netgear A9000 (MT7925, USB 0846:9072) in monitor mode,
+Ubuntu 7.0.0-34 with the patch backported (the mt7921 hunk needed
+rebasing for the older brace-less if/else). Before: tuned to 2437 and
+then 5180 MHz, every counter stayed on 5955 MHz and no channel was
+marked in use. After: each of 2412/2437/2462/5180/5745/5955/6115 MHz
+is "[in use]" while tuned, gets its own active time (~4.2 s per 4 s
+dwell), keeps it when left and resumes on return.
 
-Tested-by: Peter Schneider <pschneider1968@googlemail.com>
+The busy half of the report is unchanged: busy still grows by 0xADBEEF
+=C2=B5s (11,386.6 ms) per update, now on the right channel. So the MIB busy
+register read is still returning 0xDEADBEEF on this chip.
 
-
-Beste Grüße,
-Peter Schneider
-
--- 
-Climb the mountain not to plant your flag, but to embrace the challenge,
-enjoy the air and behold the view. Climb it so you can see the world,
-not so the world can see you.                    -- David McCullough Jr.
-
-OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
-Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
+Tested-by: Chris hoopyfrood42@gmail.com
