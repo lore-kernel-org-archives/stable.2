@@ -1,82 +1,59 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA01B4B44B4;
-	Thu,  1 Oct 2026 12:01:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 188B7485CE6;
+	Thu,  1 Oct 2026 12:06:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790856114; cv=none; b=E+WMRSE5S7Yd9bZZ1VPnE9JT/TQw2S5gaJ7nW5x2dmx8P/WMzDfTeaV4aGWedqSrbMC2VtSaMRLL/yMn2lqkbCbC3Czq23cyYgevtIo2nj485YYfMhBi1biiQiqNeRzeyZYo091paouv7JM5Uj0OClNl5xXbhWZ65wZS0dfZQck=
+	t=1790856411; cv=none; b=isK8MD5xz3EqcZD7AxOzp4ItxZTomOnmXkMD+ywi+hDF4GOGSWNcZBUgyTeSXNodOxie/F1shVO9Wr2vR3+AAQ4aJNZW/E0uIIMfntk/CzsJ0NhwQvkQv+XZQRFNCRdQgOOQ6LenNC+mNuQFPJBUJbLD2y2ZxGLte4QXALm7cVw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790856114; c=relaxed/simple;
-	bh=skhDHr9Zm4+/kFbr496GsWiVlrMnhCMRXawPPy0nKFE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=p69oJoZy6MGLVgmgDmBULnPgFdicr39fPC5Uv0q42bEW1b9ED6LETF5uCp7eRe2Q39pDmmhZ/aqXf9pkUmaVvRZJCdOJQIHd+N0ABKVzxWidv5Gm1mw+IdxUjnf3Dgq5pHMAyZlidscqALCQPKUNhA/NdOGdocm3bePzndyVkfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SG1amGNG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790856411; c=relaxed/simple;
+	bh=oEZFsCYV6JWgG+iVZztP4Wfg9VRizXirpYQjTWvVezY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=s6hsOujCO+d4UZ2DdmQvsRgc75FwGtPS/zfQrku1BuN0KvFaGQu0QHl8yl0jXuuh2Yp4u0dKg6H0B1i22NZybngwipy+yAoc8R9IN+Geabg3Ibysf02oq43x280Gwb1E2Up7x0LKeuw1TQNyPAaoKQKZe99+RidaKPIPLX10a+k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZPe6O7B3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SG1amGNG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EBA91F000FF;
-	Thu,  1 Oct 2026 12:01:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZPe6O7B3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 225081F000FF;
+	Thu,  1 Oct 2026 12:06:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790856112;
-	bh=wsFmbniaNy0mXkbJWAgInsMwcnNCOBQartd2CZAlhG4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SG1amGNGdb+qOD7RAGCMOcn3BBc89aI69IVH8wDMnzKX84oVX1NpM/95bMtYQDXtK
-	 D7HVfIAvL4Qa/nkYl/G9l1BcZndQW58DNhbuSNjY7F2T3JwXFxOSvu6BbM7mIp4SV7
-	 5MIvR0P8aQ0qSJ5ERBCjzdYcdmq0LKOZA8VsODNmgvxWj+7oU3RmEBTrXPyE3/Z3Sq
-	 7kPxuATp4bklLBuENp6ANfvTQlX2UHA6cZMDlXdJ9c1qPpNn9781B+6Kq8fPo+EEde
-	 dGzu08CkSsugrK/M1ozm+B/t4021tfR/5qON4WFF0NSZe4DamdYEcPQeL08iUI/Lkp
-	 UOC5SFqMVjoIw==
-From: Miguel Ojeda <ojeda@kernel.org>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Miguel Ojeda <ojeda@kernel.org>
-Subject: Re: [PATCH 6.12 000/877] 6.12.112-rc1 review
-Date: Thu,  1 Oct 2026 14:01:38 +0200
-Message-ID: <20261001120138.67491-1-ojeda@kernel.org>
-In-Reply-To: <20260930152414.738996857@linuxfoundation.org>
-References: <20260930152414.738996857@linuxfoundation.org>
+	s=k20260515; t=1790856398;
+	bh=oEZFsCYV6JWgG+iVZztP4Wfg9VRizXirpYQjTWvVezY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZPe6O7B3nc2qxfrhCKN6wd5qz1/9G4usbbRWcXLFNHhbKIu5gcLoRBYLI3fP0yyvP
+	 X4qXbkR90yOlmkJ65kf1qxfu7qCg9Kqm+0vkUMjeupkEKyO9oZU7KhfCB2++f/p1zc
+	 Kstuy3ii8cXijr9TA1RFp4vYUG07MaUCzJP2pXZfCmLoVm3tOY+jM9PMahppmpLNKv
+	 dWZ5BxqtqyR/ltGF2nibqNR/xSvexyo9FjZBdJgNrkOZKm3Bllhfw28fyPJFpqe8fF
+	 M6rwGIFXypU9ZgqjSaIs/Yt4XgclADqUA1x8fRr1sx28Sst1ti1FDMbR8ExDUd9b77
+	 bUDH6Vjo4Cx3Q==
+Date: Thu, 1 Oct 2026 14:06:28 +0200
+From: Christian Brauner <brauner@kernel.org>
+To: Amir Goldstein <amir73il@gmail.com>
+Cc: linux-fsdevel@vger.kernel.org, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Chris Mason <mason@kernel.org>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Jeff Layton <jlayton@kernel.org>, 
+	Aleksa Sarai <cyphar@cyphar.com>, bpf@vger.kernel.org, stable@vger.kernel.org, 
+	Daehyeon Ko <4ncienth@gmail.com>
+Subject: Re: [PATCH 14/17] fsnotify: detach the connector before destroying
+ its marks
+Message-ID: <20261001-abgehackt-herzmuskel-worauf-80bcefb0a8dd@brauner>
+References: <20260930-work-mount-fixes-3-v1-0-be34c83956ae@kernel.org>
+ <20260930-work-mount-fixes-3-v1-14-be34c83956ae@kernel.org>
+ <20261001-prollen-rutschen-amtssiegel-31392f0a489c@brauner>
+ <CAOQ4uxinQiXn=F8p92rCTzwX5AcBiN0abWW7jE9jKE+zqjb1_g@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAOQ4uxinQiXn=F8p92rCTzwX5AcBiN0abWW7jE9jKE+zqjb1_g@mail.gmail.com>
 
-On Wed, 30 Sep 2026 17:15:11 +0200 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
->
-> This is the start of the stable review cycle for the 6.12.112 release.
-> There are 877 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Fri, 02 Oct 2026 15:23:04 +0000.
-> Anything received after that time might be too late.
+> Isn't the inotify problem described in the commit message already solved by
+> 669bb5af15d41 ("fs: make sure to call fsnotify_inoderemove() only once when
+> inode is dead”) on vfs-7.4.misc?
 
-Boot-tested under QEMU for Rust x86_64, arm64 and riscv64; built-tested
-for loongarch64:
-
-Tested-by: Miguel Ojeda <ojeda@kernel.org>
-
-Thanks!
-
-Cheers,
-Miguel
+Indeed, I forgot this patch existed. Good, then we can drop this.
