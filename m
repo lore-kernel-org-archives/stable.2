@@ -1,160 +1,183 @@
-Received: from mail-yx2-f38.google.com (mail-yx2-f38.google.com [74.125.224.166])
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93E193F1AC5
-	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 18:03:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CA0F38E8CE
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 18:07:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790877792; cv=none; b=jsK3HIMJkWReI1wK2nUr1gPW4WKATf5xcED90DkSFw7dQYusjuYJcDKjjxvSI9CwcI6BMjAVnM3X3txbtPWuTdB7Nd2TYmQDxXNcVMG4L0PMPgLkGhP7KvYR2JYEmi9j+Y/mrFUMrvbSek4W4BddaNA3zkK9S02G8ca++MXCJxQ=
+	t=1790878030; cv=none; b=Z5HXM7uQ1whGPhSlJ9pwIUy+lC6BpBxGmeWm4hrU31/aewUf90+JWpyPBWkbM+x0JlffOm5wuzV5yhcRopPmtmYIEvUAz66hAWrm/RsQqSBbze+B2MVN9mYDXu8fDcluWope85uO0Pz4VBHIjiMLxng6EQRh/m3TXiIdEHby5Ms=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790877792; c=relaxed/simple;
-	bh=vuCy3XNQRwK2pAv8DV9ohIZ4yjPKBGFN3TicIXMmLpg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=O5LssWnvkcnkdKngohHqeSFs8Wa+NRUI4BDbG7AvhMOsOkCmJ30k6cPFCwvT/3uAaR7KsMpqi3N/fYzU/pLUlzwHVcSPsNk5plKge3GBmhINRXI0N3sQ+bODSJV14NePJ0dwCW1y/8WkM+/7IXueQBbXVAw29joM/dWbjeq0ve0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XbJAbM5Y; arc=none smtp.client-ip=74.125.224.166
+	s=arc-20240116; t=1790878030; c=relaxed/simple;
+	bh=QsCmprxjt2AIVs23Cx9JQTbYtmyYsaQxrbmPDfjmTRU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZtLt9Ut5EXvd6q4rX5jxOMpN0uImTAmakN17KRg3IaTzDvnGh1Cw7YX8FnZ0OpsVS3bFAEjeXXziaFG6tDikuii5ujHKg2sXLR6pqChCQUfqbxlVvApkPh5M2lvTVnsP6WOpyI2D7CKkg9KU+b/LrflZ9ba02iCSVJcu0P5PNz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LTvBFO5e; arc=none smtp.client-ip=209.85.160.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XbJAbM5Y"
-Received: by mail-yx2-f38.google.com with SMTP id 956f58d0204a3-67561cbafd0so2857270d50.2
-        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 11:03:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LTvBFO5e"
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-533324e9b13so7149921cf.1
+        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 11:07:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790877785; x=1791482585; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CSRI8/Iy//RZIheBCqOOgWpv3l9S3TrqbEtSt4XD5L0=;
-        b=XbJAbM5Y63BgY8f4j+eS042/clTc1G0oifIQxmqGl9ySUlPIktHx7mRIhC7yWfThs8
-         q9bJwzBYOetZ256o1uxGUru5wlyBjYVCBxPEujni7fvP/GwCZ5FMYmfyakJb2dCwkjLu
-         Ubtu4Bs8LTPfy8yjdYscagnsGI1cgA95o1fWKy2pK1N7NC4+P9fzd1LOTZhZQGD8vGC9
-         e6d/vu+v1bHn+1pkkPwvAz3AWi8+xfz2Y1Xx+LVQCSuIhktmHslrbsbDfPFEhfWA/81y
-         QML2cfw9wHmy4jSaWOlx3Bifxuo0hWhTWs0oLbqKRYSNRJZ4vvanlD5znk8vylbkCZU2
-         XPrA==
+        d=gmail.com; s=20251104; t=1790878025; x=1791482825; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7GPDCUkXzbddkBBz1dYgs3l5YKgPxDZJWy/V/n2BPFU=;
+        b=LTvBFO5e4vJnXr0+4FKdBv0Oat3qg3EB/WoQUwBvQCQAebiX0pJvoMZdfxe6HXDPd9
+         k52+cEHhSyoE7aht4e6VhyFKo6JyFfrY7fU7a87r0Zd6/2hExFgl/BnHbF5qK7S4kR+O
+         ngMiq14OUpvvPHHbXSwf4yUAO7Ys3vrysP3b2hQ88eeL84qLMttCVAicSiMpXPlDc1xQ
+         toKjTcDGDtwOGcQKoyJVir4fF5AjjIRL/baKeMzxKvC9izOMAdmNGxsdHEk17fp6zONJ
+         w738wU6JdhpJkQo94ne/uKlYX+NxiF8Y2aAawPHu9JhC7m3Xh5ZjHQj6BDRvsQ5YJUfR
+         OWWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790877785; x=1791482585;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CSRI8/Iy//RZIheBCqOOgWpv3l9S3TrqbEtSt4XD5L0=;
-        b=mShRrYGOqimR9OGGa5CfVZNr3pZsozUNqoW3tsyCdOVChhKXk7h/YAvZ+jPjL2e1yE
-         EUMi54qU60mhG7ca2dKposxOYq1hvqa+EvBP5EZ1464yVkGriQ2UZESRoBLWKsmGWnRd
-         aql/gOcRZu3mbGySeUdj5uj2gB6msBQU1+1jx9gQrsVP+ylGry3caJKvmZVKeKN+fAGe
-         r8r/m9e5oTVFt0dyCjzS+xXkz3BvT7QwQO33vAESES5wBqx3FzqZcX+LdWR/dmx/4aUM
-         9Rf1mGmvCAnDV0SFDvbOd1GJ8ofv8xRoTfXdCoSCKMoMz3R3WGm2WWI4KudSSfhl/Y97
-         9UAw==
-X-Forwarded-Encrypted: i=1; AKwUvBx9rVVeulVTelZB0kURNUg1zSo+8UqXQbOXAo0y755L8XauSaW8yPIpnrLXx+4R/8dG+IGn2yE=@vger.kernel.org
-X-Gm-Message-State: AFuF++ngXUUQ1+TtWvw8ilULlFfCNFPWcJGyfsapNLaLvvZEFcNL8A/1
-	nWIZVJEUl1Rp/edx/iwQn+yWYwki0ffUngoX0k8Pgvw7peIpkpIdKy8=
-X-Gm-Gg: AYBFou3bSoxWygx5VqjbOty5cCfOXF2uK3ab6shwWuMo8bYHm/axEoLUIVFZhKIVEQY
-	H/E1go91oQH7KOFkfVSG3KBSrm3DpATYhcXJF5whsJBPsm2Ns4DUXJr0r3xECqWi8TqVvxjoQ9r
-	ppyLI9fIMYHLdB7sm1rLcVbb8WMgrWeF0l43VmGgwb7m32+u2uMxJhhgGOL3+ncxDz4c2rwm/Js
-	iIf43/KzQWxc1Az4t11asqKCutLMWSquTMGwE6RRRvBiOUwaOU1C0kToNh4M7A4tOcPel+vjcVf
-	oIeDUgh92KxR+EP8E/4lfjtey6tFxJBRbXKPoRz37v1IfBd70ND69umUyWYCWlwhflB9jbYVTmP
-	EUQT3dlFebtsWn2LFmWS/cPEJaCkirWw7vcSb/QUWIhn44M9mzOz86RYV2aqy3xa6xpnvRNtKYo
-	A4unaPA+hrZWLgVWkCTv4Tpb0839WXJVdp90SJE+4MUBB7/yNz2uUMZS7Q9uGIWzNpHJuqZRjqQ
-	1E01ak8SY914IpE3Lcl7i0+lvizuVC16Fg2PpvTZSPmFMfzzZ9aGRmfizpLKVd9uvYsmsYzv/7m
-	w7oLewEfiRjlD6o8um6LMQ1+VrDc
-X-Received: by 2002:a05:690e:1513:b0:676:858d:35d1 with SMTP id 956f58d0204a3-677ac03bb85mr68872d50.36.1790877785206;
-        Thu, 01 Oct 2026 11:03:05 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790878025; x=1791482825;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7GPDCUkXzbddkBBz1dYgs3l5YKgPxDZJWy/V/n2BPFU=;
+        b=iJ4rQaE5cdXVwh3MJu3WTdcdL1UolMvwDgWmk7fKBg9Knp53DEJoM/mYE2uWAYQq+f
+         n4MfpfjCsO+BzuxGGHtVMIjvYeZuKxszPlwPNy1ueeMDfs7l/F7ycGBujWOiRvF1g4Iw
+         CZEelbd3VXPZEZ2XXhYo5RNCU0WkagZVg2tP7X0HAVwghzD/Rzqaf06ymuUL/djCkoxc
+         ZC+wyAne7xS48ReD3FR/tqILbTPRW7JYBLNV/9pQc4EiqKNk0fCgLVMAl8Otg8RmB6mk
+         jSjYLZORPVTD7t0tQPBlORpVevTZ98On616Y3vrZwEv+kScgBk2EKkFM8Z27oFIh6dgr
+         oK6A==
+X-Forwarded-Encrypted: i=1; AKwUvBzGxaKvq7HbLAfz1tAG90a1gjyttozlcTPIlFbH7tegIO1RdhednJaS3fXRKdAUlww/2nCK0AY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mg4iesbO+RvVhxcAJSNneHLjQcp6RFS4oZHCAk130q3X9CqYip
+	osZIaUciJDPOuPGpAYSTKTyWboNHm5p2bq8Kgz5Ehi2JGn7Ij0DhDne9Rx1cGMk=
+X-Gm-Gg: AYBFou2fmJkTidykk4+EOWUnXfnsGJ1/sJmBOTbHqFqXdZ9Ug952As81jtgjwJYGFJD
+	lR6b9ekFLRtGWxTEUQUDp9KI4RjxRe6v4JQM/cdlnjZAaW4F8mn1G7U6zwEPvwdcFcdLi9efZb3
+	AuCeBiFK+UKWiScNSbAQOTl35z7WhWj3L0JSBUAv5lAC3SsUEbDJmEDEWSzEwBIpCz6fQRRs9Dz
+	Mf0K6hg+6BIcSLUOdtwlrp9giYXc8Mr2QbY09qtVaJCYcXcPwdn4rXBTg5LUPKkwa0mYtuOv+8Q
+	jQSey3nrR4avAG74iMgvyVkYAIVr0K0ukONCUlwOlefHTZDgsu6l/3NEZC+KSikfpuMqoo+0yHE
+	s3z+n0QQs03o4Vd5DqXgIJhkZvXxDuiEN+4GBuuGhV4DNfbE3l+yFo3SMkLnYVx8ritc6C6TmpH
+	zT38TOUDSESCKaQcbfL97ZEwcia5YyHU73IkXFg6fa+maJT9Znse3QLdyxWpFpQpwckLWQ3KXRF
+	iDhz1Tp48YEmCBIuO83gljJgyPxAvLQyMAUC04KVIj71BbEvdwz9ol2CqIZCyJCkqmXUA/RTEu5
+	MLuLTRQWUGyKLaK2U6021x4BEuc1
+X-Received: by 2002:a05:622a:181b:b0:531:85a:25db with SMTP id d75a77b69052e-533832a853cmr71428341cf.11.1790878025154;
+        Thu, 01 Oct 2026 11:07:05 -0700 (PDT)
 Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917b200fd90sm20983806d6.37.2026.10.01.11.03.03
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53398a5c3fbsm4310221cf.8.2026.10.01.11.07.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 11:03:04 -0700 (PDT)
+        Thu, 01 Oct 2026 11:07:03 -0700 (PDT)
 From: Myeonghun Pak <mhun512@gmail.com>
-To: Wei Fang <wei.fang@nxp.com>,
-	netdev@vger.kernel.org
-Cc: Myeonghun Pak <mhun512@gmail.com>,
-	Frank Li <frank.li@nxp.com>,
-	Shenwei Wang <shenwei.wang@nxp.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	imx@lists.linux.dev,
+To: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Simon Horman <horms@kernel.org>,
 	stable@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH net RESEND] net: fec: drain PEROUT requests before canceling the timer
-Date: Thu,  1 Oct 2026 14:02:58 -0400
-Message-ID: <20261001180258.4054391-1-mhun512@gmail.com>
+	Ijae Kim <ae878000@gmail.com>,
+	Benoit Parrot <bparrot@ti.com>,
+	Hans Verkuil <hverkuil@kernel.org>
+Subject: [PATCH v4] media: ti: cal: drain WDMA IRQ before freeing contexts
+Date: Thu,  1 Oct 2026 14:07:02 -0400
+Message-ID: <ea39fac2402d401d452fe191ac6f9cc1e9e9dfce.1790877910.git.mhun512@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260925191949.3147558-1-mhun512@gmail.com>
+References: <20260925191949.3147558-1-mhun512@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-fec_ptp_stop() cancels perout_timer before unregistering the PTP clock.
-A PEROUT ioctl can set perout_enable, release the driver's locks and
-then be preempted before hrtimer_start(). The unregister path waits for
-that ioctl, which can rearm the timer after it was canceled. Removal
-then frees the netdev containing the still-armed timer.
+cal_remove() unregisters the video devices but does not release their vb2
+queues. An active stream can therefore keep WDMA IRQs enabled while the
+contexts are freed. The managed IRQ is released only after .remove()
+returns, so a handler already in flight can access a freed context through
+cal->ctx[i].
 
-Unregister the PTP clock first so all in-flight ioctls have returned
-before canceling the timer. Clear the PEROUT state and compare channel
-afterward, then disable PPS. Serialize the channel write with PTP clock
-shutdown and skip it when that clock is off.
+Use vb2_video_unregister_device() to release each queue and stop any active
+stream while the IRQ is still available for DMA stop completion. Then
+release the managed IRQ explicitly before destroying the contexts, which
+synchronizes any in-flight handler before the context memory is freed.
+Drain the IRQ on the probe error path before destroying partially created
+contexts too.
 
-This issue was identified during our ongoing static-analysis research
-while reviewing kernel code.
-
-Fixes: 350749b909bf ("net: fec: Add support for periodic output signal of PPS")
+Fixes: 343e89a792a5 ("[media] media: ti-vpe: Add CAL v4l2 camera capture driver")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Co-developed-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
-Resend notes:
-- Send via git send-email over SMTP to preserve diff and hunk headers.
-- No code changes from the previous submission.
+Changes in v4:
+- Rebase onto the latest media-committers next branch.
+- Rewrap devm_request_irq() to stay within 80 columns; no functional changes.
+- Compile-test the CAL driver with x86_64 COMPILE_TEST and W=1.
 
-Previous submission:
-https://lore.kernel.org/netdev/CAGEsz8EYe=gBFr_hEYFLUeiJMRtau=eV3cDUUmHJOQkC0qvfqw@mail.gmail.com/
+Changes in v3:
+- Resend the unchanged patch with intact diff headers.
 
- drivers/net/ethernet/freescale/fec_ptp.c | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
+Changes in v2:
+- Rebuilt the mail-ready message; no code changes.
 
-diff --git a/drivers/net/ethernet/freescale/fec_ptp.c b/drivers/net/ethernet/freescale/fec_ptp.c
-index 56801c2009d5..67901e036ac3 100644
---- a/drivers/net/ethernet/freescale/fec_ptp.c
-+++ b/drivers/net/ethernet/freescale/fec_ptp.c
-@@ -506,10 +506,13 @@ static int fec_ptp_pps_disable(struct fec_enet_private *fep, uint channel)
+ drivers/media/platform/ti/cal/cal-video.c |  2 +-
+ drivers/media/platform/ti/cal/cal.c       | 13 ++++++++-----
+ 2 files changed, 9 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/media/platform/ti/cal/cal-video.c b/drivers/media/platform/ti/cal/cal-video.c
+index 1990cab77344..fdf0b2f2a310 100644
+--- a/drivers/media/platform/ti/cal/cal-video.c
++++ b/drivers/media/platform/ti/cal/cal-video.c
+@@ -1051,7 +1051,7 @@ void cal_ctx_v4l2_unregister(struct cal_ctx *ctx)
+ 	ctx_dbg(1, ctx, "unregistering %s\n",
+ 		video_device_node_name(&ctx->vdev));
  
- 	hrtimer_cancel(&fep->perout_timer);
+-	video_unregister_device(&ctx->vdev);
++	vb2_video_unregister_device(&ctx->vdev);
+ }
  
-+	mutex_lock(&fep->ptp_clk_mutex);
- 	spin_lock_irqsave(&fep->tmreg_lock, flags);
- 	fep->perout_enable = false;
--	writel(0, fep->hwp + FEC_TCSR(channel));
-+	if (fep->ptp_clk_on)
-+		writel(0, fep->hwp + FEC_TCSR(channel));
- 	spin_unlock_irqrestore(&fep->tmreg_lock, flags);
-+	mutex_unlock(&fep->ptp_clk_mutex);
+ int cal_ctx_v4l2_init(struct cal_ctx *ctx)
+diff --git a/drivers/media/platform/ti/cal/cal.c b/drivers/media/platform/ti/cal/cal.c
+index 5c82378d1eee..0340e19fe8cb 100644
+--- a/drivers/media/platform/ti/cal/cal.c
++++ b/drivers/media/platform/ti/cal/cal.c
+@@ -1145,7 +1145,6 @@ static int cal_probe(struct platform_device *pdev)
+ 	bool connected = false;
+ 	unsigned int i;
+ 	int ret;
+-	int irq;
  
+ 	cal = devm_kzalloc(&pdev->dev, sizeof(*cal), GFP_KERNEL);
+ 	if (!cal)
+@@ -1180,10 +1179,10 @@ static int cal_probe(struct platform_device *pdev)
+ 	cal_dbg(1, cal, "ioresource %s at %pa - %pa\n",
+ 		cal->res->name, &cal->res->start, &cal->res->end);
+ 
+-	irq = platform_get_irq(pdev, 0);
+-	cal_dbg(1, cal, "got irq# %d\n", irq);
+-	ret = devm_request_irq(&pdev->dev, irq, cal_irq, 0, CAL_MODULE_NAME,
+-			       cal);
++	cal->irq = platform_get_irq(pdev, 0);
++	cal_dbg(1, cal, "got irq# %d\n", cal->irq);
++	ret = devm_request_irq(&pdev->dev, cal->irq, cal_irq, 0,
++			       CAL_MODULE_NAME, cal);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -1264,6 +1263,8 @@ static int cal_probe(struct platform_device *pdev)
  	return 0;
- }
-@@ -856,11 +859,12 @@ void fec_ptp_stop(struct platform_device *pdev)
- 	struct net_device *ndev = platform_get_drvdata(pdev);
- 	struct fec_enet_private *fep = netdev_priv(ndev);
  
--	if (fep->pps_enable)
--		fec_ptp_enable_pps(fep, 0);
--
- 	cancel_delayed_work_sync(&fep->time_keep);
--	hrtimer_cancel(&fep->perout_timer);
- 	if (fep->ptp_clock)
- 		ptp_clock_unregister(fep->ptp_clock);
+ error_context:
++	devm_free_irq(&pdev->dev, cal->irq, cal);
 +
-+	/* An in-flight PEROUT ioctl can arm the timer until unregister returns. */
-+	fec_ptp_pps_disable(fep, fep->pps_channel);
-+	if (fep->pps_enable)
-+		fec_ptp_enable_pps(fep, 0);
- }
+ 	for (i = 0; i < cal->num_contexts; i++)
+ 		cal_ctx_destroy(cal->ctx[i]);
+ 
+@@ -1294,6 +1295,8 @@ static void cal_remove(struct platform_device *pdev)
+ 	for (i = 0; i < cal->data->num_csi2_phy; i++)
+ 		cal_camerarx_disable(cal->phy[i]);
+ 
++	devm_free_irq(&pdev->dev, cal->irq, cal);
++
+ 	for (i = 0; i < cal->num_contexts; i++)
+ 		cal_ctx_destroy(cal->ctx[i]);
+ 
+
+base-commit: 4a069a763e8a86821edac4159f7c59a20015631b
 -- 
 2.53.0
+
