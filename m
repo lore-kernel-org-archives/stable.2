@@ -1,158 +1,215 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 913DA4A5C29;
-	Thu,  1 Oct 2026 09:31:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 191CE29ACCD
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 09:36:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790847116; cv=none; b=lA+UWquqM428MFmlOoUR5Sq3M6XqdegOSOQ8+khUvcQr+Kv6hY2bBip+WCF4mlehkLMOkDknWJTbhhkoh0RTZIhcH/4tX75sPen+rBivgWKScmCy4xkT+GaQ10vrHgLL2CDdt4Rj71Rt472Kc9NVoQXp1En8Ef8qnQsV8wJRX1s=
+	t=1790847399; cv=none; b=IqG7sDyWF1l5tXMAQw904uhzlNR/2l05BMwsL2a7VpKUXQUqsr0ev55q5oJiFHzo8jf+v8BzXfu3WbBt6MZz67sIqlZc2oyWH275jPHAfp3JvoJtbRQ/bt6WIwrLCs+t7jgvFHZqwrD+stVwDJJKTd/U8BhCpaQIyVW3HuA47v8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790847116; c=relaxed/simple;
-	bh=zvuuf3+Es7XE7dpvvhP5gQmaUqKFy+Vi/F88hCbAbvs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A+tpSepG+Gfre/pfthDNYi0ys1HsGrxkmUtuJgk8Ij/nC2LOgxojG6O/I/QRt8aO8JlucNzLapLPtrob/JiEJawiFBrJnPbuVtK22C+GqVi29EkyqAzSmC9C3sT1Z/7Y9sSwqsJ8bodS50ZQIoYHonKbShVhg4iTvKyTWK8vMBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jg9bkoOw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790847399; c=relaxed/simple;
+	bh=nDsPrs6hnGx0JcUP1jewvJFplt1q3U/HxABhh4zREmU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=EkoRVnjCbY0/tKQ4j5nBx4/fUmZT/ePjhN/qqBLDbpb74qTgGT8rb9t93Xnrpu4/4NLaSF9EVKWLEueDJESIDQPYdxblWA2JpnYD9l4lwpZkClRo/sbKRuF1iL52wuoFriWr7dLgi1r5eqdVpdjP7XVciCq9keH+kn7uXJSIWBI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=oHDqxbGL; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jg9bkoOw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C0361F000FF;
-	Thu,  1 Oct 2026 09:31:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790847115;
-	bh=6+fEKpcnK3thwDx3NvseaKYrWkmXiPjWuXabRbm0cB0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jg9bkoOwsb/192LSQEyIjaDTeO7dGJH50BXnWngXBHMAxXJlgbEMYb0yDOA5/Ycz5
-	 AbyqRefUrcfWjUKSxpiaBvNjMtBkIZ6fJtDLojYKQJvuA8njvPKzAwntHJ4HkjL6cO
-	 lQBVtKAE504AyAc+NhKN47KKv/Bq7HCqXom+fQcnGbiconU5FcHFmgBY+gipR9UYb0
-	 c+Ka3MoCoyf9gdNfJ+aIHGMfDS3NFqRZhQrI6X02UJ1Sh09uOr8TLHzuU9XeviAilp
-	 cCQKZWRFvFB5OxF7z3izAd7wgw7uJyEmJpl9xOby2Qkc/FofmrQ8pkwmwfbm2gb884
-	 ZazoiarFIhqmg==
-Date: Thu, 1 Oct 2026 11:31:50 +0200
-From: Christian Brauner <brauner@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
-	Chris Mason <mason@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Jan Kara <jack@suse.cz>, Jeff Layton <jlayton@kernel.org>, 
-	Aleksa Sarai <cyphar@cyphar.com>, Amir Goldstein <amir73il@gmail.com>, bpf@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 14/17] fsnotify: detach the connector before destroying
- its marks
-Message-ID: <20261001-prollen-rutschen-amtssiegel-31392f0a489c@brauner>
-References: <20260930-work-mount-fixes-3-v1-0-be34c83956ae@kernel.org>
- <20260930-work-mount-fixes-3-v1-14-be34c83956ae@kernel.org>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="oHDqxbGL"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e79a408deso39607385e9.2
+        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 02:36:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1790847395; x=1791452195; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DQz75FsX45fFNLdrpdOp/Fyp4l/FKa+g0Qu8HGi4Fv4=;
+        b=oHDqxbGLSUaXFAVTykGDD+ISX63gQAxTVihQbowAtrZ81s2hlMxspqY0mwWQa/aHPo
+         fRaY+supR8nOFw5tbFHUlglUjIFHb5CNSshs/5vXyV4yO5ZLIvA7RiVUzEAaln7DuEnt
+         M06WOBi6CDUyb03rLelAJqWYzLJj6xwXXsd31mKP6q50WH8tGDUs2TBNNkxKxuRAIJNZ
+         znowzwmrW4ywmg3v16KDV694kVJ47lawwVRs9SWjtpVLjWMnIwr+tDKeyyd3yP/5nfGA
+         nmZHfJt/aNvolMMg/9q9pkAzzPxGLZpvjQ3tDWT/AsZ3I1pJTh7AnIa+LYrlzYrtv5bj
+         4Vag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790847395; x=1791452195;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DQz75FsX45fFNLdrpdOp/Fyp4l/FKa+g0Qu8HGi4Fv4=;
+        b=JvP0bEE/3vEu+/1T2qwtPKuQnKJXAmbZzECS/5o5mv11anFTcn+hkqpadP47cFIC0b
+         IPmjBVrf79C8rfq9EX4MZhgpMhedkldSij7O/wYIOBJMu2eEFl11JicNoOFfuOUjQHYr
+         VePJlMpLiYh9adsbWQ9pefnGItobNTqQngIfRKZnmTJLhra3jNg/QELWmE76W+zXETtF
+         x6nyKF1sZ/KLdZbh/uJvTW8DeSljBHFkxhIfONlHa26oKhkPcKnEA04oIvuUBKQO9Nu+
+         G2I4BJa1CBxMDKElMjcxOp/lO3rIvJhnOlUD0frdqnBN4cZ4a7ptnSPgwlKJ5lrPbrmQ
+         t8ww==
+X-Forwarded-Encrypted: i=1; AKwUvByrCsNw2nI1midJBKr/4LIagX3UPFPYttktRAxAf7tcnjSlSAhBz+yH1hCFopRmYyzo5ZWnfUc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mWBep4Hw8MKXCJL33VoU/XTS7n9sY9Rpg5osWcK7dEAITUcUza
+	z8xf7bCXqiqCb5vE/xMRueFl9qFRjSPgEBhXz0x9s1xpQbEzDnwEBTWx/37rhBV1X3k=
+X-Gm-Gg: AYBFou3awUYSZ/WK6saFsdJfti376uWegy2vcpwfTaDS9XwsRodlZal50uAbaNMdUL9
+	MUnX2PQ0Qlv8Bd7XqTLQGLBcg3X0D+nQGMtUKbaqqVGikkyyiyn+S/8sg9gsQzidp1LjoUT0C1z
+	zMTgCtbRM/mOCSAZajBvymExzjjXLz/awfK+vXChDwlVCBn6XUsIn3vrUoutETW+IEBKXh8eDaz
+	oluow4PI+k5o4TczmVqVQiLcmEWDlMx6j/+Z87vjHxOyXufMjfM5TpGg9km1bweksc4ZaqtDc6L
+	AOO2XqEn2pAF3i/CrSxtU2XOCo2lpas7grKwhjMvQrL16YKTbQrB27ml0cNaRE/EeuIkE2DhosA
+	buMa9zzjjzQIJDXXDoSVq8brtIBKxtirpT8BF/Xsu9f3lhOKttZ9phuS3kbA94GEjtRqn7I72TB
+	/vEM3OfBJFdzkPrzL1a491AAS9OqigiqXp9xAra47G0CbZIZgN9RHOURBlCtMEnb1GXkolU/FYC
+	OCN5/cj/KVXszCI+6zpCy/QX8dA
+X-Received: by 2002:a05:600c:3144:b0:4a0:1c0e:b2a8 with SMTP id 5b1f17b1804b1-4a01c0ecb6fmr59256415e9.28.1790847395168;
+        Thu, 01 Oct 2026 02:36:35 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a020f7f220sm57243775e9.5.2026.10.01.02.36.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 02:36:34 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>, Jacky Huang
+ <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, Michael
+ Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
+ Richard Cochran <richardcochran@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
+ Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet
+ <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Steam Lin
+ <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org,
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, Krzysztof
+ Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, Miquel Raynal
+ <miquel.raynal@bootlin.com>, stable@vger.kernel.org
+Subject: Re: [PATCH v6 08/12] clk: nuvoton: ma35d1: Retrieve HXT/LXT from DT
+In-Reply-To: <20260930-perso-ma35d1-upstream-clk-v6-8-48937ee6c9bb@bootlin.com>
+References: <20260930-perso-ma35d1-upstream-clk-v6-0-48937ee6c9bb@bootlin.com>
+ <20260930-perso-ma35d1-upstream-clk-v6-8-48937ee6c9bb@bootlin.com>
+Date: Thu, 01 Oct 2026 11:36:33 +0200
+Message-ID: <1j7bk13gpq.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260930-work-mount-fixes-3-v1-14-be34c83956ae@kernel.org>
+Content-Type: text/plain
 
-On Wed, Sep 30, 2026 at 03:32:06PM +0200, Christian Brauner wrote:
-> fsnotify_destroy_marks() removes every mark of an object that goes away.
-> It walks the mark list of the connector and has to drop the connector
-> lock around fsnotify_destroy_mark() since that sleeps. Afterwards it
-> continues from the mark it just destroyed. That mark stays on the list
-> because the function holds a reference to it. But while the lock is
-> dropped fsnotify_add_mark_list() can add a mark to the very same
-> connector and put it in front of the current one when group priority
-> dictates. fsnotify_grab_connector() hands out the connector until it is
-> detached and it only gets detached after the walk.
-> 
-> So the walk never sees that mark. The connector is detached from the
-> object with the new mark still attached to it. It never receives an
-> event nor IN_IGNORED. For inotify that's a watch descriptor that never
-> reports anything and doesn't show up in fdinfo either:
-> 
->   wd1 = inotify_add_watch(/proc/self/fd/6) = 2
->   events after the unlink:
->     wd 1 mask 0x400 IN_DELETE_SELF
->     wd 1 mask 0x8000 IN_IGNORED
->   events after write() to the file:
->     (none)
-> 
-> Detach the connector from the object before the marks are destroyed.
-> fsnotify_grab_connector() refuses a detached connector so a mark added
-> from then on gets a connector of its own. Nothing during the destruction
-> needs the connector. The inode reference of the connector is dropped
-> after the marks are gone as before.
-> 
-> Fixes: 6b3f05d24d35 ("fsnotify: Detach mark from object list when last reference is dropped")
+On mer. 30 sept. 2026 at 19:24, Miquel Raynal <miquel.raynal@bootlin.com> wrote:
+
+> HXT and LXT are crystal oscillator inputs of the clock controller, they
+> are described in the DT, so retrieve them, in order, and store them in
+> their respective HXT/LXT hw table entries.
+>
+> Since old DTs reference the HXT fixed-clock without naming it and do not
+> describe LXT at all, we assume that HXT must be present, and fallback to
+> creating a fixed clock for LXT if it is not described (for backward
+> compatibility purposes).
+>
+> The downstream gate clocks can directly use the hw clocks as parents,
+> instead of relying on string matching.
+>
+> Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 > ---
->  fs/notify/mark.c | 16 ++++++++++------
->  1 file changed, 10 insertions(+), 6 deletions(-)
-> 
-> diff --git a/fs/notify/mark.c b/fs/notify/mark.c
-> index b2640d836a71..f6891d39e42f 100644
-> --- a/fs/notify/mark.c
-> +++ b/fs/notify/mark.c
-> @@ -1112,6 +1112,16 @@ void fsnotify_destroy_marks(fsnotify_connp_t *connp)
->  	conn = fsnotify_grab_connector(connp);
->  	if (!conn)
->  		return;
-> +	/*
-> +	 * Detach the connector from the object first. Once conn->lock is
-> +	 * dropped a mark could be added in front of the one we're at and the
-> +	 * walk would miss it. fsnotify_grab_connector() refuses a detached
-> +	 * connector so any mark added from now on gets a connector of its
-> +	 * own. This also stops pinning the inode until all mark references
-> +	 * get dropped. It would lead to strange results such as delaying
-> +	 * inode deletion or blocking unmount.
-> +	 */
-> +	objp = fsnotify_detach_connector_from_object(conn, &type);
+>  drivers/clk/nuvoton/clk-ma35d1.c | 43 ++++++++++++++++++++++++++++++++--------
+>  1 file changed, 35 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
+> index ceebcbd8c18b..d955d79abdd2 100644
+> --- a/drivers/clk/nuvoton/clk-ma35d1.c
+> +++ b/drivers/clk/nuvoton/clk-ma35d1.c
+> @@ -4,6 +4,7 @@
+>   * Author: Chi-Fang Li <cfli0@nuvoton.com>
+>   */
+>  
+> +#include <linux/clk.h>
+>  #include <linux/clk-provider.h>
+>  #include <linux/mfd/syscon.h>
+>  #include <linux/module.h>
+> @@ -191,6 +192,15 @@ static struct clk_hw *ma35d1_clk_gate(struct device *dev, const char *name, cons
+>  				    reg, shift, 0, &ma35d1_lock);
+>  }
+>  
+> +static struct clk_hw *ma35d1_clk_gate_parent(struct device *dev, const char *name,
+> +					     struct clk_hw *parent,
+> +					     void __iomem *reg, u8 shift)
+> +{
+> +	return devm_clk_hw_register_gate_parent_hw(dev, name, parent,
+> +						   CLK_SET_RATE_PARENT,
+> +						   reg, shift, 0, &ma35d1_lock);
+> +}
+> +
+>  static int ma35d1_get_pll_setting(struct device_node *clk_node, u32 *pllmode)
+>  {
+>  	const char *of_str;
+> @@ -215,10 +225,12 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
+>  {
+>  	struct device *dev = &pdev->dev;
+>  	struct device_node *clk_node = pdev->dev.of_node;
+> +	struct clk_bulk_data *clks;
+>  	void __iomem *clk_base;
+>  	static struct clk_hw **hws;
+>  	static struct clk_hw_onecell_data *ma35d1_hw_data;
+>  	u32 pllmode[PLL_MAX_NUM];
+> +	int num_clks;
+>  	int ret;
+>  
+>  	ma35d1_hw_data = devm_kzalloc(dev,
+> @@ -240,12 +252,27 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
+>  		return -EINVAL;
+>  	}
+>  
+> -	hws[HXT] = ma35d1_clk_fixed("hxt", 24000000);
+> -	hws[HXT_GATE] = ma35d1_clk_gate(dev, "hxt_gate", "hxt",
+> -					clk_base + REG_CLK_PWRCTL, 0);
+> -	hws[LXT] = ma35d1_clk_fixed("lxt", 32768);
+> -	hws[LXT_GATE] = ma35d1_clk_gate(dev, "lxt_gate", "lxt",
+> -					clk_base + REG_CLK_PWRCTL, 1);
+> +	num_clks = devm_clk_bulk_get_all(dev, &clks);
+> +	if (num_clks < 0)
+> +		return num_clks;
+> +
+> +	if (!num_clks) {
+> +		dev_err(dev, "missing crystal input clocks\n");
+> +		return -ENODEV;
+> +	}
+> +
+> +	hws[HXT] = __clk_get_hw(clks[0].clk);
 
-Folded as a fixup. We just restart the walk after the drop.
+Don't open code it. use .fw_name
 
-diff --git a/fs/notify/mark.c b/fs/notify/mark.c
-index f6891d39e42f..e41774b19e00 100644
---- a/fs/notify/mark.c
-+++ b/fs/notify/mark.c
-@@ -1113,23 +1113,15 @@ void fsnotify_destroy_marks(fsnotify_connp_t *connp)
-        if (!conn)
-                return;
-        /*
--        * Detach the connector from the object first. Once conn->lock is
--        * dropped a mark could be added in front of the one we're at and the
--        * walk would miss it. fsnotify_grab_connector() refuses a detached
--        * connector so any mark added from now on gets a connector of its
--        * own. This also stops pinning the inode until all mark references
--        * get dropped. It would lead to strange results such as delaying
--        * inode deletion or blocking unmount.
--        */
--       objp = fsnotify_detach_connector_from_object(conn, &type);
--       /*
--        * We have to be careful since we can race with e.g.
--        * fsnotify_clear_marks_by_group() and once we drop the conn->lock, the
--        * list can get modified. However we are holding mark reference and
--        * thus our mark cannot be removed from obj_list so we can continue
--        * iteration after regaining conn->lock.
-+        * A mark leaves the list with its last reference so the one we hold
-+        * keeps the connector alive. Another mark can be added in front of it
-+        * while conn->lock is dropped, so start over after every mark and skip
-+        * the ones that are already detached.
-         */
-+restart:
-        hlist_for_each_entry(mark, &conn->list, obj_list) {
-+               if (!(mark->flags & FSNOTIFY_MARK_FLAG_ATTACHED))
-+                       continue;
-                fsnotify_get_mark(mark);
-                spin_unlock(&conn->lock);
-                if (old_mark)
-@@ -1137,7 +1129,14 @@ void fsnotify_destroy_marks(fsnotify_connp_t *connp)
-                old_mark = mark;
-                fsnotify_destroy_mark(mark, mark->group);
-                spin_lock(&conn->lock);
-+               goto restart;
-        }
-+       /*
-+        * Detach list from object now so that we don't pin inode until all
-+        * mark references get dropped. It would lead to strange results such
-+        * as delaying inode deletion or blocking unmount.
-+        */
-+       objp = fsnotify_detach_connector_from_object(conn, &type);
-        spin_unlock(&conn->lock);
-        if (old_mark)
-                fsnotify_put_mark(old_mark);
+> +
+> +	if (num_clks > 1)
+> +		hws[LXT] = __clk_get_hw(clks[1].clk);
+> +	else
+> +		/* Old DTs do not describe the low-speed crystal */
+> +		hws[LXT] = ma35d1_clk_fixed("lxt", 32768);
+
+I'd give it another name so you can clearly see the difference between the
+DT one and the manually registered one.
+
+> +
+
+Don't need to open code this either.
+provide both .fw_name and .name - CCF will fallback to the name.
+
+When you want to conditionally register the fixed is up to you.
+
+> +	hws[HXT_GATE] = ma35d1_clk_gate_parent(dev, "hxt_gate", hws[HXT],
+> +					       clk_base + REG_CLK_PWRCTL, 0);
+> +	hws[LXT_GATE] = ma35d1_clk_gate_parent(dev, "lxt_gate", hws[LXT],
+> +					       clk_base + REG_CLK_PWRCTL, 1);
+>  	hws[HIRC] = ma35d1_clk_fixed("hirc", 12000000);
+>  	hws[HIRC_GATE] = ma35d1_clk_gate(dev, "hirc_gate", "hirc",
+>  					 clk_base + REG_CLK_PWRCTL, 2);
+> @@ -632,8 +659,8 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
+>  	hws[UART16_GATE] = ma35d1_clk_gate(dev, "uart16_gate", "uart16_div",
+>  					   clk_base + REG_CLK_APBCLK0, 28);
+>  
+> -	hws[RTC_GATE] = ma35d1_clk_gate(dev, "rtc_gate", "lxt",
+> -					clk_base + REG_CLK_APBCLK0, 29);
+> +	hws[RTC_GATE] = ma35d1_clk_gate_parent(dev, "rtc_gate", hws[LXT],
+> +					       clk_base + REG_CLK_APBCLK0, 29);
+>  	hws[DDR_GATE] = ma35d1_clk_gate(dev, "ddr_gate", "ddrpll",
+>  					clk_base + REG_CLK_APBCLK0, 30);
+>  
+>
+> -- 
+> 2.55.0
+>
+
+-- 
+Jerome
