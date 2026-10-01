@@ -1,46 +1,46 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C2C3490C12;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 068524779BC;
 	Thu,  1 Oct 2026 22:25:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790893503; cv=none; b=aCeFJWYzJFUJJf9/YC1A1NH8Uwb/e9/SyaNGjo4CdsdPBrsZBja4i1aJbtR+aoWhK+Gup0yny+SbIWPlJizkFlTKzJqLKXt27qcwX1myovcyTtZ23lZozH164KQkXyql/WwyLM5+kCGELt7NL8+XezczZdsuXnqcAwJlW25uP7Q=
+	t=1790893503; cv=none; b=SMhCv5mFmhjQp0sU/19IYt3+GLFayN8fEb4YoU4Iq9JprNFPIS2qzUBLajBox5yXehukR5gVSJZo7z8JdL16I8k0e8i+miALhcViKOviy5nfW2U9TeRKfUDmVZkKuO2adjGTUy/Q1aYy4OaZWv6YWnB4/x4/Cfnc1iFCI9JGsWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790893503; c=relaxed/simple;
-	bh=EeKakClpgaipfdNzkpsEZtlL5gC4aMH0hdHQlBkbHRk=;
+	bh=5b/+qBTi9d75MgdpbDSh2kieKiISjkB8E7yYnVwC68o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cGuRNOc/FQ2jwWQKWcppvMY5uZyX7d4amuNSoaMIe4tYam5t0STEKkMLBjfFjqnzupEzadCNWa/35rMGnPcAnle5E6BFQiVgasg0JmM4hD5jWoRpZhNZxblaVcCauoYnW5craeVWVg/WonLpLNWC5xi8tJBg0Iz5Or92ngxUSwM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=W+LYazVa; arc=none smtp.client-ip=192.198.163.19
+	 MIME-Version; b=kZe3Turl430eGMX4WqlRiXsDSOCwxeF3qqLXa7dLEjWTgq5cH9pGLaY5IKha/O32s1zpE6zgMLPjUaGUaVo3zwwtfpwp/2hXc0uAEUnucorskjN6bX1TPckUC7ZezctLjkPmqR/tls1i1QxAddceRNo9Rvm/mMNR0TiRSFvDwPk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cyF95hDF; arc=none smtp.client-ip=192.198.163.19
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="W+LYazVa"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cyF95hDF"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790893502; x=1822429502;
+  t=1790893501; x=1822429501;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=EeKakClpgaipfdNzkpsEZtlL5gC4aMH0hdHQlBkbHRk=;
-  b=W+LYazVaGokGz/gyJCJGtTExmt4qmZmgAv8FW4uhWJV1QV7ry9UFSHWe
-   s5593SbVcX7bA3wr87+eBFLlzy0lLqDlOm+dvFJ1VRjZ4wyvq+bF3IBc8
-   WPLkjpvOh/qrDyoixFUGEnyxmGCby9SZkFeZ0qwapEsQp5vENNisHi9Tq
-   jtumRI6nLw37ddN1t8JhbVrlfxFr/YEY9zqYByjJQH9KGZm/xb9vzbTuj
-   ROBBqXWnvE9XIe4eMQNuTEWooMHxqEcu9YQbzE00bWULhD06lgYnrW/Xo
-   9Y0bEYOdxyzadQIMAHGiQSv3ba5T8t6PKyrrY5tXfWU1OWlC0b4E8yaZ+
-   w==;
-X-CSE-ConnectionGUID: hM+uiZKuRzux2zSQz8E+Kw==
-X-CSE-MsgGUID: J7IEwyKzRC+ZOLn5/mSMBQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="90567706"
+  bh=5b/+qBTi9d75MgdpbDSh2kieKiISjkB8E7yYnVwC68o=;
+  b=cyF95hDFAmdf0IABtupgQ8XzY56ufUCzjmShYI6oUF+WA0SVyBRSRivM
+   4i/LQ5YKT8/2Uz1uMdSt/juiYLkBkKYWFh7xTjQUmhaUqJJ3Tso19eezP
+   sIkFtLWLkz3Zk6l2PYX8J5uf/POvzn0P8EM0rTeowppxL3y0GIY/FwE+3
+   PnJGnx9YzOAghYqk6b/rMCY9dFeG+oruFYndMBbHeWhrnC91HjD6H64+I
+   63KMPGX7tkMOZE2f0+Y7tOTlvxMAFS0nVnzLF1wY2BX5JMWnOQfXzUM2s
+   LdELPjaQ5YpbYUDPZTvOk86LPHxGOdXqZP56lRzkG0Zn9R6kEB8sheZlb
+   Q==;
+X-CSE-ConnectionGUID: KEIlsda7TwmzaNscxD0XJg==
+X-CSE-MsgGUID: NR9rM86tRF2ZyMKr6YvBHQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="90567695"
 X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
-   d="scan'208";a="90567706"
+   d="scan'208";a="90567695"
 Received: from orviesa005.jf.intel.com ([10.64.159.145])
   by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 15:24:58 -0700
-X-CSE-ConnectionGUID: 6xtCCnkzTIKqMVOgqDRrcg==
-X-CSE-MsgGUID: Ui2qMos2Tf2PGu363bv/Xw==
+X-CSE-ConnectionGUID: qgpt2mCDRcmI9twxnPGTKg==
+X-CSE-MsgGUID: DMIrsDUBSdOJjx3JfnytBg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
-   d="scan'208";a="279863769"
+   d="scan'208";a="279863765"
 Received: from anguy11-upstream.jf.intel.com ([10.166.9.133])
   by orviesa005.jf.intel.com with ESMTP; 01 Oct 2026 15:24:58 -0700
 From: Tony Nguyen <anthony.l.nguyen@intel.com>
@@ -50,22 +50,22 @@ To: davem@davemloft.net,
 	edumazet@kernel.org,
 	andrew+netdev@lunn.ch,
 	netdev@vger.kernel.org
-Cc: Tjerk Kusters <tkusters@aweta.nl>,
+Cc: Paul Moses <p@1g4.org>,
 	anthony.l.nguyen@intel.com,
 	florian.bezdeka@siemens.com,
 	meng.ding@siemens.com,
-	p@1g4.org,
+	tkusters@aweta.nl,
 	jiayuan.chen@linux.dev,
 	pulehui@huawei.com,
 	richardcochran@gmail.com,
+	dima.ruinskiy@intel.com,
 	stable@vger.kernel.org,
-	Piotr Kwapulinski <piotr.kwapulinski@intel.com>,
 	Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
-	Kurt Kanzenbach <kurt@linutronix.de>,
-	Alexander Nowlin <alexander.nowlin@intel.com>
-Subject: [PATCH net 3/6] igb: only strip Rx timestamp header on the first buffer of a frame
-Date: Thu,  1 Oct 2026 15:24:36 -0700
-Message-ID: <20261001222443.3500206-4-anthony.l.nguyen@intel.com>
+	Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
+	Avigail Dahan <avigailx.dahan@intel.com>
+Subject: [PATCH net 2/6] igc: only strip RX timestamp header from first buffer
+Date: Thu,  1 Oct 2026 15:24:35 -0700
+Message-ID: <20261001222443.3500206-3-anthony.l.nguyen@intel.com>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <20261001222443.3500206-1-anthony.l.nguyen@intel.com>
 References: <20261001222443.3500206-1-anthony.l.nguyen@intel.com>
@@ -77,78 +77,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tjerk Kusters <tkusters@aweta.nl>
+From: Paul Moses <p@1g4.org>
 
-When Rx hardware timestamping is enabled (e.g. ptp4l, which configures
-HWTSTAMP_FILTER_ALL), the NIC prepends a 16-byte timestamp header to the
-first Rx buffer of every received frame. igb_clean_rx_irq() strips this
-header inside its per-buffer loop:
+igc_clean_rx_irq() strips IGC_TS_HDR_LEN whenever a descriptor reports
+IGC_RXDADV_STAT_TSIP. For multi-buffer packets, continuation descriptors
+retain TSIP even though the inline timestamp is present only in the first
+RX buffer.
 
-	if (igb_test_staterr(rx_desc, E1000_RXDADV_STAT_TSIP)) {
-		ts_hdr_len = igb_ptp_rx_pktstamp(rx_ring->q_vector,
-						 pktbuf, &timestamp);
-		pkt_offset += ts_hdr_len;
-		size -= ts_hdr_len;
-	}
+Subtracting the header length from each continuation buffer truncates
+jumbo packets by 16 bytes per continuation and leaves the packet length
+larger than the received data.
 
-For a frame that spans more than one Rx buffer (e.g. a jumbo frame), this
-block runs once per buffer. The timestamp header only exists at the start
-of the first buffer, but igb_ptp_rx_pktstamp() is called for every buffer.
+Only consume the timestamp header when skb is NULL, which identifies the
+first buffer of a new packet. An skb carried in rx_ring->skb remains
+non-NULL when packet assembly resumes in a later NAPI poll.
 
-On a continuation buffer the data is packet payload, not a timestamp
-header. igb_ptp_rx_pktstamp() already has two guards against acting on a
-non-header buffer: it returns 0 if PTP is disabled, and returns 0 if the
-reserved dwords (the first 8 bytes) are non-zero. Neither is sufficient
-here: PTP is enabled, and a continuation buffer whose payload happens to
-begin with 8 zero bytes passes the reserved-dword check. In that case the
-payload is mistaken for a valid timestamp header and igb_ptp_rx_pktstamp()
-returns IGB_TS_HDR_LEN, so the caller strips 16 bytes of real data from
-that buffer. A frame spanning N buffers whose continuation buffers start
-with zero bytes therefore loses 16 * (N - 1) bytes from its tail.
-
-This is easily triggered by a GigE Vision camera streaming dark frames
-(mostly 0x00 pixel data) over jumbo UDP with PTP active on the receiver:
-the all-zero frames arrive truncated while frames with non-zero content
-are fine. There is no error indication.
-
-No content-based check can reliably tell a continuation buffer that begins
-with zero bytes from a real timestamp header, because both are all zero.
-Fix it structurally instead: only attempt the strip on the first buffer of
-a frame, which is the only buffer that can contain a timestamp header. In
-igb_clean_rx_irq() skb is NULL until the first buffer has been processed,
-so guarding the strip with !skb restricts it to the first buffer
-regardless of payload content.
-
-Fixes: 5379260852b0 ("igb: Fix XDP with PTP enabled")
+Link: https://lore.kernel.org/all/20260625-igb-rx-ts-fix-v3-1-99b3efa08dca@aweta.nl/
+Fixes: e1ed4f92a625 ("igc: Refactor Rx timestamp handling")
 Cc: stable@vger.kernel.org
-Reviewed-by: Piotr Kwapulinski <piotr.kwapulinski@intel.com>
+Signed-off-by: Paul Moses <p@1g4.org>
 Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
-Reviewed-by: Kurt Kanzenbach <kurt@linutronix.de>
-Signed-off-by: Tjerk Kusters <tkusters@aweta.nl>
-Tested-by: Alexander Nowlin <alexander.nowlin@intel.com>
+Acked-by: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
+Tested-by: Avigail Dahan <avigailx.dahan@intel.com>
 Signed-off-by: Tony Nguyen <anthony.l.nguyen@intel.com>
 ---
- drivers/net/ethernet/intel/igb/igb_main.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/net/ethernet/intel/igc/igc_main.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/intel/igb/igb_main.c b/drivers/net/ethernet/intel/igb/igb_main.c
-index d4a897a8c82c..5c09dc4a2566 100644
---- a/drivers/net/ethernet/intel/igb/igb_main.c
-+++ b/drivers/net/ethernet/intel/igb/igb_main.c
-@@ -9069,8 +9069,11 @@ static int igb_clean_rx_irq(struct igb_q_vector *q_vector, const int budget)
- 		rx_buffer = igb_get_rx_buffer(rx_ring, size, &rx_buf_pgcnt);
+diff --git a/drivers/net/ethernet/intel/igc/igc_main.c b/drivers/net/ethernet/intel/igc/igc_main.c
+index 95f7747b347b..b94a08791102 100644
+--- a/drivers/net/ethernet/intel/igc/igc_main.c
++++ b/drivers/net/ethernet/intel/igc/igc_main.c
+@@ -2658,7 +2658,8 @@ static int igc_clean_rx_irq(struct igc_q_vector *q_vector, const int budget)
+ 
  		pktbuf = page_address(rx_buffer->page) + rx_buffer->page_offset;
  
--		/* pull rx packet timestamp if available and valid */
--		if (igb_test_staterr(rx_desc, E1000_RXDADV_STAT_TSIP)) {
-+		/* pull rx packet timestamp if available and valid; it is only
-+		 * present on the first buffer of a frame
-+		 */
+-		if (igc_test_staterr(rx_desc, IGC_RXDADV_STAT_TSIP)) {
 +		if (!skb &&
-+		    igb_test_staterr(rx_desc, E1000_RXDADV_STAT_TSIP)) {
- 			int ts_hdr_len;
- 
- 			ts_hdr_len = igb_ptp_rx_pktstamp(rx_ring->q_vector,
++		    igc_test_staterr(rx_desc, IGC_RXDADV_STAT_TSIP)) {
+ 			ctx.rx_ts = pktbuf;
+ 			pkt_offset = IGC_TS_HDR_LEN;
+ 			size -= IGC_TS_HDR_LEN;
 -- 
 2.47.1
 
