@@ -1,97 +1,162 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9F3329DB8F;
-	Thu,  1 Oct 2026 03:48:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EF712459E1;
+	Thu,  1 Oct 2026 03:53:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=43.163.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790826524; cv=none; b=u2/efxVWdNrdSpYpakS7S+VRdCgtkyB1nbQiu7hKWqG5XxAINK81BnONhdPvdkRp3tv7LtMUNtOXPt6FaNJKU8QiG4nXEY09QEyCmZPgfnJSFszDQOlNxx0QvSlRro3oGjrkL9W6MD7Jqzc7u5ElHXNZdsIWQI3XRT7BLDrdyTw=
+	t=1790826804; cv=none; b=hViulU6GVxS1aPlPwzJWu2FMOed9WzUECztP2h1YROuWZzy1ZY6BMwkI9egGk9O8j+V1i5s1mfFi+0mRkK4poi2PJ8GnVUyCrYZJpqnFo008jDKIRH1DXw1KWUkdhVnG2Jv6noVH2blAfMKCNZbF6/P386Tz+hRbr2zC5CdRIxw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790826524; c=relaxed/simple;
-	bh=e1JdyBH/hqAFwwUTmozCaUaK7Sn1qFw3e7aAi1kyiJ0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=N8LjyWyEILqeveXJ6YfctYcxwOCmg9hMcqNdL7Pu3QUb5ztW/foGQd/OfHN8QeM9gPe01njnbXoP0Pz9WG99RtFgnNSaBscH8S8LdW6dNk4LEOtNMguzfKO3FtIyzhbxKZlOXrOxhN0G7p48ZiaXHbvdIgaknX4oVtM6GDYT5hg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=f6zneDsE; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790826804; c=relaxed/simple;
+	bh=9d0ymZB119zdJ/ME8/sBGP7ek/f55wQE7jG2gHR817g=;
+	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
+	 MIME-Version; b=SHkY/ndav8UJGBBpby4JuHXUAy260e0FDyE0XkeWVtnRdQVqEefBW3aGIM0+xjBuuVzlgfleZ4lser7bVW6ib3XcpXGTbSy8/ziaFlohJDee8+Et8IBUtRraIdPM+q9Flu04edM7qBZVBnF691jym2AawngtxeKylArN2xz8rCw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=Ygo6YwQT; arc=none smtp.client-ip=43.163.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="f6zneDsE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790826523; x=1822362523;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=e1JdyBH/hqAFwwUTmozCaUaK7Sn1qFw3e7aAi1kyiJ0=;
-  b=f6zneDsEy/4fFusL896/FRZMEntk70qYoRCGQqgYy59otZvhfVk4CZVD
-   wSvl4ahUwyp/1spMF+bGirxEI01Zcr/nfE4ofh6Jq1JxQcgickSviSBbG
-   cqn8y9UmIplpDu7koAKtrv892zCx342HKorBscGDpRKOpaZBMCBsZ5goy
-   XrD9mCNoGErZ8vyAvHwB4m91pSJdC0srXqAQZUUQdyNfgCSTnAznOudmk
-   tID9iDF+ThvaPTkJyX6rV+Bd2RxrffShh06/AIFfuaqBt8fMYg/FZ6JT5
-   W9vk+HLsEjLCwwwXZdAaO5YlhdzGV3ilaOhFS7FvcGDzKKZt64cUb1+lW
-   g==;
-X-CSE-ConnectionGUID: qpIMO2QgTfeoVfkKf4LVcQ==
-X-CSE-MsgGUID: fhK82FJORg2ErPUT+NKP1A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="90610728"
-X-IronPort-AV: E=Sophos;i="6.27,133,1787036400"; 
-   d="scan'208";a="90610728"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 20:48:42 -0700
-X-CSE-ConnectionGUID: wFZsO/LVRKSmgnXRT70gFw==
-X-CSE-MsgGUID: p350iDy1R3KzPQzXBoCqdw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,133,1787036400"; 
-   d="scan'208";a="283937959"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa005.fm.intel.com with ESMTP; 30 Sep 2026 20:48:40 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1001)
-	id 8226A99; Thu, 01 Oct 2026 05:48:39 +0200 (CEST)
-Date: Thu, 1 Oct 2026 05:48:39 +0200
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: b2amedina@gmail.com
-Cc: Andreas Noever <andreas.noever@gmail.com>,
-	Mika Westerberg <westeri@kernel.org>,
-	Yehezkel Bernat <YehezkelShB@gmail.com>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] thunderbolt: Fix domain reference leak on DPRX work
- cancel
-Message-ID: <20261001034839.GA176164@black.igk.intel.com>
-References: <20260930-tb-dprx-fix-v1-1-da92659e491a@gmail.com>
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="Ygo6YwQT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1790826791; bh=tDncEQpuKd8Z+mn7h3Cb2heMt2upVurhUi+ifnbHFrk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Ygo6YwQT+Po2r0wwxQj5rYpNZGa2dH+/WKrPnO3kQ/cVC7CKrZHTnd9SdU6369fBY
+	 SNkZIZPSHdTTGV2Jn2Oye1bgvczNp6L2q4cLKDYRAYN9X9/9BB6M0yVlt+fBwkrm3Q
+	 fbFYesbr5ZVT6NteHF58zFjqYCkJoZukYXIYOErM=
+Received: from localhost.localdomain ([182.239.119.212])
+	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
+	id CEE0A295; Thu, 01 Oct 2026 11:51:46 +0800
+X-QQ-mid: xmsmtpt1790826706t8fs0d3dz
+Message-ID: <tencent_CD037FFEEB8CA462C8403FB30F50EEC6DF06@qq.com>
+X-QQ-XMAILINFO: MllZffuBkEb5em8y5N5Y4wo1phFZS8eLkcCtZIXr8tEQ270FIlzuyT3uXNBE7Z
+	 HqkZKIS9/jzr/3KtMK1cslxrfvBeByDaorcUs+DrI7VqVfuGHRjiGC7dyT8o2ga+l1rKFsj460qW
+	 NsL7528xyEcwvIwBHyYqgJyFXo/9kgnk+cF04ZlB/z3Ja0ThzYMH2rET/LS1kcTs895pzDUfUF5H
+	 gvkCcpEbdFKoLF0Z2MQ36C/cKQj2lV3ogp6T4nQb3/MvcLsj3VT3lYDxOLsgNPuxHVkhlwy0gPuv
+	 1vWIBdzpDhbd1o99dpqLpbJ479nVwdjSbH8DH2zVTdeGdUohHKoMmfKPsdUdv/lK/yPtanjaFeLk
+	 Y4HlA7wQYgAIasHcs7JrYtS0gfyK+6qNo3Qpols/9IOMjYiL+nNK/QeAOVRlE8L6kSE30RbICLAr
+	 hOd8Y8YDn5eW0xYJLJ75JGrbn7iB7Q5KvNUodyVYdCqnxm+qDVEvZFklP6rgawc1MCavq+rkUNJF
+	 c5mZEyQ58pw7B1gC5KiRIqn3zqPDdUtuT0V/GInF0RMbr57I0lJ7UP4jd9mEh9s380rgRD1xaFss
+	 biprEMx6YCu65ufJ/c43f0ny4k6NBB9+LhFVAe1FBvoQWMypeyWK0dZxieDMObpXTIwW5fe0WqeE
+	 a4WckTH5KIfcgXNZHlqmudlCUs+vpxl+HdSkF4PFaCs2gBHNnQuV0goE7H+ZXVuj+55Sxo2zQIlJ
+	 2qCZ80aOtCofMv47aoWa+K5GTdKHVepVFOSrCr2Lka81NN5oEk48t2wsSuqxWKaIyGSsc8kf3BSh
+	 jkqo4+V4QNKK83402VcBKC34HxIV0tvfzuNVrYcUZA4ZMgihb8ilcffsjpx+LH26uXQSw2rjGrS0
+	 UtYVLK6tefsyVAp386Uoxg+Y28ocFtEZEU2BKTc4yOueIymWr5CB6FR9pAWAwpOjbiy8cuBhEmc8
+	 liOhKTSIkIGE7ojMQ18eWwQIbm90325n2VM+cpWVt21MzkrKeEXj87+2MGMZLROyI1A9rujRLVcW
+	 dFz2t64q2nITsvogMu7LEm7PIDv7V1iEDlUZucN479qbZzCXvC3XOdUzT+7jc=
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+From: Ma Xinmeng <1564938642@qq.com>
+To: Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>
+Cc: netfilter-devel@vger.kernel.org,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 6.1] netfilter: nf_tables: fix UAF in nf_tables_netdev_event walker
+Date: Thu,  1 Oct 2026 11:51:30 +0800
+X-OQ-MSGID: <20261001035130.1349-1-1564938642@qq.com>
+X-Mailer: git-send-email 2.49.0.windows.1
+In-Reply-To: <2026-09-25-daily-reply-0003-re-nf-tables-netdev-event-uaf@kernel.org>
+References: <2026-09-25-daily-reply-0003-re-nf-tables-netdev-event-uaf@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260930-tb-dprx-fix-v1-1-da92659e491a@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi,
+This is a 6.1-only fix. Mainline already fixed this bug in fc0133428e7a
+("netfilter: nf_tables: Tolerate chains with no remaining hooks"), which
+6.1 cannot take because it lacks 207296f1a03b ("netfilter: nf_tables:
+allow to create netdev chain without device") and b9703ed44ffb
+("netfilter: nf_tables: support for adding new devices to an existing
+netdev chain"). So 6.1 keeps dropping the chain on the last
+NETDEV_UNREGISTER, and this patch only makes the walker safe.
 
-On Wed, Sep 30, 2026 at 10:16:35PM -0400, David Medina via B4 Relay wrote:
-> From: David Medina <b2amedina@gmail.com>
-> 
-> tb_dp_dprx_start() takes an additional reference to the domain with
-> tb_domain_get() and passes it as callback_data to tb_tunnel_alloc_dp().
-> That reference is only released by the callback, tb_dp_tunnel_active(),
-> which tb_dp_dprx_work() invokes once the DPRX capabilities read completes
-> or times out.
-> 
-> If the tunnel is deactivated before the DPRX work runs to completion,
-> tb_dp_dprx_stop() cancels the still pending work. The callback is then
-> never called and the domain reference held in callback_data leaks. The
-> domain's reference count never reaches zero, so tb_domain_release() never
-> runs and a subsequent shutdown/reboot hangs waiting for the domain to be
-> released.
-> 
-> Release the callback_data domain reference in tb_dp_dprx_stop() when the
-> DPRX work is canceled, mirroring the release done by the callback.
-> 
-> Fixes: d6d458d42e1e ("thunderbolt: Handle DisplayPort tunnel activation asynchronously")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Medina <b2amedina@gmail.com>
+nf_tables_netdev_event() walks table->chains with
+list_for_each_entry_safe(). On the last NETDEV_UNREGISTER for a base
+chain, nft_netdev_event() calls __nft_release_basechain(), which removes
+that base chain (nft_chain_del()) and destroys its rules. A JUMP/GOTO rule
+targeting an NFT_CHAIN_BINDING chain deactivates and frees that successor
+(nft_immediate_destroy() -> nf_tables_chain_destroy()), so the walker's
+saved "nr" iterator can point at freed memory, triggering a
+slab-use-after-free.
 
-This should be fixed already by the patches in my fixes branch, can you
-try?
+Fix it by restarting the table->chains walk whenever nft_netdev_event()
+released a chain. __nft_release_basechain() removes the base chain from
+the list before returning, so a restart cannot revisit the freed chain and
+the walk terminates.
 
-https://git.kernel.org/pub/scm/linux/kernel/git/westeri/thunderbolt.git/log/?h=fixes
+Signed-off-by: Ma Xinmeng <1564938642@qq.com>
+---
+ net/netfilter/nft_chain_filter.c | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
+
+diff --git a/net/netfilter/nft_chain_filter.c b/net/netfilter/nft_chain_filter.c
+index d170758..ca6450a 100644
+--- a/net/netfilter/nft_chain_filter.c
++++ b/net/netfilter/nft_chain_filter.c
+@@ -318,7 +318,7 @@ static const struct nft_chain_type nft_chain_filter_netdev = {
+ 	},
+ };
+ 
+-static void nft_netdev_event(unsigned long event, struct net_device *dev,
++static bool nft_netdev_event(unsigned long event, struct net_device *dev,
+ 			     struct nft_ctx *ctx)
+ {
+ 	struct nft_base_chain *basechain = nft_base_chain(ctx->chain);
+@@ -326,7 +326,7 @@ static void nft_netdev_event(unsigned long event, struct net_device *dev,
+ 	int n = 0;
+ 
+ 	if (event != NETDEV_UNREGISTER)
+-		return;
++		return false;
+ 
+ 	list_for_each_entry(hook, &basechain->hook_list, list) {
+ 		if (hook->ops.dev == dev)
+@@ -335,7 +335,7 @@ static void nft_netdev_event(unsigned long event, struct net_device *dev,
+ 		n++;
+ 	}
+ 	if (!found)
+-		return;
++		return false;
+ 
+ 	if (n > 1) {
+ 		if (!(ctx->chain->table->flags & NFT_TABLE_F_DORMANT))
+@@ -343,7 +343,7 @@ static void nft_netdev_event(unsigned long event, struct net_device *dev,
+ 
+ 		list_del_rcu(&found->list);
+ 		kfree_rcu(found, rcu);
+-		return;
++		return false;
+ 	}
+ 
+ 	/* UNREGISTER events are also happening on netns exit.
+@@ -353,6 +353,8 @@ static void nft_netdev_event(unsigned long event, struct net_device *dev,
+ 	 * so we cannot skip exiting net namespaces.
+ 	 */
+ 	__nft_release_basechain(ctx);
++
++	return true;
+ }
+ 
+ static int nf_tables_netdev_event(struct notifier_block *this,
+@@ -380,6 +382,7 @@ static int nf_tables_netdev_event(struct notifier_block *this,
+ 
+ 		ctx.family = table->family;
+ 		ctx.table = table;
++restart:
+ 		list_for_each_entry_safe(chain, nr, &table->chains, list) {
+ 			if (!nft_is_base_chain(chain))
+ 				continue;
+@@ -390,7 +393,8 @@ static int nf_tables_netdev_event(struct notifier_block *this,
+ 				continue;
+ 
+ 			ctx.chain = chain;
+-			nft_netdev_event(event, dev, &ctx);
++			if (nft_netdev_event(event, dev, &ctx))
++				goto restart;
+ 		}
+ 	}
+ 	mutex_unlock(&nft_net->commit_mutex);
+-- 
+2.49.0.windows.1
+
