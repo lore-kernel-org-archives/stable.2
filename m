@@ -1,75 +1,163 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C9DC38423B;
-	Thu,  1 Oct 2026 18:09:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30B0D51992F
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 18:13:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790878145; cv=none; b=PVmpO/tHG4dzjL1q9wPUcNcZU7dxt5gT04bDwb0EBrKmmknavTHOpiuOJBuaE7k32f9GJlIrc/EOEIV3xQ3X1sIJXW9FphQE/K2cNWDv5YTygfM6jNAV3bnyNs/3Gb9gssg5wwP6UFFs4A/kmEGdEcJKoxb/iGgq0qLX5MLP8/0=
+	t=1790878439; cv=none; b=sWDo2NrqYqRUTUWX8+ZKtIBlYKmRGRJ11fkpChh/0WQ+WNL9qE47RvVj8XmmwYXu7zfeh24ar07TX/tx4DrnrDsN2G8X+XnZaziqAUF3ZUJ6hzbWrMRS6u4R+Oge1pfzHSbzK+IPJZUd7bslribBvqBsLf8YpXBFJOr1nxiNFxY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790878145; c=relaxed/simple;
-	bh=zvpmhm+BAUlfIVJ/6Kp9ShG7pA3G2q65FWBMzuTisWM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Iax3Bqs1UemRT4N8KQGPNsSu8x5Q4mAyavDXKdH2gPlQXH6s+pXHrlYyMDnMVThjF8yFIOptXw5JC3+2wLFymQKot105MstQQokNgd6T1c4ykf9MNoCKbxS9NdMmuMIPChbjOtbyTzPbQN02jlz+XHFYD7WSSSdm+IuDYgRIYWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UQHctUju; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790878439; c=relaxed/simple;
+	bh=2XOoaBawLjbMqXkjs7Dxr/8UeBMSq7cEksbLVDPeip0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aJnEr/ezqrcCXkAkUcCEgSzge3Uw2vkf5E8d4YsdDVcBVbOcMphQxMC9KdB8YCcxGLnaJnTfzOlCXSFi2Aehu+MzPf1zfhjaLQhLR6yiXh0AFbc2uJ0fOFSXwWCeWpijruBncA0+uvUzioULV1l56zf4K1atAnIcI3yslNIm9Rg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=AOIGOcMD; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UQHctUju"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF0C41F000FF;
-	Thu,  1 Oct 2026 18:09:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790878141;
-	bh=R4WIaVmgxMJzlsaERAlBqwLuDwVcuzfSzsQMDWtKV3E=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UQHctUjuUNpw6LkyASUZ9HSFteDzJeR38iaU80Gktw1pGFWCLZSYF/YGGSZzkMish
-	 CI0kKn39Tn2wmkI+JdM9cAL2ebawL6a2NJ098qLlJdRUahDEfM6lZIJ2T7cKU2GPdw
-	 0NXWPu6qcC6lC27LkOhpl1kvAZnWG931UKFlZcorvNlFUWm7/G1eFEAK7fLlnc/7fJ
-	 bxompRVWn6MverJHcn5hr7Mr9YOD8mHDYQfyQ30PHDkvD66s9hpK9WFw6pnT0nrHtV
-	 Z6y6MF57oKO9tCDgYWbN7c8PKgyS1Tt2yub8EUxI6/JVTGEnkgZXKRPXyw9eL3m3l5
-	 dA0HXVrqpGBlw==
-From: netdev-bot+sinfo@kernel.org
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: Wei Fang <wei.fang@nxp.com>, netdev@vger.kernel.org,
- Frank Li <frank.li@nxp.com>, Shenwei Wang <shenwei.wang@nxp.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, imx@lists.linux.dev,
- linux-kernel@vger.kernel.org, Simon Horman <horms@kernel.org>,
- stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
-Subject: Re: [PATCH net RESEND] net: fec: drain PEROUT requests before
- canceling the timer
-Date: Thu, 01 Oct 2026 18:09:00 +0000
-Message-ID: <179087814030.1402591.9699379066974975442@kernel.org>
-In-Reply-To: <20261001180258.4054391-1-mhun512@gmail.com>
-References: <20261001180258.4054391-1-mhun512@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="AOIGOcMD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790878433;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=2K6+AjrHHCLY+3zXw5HOJ91vX9fbZQsVpcAGubvt7/o=;
+	b=AOIGOcMD4YIs7naDmi/KrFwIYoGvzEtpToAWv5QmmXukR1KDz+NcgaeMEuYTGNm+vdPAgd
+	XOIME3XvqDA9DmkMUkEhHmIf5DBWRHPHERs7NZNyo8vi6LstF7JMgYpqPlHdiWKXQBwMD6
+	RIJi0KI2tRVveuWyEgeHYtOFyx5R1bI=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-663-l93d_TTfNca1FqR8r5n-pA-1; Thu,
+ 01 Oct 2026 14:13:50 -0400
+X-MC-Unique: l93d_TTfNca1FqR8r5n-pA-1
+X-Mimecast-MFC-AGG-ID: l93d_TTfNca1FqR8r5n-pA_1790878429
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B36B218009D3;
+	Thu,  1 Oct 2026 18:13:48 +0000 (UTC)
+Received: from lcapitul-thinkpadt14gen3.rmtcaqc.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id A4CED180059F;
+	Thu,  1 Oct 2026 18:13:44 +0000 (UTC)
+From: Luiz Capitulino <luizcap@redhat.com>
+To: stable@vger.kernel.org,
+	sashal@kernel.org
+Cc: rppt@kernel.org,
+	sayalip@linux.ibm.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v6.18.y v3] selftests/mm: hugetlb-mremap: add setup of HugeTLB pages
+Date: Thu,  1 Oct 2026 14:13:30 -0400
+Message-ID: <20261001181330.684841-1-luizcap@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-Hi!
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+commit a914785f6349da754e1226420bf4e51961956769 upstream.
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+hugetlb-mremap test fails if there are no free huge pages prepared by a
+wrapper script.
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
+Add setup of HugeTLB pages to the test and make sure that the original
+settings are restored on the test exit.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+Link: https://lore.kernel.org/20260511162840.375890-42-rppt@kernel.org
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Tested-by: Luiz Capitulino <luizcap@redhat.com>
+Tested-by: Sarthak Sharma <sarthak.sharma@arm.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Donet Tom <donettom@linux.ibm.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: John Hubbard <jhubbard@nvidia.com>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Leon Romanovsky <leon@kernel.org>
+Cc: Liam Howlett <liam@infradead.org>
+Cc: Li Wang <li.wang@linux.dev>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Nico Pache <npache@redhat.com>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Shuah Khan <shuah@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+[ Backport-notes: this is a partial backport containing only the aligning
+of 'length' to the hugepage size. The hugepage_settings.h include line and
+the hugetlb_setup_default() call are omitted. Without this fix, the
+uffd_register() call always fails on arm64 with 64K base pages and 512 MiB
+default HugeTLB page size causing the test to fail with the error below as
+'length' is 10 MiB and not aligned to the HugeTLB page size.
+
+  # -------------------------
+  # running ./hugepage-mremap
+  # -------------------------
+  # TAP version 13
+  # 1..1
+  # # Map haddr: Returned address is 0x7eaa40000000
+  # # Map daddr: Returned address is 0x7daa40000000
+  # # Map vaddr: Returned address is 0x7faa40000000
+  # Bail out! ioctl-UFFDIO_REGISTER: Invalid argument
+  # # Planned tests != run tests (1 != 0)
+  # # Totals: pass:0 fail:0 xfail:0 xpass:0 skip:0 error:0
+  # [FAIL]
+  not ok 1 hugepage-mremap # exit=1
+  # NOTE: These hugetlb tests provide minimal coverage.  Use
+  #       https://github.com/libhugetlbfs/libhugetlbfs.git for
+  #       hugetlb regression testing.
+  # SKIP ./uffd-wp-mremap
+]
+Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
+---
+ tools/testing/selftests/mm/hugepage-mremap.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+v3
+- Preserved original changelog & subject
+- Small code style difference from v2 due to git cherry-pick usage which
+  preserved the original commit style
+
+v2
+- Added "commit <sha1> upstream" line to changelog
+
+diff --git a/tools/testing/selftests/mm/hugepage-mremap.c b/tools/testing/selftests/mm/hugepage-mremap.c
+index 928c1045e295..d6caa075a86a 100644
+--- a/tools/testing/selftests/mm/hugepage-mremap.c
++++ b/tools/testing/selftests/mm/hugepage-mremap.c
+@@ -97,6 +97,7 @@ static void register_region_with_uffd(char *addr, size_t len)
+ 
+ int main(int argc, char *argv[])
+ {
++	unsigned long hugepage_size;
+ 	size_t length = 0;
+ 	int ret = 0, fd;
+ 
+@@ -114,7 +115,11 @@ int main(int argc, char *argv[])
+ 	else
+ 		length = DEFAULT_LENGTH_MB;
+ 
++	hugepage_size = default_huge_page_size();
++	if (!hugepage_size)
++		ksft_exit_skip("Could not detect default hugetlb page size\n");
+ 	length = MB_TO_BYTES(length);
++	length = (length + hugepage_size - 1) & ~(hugepage_size - 1);
+ 	fd = memfd_create(argv[0], MFD_HUGETLB);
+ 	if (fd < 0)
+ 		ksft_exit_fail_msg("Open failed: %s\n", strerror(errno));
+-- 
+2.55.0
+
