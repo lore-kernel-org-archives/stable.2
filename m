@@ -1,93 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mta-65-225.siemens.flowmailer.net (mta-65-225.siemens.flowmailer.net [185.136.65.225])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 528953EC684;
-	Thu,  1 Oct 2026 08:50:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18D904A688D
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 08:52:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.65.225
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790844613; cv=none; b=m6Dq0Z1A8D8wlsWwkkfu+1ZkKW4rvsH3Lebkvcw3HyZX3l9vv3lO5QOIBd2C5E4bzm84OMkJ+9LLzCZfpTnTKkegh0++McFD6fFl1HdAuRS0U8NT4pBiAYAINOLl3R8veeQimiCo8tyW3NKCtkbqmMUpqmj5M2hDG7xv7cxZUas=
+	t=1790844750; cv=none; b=Edy19AygtL+lsywkIyvLbBBNwH6hOTBoiqdHtSPOB5+WJE/prv3SmjRskMQ4XwRjT9a+jrrIg5gzV2PrPKf9Y1tbRCWZHoqvNai0ogJ4hLVStzoLgH0TimT1pNByMUDVHeR4oVTwB3xB48zK+vgxlotyPApB5Hn1mvxPsOURvYc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790844613; c=relaxed/simple;
-	bh=pxUzKT425ODQD3RlKjWqvW2ou19MMC+s5ZTzGwRIumk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Hco7CZzM7oC1h6XB0tB6ot7fWb/zX2Z/sN52dZ8w7ioBg3T6AjNMpN6tqHu2K8X/lpgsm1OItHMD2vhhMfBuuPLRSPBGtDrOSI9wvLeXoBgvpOq8vIhHusKlLnsqWjDerXJJCtLUalKUN0J01T1nkzPqF1UA6HVzfcIyKmEmpNs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JPTyr9/a; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790844750; c=relaxed/simple;
+	bh=RlqtlBFhPg06afJ92qggTnt+yEqEPz3nq3KHOnNigr0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hkfMX1EaRLtGeib9UXjiXksay/15Ap9L8F2A2eDFJv/4jGzGFdhfrrj3UKQbSoEBOtKBOV/nhDtZiVFNvkVtUkxb2Nq2Em8/mCZfvGfNkX+GlTy0+XnnlSQwYy0w1OuoCTmjITVp7uUVJLUL0VRUbo0U1Pxu/8JgW5xqQ4tGymU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b=T4l8+OdX; arc=none smtp.client-ip=185.136.65.225
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JPTyr9/a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 483741F000FF;
-	Thu,  1 Oct 2026 08:50:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790844611;
-	bh=Xt/qPIC7xIUoeVEu27a44z9OYbE4U4n6riy6EtW3WXw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JPTyr9/aIwPTkz4BBavBehl9c6+SMAmta7nZXlP5rIMrUOPDJ9CB3oVC/N1bSrvtR
-	 Erop4lMBBua+FO9L7ZpRb6DJctUYIZdobq6Bv718mqAgqsPGo/oog0a6qj5U3ETXw1
-	 28rgiw//yXKj7DH5rYFQuIcfSekiGpW6y/6xDyh0=
-Date: Thu, 1 Oct 2026 10:50:05 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Hui Peng <benquike@gmail.com>
-Cc: Jiri Slaby <jirislaby@kernel.org>,
-	John Ogness <john.ogness@linutronix.de>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="T4l8+OdX"
+Received: by mta-65-225.siemens.flowmailer.net with ESMTPSA id 2026100108522101c8a6f49200020721
+        for <stable@vger.kernel.org>;
+        Thu, 01 Oct 2026 10:52:21 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
+ d=siemens.com; i=alexander.sverdlin@siemens.com;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
+ bh=sFhlXac10taL9GRiPG1OiySDTuQT7u4lUJZQUv9yULA=;
+ b=T4l8+OdXpWdIgKOEnajlP4ZIqmXamFlekn3vhNnE6ViuL8TJ0ag2r8aa9/Fh0u2APpKyGj
+ jbBWyi3AceVAsUpn6nDlgjPtNsFwRIp0/3fHq4UdIIp3xZ/BrPVIwotgskNUhCu8waHTUyGM
+ mL4Iaqs34/NiRupOZOnhXqewElqzXE18Kvi7LMs/dfCPyK4jNNlkRYSLVinyutmG1CMsRnUk
+ WxQqYjcz/qwb9CVZNoctixH5m3nizkVfMdUGg31f8RF2tdxNO4EVeYrK4D/tAUf2+bmqYX4k
+ 1GoMMcMpptnY479/kxMTp0fYV/YPTAoAwqA8K9c4v2Tcha89y6VsuZPQ==;
+From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
+To: linux-gpio@vger.kernel.org
+Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
+	Tony Lindgren <tony@atomide.com>,
+	Haojian Zhuang <haojian.zhuang@linaro.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Lokesh Vutla <lokeshvutla@ti.com>,
+	Nishanth Menon <nm@ti.com>,
+	Rob Herring <robh@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-omap@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v7 0/2] serial: core: fix baud rate fallback loop and
- baud_base overflow
-Message-ID: <2026100102-retract-colonial-3ceb@gregkh>
-References: <20260930125901.778868-1-benquike@gmail.com>
+Subject: [PATCH 2/2] pinctrl: ti-iodelay: fix memory leaks on consumer re-probe
+Date: Thu,  1 Oct 2026 10:52:11 +0200
+Message-ID: <20261001085217.1778645-3-alexander.sverdlin@siemens.com>
+In-Reply-To: <20261001085217.1778645-1-alexander.sverdlin@siemens.com>
+References: <20261001085217.1778645-1-alexander.sverdlin@siemens.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260930125901.778868-1-benquike@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-Flowmailer-Platform: Siemens
+Feedback-ID: 519:519-456497:519-21489:flowmailer
 
-On Wed, Sep 30, 2026 at 12:58:59PM +0000, Hui Peng wrote:
-> This series addresses two issues in serial core:
-> 1. Division-by-zero WARN/Oops during baud rate fallback in uart_get_baud_rate().
-> 2. 32-bit unsigned overflow in uart_set_info() when multiplying new_info->baud_base by 16.
-> 
-> Note on v6 1/3:
-> Patch 1/3 from v6 ("serial: 8250: fix deadlock in serial8250_register_ports")
-> has been dropped. The hash_mutex race condition was originally found and
-> reproduced on Linux 6.18.14 (where guard(mutex)(&hash_mutex) was dropped
-> inside serial_get_or_create_irq_info() before serial_link_irq_chain() linked
-> the port). We did not realize that it was already fixed in mainline by
-> commit b339809edda1 ("serial: 8250: use guard()s"), which refactored to
-> serial_get_or_create_irq_info_locked() with guard(mutex)(&hash_mutex) moved
-> into serial_link_irq_chain(). Apologies for the noise in v6 1/3.
-> 
-> All remaining patches are ported to the latest tip of mainline (551c722f4080)
-> and dynamically verified in QEMU KVM with CONFIG_KASAN=y.
-> 
-> Changes in v7:
-> - Dropped patch 1/3 (already resolved in mainline).
-> - Clarified in cover letter that 1/3 was found and reproduced on 6.18.14 and
->   we did not realize it was already fixed in mainline.
-> - Retained patch 1/2 and patch 2/2 using check_mul_overflow() as requested
->   by Jiri Slaby.
-> 
-> Hui Peng (2):
->   serial: core: fix baud rate fallback in uart_get_baud_rate()
->   serial: core: reject baud_base values that overflow port->uartclk in
->     uart_set_info()
-> 
->  drivers/tty/serial/serial_core.c | 11 ++++++++---
->  1 file changed, 8 insertions(+), 3 deletions(-)
-> -- 
-> 2.47.3
+From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 
-You have sent 3 versions of this series in one day.  Please relax and
-slow down.  I've now deleted all of these patches from my review queue.
-Please wait a few days, take the time to make sure the submission is
-correct, and then send a new version.  Don't overwhelm reviewers without
-helping them with review of other submissions, to do otherwise is not
-very kind.
+ti_iodelay_dt_node_to_map() allocates a pinctrl_map, a group, a pin array
+and a config array per mapping with devres on the controller, and registers
+the group via pinctrl_generic_add_group(). The core deduplicates groups by
+name and keeps the first for the controller's lifetime, so on a repeated
+mapping of the same node (consumer re-probe) the freshly built group, pins
+and configs are dropped and leaked. The pinctrl_map leaked too: the driver
+never implemented pinctrl_ops::dt_free_map, so nothing released it.
 
-thanks,
+Reuse the deduplicated group and free the redundant copy (repointing the
+map at the retained group), and add dt_free_map() to release the map.
 
-greg k-h
+Fixes: 003910ebc83b ("pinctrl: Introduce TI IOdelay configuration driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+---
+ drivers/pinctrl/ti/pinctrl-ti-iodelay.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+diff --git a/drivers/pinctrl/ti/pinctrl-ti-iodelay.c b/drivers/pinctrl/ti/pinctrl-ti-iodelay.c
+index 019b302db2b00..9a8865ce0bbab 100644
+--- a/drivers/pinctrl/ti/pinctrl-ti-iodelay.c
++++ b/drivers/pinctrl/ti/pinctrl-ti-iodelay.c
+@@ -497,6 +497,7 @@ static int ti_iodelay_dt_node_to_map(struct pinctrl_dev *pctldev,
+ 	struct ti_iodelay_device *iod;
+ 	struct ti_iodelay_cfg *cfg;
+ 	struct ti_iodelay_pingroup *g;
++	struct group_desc *grp;
+ 	const char *name = "pinctrl-pin-array";
+ 	int rows, *pins, error = -EINVAL, i;
+ 
+@@ -553,6 +554,19 @@ static int ti_iodelay_dt_node_to_map(struct pinctrl_dev *pctldev,
+ 	if (error < 0)
+ 		goto free_data;
+ 
++	/*
++	 * The core deduplicates groups by name and keeps the first for the
++	 * controller's lifetime; on a repeated mapping (consumer re-probe)
++	 * reuse it and free our now-redundant copy.
++	 */
++	grp = pinctrl_generic_get_group(iod->pctl, error);
++	if (grp->data != g) {
++		devm_kfree(iod->dev, cfg);
++		devm_kfree(iod->dev, pins);
++		devm_kfree(iod->dev, g);
++		g = grp->data;
++	}
++
+ 	(*map)->type = PIN_MAP_TYPE_CONFIGS_GROUP;
+ 	(*map)->data.configs.group_or_pin = np->name;
+ 	(*map)->data.configs.configs = &g->config;
+@@ -722,6 +736,15 @@ static void ti_iodelay_pinconf_group_dbg_show(struct pinctrl_dev *pctldev,
+ }
+ #endif
+ 
++static void ti_iodelay_dt_free_map(struct pinctrl_dev *pctldev,
++				   struct pinctrl_map *map, unsigned int num_maps)
++{
++	struct ti_iodelay_device *iod;
++
++	iod = pinctrl_dev_get_drvdata(pctldev);
++	devm_kfree(iod->dev, map);
++}
++
+ static const struct pinctrl_ops ti_iodelay_pinctrl_ops = {
+ 	.get_groups_count = pinctrl_generic_get_group_count,
+ 	.get_group_name = pinctrl_generic_get_group_name,
+@@ -730,6 +753,7 @@ static const struct pinctrl_ops ti_iodelay_pinctrl_ops = {
+ 	.pin_dbg_show = ti_iodelay_pin_dbg_show,
+ #endif
+ 	.dt_node_to_map = ti_iodelay_dt_node_to_map,
++	.dt_free_map = ti_iodelay_dt_free_map,
+ };
+ 
+ static const struct pinconf_ops ti_iodelay_pinctrl_pinconf_ops = {
+-- 
+2.55.0
+
