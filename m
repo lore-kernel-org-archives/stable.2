@@ -1,194 +1,115 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5A8D471267
-	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 10:22:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F4194431A56
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 10:22:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790850149; cv=none; b=fes6fW2A8CbV5A9Z1vm2tHJZnl2qQKkz+qn9Bq9z3gmvWKE3IXgkP/krraR5PyF8oUpMVsXX0WCWWqMoXJGFdCB0ZQM3ciaAfv26NmCjIn6TEIn26qXIMTAOAXFR7wYvvENEb8x5fbtmbzUxY8HDcCTSWoAbA2RVwv8XnqZmfzs=
+	t=1790850168; cv=none; b=l09iu4kM6txxC4Bbz5CLkwWxfgCCI8QUy423zNjqRMfpMNe6ORU3G485iOKUrciBhJPuA5QgYetO92eO1cSA0v8O72R50g2PKdldnYBmA4ZOUrGItzmae3TzZCjpTHAdVVGXiRexjDJ9fhYsKNQZLpUN+Rxw56J9u/03xUW2CH8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790850149; c=relaxed/simple;
-	bh=VnVU8bPLJLWfbtAdNiLdfbQJCPObLTqpHbQuXDlr2xU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fWpWMFq1WSdDbPtAGMmnrIuQWVGbqJJ9lqzcsFSvRvvX/OgtPj17eW6zCOLo9Fu8dZfgBEZ55BCt0gSkvwNs9doCIc4ccHaQ6pFgAVHiWEs4hrym6SLUqMFHjrsP1cca4/TbdUorfSdeFOy9v+efMJFaFyufdr96ZeiI/br+6WM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YcoasWwK; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790850168; c=relaxed/simple;
+	bh=lYV+aGdOlbyWsCfqjUxoGvGWFrt7Yd53iUUMUCJdJw8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DOzhcDbfV8fmKgt2LJaMwVzBZpJSG6qohBHvJmkNfSiDqgcATBvlxL8lBf6xBa1IBxHVDu90YD4JxNK28c8Lv9ZpO4EmuZHqTprx4Hy8d9HyJRw3m4fGtSYNXmJDdF7PcRPThB3cZFJzlVp4vQgLAZFZU17tZ/YDoB2dCp0WLc4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=slplXF98; arc=none smtp.client-ip=35.89.44.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YcoasWwK"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b6so35401045e9.0
-        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 03:22:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790850146; x=1791454946; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nFzLuRrxO1MNqfhxtzwDFW5LDm+149ISNFd1xuYHuCg=;
-        b=YcoasWwKANqhJAT6ITRJApGZlPhldlCa3xeDRxEfwNSU7DdcpSvcZbECqojDb+i15L
-         iTz2NxaLca/myE23nQbmPyIMSRIthvctpPeXyyxfi8r1qmMc4zC/alrLzYLdN3ouN5D2
-         U4iTFWDDoj7ixO4ig1FDmEZ9qfc5myNxyc8kq9DjFl8/BqobYHyE2x/01WxvzLUZjZ3O
-         Jzl48w2XjO4J4HAerMfCJ1+OKjrbJulAhazaEQuzk4XQiwDdO2SKTC5azlLMoQnNlSJh
-         K8IgfpJ8xoftjXCuBTDZ5P83xNg9cMCi+bbTQriNhuGkHGaEWUXaFY4F/qUBDs/MX2Yr
-         Ihzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790850146; x=1791454946;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nFzLuRrxO1MNqfhxtzwDFW5LDm+149ISNFd1xuYHuCg=;
-        b=RTRxl7CnppiV6ldqVUBp8/ZHcRLhwfn1Ecy5Q8Rxr5TL+/zER2LtiiFy0ueM+vzn4I
-         M5Rm0+S94KyFTZjffdV4G48gPLQaaJui03YjVFGeBjueSv2oA4tdLLKNuIwq++QsqNGz
-         3iR24TIsk0RYeYV0QofPtUnQtNLOzzW+tEpw7rMr3Hf69XwZvTNcvepa3fzEPfyim2rs
-         Hh310yKerwUapDI+wKoev37B9Qg+TLZ2YrwcBeTgKeQrqaPod4RjebAY3nKrxpKMLbq1
-         tsODZdSbW8gI2TF6HTwgicHcob1/h8pCK6+frOxZOw9dq1VEf3AQHy5pEJjGLGDkSBi/
-         VFkg==
-X-Forwarded-Encrypted: i=1; AKwUvBzsZ1B28+cn2GbGBaxUWIFuCryCektc/FensOqHFRdNie7XATlflruA1qjicCeAzfluvZEeGk0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kFovZsCGfQ/6gdB08U98oqtc5rnjHmGlmkXKu4Su1K1h/ErHYF
-	aZWafguPfZci79jzW0ZsZCKJIh0ZEdY+YLD90OYKMstIHUrWbrWkfVTF
-X-Gm-Gg: AYBFou1zwqrP5gW5MuNZ1xAhWpZvUIZWijCaNbyvnjwZnRtfVfWla7s2gIwZC6FksUV
-	6XlHfYqISyS8K+v6dGx7MKBbJJTLJE/POvEd15EGdOuxTfVg1as5T+BaVKvJ8X+7Oz927h4MKKG
-	RlFxuJJdB8adb6jiCpZ4IgL7NXkv0ugx/Odr9tQax7WIDc0NuxQq+Jg8KeW9YT+DUt4WyUc9CHh
-	P4aowIXtcqQgQPiZHkWUA4AEtmhxrUzmOeNokz5BqkqFI1Rud36cCmZouWdcu1C1iamxqVhzPqp
-	dzIIwYlDEzkTDI1EDbyZxi5QTaegKBWyppnUeGqSltmvh8dx4TekawiiXHRDZASURF2NbfLk1Tr
-	hsC3rYRrHoYYQXC+bWN6LDeb/9kRNcIw/+1L53/MMLMy4filS1zytyL3i6TkXBrRCOD66cyTb0Z
-	T5ViEvWooVcANQ28NlsdOg1hPWmfzMIa3h+mEBXawFtCzh6dy+iDVaI1IHZWKcOaonuFE=
-X-Received: by 2002:a05:600c:6815:b0:49f:ff32:803c with SMTP id 5b1f17b1804b1-4a01b0031a5mr65592665e9.16.1790850145677;
-        Thu, 01 Oct 2026 03:22:25 -0700 (PDT)
-Received: from main ([5.27.43.223])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01fa15e51sm58094425e9.2.2026.10.01.03.22.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 03:22:25 -0700 (PDT)
-From: Mehmet Koseoglu <mehmet.mkoseoglu@gmail.com>
-To: rafael@kernel.org,
-	viresh.kumar@linaro.org,
-	ojeda@kernel.org
-Cc: Mehmet Koseoglu <mehmet.mkoseoglu@gmail.com>,
-	boqun@kernel.org,
-	gary@garyguo.net,
-	bjorn3_gh@protonmail.com,
-	lossin@kernel.org,
-	a.hindborg@kernel.org,
-	aliceryhl@google.com,
-	tmgross@umich.edu,
-	dakr@kernel.org,
-	daniel.almeida@collabora.com,
-	tamird@kernel.org,
-	acourbot@nvidia.com,
-	work@onurozkan.dev,
-	linux-pm@vger.kernel.org,
-	rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	xuyiwen14@gmail.com,
-	miguel.ojeda.sandonis@gmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH v4] rust: cpufreq: reject NULL from cpufreq_cpu_get()
-Date: Thu,  1 Oct 2026 13:19:15 +0300
-Message-ID: <20261001102213.45437-1-mehmet.mkoseoglu@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20260829161013.102967-1-mehmet.mkoseoglu@gmail.com>
-References: <20260829161013.102967-1-mehmet.mkoseoglu@gmail.com>
+	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="slplXF98"
+Received: from eig-obgw-5005b.ext.cloudfilter.net ([10.0.29.189])
+	by cmsmtp with ESMTPS
+	id BwojxNmYHc3XsCDw6xFwkl; Thu, 01 Oct 2026 10:22:46 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id CDw5x3Dd7369DCDw5x6uog; Thu, 01 Oct 2026 10:22:45 +0000
+X-Authority-Analysis: v=2.4 cv=EPgG00ZC c=1 sm=1 tr=0 ts=6abe3476
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=gw1vPjYz7fKNZfABw8YA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=V8ux61Vf6g2GgLRKlVGg9jLngLQp77eO0QTB9SwjYz0=; b=slplXF98G4071zLgakA6IrJqnX
+	7MIrU7NRrybzTHrLjAVXHGBzgNRzCD1a5wm55DKG+7Dp2rUPDkifjMIr0oYppWUIAoVdM6ftk47Ee
+	H4AHX7K7vn7dvy/uawUhL7dxviGMMivx288VpJJrb3UqAbQtAVap68lyS3CCixtUIstUjNNlWKorG
+	N1f4p8DS7JoJi+69W8OR+6QlpC75ZyQjZaD3sCV+qWzuxid/ZHzHEmlx19k3r6QZuYdLHA/gL5+47
+	e9ZU50H3o4JBmImn9MlaRMLfyFL7Ojz5Zf42MhtqCLw4CC5KpKsuY1mnWRkKbaUED9HsB9uVKEq+U
+	zau04MFA==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:46824 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100.1)
+	(envelope-from <re@w6rz.net>)
+	id 1xCDw4-00000002BgR-3ALX;
+	Thu, 01 Oct 2026 04:22:44 -0600
+Message-ID: <5a9cec9d-ef9b-4f6f-9daf-201c72ea626e@w6rz.net>
+Date: Thu, 1 Oct 2026 03:22:43 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.1 000/982] 6.1.189-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260930152416.775402466@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1xCDw4-00000002BgR-3ALX
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:46824
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 79
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfCpK9+XpD8PnbHz1IcYQ3dsKAeHpL8ZD/iFZ/a9wCNMNdv87u1igzFnku29SiXzPmBbHN6U8Pe/bLmrnFv5MxjEFe3m+MUs7E2GnL6Spc4MbygWTABkC
+ jKP6TUx0hoB1z7DYzbFvoiYbABU+tSj75f7E3cFLAfJM9UNZjaixLz6FXrJH4LFZRKgJ9G9vLEytzQ==
 
-cpufreq_cpu_get() returns either a referenced policy or NULL.
-PolicyCpu::from_cpu() passed its return value to from_err_ptr(), which
-rejects ERR_PTR values but accepts NULL.
+On 9/30/26 08:12, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.1.189 release.
+> There are 982 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Fri, 02 Oct 2026 15:23:04 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.1.189-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.1.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-If the lookup fails, Policy::from_raw_mut() therefore constructs a mutable
-reference from NULL. Dropping the resulting PolicyCpu then passes the
-invalid pointer to cpufreq_cpu_put(), causing an oops in kobject_put().
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
-Reject NULL with NonNull before constructing the Policy reference. Return
-ENODEV instead.
+Tested-by: Ron Economos <re@w6rz.net>
 
-A KUnit negative-control run reproduced the oops with the original
-conversion. The same test passed with this change. The reproducer is
-available on request.
-
-Fixes: 6ebdd7c93177 ("rust: cpufreq: Extend abstractions for policy and driver ops")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Mehmet Koseoglu <mehmet.mkoseoglu@gmail.com>
-Reviewed-by: Onur Özkan <work@onurozkan.dev>
-Reviewed-by: spidermana <xuyiwen14@gmail.com>
----
-No worries at all, here is a v4 update with the comment update and
-review tags.
-
-Changes in v4:
-- Clarify that the policy pointer is non-NULL and cpufreq_cpu_get() holds
-  a reference for the lifetime of the returned reference.
-- Add Reviewed-by tags from Onur Özkan and spidermana (using the corrected
-  tag from spidermana's follow-up).
-- Resend at Viresh's request to replace the previously applied v3.
-
-Changes in v3:
-- Add Cc: stable@vger.kernel.org.
-
-Changes in v2:
-- Format modified imports using the kernel's vertical import style.
-
-v3: https://lore.kernel.org/r/20260829161013.102967-1-mehmet.mkoseoglu@gmail.com
-v2: https://lore.kernel.org/r/20260828161834.29539-1-mehmet.mkoseoglu@gmail.com
-
- rust/kernel/cpufreq.rs | 22 ++++++++++++++++------
- 1 file changed, 16 insertions(+), 6 deletions(-)
-
-diff --git a/rust/kernel/cpufreq.rs b/rust/kernel/cpufreq.rs
-index affa2b9490ef..b75d692846a2 100644
---- a/rust/kernel/cpufreq.rs
-+++ b/rust/kernel/cpufreq.rs
-@@ -14,7 +14,13 @@
-     cpumask,
-     device::{Bound, Device},
-     devres,
--    error::{code::*, from_err_ptr, from_result, to_result, Result, VTABLE_DEFAULT_ERROR},
-+    error::{
-+        code::*,
-+        from_result,
-+        to_result,
-+        Result,
-+        VTABLE_DEFAULT_ERROR, //
-+    },
-     ffi::{c_char, c_ulong},
-     prelude::*,
-     types::ForeignOwnable,
-@@ -29,7 +35,10 @@
-     marker::PhantomData,
-     ops::{Deref, DerefMut},
-     pin::Pin,
--    ptr,
-+    ptr::{
-+        self,
-+        NonNull, //
-+    },
- };
- 
- use macros::vtable;
-@@ -687,12 +696,13 @@ fn clear_data<T: ForeignOwnable>(&mut self) -> Option<T> {
- impl<'a> PolicyCpu<'a> {
-     fn from_cpu(cpu: CpuId) -> Result<Self> {
-         // SAFETY: It is safe to call `cpufreq_cpu_get` for any valid CPU.
--        let ptr = from_err_ptr(unsafe { bindings::cpufreq_cpu_get(u32::from(cpu)) })?;
-+        let ptr =
-+            NonNull::new(unsafe { bindings::cpufreq_cpu_get(u32::from(cpu)) }).ok_or(ENODEV)?;
- 
-         Ok(Self(
--            // SAFETY: The `ptr` is guaranteed to be valid and remains valid for the lifetime of
--            // the returned reference.
-+            // SAFETY: `ptr` is non-NULL and `cpufreq_cpu_get()` took a reference on it, so it is
-+            // valid for writing and remains valid for the lifetime of the returned reference.
--            unsafe { Policy::from_raw_mut(ptr) },
-+            unsafe { Policy::from_raw_mut(ptr.as_ptr()) },
-         ))
-     }
- }
--- 
-2.55.0
