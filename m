@@ -1,154 +1,177 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA2924A7CB1
-	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 13:29:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 638F83B42EB
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 13:29:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790861354; cv=none; b=KHKuCOc8gorNzLBxzFzV7T9QeSEK2BGhDLpnQabr7NN5ULWNNpATvveu0gHHJDFcp4/XlY0uSuIh+UImPv9uw87i4XIzteu/6T1kjR+n5WpNIWvyODSxRyS1RF+C7+SPR38xMW6oOMS8+q4zvKCqhBsnM38S50f7e06CBZwjYL4=
+	t=1790861365; cv=none; b=T92QF7M1d3UHok7JRhLvoDSNhYm05bzXt9aiszEU4o4aWYSYKXi0JUBWRtL9Dkcohg0AQIS4ZlHcsOqatanbu12cHkIBzkGVZ6I6KojTxgEM8hzlzclJeSgXJQQxYEf+4h222DjOHQP371KL/SntvtjBEf5yK5qArhV2VAyWbcE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790861354; c=relaxed/simple;
-	bh=KpBvRv68yxx08EXLWVK3x95sBLwi6SLW+GcKR0oqMNI=;
+	s=arc-20240116; t=1790861365; c=relaxed/simple;
+	bh=qhzcIOoY2hosLyVIxdPxsmyEewTnK1YjZA3gz2txs9A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VKqrGvObkO2CxDNLDcqM8+yODNbnjdZncOVFUqd0H0ra2SvLVCwVAAqw6/s9Qam0llirRv3IYi1sPKSqsvoXvSEyAO83DCrmykzOyheAa1BY0xE7sQyH/O6vwaqCYgDKkk7gTCoBMEM0KbIIBXH7S5Ku+tJpuBemNOcl8+cdfSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ktLGTwcK; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=PnjhEOK6oqAz0Ai5s1fg/rgMj9T2HgHKp6IoHQ5VsCSser6fCL7V0nu8RdCNy/r0RhSZAOTzqbIRNYxbd8UphN4NEJ/wbViAOe6PpkyZP77oHUq9aPHPSUIa0LJwoWuDwIUcD5KTG+MHYz3jEnzusYW/TkIzZnHZ9u/oa5IDmNI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=RvhAHV0S; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ktLGTwcK"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e721b5503so61498415e9.0
-        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 06:29:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="RvhAHV0S"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso59720335e9.3
+        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 06:29:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790861351; x=1791466151; darn=vger.kernel.org;
+        d=gourry.net; s=google; t=1790861362; x=1791466162; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6AEptEgQP2inlUl9eYZ6E1q3HveZU/W7oAG+SS9vXAs=;
-        b=ktLGTwcKcXFC+2GES/V38K/QtGDPb3guUR+TX9CgSWMh8fUTepHqVEdZJiclOl/S9q
-         +4cIGWqVonwPhJ9cMZ+0pPo03fUPmr91STvpH4ilpfezhazsA2mKVJqLx8TEGZYtX/RA
-         WDVM16gwbggP48JnMiLWL1w1aKUrP923bx7/EsiPB/md9lnTqdZWKLbFPSGj44WPJmxp
-         8qYef3zMxk4HnMqQGRAhxvvvQpDmGqPNjeQglwzW98G7xB1xDo67dvO7UjcfGHYqDG86
-         kBcn33dRiSN1fcqUebuFon1ufLSehLODg2tOrlq2L1ZbrILydn+H1gEyKKvsUk3QrUEA
-         kKkg==
+        bh=djo86y34WOc5FBXQPseI8JTPk4toU7ySXcp+GeD54N4=;
+        b=RvhAHV0S2K/1fncgugK9c9V6+RABQEyMM9IfFhlztnc05JOL1bhrTEOzp8dwA//dgx
+         /kfCXemv7nNkNo5fIQCLLMfwAg3Tf3MYF4IXuXxiumFaL45Kk7So5jJFVAH12SjMYhKJ
+         vVNs4YRQMh/czuLcXOslI/aa9NAjxx6C0Ik3w+evd3BAFo0AjTI7CkRxp7vnA/stbVyF
+         nb/KVPfq2UrKBOLNWaKyHx0eTLA2zOQM2BvuulkQmIB8ubJOZaEOlgZ8tTpd2kotm0vb
+         1dTqGjz4hHP2tTLDglDhS/YS43JCKBVs1DOzbpq6JzCsuZCFkVowatwkPu5O3zvPEaPU
+         aiQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790861351; x=1791466151;
+        d=1e100.net; s=20260707; t=1790861362; x=1791466162;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6AEptEgQP2inlUl9eYZ6E1q3HveZU/W7oAG+SS9vXAs=;
-        b=cMBuidXq+4q43Vq1kRvNPFTkrJH07IL3cXmPPZpmrteuqUByOzgx7M3FJNBn34XI6b
-         55OD+GSbnFCJayz0s62idXdSqrB1T1UcBZc0PKwrOCdD2Cc0f2D/O//L7fv64AXJ5DPz
-         5aDOq2vEzImQONVW2v1P+aZr5DOZk6bs9ea2TIEvOewfap+LuMMMD+uJAzcmNA7Nz9KT
-         7GtNnCKfislPS38T9EJugkg1itqKBXGTgcrP4tJcACn8fWD9Q+JEhy8BlMIhmweNnzIY
-         e7D4kXn2g+RkLNpEvlGHxEDTZesGAMlVTzM6ksu4hy8XzQVFC+rUSa76Ym9mqQR5Dnd8
-         BwAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzs8j1g7qDy1ZIC+/9Cmf3ZqlzNOfBxdaRx3/m0lQ3gu/WCrPvSHNc9a81NBWVwGzdQMnPkE40=@vger.kernel.org
-X-Gm-Message-State: AFuF++m/r1wFkDwDLkGiktyNE2iSe7fK6hjFzm1f/qoLCTOYHd8qPXrW
-	70rBhNCWJnYOTs/CXzGdgAv2AYqB7caD+vGa7m35/X46IY+Ku8yXrCUg
-X-Gm-Gg: AYBFou2adO7RkOTRNAOKWYvDWiOSMsJf/6n+1EItya8plFkcAg2erh5FOgySSJ7/4PW
-	jH7Vu6Pzi19wTV/TuK932veO7nuIxHH+LKoh+xABeWbvj4x9L4MzWyNNrxO/5OFAEKwg8WsPv+p
-	81dR2QqTbk3jHooLA4U4Ye6icSfoXXQtwJoPS3FehNDzLm4Gocg/jQWLXO1DpZ6H4vw0/YMVK5Y
-	kmnJlmKCdJBi001mnQMKq9xx16SvgQQzmAg8lXdJe1G8DpZ8YJcWi7eunuZqi/1zS2FgExvOD+T
-	WYUsckiJij8WotVFSZAuJ9cRNWiROkm+TL3RAdKHySxIOVWqI15+pK3GZmN3UJ6GbDZIjHaAOD2
-	mv+28sbpLSfhz0HO36vZH4BeKcTLdbtlWSvTGY+ExJjKZ1Gwhcwx6RjFn0cls4SygVPZHt+mnbv
-	syl9hfIa0No/zHZ7Cmjk5O7OHk+74hnWsF06+Dxx49cTR+mm5pZTHupkJtNCCxhg==
-X-Received: by 2002:a05:600c:3b93:b0:49f:e772:6ddf with SMTP id 5b1f17b1804b1-4a01b126e77mr98473445e9.32.1790861350760;
-        Thu, 01 Oct 2026 06:29:10 -0700 (PDT)
-Received: from beelink.. ([187.40.42.21])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b0691c4c4sm7249850f8f.22.2026.10.01.06.29.05
+        bh=djo86y34WOc5FBXQPseI8JTPk4toU7ySXcp+GeD54N4=;
+        b=CbNSzIG158gB0we1nGASPuD8EI8B38oD+xQd7vq7fkQj/+PVvFjRafKklS5s3B5Q3i
+         2nIpLen2ggjLKsyKAtsWmJWo42qgzOjHvliafM/+ygESOjsUIWyilA05IFfM8AzTC0WP
+         ZuG8/9U8OlutH3Qy/2wvy6iQHB+ViuFAJCu5thOggsatIAbBUJHwBLxm32amFKeAGBxl
+         6eX0Y5D1yRVoIl1EKnmBsk2PDkN2eoxjQ4TOGYFYaqck3xsP1bQMYgwLWT6kdao7oMJ1
+         CQySGFP5GOpLpts+0LUqgnosFZzQaFt8hjVPRUDYOiS3wAdEjcC/62+8BbTZiLcZcaCY
+         PuNg==
+X-Forwarded-Encrypted: i=1; AKwUvBwXnOdxv/uFyYnmnudyWtjPxVDH4EG46PpE4GmLRth5eXZCE9oj7DLDhR6oet6sjuukrm9pQzA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kUkp+fIjHXLkln9OhbZxSI8XsiYbC0SVI+WTsM0dEueeilmFf2
+	bEiiru5GEGHsWP5dngNPXdtpiIA4UGHDKMyHgTyn9Ty/duY6+ynZ0Wk1/1c6UcZRLZ4=
+X-Gm-Gg: AYBFou1LbCKaQQrinZ4RsuEwSai0CTt6XXniyKH+pIMuBE4YPZ+LebpX5EbejzQG1du
+	6joexbWysLATrTSv+lZmEyvppkgzgbG2x56jCxiOJjwA0QcfhEX6dUOjS+Nmz0GzwLC5azpWs8z
+	eFB9jVq0ceHjkK5YC11m4L0XCsBUrmnG9RAXvz0pKl58XqLyx0vu3StiW7BgsRNjViGfez0lxc6
+	wmvIWkke8v6PQ5msfPq8c1sMcdYAC2J4NCX2/LrtYWhOATfxRoRpizrVFK+dljMhwGVGLxxHf1x
+	YRnImbEmAnBFiHmo1jYC+O+5NetFzCu3BlGDscD7oWSt4hc1YIvAVmufwLIVLU+cEqk/6byJkGB
+	SeJl1jA8S/hkjiyVPJSigZsxD5c/rD81xL4XqyJgWcYLnm+FzLCbtA2FEqr1zpFvfuSK0rob2Sb
+	tWG3BqMUDVeSthZDqE+DleGjd5mQ454T17RugP54OV7/W6dNLGkb+50e2GUegfLIQqnyFPbIcMz
+	feIULq1Gmt7i51XImCP/vI8fYmm
+X-Received: by 2002:a05:600c:3486:b0:49d:17d4:aff2 with SMTP id 5b1f17b1804b1-4a01ad9847amr74558815e9.1.1790861361167;
+        Thu, 01 Oct 2026 06:29:21 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F.thefacebook.com ([2620:10d:c092:500::6:7dd1])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a024a85409sm25779795e9.15.2026.10.01.06.29.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 06:29:10 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: horms@kernel.org,
-	david@ixit.cz,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: oe-linux-nfc@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	syzbot+ci3c472c63e196fe9e@syzkaller.appspotmail.com,
-	sashiko-bot@kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Subject: Re: [PATCH net v2] nfc: llcp: prevent resource leak on repeated connect after DM
-Date: Thu,  1 Oct 2026 10:28:53 -0300
-Message-ID: <20261001132853.1468565-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <179058922656.3145.17540746696102333949@kernel.org>
-References: <179058922656.3145.17540746696102333949@kernel.org>
+        Thu, 01 Oct 2026 06:29:20 -0700 (PDT)
+From: Gregory Price <gourry@gourry.net>
+To: david@kernel.org,
+	linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	akpm@linux-foundation.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev,
+	usama.arif@linux.dev,
+	kas@kernel.org,
+	joshua.hahnjy@gmail.com,
+	rakie.kim@sk.com,
+	ying.huang@linux.alibaba.com,
+	matthew.brost@intel.com,
+	byungchul@sk.com,
+	apopple@nvidia.com,
+	jannh@google.com,
+	pfalcato@suse.de,
+	hannes@cmpxchg.org,
+	shy828301@gmail.com,
+	osalvador@suse.de,
+	raghavendra.kt@amd.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v4 4/7] sched/numa: separate VMA placement from scan continuation
+Date: Thu,  1 Oct 2026 09:29:13 -0400
+Message-ID: <20261001132913.486570-1-gourry@gourry.net>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <e1728faa-5d50-48af-8ba0-5098be9124eb@kernel.org>
+References: <20260930112206.205083-5-gourry@gourry.net> <e1728faa-5d50-48af-8ba0-5098be9124eb@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
 
-Thanks for the detailed review.  v3 addresses the device reference
-issues; the remaining points are either pre-existing or need a
-follow-up.  Responding to each finding below.
-
-> [Critical] Can this release resources that a blocking connect() on the
-> same socket still owns?  (Thread A in sock_wait_state, Thread B wins
-> lock_sock and runs cleanup, Thread A unwinds with stale local/dev)
-
-This is a real concern but pre-existing: the socket lock is dropped
-inside sock_wait_state() and a second connect() on the same fd from
-another thread can race regardless of this patch.  The cleanup does
-not make the window wider -- without it, Thread B's connect() would
-overwrite the fields without releasing anything (the original leak).
-A proper fix for concurrent connect() on the same socket would need
-serialization beyond the socket lock, which is a separate change.
-
-> [Critical] Does a CLOSED socket with non-NULL llcp_sock->dev always
-> own a reference?  bind() keeps dev without a reference;
-> socket_release() drops the connected ref without clearing dev.
-
-This is what syzbot confirmed and v3 fixes.  v3 clears llcp_sock->dev
-in nfc_llcp_socket_release() after the connected put, and for
-bound/listening sockets that never owned a device reference.  It also
-clears dev in nfc_llcp_recv_dm() for bound/listening sockets before
-setting LLCP_CLOSED.  After v3, the cleanup's if (llcp_sock->dev)
-guard only fires when the socket genuinely owns the reference (the
-rejected async connect case).
-
-The syzbot reproducer for the v2 double-put passes cleanly with v3
-applied (tested with KASAN, 0 reports).
-
-> [High] Is the socket always off local->sockets at this point?
-> Cleanup sets local = NULL without unlinking; socket stays hashed.
-
-Valid concern.  The cleanup should unlink the socket from whichever
-list it is on before clearing ->local.  This is not addressed in v3
-and needs a follow-up patch.  I will send one.
-
-> [High] Can the same leak happen through bind()?
-
-Yes.  bind() also accepts CLOSED sockets and overwrites the fields.
-The cleanup helper should be called from bind() as well.  Not
-addressed in v3; will include in the follow-up.
-
-> [High, pre-existing] Stale sk_err = ENXIO from recv_dm not cleared
-> on retry; if recv_cc() races in, connect() unwinds and leaves dev
-> NULL, then destruct dereferences NULL.
-
-Pre-existing and not introduced by this patch.  Clearing sk_err in
-the LLCP_CLOSED cleanup is the right thing to do.  Will include in
-the follow-up.
-
-Summary of what is addressed and what remains:
-
-  v3 fixes:
-  - Device reference underflow (syzbot confirmed, KASAN verified)
-
-  Follow-up needed:
-  - Unlink socket from local->sockets/connecting_sockets in cleanup
-  - Call cleanup from bind() as well
-  - Clear stale sk_err on reconnect
-
-I will send the follow-up as a separate patch once v3 is reviewed.
-
-thanks,
-Aldo
+On Thu, Oct 01, 2026 at 12:44:50PM +0200, David Hildenbrand (Arm) wrote:=0D
+> On 9/30/26 13:22, Gregory Price wrote:=0D
+> > -static bool vma_is_accessed(struct mm_struct *mm, struct vm_area_struc=
+t *vma)=0D
+> > +static bool vma_needs_placement_scan(struct mm_struct *mm,=0D
+> > +             struct vm_area_struct *vma)=0D
+> =0D
+> mm can be had from vma->vm_mm, so likely sufficient to only pass the vma?=
+=0D
+> =0D
+> Apart from that this looks much clearer to me=0D
+> =0D
+=0D
+ack. agreed.=0D
+=0D
+If nothing else comes up on v4, could you please fold the fixlet below?=0D
+Otherwise i can spin a v4.=0D
+=0D
+should be conflict-free with a git am -3=0D
+=0D
+~Gregory=0D
+=0D
+--- >8 ---=0D
+=0D
+Subject: sched/numa: drop mm argument from vma_needs_placement_scan()=0D
+=0D
+The mm can be had from vma->vm_mm.=0D
+---=0D
+ kernel/sched/fair.c | 6 +++---=0D
+ 1 file changed, 3 insertions(+), 3 deletions(-)=0D
+=0D
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c=0D
+index 3b30786ded3b..095289d3da3c 100644=0D
+--- a/kernel/sched/fair.c=0D
++++ b/kernel/sched/fair.c=0D
+@@ -4082,9 +4082,9 @@ static void reset_ptenuma_scan(struct task_struct *p)=
+=0D
+ 	p->mm->numa_scan_offset =3D 0;=0D
+ }=0D
+ =0D
+-static bool vma_needs_placement_scan(struct mm_struct *mm,=0D
+-		struct vm_area_struct *vma)=0D
++static bool vma_needs_placement_scan(struct vm_area_struct *vma)=0D
+ {=0D
++	struct mm_struct *mm =3D vma->vm_mm;=0D
+ 	unsigned long pids;=0D
+ 	/*=0D
+ 	 * Allow unconditional access first two times, so that all the (pages)=0D
+@@ -4313,7 +4313,7 @@ static void task_numa_work(struct callback_head *work=
+)=0D
+ 		 * VMA candidate exists. If a scan is already in-progress, finish it,=0D
+ 		 * but track continuation separately from starting a new one.=0D
+ 		 */=0D
+-		placement_due =3D vma_needs_placement_scan(mm, vma);=0D
++		placement_due =3D vma_needs_placement_scan(vma);=0D
+ 		scan_started =3D mm->numa_scan_offset > vma->vm_start;=0D
+ 		pid_scan_allowed =3D vma_pids_forced || placement_due;=0D
+ =0D
