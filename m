@@ -1,131 +1,203 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE7E93C5DA1;
-	Thu,  1 Oct 2026 22:26:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70D022FD696;
+	Thu,  1 Oct 2026 22:27:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790893589; cv=none; b=OOCNswIZyH1U+e7yrW895zadvX0cIdR62478JMXDe3UciUvtQGAfiHkncvlP1FaOxMS5wOkRd9iVuW8hCsXsAAIu6WxtvAHvUKWS1LpdyLKX7PIEH1wTMiV1q6tQ8XD3fXt7jD8u4CAvnHiNP8/IrjQMWb5pfDpSGdUfqJzFUww=
+	t=1790893665; cv=none; b=NnWEFJmNxHxbGzOwaWKEZA0vHpZw7H+A2J/Fg5GnFeCEuNyaYOnd+WEJ7PeFC8RUWlqYNErRk8psNEXgpL1IAe1v4E6hcyR3k0zklBfuUp5XRWCMQPdXpN6ClKUC6VeGZty9ZzL6UXoEIs0Wy82FOvYrjkLGx1Y/894nl5HCf7I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790893589; c=relaxed/simple;
-	bh=hGHr+2I81ejfp/DsBfCmghrWW5fjJ8hrG8YNO8L7p5c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iP/2dqgZFlwcJLJ174jquz8wvFVF80uWxi0HNS3/VwmbUxubJlsrX3Pte5976FQSXVTsrxCgpVNOtSR5j2XOWNdtrfpRu80AttecYCuOvEuYIlDKmJ7vqsMaxIN0quEzuuV2dzW2fljumByg2DBgrooFy+Y8p5nNba1xRo+Aw8o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=mEFyXm74; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790893665; c=relaxed/simple;
+	bh=dc8klTJ2e9NSHPmnNcYIK7Rnuku66KpHNkUpgClzaWg=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=GnCc9W2pf72uzVv6YnZGyz1fEfug0Q3DAryUKJYOpweeRBCtjVwTgPXZ/ZWqJ3Bi+ZWn3swugCSV8wN0GinaUeM2CQ+QmlrYCJ2Jhm28pbo1b5mYAut+/lm/sFGJ60yQ03BDA7VM9dcU9uSkfVDFk9BXRbpnzmgbDYt9jgL5cP0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CHJbij1Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="mEFyXm74"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 691G5T6J2030035;
-	Thu, 1 Oct 2026 22:26:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=g/sMdSj8DDi4M03l1I2UQfN4y5okDdFfRf9ky0ubX
-	PY=; b=mEFyXm742DXm6ZjTk/GW+12uO4cBlOBonNHKNgFcXKLjWMqynSy2U02TG
-	sb8a2Rlm10BFbNuIyjC4RVpfPKjgRgobilx9Oun/GpsSI0PNtEZasvwzehaOLZYH
-	K6BvgM8Rdo9oAWbTOSQm7dfJbH9bjjhYnTaICEjX7G6Hk/xkKhpdfeiy7jcdJNB5
-	Wucwu2zpYRYdrQ6FMjtBFExk/Fsvdk67ZMDhMHLZaOkXp685vq1sZi8MW0Tq4/0S
-	5SVfoAoKle3kX+mH3Xn83jKa304awG4eKHK2VRlBO7gVkmr4FwDTq/gSvEtku7KO
-	6IK8KDEpGTteXAiVwn7X6fI9LOv/w==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx3fknd2c-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 01 Oct 2026 22:26:10 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 691Ja83u4073405;
-	Thu, 1 Oct 2026 22:26:09 GMT
-Received: from smtprelay02.wdc07v.mail.ibm.com ([172.16.1.69])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h0q4pht66-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 01 Oct 2026 22:26:09 +0000 (GMT)
-Received: from smtpav06.dal12v.mail.ibm.com (smtpav06.dal12v.mail.ibm.com [10.241.53.105])
-	by smtprelay02.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 691MQ7tO30212642
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 1 Oct 2026 22:26:07 GMT
-Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6AA8458055;
-	Thu,  1 Oct 2026 22:26:07 +0000 (GMT)
-Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C64D858043;
-	Thu,  1 Oct 2026 22:26:06 +0000 (GMT)
-Received: from ltcrain119-lp4.ltc.tadn.ibm.com (unknown [9.5.7.39])
-	by smtpav06.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Thu,  1 Oct 2026 22:26:06 +0000 (GMT)
-From: wenxiong@linux.ibm.com
-To: mathias.nyman@intel.com, gregkh@linuxfoundation.org
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org, wenxiong@us.ibm.com,
-        Wen Xiong <wenxiong@linux.ibm.com>,
-        Brian King <brking@linux.vnet.ibm.com>,
-        Samuel Mendoza-Jonas <sam@mendozajonas.com>,
-        Joel Stanley <joel@jms.id.au>
-Subject: [PATCH] xhci: Reset controller on xhci shutdown
-Date: Thu,  1 Oct 2026 18:25:27 -0400
-Message-ID: <20261001222527.11742-1-wenxiong@linux.ibm.com>
-X-Mailer: git-send-email 2.52.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CHJbij1Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 077EC1F000FF;
+	Thu,  1 Oct 2026 22:27:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790893663;
+	bh=P43Ypbud5VdnU1jIetJx+ByMyWZKFBVfi4v1I7f21yc=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=CHJbij1QRC6raLztwWuppFPGpkDIs9wr1uvRERSlrfYUBy037JuR5TcZ0+kGnz5VJ
+	 8b49+RNRvAbu7qCNdKh4Txj1JbyB2ko34XxzFg1dqeeJO+6z6p9z+PakMxnsXY0uu5
+	 liZzrHCK19q/qzXVrrhpWM+NXSSxGdvf42U/9s1zAod6fst64E/jLdtXMU5LG/OLbZ
+	 1+UlIGlcHMcEzhwBYEwhGupgXglquUeLlYwI2KlTfptPzhZ53jxLmKZeiNzLZ+JbTt
+	 q+wZSR+6VXRTXtqTMIVX/nKFk7NyzblvqIo4D+NfqXQs5E3QfhvHFWqGqI5y8qVX2a
+	 OgJ7sZb5kgXTg==
+Subject:
+ Re: [PATCH net v3] openvswitch: fix soft lockup in the netlink flow dump
+From: netdev-bot+sashiko@kernel.org
+To: den@openvz.org
+Cc: netdev@vger.kernel.org, dev@openvswitch.org, aconole@redhat.com,
+ echaudro@redhat.com, i.maximets@ovn.org, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ stable@vger.kernel.org
+Date: Thu, 01 Oct 2026 22:27:42 +0000
+Message-ID: <179089366251.434549.18021554028626523205@kernel.org>
+In-Reply-To: <20260929072519.2803304-2-den@openvz.org>
+References: <20260929072519.2803304-2-den@openvz.org>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: vUfaowdiw9kcGPmzh0WlD1wzcNf8HSKD
-X-Proofpoint-GUID: vUfaowdiw9kcGPmzh0WlD1wzcNf8HSKD
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA4OCBTYWx0ZWRfX6tBzrPEjyCtd
- My3iJXOhGO0Pn2OK/uwL5OsPVzexVllL5MdmO9XKAa1qLGHclDvBO+wUtSM/846TTwrtUGk6v2f
- LI/+/2qp29v2xsaa0HweADeGlFRuQ1Y=
-X-Authority-Analysis: v=2.4 cv=Vv62kO2n c=1 sm=1 tr=0 ts=6abede02 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VnNF1IyMAAAA:8 a=jT_9lS9cAAAA:8
- a=_TR_F_hvtShnT16lqtcA:9 a=Ec8Bv2-zM_L_lWdDgjzK:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA4OCBTYWx0ZWRfX8laPojxqdjYe
- ppIeSWaAM9eXWwZsLiIaG6AEx3ZPs1mDK+ZJigiEz/EeVVRnT+kvG1/2rCxVefmIcKBOyaesHD2
- 37YlEJ6rHjTyaCuslfAD0/aXTkag6VsVZsCS4A1RyCsOyhYUEFecl9vylMHlZ3fXlWDcUwp47BV
- gj8pV8JlMx7CSzc6I3XNzV7pnWvOrd/53PHEHu35pWnFa9P27dk5D7o64eJOkFtxkd3kjGz7TGf
- Vl0+Q2bE8sG1XgX3F0jdUtXJfWjMu0szCkKi9fva0kZWFmrF/+3I8Be9ls1t+okN9fKOidi/apm
- GqJ8lhc0HUi3sFbyGaaLRhhAVb8I47PDD43GST0ZY3dyrR0M14HDCmfwLbSVfZvDMOtdl2rNNbp
- r0+hBKBwa6pjPnvJ58Oog91Lw5AMA9LCzwsPsUyjwo5JTBQ6VkE8kXYqSK4VvOMU1tPv7IBqdBu
- yjxiTsNkOxAWWl2afiA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-01_04,2026-10-01_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 phishscore=0 bulkscore=0 adultscore=0
- priorityscore=1501 malwarescore=0 clxscore=1011 lowpriorityscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610010088
 
-From: Wen Xiong <wenxiong@linux.ibm.com>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Fixes kexec boot. Without a hard reset, some USB chips will fail to
-initialize in a kexec booted kernel.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-Signed-off-by: Brian King <brking@linux.vnet.ibm.com>
-Signed-off-by: Samuel Mendoza-Jonas <sam@mendozajonas.com>
-Signed-off-by: Joel Stanley <joel@jms.id.au>
-Signed-off-by: Wen Xiong <wenxiong@linux.ibm.com>
----
- drivers/usb/host/xhci.c | 3 +++
- 1 file changed, 3 insertions(+)
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
-index a9e47e178c28..364bd61a4bd7 100644
---- a/drivers/usb/host/xhci.c
-+++ b/drivers/usb/host/xhci.c
-@@ -781,6 +781,9 @@ void xhci_shutdown(struct usb_hcd *hcd)
- 	xhci_dbg_trace(xhci, trace_xhci_dbg_init,
- 			"xhci_shutdown completed - status = %x",
- 			readl(&xhci->op_regs->status));
-+
-+	/* TI XHCI controllers do not come back after kexec without this hack */
-+	pci_reset_function_locked(to_pci_dev(hcd->self.sysdev));
- }
- EXPORT_SYMBOL_GPL(xhci_shutdown);
- 
+- [Medium] ovs_flow_cmd_dump() (net/openvswitch/datapath.c) now holds BH
+  disabled across the whole dump callback.
+
+--
+
+openvswitch: fix soft lockup in the netlink flow dump
+
+This patch disables BH across the whole table walk in ovs_flow_cmd_dump().
+The goal is to stop the per-CPU spin_unlock_bh() calls in
+ovs_flow_stats_get() from running the softirq backlog in the dumping
+thread's context. That backlog processing led to a soft lockup on a
+heavily loaded compute node.
+
+> diff --git a/net/openvswitch/datapath.c b/net/openvswitch/datapath.c
+> index 631a03136fa14..4fc5d0bebd85e 100644
+> --- a/net/openvswitch/datapath.c
+> +++ b/net/openvswitch/datapath.c
+> @@ -1532,6 +1532,12 @@ static int ovs_flow_cmd_dump(struct sk_buff *skb, struct netlink_callback *cb)
+>  		return -ENODEV;
+>  	}
+>  
+> +	/*
+> +	 * Not needed for safety. Stops every spin_unlock_bh() in
+> +	 * ovs_flow_stats_get() from running the softirq backlog.
+> +	 */
+> +	local_bh_disable();
+> +
+>  	ti = rcu_dereference(dp->table.ti);
+>  	for (;;) {
+>  		struct sw_flow *flow;
+
+[ ... ]
+
+> @@ -1552,6 +1558,8 @@ static int ovs_flow_cmd_dump(struct sk_buff *skb, struct netlink_callback *cb)
+>  		cb->args[0] = bucket;
+>  		cb->args[1] = obj;
+>  	}
+> +
+> +	local_bh_enable();
+>  	rcu_read_unlock();
+>  	return skb->len;
+>  }
+
+[Severity: Medium]
+Can a namespace user control how long this BH-off region lasts?
+
+The region now covers the whole walk in ovs_flow_tbl_dump_next(). When
+buckets are empty, that loop has no exit that depends on skb space:
+
+net/openvswitch/flow_table.c:ovs_flow_tbl_dump_next() {
+    ...
+	while (*bucket < ti->n_buckets) {
+		i = 0;
+		head = &ti->buckets[*bucket];
+		hlist_for_each_entry_rcu(flow, head, flow_table.node[ver]) {
+		...
+		}
+		(*bucket)++;
+		*last = 0;
+	}
+    ...
+}
+
+This means one callback can scan the entire bucket array with softirqs held
+off.
+
+The only cap on n_buckets is the kvmalloc limit, which allows about 2^27
+buckets:
+
+net/openvswitch/flow_table.c:flow_key_insert() {
+    ...
+	if (table->count > ti->n_buckets)
+		new_ti = table_instance_expand(ti, false);
+	else if (time_after(jiffies, table->last_rehash + REHASH_INTERVAL))
+		new_ti = table_instance_rehash(ti, ti->n_buckets, false);
+    ...
+}
+
+The table never gets smaller in normal use:
+
+  - ovs_flow_tbl_remove() never shrinks it.
+  - The periodic rehash keeps the same size.
+  - Only ovs_flow_tbl_flush() goes back to TBL_MIN_BUCKETS.
+
+OVS_DP_CMD_NEW and OVS_FLOW_CMD_NEW/DEL only need GENL_UNS_ADMIN_PERM. The
+dump needs no privilege at all:
+
+net/openvswitch/datapath.c:dp_flow_genl_ops[] {
+    ...
+	{ .cmd = OVS_FLOW_CMD_GET,
+	  .validate = GENL_DONT_VALIDATE_STRICT | GENL_DONT_VALIDATE_DUMP,
+	  .flags = 0,		    /* OK for unprivileged users. */
+	  .doit = ovs_flow_cmd_get,
+	  .dumpit = ovs_flow_cmd_dump
+	},
+    ...
+}
+
+Root in an unprivileged user+net namespace could do the following:
+
+  1. Create a datapath.
+  2. Insert N flows so that n_buckets grows to between N and 2N.
+  3. Delete every flow except one in a high bucket.
+  4. Run the dump repeatedly from threads pinned to each CPU.
+
+Each dump could then walk up to 1 GB of hlist_heads. During that walk,
+NET_RX, timers, tasklets and RCU callbacks are all deferred on that CPU. On
+CONFIG_PREEMPT (non-RT) kernels, the walk also can't be preempted.
+
+Before this patch, softirqs could still run on hardirq exit during the walk,
+and PREEMPT_RCU kernels could preempt it. On PREEMPT_NONE/VOLUNTARY kernels
+the walk was already non-preemptible under rcu_read_lock(), so the only new
+cost there is the softirq deferral.
+
+Container memcg limits don't cap how far the table can grow:
+
+  - The sw_flow kmem_cache is created in ovs_flow_init() without
+    SLAB_ACCOUNT.
+  - The bucket array from table_instance_alloc() comes from unaccounted
+    kvmalloc memory.
+
+The commit message says:
+
+    The region stays short: the skb caps the flows one callback emits, and
+    empty buckets cost no skb space but are each visited once per dump, as
+    the cursor only moves forward. The table grows on insert and shrinks
+    only on flush, so the walk is bounded by the largest flow count the
+    datapath has held.
+
+That bound is real, but a namespace user chooses it. Is "stays short"
+accurate here?
+
+Two ways to keep the soft lockup fix without an unbounded BH-off window:
+
+  - Stop after a fixed number of buckets per callback and resume from
+    cb->args.
+  - Re-enable and disable BH after each batch of buckets.
+
+Would either of these work?
+
 -- 
-2.52.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260929072519.2803304-2-den%40openvz.org
