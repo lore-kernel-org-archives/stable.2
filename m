@@ -1,86 +1,86 @@
 Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CC7A51D50F;
-	Thu,  1 Oct 2026 14:55:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 402E452B1E3;
+	Thu,  1 Oct 2026 14:56:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.165.32
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790866566; cv=fail; b=iHcP+m6C6Wyjg00sWAlMW7jQgZKUA0K7mEMkf1qcgRo20ljJYxTYzOL5eZWH3dCmHPVYcJZzcCd1FxI8dzaenc1YED7nUnsWjm2LAIDXUBNOCvswcYd/ymAiniUDu6n8xkK78r+rg0j7cns5dq+i6Fvh24Hkphbx5RGGkgWvpZo=
+	t=1790866590; cv=fail; b=jxh2sIip1fy8TQRw/xCF5FVtTqJoWWfWw5fjaz1/WSR5rAzOPYqunsDU/FYXBIVkNzPuNptfNxSqFBWAl6ShwcsnMIKAkyQGc5aXRwuhO3zElhlYp1c4QTOtLtWIHogSFAcuCPrhZmmieYQrbS0Yc1vKzj1tyN+etMMPaJEFYTs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790866566; c=relaxed/simple;
-	bh=aEQ2RTCQEZa7kc82jInMU8X4rND9dUZqIzxFbm5DlNc=;
+	s=arc-20240116; t=1790866590; c=relaxed/simple;
+	bh=LN0nw2crQ+D8JJi/UCZnuHwipzxinx1cryPTyTg/cqM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=OMxLHYM/oEtguox4AQIxbUI5cppKhO5PE0Ilh7ANyDo6RQhenf8tCmpMQI7003lC7upoUoqd4BL1LH6glg2REyazUx+HxF4erK8r4WyMikEPkRRaxBLIunO2ANqIAVaDxuVNvYU+JRSIQHvGNEXZdB4S6dyNgPC87JgOiXgDPgg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=BuJTh8pH; dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b=wVa3wS+E; arc=fail smtp.client-ip=205.220.165.32
+	 Content-Type:MIME-Version; b=rUFQoVV2qHQVnUPdaYt3SIXqYIn6cFPIn6b/goOeFbYACFaG8lozMeS2fvYoFFDqUk9XrCmqeinJNLcpB8VmI4CRdiNeNS8aM8vUo/MWiUKhn96hx7KghumfWO550PzV0n2W2SDRRnxC6jGBEXDdxwekCCoCXDhlaUsXV/yzDsI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=nGVmxXoq; dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b=hYIj/5cJ; arc=fail smtp.client-ip=205.220.165.32
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="BuJTh8pH";
-	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="wVa3wS+E"
-Received: from pps.filterd (m0333521.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 691DMe1a1410765;
-	Thu, 1 Oct 2026 14:55:52 GMT
+	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="nGVmxXoq";
+	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="hYIj/5cJ"
+Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 691DMZuT3077797;
+	Thu, 1 Oct 2026 14:56:19 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=
-	corp-2025-04-25; bh=iETb8kk5/QmWs53Qostq6ViJcJLOxdrWjuBySdApSA0=; b=
-	BuJTh8pHlmfiF9Ld2jmZtVwRVYu2aOFRxPO29ZnmhzLEHL/tpowFNSg0OxN0U2i+
-	ls5xpdL9ahdaqUoibsVaKQkmpmU/j9iT9Jh/BQL+1fquFSVza6+BxuE49OdZ5I6g
-	cDxfVnc3DPW1baDVAWjTg/aomUXGbjCyRtS8sjI065azs3UxlzPJO/dAOUjk2aly
-	YHWIU5ZJEHE8KCJxP5Q11tWokHEmfWPzAjgXhferNsknIACI9xvlVIsM7UC0iltS
-	AxK1wlQONavWmEDoV1lW1nIKKIPSHtnAzpz1nisiop/x2LNCjC+hpkG2ckZ+cB9U
-	EJQM2hLiCs/54LPo03BWAw==
-Received: from phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta01.appoci.oracle.com [138.1.114.2])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4gx4y9h6dj-1
+	corp-2025-04-25; bh=wPEH2IB6gT8FiPRiKZaECPdNBDpkGj4idebrfQC+K6o=; b=
+	nGVmxXoqqKeCC0Uc1eB/mu3P+8rcvDqT3w18mgP/169ogAqdUGTlyidu2OysM1aa
+	HFfqfQZpvsgkOHg1aoFbhqQu6pNTe7rCANiGmQgp/c6V5SkttI+ZyX2eDJQ9wp41
+	Wx0Fco0/J6FElk4Z12uNUtZt4d0fmeMbp9FI2wu0e+iUpU3X9EGTWd9d4w9td6bi
+	3nXVtO0lxkhO/PKkwYOhSLorLnhtaXDNwd9+UGqOnkJ0SyUQx7lFK6omXlEHvxvs
+	P3jNSPh22i/e7yJ6tkv88O9phehr6fxtb7hoRw9C+/1aDZWeeDJ0XwbC00N1nIML
+	JtPMhBF0eYrOgrvugI7kTw==
+Received: from phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta03.appoci.oracle.com [138.1.37.129])
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4gx4myh8dv-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 01 Oct 2026 14:55:51 +0000 (GMT)
-Received: from pps.filterd (phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
-	by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 691EnmE7011396;
-	Thu, 1 Oct 2026 14:55:50 GMT
-Received: from ph0pr06cu001.outbound.protection.outlook.com (mail-westus3azon11011040.outbound.protection.outlook.com [40.107.208.40])
-	by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id 4gx4gepph5-1
+	Thu, 01 Oct 2026 14:56:18 +0000 (GMT)
+Received: from pps.filterd (phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 691Eo9ml012040;
+	Thu, 1 Oct 2026 14:56:18 GMT
+Received: from bl0pr03cu003.outbound.protection.outlook.com (mail-eastusazon11012057.outbound.protection.outlook.com [52.101.53.57])
+	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id 4gx4gdxx5k-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 01 Oct 2026 14:55:50 +0000 (GMT)
+	Thu, 01 Oct 2026 14:56:18 +0000 (GMT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ah8+jvcPrLCHhXTeBlePfOqFHxsciPlO8SiS9SaL3GPfSwqrbzMBi2dk/uSBGIfPFxcm+/0ZHhG/wR72vxqDbjv9aepaL7jufy0UwmS9U774L390RT02fEl7jXl5dBZHMq4a07Uc+SZjGKJW7cDOf7Sv7vuWAiYf55Q9gQk8kCxc1Fbw9fpDo556UvQjzOfMqHYFMonsBxIGJwgnJoVkcouynNo0aYwhB5gFKcCFQCCyMObmDTF0JzY+1hJZo1r2umfgXw9/nK0RB5siAjP6QikjfgFX20I/0bhNjdUxf3RX6Z/tASrU6PE+MMWO3PHY/MPIGKHjEhJF15rBaM/jYQ==
+ b=ettnwEbyWvWuFKRCGFAQrw0VZ6oCqYR5iFQkmBXNHwB6jXFbdzKIqB+ZIm0UoFk+IWWS1221dEi5wJRJxJpdhnqD3ybyixzR0UqJCdaKnvHRy0k0Ij42Rv/xqxauk0+1s5TSSn+sLbPbPy3Rpy5pt5KGrEv+H1h580Q+bUEOvwkcqZyNgIuyDntAkffdvi8cZjg77kK3/QHvE9w5XZ3F1gkNcp37q8bohl1V9iLmISQ6C8aVBJ+q8gQ2wWn2VPx1uuewTc+8TfkwjplpGo8V5ulRKwlDsYFrHuTFoC7z0ZwoET+xItNGzZF9u5wx7sOBRQeF9C0aMP1RTvs/bNUQdw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iETb8kk5/QmWs53Qostq6ViJcJLOxdrWjuBySdApSA0=;
- b=inxwmn1lAJDezWtsd0YrM/Q5uBz9RjxM0V5TXWEtz1bEcYnhe8WUSVRgkUT/kDO7+A3qydY3HmVISAM+Pb182+kGqu3Uk+bOuFI0vXHaWGDTsSq5imuIHELJakNJMsIUJrgxvWfSs2J0xx2NRwx/OJJyrWGq1rslYo40gJeASb3qKoPMyQ0mF93SwRaOEGHUBEWpXeqe/Dq6jE47Y7Osc9RL7QdYBvhxJkktOE67q/YGFTtRqW6QX+dCb4t6v4kxfPaLJQUDpJCK6z/e63fod7HA1110HB/dTlCEyDkvyGUlOh4pgk0YtcTG6NlUtcBrh+Eu32wb/ZxBvFHAVpxeDQ==
+ bh=wPEH2IB6gT8FiPRiKZaECPdNBDpkGj4idebrfQC+K6o=;
+ b=TJqSu2zJQG5c9hVkWVz8oJzEXa3NWr6Wht1gkGewnIY1N1Q3Nngw2kObDU4559+/KmOCkLnCQhHzIJ3A2FK5gw3MjbicpxpPv7JIxrkZ+h4AXH+w0Zu4Yk8Y8Br92Z/McFKrxxNz/l1OPKRRnOR6j/BIGhenYCISAvwZNZrr49E01LysRX+E1oc0Xh+/Eu4trXqOQT3trpK4AFJtWJiNtZ60oqfGkHBTSN1x1ABEt6imvTI4cI7mmLDf2UnbrM5CALQAzj2QM1fWOUpOammXkP1KEz4IMs1MfL+dd4UJ/yPrN3z+8EtqbQCbX+EvbowVEq3MpSxhteNqj/MIvjuC9A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
  dkim=pass header.d=oracle.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iETb8kk5/QmWs53Qostq6ViJcJLOxdrWjuBySdApSA0=;
- b=wVa3wS+E63WK117Ja4ApcfWhETNq6pC8oXR8vQcc/qeL3BUaXxijfVPFDFnNevqPrJtKvPR8GHBW68azqprebW7keKZM69miqZKQQEp1Zr5/7uBgm2oeu8sxXLML/oc1c2iLDQld9kWEJImzGnJZx+592IVoUETgkVWEpmfLeK0=
+ bh=wPEH2IB6gT8FiPRiKZaECPdNBDpkGj4idebrfQC+K6o=;
+ b=hYIj/5cJZRl11gySByPlaw7TI5zuZ4Rh7LCyJ7fSgAdMT97Hv2JCQaeAHYsJSF7dt5dJbq71STzsi5ChRIv68RC6xtjhnUsj1/Zm06lEMvPqzdabMsCJo4PIgXu8QiCFB4PUo7JJhnn0gkjXjRsseCYS/OR/BlJ09YvMU5zuzj4=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oracle.com;
 Received: from DM4PR10MB7505.namprd10.prod.outlook.com (2603:10b6:8:18a::7) by
- CH2PR10MB4118.namprd10.prod.outlook.com (2603:10b6:610:a4::8) with Microsoft
+ PH0PR10MB4583.namprd10.prod.outlook.com (2603:10b6:510:43::6) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.12; Thu, 1 Oct 2026 14:55:47 +0000
+ 15.21.496.12; Thu, 1 Oct 2026 14:56:13 +0000
 Received: from DM4PR10MB7505.namprd10.prod.outlook.com
  ([fe80::f14:5389:d117:967c]) by DM4PR10MB7505.namprd10.prod.outlook.com
  ([fe80::f14:5389:d117:967c%4]) with mapi id 15.21.0472.015; Thu, 1 Oct 2026
- 14:55:47 +0000
+ 14:56:12 +0000
 From: Siddh Raman Pant <siddh.raman.pant@oracle.com>
 To: stable@vger.kernel.org, Greg KH <gregkh@linuxfoundation.org>,
         "Darrick J . Wong" <djwong@kernel.org>,
         Dave Chinner <dchinner@redhat.com>
 Cc: linux-kernel@vger.kernel.org, Mark Tinguely <mark.tinguely@oracle.com>
-Subject: [PATCH 5.10 18/21] xfs: avoid dquot buffer pin deadlock
-Date: Thu,  1 Oct 2026 20:21:31 +0530
-Message-ID: <783a52a578570ff85b9a4521131a9350048aa089.1790866131.git.siddh.raman.pant@oracle.com>
+Subject: [PATCH 5.10 20/21] xfs: factor out stale buffer item completion
+Date: Thu,  1 Oct 2026 20:21:33 +0530
+Message-ID: <6fe6606b2a72f5a3dff4e97f6974b6fe8249d614.1790866131.git.siddh.raman.pant@oracle.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1790866131.git.siddh.raman.pant@oracle.com>
 References: <cover.1790866131.git.siddh.raman.pant@oracle.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: PN5PR01CA0016.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:25e::6) To DM4PR10MB7505.namprd10.prod.outlook.com
+X-ClientProxiedBy: PNYPR01CA0062.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:2b7::11) To DM4PR10MB7505.namprd10.prod.outlook.com
  (2603:10b6:8:18a::7)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -89,533 +89,194 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR10MB7505:EE_|CH2PR10MB4118:EE_
-X-MS-Office365-Filtering-Correlation-Id: 17839ad6-e53f-4f6f-8b3c-08df1fcc13d0
+X-MS-TrafficTypeDiagnostic: DM4PR10MB7505:EE_|PH0PR10MB4583:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5585b16e-e103-4548-7ba5-08df1fcc223c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|366016|376014|1800799024|23010399003|22082099003|18002099003|6133799003|10067099003|3023799007|260925021311599003|260925022911599003|260925021911599003|56012099006|5023799004;
+	BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|10070799003|18002099003|22082099003|10067099003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	huKES3j17wALnR7lJnjM7JSw5T8Gi3GgIZqvij/2taeSUvD4nadtps4FMID3nYPUHvypDBaKACzuUII2WBNAVCwg1NiC1HUKPVJQg2WSvJC0MPnv4vO4UTSQ1dtlPt8JoYmvCYWp7aUIhKVsPGNQSKg9qb3aDWcLCfF24vAVfXZ8DXm+NYn+OcggQU5Xk6NURi9OvkESO8+caqQV7ue45akYY0ozx2CjnJvYjHv/xtQ317dqBJmZPKZytXf3B+dxrxAdmH5AsM1ymLpze4x5DDn3VfON9ASHPWZaZT8L0YoSZXV0+usiVOLdW5QKrpEE8VUkDogpfGxbVj3CfYBV8ZLAjwduL2bsSjDEHtYGYnBcduuCw8sMyEf08fbYhuUYiyizCQr4QxGR8upYbMymFKuNpQ8blTaH6bmXM8kVhsXRMz8rkBXfilK1ALX/GfP9lrXdq2zV1253bnElm3HOupXRD4zeU1VZlWCFd5lAMLwWkX/ZPHLiMuf0mOxlsLrci3YDoX9y1L4B2eFCPsZugWzBTZxwKLKyaBvOyOCfVuXWcpKLcXqVQjxRALSzBFjdb6Zr9OVhZOrojMaALhsHjRY1iUfwfbj4Pp3gkvY200LJE3oySnNcIZoiQEa/AGwaQatHKCQjnyu1onMvm6PeLPpNl1+8tx9PVRT+iD94j7s=
+	CwdghfpFnuNLeA/SzSIzbwgmKsDv8+dYIiiE7i1jjFNYspmeJ4bFItOAIMhvuA0XFm9vVZRbAeLmzkiUWd+rwj4yposf6lNghfB4PGX2a3tDmynbXyTAVASGjnHxfS4jwZA5W9H43swKDPq7UQFDM7ybHpLRVFK7hiWc8+BIC44aWN1stZWStKcvGb2aZRwk6jdpNpiswQN5D6n8fpTqG7bVxzwmFIe90UTNaz7HntL+lXymoHy8VMssN2jUs/vfLXdILHpodBYq4V4iQWgQHuh9obzRwYmfrrmaIDnQo/WfCLNcjcGrjBVVvmMQktKwUB5tbw29gCCUrFsXFtiVVPe2WPS2QQTCiHfXmL5+7ldOW8uJLmwynoaUvfoWztyvXrTCqlxTYaqq7LXzhrAY+DfR8cXrx94lErBuL6ncZr7aLrUfKPb3k0Zv0Ul3ka90k3XS//5+4dZO4ss4uHpmCz7wf9y6UNAOZdmkDZ7YWZ/bw2quMdx2bfnXQS7mlpjlfdshP7hxQO5dQ67WmlE/mb3lyq+MgECOqONb0ZCvCxenXHgvAaW63jfM9rwsMIOpQ0gQo4Mp1exQVwCv2u3YbQSyCZNXfzQYJE5iWGbU2PqiGBa+etI+1FyRm3AjRoNdnaJy0DSHDMv5mD9XUKTEQqteZzKgOrzHpMM5e5IwWCg=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR10MB7505.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(366016)(376014)(1800799024)(23010399003)(22082099003)(18002099003)(6133799003)(10067099003)(3023799007)(260925021311599003)(260925022911599003)(260925021911599003)(56012099006)(5023799004);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR10MB7505.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(10070799003)(18002099003)(22082099003)(10067099003)(56012099006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?8WAfIGd5APOUZ6bAHmGZZP0zVK3yBwimcxUizSVjzMA8ze0s0ei51r6iCTKU?=
- =?us-ascii?Q?+PeG5Vg4byZSCfSwXsvAZVDE/sM6adnzHag05chmgNI3ew9wuG9Gy8hkO0d4?=
- =?us-ascii?Q?W7JFyKvGtJY/G/g8qA5v5XbMNZYWSXgKzQk4JoNMO74k7ZQIF4yE1Gg6s6R2?=
- =?us-ascii?Q?24vYlNdiZzidiHM5Z8N8FcErUjJYLs8afdCKLx1faETwu92pcP8KH2Ep0GKV?=
- =?us-ascii?Q?PAtsUnVjUIH5hp0JZBk0OW6Hp/f8xOpQurIob8BsnZGdAwGznYDRghinR3fa?=
- =?us-ascii?Q?PbhbAVrxsNI36KGkvTY/gRJT60fPdM7jFy54rLpZd2hxkfPteoUSTwLMasBY?=
- =?us-ascii?Q?AyCSiyPo00ci3SWCre1Yl6AdCR3NzDN7PdvEBs0Ia8QDRPcHpdLCaqAMDcK7?=
- =?us-ascii?Q?KoELxhzsTxHLot5SGJNDy9PYItcpkGwdDW4U71cjLZsTSenSW81eYhgAgIxE?=
- =?us-ascii?Q?RR958LNxNSY49E4OlRzBqbsRwKwJAlpcqW6QqEOmLMjZkJwc3qC7qvlK5TU+?=
- =?us-ascii?Q?kL6lA53YGQ1cLUIV1h56a8FMYbz1s9b/ObskjT3LgqyvfjxOjp7azyvC8vEy?=
- =?us-ascii?Q?vA6L9izNNonH6rSIBhR0u8LilfWxLB6R6yD14VYjzFhErf6N09DQ+oHZykeb?=
- =?us-ascii?Q?ac4+Uq65gPWyRfGS9j3G1RpM6Rk4A5FlQLXFGNJToDB1E+8fu/Sgjjr+7Yeb?=
- =?us-ascii?Q?+rnkDAdpI/C+g8LCF2pPUCml/CE6H9qZwOl6pIDn42/c3DICMkDlYJ1M4Rsi?=
- =?us-ascii?Q?/TVrFp47xbdMBIt44XyZjbA0BStgE5OMr8ID17MWhb/8UzJoLQrfry5HbJQs?=
- =?us-ascii?Q?Wr43f+jGt4c2A5R3Okmu6Zr0T1x6A1Ne6suvDaGDeGEAxyyxSJCPLM6SF+3V?=
- =?us-ascii?Q?ftxzyc7UdLhV+l3MX/227ncKkjqs/Wukh6psxWqYx28HDo0a85fsCPP66mt5?=
- =?us-ascii?Q?yrUPXl0nJ8ktyzITBvqxA4UovM2OVl9JeEmJ6Z864UT4C2QUlmHQx8212Dx6?=
- =?us-ascii?Q?rdhMmApaJLjgcxcnbYK75POTE8kpopZEoCFjX0D3swefsdSJ9s0SFKmAfqGh?=
- =?us-ascii?Q?lWqxmm0vaLi3RItu+5PgrUNksy4aeD2q3j63NsR5a9BrWYT6POfvUqvvUNs6?=
- =?us-ascii?Q?dJwlu6e5RofC2eZduYlFHBvb+oqf+40gesdRMGUMFu41dQByC0jIAwan3Pdh?=
- =?us-ascii?Q?SpRLYBp+OHGfG1KFdLX0N1DMNc6TZZ8Nz3HvRSsBz+K2VgJ4LA7jUqeICz1Q?=
- =?us-ascii?Q?/H5voOctUlmd8rwP577rdsCKGy9bwpGU7V+aPvdqI71/Yi/34v36Ye9AANiB?=
- =?us-ascii?Q?ltu9qHqMAT7u15dk1rqXjUrnxVI80MPoPMfBfLfHTw360uqybBNy0GBv9sAn?=
- =?us-ascii?Q?9wBszI4KZJNCkFjkqSSlfncIi9BbvYXSC0Gk2P11wFx/Sqhz7j5Ei1qkGXFK?=
- =?us-ascii?Q?17G9wEYg5TY5AXYBaOBRW4XBgJyf4rpvEVTMRp3DFIqzPpXTNsywT5USby0d?=
- =?us-ascii?Q?8BrYgaVYr8BfLIdgodqMZjzlx5Ya6TE7+kn00n3+BJkxHE9dCojdI2bP9890?=
- =?us-ascii?Q?gcKNLkcB/SO3xqxAAzUsphWPkYqtFElZ2UFEuf6LMmNxD+PgErDyJdjnYaiU?=
- =?us-ascii?Q?GAADnbLgNj/+Lc5WTgwNG9YKUv33svP1VotuINVHjwXOWy6Ec+PqzmyDGSBq?=
- =?us-ascii?Q?7mL5aFFPiYeW9/7cqpoCMxGw2mdvtYNuY5RQJqxuhoT6Jv8nJ6fh8KhHdOT/?=
- =?us-ascii?Q?kVcEbyyLvBORLcz9bCRLytRiQApsgTFwve+xPNkBk9he87XvVZKYA/FkaAdK?=
-X-MS-Exchange-AntiSpam-MessageData-1: qV1Kyx56pwdUjnzHHdjnhMxs9eMxC2rb2kE=
+	=?us-ascii?Q?MsNWhlso4JuTloVfwS0wnqx/Ra84ukMVGrn5GJ50RK/4IUjNxZ0VgekZopPG?=
+ =?us-ascii?Q?pwFhmx5vjH6lPnEU2lWdwlCbaFJYwudbbhtESXp7bmfcVldNPMYMI7c0ms2h?=
+ =?us-ascii?Q?f7RUGzNzq1t8Pr3RpwkOv+yjUettZfDKX7So+oPPZrz5Jwz+t9NC11dqWXD+?=
+ =?us-ascii?Q?3t8pRQOPFhPtXU0H5AVPBwSy2kII+t0bdZuT5ydf/s305eDHrX+o+8uYARhs?=
+ =?us-ascii?Q?LuXv1Wbb3GmzV/U87dpNERADhWGEeyRuq7zEhclPkjZJl3LCgidTM2fYxJC5?=
+ =?us-ascii?Q?cOX0drdBSMDzVmWmyvI4MAQYlSzmWtZnL+PJvOjoZOwQdaHUmEhsLEl1AFLa?=
+ =?us-ascii?Q?DZTwXW4wAfpg/LSSRGGeWxzKe+MosSOpbK1ytXALa6uJrdjCwiBNYGPVWdUk?=
+ =?us-ascii?Q?EYDL8lHyxAZEPUuROwVqt8F18sXpR39QnWBkjv9dwLjKgpxQC0vujcBxDrxq?=
+ =?us-ascii?Q?eiUZqM3ywDmwf2P4NFGVnRpmUjxrQeF5O8JMRUrcvka0NvcOOXyLOF5h7G6c?=
+ =?us-ascii?Q?rMXe4R0olX5apwpKe5S08zC3Y/GlDqN1VGeKnPZvJOzPcS9a1D/8fongGMNV?=
+ =?us-ascii?Q?TyP8JDSB5SkYgg2ndyeOHHOMC6ZISCVxidrPX2F63zjLSmy8Py/a3qvynEbB?=
+ =?us-ascii?Q?SGFI7Djo99zsdKRQUSsyzOckvo1Oj/VWBvYZStxFjJqjaXNblq6s35LJI5ku?=
+ =?us-ascii?Q?dOo4ESruz8l4rSG9BMRHubENH4RA0bPihXDrzE4xU90BsF7/w7ZqxSyIldM7?=
+ =?us-ascii?Q?h8R0xG4j4UmUWsCEadSq1dY/oGaC4fnqsDd0jaPxH5UOwQzWduAwwpBrYMTa?=
+ =?us-ascii?Q?XlilCyh+8qwguD++sl5O4+ofXY+vc8MWpjrAdsHFynbO8+diesqO2Df/CU3h?=
+ =?us-ascii?Q?sDcl3N4t6+oOFCznfEq6SBb+FR7mxdfCm8Q3Or43aYo2qAjp14muVJy+M6Ya?=
+ =?us-ascii?Q?N725hBXiJWa3ResHMsLvCPTj3cRc4rPmlwSz+GCyYrFy4wi8ZxXJ7hQauG7+?=
+ =?us-ascii?Q?kERbYBAkyuNlic4l7Dpvgd8qLcx8bAUnV0PUBltuIXB3semJry9boAAQrEo3?=
+ =?us-ascii?Q?5S7Es1wZyRS/YXaAkPPL1wSlHEjylSekp7V8MBX49nvyR+cXTw6IuSWraMay?=
+ =?us-ascii?Q?AEKjsaLBhoxUnWmupYoLBWcinZ0i0BRiBFqB/06EDRMuPIufy/rK+hwdYXsa?=
+ =?us-ascii?Q?toGTM8AtXQa3uyWKa7lC6gczjkP1eQJHwhQUXrYf8b71GYAp9rLl+YmaRYWA?=
+ =?us-ascii?Q?1J/Q2UdJEcMdYWuXTlpu+O0RjDRIZtqXOrPGMRRVweTGcZiyzGiE943cHLSS?=
+ =?us-ascii?Q?7WtGdeE5CSb3lINyYxPbkFAMoO//Vagc0S38wX0ATuCJasdePruEbwKdijaY?=
+ =?us-ascii?Q?RHW2nEGXHzbDX8TH1nrU50D6OGH1Ddb/LSQ2pfvIEdrw9icOZ+wJfFrmbEYT?=
+ =?us-ascii?Q?8VFp6JvHXpeloKYN82Hahd+8APa+qTMBKGKnRaoxfkZkXKxELaS6SfIjl5YR?=
+ =?us-ascii?Q?iKhEjQ7secZW1NGcLDVqb/WqdQ5SCue6x3mAqwaMaX83IBqyBhVI4DByB8gD?=
+ =?us-ascii?Q?uBXqJT79bowCdjSaZxrE2mGPlmbSwImvIT7HfBLd4LEkA3kycwHDUT3tquZE?=
+ =?us-ascii?Q?1X1XZlAzlM7URzyyYlJae90wAkRVNidR7xNeFI+QBo74Ip6zHorJLwy4hoBi?=
+ =?us-ascii?Q?ykS+3zifKwJShqrj9/MnHDSSuBnF7cEkt3Rnt+onrjOTR7T80KZs0WwNWlUj?=
+ =?us-ascii?Q?2M/I9uFGUKrq0enX0fOwhzxSxqF3GwcT+XGV9ePm8C1pWqMGrG9F2K+BmkaV?=
+X-MS-Exchange-AntiSpam-MessageData-1: 0c9jLOqzRBBDJrzT/q88wh3ktC45OSJQo8U=
 X-Exchange-RoutingPolicyChecked:
-	ZJD6RD3ILYZpgLF9EgPQpGOidm9FPf5BugRWuCPy/gPfBT8qCwaTHG3L9vAfIZqyAqP/KJmpXvQ6jzM3u3qzeouZWBDRHIlXVi3/Q+ZbZLvXyFNAi4FaiZsSN/M1fic6nGPLpdZXy8/tdDpzptOqYwN15HEfqbICkPRLLi5dWBpn0Red5VhZD3Ef7koLDOhiAaOxclTeruicP0B18At3UYQrZYvErxBihRhuSQkKeBMN5fOoyuEJVdappv1GQCulB6xsscMHNipMjeRhXcF3H3c9P8fddA84FOwVuUew9qu/ycRBGB2kX5gJsWwy+B203Hrl54wodj1qx828pPl0rg==
+	rrWzLuGy6CxpwMkUWaJ40nHFO4Foqx5KaAUGNQjNFG9KvsoKjH6hLfcaSrKHLK/y66gXbFMRQh15e652/DV58Etc3+WNY5j9AW74SB/8f5gXjZ8B/P9d1mgPrJ0SQqz0K683/iSyPL2pFTzzv17O2vXegrK7tNbVMdHospBjouoREfALa2z6okVcbhEDAgfrRxFL7HcsSZfY119j0wUgRcfMq/wWdf/4RgzWMiaSzCmiZvi7ZnP1oL2DENYFdtuEb9UINK3QPZBLqZk8H+3hh2wvhQiWTrbuyylUXxFeRdSh0pcUo8QgzSBBAHHJklL5Y5vr/NpEw++ZY/HDeimu/Q==
 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	z0oTNKDxXDicNp9/N1QYIIfGCOKvNICcOdkgb3wjakwtSs+y1bnD6kvuBX118LnCAWUpZOJwZzJonkr0ca4DuoWSQM30c61pqRj+or7VagaQp+iPgsrPzFgJpzzPX03g8FUggkVaGZFe9lCkode6acjzFMdXLrCnnysqu6mXBpIZ5l8yrOJJk3/Yc1y8QYZvdYoLO3+i0cmD/NETtftJ4LDZdYZfE5cHf33HbtfxcR2t31w0RiFn5XzRsqfjodmnenD55iLu7jmEgWDfxLB2Mm38mA/8yr5X/fDbgsVVw+8MwdhUAP3n52TxOsM7dbaoyciYhTwQj+qGcEoLfrYgPG1DFGz4+EFbVrUV3XxM8hZua/qQ0TkSUoL9ZBErewGzpbtiRTrqNqcSUeAq4Cp6P3m2Jzfl6kWIxDjCxCHrWQ8j/clVe0QY413NOZtMHkrFatkUOSdj5ZYgdEKfBi0qLPGqJ67Vr6T7noZEz1GRMMFKQu4YtpRD3dDcFGTsOYYwuj6E1/wXbtZmwd6QHkjqdB4Or3FTDaPhyLuA5+RmkqqZE1vLZe38gYWTtOcGngcAkwAdwRX86blRGMbgf/oYmwWAuYROvDOJwCiT9u48gOw=
+	z+9TwnRbF8pRIxcJR/3Z0mVigJrsUVYHXhOX/pX1G2HXqhY6PsBVWkOUX6qTJJrjK9PC3ti/6qY++9tGm/pJRNBKX+KzbMgCfDa+QBhw0+wtmLg72GX4UOK5cMr76d4EvFag77uwn1PeKilF7bdKRyzyOZ4GXT6qbuk6KtDvBw6wbOWgF/Ad8HmUoq3CI8Nu3h44NqhU6wmwrL74rKcY4wrviDNIU8xMkv0GXhaar1JQ21T9F9Z0BCxGqrK3qxSSqI4cToUKEK6HHepXWMU6PtwQi37H183NPopx/SQJ5mdv22jYI1N6XLXTPzfUJoK3vIqWOpeopS2tMR9hRNKaN8TYs3mFOKNyZY8bm9qJeCzWzm8lD6mX1QI7pP7X4VsPltBsPkuB2R83/N0JT09PAiPVcGFjIVRi7uc9wi3WIXJF4WXBCbHpD1yAVpMVYEIB8+7p/fs1xwIX/igfRV2Bsaz77sqwb/3XeAHEx+LrhLgiFGiLUk8oAZI4W76/BEvtT2C6Y+xyBYwOtshSfCttDdsRp57ElJKj5tIDWNSKqMjokTB5rm19EdAKUFoxDW2SWjQEo7k8kI+1GdKpvbMurPGlINLOJNGNmgelJVBbkO4=
 X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 17839ad6-e53f-4f6f-8b3c-08df1fcc13d0
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5585b16e-e103-4548-7ba5-08df1fcc223c
 X-MS-Exchange-CrossTenant-AuthSource: DM4PR10MB7505.namprd10.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 14:55:47.7799
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 14:56:12.1558
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rdrxHXhLv03Z4EMwwMatPdmLoN4mZqoNRKadlU2DRj8MGKk0iAkd3nTIAX3HKFOy6kuFHkSfgXYDlK8BqjZ0d7ir961rEvppjQ68Wa4kn5E=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR10MB4118
+X-MS-Exchange-CrossTenant-UserPrincipalName: LjECFxvqWIEJ2V1DWraN8zUdRNHqJWsWWxFSObk5/ijLSa3xMuE+CxpNZVLg+rSfI8mb5e7O8H6bfG6w6EpxBkISw1uAN55xbvOHnjT0m74=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR10MB4583
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-01_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
- adultscore=0 lowpriorityscore=0 mlxscore=0 spamscore=0 malwarescore=0
- suspectscore=0 mlxlogscore=999 phishscore=0 classifier=spam adjust=0
- reason=mlx scancount=1 engine=8.19.0-2609040000 definitions=main-2610010059
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA1OSBTYWx0ZWRfX8xb3Sq6dUnc1
- mzb+IuWDmehWh6muBubebZ/GEDStT6a1ucymAuVei900G3NXnleKeWK6lrw/fBR3pGab2PNxJJn
- N5Yq0g+MJmgUzSmvVxDb+UfgBbQ6rmNtCfjANE1c72scieeimudlSo4jN6+IvcoTfCT4Mm2lwh3
- QR4nTihgb/X/kBfYZhs9bL06Pbj3BBtdxS4TGNTNCkFeNy+laJJKIa5nEyDDCWF133hz4h28DS7
- F16KCsMy7u1lYS4ec8Hgj2ziwCUYxtBqMeQpmU+7cHGlgFZp35GHo/DRsiespOrXPu70XfMftZQ
- K/hCWyFNZY/VGQTUOz4a3Z3Cf5EnJDKzP7hQRY6xC9tBF3l+WGbP95fNpHXE7guZJWKWbGaNAnV
- SqXefQCcPJBklADuUGRns62kfPoaVLFiVhF/tdgZj33kmBS5mLQnL9JIG85+X0YOT3IigLMOozk
- OVlXUIYEDJZb6Z16PpA==
-X-Proofpoint-GUID: HMp7xakvjaKAbV6YQ4MLWuvLjpOogCna
-X-Proofpoint-ORIG-GUID: HMp7xakvjaKAbV6YQ4MLWuvLjpOogCna
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA1OSBTYWx0ZWRfXyb/U5QSOBsFj
- 5jFdROjBQTJwzyyEadi1bT1p0pXRhoeFWpryXi2V1DGF+S+rwhOjhKQwexaIoyqH3atY7Ss+9fU
- qXwlFHm2tb/5PbhrsqlmAibL/FPW/bXfIWjbd7fPr4CtF7h+Njb0
-X-Authority-Analysis: v=2.4 cv=IuyL47/g c=1 sm=1 tr=0 ts=6abe7478 cx=c_pps
- a=XiAAW1AwiKB2Y8Wsi+sD2Q==:117 a=XiAAW1AwiKB2Y8Wsi+sD2Q==:17
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ mlxlogscore=999 lowpriorityscore=0 malwarescore=0 phishscore=0 suspectscore=0
+ mlxscore=0 spamscore=0 bulkscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2609040000 definitions=main-2610010059
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA1OSBTYWx0ZWRfX3ismOcC4uzJe
+ aUXjwN5/vsy++YW0wOxFjWF+AOIDUS4VHxbMj0G+4dQY4rpMMidFiZNiQONoP6A9I14ng4bKGyU
+ 7pSt0a6d7cllFu/b16FsrVpSKG4CN9Isw4Q0fXWPJLOvQI5X94xp
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA1OSBTYWx0ZWRfX5mp/4vG8PPWF
+ NukBB3mSi4S9Jr4QJTQV+J3uh8SWYDq6kzGOAOyVappajFGRogsZqbHOQKFzbMYRU6Z+m4fYtR0
+ 5ucBvTFBUXiZ7fIz1FODRIDktRXg/1mVXBdUslFAWgIBiCBmzD+jBUxRM8jkF0KLlxqdTdgQ+VK
+ RHZMjEXcdF3M9uq9qEmg8ZttbU1JSjI5WggY4Ho9qxqlRj/A/vPWVNkC9t1Igj/dzy8bOU9m5QZ
+ pUyQU519nbxXwXZHyyo/I0yl/yLrnK7dNrHeQAoZdG2XX16y9RCn3PHHwdfwngghwB3bzWLtARY
+ jY6/3E2HkG/xReXFFC40JH4OSDCZyEb8AzE2cBeILxus8lSDe3VcW+fuqdqOeB+1A/Agw902f4o
+ 44UGdFa8LcPrj6CixV5e9jaFILUnO6XYcXFLqEx5n3sR6OmLN03N10ByrvP1AQMUPbQL7AeqsT5
+ /VsBDbYvjoWR48cTpEg==
+X-Proofpoint-GUID: I-LA7kTCekOFlIY1dnGWQsqZsbCpRBQ2
+X-Authority-Analysis: v=2.4 cv=DZmCOftW c=1 sm=1 tr=0 ts=6abe7492 b=1 cx=c_pps
+ a=WeWmnZmh0fydH62SvGsd2A==:117 a=WeWmnZmh0fydH62SvGsd2A==:17
  a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
  a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=660iZSQnnn4A:10
  a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22
- a=x0eKOSpe3m1H3M0S9YoZ:22 a=20KFwNOVAAAA:8 a=VwQbUJbxAAAA:8 a=yPCof4ZbAAAA:8
- a=s_x9I6ZcpGuAll3zZK4A:9
+ a=RD47p0oAkeU5bO7t-o6f:22 a=20KFwNOVAAAA:8 a=VwQbUJbxAAAA:8 a=yPCof4ZbAAAA:8
+ a=HRhzHcoIBzGTXiVGymcA:9 a=WmVTiCyuxqgg3mnwYu6p:22
+X-Proofpoint-ORIG-GUID: I-LA7kTCekOFlIY1dnGWQsqZsbCpRBQ2
 
 From: Dave Chinner <dchinner@redhat.com>
 
-On shutdown when quotas are enabled, the shutdown can deadlock
-trying to unpin the dquot buffer buf_log_item like so:
-
-[ 3319.483590] task:kworker/20:0H   state:D stack:14360 pid:1962230 tgid:1962230 ppid:2      task_flags:0x4208060 flags:0x00004000
-[ 3319.493966] Workqueue: xfs-log/dm-6 xlog_ioend_work
-[ 3319.498458] Call Trace:
-[ 3319.500800]  <TASK>
-[ 3319.502809]  __schedule+0x699/0xb70
-[ 3319.512672]  schedule+0x64/0xd0
-[ 3319.515573]  schedule_timeout+0x30/0xf0
-[ 3319.528125]  __down_common+0xc3/0x200
-[ 3319.531488]  __down+0x1d/0x30
-[ 3319.534186]  down+0x48/0x50
-[ 3319.540501]  xfs_buf_lock+0x3d/0xe0
-[ 3319.543609]  xfs_buf_item_unpin+0x85/0x1b0
-[ 3319.547248]  xlog_cil_committed+0x289/0x570
-[ 3319.571411]  xlog_cil_process_committed+0x6d/0x90
-[ 3319.575590]  xlog_state_shutdown_callbacks+0x52/0x110
-[ 3319.580017]  xlog_force_shutdown+0x169/0x1a0
-[ 3319.583780]  xlog_ioend_work+0x7c/0xb0
-[ 3319.587049]  process_scheduled_works+0x1d6/0x400
-[ 3319.591127]  worker_thread+0x202/0x2e0
-[ 3319.594452]  kthread+0x20c/0x240
-
-The CIL push has seen the deadlock, so it has aborted the push and
-is running CIL checkpoint completion to abort all the items in the
-checkpoint. This calls ->iop_unpin(remove = true) to clean up the
-log items in the checkpoint.
-
-When a buffer log item is unpined like this, it needs to lock the
-buffer to run io completion to correctly fail the buffer and run all
-the required completions to fail attached log items as well. In this
-case, the attempt to lock the buffer on unpin is hanging because the
-buffer is already locked.
-
-I suspected a leaked XFS_BLI_HOLD state because of XFS_BLI_STALE
-handling changes I was testing, so I went looking for
-pin events on HOLD buffers and unpin events on locked buffer. That
-isolated this one buffer with these two events:
-
-xfs_buf_item_pin:     dev 251:6 daddr 0xa910 bbcount 0x2 hold 2 pincount 0 lock 0 flags DONE|KMEM recur 0 refcount 1 bliflags HOLD|DIRTY|LOGGED liflags DIRTY
-....
-xfs_buf_item_unpin:   dev 251:6 daddr 0xa910 bbcount 0x2 hold 4 pincount 1 lock 0 flags DONE|KMEM recur 0 refcount 1 bliflags DIRTY liflags ABORTED
-
-Firstly, bbcount = 0x2, which means it is not a single sector
-structure. That rules out every xfs_trans_bhold() case except one:
-dquot buffers.
-
-Then hung task dumping gave this trace:
-
-[ 3197.312078] task:fsync-tester    state:D stack:12080 pid:2051125 tgid:2051125 ppid:1643233 task_flags:0x400000 flags:0x00004002
-[ 3197.323007] Call Trace:
-[ 3197.325581]  <TASK>
-[ 3197.327727]  __schedule+0x699/0xb70
-[ 3197.334582]  schedule+0x64/0xd0
-[ 3197.337672]  schedule_timeout+0x30/0xf0
-[ 3197.350139]  wait_for_completion+0xbd/0x180
-[ 3197.354235]  __flush_workqueue+0xef/0x4e0
-[ 3197.362229]  xlog_cil_force_seq+0xa0/0x300
-[ 3197.374447]  xfs_log_force+0x77/0x230
-[ 3197.378015]  xfs_qm_dqunpin_wait+0x49/0xf0
-[ 3197.382010]  xfs_qm_dqflush+0x55/0x460
-[ 3197.385663]  xfs_qm_dquot_isolate+0x29e/0x4d0
-[ 3197.389977]  __list_lru_walk_one+0x141/0x220
-[ 3197.398867]  list_lru_walk_one+0x10/0x20
-[ 3197.402713]  xfs_qm_shrink_scan+0x6a/0x100
-[ 3197.406699]  do_shrink_slab+0x18a/0x350
-[ 3197.410512]  shrink_slab+0xf7/0x430
-[ 3197.413967]  drop_slab+0x97/0xf0
-[ 3197.417121]  drop_caches_sysctl_handler+0x59/0xc0
-[ 3197.421654]  proc_sys_call_handler+0x18b/0x280
-[ 3197.426050]  proc_sys_write+0x13/0x20
-[ 3197.429750]  vfs_write+0x2b8/0x3e0
-[ 3197.438532]  ksys_write+0x7e/0xf0
-[ 3197.441742]  __x64_sys_write+0x1b/0x30
-[ 3197.445363]  x64_sys_call+0x2c72/0x2f60
-[ 3197.449044]  do_syscall_64+0x6c/0x140
-[ 3197.456341]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
-
-Yup, another test run by check-parallel is running drop_caches
-concurrently and the dquot shrinker for the hung filesystem is
-running. That's trying to flush a dirty dquot from reclaim context,
-and it waiting on a log force to complete. xfs_qm_dqflush is called
-with the dquot buffer held locked, and so we've called
-xfs_log_force() with that buffer locked.
-
-Now the log force is waiting for a workqueue flush to complete, and
-that workqueue flush is waiting of CIL checkpoint processing to
-finish.
-
-The CIL checkpoint processing is aborting all the log items it has,
-and that requires locking aborted buffers to cancel them.
-
-Now, normally this isn't a problem if we are issuing a log force
-to unpin an object, because the ->iop_unpin() method wakes pin
-waiters first. That results in the pin waiter finishing off whatever
-it was doing, dropping the lock and then xfs_buf_item_unpin() can
-lock the buffer and fail it.
-
-However, xfs_qm_dqflush() is waiting on the -dquot- unpin event, not
-the dquot buffer unpin event, and so it never gets woken and so does
-not drop the buffer lock.
-
-Inodes do not have this problem, as they can only be written from
-one spot (->iop_push) whilst dquots can be written from multiple
-places (memory reclaim, ->iop_push, xfs_dq_dqpurge, and quotacheck).
-
-The reason that the dquot buffer has an attached buffer log item is
-that it has been recently allocated. Initialisation of the dquot
-buffer logs the buffer directly, thereby pinning it in memory. We
-then modify the dquot in a separate operation, and have memory
-reclaim racing with a shutdown and we trigger this deadlock.
-
-check-parallel reproduces this reliably on 1kB FSB filesystems with
-quota enabled because it does all of these things concurrently
-without having to explicitly write tests to exercise these corner
-case conditions.
-
-xfs_qm_dquot_logitem_push() doesn't have this deadlock because it
-checks if the dquot is pinned before locking the dquot buffer and
-skipping it if it is pinned. This means the xfs_qm_dqunpin_wait()
-log force in xfs_qm_dqflush() never triggers and we unlock the
-buffer safely allowing a concurrent shutdown to fail the buffer
-appropriately.
-
-xfs_qm_dqpurge() could have this problem as it is called from
-quotacheck and we might have allocated dquot buffers when recording
-the quota updates. This can be fixed by calling
-xfs_qm_dqunpin_wait() before we lock the dquot buffer. Because we
-hold the dquot locked, nothing will be able to add to the pin count
-between the unpin_wait and the dqflush callout, so this now makes
-xfs_qm_dqpurge() safe against this race.
-
-xfs_qm_dquot_isolate() can also be fixed this same way but, quite
-frankly, we shouldn't be doing IO in memory reclaim context. If the
-dquot is pinned or dirty, simply rotate it and let memory reclaim
-come back to it later, same as we do for inodes.
-
-This then gets rid of the nasty issue in xfs_qm_flush_one() where
-quotacheck writeback races with memory reclaim flushing the dquots.
-We can lift xfs_qm_dqunpin_wait() up into this code, then get rid of
-the "can't get the dqflush lock" buffer write to cycle the dqlfush
-lock and enable it to be flushed again.  checking if the dquot is
-pinned and returning -EAGAIN so that the dquot walk will revisit the
-dquot again later.
-
-Finally, with xfs_qm_dqunpin_wait() lifted into all the callers,
-we can remove it from the xfs_qm_dqflush() code.
+The stale buffer item completion handling is currently only done
+from BLI unpinning. We need to perform this function from where-ever
+the last reference to the BLI is dropped, so first we need to
+factor this code out into a helper.
 
 Signed-off-by: Dave Chinner <dchinner@redhat.com>
 Reviewed-by: Carlos Maiolino <cmaiolino@redhat.com>
 Signed-off-by: Carlos Maiolino <cem@kernel.org>
-(cherry picked from commit d62016b1a2df24c8608fe83cd3ae8090412881b3)
-
-6.12:
-
-Fix conflicts due to following missing commits:
-
-fs/xfs/xfs_buf.c:
-	eb43b0b5cab8 ("xfs: simplify xfs_buf_delwri_pushbuf")
-
-fs/xfs/xfs_qm.c:
-	da0c02516c50 ("mm/list_lru: simplify the list_lru walk callback function")
-	fb56fdf8b9a2 ("mm/list_lru: split the lock to per-cgroup scope")
-
-We delete the code so we don't really need to add them.
-
-6.6:
-
-Fix conflicts similarly due to following missing commit:
-
-fs/xfs/xfs_dquot.c, fs/xfs/xfs_qm.c:
-	08c7027e43a2 ("xfs: separate dquot buffer reads from xfs_dqflush")
-
-5.15:
-
-Fix conflicts similarly due to following missing commits:
-
-fs/xfs/xfs_buf.c:
-	231f91ab504e ("xfs: xfs_buf cache destroy isn't RCU safe")
-
-fs/xfs/xfs_qm.c:
-	85c73bf726e4 ("xfs: rework xfs_buf_incore() API")
-
+(cherry picked from commit 816c330b605c3f4813c0dc0ab5af5cce17ff06b3)
 Signed-off-by: Siddh Raman Pant <siddh.raman.pant@oracle.com>
 ---
- fs/xfs/xfs_buf.c   | 55 --------------------------------
- fs/xfs/xfs_buf.h   |  1 -
- fs/xfs/xfs_dquot.c |  3 +-
- fs/xfs/xfs_qm.c    | 79 +++++++++++-----------------------------------
- fs/xfs/xfs_trace.h |  1 -
- 5 files changed, 20 insertions(+), 119 deletions(-)
+ fs/xfs/xfs_buf_item.c | 60 ++++++++++++++++++++++++++-----------------
+ 1 file changed, 37 insertions(+), 23 deletions(-)
 
-diff --git a/fs/xfs/xfs_buf.c b/fs/xfs/xfs_buf.c
-index 78f6f5bce3e0..989d53aa3c2f 100644
---- a/fs/xfs/xfs_buf.c
-+++ b/fs/xfs/xfs_buf.c
-@@ -2257,61 +2257,6 @@ xfs_buf_delwri_submit(
- 	return error;
+diff --git a/fs/xfs/xfs_buf_item.c b/fs/xfs/xfs_buf_item.c
+index 6c29b00c0e80..22a231ffde2d 100644
+--- a/fs/xfs/xfs_buf_item.c
++++ b/fs/xfs/xfs_buf_item.c
+@@ -457,6 +457,42 @@ xfs_buf_item_pin(
+ 	atomic_inc(&bip->bli_buf->b_pin_count);
  }
  
--/*
-- * Push a single buffer on a delwri queue.
-- *
-- * The purpose of this function is to submit a single buffer of a delwri queue
-- * and return with the buffer still on the original queue. The waiting delwri
-- * buffer submission infrastructure guarantees transfer of the delwri queue
-- * buffer reference to a temporary wait list. We reuse this infrastructure to
-- * transfer the buffer back to the original queue.
-- *
-- * Note the buffer transitions from the queued state, to the submitted and wait
-- * listed state and back to the queued state during this call. The buffer
-- * locking and queue management logic between _delwri_pushbuf() and
-- * _delwri_queue() guarantee that the buffer cannot be queued to another list
-- * before returning.
-- */
--int
--xfs_buf_delwri_pushbuf(
--	struct xfs_buf		*bp,
--	struct list_head	*buffer_list)
--{
--	LIST_HEAD		(submit_list);
--	int			error;
--
--	ASSERT(bp->b_flags & _XBF_DELWRI_Q);
--
--	trace_xfs_buf_delwri_pushbuf(bp, _RET_IP_);
--
--	/*
--	 * Isolate the buffer to a new local list so we can submit it for I/O
--	 * independently from the rest of the original list.
--	 */
--	xfs_buf_lock(bp);
--	list_move(&bp->b_list, &submit_list);
--	xfs_buf_unlock(bp);
--
--	/*
--	 * Delwri submission clears the DELWRI_Q buffer flag and returns with
--	 * the buffer on the wait list with the original reference. Rather than
--	 * bounce the buffer from a local wait list back to the original list
--	 * after I/O completion, reuse the original list as the wait list.
--	 */
--	xfs_buf_delwri_submit_buffers(&submit_list, buffer_list);
--
--	/*
--	 * The buffer is now locked, under I/O and wait listed on the original
--	 * delwri queue. Wait for I/O completion, restore the DELWRI_Q flag and
--	 * return with the buffer unlocked and on the original queue.
--	 */
--	error = xfs_buf_iowait(bp);
--	bp->b_flags |= _XBF_DELWRI_Q;
--	xfs_buf_unlock(bp);
--
--	return error;
--}
--
- int __init
- xfs_buf_init(void)
- {
-diff --git a/fs/xfs/xfs_buf.h b/fs/xfs/xfs_buf.h
-index 5d91a31298a4..477518dc03f6 100644
---- a/fs/xfs/xfs_buf.h
-+++ b/fs/xfs/xfs_buf.h
-@@ -289,7 +289,6 @@ extern void xfs_buf_delwri_cancel(struct list_head *);
- extern bool xfs_buf_delwri_queue(struct xfs_buf *, struct list_head *);
- extern int xfs_buf_delwri_submit(struct list_head *);
- extern int xfs_buf_delwri_submit_nowait(struct list_head *);
--extern int xfs_buf_delwri_pushbuf(struct xfs_buf *, struct list_head *);
- 
- /* Buffer Daemon Setup Routines */
- extern int xfs_buf_init(void);
-diff --git a/fs/xfs/xfs_dquot.c b/fs/xfs/xfs_dquot.c
-index c2bd74263f78..e4d61c9301e2 100644
---- a/fs/xfs/xfs_dquot.c
-+++ b/fs/xfs/xfs_dquot.c
-@@ -1250,13 +1250,12 @@ xfs_qm_dqflush(
- 
- 	ASSERT(XFS_DQ_IS_LOCKED(dqp));
- 	ASSERT(!completion_done(&dqp->q_flush));
-+	ASSERT(atomic_read(&dqp->q_pincount) == 0);
- 
- 	trace_xfs_dqflush(dqp);
- 
- 	*bpp = NULL;
- 
--	xfs_qm_dqunpin_wait(dqp);
--
- 	/*
- 	 * Get the buffer containing the on-disk dquot
- 	 */
-diff --git a/fs/xfs/xfs_qm.c b/fs/xfs/xfs_qm.c
-index a3d728883a10..6d243321f118 100644
---- a/fs/xfs/xfs_qm.c
-+++ b/fs/xfs/xfs_qm.c
-@@ -129,6 +129,7 @@ xfs_qm_dqpurge(
- 
- 	dqp->q_flags |= XFS_DQFLAG_FREEING;
- 
-+	xfs_qm_dqunpin_wait(dqp);
- 	xfs_dqflock(dqp);
- 
- 	/*
-@@ -422,6 +423,7 @@ xfs_qm_dquot_isolate(
- 	struct xfs_dquot	*dqp = container_of(item,
- 						struct xfs_dquot, q_lru);
- 	struct xfs_qm_isolate	*isol = arg;
-+	enum lru_status		ret = LRU_SKIP;
- 
- 	if (!xfs_dqlock_nowait(dqp))
- 		goto out_miss_busy;
-@@ -434,6 +436,16 @@ xfs_qm_dquot_isolate(
- 	if (dqp->q_flags & XFS_DQFLAG_FREEING)
- 		goto out_miss_unlock;
- 
-+	/*
-+	 * If the dquot is pinned or dirty, rotate it to the end of the LRU to
-+	 * give some time for it to be cleaned before we try to isolate it
-+	 * again.
-+	 */
-+	ret = LRU_ROTATE;
-+	if (XFS_DQ_IS_DIRTY(dqp) || atomic_read(&dqp->q_pincount) > 0) {
-+		goto out_miss_unlock;
++/*
++ * For a stale BLI, process all the necessary completions that must be
++ * performed when the final BLI reference goes away. The buffer will be
++ * referenced and locked here - we return to the caller with the buffer still
++ * referenced and locked for them to finalise processing of the buffer.
++ */
++static void
++xfs_buf_item_finish_stale(
++	struct xfs_buf_log_item	*bip)
++{
++	struct xfs_buf		*bp = bip->bli_buf;
++	struct xfs_log_item	*lip = &bip->bli_item;
++
++	ASSERT(bip->bli_flags & XFS_BLI_STALE);
++	ASSERT(xfs_buf_islocked(bp));
++	ASSERT(bp->b_flags & XBF_STALE);
++	ASSERT(bip->__bli_format.blf_flags & XFS_BLF_CANCEL);
++	ASSERT(list_empty(&lip->li_trans));
++	ASSERT(!bp->b_transp);
++
++	if (bip->bli_flags & XFS_BLI_STALE_INODE) {
++		xfs_buf_item_done(bp);
++		xfs_buf_inode_iodone(bp);
++		ASSERT(list_empty(&bp->b_li_list));
++		return;
 +	}
 +
- 	/*
- 	 * This dquot has acquired a reference in the meantime remove it from
- 	 * the freelist and try again.
-@@ -449,30 +461,14 @@ xfs_qm_dquot_isolate(
++	/*
++	 * We may or may not be on the AIL here, xfs_trans_ail_delete() will do
++	 * the right thing regardless of the situation in which we are called.
++	 */
++	xfs_trans_ail_delete(lip, SHUTDOWN_LOG_IO_ERROR);
++	xfs_buf_item_relse(bip);
++	ASSERT(bp->b_log_item == NULL);
++}
++
+ /*
+  * This is called to unpin the buffer associated with the buf log item which was
+  * previously pinned with a call to xfs_buf_item_pin().  We enter this function
+@@ -506,13 +542,6 @@ xfs_buf_item_unpin(
  	}
  
- 	/*
--	 * If the dquot is dirty, flush it. If it's already being flushed, just
--	 * skip it so there is time for the IO to complete before we try to
--	 * reclaim it again on the next LRU pass.
-+	 * The dquot may still be under IO, in which case the flush lock will be
-+	 * held. If we can't get the flush lock now, just skip over the dquot as
-+	 * if it was dirty.
- 	 */
- 	if (!xfs_dqflock_nowait(dqp))
- 		goto out_miss_unlock;
+ 	if (stale) {
+-		ASSERT(bip->bli_flags & XFS_BLI_STALE);
+-		ASSERT(xfs_buf_islocked(bp));
+-		ASSERT(bp->b_flags & XBF_STALE);
+-		ASSERT(bip->__bli_format.blf_flags & XFS_BLF_CANCEL);
+-		ASSERT(list_empty(&lip->li_trans));
+-		ASSERT(!bp->b_transp);
+-
+ 		trace_xfs_buf_item_unpin_stale(bip);
  
--	if (XFS_DQ_IS_DIRTY(dqp)) {
--		struct xfs_buf	*bp = NULL;
--		int		error;
+ 		/*
+@@ -523,22 +552,7 @@ xfs_buf_item_unpin(
+ 		 * processing is complete.
+ 		 */
+ 		xfs_buf_rele(bp);
 -
--		trace_xfs_dqreclaim_dirty(dqp);
--
--		/* we have to drop the LRU lock to flush the dquot */
--		spin_unlock(lru_lock);
--
--		error = xfs_qm_dqflush(dqp, &bp);
--		if (error)
--			goto out_unlock_dirty;
--
--		xfs_buf_delwri_queue(bp, &isol->buffers);
--		xfs_buf_relse(bp);
--		goto out_unlock_dirty;
--	}
-+	ASSERT(!XFS_DQ_IS_DIRTY(dqp));
- 	xfs_dqfunlock(dqp);
- 
- 	/*
-@@ -493,14 +489,7 @@ xfs_qm_dquot_isolate(
- out_miss_busy:
- 	trace_xfs_dqreclaim_busy(dqp);
- 	XFS_STATS_INC(dqp->q_mount, xs_qm_dqreclaim_misses);
--	return LRU_SKIP;
--
--out_unlock_dirty:
--	trace_xfs_dqreclaim_busy(dqp);
--	XFS_STATS_INC(dqp->q_mount, xs_qm_dqreclaim_misses);
--	xfs_dqunlock(dqp);
--	spin_lock(lru_lock);
--	return LRU_RETRY;
-+	return ret;
- }
- 
- static unsigned long
-@@ -1226,7 +1215,6 @@ xfs_qm_flush_one(
- 	struct xfs_dquot	*dqp,
- 	void			*data)
- {
--	struct xfs_mount	*mp = dqp->q_mount;
- 	struct list_head	*buffer_list = data;
- 	struct xfs_buf		*bp = NULL;
- 	int			error = 0;
-@@ -1237,37 +1225,8 @@ xfs_qm_flush_one(
- 	if (!XFS_DQ_IS_DIRTY(dqp))
- 		goto out_unlock;
- 
--	/*
--	 * The only way the dquot is already flush locked by the time quotacheck
--	 * gets here is if reclaim flushed it before the dqadjust walk dirtied
--	 * it for the final time. Quotacheck collects all dquot bufs in the
--	 * local delwri queue before dquots are dirtied, so reclaim can't have
--	 * possibly queued it for I/O. The only way out is to push the buffer to
--	 * cycle the flush lock.
--	 */
--	if (!xfs_dqflock_nowait(dqp)) {
--		/* buf is pinned in-core by delwri list */
--		bp = xfs_buf_incore(mp->m_ddev_targp, dqp->q_blkno,
--				mp->m_quotainfo->qi_dqchunklen, 0);
--		if (!bp) {
--			error = -EINVAL;
--			goto out_unlock;
+-		/*
+-		 * If we get called here because of an IO error, we may or may
+-		 * not have the item on the AIL. xfs_trans_ail_delete() will
+-		 * take care of that situation. xfs_trans_ail_delete() drops
+-		 * the AIL lock.
+-		 */
+-		if (bip->bli_flags & XFS_BLI_STALE_INODE) {
+-			xfs_buf_item_done(bp);
+-			xfs_buf_inode_iodone(bp);
+-			ASSERT(list_empty(&bp->b_li_list));
+-		} else {
+-			xfs_trans_ail_delete(lip, SHUTDOWN_LOG_IO_ERROR);
+-			xfs_buf_item_relse(bip);
+-			ASSERT(bp->b_log_item == NULL);
 -		}
--
--		if (!(bp->b_flags & _XBF_DELWRI_Q)) {
--			error = -EAGAIN;
--			xfs_buf_relse(bp);
--			goto out_unlock;
--		}
--
--		xfs_buf_unlock(bp);
--
--		xfs_buf_delwri_pushbuf(bp, buffer_list);
--		xfs_buf_rele(bp);
--
--		error = -EAGAIN;
--		goto out_unlock;
--	}
-+	xfs_qm_dqunpin_wait(dqp);
-+	xfs_dqflock(dqp);
- 
- 	error = xfs_qm_dqflush(dqp, &bp);
- 	if (error)
-diff --git a/fs/xfs/xfs_trace.h b/fs/xfs/xfs_trace.h
-index 2b7e6322ec66..53b58f308f73 100644
---- a/fs/xfs/xfs_trace.h
-+++ b/fs/xfs/xfs_trace.h
-@@ -335,7 +335,6 @@ DEFINE_BUF_EVENT(xfs_buf_iowait_done);
- DEFINE_BUF_EVENT(xfs_buf_delwri_queue);
- DEFINE_BUF_EVENT(xfs_buf_delwri_queued);
- DEFINE_BUF_EVENT(xfs_buf_delwri_split);
--DEFINE_BUF_EVENT(xfs_buf_delwri_pushbuf);
- DEFINE_BUF_EVENT(xfs_buf_get_uncached);
- DEFINE_BUF_EVENT(xfs_buf_item_relse);
- DEFINE_BUF_EVENT(xfs_buf_iodone_async);
++		xfs_buf_item_finish_stale(bip);
+ 		xfs_buf_relse(bp);
+ 		return;
+ 	}
 -- 
 2.53.0
 
