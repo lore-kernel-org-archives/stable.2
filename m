@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1E1C51A12C;
-	Thu,  1 Oct 2026 13:52:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 507C5493652;
+	Thu,  1 Oct 2026 13:52:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790862764; cv=none; b=HNDVmV1hktssfP2ts+gHSncrb29wYL3Vk9cGA3pdaJioR1GDd6rmC5wC6B9n490zqlz7ExZrXo00p1JNIuDHA7qIiU4rxrP+5XD8NIASwzJ/qNG7Nwha3KGYCvGFszCDU0CrkTZhTfK7SCsW+94K4CEJdsPy80Ej3uZsI93ugVs=
+	t=1790862766; cv=none; b=SgiGOCUNfTe5EMkKP+QZdfUkXzt/vLyG7HsNK9HVDh5a8VQKwdb/Ir8MUbv7GKKoEcAyC8mdkQ2mvVaY4UAiGZJQCwy2HMhU77xleDM3NgqZ3n00Ex1T0dnmFO5+T1wYsBxsbEJ/8WIstYYucnRVVRuXkRSVoymVPdhLtVm5BbM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790862764; c=relaxed/simple;
-	bh=6zZtjUzuB43DWY728l+uMiW14T/qO9xbY9TRH8A8U3w=;
+	s=arc-20240116; t=1790862766; c=relaxed/simple;
+	bh=KI/QFFNNiXAwgYr4zENKAEVgCpZEDqJx7KVCHRmtim8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gjOh1dGVa57n+BgzIIXXzymefDESdM7DlYhlCc6Jw8VFUyDC+xo3URk2z1X/pA4mEy+L0paPl6NWqsjpEUVFAk8MqPCREFnSaoB1taTqbMZCr0yDVyeLUvLIKPL0cbR0c2lrGBg2z4Kk1mRYl2udNbcLm+qZ9P1UxTU3L/wXz4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bvrMyQhx; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=eKQKChUDuFED6zbl7xJY4GkwzQE88HQyDe3qSWX4rx8YB4Wd3io4fSsW1M4yThYxZu6yQp3HnrAcCFXx3ZNtR3K53YlXbtxPlxudvLhCxN36y0EHvlqVr+NhDCbkllHgsekppqlvaIWi/IYoKKpMHMY1eYs87PERNbgvmx6blV4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nWCnZXux; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bvrMyQhx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A0D61F0089A;
-	Thu,  1 Oct 2026 13:52:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nWCnZXux"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 578671F0089B;
+	Thu,  1 Oct 2026 13:52:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790862756;
-	bh=AjYMSH3wzuUQl8tjppok7Nd7i2BUmJLKac/D5JU1aug=;
+	s=k20260515; t=1790862758;
+	bh=E67Tl/yH+5uV9iIGrSXZqunBdrhk87Ysmx6mL8/6g0I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bvrMyQhx61yDiInINhXMbuKwEXPbdE+0hrVNVHx9oG2Yi9GqeWpWU2vGdNP3lBDbQ
-	 s7Rf21iGlWjn8POVbvVMoWF2yfLhIwUWEIFJuS7I+rYFBBKlUZeA4vI9UcOOyj8AAR
-	 UR+r54xO/W4W4yQIn6LAEaovGHDUsmJQxmsF4y4kFVBx803Xtv8JBCufOIFmmAB83W
-	 3l4Q7Qhdp1w454l054QVgDel7i57kpm7urk1tbhEeUgUHv+/LkIZHWvvskd76R62Jy
-	 xiQgkkqMFws+qu6h2dAv2j19/V0p7IJdlXqnjcZXw3hfXJFChElSWQOsxVac6HcZJ4
-	 VWN3jnNGF+ISw==
+	b=nWCnZXux1QXEQFx6YATsIbNaIZEia6eaL1syoncbj8ENw+3OtRT9bv4xrKVYnsTeP
+	 C6PoW8IaYxiaHoFJlfaPZZt1N4dRw889JHBgKRnpJIMGNB2bzePkwkdzGlrl47Fxi/
+	 AxWBoOQy0rhsZdIpfMRsdn1p9yB+hrjQjEuDWZAGiOjl7j2xXXY8VC5vnN8wswZsdE
+	 cvhsHmzM7W+C983CKLa1Dj6VvNyIGcvlkzl46EgK+AjWrrIK5jjv3JDLtlSLyeqyOk
+	 BPCI8sfXK8gwAUvI86QDKwIpLb7+Vzm8th/DAwcSXTL3qvlJ1uAO0vkAN3+CN0KU2Z
+	 rdt2v5g4BYpFw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
@@ -46,12 +46,12 @@ Cc: Sasha Levin <sashal@kernel.org>,
 	linux-perf-users@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	bpf@vger.kernel.org
-Subject: Re: [PATCH stable 6.1 0/2] perf build warnings fixes
-Date: Thu,  1 Oct 2026 09:52:12 -0400
-Message-ID: <2026-09-30-1-daily-reply-0008-perf-build-warnings-6-1@kernel.org>
+Subject: Re: [PATCH stable 5.15 0/2] perf build warnings fixes
+Date: Thu,  1 Oct 2026 09:52:13 -0400
+Message-ID: <2026-09-30-1-daily-reply-0009-perf-build-warnings-5-15@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260929191834.266354-1-florian.fainelli@broadcom.com>
-References: <20260929191834.266354-1-florian.fainelli@broadcom.com>
+In-Reply-To: <20260929191541.264038-1-florian.fainelli@broadcom.com>
+References: <20260929191541.264038-1-florian.fainelli@broadcom.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -60,6 +60,8 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
+> This patch series fixes the following build warnings:
+[...]
 > Arnaldo Carvalho de Melo (1):
 >   perf test bpf: Address error about non-null argument for epoll_pwait
 >     2nd arg
@@ -67,7 +69,7 @@ Content-Transfer-Encoding: 8bit
 > Namhyung Kim (1):
 >   perf tools: Fix a asan issue in parse_events_multi_pmu_add()
 
-Queued the series for 6.1, thanks.
+Queued the series for 5.15, thanks.
 
 -- 
 Thanks,
