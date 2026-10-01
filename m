@@ -1,115 +1,202 @@
-Received: from mail.amicon.ru (mail.amicon.ru [77.108.111.100])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9002A52120F;
-	Thu,  1 Oct 2026 14:33:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.108.111.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 335C23B19A0
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 14:34:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790865195; cv=none; b=U7J7MUndFxWlLchvEP6IWFgi0a0oZ1dtcWcKhTwa1Kto7dF78VhlafqPRwTCnmusA+lQu64zsPbS5HglExrZORrHlszOgg+K4elBKsFkA6WHq1O0QdRSPJ70oFb3O3eZdUFKHOkwrb9j+L6xGK36xZYeFKwuyi8aa/q/PlpLxSk=
+	t=1790865283; cv=none; b=aqvcl5ajKpnBtQd3Nod8g6e2b1LXK1WXHQW0BlAxAx9oDmKl3bqUuORnS2ULdmO8/j45DmxyPG6Xg1tTPgZ2QOhwx/AZ8fKEV7IDMsFMtdoivFCQhtArZivQhFFwsZk5TKiKgKk+xNgINUUqSpHTVBCOGv/POZpZTkYh3CLUdUo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790865195; c=relaxed/simple;
-	bh=yRIClUGyEu/COpa6JB/XyyLCadmCOVyyClxIjg4WllQ=;
-	h=Content-Type:From:To:CC:Subject:Date:Message-ID:References:
-	 In-Reply-To:MIME-Version; b=Q1/ulB0JbmtVniLIB6MykF6/Npcpd2SNW+KMydxMtFQjN+zgCTI1i5i9d0t073UMutEVOyfLFHIx7tFGzi+UJurRXeMI51keiEvBQdCAZwy2lkSEiuJy/eFkNoizi8XyhxH0atkuyz4qQqhNrZvigO30OSqXQlBnq6+oK5L9+LE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amicon.ru; spf=pass smtp.mailfrom=amicon.ru; dkim=pass (2048-bit key) header.d=amicon.ru header.i=@amicon.ru header.b=FMdCAWb8; arc=none smtp.client-ip=77.108.111.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amicon.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amicon.ru
+	s=arc-20240116; t=1790865283; c=relaxed/simple;
+	bh=EqMbMECS/t3vccpilsRChSaq7nHSoFEt06+pq6s7Wug=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=XfKobiEMXl3caev8B4e61LLSUUOCbhaP1MSOoOt21dOTExmgEKuO9qA74G9cpGLKMvqmHsJbazhy6tMxij1lU/Nk7Oezv5Z0EgMjrOtZbZOgC88JoKRjP/0jj8mQVQYF9Ob924jcGqgp89c421NBd2XxZTzVOQZbsVaklHB+zNo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aNj6BWYR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amicon.ru header.i=@amicon.ru header.b="FMdCAWb8"
-Content-Language: ru-RU
-Content-Type: text/plain; charset="koi8-r"
-Content-Transfer-Encoding: quoted-printable
-DKIM-Signature: v=1; a=rsa-sha256; d=amicon.ru; s=mail; c=simple/simple;
-	t=1790865186; h=from:subject:to:date:message-id;
-	bh=yRIClUGyEu/COpa6JB/XyyLCadmCOVyyClxIjg4WllQ=;
-	b=FMdCAWb8fKHMN6QtDUU6QKfemhfPdgOQ+VUEAzjHOG4u35Q2FxKf0g7Er71F7mtQU133qDC5zSH
-	h1PcFsPTa7pj/6b+JX8o+v8bmECEAP50JRyscWaqzmDPL5cAtKvE7EP5qC08MVByuTHBAQaBdGbOj
-	FNwV3EzHsNVLQ6R9bC5qp4CtqY9+SgF3mBxXKJyUNKOZ/EXN+LZTNf/F4APWI09zpAJ0zTQbaTdOq
-	bHdOWAHM5eFFARn0IrHKTWjPZEIe3b6NC2UOK1zIJ5WYOsNSqGf1CebmwSdEwBO1Z7SC/kSJ2jfq0
-	yjq0F9XWODB+Z8WC1sjCNd//jBeufpIrOthA==
-Received: from mail.amicon.lan (192.168.0.59) by mail.amicon.lan
- (192.168.0.59) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.27; Thu, 1 Oct
- 2026 17:33:05 +0300
-Received: from mail.amicon.lan ([::1]) by mail.amicon.lan ([::1]) with mapi id
- 15.02.1544.027; Thu, 1 Oct 2026 17:33:05 +0300
-From: =?koi8-r?B?7s/XycvP1yDh0tSjzQ==?= <naa@amicon.ru>
-To: "netdev-bot+sinfo@kernel.org" <netdev-bot+sinfo@kernel.org>
-CC: "stable@vger.kernel.org" <stable@vger.kernel.org>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>, Sasha Levin <sashal@kernel.org>,
-	"lvc-project@linuxtesting.org" <lvc-project@linuxtesting.org>,
-	=?koi8-r?B?8sHaz9cg8s/Nwc4=?= <rrv@amicon.ru>, "pchelkin@ispras.ru"
-	<pchelkin@ispras.ru>, "David S. Miller" <davem@davemloft.net>, Jakub Kicinski
-	<kuba@kernel.org>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 5.15] vxlan: Fix potential null-ptr-deref in
- vxlan_gro_prepare_receive().
-Thread-Topic: [PATCH 5.15] vxlan: Fix potential null-ptr-deref in
- vxlan_gro_prepare_receive().
-Thread-Index: AQHdUapKD1cz0+vAD0GNXi7u0omuY7bowA35
-Date: Thu, 1 Oct 2026 14:33:05 +0000
-Message-ID: <f89842dfc9014dc9b5c3905c4d65d51b@amicon.ru>
-References: <20261001132039.21201-1-naa@amicon.ru>,<179086197227.31693.8704060058711859109@kernel.org>
-In-Reply-To: <179086197227.31693.8704060058711859109@kernel.org>
-Accept-Language: ru-RU, en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aNj6BWYR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8A931F000FF
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 14:34:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790865278;
+	bh=fPM/4SeHch6pzXrCpR9Y27L1SZ7b9gGTaXj74w9Jua8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=aNj6BWYR3olZkAJJnj8BRriVmf9zOM1axIBqSY61jnXKoGzR3LcfendxV7QQ6SuOx
+	 w86a68MYHh8ZA1skTW9K+qe1wzrftdm7QQaMrl4p2nRMf0b87ON61KMIikwfjgMxZT
+	 yBmTEcClpC3W5ekda335eE3f/0wPUStID6ciGg03qYyhs6Lc16QsB//cLYxak4DjR6
+	 hhb+55hMOJFR/1JRMaT46sUpOh4ygENcsopUXWJhbs2DmFpEyA5WSzGVWDM0ThrdcF
+	 LWnsmxdXceoKD9mauwPVeAEPYsF6pK/VCY9N2s5KlCiuwb0qHhIWsDAKNY4tD2INb5
+	 4QHN/HLpgEP3A==
+Received: by mail-qk2-f40.google.com with SMTP id af79cd13be357-93c5d67aa05so645364785a.0
+        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 07:34:38 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwMga16J6bvPipp183T/kqJxixXPE6LBpws4JZqhKY9FTxUpAK1z2FzlVh52ZKJ+wfWnXKes8g=@vger.kernel.org
+X-Gm-Message-State: AFuF++lUlNK2pN5y2QIfLRr5oc4StByTTx6xk1AdXPclTSnlbmsFJYhZ
+	Aus7dfS952g3GZVt4QtZx7VZzaO821aLtRhZE4X5eTtHn7Xp4grMxdonFDzeCbt+ZTYO9xlfHs+
+	ezV+77wFt+JfoQt4v7Z11qedZTFcdgAk=
+X-Received: by 2002:a05:620a:2550:b0:93c:3d7e:6e90 with SMTP id
+ af79cd13be357-93ca96e9ddemr860429585a.32.1790865278068; Thu, 01 Oct 2026
+ 07:34:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260730030031.28678-1-ali@iusegentoo.com>
+In-Reply-To: <20260730030031.28678-1-ali@iusegentoo.com>
+From: Len Brown <lenb@kernel.org>
+Date: Thu, 1 Oct 2026 10:34:25 -0400
+X-Gmail-Original-Message-ID: <CAJvTdKn_OrEQNBH=uW6exhW8Y3GoqGGujBNxU36GTqwQy92myg@mail.gmail.com>
+X-Gm-Features: AclHuK_OaFtvuk_AMu9BzLHuUYBE8rlL8qthlcNrdVlLY-j_DpowU_julj-x06Y
+Message-ID: <CAJvTdKn_OrEQNBH=uW6exhW8Y3GoqGGujBNxU36GTqwQy92myg@mail.gmail.com>
+Subject: Re: [PATCH] tools/power turbostat: Read complete CPU lists
+To: Ali Ahmet Memis <ali@iusegentoo.com>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+Applied -- thanks!
 
-Resending in plain text because the mailing lists rejected the
-HTML version of my previous reply.
+-Len Brown
+Intel Open Source Technology Center
 
-This is a 5.15 stable backport of Kuniyuki Iwashima's upstream
-commit 30a45c0bffdd62350261e2f2689fdba426a33578.
+On Wed, Jul 29, 2026 at 11:00=E2=80=AFPM Ali Ahmet Memis <ali@iusegentoo.co=
+m> wrote:
+>
+> CPU_SUBSET_MAXCPUS accepts CPU IDs through 8191, but the sysfs and
+> cgroup CPU-list readers stop at 1024 bytes. A fragmented cpuset or
+> hybrid PMU CPU list can exceed that size and be truncated.
+> initialize_cpu_set_from_sysfs() can also pass a full, non-NUL-terminated
+> buffer to parse_cpu_str(), causing an out-of-bounds read.
+>
+> Additionally, initialize_cpu_set_from_sysfs() returns with the file
+> still open on success. It is now called once per CPU for
+> thread_siblings_list, so large systems can leak thousands of descriptors
+> during topology discovery.
+>
+> Use getline() so both readers receive a complete, NUL-terminated line.
+> Close and free the sysfs CPU-list resources on every path, and report
+> malformed input from the correct buffer.
+>
+> Fixes: eb187540d13a ("tools/power turbostat: Increase CPU_SUBSET_MAXCPUS =
+to 8192")
+> Fixes: 58839fdbd441 ("tools/power turbostat: Process HT siblings in CPU o=
+rder")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ali Ahmet Memis <ali@iusegentoo.com>
+> ---
+>  tools/power/x86/turbostat/turbostat.c | 44 +++++++++++++++------------
+>  1 file changed, 25 insertions(+), 19 deletions(-)
+>
+> diff --git a/tools/power/x86/turbostat/turbostat.c b/tools/power/x86/turb=
+ostat/turbostat.c
+> index 920694c3c..cec3f2fbb 100644
+> --- a/tools/power/x86/turbostat/turbostat.c
+> +++ b/tools/power/x86/turbostat/turbostat.c
+> @@ -6311,33 +6311,35 @@ int for_all_proc_cpus(int (func) (int))
+>
+>  #define PATH_EFFECTIVE_CPUS    "/sys/fs/cgroup/cpuset.cpus.effective"
+>
+> -static char cpu_effective_str[1024];
+> +static char *cpu_effective_str;
+>
+>  static int update_effective_str(bool startup)
+>  {
+>         FILE *fp;
+> -       char *pos;
+> -       char buf[1024];
+> +       char *buf =3D NULL;
+> +       size_t size =3D 0;
+>         int ret;
+>
+> -       if (cpu_effective_str[0] =3D=3D '\0' && !startup)
+> +       if (!cpu_effective_str && !startup)
+>                 return 0;
+>
+>         fp =3D fopen(PATH_EFFECTIVE_CPUS, "r");
+>         if (!fp)
+>                 return 0;
+>
+> -       pos =3D fgets(buf, 1024, fp);
+> -       if (!pos)
+> +       if (getline(&buf, &size, fp) < 0)
+>                 err(1, "%s: file read failed", PATH_EFFECTIVE_CPUS);
+>
+>         fclose(fp);
+>
+> -       ret =3D strncmp(cpu_effective_str, buf, 1024);
+> -       if (!ret)
+> +       ret =3D cpu_effective_str ? strcmp(cpu_effective_str, buf) : 1;
+> +       if (!ret) {
+> +               free(buf);
+>                 return 0;
+> +       }
+>
+> -       strncpy(cpu_effective_str, buf, 1024);
+> +       free(cpu_effective_str);
+> +       cpu_effective_str =3D buf;
+>         return 1;
+>  }
+>
+> @@ -8529,13 +8531,16 @@ int add_rapl_perf_counter(int cpu, struct rapl_co=
+unter_info_t *rci, const struct
+>         return ret;
+>  }
+>
+> -char cpuset_buf[1024];
+> -int initialize_cpu_set_from_sysfs(cpu_set_t *cpu_set, char *sysfs_path, =
+char *sysfs_file)
+> +int initialize_cpu_set_from_sysfs(cpu_set_t *cpu_set, const char *sysfs_=
+path,
+> +                                 const char *sysfs_file)
+>  {
+>         FILE *fp;
+> +       char *cpuset_buf =3D NULL;
+> +       size_t size =3D 0;
+>         char path[128];
+> +       int ret =3D -1;
+>
+> -       if (snprintf(path, 128, "%s/%s", sysfs_path, sysfs_file) > 128)
+> +       if (snprintf(path, sizeof(path), "%s/%s", sysfs_path, sysfs_file)=
+ >=3D (int)sizeof(path))
+>                 err(-1, "%s %s", sysfs_path, sysfs_file);
+>
+>         fp =3D fopen(path, "r");
+> @@ -8543,19 +8548,20 @@ int initialize_cpu_set_from_sysfs(cpu_set_t *cpu_=
+set, char *sysfs_path, char *sy
+>                 warn("open %s", path);
+>                 return -1;
+>         }
+> -       if (fread(cpuset_buf, sizeof(char), 1024, fp) =3D=3D 0) {
+> +       if (getline(&cpuset_buf, &size, fp) < 0) {
+>                 warn("read %s", sysfs_path);
+> -               goto err;
+> +               goto out;
+>         }
+>         if (parse_cpu_str(cpuset_buf, cpu_set, cpu_possible_setsize)) {
+> -               warnx("%s: cpu str malformat %s\n", sysfs_path, cpu_effec=
+tive_str);
+> -               goto err;
+> +               warnx("%s: cpu str malformat %s\n", sysfs_path, cpuset_bu=
+f);
+> +               goto out;
+>         }
+> -       return 0;
+> +       ret =3D 0;
+>
+> -err:
+> +out:
+>         fclose(fp);
+> -       return -1;
+> +       free(cpuset_buf);
+> +       return ret;
+>  }
+>
+>  void print_cpu_set(char *s, cpu_set_t *set)
+> --
+> 2.54.0
+>
 
-The original submission does not specify how the bug was discovered.
-A later report includes a KASAN diagnostic and a kernel panic.
-Kuniyuki confirmed that the upstream commit above fixes that issue:
-https://lists.openwall.net/netdev/2026/07/06/423
 
-Validation of this backport covered patch application and formatting,
-but did not include runtime reproduction on 5.15.
-
-Best regards,
-Artem Novikov
-
-
-=EF=D4: netdev-bot+sinfo@kernel.org <netdev-bot+sinfo@kernel.org>
-=EF=D4=D0=D2=C1=D7=CC=C5=CE=CF: 1 =CF=CB=D4=D1=C2=D2=D1 2026 =C7. 16:39
-=EB=CF=CD=D5: =EE=CF=D7=C9=CB=CF=D7 =E1=D2=D4=A3=CD
-=EB=CF=D0=C9=D1: stable@vger.kernel.org; Greg Kroah-Hartman; Sasha Levin; l=
-vc-project@linuxtesting.org; =F2=C1=DA=CF=D7 =F2=CF=CD=C1=CE; pchelkin@ispr=
-as.ru; David S. Miller; Jakub Kicinski; netdev@vger.kernel.org; linux-kerne=
-l@vger.kernel.org
-=F4=C5=CD=C1: Re: [PATCH 5.15] vxlan: Fix potential null-ptr-deref in vxlan=
-_gro_prepare_receive().
-=9A=9A=9A=20
-Hi!
-
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
-
-=9A- How the issue was discovered, e.g. hit in production, hit during
-=9A=9A development, syzbot report, manual code inspection, LLM or static
-=9A=9A analysis tool scan.
-
-=9A- Whether the issue was actually triggered, or is only theoretical
-=9A=9A (e.g. found by code inspection). If it was triggered please include
-=9A=9A the symptoms, like the stack trace or error messages.
-
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
-=9A=9A=9A =
+--=20
+Len Brown, Intel Open Source Technology Center
