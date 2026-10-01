@@ -1,90 +1,75 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14883524B18;
-	Thu,  1 Oct 2026 15:19:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790867958; cv=pass; b=bPP2TDFg2ixZouFV48ECoSyXDKn5gDjljidCXM2ivjIicY8ONF1drhncbQTuB1MnCZRBRDHhl8BVVuJUZDD04V7NY3L9fOSzX49DAdGfZ/HiurFpsmOufg3zYcq7/aBSO1NEfwWo0PQXOwrrEkdQtvn/J32itjhOh3iDn9X3LGo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790867958; c=relaxed/simple;
-	bh=82vnsJPzIOPJG4mqgPhwtcpVd6DgPG277k+sraDnl+Q=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDD3353160C
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 15:23:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790868216; cv=none; b=DRpM+8Lf+XTlsprXlvr9S9CXa09FqrSnJYKCrD7mYblmbSPg1E2FoOkOaJpU/wV6mho6TxPqhXhfaDbJ4/Ze69EV3btyZ4ZdUVt6mUaL3cH85sf260a4UHjqgXcCBwmgmPkyMY21AwvPguukjizBidZxkuJPDp1y4615jGdnIso=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790868216; c=relaxed/simple;
+	bh=Zvq2NfgqswGJXpD73eLNaboyrRxn1rag24jtHTev4Co=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WOg8S1gXggAN5zPOOQ2j8yLdGrKR2Tyoqfp5r4isJ8qH+Mv2wr7OciUsXwNC4h7wWDt50ID/cM+2bfzR301u1oIc+bxekPW5ITcpyTqivLLlUWqemnHpLvb0gdxs8fTL4e6Eheh+byRBZB/N+gbZEpFviFVaw7SMTKAZe9W1lQc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=HDFM6MyG; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	 MIME-Version; b=BSzmBkjJhLDmJqHQwPZCw3nxhrIK5+IDMjbL8BVztgUd2WiY6oDtPgRKgLoofz8vWGjbs8EwxlrM7OVNAJW29RkvwuB5P0sVhS4eEefkNd/gbNbMcoF1DY7vPVGDt0L5fuhbICL+tVxoEGTyPwf/y1xdvCXUXUHy8xtn9Uvg9rU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J8iNnPfC; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="HDFM6MyG"
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C788C202342;
-	Thu, 01 Oct 2026 17:19:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790867947;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DiwX3o7x1yPYcflQ1RIttaef4sy8FZ96/OYMTcCjjzI=;
-	b=HDFM6MyGBOV/Fr17M7pZkecbr+PZUSXhLhBwGFhAFqDk1aIVTgeoOqY+Lua+Ykl4e9O3NO
-	kfd4p/xeSDImtIXD69F+c2prccv50XZu08Y3fw2tPpZ+GIzCl0MoIzl5IREh7iulIRm77l
-	oY7wecDjIWQ2p9h02+i6/xoY4Z39lrUCpfgG3YhfXdtcnLwcOVeKRK+hi7ORbRm/XVHsXC
-	NdWmOFIQCYv4ipZOMTOnmAJdjSWJMtUqDd+BiMq7EvDvTWvu5wTr7DUO07FzqIhJweCmMp
-	MNBFZ8O9ulmwxOyPCe8bHaODzmWVjtnBaNzIx/6X94Bdn/9QNOfmueFyEEWa4g==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790867947; a=rsa-sha256;
-	cv=none;
-	b=UWGcj5zmzq2G/+n4LO8ZCu1Q4ExtyTA9pCxjRuAYkW9ic3+qLtjY5ckb507xbwfgv4ds6q
-	kqX3VPdepNh79Ax4ycWaioNTyP5U4zXogDAgTrBH/W3r6RQKI9yfqeaaa+3X3GFFLGrGb+
-	KNd8GbZwuviw7F4QpFD9YHk7x+JjZFz1sZcOdX/mEJ01xQpCRzFtkcHt0LGA8XJc23v7s4
-	rM43P6I47Ba5onnk1blRJIrH4nerKbjYwApgnrB9h+9rtT5WQDdLDchT6bIpSwfxcuQa0P
-	7PhR/AWpPTFKOMQh/vr6tzBJ5DCrd7SE2s+AOtrLpPArF3UBD8DQQrrw7+Et7g==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790867947;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DiwX3o7x1yPYcflQ1RIttaef4sy8FZ96/OYMTcCjjzI=;
-	b=X5UjrgP5hYBp4c4RvXO2s7WHSjUbclIEdoqpqZlqg/WOtGBVB40dxKMC5Wb2zdQ8yXy7f/
-	cQCHTV7wGkNb8PhBGXM9FjlcjlgGO3PMCtrzuZYCV88Ud5TsEwr/WTUoXUgnLVFzOQdlF/
-	ygf3yyfpQOvhSoLi9yEWJ6OjBZwueyxv/MDa3ES0iozkYHfqqkc/zKb3BnEunt55IaRSOH
-	T6rPv5C9B27jwvD51KfpxAyVQE26IW7Enbp+7NyQmfYz2oYPMjrE9Ik2/SFRtzIaAzRHe1
-	cEXtj99UECUdjXi5gfCHHQhlazdsqzleI3umJaTYrzNcyseUNj42C4D7m7eBFg==
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xCIYt-003kSf-2A;
-	Thu, 01 Oct 2026 17:19:07 +0200
-Received: from blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 587485B7983;
-	Thu, 01 Oct 2026 15:19:07 +0000 (UTC)
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: netdev@vger.kernel.org
-Cc: davem@davemloft.net,
-	kuba@kernel.org,
-	linux-can@vger.kernel.org,
-	kernel@pengutronix.de,
-	"Ji-Ze Hong (Peter Hong)" <peter_hong@fintek.com.tw>,
-	stable@vger.kernel.org,
-	"Dynetrex, Admin" <admin@dynetrex.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Drew Willey <dwilley@google.com>,
-	Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: [PATCH net 3/3] usb: f81604: fix struct f81604_int_data size mismatch
-Date: Thu,  1 Oct 2026 17:14:25 +0200
-Message-ID: <20261001151905.1556270-4-mkl@pengutronix.de>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261001151905.1556270-1-mkl@pengutronix.de>
-References: <20261001151905.1556270-1-mkl@pengutronix.de>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J8iNnPfC"
+Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2d90ba1d807so52563325ad.3
+        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 08:23:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790868214; x=1791473014; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3+Yg2tTRm5a0YrOds2hAKtan8asnBjxDoQ9aQxRu5Ns=;
+        b=J8iNnPfCYtxdinBHHviFQCaptXN4WsTNgDx8dIuh7H6G7jYNQNY5iXcoc7G/l0wixA
+         KIcu8+kvcBZGNxg9eLXyLrPJGDjSWRVnzO7pCEltHykVKllKTZp2MEuZjbh9ZC71ZG62
+         +X72Yygmzs/zdKKiR/3a5V9X61eBFxdc5iiSeNw+ffMEhaJCMWuObsUopfw5iS7eICYa
+         sH6KfzYDfl3Bz8Fg/MvgW3CLz33HBl4MyRRC0u8SwNOkrpoq/v3n+f7PvW1yxqI0JXGS
+         +WqYB1rtaKw1HNfBsk2FqT6ZYHDzeUt918qOp+LvFUyad0d5TSk1k4xoI4IdUuNxpBOi
+         V7dg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790868214; x=1791473014;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3+Yg2tTRm5a0YrOds2hAKtan8asnBjxDoQ9aQxRu5Ns=;
+        b=1PPYADibMwav9TDMUt5125sOR+L30eC0jSU5BXyFViIDdZCAl8X1Sqovb9HhVdHC6N
+         CGU8r0hLBoUYyuYGYlboOWLRwX0ZXbxjjEX0qLVhhmE+XhnHWXe1acUU3tQ+FnPXFG99
+         98dFtRzB7bfodzfoDq3MGUd1YWix4/r1sHzOZXTcHkMe/Cmv5z5ymjuyHhBak0967oTI
+         WrkHeRjrS9Ctz0fL0k3+qtfxqb8CtO2yztFB8R7dliIqj8xpZZfy/qCdYr86omgAsnHy
+         X8Pz1yMYDeGiPrEmNixyPkK3oT7tTpYnsv5F/Kr871Ar3zbd23OILJEolxWeAG5VhQ4f
+         0fGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwBkhY9oJYeq5cb6fR0sQmVaxjVVhQ3TC21RK0wnYboLbFbSeFKLXV72fPjjZ5637hwW+4JjVk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJoOngrJg00t4j9QlvIl9IcsrhUidH3fO30IkrH08KJbrgagKwS
+	jqchWY31dmGCVvpxVUC4Kp3rHeYQOKhvA6/8JcThql+XbnFVqCrKEo6G
+X-Gm-Gg: AYBFou2v1YwrHDH9ibKlJ8gcIG0J+2e/o7c8bXTZh6fSeeZhJHxoL8xTi6KFOsWls3W
+	Uwe2Djb05p2KsKzgA5T+FaEUAqkP/fQPBiqsa8NUJsH19hUaSkxRYLh1mrlzIJvOgelGWYnzJbv
+	rxORqx8OLJSW7RXleU42doaI2BZZBoRjkK7DIAcLbjZD3vgvG4c/9kJu3QPI29cc4P9Yt1vTyfC
+	h6NvqPNLNw4YOVbAcHZ/6rja1Jxd54+2Tq8ELaHLWb0SaPXZK46BCMpj3tQJHZqsDy96j2VQF6Y
+	kdPVDDAedQJDrSuo58V3bmY/vmpGORqkhyj95/Dd3wTFyRx6izXAPAbG4OZuskINSQ0fTbN9raF
+	jrfnveRV3VKvX+jQCjuTb6BnLRcxJ7s28bubbJMQ16wAlOT8wQAya1hjlOBzvYK/VCbFFZdhh9M
+	c/ioFxJcUgteIdpH5spTFNh0NwRR+Kuv+DBX1uVKFtalonulb2mmBkrcTXFE1Qw6T+EtgFv7TDF
+	+iW4yykTA==
+X-Received: by 2002:a17:903:4587:b0:2db:8019:847a with SMTP id d9443c01a7336-2e2e4a138demr41720775ad.9.1790868213833;
+        Thu, 01 Oct 2026 08:23:33 -0700 (PDT)
+Received: from localhost.localdomain ([112.171.72.75])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e30cc14cbbsm9078435ad.37.2026.10.01.08.23.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 08:23:33 -0700 (PDT)
+From: Youngsung Ahn <ays511.kr@gmail.com>
+To: Zhu Yanjun <yanjun.zhu@linux.dev>
+Cc: linux-rdma@vger.kernel.org,
+	Youngsung Ahn <ays511.kr@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] RDMA/rxe: bound the ODP page index against the umem in rxe_check_pagefault()
+Date: Fri,  2 Oct 2026 00:23:25 +0900
+Message-ID: <20261001152325.3258902-1-ays511.kr@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260930175145.2491352-1-ays511.kr@gmail.com>
+References: <20260930175145.2491352-1-ays511.kr@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -93,60 +78,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Ji-Ze Hong (Peter Hong)" <peter_hong@fintek.com.tw>
+An ODP MR's page array map.pfn_list[] is sized from the umem's
+start, but rxe_check_pagefault() indexes it with an iova taken
+relative to that start, while the access was range-checked against
+the MR's iova (ibmr.iova). reg_mr only requires start and hca_va to
+share a page offset, so a user can register with hca_va =
+start + N*PAGE, and the index skew (hca_va - start) >> PAGE_SHIFT
+then lands out of bounds of pfn_list[], which is read with no bound
+check. An unprivileged local user reaches this with a single RDMA
+operation on a self-connected rxe QP: observed as a KASAN
+slab-out-of-bounds read and, when the out-of-bounds qword looks like
+a writable HMM pfn, a write into an attacker-influenced page.
 
-The struct f81604_int_data defines 9 bytes of interrupt data:
-- Byte 0: Status register (sr)
-- Byte 1: Interrupt register (isrc)
-- Byte 2: Interrupt enable register (ier)
-- Byte 3: Arbitration lost capture (alc)
-- Byte 4: Error code capture (ecc)
-- Byte 5: Error warning limit register (ewlr)
-- Byte 6: RX error counter (rxerr)
-- Byte 7: TX error counter (txerr)
-- Byte 8: Reserved (val)
+Reject an index that leaves the umem and force the fault path, which
+fails the out-of-range access via the umem range check in
+ib_umem_odp_map_dma_and_lock(). The downstream pfn_list[] users
+(__rxe_odp_mr_copy() and the atomic helpers) run only after a
+successful map, so this check protects them as well.
 
-The hardware sends exactly 9 bytes for the interrupt endpoint.
-However, the struct was defined with __aligned(4) attribute which
-caused the compiler to pad the struct to 12 bytes.
-
-This causes a problem in f81604_read_int_callback() where the short
-URB check compares urb->actual_length against sizeof(*data). When
-sizeof(struct f81604_int_data) is 12 but the hardware only sends 9
-bytes, the check fails and valid interrupt messages are discarded.
-
-This results in the driver only being able to transmit once because
-the TX complete interrupt is never processed.
-
-Fix this by removing the __aligned(4) attribute so the struct size
-matches the actual hardware data size of 9 bytes.
-
-Fixes: 7299b1b39a25 ("can: usb: f81604: handle short interrupt urb messages properly")
+Fixes: 2fae67ab63db ("RDMA/rxe: Add support for Send/Recv/Write/Read with ODP")
 Cc: stable@vger.kernel.org
-Reported-by: Dynetrex, Admin <admin@dynetrex.com>
-Closes: https://lore.kernel.org/all/A3834A07-5639-4779-844F-C5843DFC3928@dynetrex.com/
-Signed-off-by: Ji-Ze Hong (Peter Hong) <peter_hong@fintek.com.tw>
-Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Tested-by: Drew Willey <dwilley@google.com>
-Link: https://patch.msgid.link/20260824-f81604-fix-v2-1-fc9be5581394@fintek.com.tw
-Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+Signed-off-by: Youngsung Ahn <ays511.kr@gmail.com>
+Assisted-by: LLM
 ---
- drivers/net/can/usb/f81604.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Notes (not part of the commit):
+Reproduced on a KASAN x86-64 build of 7.3-rc4 as uid 1000; the data-only write
+primitive was used to reach uid 0 on a fully hardened build.
+drivers/infiniband/sw/rxe/ is unchanged between 7.3-rc4 (93f51579e7df) and
+mainline 551c722f4080 (2026-09-29) and rdma for-next, so both are affected.
+Compile-tested (KASAN+RDMA_RXE), not runtime-tested. Found through AI-assisted
+review; per Documentation/process/security-bugs.rst this is public and a
+reproducer can be shared on request. A maintainer may prefer to also index
+relative to ibmr.iova (as the non-ODP rxe_mr_iova_to_index() does) so
+legitimately skewed MRs keep working; this patch takes the minimal, safe route.
 
-diff --git a/drivers/net/can/usb/f81604.c b/drivers/net/can/usb/f81604.c
-index f12318268e46..4c147b9d6d69 100644
---- a/drivers/net/can/usb/f81604.c
-+++ b/drivers/net/can/usb/f81604.c
-@@ -169,7 +169,7 @@ struct f81604_int_data {
- 	u8 rxerr;
- 	u8 txerr;
- 	u8 val;
--} __packed __aligned(4);
-+} __packed;
- 
- struct f81604_sff {
- 	__be16 id;
--- 
-2.53.0
+v2: no code change. Added Assisted-by: LLM and dropped the security@kernel.org
+Cc, per review of v1.
 
+ drivers/infiniband/sw/rxe/rxe_odp.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/infiniband/sw/rxe/rxe_odp.c b/drivers/infiniband/sw/rxe/rxe_odp.c
+index ab21b620e94c..07a30c60fc62 100644
+--- a/drivers/infiniband/sw/rxe/rxe_odp.c
++++ b/drivers/infiniband/sw/rxe/rxe_odp.c
+@@ -136,6 +136,11 @@ static inline bool rxe_check_pagefault(struct ib_umem_odp *umem_odp, u64 iova,
+ 	while (addr < iova + length) {
+ 		idx = (addr - ib_umem_start(umem_odp)) >> umem_odp->page_shift;
+
++		if (idx >= ib_umem_odp_num_pages(umem_odp)) {
++			need_fault = true;
++			break;
++		}
++
+ 		if ((umem_odp->map.pfn_list[idx] & access) != access) {
+ 			need_fault = true;
+ 			break;
+--
+2.43.0
