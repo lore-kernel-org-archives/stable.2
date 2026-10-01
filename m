@@ -1,106 +1,103 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD70B3AE718;
-	Thu,  1 Oct 2026 22:40:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FD303C9890;
+	Thu,  1 Oct 2026 23:07:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790894444; cv=none; b=IzCI+3XFnVyg/0uyhhW43AOEj5rTyQX//3Umgu4t1P2PDjnLn2AlofkJRKlJ9jX2C205WnYdP36YyPrWDxcUKrSfon4jpH8mze/vkPdk/YLRNn+AWmRD+dfqVntRtTl0nUHYMfcK+GXTxnCEAEkvfebn4jSjA/jNPdL/wApAWpU=
+	t=1790896062; cv=none; b=ljjw0zDcHeT9A9k2jGHz3JydPVgkFriSXVCxq0DrCyp5ZgivVR1vxwMTZuPTuvH6c+n3R+L5SK48DLyeZWBggtmllYlpI8FXRYf5zRpvw8bb7Lvb8zjvhdgTvl92qusztOmWCs9cehjo5+3UTfwz9ect27Tf7q3Bj+HIix9GpBU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790894444; c=relaxed/simple;
-	bh=ZN8RoTZg6K01nxxeJFAZR4JgG9STIYMvAUqfTbJwn8s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UqfeUASsDC/WkUvw2g/er4GkirJG2LHfEC+7yRfSbt9YSSuJwOY27kWGpVvADAxCvqOljIVJ87SQvR8Mkct7BSMBBULvlb0tJpZtRVSz3pjZj/dnN084I+PXDxWSzVn2+1dOSD5CGiRebq6QifVF8b7At6iwVYkmyVdSMHWpGZk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Np16BhZh; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790896062; c=relaxed/simple;
+	bh=hPsT2rD+T6t9TWyk1ozUjxlkY7MJlsgqlItJs/TjqiY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rgDHrUIp5X8xvvqPaQyOZUJ70MT/TWSuacp8B13gz31Kh26l7EO0SXBnVZNuzxyLCTaV+NIu+3CS8ItVdpBRvnZjj6SFagt/Hti7i/EdR7cPEA3n08uzpYdI09nxZZfTzZUWE5Q4xufyhq67LODVldRr/C+9of30aHpbmVIyK7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=u4bgXdo8; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Np16BhZh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790894442; x=1822430442;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=ZN8RoTZg6K01nxxeJFAZR4JgG9STIYMvAUqfTbJwn8s=;
-  b=Np16BhZhS83a9XWPvRctkirsskTeuyQYcxhDtn9zC41DGZMqeJDQbKYT
-   T4fH8w/RzcU+TL7Lv9sGD3mCzjoRSDyN0zNQIyFx5JAvviBGA/C70dJjM
-   1q7t5JYWUcvW8LYRHFy8LHyVwyZGCxMPntgMGfRnt/F2s3OIg6+ACsURO
-   3v2xQRHwCLRVfzm6g9+ncbivCV+hOfm1A0Rk+jMBM54ERH+CWlAX/dkux
-   ykamoPeLA4kcPr6xz3bMHnhSKPmOss3IkkXsSsNNJEhmSdnt7s+UyMYAo
-   K7UkNoAwxpJI4TDxq6kdR/ET9Su8jAjjU/EmFQZ/6EFn2XZACHAr8+3Qj
-   A==;
-X-CSE-ConnectionGUID: d8RrBAVSQrC/OU7bJ3QC1w==
-X-CSE-MsgGUID: mdYo8rowRhKcgfF3ahD1tw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="94377769"
-X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
-   d="scan'208";a="94377769"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 15:40:42 -0700
-X-CSE-ConnectionGUID: kozJbeGQQH+NeUjkJc8c2A==
-X-CSE-MsgGUID: h0sh4h/4T+q+qW5t0OJ2AA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
-   d="scan'208";a="273934360"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO [10.245.244.120]) ([10.245.244.120])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 15:40:39 -0700
-Message-ID: <b43b9d21-4134-4e4c-89d8-f867207b125e@linux.intel.com>
-Date: Fri, 2 Oct 2026 01:40:37 +0300
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="u4bgXdo8"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 95B9F6A6;
+	Fri,  2 Oct 2026 01:05:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790895945;
+	bh=hPsT2rD+T6t9TWyk1ozUjxlkY7MJlsgqlItJs/TjqiY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=u4bgXdo8FZvyVw/gsKkJTXoXSzOYvbH8daY+XocbDZ/fBRKodTUn1cham5cFP5i/T
+	 UKNaCM4WSHJqmJaHHIYT4kGJbn1lDjMl/MLEULVXESGFDEHrbeFiB7qlmykhWyW3Nk
+	 emMK6+toVR9ztoUSK2ojBBX+2rHxCLey7Y2U2sSo=
+Date: Fri, 2 Oct 2026 02:07:37 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: raoxu <raoxu@uniontech.com>
+Cc: hansg@kernel.org, mchehab@kernel.org, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] media: uvcvideo: fix output terminal type check for ID
+ namespace
+Message-ID: <20261001230737.GA9061@killaraus.ideasonboard.com>
+References: <ABE1FC11603F6BBE+20260810091624.2159038-1-raoxu@uniontech.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xhci: Reset controller on xhci shutdown
-To: wenxiong@linux.ibm.com, mathias.nyman@intel.com,
- gregkh@linuxfoundation.org
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, wenxiong@us.ibm.com,
- Brian King <brking@linux.vnet.ibm.com>,
- Samuel Mendoza-Jonas <sam@mendozajonas.com>, Joel Stanley <joel@jms.id.au>
-References: <20261001222527.11742-1-wenxiong@linux.ibm.com>
-Content-Language: en-US
-From: Mathias Nyman <mathias.nyman@linux.intel.com>
-In-Reply-To: <20261001222527.11742-1-wenxiong@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <ABE1FC11603F6BBE+20260810091624.2159038-1-raoxu@uniontech.com>
 
-Hi
+On Mon, Aug 10, 2026 at 05:16:24PM +0800, raoxu wrote:
+> From: Xu Rao <raoxu@uniontech.com>
+> 
+> Commit 3d9f32e02c2e ("media: uvcvideo: Create an ID namespace for
+> streaming output terminals") added a separate internal ID namespace for
+> streaming output terminals.  The namespace is only valid for those
+> terminals because their descriptor IDs are used by streaming interface
+> bTerminalLink fields, and uvc_stream_for_terminal() intentionally masks
+> the internal namespace bit when matching that link.
+> 
+> The parser currently decides whether to use the namespace with
+> `type & UVC_TT_STREAMING`.  Terminal types are values, not bitmasks.
+> Since UVC_TT_STREAMING is 0x0101, standard non-streaming output terminal
+> types such as UVC_OTT_VENDOR_SPECIFIC, UVC_OTT_DISPLAY and
+> UVC_OTT_MEDIA_TRANSPORT_OUTPUT also make the test true through their
+> 0x0100 bits.
+> 
+> Those terminals can then receive an internal ID that differs from their
+> descriptor ID even though normal UVC descriptor references still use the
+> 8-bit descriptor ID.  This can make later entity lookups fail or hide an
+> entity ID collision that should be handled as a regular UVC descriptor
+> collision.
+> 
+> Use an equality check so that only UVC_TT_STREAMING output terminals
+> enter the separate namespace.  The issue was easy to miss because real
+> streaming output terminals make both the bitwise and equality tests true,
+> so the devices targeted by the original change keep working.
 
-On 10/2/26 01:25, wenxiong@linux.ibm.com wrote:
-> From: Wen Xiong <wenxiong@linux.ibm.com>
-> 
-> Fixes kexec boot. Without a hard reset, some USB chips will fail to
-> initialize in a kexec booted kernel.
-> 
-> Signed-off-by: Brian King <brking@linux.vnet.ibm.com>
-> Signed-off-by: Samuel Mendoza-Jonas <sam@mendozajonas.com>
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
-> Signed-off-by: Wen Xiong <wenxiong@linux.ibm.com>
+That's a long commit message, and a large part of it is quite
+irrelevant. Is this patch missing an Assisted-by tag ?
+
+> Fixes: 3d9f32e02c2e ("media: uvcvideo: Create an ID namespace for streaming output terminals")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Xu Rao <raoxu@uniontech.com>
 > ---
->   drivers/usb/host/xhci.c | 3 +++
->   1 file changed, 3 insertions(+)
+>  drivers/media/usb/uvc/uvc_driver.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
-> index a9e47e178c28..364bd61a4bd7 100644
-> --- a/drivers/usb/host/xhci.c
-> +++ b/drivers/usb/host/xhci.c
-> @@ -781,6 +781,9 @@ void xhci_shutdown(struct usb_hcd *hcd)
->   	xhci_dbg_trace(xhci, trace_xhci_dbg_init,
->   			"xhci_shutdown completed - status = %x",
->   			readl(&xhci->op_regs->status));
-> +
-> +	/* TI XHCI controllers do not come back after kexec without this hack */
-> +	pci_reset_function_locked(to_pci_dev(hcd->self.sysdev));
->   }
->   EXPORT_SYMBOL_GPL(xhci_shutdown);
->   
+> diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+> index e289cc71ba98..acfc5797a1c2 100644
+> --- a/drivers/media/usb/uvc/uvc_driver.c
+> +++ b/drivers/media/usb/uvc/uvc_driver.c
+> @@ -1130,7 +1130,7 @@ static int uvc_parse_standard_control(struct uvc_device *dev,
+>  		 * so limit usage of this separate namespace to streaming output
+>  		 * terminals.
+>  		 */
+> -		if (type & UVC_TT_STREAMING)
+> +		if (type == UVC_TT_STREAMING)
+>  			id |= UVC_TERM_OUTPUT;
+> 
+>  		term = uvc_alloc_new_entity(dev, type | UVC_TERM_OUTPUT,
 
-Should be added to xhci-pci.c: xhci_pci_shutdown() instead.
+-- 
+Regards,
 
-Probably also limited to that specific TI xHC controller
-
-Thanks
-Mathias
-
+Laurent Pinchart
