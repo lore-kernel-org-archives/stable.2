@@ -1,46 +1,58 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0BC24E77FB
-	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 11:01:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53B403FFAD0;
+	Thu,  1 Oct 2026 11:09:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790852468; cv=none; b=E/aAVs76CX7Ve9VMMzT6rNM6e/yXtJDZU4rz0BXeNA6btbVBZaIUkcQ9Cii12j/9WlSwCOf4JhdBbjFaU3lu1hnSfcSbHzMy+H4kupT1nc2xOs7TFpvAWAH9hFxXBRU+QxVRtbdwl3jxJbh7Yi4juR5x9BN/EPfcyhAs89tX7Vc=
+	t=1790852977; cv=none; b=lraq1om22eeszlZXSeniYO2UyLVEVVslJFvcjGwbCBCuTt4t4HOmyOZYy8d2djyUKk1hLMrmur1d2fWf6HvT0/CV+41kxLWgw0oiSvb4BwJx8qwl7+jMNtjCxk6nYDq2AbrqkafzFWWoSh3acOU0ILbR0HlJHpq6Jt+87gUMY6M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790852468; c=relaxed/simple;
-	bh=RheFhrB6faGcOQy6CGqRo8dFp9BCaa6lioddkWb2NUY=;
+	s=arc-20240116; t=1790852977; c=relaxed/simple;
+	bh=eovwdya9zJaERSruej5QBIxSnpSHVlHXMHX1PaAAAoQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cPSTtMMK/cqUkhLNrLRe3LG9W02OmZXgz6zoWD815ZcMJNYfdUWND6tJdD1h+aELD//jZxneKY5riAV+oTjeqXdrpQ95/A7s74eGpPNtsJGlbu+vBkEl/nZrs06LSzdviQNpqGNDZ++kQYlPpU4PuV2eL39aNHry0CKzscAe7XE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m4yfJZNn; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=bNGivBpChvxJ07+ZyHpDkjqonK9p1ZUmxwMUJOM/PxyvVMeN7xr1+mD1i8MH5at3r1jbqW0ZL+uAQXKKtM0O768JorXTaceFJ3Orxp4XVr/iYtb/fVNLumsyso5aIHD6ekcs0ptVu2syvDkgTRFJ9CXUY2obWWhnhUGZpo0F0Xg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FIIlMJ4Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m4yfJZNn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C3BC1F00899;
-	Thu,  1 Oct 2026 11:01:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FIIlMJ4Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B7681F000FF;
+	Thu,  1 Oct 2026 11:09:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790852466;
-	bh=36JnT39rwAp60bYlbS7URAPfW2TjyJucZ8Y1H6+0qYk=;
+	s=k20260515; t=1790852976;
+	bh=u3lHsx//c+giDnGM8kOIz1qtbmH+WKEWKgQVQagN43g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=m4yfJZNnphL2VUtFfXiiSY93zF9N+4pCuqk3F0P6ETy6DSrvb4S04b3tjgDvoqoDH
-	 rY0uL//NyeE/TamxmDr5jv07lVOM+K6TsBscGoJaOHc72cinT42fY0MdjuzBJ+DIcj
-	 xpNHTXY91/0NSdPTp5XjmzOO8XCvvqc9ElXQztV2o+4g6ySrZQ3B1v90jvaUZDUj2S
-	 lOIn0Cc8LKkHwpdD39X9PwMTO6e9jn/Sn0qHLaUunfrkav92fVhyaXFTNHx3MpRP6c
-	 einOiI+zRObWAYKTiejvzfusKYZiFx4flJdZc9qrzALs6wuzNzbN+UsD9CllblRJWS
-	 /sdNPpaLQT4MQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Zihan Xi <zihanx@nebusec.ai>,
-	Vega <vega@nebusec.ai>,
-	Luxing Yin <root@tr0jan.top>,
-	Frank Sorenson <sorenson@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 3/3] smb: client: close handle after create-context parsing failure
-Date: Thu,  1 Oct 2026 07:01:02 -0400
-Message-ID: <20261001110102.3713269-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261001110102.3713269-1-sashal@kernel.org>
-References: <2026092946-apron-radio-67f9@gregkh>
- <20261001110102.3713269-1-sashal@kernel.org>
+	b=FIIlMJ4Zj8jGxCmWumkqCQZqNTE6uaqc+6VwcuvZP+jIxwiwP6+or7ZYVPPOzLBBR
+	 ioK+WsC8FNFZmjR2P89xiWXn2ZTFXKe96TEB92AtwSfa1sMR5NKXyTiDEbxRD6/pcg
+	 XdQFq5ooR0XipaZJBn3VEaQ3xqAhzJdnUWtCbtcCCU/JWOPbZepBY7fRUpH+yxtzmE
+	 9vlvvFy33BIxkBYNAE3LlwZ6nJYwHo7+esb3iKYJZbX0dMiU3sHJAUfPPSPWYIoOX7
+	 amiYecAv0Bm0PBeMMN9NBR2Rj2jjl9XTvM3kfnp5DZB6ojoySWbSdOQWt5tAKJJrIP
+	 rTDh9k7iZBR3w==
+From: Miguel Ojeda <ojeda@kernel.org>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
+	stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org,
+	Miguel Ojeda <ojeda@kernel.org>
+Subject: Re: [PATCH 6.1 000/982] 6.1.189-rc1 review
+Date: Thu,  1 Oct 2026 13:09:24 +0200
+Message-ID: <20261001110924.60291-1-ojeda@kernel.org>
+In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
+References: <20260930152416.775402466@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,46 +61,21 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zihan Xi <zihanx@nebusec.ai>
+On Wed, 30 Sep 2026 17:12:16 +0200 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+>
+> This is the start of the stable review cycle for the 6.1.189 release.
+> There are 982 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Fri, 02 Oct 2026 15:23:04 +0000.
+> Anything received after that time might be too late.
 
-[ Upstream commit 566820af017e81497fb5e9d3ad6e7ffe2828bc8b ]
+Boot-tested under QEMU for Rust x86_64:
 
-SMB2_open() accounts a successful CREATE response as a remote open before
-parsing its create contexts.  If smb2_parse_contexts() rejects malformed
-context data, SMB2_open() returns without closing the handle, leaving the
-server-side handle open and num_remote_opens elevated.
+Tested-by: Miguel Ojeda <ojeda@kernel.org>
 
-Close the handle after a post-CREATE context parsing failure so the error
-path releases the remote resource and balances the open count.
+Thanks!
 
-Fixes: af1689a9b770 ("smb: client: fix potential OOBs in smb2_parse_contexts()")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Co-developed-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
-Tested-by: Frank Sorenson <sorenson@redhat.com>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/cifs/smb2pdu.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/fs/cifs/smb2pdu.c b/fs/cifs/smb2pdu.c
-index d8cacdd54acb0..9f80729f4d0b9 100644
---- a/fs/cifs/smb2pdu.c
-+++ b/fs/cifs/smb2pdu.c
-@@ -2940,6 +2940,9 @@ SMB2_open(const unsigned int xid, struct cifs_open_parms *oparms, __le16 *path,
- 
- 	rc = smb2_parse_contexts(server, &rsp_iov, &oparms->fid->epoch,
- 				 oparms->fid->lease_key, oplock, file_info, posix);
-+	if (rc)
-+		SMB2_close(xid, tcon, oparms->fid->persistent_fid,
-+			   oparms->fid->volatile_fid);
- 
- 	trace_smb3_open_done(xid, rsp->PersistentFileId, tcon->tid, ses->Suid,
- 			     oparms->create_options, oparms->desired_access);
--- 
-2.53.0
-
+Cheers,
+Miguel
