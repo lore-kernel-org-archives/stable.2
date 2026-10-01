@@ -1,151 +1,173 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f23.google.com (mail-dy2-f23.google.com [74.125.229.23])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C15D346777;
-	Thu,  1 Oct 2026 10:45:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790851552; cv=none; b=CL/1nFCr9Kk/vmF54WMzoeEopJluexEeHMJtlVaCM1pbJxXiCXEO9QPbVQ1yv52yo78Lt22suoOHX0o/jxttHbaFmEn+Fv+kC1qq3O4sLi0FsvvIlkv7qx1dbTqg9S8Thy53K9Xy2pWE7uq9jamfhTbFwJ78SmJlo63OI1KK56M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790851552; c=relaxed/simple;
-	bh=oRr11iw6B2LzaNd21qu55zTNUZ1EhcmUtwQV+s6p1Wo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nVyGrOwD9YNT1aAYmCL4r07D3/kAdA4JvTd+GHuaVcyuoEmIrGolAUiZ73TFPy5PfqApvtBgUWBYVpelRMh0Vmo7x+jvmuktZSW+VtMxrg6HlmP94652SB2h2xj0E1huhAq58mZOghdpXs4WpUxf+IzxKgwJO6cpgqP36zyBeWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CNXCRKek; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E2E73EB10C
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 10:47:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.23
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790851634; cv=pass; b=VVTi1t7OhhGxMOA/1cKQQcsu2k9YNTeJpffLHoSAX9k2YYpClYlVT0sMm6IM9qcHzemJsLONsiTCfA7YhIgd4CXVOco4CFclm5EgVKjKytXMr5J1L6WlRMH3N9auqLuj2GJMiP4K0BKUUq73qPb0ggknmAX6Mwf9JdjoPt2k/88=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790851634; c=relaxed/simple;
+	bh=Sk7RTOQcN4cidxedcRYIVkGub/oGpNeLEskr9NMZ1eA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rPMLRhInMGdCq/S6W8WVySYvi8G6nsj81Nf5ykuSIbtXz8cjrbxL9/ztzU9t87PENYx+QzvO+kD/L3OqssraHTA5OeUpOjY5FXh+Ha1gJB2Q+dLdmN+sBUtGJDb9sEFVD+6NxRx8j9eDDvAYjQV2xKFnR5mWzuZADoQZhtTtZUc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SVLuSdq/; arc=pass smtp.client-ip=74.125.229.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CNXCRKek"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE2841F00898;
-	Thu,  1 Oct 2026 10:45:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790851551;
-	bh=lL31jcWEt3a8NCBES0nlqlq3u3R3QdTq1acR6iXKe/M=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=CNXCRKekzJbfxi8M92VZTtFEap1OcAI/bqM5TMhY7xYNtCaBm8CxvdChBwUOFNBK7
-	 vdSglnAbSNG+WBQc4ZDUwet0FFYEyaMXKGcqLnDhdeGbJ606sCaUe2jaFDq0wCoAaW
-	 m3DX382m4GpI5aM7uhjcLtO0BcXTGYrxRbkg9Dj2ZLsfr7r9XalJzy+s/yireNBQwy
-	 SDW+3qYp2qGI9uW2yzs8rTE/PaUNLTq4bwnIEv3wY+Y7I/bfCpQhthw4bht2SNWlVH
-	 oDk1Jw1/PdGCxNzgQALD3a8MputnAe8s+PM2UoBn5jEIoqdsP0VZ5OH8AFIMF0r1Bv
-	 8N3DY06jWRKcg==
-Message-ID: <b64b32b5-711c-424a-8bf1-478ae75b9d20@kernel.org>
-Date: Thu, 1 Oct 2026 12:45:35 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SVLuSdq/"
+Received: by mail-dy2-f23.google.com with SMTP id 5a478bee46e88-32be7127c64so737547eec.2
+        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 03:47:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790851632; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jwOVdyrZz/cbqcJcGHR98kyKSTJW94BIoLxeBsrcB6UHOUA+hy2nG5oP3z4F19vSy6
+         ijwO9hBonY/IbnjvRst+O13RwpsX02/tr3ubtbZ2VJ8yUiktLfw2joZ0l2QaNUedm5Q2
+         5wG7uNuZx4eKb6YNN15EOAfCmWMuQ/fDWTcgDv+bzhP39yvaROCEAXTNpL1rtGLN6zct
+         M+v0IRJ6dvOIEdHfdhQQZL/yImzNeUAM5Ws3GLjVAaY1A2fRN3EggFot3FpuZzrKEq+Q
+         2e+HwGjBferfMDMOshsef7TV5QCOAwOtC3Vea/MXKbnJa7RbQe1XPRZZ9XAGs6rQ7vzp
+         htBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=xZGQWu5F+L+LnhlrlKnJBt7Q9Qa/GJcvQeTn5kUBy+o=;
+        fh=QgdSEN/z8eAIcVIY4QXvXUPEITHo+atDBqbnOvrXAVg=;
+        b=sg6HK/gXAm/5lRkhlfEURmN1nDo0K+XahUJuS88Oxit1llLFwK3TxdeD3wnhlQx/ij
+         7pcs/3mdRJ2Jl5DiLjGu06P4qD+iUaqNKHTbTHdRPhbwBGNfWJZkMoAxu0BLiTuH/U+V
+         tU7m7edzbr5Huo893q4NYjWVBVj1G3TiJYLhN49d39Um7hwkhfbTXQXdlMqJkbiAI3hS
+         CgIL6hJwziTRVJ0tyxmB95jRv6JdtXASL2szOJkgf6k8j2cMmrPdg3FWjFEUe7LY5WJ3
+         X5uJ+SpYYc70tOnfPWJukm6oGYK9yjnhHlV4HYyqqmgDSslXjFNNziBRlJLW4UtW456/
+         xENg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790851632; x=1791456432; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xZGQWu5F+L+LnhlrlKnJBt7Q9Qa/GJcvQeTn5kUBy+o=;
+        b=SVLuSdq/5miDqsF3OehTAiZGkWSLw1jUF43HwR6I34Lu9xE1axu6bwF9gwcJNTA5kF
+         U8vPKBE1vUqFRqsFA7AE+q1OMVuz02OkhFEFW5+uHjRa4ok/8IohGfkZfLXNBqhQlxh+
+         3TZnW+atvLc7QhFxOLfUzwM/dAeAyXSLnLn0eabti8ybR2VijI9vivWhlSGusAQe4RI8
+         Ak9CLyn6BjL7OOer0dA4AJepj8TIJ205/WBR6upqEiX4LzP0QiGiPrbn9fK06Luua7BH
+         uHvzvoDfbEXHs2glbii7vHe7tSKb+hHy9LdvyUdBEcnYecBbZ2gk1gXQcfXpRgYt3sKe
+         bk6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790851632; x=1791456432;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xZGQWu5F+L+LnhlrlKnJBt7Q9Qa/GJcvQeTn5kUBy+o=;
+        b=IZyqCi/xj2pseQst3LbQa3hUrPrcRWLLtfL9KB5nyrwqsBdGSeLn81vN7pqTAiw7Wh
+         tK2VFGGBrANfSwAe6nCovE+8hv7gjgSn17Wn1vYwscUB6teYwRPtoEZV6TafrxrXr1yJ
+         txkZVTuuYes8tTKqdg5q7wUmuFDCdGdUka6uA32xzVaY8SOPAx4lqw9lh14mazH5Ld9B
+         4fULjSNTM3dx2u/u20mW0ufOdD3m4RJEQMx5aOm2WHiFSMJgw3wJxQLDkw4eOYFXQe0i
+         x/26AsXW+zJsdxTmJ5cpVE1zZtxnBg+Ho8xEdy4cb4z7cE5iKNLp1reVvRlFEP8EO8F2
+         dxCQ==
+X-Forwarded-Encrypted: i=1; AKwUvByhsa1TToej3tOnAThHZi0rdccY2Khk2qwdKH+bd5CJYoW36Bb8fyAAi52Y9ywieDEmMvOo49s=@vger.kernel.org
+X-Gm-Message-State: AFuF++kO2UbdC7JNfPzYRQ5gFsvP0aV8k6711NxQ+OaCfmEzVYLsj93q
+	9DM+kXNtoFNnIGn/ULgGAMcGyW61VIaIIxjaRYpBwDaWP9xARZI7dJXEPoqZdaA8IfqligfQitr
+	H4zBGjLor/OPzcQwPU/4URbhWbxBEYeM=
+X-Gm-Gg: AYBFou3B9KHtbotF1qQ+cezhE4qi0p2FbNGITmDaf/EugIuTuQUBvZZIeWg8P/vHcRS
+	MtIrW6HSf3Z2n1IUVIkcOEQqbLq9zTHfrUp3AMSbNwIljg/Hc63Xopl4TokYbnf+Kis5MkQiWa9
+	quJKEO4RE1abIGgsj5Mez3TZ6Kxw8Th084+393AR0uMDVyCzm5XM9mCksQU49MZZtd/ssVlqdet
+	ZmBqdPtmvu8ebbYZHdFHi4zx8A6yGexgcAHlR5x2RWOS8Gdq3JhtJiHOTSai0Pbf+IkEP7ysYkL
+	9JRzWqLYwwm/79GLB3iMimtprnOARkYSPkcx8joWXdA5beI3JqCrIu2nAIdjn2HDnRkff91HulG
+	gDpfU+Fytt+kXHqq2CAcKmb6hdVa/kEbMobj02/uYwiw2Cq1tnZP1k0CnVTZ9FNCeo+YU9aiLSR
+	TCulFRjXJUhb/3XbSjHlxlm/Rbuzj00+PS3ZyeWeOxd85wbWFayzoTvk8BrZV0tQ==
+X-Received: by 2002:a05:693c:8085:b0:34c:f181:85e4 with SMTP id
+ 5a478bee46e88-34cf1818b1fmr7262875eec.1.1790851632033; Thu, 01 Oct 2026
+ 03:47:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 5/7] sched/numa: scan PID-inactive VMAs for promotion
-To: Gregory Price <gourry@gourry.net>, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
- akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org,
- vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com,
- mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com,
- vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
- bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
- kprateek.nayak@amd.com, ziy@nvidia.com, baolin.wang@linux.alibaba.com,
- nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
- baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev,
- kas@kernel.org, joshua.hahnjy@gmail.com, rakie.kim@sk.com,
- ying.huang@linux.alibaba.com, matthew.brost@intel.com, byungchul@sk.com,
- apopple@nvidia.com, jannh@google.com, pfalcato@suse.de, hannes@cmpxchg.org,
- shy828301@gmail.com, osalvador@suse.de, raghavendra.kt@amd.com,
- stable@vger.kernel.org
-References: <20260930112206.205083-1-gourry@gourry.net>
- <20260930112206.205083-6-gourry@gourry.net>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260930112206.205083-6-gourry@gourry.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261001042942.109012-1-chenhan0017.work@gmail.com>
+In-Reply-To: <20261001042942.109012-1-chenhan0017.work@gmail.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Thu, 1 Oct 2026 12:46:59 +0200
+X-Gm-Features: AclHuK-fHM8iJEVkEzuvz_ovqF_dLYt_Qxw_QJ6A0Z4myKEgiMjsoUcH2rpEiKc
+Message-ID: <CANiq72kjGWVk_9hR-gn4vJT-pgBsGWEvThMd9dF6-+GfBZseOA@mail.gmail.com>
+Subject: Re: [PATCH v2] rust: time: make Delta division and remainder fail consistently
+To: chenhan <chenhan0017.work@gmail.com>
+Cc: rust-for-linux@vger.kernel.org, a.hindborg@kernel.org, boqun@kernel.org, 
+	fujita.tomonori@gmail.com, frederic@kernel.org, lyude@redhat.com, 
+	tglx@kernel.org, anna-maria@linutronix.de, jstultz@google.com, 
+	sboyd@kernel.org, ojeda@kernel.org, gary@garyguo.net, 
+	bjorn3_gh@protonmail.com, lossin@kernel.org, aliceryhl@google.com, 
+	tmgross@umich.edu, dakr@kernel.org, daniel.almeida@collabora.com, 
+	tamird@kernel.org, acourbot@nvidia.com, work@onurozkan.dev, tomo@flapping.org, 
+	georgeandrout13@gmail.com, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/30/26 13:22, Gregory Price wrote:
-> From: "Gregory Price (Meta)" <gourry@gourry.net>
-> 
-> Commit fc137c0ddab2 ("sched/numa: enhance vma scanning logic") skips
-> VMAs without recent PID activity. Since only NUMA hint faults record
-> that activity, the filter can suppress the fault needed to promote hot
-> slow-tier memory.
-> 
-> Let memory tiering bypass the PID scan filter. In combined mode, use the
-> placement decision to restrict top-tier sampling to VMAs that need it,
-> while inactive VMAs still receive promotion-only scans.
-> 
-> Make this decision only when a VMA scan starts. placement_due is
-> evaluated for the current task, and a partially scanned VMA is usually
-> resumed by a different thread, so re-evaluating it for each chunk would
-> demote in-progress placement scans and starve large VMAs of placement
-> sampling in multi-threaded processes.
-> 
-> Track the last completed placement scan separately from scans of any
-> kind. Promotion-only scans still update prev_scan_seq, but do not
-> advance the placement-starvation horizon.
-> 
-> On a host with 768 GB of DRAM and 256 GB of CXL memory, one large shmem
-> VMA consumed most scanning activity, while 2,537 other VMAs covering
-> 84 GB were skipped as inactive. One stand-out result: a hot 20 GB hash
-> table ended up trapped entirely on CXL and drove CXL bandwidth
-> utilization beyond sustainable levels - resulting in a large regression.
-> 
-> With this series, the hot hash table ends up split evenly between DRAM
-> and CXL, tier residency tracks runtime load, and CXL bandwidth
-> utilization drops from 45GB/s (maxed) to 5-10GB/s, while DRAM bandwidth
-> utilization increases from ~200GB/s to 250GB/s+, resulting in major
-> throughput improvements for the database workload.
-> 
-> Fixes: fc137c0ddab2 ("sched/numa: enhance vma scanning logic")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-> ---
+On Thu, Oct 1, 2026 at 6:29=E2=80=AFAM chenhan <chenhan0017.work@gmail.com>=
+ wrote:
+>
+> commit. Correct the rem_nanos() parameter name to divisor as well.
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+This seems like it should be a first patch.
 
--- 
+> Link: https://github.com/Rust-for-Linux/linux/issues/1254#issuecomment-58=
+69573842
+> Link: https://github.com/Rust-for-Linux/linux/issues/1254#issuecomment-58=
+69925737
+
+The discussion is small enough, so I am not sure why we need the two
+Link:s. They can be useful if you want to reference something in
+particular, using e.g. the square brackets notation [1] to point to
+them.
+
+> On the MIN / -1 safety question: div_s64_rem() computes a quotient even
+> though the caller discards it. V1 already checked this input before the C
+> call; v2 keeps the guard and makes the representable-quotient condition
+> explicit in the SAFETY comment.
+
+Yes, that is fine -- what I meant is that even if we had the check,
+the `// SAFETY` comment should still justify why it is not UB (please
+see below).
+
+> -            // SAFETY: This function is always safe to call regardless o=
+f the input values
+> +            // SAFETY: The divisor is non-zero and the quotient is repre=
+sentable.
+
+"representable" is a fine way to succinctly put it, but I wonder if it
+would be better to just spell the condition.
+
+In any case, safety comment need to explain *why* those conditions are
+true, not just re-state them (otherwise, safety comments would be a
+repetition of the `# Safety` documentation of the function called, and
+thus not useful). In other words, the point is that they explain why
+something is supposed to hold.
+
+> -    /// Return `self % dividend` where `dividend` is in nanoseconds.
+> +    /// Return `self % divisor`, where `divisor` is a number of nanoseco=
+nds.
+
+"a number of" seems to be added spuriously -- please try not to do
+unrelated changes, or you do them, please add as new commits (e.g.
+this one wouldn't be a fix to backport).
+
+> +    /// The divisor is an [`i32`] because `div_s64_rem()`, used on 32-bi=
+t
+> +    /// platforms, takes a signed 32-bit divisor. The dividend remains a=
+n [`i64`].
+
+Do we need this in the public documentation?
+
+> +    /// Panics if `divisor` is zero, or if `self` represents [`i64::MIN`=
+]
+> +    /// nanoseconds and `divisor` is `-1`, matching Rust's signed remain=
+der
+> +    /// operator even though the remainder would be zero.
+
+Not sure if we need the "even though ..." bit.
+
+Thanks!
+
 Cheers,
-
-David
+Miguel
