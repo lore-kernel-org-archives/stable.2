@@ -1,115 +1,149 @@
-Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBDDE3F8709
-	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 10:14:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0C4D370AE5;
+	Thu,  1 Oct 2026 10:19:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790849685; cv=none; b=pO5hdiJX0XKhU9nysUk9HpBlNiDyfNkUkGJS3OJR3yhJgZQmQWeLIUAZqG6lfujvDzxh9yd6NXhyCf8ch/Eh5A4IY2Va7eEFsuLw8I5r5YrNWdg6GwC7m+CSLP5NETiWy7SzDhzwUV3bOBSwrMa0MVkpQXTkDkOhkzhwwfWALcM=
+	t=1790849998; cv=none; b=jQBPawXAZ5gzIml9cQ+uA6nSowUF94QAWM8S8XTVxt0iZYB0WzrW2AzfB87z8tdwCS2r3/pKkfhs3Jn9mcWPgEYPS6WcpeDk+5wUyOVrJixNbxbolZtdKHz/+VbTrX9mfAkiufYQqwA/8HYAzv3RHPVFusMT9A3stgiHUmS46yo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790849685; c=relaxed/simple;
-	bh=zNYMMASuVkfNXipT9zG0D2/RD9OFsrjXnkOdkjtQAwk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mOhgNqkKMmn386rrWEGx15XrgbFBrzpYP9+y4zXXanIskaAFvjvihNpsD1Ric0ywnTk7E2gWPFQxTjpHISI6undD7KMyKJJxGigcCFbrCSlrz8JKbfRwbDpTvTABDWcLKdgr39FjJuGEVbyAZBnNMzTZ0gbTPxYAjnm6i0HiMcc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=UC8GhJUd; arc=none smtp.client-ip=44.202.169.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	s=arc-20240116; t=1790849998; c=relaxed/simple;
+	bh=nVFES05dJdPdNH4MvPtS3SfLoUIzWsT8FsNMooMXZRU=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=cem4oFlgAqy4mUnFbZTmAM9Rih8zc90QRlQBun34X5/puFTK50YOqHZ/pkBFFDE/BO7lhQSngNpUuFpZRUYRlz49Uo7tcn44ty/BAbfUlwyoCSUcQ0d0NiDbs0Oo/lJuJxtNK25rWbi5EpNNU342mepWl9S5FC1fSKUR7hryA3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EoApCBXv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="UC8GhJUd"
-Received: from eig-obgw-5003b.ext.cloudfilter.net ([10.0.29.155])
-	by cmsmtp with ESMTPS
-	id CD1sxcfknJFmFCDo8xsexu; Thu, 01 Oct 2026 10:14:32 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id CDo7xVLuAFB8dCDo7x4WRC; Thu, 01 Oct 2026 10:14:31 +0000
-X-Authority-Analysis: v=2.4 cv=HcoUTjE8 c=1 sm=1 tr=0 ts=6abe3288
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=pF4DXh_ntd8qpgTqFRsA:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=8F2aHt8iXBiooy/jOsQTX2APuS4aBTvgaZpOR1e05xM=; b=UC8GhJUd1nGUgnZSHDTxuTajor
-	dt17h+RSmdN+r/76UW7YEvA/jiWgv/oaA3fDr+LdjuGiUmtvR3TCu+V1fc+cLnvzOMLZUrKmVcxfu
-	NOvPM/pZB0roGc/bLigs7kU6TC87rzuO5A2VoMRdL9XQN5vxatjw3fBzCnc7teOoCOrq8WQVrJX52
-	inig7JOShpd9J3vr2fht+P7JgRAjC+pWFl/PjDqAVMrT0dK9t/BCDuhMsP2DTYpM3qFqHl0AZdQKx
-	7VHLDA1B8dhJnSAwZ6e7P42GIh8itdRbwo2Gz4DCpCzVDQWsCk4moQ8AZ2EQIIqUEpnUsaAIHZC4x
-	5pNKxeCQ==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:40388 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100.1)
-	(envelope-from <re@w6rz.net>)
-	id 1xCDo6-000000024sC-37tM;
-	Thu, 01 Oct 2026 04:14:30 -0600
-Message-ID: <35c8c03e-f440-4bab-b53e-9d457ed2149d@w6rz.net>
-Date: Thu, 1 Oct 2026 03:14:28 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EoApCBXv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAE781F000FF;
+	Thu,  1 Oct 2026 10:19:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790849996;
+	bh=KPrAr2tai6AeurnhqCq4tRsFxzEy/I/Zax5DtbQXaII=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=EoApCBXvxZoi7zVyJMA602KkcF+ZoaM4cJCUSc2VPSN3fQ6ixDJm99WEme7sMnzAg
+	 3J+ajeLXLeM2rUDT+acSsvGbhLvrOnlg/JVCiDI5aTCsAn+5MkODw8u+AK6pOZfmNC
+	 VA1eOx67thlTwrbwNlwZtY/2DAEHuimfxIJEaGFJmOD9pLd866dHdOEXfO0POV2Tjg
+	 kvwJXlzzbzm1MNPFQ08paN8oFZgO270js5dRWHSD1prNaGmfak4nK+gX0QENJ0+Qwz
+	 SLQGJvbkg2Zyrd1p0TGWZVmFFmyEq4f5I4Ph1nNKI3sC3mUN4WEBipms9PYcTP8OJU
+	 +i5MQSgCbk0hQ==
+Subject: Re: [PATCH nf] netfilter: br_netfilter: restore VLAN tag on
+ refragmented IPv6 packets
+From: netdev-bot+sashiko@kernel.org
+To: parri.andrea@gmail.com
+Cc: pablo@netfilter.org, fw@strlen.de, netfilter-devel@vger.kernel.org,
+ phil@nwl.cc, razor@blackwall.org, idosch@nvidia.com, coreteam@netfilter.org,
+ bridge@lists.linux.dev, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, kuba@kernel.org
+Date: Thu, 01 Oct 2026 10:19:55 +0000
+Message-ID: <179084999520.434549.4764913674478855382@kernel.org>
+In-Reply-To: <20260928161830.351199-1-parri.andrea@gmail.com>
+References: <20260928161830.351199-1-parri.andrea@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.6 0000/1193] 6.6.158-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260930152434.301151190@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20260930152434.301151190@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1xCDo6-000000024sC-37tM
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:40388
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 59
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfP2xnTtK8KWhBqcOSstJy3mRlTuwKbORBKtVuBCJWy27r+e0iRpnHxxh1Coj4mLMb9JzHEFvi9+GcBT9a7SnupHNIMJ6yNJ+us4wnTIFIumutbMWsu7H
- ECOZGsYzAc9kCg0zFfJBJ7DWeJpLtDyz9M8fNhOavi7Fa9SVPF2pW31NSivloYGlhv0eolb/z4FSuA==
 
-On 9/30/26 08:11, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.6.158 release.
-> There are 1193 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Fri, 02 Oct 2026 15:23:04 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.6.158-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.6.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-Tested-by: Ron Economos <re@w6rz.net>
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
+- [High] The fix is incomplete.
+
+--
+
+netfilter: br_netfilter: restore VLAN tag on refragmented IPv6 packets
+
+This commit moves saving the L2 header and VLAN tag into a new helper,
+br_nf_save_frag_data(). Both the IPv4 and IPv6 refragmentation branches of
+br_nf_dev_queue_xmit() now call it. Before this change, the IPv6 branch
+reused whatever VLAN tag the last IPv4 refragmentation on that CPU had left
+in per-CPU storage.
+
+> diff --git a/net/bridge/br_netfilter_hooks.c b/net/bridge/br_netfilter_hooks.c
+> index 0a394e5f4391..ec69d6254e34 100644
+> --- a/net/bridge/br_netfilter_hooks.c
+> +++ b/net/bridge/br_netfilter_hooks.c
+> @@ -832,6 +832,25 @@ static unsigned int nf_bridge_mtu_reduction(const struct sk_buff *skb)
+>  	return 0;
+>  }
+>  
+> +/* Fragments may not inherit the MAC header or VLAN tag. */
+> +static void br_nf_save_frag_data(struct sk_buff *skb)
+> +{
+> +	struct brnf_frag_data *data = this_cpu_ptr(&brnf_frag_data_storage);
+> +
+> +	if (skb_vlan_tag_present(skb)) {
+> +		data->vlan_tci = skb->vlan_tci;
+> +		data->vlan_proto = skb->vlan_proto;
+> +	} else {
+> +		data->vlan_proto = 0;
+> +	}
+
+[Severity: High]
+What happens when the head skb goes out untagged but the fragments still
+carry a tag?
+
+For an untagged packet this helper saves vlan_proto = 0. The consumer only
+ever sets a tag and never clears one:
+
+net/bridge/br_netfilter_hooks.c:br_nf_push_frag_xmit() {
+    ...
+	if (data->vlan_proto)
+		__vlan_hwaccel_put_tag(skb, data->vlan_proto, data->vlan_tci);
+    ...
+}
+
+For IPv6, nf_ct_frag6_reasm() calls inet_frag_reasm_finish(..., false).
+Each original fragment stays as its own skb on the head's frag_list and
+keeps its own ingress vlan_all.
+
+On egress to an untagged VLAN (or a BR_VLAN_TUNNEL port), br_handle_vlan()
+clears the tag on the head skb only:
+
+	if (v->flags & BRIDGE_VLAN_INFO_UNTAGGED &&
+	    !br_switchdev_frame_uses_tx_fwd_offload(skb))
+		__vlan_hwaccel_clear_tag(skb);
+
+A unicast-forwarded reassembled skb normally takes the skb_has_frag_list()
+fast path in ip6_fragment(). On that path,
+ip6_fraglist_prepare()->ip6_copy_metadata() does not copy or reset vlan_all.
+
+So would fragments 2..N reach br_nf_push_frag_xmit()->br_dev_queue_push_xmit()
+with their ingress 802.1Q/802.1ad tag still set, while the first fragment
+goes out untagged?
+
+The conntrack bridge restore path handles this case:
+
+net/bridge/netfilter/nf_conntrack_bridge.c:nf_ct_bridge_frag_restore() {
+    ...
+	if (data->vlan_present)
+		__vlan_hwaccel_put_tag(skb, data->vlan_proto, data->vlan_tci);
+	else if (skb_vlan_tag_present(skb))
+		__vlan_hwaccel_clear_tag(skb);
+    ...
+}
+
+Without a similar else branch in br_nf_push_frag_xmit(), does the commit
+message's claim that IPv6 fragments now "use the current packet's VLAN
+information" still hold? The same branch would also cover the IPv4 path,
+since ip_copy_metadata() does not touch vlan_all either.
+
+Also, the comment "Fragments may not inherit the MAC header or VLAN tag"
+does not seem accurate for reused frag_list skbs, which keep their own tag.
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928161830.351199-1-parri.andrea%40gmail.com
