@@ -1,221 +1,94 @@
-Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DE953F107E
-	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 07:44:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B51233E2ADB;
+	Thu,  1 Oct 2026 07:48:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790840649; cv=none; b=gIVaRIdAqS3k7NpA5Pvnkh/bkH/4STXaPGYJkcC9yLcirEd68Cp6fBFvAJZYKq4zfxTWyeks0Rs9U/R7Xp08IlFE/C9tss1IAi9xpf7VGAPH42+5J1yWtJ0vtAK4mkbhnzOEtHV9PbXvUToSBaGWWEG6oYFP+auSrZH7CjWWOb0=
+	t=1790840904; cv=none; b=nvsA/iWUGkRD3SVyap0ZBpMymcWVfaZoX8XaQ91zO8sjPOq86EwTaFn6m6Qy/Vsi38+kyGxc9clQhROleDxBk20IuARamUw07bZGEmFmIwNgXk6U2ciMGfa/9tRm59tq0dA96DcON4MCC8q9pkqlI8pV5yPxBlsZS55UB1Mu7Co=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790840649; c=relaxed/simple;
-	bh=OefZ+4/2BScElBEkthNoRJlkKh5y/+Ok1Xpl8A9s9SU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=f5pCmKNuAe1sDH4VaTe4s1yCGC7QOweNeumJRaCTCLoWzzA2Uqn2XEtNGaSo1kkfLTzRrTh7bMlg0eKWUYVJjQzL88UHknN6FrIYenDxI34TQ/HF2G7P/uN0SkkJB87IM3V0Tzs/LIZBJrvD1U8eVwA26ayENQyPD5/pW9+DCuo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WMtNIlLf; arc=none smtp.client-ip=74.125.229.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790840904; c=relaxed/simple;
+	bh=yg69lzNJ3fZPhpDznbur/c3nxkH01CElVx8mElSsiJw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FYb5MhL6vji1m9MS+s1AoqmPsBE9PQcmTDxH1ZUfJgET5LFZIXpdn0otCZMszvnRRJlJBLFkSwGEBktHrYkrh9Tg7hZsVcTUnn3mtNpvtmotHLmhpZVaLRPrCwa7wpq1J34fKe28nUu4NFKf7Rjqy00GtNsyQ/il6/za5dqRawQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=b8Xx7JPs; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=fOiUvp11; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WMtNIlLf"
-Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd025d07so5438586c88.2
-        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 00:44:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790840646; x=1791445446; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=r4VI7UXXI4YmbL2jVA9MPaFqI9dJHWqNQnjA9+3Oft4=;
-        b=WMtNIlLfGFEFcxiNXHKRE84brOpdB60d+FuysOEHOEAi/VmkV0v7s59bBIDuFEeNAc
-         WMnrwPrPHslu/aEl6SpR/byxwGiwkHadq9V7Q0jCsOD/P1k2oV6Y1iUIRLFEqButQf57
-         gE9M0VDNHfDeDyZvxaKFv4xl+EIuXuhOdmOIJb3GEUM/3kaZfiBSu1aI91X+fbHv0n29
-         AaYVx9NcoHoedg+5vUdAck5kNUUcgIFFD0NZ1c06W+32VyV2Ue3Sid4L0/4lHMeBtDkn
-         809NBajw5hwxZJcfQGRgGKXpyCf8sb3J2OctDCcWsFQ9M7OS07+8JWQ0Hjxe2blrjwwi
-         JUaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790840646; x=1791445446;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=r4VI7UXXI4YmbL2jVA9MPaFqI9dJHWqNQnjA9+3Oft4=;
-        b=sFArUmHxD07v23/pdyp9gRQcxR+pPai62XZpNSuES8n3JCykSZkYqJecvdrnxKhC1E
-         7W31PY4Aeip24NwehjL5gc4j34WIeuGv0r+RiaYd4ff+lgMT0ldkyu3mKyyX2n7lMDSg
-         pzEp6EJ5vh4GtU42H4f23ZIi1vIfV7HHso2343S51iBK6KYChmJCmrRhvNn5cyV8+F0A
-         VJfydnNUaLPuI6IRPyalp1Qk9tnvDtkPzlBKzb8bxBc8uv2oAvgsfdfULsXdYL7/aWv2
-         cbalY8TwUaVw+6kIXSSnhR9gtGyGogvSZVYmdQks+RI0W7wwBtc/3q2xcxMAn4c0njcd
-         rKqA==
-X-Forwarded-Encrypted: i=1; AKwUvBx0JZ/nHT2NBCqb4vOKlzSWm0z9RBBkQZ6n2zn7x79EVygLAXF4ObuW7gpD3JxLX8WcojeUqRE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJz8NMmJM7cAtEMAfSoiFu19ko4c6YFiZ05pGfefB3FcqNwIB2B
-	xN/UktCCCISJZHglLG0C6L9HVu4pazr14jiWnKX7O+bOp/XLmFH9L6VR
-X-Gm-Gg: AYBFou0mdDqRYjcXRUIIqgbdjCNQ0Uv/HHBO6EywRmrTgR08iPhj6k+pA0lD6XcwgDz
-	DcoBAOgYX7o4FzcfT/NWM5ZUjSPL49Hz9z0cU2DMt/SVQ15HiwsQnnvWEPF4YQELXlwtvsRtqGT
-	Rp/MgjiWRnBphUcTShlDARR0ohlCRhGePZPvo05trjvcu4c9Ze+Vhft+DJ6kpJ6yrotv9t/2bWg
-	quPM7Bijg35bSomDELnJUJ8wgIkhhwnNjBZEzwL+bl7BrR4EyMsDFSfnZayStrxTcVnqxoZftjQ
-	mQRcVAfq1kp71AISKYxFh4rIRLVuZRNTBdyAXCKLMDcTKF7yItneZOI0dbJJCE2zUptX0sLxD4+
-	Md4N3CmPjvkhTA2qfJqMRO+eOTPFeVWBCvp/+YeIjv09W7vmYH6Iq/jJLbgVD6oN7xT9pUFVA21
-	2DfZdGKrmAL+8KuodHodQVkywOeaS5OMo65QM0yK/FXf+fJHU912JGOSmFgQcicb4I7g==
-X-Received: by 2002:a05:693c:88cd:20b0:33e:4ad0:4bc0 with SMTP id 5a478bee46e88-34cdb8e4cdfmr3821693eec.9.1790840646230;
-        Thu, 01 Oct 2026 00:44:06 -0700 (PDT)
-Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34db3e33b73sm4876955eec.18.2026.10.01.00.44.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 00:44:05 -0700 (PDT)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-Date: Thu, 01 Oct 2026 15:43:56 +0800
-Subject: [PATCH v4 1/2] ext4: fix shrinker scan budget accounting in
- ext4_es_scan()
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="b8Xx7JPs";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="fOiUvp11"
+Date: Thu, 1 Oct 2026 09:48:19 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1790840900;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DARbdJqOEdFwsn0mY+WvbsESMHGkYUdCqPS/ZWhkTMo=;
+	b=b8Xx7JPsYj23mx4m/9nqC6bOz3OdUmJTOUKHN5qXNopGLpCJaLUjVeW+hJWlHIPQvKjco3
+	yOnbIIV+6/maa/pqONei53cykAcjSuJ8bI9ItjpslFkYLoXKBFrYgDT+/jNur2KXnqTXSI
+	nKhMmLeMEP27o/X9mlzFP+gNwf6G16memsVblYktS5CIUZYVyhBKTZceXEnbS1i6frjg/U
+	tSq4BIWkxkgbEacw+82FZ8cZ5cA/LwXvvXUoICxY6plrEexfX0YHJ0AOp3IsX2yAz+cZNK
+	o+NgGt2fvhk9o7UrxCVSYQDa7qWrdKnOMugdCoNjwyF9jMEq9/bz/E7PSvB2oA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1790840900;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DARbdJqOEdFwsn0mY+WvbsESMHGkYUdCqPS/ZWhkTMo=;
+	b=fOiUvp11GFAv3NdAykr5PrAEjCub4Jwh4Enps6OLUsuBjRlxe9OnMRlcoxLcrHKimJsuV2
+	lS1cKx2WulVA/0AA==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Stephen Hemminger <stephen@networkplumber.org>,
+	Arend van Spriel <arend.vanspriel@broadcom.com>,
+	linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v2 1/2] netpoll: use a raw lock for the deferred
+ transmit queue
+Message-ID: <20261001074819.gQ3w8q6P@linutronix.de>
+References: <20260928064239.32456-1-kmehltretter@gmail.com>
+ <20260930192103.62973-2-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-fix-ext4-es-scan-nr-scanned-v4-1-b13703714ce2@gmail.com>
-References: <20261001-fix-ext4-es-scan-nr-scanned-v4-0-b13703714ce2@gmail.com>
-In-Reply-To: <20261001-fix-ext4-es-scan-nr-scanned-v4-0-b13703714ce2@gmail.com>
-To: Theodore Ts'o <tytso@mit.edu>, 
- Andreas Dilger <adilger.kernel@dilger.ca>, 
- Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>, 
- Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
- Zhang Yi <yi.zhang@huawei.com>
-Cc: linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Qiliang Yuan <odys.yuan@gmail.com>, stable@vger.kernel.org
-X-Mailer: b4 0.13.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260930192103.62973-2-kmehltretter@gmail.com>
 
-do_shrink_slab() reads count_objects() once per invocation to derive
-a one-shot scan budget, then calls scan_objects() repeatedly until
-that budget is exhausted or scan_objects() returns SHRINK_STOP.
-include/linux/shrinker.h documents that scan_objects() "should track
-its actual progress" in sc->nr_scanned, so do_shrink_slab() can tell
-when there is nothing left to examine and stop early.
+On 2026-09-30 21:21:02 [+0200], Karl Mehltretter wrote:
+> netpoll_send_skb() calls __netpoll_send_skb() with hard interrupts
+> disabled. When direct transmission cannot complete, the latter queues
+> the skb with skb_queue_tail(). The sk_buff_head lock may sleep on
+> PREEMPT_RT:
+> 
+>   BUG: sleeping function called from invalid context
+>   in_atomic(): 0, irqs_disabled(): 1, non_block: 0
+>   rt_spin_lock
+>   skb_queue_tail
+>   netpoll_send_skb
 
-ext4_es_scan() never updates sc->nr_scanned, so it defaults to the
-full sc->nr_to_scan on every call. do_shrink_slab() therefore always
-believes a full batch was examined, regardless of what __es_shrink()
-actually did, and keeps calling scan_objects() until the budget
-derived from the (possibly stale) percpu extent_status count is
-drained, even after sbi->s_es_list has nothing left to examine.
+How is this possible? netpoll is only used by netconsole right? And this
+is CON_NBCON so it only prints threaded. What is the missing piece?
 
-Make __es_shrink() report the number of extent_status objects it
-actually examined through a new nr_scanned output parameter, derived
-from the existing per-extent nr_to_scan counter that
-es_reclaim_extents() already decrements as it walks the tree. Have
-ext4_es_scan() copy this into sc->nr_scanned, and return SHRINK_STOP
-once it comes back zero. Key this off nr_scanned rather than
-nr_shrunk: a batch that finds every extent still referenced
-correctly ages them without freeing any, and that is real progress
-nr_shrunk would miss.
+> The delayed transmit worker has the same problem when it requeues a busy
+> skb with skb_queue_head() after disabling interrupts.
+> 
+> Add a dedicated raw spinlock and use the unlocked skb queue helpers under
+> it. Keep raw critical sections limited to queue operations. During
+> cleanup, splice the queue to a private list before freeing its skbs.
+> 
+> Fixes: b6cd27ed3388 ("netpoll per device txq")
+> Cc: stable@vger.kernel.org # 6.12+
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 
-nr_scanned can come back zero for more than a genuinely empty list:
-es_stats_shk_cnt is a stale percpu count, an inode can be
-momentarily skipped (precached, lock contended), or durably have
-nothing shrinkable (i_es_shk_nr == 0) without es_reclaim_extents()
-ever touching nr_to_scan. Treat all of these alike: not stopping
-doesn't help the transient cases either, since do_shrink_slab()'s
-budget only decrements by nr_scanned, so retrying forever at
-nr_scanned == 0 never terminates.
-
-Tested by fallocate(2)-ing 10000 4K files (to populate the shrinker
-with reclaimable unwritten extents without also exercising the
-extent_status "referenced" second-chance path, which needs a
-separate two-pass accounting of its own) and triggering
-"echo 2 > /proc/sys/vm/drop_caches", while tracing the
-ext4_es_shrink* tracepoints:
-
-                      total scan_objects()   calls with
-                      calls                  nr_shrunk == 0
-  before this patch   429                    189 (44%)
-  after this patch    239                      1 (0.4%)
-
-Fixes: 1ab6c4997e04 ("fs: convert fs shrinkers to new scan/count API")
-Cc: stable@vger.kernel.org
-Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
-Reviewed-by: Jan Kara <jack@suse.cz>
----
- fs/ext4/extents_status.c | 32 ++++++++++++++++++++++++++++----
- 1 file changed, 28 insertions(+), 4 deletions(-)
-
-diff --git a/fs/ext4/extents_status.c b/fs/ext4/extents_status.c
-index 6e4a191e82191..b8821b93693a9 100644
---- a/fs/ext4/extents_status.c
-+++ b/fs/ext4/extents_status.c
-@@ -184,7 +184,7 @@ static int __es_remove_extent(struct inode *inode, ext4_lblk_t lblk,
- 			      struct extent_status *prealloc);
- static int es_reclaim_extents(struct ext4_inode_info *ei, int *nr_to_scan);
- static int __es_shrink(struct ext4_sb_info *sbi, int nr_to_scan,
--		       struct ext4_inode_info *locked_ei);
-+		       struct ext4_inode_info *locked_ei, int *nr_scanned);
- static int __revise_pending(struct inode *inode, ext4_lblk_t lblk,
- 			    ext4_lblk_t len,
- 			    struct pending_reservation **prealloc);
-@@ -1670,7 +1670,7 @@ void ext4_es_remove_extent(struct inode *inode, ext4_lblk_t lblk,
- }
- 
- static int __es_shrink(struct ext4_sb_info *sbi, int nr_to_scan,
--		       struct ext4_inode_info *locked_ei)
-+		       struct ext4_inode_info *locked_ei, int *nr_scanned)
- {
- 	struct ext4_inode_info *ei;
- 	struct ext4_es_stats *es_stats;
-@@ -1679,6 +1679,7 @@ static int __es_shrink(struct ext4_sb_info *sbi, int nr_to_scan,
- 	int nr_to_walk;
- 	int nr_shrunk = 0;
- 	int retried = 0, nr_skipped = 0;
-+	int orig_nr_to_scan = nr_to_scan;
- 
- 	es_stats = &sbi->s_es_stats;
- 	start_time = ktime_get();
-@@ -1738,6 +1739,8 @@ static int __es_shrink(struct ext4_sb_info *sbi, int nr_to_scan,
- 		nr_shrunk = es_reclaim_extents(locked_ei, &nr_to_scan);
- 
- out:
-+	*nr_scanned = orig_nr_to_scan - nr_to_scan;
-+
- 	scan_time = ktime_to_ns(ktime_sub(ktime_get(), start_time));
- 	if (likely(es_stats->es_stats_scan_time))
- 		es_stats->es_stats_scan_time = (scan_time +
-@@ -1774,15 +1777,36 @@ static unsigned long ext4_es_scan(struct shrinker *shrink,
- {
- 	struct ext4_sb_info *sbi = shrink->private_data;
- 	int nr_to_scan = sc->nr_to_scan;
--	int ret, nr_shrunk;
-+	int ret, nr_shrunk, nr_scanned;
- 
- 	ret = percpu_counter_read_positive(&sbi->s_es_stats.es_stats_shk_cnt);
- 	trace_ext4_es_shrink_scan_enter(sbi->s_sb, nr_to_scan, ret);
- 
--	nr_shrunk = __es_shrink(sbi, nr_to_scan, NULL);
-+	nr_shrunk = __es_shrink(sbi, nr_to_scan, NULL, &nr_scanned);
-+	sc->nr_scanned = nr_scanned;
- 
- 	ret = percpu_counter_read_positive(&sbi->s_es_stats.es_stats_shk_cnt);
- 	trace_ext4_es_shrink_scan_exit(sbi->s_sb, nr_shrunk, ret);
-+
-+	/*
-+	 * Key SHRINK_STOP off nr_scanned (extents actually examined), not
-+	 * nr_shrunk (extents actually freed): a batch that finds every
-+	 * extent still referenced correctly ages them without freeing
-+	 * any, and that is real progress nr_shrunk would miss.
-+	 *
-+	 * nr_scanned can come back 0 for more than a genuinely empty
-+	 * sbi->s_es_list: es_stats_shk_cnt is a stale percpu count, an
-+	 * inode can be momentarily skipped (precached, lock contended),
-+	 * or durably have nothing shrinkable (i_es_shk_nr == 0) without
-+	 * es_reclaim_extents() ever touching nr_to_scan. Treat all of
-+	 * these alike: not stopping doesn't help the transient cases
-+	 * either, since do_shrink_slab()'s budget only decrements by
-+	 * nr_scanned, so retrying forever at nr_scanned == 0 never
-+	 * terminates.
-+	 */
-+	if (nr_scanned == 0)
-+		return SHRINK_STOP;
-+
- 	return nr_shrunk;
- }
- 
-
--- 
-2.43.0
-
+Sebastian
