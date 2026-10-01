@@ -1,225 +1,228 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.13.214.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A36C42C500
-	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 08:11:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0B6B4AB1BB;
+	Thu,  1 Oct 2026 08:22:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.13.214.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790842320; cv=none; b=mFHiOIXUnJ9nMxiTTP7+GS84GwecV5EE/47tGu/H3OUhu1bmfEF2Fq7veiQOAuQeYroJJZYHYAY1xP2iPcs9zryLgRxcrb8FeFNkMXKc+RHBMVRty2kQfIsaE8TFIWhLi+Ar2SeDb8xg4i9Pzsb88RgNnfC9pUcxPtc2kVnHKQY=
+	t=1790842974; cv=none; b=DAhj2phcObYux8J73d1JjHbBm6R+N1iLS84/UO3KzeWuX4b3aQ7H678OnnLsNWgl9ss+XYeaj7TRr3FEu76VGZzwUsJ512+GTT4phC3XxjDk4nIytsBJ3aZAj8jKipIDoeGMuFkbGplS6EOQdxJ7Kl/P9staPutAegfjQ5gHSCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790842320; c=relaxed/simple;
-	bh=rR9lDXurt2uwdSssWIyJRChYiHMIHeLvlylC9nmS+Lo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PEsqlNAYZ8BhTip3cROp6FFvmw5vOY3WBejrOHjiNe7DrXFfFY+XxGbHXwYyreOgpTGyNA8m/hvMRXLMUw9r5HfHghmykXHH9vlACaSKn7ZIe7V/yNNLXqwYFVLMCWoSbLamU+Qh6LeMbq1GGCK2uHHAqUktZksECWCOnTvpNwo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=uc6DfGZT; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=H/2NkGyA; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=SOrkK6cR; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=MyEt24Om; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1790842974; c=relaxed/simple;
+	bh=dssCCR8+SfXy1LqmvrukStNfjE8hHWa/j5bJ9Ck8GDg=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=O4eJmKjLJoVT4pAFhIPLfnnMVVSpJ7LveW4DR30xg9hGE+Crtn9qQjZI2dZZ3A40hApR+6gdFkMl5Pat8uHGtZbZzDKt/VEZ3xjvS6lYpKqk0re2O16tXVlOck2fFfVuMXXvaDb6eT3+vNh/o68ngVch1mgcYZWik+h9sKajaWw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.it; spf=pass smtp.mailfrom=amazon.it; dkim=pass (2048-bit key) header.d=amazon.it header.i=@amazon.it header.b=n1Pcd1Mu; arc=none smtp.client-ip=52.13.214.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="uc6DfGZT";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="H/2NkGyA";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="SOrkK6cR";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="MyEt24Om"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 1E66721EBF;
-	Thu,  1 Oct 2026 08:11:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1790842296; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HvMI2lZZBSxVV+2zdfxxLDs33Kp+LCZMwY4h4IUd9co=;
-	b=uc6DfGZTarOhRPxv+k5N9rt79wwCHp4Iiv6x8pgxig1jZA30VtvPt/1NopC4aREzjvQbE8
-	XbbsSLAOimDb+u8TFRnLaIihQhaFlK/HxLaDePVJPj14bIlaXDeeL2zVlge3y3gk7TurI6
-	/6pH4PhyDIIaSrbSP1f27C3oaiDiOHU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1790842296;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HvMI2lZZBSxVV+2zdfxxLDs33Kp+LCZMwY4h4IUd9co=;
-	b=H/2NkGyAPLaGAOrc1GzI9q+gDZXhx/et9FILtqpuvMc0sE/seC5N5/djaBtK34Uy9v2k6i
-	uETDNXLiS4GDqFAw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=SOrkK6cR;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=MyEt24Om
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1790842292; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HvMI2lZZBSxVV+2zdfxxLDs33Kp+LCZMwY4h4IUd9co=;
-	b=SOrkK6cR2Yr/qeqhBQfHd6hdbg+a3TxxWaHLY9qRYlDfK7JWfWBV04B7qe6mVwX81wpxF1
-	tCbNvOPqeYSvS8pMbH9YRT90+PfKHoPcMhBNxG4eXPV42fh9JNCJPfQOAFaZ9VyePm8quZ
-	N+jd3EC5BUIwzMtkiEC8+XOIk7vDOFc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1790842292;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HvMI2lZZBSxVV+2zdfxxLDs33Kp+LCZMwY4h4IUd9co=;
-	b=MyEt24OmUnE3HQj6uSDFye77cMEE982a2eJ0oaJ7ncH+QdeCfhJHPdhhEMKT4QRJIjJNFK
-	viXetoNGrLJnSxAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E228B134B3;
-	Thu,  1 Oct 2026 08:11:31 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id zhNOLrMVvmp7UAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Thu, 01 Oct 2026 08:11:31 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 67D84A13F7; Thu, 01 Oct 2026 10:11:16 +0200 (CEST)
-Date: Thu, 1 Oct 2026 10:11:16 +0200
-From: Jan Kara <jack@suse.cz>
-To: Hui Peng <benquike@gmail.com>
-Cc: Jan Kara <jack@suse.cz>, 
-	Matthias Goergens <matthias.goergens@gmail.com>, Anders Larsen <al@alarsen.net>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] isofs: bound empty directory blocks in
- isofs_read_level3_size()
-Message-ID: <gwglszf5mvb2n4mor235v5752rsohm3b2zs6msiolir7hqqiq2@73uzvzj2rmim>
-References: <20260930042148.169831-1-benquike@gmail.com>
+	dkim=pass (2048-bit key) header.d=amazon.it header.i=@amazon.it header.b="n1Pcd1Mu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.it; i=@amazon.it; q=dns/txt; s=amazoncorp2;
+  t=1790842955; x=1822378955;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=pMNM3ezMCf72JOW7w9gZHwjUf5zgBeoBXpZHv9GCuqo=;
+  b=n1Pcd1MuahMe2XJoDfvyq56CzTiJttDAHXvU9vxl/9A/uqhl9fVzrBpS
+   JkRhPP2ruNTI9q+Jz3KTc54gwzYuCrIebJDcEVKBqf2mvzvl7TprjAQ8B
+   JmmoQS4ufZk3MeYS2tqTeOMteFXmV9MPM3+lAX6pbuERrGFfOyo6Ywyu6
+   Ppgmqh+BXt/6bzofMClPMGMjcFylC/85wRkCjA8Lj3f4jWCznXIfq9Oij
+   PGK9zFgfTZQo02EWxgPJKQRrEzIFEsKHXWTA6asnZRZ28nku2prdVVSWO
+   WEq29U02AujdncqJpC6GR/hWTVlKkPYZeVezGR4HvIFdsiMBvSQP4XV2x
+   g==;
+X-CSE-ConnectionGUID: tST3wUViQXKbYg0FlT4gLg==
+X-CSE-MsgGUID: CeFmmwQxQA+xgUJufVb77Q==
+X-IronPort-AV: E=Sophos;i="6.27,134,1787011200"; 
+   d="scan'208";a="30088223"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 08:22:24 +0000
+Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:9288]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.21.22:2525] with esmtp (Farcaster)
+ id d7332f4c-b57b-4f23-8dac-76fc3c82d408; Thu, 1 Oct 2026 08:22:24 +0000 (UTC)
+X-Farcaster-Flow-ID: d7332f4c-b57b-4f23-8dac-76fc3c82d408
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Thu, 1 Oct 2026 08:22:23 +0000
+Received: from dev-dsk-dipiets-1b-77b833da.eu-west-1.amazon.com
+ (10.253.66.177) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49; Thu, 1 Oct 2026
+ 08:22:20 +0000
+From: Salvatore Dipietro <dipiets@amazon.it>
+To: <linux-kernel@vger.kernel.org>
+CC: <hch@infradead.org>, <abuehaze@amazon.com>, <akpm@linux-foundation.org>,
+	<alisaidi@amazon.com>, <blakgeof@amazon.com>, <brauner@kernel.org>,
+	<dgc@kernel.org>, <dipietro.salvatore@gmail.com>, <dipiets@amazon.it>,
+	<djwong@kernel.org>, <hannes@cmpxchg.org>, <jackmanb@google.com>,
+	<linux-fsdevel@vger.kernel.org>, <linux-mm@kvack.org>,
+	<linux-xfs@vger.kernel.org>, <mhocko@suse.com>, <ritesh.list@gmail.com>,
+	<rvvandan@amazon.com>, <stable@vger.kernel.org>, <surenb@google.com>,
+	<vbabka@kernel.org>, <willy@infradead.org>, <ziy@nvidia.com>, "David
+ Hildenbrand" <david@redhat.com>, Christoph Hellwig <hch@lst.de>, "Dmitry
+ Ilvokhin" <d@ilvokhin.com>, Brendan Jackman <brendan.jackman@linux.dev>
+Subject: [PATCH v6] mm/page_alloc: avoid direct reclaim and compaction for costly __GFP_NORETRY allocations
+Date: Thu, 1 Oct 2026 08:21:51 +0000
+Message-ID: <20261001082152.2879289-1-dipiets@amazon.it>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260930042148.169831-1-benquike@gmail.com>
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 1E66721EBF
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-2.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_CC(0.00)[suse.cz,gmail.com,alarsen.net,vger.kernel.org];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email,suse.cz:email,suse.cz:dkim]
-X-Spam-Flag: NO
-X-Spam-Score: -2.51
-X-Spam-Level: 
+X-ClientProxiedBy: EX19D035UWA003.ant.amazon.com (10.13.139.86) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-On Wed 30-09-26 04:21:48, Hui Peng wrote:
-> isofs_read_level3_size() walks the sections of a level-3 (multi-extent)
-> directory record and, on encountering a zero length byte (de_len == 0),
-> moves on to the next block without bound. A crafted image with a long run
-> of empty blocks between two sections of a multi-extent file can force the
-> walk to read every block to the end of the device.
-> 
-> Count empty blocks (de_len == 0 at offset == 0) towards the existing
-> 100-section limit. Track empty_blocks in a separate variable from section
-> count 'i' rather than incrementing 'i' directly, because 'if (i == 1)'
-> records the start of the second section (ei->i_next_section_block/offset);
-> incrementing 'i' on empty blocks before the second section is read would
-> cause 'i' to jump past 1, leaving the next-section pointer uninitialized
-> (0) and reading past the first extent into unrelated disk data.
-> 
-> Tested in QEMU against Linux 7.3.0-rc3 with KASAN enabled using a crafted
-> ISO image containing 150 consecutive empty blocks between two extents:
-> on the unfixed kernel the loop reads all 150 blocks; whereas with this fix
-> applied, the loop aborts with "isofs_read_level3_size: More than 100 file
-> sections/empty blocks ?!?".
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Jan Kara <jack@suse.cz>
-> Co-developed-by: Matthias Goergens <matthias.goergens@gmail.com>
-> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
+Commit 5d8edfb900d5 ("iomap: Copy larger chunks from userspace")
+introduced high-order folio allocations in the iomap buffered write
+path.  When memory is fragmented, each failed costly-order allocation
+enters __alloc_pages_slowpath() which runs direct reclaim, direct
+compaction and drain_all_pages(), causing a 0.38x throughput drop on
+PostgreSQL pgbench (simple-update) with 1024 clients on a 96-vCPU arm64
+system.
 
-Sorry Hui, I already have a patch from Matthias for this in my tree.
+The root issue is that direct reclaim and direct compaction are too
+expensive for hot allocation paths that have fallbacks to smaller
+allocations.  __filemap_get_folio_mpol() already marks higher-order
+allocations with __GFP_NORETRY | __GFP_NOWARN, signalling that the
+caller can handle failure.  However, the page allocator still enters the
+full blocking slowpath for costly orders with __GFP_NORETRY, which is
+unnecessarily aggressive when the caller will simply retry at a lower
+order.
 
-								Honza
+For costly-order allocations with __GFP_NORETRY, clear
+__GFP_DIRECT_RECLAIM at the very start of the slowpath, before
+can_direct_reclaim, can_compact and the nofail checks are evaluated.
+This makes the entire slowpath treat the request as non-blocking: no
+direct reclaim, no direct compaction and no drain_all_pages() IPI
+across every CPU.  Reclaim and compaction move to the background
+instead: kswapd is still woken for reclaim, and it wakes kcompactd for
+defragmentation.  The system keeps its long-term health while the
+latency-critical direct allocation path no longer stalls.
 
-> ---
-> Changes in v2:
-> - Document in code comment why empty_blocks is tracked separately from
->   section count 'i' rather than incrementing 'i' directly (preserving
->   the 'if (i == 1)' check for the second section pointer), answering Jan
->   Kara's reviewer feedback.
-> 
-> Changes in v1:
-> - Combined section and empty-block bounds check into i + empty_blocks > 100.
-> 
->  fs/isofs/inode.c | 16 ++++++++++++++--
->  1 file changed, 14 insertions(+), 2 deletions(-)
-> 
-> diff --git a/fs/isofs/inode.c b/fs/isofs/inode.c
-> index 184350d2e6ad..d7b324029a1b 100644
-> --- a/fs/isofs/inode.c
-> +++ b/fs/isofs/inode.c
-> @@ -1173,6 +1173,7 @@ static int isofs_read_level3_size(struct inode *inode)
->  	struct buffer_head *bh = NULL;
->  	unsigned long block, offset, block_saved, offset_saved;
->  	int i = 0;
-> +	int empty_blocks = 0;
->  	int more_entries = 0;
->  	struct iso_directory_record *tmpde = NULL;
->  	struct iso_inode_info *ei = ISOFS_I(inode);
-> @@ -1200,6 +1201,17 @@ static int isofs_read_level3_size(struct inode *inode)
->  		de_len = *(unsigned char *) de;
-> 
->  		if (de_len == 0) {
-> +			/*
-> +			 * A zero length byte at the start of a block (offset == 0)
-> +			 * means the whole block is empty. Count that towards the
-> +			 * same 100 limit as file sections, or a chain of empty
-> +			 * blocks could be walked without bound.
-> +			 * Track empty_blocks separately from section count 'i'
-> +			 * so that 'if (i == 1)' correctly identifies the start of
-> +			 * the second section even if an empty block precedes it.
-> +			 */
-> +			if (offset == 0 && ++empty_blocks + i > 100)
-> +				goto out_toomany;
->  			brelse(bh);
->  			bh = NULL;
->  			++block;
-> @@ -1241,7 +1253,7 @@ static int isofs_read_level3_size(struct inode *inode)
->  		more_entries = de->flags[-high_sierra] & 0x80;
-> 
->  		i++;
-> -		if (i > 100)
-> +		if (i + empty_blocks > 100)
->  			goto out_toomany;
->  	} while (more_entries);
->  out:
-> @@ -1258,7 +1270,7 @@ static int isofs_read_level3_size(struct inode *inode)
->  	return -EIO;
-> 
->  out_toomany:
-> -	printk(KERN_INFO "%s: More than 100 file sections ?!?, aborting...\n"
-> +	printk(KERN_INFO "%s: More than 100 file sections/empty blocks ?!?, aborting...\n"
->  		"isofs_read_level3_size: inode=%llu\n",
->  		__func__, inode->i_ino);
->  	goto out;
+Allocations that also request __GFP_THISNODE are exempted.  That flag
+pairing identifies the local-node-first THP attempt issued by
+alloc_pages_mpol() (mempolicy.c), which relies on direct compaction to
+form transparent huge pages.
+
+Clearing __GFP_DIRECT_RECLAIM makes these allocations reach the
+!can_direct_reclaim bailout, which since commit 4c0ed883e051
+("mm/page_alloc: fix defrag_mode for non-reclaimable allocations") drops
+ALLOC_NOFRAGMENT and retries instead of failing when defrag_mode is on.
+With vm.defrag_mode=1 a __GFP_NORETRY allocation could therefore succeed
+by fragmenting another migratetype's pageblock.  That is the wrong trade
+for a caller that has already communicated it can handle failure and has
+a cheap lower-order fallback, so exclude __GFP_NORETRY from the
+relaxation.  The exclusion is not restricted to costly orders: any
+__GFP_NORETRY caller has said it can cope with failure, so failing is
+preferable to fragmenting for all of them.
+
+Test environment:
+  Hardware:  AWS EC2 m8g.24xlarge (96 vCPU, arm64)
+             12x 1TB IO2 32000 IOPS RAID0 XFS
+  OS:        AL2023
+  Kernel:    v7.3-rc1
+  Database:  PostgreSQL 18.4
+  Workload:  pgbench simple-update, 1024 clients, 96 threads, 1200s
+
+Results (average of 3 runs, TPS):
+
+  Config                                       Avg TPS   % vs baseline
+  v7.3-rc1 baseline (vm.defrag_mode=0)          58,602               -
+  v7.3-rc1 + this patch (vm.defrag_mode=0)     157,246         +168.3%
+  v7.3-rc1 baseline (vm.defrag_mode=1)         109,012               -
+  v7.3-rc1 + this patch (vm.defrag_mode=1)     157,778          +44.7%
+
+Link: https://lore.kernel.org/all/20260403193535.9970-1-dipiets@amazon.it/T/#t [v1]
+Link: https://lore.kernel.org/linux-mm/20260420161404.642-1-dipiets@amazon.it/T/#u [v2]
+Link: https://lore.kernel.org/all/20260710143437.12379-1-dipiets@amazon.it/T/#u [v3]
+Link: https://lore.kernel.org/all/20260904115629.3993331-1-dipiets@amazon.it/T/#u [v4]
+Link: https://lore.kernel.org/all/20260911142102.2294202-1-dipiets@amazon.it/T/#u [v5]
+Fixes: 5d8edfb900d5 ("iomap: Copy larger chunks from userspace")
+Cc: stable@vger.kernel.org
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: David Hildenbrand <david@redhat.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Matthew Wilcox <willy@infradead.org>
+Cc: Christoph Hellwig <hch@lst.de>
+Cc: Dave Chinner <dgc@kernel.org>
+Cc: Ritesh Harjani <ritesh.list@gmail.com>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: Dmitry Ilvokhin <d@ilvokhin.com>
+Cc: linux-mm@kvack.org
+Cc: linux-fsdevel@vger.kernel.org
+Cc: linux-xfs@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Acked-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Salvatore Dipietro <dipiets@amazon.it>
+---
+ mm/page_alloc.c | 21 ++++++++++++++++++---
+ 1 file changed, 18 insertions(+), 3 deletions(-)
+
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index 12fac9084c48..64d09964ca77 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -4784,10 +4784,10 @@ static inline struct page *
+ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
+ 						struct alloc_context *ac)
+ {
+-	bool can_direct_reclaim = gfp_mask & __GFP_DIRECT_RECLAIM;
+-	bool can_compact = can_direct_reclaim && gfp_compaction_allowed(gfp_mask);
+-	bool nofail = gfp_mask & __GFP_NOFAIL;
+ 	const bool costly_order = order > PAGE_ALLOC_COSTLY_ORDER;
++	bool can_direct_reclaim;
++	bool can_compact;
++	bool nofail;
+ 	struct page *page = NULL;
+ 	unsigned int alloc_flags;
+ 	unsigned long did_some_progress;
+@@ -4802,6 +4802,18 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
+ 	bool can_retry_reserves = true;
+ 	unsigned long alloc_start_time = jiffies;
+ 
++	/*
++	 * Costly __GFP_NORETRY callers have a cheap fallback, so don't stall
++	 * them in reclaim or compaction. __GFP_THISNODE callers are exempt.
++	 */
++	if (costly_order && (gfp_mask & __GFP_NORETRY) &&
++	    !(gfp_mask & __GFP_THISNODE))
++		gfp_mask &= ~__GFP_DIRECT_RECLAIM;
++
++	can_direct_reclaim = gfp_mask & __GFP_DIRECT_RECLAIM;
++	can_compact = can_direct_reclaim && gfp_compaction_allowed(gfp_mask);
++	nofail = gfp_mask & __GFP_NOFAIL;
++
+ 	if (unlikely(nofail)) {
+ 		/*
+ 		 * Also we don't support __GFP_NOFAIL without __GFP_DIRECT_RECLAIM,
+@@ -4918,8 +4930,11 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
+ 		 * Reclaim/compaction cannot run, so defrag_mode's strategy
+ 		 * of enforcing ALLOC_NOFRAGMENT cannot be fulfilled. Allow
+ 		 * fallbacks rather than failing the allocation outright.
++		 * Not for __GFP_NORETRY: those have a cheap lower order
++		 * fallback, so failing beats fragmenting.
+ 		 */
+ 		if (defrag_mode && (alloc_flags & ALLOC_NOFRAGMENT) &&
++		    !(gfp_mask & __GFP_NORETRY) &&
+ 		    (gfp_mask & __GFP_KSWAPD_RECLAIM)) {
+ 			alloc_flags &= ~ALLOC_NOFRAGMENT;
+ 			goto retry;
+
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.50.1
+
+
+
+
+AMAZON DEVELOPMENT CENTER ITALY SRL, viale Monte Grappa 3/5, 20124 Milano, Italia, Registro delle Imprese di Milano Monza Brianza Lodi REA n. 2504859, Capitale Sociale: 10.000 EUR i.v., Cod. Fisc. e P.IVA 10100050961, Societa con Socio Unico
+
+
+
