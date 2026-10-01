@@ -1,114 +1,212 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 599F33D8908
-	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 07:32:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A76E6385D9D
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 07:43:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790839933; cv=none; b=Er9IFYQ/fgAKd5j7K6jT2gE6BGIF0TcgFbLHUmk8aS55dORc9hl2no9st0QU4hBSmhTrpwHoZjl3rLP5AVWpl4sOFO/C9DXSWHUHad5RYNPC5rXEKiGpmGCFYh8sBbWT2Y0t0ww7f9oBVuoyz+Rp6MRMUYTZPmknBiZqGrqcGTA=
+	t=1790840630; cv=none; b=hrCsoNbZmIFFoNPNLpfVm3JP3QcrqlNvZiZRHc0Chr8Uu2jGjMlu0OdGTLyTRQ1lsPLIZ7toTruxcMHX0ku/7oHMv2ImcZ0dD79clJtLDOn/Wd3mBmpJ1MU2AdgjR5hYSnc8RDBma3//teC51Hh8jVPrXXQ4G6YmvZtlJRjGUsI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790839933; c=relaxed/simple;
-	bh=ELdBCMU5f7/O4ZMIta9o4UVKjIIZnw/X5SSJeT3GM90=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=h5SUp0WZcd3v4o0+U/VSTiyCCun2xyq/nSiqoik6rOgfAgporEU46k3d9pBB9WY5CGUJ2skupQmOIX+YO4IlT7EFGURDVqFGPPuxqNTkrlQuW9XDp7cRLeEEbcssutpmzqySObfWPAl0H5a8ElVibm2aHbJ2Vu3jTgFyNtkrIig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m9ED6Xoy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790840630; c=relaxed/simple;
+	bh=SSwCzyX87gRH7hW4GI560tjujgur5XBXYAVfLJ2Z25E=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=AKkKIx57kdYTb3dscTZCEifKH6UBybr8abYMr5s0dtDJDqNsrGelU7YuLUthEgYNumcJXVUs8wL4gwlvhO9VeKEeEzsuJSru7LgP+xCIzFO+MPNTt5orS8SZV8KRJUYC0n7gTOK+mn+1qinhV2CnX7iapj9d8mHcUXQLYWsyIOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OSz0R5CQ; arc=none smtp.client-ip=74.125.229.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m9ED6Xoy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E48A1F00A00
-	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 07:32:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790839930;
-	bh=ELdBCMU5f7/O4ZMIta9o4UVKjIIZnw/X5SSJeT3GM90=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=m9ED6XoyFU6f6NSxPdVX7ZgGtbARjsD/CvfZD8tuhOkiZ6dKnPRKSRSktb3gLidmc
-	 VPbCeYi2IKHwWOv9a94mqT6hb1QyGGIuQBER4nXjiOTZRozsX037c2spwbLmYAMdft
-	 hSocy81uy0QFI/ZtDOvX28+07QuujnXHssLX3bpIUqE7ULrFoS3pV03E333y7RCNzK
-	 HsH5YwqLVDE8Ag8eULAvrQkln7YBVbnRdOZn5XnVa80W1ViRxENJZnXfTYVrjFagcy
-	 G3vUUO2AFJbwfAf2/N1XRAUG8lpRgJF09f4ryfCh5u+wg5DjSHuu95Tq7PJHOpKRZi
-	 qrKAsvE+hguKQ==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5ba42966d5fso788310e87.2
-        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 00:32:10 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx1ekII41hIuzmogDJniFQoznqa+56Nvx8pP39OPrJL2ymFrll5q4i+5BltgB68OxAPgpj7rU4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKKU8ysLvG5sf4/dAL2TaeyuphLZGdS9Ldvs8orK6yB1KRMzjLF
-	3LvlNwWYosg6l19KO3PJHOMmiLt1zMNuh6mfOc2ndsRvOQK69q1u7ANF7fxegtIEAzUf5+6YZZN
-	/nzNC2La0boOs6aIeCk/Ydnw3CU6aZjqBO2GhlkBMaA==
-X-Received: by 2002:ac2:42d0:0:b0:5b8:f97f:7a22 with SMTP id
- 2adb3069b0e04-5ba405ec7a1mr1161789e87.54.1790839929167; Thu, 01 Oct 2026
- 00:32:09 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 1 Oct 2026 10:32:07 +0300
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 1 Oct 2026 10:32:07 +0300
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260930163334.60b4a88c@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OSz0R5CQ"
+Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-3411e0ace58so7840261eec.0
+        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 00:43:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790840628; x=1791445428; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ILJGyWA9cCx1Ar1Qgl+/EPmfWI2kJKAy/oM+W8KfewE=;
+        b=OSz0R5CQUVFxw5kL7jht1KYZ2LsCg07zhBzA2M5p/2jdd1OI652P4Jpr3ljJE9UOL5
+         R5qFLWs5MibuXvtuyySTM6dvK5hpB3GkbRvjDY5p9bMKaIUMMrKDHtzpplkn4oFA4FF3
+         0MldKxmvzyBQ69u9H/E9Y5y44v9RbSZm8XJOoGXdK1L6SbpclVfzfdBJpK1Ms4DNdftx
+         I95538SBuWMUpS3YCNBopCDQlUCM40pRR2aF7UpFAK7+7A7t1zkIYeiNBwv7X4FCzC9d
+         NHUn19z35s3Z6lenyLGECpehDZdYQ0SoRf2ip38PrE5D/25TlIPTsqyasbOUPqX8mOiS
+         Zasg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790840628; x=1791445428;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=ILJGyWA9cCx1Ar1Qgl+/EPmfWI2kJKAy/oM+W8KfewE=;
+        b=aLvxEJpNdvdRGUW7/mazkP6MxBKIzapQM2ds+q1KPnq7Dq0XcFmY3c77zBOTYbBCkk
+         sbyg2R696nGizK0vjDeW5NzbnSx9l54Rw+asw14FI1HQIn5mFzs1bNBmBB6PON6j5RWs
+         liTCMUVtYVxU4p0wOrczFPLQXIlPD96ZM751YGfSytkGRslywCSai0E6fP9si+lq6+PI
+         xA0IaipX2LlXUtPVdh71/KqdRtLC+5x77UBO44eDA4C+YaKYu2KaT3e3oVFy5mkDWFU/
+         dUg6DJTa5VFGaQ84YVnpSZ/oXwPjWqyCxEodUsxuWii/px3JaxM7vr2/XBe5IYxUTZQ7
+         uoiw==
+X-Forwarded-Encrypted: i=1; AKwUvBypOtcOhnxG1lgPa0Lwa1Pa+/gCiULWftJ/pEkKpvR1mcypVAFgMMtR7h3UiQXSfF3HabBCy68=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJMWEjA9bzsvninMijLktHP4SkBH5aVGqiW0GLEwTksrTqSrrJ+
+	Q1WJY7cvlfHU+R+RZGTxuM/a1x8vZfTiRlPblpvis7UHfZeZvx4ZM7irM4t9ZSj3
+X-Gm-Gg: AYBFou0ubk74o39eYG3I15gMFE1u5OLgj5bcPi2dJ+YJNzORpODaWd4SKzdmWjDAn8g
+	GRwgQiMOXNOIkN7bGf7rK6N1/qiqkBPYaIUHlkyVtHnT/HOy9IwhWbuT3pGeDZX13DlPi08EKLd
+	WM7beRZNFVNvSmCp9dlJArv+GCjkrj32NUgCFXwzhqHvNkPFGp9brq250WJVnB0KrHezVRIicWB
+	+GqH4/pWz4s6HbW3+cNJyY6XLhMZ2rXhnC1btt4VASYTOt3C7bgpPlj5OUciMCyWTetf5P2fx5v
+	GZIURIyrxp7xmxQa8gJ3QDbUoKhHtHL//46ocKJrxCummzMcZP/nf9JxiHG7Je3OJxrIrywVxdT
+	RZmEDFXHC3Z+ThBTnfJ9RjbHdGigIpPX0I4ansTBgCqg7v1l2pACggeM3e4gVxCwZzNUabWocfq
+	EC1dOzZsK7xg/IGg+TasbKQrRyw2RshtfvLTTT9NI/ds85Is9MQx7Ih3HmBlIupK8ZZg==
+X-Received: by 2002:a05:7300:b507:b0:34c:8c69:5294 with SMTP id 5a478bee46e88-34cdd68f6fcmr6014635eec.35.1790840627612;
+        Thu, 01 Oct 2026 00:43:47 -0700 (PDT)
+Received: from [127.0.1.1] ([23.254.208.9])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34db5016cd1sm4587555eec.31.2026.10.01.00.43.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 00:43:47 -0700 (PDT)
+From: Qiliang Yuan <odys.yuan@gmail.com>
+Date: Thu, 01 Oct 2026 15:43:43 +0800
+Subject: [PATCH v5] jbd2: fix shrinker scan budget accounting in
+ jbd2_journal_shrink_scan()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923-qcom-sa8255p-emac-v15-0-e82f33720737@oss.qualcomm.com>
- <20260923-qcom-sa8255p-emac-v15-1-e82f33720737@oss.qualcomm.com> <20260930163334.60b4a88c@kernel.org>
-Date: Thu, 1 Oct 2026 10:32:07 +0300
-X-Gmail-Original-Message-ID: <CAMRc=MeUx2iHf8-d9yjZZ=n7VaG_GROvO2dW-bxavAS+XbGMFg@mail.gmail.com>
-X-Gm-Features: AclHuK8P_ZwjJ__3SNp9LNTCdpGSDaQAP4RQWoM4JsBj1lq1vbQDeX8sSTrNEMU
-Message-ID: <CAMRc=MeUx2iHf8-d9yjZZ=n7VaG_GROvO2dW-bxavAS+XbGMFg@mail.gmail.com>
-Subject: Re: [PATCH net-next v15 1/9] net: phy: aquantia: fix system interface
- type not updated in forced mode
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Vinod Koul <vkoul@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
-	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
-	Jerome Brunet <jbrunet@baylibre.com>, Shawn Guo <shawnguo@kernel.org>, 
-	Fabio Estevam <festevam@gmail.com>, Jan Petrous <jan.petrous@oss.nxp.com>, s32@nxp.com, 
-	Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>, Romain Gantois <romain.gantois@bootlin.com>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	Maxime Ripard <mripard@kernel.org>, Christophe Roullier <christophe.roullier@foss.st.com>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Radu Rendec <radu@rendec.net>, linux-arm-msm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
-	linux-arm-kernel@lists.infradead.org, Drew Fustini <dfustini@tenstorrent.com>, 
-	linux-sunxi@lists.linux.dev, linux-amlogic@lists.infradead.org, 
-	linux-mips@vger.kernel.org, imx@lists.linux.dev, 
-	linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	sophgo@lists.linux.dev, linux-riscv@lists.infradead.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@linaro.org>, stable@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261001-fix-jbd2-shrink-scan-nr-scanned-v5-1-5348b51efce2@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAC4PvmoC/5XPwW7CMAwG4FdBOeMpcdJAOO09EIfgODQbpFOCK
+ ibUd1/aE+IyOFm/JX+/fBeVS+Iqdqu7KDymmobcQrdeCep9PjGk0LJAiVY63EJMN/g6BoTal5S
+ /oZLPkMsyMwcgLd2WgpOKUTTlp3A7WRr2h5b7VK9D+V0KRzVvX7dHBQrYRiOVZbLOfZ4uPp0/a
+ LiI2R7xTQ+bt2HFkUn7GOKzp9/0dPOcsuS977RB+eyZB0/L/z0z/3t0XhMRdmgevWma/gC42b5
+ AvgEAAA==
+To: Theodore Ts'o <tytso@mit.edu>, Jan Kara <jack@suse.com>
+Cc: linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>, 
+ Jan Kara <jack@suse.cz>
+X-Mailer: b4 0.13.0
 
-On Thu, 1 Oct 2026 01:33:34 +0200, Jakub Kicinski <kuba@kernel.org> said:
-> On Wed, 23 Sep 2026 17:14:35 +0200 Bartosz Golaszewski wrote:
->> aqr_gen1_read_status() decodes the MDIO_PHYXS_VEND_IF_STATUS register
->> to determine which SerDes interface the PHY is currently using on its
->> system side and stores the result in phydev->interface. phylink relies
->> on this value to configure the MAC.
->>
->> The autoneg == AUTONEG_DISABLE check is not correct:
->> MDIO_PHYXS_VEND_IF_STATUS is set by the PHY firmware based on the
->> negotiated link speed, not based on whether autoneg was used to reach
->> it. When the link comes up at 1G in forced mode, the register correctly
->> reads SGMII, but the early return prevents phydev->interface from being
->> updated. It stays at whatever value it held before (typically 2500BASE-X
->> from the initial autoneg run), so phylink configures the MAC for the
->> wrong interface and the link cannot come up.
->>
->> Remove the autoneg guard so that the system interface type is always
->> decoded when the link is up.
->>
->> Cc: stable@vger.kernel.org
->> Fixes: 110a2432c520 ("net: phy: aquantia: add downshift support")
->> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
->
-> Sounds like a real regression, is it? Should we ship it to Linus
-> tomorrow so that it makes 7.3? stable + next does not compute for me
->
+do_shrink_slab() reads count_objects() once per invocation to derive
+a one-shot scan budget, then calls scan_objects() repeatedly until
+that budget is exhausted or scan_objects() returns SHRINK_STOP.
+include/linux/shrinker.h documents that scan_objects() "should track
+its actual progress" in sc->nr_scanned, so do_shrink_slab() can tell
+when there is nothing left to examine and stop early.
 
-Yes, this is independent from the rest of the series and a small fix. It sounds
-good to send it upstream ASAP.
+jbd2_journal_shrink_scan() never updates sc->nr_scanned, so it
+defaults to the full sc->nr_to_scan on every call. do_shrink_slab()
+therefore always believes a full batch was examined, regardless of
+what jbd2_journal_shrink_checkpoint_list() actually did, and keeps
+calling scan_objects() until the budget derived from the (possibly
+stale) percpu checkpoint count is drained, even after the checkpoint
+list has already been fully drained.
 
-Bart
+jbd2_journal_shrink_checkpoint_list() already tracks examined
+buffers accurately: it decrements its nr_to_scan in/out parameter
+for every journal_head walked, whether or not it gets freed. Derive
+sc->nr_scanned from the difference, and return SHRINK_STOP once it
+comes back zero, since that only happens when the checkpoint list
+had nothing left to walk. Key this off sc->nr_scanned rather than
+nr_shrunk: a batch can find every buffer in its transactions busy
+and free none, while later transactions may still hold buffers
+whose writeback has completed; sc->nr_scanned reflects that real
+work either way.
+
+Tested by creating 20000 small files, running sync, and letting
+checkpointing settle for a few seconds (with systemd-journald and
+cron stopped, since their own writes to the same filesystem keep
+re-populating the checkpoint list and mask the effect being
+measured), then triggering "echo 2 > /proc/sys/vm/drop_caches" while
+tracing jbd2_shrink_scan_enter/exit:
+
+                      total scan_objects()   calls with
+                      calls                  nr_scanned == 0
+  before this patch   22                     10 (45%)
+  after this patch     8                      1 (12%)
+
+Fixes: 4ba3fcdde7e3 ("jbd2,ext4: add a shrinker to release checkpointed buffers")
+Cc: stable@vger.kernel.org
+Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+Reviewed-by: Jan Kara <jack@suse.cz>
+---
+V4 -> V5:
+- Revert to keying SHRINK_STOP off sc->nr_scanned (buffers actually
+  examined) rather than nr_shrunk (buffers actually freed), as v1
+  originally did. Jan Kara rejected the nr_shrunk-based v4, pointing
+  out that failing to reclaim the buffers in one batch doesn't mean
+  later transactions won't have freeable ones; Sashiko AI review
+  independently flagged the same issue. Restore Jan Kara's v1
+  Reviewed-by: the diff in jbd2_journal_shrink_scan() is unchanged
+  from what he reviewed there (only the explanatory comment reads
+  differently).
+- Redesign the test: the old methodology (no sync, buffers kept busy
+  by design) exercises exactly the busy-but-productive case Jan Kara
+  describes, so it isn't a useful before/after comparison for this
+  change. Replace it with one that lets the checkpoint list actually
+  drain via sync, then measures scan_objects() calls wasted after
+  draining due to percpu-counter staleness.
+
+V3 -> V4:
+- Shorten the SHRINK_STOP comment; no functional change (the trigger
+  has been nr_shrunk == 0 since v2, not sc->nr_scanned).
+- Carry forward Jan Kara's v3 Reviewed-by.
+
+V2 -> V3:
+- Rebase onto v7.3-rc5. It already includes Max Kellermann's
+  "jbd2: bound shrinker scans by examined checkpoint buffers"
+  (15cb16496446), which independently fixes the busy-buffer
+  accounting in journal_shrink_one_cp_list()/
+  jbd2_journal_shrink_checkpoint_list() that v2 also touched. Drop
+  the now-redundant checkpoint.c changes; this revision only touches
+  journal.c, reusing the accurate nr_to_scan tracking Kellermann's
+  fix already provides.
+- Add a Fixes: tag for the commit that introduced
+  jbd2_journal_shrink_scan() without ever setting sc->nr_scanned.
+- Re-measure test data against the new baseline (176 -> 8 calls,
+  vs the old baseline's 168 -> 7).
+
+V1 -> V2:
+- Count examined buffers, not just freed ones, in
+  journal_shrink_one_cp_list() (Sashiko AI review finding).
+- Trigger SHRINK_STOP on nr_shrunk == 0 instead of
+  sc->nr_scanned == 0.
+
+v4: https://lore.kernel.org/r/20260930-fix-jbd2-shrink-scan-nr-scanned-v4-1-eb9a3ccc2524@gmail.com
+v3: https://lore.kernel.org/r/20260928-fix-jbd2-shrink-scan-nr-scanned-v3-1-916caaa53420@gmail.com
+v2: https://lore.kernel.org/r/20260928-fix-jbd2-shrink-scan-nr-scanned-v2-1-7e1efec3afdf@gmail.com
+v1: https://lore.kernel.org/r/20260928-fix-jbd2-shrink-scan-nr-scanned-v1-1-e6f4016ec699@gmail.com
+---
+ fs/jbd2/journal.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/fs/jbd2/journal.c b/fs/jbd2/journal.c
+index 00f5a98f3d4fe..eac5f84a1afc5 100644
+--- a/fs/jbd2/journal.c
++++ b/fs/jbd2/journal.c
+@@ -1263,10 +1263,22 @@ static unsigned long jbd2_journal_shrink_scan(struct shrinker *shrink,
+ 	trace_jbd2_shrink_scan_enter(journal, sc->nr_to_scan, count);
+ 
+ 	nr_shrunk = jbd2_journal_shrink_checkpoint_list(journal, &nr_to_scan);
++	sc->nr_scanned = sc->nr_to_scan - nr_to_scan;
+ 
+ 	count = percpu_counter_read_positive(&journal->j_checkpoint_jh_count);
+ 	trace_jbd2_shrink_scan_exit(journal, nr_to_scan, nr_shrunk, count);
+ 
++	/*
++	 * Key SHRINK_STOP off sc->nr_scanned (buffers actually examined),
++	 * not nr_shrunk (buffers actually freed): a batch can find every
++	 * buffer in its transactions busy and free none, while later
++	 * transactions may still hold buffers whose writeback has
++	 * completed. sc->nr_scanned only comes back 0 when the checkpoint
++	 * list had nothing left to walk.
++	 */
++	if (sc->nr_scanned == 0)
++		return SHRINK_STOP;
++
+ 	return nr_shrunk;
+ }
+ 
+
+---
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+change-id: 20260928-fix-jbd2-shrink-scan-nr-scanned-c3098cd901e2
+
+Best regards,
+-- 
+Qiliang Yuan <odys.yuan@gmail.com>
+
