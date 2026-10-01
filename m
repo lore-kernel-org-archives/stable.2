@@ -1,107 +1,154 @@
-Received: from mail-ed2-f32.google.com (mail-ed2-f32.google.com [74.125.228.96])
+Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D33F23B52EE
-	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 04:39:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.96
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790829600; cv=pass; b=uPeR5F/9Hj4g7nZ4fwMPZj1L9BOGlntRp6v50WiaoNTo+cUh7rqv5BaheES9/Elh5IXlWal5EL3pWM7dd1FiBtZ/vzkDyol5bsoe0cIlzHtA5rhwolo2oA8IfE/6pPEaiIcdkwcHnl+McAYmFda9WTnuDSFfCdz+EiHvO3M5tm4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790829600; c=relaxed/simple;
-	bh=nDas30tPSxRmkTZarnFIxktE9WqOwZyfqBZjaJOotF8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=A409VG6wGD9UPpo6e9Ck/RF4Xrz0Kt/hb9FCrzN1+1BgEJ3hGQxk9XlIbLUhKUWIgHT++OgS0TGPqLVzTXe8XfGE1eqY0Gngzdo/8lAWijN5UW5q8CF2qP1Zjm8k7TN6tLGGaVI6Wiwfz6V+bVy6ZerTcY6aBXWGinkyqK5yjRY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UiEcbkyV; arc=pass smtp.client-ip=74.125.228.96
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 099A43BCD1E
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 04:45:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790829944; cv=none; b=XqPjh+szfSU62AOXhMrfuqHv4+64I/32iV2JiZ9qcGs5Jiy+mlXpK5M7XT1uHSizgyqrH5+ahdgwYkdh6c+i8lo2lgjU7GpUa8xvTX+imnF9/6xOIv2FV75mJvo+CBo1fKUKCyjdM3m18VNQx/ixOSGLXIQvhaDc5vAjpNMPpiA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790829944; c=relaxed/simple;
+	bh=cSXL+FyasWHX9BJAX8tqgjRouttLDk5Tcanh9t3zTLE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=RHgcvWd3or+Xo+EmpS9XiZGamgKa54G8PrRaa26AK2Tx3nTwky1zt0zkQR3DwB0rNZ26icp+xi+Ifqak7JvJ34EdyCUbI2z0KdBX5SAfmPmarDmGlU2mgWidHvcqMSStQhybkG6am5p5bh6CWWtNgoaosFRwO8HJAxadzs64ZjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lBOjV/Zg; arc=none smtp.client-ip=74.125.229.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UiEcbkyV"
-Received: by mail-ed2-f32.google.com with SMTP id 4fb4d7f45d1cf-6af7d702c76so152712a12.1
-        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 21:39:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790829597; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BSg/8hToODazZ73UL+NL/oACUlyed1/DONzbtcp38RMgmZ9i0hFQn1LSCJkHfs5aSN
-         I9V4eKvSyYD7r5X+Kph/XrtMpHEcD/ZyAxpzZA08IjnIIkJh1v9+6dFej5xz1Vv8Vzr1
-         Seg07KFknZAdsr3l2ufdjhQE1nX+VcAKNL3MAn94EMUbBWkETkR84lyWZAeyIAdVkxFR
-         k0rcqb+blhQ4S3Lu0lvclZLlS0Hh2luQhc4FLrvKyrMrvgmvRluC6fhF7BDCnKl8t6gT
-         /9FTd/3kxYSUuU46WDFpSUFqiBF6kvywetP0Jt146z/j7tOBjID0BqvmVSRbJJSx9ynB
-         NYpw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=nDas30tPSxRmkTZarnFIxktE9WqOwZyfqBZjaJOotF8=;
-        fh=djDDqsNHJv94ki0uCV6Yni3+HbYHn8Zs4uKRRgAlu0Y=;
-        b=RQ4iW4ZT60k3LmpGso+4HZS9q4j3KwdlIz8s4exfV+9jbfNYXfOQ5eUJHU70s67teF
-         8YOL5WmMY02KKvDfmJSOCOjvq96a35wkb7IhXyepqIumtHYz2qcYc0xIo2i/x0eS+9sk
-         pfcc0J4SHg7XeS/NuC4dAmw934eQTBrPdJPzV5sQAtiiH6Dzs/e75Cb46xmktEnag9Oq
-         6yuglqtX15fM+cq7iBaPzlK6GiCF6ryKFc6cgP7RbTlWh9vJBij0Ty8s9AepGAyqKYUB
-         vCMRKm8BJsRIvXGBBym0O9uW6FTZPNPK1LBO1a0ijKGjYaFMpl+wri2Ix43v3Qtu2g6E
-         4Dgg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lBOjV/Zg"
+Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34b4f2d90c4so2229213eec.2
+        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 21:45:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790829597; x=1791434397; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nDas30tPSxRmkTZarnFIxktE9WqOwZyfqBZjaJOotF8=;
-        b=UiEcbkyVNIUMhWJVyn+9JG0V7GlKzWDUqST50o7uZbjD2aP3yc1bGkMz3mv3rlWMri
-         ddG01q47E5ZAaz0GjpeO4mkwku5DtuP1CCndIEf3hNB8ix2tQZFtJsYk7Q5zEDB5pNso
-         nILZBHRjr8bB1vieZEe9QiHf4qDwCUdrfD5CKuvNXEOH+WXjqwqYGtYx9J+ImxAcgn3l
-         AUzMFApvIVTiZ5zpZF7hcqWrgrMyorV0WxntmOvWrKoKCuzWkAwmR3nQHEBA/cYwOGcA
-         /yFQP25txJiyYT28rPGPYqnzpt5BmfexCyC4lPWwgG/WQ4l+pPHoJAJ+aelDJbdP9hWs
-         OgQQ==
+        d=gmail.com; s=20251104; t=1790829941; x=1791434741; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Qcb3FfIrBxLpO2EHSQg6zxkLxfR+fnWXXmdDoehAGw8=;
+        b=lBOjV/ZgmBEHvu+ZaWFAzABCXR7w4B2SyTLy3fJI6Hn7ZfZSSjp9efIkFWzIeC2Ip/
+         8z5tL+89wo8S75I+N6RxjtSHAPcx+pqAdhL3gxMyWYEG9sJCwunvWUb8AkwgBf7FXSC5
+         Oao8BGiAU2us2u00/HfyNqkG4YhBwH29W2VCCWAMUXIBxpPoAzrj6nMaly6UON2+e2G5
+         Ib/gS8CLFw1xrLNH008TR0+Mt2SQxYk0bE39P7n8NRoYOzWt0kS2hcCJlV43OwFb+/04
+         NVmnRzwM2HLQORaHAd2BAQ83O/4x9V9M+CAVIat25RWUVTNmR33s5nt8XnFUjUxUXbAm
+         Outg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790829597; x=1791434397;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=nDas30tPSxRmkTZarnFIxktE9WqOwZyfqBZjaJOotF8=;
-        b=mlWEsqs0Ldn5RVO8c0d54vXT9lVvMHKHgRXLs7NYf7MzLFApFo1JDtmjSK/azbUUcB
-         kLYT1NkmgR9MIzP/+iyf7m+fKbZILg2k4Z8HRr+YJ8Lth0DtWQnXDkHyfqXAyw+kpDYt
-         cnPv6OpJEsjFtc0HzPkYhIH73Wt/lSTpGKQwf+LtvJjWPel4ibeeV5X24OKyb0RcymWN
-         6BIvLMIqB6J0kOIE/uNSbwwNy2+QbLjPWm7rVe0gVWaOjMf+WXw00zrKV5LX+ZT6LYCm
-         dmY8+0NVIMpGQ6dvtTs3jC5P76Vypl6aKBVbprXczAf7GcLHq+OyRBoPIpwRoRI+3gmn
-         KpBQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy7hm98bDkZ8MIHOgsMrNUAHy3sseItgMf52XQgJJ2WqEpOvcCjy+l5MDLXNyY7k/OU6TaeqPI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mByiHztVeG3leetklIIc7CeWWuaxDLRxIL27IyngoqO0FaBwZX
-	j4cNobzDFshorJ39K8lnt/jj7NEol/sBNKr9Aqpx8++3G3hmeJtrF1z5afyp9y/0nH/9/vrCPvW
-	YSDvN2mnHnfbE99kE0teAhlLaTgShr9w=
-X-Gm-Gg: AYBFou3LDQLqe89YOID5zGEoAAUjQk0cQiQzZuSg3gbpahP20fuGvp0M5M7pp0u3VdH
-	0X95UftleKNEoRIvFX4ftsETAYdXbDGYops14SA7kN4CrvSVHWOlaL/onFfwf4znXJ0K/HWtVUG
-	t8Q1WToqTYrTuubv4SUSGqrwQZ/2Zwnn7e+zW1SmSqvCoEHX2AE9bC6oKqjObRuqtzosm1kIU02
-	htfX3V3UyloSHQqB16JaRDzWJfJrChNkCPoUQIARfkkN7gO/CgzuchX5idOIv94u9fWqdSxevyT
-	Jg2RGc3brKW/cQ/jZO8BfX5nGp4werALSNtC1WtW57mSxNRL0n8SmII/
-X-Received: by 2002:a17:907:6d25:b0:c2d:c739:30e0 with SMTP id
- a640c23a62f3a-c2e23e24b86mr265473566b.38.1790829596884; Wed, 30 Sep 2026
- 21:39:56 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790829941; x=1791434741;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Qcb3FfIrBxLpO2EHSQg6zxkLxfR+fnWXXmdDoehAGw8=;
+        b=COcj+Ut3abDmgU6vR71Zoae9mLxaiYat9KdA2zjAc8LA5sANti4h3ueUJ/Ylqhj36/
+         utEqXSsnxkvy90xipj//Li8FbctSiuS+xHxIDXACwf74YxFfHElnLGnQd03wJef1EjPd
+         iNVpE6BQphMjMBGg82m++pkC0sM3xLN7tjXMG8p1IgHwB7a/NQc+H/RGveZvOlw7teZL
+         ZoZ6vfPYVK6LYtitTChwp1zE19jvCgXjOEISsrBbiFRqDxFH6xoU115ii4mfT50Nrd+Q
+         85cGMa6KMYmmZyAdNeVkiPfttgu8XT9rVCWKpStFFMmNbuqVAI2wJcQgrins/yFS4MmY
+         59sA==
+X-Forwarded-Encrypted: i=1; AKwUvBxaiPf5OSYcE1JfuQHhuZNb7o09fOENaIg24RUORoj/zuW7JKTIZBXdytes8QIf+o7LCYKW74o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLcWbhYCAdwFq+LAoy28+4ETUWt+yeNf2JP+nS3Fi9rWDK1UTQO
+	0nLTr9XQuFreAL9sZ4q5J+mblfEMt4IqMepeNDfEdjRsOmpwP3vYvC2f
+X-Gm-Gg: AYBFou1KiZQGgqlpK+5k84cEko0nmFEUnRyY5h+yOG7sJxUDp90aGysiSiNl2rUPZPL
+	a/xKXV1CqVKgOTnjD+oPQp5cH0D3kpCK82ba5+n3hZ7ldhDwhVBC21lXtbSP+qt0nOr5vm4sYfv
+	YjZH+Jos3BO8mamRlb3vP1jmkxnTzKOEuMZk8nXBDA9vso0/LJKsa4fZYF6r73ycnv3ylafyMiZ
+	6LtD5W14PV4AUXh0FI+DPhAUdrRnQTG4SuaUCQNK4caOA6sTs4TJYcvcd5ilA1BkMBp2ahWlLOY
+	tAAk7i/rkd4rHCJh/gbpEm+26xsmbEDYWqVLLA/YJdMzA9+JW0k8xwKTU6bXtZxmW1eObK4CEAb
+	WhtHpi/zzqEIns3dEChAseVuTKbqwcFx+4IAMcFR6L+bZwIESq64x02atp6AMn3/Si98KF637T0
+	9Z/a1h0cG2WaQ9g/+MqEyO+dvkBRuEv6JSxpP4+Bl8i3O+Lu2Z3/fNCW75X7twBMZm4ftYulqil
+	VzZgFBZtFr0aY/02zRfHTnZOpH7I66avSb856y+FRjjr18g5eS1oegg+QaTOjM=
+X-Received: by 2002:a05:7301:6192:10b0:34b:2362:90a8 with SMTP id 5a478bee46e88-34cdc4c0558mr3779399eec.19.1790829941087;
+        Wed, 30 Sep 2026 21:45:41 -0700 (PDT)
+Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:9835:e0ad:476f:74a9])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34db3e3414asm3891332eec.19.2026.09.30.21.45.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 21:45:40 -0700 (PDT)
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Date: Wed, 30 Sep 2026 21:45:30 -0700
+Subject: [PATCH 1/2] wifi: carl9170: Revert "carl9170: devres-ing
+ input_allocate_device"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAHeizqHDqx3ue1=0QL92ef+6C63Ur+v1Z=d93smgdD5zTj_-Pw@mail.gmail.com>
- <arORyXjxvZUoEAIw@chamomile> <CAHeizqF--yGMCLGBEv9f7Gs=dmbZO6+DwSh7KZjpDgbNonCotA@mail.gmail.com>
-In-Reply-To: <CAHeizqF--yGMCLGBEv9f7Gs=dmbZO6+DwSh7KZjpDgbNonCotA@mail.gmail.com>
-From: Subham Pal <subhampal789@gmail.com>
-Date: Thu, 1 Oct 2026 10:09:45 +0530
-X-Gm-Features: AclHuK-y1tLB80ZNINzXQ6UtPI8XoZSzzsSAP0Y8v4QLKDC9gVJNA8sSucY42gE
-Message-ID: <CAHeizqEqOx_bTJdNaUYGc1Mc_dcWbY6ybJNmo9uKMcyBPVLS1g@mail.gmail.com>
-Subject: Re: [PATCH net 0/2] netfilter: nf_conntrack_h323: fixes for NAT
- bypass and ASN.1 decode
-To: Pablo Neira Ayuso <pablo@netfilter.org>
-Cc: fw@strlen.de, phil@nwl.cc, kaber@trash.net, davem@davemloft.net, 
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	netfilter-devel@vger.kernel.org, netdev@vger.kernel.org, 
-	stable@vger.kernel.org, Subham Pal <subhampal789@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260930-carl9170-reverts-v1-1-7033b5716c14@gmail.com>
+References: <20260930-carl9170-reverts-v1-0-7033b5716c14@gmail.com>
+In-Reply-To: <20260930-carl9170-reverts-v1-0-7033b5716c14@gmail.com>
+To: Christian Lamparter <chunkeey@googlemail.com>, 
+ Kalle Valo <kvalo@kernel.org>
+Cc: Christian Lamparter <chunkeey@gmail.com>, 
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.17-dev-6c14f
 
-Hi Pablo,
+This reverts commit 87ddb2fc29f10cf689ff0dfb88a19b7d3687006b.
 
-Just following up to check if there are any remaining questions or queries,
-regarding the multi-vendor testbed I described, or if the series is
-ready to be applied.
+carl9170_register() is invoked asynchronously from the
+request_firmware_nowait() callback after carl9170_usb_probe() has
+already returned, and carl9170_usb_disconnect() calls
+carl9170_unregister() followed immediately by carl9170_free(), which
+frees struct ar9170 (including ar->wps.name and ar->wps.phys).
 
-Thanks,
-Subham Pal
+Allocating the WPS button input device via
+devm_input_allocate_device(&ar->udev->dev) ties its unregistration to
+the parent struct usb_device rather than the driver lifecycle. Even if
+it were tied to &ar->intf->dev, devres_release_all() runs after
+carl9170_usb_disconnect() has already freed struct ar9170 and
+unregistered the parent wiphy device. Consequently, the input device
+remains registered on input_dev_list with input->name and input->phys
+pointing into freed memory, causing a use-after-free when reading
+/proc/bus/input/devices or when generating the KOBJ_REMOVE uevent on
+unregistration.
+
+Fixes: 87ddb2fc29f1 ("carl9170: devres-ing input_allocate_device")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+---
+ drivers/net/wireless/ath/carl9170/main.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/wireless/ath/carl9170/main.c b/drivers/net/wireless/ath/carl9170/main.c
+index 61c7a1288743..702b6d113b18 100644
+--- a/drivers/net/wireless/ath/carl9170/main.c
++++ b/drivers/net/wireless/ath/carl9170/main.c
+@@ -1500,7 +1500,7 @@ static int carl9170_register_wps_button(struct ar9170 *ar)
+ 	if (!(ar->features & CARL9170_WPS_BUTTON))
+ 		return 0;
+ 
+-	input = devm_input_allocate_device(&ar->udev->dev);
++	input = input_allocate_device();
+ 	if (!input)
+ 		return -ENOMEM;
+ 
+@@ -1518,8 +1518,10 @@ static int carl9170_register_wps_button(struct ar9170 *ar)
+ 	input_set_capability(input, EV_KEY, KEY_WPS_BUTTON);
+ 
+ 	err = input_register_device(input);
+-	if (err)
++	if (err) {
++		input_free_device(input);
+ 		return err;
++	}
+ 
+ 	ar->wps.pbc = input;
+ 	return 0;
+@@ -2044,6 +2046,13 @@ void carl9170_unregister(struct ar9170 *ar)
+ 	carl9170_debugfs_unregister(ar);
+ #endif /* CONFIG_CARL9170_DEBUGFS */
+ 
++#ifdef CONFIG_CARL9170_WPC
++	if (ar->wps.pbc) {
++		input_unregister_device(ar->wps.pbc);
++		ar->wps.pbc = NULL;
++	}
++#endif /* CONFIG_CARL9170_WPC */
++
+ 	carl9170_cancel_worker(ar);
+ 	cancel_work_sync(&ar->restart_work);
+ 
+
+-- 
+2.56.0.rc1.315.gc6ed9934b7-goog
+
