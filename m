@@ -1,129 +1,175 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D9333264C8;
-	Thu,  1 Oct 2026 10:43:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8876A3F164E;
+	Thu,  1 Oct 2026 10:45:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790851438; cv=none; b=XUhEqqWV+mkcX6P7v9pOsLvDX/TZtTjvfGnFGZTg0R2YfLBVtQCsgczayM8ck1AdlD/VIbSs9ITUx6GdNZ3iTUd2IGcOj8UfHJMHBieaz/KSAnUe5tsB04rUAyEgCVP4khxGaZiwhJGAbOXGWPL94/BYDpbe1CjvVtpkVoj9Vjo=
+	t=1790851505; cv=none; b=FP96T5M61uCLzLDDahZx3r82DMeJQAFPF5JN0FkT0K+uZwdZudnUq/1wGj8wVmyk7j4cCuGiCJC6j8jrK+vrzPbcWFUN/0Gv2Jil4YbZh9s4F56uU2qZaqgTiQ2qPeMLvMitpoqyxneUNwtmu58ksjB7RgM/cwWrZbZ0MwGYN6I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790851438; c=relaxed/simple;
-	bh=F5T25okxxj3wkm8vBHu1BJoGK39vzb+Nbf/OZkVMo9g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=h8ESOh0lQda4jNczx9pYDspLWmySLEQHP8yjfkBo0fBTQAg+S/4/iZxkYPKTj+xLtOz2JeAh8dPnJm9958UHmUePwHJKh75n081SFZWpinSi2g0aurhlUoTNSU82MXn0xeXecBS7CYZrQngVrMCGI/WuuAl8oFlEyJbmlvYki6k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DvijDuM8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790851505; c=relaxed/simple;
+	bh=or3zDAVnoMEjDac7Yd8t7AgkXnX/RGI9otXPhSVH6xU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EncXkl237OjLG3t2T5EkiQp2rCHC0C5uJpSJ7Q2NeJ38wXbs9gtiWpD2bSejF2RwAsV5NG4Qo5erxHvMfw+eZDnvN/WcqtC9G16G8Q+hr2UGT5DKaDSY427/8EHdAhxjI9doipIc24fwvyrNd8BekVWG1ZREZsLetXXYihqkNng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AXyYcsq9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DvijDuM8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8F7F1F000FF;
-	Thu,  1 Oct 2026 10:43:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AXyYcsq9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DC961F00898;
+	Thu,  1 Oct 2026 10:44:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790851436;
-	bh=ag07URdANwZ2qlpZa9rQoXExFjLkpiIUYJe8sMUl1e4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DvijDuM8v5XPVG1j0cOZUQ6H+4qknXwmGflt5eIOyqTpsgckF5NYy/gcWAR/JOzh1
-	 8VGUn4zp2Up/miINCoJcsEGqx7VkLXY4vXris3UAOW0bH+N4Uzr7Pv6WmTtWo63aP9
-	 lDOQzXYg5NRLOW4Re49lYhIc7Lc8hqZRbzFSfSCF6TlySCmv3DRBFvY6QfI8Muv9+/
-	 FK3ns881Vo128u5ZTXcWBi9g5Z+h1rCQQVXbgpxNq181DoAiu6ndcjXtuS/nyfJkFw
-	 4r8RDpITroLExrph21YMlaqXqjTI9lS885udyzw7YITJIIL0q+2Iw79oUDcpusd1Od
-	 rhl9J/hV98ikQ==
-Date: Thu, 1 Oct 2026 11:43:52 +0100
-From: Simon Horman <horms@kernel.org>
-To: Yuchao Zhang <ndaugoing@gmail.com>
-Cc: David Heidelberg <david@ixit.cz>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3] nfc: nci: ignore unexpected CORE_RESET_NTF and
- CORE_RESET_RSP
-Message-ID: <20261001104352.GZ13925@horms.kernel.org>
-References: <20260927132914.24648-1-ndaugoing@gmail.com>
+	s=k20260515; t=1790851504;
+	bh=xS811ek91+cRnLcRHo+xdG9TRcDiTFjS6kYimGRgBZA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=AXyYcsq9/FFTDLVDfuaLhYscCqLUFDph4zsoXj5QTlmOADNMX51iD0SkOytpuf5MO
+	 On7NZDhoFLjM6CWVW2gzFEcvlQfJlOxXWG7tWYqM47OAMu7KAyTJd7YFvQOmfAC17f
+	 pUVold2MOFnaPPOqct7QNwYVg+o854Z573vOoPA2MqB1mA056rQO7/yQCAetpOVFcR
+	 DU96bxWqJMrGQzyE+IpFrPq0TBmt2WYo1ugFcGZcDcEtbALPfyGcbim8nxi0gLfM37
+	 GlcYsri4WfmEBwTtjSQrTwwgvb8pzlnlZMraSyWbadX19Qf1ifbAwyTUxBkutck3ZK
+	 jzOuD2flcr5bw==
+Message-ID: <e1728faa-5d50-48af-8ba0-5098be9124eb@kernel.org>
+Date: Thu, 1 Oct 2026 12:44:50 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260927132914.24648-1-ndaugoing@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 4/7] sched/numa: separate VMA placement from scan
+ continuation
+To: Gregory Price <gourry@gourry.net>, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org,
+ vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com,
+ mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com,
+ vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
+ bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
+ kprateek.nayak@amd.com, ziy@nvidia.com, baolin.wang@linux.alibaba.com,
+ nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
+ baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev,
+ kas@kernel.org, joshua.hahnjy@gmail.com, rakie.kim@sk.com,
+ ying.huang@linux.alibaba.com, matthew.brost@intel.com, byungchul@sk.com,
+ apopple@nvidia.com, jannh@google.com, pfalcato@suse.de, hannes@cmpxchg.org,
+ shy828301@gmail.com, osalvador@suse.de, raghavendra.kt@amd.com,
+ stable@vger.kernel.org
+References: <20260930112206.205083-1-gourry@gourry.net>
+ <20260930112206.205083-5-gourry@gourry.net>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260930112206.205083-5-gourry@gourry.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun, Sep 27, 2026 at 09:29:14PM +0800, Yuchao Zhang wrote:
-> Commit bcd684aace34 ("net/nfc/nci: Support NCI 2.x initial sequence")
-> added handling of CORE_RESET_NTF in nci_core_reset_ntf_packet(). When
-> received, it updates ndev->nci_ver, ndev->manufact_id, and
-> ndev->manufact_specific_info, and calls nci_req_complete(ndev,
-> NCI_STATUS_OK) to finish the pending reset request.
+On 9/30/26 13:22, Gregory Price wrote:
+> From: "Gregory Price (Meta)" <gourry@gourry.net>
 > 
-> However, unlike other notification handlers in ntf.c (which validate
-> ndev->state before completing requests), nci_core_reset_ntf_packet()
-> does not check whether a core reset request is actually pending.
-> If an unsolicited or delayed CORE_RESET_NTF arrives (e.g. after a reset
-> command times out or from a misbehaving NFCC), it unconditionally:
-> 1. Completes whatever request is currently in-flight (such as CORE_INIT,
->    RF_DISCOVER, or CONN_CREATE) with NCI_STATUS_OK, leading to kernel
->    state desynchronization.
-> 2. Overwrites ndev->nci_ver and manufacturer info. Because
->    ndev->nci_ver is used as a selector for subsequent packet formats
->    and parsers (e.g., in nci_open_device() and nci_core_init_rsp_packet()),
->    unexpectedly modifying it can cause protocol format confusion.
+> vma_is_accessed() returns true both when a VMA needs placement
+> (east-west) sampling and when a VMA is already mid-scan across
+> multiple scan windows.
 > 
-> A similar issue exists in nci_core_reset_rsp_packet(): an unexpected or
-> delayed response packet can prematurely complete an unrelated in-flight
-> request.
+> Callers cannot distinguish placement eligibility from scan progress.
 > 
-> Fix this by ensuring CORE_RESET_NTF and CORE_RESET_RSP are only processed
-> by the core layer when a reset command is actively awaiting them:
-> - Set NCI_RESET_PENDING in nci_reset_req() when sending CORE_RESET_CMD.
-> - In nci_core_reset_rsp_packet(), ignore the response if NCI_RESET_PENDING
->   is not set. If set, atomically clear the flag and complete the request
->   on failure or for NCI 1.x (checking skb->len >= sizeof(*rsp)).
-> - In __nci_request(), ensure NCI_RESET_PENDING is cleared upon request
->   completion, cancellation, or timeout.
-> - In nci_core_reset_ntf_packet(), fail any in-flight reset request if the
->   controller reports an unrecoverable error (0x00), and only process
->   command-triggered notifications (0x02). Non-command triggers (e.g.
->   power-on 0x01 or proprietary triggers) and unexpected notifications
->   return 0 without modifying core state, ensuring driver-specific
->   notification handlers (such as fdp firmware patch handling) still
->   receive them.
-> - In nci_core_reset_ntf_packet(), support notifications shorter than 9
->   bytes (e.g. NCI 2.0 frames with manufacturer_specific_len == 0),
->   validating the fixed header length and safely bounding
->   manufact_specific_info reads.
+> Rename the helper to vma_needs_placement_scan() and handle continuation
+> state in task_numa_work(). Record whether an in-progress VMA scan is
+> promotion-only so a scan resumed in a later scan window finishes with
+> the policy it started with. The zeroed initial state places no
+> restriction, so a resumed scan that finds freshly allocated NUMAB state
+> falls back to the default policy.
 > 
-> Fixes: bcd684aace34 ("net/nfc/nci: Support NCI 2.x initial sequence")
+> This separation allows PID-inactive VMAs to be scanned for promotion
+> without treating scan continuation as evidence of placement eligibility.
+> It is a prerequisite for the following fix and must accompany it when
+> backported.
+> 
+> Fixes: fc137c0ddab2 ("sched/numa: enhance vma scanning logic")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Yuchao Zhang <ndaugoing@gmail.com>
+> Assisted-by: LLM
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 > ---
-> v3:
->  - In nci_core_reset_ntf_packet(), do not reject notifications shorter than
->    9 bytes with -EINVAL; instead allow valid short frames (e.g. 2-byte NCI 1.x
->    or 5-byte NCI 2.0 with manufacturer_specific_len == 0), safely cap field
->    reads, and return 0 so driver-registered hooks (such as fdp firmware
->    patching) are not skipped (per Sashiko AI).
->  - Fix trigger semantics: in NCI, CORE_RESET_CMD trigger is 0x02
->    (NCI_RESET_TRIGGER_RESET_CMD). If controller reports an unrecoverable error
->    (0x00, NCI_RESET_TRIGGER_ERROR) while reset is pending, fail the request
->    instead of completing with OK; ignore power-on (0x01) and proprietary
->    triggers at core layer (per Sashiko AI).
->  - In nci_core_reset_rsp_packet(), use test_and_clear_bit(NCI_RESET_PENDING)
->    upon completing the request to consume the flag atomically (per Sashiko AI).
->  - Link to v2: https://lore.kernel.org/netdev/20260922102144.39689-1-ndaugoing@gmail.com/
+>  include/linux/mm_types.h |  6 ++++++
+>  kernel/sched/fair.c      | 40 ++++++++++++++++++++++++----------------
+>  2 files changed, 30 insertions(+), 16 deletions(-)
 > 
-> v2:
->  - Do not abort the notification pipeline on unexpected CORE_RESET_NTF (return 0
->    instead of -EINVAL), preserving driver-level hooks (e.g. fdp firmware
->    patching) per Simon Horman.
->  - Skip power-on notifications (trigger 0x01, identical in NCI 1.0 and 2.0)
->    while gating both NCI 1.0 (0x00) and NCI 2.0 (0x02) command-triggered resets
->    on NCI_RESET_PENDING alone.
->  - Check NCI_RESET_PENDING in nci_core_reset_rsp_packet() to avoid completing
->    unrelated requests on unexpected responses.
->  - Explicitly check skb->len >= sizeof(*rsp) in nci_core_reset_rsp_packet()
->    for NCI 1.x handling.
->  - Link to v1: https://lore.kernel.org/netdev/20260918013337.82214-1-ndaugoing@gmail.com/
+> diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
+> index 1bd3ca7bfff2..d0ac21d02c47 100644
+> --- a/include/linux/mm_types.h
+> +++ b/include/linux/mm_types.h
+> @@ -803,6 +803,12 @@ struct vma_numab_state {
+>  	 * A VMA is not eligible for scanning if prev_scan_seq == numa_scan_seq
+>  	 */
+>  	int prev_scan_seq;
+> +
+> +	/*
+> +	 * The in-progress scan of this VMA is promotion-only.
+> +	 * Resumed scans finish with the policy they started with.
+> +	 */
+> +	bool promo_only;
+>  };
+>  
+>  #ifdef __HAVE_PFNMAP_TRACKING
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index ab9afd3ad49b..3b30786ded3b 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -4082,7 +4082,8 @@ static void reset_ptenuma_scan(struct task_struct *p)
+>  	p->mm->numa_scan_offset = 0;
+>  }
+>  
+> -static bool vma_is_accessed(struct mm_struct *mm, struct vm_area_struct *vma)
+> +static bool vma_needs_placement_scan(struct mm_struct *mm,
+> +		struct vm_area_struct *vma)
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+mm can be had from vma->vm_mm, so likely sufficient to only pass the vma?
 
+Apart from that this looks much clearer to me
+
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+
+-- 
+Cheers,
+
+David
