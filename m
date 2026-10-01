@@ -1,46 +1,49 @@
-Received: from mta-64-225.siemens.flowmailer.net (mta-64-225.siemens.flowmailer.net [185.136.64.225])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-181.mta0.migadu.com [91.218.175.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22D8E455605
-	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 06:01:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.64.225
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9BB64570D6
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 06:02:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790834492; cv=none; b=uk4gOsqMCFw2dF4WfkIz5u+bB1/gC2+y0hchQ7PumLJem3lTV2A5NhyZ6EHBI90UvR8YVB1nALTbQxtJ6TT2rBElisFEKllWeWRx6g035iXpwJLMdGQsjJZXOrGTo7BX87ZRoWo23hu39u85uL/0EEO0u6DEbSvYnzInowsz7Zg=
+	t=1790834565; cv=none; b=K8rUfwuiwu0A+BWr3g5v+nY2B7LNusH9WSD3jAY8ec3OgqOWDjPyiKU+u1XesfTFz5c29ws40PK6JUhThMloEICbUPTz/HNi7ej94wnWGFW4p34ZfWWPqyu0bJGHKW/ByWXmvVXChaQS5Y84T1LKQUucWCJ7CL5vDTaWh/U3rO4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790834492; c=relaxed/simple;
-	bh=s8QHmFfdYbxj6LfMi5s9V6AqzJvC4+y4v4UsIH3ShyM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nsVI0IRZXGB6+6TMNgISaXmhjuQaE7AwnM6JN4ikrDiX3QS6pHFAhOWhfo6DnTeyR6MosslfH1GvutI6N+yraO4cHMbRXizlPD+tuOLlUXF00Y6P4EEOJvQkoG100VQOB8sxoeR3tgU40VuM8BY+zcd/CYjSOVP6OWQXLpM4tdM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b=JqPrx0lY; arc=none smtp.client-ip=185.136.64.225
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
+	s=arc-20240116; t=1790834565; c=relaxed/simple;
+	bh=ONHwvlafLxqOwWtTKBLJQM46MsZG63waYc7Ovsluscs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=h2GepJCDp/6RYndDOHpnu6UwhCC8gCbYYUdz55ZXL6UFPGA4Qq+bxjheyHvI6ve7DqpZFF7Bru71r3M2u/6cNF4YC3fo+SWBsK2J2mwtFFAzpUaH3VdrXd0LRCHLFVAv8oZb2uZP6vMwD3mQIKw2Q3kWuIM3XXg9jbCIpPkX9Vc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ahrIkfdT; arc=none smtp.client-ip=91.218.175.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="JqPrx0lY"
-Received: by mta-64-225.siemens.flowmailer.net with ESMTPSA id 202610010601164110377dd100020702
-        for <stable@vger.kernel.org>;
-        Thu, 01 Oct 2026 08:01:17 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
- d=siemens.com; i=alexander.sverdlin@siemens.com;
- h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc;
- bh=QRo8GBuRiwb3EQHOfAciTtVSfngLutrv6EYFrkZSa5E=;
- b=JqPrx0lY8R9IanCLnR1xelLAhlP4JRa8Y2bP784ejWYXKWALHvHbZXR68xaVU2dMtGHJYY
- wCRu/UVwc6zhsyp6cklLWlNr/mIHJ4DSr9UJR7nVOhGLM9m8uBpGmI1AKW5h1JGVMjOpA5r2
- kS3EmNJ1rxzUZk9bGUNrMxzcC37NzKA8dyQSSJpskBpemtjs6giVUSkA20o/e4HflM2PkXft
- MkijoZHfo0cfWICoWGhhnaEfUWwl48rAfoSqhij2MiMNbGrQv7Zi0DgVUvqvenQrHg6bILlj
- yZ73e130QkfEA7bf2CVbd/iVWzYNFhTtXEGGbUwrNzy2ZelVqoBEhXoA==;
-From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
-To: linux-integrity@vger.kernel.org
-Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
-	Peter Huewe <peterhuewe@gmx.de>,
-	Jarkko Sakkinen <jarkko@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Jay Freyensee <why2jjj.linux@gmail.com>,
-	Jerry Snitselaar <jsnitsel@redhat.com>,
-	Nayna Jain <nayna@linux.vnet.ibm.com>,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ahrIkfdT"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ONHwvlafLxqOwWtTKBLJQM46MsZG63waYc7Ovsluscs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790834556; v=1; x=1791439356;
+ b=ahrIkfdTqyLz3d21ADnyivDKDAM1fD5EcQvOYnZ2BOHIVAkbAdkrwZuUJkHv39wgQ29cusJ+
+ nmyEM4BQmXzYVteogEGAyfgdFBE5dIH1IWS4BAfliNNSXO3H40vXU5VIbYqmgMNQHHLkj2FzUNt
+ h9xycMfDrayyzuyNzUeviDpI=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id dfba6b55da3cb7ed;
+	Thu, 01 Oct 2026 06:02:36 +0000
+X-Mizu-Trace-ID: dfba6b55da3cb7ed
+X-Migadu-Flow: FLOW_OUT
+From: Luka Gejak <luka.gejak@linux.dev>
+To: Alastair D'Silva <alastair@d-silva.org>
+Cc: Ping-Ke Shih <pkshih@realtek.com>,
+	Kalle Valo <kvalo@kernel.org>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] tpm: tpm2_probe: propagate transport errors
-Date: Thu,  1 Oct 2026 08:01:11 +0200
-Message-ID: <20261001060114.1582092-1-alexander.sverdlin@siemens.com>
+	stable@vger.kernel.org,
+	Luka Gejak <luka.gejak@linux.dev>
+Subject: Re: [PATCH v3 1/2] wifi: rtw88: sdio: Fix unhandled RX request interrupt storm
+Date: Thu,  1 Oct 2026 06:02:12 +0000
+Message-ID: <20261001060213.24759-1-luka.gejak@linux.dev>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261001000303.3505264-2-alastair@d-silva.org>
+References: <20261001000303.3505264-2-alastair@d-silva.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,46 +51,59 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Flowmailer-Platform: Siemens
-Feedback-ID: 519:519-456497:519-21489:flowmailer
 
-From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+Hi Alastair,
 
-tpm2_probe() reads the protocol version from the response tag and is
-documented to return -errno on failure, but it always returns 0.  A
-transport error (tpm_transmit_cmd() < 0) is thus swallowed together with
-the intentionally ignored TPM response code, leaving TPM_CHIP_FLAG_TPM2
-unset. A transient bus failure on the first command then misdetects a
-TPM 2.0 as a 1.2 and the probe fails on the TPM 1.2 path:
+The split looks good to me.
 
-  tpm_tis_i2c 0-002e: 1.2 TPM (device-id 0x1C, rev-id 22)
-  tpm tpm0: A TPM error (-62) occurred attempting to determine the timeouts
+One issue with acknowledging the request up front:
 
-Return the transport error instead; rc >= 0 still means a valid header was
-received and the TPM's own response code is still ignored.
+> +	rtw_sdio_disable_interrupt(rtwdev);
+> +	rtw_write32(rtwdev, REG_SDIO_HISR, hisr);
 
-Fixes: 94e266ba1fa3 ("tpm: migrate tpm2_probe() to use struct tpm_buf")
-Cc: stable@vger.kernel.org
-Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
----
- drivers/char/tpm/tpm2-cmd.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+When dev_alloc_skb() fails, rtw_sdio_rxfifo_recv() returns without
+reading the port:
 
-diff --git a/drivers/char/tpm/tpm2-cmd.c b/drivers/char/tpm/tpm2-cmd.c
-index a94f4395c198a..4b2bb2ddc321a 100644
---- a/drivers/char/tpm/tpm2-cmd.c
-+++ b/drivers/char/tpm/tpm2-cmd.c
-@@ -483,8 +483,9 @@ int tpm2_probe(struct tpm_chip *chip)
- 		out = (struct tpm_header *)buf->data;
- 		if (be16_to_cpu(out->tag) == TPM2_ST_NO_SESSIONS)
- 			chip->flags |= TPM_CHIP_FLAG_TPM2;
-+		return 0;
- 	}
--	return 0;
-+	return rc;
- }
- EXPORT_SYMBOL_GPL(tpm2_probe);
- 
--- 
-2.55.0
+	skb = dev_alloc_skb(bufsz);
+	if (!skb)
+	  return;
 
+but the loop counts the bytes anyway:
+
+		rtw_sdio_rxfifo_recv(rtwdev, rx_len);
+
+		total_rx_bytes += rx_len;
+
+so a few failed reads burn the 64K budget and the loop exits with the
+FIFO still full. The request is already cleared by then, and only a new
+packet sets it again, which may never come if the FIFO is full and the
+sender is paused. 8051 does not have this problem because it leaves the
+bit to hardware. Can rtw_sdio_rxfifo_recv() report the failure, so the
+loop can stop and retry instead? The read error just below the allocation
+leaves the FIFO in the same state.
+
+Same function, the enable at the end:
+
+> +	/* Unmasking HIMR re-asserts the IRQ line if new packets arrived */
+> +	rtw_sdio_enable_interrupt(rtwdev);
+
+It also runs when the device has been stopped. ksdioirqd can still run a
+handler that was signalled before rtw_sdio_stop() released the host, and
+stop only writes HIMR as zero:
+
+	static void rtw_sdio_stop(struct rtw_dev *rtwdev)
+	{
+		rtw_sdio_disable_interrupt(rtwdev);
+	}
+
+rtwsdio->irq_mask still has RX_REQUEST and CPWM1, so this puts the mask
+back and arms the stopped device again. PCI clears rtwpci->running in its
+stop path and only re-enables while it is still set:
+
+	if (rtwpci->running)
+		rtw_pci_enable_interrupt(rtwdev, rtwpci, rx);
+
+Can you add something like that here?
+
+Best regards,
+Luka Gejak
