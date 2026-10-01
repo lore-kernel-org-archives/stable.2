@@ -1,81 +1,51 @@
-Received: from mail-pz2-f36.google.com (mail-pz2-f36.google.com [74.125.228.36])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F61530BF70
-	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 06:49:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.36
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6679547074;
+	Thu,  1 Oct 2026 07:08:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790837391; cv=none; b=uHwlATO8kyW3icbKslcv8Hsdr+We0hSqivJnJj+9gYlW6JFBb7KOkAG0AdhAZORLWYbybOURGvpSuzTX17RsX5jUUdscDUqcLmozacH8MU1brzogXDHddiF/TIyjsSfxJCR66NdL3U7BcSeli01xlvfCuYbRYpnAITSiuHONo1w=
+	t=1790838497; cv=none; b=RKe+5wpKJcq6hiDFc+1mteUTA4Y7obz7e2gh1R+Y8N7Mbc3/wAkBLvIxSCl2K1zczC7yzfGGzLXIHLtGSPQAd+OEyyhFPscCkc2sPzO9N6iaRt06pKRyNgAObxE5WIkQDQu+Hy44NSZbQEzWwWWBhZ5qT74pAyj62d1ZEwUclUA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790837391; c=relaxed/simple;
-	bh=kI4MqRXoz9tUKHuNpyi6hMIAkrKO5Y85UDsjot8YWRA=;
+	s=arc-20240116; t=1790838497; c=relaxed/simple;
+	bh=nbXgcRbx4i5BTLZ8EzF2YcTdwfj6YP7znNDB2WMKF1w=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E2pYqCNAMufACDGSXo8S/an8CFwiXPc0K0n1STMhCXHDPkeJKnZo3TmwnjsqPp9VDWcK3yIN2cQAEOCxuYAZ3WmjBaqYElArbl4FlNGcQ8Pofm7Ha7vuajv23dpAYl8HNBUSkr2gQetR5MyzicTF4MMvk/wBaOhQPBFotQNZsLo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=wMqrFQY6; arc=none smtp.client-ip=74.125.228.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=UOOUYh5mXZ+tPbd/CsrqrYCMlMRkWN11FzuTTezadhbP8A2aSX9X1uwYVRpRrYh4Qo9lVtvFWGBwlXY6AmFZa5V7MkEFNpHHiiAc3KJgAvju3mwNFSAwTMcG2dDY5iStQUwa0/IZAbow2xMzoqzeXh4qpknVM1vXPg6A4KosnWU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=Tm/Y533+; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="wMqrFQY6"
-Received: by mail-pz2-f36.google.com with SMTP id d2e1a72fcca58-888e95f3e96so26092b3a.1
-        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 23:49:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790837389; x=1791442189; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sqjFwTItW9Z6VE94NesB4AWUO0LgcGbOQzM8AGhhbUo=;
-        b=wMqrFQY6BqHm0aB/zackbflPmVKYc0xkXt1P2r9Li2gIMw8eBH5xrquh9cSNcMe4+9
-         vmy6uindptLRybTLpMaemL8bbQpDVpxmb95vceueLFqQ1hZIltLuPg3vlEWU7J7DjG0I
-         8Hnj7asSDfkIHC+hrP0V9yf/FXZOtVV8I1FpTPPwSb/3zXidaKhD2V73xJMFZEx6xmUn
-         Qtj7lHw8ZuUy2rogm7nuzHfldqsfCsqJECg7PY/jVmxwvg/70rYYkiEs7F5IlggZhGO0
-         01/gm2Jmq7Z7tlhR7h0L7naNBLc2TDS/fzsnKdX5/g3/dYkjczZYgfNe/JPn7QKkWchp
-         4vCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790837389; x=1791442189;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sqjFwTItW9Z6VE94NesB4AWUO0LgcGbOQzM8AGhhbUo=;
-        b=cud/hrxj3KTiD2kv3tSewQx+kgvEztQ6BwH52Z5q/TCZ7IarnAgjL/i322SLQGj8io
-         Yp/6r40i99hNgeLm/qov7qnJLzKpRaOhP7dlNMG65k1AsAPHJBXY3xKqiv3VOgUb0EQw
-         dXRzbcLmR5VhLHtGOeva3J+f6cnBUEiBbgFlnzIGIO/EJQZpLML2nxdMKJ9Qw31Aq5Kd
-         N2QIinkmkV+FcVlJawLTq0S9FbhWPulq9zTFzoARpfm/JqPbrHAwYKUhMjD18pVsu5ke
-         psGX6VqSBqYKgyHqQ7Zf21BwWIdXzsM0JNv2djaJ07CGlVYc+4+5GQtECh9rElTuXQZt
-         i03w==
-X-Forwarded-Encrypted: i=1; AKwUvBy73In8x0HTyzNPFE3+w5/uWotxXm1MvQaRt+bZj3lIHO1pvCzSIpOBPiBKOwbgPq/aWVY1B0Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++lioxWydGAUU3Q9Hy8U14JGmen1ydBJUliqm5mrxfgKfgw7S7Zr
-	RMESa7hjqa5syy4i2AZY0tivOuYjkOs7z73SD2tKNmu0l9rk4Yed0LkJUXOMB6ObDCk=
-X-Gm-Gg: AYBFou21r9zlcIMPT979DbvsPpXce2phRiP9EDIyIwwPWyj+/amzJnbBsgNREEDd/XF
-	zP/m5gxgm7W7a2GEXMDP26hrtglPUpinTqF/Sk9H1HBuTDfkguPYnNdU/YV85O0yjkq2h+HDpnZ
-	Biw8EgXsfWtf/XRk/VmRGU0VMJ3GN/lUqmwqJg1jGUS6F02G4UIGaGOPOfDBcEFc0dRp5E8aw+F
-	t0RhZ3x7DrT6zAvdS3+WBbmc9sLCfpgd9CvtoAdVLbLSAgXwg709ya0Yw1x0Pbjnx8P+OO6Zf87
-	S31wypfufrhstXo+lUFlEdkLMMuNYAclRZc6Oy19O0vhQfVxRtKZrGVB+yPmhMkkTstX4B4aMqN
-	sYvHhNh0eEdMnFR1FtO9OC1E9SS0gWuFkYs4Lp24PB/QqVqr1jvqTi6UZXUcptQCfNuM2iIoFW0
-	5e+/GLWhSgY4Ldgu0k2xlE+/NNz6Ue1sm+RC6p+YbI0KTL3iqSt358tId3JvCxH3qKRY64Upyb
-X-Received: by 2002:a05:6a00:aa85:b0:880:6b49:2044 with SMTP id d2e1a72fcca58-8874c8d5a3dmr3078678b3a.38.1790837389439;
-        Wed, 30 Sep 2026 23:49:49 -0700 (PDT)
-Received: from localhost ([122.172.87.224])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8886b1ccef0sm387165b3a.23.2026.09.30.23.49.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 23:49:48 -0700 (PDT)
-Date: Thu, 1 Oct 2026 12:19:45 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Andi Shyti <andi.shyti@kernel.org>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Gavin Li <gavin.li@samsara.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>,
-	Yuho Choi <oss.patchbox@gmail.com>,
-	"Chen, Jian Jun" <jian.jun.chen@intel.com>,
-	Vincent Whitchurch <vincent.whitchurch@axis.com>,
-	linux-i2c@vger.kernel.org, virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v1] Revert "i2c: virtio: Avoid hang by using
- interruptible completion wait"
-Message-ID: <ar4CiZZK4igx4Any@vireshk-B250M-D3H>
-References: <20260922050251.403857-1-oss.patchbox@gmail.com>
- <20260922011619-mutt-send-email-mst@kernel.org>
- <arWHzKEfy6HKMZr1@zenone.zhora.eu>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Tm/Y533+"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=Ezn1/5i1OKioygyWwMMHCtWeGbbfzgZse0+udSMI8ss=; b=Tm/Y533+Uegl1mXDMgHAjYnLzK
+	87KbPYIyyIisz24b+9tUWbSkjr9ELrZ+QvjSoVisH7ATuTLvwZXbCMeTJWuEEc3lYhu1tZ2spYR56
+	aDKZfmptlTqG6sQYeEXk8EjqLOjoOmg1mFRJ1p/n17b8b1g561P2gawiGeDh8UDVV3IyXBqSA/5tm
+	J125TJnPzE72H4WBUk15757ip/NFtWliCfpYjxiThujImSRhyD3v/LN7ihQ2P/0hZKYvVmDWeR8CF
+	8heQI0fg1+5EpKMEZpcgYuCkqywJgt72mSVPbrXA45Xhwtney2tvDf0RdTJ2AFGuXVQ/E+4Q5kr35
+	vAFUs9dA==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xCAtY-00000005u1N-2s8c;
+	Thu, 01 Oct 2026 07:07:56 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 9E4AE300390; Thu, 01 Oct 2026 09:07:55 +0200 (CEST)
+Date: Thu, 1 Oct 2026 09:07:55 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Ian Rogers <irogers@google.com>
+Cc: acme@kernel.org, adrian.hunter@intel.com,
+	alexander.shishkin@linux.intel.com, ast@kernel.org,
+	bpf@vger.kernel.org, james.clark@linaro.org, jolsa@kernel.org,
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+	mark.rutland@arm.com, mingo@redhat.com, namhyung@kernel.org,
+	song@kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v1] perf/core: Replace perf_event_header__init_id with
+ full header init
+Message-ID: <20261001070755.GQ88198@noisy.programming.kicks-ass.net>
+References: <20260929182108.794434-1-irogers@google.com>
+ <20260929222332.973435-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -84,14 +54,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <arWHzKEfy6HKMZr1@zenone.zhora.eu>
+In-Reply-To: <20260929222332.973435-1-irogers@google.com>
 
-On 24-09-26, 22:28, Andi Shyti wrote:
-> Viresh, can I have a comment from you here, please?
+On Tue, Sep 29, 2026 at 03:23:32PM -0700, Ian Rogers wrote:
 
-This was discussed earlier as well, can you have a look at this thread too ?
+> Rather than splitting header initialization between callers and output
+> callbacks and saving/restoring mutated header fields, replace
+> perf_event_header__init_id() with
+> perf_event_header__init_header_and_id(), which initializes header->type,
+> header->misc, and header->size alongside the sample_id fields on each
+> invocation.
 
-https://lore.kernel.org/all/yaeiwzxxh42y3oxiro5uxaxbvralwqxweb6cx4vzwx4y7nards@cysus3gbvple/
+> diff --git a/kernel/events/core.c b/kernel/events/core.c
+> index 33210aff3ee6..c1b2d0c9b2af 100644
+> --- a/kernel/events/core.c
+> +++ b/kernel/events/core.c
+> @@ -8119,13 +8119,18 @@ static void __perf_event_header__init_id(struct perf_sample_data *data,
+>  	}
+>  }
+>  
+> -void perf_event_header__init_id(struct perf_event_header *header,
+> -				struct perf_sample_data *data,
+> -				struct perf_event *event)
+> +void perf_event_header__init_header_and_id(struct perf_event_header *header,
+> +					   struct perf_sample_data *data,
+> +					   u32 type, u16 misc, u16 size,
+> +					   struct perf_event *event)
+>  {
+> +	header->type = type;
+> +	header->misc = misc;
+>  	if (event->attr.sample_id_all) {
+> -		header->size += event->id_header_size;
+> +		header->size = size + event->id_header_size;
+>  		__perf_event_header__init_id(data, event, event->attr.sample_type);
+> +	} else {
+> +		header->size = size;
+>  	}
+>  }
 
--- 
-viresh
+I've renamed the thing to perf_event_header__init(). Also, I've done:
+
+	header->size = size;
+
+and restored the:
+
+		header->size += event->id_header_size;
+
+and lost the else :-)
+
+But yes, this is better. Thanks!
