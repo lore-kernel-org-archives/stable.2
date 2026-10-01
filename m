@@ -1,156 +1,124 @@
-Received: from mail-yx2-f41.google.com (mail-yx2-f41.google.com [74.125.224.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BCE62E7378
-	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 01:01:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FBED369D72
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 01:07:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790816499; cv=none; b=J00Ujx33u5S7rCz2ju/i0kDzyX8fKUiSFCNSuG3sL+YkxgZmAO70A2QVIDGmggV+Pjg1YtohdZBemLk+SA5CDKwN3fT3cuTUyyv5oCHgYwfO22iS8AgKZS5V8xm0XZo2kjGosRKnFyJpXhvIrspMAuV+irgeLye1kMF0V0209M8=
+	t=1790816867; cv=none; b=dbLwDKHayCynQA9CIX5C1qy9oiLw79XA0PIpYPdjw8TTy9BkMlQk/EwDTa7RGfYn7Lvu6HXJ1fZ1B+BffxC70rdYhd9YI2adJJsZN8iLqJe/f5zMZXs+4Z/dOIPrpsmF7uZuOlMdxLtO6+LVQyKeq+2i01GFk+J7lgW21usbg5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790816499; c=relaxed/simple;
-	bh=cINaHydl09cxBcvFqTlYGQ6MHKu1jghguZ6j16+ZxYc=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=kBx72B80CMqRC9G0kffZ7bowPZKUvJciNMpTy+uAOdhIHa5Id4nLTkBS+EaNTSvgjiVXPnYH59c6kzllcZ1E63EjIfAVjYaIs9Y7He0MNoTulSUQoD1nHqrn6g3x/30s1bg0IU6jpRaAw5KqdM/9KWhkj95shJKv9Fs81EnhJrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i+a+7KSQ; arc=none smtp.client-ip=74.125.224.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790816867; c=relaxed/simple;
+	bh=RT5A/9HMue+O1wWjxQ4Pjn4DNG4xsbTmgAuu0oIfJCo=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=WTTwznkjmEbPpYDMyT0Bi+dgKwUEgeYMJA7BwsvA693/vakN15opSo9ZuXzNQ3xV05hqicZyApJjGf42mqnoMoGtB5bBGidypxFiqwyAo2nWcXmWkAfMxmL6PpkoK3XwNVBUoXqPvp/VUewxKz9Z/FSg5dPjMGIhyz0R0Euv2Mg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LFgJ3oXx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i+a+7KSQ"
-Received: by mail-yx2-f41.google.com with SMTP id 00721157ae682-8ab4c9f876bso19530607b3.2
-        for <stable@vger.kernel.org>; Wed, 30 Sep 2026 18:01:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790816494; x=1791421294; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=lnMNm9948egObF1IuNHPSJpwOljnWRz/GhZI4bv+aoM=;
-        b=i+a+7KSQfM0/AbTmT2zV5M93ONDfW7/4Hfi3ip39Z1qmW2PsgBvusUQxKzDDbXW8kB
-         Ip2DYTfbgu8eFHkXaj3xtYFySmZWngF7JgS1X/ft24WmJKq6HyhUhatnfire1YrwKlq0
-         uWKQynqc2gixBYwl5jTRFvaBQE1njTfN+fJ6z/zigCBD9gqTYkjmsr8QWKKbnuXmdM3u
-         VeIOBhY3lpFXYT9n2fDRF5qNmEIaP829R+jW0Hg+Ztub9datta7z4bFgj2wMh+EPe/XS
-         5CxealTmep0uQfAewQkP+mIi1Z/ADEThPWhT18g4RIjWURfiqCWwOnuPffUs9Z/1soSw
-         hLBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790816494; x=1791421294;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lnMNm9948egObF1IuNHPSJpwOljnWRz/GhZI4bv+aoM=;
-        b=Kzx+1PXZbzyE69UR/iDrudCNNySNtEn7qvEVWaz3U8Kk+IcvFh0sJrB8DP9MAHl30e
-         wZwm0KQcXfMyzk5xk/8a9mfGEnTAQX5i3IjoAfA4NxSUop88afVzfC/8xrA3w+y7J4q2
-         OCOyOAk4mDMbtiOJfBgMJTawKamGcwwZ/kxFDETjDTuCwCr2JdBjIVI5/iumwHLwZDbG
-         szz0BpIB9ZZD7Tisqgk9znocnT0lWCahThijmYjrHXDBvhUg83mrzUSTMwpsJPBcNm+k
-         xAZg8uUbZuGwBmfCv9bISY1BHliOirP25vXNP6Xa29KL590kLSeC0bQ8iNLYLFUi2vf2
-         GkUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBznP4DjQ/HwxK/DxRs9CFoPgnFdlOP0v95+aKl2FXZpXxzqgOI3Fqhxugo9PpABsWUXowKn9Ew=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLg6QQrG8JR7+xr83zByE2d2Hl4SEMXJAei+MiW4unSmve1Kj2F
-	GVNxII882wqg3MPZiAvIW5gCA7z9aia4yoI/dHghw574qkjUYEdU7TRq
-X-Gm-Gg: AYBFou0SbeJ2aRTsoCa4SQm6aOAWMQRbGLhxFjSIyokJ7Xk2RzOnwiwiA2fnjbD2o/t
-	6twUQ2jXkxmsIStBzkU+eVlzDeadvWzETOh7mbUO9cu99XUrJjT7eY2oL8fvmVvyiB+Y9DdXk2C
-	EEKcnoImrfdxctQLRCz7m9IkgJ8kLAyuyaqXqcSBDCePSwwo8rOdGkfP5n18/zvOqmCMIkZQn1s
-	9UGY1EsfRJMxo5rb+RJ3TjVIUCHaGAt3QL2TZ/tlujq5VoA5gMZ5mwb6F+n2ovu1W8VVj0HIq9N
-	mu/AdFXD5PcOkcrxhum8BGDWW4KKWJRKBrr/dS2Yq4vImVOp4KAqfp+Dbn5zi7YJLFpjfF9BSme
-	7bXQkrAvX/2xcZmeH1PDvjj8JBcsqypARd1TtSld3JjiNBfyJFU82ql4DxBp/zNx2J7od0SKvmC
-	jz3iTwwoFRLZCCNFOb4aw2M5Rldau0LU3tfR2PRBtJ3lNm3gLw+m3A2fhKgYnMWR6SKR7aYtUQI
-	MKsa/2v9BivYEDq4u/r8328ZbpPjF+bQ9uSPXILZI0T8n1YXFZXbLvbtZphM5E=
-X-Received: by 2002:a05:690c:5703:b0:8ab:422f:a89e with SMTP id 00721157ae682-8ac93fea07amr12918507b3.53.1790816493908;
-        Wed, 30 Sep 2026 18:01:33 -0700 (PDT)
-Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8acdad9eaafsm5062287b3.46.2026.09.30.18.01.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 18:01:33 -0700 (PDT)
-Date: Wed, 30 Sep 2026 21:01:32 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: netdev-bot+sashiko@kernel.org, 
- quchaosheng000406@163.com
-Cc: willemdebruijn.kernel@gmail.com, 
- davem@davemloft.net, 
- edumazet@google.com, 
- kuba@kernel.org, 
- pabeni@redhat.com, 
- horms@kernel.org, 
- netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- mkl@pengutronix.de, 
- socketcan@hartkopp.net, 
- stable@vger.kernel.org, 
- benquike@gmail.com
-Message-ID: <willemdebruijn.kernel.34fd899c50ed8@gmail.com>
-In-Reply-To: <179081112900.434549.3927636774761151103@kernel.org>
-References: <20260928113108.2127215-1-quchaosheng000406@163.com>
- <179081112900.434549.3927636774761151103@kernel.org>
-Subject: Re: [PATCH v3 net] net/packet: guard the ll header push in
- packet_rcv_spkt()
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LFgJ3oXx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E5801F00899;
+	Thu,  1 Oct 2026 01:07:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790816864;
+	bh=CwGxd9g4HHs/84Ge8XmhcajbmFBf0YozaOvMHk6FYmU=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=LFgJ3oXx9MSfEpsQSHbl4GynYqe+Qtnoc27HQH0v3epUoDivaGRy+emKM1oIRQQeN
+	 2l43p7i0I7+o7fx2MVmD2XfAgf8uIh2FWChL+7EYeG4qA7HTMkx9dimkNMDDlCVAv5
+	 ERP83MNm4WFGldYdh3XXStQW5lHml78EwpwvjYXTTJdIL+ywScvkJ13heqodzIVNYE
+	 ACr6KZOyBUSIJf2T2YUeGyKTaRHKcHbQ9UWDqBT6SJy4zX0uUCOHLei1CLSI9wkhAo
+	 tjK9SaXj7LZr3AfA6n2Id90b5vJG3VRaAUGm/CJvEcej7TAyg+/FXZZTZPVdGXVood
+	 rAvQyHXZp14hQ==
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 6D97AF40068;
+	Wed, 30 Sep 2026 21:07:43 -0400 (EDT)
+Received: from phl-imap-15 ([10.202.2.104])
+  by phl-compute-10.internal (MEProxy); Wed, 30 Sep 2026 21:07:43 -0400
+X-ME-Sender: <xms:X7K9agIdF9tRWgveFzyyfEuUnDVk3iXGPzBiBqboEg_ooU6WOlzn8A>
+    <xme:X7K9aq_5TWJE-hWCwmg9zWl01ylfAIHY16oiVQzLJrL-CZaki7EZI40WkX1n_r12A
+    FLlUsg59Jvy2lMnMH6PTH1crnA2vIYjGB8xmaZmNI9KgGabdLe4BKH20Q>
+X-ME-Proxy-Cause: dmFkZTEV/a2fjBtwvOeO/zFaNy52ZxTsEZH1L0We3+jzDQcLzqY5tCsX3mQtn/I9WA99/8
+    w3zcW93Vpp59fRkTUzBDjlNFLWfnh1NSc3muGBYHpV9FWSoxgJ2wycM6lkJds8A40LSLO1
+    Re0SSxugGsc9miYclrDglYx6X+/UivPAsTeRj7o4KLBXlrmCiJxCXs/P660KAHByI5OcLe
+    ZvNap1Lh6BnOXmNSIN0IGRR9EqhSFQ/C+1VdqfFBOgaXOTeA6frV34UL+aed0NEWsol8ln
+    Jg6NoHr7fPtY0YTv3FB8mbEvR8pu+txLOgW6fmcRfOgRYXOfZDfVxPDyb4GMjwaIw9a9ks
+    58tyMw6G2PVKcRF6Ctz45j/3bYgqQJQlmv/j17ClqnZcuSMb8tFRRQz3628Mc+ZMfs8gqW
+    3liianVqpV3pz1zprE+Ma+1YPPNkBI4KSi5ZTSFUbSSs6QasVteoVZK6eU2tn4wP6/9ZZs
+    NLzCRPfa7bJM3gxuoOsW4oPtEOiuUg9AHN3tUnYOY8RjvgK6ytWL3kyrBZ7H6d1+VZegb2
+    slIjjNh4lRpfnAGSuB0xgNwjFHkQZ9u4sqFTlNqUpX75eq/rLmnxV/E4mBp2rDT9jGr+M1
+    aLYAYCjb/k3cYZMWhdZlI/NIpq1sefSPWPqXZAAuk0EjRGVzNf0GeEVyrh7Q
+X-ME-Proxy: <xmx:X7K9aiq65aDhsoKw-D7VuUbJHbQaVXbtbLAli5kQAKdRUGbTZ_38Yg>
+    <xmx:X7K9atPmlWn0Brsrd-dgIHAtxKE880UbP3HxlUCDzkaxKQQGGzgspw>
+    <xmx:X7K9aroSX9q4glimWV5AuYONP_j9WQf6Zt7s2ckPRoOM1QLnHwsTng>
+    <xmx:X7K9aosWOyWU_I_Ezb-TLHjdajWPBY3qSg6FX5FUizySHk0yvLOd3Q>
+    <xmx:X7K9ai1Tq56RRpi7_egbaGGWYfdbY0ayVIwz0xSjh_F1F7_c_ueohLBv>
+Feedback-ID: ifa6e4810:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 4B985780070; Wed, 30 Sep 2026 21:07:43 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-ThreadId: APE9iFNf_byJ
+Date: Wed, 30 Sep 2026 18:07:23 -0700
+From: "Chuck Lever" <cel@kernel.org>
+To: "Abdifatah Suruur" <suruurism@gmail.com>
+Cc: jlayton@kernel.org, linux-nfs@vger.kernel.org,
+ NeilBrown <neil@brown.name>, "Olga Kornievskaia" <okorniev@redhat.com>,
+ "Dai Ngo" <Dai.Ngo@oracle.com>, "Tom Talpey" <tom@talpey.com>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Message-Id: <6dbeec76-a55d-4e41-9115-99d199997497@slotpi15m67>
+In-Reply-To: <20260930202212.1482-1-suruurism@gmail.com>
+References: <20260930202212.1482-1-suruurism@gmail.com>
+Subject: Re: [PATCH] lockd: fix use-after-free in nlmsvc_retry_blocked()
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-netdev-bot+sashiko@ wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
-> =
+Hi Abdifatah,
 
-> Critical: 0 =C2=B7 High: 0 (2) =C2=B7 Medium: 1 =C2=B7 Low: 0
-> =
+Thanks for looking at this code. I'm not going to take this patch,
+for the reasons below.
 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchw=
-ork
-> know by including "pw-bot: cr" as a separate line at the end of your re=
-ply
-> (one such reply per series is enough).
-> =
+On Wed, Sep 30, 2026 at 11:22:12PM +0300, Abdifatah Suruur wrote:
+> Pin the block before dropping the spinlock in nlmsvc_retry_blocked()
+> and release the pin after processing, so the block cannot be freed
+> while it is in use.
 
-> - [Medium] The history and Fixes attribution in the commit message are
->   inaccurate.
-> =
+This part is already fixed. The nfsd-testing branch carries
 
-> Pre-existing issues:
-> - [High] This problem wasn't introduced by this patch, but the same CAN=
+  lockd: Fix use-after-free in nlmsvc_retry_blocked
+  lockd: Serialize block retries against host teardown
 
->   RX skb with mac_header =3D=3D 0xFFFF (left that way by init_can_skb()=
-=E2=80=A6
-> - [High] This problem wasn't introduced by this patch, but the
->   SOCK_PACKET receive path this patch touches leaks stale skb->cb bytes=
-=E2=80=A6
-> =
+The first takes the same reference in the same place, so your patch
+no longer applies there. For lockd and NFSD work, please base patches
+on the nfsd-testing branch of
 
+  git://git.kernel.org/pub/scm/linux/kernel/git/cel/linux.git
 
-> [Severity: High]
-> This is a pre-existing issue, but further down, packet_rcv_spkt() build=
-s
-> the sockaddr_pkt in place in skb->cb:
-> =
+> nlmsvc_notify_blocked() has the same problem: it moves the block to
+> the head of the list and then calls svc_wake_up(block->b_daemon)
+> after dropping nlm_blocked_lock.  Keep that wake-up under the
+> spinlock, as nlmsvc_grant_deferred() already does.
 
->     spkt->spkt_family =3D dev->type;
->     strscpy(spkt->spkt_device, dev->name, sizeof(spkt->spkt_device));
->     spkt->spkt_protocol =3D skb->protocol;
-> =
+This one appears to be unreachable.
 
-> strscpy() writes strlen(name) + 1 bytes and doesn't pad, and nothing cl=
-ears
-> the rest of spkt_device. packet_recvmsg() then copies the full
-> sizeof(struct sockaddr_pkt) to userspace:
-> =
+nlmsvc_notify_blocked() is the lm_notify callback. It is called from
+__locks_wake_up_blocks() with blocked_lock_lock held, and that
+function clears waiter->flc_blocker only after lm_notify returns.
 
->     memcpy(msg->msg_name, &PACKET_SKB_CB(skb)->sa, copy_len);
-> =
+The block is on nlm_blocked when the callback finds it, so the list
+holds a reference. A block whose file_lock is waiting comes off that
+list through nlmsvc_unlink_block(), which calls locks_delete_block()
+on the block's file_lock before it calls nlmsvc_remove_block(). That
+covers GRANT_RES, CANCEL, nlmsvc_traverse_blocks(), and
+nlmsvc_grant_blocked().
 
-> Can this leak stale skb->cb bytes to userspace?
-
-This is being addressed in a separate fix that is in the review process:
-
-https://lore.kernel.org/netdev/20260919215237.3470987-1-benquike@gmail.co=
-m/
- =
+While the callback is running, flc_blocker is still set, so
+locks_delete_block() cannot take its lockless early return. It has to
+acquire blocked_lock_lock, and it waits there until the callback has
+returned. The list reference therefore cannot be dropped between the
+spin_unlock() and the svc_wake_up().
 
 
-
+-- 
+Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
