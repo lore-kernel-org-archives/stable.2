@@ -1,183 +1,75 @@
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CA0F38E8CE
-	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 18:07:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C9DC38423B;
+	Thu,  1 Oct 2026 18:09:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790878030; cv=none; b=Z5HXM7uQ1whGPhSlJ9pwIUy+lC6BpBxGmeWm4hrU31/aewUf90+JWpyPBWkbM+x0JlffOm5wuzV5yhcRopPmtmYIEvUAz66hAWrm/RsQqSBbze+B2MVN9mYDXu8fDcluWope85uO0Pz4VBHIjiMLxng6EQRh/m3TXiIdEHby5Ms=
+	t=1790878145; cv=none; b=PVmpO/tHG4dzjL1q9wPUcNcZU7dxt5gT04bDwb0EBrKmmknavTHOpiuOJBuaE7k32f9GJlIrc/EOEIV3xQ3X1sIJXW9FphQE/K2cNWDv5YTygfM6jNAV3bnyNs/3Gb9gssg5wwP6UFFs4A/kmEGdEcJKoxb/iGgq0qLX5MLP8/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790878030; c=relaxed/simple;
-	bh=QsCmprxjt2AIVs23Cx9JQTbYtmyYsaQxrbmPDfjmTRU=;
+	s=arc-20240116; t=1790878145; c=relaxed/simple;
+	bh=zvpmhm+BAUlfIVJ/6Kp9ShG7pA3G2q65FWBMzuTisWM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZtLt9Ut5EXvd6q4rX5jxOMpN0uImTAmakN17KRg3IaTzDvnGh1Cw7YX8FnZ0OpsVS3bFAEjeXXziaFG6tDikuii5ujHKg2sXLR6pqChCQUfqbxlVvApkPh5M2lvTVnsP6WOpyI2D7CKkg9KU+b/LrflZ9ba02iCSVJcu0P5PNz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LTvBFO5e; arc=none smtp.client-ip=209.85.160.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:MIME-Version; b=Iax3Bqs1UemRT4N8KQGPNsSu8x5Q4mAyavDXKdH2gPlQXH6s+pXHrlYyMDnMVThjF8yFIOptXw5JC3+2wLFymQKot105MstQQokNgd6T1c4ykf9MNoCKbxS9NdMmuMIPChbjOtbyTzPbQN02jlz+XHFYD7WSSSdm+IuDYgRIYWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UQHctUju; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LTvBFO5e"
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-533324e9b13so7149921cf.1
-        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 11:07:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790878025; x=1791482825; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7GPDCUkXzbddkBBz1dYgs3l5YKgPxDZJWy/V/n2BPFU=;
-        b=LTvBFO5e4vJnXr0+4FKdBv0Oat3qg3EB/WoQUwBvQCQAebiX0pJvoMZdfxe6HXDPd9
-         k52+cEHhSyoE7aht4e6VhyFKo6JyFfrY7fU7a87r0Zd6/2hExFgl/BnHbF5qK7S4kR+O
-         ngMiq14OUpvvPHHbXSwf4yUAO7Ys3vrysP3b2hQ88eeL84qLMttCVAicSiMpXPlDc1xQ
-         toKjTcDGDtwOGcQKoyJVir4fF5AjjIRL/baKeMzxKvC9izOMAdmNGxsdHEk17fp6zONJ
-         w738wU6JdhpJkQo94ne/uKlYX+NxiF8Y2aAawPHu9JhC7m3Xh5ZjHQj6BDRvsQ5YJUfR
-         OWWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790878025; x=1791482825;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7GPDCUkXzbddkBBz1dYgs3l5YKgPxDZJWy/V/n2BPFU=;
-        b=iJ4rQaE5cdXVwh3MJu3WTdcdL1UolMvwDgWmk7fKBg9Knp53DEJoM/mYE2uWAYQq+f
-         n4MfpfjCsO+BzuxGGHtVMIjvYeZuKxszPlwPNy1ueeMDfs7l/F7ycGBujWOiRvF1g4Iw
-         CZEelbd3VXPZEZ2XXhYo5RNCU0WkagZVg2tP7X0HAVwghzD/Rzqaf06ymuUL/djCkoxc
-         ZC+wyAne7xS48ReD3FR/tqILbTPRW7JYBLNV/9pQc4EiqKNk0fCgLVMAl8Otg8RmB6mk
-         jSjYLZORPVTD7t0tQPBlORpVevTZ98On616Y3vrZwEv+kScgBk2EKkFM8Z27oFIh6dgr
-         oK6A==
-X-Forwarded-Encrypted: i=1; AKwUvBzGxaKvq7HbLAfz1tAG90a1gjyttozlcTPIlFbH7tegIO1RdhednJaS3fXRKdAUlww/2nCK0AY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mg4iesbO+RvVhxcAJSNneHLjQcp6RFS4oZHCAk130q3X9CqYip
-	osZIaUciJDPOuPGpAYSTKTyWboNHm5p2bq8Kgz5Ehi2JGn7Ij0DhDne9Rx1cGMk=
-X-Gm-Gg: AYBFou2fmJkTidykk4+EOWUnXfnsGJ1/sJmBOTbHqFqXdZ9Ug952As81jtgjwJYGFJD
-	lR6b9ekFLRtGWxTEUQUDp9KI4RjxRe6v4JQM/cdlnjZAaW4F8mn1G7U6zwEPvwdcFcdLi9efZb3
-	AuCeBiFK+UKWiScNSbAQOTl35z7WhWj3L0JSBUAv5lAC3SsUEbDJmEDEWSzEwBIpCz6fQRRs9Dz
-	Mf0K6hg+6BIcSLUOdtwlrp9giYXc8Mr2QbY09qtVaJCYcXcPwdn4rXBTg5LUPKkwa0mYtuOv+8Q
-	jQSey3nrR4avAG74iMgvyVkYAIVr0K0ukONCUlwOlefHTZDgsu6l/3NEZC+KSikfpuMqoo+0yHE
-	s3z+n0QQs03o4Vd5DqXgIJhkZvXxDuiEN+4GBuuGhV4DNfbE3l+yFo3SMkLnYVx8ritc6C6TmpH
-	zT38TOUDSESCKaQcbfL97ZEwcia5YyHU73IkXFg6fa+maJT9Znse3QLdyxWpFpQpwckLWQ3KXRF
-	iDhz1Tp48YEmCBIuO83gljJgyPxAvLQyMAUC04KVIj71BbEvdwz9ol2CqIZCyJCkqmXUA/RTEu5
-	MLuLTRQWUGyKLaK2U6021x4BEuc1
-X-Received: by 2002:a05:622a:181b:b0:531:85a:25db with SMTP id d75a77b69052e-533832a853cmr71428341cf.11.1790878025154;
-        Thu, 01 Oct 2026 11:07:05 -0700 (PDT)
-Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53398a5c3fbsm4310221cf.8.2026.10.01.11.07.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 11:07:03 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>,
-	Benoit Parrot <bparrot@ti.com>,
-	Hans Verkuil <hverkuil@kernel.org>
-Subject: [PATCH v4] media: ti: cal: drain WDMA IRQ before freeing contexts
-Date: Thu,  1 Oct 2026 14:07:02 -0400
-Message-ID: <ea39fac2402d401d452fe191ac6f9cc1e9e9dfce.1790877910.git.mhun512@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260925191949.3147558-1-mhun512@gmail.com>
-References: <20260925191949.3147558-1-mhun512@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UQHctUju"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF0C41F000FF;
+	Thu,  1 Oct 2026 18:09:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790878141;
+	bh=R4WIaVmgxMJzlsaERAlBqwLuDwVcuzfSzsQMDWtKV3E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=UQHctUjuUNpw6LkyASUZ9HSFteDzJeR38iaU80Gktw1pGFWCLZSYF/YGGSZzkMish
+	 CI0kKn39Tn2wmkI+JdM9cAL2ebawL6a2NJ098qLlJdRUahDEfM6lZIJ2T7cKU2GPdw
+	 0NXWPu6qcC6lC27LkOhpl1kvAZnWG931UKFlZcorvNlFUWm7/G1eFEAK7fLlnc/7fJ
+	 bxompRVWn6MverJHcn5hr7Mr9YOD8mHDYQfyQ30PHDkvD66s9hpK9WFw6pnT0nrHtV
+	 Z6y6MF57oKO9tCDgYWbN7c8PKgyS1Tt2yub8EUxI6/JVTGEnkgZXKRPXyw9eL3m3l5
+	 dA0HXVrqpGBlw==
+From: netdev-bot+sinfo@kernel.org
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: Wei Fang <wei.fang@nxp.com>, netdev@vger.kernel.org,
+ Frank Li <frank.li@nxp.com>, Shenwei Wang <shenwei.wang@nxp.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, imx@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Simon Horman <horms@kernel.org>,
+ stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
+Subject: Re: [PATCH net RESEND] net: fec: drain PEROUT requests before
+ canceling the timer
+Date: Thu, 01 Oct 2026 18:09:00 +0000
+Message-ID: <179087814030.1402591.9699379066974975442@kernel.org>
+In-Reply-To: <20261001180258.4054391-1-mhun512@gmail.com>
+References: <20261001180258.4054391-1-mhun512@gmail.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-cal_remove() unregisters the video devices but does not release their vb2
-queues. An active stream can therefore keep WDMA IRQs enabled while the
-contexts are freed. The managed IRQ is released only after .remove()
-returns, so a handler already in flight can access a freed context through
-cal->ctx[i].
+Hi!
 
-Use vb2_video_unregister_device() to release each queue and stop any active
-stream while the IRQ is still available for DMA stop completion. Then
-release the managed IRQ explicitly before destroying the contexts, which
-synchronizes any in-flight handler before the context memory is freed.
-Drain the IRQ on the probe error path before destroying partially created
-contexts too.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Fixes: 343e89a792a5 ("[media] media: ti-vpe: Add CAL v4l2 camera capture driver")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
-Changes in v4:
-- Rebase onto the latest media-committers next branch.
-- Rewrap devm_request_irq() to stay within 80 columns; no functional changes.
-- Compile-test the CAL driver with x86_64 COMPILE_TEST and W=1.
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
-Changes in v3:
-- Resend the unchanged patch with intact diff headers.
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
 
-Changes in v2:
-- Rebuilt the mail-ready message; no code changes.
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
- drivers/media/platform/ti/cal/cal-video.c |  2 +-
- drivers/media/platform/ti/cal/cal.c       | 13 ++++++++-----
- 2 files changed, 9 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/media/platform/ti/cal/cal-video.c b/drivers/media/platform/ti/cal/cal-video.c
-index 1990cab77344..fdf0b2f2a310 100644
---- a/drivers/media/platform/ti/cal/cal-video.c
-+++ b/drivers/media/platform/ti/cal/cal-video.c
-@@ -1051,7 +1051,7 @@ void cal_ctx_v4l2_unregister(struct cal_ctx *ctx)
- 	ctx_dbg(1, ctx, "unregistering %s\n",
- 		video_device_node_name(&ctx->vdev));
- 
--	video_unregister_device(&ctx->vdev);
-+	vb2_video_unregister_device(&ctx->vdev);
- }
- 
- int cal_ctx_v4l2_init(struct cal_ctx *ctx)
-diff --git a/drivers/media/platform/ti/cal/cal.c b/drivers/media/platform/ti/cal/cal.c
-index 5c82378d1eee..0340e19fe8cb 100644
---- a/drivers/media/platform/ti/cal/cal.c
-+++ b/drivers/media/platform/ti/cal/cal.c
-@@ -1145,7 +1145,6 @@ static int cal_probe(struct platform_device *pdev)
- 	bool connected = false;
- 	unsigned int i;
- 	int ret;
--	int irq;
- 
- 	cal = devm_kzalloc(&pdev->dev, sizeof(*cal), GFP_KERNEL);
- 	if (!cal)
-@@ -1180,10 +1179,10 @@ static int cal_probe(struct platform_device *pdev)
- 	cal_dbg(1, cal, "ioresource %s at %pa - %pa\n",
- 		cal->res->name, &cal->res->start, &cal->res->end);
- 
--	irq = platform_get_irq(pdev, 0);
--	cal_dbg(1, cal, "got irq# %d\n", irq);
--	ret = devm_request_irq(&pdev->dev, irq, cal_irq, 0, CAL_MODULE_NAME,
--			       cal);
-+	cal->irq = platform_get_irq(pdev, 0);
-+	cal_dbg(1, cal, "got irq# %d\n", cal->irq);
-+	ret = devm_request_irq(&pdev->dev, cal->irq, cal_irq, 0,
-+			       CAL_MODULE_NAME, cal);
- 	if (ret)
- 		return ret;
- 
-@@ -1264,6 +1263,8 @@ static int cal_probe(struct platform_device *pdev)
- 	return 0;
- 
- error_context:
-+	devm_free_irq(&pdev->dev, cal->irq, cal);
-+
- 	for (i = 0; i < cal->num_contexts; i++)
- 		cal_ctx_destroy(cal->ctx[i]);
- 
-@@ -1294,6 +1295,8 @@ static void cal_remove(struct platform_device *pdev)
- 	for (i = 0; i < cal->data->num_csi2_phy; i++)
- 		cal_camerarx_disable(cal->phy[i]);
- 
-+	devm_free_irq(&pdev->dev, cal->irq, cal);
-+
- 	for (i = 0; i < cal->num_contexts; i++)
- 		cal_ctx_destroy(cal->ctx[i]);
- 
-
-base-commit: 4a069a763e8a86821edac4159f7c59a20015631b
--- 
-2.53.0
-
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
