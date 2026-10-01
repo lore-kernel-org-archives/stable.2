@@ -1,76 +1,77 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2AA84A3F1D
-	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 12:13:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B735C37F75E
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 12:16:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790856784; cv=none; b=QWH5Xb2bfOGyALFfChlY/JljgS40fHInOJSvu8SQ7kIlCCKbmo5gHb8bRBO8rIOph4LYRRAQcQbW4FofI9jCZozxAP5281WhQ5QIL19K0/E3x9fflRfQVW1Z9YiUXW0jb/ljtJVIaEPEL1ZF6g/wOt785Fys2nfQ2o/Dlpcuw5s=
+	t=1790856985; cv=none; b=dapooYXYzeMmI9fci1EH0UAdVsUoKfFN/Ab93B0HZS9vqwuh37XWnXg6oEwCqJirYPxwWQK9HYf2RMLNia/cfLHdPefqwlK7YdAB1Exp4h2pbctO2L2X7EP+nGy9VN3FQQUBpgkwDmaugtljjtMF5l2s39gYH0dvVZO5zszVCzc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790856784; c=relaxed/simple;
-	bh=i+ltdcFsLIEvz4SDJhUntE5L6neNexr3VtDtFKAc6FY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ELoo9UofjU8a7IvsRf5i+jLZumr+xYutVZhxGdgnZsC/ydK9UVVJVXaLa3fX4GuD3eazGD4XbV4+CSDgvDNv3YQv6YT6nmyepgyyl/pPV7/Xz1eKa0BfZzxyOOByyG0L5DOhu7KGeJZp93LQwBW5tevNzt7X5EVDDyKkwUN76zo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T1yxgg32; arc=none smtp.client-ip=74.125.225.141
+	s=arc-20240116; t=1790856985; c=relaxed/simple;
+	bh=uZLkviS9QmyqmkzlC2vpCWnrUAXnjRqFS/QqFxjAcpI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XQdyFwtfL0GQVaEF+WINb3+3qpLsAWfuOugmK6T4kL4tRaWgtzSWFp71zykFj9oIe8sxaLrBPuj35bmE+CcxBY+7j6KnEv/tt2ytYz1JsEUuMMmrlQtIiSMaYHXGUI2MGUAOsEldU7zS2BJo9XFlpBgXkE4JSxSuKLGgZBBSixY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QK4WMI0H; arc=none smtp.client-ip=74.125.229.204
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T1yxgg32"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6b885ef8so38242795e9.1
-        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 05:13:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QK4WMI0H"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5ba390408cdso2655615e87.0
+        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 05:16:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790856779; x=1791461579; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790856978; x=1791461778; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HqLShQaGOCLf+7ExwT95YBelZPGkBd9T5yA0HWlhScg=;
-        b=T1yxgg32TM72VtkqOLFNIX8QPhoTPcixfuUwEknGSmPt7nx9Ay3JUeGVOcsDYIHAh/
-         yYc1G5u8fx0XO/zri6Z8mplJdfwj5VEW9ExBAdyXlnZwNlAVGjASZpZLrJEHKauQtU8v
-         s5XhqPH5KZCKmgYfumxJQkAoJJzJmiNvl/d2nP/0AgSetJT1euMo+QOZ5IZ+qcLVMcUi
-         3rj46H7ju92I9XGeWJVH/bHee2rmg/xthnHUblGlHUmS7UqNPkhmIXd1Pl5ROcqDVaLG
-         I4vJaH56BLXqykjc0N3SWKM/tTCVQh5yrOUkD5ymcvuYiNJcktoIoIgq0E36IR9xhL/j
-         iOhQ==
+        bh=BOQEcKTFqrXxPW7y8AB8EeoE+mGeZaiim+yVKoEltBk=;
+        b=QK4WMI0HCm+wk2M73TXZjGMWCl3OxXEq7CZNocry/fVvaT/SeoWIoYcqRaQOmYGOq5
+         rlYm87hPW/OHUvNeY9k2yeFEkx6TovjBC/k/YcysdoowFHHeJ/Yg5NbwxL7MMw1CEqlp
+         9gHlDmIWEd6/Dj5Pee1WxoYwEOv/j0+G7HR+anZ571IWxuaiBmtSTpZBUduEp4jaPf93
+         MhurncmMZGn7gQx0yfGEcn4cp3s+9kCQ7yyLV6EZqo/TWfe+jk3/A+Xv8jFI3SGM1naB
+         5yjCLTbs7heKI7WkHV69NyWwO9XoBdoQsW8vw8sPdNMK02osnU08i58blzj238Ygh4jA
+         uTIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790856779; x=1791461579;
+        d=1e100.net; s=20260707; t=1790856978; x=1791461778;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HqLShQaGOCLf+7ExwT95YBelZPGkBd9T5yA0HWlhScg=;
-        b=SHFO9JcTaZG3oc22wflHfWgpx/uNDYq6jMU2q0yic09rppwBftYgwEfL7yJBuJ7cr4
-         LqjHeC63NAZzCHs+zKk7FBGEdwqR5iVDOuVAsoFqM9TaIEVw7grA30slflTX2xjTItE3
-         HMVw3WGgQYxkPB9nafVqTPpBwmU6lkSWv1RXwcGRxFvak5D3XcgbEKJDxuDtKOEArBVX
-         fMaEyn+ymWltE168q3ehUllOmg2WLaPjRREv0AE0I8++AmW4eLTThLALkH50s3nTbf/s
-         8bnuFb2Nue1u70JWF5SeA9RPZ2P4TAq3+bjjUtBfqjJcGg870JHMHgQmXgCl2c4JZobk
-         6WSg==
-X-Forwarded-Encrypted: i=1; AKwUvBzCvB5Drb/AdX+0vdTuNJAU+8EG+lzKyAwkFJF4tSUL9C/kVYGnA3MbXIsgHwfDpyL6yTQNw+M=@vger.kernel.org
-X-Gm-Message-State: AFuF++mF5IPbuVSngF3tDw0vF0vYb4C8Iznx8vDMh46IgHK4DBm7E+mk
-	NGlXhTex9Xy/YQMmM84+xb537V5mPS0edx4aVPcNNSm1PSgBgBufWS6e
-X-Gm-Gg: AYBFou0XIj2Nb5ClsoVwXe2Ce5XrMCpyTSs+H2E/Qg9MWZrXlFoXoV9lLuGlFDPZHQA
-	9cWxLws1kKnugVabr0bUd7A/5dwvbCr8Clru8mGN6qak9wJjYku/F5aoaAiSOKJ9j2kefnumP2T
-	R5aWPHMFWkYkc8tfOVuK5FmQAo4V0n10/Mi61KsBIt2EfuEq6iMAuimxd2Jp6PzcNzF7PkTb1BF
-	TC0yGCy9Lm+IvQ+rXS81pbgxObdgrXDD6KsfYBBDLOOYRMKoKL5RcBXTd/cVAHdE2gXYyvuM90D
-	AnVRNfOB3NUVpaVah5ETWCQFaYNDB5gQeUoQ16RMXgO4w85M91SzB88OGpXN6BX2M15PYc/GKLD
-	wrleOSWRpjLxWN0c1LrjhYMmgFxuF90S7mvk0gIC+D35eQxpR7eoBJKzHh3hjwQCFeoPAdgNM7F
-	SyAtqN8Rr6awQElD1QiQFc0f8kwJ4DKRynOyRnqpZnniOWHjiagw0Wb71gNuv0/QCX5iI15A/wT
-	pUZNmPodLiufmLXk7EfygQBICf4tqDC6mBS7OpmB5l8pOEP47HSGfzQuIo+lF3Yp/iL7LXvYRq6
-	dQ==
-X-Received: by 2002:a05:600c:3b21:b0:4a0:1a7f:2ab7 with SMTP id 5b1f17b1804b1-4a01afe1ecemr74033985e9.10.1790856778860;
-        Thu, 01 Oct 2026 05:12:58 -0700 (PDT)
-Received: from arch ([5.22.131.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f98c4desm40574365e9.4.2026.10.01.05.12.56
+        bh=BOQEcKTFqrXxPW7y8AB8EeoE+mGeZaiim+yVKoEltBk=;
+        b=s4mC0KBOYSuS7s2nYKRhsY1HUseuAgAbZtthqNN9k1UuuchXUJW4vnnsD49V8gI73e
+         LRom3g3nupcws/00iC5WzR3eskuDfnBs63cYYFCAYCyxVRFS9++0mLM/qOe8P7n3T8Ys
+         AnaT38DLc0m8NYf68cFMb3vpBHTLmuCeSOQwUFkBei5lMYBtUysFui3Qb+Ep3DR8Hwsm
+         ekgDMtFQ7Wc5iftSn3fpSbzzQG18KRdxERveZ7uaKuoXpfNGpiJOI75r2YJE5TWJcVql
+         bGV4q0d8by8fzpqLvksdo+/Hmo0SzSofHB6Z9T0lyZm45qY/25s+2mhI2Hh8XwYwCyEw
+         S1LA==
+X-Forwarded-Encrypted: i=1; AKwUvBzMF9dD1HJaQ/oV1LQhNcV75LdJGIXUJYIS6Tlym9MTFlz8hasvzy9V3nVe3x7mQNBgZRx/xeI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJs/ROEwNJBsnuG3xFrY/Kw7lvj67WGQvKJA86LB70FWMsMYOXE
+	FsnIIS1Pz1AWoVY1Anr4SR+jMkhQrYj/+4BcjHuKGUkc3Q7GIVuynSQQ
+X-Gm-Gg: AYBFou1dUflyq0MKd1TQqbPUKxXsDMv8z4BO9oeHmyrAK6AH/nvQgnKnduWq+5SSbN+
+	B0CSAsTR7P7ZuKdjlDjr6rQCIFE/bdTN0SJ+PXkg+60LjFFh8VScH/ha4ImRmLxYVZbwW0Of4tM
+	xqqDCMgTu3rNwclGVTLbpyYDPDNT3d4EvnireF2qzSJM3NauL0+0AC1rD8O19tBrg4SuxU+UjM7
+	m0Vj3hkkHE/8LnTokOGCbk9dMzD9ZsDXRjWYcZZTR5yGMNDSArPXBzz+uNAtZFXqag8MpH5oFWJ
+	+Q7ldSIiW/qlKoy2r0Y4ThnbOxtAqZb3Fs5wuV0uWAZRWoCExUF4fCrhcNKbCdAgq+t7ZzOx9Ae
+	bD5KIYp5ssOW8PLIvy7J7plQkTC7icOMM2/yZcgPYSKFHH9KIhEv9xO4ApwXu6YlueC1CjrpnbO
+	6/w4kif47B7p6tDzsxedFqcncyfxXfxeLkIUo7dhniy8paW+P/rv3p6gXNgvPIRu26Kv8KnHpY7
+	StjgVhtpz6QTFyOqL1wiWZ0Kx2ZNCsbSb/t9nYvuMDxBq2YzF0bZiGEpaGE2KzjFAD7RA==
+X-Received: by 2002:a05:6512:39c6:b0:5ba:3e13:f0dc with SMTP id 2adb3069b0e04-5ba402cc5f9mr2042087e87.5.1790856977717;
+        Thu, 01 Oct 2026 05:16:17 -0700 (PDT)
+Received: from yantra.. (dsl-trebng21-58c187-236.dhcp.inet.fi. [88.193.135.236])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ba42fbf031sm695054e87.66.2026.10.01.05.16.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 05:12:58 -0700 (PDT)
-From: Aviv Vaknin <vaknins33@gmail.com>
-To: Christian Brauner <brauner@kernel.org>,
-	Oleg Nesterov <oleg@redhat.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
-	Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
-	"Eric W. Biederman" <ebiederm@xmission.com>,
-	linux-pm@vger.kernel.org,
+        Thu, 01 Oct 2026 05:16:17 -0700 (PDT)
+From: Rupesh Majhi <zoone.rupert@gmail.com>
+To: Andy Shevchenko <andy@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Eddie James <eajames@linux.ibm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>
+Cc: linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
+	Rupesh Majhi <zoone.rupert@gmail.com>,
+	Sashiko <sashiko-bot@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH] pid_namespace: make zap_pid_ns_processes() freezable
-Date: Thu,  1 Oct 2026 15:12:54 +0300
-Message-ID: <20261001121254.883973-1-vaknins33@gmail.com>
-X-Mailer: git-send-email 2.55.0
+Subject: [PATCH v3] iio: pressure: dps310: fix overflow in pressure compensation
+Date: Thu,  1 Oct 2026 15:16:16 +0300
+Message-ID: <20261001121616.109973-1-zoone.rupert@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -79,289 +80,153 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When the init of a pid namespace exits, zap_pid_ns_processes() waits
-until every other pid in the namespace has been freed. That wait has no
-upper bound: a tracer outside the namespace that doesn't reap its traced
-zombies keeps their pids allocated (see the comment above the final
-loop). While a task waits there, every suspend attempt fails:
+p^3 * c30 and t * p^2 * c21 overflow s64 at most oversampling ratios,
+and pressure comes out about 150 Pa low on a DPS310 here.
 
-  Freezing user space processes failed after 20.006 seconds (2 tasks refusing to freeze, wq_busy=0):
-  task:pidns-freeze-re state:S stack:14200 pid:104   tgid:104   ppid:99     task_flags:0x40014c flags:0x00080000
-  task:pidns-freeze-re state:S stack:14160 pid:109   tgid:105   ppid:104    task_flags:0x40044c flags:0x00080802
+Use Horner form, dividing by scale factor at each step. Overflow then
+needs a raw value far outside sensor range and returns -ERANGE.
 
-and keeps failing until the tracer reaps or exits, because neither wait
-can be frozen:
+Checked against datasheet formula at all eight ratios.
 
-- The first loop sleeps in kernel_wait4(). The freezer's fake signal
-  ends that wait with -ERESTARTSYS, then the loop clears TIF_SIGPENDING
-  and waits again without ever calling try_to_freeze().
-
-- The final loop sleeps in TASK_INTERRUPTIBLE without TASK_FREEZABLE.
-  Worse, nothing clears the TIF_SIGPENDING that the fake signal set, so
-  from the first suspend attempt on schedule() returns at once and the
-  task spins at 100% CPU for as long as the wait lasts.
-
-Neither loop has ever been freezable. The spin came with
-commit b9a985db9896 ("pid_ns: Sleep in TASK_INTERRUPTIBLE in zap_pid_ns_processes"),
-which replaced TASK_UNINTERRUPTIBLE to keep such long waits from
-triggering the hung task detector.
-
-This happens in practice with Chromium-based browsers, whose renderers
-are pid namespace inits. If a renderer crashes while the browser shuts
-down, crashpad (outside the namespace) ptrace-attaches its threads to
-dump it. When the renderer is SIGKILLed mid-dump, crashpad keeps the
-dead threads as unreaped traced zombies, and it can then block in
-waitpid() on the renderer's last thread, which is itself waiting in
-zap_pid_ns_processes() for those zombies. One such renderer blocks
-suspend system-wide until crashpad is killed or the machine reboots.
-The userspace side is being reported to Chromium separately.
-
-Call try_to_freeze() after kernel_wait4() in the first loop, and sleep
-in TASK_IDLE | TASK_FREEZABLE in the final loop, as coredump_task_exit()
-already does on the same exit path. Like TASK_INTERRUPTIBLE, TASK_IDLE
-keeps the hung task detector quiet and adds no load, but it is not
-woken by signals, so a pending signal can no longer turn the wait into
-a busy loop. TASK_FREEZABLE lets the freezer freeze the task in place;
-a free_pid() wakeup that arrives while it is frozen is kept in
-->saved_state and acted on at thaw.
-
-Tested on v7.3-rc5 in QEMU with PROVE_LOCKING, DEBUG_ATOMIC_SLEEP and
-DETECT_HUNG_TASK (10 s timeout), using a reproducer in which a tracer
-PTRACE_SEIZEs two threads of a nested pid namespace init and doesn't
-reap them (it works unprivileged too, from a user namespace), and using
-the real browser and crashpad trigger:
-
-- before: freezing fails after 20 s, and afterwards the final loop
-  spins (500 ticks of system time per 5 s).
-- after: freezing completes in 0.001 s, the waiting task sits in state
-  I without using CPU, no hung task or lockdep report appears over
-  30-45 s, and the task exits as soon as the zombies are reaped.
-
-Fixes: 3eb07c8c8adb ("pid namespaces: destroy pid namespace on init's death")
-Fixes: b9a985db9896 ("pid_ns: Sleep in TASK_INTERRUPTIBLE in zap_pid_ns_processes")
-Cc: stable@vger.kernel.org # 6.1+
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Aviv Vaknin <vaknins33@gmail.com>
+Fixes: d711a3c7dc82 ("iio: dps310: Add pressure sensing capability")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260921183132.233136-1-zoone.rupert%40gmail.com
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
 ---
-Based on vfs kernel-7.4.signal (also in next-20260930), on top of
-5c0985dd3c32 ("pid_namespace: prevent TIF_NOTIFY_SIGNAL from
-interrupting the reaper"). That commit keeps TIF_NOTIFY_SIGNAL from
-waking the reaper; this one is about the freezer, whose fake signal
-sets TIF_SIGPENDING, which the guard doesn't cover. Retested on this
-base with the reproducer below (same debug config): freezing completes
-in 0.000 s, no spin, no warnings. A version for v7.3-rc5 is available
-if wanted.
+v3: min_t() line left as in mainline (Andy), comment cut to one line
+v2: (s64)BIT(20) instead of BIT_ULL(), min() instead of min_t() (Andy)
+    https://lore.kernel.org/linux-iio/20260930085819.886339-1-zoone.rupert@gmail.com/
+v1: https://lore.kernel.org/linux-iio/20260928101803.547005-1-zoone.rupert@gmail.com/
 
-Reproducer (run as root in a VM, then follow its instructions):
+Based on iio/testing, since the buffer series reworked this function.
+Can send a version for fixes-togreg if you prefer.
 
-  // SPDX-License-Identifier: GPL-2.0
-  /*
-   * pidns-freeze-repro: a task waiting in zap_pid_ns_processes() blocks suspend.
-   *
-   *   main (tracer, root pid ns)
-   *    `- A: pid 1 of pid ns A, single-threaded
-   *       `- B: pid 1 of nested pid ns B, multithreaded
-   *
-   * main PTRACE_SEIZEs non-leader threads of B, then A exits.  zap(A) kills B;
-   * the seized threads stay traced zombies until main reaps them, keeping ns B's
-   * pids allocated.  B's last thread waits in zap's final loop, A in zap's first
-   * loop (kernel_wait4() for B).  While "stuck" is shown, run as root:
-   *   echo freezer > /sys/power/pm_test; echo mem > /sys/power/state
-   * Unpatched, freezing fails after 20 s ("2 tasks refusing to freeze") and B's
-   * thread then busy-loops in zap.  At the end main reaps, ending the hang.
-   *
-   * Build: gcc -O2 -Wall -pthread -o pidns-freeze-repro pidns-freeze-repro.c
-   * Usage: ./pidns-freeze-repro [hold_seconds]  (root, in a VM; default: Enter)
-   * With -DUSERNS, A also gets a new user ns, so no privilege is needed.
-   */
-  #define _GNU_SOURCE
-  #include <dirent.h>
-  #include <pthread.h>
-  #include <sched.h>
-  #include <signal.h>
-  #include <stdarg.h>
-  #include <stdio.h>
-  #include <stdlib.h>
-  #include <string.h>
-  #include <sys/ptrace.h>
-  #include <sys/wait.h>
-  #include <unistd.h>
+ drivers/iio/pressure/dps310.c | 89 ++++++++++++++---------------------
+ 1 file changed, 35 insertions(+), 54 deletions(-)
 
-  #ifdef USERNS
-  #define NS_FLAGS (CLONE_NEWUSER | CLONE_NEWPID)
-  #else
-  #define NS_FLAGS CLONE_NEWPID
-  #endif
-  #define NTHREADS 4	/* B's threads besides its leader */
-  #define NSEIZE   2	/* how many of them main seizes */
-
-  static int ready[2], go[2];	/* B -> main: threads are up; main -> A: exit */
-  static char stack_a[256 << 10], stack_b[256 << 10];
-
-  static void *idle_thread(void *arg) { for (;;) pause(); return arg; }
-
-  static int init_b(void *arg)		/* pid 1 of ns B */
-  {
-  	pthread_t t;
-
-  	for (int i = 0; i < NTHREADS; i++)
-  		pthread_create(&t, NULL, idle_thread, arg);
-  	if (write(ready[1], "r", 1) != 1)
-  		_exit(1);
-  	for (;;) pause();
-  }
-
-  static int init_a(void *arg)		/* pid 1 of ns A */
-  {
-  	close(go[1]);			/* only main may hold the write end */
-  	if (clone(init_b, stack_b + sizeof(stack_b), CLONE_NEWPID | SIGCHLD, arg) < 0)
-  		_exit(1);
-  	while (read(go[0], &arg, 1) > 0)	/* EOF: main has seized */
-  		;
-  	_exit(0);			/* -> zap_pid_ns_processes(A) */
-  }
-
-  /* Read a small /proc file into buf ("" if it is gone). */
-  static char *slurp(char *buf, size_t len, const char *fmt, ...)
-  {
-  	char path[300];
-  	va_list ap;
-  	FILE *f;
-
-  	va_start(ap, fmt);
-  	vsnprintf(path, sizeof(path), fmt, ap);
-  	va_end(ap);
-  	buf[0] = 0;
-  	if ((f = fopen(path, "r"))) {
-  		buf[fread(buf, 1, len - 1, f)] = 0;
-  		fclose(f);
-  	}
-  	return buf;
-  }
-
-  /* Global pid of A's child B: the process whose PPid is A. */
-  static pid_t child_of(pid_t parent)
-  {
-  	DIR *d = opendir("/proc");
-  	struct dirent *e;
-  	char buf[512], *p;
-  	int ppid;
-
-  	while (d && (e = readdir(d))) {
-  		p = strrchr(slurp(buf, sizeof(buf), "/proc/%s/stat", e->d_name), ')');
-  		if (p && sscanf(p + 2, "%*c %d", &ppid) == 1 && ppid == parent)
-  			return atoi(e->d_name);	/* (leaks d; fine here) */
-  	}
-  	return -1;
-  }
-
-  /* Print a task's state and wchan; return whether it is exiting (PF_EXITING). */
-  static int show(const char *what, pid_t pid, pid_t tid)
-  {
-  	char st[512], wchan[64], *p, c = '?';
-  	unsigned int flags = 0;
-
-  	p = strrchr(slurp(st, sizeof(st), "/proc/%d/task/%d/stat", pid, tid), ')');
-  	if (p)
-  		sscanf(p + 2, "%c %*d %*d %*d %*d %*d %u", &c, &flags);
-  	slurp(wchan, sizeof(wchan), "/proc/%d/task/%d/wchan", pid, tid);
-  	printf("  %s tid %d: state %c, flags %#x, wchan %s\n", what, tid, c, flags, wchan);
-  	return flags & 0x4;
-  }
-
-  int main(int argc, char **argv)
-  {
-  	pid_t a, b, tid, seized[NSEIZE];
-  	int n = 0, status;
-  	struct dirent *e;
-  	char buf[64];
-  	DIR *d;
-
-  	if (pipe(ready) || pipe(go))
-  		return perror("pipe"), 1;
-  	if ((a = clone(init_a, stack_a + sizeof(stack_a), NS_FLAGS | SIGCHLD, NULL)) < 0)
-  		return perror("clone (run as root)"), 1;
-  	if (read(ready[0], buf, 1) != 1 || (b = child_of(a)) < 0)
-  		return fprintf(stderr, "setup failed\n"), 1;
-
-  	/* From outside both namespaces, seize non-leader threads of B. */
-  	snprintf(buf, sizeof(buf), "/proc/%d/task", b);
-  	for (d = opendir(buf); d && (e = readdir(d)) && n < NSEIZE; )
-  		if ((tid = atoi(e->d_name)) > 0 && tid != b && !ptrace(PTRACE_SEIZE, tid, 0, 0))
-  			seized[n++] = tid;
-  	printf("A=%d B=%d: seized %d threads of B\n", a, b, n);
-
-  	close(go[1]);				/* A exits now */
-  	sleep(2);
-  	if (!n || waitpid(a, &status, WNOHANG) != 0 || !show("A", a, a))
-  		return printf("not reproduced\n"), 1;
-  	for (rewinddir(d); (e = readdir(d)); )
-  		if ((tid = atoi(e->d_name)) > 0)
-  			show("B", b, tid);
-  	printf("stuck: A and B can't finish exiting until main reaps its %d traced threads\n", n);
-  	printf("now run: echo freezer > /sys/power/pm_test; echo mem > /sys/power/state\n");
-  	fflush(stdout);
-  	if (argc > 1)
-  		sleep(atoi(argv[1]));
-  	else
-  		getchar();
-
-  	/* Reap the traced zombies: ns B empties, then B and A finish exiting. */
-  	for (int i = 0, left = n; left && i < 500; i++, usleep(10000))
-  		for (int k = 0; k < n; k++)
-  			if (seized[k] && waitpid(seized[k], &status, __WALL | WNOHANG) == seized[k])
-  				seized[k] = 0, left--;
-  	for (int i = 0; i < 500; i++, usleep(10000))
-  		if (waitpid(a, &status, WNOHANG) == a)
-  			return printf("reaped the zombies: hang resolved\n"), 0;
-  	printf("still stuck after reaping\n");
-  	return 2;
-  }
-
- kernel/pid_namespace.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
-
-diff --git a/kernel/pid_namespace.c b/kernel/pid_namespace.c
-index 8bc9edb40..abdc05462 100644
---- a/kernel/pid_namespace.c
-+++ b/kernel/pid_namespace.c
-@@ -23,6 +23,7 @@
- #include <linux/sched/task.h>
- #include <linux/sched/signal.h>
- #include <linux/idr.h>
-+#include <linux/freezer.h>
- #include <linux/nstree.h>
- #include <uapi/linux/wait.h>
- #include "pid_sysctl.h"
-@@ -243,6 +244,11 @@ void zap_pid_ns_processes(struct pid_namespace *pid_ns)
- 	do {
- 		clear_thread_flag(TIF_SIGPENDING);
- 		rc = kernel_wait4(-1, NULL, __WALL, NULL);
-+		/*
-+		 * The freezer's fake signal ends the wait with -ERESTARTSYS;
-+		 * freeze here, or one stuck pid namespace blocks suspend.
-+		 */
-+		try_to_freeze();
- 	} while (rc != -ECHILD);
+diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
+index 85df58ac1809..2682615b69bb 100644
+--- a/drivers/iio/pressure/dps310.c
++++ b/drivers/iio/pressure/dps310.c
+@@ -19,6 +19,7 @@
+ #include <linux/limits.h>
+ #include <linux/math64.h>
+ #include <linux/module.h>
++#include <linux/overflow.h>
+ #include <linux/regmap.h>
+ #include <linux/unaligned.h>
  
- 	/*
-@@ -269,7 +275,13 @@ void zap_pid_ns_processes(struct pid_namespace *pid_ns)
- 	 * free_pid() will awaken this task.
- 	 */
- 	for (;;) {
--		set_current_state(TASK_INTERRUPTIBLE);
-+		/*
-+		 * TASK_IDLE: no hung task warning or load for a wait that can
-+		 * last as long as a tracer keeps a zombie, and a pending signal
-+		 * (e.g. the freezer's fake one) can't turn it into a busy loop.
-+		 * TASK_FREEZABLE: let the freezer freeze us while we wait.
-+		 */
-+		set_current_state(TASK_IDLE | TASK_FREEZABLE);
- 		if (pid_ns->pid_allocated == init_pids)
- 			break;
- 		schedule();
+@@ -660,72 +661,52 @@ static int dps310_write_raw(struct iio_dev *iio,
+ 	}
+ }
+ 
++/* Fixed point one for the compensation fractions */
++#define DPS310_CALC_ONE		((s64)BIT(20))
++
++/* *acc = (*acc + coef) * raw / k, with coef scaled to match *acc */
++static bool dps310_horner_step(s64 *acc, s32 coef, s64 raw, s64 k)
++{
++	s64 prod;
++
++	if (check_mul_overflow(*acc + coef * DPS310_CALC_ONE, raw, &prod))
++		return false;
++
++	*acc = div64_s64(prod, k);
++
++	return true;
++}
++
+ static int dps310_calculate_pressure(struct dps310_data *data, int *val)
+ 	__must_hold(&data->lock)
+ {
+-	int i;
++	s64 p = data->pressure_raw;
++	s64 t = data->temp_raw;
++	s64 prs = 0;
++	s64 tmp = 0;
++	s64 pressure;
++	int kp, kt;
+ 	int rc;
+-	int kpi;
+-	int kti;
+-	s64 rem = 0ULL;
+-	s64 pressure = 0ULL;
+-	s64 p;
+-	s64 t;
+-	s64 denoms[7];
+-	s64 nums[7];
+-	s64 rems[7];
+-	s64 kp;
+-	s64 kt;
+ 
+-	rc = dps310_get_pres_k(data, &kpi);
++	rc = dps310_get_pres_k(data, &kp);
+ 	if (rc)
+ 		return rc;
+ 
+-	rc = dps310_get_temp_k(data, &kti);
++	rc = dps310_get_temp_k(data, &kt);
+ 	if (rc)
+ 		return rc;
+ 
+-	kp = (s64)kpi;
+-	kt = (s64)kti;
+-
+-	p = (s64)data->pressure_raw;
+-	t = (s64)data->temp_raw;
+-
+-	/* Section 4.9.1 of the DPS310 spec; algebra'd to avoid underflow */
+-	nums[0] = (s64)data->c00;
+-	denoms[0] = 1LL;
+-	nums[1] = p * (s64)data->c10;
+-	denoms[1] = kp;
+-	nums[2] = p * p * (s64)data->c20;
+-	denoms[2] = kp * kp;
+-	nums[3] = p * p * p * (s64)data->c30;
+-	denoms[3] = kp * kp * kp;
+-	nums[4] = t * (s64)data->c01;
+-	denoms[4] = kt;
+-	nums[5] = t * p * (s64)data->c11;
+-	denoms[5] = kp * kt;
+-	nums[6] = t * p * p * (s64)data->c21;
+-	denoms[6] = kp * kp * kt;
+-
+-	/* Kernel lacks a div64_s64_rem function; denoms are all positive */
+-	for (i = 0; i < 7; ++i) {
+-		u64 irem;
+-
+-		if (nums[i] < 0LL) {
+-			pressure -= div64_u64_rem(-nums[i], denoms[i], &irem);
+-			rems[i] = -irem;
+-		} else {
+-			pressure += div64_u64_rem(nums[i], denoms[i], &irem);
+-			rems[i] = (s64)irem;
+-		}
+-	}
+-
+-	/* Increase precision and calculate the remainder sum */
+-	for (i = 0; i < 7; ++i)
+-		rem += div64_s64((s64)rems[i] * 1000000000LL, denoms[i]);
++	/* Section 4.9.1 of the DPS310 spec, Horner form to avoid overflow */
++	if (!dps310_horner_step(&prs, data->c30, p, kp) ||
++	    !dps310_horner_step(&prs, data->c20, p, kp) ||
++	    !dps310_horner_step(&prs, data->c10, p, kp) ||
++	    !dps310_horner_step(&tmp, data->c21, p, kp) ||
++	    !dps310_horner_step(&tmp, data->c11, p, kp) ||
++	    !dps310_horner_step(&tmp, data->c01, t, kt))
++		return -ERANGE;
+ 
+-	pressure += div_s64(rem, 1000000000LL);
+-	if (pressure < 0LL)
++	pressure = data->c00 + div64_s64(prs + tmp, DPS310_CALC_ONE);
++	if (pressure < 0)
+ 		return -ERANGE;
+ 
+ 	*val = (int)min_t(s64, pressure, INT_MAX);
 
-base-commit: ed14a591175bb5f56c2936b082cffb9e4b935e6d
+base-commit: a3b3580713f3ac5a32dc2874ee546828977a1d68
 -- 
-2.55.0
+2.43.0
 
