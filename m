@@ -1,58 +1,51 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mta-64-226.siemens.flowmailer.net (mta-64-226.siemens.flowmailer.net [185.136.64.226])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A390A4A384D;
-	Thu,  1 Oct 2026 13:11:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 182CA4A3859
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 13:12:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.64.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790860301; cv=none; b=MfrTVGOt0V8Osv7ygv0o03OOLgfCf+Z2Yf4l5tbOWwqnSMTwws7FLl5IVkMnheOv8BRACT/4uxz9nxLQ4Nzy7g2ezyhAeCRsHpGFfiGKnK48bp0MgdCs3ZBn9/PFrX/MdfKUHDDDDAZHXyn4S9YIOnVdN72m3wYcr9B9tb3f3c4=
+	t=1790860339; cv=none; b=ddbyKaYyeZ03D/rsOw1xGPvwcOVPqDbm8e3aZClSbMD4/8hxM7a6Q+AAFOZv1klwI/GrdClHiVPqd86PNqmGm7sdxjGbdSbLl13+Idf+mY0BUNQT8MHQRI7YAsQwhUSxLSRSK1oUp7RZONqsx5+cNIYuNj4oEsnUShqrUbFMLwg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790860301; c=relaxed/simple;
-	bh=ndVKfC3oBeJI1YinRuIIubq/rW7+7g48c3lLe4B531g=;
+	s=arc-20240116; t=1790860339; c=relaxed/simple;
+	bh=5eQizxKK9NuYLh8sm1blsIP6nlT5QAXKPTApBxVkzCg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VSTJZtWkiSI+bmsm0TISO9D26ETZoSMsxAaM22xT94gphIQPMkjv4INLhlQA1KfL28HyQbF/OsSYnNb9wgwq3+3kUpDYTKU+5wzNOt8bytW4Zpl5URA96otuaGM9gqjljpAW3SF+Z1Wl1qOQau+irfr+vm27mJc0iTWCtcccxCc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RZUdX+cr; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=bydxad86UykOPLYKLStXvVZfi6UL2CxJC14fKj19h/YjzQXldQYZJTFr4rHvsliRbHoUta9R17lFrHee4VBbWyH01xEGFNVSRYGyIgQ2baY7C2MrnlTZLKbgXg6T0+u/qQiSMABI29m+FXVTg8U+1MGt3Zb1c010Q2f2O++DeLk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b=J1vDXFi4; arc=none smtp.client-ip=185.136.64.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RZUdX+cr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A41B81F000FF;
-	Thu,  1 Oct 2026 13:11:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790860300;
-	bh=8x1b1zIFYHbhHse6qk2K5lzhTq6HkC2kD/LuAW5ywW8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RZUdX+crfp8nxxCJNF5lXxo5hLwFI69WBOYE2tNKZGWca8lPa5PGT/NyvM0Qe8Fyq
-	 0wtZ7nNLqU/qqI91RmzXX5JC9TvSql7Jd9a8N08DM0nOt21TfufJv4okjeq2ii+czv
-	 WJzOc+qK01SJXuM3R6H/p8CMOK0LvojKpgiqsbR7hQbD/nRiGr5heQ+Alj32aR+nN+
-	 QGJClnlH0f4tePWX1RsdVutwltkuyeN5gJkqNkt5n2AeGJMVHftT0vGnoKHjfGErps
-	 gTThT/MLN26vKHnt4wkWXV6jHvCLJUv8CrXdNeEHw4IovKeOke4BFSyTrL2VmFr80I
-	 vuVMw776XYZvA==
-From: Miguel Ojeda <ojeda@kernel.org>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
+	dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="J1vDXFi4"
+Received: by mta-64-226.siemens.flowmailer.net with ESMTPSA id 20261001131209298a9ae42a0002072a
+        for <stable@vger.kernel.org>;
+        Thu, 01 Oct 2026 15:12:09 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
+ d=siemens.com; i=alexander.sverdlin@siemens.com;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
+ bh=D6Ufe1MknHNgW3U5Ph4TDlWqQIvp7PRTpmjTSC8ykEA=;
+ b=J1vDXFi49K0GXR0pP5N5uErx0CSAhOA5SoZRK1Kt0OQoYAEn64bEE5HAuwvFC5k8b+hDVS
+ JexaxSSztLDFAdMcS+R66KYGt8y/EVPmU/D9gDisVmzHg2JsaHZMgJqdxoCLbY2Suu+XNt7w
+ w0RxzsQM2/CsGx9c8Z3G9qZIeqwQjVjYS3SgxOKIdD9YjK/7D5h/CmposdkTnbXB3GaGEm/2
+ aNHSb1eY5pyNEmQFkTW3MeqTUGcsp+hkezF4dpbozLCks7FXO0cZGCd3ihW8MSI/NUFjEeLU
+ mpoPM1c1r3VRRmBKNiGFrQmJw6B8FxiiMdJCaleMyZ6UOTEwyLiZtc+Q==;
+From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
+To: linux-leds@vger.kernel.org
+Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
+	Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Andrew Lunn <andrew@lunn.ch>,
+	"Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	=?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>,
+	Christian Marangi <ansuelsmth@gmail.com>,
 	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Miguel Ojeda <ojeda@kernel.org>
-Subject: Re: [PATCH 7.2 000/457] 7.2.9-rc1 review
-Date: Thu,  1 Oct 2026 15:11:31 +0200
-Message-ID: <20261001131131.72613-1-ojeda@kernel.org>
-In-Reply-To: <20260930152346.024115587@linuxfoundation.org>
-References: <20260930152346.024115587@linuxfoundation.org>
+	stable@vger.kernel.org
+Subject: [PATCH v4 1/4] leds: trigger: netdev: Put netdev on activate error path
+Date: Thu,  1 Oct 2026 15:12:00 +0200
+Message-ID: <20261001131206.2513248-2-alexander.sverdlin@siemens.com>
+In-Reply-To: <20261001131206.2513248-1-alexander.sverdlin@siemens.com>
+References: <20261001131206.2513248-1-alexander.sverdlin@siemens.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -60,23 +53,66 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Flowmailer-Platform: Siemens
+Feedback-ID: 519:519-456497:519-21489:flowmailer
 
-On Wed, 30 Sep 2026 17:21:45 +0200 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
->
-> This is the start of the stable review cycle for the 7.2.9 release.
-> There are 457 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Fri, 02 Oct 2026 15:23:04 +0000.
-> Anything received after that time might be too late.
+From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 
-Boot-tested under QEMU for Rust x86_64, arm64 and riscv64; built-tested
-for loongarch64 and arm32:
+When hw control is active, set_device_name() takes a reference on the
+netdev via dev_get_by_name(). The register_netdevice_notifier() failure
+path frees trigger_data without dropping it, leaking the netdev.
 
-Tested-by: Miguel Ojeda <ojeda@kernel.org>
+Cc: stable@vger.kernel.org
+Closes: https://lore.kernel.org/all/20260914140045.B8F4C1F000FF@smtp.kernel.org/
+Fixes: 0316cc5629d1 ("leds: trigger: netdev: init mode if hw control already active")
+Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+---
+Changelog:
+v3:
+- introduced unset_device_name() as a counterpart of set_device_name()
 
-Thanks!
+ drivers/leds/trigger/ledtrig-netdev.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-Cheers,
-Miguel
+diff --git a/drivers/leds/trigger/ledtrig-netdev.c b/drivers/leds/trigger/ledtrig-netdev.c
+index 5b0132484594c..e2a6c95a0dc97 100644
+--- a/drivers/leds/trigger/ledtrig-netdev.c
++++ b/drivers/leds/trigger/ledtrig-netdev.c
+@@ -324,6 +324,13 @@ static int set_device_name(struct led_netdev_data *trigger_data,
+ 	return 0;
+ }
+ 
++static void unset_device_name(struct led_netdev_data *trigger_data)
++{
++	dev_put(trigger_data->net_dev);
++	trigger_data->net_dev = NULL;
++	trigger_data->device_name[0] = 0;
++}
++
+ static ssize_t device_name_store(struct device *dev,
+ 				 struct device_attribute *attr, const char *buf,
+ 				 size_t size)
+@@ -776,8 +783,10 @@ static int netdev_trig_activate(struct led_classdev *led_cdev)
+ 	led_set_trigger_data(led_cdev, trigger_data);
+ 
+ 	rc = register_netdevice_notifier(&trigger_data->notifier);
+-	if (rc)
++	if (rc) {
++		unset_device_name(trigger_data);
+ 		kfree(trigger_data);
++	}
+ 
+ 	return rc;
+ }
+@@ -790,7 +799,7 @@ static void netdev_trig_deactivate(struct led_classdev *led_cdev)
+ 
+ 	cancel_delayed_work_sync(&trigger_data->work);
+ 
+-	dev_put(trigger_data->net_dev);
++	unset_device_name(trigger_data);
+ 
+ 	kfree(trigger_data);
+ }
+-- 
+2.55.0
+
