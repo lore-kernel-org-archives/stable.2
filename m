@@ -1,142 +1,152 @@
-Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC49F347BD9
-	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 12:22:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 820E63D300F
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 12:26:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.171
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790857358; cv=pass; b=b2QJjslR9UCYmDlAhF2RV1ER7ve5zgM7yYczqB2Rf/gzOAw23E7d5L1qAEhL7IIpWqQyXQB1qrTS/XoO/mgExZLTGF5Gxe6LtspHYuqO5efVYLvTt0gc0hFsHuqQaop1nHM4paETOWggThA22s+PwoZOK7Yt6UD5apeYKM2StW0=
+	t=1790857563; cv=pass; b=YSmOq1FPIoLhuCQZucHc+ZvyUlVpG3aBJd6OhjOCU4CYNtjONc5fdUfTJ3hduiuDopqIHcUzVr4I00J8r7lSE3LPiiyBJGSAoasmxhIzFMvpyYUnY1od4FOBIpUR4dA7UArud1go+nDv1pZTigNDmYZ/StGZgxhhjvmZU+roZjg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790857358; c=relaxed/simple;
-	bh=5MZo0uMLkAcHNoAjZEUVtpUF8aIbDuyDpkqwL/p8XWo=;
+	s=arc-20240116; t=1790857563; c=relaxed/simple;
+	bh=x+RqhDEFCJlDmSwDf7GB3PDW2yVZPJ21uczV8t+z28A=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nBICZB4MbljloDo63dyru4w47i8SDU7J5CneKfOTH41eQGE23i41x604yIP2izfVVPaHVxsHSbLUBEcN8pzy06IKHAPQjyUzQkwStGTJ2PE3h57cX7cejLFn5quhsgEyAPwXi5sMjB7WVwJWF/Qer5aTGCQOUfflhPEA8U1m1YU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com; spf=pass smtp.mailfrom=futuring-girl.com; dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b=GGZrES1A; arc=pass smtp.client-ip=74.125.228.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=futuring-girl.com
+	 To:Cc:Content-Type; b=SrrWECFd4mMGvaoLGMU3mrYKbn8WTrfQMAUSvqu4I10jN1hcHbIIpTxDexzD4i3DNHPUoBeXGq//wAYQZFJDg5aHiYCXdsmPBYnYsjbpm5LwMxbE42AQkto//if6H1n9zXgwvDEgVBZAAcBRQlfMtAbn/pfFm2K+kz3OgiwLw6g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Nq+DxrKU; arc=pass smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b="GGZrES1A"
-Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2e27d11f43so102078766b.0
-        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 05:22:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790857355; cv=none;
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Nq+DxrKU"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-3a4c8262465so1866869a91.2
+        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 05:26:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790857561; cv=none;
         d=google.com; s=arc-20260327;
-        b=SM4LMS1ZnKlQn2flXhuZNqdTuLhBf7u39HcxNgLqozWpNyU0m3doO7xpRlaJZY71cl
-         aYDasw+GNTNUuuByCvE27wnhd682alahcr78XyJjekwhoNVnim+XCiKTdq6yqXGeJEw7
-         mF0MNOxEa8TZW4Ulm/2MeI4DHu34nQ6LnsF60XaftGLYmcIlxJ9uYRU17U0/KEe0C4mB
-         KPABFdCxlLofpQ8k5wK6fgjEBFUtnvbpJXVRUteqSRGmClj/aszTTO0TKWemZwKGYkoR
-         gmKm6M/EyBpgAJWIw7HVgg42B5kipaxinwVhMRUIeubUQclYCPpmsw9OFUU+M2r3BhQj
-         ydmQ==
+        b=Trfph/S83MdcH+wiCXdYsSz7YiUvNKsGJoVgWi9tTtksoOfdefGBB2FYIzLj3OQjB6
+         KGTscB0PwdnTFdINKUx9Z5hqOtaTeGynHPuNLs3J87j5RMrbR7hkhVLjcoIWIBnpPrW8
+         2jQaAEb0sfdeKSXp2UeotGCJJLyWulESLv/WP8CUn48c+XGnpaJi/LDhgLqqT90fF2Ak
+         w05Pz78A1s6t7sKA5Ofjw4aPQIBceAlGAU0vyuCcCiv/jsaBQD75oJgRaPN20v8SAwjj
+         r7MQ+RY7omaoDN/TPVzwS41laMObqsf43OSMButHqmZyllJ/WokgHHVMgsurwSLhfUVK
+         RVfQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=be9cOIj4BNOmbbuy02A5g3aPL+QaTK1UPmL/Hb75rMM=;
-        fh=Wz8J5UEBOCqQDV8EGy7SaS7auVxYFAJQ5oaobiGaD9E=;
-        b=sFM4ZCdYBDUYCBhseYgFgIUU1yqSI0rtbSxnWYYjo1Ax6GF5UOnmQa561thcbg8j0J
-         XPR0rdKRylhYtovOXEiBcnA81Rx3iJXf5z0vXiO4WIAzTDk0moWb8Q2hrSBR4bgfAk/o
-         kRKsHYdZpz7/HEaCpFgnZMufQ5uty8DqVkmZh4MwqUVltmo5BMWpxfJhQnekxUfoTy/w
-         SNV8OxWfYgf4DiELmMrxOhLKdXUqDDcJ2/PLI7HcVbXDhKPugV3jYZ/rYZavtYOI/YZt
-         uLsAstLvHDQ5DRP/vf1TwNGNOFjFuHOkKscChFB/y69/JP4s/89raDFZfXU3j3vhpEEy
-         w7sg==;
+        bh=sHNsjDTZpfGR2H1l2JsSr6KfRDIP/MhvrrYNRy/u2yY=;
+        fh=X+zQNxtRvT3X0pbufRuaXkC/QNTu8dd2iZgyjFBiH5Y=;
+        b=AullT9yBXbqGU4JHWUbSd7ysKyYH+ZaAHp0sFKHxnIkR+YNLb41B1afQZrvKtEjzOt
+         VEtzgyh46EDJbT7noqea5tZ8e00hwNxjaIGEejIrrEda5lVUg2oBkQLnM7o/+9HbcmgO
+         Ag8mBQHDnEbl3wByAfuVOIncvHyvp0SgDsEsjmvCIp1CgRGuU1tKgwO5nD4osmJZaHk0
+         tKxX45dWJp/QX0rPdrwz2g4kVZMpLltzSNgQmb5Jokx2bQ/E8/E3JcGeAYOJ7vbGJ+2R
+         fn4rljWXuPlElScrYg2kb82eBH2O/qh22oTf5sp2FqJO18V4+SOYYu8xoFL4zqUNluk/
+         ZZRA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=futuring-girl.com; s=google; t=1790857355; x=1791462155; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1790857561; x=1791462361; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=be9cOIj4BNOmbbuy02A5g3aPL+QaTK1UPmL/Hb75rMM=;
-        b=GGZrES1ALdikbo7RktLSixs5ZyblqZYJp4qHTPRbmycw4Czd2bOvCG680jLtVaJRVs
-         OUNhHU/2m5YmK48LeZ9YygYGPhMCoKw7DqzosWswbI7fi8cfGaNxa6R7txOZJBAQCHg8
-         tQA8lIw1aCUfV8LmbNPQ5rdmpB2nUtXOowchStkPuCjMcPVWVd2HukrLlR6diqlp9LIY
-         35PIs0kSCyH6UIJWQTTHtVYP0rOmZz8Agu/1BQlZEn32eeSorQPNOpioxpH8lGPRQrFW
-         qw3Vn1BVdQR1vwCguZucb86vkA6RQ9/AgrPTnmTpgPewF8bXtQ3Xi7z5vnKQ7H1+cMaa
-         runw==
+        bh=sHNsjDTZpfGR2H1l2JsSr6KfRDIP/MhvrrYNRy/u2yY=;
+        b=Nq+DxrKUGKvNs17iv6Sgu9y/wyowD8TUW2b8lFLAfbZ6EKrhC3y36R3f4S0FWC1l9h
+         HgB4JDn6J7yeS5Zf+HcChijIPxP0YhzWy3L8u1DKpaXSEhCe88XuuTzo21cAgmCJ0E12
+         5Zj2+N2vg5ysSbyGQKKfAO01O1hYSX7ogzA0c=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790857355; x=1791462155;
+        d=1e100.net; s=20260707; t=1790857561; x=1791462361;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=be9cOIj4BNOmbbuy02A5g3aPL+QaTK1UPmL/Hb75rMM=;
-        b=lIqBFOKYKO4FJocqUX15mH7nB4vJ6uEwdF2NPs6p1AHEk6az7FvA4Rcd8poqVKcbju
-         q5s+keEJeZD/hI8m2P3vi4QYUJN7MUdMPP25G6I6JxnQdUFX42GdQS1/CKEHG7DCtV79
-         NUZ9Wl/lthRuvAPIfRQjNvZUpdPdS3JUAuk8kksf48z/fbvejf4+i34GiHaLL42Vhnql
-         uu8DkcoL9rVt9JLWwZGA9C1L9WTYkb/u03W7WCwWXYcP2HV5fDFUzEgsz4BWonbQiEgZ
-         r8VDyLpAOCC4yROa6bMH2e8v2tVMvzPUD5E4l/jY5l44V2qJQR97N1TZy1pVJOwlaEJZ
-         OchA==
-X-Gm-Message-State: AFuF++ngN+sQmJIQTiDUS+H10pYhWP6nQxVc+SK8uDkS0GJEvg0C7BUL
-	yAAEcqYt1YkkjLQPQ975BvGLxZD8zUMdRcJY/6v8ghRaWR0Ondcvtcx3dYvYfsJ+GYqQfDbHkDK
-	BjIbTpJHlJFtvcBfKx4uLz52P3uCWBj6M5c68AkeRWA==
-X-Gm-Gg: AYBFou3oZW/YTDLDE7MksaFdWR/V4VXKA0XVIusSBE/DKIPY4NvvDSRUw5pyBJkm4Rj
-	PfE0mrYJMtyUOfc5CIOdnMBAhtHjatZdzXRnLxQVt3sqkRjqJXVwibOvw2h3sCwjZmBe6V/WX8I
-	xz5XDv4jYcDgbOhmt2NUSDHqM4YBxwGLpMm/tll8BuG0czc0xn2G0oUcm1OJDsfCHmggvNMJpna
-	7htVuRiR4dRzhs9ArZ3c7hvddErL/7LqDCqUxqyxKwKc/nwwdqHjVlEe518q+DU1kvYd8xryQ9c
-	lzyJbtMul6pBtPaU/v/SkhMO3CmbYPxiGsO03X/YsbZ2gmUwBOEdixhNdiVhDaL6iQ==
-X-Received: by 2002:a17:907:6d11:b0:c2d:c80e:8366 with SMTP id
- a640c23a62f3a-c2e337bdea7mr263545766b.0.1790857354896; Thu, 01 Oct 2026
- 05:22:34 -0700 (PDT)
+        bh=sHNsjDTZpfGR2H1l2JsSr6KfRDIP/MhvrrYNRy/u2yY=;
+        b=Nc/uky1JQaCFEV4MQcxJNmiy/J9QI0uqbJBxkxxUc6kGQNGHM2oTsTGBlZyTifrBOp
+         /YCaXgfskxXDGUNW29RdbnvPAuMNnzkhPXf4CljkbsQB4NEIl6kV6QqTkg/FFxd6esSp
+         FEWJyl2qs7X56h3Z28aPril1z0RlCmCvEg1pOkXNL5WxTzgXcA5F1fcKhdr3Mqq5oBoo
+         RjFaqgxUzSCpOa8TH+uGOeVzMB5CV3Udk3b2pPOQTt51/t0HYdhR5wWL+rz8P4zzPhcv
+         iNaQtnRNj4i5FigtS447SUcj/fueK+9QF7haq8T2XR5dS6C0A+Fw9M2Kuj1I++y0LmHY
+         1o+w==
+X-Forwarded-Encrypted: i=1; AKwUvByUPFtuZLut9YKpxnazWPLrzaXnhrzclpmh9c/2zlo1jLxBXWpyTOjaeDw8TYlh/HnpIoKrFoc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJsE71GTsKg+EWsVSRGA8phluszEh67kb4sK30/Wn5Pg5srOO/f
+	WzBl9I3Q8pTlX3TZSfR1Hv4JWwBnyEGE6deGJ8xRPuJWE4WiubsVpzGCW5k8iTlzxnq7/7JOZ6b
+	F4l3Zzh1litYrVHTkOfVbUsNcQOz8BnK5g0HzK8wY
+X-Gm-Gg: AYBFou3DZmwYLp+AtFEb6bv+/iHC5YQ2bfKhmNdaRNFpig8Dbm7GrQLHKaIdyaDFBzX
+	AdWUkPH78Oobaftkp9gWPjiz8g8x3UyycmuTe0oTQT4IquPDfrIx+EK5gsX3wJ4hSdA3lj1mEoB
+	mUbrVYL/W6kzw36lgmpOdUy7ywPXUuqmWRk96QW0VnileCA7nVJerr2DRyiQ6Jwq6hn/4Mw/oSw
+	VZE8QK3yAxUz9BMSjfqXxOmnbRREKwj3qU/A/lRX8eyjFo6HiLHK6AeH7HSSQBBF1zrFpM5MQd5
+	+CQH7lDXvwP99VKG3xCZ19lvLM5xK9eHGJCUi4tbMHQULpGX/tNtDIQomhIzA2rPCrt242m+y1Q
+	xpdA1oOU=
+X-Received: by 2002:a17:90b:2787:b0:3a0:bbd8:5ba7 with SMTP id
+ 98e67ed59e1d1-3a4d19263b8mr3982449a91.62.1790857560613; Thu, 01 Oct 2026
+ 05:26:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930152346.024115587@linuxfoundation.org>
-In-Reply-To: <20260930152346.024115587@linuxfoundation.org>
-From: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
-Date: Thu, 1 Oct 2026 21:22:18 +0900
-X-Gm-Features: AclHuK-sbcaaYjsuOzxj2bOVAT_AE9dB5VOsaeOyAhBrmdCFSdt1ZFzdcdgvrb8
-Message-ID: <CAKL4bV61LvdiYKD0EXR1tMOcsLufHJiecdCPnUtt524DpJSFfw@mail.gmail.com>
-Subject: Re: [PATCH 7.2 000/457] 7.2.9-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
-	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
-	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
-	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
-	achill@achill.org, sr@sladewatkins.com
+References: <20260930234611.468765-2-cnfourt@gmail.com>
+In-Reply-To: <20260930234611.468765-2-cnfourt@gmail.com>
+From: Andrei Kuchynski <akuchynski@chromium.org>
+Date: Thu, 1 Oct 2026 12:25:49 +0000
+X-Gm-Features: AclHuK-BxU7MmUHAcZP4PHaPh5sL3Kfkf4dW_oEhBdzZNS6_OoOhRdYuvai3_LY
+Message-ID: <CAMMMRMe1Nph0cOtVsJcKGJgsnNarj+9fEizMh50RqXZP+cHoPQ@mail.gmail.com>
+Subject: Re: [PATCH v2] usb: typec: ucsi: Skip CAM query when partner has no
+ alt modes
+To: Gris Ge <cnfourt@gmail.com>
+Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org, 
+	Benson Leung <bleung@chromium.org>, Abel Vesa <abelvesa@kernel.org>, 
+	Pooja Katiyar <pooja.katiyar@intel.com>, Jameson Thies <jthies@google.com>, 
+	Hsin-Te Yuan <yuanhsinte@chromium.org>, Johan Hovold <johan@kernel.org>, linux-usb@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Greg
-
-On Thu, Oct 1, 2026 at 3:18=E2=80=AFAM Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
+On Wed, Sep 30, 2026 at 11:46=E2=80=AFPM Gris Ge <cnfourt@gmail.com> wrote:
 >
-> This is the start of the stable review cycle for the 7.2.9 release.
-> There are 457 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+> Since Thunderbolt alternate mode support was added,
+> `ucsi_altmode_update_active()` is called on every Connector Partner
+> Changed event.  This made the driver send `UCSI_GET_CURRENT_CAM` to
+> PPMs even when the partner had no alternate modes registered. Firmware
+> that does not support the optional alternate mode details answered Not
+> Supported, which produced a spurious error on every partner change:
 >
-> Responses should be made by Fri, 02 Oct 2026 15:23:04 +0000.
-> Anything received after that time might be too late.
+> ```
+> ucsi_acpi USBC000:00: GET_CURRENT_CAM command failed
+> ```
 >
-> The whole patch series can be found in one patch at:
->         https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-=
-7.2.9-rc1.gz
-> or in the git tree and branch at:
->         git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable=
--rc.git linux-7.2.y
-> and the diffstat can be found below.
+> Fixed by skipping the command when there is nothing to update.
 >
-> thanks,
+> Fixes: da87d45b1951 ("usb: typec: ucsi: Add Thunderbolt alternate mode su=
+pport")
+> Cc: stable@vger.kernel.org # v7.0+
+> Assisted-by: Codex:deepseek-v4.1-flash
+> Signed-off-by: Gris Ge <cnfourt@gmail.com>
+
+Reviewed-by: Andrei Kuchynski <akuchynski@chromium.org>
+
+> ---
+> v2:
+>   - skip the invoke of `ucsi_altmode_update_active()` in
+>     `ucsi_handle_connector_change()`
+> v1: https://lore.kernel.org/linux-usb/20260927021649.8967-1-cnfourt@gmail=
+.com/
 >
-> greg k-h
+>  drivers/usb/typec/ucsi/ucsi.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 >
-
-Linux version 7.2.9-rc1 tested.
-
-Build successfully completed.
-Boot successfully completed.
-No dmesg regressions.
-Video output normal.
-Sound output normal.
-
-Lenovo ThinkPad X1 Carbon Gen10(Intel i7-1260P(x86_64) arch linux)
-
-[    0.000000] Linux version 7.2.9-rc1rv-g815c1e68a78f
-(takeshi@ThinkPadX1Gen10J0764) (gcc (GCC) 16.2.1 20260810, GNU ld (GNU
-Binutils) 2.47) #1 SMP PREEMPT_DYNAMIC Thu Oct  1 19:40:07 JST 2026
-
-Tested-by: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
+> diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.=
+c
+> index bef3f9b71d71..c392afdc27ae 100644
+> --- a/drivers/usb/typec/ucsi/ucsi.c
+> +++ b/drivers/usb/typec/ucsi/ucsi.c
+> @@ -1519,7 +1519,8 @@ static void ucsi_handle_connector_change(struct wor=
+k_struct *work)
+>
+>         if (con->partner && (change & UCSI_CONSTAT_PARTNER_CHANGE)) {
+>                 ucsi_partner_change(con);
+> -               ucsi_altmode_update_active(con);
+> +               if (con->partner_altmode[0])
+> +                       ucsi_altmode_update_active(con);
+>
+>                 /* Complete pending data role swap */
+>                 if (!completion_done(&con->complete))
+> --
+> 2.55.0
+>
