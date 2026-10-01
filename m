@@ -1,67 +1,90 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7E1651AFD6
-	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 14:25:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E76B4B7A39;
+	Thu,  1 Oct 2026 14:28:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790864729; cv=none; b=F14jUqYRRUuajGvNAoPdoUrRn3tCYj+5hPB/4plQ3VXH14xpkXzFZNVPrTjCq0EOycUzxGBeX3Xn4QxuulYR++qLAIzWE4yV4Arxg3rv5Hp0OaXI8u7Hf3+buhApVvGV1CmFU3N3J8ReHB0oHatNh0MTaiJTvbezZekivpheR1Y=
+	t=1790864935; cv=none; b=nZW91l3VHmg86ToBc5rkGBgYgcBJMAWBwn+qGS2vCzNfqNewrEHZuPrT7LNVbhP+SbH+iacTURjhwDyN4+r8KuHMenPq3SVkAU/MLMzW2i3VjbxeMUnxB0mjdQ3Z1MM+BhoE2xFXgUgKr5QMMboSY1cv2JIDRrTd+2Dy52rKwtw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790864729; c=relaxed/simple;
-	bh=nAXCB2HbY7Mf+wmDfZkiXREuGwS2H6D9YJ4ox3hdyYw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SasbmAExDK5VM6btyQjFzmGa9QIkF6iPdNW0C0bactrkK0s+7FkFnBbvbBY6GbEUWZEUNq5wpQMnycuw6vqDPX8XYJVNyPFOkwOBS6aMGLlNoqcoRwWUPyETpPsIpqV4FddZkm1WPJK/Iaz1UoZzKi3KNogkEiOAhDrqWtOyLSI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=PXECmK3k; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790864935; c=relaxed/simple;
+	bh=LeDPnBgrM7pNQ8OlNZHsJRQR3r2PXLGLegBZ2Qsqzf8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=mZbZwH5dFMaAt+mv0syt1EHFmVemFqzQZIqMu6tf9BULz6SUwGnk97VdrzUdm0VIMBXY//8bseKsaMbkBZgDHwD+/cIrzeKV2e35Z8H/Lg2A+/bHWIFqiP3Ahf91lROIysZdacV//rKWd3GOOtPUX/ONfOfwi52m2GdY/lZdALs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=wkEnM30G; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="PXECmK3k"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790864726;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=+RQauoITMstIPGsYZHrV59o4U7Nh5j8XAKzdsfn+Yig=;
-	b=PXECmK3khYnAAIYL7LQm3a4ptt01U1uXXjDVfNS5W5CzThrXw6bOu652SNj7O6HnjLmfCY
-	n0otvT0AOyhkDbpd4JHUbwFboeWssTIU30aNBtynnLxkNexz8GNNfRDKTe21BQKadTAkyk
-	ayi5MwdiIftRYfDJecRUHACk9fweXcE=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-685-9m2QvmfuMBeug2vV4AyS8A-1; Thu,
- 01 Oct 2026 10:25:23 -0400
-X-MC-Unique: 9m2QvmfuMBeug2vV4AyS8A-1
-X-Mimecast-MFC-AGG-ID: 9m2QvmfuMBeug2vV4AyS8A_1790864721
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8513B18007FD;
-	Thu,  1 Oct 2026 14:25:20 +0000 (UTC)
-Received: from localhost (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 3B16B30000E4;
-	Thu,  1 Oct 2026 14:25:18 +0000 (UTC)
-From: Vaibhav Nagare <vnagare@redhat.com>
-To: davem@davemloft.net,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	edumazet@google.com,
-	michael.chan@broadcom.com,
-	pavan.chebbi@broadcom.com
-Cc: ast@kernel.org,
-	daniel@iogearbox.net,
-	hawk@kernel.org,
-	john.fastabend@gmail.com,
-	sdf@fomichev.me,
-	andrew+netdev@lunn.ch,
-	netdev@vger.kernel.org,
-	bpf@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="wkEnM30G"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 398C11A10B5;
+	Thu,  1 Oct 2026 14:28:47 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 03A5060341;
+	Thu,  1 Oct 2026 14:28:47 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 116E0103281D4;
+	Thu,  1 Oct 2026 16:28:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790864924; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=kAb7NHjVc8QoTRTxUb1OG7thf2F5YhXlem84GhsJqnE=;
+	b=wkEnM30GLwNzp9ft92ngDRC8drPC5uK41nKojW1TWpeLLYZGkAaNjlpx85V+RBL9CFm2ba
+	62w05gkvwxelutRCl4tp9Mu72PN9uuOpnGqcatm8n7OP9Mm9laO5fs+U3Iydhh6hpOBcNm
+	mC6i4DMT3QOo8v6ExQ+91jdjg1j4FPnztZaC8lnIxfQHhapJu+d2/Jths2DhbTM7uHUNhb
+	pq0ylYMhE3L2rZbCvY+LygXM0Z2GH147YHxBjwJwvOMfb+5H2ESI3+H70X077bR0QF8dRH
+	Z72/qn+a1h1axu3pw3nMIRQh4L9bXoQn76KEz9zs8cVxohflNkhmso7kcaneEA==
+From: Herve Codina <herve.codina@bootlin.com>
+To: Richard Cheng <icheng@nvidia.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	David Rhodes <david.rhodes@cirrus.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Dan Williams <djbw@kernel.org>,
+	Ira Weiny <iweiny@kernel.org>,
+	Li Ming <ming.li@zohomail.com>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Lizhi Hou <lizhi.hou@amd.com>
+Cc: driver-core@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	nagarevaibhav@gmail.com,
-	Vaibhav Nagare <vnagare@redhat.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net v3] bnxt_en: don't leave an XDP program installed when the open fails
-Date: Thu,  1 Oct 2026 19:55:16 +0530
-Message-ID: <20261001142516.1386525-1-vnagare@redhat.com>
+	linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	patches@opensource.cirrus.com,
+	linux-gpio@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-cxl@vger.kernel.org,
+	Allan Nielsen <allan.nielsen@microchip.com>,
+	Horatiu Vultur <horatiu.vultur@microchip.com>,
+	Daniel Machon <daniel.machon@microchip.com>,
+	Steen Hegelund <steen.hegelund@microchip.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	stable@vger.kernel.org,
+	Ulf Hansson <ulf.hansson@linaro.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: [PATCH v12 01/10] driver core: fw_devlink: Introduce fw_devlink_set_device()
+Date: Thu,  1 Oct 2026 16:28:01 +0200
+Message-ID: <20261001142815.277550-2-herve.codina@bootlin.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261001142815.277550-1-herve.codina@bootlin.com>
+References: <20261001142815.277550-1-herve.codina@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,137 +92,45 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+X-Last-TLS-Session-Version: TLSv1.3
 
-bnxt_xdp_set() stores the new program and drops the reference on the old
-one before reopening the NIC.  If bnxt_open_nic() then fails, ndo_bpf()
-returns an error with the new program still in bp->xdp_prog.  The caller
-treats the error as "nothing was installed" and drops its own reference,
-so bp->xdp_prog is left pointing at a freed program and the next XDP
-update dereferences it:
+Setting fwnode->dev is specific to fw_devlink.
 
-  BUG: unable to handle page fault for address: ff78ecc80ddd1038
-  RIP: 0010:__bpf_prog_put+0x5/0x80
-  Call Trace:
-   bnxt_xdp_set+0xad/0x1b0 [bnxt_en]
-   dev_xdp_propagate+0x36/0xa0
-   bond_xdp_set+0xeb/0x2d0 [bonding]
-   dev_xdp_install+0x1b1/0x350
-   bpf_xdp_link_update+0xc5/0x1b0
-   link_update+0x104/0x1e0
-   __sys_bpf+0x662/0xcf0
+In order to avoid having a direct 'fwnode->dev = dev;' in several
+place in the kernel, introduce fw_devlink_set_device() helper to perform
+this operation.
 
-Seen on a 6.12 based kernel after bnxt_alloc_mem() failed an order-4
-allocation on a fragmented host:
+Having this helper allows to hide the fwnode devlink related stuff
+behind the helper.
 
-  bnxt_en 0000:a0:00.1 ens4f1np1: nic open fail (rc: fffffff4)
-  bond1: (slave ens4f1np1): Error -12 calling ndo_bpf
-
-Bonding is not required to hit this; a plain XDP attach on a bnxt
-interface takes the same path.
-
-Restore the previous program and its ring and feature configuration
-when an attach or a replace fails, and release the old program only
-once the change has been committed.  The configuration matters because
-bnxt_init_one_rx_ring() only assigns rxr->xdp_prog in page mode, and
-__bnxt_set_rx_skb_mode() derives dev->max_mtu from the installed
-program.
-
-A detach is not undone: dev_xdp_detach_link() releases the core's
-reference whether or not the driver returns an error, so putting the
-program back would leak it and leave the driver running a program the
-core has already detached.
-
-Fixes: c6d30e8391b8 ("bnxt_en: Add basic XDP support.")
 Cc: stable@vger.kernel.org
-Signed-off-by: Vaibhav Nagare <vnagare@redhat.com>
+Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Reviewed-by: Ulf Hansson <ulf.hansson@linaro.org>
+Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Reviewed-by: Richard Cheng <icheng@nvidia.com>
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 ---
-  v3:
-   - don't undo a detach when the reopen fails.  dev_xdp_detach_link()
-     releases the core's reference whether or not the driver returns an
-     error, so restoring the program leaked it and left the driver running
-     a program the core had already detached (Sashiko AI review)
-   - v2: https://lore.kernel.org/netdev/20260930070901.1218980-1-vnagare@redhat.com/
-   - v1: https://lore.kernel.org/netdev/20260928131458.1012180-1-vnagare@redhat.com/
+Cc stable because used by other patches with Fixes + Cc stable
+---
+ include/linux/fwnode.h | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
- drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c | 49 +++++++++++++------
- 1 file changed, 33 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c b/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
-index 9e5009be8e98..430272fc0594 100644
---- a/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
-+++ b/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
-@@ -381,11 +381,31 @@ int bnxt_xdp_xmit(struct net_device *dev, int num_frames,
- 	return nxmit;
- }
+diff --git a/include/linux/fwnode.h b/include/linux/fwnode.h
+index a9dcaf7e7076..3ce49575cf82 100644
+--- a/include/linux/fwnode.h
++++ b/include/linux/fwnode.h
+@@ -260,4 +260,10 @@ void fw_devlink_purge_absent_suppliers(struct fwnode_handle *fwnode);
+ void fw_devlink_refresh_fwnode(struct fwnode_handle *fwnode);
+ bool fw_devlink_is_strict(void);
  
-+static void bnxt_xdp_apply_cfg(struct bnxt *bp, int tx_xdp)
++static inline void fw_devlink_set_device(struct fwnode_handle *fwnode,
++					 struct device *dev)
 +{
-+	struct net_device *dev = bp->dev;
-+	int tc = bp->num_tc ? : 1;
-+
-+	if (bp->xdp_prog) {
-+		bnxt_set_rx_skb_mode(bp, true);
-+		xdp_features_set_redirect_target_locked(dev, true);
-+	} else {
-+		xdp_features_clear_redirect_target_locked(dev);
-+		bnxt_set_rx_skb_mode(bp, false);
-+	}
-+	bp->tx_nr_rings_xdp = tx_xdp;
-+	bp->tx_nr_rings = bp->tx_nr_rings_per_tc * tc + tx_xdp;
-+	bnxt_set_cp_rings(bp, true);
-+	bnxt_set_tpa_flags(bp);
-+	bnxt_set_ring_params(bp);
++	fwnode->dev = dev;
 +}
 +
- static int bnxt_xdp_set(struct bnxt *bp, struct bpf_prog *prog)
- {
- 	struct net_device *dev = bp->dev;
- 	int tx_xdp = 0, rc, tc;
- 	struct bpf_prog *old;
-+	int old_tx_xdp;
- 
- 	netdev_assert_locked(dev);
- 
-@@ -418,25 +438,22 @@ static int bnxt_xdp_set(struct bnxt *bp, struct bpf_prog *prog)
- 	if (netif_running(dev))
- 		bnxt_close_nic(bp, true, false);
- 
-+	old_tx_xdp = bp->tx_nr_rings_xdp;
- 	old = xchg(&bp->xdp_prog, prog);
--	if (old)
--		bpf_prog_put(old);
--
--	if (prog) {
--		bnxt_set_rx_skb_mode(bp, true);
--		xdp_features_set_redirect_target_locked(dev, true);
--	} else {
--		xdp_features_clear_redirect_target_locked(dev);
--		bnxt_set_rx_skb_mode(bp, false);
-+	bnxt_xdp_apply_cfg(bp, tx_xdp);
-+
-+	if (netif_running(dev)) {
-+		rc = bnxt_open_nic(bp, true, false);
-+		/* dev_xdp_detach_link() drops the ref even if we fail */
-+		if (rc && prog) {
-+			WRITE_ONCE(bp->xdp_prog, old);
-+			bnxt_xdp_apply_cfg(bp, old_tx_xdp);
-+			return rc;
-+		}
- 	}
--	bp->tx_nr_rings_xdp = tx_xdp;
--	bp->tx_nr_rings = bp->tx_nr_rings_per_tc * tc + tx_xdp;
--	bnxt_set_cp_rings(bp, true);
--	bnxt_set_tpa_flags(bp);
--	bnxt_set_ring_params(bp);
- 
--	if (netif_running(dev))
--		return bnxt_open_nic(bp, true, false);
-+	if (old)
-+		bpf_prog_put(old);
- 
- 	return 0;
- }
+ #endif
 -- 
 2.55.0
 
