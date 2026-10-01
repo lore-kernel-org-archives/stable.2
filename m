@@ -1,145 +1,177 @@
-Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68FEF23BD02;
-	Thu,  1 Oct 2026 09:07:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C02A74E73BE
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 09:13:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790845653; cv=none; b=Y1YiRxDUNZMXF4gflUO6JjLcGW5R40uhjqTuXHg5y7HsyHNiJ2pfvlhrkH74WMVkLXTDX6e7MKVt0oMXhrg4675LJgbVR8BbHfgRXJC512WaFUlspRmuiAcQ4h4+BlYEnMPoHMh1TCIS425fT7LRdZ+2WcoZ7Ea5jF5OjoAy9ho=
+	t=1790846008; cv=none; b=dAt64d2qLXbmN+aVD5jOXWOBZdzx/zBbl4taWNF0zwoKBc0UyXG/IfFs5xegxLh3HiXQDTqbMPO0XUmdb4BVb9/uSrXrzqyTd0EvwMVMskp6ztjGwW2on1sK9XP4JTGwjS+dGDjDidSOcnR6uj1UHPzyqj5rxN6csEyRH3r4buo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790845653; c=relaxed/simple;
-	bh=DTAQziup/oIarQOW2copEqeYrhfmA0HoE9UIKAcn0KI=;
-	h=Date:Message-Id:To:Cc:Subject:From:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=HU8Omzdq/9m0CibBMyrj6kTKLJmXdwVHz7hbYtsmgyqhl30B3vklz+mDE7lVzXeM2b8Kq5W9oZQtLTyfQpcmAIpWg9kgRiEUaJu7whwqZ4wc2m1Z9mocykDhhyiSYq4M6GeGSLSG/AfXa7NNFE9Q35MKV/3Lt3Y/LL0FCSRXVek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org; spf=pass smtp.mailfrom=flapping.org; dkim=pass (2048-bit key) header.d=flapping.org header.i=@flapping.org header.b=TI1ZT7Ve; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=q6ZJsyFk; arc=none smtp.client-ip=103.168.172.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flapping.org
+	s=arc-20240116; t=1790846008; c=relaxed/simple;
+	bh=+U64cDZT7ToMCSgN7GhX8/wLnr5qWuSW9VzZc63JcH0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VRtTRAwHo9SZwdVLR3cc0iHKVlutkJCrZng1SV9pZAUFCEvo3u8W5YBmI7FTIQNOKzk1275NA+5JRfZx1Z/IulA7wVpev/UeTsPDZ5s3aTagpkXIs7fNxMHdt4OXPHReEmrS7aPqwuAiG3lvAppl+HYx726MEx30T/kr8CKmiyI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GZICoOhR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flapping.org header.i=@flapping.org header.b="TI1ZT7Ve";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="q6ZJsyFk"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 2BFD81400048;
-	Thu,  1 Oct 2026 05:07:30 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Thu, 01 Oct 2026 05:07:30 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flapping.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1790845650;
-	 x=1790932050; bh=Obx3qv4P0/DtypWACVLfTv8l8niOWtVy5Y30TJxQ9Ao=; b=
-	TI1ZT7VeT9IB1tNLlHmdYnAf1l6oJ3rGs7+bG3mSv0Uwb7g5alg2C/0LOOTw4VKe
-	vCwpsZAuzbfNjCrd+tbAY2R1X5mU7oyTarO/CIHKmMPoTwooQvF0xK2+nWdUiv7Q
-	qHVcy3uC7vFqHzLP7jF3mClq33lXp0FVCd+B8A+fBADKBoZRK5pQ1s9MreDWJH4F
-	Va0LhDdM3xcPv1iX3ao+SeeR1SMlgDIXZ03NKFlyyq3mDbvylrRLFNFb0EQo4fVX
-	PLzlrTmvLaF/nvoEoqoeWCVxSAQ/+0k3DhVT9rYRm4tPUiVTz/Xr5CgS+qD2O+qM
-	RIq0iK37gcl7Zx3BBdGixA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790845650; x=
-	1790932050; bh=Obx3qv4P0/DtypWACVLfTv8l8niOWtVy5Y30TJxQ9Ao=; b=q
-	6ZJsyFkvxuOlO57m0bzahP/uoFOgD1bhOsaCFtAf7qJqBmSqs7EHGmmtucM9KfFw
-	fjfUslZC1GdnAKajjrGBlIFzYkBu8BU2xN5K4ftcMS5TgVwTHztDbHy+QIhEFzov
-	W1+EwYSgdYAszezqgRIaBRU3LxAsR6Ap8sFJX9imoV+ylz8pwrzzdomB8gMCHaWC
-	CFQa5657MtatoWo+DqPd4zTHAZcjuxZiCxk6TATaxwl9T1opgmGvSDKPe8iZQ6tb
-	J/K7FHzdlqIfm6kC4BCgH2l1aKFgbnSUFvOFWpBLuc7Sm/rFp+ba0kp5in75rOMD
-	yi5HZGRHtAAZtMeN/nQFQ==
-X-ME-Sender: <xms:0SK-aj3w6eqn5yHTlWAJ8dh_D7U-Vyq1vZjVyOa9kVyOlJScu7-e8Q>
-    <xme:0SK-amBf2F8Bl7K1rfhrskpkYXMhcMqCpxPIZnLYOGm727L5ABJeTCuD5Sami89v0
-    zim7NTXSUGrn8AFzzhtvDdefpiGaV5X5YCdFcKLN1BF8dMLZs6XS9w6>
-X-ME-Received: <xmr:0SK-asYbDqpiBvIXE4Tq3xrPLqCYqoWoveQlUGPwtLcVHAB-TLJJJtr4s-ltX-0hrH_hDUxHRCLU-PLDLzcW5tXX>
-X-ME-Proxy-Cause: dmFkZTFNKHa1tEzcbkT1o9dM42RBYjEqARiImiJoaiXXguSrsFowz9vv+XpWUUP2NSvQLG
-    YiaRj38uvBc9moZw8KxMY4FPpZts1BgllbQw5it0MChKAy2bsiOJHtYusrCCWyKhOwHMW3
-    C/mlU4nBoIr86k00MMXfRbwwQKkCfzlQ2duMeLPlAw3QLxY+cPeSdpstY1PRvM6m/HMzor
-    Kmxuvf+jSHXR2py02Bidx9a0WWilIuWtQ/4WzHU/V0NyG0lUvDn3NCzNRXtoZ/AHjy5vth
-    hmA/5fv2n6Wtc2JYCb4oiDOR8swQqZG7jx6gVT769YAKVVCjCKR1hhjUaO74SSPrEvP1Nn
-    6H9T5KOwF2Vdas8ksximWcCJ15gileZQGgBIUP4JLQFVOWdrjzg3E+7j2dLNe5d2G9Cx0/
-    Is++gE3kPt0Xu/7FLtgvDXPwzGdnlZlc/w8RM5EDNCt19pLBUcUrz/guOEryenNkHPHbYL
-    qucOvnzvMXx7W5rAclgGpRnZ0HvOtdTk6AR5JkXsiXhA6jmpT93/JFzSxDI5es/ybtJY/Z
-    stC6ZtneBSlxLrpmznWUyJymQristkGQ8ASCiHASf9BRWh4R2QiMnNnJHH9vZZg265Hfmj
-    PSRIItfGaHgAtVZ0zsRKfRmdbH6Pgsucd6UeorMi4KYwwPabTraq8IYf1FWw
-X-ME-Proxy: <xmx:0SK-aibIWdXmJJy_8zG3yMy4ApT7uXLy2jf7egysn9dqPhb2C9IU_g>
-    <xmx:0SK-atmu3MZKYysiY6fxfzRsuA5mYz_0PbrTS2UnBVV4AcyUUYSMlA>
-    <xmx:0SK-akR6Yk6hIvg17XYatXDyZ_ROvoA_6DnKMBTz7uCU0bC1K4J9ww>
-    <xmx:0SK-aiVNaNiBAsABaQCHJbh3nlCFLdVXDXhMRH2w9RzlG9AR3LD7cQ>
-    <xmx:0iK-arB-xWoqEg4IA-9mNtXfIalto2YqoJoDrBrFozrRAl74CpuaTsZA>
-Feedback-ID: i51fe4b43:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 1 Oct 2026 05:07:24 -0400 (EDT)
-Date: Thu, 01 Oct 2026 18:07:22 +0900 (JST)
-Message-Id: <20261001.180722.1686004013398665163.tomo@flapping.org>
-To: ukleinek@kernel.org
-Cc: tomo@flapping.org, fustini@kernel.org, guoren@kernel.org,
- wefu@redhat.com, a.hindborg@kernel.org, acourbot@nvidia.com,
- aliceryhl@google.com, bjorn3_gh@protonmail.com, boqun@kernel.org,
- dakr@kernel.org, daniel.almeida@collabora.com, gary@garyguo.net,
- linux-riscv@lists.infradead.org, lossin@kernel.org,
- m.wilczynski@samsung.com, ojeda@kernel.org, tamird@kernel.org,
- tmgross@umich.edu, work@onurozkan.dev, linux-pwm@vger.kernel.org,
- rust-for-linux@vger.kernel.org, fujita.tomonori@gmail.com,
- stable@vger.kernel.org
-Subject: Re: [PATCH v2] pwm: th1520: Fix 32-bit build with COMPILE_TEST
-From: FUJITA Tomonori <tomo@flapping.org>
-In-Reply-To: <ar38qq0q8f2Vecuw@monoceros>
-References: <arz487DLBlaBrWLN@monoceros>
-	<20261001.070215.521963012921142699.tomo@flapping.org>
-	<ar38qq0q8f2Vecuw@monoceros>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GZICoOhR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A3C11F00898
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 09:13:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790846006;
+	bh=0Y1pGmqEjuKazOqCGlTyPOQrbisidfuL9CMADMqAeL0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=GZICoOhR8aADjOZKcf7yqRwqym8JMkN58rwIUtQuSwHiDs5Maq5mPYUlYFlOKOnBb
+	 mNDhABIgAG2ZSRjUl+hTMFWa0+06NmH1bmTeUEaKvEubqy00XPJbc69TP2iB0JD7Q0
+	 v5XCnUYZz1rZey/o8JcNnp5Sf3pte6qplPyy+ABxw5kCfjs/B0DvpUGvgVIR8OqoAn
+	 dx1ezWeLJjwA8x/bsJ1kNNA2I3eA7QH4hrSYAJrXu5Lvo0sicjEZDx8sm3+4YwCO+8
+	 kenopl0rT0B3vgyjTPwe8iFFhXLTabKTH4bFeICC3c/GCxudWbLs6K/HE6Icb6bPhf
+	 mulDEWwB8NLbA==
+Received: by mail-vs2-f43.google.com with SMTP id 71dfb90a1353d-5c67e5059f8so1986272e0c.1
+        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 02:13:26 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByqkVgitP8z5ZSLb15wBv5I7AJGOTZ+sSOU5FiOsa/3SYe/f024DireHTdl2jE0VumTs40cS6U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLW9BwuscXGlr9MFgORgHe4o8BZMK9eIWEg76pBhEx1A19XxMnN
+	kFmFRtZD9u8TqVPEgRPv77pSMd8O73XBa3p5TkH/qeXwj1Q1f0fhefIFEh6Ec1rtnu50tkgWY+b
+	qzF+WgZeBAmc6ffc7XweCwXpHiutepkM=
+X-Received: by 2002:a05:6102:4b12:b0:7a7:ce1f:6b95 with SMTP id
+ ada2fe7eead31-7be622a45a7mr1095458137.2.1790846005564; Thu, 01 Oct 2026
+ 02:13:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: Text/Plain; charset=iso-8859-1
+MIME-Version: 1.0
+References: <4ee4d3cf8971d35eb863407808c896d6120bcc59.1790758765.git.wqu@suse.com>
+In-Reply-To: <4ee4d3cf8971d35eb863407808c896d6120bcc59.1790758765.git.wqu@suse.com>
+From: Filipe Manana <fdmanana@kernel.org>
+Date: Thu, 1 Oct 2026 10:12:49 +0100
+X-Gmail-Original-Message-ID: <CAL3q7H6-7FX90GQcv_-AEfqgCOe7eyGWx8166fM+GvK-PdF=-A@mail.gmail.com>
+X-Gm-Features: AclHuK9hsVU1wkCBVZFW29Nc9Qq2ysbzZJWb_HQ6DwuuDuIBgLkbIgcSGPjX9-Q
+Message-ID: <CAL3q7H6-7FX90GQcv_-AEfqgCOe7eyGWx8166fM+GvK-PdF=-A@mail.gmail.com>
+Subject: Re: [PATCH v2] btrfs: raid56: do not verify the content if there is
+ no data checksum
+To: Qu Wenruo <wqu@suse.com>
+Cc: linux-btrfs@vger.kernel.org, Bartosz Fenski <bartosz@fenski.pl>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, 1 Oct 2026 08:27:45 +0200
-Uwe Kleine-K=F6nig <ukleinek@kernel.org> wrote:
+On Wed, Sep 30, 2026 at 10:04=E2=80=AFAM Qu Wenruo <wqu@suse.com> wrote:
+>
+> [BUG]
+> There is a bug report that fio can fail to sync the data on a degraded
+> RAID56 mount:
+>
+>  # mkfs.btrfs -m raid1 -d raid5 -f $dev1 $dev2 $dev3
+>  # mount $dev1 $mnt
+>  # btrfs balance start -d $mnt
+>  # umount $mnt
+>  # btrfs dev scan -u $dev2
+>  # wipefs -fa $dev2
+>  # mount -o degraded $dev1 $mnt
+>  # fio --name=3Ddegraded-write --directory=3D$mnt --rw=3Drandwrite --fdat=
+async=3D4 \
+>                 --bs=3D4k --size=3D512M --randrepeat=3D1
+>
+> The run will fail at fsync:
+>
+>  fio: io_u error on file /mnt/btrfs/degraded-write.0.0: Input/output erro=
+r: datasync offset=3D142254080, buflen=3D0
+>  fio: pid=3D2064, err=3D5/file:io_u.c:2008, func=3Dio_u error, error=3DIn=
+put/output error
+>
+> [CAUSE]
+> With extra debug output, it shows the problem pretty well:
+>
+>  rbio=3D2876243968 faila=3D0 sectornr=3D0
+>  rbio=3D2876243968 error=3D0-15 csum=3D2 bio=3D15
+>
+> The first line shows the rbio's full stripe logical, and stripe/sector
+> number when verify_one_sector() failed.
+>
+> The second line shows more detail about the rbio, the sector range [0, 16=
+)
+> is corrupted, which indicates the first data stripe is corrupted, matchin=
+g
+> the missing device.
+>
+> The important part is that the csum bitmap shows the data csum is only
+> for sector number 2, meanwhile the failed verification is at sector
+> number 0.
+>
+> This means we did the checksum verification even if no corresponding
+> checksum is populated.
+>
+> [FIX]
+> There is already a similar check at verify_bio_data_sectors(), but
+> unfortunately there is no such check at verify_one_sector().
+>
+> Add the missing check to skip the csum verification if there is no
+> corresponding data checksum.
+>
+> Reported-by: Bartosz Fenski <bartosz@fenski.pl>
+> Link: https://lore.kernel.org/linux-btrfs/a72409af-45ef-45df-9970-2e38bcb=
+22ea6@fenski.pl/
+> Fixes: 7a3150723061 ("btrfs: raid56: do data csum verification during RMW=
+ cycle")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Qu Wenruo <wqu@suse.com>
 
->> > Can't we do better than that? For C code the right thing to do is =
-to use
->> > one of the div helpers instead of a plain / for types bigger than =
-long.
->> =
+Reviewed-by: Filipe Manana <fdmanana@suse.com>
 
->> Indeed. Rust code already uses some div helpers. However, the kernel=
+Looks good, thanks.
 
->> crate does not have Rust wrappers for the helpers this driver needs,=
-
->> such as mul_u64_u64_div_u64(), so we need to add them first. The
->> changes would be too large for stable.
->> =
-
->> So how about merging this as a fix? I will work on patches to use di=
-v
->> helpers in the driver.
-> =
-
-> Fine, then let me just wonder about the expression you chose, that ma=
-kes
-> it look as if 64BIT was only needed for COMPILE_TEST.
-> =
-
-> How about making this
-> =
-
-> diff --git a/drivers/pwm/Kconfig b/drivers/pwm/Kconfig
-> index 729776086879..4cc2911a0673 100644
-> --- a/drivers/pwm/Kconfig
-> +++ b/drivers/pwm/Kconfig
-> @@ -774,6 +774,7 @@ config PWM_TH1520
->  	tristate "TH1520 PWM support"
->  	depends on ARCH_THEAD || COMPILE_TEST
->  	depends on RUST
-> +	depends on 64BIT # no 64bit division available on 32 bit builds
->  	depends on HAS_IOMEM && COMMON_CLK
->  	select RUST_PWM_ABSTRACTIONS
->  	help
-> =
-
-> instead?
-
-Yeah, it's cleaner.
-
+> ---
+> Changelog:
+> v2:
+> - Fix the calculation in the total_sector_nr
+>   Which used "+" instead of "*" for the stripe_nr part.
+> ---
+>  fs/btrfs/raid56.c | 11 ++++++++---
+>  1 file changed, 8 insertions(+), 3 deletions(-)
+>
+> diff --git a/fs/btrfs/raid56.c b/fs/btrfs/raid56.c
+> index 8ec24dbb180f..5ec31299f1c3 100644
+> --- a/fs/btrfs/raid56.c
+> +++ b/fs/btrfs/raid56.c
+> @@ -1889,6 +1889,8 @@ static int verify_one_sector(struct btrfs_raid_bio =
+*rbio,
+>  {
+>         struct btrfs_fs_info *fs_info =3D rbio->bioc->fs_info;
+>         phys_addr_t *paddrs;
+> +       const unsigned int total_sector_nr =3D
+> +               stripe_nr * rbio->stripe_nsectors + sector_nr;
+>         u8 csum_buf[BTRFS_CSUM_SIZE];
+>         u8 *csum_expected;
+>
+> @@ -1898,6 +1900,11 @@ static int verify_one_sector(struct btrfs_raid_bio=
+ *rbio,
+>         /* No way to verify P/Q as they are not covered by data csum. */
+>         if (stripe_nr >=3D rbio->nr_data)
+>                 return 0;
+> +
+> +       /* No data checksum for this sector. */
+> +       if (!test_bit(total_sector_nr, rbio->csum_bitmap))
+> +               return 0;
+> +
+>         /*
+>          * If we're rebuilding a read, we have to use pages from the
+>          * bio list if possible.
+> @@ -1908,9 +1915,7 @@ static int verify_one_sector(struct btrfs_raid_bio =
+*rbio,
+>                 paddrs =3D rbio_stripe_paddrs(rbio, stripe_nr, sector_nr)=
+;
+>         }
+>
+> -       csum_expected =3D rbio->csum_buf +
+> -                       (stripe_nr * rbio->stripe_nsectors + sector_nr) *
+> -                       fs_info->csum_size;
+> +       csum_expected =3D rbio->csum_buf + total_sector_nr * fs_info->csu=
+m_size;
+>         calculate_block_csum_paddrs(fs_info, paddrs, csum_buf);
+>         if (unlikely(memcmp(csum_buf, csum_expected, fs_info->csum_size) =
+!=3D 0))
+>                 return -EIO;
+> --
+> 2.55.0
+>
+>
