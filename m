@@ -1,164 +1,162 @@
-Received: from mail-oi2-f42.google.com (mail-oi2-f42.google.com [74.125.231.234])
+Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB1B24766B7
-	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 23:50:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB80649BD6D
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 23:58:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.171
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790898605; cv=pass; b=VbxEbY3Fvi9jnVEk/ssAm3ys3lPbmnOhrcbh7K5F6LlZ5MjRDYFZ8Fg3ZcOgo3+cHHzJujjQtYmOIspBIJ8NzhlcWclmWGjrgYJe/nNA/mu0EwGzQLyx6KFqaMegk8IhB0DxjQ1TF2RoMSkpFpM78uytmDDOXruo2FZrcF+jRlE=
+	t=1790899107; cv=pass; b=ZPcKz58r8Dtz75X6eZaFU5N59qBuJAUUpH4YzzW6UXH75boAMg75Y2a7G8gAvmlUwtIIotfos7bHIsG/zvcc7UFKh2nfbz4WjiwgDNDcCO5616IC30ipiMc8l1nK5OunW97e9FkarfdLmNvMMMZoxao6InS4BdOdzMgYdyLj41U=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790898605; c=relaxed/simple;
-	bh=tTc9z7FYsgGlwJPZrMfkGMhg4VwSkixsGCk/z8dgvNU=;
+	s=arc-20240116; t=1790899107; c=relaxed/simple;
+	bh=AU5qx0SsPYU3uJ8KwmQ0/fUfZYMcTpVxfADD1eUqY6g=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZgeAa3v/VnqisqpKEGRXomz2bD9+UeraEuQ9cCbaPv/bSaxrwzrhqu7J65S8iJMg+VTP0WhXgkwpACEWaIBNBTf2Cm6aeIV/suxlHVsnFP19YHMpU3wIT5S8OkSkw05oGN8qQHy3MDJ+Wq/8QAzbDJlxNWnKPfkY7pPWRRnux+A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nextdimension.cc; spf=pass smtp.mailfrom=nextdimension.cc; dkim=pass (2048-bit key) header.d=nextdimension.cc header.i=@nextdimension.cc header.b=g/MoVTUx; arc=pass smtp.client-ip=74.125.231.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nextdimension.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nextdimension.cc
+	 To:Cc:Content-Type; b=S/+vWb8t7f66xgUsHid5T0iyc1HJkE7TdPzv/YHhc/HgKW9Z2cWp47bKidSVsSPalmE5ZagdK2J8bGlQYOoHvthY8JeUEaBenJ26CyohDBTDcJmtpPgAluUnaGQJHKkIB4P2ezZayJ7TpoW3sKJndTAv4UjdhYsDY0RhBkV+dRM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cdUMZqDM; arc=pass smtp.client-ip=74.125.229.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nextdimension.cc header.i=@nextdimension.cc header.b="g/MoVTUx"
-Received: by mail-oi2-f42.google.com with SMTP id 5614622812f47-4f560d928f0so34550b6e.3
-        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 16:50:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790898601; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cdUMZqDM"
+Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-144f7915355so6171823c88.3
+        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 16:58:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790899105; cv=none;
         d=google.com; s=arc-20260327;
-        b=PVKmX1NzNz5FEAY3Y+9irDnioyjhEnxn6KhiY97TGxx003KwNDd7pKiaJ+l9Q+lSKt
-         pnzHpqXZKYS7JohfqwTZM2iRwwmxUbTqKXRcOKeTkN38Kol/GvIv3ZTtF7hoghFlU9Te
-         spYryW/uv8qMrxWc81ENazEJEoJC1eXMRvaMTueGbTsd56nx3JZiSWBQvfNmRtUWzwR2
-         YxSnTV99PgD1SSzlLVb+tkValOCfJfRHFYnDvjalhB7EbM3Fxdczt0N3KseR0iRiwYE0
-         mxULAS88J9AiVMAN1nXfQc0N1jBmCri/VRR25yjGZ3i2atwGtaQKe/rwC13KVARCbou4
-         PUSA==
+        b=gE0+TfMLxcPRAAtUFiyvohg8aoReAIoQJFlD53+1yPejY3rrBSkZSuUTSw262c8fAc
+         xaj8ovqoOibaZAoQAJ5ozmQOlw0Kqc6L+pzlKDG6nr6CMhV8BePYhjyrxt+8jEQPk5LX
+         XfTbXnfjm+98OzNN5pOJ+s+1Y4YJnoZvtPTulhJrN7PIg9iZ6mwtXMow+wzzI80MFKEd
+         HOg9mNFlIlwsmxrzayEHLIwBYn7Ig2LbI0Y32ESR1unMthE7Hl+Gf6ZxtEKcYrRzpyf4
+         8MJBtUrWSG8/kAHp9NUks+6WDlG6Dm26xEAb/mIkc1fHAgtO6uEO3T/I1gpuDiH2egVv
+         kFzA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=MKY9cPJJozKGHFrfmhUD53rTouOcT3tjSvoX5iN+R5Y=;
-        fh=B7m8WmpCjoYcoNMJ4kiYwMaSPBXmvLqAOznsw3ftnPI=;
-        b=gAzkOi+VnImkib4qlEXzs67vgZl4n9lx+GLGCCHJuB7UBGOOHQS/PiwGZR0mRlYrUC
-         X2b3t2Osi0i3Ro+EI8lC2dtlSGBLu5rG5E2PYj6uFliCyTPS87UhbDOkt7iSlKVzT6Kt
-         M3NM/6j8R/6iDmIs7Z4K9vyTfWbe3dsLXiHPOJjnDDrvSLv5aTPHCLmcI7Li3efCUEgR
-         C3Vjlmybx8IIKgC3e+NI+dcnoFjGXdfuo0PZHBzCN5qCQZ3CEqqOxjKoWH7Lmy2miJUA
-         r1FWoq1fMFpVyYIHJvSr61nDRBNoV5wrA+wPPcB3CZUxcK69RUaXsPhPPWQMk54g/r3I
-         yjgg==;
+        bh=AU5qx0SsPYU3uJ8KwmQ0/fUfZYMcTpVxfADD1eUqY6g=;
+        fh=7WGbgX6luQ2td1ksTbpHgUFiGy3qziI1EsEWrsV5WUM=;
+        b=oTIODGzFfaR6OOPbVZPACCl1hCBhBHWRII5zTkkC3gYxoyH1Voh2ZZvZzIVN7E/hJK
+         qnD3pnqbnvRy5ss1kU3U799+wZBSQIKW39XMzr544x5RqYSZK/edMUxD6cyR6BsbHXp4
+         KRL1jq177uWNfaqHaacvQu4hOzM3N3BF4zaO5lLxlind1Yi5vJTDf5q13XrpeZ45t9my
+         TeNyHpB1Yi6hZ+8uSRLJxWd4Oc14Rv8caclg2LcxNpHoyILzV7VkLaXsT+uHvqCyDxja
+         py6214ujqrR3T80x1tJofZ3IdEzlbmB+m2oXExnz3uxzZf4RbpjSw2JfqS566luxIQHQ
+         JVvg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nextdimension.cc; s=google; t=1790898601; x=1791503401; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790899105; x=1791503905; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=MKY9cPJJozKGHFrfmhUD53rTouOcT3tjSvoX5iN+R5Y=;
-        b=g/MoVTUx8H/5A9Jwk/t2momBlaXQpJJpMPN+UMkr52+EaCMHlrmXNLEIJleMz+CUST
-         Hj+a/RV4spFrb149E+HBsJoyDeAMiY/uaU4P6/yXEuR4nF+XrioSvvPSafTCJNjf27oj
-         k68WkbThAPHEK6X+mKE7vRnOhokFE3yTFirqfW6uh6SHDp9MoWBJLoBMY3l5kbohkoJ4
-         1lsArFB7FzjIEclfk/REv8+tvKQU/TtMX+VD2addalWm6tuUFzpz2juyGuhECm3mxTvJ
-         UlauTj+RH94dmf4t3g0S9FgEkHgt95szXah6liCjRoDus9bAvHvEuFBQdLgcGSuSTp3G
-         /45w==
+        bh=AU5qx0SsPYU3uJ8KwmQ0/fUfZYMcTpVxfADD1eUqY6g=;
+        b=cdUMZqDMwQu5oJ3RKznrcUG0HfrWQ77MDKzSIVN7yLrP34fGPPx4horPviI51zytzB
+         66lHD4WLa4ozUFAae5NYIRGuYHnU65TiIF4EF/zUCR6oWSSekNHADJe9mmSQjJot5VLI
+         guWGrHYBt4WkVBwJa8bby9y/SS9Ie22FOps7y/5i21g5FCv1KDMxrPJVK9ltgjTUuCJm
+         4rlj16mZaMvL85NC9I0c1JpqQ+cJy6z/vcE7OU8jArNXM18uVEaRZ2S/BtCj6Sg5d9kk
+         PNjQq2os2caVnEWh16vrHjaE6BqUgDhHIN208I99IEIn55s3TJyYxcFw1OYcaQTKpi3/
+         3mpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790898601; x=1791503401;
+        d=1e100.net; s=20260707; t=1790899105; x=1791503905;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=MKY9cPJJozKGHFrfmhUD53rTouOcT3tjSvoX5iN+R5Y=;
-        b=eXNey/UW8QoVPiMYz+KgOZg43PsVhTwvzhxEbfWGumM6/gifD5MdAJ1dLKCGZ0LlO6
-         DsbAfeaDNtqsq3p6RO6JFQpkj8OI0+fSukKc1pn/u6c6dnSQ9JtMSsrrByb7WmX5A9QT
-         qnixvXXh1dYHpLo93rHQ7/a2W83g5O+HlxqKy4BNKrsUwrTZcK0riY7aBNa33IqMTDcs
-         D+y8dovjmZFLnkdoxl1nV2ZTAS+OxE8CISixvz8VAcu5cxPMsflG8x4Ce7z7J6qzw3oM
-         b+kTaSxxZ9fCSVKnpEzVDefWOAsiNojTjvQM+c3tBpc6KBlFpKHUCZ9tppo7pqmpqamM
-         PeFw==
-X-Forwarded-Encrypted: i=1; AKwUvBwm9+TWMP2Hp1ZT3SSLj+Cufwj58rqhPBbvJTcBy4kX3NYS+68K09pMjlLkBk/2udmxHUhmeQo=@vger.kernel.org
-X-Gm-Message-State: AFuF++lDuS/M9YWRrf3i9pYQ5yS9HYIXxotHuqshQrAa3xi75pbwJbok
-	UAEQim1sqWTmIR112f6MWtHUv/L7+s80zRSrysxJtxVHfwQ30yUw48lSxoVCD95uZ0Ozy0bLQ3h
-	pF1WeFmUhG5nGka1atXFKS39P9aWTZ3kuFVmLoa21Mw==
-X-Gm-Gg: AYBFou1br8jqkovy/td4/9z2nfDq2rjk0tnzjrAl7im8nAEIzuPXDHyj5ajcCT7Qg2S
-	BIOLVCtPraP0c1ucHf0pUEEJHA2Pu9przqtpMfX7EbGL3mLKSbKykDpMtf+Mny9ESlDBERwhwnI
-	3VsIPKY7NJH+eS3A6i5NxLee76+5ww1Kx1n+oYQepftwxsWihCKNF2TW1xzjBMupVc+FzO+Gdgy
-	jjm8+QyOztSL5wXB71FUTxxrw3CYHzQfNa5MjEdcHhu5Hk0f+xJ0V3CNsdPrBELUJRzCd5qRzzM
-	i3u5YXMPufWB2Wabn0Bh4vAxZzx5/A29pMJzUi4GbjtreeVi6j0YqUoTsQ==
-X-Received: by 2002:a05:6808:6f8b:b0:4f3:e98f:fa27 with SMTP id
- 5614622812f47-4f529c28115mr654041b6e.16.1790898600864; Thu, 01 Oct 2026
- 16:50:00 -0700 (PDT)
+        bh=AU5qx0SsPYU3uJ8KwmQ0/fUfZYMcTpVxfADD1eUqY6g=;
+        b=Dkwpr4oFKEI54Uy5RjODfSeqsF4SsZGddynhY8SAxf+8X5i2q1ZJdOCNkSuzOEvMKr
+         uErPJCivMBD9QsjVSsAHqOV3lIP4or2zjP8bYHS9mzR3Qyf4IlKb4dm6NWXu9deoNC+u
+         SoJTZT1VNm8ajKhFm0Tb6Gz/f46eDJ7rNaCiN3S72gUEdJ82bItL4iKyiOoX6gQjEWFZ
+         fSeOynBbxVl//mSvrDWBT6P6fUrlCdrV6RiHxVdESLm9Kkb5wK98cZ+2G3F/bDSKXHIP
+         FSwrHY2++iI18Z5gNx6+mYVBM8NE4XzbpxDv3F7C30ublUds5bZQ6ZotBxzk0BnaUEU0
+         EhMQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxJj8FJEWX/rcnQKOopfPQu4kWIT78/ihPbiWzBBuvj08/IfNGe/pcbOJVFe6H8z9f8vABKpTs=@vger.kernel.org
+X-Gm-Message-State: AFuF++mHkpLGXf5UmG7NTsc+rVxjQH2YuQ4nJJsmjJl9CSYifWTwNXWY
+	3QaB5zbQlWa5XRs5lR7PjVaPgVWCX67zlKq4gD5FFLK0bB+LdMWNVHaeeY0LsvF1K41gh5KuBtv
+	PkZcThuZrlBdNeO37r4dBtd7Ap9TXjNY=
+X-Gm-Gg: AYBFou3dO9v3nqmn6DkQXyluydOBWNeUBe4wEvrCaQr0LlDEkINyWMC/xLK5Ak8iIYM
+	Mi0VuxHwwR8FmtwOT6rFKGtYz0TmEqrh0zM4vx0ZbhZYlifI6ZDaRMn8e8jkDpTYIijnnmPp4nD
+	W3iy+5xnlHiDuh43qtWYwjU8RAvaC5rlxBxA6h21SIZees58BfDF+fQsuTFAuyqyvSL4sz8G534
+	4ZnttTtqt9F/2HUJp9tIAFb3aRC/Usc2zxs+b9nTMDYut4bdeRTPPv38VX6tXfPo5kO41B9vMVF
+	CvGzawcDLx19Jg6VLyOcikKqPxwhMWXGZ7ZzHHc90SaMKkb2cIFkpbLlH05AMxUR0uvljXnmKn2
+	p96g19ZVI4azOo7eWJ288uXk4WQ==
+X-Received: by 2002:a05:7022:150a:b0:143:5722:55be with SMTP id
+ a92af1059eb24-14f5c2ef10emr1139903c88.30.1790899104864; Thu, 01 Oct 2026
+ 16:58:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930020010.85250-2-chris@kode54.net>
-In-Reply-To: <20260930020010.85250-2-chris@kode54.net>
-From: Bradford Love <brad@nextdimension.cc>
-Date: Thu, 1 Oct 2026 18:49:49 -0500
-X-Gm-Features: AclHuK8gO8mr_tN_8askeYsS8qGi_AKhcozyXpVKRtdSd-d60e84_diX5L1-c8s
-Message-ID: <CAA0YaJRW_q4HhSaMR0WzmHiRzLvNtNfUcruT7qZnHFHVb5VVLA@mail.gmail.com>
-Subject: Re: [PATCH] media: em28xx: fix inverted tuner capability check for
- VBI device
-To: Christopher Snowhill <chris@kode54.net>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
+References: <20260930-tb-dprx-fix-v1-1-da92659e491a@gmail.com> <20261001034839.GA176164@black.igk.intel.com>
+In-Reply-To: <20261001034839.GA176164@black.igk.intel.com>
+From: David Medina <b2amedina@gmail.com>
+Date: Thu, 1 Oct 2026 19:57:56 -0400
+X-Gm-Features: AclHuK98N9acfHTGaWAbQzc_UJu8LzhR1AJw-KZvb2e5NZcBn3V2zswzwxEWLcw
+Message-ID: <CAGTy6n-voghUysgDmvU5bU+zuBPyr_svGXU9m-zm+vKXHYf55A@mail.gmail.com>
+Subject: Re: [PATCH] thunderbolt: Fix domain reference leak on DPRX work cancel
+To: Mika Westerberg <mika.westerberg@linux.intel.com>
+Cc: Andreas Noever <andreas.noever@gmail.com>, Mika Westerberg <westeri@kernel.org>, 
+	Yehezkel Bernat <YehezkelShB@gmail.com>, linux-usb@vger.kernel.org, 
 	linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Christopher,
+Hi Mika,
 
-Just a couple days ago I plugged in one of our products with video/vbi
-and no tuner and saw this message. I had not gotten around to fixing
-it though. Thank you for catching this and submitting a patch.
+Had issues with your mail servers kicking back my message - so
+resending just in case.
 
-Regards,
+------
 
-Bradford
+Thanks =E2=80=94 I tested your fixes branch and can confirm it already
+resolves the shutdown/reboot hang.
+
+Please disregard my patch.
+
+Thanks,
+David
 
 
-Reviewed-by: Bradford Love <brad@nextdimension.cc>
+On Wed, Sep 30, 2026 at 11:48=E2=80=AFPM Mika Westerberg
+<mika.westerberg@linux.intel.com> wrote:
+>
+> Hi,
+>
+> On Wed, Sep 30, 2026 at 10:16:35PM -0400, David Medina via B4 Relay wrote=
+:
+> > From: David Medina <b2amedina@gmail.com>
+> >
+> > tb_dp_dprx_start() takes an additional reference to the domain with
+> > tb_domain_get() and passes it as callback_data to tb_tunnel_alloc_dp().
+> > That reference is only released by the callback, tb_dp_tunnel_active(),
+> > which tb_dp_dprx_work() invokes once the DPRX capabilities read complet=
+es
+> > or times out.
+> >
+> > If the tunnel is deactivated before the DPRX work runs to completion,
+> > tb_dp_dprx_stop() cancels the still pending work. The callback is then
+> > never called and the domain reference held in callback_data leaks. The
+> > domain's reference count never reaches zero, so tb_domain_release() nev=
+er
+> > runs and a subsequent shutdown/reboot hangs waiting for the domain to b=
+e
+> > released.
+> >
+> > Release the callback_data domain reference in tb_dp_dprx_stop() when th=
+e
+> > DPRX work is canceled, mirroring the release done by the callback.
+> >
+> > Fixes: d6d458d42e1e ("thunderbolt: Handle DisplayPort tunnel activation=
+ asynchronously")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: David Medina <b2amedina@gmail.com>
+>
+> This should be fixed already by the patches in my fixes branch, can you
+> try?
+>
+> https://git.kernel.org/pub/scm/linux/kernel/git/westeri/thunderbolt.git/l=
+og/?h=3Dfixes
 
 
-On Tue, Sep 29, 2026 at 9:01=E2=80=AFPM Christopher Snowhill <chris@kode54.=
-net> wrote:
->
-> Commit 8e53399c63c3 ("media: em28xx: Add support for Empia em2828X
-> bridge") changed the condition for setting V4L2_CAP_TUNER on the VBI
-> device from "dev->tuner_type !=3D TUNER_ABSENT" to a check of the video
-> device's capabilities, but inverted it: the VBI node now advertises a
-> tuner only when the video node does not have one.
->
-> On boards without a tuner (e.g. the MyGica iGrabber, card=3D105) the VBI
-> device's device_caps therefore contain V4L2_CAP_TUNER, while the shared
-> vidioc_querycap() correctly omits it from cap->capabilities. This trips
-> the sanity check in v4l_querycap() whenever the VBI node is queried,
-> for example by udev's v4l_id on every hotplug:
->
->   WARNING: drivers/media/v4l2-core/v4l2-ioctl.c:1119 at v4l_querycap+0xff=
-/0x110 [videodev]
->   (cap->capabilities & (vfd->device_caps | V4L2_CAP_DEVICE_CAPS)) !=3D (v=
-fd->device_caps | V4L2_CAP_DEVICE_CAPS)
->
-> It also leaves the tuner ioctls enabled on the VBI node of tuner-less
-> boards and disables them on boards that do have a tuner.
->
-> Restore the intended logic so the VBI device has V4L2_CAP_TUNER exactly
-> when the video device does.
->
-> Fixes: 8e53399c63c3 ("media: em28xx: Add support for Empia em2828X bridge=
-")
-> Assisted-by: LLM
-> Signed-off-by: Christopher Snowhill <chris@kode54.net>
-> Cc: stable@vger.kernel.org
-> ---
->  drivers/media/usb/em28xx/em28xx-video.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/=
-em28xx/em28xx-video.c
-> index c418add65bb5..cdf1dc692b08 100644
-> --- a/drivers/media/usb/em28xx/em28xx-video.c
-> +++ b/drivers/media/usb/em28xx/em28xx-video.c
-> @@ -3001,7 +3001,7 @@ static int em28xx_v4l2_init(struct em28xx *dev)
->                 v4l2->vbi_dev.queue->lock =3D &v4l2->vb_vbi_queue_lock;
->                 v4l2->vbi_dev.device_caps =3D V4L2_CAP_STREAMING |
->                         V4L2_CAP_READWRITE | V4L2_CAP_VBI_CAPTURE;
-> -               if ((v4l2->vdev.device_caps & V4L2_CAP_TUNER) =3D=3D 0)
-> +               if (v4l2->vdev.device_caps & V4L2_CAP_TUNER)
->                         v4l2->vbi_dev.device_caps |=3D V4L2_CAP_TUNER;
->
->                 /* disable inapplicable ioctls */
-> --
-> 2.55.0
->
+
+--=20
+David Medina
+14901 SW 87th Ave
+Palmetto Bay, FL 33176
+786-280-0880
