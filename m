@@ -1,75 +1,76 @@
-Received: from mail-pz2-f37.google.com (mail-pz2-f37.google.com [74.125.228.37])
+Received: from mail-yx2-f40.google.com (mail-yx2-f40.google.com [74.125.224.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF94052CCC7
-	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 15:24:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA43652845D
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 15:32:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790868282; cv=none; b=t4gfCHKwy0YdSB9B9woy9s9KTnDctU5XW+qMNf/Tm+Et4evjpfBs+H6S7jLNkkmaiVQ2XPh3yyX/nKqzzIZrAFo1gdNBRwabZ86S93lS1g3Jbo9p29JD2iMf6P4K5ACTByp+kSqdvM5hHW9DZD1QbxG+blCKzcyMVFhoWc+hjok=
+	t=1790868736; cv=none; b=Cgr7Dgp3oW9sfCtAkXJ7RSwqk8Z9ekuBDP8FCoThBc/mr8p0pvLTULWxGSQtZQrgLm3meDLftTpgnHJ6K3fWTXShwAWNrzVKuZTuI8XzwegLdLvy2d2BdwJoVl8TVDbUzY8vrMekYrwRx5nlU49FiW6MzK1XbPruoqmvMLe19is=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790868282; c=relaxed/simple;
-	bh=4WQWF5+OUtltfz6w2snpbVpU40IHfEIiSULmc0mqAXg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pccYRQAwPB/7dZU31N9GfUHELfaELzpwI1TEuBIK44QQGsZJI105zwtlRk2PWRk0aL2fMQ0srSXFOyCNg0HcHe6+UNdqRQ4NjoXPqffOx9dF/TAxDaGw6ZnGwjckan9rC7YQc3q6ql4tbvn/fuOGV2X0I+/xfuAgpLqPHxK8P0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FPd2iV85; arc=none smtp.client-ip=74.125.228.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790868736; c=relaxed/simple;
+	bh=awPd430K7tvGhVtyXPwAmbf2+LPoDRBKF7lw1teNL/g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rQEFpL2Tn7c/InCMRPUQLLbQd0E/hOWQE23Vvas5xrXgcCvWvzIA6yNAofYkgC8ZgsvwRKuX5GE/pnDr5A/Wy05X/FUhMcGA5hWFxbXkTT8uozd/ihGmEPxqccL96TE/Dz14+zxaSIQ8i9CPbZajKFQ42n6VO5Ow1HtIi5tLKt4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=eV7eeuE6; arc=none smtp.client-ip=74.125.224.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FPd2iV85"
-Received: by mail-pz2-f37.google.com with SMTP id d2e1a72fcca58-8873070bcd0so912811b3a.0
-        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 08:24:40 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="eV7eeuE6"
+Received: by mail-yx2-f40.google.com with SMTP id 00721157ae682-8ab445ac183so39668767b3.3
+        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 08:32:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790868280; x=1791473080; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=63RaKzWIMFVRr/E5wnyxWJ/zE4DRy1eSD5nRt2ODo5Q=;
-        b=FPd2iV85VfSbxypa38SgGyZYc0tuyQkTZyMT4/lNWVKgpsOHcW2sXo5Y0l5LiCsZjW
-         h35TDxgTJEN+Ru5JZRJ/FK/jB3t1Uxupi5cH68bcJcs8u7HgPXR2TAtHoyit/IwDdc5q
-         uY9pX+aMP1vtIHDBgwVbALpkS0SheYp5+obXdOS1cUvpxVke6A4xUyhL+mcw84+cchFN
-         ldfBLOjgTKRU6rSqROVSGR3mrLJbjXx5FZdlsYh/UQT+yE/hsmOyO/lZ/nKa357Jaed0
-         gF2NRIeZY3FrSJnj2Ui2M1dzdg/IntI/MgUbZI2WSNM+P40C3Q7d+rYyIaTgUdo3nPbZ
-         8hjg==
+        d=mojatatu.com; s=google; t=1790868733; x=1791473533; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=B9KRC60eFYvt53Jmqs4DofnspBBJHdkc+l+n5E9GJWo=;
+        b=eV7eeuE6xT+0koCYiaGSPYb0Kg7X7hmqxeZ/M8XgfcmUleWt7wedv1Vdp55sMuoco0
+         vhfg3F0DWmkzpVvgn9UsHDYaayEe79CKEwHIZA1yE3ifMsVOWGGYkMiyDTy6UTphftTx
+         UWqu94qASnfEUXjFNh4Zj1UhLmBcED+lLLF4o=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790868280; x=1791473080;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=63RaKzWIMFVRr/E5wnyxWJ/zE4DRy1eSD5nRt2ODo5Q=;
-        b=x3qOLrrPb1xmwOyBbPoFphh3MtuCqWLxMK2mrYNq44qC3j3oIvceXNQCT/emn4exmI
-         JDVMYfTpecakpa5cDyCB7EshdjCS53dNrRLBtKAT296V3Xq9IsJZvcyznVMnCNEr8u13
-         +ODRYZFRSvi9HdMXiQTEY4RAbKwe/MYe07Z91fSiqqmrvOv+1SuepY9DCgYLVjU3n7oU
-         l6M3Tn9b5+gbZNGzVYi2ngvxn8EAa0mFjMIwjZy2919PoP80o97e3OZNMMQiDLVQYkmM
-         kYuuwkMQ7U5UwcdZx55OPRC2tfrTtWekEE2aOmX+nLoUrpew+Y5+g3RcWyKUQZgnOsp5
-         XCCg==
-X-Forwarded-Encrypted: i=1; AKwUvByfm0BLYtqdJQ5GjomixRmaXHUUMY1XChbbRtdGtMQrqjgBi9RLsqV8etLgx5PZr9xMxPZIBUE=@vger.kernel.org
-X-Gm-Message-State: AFuF++l5MGY51/f0kRP+FdSr8brIWIQX0CicbPS8eIPg6nFkdvaRjsKB
-	IUL69zoAjaocz8qun0eE34bXl/VlzlVqXgYa0sC5DjjL2+raSHo0VXFH
-X-Gm-Gg: AYBFou3q7T/G3IUeDvU4kSckQUC4/fdCqXaMBgwEQaFrKWNDvOOMgiIVJFlSFxt5O7c
-	lPCZwl6Tqep2gT/WrC/1e0R5hFt17uJPYRIYt6TwLVQI/MCKGIp2t+qNJHP/jD8SO6LgiHmLgox
-	3lgfo6JTFMiRBkAe43SrR2Go38RF6MypvoPT0iGRf3B03B8tpiwWpT1o1eJBOaKdUK4sHnK5roD
-	I3udYv1qBqGG9S2kOnR49PbnrV1HM7PsFMYm1rXM4Jrbu/IA3U9gV2LPuHuCzM0MnOlxf07iN6z
-	2kneHl/UytcwnFZyRRRlpp7LobgeSPz9OtI1pxD+yMSplPN+AReVnJ0BlCidfLDxIhA44rPomur
-	zuYcl55ELhLKm1xFoMJIrygBwS3JP8/01FRwzbJRRAT2sN4a9M6HredXBZxnSUiJtHoxJkOkcC5
-	ji/lPt2roNGS5ECIEzJy0sopA8ENuPqgyQ1ZbZA/i1vFHxi7WYs3ByQwXQrpVfry3RbU5nRVwfr
-	epWX+YFNvYDvbwXuLjs
-X-Received: by 2002:a05:6a00:3491:b0:881:7ff5:606f with SMTP id d2e1a72fcca58-8874c5db447mr4206416b3a.43.1790868279823;
-        Thu, 01 Oct 2026 08:24:39 -0700 (PDT)
-Received: from localhost.localdomain ([112.171.72.75])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8881871bdc7sm1325282b3a.14.2026.10.01.08.24.37
+        d=1e100.net; s=20260707; t=1790868733; x=1791473533;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=B9KRC60eFYvt53Jmqs4DofnspBBJHdkc+l+n5E9GJWo=;
+        b=sAafYDwHwmtGW/2eb3+3Yae7q2O4pYOHvpVXJs1xVw30oebjiNvQOsMVSRr+/yp+Gy
+         E4beQ/hsFmdysFyUZxYsI5zLzfudE2DWqsYqTUW2KxqyUrdYUsXMFA1R62QQx0XDmzz3
+         0eadEeSXMJT8IK4VNswbMiAl4ozZ2V+TY/m7ODff+puOdaq3zA0uJ5BdCSSMtRYJD2yJ
+         CsWrwv8LEPkNzxF96z7z/wxdqV/RFH8yrRMChVSTxUb2uDC+Sj0A45OUWpuM7UIVblq4
+         MHgs44/4N9kx2HLt9WsWsK8fu/SkfGRZc16DzWa6FSPi5une6nplDRMbaRNtBRF3X81B
+         bPVw==
+X-Forwarded-Encrypted: i=1; AKwUvBy1jtJnV2QbUHRNt1YjkmeKechqMkmOSxxm6AdVJVrIqMv08JdeyNNouOMIpsxseLV3ebWSqU8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLZlMQCtn2aLVKvDhVDc5icdndYpZynB2aVSfxjzNnCOB+LpoXN
+	H7MwBJ/4orWk909ZKfluP4YgZElDmCl5sjOez00TpU0PQRCN+PYD2dzr/Ft25DOGQg==
+X-Gm-Gg: AYBFou0enFnVdYsaY/+J86drOz+LsNo4Hk0K75XH20jByg/kj2t4FOVUhLWQi1wctMn
+	ZkJHMpydddYxNkEnnWeHR5RN/3urY2rsFua+mdQGVRf9M6CAWHGcADPV01N+yBZ7knI7uhZeLIj
+	rrA4SjaKzMZ471u64qawo/dzv1XFWzTgEey/hrUbf4d668HXWjmjz05U5CxgdBHsYKdBZGUXZck
+	KO6lBLGagDQeAlPaUd69vAsHzcoRlmFpNOdthiWFs332DeJ4pacHZAYsThMQamLzbVGUPQW7cRc
+	wvVpNPHsk0VQwPAH4Z2Q5dWMozBv4+k09dyr1gGMIpnSVjdMaCr6G46DW57Q2UsyyGbddj9YJso
+	VjVK+I90vSWRwgxWNMHXcuEk4M0UsH7KUgWpanzr7P4KS6hJmxBNDsADSGnRkP5qBfwn06dRnLJ
+	BeZ9G81TWtPsg7tgRo32DchKhHItX/FYpAh7BfNLIba+SRoNgs1L591BQybhdFSsWrkX0cdW27b
+	fQ9
+X-Received: by 2002:a05:690c:113:b0:8a9:8021:5cd1 with SMTP id 00721157ae682-8ac908d539cmr25909637b3.6.1790868733308;
+        Thu, 01 Oct 2026 08:32:13 -0700 (PDT)
+Received: from exu-caveira.tail33bf8.ts.net ([2804:14d:5c54:4d67::2000])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8acdad046b1sm12059277b3.30.2026.10.01.08.32.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 08:24:38 -0700 (PDT)
-From: Youngsung Ahn <ays511.kr@gmail.com>
-To: Zhu Yanjun <yanjun.zhu@linux.dev>
-Cc: linux-rdma@vger.kernel.org,
-	Youngsung Ahn <ays511.kr@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] RDMA/rxe: validate inline sge_offset in finish_packet() before indexing inline_data[]
-Date: Fri,  2 Oct 2026 00:24:33 +0900
-Message-ID: <20261001152433.3259573-1-ays511.kr@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260930182216.2510953-1-ays511.kr@gmail.com>
-References: <20260930182216.2510953-1-ays511.kr@gmail.com>
+        Thu, 01 Oct 2026 08:32:12 -0700 (PDT)
+From: Victor Nogueira <victor@mojatatu.com>
+To: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	jhs@mojatatu.com,
+	jiri@resnulli.us,
+	netdev@vger.kernel.org
+Cc: horms@kernel.org,
+	Eric Dumazet <edumazet@kernel.org>,
+	stable@vger.kernel.org,
+	hybris <hybris@mojatatu.ai>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH net 1/2] net/sched: cls_route: reject change with no routing attribute
+Date: Thu,  1 Oct 2026 12:32:00 -0300
+Message-ID: <QDISC-0JB3.v1.20260929143022@mojatatu.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,66 +79,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-For a user QP, rxe_post_send() takes the qp->is_user branch and
-never runs init_send_wqe(), so
-dma.length/resid/num_sge/cur_sge/sge_offset all come straight from
-the mmap'd SQ ring. In the inline send path finish_packet() uses
-sge_offset directly as an index:
+route4_change on a filter change that supplies no routing attribute
+at all (no to/from/iif) reaches route4_set_parms with fold set, so the
+handle-mismatch check -- which only fires when creating -- is skipped.
+nhandle is built as the all-wildcard bucket (0x8000 | 0xFFFF << 16) and
+the filter is rekeyed to 0xFFFF8000, so the handle userspace already
+stored no longer addresses the filter. (The netlink reply carries the
+new handle; what goes stale is the handle the caller holds.)
 
-	u8 *tmp = &wqe->dma.inline_data[wqe->dma.sge_offset];
-	memcpy(payload_addr(pkt), tmp, payload);
+The rekey actually misclassifies the packets. The new handle's from_hash
+is the wildcard chain (route4_hash_wild), whose filters route4_classify
+applies without any id/iif comparison, and its bucket (256) is reached
+by every packet through the h < 256 restart. A filter that matched only
+a specific realm therefore becomes an unconditional catch-all that applies
+its classid and actions to all otherwise-unmatched traffic.
 
-inline_data is a flex array whose capacity is qp->sq.max_inline, but
-sge_offset is a u32 from user space, so the source pointer is
-displaced arbitrarily past the WQE and the memcpy reads out of
-bounds.
-commit 126c757e4cd4 ("RDMA/rxe: Validate num_sge/cur_sge before indexing wqe->dma.sge[]")
-added num_sge/cur_sge checks on the send path but not sge_offset, the
-third attacker-controlled index in the same struct.
+Reject a change that would rekey the filter this way, with the
+routing-attributes-required error. A change that names at least one of
+to/from/iif, and an in-place replace that keeps the routing identity via
+a supplied attribute, are unaffected. A change of a filter that already
+sits at the wildcard handle is a metadata-only update and remains valid,
+so only a change that actually moves the handle is rejected.
 
-Read sge_offset once with READ_ONCE() and bound it (and the payload
-that follows it) by qp->sq.max_inline before indexing, so the value
-that is validated is the value that is used.
+This is a follow-up to commit 41e85e54e564 ("net/sched: cls_route: Fix
+in-place replace"); this patch closes the no-routing-attribute variant
+that the parent series did not address.
 
-Fixes: 8700e3e7c485 ("Soft RoCE driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Youngsung Ahn <ays511.kr@gmail.com>
-Assisted-by: LLM
+Conditions to recreate the bug:
+  tc qdisc add dev lo clsact
+  tc filter add dev lo ingress protocol ip pref 100 route from 1 to 1
+  tc filter change dev lo ingress protocol ip pref 100 handle 0x10001 \
+      route classid 1:2
+  tc filter show dev lo ingress   # handle became 0xffff8000; iproute2's
+                                  # stored 0x10001 no longer addresses it
+
+A change of a filter already at the wildcard handle, e.g. one created by
+"tc filter add dev lo ingress protocol ip pref 100 route classid 1:1"
+(iproute2 defaults the handle to 0xffff8000), stays a valid metadata-only
+update.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260907192133.2639067-1-victor@mojatatu.com
+Reviewed-by: Jamal Hadi Salim <jhs@mojatatu.com>
+Signed-off-by: Victor Nogueira <victor@mojatatu.com>
 ---
-Notes (not part of the commit):
-Reproduced on 7.3-rc4 as uid 1000: "BUG: unable to handle page fault ...
-memcpy+0xc/0x30" from rxe_requester, 4/4. Present unchanged in mainline
-551c722f4080 (2026-09-29) and rdma for-next. Compile-tested (KASAN+RDMA_RXE),
-not runtime-tested. Found through manual review; per security-bugs.rst this is
-public and a reproducer can be shared on request.
+ net/sched/cls_route.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-v2: the WQE lives in the mmap'd ring, so read dma.sge_offset once with
-READ_ONCE() into a local and validate/index that local, closing the TOCTOU
-noted in automated review (v1 re-read the field after the bounds check).
-Dropped security@kernel.org Cc.
-
- drivers/infiniband/sw/rxe/rxe_req.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/infiniband/sw/rxe/rxe_req.c b/drivers/infiniband/sw/rxe/rxe_req.c
-index 24f5c044363f..06e24d818075 100644
---- a/drivers/infiniband/sw/rxe/rxe_req.c
-+++ b/drivers/infiniband/sw/rxe/rxe_req.c
-@@ -510,7 +510,14 @@ static int finish_packet(struct rxe_qp *qp, struct rxe_av *av,
-
- 	if (pkt->mask & RXE_WRITE_OR_SEND_MASK) {
- 		if (wqe->wr.send_flags & IB_SEND_INLINE) {
--			u8 *tmp = &wqe->dma.inline_data[wqe->dma.sge_offset];
-+			u32 sge_offset = READ_ONCE(wqe->dma.sge_offset);
-+			u8 *tmp;
+diff --git a/net/sched/cls_route.c b/net/sched/cls_route.c
+index 0f211f030fd9..dca812a75269 100644
+--- a/net/sched/cls_route.c
++++ b/net/sched/cls_route.c
+@@ -434,6 +434,12 @@ static int route4_set_parms(struct net *net, struct tcf_proto *tp,
+ 	if (handle && (!fold || nhandle == (handle & ~0x7F00)))
+ 		nhandle |= handle & 0x7F00;
+ 
++	if (fold && !tb[TCA_ROUTE4_TO] && !tb[TCA_ROUTE4_FROM] &&
++	    !tb[TCA_ROUTE4_IIF] && nhandle != fold->handle) {
++		NL_SET_ERR_MSG(extack, "Routing attributes required");
++		return -EINVAL;
++	}
 +
-+			if (unlikely(sge_offset > (u32)qp->sq.max_inline ||
-+				     payload > (u32)qp->sq.max_inline - sge_offset))
-+				return -EINVAL;
-+
-+			tmp = &wqe->dma.inline_data[sge_offset];
-
- 			memcpy(payload_addr(pkt), tmp, payload);
-
---
+ 	if (handle && !fold && nhandle != handle) {
+ 		NL_SET_ERR_MSG_FMT(extack,
+ 				   "Handle mismatch constructed: %x (expected: %x)",
+-- 
 2.43.0
+
