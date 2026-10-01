@@ -1,128 +1,143 @@
-Received: from fhigh-b6-smtp.messagingengine.com (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C61454BF94F;
-	Thu,  1 Oct 2026 09:43:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AD8B4A9D77
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 09:44:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790847794; cv=none; b=LCWMu3rfMU+E9AEXxPrBz4Kg89I8fM3mvegfhhpwX5DJ1NBEMw/heq8/zoPNvjdR/7Wyud/8IW+7xWrnYdcZFGuTWPUnc39IMmxFIA/66KIDqXaK2APwMgmk93qJkQvtT+LPE7g0GMNTkD4Bx3THtPYcRi08EMZQl7ahfHA6EM4=
+	t=1790847878; cv=none; b=qMvrYGNjNZ+6thTPIZ26nYzw/oDMKzY8kHcTX+8MzMUy4K8xQiVbb1xrd608cHcduH7vEvCTWB5dVVNTgYzst2v9ZDVMTAUXoycYpCqcIb1KhSadBFSd+ojQKphNUIz6We3MzR70IxTKvWBxERXjsUdarw1TMo3+sS5I4ny+z7U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790847794; c=relaxed/simple;
-	bh=aTOh2uYr/Zfwj4dE0uQ+wLez7SFg750t2JTGvp2gFos=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PKZB9uLTf2FEgd8MyewGqJTI1xWe0DpjqCxCI+P/QTLswOvXkprXYm3ch/8w+SRmBRYb1WUgOnQFeSbMclzbGSXzRt3QOuxE1EzvaM/OFmNybOfrNVV0knRq0IAVvYOKSg2Ri6nSVgtWpb0OOHtEwtBR8NscrhctRfX/WEuN0no=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net; spf=pass smtp.mailfrom=queasysnail.net; dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b=T8FSFjmm; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=vfRnCntF; arc=none smtp.client-ip=202.12.124.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=queasysnail.net
+	s=arc-20240116; t=1790847878; c=relaxed/simple;
+	bh=uM1dQUiN6LEEGAM42Uvfmozwbcyiv6F9zdNRKF0DmhQ=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=qMDiKbimry2srp4uwltxX0CTxDp4qbybQuvaTlocKDEFP8sX1KwCeKWzpLQx7OcPdq+Fgxlcc1p3dgECL/0fcrrcKwv1u9tFYa9i3W3v7id7dMwrmX79PvxcfJzaIu3IiqEj7hD/WQLLuz85mjAI/1L6iM27waV+LjjWJ+JNeTk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=dlIke/1u; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b="T8FSFjmm";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="vfRnCntF"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 8C6B27A0090;
-	Thu,  1 Oct 2026 05:43:10 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Thu, 01 Oct 2026 05:43:10 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=queasysnail.net;
-	 h=cc:cc:content-transfer-encoding:content-type:content-type
-	:date:date:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:subject:subject:to:to; s=fm2;
-	 t=1790847790; x=1790934190; bh=0Od092CjJ6wZcmKWTEOEVG5cubRv6lXM
-	tEGzr08dRVQ=; b=T8FSFjmmuzIBmmRbmFIKNFDvilcgRvD6Xak7kw1y15A1zbq1
-	oSiu6/zGaYra/hQO7scZafNcwYHTvjUP9BN0r1Y0Zq3ItfJJ+aDrR6uOyfffTYzf
-	NJf1sqdcJeePqzCHl43cRNyAl3NWiBA0XZsQmZwZnWcFSs2ma890d6EvsO82E/sR
-	H8ar3n6qlSrHpEEMPpXwWvr1x+96Y6zXJr8wjj6gxl7YJachCuojdC9aUqAUNqlH
-	Yx7EQOwA1HPy6tdMqu750K3TbYyzsAziZGdHo0FQbho6Gsv/EVkYBB/qF3x0zV1D
-	8Gzm9EL7YXMXlcUdwoV/bLwDifO1ycyVtAjLJg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790847790; x=
-	1790934190; bh=0Od092CjJ6wZcmKWTEOEVG5cubRv6lXMtEGzr08dRVQ=; b=v
-	fRnCntFCZ8lvBDmQWMg98ScV2QO+gcYmjmHVVShrmlq8tnUh2iQi13RR58sKeend
-	4JDU+DEd7UQPIFVRO+YYJndIFv492KgzGSMBSJkug5jQq8bUmRIVth7uBq9FVUF7
-	6LB9JJR+QxX+7kJqnUKRYMoSipc3JjN+IYGeUten3nigBwDgtbhl1kYSdRhiCJj4
-	R5SNrbq3w89T1N0q9XmcdaQLw2pXp2Xxt2qBC0n9ILb2cR5ojWN9ngqPBmcP1ksx
-	YwfYToNfVKvHZa0XUYo93j+laIeQC0QQN83zwEUs1BpwJUPk4qHY+/4TrvQJdK+f
-	j7tx+Dott+UG9VatjRpLg==
-X-ME-Sender: <xms:LSu-apzClId97LjGUNGvHZHJQTUk8SQdjTYqLPmmNn9-CuMVP34UMw>
-    <xme:LSu-aqwuoJZbMx7CgGKiiank0pZdViDOcljTNAku8ufLLhHO6CxJHHUtjz0yEyKx-
-    _n01DBWZvkqwvoU_qX8AEUA_4cW1MUEPXFwH7uN4A74JsgJB78yqQ>
-X-ME-Received: <xmr:LSu-ajYkyG-fiTJWNry7CKPKL4HvazpH6WYYQanKJl8hFzTSIi7pbwp9Z8Vv>
-X-ME-Proxy-Cause: dmFkZTF/B8rAEk8rK7fLcnFT+wAiFTzXt5p+pkTnYvhBgJhFaxMk/WopBRLxJiEWF/tHOO
-    1KmcqYdtveJEURgf/XtVP0YELY8GPEETynSJ0VUT51D8rgldYwF/xkGQevwXVOQZRJThnc
-    op8FXp5aSBoZv17J816+tyMED7CYSDWHqQBEEGZAo6urqDJVWDVG+QovWI7+WwfKPFVb7L
-    1CMHNgYvwfsLE7mOOo7R4Z0cqGj3iWbInOTWq5SpkP0ln8V4fDVXelp6YtX7RhLD13A7kr
-    hvwF1/9MkHzK3pxbUR3i2bG2g56bycmAbRPpMvkzMEQuYIZoVKGyiid19xcVc+wT+NvfNY
-    PMHR96YV2+buNan/EmLZwHsunhm7Ltp1t+nJ6kUoGyF8H9KK/7KBpqtjIAYEqYaCpyiTqx
-    p/f2eseYRsV1/yTYIJCGwLFBDuNXXPJLFVh9K3xoGkGup+b4BdfIXh4/xFK87UYmn5Y+9o
-    sZtbVWc6Y/8G3nMaEtHtbhpgptBjI0pvddJvIwHjH0zaAPVv/C75OjRXWInNDFoU358HlF
-    OssT76vEVqoBQb914hh3GEzAZ4vnUpd1MY4PrDt3gLxgAZLRZa8pdU5roeLfdRvFwSlY/l
-    E6UolqtaXnm86chnSp9Zof1GBww3le+NBFgMnPmsUaBMJzZkCNOennmKtzRQ
-X-ME-Proxy: <xmx:LSu-arVIhKKcYzCvwsmOCD6p4n2xA2HrLiohaNzvjj5-MCjhEpdwWw>
-    <xmx:LSu-ahjbul5O143xuqmU2petlQWQskOeWKhAYE8etFtjhrA3OVU2jQ>
-    <xmx:LSu-apsa-PcaVKdZd75zrKuUs4MdV31FvvQf5yl-YFS2UdQRInzFfA>
-    <xmx:LSu-aq7wMbZcgpNmAxmpkeIxpktVDy2E9CUrA3EtAR5vZySDUiTMgw>
-    <xmx:Liu-aiZ_v2y0dDIOYLfW6gxBKHhCU2sPdV97RdjiX-Ej8J4Y7nfYGhDd>
-Feedback-ID: i934648bf:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 1 Oct 2026 05:43:09 -0400 (EDT)
-Date: Thu, 1 Oct 2026 11:43:07 +0200
-From: Sabrina Dubroca <sd@queasysnail.net>
-To: =?utf-8?B?SsOpcsOpbXk=?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net] macsec: prevent AES-GCM nonce reuse after packet
- number wrap
-Message-ID: <ar4rKxYd7Csm6l2t@krikkit>
-References: <20260930203333.598733-2-Jeremy.Jean@oss.cyber.gouv.fr>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="dlIke/1u"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd5462b69so35175775e9.1
+        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 02:44:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1790847874; x=1791452674; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zH7V34OXWvQCWyssKCnOpja/kvoTZzJKQy/F14al/1M=;
+        b=dlIke/1upn+MP2ZCNDKULlv4Yd9bBxmJs9HWWetjy48nYTCXGx/ERhVS4RqMzyhv0m
+         NhO+3ahojvZW+JIXOJcy97ZswgPKRwmm5XstGvWJGfSPj1gkcVBzgaBa9BQrHk22D348
+         SD02fIFE4w35/f5ZCYALnBCnNQvitigKXhdR3syx/wNCgDUCyLdka1onLZ9tHl8JUpj3
+         3S037Bj6PwEOUV3S4hwy8ZqaaJtSorTTA4PklZpFV8Wnt1fN7U85qTu2b8Wcken9WRW6
+         x0mIYVpk2gdV3ygRnR1Al2Ra7TFmY+IjWpmkcJFZlxzbXWqiv+8sLXb7jPATdlzOCGdZ
+         JgLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790847874; x=1791452674;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zH7V34OXWvQCWyssKCnOpja/kvoTZzJKQy/F14al/1M=;
+        b=s8Rq7GAbO/w/Vn1S2kzjwHI8WLSm/SJ9oSFYGB9JS6xrgYgIOMaQNZjNlBhV9Ftlli
+         mv+jYtWFCoXCTtgkeQQgy8mhCElyOH1Ggu63CaIak64N2a0G8Lwkc7vw1zxtmDVPYg4W
+         3tL6FGcUE7HsGHyaktRwuNdqg9dO8jujNz3NS7thCtEyy+yF8Z1zmDZw8bJTY8y0BIuI
+         a+Lu/1VxsWP7Qj9lykp/fdv6WOG/jvWgTFl94jQJxZgRqCFv4dOA8FswzmBx2eoUMxDO
+         Q39J9NmyduQhcqJv/+ztMFNnRs59jzajr0C2Lt/skoSv5fZv3tYzaRHlxLPcFZ3Fw6aL
+         UKPQ==
+X-Forwarded-Encrypted: i=1; AKwUvByjYuqoy9MaGy7vfrEEmU7UN6A25tZnjZwr3XDRt4G9Vg4lNGKNZq25DO04KSl8opbKDKoiW+Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++nZ+hnU3K6CFSL+WQKGhBNL1uMt9Hl7UyRy0f89fxXDtJ6WIRiN
+	Bo/QLNJPrTYuNx7Tj80joaGa2s1rTsFlX5O1IXpFn9yRnhmBWcwUgEhtTBCGgAo5jS4=
+X-Gm-Gg: AYBFou3s6D+FSmUsS98PXq6To3qP+b9WpO/NS6jb7J4/4TaT1QnVX4bBcCg/NO0Zp5U
+	7DmMa/ya3UKWodUEmGSSWKB75F80N101hL6lIcpsf0qVpTfcSlle9+MeDVVAmyqxuTkCK08Ic37
+	zrs1waOJeyZ/tvDon3QTOd6350kiA17pTv9zx5jnJbWCR9X02s6ZKCZz3KtZqr/jmMmMrv+vsJH
+	mtkfIabgXKGu8I2StmjYIN98O0y5rP7FKv7F7HpMZWecZux+swWIxvysDBCaEyv3PWNKAw0ZqKy
+	jK4vNbIbNJ+kSqUlEe4IX+7qfPQPKUKhphRY7/bh2vrqd26dtsi1JxJxVmDwk6q7kJdgJAFItYK
+	fz+zYe1umRGAcYGZrCmINdJQCpTSngiAdbcT7mf9qne56hp3ghXCr+OWrByYuGmwXrwsQWPntWc
+	Rf1/w1Ao5bnj7IXa28IXu92utdni72VQ0FRG5H3owu0fW8qMpqXq3vJUWfLqb+/r6ck174arZ8x
+	rzmxzfdd53V4rFaHRGEZbNjJmZp
+X-Received: by 2002:a05:600c:a015:b0:4a0:22d5:9087 with SMTP id 5b1f17b1804b1-4a022d591e7mr16229865e9.31.1790847873729;
+        Thu, 01 Oct 2026 02:44:33 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01fa137basm53110945e9.1.2026.10.01.02.44.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 02:44:33 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>, Jacky Huang
+ <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, Michael
+ Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
+ Richard Cochran <richardcochran@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
+ Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet
+ <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Steam Lin
+ <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org,
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, Krzysztof
+ Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, Miquel Raynal
+ <miquel.raynal@bootlin.com>, Jacky Huang <ychuang570808@gmail.com>,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v6 05/12] clk: nuvoton: ma35d1: Add missing WDT/WWDT
+ parent clocks
+In-Reply-To: <20260930-perso-ma35d1-upstream-clk-v6-5-48937ee6c9bb@bootlin.com>
+References: <20260930-perso-ma35d1-upstream-clk-v6-0-48937ee6c9bb@bootlin.com>
+ <20260930-perso-ma35d1-upstream-clk-v6-5-48937ee6c9bb@bootlin.com>
+Date: Thu, 01 Oct 2026 11:44:32 +0200
+Message-ID: <1j4if53gcf.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260930203333.598733-2-Jeremy.Jean@oss.cyber.gouv.fr>
+Content-Type: text/plain
 
-2026-09-30, 20:33:33 +0000, Jérémy Jean wrote:
-> When MACsec uses 32-bit packet numbers, 0xffffffff is the last valid
-> packet number
+On mer. 30 sept. 2026 at 19:24, Miquel Raynal <miquel.raynal@bootlin.com> wrote:
 
-This makes it sound like it's only a problem for 32b packet numbers,
-but I think it affects both? Sure it's unlikely with 64b unless we
-start from a large offset, but a well-behaved userspace should also
-rekey and switch SAs before we ever wrap to avoid losing packets while
-the rekey completes (but yes, "losing packets" is not as bad as
-"breaking crypto").
-
-> and after allocating it, MACsec deactivates the
-> transmit SA and wraps the next packet number to zero. Packets already
-> in flight can still be processed after that.
-
-So this is more of a race condition than a full "forever" bug. I think
-commit messages should be clear about that (and that doesn't mean it's
-not bad or not worth patching, but it's worth mentioning).
-
-Once TX operations hit macsec_encrypt -> macsec_txsa_get and see
-!sa->active, packets will be dropped and nonce reuse stops.
-
-
-> The first late packet gets packet number zero and is dropped, but
-> tx_sa_update_pn() has already advanced the stored counter to one before
-> macsec_encrypt() drops it. A second late packet can then be sent with
-> packet number one again, reusing the AES-GCM nonce from the start of the
-> SA.
+> The WDT and WWDT muxes list PCLK3/4096 and PCLK4/4096 among their
+> possible parents, but the driver never registers the corresponding
+> clocks, so these parents could never be used.
 >
-> Keep next_pn at zero after wrap so all late packets are dropped.
+> Add pclk3_div4096 and pclk4_div4096 as fixed factor children of pclk3
+> and pclk4 and expose them through the clock provider.
+>
+> Reported-by: Jacky Huang <ychuang570808@gmail.com>
+> Closes: https://lore.kernel.org/linux-clk/b8a8a65b-e302-4747-bc90-4920fc48795a@gmail.com/
+> Suggested-by: Jacky Huang <ychuang570808@gmail.com>
+> Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
+> Cc: stable@vger.kernel.org
+> Link: https://lore.kernel.org/linux-clk/b8a8a65b-e302-4747-bc90-4920fc48795a@gmail.com/
 
-"late packet" is defined on the RX side, but it doesn't make sense on
-the TX path.
+Is this is a mistake ? We usually add this when applying 
 
-The diff looks good to me.
+> Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
+> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+> ---
+>  drivers/clk/nuvoton/clk-ma35d1.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
+> index 6aa42a3e1be3..c914079cee2d 100644
+> --- a/drivers/clk/nuvoton/clk-ma35d1.c
+> +++ b/drivers/clk/nuvoton/clk-ma35d1.c
+> @@ -17,7 +17,7 @@
+>  static DEFINE_SPINLOCK(ma35d1_lock);
+>  
+>  #define PLL_MAX_NUM		5
+> -#define	MA35D1_CLK_COUNT	236
+> +#define	MA35D1_CLK_COUNT	238
+>  
+>  /* Clock Control Registers Offset */
+>  #define REG_CLK_PWRCTL		0x00
+> @@ -544,6 +544,8 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
+>  	hws[HCLK3] = ma35d1_clk_fixed_factor(dev, "hclk3", "sysclk1_mux", 1, 2);
+>  	hws[PCLK3] = ma35d1_clk_fixed_factor(dev, "pclk3", "sysclk1_mux", 1, 2);
+>  	hws[PCLK4] = ma35d1_clk_fixed_factor(dev, "pclk4", "sysclk1_mux", 1, 2);
+> +	hws[PCLK3_DIV4096] = ma35d1_clk_fixed_factor(dev, "pclk3_div4096", "pclk3", 1, 4096);
+> +	hws[PCLK4_DIV4096] = ma35d1_clk_fixed_factor(dev, "pclk4_div4096", "pclk4", 1, 4096);
+>  
+>  	hws[USBPHY0] = ma35d1_clk_fixed("usbphy0", 480000000);
+>  	hws[USBPHY1] = ma35d1_clk_fixed("usbphy1", 480000000);
+>
+> -- 
+> 2.55.0
+>
 
 -- 
-Sabrina
+Jerome
