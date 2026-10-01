@@ -1,196 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 195193E2ADF;
-	Thu,  1 Oct 2026 17:13:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0F902F7EE7;
+	Thu,  1 Oct 2026 17:14:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790874826; cv=none; b=hI7tqh+NWTZBTSxtBY1KNkQqZOQtmiq4wrOIzjobU9/G3aRhm7k/s+I76CkoklqH2qofEjyf9bRg1U4LYw/EtN303qnliked8khsgc+ewiPFnn+nAHp6Pzkh3e7gE4ZBzgc2hEz0yZLROZvJfJ2WQROMVPlLueCuW1iTGbOSkvE=
+	t=1790874886; cv=none; b=b+pWkvukwdqI8yL5JJqU/aZq8mqwOt5J6pe3tdwvSgsKdV11p4NorqKINqIcKCAZw9rL+zrzYImACf5DtQUsyUAEtGjxz/J5hD91ys83KdrQfe0MYSlOA78o+e48VtUV4XY9ViHw9IC8vnAskF9Tx1Udw56KIWHNtzgvAzYCKOA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790874826; c=relaxed/simple;
-	bh=lhq8JKa61aTi2bOedB2Rr/BQnnWBa3OKYCB3YEzC3dc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=HyPXwG5VkKkughA55khicV8K6VfMLJeXZa0KbRRSkUj/TiyJsTtiK7ScUckzZ3fWg/XiNEsFwcH/FcjRv3/qk9nLjc/LyIaDGl21M+ilh4cYEYPZ4L/cMby/IEuQcvxQoa0dEKRPCpLKMI0MSxG69J/FthSfaMiBrLeb1EMJXFk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pu4Nr4N0; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790874886; c=relaxed/simple;
+	bh=r4mOQ6DUqPtT5fWKZVM4/eQ+BtWY5YiaZ3wUblAaxvw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KARKvxbw6IdYwgh/WdLmQ1OzBytccjI6oeDJ2i2rpOfgKW5/nV7X+qedX+SdWWNbsd3igMbZnoICwnNgV91w0s0QixCE6mGwBRq/lTUwfp4i7B8nvAe4YW/6TF0AUDttipC9qcHAQ5YzTCtHfpjJYvi9uK9y2rjSBlbOLROyMo8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VDaQJY/Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pu4Nr4N0"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 146D6C2BCC7;
-	Thu,  1 Oct 2026 17:13:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790874825;
-	bh=lhq8JKa61aTi2bOedB2Rr/BQnnWBa3OKYCB3YEzC3dc=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=Pu4Nr4N0SCi9iwuahSsPUdyfOR56ompJLH+Bhfm1/eFG/ix/XPZD6JJArSmt0gYPx
-	 0OSN1c5VQh4CiC1ZWcR7USgV4SGLLH/P1LvrvfMEQ2lnmbP3C40b697yUI2/NAA7k0
-	 DKWoDz7giesPUpqTnzO9lgEoArUVlUVuq+9wECDdnWbju7PrLr9yyJLS76GQxVOqH8
-	 fxmwqMuiXmQ/grX6JecJF0x3kAdTLSS9s2St5jL7az3Z4jnghisaxDFhFe8c99Cxym
-	 5w7/z/8G0DTvp+IjcXyAACjmQiKrXA7nl9hdghlwUujCbxWUK7BAt/d8orpNDPxepI
-	 4ax8ZceHlJ6Ww==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E308BCA5FD4;
-	Thu,  1 Oct 2026 17:13:44 +0000 (UTC)
-From: Jerome Mohm via B4 Relay <devnull+jrmmhm.kernel.eldare.de@kernel.org>
-Date: Thu, 01 Oct 2026 19:13:29 +0200
-Subject: [PATCH net] vsock/virtio: clear vqs[] to avoid a UAF on a failed
- PM restore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VDaQJY/Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7F6D1F000FF;
+	Thu,  1 Oct 2026 17:14:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790874881;
+	bh=d3OI93CslrMJd5LCHTrV6UGCfCMJDqvFLQa/stHpzZM=;
+	h=From:To:Cc:Subject:Date;
+	b=VDaQJY/QXgFRFoINCAf07gDWXmNH3pYYpeaafner0ak9/Dp71ybvnvqlG1gnqaKWI
+	 jMJsh9z4GH4VB8mbEbdMKbYaOKy130YKvTs0TWCcWB502yIyY9KaCLLlLWIE3pfdcy
+	 dFEUAxzi0Ujn2g3wHl3oCADVCXVWEaj2V7gmJzSloXxCMLqJWpsthkcoKhNJ8GsPE8
+	 f+lv0oCnL96ffOutG3Hg/BztxBICJgmp7hXhmNlVUwljhl5GuMhw6RJqVfBP2eQ8r7
+	 LXMrP9DLMESHvSXLRf+P+H+FPbk20iurxf4dZ+9WXZmhl5YQMrreqhcnrx+3MVeDe0
+	 Qn/s0OIFP6npg==
+From: Eric Biggers <ebiggers@kernel.org>
+To: fsverity@lists.linux.dev
+Cc: linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Christoph Hellwig <hch@lst.de>,
+	Eric Biggers <ebiggers@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] fsverity: RCU-delay the freeing of struct fsverity_info
+Date: Thu,  1 Oct 2026 10:13:49 -0700
+Message-ID: <20261001171349.81454-1-ebiggers@kernel.org>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-vsock-restore-uaf-send-v1-1-5da60f707506@eldare.de>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM0QrCMAwAf2Xk2UAzYaK/Ij50bapRaCXpxmDs3
- +3c4x3crWCswga3bgXlWUxKbkCnDsLL5yejxMbQu34g5whnK+GDylaLMk4+oXGOSClcztcheRo
- jtPirnGT5j++QucLjkDaNbw51X8K2/QCBE6SYfwAAAA==
-X-Change-ID: 20261001-vsock-restore-uaf-send-1fc7396fa1bd
-To: "Michael S. Tsirkin" <mst@redhat.com>, 
- Jason Wang <jasowangio@gmail.com>, 
- =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
- Stefan Hajnoczi <stefanha@redhat.com>, 
- Stefano Garzarella <sgarzare@redhat.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>
-Cc: kvm@vger.kernel.org, virtualization@lists.linux.dev, 
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Jerome Mohm <jrmmhm.kernel@eldare.de>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790874824; l=4969;
- i=jrmmhm.kernel@eldare.de; s=20260928; h=from:subject:message-id;
- bh=OzDITxghnCYWCrZYjn50doFti2WNlSPFkziXexLwJqE=;
- b=gJV0ZugB4Fep9rZp+kEVHlD38YYd8UmQENkr+fukRe8g1yhWWzWG6WECTSs6uOS/yFvZZY7R9
- ORFIua46Ha4Aa1Cz94X/RmyKurU7eskGPowCKDtVwxCAjCLjlIM8ofH
-X-Developer-Key: i=jrmmhm.kernel@eldare.de; a=ed25519;
- pk=xRCxNXbnNottaHpmvPDAOC9NuMJxqKo24abkehKRVlo=
-X-Endpoint-Received: by B4 Relay for jrmmhm.kernel@eldare.de/20260928 with
- auth_id=1075
-X-Original-From: Jerome Mohm <jrmmhm.kernel@eldare.de>
-Reply-To: jrmmhm.kernel@eldare.de
+Content-Transfer-Encoding: 8bit
 
-From: Jerome Mohm <jrmmhm.kernel@eldare.de>
+__fsverity_get_info() calls rhashtable_lookup_fast(), which just uses
+rcu_read_lock() and doesn't directly synchronize with
+fsverity_remove_info().
 
-virtio_vsock_vqs_del() frees the virtqueues via del_vqs() but never
-clears vsock->vqs[]. If a later virtio_vsock_restore() fails to
-reallocate them (its error path is a bare "goto out" that only unlocks
-and returns), the driver is left bound with a dangling vqs[]. The next
-virtio_vsock_vqs_del() - on a second freeze or on remove/unbind - then
-passes a freed vring_virtqueue to virtqueue_detach_unused_buf(), a slab
-use-after-free. KASAN on a guest with a virtio-vsock device, after a
-restore made to fail by fault injection:
+For the same inode this isn't a problem: its fsverity_info is removed
+only at inode eviction time or upon failure to enable verity, when the
+inode no longer needs its fsverity_info and it will no longer be
+accessed via that inode.
 
-  BUG: KASAN: slab-use-after-free in virtqueue_detach_unused_buf
-  Read of size 4 at addr ... by task repro
-   virtqueue_detach_unused_buf
-   virtio_vsock_vqs_del (net/vmw_vsock/virtio_transport.c:785)
-   virtio_vsock_remove
-   virtio_dev_remove
-   ... unbind_store
-  Freed by task ...:
-   kfree
-   vp_del_vqs
-   virtio_vsock_freeze          <- the preceding freeze freed the vq
-  Allocated by task 1:
-   vring_create_virtqueue
-   virtio_vsock_vqs_init
-   virtio_vsock_probe           <- original allocation at probe
+However, this is broken and can cause a use-after-free for concurrent
+__fsverity_get_info() for *different* inodes.  Those rely on following
+fsverity_info::rhash_head in the rhashtable under rcu_read_lock() only.
+They also use fsverity_info::inode to do the key comparison.
 
-The object is the RX vring_virtqueue freed during the freeze;
-vsock->vqs[RX] still points at it. virtqueue_detach_unused_buf() does
-not guard a NULL vq, so a bare NULL-out is not enough on its own.
+Fix this by RCU-delaying the freeing of 'struct fsverity_info' after
+it's been removed from the rhashtable.
 
-Clear vsock->vqs[] after del_vqs() in virtio_vsock_vqs_del(), skip the
-detach loops when a vq pointer is NULL, and also clear the array when
-virtio_find_vqs() fails partway in virtio_vsock_vqs_init() (which can
-leave freed pointers behind). This mirrors virtio_blk
-commit 0739c2c6a015 ("virtio_blk: NULL out vqs to avoid double free on
-failed resume") and virtio_rtc commit 548d2208455f ("virtio: rtc: tear
-down old virtqueues before restore"); virtio_console carries the same
-stale-pointers-after-failed-restore fix.
-
-Testing: reproduced on a private VM with a KASAN fuzz kernel based on
-v7.3-rc5. The restore allocation failure was forced with CONFIG_FAILSLAB
-steered by the fault-injection stacktrace filter to the virtio-vsock
-restore path only; a guest-root program drives a pm_test=devices
-freeze/restore cycle (so .restore returns -ENOMEM) and then unbinds the
-device. The unfixed kernel reports the slab-use-after-free above; with
-this patch the same run makes restore fail identically yet produces no
-KASAN report. checkpatch.pl --strict is clean and the build is
-warning-free. The reproducer is available on request.
-
-Fixes: bd50c5dc182b ("vsock/virtio: add support for device suspend/resume")
+Fixes: f77f281b6118 ("fsverity: use a hashtable to find the fsverity_info")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Jerome Mohm <jrmmhm.kernel@eldare.de>
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
 ---
- net/vmw_vsock/virtio_transport.c | 28 +++++++++++++++++++++++-----
- 1 file changed, 23 insertions(+), 5 deletions(-)
+ fs/verity/fsverity_private.h | 15 ++++++++++++++-
+ fs/verity/open.c             | 13 ++++++++++++-
+ 2 files changed, 26 insertions(+), 2 deletions(-)
 
-diff --git a/net/vmw_vsock/virtio_transport.c b/net/vmw_vsock/virtio_transport.c
-index 4f9aa9c4c3aa..0553c0641fd2 100644
---- a/net/vmw_vsock/virtio_transport.c
-+++ b/net/vmw_vsock/virtio_transport.c
-@@ -714,8 +714,15 @@ static int virtio_vsock_vqs_init(struct virtio_vsock *vsock)
- 	atomic_set(&vsock->queued_replies, 0);
+diff --git a/fs/verity/fsverity_private.h b/fs/verity/fsverity_private.h
+index 881d46f25e08..6f85f63861aa 100644
+--- a/fs/verity/fsverity_private.h
++++ b/fs/verity/fsverity_private.h
+@@ -11,6 +11,7 @@
+ #define pr_fmt(fmt) "fs-verity: " fmt
  
- 	ret = virtio_find_vqs(vdev, VSOCK_VQ_MAX, vsock->vqs, vqs_info, NULL);
--	if (ret < 0)
-+	if (ret < 0) {
-+		/*
-+		 * On a partial failure virtio_find_vqs() can leave freed
-+		 * virtqueue pointers in vsock->vqs[]; clear them so a later
-+		 * virtio_vsock_vqs_del() does not detach a freed virtqueue.
-+		 */
-+		memset(vsock->vqs, 0, sizeof(vsock->vqs));
- 		return ret;
-+	}
+ #include <linux/fsverity.h>
++#include <linux/rcupdate.h>
+ #include <linux/rhashtable.h>
  
- 	virtio_vsock_update_guest_cid(vsock);
- 
-@@ -782,19 +789,30 @@ static void virtio_vsock_vqs_del(struct virtio_vsock *vsock)
- 	virtio_reset_device(vdev);
- 
- 	mutex_lock(&vsock->rx_lock);
--	while ((skb = virtqueue_detach_unused_buf(vsock->vqs[VSOCK_VQ_RX])))
--		kfree_skb(skb);
-+	if (vsock->vqs[VSOCK_VQ_RX])
-+		while ((skb = virtqueue_detach_unused_buf(vsock->vqs[VSOCK_VQ_RX])))
-+			kfree_skb(skb);
- 	mutex_unlock(&vsock->rx_lock);
- 
- 	mutex_lock(&vsock->tx_lock);
--	while ((skb = virtqueue_detach_unused_buf(vsock->vqs[VSOCK_VQ_TX])))
--		kfree_skb(skb);
-+	if (vsock->vqs[VSOCK_VQ_TX])
-+		while ((skb = virtqueue_detach_unused_buf(vsock->vqs[VSOCK_VQ_TX])))
-+			kfree_skb(skb);
- 	mutex_unlock(&vsock->tx_lock);
- 
- 	virtio_vsock_skb_queue_purge(&vsock->send_pkt_queue);
- 
- 	/* Delete virtqueues and flush outstanding callbacks if any */
- 	vdev->config->del_vqs(vdev);
+ /*
+@@ -76,7 +77,19 @@ struct merkle_tree_params {
+ struct fsverity_info {
+ 	struct rhash_head rhash_head;
+ 	struct merkle_tree_params tree_params;
+-	u8 root_hash[FS_VERITY_MAX_DIGEST_SIZE];
++	union {
++		u8 root_hash[FS_VERITY_MAX_DIGEST_SIZE];
 +
-+	/*
-+	 * del_vqs() has freed the virtqueues. Clear the stale pointers: if a
-+	 * later virtio_vsock_restore() fails to allocate new ones, the driver
-+	 * stays bound with a dangling vqs[] and the next virtio_vsock_vqs_del()
-+	 * would detach a freed virtqueue (use-after-free). Mirrors virtio_blk
-+	 * commit 0739c2c6a015.
-+	 */
-+	memset(vsock->vqs, 0, sizeof(vsock->vqs));
++		/*
++		 * Used for final freeing of the struct, in which case root_hash
++		 * is no longer needed.  Specifically, the only fields needed
++		 * besides the rcu_head are those needed by fsverity_free_info()
++		 * itself, and those that can be accessed by fsverity_get_info()
++		 * (rhash_head and inode) during the RCU-protected rhashtable
++		 * chain search trying to find another inode's fsverity_info.
++		 */
++		struct rcu_head rcu_head;
++	};
+ 	u8 file_digest[FS_VERITY_MAX_DIGEST_SIZE];
+ 	struct inode *inode;
+ 	unsigned long *hash_block_verified;
+diff --git a/fs/verity/open.c b/fs/verity/open.c
+index d0c56a7faa3b..52c8cd014921 100644
+--- a/fs/verity/open.c
++++ b/fs/verity/open.c
+@@ -399,11 +399,22 @@ void fsverity_free_info(struct fsverity_info *vi)
+ 	kmem_cache_free(fsverity_info_cachep, vi);
  }
  
- static int virtio_vsock_probe(struct virtio_device *vdev)
++static void fsverity_free_info_rcu(struct rcu_head *head)
++{
++	fsverity_free_info(container_of(head, struct fsverity_info, rcu_head));
++}
++
+ void fsverity_remove_info(struct fsverity_info *vi)
+ {
+ 	rhashtable_remove_fast(&fsverity_info_hash, &vi->rhash_head,
+ 			       fsverity_info_hash_params);
+-	fsverity_free_info(vi);
++	/*
++	 * The freeing must be RCU-delayed because __fsverity_get_info() for a
++	 * *different* inode's fsverity_info in the same rhashtable hash chain
++	 * can still be accessing *this* fsverity_info's rhash_head and inode
++	 * fields as part of the RCU-protected hash chain search.
++	 */
++	call_rcu(&vi->rcu_head, fsverity_free_info_rcu);
+ }
+ 
+ void fsverity_cleanup_inode(struct inode *inode)
 
----
-base-commit: a7bfaba4823e3c165bb2004c74eff7c096672bc7
-change-id: 20261001-vsock-restore-uaf-send-1fc7396fa1bd
-
-Best regards,
---  
-Jerome Mohm <jrmmhm.kernel@eldare.de>
-
+base-commit: 551c722f40809618230001baccf219193e22fc5a
+-- 
+2.56.0
 
