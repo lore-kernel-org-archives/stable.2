@@ -1,103 +1,65 @@
-Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.79.153])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE0A93C9898;
-	Thu,  1 Oct 2026 20:35:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.132.79.153
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D27A1486B90;
+	Thu,  1 Oct 2026 20:37:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790886960; cv=none; b=bfdzBY/CC7CSM3/wxw/3vYIXJTSP5dKbl4/h+X0ZjkpK9bL3PnuYpLS4ULPF5Rh3/yU4DwPBDHa54aAZl8M5tvvVcMu6r4pEg0WP1IUOfEAkoZwUAjL6+h1/d35DWIJ10pSfinORqybyIJ0n3n2sO1o8ijq1L6e5FRUo3RUqYIg=
+	t=1790887067; cv=none; b=D3C5scESm4KqZv4HbYuOTgQO5aQ2RkXT7Bk/9SOVu/IR4H4fmU9K8jOVPuUItrKMtULcpkPRJ8IOR780ZcsAvqChsCZzJ+LqzgLLqatKdFvi2W3dEuipy9sarDweX8SjHAGpSVkVtMoAzL0wyvuCOYhBlHN8eMOUl3M/4aZkDsI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790886960; c=relaxed/simple;
-	bh=IA4tjS6ZENLiaImBarBx3h3yZpuAPV6OweONZoyZtok=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=FNUdMvIV8OtOA/A+dL2NBOI0y1ZCDM/oMbNSb2E/oxR8yCAgl/MptYcneR7QPo3YB7oxhBAWj+fFPvrMJmts9ihdpn1ubRm+TYIvZMFqC6CL4SBbehDoDfsxT6VzYinI44fHlPw4KpgJuJibaSRpbcPXp0C2z0htjK6qieJTJt8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=J0v2ndMb; arc=none smtp.client-ip=114.132.79.153
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1790887067; c=relaxed/simple;
+	bh=OxTMrSVgT0lqmqDZvAG+HGAFHJPFlw4PUzoa1mdEt/M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IR/bG2bjpKW+4NP4J4EkM04kBgb3ZPZYnPZi3tcuq5Gg9ovuFVVB92CgqUDV72zdmGaL3OkDJu73Ij+tD0o+wmlSGXEPgllCJIM5s1YdXZ5qOkA5AcM3+IcTohuPtLGEdEV5nIMn4uFP6CNS7c4H0AIUpmQ+/67EUAPjempPONA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=F+sKo2CY; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="J0v2ndMb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1790886866;
-	bh=ouNIVKiaTJjOPW0o5N855FTdf6G8RVwMIXnVCtSoOsA=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=J0v2ndMb54F3TdP0OzxzpbX4ClfTUTj6ItYHaVS1/ZPUf24puyClyXNdB7xQ8Moi5
-	 /cH1+aVGJIWXOnvW9kGX3B6qEKzrKQLEOrAWd4OJz9hJXRtIxvbBdhpLSWn/6ff0ML
-	 DGOIkP1BclgEcZv9OWvK9Yk2FsWsqg8ikPOYff5w=
-X-QQ-mid: esmtpgz15t1790886861t51ce9723
-X-QQ-Originating-IP: kTgOArV73S5mqYk44EEgIxWB0J0Boa6Mz2HaF4G8qtU=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 02 Oct 2026 04:34:17 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 1020183408094145813
-EX-QQ-RecipientCnt: 21
-From: Wentao Guan <guanwentao@uniontech.com>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Wentao Guan <guanwentao@uniontech.com>
-Subject: Re: [PATCH 6.18 000/395] 6.18.55-rc1 review
-Date: Fri,  2 Oct 2026 04:34:11 +0800
-Message-Id: <20261001203411.465279-1-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260930152340.591469096@linuxfoundation.org>
-References: <20260930152340.591469096@linuxfoundation.org>
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="F+sKo2CY"
+Received: from LAPTOP-F8U7OQUB.localdomain (unknown [167.220.81.157])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 2481720B7166;
+	Thu,  1 Oct 2026 13:36:52 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 2481720B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1790887012;
+	bh=owUIPjGXDyRahKF9rQvqaDza2qq0SU+V8BI0G1vditU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=F+sKo2CYH8RjnxPzNEzGlpPP1VX3dCl9sZ1ZKBmY6YXAhJswR2RsGa6cy6SjDPWiB
+	 F3sj8mylTOd/FXZMGvCokZMy4Tpx9Wij182mIcdPcbxVagmiSBIHFDDCK6CHHm2muV
+	 6AFlXxQEIGUl3wxBdOQCPVdQ/ILjXHx8DgVzsC/c=
+Date: Thu, 1 Oct 2026 13:37:36 -0700
+From: Tahera Fahimi <taherafahimi@linux.microsoft.com>
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org, steffen.klassert@secunet.com,
+	herbert@gondor.apana.org.au, raminwo0202@gmail.com,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, apais@linux.microsoft.com
+Subject: Re: [PATCH v2] xfrm: prevent policy_hthresh.work from racing with
+ netns teardown
+Message-ID: <ar7EkCXMTxG43af6@LAPTOP-F8U7OQUB.localdomain>
+References: <20260929235256.1398309-1-taherafahimi@linux.microsoft.com>
+ <2026-09-30-1-daily-reply-0001-xfrm-policy-hthresh-v2-6-6@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: MZj8uWqgIL1NALHlvm1e+HBe8xxLxQ5wYXxkAB/Dhdc33txTpCmOq/NN
-	dDM7CgvZiJRslHZ3P2lZgVkBItzY2JCrMNoF+jofCDNdq5AeNkD0zG0NJ7V3/D0yDi5JzZx
-	84lDfHOgT8l1FAZni28hlsf0AYOqzDch/JgJNfRIjZMwJV1BGUR7HPX+B2/P+h3nkp82wkT
-	5VRZWvDpJHBRxMbwueLHQG5YQKWvwnOpkDDpSm2mlomJ4yeeRL7TPx8GP2QIbarvjfjhuw6
-	7f+06JOmszdWapmIaFv+VMFeCepugZSqGZs0nd7MA1wzd0xWXoamIZew1IKClIFpO30zG4J
-	E2FdT2wRyH+3s0I6KbyNNi26aG3Qrn/6EYKLMnGoTs30PAmm6dKeNoPzvaMJcXz1+PcEJng
-	GbpSU2h6Ip6col9eemQACUHCz9rpP6wvE2QGMecArbblgaGspEKDSiCfLMqbH+jTFC8eiW9
-	xCvvGzQLlPBxToAcbU3YthWoph4q5C+whbs87MocONgs97wMAyMfYqPe9hTUbbgFluI6Wie
-	7zEjdHn7Cd9bTVOEuQ0nfduL4uZE3bYxqvFQAFDO3f4HqvqdkZspLE2Zx14RqZhu6L9Rzjp
-	nWfmQnMpkDI1Y4lisx4bLGppfbxwS8qLIoPfo6nCyErV1pu7KdGUMEiovjRWOhIRXLSjJqu
-	9SqVucBfEp4tFxzuQYINYBjRdcbK/Pbmsds967s11LPbv/cEUPAjyUj9+vShxoQ2qzU/sUG
-	1EOlcNqWUvyJBAf/I4JwKRid0I9lv4qnJ49DfxT1d7PvDe/hxtoZ37DfGOs1NvlgSicfJEN
-	xjQcY4y3PzX2/VKOET++MtXUts4K+Vix+5+Z6yY4dvVG4NBDZBEjvQp78SmmIrN2fBDtTTp
-	48voNFB6YmVn/Vllpz44J5hM8e8mLww3ZkPzf7FCc1FaSqJidJ4S0s34QzFv+eL7MrAmS6Z
-	4C57c4onJ+OHvf7BOUcYigAysUffyr9MwrpjqKqYYNwxboOcmJuw3X+EygDK/OwasVa7EvD
-	QkVlcwF05EcYq8dv84rH6CBUDMV3I1HTaLFkXdXRCExWs6ME16HG/g01WT/N8=
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2026-09-30-1-daily-reply-0001-xfrm-policy-hthresh-v2-6-6@kernel.org>
 
-Build tested in our x86,arm64,loongarch,riscv64 config successfully without error.
+On Thu, Oct 01, 2026 at 09:52:05AM -0400, Sasha Levin wrote:
+> > Mainline commit 29fe3a61bcdc ("xfrm: prevent policy_hthresh.work
+> > from racing with netns teardown") fixes this issue using
+> > disable_work_sync(). That API is not available in Linux 6.6, so the
+> > mainline change cannot be directly backported.
+> 
+> Queued for 6.6, thanks.
+Awesome. Thank you!
 
-Tested-by: Wentao Guan <guanwentao@uniontech.com>
-
-Best Regards
-Wentao Guan
-
-log:
-Linux version 6.18.55-rc1-gad4aa0f0db99 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #3 SMP PREEMPT_DYNAMIC Fri Oct  2 03:09:51 CST 2026
-Linux version 6.18.55-rc1-gad4aa0f0db99 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #4 SMP PREEMPT_DYNAMIC Fri Oct  2 03:30:35 CST 2026
-Linux version 6.18.55-rc1+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #5 SMP PREEMPT Fri Oct  2 03:49:50 CST 2026
-Linux version 6.18.55-rc1-gad4aa0f0db99 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin18) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #2 SMP PREEMPT_DYNAMIC Fri Oct  2 02:47:53 CST 2026
-
+> 6.1, 5.15 and 5.10 have the same bug and also lack disable_work_sync().
+> Could you send tested backports for those trees as well?
+Sure. I will test and send the appropriate backport for other version as well. 
+> -- 
+> Thanks,
+> Sasha
