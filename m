@@ -1,353 +1,169 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 007233CF21F;
-	Thu,  1 Oct 2026 22:01:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 100BE2DF156
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 22:02:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790892117; cv=none; b=TyB6l9ZYZkXo89S9MXYZfMVCBsdHfQ8gzzPk4/XFAx7JVpZ3YltKSx3RZHnqtRHl1z/SF9rAfXSN+EpjI09mwTGmXp5y3bsFKXUldErvHEktt/4MUhLurJh+Fzw8/Q3D/CvKelzNTejL4TNRzfpndGkjkPepgAkbBjcNgqRkfRk=
+	t=1790892127; cv=none; b=QCWRsXj8CmMnurGkOkwhoBR828W7x/KLQ3Hb58ugMAFzunjQJohIieHl5TTqwB9mk65hytB4TzENOFJ/+Fp3l3/x6Q3UI0ozux/W+aAcfPPFiicsvGNxsGw4qNKX87lFnxkuOaWvixHqtXrHuGVP1zZukiBHxFTgClgxBt5ATT8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790892117; c=relaxed/simple;
-	bh=QpSVf+WhHYdG/Hs2ZQWrnDWqO3h9QFr4UO6sF1I39NI=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=NgvwaNXNKY953czz+mhRpPLg8CH9KqK0RHWjM10Sntm0LyRJ+JMW3gHHgQBskhG0oll0YTlJxabyX95tKp+b/eiAtZ/LOY936K3sBC/EEIFKdFg/clQ0LWcINNW6bw1A0lZLCdTuiOveNdpdhjKzjqcZnit4nZF/3C0swMu/+hA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ItlGiUTA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790892127; c=relaxed/simple;
+	bh=JjygOzXkqKng+9yvRLyl5HsDYVO+kYdxgW4/DBjOsZU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Mt842jL46Cn6TkA1IgiQw9w6nnxh03BK4XVGKpGozAZGl6wZVEljAb1c4qJ6BperMnMaT3U9zrCNxGRK3oaSGHhWzVx69jm0vcNnblxA2LCMpzGVPoH0aM3KaPTT2cGMkikV1BObMLaw5YJMhhVMAUSByRrvtixV49BZ44QWpEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rsaLXTi/; arc=none smtp.client-ip=74.125.229.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ItlGiUTA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 574501F000FF;
-	Thu,  1 Oct 2026 22:01:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790892111;
-	bh=hvjTwEVtjKZQAd/DtFPWaDqigakbTrWsSDpKRwegzOc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ItlGiUTA6lqdYnbjrD64Kn+vCiHfIziHdvyaFqpKNz8YhT8tE/DtA1EdHO5n+Z5iR
-	 Fe+rivPDWlI1NNcLe/LfpYz3o8OVbzyu6LxG3aaggNRu3bEDxPyiCwy2QziOpGigb0
-	 7QwlMukIep768/fzTIMT2X5pG5VHuNFrQIFkEq6hqil4tgrfgPxKc3Y6BRDwPdW90X
-	 V37sbSkn5Ti7E0hT7qo8q/pvHCf/zBkRCqxSLeuyw9BU/0nXis0giP+jle+MATxomO
-	 ZDNmcJjE6L693KRf0JgHfilFTRDsMMA96MKIei3YueqkuuUgG/HhOJCLC5rZnjb1FD
-	 A0PWB9Q38yBsA==
-Subject:
- Re: [PATCH] net: ncsi: clamp filter table counts in GP response handling
-From: netdev-bot+sashiko@kernel.org
-To: kattamurivamsikrishna17@gmail.com
-Cc: netdev@vger.kernel.org, sam@mendozajonas.com, fercerpav@gmail.com,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, gwshan@linux.vnet.ibm.com, joel@jms.id.au,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Thu, 01 Oct 2026 22:01:49 +0000
-Message-ID: <179089210982.434549.17369347580583679927@kernel.org>
-In-Reply-To:
- <CAANnmVAicVNhy8fMUaFJ_N+b4DnbwpYi1MOL4yMVisix1WCX4w@mail.gmail.com>
-References:
- <CAANnmVAicVNhy8fMUaFJ_N+b4DnbwpYi1MOL4yMVisix1WCX4w@mail.gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rsaLXTi/"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33bfb26865fso6907267eec.2
+        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 15:02:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790892123; x=1791496923; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bQSqCxLaeYIZqKCGpCRqtTz31RfWsjshUpxQ+xDyGIo=;
+        b=rsaLXTi/3GWN5te3LL/Fz+Zr20NMRqISNAHMCk/mVDePAMo2pWyKrJ3AGVMZeSJFRL
+         4EXRH8d9oCPvZnwTxrqfH0rafZx2I0+9V7Rlk8wchaISHwlvDBa3ZRGQK4boeAsN21qg
+         Qb0dPaXnHprFDLRqjgl4BqlPt53ujc1+a/GnFKcrF7AtSd3DzO1zD9jI7PNU+/yOe5S/
+         ica/PC8NQjFsp43mUa+jJyKXmhtl4lQaE20PYxmNosoEUhOW6ESie1a5RUX2DXIwDJVB
+         1ypjjHSEv6WHSwP7k0H+BG2fBJPcQebjOBGclFjh2VjJ8p/QhX75GMiwMgPf3dSy/5Im
+         z02A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790892123; x=1791496923;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bQSqCxLaeYIZqKCGpCRqtTz31RfWsjshUpxQ+xDyGIo=;
+        b=FfmPVH/jW9qNr8yOsDLdUBm/xOEzXMDdab9F67tLhMqtoJzFIX5xr7004GAJnMnOSx
+         grjD9j8I7eDKq58GyQvDV4/sJcoDm5FRJp8MqJ2NwjwTH9x7SVMfzRtpsPWEV282URkH
+         bgOoKnpqkC7oy2bsX/w3XEvPqKzVURtCbFOnVL0CV4admCNiaZTz0lXaUqiwJtO3kpFT
+         DkMMUNE8ApF0OcN+7P5/VOMWGdCmHVyZLIO2G52tDxi9q9ARZKM7RKjk3jczTkxJ3NIk
+         QSB9IcgBqjGC8yAoCiLsi6xslmNkMw3AYYSBdVsdsA3rvdRWwq+7kwqsBf1OvryaQKKG
+         Xh1w==
+X-Forwarded-Encrypted: i=1; AKwUvBzYh34sansRNfwXe8dFiJtu5XxGxf9kh6018LFG/LbEWwoDheox1cxN7INfLbcclqkxRT7LojY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKV5RoxbLNHqPTGq7PR2Uy2tuQQ91Ymu80hounvHbE6CKYbNyL2
+	pvo/WfLahU7euI5+T3FUNGiaLMPp2FzIvGr6tnq6ZR+3jXXtZH6khQsp
+X-Gm-Gg: AYBFou0lzkK5lA3ERLFyb3hvWK6BNJwZwniw50TRqFGH5qqnubKJCMl0bNid8oDgpv9
+	WoMTM45CvnQh/AlPZSR4oodaH7cvgmqHNtKxk3YEYggGDXP/Xo6IQKsBeqhlYJxhCRLX3mtfqin
+	SIcSsAJjJ2/imDa7qfO3zA0sjn/8D+WkHpyt1VuHd/VNfyrzu+HR8KAZLDzJjrQ1L+EPqnu6SdQ
+	37J4xdbNW0rlTGbmHFNNwOusdrpjC1nseOxLjWO74KtMBKwSU85dLcfqzPq2cqS8uP9aYI9Gk3y
+	X/hGE2KhBUB22EGcNkKEkbCU9aT5Zrv0o7nUFuDUHO/8r6EmdqJN5fsOPk2Sp9OQ2+ku1rfhxZL
+	xBuz8HsB7SztaXqDeuf7BAvevZZChtGdKh4+ztuMsAsVkLPLzKRwcJx0Zx0OaWeg5xSswH1/KyV
+	P/zBEwUrnb19YfB/eSEQv5TnuIrMo8lXRFQEAXyziKF2jQQIfm/SD3jUcPgZaHBEbST0w36lr3f
+	IaKQziqX/24++IJ0wkBFnZzZrl7yFb4YAEvwoIN3Q==
+X-Received: by 2002:a05:7300:e9cd:10b0:33c:e82:70c7 with SMTP id 5a478bee46e88-34f21985077mr718743eec.30.1790892120960;
+        Thu, 01 Oct 2026 15:02:00 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:786c:ba70:85d5:57bf])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34f14f660f1sm1043250eec.13.2026.10.01.15.01.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 15:01:59 -0700 (PDT)
+Date: Thu, 1 Oct 2026 15:01:56 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Christian Lamparter <chunkeey@gmail.com>
+Cc: Kalle Valo <kvalo@kernel.org>, linux-wireless@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 0/2] wifi: carl9170: revert broken devres conversions for
+ input and hwrng
+Message-ID: <ar7X4ul_AGHU_mUY@google.com>
+References: <20260930-carl9170-reverts-v1-0-7033b5716c14@gmail.com>
+ <1a007951-8e77-4ca5-8dc2-093251357e0a@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
-
-Critical: 0 · High: 2 (1) · Medium: 2 (2) · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The fix is incomplete, and the commit message is wrong about the
-  SVF/SMA handlers.
-- [High] The new limits in ncsi_rsp_handler_gp() assume n_uc+n_mc+n_mixed
-  and n_vids always describe the buffers behind ncmf->addrs and…
-- [Medium] The new limit on the MAC loop in ncsi_rsp_handler_gp()
-  (net/ncsi/ncsi-rsp.c:886-888) also limits how far the wire cursor…
-- [Medium] ncsi_rsp_handler_gp() now reads n_uc+n_mc+n_mixed and n_vids
-  under nc->lock as the size of ncmf->addrs / ncvf->vids.
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the loops it
-  changes still read past the end of the received GP response.
-- [Medium] This problem wasn't introduced by this patch, but the new
-  limit of 64 (sizeof(bitmap)*8) does not match the width of the on-wire…
-- [Medium] This problem wasn't introduced by this patch, but
-  ncsi_rsp_handler_gc() (net/ncsi/ncsi-rsp.c:816 and 823) assigns new…
-
---
-
-net: ncsi: clamp filter table counts in GP response handling
-
-This patch bounds the MAC and VLAN filter table loops in
-ncsi_rsp_handler_gp(). The new bounds are the entry counts allocated by the
-Get Capabilities handler and the width of the u64 filter bitmaps. The goal
-is to stop a device that reports inconsistent GC and GP counts from causing
-heap out-of-bounds writes and out-of-bounds bit operations.
-
-> diff --git a/net/ncsi/ncsi-rsp.c b/net/ncsi/ncsi-rsp.c
-> index fbd84bc8026a..fa1ed405dfbb 100644
-> --- a/net/ncsi/ncsi-rsp.c
-> +++ b/net/ncsi/ncsi-rsp.c
-> @@ -883,7 +883,9 @@ static int ncsi_rsp_handler_gp(struct ncsi_request *nr)
->  	ncmf = &nc->mac_filter;
->  	spin_lock_irqsave(&nc->lock, flags);
->  	bitmap = &ncmf->bitmap;
-> -	for (i = 0; i < rsp->mac_cnt; i++, pdata += 6) {
-> +	for (i = 0; i < rsp->mac_cnt &&
-> +	     i < ncmf->n_uc + ncmf->n_mc + ncmf->n_mixed &&
-> +	     i < sizeof(ncmf->bitmap) * 8; i++, pdata += 6) {
-
-[Severity: Medium]
-When this loop exits early, is pdata still inside the MAC table when the
-VLAN loop starts?
-
-In the GP response the VLAN tag table starts at
-rsp + 48 + rsp->mac_cnt * 6. With this change, pdata only moves forward for
-the MAC entries that are actually stored.
-
-Take the example from the commit message: GC advertises one unicast filter
-and GP reports mac_cnt = 255. The MAC loop stops after one entry and leaves
-pdata at rsp + 54. The VLAN loop then runs:
-
-	ncvf->vids[i] = ntohs(*(__be16 *)pdata);
-
-so it stores MAC table bytes as VLAN IDs. The enable bits still come from
-the correctly located rsp->vlan_enable.
-
-Those bogus vids[] values are used later:
-
-  set_one_vid() skips a VID it already finds in vids[], so a real VID may
-  never be programmed
-
-  clear_one_vid() sends SVF commands for the bogus VIDs
-
-  NCSI_CMD_PKG_INFO reports them to userspace
-
-Could the patch limit only the number of stored entries, and reset the
-cursor before the VLAN loop? For example:
-
-	pdata = (unsigned char *)rsp + 48 + rsp->mac_cnt * ETH_ALEN;
-
-[Severity: High]
-This bound assumes that n_uc + n_mc + n_mixed always describes the buffer
-behind ncmf->addrs. The commit message calls it "the number of entries
-actually allocated". Does that hold when a later GC allocation fails?
-
-ncsi_rsp_handler_gc() stores the allocation result before it updates the
-counts:
-
-	nc->mac_filter.addrs = kzalloc(size, GFP_ATOMIC);
-	if (!nc->mac_filter.addrs)
-		return -ENOMEM;
-	nc->mac_filter.n_uc = rsp->uc_cnt;
-	...
-	nc->vlan_filter.vids = kcalloc(rsp->vlan_cnt,
-				       sizeof(*nc->vlan_filter.vids),
-				       GFP_ATOMIC);
-	if (!nc->vlan_filter.vids)
-		return -ENOMEM;
-
-Suppose a first GC succeeds and a second GC for the same channel hits a
-GFP_ATOMIC failure. Then addrs or vids is NULL, but the old non-zero counts
-are still there.
-
-A second GC can come from NCSI_CMD_SEND_CMD, because ncsi_send_cmd_nl()
-sets nca.type = hdr->type. It can also come from a device that answers any
-pending request with a GC-type response, because ncsi_rcv_rsp() chooses the
-handler from the response type.
-
-The next GP response passes the new bound and runs either:
-
-	memcpy(&ncmf->addrs[i * ETH_ALEN], pdata, ETH_ALEN);
-
-or:
-
-	ncvf->vids[i] = ntohs(*(__be16 *)pdata);
-
-through a NULL base in softirq context. clear_one_vid() and set_one_vid()
-would dereference the NULL vids pointer in the same way.
-
-Could ncsi_rsp_handler_gc() allocate into local variables and install the
-new pointers and counts together only on success? Resetting the counts to
-zero on failure would also work.
-
-[Severity: Medium]
-Does nc->lock keep the count and the buffer consistent here?
-
-The new bound reads n_uc + n_mc + n_mixed (and n_vids in the VLAN loop)
-under nc->lock. The only writer, ncsi_rsp_handler_gc(), does not take
-nc->lock. It also updates in two steps: it installs the new buffer first
-and writes the counts afterwards.
-
-ncsi_rcv_rsp() releases ndp->lock before it calls nrh->handler(). So
-nothing in NCSI stops the GC and GP handlers from running at the same time.
-
-Suppose GC and GP responses for the same channel are handled at the same
-time on different CPUs. Can GP read the old, larger count together with the
-new, smaller addrs buffer? That would give the same heap out-of-bounds
-memcpy() this patch is trying to prevent.
-
-In practice NCSI frames probably arrive on one RX queue, which would
-serialize them, but nothing guarantees that. Would it help for
-ncsi_rsp_handler_gc() to publish the pointers and counts together under
-nc->lock?
-
->  		if (!(enable & (0x1 << i)))
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but the new limit of
-sizeof(ncmf->bitmap) * 8 is wider than the enable fields.
-
-Here enable holds rsp->mac_enable, which is 8 bits. In the VLAN loop it
-holds ntohs(rsp->vlan_enable), which is 16 bits. The test is an int shift:
-
-	if (!(enable & (0x1 << i)))
-
-For MAC i >= 8 and VLAN i >= 16 there is no enable bit on the wire, so
-those entries are always cleared.
-
-Indexes 32 to 63 can still be reached when both the GC and GP counts are
-above 32. For those, 0x1 << i is undefined behaviour (UBSAN
-shift-out-of-bounds). On x86 the shift count wraps, so bits can be set
-wrongly.
-
-The same shift ran for i up to 254 before this patch. Would a limit based
-on the enable field widths (8 for MAC, 16 for VLAN) avoid it?
-
->  			clear_bit(i, bitmap);
->  		else
-> @@ -898,7 +900,8 @@ static int ncsi_rsp_handler_gp(struct ncsi_request *nr)
->  	ncvf = &nc->vlan_filter;
->  	bitmap = &ncvf->bitmap;
->  	spin_lock_irqsave(&nc->lock, flags);
-> -	for (i = 0; i < rsp->vlan_cnt; i++, pdata += 2) {
-> +	for (i = 0; i < rsp->vlan_cnt && i < ncvf->n_vids &&
-> +	     i < sizeof(ncvf->bitmap) * 8; i++, pdata += 2) {
-
-[Severity: High]
-The commit message says:
-
-  "so any count larger than 64 writes out-of-bounds bits into struct
-  ncsi_channel"
-
-and:
-
-  "mirroring the validation the SVF and SMA handlers already apply to their
-  indices"
-
-Does this patch fully close that problem?
-
-The 64-bit limit is only added to the two GP loops. The root cause seems to
-be ncsi_rsp_handler_gc(), which stores the device-supplied counts without
-limiting them to the u64 bitmap:
-
-	nc->vlan_filter.bitmap = U64_MAX;
-	nc->vlan_filter.n_vids = rsp->vlan_cnt;
-
-vlan_cnt can be up to 255, and uc_cnt + mc_cnt + mixed_cnt can be up to
-765.
-
-On every channel configuration, the ncsi_dev_state_config_clear_vids state
-calls clear_one_vid() in net/ncsi/ncsi-manage.c repeatedly until it returns
--1:
-
-	index = find_first_bit(bitmap, ncf->n_vids);
-	...
-	vid = ncf->vids[index];
-
-	clear_bit(index, bitmap);
-	ncf->vids[index] = 0;
-
-With n_vids > 64, once the 64 real bits are cleared, find_first_bit() keeps
-scanning into the next member, the u16 *vids pointer. Can clear_bit() then
-clear bits in that kernel pointer, and the next line write through the
-corrupted pointer? The only trigger needed is a GC response with
-vlan_cnt > 64.
-
-The same mismatch between the count and the bitmap width seems to exist in
-these places:
-
-  set_one_vid(): find_first_zero_bit() and set_bit() are bounded only by
-  n_vids
-
-  ncsi_rsp_handler_svf(): cmd->index is checked only against ncf->n_vids
-  before set_bit()/test_and_clear_bit(cmd->index - 1, bitmap)
-
-  ncsi_rsp_handler_sma(): cmd->index is checked only against
-  n_uc + n_mc + n_mixed before set_bit()/clear_bit(cmd->index - 1, bitmap)
-
-  ncsi_write_channel_info(): find_next_bit(&ncf->bitmap, ncf->n_vids, ...)
-  reads past the u64
-
-With NCSI_CMD_SEND_CMD, userspace chooses the SVF/SMA index, so the checks
-the commit message mirrors have the same gap.
-
-Would it be better to clamp or reject the counts in ncsi_rsp_handler_gc(),
-so that n_vids is at most 64 and the MAC total is at most 64? Then the
-sizeof(bitmap) * 8 limits in the GP loops would not be needed.
-
-[Severity: High]
-This isn't a bug introduced by this patch, but these loops can still read
-past the end of the received GP response.
-
-GP is registered as a variable-length response:
-
-	{ NCSI_PKT_RSP_GP,     -1, ncsi_rsp_handler_gp      },
-
-so ncsi_rcv_rsp() does:
-
-	payload = nrh->payload;
-	if (payload < 0)
-		payload = ntohs(hdr->length);
-	ret = ncsi_validate_rsp_pkt(nr, payload);
-
-As a result, the ntohs(h->common.length) != payload check in
-ncsi_validate_rsp_pkt() can never fail. The checksum is then read at an
-offset the device controls, with no check against skb->len:
-
-	pchecksum = (__be32 *)((void *)(h + 1) + ALIGN(payload, 4) - 4);
-
-That offset can be up to about 64KB past the header.
-
-Nothing in net/ncsi calls pskb_may_pull() or checks skb->len for
-responses. So ncsi_rsp_handler_gp() reads 48 bytes plus 6 per MAC entry and
-2 per VLAN entry from skb_network_header(). Only the device-supplied counts
-limit how far it reads.
-
-A short GP frame with large counts would copy bytes from beyond the frame
-into ncmf->addrs and ncvf->vids[]. VIDs whose enable bits are set are later
-reported by ncsi_write_channel_info() through NCSI_CMD_PKG_INFO, which
-needs no privilege.
-
-Should the response length be checked against the skb before the handler
-walks these tables?
-
-[Severity: Medium]
-This is a pre-existing issue, but ncsi_rsp_handler_gc() leaks the previous
-nc->mac_filter.addrs and nc->vlan_filter.vids buffers when a channel gets
-more than one GC response:
-
-	nc->mac_filter.addrs = kzalloc(size, GFP_ATOMIC);
-	...
-	nc->vlan_filter.vids = kcalloc(rsp->vlan_cnt,
-	...
-
-Neither old buffer is freed before it is overwritten. The only kfree() of
-these pointers is in ncsi_remove_channel().
-
-A repeated GC can come from:
-
-  NCSI_CMD_SEND_CMD
-
-  a device sending a GC-type response to any pending request
-
-  a re-probe, where ncsi_add_channel() returns the existing channel
-
-Should the old buffers be freed when they are replaced?
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1a007951-8e77-4ca5-8dc2-093251357e0a@gmail.com>
+
+Hi Christian,
+
+On Thu, Oct 01, 2026 at 08:30:29PM +0200, Christian Lamparter wrote:
+> On 10/1/26 6:45 AM, Dmitry Torokhov wrote:
+> > Commits 23de0fa0d2a0 ("carl9170: devres-ing hwrng_register usage") and
+> > 87ddb2fc29f1 ("carl9170: devres-ing input_allocate_device") converted
+> > the HWRNG and WPS button input device registrations in carl9170 to
+> > devres attached to the parent struct usb_device (&ar->udev->dev) and
+> > removed the explicit unregistration calls from carl9170_unregister().
+> > 
+> > Because carl9170_register() runs asynchronously from the
+> > request_firmware_nowait() callback after probe has returned, and
+> > carl9170_usb_disconnect() frees struct ar9170 immediately in the
+> > interface disconnect callback before devres_release_all() runs, both the
+> > WPS input device (along with its ar->wps.name and ar->wps.phys strings)
+> > and the embedded struct hwrng remain registered after struct ar9170 has
+> > been freed, leading to use-after-free bugs.
+>
+> ? Do I have a different source there ?
+>
+> carl9170_usb_disconnect() does a wait_for_completion(&ar->fw_load_wait)
+> before doing anything.
+>
+> For this completion to be "completed" either the firmware loader callback
+> went as far as running through all the initialization (includes
+> carl9170_register(), which registers the WPS button + rng) successfully
+> and the device is up.
+>
+> or if there was a grave error (usb protocol error, firmware not responding
+> the way we want) and the driver basically has to give up... (but then
+> carl9170_register would have never been able to even get as far as
+> registering the wps + rng)
+
+Sorry for the confusion, mentioning request_firmware_nowait() in the
+commit description was a distraction. The issue is not a race with
+fw_load_wait, but what happens *after* wait_for_completion() returns in
+carl9170_usb_disconnect():
+
+1. Normal disconnect / unbind teardown order:
+   In carl9170_usb_disconnect(), right after wait_for_completion(), the
+   driver calls carl9170_unregister(ar) and then carl9170_free(ar) ->
+   ieee80211_free_hw(ar->hw), which frees struct ar9170 immediately
+   inside the .disconnect() callback.
+
+   Because the devres conversions removed input_unregister_device() and
+   hwrng_unregister() from carl9170_unregister(), both the WPS input
+   device (whose input->name and input->phys point to ar->wps.name and
+   ar->wps.phys inside struct ar9170) and ar->rng.rng (which is embedded
+   directly inside struct ar9170) are still registered when struct
+   ar9170 is freed:
+
+   - The devm_* calls were attached to &ar->udev->dev (the parent
+     struct usb_device) rather than &ar->intf->dev (struct
+     usb_interface). If the driver is unbound from the interface (via
+     sysfs unbind or rmmod) while the USB device stays plugged in,
+     devres_release_all(&ar->udev->dev) does not run at all, leaving the
+     input device and embedded hwrng registered in global lists after ar
+     is freed.
+   - Even on a physical USB unplug (and even if &ar->intf->dev had been
+     used), the driver core runs .disconnect() before
+     devres_release_all(). Thus struct ar9170 is already freed before
+     devres runs devm_hwrng_unregister() (which dereferences the freed
+     ar->rng.rng to unlink it from rng_list) and
+     devm_input_device_unregister() (which reads the freed ar->wps.name
+     and ar->wps.phys when generating the KOBJ_REMOVE uevent).
+
+2. Error path in carl9170_register():
+   Even during initial bringup, carl9170_register() calls
+   carl9170_register_wps_button() and then carl9170_register_hwrng(),
+   which calls devm_hwrng_register() *before* carl9170_rng_get(ar)
+   issues CARL9170_CMD_RREG over USB.
+
+   If carl9170_rng_get(ar) fails due to a USB or firmware error, both
+   the WPS button and the HWRNG have already been registered.
+   carl9170_register() then jumps to err_unreg -> carl9170_unregister(),
+   and carl9170_usb_firmware_failed() calls
+   usb_driver_release_interface(), which runs carl9170_usb_disconnect()
+   and frees ar while &ar->udev->dev remains bound.
+
+I can send a v2 with updated commit messages that drop the mention of
+request_firmware_nowait() and focus directly on the disconnect teardown
+order if you prefer.
+
+Thanks.
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/CAANnmVAicVNhy8fMUaFJ_N%2Bb4DnbwpYi1MOL4yMVisix1WCX4w%40mail.gmail.com
+Dmitry
