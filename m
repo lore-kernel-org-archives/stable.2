@@ -1,215 +1,259 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-yx2-f39.google.com (mail-yx2-f39.google.com [74.125.224.167])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 191CE29ACCD
-	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 09:36:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790847399; cv=none; b=IqG7sDyWF1l5tXMAQw904uhzlNR/2l05BMwsL2a7VpKUXQUqsr0ev55q5oJiFHzo8jf+v8BzXfu3WbBt6MZz67sIqlZc2oyWH275jPHAfp3JvoJtbRQ/bt6WIwrLCs+t7jgvFHZqwrD+stVwDJJKTd/U8BhCpaQIyVW3HuA47v8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790847399; c=relaxed/simple;
-	bh=nDsPrs6hnGx0JcUP1jewvJFplt1q3U/HxABhh4zREmU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=EkoRVnjCbY0/tKQ4j5nBx4/fUmZT/ePjhN/qqBLDbpb74qTgGT8rb9t93Xnrpu4/4NLaSF9EVKWLEueDJESIDQPYdxblWA2JpnYD9l4lwpZkClRo/sbKRuF1iL52wuoFriWr7dLgi1r5eqdVpdjP7XVciCq9keH+kn7uXJSIWBI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=oHDqxbGL; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 920C32F7EE0
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 09:42:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.167
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790847738; cv=pass; b=jtJm3dMK5T74+I4B0u1hx1Phmrxryde0QXbzxuT6ktxQzdtAWpkUPu+WRS3CBB07rzM5uVEEBm7IE6i1nxE5Yhf1p/tR1wWuKWodAK5pXW3GAcUYXpCMyJmGeJksSBWj0bhJ6MoCOCOyfzU6rH7eihxn4ApfMTl1cjBY094If/o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790847738; c=relaxed/simple;
+	bh=Ypn/sllLHY+q691coE2q5hvwYIfWukXrF6EaTXqu8+8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oyRuMt+Azi142mtQ1NOYtPQ4hdgMzFQOBe8efcks1c567jLID/oOAyqNBKtvTuXTS9xtOXB+KbdflvP8r2KL0P73l2upzCnGU1bJIQdZ+Gl8dO0Q8hMq5+Ms25UnZcuaBpXB8gWWw0wFxt+7QbNdkaEEO91D+DGKx/VD0LK5Wm0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W+JbqdSR; arc=pass smtp.client-ip=74.125.224.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="oHDqxbGL"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e79a408deso39607385e9.2
-        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 02:36:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W+JbqdSR"
+Received: by mail-yx2-f39.google.com with SMTP id 00721157ae682-8ac8e048735so15528237b3.3
+        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 02:42:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790847735; cv=none;
+        d=google.com; s=arc-20260327;
+        b=CEO9tCA8JfjJodWSdRESQc8VOQLh8jgiqXomn6SpwXN6VavlrzWtHGP7+VsUinpJwQ
+         AhU9rJQuNLhK6oTH6beYXBkKk3gywf6xhIGraGjO5nUSNaTBpbSLVG3ptnNBWQANuaNe
+         sojzNOO0fTXANWgvnZDRmTCBWEDO6KU2REj5I2NqIGfy5XBOueNo2jRs7ELY3TXQ/aiq
+         VwCzWPDtFo86TRloNUTfbZJn0DdP8Dj9ZgwJGsgt2HCzGALdMV5sCjSPPHouGLM84Cu/
+         kl1Rvgd3vjLGqGP5GC7/tbQ4ROOt8zNGRUUMFAdcG3QLnoMas8Nf27x6EGMWW6JtL6g6
+         9e7w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=cp7MMTlo9Epi7EBkM5Wv17VJLo8EMbC/QdZsdYaWY6k=;
+        fh=LFV86uyKo1z6KxM2uT9tEoYygIUneymYmNhk9NtYKqc=;
+        b=NOOTqOa0viag2J0oPDNCbknOmSLyXv0SsJ/+m4hZUawromdXuEJg5WrvfSlGL65QnZ
+         uhOjTlh6lJLmYe/0bYJFuYXysr0XNwCCLm8f/X3w3uHtoHufHmaGkM+DJIobqy1lf3KD
+         CyrZC2bBXNig2WrR+1JPf3+aOFEu099+QxU1M9n4tH+cGnJiCiRNXLJPVFlAkzd4TUWh
+         0w0eOjB8uwtd7cpHF1qVH0dGPJbDSbsKA97glLLpnuu0/hos5XEwMS8Ju3yMB/Rti5ks
+         Z0HWxOaG55OTLF1jdpVJQbS8u4fwImnwhyUngnMEiaPOoPdvHuzsQJDJxF5scMc8rNo3
+         sieA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790847395; x=1791452195; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DQz75FsX45fFNLdrpdOp/Fyp4l/FKa+g0Qu8HGi4Fv4=;
-        b=oHDqxbGLSUaXFAVTykGDD+ISX63gQAxTVihQbowAtrZ81s2hlMxspqY0mwWQa/aHPo
-         fRaY+supR8nOFw5tbFHUlglUjIFHb5CNSshs/5vXyV4yO5ZLIvA7RiVUzEAaln7DuEnt
-         M06WOBi6CDUyb03rLelAJqWYzLJj6xwXXsd31mKP6q50WH8tGDUs2TBNNkxKxuRAIJNZ
-         znowzwmrW4ywmg3v16KDV694kVJ47lawwVRs9SWjtpVLjWMnIwr+tDKeyyd3yP/5nfGA
-         nmZHfJt/aNvolMMg/9q9pkAzzPxGLZpvjQ3tDWT/AsZ3I1pJTh7AnIa+LYrlzYrtv5bj
-         4Vag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790847395; x=1791452195;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1790847735; x=1791452535; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=DQz75FsX45fFNLdrpdOp/Fyp4l/FKa+g0Qu8HGi4Fv4=;
-        b=JvP0bEE/3vEu+/1T2qwtPKuQnKJXAmbZzECS/5o5mv11anFTcn+hkqpadP47cFIC0b
-         IPmjBVrf79C8rfq9EX4MZhgpMhedkldSij7O/wYIOBJMu2eEFl11JicNoOFfuOUjQHYr
-         VePJlMpLiYh9adsbWQ9pefnGItobNTqQngIfRKZnmTJLhra3jNg/QELWmE76W+zXETtF
-         x6nyKF1sZ/KLdZbh/uJvTW8DeSljBHFkxhIfONlHa26oKhkPcKnEA04oIvuUBKQO9Nu+
-         G2I4BJa1CBxMDKElMjcxOp/lO3rIvJhnOlUD0frdqnBN4cZ4a7ptnSPgwlKJ5lrPbrmQ
-         t8ww==
-X-Forwarded-Encrypted: i=1; AKwUvByrCsNw2nI1midJBKr/4LIagX3UPFPYttktRAxAf7tcnjSlSAhBz+yH1hCFopRmYyzo5ZWnfUc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mWBep4Hw8MKXCJL33VoU/XTS7n9sY9Rpg5osWcK7dEAITUcUza
-	z8xf7bCXqiqCb5vE/xMRueFl9qFRjSPgEBhXz0x9s1xpQbEzDnwEBTWx/37rhBV1X3k=
-X-Gm-Gg: AYBFou3awUYSZ/WK6saFsdJfti376uWegy2vcpwfTaDS9XwsRodlZal50uAbaNMdUL9
-	MUnX2PQ0Qlv8Bd7XqTLQGLBcg3X0D+nQGMtUKbaqqVGikkyyiyn+S/8sg9gsQzidp1LjoUT0C1z
-	zMTgCtbRM/mOCSAZajBvymExzjjXLz/awfK+vXChDwlVCBn6XUsIn3vrUoutETW+IEBKXh8eDaz
-	oluow4PI+k5o4TczmVqVQiLcmEWDlMx6j/+Z87vjHxOyXufMjfM5TpGg9km1bweksc4ZaqtDc6L
-	AOO2XqEn2pAF3i/CrSxtU2XOCo2lpas7grKwhjMvQrL16YKTbQrB27ml0cNaRE/EeuIkE2DhosA
-	buMa9zzjjzQIJDXXDoSVq8brtIBKxtirpT8BF/Xsu9f3lhOKttZ9phuS3kbA94GEjtRqn7I72TB
-	/vEM3OfBJFdzkPrzL1a491AAS9OqigiqXp9xAra47G0CbZIZgN9RHOURBlCtMEnb1GXkolU/FYC
-	OCN5/cj/KVXszCI+6zpCy/QX8dA
-X-Received: by 2002:a05:600c:3144:b0:4a0:1c0e:b2a8 with SMTP id 5b1f17b1804b1-4a01c0ecb6fmr59256415e9.28.1790847395168;
-        Thu, 01 Oct 2026 02:36:35 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a020f7f220sm57243775e9.5.2026.10.01.02.36.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 02:36:34 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>, Jacky Huang
- <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, Michael
- Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
- Richard Cochran <richardcochran@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
- Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet
- <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Steam Lin
- <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, Krzysztof
- Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, Miquel Raynal
- <miquel.raynal@bootlin.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v6 08/12] clk: nuvoton: ma35d1: Retrieve HXT/LXT from DT
-In-Reply-To: <20260930-perso-ma35d1-upstream-clk-v6-8-48937ee6c9bb@bootlin.com>
-References: <20260930-perso-ma35d1-upstream-clk-v6-0-48937ee6c9bb@bootlin.com>
- <20260930-perso-ma35d1-upstream-clk-v6-8-48937ee6c9bb@bootlin.com>
-Date: Thu, 01 Oct 2026 11:36:33 +0200
-Message-ID: <1j7bk13gpq.fsf@starbuckisacylon.baylibre.com>
+        bh=cp7MMTlo9Epi7EBkM5Wv17VJLo8EMbC/QdZsdYaWY6k=;
+        b=W+JbqdSR8F9PLSOnTF4RTv8RgWo8lkpWcw60oh1/BB1aUf1qaxfXhTB/DMmVQfGm7U
+         B6rXDYTQxhgj/Roon4r2cOCLkG4wIwNeyPkVsu4FZKxRideCqdNnupEOsapz6jTl7ZcD
+         EJuoxZsam480p1suwM/wv2c4Z6oNKw5WrABozTDDN9mdWOinZCWfPUYbjW4MRYw8LE5y
+         QarXMKRmLFbVgy8J237PHKZLCHafupcRTiz8ADoYJWSegFR8rTwUwdBG2ADTGVLV+pTh
+         4e19iMD2fhJ0dUbPgTNMJW9OdbxFskKP0J0wh5ZpLTDqcQnYgZ7Pq53j5t706ffpB8dO
+         dUyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790847735; x=1791452535;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cp7MMTlo9Epi7EBkM5Wv17VJLo8EMbC/QdZsdYaWY6k=;
+        b=Hrngurds8BpbXfNm5f3kwbCG+e1FXYp6cIumSo1mkDk1+bZ7QYiZzIE5UDs+M4T1Wa
+         I1bpUsSmexinpq4UK9ZuWInuesmPstNo+J1ZcRgg7ClS9QduG1TaKuMBJneH7wIrmp4t
+         9wVcv1GFyfFs7//2o4xh5gmCJLdDSb/ZDWuDsul3NkgDEcJQ8VFEe89i09Q6ajsvGIl4
+         RVIcOM/48oOWlbYXsxSEPFBVfExk1ewA/iitFJH4lJImRaBJLIpqur4YKRuK5fx9JJt5
+         42aRJFcQyRH+xILAsKKCIzh3nu8KS6flJCjzn+gZXjkaL8G10UBjGnpEg2R5LVLkkt3w
+         yFtA==
+X-Gm-Message-State: AFq9FYIBOoAVG/ig/ENQoiasJFywVK9+MeSYFho/zbqbmf+QKQrOZ1I2
+	ChBhqnr/QaCgL6Rc7KWm4BvqUSMCWSSCj1wFO7DFreg0m4spQdatTyNGFKhWs81rn1qZtPrNo+S
+	VUelpYGUVhDIGGVxppHSLhW2k2ucFEf8=
+X-Gm-Gg: AYBFou1So5zHGQOAXG2y+7DQJC4jG6CACoIYDhtMVLSuiocm0EMPlsBLuo1Feo89dUM
+	x4CqUgmGNdP8+a3cieeXxMQiZHLRgbHUyjN3tVtxVXvkVtKQZkFQzGxGE1hp0EghlO6lWsWoczW
+	6I8QtAJULiVaGvmQidIdYAZjap92m0G3ApvcqR2ejr2/k617ucYWB/ZgESHL4j0V1a46HvNKVdu
+	EYGtaRGIAhPgiC+CwQ3U1ZfBodUVVNu5QOFcqbyOU79czNDVlnuHmIkAQ+m0ZcRykg+8Zl93ijo
+	Io8dJb/YpVuxtJQcoGs0sFEdP40cuj+iwTfTuSxZrkKqkZj3+8oh648=
+X-Received: by 2002:a05:690c:113:b0:8a6:1901:30d9 with SMTP id
+ 00721157ae682-8ac93df3db3mr14307357b3.37.1790847735347; Thu, 01 Oct 2026
+ 02:42:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20260930152414.738996857@linuxfoundation.org> <20260930152433.381204859@linuxfoundation.org>
+In-Reply-To: <20260930152433.381204859@linuxfoundation.org>
+From: Bernard Pidoux <bernard.f6bvp@gmail.com>
+Date: Thu, 1 Oct 2026 11:42:03 +0200
+X-Gm-Features: AclHuK-JLWPdhKydTxrm6JLYXSIGwu6I_U39_3wTrHQIdvuK301QhQ_vWvJW0zQ
+Message-ID: <CAFAa3YBUKBAD4cHHO5PdMauxLJ46V2_9SU0U=FtnZjgKP-o1Nw@mail.gmail.com>
+Subject: Re: [PATCH 6.12 864/877] rose: release netdev ref and destroy
+ orphaned incoming sockets
+To: gregkh@linuxfoundation.org
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, kuba@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On mer. 30 sept. 2026 at 19:24, Miquel Raynal <miquel.raynal@bootlin.com> wrote:
+Hi Greg,
 
-> HXT and LXT are crystal oscillator inputs of the clock controller, they
-> are described in the DT, so retrieve them, in order, and store them in
-> their respective HXT/LXT hw table entries.
+Thanks a lot for queuing the ROSE series for 6.12.y and the four extra
+fixes for 6.18.y.
+
+One heads-up on this particular patch (commit df12be096302), before the
+6.12.y release goes out: since it was written I have found a regression
+in it, and the fix is not merged yet.
+
+The problem: with this patch, rose_heartbeat_expiry() reaps an incoming
+socket that was cleared by the caller before accept(). But the skb of
+that call is still on the listening socket's receive queue, with
+skb->sk pointing at the socket that has just been freed (no reference
+is held for the queue). Then:
+
+- closing the listening socket makes rose_destroy_socket() walk the
+queue and touch the freed socket, or
+- accept() can hand the freed socket to user space.
+
+I hit it on 26 September on one of my live nodes, on a 6.12.94 KASAN
+kernel carrying this series, while stopping the FPAC daemons:
+
+BUG: KASAN: slab-use-after-free in rose_destroy_socket+0x24a/0x570 [rose]
+Write of size 8 ... by task fpacwpd
+rose_destroy_socket
+rose_release
+Allocated by task 0: ... rose_rx_call_request <- rose_loopback_timer
+Freed by task ...: ... sk_free <- rose_heartbeat_expiry
+refcount_t: addition on 0; use-after-free.
+
+followed a few seconds later by a page fault in the re-armed heartbeat
+and a panic. It needs an incoming call dropped before accept() and then
+the listener being closed (or accepting), so it is not frequent, but it
+is a real use-after-free.
+
+The fix is "rose: hold a reference on incoming sockets queued for
+accept()", with
+
+Fixes: df12be096302 ("rose: release netdev ref and destroy orphaned
+incoming sockets")
+
+It is pull request #25 in linux-netdev/mod-orphan, waiting for review,
+so it has no upstream commit id yet. It has been running on all seven
+of my nodes since 26 September (6.1, 6.12, 6.18 and 7.0 based kernels)
+without any recurrence.
+
+So, as things stand, 6.18.y already carries the regression (this patch
+was part of the first fifteen-patch series) and 6.12.y is about to get
+it. I do not know which you prefer:
+
+- keep 864 in this 6.12.y round and take the fix as soon as it is
+merged, for both 6.18.y and 6.12.y; or
+- hold 864 back until the fix is available. Note that 868/877 ("rose:
+don't free fd-owned sockets when reaping in the heartbeat") changes
+the same reaping code, so dropping 864 alone may not be
+straightforward.
+
+Either way I will send you the backport of the fix for 6.18.y and
+6.12.y, tested with "git am" on both, as soon as it has a commit id.
+Sorry for not flagging this earlier.
+
+Jakub, I put you in Cc only so that you know why I would be grateful
+if #25 could be looked at before the rest of the pending ROSE/NetRom
+pull requests.
+
+Thanks,
+Bernard Pidoux, F6BVP
+
+
+Le mer. 30 sept. 2026 =C3=A0 19:49, Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> a =C3=A9crit :
 >
-> Since old DTs reference the HXT fixed-clock without naming it and do not
-> describe LXT at all, we assume that HXT must be present, and fallback to
-> creating a fixed clock for LXT if it is not described (for backward
-> compatibility purposes).
+> 6.12-stable review patch.  If anyone has any objections, please let me kn=
+ow.
 >
-> The downstream gate clocks can directly use the hw clocks as parents,
-> instead of relying on string matching.
+> ------------------
 >
-> Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+> From: Bernard Pidoux <bernard.f6bvp@gmail.com>
+>
+> commit df12be096302d2c947388acc25764456c7f18cc1 upstream.
+>
+> Two related cleanup gaps left the module unremovable after a loopback
+> session:
+>
+> 1. rose_destroy_socket() did not release the device reference.  When
+>    an unaccepted incoming socket (created by rose_rx_call_request()) is
+>    destroyed via rose_heartbeat_expiry(), it is removed from rose_list
+>    before rose_kill_by_device() can find it, so the netdev_hold() taken
+>    in rose_rx_call_request() was never matched by netdev_put().  Add the
+>    release at the top of rose_destroy_socket() guarded by a NULL check
+>    so that rose_release() and rose_kill_by_device(), which already call
+>    netdev_put() and set device =3D NULL, are not affected.
+>
+> 2. rose_heartbeat_expiry() STATE_0 cleanup required TCP_LISTEN in
+>    addition to SOCK_DEAD.  Unaccepted incoming sockets are
+>    TCP_ESTABLISHED, so the condition was never true and those sockets
+>    lingered forever, holding the module use count above zero and
+>    blocking rmmod.  Drop the TCP_LISTEN restriction: any STATE_0 +
+>    SOCK_DEAD socket is orphaned and should be destroyed.
+>
+> Together with the earlier rose_make_new() double-hold fix these three
+> patches allow clean rmmod after loopback sessions.
+>
+> Signed-off-by: Bernard Pidoux <bernard.f6bvp@gmail.com>
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 > ---
->  drivers/clk/nuvoton/clk-ma35d1.c | 43 ++++++++++++++++++++++++++++++++--------
->  1 file changed, 35 insertions(+), 8 deletions(-)
+>  net/rose/af_rose.c    |    9 +++++++++
+>  net/rose/rose_timer.c |    9 +++++----
+>  2 files changed, 14 insertions(+), 4 deletions(-)
 >
-> diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
-> index ceebcbd8c18b..d955d79abdd2 100644
-> --- a/drivers/clk/nuvoton/clk-ma35d1.c
-> +++ b/drivers/clk/nuvoton/clk-ma35d1.c
-> @@ -4,6 +4,7 @@
->   * Author: Chi-Fang Li <cfli0@nuvoton.com>
+> --- a/net/rose/af_rose.c
+> +++ b/net/rose/af_rose.c
+> @@ -363,6 +363,7 @@ static void rose_destroy_timer(struct ti
 >   */
->  
-> +#include <linux/clk.h>
->  #include <linux/clk-provider.h>
->  #include <linux/mfd/syscon.h>
->  #include <linux/module.h>
-> @@ -191,6 +192,15 @@ static struct clk_hw *ma35d1_clk_gate(struct device *dev, const char *name, cons
->  				    reg, shift, 0, &ma35d1_lock);
->  }
->  
-> +static struct clk_hw *ma35d1_clk_gate_parent(struct device *dev, const char *name,
-> +					     struct clk_hw *parent,
-> +					     void __iomem *reg, u8 shift)
-> +{
-> +	return devm_clk_hw_register_gate_parent_hw(dev, name, parent,
-> +						   CLK_SET_RATE_PARENT,
-> +						   reg, shift, 0, &ma35d1_lock);
-> +}
-> +
->  static int ma35d1_get_pll_setting(struct device_node *clk_node, u32 *pllmode)
+>  void rose_destroy_socket(struct sock *sk)
 >  {
->  	const char *of_str;
-> @@ -215,10 +225,12 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
->  {
->  	struct device *dev = &pdev->dev;
->  	struct device_node *clk_node = pdev->dev.of_node;
-> +	struct clk_bulk_data *clks;
->  	void __iomem *clk_base;
->  	static struct clk_hw **hws;
->  	static struct clk_hw_onecell_data *ma35d1_hw_data;
->  	u32 pllmode[PLL_MAX_NUM];
-> +	int num_clks;
->  	int ret;
->  
->  	ma35d1_hw_data = devm_kzalloc(dev,
-> @@ -240,12 +252,27 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
->  		return -EINVAL;
->  	}
->  
-> -	hws[HXT] = ma35d1_clk_fixed("hxt", 24000000);
-> -	hws[HXT_GATE] = ma35d1_clk_gate(dev, "hxt_gate", "hxt",
-> -					clk_base + REG_CLK_PWRCTL, 0);
-> -	hws[LXT] = ma35d1_clk_fixed("lxt", 32768);
-> -	hws[LXT_GATE] = ma35d1_clk_gate(dev, "lxt_gate", "lxt",
-> -					clk_base + REG_CLK_PWRCTL, 1);
-> +	num_clks = devm_clk_bulk_get_all(dev, &clks);
-> +	if (num_clks < 0)
-> +		return num_clks;
-> +
-> +	if (!num_clks) {
-> +		dev_err(dev, "missing crystal input clocks\n");
-> +		return -ENODEV;
-> +	}
-> +
-> +	hws[HXT] = __clk_get_hw(clks[0].clk);
-
-Don't open code it. use .fw_name
-
-> +
-> +	if (num_clks > 1)
-> +		hws[LXT] = __clk_get_hw(clks[1].clk);
-> +	else
-> +		/* Old DTs do not describe the low-speed crystal */
-> +		hws[LXT] = ma35d1_clk_fixed("lxt", 32768);
-
-I'd give it another name so you can clearly see the difference between the
-DT one and the manually registered one.
-
-> +
-
-Don't need to open code this either.
-provide both .fw_name and .name - CCF will fallback to the name.
-
-When you want to conditionally register the fixed is up to you.
-
-> +	hws[HXT_GATE] = ma35d1_clk_gate_parent(dev, "hxt_gate", hws[HXT],
-> +					       clk_base + REG_CLK_PWRCTL, 0);
-> +	hws[LXT_GATE] = ma35d1_clk_gate_parent(dev, "lxt_gate", hws[LXT],
-> +					       clk_base + REG_CLK_PWRCTL, 1);
->  	hws[HIRC] = ma35d1_clk_fixed("hirc", 12000000);
->  	hws[HIRC_GATE] = ma35d1_clk_gate(dev, "hirc_gate", "hirc",
->  					 clk_base + REG_CLK_PWRCTL, 2);
-> @@ -632,8 +659,8 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
->  	hws[UART16_GATE] = ma35d1_clk_gate(dev, "uart16_gate", "uart16_div",
->  					   clk_base + REG_CLK_APBCLK0, 28);
->  
-> -	hws[RTC_GATE] = ma35d1_clk_gate(dev, "rtc_gate", "lxt",
-> -					clk_base + REG_CLK_APBCLK0, 29);
-> +	hws[RTC_GATE] = ma35d1_clk_gate_parent(dev, "rtc_gate", hws[LXT],
-> +					       clk_base + REG_CLK_APBCLK0, 29);
->  	hws[DDR_GATE] = ma35d1_clk_gate(dev, "ddr_gate", "ddrpll",
->  					clk_base + REG_CLK_APBCLK0, 30);
->  
+> +       struct rose_sock *rose =3D rose_sk(sk);
+>         struct sk_buff *skb;
 >
-> -- 
-> 2.55.0
+>         rose_remove_socket(sk);
+> @@ -370,6 +371,14 @@ void rose_destroy_socket(struct sock *sk
+>         rose_stop_idletimer(sk);
+>         rose_stop_timer(sk);
 >
-
--- 
-Jerome
+> +       /* Drop any device reference not already released by rose_kill_by=
+_device()
+> +        * or rose_release() -- e.g. incoming sockets that were never acc=
+epted.
+> +        */
+> +       if (rose->device) {
+> +               netdev_put(rose->device, &rose->dev_tracker);
+> +               rose->device =3D NULL;
+> +       }
+> +
+>         rose_clear_queues(sk);          /* Flush the queues */
+>
+>         while ((skb =3D skb_dequeue(&sk->sk_receive_queue)) !=3D NULL) {
+> --- a/net/rose/rose_timer.c
+> +++ b/net/rose/rose_timer.c
+> @@ -128,10 +128,11 @@ static void rose_heartbeat_expiry(struct
+>         }
+>         switch (rose->state) {
+>         case ROSE_STATE_0:
+> -               /* Magic here: If we listen() and a new link dies before =
+it
+> -                  is accepted() it isn't 'dead' so doesn't get removed. =
+*/
+> -               if (sock_flag(sk, SOCK_DESTROY) ||
+> -                   (sk->sk_state =3D=3D TCP_LISTEN && sock_flag(sk, SOCK=
+_DEAD))) {
+> +               /* Destroy any orphaned STATE_0 socket: either explicitly
+> +                * flagged SOCK_DESTROY, or SOCK_DEAD (covers both unacce=
+pted
+> +                * incoming connections and listening sockets whose link =
+died).
+> +                */
+> +               if (sock_flag(sk, SOCK_DESTROY) || sock_flag(sk, SOCK_DEA=
+D)) {
+>                         bh_unlock_sock(sk);
+>                         rose_destroy_socket(sk);
+>                         sock_put(sk);
+>
+>
