@@ -1,95 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8E223DEAD6;
-	Thu,  1 Oct 2026 14:22:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B209D51C350
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 14:25:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790864562; cv=none; b=YnpLG7xhBNKFa9y1SAboCEq93SZrUcK/Qe1MNveX/fBYyABlfaa191ppbL9OVUhcGVrUES1Cn5xkYeU8PPTQzY+/QyJS0lKBx3GQmkbncZ6q4wWjUV47ze2TohTJ9MieE1c25UhF1BFdOGuJDtPuX8SP9J1mlM5Nn2WhJSvriao=
+	t=1790864712; cv=none; b=l9s0QNT2KEIfvZZgs1BUgeWP7XfHYtpd4iA+FViUPY3ouofwkB//bllOJT1SQkZW98KOReVLriUZNGDOC4Qq5Sy3Zuch/S8jgB8fDV35n+th8Y5QurNCYHJaMouTrpG/834f7GWzZPTdOYSsDT095FZl8SPpYfBRq7B5TWRsEGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790864562; c=relaxed/simple;
-	bh=JbcQn7JpiM7PEaEmjlmMAyJ1Dxnz/Vi+BdywK1mY3HQ=;
+	s=arc-20240116; t=1790864712; c=relaxed/simple;
+	bh=agfYzxJfcFYdzxebQckvDacntRMFRssKYHmPtxq9o2k=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MOhr7V4yRYbPgmJi27e/pzObGni3lU07gb/1KhTFXDyIO8HhYKgaqj9Rp6ruThZUsclIp6icN+mt7XI6COloFfUxx3t8ewNk0y9kdWMLowDaN5SHmrSEaaOLZUciN86JGxGC/jmgG8ey0ofoth//O3K7gMiSY0kveh9FkRhBnhI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PF6tJ1/6; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=fY0sER4D9CmWZAINU3wBvcoX/m8fv7PargkKUvJm1L3DKe081wBP/PVBHJVj6QDNP9jlvT/eKgFiSrqoj4QPkvUJDP2ZWelV/ndoTdkJOLei0678xDC4akYaN+xsBmlpAgMAj4mfC4bci2S9fcNN8CBoBkpBql4X68hVdZXNnC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fMBR5/LL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PF6tJ1/6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 097D01F000FF;
-	Thu,  1 Oct 2026 14:22:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fMBR5/LL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFCA01F000FF;
+	Thu,  1 Oct 2026 14:25:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790864560;
-	bh=XyzcN1CM+Sjmv9yngzarkO66OZbEgOAmUF41sBp7ArQ=;
+	s=k20260515; t=1790864708;
+	bh=x3zQ3EST5J6Jwoq4e3go3Re87KsFnzCXlaMPneOsi+A=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PF6tJ1/6dSILGxm3+IyWR0RN4HSaLeM8UR1tkSW5GiMJL9wSnl8UJkwfBnLtPIG/G
-	 KEyrAl9ILdbIS4kB+c94qGEEc98b4qzwETcKQw4GGF7Gui5kTXsYjzvuEOBXlcAaIj
-	 7fbVrKkEQ0QAnabLPF8Mjm3azdjKzXJifsjdx/xTVxUcYP0qSs9BhXmy909MnZMjBq
-	 ix9/T1fGhCMUFG2XhrM0DBfC03we1JTwgQrglpcnIAGa70CyFnzi+cj6ijADRCFb0x
-	 0yQ5xjmptDDcfbyLYEXK50UInFq790oUX+gfF4wGThuyfMwIIYx49ZdN+r54JEjESi
-	 RSySn/z792Q2A==
-Date: Thu, 1 Oct 2026 15:22:38 +0100
-From: Harry Yoo <harry@kernel.org>
-To: Imre Kaloz <kaloz@kernel.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
-	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Jann Horn <jannh@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/slab: sample slab_state once in kmem_cache_destroy()
-Message-ID: <ar5pESlkEMqNsgxv@thinkstation>
-References: <20260930195110.13296-1-kaloz@kernel.org>
+	b=fMBR5/LL+PolIe6nLQjT3hXnbDcETLtXOxzf31PRSITSr2MDtxs5VK75f5UhlMXvh
+	 UBRsdZ4rd/KHwROIYgT1JIXyn9xAd2sML/sSR78OMGfEHv4cfQX/vcwS723etTc0+o
+	 L6OJrLRmXiafpCHiCJBSx9Liv0wgYutzOSPDlHVGJMxA4FGwfE1eIJOl6Rwn0/mmIY
+	 TWRBqyoFVK3zEvdz8ODdYko3mu3NYB3nr4GK1+C1LuXayEvYZpjMUTc7zzrNTmQkOk
+	 BrjvQQyHvB9eg4796KCC1iRu/Vp6lZHpHTEhQ1mpI1/Tc7kZF1gHSaqsHjkQIJAbS3
+	 nxbj5kFJ2rCaQ==
+Date: Thu, 1 Oct 2026 15:25:03 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Mark Rutland <mark.rutland@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, catalin.marinas@arm.com,
+	stable@vger.kernel.org, will@kernel.org
+Subject: Re: [PATCH] arm64/fpsimd: signal: Forbid non-streaming SVE payload
+ on SME-only systems
+Message-ID: <51351e42-60d1-417d-b61b-6011bfe5d2b5@sirena.org.uk>
+References: <20261001130836.1410888-1-mark.rutland@arm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="tjgr7GheXTi+teXB"
+Content-Disposition: inline
+In-Reply-To: <20261001130836.1410888-1-mark.rutland@arm.com>
+X-Cookie: Do not stamp.
+
+
+--tjgr7GheXTi+teXB
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260930195110.13296-1-kaloz@kernel.org>
 
-Hi Imre,
-Thanks for catching and fixing this!
+On Thu, Oct 01, 2026 at 02:08:36PM +0100, Mark Rutland wrote:
 
-On Wed, Sep 30, 2026 at 09:51:09PM +0200, Imre Kaloz wrote:
-> kmem_cache_destroy() tests slab_state >= FULL for sysfs_slab_unlink()
-> and again in kmem_cache_release() for sysfs_slab_release(), with the
-> cache already off slab_caches in between. If slab_late_init() runs in
-> that gap it sets slab_state to FULL but never calls sysfs_slab_add() for
-> the unlinked cache, so kmem_cache_release() ends up in kobject_put() on
-> a kobject that was never initialized:
-> 
->   WARNING: lib/kobject.c:734 at kobject_put+0x64/0x2c0, CPU#1: kworker/u8:3/55
->   kobject: '(null)' ((____ptrval____)): is not initialized, yet kobject_put() is being called.
->   refcount_t: underflow; use-after-free.
->   kobject_put+0x64/0x2c0
->   sysfs_slab_release+0xc/0x20
->   kmem_cache_destroy+0x104/0x1e0
->   bioset_exit+0x13c/0x1e0
->   disk_release+0x54/0x140
->   put_disk+0x18/0x40
->   floppy_async_init+0xbec/0xd10
-> 
-> Seen on sparc64 at boot, where the asynchronous floppy init tears down
-> its bio slab while the late initcalls are running.
-> 
-> Read slab_state once, under slab_mutex which slab_late_init() holds when
-> it sets FULL, and use the result for both the unlink and the release.
-> The kobject flags (state_initialized, state_in_sysfs) were considered as
-> the key instead, but slab_state is what cache creation and
-> slab_late_init() decide on.
-> 
-> debugfs_slab_release() is not part of the race: it only looks the cache
-> up by name in the debugfs root and does nothing before that root exists.
-> 
-> Fixes: 4ec10268ed98 ("mm, slab: unlink slabinfo, sysfs and debugfs immediately")
+> Regardless of this patch, the kselftests themselves are broken for
+> SME-only configurations. The signal tests have been broken for at least
+> 3 years (since the kernel started creating SVE contexts on SME-only
+> systems), so evidently such configurations are not being tested. I have
+> some local fixes for the kselftests that I will send out soon.
 
-Overall looks good to me, but could you please explain why it's
-not relevant before this commit? pre-4ec10268 still reads slab_state
-outside slab_mutex.
+I do have some coverage set up but it's set up in such a way that it'll
+only notice new failures so things that have never worked won't be
+visible.
 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+> @@ -443,19 +444,33 @@ static int restore_sve_fpsimd_context(struct user_ctxs *user)
 
--- 
-Cheers,
-Harry / Hyeonggon
+>  	} else {
+>  		/*
+> -		 * A SME only system use SVE for streaming mode so can
+> -		 * have a SVE formatted context with a zero VL and no
+> -		 * payload data.
+> +		 * Non-streaming SVE state may be preserved without an SVE
+> +		 * payload, in which case all state is saved in the FPSIMD
+> +		 * context.
+> +		 *
+> +		 * On SME-only systems, non-streaming (FPSIMD-only) state is
+> +		 * always preserved without an SVE payload, and with VL==0. On
+> +		 * such systems, only accept non-streaming state without an SVE
+> +		 * payload.
+>  		 */
+> -		if (!system_supports_sve() && !system_supports_sme())
+> +		if (!system_supports_sve() && !fpsimd_only)
+>  			return -EINVAL;
+
+This means that this function will now accept a FPSIMD only SVE context
+on systems with neither SVE nor SME, but that check was redundant since
+we already reject anything with SVE magic in parse_user_sigframe() on
+such systems and should never get here anyway.
+
+Reviewed-by: Mark Brown <broonie@kernel.org>
+
+--tjgr7GheXTi+teXB
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq+bT8ACgkQJNaLcl1U
+h9A8Dgf/bpQ6h/269Fw6oWtU7lRmSPaWBeB9mziw3EfHbp+Mmnk+V/Z0Y5+ls/nz
+C4v9qTOP/oklHyg+W3PrwDBoYjxj73wcViCsUgP9xW5VZDKs6K57wi+15mnVgDOX
+sGuX7PXTstguS0u9oF+l4PWK2CmajpHgFTx2CeYrsp0kQHppNDwe35bW/i30Oinv
+gc1dNeNKELqVgi+By/Dw2ZXIPb2hWRvhWoJ3u0/ZqiXJcho6+zHzPY2yLC4rUBIb
+uOf82LB9LLQ2KBvJLBe26ZuXnzU6r1+FZoj1061ZXLUgF+f8mPZbQkQW75PujF3N
+pTxxIz3pHiuEAn+h928xct0qaweg1g==
+=0L+C
+-----END PGP SIGNATURE-----
+
+--tjgr7GheXTi+teXB--
