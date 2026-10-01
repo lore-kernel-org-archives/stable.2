@@ -1,126 +1,77 @@
-Received: from mta-65-226.siemens.flowmailer.net (mta-65-226.siemens.flowmailer.net [185.136.65.226])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83FD24AB1A9
-	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 08:52:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.65.226
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0D2040DB3A;
+	Thu,  1 Oct 2026 08:54:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790844755; cv=none; b=Id6ut8wm2VhGvF297JoRa0SR+fO5TkiZGAkhG3za/g3a58uGKjO3Owu+YO7MfXnu3sVotP+tNigoHI7NYwSbTUEN3rqhE2IZZXQl/3NztFHuSMiirfBnPeXidDQSnzyUx89H+klbi8Oy2ejf4LUpbEr6AFg5l+LOaYmFzG0NrI0=
+	t=1790844876; cv=none; b=SkzysiblMe/UKJuyVF9re9rCi1DNtOGSwmd4VuJaw14nBrACLqF/ANIGPOQnjK+dahTcHTaSmPve3Xf5pP/g3LceQRqVWyIj6eDWHL9PGCxrpT6LthgiTs3ckiaU1Kgj1paW3QPv7LPDSqyzqB8BeQViBCRZHaCIHRw+zVKBxgY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790844755; c=relaxed/simple;
-	bh=nmF2VGSeyFyu/xPgi2xOG62Zmzti/5jSYKINhvSPvGY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=L2KJ3Dfq3GzCEqwymiZ5FTQR4Trl3wgFpiZKbyd3tWVF23rkOvjRoKu7dGsLspv1lXNAPdCM3xgWk9BL9YARTp30FT2gP10cbT52LedLVXVrvZof6jxsDVtIo29cFXLZ/O6mf4TsYUwvbxzYOodS2m7f1NGcSxgDzmVMP1gne0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b=ew3gH/qh; arc=none smtp.client-ip=185.136.65.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
+	s=arc-20240116; t=1790844876; c=relaxed/simple;
+	bh=L6ngpHT3DfaWx4MSx08wIQBupXQ7J3Dcee/uRfV6umQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XEXjkm0v+KDKsNRsqFvIBPtDwEjsIQjB+JOjaiLd6TZb12THHHPDzKen4PDrxN3fZqsYQwmcRnrOfmsZQtyRkJFutydCbG3LxgRZD2wv7Uf7ZTiq0UpS3B2XvrywsLRWxHsHz+XB8XidMLMvG/u6ASfEW3TBd3CG6wQOZ2HjXu0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XFJAI53X; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="ew3gH/qh"
-Received: by mta-65-226.siemens.flowmailer.net with ESMTPSA id 20261001085220fae97cd35d000207c8
-        for <stable@vger.kernel.org>;
-        Thu, 01 Oct 2026 10:52:21 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
- d=siemens.com; i=alexander.sverdlin@siemens.com;
- h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
- bh=w6L3QaVhgFzYQ29lWW6OlEsvKNadnP7rsB1TYXpG4yQ=;
- b=ew3gH/qhLinU97JQEobLwagqDv4Cj726XeVfMqSZJsZ6MxfhgNZwyzPldU0xy39l2l2uzK
- JbOrlmYbME7Kl7maJcGCJYcBfDbBqiOvf/NyYOijEqsU2raZ1CkKhCoI0ODLCFJlyfpe4pOt
- e9ISAi9GIExZGGvEBMoDAdRi7/lSwbGQ08PS1Ne8WsOuasAE64ANXyjVLxZoOY5uouCDJaqw
- JJL7xLOIsIsEMlr/EO+y27fIvgh/eUP0h+4e13wKNLwsYPDMOEiW5m+nNGuM9huw2TcPzZqp
- KL52xEi/NU8Mta8fLGBz2GCVge49jzpWRXLGLWtzmnzonF+/v6IY4BXQ==;
-From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
-To: linux-gpio@vger.kernel.org
-Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
-	Tony Lindgren <tony@atomide.com>,
-	Haojian Zhuang <haojian.zhuang@linaro.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Lokesh Vutla <lokeshvutla@ti.com>,
-	Nishanth Menon <nm@ti.com>,
-	Rob Herring <robh@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-omap@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XFJAI53X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C02891F000FF;
+	Thu,  1 Oct 2026 08:54:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790844874;
+	bh=utC4V6cGBhGB1qaQwBhOVHBWZhYms2fuhFn3zzGNPPY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XFJAI53XPiBv3Ta1PRWfCf8VI3GWiAVSTnbM+H6PYK5oJjPueYVMX+ERRpYbq9CRg
+	 Iu+JtnOl/90F/TjnPgDW/kXSQFeIjCl7yzWbGjLgljFO9lSh4bV6GO5MdiDi31vzDu
+	 PPwqxumSdESePtivJQWAHKX9MX/pLIz9HbboclX8=
+Date: Thu, 1 Oct 2026 10:54:28 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Hui Peng <benquike@gmail.com>
+Cc: Jiri Slaby <jirislaby@kernel.org>,
+	John Ogness <john.ogness@linutronix.de>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 1/2] pinctrl: single: don't leak group/function tables on consumer re-probe
-Date: Thu,  1 Oct 2026 10:52:10 +0200
-Message-ID: <20261001085217.1778645-2-alexander.sverdlin@siemens.com>
-In-Reply-To: <20261001085217.1778645-1-alexander.sverdlin@siemens.com>
-References: <20261001085217.1778645-1-alexander.sverdlin@siemens.com>
+Subject: Re: [PATCH v7 1/2] serial: core: fix baud rate fallback in
+ uart_get_baud_rate()
+Message-ID: <2026100156-watch-balsamic-32db@gregkh>
+References: <20260930125901.778868-1-benquike@gmail.com>
+ <20260930125901.778868-2-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Flowmailer-Platform: Siemens
-Feedback-ID: 519:519-456497:519-21489:flowmailer
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930125901.778868-2-benquike@gmail.com>
 
-From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+On Wed, Sep 30, 2026 at 12:59:00PM +0000, Hui Peng wrote:
+> When uart_get_baud_rate() is called with a baud rate exceeding the port's
+> maximum supported speed (port->uartclk / 16), it clips baud to [min,
+> max - 1] and encodes it into termios via tty_termios_encode_baud_rate().
+> 
+> However, because the loop bound is for (try = 0; try < 2; try++), the
+> loop terminates immediately after try == 1 without re-evaluating
 
-For every mapping pcs_parse_{one,bits}_in_pinctrl_entry() builds a
-pcs_function, a value table, a pin array and a pingroup-name array and
-registers them via pcs_add_function()/pinctrl_generic_add_group(). The
-core deduplicates groups and functions by name and keeps the first
-instance for the controller's lifetime, so the tables built for any later
-mapping of the same node - e.g. each consumer re-probe - are dropped by
-the core and leaked.
+But try == 1 should keep the loop going as it is < 2, right?  What am I
+missing here?  Do I need more coffee?
 
-Free the redundant copies once the function turns out to be a duplicate;
-the group is deduplicated together with it. Don't remove the deduplicated
-instance from the core: its selector is a plain counter (num_groups /
-num_functions), so removing any but the last entry corrupts the selector
-space.
+> baud = tty_termios_baud_rate(termios) for the clipped rate, hitting
+> WARN_ON(1) and returning 0, which then triggers a fatal divide-by-zero
+> (Oops: divide error) in uart_get_divisor():
+> 
+>   WARNING: drivers/tty/serial/serial_core.c:548 at uart_get_baud_rate+0x136/0x260
+>   [ ... ]
+>   divide error: 0000 [#1] PREEMPT SMP KASAN
+> 
+> Increase the retry count in uart_get_baud_rate() from 2 to 3 iterations so
+> that clipped baud rates are re-evaluated in the third iteration.
 
-kmemleak stays silent because the leaked tables remain reachable from the
-controller's devres list.
+What is the magic 2 here, and why turning it into a magic 3 somehow fix
+things?
 
-Fixes: 8b8b091bf07f ("pinctrl: Add one-register-per-pin type device tree based pinctrl driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
----
- drivers/pinctrl/pinctrl-single.c | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+thanks,
 
-diff --git a/drivers/pinctrl/pinctrl-single.c b/drivers/pinctrl/pinctrl-single.c
-index e0eb7240a9859..e75e32723100d 100644
---- a/drivers/pinctrl/pinctrl-single.c
-+++ b/drivers/pinctrl/pinctrl-single.c
-@@ -1097,6 +1097,19 @@ static int pcs_parse_one_pinctrl_entry(struct pcs_device *pcs,
- 	} else {
- 		*num_maps = 1;
- 	}
-+
-+	/*
-+	 * The core deduplicates groups/functions by name and keeps the first
-+	 * for the controller's lifetime; drop our now-redundant copies when the
-+	 * node is mapped again (consumer re-probe). The group is deduplicated
-+	 * together with the function, so testing the latter is enough.
-+	 */
-+	if (pinmux_generic_get_function(pcs->pctl, fsel)->data != function) {
-+		devm_kfree(pcs->dev, pins);
-+		devm_kfree(pcs->dev, vals);
-+		devm_kfree(pcs->dev, function);
-+		devm_kfree(pcs->dev, pgnames);
-+	}
- 	mutex_unlock(&pcs->mutex);
- 
- 	return 0;
-@@ -1235,6 +1248,14 @@ static int pcs_parse_bits_in_pinctrl_entry(struct pcs_device *pcs,
- 	(*map)->data.mux.function = np->name;
- 
- 	*num_maps = 1;
-+
-+	/* See pcs_parse_one_pinctrl_entry() for the deduplication rationale. */
-+	if (pinmux_generic_get_function(pcs->pctl, fsel)->data != function) {
-+		devm_kfree(pcs->dev, pins);
-+		devm_kfree(pcs->dev, vals);
-+		devm_kfree(pcs->dev, function);
-+		devm_kfree(pcs->dev, pgnames);
-+	}
- 	mutex_unlock(&pcs->mutex);
- 
- 	return 0;
--- 
-2.55.0
-
+greg k-h
