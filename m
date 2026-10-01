@@ -1,55 +1,55 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30B0D51992F
-	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 18:13:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF9A75237BA
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 18:15:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790878439; cv=none; b=sWDo2NrqYqRUTUWX8+ZKtIBlYKmRGRJ11fkpChh/0WQ+WNL9qE47RvVj8XmmwYXu7zfeh24ar07TX/tx4DrnrDsN2G8X+XnZaziqAUF3ZUJ6hzbWrMRS6u4R+Oge1pfzHSbzK+IPJZUd7bslribBvqBsLf8YpXBFJOr1nxiNFxY=
+	t=1790878536; cv=none; b=HX436CAP7uh992f4t+2BQnvI6Upgb0woHopAqSOjzrcJHKknuxsBoTx7Cln2MCQLuOJIBSNIjKzWuoVMdlNaJc+uo5pXnqMP0KMbik3KcnEth6qsaBOcs5Y7z860rlmddmYABN2Mo8bxCucLt6tu3wpnDY7uvHmdttc5kpX1ug0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790878439; c=relaxed/simple;
-	bh=2XOoaBawLjbMqXkjs7Dxr/8UeBMSq7cEksbLVDPeip0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aJnEr/ezqrcCXkAkUcCEgSzge3Uw2vkf5E8d4YsdDVcBVbOcMphQxMC9KdB8YCcxGLnaJnTfzOlCXSFi2Aehu+MzPf1zfhjaLQhLR6yiXh0AFbc2uJ0fOFSXwWCeWpijruBncA0+uvUzioULV1l56zf4K1atAnIcI3yslNIm9Rg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=AOIGOcMD; arc=none smtp.client-ip=170.10.129.124
+	s=arc-20240116; t=1790878536; c=relaxed/simple;
+	bh=UYIxpue9U7wLOldjTAEq2Y8YcpIjqgAN3TM8JYsRuCU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pd+XsmE9gDYFOoxurLodke+Js+w8eTppaa96H1Ih5K85XZOzV/Kp/1rn3/i0A9CHqgv+8kHyzSJoUWBuNRQ8yJWGJIwPQVV1Do9tqz66/aiO+hDh6mKlRg8gwNKHppGLvY0X5094wkU3T6yXP36QJr50KeydBcUiC7R+7fEITEM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Snifk8Dc; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="AOIGOcMD"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Snifk8Dc"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790878433;
+	s=mimecast20190719; t=1790878529;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding;
-	bh=2K6+AjrHHCLY+3zXw5HOJ91vX9fbZQsVpcAGubvt7/o=;
-	b=AOIGOcMD4YIs7naDmi/KrFwIYoGvzEtpToAWv5QmmXukR1KDz+NcgaeMEuYTGNm+vdPAgd
-	XOIME3XvqDA9DmkMUkEhHmIf5DBWRHPHERs7NZNyo8vi6LstF7JMgYpqPlHdiWKXQBwMD6
-	RIJi0KI2tRVveuWyEgeHYtOFyx5R1bI=
+	bh=A0IEnKIIoe14yk04bwWgYY6XA9TxUuiuYvjrXGnIi6w=;
+	b=Snifk8Dc9XLKGLoXItQDEaIzjfO3KioB8BEbvwHxpqeOVkSloGM9+8ocP3R3SLRImJoJt1
+	ZK2iyZ+7TOg+i4Eeb+Boa+FDvp5vWwKGdSZSgX0VHalC+n+DJSBCNeCnijGrbq8yWD94X7
+	Yo/gGGCvmHAQTbRHxYZ/mM9s3YZrFyA=
 Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-663-l93d_TTfNca1FqR8r5n-pA-1; Thu,
- 01 Oct 2026 14:13:50 -0400
-X-MC-Unique: l93d_TTfNca1FqR8r5n-pA-1
-X-Mimecast-MFC-AGG-ID: l93d_TTfNca1FqR8r5n-pA_1790878429
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-211-3j7Aynp0Me-5pNw8J8K6SQ-1; Thu,
+ 01 Oct 2026 14:15:26 -0400
+X-MC-Unique: 3j7Aynp0Me-5pNw8J8K6SQ-1
+X-Mimecast-MFC-AGG-ID: 3j7Aynp0Me-5pNw8J8K6SQ_1790878525
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B36B218009D3;
-	Thu,  1 Oct 2026 18:13:48 +0000 (UTC)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B1EDD180049F;
+	Thu,  1 Oct 2026 18:15:24 +0000 (UTC)
 Received: from lcapitul-thinkpadt14gen3.rmtcaqc.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id A4CED180059F;
-	Thu,  1 Oct 2026 18:13:44 +0000 (UTC)
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 7CA3430000E4;
+	Thu,  1 Oct 2026 18:15:23 +0000 (UTC)
 From: Luiz Capitulino <luizcap@redhat.com>
-To: stable@vger.kernel.org,
-	sashal@kernel.org
+To: sashal@kernel.org,
+	stable@vger.kernel.org
 Cc: rppt@kernel.org,
 	sayalip@linux.ibm.com,
 	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v6.18.y v3] selftests/mm: hugetlb-mremap: add setup of HugeTLB pages
-Date: Thu,  1 Oct 2026 14:13:30 -0400
-Message-ID: <20261001181330.684841-1-luizcap@redhat.com>
+Subject: [PATCH v6.12.y v2] selftests/mm: hugetlb-mremap: add setup of HugeTLB pages
+Date: Thu,  1 Oct 2026 14:15:18 -0400
+Message-ID: <20261001181518.685129-1-luizcap@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -57,7 +57,7 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
 From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
 
@@ -126,19 +126,16 @@ Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
  tools/testing/selftests/mm/hugepage-mremap.c | 5 +++++
  1 file changed, 5 insertions(+)
 
-v3
+v2
 - Preserved original changelog & subject
-- Small code style difference from v2 due to git cherry-pick usage which
+- Small code style difference from v1 due to git cherry-pick usage which
   preserved the original commit style
 
-v2
-- Added "commit <sha1> upstream" line to changelog
-
 diff --git a/tools/testing/selftests/mm/hugepage-mremap.c b/tools/testing/selftests/mm/hugepage-mremap.c
-index 928c1045e295..d6caa075a86a 100644
+index 3070484f9ed0..164bbda8128f 100644
 --- a/tools/testing/selftests/mm/hugepage-mremap.c
 +++ b/tools/testing/selftests/mm/hugepage-mremap.c
-@@ -97,6 +97,7 @@ static void register_region_with_uffd(char *addr, size_t len)
+@@ -87,6 +87,7 @@ static void register_region_with_uffd(char *addr, size_t len)
  
  int main(int argc, char *argv[])
  {
@@ -146,7 +143,7 @@ index 928c1045e295..d6caa075a86a 100644
  	size_t length = 0;
  	int ret = 0, fd;
  
-@@ -114,7 +115,11 @@ int main(int argc, char *argv[])
+@@ -104,7 +105,11 @@ int main(int argc, char *argv[])
  	else
  		length = DEFAULT_LENGTH_MB;
  
