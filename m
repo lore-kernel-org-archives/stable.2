@@ -1,130 +1,244 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE70D535FD8;
-	Thu,  1 Oct 2026 21:07:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 380FC46A60A;
+	Thu,  1 Oct 2026 21:16:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790888882; cv=none; b=lB9MmefOF0JrkuF7vTn3gu8IAWr64NiexV+jRl6NS70jkZ6VFBZ5RvpqZScSwuoB8inKsO6bGH4vxL6WJqN/Ge+zcd7EAawO6dSTnsewx4GrI4TXaV3pc+e6/p6pcj6Tf6sXdu/+o6gQHYCrxjltmNIIv1BLa2wiPBnDajGAc9M=
+	t=1790889418; cv=none; b=IyUfz8RRA2wo1MnM2Tful4h2BfXwUpT2TnQViQ6nW5NghRBOmY3wT5E9cKfMr//4/eMbPkaR0aCTGY4OEDynOcxnZolMM73LuI4Xvco6CVoK7aP6/dYkSxHVd1+2PtPmtnmTFdk+hPmCHaMML5/5uFMsndpQwpIDlkKiz+u81sY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790888882; c=relaxed/simple;
-	bh=o7J+1HITYJXRtiyoUuIb6cauJmcw2IANlDCioGDkRmk=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=GkBeMzAGVlfZhIkc7Glqb3HJ11tq1OAo0jA1+VAOIQPH45Uw8AHgVXOlmEvKldpsZi78+sKYFc+ALWfpk2YNUKDBe87VJadleM1rdZDU+J9LC2Vu0dWjyFq//lrIb6DENfnu5Nfjibb6gfgucEBt7W/fhhVGD9LWxd4BIAV428Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=crWAkHdC; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1790889418; c=relaxed/simple;
+	bh=JOlqp6Cy2f7dgy9WstV9kdwykzFIe+8amE5T46/T7XY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=nKRNnljQJXp1/ItN9bHeknzqvy3SsO5MX6BqDf9x1SxwPCA8gu5yM1CN8tZY5ED65QQHBWLfAkZAc4aTS9pBfVFNZ3iqA0lSwpdKtPqI/W9TY2TQlp9AKLTD68zsJa8lrKPieVdxPoG9ecZHof/vdrUcq6weUTNcysTY6cp+M1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nHdc2Zlr; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="crWAkHdC"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
-	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=5Qdx8zkOLPSDGJyfa+Ayr9i/OP3panEu3HPgytGYE+Q=; b=crWAkHdCd96jdy06ctaKtuSJHU
-	kNanaL7kSuqM1iR7CLTKOh3ZDcbI4XuxsK6sPS3/qVtPbx/yuO20njO6sgYqvYVM7pDmXUMnAc0eC
-	wCovceWP8OVVQ2X7lxF1ZR2aGkfCOYKkiYfOHVLbSt6LO/KbfJZ/yjphzOOjkd65T+w/e9aJ4Dmn2
-	tIPX2A+bDXeUsW1h3i4EnAnwAGCV8qomUTnl1zft838m98r9zpUzsGg8vW56hcQLv4/QqXljrM6Em
-	sRxzIPQHK3PKhm44QoiqGyh3q/3E8T4NYKTc16miplsjKH02iMmc3nghgud4nK2dv/z+ucx4VVnc3
-	DI3K9oSg==;
-Received: from [::1] (port=59626 helo=pf-012.whm.fr-par.scw.cloud)
-	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
-	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
-	id 1xCO0U-00000001oDZ-2JXv;
-	Thu, 01 Oct 2026 23:07:55 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nHdc2Zlr"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 11EDEC2BCC7;
+	Thu,  1 Oct 2026 21:16:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790889416;
+	bh=JOlqp6Cy2f7dgy9WstV9kdwykzFIe+8amE5T46/T7XY=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=nHdc2ZlrY8JXDXc2vRiTOYJZewIyVGBt6xj0s/nwFavr0BELRpSO0/Dw63GKtfIQi
+	 HoMNLo20T94Ys0yK/gXRPmM5FyXoTh3BdedUDAoHFLsgCTIBX8wdm/AX48r2kfPB+n
+	 ancSaTmC4nGCH4+Lu5aGn7kj/U75RTgtqSxdmJuISAGE1GbrT+wTCTyIP9hn/MxPC7
+	 Vd378KuUPaJAFWbM57nx/IpXbfS+ZuR7KygnGNW9CQ9IOV21327ZgV9EBDxipVbkgc
+	 wX5QMq9CalJTRFsM2fvmtz8i+oBCvTXGCx5QhSyosytbpV9xitBSUtP195j4PJng/c
+	 m3jw7KlR2wOWw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DC0DCCA5FD2;
+	Thu,  1 Oct 2026 21:16:55 +0000 (UTC)
+From: Jerome Mohm via B4 Relay <devnull+jrmmhm.kernel.eldare.de@kernel.org>
+Date: Thu, 01 Oct 2026 23:16:31 +0200
+Subject: [PATCH net v2] vsock/bpf: release sock lock while waiting for data
+ in recvmsg
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 01 Oct 2026 23:07:55 +0200
-From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
-To: Sabrina Dubroca <sd@queasysnail.net>
-Cc: Steffen Klassert <steffen.klassert@secunet.com>, Herbert Xu
- <herbert@gondor.apana.org.au>, "David S . Miller" <davem@davemloft.net>,
- Saeed Mahameed <saeedm@nvidia.com>, Leon Romanovsky <leon@kernel.org>, Tariq
- Toukan <tariqt@nvidia.com>, Mark Bloch <mbloch@nvidia.com>, Boris Pismenny
- <borisp@nvidia.com>, netdev@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH ipsec 4/7] xfrm: prevent AES-GCM nonce reuse after early
- GSO
-In-Reply-To: <ar5gnDR81WsA0TBg@krikkit>
-References: <20260930144523.435271-2-Jeremy.Jean@oss.cyber.gouv.fr>
- <20260930144523.435271-6-Jeremy.Jean@oss.cyber.gouv.fr>
- <ar5gnDR81WsA0TBg@krikkit>
-User-Agent: Roundcube Webmail/1.6.19
-Message-ID: <c24271382cde79f3b043908ae52c41cf@oss.cyber.gouv.fr>
-X-Sender: jeremy.jean@oss.cyber.gouv.fr
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261001-kbh3-1-022-fix-v2-v1-1-cfae958a1976@eldare.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQrCQBAEv7L02YGZSQjoV8RDEidmFFbZTRYh5
+ O+ueqxuqjZkS24Zp7AhWfHsz1hBDgHj3MebkV8rQ1k7YRZ6DHNDQqxKk7+pKFkzSatH7lrpUb1
+ Xsvr8mmdEW0JRXP57Xoe7jcs3iH3/AI5QqDF9AAAA
+X-Change-ID: 20261001-kbh3-1-022-fix-v2-e3f14290641a
+To: Stefano Garzarella <sgarzare@redhat.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, "Michael S. Tsirkin" <mst@redhat.com>, 
+ Bobby Eshleman <bobby.eshleman@bytedance.com>
+Cc: virtualization@lists.linux.dev, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+ Michal Luczaj <mhal@rbox.co>, stable@vger.kernel.org, 
+ Jerome Mohm <jrmmhm.kernel@eldare.de>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790889414; l=6591;
+ i=jrmmhm.kernel@eldare.de; s=20260928; h=from:subject:message-id;
+ bh=YvTTC+RU/Ym1bKqgzQ3IfPdzTa169kmvcqEE9p94f/U=;
+ b=CbqSqTZQSQB1j9Ic2qSu4ImstdiiTZ8FbKwO5N3DKsTQCUwDC6vjzO2uQ735OWUzjXlEDyY5b
+ iVFVupzJPnuBXzJPBSX1rf9M02xPxsgmwnGLx4izONlMWJ9pY2WAiZ3
+X-Developer-Key: i=jrmmhm.kernel@eldare.de; a=ed25519;
+ pk=xRCxNXbnNottaHpmvPDAOC9NuMJxqKo24abkehKRVlo=
+X-Endpoint-Received: by B4 Relay for jrmmhm.kernel@eldare.de/20260928 with
+ auth_id=1075
+X-Original-From: Jerome Mohm <jrmmhm.kernel@eldare.de>
+Reply-To: jrmmhm.kernel@eldare.de
 
-On 2026-10-01 15:31, Sabrina Dubroca wrote:
-> 2026-09-30, 14:45:21 +0000, Jérémy Jean wrote:
->> In the software ESP offload path, xfrm_output_gso() leaves its 
->> segments
->> sharing a secpath extension. Each segment gets its own ESP sequence
->> number, but stores it in the same xo->seq field for IV generation.
->> 
->> If encryption is delayed, later segments overwrite the value needed by
->> earlier ones: esp*_xmit() can then encrypt several packets with the 
->> same
->> AES-GCM nonce, despite their distinct ESP sequence numbers.
-> 
-> Here again, your commit message could describe much more precisely
-> what actually happens.
-> 
-> I'm guessing you mean something that starts like
-> 
-> xfrm_output_gso
->   segs = skb0,skb1... all with the same xo
->   ...
->   xfrm_output_one(skb0)
->     xfrm_replay_overflow(skb0) xo->seq = N
->   xfrm_output_one(skb1)
->     xfrm_replay_overflow(skb1) xo->seq = N+1
->   ...
-> 
-> [and then some more stuff happens that gives them the right
-> esph->seq_no but wrong 64b seqno used for the IV]
-> 
-> But please help reviewers trace the codepath you've already gone down,
-> without having to guess what you mean. You don't need to give the full
-> call graph with the state of each variable, but there needs to be more
-> than just the very beginning and the very end.
+From: Jerome Mohm <jrmmhm.kernel@eldare.de>
 
-Here is a more verbose changelog I wrote for that patch:
+vsock_bpf_recvmsg() takes lock_sock(sk) and holds it across the receive
+loop, including vsock_msg_wait_data(), which slept in wait_woken() without
+dropping the lock. When data arrived the transport's delivery context (the
+vsock-loopback worker, or the virtio/vhost rx path) called
+virtio_transport_recv_pkt() -> lock_sock() on the same socket and blocked,
+so neither side made progress and a blocking recv() hung; the hung-task
+watchdog reported the delivery worker in D state.
+
+Dropping the socket lock around the wait is necessary but not sufficient:
+vsock_msg_wait_data() also did not loop and checked too few conditions,
+which left three further problems in the same helper.
+
+ - It did not loop. Once the lock is dropped, a wakeup that is not for new
+   data (for example a credit update via sk_write_space()) made the helper
+   return with nothing queued, so a blocking recv() returned -EAGAIN
+   prematurely instead of waiting for data.
+
+ - It checked only sk->sk_shutdown & RCV_SHUTDOWN, not sk->sk_err or
+   vsk->peer_shutdown & SEND_SHUTDOWN. Once the peer shut down for send or
+   the socket errored (for example a reset), recv() did not notice and kept
+   waiting instead of returning 0 or the error.
+
+ - vsock_bpf_recvmsg() had no "if (!len) return 0;" guard, so a
+   zero-length recv() with data queued never satisfied the loop's
+   copied == 0 exit and spun holding lock_sock(), which wedges the delivery
+   worker and stalls all rx on the transport.
+
+Rewrite vsock_msg_wait_data() to loop: return the data when it is ready, 0
+on RCV_SHUTDOWN or peer SEND_SHUTDOWN, the negative socket error on sk_err,
+-EAGAIN on timeout and the signal error on a pending signal, releasing the
+socket lock around the wait and re-acquiring it before re-checking. Add the
+len == 0 guard to vsock_bpf_recvmsg(), and route MSG_ERRQUEUE to the native
+path before that guard so a zero-length error-queue read is not swallowed,
+as tcp_bpf does. The exit conditions follow vsock_connectible_wait_data();
+dropping the lock across the wait matches unix_bpf (u->iolock) and tcp_bpf
+(sk_wait_event()).
+
+Testing: built a fuzz kernel (KASAN + lockdep) on the net tree
+(v7.3-rc4) and ran reproducers over the loopback transport on a private
+VM, each before and after the fix. Before: a blocking recv() on a
+sockmap socket deadlocks the vsock delivery worker (hung-task); and with
+only the lock dropped, a spurious credit-update wakeup returns -EAGAIN,
+a peer SEND_SHUTDOWN returns -EAGAIN instead of 0, a zero-length recv()
+with queued data never returns and wedges the delivery worker (hung-
+task), and a len == 0 MSG_ERRQUEUE read returns 0 instead of reaching
+the error queue. After: recv() returns the data, ignores the spurious
+wakeup and returns the real byte, returns 0 on peer shutdown, returns 0
+for len == 0, and routes MSG_ERRQUEUE to the error-queue handler; no
+KASAN or lockdep report.
+
+Fixes: 634f1a7110b4 ("vsock: support sockmap")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Jerome Mohm <jrmmhm.kernel@eldare.de>
+---
+Changes since v1 [1] (netdev review by the Sashiko bot):
+- v1 only released the socket lock around the wait. v2 additionally makes
+  vsock_msg_wait_data() loop (no premature -EAGAIN on a dataless wakeup),
+  checks sk_err and the peer SEND_SHUTDOWN as well as RCV_SHUTDOWN (correct
+  EOF/error on peer shutdown or reset), and adds the len == 0 guard to
+  vsock_bpf_recvmsg() plus an MSG_ERRQUEUE route ahead of it (no spin on a
+  zero-length recv; an error-queue read is not swallowed).
+- Garzarella's Acked-by on v1 is intentionally dropped: v2 is a materially
+  larger change and needs a fresh review.
+
+[1] https://lore.kernel.org/netdev/20260929-kbh3-1-022-fix-v1-1-cc97cc95d269@eldare.de/
+---
+ net/vmw_vsock/vsock_bpf.c | 59 ++++++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 45 insertions(+), 14 deletions(-)
+
+diff --git a/net/vmw_vsock/vsock_bpf.c b/net/vmw_vsock/vsock_bpf.c
+index 9049d2648646..127a20429aa6 100644
+--- a/net/vmw_vsock/vsock_bpf.c
++++ b/net/vmw_vsock/vsock_bpf.c
+@@ -34,24 +34,46 @@ static bool vsock_has_data(struct sock *sk, struct sk_psock *psock)
+ 	return vsock_sk_has_data(sk, psock);
+ }
+ 
+-static bool vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock, long timeo)
++/* Returns 1 if data is ready, 0 on EOF/shutdown, or a negative error. */
++static int vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock, long timeo)
+ {
+-	bool ret;
++	struct vsock_sock *vsk = vsock_sk(sk);
++	int ret;
+ 
+ 	DEFINE_WAIT_FUNC(wait, woken_wake_function);
+ 
+-	if (sk->sk_shutdown & RCV_SHUTDOWN)
+-		return true;
+-
+-	if (!timeo)
+-		return false;
+-
+ 	add_wait_queue(sk_sleep(sk), &wait);
+ 	sk_set_bit(SOCKWQ_ASYNC_WAITDATA, sk);
+-	ret = vsock_has_data(sk, psock);
+-	if (!ret) {
+-		wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
+-		ret = vsock_has_data(sk, psock);
++	while (1) {
++		if (vsock_has_data(sk, psock)) {
++			ret = 1;
++			break;
++		}
++
++		if (sk->sk_err) {
++			ret = -sk->sk_err;
++			break;
++		}
++
++		if ((sk->sk_shutdown & RCV_SHUTDOWN) ||
++		    (vsk->peer_shutdown & SEND_SHUTDOWN)) {
++			ret = 0;
++			break;
++		}
++
++		if (!timeo) {
++			ret = -EAGAIN;
++			break;
++		}
++
++		release_sock(sk);
++		timeo = wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
++		lock_sock(sk);
++
++		if (signal_pending(current)) {
++			ret = sock_intr_errno(timeo);
++			break;
++		}
+ 	}
+ 	sk_clear_bit(SOCKWQ_ASYNC_WAITDATA, sk);
+ 	remove_wait_queue(sk_sleep(sk), &wait);
+@@ -80,6 +102,12 @@ static int vsock_bpf_recvmsg(struct sock *sk, struct msghdr *msg,
+ 	struct vsock_sock *vsk;
+ 	int copied;
+ 
++	if (unlikely(flags & MSG_ERRQUEUE))
++		return __vsock_recvmsg(sk, msg, len, flags);
++
++	if (!len)
++		return 0;
++
+ 	psock = sk_psock_get(sk);
+ 	if (unlikely(!psock))
+ 		return __vsock_recvmsg(sk, msg, len, flags);
+@@ -101,11 +129,14 @@ static int vsock_bpf_recvmsg(struct sock *sk, struct msghdr *msg,
+ 	copied = sk_msg_recvmsg(sk, psock, msg, len, flags);
+ 	while (copied == 0) {
+ 		long timeo = sock_rcvtimeo(sk, flags & MSG_DONTWAIT);
++		int data = vsock_msg_wait_data(sk, psock, timeo);
+ 
+-		if (!vsock_msg_wait_data(sk, psock, timeo)) {
+-			copied = -EAGAIN;
++		if (data < 0) {
++			copied = data;
+ 			break;
+ 		}
++		if (!data)
++			break;
+ 
+ 		if (sk_psock_queue_empty(psock)) {
+ 			release_sock(sk);
 
 ---
-With software ESP offload, xfrm_output() attaches a secpath before
-calling xfrm_output_gso() for an encapsulated GSO packet, but
-skb_gso_segment() leaves the splitted skbs sharing the same secpath,
-including xo->seq.
+base-commit: a7bfaba4823e3c165bb2004c74eff7c096672bc7
+change-id: 20261001-kbh3-1-022-fix-v2-e3f14290641a
 
-For the i-th splitted segment, xfrm_output_gso() reaches
-xfrm_replay_overflow() through xfrm_output_one(), which allocates
-sequence number N+i to that segment, and then incorrectly overwrites
-the shared xo->seq with N+i. If encryption is delayed until all t
-segments have been processed, xo->seq ends up with value N+t-1 for all
-segments. When validate_xmit_xfrm() calls esp*_xmit() for each
-segment, the IV is constructed from the same value N+t-1, causing
-nonce reuse in AES-GCM. Yet, each ESP header correctly keeps using
-value N+i from its private XFRM_SKB_CB.
+Best regards,
+--  
+Jerome Mohm <jrmmhm.kernel@eldare.de>
 
-Call secpath_set() for each offloaded segment before xfrm_output2(),
-so sequence allocation writes to private metadata that cannot be
-overwritten by later segments.
----
 
-Regards,
-Jérémy
