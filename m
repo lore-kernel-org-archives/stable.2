@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B5CB366051;
-	Thu,  1 Oct 2026 04:26:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A3B3366541;
+	Thu,  1 Oct 2026 04:26:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790828796; cv=none; b=qFvAfJK1VKBaZeObJue9QX4as/qLGDNW2HOCKHU2wblaSeMGSA9utPA+aYE2tjiWgsMPECHYGnF9saNsW29ZZ4g8yLag4OZDXcKePupHxB4SqVpTY/w3mDLp1WZaWnGJmFer0a9hWGBTlSpcS1/07yx97YVrMEF66P0Jt6WeUvA=
+	t=1790828797; cv=none; b=I1PJWDHfrD4EW8gfLPXZFV6klCGDJHApOTcO8ZUPydOZOzYgtW//mZG2KLUjzMeRr6kFauGgNhwUVc9UFl+wG0YafcAu33PMlPN7eEvV3hqtXr/4IzNIsUkBZ078LwbFCfNNudxLT07zFc1xC4VwIgriz44qTNOXg0BCybsBwuQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790828796; c=relaxed/simple;
-	bh=3Q0btvzME27VvOrz2f1Xq8sgl3iWM30+F/x6qGPpIBE=;
+	s=arc-20240116; t=1790828797; c=relaxed/simple;
+	bh=HCtHMn3sP0zmtH7BCqMfztyo2pkSkoESg26yLA/LcyI=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=mGeErc/fcASirqvD7b2YOPdciJePb3TnEh12bdG01ASiGV0hwfpN3YcpXY4EHz1v3QFusDWuXsLUNWeHGYEZyDfuFh6WI0KLDfcelO5SNlPzIOi+Vn0OJ62FaIjf008Y408dojL8LyoglPytkiJKAYIELBLTJzuBa0XrhJEJp0E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ThldDxb+; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=VkrWwYsXnNsJYEPj4cuZsTSCFA4jzg7ixikUt8MP2/z7r6dVfmOtkGoSIJcRZZjXD+BjPH9pGTqRNTzz1b2HrnQm0T9Tk+mL+x8/rHyuyNaKSvRaG8IRkFdvUpOwL3g0Wq9AfEJ6B/mDV6Q1QbKoxUZKRVm36zp8sPFO92DAGyM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MC8wgXa/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ThldDxb+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 146371F000FF;
-	Thu,  1 Oct 2026 04:26:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MC8wgXa/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CC6D1F00898;
+	Thu,  1 Oct 2026 04:26:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790828794;
-	bh=VDjHLJUvYGM7AtfLkzEUZQSHpcCntxchzE1D1viwYYY=;
+	s=k20260515; t=1790828795;
+	bh=UV95aU7paKdEgSXgO/aM9gvLom7AApvSRNV4BUsbQVU=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ThldDxb+OcBK1CSSBZK9iYY2u5Y9gsmE3AMn2oDfywx64WuawfnKO0EAKuBxqzLkW
-	 8K3PpZrvi1JyvzaRbDXzML/xf38XmqEu+dcw09eI3y1xFIKpB5M8ALqwqf7I8COIz6
-	 9NfUqZHbDJPi5mZp32yFLHxfxzgRzPBDo84VDRk8At/YeXuAhoFaIBNirFjfQHTgzh
-	 AALWCbl8mmoN7x2RKXMHz3CvPaoIH5IFDXkMEcVRG72h2huwfRmDaI6f2/msQCsqm6
-	 4DkQtkgrrYs++pxl9RBwixf0SNOToMk5pgbuacCKr2DAgGPf5nPZtAO6KPCMimVEhG
-	 WgBTMb1tk1k2A==
-Subject: Re: [PATCH net v4 1/2] net/sched: sch_cake: fix shaper stall on segs
- == 0 in cake_overhead()
+	b=MC8wgXa/k3cpKParEU0z+W1jDI7/3zel8MWerEEDTLOSD9osOtv+BS0Y89kwjnzTB
+	 zIUfdEhQPI7pfdf66qBIrkKKl6pCGMgr2uvR7MYoOhKDibRKsYVKeAKIMYV09VVeC3
+	 R8pqAuT+Uwv8+uHS0bKSCfblRB1i8YdfXu1cFhAurlDRitx4MmfxT2uBafSCGQzbgD
+	 KfUN56dWQSXEKpv8jXHQVCnyDHw/R9rPaplf+xfjHwqb2evElGiFSyy0aCQrqMWeFi
+	 bFOZ5owpkxHeQUNR0ZfMy5qTwzs65Mpu0QhtKzhN4tBqpQwjCEFZfQ588wjXDY4HsH
+	 CRoEJpdgWrijQ==
+Subject: Re: [PATCH net v4 2/2] net/sched: sch_cake: validate transport header
+ offset in cake_overhead()
 From: netdev-bot+sashiko@kernel.org
 To: ndaugoing@gmail.com
 Cc: toke@toke.dk, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
  pabeni@redhat.com, horms@kernel.org, jhs@mojatatu.com, jiri@resnulli.us,
  cake@lists.bufferbloat.net, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Thu, 01 Oct 2026 04:26:33 +0000
-Message-ID: <179082879360.434549.1337490517221376378@kernel.org>
-In-Reply-To: <20260928132452.59996-2-ndaugoing@gmail.com>
-References: <20260928132452.59996-2-ndaugoing@gmail.com>
-X-sashiko-severity: Low
+Date: Thu, 01 Oct 2026 04:26:34 +0000
+Message-ID: <179082879490.434549.12719144237659185288@kernel.org>
+In-Reply-To: <20260928132452.59996-3-ndaugoing@gmail.com>
+References: <20260928132452.59996-3-ndaugoing@gmail.com>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -48,77 +48,150 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Low priority / nit picks for your consideration:
+Critical: 0 · High: 1 · Medium: 0 · Low: 0 (1)
 
-- [Low] The commit message's explanation of the failure is wrong, and it
-  leaves out what actually triggers the stall.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] The patch is incomplete.
+
+Pre-existing issues:
+- [Low] [Baseline: discarded as pre-existing, low] This problem wasn't
+  introduced by this patch, but the cake_overhead() block commented…
 
 --
 
-net/sched: sch_cake: fix shaper stall on segs == 0 in cake_overhead()
+net/sched: sch_cake: validate transport header offset in cake_overhead()
 
-This patch changes the single-segment early return in cake_overhead() from
-segs == 1 to segs <= 1. A GSO skb whose cached segment count is 0 then
-skips the multi-segment overhead arithmetic, which could charge a huge
-length to the shaper.
+This patch makes cake_overhead() fall back to the plain
+cake_calc_overhead() path in two cases: when the transport header was
+never set on a non-encapsulated skb, and when the computed transport
+offset is negative. hdr_len changes from unsigned int to int so the
+negative case can be detected, and all fallback paths now go through a
+single err label.
 
-> Because segs is an unsigned 16-bit integer, (segs - 1) underflows to
-> 65535 (and is promoted to 4294967295 in the 32-bit unsigned arithmetic
-> above). This multiplies the per-segment overhead by UINT32_MAX, so
-> cake_overhead() returns a length close to 4.29 GB.
+> diff --git a/net/sched/sch_cake.c b/net/sched/sch_cake.c
+> index b0d604a7052a..f8deb8083f16 100644
+> --- a/net/sched/sch_cake.c
+> +++ b/net/sched/sch_cake.c
+> @@ -1413,21 +1413,28 @@ static u32 cake_calc_overhead(struct cake_sched_data *qd, u32 len, u32 off)
+>  static u32 cake_overhead(struct cake_sched_data *q, const struct sk_buff *skb)
+>  {
 
-[Severity: Low]
-Is this description of the arithmetic accurate?
+[ ... ]
 
-segs is a u16, so (segs - 1) is promoted to int and evaluates to -1. It
-never becomes 65535. It only turns into 0xffffffff when it is multiplied
-by the u32 that cake_calc_overhead() returns.
+>  	/* borrowed from qdisc_pkt_len_segs_init() */
+> -	if (!skb->encapsulation)
+> +	if (!skb->encapsulation) {
+> +		if (unlikely(!skb_transport_header_was_set(skb)))
+> +			goto err;
+>  		hdr_len = skb_transport_offset(skb);
+> -	else
+> +	} else {
+>  		hdr_len = skb_inner_transport_offset(skb);
+> +	}
+> +
+> +	if (unlikely(hdr_len < 0))
+> +		goto err;
 
-The description also leaves out the last-segment term. With segs == 0:
+[Severity: High]
+Does this fully remove the ~66 KB per-segment charge the commit message
+describes? Two paths still seem to reach it.
 
-    len = shinfo->gso_size + hdr_len;
-    last_len = skb->len - shinfo->gso_size * (segs - 1);
+First, the encapsulated branch has no check for the unset sentinel.
+bpf_skb_net_grow() is reached through bpf_skb_adjust_room() with
+BPF_F_ADJ_ROOM_ENCAP_L3_*. It copies transport_header into
+inner_transport_header without checking whether it was set:
 
-last_len becomes skb->len + gso_size, so the old return value was in
-effect:
-
-    calc(skb->len + gso_size) - calc(gso_size + hdr_len)   (mod 2^32)
-
-cake_calc_overhead() never decreases as len grows. So whenever
-hdr_len <= skb->len, the result is small, roughly the payload size and a
-slight undercharge, and the shaper does not stall.
-
-The ~4.29 GB charge only happens when hdr_len > skb->len. In practice that
-means a non-encapsulated skb whose transport header was never set. In that
-case skb_transport_offset() is around 65300 and skb_header_pointer() fails.
-
-That is the same case where qdisc_pkt_len_segs_init() returns early and
-leaves pkt_segs at the raw gso_segs value, which can be 0:
-
-net/core/dev.c:qdisc_pkt_len_segs_init() {
+net/core/filter.c:bpf_skb_net_grow() {
     ...
-	qdisc_skb_cb(skb)->pkt_segs = gso_segs = shinfo->gso_segs;
+		inner_trans = skb->transport_header;
     ...
-	if (!skb->encapsulation) {
-		if (unlikely(!skb_transport_header_was_set(skb)))
-			return SKB_NOT_DROPPED_YET;
+		skb->inner_transport_header = inner_trans;
     ...
 }
 
-When the transport header is set, the later pskb_may_pull() calls in
-qdisc_pkt_len_segs_init() guarantee hdr_len <= skb->len for TCP and
-UDP_L4. For SKB_GSO_DODGY, gso_segs is recomputed with DIV_ROUND_UP() and
-ends up at 1 or more. So an skb with segs == 0 and a valid transport header
-does not stall the shaper.
+It also sets skb->encapsulation = 1.
 
-The code change itself looks correct. Could the commit message correct the
-promotion explanation? Could it also state that an unset transport header
-is the precondition for the stall, so stable backporters can judge their
-exposure?
+qdisc_pkt_len_segs_init() stores pkt_segs before its !was_set early
+return:
+
+	qdisc_skb_cb(skb)->pkt_segs = gso_segs = shinfo->gso_segs;
+	...
+	if (!skb->encapsulation) {
+		if (unlikely(!skb_transport_header_was_set(skb)))
+			return SKB_NOT_DROPPED_YET;
+
+So a GSO skb with an unset transport header keeps pkt_segs > 1. A tc
+egress program in sch_handle_egress(), or act_bpf run from
+cake_classify(), can then encapsulate that skb.
+
+cake_overhead() then takes the else branch and computes
+hdr_len = 0xFFFF - (skb->data - skb->head). That value is large and
+positive, so the hdr_len < 0 test does not catch it.
+
+Second, both the TCP and UDP branches ignore a NULL return from
+skb_header_pointer() and keep the offset:
+
+		th = skb_header_pointer(skb, hdr_len,
+					sizeof(_tcphdr), &_tcphdr);
+		if (likely(th))
+			hdr_len += __tcp_hdrlen(th);
+	...
+	len = shinfo->gso_size + hdr_len;
+
+The unreadable hdr_len goes into len, which is then multiplied by
+(segs - 1). In cake_enqueue() the result becomes
+get_cobalt_cb(skb)->adjusted_len. That pushes the shaper clock far ahead,
+stalls dequeue, and corrupts max_netlen/max_adjlen.
+
+qdisc_pkt_len_segs_init() returns SKB_DROP_REASON_SKB_BAD_GSO whenever
+pskb_may_pull() of the transport header fails, which covers both cases.
+
+Would adding goto err when skb_header_pointer() returns NULL, or checking
+hdr_len against skb->len, cover the remaining cases on top of the new
+checks?
+
+>  
+>  	/* + transport layer */
+>  	if (likely(shinfo->gso_type & (SKB_GSO_TCPV4 |
+
+[Severity: Low]
+This is a pre-existing issue and was not introduced by this patch. The
+block labelled "borrowed from qdisc_pkt_len_segs_init()" differs from its
+source.
+
+It adds __tcp_hdrlen(th) without the tlen check that
+qdisc_pkt_len_segs_init() does:
+
+		tlen = __tcp_hdrlen(th);
+		if (tlen < sizeof(*th))
+			return SKB_DROP_REASON_SKB_BAD_GSO;
+
+It also adds sizeof(struct udphdr) in a bare else for every non-TCP GSO
+type:
+
+	} else {
+		struct udphdr _udphdr;
+
+		if (skb_header_pointer(skb, hdr_len,
+				       sizeof(_udphdr), &_udphdr))
+			hdr_len += sizeof(struct udphdr);
+	}
+
+The reference only does this for SKB_GSO_UDP_L4. As a result, SCTP, ESP
+or GRE GSO traffic is charged 8 extra bytes per segment. A garbage doff
+after header mangling can cause an error of up to about 60 bytes per
+segment.
+
+Should this block also apply the SKB_GSO_UDP_L4 and tlen checks that
+qdisc_pkt_len_segs_init() uses?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928132452.59996-1-ndaugoing%40gmail.com
