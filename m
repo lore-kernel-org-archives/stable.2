@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6020043F4AF
-	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 11:01:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 874624E4331
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 11:01:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790852466; cv=none; b=ZpQxTFvnr8lAXkp9A9J7mNuNYvtNtwQcXrpER0EeAfVp/Gye3jsXJX4sPOeCSplb+NU6LIHih5OxOwdcX5PNMukuQ8WhrfE9kf7c67cJv7b2sn66+3HYh2NBegFoe52v1iinvVXk7bb+9HNgab+4flmn9CccYvgQJYv6F7Ghmco=
+	t=1790852466; cv=none; b=pr5nGlfD+GnqMdov3J36+VUAan13QNqgbEOY0OwMzfAv7IZVig9o6mqrBfPJkXHeLmrJ25jnZkR9V44/0FEtwpU6IoxK2Gp//GEE7O6Sarfl0TkROY+r4CO9ifCm5JEtWwO/sDtmrxFt8n/3sdKprZnIhWh2UQROOSZoIkK7FI8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790852466; c=relaxed/simple;
-	bh=CUPeFSPzYi61cALedgsbsv0FPJr+k7NK/gCzmgpaOaI=;
+	bh=h5gh2M/HVyGgOZCV6yLHVK7P8U0I6t0pPNlzBXe0a8s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FwrDwqhzpefvvmX+K2QdEGz1pZVMfpr+yyigr5yKOu59K1dkUyUqwGtzOkVEc9PA3ymZCVndS+JEt/QFP0rzdtJ8yW8OnbrX0l9kwB7PvWsE0sUpENKywo6zodB6C0J5tqaADCztscT7Z7CM3XPBCyUvzCkEq0cCSGthP1lLQLY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q8XnhrYV; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Ai0AB4fUu1nFHne5W1SWdxM9hlEojVzR7/sAsZ5UtfP4jejyR2O+1kRZr/aypfkgmaWJbRAn2g0YaaXYln9m+VK//LVjmn/LsA/C0jnEfCb5743vXo5jXvba5S5kDIrTlHZoNJCBmJi7Cy8Ckisszgkwu+9ObIpGaQZT8OR4LFg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=opu0uOaA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q8XnhrYV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CA371F00898;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="opu0uOaA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE0351F000FF;
 	Thu,  1 Oct 2026 11:01:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790852464;
-	bh=oK4eIRRENX6/qOsEAOzMDWVdDmofERXyesv23e73H+g=;
+	s=k20260515; t=1790852465;
+	bh=1/cCH8XuLVUXp+ZZDzr7YMqo3PIkbihDCYeScgrHTDI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Q8XnhrYVfcEhMWJNWsjjj2AyvkW3VicUYBs7rjtSTgdEW5vTOOl5/YSZsqdKEK6KQ
-	 u+praF/ddkNzyhTySeIjDBubtmR4AWNU2W/k9oMWRQUt8RL3BBu/NTP8AOJ37dPTng
-	 3hOHNLXWypSBCptooqEq7JMpui2AoiJQzjmLujAfX4t+Dy0rysJ5QZSEjlHaJ+SSuK
-	 95wtZQBDyPwodq+e3nppINL5rH7IVlTmSRMmoY2u+SIZT4pDtZTSjJHo2CMJ6HqdZk
-	 5FTB1R5b49TjJl1v/pG0GZt3ynyQy8/8gK2oUEDhN2Kx6JjtXgi+dhxd4TtXWNK1W7
-	 EFmRrOz65KJOA==
+	b=opu0uOaA7cUBXlFSsR/91H0JSkCnEX0BXQAFRCISnJXw46IVv6Q/okIjN8e6fgekR
+	 Py/h5AvqHTd7VSn4sZoLdBbsndSUjLtfhkJwF8dV7Mgecu3e1FhLfUzTjL228UL105
+	 yY1qMsSrFJpFaxejhTWa3O+NUrnusYcrZZizTmpKm+nuWx3/5AZmEh1X4MnhfI4Nx3
+	 WJN5MLR2DEsvL3OfMALdrQ4WIp7n5RS/Vlr50dhDo6J9PagiuSXKkjAw8Rf/iE5CzA
+	 IgSRNrk1E3qIrigTuKtChY1mYnztDfiG2WSUv8R00tpT1dwPqgNRVQ21uOZLOL5Iro
+	 h7y6AnCB00Plw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: ChenXiaoSong <chenxiaosong@kylinos.cn>,
 	Steve French <stfrench@microsoft.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/3] smb/client: use stack-allocated smb2_file_all_info in smb3_query_mf_symlink()
-Date: Thu,  1 Oct 2026 07:01:00 -0400
-Message-ID: <20261001110102.3713269-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 2/3] smb/client: pass cifs_open_info_data to SMB2_open()
+Date: Thu,  1 Oct 2026 07:01:01 -0400
+Message-ID: <20261001110102.3713269-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026092946-apron-radio-67f9@gregkh>
+In-Reply-To: <20261001110102.3713269-1-sashal@kernel.org>
 References: <2026092946-apron-radio-67f9@gregkh>
+ <20261001110102.3713269-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,63 +48,98 @@ Content-Transfer-Encoding: 8bit
 
 From: ChenXiaoSong <chenxiaosong@kylinos.cn>
 
-[ Upstream commit fc8789bb57e625e5f32ac57ca2e7d3e7b7fda225 ]
+[ Upstream commit 1f551e407bb49dce0bbd34ed6a499dad69e18020 ]
 
-SMB2_open() only fills the fixed fields, so a stack-allocated
-smb2_file_all_info is sufficient here.
+Let SMB2_open() fill the smb2_file_all_info embedded in cifs_open_info_data
+directly. This removes the temporary smb2_file_all_info copy in
+smb2_open_file().
 
 Signed-off-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
 Signed-off-by: Steve French <stfrench@microsoft.com>
+
+[5.10 dependency adaptation]
+This tree still uses fs/cifs and does not define cifs_open_info_data.
+Keep the existing SMB2_open() argument type and the FILE_ALL_INFO
+conversion in smb2_open_file(); drop the wrapper-type and caller changes.
+Use the dependency's file_info pointer directly on the existing buffer
+inside SMB2_open(), preserving the stable metadata-copy behavior.
+
+Move the existing open_done trace after smb2_parse_contexts(), retaining
+its six-argument stable signature. Together with the file_info argument,
+this allows 566820af017e ("smb: client: close handle after create-context
+parsing failure") to cherry-pick cleanly across the directory rename.
+No functions are added, and the target's close-on-error fix remains for
+the target commit.
+
+[ sashal: Reduced backport -- upstream 1f551e407bb49 touches 4 file(s), this
+  backport carries 1. Not backported here:
+  fs/smb/client/link.c
+  fs/smb/client/smb2file.c
+  fs/smb/client/smb2pdu.c
+  fs/smb/client/smb2proto.h
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
+
 Stable-dep-of: 566820af017e ("smb: client: close handle after create-context parsing failure")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/cifs/link.c | 15 +++------------
- 1 file changed, 3 insertions(+), 12 deletions(-)
+ fs/cifs/smb2pdu.c | 25 +++++++++++++------------
+ 1 file changed, 13 insertions(+), 12 deletions(-)
 
-diff --git a/fs/cifs/link.c b/fs/cifs/link.c
-index 4fc6eb8e786d4..0779fd9a70594 100644
---- a/fs/cifs/link.c
-+++ b/fs/cifs/link.c
-@@ -396,7 +396,7 @@ smb3_query_mf_symlink(unsigned int xid, struct cifs_tcon *tcon,
- 	int buf_type = CIFS_NO_BUFFER;
- 	__le16 *utf16_path;
- 	__u8 oplock = SMB2_OPLOCK_LEVEL_NONE;
--	struct smb2_file_all_info *pfile_info = NULL;
-+	struct smb2_file_all_info file_info = {};
+diff --git a/fs/cifs/smb2pdu.c b/fs/cifs/smb2pdu.c
+index 19b4f426e9afa..d8cacdd54acb0 100644
+--- a/fs/cifs/smb2pdu.c
++++ b/fs/cifs/smb2pdu.c
+@@ -2875,6 +2875,7 @@ SMB2_open(const unsigned int xid, struct cifs_open_parms *oparms, __le16 *path,
+ 	int resp_buftype = CIFS_NO_BUFFER;
+ 	int rc = 0;
+ 	int flags = 0;
++	struct smb2_file_all_info *file_info = buf;
  
- 	oparms.tcon = tcon;
- 	oparms.cifs_sb = cifs_sb;
-@@ -410,20 +410,12 @@ smb3_query_mf_symlink(unsigned int xid, struct cifs_tcon *tcon,
- 	if (utf16_path == NULL)
- 		return -ENOMEM;
+ 	cifs_dbg(FYI, "create/open\n");
+ 	if (!ses || !server)
+@@ -2917,10 +2918,7 @@ SMB2_open(const unsigned int xid, struct cifs_open_parms *oparms, __le16 *path,
+ 			tcon->need_reconnect = true;
+ 		}
+ 		goto creat_exit;
+-	} else
+-		trace_smb3_open_done(xid, rsp->PersistentFileId, tcon->tid,
+-				     ses->Suid, oparms->create_options,
+-				     oparms->desired_access);
++	}
  
--	pfile_info = kzalloc(sizeof(struct smb2_file_all_info) + PATH_MAX * 2,
--			     GFP_KERNEL);
--
--	if (pfile_info == NULL) {
--		kfree(utf16_path);
--		return  -ENOMEM;
--	}
--
--	rc = SMB2_open(xid, &oparms, utf16_path, &oplock, pfile_info, NULL,
-+	rc = SMB2_open(xid, &oparms, utf16_path, &oplock, &file_info, NULL,
- 		       NULL, NULL);
- 	if (rc)
- 		goto qmf_out_open_fail;
+ 	atomic_inc(&tcon->num_remote_opens);
+ 	oparms->fid->persistent_fid = rsp->PersistentFileId;
+@@ -2930,18 +2928,21 @@ SMB2_open(const unsigned int xid, struct cifs_open_parms *oparms, __le16 *path,
+ 	oparms->fid->mid = le64_to_cpu(rsp->hdr.MessageId);
+ #endif /* CIFS_DEBUG2 */
  
--	if (pfile_info->EndOfFile != cpu_to_le64(CIFS_MF_SYMLINK_FILE_SIZE)) {
-+	if (file_info.EndOfFile != cpu_to_le64(CIFS_MF_SYMLINK_FILE_SIZE)) {
- 		/* it's not a symlink */
- 		rc = -ENOENT; /* Is there a better rc to return? */
- 		goto qmf_out;
-@@ -441,7 +433,6 @@ smb3_query_mf_symlink(unsigned int xid, struct cifs_tcon *tcon,
- 	SMB2_close(xid, tcon, fid.persistent_fid, fid.volatile_fid);
- qmf_out_open_fail:
- 	kfree(utf16_path);
--	kfree(pfile_info);
- 	return rc;
- }
+-	if (buf) {
+-		memcpy(buf, &rsp->CreationTime, 32);
+-		buf->AllocationSize = rsp->AllocationSize;
+-		buf->EndOfFile = rsp->EndofFile;
+-		buf->Attributes = rsp->FileAttributes;
+-		buf->NumberOfLinks = cpu_to_le32(1);
+-		buf->DeletePending = 0;
++	if (file_info) {
++		memcpy(file_info, &rsp->CreationTime, 32);
++		file_info->AllocationSize = rsp->AllocationSize;
++		file_info->EndOfFile = rsp->EndofFile;
++		file_info->Attributes = rsp->FileAttributes;
++		file_info->NumberOfLinks = cpu_to_le32(1);
++		file_info->DeletePending = 0;
+ 	}
  
+ 
+ 	rc = smb2_parse_contexts(server, &rsp_iov, &oparms->fid->epoch,
+-				 oparms->fid->lease_key, oplock, buf, posix);
++				 oparms->fid->lease_key, oplock, file_info, posix);
++
++	trace_smb3_open_done(xid, rsp->PersistentFileId, tcon->tid, ses->Suid,
++			     oparms->create_options, oparms->desired_access);
+ creat_exit:
+ 	SMB2_open_free(&rqst);
+ 	free_rsp_buf(resp_buftype, rsp);
 -- 
 2.53.0
 
