@@ -1,203 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70D022FD696;
-	Thu,  1 Oct 2026 22:27:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD70B3AE718;
+	Thu,  1 Oct 2026 22:40:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790893665; cv=none; b=NnWEFJmNxHxbGzOwaWKEZA0vHpZw7H+A2J/Fg5GnFeCEuNyaYOnd+WEJ7PeFC8RUWlqYNErRk8psNEXgpL1IAe1v4E6hcyR3k0zklBfuUp5XRWCMQPdXpN6ClKUC6VeGZty9ZzL6UXoEIs0Wy82FOvYrjkLGx1Y/894nl5HCf7I=
+	t=1790894444; cv=none; b=IzCI+3XFnVyg/0uyhhW43AOEj5rTyQX//3Umgu4t1P2PDjnLn2AlofkJRKlJ9jX2C205WnYdP36YyPrWDxcUKrSfon4jpH8mze/vkPdk/YLRNn+AWmRD+dfqVntRtTl0nUHYMfcK+GXTxnCEAEkvfebn4jSjA/jNPdL/wApAWpU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790893665; c=relaxed/simple;
-	bh=dc8klTJ2e9NSHPmnNcYIK7Rnuku66KpHNkUpgClzaWg=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=GnCc9W2pf72uzVv6YnZGyz1fEfug0Q3DAryUKJYOpweeRBCtjVwTgPXZ/ZWqJ3Bi+ZWn3swugCSV8wN0GinaUeM2CQ+QmlrYCJ2Jhm28pbo1b5mYAut+/lm/sFGJ60yQ03BDA7VM9dcU9uSkfVDFk9BXRbpnzmgbDYt9jgL5cP0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CHJbij1Q; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790894444; c=relaxed/simple;
+	bh=ZN8RoTZg6K01nxxeJFAZR4JgG9STIYMvAUqfTbJwn8s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UqfeUASsDC/WkUvw2g/er4GkirJG2LHfEC+7yRfSbt9YSSuJwOY27kWGpVvADAxCvqOljIVJ87SQvR8Mkct7BSMBBULvlb0tJpZtRVSz3pjZj/dnN084I+PXDxWSzVn2+1dOSD5CGiRebq6QifVF8b7At6iwVYkmyVdSMHWpGZk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Np16BhZh; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CHJbij1Q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 077EC1F000FF;
-	Thu,  1 Oct 2026 22:27:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790893663;
-	bh=P43Ypbud5VdnU1jIetJx+ByMyWZKFBVfi4v1I7f21yc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=CHJbij1QRC6raLztwWuppFPGpkDIs9wr1uvRERSlrfYUBy037JuR5TcZ0+kGnz5VJ
-	 8b49+RNRvAbu7qCNdKh4Txj1JbyB2ko34XxzFg1dqeeJO+6z6p9z+PakMxnsXY0uu5
-	 liZzrHCK19q/qzXVrrhpWM+NXSSxGdvf42U/9s1zAod6fst64E/jLdtXMU5LG/OLbZ
-	 1+UlIGlcHMcEzhwBYEwhGupgXglquUeLlYwI2KlTfptPzhZ53jxLmKZeiNzLZ+JbTt
-	 q+wZSR+6VXRTXtqTMIVX/nKFk7NyzblvqIo4D+NfqXQs5E3QfhvHFWqGqI5y8qVX2a
-	 OgJ7sZb5kgXTg==
-Subject:
- Re: [PATCH net v3] openvswitch: fix soft lockup in the netlink flow dump
-From: netdev-bot+sashiko@kernel.org
-To: den@openvz.org
-Cc: netdev@vger.kernel.org, dev@openvswitch.org, aconole@redhat.com,
- echaudro@redhat.com, i.maximets@ovn.org, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- stable@vger.kernel.org
-Date: Thu, 01 Oct 2026 22:27:42 +0000
-Message-ID: <179089366251.434549.18021554028626523205@kernel.org>
-In-Reply-To: <20260929072519.2803304-2-den@openvz.org>
-References: <20260929072519.2803304-2-den@openvz.org>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Np16BhZh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790894442; x=1822430442;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=ZN8RoTZg6K01nxxeJFAZR4JgG9STIYMvAUqfTbJwn8s=;
+  b=Np16BhZhS83a9XWPvRctkirsskTeuyQYcxhDtn9zC41DGZMqeJDQbKYT
+   T4fH8w/RzcU+TL7Lv9sGD3mCzjoRSDyN0zNQIyFx5JAvviBGA/C70dJjM
+   1q7t5JYWUcvW8LYRHFy8LHyVwyZGCxMPntgMGfRnt/F2s3OIg6+ACsURO
+   3v2xQRHwCLRVfzm6g9+ncbivCV+hOfm1A0Rk+jMBM54ERH+CWlAX/dkux
+   ykamoPeLA4kcPr6xz3bMHnhSKPmOss3IkkXsSsNNJEhmSdnt7s+UyMYAo
+   K7UkNoAwxpJI4TDxq6kdR/ET9Su8jAjjU/EmFQZ/6EFn2XZACHAr8+3Qj
+   A==;
+X-CSE-ConnectionGUID: d8RrBAVSQrC/OU7bJ3QC1w==
+X-CSE-MsgGUID: mdYo8rowRhKcgfF3ahD1tw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="94377769"
+X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
+   d="scan'208";a="94377769"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 15:40:42 -0700
+X-CSE-ConnectionGUID: kozJbeGQQH+NeUjkJc8c2A==
+X-CSE-MsgGUID: h0sh4h/4T+q+qW5t0OJ2AA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
+   d="scan'208";a="273934360"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO [10.245.244.120]) ([10.245.244.120])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 15:40:39 -0700
+Message-ID: <b43b9d21-4134-4e4c-89d8-f867207b125e@linux.intel.com>
+Date: Fri, 2 Oct 2026 01:40:37 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xhci: Reset controller on xhci shutdown
+To: wenxiong@linux.ibm.com, mathias.nyman@intel.com,
+ gregkh@linuxfoundation.org
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, wenxiong@us.ibm.com,
+ Brian King <brking@linux.vnet.ibm.com>,
+ Samuel Mendoza-Jonas <sam@mendozajonas.com>, Joel Stanley <joel@jms.id.au>
+References: <20261001222527.11742-1-wenxiong@linux.ibm.com>
+Content-Language: en-US
+From: Mathias Nyman <mathias.nyman@linux.intel.com>
+In-Reply-To: <20261001222527.11742-1-wenxiong@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Hi
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] ovs_flow_cmd_dump() (net/openvswitch/datapath.c) now holds BH
-  disabled across the whole dump callback.
-
---
-
-openvswitch: fix soft lockup in the netlink flow dump
-
-This patch disables BH across the whole table walk in ovs_flow_cmd_dump().
-The goal is to stop the per-CPU spin_unlock_bh() calls in
-ovs_flow_stats_get() from running the softirq backlog in the dumping
-thread's context. That backlog processing led to a soft lockup on a
-heavily loaded compute node.
-
-> diff --git a/net/openvswitch/datapath.c b/net/openvswitch/datapath.c
-> index 631a03136fa14..4fc5d0bebd85e 100644
-> --- a/net/openvswitch/datapath.c
-> +++ b/net/openvswitch/datapath.c
-> @@ -1532,6 +1532,12 @@ static int ovs_flow_cmd_dump(struct sk_buff *skb, struct netlink_callback *cb)
->  		return -ENODEV;
->  	}
->  
-> +	/*
-> +	 * Not needed for safety. Stops every spin_unlock_bh() in
-> +	 * ovs_flow_stats_get() from running the softirq backlog.
-> +	 */
-> +	local_bh_disable();
+On 10/2/26 01:25, wenxiong@linux.ibm.com wrote:
+> From: Wen Xiong <wenxiong@linux.ibm.com>
+> 
+> Fixes kexec boot. Without a hard reset, some USB chips will fail to
+> initialize in a kexec booted kernel.
+> 
+> Signed-off-by: Brian King <brking@linux.vnet.ibm.com>
+> Signed-off-by: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
+> Signed-off-by: Wen Xiong <wenxiong@linux.ibm.com>
+> ---
+>   drivers/usb/host/xhci.c | 3 +++
+>   1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
+> index a9e47e178c28..364bd61a4bd7 100644
+> --- a/drivers/usb/host/xhci.c
+> +++ b/drivers/usb/host/xhci.c
+> @@ -781,6 +781,9 @@ void xhci_shutdown(struct usb_hcd *hcd)
+>   	xhci_dbg_trace(xhci, trace_xhci_dbg_init,
+>   			"xhci_shutdown completed - status = %x",
+>   			readl(&xhci->op_regs->status));
 > +
->  	ti = rcu_dereference(dp->table.ti);
->  	for (;;) {
->  		struct sw_flow *flow;
+> +	/* TI XHCI controllers do not come back after kexec without this hack */
+> +	pci_reset_function_locked(to_pci_dev(hcd->self.sysdev));
+>   }
+>   EXPORT_SYMBOL_GPL(xhci_shutdown);
+>   
 
-[ ... ]
+Should be added to xhci-pci.c: xhci_pci_shutdown() instead.
 
-> @@ -1552,6 +1558,8 @@ static int ovs_flow_cmd_dump(struct sk_buff *skb, struct netlink_callback *cb)
->  		cb->args[0] = bucket;
->  		cb->args[1] = obj;
->  	}
-> +
-> +	local_bh_enable();
->  	rcu_read_unlock();
->  	return skb->len;
->  }
+Probably also limited to that specific TI xHC controller
 
-[Severity: Medium]
-Can a namespace user control how long this BH-off region lasts?
+Thanks
+Mathias
 
-The region now covers the whole walk in ovs_flow_tbl_dump_next(). When
-buckets are empty, that loop has no exit that depends on skb space:
-
-net/openvswitch/flow_table.c:ovs_flow_tbl_dump_next() {
-    ...
-	while (*bucket < ti->n_buckets) {
-		i = 0;
-		head = &ti->buckets[*bucket];
-		hlist_for_each_entry_rcu(flow, head, flow_table.node[ver]) {
-		...
-		}
-		(*bucket)++;
-		*last = 0;
-	}
-    ...
-}
-
-This means one callback can scan the entire bucket array with softirqs held
-off.
-
-The only cap on n_buckets is the kvmalloc limit, which allows about 2^27
-buckets:
-
-net/openvswitch/flow_table.c:flow_key_insert() {
-    ...
-	if (table->count > ti->n_buckets)
-		new_ti = table_instance_expand(ti, false);
-	else if (time_after(jiffies, table->last_rehash + REHASH_INTERVAL))
-		new_ti = table_instance_rehash(ti, ti->n_buckets, false);
-    ...
-}
-
-The table never gets smaller in normal use:
-
-  - ovs_flow_tbl_remove() never shrinks it.
-  - The periodic rehash keeps the same size.
-  - Only ovs_flow_tbl_flush() goes back to TBL_MIN_BUCKETS.
-
-OVS_DP_CMD_NEW and OVS_FLOW_CMD_NEW/DEL only need GENL_UNS_ADMIN_PERM. The
-dump needs no privilege at all:
-
-net/openvswitch/datapath.c:dp_flow_genl_ops[] {
-    ...
-	{ .cmd = OVS_FLOW_CMD_GET,
-	  .validate = GENL_DONT_VALIDATE_STRICT | GENL_DONT_VALIDATE_DUMP,
-	  .flags = 0,		    /* OK for unprivileged users. */
-	  .doit = ovs_flow_cmd_get,
-	  .dumpit = ovs_flow_cmd_dump
-	},
-    ...
-}
-
-Root in an unprivileged user+net namespace could do the following:
-
-  1. Create a datapath.
-  2. Insert N flows so that n_buckets grows to between N and 2N.
-  3. Delete every flow except one in a high bucket.
-  4. Run the dump repeatedly from threads pinned to each CPU.
-
-Each dump could then walk up to 1 GB of hlist_heads. During that walk,
-NET_RX, timers, tasklets and RCU callbacks are all deferred on that CPU. On
-CONFIG_PREEMPT (non-RT) kernels, the walk also can't be preempted.
-
-Before this patch, softirqs could still run on hardirq exit during the walk,
-and PREEMPT_RCU kernels could preempt it. On PREEMPT_NONE/VOLUNTARY kernels
-the walk was already non-preemptible under rcu_read_lock(), so the only new
-cost there is the softirq deferral.
-
-Container memcg limits don't cap how far the table can grow:
-
-  - The sw_flow kmem_cache is created in ovs_flow_init() without
-    SLAB_ACCOUNT.
-  - The bucket array from table_instance_alloc() comes from unaccounted
-    kvmalloc memory.
-
-The commit message says:
-
-    The region stays short: the skb caps the flows one callback emits, and
-    empty buckets cost no skb space but are each visited once per dump, as
-    the cursor only moves forward. The table grows on insert and shrinks
-    only on flush, so the walk is bounded by the largest flow count the
-    datapath has held.
-
-That bound is real, but a namespace user chooses it. Is "stays short"
-accurate here?
-
-Two ways to keep the soft lockup fix without an unbounded BH-off window:
-
-  - Stop after a fixed number of buckets per callback and resume from
-    cb->args.
-  - Re-enable and disable BH after each batch of buckets.
-
-Would either of these work?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260929072519.2803304-2-den%40openvz.org
