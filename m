@@ -1,112 +1,165 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E79153D45F7;
-	Thu,  1 Oct 2026 22:04:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A38BE3CB56A;
+	Thu,  1 Oct 2026 22:06:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790892246; cv=none; b=dtXU9aqmP+0pwQtIbBhInphFuRuybBr1mWWx1/auev7YnoElJE7R/EsWosv2JZSiKioZdOPbzaPyPyTsV6DfPkpmV4xhb1/51kdzwHokl4Lx7ZzQI6SWjmsEAWu/W1uQW88LBVyqtTdON7ebwlYBURlL+Bg2jtq9qn5DqSOPyH8=
+	t=1790892405; cv=none; b=drT3mXdBzeC7xFO7PaYLn0eluYjpyebvfM9oSqUFwKde1K/p3Lq0qwOtLhYPpz7S0EEA4KCYEEo2sIhruwbT1567Rk9zFewApt4e+eZdHSRxNPGbk5sz9XsXkkvWOK1bssuLhoa7z2B77swwApdHumAZAo1CNsO4z/FaM+c8BmM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790892246; c=relaxed/simple;
-	bh=nfS9/TC6e0333cbeFdTAlCNsRPsUcCP0MU0tGa2jJbU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JnAn7n4YMmmPd7syRqqLkI/9didRZXJvMLAOqQ34igY+samct9rOxoKg9k1hjpXkjQRn1w2npa+WlkWFxBhBfmVqBUulKGobE/pgV3vz3fID/XpyOZKpjKDOKbwreeRGLGHmUUGoRzW0DzX7ALha9l36Rjx8jwxoAsE35BUIWLw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FBVde1QQ; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790892405; c=relaxed/simple;
+	bh=/0rpXvCEYl3M3/IjhOh69upqcQPcxCIOt5r3HdbbRyQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Zkq7/CLzVLZwpj2b3GgY8YNBeSd4DBppIPXk51piooZz+ioqMDcbxFXUdpTqRtVXwMKtSPYsmj9+YixJsRHhTlO/BcFjEm7rqvKx0THRNNmNjQQxCALH7jKvVY5iZVURkiZmHcO70F+xysa/c7pObAF5wG/HFBuTIGHncRsT5XA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Lfsqz22z; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FBVde1QQ"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Lfsqz22z"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790892245; x=1822428245;
+  t=1790892403; x=1822428403;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=nfS9/TC6e0333cbeFdTAlCNsRPsUcCP0MU0tGa2jJbU=;
-  b=FBVde1QQpgEHoSeNK9q5W6xkWLfXQ5x9Pqzslt+rW9WxX6myGKesFcaJ
-   ymryzKwBlLHVk+ipFmJl3Z46ktGXJlEPqPqYnztvF6KoWMqFsJPZtLI0d
-   qXzhl4F9+cjpSJe82NuDbYhokquqOv2+L8yMzwoLkXQKCPkfazY+RaODD
-   S2dIGKUGzJZ8wFP+I+aTldawwTguNzPXtfd2+Xdep80fkG1dgO4U/RiWB
-   UKpxZXEXgGsFx8K+beIemdE75Resj3WY3gRZQH4B7o9/s5yeMZialxoX1
-   m0wQ/cb6vB/A9j44wJpmYgxxUNP1bU2+RG0noIG/T1p8HKHmtzNfHWgSX
-   g==;
-X-CSE-ConnectionGUID: rn45EJSdTD6iEkQ7KdzlRw==
-X-CSE-MsgGUID: B1Lj2h5UTQmWmbZw4Y7DKg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="91684107"
+  bh=/0rpXvCEYl3M3/IjhOh69upqcQPcxCIOt5r3HdbbRyQ=;
+  b=Lfsqz22z8d9sZMa697s6nqAFuXTpa/+9ZBr8BGZU1rbIgxIOVGFA0VNu
+   Oe2lWcvJMHoBvKQAYZiuy9qwM7s11e9sGNSYPaltDmCTxdnbCO7ut1aDA
+   LYidReddXCHP8EMTOuReLhKil7xtq6/+U67ezHrY1XcS7yRr9nVUJ0KqY
+   FoHRpZf0Che6IcFY2yeEvo3Hnk3f5oRheuXAOnzFpBAa6QOS/Rt27YStT
+   QNBQO9ueOBD40YM3gAFPH7csmfu29cdnJdppHxRLBwFR+awLRubaqb5LG
+   4onz9za/57wfVXzKrp4DyxS5HKxsqtJT07kwRDZHGjScnmq33tBqj+d7f
+   A==;
+X-CSE-ConnectionGUID: YKTE8eGxSbS/MTDxR1+2Wg==
+X-CSE-MsgGUID: ZY/zAJnqRgSMXMJYWEEduA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="91526815"
 X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
-   d="scan'208";a="91684107"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 15:04:02 -0700
-X-CSE-ConnectionGUID: atrvW6AGSWysJenpngdLHg==
-X-CSE-MsgGUID: 446A0lqKQduZXQK/XkH35Q==
+   d="scan'208";a="91526815"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 15:06:38 -0700
+X-CSE-ConnectionGUID: vOM17GT+QWeKWI52GJEiuw==
+X-CSE-MsgGUID: 1ktvFavwSGC7o8MBrDEPGg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
-   d="scan'208";a="276206247"
-Received: from debox1-desk4.jf.intel.com ([10.54.77.98])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 15:04:01 -0700
-From: "David E. Box" <david.e.box@linux.intel.com>
-To: ilpo.jarvinen@linux.intel.com,
-	david.e.box@linux.intel.com,
-	linux-kernel@vger.kernel.org,
-	platform-driver-x86@vger.kernel.org,
-	rodrigo.vivi@intel.com,
-	michael.j.ruhl@intel.com,
-	ayaz.siddiqui@intel.com,
-	syed.abdul.muqthyar.ahmed@intel.com,
-	intel-xe@lists.freedesktop.org,
-	hansg@kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH 2/3] platform/x86/intel/vsec: Fix inverted walk_header() test in get_features()
-Date: Thu,  1 Oct 2026 15:03:47 -0700
-Message-ID: <20261001220351.1592138-3-david.e.box@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261001220351.1592138-1-david.e.box@linux.intel.com>
-References: <20261001220351.1592138-1-david.e.box@linux.intel.com>
+   d="scan'208";a="274190023"
+Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 15:06:38 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: intel-xe@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org,
+	linux-arm-msm@vger.kernel.org,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Anna Maniscalco <anna.maniscalco2000@gmail.com>,
+	Antonino Maniscalco <antomani103@gmail.com>,
+	Boris Brezillon <boris.brezillon@collabora.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	David Airlie <airlied@gmail.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Lyude Paul <lyude@redhat.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	Maxime Ripard <mripard@kernel.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Rob Clark <robin.clark@oss.qualcomm.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Sean Paul <sean@poorly.run>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Simona Vetter <simona@ffwll.ch>,
+	Steven Price <steven.price@arm.com>,
+	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	stable@vger.kernel.org
+Subject: [PATCH v3 4/8] drm/msm: reject a submit_bo table on VM_BIND contexts
+Date: Thu,  1 Oct 2026 15:06:28 -0700
+Message-Id: <20261001220632.3190896-5-matthew.brost@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261001220632.3190896-1-matthew.brost@intel.com>
+References: <20261001220632.3190896-1-matthew.brost@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-intel_vsec_walk_header() used to return a bool that was true when devices
-were found. It was converted to return 0 on success and a negative errno
-on failure, but the boolean test in intel_vsec_get_features() was left
-unchanged, so its meaning is now inverted.
+The uapi says a VM_BIND context must not pass a submit_bo table to
+MSM_GEM_SUBMIT and that one will be rejected, but nothing checks
+nr_bos. A VM_BIND context which passes one anyway runs the legacy BO
+handling against its userspace managed VM:
 
-A successful walk returns 0 and leaves found set to false, while a failed
-walk returns an error that evaluates to true. When no other capabilities
-are present, intel_vsec_pci_init() then returns -ENODEV even though the
-auxiliary devices were created, and the driver core tears them back down.
+ - submit_lock_objects_vmbind() only locks the objects mapped in the
+   VM, yet submit_pin_objects() calls msm_gem_get_vma_locked() on every
+   submit BO. For a BO not mapped in the VM that walks and modifies the
+   object's gpuva list without its resv held, and has the kernel
+   allocate a VMA spanning [0, U64_MAX) in a VM whose address space
+   belongs to userspace.
 
-This affects platforms that have no DVSEC or VSEC capabilities and
-describe their features through device_data instead, which today means
-DG1. Test the return value for success explicitly.
+ - Every submit BO holds a vm_bo reference which msm_submit_retire()
+   drops with only the object's resv held. If userspace unmaps the BO
+   with VM_BIND while the submit is in flight, that is the last
+   reference, and drm_gpuvm_bo_destroy() runs without the VM's resv.
 
-Fixes: a6ce8bf3c993 ("platform/x86/intel/vsec: Return real error codes from=
- registration path")
+Reject nr_bos != 0 on VM_BIND contexts, as documented. Mesa only passes
+a submit_bo table when VM_BIND is not enabled.
+
+Fixes: 2e6a8a1fe2b2 ("drm/msm: Add VM_BIND ioctl")
+Cc: Abhinav Kumar <abhinav.kumar@linux.dev>
+Cc: Alice Ryhl <aliceryhl@google.com>
+Cc: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+Cc: Antonino Maniscalco <antomani103@gmail.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Danilo Krummrich <dakr@kernel.org>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Dmitry Baryshkov <lumag@kernel.org>
+Cc: Jessica Zhang <jesszhan0024@gmail.com>
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Liviu Dudau <liviu.dudau@arm.com>
+Cc: Lyude Paul <lyude@redhat.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Marijn Suijten <marijn.suijten@somainline.org>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Randy Dunlap <rdunlap@infradead.org>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Sean Paul <sean@poorly.run>
+Cc: Shuah Khan <skhan@linuxfoundation.org>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: Steven Price <steven.price@arm.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
 Cc: stable@vger.kernel.org
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 Assisted-by: LLM
-Signed-off-by: David E. Box <david.e.box@linux.intel.com>
 ---
- drivers/platform/x86/intel/vsec.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+v3:
+ - New patch (Sashiko)
+---
+ drivers/gpu/drm/msm/msm_gem_submit.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/platform/x86/intel/vsec.c b/drivers/platform/x86/intel=
-/vsec.c
-index 5ab2215fdd7f..7d51f27f09bc 100644
---- a/drivers/platform/x86/intel/vsec.c
-+++ b/drivers/platform/x86/intel/vsec.c
-@@ -641,7 +641,7 @@ static bool intel_vsec_get_features(struct pci_dev *pde=
-v,
- 		found =3D true;
-=20
- 	if (info && (info->quirks & VSEC_QUIRK_NO_DVSEC) &&
--	    intel_vsec_walk_header(&pdev->dev, info))
-+	    !intel_vsec_walk_header(&pdev->dev, info))
- 		found =3D true;
-=20
- 	return found;
---=20
-2.43.0
+diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+index 5862db05297a..1215b388cb40 100644
+--- a/drivers/gpu/drm/msm/msm_gem_submit.c
++++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+@@ -598,6 +598,12 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+ 		goto out_post_unlock;
+ 	}
+ 
++	/* The resident set of a VM_BIND context comes from its VM_BIND ops */
++	if (msm_context_is_vmbind(ctx) && args->nr_bos) {
++		ret = UERR(EINVAL, dev, "submit_bo table not allowed with VM_BIND");
++		goto out_post_unlock;
++	}
++
+ 	ring = gpu->rb[queue->ring_nr];
+ 
+ 	if (args->flags & MSM_SUBMIT_FENCE_FD_OUT) {
+-- 
+2.34.1
 
