@@ -1,149 +1,194 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0C4D370AE5;
-	Thu,  1 Oct 2026 10:19:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5A8D471267
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 10:22:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790849998; cv=none; b=jQBPawXAZ5gzIml9cQ+uA6nSowUF94QAWM8S8XTVxt0iZYB0WzrW2AzfB87z8tdwCS2r3/pKkfhs3Jn9mcWPgEYPS6WcpeDk+5wUyOVrJixNbxbolZtdKHz/+VbTrX9mfAkiufYQqwA/8HYAzv3RHPVFusMT9A3stgiHUmS46yo=
+	t=1790850149; cv=none; b=fes6fW2A8CbV5A9Z1vm2tHJZnl2qQKkz+qn9Bq9z3gmvWKE3IXgkP/krraR5PyF8oUpMVsXX0WCWWqMoXJGFdCB0ZQM3ciaAfv26NmCjIn6TEIn26qXIMTAOAXFR7wYvvENEb8x5fbtmbzUxY8HDcCTSWoAbA2RVwv8XnqZmfzs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790849998; c=relaxed/simple;
-	bh=nVFES05dJdPdNH4MvPtS3SfLoUIzWsT8FsNMooMXZRU=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=cem4oFlgAqy4mUnFbZTmAM9Rih8zc90QRlQBun34X5/puFTK50YOqHZ/pkBFFDE/BO7lhQSngNpUuFpZRUYRlz49Uo7tcn44ty/BAbfUlwyoCSUcQ0d0NiDbs0Oo/lJuJxtNK25rWbi5EpNNU342mepWl9S5FC1fSKUR7hryA3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EoApCBXv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790850149; c=relaxed/simple;
+	bh=VnVU8bPLJLWfbtAdNiLdfbQJCPObLTqpHbQuXDlr2xU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=fWpWMFq1WSdDbPtAGMmnrIuQWVGbqJJ9lqzcsFSvRvvX/OgtPj17eW6zCOLo9Fu8dZfgBEZ55BCt0gSkvwNs9doCIc4ccHaQ6pFgAVHiWEs4hrym6SLUqMFHjrsP1cca4/TbdUorfSdeFOy9v+efMJFaFyufdr96ZeiI/br+6WM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YcoasWwK; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EoApCBXv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAE781F000FF;
-	Thu,  1 Oct 2026 10:19:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790849996;
-	bh=KPrAr2tai6AeurnhqCq4tRsFxzEy/I/Zax5DtbQXaII=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=EoApCBXvxZoi7zVyJMA602KkcF+ZoaM4cJCUSc2VPSN3fQ6ixDJm99WEme7sMnzAg
-	 3J+ajeLXLeM2rUDT+acSsvGbhLvrOnlg/JVCiDI5aTCsAn+5MkODw8u+AK6pOZfmNC
-	 VA1eOx67thlTwrbwNlwZtY/2DAEHuimfxIJEaGFJmOD9pLd866dHdOEXfO0POV2Tjg
-	 kvwJXlzzbzm1MNPFQ08paN8oFZgO270js5dRWHSD1prNaGmfak4nK+gX0QENJ0+Qwz
-	 SLQGJvbkg2Zyrd1p0TGWZVmFFmyEq4f5I4Ph1nNKI3sC3mUN4WEBipms9PYcTP8OJU
-	 +i5MQSgCbk0hQ==
-Subject: Re: [PATCH nf] netfilter: br_netfilter: restore VLAN tag on
- refragmented IPv6 packets
-From: netdev-bot+sashiko@kernel.org
-To: parri.andrea@gmail.com
-Cc: pablo@netfilter.org, fw@strlen.de, netfilter-devel@vger.kernel.org,
- phil@nwl.cc, razor@blackwall.org, idosch@nvidia.com, coreteam@netfilter.org,
- bridge@lists.linux.dev, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, kuba@kernel.org
-Date: Thu, 01 Oct 2026 10:19:55 +0000
-Message-ID: <179084999520.434549.4764913674478855382@kernel.org>
-In-Reply-To: <20260928161830.351199-1-parri.andrea@gmail.com>
-References: <20260928161830.351199-1-parri.andrea@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YcoasWwK"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b6so35401045e9.0
+        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 03:22:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790850146; x=1791454946; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nFzLuRrxO1MNqfhxtzwDFW5LDm+149ISNFd1xuYHuCg=;
+        b=YcoasWwKANqhJAT6ITRJApGZlPhldlCa3xeDRxEfwNSU7DdcpSvcZbECqojDb+i15L
+         iTz2NxaLca/myE23nQbmPyIMSRIthvctpPeXyyxfi8r1qmMc4zC/alrLzYLdN3ouN5D2
+         U4iTFWDDoj7ixO4ig1FDmEZ9qfc5myNxyc8kq9DjFl8/BqobYHyE2x/01WxvzLUZjZ3O
+         Jzl48w2XjO4J4HAerMfCJ1+OKjrbJulAhazaEQuzk4XQiwDdO2SKTC5azlLMoQnNlSJh
+         K8IgfpJ8xoftjXCuBTDZ5P83xNg9cMCi+bbTQriNhuGkHGaEWUXaFY4F/qUBDs/MX2Yr
+         Ihzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790850146; x=1791454946;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nFzLuRrxO1MNqfhxtzwDFW5LDm+149ISNFd1xuYHuCg=;
+        b=RTRxl7CnppiV6ldqVUBp8/ZHcRLhwfn1Ecy5Q8Rxr5TL+/zER2LtiiFy0ueM+vzn4I
+         M5Rm0+S94KyFTZjffdV4G48gPLQaaJui03YjVFGeBjueSv2oA4tdLLKNuIwq++QsqNGz
+         3iR24TIsk0RYeYV0QofPtUnQtNLOzzW+tEpw7rMr3Hf69XwZvTNcvepa3fzEPfyim2rs
+         Hh310yKerwUapDI+wKoev37B9Qg+TLZ2YrwcBeTgKeQrqaPod4RjebAY3nKrxpKMLbq1
+         tsODZdSbW8gI2TF6HTwgicHcob1/h8pCK6+frOxZOw9dq1VEf3AQHy5pEJjGLGDkSBi/
+         VFkg==
+X-Forwarded-Encrypted: i=1; AKwUvBzsZ1B28+cn2GbGBaxUWIFuCryCektc/FensOqHFRdNie7XATlflruA1qjicCeAzfluvZEeGk0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kFovZsCGfQ/6gdB08U98oqtc5rnjHmGlmkXKu4Su1K1h/ErHYF
+	aZWafguPfZci79jzW0ZsZCKJIh0ZEdY+YLD90OYKMstIHUrWbrWkfVTF
+X-Gm-Gg: AYBFou1zwqrP5gW5MuNZ1xAhWpZvUIZWijCaNbyvnjwZnRtfVfWla7s2gIwZC6FksUV
+	6XlHfYqISyS8K+v6dGx7MKBbJJTLJE/POvEd15EGdOuxTfVg1as5T+BaVKvJ8X+7Oz927h4MKKG
+	RlFxuJJdB8adb6jiCpZ4IgL7NXkv0ugx/Odr9tQax7WIDc0NuxQq+Jg8KeW9YT+DUt4WyUc9CHh
+	P4aowIXtcqQgQPiZHkWUA4AEtmhxrUzmOeNokz5BqkqFI1Rud36cCmZouWdcu1C1iamxqVhzPqp
+	dzIIwYlDEzkTDI1EDbyZxi5QTaegKBWyppnUeGqSltmvh8dx4TekawiiXHRDZASURF2NbfLk1Tr
+	hsC3rYRrHoYYQXC+bWN6LDeb/9kRNcIw/+1L53/MMLMy4filS1zytyL3i6TkXBrRCOD66cyTb0Z
+	T5ViEvWooVcANQ28NlsdOg1hPWmfzMIa3h+mEBXawFtCzh6dy+iDVaI1IHZWKcOaonuFE=
+X-Received: by 2002:a05:600c:6815:b0:49f:ff32:803c with SMTP id 5b1f17b1804b1-4a01b0031a5mr65592665e9.16.1790850145677;
+        Thu, 01 Oct 2026 03:22:25 -0700 (PDT)
+Received: from main ([5.27.43.223])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01fa15e51sm58094425e9.2.2026.10.01.03.22.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 03:22:25 -0700 (PDT)
+From: Mehmet Koseoglu <mehmet.mkoseoglu@gmail.com>
+To: rafael@kernel.org,
+	viresh.kumar@linaro.org,
+	ojeda@kernel.org
+Cc: Mehmet Koseoglu <mehmet.mkoseoglu@gmail.com>,
+	boqun@kernel.org,
+	gary@garyguo.net,
+	bjorn3_gh@protonmail.com,
+	lossin@kernel.org,
+	a.hindborg@kernel.org,
+	aliceryhl@google.com,
+	tmgross@umich.edu,
+	dakr@kernel.org,
+	daniel.almeida@collabora.com,
+	tamird@kernel.org,
+	acourbot@nvidia.com,
+	work@onurozkan.dev,
+	linux-pm@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	xuyiwen14@gmail.com,
+	miguel.ojeda.sandonis@gmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH v4] rust: cpufreq: reject NULL from cpufreq_cpu_get()
+Date: Thu,  1 Oct 2026 13:19:15 +0300
+Message-ID: <20261001102213.45437-1-mehmet.mkoseoglu@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20260829161013.102967-1-mehmet.mkoseoglu@gmail.com>
+References: <20260829161013.102967-1-mehmet.mkoseoglu@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+cpufreq_cpu_get() returns either a referenced policy or NULL.
+PolicyCpu::from_cpu() passed its return value to from_err_ptr(), which
+rejects ERR_PTR values but accepts NULL.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+If the lookup fails, Policy::from_raw_mut() therefore constructs a mutable
+reference from NULL. Dropping the resulting PolicyCpu then passes the
+invalid pointer to cpufreq_cpu_put(), causing an oops in kobject_put().
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Reject NULL with NonNull before constructing the Policy reference. Return
+ENODEV instead.
 
-- [High] The fix is incomplete.
+A KUnit negative-control run reproduced the oops with the original
+conversion. The same test passed with this change. The reproducer is
+available on request.
 
---
+Fixes: 6ebdd7c93177 ("rust: cpufreq: Extend abstractions for policy and driver ops")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Mehmet Koseoglu <mehmet.mkoseoglu@gmail.com>
+Reviewed-by: Onur Özkan <work@onurozkan.dev>
+Reviewed-by: spidermana <xuyiwen14@gmail.com>
+---
+No worries at all, here is a v4 update with the comment update and
+review tags.
 
-netfilter: br_netfilter: restore VLAN tag on refragmented IPv6 packets
+Changes in v4:
+- Clarify that the policy pointer is non-NULL and cpufreq_cpu_get() holds
+  a reference for the lifetime of the returned reference.
+- Add Reviewed-by tags from Onur Özkan and spidermana (using the corrected
+  tag from spidermana's follow-up).
+- Resend at Viresh's request to replace the previously applied v3.
 
-This commit moves saving the L2 header and VLAN tag into a new helper,
-br_nf_save_frag_data(). Both the IPv4 and IPv6 refragmentation branches of
-br_nf_dev_queue_xmit() now call it. Before this change, the IPv6 branch
-reused whatever VLAN tag the last IPv4 refragmentation on that CPU had left
-in per-CPU storage.
+Changes in v3:
+- Add Cc: stable@vger.kernel.org.
 
-> diff --git a/net/bridge/br_netfilter_hooks.c b/net/bridge/br_netfilter_hooks.c
-> index 0a394e5f4391..ec69d6254e34 100644
-> --- a/net/bridge/br_netfilter_hooks.c
-> +++ b/net/bridge/br_netfilter_hooks.c
-> @@ -832,6 +832,25 @@ static unsigned int nf_bridge_mtu_reduction(const struct sk_buff *skb)
->  	return 0;
->  }
->  
-> +/* Fragments may not inherit the MAC header or VLAN tag. */
-> +static void br_nf_save_frag_data(struct sk_buff *skb)
-> +{
-> +	struct brnf_frag_data *data = this_cpu_ptr(&brnf_frag_data_storage);
-> +
-> +	if (skb_vlan_tag_present(skb)) {
-> +		data->vlan_tci = skb->vlan_tci;
-> +		data->vlan_proto = skb->vlan_proto;
-> +	} else {
-> +		data->vlan_proto = 0;
-> +	}
+Changes in v2:
+- Format modified imports using the kernel's vertical import style.
 
-[Severity: High]
-What happens when the head skb goes out untagged but the fragments still
-carry a tag?
+v3: https://lore.kernel.org/r/20260829161013.102967-1-mehmet.mkoseoglu@gmail.com
+v2: https://lore.kernel.org/r/20260828161834.29539-1-mehmet.mkoseoglu@gmail.com
 
-For an untagged packet this helper saves vlan_proto = 0. The consumer only
-ever sets a tag and never clears one:
+ rust/kernel/cpufreq.rs | 22 ++++++++++++++++------
+ 1 file changed, 16 insertions(+), 6 deletions(-)
 
-net/bridge/br_netfilter_hooks.c:br_nf_push_frag_xmit() {
-    ...
-	if (data->vlan_proto)
-		__vlan_hwaccel_put_tag(skb, data->vlan_proto, data->vlan_tci);
-    ...
-}
-
-For IPv6, nf_ct_frag6_reasm() calls inet_frag_reasm_finish(..., false).
-Each original fragment stays as its own skb on the head's frag_list and
-keeps its own ingress vlan_all.
-
-On egress to an untagged VLAN (or a BR_VLAN_TUNNEL port), br_handle_vlan()
-clears the tag on the head skb only:
-
-	if (v->flags & BRIDGE_VLAN_INFO_UNTAGGED &&
-	    !br_switchdev_frame_uses_tx_fwd_offload(skb))
-		__vlan_hwaccel_clear_tag(skb);
-
-A unicast-forwarded reassembled skb normally takes the skb_has_frag_list()
-fast path in ip6_fragment(). On that path,
-ip6_fraglist_prepare()->ip6_copy_metadata() does not copy or reset vlan_all.
-
-So would fragments 2..N reach br_nf_push_frag_xmit()->br_dev_queue_push_xmit()
-with their ingress 802.1Q/802.1ad tag still set, while the first fragment
-goes out untagged?
-
-The conntrack bridge restore path handles this case:
-
-net/bridge/netfilter/nf_conntrack_bridge.c:nf_ct_bridge_frag_restore() {
-    ...
-	if (data->vlan_present)
-		__vlan_hwaccel_put_tag(skb, data->vlan_proto, data->vlan_tci);
-	else if (skb_vlan_tag_present(skb))
-		__vlan_hwaccel_clear_tag(skb);
-    ...
-}
-
-Without a similar else branch in br_nf_push_frag_xmit(), does the commit
-message's claim that IPv6 fragments now "use the current packet's VLAN
-information" still hold? The same branch would also cover the IPv4 path,
-since ip_copy_metadata() does not touch vlan_all either.
-
-Also, the comment "Fragments may not inherit the MAC header or VLAN tag"
-does not seem accurate for reused frag_list skbs, which keep their own tag.
-
-[ ... ]
-
+diff --git a/rust/kernel/cpufreq.rs b/rust/kernel/cpufreq.rs
+index affa2b9490ef..b75d692846a2 100644
+--- a/rust/kernel/cpufreq.rs
++++ b/rust/kernel/cpufreq.rs
+@@ -14,7 +14,13 @@
+     cpumask,
+     device::{Bound, Device},
+     devres,
+-    error::{code::*, from_err_ptr, from_result, to_result, Result, VTABLE_DEFAULT_ERROR},
++    error::{
++        code::*,
++        from_result,
++        to_result,
++        Result,
++        VTABLE_DEFAULT_ERROR, //
++    },
+     ffi::{c_char, c_ulong},
+     prelude::*,
+     types::ForeignOwnable,
+@@ -29,7 +35,10 @@
+     marker::PhantomData,
+     ops::{Deref, DerefMut},
+     pin::Pin,
+-    ptr,
++    ptr::{
++        self,
++        NonNull, //
++    },
+ };
+ 
+ use macros::vtable;
+@@ -687,12 +696,13 @@ fn clear_data<T: ForeignOwnable>(&mut self) -> Option<T> {
+ impl<'a> PolicyCpu<'a> {
+     fn from_cpu(cpu: CpuId) -> Result<Self> {
+         // SAFETY: It is safe to call `cpufreq_cpu_get` for any valid CPU.
+-        let ptr = from_err_ptr(unsafe { bindings::cpufreq_cpu_get(u32::from(cpu)) })?;
++        let ptr =
++            NonNull::new(unsafe { bindings::cpufreq_cpu_get(u32::from(cpu)) }).ok_or(ENODEV)?;
+ 
+         Ok(Self(
+-            // SAFETY: The `ptr` is guaranteed to be valid and remains valid for the lifetime of
+-            // the returned reference.
++            // SAFETY: `ptr` is non-NULL and `cpufreq_cpu_get()` took a reference on it, so it is
++            // valid for writing and remains valid for the lifetime of the returned reference.
+-            unsafe { Policy::from_raw_mut(ptr) },
++            unsafe { Policy::from_raw_mut(ptr.as_ptr()) },
+         ))
+     }
+ }
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928161830.351199-1-parri.andrea%40gmail.com
+2.55.0
