@@ -1,119 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f40.google.com (mail-qk2-f40.google.com [74.125.230.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3495C36E466;
-	Thu,  1 Oct 2026 18:43:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2FA2488D8D
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 18:44:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790880207; cv=none; b=kCBH0Vt+V7JNWu0R0pK7x1syJuNDKUSPUJjik9UC0qLGlD/R2OIaqOCG1tYFoLeXL03gWhUlh6X1KdRXR52nQZ7ZGMB4gFpc0Qls/1J9Qf7jESrfSVPOzc/ZREHZHnTWTQCrEveerwh4vWUu4xDmB91Bf0S9gBwlSdazSx+vbBE=
+	t=1790880251; cv=none; b=DRITJSF67Egjt3h+965Viz4JhUQCORWEdLwQJerh0vQp6bqbaGnfT4Koa6MFsC3pLPBehDjTovgsKlstkVwXCTEnsqUMzFPKzJJa8pLOT6sdLKN8Sz7Rp4oWI4p4lAkdkpTwpZ+mUU0lTpQ0eGVuhe5TonRNGZO7Y7U0JSgJrow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790880207; c=relaxed/simple;
-	bh=aQT5kr5OpIPrNRiA4Ciri1pSzFK/ArwAb1wwoAcp6gI=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=baD+JNJaoD0NekzQtBD8gOPUkNbjD+dPMwi06sNo04Dt9iHJ5aSpKMoqL1zLM2MaKZqn4xcLeaECULrSLZPvrggbjalJj9hNWtlQy6Joi3h4h9svNMiqcL3Zs0NyvGymu/4PQkcV495htK7dh4MygZ9djOFCB+vPvarsFDf7i6g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RGVueZdV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790880251; c=relaxed/simple;
+	bh=AcvmI+l+XLV01JyvmKBAQ8Z7ntv50tf0vBks+2zx4HQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=SggG9TfwSDdeHwM2oHA4JmHUDHnecY5tCQ1SD3G779qYnp/o3aNwy1r9DSlXRAFGnI4bM9MmrOZB0NYhTco+McbwP4bF3865rIcPKmYG1xuc79puhC8ioTxjTQGCF4vvzC8MDDfNJZXfJhjeVFzfnan/iszvv9+9/LS9W7Sh5Qw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LAuUoL3W; arc=none smtp.client-ip=74.125.230.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RGVueZdV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 891C91F000FF;
-	Thu,  1 Oct 2026 18:43:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790880203;
-	bh=+ZkKXhIWFfrPTejbxGVS4sr+xXF138d3U86G2Sd+jdM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=RGVueZdVwS5NCHbj20qs/POyhViHxenDJCPkoZSRN8Zaz1GgnZ9k3jSVOS384808M
-	 c0+kKyGGMfDyVgeNifd8InH7GnTzmPiYa6IsMx1pjomLSdapw9sblXsM909HtbezZI
-	 6COvZezuz3KaI3Hcscjl+3Q5zkTT+OUbB0Nj3aytNfujdcVpvicXtgBFMVyvAbXGYK
-	 nHGQkNAbAtDeDjhB5CYdmTLuuNK2+v8pM23qNklfUVx7rO0S3vvb+Lg0Id2dnXfIYA
-	 Zb/+p5WgPTjPZ2Y/GlUvnQGSX3I4d0C037wmovuOeulMFSo7m2W4UG79KZs7OL3BAf
-	 U7CKZrUm93kqA==
-Date: Thu, 1 Oct 2026 13:43:22 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Imre Kaloz <kaloz@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LAuUoL3W"
+Received: by mail-qk2-f40.google.com with SMTP id d75a77b69052e-5332b66b660so60159481cf.1
+        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 11:44:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790880245; x=1791485045; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=i8PbtpP1B6cfhsSP8Q8MPsWsDVS00PSdC8Q8MFvMrDk=;
+        b=LAuUoL3WS8fxH/mpgnrNdENTvP2P0uIHhgtvMoNphuneNf8NxFqVrUaCNdXtOnZkab
+         2Qkn5wAqP66zypRYRdXFl+b53KdxKbqZiDBpUHAWe3ESEUuoZuZ9MHE1E0Ynj3f3vk0U
+         SVp2hpP8hax9lvQP2vtn+QNldgzcZVj8qeZJdhF4vS628hzWMkSrlHKyPxL2StC0sRDh
+         bGRZCKu8a1fCf80McbO/URDQmIERym04SVUZJJmXi8h6Oxx+FpI5eBuJC/6r0eMyxFhe
+         TWGUfsxPOWucsmLJ/2gJNxhtT2YYnaT9dkfUKgFbFwch+hyhzqEQxqUJirVbEzvHbFld
+         2zlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790880245; x=1791485045;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=i8PbtpP1B6cfhsSP8Q8MPsWsDVS00PSdC8Q8MFvMrDk=;
+        b=gZGsOETwim1oF12YH6l/DQ1yPphhoKo0ekoSDsb9K42WSbAgk2F/llqz4XEZPEd/66
+         kmejGBIDtmab8LylWLLe5zAlDd3WUHX5UdijWhwL3wcsKbJnEdFeaSbnMH+5ZDwcDjVp
+         p0Mvf83pxFEXEvR6mWZTi4bPkKDgwaiW2qj6d768B0jE/NHMmWghOypBmM4BZqYT+Y8Z
+         rs5Ik0jVRFMN8N3YMZw9Cnxfe2mn15rJV78aHrvTZ7vuZuWa9/L134H6x/QUE59cPE+A
+         SyyI391fLuy8JvM2/AENFcWK1Ok4OQGC5D2+zxDr2SNJjz+CR20nWH7TD5+l3VJ9H0ig
+         v+tw==
+X-Forwarded-Encrypted: i=1; AKwUvBwCB4NOqAfrLuoyMhgWSbsw6B+JWZWNUk8bTpreo1WzJ5MLVvjl+p7UNhpEYx4CYWuUqDEEW+U=@vger.kernel.org
+X-Gm-Message-State: AFuF++n532wksCC9pBnhqd9QhhXuKIKov0Hh4Wdqtx3owDeb3e6YeSmH
+	i7kZ68hh9KRWczjljlS+ymP/Xt59cGMJOIw2b1+MEf8F0HI8cMKWT5gu
+X-Gm-Gg: AYBFou0p2TDT9NjhCy5ErhnkaxYx5JiLGTel6VR9GZcKkTNkwNGPKtWHWJ2HNjkVBGm
+	n93FWdeO3o3TJZrAT6bArrouoy/lfo1+2wreXYenBCZsPyUvIL4xLKzA4hI9cwcpN6ZPn/lWJ8+
+	vE273qL/6aRCI8Rqmj4cLSlM8gU7GSXEqsuWbrHbcL6OhHE5f0Kxccs9et01+RJ0f9Q+Dw4Ji41
+	IB752iJwetH+NqEXKqhgCXyQIkFE0vkJ+O03rHVidjQnviRvuGZMQyA400ru64Eu6ZiTFmdN7kt
+	GV7ClaIsdDTekAKP+l3yRqSs9TJuDsWP1wyzZk0l+94+L2xndpdjFDD4urEDRU6MrajA8xksg6d
+	qqcVyWM+I+yGcm4pI4+rVxB80MJk+pyDA8z3a2/ODBoByBKEibJ5/N2oPIcjrHqerh+S6egZVo/
+	XlZ8rQkR3722Or0vOSwhImzgEtZ92qQEZwlY3sGb+GILCWU+RENL3vUMtqNFGUcCOtAXWdL1A+0
+	VSreBUS6v5o+TRuFXvKGe7AktkRWGOOIqUEfQIt28+s1V/TDZFYJf0VrmjMeO5Crm44MDfEpOyL
+	mndAcmA5
+X-Received: by 2002:a05:622a:130c:b0:533:356a:f7ee with SMTP id d75a77b69052e-533742b2e74mr106883461cf.25.1790880245336;
+        Thu, 01 Oct 2026 11:44:05 -0700 (PDT)
+Received: from security.cs.northwestern.edu (security.cs.northwestern.edu. [165.124.184.136])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53398a5b6ffsm5007681cf.6.2026.10.01.11.44.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 11:44:04 -0700 (PDT)
+From: Ziyi Guo <guoziyi114@gmail.com>
+To: palmer@dabbelt.com,
+	pjw@kernel.org,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr
+Cc: samuel.holland@sifive.com,
+	thecharlesjenkins@gmail.com,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: Re: [PATCH] PCI: Disable MSI for ULi M1575 EHCI controller
-Message-ID: <20261001184322.GA2711157@bhelgaas>
+	Ziyi Guo <guoziyi114@gmail.com>
+Subject: [PATCH] riscv: futex: untag the user pointer before the atomic access
+Date: Thu,  1 Oct 2026 18:43:55 +0000
+Message-Id: <20261001184355.2395068-1-guoziyi114@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260930191100.6127-1-kaloz@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 30, 2026 at 09:10:58PM +0200, Imre Kaloz wrote:
-> With MSI, the ULi M1575 EHCI controller (10b9:5239) intermittently stops
-> executing its asynchronous schedule. Control transfers time out ("device
-> not accepting address", "device descriptor read/64"), the port is handed
-> to the companion OHCI controller and the device ends up at full speed. On
-> a configured hub the stall shows up as hub descriptor and status read
-> failures. Only re-initializing the controller recovers it.
-> 
-> On a Sun Ultra 45, 65 of 800 controller initializations stalled with MSI
-> and none of 200 with INTx. Each initialization is an unbind and bind of
-> ehci-pci on the EHCI function, with MSI or INTx selected through its
-> msi_bus attribute; with this quirk, 0 of 100 cycles of the same loop
-> stalled. The stall reproduces on a kernel that already contains
-> commit 0b60557230ad ("usb: ehci: Prevent missed ehci interrupts with
-> edge-triggered MSI").
-> 
-> The OHCI functions (10b9:5237) keep MSI. They showed no stall, and the
-> hub enumerated through them on MSI during the EHCI failures, so only the
-> EHCI function is quirked.
-> 
-> The illumos EHCI driver also disables MSI on this chip, in
-> ehci_register_intrs_and_init_mutex() in
-> usr/src/uts/common/io/usb/hcd/ehci/ehci_util.c.
-> 
-> Until USB HCDs started trying MSI first in v5.9, the controller always
-> used INTx. Disable MSI so it uses INTx again on this chipset.
-> 
-> Fixes: 306c54d0edb6 ("usb: hcd: Try MSI interrupts on PCI devices")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+access_ok() checks untagged_addr(uaddr), but arch_futex_atomic_op_inuser()
+and futex_atomic_cmpxchg_inatomic() hand the raw uaddr to the inline asm
+amoswap/amoadd/.../lr.w+sc.w through the "+m" (*uaddr) operand.  When the
+tagged address ABI is enabled (CONFIG_RISCV_ISA_SUPM, prctl
+PR_SET_TAGGED_ADDR_CTRL with PMLEN != 0), those two addresses differ: a
+user pointer whose top PMLEN bits hold a tag passes access_ok() after
+untagging, but the atomic is then performed on the still-tagged raw
+address.
 
-Applied to pci/misc for v7.4, thanks!
+Supervisor-mode data accesses are not subject to the U-mode pointer
+masking (that is governed by menvcfg.PMM, which the kernel does not set),
+so hardware does not strip the tag for the kernel's own access.  With
+Sv57 and PMLEN=16 the tag bits overlap the canonical-address bits, so a
+tagged pointer can name a canonical kernel virtual address (e.g. in the
+linear map) whose untagged form is a valid user address.  An unprivileged
+process can thus make FUTEX_WAKE_OP perform an atomic read-modify-write on
+an arbitrary kernel address, with the matching FUTEX_OP_CMP_* result
+serving as a read oracle.
 
-> ---
-> 
-> Notes:
->     lspci -nnv of the EHCI function on the Ultra 45, taken with this quirk
->     active, so MSI shows Enable-:
->     
->     0000:05:1c.3 USB controller [0c03]: ULi Electronics Inc. USB 2.0 Controller [10b9:5239] (rev 01) (prog-if 20 [EHCI])
->     	Subsystem: ULi Electronics Inc. Device [10b9:5238]
->     	Device tree node: /sys/firmware/devicetree/base/pci@1e,600000/pci@0/pci@1/pci@0/usb@1c,3
->     	Flags: bus master, 66MHz, medium devsel, latency 64, IRQ 00000006
->     	Memory at 00206000 (32-bit, non-prefetchable) [size=8K]
->     	Capabilities: [50] Power Management version 2
->     	Capabilities: [58] Debug port: BAR=1 offset=0090
->     	Capabilities: [78] MSI: Enable- Count=1/1 Maskable- 64bit-
->     	Kernel driver in use: ehci-pci
->     	Kernel modules: ehci_pci
-> 
->  drivers/pci/quirks.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-> index de9bbccda21f..9fb530a08fda 100644
-> --- a/drivers/pci/quirks.c
-> +++ b/drivers/pci/quirks.c
-> @@ -1941,6 +1941,8 @@ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_ATI, 0x4388, quirk_no_msi);
->  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_ATI, 0x4389, quirk_no_msi);
->  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_ATI, 0x438a, quirk_no_msi);
->  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_ATI, 0x438b, quirk_no_msi);
-> +/* ULi M1575 EHCI (10b9:5239): MSI stalls the async schedule */
-> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_AL, 0x5239, quirk_no_msi);
->  
->  static void quirk_pcie_mch(struct pci_dev *pdev)
->  {
-> 
-> base-commit: fe2ec83746e501645709761605c2464a44fd2929
-> -- 
-> 2.47.3
-> 
+get_user()/put_user()/raw_copy_{to,from}_user() already untag the pointer
+after the access_ok() check; do the same in the futex helpers so the
+atomic operates on the address that was actually validated.
+
+Fixes: 2e1743085887 ("riscv: Add support for the tagged address ABI")
+Signed-off-by: Ziyi Guo <guoziyi114@gmail.com>
+---
+ arch/riscv/include/asm/futex.h | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/arch/riscv/include/asm/futex.h b/arch/riscv/include/asm/futex.h
+index 90c86b115e00..8d80e580eec5 100644
+--- a/arch/riscv/include/asm/futex.h
++++ b/arch/riscv/include/asm/futex.h
+@@ -40,6 +40,7 @@ arch_futex_atomic_op_inuser(int op, int oparg, int *oval, u32 __user *uaddr)
+ 
+ 	if (!access_ok(uaddr, sizeof(u32)))
+ 		return -EFAULT;
++	uaddr = untagged_addr(uaddr);   /* FIX: operate on the checked address */
+ 
+ 	switch (op) {
+ 	case FUTEX_OP_SET:
+@@ -82,6 +83,7 @@ futex_atomic_cmpxchg_inatomic(u32 *uval, u32 __user *uaddr,
+ 
+ 	if (!access_ok(uaddr, sizeof(u32)))
+ 		return -EFAULT;
++	uaddr = untagged_addr(uaddr);   /* FIX: operate on the checked address */
+ 
+ 	__enable_user_access();
+ 	__asm__ __volatile__ (
+-- 
+2.34.1
+
