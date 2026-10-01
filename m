@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8876A3F164E;
-	Thu,  1 Oct 2026 10:45:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C15D346777;
+	Thu,  1 Oct 2026 10:45:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790851505; cv=none; b=FP96T5M61uCLzLDDahZx3r82DMeJQAFPF5JN0FkT0K+uZwdZudnUq/1wGj8wVmyk7j4cCuGiCJC6j8jrK+vrzPbcWFUN/0Gv2Jil4YbZh9s4F56uU2qZaqgTiQ2qPeMLvMitpoqyxneUNwtmu58ksjB7RgM/cwWrZbZ0MwGYN6I=
+	t=1790851552; cv=none; b=CL/1nFCr9Kk/vmF54WMzoeEopJluexEeHMJtlVaCM1pbJxXiCXEO9QPbVQ1yv52yo78Lt22suoOHX0o/jxttHbaFmEn+Fv+kC1qq3O4sLi0FsvvIlkv7qx1dbTqg9S8Thy53K9Xy2pWE7uq9jamfhTbFwJ78SmJlo63OI1KK56M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790851505; c=relaxed/simple;
-	bh=or3zDAVnoMEjDac7Yd8t7AgkXnX/RGI9otXPhSVH6xU=;
+	s=arc-20240116; t=1790851552; c=relaxed/simple;
+	bh=oRr11iw6B2LzaNd21qu55zTNUZ1EhcmUtwQV+s6p1Wo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EncXkl237OjLG3t2T5EkiQp2rCHC0C5uJpSJ7Q2NeJ38wXbs9gtiWpD2bSejF2RwAsV5NG4Qo5erxHvMfw+eZDnvN/WcqtC9G16G8Q+hr2UGT5DKaDSY427/8EHdAhxjI9doipIc24fwvyrNd8BekVWG1ZREZsLetXXYihqkNng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AXyYcsq9; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=nVyGrOwD9YNT1aAYmCL4r07D3/kAdA4JvTd+GHuaVcyuoEmIrGolAUiZ73TFPy5PfqApvtBgUWBYVpelRMh0Vmo7x+jvmuktZSW+VtMxrg6HlmP94652SB2h2xj0E1huhAq58mZOghdpXs4WpUxf+IzxKgwJO6cpgqP36zyBeWc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CNXCRKek; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AXyYcsq9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DC961F00898;
-	Thu,  1 Oct 2026 10:44:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CNXCRKek"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE2841F00898;
+	Thu,  1 Oct 2026 10:45:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790851504;
-	bh=xS811ek91+cRnLcRHo+xdG9TRcDiTFjS6kYimGRgBZA=;
+	s=k20260515; t=1790851551;
+	bh=lL31jcWEt3a8NCBES0nlqlq3u3R3QdTq1acR6iXKe/M=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=AXyYcsq9/FFTDLVDfuaLhYscCqLUFDph4zsoXj5QTlmOADNMX51iD0SkOytpuf5MO
-	 On7NZDhoFLjM6CWVW2gzFEcvlQfJlOxXWG7tWYqM47OAMu7KAyTJd7YFvQOmfAC17f
-	 pUVold2MOFnaPPOqct7QNwYVg+o854Z573vOoPA2MqB1mA056rQO7/yQCAetpOVFcR
-	 DU96bxWqJMrGQzyE+IpFrPq0TBmt2WYo1ugFcGZcDcEtbALPfyGcbim8nxi0gLfM37
-	 GlcYsri4WfmEBwTtjSQrTwwgvb8pzlnlZMraSyWbadX19Qf1ifbAwyTUxBkutck3ZK
-	 jzOuD2flcr5bw==
-Message-ID: <e1728faa-5d50-48af-8ba0-5098be9124eb@kernel.org>
-Date: Thu, 1 Oct 2026 12:44:50 +0200
+	b=CNXCRKekzJbfxi8M92VZTtFEap1OcAI/bqM5TMhY7xYNtCaBm8CxvdChBwUOFNBK7
+	 vdSglnAbSNG+WBQc4ZDUwet0FFYEyaMXKGcqLnDhdeGbJ606sCaUe2jaFDq0wCoAaW
+	 m3DX382m4GpI5aM7uhjcLtO0BcXTGYrxRbkg9Dj2ZLsfr7r9XalJzy+s/yireNBQwy
+	 SDW+3qYp2qGI9uW2yzs8rTE/PaUNLTq4bwnIEv3wY+Y7I/bfCpQhthw4bht2SNWlVH
+	 oDk1Jw1/PdGCxNzgQALD3a8MputnAe8s+PM2UoBn5jEIoqdsP0VZ5OH8AFIMF0r1Bv
+	 8N3DY06jWRKcg==
+Message-ID: <b64b32b5-711c-424a-8bf1-478ae75b9d20@kernel.org>
+Date: Thu, 1 Oct 2026 12:45:35 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,8 +35,7 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 4/7] sched/numa: separate VMA placement from scan
- continuation
+Subject: Re: [PATCH v4 5/7] sched/numa: scan PID-inactive VMAs for promotion
 To: Gregory Price <gourry@gourry.net>, linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
  akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org,
@@ -53,7 +52,7 @@ Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
  shy828301@gmail.com, osalvador@suse.de, raghavendra.kt@amd.com,
  stable@vger.kernel.org
 References: <20260930112206.205083-1-gourry@gourry.net>
- <20260930112206.205083-5-gourry@gourry.net>
+ <20260930112206.205083-6-gourry@gourry.net>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -100,72 +99,49 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20260930112206.205083-5-gourry@gourry.net>
+In-Reply-To: <20260930112206.205083-6-gourry@gourry.net>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 9/30/26 13:22, Gregory Price wrote:
 > From: "Gregory Price (Meta)" <gourry@gourry.net>
 > 
-> vma_is_accessed() returns true both when a VMA needs placement
-> (east-west) sampling and when a VMA is already mid-scan across
-> multiple scan windows.
+> Commit fc137c0ddab2 ("sched/numa: enhance vma scanning logic") skips
+> VMAs without recent PID activity. Since only NUMA hint faults record
+> that activity, the filter can suppress the fault needed to promote hot
+> slow-tier memory.
 > 
-> Callers cannot distinguish placement eligibility from scan progress.
+> Let memory tiering bypass the PID scan filter. In combined mode, use the
+> placement decision to restrict top-tier sampling to VMAs that need it,
+> while inactive VMAs still receive promotion-only scans.
 > 
-> Rename the helper to vma_needs_placement_scan() and handle continuation
-> state in task_numa_work(). Record whether an in-progress VMA scan is
-> promotion-only so a scan resumed in a later scan window finishes with
-> the policy it started with. The zeroed initial state places no
-> restriction, so a resumed scan that finds freshly allocated NUMAB state
-> falls back to the default policy.
+> Make this decision only when a VMA scan starts. placement_due is
+> evaluated for the current task, and a partially scanned VMA is usually
+> resumed by a different thread, so re-evaluating it for each chunk would
+> demote in-progress placement scans and starve large VMAs of placement
+> sampling in multi-threaded processes.
 > 
-> This separation allows PID-inactive VMAs to be scanned for promotion
-> without treating scan continuation as evidence of placement eligibility.
-> It is a prerequisite for the following fix and must accompany it when
-> backported.
+> Track the last completed placement scan separately from scans of any
+> kind. Promotion-only scans still update prev_scan_seq, but do not
+> advance the placement-starvation horizon.
+> 
+> On a host with 768 GB of DRAM and 256 GB of CXL memory, one large shmem
+> VMA consumed most scanning activity, while 2,537 other VMAs covering
+> 84 GB were skipped as inactive. One stand-out result: a hot 20 GB hash
+> table ended up trapped entirely on CXL and drove CXL bandwidth
+> utilization beyond sustainable levels - resulting in a large regression.
+> 
+> With this series, the hot hash table ends up split evenly between DRAM
+> and CXL, tier residency tracks runtime load, and CXL bandwidth
+> utilization drops from 45GB/s (maxed) to 5-10GB/s, while DRAM bandwidth
+> utilization increases from ~200GB/s to 250GB/s+, resulting in major
+> throughput improvements for the database workload.
 > 
 > Fixes: fc137c0ddab2 ("sched/numa: enhance vma scanning logic")
 > Cc: stable@vger.kernel.org
 > Assisted-by: LLM
 > Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 > ---
->  include/linux/mm_types.h |  6 ++++++
->  kernel/sched/fair.c      | 40 ++++++++++++++++++++++++----------------
->  2 files changed, 30 insertions(+), 16 deletions(-)
-> 
-> diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
-> index 1bd3ca7bfff2..d0ac21d02c47 100644
-> --- a/include/linux/mm_types.h
-> +++ b/include/linux/mm_types.h
-> @@ -803,6 +803,12 @@ struct vma_numab_state {
->  	 * A VMA is not eligible for scanning if prev_scan_seq == numa_scan_seq
->  	 */
->  	int prev_scan_seq;
-> +
-> +	/*
-> +	 * The in-progress scan of this VMA is promotion-only.
-> +	 * Resumed scans finish with the policy they started with.
-> +	 */
-> +	bool promo_only;
->  };
->  
->  #ifdef __HAVE_PFNMAP_TRACKING
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index ab9afd3ad49b..3b30786ded3b 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -4082,7 +4082,8 @@ static void reset_ptenuma_scan(struct task_struct *p)
->  	p->mm->numa_scan_offset = 0;
->  }
->  
-> -static bool vma_is_accessed(struct mm_struct *mm, struct vm_area_struct *vma)
-> +static bool vma_needs_placement_scan(struct mm_struct *mm,
-> +		struct vm_area_struct *vma)
-
-mm can be had from vma->vm_mm, so likely sufficient to only pass the vma?
-
-Apart from that this looks much clearer to me
 
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
