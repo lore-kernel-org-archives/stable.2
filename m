@@ -1,48 +1,51 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A382C51120F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA57C51AECE;
 	Thu,  1 Oct 2026 13:52:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790862769; cv=none; b=YeJ2iqcVZIFbvvznSnuSKcjzMD3An2KNIFktRrYzephxZ6zWOkOddiyNoGtVb0vt/W0pzsruEwQem0Yk/5yH/TfJgbOYM57ie8wE571CwVQ+d/m8+wMTnJrdLbzq4c6KkUAjASo7aEfCybmIxKkyBYJUZql0PTOeZHvQyVc0w9Q=
+	t=1790862771; cv=none; b=afRo8npEFCKMYORdwBkKrYUOstmDPX94OMI70ytL4tAda9QHgmt0W/FEeiDds/ivQydrDs37slOAwx8ezky/HvujwE2Yd876MpFPNcRxglz42jsXG21ToizjzgK1DIMVNg+ZOFL2j1753tEKeWp9dlhZgqFeAZ9SjPgTiQcUiu8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790862769; c=relaxed/simple;
-	bh=cFjN55wjDAYScxHpsE+Su13GYxwKPM6IgOW6kVCCHu0=;
+	s=arc-20240116; t=1790862771; c=relaxed/simple;
+	bh=hEEd0VxVv5xk5MqRNXiNa+trgjRtyJo9iXby+XQIAG4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KLX5ua7AiaMVReA5qkg8FUbABtuotPEmc0yj3CK26V8DaE/pHTmqkbNR7sdW+9Ea8sIQ/lR/NANUp3hA2k9Yu4YM8kio3aTNevb4dSYub/uGzxhVPy9V91DFgN+fffTvFkpfAam6YMoePG+UgQzKadf8aBq0U2aBPerLMXg8hsI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JEiKnnrf; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=hEFTTyNrCCCtEwIXvOZQrGZs19k5FvvoIKx64de8jUBClWgytEfnc6ct/d2XXB0Ky/eou4ysrtwDOugO+qNPm/RQMxParPD2r863BCOHsOQ6ikB0txCF93bLRqPQDE9GkYP/0H8LKsR30trfo+6VZg4EVdaLMJdc6QaymX4rc40=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=npe0leKc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JEiKnnrf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E443E1F00899;
-	Thu,  1 Oct 2026 13:52:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="npe0leKc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 351DF1F000FF;
+	Thu,  1 Oct 2026 13:52:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790862763;
-	bh=tU6NNV1emcvlTAwZ5qZuHpzsfE/F4WTxLxdCPlXxq24=;
+	s=k20260515; t=1790862765;
+	bh=OY8QNWEspqyHTZbia5mPkxZcUj41A0z8C/+7E6VoCFc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JEiKnnrfniNFGdANnvsufaBO+ckQZzZ8CrLCcNO8BtvtTDwh0fUCnmu5JvloNrvhV
-	 2y1dPBAfOXIzZR3EM00AjnWbMgQfzVeP/3o+SRYy1v8fVyQUW5P/Nb2QaGFNTb0i4H
-	 7J3soqznnhTYAqwRJKmftNnKZUvYuMr4gTrE9ER7NB72uzfN1O+mVmsV8Dj2jYNQVu
-	 NZ3OWA/H48waodVPU0t16F3sKQE3wLAw2j/0SzJoeOnOxgRO/KAP3w9BazqiSnCIZs
-	 iyZbBs3cQ7eA2uVPNnWJikRZHedWBB0M7Klw9PI/1eumKevCYvkBhILPNJ6oypWXst
-	 yz0HeejRElSJQ==
+	b=npe0leKchLx1x4b5RTpfTbnmlDOXVPk60nq9d5L1yc1DHHW/0xFK4Zlx2GsmFWxmX
+	 i4Jm5ZizEX5vlMqfDRnMI7hosvxQCErPuwGkMkVmOIrXlr+RNAGoOYBtg6GUMDfO15
+	 iVELQ1VYuDHCrom/e4b5hvyKJxOxmg3RhMH1zLuSZSEpg+xN6Y6gaphiTFQlqDRXpR
+	 /ZvAnqWWvVztgCSprscf0IrC+PSQqXD1GWVR2gjstUj0fsVtZ5xLA1M0w7fb+DrOgk
+	 jfQs3Y3jRD0TWeszSGMlPW4MSrcCtLuBtu6h5zae1+JvKD5vrRLfUrqGA24TBwhqmP
+	 lyFMLA2c1/ecQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
 	Artem Dinaburg <artem@trailofbits.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
+	Jakub Kicinski <kuba@kernel.org>,
+	Jacob Keller <jacob.e.keller@intel.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Hans Verkuil <hverkuil@xs4all.nl>
-Subject: Re: [PATCH 6.6.y] media: av7110: fix a spectre vulnerability
-Date: Thu,  1 Oct 2026 09:52:16 -0400
-Message-ID: <2026-09-30-1-daily-reply-0012-av7110-spectre-6-6@kernel.org>
+	Andrew Lunn <andrew@lunn.ch>,
+	Simon Horman <horms@kernel.org>
+Subject: Re: [PATCH 6.6.y] ethtool: fail closed if we can't get max channel used in indirection tables
+Date: Thu,  1 Oct 2026 09:52:17 -0400
+Message-ID: <2026-09-30-1-daily-reply-0013-ethtool-rss-max-channel-6-6@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260930011353.94864-1-artem@trailofbits.com>
-References: <20260930011353.94864-1-artem@trailofbits.com>
+In-Reply-To: <20260930012003.95556-1-artem@trailofbits.com>
+References: <20260930012003.95556-1-artem@trailofbits.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,8 +54,8 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> This one addresses CVE-2024-50289. It masks the validated CI-slot index
-> before using it in the av7110 array lookup.
+> This one addresses CVE-2024-46834. It aborts a channel reduction when the
+> core cannot prove RSS table entries remain valid.
 
 Queued for 6.6, thanks.
 
