@@ -1,75 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BC82472F91
-	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 14:41:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4E9B83A3815
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 14:42:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790865673; cv=none; b=qgUY0ooKen2E+ghbtHorXgzQOnLSl6x3myqdC0O27XZPCVqwD222gwqhMYPPsnXbb3WPy6Rntr8urTnnv4N85JcIJ9r9+beZRyaiPcI+DNlrmcXeDPhiPk+z+AIxQa9Q/rMvC+PiPOgbgOzJHXzLNJK6Ibbv76v6dz8AJK7qoLg=
+	t=1790865757; cv=none; b=DWaxbBF6hjXVLnMfWyFixi7868F8tvFEMTy2U4sv1GHwei9yQWTBxb058FM04cRpMKqcHpcnusJnXr/ez9vQGK5O3vyZRMnUsjgvlMWmzli/c/HgGlehoxRiIElpt6/h7W0idYXGAeigODq74OLcX0sn+AILU1CHazNrvErjscQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790865673; c=relaxed/simple;
-	bh=zy6CCAracjWN8loJGw2qzYJ1aVf4c021H02q7z8NK1Q=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NogF8XveY6VCB2lnfFV2k68IoFkRfvNCf1Qzo1zcPK+IBBJhdHtdJsz3uxbomNapJMf84TH9KRF3yCJkyVdvcFnRsf1OzUn0iXdKHObkCqDjTUDSfP3fD+ZNILnJTLNz8HAtlLaZ/58uv+edwsP/XAwnXkWYQl7kaswr6wQ/luE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hB30BBA2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790865757; c=relaxed/simple;
+	bh=L1X+aSQgTpevDtKgf3igo4ZbONRtN9Jmbh5rvE0+7AY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jGDDPuXND9djuK2V3pylJuhw6U+X/yN1wNbt8Q010SxYCOW/PbFhWIaxZfYUq8za0B3cMKaKs9jJO/dV9Av5TiB8lI3JuwrvuDYnSPbqIZU4+mUqqPF9jdrIiHkVps3ohKl8aJ2BScQXv/C7YEDp9zYghp3sdArFYXhxxMpODEk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=JCpNOy2X; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hB30BBA2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A957D1F00898
-	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 14:41:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790865666;
-	bh=zy6CCAracjWN8loJGw2qzYJ1aVf4c021H02q7z8NK1Q=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=hB30BBA2s2N6Ovnxee4U7EDLiIFvYutUVyH5YvGVftuyDKXEjmRPR9eI/Sc2q96s5
-	 VJvg8LQ5H+IBARdocZ7EJGrt0Hnwuwj1ScHzhVL39k31j3M9ylFj1Oati232bC/Ao4
-	 hJynvAXYZwFBa7JrBtgQvnO70nS9xFB4g8NBTsjP/POYZr6asvkvskYra6+FvyBl1k
-	 +7OyiZ72bMbrt5FOGB1V7ECNnJ3jAp1AIgT4xRbDZRXRfxLWWviKZZEKNX2dDbN1LW
-	 exm/4mobspo3nVDvJOBwTFsFlRnvIKNnpTXyiKLycFCnHiaWaFLD4Dd5Rg7idlVQJD
-	 GKbGGmA8qwhtQ==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5ba3e27d525so1660983e87.1
-        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 07:41:06 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy21e4+Q01zPKPhwgziq0BT0xw8KnuNtm3paOo1IijF/4pU6hPTSvM+RO52vTxkSqDT/qduzb0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJtTGiAzHOgnaMpGvR4SXTtg8diGwslNzoHZz3IcCp+73SmLh8Z
-	JtiBc0sY95u2aOfrFyJzGp5jyxg3pNUrBE4wFh1dsUEkQZuUyl9iT+0TS+qjXvZ+U7BWoCgveUf
-	8HwF0caPEttIVVsaB6VT7hUWeOJZNM/S9vKaWq/+RAg==
-X-Received: by 2002:ac2:5b5e:0:b0:5b7:de2d:191a with SMTP id
- 2adb3069b0e04-5ba405ee64fmr1365647e87.23.1790865665403; Thu, 01 Oct 2026
- 07:41:05 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 1 Oct 2026 17:41:03 +0300
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 1 Oct 2026 17:41:03 +0300
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260930-pci-pwrctrl-kfree-v1-1-f09bbffd8da3@flipper.net>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="JCpNOy2X"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 72335497;
+	Thu,  1 Oct 2026 07:42:27 -0700 (PDT)
+Received: from J2N7QTR9R3.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D92C83F85F;
+	Thu,  1 Oct 2026 07:42:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790865750; bh=L1X+aSQgTpevDtKgf3igo4ZbONRtN9Jmbh5rvE0+7AY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=JCpNOy2Xjltm6Qc3UpPgw4WUoIgP7FJad5cJXaiHBs0uevpNhfD4qM0765KhBb3R3
+	 7sHQ70+QbenrikJHpHq6c/+5iUHSV+TiBLfrSFYQIbnGXQDxbhTZYZxVQqa7mWGgke
+	 nw2WxCU189mCRGVbi6jut3tZeu01/y5ICn7Dkd0k=
+Date: Thu, 1 Oct 2026 15:42:24 +0100
+From: Mark Rutland <mark.rutland@arm.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, catalin.marinas@arm.com,
+	stable@vger.kernel.org, will@kernel.org
+Subject: Re: [PATCH] arm64/fpsimd: signal: Forbid non-streaming SVE payload
+ on SME-only systems
+Message-ID: <ar5xUENHCvhAnUX3@J2N7QTR9R3.cambridge.arm.com>
+References: <20261001130836.1410888-1-mark.rutland@arm.com>
+ <51351e42-60d1-417d-b61b-6011bfe5d2b5@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930-pci-pwrctrl-kfree-v1-1-f09bbffd8da3@flipper.net>
-Date: Thu, 1 Oct 2026 17:41:03 +0300
-X-Gmail-Original-Message-ID: <CAMRc=MdXoMSvjYzsG8hO5MmcGWq8mz4pCB0whK=jHM0J9gdKLw@mail.gmail.com>
-X-Gm-Features: AclHuK_MX1UIRJgcpQ8TKbaoXQoLl5jbkAQEv_2If_uRnnPzNzc-2WWFoXI33ds
-Message-ID: <CAMRc=MdXoMSvjYzsG8hO5MmcGWq8mz4pCB0whK=jHM0J9gdKLw@mail.gmail.com>
-Subject: Re: [PATCH] PCI/pwrctrl: generic: Fix leaking array from of_regulator_bulk_get_all()
-To: Alexey Charkov <alchark@flipper.net>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <51351e42-60d1-417d-b61b-6011bfe5d2b5@sirena.org.uk>
 
-On Wed, 30 Sep 2026 18:07:45 +0200, Alexey Charkov <alchark@flipper.net> said:
-> of_regulator_bulk_get_all() allocates the consumers array and hands it to
-> the caller, who is expected to free it at an appropriate time.
-> PCI pwrctrl never did, leading to a memory leak.
->
-> Add an explicit kfree() for the consumers array.
->
-> Cc: stable@vger.kernel.org
-> Fixes: 75996c92f4de ("PCI/pwrctrl: Add pwrctrl driver for PCI slots")
-> Signed-off-by: Alexey Charkov <alchark@flipper.net>
-> ---
+On Thu, Oct 01, 2026 at 03:25:03PM +0100, Mark Brown wrote:
+> On Thu, Oct 01, 2026 at 02:08:36PM +0100, Mark Rutland wrote:
+> > @@ -443,19 +444,33 @@ static int restore_sve_fpsimd_context(struct user_ctxs *user)
+> 
+> >  	} else {
+> >  		/*
+> > -		 * A SME only system use SVE for streaming mode so can
+> > -		 * have a SVE formatted context with a zero VL and no
+> > -		 * payload data.
+> > +		 * Non-streaming SVE state may be preserved without an SVE
+> > +		 * payload, in which case all state is saved in the FPSIMD
+> > +		 * context.
+> > +		 *
+> > +		 * On SME-only systems, non-streaming (FPSIMD-only) state is
+> > +		 * always preserved without an SVE payload, and with VL==0. On
+> > +		 * such systems, only accept non-streaming state without an SVE
+> > +		 * payload.
+> >  		 */
+> > -		if (!system_supports_sve() && !system_supports_sme())
+> > +		if (!system_supports_sve() && !fpsimd_only)
+> >  			return -EINVAL;
+> 
+> This means that this function will now accept a FPSIMD only SVE context
+> on systems with neither SVE nor SME, but that check was redundant since
+> we already reject anything with SVE magic in parse_user_sigframe() on
+> such systems and should never get here anyway.
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Yes. The commit message explained that:
+
+  As parse_user_sigframe() rejects SVE signal frames when neither SVE
+  nor SME are supported, it isn't necessary for
+  restore_sve_fpsimd_context() to handle the case where neither are
+  supported.
+
+> Reviewed-by: Mark Brown <broonie@kernel.org>
+
+Thanks.
+
+Mark.
