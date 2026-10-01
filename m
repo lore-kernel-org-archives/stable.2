@@ -1,80 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1757C52F28B;
-	Thu,  1 Oct 2026 14:58:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC2F351AFEF;
+	Thu,  1 Oct 2026 15:08:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790866684; cv=none; b=tTSTlVuskWoYueqhJk97hNYCaFAx3SjNovx2hm/vgSqAt2LnTeFv/ZcCnGMEHBYiuoYppXzvBVj9nF8OtkGMHKwxlEOWGAy9n+y+SJw/zMI4UGuE2l82/YQQQbHOUIbxBn57c61HnkHK4g0yMb/shBQkaPZY1yYF59BLXvgGLe0=
+	t=1790867319; cv=none; b=XC2tRylw7HNU8DP58WQSL/QU1slowbnVF5e6fHHSz40MVyDt5s/0h1svqXTZ8R+/P+kUpNr1TV5qWzmR1n11KhAq3gafvldH7fppM15vFtOikmoVOLWTH4IHQE87fp7dpcOWtFKyBJg/N86NP1Nk64MyNTAPFckThKHZrIL3SRc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790866684; c=relaxed/simple;
-	bh=M0vJMAtMJZIPmd2mczy100KwS7AH7bGm91qOTTWvEkw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H7PLin4lnB/rzMtJt0HN0WIYICZoCFZY1j3M+ZLlhUJebLyvgW0ZsxUFwLGKJmdqCHiK78tdTnRACKIgqKon9LxdOnHpPYfq+jevfOgwziUMDkEyXbhE9iQPvkBnEzK5p1DNLxcW1mXvhOC8QYi1KQB6VKz4sb+7QMy8LZ9WpjM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BGFtypkQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790867319; c=relaxed/simple;
+	bh=dx0VsHqSKwvfkdOsDBBxJGk73ABKwkUKE6axkb3Tg6M=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=sAKZPphUok08vmUgDrxqYdHCIrff0WQTCsEss7JHbagqvbQqkHSDIq2LWVIlcN6jc8oNnrjnjFnIC7915ZrWvXBq4aX7FDsjDbfaPZPaFUxG3oShhhXbIJrBBvhGipFq/93y/IRacgNPP9H72NOhGvbZHja/aEtYH0NYQbMYqAw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=XNa8Rj9y; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BGFtypkQ"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id A8A471F000FF;
-	Thu,  1 Oct 2026 14:58:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790866682;
-	bh=ndgT8nr149XSVa3VKzfNr0MJ0BBBwGQ+1f/Ic6y+cnI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BGFtypkQyyLznAyr7gTcntpXBG4Pi6A2yLW/acMlz6tnj9o0ezISILmoE+pcLQxQ9
-	 4sfOn4Hvgam+dq7qRhwGxl6EnDAKiK181Cl8lfEpz99l35S7ocL4xkKhNhd78AW8+E
-	 VUvPzv9puzYbGi7kL2JstEsAqRqtZN/OpxgnE0oDxdfYz7WY+0xDJ0vcLBjll7AB3h
-	 hyMdOCPGS5Oxw8LceeTJ6QPyPqVziewL1oaKx5ZMOdV1Mn7LKXNjKvMfsrI8lEkhFT
-	 5YAPt3A5MikB25Q/peN8xq4HDisSfuZ3acAinT83yLH3KMBKnHwfCiVDP6lOohpe+k
-	 3vn1Iyve6fo9Q==
-Date: Thu, 1 Oct 2026 07:58:02 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: Siddh Raman Pant <siddh.raman.pant@oracle.com>
-Cc: Dave Chinner <dchinner@redhat.com>, linux-xfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] xfs: Fix duplicate assignment in xfs_alloc_read_agf.
-Message-ID: <20261001145802.GX2705364@frogsfrogsfrogs>
-References: <20261001145153.308087-1-siddh.raman.pant@oracle.com>
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="XNa8Rj9y"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
+	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=FIXFlLBoXy9rmffDFo5ENEhrptsOAJ3yCww57BZ/IpQ=; b=XNa8Rj9yPqpd8AcTiiCcXWoFQH
+	b+fNypptwau0herwmJVIkN1uv3WJMe3MT5EBNAFglYm8n4O8flaFfsLA/rS0yd3/D07AaVQ1MAvl4
+	F/VQUgod0gzf/Bz+6md39YG8umG0lWS0dipNnLEn71dmAXhNZZrWocGGCV/tWGZcOr7fSY6bCyNcg
+	tgIPOSwXko7Z7M5aD6bwiJIZCkQ7dLAUpPFNzhTYsNBWMfvd2FsoPMKLTJk3qK3eDR3HBMdbEinIU
+	as2ffr4gAc1TnPnuhcVRwJue8OCeL5uDgd3lNBhg9bCwRRL/GsDFLJeiI2lBqTnnqShpdg7CXoxAR
+	w5yTjcdw==;
+Received: from [::1] (port=38004 helo=pf-012.whm.fr-par.scw.cloud)
+	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
+	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
+	id 1xCIOe-0000000DVTt-3NgJ;
+	Thu, 01 Oct 2026 17:08:29 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001145153.308087-1-siddh.raman.pant@oracle.com>
+Date: Thu, 01 Oct 2026 17:08:29 +0200
+From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
+To: Sabrina Dubroca <sd@queasysnail.net>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH net] macsec: prevent AES-GCM nonce reuse after packet
+ number wrap
+In-Reply-To: <ar4rKxYd7Csm6l2t@krikkit>
+References: <20260930203333.598733-2-Jeremy.Jean@oss.cyber.gouv.fr>
+ <ar4rKxYd7Csm6l2t@krikkit>
+User-Agent: Roundcube Webmail/1.6.19
+Message-ID: <864ee7d8f719deea74ff3e5aba1bc949@oss.cyber.gouv.fr>
+X-Sender: jeremy.jean@oss.cyber.gouv.fr
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On Thu, Oct 01, 2026 at 08:21:53PM +0530, Siddh Raman Pant wrote:
-> Probably an (harmless) error in copy-paste.
+On 2026-10-01 11:43, Sabrina Dubroca wrote:
+> 2026-09-30, 20:33:33 +0000, Jérémy Jean wrote:
+>> When MACsec uses 32-bit packet numbers, 0xffffffff is the last valid
+>> packet number
 > 
-> Fixes: db6a2274162d ("xfs: catch stale AGF/AGF metadata")
-> Cc: stable@vger.kernel.org
+> This makes it sound like it's only a problem for 32b packet numbers,
+> but I think it affects both? Sure it's unlikely with 64b unless we
+> start from a large offset, but a well-behaved userspace should also
+> rekey and switch SAs before we ever wrap to avoid losing packets while
+> the rekey completes (but yes, "losing packets" is not as bad as
+> "breaking crypto").
+> 
+>> and after allocating it, MACsec deactivates the
+>> transmit SA and wraps the next packet number to zero. Packets already
+>> in flight can still be processed after that.
+> 
+> So this is more of a race condition than a full "forever" bug. I think
+> commit messages should be clear about that (and that doesn't mean it's
+> not bad or not worth patching, but it's worth mentioning).
+> 
+> Once TX operations hit macsec_encrypt -> macsec_txsa_get and see
+> !sa->active, packets will be dropped and nonce reuse stops.
+> 
+> 
+>> The first late packet gets packet number zero and is dropped, but
+>> tx_sa_update_pn() has already advanced the stored counter to one 
+>> before
+>> macsec_encrypt() drops it. A second late packet can then be sent with
+>> packet number one again, reusing the AES-GCM nonce from the start of 
+>> the
+>> SA.
+>> 
+>> Keep next_pn at zero after wrap so all late packets are dropped.
+> 
+> "late packet" is defined on the RX side, but it doesn't make sense on
+> the TX path.
+> 
+> The diff looks good to me.
 
-Cc: <stable@vger.kernel.org> # v6.16
-Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+Below is suggestion of a hopefully better description.
 
---D
+---
 
-> Signed-off-by: Siddh Raman Pant <siddh.raman.pant@oracle.com>
-> ---
-> Put in stables <= 6.12 after the backport series lands.
-> 
->  fs/xfs/libxfs/xfs_alloc.c | 1 -
->  1 file changed, 1 deletion(-)
-> 
-> diff --git a/fs/xfs/libxfs/xfs_alloc.c b/fs/xfs/libxfs/xfs_alloc.c
-> index f762dcce8d13..0ffa82400007 100644
-> --- a/fs/xfs/libxfs/xfs_alloc.c
-> +++ b/fs/xfs/libxfs/xfs_alloc.c
-> @@ -3461,7 +3461,6 @@ xfs_alloc_read_agf(
->  	if (!xfs_is_shutdown(pag_mount(pag))) {
->  		bool	ok = true;
->  
-> -		ok &= pag->pagf_freeblks == be32_to_cpu(agf->agf_freeblks);
->  		ok &= pag->pagf_freeblks == be32_to_cpu(agf->agf_freeblks);
->  		ok &= pag->pagf_btreeblks == be32_to_cpu(agf->agf_btreeblks);
->  		ok &= pag->pagf_flcount == be32_to_cpu(agf->agf_flcount);
-> -- 
-> 2.53.0
-> 
-> 
+After allocating the last valid packet number, MACsec wraps next_pn to
+zero and deactivates the transmit SA. This happens for both 32- and
+64-bit types of packet numbers (at values 0xffffffff and
+0xffffffffffffffff, respectively).
+
+TX packets that were still getting processed during deactivation keep
+being processed and then receive packet numbers. The first gets 0 and
+is correctly dropped, but next_pn is incremented to 1, which makes the
+next packet take number 1. It then does not get dropped and may induce
+a reuse of the AES-GCM nonce corresponding to value 1.
+
+This race only affects TX packets that have already passed the SA
+activity check: new packets after deactivation are correctly dropped.
+Keep next_pn at 0 after wrap and return early so that the packets that
+finishes getting processed are dropped.
+
+---
+
+I can send a v2 if needed.
+
+Jérémy
