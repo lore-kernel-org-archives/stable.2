@@ -1,45 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81A9E3D0C09;
-	Fri,  2 Oct 2026 21:10:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52C303D2FEC;
+	Fri,  2 Oct 2026 21:10:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790975444; cv=none; b=HSFSvb5vJcZ67nbdApGHYws+q66Teq6RCLUNInsz8wcXiPGWllP6V85maqprcFdX3Q6o9B7r6P4WIjpeBKaQdrVfevIoqogEWFmOezrceWeEbCWzgj/ml8SqXvL9Ao6+ykkjf+J1p4ChRFt9D0PK62e44ICO3h3oSzZq10n0Nok=
+	t=1790975445; cv=none; b=SHzspHTg5dTaFENrn8II78g3FTXuIhX7tEqOeSIkHsLl0EhxjNWuPE3kcFTrmJESDxaSofyv4ic5fDKLnaB/NycwUamljntTp9rSCTnPdfCQULOQvMWmiKTQgIphVLYgccAywz5qli0ooijCmLNJxy2R+bH4LGkDWG1ylPyI/Yk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790975444; c=relaxed/simple;
-	bh=5viF3FTVSxzNhenKfzP8MHsTg4FlbmCUqz5hmdgyPRg=;
+	s=arc-20240116; t=1790975445; c=relaxed/simple;
+	bh=SnSaeyTdXmzNVrgymOXMNz6WX5KAW8htMVm8JeHF4Rw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=N7PTSxe73h7U18fC5PBoKWYwffDsiL4HvBeiGKJ5eCFlp7Xo3/QJ7D/00oFE5w9XHXtnT8GPeDiSDFL2EE9YwT0MDgSyJDT8s/U7bf0RiokX5UuHqu9DgfqP8jTcYmFxbka+5cTgG2OxhzMvJ8NRSHFoRH8FX5ePlVirU8E++qE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bRmFtACJ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=GNoOng+M1JXvC9idRUUyXZlry3K3DDc8HJlX7hbI65GM7xWESx7ErLOXKbl/ts3mdWf5IteK2QBZfFX5Wyw/TvCVwOv1UUOanNM1MVYDecZzD/xrrqLMpwz6WF/Dkf+vmX/tyqrDT+MfwCF7pELJjcc1U0h7jpBUolypDvYRD98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PKkczJWu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bRmFtACJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 600331F00893;
-	Fri,  2 Oct 2026 21:10:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PKkczJWu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 680E21F00899;
+	Fri,  2 Oct 2026 21:10:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790975443;
-	bh=CBIxHqiN4nOzcrJLXofdggDFZzY+PkhLAqMUs18AoeM=;
+	s=k20260515; t=1790975444;
+	bh=UTd82VV5aLmCE8TeXxBJ+4PuiUKnaEX1gfylvQo2ivA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bRmFtACJbxZCCnt/DWoBSrhmm7756H+5XPEA0VLvsLX6DsN7+/vBI3bUgCHxWQKs3
-	 mtyDH6jDiucOLEuO1/T3fdiWzeMKv5bTb1SwjTBLFw2aeenFIFzXZ6pGtS5qD5dHeV
-	 35h8qGgHpJEs6ZXCGgaEhwzE+KXWX3U3fo8O4Z75M8+upYS+70f3JTeAkCjnIDCmxg
-	 UtegnshrYvvq+5ezqe94jJHF1ScgdkGJcvFry59YeHqT0pDv5VExdbEeptM1iqvaxf
-	 TQdnmwR/asH9AD74PmExkv+pJHETbiVadsZorcZbeZAS5BHF+gd/pPJlsiVvKKz1LG
-	 o6pzBDDUMYk3w==
+	b=PKkczJWudLpXRnMlLSpa1bjHUUJwTSOrs/BEbacU7+HW/N7cZ/SJ80Z/Ulck4ysWc
+	 yErQu7ENR1gBWn7RlMzJEiFSx7vcLDdoxvbQBq5QzC+FdgL2r+Iaix5UjzoriOL1+Y
+	 hXoq6tKKj9XsnAWYMHThOGoC3CcrTqiAApVV3uO7rlc6ESxSlBa23YyG11TjTXvEN0
+	 5yVj4eU9Vd3nMJgz72TuLkq7fwzKa0MXGsshtbliLJ4AszhNMmlMXIFyi5Zmrgq2+j
+	 mi0V/G92Yz82kZ6z4s7a+bQoYlWyJcNxZa+Q4ryB3WbOx1mteS/RjpL3CGSAmaE/5w
+	 luEN2AeYGE1sg==
 From: Sasha Levin <sashal@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	stable@vger.kernel.org
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	patches@lists.linux.dev,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Mark Brown <broonie@kernel.org>,
-	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Subject: Re: [PATCH 6.12 107/877] ASoC: soc-pcm: Apply snd_soc_dai_link_ch_map.codec_ch_mask to codec params
-Date: Fri,  2 Oct 2026 17:10:30 -0400
-Message-ID: <2026-10-02-1-daily-reply-0004-re-sdw-utils-codec-ch-mask-capture@kernel.org>
+	Tibor Harcsa <silurust@gmail.com>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	linux-bluetooth@vger.kernel.org,
+	Iaroslav Voitovych <yaroslav.voytovych@gmail.com>
+Subject: Re: Please backport dc16388d45ec ("Bluetooth: btusb: Add IMC Networks QCA9377 to quirks table") to stable
+Date: Fri,  2 Oct 2026 17:10:31 -0400
+Message-ID: <2026-10-02-1-daily-reply-0005-re-btusb-qca9377-imc-backport@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <73b99ddb-996b-4978-a801-69a825da9954@oracle.com>
-References: <20260930152414.738996857@linuxfoundation.org> <20260930152417.048647943@linuxfoundation.org> <73b99ddb-996b-4978-a801-69a825da9954@oracle.com>
+In-Reply-To: <20261002012542.473669-1-yaroslav.voytovych@gmail.com>
+References: <20261002012542.473669-1-yaroslav.voytovych@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,12 +48,13 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Could the ASoC maintainer confirm whether
-> 290845e151cd4e307cc1f25319583aaceb4eeb30 ("ASoC: sdw_utils: Set
-> snd_soc_dai_link_ch_map.codec_ch_mask for capture") should accompany
-> this 6.12 series to complete the SoundWire capture fix?
+> please consider for linux-7.2.y, linux-6.18.y, linux-6.12.y, linux-6.6.y
+> and linux-6.1.y:
+>
+>   dc16388d45ec ("Bluetooth: btusb: Add IMC Networks QCA9377 to quirks
+>   table")
 
-Queued for 7.2, 6.18 and 6.12, thanks.
+Queued for 7.2, 6.18, 6.12, 6.6, 6.1, 5.15 and 5.10, thanks.
 
 -- 
 Thanks,
