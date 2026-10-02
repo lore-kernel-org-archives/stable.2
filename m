@@ -1,87 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78D8C47CA62;
-	Fri,  2 Oct 2026 11:09:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CE7E2D12EE;
+	Fri,  2 Oct 2026 11:13:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790939403; cv=none; b=RjxjJFIMtklyoa1sSES6YX3GaX7cuyqc2zl07X/BwKUFJ9q80EHR/cRk6RGoKw3npg+EgzrEYd6Jq4sYs0RNN6jiynoDGsYh2YpUdV7Sv2HZ8pNmpUIak5zgDFncS/as0mFKKnt06FQ3sy95d1vk88nhQ0M9nVhEgl4hiptvJ3w=
+	t=1790939586; cv=none; b=LADRSfPzzSqh5N57Zq9XbnLa0k2DjpeXy7rm5cwtEJOX9o9K27nKWZ6+GVVK4+7eUYMHGvAFfhswxbDLixOG5uK0StCNo4ALHogaaNBRR+R712QLLlZdWgRG954+qYmHBmwnN0BOqDIY32ioWv0H1Gsj3hdtX1A20wchSmXfvVQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790939403; c=relaxed/simple;
-	bh=9Tyey+PpQYVnJxUIQSpRm/0z1TJD6oq9LNHH/PxCcgQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OVwkKJZoNKnUH5hDor9SU34Vh2Jv9A6gfyEO+8T0H1rakhnKA4PbLsPztuo9GhuLs1K8NBZrqNVbf3B14EE8Dz52KMuo3V5JwLzeHItJgZF/pJjDWDuw+poqllq1jXIBB1DnyIZh1mC/DL+w2oplOtlpkoz1/aAAEWPXOzDd9uY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=anhHdi3m; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790939586; c=relaxed/simple;
+	bh=QE9Harzci5RFmrQqWEVp2gt5x43gSxsW3S3yRSOjdP8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=VgMyJuReuPSwULAf61jl9DYuPkLTGjX5b5PJPF8Jws6rXNiWNMAo9hB0ATplhEyCotwKLT/LQTCPLXZXx056hjy2b/6yhXpa9bsq5e6JlWKvMgeXRJywLzm9SO7bNlYxPon3kSLwMXnBtdsJSVTdAH3qexT24pJpCPJr9C7uIlE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=wWMAd2g8; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="anhHdi3m"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 797EE1F0089A;
-	Fri,  2 Oct 2026 11:09:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790939397;
-	bh=9w3Za6yjLfr8k9yYgSHrwJIyHlV0VlFscPtwBwUxy1I=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=anhHdi3mbewyWSQRFdVwC4BSFMVJZ26IXVDcwyTXxrVVrz/Oyb6sf1IK2ZD6EzQ/U
-	 BwyvMkb/fWw9GSFe8MhvZwpmBUdZRcTy34lyity1HJO8B0aOzL9FsQjIgygxBuRFbf
-	 7mML1U/53H6h3Vr77BeSLpylqd28lxASwni4GANHLTH6uIUIrPkfPqha1+i5ZG+nej
-	 o/Mw2tY4RaAjLnTpxE/vQsjDcyn9qS4rXQBYYbBkLWpwyFKSzI+oWNQNPYyrPEUaV+
-	 3hzMdgT/ytMWgDkDzWdTKU2DS0/6ApW0ekTIU0PbVWkiKfcdU9YLLo4gwRp9K6uHbi
-	 BXZYa1EwqvBFQ==
-From: Claudiu Beznea <claudiu.beznea@kernel.org>
-To: lpieralisi@kernel.org,
-	kwilczynski@kernel.org,
-	mani@kernel.org,
-	robh@kernel.org,
-	bhelgaas@google.com,
-	p.zabel@pengutronix.de,
-	18255117159@163.com
-Cc: claudiu.beznea@tuxon.dev,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v5 3/9] PCI: rzg3s-host: Select PCI_HOST_COMMON
-Date: Fri,  2 Oct 2026 14:09:29 +0300
-Message-ID: <20261002110935.2004349-4-claudiu.beznea@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261002110935.2004349-1-claudiu.beznea@kernel.org>
-References: <20261002110935.2004349-1-claudiu.beznea@kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="wWMAd2g8"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id A06C44E41109;
+	Fri,  2 Oct 2026 11:13:00 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 72DE7603DC;
+	Fri,  2 Oct 2026 11:13:00 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D6048103282FC;
+	Fri,  2 Oct 2026 13:12:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790939575; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=XvO1BNYN19Nln6gJEDYgUUR3tRUXH8L0avT4inZ0dLk=;
+	b=wWMAd2g8z9gt2dPZ2FydFzSM3OjCIl1K/8oy7NtjdzgA3btUv+vccQR07K8TnYTGCP8FW2
+	gurcx/ADKoEEZGBfHW49dqF847Wusc6XolnOBFB+lwKUZrDOhh/ZmZDQc4cnbYc17rJOQ/
+	iglxvLlFOTn79Eh5HLN5fiVUv89QafljPeeUb1lWGXqmZppmIYWDqYABQQk3Jat15YTMP/
+	14TFzwSv/bKdhiD4SA1r6FedmO/K8fPXYpEHgBB4d8n+EmzkPcKVAFDcghpwno6xCsrli/
+	uRPtKKNey9bC0cVYWCSQlszcOZrCCLcnzvy0qr96w/d6VFGSQAWCpDtnQFY3HQ==
+From: "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>
+Subject: [PATCH v4 0/9] Congatec Board Controller: Add storage devices
+ support
+Date: Fri, 02 Oct 2026 13:12:38 +0200
+Message-Id: <20261002-cgbc-i2c-storage-devices-support-v4-0-eb42e0f1df59@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43OTQ6CMBAF4KuQrq3pDxVw5T2Mi3aYQhOl2CLRG
+ O5u0YUaF7J8M5nvzZ1EDA4j2WZ3EnB00fkuhXyVEWh11yB1dcpEMLFhBS8oNAaoE0Dj4INO+zp
+ dAUYaL33vw0CNRCwAtZSCkcT0Aa27Piv2h1cOeL6kpuE9bN3M3Z5vjHyevhpLlv9vHDll1GItS
+ 8XZpuCwM94PR9etwZ/IzI/ig+R8ASkSKdHqqiqRoVW/pHyT1SJSJlJVuVHSGlCov8lpmh7SK60
+ HjQEAAA==
+X-Change-ID: 20260717-cgbc-i2c-storage-devices-support-b3ee7cea3320
+To: Lee Jones <lee@kernel.org>, Andi Shyti <andi.shyti@kernel.org>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Werner Gartner <Werner.Gartner@congatec.com>, mfd@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org, 
+ "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>, 
+ stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+In this v4, I moved struct cgbc_i2c_platform_data definition into MFD CGBC
+header file (was in linux/platform_data/). And now MFD_CELL_NAME macros is
+used.
 
-pci_host_common_link_train_delay() depends on PCI_HOST_COMMON. Select it
-to avoid any build failures.
-
-Fixes: 2b0d1a605ef2 ("PCI: rzg3s-host: Use common pci_host_common_link_train_delay() helper")
-Cc: stable@vger.kernel.org
-Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Signed-off-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
 ---
+Changes in v4:
+- Fix struct cgbc_i2c_platform_data comment (kernel-doc warning)
+- Move struct cgbc_i2c_platform_data from linux/platform_data/i2c-cgbc.h to
+  linux/mfd/cgbc.h
+- Use MFD_CELL_NAME macros.
+- Link to v3: https://patch.msgid.link/20260911-cgbc-i2c-storage-devices-support-v3-0-594b53fbc5ea@bootlin.com
 
-Changes in v5:
-- none, this patch is new
+Changes in v3:
+- rebased on v7.3-rc2
+- use PLATFORM_DEVID_AUTO for child devices
+- move I2C bus and I2C device definition in the MFD driver
+- Link to v2: https://patch.msgid.link/20260811-cgbc-i2c-storage-devices-support-v2-0-3efa998e0ef5@bootlin.com
 
- drivers/pci/controller/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+Changes in v2:
+- i2c: fix typo in CGBC BIOS EEPROM label.
+- mfd: make cgbc_devs const
+- Link to v1: https://patch.msgid.link/20260804-cgbc-i2c-storage-devices-support-v1-0-fed38510671c@bootlin.com
 
-diff --git a/drivers/pci/controller/Kconfig b/drivers/pci/controller/Kconfig
-index d246bbe37948..3e2889a7f1a0 100644
---- a/drivers/pci/controller/Kconfig
-+++ b/drivers/pci/controller/Kconfig
-@@ -296,6 +296,7 @@ config PCIE_RENESAS_RZG3S_HOST
- 	depends on ARCH_RENESAS || COMPILE_TEST
- 	select MFD_SYSCON
- 	select IRQ_MSI_LIB
-+	select PCI_HOST_COMMON
- 	help
- 	  Say Y here if you want PCIe host controller support on Renesas RZ/G3S
- 	  SoC.
--- 
-2.43.0
+To: Thomas Richard <thomas.richard@bootlin.com>
+To: Lee Jones <lee@kernel.org>
+To: Andi Shyti <andi.shyti@kernel.org>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Cc: Werner Gartner <Werner.Gartner@congatec.com>
+Cc: mfd@lists.linux.dev
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-i2c@vger.kernel.org
+
+---
+Thomas Richard (congatec GmbH) (9):
+      mfd: cgbc: Fix use of negative error code as valid session handle
+      mfd: cgbc: Add I2C platform data
+      i2c: cgbc: Use plateform data to get bus ID and adapter name
+      mfd: cgbc: Use PLATFORM_DEVID_AUTO for child device registration
+      mfd: cgbc: Use real I2C bus names
+      i2c: cgbc: Add support for fixed frequency buses
+      mfd: cgbc: Add virtual I2C bus support
+      mfd: cgbc: Add virtual storage devices on the virtual I2C bus
+      i2c: cgbc: Register known I2C devices on the bus
+
+ drivers/i2c/busses/i2c-cgbc.c | 108 ++++++++++++------------
+ drivers/mfd/cgbc-core.c       | 186 +++++++++++++++++++++++++++++++++++++++---
+ include/linux/mfd/cgbc.h      |  16 ++++
+ 3 files changed, 243 insertions(+), 67 deletions(-)
+---
+base-commit: ce1e0223d8ad4211275c82a17ed6d43ab81e13d9
+change-id: 20260717-cgbc-i2c-storage-devices-support-b3ee7cea3320
+
+Best regards,
+--  
+Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
 
