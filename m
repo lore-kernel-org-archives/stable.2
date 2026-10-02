@@ -1,115 +1,220 @@
-Received: from mail-qv2-f41.google.com (mail-qv2-f41.google.com [74.125.230.169])
+Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C7AB2798F8
-	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 17:11:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E87F2233944
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 17:16:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790961126; cv=none; b=KMSXaYlQrR0aPsWI1BbaIq2X98o0Z+SFIvFTJ7Fq/HgfyIumvJaAiE4DxpnkXvW0mwSecwfiUUlpdK/mnIbgEX7z+HZYxdzqHvA64jH8Heo4HOkU6O7JteIeSumSvyiUSJBBB9tfqtml85mUuubyqqXQJaV31q9D0I+A1m368gc=
+	t=1790961387; cv=none; b=j1QUSbheVzkJ0IbaepY/Wib71WhvG8sXw2FBPw6jeUF72PsA2i4ZbKdOOkqdotZueEAkKbsBBT6AMAYcnr7pB6152/7j9JqhygcJiCXdzFaqke+iVigFIWVPe3JodZcsBbXsF078z5M8nOuMU7mVzy0tKgFAP6bFHQ+fOFe/QbU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790961126; c=relaxed/simple;
-	bh=9iWiLeHeXnIJI/lcv7EGA9Q9oUsxmKM0h3HsxY6J+1s=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=dmQFgN2N+yWJiUkf0yMWOQO6dn0PKVV3rCQcra0ieGpMkg3q8rKl+KWPu2iH2CStlH8i5BWKSSVl03wNPqptJw+TxUX8O5QU3jYYzTuwsqYeAsyO68uluSR6JxL9Htob60VfLyvrsJSO0kDfWM5b3CAy1WMfDS6HmytNuAIa+eE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FAzfggcU; arc=none smtp.client-ip=74.125.230.169
+	s=arc-20240116; t=1790961387; c=relaxed/simple;
+	bh=SIl8iJdncWo66RBRLFUUWRqBeM/jYdcoATGGwDn41dg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=l9I8oceqfj1a86/ZAgU3PFR6fY6WoAx4Zaxx5mhuvYM5PODsZCAxPZI1cdrnJ4hLlVX5xp5Ofht9svYfKVSMTGPdm3xJY4/9GLAvokBpkHaP8o1LFpObd8LEj8aN7/IaQLvoEI/PXffHZB2IWV76dA6c9dUeIbP+Is0gi431IPg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DJO+6Som; arc=none smtp.client-ip=74.125.229.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FAzfggcU"
-Received: by mail-qv2-f41.google.com with SMTP id 6a1803df08f44-9178b9b7ecfso1524786d6.3
-        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 10:11:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DJO+6Som"
+Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-1431a73fa1eso690173c88.0
+        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 10:16:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790961110; x=1791565910; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=78WQxbjUnQrJhyVO1dcpGQV/qKspNnaK49GmbKiN3lI=;
-        b=FAzfggcU7g7AfSkWfoLc5t8GEJpg83LmuvdDC1OhWF4rQRwhbuKRIVzLmylO6QunxU
-         +0uK2aRUAseC0Fr0hCHlM905ZFyA/8AZK/RwqdRqtO0ICUp1YwbPEgaVpFXD7QlgHVzG
-         q8bRG4txEDLFrEVxzWRrkH+xS5hYyIWRS4D+moZrshOuhsQWUkZlXlz42uWzCyUfa2Ra
-         oeNGpjwJG7QnFQne9GxXRtIlWCvOUrZEIhN+zGORXziQxPGFnkJtp926RtQm284J6PxO
-         F89K3rD+EzQKqRwsGQFSpehNlVQS0BPfacKn9QQvuHotsbdKUrtO0wOEw5l2xYcN/M55
-         uHOA==
+        d=gmail.com; s=20251104; t=1790961375; x=1791566175; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Q0bGJ6qxWie/FezM/vX+M2hisla/Ap1jJ31muz2ald4=;
+        b=DJO+6SomkAs+NYKEwthvsH7Cb40XkbiIYDNrkCmhba2+aBKv5k4Mp7bo7TxKoX6iV1
+         1BFB5CT6ybELoimWbPVb8XjqvRgMyL1ezgcvUmBQo6f1VYM33tUPt5gMypgSap2TpfoX
+         PTK0673XTEGp5wwlXxQV3Ut35FtIyk3xAiPQ+N/zaRrtLo2MijNwyLEXTfwoKUEYJAtX
+         4nzT27Y1bz0DTE1Vus3E3r09Qs2LyOBs3OegR1i1FymWWOQ14GDhn9lqisuR/bBxQcHj
+         W75IQJ1FE8dZ7uksMN4nQ9KA42rNefrl5AZpB68nJ004LLXAV4cRAexbqMPOS4tjVwox
+         VXww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790961110; x=1791565910;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1790961375; x=1791566175;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=78WQxbjUnQrJhyVO1dcpGQV/qKspNnaK49GmbKiN3lI=;
-        b=ryOc+ByC2Rmy4AyXQoL3YRJssHDVITl8MZDZvy1X0M+12pwJnfKR6u5p9ihisUGZ7t
-         gLC5k3kydLLOhubrg0Fz9lRG04q4KUrA3Ey9RO1mYskTt3kW7yEgPO8EuryXMRYSR+Tq
-         iTo9/P2JPalveO9rbc79w6Uq0z7o31pUt0aiVED7lpcrPZFoAGqPeNpUJhsMH4bxeKcy
-         b06Sxb8Lf9tZIvDB94j0kQWa3FnPk0Jkn8ntJm93IHJgAMRUHNt9pV1mYGyk2YumfpDu
-         f8+dNmChpaOEaIRam97iggSJ4xqtw/DGmd89Pg6RgvChi/GL9ryAJvXYwy3txp4dyfkS
-         qrXg==
-X-Forwarded-Encrypted: i=1; AKwUvBwLVDmvtjKzM7kzgNDInxrZaZK1W5o0i4FrHUV44pLDbyZG5d8JvfIXTiO5qAZ7T7H1ifA5FzU=@vger.kernel.org
-X-Gm-Message-State: AFuF++ni2IBvFcnsBLW4XC+Dl3mXlLhxGiZirElY1f4TeBquUUkZ6PXQ
-	lRTTQ+/MP9le8mERgiz2YUCKjVUam3HWfQlDs5oGBkgMY7aDPqaVqg8s
-X-Gm-Gg: AYBFou07RfCh+d9z1YT6cYsCx8NTFOaEQVZfKvsATtS6a02+rTNn/QUoB1ciThsBboD
-	RhbAQwDOH6KISZW5MCDlVX9m7rzAPfWSn3r80qDHBFP69nrj8Jrimm5+BOSzmL6IDK7RPc53p9B
-	03vZR4/H0RlM7zydKEIaJ2LJiH5XPfKS1IZXf9vEIBtNMeD1VK/8Vqai8Y0Xrzgtq9BqVkJnk6N
-	PwZluKzoejHZl4+h4Z4RRxLNWyR34K8MOpFF4lFn9E0atcPmYxJ/2ZbENrJVUxx2n/Gd+7Jz/jP
-	BapObIQSjGD/ITodbEA4LgaI76sFM5MoA68k+mjpGLd9iRA3gKyI/RCshFqaJSkMjg/CZdok2h2
-	I3V9Ngxljhonm5ymFWQ0Go2i0G1UqNYWMIJMxr+wi+zHnd2PQHGNRj4D6cMQ1vSGNuTTMKSM838
-	+V61YyGLsAwpImiG3kYQXTYAEbY3TDPpkOFnmZBckk+NpwnvdYozYfQIjRC37R1dAVWq0v6JQ0d
-	NBVTUpI2LwXTjCc+aQxQpY7Jg==
-X-Received: by 2002:a05:620a:1728:b0:939:8373:b552 with SMTP id af79cd13be357-93ce7a955a2mr596693585a.1.1790961109773;
-        Fri, 02 Oct 2026 10:11:49 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93cca1a63d8sm266316885a.12.2026.10.02.10.11.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 02 Oct 2026 10:11:48 -0700 (PDT)
-Message-ID: <6f58df26-16f1-45f4-a5a5-c8e97c936944@gmail.com>
-Date: Fri, 2 Oct 2026 10:11:45 -0700
+        bh=Q0bGJ6qxWie/FezM/vX+M2hisla/Ap1jJ31muz2ald4=;
+        b=uu/q2ZeBpS5dHlepe9hlZcmz3+sjKxV4F0QMwqPQmUhFKca/rI8znwIqHT0lfOMUSD
+         IBQPfnQA8IB+e3apXVylLkSxnOgehrdXFQ899A9vOSduk9abjoGoSbEye0TqJOoPGPym
+         FjSYZa1N/HMEjIQescXw6+GMWxeNwvQpATw4yUSeCL6i+wqIf3wHcye/k1qcSNVdAxbs
+         WrLTXlSrEl0ZMruDcADMIvKVamxKk6nFlPYmd8xQCGy1lmp4/8ET3TSAEBf1nP2e9+Ke
+         I4NK4H9aNWFhzLYWej+r00vAymb1sl+PUMwfQGbTimANRm5ZWchbiSX5tpgFBcRUrfOG
+         i/Zg==
+X-Forwarded-Encrypted: i=1; AKwUvBxleEcpFakJqwjytUyx+rSh/6hS1PS4DPYAaU89WvZp5GEFcnfeyo5+w0mpN8/UTWozYr6yykc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJgMt6+FGzBGVYu6MVOFAkv3SfImEGfFUCIQOPz1MmUGtW5YwFX
+	RqZS9abR/f0Zv/n9W9qsKETK+dNKhQg8Ihq0RQQJ+xUmTOEEjQpUhsuo
+X-Gm-Gg: AYBFou2HkSCfI8WIE4vWOY6Jtl/8IL/rjGN/+EB4igDNVJi0q3RfL5Q72Yj1y/x4kA9
+	EXAkdAk0Xma0K2R1GhzoyuTCITmclVXXGR1WshqPhO3KLNBoZF4Ojpg6Yg+M+hnXaE8lWMlTcra
+	aXJk0zohxOovolfmRypJaDA5lMfIv63ATnjQ2Nx3cQ8of33VnH/lK2c+SiEKV6zERBYDPl7lp1w
+	mCncSX8HF0gieVIpwurOQ/cg/N4M4q1EQnYUb24NlNYXKfZa57e//JqnzfgVJaAeu64H8FOkzCm
+	Ciwm8GMhC8s9gRLq5TTDouOVIt88aR01+MTKGX+NE91aWVwk/Tsyv+WSsZ1LBizucesp7lX0o4a
+	w7YD4SpxrfO24X/X2CGNrAOfnuNw+LJvBdSx1h6WSrwQ2g9sGpKsNTp3yaM5H4XhEltbrMZqypj
+	SgovdNSPIFomgsQzgLH/ZjpCRc4EsQFSRNvuT3qq0ILiUog3MeHQ3DoiesUBLx36lCsFa2EdWRj
+	50LgpKpMoPoafYt+/TRdhqALazSEoq8cdJwNbQAokSK1+vN8LQan5xOYtNYcVDkLTcfvA==
+X-Received: by 2002:a05:7300:4f1c:b0:34b:101f:cdaf with SMTP id 5a478bee46e88-34f1501d239mr5077707eec.1.1790961374454;
+        Fri, 02 Oct 2026 10:16:14 -0700 (PDT)
+Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34f14f660f1sm7995468eec.13.2026.10.02.10.16.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 10:16:13 -0700 (PDT)
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Marcel Holtmann <marcel@holtmann.org>
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] Bluetooth: L2CAP: Fix reject-list lookup UAF
+Date: Sat,  3 Oct 2026 01:16:03 +0800
+Message-ID: <20261002171603.3368121-1-nicoyip.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Florian Fainelli <f.fainelli@gmail.com>
-Subject: Re: [PATCH 7.2 000/457] 7.2.9-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260930152346.024115587@linuxfoundation.org>
-Content-Language: en-US
-In-Reply-To: <20260930152346.024115587@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+l2cap_recv_frame() walks hdev->reject_list while holding conn->lock,
+but reject-list updates are serialized by hdev->lock. Consequently,
+block_device() or unblock_device() can mutate and free the current list
+entry while the receive path is examining it.
 
+The following interleaving causes the use-after-free:
 
-On 9/30/2026 8:21 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.9 release.
-> There are 457 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Fri, 02 Oct 2026 15:23:04 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.9-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+  l2cap_recv_frame()             unblock_device()
+  fetch reject-list entry
+                                  hci_dev_lock()
+                                  list_del()
+                                  kfree()
+                                  hci_dev_unlock()
+  read entry->bdaddr_type
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
+KASAN reported:
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+  BUG: KASAN: slab-use-after-free in hci_bdaddr_list_lookup
+  Read of size 1 by task kworker/u17:1/88
+  Workqueue: hci0 hci_rx_work
+  Call Trace:
+   hci_bdaddr_list_lookup+0xee/0x100
+   l2cap_recv_frame+0x8a4/0x8e50
+   l2cap_recv_acldata+0xa64/0xd40
+   hci_rx_work+0x4ca/0x730
+
+  Allocated by task 92:
+   hci_bdaddr_list_add+0x12a/0x300
+   block_device+0x94/0x1a0
+   hci_sock_sendmsg+0x1033/0x1ea0
+
+  Freed by task 92:
+   hci_bdaddr_list_del+0x182/0x230
+   unblock_device+0xa0/0x1b0
+   hci_sock_sendmsg+0x1033/0x1ea0
+
+Taking hdev->lock from l2cap_recv_frame() would invert the established
+hdev->lock to conn->lock order. Instead, walk the reject list under RCU,
+publish and remove address-list entries with the RCU list primitives, and
+defer their freeing until readers have left their critical sections.
+
+The address-list helpers are shared with other lists. RCU publication
+and deferred freeing preserve their existing locked lookup and matching
+behavior while making reject-list traversal safe without changing lock
+order.
+
+Fixes: e493150e3639 ("Bluetooth: Centralize looking up blocked devices to l2cap_recv_frame")
+Cc: stable@vger.kernel.org
+Assisted-by: GPT-6-Astra
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+---
+Changes in v2:
+- Rebase onto current bluetooth-next/master, preserving the v1 RCU fix.
+- Compare the reported management and mesh failures against the exact
+  unpatched CI kernel base; retain test evidence outside the commit log.
+- Add the coding-assistant annotation.
+
+Link: https://lore.kernel.org/r/20260821174022.3033729-1-nicoyip.dev@gmail.com/ [v1]
+
+ net/bluetooth/hci_core.c   | 10 +++++-----
+ net/bluetooth/l2cap_core.c | 23 ++++++++++++++++++++---
+ 2 files changed, 25 insertions(+), 8 deletions(-)
+
+diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
+index 5df7bd14323f..768a2d6c03e9 100644
+--- a/net/bluetooth/hci_core.c
++++ b/net/bluetooth/hci_core.c
+@@ -2055,8 +2055,8 @@ void hci_bdaddr_list_clear(struct list_head *bdaddr_list)
+ 	struct bdaddr_list *b, *n;
+ 
+ 	list_for_each_entry_safe(b, n, bdaddr_list, list) {
+-		list_del(&b->list);
+-		kfree(b);
++		list_del_rcu(&b->list);
++		kfree_rcu_mightsleep(b);
+ 	}
+ }
+ 
+@@ -2077,7 +2077,7 @@ int hci_bdaddr_list_add(struct list_head *list, bdaddr_t *bdaddr, u8 type)
+ 	bacpy(&entry->bdaddr, bdaddr);
+ 	entry->bdaddr_type = type;
+ 
+-	list_add(&entry->list, list);
++	list_add_rcu(&entry->list, list);
+ 
+ 	return 0;
+ }
+@@ -2148,8 +2148,8 @@ int hci_bdaddr_list_del(struct list_head *list, bdaddr_t *bdaddr, u8 type)
+ 	if (!entry)
+ 		return -ENOENT;
+ 
+-	list_del(&entry->list);
+-	kfree(entry);
++	list_del_rcu(&entry->list);
++	kfree_rcu_mightsleep(entry);
+ 
+ 	return 0;
+ }
+diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
+index 49a998804908..e79ebb89e239 100644
+--- a/net/bluetooth/l2cap_core.c
++++ b/net/bluetooth/l2cap_core.c
+@@ -7318,6 +7318,25 @@ static void l2cap_conless_channel(struct l2cap_conn *conn, __le16 psm,
+ 	kfree_skb(skb);
+ }
+ 
++static bool l2cap_is_rejected(struct hci_conn *hcon)
++{
++	struct bdaddr_list *b;
++	u8 type;
++
++	type = bdaddr_dst_type(hcon);
++
++	rcu_read_lock();
++	list_for_each_entry_rcu(b, &hcon->hdev->reject_list, list) {
++		if (!bacmp(&b->bdaddr, &hcon->dst) && b->bdaddr_type == type) {
++			rcu_read_unlock();
++			return true;
++		}
++	}
++	rcu_read_unlock();
++
++	return false;
++}
++
+ static void l2cap_recv_frame(struct l2cap_conn *conn, struct sk_buff *skb)
+ 	__must_hold(&conn->lock)
+ {
+@@ -7344,9 +7363,7 @@ static void l2cap_recv_frame(struct l2cap_conn *conn, struct sk_buff *skb)
+ 	/* Since we can't actively block incoming LE connections we must
+ 	 * at least ensure that we ignore incoming data from them.
+ 	 */
+-	if (hcon->type == LE_LINK &&
+-	    hci_bdaddr_list_lookup(&hcon->hdev->reject_list, &hcon->dst,
+-				   bdaddr_dst_type(hcon))) {
++	if (hcon->type == LE_LINK && l2cap_is_rejected(hcon)) {
+ 		kfree_skb(skb);
+ 		return;
+ 	}
 -- 
-Florian
+2.43.0
 
