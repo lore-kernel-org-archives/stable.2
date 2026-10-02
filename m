@@ -1,93 +1,76 @@
-Received: from mail-dl2-f39.google.com (mail-dl2-f39.google.com [74.125.229.167])
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73A50381E9D
-	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 19:49:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.167
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D09BF4399DB
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 19:50:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790970552; cv=none; b=HzYFuDZvlrihm/7usu7w7diU/+zfruI88Y0HaojKMXlNLRh4EqVzvGz0uydphTAGG6laWf3Sx0kTOCY5DUVoFErurMD8M1Dxo2tlnvffnHoCcyOCWwsuAnPpRYZwDEayCnvei2aUxrVDj+mupT3Qv+c8Y8/DtmN0Be7MEnA2PJ0=
+	t=1790970629; cv=none; b=MGUUwWva4erBtMQWnpv9C4gpmCruGhHNvnrQgQ/2EmDgRFLiWHyziwgsmmLLfMl4CEzpmdRJ0rXY/33WS7+yaPe8UNXCZSf3jBH6VbQYtomjBEXITLkwhvVI4++wJM44/OEpb2lE/K67dV5lPJku8/RXVwR66KZNUwlgDj//CBs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790970552; c=relaxed/simple;
-	bh=BA1c0FkHJccaJp4mZY2Xa5/jpWSQsLFKfIsyjBoOSVk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WMGZpLG2V06MNfitwnD9GoAeuhDyvdEfMWF9FdQFtX887d33wUPQ600l2JplLSSHqzKBtj9JAqOv6RhjLFFvGJvU8fWLO/28cexZ3QWgR9kiTOKVVH2QPDrTRey2jpKd6nlHPQ0DUtRHEOuCHva2Y7N3bFnILMdu21n35Ga0Ug8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=QsejfObb; arc=none smtp.client-ip=74.125.229.167
+	s=arc-20240116; t=1790970629; c=relaxed/simple;
+	bh=jPry0ZxZWH2qI0ULrUX+JCx/FGm9iZZhCbMohyCfLZI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TcQYk5sggFoW7eeSp9MhdgB89leabv5euANgYdpLx+HH2UI68kRSK06noyENHV0qihl5mQyNZaMZFWB1OwA4ZQUB1uZSOQGqaDj2y9qf4wh+4rRzIOPG5qosFOxgyx03oGr9PzYehqTw0qPqchH6TyiWbzP7kGQh8L5Z0/Zh6z0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=iPKS0/3n; arc=none smtp.client-ip=74.125.82.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="QsejfObb"
-Received: by mail-dl2-f39.google.com with SMTP id a92af1059eb24-1438cb9b3a3so7100611c88.2
-        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 12:49:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="iPKS0/3n"
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-144f79153f5so485582c88.0
+        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 12:50:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1790970548; x=1791575348; darn=vger.kernel.org;
+        d=trailofbits.com; s=google; t=1790970621; x=1791575421; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5Jk2g6BtdlmGdKtgGPAbggZvehqRrTlA+cJG1wv2zZM=;
-        b=QsejfObb/wmxhikAczTsark7ZpSrYCvIQl5XPSnMm/hGeLmkfX4dgBuSqy5CgGEo2b
-         fSZYLKo3Y0o9HWu2edVzj5GnPMsWOxTqDccXNCwmT/tZHdDu/Jr8eWsXFPojIkLYJVfE
-         iH1++2yXRyQjDl11Edeto+CvX2m+DJMtlYNxSIcgKjpRZUlOSd61XyvkXuObjjoOQbjK
-         OSofm00Jkxapfea2E+mJ08H8mF7QSWZ3rh1wqW3N9w0JfxS88eLQAB3dpYsX4ZmaW71y
-         wFPWNX1hzTIXoJVQPFvzY+IcsE1Mq8OQ4LMzvxhvguDf59ezkJxL89PtZyEgSifzPxJa
-         H/dA==
+        bh=c+Pr+0S1JlOBX/miOeDu7Q4SuyRTaEP5yuhanTP5lUc=;
+        b=iPKS0/3nt/yps11kzkBCV1f6JgZy+m9nq1oaXe/hF3tlSfPFM5dO+uLlr672/tPl91
+         m9ScaGSftrqg4nbbGN1R6CwSxYW/9uqbTwVzBIebRSuHRb3uzuiBWFiNLgshSye7VMM1
+         p7sNOnQkyr3gmXnPxJYvA5CZQ2GdZ6juSUqdXrPqxxhwQnT3vhX/l+lC4AmwcRrgIyuD
+         p/s9Rzf6BbtVe/mcrZLVa/Wp+wyjaczK0QndkgwvoxTcCf8NqcvVFsK2GLI1oQBCAOP9
+         wzEAY851Ypjv6I4EXUGWwkdFQNFIehnSOClh5y72uqmDFaN+F9+cHRh6wsPWaLVYLgyI
+         Mchw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790970548; x=1791575348;
+        d=1e100.net; s=20260707; t=1790970621; x=1791575421;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5Jk2g6BtdlmGdKtgGPAbggZvehqRrTlA+cJG1wv2zZM=;
-        b=PXsq4Aos+U53stM02avnNCdsizdCymXyvZocdtLilu42C0IdHkYTdkHG9GRcVIXVUw
-         SkHd/j5rKJ0waTRu1HWuYzYhRKlD3UHGDeHR+0PEt+JvZ0qRnWc9CoEZiWTpFicHDaD6
-         4UnkJMGsnhd0VeTnROZLGZGH+OX1f/RBYLKaV7/9jjjk61jse0/h2/ojAVsWniL1vrc1
-         +SjOfxFo2KgHferk5tG1Yhfk6Xb4RUEZA2cBUgI7mc3W0VGJPXPH7FRtsfv4/8YmXvO0
-         LWdURVrbGvGs0xsIvaWXG1lhwSnGopHQl6mZL+traEe7lYblIXqLIAGlQ0EXvCNCi/3c
-         Bg4A==
-X-Gm-Message-State: AFuF++ndxjMu3tVu7KVnbZsz9+/w5BESCTg6ycKickDVkx9lSiOOo2Y1
-	0GOGqC2Bqt84Rj5FSLVe3LMUG/OCnnoIAGGK9IbLv/L0pCgIFyk+9s9rwMWbPgGXABsVLjBU7ha
-	HAwf3oFZueA==
-X-Gm-Gg: AYBFou2uGAfJ5gjI5vmARkrXFhN1KyZRHOeV+YHVeCOvhFwN8tRMITGGuI/tc7VQnCU
-	6uMDcxkxaw93CKANuYr/oMtzDvhSRVdY3pF+RqPjXxUancSFk0q4Sww3jBW5XnzJfBNKDmfvV4U
-	YQPvesCmWDHSnGH4vrmKsX18BvuLn8yM63V/5aIHhkO0irSG2PwCiZQw7GN6ca+Vem1t25cc/Rk
-	HaU5dKHzUsnNjCa/eF93xcGIAjJGzGJTnRVbQr0m1tefmoNEqG663xhznPAQRWxCYmM/aAMzG1q
-	RhlKtNEv1FF20l5Kgo+gIMFICMaBylRVOdCQ7OfgtTLnrMEjy4E/EfckdijxuADonbBGWpEP3Dl
-	c1PkYoq5HmNFaHDXo3Kq5/ncSjCuNDr5wD0XwLNEiU2XERK5RGAj0hecLgYcQvDfcUit+qqKPts
-	BBx4YCXVaTDQaSpF698MH2JFyx2ka2ZEowE/WWxPieiJXui68+TYwQAetOUqtwJRbdcO8pIy8aU
-	yISta+11LrPT60NI+k0FqdFWFfcGl7vxWEfP04c/oR47w5LqAPYTdZXg/gPNaW5eisBrUWdLx+V
-	cN/0nw==
-X-Received: by 2002:a05:701b:42c9:10b0:14f:b80a:33a5 with SMTP id a92af1059eb24-14fb8197636mr2873373c88.28.1790970548456;
-        Fri, 02 Oct 2026 12:49:08 -0700 (PDT)
+        bh=c+Pr+0S1JlOBX/miOeDu7Q4SuyRTaEP5yuhanTP5lUc=;
+        b=2DRMuSJ9FJmkpyGrFJbmG5XT7NmW/JjRkosAOPcNvIHNHLF+oFP6feTgkSxgqh0hXH
+         8jk1OqoqOm4BXAHsohnziwY63GA0bPGQnwrll/5LuQYY+sZA7dOiA8NufJT7GyYn0Zgd
+         +/oj7CTBo0phlziraCQ1QuJnllZGSATP0p4gru9LoYf63J+BHFGAnoKRazfC8tKBfWyp
+         hzrQHSjG9wFC6L4f2UJCqHfI86uGySwWX6cMmY+CdfCLOX29trwY/o2h7/zugYQW3sCK
+         +bZEe/DxsdDzbibEBX2MIGeEfqQG0XExV7uNKAUbj/JupVoyD4VY+1HGFtnA/1tAWMio
+         9YXw==
+X-Gm-Message-State: AFuF++kcOWMg0GyzRpAw96y5GQpWoWipiGJLoZlrH9OuFi7GjnUpfDKl
+	wDjT2aXGH/cNVzFnwj024Fh/8CVOhR127yBAwWnzDfh5aB7OJAZ/MpUN1TIc3KamG7nppb311er
+	G0dl/jggRzQ==
+X-Gm-Gg: AYBFou1QDiqg2lfJ+QaRYzOnidXxrn46+cDNtuHT2WWk2Q2x6iq4NqSavvy8DNl/hns
+	vcaIs1PKtkSf5bao4C0HYpQ0lVGWdC+zNIdfFVExip88/z9kq2PJ02lfwq0dcnJKTHNQyumw93f
+	S4Deb1Rjo4v9fHKIMKqLk0ZXHjne5WrxdUw22tx+BpEwGzTWppiYJhTV60Nf9lRNTKVoWJnra3i
+	NsfcEEV3pVlJJ/wsIwf+SsgMl7rnA/LTjof2mu07xxwn5Fo2ETv+E5kthJ0ULV/1/I260eMlMIu
+	0YYmYkPsMAUwpGAlb24HBWJFtMchvbpYlNEuX3jvBICZqNL3t+gWiQf+YUIzVtGtr8iKFB0p627
+	WTxx5zDFO3vhsctIoXKYxJH7z58X0ADwkfZ2iwCF4B2+EkUodXUMdIOl890VVg43vYn60wsC+bj
+	WDnq409ptH1kOOZYySDwFVnjMoYj8qORAWMAjdwxy9vQRWq2ruaI8LiVuyrpuCd1S69O1M8gcVf
+	TGvPpZgqV6+IsDvwUls+EoffijttYFNYLqgtUSxypubzTgUtKAulP/rUP67LwsCOh/9NAU=
+X-Received: by 2002:a05:7022:1587:b0:148:516e:53e with SMTP id a92af1059eb24-14dd07fbc16mr9332303c88.6.1790970620487;
+        Fri, 02 Oct 2026 12:50:20 -0700 (PDT)
 Received: from localhost.localdomain ([2603:8001:5f01:8bab:bcf9:6140:24a9:d1e7])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14fae9b3dfesm6697431c88.11.2026.10.02.12.49.06
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14f410725e2sm7157041c88.0.2026.10.02.12.50.19
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 02 Oct 2026 12:49:07 -0700 (PDT)
+        Fri, 02 Oct 2026 12:50:20 -0700 (PDT)
 From: Artem Dinaburg <artem@trailofbits.com>
 To: stable@vger.kernel.org
 Cc: Artem Dinaburg <artem@trailofbits.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>,
-	Christoph Schlameuss <schlameuss@linux.ibm.com>,
-	Claudio Imbrenda <imbrenda@linux.ibm.com>,
-	Janosch Frank <frankja@linux.ibm.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	David Hildenbrand <david@kernel.org>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	kvm@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	Sean Christopherson <seanjc@google.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	avi@redhat.com,
-	cotte@de.ibm.com,
-	david@redhat.com,
-	mtosatti@redhat.com
-Subject: [PATCH 6.1.y] kvm: s390: Reject memory region operations for ucontrol VMs
-Date: Fri,  2 Oct 2026 15:49:03 -0400
-Message-ID: <20261002194904.21236-1-artem@trailofbits.com>
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 6.1.y] media: av7110: fix a spectre vulnerability
+Date: Fri,  2 Oct 2026 15:50:15 -0400
+Message-ID: <20261002195016.21386-1-artem@trailofbits.com>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -97,38 +80,29 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Christoph Schlameuss <schlameuss@linux.ibm.com>
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
 
-[ Upstream commit 7816e58967d0e6cadce05c8540b47ed027dc2499 ]
+[ Upstream commit 458ea1c0be991573ec436aa0afa23baacfae101a ]
 
-This change rejects the KVM_SET_USER_MEMORY_REGION and
-KVM_SET_USER_MEMORY_REGION2 ioctls when called on a ucontrol VM.
-This is necessary since ucontrol VMs have kvm->arch.gmap set to 0 and
-would thus result in a null pointer dereference further in.
-Memory management needs to be performed in userspace and using the
-ioctls KVM_S390_UCAS_MAP and KVM_S390_UCAS_UNMAP.
+As warned by smatch:
+	drivers/staging/media/av7110/av7110_ca.c:270 dvb_ca_ioctl() warn: potential spectre issue 'av7110->ci_slot' [w] (local cap)
 
-Also improve s390 specific documentation for KVM_SET_USER_MEMORY_REGION
-and KVM_SET_USER_MEMORY_REGION2.
+There is a spectre-related vulnerability at the code. Fix it.
 
-[ Backport to 6.1.y: omitted KVM_SET_USER_MEMORY_REGION2 documentation
-  because that ioctl is absent from 6.1. ]
+[ Backport to 6.1.y: added the explicit linux/nospec.h include required
+  by the older source. ]
 
-Signed-off-by: Christoph Schlameuss <schlameuss@linux.ibm.com>
-Fixes: 27e0393f15fc ("KVM: s390: ucontrol: per vcpu address spaces")
-Reviewed-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
-Link: https://lore.kernel.org/r/20240624095902.29375-1-schlameuss@linux.ibm.com
-Signed-off-by: Janosch Frank <frankja@linux.ibm.com>
-[frankja@linux.ibm.com: commit message spelling fix, subject prefix fix]
-Message-ID: <20240624095902.29375-1-schlameuss@linux.ibm.com>
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
 Assisted-by: LLM
 Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
 ---
-Hi Greg, Sasha, and kvm s390 maintainers,
+Hi Greg, Sasha, and media av7110 maintainers,
 
 I am working through the small CVE backports still missing from 6.1.y.
-This one addresses CVE-2024-43819. It rejects memory-region ioctls before a
-ucontrol VM can dereference its NULL gmap.
+This one addresses CVE-2024-50289. It masks the validated CI-slot index
+before using it in the av7110 array lookup.
 
 The corresponding 6.6.y backport is already in the 6.6.y stable queue.
 The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not
@@ -137,8 +111,8 @@ The target-specific adjustment is recorded in the bracketed note above.
 
 Could you please queue it for 6.1.y?
 
-CVE: CVE-2024-43819
-Upstream: 7816e58967d0e6cadce05c8540b47ed027dc2499
+CVE: CVE-2024-50289
+Upstream: 458ea1c0be991573ec436aa0afa23baacfae101a
 
 AI assistance: An LLM helped identify, adapt, and validate this backport; I
 reviewed the resulting code and validation evidence.
@@ -146,41 +120,101 @@ reviewed the resulting code and validation evidence.
 Thanks,
 Artem Dinaburg
 
- Documentation/virt/kvm/api.rst | 6 ++++++
- arch/s390/kvm/kvm-s390.c       | 3 +++
- 2 files changed, 9 insertions(+)
+ .../media/deprecated/saa7146/av7110/av7110.h  |  4 ++-
+ .../deprecated/saa7146/av7110/av7110_ca.c     | 26 +++++++++++++------
+ 2 files changed, 21 insertions(+), 9 deletions(-)
 
-diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
-index 1bc61bf804f1f8..1f0f84501e59c8 100644
---- a/Documentation/virt/kvm/api.rst
-+++ b/Documentation/virt/kvm/api.rst
-@@ -1382,6 +1382,12 @@ The KVM_SET_MEMORY_REGION does not allow fine grained control over memory
- allocation and is deprecated.
+diff --git a/drivers/staging/media/deprecated/saa7146/av7110/av7110.h b/drivers/staging/media/deprecated/saa7146/av7110/av7110.h
+index 9fde69b38f1ce3..c2956c23d9c1e4 100644
+--- a/drivers/staging/media/deprecated/saa7146/av7110/av7110.h
++++ b/drivers/staging/media/deprecated/saa7146/av7110/av7110.h
+@@ -86,6 +86,8 @@ struct infrared {
+ 	u32			ir_config;
+ };
  
- 
-+S390:
-+^^^^^
++#define MAX_CI_SLOTS	2
 +
-+Returns -EINVAL if the VM has the KVM_VM_S390_UCONTROL flag set.
-+Returns -EINVAL if called on a protected VM.
-+
- 4.36 KVM_SET_TSS_ADDR
- ---------------------
+ /* place to store all the necessary device information */
+ struct av7110 {
  
-diff --git a/arch/s390/kvm/kvm-s390.c b/arch/s390/kvm/kvm-s390.c
-index c7b4c0d37c87b0..0caaa462baf6f8 100644
---- a/arch/s390/kvm/kvm-s390.c
-+++ b/arch/s390/kvm/kvm-s390.c
-@@ -5587,6 +5587,9 @@ int kvm_arch_prepare_memory_region(struct kvm *kvm,
+@@ -166,7 +168,7 @@ struct av7110 {
+ 
+ 	/* CA */
+ 
+-	struct ca_slot_info	ci_slot[2];
++	struct ca_slot_info	ci_slot[MAX_CI_SLOTS];
+ 
+ 	enum av7110_video_mode	vidmode;
+ 	struct dmxdev		dmxdev;
+diff --git a/drivers/staging/media/deprecated/saa7146/av7110/av7110_ca.c b/drivers/staging/media/deprecated/saa7146/av7110/av7110_ca.c
+index c1338e074a3dc1..642af03fbac810 100644
+--- a/drivers/staging/media/deprecated/saa7146/av7110/av7110_ca.c
++++ b/drivers/staging/media/deprecated/saa7146/av7110/av7110_ca.c
+@@ -12,6 +12,7 @@
+  */
+ 
+ #include <linux/kernel.h>
++#include <linux/nospec.h>
+ #include <linux/types.h>
+ #include <linux/delay.h>
+ #include <linux/fs.h>
+@@ -26,23 +27,28 @@
+ 
+ void CI_handle(struct av7110 *av7110, u8 *data, u16 len)
  {
- 	gpa_t size;
- 
-+	if (kvm_is_ucontrol(kvm))
-+		return -EINVAL;
++	unsigned slot_num;
 +
- 	/* When we are protected, we should not change the memory slots */
- 	if (kvm_s390_pv_get_handle(kvm))
- 		return -EINVAL;
+ 	dprintk(8, "av7110:%p\n",av7110);
+ 
+ 	if (len < 3)
+ 		return;
+ 	switch (data[0]) {
+ 	case CI_MSG_CI_INFO:
+-		if (data[2] != 1 && data[2] != 2)
++		if (data[2] != 1 && data[2] != MAX_CI_SLOTS)
+ 			break;
++
++		slot_num = array_index_nospec(data[2] - 1, MAX_CI_SLOTS);
++
+ 		switch (data[1]) {
+ 		case 0:
+-			av7110->ci_slot[data[2] - 1].flags = 0;
++			av7110->ci_slot[slot_num].flags = 0;
+ 			break;
+ 		case 1:
+-			av7110->ci_slot[data[2] - 1].flags |= CA_CI_MODULE_PRESENT;
++			av7110->ci_slot[slot_num].flags |= CA_CI_MODULE_PRESENT;
+ 			break;
+ 		case 2:
+-			av7110->ci_slot[data[2] - 1].flags |= CA_CI_MODULE_READY;
++			av7110->ci_slot[slot_num].flags |= CA_CI_MODULE_READY;
+ 			break;
+ 		}
+ 		break;
+@@ -264,15 +270,19 @@ static int dvb_ca_ioctl(struct file *file, unsigned int cmd, void *parg)
+ 	case CA_GET_SLOT_INFO:
+ 	{
+ 		struct ca_slot_info *info=(struct ca_slot_info *)parg;
++		unsigned int slot_num;
+ 
+ 		if (info->num < 0 || info->num > 1) {
+ 			mutex_unlock(&av7110->ioctl_mutex);
+ 			return -EINVAL;
+ 		}
+-		av7110->ci_slot[info->num].num = info->num;
+-		av7110->ci_slot[info->num].type = FW_CI_LL_SUPPORT(av7110->arm_app) ?
+-							CA_CI_LINK : CA_CI;
+-		memcpy(info, &av7110->ci_slot[info->num], sizeof(struct ca_slot_info));
++		slot_num = array_index_nospec(info->num, MAX_CI_SLOTS);
++
++		av7110->ci_slot[slot_num].num = info->num;
++		av7110->ci_slot[slot_num].type = FW_CI_LL_SUPPORT(av7110->arm_app) ?
++						 CA_CI_LINK : CA_CI;
++		memcpy(info, &av7110->ci_slot[slot_num],
++		       sizeof(struct ca_slot_info));
+ 		break;
+ 	}
+ 
 -- 
 2.39.5
 
