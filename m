@@ -1,191 +1,164 @@
-Received: from mail-dl2-f41.google.com (mail-dl2-f41.google.com [74.125.229.169])
+Received: from mail-dy2-f37.google.com (mail-dy2-f37.google.com [74.125.229.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A690E371D11
-	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 17:20:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.169
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790961649; cv=none; b=tGRhoT2uGUpDD8p47prdAQoxF50BoSsfhmRkTCsFhagxzXs2L5i3qK+tDRcNskCdgpBIqddoc5rVSsm/ZZ5LeOMWUoktjf9/fXhAfTnJHPg9SjDcfVgRCXNTd1aaAtRRRKVQZkTMDIvH7W0uT+3TvDI1i9iP+cYyfAbhR+fjxs0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790961649; c=relaxed/simple;
-	bh=OcY+7/0P/gvQi8VSadBXXsgqQ9SByM7tSMYjbn8eB/Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=i4wD0BKSF2sQsKcKoo3m8MEVwNrOQcsJEbBvZ4WkSgxjtL8bYmxTimIahHGJUDChUJImc+2m6EB0Z8TS49MHNVaLOu+lfU0ra3HUB/BPIUxXX1fyJ8PWShACmdtwMQ4j6H32J8hwKsQALwDFMKzcynTKOCoBGjrsZ143XkRtT4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cvsU/IRT; arc=none smtp.client-ip=74.125.229.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE4292D0C92
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 17:25:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.37
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790961920; cv=pass; b=I7Hk4cg8V7LgScEix+L9DLdFA3gxu16Ye9YL6Xc9e89kuGuhN9J4eXVw6tVQJmFIDOUBjnhDF9TPGpv311e5CNw9BaT1OQdnFr09lrRCaHQq37i/P1gTo00iFpN+/LutUpWwq5w3YQn6NEyyBEUzuveNI9ef7CNd80WtzPCZpUM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790961920; c=relaxed/simple;
+	bh=iJW5n9lYKhgPDuN4ME7juYxYIrsiTfvzaNpYx8Slis8=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=I4RtJcqftpoonQRwu4hZKO1GpTguMRws5MQUhzje4dYFhmLkyZvIlRsph/qdjd1T3JpsiAUqhl/gEuqeWSPp3A/+USBeZFrJWhHz9FIk0WOaQ7qZgtNwE/zZOiriDLvnJIrvbvL+O32nfjrH1/80jBosrfylLiTEMHlx4Mtsscw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baseten.com; spf=pass smtp.mailfrom=baseten.co; dkim=pass (2048-bit key) header.d=baseten.com header.i=@baseten.com header.b=HU36yVWW; arc=pass smtp.client-ip=74.125.229.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baseten.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baseten.co
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cvsU/IRT"
-Received: by mail-dl2-f41.google.com with SMTP id a92af1059eb24-14b1b157591so145976c88.3
-        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 10:20:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baseten.com header.i=@baseten.com header.b="HU36yVWW"
+Received: by mail-dy2-f37.google.com with SMTP id 5a478bee46e88-346c612c7a8so4158034eec.1
+        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 10:25:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790961916; cv=none;
+        d=google.com; s=arc-20260327;
+        b=lxBHol06IkHe3FgP75MoQdeSxY5F6GIuAMDCB89jMvaYeH4/zbGuzVS/QzM3osENyf
+         IKYm3nmdPWqNZ541u8kzE2vTg3mnbnRSJOPSXh2eVWqgHWloTuMMRfjmWPnmZX2SMeA7
+         0vohBxcv8o49zy1Mhum211UuHwIfbUNgZ7rwKF1GQQQ8MuEF/5u7+HzWFHlMEpyDq341
+         znHXbZyryv67mH0Jqu8K9TjApdMKBsZmHWT5eW43Ox/NRmKNumF89SppoCfEu8/AWO/1
+         r2pj3ew30CJYr1Vwtga7gtTQNaAOpP+1ODt4Do2y+661puj3zaHa0PHieL9c231Brf0i
+         BuPg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=36VoWV3Ti/+vwmY3FsUwjMumBjaKK+gWxVoK8yEZhak=;
+        fh=W4C8ekefEgX+fTrfH97z0Q7Kfc1xkl/KYfBySNZVEho=;
+        b=k2wAeWLijDUIIHqqsO2unemLjZUDuau1X8dtBuurgfNuh92zjk+IGupZ72rV4mJibA
+         ur4iv7Ult9SXqVDy9qxnbSgkwd8aEOyqT98EPQ7Gi/6YhkTGDCLX11QK2xbhf2cSIfql
+         xy0gp/fnrHit2nb0CicLPM7N+viYvEIGpTqcVjV9OV/qiVsSF8CEBQg/g2cz8Zd0EZe8
+         CuncOcVyt7RQd7zqEaOZjpbblr9DPLvAfMNL0tGUX/J1D7R7CO3SRVSxh85Ee/FIsmpY
+         o/AG8cBw2i8dv61abeNeu2i+M1jGVRLvv5ixrESoBjOAwqOdDHxTTa7ExaucayqApdnU
+         6JTA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790961639; x=1791566439; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=izTe3vFuNEXuKkViQhMtb+ZI5BaXwvWzbJ/LmOaSmrg=;
-        b=cvsU/IRTvs9XYNhpctzW/G1BDBplbwu4gk/DBuMbyRWB5ND2YW4F5lmYT2DnchvroS
-         YnbdtNGXYCnsqioCqAZaXY1nUZGvGH5rlXOGIpg/J9DPjqUCuiDhAlVAPj8SamXiMRPp
-         5KfeglHOTgAKfTeIfhyw9lJdgKJ1mvG24UvU12RAszxxYrJuebY+PjR0LA653Hz9wmZn
-         hQsb00UpUV/i29cftwDYb7OsDyttFjtpJb5dnLV3MayItMDjw7hoIntBtBRoYDegJhtO
-         Q5lbPRxU+9jqZfPpijdfnaycCJezx2wU5zEsN2JRngHfv6lAQ1/FyJPFyiwoSlDsW1tH
-         svzw==
+        d=baseten.com; s=google; t=1790961916; x=1791566716; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=36VoWV3Ti/+vwmY3FsUwjMumBjaKK+gWxVoK8yEZhak=;
+        b=HU36yVWWdLQT9KXSUraZvJS3vC0E4auKiilEUQjK06xKgdJrzn/1hP5fXJEnhVwy55
+         naN2otEZhGz3anjBHloQsvTtU9kDrzHxsyCe83WCAPzeVksgxR7ay60S0lTiV0vYsrdr
+         tnn3lHLaXnelO8hk0J1afw66pUjHmSPGHLTvZKKnSxwEJD52jQqOifRlCULKxu1arvRe
+         cSAPXWgf+rIXF4R6JGM/GPwOQNqvGWH3ZSi34X4c7iaDIQxhTZZvZi9m+IIHsMhQHH6S
+         d3g3B6q05oebhbt1nOD7ra2N8m/vEfja0JsepS3piEViUQ8u3A+8I4vM9aLbEphVf36G
+         mFnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790961639; x=1791566439;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=izTe3vFuNEXuKkViQhMtb+ZI5BaXwvWzbJ/LmOaSmrg=;
-        b=bCFYaQv8jYU/tzYHyJ4gNRXrpX3dWFvn77FQ4xhwqaWiPVMsmLUxuW+gcfiKgzJSsK
-         nHyT9kG/cTJOZ2klznuXvAu1GI0J+GkUSqzeaEYQaO4OkWJMHZw61fZfj+W1G8PwG0a6
-         8EhrIKkhQA9fTDltCmKzSpkkxM04Vyxc73mQkhwKQUU5Hg5nruETZxg0VxHOcDwzk5UA
-         4JWBnLxkGCk+Kkgq3bv5rvcSzlUjh0wFh/5xPPbvEi0FAaMzMYHBV0VWeWvmzL4Qhpuz
-         /QVrdHu9eVQ9z9Dhsu3gbPrpB0KRRjMHitfyNT9AOQPFHin48iPyXJimEd1tnXwjUL1U
-         mYhg==
-X-Forwarded-Encrypted: i=1; AKwUvBxWy2k46ZDFIj9/NT4XwUbjE0tEuJanoy9H3/lw8dshWZE496NUBdZoCS0abKNYNKgOA/AZGN0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIKdCYMcvSEl9wpCzsKHXr3iW8CC30tv+y31tUX/haRuDnamDPe
-	A9zNgSnjnJnm4MS2s7nb3ZiuCBOWZN925OK9KnFDRN3wAng0QK/x6oSf
-X-Gm-Gg: AYBFou0RriAWY06LRjyZVsgvAhy3TWu0OKhv3fikWv2T9E7M+6cxc89UJrV4gFm7XPp
-	1LpTV4GmOuYQoE1l/1tQgE5kkQXghBp6InJemcrHbQzuL4BAs3S/n2vGTzIJ+udJUgKHEen/1+G
-	ZyNp+qyhut90N4oDszEAofxFJWR3IR0Zt0MVuC6N3fyJNbFptOKTcIPLxDcKi11YGrtsSvpdIX5
-	Fj5q92E6dc+jNqXrhludxHeCzEZmHYLDUbAyjreFcTf+ZQQ45r10kRnQFXYZprfDXS4hONDfvgw
-	lp0XgxiyGface3Whxd3WiwSjWxkXSIYgzSIEjd4s4o3VvQjSy7jpY9cUhjWbVQ3L4JYAGFAfeRV
-	rTe9iDu/cJAZ0lceS1Ia6XZtBrNTayOkdm3qo4v210K/IquiNcAe6DOCJNDYNKj5Jyhc5d9J64W
-	oLR+eLknHozmmOhqsap1RxKDRCwJWxacBWxuwmLuB8qtLSe15sOIo4kBh47GIgVCncf0EnFpM3N
-	532VTDa/sH0d8Xmvi0YqQ0rbKXbeeMCC+XzEALfIQ6IuRXQEES9ZKoI+qLXl/IiyktmOvE=
-X-Received: by 2002:a05:7301:e101:b0:33e:6714:3945 with SMTP id 5a478bee46e88-34f150658f9mr5329374eec.2.1790961638951;
-        Fri, 02 Oct 2026 10:20:38 -0700 (PDT)
-Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34f14f2dfbbsm7816854eec.10.2026.10.02.10.20.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 10:20:37 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: seanjc@google.com,
-	pbonzini@redhat.com
-Cc: tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org,
-	hpa@zytor.com,
-	kai.huang@intel.com,
-	marsy12010123@gmail.com,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] KVM: x86: Protect virtualization-enable VM walks with RCU
-Date: Sat,  3 Oct 2026 01:20:25 +0800
-Message-ID: <20261002172025.3402416-1-nicoyip.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1790961916; x=1791566716;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=36VoWV3Ti/+vwmY3FsUwjMumBjaKK+gWxVoK8yEZhak=;
+        b=vJsvUN0iHgBJulRQll9/BFgCsJHkzJpYVAl4s0vD3DgcAnAMM8WPrsyUh9rhnDyxb/
+         bXqkzgXmPMOtEd3QXLm1AgnIK66hPkLM5c8uQjhE4BB2hp+T7FEGzoXb4N84/mG+RvAV
+         Yy5c/bQ/pag6oxflet+jDFCAhfOH+g7gN5kM1WTatHL4H+5SQp0KzmEu7xEeSMM8WGrP
+         4bTd9iM0xJ5vcIn81e41Up+k9V4XxEAqyGtlrmZy9i7D5tk4Bsmo60rijysTbR/HyiU7
+         4a8q5/Eiydfw9QLxevfxGzOwqYoSioIdDQ3VfFUgKC6afZUyqqDslPy+RcBFpmF8Pfx4
+         UxwQ==
+X-Gm-Message-State: AFq9FYKUDt4J/60pEHO1t2I2VgR2BgM3u71AIRTp8f4/z4b6y2E43Z3a
+	vIeWoUZiyEn/YG2dn50mAG8xWAmQBU72BygsfLkSXjjYDdTeVNoVNMCcz57wNNPebDap/MoYSeM
+	UbHb55FqzwJCsrKVDhFamwy1JFqJ69n7oBNleMDHLV24Fn4y+1mKwjZnxy3w/
+X-Gm-Gg: AYBFou2zPXjGqYkB+Vhf3bjG9KyvvECTXrAVcCw7zhhRh9fSkNGgPOwzwuBv2IAGVVi
+	hhdTedg6pnE+Lv9Ea2slD374HlCnatJsKiO4vRLGV3ZmF06zjFogRFxHeWOS65wMTWv/dxvEi1K
+	QZkdgi+ZWAYk0aAVQ+Oe2KDvCkMT8uZNbPti9HgBWZLPefND7oy8KDnVPBYCrtqvTp9wcOOCXpt
+	EY7n78+OfMYSMJjgKjJamc2uaH+NLvs8ekmCZ3wVLEz34MCMhI5Nv1v9/XSsb0ZNfr8am8ZvPoi
+	z3ZcdPcPd8Viic7UUYq3Bz7nBkuiAqi5ONeWSSb/ILl/ygkADudZDQ==
+X-Received: by 2002:a05:7300:c38f:b0:34c:f181:85dc with SMTP id
+ 5a478bee46e88-34f219cc55fmr3705851eec.41.1790961916077; Fri, 02 Oct 2026
+ 10:25:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Deepak Nagaraj <deepak.nagaraj@baseten.com>
+Date: Fri, 2 Oct 2026 10:25:05 -0700
+X-Gm-Features: AclHuK_gu6ekIgZzuPh6tSY5SjecXJODoF0dIZVigkc0eizta5azMmedNW4Fpe4
+Message-ID: <CAL3JwHPX_fJpg_Az3Et4-xrTdkcdtT20xw7Bhjz1FZSLW_xODQ@mail.gmail.com>
+Subject: 6.12.110: kswapd NULL deref in list_lru_add, possibly related to
+ xas_split_alloc backport
+To: stable@vger.kernel.org, ziy@nvidia.com
+Cc: mfleming@cloudflare.com, Kaz Kato <kazuyoshi.kato@baseten.co>, 
+	Stephen Day <stephen.day@baseten.co>
+Content-Type: text/plain; charset="UTF-8"
 
-Protect the vm_list walks in kvm_arch_enable_virtualization_cpu() with
-RCU, publish and remove VMs with RCU list operations, and wait for
-pre-existing readers before tearing down a VM.
+Hi,
 
-The change that introduced kvm_usage_lock replaced kvm_lock with a
-dedicated usage-count mutex when enabling virtualization.  Because
-vm_list mutators do not take the usage-count mutex, this left the x86
-walks without lifetime protection.
+On 6.12.110 (Amazon Linux 2023 build 6.12.110-135.201) we see kswapd
+panic about 1100s after boot, on many hosts, same trace each time:
 
-During CPU online, the hotplug thread can load a VM from vm_list.  A
-concurrent close of the last VM file can then remove that VM and destroy
-its vCPUs before the hotplug thread dereferences the stale VM or vCPU.
-Reacquiring kvm_lock from the CPU-hotplug path would restore the lock cycle
-that the same change fixed.
+  BUG: kernel NULL pointer dereference, address: 0000000000000008
+  CPU: 6 PID: 131 Comm: kswapd0 Tainted: G OE 6.12.110-135.201.amzn2023.x86_64
+  RIP: 0010:list_lru_add+0x82/0x120
+   list_lru_add_obj
+   workingset_update_node
+   xas_store
+   __filemap_remove_folio
+   __remove_mapping
+   shrink_folio_list
+   shrink_inactive_list
+   kswapd
+  Kernel panic - not syncing: Fatal exception
 
-KASAN reported:
+6.12.103 on the same hosts does not panic.
 
-  BUG: KASAN: wild-memory-access in kvm_arch_enable_virtualization_cpu+0x25f/0x870
-  Read of size 4 at addr dead0000000000f0 by task cpuhp/3/31
-  Call Trace:
-   kvm_arch_enable_virtualization_cpu+0x25f/0x870
-   kvm_online_cpu+0x1a/0x50
-   cpuhp_invoke_callback+0x291/0xfd0
-   cpuhp_thread_fun+0x256/0x4a0
-   smpboot_thread_fn+0x287/0x6c0
+I am not a kernel developer, so please treat what follows as a lead
+rather than a diagnosis. It is source reading, done with an AI
+assistant and checked by hand against the gregkh/linux tags. Nothing
+below was built or run.
 
-Fixes: 44d174596260 ("KVM: Use dedicated mutex to protect kvm_usage_count to avoid deadlock")
-Cc: stable@vger.kernel.org
-Assisted-by: GPT-6-Astra
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-Signed-off-by: Qi Zhang <marsy12010123@gmail.com>
----
-Changes in v2:
-- Rebase onto current kvm-x86/next; keep the same RCU lifetime fix.
-- Clarify the scope of the Sashiko finding: the hotplug update of
-  tsc_offset_adjustment and the vCPU-load read/reset are unchanged by
-  this patch. RCU protects VM/vCPU lifetime; it does not synchronize
-  those field accesses. A separate synchronization change would need
-  its own analysis and review.
+One change between 6.12.103 and 6.12.110 that touches this path is
+789763523fb4 ("xarray: honor XA_FLAGS_ACCOUNT in xas_split_alloc()"),
+which landed in 6.12.109. The v3 posting of that patch carried
 
-Link: https://lore.kernel.org/r/20260804123243.2213854-1-marsy12010123@gmail.com/ [v1]
-Link: https://lore.kernel.org/r/20260804125109.B20491F000E9@smtp.kernel.org/ [review]
+  Cc: <stable@vger.kernel.org> # depends on mm-hotfixes-unstable patch:
+  mm/huge_memory: initialise workingset state before folio split
 
- arch/x86/kvm/x86.c  | 6 ++++--
- virt/kvm/kvm_main.c | 5 +++--
- 2 files changed, 7 insertions(+), 4 deletions(-)
+https://lore.kernel.org/20260804-add-gfp_account-to-xas_split_alloc-v3-2-38cb3ff325c5@nvidia.com
 
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 1705e7be46ec..6f57374dbb16 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -9664,7 +9664,8 @@ int kvm_arch_enable_virtualization_cpu(void)
- 
- 	local_tsc = rdtsc();
- 	stable = !kvm_check_tsc_unstable();
--	list_for_each_entry(kvm, &vm_list, vm_list) {
-+	rcu_read_lock();
-+	list_for_each_entry_rcu(kvm, &vm_list, vm_list) {
- 		kvm_for_each_vcpu(i, vcpu, kvm) {
- 			if (!stable && vcpu->cpu == smp_processor_id())
- 				kvm_make_request(KVM_REQ_CLOCK_UPDATE, vcpu);
-@@ -9716,7 +9717,7 @@ int kvm_arch_enable_virtualization_cpu(void)
- 	 */
- 	if (backwards_tsc) {
- 		u64 delta_cyc = max_tsc - local_tsc;
--		list_for_each_entry(kvm, &vm_list, vm_list) {
-+		list_for_each_entry_rcu(kvm, &vm_list, vm_list) {
- 			kvm->arch.backwards_tsc_observed = true;
- 			kvm_for_each_vcpu(i, vcpu, kvm) {
- 				vcpu->arch.tsc_offset_adjustment += delta_cyc;
-@@ -9735,6 +9736,7 @@ int kvm_arch_enable_virtualization_cpu(void)
- 		}
- 
- 	}
-+	rcu_read_unlock();
- 	return 0;
- }
- 
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index 9fff2f4bf2f1..750ee2f8c720 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -1217,7 +1217,7 @@ static struct kvm *kvm_create_vm(unsigned long type, const char *fdname)
- 		goto out_err_no_debugfs;
- 
- 	mutex_lock(&kvm_lock);
--	list_add(&kvm->vm_list, &vm_list);
-+	list_add_rcu(&kvm->vm_list, &vm_list);
- 	mutex_unlock(&kvm_lock);
- 
- 	preempt_notifier_inc();
-@@ -1279,8 +1279,9 @@ static void kvm_destroy_vm(struct kvm *kvm)
- 	kvm_uevent_notify_change(KVM_EVENT_DESTROY_VM, kvm);
- 	kvm_destroy_vm_debugfs(kvm);
- 	mutex_lock(&kvm_lock);
--	list_del(&kvm->vm_list);
-+	list_del_rcu(&kvm->vm_list);
- 	mutex_unlock(&kvm_lock);
-+	synchronize_rcu();
- 	kvm_arch_pre_destroy_vm(kvm);
- 
- 	kvm_free_irq_routing(kvm);
--- 
-2.43.0
+The commit that landed has a bare Cc: stable, so it seems the backport
+came alone. The dependency, aca1f2d5de17, does not appear in 6.12.108
+through 6.12.111, and I do not think it applies there as-is: 6.12 has
+no xas_try_split(), and mapping_set_update() is static in
+mm/filemap.c.
 
+If I am reading v6.12.109 correctly, split_huge_page_to_list_to_order()
+calls xas_split_alloc() at mm/huge_memory.c:3524 with xa_lru unset, and
+now with __GFP_ACCOUNT. My guess at the 6.12 equivalent of the
+dependency is to inline mapping_set_update() before that call.
+filemap.c skips DAX and shmem, and shmem can still reach this path for
+an order-0 split, so I kept the same check:
+
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -3521,6 +3521,10 @@ int split_huge_page_to_list_to_order(struct
+page *page, struct list_head *list,
+  goto out;
+  }
+
++ if (!dax_mapping(mapping) && !shmem_mapping(mapping)) {
++ xas_set_update(&xas, workingset_update_node);
++ xas_set_lru(&xas, &shadow_nodes);
++ }
+  xas_split_alloc(&xas, folio, folio_order(folio), gfp);
+  if (xas_error(&xas)) {
+  ret = xas_error(&xas);
+
+I have not shown that this hunk fixes the panic, and I may have the
+mechanism wrong. Matt's report for aca1f2d was
+VM_WARN_ON(!css_is_dying()), which is the same area but not the same
+oops. The distro kernel also carries out-of-tree modules (the OE
+taint), so I cannot rule those out either.
+
+Does the missing dependency look like a plausible cause? And if so, is
+the inlined mapping_set_update() the right follow-up for 6.12, or
+should this go somewhere else?
+
+Thanks,
+Deepak Nagaraj
