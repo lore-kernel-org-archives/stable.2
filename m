@@ -1,160 +1,239 @@
-Received: from mail-qk2-f41.google.com (mail-qk2-f41.google.com [74.125.230.233])
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49B023DCD96
-	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 20:22:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.233
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790972579; cv=none; b=BFJ87H34tOZkIFyMPaLB8LUBMv+TaqZU6jpoEhslaN1hCH7YPhJYQedPPxzVuavAvjkuY5cQDG4AQ13lZiLJZmx0/0/DwnP2KQHORwZ6ISbsMQ0dj4fHcH25l7EbQ58LfO68xwK7ciWDsne/29ok2kUTSWXINwJgowmLacy5CgA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790972579; c=relaxed/simple;
-	bh=1zuKCeX4ubKsHdgFEEDZASCv9P97PZ9/9qgb9og1SDg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ha00Egl0zXDA9Am6eRik04CdZcuCTzeM/8qZYdI6oAmKbVkIaDTeTf71JkuAZxOo/R468oHTsTnrXIexxNHoogK/oX1b0B4IxHc6UXcviNs6n0Jl1F3kn/K5OD9EF2q1yTusdAnbTGZMLbjtvi7gF95OIB7Z1wTsb5FqIrHqVAE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AbCm341R; arc=none smtp.client-ip=74.125.230.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EB2A517BAE
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 20:27:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790972840; cv=pass; b=cTbAi86Z4s5Ljs53ThNZXMiqGrLiNA19Aa3AzIOxKxzySoFBtqpXsQvwzTH90+96Xm+kDws+oqJjgFyn4QFGIVwtijP2khULWDgoN9mLU2xzfz3DzWLb/ihYhorC8PtHcF/7i+WvoehHM8NM0+GUr3rRHGRP1Dxb17M2Pq4eobY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790972840; c=relaxed/simple;
+	bh=/E3jkSclwTqOe2Pbyuvbiu+LTKO0ibu6E9SAVsw4pUM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Y5hZPi0IkOoltVf14eZzfF7RxOpNIsQuHyeIoa0xSsXXX14P2x8pJ3haFy6kHLmaZZOxgN2nssNOpwfkXOelt9peoMpj4tDJbufuMmI18xQmbMVQIICSMbp+Yo4AkczQiI/EmZuABQ5tS+nTqQWnWFCImz2Fjq2/vib9SJd//DY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tk62CE8h; arc=pass smtp.client-ip=74.125.82.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AbCm341R"
-Received: by mail-qk2-f41.google.com with SMTP id af79cd13be357-93c57d36d37so811252485a.3
-        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 13:22:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tk62CE8h"
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-33fb4680717so7205892eec.1
+        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 13:27:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790972833; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aTG1Agbz/1jotrgw9KNf+m3+0vfEEBe36B8zhLyd/t5REXW82EstTlMgMaIStO3Qac
+         UlLO1Eo2jJ4dpVSJ4xTgbBSNIfTEF32jwoCDay+nvG1e77K6wd5c/nkecZxU4ocjQfub
+         1qcJJJ7AdWAr3g1xSg+pMcDt0TkZdk51JVAx9AiP1H4bUjpQtgOeTyV0Y5+ATXTnn2Rf
+         PLvJDcZlxUsq3Pneza0IVtU5hAjEW/NRrU9QvdMaO8lmVCh4XG8+rAb8VsOFoFOqRCFV
+         A2Cj28EsHDvh8No0LyfGGdTXFbwY15NYB1T1aex9a7R3NOesfhbw1J0mA48BKxXcU4Ti
+         dXoA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=pxSWnSWRJ9M/USzaWwOGc1VbHfaj2Un/7bCqN3HRKO4=;
+        fh=cv6F2xhZGf6UvZBnyDQ/eM3DBDA3/7GqIljLF/MtLBw=;
+        b=V3QSRbelIRJyNx1Xpn3sX7R0VSP13EqtjZOCGBpm/1XcZU7pVl0MbTSMj8C/tvu+uC
+         x5hq2x2E5nzRJSExFaCbtL/JRixcg4IK8kkpPboJS72ksX8UbPL5lG7krAwFm/ScxgDK
+         kRwvG/PmfZVQmdX3TB6XoSx2vmz0U21fm01YPHyHbUDThvUg5hnMV6riCfkKX9qRhYrq
+         eL6V9K15AZeTFbREi5/FkVUN0BtjnwWz3Spn+0N2agAR6zWTrXw0qIrxYK9ovslCOWHP
+         LxnVUpQ3iaOukEPHCkLtb4t96aeH4YacD9+XmdcmhE6KdAcG6ct+eJunVZaf0b3Azi6d
+         mlbA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790972575; x=1791577375; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gxbnn0+HyLrQHSw5N5vcj8DOerEWS9jU0mk7xDwdzyg=;
-        b=AbCm341RvLDwkmK/S7LLO03iuarUsWKqjvRSx674cm3+gptpv+rQeQ2f30UfVWWZF5
-         YmJ1dun5ajVItEBWyw3VOsnJvCOz7p/s5zJy6v0xH3lvzWAYFmCmarBD4JU4ryjYLGrK
-         z9nEsVgN0yvPS3S/lDfXNQxkfKQtxN/nNmIUnLCmxAzWp883aNhSBujpc+5u9dW7N8x9
-         Xfjiq3wr8f8uQmsCc1qHmmIZ7L4xxo+MuZW343D4Up5IoW+u1rtzxSzThxWKkqTgqScq
-         Xf3hvlpMUjItdqKnSrhAquYe9YMm6/rwdh3zWBTvUqGM1x+AeBOPEDZyGaRTjV2CP7N2
-         0pcA==
+        d=gmail.com; s=20251104; t=1790972833; x=1791577633; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pxSWnSWRJ9M/USzaWwOGc1VbHfaj2Un/7bCqN3HRKO4=;
+        b=Tk62CE8h5pkZF9r+jPy6KJ1o3+vu3JllDf8k8HjKGW4CEvL3xk6pjEB3nkHE0vIJot
+         WJcSQvgMp9v4ci2laPsLLh+svgDgXLfAlgd3j/9UrVpW4pLxN2uFPmZ8GrVi+aFe07bG
+         Bxh17SkTxJPKmd2Dz1JgTR5PFxsqkz6gac83Yn0j5OKPrGohN/CFyIU7zpUUkqQ725cc
+         4RLXjAJ3rTV+dHx6WJl+1QOa58cDvXNKYzB5PPcQQHu1xslWIrTXKT8+7iV3Jh3Yrobq
+         vxsoU9UIlRRXk04K0optLG7oFeh5ldsbVqvzX1E0E8xETtb5Zrl7iXw0MYVq2d5SlHpV
+         fHMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790972575; x=1791577375;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gxbnn0+HyLrQHSw5N5vcj8DOerEWS9jU0mk7xDwdzyg=;
-        b=YpRZw/DUGQVpqnBSKi6g8UArlyeFawCuy4cABtsK+6hoYTbUgbr6iTbZiUJnVQZPj1
-         ifNJlGh/cR4VVnN7JLGuW0DNelbZYUgafmGiwtUS0pdVmTJ9Jk34UGTtVYRtbfrHPk0/
-         6CjYuaJ9rZquZYlWpbAz2Qbvk0Ta+NMgJ99Lb+sX7GK39lLVBEL7cgwf1+mIZQFUi7ir
-         dN/9zQn86hU5+flYiWl2WKtfjMfTvhgT8c6UTceuYIYxjfx4Xp+HENdMN0bVL5AI9Qxk
-         fyAz4m8we8sibD9MJO33JSM4Vy1+rjrIU4egAMlzi3EkG+v4SV4iuaCYY5jKxOEQWgyW
-         49Zg==
-X-Forwarded-Encrypted: i=1; AKwUvBzKG4xTQG+5SFYrF9VAVkIVW69pcSMZy57i5hup6NcTOS86T8AhBI34gS9fjICdnXa00u6GBFo=@vger.kernel.org
-X-Gm-Message-State: AFuF++lwO8GvreGdqJEiFWc8F6kMJdM+uzojgQ0LpYluJXEbj1koF+0P
-	EgdFLPXqPcQ/LoQqdbL/5YRW128hD89OeIPSWoTzLeb5k1X74TNBtbw9
-X-Gm-Gg: AYBFou0Vn/BHeBzn+b0jm02/FZ80KJmi2Hl8PH4fP5UWlYCYX5HQoh8Jo5yeidJSBhj
-	NDzBUWkcTmpHqz1BV5oO7r2YBYEd1yWGtYn3j2TcHQKlE1VFFGW2LsRNsRA9hLFM6hn0s4LpNWR
-	nyTJoKuU8oZ5mPQTslJsJUUiVg+f2F5SkNmuQFRrdc45Er/8sYpq7SEd2vzlk5zvRLwrlhoCBzW
-	An0gqvT75CllBhFjyEO3dwKzBCG+7r1YixIKvrTiWZBkAOiAhAePSyud4qO7SmSoU4YjkE836hi
-	DpYM5Oh7hyyynlNh04E8JVX9BtnhJO/ZN1Js5pjXX9TN86w6DUtdmPBuILWgayie8GxYoee1tu2
-	lo0cQhJtN6JIw5NKUehTafMzO2y/5JPtRgEK4wVmtgKrGnS+lplt5ZcuZZmClIUiXiz/JMYBah5
-	e6Tbqy8W5C7AjD/v15dwKketKdjIpsDwutv3WC2DjPtzFKBXalrA+3u6qCHTVlrnk5nr+fwhQrr
-	l0RaM5XBkJw6tZmyGfjHNiClYnx5VckRL30
-X-Received: by 2002:a05:620a:1b95:b0:93c:5dee:f04a with SMTP id af79cd13be357-93ce7a9de6bmr754544085a.7.1790972575184;
-        Fri, 02 Oct 2026 13:22:55 -0700 (PDT)
-Received: from mango-teamkim.. ([129.170.192.96])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93cca2d361bsm308676985a.45.2026.10.02.13.22.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 13:22:54 -0700 (PDT)
-From: pip-izony <eeodqql09@gmail.com>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Saranya Gopal <saranya.gopal@intel.com>,
-	Rajaram Regupathy <rajaram.regupathy@intel.com>,
-	Benson Leung <bleung@chromium.org>,
-	Andrei Kuchynski <akuchynski@chromium.org>,
-	Jameson Thies <jthies@google.com>,
-	Kyungtae Kim <Kyungtae.Kim@dartmouth.edu>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Seungjin Bae <eeodqql09@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] usb: typec: ucsi: reject GET_PDOS responses longer than requested
-Date: Fri,  2 Oct 2026 16:21:02 -0400
-Message-ID: <20261002202102.599998-1-eeodqql09@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <2026092932-arbitrate-snorkel-3fca@gregkh>
-References: <2026092932-arbitrate-snorkel-3fca@gregkh>
+        d=1e100.net; s=20260707; t=1790972833; x=1791577633;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pxSWnSWRJ9M/USzaWwOGc1VbHfaj2Un/7bCqN3HRKO4=;
+        b=SAHapxxhj+0ODppZisRly1LeIYj/jnoU1h6cq7INine1fSSdgSX3wdz4VpYdFPxGbR
+         xo/3D8kPFs3U+iuFsCT2Ux/CqUGrZpk0aSPpK+rWnUZb0wmxCpIbVHNRzzr/3EAsRkML
+         TgaWX0MApupw5J9Zpd7rawtiu2l0mT1bP0Ezl5iJvU22nlh8tW4bgZVHlNmWhzR7RKbb
+         lFaVggXtdGuo42dxokBIGms8vtKUKlYdPyF/S/s+avR9qpF+MM0JAbPzmhOE4Xl6XzM4
+         2njJvOXd6kECQsERI+0Oj8p2ydLhHIg4yKHxcpqdVo6rVkGrQyUGtghM8yjK19LaaVYL
+         dEPQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzi3EeeOO7ccLeMPdQ61hVd9cPBlbrZyhsJj2yr58oPa9Nf0ciWd6Y+c4ukEX9E66J4TiTO4PI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK5ibxnz/il3YTxmwLzXp8qDnPoyAC71xyo2oSuuxgmV8uhjYXO
+	nCPbM9RjF0JA7W9EovT6GUj5qFk3J4zKOsH0P0psi1gHh/hFiUAwCku1lVlwU8VrI2UVGbXYZIt
+	P9as2f4GbEobvpYDFWbETSOlPuOIlrnk=
+X-Gm-Gg: AYBFou2U7UpjriMP87Jz22Ho2zXQ/KrvqS5rVqNbgGfc8HoumWS5Pf63eOLgz9sb+E4
+	49B7VfLeiCc4yIqgv57DVBexPXjRF9l/4liqjzp3MeksxJXSS/vcPT1+UkMq0UC5vLdCdQbF+xM
+	xFTWhbtpeqOsAGnmRCvEgsg0y29FZ80xgGopS04BxZE+VQlJe7Y6SHFDUwvs/FcAw2kr5BslQkg
+	fbdIkgVq0BZMLW9V5vt4ZXyQyhyh8ItDd8TVGQzfGeGeNs0gOaGacPtV4SqXTPnQw5DCTOe9D6V
+	AnWa0MgHAM6QPzdjQVX2r21la+V2zzkUkPTHKYouxTiZUgLZChp06KT0KScvqXpI73Z/Dd9yfOW
+	/pC35JFdkHwE=
+X-Received: by 2002:a05:7300:d788:b0:34d:861c:99b8 with SMTP id
+ 5a478bee46e88-351116a0c6amr738247eec.21.1790972833038; Fri, 02 Oct 2026
+ 13:27:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260825211819.100210-1-mauriciobellon@gmail.com>
+ <20260825211819.100210-3-mauriciobellon@gmail.com> <CHXPR12MB99922037436C4ADE71BA82E152E5B12@CHXPR12MB999220.namprd12.prod.outlook.com>
+ <CABNo9DcRfNQyw436eP_Y4PdbbwW7NTH3tfH0SB4st+uShFvtJA@mail.gmail.com>
+In-Reply-To: <CABNo9DcRfNQyw436eP_Y4PdbbwW7NTH3tfH0SB4st+uShFvtJA@mail.gmail.com>
+From: Mauricio Bellon <mauriciobellon@gmail.com>
+Date: Fri, 2 Oct 2026 17:27:00 -0300
+X-Gm-Features: AclHuK_CIfPFlIQiGSPAiToKVF5xWjKYzn1ROgmtUkXM-ukPSNc90K7QM4K-zcI
+Message-ID: <CABNo9DeZNoJ+EW2Q2od29TD8LCmgrOg35DKKqsNA0ZJJ3g6FiQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amd/display: enable sink DSC before source DSC
+To: "Zuo, Jerry" <Jerry.Zuo@amd.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Lin, Wayne" <Wayne.Lin@amd.com>, 
+	"Limonciello, Mario" <Mario.Limonciello@amd.com>, Mauricio Bellon <mbellon@lenovo.com>, 
+	"Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, 
+	Rodrigo Siqueira <siqueira@igalia.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
+	"Koenig, Christian" <Christian.Koenig@amd.com>, 
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Seungjin Bae <eeodqql09@gmail.com>
+Hi Jerry,
 
-In ucsi_get_pdos(), the number of PDOs is derived from the data length
-reported in the CCI register, which is provided by the PPM firmware.
+Just a friendly ping on the DSC ordering question below. I'm currently
+blocked on this before preparing the next revision.
 
-The function requests at most UCSI_MAX_PDOS PDOs on the first read and
-PDO_MAX_OBJECTS - UCSI_MAX_PDOS on the second, and ucsi_send_command()
-only copies that many bytes into the buffer. However, the returned
-length is taken from the 8 bit CCI data length field and is not bounded
-by the size of the request.
+Thanks,
+Mauricio
 
-If a malicious PPM reports a larger length, e.g. 0xFF, each
-read is counted as 63 PDOs and ucsi_get_pdos() returns up to 126, beyond
-PDO_MAX_OBJECTS and the number of PDOs actually read.
+Em ter., 8 de set. de 2026 =C3=A0s 17:00, Mauricio Bellon
+<mauriciobellon@gmail.com> escreveu:
 
-ucsi_get_src_pdos() stores this value in con->num_pdos, and
-ucsi_psy_get_voltage_max() and ucsi_psy_get_current_max() use it to
-index con->src_pdos[con->num_pdos - 1], resulting in an out-of-bounds
-read. This happens without any userspace action, since
-ucsi_get_src_pdos() calls ucsi_port_psy_changed() and the resulting
-uevent reads every property.
-
-Reject such responses in ucsi_read_pdos(), if the PPM reports more data
-than was requested, print an error and return -EPROTO, so that the
-invalid count is never used.
-
-Fixes: b04e1747fbcc ("usb: typec: ucsi: Register USB Power Delivery Capabilities")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Seungjin Bae <eeodqql09@gmail.com>
----
- v1 -> v2: Print an error and fail instead of limiting the count, as suggested
- by Heikki.
-
- drivers/usb/typec/ucsi/ucsi.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
-index bef3f9b71d71..17beec16fe19 100644
---- a/drivers/usb/typec/ucsi/ucsi.c
-+++ b/drivers/usb/typec/ucsi/ucsi.c
-@@ -862,6 +862,7 @@ static int ucsi_read_pdos(struct ucsi_connector *con,
- 			  u32 *pdos, int offset, int num_pdos)
+>
+> Hi Jerry,
+>
+> Thanks for catching that, you're right.
+>
+> I went back through the sequence and confirmed that my new
+> dp_set_dsc_on_rx() call runs in the pre-enable phase, before
+> enable_link() performs DP link training. I had mixed up the requirement
+> to configure source-side DSC before link setup with the separate
+> requirement to enable DSC on the sink only after training.
+>
+> It happened to work with the X13 and monitor I tested, including the
+> hotplug cases, but that clearly doesn't make the ordering safe for other
+> sinks. I won't keep patch 2 in its current form.
+>
+> Would the right place for dp_set_dsc_on_rx() be at the start of the
+> post-enable phase, after link training but before
+> hwss->enable_stream()? Or should it stay in its current location after
+> hwss->enable_stream()?
+>
+> I'll wait for your guidance on the intended placement before sending a
+> revision. Patch 1 should be independent of this sink DSC ordering change.
+>
+> Thanks,
+> Mauricio
+>
+>
+> Em ter., 8 de set. de 2026 =C3=A0s 15:14, Zuo, Jerry <Jerry.Zuo@amd.com> =
+escreveu:
+> >
+> > AMD General
+> >
+> > Hi Mauricio:
+> >
+> >      This change breaks dsc, causing black screen.
+> >
+> >      Sink RX dsc enable should land after link training. Writing dsc en=
+able to the RX on an untrained link is too early, that should be done after=
+ training. That is likely to be the main sequence regression.
+> >
+> > Regards,
+> > Jerry
+> >
+> > > -----Original Message-----
+> > > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
+> > > Mauricio Bellon
+> > > Sent: Tuesday, August 25, 2026 17:18
+> > > To: amd-gfx@lists.freedesktop.org
+> > > Cc: Lin, Wayne <Wayne.Lin@amd.com>; Limonciello, Mario
+> > > <Mario.Limonciello@amd.com>; Mauricio Bellon <mbellon@lenovo.com>;
+> > > Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo)
+> > > <Sunpeng.Li@amd.com>; Rodrigo Siqueira <siqueira@igalia.com>; Deucher=
+,
+> > > Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
+> > > <Christian.Koenig@amd.com>; stable@vger.kernel.org
+> > > Subject: [PATCH 2/2] drm/amd/display: enable sink DSC before source D=
+SC
+> > >
+> > > [Some people who received this message don't often get email from
+> > > mauriciobellon@gmail.com. Learn why this is important at
+> > > https://aka.ms/LearnAboutSenderIdentification ]
+> > >
+> > > From: Mauricio Bellon <mbellon@lenovo.com>
+> > >
+> > > Direct DisplayPort high-refresh modes using DSC and two-way ODM can
+> > > commit without visible output during a 4K120-to-4K144 transition. A w=
+orking
+> > > 4K144 stream can also return black after long-pulse hotplug reconstru=
+ction.
+> > >
+> > > The DPMS-on path currently enables source DSC before link enablement =
+but
+> > > does not enable sink DSC until after the source stream is enabled. Th=
+is leaves
+> > > the sink and source compression state ordered differently while the s=
+tream is
+> > > brought up.
+> > >
+> > > Enable sink DSC immediately before source DSC in the pre-enable phase=
+, and
+> > > remove the later redundant sink-enable operation near PPS packet
+> > > programming. This establishes the order as sink DSC, source DSC, stre=
+am
+> > > enablement, and PPS before the compressed stream becomes visible.
+> > >
+> > > Cc: stable@vger.kernel.org
+> > > Signed-off-by: Mauricio Bellon <mbellon@lenovo.com>
+> > > ---
+> > >  drivers/gpu/drm/amd/display/dc/link/link_dpms.c | 5 +++--
+> > >  1 file changed, 3 insertions(+), 2 deletions(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+> > > b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+> > > index 48b086d15..412ce52b3 100644
+> > > --- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+> > > +++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+> > > @@ -2635,8 +2635,10 @@ static enum dc_status
+> > > link_set_dpms_on_pre_enable_link(
+> > >          */
+> > >         if (stream->timing.flags.DSC) {
+> > >                 if (dc_is_dp_signal(stream->signal) ||
+> > > -                       dc_is_virtual_signal(stream->signal))
+> > > +                       dc_is_virtual_signal(stream->signal)) {
+> > > +                       dp_set_dsc_on_rx(pipe_ctx, true);
+> > >                         link_set_dsc_enable(pipe_ctx, true);
+> > > +               }
+> > >         }
+> > >
+> > >         if (link->replay_settings.config.replay_supported
+> > > && !dc_is_embedded_signal(link->connector_signal))
+> > > @@ -2729,7 +2731,6 @@ static enum dc_status
+> > > link_set_dpms_on_post_enable_link(
+> > >         if (stream->timing.flags.DSC) {
+> > >                 if (dc_is_dp_signal(stream->signal) ||
+> > >                                 dc_is_virtual_signal(stream->signal))=
  {
- 	struct ucsi *ucsi = con->ucsi;
-+	int len = num_pdos * sizeof(u32);
- 	u64 command;
- 	int ret;
- 
-@@ -875,11 +876,17 @@ static int ucsi_read_pdos(struct ucsi_connector *con,
- 	command |= UCSI_GET_PDOS_PDO_OFFSET(offset);
- 	command |= UCSI_GET_PDOS_NUM_PDOS(num_pdos - 1);
- 	command |= is_source(role) ? UCSI_GET_PDOS_SRC_PDOS : 0;
--	ret = ucsi_send_command(ucsi, command, pdos + offset,
--				num_pdos * sizeof(u32));
-+	ret = ucsi_send_command(ucsi, command, pdos + offset, len);
- 	if (ret < 0 && ret != -ETIMEDOUT)
- 		dev_err(ucsi->dev, "UCSI_GET_PDOS failed (%d)\n", ret);
- 
-+	if (ret > len) {
-+		dev_err(ucsi->dev,
-+			"PPM returned %d bytes of PDOs, but only %d were requested\n",
-+			ret, len);
-+		return -EPROTO;
-+	}
-+
- 	return ret;
- }
- 
--- 
-2.43.0
-
+> > > -                       dp_set_dsc_on_rx(pipe_ctx, true);
+> > >                         link_set_dsc_pps_packet(pipe_ctx, true, true)=
+;
+> > >                 }
+> > >         }
+> > > --
+> > > 2.53.0
+> >
