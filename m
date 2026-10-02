@@ -1,179 +1,112 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f41.google.com (mail-ej2-f41.google.com [74.125.228.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3D983D76
-	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 16:15:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52B3A339361
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 16:15:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790957727; cv=none; b=noynyql2t8MArp9e7B67aA7DphkR6t8mWx8AC/dFEWoD6DulOfYDehexb/NrTqlPJ+4p09sLjf7Al6i4tkgdKjo+Nj3/ljFfFXvcdFEYERqaxUc6xyYKvkxYNtMvU07b+8GwF0wjIA//Y2dp5+PBZvRfZmsyy558BJGvoFIQhYI=
+	t=1790957752; cv=none; b=dR7WfLvJQr8J5V5IQ+z2rH7OgDBEmWIKUl5iWMqSLU5bkzouamFrTOUUAIJDWWgtN0EaRYugJgjlTf02StfE+4yuRzXqI/1z0KVZ95YNc/3ExcpMefrvOQ+3xPdENC8NqbWtmd2e00pr8E52Kl+MNqsgZI4U+dRCX5t5kxn46/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790957727; c=relaxed/simple;
-	bh=stLCkYxJ6QOmDpgV06/UDcu3jC7cDAcM43Ynr6QCEtE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=D9t6QdBGV+WEUL62Bkl7eT5yrYd8fNdVwJIr5eY4BoiyFVcD2ldRYQ9BnOkGJ8VBsqmvYSjfBhuPgB6UIhUCRgmF1Y//0K14CQQqtFP0SwzGNJpyyZZX5vs0UZN5gFWGPkIPoW6baGGbtTNr+EEx9ZNCGUkUMMer5+DAQpke/bU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=B865agWi; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IMEyvYvD; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790957752; c=relaxed/simple;
+	bh=Le1SYPb2jPNj5MhF8OuGIlzFKKsBR2rEDTHPqcMQNeM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hnnTkynFWcLgTFAAzOivCYcLLCxUcYlwz7B/IJcxS/dnW0eSjKGRV4wsXMtE5zX2ZNnPEni60ROyXc2Ak4/k8Rt5b5QslI+BYvedniSvJOMW6NSwMvuWhJmkmwVuNhbbIDnnniEMThaKY6z6axw1Yy0tCYJTjnRRyWlkRzjdWZg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W61Bo5gY; arc=none smtp.client-ip=74.125.228.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="B865agWi";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IMEyvYvD"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 692FGs2x1246617
-	for <stable@vger.kernel.org>; Fri, 2 Oct 2026 16:15:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	4taZxg5NwikgZ8WugpDCZYo+IsY0Yfdh2Zj5teOGtTI=; b=B865agWiG5xspc+w
-	WgWYYTqo+iTDyWJshan7tS/0iYYuC8lGR+4kwt/DWsWZKIa795pZF27cbe5MihjV
-	HKaFySRImpS6J/rh7LLasYujdDcU8h7L76xmVtGIV+LiEUsfI1vzif/j08NMiGiO
-	ckIBOi/xvfPTajGZ9z4IsoXv/RugnUSLiX4rHydwuqwFU3iFLE7+SRQb4d1BYK9/
-	gMcyCvakdcmjBUnO0S3tcfq9+xHDde4iH4Xn/R0Id6wfWLUwyBJWeieCyJoxEpSc
-	K+VEX7rPjVS2tfVizRj0Qzek4I/lIo4liYJSRTIDAhxPWgAd1j2HLjtRfsodcsWy
-	OZAQfg==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2f3d89k9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Fri, 02 Oct 2026 16:15:25 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3a4a053dcadso83855a91.0
-        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 09:15:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W61Bo5gY"
+Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2e3dcfe205so10444666b.0
+        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 09:15:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790957724; x=1791562524; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4taZxg5NwikgZ8WugpDCZYo+IsY0Yfdh2Zj5teOGtTI=;
-        b=IMEyvYvDnWhIiVHrTwxNI2rWPoX30JrPhgVAkAxTj8lNk0T+FhDIMuMKR0FlzhC/LK
-         ZiKcTIVqtf5PNCyLSrwmr5izzZpsuw24d9E9tDjxjOziyORkiOvqLqnLJ5okL+2qQRan
-         tRLyU7d1rk0unp3pvvDKvrF1ZaR9Z+k3am7ERNRKlledp6tPG+a2A3Q0syGWVDQziO1O
-         jsN4v9JzpEfVSugHROYE6YZ3edjXhm/QpMU/0qKN312fWFiN6qOqvaoHo+GSRBLFyM7S
-         QFqb+aVln/FTUteFQGIeYxeaO2PPq6zt1W1iGizZ4GZE4/H6e2uk1pCdiP3Wm5/XLfvh
-         hJnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790957724; x=1791562524;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790957749; x=1791562549; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4taZxg5NwikgZ8WugpDCZYo+IsY0Yfdh2Zj5teOGtTI=;
-        b=FQ7YoCEH1KH4EMylhFbpIIR+oGLluTDRzdICCm4KtEV+rRHsV81Cs46TgUYng/RdB+
-         S9BmIcNquKB38dG7+B93rhzC2CAWGqey4N1nJr5+Iq1xYX64Ax0BPZf2yESmd/hQWSt8
-         SYtaZW3N6Bj9x8W/kXAHBE/7lt3l7YaxAqCNHuEmWSrpYBnPAutaXfhMaYgUZbV7xDbB
-         RY+6ZY3x9uZy9VcQbM2f9xTUsJXgeC8snpWKnC6wLstoYIMxQRB6SWHZdogRwmiMvQqR
-         uiwFlCQ3E7E2IasxbJpluePlof2d4LENa8xJhdyGRYZRZrb0r0Lizrr2D8H7SS1ZAUBI
-         ipGA==
-X-Forwarded-Encrypted: i=1; AKwUvBygMC89pbeOeFhx8PHKpu1z0wjXMkcm3Bi+e3BaoMV8HhjtRc5gXSObZjq9UEPbsBmI5EulcFE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJeJF/cmaDx3qJIODCfwf991xzsYVnAuBPC28uOHDQKp05FRTVM
-	0Nzmt/QgjXQEcH/KvQa0bXmaKKu5HgmHxifdYubuihzAVWetGyCgvPW0zdXWgsWigQATjGBQSni
-	tYQ5eVPlw/9apNehavMUFDqdiMHsAx6EmfBmHr//Ubo7o1XZZR4zmWhyIchM=
-X-Gm-Gg: AYBFou0ppoP7xjvh9ySE6NofR60mcEVA9LCf9zvpVgypL6d5xEOWcIQtWUX0FL/Astb
-	XZLrXKIPeBwjgwXEFIEjOhODKPysWdvJLFo9izHpOt/3YElO+Ukj7gyVI44LK0ZPPwe3Fld0YS+
-	6qWFu0XL9mUnYhi1NJZEKrydVfMAS2BxeSrXGZLQZHtslj8JT0mpwc9qHiM6DHj5BgOgKV8EMZz
-	MxCTUNpuuZJ0CBhSS2UEw1H5ZMoISwS4Z9FwzKmYB2AgvD1HlzAhPaVCd13EddJyqBjbDougDHv
-	HAZOqBYGcYZcZp2ooaANpsCon9akHa6Mqc3867moEkF1gv9MBmATFj182RqLQ5e9evbjQB+f1PW
-	y/ZFegrNEeq40z8HB0eGOY0iUs8A8533PAvrYFX9ycLO+cZRb5w==
-X-Received: by 2002:a17:90b:2804:b0:3a0:50bf:d497 with SMTP id 98e67ed59e1d1-3a6ce5fa39dmr2940507a91.3.1790957724404;
-        Fri, 02 Oct 2026 09:15:24 -0700 (PDT)
-X-Received: by 2002:a17:90b:2804:b0:3a0:50bf:d497 with SMTP id 98e67ed59e1d1-3a6ce5fa39dmr2940474a91.3.1790957723876;
-        Fri, 02 Oct 2026 09:15:23 -0700 (PDT)
-Received: from [10.226.59.182] (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc9f7384ca1sm1221797a12.21.2026.10.02.09.15.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 02 Oct 2026 09:15:23 -0700 (PDT)
-Message-ID: <439f1169-5fbf-4d68-97e3-c37f31b2116b@oss.qualcomm.com>
-Date: Fri, 2 Oct 2026 10:15:21 -0600
+        bh=ZtyEZmwj0f19Lpw83gnqEqbS3r4hbHydMWKTWR/TdRU=;
+        b=W61Bo5gYLf5flTB6iLcAJdoKQXBqRVe69B5nIDefiy1t9DhIV8RpCeL+5g0IMk0Dmu
+         kkhGXVQJIQP/jSghoZ2tQ1vs0VgAn6lsC1ywm5rfyQCyyvlJhoRKhETZhzhkcAcTHris
+         Q+/IGn2FenLTCvGrjG+DCcmukmf4SKQKxNdaKOvi+cLnb7gobd+kHB/Nd4t3/wESAyiA
+         nUs1Uwi8FMD/5Zt7Ir5p9aJaEwq7WDtWIDRjCWD1zQbjEecVTIxUTpyfBheUhCU0U1Hl
+         WCWpss9VpHmbTzblxvU1+SQN/jrXj57PfsJsnNX/X+fk/z0wRj5qWEhar6YHKHXGWBKz
+         CdQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790957749; x=1791562549;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZtyEZmwj0f19Lpw83gnqEqbS3r4hbHydMWKTWR/TdRU=;
+        b=Nh2LFlnRBTLosA0Rnj1rUyQSmK1jWR3UR0/qtz1WDohIXBe7VBTyB3DW2lqHATwZXI
+         mg+ceXgu4H89Arxdj9YFsfc31alx7En7ch9S2CvDcImv4AfSZ7f+ZKd2dMNqapRx8+Ui
+         HwkMzFYYju24IYtDhLm6X5ahlzqvaN4w1aqUmGfq+UBwktu7PWyqeHwXRGl7CPlTsaYy
+         HsfTXEtKbeeRdLpakzSY59Nos9YKIZXkTKvti1k0K+HUZAD0ahodjbeJJb+vMEtEjt01
+         6OFYA9mqrBMOSBaQ/hNab18f7w0HG81EwrJcmRj2TuTEVPknH7lNvi512BjnqQINbMt1
+         STPA==
+X-Forwarded-Encrypted: i=1; AKwUvBxgPaqH7XUp+PGS32cbaXN9aTPHUgRe0KYq0v+TZ2qE2Sn09unVgks5CxbU4a0ZWF9tHDglSpI=@vger.kernel.org
+X-Gm-Message-State: AFuF++ldON3DbKWm6lzXYXp0vunBraULBoXjq56ck9a3dLE8JK4x/Y7o
+	0h3G6UNeN2QFSJ0GjsCXodVv8l9YQzQihYhG4xVvTPAV2OjK+GRUniqh
+X-Gm-Gg: AYBFou3jhKYY0yBv1Q6wKPMr7y/ZR2WWuWZpucsufcYy5W/KcRxjr03CkH/jhkrdr+9
+	gM1j3420sA07RuZY9Oc0UN2eTYlLSYkfzISU5Jj5dUal3pYgcoo/bWox1/irCVfBrGCRFimmauE
+	oOOUPIiiy866+dzXeMt9sxpMqxW20981jkECVOIdEk5XxTE2bFqLEV91VOfCg1MHT2/H7qbjqvm
+	1h9gHHZp0MzzQp3frJyxKeCFHjQlyfM/fNhBVyIi5XcW58YlPT9uNx7X1J6iADdMhDRDt7ohs1R
+	8L45qcj22RsJOB1zYxtaQt6RCXP4m3W0cfLlqi8+TIkiyMvngIxTE0xD3/bEdllTPmpFlsZHC4j
+	/DJ/hnbPE4ycEbmP7iGd0fNuZkAQOg8bCLRUY35NGqcQ/zM++dkGX1MIMsJkeYUXECFQXyb6j5o
+	4Xuuq8Zy5vs+FWo69NsdR3c+ko1O4tgO1KJKH84o8GjV4rBEpW7TAs1Bm5IF4P3tC/xgG73UTUo
+	UeqDzSiInFkk8A1f/BSxlGJzqcKRBqYSF2qZrAQ
+X-Received: by 2002:a17:907:d086:b0:c2d:d408:5da6 with SMTP id a640c23a62f3a-c2e4b2417b1mr256577366b.49.1790957749284;
+        Fri, 02 Oct 2026 09:15:49 -0700 (PDT)
+Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e4cf5f4e4sm106437166b.42.2026.10.02.09.15.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 09:15:46 -0700 (PDT)
+From: Magnus Lindholm <linmag7@gmail.com>
+To: sparclinux@vger.kernel.org,
+	"David S . Miller" <davem@davemloft.net>,
+	Andreas Larsson <andreas@gaisler.com>
+Cc: linux-kernel@vger.kernel.org,
+	Magnus Lindholm <linmag7@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/7] sparc64: return from the generic clear_page implementation
+Date: Fri,  2 Oct 2026 18:14:23 +0200
+Message-ID: <20261002161515.932316-2-linmag7@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261002161515.932316-1-linmag7@gmail.com>
+References: <20261002161515.932316-1-linmag7@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] accel/qaic: Cancel Sahara read data work on removal
-To: Myeonghun Pak <mhun512@gmail.com>, Oded Gabbay <ogabbay@kernel.org>
-Cc: Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        Ijae Kim <ae878000@gmail.com>
-References: <20260917192512.56205-1-mhun512@gmail.com>
-Content-Language: en-US
-From: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-In-Reply-To: <20260917192512.56205-1-mhun512@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: LkOZ4sr0hfYSxYL17ApCJEECKr4AzDw-
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDA2NCBTYWx0ZWRfX2SW/6SiSgJFZ
- 3nxkvN1scqK4XsgEb7HlaTICBeK6f6Fkc+P9Btz0NlE9wV93RpOYA1B4L7u/boKS3nikZ6hJHOS
- Z2tGSU2CJivc2+BZkehch1e5+p+rFfg=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDA2NCBTYWx0ZWRfX9ecrmvvfMbJW
- ql6IRs+7gsBIcVodU5dlLRttZgcDNFN5XRCBf8So6RDGMB4bwcw3YUCofwhIepOTJwkxrpeC4iV
- irzRhFnE0DOs04/2rtIGA2CIYo2dRLuwDsCUW7BVFVJhxycBnzpLKA6Pu0zVH1Xo6CLpipQTuD7
- 4EIbKzeldYeEIFGeZO+G7w5Nkz9jp5Ot50CI2R1JAMJPrWWo2p8xpEJVyDmve1g5m5HpPkk3ZWz
- S7oXLeUgfe+l0vLSDY1uUl/RSiuf/4vOg3lG6LQmRk6lDYLH9X5fQSKc0uq5Vf0969ilXFY7vS1
- 7rvCCoVm3/zhRZTwG/4vMB3cT2mQWBKNGEBUJ6AO3eKy5AM/6GcAMYot+Yczmz6M6txZzrsd8OM
- mBrSFvKytbf9ry0wyzsT1l2V0vd3APpfJUdsIwG2H7Prl7JJKj1N1FpfakHSvc2anQdcDLwwLJv
- iMSFBYy8c+hDANB0CGw==
-X-Authority-Analysis: v=2.4 cv=L9SI0OT8 c=1 sm=1 tr=0 ts=6abfd89d cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=oeivAFFXM94eOaBaf2QA:9
- a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-ORIG-GUID: LkOZ4sr0hfYSxYL17ApCJEECKr4AzDw-
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-02_04,2026-10-02_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 clxscore=1015 phishscore=0 spamscore=0
- adultscore=0 priorityscore=1501 impostorscore=0 malwarescore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610020064
+Content-Transfer-Encoding: 8bit
 
-On 9/17/2026 1:25 PM, Myeonghun Pak wrote:
-> Sahara removal cancels fw_work and dump_work, but leaves read_data_work
-> pending or running. The latter accesses the firmware and the device-managed
-> context and transfer buffer, which are released during removal.
-> 
-> Cancel read_data_work after fw_work, which can schedule it, and before
-> releasing the firmware. The MHI core suspends and resets the channels
-> before invoking the driver's remove callback.
-> 
-> This issue was identified during our ongoing static-analysis research
-> while reviewing kernel code. The same omission was also reported by the
-> Sashiko bot while reviewing the Sahara relocation series.
-> 
-> Fixes: 7fb19ea1ec6a ("accel/qaic: Support the new READ_DATA implementation")
-> Cc: stable@vger.kernel.org
-> Link: https://lore.kernel.org/all/20260701105055.8D4371F00A3A@smtp.kernel.org/
-> Assisted-by: LLM
-> Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-> ---
-> Validated with static source review, apply checks and strict checkpatch.
-> No build or runtime testing was performed.
-> 
->   drivers/accel/qaic/sahara.c | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/accel/qaic/sahara.c b/drivers/accel/qaic/sahara.c
-> index c7c0b3eb4b65fb7776a6c724cb3105046cf6f7eb..6487961bbf14a1c284caf91f500968b90a064ef4 100644
-> --- a/drivers/accel/qaic/sahara.c
-> +++ b/drivers/accel/qaic/sahara.c
-> @@ -879,6 +879,7 @@ static void sahara_mhi_remove(struct mhi_device *mhi_dev)
->   	struct sahara_context *context = dev_get_drvdata(&mhi_dev->dev);
->   
->   	cancel_work_sync(&context->fw_work);
-> +	cancel_work_sync(&context->read_data_work);
+GENclear_page falls through into generic_patch_pageops after clearing
+its page. The patcher then rewrites kernel text on each invocation.
+Return to the caller once the clear loop completes, as GENcopy_page does.
+This affects processors using the generic page-operation fallback.
 
-The typical convention is that ordering of operations in remove() is 
-related to the order of operations in probe().  Adding this line here is 
-arbitrary where it would fit the convention better if moved one line down.
+Fixes: 6c70b6fc7b6f ("[SPARC64]: Do not assume sun4v chips have load-twin/store-init support.")
+Cc: stable@vger.kernel.org
 
-I'll fix that up when applying this.
+Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+---
+ arch/sparc/lib/GENpage.S | 3 +++
+ 1 file changed, 3 insertions(+)
 
->   	cancel_work_sync(&context->dump_work);
->   	vfree(context->mem_dump);
->   	sahara_release_image(context);
+diff --git a/arch/sparc/lib/GENpage.S b/arch/sparc/lib/GENpage.S
+index c143c4d1de3f..6ce11108e143 100644
+--- a/arch/sparc/lib/GENpage.S
++++ b/arch/sparc/lib/GENpage.S
+@@ -48,6 +48,9 @@ GENclear_user_page:
+ 	bne,pt	%xcc, 1b
+ 	 add	%o0, 64, %o0
+ 
++	retl
++	 nop
++
+ #define BRANCH_ALWAYS	0x10680000
+ #define NOP		0x01000000
+ #define GEN_DO_PATCH(OLD, NEW)	\
+-- 
+2.43.0
 
-Reviewed-by: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
