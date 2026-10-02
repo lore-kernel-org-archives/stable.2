@@ -1,83 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-b6-smtp.messagingengine.com (fout-b6-smtp.messagingengine.com [202.12.124.149])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F4E127FB1C;
-	Fri,  2 Oct 2026 01:40:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E96E3033E7
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 01:41:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.149
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790905212; cv=none; b=AO5BL/xrjy7Zz2sxBU1HRMcdHxkeR5aNkkOTt5mCijH59AkP5nIeDdVGw/dxdkJa2A7VipbRf3dR4FX+ub2nyq7Ha4TVZfoBAqTppJvXLEUK7F5Xcp74RkqEQWPl7yuRiXOB8iN2a1lKIhCRWzL6Nxeb3RTaq9cSGn9l6n8wtU8=
+	t=1790905300; cv=none; b=NyNh7Fz7xF59cqxlnp5UMltcy494O5Vk+H8u/XH+8i4gGz9sQBISwQHPpeXFwOYhy1QXciAURJwYXB70fsUu2eJeolvW9e76SGASgyOjs9M0K6xyB2lH09FC1JwRI8vPMA7aSQ9MmahJSTeuTagaQUbAcfHkqEAuyBuHwSkjr4U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790905212; c=relaxed/simple;
-	bh=853QzxYt1EjXInLKdTXErNVw0NI3FrCFOiYgYw5NpyE=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=UGAbajMz7JquQZwfduV9RlOJIZIHA6PMPTUShJt6VhrtXMaw5dm7Cx6BOQBGyWZ76UI4UsXDt1VjdixlO4XtCUTGUIFWZntCn1VQEZccAurTgxWPPNIUOZ3fJQteUY3bbdDBmoAbeTPGhIJJNzQiAAVkFP5Xk3AApNBraVeeqkk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D8DcqfaB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790905300; c=relaxed/simple;
+	bh=ZRzhF25nKLSbOwT3sLI81CeKd+a/Z38RuANs8dJHJmI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pesh4rzCkJ3X7R7TmMmoWAyv9qtXRxr1fn1xNIk3S+8cNZF0BnbtIXPp6hY3+N8rs0UHOdSm6bi1olbi3E0D9KnvBEeFgt9ENo0cW3W0U9+7MBZ72SHDMN4ycdMHjXkBGNQTIVb0G71iGnMzDfWcYwal37GMuwtcMJ2z2oUuq7w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=K/6Gt4Rb; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=mQmwOxNw; arc=none smtp.client-ip=202.12.124.149
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D8DcqfaB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEE9A1F000FF;
-	Fri,  2 Oct 2026 01:40:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790905210;
-	bh=X7/nyTHa2/+dLr1halIHM4WAUDbQKiN52oJvoOCum2o=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=D8DcqfaBBt1W+XBrHwJFUHXDKHWnFoWqw8nkUM7UWXh6wnHNeYG9Q1hW+YuM5q1VO
-	 +ZT3Dm6pVxxxpZYY35jq4N4qxTj8c2oZYvmauCexlisP0MSJCpNrAEyjdtipo/i+VS
-	 n/6GdNy/NaG10K1vip0pQ/RnIho+JvokjWyGvFdKc4kx6QfAjPdu7sklhG0PH1za7y
-	 q2SZALKa+fUGPTLC9LUesb/wjfwB5jqyF8qiXdPT8skITwPZnouWFW9z4z4BoE+vgD
-	 CneM4eRvdxuPScU0oP+aWabLRbEK0P59ghfuqfRuD3g7w//bvtdnLYWoMWMZXbh0/b
-	 CgTXlmfBfuIrQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B4607381197C;
-	Fri,  2 Oct 2026 01:40:10 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="K/6Gt4Rb";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="mQmwOxNw"
+Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
+	by mailfout.stl.internal (Postfix) with ESMTP id C10EF1D000E7
+	for <stable@vger.kernel.org>; Thu,  1 Oct 2026 21:41:37 -0400 (EDT)
+Received: from phl-frontend-02 ([10.202.2.161])
+  by phl-compute-11.internal (MEProxy); Thu, 01 Oct 2026 21:41:37 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1790905297;
+	 x=1790991697; bh=ashCR8K0JXTuj/faeWQROt/MfohFJFs/K324b7Qx6Vo=; b=
+	K/6Gt4RbvZQo3slSjDKBh1UvmRLzWs+wtTkQGL08IL5jz75u6iTXAjB963/SgEEv
+	3NDT9qHjFd7BvRvuS7Y/wvnMrxV7K4MT34retdyVi9+7OKBrTLxYzrEj6J2NDPsr
+	UGInHCEyje27MtNhPUQqlzVO5BvuAqU+ZkZN9mtkD77b73UX1ldRr1Vtr9duo4aH
+	V3f1NyZWeLCX56xcob60qXmZ1qQt4n6qJDas0xce9ouenVqRHTDNUNSRq2+1zn80
+	Y1gI1Z/0u4MUDW5/zn0tH5VNzoSOjUblOEFwd6Jh0Jj9Wne0ir6sDR0/nVb9gvRT
+	tlEuOcF8/d5wOeYK0xSzvA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790905297; x=
+	1790991697; bh=ashCR8K0JXTuj/faeWQROt/MfohFJFs/K324b7Qx6Vo=; b=m
+	QmwOxNwAOcqEoHXhCGo1TWudfQKL5+qh+aLStL3XZ3kodq1019Ime3m1vLVh/eET
+	ad+UaZdh2ZAT3jpoQw0bVIgADmSDHMGgD5ARkLOMyapXD0Jas/lxnCerxPaaDxAU
+	OvWC04KWCNW5WfB9M/dRUpWlQX878fEO11M1N0PyD34ojZVN2l81YIaHEetfFkfm
+	cGjtiv/MpFngDiGucswvh+Ok8K6+UJiH6/x0iSKptmY53TANe7lcpoiNThLs65Ex
+	M9WYhMzoGc7NzzNqnRru4F/xwWrY8zzvmTpDuHdggPwZ0oahB3+/wCa8uxvqYaCG
+	eTTC6RliLFdauPtM+5T5w==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=sign d=pobox.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1790905297; d=pobox.com;
+	mf=PGJhcnJ5bkBwb2JveC5jb20+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:i2fSchQnnwF5coZvQLBNsuUC1H3bIEyLDCjgDpF4aDHaq0+
+	LjIiavcjexVJn6l65y4cu6A5HOhEZTEaTIuQ8+15ozxLNHmY+jpBZf20WwgYXTLC
+	CP8v1FoqxeTUKiBL3z38tKv2eFLc50OTkq6p8dSLP13nuEcyF10PEbORxNLUptAj
+	ohZJ1oI2S27xfMIeuskDSkRUdkBSN/J5PXVlwAawX51hWUL/3uW+iOsOy6Kk3yjc
+	cevRmgxj6GTsHjgZGGMRoBS6FhHaM0FchRb5rvB0tbjnapYrFshTeBOkn9qIOD+o
+	5Brzn8CnBnXZIYLJMvoSin8oigGaFDAVZezdNaQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=mi-m=1; hc=14;
+	hn=cc,content-language,content-transfer-encoding,content-type,
+	date,feedback-id,from,in-reply-to,message-id,mime-version,
+	references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:yuMlTujvqfWFUu6LMMvqS+vgF8zzUbmFizA45jHeR3g=:ZRzhF25nKLSbOwT3sLI81CeKd+a/Z38RuANs8dJHJmI=;
+X-ME-Sender: <xms:0Au_ak2HLF8ZXpalj2QQK5KjY7y2QfJmFUSanK4q1AuLcbSD-NHmXg>
+    <xme:0Au_aq8YhOSGbOXCEB7N7cnzIevJjcgaOPmPkc0HSL0pLco3iufe5s6oK9_AUFdpr
+    TIq_fchjf1bx4oagZJiOiDbUYCqov923i2NMPGvY7yRwjM5GW3NqES9>
+X-ME-Received: <xmr:0Au_aoaj04ZrjfFEqXayeBmzOUfGCp7J2XlgyiBZ4HqbIH1z97WWTGJ7_z-HdkPCXoyYxdfU_LiHAT2f2mxsGvlfF_b273sc>
+X-ME-Proxy-Cause: dmFkZTF4V0bz4r7E8XJUN+K/PO3behlfcfAC4qFQy749o/EwNIvur4sMR2gyQvMD7K5tqp
+    MS2jKgCVOcZH1q/tiMiLvR0Y+XNuIaNBpRJHXFJD48lH4lFG1+K3hDAYNIdnd86vFzHJfq
+    mdB3rBbx6hqPB3pzrfoJEtsOsubU2DxJNuKmGRaIZ9P1bexgJR6NRlaREAnyasjKpFChZF
+    ZzpKkLtdXltCNqX3aZoB1XCk0ryz6B00PLEG9oEmnc8glm4kdSbjku96SRG7Z3i9f38taZ
+    e/5BaqrFx5DXKVFyyp374D4a4WkSny6B5OSxXeNltwUEY4fhgK+8qBT/8lugxjH2tUmWpo
+    ojqT/r1V7M0UaxtToaOaGfPUizqS37eH7qd0BN9k6kJwoUIQpczySO7sgRxKfkFACQruUj
+    TSxCcYO1qU0T2ze6v3tf30GIwnf3y06dmi7f6FFXkKImekrxMPW+WfqfsjMYS2eFOURSdH
+    MSBIQpxrT6U47tqYZtarMCOhVk+AsiM82CRxKkD+ksfHpnlvcndkxY9tECOQJbz2FHvQqz
+    NL/BGuJVEaE9KKMI/4xqrJZquTLGW+8ZNF9TKIZ7SzYDfzPn02Z7wXRGJIjnpc3OEdYnb0
+    /jkgKSoX0hUBevCxffAEm39E0G6gHEM5pRBHOaRen0kfCXCT3X7kNUkcmXPg
+X-ME-Proxy: <xmx:0Au_ahzuAdQJmkdx8ESQqzfLw7EjIlltkAok_eyki5q-V__v93g63Q>
+    <xmx:0Au_au9C-0UAAQGSboDONcWZvMcujoJwFlYVpkbXTRDnM-qu578akg>
+    <xmx:0Au_alzQzUCOsiiqzouYk943UqDSe95vEQ4wwwz1wb6ug5Zx7VMrKg>
+    <xmx:0Au_aruAbmciIp6HUYmyb6IfcTf-GD3eSRr3-ZmTiRP4lueybLlVPA>
+    <xmx:0Qu_apZNhz30jZRmI1eZtKAH5LVnzbvMZPE_ahUI5pkibiL4L1Tdg4Z5>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 1 Oct 2026 21:41:34 -0400 (EDT)
+Message-ID: <449cec94-5916-4fd9-9b3b-1af04efed83a@pobox.com>
+Date: Thu, 1 Oct 2026 18:41:33 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v3 net] net/packet: guard the ll header push in
- packet_rcv_spkt()
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179090520927.3173528.8266337097472483332.git-patchwork-notify@kernel.org>
-Date: Fri, 02 Oct 2026 01:40:09 +0000
-References: <20260928113108.2127215-1-quchaosheng000406@163.com>
-In-Reply-To: <20260928113108.2127215-1-quchaosheng000406@163.com>
-To: Chaosheng Qu <quchaosheng000406@163.com>
-Cc: willemdebruijn.kernel@gmail.com, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, mkl@pengutronix.de, socketcan@hartkopp.net,
- stable@vger.kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.1 000/982] 6.1.189-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260930152416.775402466@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20260930152416.775402466@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hello:
-
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Mon, 28 Sep 2026 19:31:08 +0800 you wrote:
-> packet_rcv_spkt() restores the link layer header with
+On 9/30/26 8:12 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.1.189 release.
+> There are 982 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> 	skb_push(skb, skb->data - skb_mac_header(skb));
+> Responses should be made by Fri, 02 Oct 2026 15:23:04 +0000.
+> Anything received after that time might be too late.
 > 
-> That subtraction is only meaningful when the device actually has a link
-> layer header.  packet_rcv() and tpacket_rcv() both wrap it in
-> dev_has_header(), which is also the predicate the block comment at the
-> top of the file states the restore in terms of; packet_rcv_spkt() does
-> not.  commit d549699048b4 ("net/packet: fix packet receive on L3
-> devices without visible hard header") introduced the helper and changed
-> the two call sites, and this one stayed behind.
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.1.189-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.1.y
+> and the diffstat can be found below.
 > 
-> [...]
+> thanks,
+> 
+> greg k-h
 
-Here is the summary with links:
-  - [v3,net] net/packet: guard the ll header push in packet_rcv_spkt()
-    https://git.kernel.org/netdev/net/c/28bc1ef69961
+Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
+no regressions observed.
 
-You are awesome, thank you!
+Tested-by: Barry K. Nathan <barryn@pobox.com>
+
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+-Barry K. Nathan  <barryn@pobox.com>
