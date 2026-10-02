@@ -1,144 +1,133 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-yx2-f39.google.com (mail-yx2-f39.google.com [74.125.224.167])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ABF53A6B89
-	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 17:51:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790963477; cv=pass; b=dp5/OiuF83ff1I03E1PQSOBbAyraBMXNwhm2wLyYZbiOSWyOxwPEYNW1xIqeT6V9NY2x85OmzAZkqzIZ+JnwO1/b+v5eemK6uD6gufkqGRowiodtvF119yWFqM2CXZqJ3h1izaY4aFwJ9U7JNZAfW6Jl4Lkoq6m1gpkbwuNcdyw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790963477; c=relaxed/simple;
-	bh=nZzkVN4E9BSqcDIHvzqxmjz4QVuzVLP/YMY/poyCrxY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pY62kXCTgz0r9YAyUqXNB4KEoN2gut6dt3kyBma2dtKWeZQPMA33Ef+flQ4VlnOJ9z8NWtqWxwxTpUY2zTHyc9y4EXVGxxcfpNPrlXixg6lNE8ERPyiVbkIbqP4Q+L6hC9nSUA1gGMRHcolD9KeCHn5ZK+nYq558ID0PXZJEAyE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=fZBnIU+n; arc=pass smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6E903AEF56
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 17:57:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.167
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790963825; cv=none; b=pdvlUUPBncvo3sBa9zoNeGQUtq99J3RmtD7KsgP7drvbEVjy7xQ170abOebswHQS7/CjZDKnzxEZ1bICpCHwXuhQYDUXVeM6je8Yr7+p9WknDWRP2xGEngWN8nw93y6854hE/R1HDG06y2gQPxxOU9X/o5wB05WBVXrhij4cjfc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790963825; c=relaxed/simple;
+	bh=39BCaKIS2a4rsGcJLQO0o1OjODWMY9BGj2pmo1ZKneE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tH7QKaYh4zQlHgh6byl7GU77yvjAxIydvdhzZKblE0zb5zx/8iUm2217gPNJhnab9itGApHy5/E4q7guLLH55QtXfvdb11XaPIMH99+LiR1TtfWvIheefJT3uxXnZTWAutk/Wgc+po7Nv44t+yLgHzboNl+fcCQILmZQBXryNWY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=truenas.com; spf=pass smtp.mailfrom=truenas.com; dkim=pass (2048-bit key) header.d=truenas.com header.i=@truenas.com header.b=NYhsKqZv; arc=none smtp.client-ip=74.125.224.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=truenas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=truenas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="fZBnIU+n"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a006d3fe83so722665e9.0
-        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 10:51:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790963471; cv=none;
-        d=google.com; s=arc-20260327;
-        b=It8h/eTxRuRheftXbPpuhQTEt2cd8BIlFpCBHaHkYbFQ7CC9iSSFS0Lp8spsJUjj/t
-         7EVvM8bFhCEyt+h2zcQ/JSpdVp5LduHqVU0oAoq3HZjK44oT9ZgkkN15Ahhf6I8x5plN
-         JWvKH7tgwu4BbI6b/EmM0MLCKESW3JgsA5dMMqhqOKyrFIxchdBtkCfmy5BJDGfNNCK7
-         ZjBTvMhRmmfGGUkXCxSKAmjXwD9XXi/TCwRyKIru+nd9cr4Qvmx1vdappE1LPnix8JLs
-         8+aWhfSseY+6GghYluFvHZ0xR2mPORX73SJ45D+UoqsOhENWIatmM7z7Ec1aqxCrVsi1
-         kWJA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=IjRLkdydNH/3hEGomUeQ+SayV25kXcztDM+0WcU6ndM=;
-        fh=UuPENXgCgqqE20GSELxEIKEjwR5tc6bPLIcdg1T2Rkc=;
-        b=DWlCwnBMrGg26J8ab63btlOa/KRkFtWWHV3LgkOdatNWM0gzx6OCRyAPEOjXkq7HPN
-         17907nW9po00dLpG42QJl4+DjDZRH7eyN3LjxBmFuQrX+vkH2J5QEsL+53Wvnj/A6IJZ
-         4tg/JrQP0s4qQkJ97ZJumsbYjb9q/vQE6+3nJH13nAxFSbaZnbIWCuC9uNAFluHuDoSB
-         ToWFzfGg65iefuqRTPMMsoiMu5GT9k0cJ2riN+t1AZ3TyD0U3zalKvy+0Ac2SYNc4GVE
-         cbUTOpzghJLCfi39yDajT/+e1h+3RzhraYSycELYzKOBOWjYOtEVthx88jPWZwKP6FGS
-         mgvA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=truenas.com header.i=@truenas.com header.b="NYhsKqZv"
+Received: by mail-yx2-f39.google.com with SMTP id 956f58d0204a3-6755a6109c1so258950d50.3
+        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 10:57:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1790963471; x=1791568271; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IjRLkdydNH/3hEGomUeQ+SayV25kXcztDM+0WcU6ndM=;
-        b=fZBnIU+n11krhpzVwUJTdIeMx48YQOoasgu11dWqDQSBeFutdTsb6BFXfmi5oojz6q
-         kbR7VnmynxieKV/K1dL2jnNqoCJP/ILDktjVVdsQdK84JQpgkc7QbpVJWKa22WoZibfO
-         uoCuzRw+QzryPoS7edqVT4vVod5Z+Fe3muAcoUfEaDJSjMX9NZSBolm5eiBa33KAywWf
-         FzLBi6w/2vIV1l0MRjtmP2Dbs/E6JlVKPXw3j4+Sn+S9Sz/0PjKy4b8PcPxyXQkGDttt
-         D+JIlIbqmTOU5mIyzufleCuZvvO5y6aQrQxZokF5LEhvlIUiFpgtH0BiZvwMlHeCkPxo
-         pB3w==
+        d=truenas.com; s=google; t=1790963820; x=1791568620; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xxaI2OMOwwuqBrxKvOI44CslxEdzYP5+0cKedVWBK0M=;
+        b=NYhsKqZvx0TufQd4i2gFpuCCbh5ixRqToSIL4dQI/oQ48+kJC5E//QpGtVMviMEH/l
+         dRHBBnP24KmMXXhtFfEkHL16JUdCxa/x/sr7iMaVHb0w58xkuXlzMXtGcmFnltPOQppg
+         6f0sZdaxjZWFLYA2TF0Es4ov/jZtWBcR1eGCZJInrLPOFZVKEARF/itLqD9pdQ3wuaF4
+         AUgYucYbKN6lcLxU/IVujwfGrY7X4MelD12QaRzi4omEWdf6QB471nEu1YecW+EFZi7r
+         m9UBiIQlgquh2c8yi1jew3a4H1dsr5OjPOJaPaXCIwx9lRRUoWeD5QwspAmSY8moUMxD
+         +uNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790963471; x=1791568271;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IjRLkdydNH/3hEGomUeQ+SayV25kXcztDM+0WcU6ndM=;
-        b=AEu6DU72B6R9ljXFDkAfeTAySTHPhthrgOISZG/ax67/jmA3F43ok/HQgeZHa1ODbQ
-         bPdaziyKntos35HihyQ/tBvSFIlZXZmJGYAPND8Dt7CjCStrj/z0NUFZuxGeHOfqPSGh
-         I37KFZ6K8RRL/6FJc79tLV/bIYk4/3z/5Y4CIqod6Fot43PPQC/UzubwJXA0FxQNpwm1
-         dNuMNXbxismYYKKtAepkZo8yJ8YWFOZWhhcT8F7JZAcPtx7Ub9L9x5xf8ZFsP2B+ZlCa
-         e8Ilt73/fdMWEF/xkWZEsRr92hteg/yUoRzXXO4wjsnVsFP3L+WcQdtQdY65s/zyv/Ae
-         JwgQ==
-X-Gm-Message-State: AFuF++mPhOj7luqMy2KFyg/nV7cSqN2pLgz/zrhGhPbMmViSt29ckRmL
-	KXqelymzZlXTVpIl/5TAHGDHhABznsIKe8SIFz1QF//DbAKwGNCNM3lofxElTfozRoZllYd2RP1
-	jSN8oaeteqbsX09RK1i4YByRylhprS0xaA4YfpnJ//3pF+WudlD49y96OnA==
-X-Gm-Gg: AYBFou0TnJfNoEXNJRpKcVH70vaeHQg7y41XViN0MFwauEJLDO9jg9eQ7dM/+YlRv++
-	vfS5/oXx4Kdk3DMbZ0lrZwqYhnWr+ZZ/LZYBJV/7gjYH44HNsZRiCxoWOQOXEDHn+8iNgW4C4nb
-	Ghd646lSw09CoB0Uz0YyDGgID0ilw7pvOS3XTA/8eTV7DB3/c669uGgP5vjKAGZWxmlFgU4lEWy
-	ES9/BCvmT9N9ALabMg8KbXVFcRPsG0wr1kApHqfDTJ1xR68UBH/lWZrTElG0/bgoUyPSdHSo9RP
-	8FiDBXK6I8PEDi3X/mdaDMvkcEIzJeGgqJVSTCci4ydvPLMA6zizGbbKfC/rgYLAywpmOb5Pgzg
-	SxjSJrQKCAFBSPGZebedM69B1E498YdNuE9G9znMYfLdwsg==
-X-Received: by 2002:a05:600c:5888:b0:49f:d742:97ea with SMTP id
- 5b1f17b1804b1-4a01eab3237mr108637715e9.0.1790963470511; Fri, 02 Oct 2026
- 10:51:10 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790963820; x=1791568620;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xxaI2OMOwwuqBrxKvOI44CslxEdzYP5+0cKedVWBK0M=;
+        b=aDk0sBAaujUwjkAEcqJuW8Yoh6n1SN49iIId0B0P3K1c0j/sfjr33JPglScSlCGnTF
+         4Xcd19MG3+sXZC1WRHbx7UssxaLKkMAwplowsALTRzvsAh4UQUW5diS0x7eeo7HCuMRD
+         Wi95k42ksqU9O8XWIzpFXZpRDbX1jeLtm3CSiKT98C3Ismc+hMyh6PshoFYbsQFUsD/C
+         FS0w0B4rpjB1dO6uLntDNlZmeQP9jKiWwNJNqJzip9doMQvi+74wkWtfLrYSkjL8mFxj
+         TlIyjqncEZTsPh8HwbdXp03MefXPf64KPjfijaj0T1KEarrj2UHfDFKIlDYFtnkrCNsT
+         Fuyg==
+X-Forwarded-Encrypted: i=1; AKwUvByVFOs49s5qEaNU9IrN2emH227M4lnBi1P7cJeK+Fndu+fGG71hD4GNKVVAUPdpN0/rKi81/SA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIxp5tBO2RcGANJNbbpPsEY5WpMTy+6+0SZ+LHbWx8gJNCkkKSr
+	ii33G4faqS/kN3WlEYVaJeGmha96nkVQolZghz3jtG2/EtYDYiZ+LizCqwg4t4z58Q==
+X-Gm-Gg: AYBFou1xuHU6WAYIuXvmnQpii6dl555B4LtJQqre7jn28onwehDQMMhoNeLw4Qa/yTH
+	Z0AKyAqY8s/snRMI9D4pMaWoQF0D05toUgqOk7iSH7wHAkRipWRQFIqSAQbt+tloBHQUydgTsj4
+	bj2jVcfQfxWQeiPa8dMY9q1w9mQR2jrG1FmcG+38rjetaWeJM8OyeLZVdumxk6G1x40+RTLfnYW
+	bzS8GY1Tv7RTPtNSwL8+ftXVJsDonSOOra9xVdYXL649yw2jrzpnpYv0H1+gbE9LuhQ0TYBR4pN
+	Fz5Ng2L4RjwYsafZFZ5h9WKFsoaQBeivnTWdPs+ycLPPjdafCxtKM4ZZ1fQyXWYVZ+lYT6MPpF9
+	BDTF8VzARq8VCFpAIK6S/AlLxJeLxyDoUwK9FtKEcK7/zyl7/D63Fg0xcuutA/TOhAn2Ulu3GS8
+	pNBG4syYo2KVz+iWd/iSgzUmtDw70xKDN9df47cbSDgh+FPfzdfe9wBjRUTsbXzvGxuQtvyA==
+X-Received: by 2002:a05:690e:4291:10b0:676:8641:27d2 with SMTP id 956f58d0204a3-677ac0944c5mr1330447d50.40.1790963819897;
+        Fri, 02 Oct 2026 10:56:59 -0700 (PDT)
+Received: from hamza-PC ([124.29.197.38])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-677ac63acc0sm1368439d50.20.2026.10.02.10.56.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 10:56:59 -0700 (PDT)
+From: Ameer Hamza <ameer.hamza@truenas.com>
+To: ljs@kernel.org,
+	rppt@kernel.org,
+	peterz@infradead.org
+Cc: akpm@linux-foundation.org,
+	david@kernel.org,
+	mingo@redhat.com,
+	acme@kernel.org,
+	namhyung@kernel.org,
+	linux-mm@kvack.org,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	regressions@lists.linux.dev,
+	stable@vger.kernel.org,
+	4ncienth@gmail.com,
+	sashal@kernel.org,
+	alexander.motin@truenas.com,
+	caleb.stjohn@truenas.com,
+	ameer.hamza@truenas.com
+Subject: [REGRESSION] secretmem: SIGBUS on memfd_secret() pages while perf record runs
+Date: Fri,  2 Oct 2026 22:56:51 +0500
+Message-ID: <20261002175651.811343-1-ameer.hamza@truenas.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930024505.96440-1-artem@trailofbits.com> <2026-09-30-1-daily-reply-0014-lpfc-sfp-info-mbox-timeout-6-6@kernel.org>
-In-Reply-To: <2026-09-30-1-daily-reply-0014-lpfc-sfp-info-mbox-timeout-6-6@kernel.org>
-From: Artem Dinaburg <artem@trailofbits.com>
-Date: Fri, 2 Oct 2026 13:50:34 -0400
-X-Gm-Features: AclHuK97lTiqaebg1I8sTjOuQdYcc3iS6N5jctNtVuQ2foq17QpUfDpnDgfMSbA
-Message-ID: <CAP3zxaCrgUA4tAtd2nS=b5sn3xSQ3LBiRRFwsRMeCGvHrhgprg@mail.gmail.com>
-Subject: Re: [PATCH 6.6.y] scsi: lpfc: Handle mailbox timeouts in lpfc_get_sfp_info
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Justin Tee <justin.tee@broadcom.com>, "Martin K. Petersen" <mkp@kernel.org>, 
-	James Smart <james.smart@broadcom.com>, Dick Kennedy <dick.kennedy@broadcom.com>, 
-	"James E.J. Bottomley" <james.bottomley@hansenpartnership.com>, linux-scsi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Paul Ely <paul.ely@broadcom.com>, jejb@linux.ibm.com, 
-	martin.petersen@oracle.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Sasha,
+Hi,
 
-Thanks for catching this.
+Since commit 97d34aa65c29 ("mm/secretmem: properly account locked
+pages"), in v7.3-rc2 and the 6.18.52 and 7.2.5 backports, touching a
+memfd_secret() page for the first time fails with SIGBUS while the
+same user is running perf record, and read() into such a page fails
+with EFAULT. This happens for root as well as for an unprivileged
+user running its own perf record. It reproduces on v7.3-rc4 and
+6.18.52, and the same test passes without the recording or with the
+commit reverted.
 
-I'm working on, and will send, a v2 addressing the issues.
+The commit charges secretmem pages to the per-user user->locked_vm
+and checks that counter against RLIMIT_MEMLOCK, with no CAP_IPC_LOCK
+exemption because the fd can be passed to other processes. perf has
+charged its ring buffers to the same counter since 2009, up to
+perf_event_mlock_kb per online CPU, and only what exceeds that
+allowance is checked against RLIMIT_MEMLOCK. sysctl/kernel.rst
+describes the allowance as not counted against the mlock limit, yet
+it sits in the counter that secretmem now enforces. perf record sizes
+its buffers to the allowance by default, 516 KiB per CPU, so on 16 or
+more CPUs one recording uses up the default 8 MiB limit on its own,
+and on fewer CPUs it leaves correspondingly less for secretmem.
 
-While working on a fix, I also found what appears to be a separate
-mailbox timeout/completion ownership race in both 6.6.y and current
-mainline.
+Reproducer, as root on a 16 vCPU x86_64 guest with the default
+ulimit -l 8192, while "perf record -o /tmp/p.data -- sleep 300" runs
+in another shell:
 
-I do not have proper hardware to validate certainty, and can't emulate
-it in QEMU, but I do have a hardware-independent KUnit test that
-reproduces one of the failing interleavings. I'll send that separately
-as an RFC to the LPFC/SCSI maintainers.
+  fd = syscall(SYS_memfd_secret, 0);
+  ftruncate(fd, 4096);
+  p = mmap(NULL, 4096, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+  read(open("/dev/zero", O_RDONLY), p, 4096);   /* EFAULT */
+  p[0] = 1;                                     /* SIGBUS */
 
-To be clear, v2 will not attempt to fix this newly identified
-potential race. It will remain scoped to the existing backport and the
-6.6-specific problems. If the RFC is accepted upstream, I can submit
-its stable backport separately.
+The commit closes a real hole, unbounded pinning of unevictable memory
+by unprivileged users. The question is whether the perf_event_mlock_kb
+allowance is meant to count against the RLIMIT_MEMLOCK budget that
+secretmem and the other subsystems accounting to user->locked_vm
+enforce, or whether perf should keep it in a counter of its own, which
+would leave the hole closed and secretmem usable during a recording.
+
+#regzbot introduced: 97d34aa65c29
 
 Thanks,
-Artem Dinaburg
-
-On Thu, Oct 1, 2026 at 9:52=E2=80=AFAM Sasha Levin <sashal@kernel.org> wrot=
-e:
->
-> > [ Backport to 6.6.y: v6.6 predates ext_buf and uses ctx_buf for the SLI=
-3
-> >   raw payload. Restore ctx_buf to the saved struct lpfc_dmabuf before
-> >   testing LPFC_MBX_WAKE so a timed-out mailbox's late default completio=
-n
-> >   sees the DMA descriptor rather than payload bytes. ]
->
-> This isn't safe on SLI3 HBAs. When the new 60s wait times out, ctx_buf
-> is pointed back at mpsave, a 40-byte struct lpfc_dmabuf, while
-> out_ext_byte_len is still 256. If the firmware completes between 60s and
-> the 300s mailbox timeout, the SLI3 interrupt handler copies those 256
-> bytes into the dmabuf. That is a slab overflow, and lpfc_mbuf_free() then
-> runs on the corrupted virt/phys.
->
-> --
-> Thanks,
-> Sasha
+Ameer Hamza
