@@ -1,140 +1,106 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f41.google.com (mail-qv2-f41.google.com [74.125.230.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BBF5497B97
-	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 13:32:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D431B4B0495
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 13:50:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790947932; cv=none; b=niBgNJJmJ3vt5AEgTNkyEtPj5ZHzmt15owbiPqj/vo5VrA7pzccb/rHxtS3Y4s2aRL0vhd31OKzvrz6ZACWfq8wlKXQdpUoi2q+yJnfw+jZrjyyjOZrNwYnPGPfIBOrBLOARYWXW/vPfgvl6dgY7dX2/t9GOOZj9vQKzrFkOK5I=
+	t=1790949039; cv=none; b=HUzlU6SW4auQQxRbtxxTvvtWF3sAXEdDcg3hPGNaxcUHE6iHlpwP3Yaz5vVvPHlyp/lj1ENGFCGse4LNmgwQnPcvJB3ALsu3Wvb330IXtTheJS2WGe/jfSUNxkB+NvCoofXj7l5rn22AxzW5YTV39trkA2hMiUhD/6IPCZOrL/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790947932; c=relaxed/simple;
-	bh=reBzhYRQcyj3Nz8ivHIWx97+3K4OUPNTngWR16scD8g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eN/L9FfJssOvc60Sa9mlC1iXvky0P7RqnnsnUYZC5bFtmx2FFH5zc/yHzN5oAng32/wWPwJyNJummD/Y/VvsAqRipHasMhb3sZ53rtYr0xWW6jKGMaXqOCOsQd+83mbZfqRCobF1SZVbSaEIqpxQVUARO2QVyeSY9E5QOq5OiFA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YhogitT5; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790949039; c=relaxed/simple;
+	bh=YAbhCEsj1Xow+kprODecviF0SnZgAch7eBzBEf5i7yk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LSOGhHAEQdkle8aMZTr8ZoIPoAmRRE9QBA82AduLHNqo8U4GSUz7Qj1yxUCRRFmAHQruwnXrnEHkTVeQslpK7ytBB4YoaJUq0W25nqlxzAc6329o5HQ2DA8BJJLi/IUxw0lv9Px+DAJFHXM8aaOKiUa7os+pj1k1yaK9DtpUc0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=fedoraproject.org; spf=pass smtp.mailfrom=linuxtx.org; dkim=pass (1024-bit key) header.d=linuxtx.org header.i=@linuxtx.org header.b=Uc7VvP9h; arc=none smtp.client-ip=74.125.230.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=fedoraproject.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxtx.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YhogitT5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790947930; x=1822483930;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=reBzhYRQcyj3Nz8ivHIWx97+3K4OUPNTngWR16scD8g=;
-  b=YhogitT5h5Z+NZa99raEz5Et52zPM10s+fXFOP045VjYcjpx4j0VdzEu
-   DvPVrQRG3y+Yy/WYf1+pIyr9XXBJmXZ5WYkvBa17FcXb37ULqI2w6/2lz
-   SfApIE34qgPsJBheJzQKkK7glmrJ1yhZGJg0/vhssC3YvNd+Re3VgehKt
-   KpPLvv1AUf/9SQn59xC+iuyW28UCzA+f9nKHsVg7cz0thU3FFQAi1o1Gk
-   0GeRtKbrTjgtV5/2ODULo+09Up+h0YCPaRcK26xwo143yvgmS1Wwh18iD
-   QJuzFveLTXFwdmT9qmQM6I6CcrDPZfsqZECjhGoSLwULm335+bGa4+OpN
-   A==;
-X-CSE-ConnectionGUID: nnD9AM/wQkOkbTLjNL8NaQ==
-X-CSE-MsgGUID: LPxFyq9LS4+Y7KGRuJBViw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11923"; a="90571834"
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="90571834"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 06:32:09 -0700
-X-CSE-ConnectionGUID: lGE1Eq0aQP2owmBiBeqEaw==
-X-CSE-MsgGUID: 5pfzi2FSRt2JW+5uSr9j3Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="271501"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO [10.245.244.239]) ([10.245.244.239])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 06:32:09 -0700
-Message-ID: <04c348e7-2fed-4fe9-a151-860b05433a75@intel.com>
-Date: Fri, 2 Oct 2026 14:32:06 +0100
+	dkim=pass (1024-bit key) header.d=linuxtx.org header.i=@linuxtx.org header.b="Uc7VvP9h"
+Received: by mail-qv2-f41.google.com with SMTP id 6a1803df08f44-91782711448so654396d6.2
+        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 06:50:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxtx.org; s=google; t=1790949036; x=1791553836; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=lS1VVahwxyy3uHWOK8ukiwzRDiQgwlDYS5Uok3wV7Vc=;
+        b=Uc7VvP9hw+/KML86BNYTdH75zqNW0AAN7XHghFdwAfe0ffkY/4tC/3u4uFXbxXIiaB
+         vYKO3I3PuS5P4944i5X8zgjUgMryhmVPp1SStJ+b2aHK3rr2ucUk2mD0tZqDnQ/fiv+R
+         lgGfSN6vVBGYD6RQRdKSXefDk/beouC5XXWoM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790949036; x=1791553836;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lS1VVahwxyy3uHWOK8ukiwzRDiQgwlDYS5Uok3wV7Vc=;
+        b=dvp3EfasA4I/HFYVnncnvlUqhHbLZ4bwN33w6BmcdH1/baxngRbi+/fqSELE2Wilc7
+         TogLTI4ZEfaNgq1R4n7UgqYhkR5j7z22UFMDWfIWtzlCEYQbMud2pvMoG0sdlMmxPyjZ
+         2Bny3Ppl6r1pXk4wXpvWWvLSONZG4HHeQVIt3ZKgcmhIZDRRIsn6qCmq8DqFN4XgaiHj
+         Mj+XuUYPYfkVjFxX9+L0Ark7glNmIWqVJzk8eAL5OzjXvHJBMCDWdLDVNk0+BqkQYHpz
+         8lINnBY2OzALodakSkOlv2cUtWrtczkDFlBrXNJJjepw5er/4q4oEW1mGa50zRkLeH+n
+         Du/w==
+X-Gm-Message-State: AFuF++nU5aS3n7ffoHwRvRuCxsi+gPy+w66e1n1v3dh6J208u8MGjD3g
+	SHjp73A4v00RPTVe9IuQFO55jfyF2/43bUtH/r/2Xt5gxcF/uKb0JWqBKsK7ZYVEzQ==
+X-Gm-Gg: AYBFou3wNm6PZ4ZdMpJIjJ8KxPA8MR6HHOnjpQeMEDYKlNPsk2wUF+gPpPz2axN1Gry
+	26Scg0HArcRrIXayRU3yk7SuiVEV+Sj6qxjZ7/YVzcT7O5fSb/aT63O3obkBSFGdR4GGiK93itt
+	V6nfiMT3Fq8xByHogp9QCrDPTVEQSuq7/3q+NqpIwefixIlV6DdxOOzH1QnSQmAY8Gwvv4VTTHf
+	s8zT7NYUjWd8P9ROLUrL1J10t/HLNBqTPwgFBXMd1XoTgE+LlSSR7pdXesHLvOKkqiY9Y7URosQ
+	dKBFqj2LRu42LrXJLgoV3DhE8EZMz+mgrJN1NMcR7r1yPPUwjcbMpjwhuHjqsBwsPL37iIjOJDh
+	Yg0B559vfDyMA6kbWNCLdj49d8XSENZcUfq90UNzRx/X4JzlKOMIujtjjPXk+lf6xh17kWXBWL5
+	Ci433FUaD/whRBG1jEn7GSHAEjCtEKVkPRpDAvPwqbS0q8ucyi9m9yenZ0M+7rAkokvbDVAm8Ql
+	a/BF32tedMMWFsOlA==
+X-Received: by 2002:ad4:5dc8:0:b0:917:8ea8:cf48 with SMTP id 6a1803df08f44-917c0023954mr55938026d6.11.1790949035586;
+        Fri, 02 Oct 2026 06:50:35 -0700 (PDT)
+Received: from fedora64.linuxtx.org ([98.97.107.167])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917e0c17b8esm19945606d6.43.2026.10.02.06.50.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 06:50:35 -0700 (PDT)
+Sender: Justin Forbes <jmforbes@linuxtx.org>
+Date: Fri, 2 Oct 2026 07:50:32 -0600
+From: Justin Forbes <jforbes@fedoraproject.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 7.2 000/457] 7.2.9-rc1 review
+Message-ID: <ar-2qLGYAeke2TUl@fedora64.linuxtx.org>
+References: <20260930152346.024115587@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/xe/vm: make PREFETCH to TT sticky
-To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- intel-xe@lists.freedesktop.org
-Cc: Matthew Brost <matthew.brost@intel.com>, stable@vger.kernel.org
-References: <20260928164820.1237049-4-matthew.auld@intel.com>
- <20260928164820.1237049-6-matthew.auld@intel.com>
- <92619c231f212306eb1c0c274b69c47687696159.camel@linux.intel.com>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <92619c231f212306eb1c0c274b69c47687696159.camel@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930152346.024115587@linuxfoundation.org>
 
-On 02/10/2026 13:43, Thomas Hellström wrote:
-> On Mon, 2026-09-28 at 17:48 +0100, Matthew Auld wrote:
->> When userspace explicitly requests DRM_XE_VM_BIND_OP_PREFETCH to
->> system
->> memory (XE_PL_TT), xe_bo_migrate() moves the buffer object to TT.
->> However, because XE_PL_TT is marked with TTM_PL_FLAG_FALLBACK in the
->> buffer's default placement (introduced in commit 5c87fee3c96c
->> ("drm/xe:
->> Attempt to bring bos back to VRAM after eviction")), any subsequent
->> validation during exec immediately migrates the buffer back to VRAM,
->> completely undoing the userspace prefetch request.
->>
->> Use xe_bo_migrate_tt_sticky() when prefetching to XE_PL_TT so that
->> the
->> buffer remains resident in system memory across subsequent
->> validations.
->>
->> Assisted-by: LLM
->> Reported-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
->> Fixes: 5c87fee3c96c ("drm/xe: Attempt to bring bos back to VRAM after
->> eviction")
->> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
->> Cc: Matthew Brost <matthew.brost@intel.com>
->> Cc: <stable@vger.kernel.org> # v6.12+
+On Wed, Sep 30, 2026 at 05:21:45PM +0200, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.2.9 release.
+> There are 457 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> I think we need somewhere to clear this stickiness. Perhaps if
-> xe_bo_migrate() is called with another destination than the sticky one,
-> we'd clear it?
+> Responses should be made by Fri, 02 Oct 2026 15:23:04 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.9-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-In the other patch in bo_migrate() there is:
+Tested rc1 against the Fedora build system (aarch64, ppc64le, s390x,
+x86_64), and boot tested x86_64. No regressions noted.
 
-+	ret = ttm_bo_validate(&bo->ttm, &placement, tctx);
-+	if (!ret)
-+		xe_bo_reset_sticky_placement(bo);
-+	return ret;
-+}
-
-So if something successfully uses a non-sticky migrate(), it will reset. 
-Is this enough?
-
-> 
-> Thanks,
-> Thomas
-> 
-> 
-> 
-> 
->> ---
->>   drivers/gpu/drm/xe/xe_vm.c | 5 ++++-
->>   1 file changed, 4 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
->> index 425c678f4480..2068e0cf50ff 100644
->> --- a/drivers/gpu/drm/xe/xe_vm.c
->> +++ b/drivers/gpu/drm/xe/xe_vm.c
->> @@ -3406,7 +3406,10 @@ static int op_lock_and_prep(struct drm_exec
->> *exec, struct xe_vm *vm,
->>   				mem_type =
->> region_to_mem_type[region];
->>   			}
->>   
->> -			err = xe_bo_migrate(bo, mem_type, NULL,
->> exec);
->> +			if (mem_type == XE_PL_TT)
->> +				err = xe_bo_migrate_tt_sticky(bo,
->> NULL, exec);
->> +			else
->> +				err = xe_bo_migrate(bo, mem_type,
->> NULL, exec);
->>   		}
->>   		break;
->>   	}
-
+Tested-by: Justin M. Forbes <jforbes@fedoraproject.org>
