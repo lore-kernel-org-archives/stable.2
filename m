@@ -1,279 +1,152 @@
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011071.outbound.protection.outlook.com [40.93.194.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C5F248E0C6
-	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 11:21:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790940083; cv=none; b=NFT8BFv3wlm2GGwK6V59elCabQHG3FL4BzuZTkVJM6GENfRuGK5ByYz9UP/oiOJA9KiXlloqk8qy2oowntPG461iWvOyLSMDvSu3WdwZiThkNm8L9mD2ESwpqq8wa4y8XPda0KiRExJnIvC/fWtgFZSSOt9aC0Ad5HGzeuuoFpU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790940083; c=relaxed/simple;
-	bh=XcOKDhLPhYTwOzM/5M4/TmrnH66IhZP+myCUuGdY/04=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=cLdcv4kp6K2res2E6ZqKmHxBS35PScVo77/gIj5GTDfaeTRzxElXUp9mAjbyhUHtZWX4PGpfBRxEqDth6c+BWDZ0+YZbGIU7hkmH/o2xgaT/k8evOa6pMkUinfygrN58PrsQqryXyGVbtIVD6R9lBLw7+9FSbLgWwYnfiPxsA1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=HvY1gSit; arc=none smtp.client-ip=74.125.229.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F1337A498;
+	Fri,  2 Oct 2026 11:33:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.71
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790940811; cv=fail; b=XKND2ZH2kVcUoj97laxVIVtM+oQp/l/2Gs2b+gIgttk6+Z8MMR2xBBykiK7GFvcvSmYBSDJno237KjiIu2VhSMyjvJnGga9nCzNAh/v7RhRsgdBI64k3jszNKKG61MlwVuwbltmFMZZ5/wNXU28BjrOwgRlqdUCgYPNK7WrVb3U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790940811; c=relaxed/simple;
+	bh=CWWM/slTh2qrUiXCUSQLnbOBEEsxSWMx2KZkwJnWakk=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qh0LqjpuVedC5LFgQh3YCISD+YadtJXGoGpdRv9Po2zKaa/heVdHZiYjC9/T+ya/73Ng6pPd66Uezi2fJNtIVUou/OU5LoeoKpJjBIv7dt3U4Njj/xgQlouieLrwBZMMITsoxmYrnSMYUfDtvFblSJAEWkwYGVZ2tyPfi66Be6A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=JhIK79lQ; arc=fail smtp.client-ip=40.93.194.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="HvY1gSit"
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5ba43103cccso1946848e87.1
-        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 04:21:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1790940078; x=1791544878; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=w3svkKcm9Hs8mBBSgiJOeXpCrb7Wu+8PwEu9DhSKxdk=;
-        b=HvY1gSit73LX8YVLUuj7MYTSIvCk5cNTAiJUSXpZZiooFUQMf198nNTlbUxtG2KuzI
-         xIxkgfojKcQkmMjD+5Xi2VS4jhfYA4dFRbLzja8e34YbsjnGlxQVNkuwTvIfznrN6rwQ
-         h6cerYYULzdVovvEYzYoGs7qbrnI1hfcKTQU0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790940078; x=1791544878;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=w3svkKcm9Hs8mBBSgiJOeXpCrb7Wu+8PwEu9DhSKxdk=;
-        b=TXoLC/aBXFdrTlf03PBtnlY74/yX4G5tVMdgpKNNcop5McXlkvclPs6VgQQKlRdO8e
-         MdNlgO3hDI0iwJLQqXgw3362IMfm3jaZpZH4de7R6tVraH80LM3vQXIuT4TPhDwNr2V9
-         W1AbiJMlt4qFY5ExAuT+rU8sDZhBidaAEQX8fiT1n0BBPPsDJHRPs24rMfsZFNpnsMg8
-         QP3Ypv6jlrSRPPXIq2v2GYiisI7XxCSq/Kl/5VAhMN8b9EkzntV1oESTGBfWcTxreuFk
-         XLs0G4HUZVOVHBJ41Ug4Xe13wTK1CeWoh84LIytY+2glKAg9om4x68m2MsExdQwNNfqK
-         ODmA==
-X-Forwarded-Encrypted: i=1; AKwUvBxnBVos0qWu7SAynrruuFDgOmAF5Y6S4Uc474PBAlOHk44hCbXI5mmVD424Tv51oEKmW3Ie2nc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJTrXvU8wtVW322w2/qNqtQ4iChV1qWrj9uvvDB1VfZqT5eei36
-	Zj7iiMbz8Kra8NsJIfsGwi4//Np560mxH/Vv4dGPR66uLw0rGeh/qvUiSdilN+9cD4jw0KtVTDC
-	eGvw=
-X-Gm-Gg: AYBFou14MmF/O9avOJ1PrWnLk8+SMPsFxLJC8vJTHqUXywDSjoLAs+NZMcwCluyH+WN
-	3cLz+C6XFW4nbcn8TbOJs/J02pBsc06iyQQdZEoU8YVBRCg3bGKwEDZu5CKbvCxIx8Cjs2rHi5S
-	RESrPDPcxXoruG3Y3Uqv66J5VQnBorGaqmaBZh6dJYF960oSUnAXJ2Bmti5NgNNVQ79YL+vVzFm
-	OR+6ENJy92NA+6ica9JzShChrWVSKudxCKuNL3RhvsX8MdRt3dpsmoBb6gmL5sDkXKCNtcEmrPa
-	DcJcEkbQi3AdCPk1dq7vIrKwCkCvgOW05QCKc81KfNUpIyswdubLymM/uIG2Rla6qlu90RkiehF
-	wBOotSNfcGekE2utI2qz9qdfsuFYX9WY7tEA1v6Pb1z1r7K+RLYsgpyW97k1bT8WsVlVffXLbRi
-	PFSChPYm46quKSmCsWPg2IAr2nH70pUqxLEsShaA+3/wDymBJbuU1u7qQHuJYTi4ZrIZV3mlLwF
-	3m3kjpbxPituWnu2ucstN+Yl2bKWzD73IVAd1GknU2bMtIScXN7YbY=
-X-Received: by 2002:a05:651c:43c2:20b0:39f:1b37:82bd with SMTP id 38308e7fff4ca-3a88777f837mr4192461fa.11.1790940078458;
-        Fri, 02 Oct 2026 04:21:18 -0700 (PDT)
-Received: from ribalda.c.googlers.com (166.141.88.34.bc.googleusercontent.com. [34.88.141.166])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a87e324350sm8562931fa.36.2026.10.02.04.21.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 04:21:18 -0700 (PDT)
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Fri, 02 Oct 2026 11:21:11 +0000
-Subject: [PATCH v2 2/2] media: uvcvideo: Do not read beyond the
- uvc_status_control memory
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="JhIK79lQ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AaOtl9ykvur9LQ2YTog/m+e0MPAE9sLmgskRdmgv3OG6E3Rsp9GHKwle4wMZ2YVPbcvCwVxteScSSZ8X7FsE8xR++/URaAbXjjFpHtG74No1P9RYLD6DsHzKI3Vs7h9P1LFDFtHhpc6xnmIMaFJ4ssN4Mt5bF+epgz9mdIG9gcEDB8sjX4FFTUnfn0HSxR40nsp8Da+Zz65XjfNDy++hvEJsT8QJeh8cSko17sQJ4slJXq1ViSXs4NuCK4FUfiz/FbX46rmBaClz5LyCPII1H7lJG8frd65rcb0iH2LLTygg5AVrauUWJcPXE+gKUbOLBQH5U2tKPMcsqxQspeU9XA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KmRdJru6A5jPqmN2THG4uDL2xxTAeZNsOPag9ass4Zs=;
+ b=E1qphrmzStverQjdeowJUDJJYXMwJOYwOOS7jEfMpcXRXhbp2QZR8+pT4PCe2c5+sNEk3AUK4I+By/xVxWxGGHcyt0a/z/+aUL4Re832brldU0HEFBJjevXSGBery9vW9Xy3EUWNFXT1vmAxG9BCOGbI5sv8gjlou3lJy+8XTGnLedHxaRjag/Nkx1osMg1n40u6mqHLdquHToMWoxdNp9e4ycJxXikSNJcLz2O0zTXlhqRPQmZLVGfvZTb/IHIUuQPtj4CG/1Kyzl8/HnD/XF9iLVUPfg+YKmodTzl2E/crrI/A/3owCXNptxf3UTcPkUXi6l7r/ib1BphiI7vUCg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=alien8.de smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KmRdJru6A5jPqmN2THG4uDL2xxTAeZNsOPag9ass4Zs=;
+ b=JhIK79lQa9LyIKEwC+Ro24o7p8tzqK4ArJLbN5qGIa4NHGqQ3SkyYgDIWKO6WyjlPv+ttd0/ZOcc9kf7Md5atTqmVK5FiacSHa1BjIL6bGrAgmkVxHATU0mptEE8szcZNbXoLevzh5EAtbLqT77nnjRLK4KIpbEaI/j8hJxUifk=
+Received: from CH0PR03CA0346.namprd03.prod.outlook.com (2603:10b6:610:11a::32)
+ by DM4PR12MB6040.namprd12.prod.outlook.com (2603:10b6:8:af::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Fri, 2 Oct
+ 2026 11:33:25 +0000
+Received: from CH1PEPF0000AD7C.namprd04.prod.outlook.com
+ (2603:10b6:610:11a:cafe::75) by CH0PR03CA0346.outlook.office365.com
+ (2603:10b6:610:11a::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.19 via Frontend Transport; Fri, 2
+ Oct 2026 11:33:25 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH1PEPF0000AD7C.mail.protection.outlook.com (10.167.244.84) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Fri, 2 Oct 2026 11:33:25 +0000
+Received: from airavat.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 2 Oct
+ 2026 06:33:20 -0500
+From: Vishal Badole <Vishal.Badole@amd.com>
+To: <bp@alien8.de>, <yazen.ghannam@amd.com>, <tony.luck@intel.com>,
+	<linux-edac@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+CC: Vishal Badole <Vishal.Badole@amd.com>, <stable@vger.kernel.org>
+Subject: [PATCH v3 1/2] EDAC/amd64: Mask UMC chip select to the four implemented selects
+Date: Fri, 2 Oct 2026 17:02:03 +0530
+Message-ID: <20261002113204.3358815-2-Vishal.Badole@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261002113204.3358815-1-Vishal.Badole@amd.com>
+References: <20261002113204.3358815-1-Vishal.Badole@amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261002-uvc-status-11-v2-2-a98a135df0eb@chromium.org>
-References: <20261002-uvc-status-11-v2-0-a98a135df0eb@chromium.org>
-In-Reply-To: <20261002-uvc-status-11-v2-0-a98a135df0eb@chromium.org>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Hans de Goede <hansg@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Guennadi Liakhovetski <guennadi.liakhovetski@intel.com>
-Cc: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>, 
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Ricardo Ribalda <ribalda@chromium.org>, stable@vger.kernel.org
-X-Mailer: b4 0.14.3
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7C:EE_|DM4PR12MB6040:EE_
+X-MS-Office365-Filtering-Correlation-Id: c9be1b84-8e54-4608-20eb-08df2078f928
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|36860700016|82310400026|18002099003|22082099003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	c3mUoZNw/wy0/S1BqARnSDf/Zjv7gMQ/lGW6VIitpbVYDU+Gl0DloTaXIglA8f+RGmHBnYcN3V54srR2pc8xTCTh3qsHOkA4J3A9E4cnLWr++KenmVsPZlsWVIgOcUXe4LEBvaINDqY+o8DYedVG63YQcIuAIraG/HMKM6vcBxdUA60vQSU/35cc4GLHPtaoLwarQ5fo8fesLyb15gDIzRZXv9mxDOkm0AJXo61kPTShPDDzuugPBbf7k88ztcBBkN9BkjkSmreh40Z7VYIRppNzsOHYq5vjUxcya0l3saT+e5W0F4NFL40sxZPKAEn8dobrEityisTHS9w2lfUJJ1OBJ3e6wpRAez0EaqYIWdCMiVrokOwKMhTJfLeB2xHRx/FqFcwU2bfV5PW+SW49S14mW3D8dVIivVDaALixGR5p4WtcC+UDPm9QmNw8gn8WrQJG67s8Rt6TG4WFauX+RTfnbnVw/Su4YVZBlxREXwxrwqE/RcA4NkRu/7Za7R416Zlex68Ufzr2Y7bQe7Z0Tz7lS29TtBANzOqh0zpni+tKDKmHugs/TsDrc54FrAi5KJ+VsRrUvk/zjJfqvBKR87ioNrZpjnm6AbyFW2nMbyH7ykIT7ACPeIQp9Gfg158lvuW5zTjJqISnoJb1qsD6EISQnfJUhUMzlVqInt9DDutCusy759TfC6Bo44umDDtJawzsncpvMj/1eFf5fwBY5A==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(36860700016)(82310400026)(18002099003)(22082099003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	okHSf2K23hiLejc4uVjONYwQK1cCYoPcAntx6JK7Hpzlx8bUjsJSATz0ZZzPcAWMW7VAbEZMT9MBpVSzpxYjFFeXAuvZPQ/7w3mtVg64bLcC+koLijlE9GSgbsNu6ITGu0NgcRCDRVTPkXbP7rePWI6A23cH/NixGGrodco0GXz828kwfu6PY317wLmnZslq9/eJl8/cUYK50y8EfxdiNq9IoF691caKyU1Z8c3PRXTIIr+Rn0Lw7niY5tMWKcCPMBRIvHZcKKaKmvCYlRhAwWsmCsjkbwwt347QKslEHY/4TdAX9bhttbXG0hsnWFzxU9lmaBI2CAfQfnlrH6myU4w2PRuKUrA8NZezrXvPZ/6HhduiGb0SPL49w1chOTQK7jzGML6BJYbE2fx/re/nScIovuB7g/1ezSwnzgwe57Axw9rryDv/1EZsP8o50gKm
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 11:33:25.7661
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c9be1b84-8e54-4608-20eb-08df2078f928
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH1PEPF0000AD7C.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6040
 
-When we receive an event from the camera we only receive up to
-wMaxPacketSize bytes. If a v4l2 control is mapped into a UVC control
-beyond those bytes, right now the code is blindly reading them.
+For DRAM ECC errors, the chip select value can be found in the
+MCA_SYND[ErrorInformation] field.
 
-Add a check in the event handler to ignore controls that are outside the
-data provided by the camera.
+ErrorInformation[2:0] was first documented in Zen1. The 3 bit field
+implied that up to 8 chip selects may be used.
 
-Note that this patch now dynamically allocates the size for the status
-based on wMaxPacketSize instead of blindly use 16 bytes.
+However, all Zen-based systems have only ever had up to 4 chip selects.
+So only bits [1:0] would contain a valid chip select value.
 
-Cc: stable@vger.kernel.org
-Closes: https://sashiko.dev/#/patchset/F0F008459FFA835D%2B20260813074632.2021311-1-raoxu%40uniontech.com
-Fixes: e5225c820c05 ("media: uvcvideo: Send a control event when a Control Change interrupt arrives")
-Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+Future systems are redefining the field to ErrorInformation[1:0]. This
+matches the existing 'up to 4 chip selects' implementations. And it
+frees up the extra bit for other decoding.
+
+Change the current chip select mask from 0x7 to 0x3 to prepare for the
+decode change.
+
+Fixes: 713ad54675fd ("EDAC, amd64: Define and register UMC error decode function")
+Cc: <stable@vger.kernel.org>
+Suggested-by: Yazen Ghannam <yazen.ghannam@amd.com>
+Signed-off-by: Vishal Badole <Vishal.Badole@amd.com>
+Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
 ---
- drivers/media/usb/uvc/uvc_ctrl.c   | 12 +++++++++---
- drivers/media/usb/uvc/uvc_driver.c |  2 +-
- drivers/media/usb/uvc/uvc_status.c | 18 +++++++++++++-----
- drivers/media/usb/uvc/uvcvideo.h   |  9 ++++++---
- 4 files changed, 29 insertions(+), 12 deletions(-)
+ drivers/edac/amd64_edac.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
-index 6224ecf28ec6..e61235e83e80 100644
---- a/drivers/media/usb/uvc/uvc_ctrl.c
-+++ b/drivers/media/usb/uvc/uvc_ctrl.c
-@@ -2142,7 +2142,8 @@ static int uvc_ctrl_clear_handle(struct uvc_control *ctrl)
- }
- 
- void uvc_ctrl_status_event(struct uvc_video_chain *chain,
--			   struct uvc_control *ctrl, const u8 *data)
-+			   struct uvc_control *ctrl, const u8 *data,
-+			   size_t size)
+diff --git a/drivers/edac/amd64_edac.c b/drivers/edac/amd64_edac.c
+index 475235c402e8..0c0d11c72925 100644
+--- a/drivers/edac/amd64_edac.c
++++ b/drivers/edac/amd64_edac.c
+@@ -2796,13 +2796,13 @@ static inline void decode_bus_error(int node_id, struct mce *m)
+  * the instance_id. For example, instance_id=0xYXXXXX where Y is the channel
+  * number.
+  *
+- * For DRAM ECC errors, the Chip Select number is given in bits [2:0] of
++ * For DRAM ECC errors, the Chip Select number is given in bits [1:0] of
+  * the MCA_SYND[ErrorInformation] field.
+  */
+ static void umc_get_err_info(struct mce *m, struct err_info *err)
  {
- 	struct uvc_control_mapping *mapping;
- 	struct uvc_fh *handle;
-@@ -2162,6 +2163,9 @@ void uvc_ctrl_status_event(struct uvc_video_chain *chain,
- 
- 		if (uvc_ctrl_mapping_is_compound(mapping))
- 			value = 0;
-+		else if (DIV_ROUND_UP(mapping->offset + mapping->size, 8) >
-+			 size)
-+			continue;
- 		else
- 			value = uvc_mapping_get_s32(mapping, UVC_GET_CUR, data);
- 
-@@ -2191,7 +2195,7 @@ static void uvc_ctrl_status_event_work(struct work_struct *work)
- 	struct uvc_ctrl_work *w = &dev->async_ctrl;
- 	int ret;
- 
--	uvc_ctrl_status_event(w->chain, w->ctrl, w->data);
-+	uvc_ctrl_status_event(w->chain, w->ctrl, w->data, w->size);
- 
- 	/* The barrier is needed to synchronize with uvc_status_stop(). */
- 	if (smp_load_acquire(&dev->flush_status))
-@@ -2206,7 +2210,8 @@ static void uvc_ctrl_status_event_work(struct work_struct *work)
+ 	err->channel = (m->ipid & GENMASK(31, 0)) >> 20;
+-	err->csrow = m->synd & 0x7;
++	err->csrow = m->synd & 0x3;
  }
  
- bool uvc_ctrl_status_event_async(struct urb *urb, struct uvc_video_chain *chain,
--				 struct uvc_control *ctrl, const u8 *data)
-+				 struct uvc_control *ctrl, const u8 *data,
-+				 size_t size)
- {
- 	struct uvc_device *dev = chain->dev;
- 	struct uvc_ctrl_work *w = &dev->async_ctrl;
-@@ -2218,6 +2223,7 @@ bool uvc_ctrl_status_event_async(struct urb *urb, struct uvc_video_chain *chain,
- 	w->urb = urb;
- 	w->chain = chain;
- 	w->ctrl = ctrl;
-+	w->size = size;
- 
- 	schedule_work(&w->work);
- 
-diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-index 468d46dfb9e7..b57825fadea1 100644
---- a/drivers/media/usb/uvc/uvc_driver.c
-+++ b/drivers/media/usb/uvc/uvc_driver.c
-@@ -1305,7 +1305,7 @@ static void uvc_gpio_event(struct uvc_device *dev)
- 
- 	/* GPIO entities are always on the first chain. */
- 	chain = list_first_entry(&dev->chains, struct uvc_video_chain, list);
--	uvc_ctrl_status_event(chain, unit->controls, &new_val);
-+	uvc_ctrl_status_event(chain, unit->controls, &new_val, sizeof(new_val));
- }
- 
- static int uvc_gpio_get_cur(struct uvc_device *dev, struct uvc_entity *entity,
-diff --git a/drivers/media/usb/uvc/uvc_status.c b/drivers/media/usb/uvc/uvc_status.c
-index 97c939206302..a88fa57513fb 100644
---- a/drivers/media/usb/uvc/uvc_status.c
-+++ b/drivers/media/usb/uvc/uvc_status.c
-@@ -169,6 +169,7 @@ static bool uvc_event_control(struct urb *urb,
- 	struct uvc_device *dev = urb->context;
- 	struct uvc_video_chain *chain;
- 	struct uvc_control *ctrl;
-+	size_t ctrl_len;
- 
- 	if (len < 6 || status->bEvent != 0 ||
- 	    status->control.bAttribute >= ARRAY_SIZE(attrs)) {
-@@ -187,8 +188,10 @@ static bool uvc_event_control(struct urb *urb,
- 
- 	switch (status->control.bAttribute) {
- 	case UVC_CTRL_VALUE_CHANGE:
-+		ctrl_len = len - offsetof(struct uvc_status, control.bValue);
- 		return uvc_ctrl_status_event_async(urb, chain, ctrl,
--						   status->control.bValue);
-+						   status->control.bValue,
-+						   ctrl_len);
- 
- 	case UVC_CTRL_INFO_CHANGE:
- 	case UVC_CTRL_FAILURE_CHANGE:
-@@ -257,13 +260,18 @@ int uvc_status_init(struct uvc_device *dev)
- 	struct usb_host_endpoint *ep = dev->int_ep;
- 	unsigned int pipe;
- 	int interval;
-+	size_t size;
- 
- 	mutex_init(&dev->status_lock);
- 
- 	if (ep == NULL)
- 		return 0;
- 
--	dev->status = kzalloc_obj(*dev->status);
-+	size = usb_endpoint_maxp(&ep->desc);
-+	if (!size)
-+		return -EINVAL;
-+
-+	dev->status = kzalloc(size, GFP_KERNEL);
- 	if (!dev->status)
- 		return -ENOMEM;
- 
-@@ -286,7 +294,7 @@ int uvc_status_init(struct uvc_device *dev)
- 		interval = fls(interval) - 1;
- 
- 	usb_fill_int_urb(dev->int_urb, dev->udev, pipe,
--		dev->status, sizeof(*dev->status), uvc_status_complete,
-+		dev->status, size, uvc_status_complete,
- 		dev, interval);
- 
- 	uvc_input_init(dev);
-@@ -360,7 +368,7 @@ static void uvc_status_stop(struct uvc_device *dev)
- 	 * process it synchronously.
- 	 */
- 	if (cancel_work_sync(&w->work))
--		uvc_ctrl_status_event(w->chain, w->ctrl, w->data);
-+		uvc_ctrl_status_event(w->chain, w->ctrl, w->data, w->size);
- 
- 	/* Kill the urb. */
- 	usb_kill_urb(dev->int_urb);
-@@ -372,7 +380,7 @@ static void uvc_status_stop(struct uvc_device *dev)
- 	 * uvc_status_start() call.
- 	 */
- 	if (cancel_work_sync(&w->work))
--		uvc_ctrl_status_event(w->chain, w->ctrl, w->data);
-+		uvc_ctrl_status_event(w->chain, w->ctrl, w->data, w->size);
- }
- 
- int uvc_status_resume(struct uvc_device *dev)
-diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
-index 69ee3d0c971d..788cee0c409d 100644
---- a/drivers/media/usb/uvc/uvcvideo.h
-+++ b/drivers/media/usb/uvc/uvcvideo.h
-@@ -567,7 +567,7 @@ struct uvc_status_streaming {
- struct uvc_status_control {
- 	u8	bSelector;
- 	u8	bAttribute;
--	u8	bValue[11];
-+	u8	bValue[];
- } __packed;
- 
- struct uvc_status {
-@@ -629,6 +629,7 @@ struct uvc_device {
- 		struct uvc_video_chain *chain;
- 		struct uvc_control *ctrl;
- 		const void *data;
-+		size_t size;
- 	} async_ctrl;
- 
- 	struct uvc_entity *gpio_unit;
-@@ -771,9 +772,11 @@ int uvc_ctrl_init_device(struct uvc_device *dev);
- void uvc_ctrl_cleanup_device(struct uvc_device *dev);
- int uvc_ctrl_restore_values(struct uvc_device *dev);
- bool uvc_ctrl_status_event_async(struct urb *urb, struct uvc_video_chain *chain,
--				 struct uvc_control *ctrl, const u8 *data);
-+				 struct uvc_control *ctrl, const u8 *data,
-+				 size_t size);
- void uvc_ctrl_status_event(struct uvc_video_chain *chain,
--			   struct uvc_control *ctrl, const u8 *data);
-+			   struct uvc_control *ctrl, const u8 *data,
-+			   size_t size);
- 
- int uvc_ctrl_begin(struct uvc_video_chain *chain);
- int __uvc_ctrl_commit(struct uvc_fh *handle, int rollback,
-
+ static void decode_umc_error(int node_id, struct mce *m)
 -- 
-2.56.0.rc1.315.gc6ed9934b7-goog
+2.34.1
 
