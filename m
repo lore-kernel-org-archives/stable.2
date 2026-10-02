@@ -1,177 +1,126 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f32.google.com (mail-ed2-f32.google.com [74.125.228.96])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 499FD47F3A6
-	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 10:08:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6EFD429825
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 10:09:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.96
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790935744; cv=none; b=jopsPhIBlp65Ls5g8Z1d8zz5OA5ojrHNIQhn2zF0bKTuXE4oTJwNHXbiv1chDqfQykiPap8GVLwBEiD7Q3DXkU9dch6tdVefseipwTgmSj4pjO7czDleqDANsAzfSxMxttJck9Uxys+3tX7f403Qcf0JOFjEDmiTyCxNrmgbR6Q=
+	t=1790935777; cv=none; b=l0X6R0GLyCoJHIQAcuOSj1QPRS9JqQIkxGATfP2If+DhpvwqYQKRglM/t05KIxQdr1gkZ9GjJgmV1Wfo2fF4Q9Nc79NQSZtOfxjx/K4w/jAyfY7Z3ylqcCik/lLZXcq0wOEOP53iDE0GLur3Y99CpVUg1KoJO5QHMvbxSbqYHF8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790935744; c=relaxed/simple;
-	bh=yjjML3TEOgvLOEz6ww+az4hbewCjhc7BX5Kh4C/2Q3c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rn+C8UJLFaSJyxP03OSvnqfWF6h1eDqQPQstHgMHx3f3NdAxBKXcAQIg6Tx118kMNbG1M1JTktoZUtvA+6V22/yNw/goE6L971BZZRa5FsrHo1GVWs7oKO1rOnN3qXjRm5UfhEd05lzRqKJ5Q6uZX6SC+DD3llwFI67F8P6dao8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aU9F3FcM; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790935777; c=relaxed/simple;
+	bh=Rpcyir0pucMYwxwpWT3J9PaLulRi5dtQNJE0Rr4sZxM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GiR2LeZAZOgi2VTdu7Z/tp3v9kb5Vva/RL/KlQqm9JtQKwhuNkcssz6ZNdODkkrxbYXqGbhhhwRLNJi5EpSUbzbCdXm0Py6amN5/eFI9WH+EnNLd3rOJ83oF/ZBANgaTwLgIVzBh8jaOX17qFZ3+XGXI61yBIz3A4qvbONdaYhM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EBKryzqF; arc=none smtp.client-ip=74.125.228.96
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aU9F3FcM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790935741; x=1822471741;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=yjjML3TEOgvLOEz6ww+az4hbewCjhc7BX5Kh4C/2Q3c=;
-  b=aU9F3FcM8OSdHkAHSGwLshB+mJyZvt6wgfzNSawmw5K7SiSB0Oo5PwMN
-   QM31wmQoqKnssGN5/c/1L7oNje2OJmaMM49/eDaoyaI4Q/C5ZJyvDsqku
-   wHWub1HIDZb9fWignF73O09crC39CGfFyVeC+1s8OwZyMyxGV9IQIirhN
-   Hh94aK4T5QLR4KNuxDy9C3hKorhVZ95ww2BZPWEo81fWGQUSnzSP5KP/P
-   lmWD3TLCA8MDP98Vo1WFZ26IFWkfcIWj/wbqOA0AKgxC2Mh7LQr5t06OZ
-   7MPvFLCF/fsHUwPyixvt8rZ+f9q+eOEVYVcbWoM+UDl98lcJpFBdKH9lM
-   w==;
-X-CSE-ConnectionGUID: e0h2/exZTDCqLEZ/M84hjQ==
-X-CSE-MsgGUID: kVncSlwDS7CtABv1NdXFCA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="102224580"
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="102224580"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 03:08:58 -0700
-X-CSE-ConnectionGUID: pSzW/ituSdy3JiPyiEh2uQ==
-X-CSE-MsgGUID: HBzRUwWPSPiOzHhoRUjb2g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="275412060"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO fedora) ([10.245.244.200])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 03:08:56 -0700
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	stable@vger.kernel.org,
-	Matthew Auld <matthew.auld@intel.com>,
-	Matthew Brost <matthew.brost@intel.com>
-Subject: [PATCH v3 2/2] drm/xe: Fix stale pinned_link entry when fb-pin performs the final unpin
-Date: Fri,  2 Oct 2026 12:08:30 +0200
-Message-ID: <20261002100830.12297-3-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261002100830.12297-1-thomas.hellstrom@linux.intel.com>
-References: <20261002100830.12297-1-thomas.hellstrom@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EBKryzqF"
+Received: by mail-ed2-f32.google.com with SMTP id 4fb4d7f45d1cf-6acb8b78d6cso6072323a12.2
+        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 03:09:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790935773; x=1791540573; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OaHZhhfoGTOQXtD+qa+qVp4d/gsPVtdPnGCiXPLugxM=;
+        b=EBKryzqFqcfR5/P4sFDZ2d4sqtg89IR9iUAd+eCHQc+GQdaRaLm0h3CvomdR8Ui+KK
+         qtdwnOhp9vgaspoisjuY4rJr4wSyMgDX6TjC8kLz7XAsUPWXAI4B7sXsajJR1x9ayU0b
+         TwvBGyZfTSrXPWO9X6yLctO1yWBhY7yHhWd6JHdmIFxdzA4qW8WImgLfqLCS7YKinL/i
+         bZSu/rHGLRJxx+/UN9rNWflb6D0w1JfpYekadgoz20WChKzmpsk5+u2O06CDMwIpX8UK
+         AM0iFXg53SeI2tdHxJc6ta0F5+YnitnNzUYsL6QXcCBnefRpRqI1v+DfmHWNk/dWeZFI
+         zJow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790935773; x=1791540573;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OaHZhhfoGTOQXtD+qa+qVp4d/gsPVtdPnGCiXPLugxM=;
+        b=z6dnqTPjVooe7kuZ8F4YAHUeRdGTwhKpZvq/2mmuk0Od0Gwgvxo6gT3iAIPm29kk4T
+         2cOkKLrZA0irHsw+lmURb9t+lOG18XDdSuzwtEuetMIzmmsJwJQEAwbk/e+oPaqPOT26
+         VOhNJJuhvs/DCboy6eoeEpO3jdo2TrwY/Z68SnAz9pKxZiTKGsaaAJtMyW1ZzWRLlT+J
+         S7KCiESWFVkVD+AmfS8jD5lU4XlriaOCYmy7ttpkd9mTRwPn3G/3lCIxMerxgur6/2mo
+         EJs3foZxHqHcT0/UAlh/2yVTGEnFLk0l8Y6VAcag2iPHMaH/0DSdsoVHJ1BxSjcer8pY
+         q9UQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwF9T4Ofrc0kDu+VPneSEAqrneBBYa+wcP7oTu4n8hrVXQdbELfqZG4IBuQ23IcaVCSXTww3YY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKygj52i/pS/q94xTsmYtNleiWwoQFdLHibQALPeEihInxkqmdK
+	2dbQtTC/ooF0nQQZgbWvhoA1wwE9eV4WzD8OGXdwGiW9YKNtmPeNWjz9
+X-Gm-Gg: AYBFou0WpbBkNxf27vdBMSwCEL5hFuFoTlvMiyJdV7r27vizrGRKMqS+Gnkexow/uyo
+	0AdrO8HtLXAmCaQYFK/LdmsCcNwDSjKdr1yn6rbiDN6f1huhUcNwqlXOrpS1H1nM6vGz0TmGWLW
+	0EimDBe/qECUdYYM+Zp0pJL7qIPDpCdJHzYo06HZnukkbzWvLOgWFaSKFPUR23su8zs1ea5DZO4
+	T2Ylm2ngYa28N+NVkEcbVFCYlj0V2rdBK1Dndyi7FE/V/tqRnGsa9F/AakO9FsSE5PByG5ws9CR
+	Ru6sEHrlFcAbB9See/xG4PDKgxKPywJsf/uel8kYeQcI/Bp1N2NnlJjJs1t4jwXODyWXTVC9BwC
+	Y/LwKLyqrW8vlD5INSCABiDjc68dOSFlXSG9Nsca6sya/00RvWc+zy98df4aLp6Zmtgi9Yx+DA2
+	kGMxv0Jqi7KDv9iHIWkmddsa/l+K27NDYABqdcmtIi5rwwe6fmwuhBxHwFgPqEzaW9MEUSPg==
+X-Received: by 2002:a05:6402:5113:b0:6aa:985c:7bae with SMTP id 4fb4d7f45d1cf-6af9e2e13d3mr1400063a12.20.1790935772569;
+        Fri, 02 Oct 2026 03:09:32 -0700 (PDT)
+Received: from Ubuntu-24.04 ([62.171.228.246])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6af9d889452sm753687a12.14.2026.10.02.03.09.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 03:09:32 -0700 (PDT)
+From: Alexander Kochetkov <al.kochet@gmail.com>
+To: linux-input@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Siarhei Volkau <lis8215@gmail.com>,
+	Paul Cercueil <paul@crapouillou.net>,
+	Alexander Kochetkov <al.kochet@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] Revert "Input: matrix_keypad - force switch rows to input mode"
+Date: Fri,  2 Oct 2026 13:09:35 +0300
+Message-ID: <20261002100935.449473-1-al.kochet@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-xe_bo_pin_external() and xe_bo_unpin_external() maintain the bo's
-pinned_link list membership in xe->pinned.late.external, based on
-whether the current call is the outermost pin or the final unpin.
-However, the same external bo's pin_count can also be raised and
-lowered directly by __xe_pin_fb_vma()/__xe_unpin_fb_vma(), which pin
-the bo as a display scanout buffer without going through
-xe_bo_pin_external()/xe_bo_unpin_external() at all, and have no
-notion of, or ownership over, pinned_link.
+This reverts commit 01c84b03d80aab9f04c4e3e1f9085f4202ff7c29.
 
-If a bo is pinned both externally (e.g. dma-buf export) and as an fb,
-and the external unpin happens first, xe_bo_unpin_external() correctly
-observes pin_count > 1 and leaves the bo on pinned_link. When the fb
-unpin later performs the true last unpin (pin_count 1 -> 0), it never
-touches pinned_link, leaving the bo linked on xe->pinned.late.external
-indefinitely. Once the bo is subsequently freed, this stale list entry
-points into freed memory, corrupting the list and risking a
-use-after-free the next time the list is walked or spliced.
+The commit makes every scan call gpiod_direction_input() on the row
+GPIOs. On pin controllers where GPIO input and interrupt are separate
+pinmux functions this switches the row pins out of interrupt mode, and
+enable_row_irqs() does not switch them back: it only unmasks the
+interrupts. Row interrupts then never arrive and the keypad stops
+working. Seen with a matrix keypad on an Allwinner A64 board (PINE
+A64-LTS); it works again with the commit reverted.
 
-The backup object pin/unpin sites in xe_bo_notifier_prepare_pinned()/
-xe_bo_notifier_unprepare_pinned() have the same bypass characteristic,
-though they never add their bo to a pinned list, so are not affected
-by this particular list-corruption issue.
+The workaround is not needed on Ingenic either: the author of the
+reverted commit re-tested all available JZ47xx SoCs and they all report
+the live pin state in interrupt mode, see the thread in Link.
 
-Move the pinned_link removal into xe_bo_account_unpin(), which already
-runs on every unpin path (kernel, external, framebuffer, backup
-object) right before the true 1 -> 0 pin_count transition. Since
-list_del_init() only operates on the node itself, this removal is
-list-agnostic and safe to perform regardless of which list (external
-or kernel_bo_present) the bo happens to be linked on, or which code
-path is performing the final unpin. Drop the now-redundant explicit
-list_del_init() calls in xe_bo_unpin_external() and xe_bo_unpin().
-
-Fixes: 44e694958b95 ("drm/xe/display: Implement display support")
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: intel-xe@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v6.8+
-Reviewed-by: Matthew Auld <matthew.auld@intel.com> # v2
-Assisted-by: LLM
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-
-v2:
-- New patch
-
-v3:
-- Rebased on changes to previous patch.
+Fixes: 01c84b03d80a ("Input: matrix_keypad - force switch rows to input mode")
+Link: https://lore.kernel.org/all/4130C026-2A83-408B-836A-ECA044491C47@gmail.com/
+Cc: stable@vger.kernel.org
+Signed-off-by: Alexander Kochetkov <al.kochet@gmail.com>
 ---
- drivers/gpu/drm/xe/xe_bo.c | 25 ++++++++++++++++---------
- 1 file changed, 16 insertions(+), 9 deletions(-)
+The same three-line removal has been in use on Allwinner A64 hardware on
+top of v6.12.33; this version is rebased onto v7.3-rc5 and build-tested
+(arm64, CONFIG_KEYBOARD_MATRIX=m).
 
-diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-index 6cc3f0bc0be4..5a70e652895b 100644
---- a/drivers/gpu/drm/xe/xe_bo.c
-+++ b/drivers/gpu/drm/xe/xe_bo.c
-@@ -505,12 +505,27 @@ static void xe_bo_account_pin(struct xe_bo *bo)
-  * ttm_bo_unpin(), so that the check against the true 1->0 transition sees
-  * the pin count that is about to be released. See xe_bo_account_pin() for
-  * why imported bos are excluded.
-+ *
-+ * On the true last unpin, also removes @bo from whichever pinned-bo list
-+ * (external or kernel_bo_present) it may currently be linked on, since a
-+ * bo's final unpin can happen through a pin path (e.g. framebuffer,
-+ * backup object) that has no notion of, or ownership over, that list.
-+ * This is safe and list-agnostic: list_del_init() only needs the node
-+ * itself, not knowledge of which list it is threaded through, and is a
-+ * no-op if @bo is not linked.
-  */
- static void xe_bo_account_unpin(struct xe_bo *bo)
- {
- 	struct xe_device *xe = xe_bo_device(bo);
-+	bool last_unpin = bo->ttm.pin_count == 1;
+Siarhei, Paul: you both agreed to the revert in the thread above, please
+reply with your Acked-by/Tested-by if you would like it recorded.
+
+ drivers/input/keyboard/matrix_keypad.c | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/drivers/input/keyboard/matrix_keypad.c b/drivers/input/keyboard/matrix_keypad.c
+index 8863b741d1a3..cda2888b2e56 100644
+--- a/drivers/input/keyboard/matrix_keypad.c
++++ b/drivers/input/keyboard/matrix_keypad.c
+@@ -134,9 +134,6 @@ static void matrix_keypad_scan(struct work_struct *work)
  
--	if (bo->ttm.pin_count == 1 && bo->ttm.ttm && ttm_tt_is_populated(bo->ttm.ttm) &&
-+	if (last_unpin && !list_empty(&bo->pinned_link)) {
-+		spin_lock(&xe->pinned.lock);
-+		list_del_init(&bo->pinned_link);
-+		spin_unlock(&xe->pinned.lock);
-+	}
-+
-+	if (last_unpin && bo->ttm.ttm && ttm_tt_is_populated(bo->ttm.ttm) &&
- 	    !xe_ttm_bo_is_imported(&bo->ttm))
- 		xe_ttm_tt_account_add(xe, bo->ttm.ttm);
- }
-@@ -3322,11 +3337,6 @@ void xe_bo_unpin_external(struct xe_bo *bo)
- 	xe_assert(xe, xe_bo_is_pinned(bo));
- 	xe_assert(xe, xe_bo_is_user(bo));
+ 	memset(new_state, 0, sizeof(new_state));
  
--	spin_lock(&xe->pinned.lock);
--	if (bo->ttm.pin_count == 1 && !list_empty(&bo->pinned_link))
--		list_del_init(&bo->pinned_link);
--	spin_unlock(&xe->pinned.lock);
+-	for (row = 0; row < keypad->num_row_gpios; row++)
+-		gpiod_direction_input(keypad->row_gpios[row]);
 -
- 	xe_bo_unpin_account(bo);
+ 	/* assert each column and read the row status out */
+ 	for (col = 0; col < keypad->num_col_gpios; col++) {
  
- 	/*
-@@ -3348,10 +3358,7 @@ void xe_bo_unpin(struct xe_bo *bo)
- 	xe_assert(xe, xe_bo_is_pinned(bo));
- 
- 	if (mem_type_is_vram(place->mem_type) || bo->flags & XE_BO_FLAG_GGTT) {
--		spin_lock(&xe->pinned.lock);
- 		xe_assert(xe, !list_empty(&bo->pinned_link));
--		list_del_init(&bo->pinned_link);
--		spin_unlock(&xe->pinned.lock);
- 
- 		if (bo->backup_obj) {
- 			if (xe_bo_is_pinned(bo->backup_obj))
+
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
 -- 
-2.55.0
+2.43.0
 
