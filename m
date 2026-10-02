@@ -1,59 +1,59 @@
-Received: from pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.155.198.111])
+Received: from pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.68.102])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3192A31716D
-	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 14:53:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.155.198.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACBBE10F2
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 14:54:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.246.68.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790952831; cv=none; b=qVhIqXXccwI5WPKJRpS2gP07436/C/O5QdLEIX09NMrp5bymzefPkHr+BJfWuJxNLgpHY5KUGFSm9cA9ATU0ncWJQP6uGX+hUebAZQWLFgK3fgHpmxEde8m2rnGN9Hzl7m2rdFC0wtBbl1YctibMoPclxlBSiT/W0X3fz/8A61w=
+	t=1790952849; cv=none; b=fUb+SPKmsOxlnXXv6/y8k7W/f0ht2cZABAqDfBM9ybTSPXl2/7WC7D1MNs6p/1GCrXF0PE9BZdVldrWpxBH7Ieik1LxCSyrzFNBR9TlH5aVJUpIyZEPFzxAxHR0LvjYDUgSgNd3TCpNSeS4rU80ftXIDi44p/aKLQdX3lGNUPTc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790952831; c=relaxed/simple;
-	bh=+P5bAsQd2oLu2fZNEH/xn71/NjSrnU8bsZ7KxDIs4Ow=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=eJrCRdvJG5DGYdZwtuy6EU+jmzmFihSoKzmTor+CKNs70MqrnXc7CS7eGfKaFkvbsUmWAduxCcozmcB6MGTRPRel1iSLt0Oy6GOBR2qGuYDkWGx+uRKItrQB8RjIXKjLZJkcNQ81RFk+6bswOrmhwmpeTfG1qSTP/2uu5FLjop0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=VoGm1RNl; arc=none smtp.client-ip=35.155.198.111
+	s=arc-20240116; t=1790952849; c=relaxed/simple;
+	bh=fWpvpKfoVGRjH2wraR3ZCZheQQg6XWLybfLokw3zQcM=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=OWRcf6lGWO6hUAF/0Qtbv0NYEiWoA+tKzPe40692DA0WJAKXb9t5ff8r9lG94fBi014hHmjn5QdCgSWVcrPjceOVssdyIWeNeHhNgcxNsElE0Em7SdSS6aVT9SwsBEo8pcGfZxCClnT9h0PMOqWsg+Q2C6ga+VYNSPyHm3A2LlM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=c522obcU; arc=none smtp.client-ip=44.246.68.102
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="VoGm1RNl"
+	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="c522obcU"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1790952830; x=1822488830;
+  t=1790952847; x=1822488847;
   h=from:to:cc:subject:date:message-id:mime-version:
    content-transfer-encoding;
-  bh=zGqi16by5ZWtZMGWr+5HX1e8LG2agcAkijEDKXceepI=;
-  b=VoGm1RNl/vmOLywaHIIJUqWDm7Y6MtdCIOXie9gQbt+cxc62A7HH7TjC
-   T2NRhM9ODh8yINqaHIeEJtpRVr96on5TeOt5skhOAcay4SndJFSXq9G+e
-   D/tnoMLuCH/lkut+MMuWQAURFlmGsiSTBEpeaCtyAELFRDWuxlO2Go+hw
-   KiYfJccV7MwlYMwJNZcMsDlb6X7TZx0j6TruAlqmKr0eq+b+j6bA9FQ1F
-   3zsBi7U7Z3l6W9p2GkrzM1HhHEFSwpKxa8VSiUYLpYCPOWBkHw1BOaCmw
-   02XHjXZ9RTOrhvvDYUrxfeagOVnXbbutDv42FYp5PLRS2TZjAAeGgLKol
+  bh=eEzNqU1C79VrpUQf3yq6iP9M98Lt6E/KxJ4xw2adjng=;
+  b=c522obcUU/kLaV1FSc0fsQRtQvwHW0vRYw+Azom5BmAUzabkqDINgP1F
+   EixaN3OEnSaBKrtp4rmkyaqVAwy5uaSzCsoVvpCBKi+eI4kuW0dvjN4Uz
+   il47f7GxP0sdAKOAl+zELBRw1fz4xrXDQ7N9+2QCpxrrjL431M3a+yiJj
+   NVxBYfYHm3wZlSLd8g4pMpg3QCEFq1KNpdTDXGmdd8oK6vP8KskgslhyM
+   II6KDINDA/Cran5fsldrrA3shuKwTlPQrx78e3vS9wwBA8V4kO6Y3FWnT
+   880dC9BdHBC9H94MibIvESrpBGx1wDXypZwHPxzn3/jNuS1mC0eecB/T2
    Q==;
-X-CSE-ConnectionGUID: uRtyaaAbStmzISKhC+zYEw==
-X-CSE-MsgGUID: vOJqGqAoQ9O+3os45XuyTQ==
+X-CSE-ConnectionGUID: +ap1YjfNQHeWyJm82qzgvg==
+X-CSE-MsgGUID: 5Ms3WjbGQCie3PdX2lvHxg==
 X-IronPort-AV: E=Sophos;i="6.27,136,1787011200"; 
-   d="scan'208";a="30138756"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
-  by internal-pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 14:53:47 +0000
-Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:3701]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.52.137:2525] with esmtp (Farcaster)
- id 514140e4-7863-45d0-ad0b-5be1311b0510; Fri, 2 Oct 2026 14:53:47 +0000 (UTC)
-X-Farcaster-Flow-ID: 514140e4-7863-45d0-ad0b-5be1311b0510
+   d="scan'208";a="30143591"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+  by internal-pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 14:54:04 +0000
+Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.111:19745]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.9.224:2525] with esmtp (Farcaster)
+ id aec772e8-fe9a-46bb-aa08-dbd0fa98cf6b; Fri, 2 Oct 2026 14:54:04 +0000 (UTC)
+X-Farcaster-Flow-ID: aec772e8-fe9a-46bb-aa08-dbd0fa98cf6b
 Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
+ EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Fri, 2 Oct 2026 14:53:47 +0000
+ Fri, 2 Oct 2026 14:54:04 +0000
 Received: from dev-dsk-doebel-1a-7b355d76.us-east-1.amazon.com (10.169.119.5)
  by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Fri, 2 Oct 2026 14:53:46 +0000
+ Fri, 2 Oct 2026 14:54:03 +0000
 From: Bjoern Doebel <doebel@amazon.de>
 To: <stable@vger.kernel.org>
 CC: Jiangshan Yi <yijiangshan@kylinos.cn>, Namjae Jeon
 	<linkinjeon@kernel.org>, Paulo Alcantara <pc@manguebit.org>, Bjoern Doebel
 	<doebel@amazon.de>
-Subject: [PATCH 5.10] smb: client: clear setuid/setgid bit on write with cifsacl/modefromsid/posix extensions
-Date: Fri, 2 Oct 2026 14:53:32 +0000
-Message-ID: <20261002145332.3925377-1-doebel@amazon.de>
+Subject: [PATCH 5.15] smb: client: clear setuid/setgid bit on write with cifsacl/modefromsid/posix extensions
+Date: Fri, 2 Oct 2026 14:53:52 +0000
+Message-ID: <20261002145352.3925654-1-doebel@amazon.de>
 X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -63,7 +63,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWC004.ant.amazon.com (10.13.139.246) To
+X-ClientProxiedBy: EX19D032UWB003.ant.amazon.com (10.13.139.165) To
  EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
 From: Jiangshan Yi <yijiangshan@kylinos.cn>
@@ -115,7 +115,7 @@ Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
 Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 
-[ Backport note for 5.10: code lives in fs/cifs/inode.c; no sbflags local exists here,
+[ Backport note for 5.15: code lives in fs/cifs/inode.c; no sbflags local exists here,
   so test cifs_sb->mnt_cifs_flags directly (same flag bits). ]
 Signed-off-by: Bjoern Doebel <doebel@amazon.de>
 Assisted-by: opencode:kimi-k3
@@ -127,7 +127,7 @@ diff --git a/fs/cifs/inode.c b/fs/cifs/inode.c
 index 0000000000000..0000000000000 100644
 --- a/fs/cifs/inode.c
 +++ b/fs/cifs/inode.c
-@@ -2645,9 +2645,13 @@ cifs_setattr_unix(struct dentry *direntry, struct iattr *attrs)
+@@ -2713,9 +2713,13 @@ cifs_setattr_unix(struct dentry *direntry, struct iattr *attrs)
  			goto out;
  	}
  
@@ -144,7 +144,7 @@ index 0000000000000..0000000000000 100644
  
  	args = kmalloc(sizeof(*args), GFP_KERNEL);
  	if (args == NULL) {
-@@ -2831,8 +2835,24 @@ cifs_setattr_nounix(struct dentry *direntry, struct iattr *attrs)
+@@ -2898,8 +2902,24 @@ cifs_setattr_nounix(struct dentry *direntry, struct iattr *attrs)
  	if (!(cifs_sb->mnt_cifs_flags & CIFS_MOUNT_SET_UID))
  		attrs->ia_valid &= ~(ATTR_UID | ATTR_GID);
  
