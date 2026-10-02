@@ -1,145 +1,105 @@
-Received: from mx.prosyst.ru (m2.prosoftsystems.ru [46.48.77.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Received: from mail-wr2-f32.google.com (mail-wr2-f32.google.com [74.125.225.96])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80FEA440641;
-	Fri,  2 Oct 2026 14:10:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.48.77.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CACC7490C17
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 14:18:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.96
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790950226; cv=none; b=bwZXbB9yjZrEGKqjGccPB14w0X4RjW0H6PwTT0bqYvYCAJjG9iFoje25cUWDEWbZJmXeGh4nrwBSoMMMH3SbEz4AtpZWeAUE98TANAWlfSXqaV3lj0bOmoiQf2OKE7ISQQTo5gDDnhopk+357CQAK+kdH9uR4pgzDt13wMptwNE=
+	t=1790950716; cv=none; b=X2lOz1F2WuxF4XQ9njF+RkT2s/KEHBipWqgm94SkCeLESXtXz/xh7jz1ZA4AqX25kA3o8Kfzog5fgUS+4+WZcvoAFdfzM5DvAwgwOgqNBCq0jqbRi5su0QcPAymuRq+vrw/eZEREbqbHZQTVAvLkMCM14r8WahcJ7pSD9zwBjog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790950226; c=relaxed/simple;
-	bh=RNTwj2xI5MKW3Edzo2RRR9bCumq8kB571A6FqSikhNA=;
-	h=Content-Type:From:To:CC:Subject:Date:Message-ID:References:
-	 In-Reply-To:MIME-Version; b=T1Yd3uXWkly/UtQeQ0+tx3JcsGnJaMpWVTsSSv5wsxJSQAiUtt83wMs9BNzTV1+Cj7RJ5PHo6w4DXtWYKR/NF6vwUWnZ3viPsg4Lc0oU0kvqVhuIzAL9fKrJiTczyrMgA4u8ptrPAgPOOqBSAqrhGHfPd5fjnlbVLA8Dbs+Qp3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=prosoftsystems.ru; spf=pass smtp.mailfrom=prosoftsystems.ru; dkim=pass (2048-bit key) header.d=prosoftsystems.ru header.i=@prosoftsystems.ru header.b=YWGGztlZ; arc=none smtp.client-ip=46.48.77.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=prosoftsystems.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=prosoftsystems.ru
+	s=arc-20240116; t=1790950716; c=relaxed/simple;
+	bh=mVrY1h4VM0WjmBdXQxbCJ0p4pbr64cOHAzGY03MhcDE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=INypjMUvP2cjaB38UQr9V8dd6f/XhKI3+LU8XEgfl9Yg1MV6t02aEnSnyCglAiAMWdZ4hCSlqUzRQeDRXwjo+Yj5kfsHMf5GYjlDv/Y/HzbBcEa/q9MJoghISr2ySkpfPKNTp8DafgEnetlXPQNUnsl0h4Ahq0c9frigrgppRLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q6YZesFD; arc=none smtp.client-ip=74.125.225.96
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=prosoftsystems.ru header.i=@prosoftsystems.ru header.b="YWGGztlZ"
-Content-Language: ru-RU
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-DKIM-Signature: v=1; a=rsa-sha256; d=prosoftsystems.ru; s=ps;
-	c=relaxed/relaxed; t=1790950214; h=from:to:date:message-id:subject;
-	bh=RNTwj2xI5MKW3Edzo2RRR9bCumq8kB571A6FqSikhNA=;
-	b=YWGGztlZxIL1ih5hBx7NmIKrM+E6WRAOSyscP/lVTi7idfa0xNQuG+R14979HMp5/zHEaltbVv5
-	gVkOodL/E/gDV6xmIzMd/8yU3udTGU1fxaZoNQk6WQrud64ViCN7mzDe+T0rGxH/bdKy+9ZVI8qvx
-	ObgXhd6nCsyHm6JkQIr4s1qDAWMLdUnnjqnRh5EamhH0j0HFlak/t6V5PeXUja7BfYbznKlRt3Wdr
-	mDhVwfNyihYt1OzlUdyTH3m3lJKx5kLTx8OSL+6YIhdgPma0h1qbAHL3FaVy4Wl8It+SUWR2oqnkz
-	s28twf0wW71mTP3oaNHyWjY5klhFqJbaE/kw==
-Received: from ECHO-3.prosoft.ural.ru (172.25.100.229) by mx.prosoftsystems.ru
- (172.21.240.33) with Microsoft SMTP Server (TLS) id 15.1.396.30; Fri, 2 Oct
- 2026 19:10:14 +0500
-Received: from echo-2.prosoft.ural.ru (172.21.245.22) by
- ECHO-3.prosoft.ural.ru (172.25.100.229) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.39; Fri, 2 Oct 2026 19:10:10 +0500
-Received: from echo-2.prosoft.ural.ru ([::1]) by echo-2.prosoft.ural.ru
- ([fe80::c1a2:90f7:8820:c669%17]) with mapi id 15.02.1748.039; Fri, 2 Oct 2026
- 19:10:10 +0500
-From: =?utf-8?B?0JbQsNC80LHQsNC60LjQtdCyINCg0LDQtNC40Lkg0KDQuNC60LDRgNC00Lg=?=
- =?utf-8?B?0L3QvtCy0LjRhw==?= <r.zhambakiev@prosoftsystems.ru>
-To: Andrew Lunn <andrew+netdev@lunn.ch>
-CC: =?utf-8?B?0JbQsNC80LHQsNC60LjQtdCyINCg0LDQtNC40Lkg0KDQuNC60LDRgNC00Lg=?=
- =?utf-8?B?0L3QvtCy0LjRhw==?= <r.zhambakiev@prosoftsystems.ru>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, "Michael
- Grzeschik" <mgr@kernel.org>, Jijie Shao <shaojijie@huawei.com>, "Aleksandr
- Loktionov" <aleksandr.loktionov@intel.com>, Denis Benato
-	<benato.denis96@gmail.com>,
-	=?utf-8?B?VXdlIEtsZWluZS1Lw7ZuaWcgKFRoZSBDYXBhYmxlIEh1Yik=?=
-	<u.kleine-koenig@baylibre.com>, "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "lvc-project@linuxtesting.org"
-	<lvc-project@linuxtesting.org>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>
-Subject: [PATCH net v2 3/3] net: fealnx: allocate the card index from an IDA
-Thread-Topic: [PATCH net v2 3/3] net: fealnx: allocate the card index from an
- IDA
-Thread-Index: AQHdUne8AMTeWf1fT0qOs8HXB6UdSA==
-Date: Fri, 2 Oct 2026 14:10:10 +0000
-Message-ID: <20261002140954.261779-4-r.zhambakiev@prosoftsystems.ru>
-References: <20261002140954.261779-1-r.zhambakiev@prosoftsystems.ru>
-In-Reply-To: <20261002140954.261779-1-r.zhambakiev@prosoftsystems.ru>
-Accept-Language: ru-RU, en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q6YZesFD"
+Received: by mail-wr2-f32.google.com with SMTP id ffacd0b85a97d-482f6350f91so4501844f8f.1
+        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 07:18:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790950713; x=1791555513; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oTJy/ywZsqawpC6LBguje6pTwsPWoUHyJE3z7+IKeVI=;
+        b=q6YZesFDi5uMMqqbXWa8QDGczU9asq1NfZ31hoJ0lni0yjpmGYbXuq/rerDQ3b3osL
+         H8HveP23Kpu9GxvwycevHrPr27hqZSJ47MjS+8RlopyKrX9ipfsD2kClT3Ni6uFSK3iE
+         QuYVl7lycZiik+dLIXll9mx9R+xISVo52LMwy5tjrO2gN68JFLuma24IY2vUPGrHEjy2
+         7uvrbzbfFA4Au12PgdRAzldKbBPe/8THy/9guSsoPUL+HJBnk4nWAeKr/bOLrcj8zfY8
+         kqk8B3a0qBhmDcY1mdJgnNUT3qslkq4VD9pSl/izsfwed5as+7YgpW0Qyk9dIhAonNYI
+         OY+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790950713; x=1791555513;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oTJy/ywZsqawpC6LBguje6pTwsPWoUHyJE3z7+IKeVI=;
+        b=DIV/x8swVinLWD/IuEfIpODfdiYPQJgkaKpGbUh3AyNOIhy3cpfjQlU7oS2Bh9LxjO
+         FjKarGZrmjlqW/ttZTLKBWO6B42+2QOswsX7QsI3JIQ1To564otsCkFPPuaarDMfxT20
+         e7gPk+Y8T5O+cxf6RECbkkFVKI98HkknCunH6mu24HscrV7dOuWERMrx49Crj8RGbe2/
+         nwBAOTbbzG3pQIbbvUDio8dnJGisPs/CQ33RrgGJHAhLSOyyJDvcA6ISPe9taU0ET8mw
+         Zy9dtikaLKpb5pC2c5rMstwngKhWbNapGgfjQntm0Pe8mRhaps3M+cdA3JhX5APyCYVO
+         cwjw==
+X-Forwarded-Encrypted: i=1; AKwUvBxtxsEQy8t8BdbdecrVQcY8fetpzQIHmnKIbXjq4coRCzoRHDJIddd88ieCsraJTdHtAuwcfAw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJAaCIrHeVMC4tjr6Pund5hwQ2fT3lmc8SS+s3I90Ll9XFMfHZM
+	NwRNNo1LySOlu7DnwHNfGpVGRPLbG9F5z47q1pHiuCDybVgIqruqycSa
+X-Gm-Gg: AYBFou21DmrEvM7ch7ymdMclmvelV25Qy+LrxEOpOxrQ7w9LAbyJoeHJMkJq8UX5ZEL
+	yfifDPJrJH3knkcNlcNYF/kvS4Zdol/dDp/ngyFC2MAP8AutLKn0VO6C2KFVADiq3Q8Go6qzJxV
+	VtfdPenjgWXHchSX9tl4UYcOeLhU0tDjwsyCXOhBqdVJb8daPdSqWba2kUIHDA+eFrBzB58F62S
+	AKqJtUBLx8jWJORqBd47MZtef18KK59ZsGbDYabY4gMLtzo5R2T7BU2A+d/xHEg0YkP6pbLtjyM
+	QD1dO6JxZHl97TWByZn4mbNKG7SbV5SUBAK2Q/yLYiygaVSdZ9plUOhsfegPJjyQ8Uw6ik0HFdA
+	FHAO95LDfKkyKUBQgYJpsC+p8X1L5l+wFdLj7qlbGfvF30SEn/XgyE3i3Is4AWeteOj6IuJ9fp6
+	8u5+6VNQHiDlqciPvPShnjH2JxI7gnwrSdqoqQdr/6oIk60SCg7WWnD42QHBOxagHfxtLRPl/dd
+	1zmg13S+A==
+X-Received: by 2002:a05:6000:40ca:b0:48b:ef1:3101 with SMTP id ffacd0b85a97d-48b12754490mr4958512f8f.19.1790950712668;
+        Fri, 02 Oct 2026 07:18:32 -0700 (PDT)
+Received: from foxbook (bfj133.neoplus.adsl.tpnet.pl. [83.28.47.133])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b380fada5sm5684961f8f.24.2026.10.02.07.18.31
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Fri, 02 Oct 2026 07:18:32 -0700 (PDT)
+Date: Fri, 2 Oct 2026 16:18:28 +0200
+From: Michal Pecio <michal.pecio@gmail.com>
+To: Wen Xiong <wenxiong@linux.ibm.com>
+Cc: mathias.nyman@intel.com, gregkh@linuxfoundation.org,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, wenxiong@us.ibm.com, Brian King
+ <brking@linux.vnet.ibm.com>, Samuel Mendoza-Jonas <sam@mendozajonas.com>,
+ Joel Stanley <joel@jms.id.au>
+Subject: Re: [PATCH] xhci: Reset controller on xhci shutdown
+Message-ID: <20261002161828.365ff859.michal.pecio@gmail.com>
+In-Reply-To: <561d22493c3d078b26f547dd8f6f6f46@linux.ibm.com>
+References: <20261001222527.11742-1-wenxiong@linux.ibm.com>
+	<20261002102931.3cb06009.michal.pecio@gmail.com>
+	<561d22493c3d078b26f547dd8f6f6f46@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-RnJvbTogUmFkaXkgWmhhbWJha2lldiA8ci56aGFtYmFraWV2QHByb3NvZnRzeXN0ZW1zLnJ1Pg0K
-DQpjYXJkX2lkeCBpcyBhIHN0YXRpYyBjb3VudGVyIHRoYXQgaXMgaW5jcmVtZW50ZWQgb24gZXZl
-cnkgcHJvYmUuDQpJdCBjYW4gb3ZlcmZsb3cgYW5kIHdyYXAgdG8gYSBuZWdhdGl2ZSB2YWx1ZSwg
-d2hpY2ggdGhlbiBpbmRleGVzDQpvcHRpb25zW10gYW5kIGZ1bGxfZHVwbGV4W10gb3V0IG9mIGJv
-dW5kcy4gTGFyZ2UgdmFsdWVzIGFsc28gbm8NCmxvbmdlciBmaXQgaW4gdGhlIDEyLWJ5dGUgYm9h
-cmRuYW1lW10gYnVmZmVyLg0KDQpBbGxvY2F0ZSB0aGUgY2FyZCBpbmRleCBmcm9tIGFuIElEQSBh
-bmQgZnJlZSBpdCBvbiBwcm9iZSBmYWlsdXJlIGFuZA0KcmVtb3ZlLiBUaGUgSURBIHJldXNlcyBp
-ZHMgb24gcmUtYWRkLCBwcmVzZXJ2aW5nIHRoZSBvcHRpb25zW10gYW5kDQpmdWxsX2R1cGxleFtd
-IG1hcHBpbmcgYnkgcHJvYmUgb3JkZXIuDQoNClN0b3JlIHRoZSBpZCBpbiB0aGUgZHJpdmVyLXBy
-aXZhdGUgZGF0YSBzbyBmZWFsbnhfcmVtb3ZlX29uZSgpIGNhbg0KZnJlZSBpdCwgYW5kIHNpemUg
-Ym9hcmRuYW1lIHRvIGhvbGQgYSBmdWxsIDMyLWJpdCBpZC4NCg0KRm91bmQgYnkgTGludXggVmVy
-aWZpY2F0aW9uIENlbnRlciAobGludXh0ZXN0aW5nLm9yZykgd2l0aCBTVkFDRS4NCg0KRml4ZXM6
-IDFkYTE3N2U0YzNmNCAoIkxpbnV4LTIuNi4xMi1yYzIiKQ0KQ2M6IHN0YWJsZUB2Z2VyLmtlcm5l
-bC5vcmcNClNpZ25lZC1vZmYtYnk6IFJhZGl5IFpoYW1iYWtpZXYgPHIuemhhbWJha2lldkBwcm9z
-b2Z0c3lzdGVtcy5ydT4NCi0tLQ0KTm90ZSBvbiB0aGUgSURBIGFwcHJvYWNoOg0KDQpJIHJlYWxs
-eSB3b3VsZCBsaWtlIHRvIGdvIHRoYXQgd2F5LCBhcyB0aGUgcHJvcG9zZWQgS0lTUyB3YXkgZG9l
-cw0Kbm90IHJlYWxseSBmaXggdGhlIG1haW4gcHJvYmxlbSBvZiBpbmZpbml0ZWx5IGluY3JlbWVu
-dGVkIHN0YXRpYw0KY291bnRlci4NCg0KQ29uc3RyYWluaW5nIHRoZSBwcm9iZSB0byBzb21lIGFy
-Yml0cmFyeSB2YWx1ZSBhbHNvIGRvZXMgbm90IGZlZWwNCnJpZ2h0IHRvIG1lLg0KDQpjYXJkX2lk
-eCBpcyBpbmNyZW1lbnRlZCBhdCB0aGUgdG9wIG9mIHRoZSBwcm9iZSwgc28gZXZlbiBmYWlsaW5n
-DQpwcm9iZXMgd2lsbCBpbmNyZW1lbnQgaXQuIEEgZmFpbGluZyBkZXZpY2Ugd2lsbCBldmVudHVh
-bGx5IA0KZXhoYXVzdCB0aGlzIGNvdW50ZXIgYXQgaXRzIHJldHJ5IHJhdGUuDQoNCiBkcml2ZXJz
-L25ldC9ldGhlcm5ldC9mZWFsbnguYyB8IDI1ICsrKysrKysrKysrKysrKysrKystLS0tLS0NCiAx
-IGZpbGUgY2hhbmdlZCwgMTkgaW5zZXJ0aW9ucygrKSwgNiBkZWxldGlvbnMoLSkNCg0KZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvbmV0L2V0aGVybmV0L2ZlYWxueC5jIGIvZHJpdmVycy9uZXQvZXRoZXJu
-ZXQvZmVhbG54LmMNCmluZGV4IGI1ZTk2YzcwMzdmMy4uNjI3ZTU3MGZkMzk5IDEwMDY0NA0KLS0t
-IGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvZmVhbG54LmMNCisrKyBiL2RyaXZlcnMvbmV0L2V0aGVy
-bmV0L2ZlYWxueC5jDQpAQCAtODMsNiArODMsNyBAQCBzdGF0aWMgaW50IGZ1bGxfZHVwbGV4W01B
-WF9VTklUU10gPSB7IC0xLCAtMSwgLTEsIC0xLCAtMSwgLTEsIC0xLCAtMSB9Ow0KICNpbmNsdWRl
-IDxsaW51eC9jcmMzMi5oPg0KICNpbmNsdWRlIDxsaW51eC9kZWxheS5oPg0KICNpbmNsdWRlIDxs
-aW51eC9iaXRvcHMuaD4NCisjaW5jbHVkZSA8bGludXgvaWRyLmg+DQogDQogI2luY2x1ZGUgPGFz
-bS9wcm9jZXNzb3IuaD4JLyogUHJvY2Vzc29yIHR5cGUgZm9yIGNhY2hlIGFsaWdubWVudC4gKi8N
-CiAjaW5jbHVkZSA8YXNtL2lvLmg+DQpAQCAtMTQzLDYgKzE0NCw4IEBAIHN0cnVjdCBjaGlwX2lu
-Zm8gew0KIAlpbnQgZmxhZ3M7DQogfTsNCiANCitzdGF0aWMgREVGSU5FX0lEQShmZWFsbnhfaWRh
-KTsNCisNCiBzdGF0aWMgY29uc3Qgc3RydWN0IGNoaXBfaW5mbyBza2VsX25ldGRydl90YmxbXSA9
-IHsNCiAJeyAiMTAwLzEwTSBFdGhlcm5ldCBQQ0kgQWRhcHRlciIsCUhBU19NSUlfWENWUiB9LA0K
-IAl7ICIxMDAvMTBNIEV0aGVybmV0IFBDSSBBZGFwdGVyIiwJSEFTX0NISVBfWENWUiB9LA0KQEAg
-LTQxMSw2ICs0MTQsOCBAQCBzdHJ1Y3QgbmV0ZGV2X3ByaXZhdGUgew0KIAl1bnNpZ25lZCBjaGFy
-IHBoeXNbMl07CS8qIE1JSSBkZXZpY2UgYWRkcmVzc2VzLiAqLw0KIAlzdHJ1Y3QgbWlpX2lmX2lu
-Zm8gbWlpOw0KIAl2b2lkIF9faW9tZW0gKm1lbTsNCisNCisJaW50IGNhcmRfaWR4Ow0KIH07DQog
-DQogDQpAQCAtNDczLDkgKzQ3OCw4IEBAIHN0YXRpYyBpbnQgZmVhbG54X2luaXRfb25lKHN0cnVj
-dCBwY2lfZGV2ICpwZGV2LA0KIAkJCSAgIGNvbnN0IHN0cnVjdCBwY2lfZGV2aWNlX2lkICplbnQp
-DQogew0KIAlzdHJ1Y3QgbmV0ZGV2X3ByaXZhdGUgKm5wOw0KLQlpbnQgaSwgb3B0aW9uLCBlcnIs
-IGlycTsNCi0Jc3RhdGljIGludCBjYXJkX2lkeCA9IC0xOw0KLQljaGFyIGJvYXJkbmFtZVsxMl07
-DQorCWludCBvcHRpb24sIGVyciwgaXJxLCBpOw0KKwljaGFyIGJvYXJkbmFtZVsxOF07DQogCXZv
-aWQgX19pb21lbSAqaW9hZGRyOw0KIAl1bnNpZ25lZCBsb25nIGxlbjsNCiAJdW5zaWduZWQgaW50
-IGNoaXBfaWQgPSBlbnQtPmRyaXZlcl9kYXRhOw0KQEAgLTQ4MywxOSArNDg3LDI0IEBAIHN0YXRp
-YyBpbnQgZmVhbG54X2luaXRfb25lKHN0cnVjdCBwY2lfZGV2ICpwZGV2LA0KIAl2b2lkICpyaW5n
-X3NwYWNlOw0KIAlkbWFfYWRkcl90IHJpbmdfZG1hOw0KIAl1OCBhZGRyW0VUSF9BTEVOXTsNCisJ
-aW50IGNhcmRfaWR4Ow0KICNpZmRlZiBVU0VfSU9fT1BTDQogCWludCBiYXIgPSAwOw0KICNlbHNl
-DQogCWludCBiYXIgPSAxOw0KICNlbmRpZg0KIA0KLQljYXJkX2lkeCsrOw0KKwljYXJkX2lkeCA9
-IGlkYV9hbGxvYygmZmVhbG54X2lkYSwgR0ZQX0tFUk5FTCk7DQorCWlmIChjYXJkX2lkeCA8IDAp
-DQorCQlyZXR1cm4gY2FyZF9pZHg7DQorDQogCXNwcmludGYoYm9hcmRuYW1lLCAiZmVhbG54JWQi
-LCBjYXJkX2lkeCk7DQogDQogCW9wdGlvbiA9IGNhcmRfaWR4IDwgTUFYX1VOSVRTID8gb3B0aW9u
-c1tjYXJkX2lkeF0gOiAwOw0KIA0KLQlpID0gcGNpX2VuYWJsZV9kZXZpY2UocGRldik7DQotCWlm
-IChpKSByZXR1cm4gaTsNCisJZXJyID0gcGNpX2VuYWJsZV9kZXZpY2UocGRldik7DQorCWlmIChl
-cnIpDQorCQlnb3RvIGVycl9vdXRfaWRhOw0KIAlwY2lfc2V0X21hc3RlcihwZGV2KTsNCiANCiAJ
-bGVuID0gcGNpX3Jlc291cmNlX2xlbihwZGV2LCBiYXIpOw0KQEAgLTUzNSw2ICs1NDQsNyBAQCBz
-dGF0aWMgaW50IGZlYWxueF9pbml0X29uZShzdHJ1Y3QgcGNpX2RldiAqcGRldiwNCiANCiAJLyog
-TWFrZSBjZXJ0YWluIHRoZSBkZXNjcmlwdG9yIGxpc3RzIGFyZSBhbGlnbmVkLiAqLw0KIAlucCA9
-IG5ldGRldl9wcml2KGRldik7DQorCW5wLT5jYXJkX2lkeCA9IGNhcmRfaWR4Ow0KIAlucC0+bWVt
-ID0gaW9hZGRyOw0KIAlzcGluX2xvY2tfaW5pdCgmbnAtPmxvY2spOw0KIAlucC0+cGNpX2RldiA9
-IHBkZXY7DQpAQCAtNjc0LDYgKzY4NCw4IEBAIHN0YXRpYyBpbnQgZmVhbG54X2luaXRfb25lKHN0
-cnVjdCBwY2lfZGV2ICpwZGV2LA0KIAlwY2lfcmVsZWFzZV9yZWdpb25zKHBkZXYpOw0KIGVycl9v
-dXRfZGlzYWJsZToNCiAJcGNpX2Rpc2FibGVfZGV2aWNlKHBkZXYpOw0KK2Vycl9vdXRfaWRhOg0K
-KwlpZGFfZnJlZSgmZmVhbG54X2lkYSwgY2FyZF9pZHgpOw0KIAlyZXR1cm4gZXJyOw0KIH0NCiAN
-CkBAIC02OTEsNiArNzAzLDcgQEAgc3RhdGljIHZvaWQgZmVhbG54X3JlbW92ZV9vbmUoc3RydWN0
-IHBjaV9kZXYgKnBkZXYpDQogCQlkbWFfZnJlZV9jb2hlcmVudCgmcGRldi0+ZGV2LCBSWF9UT1RB
-TF9TSVpFLCBucC0+cnhfcmluZywNCiAJCQkJICBucC0+cnhfcmluZ19kbWEpOw0KIAkJcGNpX2lv
-dW5tYXAocGRldiwgbnAtPm1lbSk7DQorCQlpZGFfZnJlZSgmZmVhbG54X2lkYSwgbnAtPmNhcmRf
-aWR4KTsNCiAJCWZyZWVfbmV0ZGV2KGRldik7DQogCQlwY2lfcmVsZWFzZV9yZWdpb25zKHBkZXYp
-Ow0KIAkJcGNpX2Rpc2FibGVfZGV2aWNlKHBkZXYpOw0KLS0gDQoyLjUzLjANCg==
+On Fri, 02 Oct 2026 09:05:36 -0500, Wen Xiong wrote:
+> On 2026-10-02 03:29, Michal Pecio wrote:
+> > What exactly happens after kexec?
+> > Why a PCI reset in particular?
+> > Are we sure it's not a bug elsewhere?
+> >   
+> After executing a kexec boots on a bare metal machine, the USB 
+> controller disappeared.
+
+Sure, but what does it mean exactly?
+Not even showing up in lspci output?
+
+Is this our problem and not PCI subsystem's?
+Are we sure it's not a bug elsewhere?
+
+(Last time somebody reported issues with kexec,
+it turned out to be an obscure Intel IOMMU bug).
+
+Regards,
+Michal
