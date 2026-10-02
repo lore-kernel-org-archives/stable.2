@@ -1,128 +1,129 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f36.google.com (mail-oo2-f36.google.com [74.125.231.164])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1787E22423A;
-	Fri,  2 Oct 2026 01:18:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B39F630D3E5
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 01:25:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.164
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790903920; cv=none; b=dVjBTEVHCZKLQ5Tv3CFm3nqEaAlr6SSsGYI2B9f18zO2kUUp+6lHaklQC/YH6YrGudntFhN4F/jNRbVvAO6L0P/m+KoILSFJzv0W2ZXoAyNMhjpucm5w6DtWtV37NgNeW6Wz+aRB/WxrICAJgvgUoE6zpIDOgP6uSXS8JNKGyeU=
+	t=1790904349; cv=none; b=P1YtrjtydAU4xdDhmBMMGb9PHDboyCnJNOTrhQGq+d3X/MeSt8b+xFVx3xlm16+IkrQzoH1rl3XNoLuw/faYTg54RrArZuEL8KA49PJekPN4PuM46wU3Zm9QckgFByWGfRdQAytWqo/LOVQi5P4YW2V5AenJ4OVwto51BFabz5c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790903920; c=relaxed/simple;
-	bh=DimN0iZw0iBl0ePgNYyHdsW2Ta+q9KYFkw6gX5WiHQQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tD13hQz0nDWDSZWCfFv7pg5+4Owjj7K+wdp8Dqwn/0PRgZbtv2v5aB0e21r4rJWl3O0DW1AfEDBJz/tvg1xRrTVaWd9BMKUcpMBpmBQNuIYAlyu+Qfj+NnVD3INaKiHPIHnG3u6/X6DC2ObmhR2uAENfxF1aez2ehCbxkl055aM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Q/lPxyRs; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790904349; c=relaxed/simple;
+	bh=kZI89yOlXiYsDvofh/WtTjLUnb7HWp10I4jru0/8Jh8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pmLnonZl3XWKb/O3BIT6dHui3Q0zjmUBhWdz8ilc03FBL67WNecTy5FTaGQ10h2F05fX3NvHmmfhpCxNrWFNNEkvNz6HFuVPpgfu1ULEU1W/EpRnlwdRWVDcirLhH6aSLnTpd/7Hk+V98f74bqPK509sJVrE6yTpuHeDQm3bZMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VjGvvrKb; arc=none smtp.client-ip=74.125.231.164
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Q/lPxyRs"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 856E5227;
-	Fri,  2 Oct 2026 03:16:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790903804;
-	bh=DimN0iZw0iBl0ePgNYyHdsW2Ta+q9KYFkw6gX5WiHQQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Q/lPxyRsVP918+X5+y+4p3sOId+LimE6+DD1AYbicfge5XpEqkAuaORARDmksFNha
-	 r92eby6wdoGRtgBnVIJpXyHhZThDsloigUUJIv1fiK/6o31QH/q36t52Hhwkzw4dSY
-	 j1P3fJFHLLMb6HvhpB6NIn640lnkubvcGzWur+2Q=
-Date: Fri, 2 Oct 2026 04:18:35 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: raoxu <raoxu@uniontech.com>
-Cc: hansg@kernel.org, mchehab@kernel.org, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] media: uvcvideo: preserve status URB interval on resubmit
-Message-ID: <20261002011835.GA93319@killaraus.ideasonboard.com>
-References: <F0F008459FFA835D+20260813074632.2021311-1-raoxu@uniontech.com>
- <20261001231856.GB9061@killaraus.ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VjGvvrKb"
+Received: by mail-oo2-f36.google.com with SMTP id 46e09a7af769-81aac23195fso949004a34.3
+        for <stable@vger.kernel.org>; Thu, 01 Oct 2026 18:25:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790904345; x=1791509145; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hA/VQ66U6s58Eb4wx5IlG71m91D/QLj21C8n4BUEC5I=;
+        b=VjGvvrKbYuSgCoQLDo2Ac99IUdt0hcCqqpGCUoN0mp4+HAP4YAcHDgvktl/axyDCaI
+         IMlvaBLmlO9y/IstlcHfqo6DR2TgxqWYsMYpF1S4krXQ9I4MQoGCLGUnq+p7Z/HqraRv
+         L+UIHDPvo8jnSgIqoZAVjLpkOnTB5VzkMCH0hNGHHKaq27/5Kv1fsfto5vPek6oiOBFc
+         iLJYZRwxiruFD5WwbEHZ2RUR5HDLDuAcemS5UdwTL1/YFlXJEbu1u/6lNEtaupCTV721
+         wVal2F45jFphfAB9LDBRrUvDqGGmOwHhVeOeBhnlYSxS+NszFYwT+eSZDPZE+g0KG+iL
+         ISIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790904345; x=1791509145;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hA/VQ66U6s58Eb4wx5IlG71m91D/QLj21C8n4BUEC5I=;
+        b=bMVgPwuq6ojkl/Sn/DCZ1qMWSraBxEJSBLXB5zovg4CUUf9IYKQ8nKclisakfruYzG
+         CsCSm0xo3DJszYjqvUBuPUwMYx+pcn4gJ7klHMGyuuJAgUXfxtPpVOo+3bZFyFr2QR6F
+         awvMI2e+DfCVfcGGBVTWRWIsUPUse1eSTxTduKn3TrBFSKLZI59BUjk6hBxnTtYf+rLW
+         yxj6IIxb1snjyb6VIMXDYNPhcZSoKT8bVRL2qBwx9LO36n5mBKgekvKWxjccnb2FI81u
+         eOEyOvg3kSzCd3lDkJ706LTYmhHfSluyuYpduh+Hsj5lWd1SL9bKWnZD19gpOQBm2uQZ
+         Yq5A==
+X-Gm-Message-State: AFuF++mQYhP/nUyv3V5Yloy2QoHSgL3hnbveEYB6Zb7un9H6HoUAlKRu
+	xG4Dl0HsN/VkoiCUZ9qfa32s0AV/LKPsiC9OkQpug1Cjmsc+ssdhE3brc68d9onKvNU=
+X-Gm-Gg: AYBFou1lFbdlr6pADzkE1kE5euzAdzt1cwmq2O6KQRXZKLo2e/UwPyIbB2GcGADYLcE
+	P1C9kaTV6xE0Oz9lEU4ETuabY0gWqMgW+bnia4jVXSJFSGGWbefpWro7VNic3JVandFZV0BY7sR
+	2ft3lbsWvKZ3nivxEt2unSTm+KIhrCc4ECgsr9RkwFrjI5hoA54rOztAQnbkJoTViclcY4pxgHe
+	fna0T953nd4BquoB3BYViwWzrBEsC42TziGoXtpWvrYrHitCvg5DyHYBHizIVikPsjiB7ozVobQ
+	R3ZuIbnFcgP5+yHqqoOhKGFGQAbbsqgyRGWZKQyFbTWxF5JubtYsUjXFKm1TNEoEGxsQ9u/gMKv
+	IvRucpjV2G+xqsZu4o8aAmrBv3H5cfQ4hF2nnmxKq8Eoxbi7prHU+5ZYZIfhGYZtEwhmc1/32cs
+	zuYm/4xl56Lp7eHCI6pIANRmnk/kwIrWyxPadkdIoV1JilT+5n+kw6kEW2jrgOi9L3utxboxJv/
+	MBFaexltrgUpRTCqoLyYskSCcpv79pKSayLmD9nclCcxlpVGHDYnQ==
+X-Received: by 2002:a05:6830:4107:b0:805:98ae:2160 with SMTP id 46e09a7af769-8228147557bmr2111785a34.2.1790904345564;
+        Thu, 01 Oct 2026 18:25:45 -0700 (PDT)
+Received: from localhost.localdomain ([37.19.221.77])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8227a86abbesm1749053a34.24.2026.10.01.18.25.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 18:25:45 -0700 (PDT)
+From: Iaroslav Voitovych <yaroslav.voytovych@gmail.com>
+To: stable@vger.kernel.org
+Cc: Tibor Harcsa <silurust@gmail.com>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	linux-bluetooth@vger.kernel.org
+Subject: Please backport dc16388d45ec ("Bluetooth: btusb: Add IMC Networks QCA9377 to quirks table") to stable
+Date: Fri,  2 Oct 2026 03:25:42 +0200
+Message-ID: <20261002012542.473669-1-yaroslav.voytovych@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261001231856.GB9061@killaraus.ideasonboard.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 02, 2026 at 02:18:56AM +0300, Laurent Pinchart wrote:
-> On Thu, Aug 13, 2026 at 03:46:32PM +0800, raoxu wrote:
-> > From: Xu Rao <raoxu@uniontech.com>
-> > 
-> > usb_fill_int_urb() takes an endpoint interval value and stores the
-> > period expected by usb_submit_urb() in urb->interval. For high-speed
-> > and SuperSpeed interrupt endpoints, it converts the logarithmic
-> > descriptor encoding to the corresponding microframe period.
-> > 
-> > The UVC status URB is initialized once in uvc_status_init(), including
-> > the UVC_QUIRK_STATUS_INTERVAL adjustment required by high-speed devices
-> > that report bInterval using the old full-speed convention. The first
-> > submission therefore carries the intended interval.
-> > 
-> > Both status resubmit paths, however, overwrite urb->interval with the
-> > raw endpoint bInterval before submitting the same URB again. On
-> > high-speed and SuperSpeed devices this mixes the descriptor encoding
-> > with the already converted URB interval representation. For devices
-> > using UVC_QUIRK_STATUS_INTERVAL it also deterministically discards the
-> > quirk adjustment after the first status completion, making the
-> > workaround effective only for the initial submission.
-> > 
-> > This has been easy to miss because the initial status submission is
-> > correct, full-speed interrupt endpoints do not have the same
-> > logarithmic encoding mismatch, and the status endpoint carries
-> > relatively infrequent control and streaming notifications rather than
-> > the video payload itself. The problem only appears after the status URB
-> > has completed and is resubmitted, and the externally visible effect
-> > also depends on how the host controller handles the resulting period.
-> > 
-> > Do not restore bInterval when resubmitting the status URB. Reuse the
-> > interval established by usb_fill_int_urb() and usb_submit_urb(), which
-> > also preserves the quirk-adjusted value. No additional state or
-> > interval conversion is needed because the same URB is being reused.
-> > 
-> 
-> This commit message is also very long and has a large amount of
-> irrelevant, when not borderline incorrect, information. Is this missing
-> an Assisted-by tag ?
-> 
-> > Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
-> > Fixes: e5225c820c05 ("media: uvcvideo: Send a control event when a Control Change interrupt arrives")
+Hello,
 
-Also, how is stable supposed to make sense of this ?
+please consider for linux-7.2.y, linux-6.18.y, linux-6.12.y, linux-6.6.y
+and linux-6.1.y:
 
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Xu Rao <raoxu@uniontech.com>
-> > ---
-> >  drivers/media/usb/uvc/uvc_ctrl.c   | 1 -
-> >  drivers/media/usb/uvc/uvc_status.c | 1 -
-> >  2 files changed, 2 deletions(-)
-> > 
-> > diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
-> > index 3ca108b83f1d..6552f541aa0d 100644
-> > --- a/drivers/media/usb/uvc/uvc_ctrl.c
-> > +++ b/drivers/media/usb/uvc/uvc_ctrl.c
-> > @@ -2196,7 +2196,6 @@ static void uvc_ctrl_status_event_work(struct work_struct *work)
-> >  		return;
-> > 
-> >  	/* Resubmit the URB. */
-> > -	w->urb->interval = dev->int_ep->desc.bInterval;
-> >  	ret = usb_submit_urb(w->urb, GFP_KERNEL);
-> >  	if (ret < 0)
-> >  		dev_err(&dev->intf->dev,
-> > diff --git a/drivers/media/usb/uvc/uvc_status.c b/drivers/media/usb/uvc/uvc_status.c
-> > index b632cf5e3fe9..680c6c7f4ad7 100644
-> > --- a/drivers/media/usb/uvc/uvc_status.c
-> > +++ b/drivers/media/usb/uvc/uvc_status.c
-> > @@ -245,7 +245,6 @@ static void uvc_status_complete(struct urb *urb)
-> >  	}
-> > 
-> >  	/* Resubmit the URB. */
-> > -	urb->interval = dev->int_ep->desc.bInterval;
-> >  	ret = usb_submit_urb(urb, GFP_ATOMIC);
-> >  	if (ret < 0)
-> >  		dev_err(&dev->intf->dev,
+  dc16388d45ec ("Bluetooth: btusb: Add IMC Networks QCA9377 to quirks
+  table")
 
--- 
-Regards,
+It is in mainline since v7.3-rc1 and carries no Cc: stable tag. It adds
+one entry to the btusb quirks table, beside the existing 13d3:3501 entry
+that carries the same flags:
 
-Laurent Pinchart
+	{ USB_DEVICE(0x13d3, 0x3503), .driver_info = BTUSB_QCA_ROME |
+						     BTUSB_WIDEBAND_SPEECH },
+
+None of the five trees has the ID. The commit cherry-picks onto each of
+them and btusb builds with it on each (checked 2026-10-02).
+
+Without the entry, on an IMC Networks QCA9377 (13d3:3503) in a laptop
+running Ubuntu's 7.0-based kernel, the device is matched as a generic
+controller, btusb_setup_qca() never runs, and it stays on its ROM
+firmware. On that firmware I observed:
+
+ - "unexpected event for opcode 0x2005" during LE scans, as the commit
+   message describes;
+ - after a transparent (mSBC) SCO link had streamed on USB alternate
+   setting 1, the next HCI command timed out: 12 recorded instances
+   across four 7.0 builds and three headset models; in the investigated
+   ones the controller then stopped answering USB control transfers and
+   only removing power recovered it.
+
+With the entry (the commit applied to the 7.0.0-34 source and btusb.ko
+rebuilt, nothing else changed) the driver loads
+qca/rampatch_usb_00000302.bin and qca/nvm_usb_00000302.bin from
+linux-firmware, and neither failure was observed in the test on the
+same machine:
+
+ - 0 "0x2005" events over the boot;
+ - 16 SCO links on two headsets, including one that had wedged the
+   controller before, with all 16 hang-ups answered and 0 command
+   timeouts. A diagnostic build enabling only the QCA setup part of the
+   entry had previously completed 58 links over three boots with all 58
+   hang-ups answered and 0 command timeouts.
+
+Runtime testing was performed on the 7.0-based kernel; the five
+requested stable trees were cherry-picked and build-tested. Logs, HCI
+captures and the exact commands are public, exhibits EX-055 to EX-059
+at:
+
+  https://github.com/ivoitovych/qca9377-bt-hang
+
+Thank you,
+Iaroslav Voitovych
