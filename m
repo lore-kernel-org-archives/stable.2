@@ -1,226 +1,247 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4435F43A808;
-	Fri,  2 Oct 2026 20:45:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.19
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790973911; cv=fail; b=Zh3FxnxXfS2x8JKFdKUxh0L5zXnsc5i6NosWeWmrwXPQBzdDQ2Uc3EettFOVlqkPZbES1ptQQNp+ORmTsOFDyDCRn8OqxOJA7JS1AJcMYea+nhwFTgxKfaL2BBu5OIwyhIY8PdNvrG9aic3a3V8AP086HWJdvU2YD7ep18RC3Nc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790973911; c=relaxed/simple;
-	bh=LWAbFqZzjpJ9FuOq3jw0V+IJgGYHXRebeAJ8FaqeDMg=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=O+KGPg4gSqUMB3fi7DvP4jo4+t1LBgY5md5/D8jY0LOkcJUqByQcnS4fXba7nzvvoyaIc+5baaHJwCks9qzOq7kJVqyJ7nT+/njfgllwjz2H+12TbHqZqL0wj28qt+U8qhwrkpi3FGWcVKFQQLzd9YkxzTrlgTt9k7I1E3wDexo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Q/PnnF2K; arc=fail smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 419433B5837
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 20:45:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790973952; cv=none; b=Gbux1/5G+1SV+pAVxbyHpVynXhGcbAZ9/WzfHzY2jpAoSHg4H2/4/JxBUNWWJARpkXjqbIV2kGKw0yCUPZxYIRNH6oHK3kCtENG3PuihnZvX7FQSyjiWWymjKDwcl+DnfkpltrkAUuYYQZ4DqAIsUEaZGDjvLnvh13QOmaTEo70=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790973952; c=relaxed/simple;
+	bh=hrKzZ43cJvocqLxV9DmG9Sqd8Bel7/0VvNw3HPWvWl0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=U6ZhYM2uirzFnTfYNyCH+l4D5bnER0VGCvFrM0+TsQsSUjDmmCHc38zu6fzp2y+74OxPiKQmcZfenRGocuKWXsGajs6Wjb3ifqzOmf+SxJsNLUUXo9GbQCN4ssF4+UlDYkdV4/G+k11SbaikAegCz7Y82w/b+bqF9tuACozhL4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=AjydZFSi; arc=none smtp.client-ip=74.125.229.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Q/PnnF2K"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790973910; x=1822509910;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=LWAbFqZzjpJ9FuOq3jw0V+IJgGYHXRebeAJ8FaqeDMg=;
-  b=Q/PnnF2K1B29KtNY5JL3Vceq++MDMfNYvfc2daEudyfvAStxal/37G6d
-   OeTomeere0tqCVpHsq480LfBcKlq1A3VQMbLbXvQzpCwvfUEBSYkLWrQD
-   EoJSKBiTROGEVssJ/BtrfAG0AbLrysDQMM2zXSYx2k3l1RvwJjUuiYhWd
-   owvePpPwsercjqSVnrDD31lNd4lBqzrvFqXNwoK0xP9KA4zie9JtPxXQc
-   jn+PBbmWpW/Q+ZOh6Wc1lnPuNGM5LQeBQGqaVRYnDGWix1LlW3NGnGEWl
-   a/IoodS7CmSimPXV3+ZCKHmIpGyciqwJeuGIRDPvfkVzHUh2xfVjXz9tX
-   w==;
-X-CSE-ConnectionGUID: WRSTxBIVSESNuM9h36Zyhw==
-X-CSE-MsgGUID: nxAZbw4OQoiHutJp1EcmpQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11923"; a="90642944"
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="90642944"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 13:45:09 -0700
-X-CSE-ConnectionGUID: uoYjTBcPTuyrpJ0/oBGm0Q==
-X-CSE-MsgGUID: 2vpQlteATvSiidUf+oqa6Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="355564"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
-  by fmviesa012.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 13:45:09 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 2 Oct 2026 13:45:08 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Fri, 2 Oct 2026 13:45:08 -0700
-Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.6) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 2 Oct 2026 13:45:08 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZtdE9L/H96CZBMWW20GLS/8cjGYgF0VW6WrQGCO72R6RWpCW+7b2B4Xj+ijB3XnJvYfQwXduA3bdysjvz9WQl0QUQS8H8bMDU3vVjfCNAo6+na6stCICRw60U0GpC+x6H8ZeeIruj1ILoMfpouEDyRwkw1W8DbYMg0WrQs21zVmB7u+2n0zzisH9E8o+GExHjhGEWwc6AWog7DEVkeEyF9E5SAqMeJ/tRz9eUiauRIhsBydXSEeQ78CpxFYIbbkRfrU7hWQ4C11rZ4wEu7TjprH0DdE2txrntb6GIUw72ao3rxSxdkY6/9Ri0UtA66YCergD55uK7ef5TjfTnsStAg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=try3CTtG3kavv757K4ONMQ1/DjiqtUe9J6qGxHbdRQo=;
- b=Kj35AReNMk5kivcajSO/XQPFE+SX4eEVJEUhDH3TBObtctPeqxJc1zmDlP0Y/5N40KSBUHRlzFD1um8O8DEEieuxgRQQdHjJd5Q22Ue6zPWNeQdgEkXiV2D33SSQYHlE63bC3296H+P6eFRsakLnwgdgKpnoPuEXxGwnpw97lWk3L/WofO/bbq6Q6anELOZG6CcMHib4TDnJYB/N16z5rJk6FfChKAYvXyHLQViP37RRwMfM3SPCIuutHDG+9osF8CstlrIIur0EPtziaLHfc9dbbSRbvNILZB/50xWNb+JhCVafSB4B3hB2xr6lIh4kc/n7RqB38VreffpgW5B3Yw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from CH3PR11MB046149.namprd11.prod.outlook.com
- (2603:10b6:610:367::19) by CY5PR11MB6188.namprd11.prod.outlook.com
- (2603:10b6:930:24::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Fri, 2 Oct
- 2026 20:45:05 +0000
-Received: from CH3PR11MB046149.namprd11.prod.outlook.com
- ([fe80::7c3f:5300:19c4:b823]) by CH3PR11MB046149.namprd11.prod.outlook.com
- ([fe80::7c3f:5300:19c4:b823%6]) with mapi id 15.21.0472.016; Fri, 2 Oct 2026
- 20:45:05 +0000
-From: "Ruhl, Michael J" <michael.j.ruhl@intel.com>
-To: "David E. Box" <david.e.box@linux.intel.com>,
-	"ilpo.jarvinen@linux.intel.com" <ilpo.jarvinen@linux.intel.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
-	"Vivi, Rodrigo" <rodrigo.vivi@intel.com>, "Siddiqui, Ayaz A"
-	<ayaz.siddiqui@intel.com>, "Muqthyar Ahmed, Syed Abdul"
-	<syed.abdul.muqthyar.ahmed@intel.com>, "intel-xe@lists.freedesktop.org"
-	<intel-xe@lists.freedesktop.org>, "hansg@kernel.org" <hansg@kernel.org>
-CC: "stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: RE: [PATCH 2/3] platform/x86/intel/vsec: Fix inverted walk_header()
- test in get_features()
-Thread-Topic: [PATCH 2/3] platform/x86/intel/vsec: Fix inverted walk_header()
- test in get_features()
-Thread-Index: AQHdUfDKEhPcl5FXrUuHYh2lnuz4PbbqucoA
-Date: Fri, 2 Oct 2026 20:45:05 +0000
-Message-ID: <CH3PR11MB04614961D00C07BD3BE88CC54DC1892@CH3PR11MB046149.namprd11.prod.outlook.com>
-References: <20261001220351.1592138-1-david.e.box@linux.intel.com>
- <20261001220351.1592138-3-david.e.box@linux.intel.com>
-In-Reply-To: <20261001220351.1592138-3-david.e.box@linux.intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CH3PR11MB046149:EE_|CY5PR11MB6188:EE_
-x-ms-office365-filtering-correlation-id: 743261f0-ef3b-4894-49f3-08df20c60a3a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|4143699003|10067099003|921020|56012099006|6133799003|11063799006|22082099003|18002099003|38070700021;
-x-microsoft-antispam-message-info: e1HYVAorGs41xE9+8mhEdZan2xDPM21mFFuuSg9zj1EJF/7gw1fTA2P5Lp+9cwFRGZGbZlOq6geNBeNW43FEn1EBsYhSWPKD1ZkPnbfvq6C/NoVBWrJsgiJt5Os/xtLoJOAnEvY/weoYZOpGpad+tgQ0dI/yQt0bSgIHZULbRzj097/WZd9nuJ3vq1FnW8qP3UCvx6rEIuvIKBAF5m7bL6KH/5VrTOOgpD+UABhi2tz3bd6jkLJX43O+mlPYtIBaX5wEea+GJQu4PniIabIeDJIb0emIO3oX6lRSU6t+anq8KY9EDITR+O8doXZsQxkF4MqbFiwGRcfEQCZPHaOF3mMyZhYQ5GUlwkp3X9mYXOQwJvt0qP/ajwDcLP24ICT8CqPPoFLAaeVuvnAWeLiDEPwQ9V4eFJlRPqrnLS5V0GpLBHFtocKT0nGaK82zH7KEpz0JCQJVo8Z2xRylKNe1V8OJJK+A5T9fTcqPE3a12sIRTFuXQhQUiIvCk+ipjlDdu2bBZjv0fRwJLoUIgb/zugWy3cKcXq5mam5phOB4O8gm63AKtD1CGcm0J6jXy9HJG2s9Jn5qG6POopdD63LjBSNg4gjtpwwPIFZaCkVobsKQva7tOWGuOlVLNyMHC5g9Q8iPWMC5BxJe+BJinOp1pwpf+lrVviOqZ1NL/iMnMoIEMdHYIe/oAS/mSvPUKcRy6h6hGfIF9HaJlDBqVJH8pYa9BQPy4X/O8mnFvucnTSh+tyjclnl5RIyq0jip68un
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR11MB046149.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(4143699003)(10067099003)(921020)(56012099006)(6133799003)(11063799006)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?gJ9PzlyiPo6OZ4EZwdEz25unOQXGGeRJwaYuQapvzjNT3no1OtJMIBOFh73C?=
- =?us-ascii?Q?sMwm2MaT2S8k9vXlpIs85vufPZ/lYTalvEeGwHNGrhQBYbCKOnigo7aiSs9N?=
- =?us-ascii?Q?Sq6zAr4hlwJoSDPzWhgDvW5u2wy0apz7lV30Lz3swBI+ebB9G6+wuQaXVPNl?=
- =?us-ascii?Q?XRfiFWIy+yEg/MkmAhT+qjIJuT/XCU1Y3UKVPpjN3OR0zWY7i6cotBs9qa4L?=
- =?us-ascii?Q?Jc8Z4qMyyMc09ee3ta5mLLsobepNGpkhouNt4jbJmirp4kEnQtTpl+5AVED2?=
- =?us-ascii?Q?Q6kfifB53bh6RiSnzKZmA0Xjyhxt0Y6BMj3fsRPku5SnETKvBadmzY1U2oHu?=
- =?us-ascii?Q?6tUA4u8lCGidkzrsjyxDUUS4bsRaPyulaV31MoC58SiBepciysRjL0VG/2sD?=
- =?us-ascii?Q?Ri0xFm8FbNCcyuzRLSoIMLdwr1XFgFbi8++an8bibfwj2JdWC6RJQ20nwA3A?=
- =?us-ascii?Q?NLLK/sRD7YFdubi6QXoydW1voQfryp30xOk9r58K+0ipPkGL51yYkTrumTOt?=
- =?us-ascii?Q?QhM5tLjcqXcQjhGlxSv/JVA6GyjNPVUf+YbizuNkYHYN+jaU9mvLGuLJszpE?=
- =?us-ascii?Q?1D3W/nDFMpNY8H8DY0Acnw75ktPflacuvPPQYE0njiO+/KjmsXTHB3vfGC+D?=
- =?us-ascii?Q?fAoFJhVNJXLaIGHFhKjK1HwNmcOBD5sezU6CH8GG5by0lau0fbNIgS0G8AUh?=
- =?us-ascii?Q?o/ceMQN2M6bOu+D2nXGvH7lG/Uqa90Qo4NIEJFrPaZixXUfCTPZMMP3fhOVl?=
- =?us-ascii?Q?7LcVma+cxfsp3vhk/bsA44/ZD+W1+ftAqoIt7v9zC29AU71tWjGcY1SfLgb3?=
- =?us-ascii?Q?UDzOnd0gTC6YfX77RYVrp6aEut5vmXQ3RT6gUBJbOK6UPVjPuvZczjr/vKr5?=
- =?us-ascii?Q?782YQSUS666Z23hB+ORirX/4XMeD1+aa7bQw8gLHaILubUuYTh/ZuSJUe3he?=
- =?us-ascii?Q?FmDfv/PDFRFnJKcS04Xy/qsj/grXuXPPe+/OTBoYuFHi9eNmUercxMSgikao?=
- =?us-ascii?Q?jImWkmg9DLuAhW5ES7YyUZ72h2D9Y8LJg7uheaZRtaXSbqnR8mKeeJBP9JrY?=
- =?us-ascii?Q?VcO8sN6JgL7MvAlqa1vSWD6SRlSkyfD2278k3mNzt5sre0WSaqibmvBtTCXq?=
- =?us-ascii?Q?m/FI3nkhm+w/KmLLBX6EDD0/adgadOizT6xnwRsCOy7c3B57Rw13yJ4Tlwbq?=
- =?us-ascii?Q?Lp4WPSWI05Uf/C3y6RjK/Tro2c9Ui83LltJV6r4N8ffn1Ris9FTVg8Xa95p1?=
- =?us-ascii?Q?JnEIHWDJZ+fuvDMeWFlGcISLtB97+eIfEIlpoDIO84TMj+qpghq6ZpiQf1Wk?=
- =?us-ascii?Q?pV4Aag/ozPdZi8ytDpIHl+50VZrSOyM6PAK6ZUz+dt26KzvqhBOCdbwZGsag?=
- =?us-ascii?Q?ez5IXhXAdErIg7Hdv68Pg7RzMHAS5FURxffxSWLdc2yyEXebKt8vrN+FwRkQ?=
- =?us-ascii?Q?Zwk5CXpnUKrsyS5cf5YNQ7WEi5hkjVNl+9uEsTN7urK31chm/lNKDuTWT6pk?=
- =?us-ascii?Q?kRk6JBVfBSmNQX8CN0TQ6QCAa83llAa+IeffTxgfCEFcfrjWoEjFZfkmqnxO?=
- =?us-ascii?Q?IVbUGe95uCl7WJbuhNGFIyqq8TFVD+7COY/gf3RkUmWbsOMB99R3b08R8rwR?=
- =?us-ascii?Q?9p2qgPspOAOV2hEOYCFEA9jn2XiUh90xpyoL574BASihdqCazzLhr54UKtiQ?=
- =?us-ascii?Q?bkU2UeuaHY7VP6sYeIrGyBFXMatZXuY/mwWqXoaYefh3nvhlWN0Xyw4wqS4l?=
- =?us-ascii?Q?2cVy2yVbBQ=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="AjydZFSi"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33c24422d4dso5653eec.2
+        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 13:45:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1790973946; x=1791578746; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sgvZhgmjrftKT8E5vS9CrFzO9ANsKTScS9cgLRZmapE=;
+        b=AjydZFSi6+qOl+SbIh2WgsTnZLal6hyXI+qguksU8u77CeKc7zRKpt/qOS0LZXyEf1
+         zsisyp4mWxI0DCWa1yZtLAXnOSQn5msquk8VH/C+o1STLI2hS9fKuV5fSl3v5wXp2Pi9
+         vs7foWQY32QZwedmGBoq/CLBdgq8NFOjsFpzVhJDDi2itLjheu6qZ/L8CR44cS8mYu95
+         UcE51rYnFheCPoWFgrFwyz6zFDaelv0MqiZqnWULcj9RnzXka1VXPIIjEnFekeMYnUAx
+         qYGvaFW0k+zxxUaWls3POQ71VaTF8dFWC32L0IxAFiIhlalZP6XDPoRVwpb0WrVyHHZm
+         V7+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790973946; x=1791578746;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sgvZhgmjrftKT8E5vS9CrFzO9ANsKTScS9cgLRZmapE=;
+        b=an9ipWHlija5USoTCDQdsxsQc++bJg2wA3ru/HgpIXXaHZWfYn9ex4V6+r16jT6tJB
+         ggOzXvRYH60eWeiat+SPBq8yp8YZDccvOVMBJmKEH1DenrofcqdyE1rmc4NSORdjFpwW
+         aPPi4i31T57CjeTvxCFv7IHmxmQ7Kc0lAP3JdSluHr1VxYAG6fBZCaod+UQ1Gfmrva90
+         juUpiFVfupd322m9SQF7ZviAi/++SQKvB1/iNJ3UEL0DYeriIt4zxtSgEYcWa0nXl6uu
+         5zYQCjQl/BZ4YAKrT+OGo0o2FhEE7/XurvAY4qde9pT0WvBHb+tQc6qhNHIws2iYxr9Z
+         cTyQ==
+X-Gm-Message-State: AFq9FYLAooQeo3L8IQHxkpbnQK5kYsGOZqaQbP/d3i9yGxTwRU0RpFzp
+	mnO1n/K46bdAtwsqLP1q9vIpd8eJqE5xWnwfNwBWaolsHPv1GMeD1RMPMzJF8EC6hp5JRKDdnGN
+	0vaB1WzUecA==
+X-Gm-Gg: AYBFou0cuxrjwBiUkM37BeOq5Lc9dqHIg9aSwvZTl7rmKSZIcmmn7BY5X2yZGep86pT
+	htubOBk6DkT7L8OmdeULMjW6xVWjjGIlBXsyaYuRhibprWHvvnZnYqn1dB2UZKDSCbi9tSfvS1C
+	A7Ons5iPfoOBfnOtGGxBrjQs+1chlWJyCnc98IDCiHXA9qwuBlE2LIZD+30s1/rV55W6I0jtlMU
+	33Sy0/iwaqBhLKGWcUvikUAihbEmLhITuyvGYEiQGir6HpGomR9aDi9UnIX8tidARKfFJ37GBsX
+	L2ly6DTJE+fCj/sVmfVx//+WlxcAOrlPB60BABEOoGf0gH48XIxCi4QB5uC9l8d+LAb7qArFWbe
+	W7IzVu0K/asGNO92yzzMnF203XnQrNMJqDnWIsoZrqu6YsrrL+zqpkVMYSKmY+o47A96ljIn74T
+	3Ob6RvMMX8ukH/duSFtXsXWTAUyDYdFvy14H5fRYLWP8+riN8qzp/R6KTFXye+pTBqI1s7wJNkk
+	wGuVv72pc+guM3cE/IGDzrB/xkN+jDxGhPvxKBir65fKEOlDTDZ9eAPqjn3GsOObXTjC81m
+X-Received: by 2002:a05:7301:1709:b0:34d:f38d:4302 with SMTP id 5a478bee46e88-34f150d1b0bmr4216038eec.17.1790973939173;
+        Fri, 02 Oct 2026 13:45:39 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:a1e3:ffe2:b35a:69a4])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-351143b577bsm62111eec.15.2026.10.02.13.45.37
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 02 Oct 2026 13:45:38 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: Artem Dinaburg <artem@trailofbits.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>,
+	David Arinzon <darinzon@amazon.com>,
+	Shahar Itzko <itzko@amazon.com>,
+	Simon Horman <horms@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Shay Agroskin <shayagr@amazon.com>,
+	Arthur Kiyanovski <akiyano@amazon.com>,
+	Noam Dagan <ndagan@amazon.com>,
+	Saeed Bishara <saeedb@amazon.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Andrew Lunn <andrew+netdev@lunn.ch>
+Subject: [PATCH 6.1.y] net: ena: Add validation for completion descriptors consistency
+Date: Fri,  2 Oct 2026 16:45:33 -0400
+Message-ID: <20261002204534.26297-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: vdsbc1KjZhwzL+EdjKNPmteSHD/q3A0ZssJbTHfAU/de9T4PTJW6+eFiYllgiuMLmfLsLFEBtDVOgsdKyVzLQbu8cKd1OpzB7pZbWOzLfHmijL3qPUC0u6/J4PnwvdB1QbZYDbSVnZ1eq5Wcd0qKpDvqbQVzqeoB746UxVrJyfnBHiefrVoTl2mq7hRNYJ9B1dRitjM3xj7x0vr74LiwK9r5vqFCm9OvLTVcWf/E30o9atFZb1ZzH3IXmgcd1p0NSM1LNDKQ9tYN3FaZARLJaqx64ASpsjx4xfin/tihCF6wv/rYTRqHkdgfVV1CtoWPBTZSvtkwmyDn/fo0vp8gRA==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH3PR11MB046149.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 743261f0-ef3b-4894-49f3-08df20c60a3a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Oct 2026 20:45:05.6532
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 4TRQG1jZS4jcCw+z7M2nozjSxfHGWjRK101wWkVPRSx4Yd4tM1L6SWLh+sMJjHYQoYo3HdZCFNPfYYspslzzTq4toWF7vsG/wYIlGLpQW1Q=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR11MB6188
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
+From: David Arinzon <darinzon@amazon.com>
 
+[ Upstream commit b37b98a3a0c1198bafe8c2d9ce0bc845b4e7a9a7 ]
 
->-----Original Message-----
->From: David E. Box <david.e.box@linux.intel.com>
->Sent: Thursday, October 1, 2026 6:04 PM
->To: ilpo.jarvinen@linux.intel.com; david.e.box@linux.intel.com; linux-
->kernel@vger.kernel.org; platform-driver-x86@vger.kernel.org; Vivi, Rodrigo
-><rodrigo.vivi@intel.com>; Ruhl, Michael J <michael.j.ruhl@intel.com>; Sidd=
-iqui,
->Ayaz A <ayaz.siddiqui@intel.com>; Muqthyar Ahmed, Syed Abdul
-><syed.abdul.muqthyar.ahmed@intel.com>; intel-xe@lists.freedesktop.org;
->hansg@kernel.org
->Cc: stable@vger.kernel.org
->Subject: [PATCH 2/3] platform/x86/intel/vsec: Fix inverted walk_header() t=
-est
->in get_features()
->
->intel_vsec_walk_header() used to return a bool that was true when devices
->were found. It was converted to return 0 on success and a negative errno
->on failure, but the boolean test in intel_vsec_get_features() was left
->unchanged, so its meaning is now inverted.
->
->A successful walk returns 0 and leaves found set to false, while a failed
->walk returns an error that evaluates to true. When no other capabilities
->are present, intel_vsec_pci_init() then returns -ENODEV even though the
->auxiliary devices were created, and the driver core tears them back down.
->
->This affects platforms that have no DVSEC or VSEC capabilities and
->describe their features through device_data instead, which today means
->DG1. Test the return value for success explicitly.
->
->Fixes: a6ce8bf3c993 ("platform/x86/intel/vsec: Return real error codes fro=
-m
->registration path")
->Cc: stable@vger.kernel.org
->Assisted-by: LLM
->Signed-off-by: David E. Box <david.e.box@linux.intel.com>
->---
-> drivers/platform/x86/intel/vsec.c | 2 +-
-> 1 file changed, 1 insertion(+), 1 deletion(-)
->
->diff --git a/drivers/platform/x86/intel/vsec.c
->b/drivers/platform/x86/intel/vsec.c
->index 5ab2215fdd7f..7d51f27f09bc 100644
->--- a/drivers/platform/x86/intel/vsec.c
->+++ b/drivers/platform/x86/intel/vsec.c
->@@ -641,7 +641,7 @@ static bool intel_vsec_get_features(struct pci_dev
->*pdev,
-> 		found =3D true;
->
-> 	if (info && (info->quirks & VSEC_QUIRK_NO_DVSEC) &&
->-	    intel_vsec_walk_header(&pdev->dev, info))
->+	    !intel_vsec_walk_header(&pdev->dev, info))
+Validate that `first` flag is set only for the first
+descriptor in multi-buffer packets.
+In case of an invalid descriptor, a reset will occur.
+A new reset reason for RX data corruption has been added.
 
-Reviewed-by:  Michael J. Ruhl <michael.j.ruhl@intel.com>
+Signed-off-by: Shahar Itzko <itzko@amazon.com>
+Signed-off-by: David Arinzon <darinzon@amazon.com>
+Reviewed-by: Simon Horman <horms@kernel.org>
+Link: https://lore.kernel.org/r/20240512134637.25299-4-darinzon@amazon.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+---
+Hi Greg, Sasha, and net maintainers,
 
+I am working through the small CVE backports still missing from 6.1.y.
+This one addresses CVE-2024-40999. It detects inconsistent ENA completion
+descriptors and resets instead of consuming them.
 
-m
-> 		found =3D true;
->
-> 	return found;
->--
->2.43.0
+The corresponding 6.6.y backport is already in the 6.6.y stable queue.
+The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not
+in 6.1.y.
+The code change is identical to upstream.
+
+Could you please queue it for 6.1.y?
+
+CVE: CVE-2024-40999
+Upstream: b37b98a3a0c1198bafe8c2d9ce0bc845b4e7a9a7
+
+AI assistance: An LLM helped identify, adapt, and validate this backport; I
+reviewed the resulting code and validation evidence.
+
+Thanks,
+Artem Dinaburg
+
+ drivers/net/ethernet/amazon/ena/ena_eth_com.c | 37 ++++++++++++++-----
+ drivers/net/ethernet/amazon/ena/ena_netdev.c  |  2 +
+ .../net/ethernet/amazon/ena/ena_regs_defs.h   |  1 +
+ 3 files changed, 30 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/net/ethernet/amazon/ena/ena_eth_com.c b/drivers/net/ethernet/amazon/ena/ena_eth_com.c
+index 933e619b3a3134..4c6e07aa4bbb55 100644
+--- a/drivers/net/ethernet/amazon/ena/ena_eth_com.c
++++ b/drivers/net/ethernet/amazon/ena/ena_eth_com.c
+@@ -229,30 +229,43 @@ static struct ena_eth_io_rx_cdesc_base *
+ 		idx * io_cq->cdesc_entry_size_in_bytes);
+ }
+ 
+-static u16 ena_com_cdesc_rx_pkt_get(struct ena_com_io_cq *io_cq,
+-					   u16 *first_cdesc_idx)
++static int ena_com_cdesc_rx_pkt_get(struct ena_com_io_cq *io_cq,
++				    u16 *first_cdesc_idx,
++				    u16 *num_descs)
+ {
++	u16 count = io_cq->cur_rx_pkt_cdesc_count, head_masked;
+ 	struct ena_eth_io_rx_cdesc_base *cdesc;
+-	u16 count = 0, head_masked;
+ 	u32 last = 0;
+ 
+ 	do {
++		u32 status;
++
+ 		cdesc = ena_com_get_next_rx_cdesc(io_cq);
+ 		if (!cdesc)
+ 			break;
++		status = READ_ONCE(cdesc->status);
+ 
+ 		ena_com_cq_inc_head(io_cq);
++		if (unlikely((status & ENA_ETH_IO_RX_CDESC_BASE_FIRST_MASK) >>
++		    ENA_ETH_IO_RX_CDESC_BASE_FIRST_SHIFT && count != 0)) {
++			struct ena_com_dev *dev = ena_com_io_cq_to_ena_dev(io_cq);
++
++			netdev_err(dev->net_device,
++				   "First bit is on in descriptor #%d on q_id: %d, req_id: %u\n",
++				   count, io_cq->qid, cdesc->req_id);
++			return -EFAULT;
++		}
+ 		count++;
+-		last = (READ_ONCE(cdesc->status) & ENA_ETH_IO_RX_CDESC_BASE_LAST_MASK) >>
+-		       ENA_ETH_IO_RX_CDESC_BASE_LAST_SHIFT;
++		last = (status & ENA_ETH_IO_RX_CDESC_BASE_LAST_MASK) >>
++			ENA_ETH_IO_RX_CDESC_BASE_LAST_SHIFT;
+ 	} while (!last);
+ 
+ 	if (last) {
+ 		*first_cdesc_idx = io_cq->cur_rx_pkt_cdesc_start_idx;
+-		count += io_cq->cur_rx_pkt_cdesc_count;
+ 
+ 		head_masked = io_cq->head & (io_cq->q_depth - 1);
+ 
++		*num_descs = count;
+ 		io_cq->cur_rx_pkt_cdesc_count = 0;
+ 		io_cq->cur_rx_pkt_cdesc_start_idx = head_masked;
+ 
+@@ -260,11 +273,11 @@ static u16 ena_com_cdesc_rx_pkt_get(struct ena_com_io_cq *io_cq,
+ 			   "ENA q_id: %d packets were completed. first desc idx %u descs# %d\n",
+ 			   io_cq->qid, *first_cdesc_idx, count);
+ 	} else {
+-		io_cq->cur_rx_pkt_cdesc_count += count;
+-		count = 0;
++		io_cq->cur_rx_pkt_cdesc_count = count;
++		*num_descs = 0;
+ 	}
+ 
+-	return count;
++	return 0;
+ }
+ 
+ static int ena_com_create_meta(struct ena_com_io_sq *io_sq,
+@@ -539,10 +552,14 @@ int ena_com_rx_pkt(struct ena_com_io_cq *io_cq,
+ 	u16 cdesc_idx = 0;
+ 	u16 nb_hw_desc;
+ 	u16 i = 0;
++	int rc;
+ 
+ 	WARN(io_cq->direction != ENA_COM_IO_QUEUE_DIRECTION_RX, "wrong Q type");
+ 
+-	nb_hw_desc = ena_com_cdesc_rx_pkt_get(io_cq, &cdesc_idx);
++	rc = ena_com_cdesc_rx_pkt_get(io_cq, &cdesc_idx, &nb_hw_desc);
++	if (unlikely(rc != 0))
++		return -EFAULT;
++
+ 	if (nb_hw_desc == 0) {
+ 		ena_rx_ctx->descs = nb_hw_desc;
+ 		return 0;
+diff --git a/drivers/net/ethernet/amazon/ena/ena_netdev.c b/drivers/net/ethernet/amazon/ena/ena_netdev.c
+index 5159fb9fbe66fd..11f47f24917eb3 100644
+--- a/drivers/net/ethernet/amazon/ena/ena_netdev.c
++++ b/drivers/net/ethernet/amazon/ena/ena_netdev.c
+@@ -1853,6 +1853,8 @@ static int ena_clean_rx_irq(struct ena_ring *rx_ring, struct napi_struct *napi,
+ 	if (rc == -ENOSPC) {
+ 		ena_increase_stat(&rx_ring->rx_stats.bad_desc_num, 1, &rx_ring->syncp);
+ 		ena_reset_device(adapter, ENA_REGS_RESET_TOO_MANY_RX_DESCS);
++	} else if (rc == -EFAULT) {
++		ena_reset_device(adapter, ENA_REGS_RESET_RX_DESCRIPTOR_MALFORMED);
+ 	} else {
+ 		ena_increase_stat(&rx_ring->rx_stats.bad_req_id, 1,
+ 				  &rx_ring->syncp);
+diff --git a/drivers/net/ethernet/amazon/ena/ena_regs_defs.h b/drivers/net/ethernet/amazon/ena/ena_regs_defs.h
+index 1e007a41a52564..23466d62fbc5c5 100644
+--- a/drivers/net/ethernet/amazon/ena/ena_regs_defs.h
++++ b/drivers/net/ethernet/amazon/ena/ena_regs_defs.h
+@@ -21,6 +21,7 @@ enum ena_regs_reset_reason_types {
+ 	ENA_REGS_RESET_USER_TRIGGER                 = 12,
+ 	ENA_REGS_RESET_GENERIC                      = 13,
+ 	ENA_REGS_RESET_MISS_INTERRUPT               = 14,
++	ENA_REGS_RESET_RX_DESCRIPTOR_MALFORMED	    = 16,
+ };
+ 
+ /* ena_registers offsets */
+-- 
+2.39.5
 
