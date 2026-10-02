@@ -1,102 +1,339 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cvsmtppost25.nm.naver.com (cvsmtppost25.nm.naver.com [114.111.35.37])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4B6B47F766;
-	Fri,  2 Oct 2026 10:38:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D717483818
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 10:56:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.111.35.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790937491; cv=none; b=fLTvI6dD28M/3U009+nP6w9z655Q58a8qyNqQPnhSVETgaoE1rBamtiY0zdXzQj9eTwtbHyn113IeLHOrDQLX6L1zVoRHpWqf9pL0PZzOchb9VIQdzvk1APGbBGrz1rZ5qZJETdZ4kVbPA+klB/iPzGEgez0O0xnyU1+V6fisaU=
+	t=1790938596; cv=none; b=B4Gqj5hxEQFr8raOD193DLrMTsAh64uZvgT/1bJ8xqQf9j5dn39FusqBn3ZZQfIEElAp6fhTgeojWgFzleyZHFryA20MSwhG22y/At2WKAwQuzNfvlZstja05BNuWEgfo5gDHepRu1DA08gP9Bc4rDvwQsezb3cAbSkFwGcpgXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790937491; c=relaxed/simple;
-	bh=FTRCNuMzFuZZEK832Cs4MyChRZ/KDtNTj2S8f3KBqro=;
+	s=arc-20240116; t=1790938596; c=relaxed/simple;
+	bh=y2QRosurFx4Cu0PhGTz/vB75f57H3sDG55RbR1Xoj4g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qgPvpJ6L5YzMCmDzVMZs2GnIGp07YSLI0Bj1fwBvePx9LQxtSo9t5NVsRThgPu+vuWUxXkxHKFgK+QSeNzUOkX+N3JleqCNggOoeFoHJVMJP12X6Nb7HCBt21/whFwNC6/BuLx7TtNqA1KSM2cJOS2JQj0+ulxoczPkwL4vEnkc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=wNg+3oUh; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	 MIME-Version:Content-Type; b=sIK0yAhkIrVS4rtPJ9P1HM1OiTyly45kF5vcorjFr1fKtASpTInWNUPwt0bwb5XVELnzpHAzzz/QDIR05KxzXJ0/54+e7fx7u+XZvpKibwRWWgLJkV4GC24y1IM2yJ0FWMJqMCs7/TRlFNqcwzbbknxOjveozT44zr7+9kSfEAw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com; spf=pass smtp.mailfrom=naver.com; dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b=rabYkD0k; arc=none smtp.client-ip=114.111.35.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="wNg+3oUh"
-Received: from francesco-nb.. (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
-	by mail11.truemail.it (Postfix) with ESMTPA id 440E120A7A;
-	Fri,  2 Oct 2026 12:38:05 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1790937485;
-	bh=JlF7NdCuUD9SxFNZdnddHC5tZASDCnsuSOKBzZbijdU=; h=From:To:Subject;
-	b=wNg+3oUh3giqzedDM+CozBEHa/cPAu5qroakhTOBZvRZLq2CY3P8ouYAnfF6jZUlr
-	 C82zS5g3tPrF5Gy2f2vMbD9iYBg+3Dnp7Y8bZj63CrbNXI9ywxjKOor4mNodGLloQk
-	 mxDnqYIbkTzglBYStyEZOT8+LH19D7EdyZ06TPgQ6QXsTdw7p+siWn/NxAMRZKp26Y
-	 54j2VmWnZl7WzB8zMts9UF3sKvsseiZSaffNjuyI/B/gSZqjn8mchOJ9uwO7/Lxv/6
-	 8o86avC44Mtki+jHfrPqiJYlLiX36aZq6ia1eMhp4M4EYmGHp1zPvt/E/55vZGiQpU
-	 hTqohgG1d63pA==
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b="rabYkD0k"
+Received: from cvsendbo001.nm ([10.112.18.53])
+  by cvsmtppost25.nm.naver.com with ESMTP id N3YXs0YFSb+Rq+3yHEDouQ
+  for <stable@vger.kernel.org>;
+  Fri, 02 Oct 2026 10:56:24 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
+	t=1790938584; bh=y2QRosurFx4Cu0PhGTz/vB75f57H3sDG55RbR1Xoj4g=;
+	h=From:To:Subject:Date:Message-ID:From:Subject:Feedback-ID:
+	 X-Works-Security;
+	b=rabYkD0klJtlWHxvxV+jlDFekDN8CMAfBQ2IJQ3FakoDg+sfpnLVVUTowgL9WBewR
+	 AorEVtr7BVIk7FLHrW4EPwKpsgJbQXXTy7T09PBgNvO2l3SuidnYdTGv6aBtZvJaUv
+	 BjenRTjKdiHAlFXTYZQw7o4Br5MjoCPQurfClXCR9cQODzeEp22JpBAiEhWOy/5yS1
+	 yBmuEZjrLUiyuyecYxzPYCHY3Hxi0MgRRqyXRCT5RG7iAzrXXX6mdJot6wW3zUAuBg
+	 soBS1JAZqLYh5HzsPxe8oCFZcUCKaebtteb56Yy6cs7kTScXP0kfr1bHz8/t5d9Q31
+	 TpD+zrj4Pi7DA==
+X-Session-ID: yJK6RMEzSPal25l0lglqcA
+X-Works-Send-Opt: OsRwpzGdjHmdKHFOMr39Ko3YKBmljAudFqM9KqMqFxIYkEljxBmwjAg=
+X-Works-Smtp-Source: PqnmaxglFqJZ+HmqaAur+6E=
+Received: from localhost.localdomain ([115.136.205.4])
+  by cvnsmtp004.nm.naver.com with ESMTP id yJK6RMEzSPal25l0lglqcA
+  for <multiple recipients>
+  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+  Fri, 02 Oct 2026 10:56:23 -0000
+From: tjdqudcks0424@naver.com
+To: bsingharora@gmail.com,
+	akpm@linux-foundation.org
+Cc: xu.xin@linux.dev,
+	gregkh@linuxfoundation.org,
+	shuah@kernel.org,
+	cyyzero16@gmail.com,
 	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	=?UTF-8?q?=EC=84=B1=EB=B3=91=EC=B0=AC?= <tjdqudcks0424@naver.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v1 2/3] arm64: dts: freescale: imx95-toradex-smarc: fix vdev buffer reserved memory node name
-Date: Fri,  2 Oct 2026 12:37:55 +0200
-Message-ID: <20261002103757.70065-3-francesco@dolcini.it>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261002103757.70065-1-francesco@dolcini.it>
-References: <20261002103757.70065-1-francesco@dolcini.it>
+Subject: [PATCH v3 1/2] taskstats: route exit listener records through their netns
+Date: Fri,  2 Oct 2026 19:56:13 +0900
+Message-ID: <20261002105614.195370-2-tjdqudcks0424@naver.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261002105614.195370-1-tjdqudcks0424@naver.com>
+References: <20261002105614.195370-1-tjdqudcks0424@naver.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Francesco Dolcini <francesco.dolcini@toradex.com>
+From: 성병찬 <tjdqudcks0424@naver.com>
 
-The imx_rproc driver uses node names to identify reserved memory regions.
-It checks for "vdev0buffer" to skip mapping and "vdev" prefix to filter
-vdev regions.
+Commit edc73c7261ca ("kernel: make taskstats available from all net
+namespaces") made the taskstats Generic Netlink family available from all
+network namespaces. CPU-mask listener registrations, however, still store
+only a bare netlink port ID in a global per-CPU list and send exit records
+through init_net.
 
-Rename the reserved memory nodes to use the expected names so the driver
-can correctly identify and handle each region.
+Netlink port IDs are namespace-local. An administrator can register an exit
+listener after unsharing only the network namespace, while an unprivileged
+init_net socket binds the same numeric port ID. The latter then receives
+taskstats for exiting tasks of other UIDs. It cannot register a listener or
+issue a direct taskstats query.
 
-Same as commit 5cae743b988d ("arm64: dts: imx95-15x15-frdm: fix reserved
-memory node names for remoteproc").
+Associate each listener with taskstats family-private storage for the exact
+Generic Netlink socket. Record that socket's network namespace and port ID
+and use both for unicast. On socket release, the family-private destructor
+removes every listener owned by that socket. The socket pins its namespace
+until the destructor returns, so no additional net reference is needed.
 
-Fixes: 6b7a9871e171 ("arm64: dts: freescale: imx95-toradex-smarc: Support Cortex M7")
+The per-CPU rwsem protects the listener-to-owner pointer from registration
+through unicast and removal. It also makes explicit deregistration,
+failed-send cleanup, and socket destruction mutually safe. Allocate a
+complete multi-CPU registration batch before publishing it so an allocation
+failure neither leaves a partial registration nor removes an older one.
+
+An in-tree regression test creates the cross-network-namespace port-ID
+collision. In a disposable QEMU guest with the unmodified kernel, the test
+fails because the child-netns listener misses the victim's exit record and
+the colliding unprivileged init_net socket receives it. The same test passes
+in three independent boots with this fix: the child-netns listener receives
+the record while the colliding socket does not. It also verifies the victim
+identity, EPERM for the unprivileged socket's direct query and registration,
+normal init_net delivery, explicit deregistration, and an unrelated port ID.
+
+Fixes: edc73c7261ca ("kernel: make taskstats available from all net namespaces")
 Cc: stable@vger.kernel.org
-Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+Link: https://lore.kernel.org/all/20110630120831.GB7707@albatros/
+Link: https://lore.kernel.org/all/87v8x678ph.fsf@email.froward.int.ebiederm.org/
+Assisted-by: OpenAI Codex
+Signed-off-by: 성병찬 <tjdqudcks0424@naver.com>
 ---
- arch/arm64/boot/dts/freescale/imx95-toradex-smarc.dtsi | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ kernel/taskstats.c | 135 ++++++++++++++++++++++++++++++---------------
+ 1 file changed, 91 insertions(+), 44 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/freescale/imx95-toradex-smarc.dtsi b/arch/arm64/boot/dts/freescale/imx95-toradex-smarc.dtsi
-index 641573c9943e..bc54a1ad7680 100644
---- a/arch/arm64/boot/dts/freescale/imx95-toradex-smarc.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx95-toradex-smarc.dtsi
-@@ -151,7 +151,7 @@ remoteproc-cm7 {
- 		compatible = "fsl,imx95-cm7";
- 		mboxes = <&mu7 0 1 &mu7 1 1 &mu7 3 1>;
- 		mbox-names = "tx", "rx", "rxdb";
--		memory-region = <&vdevbuffer>, <&vdev0vring0>, <&vdev0vring1>,
-+		memory-region = <&vdev0buffer>, <&vdev0vring0>, <&vdev0vring1>,
- 				<&vdev1vring0>, <&vdev1vring1>, <&rsc_table>, <&m7_reserved>;
- 	};
+diff --git a/kernel/taskstats.c b/kernel/taskstats.c
+index f31df72f0e9df..fb8cbbdd1c345 100644
+--- a/kernel/taskstats.c
++++ b/kernel/taskstats.c
+@@ -45,9 +45,15 @@ static const struct nla_policy cgroupstats_cmd_get_policy[] = {
+ 	[CGROUPSTATS_CMD_ATTR_FD] = { .type = NLA_U32 },
+ };
  
-@@ -198,7 +198,7 @@ vdev1vring1: vdev1vring1@88018000 {
- 			no-map;
- 		};
++struct taskstats_sock_priv {
++	struct net *net;
++	u32 portid;
++};
++
+ struct listener {
+ 	struct list_head list;
+-	pid_t pid;
++	struct taskstats_sock_priv *owner;
++	unsigned int cpu;
+ 	char valid;
+ };
  
--		vdevbuffer: vdevbuffer@88020000 {
-+		vdev0buffer: vdev0buffer@88020000 {
- 			compatible = "shared-dma-pool";
- 			reg = <0 0x88020000 0 0x100000>;
- 			no-map;
+@@ -128,9 +134,10 @@ static void send_cpu_listeners(struct sk_buff *skb,
+ 			if (!skb_next)
+ 				break;
+ 		}
+-		rc = genlmsg_unicast(&init_net, skb_cur, s->pid);
++		rc = genlmsg_unicast(s->owner->net, skb_cur,
++				     s->owner->portid);
+ 		if (rc == -ECONNREFUSED) {
+-			s->valid = 0;
++			WRITE_ONCE(s->valid, 0);
+ 			delcount++;
+ 		}
+ 		skb_cur = skb_next;
+@@ -146,7 +153,7 @@ static void send_cpu_listeners(struct sk_buff *skb,
+ 	/* Delete invalidated entries */
+ 	down_write(&listeners->sem);
+ 	list_for_each_entry_safe(s, tmp, &listeners->list, list) {
+-		if (!s->valid) {
++		if (!READ_ONCE(s->valid)) {
+ 			list_del(&s->list);
+ 			kfree(s);
+ 		}
+@@ -296,63 +303,77 @@ static void fill_tgid_exit(struct task_struct *tsk)
+ 	return;
+ }
+ 
+-static int add_del_listener(pid_t pid, const struct cpumask *mask, int isadd)
++static int add_listener(struct taskstats_sock_priv *owner,
++			const struct cpumask *mask)
+ {
++	LIST_HEAD(new_listeners);
+ 	struct listener_list *listeners;
+ 	struct listener *s, *tmp, *s2;
+ 	unsigned int cpu;
+-	int ret = 0;
+-
+-	if (!cpumask_subset(mask, cpu_possible_mask))
+-		return -EINVAL;
+ 
+-	if (current_user_ns() != &init_user_ns)
+-		return -EINVAL;
++	for_each_cpu(cpu, mask) {
++		s = kmalloc_node(sizeof(*s), GFP_KERNEL, cpu_to_node(cpu));
++		if (!s)
++			goto free_new;
++		s->owner = owner;
++		s->cpu = cpu;
++		s->valid = 1;
++		list_add_tail(&s->list, &new_listeners);
++	}
+ 
+-	if (task_active_pid_ns(current) != &init_pid_ns)
+-		return -EINVAL;
++	list_for_each_entry_safe(s, tmp, &new_listeners, list) {
++		bool exists = false;
+ 
+-	if (isadd == REGISTER) {
+-		for_each_cpu(cpu, mask) {
+-			s = kmalloc_node(sizeof(struct listener),
+-					GFP_KERNEL, cpu_to_node(cpu));
+-			if (!s) {
+-				ret = -ENOMEM;
+-				goto cleanup;
+-			}
+-			s->pid = pid;
+-			s->valid = 1;
+-
+-			listeners = &per_cpu(listener_array, cpu);
+-			down_write(&listeners->sem);
+-			list_for_each_entry(s2, &listeners->list, list) {
+-				if (s2->pid == pid && s2->valid)
+-					goto exists;
++		list_del(&s->list);
++		listeners = &per_cpu(listener_array, s->cpu);
++		down_write(&listeners->sem);
++		list_for_each_entry(s2, &listeners->list, list) {
++			if (s2->owner == owner && READ_ONCE(s2->valid)) {
++				exists = true;
++				break;
+ 			}
+-			list_add(&s->list, &listeners->list);
+-			s = NULL;
+-exists:
+-			up_write(&listeners->sem);
+-			kfree(s); /* nop if NULL */
+ 		}
+-		return 0;
++		if (!exists)
++			list_add(&s->list, &listeners->list);
++		up_write(&listeners->sem);
++		if (exists)
++			kfree(s);
+ 	}
++	return 0;
++
++free_new:
++	list_for_each_entry_safe(s, tmp, &new_listeners, list) {
++		list_del(&s->list);
++		kfree(s);
++	}
++	return -ENOMEM;
++}
++
++static void remove_listener(struct taskstats_sock_priv *owner,
++			    const struct cpumask *mask)
++{
++	struct listener_list *listeners;
++	struct listener *s, *tmp;
++	unsigned int cpu;
+ 
+-	/* Deregister or cleanup */
+-cleanup:
+ 	for_each_cpu(cpu, mask) {
+ 		listeners = &per_cpu(listener_array, cpu);
+ 		down_write(&listeners->sem);
+ 		list_for_each_entry_safe(s, tmp, &listeners->list, list) {
+-			if (s->pid == pid) {
++			if (s->owner == owner) {
+ 				list_del(&s->list);
+ 				kfree(s);
+-				break;
+ 			}
+ 		}
+ 		up_write(&listeners->sem);
+ 	}
+-	return ret;
++}
++
++static void taskstats_sock_priv_destroy(void *data)
++{
++	struct taskstats_sock_priv *owner = data;
++
++	remove_listener(owner, cpu_possible_mask);
+ }
+ 
+ static int parse(struct nlattr *na, struct cpumask *mask)
+@@ -448,10 +469,12 @@ static int cgroupstats_user_cmd(struct sk_buff *skb, struct genl_info *info)
+ 	return send_reply(rep_skb, info);
+ }
+ 
+-static int cmd_attr_cpumask(struct genl_info *info, int attr,
++static int cmd_attr_cpumask(struct sk_buff *skb, struct genl_info *info,
++			    int attr,
+ 			    enum actions action)
+ {
+ 	cpumask_var_t mask __free(free_cpumask_var) = CPUMASK_VAR_NULL;
++	struct taskstats_sock_priv *owner;
+ 	int rc;
+ 
+ 	if (!alloc_cpumask_var(&mask, GFP_KERNEL))
+@@ -459,7 +482,29 @@ static int cmd_attr_cpumask(struct genl_info *info, int attr,
+ 	rc = parse(info->attrs[attr], mask);
+ 	if (rc < 0)
+ 		return rc;
+-	return add_del_listener(info->snd_portid, mask, action);
++	if (!cpumask_subset(mask, cpu_possible_mask))
++		return -EINVAL;
++	if (current_user_ns() != &init_user_ns)
++		return -EINVAL;
++	if (task_active_pid_ns(current) != &init_pid_ns)
++		return -EINVAL;
++
++	owner = genl_sk_priv_get(&family, NETLINK_CB(skb).sk);
++	if (IS_ERR(owner))
++		return PTR_ERR(owner);
++	if (!owner->net) {
++		owner->net = genl_info_net(info);
++		owner->portid = info->snd_portid;
++	} else if (WARN_ON_ONCE(!net_eq(owner->net, genl_info_net(info)) ||
++				owner->portid != info->snd_portid)) {
++		return -EINVAL;
++	}
++
++	if (action == REGISTER)
++		return add_listener(owner, mask);
++
++	remove_listener(owner, mask);
++	return 0;
+ }
+ 
+ static size_t taskstats_packet_size(void)
+@@ -534,11 +579,11 @@ static int cmd_attr_tgid(struct genl_info *info)
+ static int taskstats_user_cmd(struct sk_buff *skb, struct genl_info *info)
+ {
+ 	if (info->attrs[TASKSTATS_CMD_ATTR_REGISTER_CPUMASK])
+-		return cmd_attr_cpumask(info,
++		return cmd_attr_cpumask(skb, info,
+ 					TASKSTATS_CMD_ATTR_REGISTER_CPUMASK,
+ 					REGISTER);
+ 	else if (info->attrs[TASKSTATS_CMD_ATTR_DEREGISTER_CPUMASK])
+-		return cmd_attr_cpumask(info,
++		return cmd_attr_cpumask(skb, info,
+ 					TASKSTATS_CMD_ATTR_DEREGISTER_CPUMASK,
+ 					DEREGISTER);
+ 	else if (info->attrs[TASKSTATS_CMD_ATTR_PID])
+@@ -671,6 +716,8 @@ static struct genl_family family __ro_after_init = {
+ 	.n_ops		= ARRAY_SIZE(taskstats_ops),
+ 	.resv_start_op	= CGROUPSTATS_CMD_GET + 1,
+ 	.netnsok	= true,
++	.sock_priv_size	= sizeof(struct taskstats_sock_priv),
++	.sock_priv_destroy = taskstats_sock_priv_destroy,
+ };
+ 
+ /* Needed early in initialization */
 -- 
-2.47.3
+2.43.0
 
