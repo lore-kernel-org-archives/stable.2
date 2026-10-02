@@ -1,137 +1,239 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3F7F358D27;
-	Fri,  2 Oct 2026 08:15:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790928916; cv=pass; b=nir7ObLGcR/2MWe89dYdN8hvorgz5tT+LksTvzkp2o88yw2KCZ0NWOCdlu+0CMigGIiQtf+I4TnqSKsv41FNnnS5Sf87IsYhcys2SM3LKxTJ/Fc9PPgfzQmOQ4QWxsZY23PFLBrLc1XTIFxRjOwHfl0GaoA8iB21Ulzgm1iNWgA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790928916; c=relaxed/simple;
-	bh=HAOTBdzUb3lYVQtLMGc9mEPp8NA4cIB0gJS6sQbBq6Y=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=G6iHzJZN891to8nWOCtQyEcEnr67qY993lFN108lD9L+cYxjwBGqX56XFSExPR+UTRi8TFGmqGWIs50FcDnn7JKUf4lMTHztrclV8Rl32Cnt64O1wjeh9RQ05hBThC5G19vXx2tFrA6suKbskdsgZePpJHNoEWNsUbOBMSnFeZQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=F2qHg2TQ; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EA92443C19
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 08:16:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790928970; cv=none; b=Wf0FzjS6NJP1aaKM2rtA2yHDYLfkqUUFkm14kFuVmiZlVwlY5mpdSvmG6N482mqOTdVcJ10wiZOQ7eIy3ZgjicR0h40TibuaAIvwwvFlG7eMeVH0qrkAqDzBO2Zicio7t4bZlgsvsT6Px+2+YoU6FahOC9CzPpLXeyBVJ+8GQ3o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790928970; c=relaxed/simple;
+	bh=SrkCUBs7QxzRS2ct6PfMjjH+MllOa63+vm3xFxenUMY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=kBxwpLrdsvQ9qALAxuCWHWrlR6RZWPiZsjoy9+u8AuuhU8cncdNP/yukEpP2/SOFCTlNTeIy9AjXeP+nrNCYFGpMMk4NV2yCBM36zzwpOWS3Rl8K9Bu7NB5Y/9r9RpqLpsoQZrbdulhyajoagFI4om+G2vzy7sSVl+3aR7430Yg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=QiQNvjst; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="F2qHg2TQ"
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id AAE252001F2;
-	Fri, 02 Oct 2026 10:15:10 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790928910;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=6+qK4JDPMh/p+e3dijc/F+DJtIAPvW8B3rCY92DYtzw=;
-	b=F2qHg2TQEuBDT6bvtY3fdumZr6LBWMO1+Wsqny1mSCBuj09glaNKSNFbAY4A+sQWk/15P6
-	xgu/v68VJzHzvfCWeKJSFHTwJBXSWdGjRDM1ied8YKSC+NRGPzvzUi/fRpM+80jouh1dkc
-	fslqaZ0cR4CpJ7S6OZJ2zo67l+b29vIcH8t6oWILtsvROciuD1klUV6MMSgtEgZCb82Xi3
-	UKvdrsA9Ubhb6K4gLyezRvIr0wKdjqtYTQDam/FIm6peDBpZNIC6jLhR/Dbg742cK+pbSv
-	sT+tW9/FXHMx7X3+Xii6TKUksBKQxD+yqnJR4CIkJo78/KdBHQ4MnaVaUHRaeA==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790928910; a=rsa-sha256;
-	cv=none;
-	b=B3yfQL+it02p+QRxEkU68344V2mSU7W+wghhBNWjAr8gS6pFblIEWzMKfqNxHxy8iascQy
-	moW+6Dh/5L2wCUIxjgaUZokFhVWKMbqkker8jprL66i2DxX1Lm10kGhVkTYJtbFxwv2VFX
-	4wYw61eRVaGvbEUaNYIplvLSoKR1jVgUUU093JyPNszJuqAP073NIzJKjQCSsLwpCjItJP
-	UY9oPJ+PgDxUppEkto13i9833WQ6eX9FehLaZL0p3lrJrwBxAOtcCEG6RaGbqacmq8mB7n
-	tkWM8OS8uKEyXtiyOTi4UmqTh2MV6Bg4jmqifsNwKm2gYZ5oH58F9fGJA+8mdw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790928910;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=6+qK4JDPMh/p+e3dijc/F+DJtIAPvW8B3rCY92DYtzw=;
-	b=H2yLw8y/JSLCgNpWX00TP7qQAikb1eSgxRpCIY6SAWck3qmdPPvY2ixiZogAJJ5s7NOLIH
-	l3+BcosP8sz9QsbYNsbNJUMXfoH+AZG4KLrPSC8dOjRBstKG85Dz3qGJAu/VWzkYs4txsb
-	3BOY0pAHkTtNujtwRfk24aO+CXxKnrqVZGxCnIY/bdS2nWmbp8OksitfsEO191ZP39hBIR
-	v2V2qMSm57S5Xk0OTCA029BAs0/BucN0b2lfMm47nVtUjJ5Yr5Bv51lV3wsENTVnLqAkjd
-	nYGpJK0yuONvMCOCzUX3TSjbC20cNzqKaH/LZXexh3IF5P9ZfZng63nchzSV6g==
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xCYQA-003rVG-1v;
-	Fri, 02 Oct 2026 10:15:10 +0200
-Received: from hardanger.blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 370245B8284;
-	Fri, 02 Oct 2026 07:55:39 +0000 (UTC)
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: [PATCH can-next 0/7] can: peak_usb: fixes, cleanups, bus error
- reporting and loopback mode
-Date: Fri, 02 Oct 2026 09:55:07 +0200
-Message-Id: <20261002-peak_usb_enhancements-v1-0-50e965755c06@pengutronix.de>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="QiQNvjst"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffde3cec6so35119235e9.3
+        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 01:16:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1790928966; x=1791533766; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=guSS/KYjl8+8j30rtfwxuibMm84o1LTrBp5a4oJHKrY=;
+        b=QiQNvjstwbOumYLNiQN5WT7Y9iSHTzmkOl0eaL4otxyZEejYtFBdOyB3rJVYKG1Wvm
+         UcKSIMb/SFW4gW83nqiKWTopeKMadBT029V+1f3PvpmbNRPlaiTMMhFEzPLzfQ2rNoKn
+         5/hk3knivyzSIfT4BNvlNE75qXLCD4B87I2RITcuNAMhkKqIhAjcaXCbveS42kW45lnY
+         xEmdKDax8Sn9OjAB5XEs0HxcUFuw4MzKfakjIocVrr8pnCYsZV69GXOZVdWsrgeSMrw2
+         15D2PvHGGDq4vOSvN9V3Gx9u5j7rfQ5v7/DBs213GTvzG0wTS0j6loytWZPBTGw4T7sa
+         aM7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790928966; x=1791533766;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=guSS/KYjl8+8j30rtfwxuibMm84o1LTrBp5a4oJHKrY=;
+        b=dVcNJ03wMb1W5lb43Tq5OzbBVPTJx5iqcRYgJ/KROFXaaWTMrdHuVdCcUnf5S261kg
+         Wua4w8+O7iPbPkGeBGhaKaCBdhffFhbYuw/Z+U6JNpNo/hrlVkeyZtR6rBV2ODx9jWsA
+         eVBfF/wpWpm/eKVg49QekuDM5rqpnhvKSdqJBV0llchdqv4NJ6WccrML14/di35wDdE9
+         ln5tcN3Ta+EyySVmrVKrxvfWyYvAiXKkwnoDRCYpF5SNDrw31qI/33AcXk0FRL3ZyhuD
+         uz6NyWvR1/+9WAj8TtWbLIQjDvFnMLw1Hz4SeffQkHvNBQ/RJzyKXXsm76nFsPgn+TFw
+         TJmg==
+X-Forwarded-Encrypted: i=1; AKwUvBxDo4PlrOL9tON56yGlYTa+6cNG28o0FbWqt+STvVs+mSeMl8f1CzE/EHYFPirSInDLdCMDYlA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lk2DeKsT8dqGAshQ5L8Myz+el7kbrVrlzIiZaRa+JASn8lEGWy
+	Re6Q5ppe2ncc0JuZcSv8e9Lvc/BAUnq7Re8ahqpVgQR9rbCXy1Z6FubjKWJxp36/WLM=
+X-Gm-Gg: AYBFou2W+MiNjJBVQoyA8tA9u7AQrezIg2izdDIRac/cucZ2JKtdbIchXL2XhqQizW9
+	gnH82ogAbypwsHgG1FaP5vCOJ3o/SZIxmOuywPnWSplH9+iB/HE0ZjKUu+vnD82w1c+aWKnDeqU
+	KSHlHsg87jH1to1wsNeNdIcS0+0Ip3twKDFyCzTbrolvfbArpTIqlVt1zdOqdPw997Thi3jSD1n
+	IlZVorlBft0PTW8nlEdVcpnS9U5GYbKAVJnLBILNCp8+nmx5YzV5gibapHL/0VSeNe4TbzqlV7e
+	ry4NRX7PkB6sPcXhMVkvceaN6AebrNjxHcawUngvkgQW3iPtQunO2YD2tzEP4E0bMuj+srMC/WI
+	I4GQWWkF01e7iIpv1286okGCBUJ4pP9VyqrpN12r+hT8q1AuOReVN90KNrT887kNlrom84D29xg
+	+eWPfHweYP32f1opha4BDcmVrARBQHfvG86yxsfqEjXWRYldVtLEOkem0PZu6BfDn1ibAKfa4PI
+	G8AyrfT/WQzi5rxyw==
+X-Received: by 2002:a05:600c:1d15:b0:49f:e427:e88f with SMTP id 5b1f17b1804b1-4a027564ddemr35404475e9.21.1790928965827;
+        Fri, 02 Oct 2026 01:16:05 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b380fada5sm3689482f8f.24.2026.10.02.01.16.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 01:16:05 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, Arnd
+ Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
+ Brunet <jbrunet+clk@baylibre.com>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>, Steam Lin <STLin2@winbond.com>,
+ linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
+ devicetree@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v6 08/12] clk: nuvoton: ma35d1: Retrieve HXT/LXT from DT
+In-Reply-To: <87o6ddmmc2.fsf@bootlin.com>
+References: <20260930-perso-ma35d1-upstream-clk-v6-0-48937ee6c9bb@bootlin.com>
+ <20260930-perso-ma35d1-upstream-clk-v6-8-48937ee6c9bb@bootlin.com>
+ <1j7bk13gpq.fsf@starbuckisacylon.baylibre.com>
+ <87o6ddmmc2.fsf@bootlin.com>
+Date: Fri, 02 Oct 2026 10:16:04 +0200
+Message-ID: <1jy0cg1prv.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMUQrCMBAFr1L220BStQWvIlKS9EVXcS3ZVAqld
- zfq5zDMrKTIDKVTs1LGm5VfUsHtGoo3L1cYHitTa9vOWevMBP8YZg0DpPqIJ6SoSQe/P4Y+pLH
- vqLZTRuLl9z1T9GIES6HL3+gc7ojlu6Vt+wAkd8D6gwAAAA==
-X-Change-ID: 20261001-peak_usb_enhancements-f4a35b7bfd76
-To: Vincent Mailhol <mailhol@kernel.org>, 
- =?utf-8?q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>
-Cc: kernel@pengutronix.de, linux-can@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Marc Kleine-Budde <mkl@pengutronix.de>, 
- =?utf-8?q?Stefan_G=C3=BCnther?= <stefangun@pm.me>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1425; i=mkl@pengutronix.de;
- h=from:subject:message-id; bh=HAOTBdzUb3lYVQtLMGc9mEPp8NA4cIB0gJS6sQbBq6Y=;
- b=owGbwMvMwCV2xirl17qZay8xnlZLYsjan5y4q2ze+hkCd1zzv05JXnzCSPCys9isg0d2XHOWu
- zihZ11hdEcpC4MYF4OsmCLL0h8nFAUCHUp7XyZMgpnDygQyhIGLUwAm4tXMyNCpP5/X3f5xzaf9
- D7sVLA6I9F0r7a6v15Y7MNmzUzj1/A5Ghj67vAd/5n7n32a8+2jZGt+bfJVmU3qnbQwI4upyEXo
- 7mR8A
-X-Developer-Key: i=mkl@pengutronix.de; a=openpgp;
- fpr=C1400BA0B3989E6FBC7D5B5C2B5EE211C58AEA54
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+On jeu. 01 oct. 2026 at 18:12, Miquel Raynal <miquel.raynal@bootlin.com> wr=
+ote:
 
-this series aggregates the peak_usb patches waiting for net-next by Stefan
-Günther and Stéphane Grosjean, plus 2 cleanup patches by me.
+> On 01/10/2026 at 11:36:33 +02, Jerome Brunet <jbrunet@baylibre.com> wrote:
+>
+>> On mer. 30 sept. 2026 at 19:24, Miquel Raynal <miquel.raynal@bootlin.com=
+> wrote:
+>>
+>>> HXT and LXT are crystal oscillator inputs of the clock controller, they
+>>> are described in the DT, so retrieve them, in order, and store them in
+>>> their respective HXT/LXT hw table entries.
+>>>
+>>> Since old DTs reference the HXT fixed-clock without naming it and do not
+>>> describe LXT at all, we assume that HXT must be present, and fallback to
+>>> creating a fixed clock for LXT if it is not described (for backward
+>>> compatibility purposes).
+>>>
+>>> The downstream gate clocks can directly use the hw clocks as parents,
+>>> instead of relying on string matching.
+>>>
+>>> Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock c=
+ontroller")
+>>> Cc: stable@vger.kernel.org
+>>> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+>>> ---
+>>>  drivers/clk/nuvoton/clk-ma35d1.c | 43 ++++++++++++++++++++++++++++++++=
+--------
+>>>  1 file changed, 35 insertions(+), 8 deletions(-)
+>>>
+>>> diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk=
+-ma35d1.c
+>>> index ceebcbd8c18b..d955d79abdd2 100644
+>>> --- a/drivers/clk/nuvoton/clk-ma35d1.c
+>>> +++ b/drivers/clk/nuvoton/clk-ma35d1.c
+>>> @@ -4,6 +4,7 @@
+>>>   * Author: Chi-Fang Li <cfli0@nuvoton.com>
+>>>   */
+>>>=20=20
+>>> +#include <linux/clk.h>
+>>>  #include <linux/clk-provider.h>
+>>>  #include <linux/mfd/syscon.h>
+>>>  #include <linux/module.h>
+>>> @@ -191,6 +192,15 @@ static struct clk_hw *ma35d1_clk_gate(struct devic=
+e *dev, const char *name, cons
+>>>  				    reg, shift, 0, &ma35d1_lock);
+>>>  }
+>>>=20=20
+>>> +static struct clk_hw *ma35d1_clk_gate_parent(struct device *dev, const=
+ char *name,
+>>> +					     struct clk_hw *parent,
+>>> +					     void __iomem *reg, u8 shift)
+>>> +{
+>>> +	return devm_clk_hw_register_gate_parent_hw(dev, name, parent,
+>>> +						   CLK_SET_RATE_PARENT,
+>>> +						   reg, shift, 0, &ma35d1_lock);
+>>> +}
+>>> +
+>>>  static int ma35d1_get_pll_setting(struct device_node *clk_node, u32 *p=
+llmode)
+>>>  {
+>>>  	const char *of_str;
+>>> @@ -215,10 +225,12 @@ static int ma35d1_clocks_probe(struct platform_de=
+vice *pdev)
+>>>  {
+>>>  	struct device *dev =3D &pdev->dev;
+>>>  	struct device_node *clk_node =3D pdev->dev.of_node;
+>>> +	struct clk_bulk_data *clks;
+>>>  	void __iomem *clk_base;
+>>>  	static struct clk_hw **hws;
+>>>  	static struct clk_hw_onecell_data *ma35d1_hw_data;
+>>>  	u32 pllmode[PLL_MAX_NUM];
+>>> +	int num_clks;
+>>>  	int ret;
+>>>=20=20
+>>>  	ma35d1_hw_data =3D devm_kzalloc(dev,
+>>> @@ -240,12 +252,27 @@ static int ma35d1_clocks_probe(struct platform_de=
+vice *pdev)
+>>>  		return -EINVAL;
+>>>  	}
+>>>=20=20
+>>> -	hws[HXT] =3D ma35d1_clk_fixed("hxt", 24000000);
+>>> -	hws[HXT_GATE] =3D ma35d1_clk_gate(dev, "hxt_gate", "hxt",
+>>> -					clk_base + REG_CLK_PWRCTL, 0);
+>>> -	hws[LXT] =3D ma35d1_clk_fixed("lxt", 32768);
+>>> -	hws[LXT_GATE] =3D ma35d1_clk_gate(dev, "lxt_gate", "lxt",
+>>> -					clk_base + REG_CLK_PWRCTL, 1);
+>>> +	num_clks =3D devm_clk_bulk_get_all(dev, &clks);
+>>> +	if (num_clks < 0)
+>>> +		return num_clks;
+>>> +
+>>> +	if (!num_clks) {
+>>> +		dev_err(dev, "missing crystal input clocks\n");
+>>> +		return -ENODEV;
+>>> +	}
+>>> +
+>>> +	hws[HXT] =3D __clk_get_hw(clks[0].clk);
+>>
+>> Don't open code it. use .fw_name
+>
+> Ok, if I understand your suggestion, I will go for the use of
+>
+>     devm_clk_hw_register_fixed_rate_parent_data()
+>
+> for these fixed clocks.
+>
+>>
+>>> +
+>>> +	if (num_clks > 1)
+>>> +		hws[LXT] =3D __clk_get_hw(clks[1].clk);
+>>> +	else
+>>> +		/* Old DTs do not describe the low-speed crystal */
+>>> +		hws[LXT] =3D ma35d1_clk_fixed("lxt", 32768);
+>>
+>> I'd give it another name so you can clearly see the difference between t=
+he
+>> DT one and the manually registered one.
+>>
+>>> +
+>>
+>> Don't need to open code this either.
+>> provide both .fw_name and .name - CCF will fallback to the name.
+>>
+>> When you want to conditionally register the fixed is up to you.
+>
+> Ok, so if my understanding is correct, I should use parent data with:
+> * .fw_name being the clock-names entry
+> * .name being the name of the clock that will be created ex-nihilo
+> Am I correct? And clock-output-names in that case has no importance at
+> all (hence this strengthen my wish to get rid of it)?
 
-This series adds the missing CAN_ERR_FLAG when reporting error counters,
-the cleans up the driver and adds bus error reporting and loopback mode.
+Yes
 
-regards,
-Marc
+>
+> In the fallback case, what naming makes sense? I don't know. I would
+> have preferred to just name it "hxt" (respectively "lxt") in both cases
+> because we truly don't care about the name, except it would be nicer for
+> the reader of clk_summary. Do you mind if I keep "hxt"/"lxt" for both?
 
-Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
----
-Marc Kleine-Budde (2):
-      can: peak_usb: add missing includes
-      can: peak_usb: sort struct peak_usb_adapter::ctrlmode_supported by value
+Picking another name is merely a suggestion. I don't have a strong opinion
+over this.
 
-Stefan Günther (1):
-      can: peak_usb: fix missing CAN_ERR_FLAG when reporting error counters
+>
+> Thanks a lot for the hints!
+> Miqu=C3=A8l
 
-Stéphane Grosjean (4):
-      can: peak_usb: Add PCAN-USB bus errors reporting
-      can: peak_usb: Sort CAN_CTRLMODE flags by value
-      can: peak_usb: Add bus error reporting for the PCAN-USB FD family
-      can: peak_usb: Add support of loopback mode to the PCAN-USB FD family
-
- drivers/net/can/usb/peak_usb/pcan_usb.c      | 120 +++++++++++++++++++++----
- drivers/net/can/usb/peak_usb/pcan_usb_core.h |   6 ++
- drivers/net/can/usb/peak_usb/pcan_usb_fd.c   | 125 +++++++++++++++++++++++----
- include/linux/can/dev/peak_canfd.h           |  15 +++-
- 4 files changed, 228 insertions(+), 38 deletions(-)
----
-base-commit: eb0c18404c8943356f4aa164e5db9067b79ea93c
-change-id: 20261001-peak_usb_enhancements-f4a35b7bfd76
-
-Best regards,
---  
-Marc Kleine-Budde <mkl@pengutronix.de>
-
+--=20
+Jerome
