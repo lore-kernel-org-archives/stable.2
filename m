@@ -1,117 +1,157 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4E993C3BFE
-	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 23:29:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790983788; cv=none; b=EIrumRgb1ARWQhxxie7qmpueFc0M1UtliKsZt1/+0hJyaPZoW9xucxpMcYqv6rBzhFHMZXcdDABQsrPqwUcEolrNgZllK1pYAQqb96Bk0Eo1fpCqnhmeuyAzbjGKfqBKSpgauqyWg6eOYDYTgu7OdPkbecEUI9s6WgFEWztOllY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790983788; c=relaxed/simple;
-	bh=q9hoYC77TAOBI7UPGkqjKa//giTHqLClViyb2A4XOpQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=MLMd5SBZrUPdzkJk1c6JMtCguzJu6zt9TNDlkltfMeHTFeTqJmsxDh/07D+7ynGc68q1MrbMqTar7OO6Xk2o6lVPsrW1Vhqrb5eg8YgEyWgnlXkTLEyIoOppY1B3i2nUsgN3g57oV2wtQfukphGElObdPuIlEsS097gtRGOVnY4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y5jPrgb6; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31F6846AA95
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 23:30:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790983811; cv=pass; b=Ls6hrLfaHAwkO7ocQdj0OM7S/pIKGvAc5yqCNXf5DUfTeCRAhyPuT05ovsziX0s7ZoaosdUduKH3EFSlPBYq6RRC1xEFbSd5bnN36MZJMyA0DJEL6V+zX383pUg/u1VXhcX4eGUWATat2ndFjX+Q4WNWMYZiiv3whfexwiU2ctA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790983811; c=relaxed/simple;
+	bh=snqRonrcNq5P7WTqs9GlYErkgGy6D6z56m9XMyLBhs8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ovWR1xkHg5U2nL6ULPQbHZkzRCWRqCouxEC+tKY/vhMm2XEZGVl+Gv90/gDUTFUdRhGerbtK/Jw6FT2jHHwd1n52OcD7BcvWp7YqFEk0eUO+uiixCWU5G2hC0/WGZM6uuWlGou1VfKT4w9Yc3QXBQ386985C2lKfBSGntcsarO0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ThgtdGLb; arc=pass smtp.client-ip=209.85.222.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y5jPrgb6"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49ff90b4b5fso1725995e9.0
-        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 16:29:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ThgtdGLb"
+Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-93ca4dd64a6so6117985a.3
+        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 16:30:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790983809; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DBZYVO11c5OP2OWbBBeV8utK9cFx8mICLIm7OYCsX4ohNJcNg7IUUkeVh7Nd83ziWl
+         kB2qk0P8U48HrcQlfj4q+WwjK688OcI5Sm2ozFppAy+JMl44Bp0/ab/RDQvaCloGU930
+         h4qDb2EgMHrR07aBeF1q41yu5iV21F/HkmrpgpC3n6tGXYTZZZjME+Cp8P/EyO58/Kh5
+         G234ydozeqx+l8weP+GRKa0/sP6oQkTzDfnikcowotww0YyQw2jlHPuBmRISn73YKEXy
+         0ac4ZbRk0bnQm6j2NxMzv2WUiXRRMKfC/BNP8gC/G0oU8IH1ZCkFYzEc5KS9kR178B8P
+         K8yA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=Bovas2WAEGD9Xsa1cngl8uKLJL1gfGRL2y54+LLnPkg=;
+        fh=RXKl8FBXkhr4a4dxFhsOp7H5kQdbETfL9gE/UcuX8cQ=;
+        b=UG4ZKNw5I3ZL2CTPtA1F8qkir74Se/LUDYfvwRm7SiyTHAQ2AsrUEpkosS7zu/M8g1
+         S+VmBwFZHkM/jTBIZ6MlfL2uba4tojPu7n2mylsQJ8my7FYtfsoe/H/Zt9vowt0RRsbD
+         gJUm9AdNvtjk4OdBB755ulSjft7A/LZtAWOJRj4ISJkf4Ui8y3fkEM4cYrmTywjJ4N2o
+         Rcu0Zc31zCPyXTYFriX5f472QvzD2ud/kEyGsEWu7HcBCAs8tIYu29KX6ihv0GVZx/Xt
+         m54LSHWLcOcw6MV+9zElKs1ULyFgCMxieig6sqFLb7OZN8SsZsNgsYtYluPunq2an+Op
+         CyEQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790983784; x=1791588584; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nxHrVIR24GDD4S7L2ZgpY+muMq5UDZWEAxE61ARdg78=;
-        b=Y5jPrgb6rsl5pKRpoyjjCb05KEg9Dy1wOneoOrfX+R9D670m1/zwQYBzEJU8vqNovn
-         Gy8pX4HnsE4ez55G2+b/gZPt27CQZlcNlf8gJoupavwqQ36VlB+wv4AtItFM2cwL6+dZ
-         fNT6Cpt/eK/SpdURX+DdUPuAf/sAt2C+mW1sydQyIcL/uQi5EjS1Of6oLe/6jd8h/krY
-         beYVDBP0hqLfw1WU0L3xk6B91LB1sbjRHuNqqzDaibC1Y9Cja9ajdQ8qrt3oRccz4EvG
-         C5Ij/peMiuzn6+ClJhvxZiZ3m6Of3E79qVj0T9PSNPbQ6xcsuYW/NODhykzfBmcRteD+
-         MhaQ==
+        d=gmail.com; s=20251104; t=1790983809; x=1791588609; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Bovas2WAEGD9Xsa1cngl8uKLJL1gfGRL2y54+LLnPkg=;
+        b=ThgtdGLbjSS/19VNGE9inkEYExs1vtu60gAuUZ0Xsjm1xkJIRq8s9BvM1r8//t1tmh
+         8K+kFvIa8MlqDbuWOIZnMBMpClflIc9mm3aGZRm2fMmdE9A/xs0MledfePOYDUzGqNEK
+         pTOfIcXOGgj4iBxm14vCough+b5LZr9iSuAqViBsNxOIU32NlPhX4viTeJesOF7XuxrB
+         eSUh6YTIyqR8jRXBCXURnbm33kNKwDiDxOnIqPKOq65gE7I7LMjyTaAJ8wDWxEle3pWn
+         H9dIjM4hkR9mn2bI1dO4/P+HNeFESb/Yq04Pnm6a0EBhJdcfsV3R9xJcVjTmZAj8WZii
+         jq+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790983784; x=1791588584;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nxHrVIR24GDD4S7L2ZgpY+muMq5UDZWEAxE61ARdg78=;
-        b=Vg8Vah7TbxMj10fgGCZLpAHmkFQotrZPUk9VQU1tGAUrQzJ1/23AEjoj09GsWG7Gra
-         5xXie7tLQ/RT0JZOl9GczGF7paJ+7WGeGTOzU0IcdwCmWZt/HYyVYFE/ftrVTrOLfeAb
-         f6Ppe64b2PX08j1fufz8TdA7kURvm8BCtTOu5VEdd18nkZhGCehGKcX9YhFSF91p3uab
-         3O11tPooT7uVe/05WfxESsbC5sk2AMZY9d0x7ehPo9V/k/xnYeQEz3gxmPzQRRjH0pW5
-         zq1AYrqCDFoVbWeJFbQQjNyl34uL1/OMxXgUELPqmg6PI5i4swaxCT/ZCwtmoKTk2fJW
-         zQXg==
-X-Forwarded-Encrypted: i=1; AKwUvBxdXPGNOEchlZQ5EIAOcP2V/me/orvAkRfjqV1Tytm+b+90O2inAbfOMp8D8Oi/W50TxOIldkQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nC76aLPuomQOc/feFwA09SsEXgJPcj99z0G5xlPLhxRZGFeD8D
-	ZqxZCGhSU5/+f4J2nXNQVqamIeFkTED1wASLV8VSiZiKS/XWzZ2UrorI
-X-Gm-Gg: AYBFou02K0zCpjLyAJCV1CzhpNCMEsS8IJ+1kCDwdJI13WiIVMDRzclZcv3nrmgBa/F
-	Cg3ZwGkmFoxxo7bQ648WV5pXLZy1tY7Icq0Tzvt+6OHSixhSfRfotr6jypZuHf5KXmu2Rs3JzDj
-	nVbNCQ+RxbFSTLYbU4nTsGk++JDvS3ohLRspQTWPK6xD6c02zDst99htIDKdniH3hGXvAGAplKg
-	nyLCDd9aV9T6wbNKIvmZ+kXJTuLKFsPYjxXiGCki4zYS1pVv0m0tQpV/DOP7iGLhYhvYs0ZRLFY
-	/j/c8UqlZNlNqXvxgdQGjwt4J5ViARnkXhmcrrU1VKOVFgW4xmjMRHs7u30LtP+0FVm6TLIkIjv
-	gz+AOb4cfG1xez1c7CIxzA8N5bCAR5CuRMr1ehy+kZA8HQai+Xeiub5KibMOe/Cg7FsJyqWUcis
-	MkbKkFr4uunW6oYtBDL8BpqzkXlXVAohVNXJaHKLwrua/2LaOw3MU2HENC6zKxrYvwXRBd7h0Xk
-	j5S3anEcKTdItOgtYdjjuBZ9NsBz7gunQ+VwGfALXGjsWqFuJHY765Ryl/B0U5AUGv2Gh8F7Bwu
-	ZE3k6wp5NeG9lZX3+mHV6OaHb3b8WyaZliUi/jp8utuD0kGRqs+FsbTl+QbsTsyK0nM2FO2miar
-	gtNJKMTPqAHTJ
-X-Received: by 2002:a05:600c:3110:b0:4a0:b6:4619 with SMTP id 5b1f17b1804b1-4a168069b91mr14580305e9.0.1790983783964;
-        Fri, 02 Oct 2026 16:29:43 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-af35-1901-81da-eee8-c2d0-ee3b.310.pool.telefonica.de. [2a02:3100:af35:1901:81da:eee8:c2d0:ee3b])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b380fac3csm8688932f8f.21.2026.10.02.16.29.42
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 02 Oct 2026 16:29:43 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Steve French <stfrench@microsoft.com>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Tom Talpey <tom@talpey.com>,
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] ksmbd: use u8 for SMB2 oplock level values
-Date: Sat,  3 Oct 2026 01:29:38 +0200
-Message-Id: <20261002232938.40011-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+        d=1e100.net; s=20260707; t=1790983809; x=1791588609;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Bovas2WAEGD9Xsa1cngl8uKLJL1gfGRL2y54+LLnPkg=;
+        b=C4mSi74Kw9xVT8Dkxdh/WYtLXhX92wGfCNiR4S3sBjqDeYKqs0e9ufVf3N+sqIsXgY
+         51i85EsXV+y0nRWArEUvNgP4QSeXCTqYBIFYO5VFZ44xZvvN5eDjmWlwefrUmnvIYfn7
+         VVpIM5+lG/ZRnEeW4CcTt6oskKgoCX+ce0fNvQkAks9QuU1svYLuh8MBR7tq1G6XINE3
+         SUF4pZnChZgy3k/IWEi3YVTmr8kYMzAJSJvmvCb2oBYQGNs0rW2syC5uSRyNavoNA5DC
+         6GKw4z6WBM1EllWzjhYGSMPrC4StzQQ4xznfThKC183uKK0XPkaCU4e8aQ50GQBLgHMN
+         MhqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx+fm02Ggbj8simBBAuKP67QtBXSwEaHkUoX8qEbMu1nU6nBQEJbEmuAD6823ovk3hNT5FiyXc=@vger.kernel.org
+X-Gm-Message-State: AFuF++muLKYGR+x476sYo2hGH5FgXMYBl0qVx0cvDu0FaiZs5xNbokbO
+	EfGL84FGJwQWhSPFfkM1977GH/fdsSqv0zK2Nvs2lKCiyZAmaxAYvFQsrGJdyccREq+o0kU94Ru
+	cw1crgbLORB0Y9uWU4xv2vfP7B+/c2lg=
+X-Gm-Gg: AYBFou2aeKcmqzju7UKixhFGmujrogyqvxKZUSgBfdOvXFr2K+/gz68+DXpr7hHO9Md
+	IS+iRIw2bm8CaObrZGut1W6qxp/O79W6D5fyrSCGH9H51XS2YYo1dc3Lni3GAV3L+WnpG4CSddP
+	AlRjsfrTqzNbwMaFD9K/nRJIxaIS2OGIiM4dcpM6AGr5XfXPJUws0jUooz5Z5QwN8Cz8epdYZJU
+	Pyou5pySzdn/6NJvjTe+OGOi3GgifxO9AorNmiRoCBbE2WJw5vkoEumPoznyhmC5mwHZYzg0KLy
+	r6GUxZFvfhQ0d/xRWoUUwfFIc37w7GXi7FlKELu56L3YJvTXhKCZIVROjgz6+dkV5aw5mnyFKZn
+	YsfN/fq5IECC3iQ58ZgP7pkczC8Y2eGv6gEGvIxEndQ==
+X-Received: by 2002:a05:620a:172b:b0:93a:2e8:5afa with SMTP id
+ af79cd13be357-93e50feb9ccmr188518785a.30.1790983808980; Fri, 02 Oct 2026
+ 16:30:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261002212833.9674-1-fzeruhn@icloud.com>
+In-Reply-To: <20261002212833.9674-1-fzeruhn@icloud.com>
+From: Dave Airlie <airlied@gmail.com>
+Date: Sat, 3 Oct 2026 09:29:56 +1000
+X-Gm-Features: AclHuK9rjOUUMpjG387IHnEilLqBy4AfDp78Y1XLf07vnG-EkqsHFL56vRwAE6c
+Message-ID: <CAPM=9tw91hPiAfwRP=y6Dr=CFgYboO+Z94_1dVwt41exGokj5w@mail.gmail.com>
+Subject: Re: [PATCH] drm/dp: keep MOT set between messages when no_zero_sized
+ is set
+To: Finn Zeruhn <fzeruhn@icloud.com>
+Cc: dri-devel@lists.freedesktop.org, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>, Lyude Paul <lyude@redhat.com>, 
+	Danilo Krummrich <dakr@kernel.org>, nouveau@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The SMB2 oplock level is an unsigned 8-bit wire value, but
-smb20_oplock_break_ack() stores it in a plain char. On architectures where
-plain char is signed, the value 0xff becomes -1 and cannot compare equal to
-SMB2_OPLOCK_LEVEL_LEASE (0xff). The acknowledgment is consequently rejected
-with STATUS_INVALID_OPLOCK_PROTOCOL instead of the intended
-STATUS_INVALID_PARAMETER.
+On Sat, 3 Oct 2026 at 07:28, Finn Zeruhn <fzeruhn@icloud.com> wrote:
+>
+> When aux->no_zero_sized is set, drm_dp_i2c_xfer() cannot use a bare
+> address packet to close the transaction, so it clears MOT on the last
+> data packet instead. The check only looks at the position within the
+> current i2c_msg, so MOT is cleared at the end of every message and each
+> one is terminated by an I2C stop.
+>
+> This breaks E-DDC reads of EDID blocks 2 and up. Those are read as three
+> messages: a write of the segment pointer to 0x30, a write of the offset
+> to 0x50, and the read. The stop after the first message resets the
+> segment pointer, so the read returns segment 0 again.
+>
+> On a Pimax Dream Air (three EDID blocks, native timings in a DisplayID
+> extension in block 2) connected to an RTX 5070 Ti with nouveau, block 2
+> reads back as a copy of block 0. The checksum is valid, so nothing is
+> reported, and the connector only offers fallback modes.
+>
+> Clear MOT only on the last packet of the last message, as the commit
+> that added the option describes. With this, block 2 reads correctly and
+> the native 7104x3840 modes are listed for the Dream Air.
+>
+> The same problem was pointed out by the Sashiko review of the patch that
+> sets no_zero_sized for all DisplayPort connectors in nouveau.
 
-Use u8 for the request and response oplock-level variables. This preserves
-all wire values in their original representation.
+nice catch,
 
-Fixes: 80a56d4a826c ("ksmbd: align SMB2 oplock break ack handling")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
- fs/smb/server/smb2pdu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 6b8809f..6074bdd 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -11444,7 +11444,7 @@ static void smb20_oplock_break_ack(struct ksmbd_work *work)
- 	__le32 status = STATUS_SUCCESS;
- 	int ret;
- 	u64 volatile_id, persistent_id;
--	char req_oplevel = 0, rsp_oplevel = 0;
-+	u8 req_oplevel = 0, rsp_oplevel = 0;
- 
- 	WORK_BUFFERS(work, req, rsp);
- 
--- 
-2.53.0
-
+Reviwed-by Dave Airlie <airlied@redhat.com>
+>
+> Fixes: f0ddbb1eed18 ("drm/dp: add option to disable zero sized address only transactions.")
+> Link: https://lore.kernel.org/all/20260827015758.0B4FB1F000E9@smtp.kernel.org/
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Finn Zeruhn <fzeruhn@icloud.com>
+> ---
+>  drivers/gpu/drm/display/drm_dp_helper.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+> index 488fd123a01a..7676285c19f8 100644
+> --- a/drivers/gpu/drm/display/drm_dp_helper.c
+> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
+> @@ -2192,7 +2192,8 @@ static int drm_dp_i2c_xfer(struct i2c_adapter *adapter, struct i2c_msg *msgs,
+>                         msg.buffer = msgs[i].buf + j;
+>                         msg.size = min(transfer_size, msgs[i].len - j);
+>
+> -                       if (j + msg.size == msgs[i].len && aux->no_zero_sized)
+> +                       if (aux->no_zero_sized && i == num - 1 &&
+> +                           j + msg.size == msgs[i].len)
+>                                 msg.request &= ~DP_AUX_I2C_MOT;
+>                         err = drm_dp_i2c_drain_msg(aux, &msg);
+>
+>
+> base-commit: bca45af5998a05f34b13a2ef11e639bac9c62643
+> --
+> 2.56.0
+>
