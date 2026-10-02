@@ -1,179 +1,234 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com [208.88.110.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFEEB40F731
-	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 18:34:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790966087; cv=pass; b=FvO9c45Zbug+Dw/xcvf/qHaNMDmTxQpTfTDpid6hjyL6KSHzE8txeNo9VjlNxeBUdO/wf9gVEO1KsiUi8yL3eCTR3cF8epZ4J39fD25AiqmMnE1ZOeYT6medOfoQvCW0foPaiULcmCjFC+TbJHkOVrWkKy+w+JPrQhVwAvhnFRs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790966087; c=relaxed/simple;
-	bh=VXBoZhnpkXEYdNp9vQxMLiTkrfcHALG/eUOsIAQW6QM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fWUzhDpQRyhKTFrCfFL7dVVSdekvNzMlNs1DHUzv7/oBtilZk3WQw5axJLaD0isHwtNw9HrtupqjQE02bQHMdwKmftBMXP+4MLKOMcDIHg6WeVAsgKvYc3XQTnwtgjMI7DV8kKiJhBSqZYjzPfuv4HCTTTO5X/+h04CQUPzkgDo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baseten.com; spf=pass smtp.mailfrom=baseten.co; dkim=pass (2048-bit key) header.d=baseten.com header.i=@baseten.com header.b=IJkvT3Hi; arc=pass smtp.client-ip=74.125.229.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baseten.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baseten.co
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A1D53AEF24;
+	Fri,  2 Oct 2026 18:42:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=208.88.110.44
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790966541; cv=none; b=O6hdOG6ramQs9d+Lc+CAEJ3Q9gJTL5qKJkH3vHHWjvz0/5ow8gL4Gr7KWImXBO0XleNgK6ZUc8QBqNKkwG039JqeF3S4t3sQE8MfdHZ98sIncAlNfxzR3FUq8KasBv7loTKzX5f3Yq7aA1f3MgAdkaNX75Dzfp4I20BFwyaE5/E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790966541; c=relaxed/simple;
+	bh=oisXcTJ9rN/JqV4S6YhuiOPIB3Nlgae9GHCl6jZn288=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=UcSKWpy0pyyOYAoLx65ilzs3mg8F7G8HlB5c0/WIcOWcybEcJkYQUogoebzmkqX05UUAPfjkwFx+Rio1O6uop1yJuy+ntg3YAmNXww/ZfTrw2hI9OoGwBZYmF41mtbIHDcrr6pihIN94LS3+211cLyLotzTtS1VdZ0OL5Mlj564=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=savoirfairelinux.com; spf=none smtp.mailfrom=mail.savoirfairelinux.com; dkim=pass (2048-bit key) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com header.b=Roh0qCjg; arc=none smtp.client-ip=208.88.110.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=savoirfairelinux.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mail.savoirfairelinux.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baseten.com header.i=@baseten.com header.b="IJkvT3Hi"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-34b3e517e6dso2393733eec.1
-        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 11:34:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790966085; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pOXznEr206cS/eXJW9gbkshGazgmPcc3pfOSlZ1NHuVAG/lm3VWQkkNQJsD1HQD/XU
-         qTxkgIDoxHp564EcHNqTLD3b9rZFckwBBV9pSzmxKUOj0k1WmrLILWd0iQhZQVnvkEJT
-         kc8kRo56bylGKDnEAjqFAJxGJxcknc5SyUXp+6KgmCItLAcOOtXvuU3skNYIbYc2oIt8
-         CX89tDI8bxb9b4FjNb9xQubo98/+0Jb5dpmA/qkj9eSLZgURWx49lDEkQWBkrs/ZIzQA
-         8hnsTOljwCeiYe/Pzd6xAXR2DX/iENySvI8M/bLg0U1wJ289CB9xre2VKEy224+SSRrx
-         duWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=FRUhuT33Hvyx9UmpoV2KcFpLk9yCWzv2fyzX+ZRYaQs=;
-        fh=YprKSC+DYK3+Aw+Qb2LEILXZ/dXKBt1CLjR4Mz4+ByI=;
-        b=iNFXaorNLZ0UCEa4YpjNaUNwEzUHJrSXP2lpExK2aVUeDDynYZ1Ki81pIBz8IHPYX4
-         FJNnqCYwOIA9WCPmcDsbbZcTmJyx/wny51qhEJ/arL1cUQCZO/F7uL9/AdzNmxiF5VbY
-         y7dddVr1pqV+HufudL7qVPqciECTQgMBJr5hfdAt43lhbnvV6IWBVyevdEqAfjmuXIRa
-         Q6EM91Y76lSskxrgS12mpLYFGXxYTL5Opz8LwmYro9hLLq5FlV6c/udBRReHsIJVDh3o
-         0MHdg76eaDlH31w2ginbYp1ZhJW91S1Ddde9pQABapDF5QqASKxLcQBrEcgF3JupoB9m
-         TaHQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com header.b="Roh0qCjg"
+Received: from localhost (localhost [127.0.0.1])
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id BBCE03D81839;
+	Fri,  2 Oct 2026 14:35:42 -0400 (EDT)
+Received: from mail.savoirfairelinux.com ([127.0.0.1])
+ by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10032)
+ with ESMTP id 06V3Hts8TVfr; Fri,  2 Oct 2026 14:35:41 -0400 (EDT)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id 2BD553D81846;
+	Fri,  2 Oct 2026 14:35:41 -0400 (EDT)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com 2BD553D81846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baseten.com; s=google; t=1790966085; x=1791570885; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FRUhuT33Hvyx9UmpoV2KcFpLk9yCWzv2fyzX+ZRYaQs=;
-        b=IJkvT3Hia4Z2/lVG/ymfxcdEUQ/G9yEVyt1Jup8Rg6kwj6D3RLTExpg2cI0qNHzvfY
-         xUlqnYEl15+EFFwuXwXyLg4a1v6XW9VD6ZF2fAuRgH3VarL7sjxQHyXmhIoi6vmnqVva
-         G37VhLwL8IeEEHARHn7pi/h1vNHEtqc6BHGRI1ENW9zEURs8kAijjfdROGAi65icCfQm
-         nCWfNCLiPB7nuXE7gqJgg0hmPBPuGZITS/kvaNgWutYOepyVr9vjpJSQ1mu7mKGN+mxB
-         tMQKYHm/WxL7hj0KUHCsAAGcwDhqt68J9WtpHqc/oX5AniC3/a9QRBgScfNRcZXU+CbH
-         9BmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790966085; x=1791570885;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=FRUhuT33Hvyx9UmpoV2KcFpLk9yCWzv2fyzX+ZRYaQs=;
-        b=f+bAvJHxT5xrZB8hnwZ32IvSxRNTrEGBqil4g45nU+dxdYxJBa+5LpSpL9uKY7gmwZ
-         JQh+33byc0pClO4GhnaNfkkwhx7nql6VyJFjLPqY2tkvfBr1qFo+il2CiPQjCBGkZQBW
-         AgOsQWAzs5nmeEztDXO5RiVW45opBI3jgCNY9obNvBWPOHrel+JnPXjLbe0c84kJqwmE
-         wsN00+Uh3KRntb3RDfcO/RWRAhsPlp9FGspjvMeo2AC+nTxr75+0EtSCKxT3SPhc7WEE
-         9uKGyUVc0L2MXm8fQOL0+y3RoXfAtnTweZRWmM8jqKTaJ1+QIFXynv7VkXjLAn4Sr56v
-         gX1w==
-X-Gm-Message-State: AFuF++mFjAFF46+HGQpRIOKUJ0VJWLyX9oQZEf7i4Cwp/emZBVXCGCOx
-	i11PoD4RMAamhM/et6skyoVfKdHIRXkUlsBwH9cNaQ/sD0/qNw5yMIwVWWhYZgOkXngkHrPF8Xg
-	xeKrnT1d/KUYKmbnaOpm3jo7EVbw3mZp2AgUkPkTmIA==
-X-Gm-Gg: AYBFou0jEC8RU7jONzAfR4EzUlWR/fxFHx2gz9hCv+RbdM8RsJgWVhmw6P2zAB3Ky/q
-	UZ0MnK0NGOFau1SVB3wol1DbFgPuqHr8xBEe+jjUImBZkHe3Vl8TSSkEXHz8dIc+LRQ8R9Gyo5J
-	Vstvw5MWIDgUEdEipAB96sPkRAZ27vd3RJuv37mZhMzS8uDrIHtdfRfwIyxYaZEiLpPpVfrpDJA
-	DL5Sitrwai1L1BnK/9yFRaMVxnDEl/9d9HHOQYu0zk/Hjv/1MzbMivYww+mpeptKygxDqMcltA1
-	/tW8ppKgkWBPUhAEUKh89bPA4B6pPAzUU/KJ+9ZY7u18kQuJjT/HwnxzRXQ9BIl/
-X-Received: by 2002:a05:7300:fb91:b0:33e:4475:5e02 with SMTP id
- 5a478bee46e88-34f14488781mr6316608eec.5.1790966084533; Fri, 02 Oct 2026
- 11:34:44 -0700 (PDT)
+	d=savoirfairelinux.com; s=DFC430D2-D198-11EC-948E-34200CB392D2;
+	t=1790966141; bh=ocWsfnL4ZNF9F/ibmOKh10OnqNUAfFtCOc+pug7u1EQ=;
+	h=From:To:Date:Message-Id:MIME-Version;
+	b=Roh0qCjgWQw49srJRpXpQ8FP+vlu4ZI06Y0/BFGDKlrvsAL0hDwbO2z8jQM2iB4u0
+	 qBr0BD/znA+p8y5pTgEfBrNOJ1mWbke+RqlOwf9qeLFzBriezsXL7mXipTaNLjudlR
+	 i0aD3nZGQ7H9M/3LdMxkZ+JIKT5pDW7EhdqapuFbeMkZzcHDWJd0ojGu/kjLzb92FD
+	 DBuXh5weHLZQ0flfSDaHlHdDHV0CREPEItjpubj5xHvGqA2Ws5fy6o0RqhqCrcaaRu
+	 rESwMMj90idVXMo68uu/HyjB1bVWsgVugcTRG/zdDVNfJeO091/QHCj63xuHM9NxyX
+	 9uiZUBuVZLXHA==
+X-Virus-Scanned: amavis at mail.savoirfairelinux.com
+Received: from mail.savoirfairelinux.com ([127.0.0.1])
+ by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10026)
+ with ESMTP id 7CYMOHAZ22RR; Fri,  2 Oct 2026 14:35:41 -0400 (EDT)
+Received: from localhost (unknown [192.168.51.254])
+	by mail.savoirfairelinux.com (Postfix) with ESMTPSA id E0A363D815B9;
+	Fri,  2 Oct 2026 14:35:40 -0400 (EDT)
+From: Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>
+To: Linus Walleij <linusw@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Maxime Ripard <mripard@kernel.org>,
+	=?UTF-8?q?Myl=C3=A8ne=20Josserand?= <mylene.josserand@bootlin.com>,
+	Alistair Francis <alistair@alistair23.me>,
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Jerome Oufella <jerome.oufella@savoirfairelinux.com>,
+	Felix Boucher <felix.boucher@savoirfairelinux.com>,
+	Quentin Lehoux <quentin.lehoux@savoirfairelinux.com>
+Subject: [PATCH 2/3] Input: cyttsp5 - init IRQ early to avoid app startup problems
+Date: Fri,  2 Oct 2026 14:35:28 -0400
+Message-Id: <20261002183529.166248-3-marc-olivier.champagne@savoirfairelinux.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261002183529.166248-1-marc-olivier.champagne@savoirfairelinux.com>
+References: <20261002183529.166248-1-marc-olivier.champagne@savoirfairelinux.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAL3JwHPX_fJpg_Az3Et4-xrTdkcdtT20xw7Bhjz1FZSLW_xODQ@mail.gmail.com>
- <A90F7E87-80B5-47AA-BD31-0F0CA5A17862@nvidia.com>
-In-Reply-To: <A90F7E87-80B5-47AA-BD31-0F0CA5A17862@nvidia.com>
-From: Deepak Nagaraj <deepak.nagaraj@baseten.com>
-Date: Fri, 2 Oct 2026 11:34:33 -0700
-X-Gm-Features: AclHuK-uAmXfCGozMAa5rak8cC_9fvKthtakmreZBGGyL_uh6rOPcWQRaBv8DxI
-Message-ID: <CAL3JwHN34En=iiEB+Zyxo3=_xfODTY_k_kddb2njN+AJwSCnnw@mail.gmail.com>
-Subject: Re: 6.12.110: kswapd NULL deref in list_lru_add, possibly related to
- xas_split_alloc backport
-To: Zi Yan <ziy@nvidia.com>
-Cc: stable@vger.kernel.org, mfleming@cloudflare.com, 
-	Kaz Kato <kazuyoshi.kato@baseten.co>, Stephen Day <stephen.day@baseten.co>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Yan,
+Sometimes, the driver reports an error when trying to start the
+application.
 
-On Fri, Oct 2, 2026 at 10:38 AM Zi Yan <ziy@nvidia.com> wrote:
->
-> On 2 Oct 2026, at 13:25, Deepak Nagaraj wrote:
->
-> > If I am reading v6.12.109 correctly, split_huge_page_to_list_to_order()
-> > calls xas_split_alloc() at mm/huge_memory.c:3524 with xa_lru unset, and
-> > now with __GFP_ACCOUNT. My guess at the 6.12 equivalent of the
-> > dependency is to inline mapping_set_update() before that call.
->
-> Yes, it is probably needed.
+After a reset, the bootloader will assert the interrupt pin to indicate
+when it is ready to communicate with the host; on our hardware this
+happens about 3.4 ms after the reset line is released. But since
+cyttsp5_probe() configures the IRQ and then immediately jumps to
+cyttsp5_startup(), there is a chance that the interrupt pin assertion
+can happen at around the same time that we try to deassert it by
+calling cyttsp5_deassert_int().
 
-Thanks for confirming.
+Initializing the IRQ while the reset pin is asserted ensures that this
+first interrupt is handled by cyttsp5_handle_irq(), which deasserts the
+interrupt pin by reading the input buffer. Therefore, calling
+cyttsp5_deassert_int() is no longer needed in that case.
 
-> Why not just export mapping_set_update() to mm/internal.h like mainline?
-> split_huge_page_to_list_to_order() then can call it directly.
+However, when cyttsp5_handle_irq() has processed that first interrupt,
+it has set the cmd_done completion. Because of that, the launch
+application command would complete before its own response has been
+received. Instead of sleeping a fixed 20 ms and hoping the reset
+sentinel has already been received, wait for it explicitly after
+releasing the reset line, so that its completion is consumed before the
+first command is sent.
 
-I tried that. On v6.12.111, mapping_set_update() is static in
-mm/filemap.c, so split_huge_page_to_list_to_order() cannot call it.
-The patch below moves that helper to mm/internal.h as the macro
-mainline has, and calls it before xas_split_alloc(). With that, the
-6.12 split path lines up with mainline.
+Without a reset line, the device may still be powering up if enabling
+the regulators turned it on, or may already be running, and the reset
+sentinel may have been raised before the IRQ was requested. Keep the
+20 ms delay and the cyttsp5_deassert_int() call in that case, then wait
+for the interrupt handler to finish and drop the completion it may have
+set, so that the sentinel does not complete the first command either
+way.
 
-I have compiled mm/filemap.o and mm/huge_memory.o for x86_64 against
-6.12.111 (defconfig, CONFIG_TRANSPARENT_HUGEPAGE=y).
+This relies on the previous patch, which makes cyttsp5_handle_irq()
+reliably identify the reset sentinel.
 
-If this looks right for 6.12, could you Ack it so stable can pick it up?
-
-Thanks,
-Deepak
-
-Signed-off-by: Deepak Nagaraj <deepak.nagaraj@baseten.com>
+Fixes: 5b0c03e24a06 ("Input: Add driver for Cypress Generation 5 touchscr=
+een")
+Cc: stable@vger.kernel.org
+Suggested-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
+Assisted-by: Copilot:claude-fable-5.1
+Signed-off-by: Marc-Olivier Champagne <marc-olivier.champagne@savoirfaire=
+linux.com>
 ---
- mm/filemap.c     | 9 ---------
- mm/huge_memory.c | 2 ++
- mm/internal.h    | 6 ++++++
- 3 files changed, 8 insertions(+), 9 deletions(-)
+ drivers/input/touchscreen/cyttsp5.c | 66 +++++++++++++++++++++++------
+ 1 file changed, 53 insertions(+), 13 deletions(-)
 
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -1526,6 +1526,12 @@
- /* Only track the nodes of mappings with shadow entries */
- void workingset_update_node(struct xa_node *node);
- extern struct list_lru shadow_nodes;
-+#define mapping_set_update(xas, mapping) do { \
-+ if (!dax_mapping(mapping) && !shmem_mapping(mapping)) { \
-+ xas_set_update(xas, workingset_update_node); \
-+ xas_set_lru(xas, &shadow_nodes); \
-+ } \
-+} while (0)
-
- /* mremap.c */
- unsigned long move_page_tables(struct vm_area_struct *vma,
---- a/mm/filemap.c
-+++ b/mm/filemap.c
-@@ -125,15 +125,6 @@
-  *    ->private_lock (zap_pte_range->block_dirty_folio)
-  */
-
--static void mapping_set_update(struct xa_state *xas,
-- struct address_space *mapping)
--{
-- if (dax_mapping(mapping) || shmem_mapping(mapping))
-- return;
-- xas_set_update(xas, workingset_update_node);
-- xas_set_lru(xas, &shadow_nodes);
--}
--
- static void page_cache_delete(struct address_space *mapping,
-    struct folio *folio, void *shadow)
- {
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -3520,6 +3520,8 @@
-  ret = -EBUSY;
-  goto out;
-  }
+diff --git a/drivers/input/touchscreen/cyttsp5.c b/drivers/input/touchscr=
+een/cyttsp5.c
+index 04e141eceb45..beeb7d5bcd2c 100644
+--- a/drivers/input/touchscreen/cyttsp5.c
++++ b/drivers/input/touchscreen/cyttsp5.c
+@@ -88,6 +88,7 @@
+ #define CY_HID_OUTPUT_GET_SYSINFO_TIMEOUT_MS	3000
+ #define CY_HID_GET_HID_DESCRIPTOR_TIMEOUT_MS	4000
+ #define CY_HID_SET_POWER_TIMEOUT		500
++#define CY_HID_RESET_SENTINEL_TIMEOUT_MS	1000
+=20
+ /* maximum number of concurrent tracks */
+ #define TOUCH_REPORT_SIZE			10
+@@ -760,6 +761,30 @@ static int cyttsp5_deassert_int(struct cyttsp5 *ts)
+ 	return -EINVAL;
+ }
+=20
++/*
++ * After a reset the device asserts the interrupt line with a zero-lengt=
+h
++ * report (reset sentinel) once it is ready to communicate. Consume it s=
+o
++ * that it does not complete the next command.
++ */
++static int cyttsp5_wait_reset_sentinel(struct cyttsp5 *ts)
++{
++	unsigned long timeout =3D msecs_to_jiffies(CY_HID_RESET_SENTINEL_TIMEOU=
+T_MS);
++	int rc;
 +
-+ mapping_set_update(&xas, mapping);
++	rc =3D wait_for_completion_interruptible_timeout(&ts->cmd_done, timeout=
+);
++	if (rc <=3D 0) {
++		dev_err(ts->dev, "Reset sentinel timed out\n");
++		return -ETIMEDOUT;
++	}
++
++	if (get_unaligned_le16(&ts->response_buf[0]) !=3D 0) {
++		dev_err(ts->dev, "Unexpected report instead of reset sentinel\n");
++		return -EPROTO;
++	}
++
++	return 0;
++}
++
+ static int cyttsp5_fill_all_touch(struct cyttsp5 *ts)
+ {
+ 	struct cyttsp5_sysinfo *si =3D &ts->sysinfo;
+@@ -786,12 +811,6 @@ static int cyttsp5_startup(struct cyttsp5 *ts)
+ {
+ 	int error;
+=20
+-	error =3D cyttsp5_deassert_int(ts);
+-	if (error) {
+-		dev_err(ts->dev, "Error on deassert int r=3D%d\n", error);
+-		return -ENODEV;
+-	}
+-
+ 	/*
+ 	 * Launch the application as the device starts in bootloader mode
+ 	 * because of a power-on-reset
+@@ -888,13 +907,6 @@ static int cyttsp5_probe(struct device *dev, struct =
+regmap *regmap, int irq,
+ 		return error;
+ 	}
+=20
+-	fsleep(10); /* Ensure long-enough reset pulse (minimum 10us). */
+-
+-	gpiod_set_value_cansleep(ts->reset_gpio, 0);
+-
+-	/* Need a delay to have device up */
+-	msleep(20);
+-
+ 	error =3D devm_request_threaded_irq(dev, irq, NULL, cyttsp5_handle_irq,
+ 					  IRQF_ONESHOT, name, ts);
+ 	if (error) {
+@@ -902,6 +914,34 @@ static int cyttsp5_probe(struct device *dev, struct =
+regmap *regmap, int irq,
+ 		return error;
+ 	}
+=20
++	fsleep(10); /* Ensure long-enough reset pulse (minimum 10us). */
++
++	gpiod_set_value_cansleep(ts->reset_gpio, 0);
++
++	if (ts->reset_gpio) {
++		error =3D cyttsp5_wait_reset_sentinel(ts);
++		if (error)
++			return error;
++	} else {
++		/*
++		 * Without a reset line, the device may be powering up or
++		 * already running. Give it time to come up, then make sure a
++		 * reset sentinel does not complete the first command: read it
++		 * if it came before the IRQ was requested, otherwise drop the
++		 * completion set by the interrupt handler.
++		 */
++		msleep(20);
++
++		error =3D cyttsp5_deassert_int(ts);
++		if (error) {
++			dev_err(ts->dev, "Error on deassert int r=3D%d\n", error);
++			return error;
++		}
++
++		synchronize_irq(irq);
++		try_wait_for_completion(&ts->cmd_done);
++	}
++
+ 	error =3D cyttsp5_startup(ts);
+ 	if (error) {
+ 		dev_err(ts->dev, "Fail initial startup r=3D%d\n", error);
+--=20
+2.34.1
 
-  xas_split_alloc(&xas, folio, folio_order(folio), gfp);
-  if (xas_error(&xas)) {
