@@ -1,72 +1,75 @@
-Received: from mail-qk2-f39.google.com (mail-qk2-f39.google.com [74.125.230.231])
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E412D41F5D4
-	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 21:41:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.231
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAAA8453A3C
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 21:44:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790977314; cv=none; b=rR+lxPJ3h+AghlE5KKXRDyyhaiUg320DwAjUwKKsNd1lAM+52rRuzStOiJ6K7AEjbnp4atcSQJATrluyarLaVg1wE5841k8HMAB0QTTUUd9jkZ0ibhw/4h/B+qdl8Do5n1/uuSBWb80WQrXR3sQ+uVcYm44HzGOECfuu9r6ctC8=
+	t=1790977463; cv=none; b=tRRkvusp5vGLdR5B0GaubOj+7jy8ypbmsMFRE5ceWMvw1TTMqtXaB1Wk1uaO2guee/xO96zEt2laDQONYdL4Vg14PO4k04aVyraw1HLK6QbmrRkkNEXI+iRP+ZE7M8uY4kneC9aDplJikPSQJFyQQidvJto4o3AScP5HJWJP8BA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790977314; c=relaxed/simple;
-	bh=SQXaYKVOCPGq63Pv3gBcweqQcXFDdnCWhIv2nfPFCI4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JK+Zml9ftj+MkXQ6wABxajgLAJuPDDBhtd44K0IieDGtpfPRZWORx2kqGnO5Fna9J2MD2Jgwt+TiTPOp/efn177NCHrpbSOn7a/kGwSkRC455vCb5llxQfZfFgzcxpSKQ0Jqg1CWssyuer7mrlGHxUqPIZxj1wJBYVzubeaotxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VbjYw27u; arc=none smtp.client-ip=74.125.230.231
+	s=arc-20240116; t=1790977463; c=relaxed/simple;
+	bh=ZCaeiEXn07+Csr8kWh7m58CfL0dqAr0onVKjEQ2TCUk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=V2OcfeL43KhPrUS+uYUBtffiojvzcWb/kRzjRbHR/lbmgQCLebNq9C0Z0p2BWRH+0mGtn37n9p3a9Jzbe22akAp5a2Dw/rrp227xGTi1HD6f2QR07RPNoKnILMNI3dWRkK0bC165PgaiSrBnoipP9cQvPf500W+CGnmnNISCH80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aTpEq5QY; arc=none smtp.client-ip=209.85.160.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VbjYw27u"
-Received: by mail-qk2-f39.google.com with SMTP id d75a77b69052e-5338f2a50caso311251cf.0
-        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 14:41:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aTpEq5QY"
+Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-5338c1197easo197291cf.0
+        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 14:44:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790977312; x=1791582112; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790977461; x=1791582261; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=v+6auUbc7rikWHN42UUirm8kbUpP8aG2HoKhX6n9Lac=;
-        b=VbjYw27uqlBk5msZBRVvCv+m+TpA4XhQnBeATXl8T+XLYkBBeZJ5mWGcBCceWr7yqI
-         YJOSTT6NnmqpBViUHBrm7FCxcBiTFXJ8Q9Ldp4XZ6DRoJKbLJPrMLeUL2/WHfO8kKTFo
-         sE05HxRoZWg+pkb4y1w6T5/egy44sSlCb3tOZey5ieUZE08t6q+7xHRp8ESOlsoevWxq
-         OYl29BfNonP/S78HdStgbKrwjy5Sp8ifYtQ6IPJ2v9haAM6avVaR5oYyXcMaZwP7BIPV
-         PwfKoELaOQMEBLVlqnN0MwZreqaCpVlEuqmVTs1oYP2eRNf2kYIcddfxSmjgjSUOVx/n
-         UeRw==
+        bh=731GWBd8bmU4NH2SwdaToIMYTPusA7UXCs0lvTfehWE=;
+        b=aTpEq5QYLS6xiS4P0Qjvjklm+3wdDQqV1rXFmSgeQNcLXmLqmdrThNDBRmd/fEzoyZ
+         xnjg8u44B5JaKFwTaAKDvfJEm0h6R3De5UP7p1QDVu4ResjqClhtv2tL3RQ6qDWocgmD
+         47GEpowVFAb2lI4bl895oBqdDQtgniBk0GzU9bdoEI0FC2Flkd3P08SSrYX1fcGXZ8Yd
+         srQ4uWXGSQyn/XIeuW8KzuhfOfyrIQxkZaMzjGVhU/TnOL6L4UrTLDNFzP8ACHEsKDoV
+         ycJ9o01EsGNl7T8CYp/PdTDYKYw4kMyJGfy2JPnkThErGaTAEHW2fPf2evdEkS32uaW7
+         Kyhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790977312; x=1791582112;
+        d=1e100.net; s=20260707; t=1790977461; x=1791582261;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=v+6auUbc7rikWHN42UUirm8kbUpP8aG2HoKhX6n9Lac=;
-        b=QFgyc9bhamSF8Bv4eDJNz3mG23+OJNd8YowKxV1u1P275tzfGPhovAFr8xZXwfltS5
-         S93Wp0cXOqKFpf03eIhrsE5mEz63aVjuNqWPdAVMmScx88YuTnBhMOokQVW9Ouf830Cy
-         W5twEpz88XQfabPWYoQ6RpXockXC7x9sPNnHYgmx3aLBsriAjjQjavMKvX5L+sfFg1WB
-         JqmX9mSQjR1UohAOY1/r3dcoy5Qp5inTTXsQWVSWoejI2n2trEh3zzjZdql/js/i6VZe
-         Zgg6TLyw8V68JGU4xBk7i4AuqdrNB2G6aqcMl3iVmPIVw0Nj/aAuZb0qF4CJ2cjQNKxm
-         KBWQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxyNv1eP1gipj2H15HtKdKhnh6zcgUsKftUMxKQV6syZsCvLvYbRZYBUzw6sUGnAtyfsbBQf40=@vger.kernel.org
-X-Gm-Message-State: AFuF++mFAT7YaZ3KHRovfAHLauKJRhIMbb1/Af6oAcGcTVZjMgiPHFKM
-	TvP9aQmIgyDrR1nZxCamhPx4uWdbMisGsriEZC7usha1jYQtmBLm6Lk=
-X-Gm-Gg: AYBFou2uUAVm1YNDLW2zWG75TnK2ybFxPPqTYRIjZGv3KI2ZAzrgOB7FJzjqZoA0r6t
-	BWKmem4tO+yaZ0SnefZ5s8WSiHzs68vsIP1W1jApQiyEWODReZfGrTserb6E/25SnsFnxRGS7Fo
-	1rCo2EZJT8IWWggueza+NmuKdSyyK9O8QLShIJGOpi5CU42RqHDIeFT6mi/h3+d7vqSHeyhH1pc
-	Npa8TZ781ug8BRZZFOExdvbP+sUmdmiHKFB0ERDNTJP/fOczRRhXHMvBKSRQ2q5jZsPqMLM9wly
-	fr7BHP4bKEhmYEEWJInbklWtQdPI2HXvg0MOG/gTqzM0VfPfwy5CvHLF8/lifkt/gafsY2vYwan
-	WnMAtLuOftErYWwBVoc+OPv9d7vbIku50rj/LCBHldudtz3qSKVrfUg/dfxgNDF31bls8c864CE
-	IYD0gmIFnC9BI+zK3zWX/LVcV+2yU/G7dcr9f+XXdOuIBmprdRDpI3ZpSUskdY8CCra1UH/+BVz
-	qjgzWR0AMPlcQv1p8/Cq2bVmRqpDJgDJIoy2A+ZXGeZPc0Cutluqy4KzGA44njWGLltSCI0TvqR
-	DZbDKe9iKJ4INTYOHzbMcpdDiFg5
-X-Received: by 2002:ac8:594a:0:b0:532:dc4d:58b3 with SMTP id d75a77b69052e-533cbc8efe0mr74768671cf.38.1790977311661;
-        Fri, 02 Oct 2026 14:41:51 -0700 (PDT)
+        bh=731GWBd8bmU4NH2SwdaToIMYTPusA7UXCs0lvTfehWE=;
+        b=ovm3UZWiR/+30ldOOMzj8DYZMEEo6UEhsGgyhPkla5vSpnPoQ+Rm0mrxb33b3p+/yy
+         bszOxj5LuZB9VeWYpxmwfwxB+OEDeMUo3P7aBe4ff6WhbiNwP0L/v8Gl6dInAwDiWO+f
+         fsEjzHFTxm6lHq+XStHOzoQvdSRABaW3y2Be27kxxw5/0P0w1uwF6K60Jy5KrKDBe2xi
+         r0hh1lwEqM7nr80KHvvOUv3mDP+wC8VEL/7K/wnZ7IQ49PX56q8Hmx/JlGAmWWLVE/m0
+         rt9YhUMMrBWUfbUiY5Dj/iDwV+DISctaNdcUqCa1y6AztiK4X1iCngeO0DsZqa1NrKuW
+         2r4Q==
+X-Forwarded-Encrypted: i=1; AKwUvBy6TCUK3kwTa8NparV7EJ0/m1Pniy4xj8BeOiZeJtH6DvBy88LQ5GsYZth0D1Ql+NDioteneho=@vger.kernel.org
+X-Gm-Message-State: AFuF++lCT3I34Om2eZmRakWIDbJXPhW2BTnVzfUjQD6AQOX/oE79QVIO
+	bATRIak66eejxR9Y8DksSFbGlADA3S7A6kbdXFAdqJAsTrzPFI1rHq0=
+X-Gm-Gg: AYBFou2d5qbAnczl0xjhMaJi4SWPBF8GcMgIOlZNrradKgYCtDQF/kgVycLXTQRICJV
+	r9cGapNs50kFVgGaDxxO1WZ0/UFYERL/PNWUgq4UB73x9hjt970Z2drliPEPybpnZcU73jL3LKx
+	sonY3+/0QCYfW42vKe6Lcrz8rdD4LP7ADLugkensg41NbcQ1e1/p94SXPq0aF3k9PU7e/wIjL7e
+	pAkVd5lxXOZSb9SlTHakAyrgbiZ2dPm6vWI2Io8zOJ9NPgN4Fx2qabVCg3mAjUtRDXraiWgq33k
+	YcZV/2cw1hpoItZxWct5M3ujIl5jPLo3iAco5AY9MMh7ggtoETFp/+mZexAV7ifoCUcKOuykgot
+	BZkQgmKFqRdKhJh5Xs7z/DglQuhFaQujcXryxq6ZtLrG5Ki79Xb0LncEVSMDU/2X0UXlw7Udyqe
+	E+5qyyHzVFaPoUFk3qGb5A/PTB4YvTGPL1Zd45bLzwMD8u1pSCC/K29hFTgTi2KJelpSVG2jbLq
+	W+cE7epDNdrcz4QK59eYM+M1Q6TxKa8DlZL8IvplGx0SkUXYmYa1hFJ1Tu+KRCdD72Oo0VBTKcb
+	tT31ipaFQn5BGTctl44W4WQdBSDuo5fUICWt9S0=
+X-Received: by 2002:ac8:5a46:0:b0:535:958:b9c1 with SMTP id d75a77b69052e-53511d18e2emr12544691cf.11.1790977460535;
+        Fri, 02 Oct 2026 14:44:20 -0700 (PDT)
 Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-533988343b5sm36227531cf.1.2026.10.02.14.41.50
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53398aa36e6sm36669261cf.15.2026.10.02.14.44.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 14:41:50 -0700 (PDT)
+        Fri, 02 Oct 2026 14:44:19 -0700 (PDT)
 From: Myeonghun Pak <mhun512@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Chunfeng Yun <chunfeng.yun@mediatek.com>,
-	linux-usb@vger.kernel.org,
+To: Rishi Gupta <gupt21@gmail.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-i2c@vger.kernel.org,
+	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] usb: common: usb-conn-gpio: join IRQs before canceling work
-Date: Fri,  2 Oct 2026 17:41:47 -0400
-Message-ID: <20261002214148.459052-1-mhun512@gmail.com>
+	stable@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH] HID: mcp2221: always initialize and cancel init_work
+Date: Fri,  2 Oct 2026 17:44:16 -0400
+Message-ID: <20261002214416.459795-1-mhun512@gmail.com>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -76,94 +79,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The GPIO IRQ handlers can enqueue delayed work after remove has canceled
-it. A similar lifetime issue exists during probe: once the ID IRQ has
-been requested, a later VBUS IRQ setup failure can unwind probe while
-the ID IRQ is still able to queue work.
+The writable gpio_mode_enforce parameter can change between probe and
+remove.
 
-Managed IRQ cleanup happens only after remove or failed probe returns,
-so queued work can outlive the state it accesses.
+If it changes from false to true after probe, remove skips cancellation
+of init_work. Pending or running work can then access devm-managed
+driver state after teardown. Changing it from true to false can make
+remove cancel an uninitialized delayed work item.
 
-Request both IRQs disabled and enable them only after setup succeeds.
-During cleanup, explicitly free and synchronize the installed IRQs
-before canceling delayed work. This closes the producer before joining
-the work it can queue.
+Initialize init_work whenever IIO is reachable and cancel it
+unconditionally on remove. Keep the parameter check only for scheduling
+the initialization.
 
-This issue was identified during our ongoing static-analysis research
-while reviewing kernel code.
+The false-to-true cancellation gap was previously reported by Sashiko.
+We also encountered this issue during our static-analysis research.
 
-Fixes: 4602f3bff266 ("usb: common: add USB GPIO based connection detection driver")
+Fixes: 200e6c6e94fa ("HID: mcp2221: Add module parameter to enfoce GPIO mode")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://lore.kernel.org/linux-input/20260715143415.916A21F00A3A@smtp.kernel.org/
 Assisted-by: LLM
 Cc: stable@vger.kernel.org
 Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
- drivers/usb/common/usb-conn-gpio.c | 24 ++++++++++++++++++++----
- 1 file changed, 20 insertions(+), 4 deletions(-)
+ drivers/hid/hid-mcp2221.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/usb/common/usb-conn-gpio.c b/drivers/usb/common/usb-conn-gpio.c
-index 421c3af38e06975259f4a1792aa3b3708a192d59..60badc9a2db8b8e7e621141307de3c1729e8f101 100644
---- a/drivers/usb/common/usb-conn-gpio.c
-+++ b/drivers/usb/common/usb-conn-gpio.c
-@@ -29,7 +29,7 @@
- #define USB_GPIO_DEB_US		((USB_GPIO_DEB_MS) * 1000)	/* us */
+diff --git a/drivers/hid/hid-mcp2221.c b/drivers/hid/hid-mcp2221.c
+index d52ce3531ab706db8ec908d57ad0383af9fafb1e..6515692b408ee7b6ee318cfa3f240321c133f2c4 100644
+--- a/drivers/hid/hid-mcp2221.c
++++ b/drivers/hid/hid-mcp2221.c
+@@ -1072,8 +1072,7 @@ static void mcp2221_remove(struct hid_device *hdev)
+ #if IS_REACHABLE(CONFIG_IIO)
+ 	struct mcp2221 *mcp = hid_get_drvdata(hdev);
  
- #define USB_CONN_IRQF	\
--	(IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING | IRQF_ONESHOT)
-+	(IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING | IRQF_ONESHOT | IRQF_NO_AUTOEN)
+-	if (!gpio_mode_enforce)
+-		cancel_delayed_work_sync(&mcp->init_work);
++	cancel_delayed_work_sync(&mcp->init_work);
+ #endif
+ }
  
- struct usb_conn_info {
- 	struct device *dev;
-@@ -262,7 +262,7 @@
- 		if (info->vbus_irq < 0) {
- 			dev_err(dev, "failed to get VBUS IRQ\n");
- 			ret = info->vbus_irq;
--			goto put_role_sw;
-+			goto free_id_irq;
- 		}
+@@ -1347,10 +1346,9 @@ static int mcp2221_probe(struct hid_device *hdev,
+ #endif
  
- 		ret = devm_request_threaded_irq(dev, info->vbus_irq, NULL,
-@@ -270,19 +270,30 @@
- 						pdev->name, info);
- 		if (ret < 0) {
- 			dev_err(dev, "failed to request VBUS IRQ\n");
--			goto put_role_sw;
-+			goto free_id_irq;
- 		}
- 	}
- 
- 	platform_set_drvdata(pdev, info);
- 	device_set_wakeup_capable(&pdev->dev, true);
- 
-+	info->initial_detection = true;
-+
-+	/* Enable the IRQs only after all the setup has succeeded. */
-+	if (info->id_gpiod)
-+		enable_irq(info->id_irq);
-+	if (info->vbus_gpiod)
-+		enable_irq(info->vbus_irq);
-+
- 	/* Perform initial detection */
--	info->initial_detection = true;
- 	usb_conn_queue_dwork(info, 0);
+ #if IS_REACHABLE(CONFIG_IIO)
+-	if (!gpio_mode_enforce) {
+-		INIT_DELAYED_WORK(&mcp->init_work, mcp_init_work);
++	INIT_DELAYED_WORK(&mcp->init_work, mcp_init_work);
++	if (!gpio_mode_enforce)
+ 		schedule_delayed_work(&mcp->init_work, msecs_to_jiffies(100));
+-	}
+ #endif
  
  	return 0;
- 
-+free_id_irq:
-+	if (info->id_gpiod)
-+		devm_free_irq(dev, info->id_irq, info);
-+	cancel_delayed_work_sync(&info->dw_det);
- put_role_sw:
- 	usb_role_switch_put(info->role_sw);
- 	return ret;
-@@ -291,6 +302,11 @@
- static void usb_conn_remove(struct platform_device *pdev)
- {
- 	struct usb_conn_info *info = platform_get_drvdata(pdev);
-+
-+	if (info->id_gpiod)
-+		devm_free_irq(&pdev->dev, info->id_irq, info);
-+	if (info->vbus_gpiod)
-+		devm_free_irq(&pdev->dev, info->vbus_irq, info);
- 
- 	cancel_delayed_work_sync(&info->dw_det);
- 
