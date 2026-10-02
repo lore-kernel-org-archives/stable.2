@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBD16CA6B;
-	Fri,  2 Oct 2026 00:03:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 300AC137750;
+	Fri,  2 Oct 2026 00:06:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790899382; cv=none; b=i6cZUdZ1OfLduXagCW+xobl0f3nvp65maK09cT9otjvDnmB795DgceKfj5njli8L6TUUHaIP7NjUAfpf6/PX/LRGIfZ9jSxdVlL2Lr5co+Wq62jc6Jij74xPMoFhghQNSSZzSbQaRV4bp6UFTS5k/LFZyCcyAjKx1rHxd8sV3Wg=
+	t=1790899569; cv=none; b=RY5gnxCVddEpZHOrqta9/r7u8XKb8PbafXW5SIICdPO23oeSEMGfB8HA7aMqKRK40M2tZHeQLd2F2u1Kdx7vITOOZGU5Dc5pCAcrJqvAntTw5rC74oEZuGoZRwXVqqDRkmJbQ2St2LZiZ/1w/XC047WPAt1oMYDah4Jm64QARBw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790899382; c=relaxed/simple;
-	bh=+MKk/w3EM1ZEGB9QX8DBqYUytNMvpxXUpLbkvJGiEbY=;
+	s=arc-20240116; t=1790899569; c=relaxed/simple;
+	bh=g94jov6pMGrVs41yGYhtm9xEFq+Qmo11P5lXohcmUZk=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Iq8ifzIHh3z6nUMcc66Mqz691BPKW7KpdGjJfXi27Z+RDqEiOdVoj35qv4f3om19ZWKqp3Q3E7Kmv5LpIyanxqGe9WqJB5PMIqw4E6AeTFsoNz4RFoQihTShTMdf0aKPpkxpcGyFSepTwmrCKauTj0rHLXdbBVsCindKHm8KV5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=krt04fVr; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=HgevocJgFyvd72B1xqrZGOPa9H0lmMZc8HJ/FMHdO0m8LofYC1Plpye83WD0iKjkBLxx0WPyD2WExHucOdnUs3BY/1zJqIg2yfjSHU50HV2S9LmUpCf6zYHEAfg+EndCUUf12l98wF9r6voPTaH7XQW8ObC+wefd5sUEgiMc9jc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WmqWKTae; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="krt04fVr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A17831F000FF;
-	Fri,  2 Oct 2026 00:02:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WmqWKTae"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53F471F000FF;
+	Fri,  2 Oct 2026 00:06:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790899380;
-	bh=Dvor4gYEkp32nNT2Ew94wywNzoc+aD/8FscPLTSJ8Sc=;
+	s=k20260515; t=1790899567;
+	bh=lgfAp81SO0jY9MuFuSg3tociwcsO3svNropjUcMA+8Q=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=krt04fVrQvyeRY5I7T9ijhoPXbmcQfoD1wnOl0pShdgHqotO9u8nio63kLWm5En9d
-	 euHt97dcsEBYrUnpFTrPtZ/GV/jOyrHVbLgO9bO7tDFTpBlzEvULKYvVYzS0G0NHWi
-	 JeS9AuGNDNh1I/XzIzFUPliIBp4o3hMtW+1zLyEy64Qs0DfQkKStOU8PTiTMl7R+Hx
-	 3do3HXlOuOL10NuVqVI/F8CZWvawCODG9uD/4g4m3WUs7yiyfrJHTLXxI0cLMEpRQd
-	 t2/LxvSRywXyQqEf0FEmlD/TDyjgTs1+HtKfg2FH3n/+7JHdiBK7FiVn9qdgOIV/Wt
-	 M3d0bGUq60D6g==
-Subject:
- Re: [PATCH net] netfilter: nf_conntrack_reasm: avoid truncating header offset
+	b=WmqWKTae3wUMSHXHGld2ljOYDNrBVOlb+Qc+cXdCYs0U636v7BySVZ7lyW2oMr0TM
+	 1eWw3gnG6t5ZTx5v2ZyUQmJA3eL3AP730fM38eB/JqDKKW4Vl1F4IEZExX8N5PnBAW
+	 AqzuKJrQS/45Lcr9VvmUbXXu1fzNQoF3Y2mwZuhZ8MYXxYA2IrcEQrYvtHBwrfUjeW
+	 AK254InNCDHJJKLsRauKeNzDcIAoSo2cgrLcRgahNBjWeao39Jt1Xb1ywmjEWULZ0V
+	 qS6uXVkajev9crOBLDs2RA/yE9mkGlfuqOcYkbzBf8NrM/ivedwDlWeEg09x5F5hhO
+	 /H00EiSFVyP+Q==
+Subject: Re: [PATCH net v2] strparser: make sure __strp_recv isn't running
+ before tearing down the parser
 From: netdev-bot+sashiko@kernel.org
-To: tjdqudcks0424@naver.com
-Cc: netfilter-devel@vger.kernel.org, pablo@netfilter.org, fw@strlen.de,
- phil@nwl.cc, netdev@vger.kernel.org, stable@vger.kernel.org, kuba@kernel.org
-Date: Fri, 02 Oct 2026 00:02:59 +0000
-Message-ID: <179089937913.434549.5874493628033954656@kernel.org>
-In-Reply-To: <20260929090027.200041-1-tjdqudcks0424@naver.com>
-References: <20260929090027.200041-1-tjdqudcks0424@naver.com>
-X-sashiko-severity: High
+To: sd@queasysnail.net
+Cc: netdev@vger.kernel.org, jiayuan.chen@linux.dev, imv4bel@gmail.com,
+ stable@vger.kernel.org, kuba@kernel.org
+Date: Fri, 02 Oct 2026 00:06:06 +0000
+Message-ID: <179089956689.434549.15887968585245541352@kernel.org>
+In-Reply-To:
+ <f06217a9b95b7027286c7df21336e67e334c3e6e.1790674872.git.sd@queasysnail.net>
+References:
+ <f06217a9b95b7027286c7df21336e67e334c3e6e.1790674872.git.sd@queasysnail.net>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -49,7 +51,7 @@ MIME-Version: 1.0
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue(s) to consider.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+Critical: 0 · High: 0 (1) · Medium: 1 · Low: 0 (1)
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -57,116 +59,175 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] The patch widens prev_nhoff to int, but header offsets in this
-  parse-and-reassemble path are still truncated to 16 bits with no range…
+- [Medium] strp_done() in net/strparser/strparser.c now calls
+  lock_sock(strp->sk) and release_sock(strp->sk) (lines 514-516) with no…
+
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the new sync
+  in strp_done() relies on strp->stopped being reliably set, and in KCM…
+- [Low] The concern is that the comment above strp_done()
+  (net/strparser/strparser.c:507-509, 'strp must already be stopped so…
 
 --
 
-netfilter: nf_conntrack_reasm: avoid truncating header offset
+strparser: make sure __strp_recv isn't running before tearing down the parser
 
-This patch changes prev_nhoff in find_prev_fhdr() from u8 to int, so a
-Next Header offset of 256 or more is no longer truncated. Before the
-change, nf_ct_frag6_reasm() used the truncated value from
-frag_queue.nhoffset and overwrote the IPv6 header instead of the
-preceding extension header's Next Header field.
+This commit adds a lock_sock()/release_sock() pair to strp_done(). The
+pair makes sure that any strp_recv() already running under bh_lock_sock
+or lock_sock has finished before the parser is torn down. It fixes a
+race in espintcp teardown reported by Hyunwoo Kim.
 
-> diff --git a/net/ipv6/netfilter/nf_conntrack_reasm.c b/net/ipv6/netfilter/nf_conntrack_reasm.c
-> index 599c49bf0a0af..be72c4346f8b7 100644
-> --- a/net/ipv6/netfilter/nf_conntrack_reasm.c
-> +++ b/net/ipv6/netfilter/nf_conntrack_reasm.c
-> @@ -398,7 +398,7 @@ find_prev_fhdr(struct sk_buff *skb, u8 *prevhdrp, int *prevhoff, int *fhoff)
+Link: https://lore.kernel.org/all/aZgpkyTDU3aXe_V0@v4bel/
+
+> diff --git a/net/strparser/strparser.c b/net/strparser/strparser.c
+> index a23f4b4dfc673..401e67533005f 100644
+> --- a/net/strparser/strparser.c
+> +++ b/net/strparser/strparser.c
+> @@ -511,6 +511,10 @@ void strp_done(struct strparser *strp)
 >  {
->  	u8 nexthdr = ipv6_hdr(skb)->nexthdr;
->  	const int netoff = skb_network_offset(skb);
-> -	u8 prev_nhoff = netoff + offsetof(struct ipv6hdr, nexthdr);
-> +	int prev_nhoff = netoff + offsetof(struct ipv6hdr, nexthdr);
+>  	WARN_ON(!strp->stopped);
+>  
 
 [Severity: High]
-This fixes the 8-bit truncation. Are the same offsets still truncated to
-16 bits later in this path?
+This is a pre-existing issue, but the new sync here depends on
+strp->stopped being set reliably. In KCM, that store looks like it can
+be lost.
 
-find_prev_fhdr() bounds prev_nhoff and fhoff only by skb->len. Both values
-then go into 16-bit storage with no range check:
+struct strparser packs stopped, paused, aborted, interrupted and
+unrecov_intr as 1-bit fields in one u32. That means strp_stop() and
+strp_unpause() both do a read-modify-write of the same word:
 
-include/net/ipv6_frag.h:struct frag_queue {
+strp_stop():
+	strp->stopped = 1;
+
+strp_unpause():
+	strp->paused = 0;
+
+In kcm_unattach(), strp_stop() runs under lock_sock(csk) and
+write_lock_bh(&csk->sk_callback_lock), before mux->rx_lock is taken.
+kcm_rcv_ready() holds only mux->rx_lock when it does:
+
+	strp_unpause(&psock->strp);
+	strp_check_rcv(&psock->strp);
+
+Can this interleaving lose the stop?
+
+CPU0 (kcm_unattach)             CPU1 (kcm_rcv_ready)
+                                strp_unpause()
+                                  load word (stopped=0, paused=1)
+strp_stop()
+  store stopped=1
+                                  store paused=0, stopped=0
+
+After that, strp_check_rcv() queues strp->work. do_strp_work() blocks in
+lock_sock(csk) until kcm_unattach() calls release_sock(csk) just before
+strp_done(). It then sees stopped == 0 and runs:
+
+do_strp_work()->strp_read_sock()->strp_recv()->kcm_rcv_strparser()
+  ->reserve_rx_kcm()
+
+That path can put the psock back onto mux->psocks_ready with
+list_add_tail(), or set it as kcm->rx_psock. Either happens after
+kcm_unattach() has already removed the psock under rx_lock. The
+WARN_ON(!strp->stopped) above would fire. Later, kcm_unattach() calls
+kmem_cache_free(kcm_psockp, psock) while the mux may still reach the
+psock.
+
+Would that be a use-after-free of struct kcm_psock?
+
+AF_KCM has no capable() check, so an unprivileged user can reach both
+paths: SIOCKCMUNATTACH on one side and kcm_rfree()->kcm_rcv_ready() on
+the other. The window is a single read-modify-write.
+
+For espintcp, a lost update fixes itself. The only concurrent bitfield
+writes there are the interrupted/unrecov_intr stores in __strp_recv()
+under bh_lock_sock. In the same critical section they are followed by
+strp_parser_err()->strp_abort_strp(), which sets stopped again, and the
+new lock_sock()/release_sock() waits for that section to finish.
+
+> +	lock_sock(strp->sk);
+> +	/* sync with pending strp_recv */
+> +	release_sock(strp->sk);
+
+[Severity: Medium]
+Can this oops for a parser set up in general mode? strp_init() still
+accepts a NULL sk as long as cb->lock and cb->unlock are supplied, and
+stores it unchanged:
+
+strp_init() {
     ...
-	__u16			nhoffset;
+	if (!sk) {
+		if (!cb->lock || !cb->unlock)
+			return -EINVAL;
+	}
+
+	memset(strp, 0, sizeof(*strp));
+
+	strp->sk = sk;
     ...
 }
 
-net/ipv6/netfilter/nf_conntrack_reasm.c:nf_ct_frag6_queue() {
-    ...
-	if (offset == 0) {
-		fq->nhoffset = nhoff;
-    ...
-}
+For such a parser, strp_init(strp, NULL, cb) -> strp_stop() ->
+strp_done() now ends up calling lock_sock(NULL). lock_sock_nested() then
+dereferences sk->sk_lock. Before this patch, strp_done() never touched
+strp->sk.
 
-net/ipv6/netfilter/nf_conntrack_reasm.c:nf_ct_frag6_gather() {
-    ...
-	skb_set_transport_header(skb, fhoff);
-	hdr = ipv6_hdr(skb);
-	fhdr = (struct frag_hdr *)skb_transport_header(skb);
-    ...
-}
+Documentation/networking/strparser.rst still says sk is set to NULL in
+general mode, and that strp_done() must be called once the parser is
+stopped.
 
-skb_set_transport_header() adds fhoff to the u16 skb->transport_header.
-If headroom + fhoff is above 65535, the value wraps and fhdr no longer
-points at the real Fragment Header.
+Other code in this file also treats a NULL sk as a normal state.
+strp_abort_strp() checks if (strp->sk), and do_strp_work() and
+strp_msg_timeout() lock through strp->cb.lock()/strp->cb.unlock().
 
-At PRE_ROUTING this seems harmless. ip6_rcv_core() trims skb->len to
-payload_len + 40, and nf_ct_frag6_queue() then appears to drop the wrapped
-cases because end exceeds IPV6_MAXPLEN.
+The commit message acknowledges the crash:
 
-The LOCAL_OUT raw path looks different. rawv6_send_hdrinc() limits the
-length only by dev->mtu, which is 65536 on lo by default. It does not
-rewrite payload_len and calls NF_HOOK(NFPROTO_IPV6, NF_INET_LOCAL_OUT, ...)
-directly.
+  This could crash on strp->sk ("general mode" of strp), but this mode
+  has been here for 9 years and has never been used.
 
-lo has 16 bytes of headroom. So a 65536-byte IPV6_HDRINCL packet can put
-fhoff at 65528 behind a chain of Destination Options headers.
-transport_header then wraps to 8, and fhdr points into the headroom at
-skb->head + 8.
+It also says:
 
-The real Fragment Header can carry a nonzero offset, so
-ipv6frag_thdr_truncated() still passes. Suppose the stale headroom bytes
-decode as offset 0 with MF clear, for example zeroed memory under
-init_on_alloc. Would the packet then be reassembled as a single fragment?
+  Only espintcp can be affected by this race condition, but this patch
+  makes sure no future user of strp can have the bug.
 
-If so, could it reach this sequence?
+A future user of general mode would crash here instead.
 
-nf_ct_frag6_gather()
-  nf_ct_frag6_queue()
-  nf_ct_frag6_reasm()
-    skb_network_header(skb)[fq->nhoffset] = skb_transport_header(skb)[0];
-    ...
-    skb->network_header += sizeof(struct frag_hdr);
-    ...
-    inet_frag_reasm_finish()
-      skb_push(head, head->data - skb_network_header(head));
+All in-tree strp_init() callers pass a real socket: espintcp_init_sk(),
+kcm_attach(), sk_psock_init_strp() and ovpn_tcp_socket_attach(). None of
+them overrides cb.lock/cb.unlock, so nothing in-tree hits this today.
 
-The first line copies a byte of uninitialized headroom into the packet
-data.
+This is headed to stable, and the API and documentation still allow
+general mode. Would one of these be better?
 
-The network_header increment moves it to head + 24, past skb->data at
-head + 16. The skb_push() length is then -8, which becomes 0xFFFFFFF8 as
-an unsigned int. Would that trigger skb_under_panic()?
+  - guard the sync with if (strp->sk)
+  - use strp->cb.lock(strp)/strp->cb.unlock(strp) instead; for every
+    in-tree user that is lock_sock()/release_sock() via
+    strp_sock_lock()/strp_sock_unlock()
+  - drop general mode from strp_init() and the documentation
 
-This path needs CAP_NET_RAW, which an unprivileged user may get inside a
-user and net namespace. It also needs conntrack defrag active in that
-netns, for example through an nft ct rule.
+> +
+>  	cancel_delayed_work_sync(&strp->msg_timer_work);
+>  	cancel_work_sync(&strp->work);
 
-Also, if lo's MTU is raised above 65536, can prev_nhoff reach 65536 or
-more? The store into the __u16 nhoffset would then wrap to 0, 8 and so
-on, which is the same misdirected Next Header write this commit fixes for
-the u8 case.
+[Severity: Low]
+This isn't a bug introduced by this patch, but the comment above
+strp_done() reads:
 
-Should find_prev_fhdr() or nf_ct_frag6_gather() reject nhoff and fhoff
-values that the 16-bit consumers cannot hold? For fhoff, that means
-including the headroom and sizeof(struct frag_hdr).
+/* strp must already be stopped so that strp_recv will no longer be called.
+ * Note that strp_done is not called with the lower socket held.
+ */
 
->  	int start = netoff + sizeof(struct ipv6hdr);
->  	int len = skb->len - start;
->  	u8 prevhdr = NEXTHDR_IPV6;
+With the new lock_sock() here, would "must not be called" be clearer
+than "is not called"?
+
+The requirement itself isn't new. do_strp_work() and strp_msg_timeout()
+already take strp->cb.lock(), which for every in-tree user is
+lock_sock(strp->sk) via strp_sock_lock(). So the cancel_work_sync() and
+cancel_delayed_work_sync() calls here could already deadlock if the
+caller held the socket lock.
+
+All in-tree callers release the socket lock before calling strp_done(),
+so this is only a wording nit.
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260929090027.200041-1-tjdqudcks0424%40naver.com
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/f06217a9b95b7027286c7df21336e67e334c3e6e.1790674872.git.sd%40queasysnail.net
