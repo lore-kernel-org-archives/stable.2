@@ -1,69 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D39B23E3169
-	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 10:36:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B4A7478E5B;
+	Fri,  2 Oct 2026 10:38:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790937387; cv=none; b=JYhzSveXFBVrQ4LE731pPCqb2KOFRYrvjFzX2UG0NoG+zq2kFFoGHkwI3tkylItWp5ged+x0QK55qpCRSTJY5zyHTWe+qrOljxP+/hAdq/mzDaP2c8nA1HMhdoGv46jnhu+Z7I2h8uRKp0TkO9wQy0ya/pJFXEwecM8Z3ynO8No=
+	t=1790937491; cv=none; b=QOJDVJYSBroRMmrQb2spUu6NWht8qUdwY50Mj7ZqL2t3ZYH6dHVG+PK7pcwUGrRPQg6vgPBVwxe8QY0MCgdHV2zuXIcAxczOgmgRlg4HMW/FTJEFA0fiw5rvWh899AJK0bMQrU4Kw7mPn9IND9RE+6178nVYXzwpCBj5ek6iCmQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790937387; c=relaxed/simple;
-	bh=RON37IV3ohc6Tz0dFpFuBeggvV7j8gYSLt3b/6TZoUo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kKmA2w8KnzcfvmX0rn5Nb4iiVLjuiF0wJccs2vDNHEIkUE4+WVCjVxIlq7R2EV7UQOxSVXzVeaB9jbpmUgU4NQ0vd+98xJ2C/ps9YfNTlhxMvF/7LvS/3uDRBSOikCY8vnCtGAV+yQ60cqm+VeIHnOdB2s/Xnk6nTMffxauz1bk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QbEc0O+q; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790937491; c=relaxed/simple;
+	bh=c1Kz1S+yrff+WNuY/DTybY0NYW0VwM7tpITBHxgkG1o=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KvDFaC92kxJl1N15STtU2aB3Q17sGBAnPq0ATvQSk71cRMdrDMDfq8TiE0m2VlECZ6PEdGC9E83k/w0OT42yRwHjgpan9Uxfp6HWgbPC4JYeffiboFmpzMdEOUB04fWwzu0tbTlc/UhgrV55HrOrb/cG+j5vsDQmgvtJUd+hxHY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=C65mH7WK; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QbEc0O+q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84E3F1F000FF
-	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 10:36:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790937386;
-	bh=RON37IV3ohc6Tz0dFpFuBeggvV7j8gYSLt3b/6TZoUo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=QbEc0O+qm2zUWlphPT4PsDPRYkmXKrHHWmaVa6ybESUK3kEBpHCfwy/mRogkOAFYu
-	 WWcPBSyLXvJytH/WObr3s8kWqKv0uApf8qFPHkBZnn1Gw0T05+PpWHP5ZV3Go1WEbY
-	 PlS6IhSo9FMlQmfGU5fvzFHhNlla+x0Zcn4qvw23SHBK4EF1KhZfQQqBanmZhZ16ZP
-	 RC655Nnl4kmSgd01sITjZvD1D+a/h/5oYhTtjLWVDpfxU0IYC1TkSl4TO4zu11NUob
-	 j0bb9FJUW9dxwXHutYUwHgpPg+ZSwxxORmKY4JMzm5Kn2bLhKIuyNoqmVX7MbFNZQv
-	 XJ6oeQHhSAEZQ==
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4aa8d882so8427666d50.0
-        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 03:36:26 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBysOmP2MVUgcwbo7LkdekWE/ai7Bno+VVuUHm4dVAo9PULmAl1WtdpNnn6mZAI6u4/WhMmZYys=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIbr+LM4Yus5IPhWoVyjNFMlANdZfhOrJ0XNsTShbEA8j6btDHJ
-	vs7fdRnEUE8cgtOw1Rjj9eddsmRL5iVejAUDf6/WjDP2d+4HXJ7GSWsWjx+3iZc7c0ejBWUmOAX
-	MuMxyabSUAEemlVj78xU4U+6XldJ98Vc=
-X-Received: by 2002:a05:690e:441b:b0:673:4a02:a126 with SMTP id
- 956f58d0204a3-677abf9f160mr660800d50.33.1790937385846; Fri, 02 Oct 2026
- 03:36:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="C65mH7WK"
+Received: from francesco-nb.. (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
+	by mail11.truemail.it (Postfix) with ESMTPA id AA0CF207B3;
+	Fri,  2 Oct 2026 12:38:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1790937485;
+	bh=1Lmc7m9O5GYGW82qx/YwZr2eAGDKfa3VzLbHRgPFcIs=; h=From:To:Subject;
+	b=C65mH7WKZs2QaWzNJby4yt5fC8ZQZNCqwdoM/+Dw8UklYXMxM8t9TnQ6UJgjztGab
+	 m60H5+G5Vn9phmR+tkfKYavizshf9jQu73WHNQTd11t9SGK0ARXxZr2QnwG80X2KV4
+	 Ees+zZxfA+5Ntc9MYT5IV4VxR8w98quJELSYKaV+AAqgs8b6RDOMjf8LRjjTkL0KSq
+	 SnBlq/7KZb5NLmu5elxZzGMMSm8Dv3lcxVCY3G54BCMWtnT1mkcdiYXbXjThyBkCkZ
+	 mgDT09017X6mN/jjvafnaGhL5SAQBW5Txe+pnx7V+4EH89LiHdl/pzjv9KQm/kx/j3
+	 A/wZyMgoLZO/A==
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v1 1/3] arm64: dts: freescale: imx95-verdin: fix vdev buffer reserved memory node name
+Date: Fri,  2 Oct 2026 12:37:54 +0200
+Message-ID: <20261002103757.70065-2-francesco@dolcini.it>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261002103757.70065-1-francesco@dolcini.it>
+References: <20261002103757.70065-1-francesco@dolcini.it>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929161930.1894929-1-zhangdairui@gmail.com> <20260929174902.1899561-1-zhangdairui@gmail.com>
-In-Reply-To: <20260929174902.1899561-1-zhangdairui@gmail.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Fri, 2 Oct 2026 19:36:10 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd90goLZXJvkS+Ke0o=tjEdxuzu5KK0UWDoyUyb9GPg7zQ@mail.gmail.com>
-X-Gm-Features: AclHuK-cDzq1Tnza55HV0pLxYQ4XzqVVgRH7cSWNkZ9MwcCQ8-cQ93-_bDMSeu4
-Message-ID: <CAKYAXd90goLZXJvkS+Ke0o=tjEdxuzu5KK0UWDoyUyb9GPg7zQ@mail.gmail.com>
-Subject: Re: [PATCH v6] ksmbd: verify transform SessionId matches the
- decrypted header
-To: Dairui Zhang <zhangdairui@gmail.com>
-Cc: linux-cifs@vger.kernel.org, smfrench@gmail.com, senozhatsky@chromium.org, 
-	tom@talpey.com, pc@manguebit.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 30, 2026 at 2:49=E2=80=AFAM Dairui Zhang <zhangdairui@gmail.com=
-> wrote:
->
-> Namjae, Tom,
->
-> Re-checked v5 against the updated MS-SMB2 text. The ~0
-> exemption was my mistake - the spec has no wildcard for
-> non-related operations. Dropped it in v6. The other checks
-> already match, decompression included. No other changes.
-Applied this patch to #ksmbd-for-next.
-Thanks!
+From: Francesco Dolcini <francesco.dolcini@toradex.com>
+
+The imx_rproc driver uses node names to identify reserved memory regions.
+It checks for "vdev0buffer" to skip mapping and "vdev" prefix to filter
+vdev regions.
+
+Rename the reserved memory nodes to use the expected names so the driver
+can correctly identify and handle each region.
+
+Same as commit 5cae743b988d ("arm64: dts: imx95-15x15-frdm: fix reserved
+memory node names for remoteproc").
+
+Fixes: 676d7ce22f00 ("arm64: dts: freescale: Add Verdin iMX95 support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+---
+ arch/arm64/boot/dts/freescale/imx95-verdin.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx95-verdin.dtsi b/arch/arm64/boot/dts/freescale/imx95-verdin.dtsi
+index 72e7f1e88409..f2e41d39ca6e 100644
+--- a/arch/arm64/boot/dts/freescale/imx95-verdin.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx95-verdin.dtsi
+@@ -142,7 +142,7 @@ cm7: remoteproc-cm7 {
+ 		mboxes = <&mu7 0 1
+ 			  &mu7 1 1
+ 			  &mu7 3 1>;
+-		memory-region = <&vdevbuffer>, <&vdev0vring0>, <&vdev0vring1>,
++		memory-region = <&vdev0buffer>, <&vdev0vring0>, <&vdev0vring1>,
+ 				<&vdev1vring0>, <&vdev1vring1>, <&rsc_table>, <&m7_reserved>;
+ 	};
+ 
+@@ -184,7 +184,7 @@ vdev1vring1: vdev1vring1@88018000 {
+ 			no-map;
+ 		};
+ 
+-		vdevbuffer: vdevbuffer@88020000 {
++		vdev0buffer: vdev0buffer@88020000 {
+ 			compatible = "shared-dma-pool";
+ 			reg = <0 0x88020000 0 0x100000>;
+ 			no-map;
+-- 
+2.47.3
+
