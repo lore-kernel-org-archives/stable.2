@@ -1,127 +1,134 @@
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43B2B4E0201
-	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 15:35:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F323E33936F
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 15:47:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790955319; cv=none; b=l2l3PpaQ6bhFlbaNabSPB8uqY2VRyrNoR5Yf8ol7tK/T9SIAu+qhdN5miwoDoPqiA36m/iYLSywlXKQKF7lzwtvG3szKYxA6bXkFLRojcfNcQNnV+CCiQ/RJZE1KeroPpyWRu+HBzdqj2xUy7gscRYOqzcar0d8p2KZCJ8BOo40=
+	t=1790956054; cv=none; b=ivL0FfM4u3W8xat3Dbv+0NOPJfHEXYkQDfETt6DangPA7A0Ojj+ELP7tFJtWoFtd29v5MBP+QAhFtAFd+0/OAE+FJD4K0qwQ7yiRlKUy103Tjk1a7IVcn7ope5Qb3E6jrjial5SL1STZRLwqVG3yO88d7zUJPzwpIJdXnbmhETA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790955319; c=relaxed/simple;
-	bh=bgMeIh1vpMW5r0Z2UUaueYfyJsodKGJ3R8+jL/Snwco=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=uE50y5ZoN7B0nkH7Zsbrdei1xh3ucUQY0BioQwrmMwNp3IloY7+wxIXzBp7scdwCiPD+dj2OPXePo68g6LsKRVrpwtVOxgPSg7rT0VTguV0sq5Y7bGfS8CQjHEYrMP7gcwPk/sCaqOQ8eWeQuGjp3l4GdqrLf0o8bynTgutrtWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=nNudwIvh; arc=none smtp.client-ip=209.85.214.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1790956054; c=relaxed/simple;
+	bh=dpQ7sXuBfEYAO0HjvF6fhea1EYkGoOu4n3X/Wm7YYrw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=EEM6iCQVlvJBXF5hEKspj+MV9wkCodcEbq1jxZVC86zbY6mQnVW10zzKenEBNLF0qcMfAnjWPOjNb1JqNQ9oNLzcL81ukplmkKCacjkj/vnaGS0zkl1DlKAAN2pzfA8/FyktFSY1gWbIF6VDjtTs5+3PPlBndhFJqO7b3P5DB8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=R+igOaMz; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="nNudwIvh"
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e2ebeaa0a4so24672395ad.1
-        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 08:35:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790955317; x=1791560117; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/ulPJ+yIIyvNEzuRqB5Fotp1huOAGEZ6P6NiuujPsDU=;
-        b=nNudwIvhhu5usQa6iKxaCWlojQRbykbKapf29CHEmEuiT1EL7/n83bJbhV6qo+9Hmz
-         DEBW9h6W/HqPQYSZ4Nbme1n8hGR/PrSIfydaS3h81mIqyfQ9qRYRO7zM1XG6ipcKakRr
-         1UTZocn1KbLTYGjmGHvUcjdP6vQszd8C2/xJKMQbAnFHdyM6pv48I3lT4LqB8ZuE9eDf
-         /O3xtakI9fZQ5vSJ1jEsQxeVKKBuUkB5lCuRVEdhm25vJDw7jvzmESYLkGypU6vu2zfU
-         MKOqFwr/ZT578n6+QTuD74+qqMHZcElfAM8PHJVJ+fhat6J8nKYfJ4pD0+f+zTpB69nP
-         ehug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790955317; x=1791560117;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/ulPJ+yIIyvNEzuRqB5Fotp1huOAGEZ6P6NiuujPsDU=;
-        b=KGAxl4k4gb0Ae4d7Lz6OGYt1Iyedqb2FPt+tCvPK5jedmjmeA7xlx1WZgjHfeoqK3L
-         u1bNCdq172IMJEmBsewtXCJlOxqMNxcQviOkI0K4CzIx3/w49sKgKNntuZbcAyN8RQQF
-         akHK0/eCgjsYgx7M/BsERo9IPSFr/XUXwVLgOsgqYPpl4HkI1+ZPACLbvzFuY0XU7ZUT
-         V1kyrQy9wozsTXKXHSbKUNhN41dO4Xba2LRr1fekkBkh87YXlzMLXE1XCGKnl4MvvOHN
-         v95H52fGquggJjB5dwmTxyfxbCxA4oDaTjCrBPXDF+5RB0TpP+dgy0vH2xEytvezWCd+
-         EXyQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxUFqCVueAXo11IItNSuh2VhfxorB8bu93m8lUgGR+3e7QD0YBi5L/HP2Tc+Q0wt2W4aWRMvUA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI4mQl1D4Ft5rnqeTfrd+eb+2hsS8frQDX/NJZTcV9oFGjq2nIS
-	QUfgWcXlQ8MJ3ZZQFgIa8S9+mp/dQOlF5Zjtn7//u2FX1IvtGk0CNWERMXD2Y8qwQUNyJQaXGN6
-	Lq7iFTg==
-X-Received: from plq5.prod.google.com ([2002:a17:903:2f85:b0:2e2:f17b:1655])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:8c3:b0:2df:9305:8909
- with SMTP id d9443c01a7336-2e49b6ab32dmr26853235ad.17.1790955317254; Fri, 02
- Oct 2026 08:35:17 -0700 (PDT)
-Date: Fri, 2 Oct 2026 08:35:16 -0700
-In-Reply-To: <20261002151942.491680-1-bruno.produit@trailofbits.com>
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="R+igOaMz"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+	Date:Subject:Cc:To:From:From:Reply-To;
+	bh=9dF54tKEr/G9cdNYBClqpJLRpoMx/nXC3p6bg34WrDs=; b=R+igOaMz4FPbc6ZP2GLMvcHwSI
+	WGtRWjUul0BjxMKKK+DDMRUX3pi1egDqVtmaNZ+QtdcjwEOBkKcvenQgUb9TqcXjTfziDoSme/aKA
+	j8Uuh8PhP3YeICD0CLicAbnz3s26mPneSH5kGxgWZCLXjDChmzFY2Cvi64n7IiF/M+l95DxQ8e+jS
+	ks4EikceW2hPvQYaX2UxlR1tbaMH3+u9TpBbUbnQuHX0WoQ0gxosDYEbkdU1aBgHjr/YvcUBnd0RC
+	pjSNKpodWW3ARhZPwXOjRZ2EeFPiFIHNGFDMnuMZtPR0w2/EvYXrOpOt+E1S9cAHQCMS7rjJVfDVH
+	AUAe//OA==;
+Received: from [81.79.79.1] (helo=localhost)
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1xCfTg-00AflJ-I8; Fri, 02 Oct 2026 17:47:16 +0200
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+To: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com,
+	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Philipp Stanner <phasta@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/9] drm/sched: Fix out of bounds entity priority check
+Date: Fri,  2 Oct 2026 16:47:05 +0100
+Message-ID: <20261002154713.77591-2-tvrtko.ursulin@igalia.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261002154713.77591-1-tvrtko.ursulin@igalia.com>
+References: <20261002154713.77591-1-tvrtko.ursulin@igalia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261002151942.491680-1-bruno.produit@trailofbits.com>
-Message-ID: <ar_PNEIvsQMQPMLg@google.com>
-Subject: Re: [PATCH] KVM: x86: Cancel PIT timer on failed creation
-From: Sean Christopherson <seanjc@google.com>
-To: Bruno Produit <bruno.produit@trailofbits.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	"H. Peter Anvin" <hpa@zytor.com>, x86@kernel.org, kvm@vger.kernel.org, 
-	Kyle Zeng <kylebot@openai.com>, linux-kernel@vger.kernel.org, 
-	Dominik Czarnota <dominik.czarnota@trailofbits.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 02, 2026, Bruno Produit wrote:
-> From: Kyle Zeng <kylebot@openai.com>
-> 
-> Cancel the PIT hrtimer if PIT creation fails after registering the PIO
-> device. This matches normal teardown and ensures the timer no longer
-> uses the PIT before its memory is freed.
-> 
-> KVM registers the PIT's PIO device before registering the optional dummy
-> speaker device.  If speaker registration fails, a vCPU can have already
-> programmed channel 0 and armed pit_state.timer through the published PIT
-> device. When I/O bus registration became fallible, its cleanup did not
-> cancel the timer before freeing the PIT.
-> 
-> Fixes: 090b7aff2712 ("KVM: make io_bus interface more robust")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Codex:gpt-5.6-sol
-> Signed-off-by: Kyle Zeng <kylebot@openai.com>
-> Signed-off-by: Bruno Produit <bruno.produit@trailofbits.com>
-> ---
->  arch/x86/kvm/i8254.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/arch/x86/kvm/i8254.c b/arch/x86/kvm/i8254.c
-> index 1982b0077..b7875345f 100644
-> --- a/arch/x86/kvm/i8254.c
-> +++ b/arch/x86/kvm/i8254.c
-> @@ -793,6 +793,7 @@ struct kvm_pit *kvm_create_pit(struct kvm *kvm, u32 flags)
->  fail_register_pit:
->  	mutex_unlock(&kvm->slots_lock);
->  	kvm_pit_set_reinject(pit, false);
-> +	hrtimer_cancel(&pit->pit_state.timer);
+When the out of range priority at entity init time is clamped to the
+number of run queues in the supplied scheduler the internal run-queue
+priority needs to be adjusted as well.
 
-Given that the timer can be armed if and only if the PIT was successfully registered,
-wouldn't this suffice?
+There is no impact since none of the drivers hit the clamping path, but
+we still need to address it by moving the entity->rq_priority assignment
+to after the clamping is done.
 
-diff --git a/arch/x86/kvm/i8254.c b/arch/x86/kvm/i8254.c
-index 1982b0077ddd..33d772c7160b 100644
---- a/arch/x86/kvm/i8254.c
-+++ b/arch/x86/kvm/i8254.c
-@@ -790,6 +790,7 @@ struct kvm_pit *kvm_create_pit(struct kvm *kvm, u32 flags)
+Note that a lot of this will hopefully get removed once again when the
+single run-queue simplification lands.
+
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Fixes: 2fa4d8e2c109 ("drm/sched: Add fair scheduling policy")
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Danilo Krummrich <dakr@kernel.org>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Philipp Stanner <phasta@kernel.org>
+Cc: <stable@vger.kernel.org> # v7.2+
+---
+ drivers/gpu/drm/scheduler/sched_entity.c | 27 +++++++++++-------------
+ 1 file changed, 12 insertions(+), 15 deletions(-)
+
+diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+index 7be0387bac3c..e12709b7bd0c 100644
+--- a/drivers/gpu/drm/scheduler/sched_entity.c
++++ b/drivers/gpu/drm/scheduler/sched_entity.c
+@@ -130,10 +130,7 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
  
- fail_register_speaker:
- 	kvm_io_bus_unregister_dev(kvm, KVM_PIO_BUS, &pit->dev);
-+	hrtimer_cancel(&pit->pit_state.timer);
- fail_register_pit:
- 	mutex_unlock(&kvm->slots_lock);
- 	kvm_pit_set_reinject(pit, false);
+ 	INIT_LIST_HEAD(&entity->list);
+ 	entity->guilty = guilty;
+-	entity->priority = priority;
+ 	entity->last_user = current->group_leader;
+-	entity->rq_priority = drm_sched_policy == DRM_SCHED_POLICY_FAIR ?
+-			      DRM_SCHED_PRIORITY_KERNEL : priority;
+ 	entity->num_sched_list = num_sched_list;
+ 	entity->sched_list = num_sched_list > 1 ? sched_list : NULL;
+ 	RB_CLEAR_NODE(&entity->rb_tree_node);
+@@ -144,25 +141,25 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
+ 		 * not to do this and to fix their DRM calling order.
+ 		 */
+ 		pr_warn("%s: called with uninitialized scheduler\n", __func__);
+-	} else {
+-		enum drm_sched_priority p = entity->priority;
+-
++	} else if (priority >= sched_list[0]->num_user_rqs) {
+ 		/*
+ 		 * The "priority" of an entity cannot exceed the number of
+ 		 * run-queues of a scheduler. Protect against num_rqs being 0,
+ 		 * by converting to signed. Choose the lowest priority
+ 		 * available.
+ 		 */
+-		if (p >= sched_list[0]->num_user_rqs) {
+-			dev_err(sched_list[0]->dev, "entity with out-of-bounds priority:%u num_user_rqs:%u\n",
+-				p, sched_list[0]->num_user_rqs);
+-			p = max_t(s32,
+-				  (s32)sched_list[0]->num_user_rqs - 1,
+-				  (s32)DRM_SCHED_PRIORITY_KERNEL);
+-			entity->priority = p;
+-		}
++		dev_err(sched_list[0]->dev, "entity with out-of-bounds priority:%u num_user_rqs:%u\n",
++			priority, sched_list[0]->num_user_rqs);
++		priority = max_t(s32,
++				 (s32)sched_list[0]->num_user_rqs - 1,
++				 (s32)DRM_SCHED_PRIORITY_KERNEL);
++	}
++
++	entity->priority = priority;
++	entity->rq_priority = drm_sched_policy == DRM_SCHED_POLICY_FAIR ?
++			      DRM_SCHED_PRIORITY_KERNEL : priority;
++	if (sched_list[0]->sched_rq)
+ 		entity->rq = sched_list[0]->sched_rq[entity->rq_priority];
+-	}
+ 
+ 	init_completion(&entity->entity_idle);
+ 
+-- 
+2.55.0
 
-
->  	kthread_destroy_worker(pit->worker);
->  fail_kthread:
->  	kfree(pit);
-> -- 
-> 2.53.0
-> 
