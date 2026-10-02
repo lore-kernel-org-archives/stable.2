@@ -1,303 +1,176 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF40D3DDB0E
-	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 12:40:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790944850; cv=none; b=tNGWfsNTgwM2akA+yMV/cjDUglU1FrJA0Oe2uTdpgTJg1FB4fCucnv/qVF7YmZ73KQnX4lxWJdp82yBE6O+wdoWX0t9RgXxGI2p7lms6ZZ5h0TkdAsjmTolUIdE6OnFX9W6CpwmxBcSyBdwIUwRgMJ/VdfWWMN2DRMf+6JaD80A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790944850; c=relaxed/simple;
-	bh=ckLSc2DOQUoZxFyhLHsNUj1PV9hfeiFmiswQyXqJOvk=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=t2629MvX4peaPHV9kzDIkAY3SZbH2TqHCn+atgPdmyDwjPynPEXXgooc3cna1844xfRg9eBPzJ1Wfg6sylReozLcDrUsQJkOK5/m0HLbZXuQVXvdHW6AFS+F416qyrQrnVFIzGvfEerKiFZwxrrAPXfzyGEImz403GmKT+KcQHA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=coAh2c4c; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F1F3379C4A
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 12:41:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790944906; cv=pass; b=nJ90LwFDx+A5Y9+94uBNRUgMH53PWKG80poXTVgQ0wpopMojNXouNIdAY5wibZBJfjv+q2uERz0zYB7HQh943jVTg2D1fpe9Laen9fSAbRwTV5QWC3m06DnDyE+M2TyrcbcnQeSHm/IHuwK2bmti9BWCbVBvnxK5oqpf0lB0YeQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790944906; c=relaxed/simple;
+	bh=dRZaT0v2TmBZvF8WsGQdtfCeSyKpr6m0eRP3xCHKJKA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Content-Type; b=Luw506aEIrRU2EwsdFiRuUZjtezvBm6M8E1755I8R55LA9Mn4pKZZ9kZdBoLVC00t4Ydx9UOcbZDbykNa7SWLb/v/12oX2sai/OAqBg3g39hqgeC6uao045QvfgthWKzIA4O3e/erH0oNHYVyzWgJU6Obvf/q3tDak6jLazQr/s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=O3mYYKpX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XINPyfqQ; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="coAh2c4c"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790944848; x=1822480848;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=ckLSc2DOQUoZxFyhLHsNUj1PV9hfeiFmiswQyXqJOvk=;
-  b=coAh2c4cUg07UYD3yBo/7MZCC01FohvuB5s+FeUvogiuYVBnFPBSq6NP
-   Ah7f+5zNVo0cJNCfUxuGvwUv0Em2jtI0LE8w1dnf1eQ04RSvPBTzcFCWn
-   l5vXZZLgDo2UZdtqZDaE6C0Q1W3kndMGC8NLjsgw/WhzL5nhalwFintjp
-   7dIVcVK9bqusEGABVN+fvwryMzzcIJkT8MiPa0vMoY9kPzeSAdvNJVtSK
-   0Vuo91NXn7IqKowJTlx7XpOUQxi1pJGjL6F1A/OF8cFMMdQjEAx7jbH4g
-   n2AOnMjdz9spWM6nXLb28hyerqCyAWdEKBMov08HCtiCPYFdls8pRK87A
-   w==;
-X-CSE-ConnectionGUID: +D58boGrRV6xBK5juIZ5qg==
-X-CSE-MsgGUID: 0R15EM+kQwaN2xhA+erafQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="108087930"
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="108087930"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 05:40:47 -0700
-X-CSE-ConnectionGUID: NLjwcf7OSEOdZjMeYgK5zA==
-X-CSE-MsgGUID: /0gyLYx1Rly+bhlU0K8/6g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="274049834"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO [10.245.244.200]) ([10.245.244.200])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 05:40:46 -0700
-Message-ID: <6e68f6fd4e1b8e879b65f3746bf56cce434fdea4.camel@linux.intel.com>
-Subject: Re: [PATCH 1/2] drm/xe/dma-buf: keep non-p2p imported buffers in
- system memory
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Matthew Auld <matthew.auld@intel.com>, intel-xe@lists.freedesktop.org
-Cc: stable@vger.kernel.org, Matthew Brost <matthew.brost@intel.com>
-Date: Fri, 02 Oct 2026 14:40:44 +0200
-In-Reply-To: <20260928164820.1237049-5-matthew.auld@intel.com>
-References: <20260928164820.1237049-4-matthew.auld@intel.com>
-	 <20260928164820.1237049-5-matthew.auld@intel.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="O3mYYKpX";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XINPyfqQ"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6929niBO755001
+	for <stable@vger.kernel.org>; Fri, 2 Oct 2026 12:41:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	dRZaT0v2TmBZvF8WsGQdtfCeSyKpr6m0eRP3xCHKJKA=; b=O3mYYKpXAsxABBqg
+	U5I9dO9TF1exTEE6OcmhZO4qCL4JuCSlZR2Vq1f+xixjOvNlSWt3FJe2Mk/z4lw4
+	ICGBunk3IUplElpmqCustFs8VuuJl6zWFMnn/CCGf9NuAk+U4NP+nOFEPextLLWF
+	XNEJ+1YMVt+k/WU7svtTTZ4WUa1J8flu9MTt+kwR9HpitjFWvlVEnMxRMtFBbEZo
+	i6ol4F1qpArcWZ8Wb06n238+s8bTSlM2lGXdh1CWmdXjFOF6XUFRjPp+IrwaiLGP
+	c8+jhStmkQAwxnCLJyvHcgI4noZ1JLSLXAlpy9ltVsRLj3114cMfANYuXEkjTJ4b
+	uHedGA==
+Received: from mail-yx1-f69.google.com (mail-yx1-f69.google.com [74.125.224.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h1t9abybq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Fri, 02 Oct 2026 12:41:42 +0000 (GMT)
+Received: by mail-yx1-f69.google.com with SMTP id 956f58d0204a3-677ada64e84so876892d50.1
+        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 05:41:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790944902; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WoFZGMnlvEJ7J50yHO/LIAD64cTCpbVIZeMtTaH9KFgWYBnc8zK+AKyh4/eWMVMiEa
+         FMWMpAYiKhi6mb8vQYnhToYWWL2s0GoJRUgr+O50VUeJEqZddjr8GLN6va0QwcXgL2zF
+         SMOcmJ1l3mIjQVCgNH5lCZ7mZKcBem2vfstt0W/TNpE26fW2ENCPMTOrfAsVIbGaQw8c
+         WbRs0WN9IT2DFP1LOMKM0HiF6L83gBVPqmiXX4ONxasd98Wx5NPjjyuxdM1hG6vQGgPv
+         T5A9JLaumliyux7qCfjvZkAPDrYR1a4g9eswDUjpRKCFtmezj2Ur7seNAlIYhdyvQ+Sg
+         pNqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=dRZaT0v2TmBZvF8WsGQdtfCeSyKpr6m0eRP3xCHKJKA=;
+        fh=cGSALMDelK837MzxJxlw+NfU1AhVlHNCiRvTk3+F99s=;
+        b=al0GoghiDs/I1fgo3+kIALWeOWDQDEuJ9R5tl5+JwUOE8Y/bQlznTuhsXlGza2SxQ7
+         z7keeyfkUVgeQs61aHL7MPxSSsTy6/6kEoVwBlNrSWEqHYkSQtUIBCxopBROLi7XQX4E
+         YMCTAf+yN16gRc8L5GRa1E/f9Cys72hW3jkVbodVTRhyw7dVSdSlCjBnfTvvllTLnLZs
+         PjIRcEd5vPAVGXt+mK/UFbeFMhkBrwUdYflT7qZJpS0Pxc0e0aSI5imVU6lUYzTkFt4O
+         aX3UzyCwmfmqJpx8pOe5oTpP2lQuMTK0U9XhYWJuZe/EP8TlFdxNpCBjymF3FVxv9inx
+         3yRA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790944902; x=1791549702; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:to:subject:message-id:date
+         :from:in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dRZaT0v2TmBZvF8WsGQdtfCeSyKpr6m0eRP3xCHKJKA=;
+        b=XINPyfqQn+m709BVydKwn8wotUdOxiHuRtJqvooLPeN030srIP2CYI4AxX47PUMVkL
+         31+HNJ2gvC4ijnkoleTgU0EcINAvpQ8XsWi4YhwDp567jZ7blfBJhtVaFPzSoUVzWCCT
+         qQzvp/Eu2N+hvxs5FErMgQOGbpYwjzpkkuMXnJ0tZKIWgmL6QZQ0xW3/xQjFH2ccewau
+         1Cc2mvhfDIbpx60LgT65lmYtwp1KG2pE67SVBWdoAoJvUYwfasqMA0tuJ1Ojh0A2sTcq
+         G0jLU+NS81mVxJ2IRxrsNUMDk9CSkKOx7Jc9FlRYBtgRT3Vncob6/KwZlTk/sxRpTGPf
+         pomQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790944902; x=1791549702;
+        h=content-transfer-encoding:content-type:to:subject:message-id:date
+         :from:in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dRZaT0v2TmBZvF8WsGQdtfCeSyKpr6m0eRP3xCHKJKA=;
+        b=xFrSWciHSzw7WA2o3HaklQZDp/rIRqULHgpO/E2aaqJ8HLcbILLJdF6PO5wh2lLg46
+         0BIPo7+zu2MvflX+0lr0YiwxoSKQlB6sWP6/59OsRPrfb9R1hE2pxYT4uCzRw64rNE3P
+         F0cm49mNwnoAVM5UC1BDsOyhpxOcrxQtYs4tbIG+oUcn1SoASvI2wSwhSQ8SVHzyFyFs
+         1DT9wd0gG2mBNC2Y4J/HBOSxPDGmHm+w06Uyk3dbLvgCYsWK3nNVg4Blz7eGJ4sXHN9q
+         58hCYFp2c8L0IpXGRNFL/f8KNQluC5rvLZCQdfrSRyIsi7SpPzv1inO8DXSE0Unt83t8
+         iyQQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzdxZXdvO+23tpMF6ZYoGePrp7ynChzjEfgDdMp/jllVsQiGwpveao8yDwqBUBSv7KYx5B0bQM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJwi8LXWL7RFFnx1/d5vYI4Ze4siFHnHoul9GVugyQLqzp+4vyV
+	794F0Cupxxw6u2iFjDJKLLdPHXdUqcSOU1LAY4d2ad89tqohthEMyhy7j3XvMroFrY7P8tHBgs6
+	rFp94UVhMk2OCtesaw+uWpN2A5Neg1xizaQYUExdfWza6TMvzP8csjZJUfky0f+7WX0nCxbOP3h
+	P1S4YPvlqJCvCyfIwMe/r5FT3uVmRod9o58Q==
+X-Gm-Gg: AYBFou1hvpBsXW5qfwLYiMxEhLpUgrtw1Z9hS+gh/OZ+lPXXgMg+sAIdlmONmzygKJj
+	74kv2on/LxQnzvAELPfPsoASxqqiWZUxwA6GP0Gf3XpAtaoymQGV5M0fsywr7JUC7BqUgP2Qb5F
+	eU38hSW0j9Gs+DnuWgHsBBy84J8ch8q0PWtAIPtcYuIE2iEySQLA7UbVI=
+X-Received: by 2002:a53:ac94:0:b0:677:b096:dc85 with SMTP id 956f58d0204a3-677b096e313mr536123d50.2.1790944902474;
+        Fri, 02 Oct 2026 05:41:42 -0700 (PDT)
+X-Received: by 2002:a53:ac94:0:b0:677:b096:dc85 with SMTP id
+ 956f58d0204a3-677b096e313mr536113d50.2.1790944901914; Fri, 02 Oct 2026
+ 05:41:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260928143113.1700001-1-g.osokin@auroraos.dev> <ar5ZrHihBjaFKf5U@sumit-xelite>
+In-Reply-To: <ar5ZrHihBjaFKf5U@sumit-xelite>
+From: Jens Wiklander <jens.wiklander@oss.qualcomm.com>
+Date: Fri, 2 Oct 2026 14:41:31 +0200
+X-Gm-Features: AclHuK-7c1iGj-ldS6d2v44_ZjTFL0eWnqOG7BeC3ANxyOwSZZphCREJwfZPF3o
+Message-ID: <CAGgiveU894kL9YiLse+JMJgX0Ck7W_6ZQ8hfX=6KU7wFAr=WAw@mail.gmail.com>
+Subject: Re: [PATCH] tee: shm: reject zero-sized allocations in tee_dyn_shm_alloc_helper()
+To: Georgiy Osokin <g.osokin@auroraos.dev>, Jens Wiklander <jenswi@kernel.org>,
+        op-tee@lists.trustedfirmware.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org, lvc-project@linuxtesting.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDA1MCBTYWx0ZWRfX5XPbnsYLfSYd
+ q0E4RQVB7niRTd3bg6nKwG4gOJx3Z4VCc2dg0F2YVpK6aYRRW3vNrWZCxXg7k2Ve7rpQX25VY96
+ 0mvb+hAsRlM/ThNY47GhS4zIHJt3sDY=
+X-Authority-Analysis: v=2.4 cv=N++8hG9B c=1 sm=1 tr=0 ts=6abfa687 cx=c_pps
+ a=J+5FMm3BkXb42VdG8aMU9w==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8 a=HH5vDtPzAAAA:8 a=EUspDBNiAAAA:8
+ a=k6Az_GHFfqOohqVTO2QA:9 a=QEXdDO2ut3YA:10 a=Epx66wHExT0cjJnnR-oj:22
+ a=QM_-zKB-Ew0MsOlNKMB5:22
+X-Proofpoint-ORIG-GUID: lVxpq8YToW5vDlvECM3zsgFDIlUBq5yE
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDA1MCBTYWx0ZWRfX4IKIArIqRwGI
+ 8jhJrLX4KT4LFtdmUHhf7cq48mJH6PlyJu7oKPUlQqXV7aj6gpqVxW/2x7REZMyXUxLT3AhKKbA
+ EapqQIckb3MDls/RZ7pMno9aM/jb2Nk5KGDTZTb3n7ykUb+52OoDO6oYC1azyI9HL6rxcjQwFJx
+ vJZR4Q0oPybIBhTkNFMN5dINddrJwakKRRfOrik4zc7usYyp2NDjQOyBYhFncbiZsLt8jU/T6id
+ ZJwlTg177fUEWnD+aU0XpmAGpqnpBCJNRbsyV2lSZCSoeNCAycZvF5rxglSf1RKR2o67lLegHDo
+ z4jmVjLjHhyf3+4TtVRxstqJysC89Ls9+gto/6J25AHxsyXOSlwZLn8BA4EJsQnF/hwobhVMFuI
+ x0Egziscg1ZFW/gXUWEDGR04UW5/9fxSdzEXrPUPF/Po6aLYIWXN0yToIpT0clz7ISERbdkbCMf
+ 6kXVME7itbO1iapkwXA==
+X-Proofpoint-GUID: lVxpq8YToW5vDlvECM3zsgFDIlUBq5yE
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-02_03,2026-10-01_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 priorityscore=1501 adultscore=0 suspectscore=0 lowpriorityscore=0
+ impostorscore=0 malwarescore=0 clxscore=1011 bulkscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610020050
 
-On Mon, 2026-09-28 at 17:48 +0100, Matthew Auld wrote:
-> When an exported buffer is mapped by a foreign device lacking peer-
-> to-peer
-> DMA support (such as an integrated GPU for display offload),
-> xe_dma_buf_map() migrates the buffer to XE_PL_TT so that system
-> memory
-> pages can be accessed by the importer.
->=20
-> However, since commit 5c87fee3c96c ("drm/xe: Attempt to bring bos
-> back to
-> VRAM after eviction"), XE_PL_TT is marked with TTM_PL_FLAG_FALLBACK
-> in
-> the buffer's placement. When DMABUF_MOVE_NOTIFY was enabled by
-> default
-> (meaning dynamic attachments are no longer pinned on map), the next
-> xe_bo_validate() during render submission sees TT as a fallback
-> placement
-> and attempts to migrate the buffer back to VRAM.
->=20
-> On the next frame, the foreign importer accesses the buffer,
-> requiring
-> another migration to TT, resulting in a continuous ping-pong between
-> VRAM and system memory every frame and causing severe rendering
-> performance
-> degradations.
->=20
-> To fix this, introduce xe_bo_migrate_tt_sticky() which records a
-> temporary sticky placement in XE_PL_TT on successful migration.
-> Subsequent
-> validations use this sticky placement to keep the buffer in system
-> memory
-> until the non-p2p attachment is detached or memory pressure forces a
-> fallback to the default placement.
->=20
-> User is reporting what looks to be exactly this, with horrible
-> performance when DMABUF_MOVE_NOTIFY was enabled by default.
->=20
-> Assisted-by: LLM
-> Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9415
-> Fixes: 5c87fee3c96c ("drm/xe: Attempt to bring bos back to VRAM after
-> eviction")
-> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-> Cc: <stable@vger.kernel.org> # v6.12+
-> Cc: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
-> Cc: Matthew Brost <matthew.brost@intel.com>
+Hi,
 
-Reviewed-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+On Thu, Oct 1, 2026 at 3:01=E2=80=AFPM Sumit Garg <sumit.garg@kernel.org> w=
+rote:
+>
+> On Mon, 28 Sep 2026 at 17:31:13 +0300, Georgiy Osokin wrote:
+> >tee_dyn_shm_alloc_helper() derives nr_pages from a caller-supplied size
+> >and passes it to alloc_pages_exact() without checking it. For size =3D=
+=3D 0
+> >nr_pages is 0, and alloc_pages_exact(0) calls get_order(0), which is
+> >documented as undefined and returns BITS_PER_LONG - PAGE_SHIFT. The page
+> >allocator then trips its order > MAX_PAGE_ORDER warning and fails the
+> >allocation; on a panic_on_warn kernel that ends the boot.
+> >
+> >This can be triggered by TEE_IOC_SHM_ALLOC with struct
+> >tee_ioctl_shm_alloc_data where size is 0.
+> >
+> >Reject a zero page count, as register_shm_helper() already does for the
+> >register path.
+> >
+> >Fixes: cf4441503e20 ("tee: optee: Move pool_op helper functions")
+> >Cc: stable@vger.kernel.org
+> >Cc: lvc-project@linuxtesting.org
+> >Signed-off-by: Georgiy Osokin <g.osokin@auroraos.dev>
+> >---
+> > drivers/tee/tee_shm.c | 4 ++++
+> > 1 file changed, 4 insertions(+)
+>
+> Reviewed-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
 
-> ---
-> =C2=A0drivers/gpu/drm/xe/xe_bo.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 59
-> ++++++++++++++++++++++++++++++--
-> =C2=A0drivers/gpu/drm/xe/xe_bo.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
-=A0 3 ++
-> =C2=A0drivers/gpu/drm/xe/xe_bo_types.h |=C2=A0 4 +++
-> =C2=A0drivers/gpu/drm/xe/xe_dma_buf.c=C2=A0 | 16 ++++++++-
-> =C2=A04 files changed, 79 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-> index 6921b6967330..1c1eab0a7434 100644
-> --- a/drivers/gpu/drm/xe/xe_bo.c
-> +++ b/drivers/gpu/drm/xe/xe_bo.c
-> @@ -3324,6 +3324,9 @@ int xe_bo_validate(struct xe_bo *bo, struct
-> xe_vm *vm, bool allow_res_evict,
-> =C2=A0		.no_wait_gpu =3D false,
-> =C2=A0		.gfp_retry_mayfail =3D true,
-> =C2=A0	};
-> +	struct ttm_placement *placement =3D bo-
-> >sticky_placement.num_placement ?
-> +					=C2=A0 &bo->sticky_placement :
-> +					=C2=A0 &bo->placement;
-> =C2=A0	int ret;
-> =C2=A0
-> =C2=A0	if (xe_bo_is_pinned(bo))
-> @@ -3340,7 +3343,12 @@ int xe_bo_validate(struct xe_bo *bo, struct
-> xe_vm *vm, bool allow_res_evict,
-> =C2=A0	xe_vm_set_validating(vm, allow_res_evict);
-> =C2=A0	trace_xe_bo_validate(bo);
-> =C2=A0	xe_validation_assert_exec(xe_bo_device(bo), exec, &bo-
-> >ttm.base);
-> -	ret =3D ttm_bo_validate(&bo->ttm, &bo->placement, &ctx);
-> +	ret =3D ttm_bo_validate(&bo->ttm, placement, &ctx);
-> +	if (ret && ret !=3D -EINTR && ret !=3D -ERESTARTSYS &&
-> +	=C2=A0=C2=A0=C2=A0 bo->sticky_placement.num_placement) {
-> +		xe_bo_reset_sticky_placement(bo);
-> +		ret =3D ttm_bo_validate(&bo->ttm, &bo->placement,
-> &ctx);
-> +	}
-> =C2=A0	xe_vm_clear_validating(vm, allow_res_evict);
-> =C2=A0
-> =C2=A0	return ret;
-> @@ -3891,6 +3899,7 @@ int xe_bo_migrate(struct xe_bo *bo, u32
-> mem_type, struct ttm_operation_ctx *tctx
-> =C2=A0	};
-> =C2=A0	struct ttm_placement placement;
-> =C2=A0	struct ttm_place requested;
-> +	int ret;
-> =C2=A0
-> =C2=A0	xe_bo_assert_held(bo);
-> =C2=A0	tctx =3D tctx ? tctx : &ctx;
-> @@ -3922,7 +3931,53 @@ int xe_bo_migrate(struct xe_bo *bo, u32
-> mem_type, struct ttm_operation_ctx *tctx
-> =C2=A0
-> =C2=A0	if (!tctx->no_wait_gpu)
-> =C2=A0		xe_validation_assert_exec(xe_bo_device(bo), exec,
-> &bo->ttm.base);
-> -	return ttm_bo_validate(&bo->ttm, &placement, tctx);
-> +	ret =3D ttm_bo_validate(&bo->ttm, &placement, tctx);
-> +	if (!ret)
-> +		xe_bo_reset_sticky_placement(bo);
-> +	return ret;
-> +}
-> +
-> +/**
-> + * xe_bo_migrate_tt_sticky - Migrate an object to TT and record its
-> placement as sticky
-> + * @bo: The buffer object to migrate.
-> + * @tctx: The ttm_operation_ctx to use for migration, or NULL for
-> default.
-> + * @exec: The drm_exec transaction to use for exhaustive eviction.
-> + *
-> + * Like xe_bo_migrate() to XE_PL_TT, but on success records the
-> resulting placement
-> + * so that subsequent validations try to keep the object in TT
-> instead of falling
-> + * back to the default placement. The stickiness is removed if
-> validation falls
-> + * back to the default placement (e.g. under memory pressure), on
-> any non-sticky
-> + * migration, or via an explicit call to
-> xe_bo_reset_sticky_placement().
-> + *
-> + * Return: 0 on success. Negative error code on failure.
-> + */
-> +int xe_bo_migrate_tt_sticky(struct xe_bo *bo,
-> +			=C2=A0=C2=A0=C2=A0 struct ttm_operation_ctx *tctx,
-> +			=C2=A0=C2=A0=C2=A0 struct drm_exec *exec)
-> +{
-> +	int ret;
-> +
-> +	ret =3D xe_bo_migrate(bo, XE_PL_TT, tctx, exec);
-> +	if (!ret) {
-> +		xe_place_from_ttm_type(XE_PL_TT, &bo->sticky_place);
-> +		bo->sticky_placement =3D (struct ttm_placement){
-> +			.num_placement =3D 1,
-> +			.placement =3D &bo->sticky_place,
-> +		};
-> +	}
-> +	return ret;
-> +}
-> +
-> +/**
-> + * xe_bo_reset_sticky_placement - Reset sticky placement for an
-> object
-> + * @bo: The buffer object whose sticky placement should be cleared.
-> + *
-> + * Clear any sticky placement recorded by xe_bo_migrate_tt_sticky(),
-> + * returning subsequent validations to the default placement.
-> + */
-> +void xe_bo_reset_sticky_placement(struct xe_bo *bo)
-> +{
-> +	bo->sticky_placement.num_placement =3D 0;
-> =C2=A0}
-> =C2=A0
-> =C2=A0/**
-> diff --git a/drivers/gpu/drm/xe/xe_bo.h b/drivers/gpu/drm/xe/xe_bo.h
-> index 861b1be231de..7327628070f2 100644
-> --- a/drivers/gpu/drm/xe/xe_bo.h
-> +++ b/drivers/gpu/drm/xe/xe_bo.h
-> @@ -434,6 +434,9 @@ bool xe_bo_can_migrate(struct xe_bo *bo, u32
-> mem_type);
-> =C2=A0
-> =C2=A0int xe_bo_migrate(struct xe_bo *bo, u32 mem_type, struct
-> ttm_operation_ctx *ctc,
-> =C2=A0		=C2=A0 struct drm_exec *exec);
-> +int xe_bo_migrate_tt_sticky(struct xe_bo *bo, struct
-> ttm_operation_ctx *ctc,
-> +			=C2=A0=C2=A0=C2=A0 struct drm_exec *exec);
-> +void xe_bo_reset_sticky_placement(struct xe_bo *bo);
-> =C2=A0int xe_bo_evict(struct xe_bo *bo, struct drm_exec *exec);
-> =C2=A0
-> =C2=A0int xe_bo_evict_pinned(struct xe_bo *bo);
-> diff --git a/drivers/gpu/drm/xe/xe_bo_types.h
-> b/drivers/gpu/drm/xe/xe_bo_types.h
-> index 8ec4a01a0092..253a1dba55a7 100644
-> --- a/drivers/gpu/drm/xe/xe_bo_types.h
-> +++ b/drivers/gpu/drm/xe/xe_bo_types.h
-> @@ -56,6 +56,10 @@ struct xe_bo {
-> =C2=A0	struct ttm_place placements[XE_BO_MAX_PLACEMENTS];
-> =C2=A0	/** @placement: current placement for this BO */
-> =C2=A0	struct ttm_placement placement;
-> +	/** @sticky_placement: target placement from forced
-> migration */
-> +	struct ttm_placement sticky_placement;
-> +	/** @sticky_place: place for sticky_placement */
-> +	struct ttm_place sticky_place;
-> =C2=A0	/** @ggtt_node: Array of GGTT nodes if this BO is mapped in
-> the GGTTs */
-> =C2=A0	struct xe_ggtt_node *ggtt_node[XE_MAX_TILES_PER_DEVICE];
-> =C2=A0	/** @vmap: iosys map of this buffer */
-> diff --git a/drivers/gpu/drm/xe/xe_dma_buf.c
-> b/drivers/gpu/drm/xe/xe_dma_buf.c
-> index 6a85b292dee7..b973579a69b8 100644
-> --- a/drivers/gpu/drm/xe/xe_dma_buf.c
-> +++ b/drivers/gpu/drm/xe/xe_dma_buf.c
-> @@ -59,6 +59,20 @@ static void xe_dma_buf_detach(struct dma_buf
-> *dmabuf,
-> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct dma_buf_attachment *attach=
-)
-> =C2=A0{
-> =C2=A0	struct drm_gem_object *obj =3D attach->dmabuf->priv;
-> +	struct xe_bo *bo =3D gem_to_xe_bo(obj);
-> +	bool has_non_p2p =3D false;
-> +	struct dma_buf_attachment *a;
-> +
-> +	dma_resv_lock(dmabuf->resv, NULL);
-> +	list_for_each_entry(a, &dmabuf->attachments, node) {
-> +		if (!a->peer2peer) {
-> +			has_non_p2p =3D true;
-> +			break;
-> +		}
-> +	}
-> +	if (!has_non_p2p)
-> +		xe_bo_reset_sticky_placement(bo);
-> +	dma_resv_unlock(dmabuf->resv);
-> =C2=A0
-> =C2=A0	xe_pm_runtime_put(to_xe_device(obj->dev));
-> =C2=A0}
-> @@ -129,7 +143,7 @@ static struct sg_table *xe_dma_buf_map(struct
-> dma_buf_attachment *attach,
-> =C2=A0
-> =C2=A0	if (!xe_bo_is_pinned(bo)) {
-> =C2=A0		if (!attach->peer2peer)
-> -			r =3D xe_bo_migrate(bo, XE_PL_TT, NULL, exec);
-> +			r =3D xe_bo_migrate_tt_sticky(bo, NULL, exec);
-> =C2=A0		else
-> =C2=A0			r =3D xe_bo_validate(bo, NULL, false, exec);
-> =C2=A0		if (r)
+Looks good, I'm picking this up.
+
+Thanks,
+Jens
