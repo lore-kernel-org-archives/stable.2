@@ -1,106 +1,131 @@
-Received: from mail-qv2-f41.google.com (mail-qv2-f41.google.com [74.125.230.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D431B4B0495
-	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 13:50:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A7963C9898;
+	Fri,  2 Oct 2026 13:53:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790949039; cv=none; b=HUzlU6SW4auQQxRbtxxTvvtWF3sAXEdDcg3hPGNaxcUHE6iHlpwP3Yaz5vVvPHlyp/lj1ENGFCGse4LNmgwQnPcvJB3ALsu3Wvb330IXtTheJS2WGe/jfSUNxkB+NvCoofXj7l5rn22AxzW5YTV39trkA2hMiUhD/6IPCZOrL/c=
+	t=1790949217; cv=none; b=W0iCh7RJhSrXr5gDqFBpv8sUDy55716IXZhjJwEfMcRKtrAj8IOicOoTVCtSBLn/lGyWvBKROipw/JJgJ2FhgvNFTkr3in5nsKMZB6vLd7Lmm1yWfoCqEVCgMmDBc2QXvdJT5RK2IKw74wC8YnQda0LpR9v6JFWcqfzhlhCBq9A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790949039; c=relaxed/simple;
-	bh=YAbhCEsj1Xow+kprODecviF0SnZgAch7eBzBEf5i7yk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LSOGhHAEQdkle8aMZTr8ZoIPoAmRRE9QBA82AduLHNqo8U4GSUz7Qj1yxUCRRFmAHQruwnXrnEHkTVeQslpK7ytBB4YoaJUq0W25nqlxzAc6329o5HQ2DA8BJJLi/IUxw0lv9Px+DAJFHXM8aaOKiUa7os+pj1k1yaK9DtpUc0c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=fedoraproject.org; spf=pass smtp.mailfrom=linuxtx.org; dkim=pass (1024-bit key) header.d=linuxtx.org header.i=@linuxtx.org header.b=Uc7VvP9h; arc=none smtp.client-ip=74.125.230.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=fedoraproject.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxtx.org
+	s=arc-20240116; t=1790949217; c=relaxed/simple;
+	bh=Ib2Exxpb6GDQ+ica47E+ivBnH1RE36bOqhtyFLu7+Ck=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=jiQz57X1FPq3rVLDdBzXlaoP6yVlOmiLShE1Ey+8kMFlophz21X9eAR8vE9Iid1+ChK8+9+488Yw8VkrWFMNoHC+wD0g3aOZULk10IipSco3h+biyVVvspM7vpOJtKJkK9qKgyETC5+Ran50a0bYU+dJ//CjJQj/npGcEJ2Iik0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c9dixHpt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxtx.org header.i=@linuxtx.org header.b="Uc7VvP9h"
-Received: by mail-qv2-f41.google.com with SMTP id 6a1803df08f44-91782711448so654396d6.2
-        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 06:50:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxtx.org; s=google; t=1790949036; x=1791553836; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=lS1VVahwxyy3uHWOK8ukiwzRDiQgwlDYS5Uok3wV7Vc=;
-        b=Uc7VvP9hw+/KML86BNYTdH75zqNW0AAN7XHghFdwAfe0ffkY/4tC/3u4uFXbxXIiaB
-         vYKO3I3PuS5P4944i5X8zgjUgMryhmVPp1SStJ+b2aHK3rr2ucUk2mD0tZqDnQ/fiv+R
-         lgGfSN6vVBGYD6RQRdKSXefDk/beouC5XXWoM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790949036; x=1791553836;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lS1VVahwxyy3uHWOK8ukiwzRDiQgwlDYS5Uok3wV7Vc=;
-        b=dvp3EfasA4I/HFYVnncnvlUqhHbLZ4bwN33w6BmcdH1/baxngRbi+/fqSELE2Wilc7
-         TogLTI4ZEfaNgq1R4n7UgqYhkR5j7z22UFMDWfIWtzlCEYQbMud2pvMoG0sdlMmxPyjZ
-         2Bny3Ppl6r1pXk4wXpvWWvLSONZG4HHeQVIt3ZKgcmhIZDRRIsn6qCmq8DqFN4XgaiHj
-         Mj+XuUYPYfkVjFxX9+L0Ark7glNmIWqVJzk8eAL5OzjXvHJBMCDWdLDVNk0+BqkQYHpz
-         8lINnBY2OzALodakSkOlv2cUtWrtczkDFlBrXNJJjepw5er/4q4oEW1mGa50zRkLeH+n
-         Du/w==
-X-Gm-Message-State: AFuF++nU5aS3n7ffoHwRvRuCxsi+gPy+w66e1n1v3dh6J208u8MGjD3g
-	SHjp73A4v00RPTVe9IuQFO55jfyF2/43bUtH/r/2Xt5gxcF/uKb0JWqBKsK7ZYVEzQ==
-X-Gm-Gg: AYBFou3wNm6PZ4ZdMpJIjJ8KxPA8MR6HHOnjpQeMEDYKlNPsk2wUF+gPpPz2axN1Gry
-	26Scg0HArcRrIXayRU3yk7SuiVEV+Sj6qxjZ7/YVzcT7O5fSb/aT63O3obkBSFGdR4GGiK93itt
-	V6nfiMT3Fq8xByHogp9QCrDPTVEQSuq7/3q+NqpIwefixIlV6DdxOOzH1QnSQmAY8Gwvv4VTTHf
-	s8zT7NYUjWd8P9ROLUrL1J10t/HLNBqTPwgFBXMd1XoTgE+LlSSR7pdXesHLvOKkqiY9Y7URosQ
-	dKBFqj2LRu42LrXJLgoV3DhE8EZMz+mgrJN1NMcR7r1yPPUwjcbMpjwhuHjqsBwsPL37iIjOJDh
-	Yg0B559vfDyMA6kbWNCLdj49d8XSENZcUfq90UNzRx/X4JzlKOMIujtjjPXk+lf6xh17kWXBWL5
-	Ci433FUaD/whRBG1jEn7GSHAEjCtEKVkPRpDAvPwqbS0q8ucyi9m9yenZ0M+7rAkokvbDVAm8Ql
-	a/BF32tedMMWFsOlA==
-X-Received: by 2002:ad4:5dc8:0:b0:917:8ea8:cf48 with SMTP id 6a1803df08f44-917c0023954mr55938026d6.11.1790949035586;
-        Fri, 02 Oct 2026 06:50:35 -0700 (PDT)
-Received: from fedora64.linuxtx.org ([98.97.107.167])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917e0c17b8esm19945606d6.43.2026.10.02.06.50.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 06:50:35 -0700 (PDT)
-Sender: Justin Forbes <jmforbes@linuxtx.org>
-Date: Fri, 2 Oct 2026 07:50:32 -0600
-From: Justin Forbes <jforbes@fedoraproject.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 7.2 000/457] 7.2.9-rc1 review
-Message-ID: <ar-2qLGYAeke2TUl@fedora64.linuxtx.org>
-References: <20260930152346.024115587@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c9dixHpt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B0FF1F000FF;
+	Fri,  2 Oct 2026 13:53:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790949215;
+	bh=6QedBmex4n5aliVhPrDMZaYmH+5Us9ELZ/NjmQMJ20c=;
+	h=From:Subject:Date:To:Cc;
+	b=c9dixHpt1bmNJCW8NRCuKyXlZHerIX2bHFt7Fs9jGINJxpYcu9xWY7AEG/MOFPB5+
+	 ZoncibSl0WfJF2EzuART25YHq7MJ63rqS8JrDSlPqcS6TnqhDWwXwRG3PSeOVLBvag
+	 hEJPndhXKvL4+14oV4dexFsBBygbkiH69T3kai9ML52y+CozbAnBwMJTIs8ME9dKVv
+	 a5P89mTHTemiJDIMLMIjAm2TwMeGXq29fS/gc2UOSkU4gEFuapOJzPlWPR4eheKazM
+	 sOxuG0Wnxg24FpvenZ72wgKfJ5bTkRb+1W2RY58H2nsGL/t2+1eQjmlJLdnn79VqI8
+	 qKl3w3valJTiQ==
+From: Christian Brauner <brauner@kernel.org>
+Subject: [PATCH 00/21] mount: more bugfixes, trapped in the Black Lodge
+ edition
+Date: Fri, 02 Oct 2026 15:52:31 +0200
+Message-Id: <20261002-work-mount-fixes-4-v1-0-dd44b89d44ce@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260930152346.024115587@linuxfoundation.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM2w6CMBBEf4Xss0va0ojxV4wPvSxSja3pApIQ/
+ t0WH8/MnNmAKQdiuDYbZFoChxQLyFMDbjTxQRh8YVBCnaUQCr8pv/Cd5jjhEFZi1GjVxfded1I
+ ogiJ+Mh1V8W73P/Nsn+Sm+lQX1jChzSa6sUbLwNi3uj1uYd9/6A+5vpYAAAA=
+X-Change-ID: 20261002-work-mount-fixes-4-b28d7d43102e
+To: linux-fsdevel@vger.kernel.org
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+ linux-kernel@vger.kernel.org, Jeff Layton <jlayton@kernel.org>, 
+ Jann Horn <jannh@google.com>, Neil Brown <neil@brown.name>, 
+ Amir Goldstein <amir73il@gmail.com>, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.17-dev-db0b7
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3862; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=Ib2Exxpb6GDQ+ica47E+ivBnH1RE36bOqhtyFLu7+Ck=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTt3x7BJpueWHbTwGui4gWF3cts/nf8/XRjefzqJaq6H
+ FlzvyW/7ihlYRDjYpAVU2RxaDcJl1vOU7HZKFMDZg4rE8gQBi5OAZhIWQHD/7qit/3Nbn/Xq4vO
+ mrzy20bbS5aPbnz4Kr6K2dHioTNjuAIjw4RWtvONS1zDbt9c8PuGv8+ucz5v2BLKLJy87m+6dsz
+ UmBEA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-On Wed, Sep 30, 2026 at 05:21:45PM +0200, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.9 release.
-> There are 457 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Fri, 02 Oct 2026 15:23:04 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.9-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+More bugfixes from work in this area:
 
-Tested rc1 against the Fedora build system (aarch64, ppc64le, s390x,
-x86_64), and boot tested x86_64. No regressions noted.
+- unhash a dentry before detaching the mounts on it to avoid leaking
+  sensitive data
+- don't reveal overmounted entries in refwalk
+- refuse F_SET_RW_HINT on an immutable inode
+- refuse an automount below a mount that is in no namespace
+- handle mount locking for automounts correctly
+- don't update the access time on nullfs
+- never expire a locked mount
+- keep the lock on a mount that a propagated copy is moved beneath
+- decide the subtree check under mount_lock
+- keep the private nullfs instance in knullfs
+- nothing is mounted on or written through knullfs
+- let a filesystem refuse fsnotify marks on its objects
+- refuse file locks on nullfs
+- refuse leases and delegations on nullfs
+- take no inode lock on an immutable directory
 
-Tested-by: Justin M. Forbes <jforbes@fedoraproject.org>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+Christian Brauner (21):
+      namespace: unhash a dentry before detaching the mounts on it
+      namei: don't reveal overmounted entries in refwalk
+      fcntl: refuse F_SET_RW_HINT on an immutable inode
+      selftests/filesystems: check that an immutable inode takes no write hint
+      namespace: refuse an automount below a mount that is in no namespace
+      namespace: handle mount locking for automounts correctly
+      nullfs: don't update the access time
+      namespace: never expire a locked mount
+      namespace: keep the lock on a mount that a propagated copy is moved beneath
+      selftests/filesystems: check that a lock lands on the right mount and stays
+      selftests/filesystems: check the atime of the empty mount namespace root
+      selftests/filesystems: check that an automount below an overlay layer is refused
+      fhandle: decide the subtree check under mount_lock
+      namespace: keep the private nullfs instance in knullfs
+      namespace: nothing is mounted on or written through knullfs
+      fsnotify: let a filesystem refuse marks on its objects
+      nullfs: refuse file locks
+      nullfs: refuse leases and delegations
+      readdir: take no inode lock on an immutable directory
+      selftests/filesystems: add a helper that holds a readdir in a page fault
+      selftests/filesystems: check that reading the root of an empty mount namespace stalls nobody
+
+ fs/fcntl.c                                         |   3 +
+ fs/fhandle.c                                       |  20 +-
+ fs/mount.h                                         |   1 +
+ fs/namei.c                                         |  29 ++
+ fs/namespace.c                                     |  78 ++--
+ fs/notify/mark.c                                   |   4 +
+ fs/nullfs.c                                        |  43 +-
+ fs/readdir.c                                       |  13 +-
+ include/linux/fs.h                                 |   3 +
+ tools/testing/selftests/filesystems/.gitignore     |   1 +
+ tools/testing/selftests/filesystems/Makefile       |   2 +-
+ .../selftests/filesystems/empty_mntns/.gitignore   |   2 +
+ .../selftests/filesystems/empty_mntns/Makefile     |   5 +-
+ .../filesystems/empty_mntns/nullfs_atime_test.c    | 129 ++++++
+ .../filesystems/empty_mntns/root_readdir_test.c    |  45 +++
+ .../selftests/filesystems/overlayfs/.gitignore     |   1 +
+ .../selftests/filesystems/overlayfs/Makefile       |   1 +
+ .../filesystems/overlayfs/automount_in_layer.c     | 174 +++++++++
+ tools/testing/selftests/filesystems/readdir_hold.h | 224 +++++++++++
+ tools/testing/selftests/filesystems/rw_hint_test.c | 129 ++++++
+ .../filesystems/umount_propagation/Makefile        |   2 +-
+ .../umount_propagation/locked_mount_test.c         | 432 +++++++++++++++++++++
+ 22 files changed, 1305 insertions(+), 36 deletions(-)
+---
+base-commit: cbade031e2ebb3ca0a423b1804ce87908b27c229
+change-id: 20261002-work-mount-fixes-4-b28d7d43102e
+
