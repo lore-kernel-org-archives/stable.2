@@ -1,133 +1,158 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B522248AF;
-	Fri,  2 Oct 2026 22:32:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FFFC455605;
+	Fri,  2 Oct 2026 22:37:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790980329; cv=none; b=gJhN35cV+ygYhISz5mHNz2oo5hsUa2PbooQIsm4g5vsaFQvAnI4uv0b4jZNLQJwEV28ROu1Ad1ruioA6BYSezzbSFE/hsYRAE1DfRlJp41ldlL6WzCaRORsRfADmgzKqrKaDK5FUusFfcwIe5udTHY+ELLKi5AS6+4Z9wWcMmVM=
+	t=1790980655; cv=none; b=eFp0rEMmeNGRNyPQcLNL0Awyv8A3LJSosbiw3sFLio7QWovI+xXomgN90KTGWx0iCd7n4g8XOd9zbW3g5GME3HigqZVg7xdG0G9BmNEcjYuDYd0M6WSkN4zR6fpzJH+9rGIv3drw9eAAIGx9dHi+lqeK9yY4FS0bWZ6XwY5Rl7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790980329; c=relaxed/simple;
-	bh=jzGmoAS4Eg9CHqDftxXdr+IUKosDaKFrNxKxm8DZm0U=;
-	h=Date:To:From:Subject:Message-Id; b=qFFABygMPdpACiJxPoABcO0bjU0lRw3Rhygf2BCnFeqiVnqhyusLNIp37PJJXaUq/FqYf79o1qNVzB3BDgE11kXgMglOzXKnkvt47o/k8atotH5sBIavMnlzhIcWnyx17rIWGx9J5N2XUbR750J/T9aq+aDXCV+ZQGRTvtZnsmY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=ouFyhc/U; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790980655; c=relaxed/simple;
+	bh=BrImC1zQUupHyWjfco3L85lPWp/4vRjvL457rfr9be4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Wo2apSbrPXmzCKAj4yQExI4fdT5Qo6MMoUL3kICN/GGyrdGRxynaIugSt606We6ekfYan2Xm9xA54aOV7EE0CFZ1JKMGoMaT9EKsigxbmrw2tUg7ykL1eB5H06jJ9SEcp0h0aYrhq6gw+QpQT14B9HVXQAAv6h4cJlWiuP2DbKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AMgBaGw/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="ouFyhc/U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAA491F000FF;
-	Fri,  2 Oct 2026 22:32:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1790980328;
-	bh=7PI87bD7N3/V7sqlgot59pXkhkFZBzxJmB5o4YMnAQc=;
-	h=Date:To:From:Subject;
-	b=ouFyhc/U5IEbj2hruf9okIuL/0/BUk/XtN8ayrZGlfq4MXClHC093BC+2Q84nBIhR
-	 4m42PrQPiMJHogj47inLLAzMF05TV2G6AB0o2IIZi3yFRDem0kjUosTjQY3HgEqHg7
-	 pMJ6jA83aYTQtWdvmGl4Mnawui+Q5LDizVPQyQk4=
-Date: Fri, 02 Oct 2026 15:32:07 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,hughd@google.com,gabriel@krisman.be,brauner@kernel.org,baolin.wang@linux.alibaba.com,andrealmeid@igalia.com,hnkz.64@gmail.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + tmpfs-fix-unicode_map-leaks-in-casefold-option-handling.patch added to mm-nonmm-unstable branch
-Message-Id: <20261002223207.DAA491F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AMgBaGw/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E93B21F00898;
+	Fri,  2 Oct 2026 22:37:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790980654;
+	bh=UVN+59hMO8qdkHBssLzN1RNNKhQ8KQ1mimLdxlbt15M=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=AMgBaGw/eYw3bbHkJOE6O/EgrUc3aAjhokZqbm4kMzSflOUARroBuDKzttAVFu9En
+	 h0pVvR+xdTie06nf16HhxVCBi7Rb7shA3pcjj3Y735mVX47p/pJB4nYGCBlDa3Kxig
+	 q2QcFWEfg1Od1JgjSN3zt055LhuHzVAY/e73DkfcZ4jMBMvgimDVIIRq9dpL1WuzHh
+	 esyQQmdl1u/iCNdfAwMvXswWu33+8sWTVAueeLksdvIjKRJexJrWOg30GjE+cZ6r7b
+	 FfViQrW/vxoNHw1oRnch5JJLEvxmDJKZBZRG+9+2oMqNtW3dzM5G7wcOwQkmdq4cVo
+	 fWW9uDGyVupaw==
+From: Andrey Albershteyn <aalbersh@kernel.org>
+To: djwong@kernel.org,
+	ebiggers@kernel.org,
+	hch@lst.de,
+	Carlos Maiolino <cem@kernel.org>
+Cc: Andrey Albershteyn <aalbersh@kernel.org>,
+	fsverity@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-xfs@vger.kernel.org,
+	linux-unionfs@vger.kernel.org,
+	linux-ext4@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	linux-btrfs@vger.kernel.org,
+	david@fromorbit.com,
+	stable@vger.kernel.org
+Subject: [PATCH v17 06/21] fsverity: hoist statx reporting of fs-verity flag
+Date: Sat,  3 Oct 2026 00:36:47 +0200
+Message-ID: <20261002223705.2175542-7-aalbersh@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261002223705.2175542-1-aalbersh@kernel.org>
+References: <20261002223705.2175542-1-aalbersh@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+All filesystems, supporting fsverity, report this status by checking
+inode flag. Also, BTRFS was missing stat->attributes_mask, which is
+fixed now.
 
-The patch titled
-     Subject: tmpfs: fix unicode_map leaks in casefold option handling
-has been added to the -mm mm-nonmm-unstable branch.  Its filename is
-     tmpfs-fix-unicode_map-leaks-in-casefold-option-handling.patch
-
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/tmpfs-fix-unicode_map-leaks-in-casefold-option-handling.patch
-
-This patch will later appear in the mm-nonmm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Kazuki Hanai <hnkz.64@gmail.com>
-Subject: tmpfs: fix unicode_map leaks in casefold option handling
-Date: Fri,  2 Oct 2026 17:13:03 +0900
-
-shmem_parse_opt_casefold() stores the unicode_map returned by utf8_load()
-in ctx->encoding.  A filesystem context can receive the casefold parameter
-more than once, and a second successful parse overwrites the stored map
-without releasing it.
-
-The map is also leaked when an unmounted filesystem context is freed. 
-This includes the temporary context used for remount, because
-shmem_reconfigure() does not take ownership of ctx->encoding.
-
-Reject a second casefold setting, clear ctx->encoding after transferring
-ownership to the superblock, and release any remaining map from
-shmem_free_fc().
-
-An unprivileged user can repeatedly create tmpfs filesystem contexts, set
-the casefold parameter, and close them from a user namespace.  This causes
-unbounded kernel memory consumption and can result in a local denial of
-service.
-
-Link: https://lore.kernel.org/20261002081306.637148-1-hnkz.64@gmail.com
-Fixes: 58e55efd6c72 ("tmpfs: Add casefold lookup support")
-Signed-off-by: Kazuki Hanai <hnkz.64@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Suggested-by: Gabriel Krisman Bertazi <gabriel@krisman.be>
-Cc: Hugh Dickins <hughd@google.com>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: André Almeida <andrealmeid@igalia.com>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: <stable@vger.kernel.org>
+Fixes: 146054090b08 ("btrfs: initial fsverity support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Andrey Albershteyn <aalbersh@kernel.org>
+Acked-by: Eric Biggers <ebiggers@kernel.org>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
 ---
+ fs/btrfs/inode.c | 3 ---
+ fs/ext4/inode.c  | 5 +----
+ fs/f2fs/file.c   | 5 +----
+ fs/stat.c        | 6 +++++-
+ 4 files changed, 7 insertions(+), 12 deletions(-)
 
- mm/shmem.c |    7 +++++++
- 1 file changed, 7 insertions(+)
-
---- a/mm/shmem.c~tmpfs-fix-unicode_map-leaks-in-casefold-option-handling
-+++ a/mm/shmem.c
-@@ -4711,6 +4711,9 @@ static int shmem_parse_opt_casefold(stru
- 	struct unicode_map *encoding;
- 	char *version_str = param->string + 5;
+diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
+index 93ef3cec191e..c34d0198b988 100644
+--- a/fs/btrfs/inode.c
++++ b/fs/btrfs/inode.c
+@@ -8236,7 +8236,6 @@ static int btrfs_getattr(struct mnt_idmap *idmap,
+ 	struct inode *inode = d_inode(path->dentry);
+ 	u32 blocksize = btrfs_sb(inode->i_sb)->sectorsize;
+ 	u32 bi_flags = BTRFS_I(inode)->flags;
+-	u32 bi_ro_flags = BTRFS_I(inode)->ro_flags;
  
-+	if (ctx->encoding)
-+		return invalfc(fc, "casefold parameter cannot be specified twice\n");
+ 	stat->result_mask |= STATX_BTIME;
+ 	stat->btime.tv_sec = BTRFS_I(inode)->i_otime_sec;
+@@ -8249,8 +8248,6 @@ static int btrfs_getattr(struct mnt_idmap *idmap,
+ 		stat->attributes |= STATX_ATTR_IMMUTABLE;
+ 	if (bi_flags & BTRFS_INODE_NODUMP)
+ 		stat->attributes |= STATX_ATTR_NODUMP;
+-	if (bi_ro_flags & BTRFS_INODE_RO_VERITY)
+-		stat->attributes |= STATX_ATTR_VERITY;
+ 
+ 	stat->attributes_mask |= (STATX_ATTR_APPEND |
+ 				  STATX_ATTR_COMPRESSED |
+diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+index 26f0f9714f03..206c6245c619 100644
+--- a/fs/ext4/inode.c
++++ b/fs/ext4/inode.c
+@@ -6318,15 +6318,12 @@ int ext4_getattr(struct mnt_idmap *idmap, const struct path *path,
+ 		stat->attributes |= STATX_ATTR_IMMUTABLE;
+ 	if (flags & EXT4_NODUMP_FL)
+ 		stat->attributes |= STATX_ATTR_NODUMP;
+-	if (flags & EXT4_VERITY_FL)
+-		stat->attributes |= STATX_ATTR_VERITY;
+ 
+ 	stat->attributes_mask |= (STATX_ATTR_APPEND |
+ 				  STATX_ATTR_COMPRESSED |
+ 				  STATX_ATTR_ENCRYPTED |
+ 				  STATX_ATTR_IMMUTABLE |
+-				  STATX_ATTR_NODUMP |
+-				  STATX_ATTR_VERITY);
++				  STATX_ATTR_NODUMP);
+ 
+ 	generic_fillattr(idmap, request_mask, inode, stat);
+ 	return 0;
+diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+index edc352569e87..dc1cc0965532 100644
+--- a/fs/f2fs/file.c
++++ b/fs/f2fs/file.c
+@@ -1075,15 +1075,12 @@ int f2fs_getattr(struct mnt_idmap *idmap, const struct path *path,
+ 		stat->attributes |= STATX_ATTR_IMMUTABLE;
+ 	if (flags & F2FS_NODUMP_FL)
+ 		stat->attributes |= STATX_ATTR_NODUMP;
+-	if (IS_VERITY(inode))
+-		stat->attributes |= STATX_ATTR_VERITY;
+ 
+ 	stat->attributes_mask |= (STATX_ATTR_COMPRESSED |
+ 				  STATX_ATTR_APPEND |
+ 				  STATX_ATTR_ENCRYPTED |
+ 				  STATX_ATTR_IMMUTABLE |
+-				  STATX_ATTR_NODUMP |
+-				  STATX_ATTR_VERITY);
++				  STATX_ATTR_NODUMP);
+ 
+ 	generic_fillattr(idmap, request_mask, inode, stat);
+ 
+diff --git a/fs/stat.c b/fs/stat.c
+index c461c3054234..e03954c36b33 100644
+--- a/fs/stat.c
++++ b/fs/stat.c
+@@ -203,8 +203,12 @@ int vfs_getattr_nosec(const struct path *path, struct kstat *stat,
+ 	if (IS_DAX(inode))
+ 		stat->attributes |= STATX_ATTR_DAX;
+ 
++	if (IS_VERITY(inode))
++		stat->attributes |= STATX_ATTR_VERITY;
 +
- 	if (!latest_version) {
- 		if (strncmp(param->string, "utf8-", 5))
- 			return invalfc(fc, "Only UTF-8 encodings are supported "
-@@ -5203,6 +5206,7 @@ static int shmem_fill_super(struct super
+ 	stat->attributes_mask |= (STATX_ATTR_AUTOMOUNT |
+-				  STATX_ATTR_DAX);
++				  STATX_ATTR_DAX |
++				  STATX_ATTR_VERITY);
  
- 	if (ctx->encoding) {
- 		sb->s_encoding = ctx->encoding;
-+		ctx->encoding = NULL;
- 		set_default_d_op(sb, &shmem_ci_dentry_ops);
- 		if (ctx->strict_encoding)
- 			sb->s_encoding_flags = SB_ENC_STRICT_MODE_FL;
-@@ -5303,6 +5307,9 @@ static void shmem_free_fc(struct fs_cont
- 	struct shmem_options *ctx = fc->fs_private;
- 
- 	if (ctx) {
-+#if IS_ENABLED(CONFIG_UNICODE)
-+		utf8_unload(ctx->encoding);
-+#endif
- 		mpol_put(ctx->mpol);
- 		kfree(ctx);
- 	}
-_
-
-Patches currently in -mm which might be from hnkz.64@gmail.com are
-
-tmpfs-fix-unicode_map-leaks-in-casefold-option-handling.patch
+ 	idmap = mnt_idmap(path->mnt);
+ 	if (inode->i_op->getattr) {
+-- 
+2.54.0
 
