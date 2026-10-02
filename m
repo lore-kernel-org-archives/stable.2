@@ -1,78 +1,81 @@
-Received: from sonic.asd.mail.yahoo.com (sonic-usea1-0019.asd.mail.yahoo.com [34.2.64.18])
+Received: from mail-dl2-f41.google.com (mail-dl2-f41.google.com [74.125.229.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16BC246E00C
-	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 17:18:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.2.64.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A690E371D11
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 17:20:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790961536; cv=none; b=O+BT/0uJgblqNT1pzB3+5kw7g1REgADORfMaKMzTeyjWOjNhQilk6thyk54gg46gbjHhEyJA7z5zo0uUlTJ2EHbqNvDPwFvzBUkZIz2nqkieJVVfXzCUut+QLG+Mb2AfcR0AxJHVKcFCFFwI8IlxD4aq4FODEOuG++lqb2sRTDw=
+	t=1790961649; cv=none; b=tGRhoT2uGUpDD8p47prdAQoxF50BoSsfhmRkTCsFhagxzXs2L5i3qK+tDRcNskCdgpBIqddoc5rVSsm/ZZ5LeOMWUoktjf9/fXhAfTnJHPg9SjDcfVgRCXNTd1aaAtRRRKVQZkTMDIvH7W0uT+3TvDI1i9iP+cYyfAbhR+fjxs0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790961536; c=relaxed/simple;
-	bh=/qUHNOK9yxopZORFNZ1tJgWsEmGkIZVZ/lrNPuRqIdQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YOOLwbjPq29CQS7jzFVAwSzbAYjg8I4vXiH6+mPQgSpkGk6p+ErVYtjzz+ZaT1oo0JVozV0rWTnmb/bInRVy7y6+X7T+gysUGHuVFdCIeQiSQILqUv/3SPXpS7C7dWCpw86/y2zk9FX5BXxfU5BMmsF/XlzaofDEhOJWs+uYc2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=BUFw3I1d; arc=none smtp.client-ip=34.2.64.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	s=arc-20240116; t=1790961649; c=relaxed/simple;
+	bh=OcY+7/0P/gvQi8VSadBXXsgqQ9SByM7tSMYjbn8eB/Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=i4wD0BKSF2sQsKcKoo3m8MEVwNrOQcsJEbBvZ4WkSgxjtL8bYmxTimIahHGJUDChUJImc+2m6EB0Z8TS49MHNVaLOu+lfU0ra3HUB/BPIUxXX1fyJ8PWShACmdtwMQ4j6H32J8hwKsQALwDFMKzcynTKOCoBGjrsZ143XkRtT4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cvsU/IRT; arc=none smtp.client-ip=74.125.229.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="BUFw3I1d"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1790961526; bh=/qUHNOK9yxopZORFNZ1tJgWsEmGkIZVZ/lrNPuRqIdQ=; h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To; b=BUFw3I1dT92N6Z1iQHptdOrPPG97ArZruch3DPiUSKPIUHovGTm43vJFq6Pl60QjGj0fLZhroTYNZQonexW/CoOq2I9Te0XPG5HicLqE8UyIdlKBr6wJuLapengoy6y/IMXAJTfWfJ7SdF3Dr6hXfZ0Zu+Q7sssiCwx8hoIxNKSxjGrKjoNogCpJW5W6CK9Q37G14dQ7Le0qbu5J3VUd3J53MCWokNSCd+dBOsUnjfP8bQXz37YGALgoH6WrhlHbKIsknxkoPTI98lKOIQmUTwtjMbNj4/kFoOpWo9AQaDgueU++lbjfAf0854Pmnouc1vtsBhv7TDe3oXXcVhyWKA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1790961526; bh=k9GtaYYUz5IPt/XND5UbyEfiqKqSJdppZar9gENGkeg=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=XpzNctzlJr+89I/2Wjeg+ehIzDUDPVOhRy/8YUuj0JE6Ps2uh2qHl9AU+7JIM8ay1cc6ocMSPjkcm4qVmLsvstEYOn4Ma2Io+ZeejieWutb72zQDAg8sWrGn2rWcYLJ60g4RPfbaBeGaeFOXSfuwJKlO1jxXwGiVDPd1Honj7Po/bRbPtfXYxRcq3+k5PgZQAAvbvmSvLBgB/vc2y2PSwusUgtxmcPx8qviZfb8CuhWx6MJOfgpwCzvNzhC3UJ6RnSTmEn0ST0u/NZnxt8rlOAcr1Qu2WsTTKGrbcP47NrKq9m12MMow34ZYeWOACMmwcNtxZ03AixpG8TE7expVBw==
-X-YMail-OSG: c6M07hMVM1kOhXWn_S6kgVZqw4qxpUefO7jh3Oy.GVQSI_BkFt7UGrxeAXCpGJR
- h7xgPA6r1A_MQiVevb7xX4Zojo8DDPJirbvPq5gEM3Xzu7R4S__f1ftYkkx4X0w7iqGGBkZM5u7e
- U4yr9I2YF_4yfG74krqviIYDMeoMXxkT6FjnXB7.YNaXznjJmNrCez6MwF98S5yERk6J3WdLuZfs
- n23p27xYBmovl4_q_GyCi_Px8aLg0ZKJ0dyfa6TOwMvkIG7noaLooXFXXMCYSTwow8D4rx5HmXOh
- OD0Y5qpIzTfGF5NJzocXFFL86q8.gJ4EwQ_WHy_LZsxU.1xOCGzilxKK4QGqH5VaSd0qEe29ZA.4
- aUt04u7K0JKzde4XXgWISZksQPqhzqgWMNmw8wngWK04of3r5DjYrgf4uudHM2ciz6iYm1YHnC5e
- ASrfdpIWmodBl.Z7nDa881dT_gmhvvZy3.sE3BlNUnSdRXzoHHtmGVw5iaSHYn7mA7VMni3HRpP1
- Wz7De6G_ZtObnKQXifZLgy4bFFZBjcPB82r0o7IVQ0Ic66EGc8AHUPHX21uN1bgaSC79E88lxykl
- ID0NUQ6auHfCulEoQ9TH7AqC4bqroa01YVx.xYN2Ta_RiqpOqH8PvSp555iwL11KdhSo8I0e5TUk
- uzn0SZfvOgIUjr6QDzrTrEJq.0v6uahlY898CM9shbWd8eLJegzE_JqKOgJm1UsKfTFKRrb1_iv3
- 5u5X5X6utj609ETNDV_KX6IzEGVL2YcPuJ4Szw2x_4H7ZcZAnpYdMmh6nvx6mrMSq9SB.1di5cEz
- iKyIVjjtgyCp.U1obFGUAibNBvRYasHa4Q3hAd5eH8EgVT2zWOMwI9jBpZi4tPGyNr53oCp64YTg
- qzcUf63pe1dCADnbKgevJ7QN_rHRSHrbDjeQa8Ho0I7TsPIaUdNdqma58vISusvM_nmsDFbPQSbe
- bcRxm_wsQMXH1wF741jDOQwj3H9rM93xA4f78DkJT37TwqzXiFxEt9aKCAy3h8guufzbJAL.CRkc
- mG21H4G8srXPcmNsoiL0WTxO9UtJKY0zWJkygg7gi_v0vsMha9I1.b44.00ABJJp8PkgUfRWieud
- pfO6FKxD92hShOIUu2y6H41uo0aFEujeS8BnK7sP5QOlNtuDpiCI0r6EqO3w93NVq8YNfi7HhdwA
- .vfZjzvxsIU5SlANaxnz3SY_q8PZTTeQK_79.dRlnQS6MEyUYTH87f.mre5cSSNmvZs9Nh4.QKtU
- AtpPEAwAQI3URzkAn3XZWWpJKDi65pp0afnXJfkIW9nplvx4GMWxDQ7uym0JFHAU7yqY3FUvbFeF
- KH__j_b_sEI5tJYcDfpCIM36f1U1dg1bnfZXJT_1YicQdPIkJBXU5l7LtmmvoKXolqVBw.BuqPbI
- pVX88Y1.damYoKP9VVnxdLubXXZLlqSMR9BEd_DF_URh5UpBlF9xD90H4l_F3s6MYYNWkGw5ubGY
- RQAE7yjgZeKS.Roxo.xtK4LUZraF0xOqMV7QhWLOXZbparjkzvp.hp5HxoYDJ1KeOWOCEN0j1tB4
- C7DXiBz.t0eAWp5Z999hmmT8VxiTyttS52XdMOqBw34ZcHbFn328C8cxkzvMhtB1DQGv50BM7oM4
- ybWGoA0wTNO.iwIRg4qRyeeWYprQ2HO5AUCIrOjUBGPNiriZKLXjqNn8vQC37XI2XyHOW7gnI9hW
- mTySX.xbX5mh5VVkiNmL.zKnId4nbshHXyF9LN3yBy3LIQ5CiaYKB4.SBUriv5dmmYwMgBWKzK0u
- tQVlvKXLrFS2F6PBgKGWfsfSGSwUIhE2A5QE3C8OUB1dDlhjNKFaMbQSLSl5D49TH6lHEf7B.GIK
- NqL1ZBZOij8L7F32bE13MCoRj9VCOU3F6btSe74X97uz.qDrQqq72DAcnkXsqZo7yw35bcjI9Z6B
- KN_GYk6VlgwVsE_s8wbrjTTymL2eLx1F524.NTlyZGsTTL_8yc9L2yW2LfMipsI5rMjdOZ38qLL7
- kZGuy3j53omD.wHDC6hPNK9HjhegaEoH2x1R.
-X-Sonic-MF: <Capitain_Jack@yahoo.com>
-X-Sonic-ID: 44f43abe-1d8f-491e-8721-fef69cea284d
-Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-usea1-prod-sonicconsumer-svc-102 with HTTP; Fri, 2 Oct 2026 17:18:46 +0000
-Received: from dip117.lsn.bf1.yahoo.com ([67.195.177.126])
-          by hello (SMTP) with SMTP ID f4c847716543b17220b197b5028b5c41;
-          Fri, 02 Oct 2026 17:18:43 +0000 (UTC)
-From: Daniel Campos Ramos <Capitain_Jack@yahoo.com>
-To: Zhenhao Wan <whi4ed0g@gmail.com>
-Cc: Lyude Paul <lyude@redhat.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org,
-	nouveau@lists.freedesktop.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cvsU/IRT"
+Received: by mail-dl2-f41.google.com with SMTP id a92af1059eb24-14b1b157591so145976c88.3
+        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 10:20:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790961639; x=1791566439; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=izTe3vFuNEXuKkViQhMtb+ZI5BaXwvWzbJ/LmOaSmrg=;
+        b=cvsU/IRTvs9XYNhpctzW/G1BDBplbwu4gk/DBuMbyRWB5ND2YW4F5lmYT2DnchvroS
+         YnbdtNGXYCnsqioCqAZaXY1nUZGvGH5rlXOGIpg/J9DPjqUCuiDhAlVAPj8SamXiMRPp
+         5KfeglHOTgAKfTeIfhyw9lJdgKJ1mvG24UvU12RAszxxYrJuebY+PjR0LA653Hz9wmZn
+         hQsb00UpUV/i29cftwDYb7OsDyttFjtpJb5dnLV3MayItMDjw7hoIntBtBRoYDegJhtO
+         Q5lbPRxU+9jqZfPpijdfnaycCJezx2wU5zEsN2JRngHfv6lAQ1/FyJPFyiwoSlDsW1tH
+         svzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790961639; x=1791566439;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=izTe3vFuNEXuKkViQhMtb+ZI5BaXwvWzbJ/LmOaSmrg=;
+        b=bCFYaQv8jYU/tzYHyJ4gNRXrpX3dWFvn77FQ4xhwqaWiPVMsmLUxuW+gcfiKgzJSsK
+         nHyT9kG/cTJOZ2klznuXvAu1GI0J+GkUSqzeaEYQaO4OkWJMHZw61fZfj+W1G8PwG0a6
+         8EhrIKkhQA9fTDltCmKzSpkkxM04Vyxc73mQkhwKQUU5Hg5nruETZxg0VxHOcDwzk5UA
+         4JWBnLxkGCk+Kkgq3bv5rvcSzlUjh0wFh/5xPPbvEi0FAaMzMYHBV0VWeWvmzL4Qhpuz
+         /QVrdHu9eVQ9z9Dhsu3gbPrpB0KRRjMHitfyNT9AOQPFHin48iPyXJimEd1tnXwjUL1U
+         mYhg==
+X-Forwarded-Encrypted: i=1; AKwUvBxWy2k46ZDFIj9/NT4XwUbjE0tEuJanoy9H3/lw8dshWZE496NUBdZoCS0abKNYNKgOA/AZGN0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIKdCYMcvSEl9wpCzsKHXr3iW8CC30tv+y31tUX/haRuDnamDPe
+	A9zNgSnjnJnm4MS2s7nb3ZiuCBOWZN925OK9KnFDRN3wAng0QK/x6oSf
+X-Gm-Gg: AYBFou0RriAWY06LRjyZVsgvAhy3TWu0OKhv3fikWv2T9E7M+6cxc89UJrV4gFm7XPp
+	1LpTV4GmOuYQoE1l/1tQgE5kkQXghBp6InJemcrHbQzuL4BAs3S/n2vGTzIJ+udJUgKHEen/1+G
+	ZyNp+qyhut90N4oDszEAofxFJWR3IR0Zt0MVuC6N3fyJNbFptOKTcIPLxDcKi11YGrtsSvpdIX5
+	Fj5q92E6dc+jNqXrhludxHeCzEZmHYLDUbAyjreFcTf+ZQQ45r10kRnQFXYZprfDXS4hONDfvgw
+	lp0XgxiyGface3Whxd3WiwSjWxkXSIYgzSIEjd4s4o3VvQjSy7jpY9cUhjWbVQ3L4JYAGFAfeRV
+	rTe9iDu/cJAZ0lceS1Ia6XZtBrNTayOkdm3qo4v210K/IquiNcAe6DOCJNDYNKj5Jyhc5d9J64W
+	oLR+eLknHozmmOhqsap1RxKDRCwJWxacBWxuwmLuB8qtLSe15sOIo4kBh47GIgVCncf0EnFpM3N
+	532VTDa/sH0d8Xmvi0YqQ0rbKXbeeMCC+XzEALfIQ6IuRXQEES9ZKoI+qLXl/IiyktmOvE=
+X-Received: by 2002:a05:7301:e101:b0:33e:6714:3945 with SMTP id 5a478bee46e88-34f150658f9mr5329374eec.2.1790961638951;
+        Fri, 02 Oct 2026 10:20:38 -0700 (PDT)
+Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34f14f2dfbbsm7816854eec.10.2026.10.02.10.20.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 10:20:37 -0700 (PDT)
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+To: seanjc@google.com,
+	pbonzini@redhat.com
+Cc: tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	x86@kernel.org,
+	hpa@zytor.com,
+	kai.huang@intel.com,
+	marsy12010123@gmail.com,
+	kvm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Yuhao Jiang <danisjiang@gmail.com>,
-	stable@vger.kernel.org,
-	Jim Cromie <jim.cromie@gmail.com>
-Subject: Re: [PATCH 2/2] drm/nouveau: prevent NULL deref of gr in GETPARAM_GRAPH_UNITS
-Date: Fri,  2 Oct 2026 14:18:32 -0300
-Message-ID: <20261002171838.282505-1-Capitain_Jack@yahoo.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260812-nouveau-nvkm-absent-subdev-null-deref-v1-2-7e057f6aeba0@gmail.com>
-References: <20260812-nouveau-nvkm-absent-subdev-null-deref-v1-2-7e057f6aeba0@gmail.com>
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] KVM: x86: Protect virtualization-enable VM walks with RCU
+Date: Sat,  3 Oct 2026 01:20:25 +0800
+Message-ID: <20261002172025.3402416-1-nicoyip.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,15 +84,108 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Zhenhao,
+Protect the vm_list walks in kvm_arch_enable_virtualization_cpu() with
+RCU, publish and remove VMs with RCU list operations, and wait for
+pre-existing readers before tearing down a VM.
 
-Tested on an RTX 3060 (GA106) under nouveau without
-firmware-nvidia-gsp, kernel 7.3-rc1.
-Together with Jim Cromie's GET_ZCULL_INFO fix, this removes the second
-oops (nvkm_gr_units+0x9) that kills kwin_wayland when NVK starts.
-KWin then composites, and NVK refuses the device cleanly.
-Details in my reply to Jim's patch.
+The change that introduced kvm_usage_lock replaced kvm_lock with a
+dedicated usage-count mutex when enabling virtualization.  Because
+vm_list mutators do not take the usage-count mutex, this left the x86
+walks without lifetime protection.
 
-Tested-by: Daniel Campos Ramos <Capitain_Jack@yahoo.com>
+During CPU online, the hotplug thread can load a VM from vm_list.  A
+concurrent close of the last VM file can then remove that VM and destroy
+its vCPUs before the hotplug thread dereferences the stale VM or vCPU.
+Reacquiring kvm_lock from the CPU-hotplug path would restore the lock cycle
+that the same change fixed.
 
-Daniel
+KASAN reported:
+
+  BUG: KASAN: wild-memory-access in kvm_arch_enable_virtualization_cpu+0x25f/0x870
+  Read of size 4 at addr dead0000000000f0 by task cpuhp/3/31
+  Call Trace:
+   kvm_arch_enable_virtualization_cpu+0x25f/0x870
+   kvm_online_cpu+0x1a/0x50
+   cpuhp_invoke_callback+0x291/0xfd0
+   cpuhp_thread_fun+0x256/0x4a0
+   smpboot_thread_fn+0x287/0x6c0
+
+Fixes: 44d174596260 ("KVM: Use dedicated mutex to protect kvm_usage_count to avoid deadlock")
+Cc: stable@vger.kernel.org
+Assisted-by: GPT-6-Astra
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Signed-off-by: Qi Zhang <marsy12010123@gmail.com>
+---
+Changes in v2:
+- Rebase onto current kvm-x86/next; keep the same RCU lifetime fix.
+- Clarify the scope of the Sashiko finding: the hotplug update of
+  tsc_offset_adjustment and the vCPU-load read/reset are unchanged by
+  this patch. RCU protects VM/vCPU lifetime; it does not synchronize
+  those field accesses. A separate synchronization change would need
+  its own analysis and review.
+
+Link: https://lore.kernel.org/r/20260804123243.2213854-1-marsy12010123@gmail.com/ [v1]
+Link: https://lore.kernel.org/r/20260804125109.B20491F000E9@smtp.kernel.org/ [review]
+
+ arch/x86/kvm/x86.c  | 6 ++++--
+ virt/kvm/kvm_main.c | 5 +++--
+ 2 files changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index 1705e7be46ec..6f57374dbb16 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -9664,7 +9664,8 @@ int kvm_arch_enable_virtualization_cpu(void)
+ 
+ 	local_tsc = rdtsc();
+ 	stable = !kvm_check_tsc_unstable();
+-	list_for_each_entry(kvm, &vm_list, vm_list) {
++	rcu_read_lock();
++	list_for_each_entry_rcu(kvm, &vm_list, vm_list) {
+ 		kvm_for_each_vcpu(i, vcpu, kvm) {
+ 			if (!stable && vcpu->cpu == smp_processor_id())
+ 				kvm_make_request(KVM_REQ_CLOCK_UPDATE, vcpu);
+@@ -9716,7 +9717,7 @@ int kvm_arch_enable_virtualization_cpu(void)
+ 	 */
+ 	if (backwards_tsc) {
+ 		u64 delta_cyc = max_tsc - local_tsc;
+-		list_for_each_entry(kvm, &vm_list, vm_list) {
++		list_for_each_entry_rcu(kvm, &vm_list, vm_list) {
+ 			kvm->arch.backwards_tsc_observed = true;
+ 			kvm_for_each_vcpu(i, vcpu, kvm) {
+ 				vcpu->arch.tsc_offset_adjustment += delta_cyc;
+@@ -9735,6 +9736,7 @@ int kvm_arch_enable_virtualization_cpu(void)
+ 		}
+ 
+ 	}
++	rcu_read_unlock();
+ 	return 0;
+ }
+ 
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index 9fff2f4bf2f1..750ee2f8c720 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -1217,7 +1217,7 @@ static struct kvm *kvm_create_vm(unsigned long type, const char *fdname)
+ 		goto out_err_no_debugfs;
+ 
+ 	mutex_lock(&kvm_lock);
+-	list_add(&kvm->vm_list, &vm_list);
++	list_add_rcu(&kvm->vm_list, &vm_list);
+ 	mutex_unlock(&kvm_lock);
+ 
+ 	preempt_notifier_inc();
+@@ -1279,8 +1279,9 @@ static void kvm_destroy_vm(struct kvm *kvm)
+ 	kvm_uevent_notify_change(KVM_EVENT_DESTROY_VM, kvm);
+ 	kvm_destroy_vm_debugfs(kvm);
+ 	mutex_lock(&kvm_lock);
+-	list_del(&kvm->vm_list);
++	list_del_rcu(&kvm->vm_list);
+ 	mutex_unlock(&kvm_lock);
++	synchronize_rcu();
+ 	kvm_arch_pre_destroy_vm(kvm);
+ 
+ 	kvm_free_irq_routing(kvm);
+-- 
+2.43.0
+
