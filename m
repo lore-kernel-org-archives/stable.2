@@ -1,104 +1,107 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B77A147141E
-	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 09:16:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6241D470E8C;
+	Fri,  2 Oct 2026 09:26:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790932586; cv=none; b=YvPFs1IQFpnZnSmspFjlFVwY1TvrMB86y3EQOK/vJBV+mMP3MiEPob+IOwfhqoSLROvXVE618LuZDUyQxMDukCCLLA7dqJ9UQf3Gt/9pwkpEdf6nZsbPAzeNkhXfrsUpSKeWLd4A8e1BDy61lqSpryY5YBAVRDq51TmallnO5JE=
+	t=1790933166; cv=none; b=eVJOCTUH2Q9fTOEG3ss969kozpCWpVjXegB/7YudhSfCjHzby7dxnJpaiFIdYm//0Qn2D6v2uKxsCFKD/hwO8qKQI6gtjCjTtLowbDXWOMeUsXNlyD1ZOoC8uxqJ6ANy9FNiolVsrakO8MMsjoseCtOkKH6VaiuFYa6ywoDXMis=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790932586; c=relaxed/simple;
-	bh=pFfuAASs4vU8PbL6rfnwmVuYQIlTkdQEJsjJKzsA+Cw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=tT8/LojSmohCF90S6L+h333GInnpdyltQX/sMSbE4ALF+PSzWH40tBJXN5vJ9jdZN5H0lIPtlzc7AlmiJR1H2cPLxpY5+4VtPy4c8rtso1SixjxuH5LQhdpdON6cyxXf/yMRnEmKjGGXjSOqPTGX/87Na5s0SvB0w/3KkV1s4N0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ecXPoYFm; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790933166; c=relaxed/simple;
+	bh=cpOoc8HlZ3e2s+YZ6TdqKW93Dns2IJrqALwipRqPtPE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=e7N/Y5Ovs9BkegK1AgnDXpItaLZC/70WGkbqQ7Yf672Q/I/Uu5B4bEv4RaxkTyJ11RpPr7tjzOicyvciKyB1U2WpxiFF7NLL/GcFI+F1rAtciTthIfi0ioKkc+sJBj/icoQ7ZZsCCSSasdHBw6FdzekOlENRmwY7bNet15JRBGE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=W2H9gbgd; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ecXPoYFm"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48b09f6bbe8so983751f8f.1
-        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 02:16:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790932583; x=1791537383; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RbUJ70a7/T0AAXTkHVeKzaKU/0/JyXpkSVeKdxVFGPw=;
-        b=ecXPoYFm93rYfCIKliOqejuK+VIOq9xERUZ3B+S2nJW1CuOdiyEzr75Jxw0hsz4Slh
-         omfNSqTu2NJZ4U8DB8EnpRILBfzaS+pSxTeh44b8EPg35vK0koOFVQ0MzHs0Oaw2yQbQ
-         W83QVTnDWX1GQHnzrnJPFeYPXSVOyahq4SrIDA2v6ON2Z7AbGPtaxDz7t9lpa1yEgeEL
-         hjCWycoEgTPuj/rRzDF3VtVVnvTwYDcP9k8Mx9eQOb9PyD/qpH/TqNngBFysh7Im5VG7
-         wn9OK/D6RurodVgg+Va5F/W4UdpA9pR6qOrOI26rBWWjtZ8DTRddlVyHpZqzIL2Qm7iF
-         TNvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790932583; x=1791537383;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RbUJ70a7/T0AAXTkHVeKzaKU/0/JyXpkSVeKdxVFGPw=;
-        b=XIEoLLEc64tt6kAK1qR6V/zM5ZkBYQHgqXiPXDCsohmFtpEPgqtOmSiHXFOYK27SRJ
-         sSXd8HuDEYKUdhQJQkXfmrUdEOHw+OC0SeXSkXcWdvrkrG8rMWufR1Gsl9Fm7ysrem87
-         AT2aYYbSyVD0C5bBIyFcwy1yIP/2fsivYFsBUgsU3MXnibPPCTN3/F6WSnX8RMk0tNa2
-         +daY5mb8hVW5/aK4C1fo4pNsorKZ6OhVsXh8WKk61VnW5aT+zEPCWxj87n9/VkOrdyXp
-         NqhOm+oHctJhYmBr8ZDRawQNQBeoGsvLEt8uZ8whI2GB9dN9uwqe5N7sVLPv2gOX9HGB
-         XW9g==
-X-Forwarded-Encrypted: i=1; AKwUvBy4xgRajiVniHpS385xV2a6LCZ2M4vKeHamci9ZUqcb74g52Pmip9e3i1Ary+2JJ3k20XEakHs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIe6wqn/wHIxNyHoE9RwfHr27XAYrQKS4ke44iFVTKtljKMOH5m
-	fnplxfgurtjAtDRBitnnV+dS0ZuG4j8WTy6dyw3WvX4UaNTMHUUQ3U5LLjxfFM2TK53eP9U/Bex
-	n5Fj8
-X-Gm-Gg: AYBFou2SzlzRVIlhupAgUfIp6O4d2bZmDXb7nDZ6WRVTYceirruHuLmYNSzooYzcYDT
-	cdhpU6v3ZXXk6e8Mpny61qmE4t9ckhA9Ex+OdSF4X3jBssCEgh1pruiyuSp2zQMAVa1NTikHPFr
-	1Vt0mo5qGLoqzlPBfY5nTcc0w/dka5idI4zf7DKhv9kuIzjQLBUXNGTCjCUxhHDfwcg0lZCnqgR
-	9eyGoe5+Ag+2zOZ3a6mVhUG5CM2edKjIO+r4NZcW3F1ps5nK6AUdX/M7zcp54VWfd1uyS+j5hmC
-	8T/47IGDzupK8hXmkff6716m9MGNuSHr0Up4J8s5DNOiEacz+5IkzkAqMjZg+G3/a78egzoVtu8
-	g6f6KYykDjNV4ae8t47ElQ6y3RwRHD3jJXXxX/+6kIZPoGNH1hKjLxIUMnN46v/siRcm6GOmPKZ
-	iJUQh3nHy9MWEruk1vOj8HZA91q5m5sR6wcMBtLNYieTzeg/fAdJDCx078pPtAcFaJVJe89m/0H
-	+bTFBw7mkQvZl0KUui+e2s/BdPnyA==
-X-Received: by 2002:a05:6000:2285:b0:487:197a:5c1f with SMTP id ffacd0b85a97d-48b1272b524mr4209416f8f.49.1790932582851;
-        Fri, 02 Oct 2026 02:16:22 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b382f9ad6sm4461292f8f.40.2026.10.02.02.16.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 02:16:22 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-To: Fabio Estevam <festevam@gmail.com>
-Cc: jesszhan0024@gmail.com, dri-devel@lists.freedesktop.org, 
- Fabio Estevam <festevam@nabladev.com>, stable@vger.kernel.org
-In-Reply-To: <20260909201346.937343-1-festevam@gmail.com>
-References: <20260909201346.937343-1-festevam@gmail.com>
-Subject: Re: [PATCH] drm/panel: simple: Add Raystar RFF500F-AWH-DNN enable
- delay
-Message-Id: <179093258210.2282096.13923382036557231233.b4-ty@b4>
-Date: Fri, 02 Oct 2026 11:16:22 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="W2H9gbgd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790933164; x=1822469164;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=cpOoc8HlZ3e2s+YZ6TdqKW93Dns2IJrqALwipRqPtPE=;
+  b=W2H9gbgdFQyeJJa6lcsIyz8BB9SxU8M7yiSVYKKa8mUr8zwdOLfDrYmk
+   dZ0L9jb1RhuH6Vvuz+4WZBQWNpFXGclwHDOoH22C1zeROc9voPoPpJXRA
+   bGhy1B6DEWwUc7qcgmsBRp/y8o/9yjtHhWIB1IqE+P8gpP/zhqU8+/Zq7
+   Na2ciszFEhIGTN4RJ4Sd6GCHi0kFMynNi9wVYhywFlS+iQr7EknIMc827
+   gh8CnFVHHrD8ZDwPM2aelYwDuz3l8vzKjaXvHcyOgQZCQEwQi6Tzp64Wl
+   sOB6KbzRLCWb8+cGRWmK7Cjp/2A6BQ+vodc9q1E5XXU6e4AUq/3NWvIt3
+   A==;
+X-CSE-ConnectionGUID: V56qQiB7RJ+aXHE88KBUgw==
+X-CSE-MsgGUID: tIypn9XSQ0qm7BweQ1geTg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="90599394"
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="90599394"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 02:26:03 -0700
+X-CSE-ConnectionGUID: ek2Qu9S4QuW+t5wyiK8Oxw==
+X-CSE-MsgGUID: Q/uArPbXQuGDlQfIGLVX4A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="314199592"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.188])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 02:25:57 -0700
+Date: Fri, 2 Oct 2026 12:25:54 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Rupesh Majhi <zoone.rupert@gmail.com>
+Cc: Andy Shevchenko <andy@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Eddie James <eajames@linux.ibm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v3] iio: pressure: dps310: fix overflow in pressure
+ compensation
+Message-ID: <ar94oiBYQI8WhOBr@ashevche-desk.local>
+References: <20261001121616.109973-1-zoone.rupert@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001121616.109973-1-zoone.rupert@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi,
-
-On Wed, 09 Sep 2026 17:13:46 -0300, Fabio Estevam wrote:
-> The RFF500F-AWH-DNN datasheet requires a minimum delay of 250 ms
-> between display signal output and backlight power-on.
+On Thu, Oct 01, 2026 at 03:16:16PM +0300, Rupesh Majhi wrote:
+> p^3 * c30 and t * p^2 * c21 overflow s64 at most oversampling ratios,
+> and pressure comes out about 150 Pa low on a DPS310 here.
 > 
-> Without this delay, the backlight can expose unsettled panel contents
-> during display startup, resulting in a brief bright flash.
+> Use Horner form, dividing by scale factor at each step. Overflow then
+> needs a raw value far outside sensor range and returns -ERANGE.
 > 
-> Set the panel enable delay to the datasheet-specified minimum.
-> 
-> [...]
+> Checked against datasheet formula at all eight ratios.
 
-Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-[1/1] drm/panel: simple: Add Raystar RFF500F-AWH-DNN enable delay
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/a92ed345422cd66329b5e9d4e82b0452e185f36f
+...
+
+> +	/* Section 4.9.1 of the DPS310 spec, Horner form to avoid overflow */
+> +	if (!dps310_horner_step(&prs, data->c30, p, kp) ||
+> +	    !dps310_horner_step(&prs, data->c20, p, kp) ||
+> +	    !dps310_horner_step(&prs, data->c10, p, kp) ||
+> +	    !dps310_horner_step(&tmp, data->c21, p, kp) ||
+> +	    !dps310_horner_step(&tmp, data->c11, p, kp) ||
+> +	    !dps310_horner_step(&tmp, data->c01, t, kt))
+> +		return -ERANGE;
+
+Sorry for nit-picking, but since the above checks for overflow, perhaps makes
+sense to use actually -EOVERFLOW here.
+
+> -	pressure += div_s64(rem, 1000000000LL);
+> -	if (pressure < 0LL)
+> +	pressure = data->c00 + div64_s64(prs + tmp, DPS310_CALC_ONE);
+> +	if (pressure < 0)
+>  		return -ERANGE;
 
 -- 
-Neil
+With Best Regards,
+Andy Shevchenko
+
 
