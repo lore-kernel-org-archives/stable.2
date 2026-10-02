@@ -1,174 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D61366562;
-	Fri,  2 Oct 2026 12:29:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790944146; cv=none; b=R7kv3WPM7lEg8eJwTssyh5zUboBqt7fKi1rgRlQOtOaUUoAWAruZJ/qoZEUmbqVatb4RKsqP9Bxkw9Ay0RQnYSOi/Vhm3cMa5otZXetryQFw+haibEnn4bNpCNS2wCDEAZAzp7ZgBWsXYu/0vX5Ievm7SOxYFjtOIn+lBeLLW80=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790944146; c=relaxed/simple;
-	bh=ciRbaJTfwAJ3dOyS9/3Y9bAYt1vcab+c0z1GDcG2YtE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=flI3Jd3Cd11fpPSoMJY6mopqcUqByFnYalfuZMqqbjv0n4iqo+HHg1h/4Rn7RA5ewd7Dd2y29hSqHO+Y0KkJZN2qk7i4Ol1Ask70UCzCMXixVkpQ+YmWjS+nguHpw/kQC4OL9+gNFbb0j+FSK/gpr7EA461buhMkvkvejqTsqv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XMRhZpoq; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF56C3749F7
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 12:35:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.99
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790944534; cv=pass; b=QfBq1gcCKw8yYrhHGJ77dWidq7C5ymvVnFPtHv6MsYZbo107NsjGhypSmU8oL3wpADTGyo8iXTOK1gig4iQ4u2cqsB1bNwpcIInYsJu/njGXZ7IlCkabL/vysuPE4/qkdt4a4aBw+dEYU9lZFeSxfdFjP3i0nrBo3IkPp5kG7+w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790944534; c=relaxed/simple;
+	bh=g4tRzOP5gurinKLHFfhUWYn283fXknP0F1ZZM22K23c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fFPb5+Yl9nsHkXsldoceCw7KzyVL76F5OgvL0jZiLaFXGE3SlZt5rY228i6j/RM+tAFHUsXYO8pFs2FiPeZ7YfHV3Of4jPhkfUF9tXn93MTGaagG4wJPgDJFnVAuFdLGgW58u2GOckSPzz60nXVgBuURJReZj0s8nHlPCbAW17A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B/NEsgJL; arc=pass smtp.client-ip=74.125.228.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XMRhZpoq"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3DA91C2BCF4;
-	Fri,  2 Oct 2026 12:29:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790944146;
-	bh=ciRbaJTfwAJ3dOyS9/3Y9bAYt1vcab+c0z1GDcG2YtE=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=XMRhZpoqS3ZpVV5qHWKNBnEa1Cjack7NXR5+zEF9AQHjufF3Nzje0Xwd/5jeZ1QN+
-	 AtTgHKJ1t4m0U2nTVgSx51eE764s4ZsvBJP+PvKKbnI7jqhED04K7K1tZO+r9tKEYf
-	 3SL+cNmMrkKD9AHk5BAID2xK4o9DRErD/vcVv4jtZ7kyIRbzZ9ROEMTXYEaqclgdWK
-	 vI2vcM0eI5UTroefA5kZXsLNyEouhBiBeBmlPpojuOeu8WH80y8z3pb3TdIpK9bmz3
-	 QFC2F56fzJlTmfXO5fgdvVxaJ151VHqzf1Cw7K/m7ZvW14HKnDWS6DT0xaKJpwS2yj
-	 CmV2atk51jvsQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 15CF3CA5FDD;
-	Fri,  2 Oct 2026 12:29:06 +0000 (UTC)
-From: Fredrik Nyberg via B4 Relay <devnull+fredrik.nyberg.volvocars.com@kernel.org>
-Date: Fri, 02 Oct 2026 14:28:57 +0200
-Subject: [PATCH net] net: usb: ax88179_178a: fix rx frame length for
- non-last packets
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B/NEsgJL"
+Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6aaf10bf094so11033143a12.2
+        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 05:35:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790944531; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PEZmcDqTxXg4i/jlTsQBDGlHubwbjsmcBPX62wV/D3nlOEXviE43J3xdwBigMvKNTR
+         KMt75drKafG0E5/W4a7s3iuwmiB3hq6IyemLgKloyx2eTxZk+xwdSMzAffTdVmdeNZlI
+         6xvQkRmyL5T9HAJNnnmzRc0t2H1lX+L65B6MQn6MfQqY1600pmQfB9zXAv9ihHAYH4ko
+         yoC5XAoV9xoowxAI7DRj/WWcmJNyrvfaAzHlGN38FHK1xbXcd+D8RkxOy5xz0c8blAqd
+         7CjIyI+Z4tJFLpdFOGDS6UxjB/81N8EibsF++6RRdb5gmplMxsVu6NCHp+6rlbkfRLE/
+         LKJw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=g4tRzOP5gurinKLHFfhUWYn283fXknP0F1ZZM22K23c=;
+        fh=CAvDOzg+XcWC5LpM+DugKgt14LYBrgVKQF0CsS3uLV0=;
+        b=KDkUT/PmX7nUwj+8e1tKatgTVuvaLLg31LHJxmtrsmWrGPLfzhv4FQ7fY4LxkYuXmZ
+         Sw5fwct14APYicCmTF4Z4Rc1VNhcBT8vHyTTwbLKZiNxpD2o/oxRgSKth94pQZQDQ6DF
+         irW51K2beILJaEn03siPri2oHfI1E8gYH/caimt93askvL2X1dkfAfO/8CW9xsZ7o/Hn
+         UPEaeiggldgss8okrswSjCUbK+NTtkGAeOcQ1l0x9LRLpgelTvIGiH1v0uNG1qr/pJRv
+         Ev31FMTe0o8Z4r7kJvczuHtBSBT5du2yXFf1xSs3mMV+obu+QHh2DGRcBLfc8WWo+Diu
+         K6Ug==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790944531; x=1791549331; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=g4tRzOP5gurinKLHFfhUWYn283fXknP0F1ZZM22K23c=;
+        b=B/NEsgJLmQsJc4ZodJrgL5R8Pi+rrM8G4dXnN1gEqnakWp0Da44FRip5Pu9QYTz887
+         oMBJ+Y9y+Ec5WRQdmBhwMhX2cuQsiRHpfraPcYKjqPF0dkqVRacbNg8nnBElkd1fiQfQ
+         zhSCR+wo/1oEy5oErl+aEFFNFx6N99QMKtXxd+amrRmgRBwmp06cV1nIRARDmv+xCw4/
+         olmA42Ml6GlAR/aGdbwwElMVO5igcRyaz5fk0Ww46SDEtMou8JHHQgkm2bobhCXIt+YC
+         OWX0I68TDaoawIdIXijKXGg1RnzjN0Sko8arHVzaLuFJD2zVzz/jppyToMQVIuzNR7y1
+         Tg3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790944531; x=1791549331;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=g4tRzOP5gurinKLHFfhUWYn283fXknP0F1ZZM22K23c=;
+        b=SDFRItc6zmNbpAiIs77eJt1q7LIDDDcELLytvvGbP2bxTaTj2lB1O8nem2YsMqIL4Z
+         zAH1upxSGzTD7ld83+Qt5cKyIVtWyzpINz+FDHRC3e1X97pU7gtnfRn5EKUvAJrWGcTX
+         bEQQmEra9/xEtiQkwQmMS17+OH2y8NUnTP9WkB8k6p13BNzh62NU5yybj8AdLnuIa/pm
+         nSrTwGKngyzx9GF9Nm2nu7wMmqK9BBR7okIke97pJsNOm6VU9NLKFNAJWIiEAvULcNZi
+         4yQ12ra32m7WhrZ2ZjbsRgQr2xfjnzmltz4u8oxWTVjXzCFAxosSA2MqfhuKkK1L5uSM
+         Gyww==
+X-Forwarded-Encrypted: i=1; AKwUvBypg9lOPiQZi0dChXBUqqaza+DfoD3BRC+b8laM4bmeIL9gspMmG8FbtTDDaFWeB+zGJ2h9qlQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lHkQR6go13/RjgNUF0Byc3fluRlm6A7JWYyHEc4H0GY6hXk6H+
+	96WLcxX1fzawzAf6gzHEIM+c1FmufveuL5MrY+JfuPTaasSLwrI+xnMMHWGJVUhPeh6kcpn2q07
+	/tcO1JtRXkfoRSCFq8Tnbe23fH1Sj3jA=
+X-Gm-Gg: AYBFou0e6cPk1CNkUBzUNGDA7VGCYlQzan46zBlhShtiYsSozWMKkEzYY4fRc8G7ZUp
+	dm9BmDwBzUQ0gOmrqjX50F74AMOfedYA1OXitSyeGaio1NKEbPVqpkhsdB43P0IlTYVON5G5tg/
+	bqIfDmY6p7Bf02ctsajoLUPXA9LE5r3hrtDWupTfLt+rGm2uq2xlXRsSAFpL6SriqrlSsT8Y6pv
+	Kzon5xnVU3RBh6YMGXwQ3k9Ca23Jkxyt5sJvks9ffHTShv/EyyIIkVAyPjRxWk4KmuJoptgY//5
+	0vsgooyIfPRQ02m1kYKeHP7bABi+OSykHLybrI0ni+lDAnUjxJ2P2w==
+X-Received: by 2002:a17:907:9490:b0:c29:f5d5:5a96 with SMTP id
+ a640c23a62f3a-c2e4b20d9c2mr208899366b.32.1790944530536; Fri, 02 Oct 2026
+ 05:35:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261002-ax88179-rx-len-v1-1-f01a2a295079@volvocars.com>
-X-B4-Tracking: v=1; b=H4sIAIijv2oC/yWMQQqDMBQFryJv3Q9JEE16ldKFid/2i6Ql0RIQ7
- 97ULmdgZkfmJJxxbXYk/kiWV6ygLw3Cc4gPJhkrwyjTaaUMDcVa3TtKhRaOZH1oXavYWd+hRu/
- Ek5RzeEPkFfe/zJufOay/FY7jC2PISDp3AAAA
-X-Change-ID: 20261002-ax88179-rx-len-8bc4940e98b6
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: linux-usb@vger.kernel.org, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Simon Horman <horms@kernel.org>, 
- Jose Alonso <joalonsof@gmail.com>, stable@vger.kernel.org, 
- Fredrik Nyberg <fredrik.nyberg@volvocars.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790944143; l=4935;
- i=fredrik.nyberg@volvocars.com; s=20261002; h=from:subject:message-id;
- bh=IRKcnIrPbqh8pcvFDSL7Xq7XQH9sQAAtncyR8eGC+EY=;
- b=yeLr4ykB1Bo2Pi9/VFxQzGmWnJCsZ/hSK5WU7sEibPp11igOTBJiDZswizNHZuEvBq8DCclLF
- D1dlfW5tiGbAp7XFUnT9rqx5nXF2ZYITnLYJmTBIxhvhCx3vFPtbkN0
-X-Developer-Key: i=fredrik.nyberg@volvocars.com; a=ed25519;
- pk=qID6RVpkd1ixl+9o9DvizyEtYlu5k5KPZfGbD6OqhwI=
-X-Endpoint-Received: by B4 Relay for fredrik.nyberg@volvocars.com/20261002
- with auth_id=1100
-X-Original-From: Fredrik Nyberg <fredrik.nyberg@volvocars.com>
-Reply-To: fredrik.nyberg@volvocars.com
+References: <20261002100935.449473-1-al.kochet@gmail.com>
+In-Reply-To: <20261002100935.449473-1-al.kochet@gmail.com>
+From: Siarhei Volkau <lis8215@gmail.com>
+Date: Fri, 2 Oct 2026 15:35:19 +0300
+X-Gm-Features: AclHuK8oT17fr99ppSn_bGvjxkd_dqcCHCFbqpWJG6tCtlizdpUY_p2i8jO-OAQ
+Message-ID: <CAKNVLfZG0cnu09mZ2HYRRvbSd4uLeOBXR--nUHK9YtOb+a0TTQ@mail.gmail.com>
+Subject: Re: [PATCH] Revert "Input: matrix_keypad - force switch rows to input mode"
+To: Alexander Kochetkov <al.kochet@gmail.com>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Paul Cercueil <paul@crapouillou.net>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Fredrik Nyberg <fredrik.nyberg@volvocars.com>
+=D0=BF=D1=82, 2 =D0=BE=D0=BA=D1=82. 2026=E2=80=AF=D0=B3. =D0=B2 13:09, Alex=
+ander Kochetkov <al.kochet@gmail.com>:
+> Siarhei, Paul: you both agreed to the revert in the thread above, please
+> reply with your Acked-by/Tested-by if you would like it recorded.
 
-Commit 4ce62d5b2f7a ("net: usb: ax88179_178a: stop lying about
-skb->truesize") replaced skb_clone() with a copy into a new skb for
-every packet of a bulk-in transfer except the last one. The copy skips
-the 2-byte IP alignment pseudo header but still copies pkt_len bytes,
-and pkt_len includes that header. Each of these frames is therefore
-delivered with two extra trailing bytes: the 0xeeee pseudo header of
-the next slot when the frame ends on an 8-byte boundary, or slot
-padding otherwise. The last packet is still trimmed to pkt_len - 2.
-
-IPv4 and IPv6 trim the extra bytes, so most traffic is unaffected.
-Anything that relies on the frame length is not. MACsec takes the ICV
-from the last 16 bytes and drops every such frame as InPktsNotValid. In
-our setup that was 0.2-1.2% of received MACsec frames, depending on how
-many frames shared a transfer, including service discovery multicast.
-
-Allocate and copy pkt_len - 2 bytes, like the last-packet path.
-
-Fixes: 4ce62d5b2f7a ("net: usb: ax88179_178a: stop lying about skb->truesize")
-Cc: stable@vger.kernel.org
-Signed-off-by: Fredrik Nyberg <fredrik.nyberg@volvocars.com>
----
-Found on Ubuntu 6.8.0-138-generic, whose ax88179_178a.ko carries this
-change (it imports __netdev_alloc_skb and skb_put, not skb_clone), with
-an ASIX AX88179 (0b95:1790, bcdDevice 1.00) on a USB 3.0 port and a
-1000 Mb/s link. The code is unchanged in current mainline.
-
-Bulk TCP from an embedded board (Linux 4.14, stmmac) into the AX88179,
-captured with tcpdump on the sender's Ethernet interface and on the
-receiver, and matched frame by frame:
-
-  path            frames  +2 bytes  other differences  InPktsNotValid
-  802.1Q 16 MB/s    5812      2665                  0               -
-  MACsec  5 MB/s    6208        15                  0            +14*
-  MACsec  5 MB/s    6112        32                  0            +31*
-
-  * counter window slightly shorter than the capture
-
-- No frame was lost or changed apart from the two extra bytes. RX
-  checksum offload on or off made no difference.
-- In the 802.1Q run every frame ended on an 8-byte slot boundary. Of the
-  frames that were not the last in their transfer, 2662 of 2664 had the
-  extra bytes, always ee ee; of the last frames, 3 of 3148 did. Transfer
-  membership was inferred from receive timestamps, so a few frames are
-  misclassified.
-- A usbmon capture of 1393 bulk-in transfers showed that the device
-  reported the correct length (pkt_len = frame length + 2) for all 2458
-  IP frames and that every slot started with ee ee. For the 1061 aligned
-  packets that were not last, copying pkt_len bytes from data + 2 takes
-  exactly the next slot's ee ee, so the bytes are added by rx_fixup, not
-  by the device.
-
-To reproduce without MACsec: turn GRO off, receive a bulk TCP stream on
-the adapter while running tcpdump, and count frames of 64 bytes or more
-that are longer than their headers plus the IP total length. On an
-affected kernel many of them end in ee ee. I can send the small script
-I used.
-
-Tested with this change applied to the 6.8.0-138 driver, built as a
-module, back to back with the stock module on the same setup (8 MB per
-path, matched frame by frame against the sender capture):
-
-  driver   path    RX csum  frames  +2 bytes  InPktsNotValid  retrans
-  stock    802.1Q  on         5792      2835               -        -
-  stock    MACsec  on         6141        25             +23      +21
-  patched  802.1Q  on         5818         0               -        -
-  patched  MACsec  on         6299         0              +0       +0
-  patched  802.1Q  off        5820         0               -        -
-  patched  MACsec  off        6255         0              +0       +0
-
-With the patch every received frame was identical to the sent one.
-ax88179_rx_fixup() is the same in 6.8.0-138 and in net, and the patch
-builds on net with W=1 without warnings.
----
- drivers/net/usb/ax88179_178a.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/usb/ax88179_178a.c b/drivers/net/usb/ax88179_178a.c
-index 81d8412ce8..cba1dc95d3 100644
---- a/drivers/net/usb/ax88179_178a.c
-+++ b/drivers/net/usb/ax88179_178a.c
-@@ -1457,11 +1457,11 @@ static int ax88179_rx_fixup(struct usbnet *dev, struct sk_buff *skb)
- 			return 1;
- 		}
- 
--		ax_skb = netdev_alloc_skb_ip_align(dev->net, pkt_len);
-+		ax_skb = netdev_alloc_skb_ip_align(dev->net, pkt_len - 2);
- 		if (!ax_skb)
- 			return 0;
--		skb_put(ax_skb, pkt_len);
--		memcpy(ax_skb->data, skb->data + 2, pkt_len);
-+		skb_put(ax_skb, pkt_len - 2);
-+		memcpy(ax_skb->data, skb->data + 2, pkt_len - 2);
- 
- 		ax88179_rx_checksum(ax_skb, pkt_hdr);
- 		usbnet_skb_return(dev, ax_skb);
-
----
-base-commit: 71a77ab76e74131a101f4d2d2afb0dcbf81b4e3c
-change-id: 20261002-ax88179-rx-len-8bc4940e98b6
+Acked-by: Siarhei Volkau <lis8215@gmail.com>
 
 Best regards,
---  
-Fredrik Nyberg <fredrik.nyberg@volvocars.com>
-
-
+Siarhei
