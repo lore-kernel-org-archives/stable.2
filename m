@@ -1,45 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52C303D2FEC;
-	Fri,  2 Oct 2026 21:10:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 384B941D4FE
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 21:10:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790975445; cv=none; b=SHzspHTg5dTaFENrn8II78g3FTXuIhX7tEqOeSIkHsLl0EhxjNWuPE3kcFTrmJESDxaSofyv4ic5fDKLnaB/NycwUamljntTp9rSCTnPdfCQULOQvMWmiKTQgIphVLYgccAywz5qli0ooijCmLNJxy2R+bH4LGkDWG1ylPyI/Yk=
+	t=1790975446; cv=none; b=Rg+vva2OQGOQ5TtZJybFcwGD33XoqMT/EZq6Fuq/vdQFLkE9BarW8colwp02eAkks3JAZrktjL1WK9OVb1W75Pg4yDF8KjA6zT/llRhq9RbF5DC7MZ3Q+i+xr33npVM77TwNB0XtsubFXgDnJ9mXzm45EQanI6peK+pYxpRwxqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790975445; c=relaxed/simple;
-	bh=SnSaeyTdXmzNVrgymOXMNz6WX5KAW8htMVm8JeHF4Rw=;
+	s=arc-20240116; t=1790975446; c=relaxed/simple;
+	bh=4hQZ1hv95ZmLUZyAQdcAX7t2YJsMN4p/wo5AphmXl9k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GNoOng+M1JXvC9idRUUyXZlry3K3DDc8HJlX7hbI65GM7xWESx7ErLOXKbl/ts3mdWf5IteK2QBZfFX5Wyw/TvCVwOv1UUOanNM1MVYDecZzD/xrrqLMpwz6WF/Dkf+vmX/tyqrDT+MfwCF7pELJjcc1U0h7jpBUolypDvYRD98=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PKkczJWu; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=HpVdMDFauknAsjzOSElMpAsMyXqwuyZMVGQQlWlWeGLkdjXKINYzA/pqqjPQqIbfgcMdjXbF8yOsWymGGoUhMyIn0prQmTV/vk3scTsh61J+m8pZviRML9Yv3Y17MbnkWBtSksxHiotVF6oCxeJOipJ76OGYOBx4XkDNJb9LTzs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nEqUOkuj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PKkczJWu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 680E21F00899;
-	Fri,  2 Oct 2026 21:10:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nEqUOkuj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FB051F0089B;
+	Fri,  2 Oct 2026 21:10:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1790975444;
-	bh=UTd82VV5aLmCE8TeXxBJ+4PuiUKnaEX1gfylvQo2ivA=;
+	bh=+8qbwfZzE051hnDQa8btdgCT77C390hUhWlyp8BUNks=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PKkczJWudLpXRnMlLSpa1bjHUUJwTSOrs/BEbacU7+HW/N7cZ/SJ80Z/Ulck4ysWc
-	 yErQu7ENR1gBWn7RlMzJEiFSx7vcLDdoxvbQBq5QzC+FdgL2r+Iaix5UjzoriOL1+Y
-	 hXoq6tKKj9XsnAWYMHThOGoC3CcrTqiAApVV3uO7rlc6ESxSlBa23YyG11TjTXvEN0
-	 5yVj4eU9Vd3nMJgz72TuLkq7fwzKa0MXGsshtbliLJ4AszhNMmlMXIFyi5Zmrgq2+j
-	 mi0V/G92Yz82kZ6z4s7a+bQoYlWyJcNxZa+Q4ryB3WbOx1mteS/RjpL3CGSAmaE/5w
-	 luEN2AeYGE1sg==
+	b=nEqUOkuj05zXILcVY+Kwt5Ja3BLrKBXuoUB7dzS9oR6lYjLC4yi/Qq1TZw+oNvblu
+	 sl9vOt3pg4qsg1Zcky90452JNwgKRLgdZoynlmARZb8tUR0tuptzljSVKXe6X6pbwk
+	 u5Znsj0mmcow6cUKJoGwm40mOzNSdKIDfTm0PT+JylHDb/oM8ZnQmJQadasOlKCtDl
+	 hOtctsIHIYwDsr0h7A/wiE7GobomRnsv06ZXlar3Spmzh7IKLqvhvUlLuek49Ajf2m
+	 yWC2lPCXOZwYyBCnCzgvbAoI/mb27aUMouJAMAiUrfaZ6F10na4xTGPjhCElgCIgsw
+	 rSM4SKWlTf4mA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Tibor Harcsa <silurust@gmail.com>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	linux-bluetooth@vger.kernel.org,
-	Iaroslav Voitovych <yaroslav.voytovych@gmail.com>
-Subject: Re: Please backport dc16388d45ec ("Bluetooth: btusb: Add IMC Networks QCA9377 to quirks table") to stable
-Date: Fri,  2 Oct 2026 17:10:31 -0400
-Message-ID: <2026-10-02-1-daily-reply-0005-re-btusb-qca9377-imc-backport@kernel.org>
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH stable v6.12 backport 0/2] ASoC: SOF: ipc4/Intel: Library restore firmware functionality
+Date: Fri,  2 Oct 2026 17:10:32 -0400
+Message-ID: <2026-10-02-1-daily-reply-0006-re-sof-ipc4-library-restore-6-12@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261002012542.473669-1-yaroslav.voytovych@gmail.com>
-References: <20261002012542.473669-1-yaroslav.voytovych@gmail.com>
+In-Reply-To: <20261002102353.26919-1-peter.ujfalusi@linux.intel.com>
+References: <20261002102353.26919-1-peter.ujfalusi@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,13 +44,11 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> please consider for linux-7.2.y, linux-6.18.y, linux-6.12.y, linux-6.6.y
-> and linux-6.1.y:
->
->   dc16388d45ec ("Bluetooth: btusb: Add IMC Networks QCA9377 to quirks
->   table")
+> Please pick/apply the following patches from mainline to v6.12 stable:
+> cec49fa47bcc ("ASoC: SOF: ipc4-priv: Add kernel doc for fw_context_save of sof_ipc4_fw_data")
+> ace9b3daf2b4 ("ASoC: SOF: ipc4/Intel: Add support for library restore firmware functionality")
 
-Queued for 7.2, 6.18, 6.12, 6.6, 6.1, 5.15 and 5.10, thanks.
+Queued the series for 6.12, thanks.
 
 -- 
 Thanks,
