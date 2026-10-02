@@ -1,413 +1,225 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC0BD377A81;
-	Fri,  2 Oct 2026 05:32:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790919181; cv=none; b=M5WeCaamHnG7x3TMiwf+5oRzcQdwH3pPOTRSTiIsxeVsjoqtlzVCAR3NLeX3i/AU0ByTkcjClrvNW2XEKN93znAvIJFPHyaqZxSun9YpWrbYukCJaoE98xQEpnclvaRLoerhwYAU4883FHyNHgkotZI4p1xx8fQEp76NWvQ2hck=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790919181; c=relaxed/simple;
-	bh=5fR8XI1ZEmNG6weXpXbU4sW5t5o3ly+HoLt8cA2Q8yk=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=UyqG5bc9E6cZPMhaZb9uuFt6MJjiUZyMfA9IiQX504lff05Zb6xIezWE9eypEvwpolCeaUoDjy1bRILRkIbTXIqVr7Or/Y5cgljU/9/gtDUh1eABK1K0NMkXpbHqzndg3Gt35vVhPUJMr1XvwKN3VNM/isy8Q2tlgh5JZMG7gV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gSNYpFOw; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 804E4380FFD
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 05:33:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.19
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790919223; cv=fail; b=I9KjofuwxttU1/6IXJBtJdgZpg/AmflL1RAucjf77n5CvQBrVHBgPtZtI1fBQNich3RgeSjhtW05za1Kor5ui0NE+krhjawv8YeCZittBkZcbsBF1myP7JG25kcOY149LiwBIRzOoviK+iXh+SpAn6G7jmbX/is/W/OS6jQPKvE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790919223; c=relaxed/simple;
+	bh=JDbSo6jQM7jOB4H3aO7jKmtb3cQDFRnwUtZ/3hwK+io=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=rUAkFEiRXkIlW3Ff77/eVBHMQsHidZqG1elklL4P6QvJxbNxq6ECaeDKZoutWgBsMM3tYJE+CFyQfhcwKVYf2GLN4n1cuxzhes3YON0hrzi07FcuGCkXDSdQx09vToSX75YcxTiJnE05drSRkDWqIHBMBpNs4TnqOcOc/aKand8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Zb12rzMU; arc=fail smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gSNYpFOw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84B2B1F000FF;
-	Fri,  2 Oct 2026 05:32:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790919170;
-	bh=CoVWSZX+Xvv1m88OSTsqz9MZ+Eh+7jD5+KQpJAhjTUM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=gSNYpFOw/GnO06tibC2WpN6YUhPr/PETOG0bqZw5j1bDlqvc3OPAEILZTC7ANcHp3
-	 S0IUUEWt7Dglt+q5LJq2MgfcuV1D0ij+H5LPdB+jEZerEoOgclFOcqmZrki0Z96ZzD
-	 FdTlyH2Jxq+2eTcf9hPQTED7HTAQBxtN8WzEx+NjkdDvQ4jtI0wTLepPs5JtMVvHzh
-	 itBhSnz3G9CfRWte7G7uqCUmnM6DQPQ9zzdIALmNlvU2p+PmZezHg2QrHtEoTKERI2
-	 h5vZffAFrQQJES99DYrCZ2KYMSJhDWMcK8lhdw8uIxcdeE68TAO04APmdXUTvB6eth
-	 RPMuI68wQ4knw==
-Subject: Re: [PATCH net v5] net: mana: fix reset work race with device removal
-From: netdev-bot+sashiko@kernel.org
-To: fanwu01@zju.edu.cn
-Cc: netdev@vger.kernel.org, kys@microsoft.com, haiyangz@microsoft.com,
- wei.liu@kernel.org, decui@microsoft.com, longli@microsoft.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, linux-hyperv@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, songl@zju.edu.cn
-Date: Fri, 02 Oct 2026 05:32:49 +0000
-Message-ID: <179091916908.434549.1012399591583356885@kernel.org>
-In-Reply-To: <20260927105243.592348-1-fanwu01@zju.edu.cn>
-References: <20260927105243.592348-1-fanwu01@zju.edu.cn>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Zb12rzMU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790919219; x=1822455219;
+  h=from:to:cc:subject:date:message-id:
+   content-transfer-encoding:mime-version;
+  bh=JDbSo6jQM7jOB4H3aO7jKmtb3cQDFRnwUtZ/3hwK+io=;
+  b=Zb12rzMUy7EjI07xEVOMAgPjFiDyHaSQyUCKu03nL3BuhxXkuZ1Py7SC
+   Tc8UiW8lMnPRqOz6lP9PrBhgEap3N4BMA2m7YuFjOZIyw+DpQMxCVUEJn
+   oC3uWJIinRvVi2oW3fVxx3omI185QEbgtbcN0YVmC+dPyMOkIhQgH9o0F
+   CGzSO0KokhxJsrgDQQak+bgs/VvZB7BRpHWluETiOC8/heSL2wGkoqphm
+   dgEe5gHk1xHqvwx4wZXacjuQybRSFzD9fZoggYq0I8QQ53if6bWKqyb1Z
+   KAOWOcuy+pwIaR+kD2ngfQxZcKEHrXDEo/Vtlu3OhIuXMq/U/joMrGiMs
+   g==;
+X-CSE-ConnectionGUID: azdRNSpSQ+SQmtmSRxjspw==
+X-CSE-MsgGUID: r7OB5t+6Q/6saBmoYrOUDw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="90639306"
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="90639306"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 22:33:38 -0700
+X-CSE-ConnectionGUID: JOPF+o1AQWe26o6GGVGS8w==
+X-CSE-MsgGUID: Ik/5NK9FQbuLZGODUKx5sg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="305675405"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 22:33:37 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 1 Oct 2026 22:33:37 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Thu, 1 Oct 2026 22:33:37 -0700
+Received: from CH4PR04CU002.outbound.protection.outlook.com (40.107.201.70) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 1 Oct 2026 22:33:37 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LovMcdikip6QlRrEGWk7y4hKK5uWtHtySJUrZ2AWlA6Rjv09Ne0GJNSobCaylf2ZTDBkk0HEPJdM6UAL8Ach84YBdKz7AQXpiVg6h0kCXipaMtDnm74wDNV9WHMg7WbJ0JRXKSh/c36zc+pBjOnJNgPxjOa81E//EtqzzJyccN1CKgLhg93PZSSxCXkbL9UdHygTpz4pbjdbxytYaRiGQGYFlRZt6xds4M4+xniDJlR7oDdbIG2JxaAgnS6oj5ScWpyVEpG/MrV4x6e8DwZz0IsvaRaq6MUKKqw556yFarR+215KAwMgKmYNZRtQN39pN+nlgUbT84TOtYN7YbrCFw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ub5Ho8XgCYfQ5j0k6VaCLQnCicxp2BP/SjfSOvu1h94=;
+ b=XuYh+Yro4Ik4sLQH2FETchWlNS0HfDIrT5fG5Z21h4b4F2/U4bgKgmgjyu5k4REPRKGKhmRZy1piNEHItps2IUI6OHc0iK/5tAGDzJsrmg7VvMkJl3novw01+uuPTWFl9Ap6DSffiC9ABw52tZEpPbuibcc7GciD9exzPNix2BqKPDHcPkGyUHYTqw6sYZHEA9R8CysMjHOEolGWosYqm11XNMTStRk4le7dwUjLXw7cF1On25YYMGP48HVrhpOAqASBGl/foOru1TR0B2Dg4U2Ys9KlxSn8PGj0LC+x8+uBsdysKBK5IWHt3X6NgLg+OvRs8oHqA1DN30oY3HpX4Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH0PR11MB7424.namprd11.prod.outlook.com (2603:10b6:510:287::7)
+ by DM4PR11MB5325.namprd11.prod.outlook.com (2603:10b6:5:390::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Fri, 2 Oct
+ 2026 05:33:35 +0000
+Received: from PH0PR11MB7424.namprd11.prod.outlook.com
+ ([fe80::c448:1138:6981:52e2]) by PH0PR11MB7424.namprd11.prod.outlook.com
+ ([fe80::c448:1138:6981:52e2%5]) with mapi id 15.21.0472.015; Fri, 2 Oct 2026
+ 05:33:34 +0000
+From: Krzysztof Karas <krzysztof.karas@intel.com>
+To: <intel-gfx@lists.freedesktop.org>, <iommu@lists.linux.dev>,
+	<dri-devel@lists.freedesktop.org>
+CC: Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>, "Will
+ Deacon" <will@kernel.org>, Andi Shyti <andi.shyti@linux.intel.com>,
+	=?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>, "Janusz
+ Krzysztofik" <janusz.krzysztofik@linux.intel.com>, Sebastian Brzezinka
+	<sebastian.brzezinka@intel.com>, Krzysztof Niemiec
+	<krzysztof.niemiec@intel.com>, Krzysztof Karas <krzysztof.karas@intel.com>,
+	<stable@vger.kernel.org>
+Subject: [PATCH] iommu/dma: Catch scatterlist length overflows
+Date: Fri, 2 Oct 2026 05:33:20 +0000
+Message-ID: <20261002053320.3145901-1-krzysztof.karas@intel.com>
+X-Mailer: git-send-email 2.34.1
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: TL0P290CA0010.ISRP290.PROD.OUTLOOK.COM
+ (2603:1096:950:5::14) To PH0PR11MB7424.namprd11.prod.outlook.com
+ (2603:10b6:510:287::7)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
-
-Critical: 0 · High: 1 (1) · Medium: 2 · Low: 1
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The rescan exits signal 'idle' to remove/shutdown before the PCI
-  manipulation they still have to do.
-- [Medium] Probe rollback leaves admission open.
-- [Medium] Embedding serv_work in gc allows a workqueue self-deadlock
-  through a recycled work address.
-- [Low] Comments in mana_gf_stats_work_handler() (mana_en.c) contradict
-  the code.
-
-Pre-existing issues:
-- [High] This bug predates the patch, but the patch leaves it in place.
-
---
-
-net: mana: fix reset work race with device removal
-
-This patch embeds the MANA service work in gdma_context and adds a
-serv_lock and waitqueue to control when a service cycle may be admitted
-and when it retires. Removal, shutdown and the probe unwind close
-admission and wait for any in-flight cycle before freeing gc. Reset
-events seen during probe are latched and left to the probe rollback path.
-
-> diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-> index 8e9bfc1d6a2ae..4ebe595971a4f 100644
-> --- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
-> +++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-> @@ -659,63 +659,149 @@ EXPORT_SYMBOL_NS(mana_gd_ring_dim, "NET_MANA");
-
-[ ... ]
-
-> +static void mana_serv_rescan(struct pci_dev *pdev, struct gdma_context *gc)
-> +{
-> +	struct pci_bus *parent;
->
->  	parent = pdev->bus;
->  	if (!parent) {
->  		dev_err(&pdev->dev, "MANA service: no parent bus\n");
-> -		goto out;
-> +		/* Still bound: keep admission open for later events. */
-> +		if (gc)
-> +			mana_service_retire(gc);
-> +		return;
->  	}
->
-> +	if (gc)
-> +		mana_service_retire_removing(gc);
-> +
-> +	pci_lock_rescan_remove();
-> +
->  	pci_stop_and_remove_bus_device(pdev);
->  	pci_rescan_bus(parent);
-
-[Severity: High]
-Can mana_gd_remove() or mana_gd_shutdown() finish while this cycle still
-has PCI work left to do?
-
-mana_service_retire_removing() clears serv_in_flight and wakes
-serv_waitq. That lets mana_service_quiesce() return, and the teardown
-owner carries on.
-
-The cycle then takes pci_lock_rescan_remove() and still runs
-pci_stop_and_remove_bus_device(pdev) and pci_rescan_bus(parent). Both act
-on a topology captured before the lock was taken, and nothing checks
-again whether teardown already happened. mana_serv_fpga() has the same
-ordering.
-
-Shutdown: mana_gd_shutdown() gets past quiesce and runs mana_rdma_remove(),
-mana_remove(&gc->mana, true), mana_gd_cleanup_device() and
-pci_disable_device(), but the driver stays bound. The cycle then removes
-the device, so device_release_driver() runs mana_gd_remove() a second
-time through the leftover ac. The second pci_disable_device() then hits:
-
-    dev_WARN_ONCE(&dev->dev, atomic_read(&dev->enable_cnt) <= 0,
-                  "disabling already-disabled device");
-
-After that, pci_rescan_bus() re-enumerates the function during
-reboot/kexec.
-
-Unbind or sysfs remove: after gc is freed, the cycle still removes and
-rescans. Could an unbound or removed device come back and rebind?
-
-Hyper-V VF hot-remove: a removed VF makes mana_gd_resume() return
--ETIMEDOUT, so this rescan exit is the expected branch.
-hv_pci_remove() calls mana_gd_remove() under pci_rescan_remove_lock and
-quiesce returns. hv_pci_remove() then continues:
-
-    pci_remove_root_bus(hbus->bridge->bus);
-    pci_unlock_rescan_remove();
-    ...
-    hv_pci_bus_exit(hdev, false);
-    ...
-    kfree(hbus);
-
-The waiting cycle then runs pci_rescan_bus() on the removed root bus.
-pci_bus_get() in pci_alloc_dev() keeps the pci_bus struct alive, so
-config reads still reach hv_pcifront_read_config():
-
-    struct hv_pcibus_device *hbus =
-        container_of(bus->sysdata, struct hv_pcibus_device, sysdata);
-
-Does that use hbus after it has been freed?
-
-Could the cycle recheck under the rescan/remove lock whether teardown has
-already taken over? Or could it hold off signalling idle until the
-remove/rescan is done?
-
-[ ... ]
-
-> @@ -738,7 +824,7 @@ static void mana_serv_reset(struct pci_dev *pdev)
->  	if (ret == -ETIMEDOUT || ret == -EPROTO) {
->  		/* Perform PCI rescan on device if we failed on HWC */
->  		dev_err(&pdev->dev, "MANA service: resume failed, rescanning\n");
-> -		mana_serv_rescan(pdev);
-> +		mana_serv_rescan(pdev, gc);
->  		return;
->  	}
-
-[Severity: High]
-This isn't a bug introduced by this patch, but the PCI PM callbacks are
-still outside the new serv_lock admission/drain protocol. mana_driver
-registers:
-
-    .suspend	= mana_gd_suspend,
-    .resume		= mana_gd_resume,
-
-mana_serv_reset() calls the same functions directly from the system
-workqueue:
-
-    mana_gd_suspend(pdev, PMSG_SUSPEND);
-    msleep(MANA_SERVICE_PERIOD * 1000);
-    ret = mana_gd_resume(pdev);
-
-system_percpu_wq is not freezable, and the worker does not take
-device_lock. So can a system suspend or hibernate run
-pci_legacy_suspend()->mana_gd_suspend() while an admitted cycle is in its
-suspend/sleep/resume window?
-
-If so, both threads run mana_rdma_remove(), mana_remove(&gc->mana, true)
-and mana_gd_cleanup_device() on the same gc. For example,
-mana_hwc_destroy_channel() does:
-
-    struct hw_channel_context *hwc = gc->hwc.driver_data;
-
-    if (!hwc)
-        return;
-
-Both callers can see hwc as non-NULL and free it. The
-destroy_workqueue(gc->service_wq) call behind the NULL check in
-mana_gd_cleanup_device() can also run twice.
-
-The changelog below the fold says the PM path was left out. Could the
-commit message itself say that this sibling teardown path is still
-unprotected?
-
-[ ... ]
-
-> @@ -796,51 +899,94 @@ static void mana_recovery_delayed_func(struct work_struct *w)
->
->  static void mana_serv_func(struct work_struct *w)
->  {
-> -	struct mana_serv_work *mns_wk;
-> -	struct pci_dev *pdev;
-> -
-> -	mns_wk = container_of(w, struct mana_serv_work, serv_work);
-> -	pdev = mns_wk->pdev;
-> +	struct gdma_context *gc = container_of(w, struct gdma_context, serv_work);
-> +	struct pci_dev *pdev = to_pci_dev(gc->dev);
->
-> -	if (pdev)
-> -		mana_do_service(mns_wk->type, pdev);
-> +	mana_do_service(gc->serv_type, pdev, gc);
->
-> +	/* The rescan exits of mana_do_service() remove the device, which
-> +	 * frees gc before returning.  Only touch the pdev and the module
-> +	 * reference from here on; both are held until this point drops them.
-> +	 */
->  	pci_dev_put(pdev);
-> -	kfree(mns_wk);
->  	module_put(THIS_MODULE);
->  }
-
-[Severity: Medium]
-Can embedding serv_work in gc cause a workqueue self-deadlock through a
-recycled work address?
-
-On the rescan exit, mana_serv_func() is still running when the gc that
-holds its work_struct is freed and a new gc is allocated:
-
-mana_serv_func()
-  mana_do_service()
-    mana_serv_reset()
-      mana_serv_rescan()
-        pci_stop_and_remove_bus_device()
-          mana_gd_remove()
-            vfree(gc)
-        pci_rescan_bus()
-          mana_gd_probe()
-            gc = vzalloc(sizeof(*gc))
-
-vzalloc() might return the same address. In that case the new
-gc->serv_work has the same address and the same func as the work this
-worker is executing.
-
-Suppose the new probe then latches a reset event, and a second event or
-a gf_stats timeout is admitted in the rollback window. That window is
-covered in the comment on the mana_gd_probe() rollback below. The new
-work is queued with schedule_work(). If it lands on the same pool,
-find_worker_executing_work() matches:
-
-    if (worker->current_work == work &&
-        worker->current_func == work->func)
-        return worker;
-
-and assign_work() moves it onto this worker's scheduled list.
-
-This worker, however, is the one blocked in mana_service_quiesce() in the
-probe rollback, waiting for serv_in_flight to clear. So the queued work
-never runs, and the worker would hang forever holding the new pdev's
-device_lock and pci_rescan_remove_lock.
-
-Before this patch, mns_wk was only freed after the rescan returned, so
-its address could not be reused while it was still running. Closing
-admission in the same serv_lock section on rollback in
-mana_service_probe_complete() would also avoid this.
-
-[ ... ]
-
-> +static bool mana_service_probe_complete(struct gdma_context *gc)
-> +{
-> +	unsigned long flags;
-> +	bool rollback;
-> +
-> +	spin_lock_irqsave(&gc->serv_lock, flags);
-> +	gc->serv_probe_done = true;
-> +	rollback = gc->serv_during_probe;
-> +	spin_unlock_irqrestore(&gc->serv_lock, flags);
-> +	return rollback;
-> +}
-
-[ ... ]
-
-> @@ -2558,22 +2697,26 @@ static int mana_gd_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
-
-[ ... ]
-
-> -	if (test_and_set_bit(GC_PROBE_SUCCEEDED, &gc->flags)) {
-> +	rollback = mana_service_probe_complete(gc);
-> +	if (rollback) {
->  		err = -EPROTO;
-> -		goto cleanup_mana_rdma;
-> +		goto service_quiesce;
->  	}
->
->  	return 0;
->
-> -cleanup_mana_rdma:
-> +service_quiesce:
-> +	/* Only a rollback can have admitted a cycle: it ran
-> +	 * mana_service_probe_complete() before jumping here.
-> +	 */
-> +	mana_service_quiesce(gc);
-
-[Severity: Medium]
-Is admission left open between mana_service_probe_complete() and this
-mana_service_quiesce()?
-
-When mana_service_probe_complete() returns rollback == true, it has
-already set serv_probe_done = true. serv_removing is not set until
-mana_service_quiesce() runs here.
-
-In that window, a hard IRQ reset or FPGA EQE goes through
-mana_service_event():
-
-    admit = gc->serv_probe_done;
-    ...
-    if (admit)
-        mana_schedule_serv_work(gc, type);
-
-This patch keeps mana_gf_stats_work_handler() re-arming during probe. In
-the same window it sees mana_service_probe_done(gc) return true and calls
-mana_schedule_serv_work() too.
-
-If a cycle is admitted here, the probe sleeps in mana_service_quiesce()
-under device_lock through the whole reset cycle. When the probe runs from
-a service rescan, it may also hold pci_rescan_remove_lock. The cycle runs
-mana_gd_suspend(), msleep(MANA_SERVICE_PERIOD * 1000) and
-mana_gd_resume().
-
-The probe then unwinds with mana_rdma_remove(), mana_remove() and
-mana_gd_cleanup_device() on state the cycle just rebuilt, and queues the
--EPROTO recovery rescan. If the cycle's resume fails, the cycle also takes
-its own rescan exit, so the device is serviced twice.
-
-The commit message says:
-
-    Do not admit service work while probe is still constructing or
-    unwinding the device.
-
-The label comment above also admits that a rollback can have let a cycle
-in.
-
-Could mana_service_probe_complete() set serv_removing in the same
-serv_lock section when rollback is true? Or could it leave
-serv_probe_done unset on rollback?
-
-[ ... ]
-
-> diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
-> index 591fb4191d90d..c9ac982925224 100644
-> --- a/drivers/net/ethernet/microsoft/mana/mana_en.c
-> +++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
-
-[ ... ]
-
-> @@ -4060,10 +4060,20 @@ static void mana_gf_stats_work_handler(struct work_struct *work)
->  		memset(&ac->hc_stats, 0, sizeof(ac->hc_stats));
->  		dev_warn(gc->dev,
->  			 "Gf stats wk handler: gf stats query timed out.\n");
-> -		/* As HWC timed out, indicating a faulty HW state and needs a
-> -		 * reset.
-> +		/* As HWC timed out, indicating a faulty HW state and
-> +		 * needs a reset.  Never admit service work before the probe
-> +		 * has completed: a probe that is failing unwinds netdevs and
-> +		 * the HWC channel itself and cannot drain a cycle.
->  		 */
-> -		mana_schedule_serv_work(gc, GDMA_EQE_HWC_RESET_REQUEST);
-> +		if (mana_service_probe_done(gc)) {
-> +			mana_schedule_serv_work(gc, GDMA_EQE_HWC_RESET_REQUEST);
-> +		} else {
-> +			/* Retry once the probe completes: dropping the
-> +			 * request would leave the stats work disarmed.
-> +			 */
-> +			schedule_delayed_work(&ac->gf_stats_work,
-> +					      MANA_GF_STATS_PERIOD);
-> +		}
-
-[Severity: Low]
-This isn't a bug, but the comments here don't match the code.
-
-The new comment says a failing probe "cannot drain a cycle". However,
-mana_gd_probe() now drains one with mana_service_quiesce(), both at the
-service_quiesce label and again before vfree() at free_gc.
-
-The existing comment just above this block also still says:
-
-    /* HWC timeout detected - reset stats and stop rescheduling */
-
-But the new else branch reschedules gf_stats_work.
-
-Should both comments be updated?
-
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR11MB7424:EE_|DM4PR11MB5325:EE_
+X-MS-Office365-Filtering-Correlation-Id: 405b074e-4a86-4e01-90a0-08df2046b3d0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|23010399003|1800799024|10067099003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info: pNwXgeAdlEDtUpytcwLNfvBR8crB+sbj5F6up7nbLxse9QkGTz+lgF82sjohnvbJFGjn1aRGp+iHOMtHpDutChv9zgtSOPmcOxX+0waTf1uf2qQLIBEHnyJ9Jj8KvuT/FgfOknHQ2Q367vwO6etu9uWcgaYcMg0Nc0l+36zSiBTfArIgQrJc8Qo+pc3Pu1hvrovX+Ey5r0hIUW7abBpa/KNDiC2jGdXz8J5R9lWDhmQZZZmQ8ZqBrhi5k0oni1yVISjoKAh78XaYGuCtoFzbZecqrveh4hx7nfNEAKBtLYjXpUbZoQVneBW+a2TWHDzYxctIFbQOBHs1aiVJvTHJU6/eiQDdlf4U8IxeX7Ataz4dSMW4MQNpz4FFeWOH9juBnH0fXJnfGhlJ7XctHAZC3U0EZ/ZGZCXuzQS2FPaxN5OnldjSKazAMOItiIZ227jlFawZpkXRU7NfNiacs+zxkgUDX8Lu6lm0rX1nif8XRc5VNpAz5BxMcuv7kHn3Pg9DjfsF8vTE1Uj0a9MZM8gTijj0063y/dgMJHaxar0IVm7A5f0JeGv30dG5O0PKhxd8jm4MwkvnWo9J95a/NiOTRzkRVPT1Tu6nlvYW2HERr+x7jHxP50ksPL9fze7ZJRThA581jSdOAQJXvsbjJPVMdkqDPOlm4optlzaKg0/YtoM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR11MB7424.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?yQn0uh1yuyr4Vwhm0lZnDR0VI5wHtvis6ATjsyZns5miCixKxBfk+IjM6l4t?=
+ =?us-ascii?Q?rnPHGPoIkAY90YAz7dD1F4GT8cGUTBxJ21w9jbW0SZKN1oKPnrNdN1Lj9niw?=
+ =?us-ascii?Q?6ZA15WDkkGMNV0PjaRfSb36r+aqkaL4Is/AXXAo1ENW6PaGCpV5qeEekjvRk?=
+ =?us-ascii?Q?l/2ExRmlg2H/QXwMLeiZzrQbrOo6jtblgF29+it53ci0oyF8u1VTEOX0AJNV?=
+ =?us-ascii?Q?Z4I9M8aj4UycbrQ/nmT3JT6QgkkpWulnMppI1C3y1CCMVGdnAzYyg6txqs2j?=
+ =?us-ascii?Q?jLLamH/vpn2zTekV2pNbsXeJERPm3MpbKE9pszKDofkbspTTK8FrZM4WQuf3?=
+ =?us-ascii?Q?6psw1dAyIHFMuRMbOLwO2PwKrHGnuAYo9kMq47fnVu7q9f+QpY44mAA1koQa?=
+ =?us-ascii?Q?aZJGff0rhc6bEw7c86/MXVkezPRDclwcUkGEJTBTOvUbtXoB3/kQ2Ebcqx8p?=
+ =?us-ascii?Q?itLGBlF9vXqWZjbPA2jk2HlU+9NhMn1yoEvbXc/IZDWzQbV3sXuQsYtH5WQR?=
+ =?us-ascii?Q?V6B2b+NUKUiMN1u5g3wCzESHqWd2bU2uNLgOdPNU0EzMS0BlzrZi0w3iBxzS?=
+ =?us-ascii?Q?JO0m62/tejFufOrWKePmm1i7zou4DA+MPUaKmoPjjTNFvk29QrHsXdtbYic2?=
+ =?us-ascii?Q?jFMBrlBbJqundfb8juP0tqwIY2Fo22eD+JkT/gWeKEWyH0Z/nHpuxE+YSYiM?=
+ =?us-ascii?Q?md3X+MvzrgV8xtx1Jf25dNTFoQKFVOdNggnjW4x2vY0whzl5jlm/LD0NJO4d?=
+ =?us-ascii?Q?Hj0+5GPy0PCTYUWloJfMHz2txsxDe24pb9a2L5YkA8f7JKUGVPve3e9PjuOW?=
+ =?us-ascii?Q?DoxzE93YKG4OuIkM9Xs79D3YoUHUPP0qAXipPwAfYetTYisUKAX5BCzHJ4qQ?=
+ =?us-ascii?Q?78e+TO3KdNLUvznVqw+3bc6OIzfr9XLiMEgygpVUlXHfcC8cPMVWne1Lk12L?=
+ =?us-ascii?Q?rFKhNfU87z88JgMocKiruoO31U5F1mifXfstwsB2UOVF7arLwFRTeZQU+pTl?=
+ =?us-ascii?Q?UdKeyCTgH/WHzYvql9xbtesf3IlQw1CAugkRgm5VTAQoUDxUOPmqFQAW/Oc5?=
+ =?us-ascii?Q?hPMHsiqaUVTOlcCdOG+qChGSm0vL6qPCrFP4182Wcb+IpwdjyaXvkTHC+Vir?=
+ =?us-ascii?Q?71P3WzQtbYlDBt7BDZUYj+QTR9ujEOjqMNroCfM7CQGuwobytCItsWQgvd5W?=
+ =?us-ascii?Q?MaDaCGajh5J9bL1uW5lh3fe+yug2hTL6PyBkcZ8HnbvDwLoiLrY0YAPPwFZQ?=
+ =?us-ascii?Q?xVip3CBieRcznOX3rQa8mtksItbtczmTArQN1KYs9AFTkf1voas72C507UuH?=
+ =?us-ascii?Q?Z211ZoShPmHmOQaKZwx3F3sM8lK0tduHvxhfa43amiw3qxgTKFkmC0Yo5Y7G?=
+ =?us-ascii?Q?oDKA2OvobQlbDQt/yBHCeKne0NgyAg8D3SpUgJRiTNzZJAp0nQUurbUeUFSx?=
+ =?us-ascii?Q?zO5KLmgj9s0N1856xzXz6hmaSQAxzTMC/VYZsViLPCYtpVpK+MGHheDpHB3B?=
+ =?us-ascii?Q?JzFV8mILV6QTslW7a42dqwBEJXhMIxRVRpM0rTWf5ZdHJRD64wy2JJG5+oF2?=
+ =?us-ascii?Q?dK9E2p7s3xcXl1utLkR61pFQCAXC7MqR5QN0qHKMowIL5gGBjkxuOtM9O2sB?=
+ =?us-ascii?Q?LEqdLcetAwFCsBU99Q1MF548eXVz/9RKUwnHTWzQCLpjgatgfA8WCKQX5DhN?=
+ =?us-ascii?Q?+Bwc/KQaklz6otvLddVyoAKZQ+OwLE89JK4w0vU7LBsgtLJH7fvuixF2ObYH?=
+ =?us-ascii?Q?OY29HUHYy+zo/O7+Ym2Kk3GnFxx+XCA=3D?=
+X-Exchange-RoutingPolicyChecked: ez4KCc8J7lettFUdTf86lM1YSLrVFIlHaSIC55+UYyxTcNBpAet+9SWOsI/NMZV3HdP+rcwoDOjXheiZXRmcHRGVtRse4VhnlmpvjHuRdgMX40XaMiTuSnzug84wVEdTmXzsxeFCs4ubI0zRk+MJSDo7Fzv+xGVM/F/G8aXCfMUMkF2K9drSdG7IYJG52XVF7D7WZ28sVRUE6b9did9whd0DOR1OtFBHY0aCjGZ1oyQ5VVZ/Ia4YZgt0rQEPA6VotrJM4bIaCsUjxuCmXibwwRykQJzQNZlMhff6kLuPDFxsAG6V/+5c6RVVCYtM/3kiEaf0bLOUGxnBayB6FsJlmw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 405b074e-4a86-4e01-90a0-08df2046b3d0
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7424.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 05:33:34.8291
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4MjqhDRCVMzcAnYWonaBYYMpGgQCy0/1SPlFeO+JLVLpOz96+08BJGEWwr9BlNyYj1gSz3P1+iQdrWPwj7JhVoSFhRPzdoSq+kntKsVX+do=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB5325
+X-OriginatorOrg: intel.com
+
+It is possible, when a very large mapping uses only one
+scatterlist, that padding overflows scatterlist's length field.
+This results in:
+ 1) silently wrapping the value
+ 2) smaller than desired mappings produced by iommu_map_sg
+ 3) leaving mapped bytes in memory (no iommu_unmap)
+
+Address this issue by adding overflow detection for scatterlist
+length field.
+
+Fixes: 809eac54cdd6 ("iommu/dma: Implement scatterlist segment merging")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
+Reviewed-by: Robin Murphy <robin.murphy@arm.com>
+---
+This patch was previously part of "drivers: Improve memory
+management for large object allocations when i915/shmem is used
+with iommu" series, but was extracted and posted separately on
+request of one of the reviewers (Andi Shyti). There have been no
+functional changes since last version.
+
+this version:
+ * Added separating blank lines (Andi);
+ * Added IOMMU maintainers suggested by get_maintainer.pl
+   script to CC (Andi);
+
+ drivers/iommu/dma-iommu.c | 20 +++++++++++++++++++-
+ 1 file changed, 19 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
+index 58c624513cd43..06edb4056dc1b 100644
+--- a/drivers/iommu/dma-iommu.c
++++ b/drivers/iommu/dma-iommu.c
+@@ -1477,6 +1477,11 @@ int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg, int nents,
+ 		sg_dma_len(s) = s_length;
+ 		s->offset -= s_iova_off;
+ 		s_length = iova_align(iovad, s_length + s_iova_off);
++		if (overflows_type(s_length, s->length)) {
++			ret = -EOVERFLOW;
++
++			goto out_restore_sg;
++		}
+ 		s->length = s_length;
+ 
+ 		/*
+@@ -1493,7 +1498,20 @@ int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg, int nents,
+ 		 *   time through here (i.e. before it has a meaningful value).
+ 		 */
+ 		if (pad_len && pad_len < s_length - 1) {
+-			prev->length += pad_len;
++			unsigned int new_prev_len;
++
++			/*
++			 * For large mappings spanning multiple GBs we
++			 * may not be able to fit all needed padding into
++			 * sg->length.
++			 */
++			if (check_add_overflow(prev->length, pad_len, &new_prev_len)) {
++				ret = -EOVERFLOW;
++
++				goto out_restore_sg;
++			}
++
++			prev->length = new_prev_len;
+ 			iova_len += pad_len;
+ 		}
+ 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260927105243.592348-1-fanwu01%40zju.edu.cn
+2.34.1
+
