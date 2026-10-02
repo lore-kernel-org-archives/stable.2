@@ -1,210 +1,303 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A3E03C873B;
-	Fri,  2 Oct 2026 12:39:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF40D3DDB0E
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 12:40:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790944798; cv=none; b=Dxr2MKa2gEGWREtsZNzTUn6Pwy5jXsUsOumBK5Tj6ViEGREy4QTq5yf33mXUWIInTASly2cMe2dMHwv675lCLucsUqISemF/IaTjEhUMu+5bL+qaDc1ouFcCzngefWlYFS7udUWf0I7q6VjHd7tZhPHWN+HTnGgOOYSXAjShHuA=
+	t=1790944850; cv=none; b=tNGWfsNTgwM2akA+yMV/cjDUglU1FrJA0Oe2uTdpgTJg1FB4fCucnv/qVF7YmZ73KQnX4lxWJdp82yBE6O+wdoWX0t9RgXxGI2p7lms6ZZ5h0TkdAsjmTolUIdE6OnFX9W6CpwmxBcSyBdwIUwRgMJ/VdfWWMN2DRMf+6JaD80A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790944798; c=relaxed/simple;
-	bh=QSFxW8aZbRcZeyRHSJyzlFGW1Xn6PsfpvQGVq0K7kNY=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=FXkz2O4/HMpVXLnROD2TF8fDvCpAkGQidWYK6Kb1rY6Tmm/tkxK4iKFvkBACWmrwD68tUgWdksyRNS9XKb0d0YW1EW9J/EaBQWbAVzjdF+sl1OLYVjWsocRc0bLPtVsj3X9SfmJUcFL6WNiP/vnMmlFD7n9WMWZtUiMbKo2jSXI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=NaiqX9Jg; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1790944850; c=relaxed/simple;
+	bh=ckLSc2DOQUoZxFyhLHsNUj1PV9hfeiFmiswQyXqJOvk=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=t2629MvX4peaPHV9kzDIkAY3SZbH2TqHCn+atgPdmyDwjPynPEXXgooc3cna1844xfRg9eBPzJ1Wfg6sylReozLcDrUsQJkOK5/m0HLbZXuQVXvdHW6AFS+F416qyrQrnVFIzGvfEerKiFZwxrrAPXfzyGEImz403GmKT+KcQHA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=coAh2c4c; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="NaiqX9Jg"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
-	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=84fyuy2HjoPKHj79k2kWOl4xW59cv0AASn+mFclpcq0=; b=NaiqX9JgJzkbwN5MENbnLsmzNj
-	SZEjw/H7pZScNDYkBL/GANCD9D3WcKzfV+2hmLB4eJFDq+Knd+EMcBBnrOgEe+e73Agauh6JhleCH
-	GCuc0Gj7TMnWoSsIENL0lrnGkbpuhlRXho2sybTFTXr5Gjsf/IvelyN4BZQyhMhi5X9uJsQc0l5Io
-	jCfJ3F9b6XmtqjXKxBUeVu1w03a0TFRM96+ctzkQkjtCO7EAYDZZfUXjv/uDFPJ+HhTDJ7Nu/1fdK
-	36AR4IXmwFt10dTPA8MCU6/ZiFbnWHTkpFvjJ6q4RmUtn2HHIwdxUN/s1HvCyMpNIHuVQIa0/2djj
-	CHxnBUsg==;
-Received: from [::1] (port=49064 helo=pf-012.whm.fr-par.scw.cloud)
-	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
-	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
-	id 1xCcYP-00000000KPf-1EBA;
-	Fri, 02 Oct 2026 14:39:53 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="coAh2c4c"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790944848; x=1822480848;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=ckLSc2DOQUoZxFyhLHsNUj1PV9hfeiFmiswQyXqJOvk=;
+  b=coAh2c4cUg07UYD3yBo/7MZCC01FohvuB5s+FeUvogiuYVBnFPBSq6NP
+   Ah7f+5zNVo0cJNCfUxuGvwUv0Em2jtI0LE8w1dnf1eQ04RSvPBTzcFCWn
+   l5vXZZLgDo2UZdtqZDaE6C0Q1W3kndMGC8NLjsgw/WhzL5nhalwFintjp
+   7dIVcVK9bqusEGABVN+fvwryMzzcIJkT8MiPa0vMoY9kPzeSAdvNJVtSK
+   0Vuo91NXn7IqKowJTlx7XpOUQxi1pJGjL6F1A/OF8cFMMdQjEAx7jbH4g
+   n2AOnMjdz9spWM6nXLb28hyerqCyAWdEKBMov08HCtiCPYFdls8pRK87A
+   w==;
+X-CSE-ConnectionGUID: +D58boGrRV6xBK5juIZ5qg==
+X-CSE-MsgGUID: 0R15EM+kQwaN2xhA+erafQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="108087930"
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="108087930"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 05:40:47 -0700
+X-CSE-ConnectionGUID: NLjwcf7OSEOdZjMeYgK5zA==
+X-CSE-MsgGUID: /0gyLYx1Rly+bhlU0K8/6g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="274049834"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO [10.245.244.200]) ([10.245.244.200])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 05:40:46 -0700
+Message-ID: <6e68f6fd4e1b8e879b65f3746bf56cce434fdea4.camel@linux.intel.com>
+Subject: Re: [PATCH 1/2] drm/xe/dma-buf: keep non-p2p imported buffers in
+ system memory
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Matthew Auld <matthew.auld@intel.com>, intel-xe@lists.freedesktop.org
+Cc: stable@vger.kernel.org, Matthew Brost <matthew.brost@intel.com>
+Date: Fri, 02 Oct 2026 14:40:44 +0200
+In-Reply-To: <20260928164820.1237049-5-matthew.auld@intel.com>
+References: <20260928164820.1237049-4-matthew.auld@intel.com>
+	 <20260928164820.1237049-5-matthew.auld@intel.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 02 Oct 2026 14:39:53 +0200
-From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
-To: Tung Quang Nguyen <tung.quang.nguyen@est.tech>
-Cc: netdev-bot+sashiko@kernel.org, jmaloy@redhat.com,
- netdev@vger.kernel.org, tipc-discussion@lists.sourceforge.net,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, kuba@kernel.org
-Subject: Re: [PATCH net] tipc: protect received keys from concurrent flush
-In-Reply-To: <DU4P189MB3750DC372FE007A967A8A266C6892@DU4P189MB3750.EURP189.PROD.OUTLOOK.COM>
-References: <20260930115708.349540-2-Jeremy.Jean@oss.cyber.gouv.fr>
- <179090984112.434549.12939052372850275600@kernel.org>
- <DU4P189MB3750DC372FE007A967A8A266C6892@DU4P189MB3750.EURP189.PROD.OUTLOOK.COM>
-User-Agent: Roundcube Webmail/1.6.19
-Message-ID: <cdd0515de3a6bb13c9d789740e4e7c4b@oss.cyber.gouv.fr>
-X-Sender: jeremy.jean@oss.cyber.gouv.fr
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
 
-On 2026-10-02 14:05, Tung Quang Nguyen wrote:
->> Subject: Re: [PATCH net] tipc: protect received keys from concurrent 
->> flush
->> 
->> Thank you for your contribution! Sashiko AI review found 1 potential
->> issue(s) to consider.
->> 
->> Critical: 0 · High: 0 (1) · Medium: 1 · Low: 0
->> 
->> If you believe none of the issues are legitimate, please reply to each 
->> issue of
->> Medium severity or higher and explain why the AI is wrong.
->> If any of them are legitimate and you plan to respin, please let 
->> patchwork
->> know by including "pw-bot: cr" as a separate line at the end of your 
->> reply (one
->> such reply per series is enough).
->> 
->> - [Medium] The patch fixes the rx->skey UAF/double-free, but the flush 
->> it
->>  protects can now be silently undone.
->> 
->> Pre-existing issues:
->> - [High] This problem wasn't introduced by this patch, but an RX 
->> delayed
->>  work can re-arm after netns teardown has flushed it and then fire on 
->> a…
->> 
->> --
->> 
->> tipc: protect received keys from concurrent flush
->> 
->> This patch adds an skey_in_use flag to struct tipc_crypto. The RX 
->> worker sets it
->> under rx->lock while it attaches rx->skey, and
->> tipc_crypto_key_flush() skips freeing the key while the flag is set. 
->> The goal is to
->> close a KASAN-reported use-after-free and double-free that happens 
->> when key
->> exchange races with key flush.
->> 
->>> diff --git a/net/tipc/crypto.c b/net/tipc/crypto.c index
->>> 4409bdb70fe98..eab2a66e22333 100644
->>> --- a/net/tipc/crypto.c
->>> +++ b/net/tipc/crypto.c
->> 
->> [ ... ]
->> 
->>> @@ -1214,8 +1216,11 @@ void tipc_crypto_key_flush(struct tipc_crypto 
->>> *c)
->>>  		rx = c;
->>>  		tx = tipc_net(rx->net)->crypto_tx;
->>>  		if (cancel_delayed_work(&rx->work)) {
->>> -			kfree_sensitive(rx->skey);
->>> -			rx->skey = NULL;
->>> +			/* A previous invocation may still be using the key. */
->>> +			if (!rx->skey_in_use) {
->>> +				kfree_sensitive(rx->skey);
->>> +				rx->skey = NULL;
->>> +			}
->>>  			atomic_xchg(&rx->key_distr, 0);
->>>  			tipc_node_put(rx->node);
->>>  		}
->> 
->> [Severity: Medium]
->> With this skip, can the still-running worker undo the flush after it 
->> returns?
->> 
->> Nothing tells the in-flight tipc_crypto_work_rx() that a flush 
->> happened, so this
->> sequence looks possible:
->> 
->> CPU1 (tipc_crypto_work_rx)            CPU2
->> spin_lock_bh(&rx->lock);
->> rx->skey_in_use = true;
->> spin_unlock_bh(&rx->lock);
->>                                      tipc_crypto_key_synch()
->>                                        re-queues rx->work
->>                                      tipc_crypto_key_flush()
->>                                        cancel_delayed_work() == true
->>                                        skips kfree, rx->skey stays set
->>                                        c->flags = 0;
->>                                        tipc_crypto_key_set_state(c, 0, 
->> 0, 0);
->>                                        tipc_crypto_key_detach() on all 
->> keys
->>                                        spin_unlock_bh(&c->lock); 
->> tipc_crypto_key_init(rx, rx-
->>> skey, ...)
->>  tipc_crypto_key_attach()
->>    tipc_aead_rcu_replace(c->aead[new_key], aead, &c->lock);
->>    c->working = 1;
->>    c->nokey = 0;
->> 
->> In this case the TIPC_NL_KEY_FLUSH handler 
->> (__tipc_nl_node_flush_key())
->> returns 0. The peer's AEAD is still installed at key_next(0) and the 
->> RX crypto is
->> re-enabled.
->> 
->> There is also the retry path. Suppose tipc_crypto_key_attach() had 
->> already
->> returned -EBUSY, or tipc_aead_init() had returned -ENOMEM, before the 
->> flush.
->> The worker then keeps rx->skey, clears skey_in_use and re-queues 
->> itself.
->> queue_delayed_work() succeeds because the flush cancelled the pending
->> instance, so the pre-flush key gets attached about 5 seconds later.
->> 
->> Until that happens, tipc_crypto_key_rcv() rejects new keys from the 
->> peer
->> because the stale rx->skey is still non-NULL:
->> 
->> 	if (unlikely(rx->skey || (key_gen == rx->key_gen && rx->key.keys))) {
->> 		pr_err("%s: key existed <%p>, gen %d vs %d\n", rx->name,
->> 
->> tipc_crypto_rcv() also counts the stale rx->skey when it computes
->> rx->nokey:
->> 
->> 	rx->nokey = !(rx->skey ||
->> 
->> Before this patch, the cancel_delayed_work() == true case freed and 
->> cleared
->> rx->skey (with the use-after-free), so the retry had nothing to 
->> attach. With this
->> patch, that case behaves like the existing
->> cancel_delayed_work() == false case: the flush does not revoke the key 
->> that is
->> in flight. The commit message doesn't mention this.
->> 
->> Would a flushed or generation marker help? The worker would re-check 
->> it
->> under rx->lock before attaching or re-queueing, and free the key if a 
->> flush had
->> happened. That keeps the use-after-free fix and still honours the 
->> flush.
->> 
-> Agree.
+On Mon, 2026-09-28 at 17:48 +0100, Matthew Auld wrote:
+> When an exported buffer is mapped by a foreign device lacking peer-
+> to-peer
+> DMA support (such as an integrated GPU for display offload),
+> xe_dma_buf_map() migrates the buffer to XE_PL_TT so that system
+> memory
+> pages can be accessed by the importer.
+>=20
+> However, since commit 5c87fee3c96c ("drm/xe: Attempt to bring bos
+> back to
+> VRAM after eviction"), XE_PL_TT is marked with TTM_PL_FLAG_FALLBACK
+> in
+> the buffer's placement. When DMABUF_MOVE_NOTIFY was enabled by
+> default
+> (meaning dynamic attachments are no longer pinned on map), the next
+> xe_bo_validate() during render submission sees TT as a fallback
+> placement
+> and attempts to migrate the buffer back to VRAM.
+>=20
+> On the next frame, the foreign importer accesses the buffer,
+> requiring
+> another migration to TT, resulting in a continuous ping-pong between
+> VRAM and system memory every frame and causing severe rendering
+> performance
+> degradations.
+>=20
+> To fix this, introduce xe_bo_migrate_tt_sticky() which records a
+> temporary sticky placement in XE_PL_TT on successful migration.
+> Subsequent
+> validations use this sticky placement to keep the buffer in system
+> memory
+> until the non-p2p attachment is detached or memory pressure forces a
+> fallback to the default placement.
+>=20
+> User is reporting what looks to be exactly this, with horrible
+> performance when DMABUF_MOVE_NOTIFY was enabled by default.
+>=20
+> Assisted-by: LLM
+> Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9415
+> Fixes: 5c87fee3c96c ("drm/xe: Attempt to bring bos back to VRAM after
+> eviction")
+> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+> Cc: <stable@vger.kernel.org> # v6.12+
+> Cc: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+> Cc: Matthew Brost <matthew.brost@intel.com>
 
-Me too, I'm working on a v2.
+Reviewed-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
 
-Jérémy
+> ---
+> =C2=A0drivers/gpu/drm/xe/xe_bo.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 59
+> ++++++++++++++++++++++++++++++--
+> =C2=A0drivers/gpu/drm/xe/xe_bo.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
+=A0 3 ++
+> =C2=A0drivers/gpu/drm/xe/xe_bo_types.h |=C2=A0 4 +++
+> =C2=A0drivers/gpu/drm/xe/xe_dma_buf.c=C2=A0 | 16 ++++++++-
+> =C2=A04 files changed, 79 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+> index 6921b6967330..1c1eab0a7434 100644
+> --- a/drivers/gpu/drm/xe/xe_bo.c
+> +++ b/drivers/gpu/drm/xe/xe_bo.c
+> @@ -3324,6 +3324,9 @@ int xe_bo_validate(struct xe_bo *bo, struct
+> xe_vm *vm, bool allow_res_evict,
+> =C2=A0		.no_wait_gpu =3D false,
+> =C2=A0		.gfp_retry_mayfail =3D true,
+> =C2=A0	};
+> +	struct ttm_placement *placement =3D bo-
+> >sticky_placement.num_placement ?
+> +					=C2=A0 &bo->sticky_placement :
+> +					=C2=A0 &bo->placement;
+> =C2=A0	int ret;
+> =C2=A0
+> =C2=A0	if (xe_bo_is_pinned(bo))
+> @@ -3340,7 +3343,12 @@ int xe_bo_validate(struct xe_bo *bo, struct
+> xe_vm *vm, bool allow_res_evict,
+> =C2=A0	xe_vm_set_validating(vm, allow_res_evict);
+> =C2=A0	trace_xe_bo_validate(bo);
+> =C2=A0	xe_validation_assert_exec(xe_bo_device(bo), exec, &bo-
+> >ttm.base);
+> -	ret =3D ttm_bo_validate(&bo->ttm, &bo->placement, &ctx);
+> +	ret =3D ttm_bo_validate(&bo->ttm, placement, &ctx);
+> +	if (ret && ret !=3D -EINTR && ret !=3D -ERESTARTSYS &&
+> +	=C2=A0=C2=A0=C2=A0 bo->sticky_placement.num_placement) {
+> +		xe_bo_reset_sticky_placement(bo);
+> +		ret =3D ttm_bo_validate(&bo->ttm, &bo->placement,
+> &ctx);
+> +	}
+> =C2=A0	xe_vm_clear_validating(vm, allow_res_evict);
+> =C2=A0
+> =C2=A0	return ret;
+> @@ -3891,6 +3899,7 @@ int xe_bo_migrate(struct xe_bo *bo, u32
+> mem_type, struct ttm_operation_ctx *tctx
+> =C2=A0	};
+> =C2=A0	struct ttm_placement placement;
+> =C2=A0	struct ttm_place requested;
+> +	int ret;
+> =C2=A0
+> =C2=A0	xe_bo_assert_held(bo);
+> =C2=A0	tctx =3D tctx ? tctx : &ctx;
+> @@ -3922,7 +3931,53 @@ int xe_bo_migrate(struct xe_bo *bo, u32
+> mem_type, struct ttm_operation_ctx *tctx
+> =C2=A0
+> =C2=A0	if (!tctx->no_wait_gpu)
+> =C2=A0		xe_validation_assert_exec(xe_bo_device(bo), exec,
+> &bo->ttm.base);
+> -	return ttm_bo_validate(&bo->ttm, &placement, tctx);
+> +	ret =3D ttm_bo_validate(&bo->ttm, &placement, tctx);
+> +	if (!ret)
+> +		xe_bo_reset_sticky_placement(bo);
+> +	return ret;
+> +}
+> +
+> +/**
+> + * xe_bo_migrate_tt_sticky - Migrate an object to TT and record its
+> placement as sticky
+> + * @bo: The buffer object to migrate.
+> + * @tctx: The ttm_operation_ctx to use for migration, or NULL for
+> default.
+> + * @exec: The drm_exec transaction to use for exhaustive eviction.
+> + *
+> + * Like xe_bo_migrate() to XE_PL_TT, but on success records the
+> resulting placement
+> + * so that subsequent validations try to keep the object in TT
+> instead of falling
+> + * back to the default placement. The stickiness is removed if
+> validation falls
+> + * back to the default placement (e.g. under memory pressure), on
+> any non-sticky
+> + * migration, or via an explicit call to
+> xe_bo_reset_sticky_placement().
+> + *
+> + * Return: 0 on success. Negative error code on failure.
+> + */
+> +int xe_bo_migrate_tt_sticky(struct xe_bo *bo,
+> +			=C2=A0=C2=A0=C2=A0 struct ttm_operation_ctx *tctx,
+> +			=C2=A0=C2=A0=C2=A0 struct drm_exec *exec)
+> +{
+> +	int ret;
+> +
+> +	ret =3D xe_bo_migrate(bo, XE_PL_TT, tctx, exec);
+> +	if (!ret) {
+> +		xe_place_from_ttm_type(XE_PL_TT, &bo->sticky_place);
+> +		bo->sticky_placement =3D (struct ttm_placement){
+> +			.num_placement =3D 1,
+> +			.placement =3D &bo->sticky_place,
+> +		};
+> +	}
+> +	return ret;
+> +}
+> +
+> +/**
+> + * xe_bo_reset_sticky_placement - Reset sticky placement for an
+> object
+> + * @bo: The buffer object whose sticky placement should be cleared.
+> + *
+> + * Clear any sticky placement recorded by xe_bo_migrate_tt_sticky(),
+> + * returning subsequent validations to the default placement.
+> + */
+> +void xe_bo_reset_sticky_placement(struct xe_bo *bo)
+> +{
+> +	bo->sticky_placement.num_placement =3D 0;
+> =C2=A0}
+> =C2=A0
+> =C2=A0/**
+> diff --git a/drivers/gpu/drm/xe/xe_bo.h b/drivers/gpu/drm/xe/xe_bo.h
+> index 861b1be231de..7327628070f2 100644
+> --- a/drivers/gpu/drm/xe/xe_bo.h
+> +++ b/drivers/gpu/drm/xe/xe_bo.h
+> @@ -434,6 +434,9 @@ bool xe_bo_can_migrate(struct xe_bo *bo, u32
+> mem_type);
+> =C2=A0
+> =C2=A0int xe_bo_migrate(struct xe_bo *bo, u32 mem_type, struct
+> ttm_operation_ctx *ctc,
+> =C2=A0		=C2=A0 struct drm_exec *exec);
+> +int xe_bo_migrate_tt_sticky(struct xe_bo *bo, struct
+> ttm_operation_ctx *ctc,
+> +			=C2=A0=C2=A0=C2=A0 struct drm_exec *exec);
+> +void xe_bo_reset_sticky_placement(struct xe_bo *bo);
+> =C2=A0int xe_bo_evict(struct xe_bo *bo, struct drm_exec *exec);
+> =C2=A0
+> =C2=A0int xe_bo_evict_pinned(struct xe_bo *bo);
+> diff --git a/drivers/gpu/drm/xe/xe_bo_types.h
+> b/drivers/gpu/drm/xe/xe_bo_types.h
+> index 8ec4a01a0092..253a1dba55a7 100644
+> --- a/drivers/gpu/drm/xe/xe_bo_types.h
+> +++ b/drivers/gpu/drm/xe/xe_bo_types.h
+> @@ -56,6 +56,10 @@ struct xe_bo {
+> =C2=A0	struct ttm_place placements[XE_BO_MAX_PLACEMENTS];
+> =C2=A0	/** @placement: current placement for this BO */
+> =C2=A0	struct ttm_placement placement;
+> +	/** @sticky_placement: target placement from forced
+> migration */
+> +	struct ttm_placement sticky_placement;
+> +	/** @sticky_place: place for sticky_placement */
+> +	struct ttm_place sticky_place;
+> =C2=A0	/** @ggtt_node: Array of GGTT nodes if this BO is mapped in
+> the GGTTs */
+> =C2=A0	struct xe_ggtt_node *ggtt_node[XE_MAX_TILES_PER_DEVICE];
+> =C2=A0	/** @vmap: iosys map of this buffer */
+> diff --git a/drivers/gpu/drm/xe/xe_dma_buf.c
+> b/drivers/gpu/drm/xe/xe_dma_buf.c
+> index 6a85b292dee7..b973579a69b8 100644
+> --- a/drivers/gpu/drm/xe/xe_dma_buf.c
+> +++ b/drivers/gpu/drm/xe/xe_dma_buf.c
+> @@ -59,6 +59,20 @@ static void xe_dma_buf_detach(struct dma_buf
+> *dmabuf,
+> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct dma_buf_attachment *attach=
+)
+> =C2=A0{
+> =C2=A0	struct drm_gem_object *obj =3D attach->dmabuf->priv;
+> +	struct xe_bo *bo =3D gem_to_xe_bo(obj);
+> +	bool has_non_p2p =3D false;
+> +	struct dma_buf_attachment *a;
+> +
+> +	dma_resv_lock(dmabuf->resv, NULL);
+> +	list_for_each_entry(a, &dmabuf->attachments, node) {
+> +		if (!a->peer2peer) {
+> +			has_non_p2p =3D true;
+> +			break;
+> +		}
+> +	}
+> +	if (!has_non_p2p)
+> +		xe_bo_reset_sticky_placement(bo);
+> +	dma_resv_unlock(dmabuf->resv);
+> =C2=A0
+> =C2=A0	xe_pm_runtime_put(to_xe_device(obj->dev));
+> =C2=A0}
+> @@ -129,7 +143,7 @@ static struct sg_table *xe_dma_buf_map(struct
+> dma_buf_attachment *attach,
+> =C2=A0
+> =C2=A0	if (!xe_bo_is_pinned(bo)) {
+> =C2=A0		if (!attach->peer2peer)
+> -			r =3D xe_bo_migrate(bo, XE_PL_TT, NULL, exec);
+> +			r =3D xe_bo_migrate_tt_sticky(bo, NULL, exec);
+> =C2=A0		else
+> =C2=A0			r =3D xe_bo_validate(bo, NULL, false, exec);
+> =C2=A0		if (r)
