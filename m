@@ -1,41 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B09F481A82;
-	Fri,  2 Oct 2026 10:13:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8995B480345;
+	Fri,  2 Oct 2026 10:13:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790936023; cv=none; b=XHRRVI16Ox3zHaRhTc2CDEm9MkAIMLsFEgqarercUnCXEZ/fR4VhK6Jp4+dmtyPu6gCNSOGz5+Ba6yP/ZhVTTXUHe3DKCE/uiZlGDJnh3W0FvzCKUMbEetIkJ9uGzH4DMAQU7KeV7tLwHfKM9yrvr9gNvRssDnC/hYcBw9Tnsyw=
+	t=1790936029; cv=none; b=QEsKD5szPeBVX04k+84deMNkkRDj4Mr3t/YiZZn8dz5snJAYlGkTVwggCiMhYr485oe9oQNm67fQYwqftr96R4143BcUJjio6CHTYO1bcRJMXNvxM+ytuFzMQKImYlg1MRdK8b4xPH/DbhUd9nOhAc2m3t79s/eVdR91i47IC8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790936023; c=relaxed/simple;
-	bh=hmYWsK57NfBoyHZLdcrGegzBAKx916qJzJBdz2w3p2Q=;
+	s=arc-20240116; t=1790936029; c=relaxed/simple;
+	bh=9oQOHEEQs44AVDkX9W3BG52gi8QWoKIjIFtojGSjlg0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jz3PqJENKzk5tCFJP1QqvauhT7a6cub1R0TYFY3PsCVzE3gwK696TlMma9eRO9FdBHXi5t8ldhB/cXNal+es6gwdjTmxa1AmQO9Xhjj70dM6APYTyZXXwwMHikmeG5f2QLs4MeHFMNlFSEboBRHFtl9uc6g8ht2HYBXxMxKMe18=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fkCrQ/RM; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=TiMoONGF69KMKG6V1GhWRh/ycOmAQTGmC9tGtLgmK0r+VzQvTU5wuzrEa0TX4EGyTyB+kUDSevIf+1IaxtLPqpBhZ1k/fRE+WMWeyr24rZLhNqvxjrtCR4d96MuXnqJadXjHi5tQJ/UgIltM8k8y1rX9mfabMiKwd4h83eVHOE8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=deAyxFf8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fkCrQ/RM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E66D51F0089A;
-	Fri,  2 Oct 2026 10:13:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="deAyxFf8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 932871F00898;
+	Fri,  2 Oct 2026 10:13:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790936022;
-	bh=Txo2Fn8QnKjSdSRZHBpMWh0pPCWQj+eCSqwzLZ4boxY=;
+	s=k20260515; t=1790936026;
+	bh=Tj9hZe/Y6hdPfr1LjfVKYWgy8fDZ8Fg+IPF84Z1+tyo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fkCrQ/RMwORB9Gp8lAgCeGDqvC+jN/dp/indqsS7IeaZTTDGC/LxoyW01VxgrAVtb
-	 VkPpjoyc098EyvOek6lRsXYnW25XvXSibwzsiFSAThpSpEVBFdNO1BdcnN75/AlMc0
-	 IFn7qpQrOPKXcUeAkGpHMpXfq7eja2TaNQxR6INFh0TTKsxFBVwd6Aze4ZF3ZPxSFH
-	 CmSvyf19dGx9Q+xNInDRi04MkPZ3D6WLnTfrsr9kOCrDswgHK0ACiw7ziUJmF5lFEy
-	 CU0PQhC6DSBkmot4LQgKrWqoH43qDFuAS+G7QmOn6LkzIU+MR1MzRFhuKc5WUEW6m/
-	 eHO2BJkUN8meA==
+	b=deAyxFf8qJbVcAWKwunMXdKDZO1F8hXv9CfGgVo9A/n58F1PujJIVP+L1E0E3TDzH
+	 8+NG4Wl0iTNGw+pYoUElo5lAbQlT+wIyKwArCXwWN//JuTL3Hk7cmHrt1OhRjwr4JJ
+	 1aXS5MliZlfgEBdYhdfchbDEMnlRc59Dzy9+e+pvPU/7MUFPdTUGQ2IvJ+/AB5d1zp
+	 D35w3U1pTUOiqiyzYpjuPJzdo4bc4uj8BXX0PwdgjaqbLmaaWMqx8manHnfDUg9kUc
+	 0yJLl2gxO9Nft81IAMNJ5YFbu+XXyEgNzvxEukMCpcJwd2UvUWEl75g5ZArTFajSiL
+	 UpD6on9JOdADg==
 From: srini@kernel.org
 To: gregkh@linuxfoundation.org
 Cc: linux-kernel@vger.kernel.org,
-	Alexey Charkov <alchark@flipper.net>,
+	Janne Grunau <j@jannau.net>,
 	stable@vger.kernel.org,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Dmitry Sinyavin <sinyavin@gmail.com>,
 	Srinivas Kandagatla <srini@kernel.org>
-Subject: [PATCH 1/4] nvmem: rockchip-otp: Serialize reads
-Date: Fri,  2 Oct 2026 11:13:26 +0100
-Message-ID: <20261002101329.1084348-2-srini@kernel.org>
+Subject: [PATCH 4/4] nvmem: core: Fix OOB read for bit offsets of more than one byte
+Date: Fri,  2 Oct 2026 11:13:29 +0100
+Message-ID: <20261002101329.1084348-5-srini@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261002101329.1084348-1-srini@kernel.org>
 References: <20261002101329.1084348-1-srini@kernel.org>
@@ -47,96 +47,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Alexey Charkov <alchark@flipper.net>
+From: Janne Grunau <j@jannau.net>
 
-The OTP controller is driven through a single set of registers holding a
-state machine which has to be stepped through for every word read, yet
-nothing keeps two readers out of each other's way. Concurrent reads
-interleave, and the outcome is either a reader bailing out:
+When the bit offset is BITS_PER_BYTE or larger the read position is
+advanced by `bytes_offset`. This is not taken into account in the
+per-byte read loop which still reads `cell->bytes` resulting in an out of
+bounds read of `bytes_offset` bytes. The information read OOB does not
+leak directly as the erroneously read bits are cleared.
 
-  rockchip-otp 2a580000.otp: timeout during read setup
+Detected by KASAN while looking for a use-after-free in simplefb.c.
 
-or, worse, one of them silently taking delivery of the other's data.
-
-Reading two cells in parallel from userspace on RK3576 reproduces both
-within 150 iterations - 53 read errors and 9 corrupted results, the latter
-either losing their first word or, in one case, ending in the two bytes
-which belong to the other reader's cell - whereas the same reads issued
-sequentially never fail. Concurrency is not hypothetical here, as six
-thermal sensors source their trim values from the OTP and reach the driver
-straight from asynchronous driver probing.
-
-Guard the read path with a mutex. Reads are the only way into the hardware,
-as the driver registers no write callback, and they always run in process
-context, so a plain mutex spanning the whole clock-enable, read,
-clock-disable sequence is enough.
-
-Fixes: 755864feb729 ("nvmem: add Rockchip OTP driver")
 Cc: stable@vger.kernel.org
-Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
-Signed-off-by: Alexey Charkov <alchark@flipper.net>
+Fixes: 7a06ef751077 ("nvmem: core: fix bit offsets of more than one byte")
+Tested-by: Dmitry Sinyavin <sinyavin@gmail.com>
+Signed-off-by: Janne Grunau <j@jannau.net>
 Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
 ---
- drivers/nvmem/rockchip-otp.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+ drivers/nvmem/core.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/nvmem/rockchip-otp.c b/drivers/nvmem/rockchip-otp.c
-index 2c0feb036f3f..f8a8c7cece98 100644
---- a/drivers/nvmem/rockchip-otp.c
-+++ b/drivers/nvmem/rockchip-otp.c
-@@ -12,6 +12,7 @@
- #include <linux/io.h>
- #include <linux/iopoll.h>
- #include <linux/module.h>
-+#include <linux/mutex.h>
- #include <linux/nvmem-provider.h>
- #include <linux/reset.h>
- #include <linux/slab.h>
-@@ -80,6 +81,8 @@ struct rockchip_otp {
- 	void __iomem *base;
- 	struct reset_control *rst;
- 	const struct rockchip_data *data;
-+	/* Serializes access to the OTP controller state machine */
-+	struct mutex mutex;
- 	struct clk_bulk_data clks[];
- };
+diff --git a/drivers/nvmem/core.c b/drivers/nvmem/core.c
+index 0556d140170a..b4e5069d9e38 100644
+--- a/drivers/nvmem/core.c
++++ b/drivers/nvmem/core.c
+@@ -1598,12 +1598,14 @@ static void nvmem_shift_read_buffer_in_place(struct nvmem_cell_entry *cell, void
+ 		*p = *b++ >> bit_offset;
  
-@@ -272,10 +275,12 @@ static int rockchip_otp_read(void *context, unsigned int offset,
- 	if (!otp->data || !otp->data->reg_read)
- 		return -EINVAL;
+ 		/* setup rest of the bytes if any */
+-		for (i = 1; i < cell->bytes; i++) {
++		for (i = 1; i < (cell->bytes - bytes_offset); i++) {
+ 			/* Get bits from next byte and shift them towards msb */
+ 			*p++ |= *b << (BITS_PER_BYTE - bit_offset);
  
-+	mutex_lock(&otp->mutex);
-+
- 	ret = clk_bulk_prepare_enable(otp->data->num_clks, otp->clks);
- 	if (ret < 0) {
- 		dev_err(otp->dev, "failed to prepare/enable clks\n");
--		return ret;
-+		goto unlock;
- 	}
- 
- 	offset += otp->data->read_offset;
-@@ -308,6 +313,9 @@ static int rockchip_otp_read(void *context, unsigned int offset,
- err:
- 	clk_bulk_disable_unprepare(otp->data->num_clks, otp->clks);
- 
-+unlock:
-+	mutex_unlock(&otp->mutex);
-+
- 	return ret;
- }
- 
-@@ -431,6 +439,11 @@ static int rockchip_otp_probe(struct platform_device *pdev)
- 
- 	otp->data = data;
- 	otp->dev = dev;
-+
-+	ret = devm_mutex_init(dev, &otp->mutex);
-+	if (ret)
-+		return ret;
-+
- 	otp->base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(otp->base))
- 		return dev_err_probe(dev, PTR_ERR(otp->base),
+ 			*p = *b++ >> bit_offset;
+ 		}
++		/* point to end of the buffer unused bits will be cleared */
++		p = buf + cell->bytes - 1;
+ 	} else if (p != b) {
+ 		memmove(p, b, cell->bytes - bytes_offset);
+ 		p += cell->bytes - 1;
 -- 
 2.53.0
 
