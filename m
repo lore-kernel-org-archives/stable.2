@@ -1,127 +1,189 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19C1C218E91;
-	Fri,  2 Oct 2026 12:07:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30E953A8749
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 12:08:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790942870; cv=none; b=I/jUdHklYkXmKJRhMiv+3dG3cCsx+RxPJXiEnug8QF2TyXyWMY20yOKS85wk2NNkfDy6GTdJpt64R4gagYtMeVIWXU9/QVu2N3f6kI4p++0Yi2vJhlOk9qH3vESeksABPEIduokDeQJlyyRui+ZvhLERG3hUSk8OSmdpRm8hT4k=
+	t=1790942906; cv=none; b=ODq3qDFv4Z0m0bZaUCPNDy3pfwbquQnL1GtWxBvNlIEymiz8z0ium6Etw2h3sPUZmibtsRFnK9TMV+eWh4XCk6Z2QYYH4CKZA5wHu9fO6Rt9agVUtetawo3XtyOH/pQVRiwumZnZVNPjWfC+qLixc8WmNLGN3TNelJ8HKRf6qsM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790942870; c=relaxed/simple;
-	bh=JqGAdkby/jemI7ikYN7ouyEs/6SIHMjG/HalRqrDl2w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pjXCv9YJTaK7k9FNaeB4FoKz4+wSF3rAohJw8Wi61S+sOyi1SgpzSLJr6oWzbPe2rrhVTe0F5Zub+00IwSGmxiNvYk4rXSba7qJdfKYGp/QSwnkqO8ghq2nSVjisDdXZnYwPV79/Kd7xVMqNfm0hl3LhGhmjAUzQleVACnKQcw0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=FbNdKiiX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790942906; c=relaxed/simple;
+	bh=X61e5l5tAmbK194rKvEOva5qQjovrr4ntCAoJ1nygO8=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=uKiI5h6L9r8wfxrJpyJWZN5CrH3FcC7Rsi1sATKU8EPCoGSkPS7W1IYA5tJzCrgMfk6NG1DMnF5jznpqeLQf7rDLynhztSJ3jE+GRq4Lo8vNqC/Iq2UqjJDOYEc9P+7+ntn7/EME3/sDrcQnK8Sod8+uOyJcxW+LB+6RqIr4lTw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ngAJ7NKr; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="FbNdKiiX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0CD91F000FF;
-	Fri,  2 Oct 2026 12:07:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790942867;
-	bh=6rWRrSDf2psyCFgcd9EMY/QKrnORAyyizWrSQzqAUrk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FbNdKiiXLPytlf+SD3bw+01UYJw+zzV/NfGq6dkEKID0UH/cKMbmOGr4k4BPqunob
-	 DpvtPnU1h+7mAbj5zlEp/z6IBabTewf9O7oic3s7fZq+fOAV5SHBNbLASo9BP3IgzW
-	 23g4EYTNVA3KquKigGWO5ohBoP1xUFMBoy5LTkSo=
-Date: Fri, 2 Oct 2026 14:07:40 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Mark Brown <broonie@kernel.org>, Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH 6.12 107/877] ASoC: soc-pcm: Apply
- snd_soc_dai_link_ch_map.codec_ch_mask to codec params
-Message-ID: <2026100224-statutory-embolism-2b0f@gregkh>
-References: <20260930152414.738996857@linuxfoundation.org>
- <20260930152417.048647943@linuxfoundation.org>
- <73b99ddb-996b-4978-a801-69a825da9954@oracle.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ngAJ7NKr"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id AFD9E4E410FC;
+	Fri,  2 Oct 2026 12:08:22 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 7BC9A603DC;
+	Fri,  2 Oct 2026 12:08:22 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F2720103281BC;
+	Fri,  2 Oct 2026 14:08:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790942901; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=hBfCY8ZDmjd9t596TtAJ9WNL7uehdO8CPfKsMuKXE88=;
+	b=ngAJ7NKrOrBW8hsfsC/CmSLYUHPzbNIocfSDX7+ZGRRVl6DSkSJSuUcl6XtYx8irVoNdWb
+	Gjm4bV6anZbSiVTymEMm5Te9BewlvcOUWCIfySdVt8ADBJXA89ORfMvAo8PwsU2l1KHB2V
+	d9oc55kUEzWM7K9+I7WEkIovj5A/d9RcoNnwCqmC23XI5KtS0uKQGeded5oQsKoAR8W3r7
+	CQB5Mx47D45OO7X+g6xkk8QRvLgA/GNdG9cMd9locpA+sqYLiANoFTnMY3QwaCo2lXeazm
+	7P4fBxlTXKIIQYWzlLnNLneKTZJS4NCz30ttu8W39NjQ1Zc+htLrEvMBaf5Gtg==
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <73b99ddb-996b-4978-a801-69a825da9954@oracle.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 02 Oct 2026 14:08:03 +0200
+Message-Id: <DLUC9MKOACM3.OPW5RYHOYZV1@bootlin.com>
+Subject: Re: [PATCH net v2] net: macb: rate limit netdev error info print in
+ the data path
+Cc: <stable@vger.kernel.org>, "Conor Dooley" <conor.dooley@microchip.com>,
+ "Andrew Lunn" <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, "Eric Dumazet" <edumazet@google.com>, "Jakub
+ Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, "Haavard
+ Skinnemoen" <hskinnemoen@atmel.com>, "Jeff Garzik" <jeff@garzik.org>,
+ <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+To: "Nicolai Buchwitz" <nb@tipi-net.de>, <taozj888@163.com>
+From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20260930113520.392025-1-taozj888@163.com>
+ <b06cb02d9b26ceff272d7e34927a7eac@tipi-net.de>
+In-Reply-To: <b06cb02d9b26ceff272d7e34927a7eac@tipi-net.de>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, Oct 02, 2026 at 02:09:11AM +0530, Harshit Mogalapalli wrote:
-> 
-> 
-> On 30/09/26 8:46 pm, Greg Kroah-Hartman wrote:
-> > 6.12-stable review patch.  If anyone has any objections, please let me know.
-> > 
-> > ------------------
-> > 
-> > From: Richard Fitzgerald <rf@opensource.cirrus.com>
-> > 
-> > [ Upstream commit 6b382bdfe26a2232091bf743e454e6794295783e ]
-> > 
-> > In __soc_pcm_hw_params() if there is a snd_soc_dai_link_ch_map with
-> > non-zero codec_ch_mask, use that channel mask to restrict which channels
-> > are enabled on the codec. But only if there isn't a TDM mask.
-> > 
-> > It is possible that a snd_soc_dai_link_ch_map could include the same codec
-> > multiple times on different CPUs so the for_each_rtd_ch_maps() loop
-> > accumulates the channel masks for all entries of that codec.
-> > 
-> > If a TDM mask was also set, it takes priority and is used instead of any
-> > possible snd_soc_dai_link_ch_map entries. (They cannot be ANDed together
-> > because the bit positions are indicating different things: TDM is a bit
-> > for each TDM slot, codec_ch_mask is a bit for each codec channel.)
-> > 
-> > This fixes a problem of incorrect TX channels enabled on the codec when
-> > multiple codecs are aggregated on a single capture link. For example:
-> > 
-> > - Two CPUs with six 4-channel codecs.
-> > - The machine driver chooses to assign one channel from each codec to
-> >    one channel on the CPU
-> > - But the codec hw_params() would be passed a channel count of 6, which
-> >    (a) is more channels than the codec has and (b) allows enabling channels
-> >    that should not be driving the audio bus.
-> > 
-> > Fixes: ac950278b087 ("ASoC: add N cpus to M codecs dai link support")
-> > Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
-> > Link: https://patch.msgid.link/20260910114500.1586637-4-rf@opensource.cirrus.com
-> > Signed-off-by: Mark Brown <broonie@kernel.org>
-> > Signed-off-by: Sasha Levin <sashal@kernel.org>
-> 
-> Hi Greg/Sasha,
-> 
-> An AI-assisted review flagged a possible omission. I independently
-> checked the core and SoundWire producer at 6.12.y f4ffa8dc360b.
-> 
-> The core backport correctly preserves TDM precedence and combines
-> codec_ch_mask entries for each codec. The question is its missing
-> SoundWire producer.
-> 
-> Upstream's companion has: 290845e151cd4e307cc1f25319583aaceb4eeb30,
-> sound/soc/sdw_utils/soc_sdw_utils.c:
-> 
-> for_each_link_ch_maps(rtd->dai_link, i, ch_maps) {
->     ch_maps->cpu_ch_mask = cpu_ch_mask << (i * step);
->     ch_maps->codec_ch_mask = codec_ch_mask;
-> }
-> 
-> 6.12.y asoc_sdw_hw_params() at f4ffa8dc360bce834e6ea7b0148eab0118f4a42e,
-> sound/soc/sdw_utils/soc_sdw_utils.c:
-> 
-> for_each_link_ch_maps(rtd->dai_link, i, ch_maps)
->     ch_maps->cpu_ch_mask = ch_mask << (i * step);
-> 
-> Only the declaration and core consumer use codec_ch_mask in include/ and
-> sound/. SoundWire leaves it zero, so without a TDM mask the codec keeps
-> the aggregate channel count and capture restriction stays inactive.
-> Hardware impact was not tested.
-> 
-> Could the ASoC maintainer confirm whether
-> 290845e151cd4e307cc1f25319583aaceb4eeb30 ("ASoC: sdw_utils: Set
-> snd_soc_dai_link_ch_map.codec_ch_mask for capture") should accompany
-> this 6.12 series to complete the SoundWire capture fix?
+Hello Nicolai,
 
-If that is true, then that needs to be backported to all stable kernel
-trees.
+On Fri Oct 2, 2026 at 12:10 PM CEST, Nicolai Buchwitz wrote:
+> On 30.9.2026 13:35, taozj888@163.com wrote:
+>> From: taozijin <taozj888@163.com>
+>>=20
+>> Now the MACB ethernet driver print the netdev error information
+>> directly by netdev_err(), which would lead to a large number of
+>> error information print if there was a significant number of
+>> error or just jumbo packets exceeding the MTU received when booting.
+>> For example, it would print a large number of:
+>>=20
+>> macb PHYT0036:00 eth0: not whole frame pointed by descriptor
+>> macb PHYT0036:00 eth0: not whole frame pointed by descriptor
+>> ...
+>
+> Out of interest: Is this a Phytium vendor kernel?
 
-thanks,
+I looked in the past so I'll answer: yes!
 
-greg k-h
+Internet search gives one worthy result: a 2025 series to DPDK adding
+MACB support. Some extracts about the exact string match and also how
+they support ACPI or OF and no other platform apparently.
+
+#define OF_PHYTIUM_GEM1P0_MAC	"cdns,phytium-gem-1.0"	/* Phytium 1.0 MAC */
+#define OF_PHYTIUM_GEM2P0_MAC	"cdns,phytium-gem-2.0"	/* Phytium 2.0 MAC */
+#define ACPI_PHYTIUM_GEM1P0_MAC	"PHYT0036"	/* Phytium 1.0  MAC */
+
+static int macb_get_dev_type(struct rte_eth_dev *dev)
+{
+	// ...
+
+	if (!strcmp(dev_type, OF_PHYTIUM_GEM1P0_MAC) ||
+	    !strcmp(dev_type, ACPI_PHYTIUM_GEM1P0_MAC)) {
+		priv->dev_type =3D DEV_TYPE_PHYTIUM_GEM1P0_MAC;
+	} else if (!strcmp(dev_type, OF_PHYTIUM_GEM2P0_MAC)) {
+		priv->dev_type =3D DEV_TYPE_PHYTIUM_GEM2P0_MAC;
+	} else {
+		MACB_LOG(ERR, "Unsupported device type: %s.", dev_type);
+		ret =3D -EINVAL;
+	}
+
+	// ...
+}
+
+@Zijin: do you have any other Linux MACB patches for it to work?
+
+>> in gem_rx() by received a large number of packets without
+>> RX_EOF flag set, especially with unknown packet
+>> type that would penetrate the hardware offload for the IP packets.
+>>=20
+>> The unlimited prints here would greatly bother and delay
+>> the system booting process unless the source stop sending
+>> packets since they occupy the console output bandwidth and
+>> other processes have to wait for the completion of printing those
+>> messages.
+>>=20
+>> So rate limit the netdev error information print in the receive
+>> and transmit data path.
+>>=20
+>> Fixes: 89e5785fc8a6 ("[PATCH] Atmel MACB ethernet driver")
+>
+> IMHO the correct tag is 4df95131ea80 ("net/macb: change RX path for=20
+> GEM")?
+> At least the gem_rx() messages were introduced here.
+
+The patch used to touch macb_start_xmit(), which explains why I told
+Zijin to target the initial commit on previous revision.
+
+@Zijin: where is the V2 changelog? Each new revision must list (below
+the fold line for single patches) their exhaustive list of changes
+compared to the previous revision.
+
+https://www.kernel.org/doc/html/latest/process/submitting-patches.html#resp=
+ond-to-review-comments
+https://www.kernel.org/doc/html/latest/process/submitting-patches.html#the-=
+canonical-patch-format
+
+>> Cc: stable@vger.kernel.org
+>>=20
+>
+> Drop the blank line as otherwise tooling might get confused and doesn't
+> get all tags correctly.
+>
+>> Signed-off-by: Zijin Tao <taozj888@163.com>
+>> ---
+>>  drivers/net/ethernet/cadence/macb_main.c | 14 ++++++++------
+>>  1 file changed, 8 insertions(+), 6 deletions(-)
+>>=20
+>> diff --git a/drivers/net/ethernet/cadence/macb_main.c=20
+>> b/drivers/net/ethernet/cadence/macb_main.c
+>> index 8e5c034dc3a4..ca60960bec36 100644
+>> --- a/drivers/net/ethernet/cadence/macb_main.c
+>> +++ b/drivers/net/ethernet/cadence/macb_main.c
+>> @@ -1617,16 +1617,16 @@ static int gem_rx(struct macb_queue *queue,=20
+>> struct napi_struct *napi,
+>>  		count++;
+>>=20
+>>  		if (!(ctrl & MACB_BIT(RX_SOF) && ctrl & MACB_BIT(RX_EOF))) {
+>> -			netdev_err(bp->netdev,
+>> -				   "not whole frame pointed by descriptor\n");
+>> +			if (net_ratelimit())
+>> +				netdev_err(bp->netdev, "not whole frame pointed by descriptor\n");
+>
+> This will just hide the error message, but the split/drop is still=20
+> present.
+> How about limiting JML in macb_init_hw() properly?
+>
+>          if ((bp->caps & MACB_CAPS_JUMBO) && bp->jumbo_max_len) {
+>                  u32 jml =3D bp->rx_buffer_size - NET_IP_ALIGN +=20
+> ETH_FCS_LEN;
+>                  gem_writel(bp, JML, min(jml, bp->jumbo_max_len));
+>          }
+>
+> The code above is untested, so probably needs further tweaking. An=20
+> alternative could
+> be to handle the split frames in gem_rx() correctly.
+
+I agree with you but to clarify for Zijin: if you do this then it should
+be a separate patch as changes are pretty unrelated.
+
+Thanks,
+
+--
+Th=C3=A9o Lebrun, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
