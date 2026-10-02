@@ -1,136 +1,294 @@
-Received: from outbound.st.icloud.com (st-2004e-snip4-11.eps.apple.com [57.103.78.201])
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com [205.220.177.32])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECD273E51D4
-	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 21:28:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.78.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790976524; cv=none; b=rSIMRYxWA0EDYbn3LdukWwKNyjnPp0gKv9GUfYvoBuFXkx/dGWaxpqga5AcAvzJysPjouoSsPsumaP9Z7eLuHCJGHESSgi9bRJepODLUvuV7fUwc+KkX6tqw0BNpXDXbk1x3NJFzr7yN8sbRjmZ/n7GVbX6RHW1KwaBvUfOARh8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790976524; c=relaxed/simple;
-	bh=Oo8lIQfisTIBzfqkI5g3UMnfDWuX0NA/q0z0wGzPjk0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KjLf2VSbTRa939bHh9a4WGEIf/HYRl/wjO2dmMNMvfJQAeNOlphu5qOUYUgIbjtfI3labuqHRu5fVekITJ5cFr/F80nL8musbiypOk1Srxy6H2dveN5H67Wh+waDz0g6C9+g04VeL9FSYDWcC2rOeJLz/jef5ULPUaL9aEdG/oU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=VzjL+WHW; arc=none smtp.client-ip=57.103.78.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65DAF416856
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 21:35:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.177.32
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790976912; cv=fail; b=YLGG9CXMtpTke3hj+LuCi1sp4DlKvAhzmUZ9ifM8kUWbVQMqupjKB5RoYKpg9oz9om0MzXB03zoYlr6XTgcffcu0KpqCyMhSscfulZrJSt4I7xTq7FJgNe53VXervcXOXd/fIwi4HQNkNALIGFMUW2RAWEvuQ9/J2T3yHI3ZyNg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790976912; c=relaxed/simple;
+	bh=3dOw99HkBzTCA+EpbvA4EtHy10sycTbH3T3miDNUkgo=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=oO2BOIro5HC0gedek0Mf858Udus+FjEyVyquU1m2ewC6Xdua6JfLgIBkPl2/KzCOtwFXWO+wT4GHq6H70n4mFUWN6PeIUARYQ/iVCCtCM533yZvsOcOwI8rsGZO/gdXHxp3cmePgyxxp0z3aLtSXgVfUAajHjN4Fj2twrXm34Mg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=O8aHGixm; dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b=dAXzoqlg; arc=fail smtp.client-ip=205.220.177.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="VzjL+WHW"
-Received: from outbound.st.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-east-1a-60-percent-9 (Postfix) with ESMTPS id 61D1D180070A;
-	Fri, 02 Oct 2026 21:28:38 +0000 (UTC)
-X-ICL-RepId: 01a0fe84-e89c-78f2-85a0-2a3521161b67
-X-ICL-Out-Info: HUtFAUMEWwJACUgATUQeDx5WFlZNRAJCTQhKCkMFWhxBDUkdXA5bEhVdRVUXUhlHGFc4Wg5bBEcUFxtcABcNVk1QG18CQg8cE1YVEx9UVgNCGRBWAVhWXQVNGlwYWQ8cA01WWg5bBEcUFxtcABcbRgIEIwJfAEUCXglWATAXD1ZNUBtfAkIPHBNWFRMAXg8PTAtIAVsGWwJCC0kBVQRYHEkPTwdABkZUClwKRgVZK1sTVRdGCRkIXR0HWEcURw4PGVoUXBhT
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1790976522; x=1793568522; bh=aJsmC1mviHb37getbq+iRvVXVUnaonvh2KuAc9UpK0Q=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=VzjL+WHWzkmGeRW/57/513c8MRKJqjVXa0MvzylFzyk/YQm5Latbd7tRiSdvDCdN835RL1K7ad8hzTxtXuPJy7JvN1LONuoImOq9htmyJxML/9FKeeTmkK9IqbvyIPUlBISF8p3oCkSmo6Wrbc3O4Eja68GewsJ06c9Ls7uSiNzSr67mY96aBi4w7ezr/4M8vFqIKuqU9KjSWWz7J5G3COaeTQFWLtcql/HGbiMIhsCA2plKFoZERnq10e9h/lL/ZgFzezQs/fRUWQ/92UK/nLLA5mmwNXcRfR1nLvOIjRXXwZJGVJF3OxmyzCdkqlnvu9Vc/Idw0Pc8oagSKkddBw==
-Received: from 252-PC-L.device.rit.edu (unknown [17.156.216.30])
-	by p00-icloudmta-asmtp-us-east-1a-60-percent-9 (Postfix) with ESMTPSA id 3F1AE18007D1;
-	Fri, 02 Oct 2026 21:28:37 +0000 (UTC)
-From: Finn Zeruhn <fzeruhn@icloud.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Lyude Paul <lyude@redhat.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	nouveau@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Finn Zeruhn <fzeruhn@icloud.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/dp: keep MOT set between messages when no_zero_sized is set
-Date: Fri,  2 Oct 2026 17:28:33 -0400
-Message-ID: <20261002212833.9674-1-fzeruhn@icloud.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="O8aHGixm";
+	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="dAXzoqlg"
+Received: from pps.filterd (m0333520.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 692EbguV730247;
+	Fri, 2 Oct 2026 21:35:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	corp-2025-04-25; bh=xKYtgmKNQAVbpidCxDi6ly7Kel1r2kpGXZmb/RX2hbA=; b=
+	O8aHGixmvuyMPm+icWIjlJffi5I3nHix8oKiu9MvSYPvMUss8SymI9bcKA+qthvD
+	hx/VNSR51RSQX8MmCKH4FiF0fYlyGzcjPQVi2HBz2V7SLZa5IVGDjzaTZ5XMxXbV
+	dxtQo0Hd5a5URekRER1vxsyPssFnOSXYuntqKSkbg5D8waCBugFjUAMbAmBZwNP5
+	5TWQPWMYRCYgZ14Az/Y+DENATeCIReI3HTfV9i5+yZ3GL80+acDZr6IdDxRB8LzX
+	pZWTRyfZj3iLe2Xd9q3VUmQU077E8h/wszkIM1kyZUbHfDRfvFmKZ7qoNN5pkmSj
+	RAnTJjzBlJtq/vWl4U0QOA==
+Received: from phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta03.appoci.oracle.com [138.1.37.129])
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4gx63c4s15-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 02 Oct 2026 21:35:03 +0000 (GMT)
+Received: from pps.filterd (phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 692LZ1ZV040912;
+	Fri, 2 Oct 2026 21:35:02 GMT
+Received: from ch1pr05cu001.outbound.protection.outlook.com (mail-northcentralusazon11010028.outbound.protection.outlook.com [52.101.193.28])
+	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id 4h2f6fsfat-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Fri, 02 Oct 2026 21:35:02 +0000 (GMT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ak4yTU5BCzn6rkx0pM41Qdp9qdTmDwtOdTizoIYRpfg680hU8MM4RDA4UwBZYaGJuS3YUddl80z4FRvKXYA282IAiZ181CZnuYwbglFnr1ZXqQg1Eg350jsCy130M6DVgrHj/OZlSBwt182l/c1Gc8EbFaxjvWwOOTRYogSLIg+SbtqfZy05ll7KHm2G8jqpSVP8VGXU4Iqa0nK9Lzg6QH9unNYVOZ+gLQeDgQyd2Jflwi4hZsr+RALzfVUaQPkdUsDGVwRW4Flv/RX5FJa+WvT+GLWY8iwbyADfILIxq1kFYftqBB67SB7buoMxYzrAya8yjR67xRZm5MhwEhNjkA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xKYtgmKNQAVbpidCxDi6ly7Kel1r2kpGXZmb/RX2hbA=;
+ b=Hqem5OfC2x+MrWerKeHdOC41u2mvztIt8QN0CdU37TBDIufPUV83x/eyAplAo1C82c4eyW3r4Q0bjNHAyKPw1GAmPkCLjxxLB4gTBO21bpoDU51O4le6wEBM24udaFJ5QVEcaOUWrdbUhCa0dreX9yugRI3/Rtm1imMRE6koSh6OJWxZGtQS1RkuxLHuyp5hHotqDGhnIZQcWvHHj/U7eF2NL+P63EpSzbAPUTVZIneXklpIFZE76w+WIyXAlqXO6L9GDLOBB+owjnf9ZSNMJvssaTEHHfOP5HTvInKOp4ZYdWNixKhM9u5DJSC1BGn0EnzeuJdIef9X4tDy5rTxSg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xKYtgmKNQAVbpidCxDi6ly7Kel1r2kpGXZmb/RX2hbA=;
+ b=dAXzoqlgejaGm9xBM3g6xH7Z9+SeXMzUp5PKjqpuqa3YqsAsZa35o8OV/gx7dz+PP07ArhLls1vmUwv3tk6MVrpkktEoiNioGJh2EJTyfOXKL9saqZK+uXAkh8xCKE+vR7nyogcLdDtkkgNL+YYlHcXpMJ6RscSQXaD8a+igra0=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oracle.com;
+Received: from SJ0PR10MB5834.namprd10.prod.outlook.com (2603:10b6:a03:3ee::16)
+ by SA3PR10MB7071.namprd10.prod.outlook.com (2603:10b6:806:319::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Fri, 2 Oct
+ 2026 21:34:21 +0000
+Received: from SJ0PR10MB5834.namprd10.prod.outlook.com
+ ([fe80::2444:1d33:3ce:d83a]) by SJ0PR10MB5834.namprd10.prod.outlook.com
+ ([fe80::2444:1d33:3ce:d83a%7]) with mapi id 15.21.0496.008; Fri, 2 Oct 2026
+ 21:34:20 +0000
+Message-ID: <93db0eae-f479-4343-a126-59987ae0dc22@oracle.com>
+Date: Sat, 3 Oct 2026 03:04:12 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5.15 223/752] wifi: cfg80211: validate IEs in
+ cfg80211_wext_siwgenie()
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev,
+        syzbot+cc867e537e4bd36f69bb@syzkaller.appspotmail.com,
+        Deepanshu Kartikey <kartikey406@gmail.com>,
+        Johannes Berg <johannes.berg@intel.com>,
+        Sasha Levin <sashal@kernel.org>
+References: <20260930152358.131179731@linuxfoundation.org>
+ <20260930152403.080560860@linuxfoundation.org>
+From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+Content-Language: en-US
+In-Reply-To: <20260930152403.080560860@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN5PR01CA0012.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:261::17) To SJ0PR10MB5834.namprd10.prod.outlook.com
+ (2603:10b6:a03:3ee::16)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authority-Info-Out: v=2.4 cv=U4KfzOru c=1 sm=1 tr=0 ts=6ac02207
- cx=c_apl:c_pps:t_out a=oyWFxbOnq+dmhQrAPgaJYA==:117
- a=oyWFxbOnq+dmhQrAPgaJYA==:17 a=660iZSQnnn4A:10 a=x7bEGLp0ZPQA:10
- a=UWokjQvqbcQA:10 a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=v3ZZPjhaAAAA:8
- a=tmjPn7o2apbUsHgEkIAA:9
-X-Proofpoint-ORIG-GUID: Rk3qkKmZ0gbJTD9A2W_CcYbjnSmjo3j-
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDA4NSBTYWx0ZWRfXzbmsrKE2psOA
- xup8hGPRrsgRj1iK+FU3T80jsfjf9FBXxBBclepIYFoQc91yW+eqhhaSUuJPhv66pSf9vx6GtLW
- q/BwF9ZShwI7GDLS9lOiZi8Ym+Zg55M5j3cyuNkhvrtmAq3OtVqBTvWldh5DhZImm+eL73Gpanf
- LQGix2chVlCqeS+TEPVORuPxATWeoqwRqPwhhK5/R+hPhEN8skDmw9ThWmng1cxwpM/VhHiCFD/
- J7hSfW8VS5EqHpakkRIQnBE5ZNfgGVknGZVrvERvzGPbSvom1dx7pNVHjNCtDqIeqBdWN2VZ/cf
- iP3hgeS4xu6FW+a9caqtXoybpZickU+ZP3csWhFwsLUSqHLc++JRL69Of2DVi4=
-X-Proofpoint-GUID: Rk3qkKmZ0gbJTD9A2W_CcYbjnSmjo3j-
-X-JNJ: AAAAAAABIX1DDu2r6CLCwNqrpo53j7UPSFCGV0xf2o7uDj4nKm+2DT0na4iiQnAkqlSq9p
- fd1oND7MDu/jefloDBNTXfT46NbSI3BbdjxIijySz6tblQaNxpAXjXbOdUd67NBHUSORx5
- caRIevSIRVV7Br585QQajTetwXgtPJokMMXGImmrG69Vi4aNgy7Bm9T4KDSK9T0EICj+EF
- 4ocLEm979UtKHMyOg8xK25zYurszrfAcRhUiRwvaKz1ZuuBcvK8btWeYAu2+T5Hw3eh134
- oCToOZZc/bQIjSu0s9jfnZR4cpaj4FQYtTKNn4slL5s/TCGhokxJzD504m3n6GjW+rG3c+
- 0reoln2gpes93hnLJAx++evdvYTJLx2p9TA/Kxo49zr8O5IzBUU/vLGImyk0XvXTD0TvVH
- 29eM9iOh8CbYUc7m/VwSXduISjcUMlB3vprql7RpBZzjKvvAc5rQZRDgqrzwjmLzTt47pE
- 4tjlryrUS9D7gYmLAFI2G+dYOxX8yMPLYxSQ3Y8nZ3bo2M66yVpQGqbpmHVBMUjae8eEMB
- 1Y9JFbZcxVWLaw3eaKFEQ8JKbomHsHh6NQEqSiRKPq5Oxw19BfZJZ0eBsL2oRkN2k9HSpL
- JXBP7Xwyl2xha2o3UCdNqurTSWkoJfJkU8W9HviC2d5jdVNBb1kZxNzm3d+9ZKCskTFLRI
- KYQ8o5zJPwIXNzo8TL7AccuCkqvwH8QDkQTD+ClhsQVigP/zb5ezCj+S2hwonLxlwu1fHs
- 9c0wf/xm1QaqkkJePWdA6aOXInwiBwfDjqESPWT6cX4xXLSxalrqI7isoQDKh5XyWYaRE8
- J1rWD9eb7LOxyaXgSeJFIuCn8JXtAOTg5rXHuIUVEAU5MtpqB07gqFQSuqKb9ymOEp5uj/
- 6ivTBKncKIimPx8fR0a0zGyiqntvDDHjH+yNiO6AN8D9rBYdUT+2V0Eu+30UApjHrtslU5
- pTGyVzEe1vDSTbiwHzJgnq+W2AleEtdJBNaykqHcUnHjpS4uXH0BgNOuyRijRiNZSUOgqo
- mQL5FIpiiIXDDfCUaQiHeSJV4UsTBTGiV4ut8ZeN8vQ26zfJjEuK+ojJOI8pO38SK/g3Wg
- gzmHIZujVYhY5P4kVWtcKENCyJingqGkDrw6YkdT/76qWhPtroukH3cu8TvhL55R6aFD+w
- Pa2/YFeAfqU/vMdvhrIvOdaq2fleuQbAXaUVGbAB2l/PTNoBJir2kAskNruk816za6oLC9
- zZVoGcCrCrkElepvrHG7g+WuSlkSm3eCqJt1UWCg3Ay+fnHf7HvP/0rRYAgGuBuJj2JdXv
- 9dGZQZyO9d4mlEHspPhwPd4OIm3tRH2H0dPhDFkCncndDhcU21thWu/3WAWZtjjPJ16g==
-X-Apple-Category-Label: MTE1NzgzMjUxMzU6JGNhdGVnb3J5JF9QZXJzb25hbCw=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR10MB5834:EE_|SA3PR10MB7071:EE_
+X-MS-Office365-Filtering-Correlation-Id: 201e7af5-d957-46b9-f682-08df20cceb2f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|5023799004|4143699003|6133799003|10067099003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	yy8xFf277s/JB38yU1JcKa7JyBgLWZkA6CCknZsxGmYOWhIj8NJ/ZuFOamM7zRRNtk0TtO+xt4CwGyAY03hLXzfAmzJI+PZvAWWCf23nnTtApvZezuZ9036Pr/IxvN0A7yeFqDfZXpn3s/nnEvUXZ2qJYNt1Vz6+9VYcMIVKiJzEUNpaGVg5A4LaBRzuRRMsmyGv4aSGyEeTX5GYcOxC6j2pxYi+ji9aUtZSK4N7qOcMuWe1tyY7IhG5bjUqIgmENyMFsQqkZA95411vKW6vQ+xQZZBiawNSHff6BRyutnfso1vEaR3rRsFP7Y3nIy3Q0hCi0vCn/XlgtiOcb32viJU9nNR7nfYCcxE5B1hs3Zk5/8YqAL4cZy0N3W0BpMyh39jTWzKpedXrbshPsge0AfFwLKflJ4Vcvq3j8ePmC7WcXzEIL4v9t1EMv2o9K0STz/RpkJKJEFMcl1dxu/5wW7L4HKyOT0Tj8A80lX1MxEfw230+J6telGCgG9Vfujvuf1G3KbTsurEeKMDsa01KbsKdWI0W6YCcU0PxGv/INKtkDnTY0+y2S1bQCTWMa3nIQAtdYBgOHsp832u+L34rx7z5K0McO0vLNadAPLxpTR0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR10MB5834.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(5023799004)(4143699003)(6133799003)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?LzNQQWRsYUV3eHo5TFh6dXJjZTBjRHoyTERsaDNNUER2dkNVVW9rWGxXMWx5?=
+ =?utf-8?B?UUhlUGsyMGJRRmZsd3lXTTBYMzNXV0lXMEN3bXM2ZFVuaUdxZVZqTFhOb21I?=
+ =?utf-8?B?UXllcXFmVnRlcDNuOC9NWkcwaGNqTVl0d3VJMXVLSUlmclo4L3RhNUszRXFm?=
+ =?utf-8?B?RDRLMWZRL1FLemUwZUpRTG1RamhPeU96b01LMUJ4Mnc4K2pJWEMyYlBPTUVl?=
+ =?utf-8?B?eTZ5UUwzbk1uMndJK0k0YVdqMHBSTWdWWUprUm5SYVp1SythR1FvS2FDUVBs?=
+ =?utf-8?B?bEV5VWRjaGFudUhOMmlVaGNaM1lvSGFtd0huRnJZclZOUW1NWEgrSmZuSmZi?=
+ =?utf-8?B?TndSQVQ1ckR4VTBGKzQ4azNhVDl5OVV0K0V1T0tseVdaSGdHZ0FBMVVLVllk?=
+ =?utf-8?B?T0V4Nmo2amRLc0NZMGZwaFJTbmVBTDh6VjIxTHZhbk5WZlRPMmZwc3Z1Y0Za?=
+ =?utf-8?B?M0FNTjhlajdPdFFZWGtKWEkzS3Izc3EyWC9VQ1haQklWTVhBcmovUGdqZWdr?=
+ =?utf-8?B?Q2hDZFdvZDEySkdZTnR0M2h6bS9qR2JZL3llZUVaRlMyZlcvRVpOSTN6OGY2?=
+ =?utf-8?B?MG5DVm5WWW5zOXg5YnphM0Z5QnNhdHBYLzBMNFhLbmRETm90emdGdHN4bGg3?=
+ =?utf-8?B?RXdkZ0pLM2FlSWtSWGdaM2p6T1A4eXJGY3p6bkRrNHl1MW44dnNUOFRPY0V3?=
+ =?utf-8?B?NVhhOHhYdnZKR0R3UW82dU9qKzM5OWI5T2taZHp6a1RpWThKWDdPRHVyTFRz?=
+ =?utf-8?B?VHNxSEtBcm5hTU1zOFZEenh3bVYyeW91VVpnQzVVenJKUGZYcEU5QlNiNFo2?=
+ =?utf-8?B?Sno4d0NZVDFONUF2ck13WEpCencwM1lkeEtENnlxZ01vNTV0QzNwMEhKM0dB?=
+ =?utf-8?B?VUVWNXFHUEc4emc3YnY0NHF2dXBKQ2lucUVmaGJvUHd6LzhIenovUVpPYmFW?=
+ =?utf-8?B?ZitRaGNOWi9pS3BGTmVzT0NDdWZMVmkrNFpOQ1ppdnZRMjJrUWw4Uml0Rkxr?=
+ =?utf-8?B?NWtsaHVaWmkvT0ZXU0txbTVkektoa3ZCcDBhSVZIRTE5ZnEvL1pLMXMyNmI0?=
+ =?utf-8?B?YkZqWTVpRlUxOXBBb21PT3V5UXpZRG9jUWQ0Y1hFZnZPL1FpeHVEc2svMmoz?=
+ =?utf-8?B?NWtsNWVlMXRvcW81OVpKQUpZa0ZXTjViRGVZVkhiaXhNOUlDOUFjYnR0NE1r?=
+ =?utf-8?B?R2F5cDdWRWcvdms4Y28vN0xPSFg1dVZlczg2VStRWVJjZVN2MjBPa25ncXRy?=
+ =?utf-8?B?eS9wK2pBSHJwcWNEaVZtNkRQYm5CTGloVFA3Ri9VeWtqSUZDM2x5QVhIUlFu?=
+ =?utf-8?B?VFJ1NVo3d1ZlKy8zbExIZnYvL3hNbHl1NmxsdHQ4c2NoS1RhclJoTmV2ckY5?=
+ =?utf-8?B?YzJwRzRrUGtTcXZ1NzNrVEd6SGhkcmk1d3YyYUd4K2xLSFNxQzZOZTFpWHlT?=
+ =?utf-8?B?NDRnb0JVOUxGZmZLNkErZ0lQdXAvM3JvTUtuR3ZzTmxPdkRtTGdMZGVmU2pq?=
+ =?utf-8?B?ckZtaEV4ejZRQmhNaHZXSEl0eWpkZHVFOEprVGI0TnVRcVhpczRMOWlMc0VT?=
+ =?utf-8?B?eEV5Z0FiRHN2QW5ZbURGWWFrZURJTTl0RzZJT1J0OTR5N0k1WTY5ZC9PQ3p4?=
+ =?utf-8?B?dGozaTZMem00OEl3aVVOUm53VVI0K0tBMkNYYXFlLzlya2E0QURMSnpUekV4?=
+ =?utf-8?B?aGtIRERKb2MrZDdQRENmMmlEY0FFN0xJdVFwenloaGMzd3lORUVaY3F2R3p5?=
+ =?utf-8?B?dEhzTDQrVWhFSWgxZHlneUpLQlZKMnRWN0YyaTdyem43d1lXTHJKRGROTllH?=
+ =?utf-8?B?Y2x4RkFzand5SWdEdWNldlFPblk5VHNUZUpqYTlBWHl6WHNNbXFvNXZPUVRM?=
+ =?utf-8?B?TTkxenZrU25CR1BUc240ZTh3TSt4ODYyQVFTbWhxU2lRTmpha1BvNDFXMU83?=
+ =?utf-8?B?TjdCaTNHY2hqUGlzU1JyM1NPbUo1eC9mMEw4ZmFIbGlTV3k0RzlGODZ5WG1z?=
+ =?utf-8?B?QmdHZjVRRjRhUTdmMTN5alBDUmY2OTNpcjdYNGxQd0tUcm1STTZvTUE1ZjNB?=
+ =?utf-8?B?Ujd0Nk9BellWQzg3UFJ6bjE3UHQyQ3loQ1BVUlFHaDdiY25rSk1oU3NFaFJw?=
+ =?utf-8?B?Zy9XREtMZVpDbzBVNzNVWGxrN3p1eVpwTlgzMkhVMVcySEIrY3ErWW8rSE1T?=
+ =?utf-8?B?Rm5kcnRmcHpjcHVtMFBHaXBDU0QyQjJHdFAvZEU4N1BpZlhjMHQ4ZE83UFpo?=
+ =?utf-8?B?YmZyQ0VVKzk2dXBRQUVYeEpBaHdhdTRuZEhSZzVGZEtQSjFENEYyaWszR2pZ?=
+ =?utf-8?B?a1FSa0w5SVRyNnZWQUFrZllyLzZGNUV5SXovd1ZPMFcxd2crMHlObGpONXhZ?=
+ =?utf-8?Q?x5TiXG80CCnYjiS25scS6H/uC4v/ONMGeCnJy?=
+X-Exchange-RoutingPolicyChecked:
+	hq4lNO/2JL6dntNuFqamJ3cSHBhzex203f55KTpMYWf+/vnbtMjDfDwVteJLRIoIifl1RyssGAxYM7b02fQ6Y29n1Zyz5bL20QSrRdT+h/MOJG/2VhtaIWTtJgTTlqMrCTHcAYitjoLnuTprOeCYxR/iAlhp1iZcEnrXkrxrZlp1tVEm8e5/RrMKzxT2dZM1pKajwHJCVr8xfRVjMgYNhkKqju1jyGrvEI1g2TbJzm1AEscLiYae/Wgt6WO2jn0iJ/LzpJ5TXlqigwVbUFWp4Jsj1SCnaBhk5UyEUmsLTZcG8KSTRME0dlPZ8Ng1oSQ7ElQMG1BpWyABeep651XtRg==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	IwRQljDHpwGGAMEUGswYtxqapy7Z9v4+AOwBhBMzxQBLOzst9LUGc6kmQXNs0baM5ysTdi2AaYxeDo5QjBz5P7pGYYdKMuvFs58HmkBiow/ghsH7SogJX4e2/pAwxSr/6eSdVny3SkHZgjV78UNMlOwe9atjrAJ7+iFZasj2wu5DHZK1Ixp0z+cPYMiYAIZK2tDLhSAQsF3/fO9aGpH+an06NcdlOL1LMw7JwG4tI/EXT48jbpIGspqajecoI/C2P2oAILmJCBwPrMjF5Ca3wuten3VHM3ZzG+Xnzsr8GdXVPbF/mOZpvnf0etNzBX7Ss0kIuIMj2KSVf3gaGpVrTu1JZ7STiDy+9bvRGWg4ZVbqrUe1epLkNxu2YxcA2cW9K6itrMtBN1oJaj7ZvaOHa4yIfWGlBPtdSzSkftAwTi8MDH/aUIfVZzKzna/Cd2cbr/ZzLE5bm2xeP7NQWgCyTLpO9sG+3wZEKqPI8o4ludF41/3jgeQ8FReHSJ3/ugDXeJbgvSEW9KQLkORE/q86+XxJHaOb4ljgwAoG1rufWmlBNd9rtiwPT1vwiBzQRqBABpXGYazk3jceBTxgikWgOs9ewt6cpa1WA38fMSmaSMc=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 201e7af5-d957-46b9-f682-08df20cceb2f
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR10MB5834.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 21:34:20.3342
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XI2hiPF//8Fp9yOhqRK/a7MgL7eB4mGTTSDoXEUAZn3Zft5KAP7PoRDBHl3vBsaGHwmUyP/xP5T5Uwkb0np1ienP9AnWjFyruxgkKvopzPWrwZUSHGNpB+tRp0Nm9aIK
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR10MB7071
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-02_06,2026-10-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
+ adultscore=0 malwarescore=0 phishscore=0 suspectscore=0 mlxlogscore=999
+ spamscore=0 lowpriorityscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2609040000 definitions=main-2610020086
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDA4NSBTYWx0ZWRfX4pBmN0OujwGL
+ hySSbi3W08kZAIng9qZ4aRflBpSJQuU+5ey0vf7y8elJukvEOrdadExddL1wgqwFGNpNL0ZdlaJ
+ 2Lc9i5PWDmUgVBTByu392ECCVsqnQxpGKpzeyUKhNVTQWjn3dNuo
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDA4NSBTYWx0ZWRfX17XSwitFUbTv
+ hOKBSnaqJiLoPCQnVmcrDKlsYGq9eDisqW4daB6bCgWubIBpnAhybjuCRtKOeNTqeY71B1qHuFq
+ lSU9mHczoKqFTgP62D30iRJay/HA4Kfv2CVjkf4a8DzHYopkvBc5aY/Bz+jG3PixdEOCxac3Mc/
+ XGqwESSW/UBNOmAMjwmE5O6qGAVo9UwxLPMkD/YJA4fQiHzUox8me7qkzcA5H95XQA5nmCFQOAC
+ RezfOGk4rudaBpNDTBXzpTwiPrHa1zHw/4OwS2BgEdgIzL1suJxHkyPNBLlqOXUxEdZxUJqhmZp
+ K17GntzkuiLHO8zFL/q2VwQKhJJqzFQ2eJZGYgjjKPIQe/Q7wDkgJD5vOeMYJ/4U5b9vzhzJA3Y
+ /tRzk6A4qV5iaOnWtMmYR/OhM86CTrWMGh7WWORzs6OY957t/C0+ZC0Heab9XuaTIqiaIBm+xa6
+ DMCVMfk/LJRL7EYwUqg==
+X-Proofpoint-ORIG-GUID: Kxa-BUnNyKeXsmD4vmbOl5Ls5-xZwULm
+X-Proofpoint-GUID: Kxa-BUnNyKeXsmD4vmbOl5Ls5-xZwULm
+X-Authority-Analysis: v=2.4 cv=PPGaavqC c=1 sm=1 tr=0 ts=6ac02387 b=1 cx=c_pps
+ a=WeWmnZmh0fydH62SvGsd2A==:117 a=WeWmnZmh0fydH62SvGsd2A==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=jiCTI4zE5U7BLdzWsZGv:22 a=BqU2WV_vvsyTyxaotp0D:22 a=edf1wS77AAAA:8
+ a=bC-a23v3AAAA:8 a=pGLkceISAAAA:8 a=hSkVLCK3AAAA:8 a=QyXUC8HyAAAA:8
+ a=VwQbUJbxAAAA:8 a=k1x6HkE61L8NR3qAFJwA:9 a=QEXdDO2ut3YA:10
+ a=WmVTiCyuxqgg3mnwYu6p:22 a=DcSpbTIhAlouE1Uv7lRv:22 a=FO4_E8m0qiDe52t0p3_H:22
+ a=cQPPKAXgyycSBL8etih5:22
 
-When aux->no_zero_sized is set, drm_dp_i2c_xfer() cannot use a bare
-address packet to close the transaction, so it clears MOT on the last
-data packet instead. The check only looks at the position within the
-current i2c_msg, so MOT is cleared at the end of every message and each
-one is terminated by an I2C stop.
+Hi Greg/Sasha,
 
-This breaks E-DDC reads of EDID blocks 2 and up. Those are read as three
-messages: a write of the segment pointer to 0x30, a write of the offset
-to 0x50, and the read. The stop after the first message resets the
-segment pointer, so the read returns segment 0 again.
+On 30/09/26 8:51 pm, Greg Kroah-Hartman wrote:
+> 5.15-stable review patch.  If anyone has any objections, please let me know.
+> 
+> ------------------
+> 
+> From: Deepanshu Kartikey <kartikey406@gmail.com>
+> 
+> [ Upstream commit a2f5286ca4f304d3fd469f01b96b518608912a5c ]
+> 
+> The KASAN allocation trace shows that a malformed IE buffer is
+> stored via SIOCSIWGENIE (cfg80211_wext_siwgenie()) without any
+> validation. The crash trace shows that a subsequent SIOCSIWESSID
+> triggers a connection attempt which calls cfg80211_sme_get_conn_ies()
+> to process the stored IE buffer, causing:
+> 
+>   - An out-of-bounds read in skip_ie() which reads ies[pos+1]
+>     (the length byte) past the end of the 1-byte buffer.
+> 
+>   - An integer underflow in the memcpy size argument when offs
+>     returned by ieee80211_ie_split() exceeds ies_len, causing
+>     unsigned subtraction to wrap to SIZE_MAX and triggering a
+>     fortify panic.
+> 
+> Fix this by validating the IE buffer in cfg80211_wext_siwgenie()
+> before storing it.
+> 
+> Reported-by: syzbot+cc867e537e4bd36f69bb@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=cc867e537e4bd36f69bb
+> Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+> Link: https://patch.msgid.link/20260725142028.32560-1-kartikey406@gmail.com
+> [drop unnecessary ie_len check, update commit message]
+> Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>   net/wireless/wext-sme.c | 9 +++++++++
+>   1 file changed, 9 insertions(+)
+> 
+> diff --git a/net/wireless/wext-sme.c b/net/wireless/wext-sme.c
+> index 193a18a531423..1919290d1208d 100644
+> --- a/net/wireless/wext-sme.c
+> +++ b/net/wireless/wext-sme.c
+> @@ -333,6 +333,15 @@ int cfg80211_wext_siwgenie(struct net_device *dev,
+>   		goto out;
+>   
+>   	if (ie_len) {
+> +		const struct element *elem;
+> +
+> +		for_each_element(elem, extra, ie_len) {
+> +			/* nothing */
+> +		}
+> +
+> +		if (!for_each_element_completed(elem, extra, ie_len))
+> +			return -EINVAL;
 
-On a Pimax Dream Air (three EDID blocks, native timings in a DisplayID
-extension in block 2) connected to an RTX 5070 Ti with nouveau, block 2
-reads back as a copy of block 0. The checksum is valid, so nothing is
-reported, and the connector only offers fallback modes.
+^^
 
-Clear MOT only on the last packet of the last message, as the commit
-that added the option describes. With this, block 2 reads correctly and
-the native 7104x3840 modes are listed for the Dream Air.
 
-The same problem was pointed out by the Sashiko review of the patch that
-sets no_zero_sized for all DisplayPort connectors in nouveau.
 
-Fixes: f0ddbb1eed18 ("drm/dp: add option to disable zero sized address only transactions.")
-Link: https://lore.kernel.org/all/20260827015758.0B4FB1F000E9@smtp.kernel.org/
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Finn Zeruhn <fzeruhn@icloud.com>
----
- drivers/gpu/drm/display/drm_dp_helper.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+An AI assisted review flagged a lock-cleanup issue in the WEXT IE
+validation backport. I checked 09c42d99d893 against upstream and 5.15.y
+at d7aa8488b4a2. The validation is present, but the new return needs an
+adaptation to the destination's explicit locking.
 
-diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-index 488fd123a01a..7676285c19f8 100644
---- a/drivers/gpu/drm/display/drm_dp_helper.c
-+++ b/drivers/gpu/drm/display/drm_dp_helper.c
-@@ -2192,7 +2192,8 @@ static int drm_dp_i2c_xfer(struct i2c_adapter *adapter, struct i2c_msg *msgs,
- 			msg.buffer = msgs[i].buf + j;
- 			msg.size = min(transfer_size, msgs[i].len - j);
- 
--			if (j + msg.size == msgs[i].len && aux->no_zero_sized)
-+			if (aux->no_zero_sized && i == num - 1 &&
-+			    j + msg.size == msgs[i].len)
- 				msg.request &= ~DP_AUX_I2C_MOT;
- 			err = drm_dp_i2c_drain_msg(aux, &msg);
- 
+Upstream a2f5286ca4f uses a scoped guard before validation and can
+safely return directly (net/wireless/wext-sme.c:314 and 328; intervening
+code omitted):
 
-base-commit: bca45af5998a05f34b13a2ef11e639bac9c62643
--- 
-2.56.0
+     guard(wiphy)(wdev->wiphy);
+
+     if (!for_each_element_completed(elem, extra, ie_len))
+         return -EINVAL;
+
+5.15.y takes wdev_lock() and copies that direct return (the same
+file:327 and 342; intervening code omitted):
+
+     wdev_lock(wdev);
+
+     if (!for_each_element_completed(elem, extra, ie_len))
+         return -EINVAL;
+
+Malformed IE data now returns -EINVAL while still holding wdev->mtx,
+blocking later operations that need that mutex. The upstream scoped
+guard releases it automatically; 5.15.y's explicit lock requires its
+existing out cleanup.
+
+I would suggest keeping the validation and replacing the direct return
+with err = -EINVAL; goto out; so rejection reaches wdev_unlock().
+
+thanks,
+Harshit
+
+> +
+>   		ie = kmemdup(extra, ie_len, GFP_KERNEL);
+>   		if (!ie) {
+>   			err = -ENOMEM;
 
