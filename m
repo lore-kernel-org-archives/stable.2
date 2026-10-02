@@ -1,244 +1,230 @@
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C76B23C1D7D
-	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 20:41:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=121.127.44.66
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790973701; cv=none; b=tA9wP8yhlGONf1sEOAHUUDhr6Ub0UXXaiCqgjgZ5ynq8aixecwBd/xQiMkCDr20UQydMFvt9XCFBjv8zQsZWsNxbNwYk2fhqmUCzEjQiWZFy7bptlCwD7ZILBMyZsD+tCosL9//MT7LZ8WHs1lirP8YmRVFakr99O7dqH+PYLik=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790973701; c=relaxed/simple;
-	bh=gSGkLWy9yvY7tZZ4ZKWB713JOMXWirdgzdfFvkBGukY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kkXw1sUn8HfppagOBh7AiIAP3w+udn7Yc4BW3IJZgT9PSqmvTdxTIU8o+ISjZAZxeL5rh5CM/U8G1itUJV7xhUDAMHR0KG/bBVBAwVZD1f0P8HZd0bVdrcMvFW02e7u0z6xhP0XqgpMs7SGL/5ke2frVQc7+JyfXf1QWAdLJX/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=fe-bounces.ovn.org; dkim=pass (1024-bit key) header.d=ovn.org header.i=@ovn.org header.b=feJPdnhU; arc=none smtp.client-ip=121.127.44.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ovn.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.ovn.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6D3A1F875A
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 20:44:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.165.32
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790973861; cv=fail; b=VWuwGXzTa1LhOOqkFrEXvQw787iSNAkUxhVeMS6QCBYB7bsSTLIuolcL21W6pznhKr3Ei/jc7vjv8hGY7tyFOcR0Vt7m+dGMNO3lp7i+6AjpN9py9CA9tKIx5PVpwvUcFNdjr8Fnr9wDXncw0QtWqh7m2ckzX8jFVnspkCVIRMw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790973861; c=relaxed/simple;
+	bh=RM8wWzUvNL/zm8J8QosdEBTdwC6A3GunJX+MKAy8eIA=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=qNDvJ1aNDA5yMTu17DhlIy88pTE58bEzjnsIoAGGvObGFJpTCUrrRtnsTtYItefyzoiAWvr1uchNryh9jIUN9fkyktIC7mk2PuFQtZ4y2CfRR8nJxjlvN4RuhWI5I5Cs/V6Hhh7ag/E9i17FRw3dqzgH53Ntf+LMSmkGH5anOf8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=JAIvTf0G; dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b=YcLGhceu; arc=fail smtp.client-ip=205.220.165.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ovn.org header.i=@ovn.org header.b="feJPdnhU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ovn.org;
- h=Content-Transfer-Encoding: Content-Type: In-Reply-To: From: References:
- Cc: To: Subject: MIME-Version: Date: Message-ID; q=dns/txt;
- s=fe-13eddc7e57; t=1790973697;
- bh=EWYXAp/W3+HiwhItKO7V9bOzZcPqAHsPQdSF1JKL+iU=;
- b=feJPdnhU4/qgxK5A9db1tjowioua/R02qeFHra67jrNJdfD9r8BqJTeyznAXtWWQu92Ys4ac0
- GZZk6LRJLgBHw87VWljF/8sDKPnO0mjQHnFwVyuioMMjhe5DZaQCx+m1iXMesA0RJQY7hyFrlaY
- ZtfoWm1/1usl0TUjnSPs86g=
-X-Forward-Email-ID: 6ac01700fd5a2680fad29990
-X-Forward-Email-Sender: rfc822; i.maximets@ovn.org, smtp.forwardemail.net,
- 121.127.44.66
-X-Forward-Email-Version: 2.17.0
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
-Message-ID: <f7b2f1d5-4332-4187-89f8-dbd00ff11e1b@ovn.org>
-Date: Fri, 2 Oct 2026 22:41:31 +0200
+	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="JAIvTf0G";
+	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="YcLGhceu"
+Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 692EbgkJ1541698;
+	Fri, 2 Oct 2026 20:44:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	corp-2025-04-25; bh=Pz47dzocADPvmpBqAJ0HK9CQNHHHpUPxvZNjogPVD1w=; b=
+	JAIvTf0Gv1axKS2UovIV/R+eJjKV96H7Uoh682hf6+A584qwWiBl3istKuHZ0oqu
+	Tfow2DsrgD1pY3/n0jhLIP3jeimnX3fFzPflC/YGovNJBvvHHaJA//BZ9MkJrlNQ
+	zh7QZ1X6Kbe7gZtiGBeACFVN1GRGWZtu1BhZ2Ht0+jGAZAplHPi3rLkeLObJ8ecH
+	5KWbRLiah9itM434nX86QbQXvGt3l6ddQLcR/yvl4cd+PQDNDCG/5vEnn2B9A25U
+	0ERk2eubboTsAdpT3OzMMfRiB/EV7CZym4PKRCYSHaUhm+QlGk84rALiHAWQQVk4
+	09QzuL8/RGYRJDFHDxkTCA==
+Received: from phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta03.appoci.oracle.com [138.1.37.129])
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4gx4mymuu2-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 02 Oct 2026 20:44:05 +0000 (GMT)
+Received: from pps.filterd (phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 692KZ1IV030333;
+	Fri, 2 Oct 2026 20:44:05 GMT
+Received: from bl0pr03cu003.outbound.protection.outlook.com (mail-eastusazon11012016.outbound.protection.outlook.com [52.101.53.16])
+	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id 4h2f6frdf1-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Fri, 02 Oct 2026 20:44:05 +0000 (GMT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ipj1+kGya0boaK6xKN+YjWAxnyq9Zo5sTYi1MV8dN9TeKEAhC7wY012LGegAlkZmvsmdGp+QQz1HttxT02gZPpcZMEgBJlWza2Qj1SQlPlbJIHuvGUYEJL1iSWxQiIp3EyF/BjmyF7X6ibbYs05/y+l1PdsXdCsIZjSzJjxJPJelVMnQxxLmIIVBZSw/1Nl6tG+1QQ+toOiDDv7a62HMrbET0BxA21Apeil4U7lY/bMr8SttsA7yKUSyOxlAF52Iz1IZszzwmp3uQnRkhkpSXO0yyXwFtr3DDXX8q8UFro8JwLuQxlCdSjlfNLXMcRlTtXpVR5yNj4vogmqFx1dSqg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Pz47dzocADPvmpBqAJ0HK9CQNHHHpUPxvZNjogPVD1w=;
+ b=gtxUWGapljbJ5448XJrEZI36PGLIHbO3jVdUSCWa1Fh5GWn/xAQTqMZeEfsWcshoo4fY1bA2LxpK0x2LrRY2uUsbL9KLLwAlxfpydQl6pl1cpL15dvYd7En9dGS0r6/pyG5dp5x6xG3h1dYwlVx4U9755b8SCvBwrnfdxuzkD8gvafBX6HqsAwvG47urADKIaCKR5h9MJlf5WpqoDJvMftvBZ+UZRTsdvIPVMpKGNWjou6jzvqjb0HKPkEIDW6YjTD3B0yDcS7igZCgGW1evbzNu62uD9vcCq9zcvmvCsMAHLUqlvEHep5dBabK1XU7s1ynalQMwwh/h2ZdhpwBQEQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Pz47dzocADPvmpBqAJ0HK9CQNHHHpUPxvZNjogPVD1w=;
+ b=YcLGhceuxVj2eAlij3Lx3dZsl1W2bsmJN2tnoucV6hS92ilCZUwJv3c4Nf5GnZ8X3EW8eHl4abS6/nFNzunEi20f3IUVl3GXFpGpRbhKlH/YeE/9Pkazl0DG6sUHYLBg42wNCeQRoZdui8cpsiV1pbjWRy8xtsc5iLyKTml5fjE=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oracle.com;
+Received: from SJ0PR10MB5834.namprd10.prod.outlook.com (2603:10b6:a03:3ee::16)
+ by SJ0PR10MB4608.namprd10.prod.outlook.com (2603:10b6:a03:2d4::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.12; Fri, 2 Oct
+ 2026 20:44:02 +0000
+Received: from SJ0PR10MB5834.namprd10.prod.outlook.com
+ ([fe80::2444:1d33:3ce:d83a]) by SJ0PR10MB5834.namprd10.prod.outlook.com
+ ([fe80::2444:1d33:3ce:d83a%7]) with mapi id 15.21.0496.008; Fri, 2 Oct 2026
+ 20:44:01 +0000
+Message-ID: <53c5c2ec-4360-44d8-9be8-32419f06a4e2@oracle.com>
+Date: Sat, 3 Oct 2026 02:13:54 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.12 436/877] macsec: inherit lower devices TSO limits
+ when offloading
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+        Sabrina Dubroca <sd@queasysnail.net>, Simon Horman <horms@kernel.org>,
+        Jakub Kicinski <kuba@kernel.org>, Sasha Levin <sashal@kernel.org>
+References: <20260930152414.738996857@linuxfoundation.org>
+ <20260930152424.092713670@linuxfoundation.org>
+ <230a7cd7-386c-4d64-a896-09dc32720c24@oracle.com>
+ <2026100223-sprang-quake-e329@gregkh>
+From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+Content-Language: en-US
+In-Reply-To: <2026100223-sprang-quake-e329@gregkh>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DO2P289CA0009.QATP289.PROD.OUTLOOK.COM
+ (2603:1096:790:6::14) To SJ0PR10MB5834.namprd10.prod.outlook.com
+ (2603:10b6:a03:3ee::16)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v3] openvswitch: fix soft lockup in the netlink flow
- dump
-To: netdev-bot+sashiko@kernel.org, den@openvz.org
-Cc: netdev@vger.kernel.org, dev@openvswitch.org, aconole@redhat.com,
- echaudro@redhat.com, i.maximets@ovn.org, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- stable@vger.kernel.org
-References: <20260929072519.2803304-2-den@openvz.org>
- <179089366251.434549.18021554028626523205@kernel.org>
-Content-Language: en-US
-From: Ilya Maximets <i.maximets@ovn.org>
-Autocrypt: addr=i.maximets@ovn.org; keydata=
- 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
-In-Reply-To: <179089366251.434549.18021554028626523205@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR10MB5834:EE_|SJ0PR10MB4608:EE_
+X-MS-Office365-Filtering-Correlation-Id: bf791c8b-b5bb-4a8e-5b4a-08df20c5e3d0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|10067099003|56012099006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	Wgz/o8TzWdvnZF+E2H4yh9y/ZkAhmcxzU02zFcq467ROsnFpQ3hP+UQdOyk9BoQKeSthcbiVIzcD3sAu20vl7xNWBUPGDm9cQW73C8DkpmN5FT400DakjXBIv3V9L1bYakLK1GXfRm0BfDdpbPPaAKQrnqPvjZDHKnPDiudY+mg5zaWzxNNQaJ3wiJuPsSGI0c0wSneAxh5uO2Mn6YS0Ld2eCLogquNoJazjo1Ew2+IXl1xN/QncKbVtynSGIQsawc9S1rSk3753QIt4et1/p3OqtnqmgCN6UWwy5npEgyxSB5i1vjZCb5m84VYTXj5hm6kips2CEyXRUNv87LhkQx4yISW92B9Qu9q+dMWkJMUu29CBZi1ZT7klUpkeaX296JJdD4ohdg8PhpKGehrA1O1JCWsGrxqFUy1iFT0nl15j/B2TbkdUYXpiTZJQi/4yq2Z0DZbKf1KAQ3f7GpKWfMPNuTSrcB7KO3GddrwB8GuOcS9EBiuE+OjjUD+O+Hmr+Ak3hOciVudPPAvtpclbr8/hx3EiPjNJP+W6DoExZ15pcRJJVD7unnexYnyntEJszevroF16r5I/b/XkYueV1gD4oy9mGB49DLomaWrsqTUUeSSxkxdUDFYJsJSZlJ7I9rjVx2O86meGLG5/8YLmmmBGkxwMj7YwDe/00IQyXpU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR10MB5834.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(10067099003)(56012099006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?L3NzU2djRFc0TVUrcVlIOGlsbHpZWnVPdGhlSmtlK0M0SEllcHRjTlc4cWhK?=
+ =?utf-8?B?OFBhSElHanJiTnhMRUZvVk96L0Y4WGJVVGVlTnZuZCtwN2crU1ZPaHpHc1NL?=
+ =?utf-8?B?MnAyeGxkN3hQWDdsQnFSeTIya1NmKzVTMGV2b3hLUktUSzRQVXN2RllaYVAr?=
+ =?utf-8?B?MjBFR0N1ekoySnBjZlJ3SitWays3Z2owVWlWcnE0YWF3ZW5FczJlOVQwQUlv?=
+ =?utf-8?B?UmhwelJaQVFyM0JjQmtRZHlpMEphbWJna09JS0Q5TEVRdWtpZC8vd3lSUU1I?=
+ =?utf-8?B?cU0zYXdDRzVXcU1pRjBBbUlDWDBLUjgzUUM0OUVsWThVajRFQWZYUjdKd0Nl?=
+ =?utf-8?B?L0lVaG5QZ25idEs5dXNMczJrVmlXb2tHWFJKSHdsK0xkU3F1SEx5QWphRTBl?=
+ =?utf-8?B?RWhyYzV5bWoyUktJaWRvdWU3WldqZk45OUdKUWp4VlFGNSs5c0FlYlpMdEs3?=
+ =?utf-8?B?RlNEekFWQWdxakNhQWNyY3hqdlJ1cFBPTjdrcmxsVGtkM0R4RTlKWDRESzNp?=
+ =?utf-8?B?M1dNdktjRTJXN09OQzhlODF0RFQ2WU5rclFmZzZUY0c2c0dWaU5RRzFpZUhv?=
+ =?utf-8?B?S1hNOU5sWHVxb0pES0JJNXJrT2k5MzJFSlFRMUpJZ3RENHBKQ2lCRWxXUStP?=
+ =?utf-8?B?NzlickVoNG83akIxRXhpQUV3N2E2cEFDbHpTK0hGZi9Kdll5cVJZaDl6TkFR?=
+ =?utf-8?B?YmdQUyt2WGpoVGZ2N0NYa29MVEdLVnozaHY5WWFmK3B4T2J2eHBleDlMUmkv?=
+ =?utf-8?B?cTYxb0xtQ1J2QWRERmxkU2taTXdwOWxVMzNTMXBicDQyY1FDUGJFeFEvMkIy?=
+ =?utf-8?B?YkVaNHRub2p0bi9FUExJYUNaRjMrbXFNaGJzMWYrVmc2RHBzOWRXaHFjTUNP?=
+ =?utf-8?B?T0dOVnRFTDNEVWdLa2w2Slpab0loa2VqOEhGNUlyV1o0WWlGeUtmNlFMTE5B?=
+ =?utf-8?B?VGZTSmNFNGtvTHR0RVhVQ0RWR2hMRWlIV2FST3lFQzZhNFJSKzFoYi91cUd2?=
+ =?utf-8?B?UUdGUzkvRWZUcElOZmtQalNpaWRwWUdFU0RxRkNsTVhWNTAwZ28wYkRJekZk?=
+ =?utf-8?B?cUlpOTZ0blQwNVZvMHV2SGhBZWlManVmS2RzN3JRWXg0NWJsWXVxbFUrSHRW?=
+ =?utf-8?B?elpyZ1NncjVZS0UxcGZPVzRCVjJ3ZXFGS3MrMGdlZUpLSDN5N3NkRG1vWlV2?=
+ =?utf-8?B?NjM4SGs3TWV5TGZUNytjakdzK3p1TTVia2ppZG45cHVZY0ZNWlpXNTlDQ05T?=
+ =?utf-8?B?RllySlh0RVYrSU9POWZEWjlyZEdQUkIvK0V4K2VMQ3FpVUxLMEpwd3VOQlA4?=
+ =?utf-8?B?aGdMbTFqaEp6b1AwY2NVOEw1bG80b1QrbFU4WXo5QzZVeEpVODFMcHVmOUtR?=
+ =?utf-8?B?WnZ1bjRyTjdTU3ZXUy9ORDJKK0d0VXVlZ2U4dUEycVJLYm5qWjREdWptdk9r?=
+ =?utf-8?B?eXZTNzlQS3YxN2RpWFpKZExhVHR0bC83N0loRUlJYjZ5M1gvTjlXOXluSmsy?=
+ =?utf-8?B?Wm9sM3BoTDNwT2tNcnVtOGVRWWlFM05weFIyL2NuRnpPdVFFNmdkSXhKTnpi?=
+ =?utf-8?B?WjZUb1FISGpjcjYzNEsxckNPc0haN3hpVTQ1aHh1WmpPazh2eXV1Y3IvR1ox?=
+ =?utf-8?B?cHRRZFU2VEpFblA2UnMyVTFpNHBTdUVxc2JIYU9rcUdna3BIemxDMjFsTUFT?=
+ =?utf-8?B?bU1GbWlFUWpIZDZCNE84MS9rNm5oelFaN1BHYXFwTHNMWmJLMWpNSUZ0bm5N?=
+ =?utf-8?B?SkJubUhPR0k2TkUxSm1nWit2S3dQbW5IK2h6emxvcVZnWURiYmlKbEJuZHlF?=
+ =?utf-8?B?ZTdOTHc5QlFKNWxTUmRJd3J0d2d0OW90SHpJNzhaZ0tpTndUemVyZS9uYVpL?=
+ =?utf-8?B?UmhZU1lkME1yZGgxeUdkWWJpbm03bmY0UDVLZlpGVnFXWlBYb1lyeERvaEFw?=
+ =?utf-8?B?dGdPTlk3T3BudHBtTlJJdUJCWVQ1bk1ldXhUc1lzd0U2K2ZRdHNIWDdFVmI0?=
+ =?utf-8?B?MG9SZzIvU2ZVeUFETlBYM1Fybnd6R3NjOTZrUW04a0wzUXMyS1UyUjZaZDBt?=
+ =?utf-8?B?R3k1Y2ljNWZ4TW9TNVpRcDN3WkJGeUtLb3d0cmdDQ3grTHdZK1Irc0JkYmM0?=
+ =?utf-8?B?YjgvVHFDcnRFdk1NMlEyUWdLRlF0b0tSOXRrTnpReHhJaHQxeHIzUjF6ZGpM?=
+ =?utf-8?B?NjJCaUJFYk45b1F4WlZpU0lQTWowODdMUTVHaDNWVlZkdWVsMytUTmlCWGRK?=
+ =?utf-8?B?K0l6MU9KUmxjbytwenNvNFJuR05tK1UwcHVHSHNvSDd3NzEvenZ5UTU0bGdF?=
+ =?utf-8?B?cWdCQ0IrajJzSTVaRjRDUDhNQlBMbmtlTEU2bnVyWktpcGVCVVBENGVPUFF4?=
+ =?utf-8?Q?JlkzRQduuw7bBM0EICl7JAtWVflxXypIS8WbG?=
+X-Exchange-RoutingPolicyChecked:
+	zNaJF86KpkW5wtPK5dHdQlNvNTRQ2L4m+R9jiwq8zhuCxlF7VrocWfiU9/6kH4dXEAy2A4JEdDHrrdH+EbeYIaoUUYlC19e5dmsL76hSa3ZXcHMpi7TYmV87y86NWPaM8LCFwRzDMbK5yeKOpQVfqZOd1KPQiAZQWu0K0Td4tdz3W97vX3x5NIgPHzKIkI5hlj51ESxF/erqJmPb3zQs+07aaArizpRTfAmCRcIW3lVnJDJRU2sYewfHPuagbu6tzI6JL9GGuMUj3NXwBSzHkIKIl7hTrlhNIEJ6TZe0xD1mU5/1YfQsHh5qrruqo+arJARvhfEPWcnbdGAgQkqQSg==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	j3PGxs7hY9C+tLjaKSrOCnP/RzZe/02DB2WnKbTUIuMQw8gpFjuAvipyiRevpQiYKqTz1EuhZ4x1Dpzf8R0Y6T5g4hCH6oAJQFhlCwCK/EBsJjQ5CCrz11eVtQEwVS5m2FhtCBLy+CSolDfBMGazPTE3MHw1nf7woYW/yKG1WqoTfrbiyCphNHOD2y79WTEPtD5CL4QD8NXApwJXysKL+uJnRk8IKOlCtvCwhc/B5DKX/a3zA/HUZO1wF21rAgUM79CZFHnLaelbqKZVk3UVTr+pewx68C6mfpn1XS+NwfG8ar+ocm5AwIfYZsXrLoZAg1YT74OFYsHJHFwgjm2KYjEV3tnDBDcdcmDLCw8+IpxxPlmShlaR+x3c3w2X3xt50XXt99Zz4PzuHtIEvStmGgeS1ycz3yrOV8sxBaZzBL1fxsj34Gac/A8odPUAPYDtQjmedpx9mz59ovzIuvNhZlA7bxyy1rqgSq5khQQCB+82NkslstyJZuZFG+IyOvUf+2zBR9obIRG3yzOARcxGNDQLvgkXLQQRHdRCHL8JsNqUxagiCq6at42h9ul0oYUu61vzw6Lwn1y4BdlKX53r35cG4nKsfKnsJw3hNRwZiBg=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bf791c8b-b5bb-4a8e-5b4a-08df20c5e3d0
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR10MB5834.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 20:44:01.6250
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZmY0b8OCuDN1pinXI5t4SqXSTmvBOEOqFOLi9QuDevXrclypZOwXKW6RmiEk1TR25b/xMgP7YyQ+oIT21yIOtb0qeivALZ7HOZ3DUGd10bT6L9TbZiqyb//YCnqVSrUg
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR10MB4608
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-02_06,2026-10-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
+ adultscore=0 malwarescore=0 phishscore=0 suspectscore=0 mlxlogscore=660
+ spamscore=0 lowpriorityscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2609040000 definitions=main-2610020082
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDA4MiBTYWx0ZWRfX8i25shfTPshG
+ or4sucuE40B1/3J352PaHRU5S4veeLRUQTPCBelAe8lKUQl3XR25uIfrPBqTNfZr93uPHDyF4Cm
+ r105yla+RlvoRasJjjOd6ge6ertmxQ4hvIW9X4i9yIsH48Nsvrca
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDA4MiBTYWx0ZWRfX/cWH4c5WcesE
+ cug3vGPWMtn8GAkqa/XIU8nClBRB7QkWPLphOxi6N2ya2zImTmzEbS12fZF7Ufc7u3BHq8E1oLt
+ OJRksEyjTlU2cyhfgJuVBbaglHbY9aPP7tqn7yVf1PCWEsuiFrvEMAXW/JLz1r8OewVC5OZzvOE
+ soCZAJO0gfHLW6XgnWel2iLvGG/Cxu5rQQSwhjPVuSGzMT47sZ6dOQ/7NX/z6cs1zP8GVKSq8XG
+ afEjea/6hdlfI6p05hQfsELeH30oIyAm43aXumeXBbl2lh7jfLGcVFfhsIRBpn4QW49G4LRfZV2
+ dpdj1GLUy2IgmF5PkY+OP8m1mlB3n0QtWeW1LJnkDKlSfj9bY9ZPUoEhGHSBpt4v8QZp0dWBc9f
+ K5uHbXIBqt6Gd2Uwt8ly2sva1TH0n1T1SLuecJ/fJLKFrt/JmoyCBT9pOqTdLvBQdoTXZSZha0h
+ 12D2tV+ZWsZKjQ7UTaw==
+X-Proofpoint-GUID: zGjO8zijlXG-Muh5xzhy1pE-WDlsbCeQ
+X-Authority-Analysis: v=2.4 cv=DZmCOftW c=1 sm=1 tr=0 ts=6ac01795 b=1 cx=c_pps
+ a=WeWmnZmh0fydH62SvGsd2A==:117 a=WeWmnZmh0fydH62SvGsd2A==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=jiCTI4zE5U7BLdzWsZGv:22 a=RD47p0oAkeU5bO7t-o6f:22 a=ZNEGDu-Kzpn9XkiSx0wA:9
+ a=QEXdDO2ut3YA:10 a=WmVTiCyuxqgg3mnwYu6p:22
+X-Proofpoint-ORIG-GUID: zGjO8zijlXG-Muh5xzhy1pE-WDlsbCeQ
 
-On 10/2/26 12:27 AM, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 0 · Medium: 1 · Low: 0
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [Medium] ovs_flow_cmd_dump() (net/openvswitch/datapath.c) now holds BH
->   disabled across the whole dump callback.
-> 
-> --
-> 
-> openvswitch: fix soft lockup in the netlink flow dump
-> 
-> This patch disables BH across the whole table walk in ovs_flow_cmd_dump().
-> The goal is to stop the per-CPU spin_unlock_bh() calls in
-> ovs_flow_stats_get() from running the softirq backlog in the dumping
-> thread's context. That backlog processing led to a soft lockup on a
-> heavily loaded compute node.
-> 
->> diff --git a/net/openvswitch/datapath.c b/net/openvswitch/datapath.c
->> index 631a03136fa14..4fc5d0bebd85e 100644
->> --- a/net/openvswitch/datapath.c
->> +++ b/net/openvswitch/datapath.c
->> @@ -1532,6 +1532,12 @@ static int ovs_flow_cmd_dump(struct sk_buff *skb, struct netlink_callback *cb)
->>  		return -ENODEV;
->>  	}
->>  
->> +	/*
->> +	 * Not needed for safety. Stops every spin_unlock_bh() in
->> +	 * ovs_flow_stats_get() from running the softirq backlog.
->> +	 */
->> +	local_bh_disable();
->> +
->>  	ti = rcu_dereference(dp->table.ti);
->>  	for (;;) {
->>  		struct sw_flow *flow;
-> 
-> [ ... ]
-> 
->> @@ -1552,6 +1558,8 @@ static int ovs_flow_cmd_dump(struct sk_buff *skb, struct netlink_callback *cb)
->>  		cb->args[0] = bucket;
->>  		cb->args[1] = obj;
->>  	}
->> +
->> +	local_bh_enable();
->>  	rcu_read_unlock();
->>  	return skb->len;
->>  }
-> 
-> [Severity: Medium]
-> Can a namespace user control how long this BH-off region lasts?
-> 
-> The region now covers the whole walk in ovs_flow_tbl_dump_next(). When
-> buckets are empty, that loop has no exit that depends on skb space:
-> 
-> net/openvswitch/flow_table.c:ovs_flow_tbl_dump_next() {
->     ...
-> 	while (*bucket < ti->n_buckets) {
-> 		i = 0;
-> 		head = &ti->buckets[*bucket];
-> 		hlist_for_each_entry_rcu(flow, head, flow_table.node[ver]) {
-> 		...
-> 		}
-> 		(*bucket)++;
-> 		*last = 0;
-> 	}
->     ...
-> }
-> 
-> This means one callback can scan the entire bucket array with softirqs held
-> off.
-> 
-> The only cap on n_buckets is the kvmalloc limit, which allows about 2^27
-> buckets:
-> 
-> net/openvswitch/flow_table.c:flow_key_insert() {
->     ...
-> 	if (table->count > ti->n_buckets)
-> 		new_ti = table_instance_expand(ti, false);
-> 	else if (time_after(jiffies, table->last_rehash + REHASH_INTERVAL))
-> 		new_ti = table_instance_rehash(ti, ti->n_buckets, false);
->     ...
-> }
-> 
-> The table never gets smaller in normal use:
-> 
->   - ovs_flow_tbl_remove() never shrinks it.
->   - The periodic rehash keeps the same size.
->   - Only ovs_flow_tbl_flush() goes back to TBL_MIN_BUCKETS.
-> 
-> OVS_DP_CMD_NEW and OVS_FLOW_CMD_NEW/DEL only need GENL_UNS_ADMIN_PERM. The
-> dump needs no privilege at all:
-> 
-> net/openvswitch/datapath.c:dp_flow_genl_ops[] {
->     ...
-> 	{ .cmd = OVS_FLOW_CMD_GET,
-> 	  .validate = GENL_DONT_VALIDATE_STRICT | GENL_DONT_VALIDATE_DUMP,
-> 	  .flags = 0,		    /* OK for unprivileged users. */
-> 	  .doit = ovs_flow_cmd_get,
-> 	  .dumpit = ovs_flow_cmd_dump
-> 	},
->     ...
-> }
-> 
-> Root in an unprivileged user+net namespace could do the following:
-> 
->   1. Create a datapath.
->   2. Insert N flows so that n_buckets grows to between N and 2N.
->   3. Delete every flow except one in a high bucket.
->   4. Run the dump repeatedly from threads pinned to each CPU.
-> 
-> Each dump could then walk up to 1 GB of hlist_heads.
+Hi Greg,
 
-I don't think this is a concern, as the user will have to allocate
-hundreds of GBs of flows in the first place before freeing them,
-which is likely a larger problem.
+>> 6.12.y inserts the new label inside the older MTU case's block:
+>> 
+>>     case NETDEV_CHANGEMTU: {
+>>         struct macsec_dev *m;
+>>         struct macsec_rxh_data *rxd;
+>> 
+>>         rxd = macsec_data_rtnl(real_dev);
+>>         /* ... intervening source omitted ... */
+>>         break;
+>>     case NETDEV_FEAT_CHANGE:
+>>         list_for_each_entry(m, &rxd->secys, secys) {
+>>             macsec_inherit_tso_max(m->secy.netdev);
+>>             netdev_update_features(m->secy.netdev);
+>>         }
+>>         break;
+>>     }
+>> 
+>> NETDEV_FEAT_CHANGE skips the rxd assignment and dereferences an
+>> uninitialized pointer. Software MACsec reaches it too, before the
+>> offload check.
+>> 
+>> I think 6.12.y needs f29d24a2106ae28a9b257503a615ee438efa3f95 ("macsec:
+>> clean up local variables in macsec_notify") before this backport,
+>> thoughts?
+> 
+> This patch is now dropped, thanks.
+> 
 
-> During that walk,
-> NET_RX, timers, tasklets and RCU callbacks are all deferred on that CPU. On
-> CONFIG_PREEMPT (non-RT) kernels, the walk also can't be preempted.
-> 
-> Before this patch, softirqs could still run on hardirq exit during the walk,
-> and PREEMPT_RCU kernels could preempt it. On PREEMPT_NONE/VOLUNTARY kernels
-> the walk was already non-preemptible under rcu_read_lock(), so the only new
-> cost there is the softirq deferral.
-> 
-> Container memcg limits don't cap how far the table can grow:
-> 
->   - The sw_flow kmem_cache is created in ovs_flow_init() without
->     SLAB_ACCOUNT.
->   - The bucket array from table_instance_alloc() comes from unaccounted
->     kvmalloc memory.
-I have a patch set in works to properly account memory towards the memcg
-of the user.  That will cover this case.  However, it's likely a net-next
-material as it changes how users need to manage their memory.
+thanks for dealing with this and other report Greg!
 
-Best regards, Ilya Maximets.
+
+Harshit
+
+> greg k-h
+> 
