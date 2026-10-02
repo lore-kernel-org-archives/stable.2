@@ -1,35 +1,36 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 074844DBD70;
-	Fri,  2 Oct 2026 13:54:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF85F4BB29B;
+	Fri,  2 Oct 2026 13:57:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790949263; cv=none; b=og79CD0mMKHwQSnC+kyBpd2pqGMw88WX8MqyE4UZYF0+SEdr5BksDW5P0k7rhBrgq0e/lcr2xHGuGF4Gm9uL/EARXG3LR1SlElxZg5pRpVtUEFmtcRPdpLCuECVyPT//F72C8laJu81/oz8odS7C5rOrLMDruAdWqnhDB08HKL4=
+	t=1790949424; cv=none; b=rxjzcEHTaxieJsTywRYfVCvuRGITEcypW9jOcn7Y0i7ejR1jKG2gcqhY3owsit2u2aBJfIc3WL4xc+RpUCwB3szAEvrLQXkDn4wP52MXQeCho+n1yW9Q6YEjMA6t33wFt5e2uOJxh8Jt5O3MKY6h2H9J4XzqN8NIIKQkeFMvIAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790949263; c=relaxed/simple;
-	bh=6DTUTR3vci9TVR0f5VJSu7/oQFnEzU3Q12LI98klt38=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=DOQzyjcp/M2xJzUoVWn4osl+sKb7vfFktfVPZ91mPbP4O22Knq/sRnAZncoIm3zgGgz2nJIrT8CsHoVDo5t/YurmeSIHoF/VVte9OPJUGYVgXetdqYHLGPWhsb+UUmXuo77DN1FyIuhNbbB3g5znlaKac0L0RkUddHrJfgeXvMo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EZ7kq2YG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790949424; c=relaxed/simple;
+	bh=2zF+Sfj9s5Ein+P0ya4+ac7E4LQ7ElkPTHjYS8Xz644=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=q8dkj5fichZ9v0zMWMVYhc0T7C/XV+r7ka4oqJzKBn3kCGi+Cxoo0gLy7oiqH7/l7SWKU5NY7Jm92nWdmsM2gbfx2vrJHOjwnX9Q96MH06ofkcE1ynCBPCr3O2yFf5MLnBLYx2DLv8SXJaud/SUBiNx2i6p56KiVsxLqPEjZQzI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H+CSu43R; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EZ7kq2YG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D30611F000FF;
-	Fri,  2 Oct 2026 13:54:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790949261;
-	bh=3fGReSXC5XNGD1PpaGmsCBaQNVkgsJNA6DlnvCVauj4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=EZ7kq2YGeQYe2UmN47oJF8WyHKR8fuKGtSXclNpkYw30DMe8n1NZ0wHnyv6XPS5NZ
-	 eAWkhrlIwwyvEF5slYBKxxs/v6rTWTzxY94srjqS5ya2BMAzTwYJVhQ0PXaEeGkypy
-	 tHZpyC69/O2t6vpIbQv0sov5KP8oSHTCVXnEIvKC9jld4alTOaUjRBiNVI62OP3KqC
-	 W6Hi2EFKN/PzVZKpyVOpJIZGXNNQdxYnvpVPlOR3Cxt1vovySn+/D51wiNxmtJMyY7
-	 Qru5vCnww1Aw1KZ+VOF9cxmVPErNIoV/WL7XrxX21aI1sTDH23KRM4sfxzh9jzUFnD
-	 noa3/qoW6Sr0w==
-From: Christian Brauner <brauner@kernel.org>
-Date: Fri, 02 Oct 2026 15:52:50 +0200
-Subject: [PATCH 19/21] readdir: take no inode lock on an immutable
- directory
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H+CSu43R"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5D693C2BCF6;
+	Fri,  2 Oct 2026 13:57:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790949424;
+	bh=2zF+Sfj9s5Ein+P0ya4+ac7E4LQ7ElkPTHjYS8Xz644=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=H+CSu43RNbl4xL0e3yGhk482g5Hebuq+VWgFVSWZ2PDJVgZjZiZRxsh8o1ce9hcoW
+	 2TnCEmxm4WGX9YwVIah2fYkOsBBI6Z0mpfRtyyo6bX55VNd8/qKGLPSmgakT1MqwhT
+	 jiwNPsWXrFVpth+KlKQ5btnNU6Fr6slb7RdbNOaORItcQ5hisje3uNZc9EKG9pH021
+	 L4PPExmMBDWQewyciqJQAm5zSA0eZIObF7I/cQVmkaDWoO7ablqHD7+QyYJxp/HmRu
+	 zGlO6nN8y7JbB5otpCf9HxYzj5o7GGYL+vuOQG/h1AbdtOd+rrZpSUPLJAtxgKDn7D
+	 LESEE3HriRURg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4A020CA5FD4;
+	Fri,  2 Oct 2026 13:57:04 +0000 (UTC)
+From: Miguel Garcia via B4 Relay <devnull+miguelgarciaroman8.gmail.com@kernel.org>
+Date: Fri, 02 Oct 2026 15:56:57 +0200
+Subject: [PATCH] io_uring/rw: commit the ring buffer when a read is queued
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,125 +39,113 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261002-work-mount-fixes-4-v1-19-dd44b89d44ce@kernel.org>
-References: <20261002-work-mount-fixes-4-v1-0-dd44b89d44ce@kernel.org>
-In-Reply-To: <20261002-work-mount-fixes-4-v1-0-dd44b89d44ce@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
- linux-kernel@vger.kernel.org, Jeff Layton <jlayton@kernel.org>, 
- Jann Horn <jannh@google.com>, Neil Brown <neil@brown.name>, 
- Amir Goldstein <amir73il@gmail.com>, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
-X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4042; i=brauner@kernel.org;
- h=from:subject:message-id; bh=6DTUTR3vci9TVR0f5VJSu7/oQFnEzU3Q12LI98klt38=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTt3x5VxSJk+Pmkxd8flbX9c9s0bZW2TVF9xCWWr/4nQ
- /4cx7S9HaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABOp9WT4n/xHVTXz+y+FpPbD
- T6NZTgWy/r3zlcM2OknAa9El4+QLcYwMTwQnOmV+V7OrUJLJ9OpzMqrbOsHs6WTNux1vtvYZ5rz
- jBAA=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Message-Id: <20261002-codex-io-uring-eiocbqueued-v1-1-3fb159b33a47@gmail.com>
+X-B4-Tracking: v=1; b=H4sIACm4v2oC/x3MQQqDMBAF0KvIrB2IKSr2KsWFmXx1NkmbEBHEu
+ ze4fJt3UUZSZHo3FyUcmjWGiq5tSPYlbGD11WSNHTpjLEv0OFkjl6RhY2gU9yso8CzTOPS9e41
+ WHNXgm7Dq+eSf+b7/EU0/cGwAAAA=
+To: Jens Axboe <axboe@kernel.dk>
+Cc: io-uring@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Miguel Garcia <miguelgarciaroman8@gmail.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790949423; l=3676;
+ i=miguelgarciaroman8@gmail.com; s=default; h=from:subject:message-id;
+ bh=v57nh9u23dqRQyIlqtlCgf6++EGJa5Mea4ZnWbGP4a4=;
+ b=jQegJ5VAriYKw7EOa0I+F4x5Z+3MQ2xzVA1w5ntmnOMbgxKil73hpDK4c274vKo/SwCav2SRC
+ szR3lvcKiPpAQXdCoZgkc5wP2cuS0NtxxhMYULY0N+zDp0mFaROJGDP
+X-Developer-Key: i=miguelgarciaroman8@gmail.com; a=ed25519;
+ pk=EtrxRdQ/icT1qmJwjNNAVoBUhKKWwrhU2m6QT/xu6bM=
+X-Endpoint-Received: by B4 Relay for miguelgarciaroman8@gmail.com/default
+ with auth_id=1101
+X-Original-From: Miguel Garcia <miguelgarciaroman8@gmail.com>
+Reply-To: miguelgarciaroman8@gmail.com
 
-iterate_dir() takes the directory's i_rwsem shared and holds it across
-->iterate_shared(). For a directory that never has an entry and is
-never removed the lock keeps nothing still, it only orders every reader
-and every writer of that inode behind each other.
+From: Miguel Garcia <miguelgarciaroman8@gmail.com>
 
-For the directory of a nullfs instance that matters. The instance of
-the initial mount namespace is the root of every empty mount namespace
-and the private instance is the root of every kernel thread, so one
-inode is shared across users who have nothing else in common. And a
-reader can hold the lock for as long as it likes: back the getdents()
-buffer with a mapping of a file on a FUSE mount of your own, let the
-copy of "." and ".." fault and let the server wait. Queue an exclusive
-taker behind it, a mkdir() in that directory goes through start_dirop()
-before the read-only mount is reported, and from then on every lookup
-that misses the dcache in that directory, every create and every mount
-on it waits until the server answers. One user of an empty mount
-namespace stalls all the others.
+io_read() recycles a provided buffer ring on every negative return
+while REQ_F_BUFFERS_COMMIT is set. -EIOCBQUEUED is one of those
+returns. IOU_ISSUE_SKIP_COMPLETE is defined as -EIOCBQUEUED, and
+io_issue_sqe() turns that into success and leaves the request in
+flight. The queued read still writes the user address chosen at
+buffer selection.
 
-Add FOP_IMMUTABLE for the file operations of a directory that never
-changes and is never removed and let iterate_dir() skip the lock for
-it. The flag never changes for a file, ->f_pos is protected by
-f_pos_lock since directories are FMODE_ATOMIC_POS, IS_DEADDIR can't be
-set on such a directory and neither touch_atime() nor fsnotify take
-i_rwsem. Set it on the nullfs directory. The placeholder directories of
-libfs never have an entry either but their owners remove them, so they
-keep the lock.
+For a pollable file issued under uring_lock, io_should_commit() is
+false, so recycle clears REQ_F_BUFFER_RING and REQ_F_BUFFERS_COMMIT
+without moving the ring head. io_req_rw_complete() then skips
+io_put_kbuf(). The CQE is posted without IORING_CQE_F_BUFFER, and a
+later IOSQE_BUFFER_SELECT takes the same slot while the first read
+is still in flight.
 
-Fixes: 9d4e752a24f7 ("namespace: allow creating empty mount namespaces")
-Cc: stable@vger.kernel.org # v7.1+
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+FUSE reaches this from a user mount. fuse_file_operations supplies
+both .poll and .read_iter. A daemon that negotiates FUSE_ASYNC_DIO,
+reports a non-zero size, opens with FOPEN_DIRECT_IO, and answers
+FUSE_POLL with -ENOSYS or POLLIN makes io_file_supports_nowait()
+succeed. fuse_direct_IO() returns -EIOCBQUEUED for an async kiocb
+and keeps the user pages pinned.
+
+Commit the selected length before returning IOU_ISSUE_SKIP_COMPLETE
+and leave REQ_F_BUFFER_RING set, so completion still reports the
+buffer id. io_req_rw_complete() passes a NULL buffer list, so
+dropping the recycle alone leaves the head unchanged. The list
+pointer is stack-local, so the issue path has to commit before it
+returns. The committed length is rw->len, the same length
+io_ring_buffer_select() commits when io_should_commit() is true.
+Non-pollable and IO_URING_F_UNLOCKED issues have already cleared
+REQ_F_BUFFERS_COMMIT. -EAGAIN still recycles.
+
+Commit d8e1dec2f860 ("io_uring/rw: recycle buffers manually for
+non-mshot reads") made io_read() recycle provided buffers on every
+negative return, including -EIOCBQUEUED.
+
+Grok, a coding assistant, found this by reading io_read() and
+fuse_direct_IO() and drafted the change. Debian gcc 12.2.0 built
+io_uring/rw.o and the kernel image. QEMU TCG booted both images.
+On the unpatched image two buffered reads shared one address, the
+ring head stayed 0, and both CQEs lacked IORING_CQE_F_BUFFER. With
+this change the head moved to 1 while the first read was still
+queued, that CQE carried the buffer id, and the second read returned
+-ENOBUFS.
+
+Fixes: d8e1dec2f860 ("io_uring/rw: recycle buffers manually for non-mshot reads")
+Cc: stable@vger.kernel.org # 6.18+
+Assisted-by: LLM
+Signed-off-by: Miguel Garcia <miguelgarciaroman8@gmail.com>
 ---
- fs/nullfs.c        |  1 +
- fs/readdir.c       | 13 +++++++++----
- include/linux/fs.h |  2 ++
- 3 files changed, 12 insertions(+), 4 deletions(-)
+ io_uring/rw.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/fs/nullfs.c b/fs/nullfs.c
-index f76b87cf1841..bfc04bca3940 100644
---- a/fs/nullfs.c
-+++ b/fs/nullfs.c
-@@ -44,6 +44,7 @@ static const struct file_operations nullfs_dir_operations = {
- 	.lock		= nullfs_nolock,
- 	.flock		= nullfs_nolock,
- 	.setlease	= nullfs_nolease,
-+	.fop_flags	= FOP_IMMUTABLE,
- };
+diff --git a/io_uring/rw.c b/io_uring/rw.c
+index 0c9494fd21be..a40263d21afe 100644
+--- a/io_uring/rw.c
++++ b/io_uring/rw.c
+@@ -1034,6 +1034,21 @@ int io_read(struct io_kiocb *req, unsigned int issue_flags)
+ 	if (ret >= 0)
+ 		return kiocb_done(req, ret, &sel, issue_flags);
  
- static int nullfs_fs_fill_super(struct super_block *s, struct fs_context *fc)
-diff --git a/fs/readdir.c b/fs/readdir.c
-index 76bb1ae3a450..f2288841337a 100644
---- a/fs/readdir.c
-+++ b/fs/readdir.c
-@@ -87,6 +87,8 @@ EXPORT_SYMBOL(wrap_directory_iterator);
- int iterate_dir(struct file *file, struct dir_context *ctx)
- {
- 	struct inode *inode = file_inode(file);
-+	/* never an entry, never removed: nothing for the lock to keep still */
-+	bool locked = !(file->f_op->fop_flags & FOP_IMMUTABLE);
- 	int res = -ENOTDIR;
- 
- 	if (!file->f_op->iterate_shared)
-@@ -100,9 +102,11 @@ int iterate_dir(struct file *file, struct dir_context *ctx)
- 	if (res)
- 		goto out;
- 
--	res = down_read_killable(&inode->i_rwsem);
--	if (res)
--		goto out;
-+	if (locked) {
-+		res = down_read_killable(&inode->i_rwsem);
-+		if (res)
-+			goto out;
++	/*
++	 * -EIOCBQUEUED leaves the kiocb in flight on the selected user
++	 * address. Commit the ring buffer here. Completion reports the
++	 * id with a NULL list. Error returns still recycle below.
++	 */
++	if (ret == IOU_ISSUE_SKIP_COMPLETE) {
++		if ((req->flags & REQ_F_BUFFERS_COMMIT) && sel.buf_list) {
++			struct io_rw *rw = io_kiocb_to_cmd(req, struct io_rw);
++
++			if (!io_kbuf_commit(req, sel.buf_list, rw->len, 1))
++				req->flags |= REQ_F_BUF_MORE;
++		}
++		return io_fixup_restart_res(ret);
 +	}
++
+ 	if (req->flags & REQ_F_BUFFERS_COMMIT)
+ 		io_kbuf_recycle(req, sel.buf_list, issue_flags);
  
- 	res = -ENOENT;
- 	if (!IS_DEADDIR(inode)) {
-@@ -112,7 +116,8 @@ int iterate_dir(struct file *file, struct dir_context *ctx)
- 		fsnotify_access(file);
- 		file_accessed(file);
- 	}
--	inode_unlock_shared(inode);
-+	if (locked)
-+		inode_unlock_shared(inode);
- out:
- 	return res;
- }
-diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 784fa20217c4..deb411e86661 100644
---- a/include/linux/fs.h
-+++ b/include/linux/fs.h
-@@ -1978,6 +1978,8 @@ struct file_operations {
- #define FOP_ASYNC_LOCK		((__force fop_flags_t)(1 << 6))
- /* File system supports uncached read/write buffered IO */
- #define FOP_DONTCACHE		((__force fop_flags_t)(1 << 7))
-+/* Never changes and is never removed, readdir of a directory takes no lock */
-+#define FOP_IMMUTABLE		((__force fop_flags_t)(1 << 8))
- 
- /* Wrap a directory iterator that needs exclusive inode access */
- int wrap_directory_iterator(struct file *, struct dir_context *,
 
+---
+base-commit: 648611ee6ed0d27f8b43b7b5863facc3ec94c31b
+change-id: 20261002-codex-io-uring-eiocbqueued-c97655b372cb
+
+Best regards,
 -- 
-2.53.0
+Miguel Garcia <miguelgarciaroman8@gmail.com>
+
 
