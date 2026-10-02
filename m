@@ -1,90 +1,85 @@
-Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com [74.125.229.170])
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A042C40B6E0
-	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 19:40:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BE2A3EFFA9
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 19:44:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790970040; cv=none; b=S6PLwI3lzCRdM1CcvVCux99B5Pi6T84tzHOINxVZ+S5uRsumzRqdxvN+rqHhBpYltzaWDBC61ACys9t+T2Kx17YZTQlbEpF3oKkjlxMdVqr4h0Uw8cDO8kqcV+NTrPhTw+IyFhbLXWZi/MJdClGl+i7+7kSzzoVavEd56rY3AzI=
+	t=1790970260; cv=none; b=S13C05/Bpx5IkecSDsbHTSIp+N+/lmPOwCpMQ3891BSAsXywxbvn27L5jr22WUlhLeOH8tco8CS9Z0HgOYp39KEmDi5nlkzbo4PvCP39VppWAtrdsEB1E1p1j8h+hhaApARp3sg7KO4YlmfkE4DwlOJGMVZdyam9/62Izm/RawY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790970040; c=relaxed/simple;
-	bh=82DzLhvJU5FuixkPwwzwEC1hK5czNAOvAAbd7Nh5BDg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=M2MJFSg+tZZXGuVB0rma6LrzKxc4XKycUlv1uVof7Pv3BGJZS79pHM8iN4fais3IrB3up/odLvk0MZyZqqSVFiuE9rCeOIDxIzf3va+baSeX3KIfjn7LrAI02f2udLsmVhvAimfXElLpaIdorZQxiyOW4U2hI2IOgN4FqYH52SA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=kMeP3hN+; arc=none smtp.client-ip=74.125.229.170
+	s=arc-20240116; t=1790970260; c=relaxed/simple;
+	bh=t0hrpueYkVfKYyh59jcz88z6nZEgP0q8WK73YH6TaaE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dnQpeLSQEAPuhdRiUPo1fyXe6Bt03/+hSTLxTj3E0Lro+1DQUPOBH649xZqPm1KSzuaqETuZnRvqg00rczKRjnaLgxSoicu5U1HmmZeE0Hkei+NFidUJqcpvBz8RdKBlCN/WODSvVCbNlfEhgTIx8p4tN4pRQCORwB4aW2Yy3YE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=I2yaIzFa; arc=none smtp.client-ip=74.125.229.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="kMeP3hN+"
-Received: by mail-dl2-f42.google.com with SMTP id a92af1059eb24-144f47a9b57so7822153c88.2
-        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 12:40:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="I2yaIzFa"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33c24422d4dso9839339eec.2
+        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 12:44:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1790970038; x=1791574838; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Cik4OmGCLcSffV9aIni80ba9p8veycKB8eAV/ioP5eU=;
-        b=kMeP3hN+AbxnZMot1hqDzgP0N6AWACtQzCDGtMDbIEJY+7H2+ZA2CrVjOWyx2Aecvh
-         ItBgPJqg9HbtCxuN2sdOoduimV0c3hdM+oghYR3y3OxRbBS4RiOBTcwj/Yv4ma6e35VQ
-         XuxY7Ur8fc66/LxDtjSPXVksNB7pGZbgxNpE6unNwAbze/CK9izqQViWR0QdKY4wiMk9
-         90V3D1jUqM/qqc3v7/V7E9yApdPZWlnK7Dz4CkQw1fPrrLHZebElSLpYZ22aVTNnB0Bk
-         pomro4731sS/WCUqmXFSvSyrryierKdqx7Y0L9wyJQCxttObO4BrLEyfjoQL0UTelvFT
-         qHRw==
+        d=trailofbits.com; s=google; t=1790970258; x=1791575058; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Rko1U6OoJC3n7W8qpIuhWiCDlnVmuYaiccHeKEGfF6U=;
+        b=I2yaIzFalF3ya3kIw8l/P2zhDT5cL8dvSeacUIC6QolQr9lHq5jzvdm7cAcWoSNeqT
+         99mnfZZmmZMUe6iRbzqPz4piUZk0LYfZGvbPjeHoPMWxU3u47WqlO6CN5KAA4N343Dz+
+         bWZxd5Y2YySIjYSO87rIppolohGm7tgbwkNi5auafowVhdqQirZmFu3Fr+y49smsHt7L
+         43HZS+xyoXYWbZs6VXS5KLZQzNBzGN7Uf7PjJ1sBMmzQDsllr4fAlkNyT0pGteMoHMZO
+         J4sk4xquAvWiko1q/e43ywz4HrN97UJi2ZT7wQEK/q1cklO+69cepoqRj3Kof4NI1MeJ
+         AI7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790970038; x=1791574838;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Cik4OmGCLcSffV9aIni80ba9p8veycKB8eAV/ioP5eU=;
-        b=ygAsIGF7xM0xsj3Ta2xBQtTT6FprcYh5QF9hjpHWSW1Md19H4SbykIPbtA9oS/7wDw
-         FHnEzRnSOHRQIHE4z7bbVVp/L9WyILBGmC06ShNm5xTs4+p6j+mrpIouKcUvXeM9vaQ/
-         pAV/XOSzIN7EyXIvEZX/FPSpb6DFsvhYir7ReG1GXMHfd3WRC6JWGeXDqSqgjOF9r47+
-         kcj1eAbo3xbO6NpvIXr7xwi4vK2RK78i1jhtpxDJtMHe7DoTGvS/h6bcxP+LoCVQzHbg
-         yKBGBibndjhS0nmTETzhIp/wKaHbBkiBj3bLc0zCRODWZH0GGI5jVUM13TZybHsYU9DR
-         gaeg==
-X-Gm-Message-State: AFuF++nTkTygF7l6mlOKx34woLjMFXrutyX690UCwrEJr6Fe/HwK4EMb
-	ll1iv1nzt+3IyAWGzdkmkxF9xcugBdiQeD63XFBhIQzLvVfg63a9J+e4wbVEVa61utlDZQ9Wkhr
-	FzU58E+QthA==
-X-Gm-Gg: AYBFou2i9KF02DhiDvA7E3O4suNp+Qcs4X2c2JNL10T1/dvq0jVNZ0Qbxj18hk9apKH
-	WEsJ/08EMjbJbRhDgaQRvX9wTpRwE906DvL0LZDf147rSVF6//e5Krcp2HOuW9NPsbFOtvWVBJR
-	+V5LcQ6Dg1POm1YKrxYT2m2a7St8LQLzilCiyVZWfW+H3BvaCmz3u0vBiPIcmaOW/PURkQHT4/R
-	DuiaYGqSX2AyE+SxDjhrlbDC9YgP7edOEiQcD83AdLmjZhO2gy8nAXhRP/wXdOBnCyUKpqboIbs
-	lpBmHYK8uuJ6yhmQxqpUiiwkO2n/VS5ZNk9g+gL5lUsCKZZSOEuBJtstIyp6KPJmv7anxigeEyH
-	r66oGJpCtv1Oga166qItv7RJusDJ3D6FPfNSkGZFU7wmrUr4MvfvwHdbNd+rlnJE7Svgr6n9j/W
-	AxWYjVHZ++iNzktkLwSC0/HOB1/Cs2k8u9simySNTncrwQkbaj3vD9v+7QuIUaqbLDjpcYvDAGi
-	zszfA0JZ9TTSTL+cu/eCyFitRPssCswEv2pCIq7rq1YlW3OWybk9Px8a6VnlkYUw4fCQFyMy7Xl
-	AFRkfA==
-X-Received: by 2002:a05:701b:2096:10b0:143:2719:566e with SMTP id a92af1059eb24-14f5d3b9a1fmr3905150c88.42.1790970037645;
-        Fri, 02 Oct 2026 12:40:37 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790970258; x=1791575058;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Rko1U6OoJC3n7W8qpIuhWiCDlnVmuYaiccHeKEGfF6U=;
+        b=n7h3qgZ5K3dNLrlBwdIA06RBEv6dIHRDm9CyqU4UAocR+k/vowNj+AZjnABNpcdFXn
+         WGMqNKHhxp7lpnxKGPTlAoczi+vlrP192U8byX0LyJ3XpZkemTOcgQlBD9EKKEtdhUV4
+         7VzSjOj1IBiFT4U9htsQ0uVB0pVMd8sPODUMwHVcGtlrMol8tvrx/eGcCRi4CSu+Gjqi
+         iMP0vMx+vt697QJI9z+i6Apbk7ABeYtz55slFHXr8GmCCCd5oV47VhSF9Yk0rAyuG8H3
+         IH5K3UY71jhysunBYrW3+2MmFvjnqY3rMkE+3KKIVy8YAWsYQu3Si2NLl6cCjDKPpkUm
+         iiWA==
+X-Gm-Message-State: AFuF++kQcyTjTM5Epo5QW3OMkHR7Emef5btqBALnlz1zowds4rxbtnW0
+	rJTQhn7CGWY05ixu7nJoIBESsB9N+zLjBc3n0aCpSHH/KhTGHCLahpEm4ap5mOkmzdRsYoCLa8a
+	RwBm70VUFEQ==
+X-Gm-Gg: AYBFou1BzTApTT2CMhd/8I3ZHGLpCwhQ/F2BD8AK+0MF8HFPbkWllSDUfW6NG6NJh4i
+	e83qpqhV3zisWkVgn05MXMZNb+iXxt6vBBBLX2VhBnT/ccSu3djK1bzIGar2eU2t+SJQRMEAnsL
+	YVUVjHZ0Jh+mt0NzE+ggRBWc074z3mNLjrJlQwfion9eZfunez1yr09gisc2JrWbZPrDMh6GPTR
+	WZHmn9MO9xNzWhGQql8d52QENzJaV+c2jMzPCI5OiQ4NUjISwhszq80G1wJOYDm1MtcrdhoXiXw
+	RSvUh0NzsBIsjiKmU3Ro8ELpEXbX+suov6iaPw/4Q4onAscZUzYel79g+oLP/upLx94os8xBK2B
+	RMW87wZN/rLQDDn6XQV9DGc02SrsQCb7FgOyugbgy/ChmSK+7emOLhPuUL5N84Kro5Hde8qEGFo
+	TC3Ss57/jPpau0svHJKEkTN+Wat2Wzv/nCg2vw4dncUj+zF4RFgx15OYF9EYCso78vs2WgUvuCo
+	QkSc2b0TIZ4GPR5ffJ+GH1ar1uNSlzbKgkyAZxLjWnDv+6GrXNErjXHq4GKpEVOAr6SBcE=
+X-Received: by 2002:a05:7301:4545:b0:342:94b:aa28 with SMTP id 5a478bee46e88-34f219610a0mr4295623eec.27.1790970257502;
+        Fri, 02 Oct 2026 12:44:17 -0700 (PDT)
 Received: from localhost.localdomain ([2603:8001:5f01:8bab:bcf9:6140:24a9:d1e7])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14f47a57592sm7450113c88.17.2026.10.02.12.40.36
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34f14fcd065sm7236803eec.19.2026.10.02.12.44.16
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 02 Oct 2026 12:40:37 -0700 (PDT)
+        Fri, 02 Oct 2026 12:44:17 -0700 (PDT)
 From: Artem Dinaburg <artem@trailofbits.com>
 To: stable@vger.kernel.org
 Cc: Artem Dinaburg <artem@trailofbits.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>,
-	Suraj Kandpal <suraj.kandpal@intel.com>,
-	Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+	Dan Carpenter <dan.carpenter@linaro.org>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	CK Hu <ck.hu@mediatek.com>,
+	Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
 	David Airlie <airlied@gmail.com>,
 	Daniel Vetter <daniel@ffwll.ch>,
-	intel-gfx@lists.freedesktop.org,
+	Matthias Brugger <matthias.bgg@gmail.com>,
 	dri-devel@lists.freedesktop.org,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
 	Simona Vetter <simona@ffwll.ch>,
-	intel-xe@lists.freedesktop.org
-Subject: [PATCH 6.1.y 2/2] drm/i915/hdcp: Add encoder check in hdcp2_get_capability
-Date: Fri,  2 Oct 2026 15:40:27 -0400
-Message-ID: <20261002194030.20489-3-artem@trailofbits.com>
+	jason-jh.lin@mediatek.com
+Subject: [PATCH 6.1.y] drm/mediatek: Fix potential NULL dereference in mtk_crtc_destroy()
+Date: Fri,  2 Oct 2026 15:44:12 -0400
+Message-ID: <20261002194413.20810-1-artem@trailofbits.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261002194030.20489-1-artem@trailofbits.com>
-References: <20261002194030.20489-1-artem@trailofbits.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -93,44 +88,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Suraj Kandpal <suraj.kandpal@intel.com>
+From: Dan Carpenter <dan.carpenter@linaro.org>
 
-[ Upstream commit d34f4f058edf1235c103ca9c921dc54820d14d40 ]
+[ Upstream commit 4018651ba5c409034149f297d3dd3328b91561fd ]
 
-Add encoder check in intel_hdcp2_get_capability to avoid
-null pointer error.
+In mtk_crtc_create(), if the call to mbox_request_channel() fails then we
+set the "mtk_crtc->cmdq_client.chan" pointer to NULL.  In that situation,
+we do not call cmdq_pkt_create().
 
-[ Backport to 6.1.y: upstream adds the check in the DP shim's
-  intel_dp_hdcp2_get_capability(), which does not exist here. This tree
-  predates the intel_connector conversion of the shims: its
-  intel_dp_hdcp2_capable() takes a digital port, and the
-  intel_attached_dig_port() lookup is still done in the common
-  intel_hdcp2_capable() helper. Put the same encoder guard there, before
-  that lookup, and return false through the bool API when no encoder is
-  attached. ]
+During the cleanup, we need to check if the "mtk_crtc->cmdq_client.chan"
+is NULL first before calling cmdq_pkt_destroy().  Calling
+cmdq_pkt_destroy() is unnecessary if we didn't call cmdq_pkt_create() and
+it will result in a NULL pointer dereference.
 
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
-Reviewed-by: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20240722064451.3610512-3-suraj.kandpal@intel.com
+[ Backport to 6.1.y: used the older Mediatek CRTC file and helper names. ]
+
+Fixes: 7627122fd1c0 ("drm/mediatek: Add cmdq_handle in mtk_crtc")
+Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Reviewed-by: CK Hu <ck.hu@mediatek.com>
+Link: https://patchwork.kernel.org/project/dri-devel/patch/cc537bd6-837f-4c85-a37b-1a007e268310@stanley.mountain/
+Signed-off-by: Chun-Kuang Hu <chunkuang.hu@kernel.org>
 Assisted-by: LLM
 Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
 ---
-Hi Greg, Sasha, and drm i915 maintainers,
+Hi Greg, Sasha, and drm mediatek maintainers,
 
 I am working through the small CVE backports still missing from 6.1.y.
-This one addresses CVE-2024-53050. It adds the same encoder check to the
-HDCP2.2 capability query, which the debugfs path calls right after the
-HDCP1.4 one.
+This one addresses CVE-2024-53056. It skips command-packet destruction when
+channel setup failed before packet creation.
 
-The 6.6.y backport went out as the same 2-patch series and has been
-picked up for 6.6.y. The fix is already present in 6.12.y, 6.18.y, and
-7.2.y, but not in 6.1.y.
+The corresponding 6.6.y backport is already in the 6.6.y stable queue.
+The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not
+in 6.1.y.
 The target-specific adjustment is recorded in the bracketed note above.
 
 Could you please queue it for 6.1.y?
 
-CVE: CVE-2024-53050
-Upstream: d34f4f058edf1235c103ca9c921dc54820d14d40
+CVE: CVE-2024-53056
+Upstream: 4018651ba5c409034149f297d3dd3328b91561fd
 
 AI assistance: An LLM helped identify, adapt, and validate this backport; I
 reviewed the resulting code and validation evidence.
@@ -138,31 +134,24 @@ reviewed the resulting code and validation evidence.
 Thanks,
 Artem Dinaburg
 
- drivers/gpu/drm/i915/display/intel_hdcp.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/mediatek/mtk_drm_crtc.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index 507721c94f2fdd..d31c1f1f0e5074 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -208,11 +208,16 @@ bool intel_hdcp_capable(struct intel_connector *connector)
- /* Is HDCP2.2 capable on Platform and Sink */
- bool intel_hdcp2_capable(struct intel_connector *connector)
- {
--	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
-+	struct intel_digital_port *dig_port;
- 	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
- 	struct intel_hdcp *hdcp = &connector->hdcp;
- 	bool capable = false;
+diff --git a/drivers/gpu/drm/mediatek/mtk_drm_crtc.c b/drivers/gpu/drm/mediatek/mtk_drm_crtc.c
+index 59b310f7327c86..8e72b3bb51eb94 100644
+--- a/drivers/gpu/drm/mediatek/mtk_drm_crtc.c
++++ b/drivers/gpu/drm/mediatek/mtk_drm_crtc.c
+@@ -161,9 +161,8 @@ static void mtk_drm_crtc_destroy(struct drm_crtc *crtc)
  
-+	if (!intel_attached_encoder(connector))
-+		return capable;
-+
-+	dig_port = intel_attached_dig_port(connector);
-+
- 	/* I915 support for HDCP2.2 */
- 	if (!hdcp->hdcp2_supported)
- 		return false;
+ 	mtk_mutex_put(mtk_crtc->mutex);
+ #if IS_REACHABLE(CONFIG_MTK_CMDQ)
+-	mtk_drm_cmdq_pkt_destroy(&mtk_crtc->cmdq_handle);
+-
+ 	if (mtk_crtc->cmdq_client.chan) {
++		mtk_drm_cmdq_pkt_destroy(&mtk_crtc->cmdq_handle);
+ 		mbox_free_channel(mtk_crtc->cmdq_client.chan);
+ 		mtk_crtc->cmdq_client.chan = NULL;
+ 	}
 -- 
 2.39.5
 
