@@ -1,138 +1,121 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F46D4DEC2B;
-	Fri,  2 Oct 2026 15:02:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EDD04E1C81
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 15:20:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790953324; cv=none; b=BUkJN5eEbr1vw/aXxXGiPQVodeUbZbrXx1prSnrJvvm8m7bJiGQqklsxbCj+h/H9w7QPQUD77IcHCm8wie9X+4QsRCITxPvSM8UiIHPZjf1YLZvHEYEFYH1aqNu0NUu5qwxawK3SFjCrC9wpFhru9AD7nE6bdxH6F+LseEb1VgU=
+	t=1790954426; cv=none; b=Kv8zg2/tz6i9Chx9Toe+9+k74XGI6aq/veZ9cXLB88ANdXPoqg69btM9TVZ8+WvyIce0Pm+Yp6OTITyReeIKogDYY8Y801cmdmhZSwHv4KOZXHnGlMWtyBd67+sOVUS8mkRgt9DneNhf4j9Z6JACsPorMWn+dlyLAG+oP3nDGjU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790953324; c=relaxed/simple;
-	bh=wUIP60ReUng2toh7xrANlc05gxl0Ni0XDP3WkJdt+dk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GIPHk0uWkgW+T58woyj72hYPYCNNdRHW3Kv5tdUXU+AGlYsnte47PjenZ105NNjyJG14Sm+eIOw0xiXlc0OUD2mA2N7Nub5Bpcl20gQgeNgQF/WUWKXYlFHx9r4R7E7Ud8wsnjiseMeP6/6d80eXnWiwn6Cm4mw6GKO1n5IGMS8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=VjzAHJlX; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790954426; c=relaxed/simple;
+	bh=jiRlnQPL/4jn0XA+0EpA4cRvVnRyf76p+dgNnwem+7I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HbYVaV5+0BwuDUgDd+o3La+MpqPy4vLT9wmAHUKsb0MqZi3g+9b17xox2yGBZ6+m9VfMb29dOzShcyGF4dLgWFBM6F/SNFU/x16WKQhyGOCDymWNt9HATFhbxlWD1aGBYieQ9fiPgFnbJ78fLpzEOEgB/2I1FJwMMNEVzmfJgMs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=J++kYhkW; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="VjzAHJlX"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 378274E41111;
-	Fri,  2 Oct 2026 15:02:02 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 08231603DC;
-	Fri,  2 Oct 2026 15:02:02 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0F12E1032826C;
-	Fri,  2 Oct 2026 17:01:55 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790953320; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=AbpkMZVsBdBOWRwxjTkLihKxr/UR5S6eo3rRMVyn4ks=;
-	b=VjzAHJlXFpLpdPk7URVTO/UAliy39tE2i9HRrLaGcg6swhsK3/Ne5x8TgEZkFd1kblOBu9
-	pDuZEwBB1BvdKo4AvnbKIgZ2tlab75/BuPV3TsOpv4gBMmtr29G/LEvmV/4VFkXTcG9Pc4
-	zZnH7P10KZ9fXV7wpTMBV8CiylthM152SP+oIGB8Arrb5rTN+PsV96SK917H+oXNYrTPk5
-	c08Kw8f+9IldGF8BpLFzzx+1BvdPquJKNWnGx02QUZ2p03NL10tDiDdE35oWi2yD+ML+pA
-	dNUKxIzsTnATa0UPOTPE16AzPb9xIALvpOREdtcWQ8luxBvko6dV7rZMuWcUdQ==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Fri, 02 Oct 2026 17:01:11 +0200
-Subject: [PATCH v7 7/7] arm64: dts: nuvoton: ma35d1: Add LXT crystal and
- clock-names
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="J++kYhkW"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a11603310fso103015e9.1
+        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 08:20:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1790954420; x=1791559220; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DX8YXk9lb+w/GLA7rHIr8s7xKmdQI537LSAHJBywLx0=;
+        b=J++kYhkWj9+SLNiKsoL+D8NzoWCWJcK8iCe5h799Zsazgagvd1VJh30KOQZjZMfH32
+         Xhk15Xt8gNOgkfy3rGrDU4SmjikuAZ+qNtzNxCEO1KEIxZ2DzQdrqBAi1lKCca8DkU6R
+         +bWyFAyajVR96Qe7LGpDi/QvLXXxSLHJh/J9896HEWT1IM8DjZI1Oo+5k7T7kg0lkryJ
+         NtHUCoI91i51ZzH8Q9rD4QgEQ+QUzK0kBVJ49Tavqz8W+Zoh41HPEFPYEohz+pAa6xO/
+         rYbf8Lso19sW1JmbubLRIkotwCRAO6gGfzIEy/BmkK5oy/XZD3n1wPNky2stBSVXluw/
+         CG6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790954420; x=1791559220;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DX8YXk9lb+w/GLA7rHIr8s7xKmdQI537LSAHJBywLx0=;
+        b=xF13CSVeXnmXDsiStWKCQ45+1z22ATbTwTqI6KwzQYOmG6c+2qjLg03SOkxhB7qUhN
+         fYblGLkao/g5zLoRD8m6wSu/w4ArVNBwfW6iGT14dVFUaBsuCT3yLWjQkZA/Pss1149i
+         pEJWzXPOxy/mnVlc05vDNL9UdEps23PtHDDdWOaouzgWAGNLv0pDPMiHl/CH091P0IRJ
+         JczjFHi4s57ftfYAM5PJyKhC0J28L316FBWilXvieBbScIutDb2U9nNs+1Ap0MJXJcpq
+         NvrM0CpKT1kZdN9dt/cLyIfss7EKSzgexvH093HPuR2E1+uLsmp78bGW3mlcUANASBz9
+         pPRA==
+X-Forwarded-Encrypted: i=1; AKwUvBzR+dgUqePZuA/nrpDdGZ4eZJrNrxsKFC4AeObAG81H/V7sTqr4l3zseZEeZKMtKAL6XrQBU7c=@vger.kernel.org
+X-Gm-Message-State: AFuF++ny/axCwTrmo5YInAIdkBbNdR/cBPZFpmg7YN4Qg1czQPMH/1Zj
+	nUxqAjGIuz1Ki+62Kj3X9AomIcSGO6yDRaxJn7k0J15NWaOvDOxy2dDs8YrBwxrrp/k=
+X-Gm-Gg: AYBFou3MBXI0xp4dtY8Q73VVw4QN7g9Mu544BssTz4tBVmwRoN9qACb5KEZJ3+QI+gx
+	B+0hqjiG0KBCArY5vnd7mlBn/16WKKAiTCtsZ7gVu62iIMkOy8eTnLWe+2zrp72+HYwuz4h1BoK
+	0Sy4jQ1HMqozq0WpWMP8zedxEkLFAkHMR34hAeF+mvNnWd8J7ftjNnpEYJD6YXhOwxtGYkHlbEN
+	lzXRaWAL/i45o+O+2/NDuMJEKOgJmEAdKSc3jfk/b908IT9P0KYyopofib+ARlIC3w1q3dMaDNY
+	xrgvcsqunxhu3oLjc6uxSDSyjehR79ymRPbnlKnglUhR750Iw6tcFMxvCY4q0tUWt1Ms2PXIfFM
+	BijevU9K2uro4sNzEdhm0MGmykh6/xF9C/tVryZIizbQzmMhPo8wVoBRIIa8M5GwFSwaKdLKZH9
+	3tBZn/DMRc9s5LbSIh04a2yWQ0nuoYKQWS7FQzoRB7rrMbdaQn8Di4ZjDnKl5S5illPS8UwCaTX
+	4S5/Wmi
+X-Received: by 2002:a05:600c:4e13:b0:49c:cee0:e7c1 with SMTP id 5b1f17b1804b1-4a02757999cmr55471925e9.16.1790954420036;
+        Fri, 02 Oct 2026 08:20:20 -0700 (PDT)
+Received: from localhost ([2a02:168:9d56:1:9c5b:8aff:fed1:19b4])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a03048abc9sm32039625e9.0.2026.10.02.08.20.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 02 Oct 2026 08:20:19 -0700 (PDT)
+From: Bruno Produit <bruno.produit@trailofbits.com>
+To: Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	x86@kernel.org
+Cc: kvm@vger.kernel.org,
+	Kyle Zeng <kylebot@openai.com>,
+	linux-kernel@vger.kernel.org,
+	Dominik Czarnota <dominik.czarnota@trailofbits.com>,
+	stable@vger.kernel.org,
+	Bruno Produit <bruno.produit@trailofbits.com>
+Subject: [PATCH] KVM: x86: Cancel PIT timer on failed creation
+Date: Fri,  2 Oct 2026 17:19:42 +0200
+Message-ID: <20261002151942.491680-1-bruno.produit@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261002-perso-ma35d1-upstream-clk-v7-7-cbd991fa6270@bootlin.com>
-References: <20261002-perso-ma35d1-upstream-clk-v7-0-cbd991fa6270@bootlin.com>
-In-Reply-To: <20261002-perso-ma35d1-upstream-clk-v7-0-cbd991fa6270@bootlin.com>
-To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
- Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Andrew Jeffery <andrew@codeconstruct.com.au>, 
- Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
- Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
- Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
- openbmc@lists.ozlabs.org, Miquel Raynal <miquel.raynal@bootlin.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-The clock controller takes its two crystal oscillator inputs from the
-board: HXT and LXT. The LXT crystal is not described at all: add the
-fixed clock node for it and reference both inputs from the clock
-controller node, with their respective clock-names.
+From: Kyle Zeng <kylebot@openai.com>
 
-Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
-Fixes: b69af0984732 ("arm64: dts: nuvoton: Add initial ma35d1 device tree")
+Cancel the PIT hrtimer if PIT creation fails after registering the PIO
+device. This matches normal teardown and ensures the timer no longer
+uses the PIT before its memory is freed.
+
+KVM registers the PIT's PIO device before registering the optional dummy
+speaker device.  If speaker registration fails, a vCPU can have already
+programmed channel 0 and armed pit_state.timer through the published PIT
+device. When I/O bus registration became fallible, its cleanup did not
+cancel the timer before freeing the PIT.
+
+Fixes: 090b7aff2712 ("KVM: make io_bus interface more robust")
 Cc: stable@vger.kernel.org
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+Assisted-by: Codex:gpt-5.6-sol
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Signed-off-by: Bruno Produit <bruno.produit@trailofbits.com>
 ---
----
- arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts | 6 ++++++
- arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts | 6 ++++++
- arch/arm64/boot/dts/nuvoton/ma35d1.dtsi         | 3 ++-
- 3 files changed, 14 insertions(+), 1 deletion(-)
+ arch/x86/kvm/i8254.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
-index d7670afb0a63..7752e85734ac 100644
---- a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
-+++ b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
-@@ -36,6 +36,12 @@ clk_hxt: clock-hxt {
- 		#clock-cells = <0>;
- 		clock-frequency = <24000000>;
- 	};
-+
-+	clk_lxt: clock-lxt {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <32768>;
-+	};
- };
- 
- &clk {
-diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
-index 8f3cb18d39b6..5c65f1fe5da9 100644
---- a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
-+++ b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
-@@ -36,6 +36,12 @@ clk_hxt: clock-hxt {
- 		#clock-cells = <0>;
- 		clock-frequency = <24000000>;
- 	};
-+
-+	clk_lxt: clock-lxt {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <32768>;
-+	};
- };
- 
- &clk {
-diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-index 7228ad4735b5..9a341c2b1397 100644
---- a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-+++ b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-@@ -92,7 +92,8 @@ clk: clock-controller@40460200 {
- 			compatible = "nuvoton,ma35d1-clk";
- 			reg = <0x00000000 0x40460200 0x0 0x100>;
- 			#clock-cells = <1>;
--			clocks = <&clk_hxt>;
-+			clocks = <&clk_hxt>, <&clk_lxt>;
-+			clock-names = "hxt", "lxt";
- 		};
- 
- 		pinctrl: pinctrl@40040000 {
-
+diff --git a/arch/x86/kvm/i8254.c b/arch/x86/kvm/i8254.c
+index 1982b0077..b7875345f 100644
+--- a/arch/x86/kvm/i8254.c
++++ b/arch/x86/kvm/i8254.c
+@@ -793,6 +793,7 @@ struct kvm_pit *kvm_create_pit(struct kvm *kvm, u32 flags)
+ fail_register_pit:
+ 	mutex_unlock(&kvm->slots_lock);
+ 	kvm_pit_set_reinject(pit, false);
++	hrtimer_cancel(&pit->pit_state.timer);
+ 	kthread_destroy_worker(pit->worker);
+ fail_kthread:
+ 	kfree(pit);
 -- 
-2.55.0
-
+2.53.0
