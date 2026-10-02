@@ -1,64 +1,64 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34EF43F105B
-	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 19:15:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE4B83F3284
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 19:15:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790968519; cv=none; b=TbFVehvd+PB0l6+ViAHn2jxH0KVbj/W+OyUPkwqoH255sslc5uYCgoH5q8dooAxMkfazo+YlCqJ0zVDsZPzck0ZdwdpcxzVqYPCboLWY7a4zt31clrKh1yN1sNvG/3arEH8zw0pZlbOtCF9ztWtkkBfxIRJMXV+K3C7SJKjrOnM=
+	t=1790968523; cv=none; b=kttlEjsm0icVNcvlocWSuKAKTLcWLiM/Zz6abHDT2V0y0lMoKTfpGpnurIRTXCV7MIrsstyGxcadQIlcb5iVjJY3z38WKtvH1GbfAfsJJSwXwDnHpfq4bkIqkS5flFIEBOqn65N3Ej0d4SqgWHdQKy+QdNU3FCTgois32eMoPQ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790968519; c=relaxed/simple;
-	bh=uzuTwXk8WkiER0K96nRtdmtlQc4RXbfFoRo/1xUc2P4=;
+	s=arc-20240116; t=1790968523; c=relaxed/simple;
+	bh=XAQgb0F0u4DegmBOA3E903aqLrqIrvi3IpWeNxWb+gs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=b2SrdUcg3THW1K+a1G2LE4lHYhbhgf0cz7j3pUh2AI0qbhITzjx05ItpPqEfI0q7ZX6GR4C4LP6NmbP1UjxF0yTk+NwodHDQVzDNZVAbJ0YTsiwMIv+unKAWUgpWmn1gocJMEeiioZPpIddI+pfMHwAhBwRk3xlhXXYYyqHdbWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C6gzlLzK; arc=none smtp.client-ip=74.125.225.140
+	 MIME-Version; b=IuF8D7apGQN3sxdX8UVbhZJkyv8iJE/gnZ1CxRIlf2uQ2KC4HuQTjzyubuRKlY9lBUw0Y6qUhiAPPGXGt6Afs2UZ/izwZBAiVLOtRcSCNW2rMTQUMtAruzFIu7U7RU/wjy9qpbqApBcAH7x2i9585+QnGotwazudphZ70ODYnGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MXdVWcxb; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C6gzlLzK"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-4a01ff8c098so1412965e9.3
-        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 12:15:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MXdVWcxb"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49fe8bf173aso1146855e9.3
+        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 12:15:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790968516; x=1791573316; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790968520; x=1791573320; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=G5Abc9lhmWr9w80vEfggZt06aTIBY7WIzDl4UzYH0h8=;
-        b=C6gzlLzKSW4zBzA8p4XKkZOXmDYUjrY2vE1WacYFXqv0DsME0Eibg3UzJJEyn5cMVK
-         VZx7fnLP0NQ895SCmUzsdHTRpsHuVFR0dfyV7l3SLMufncE0kNBpkgNNZllKNL0WvtQI
-         SgB6fMryvLzqGqCpEhsZHLgmktfef9EJpxD5R01nn7HZJ0DdVLVlLBaNtQ0HE20ZVMBq
-         IaewlffuSBMjk6YYVnNCCJYFUN0cdninKNm+FIpktU51w29cbvg2Zw9Fpqm88TYLi7+G
-         kG7dlHM3/hrr9LCQdKV11C1eSafU3NVUgQmAKe2AVQExMqHCok8bHlvWs7nQ8P9tvwi5
-         bGqA==
+        bh=cIvFwZrJp04ZdQA1Z5QwmseYff1JrQtZkKNKsph8seM=;
+        b=MXdVWcxbmecbwEivTOhXdex5vMSFzZMPBbIUzYyKvIxct43IGIdtPaXkNDhS3j6WI7
+         qkXnMOKz4pukuES0QhPQEJlUrf6nbmeLbbo/6Jn51Ck/hEFi6wUg9pnP0ECmu2jBCgpd
+         YgAu9bY6IsvU1gUNVXedUY/XnovRr59wbncOmLoWnmS9T/TitvFNNi5BOKjyr2/P3CEo
+         Tpi2gJNbjN7/x/COPtWbMPEIiOClfC2ZmMmlefTRddyl6i2SYieWhUwRZk4wiESlg/QS
+         OysgbdRZF3fS/pPoiCO4t/T6lcwnli43PFWbuIXUI6FzxtqubU6+adVXMdw7le07jIKU
+         oNiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790968516; x=1791573316;
+        d=1e100.net; s=20260707; t=1790968520; x=1791573320;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=G5Abc9lhmWr9w80vEfggZt06aTIBY7WIzDl4UzYH0h8=;
-        b=OIyp3h1X6WjJ7gvgmya6Z6ALPXYo1Q1iFk1LQ4jw4U7Pi3t8yOeMDpA64DCgxtrXXb
-         mUFJAp7v75dpDSOGsFwWlDLyini3Ao/TmnmyggWE70wKJUat7Hivl1CINGVbI7QVQ/mG
-         DpPIRKQ8dBC8V913puQbfEGt9cWYuub0ts8tv5gR8ajQMqttKer0n0Tncui9uRYvNws/
-         Pd7T+mioepxVPmtDNOLNiuE0/CPQv+fko7RVr6M2790b1UMTqebDucuwSPngA4N1yDAj
-         jCWAk2fVbxPw91lGaEucu3tEn8rVTXbg+HzvClX1H11zMVKeleuO3paGRyWz4ZFCGHKB
-         vF6w==
-X-Forwarded-Encrypted: i=1; AKwUvByCsUOawH6t3d6OPAVoYVs3dOqOZFiNiOlRPK4fudViDX6ISZP4uNl9HA2HRgkyC8P+r57hTfc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kXEZ5F0uMu6LSHw6LzP5yD90iZFzhv7eEz+J3r/HegqYpd55Zl
-	AW9Jfeb8GkxdLcWDYnnITlO6GV6KEN0PMhK8Z6YMX/WSTDo4jjAw8GKW
-X-Gm-Gg: AYBFou2PZS6eh8TNRM7gyEH1485/EXIcJBZ/UustkMB0v+WM33yemFVq4ZGIbXv1tq1
-	ARxD8gJJ8Z9g1+ybmn15oCVWJSoSyPWN1/E+xm9gcsj2S+RdN4WLgY9v/z1TtiUDlsbPRJoxiD2
-	Cgagd6/pQDr6NOgUEpsXYrjUbYTBSvHiUA4aiP2w4A9Onr+eDfFxonm7+KLbcOAXnWltz5kQSkv
-	K/LQp/2kSy0WkH1w1xBn+UWdgdSyCHfJIsCGmVKa3GG6eexBoT260lKqXaNuX8Uw9OjTskIELg5
-	Zq5WD1T8aGT2poT3WVRNY7TQkD7VnPjk4sk1aZVsUlXSaJpISQo5rvtoUFcufFOJAw/nkHXb+lz
-	6wmstJ1LUx+/Ln16xQuQ+QigKmi1jjMEVZk1VneNSlAIjZQggXNYzZAlJzfBEUnQJpASkM8tzni
-	jXuIOnVz9gEzo4bJj17SXdUkwBGX55zSzcXsvyDus/QgaAeABJFZkkpoUwrzt/YVoXsOA8VrwqZ
-	tLVWpER9X0prxOaAr8BmyPcZrNqgGtMr/sKOHvqd4qVd9tTvEZo
-X-Received: by 2002:a05:600c:858a:b0:49e:7d74:7b7a with SMTP id 5b1f17b1804b1-4a02756f0d0mr44522405e9.6.1790968516532;
-        Fri, 02 Oct 2026 12:15:16 -0700 (PDT)
+        bh=cIvFwZrJp04ZdQA1Z5QwmseYff1JrQtZkKNKsph8seM=;
+        b=im9+skh1EK0PI/Z60AKRH91Jko72QIGj2m3JhnJpyvSi2Cdgr+HgzXbfD4K9h1IMcu
+         jllYHpdBOJ5W62iWgiX9ZbM/tkV6r+Z3o52dn4fjpDhPICspMC81J7kAfesPq98hTza7
+         TKteO5G5fmquUGmCGDf0uV207YaWnKTn6VuYUyDpNk35AjVKS01EmAckO0bA4zRY6NYn
+         errvZ82ft9et8C0K/nk82FhDpE44HnVXT8IzIs29mkyp5B/AXYlnZi+0D8ql5wKpmeQB
+         K/TkbmOqpAAKfNFNjee1Qa9FoYd9kTgqacqIGzTNR558qXXbs1r1MNI+HRfKlRPyMfGM
+         1wjw==
+X-Forwarded-Encrypted: i=1; AKwUvBxqO9BpJh75xRakN1LdQce7TnZ6u8WtPnqNzFYoSQe7kFWsxeQdj//Bffk9dA2OJBEKIQMsZBM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lAzWz/LniLpkrxVeKq94XrHrWI59LkLdpcKenlJJxMQXs6KFTC
+	oEw9O8t5L+B6NWx7mLImmCd5OvJDZcB1YnlwlhLs34EqVpxaBI5Yj97o
+X-Gm-Gg: AYBFou2f5BMhMquMuLDy9rveFP8fIRof8X4sakNZS/FJhxXny/rftmSOCm+fGTs58FW
+	u112O6ZKZk4JcO/DSIGu0fsqXrpgDTXfkBc8Iam8C/M3enWG+dH5IJJ/8ruwNH++mgFdeJLS5T6
+	vZSBGuAAW0ey56qnTLYsufRif+2UHBqampk0GKv68k9ZMI2pGNhFP19TiInvomY/YnBbBPa37m0
+	6XjHVje9oLe8ijlAf0dySegxSGlBTVAPssLEdSMCVdHiEXtxaDhjkFTRCSQO5WJDIjhozxq4NyK
+	33D4yhAM6dybtTyIrZDOuv9CEEVFG0FWSxf/c0Q2ktaySGXsD9ht4GHoronvkRez+YgqYaJilLm
+	Fkksl7wF7DXIgzvNIfSUnkEwoFMagJq0LBzamb8bCpjmKM1zAAddVShSImJyOC6iwMSSShy/bVb
+	bd3CzXsc2XrVJNbPaODcq+6ncam4gl8o/HkRdHMhR9rTfRkSqQSD4T+hvFjS8lvE29ZiFkNtw/j
+	Gzw0gfTGafv/D8cPQPtR6VdN3FANsk8rRLb5ZNivlOqwPv09Hwl
+X-Received: by 2002:a05:600c:3152:b0:49e:7c8c:361d with SMTP id 5b1f17b1804b1-4a027584bc4mr63811445e9.22.1790968520005;
+        Fri, 02 Oct 2026 12:15:20 -0700 (PDT)
 Received: from fedora ([202.47.63.86])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0e1afbc44sm81151145e9.4.2026.10.02.12.15.13
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0e1afbc44sm81151145e9.4.2026.10.02.12.15.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 12:15:16 -0700 (PDT)
+        Fri, 02 Oct 2026 12:15:19 -0700 (PDT)
 From: Muhammad Bilal <meatuni001@gmail.com>
 To: Jorge Lopez <jorge.lopez2@hp.com>,
 	Hans de Goede <hansg@kernel.org>,
@@ -69,9 +69,9 @@ Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
 	linux-kernel@vger.kernel.org,
 	Muhammad Bilal <meatuni001@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v4 7/9] platform/x86: hp-bioscfg: validate SPM state returned by firmware
-Date: Sat,  3 Oct 2026 00:14:32 +0500
-Message-ID: <20261002191434.58529-8-meatuni001@gmail.com>
+Subject: [PATCH v4 8/9] platform/x86: hp-bioscfg: NUL-terminate the SPM auth token
+Date: Sat,  3 Oct 2026 00:14:33 +0500
+Message-ID: <20261002191434.58529-9-meatuni001@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261002191434.58529-1-meatuni001@gmail.com>
 References: <20261002191434.58529-1-meatuni001@gmail.com>
@@ -83,15 +83,17 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-status_show() and update_spm_state() use the state byte from firmware
-to index 3-entry string arrays without a range check. A value above 2
-indexes past the arrays, and the result is printed with %s by the
-world-readable status and key_mechanism files.
+auth_token_store() copies the token with kmemdup(), which does not NUL
+terminate it, but hp_calculate_security_buffer() and
+hp_populate_security_buffer() treat it as a C string and read past the
+allocation.
 
-For example, a state of 3 makes status treat whatever follows
-spm_state_types[] as a string pointer.
+A lone newline (echo > auth_token) is worse: kmemdup() of 0 bytes
+returns ZERO_SIZE_PTR, which passes the NULL checks, so a later
+attribute write calls strlen() on address 0x10.
 
-Return -EIO for an out of range state.
+Use kmemdup_nul(), which allocates one extra byte for the terminator
+and never returns ZERO_SIZE_PTR.
 
 Compile tested only.
 
@@ -102,33 +104,22 @@ Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
 Changes in v4:
  - New patch
 
- drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
-index 4d94e48c1..f0eb5c445 100644
+index f0eb5c445..19f0f9f16 100644
 --- a/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
 +++ b/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
-@@ -118,6 +118,9 @@ static ssize_t update_spm_state(void)
- 	if (ret < 0)
- 		return ret;
+@@ -316,7 +316,7 @@ static ssize_t auth_token_store(struct kobject *kobj,
+ 		length--;
  
-+	if (data.state >= ARRAY_SIZE(spm_mechanism_types))
-+		return -EIO;
-+
- 	bioscfg_drv.spm_data.mechanism = data.state;
- 	if (bioscfg_drv.spm_data.mechanism)
- 		bioscfg_drv.spm_data.is_enabled = 1;
-@@ -153,6 +156,9 @@ static ssize_t status_show(struct kobject *kobj, struct kobj_attribute
- 	if (ret < 0)
- 		return ret;
- 
-+	if (data.state >= ARRAY_SIZE(spm_state_types))
-+		return -EIO;
-+
- 	/*
- 	 * 'status' is a read-only file that returns ASCII text in
- 	 * JSON format reporting the status information.
+ 	/* allocate space and copy current auth token */
+-	bioscfg_drv.spm_data.auth_token = kmemdup(buf, length, GFP_KERNEL);
++	bioscfg_drv.spm_data.auth_token = kmemdup_nul(buf, length, GFP_KERNEL);
+ 	if (!bioscfg_drv.spm_data.auth_token) {
+ 		ret = -ENOMEM;
+ 		goto exit_token;
 -- 
 2.43.0
 
