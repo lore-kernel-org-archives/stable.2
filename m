@@ -1,230 +1,267 @@
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f39.google.com (mail-dl2-f39.google.com [74.125.229.167])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6D3A1F875A
-	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 20:44:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.165.32
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790973861; cv=fail; b=VWuwGXzTa1LhOOqkFrEXvQw787iSNAkUxhVeMS6QCBYB7bsSTLIuolcL21W6pznhKr3Ei/jc7vjv8hGY7tyFOcR0Vt7m+dGMNO3lp7i+6AjpN9py9CA9tKIx5PVpwvUcFNdjr8Fnr9wDXncw0QtWqh7m2ckzX8jFVnspkCVIRMw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790973861; c=relaxed/simple;
-	bh=RM8wWzUvNL/zm8J8QosdEBTdwC6A3GunJX+MKAy8eIA=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=qNDvJ1aNDA5yMTu17DhlIy88pTE58bEzjnsIoAGGvObGFJpTCUrrRtnsTtYItefyzoiAWvr1uchNryh9jIUN9fkyktIC7mk2PuFQtZ4y2CfRR8nJxjlvN4RuhWI5I5Cs/V6Hhh7ag/E9i17FRw3dqzgH53Ntf+LMSmkGH5anOf8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=JAIvTf0G; dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b=YcLGhceu; arc=fail smtp.client-ip=205.220.165.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAAF43B3C19
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 20:44:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.167
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790973887; cv=none; b=ZDbfrXYIPJc/HS1sEaGJz1BcP7S2w0L04eUYyclRH63B3PvMfuxnr8/uRLyWSxx5lrAegOzwHyb5RZC9OAJNDIMGnb/v2NSocW77azS7UqK/AYanGr4WUQoeSsu8+layhp55XBbfUlqehfQV7lHSdTRQeGSgBllWX0JYIJET6UM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790973887; c=relaxed/simple;
+	bh=hSIz4fihW3br2vB9KwOROSdJNfpPnljc28909L6iTQc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=u6lyqcb0x7jmNCxbye41X74uWmad6xkAMixJChwjAWdVbwlf3DISSDJ23iWL6eLO6bkN7TYTeMepQQ1H3/X5Hl1Cq/xhJAwShEW2/vNzEpvjCdcaDrFbm1rJ0MbgKC8i4zGckGzehOr7ipQkqYubZTav0oETNJpYrGEXcPGMDow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=jQsVdQsV; arc=none smtp.client-ip=74.125.229.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="JAIvTf0G";
-	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="YcLGhceu"
-Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 692EbgkJ1541698;
-	Fri, 2 Oct 2026 20:44:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	corp-2025-04-25; bh=Pz47dzocADPvmpBqAJ0HK9CQNHHHpUPxvZNjogPVD1w=; b=
-	JAIvTf0Gv1axKS2UovIV/R+eJjKV96H7Uoh682hf6+A584qwWiBl3istKuHZ0oqu
-	Tfow2DsrgD1pY3/n0jhLIP3jeimnX3fFzPflC/YGovNJBvvHHaJA//BZ9MkJrlNQ
-	zh7QZ1X6Kbe7gZtiGBeACFVN1GRGWZtu1BhZ2Ht0+jGAZAplHPi3rLkeLObJ8ecH
-	5KWbRLiah9itM434nX86QbQXvGt3l6ddQLcR/yvl4cd+PQDNDCG/5vEnn2B9A25U
-	0ERk2eubboTsAdpT3OzMMfRiB/EV7CZym4PKRCYSHaUhm+QlGk84rALiHAWQQVk4
-	09QzuL8/RGYRJDFHDxkTCA==
-Received: from phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta03.appoci.oracle.com [138.1.37.129])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4gx4mymuu2-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 02 Oct 2026 20:44:05 +0000 (GMT)
-Received: from pps.filterd (phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
-	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 692KZ1IV030333;
-	Fri, 2 Oct 2026 20:44:05 GMT
-Received: from bl0pr03cu003.outbound.protection.outlook.com (mail-eastusazon11012016.outbound.protection.outlook.com [52.101.53.16])
-	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id 4h2f6frdf1-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 02 Oct 2026 20:44:05 +0000 (GMT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ipj1+kGya0boaK6xKN+YjWAxnyq9Zo5sTYi1MV8dN9TeKEAhC7wY012LGegAlkZmvsmdGp+QQz1HttxT02gZPpcZMEgBJlWza2Qj1SQlPlbJIHuvGUYEJL1iSWxQiIp3EyF/BjmyF7X6ibbYs05/y+l1PdsXdCsIZjSzJjxJPJelVMnQxxLmIIVBZSw/1Nl6tG+1QQ+toOiDDv7a62HMrbET0BxA21Apeil4U7lY/bMr8SttsA7yKUSyOxlAF52Iz1IZszzwmp3uQnRkhkpSXO0yyXwFtr3DDXX8q8UFro8JwLuQxlCdSjlfNLXMcRlTtXpVR5yNj4vogmqFx1dSqg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Pz47dzocADPvmpBqAJ0HK9CQNHHHpUPxvZNjogPVD1w=;
- b=gtxUWGapljbJ5448XJrEZI36PGLIHbO3jVdUSCWa1Fh5GWn/xAQTqMZeEfsWcshoo4fY1bA2LxpK0x2LrRY2uUsbL9KLLwAlxfpydQl6pl1cpL15dvYd7En9dGS0r6/pyG5dp5x6xG3h1dYwlVx4U9755b8SCvBwrnfdxuzkD8gvafBX6HqsAwvG47urADKIaCKR5h9MJlf5WpqoDJvMftvBZ+UZRTsdvIPVMpKGNWjou6jzvqjb0HKPkEIDW6YjTD3B0yDcS7igZCgGW1evbzNu62uD9vcCq9zcvmvCsMAHLUqlvEHep5dBabK1XU7s1ynalQMwwh/h2ZdhpwBQEQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="jQsVdQsV"
+Received: by mail-dl2-f39.google.com with SMTP id a92af1059eb24-1438cb9b3a3so4769c88.2
+        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 13:44:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Pz47dzocADPvmpBqAJ0HK9CQNHHHpUPxvZNjogPVD1w=;
- b=YcLGhceuxVj2eAlij3Lx3dZsl1W2bsmJN2tnoucV6hS92ilCZUwJv3c4Nf5GnZ8X3EW8eHl4abS6/nFNzunEi20f3IUVl3GXFpGpRbhKlH/YeE/9Pkazl0DG6sUHYLBg42wNCeQRoZdui8cpsiV1pbjWRy8xtsc5iLyKTml5fjE=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oracle.com;
-Received: from SJ0PR10MB5834.namprd10.prod.outlook.com (2603:10b6:a03:3ee::16)
- by SJ0PR10MB4608.namprd10.prod.outlook.com (2603:10b6:a03:2d4::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.12; Fri, 2 Oct
- 2026 20:44:02 +0000
-Received: from SJ0PR10MB5834.namprd10.prod.outlook.com
- ([fe80::2444:1d33:3ce:d83a]) by SJ0PR10MB5834.namprd10.prod.outlook.com
- ([fe80::2444:1d33:3ce:d83a%7]) with mapi id 15.21.0496.008; Fri, 2 Oct 2026
- 20:44:01 +0000
-Message-ID: <53c5c2ec-4360-44d8-9be8-32419f06a4e2@oracle.com>
-Date: Sat, 3 Oct 2026 02:13:54 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.12 436/877] macsec: inherit lower devices TSO limits
- when offloading
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-        Sabrina Dubroca <sd@queasysnail.net>, Simon Horman <horms@kernel.org>,
-        Jakub Kicinski <kuba@kernel.org>, Sasha Levin <sashal@kernel.org>
-References: <20260930152414.738996857@linuxfoundation.org>
- <20260930152424.092713670@linuxfoundation.org>
- <230a7cd7-386c-4d64-a896-09dc32720c24@oracle.com>
- <2026100223-sprang-quake-e329@gregkh>
-From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Content-Language: en-US
-In-Reply-To: <2026100223-sprang-quake-e329@gregkh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: DO2P289CA0009.QATP289.PROD.OUTLOOK.COM
- (2603:1096:790:6::14) To SJ0PR10MB5834.namprd10.prod.outlook.com
- (2603:10b6:a03:3ee::16)
+        d=trailofbits.com; s=google; t=1790973884; x=1791578684; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OEUMUqkSZXNw7bjqr2r2LczcRXo92A7RQr8KDcVvERk=;
+        b=jQsVdQsVWc3c8yE2thqgmluoZvBX2TrWNc3UO05+/MpwQXaOvTRttMWO8ZMPg974qM
+         9rOnxQDlZvHaGyO55KM60gMyQdBe8zEoQ3H1Qd0iEnK//WFts6Jd1AIqpcL0hy/QP0ol
+         2TSuJBbivop5R90MX5n09dsmqjC4t+OhdjN3U6P6jTyCnSQdUJZDU4WdEejFLLJsbZpE
+         ArxDrkgAgjVVfvc2ZTsUsObJNfgV5Bba90gcm4/JpTI0GrGc9G12QxyM4u80CpcrxJ6W
+         nIBp/OAb3M9hU9+SEuGmcY+O/wO6QJwoTkRKXX/HbarQ77WaiyzBGt/GXK2bE4UCaD8E
+         LpIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790973884; x=1791578684;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OEUMUqkSZXNw7bjqr2r2LczcRXo92A7RQr8KDcVvERk=;
+        b=Vev7/SU95R9aXZDIUrP5h8Ljl6LKtaMwF2cEPrc+qiXsT4rR0/+XazI+cXzNz4WBGh
+         Mxtqy0+90iXDQj6bo4faS1TG2of1OwJQBtByduLF2O2MdDl1b3udqRgc1gRHUpcvCMYH
+         U4senBFiFLBga2PeF/3RDBGFQ2d5VbSZRSEwPRRG751p9iaaVEWCOZGsp9Y6Upnivnab
+         hgBzNMPCtD7eBLwx7b5EeaiLsQGNLXekZi8CC+axaft07+DdK+CQy2JpsAUGdQg8i0Go
+         sHYYUMFaMG1xWyxZjNaahmseHAXn3m1MFN0d5BqyEkJb26/QXOZ3bqTJpt43WslOAB5p
+         3vGg==
+X-Gm-Message-State: AFq9FYJs25ULpyBijURXb9ic1UULkUbtUADC51CFpM19bix1lGKOy3Ih
+	5ifC7y+LgtEP+w/zZ8ovD/J9g5zpGuq3/r1lLN9B5GdxRIpuit1ECyDLPVgnkhjD/3JnNEkWYAU
+	t/bA17Sm8qA==
+X-Gm-Gg: AYBFou1sIj9KFa4dK6sfnXi6pGigyw654g6Elz9sy3NmsIRuQd981ZZOjs5chJ/bISv
+	bZb3EO47ngAwkIHfKfvThm9rNiCnLu9Vj+bFzvnZmxfw6OpN6DRoO8To6YKyJnaGpTAQyF0uMTQ
+	KOvivePzGE6HfO8Idw6gyFVwvV3xvUHCE46K4bW2AMWs+Bpa85NtNti9/Bj/PTxIIfbl9oeCwjB
+	MDiUKO69W/7foDZ8AFhyHMzpfcUgjcUpGlunb9Jwa80CdO0xSE6MdfN2MuEH+mafXIIeZoQ9IDk
+	vMdKz7AT+iQG91hfDAPPuDs7QOHRZK6h1t/eXhZzmogVw3cWD+NAod0Io4xMxxIELU5Qc1oP85D
+	a/2E1Iw8dqohG+PBSqYo0dks3xXIeOPKdoSlv0pQp2jyV1F7V03823X5YPN2A815LhD3FX+g4hm
+	BBzx+1T/pP49dMw4gricKdAjCiUTDSx6z3lc2Zegj1m8T1qcUD8KOVobPp0Ar3ux5O9KDOWIxKt
+	AAXZkhMVTdgCb6QDCaXA+7HFz7Jgv5+oyUW8Zgvi4jkLe+QLTcCx10OK/z8yC4VNZ107ps=
+X-Received: by 2002:a05:701b:4190:10b0:148:dfc9:425d with SMTP id a92af1059eb24-14f5d1b9c76mr4478202c88.46.1790973883634;
+        Fri, 02 Oct 2026 13:44:43 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:a1e3:ffe2:b35a:69a4])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-151fa74fa1csm23201c88.1.2026.10.02.13.44.42
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 02 Oct 2026 13:44:43 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: Artem Dinaburg <artem@trailofbits.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Shay Drory <shayd@nvidia.com>,
+	Tariq Toukan <tariqt@nvidia.com>,
+	Simon Horman <horms@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Saeed Mahameed <saeedm@nvidia.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mark Bloch <mbloch@nvidia.com>,
+	Leon Romanovsky <leonro@nvidia.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>
+Subject: [PATCH 6.1.y] net/mlx5e: Fix netif state handling
+Date: Fri,  2 Oct 2026 16:44:37 -0400
+Message-ID: <20261002204438.26168-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR10MB5834:EE_|SJ0PR10MB4608:EE_
-X-MS-Office365-Filtering-Correlation-Id: bf791c8b-b5bb-4a8e-5b4a-08df20c5e3d0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|10067099003|56012099006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	Wgz/o8TzWdvnZF+E2H4yh9y/ZkAhmcxzU02zFcq467ROsnFpQ3hP+UQdOyk9BoQKeSthcbiVIzcD3sAu20vl7xNWBUPGDm9cQW73C8DkpmN5FT400DakjXBIv3V9L1bYakLK1GXfRm0BfDdpbPPaAKQrnqPvjZDHKnPDiudY+mg5zaWzxNNQaJ3wiJuPsSGI0c0wSneAxh5uO2Mn6YS0Ld2eCLogquNoJazjo1Ew2+IXl1xN/QncKbVtynSGIQsawc9S1rSk3753QIt4et1/p3OqtnqmgCN6UWwy5npEgyxSB5i1vjZCb5m84VYTXj5hm6kips2CEyXRUNv87LhkQx4yISW92B9Qu9q+dMWkJMUu29CBZi1ZT7klUpkeaX296JJdD4ohdg8PhpKGehrA1O1JCWsGrxqFUy1iFT0nl15j/B2TbkdUYXpiTZJQi/4yq2Z0DZbKf1KAQ3f7GpKWfMPNuTSrcB7KO3GddrwB8GuOcS9EBiuE+OjjUD+O+Hmr+Ak3hOciVudPPAvtpclbr8/hx3EiPjNJP+W6DoExZ15pcRJJVD7unnexYnyntEJszevroF16r5I/b/XkYueV1gD4oy9mGB49DLomaWrsqTUUeSSxkxdUDFYJsJSZlJ7I9rjVx2O86meGLG5/8YLmmmBGkxwMj7YwDe/00IQyXpU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR10MB5834.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(10067099003)(56012099006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?L3NzU2djRFc0TVUrcVlIOGlsbHpZWnVPdGhlSmtlK0M0SEllcHRjTlc4cWhK?=
- =?utf-8?B?OFBhSElHanJiTnhMRUZvVk96L0Y4WGJVVGVlTnZuZCtwN2crU1ZPaHpHc1NL?=
- =?utf-8?B?MnAyeGxkN3hQWDdsQnFSeTIya1NmKzVTMGV2b3hLUktUSzRQVXN2RllaYVAr?=
- =?utf-8?B?MjBFR0N1ekoySnBjZlJ3SitWays3Z2owVWlWcnE0YWF3ZW5FczJlOVQwQUlv?=
- =?utf-8?B?UmhwelJaQVFyM0JjQmtRZHlpMEphbWJna09JS0Q5TEVRdWtpZC8vd3lSUU1I?=
- =?utf-8?B?cU0zYXdDRzVXcU1pRjBBbUlDWDBLUjgzUUM0OUVsWThVajRFQWZYUjdKd0Nl?=
- =?utf-8?B?L0lVaG5QZ25idEs5dXNMczJrVmlXb2tHWFJKSHdsK0xkU3F1SEx5QWphRTBl?=
- =?utf-8?B?RWhyYzV5bWoyUktJaWRvdWU3WldqZk45OUdKUWp4VlFGNSs5c0FlYlpMdEs3?=
- =?utf-8?B?RlNEekFWQWdxakNhQWNyY3hqdlJ1cFBPTjdrcmxsVGtkM0R4RTlKWDRESzNp?=
- =?utf-8?B?M1dNdktjRTJXN09OQzhlODF0RFQ2WU5rclFmZzZUY0c2c0dWaU5RRzFpZUhv?=
- =?utf-8?B?S1hNOU5sWHVxb0pES0JJNXJrT2k5MzJFSlFRMUpJZ3RENHBKQ2lCRWxXUStP?=
- =?utf-8?B?NzlickVoNG83akIxRXhpQUV3N2E2cEFDbHpTK0hGZi9Kdll5cVJZaDl6TkFR?=
- =?utf-8?B?YmdQUyt2WGpoVGZ2N0NYa29MVEdLVnozaHY5WWFmK3B4T2J2eHBleDlMUmkv?=
- =?utf-8?B?cTYxb0xtQ1J2QWRERmxkU2taTXdwOWxVMzNTMXBicDQyY1FDUGJFeFEvMkIy?=
- =?utf-8?B?YkVaNHRub2p0bi9FUExJYUNaRjMrbXFNaGJzMWYrVmc2RHBzOWRXaHFjTUNP?=
- =?utf-8?B?T0dOVnRFTDNEVWdLa2w2Slpab0loa2VqOEhGNUlyV1o0WWlGeUtmNlFMTE5B?=
- =?utf-8?B?VGZTSmNFNGtvTHR0RVhVQ0RWR2hMRWlIV2FST3lFQzZhNFJSKzFoYi91cUd2?=
- =?utf-8?B?UUdGUzkvRWZUcElOZmtQalNpaWRwWUdFU0RxRkNsTVhWNTAwZ28wYkRJekZk?=
- =?utf-8?B?cUlpOTZ0blQwNVZvMHV2SGhBZWlManVmS2RzN3JRWXg0NWJsWXVxbFUrSHRW?=
- =?utf-8?B?elpyZ1NncjVZS0UxcGZPVzRCVjJ3ZXFGS3MrMGdlZUpLSDN5N3NkRG1vWlV2?=
- =?utf-8?B?NjM4SGs3TWV5TGZUNytjakdzK3p1TTVia2ppZG45cHVZY0ZNWlpXNTlDQ05T?=
- =?utf-8?B?RllySlh0RVYrSU9POWZEWjlyZEdQUkIvK0V4K2VMQ3FpVUxLMEpwd3VOQlA4?=
- =?utf-8?B?aGdMbTFqaEp6b1AwY2NVOEw1bG80b1QrbFU4WXo5QzZVeEpVODFMcHVmOUtR?=
- =?utf-8?B?WnZ1bjRyTjdTU3ZXUy9ORDJKK0d0VXVlZ2U4dUEycVJLYm5qWjREdWptdk9r?=
- =?utf-8?B?eXZTNzlQS3YxN2RpWFpKZExhVHR0bC83N0loRUlJYjZ5M1gvTjlXOXluSmsy?=
- =?utf-8?B?Wm9sM3BoTDNwT2tNcnVtOGVRWWlFM05weFIyL2NuRnpPdVFFNmdkSXhKTnpi?=
- =?utf-8?B?WjZUb1FISGpjcjYzNEsxckNPc0haN3hpVTQ1aHh1WmpPazh2eXV1Y3IvR1ox?=
- =?utf-8?B?cHRRZFU2VEpFblA2UnMyVTFpNHBTdUVxc2JIYU9rcUdna3BIemxDMjFsTUFT?=
- =?utf-8?B?bU1GbWlFUWpIZDZCNE84MS9rNm5oelFaN1BHYXFwTHNMWmJLMWpNSUZ0bm5N?=
- =?utf-8?B?SkJubUhPR0k2TkUxSm1nWit2S3dQbW5IK2h6emxvcVZnWURiYmlKbEJuZHlF?=
- =?utf-8?B?ZTdOTHc5QlFKNWxTUmRJd3J0d2d0OW90SHpJNzhaZ0tpTndUemVyZS9uYVpL?=
- =?utf-8?B?UmhZU1lkME1yZGgxeUdkWWJpbm03bmY0UDVLZlpGVnFXWlBYb1lyeERvaEFw?=
- =?utf-8?B?dGdPTlk3T3BudHBtTlJJdUJCWVQ1bk1ldXhUc1lzd0U2K2ZRdHNIWDdFVmI0?=
- =?utf-8?B?MG9SZzIvU2ZVeUFETlBYM1Fybnd6R3NjOTZrUW04a0wzUXMyS1UyUjZaZDBt?=
- =?utf-8?B?R3k1Y2ljNWZ4TW9TNVpRcDN3WkJGeUtLb3d0cmdDQ3grTHdZK1Irc0JkYmM0?=
- =?utf-8?B?YjgvVHFDcnRFdk1NMlEyUWdLRlF0b0tSOXRrTnpReHhJaHQxeHIzUjF6ZGpM?=
- =?utf-8?B?NjJCaUJFYk45b1F4WlZpU0lQTWowODdMUTVHaDNWVlZkdWVsMytUTmlCWGRK?=
- =?utf-8?B?K0l6MU9KUmxjbytwenNvNFJuR05tK1UwcHVHSHNvSDd3NzEvenZ5UTU0bGdF?=
- =?utf-8?B?cWdCQ0IrajJzSTVaRjRDUDhNQlBMbmtlTEU2bnVyWktpcGVCVVBENGVPUFF4?=
- =?utf-8?Q?JlkzRQduuw7bBM0EICl7JAtWVflxXypIS8WbG?=
-X-Exchange-RoutingPolicyChecked:
-	zNaJF86KpkW5wtPK5dHdQlNvNTRQ2L4m+R9jiwq8zhuCxlF7VrocWfiU9/6kH4dXEAy2A4JEdDHrrdH+EbeYIaoUUYlC19e5dmsL76hSa3ZXcHMpi7TYmV87y86NWPaM8LCFwRzDMbK5yeKOpQVfqZOd1KPQiAZQWu0K0Td4tdz3W97vX3x5NIgPHzKIkI5hlj51ESxF/erqJmPb3zQs+07aaArizpRTfAmCRcIW3lVnJDJRU2sYewfHPuagbu6tzI6JL9GGuMUj3NXwBSzHkIKIl7hTrlhNIEJ6TZe0xD1mU5/1YfQsHh5qrruqo+arJARvhfEPWcnbdGAgQkqQSg==
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	j3PGxs7hY9C+tLjaKSrOCnP/RzZe/02DB2WnKbTUIuMQw8gpFjuAvipyiRevpQiYKqTz1EuhZ4x1Dpzf8R0Y6T5g4hCH6oAJQFhlCwCK/EBsJjQ5CCrz11eVtQEwVS5m2FhtCBLy+CSolDfBMGazPTE3MHw1nf7woYW/yKG1WqoTfrbiyCphNHOD2y79WTEPtD5CL4QD8NXApwJXysKL+uJnRk8IKOlCtvCwhc/B5DKX/a3zA/HUZO1wF21rAgUM79CZFHnLaelbqKZVk3UVTr+pewx68C6mfpn1XS+NwfG8ar+ocm5AwIfYZsXrLoZAg1YT74OFYsHJHFwgjm2KYjEV3tnDBDcdcmDLCw8+IpxxPlmShlaR+x3c3w2X3xt50XXt99Zz4PzuHtIEvStmGgeS1ycz3yrOV8sxBaZzBL1fxsj34Gac/A8odPUAPYDtQjmedpx9mz59ovzIuvNhZlA7bxyy1rqgSq5khQQCB+82NkslstyJZuZFG+IyOvUf+2zBR9obIRG3yzOARcxGNDQLvgkXLQQRHdRCHL8JsNqUxagiCq6at42h9ul0oYUu61vzw6Lwn1y4BdlKX53r35cG4nKsfKnsJw3hNRwZiBg=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bf791c8b-b5bb-4a8e-5b4a-08df20c5e3d0
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR10MB5834.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 20:44:01.6250
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZmY0b8OCuDN1pinXI5t4SqXSTmvBOEOqFOLi9QuDevXrclypZOwXKW6RmiEk1TR25b/xMgP7YyQ+oIT21yIOtb0qeivALZ7HOZ3DUGd10bT6L9TbZiqyb//YCnqVSrUg
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR10MB4608
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-02_06,2026-10-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
- adultscore=0 malwarescore=0 phishscore=0 suspectscore=0 mlxlogscore=660
- spamscore=0 lowpriorityscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2609040000 definitions=main-2610020082
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDA4MiBTYWx0ZWRfX8i25shfTPshG
- or4sucuE40B1/3J352PaHRU5S4veeLRUQTPCBelAe8lKUQl3XR25uIfrPBqTNfZr93uPHDyF4Cm
- r105yla+RlvoRasJjjOd6ge6ertmxQ4hvIW9X4i9yIsH48Nsvrca
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDA4MiBTYWx0ZWRfX/cWH4c5WcesE
- cug3vGPWMtn8GAkqa/XIU8nClBRB7QkWPLphOxi6N2ya2zImTmzEbS12fZF7Ufc7u3BHq8E1oLt
- OJRksEyjTlU2cyhfgJuVBbaglHbY9aPP7tqn7yVf1PCWEsuiFrvEMAXW/JLz1r8OewVC5OZzvOE
- soCZAJO0gfHLW6XgnWel2iLvGG/Cxu5rQQSwhjPVuSGzMT47sZ6dOQ/7NX/z6cs1zP8GVKSq8XG
- afEjea/6hdlfI6p05hQfsELeH30oIyAm43aXumeXBbl2lh7jfLGcVFfhsIRBpn4QW49G4LRfZV2
- dpdj1GLUy2IgmF5PkY+OP8m1mlB3n0QtWeW1LJnkDKlSfj9bY9ZPUoEhGHSBpt4v8QZp0dWBc9f
- K5uHbXIBqt6Gd2Uwt8ly2sva1TH0n1T1SLuecJ/fJLKFrt/JmoyCBT9pOqTdLvBQdoTXZSZha0h
- 12D2tV+ZWsZKjQ7UTaw==
-X-Proofpoint-GUID: zGjO8zijlXG-Muh5xzhy1pE-WDlsbCeQ
-X-Authority-Analysis: v=2.4 cv=DZmCOftW c=1 sm=1 tr=0 ts=6ac01795 b=1 cx=c_pps
- a=WeWmnZmh0fydH62SvGsd2A==:117 a=WeWmnZmh0fydH62SvGsd2A==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=jiCTI4zE5U7BLdzWsZGv:22 a=RD47p0oAkeU5bO7t-o6f:22 a=ZNEGDu-Kzpn9XkiSx0wA:9
- a=QEXdDO2ut3YA:10 a=WmVTiCyuxqgg3mnwYu6p:22
-X-Proofpoint-ORIG-GUID: zGjO8zijlXG-Muh5xzhy1pE-WDlsbCeQ
+Content-Transfer-Encoding: 8bit
 
-Hi Greg,
+From: Shay Drory <shayd@nvidia.com>
 
->> 6.12.y inserts the new label inside the older MTU case's block:
->> 
->>     case NETDEV_CHANGEMTU: {
->>         struct macsec_dev *m;
->>         struct macsec_rxh_data *rxd;
->> 
->>         rxd = macsec_data_rtnl(real_dev);
->>         /* ... intervening source omitted ... */
->>         break;
->>     case NETDEV_FEAT_CHANGE:
->>         list_for_each_entry(m, &rxd->secys, secys) {
->>             macsec_inherit_tso_max(m->secy.netdev);
->>             netdev_update_features(m->secy.netdev);
->>         }
->>         break;
->>     }
->> 
->> NETDEV_FEAT_CHANGE skips the rxd assignment and dereferences an
->> uninitialized pointer. Software MACsec reaches it too, before the
->> offload check.
->> 
->> I think 6.12.y needs f29d24a2106ae28a9b257503a615ee438efa3f95 ("macsec:
->> clean up local variables in macsec_notify") before this backport,
->> thoughts?
-> 
-> This patch is now dropped, thanks.
-> 
+[ Upstream commit 3d5918477f94e4c2f064567875c475468e264644 ]
 
-thanks for dealing with this and other report Greg!
+mlx5e_suspend cleans resources only if netif_device_present() returns
+true. However, mlx5e_resume changes the state of netif, via
+mlx5e_nic_enable, only if reg_state == NETREG_REGISTERED.
+In the below case, the above leads to NULL-ptr Oops[1] and memory
+leaks:
 
+mlx5e_probe
+ _mlx5e_resume
+  mlx5e_attach_netdev
+   mlx5e_nic_enable  <-- netdev not reg, not calling netif_device_attach()
+  register_netdev <-- failed for some reason.
+ERROR_FLOW:
+ _mlx5e_suspend <-- netif_device_present return false, resources aren't freed :(
 
-Harshit
+Hence, clean resources in this case as well.
 
-> greg k-h
-> 
+[1]
+BUG: kernel NULL pointer dereference, address: 0000000000000000
+PGD 0 P4D 0
+Oops: 0010 [#1] SMP
+CPU: 2 PID: 9345 Comm: test-ovs-ct-gen Not tainted 6.5.0_for_upstream_min_debug_2023_09_05_16_01 #1
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.13.0-0-gf21b5a4aeb02-prebuilt.qemu.org 04/01/2014
+RIP: 0010:0x0
+Code: Unable to access opcode bytes at0xffffffffffffffd6.
+RSP: 0018:ffff888178aaf758 EFLAGS: 00010246
+Call Trace:
+ <TASK>
+ ? __die+0x20/0x60
+ ? page_fault_oops+0x14c/0x3c0
+ ? exc_page_fault+0x75/0x140
+ ? asm_exc_page_fault+0x22/0x30
+ notifier_call_chain+0x35/0xb0
+ blocking_notifier_call_chain+0x3d/0x60
+ mlx5_blocking_notifier_call_chain+0x22/0x30 [mlx5_core]
+ mlx5_core_uplink_netdev_event_replay+0x3e/0x60 [mlx5_core]
+ mlx5_mdev_netdev_track+0x53/0x60 [mlx5_ib]
+ mlx5_ib_roce_init+0xc3/0x340 [mlx5_ib]
+ __mlx5_ib_add+0x34/0xd0 [mlx5_ib]
+ mlx5r_probe+0xe1/0x210 [mlx5_ib]
+ ? auxiliary_match_id+0x6a/0x90
+ auxiliary_bus_probe+0x38/0x80
+ ? driver_sysfs_add+0x51/0x80
+ really_probe+0xc9/0x3e0
+ ? driver_probe_device+0x90/0x90
+ __driver_probe_device+0x80/0x160
+ driver_probe_device+0x1e/0x90
+ __device_attach_driver+0x7d/0x100
+ bus_for_each_drv+0x80/0xd0
+ __device_attach+0xbc/0x1f0
+ bus_probe_device+0x86/0xa0
+ device_add+0x637/0x840
+ __auxiliary_device_add+0x3b/0xa0
+ add_adev+0xc9/0x140 [mlx5_core]
+ mlx5_rescan_drivers_locked+0x22a/0x310 [mlx5_core]
+ mlx5_register_device+0x53/0xa0 [mlx5_core]
+ mlx5_init_one_devl_locked+0x5c4/0x9c0 [mlx5_core]
+ mlx5_init_one+0x3b/0x60 [mlx5_core]
+ probe_one+0x44c/0x730 [mlx5_core]
+ local_pci_probe+0x3e/0x90
+ pci_device_probe+0xbf/0x210
+ ? kernfs_create_link+0x5d/0xa0
+ ? sysfs_do_create_link_sd+0x60/0xc0
+ really_probe+0xc9/0x3e0
+ ? driver_probe_device+0x90/0x90
+ __driver_probe_device+0x80/0x160
+ driver_probe_device+0x1e/0x90
+ __device_attach_driver+0x7d/0x100
+ bus_for_each_drv+0x80/0xd0
+ __device_attach+0xbc/0x1f0
+ pci_bus_add_device+0x54/0x80
+ pci_iov_add_virtfn+0x2e6/0x320
+ sriov_enable+0x208/0x420
+ mlx5_core_sriov_configure+0x9e/0x200 [mlx5_core]
+ sriov_numvfs_store+0xae/0x1a0
+ kernfs_fop_write_iter+0x10c/0x1a0
+ vfs_write+0x291/0x3c0
+ ksys_write+0x5f/0xe0
+ do_syscall_64+0x3d/0x90
+ entry_SYSCALL_64_after_hwframe+0x46/0xb0
+ CR2: 0000000000000000
+ ---[ end trace 0000000000000000  ]---
+
+[ Backport to 6.1.y: added an internal suspend helper so probe unwind
+  cleans resources without changing the registered-device suspend path. ]
+
+Fixes: 2c3b5beec46a ("net/mlx5e: More generic netdev management API")
+Signed-off-by: Shay Drory <shayd@nvidia.com>
+Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
+Reviewed-by: Simon Horman <horms@kernel.org>
+Link: https://lore.kernel.org/r/20240509112951.590184-2-tariqt@nvidia.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+---
+Hi Greg, Sasha, and net maintainers,
+
+I am working through the small CVE backports still missing from 6.1.y.
+This one addresses CVE-2024-38608. It releases probe resources even when
+register_netdev() failed before device-present state.
+
+The corresponding 6.6.y backport is already in the 6.6.y stable queue.
+The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not
+in 6.1.y.
+The target-specific adjustment is recorded in the bracketed note above.
+
+Could you please queue it for 6.1.y?
+
+CVE: CVE-2024-38608
+Upstream: 3d5918477f94e4c2f064567875c475468e264644
+
+AI assistance: An LLM helped identify, adapt, and validate this backport; I
+reviewed the resulting code and validation evidence.
+
+Thanks,
+Artem Dinaburg
+
+ drivers/net/ethernet/mellanox/mlx5/core/en_main.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
+index 2d0b57583ea35c..d26c36479ee915 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
+@@ -5896,13 +5896,14 @@ static int mlx5e_resume(struct auxiliary_device *adev)
+ 	return 0;
+ }
+ 
+-static int mlx5e_suspend(struct auxiliary_device *adev, pm_message_t state)
++static int mlx5e_suspend_common(struct auxiliary_device *adev,
++				bool pre_netdev_reg)
+ {
+ 	struct mlx5e_priv *priv = auxiliary_get_drvdata(adev);
+ 	struct net_device *netdev = priv->netdev;
+ 	struct mlx5_core_dev *mdev = priv->mdev;
+ 
+-	if (!netif_device_present(netdev)) {
++	if (!pre_netdev_reg && !netif_device_present(netdev)) {
+ 		if (test_bit(MLX5E_STATE_DESTROYING, &priv->state))
+ 			mlx5e_destroy_mdev_resources(mdev);
+ 		return -ENODEV;
+@@ -5913,6 +5914,11 @@ static int mlx5e_suspend(struct auxiliary_device *adev, pm_message_t state)
+ 	return 0;
+ }
+ 
++static int mlx5e_suspend(struct auxiliary_device *adev, pm_message_t state)
++{
++	return mlx5e_suspend_common(adev, false);
++}
++
+ static int mlx5e_probe(struct auxiliary_device *adev,
+ 		       const struct auxiliary_device_id *id)
+ {
+@@ -5920,7 +5926,6 @@ static int mlx5e_probe(struct auxiliary_device *adev,
+ 	const struct mlx5e_profile *profile = &mlx5e_nic_profile;
+ 	struct mlx5_core_dev *mdev = edev->mdev;
+ 	struct net_device *netdev;
+-	pm_message_t state = {};
+ 	struct mlx5e_priv *priv;
+ 	int err;
+ 
+@@ -5969,7 +5974,7 @@ static int mlx5e_probe(struct auxiliary_device *adev,
+ 	return 0;
+ 
+ err_resume:
+-	mlx5e_suspend(adev, state);
++	mlx5e_suspend_common(adev, true);
+ err_profile_cleanup:
+ 	profile->cleanup(priv);
+ err_devlink_cleanup:
+-- 
+2.39.5
+
