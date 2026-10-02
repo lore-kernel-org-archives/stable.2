@@ -1,187 +1,218 @@
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14B7144F56B
-	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 20:50:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=121.127.44.73
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790974255; cv=none; b=J3o5Qz7/+2COjSvQecNCQxrq1H2UpPDT9fo93L3/ygrqEOyw1J0EWSqOnvfjE07yYV+7AiY70eX8gvne122m1/jD29aNeWArf+/cHgHt7CWe25cINqO4iwxM+xzhXqM9QJyv17g+c1pph+fxIZN/Ubr9yK9zCOb54K3lPX5/Rcg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790974255; c=relaxed/simple;
-	bh=qFWyQDH0VtbKHscCgf440WYlDfCIFNxrpuwtwkGoZLY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ThrS/d1i+voveI1Ze7trHlROjx35rb19RLY+/PQzNyUtAyi1X9u370fbpzrEkuTwkllI/q4nLmJJDaFVDwb3oVAfJOdLLZBZvJUopKH3jRoWsTILmJau6HXSsX2d7YBSSibB8kXa8ORIu6L/GIlmF2kAkbQvRGhVR9J/o3pKmIw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=fe-bounces.ovn.org; dkim=pass (1024-bit key) header.d=ovn.org header.i=@ovn.org header.b=dQWZXryl; arc=none smtp.client-ip=121.127.44.73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ovn.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.ovn.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 245FA3D0C09
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 20:58:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.9
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790974732; cv=fail; b=liR9SJibA/8e9pvueDP5PklNnkjSrY2p9nrMc2Wrvry+14VThML0wzC44qtXmCcOa/0JIED69zWciphXAbEBL1S4DmKxpTHYfgiG391zVUnGR7kXLB5t0qrn5lndvD8Bv5vm5J1f/HGvagqMCJ4uHcC+cX3m7kH7XAitTXTTqiU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790974732; c=relaxed/simple;
+	bh=AaTmM9JBCflwJ/b6vFEfq/nnXk7Ik3NfQOU0xpWk0uE=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=O1f2LK0MaodzP+M8lc/KKGLcsu/5pGTea68LKBEcSPZxb13z1vesc12ybRYNhICwUnfQeGNIVNZakNFRNCqLWSOQMXY/4Yoqo5XfcYy152b5PW8fe79mx2QONCR8B/24KfS3ojUdwDQJLx4QZqdumzIqN9dyPr3tsso9x2MyFuA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hCyIawuT; arc=fail smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ovn.org header.i=@ovn.org header.b="dQWZXryl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ovn.org;
- h=Content-Transfer-Encoding: Content-Type: In-Reply-To: From: References:
- Cc: To: Subject: MIME-Version: Date: Message-ID; q=dns/txt;
- s=fe-13eddc7e57; t=1790974246;
- bh=NedELFyFHThkKe78viH0+VGGS5ACbfyJUUh1kMXANdU=;
- b=dQWZXryl3pn7kBvuN2g0xz6GYM4QD56oBER/VIIjmS0c5eD87SKUV1zw3DKBuXptdGs1lVsn1
- YQFKQXvKq1zEfPUxZzulhIKJh4GUXeae3KYuCjGJbyGqVxRga0o6Wv/MuGnRocfwUrwd1p4zi5m
- 5MjoCwutFCAvsIWOM5/ofdY=
-X-Forward-Email-ID: 6ac0192625f3c91ad3779f81
-X-Forward-Email-Sender: rfc822; i.maximets@ovn.org, smtp.forwardemail.net,
- 121.127.44.73
-X-Forward-Email-Version: 2.17.0
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
-Message-ID: <892a3d9c-65f7-4216-95c2-e55938254e96@ovn.org>
-Date: Fri, 2 Oct 2026 22:50:42 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hCyIawuT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790974730; x=1822510730;
+  h=from:to:cc:subject:date:message-id:
+   content-transfer-encoding:mime-version;
+  bh=AaTmM9JBCflwJ/b6vFEfq/nnXk7Ik3NfQOU0xpWk0uE=;
+  b=hCyIawuTf41YCj4vKInzI4Z8RQZNSIzx9N0s5+L7iyq52NCLZq4ktMbb
+   y+kF50s+TAro4iQauJHX3DKjC5/C0fOGHtvbXq7hxa3VIu62NT+rn+CPS
+   Srl5Zzlb2U/iEjZ8tFmygvSQoZsKWvWhxYf2gpr5mDSx9D56DIAHGZ17p
+   kqpIWKaery6yba8UHFajl/cKZt1nXzIJRPHSI0KsynCYxLiA1HxWaAcuL
+   uwIO8AZv+OjzWwjS78lzJnF+DFRduQ93ZBFn/2t9OwApz/RK13UOymJwR
+   sYQT95CwndVI6+70J/QlzogZGZOuoMUM2G6SQpLFFvYmUvgHRt25G7sui
+   Q==;
+X-CSE-ConnectionGUID: SC4oWn4QSIKwp/ZWAWkyEw==
+X-CSE-MsgGUID: 6Pf8qBBvTkKS1ht650GZFw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11923"; a="102419662"
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="102419662"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 13:58:49 -0700
+X-CSE-ConnectionGUID: F7zxqqZASK+lj6bnlgI5Vw==
+X-CSE-MsgGUID: p2pHxLILQaGNx/ZQjnyDRw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="280069608"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+  by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 13:58:49 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Fri, 2 Oct 2026 13:58:48 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Fri, 2 Oct 2026 13:58:48 -0700
+Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.40) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Fri, 2 Oct 2026 13:58:48 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HODBxEVHOWpKcWdSquz1hFmyzLFvRwyW8teEI6pQh5PU7gSCs7UxgJTOEl0BEmkpvWknJ29XLFYD910tbkd68qZe8T0CTCTxwUQhfxf95hLf6rGyTMbvQibty5pNQug+eGmy30Uj1QPqpwQCeFSa/9dUdOkCGTksbx72IrzP3b8DnVJ3stEZUYJEPCASx/p9fogAxlw6b/RtnVIPqB8H5zepJeQxel5k5XWyy8kMStO7ECHSB7V84sd9zCCa/QcgHWcfgXk0f4e8qDQTHNVnrNhP7uKtJU1Hh3A2HBsWH8YdTSwqbFAcoV0nTa1e8xGDI4hE+WSotnvo+z7VsKUXlA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GY3k8rlC8rfy/FEhqC0/kHWaMyfnr3KSc0rgiV6g5vA=;
+ b=aON3X6+yvLjwtWNEUrgeDTRP2+yb1NiUPE+9GL3nS14ukkbMPj7C8q6ENidTVDHT0W86rBYLzZ7wuJw9/T0tRRzHOQJoRU3QdJZ/xHDn8LVZqY2NZV7liYpdd7lEcek1tzU30l3gGismly+FShlWcNMJ5iQu/1G32/+GfXy3CHxto07+/uw03x97rUyHUCjywzV+OUlEMhqNhLM/7mymZpAmxFnF+BAHom2yQzprER9wyOAv5u9HpzXdsAPR4aKxXbESIGlOYV0pi2vbegNkWR8MJTTq08MJzf2ek3HyBkTrQ085C6gblj9XyQ7kYtsPFD9tVibVXe42aO+mq1TvUA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from IA0PR11MB7187.namprd11.prod.outlook.com (2603:10b6:208:441::12)
+ by LV8PR11MB8746.namprd11.prod.outlook.com (2603:10b6:408:202::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Fri, 2 Oct
+ 2026 20:58:42 +0000
+Received: from IA0PR11MB7187.namprd11.prod.outlook.com
+ ([fe80::be96:3f58:953d:6565]) by IA0PR11MB7187.namprd11.prod.outlook.com
+ ([fe80::be96:3f58:953d:6565%4]) with mapi id 15.21.0472.015; Fri, 2 Oct 2026
+ 20:58:42 +0000
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: <intel-xe@lists.freedesktop.org>
+CC: Fan Wu <fanwu01@zju.edu.cn>, <stable@vger.kernel.org>, Song Li
+	<songl@zju.edu.cn>, Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>
+Subject: [CI] drm/xe/i2c: cancel the client work on remove
+Date: Fri, 2 Oct 2026 16:56:21 -0400
+Message-ID: <20261002205620.211113-2-rodrigo.vivi@intel.com>
+X-Mailer: git-send-email 2.55.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SI2PR04CA0004.apcprd04.prod.outlook.com
+ (2603:1096:4:197::22) To IA0PR11MB7187.namprd11.prod.outlook.com
+ (2603:10b6:208:441::12)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v3] openvswitch: fix soft lockup in the netlink flow
- dump
-To: "Denis V. Lunev" <den@openvz.org>, netdev@vger.kernel.org
-Cc: dev@openvswitch.org, Aaron Conole <aconole@redhat.com>,
- Eelco Chaudron <echaudro@redhat.com>, Ilya Maximets <i.maximets@ovn.org>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, stable@vger.kernel.org
-References: <20260929072519.2803304-1-den@openvz.org>
- <20260929072519.2803304-2-den@openvz.org>
-Content-Language: en-US
-From: Ilya Maximets <i.maximets@ovn.org>
-Autocrypt: addr=i.maximets@ovn.org; keydata=
- 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
-In-Reply-To: <20260929072519.2803304-2-den@openvz.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR11MB7187:EE_|LV8PR11MB8746:EE_
+X-MS-Office365-Filtering-Correlation-Id: 86291062-3ad0-4439-ef08-08df20c7f07f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|23010399003|10067099003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info: MUM2wxjnXrob/9Iyrw2KAioC/Dllj9Vq2Y+GiKPjOitsPzARiWckpI07ZpdHdtd6kyXKeHl0oPGaktAIm3S+jeTC1pvS2RcsNVoDmilX8PiK1DbQ2SKDZnerrGpd01tcPuFascgysuAUTIdEx1vHGf0ncwrRVbda8BtyKcho9rK/z9NnKHabDExZ8fIBx6dMh7IW4iZxe9BiWVshTEEIht+E0ca1Qq+1dHg3kzsPUnvdwx7zhe39U/SoHxKVYxMYzugowYRBM5cMG5IKuAvrN4FNWZKtiEOlf+fKbO00tA3twAKKlbohCNbejRsktcw+O4+TWCqOgcDx5b9yJF+5d299539F62lbSVJ3JqItUIKWyr9P3PAWu0HIqE0vLonSVBI81jE8VvVJobNgvxl4RYunOfBTioy/ukfNvxLkn3kjsKlKKMuq7z+QnxHbCWOVDjbonh/ulR4wRkhYGkGgjtwVanHDzx/VkUXM2BRELflMWAyKVvtN0oduhEg255J3tbxfTX1C0nBythxNpaUpiW+FLFibJj6UufHd8FWv3LAUuFUPbQZpz5NXGO/3Dm/GYlqanTmbHSJ4C1QOx/MsgsJbOZiySsJaJpIeyUg0lkQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR11MB7187.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?x/euFaJOuq1dks+/Ke1lAwq4WyNNq8iRCu4Sb1zuIOmIPoy/KhOWMV+1xd1M?=
+ =?us-ascii?Q?butqkZ/fuRZGGsaJn7SuFTZ+7Rrpt/w5JnlhTJgPligsYkDjsH2gX36rPZk9?=
+ =?us-ascii?Q?VRGx6OKsrkOEbQwqFrMjJzp1PtV3WWbG1PpgIANlVz04Q2le3Q1QQfzS2X55?=
+ =?us-ascii?Q?B8tDuQTX5Pkd6HQCkbvTAE+3B3hu72JrDQ+Jua+BS435XUxS/XNouFM5I8d5?=
+ =?us-ascii?Q?oOSjURjQaCaHfvGrEk679KwfzQWP3XskT0g3D4rbqaU5ORRrpzaIfaQcEu/7?=
+ =?us-ascii?Q?4UCgpVStkIw16RNFvD7DBTXqYvrlaGs0OHDlGv9+9iPvk0Z1vUx0Kts2QPBD?=
+ =?us-ascii?Q?6Wl6syyyXw3FZtFeBpUkvyW/WBnVglmx9M3i5Mynus2P2AiBhPt3VS9Cc3z5?=
+ =?us-ascii?Q?gqJSIOtSJDIBmdHUKQPYQoFrOXEckdiyHdILO3mjLzjGKhyw1D8wepKItBA2?=
+ =?us-ascii?Q?KfBOnmFgu1tzwbshjf2J3GTup7OEUzUxRY4HgD/SAud3euWOBoAV/8DzApC7?=
+ =?us-ascii?Q?j3eCdNo7IwjlfRp9cmaBEEb2zdPUXIK7sTv3X0SE6ZXPPn+59DHoMDSYH2hK?=
+ =?us-ascii?Q?KQXkQ23f1peZdOgxT4efXphpq83SQZurIvwgbGs+GUPc8BA+5OmJ51Zu7gVy?=
+ =?us-ascii?Q?DPvLC4EYcAFW30XsoID7MBmE59TGGfaUG/DGcuCFYMOpQPx5HmTchKsbB/0Z?=
+ =?us-ascii?Q?vs2z81vIbiviLKE+5vAZVXMuLZ0w4UUqEkWOIcSQ/MhdbhOuqOOLQ+yTW9Ft?=
+ =?us-ascii?Q?r6TJXaPVVVzcp0gFlxJLqDDFOnAkS3kS7Pvnj4AmDhpyRzE/e5EyuhFo7P5m?=
+ =?us-ascii?Q?Inu4cJqvapkCyphTgZLpqfFbTtnBlzRUyPCHdJENT+lF6TU11RQYlZG9JJIP?=
+ =?us-ascii?Q?OSwxZ42mMhhY+fdMpZTpgZqiCyOI28+8guDfT71T9/ozN3x2GGaaS8GvlToO?=
+ =?us-ascii?Q?MVztkXFHAluyd2VTPTzFfWmDGoGwNrCnt9/v0fuyC+8CpUOKjminJosdtMZF?=
+ =?us-ascii?Q?B9HO61UnY4Gy7jqgSwoFaPASHqUf4HzXeCgMSnA5rr+m5IkFvGwt+QQB7GLz?=
+ =?us-ascii?Q?NaBE3RXoqNFV5a11gtNGNx/y4Ev4FweUkSlMjlX+h2vxjI34O5w+ac7w83lJ?=
+ =?us-ascii?Q?2UuxXuvuFG3gT9YFFTUGRaRM67uW3WmbpqSuRcRhmc2pxmwcoGyKHChvk4XE?=
+ =?us-ascii?Q?63sxnFqSFZC9125TRQtSAL7p6qGjLVknvq4pi/B8784jWTlr6+SY80pSqtMj?=
+ =?us-ascii?Q?smxVKrNBm/yI/Hb0zyZKivC+QU7coTGlYUfHc0AUhgtdWd58FKHE9vf+m2Mk?=
+ =?us-ascii?Q?sTmvjNwVUGWOVn6NlxsHBHXLXPKhc4mVon0AojWGrZxzyUgxVtvyMDD+x6L1?=
+ =?us-ascii?Q?NTwB7afO6Acqkc3IJOIXsm15JTbNrlzzbHbzlvTUjVx916+ulSAFEM7LniZh?=
+ =?us-ascii?Q?fBn4P/uTKwXDpY5kEh/rHu2EnXXHCKq6JKzrxeD9JRDXUAlWf1SCsS6vO/+Q?=
+ =?us-ascii?Q?P4scNgzeSLuoKrm0vm3BL3wrCLWfz/C6EeXAnCkTJJAgrgCZMmaXy9/2qEFz?=
+ =?us-ascii?Q?cDUJ/emBwm7rvlhZDEZZa7KQkzSQO27Ns2mreNhL2tmlaamR8UX/J9mquA8u?=
+ =?us-ascii?Q?v5nFbti8SJXOI9v9jAY8mXzH8rmKVW9LBKhUuVneNz+8RLm7RfaO59aSOnU1?=
+ =?us-ascii?Q?8RZWubExduuXpUV8DGUyyKVOG3toz7Pck2Em3U2fPbW5MS/qy0TUUHAXI6aH?=
+ =?us-ascii?Q?TAQmrq1LHQ=3D=3D?=
+X-Exchange-RoutingPolicyChecked: DTH4SIXtGROsrK+cp7+wOc3vagX9kf/v8i+dH2FFOqj9RkCieVsEOsCgmb7KgK7pr+NNOxVxXVO+IhwdcCls8G8rkfKSG5eCTOLcXgEOgVcYKTWDNxK4FFrFmSzNUK9R7HSQ+oPcOl+fhYR+OaJmOJaPG3xK8Fm6sn0W2AoEAGdabxjASYjV0r4LQyxX8vIZvDIZETC5pL//bfW147emjI2fmiWsTDdZzv5Ynho4HPtW+ukUjR5Qo1ZyYFmX1elMvvXSHdg48dNZ4C/JIwwo/6oCpq+StfSdkbsqffiH1FSZ6YeZLyKrTe96YYWu++2qpRhYmI42PPACa9jMtkfeXw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 86291062-3ad0-4439-ef08-08df20c7f07f
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB7187.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 20:58:42.1917
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: C0KFNpLXvkdhu6zgb+2KW4kZLibkaTjil1VrrGJ7ZjiKmowOcBj24MXrFQ7ER/sZyw//OQJCy0I7ewtBr8hzPA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR11MB8746
+X-OriginatorOrg: intel.com
 
-On 9/29/26 9:25 AM, Denis V. Lunev wrote:
-> From: Denis V. Lunev <den@openvz.org>
-> 
-> A production compute node carrying a few thousand datapath flows hit a
-> soft lockup inside a single netlink flow dump and panicked.
-> 
-> ovs_flow_cmd_dump() calls ovs_flow_stats_get() for every flow it
-> emits, and that releases stats->lock with spin_unlock_bh() once per
-> CPU that has touched the flow. Every release is a local_bh_enable(),
-> and each one runs the pending softirq backlog in the dumping thread's
-> own context.
-> 
-> The skb bounds the flows one callback emits, but not the softirq work
-> it absorbs. On a CPU that carries the box's packet load the backlog
-> refills as fast as it drains, so the dumping thread becomes that CPU's
-> softirq engine. It never sleeps and it has no reschedule point, so
-> under voluntary preemption nothing can take the CPU away from it:
-> neither the ksoftirqd the kernel woke to take the work over, nor the
-> stopper thread the softlockup detector dispatches to refresh its
-> timestamp.
-> 
-> Hold BH off across the whole callback instead, the way
-> ctnetlink_dump_table() does, so the nested spin_unlock_bh() stop
-> draining softirqs. The loop already runs under rcu_read_lock() and
-> cannot sleep. What it gives up is preemption under CONFIG_PREEMPT,
-> since a BH-off region is not preemptible outside PREEMPT_RT. The
-> region stays short: the skb caps the flows one callback emits, and
-> empty buckets cost no skb space but are each visited once per dump, as
-> the cursor only moves forward. The table grows on insert and shrinks
-> only on flush, so the walk is bounded by the largest flow count the
-> datapath has held. The softirq backlog the callback used to absorb has
-> no bound at all.
-> 
-> Fixes: 63e7959c4b9b ("openvswitch: Per NUMA node flow stats.")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Denis V. Lunev <den@openvz.org>
-> ---
-> v3:
-> - add the net prefix, Fixes tag and Cc stable
-> - explain why the BH-off walk stays bounded: the cursor visits each
->   empty bucket once per dump and the table shrinks only on flush
-> - drop "here" from the comment, add blank lines around the
->   local_bh_disable()/local_bh_enable() pair
-> v2: https://lore.kernel.org/netdev/20260915122401.3910188-1-den@openvz.org/
-> - leave ovs_vport_cmd_dump() alone: nsid_lock has not been BH-safe
->   since commit aed4969f2bdf ("net: net->nsid_lock does not need BH
->   safety"), so the vport dump never drained softirqs
-> - disable BH before the table dereference and say in a comment that
->   the region is not there for safety
-> - drop the ovs_flow_stats_get() history, note the empty-bucket walk
->   and the lost CONFIG_PREEMPT preemption in the message
-> - move the Cc list out of the commit message
-> v1: https://lore.kernel.org/netdev/20260909171920.1001074-1-den@openvz.org/
-> 
->  net/openvswitch/datapath.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/net/openvswitch/datapath.c b/net/openvswitch/datapath.c
-> index 631a03136fa1..4fc5d0bebd85 100644
-> --- a/net/openvswitch/datapath.c
-> +++ b/net/openvswitch/datapath.c
-> @@ -1532,6 +1532,12 @@ static int ovs_flow_cmd_dump(struct sk_buff *skb, struct netlink_callback *cb)
->  		return -ENODEV;
->  	}
->  
-> +	/*
-> +	 * Not needed for safety. Stops every spin_unlock_bh() in
-> +	 * ovs_flow_stats_get() from running the softirq backlog.
-> +	 */
-> +	local_bh_disable();
-> +
->  	ti = rcu_dereference(dp->table.ti);
->  	for (;;) {
->  		struct sw_flow *flow;
-> @@ -1552,6 +1558,8 @@ static int ovs_flow_cmd_dump(struct sk_buff *skb, struct netlink_callback *cb)
->  		cb->args[0] = bucket;
->  		cb->args[1] = obj;
->  	}
-> +
-> +	local_bh_enable();
->  	rcu_read_unlock();
->  	return skb->len;
->  }
+From: Fan Wu <fanwu01@zju.edu.cn>
 
-Reviewed-by: Ilya Maximets <i.maximets@ovn.org>
+xe_i2c_notifier() stores the DesignWare adapter in i2c->adapter and
+schedules i2c->work when the adapter is registered under the xe I2C
+platform device, and xe_i2c_client_work() then instantiates the AMC
+client device on that adapter.
+
+xe_i2c_remove() tears down the AMC, unregisters the client devices,
+the bus notifier and the adapter platform device, but it never drains
+i2c->work. A work item that is still queued or running when the
+adapter is unregistered dereferences i2c->adapter in
+i2c_new_client_device() after platform_device_unregister() has
+released the adapter. The work item is also embedded in the
+devm-allocated struct xe_i2c, so a work item still queued after the
+drm device devm unwind frees that allocation runs its callback on
+freed memory.
+
+The bus notifier is the only thing that schedules this work, and it is
+unregistered after the client devices. An instance that is still queued
+when the teardown runs can therefore write
+i2c->client[XE_I2C_CLIENT_AMC] while the loop is unregistering and
+clearing the same array, and an AMC client it instantiates late is only
+cleaned up by the adapter's own child sweep in i2c_del_adapter().
+
+Move bus_unregister_notifier() in front of the client teardown loop
+and cancel the work right after it, so no new instance can be
+scheduled and a queued instance is drained before the client array is
+touched. A running instance still finds a live adapter, since the
+adapter is unregistered later.
+
+Fixes: f0e53aadd702 ("drm/xe: Support for I2C attached MCUs")
+Link: https://lore.kernel.org/intel-xe/20260912085932.101598-1-fanwu01@zju.edu.cn/
+Cc: stable@vger.kernel.org
+Assisted-by: LLM, in-house static analysis tool
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Link: https://patch.msgid.link/20260928013030.612592-1-fanwu01@zju.edu.cn
+Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+[Rodrigo: Rebased and a small cleanup in the commit message]
+---
+ drivers/gpu/drm/xe/xe_i2c.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/xe/xe_i2c.c b/drivers/gpu/drm/xe/xe_i2c.c
+index d8fa68206f41..0ebd708b537c 100644
+--- a/drivers/gpu/drm/xe/xe_i2c.c
++++ b/drivers/gpu/drm/xe/xe_i2c.c
+@@ -328,12 +328,15 @@ static void xe_i2c_remove(void *data)
+ 
+ 	xe_amc_exit(i2c);
+ 
++	/* Stop the notifier from arming the client work before teardown. */
++	bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
++	cancel_work_sync(&i2c->work);
++
+ 	for (i = 0; i < XE_I2C_MAX_CLIENTS; i++) {
+ 		i2c_unregister_device(i2c->client[i]);
+ 		i2c->client[i] = NULL;
+ 	}
+ 
+-	bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
+ 	xe_i2c_unregister_adapter(i2c);
+ }
+ 
+-- 
+2.55.0
+
