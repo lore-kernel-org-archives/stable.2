@@ -1,145 +1,98 @@
-Received: from mail-pj2-f39.google.com (mail-pj2-f39.google.com [74.125.227.167])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ED124A9D6C
-	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 16:56:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.167
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55DAA192D8A;
+	Fri,  2 Oct 2026 16:56:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790960190; cv=none; b=Yh6paTRd6xCDhwU3Z0FnHJSrLXCwnWDuwr9dzZUjEGeFawC7JtJd8wHqvfd66hEf4r+1RVx/o/XDystjLedU2Q/wWOJygshmUXOGS9Jdj3MOravYJYvBhbC0k9WSImsuRl39LBqSGY1OoP+NNhnwfllSycafWc9kSJSG2+UrP94=
+	t=1790960204; cv=none; b=ftJoqdYzZMgl1maNB/E6eCnWFDyQR1HPH/LgZq4HN67bfrC5tHi5qN9j5ZuBm3alw4b7elAcO4wN7Jmk8DKBMn5cXDRmA5qkGHyBL7nnEMQOzV/dvNnpSKD1gMb2Ht0mY16lYDT0mHRgJgd9Is+WWmHMqZceTtqbMrgBVQ3GwNQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790960190; c=relaxed/simple;
-	bh=yvr4THWK+b359x9GAPgm8g4XYqFtpb7xUBVoOJlXZcA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=b0uTglw3YrR+jGLjMiTr0SFOtXqbWyZyzJ38r+6pwFN73RPoI8ntqBsv2Fz7+Cj3ISA9mJ0q3jHQp7E1DlP7JtayrwrABQdidAqB5kHIeei9RJQj1kR9iqCS+E3RHk7ACHE/tndHEaVtDYR2hlr3yFEUA2Y+rYIPviVyZoKfGc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V0TpSjbl; arc=none smtp.client-ip=74.125.227.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790960204; c=relaxed/simple;
+	bh=2A9iNhROlSsA0mOWc9g+z23siVj5b9QEKtEyEM17NKU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AMGf9IcIRwBG5kBkX9MjcIOFW4j96sTw/jzn52d+twSBklp80XH6KOBixlNj1A12m8NrTi8Z205Dkd6nrt1m/MzgAHbcDM5ROy0klslbAa1SNgajMYcO6M1VGoxlJiLVbRzy653HjZD9DRfKZPDOWHgSzxqTiCp5yPJE59E1QDs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VFFFnF8K; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V0TpSjbl"
-Received: by mail-pj2-f39.google.com with SMTP id 98e67ed59e1d1-3a49b6bb21eso125799a91.3
-        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 09:56:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790960179; x=1791564979; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wizRrn3DJlyZ2Elw+HTCvVAyeo09ldgbQPuJfwoj4to=;
-        b=V0TpSjblJqOITQLP4HRmGiGusoPvAiJmSlUsMhA44QX9wn8L9dgk3Ol7U3Ch9wjURQ
-         RuHVvmt/u9CgtNigoIj97ZbzqA8cYZXZWeYemyzY44IeDcBMbdx4U7VFvgigwVa098yS
-         pdgjN5LqiqKqijglQIhbsEEhXOqzuKkiH+our9Xtbazk789T9bs+Gt7U+gKKIJk/mQMi
-         iCQvBx0HffOkXazwrA/hIZVvK/kU8C86sCdcfk3frN8Uhrl4EyFW4mdK4aO3TIxlGHY9
-         VKzXoVMkoyllX5aYrlbcoobnQF0XzCxptnk4OjgtOgeWFSrnZAbQut0ix4VRdB/vCoBt
-         prRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790960179; x=1791564979;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wizRrn3DJlyZ2Elw+HTCvVAyeo09ldgbQPuJfwoj4to=;
-        b=CyyNeELQ+cmv+78nID5j81a8SvpxeLNXEIhIIZ089QeR7KPQjwqObb7RUhJUhhzuFd
-         tAhynzCKGz2jrpbsP4D4hF85Di5upiZ9zrbltgC7WyBfa3OiSAWThsJdZmNSQttCFE6E
-         ppfT1/+To2xw9ziGi6iaZzDpHqPZXyru8kWARNEIFgrZYecI8U0BF7ohcZYs5DA4nYrn
-         3aKSmwPQaOf2OdYQl0kJ678z3hTWp+JYLCIIWrc0C0OwzfBx77kZpnl4xhsWeYqNNltr
-         F3P/M8RRu/UmRVCVHN0S7ZLyefDG0y5ECMTEgYL1hD6IC85loLCpVu8mC1lteHQgeqvc
-         hWIA==
-X-Forwarded-Encrypted: i=1; AKwUvBwTQT5ODgP+tXiw12p42fjp24agHuajwwtHtkeJlsoOQGhvMnpY+l9tNqo+54i0jeAde7uqDvQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLuwE15OSofqi244WNauxZU1hfYXBXHRe5SkqOvx8sV3PdDkHP3
-	d/XbKZn7ivIYGCKSM7ecqS1CNsVeyPBlC75DRZKeZiWryTYaIydNjdwu
-X-Gm-Gg: AYBFou3qJcfb/nz6mKqbllHnc31vy7Cv9JOSeULaCkjs0WrHD1MdYqgD+BzoiBxMO3V
-	4JWb1N6ja9iXOLeln38IBaHTY9XvcqXtkQGSxsJPAcSDRRBkQ5j1AB8RYJSi9B5m8A6RXCKuMI+
-	uMOdbHkfPd8FKw/bFJU6YHHfusNBZHBe9rukKfstXMpgL1ShbMZSRpe3oAviZ2KQT/Dbgrvx4Se
-	aPY3IlSIBdWjdUATuOppI6arYrU++QMtjPAwdiTO+egU26Yw4Y/Bni0OkoRryV9oZF5oRJcFVX/
-	vgqTUhPiHKN71FbUStryNyNqZV+6pkWlrqN1tDpPg9nfjh9Y6WYr8iePpKJaYQSTeSku3bLzAGL
-	qo9f14j+5pG4WO93ih+yUf66Xtgo6r256Zo67F0myHt+LQOLPCP5FmZGCCHzsZgfkBxtuzC5XFz
-	gk8zAxQPy2vJWE2sU9MCOna0MFYC+08Z+lN96VXn7FmjNCzigZVl5w7gf+jKHJb/FTbZjHjz0st
-	1YYZ7FtimE=
-X-Received: by 2002:a17:90b:3889:b0:3a7:eb0:119f with SMTP id 98e67ed59e1d1-3a70eb012e7mr335685a91.43.1790960174158;
-        Fri, 02 Oct 2026 09:56:14 -0700 (PDT)
-Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a6f7f7482dsm2448670a91.11.2026.10.02.09.56.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 09:56:13 -0700 (PDT)
-From: Daehyeon Ko <4ncienth@gmail.com>
-To: pablo@netfilter.org,
-	fw@strlen.de
-Cc: phil@nwl.cc,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
-	stable@vger.kernel.org,
-	4ncienth@gmail.com
-Subject: [PATCH v2 net] netfilter: conntrack: reject nested ctnetlink master chains
-Date: Sat,  3 Oct 2026 01:56:01 +0900
-Message-ID: <20261002165601.1754467-1-4ncienth@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261001180224.1018290-1-4ncienth@gmail.com>
-References: <20261001180224.1018290-1-4ncienth@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VFFFnF8K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF95A1F000FF;
+	Fri,  2 Oct 2026 16:56:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790960201;
+	bh=moeRk3aQO11pRsdJuuF0MNfeZBb1U8N8My9vy7rQStw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VFFFnF8KUbE5p2bz3UmSZ3g2tqdKFKFNpOQNHBDrgSwGhVb6k4OlIXGSS0kZKCX7H
+	 zLob1AzwXN3X8/J230xLlLywAugfCnPyFO6KRv3xzzFrGiIYD+vokLLJ/9mOseZBOL
+	 kpOlN+4Tr2Xn1lWtca34Ue6hNUczNQ6J+mBMsrLlEfXmFfm4NEq8JxqYEZa75kMBLJ
+	 HZRh23/y9794BNNjrggMNjqEJ1u8V+U0OUaTZYzx0GI9erq3X+qZj+YrK65S3zfo6x
+	 ufGNd2FYHiNPolulsE5QyRDev5LgohVW6NGTOo+DexZWMUBFe0IDpM4Cd3M+06PDli
+	 7KTCNrlRkqwFQ==
+Date: Fri, 2 Oct 2026 17:56:36 +0100
+From: Simon Horman <horms@kernel.org>
+To: Victor Nogueira <victor@mojatatu.com>
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, jhs@mojatatu.com, jiri@resnulli.us,
+	netdev@vger.kernel.org, Eric Dumazet <edumazet@kernel.org>,
+	stable@vger.kernel.org, hybris <hybris@mojatatu.ai>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH net 1/2] net/sched: cls_route: reject change with no
+ routing attribute
+Message-ID: <20261002165636.GJ13925@horms.kernel.org>
+References: <QDISC-0JB3.v1.20260929143022@mojatatu.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <QDISC-0JB3.v1.20260929143022@mojatatu.com>
 
-Conntracks created through ctnetlink can reference another conntrack as
-their master.  Userspace can repeat this to build an unbounded chain whose
-recursive destruction exhausts the kernel stack.
+On Thu, Oct 01, 2026 at 12:32:00PM -0300, Victor Nogueira wrote:
+> route4_change on a filter change that supplies no routing attribute
+> at all (no to/from/iif) reaches route4_set_parms with fold set, so the
+> handle-mismatch check -- which only fires when creating -- is skipped.
+> nhandle is built as the all-wildcard bucket (0x8000 | 0xFFFF << 16) and
+> the filter is rekeyed to 0xFFFF8000, so the handle userspace already
+> stored no longer addresses the filter. (The netlink reply carries the
+> new handle; what goes stale is the handle the caller holds.)
+> 
+> The rekey actually misclassifies the packets. The new handle's from_hash
+> is the wildcard chain (route4_hash_wild), whose filters route4_classify
+> applies without any id/iif comparison, and its bucket (256) is reached
+> by every packet through the h < 256 restart. A filter that matched only
+> a specific realm therefore becomes an unconditional catch-all that applies
+> its classid and actions to all otherwise-unmatched traffic.
+> 
+> Reject a change that would rekey the filter this way, with the
+> routing-attributes-required error. A change that names at least one of
+> to/from/iif, and an in-place replace that keeps the routing identity via
+> a supplied attribute, are unaffected. A change of a filter that already
+> sits at the wildcard handle is a metadata-only update and remains valid,
+> so only a change that actually moves the handle is rejected.
+> 
+> This is a follow-up to commit 41e85e54e564 ("net/sched: cls_route: Fix
+> in-place replace"); this patch closes the no-routing-attribute variant
+> that the parent series did not address.
+> 
+> Conditions to recreate the bug:
+>   tc qdisc add dev lo clsact
+>   tc filter add dev lo ingress protocol ip pref 100 route from 1 to 1
+>   tc filter change dev lo ingress protocol ip pref 100 handle 0x10001 \
+>       route classid 1:2
+>   tc filter show dev lo ingress   # handle became 0xffff8000; iproute2's
+>                                   # stored 0x10001 no longer addresses it
+> 
+> A change of a filter already at the wildcard handle, e.g. one created by
+> "tc filter add dev lo ingress protocol ip pref 100 route classid 1:1"
+> (iproute2 defaults the handle to 0xffff8000), stays a valid metadata-only
+> update.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260907192133.2639067-1-victor@mojatatu.com
+> Reviewed-by: Jamal Hadi Salim <jhs@mojatatu.com>
+> Signed-off-by: Victor Nogueira <victor@mojatatu.com>
 
-Stop the repeatable userspace paths.  Reject a direct master that already
-has a master, and reject NFQUEUE-attached expectations for such conntracks.
-Keep regular ctnetlink and kernel helper expectations unchanged.
+Reviewed-by: Simon Horman <horms@kernel.org>
 
-Fixes: 5faa1f4cb5a1 ("[NETFILTER]: nf_conntrack_netlink: add support to related connections")
-Cc: stable@vger.kernel.org
-Suggested-by: Florian Westphal <fw@strlen.de>
-Suggested-by: Pablo Neira Ayuso <pablo@netfilter.org>
-Assisted-by: LLM
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
----
-Changes in v2:
-- Replace iterative destruction with the maintainer-requested creation-time
-  restrictions.
-- Reject nested NFQUEUE-attached expectations while preserving regular
-  ctnetlink and kernel helper expectations.
-
-Tested on net 71a77ab76e74 and exact v6.12.105.  In both userns runs a
-one-level master was accepted, 5,998 nested direct attempts returned
-EOPNOTSUPP, and cleanup ended with nf_conntrack_count=0 without a crash.
-A policy control also confirmed that terminal IPCTNL_MSG_EXP_NEW remains
-accepted on a related master.  A real iptables NFQUEUE/NFQA_EXP control
-created one expectation before the patch and none after it.  The related
-object is W=1 warning-free.  The netdev allyesconfig and allmodconfig W=1
-full builds were not run.
-
- net/netfilter/nf_conntrack_netlink.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/net/netfilter/nf_conntrack_netlink.c b/net/netfilter/nf_conntrack_netlink.c
-index 4e5d7c70143683..c68e79d1ac87b9 100644
---- a/net/netfilter/nf_conntrack_netlink.c
-+++ b/net/netfilter/nf_conntrack_netlink.c
-@@ -2359,6 +2359,11 @@ ctnetlink_create_conntrack(struct net *net,
- 			goto err2;
- 		}
- 		master_ct = nf_ct_tuplehash_to_ctrack(master_h);
-+		if (master_ct->master) {
-+			nf_ct_put(master_ct);
-+			err = -EOPNOTSUPP;
-+			goto err2;
-+		}
- 		__set_bit(IPS_EXPECTED_BIT, &ct->status);
- 		ct->master = master_ct;
- 	}
-@@ -2864,6 +2869,9 @@ ctnetlink_glue_attach_expect(const struct nlattr *attr, struct nf_conn *ct,
- 	struct nf_conntrack_expect *exp;
- 	int err;
- 
-+	if (ct->master)
-+		return -EOPNOTSUPP;
-+
- 	err = nla_parse_nested_deprecated(cda, CTA_EXPECT_MAX, attr,
- 					  exp_nla_policy, NULL);
- 	if (err < 0)
--- 
-2.55.0
