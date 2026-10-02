@@ -1,175 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2755538E5C8
-	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 18:15:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E13C736F8E6
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 18:22:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790964902; cv=none; b=BcOXfF0moZtDEfyqTlkfsSUdQ8qB5MGu9q1xTZpJHyYhHAch/hZvoCT2+3nKVkRRV4Fuz7wLCd8hsd3CVD9APHahLDlr44bVTCIJLMt81GRiNyK10rBby1vye74orA7uoGfbbBitgNzkIFVxN2u458hu8CrTNuAeP0v76pYQywY=
+	t=1790965332; cv=none; b=ESCtGzWVEDY/N9KxjFMq/X5w3pKpoZE97pRRpQTbMZWXyt937qSdFxsV0XCcHUQXvkozJYfvt+rtx94+G4UOrTnc5UzF4dLnB67PFsQxJ9kGdvMXXr/ww/X05JsiU05RnLGPfIY3eXabr7zOl/Kz8qoDDo8Glr6ZjS+4m2X6kpU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790964902; c=relaxed/simple;
-	bh=+zeNufoCEFx4IFN75vfr8kfaUmsOW5mvJwQy3E7Va0U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ECAAllr/QfUQ/KLrbICbmwVpilKlRmAYlR1fPxHXQxGVCAUMokmMOyQTAlHntk7BpQPFIAzIOkcLx2jC49xiueW/tx8+qiN1PVDYentJ6wVigq1wkcTIBn2RH3bcGLJdEJ5aWrJi6tgRks9E+RsIlJA2AaRrJNDlI97OodCuHUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g6yhMITU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790965332; c=relaxed/simple;
+	bh=OmZ056pmE8+XuTrAcBI80z+F4NvkY+1WYs3uFfA6dFc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HY25b1/JKUjEi2msQIwklNTFjCaQu/6D26W1v+sWZU9tfkciDaiuAVkRy1rn3m+Os0fO68N5axoHmEA7k3paOXG9Xi+xSgJdyx4u2TnnY8LyTY5DfmrCmsGd9AVd8rYzfHjYLogDzooDfY5KNjKOKkn0aWeo+tY4WFxKSEz9udw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=YUaS7erp; arc=none smtp.client-ip=74.125.229.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g6yhMITU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0459F1F00899
-	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 18:15:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790964900;
-	bh=CcQIlSTNtz7AXnQHZXt4MlH12cLkMY7zH3MNyPhmnSw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=g6yhMITUI8JBv6O2XYwWvkgNtZVm3iuhQEaQVX4IeNIq4XcuWe6O7fjdJfV6jkLcs
-	 yYD+O4U7lBZ9Y1ksp6soIg06pUmEqywUZIKfMBQ1LKcOoIb6vnHRynGs2u8RBnWKKk
-	 9vmagtmvK+rWD9sGIA29BjL5g+rx62TR4FfDn+ozAUIpz17uPrpxjH5eX5HLuaWHDJ
-	 DiVvjVgcJU6eBnBVf8eAPIrHO+bOOIE1BJIxxn6JEyO3+gODJyITm1RJhrT4JOjnsR
-	 X7DhnIbnTfXJckrCbizrQ/xuAdd/5isSJAhq3NFrOfqthDzq7+CtfyDAe+hBZN7rUf
-	 q0ylANa+2VUGw==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b8e986b8b1so8354718e87.3
-        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 11:14:59 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByeutbkf/A/7umsv9g/TUns75A1WaQ2n/bFFaaWCkEdYhTc7UY/IGLAu1TZTvQAUghjQtKZ59U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLbn4tXnfEIujjlxjnwsrDMNX6rGjQLeAOQrSGUOq2Tch2qnwIV
-	3kB1ZNfK0MbM9DtTEXeRuNvUaGma7JbaG7DWdXPfQe7tspsNfijs6ZRteVB/Kb3SH1cgziNKTCd
-	UxcaLWaDVznRfiqFrkemxtu7CxYCfpsM=
-X-Received: by 2002:a05:6512:ace:b0:5ae:bc65:5141 with SMTP id
- 2adb3069b0e04-5bb9bb1a02amr1285277e87.11.1790964898390; Fri, 02 Oct 2026
- 11:14:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="YUaS7erp"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33c24422d4dso9748623eec.2
+        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 11:22:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1790965330; x=1791570130; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1c+AY9BIFo0QsNiuYQN2LRK0yYw3P5G1Duk5ldfMSDA=;
+        b=YUaS7erp4DjEMTmicFflWCIkZt2ku3n9hmYKBIBMcaNhMd9TdOyHqga/yYBu+iDjBs
+         zt1I10CopicUzE1SBbEuiac7/daL/rMCOjpEjmMab8/rlvAhYUTdHPhJFvgcu5a9KQAE
+         vL19bZKXGVz/0+TL52Lg69Uw4KrA85GjdZ8GSzee2IgZ3v8iVkm0CPT1FVtLfr9+nczB
+         yPrbROREOK2bqc6gI+EaNnyjcmVXmb/n3aiyrNyyo8wwgHd8t3nFRlTVIU04ESio/vQY
+         Mbx9KHWOoQfuV8D/i8X0iE6KLhqMdz2h6dq3YVFmxEj5E27QE+hodmoWd7NDzYVK1OA1
+         nl2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790965330; x=1791570130;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1c+AY9BIFo0QsNiuYQN2LRK0yYw3P5G1Duk5ldfMSDA=;
+        b=zN4XiIW8B2E/Hd3OLzPBvj+HoN9RBMuLdw3V5Irky8JLPs1L3ycgbPfVj27ktdMvtq
+         +XGEBaHYa2RjnA0Jzu9JbtAYTDjvYgyERGeoq5pwvMtOjk2lKmF8emVvI4Fy0M4rvwP/
+         pDETzuLl/ClBwdAwd7G7cZOlyim11EAB2qngYtBPjm4VSpcGX4XTHu4p82hRwnxyYNXq
+         77s3WfGllDYPi+/vUSwtSLMHulLmPJI+Eis5NwJf2/WL0TZdjOTobKsKriPfmBsQQ1VG
+         +wb98msWkpwgbqUMFtMPi5UX4TSm/Q3AtZxQAN4bd7x6zlPa0sw3w4dx6AhINGILblJ0
+         /0+g==
+X-Gm-Message-State: AFuF++lYLP3cR9ez71OHL5iudp513lLfM80gpSzu0lYlB+A/jSj9z8F+
+	TVJs/QGyPNw7kZTAdBDuxxeqHjW+4sO5wKfLc+CD243a06wOvNWvL39wz1Yn2RO7OVsWdzbLEJ3
+	iefU404nUqQ==
+X-Gm-Gg: AYBFou0PdGxC+8NuyldZDTZR8Fc920wK0A4UsanaZmkK+UyDOzSg7KoYx4E8xsH8u18
+	P8zy4LRnJYCmpCTa+HZ2gxEIqI70h7mfKOvpk3sVov29DuGziPXofZ6U8oBsQC0yCfOQS2BXScW
+	huFWbw7tExxSjzgob/HLG6u/7tpo7BZPXJPJKiCAguc5Ay3Vx/WJp2l1I+Qv4fh5MUSdAYknc3G
+	xcCpwc33Zw3CXURclHg0W38ISKDtd76wcQI89SaS0YNhOt7JQRpKFlzb4dYQuISP4LLkNKaOUnb
+	SwZT7A6kMAQjIwUazvJYJbbHGaPXwS2OCIHkawmP4aOTw3gPqhbziftfmlX8jeS79v86LuFKltY
+	tkjfLSPHUXtYUz29ElFuHHzp8uWwIlZkPHiy7GDqRsTG4DYBoPVrYnKBnLY1kpaF7WrefbyVg83
+	UEYLhIu9QbIZ1b21B9uGPw1qfEhHrPwYBUCQXsy7O7RB2S2aqu5Xw3/qX9UoRglQwg4Fl+1AJYq
+	sez1yQyfVjSLE7LcTCdBskpAB1k7R5GbxmqDDkbwAeoxzkOk0dEPw/zw46ufAgyZQjV708C
+X-Received: by 2002:a05:693c:87d5:10b0:34b:e2cf:43b6 with SMTP id 5a478bee46e88-34f14f2b9edmr3878021eec.2.1790965329727;
+        Fri, 02 Oct 2026 11:22:09 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:bcf9:6140:24a9:d1e7])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34f0672c2d1sm10551449eec.4.2026.10.02.11.22.08
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 02 Oct 2026 11:22:09 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: Artem Dinaburg <artem@trailofbits.com>,
+	Sasha Levin <sashal@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Justin Tee <justin.tee@broadcom.com>,
+	Paul Ely <paul.ely@broadcom.com>,
+	James Smart <james.smart@broadcom.com>,
+	Dick Kennedy <dick.kennedy@broadcom.com>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+	James Bottomley <jejb@linux.ibm.com>,
+	"Martin K . Petersen" <mkp@kernel.org>,
+	Martin Petersen <martin.petersen@oracle.com>,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 6.6.y v2 0/2] scsi: lpfc: Backport SFP mailbox timeout handling
+Date: Fri,  2 Oct 2026 14:22:01 -0400
+Message-ID: <20261002182205.11550-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261001121254.883973-1-vaknins33@gmail.com> <ar-_BMp5cuPwDw5J@redhat.com>
- <CAJZ5v0g83_OCjh+RjG3H45mADE48vJdrEYahWGJShv62VAVvkA@mail.gmail.com> <ar_yoLIkXpEgwPFr@redhat.com>
-In-Reply-To: <ar_yoLIkXpEgwPFr@redhat.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Fri, 2 Oct 2026 20:13:08 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0jQgroKLxnyeKLedZvc9f7k0OLhHAwpHjvWK1E1BHDq2A@mail.gmail.com>
-X-Gm-Features: AclHuK9qjeEeqXsnVzQb_E-5BjIROj2N8N80tO4elq8tG7GryJssE5Lf613NJiE
-Message-ID: <CAJZ5v0jQgroKLxnyeKLedZvc9f7k0OLhHAwpHjvWK1E1BHDq2A@mail.gmail.com>
-Subject: Re: [PATCH] pid_namespace: make zap_pid_ns_processes() freezable
-To: Oleg Nesterov <oleg@redhat.com>, Aviv Vaknin <vaknins33@gmail.com>
-Cc: Christian Brauner <brauner@kernel.org>, Pavel Tikhomirov <ptikhomirov@virtuozzo.com>, 
-	"Eric W. Biederman" <ebiederm@xmission.com>, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 2, 2026 at 8:06=E2=80=AFPM Oleg Nesterov <oleg@redhat.com> wrot=
-e:
->
-> On 10/02, Rafael J. Wysocki (Intel) wrote:
-> >
-> > On Fri, Oct 2, 2026 at 4:26=E2=80=AFPM Oleg Nesterov <oleg@redhat.com> =
-wrote:
-> > >
-> > > > @@ -243,6 +244,11 @@ void zap_pid_ns_processes(struct pid_namespace=
- *pid_ns)
-> > > >       do {
-> > > >               clear_thread_flag(TIF_SIGPENDING);
-> > > >               rc =3D kernel_wait4(-1, NULL, __WALL, NULL);
-> > > > +             /*
-> > > > +              * The freezer's fake signal ends the wait with -ERES=
-TARTSYS;
-> > > > +              * freeze here, or one stuck pid namespace blocks sus=
-pend.
-> > > > +              */
-> > > > +             try_to_freeze();
-> > > >       } while (rc !=3D -ECHILD);
-> > >
-> > > Somehow I still think it would be better to change do_wait() to use
-> > > TASK_INTERRUPTIBLE | TASK_FREEZABLE. Slightly less robust in theory,
-> > > but I think should work in practice...
-> > >
-> > > Rafael, what do you think?
-> >
-> > Well, why exactly do you think that TASK_INTERRUPTIBLE would be better
-> > than TASK_IDLE here?
->
-> Hmm... it seems we don't understand each other. At least I certainly don'=
-t
-> understand your "than TASK_IDLE here".
->
-> I don't see TASK_IDLE "here", I see that this patch adds try_to_freeze()
-> "here". And this is fine. But, I was thinking about this change instead:
->
->         --- x/kernel/exit.c
->         +++ x/kernel/exit.c
->         @@ -1729,7 +1729,7 @@ static long do_wait(struct wait_opts *wo
->                 add_wait_queue(&current->signal->wait_chldexit, &wo->chil=
-d_wait);
->
->                 do {
->         -               set_current_state(TASK_INTERRUPTIBLE);
->         +               set_current_state(TASK_INTERRUPTIBLE | TASK_FREEZ=
-ABLE);
->                         retval =3D __do_wait(wo);
->                         if (retval !=3D -ERESTARTSYS)
->                                 break;
->
-> because IMO it makes sense anyway. This way try_to_freeze_tasks() -> __fr=
-eeze_task()
-> path can freeze the tasks sleeping in do_wait() without waiting until the=
-y react to
-> fake_signal_wake_up() and call get_signal() -> try_to_freeze().
->
-> Plus this looks simpler,  zap_pid_ns_processes() doesn't need another try=
-_to_freeze().
->
-> Sorry if I missed your point...
+Hi Sasha and lpfc maintainers,
 
-No worries and thanks for the explanation!
+Thanks for catching the SLI3 overflow in v1.
 
-Yes, it looks simpler and it should actually work.
+This v2 takes the ext_buf portion of upstream commit 115d137aa918 first.
+That leaves the SLI3 response in the existing 1,024-byte DMA buffer while
+ctx_buf continues to point to the descriptor used by cleanup. Patch 2 then
+backports the original CVE-2024-46842 fix from ede596b1434b.
 
-Aviv, what do you think?
+Could you please queue these two patches for 6.6.y?
 
-> > > >       for (;;) {
-> > > > -             set_current_state(TASK_INTERRUPTIBLE);
-> > > > +             /*
-> > > > +              * TASK_IDLE: no hung task warning or load for a wait=
- that can
-> > > > +              * last as long as a tracer keeps a zombie, and a pen=
-ding signal
-> > > > +              * (e.g. the freezer's fake one) can't turn it into a=
- busy loop.
-> > > > +              * TASK_FREEZABLE: let the freezer freeze us while we=
- wait.
-> > > > +              */
-> > > > +             set_current_state(TASK_IDLE | TASK_FREEZABLE);
-> > >
-> > > This looks like overdocumentation to me. I guess it was added by AI. =
-Other users
-> > > of IDLE/FREEZABLE do not try to document the meaning of these task st=
-ates.
-> >
-> > It looks a bit like a note for self TBH.
->
-> True. But...
->
-> Ok, firstly the comment about TASK_IDLE looks a bit misleading to me. I m=
-ean the
-> "as long as a tracer keeps a zombie" part. At this point the descedants t=
-raced from
-> the parent namespace have already gone. The huge comment above this loop =
-tries to
-> explain the reasons for this "wait for pid_allocated =3D=3D init_pids" in=
- more details.
->
-> Secondly. The comment about TASK_FREEZABLE looks fine. But why should the=
- user,
-> zap_pid_ns_processes(), explain the semantics of TASK_FREEZABLE? Probably=
- this
-> documentation makes sense, but then it should be moved to sched.h. Just m=
-y IMHO.
->
-> > > But this is subjective, I won't insist.
-> >
-> > Same here.
->
-> OK ;)
->
-> Oleg.
->
+Changes in v2:
+- replace the unsafe ctx_buf restoration with the ext_buf prerequisite;
+- send the prerequisite and CVE fix as a two-patch series;
+- keep the generic upstream ownership race out of this backport; and
+- rebase and rebuild after the current 6.6 stable queue.
+
+v1: https://lore.kernel.org/r/20260930024505.96440-1-artem@trailofbits.com
+Review: https://lore.kernel.org/r/2026-09-30-1-daily-reply-0014-lpfc-sfp-info-mbox-timeout-6-6@kernel.org
+
+Thanks,
+Artem Dinaburg
+
+Justin Tee (2):
+  scsi: lpfc: Define lpfc_dmabuf type for ctx_buf ptr
+  scsi: lpfc: Handle mailbox timeouts in lpfc_get_sfp_info
+
+ drivers/scsi/lpfc/lpfc_bsg.c |  2 +-
+ drivers/scsi/lpfc/lpfc_els.c | 21 +++++++++++++--------
+ drivers/scsi/lpfc/lpfc_sli.c | 20 ++++++++++----------
+ drivers/scsi/lpfc/lpfc_sli.h |  1 +
+ 4 files changed, 25 insertions(+), 19 deletions(-)
+
+base-commit: 79643295eba17affbd16ca97f3ef04c90266b28c
+-- 
+2.39.5
