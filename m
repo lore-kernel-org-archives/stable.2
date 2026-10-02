@@ -1,220 +1,150 @@
-Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D09BF4399DB
-	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 19:50:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790970629; cv=none; b=MGUUwWva4erBtMQWnpv9C4gpmCruGhHNvnrQgQ/2EmDgRFLiWHyziwgsmmLLfMl4CEzpmdRJ0rXY/33WS7+yaPe8UNXCZSf3jBH6VbQYtomjBEXITLkwhvVI4++wJM44/OEpb2lE/K67dV5lPJku8/RXVwR66KZNUwlgDj//CBs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790970629; c=relaxed/simple;
-	bh=jPry0ZxZWH2qI0ULrUX+JCx/FGm9iZZhCbMohyCfLZI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TcQYk5sggFoW7eeSp9MhdgB89leabv5euANgYdpLx+HH2UI68kRSK06noyENHV0qihl5mQyNZaMZFWB1OwA4ZQUB1uZSOQGqaDj2y9qf4wh+4rRzIOPG5qosFOxgyx03oGr9PzYehqTw0qPqchH6TyiWbzP7kGQh8L5Z0/Zh6z0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=iPKS0/3n; arc=none smtp.client-ip=74.125.82.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55FA343B3EF
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 19:56:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790970998; cv=pass; b=b2kzA/Feca9v+pySddUb5BOEqvfEHQBFJoPH8c4NhfpXCkz/KnX2z6IHw5I5Oq+Yc3UOiN2uJyUHThc1zQVuMnRz2J+a836I6oqDFg9BuJH6UiJGNJNAqMlEnPLqNdkQImCzOJ4Kqx29FyryS/SIMPbadfPfLDdL/5p4nHs06iA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790970998; c=relaxed/simple;
+	bh=1ioCZTbb41W9FUOixCvFBhIck+r0y9BJGbVcKNL0CmM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=atZEeK9EHsjnLnFL9WDJrMhzhdJ8emEMOJskwUSPdckQeaI2Ym9LaTwQAe1JFAMmZhhY2ElmywahZG7SL3O/ei7cm+3tn9u47i7KWv2wIM7d/nCIkqf2vwUmstvl5Aus4RyE/fmxX1STJoO1lW2uV3XFaHayRU3ffOLEwvlT0qg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=shneLzs2; arc=pass smtp.client-ip=209.85.208.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="iPKS0/3n"
-Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-144f79153f5so485582c88.0
-        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 12:50:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="shneLzs2"
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6aa850436d3so2196772a12.2
+        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 12:56:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790970992; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Gwp1buTBySFV3J32H0jlpI/scvTu+89G61NaoqnbeqFf1DlgBytHnTpGbw/OpG72VB
+         5bX/Td7wWUJeBcM3bLfuWE9VPDGB2ikNBmbnWw+tbuxyHKri7l97HFUVDUQKbF6Avl8v
+         MBlokm+Jud6SlKHAeuYTJKoOoEBH3xq6iJXK9S92AVecJ67loajpr4WNfubu7T2stxj0
+         AsDDPnDSey1WROpIGgn3lj+ZJryY15BZ40mDNP3UrRQ4Lh7rIoCDhBXy3knUrfnPf39c
+         p2XmiIoYDA6SVuAyr386CcL3SIkk3Vxm2aX2BFSFVF3GvGjyzmaAswMtTC1IwGJJVqlG
+         p9yg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=BIxB+o9asvwUGZP/ehweqbShcz/sSoH+9KFLtoHp1eA=;
+        fh=j/Yt+BxBiaLMCkSWRJs6nOog6Qf8Rfk7Xp9Oe5EYWnw=;
+        b=OJJs1evDuesQ9O+mKHyhg7L9nzH2o4bH3JRXYeVb+8IaAwZZ5qp7ysUYhIfUFT6yaU
+         Kk642a9pOW3m5/UJsubADnpnbpFf6q4124rZQtWPu/nPysz9/SXalHyaL1TMSmTTPUqB
+         S4TBx7ifLBWhUJD9X4zY1N2Fg/PBSLqa8aTQo6Of5teJhyLVO6onuwF0/tsRhvKPRcux
+         liRALboswlMcJPIxD0mfl1CsB3j1ZVugQngJJsQkSyv4xpNHe9kD7acuYshrNRaagqyh
+         dl5/cYNIssK20mHHUxn0HbLFitmeuLhsWZBZivsKsKDX+hizS8J1pBDd/barFJND+aJI
+         XX6w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1790970621; x=1791575421; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=c+Pr+0S1JlOBX/miOeDu7Q4SuyRTaEP5yuhanTP5lUc=;
-        b=iPKS0/3nt/yps11kzkBCV1f6JgZy+m9nq1oaXe/hF3tlSfPFM5dO+uLlr672/tPl91
-         m9ScaGSftrqg4nbbGN1R6CwSxYW/9uqbTwVzBIebRSuHRb3uzuiBWFiNLgshSye7VMM1
-         p7sNOnQkyr3gmXnPxJYvA5CZQ2GdZ6juSUqdXrPqxxhwQnT3vhX/l+lC4AmwcRrgIyuD
-         p/s9Rzf6BbtVe/mcrZLVa/Wp+wyjaczK0QndkgwvoxTcCf8NqcvVFsK2GLI1oQBCAOP9
-         wzEAY851Ypjv6I4EXUGWwkdFQNFIehnSOClh5y72uqmDFaN+F9+cHRh6wsPWaLVYLgyI
-         Mchw==
+        d=gmail.com; s=20251104; t=1790970992; x=1791575792; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BIxB+o9asvwUGZP/ehweqbShcz/sSoH+9KFLtoHp1eA=;
+        b=shneLzs2LcbQqXPDXmIKxYXwzvwAachuoY+x8UQrViCAmsHLcjX1FXUmxsAaCB+kTt
+         yrQMiLHtIa8sb8Im1a+kTcoTFRewgZu9kIJmtwi5xrHXdKGzWjwFvc2bcoWWxVI4fXhJ
+         6vKVtkUGPnG7NZZZQP8huarE6qJiozTZaQZc9lUq8q1zRE8qYY6K7J95RJaK/sStE5ec
+         8hBEA94tN8ozciaenW2v2o0yn4HIRbFDrrV7LAp0fog4ylNqUaBDun/nAgitycpXjuhy
+         Qp5oAmSxiZldk7XSYPRdpgqOPxNCZ7gsTP26qQf/cRhtXmPV1fvhGSqhb8POCYQ0edbE
+         2rmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790970621; x=1791575421;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=c+Pr+0S1JlOBX/miOeDu7Q4SuyRTaEP5yuhanTP5lUc=;
-        b=2DRMuSJ9FJmkpyGrFJbmG5XT7NmW/JjRkosAOPcNvIHNHLF+oFP6feTgkSxgqh0hXH
-         8jk1OqoqOm4BXAHsohnziwY63GA0bPGQnwrll/5LuQYY+sZA7dOiA8NufJT7GyYn0Zgd
-         +/oj7CTBo0phlziraCQ1QuJnllZGSATP0p4gru9LoYf63J+BHFGAnoKRazfC8tKBfWyp
-         hzrQHSjG9wFC6L4f2UJCqHfI86uGySwWX6cMmY+CdfCLOX29trwY/o2h7/zugYQW3sCK
-         +bZEe/DxsdDzbibEBX2MIGeEfqQG0XExV7uNKAUbj/JupVoyD4VY+1HGFtnA/1tAWMio
-         9YXw==
-X-Gm-Message-State: AFuF++kcOWMg0GyzRpAw96y5GQpWoWipiGJLoZlrH9OuFi7GjnUpfDKl
-	wDjT2aXGH/cNVzFnwj024Fh/8CVOhR127yBAwWnzDfh5aB7OJAZ/MpUN1TIc3KamG7nppb311er
-	G0dl/jggRzQ==
-X-Gm-Gg: AYBFou1QDiqg2lfJ+QaRYzOnidXxrn46+cDNtuHT2WWk2Q2x6iq4NqSavvy8DNl/hns
-	vcaIs1PKtkSf5bao4C0HYpQ0lVGWdC+zNIdfFVExip88/z9kq2PJ02lfwq0dcnJKTHNQyumw93f
-	S4Deb1Rjo4v9fHKIMKqLk0ZXHjne5WrxdUw22tx+BpEwGzTWppiYJhTV60Nf9lRNTKVoWJnra3i
-	NsfcEEV3pVlJJ/wsIwf+SsgMl7rnA/LTjof2mu07xxwn5Fo2ETv+E5kthJ0ULV/1/I260eMlMIu
-	0YYmYkPsMAUwpGAlb24HBWJFtMchvbpYlNEuX3jvBICZqNL3t+gWiQf+YUIzVtGtr8iKFB0p627
-	WTxx5zDFO3vhsctIoXKYxJH7z58X0ADwkfZ2iwCF4B2+EkUodXUMdIOl890VVg43vYn60wsC+bj
-	WDnq409ptH1kOOZYySDwFVnjMoYj8qORAWMAjdwxy9vQRWq2ruaI8LiVuyrpuCd1S69O1M8gcVf
-	TGvPpZgqV6+IsDvwUls+EoffijttYFNYLqgtUSxypubzTgUtKAulP/rUP67LwsCOh/9NAU=
-X-Received: by 2002:a05:7022:1587:b0:148:516e:53e with SMTP id a92af1059eb24-14dd07fbc16mr9332303c88.6.1790970620487;
-        Fri, 02 Oct 2026 12:50:20 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:bcf9:6140:24a9:d1e7])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14f410725e2sm7157041c88.0.2026.10.02.12.50.19
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 02 Oct 2026 12:50:20 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: Artem Dinaburg <artem@trailofbits.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 6.1.y] media: av7110: fix a spectre vulnerability
-Date: Fri,  2 Oct 2026 15:50:15 -0400
-Message-ID: <20261002195016.21386-1-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20260707; t=1790970992; x=1791575792;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BIxB+o9asvwUGZP/ehweqbShcz/sSoH+9KFLtoHp1eA=;
+        b=B7p508osBAuOjOZAudmnSluFrLUH2w9ea3Dr7TtMZzrPlF+bJqnxGjm+SqstucP1sg
+         OYMfdPJYtAT6SLTFVLKsrDrU4+N/B6ah/NESTvC5mPOPIrGivcu5/1lKiYVBG8VDCT2Z
+         hkpRkbL+rw+QQqI29onOdDUmT+Ce7Rr/5yTkc8mHYuhRSgnm1Dj4UsR71LSHj7i0EWkH
+         XGnhbJF+EHX5H/lPi5Tul6K9GwmKqCqJQPm8IgANJjLKndORSMbd4Yh9M47tlbqPih9P
+         rSGRZVdgktqCeGQzp4/0bFpg5YAb7bkJzfxVmEBXwqqv02f9KfWrDkd8LPWETr5x1al2
+         RFRA==
+X-Forwarded-Encrypted: i=1; AKwUvBwRaexHVBB1MswXfMgirvznktoo7+SU4B5goZ4ch63zFqyz7w5BdI0WzaOuml50ZiikO4euTEk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lMEUgXlEQnoqgeDG+6SiE/Ae31cQa46pdzwEGruVIlFLxUPVjH
+	A4N92sZYz3S/wFjnFdavKPJPFJT77g519EgDWJKlbBbOXQq7bMfLbWryb2xsmA0bPmJFBqFb6jj
+	xwVkizpXtHPjYC+H1n8jxRMZWI/9Ucg==
+X-Gm-Gg: AYBFou0y3Z3WfV3Phl90DVs97Mapw5xWD3lFJVrcMY/s+keIFhQy/lXL8IiIW3AkreA
+	IdgjV/gfRzH/NcijK52U5r7b1VnSAyMh/gJsgXrlI459JEzPguXkSEJ6oeo2cpWy2m9OOsPFhjz
+	AW78/2YV58ApTKSDTNs4l3RQY+MmElzTnUMHJSrwALrOTbFrSrglSjw8sN8J+vFnoXU61BTfEPZ
+	SHv6Hw2xEuScS20te/scM65NnpObkPUWNqedQFApog3tO8OygZ/5OyxQ2jSQ0TbfFoC43QzeH3o
+	p6vHR17ROXkD4HvqpBecDohlMG3ZXwL1Aba/xA+QLDEa2ze4I/howwrWS45HlZNb6fsdmqGU5Le
+	Cgz0QiuClWAmLj3l3EADPVNnQ9Xy56gpFVp2p2i2uK0m+Ww8XfYCb73ap+mk7mbwsiATU
+X-Received: by 2002:a17:907:970c:b0:c21:9b4b:2690 with SMTP id
+ a640c23a62f3a-c2e6ed18a3cmr18544566b.17.1790970992289; Fri, 02 Oct 2026
+ 12:56:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260917204209.97699-1-mhun512@gmail.com> <arpa-Ps8l8LOwbbx@tzungbi-laptop>
+ <CAMMMRMe7g7yj1iOTOc+TCWe=+1cjFA1rG7H=VfjnrY3p7XCKFg@mail.gmail.com>
+In-Reply-To: <CAMMMRMe7g7yj1iOTOc+TCWe=+1cjFA1rG7H=VfjnrY3p7XCKFg@mail.gmail.com>
+From: Myeonghun Pak <mhun512@gmail.com>
+Date: Fri, 2 Oct 2026 15:56:19 -0400
+X-Gm-Features: AclHuK9fCvmhfjw1X8Jezy7cxwwOQzz6bhBUeiEHh3Z9gHIC1eoTF30hT-F_4tI
+Message-ID: <CAGEsz8G+bdyroK=Fb=YpgWvp+Z3HOGbqkTPt-dYO8u_+26_ULA@mail.gmail.com>
+Subject: Re: [PATCH] platform/chrome: cros_ec_typec: Stop altmode work before
+ unregistering ports
+To: Andrei Kuchynski <akuchynski@chromium.org>
+Cc: Tzung-Bi Shih <tzungbi@kernel.org>, Benson Leung <bleung@chromium.org>, 
+	Abhishek Pandit-Subedi <abhishekpandit@chromium.org>, Jameson Thies <jthies@google.com>, 
+	Guenter Roeck <groeck@chromium.org>, chrome-platform@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Ijae Kim <ae878000@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Thanks for the feedback. I've moved the work quiescing into
+cros_typec_unregister_altmodes() so partner disconnects are covered too.
 
-[ Upstream commit 458ea1c0be991573ec436aa0afa23baacfae101a ]
+Pending partner work can still queue responses during driver removal,
+so the port work stays disabled until that completes, then is reset and
+re-enabled for reconnection. Final port teardown now uses
+cancel_work_sync().
 
-As warned by smatch:
-	drivers/staging/media/av7110/av7110_ca.c:270 dvb_ca_ioctl() warn: potential spectre issue 'av7110->ci_slot' [w] (local cap)
+I'll send v2 with these changes.
 
-There is a spectre-related vulnerability at the code. Fix it.
-
-[ Backport to 6.1.y: added the explicit linux/nospec.h include required
-  by the older source. ]
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
----
-Hi Greg, Sasha, and media av7110 maintainers,
-
-I am working through the small CVE backports still missing from 6.1.y.
-This one addresses CVE-2024-50289. It masks the validated CI-slot index
-before using it in the av7110 array lookup.
-
-The corresponding 6.6.y backport is already in the 6.6.y stable queue.
-The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not
-in 6.1.y.
-The target-specific adjustment is recorded in the bracketed note above.
-
-Could you please queue it for 6.1.y?
-
-CVE: CVE-2024-50289
-Upstream: 458ea1c0be991573ec436aa0afa23baacfae101a
-
-AI assistance: An LLM helped identify, adapt, and validate this backport; I
-reviewed the resulting code and validation evidence.
-
-Thanks,
-Artem Dinaburg
-
- .../media/deprecated/saa7146/av7110/av7110.h  |  4 ++-
- .../deprecated/saa7146/av7110/av7110_ca.c     | 26 +++++++++++++------
- 2 files changed, 21 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/staging/media/deprecated/saa7146/av7110/av7110.h b/drivers/staging/media/deprecated/saa7146/av7110/av7110.h
-index 9fde69b38f1ce3..c2956c23d9c1e4 100644
---- a/drivers/staging/media/deprecated/saa7146/av7110/av7110.h
-+++ b/drivers/staging/media/deprecated/saa7146/av7110/av7110.h
-@@ -86,6 +86,8 @@ struct infrared {
- 	u32			ir_config;
- };
- 
-+#define MAX_CI_SLOTS	2
-+
- /* place to store all the necessary device information */
- struct av7110 {
- 
-@@ -166,7 +168,7 @@ struct av7110 {
- 
- 	/* CA */
- 
--	struct ca_slot_info	ci_slot[2];
-+	struct ca_slot_info	ci_slot[MAX_CI_SLOTS];
- 
- 	enum av7110_video_mode	vidmode;
- 	struct dmxdev		dmxdev;
-diff --git a/drivers/staging/media/deprecated/saa7146/av7110/av7110_ca.c b/drivers/staging/media/deprecated/saa7146/av7110/av7110_ca.c
-index c1338e074a3dc1..642af03fbac810 100644
---- a/drivers/staging/media/deprecated/saa7146/av7110/av7110_ca.c
-+++ b/drivers/staging/media/deprecated/saa7146/av7110/av7110_ca.c
-@@ -12,6 +12,7 @@
-  */
- 
- #include <linux/kernel.h>
-+#include <linux/nospec.h>
- #include <linux/types.h>
- #include <linux/delay.h>
- #include <linux/fs.h>
-@@ -26,23 +27,28 @@
- 
- void CI_handle(struct av7110 *av7110, u8 *data, u16 len)
- {
-+	unsigned slot_num;
-+
- 	dprintk(8, "av7110:%p\n",av7110);
- 
- 	if (len < 3)
- 		return;
- 	switch (data[0]) {
- 	case CI_MSG_CI_INFO:
--		if (data[2] != 1 && data[2] != 2)
-+		if (data[2] != 1 && data[2] != MAX_CI_SLOTS)
- 			break;
-+
-+		slot_num = array_index_nospec(data[2] - 1, MAX_CI_SLOTS);
-+
- 		switch (data[1]) {
- 		case 0:
--			av7110->ci_slot[data[2] - 1].flags = 0;
-+			av7110->ci_slot[slot_num].flags = 0;
- 			break;
- 		case 1:
--			av7110->ci_slot[data[2] - 1].flags |= CA_CI_MODULE_PRESENT;
-+			av7110->ci_slot[slot_num].flags |= CA_CI_MODULE_PRESENT;
- 			break;
- 		case 2:
--			av7110->ci_slot[data[2] - 1].flags |= CA_CI_MODULE_READY;
-+			av7110->ci_slot[slot_num].flags |= CA_CI_MODULE_READY;
- 			break;
- 		}
- 		break;
-@@ -264,15 +270,19 @@ static int dvb_ca_ioctl(struct file *file, unsigned int cmd, void *parg)
- 	case CA_GET_SLOT_INFO:
- 	{
- 		struct ca_slot_info *info=(struct ca_slot_info *)parg;
-+		unsigned int slot_num;
- 
- 		if (info->num < 0 || info->num > 1) {
- 			mutex_unlock(&av7110->ioctl_mutex);
- 			return -EINVAL;
- 		}
--		av7110->ci_slot[info->num].num = info->num;
--		av7110->ci_slot[info->num].type = FW_CI_LL_SUPPORT(av7110->arm_app) ?
--							CA_CI_LINK : CA_CI;
--		memcpy(info, &av7110->ci_slot[info->num], sizeof(struct ca_slot_info));
-+		slot_num = array_index_nospec(info->num, MAX_CI_SLOTS);
-+
-+		av7110->ci_slot[slot_num].num = info->num;
-+		av7110->ci_slot[slot_num].type = FW_CI_LL_SUPPORT(av7110->arm_app) ?
-+						 CA_CI_LINK : CA_CI;
-+		memcpy(info, &av7110->ci_slot[slot_num],
-+		       sizeof(struct ca_slot_info));
- 		break;
- 	}
- 
--- 
-2.39.5
-
+2026=EB=85=84 10=EC=9B=94 1=EC=9D=BC (=EB=AA=A9) =EC=98=A4=EC=A0=84 11:40, =
+Andrei Kuchynski <akuchynski@chromium.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=
+=84=B1:
+>
+> On Mon, Sep 28, 2026 at 12:18=E2=80=AFPM Tzung-Bi Shih <tzungbi@kernel.or=
+g> wrote:
+> >
+> > On Thu, Sep 17, 2026 at 04:42:09PM -0400, Myeonghun Pak wrote:
+> > > partner altmodes. Disabling also prevents a partner callback from
+> > > requeueing the work while its driver is being removed. Use the common
+> >
+> > Would the work be scheduled even if the driver is about to remove()?
+> >
+> > > diff --git a/drivers/platform/chrome/cros_ec_typec.c b/drivers/platfo=
+rm/chrome/cros_ec_typec.c
+> > > index 50a68819ceb7bbfbd888ca919d678d4c75237c26..e91bbc219c07706729493=
+5dd5602c1aec636cfa6 100644
+> > > --- a/drivers/platform/chrome/cros_ec_typec.c
+> > > +++ b/drivers/platform/chrome/cros_ec_typec.c
+> > > @@ -378,6 +378,7 @@ static void cros_unregister_ports(struct cros_typ=
+ec_data *typec)
+> > >               if (!typec->ports[i])
+> > >                       continue;
+> > >
+> > > +             cros_typec_altmodes_stop(typec->ports[i]);
+> >
+> > Shouldn't this be called in cros_typec_unregister_port_altmodes()?
+>
+> This should be called in the very beginning of cros_typec_remove_partner(=
+),
+> or even in cros_typec_unregister_altmodes(). The idea is to stop the queu=
+e
+> when the partner no longer exists.
+> Partner disconnection rather than port teardown ought to trigger this.
+>
+> Thanks,
+> Andrei
