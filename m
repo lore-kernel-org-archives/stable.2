@@ -1,140 +1,155 @@
-Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
+Received: from mvsmtppost07.nm.naver.com (mvsmtppost07.nm.naver.com [61.247.196.150])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 993B6443AB9
-	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 07:44:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 402EF412276
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 07:52:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=61.247.196.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790927101; cv=none; b=jVXCDHMoP1lEZbLyLNB4vB0PChy6ekImgvAih8j0xzsl3QAXaOPPQALJjooiEpN7clF6oW+P8Xrx+Wenv00lyOWgt/SkekyxXJZHLhZ0KcmTJhDtmd7sU3YXtnJp+tBd4oodfDaFTDeJkuRjV3KPo2EItActR7GFKmXAMtOVnR4=
+	t=1790927558; cv=none; b=ioeA/wpfiSDSwvCPom/VFKl8dyvKfigDrBgbcJQEl7+0FmiVMNcb2KpAzMFc7DAlRL/QM2LIobhLksn7Tv/ZpaOv+us5/J7Vo4ruDgwW28y9hE0jguN8iiD+X3YTmWDZKZ4xCGZvd3WAMfVU6reYkpxPx6DF6J4ZIOzWtw/qybw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790927101; c=relaxed/simple;
-	bh=LCowhYnbnLJAxxRVQo+xU8WuDn4NOmon65GBpuJWhT4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=H0VL/HGihlzcwgJx/L8ZwDYj2knXQjejKBzugdsC44UvUae11qXQqecWKyzGfUlcCb9ruIMPbJ3jRAg9a2b2v8dGTyCasxImocn6L0OP6L7fZK1zoRxdUXvIg+jcQRfkG72wJ1znO4JVi+8N57S7exjjCz4PBDUxNzi1MLVZUW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=FO6EpnZK; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=pShE01vy; arc=none smtp.client-ip=202.12.124.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	s=arc-20240116; t=1790927558; c=relaxed/simple;
+	bh=JUFspoQNePCu3sx+33YwcWSfxBGfUaqgfYRMvB92U5s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SNfOc7hfiLcSSdvi6t9iKjD+ESjyMNNvwrrAbSh27mX+cgL5mLZYgzyJKj6INCUv52b6Y6CWE+2T7Z7bU3eINGZELjz1h/tbVxH+8zXtz66KiQHq9y2VXsbSOvn4j/j5fYOwS3wgx+Y2FlRuvdr1tZsw8apDxs+2yEthBdCgweQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com; spf=pass smtp.mailfrom=naver.com; dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b=M/SAF4ZV; arc=none smtp.client-ip=61.247.196.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="FO6EpnZK";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="pShE01vy"
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfout.stl.internal (Postfix) with ESMTP id 9C8BA1D00050
-	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 03:44:58 -0400 (EDT)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-01.internal (MEProxy); Fri, 02 Oct 2026 03:44:58 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1790927098;
-	 x=1791013498; bh=vbej2bTTSB21ru4WE29aXHTSgKeX3cUAZE657bwipZA=; b=
-	FO6EpnZK01mwyIxcSHQ3G1pL0AdnlY4lcI07zmxTvzFSlbHyZrFMsxh8sPg15JVd
-	YiqtSrztRpAJk3YjWHxwtE8qSvq5Lhn+LOx9Yb6QFDHHjXyTb0x5Ci6Ybhkt/cDr
-	nYZB8mvlCPabGs25yl6Ql3c2a+aWEm8ybYFYcH7Y14Fg7m7lB073fVXcbTVcwUsJ
-	hGbcgLUSGdvwEQB9JNjj5ehMOrl32E4CKy1+xrsD/kAZxgoljONrF9MAXpnF4e8O
-	XQ/HiI3RO+ztYKNcrax312xPSn8bZrJLabq4/R1cq2qeQmlkfuAmXkx+EnicdHDa
-	tSnERlWT1nbnFhd0IS+vHg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790927098; x=
-	1791013498; bh=vbej2bTTSB21ru4WE29aXHTSgKeX3cUAZE657bwipZA=; b=p
-	ShE01vyz9yw/MAbE8qP5wfq0Zxkdb7BGuEM7gZs8GkC6jBjDoRYIjbMl+gxzbvYo
-	2EroBqFJw6MI/qOQFVCYrtQG/wSwcwOXhUGYlBBkWKF4jziH45sl9i0ntVFMPW7p
-	zLM0hrpaNlbr/Q2X+3C9PCzLXb/m1rh+6NlzxdvvHdPaqnv6KovPtrN1iROm4dKo
-	EIFtGCY59dRMZ7BtxFovQrIZha5a26PwoxNUfGM/+wCFM2eXc7tN1uEKIp8ltZsb
-	K1nzRaCv1V4+l2UJsHuo/oNURYlhRiH7PwaJMHZAVV32jDFxVTBAx0/EXJJddjMt
-	Fg7IR0gsz5jf7FGFL/ZIw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
-	action=sign d=pobox.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1790927098; d=pobox.com;
-	mf=PGJhcnJ5bkBwb2JveC5jb20+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:pkw/VM31qiVRVHs+RDKRWsE9No66J+7LNXQOPnGorKrgot+
-	lERl8oKU7pvw7G58AsWY89Klh3Wi9cF9tulmiZZsKWYBMh+9pv8J637REnk9a4Qw
-	hPgvr3brMdSs4vVsoewxwMjcQR6cFCqUqit3/MsFX+v/BHGE9/TCAQbSIg/j08dU
-	O7+ln5Fb/gUTh6LFIgnBkLXW1f+gZWKWwdwtduIKcadjYlBHIj/VvgJs0kypYTGK
-	DEc0RUibfK9U4GIn3gw3dKoj/pL3xrLljWytwosnYAlHTxI8cZghjynEC1GBcuxJ
-	lKnt6T36u1ONC4HMAXrnEM5nJALjSs6D06S6Kpw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:Zpegsnv+z1EJ+i75zrU2zk17RqslZ38hPfVx60lh0lI=:LCowhYnbnLJAxxRVQo+xU8WuDn4NOmon65GBpuJWhT4=;
-X-ME-Sender: <xms:-WC_ar9DNaBTqTwZNdLv-ehPfZtYwDwhrcnVVHuYfzy_RUjh8JD_tA>
-    <xme:-WC_ajnBogNieaN5RSRRRpxJyuxcq6jqeW8l2e47Z11aEup1kF7yBGOZ9c2mDnQR0
-    zZhobDaA9s14YVNu6_MAVodloOEUaoBTGdJ4Tb3FWMYVFpcQkaRHhI6>
-X-ME-Received: <xmr:-WC_akhihV1JmpAVRAIzmE3tXUSG3xloVFGtseRWKM1tObdk3Vs7cgHWWNvlfEYIUDMDRdNrWpLs2NIb805ZISJtjH66okCW>
-X-ME-Proxy-Cause: dmFkZTF/KvG14L6SoNmfOg+TwWUCpD3GD5fO5a5Up/H7w7pZTyfHzcF0fRTQ2O1u6hQ9R4
-    Q7nfL5vkCTEXPmhB2TmivQ3nxJZyYb9oMp6craEuOpvR6x+bBvlp+mjWoef/3nPUR9+sjR
-    KbptPwzO09bXD+oUF7wXwHtN8EvZQDnpeafnMDqZ3QczrPFfbIXz0DEXdMAklvLZ45W1dn
-    pg7KIyMYPOHuK6CRhLjE+D6ag8B3lADj4di6wXE8CSgE101HCWeqPHeeCIB8c44GqZLXSp
-    0/M9Z46IE2FWptS0HefnVORB0TBKGFgVNM7ytAPcjhr9Won4cicrR/JL0TjFkhcmtKPDFP
-    xznIvqrEpncKk9+jTnqctjvKZwCDpCGcbvoFf0coZfuGun22dcEpY6rByVwpTXV+nJkBSr
-    kMgTPNBpBdYF2JzwZmJhqyaQ1Zvou/fJB7mf4AoA+jzd7HDXNnsHY0LBX66EDgFmlOvYxC
-    0rH689BKlb1CW2jkng8NrSxCe8Ht5QRkQmvdQi/Wl6SPToBtHwCJLgOXWCaLbehAGJI2m0
-    pOdzMwVHkvL3L+RqLi19c2z7GN0vFJyJiyC81BjfCWwZObgxPCMcAfzEhjGGRSaS/CPwpE
-    cmO9AEAw18YY8xErVFnL/ZbWqxE3RvFmZYkLJYnzwBRNz0ImxXK6ws1qehmA
-X-ME-Proxy: <xmx:-WC_arZy6gUS2dzYVLBIYQHaUFFp9JfDQz6pW7-WJEJ2gmtJQo2laQ>
-    <xmx:-WC_aoEUFjd6eEUDDFrZCzzcEzWJnBlHRdvyj4FPLX_nnGlEwuutwg>
-    <xmx:-WC_aoY3GtAR6dml2jefi_dyKbbsWszJl316sIbzGGBUHDYCoJgONA>
-    <xmx:-WC_ap0pXpZGVexq2pXC_K8A0GGQIlikhAHElAbe489ZlEDMVYSmvw>
-    <xmx:-mC_aqSFKbS7K3itCFMCpIXQ99U7yNy8ZSH1PgySMt54-MozPjU1KWHJ>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 2 Oct 2026 03:44:55 -0400 (EDT)
-Message-ID: <0113c472-9893-4fb4-9e6f-2e38b68d59b9@pobox.com>
-Date: Fri, 2 Oct 2026 00:44:54 -0700
+	dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b="M/SAF4ZV"
+Received: from cvsendbo022.nm ([10.112.20.47])
+  by mvsmtppost07.nm.naver.com with ESMTP id Hm7mFKlcRtalifJFFJwZMA
+  for <stable@vger.kernel.org>;
+  Fri, 02 Oct 2026 07:42:27 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
+	t=1790926946; bh=JUFspoQNePCu3sx+33YwcWSfxBGfUaqgfYRMvB92U5s=;
+	h=From:To:Subject:Date:Message-ID:From:Subject:Feedback-ID:
+	 X-Works-Security;
+	b=M/SAF4ZVfrGwM2YufxsBhUbE8wYrHQUZPGKLmWapRtSQoOdPdVFMrq4HhZbh5oZ8Y
+	 EQmrcqugBmNoDvU7P/fN+o04+PIxb5lW/1/qE1mLaS8QMGId1PAr4X5tZrA0keOynH
+	 n9W/WdZSxtJeWqFIgpZYAQuAhxrJBIwi8CnxAK1/9SGlAGY8jZNw5tq+HYhdLdS1ZD
+	 bKNcDoHjp8QMNek7ke6bHBdu02pYHzt0Q6VEvdstVirwXllVadVVSTzZFtrAVzBJSn
+	 cqkfvvTi22XoEIJY1bafL3q2oQ9Vc3jNWXOPdIjWheMKQYDdPQnWljKXxswSnTacYt
+	 /MslqwQ/DxlqQ==
+X-Session-ID: yBsmHpcKQJ2JXoj+LyXm0A
+X-Works-Send-Opt: OsFwpzGdjHmdKHFOMr39Ko3YKHm/jAudFqM9KqMqFxIYkEljxBmwjAg=
+X-Works-Smtp-Source: VqYlaAglFqJZ+HmrFAEd+6E=
+Received: from localhost.localdomain ([115.136.205.4])
+  by cvnsmtp003.nm.naver.com with ESMTP id yBsmHpcKQJ2JXoj+LyXm0A
+  for <multiple recipients>
+  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+  Fri, 02 Oct 2026 07:42:26 -0000
+From: tjdqudcks0424@naver.com
+To: netdev-bot+sashiko@kernel.org
+Cc: netfilter-devel@vger.kernel.org,
+	pablo@netfilter.org,
+	fw@strlen.de,
+	phil@nwl.cc,
+	netdev@vger.kernel.org,
+	stable@vger.kernel.org,
+	kuba@kernel.org
+Subject: Re: [PATCH net] netfilter: nf_conntrack_reasm: avoid truncating header offset
+Date: Fri,  2 Oct 2026 16:42:10 +0900
+Message-ID: <20261002074210.140795-1-tjdqudcks0424@naver.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <179089937913.434549.5874493628033954656@kernel.org>
+References: <20260929090027.200041-1-tjdqudcks0424@naver.com> <179089937913.434549.5874493628033954656@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 000/457] 7.2.9-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260930152346.024115587@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260930152346.024115587@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 9/30/26 8:21 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.9 release.
-> There are 457 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Fri, 02 Oct 2026 15:23:04 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.9-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+From: Sung Byeongchan <tjdqudcks0424@naver.com>
 
-Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1) and an arm64
-virtual machine. Working well, no regressions observed.
+Hi,
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+Resending in plain text because my previous webmail reply was rejected by
+the mailing lists for containing an HTML part.
 
--- 
--Barry K. Nathan  <barryn@pobox.com>
+I independently tested the 16-bit header-offset concern raised in this
+review. The concern is valid and can cause a local kernel panic.
+
+This is separate from the existing prev_nhoff u8 truncation issue. To
+isolate the two issues, I tested a current-mainline-based kernel at:
+
+  ce1e0223d8ad4211275c82a17ed6d43ab81e13d9
+
+with only the already-public u8-to-int prev_nhoff fix applied.
+
+The reproducer sends a 65536-byte IPV6_HDRINCL packet to ::1 with the
+real Fragment Header at fhoff=65528. The loopback raw-output path
+reserves 16 bytes of headroom, so:
+
+  headroom + fhoff = 16 + 65528 = 65544
+
+This value is stored in the u16 skb->transport_header field and wraps
+to 8.
+
+With init_on_alloc=1, the wrapped pointer reads the zeroed headroom as
+a Fragment Header with offset 0 and MF clear. Reassembly completes,
+advances network_header from 16 to 24 while skb->data remains at 16,
+and inet_frag_reasm_finish() passes -8 as the unsigned length to
+skb_push().
+
+The resulting diagnostic is:
+
+  skbuff: skb_under_panic: ... len:65520 put:-8 ...
+  kernel BUG at net/core/skbuff.c
+  skb_push
+  inet_frag_reasm_finish
+  nf_ct_frag6_gather
+  ipv6_defrag
+  rawv6_sendmsg
+  Kernel panic - not syncing: Fatal exception in interrupt
+
+I reproduced the panic in three isolated QEMU runs:
+
+  1. Linux v7.2.8 as root
+  2. The mainline-based u8-fixed baseline as root
+  3. The same mainline-based baseline from outer UID 65534 after
+     entering a new user and network namespace
+
+In the third case, the process had CAP_NET_RAW only inside its new
+user and network namespace. No loopback MTU change was required.
+
+The crash runs used nf_conntrack.enable_hooks=1 to activate IPv6
+conntrack defragmentation. I confirmed from the source that an nftables
+ct expression can also acquire the IPv6 defrag hook in the caller's
+network namespace, but I did not perform an additional crash run using
+only that activation method.
+
+I tested the following minimal guard on top of the public u8 fix:
+
+  if (nhoff != (u16)nhoff ||
+      !skb_set_transport_header_careful(skb, fhoff))
+          return -EINVAL;
+
+With an otherwise identical KASAN configuration:
+
+  - the exact crash packet was safely rejected in 3/3 runs;
+  - short fragmented packets passed in 3/3 runs;
+  - the previous offset-248 and offset-256 cases passed in 3/3 runs;
+  - ordinary IPv6 UDP and TCP passed in 3/3 runs;
+  - no KASAN, WARNING, BUG, Oops, or panic was observed.
+
+I searched current mainline history, lore, Patchwork, and
+linux-cve-announce. I found the existing prev_nhoff u8 fix, but did not
+find an existing patch or commit that checks the u16 nhoff storage or
+uses skb_set_transport_header_careful() in this path.
+
+The demonstrated impact is a local kernel-wide denial of service when
+IPv6 conntrack defragmentation is active. The panic occurs before
+packet delivery, so I found no evidence of information disclosure,
+privilege escalation, arbitrary memory corruption, or remote
+reachability.
+
+Would you prefer this check to be folded into the existing prev_nhoff
+patch, or should I submit it as a separate follow-up patch on top of
+that change? I have the reproducer, serial logs, A/B results, and an
+applyable follow-up patch ready.
+
+Regards,
+Sung Byeongchan
