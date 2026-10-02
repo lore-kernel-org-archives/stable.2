@@ -1,120 +1,174 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E84C723EAB4
-	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 12:15:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D61366562;
+	Fri,  2 Oct 2026 12:29:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790943345; cv=none; b=a+EbWmql3+KtfGWYAFD/MGkvCWJlAYTtUfDSBGzQ/yja9797H1jaIWOape1Oz3+PikKCgpItAuZ4JXDCb0kUoWSr7i4WhCpupx2kTW2YxbAsIm1CiwkXvpRL0S0QxevNgirChpalHyAk9Qjvh2VYGo4ihFcgBjvhdN0KB10TZuw=
+	t=1790944146; cv=none; b=R7kv3WPM7lEg8eJwTssyh5zUboBqt7fKi1rgRlQOtOaUUoAWAruZJ/qoZEUmbqVatb4RKsqP9Bxkw9Ay0RQnYSOi/Vhm3cMa5otZXetryQFw+haibEnn4bNpCNS2wCDEAZAzp7ZgBWsXYu/0vX5Ievm7SOxYFjtOIn+lBeLLW80=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790943345; c=relaxed/simple;
-	bh=uYxCw6azyEkkmrXvnja6gsSOFsjpIawgGYBKjslrraw=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=q7eO9QbXldfX1IAQRGAveBlyrVT05OVD1dTgKJzXR90/jm9o59BWYSQ4zgY4nAA07e138/JxWUujUC0DQMJI364meeNfuvxFDndNEUro9MEgVxlym3XAyYfRtE/8+Q4lKPZ76NmP0HG+JsgLG8DREVVu9gdgST0ImG7AP8El1fA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Dp54dZY+; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790944146; c=relaxed/simple;
+	bh=ciRbaJTfwAJ3dOyS9/3Y9bAYt1vcab+c0z1GDcG2YtE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=flI3Jd3Cd11fpPSoMJY6mopqcUqByFnYalfuZMqqbjv0n4iqo+HHg1h/4Rn7RA5ewd7Dd2y29hSqHO+Y0KkJZN2qk7i4Ol1Ask70UCzCMXixVkpQ+YmWjS+nguHpw/kQC4OL9+gNFbb0j+FSK/gpr7EA461buhMkvkvejqTsqv0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XMRhZpoq; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Dp54dZY+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790943334;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+0DCeacyY2UbnJSYFMUCNpLm1q/fdetDzgMEAhoA3ls=;
-	b=Dp54dZY+6oraWOBNUhSFbAMPyO30/+g0MQKktvCIjUmDqt+9ipg6bbMIjGja7SyP5FLBLP
-	eMqkw6ovjp/6e3q2iE01dUtKTSjzOMZwaH45XgxBC8zgTboKKmzPXCqDea/5OKHluPOk6y
-	D6t5RNWL+B7iKqgxaM3SKsj/BB1wksU=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-279-4i3zlOAONmahGrkNpqIr3w-1; Fri,
- 02 Oct 2026 08:15:31 -0400
-X-MC-Unique: 4i3zlOAONmahGrkNpqIr3w-1
-X-Mimecast-MFC-AGG-ID: 4i3zlOAONmahGrkNpqIr3w_1790943330
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6330B1809C98;
-	Fri,  2 Oct 2026 12:15:29 +0000 (UTC)
-Received: from mpatocka-thinkpadx1carbongen12.rmtcz.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 157F019560AB;
-	Fri,  2 Oct 2026 12:15:26 +0000 (UTC)
-Date: Fri, 2 Oct 2026 14:15:24 +0200 (CEST)
-From: Mikulas Patocka <mpatocka@redhat.com>
-To: Jan Kara <jack@suse.cz>
-cc: Ted Tso <tytso@mit.edu>, linux-ext4@vger.kernel.org, 
-    Baokun Li <libaokun1@huawei.com>, Zhang Yi <yi.zhang@huawei.com>, 
-    Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
-    Ritesh Harjani <ritesh.list@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] ext4: Fix maximum orphan file size check
-In-Reply-To: <20261002115040.2783654-2-jack@suse.cz>
-Message-ID: <9654a96e-918e-9ae4-e255-4931efc74e11@redhat.com>
-References: <20261002115040.2783654-2-jack@suse.cz>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XMRhZpoq"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 3DA91C2BCF4;
+	Fri,  2 Oct 2026 12:29:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790944146;
+	bh=ciRbaJTfwAJ3dOyS9/3Y9bAYt1vcab+c0z1GDcG2YtE=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=XMRhZpoqS3ZpVV5qHWKNBnEa1Cjack7NXR5+zEF9AQHjufF3Nzje0Xwd/5jeZ1QN+
+	 AtTgHKJ1t4m0U2nTVgSx51eE764s4ZsvBJP+PvKKbnI7jqhED04K7K1tZO+r9tKEYf
+	 3SL+cNmMrkKD9AHk5BAID2xK4o9DRErD/vcVv4jtZ7kyIRbzZ9ROEMTXYEaqclgdWK
+	 vI2vcM0eI5UTroefA5kZXsLNyEouhBiBeBmlPpojuOeu8WH80y8z3pb3TdIpK9bmz3
+	 QFC2F56fzJlTmfXO5fgdvVxaJ151VHqzf1Cw7K/m7ZvW14HKnDWS6DT0xaKJpwS2yj
+	 CmV2atk51jvsQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 15CF3CA5FDD;
+	Fri,  2 Oct 2026 12:29:06 +0000 (UTC)
+From: Fredrik Nyberg via B4 Relay <devnull+fredrik.nyberg.volvocars.com@kernel.org>
+Date: Fri, 02 Oct 2026 14:28:57 +0200
+Subject: [PATCH net] net: usb: ax88179_178a: fix rx frame length for
+ non-last packets
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261002-ax88179-rx-len-v1-1-f01a2a295079@volvocars.com>
+X-B4-Tracking: v=1; b=H4sIAIijv2oC/yWMQQqDMBQFryJv3Q9JEE16ldKFid/2i6Ql0RIQ7
+ 97ULmdgZkfmJJxxbXYk/kiWV6ygLw3Cc4gPJhkrwyjTaaUMDcVa3TtKhRaOZH1oXavYWd+hRu/
+ Ek5RzeEPkFfe/zJufOay/FY7jC2PISDp3AAAA
+X-Change-ID: 20261002-ax88179-rx-len-8bc4940e98b6
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: linux-usb@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Simon Horman <horms@kernel.org>, 
+ Jose Alonso <joalonsof@gmail.com>, stable@vger.kernel.org, 
+ Fredrik Nyberg <fredrik.nyberg@volvocars.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790944143; l=4935;
+ i=fredrik.nyberg@volvocars.com; s=20261002; h=from:subject:message-id;
+ bh=IRKcnIrPbqh8pcvFDSL7Xq7XQH9sQAAtncyR8eGC+EY=;
+ b=yeLr4ykB1Bo2Pi9/VFxQzGmWnJCsZ/hSK5WU7sEibPp11igOTBJiDZswizNHZuEvBq8DCclLF
+ D1dlfW5tiGbAp7XFUnT9rqx5nXF2ZYITnLYJmTBIxhvhCx3vFPtbkN0
+X-Developer-Key: i=fredrik.nyberg@volvocars.com; a=ed25519;
+ pk=qID6RVpkd1ixl+9o9DvizyEtYlu5k5KPZfGbD6OqhwI=
+X-Endpoint-Received: by B4 Relay for fredrik.nyberg@volvocars.com/20261002
+ with auth_id=1100
+X-Original-From: Fredrik Nyberg <fredrik.nyberg@volvocars.com>
+Reply-To: fredrik.nyberg@volvocars.com
 
+From: Fredrik Nyberg <fredrik.nyberg@volvocars.com>
 
+Commit 4ce62d5b2f7a ("net: usb: ax88179_178a: stop lying about
+skb->truesize") replaced skb_clone() with a copy into a new skb for
+every packet of a bulk-in transfer except the last one. The copy skips
+the 2-byte IP alignment pseudo header but still copies pkt_len bytes,
+and pkt_len includes that header. Each of these frames is therefore
+delivered with two extra trailing bytes: the 0xeeee pseudo header of
+the next slot when the frame ends on an 8-byte boundary, or slot
+padding otherwise. The last packet is still trimmed to pkt_len - 2.
 
-On Fri, 2 Oct 2026, Jan Kara wrote:
+IPv4 and IPv6 trim the extra bytes, so most traffic is unaffected.
+Anything that relies on the frame length is not. MACsec takes the ICV
+from the last 16 bytes and drops every such frame as InPktsNotValid. In
+our setup that was 0.2-1.2% of received MACsec frames, depending on how
+many frames shared a transfer, including service discovery multicast.
 
-> Mikulas reported that e2fsprogs 1.47.4 with 1k fs blocksize by default
-> creates orphan file of the size the kernel rejects. This is because that
-> version of e2fsprogs creates 2MB file by default regardless of the block
-> size and with 1k blocks that's more than the limit of 512 fs blocks.
-> Fix the check to make kernel accept any file upto those 2MB regardless
-> of the number of blocks.
-> 
-> Fixes: 7c11c56eb32e ("ext4: align max orphan file size with e2fsprogs limit")
-> CC: stable@vger.kernel.org
-> Reported-by: Mikulas Patocka <mpatocka@redhat.com>
-> Link: https://lore.kernel.org/all/e65cdbfe-3ff9-4638-fbd3-4d8f8880966f@redhat.com
-> Signed-off-by: Jan Kara <jack@suse.cz>
+Allocate and copy pkt_len - 2 bytes, like the last-packet path.
 
-Tested-by: Mikulas Patocka <mpatocka@redhat.com>
-Reviewed-by: Mikulas Patocka <mpatocka@redhat.com>
+Fixes: 4ce62d5b2f7a ("net: usb: ax88179_178a: stop lying about skb->truesize")
+Cc: stable@vger.kernel.org
+Signed-off-by: Fredrik Nyberg <fredrik.nyberg@volvocars.com>
+---
+Found on Ubuntu 6.8.0-138-generic, whose ax88179_178a.ko carries this
+change (it imports __netdev_alloc_skb and skb_put, not skb_clone), with
+an ASIX AX88179 (0b95:1790, bcdDevice 1.00) on a USB 3.0 port and a
+1000 Mb/s link. The code is unchanged in current mainline.
 
-Mikulas
+Bulk TCP from an embedded board (Linux 4.14, stmmac) into the AX88179,
+captured with tcpdump on the sender's Ethernet interface and on the
+receiver, and matched frame by frame:
 
-> ---
->  fs/ext4/orphan.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
-> 
-> diff --git a/fs/ext4/orphan.c b/fs/ext4/orphan.c
-> index b4675aa7ea96..7394d04e0fd9 100644
-> --- a/fs/ext4/orphan.c
-> +++ b/fs/ext4/orphan.c
-> @@ -576,6 +576,7 @@ int ext4_init_orphan_info(struct super_block *sb)
->  	int inodes_per_ob = ext4_inodes_per_orphan_block(sb);
->  	struct ext4_orphan_block_tail *ot;
->  	ino_t orphan_ino = le32_to_cpu(EXT4_SB(sb)->s_es->s_orphan_file_inum);
-> +	loff_t max_size;
->  
->  	if (!ext4_has_feature_orphan_file(sb))
->  		return 0;
-> @@ -589,8 +590,13 @@ int ext4_init_orphan_info(struct super_block *sb)
->  	 * This is just an artificial limit to prevent corrupted fs from
->  	 * consuming absurd amounts of memory when pinning blocks of orphan
->  	 * file in memory.
-> +	 *
-> +	 * e2fsprogs 1.47.4 produces 2MB orphan files by default regardless
-> +	 * of the number of blocks so that's where the second limit comes from.
->  	 */
-> -	if (inode->i_size > (EXT4_MAX_ORPHAN_FILE_BLOCKS << inode->i_blkbits)) {
-> +	max_size = max(EXT4_MAX_ORPHAN_FILE_BLOCKS << inode->i_blkbits,
-> +		       2 << 20);
-> +	if (inode->i_size > max_size) {
->  		ext4_msg(sb, KERN_ERR, "orphan file too big: %llu",
->  			 (unsigned long long)inode->i_size);
->  		ret = -EFSCORRUPTED;
-> -- 
-> 2.51.0
-> 
+  path            frames  +2 bytes  other differences  InPktsNotValid
+  802.1Q 16 MB/s    5812      2665                  0               -
+  MACsec  5 MB/s    6208        15                  0            +14*
+  MACsec  5 MB/s    6112        32                  0            +31*
+
+  * counter window slightly shorter than the capture
+
+- No frame was lost or changed apart from the two extra bytes. RX
+  checksum offload on or off made no difference.
+- In the 802.1Q run every frame ended on an 8-byte slot boundary. Of the
+  frames that were not the last in their transfer, 2662 of 2664 had the
+  extra bytes, always ee ee; of the last frames, 3 of 3148 did. Transfer
+  membership was inferred from receive timestamps, so a few frames are
+  misclassified.
+- A usbmon capture of 1393 bulk-in transfers showed that the device
+  reported the correct length (pkt_len = frame length + 2) for all 2458
+  IP frames and that every slot started with ee ee. For the 1061 aligned
+  packets that were not last, copying pkt_len bytes from data + 2 takes
+  exactly the next slot's ee ee, so the bytes are added by rx_fixup, not
+  by the device.
+
+To reproduce without MACsec: turn GRO off, receive a bulk TCP stream on
+the adapter while running tcpdump, and count frames of 64 bytes or more
+that are longer than their headers plus the IP total length. On an
+affected kernel many of them end in ee ee. I can send the small script
+I used.
+
+Tested with this change applied to the 6.8.0-138 driver, built as a
+module, back to back with the stock module on the same setup (8 MB per
+path, matched frame by frame against the sender capture):
+
+  driver   path    RX csum  frames  +2 bytes  InPktsNotValid  retrans
+  stock    802.1Q  on         5792      2835               -        -
+  stock    MACsec  on         6141        25             +23      +21
+  patched  802.1Q  on         5818         0               -        -
+  patched  MACsec  on         6299         0              +0       +0
+  patched  802.1Q  off        5820         0               -        -
+  patched  MACsec  off        6255         0              +0       +0
+
+With the patch every received frame was identical to the sent one.
+ax88179_rx_fixup() is the same in 6.8.0-138 and in net, and the patch
+builds on net with W=1 without warnings.
+---
+ drivers/net/usb/ax88179_178a.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/usb/ax88179_178a.c b/drivers/net/usb/ax88179_178a.c
+index 81d8412ce8..cba1dc95d3 100644
+--- a/drivers/net/usb/ax88179_178a.c
++++ b/drivers/net/usb/ax88179_178a.c
+@@ -1457,11 +1457,11 @@ static int ax88179_rx_fixup(struct usbnet *dev, struct sk_buff *skb)
+ 			return 1;
+ 		}
+ 
+-		ax_skb = netdev_alloc_skb_ip_align(dev->net, pkt_len);
++		ax_skb = netdev_alloc_skb_ip_align(dev->net, pkt_len - 2);
+ 		if (!ax_skb)
+ 			return 0;
+-		skb_put(ax_skb, pkt_len);
+-		memcpy(ax_skb->data, skb->data + 2, pkt_len);
++		skb_put(ax_skb, pkt_len - 2);
++		memcpy(ax_skb->data, skb->data + 2, pkt_len - 2);
+ 
+ 		ax88179_rx_checksum(ax_skb, pkt_hdr);
+ 		usbnet_skb_return(dev, ax_skb);
+
+---
+base-commit: 71a77ab76e74131a101f4d2d2afb0dcbf81b4e3c
+change-id: 20261002-ax88179-rx-len-8bc4940e98b6
+
+Best regards,
+--  
+Fredrik Nyberg <fredrik.nyberg@volvocars.com>
+
 
