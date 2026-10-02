@@ -1,79 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 108FD490BFB;
-	Fri,  2 Oct 2026 12:14:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E84C723EAB4
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 12:15:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790943263; cv=none; b=mPtgOli9NnypeS6yakLDXgOb9APcuXrjpl/bkzyOIdZQZQ40sDDKzmMWezsTQfrLTzV7sYGSU3EBh7Q3GUbn88AqAiGE4S+LJfaNq6s0l3od1LtIZRAdShbB5f5zvjPoSjw0fzy3f5JMAO38RHeAEcNq+HDbs+uooYyWP/01m9Q=
+	t=1790943345; cv=none; b=a+EbWmql3+KtfGWYAFD/MGkvCWJlAYTtUfDSBGzQ/yja9797H1jaIWOape1Oz3+PikKCgpItAuZ4JXDCb0kUoWSr7i4WhCpupx2kTW2YxbAsIm1CiwkXvpRL0S0QxevNgirChpalHyAk9Qjvh2VYGo4ihFcgBjvhdN0KB10TZuw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790943263; c=relaxed/simple;
-	bh=nIt68TE7y1O0CfVvkllv8sjdcnXQbkPNc87TN1h2iIs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZyOe5Z4xdQxJP+nUj9OrfUbtjs/DbI2k9qI+TLyZ2S5YQxga9rp612TD5+oU+Ll3WkL6EVV+R30SipLgShbOiBxqeB9Iyn0BLwSlx0pLa5U4E79+cmdngRH7HulMPU6EnEgkeQDBvxgYnsrIgamRnQX13xpDxluO5Q1RowbxvlQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=A+IsQuXr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790943345; c=relaxed/simple;
+	bh=uYxCw6azyEkkmrXvnja6gsSOFsjpIawgGYBKjslrraw=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=q7eO9QbXldfX1IAQRGAveBlyrVT05OVD1dTgKJzXR90/jm9o59BWYSQ4zgY4nAA07e138/JxWUujUC0DQMJI364meeNfuvxFDndNEUro9MEgVxlym3XAyYfRtE/8+Q4lKPZ76NmP0HG+JsgLG8DREVVu9gdgST0ImG7AP8El1fA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Dp54dZY+; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="A+IsQuXr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9911D1F000FF;
-	Fri,  2 Oct 2026 12:14:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790943252;
-	bh=q9BR54I+jgzETkj91nIAVu54D+wwlaq9nSE6W3+tQOA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=A+IsQuXrscQEGtZq2o0OmJvM3nq8+2evlEr7FFnwOgPZRqB8Txd+OZU3E+hwWJogd
-	 WedeoJbUM94mqiTUUl8awPK1rXGpPw22NJVPomobY53CCts2+JppZcEjI4BnTsULVa
-	 icYTx60ETs261xYH9T6J0NFubxvIpcRbbvJPINwM=
-Date: Fri, 2 Oct 2026 14:14:04 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: jungwon park <jwpark@whitecode.co.kr>
-Cc: stable@vger.kernel.org, gnault@redhat.com, netdev@vger.kernel.org
-Subject: Re: [PATCH 6.1 000/982] 6.1.189-rc1 review
-Message-ID: <2026100245-diffused-handball-90e8@gregkh>
-References: <a1a0f247-e847-4598-9b84-9840ddbf50b4@whitecode.co.kr>
- <0f382474-d85d-4736-8ee8-e934a96ae2d2@whitecode.co.kr>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Dp54dZY+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790943334;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+0DCeacyY2UbnJSYFMUCNpLm1q/fdetDzgMEAhoA3ls=;
+	b=Dp54dZY+6oraWOBNUhSFbAMPyO30/+g0MQKktvCIjUmDqt+9ipg6bbMIjGja7SyP5FLBLP
+	eMqkw6ovjp/6e3q2iE01dUtKTSjzOMZwaH45XgxBC8zgTboKKmzPXCqDea/5OKHluPOk6y
+	D6t5RNWL+B7iKqgxaM3SKsj/BB1wksU=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-279-4i3zlOAONmahGrkNpqIr3w-1; Fri,
+ 02 Oct 2026 08:15:31 -0400
+X-MC-Unique: 4i3zlOAONmahGrkNpqIr3w-1
+X-Mimecast-MFC-AGG-ID: 4i3zlOAONmahGrkNpqIr3w_1790943330
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6330B1809C98;
+	Fri,  2 Oct 2026 12:15:29 +0000 (UTC)
+Received: from mpatocka-thinkpadx1carbongen12.rmtcz.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 157F019560AB;
+	Fri,  2 Oct 2026 12:15:26 +0000 (UTC)
+Date: Fri, 2 Oct 2026 14:15:24 +0200 (CEST)
+From: Mikulas Patocka <mpatocka@redhat.com>
+To: Jan Kara <jack@suse.cz>
+cc: Ted Tso <tytso@mit.edu>, linux-ext4@vger.kernel.org, 
+    Baokun Li <libaokun1@huawei.com>, Zhang Yi <yi.zhang@huawei.com>, 
+    Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
+    Ritesh Harjani <ritesh.list@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH] ext4: Fix maximum orphan file size check
+In-Reply-To: <20261002115040.2783654-2-jack@suse.cz>
+Message-ID: <9654a96e-918e-9ae4-e255-4931efc74e11@redhat.com>
+References: <20261002115040.2783654-2-jack@suse.cz>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <0f382474-d85d-4736-8ee8-e934a96ae2d2@whitecode.co.kr>
+Content-Type: text/plain; charset=US-ASCII
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-On Fri, Oct 02, 2026 at 02:16:50PM +0900, jungwon park wrote:
-> > This is the start of the stable review cycle for the 6.1.189 release.
-> > There are 982 patches in this series, all will be posted as a response
-> > to this one.  If anyone has any issues with these being applied, please
-> > let me know.
-> >
-> > Responses should be made by Fri, 02 Oct 2026 15:23:04 +0000.
-> > Anything received after that time might be too late.
-> >
-> > The whole patch series can be found in one patch at:
-> >  https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.1.189-rc1.gz
-> > or in the git tree and branch at:
-> >  git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-> linux-6.1.y
-> > and the diffstat can be found below.
-> >
-> > thanks,
-> >
-> > greg k-h
-> 
-> Hi!
-> 
-> VXLAN stops working after applying patch-6.1.189-rc1.
-> 
-> all VXLAN packets are dropped (only the "dropped" counter keeps increasing).
-> This appears to be caused by the patch titled "vxlan: Pull inner IP header
-> in vxlan_xmit_one()" - 667b5d5945e8947868fef8d75bf3ce4accb81b30.
-> 
-> It seems likely that this patch was written before the change to
-> skb_vlan_inet_prepare() (net: tunnel: make skb_vlan_inet_prepare() return
-> drop reasons) was implemented - 6dedc8c2a4bfc64ef07410634e944c0506eb98c1).
 
-Thanks, I'll go drop this from 6.1.y, 5.15.y, and 5.10.y
 
-greg k-h
+On Fri, 2 Oct 2026, Jan Kara wrote:
+
+> Mikulas reported that e2fsprogs 1.47.4 with 1k fs blocksize by default
+> creates orphan file of the size the kernel rejects. This is because that
+> version of e2fsprogs creates 2MB file by default regardless of the block
+> size and with 1k blocks that's more than the limit of 512 fs blocks.
+> Fix the check to make kernel accept any file upto those 2MB regardless
+> of the number of blocks.
+> 
+> Fixes: 7c11c56eb32e ("ext4: align max orphan file size with e2fsprogs limit")
+> CC: stable@vger.kernel.org
+> Reported-by: Mikulas Patocka <mpatocka@redhat.com>
+> Link: https://lore.kernel.org/all/e65cdbfe-3ff9-4638-fbd3-4d8f8880966f@redhat.com
+> Signed-off-by: Jan Kara <jack@suse.cz>
+
+Tested-by: Mikulas Patocka <mpatocka@redhat.com>
+Reviewed-by: Mikulas Patocka <mpatocka@redhat.com>
+
+Mikulas
+
+> ---
+>  fs/ext4/orphan.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/ext4/orphan.c b/fs/ext4/orphan.c
+> index b4675aa7ea96..7394d04e0fd9 100644
+> --- a/fs/ext4/orphan.c
+> +++ b/fs/ext4/orphan.c
+> @@ -576,6 +576,7 @@ int ext4_init_orphan_info(struct super_block *sb)
+>  	int inodes_per_ob = ext4_inodes_per_orphan_block(sb);
+>  	struct ext4_orphan_block_tail *ot;
+>  	ino_t orphan_ino = le32_to_cpu(EXT4_SB(sb)->s_es->s_orphan_file_inum);
+> +	loff_t max_size;
+>  
+>  	if (!ext4_has_feature_orphan_file(sb))
+>  		return 0;
+> @@ -589,8 +590,13 @@ int ext4_init_orphan_info(struct super_block *sb)
+>  	 * This is just an artificial limit to prevent corrupted fs from
+>  	 * consuming absurd amounts of memory when pinning blocks of orphan
+>  	 * file in memory.
+> +	 *
+> +	 * e2fsprogs 1.47.4 produces 2MB orphan files by default regardless
+> +	 * of the number of blocks so that's where the second limit comes from.
+>  	 */
+> -	if (inode->i_size > (EXT4_MAX_ORPHAN_FILE_BLOCKS << inode->i_blkbits)) {
+> +	max_size = max(EXT4_MAX_ORPHAN_FILE_BLOCKS << inode->i_blkbits,
+> +		       2 << 20);
+> +	if (inode->i_size > max_size) {
+>  		ext4_msg(sb, KERN_ERR, "orphan file too big: %llu",
+>  			 (unsigned long long)inode->i_size);
+>  		ret = -EFSCORRUPTED;
+> -- 
+> 2.51.0
+> 
+
