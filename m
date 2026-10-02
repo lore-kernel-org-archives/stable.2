@@ -1,64 +1,131 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A91C634D93B;
-	Fri,  2 Oct 2026 08:47:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 338BD46983E;
+	Fri,  2 Oct 2026 08:48:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790930837; cv=none; b=hHoYih6D8TsMEnXrmDooHnFOfQaWfDTcEdZzXwb0FiZpI7SyarWh5ANyj57pEet22LQOOdB8MtSegGfxHdOYfr/zZ5jXK4rF305sgF0YDe5QFcfb/6Qmyz1az+iw7f4axJjzjKOdRv4VUO7TwJ1IwEl+Tt8tCG602gQtToXtIB4=
+	t=1790930908; cv=none; b=PcUm3BLZd1E0iSxeuQ5Y+jlrqP0m5FLouU03ZaI13XUVVQPHpUwMiO9qdSiS5GkGCKoTCraN6VVpzfY3XcvqskwRytSG32RxZ52/8Au1AjBRbueFIAfpJi3Mpq3A7fGo1phS2JH0yYZwcA1Gn53kEuXiDryD1+HSrCtxNes0UR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790930837; c=relaxed/simple;
-	bh=hVOz908t2cZmy6VXUZQImpY0IKZJsG7Xkb3godpcYcs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=btisw+jdT8gEIWTjvA0bAEilar+BT6xLWMiq3xPOd4eM4RJ036qG9YUSMD02UWELH4fHBOxH4jKiwIqM5hdHVTkJHnuM5GMdFvd79RwrDuPw/dSPCAJoVVjbRg307CXu/PpjibXq2f8XzueGaNA6IdXv7LM1ZQ/E9KghwVIh0lw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lMhtfK1E; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790930908; c=relaxed/simple;
+	bh=Na7ttsROGIgypamFd07Z45vJtly4uZhd+l6H3RrKkl0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=E3YviujihhzcIpIgzcNhBhyjnx4lpPlW/Lnn+xY95p0X2Xv625BVEjLOXZTzIOwLfqnwrM2oYbkrYZzwWeitj+1Jr0d9qOQtZmYn5ty3DpygBgoNFbOjXnY+3zWO+Bwmr4BbCRxt9Q3FC4bSMpmnujamXmnO/HuhN1HabDqwynA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JY3PY1sn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lMhtfK1E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C68C1F000FF;
-	Fri,  2 Oct 2026 08:47:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790930829;
-	bh=Wc5kj5a4BpJ0OUjNppS6cd6+ts5TUkYQzcs344JsTqE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=lMhtfK1ED4A4i355voFk8eOvtLT3sE5nZaPhTYZ1+1VeqtKW9pwjFNn34QjGkHY+I
-	 SwV8A0CYITISTzI1rmXrXYqcW/MsCUXrVi2VJKV3xV8qwbN54knexwFut04tG06CQy
-	 Tew8GUcxBywV04lQ2V5OVnpk9hyujljNm+TGJhM+iDT15Ot89xjcBY8JGA/1outZgR
-	 X4c/z4y4igSCBJn6YZBzeBD/R8A9DxmJuRknbFbhZriAEdqX9S9jxaJ81o3RmfK1rO
-	 CbQQ+bcmUaehpFykSMdRv4qTsitcE+6PdelzDD40iAWbLmFBEQNmospVWIqDC1OKX/
-	 XTYxVqH7crF6A==
-Message-ID: <09730dfc-b748-45f7-b740-33c95a102dc1@kernel.org>
-Date: Fri, 2 Oct 2026 11:47:04 +0300
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JY3PY1sn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14C4B1F000FF;
+	Fri,  2 Oct 2026 08:48:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790930902;
+	bh=HEGs9kHa0TiHGf66DJlVENZUH1Lhub3FFh1B/94+6gs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JY3PY1sn9BvQSNCiE8xRA+B3lRWTLO3uf9f79hEg7wCW1Iibe2Nc/L5eAncUHu2SB
+	 U27no90dJLRH4pZgDGVG2TccVQGd0Db9g+SEhGKG3cWx/8MLGmIR0s2Ptd6JD0VDuZ
+	 zLThX2wWrJuJCOIf+gx6LEWapzf5B5KMHU7Nrj54=
+Date: Fri, 2 Oct 2026 10:48:15 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	Kuniyuki Iwashima <kuniyu@amazon.com>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Sasha Levin <sashal@kernel.org>
+Subject: Re: [PATCH 6.12 092/877] neighbour: Use rtnl_register_many().
+Message-ID: <2026100206-eloquence-mortality-a0e8@gregkh>
+References: <20260930152414.738996857@linuxfoundation.org>
+ <20260930152416.722458210@linuxfoundation.org>
+ <d26d9da3-5d91-41f5-9270-863f34c772bd@oracle.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] i3c: renesas: Fix MDYAD(x) field length
-To: Diogo Ivo <diogo.ivo.sx@renesas.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Frank Li <Frank.Li@nxp.com>
-Cc: linux-i3c@lists.infradead.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261001-divo-ssgrlpcsrc-2966-i3c_mdyad-v1-1-2250225e6d20@renesas.com>
-Content-Language: en-US
-From: Claudiu Beznea <claudiu.beznea@kernel.org>
-In-Reply-To: <20261001-divo-ssgrlpcsrc-2966-i3c_mdyad-v1-1-2250225e6d20@renesas.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d26d9da3-5d91-41f5-9270-863f34c772bd@oracle.com>
 
-
-
-On 10/1/26 18:10, Diogo Ivo wrote:
-> Fix the length of the MDYAD(x) macro to be 7 bits as it represents an
-> I3C address, which is 7 bits. The length of this field was confirmed on
-> the documentation of the RZ/G3{E,L,S} SoCs.
+On Fri, Oct 02, 2026 at 12:49:41AM +0530, Harshit Mogalapalli wrote:
 > 
-> Fixes: d028219a9f148 ("i3c: master: Add basic driver for the Renesas I3C controller")
-> Cc:stable@vger.kernel.org
-> Signed-off-by: Diogo Ivo<diogo.ivo.sx@renesas.com>
+> 
+> On 30/09/26 8:46 pm, Greg Kroah-Hartman wrote:
+> > 6.12-stable review patch.  If anyone has any objections, please let me know.
+> > 
+> > ------------------
+> > 
+> > From: Kuniyuki Iwashima <kuniyu@amazon.com>
+> > 
+> > [ Upstream commit d0d14aef50a6184426c5a05b9815fb2697d6d42c ]
+> > 
+> > We will remove rtnl_register() in favour of rtnl_register_many().
+> > 
+> > When it succeeds, rtnl_register_many() guarantees all rtnetlink types
+> > in the passed array are supported, and there is no chance that a part
+> > of message types is not supported.
+> > 
+> > Let's use rtnl_register_many() instead.
+> > 
+> > Signed-off-by: Kuniyuki Iwashima <kuniyu@amazon.com>
+> > Reviewed-by: Eric Dumazet <edumazet@google.com>
+> > Link: https://patch.msgid.link/20241014201828.91221-4-kuniyu@amazon.com
+> > Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+> > Stable-dep-of: 979aabdad8dd ("neighbour: Skip default parms when resumed in neightbl_dump_info().")
+> > Signed-off-by: Sasha Levin <sashal@kernel.org>
+> > ---
+> >   net/core/neighbour.c | 19 ++++++++++---------
+> >   1 file changed, 10 insertions(+), 9 deletions(-)
+> > 
+> > diff --git a/net/core/neighbour.c b/net/core/neighbour.c
+> > index bf07438d6dfa5..1dd9f85b74997 100644
+> > --- a/net/core/neighbour.c
+> > +++ b/net/core/neighbour.c
+> > @@ -3898,17 +3898,18 @@ EXPORT_SYMBOL(neigh_sysctl_unregister);
+> >   #endif	/* CONFIG_SYSCTL */
+> > +static const struct rtnl_msg_handler neigh_rtnl_msg_handlers[] __initconst = {
+> > +	{.msgtype = RTM_NEWNEIGH, .doit = neigh_add},
+> > +	{.msgtype = RTM_DELNEIGH, .doit = neigh_delete},
+> > +	{.msgtype = RTM_GETNEIGH, .doit = neigh_get, .dumpit = neigh_dump_info,
+> > +	 .flags = RTNL_FLAG_DUMP_UNLOCKED},
+> > +	{.msgtype = RTM_GETNEIGHTBL, .dumpit = neightbl_dump_info},
+> > +	{.msgtype = RTM_SETNEIGHTBL, .doit = neightbl_set},
+> > +};
+> > +
+> 
+> I ran an AI-assisted backport review and it flagged this; I independently
+> checked the upstream code and 6.12.y at f4ffa8dc360b.
+> 
+> Upstream __rtnl_register_many() at
+> d0d14aef50a6184426c5a05b9815fb2697d6d42c, net/core/rtnetlink.c:
+> 
+> if (err) {
+>     if (!handler->owner)
+>         panic("Unable to register rtnetlink message "
+>               "handlers, %pS\n", handlers);
+> 
+>     __rtnl_unregister_many(handlers, i);
+>     break;
+> }
+> 
+> 6.12.y's net/core/rtnetlink.c:
+> 
+> if (err) {
+>     __rtnl_unregister_many(handlers, i);
+>     break;
+> }
+> 
+> neigh_init() ignores the helper's return value. On allocation failure,
+> the helper rolls back the batch, so boot can continue with none of the
+> five neighbour handlers. Previously, failures were logged and the
+> other registrations continued. This boot-time failure path remains at
+> the review tip; upstream makes failed built-in registration fatal.
+> 
+> I think 6.12 should take 09aec57d8379f14ffde566621b920d97cc0c46e1
+> ("rtnetlink: Panic when __rtnl_register_many() fails for builtin
+> callers.") before this conversion so the ignored failure cannot silently
+> continue, thoughts?
+> 
+> Lets drop this until we also take a prereq ?
 
-Reviewed-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+I've dropped the whole series now, thanks.
+
+greg k-h
