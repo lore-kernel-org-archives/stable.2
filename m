@@ -1,126 +1,136 @@
-Received: from mail-ed2-f32.google.com (mail-ed2-f32.google.com [74.125.228.96])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6EFD429825
-	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 10:09:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.96
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B341B87C0;
+	Fri,  2 Oct 2026 10:10:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790935777; cv=none; b=l0X6R0GLyCoJHIQAcuOSj1QPRS9JqQIkxGATfP2If+DhpvwqYQKRglM/t05KIxQdr1gkZ9GjJgmV1Wfo2fF4Q9Nc79NQSZtOfxjx/K4w/jAyfY7Z3ylqcCik/lLZXcq0wOEOP53iDE0GLur3Y99CpVUg1KoJO5QHMvbxSbqYHF8=
+	t=1790935820; cv=none; b=P+Qqg8o2ASY4l8Pp87WcufThvGSe1CQ8uWs5IX8copA58022outzo9B9dBApeEKyQ5JeyZvel3+/6Bvrb02K/UpBe1SkdFljDQdGORKgP+DVF6ER7zjb8uoXbmi0BeHN/a4uhx8RzhlgwSYpFiTUsq3c1sh9396yUut6IpmPpWI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790935777; c=relaxed/simple;
-	bh=Rpcyir0pucMYwxwpWT3J9PaLulRi5dtQNJE0Rr4sZxM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GiR2LeZAZOgi2VTdu7Z/tp3v9kb5Vva/RL/KlQqm9JtQKwhuNkcssz6ZNdODkkrxbYXqGbhhhwRLNJi5EpSUbzbCdXm0Py6amN5/eFI9WH+EnNLd3rOJ83oF/ZBANgaTwLgIVzBh8jaOX17qFZ3+XGXI61yBIz3A4qvbONdaYhM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EBKryzqF; arc=none smtp.client-ip=74.125.228.96
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790935820; c=relaxed/simple;
+	bh=ZXTEuJkN+jyGhP+NASBflSms8faUWwcyD/4mTMboVj4=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=Hx8LZUJ9ZDXM/uSPdZpHe709LX5N0CR23BxBNRWSAwDWx9Aqx1j1/Ny0hrDgGhgDNJJs0sMwsArVR2sk00ecmybxUXOqlBamLX7nHIUAgl8TsIkGXTejCea+fMZRzMRGUU1z0A3qkqEiSHnvlxea5T/rhUqjSFgdxPYJqu1BEgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=I1SHgeMI; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EBKryzqF"
-Received: by mail-ed2-f32.google.com with SMTP id 4fb4d7f45d1cf-6acb8b78d6cso6072323a12.2
-        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 03:09:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790935773; x=1791540573; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OaHZhhfoGTOQXtD+qa+qVp4d/gsPVtdPnGCiXPLugxM=;
-        b=EBKryzqFqcfR5/P4sFDZ2d4sqtg89IR9iUAd+eCHQc+GQdaRaLm0h3CvomdR8Ui+KK
-         qtdwnOhp9vgaspoisjuY4rJr4wSyMgDX6TjC8kLz7XAsUPWXAI4B7sXsajJR1x9ayU0b
-         TwvBGyZfTSrXPWO9X6yLctO1yWBhY7yHhWd6JHdmIFxdzA4qW8WImgLfqLCS7YKinL/i
-         bZSu/rHGLRJxx+/UN9rNWflb6D0w1JfpYekadgoz20WChKzmpsk5+u2O06CDMwIpX8UK
-         AM0iFXg53SeI2tdHxJc6ta0F5+YnitnNzUYsL6QXcCBnefRpRqI1v+DfmHWNk/dWeZFI
-         zJow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790935773; x=1791540573;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OaHZhhfoGTOQXtD+qa+qVp4d/gsPVtdPnGCiXPLugxM=;
-        b=z6dnqTPjVooe7kuZ8F4YAHUeRdGTwhKpZvq/2mmuk0Od0Gwgvxo6gT3iAIPm29kk4T
-         2cOkKLrZA0irHsw+lmURb9t+lOG18XDdSuzwtEuetMIzmmsJwJQEAwbk/e+oPaqPOT26
-         VOhNJJuhvs/DCboy6eoeEpO3jdo2TrwY/Z68SnAz9pKxZiTKGsaaAJtMyW1ZzWRLlT+J
-         S7KCiESWFVkVD+AmfS8jD5lU4XlriaOCYmy7ttpkd9mTRwPn3G/3lCIxMerxgur6/2mo
-         EJs3foZxHqHcT0/UAlh/2yVTGEnFLk0l8Y6VAcag2iPHMaH/0DSdsoVHJ1BxSjcer8pY
-         q9UQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwF9T4Ofrc0kDu+VPneSEAqrneBBYa+wcP7oTu4n8hrVXQdbELfqZG4IBuQ23IcaVCSXTww3YY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKygj52i/pS/q94xTsmYtNleiWwoQFdLHibQALPeEihInxkqmdK
-	2dbQtTC/ooF0nQQZgbWvhoA1wwE9eV4WzD8OGXdwGiW9YKNtmPeNWjz9
-X-Gm-Gg: AYBFou0WpbBkNxf27vdBMSwCEL5hFuFoTlvMiyJdV7r27vizrGRKMqS+Gnkexow/uyo
-	0AdrO8HtLXAmCaQYFK/LdmsCcNwDSjKdr1yn6rbiDN6f1huhUcNwqlXOrpS1H1nM6vGz0TmGWLW
-	0EimDBe/qECUdYYM+Zp0pJL7qIPDpCdJHzYo06HZnukkbzWvLOgWFaSKFPUR23su8zs1ea5DZO4
-	T2Ylm2ngYa28N+NVkEcbVFCYlj0V2rdBK1Dndyi7FE/V/tqRnGsa9F/AakO9FsSE5PByG5ws9CR
-	Ru6sEHrlFcAbB9See/xG4PDKgxKPywJsf/uel8kYeQcI/Bp1N2NnlJjJs1t4jwXODyWXTVC9BwC
-	Y/LwKLyqrW8vlD5INSCABiDjc68dOSFlXSG9Nsca6sya/00RvWc+zy98df4aLp6Zmtgi9Yx+DA2
-	kGMxv0Jqi7KDv9iHIWkmddsa/l+K27NDYABqdcmtIi5rwwe6fmwuhBxHwFgPqEzaW9MEUSPg==
-X-Received: by 2002:a05:6402:5113:b0:6aa:985c:7bae with SMTP id 4fb4d7f45d1cf-6af9e2e13d3mr1400063a12.20.1790935772569;
-        Fri, 02 Oct 2026 03:09:32 -0700 (PDT)
-Received: from Ubuntu-24.04 ([62.171.228.246])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6af9d889452sm753687a12.14.2026.10.02.03.09.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 03:09:32 -0700 (PDT)
-From: Alexander Kochetkov <al.kochet@gmail.com>
-To: linux-input@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Siarhei Volkau <lis8215@gmail.com>,
-	Paul Cercueil <paul@crapouillou.net>,
-	Alexander Kochetkov <al.kochet@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] Revert "Input: matrix_keypad - force switch rows to input mode"
-Date: Fri,  2 Oct 2026 13:09:35 +0300
-Message-ID: <20261002100935.449473-1-al.kochet@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="I1SHgeMI"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4D02EA02DB;
+	Fri,  2 Oct 2026 12:10:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1790935814; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=BfL6SKTLkWrhN/wsJ7rNqoRO9lvotlnH5Ssl/GHYpKE=;
+	b=I1SHgeMI2oUSvOtZ8BoNQV1vxsvRVddvcmtNwTeKiaFtt/w+CBgmp8Tdefs2bs38sXLrwK
+	pYmCENY6TbiXBfFqRZKYmUzso1autjg+eUkr1STTsj5UmFyh1uPPPUjKoHjzMVFgSxCRWV
+	qegcshsOAgi4tC5eZWHLq2JZdp6OcdZXURvwB3pQqfvdeT7IAXy79S1gc9xOazAWRrtdC5
+	D5HPuGMSQNQcAseZ0NWZJyt+9vrNUQkq2ZO05DCEoOtKhfLwf4I11Ml/2tcdEqE70j3B41
+	r6J9tysrfF4YKFD/7aFA//TuET79LynJH3wllc/QQmQFEvEgld0+FScBfGLjvw==
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Fri, 02 Oct 2026 12:10:03 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: taozj888@163.com
+Cc: theo.lebrun@bootlin.com, stable@vger.kernel.org, Conor Dooley
+ <conor.dooley@microchip.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
+ Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Haavard
+ Skinnemoen <hskinnemoen@atmel.com>, Jeff Garzik <jeff@garzik.org>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v2] net: macb: rate limit netdev error info print in
+ the data path
+In-Reply-To: <20260930113520.392025-1-taozj888@163.com>
+References: <20260930113520.392025-1-taozj888@163.com>
+Message-ID: <b06cb02d9b26ceff272d7e34927a7eac@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-This reverts commit 01c84b03d80aab9f04c4e3e1f9085f4202ff7c29.
+Hi Zijin
 
-The commit makes every scan call gpiod_direction_input() on the row
-GPIOs. On pin controllers where GPIO input and interrupt are separate
-pinmux functions this switches the row pins out of interrupt mode, and
-enable_row_irqs() does not switch them back: it only unmasks the
-interrupts. Row interrupts then never arrive and the keypad stops
-working. Seen with a matrix keypad on an Allwinner A64 board (PINE
-A64-LTS); it works again with the commit reverted.
+On 30.9.2026 13:35, taozj888@163.com wrote:
+> From: taozijin <taozj888@163.com>
+> 
+> Now the MACB ethernet driver print the netdev error information
+> directly by netdev_err(), which would lead to a large number of
+> error information print if there was a significant number of
+> error or just jumbo packets exceeding the MTU received when booting.
+> For example, it would print a large number of:
+> 
+> macb PHYT0036:00 eth0: not whole frame pointed by descriptor
+> macb PHYT0036:00 eth0: not whole frame pointed by descriptor
+> ...
 
-The workaround is not needed on Ingenic either: the author of the
-reverted commit re-tested all available JZ47xx SoCs and they all report
-the live pin state in interrupt mode, see the thread in Link.
+Out of interest: Is this a Phytium vendor kernel?
 
-Fixes: 01c84b03d80a ("Input: matrix_keypad - force switch rows to input mode")
-Link: https://lore.kernel.org/all/4130C026-2A83-408B-836A-ECA044491C47@gmail.com/
-Cc: stable@vger.kernel.org
-Signed-off-by: Alexander Kochetkov <al.kochet@gmail.com>
----
-The same three-line removal has been in use on Allwinner A64 hardware on
-top of v6.12.33; this version is rebased onto v7.3-rc5 and build-tested
-(arm64, CONFIG_KEYBOARD_MATRIX=m).
+> 
+> in gem_rx() by received a large number of packets without
+> RX_EOF flag set, especially with unknown packet
+> type that would penetrate the hardware offload for the IP packets.
+> 
+> The unlimited prints here would greatly bother and delay
+> the system booting process unless the source stop sending
+> packets since they occupy the console output bandwidth and
+> other processes have to wait for the completion of printing those
+> messages.
+> 
+> So rate limit the netdev error information print in the receive
+> and transmit data path.
+> 
+> Fixes: 89e5785fc8a6 ("[PATCH] Atmel MACB ethernet driver")
 
-Siarhei, Paul: you both agreed to the revert in the thread above, please
-reply with your Acked-by/Tested-by if you would like it recorded.
+IMHO the correct tag is 4df95131ea80 ("net/macb: change RX path for 
+GEM")?
+At least the gem_rx() messages were introduced here.
 
- drivers/input/keyboard/matrix_keypad.c | 3 ---
- 1 file changed, 3 deletions(-)
+> Cc: stable@vger.kernel.org
+> 
 
-diff --git a/drivers/input/keyboard/matrix_keypad.c b/drivers/input/keyboard/matrix_keypad.c
-index 8863b741d1a3..cda2888b2e56 100644
---- a/drivers/input/keyboard/matrix_keypad.c
-+++ b/drivers/input/keyboard/matrix_keypad.c
-@@ -134,9 +134,6 @@ static void matrix_keypad_scan(struct work_struct *work)
- 
- 	memset(new_state, 0, sizeof(new_state));
- 
--	for (row = 0; row < keypad->num_row_gpios; row++)
--		gpiod_direction_input(keypad->row_gpios[row]);
--
- 	/* assert each column and read the row status out */
- 	for (col = 0; col < keypad->num_col_gpios; col++) {
- 
+Drop the blank line as otherwise tooling might get confused and doesn't
+get all tags correctly.
 
-base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
--- 
-2.43.0
+> Signed-off-by: Zijin Tao <taozj888@163.com>
+> ---
+>  drivers/net/ethernet/cadence/macb_main.c | 14 ++++++++------
+>  1 file changed, 8 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/cadence/macb_main.c 
+> b/drivers/net/ethernet/cadence/macb_main.c
+> index 8e5c034dc3a4..ca60960bec36 100644
+> --- a/drivers/net/ethernet/cadence/macb_main.c
+> +++ b/drivers/net/ethernet/cadence/macb_main.c
+> @@ -1617,16 +1617,16 @@ static int gem_rx(struct macb_queue *queue, 
+> struct napi_struct *napi,
+>  		count++;
+> 
+>  		if (!(ctrl & MACB_BIT(RX_SOF) && ctrl & MACB_BIT(RX_EOF))) {
+> -			netdev_err(bp->netdev,
+> -				   "not whole frame pointed by descriptor\n");
+> +			if (net_ratelimit())
+> +				netdev_err(bp->netdev, "not whole frame pointed by descriptor\n");
 
+This will just hide the error message, but the split/drop is still 
+present.
+How about limiting JML in macb_init_hw() properly?
+
+         if ((bp->caps & MACB_CAPS_JUMBO) && bp->jumbo_max_len) {
+                 u32 jml = bp->rx_buffer_size - NET_IP_ALIGN + 
+ETH_FCS_LEN;
+                 gem_writel(bp, JML, min(jml, bp->jumbo_max_len));
+         }
+
+The code above is untested, so probably needs further tweaking. An 
+alternative could
+be to handle the split frames in gem_rx() correctly.
+
+> [...]
+
+Thanks,
+Nicolai
