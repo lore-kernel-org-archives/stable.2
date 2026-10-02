@@ -1,85 +1,76 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76C39425860
-	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 08:52:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B77A147141E
+	for <stable@vger.kernel.org>; Fri,  2 Oct 2026 09:16:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790931125; cv=none; b=OSJQGELiEgFsFKVyVbetocxuFTLHerQroH8xCGz3a+LeteEl3CDGPJod1D/g81hMWCT4liL6dIEDUI39zQNIjmXjaqqEmP68t9mGyB9T4IRqAnNFFnkRgzn9yFwhghryQVG+Tgh8AksfM0SDl1rB7A74FiANqbuHJhwYlP7pZtI=
+	t=1790932586; cv=none; b=YvPFs1IQFpnZnSmspFjlFVwY1TvrMB86y3EQOK/vJBV+mMP3MiEPob+IOwfhqoSLROvXVE618LuZDUyQxMDukCCLLA7dqJ9UQf3Gt/9pwkpEdf6nZsbPAzeNkhXfrsUpSKeWLd4A8e1BDy61lqSpryY5YBAVRDq51TmallnO5JE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790931125; c=relaxed/simple;
-	bh=hVwQCzCUVfRxvw/2Itw67jSlR8bgByNRggeDv/nTJpY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=jngthQ1WeS3OQasDAdqvpxTIz5vOnEDVvpgZoQjj1/4+lC+MLOkjIOjW5ttttkQSPlhgKcwZMAbQXMJxz/Cg7ohZCusMs0i+aEBw+nQSVwyzUSeV6wHB3BVLpi4ZgPq1kSgnVETz1Cm3B6o1c8IBHI4mivY2KCAn1mDWLxn2mfI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cD4qiwJw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gp48u/0V; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790932586; c=relaxed/simple;
+	bh=pFfuAASs4vU8PbL6rfnwmVuYQIlTkdQEJsjJKzsA+Cw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=tT8/LojSmohCF90S6L+h333GInnpdyltQX/sMSbE4ALF+PSzWH40tBJXN5vJ9jdZN5H0lIPtlzc7AlmiJR1H2cPLxpY5+4VtPy4c8rtso1SixjxuH5LQhdpdON6cyxXf/yMRnEmKjGGXjSOqPTGX/87Na5s0SvB0w/3KkV1s4N0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ecXPoYFm; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cD4qiwJw";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gp48u/0V"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6925iroc671552
-	for <stable@vger.kernel.org>; Fri, 2 Oct 2026 08:52:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=Qiva3P9QlNLK7cQUkmFLZI
-	12yKqi2cNC+lMiXVGWdk0=; b=cD4qiwJwlZVo3MXt1OVqj7uRs0DEIKxrXx1zfR
-	ecmHxGIQ1wJXX9SkHlVFMa/W7wkdv0hLKfzZH/OhslUgwcGus1p7nY2r9No+9gsB
-	hlKvVhsO8YZ/UNEM0/PjAWtx9bIa4+7fZ2GGkeXy5bx3OYhjXhsP5I4iaQZvJr7Y
-	O08b5xLbekZU0WFULm4lzZ6tbJq8Kjmgr07Q58+cbXsB1EpDscjSyNAVDMKTUb8e
-	wK8g+zUd19vcdyNSLZltQKVYpBKHGvuqK64HZmbhZrEik9bZuHkE42JoehTl/k35
-	z2vjquRbJNfBgzr1YR0s3HHq07ysFawSLDwNqRcUdyfnB89g==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h1w8tjc83-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Fri, 02 Oct 2026 08:52:02 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93cb98809caso282904385a.1
-        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 01:52:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ecXPoYFm"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48b09f6bbe8so983751f8f.1
+        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 02:16:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790931122; x=1791535922; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Qiva3P9QlNLK7cQUkmFLZI12yKqi2cNC+lMiXVGWdk0=;
-        b=gp48u/0V7ySZpxcjeMDN+yT6Xv90xWTUwAS9EoAsyc0xEZcrutyYvCsq6ZIsbTkro1
-         QBllsON6CSCr5Nj22Ycc2H9cMZBpA4YqZX7vTVLFwihEvAhPyE/yGBO87DMlOadFNyYV
-         TDS97gkk9scKrXKGR0xswPAuriQZu+YRJD45nhpxG1uLBds0wFZmUwJvbuyPtZ8Uxgrg
-         bmGIgaaYt4bPgOiw7TIaieJqjdiZff6ckwVrXEvqOPAFvNNhF5C/wSFA1+Crzhlkl3r6
-         /tmChhe/MxqTDRzi65TDikp30uq/TQhdbSKY6I3hXH4jml5WKJ5yCFCHtNg9yMnR4q8q
-         A8eA==
+        d=linaro.org; s=google; t=1790932583; x=1791537383; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RbUJ70a7/T0AAXTkHVeKzaKU/0/JyXpkSVeKdxVFGPw=;
+        b=ecXPoYFm93rYfCIKliOqejuK+VIOq9xERUZ3B+S2nJW1CuOdiyEzr75Jxw0hsz4Slh
+         omfNSqTu2NJZ4U8DB8EnpRILBfzaS+pSxTeh44b8EPg35vK0koOFVQ0MzHs0Oaw2yQbQ
+         W83QVTnDWX1GQHnzrnJPFeYPXSVOyahq4SrIDA2v6ON2Z7AbGPtaxDz7t9lpa1yEgeEL
+         hjCWycoEgTPuj/rRzDF3VtVVnvTwYDcP9k8Mx9eQOb9PyD/qpH/TqNngBFysh7Im5VG7
+         wn9OK/D6RurodVgg+Va5F/W4UdpA9pR6qOrOI26rBWWjtZ8DTRddlVyHpZqzIL2Qm7iF
+         TNvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790931122; x=1791535922;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Qiva3P9QlNLK7cQUkmFLZI12yKqi2cNC+lMiXVGWdk0=;
-        b=zci3N03cozwazr8qGoU+XMXk9NdPJIxLwNQr5I/3+t2yqd3DG/oOsnsjDLZwTHV5vX
-         hZVtE6fdLLRqN/zHiB16xtRAUddnKGiKY0rWjmV0LucuH97XUM9driHo6VxX/hx6hyPJ
-         BNh0RPmYQSxB01ipHFZtQqa3bGh1YsnwP/ozIKt5c4r6F2Wt6MEotqFmA9G6EJQwfKNh
-         9ZIKQlO5iQY66QjTZ1eOZuW1mPsqjAususduN6OS54XgELsL7cIfrZwSwoDV8rYppOT4
-         XuNFYYAD8LPvV07aH2AE2uchc0bsB1r1b63mF9ANE20ilfKn9eoqDaoW5j6BbtEFrlwH
-         8hng==
-X-Forwarded-Encrypted: i=1; AKwUvBw9qmulgVN9jdCMRSREbADknRktvFwg2qpu9WkEazr/sXHMT2J+POFwn7SVJ/9YZ9TATZeijUQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++l740k0D4cNLkOVaubAJ22MvSENpW4Zoe4ndYIRxYEGtJeNG7px
-	nnGfA/5z3Pq7i/srEWvspxAhAYFKldHDOG72uZ5dNykunmV1X8EmkvWO9qr4RmAe5B6gWT+NYyg
-	F0yi7P8m0uHVYgC0pJGdNsoJ3AJHvbPsHdv6s5wDLd10wpzHF3yquWszco1fC1eIMuhU=
-X-Gm-Gg: AYBFou2lP5bqJ+HXjwn1nskIOHfmXj3XjKnG6FoGLuqcwC3pwfhbgngJfGq/QmgbOWD
-	bbl6rCwUcjjTKUUTClJy2kHtfk43ZlT/K6UMclUGQGTXsGprXRDCFX0BJ3feSlBD1WtZcVnSjrK
-	UwTLY8lIMnGETg5n4jB1zQtux5ccmAtpOPw4oK1+/w47RglTGEappkxGTtZ7p3Irxs2Wd8OXLEd
-	CQ61sZoOzVKg2Bj8asREmVYRiGDlbfQ38Ie6YH5MDS+FR1VBktDX0LD5OweWFDie/+Ob6Nfe2Ob
-	fqmkfH5w0j9RoR30FMAlo4VBnQbIQSdIrDlOwapnzKejW/KD/yQTr9phJrkin1xHQ0CnAl+97Vd
-	ZjMSy/sz1h3GpVr20+jv5V9niMBw/
-X-Received: by 2002:a05:620a:7111:b0:93c:8544:6ad8 with SMTP id af79cd13be357-93cf16de661mr349881185a.28.1790931121570;
-        Fri, 02 Oct 2026 01:52:01 -0700 (PDT)
-X-Received: by 2002:a05:620a:7111:b0:93c:8544:6ad8 with SMTP id af79cd13be357-93cf16de661mr349879185a.28.1790931121041;
-        Fri, 02 Oct 2026 01:52:01 -0700 (PDT)
-Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b38104f89sm4680561f8f.30.2026.10.02.01.51.59
+        d=1e100.net; s=20260707; t=1790932583; x=1791537383;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RbUJ70a7/T0AAXTkHVeKzaKU/0/JyXpkSVeKdxVFGPw=;
+        b=XIEoLLEc64tt6kAK1qR6V/zM5ZkBYQHgqXiPXDCsohmFtpEPgqtOmSiHXFOYK27SRJ
+         sSXd8HuDEYKUdhQJQkXfmrUdEOHw+OC0SeXSkXcWdvrkrG8rMWufR1Gsl9Fm7ysrem87
+         AT2aYYbSyVD0C5bBIyFcwy1yIP/2fsivYFsBUgsU3MXnibPPCTN3/F6WSnX8RMk0tNa2
+         +daY5mb8hVW5/aK4C1fo4pNsorKZ6OhVsXh8WKk61VnW5aT+zEPCWxj87n9/VkOrdyXp
+         NqhOm+oHctJhYmBr8ZDRawQNQBeoGsvLEt8uZ8whI2GB9dN9uwqe5N7sVLPv2gOX9HGB
+         XW9g==
+X-Forwarded-Encrypted: i=1; AKwUvBy4xgRajiVniHpS385xV2a6LCZ2M4vKeHamci9ZUqcb74g52Pmip9e3i1Ary+2JJ3k20XEakHs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIe6wqn/wHIxNyHoE9RwfHr27XAYrQKS4ke44iFVTKtljKMOH5m
+	fnplxfgurtjAtDRBitnnV+dS0ZuG4j8WTy6dyw3WvX4UaNTMHUUQ3U5LLjxfFM2TK53eP9U/Bex
+	n5Fj8
+X-Gm-Gg: AYBFou2SzlzRVIlhupAgUfIp6O4d2bZmDXb7nDZ6WRVTYceirruHuLmYNSzooYzcYDT
+	cdhpU6v3ZXXk6e8Mpny61qmE4t9ckhA9Ex+OdSF4X3jBssCEgh1pruiyuSp2zQMAVa1NTikHPFr
+	1Vt0mo5qGLoqzlPBfY5nTcc0w/dka5idI4zf7DKhv9kuIzjQLBUXNGTCjCUxhHDfwcg0lZCnqgR
+	9eyGoe5+Ag+2zOZ3a6mVhUG5CM2edKjIO+r4NZcW3F1ps5nK6AUdX/M7zcp54VWfd1uyS+j5hmC
+	8T/47IGDzupK8hXmkff6716m9MGNuSHr0Up4J8s5DNOiEacz+5IkzkAqMjZg+G3/a78egzoVtu8
+	g6f6KYykDjNV4ae8t47ElQ6y3RwRHD3jJXXxX/+6kIZPoGNH1hKjLxIUMnN46v/siRcm6GOmPKZ
+	iJUQh3nHy9MWEruk1vOj8HZA91q5m5sR6wcMBtLNYieTzeg/fAdJDCx078pPtAcFaJVJe89m/0H
+	+bTFBw7mkQvZl0KUui+e2s/BdPnyA==
+X-Received: by 2002:a05:6000:2285:b0:487:197a:5c1f with SMTP id ffacd0b85a97d-48b1272b524mr4209416f8f.49.1790932582851;
+        Fri, 02 Oct 2026 02:16:22 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b382f9ad6sm4461292f8f.40.2026.10.02.02.16.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 01:52:00 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Fri, 02 Oct 2026 10:51:47 +0200
-Subject: [PATCH v25] dmaengine: qcom: bam_dma: free interrupt before the
- clock in error path
+        Fri, 02 Oct 2026 02:16:22 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+To: Fabio Estevam <festevam@gmail.com>
+Cc: jesszhan0024@gmail.com, dri-devel@lists.freedesktop.org, 
+ Fabio Estevam <festevam@nabladev.com>, stable@vger.kernel.org
+In-Reply-To: <20260909201346.937343-1-festevam@gmail.com>
+References: <20260909201346.937343-1-festevam@gmail.com>
+Subject: Re: [PATCH] drm/panel: simple: Add Raystar RFF500F-AWH-DNN enable
+ delay
+Message-Id: <179093258210.2282096.13923382036557231233.b4-ty@b4>
+Date: Fri, 02 Oct 2026 11:16:22 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -88,139 +79,26 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261002-bam-dma-free-irq-v25-1-f39e01d19910@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAKJwv2oC/x2MSwqAMAwFryJZG6jBFvEq4qKtqWbhLwURxLtbX
- L4Z5j2QWYUz9NUDypdk2bcyyNYVxMVvM6NMBQAZco0xhMGvOK0ek3JxemL0sQ3kutg6CyU7lJP
- c/+cwvu8HmgSmTWMAAAA=
-X-Change-ID: 20261002-bam-dma-free-irq-cac4b268c465
-To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-        Andy Gross <agross@codeaurora.org>
-Cc: linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
-        linux-kernel@vger.kernel.org, brgl@kernel.org, stable@vger.kernel.org,
-        Sashiko <sashiko-bot@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3131;
- i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=hVwQCzCUVfRxvw/2Itw67jSlR8bgByNRggeDv/nTJpY=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqv3Cq6QO+/JOipZx1bSxR4XL6wfPPDB/FEzUOX
- Ows75CaTySJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCar9wqgAKCRAFnS7L/zaE
- w3FSD/9OpFXDiBntLFPnYz+Re01JWPxn1X6epggjdDWMFMp3HI8ayErb8YyTV0okRqKOXrzLQ6j
- nns8OfiUXTp5HMZx0WLuGwqb2p3UYZzPWihxfiCf0vCsDMZiHNeBG/BZx+pbUTYrcs7zGcyI1Ai
- /2N4b/QXHyGX7jdyntYPDenE5IXtejMAIMsQpNxSSid9KKvM1G4WVxqKbktCKFDgmc1lDUg7gix
- iPXhrmffy+EhWyE92qsH1G31yFrbxCqAixSNs3T72f6MrjUdwqm+V/Su9z53lwoYCGvfdsjcDqJ
- 2+Lrzfjq78Cn8R1aweGGR5n4slcsoXYOs60lhKJOMk2FEn+dl94/+tbVs5fPVc/Gydkl7njAR0I
- wGb1Vd3ZIY5HyvYlNus2T5pwcMHMGb6okbrpDbMzjIERsPqpgR0Q/58SH3oG5HMvO0uOKUFnBgS
- ZbmyO4YwfmKm436r9OMKgN7cFGgOWDhan4omoFNzY23MojMUUoAWpX1EeuRdR/6dozc71hM/INf
- w76EwUn9yLNfdKCEhiKiULathriQ39VZhvHxvT0cmuPnqDSlwDpi622m8jyn3fMmDpHF+PevaBN
- XI2Sk4ZT2OEPn7m1CyqNkOwWcXjiudtfbU8/CbFZELUnlb4GdJwSGTEkL5e8Te9J8SMF662mlKQ
- CGOTRrXhk8dqyqw==
-X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
- fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Proofpoint-GUID: fVOkScHqPdBywDGYVg0C8Fbhei_dNXfJ
-X-Authority-Analysis: v=2.4 cv=ML/1C8Zl c=1 sm=1 tr=0 ts=6abf70b2 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=c92rfblmAAAA:8
- a=EUspDBNiAAAA:8 a=bC-a23v3AAAA:8 a=VwQbUJbxAAAA:8 a=sdHaY_b6le-me-Zt7agA:9
- a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22 a=GvGzcOZaWPEFPQC_NcjD:22
- a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDAzNSBTYWx0ZWRfX+plIqS69TaNJ
- lq/Z7StUomE4WJRRqDmH5kjEJPFq50rQw/Uz73e9sEtb+fUNCq47cic5kFeYlCig97iK3s7tcYW
- 1TjY3AZj7WPT6b/LCoio0EBO2fFIWjJYFpbZ4Fpe2uHEG5uxJc6Dd1GYzzkDfjKdYL7VhttZBjC
- CJQ9YjcSAKoFcsqS8fWb+Y131QuyVYMVxqRzCkAdrXDTlla5Xlbwy6VRvT+xfI79zjpNajZlWMn
- kTZ0106pK6wAosdAARPCNvpusuP5U9UFxqbjYuf44AIAToUbQIhGF6W6QmHPQnLorCOPb17OdAp
- cYXt06n18hIlMw4CLK+DDLfblPgcLHT/0dArM5O2jKAtDkz1sjwx2Qy42UUI70vFvdS3YwCfHAx
- Ed0Q2f1i2yWuvrmdsockzjq3caPOcp+b3xYzESoDrKrLS8O4QiGuNZioKWXPNZhqcWF/aI0S0Xt
- A5TkM9BgQXARyCvN6qQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDAzNSBTYWx0ZWRfX3F/vIbI5M5Gi
- WeejNccnm9478i/0BVpsbWjlVOCJrlF40zX9LnqGRRIsLzMr1sI2B2EpmxhN2SCKZk+KFLkP2gI
- NyVk4AC6ENfQixOyQJxlF9+jdhj1DHU=
-X-Proofpoint-ORIG-GUID: fVOkScHqPdBywDGYVg0C8Fbhei_dNXfJ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-02_02,2026-10-01_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 impostorscore=0 phishscore=0 spamscore=0
- bulkscore=0 suspectscore=0 clxscore=1015 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610020035
+X-Mailer: b4 0.15.1
 
-The BAM interrupt is requested with a devres helper and so on error it's
-freed after probe() returns. We disable the clock before freeing or
-masking it so it may still fire and we may end up reading BAM registers
-with clock disabled.
+Hi,
 
-Stop using devres for interrupts as we free it in remove() manually
-anyway. Add an appropriate label and free the interrupt before disabling
-the clock in error path and in remove().
+On Wed, 09 Sep 2026 17:13:46 -0300, Fabio Estevam wrote:
+> The RFF500F-AWH-DNN datasheet requires a minimum delay of 250 ms
+> between display signal output and backlight power-on.
+> 
+> Without this delay, the backlight can expose unsettled panel contents
+> during display startup, resulting in a brief bright flash.
+> 
+> Set the panel enable delay to the datasheet-specified minimum.
+> 
+> [...]
 
-Cc: stable@vger.kernel.org
-Fixes: e7c0fe2a5c84 ("dmaengine: add Qualcomm BAM dma driver")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260427-qcom-qce-cmd-descr-v16-0-945fd1cafbbc%40oss.qualcomm.com?part=2
-Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
----
-This used to be part of the larger BAM DMA pipe locking series and never
-got picked up despite months on the list. I'm resending it separately.
----
-Changes in v25:
-- Don't touch remove(), it's not wrong in its current version
-- Link to v24: https://patch.msgid.link/20260723-qcom-qce-cmd-descr-v24-0-4f87bb4d9938@oss.qualcomm.com
----
- drivers/dma/qcom/bam_dma.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
 
-diff --git a/drivers/dma/qcom/bam_dma.c b/drivers/dma/qcom/bam_dma.c
-index 05a3b1f9e0c23dc5f861488fae03494867970523..a626746b5c93496e5c5e885b35a856d38c284448 100644
---- a/drivers/dma/qcom/bam_dma.c
-+++ b/drivers/dma/qcom/bam_dma.c
-@@ -1332,8 +1332,8 @@ static int bam_dma_probe(struct platform_device *pdev)
- 	for (i = 0; i < bdev->num_channels; i++)
- 		bam_channel_init(bdev, &bdev->channels[i], i);
- 
--	ret = devm_request_irq(bdev->dev, bdev->irq, bam_dma_irq,
--			IRQF_TRIGGER_HIGH, "bam_dma", bdev);
-+	ret = request_irq(bdev->irq, bam_dma_irq, IRQF_TRIGGER_HIGH,
-+			  "bam_dma", bdev);
- 	if (ret)
- 		goto err_bam_channel_exit;
- 
-@@ -1366,7 +1366,7 @@ static int bam_dma_probe(struct platform_device *pdev)
- 	ret = dma_async_device_register(&bdev->common);
- 	if (ret) {
- 		dev_err(bdev->dev, "failed to register dma async device\n");
--		goto err_bam_channel_exit;
-+		goto err_free_irq;
- 	}
- 
- 	ret = of_dma_controller_register(pdev->dev.of_node, bam_dma_xlate,
-@@ -1385,6 +1385,8 @@ static int bam_dma_probe(struct platform_device *pdev)
- 
- err_unregister_dma:
- 	dma_async_device_unregister(&bdev->common);
-+err_free_irq:
-+	free_irq(bdev->irq, bdev);
- err_bam_channel_exit:
- 	for (i = 0; i < bdev->num_channels; i++)
- 		tasklet_kill(&bdev->channels[i].vc.task);
-@@ -1410,7 +1412,7 @@ static void bam_dma_remove(struct platform_device *pdev)
- 	/* mask all interrupts for this execution environment */
- 	writel_relaxed(0, bam_addr(bdev, 0,  BAM_IRQ_SRCS_MSK_EE));
- 
--	devm_free_irq(bdev->dev, bdev->irq, bdev);
-+	free_irq(bdev->irq, bdev);
- 
- 	for (i = 0; i < bdev->num_channels; i++) {
- 		bam_dma_terminate_all(&bdev->channels[i].vc.chan);
+[1/1] drm/panel: simple: Add Raystar RFF500F-AWH-DNN enable delay
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/a92ed345422cd66329b5e9d4e82b0452e185f36f
 
----
-base-commit: 9f24d789f03b22941b905ded43cb5ff8eea9ce62
-change-id: 20261002-bam-dma-free-irq-cac4b268c465
-
-Best regards,
 -- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Neil
 
