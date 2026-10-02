@@ -1,93 +1,112 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A94254519B6;
-	Fri,  2 Oct 2026 22:28:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C481B1624D5;
+	Fri,  2 Oct 2026 22:31:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790980108; cv=none; b=YJMlUm5VA7zOugGKmt6zyYIwbBX7nbOyWgrvHc0fLdzgeRNxgQU95oWvME8/ytmVsZxnlJ5qWpQyyY6JjxcsAYCmu7+7isHnvZJXZ6R9GnN2GUrFv95PvFBsp0ljxNC+PWibeB6vjQMmTZ9btTLcKseSDZPChyaucEatObBhmu0=
+	t=1790980271; cv=none; b=CMl/9jQqTTww+8eB+DsPSi2NkbLJXzzCzaoTclkSAZTkWbDkwVbfUy1hoOii1mij0idz+VlY9nPADN6h5Hm7v6TxmZLSQt4hcTVmRGJNvoZActjTA5jY4Tso40dsVf0aZcFND3mRNhjql2fv5Rq3IZ4OkJnR3TUL1kA3hTx5gTo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790980108; c=relaxed/simple;
-	bh=mK/wL9VTOYn60ZlxlFAyFB6jS+QR37sbGwvk0yYbo+w=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=pZDZD2rhoBXxFRzqzYRIq2qS3SfKUDRpJlMl4xEP0ykzgTeCsbR4UZaIIlSUty7m+arlcGCi2Q5b75P5CTgm3Gbi6AyPU31J18n0sFHuxBR1Ycwv2vartCqJVNJJWyfc0pkgSzb5Xl5lZ3IYuiieu3sjVDMirTnNkqc86CxBoWo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=O1lDm6z9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790980271; c=relaxed/simple;
+	bh=w4qlQ6KiXmm+hGJK8ewvfI8geyY2873JqL/huUufabo=;
+	h=Date:To:From:Subject:Message-Id; b=du4G2gqj8yomoxuGcwYuEnJ+OmXPd5Y8IZ3/77ad7pIc4iPBy2X3sEQtTkycY22cvTMuTQmk7bYfq00qJfdb0l+/vM2cIieGnBvwYPBjxTmn1btUykiQKa7aGtPVeA5zkg81G6UhxVtvNGbLjeKHgL0Kp7a55/ogY/7pNSPZd10=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=sVCXG1iY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="O1lDm6z9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A6541F000FF;
-	Fri,  2 Oct 2026 22:28:25 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="sVCXG1iY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91FEF1F000FF;
+	Fri,  2 Oct 2026 22:31:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1790980106;
-	bh=nL/ZJzb+eWbYYnb+iW2qc4P7Usj9ljnxOgkJ0BBDdVg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=O1lDm6z9hrvgFknTcEbmBpb4kZzRIzRb8Cr+61QGKNVqw/CHTSV63wzhcCKewo2J1
-	 DiHXB9/F2ZR9jNGkNtvHjB5UkDVW9WMXLab0F4UifDDpVbMz0X4MhStvSslG0kkdgf
-	 ALLCyTzr3PNj0nWSdJMaPhu+3bFzASE5W/F01Zkg=
-Date: Fri, 2 Oct 2026 15:28:24 -0700
+	d=linux-foundation.org; s=korg; t=1790980270;
+	bh=HDiVM5JsWnlk7nDIx1UnRa8r52+P2kiMYMkSNXGQGIA=;
+	h=Date:To:From:Subject;
+	b=sVCXG1iYy2cIJDz2xAtV1FEsLvrc7OdG6XDzOQqmB8SY2ddoXVLu6uFkBe3qFSYzC
+	 P2xHo9imlLnB0+z2UQELdq//QmcxBnPI9OZNkfg4IbyOc14UA6wsaxSC7HHJEMPSlP
+	 sOk5tZSMIPmXCyVX/UuxiYlZpD5YLCCYH1spQyFI=
+Date: Fri, 02 Oct 2026 15:31:10 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,hughd@google.com,brauner@kernel.org,baolin.wang@linux.alibaba.com,andrealmeid@igalia.com,akpm@linux-foundation.org,hnkz.64@gmail.com
 From: Andrew Morton <akpm@linux-foundation.org>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: Salvatore Dipietro <dipiets@amazon.it>, linux-kernel@vger.kernel.org,
- hch@infradead.org, abuehaze@amazon.com, alisaidi@amazon.com,
- blakgeof@amazon.com, brauner@kernel.org, dgc@kernel.org,
- dipietro.salvatore@gmail.com, djwong@kernel.org, hannes@cmpxchg.org,
- linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
- linux-xfs@vger.kernel.org, mhocko@suse.com, ritesh.list@gmail.com,
- rvvandan@amazon.com, stable@vger.kernel.org, surenb@google.com,
- willy@infradead.org, ziy@nvidia.com, David Hildenbrand <david@redhat.com>,
- Christoph Hellwig <hch@lst.de>, Dmitry Ilvokhin <d@ilvokhin.com>, Brendan
- Jackman <brendan.jackman@linux.dev>
-Subject: Re: [PATCH v6] mm/page_alloc: avoid direct reclaim and compaction
- for costly __GFP_NORETRY allocations
-Message-Id: <20261002152824.75ee2a39f5b705a85123ea74@linux-foundation.org>
-In-Reply-To: <42d1a163-3502-49b8-9a27-7df9d06eee64@kernel.org>
-References: <20261001082152.2879289-1-dipiets@amazon.it>
-	<20261001182942.ce99faa753fb9d9bd2efec1e@linux-foundation.org>
-	<42d1a163-3502-49b8-9a27-7df9d06eee64@kernel.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+Subject: [to-be-updated] tmpfs-fix-unicode_map-leaks-in-casefold-option-handling.patch removed from -mm tree
+Message-Id: <20261002223110.91FEF1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Fri, 2 Oct 2026 10:23:47 +0200 "Vlastimil Babka (SUSE)" <vbabka@kernel.org> wrote:
 
-> On 10/2/26 03:29, Andrew Morton wrote:
-> > On Thu, 1 Oct 2026 08:21:51 +0000 Salvatore Dipietro <dipiets@amazon.it> wrote:
-> > 
-> >> Commit 5d8edfb900d5 ("iomap: Copy larger chunks from userspace")
-> >> introduced high-order folio allocations in the iomap buffered write
-> >> path.  When memory is fragmented, each failed costly-order allocation
-> >> enters __alloc_pages_slowpath() which runs direct reclaim, direct
-> >> compaction and drain_all_pages(), causing a 0.38x throughput drop on
-> >> PostgreSQL pgbench (simple-update) with 1024 clients on a 96-vCPU arm64
-> >> system.
-> >> 
-> >> The root issue is that direct reclaim and direct compaction are too
-> >> expensive for hot allocation paths that have fallbacks to smaller
-> >> allocations.  __filemap_get_folio_mpol() already marks higher-order
-> >> allocations with __GFP_NORETRY | __GFP_NOWARN, signalling that the
-> >> caller can handle failure.  However, the page allocator still enters the
-> >> full blocking slowpath for costly orders with __GFP_NORETRY, which is
-> >> unnecessarily aggressive when the caller will simply retry at a lower
-> >> order.
-> >> 
-> 
-> Since it expands the impact of a pre-existing bug of nonblocking allocation
-> eating reserves [1] it shouldn't proceed to mainline without a fix for that
-> (Johannes posted it there but the review discussion got stalled).
-> 
-> > Thanks, I'll update mm-hotfixes to this version.
-> 
-> I've also argued for not handling it as a hotfix [2]
-> 
-> [1] https://lore.kernel.org/all/9f415dc7-adad-4161-b20d-7c3173f50ff3@kernel.org/
-> 
-> [2] https://lore.kernel.org/all/c6e2c1e1-a285-406e-a2b6-c09e05df91d8@kernel.org/
-> 
+The quilt patch titled
+     Subject: tmpfs: fix unicode_map leaks in casefold option handling
+has been removed from the -mm tree.  Its filename was
+     tmpfs-fix-unicode_map-leaks-in-casefold-option-handling.patch
 
-Thanks.  I moved this to tail of mm-unstable, removed its cc:stable and
-added a note indicating that changes are expected.
+This patch was dropped because an updated version will be issued
+
+------------------------------------------------------
+From: Kazuki Hanai <hnkz.64@gmail.com>
+Subject: tmpfs: fix unicode_map leaks in casefold option handling
+Date: Fri, 28 Aug 2026 00:25:16 +0900
+
+shmem_parse_opt_casefold() stores the unicode_map returned by utf8_load()
+in ctx->encoding.  The casefold parameter can be supplied more than once
+for the same filesystem context, but replacing the stored map does not
+release the previous reference.
+
+The final reference is also leaked when an unmounted filesystem context is
+freed.
+
+Release the previous map before replacing it, clear ctx->encoding after
+transferring ownership to the superblock, and release any remaining
+reference from shmem_free_fc().
+
+An unprivileged user can repeatedly set the casefold parameter on a tmpfs
+filesystem context from a user namespace.  This causes unbounded kernel
+memory consumption and can result in a local denial of service.
+
+Link: https://lore.kernel.org/20260827152516.805622-1-hnkz.64@gmail.com
+Fixes: 58e55efd6c72 ("tmpfs: Add casefold lookup support")
+Signed-off-by: Kazuki Hanai <hnkz.64@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Andrew Morton <akpm@linux-foundation.org>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: André Almeida <andrealmeid@igalia.com>
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: <stable@vger.kernel.org>
+---
+
+ mm/shmem.c |    5 +++++
+ 1 file changed, 5 insertions(+)
+
+--- a/mm/shmem.c~tmpfs-fix-unicode_map-leaks-in-casefold-option-handling
++++ a/mm/shmem.c
+@@ -4530,6 +4530,7 @@ static int shmem_parse_opt_casefold(stru
+ 	pr_info("tmpfs: Using encoding : utf8-%u.%u.%u\n",
+ 		unicode_major(version), unicode_minor(version), unicode_rev(version));
+ 
++	utf8_unload(ctx->encoding);
+ 	ctx->encoding = encoding;
+ 
+ 	return 0;
+@@ -4998,6 +4999,7 @@ static int shmem_fill_super(struct super
+ 
+ 	if (ctx->encoding) {
+ 		sb->s_encoding = ctx->encoding;
++		ctx->encoding = NULL;
+ 		set_default_d_op(sb, &shmem_ci_dentry_ops);
+ 		if (ctx->strict_encoding)
+ 			sb->s_encoding_flags = SB_ENC_STRICT_MODE_FL;
+@@ -5095,6 +5097,9 @@ static void shmem_free_fc(struct fs_cont
+ 	struct shmem_options *ctx = fc->fs_private;
+ 
+ 	if (ctx) {
++#if IS_ENABLED(CONFIG_UNICODE)
++		utf8_unload(ctx->encoding);
++#endif
+ 		mpol_put(ctx->mpol);
+ 		kfree(ctx);
+ 	}
+_
+
+Patches currently in -mm which might be from hnkz.64@gmail.com are
+
+
