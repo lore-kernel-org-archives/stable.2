@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65D494AB1D0;
-	Fri,  2 Oct 2026 13:53:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 074844DBD70;
+	Fri,  2 Oct 2026 13:54:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790949242; cv=none; b=p4sU2SfD/w6Zn5hPllIdWmgga3E8Pt5sHFs+8xvPFpO68z33arHmhDW2cOXDCLicUMS18VQfgngrJN6nDBa9X6qj3gcTZBPXBmsaoKUH0L2Nnu32azzFJo7zUxDQQBHhDaBMj5uA4SOhXziZs2qrAArWl7eIL5NiYAieVyWImFs=
+	t=1790949263; cv=none; b=og79CD0mMKHwQSnC+kyBpd2pqGMw88WX8MqyE4UZYF0+SEdr5BksDW5P0k7rhBrgq0e/lcr2xHGuGF4Gm9uL/EARXG3LR1SlElxZg5pRpVtUEFmtcRPdpLCuECVyPT//F72C8laJu81/oz8odS7C5rOrLMDruAdWqnhDB08HKL4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790949242; c=relaxed/simple;
-	bh=vZIhlv7pCpySoAEeceHzRrXkzwDWntzhpUfoYx1Wy+A=;
+	s=arc-20240116; t=1790949263; c=relaxed/simple;
+	bh=6DTUTR3vci9TVR0f5VJSu7/oQFnEzU3Q12LI98klt38=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=eUpgclVemZiVsJLlZ/7bo61lB+TYqyMjLjBT3MH799vBI03rMR/xBVOG0XVqV6HeQbH4iNrD330WZouLRhpUJM+CfKh6HkyNS3fFEYup6fmo70X2FjwWxNh/fofrMz0dTObXlh0rR6NtsGSjlJqSzRaL3AM/VDydw/YSCBE8adc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CTuKesJ2; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=DOQzyjcp/M2xJzUoVWn4osl+sKb7vfFktfVPZ91mPbP4O22Knq/sRnAZncoIm3zgGgz2nJIrT8CsHoVDo5t/YurmeSIHoF/VVte9OPJUGYVgXetdqYHLGPWhsb+UUmXuo77DN1FyIuhNbbB3g5znlaKac0L0RkUddHrJfgeXvMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EZ7kq2YG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CTuKesJ2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C2ED1F000FF;
-	Fri,  2 Oct 2026 13:53:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EZ7kq2YG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D30611F000FF;
+	Fri,  2 Oct 2026 13:54:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790949238;
-	bh=msAVOiuplmy7Etjdh68LB6lCGbD8VtrETdMeI+dVVr4=;
+	s=k20260515; t=1790949261;
+	bh=3fGReSXC5XNGD1PpaGmsCBaQNVkgsJNA6DlnvCVauj4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=CTuKesJ2A1idVnBEkDXVgblt3Y0WJIdQ1qnAfh3au64+QnGnGO2S/Bohw+fsto4Ws
-	 sssXWaZfJAoi3nYUOeVAlxjUZM7BOWY5h/hKpnjNg0QM3bZRiWPjmlgbbD8BA5YGuW
-	 k/EXsjE8f/MIbPptlP1bU+p6viOl/BVsSS0O+ajcbKiPGoW41Z/KjLE287mhQfj8nk
-	 DunivsjsaQpAY3SGFdlBgNWYCDP4sJbhLPrKaq7xhXyL23Nz5I0WeyvLzguELm5xVF
-	 sY1rOPVBvM37pi6xrkxZxp3STijgVXJevyDFV56Tmk/m6HYUxn7Q2cQ0TBerg4uNYk
-	 EIikkRqjKrAxQ==
+	b=EZ7kq2YGeQYe2UmN47oJF8WyHKR8fuKGtSXclNpkYw30DMe8n1NZ0wHnyv6XPS5NZ
+	 eAWkhrlIwwyvEF5slYBKxxs/v6rTWTzxY94srjqS5ya2BMAzTwYJVhQ0PXaEeGkypy
+	 tHZpyC69/O2t6vpIbQv0sov5KP8oSHTCVXnEIvKC9jld4alTOaUjRBiNVI62OP3KqC
+	 W6Hi2EFKN/PzVZKpyVOpJIZGXNNQdxYnvpVPlOR3Cxt1vovySn+/D51wiNxmtJMyY7
+	 Qru5vCnww1Aw1KZ+VOF9cxmVPErNIoV/WL7XrxX21aI1sTDH23KRM4sfxzh9jzUFnD
+	 noa3/qoW6Sr0w==
 From: Christian Brauner <brauner@kernel.org>
-Date: Fri, 02 Oct 2026 15:52:40 +0200
-Subject: [PATCH 09/21] namespace: keep the lock on a mount that a
- propagated copy is moved beneath
+Date: Fri, 02 Oct 2026 15:52:50 +0200
+Subject: [PATCH 19/21] readdir: take no inode lock on an immutable
+ directory
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261002-work-mount-fixes-4-v1-9-dd44b89d44ce@kernel.org>
+Message-Id: <20261002-work-mount-fixes-4-v1-19-dd44b89d44ce@kernel.org>
 References: <20261002-work-mount-fixes-4-v1-0-dd44b89d44ce@kernel.org>
 In-Reply-To: <20261002-work-mount-fixes-4-v1-0-dd44b89d44ce@kernel.org>
 To: linux-fsdevel@vger.kernel.org
@@ -48,82 +48,114 @@ Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
  Amir Goldstein <amir73il@gmail.com>, 
  "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3036; i=brauner@kernel.org;
- h=from:subject:message-id; bh=vZIhlv7pCpySoAEeceHzRrXkzwDWntzhpUfoYx1Wy+A=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTt3x5pYbzmzqapl5Lbb/+wi1X+m/y69/Jyt7m/GDYej
- MmNlJjg1lHKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjCR1C+MDH3OGfXcaRGX5Jb0
- ZGqsaosMi3qmqKMS67HqRtb/4IQtMQz//b9Z6d64nGh7essTxQqJD8t/i967fLI8Uc/GcILkPO0
- 0DgA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4042; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=6DTUTR3vci9TVR0f5VJSu7/oQFnEzU3Q12LI98klt38=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTt3x5VxSJk+Pmkxd8flbX9c9s0bZW2TVF9xCWWr/4nQ
+ /4cx7S9HaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABOp9WT4n/xHVTXz+y+FpPbD
+ T6NZTgWy/r3zlcM2OknAa9El4+QLcYwMTwQnOmV+V7OrUJLJ9OpzMqrbOsHs6WTNux1vtvYZ5rz
+ jBAA=
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-attach_recursive_mnt() transfers MNT_LOCKED from the top mount to the
-mount that is moved beneath it with MOVE_MOUNT_BENEATH. This allows the
-owner of a user namespace to replace its locked /proc or its root. The
-mount beneath takes on the job of covering the underlying mountpoint
-allowing the top mount to be unmounted.
+iterate_dir() takes the directory's i_rwsem shared and holds it across
+->iterate_shared(). For a directory that never has an entry and is
+never removed the lock keeps nothing still, it only orders every reader
+and every writer of that inode behind each other.
 
-Consider two mount namespaces:
+For the directory of a nullfs instance that matters. The instance of
+the initial mount namespace is the root of every empty mount namespace
+and the private instance is the root of every kernel thread, so one
+inode is shared across users who have nothing else in common. And a
+reader can hold the lock for as long as it likes: back the getdents()
+buffer with a mapping of a file on a FUSE mount of your own, let the
+copy of "." and ".." fault and let the server wait. Queue an exclusive
+taker behind it, a mkdir() in that directory goes through start_dirop()
+before the read-only mount is reported, and from then on every lookup
+that misses the dcache in that directory, every create and every mount
+on it waits until the server answers. One user of an empty mount
+namespace stalls all the others.
 
-(H) The host H has a shared mount P with a secret in P/d
-(Z) Z is a user namespace made from M. Its copy of P receives
-    propagation from the host's P and its copy of M's cover on P/d is
-    locked Z's owner must not get to see P/d.
+Add FOP_IMMUTABLE for the file operations of a directory that never
+changes and is never removed and let iterate_dir() skip the lock for
+it. The flag never changes for a file, ->f_pos is protected by
+f_pos_lock since directories are FMODE_ATOMIC_POS, IS_DEADDIR can't be
+set on such a directory and neither touch_atime() nor fsnotify take
+i_rwsem. Set it on the nullfs directory. The placeholder directories of
+libfs never have an entry either but their owners remove them, so they
+keep the lock.
 
-Now (H) mounts X on P/d. This propagates into (Z). The copy of X lands
-beneath (Z)'s locked cover. The locked property is transfered from (Z)'s
-cover to the copy of X propagated beneath it. The cover is now unlocked.
-
-Now (H) unmounts X again. The copy of X in (Z) gets unmounted and the
-covering mount is left unlocked on top of P/d. (Z) can now unmount it:
-
-    Z: umount2(P/d)             = EINVAL            /* the cover is locked */
-    H: mount X on P/d, umount X                     /* both propagate into Z /*
-    Z: umount2(P/d)             = 0                 /* the cover is now unlocked */
-    Z: read P/d/secret          = "covered-by-root" /* secret revealed */
-
-So only transfer the locked property to the mount beneath for mounts the
-caller has placed. A propagated copy that lands beneath a locked mount
-is locked as well so that the mount at the bottom of the stack carries a
-lock the way every check expects. The mount on top of it remains locked
-to ensure that it keeps covering even if the propagated mount is
-unmounted again.
-
-Fixes: c62a4766937e ("move_mount: transfer MNT_LOCKED")
+Fixes: 9d4e752a24f7 ("namespace: allow creating empty mount namespaces")
 Cc: stable@vger.kernel.org # v7.1+
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- fs/namespace.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+ fs/nullfs.c        |  1 +
+ fs/readdir.c       | 13 +++++++++----
+ include/linux/fs.h |  2 ++
+ 3 files changed, 12 insertions(+), 4 deletions(-)
 
-diff --git a/fs/namespace.c b/fs/namespace.c
-index e74e63466c24..bb0183ec2aaf 100644
---- a/fs/namespace.c
-+++ b/fs/namespace.c
-@@ -2712,15 +2712,17 @@ static int attach_recursive_mnt(struct mount *source_mnt,
- 			/*
- 			 * If @q was locked it was meant to hide
- 			 * whatever was under it. Let @child take over
--			 * that job and lock it, then we can unlock @q.
--			 * That'll allow another namespace to shed @q
--			 * and reveal @child. Clearly, that mounter
--			 * consented to this by not severing the mount
--			 * relationship. Otherwise, what's the point.
-+			 * that job and lock it. If @child is the mount
-+			 * the caller placed we can then unlock @q:
-+			 * nothing another namespace does removes it
-+			 * again. A propagated copy goes away when the
-+			 * mounter of the original unmounts it, so @q
-+			 * keeps its lock.
- 			 */
- 			if (IS_MNT_LOCKED(q)) {
- 				child->mnt.mnt_flags |= MNT_LOCKED;
--				q->mnt.mnt_flags &= ~MNT_LOCKED;
-+				if (child == source_mnt)
-+					q->mnt.mnt_flags &= ~MNT_LOCKED;
- 			}
- 			mnt_change_mountpoint(r, mp, q);
- 		}
+diff --git a/fs/nullfs.c b/fs/nullfs.c
+index f76b87cf1841..bfc04bca3940 100644
+--- a/fs/nullfs.c
++++ b/fs/nullfs.c
+@@ -44,6 +44,7 @@ static const struct file_operations nullfs_dir_operations = {
+ 	.lock		= nullfs_nolock,
+ 	.flock		= nullfs_nolock,
+ 	.setlease	= nullfs_nolease,
++	.fop_flags	= FOP_IMMUTABLE,
+ };
+ 
+ static int nullfs_fs_fill_super(struct super_block *s, struct fs_context *fc)
+diff --git a/fs/readdir.c b/fs/readdir.c
+index 76bb1ae3a450..f2288841337a 100644
+--- a/fs/readdir.c
++++ b/fs/readdir.c
+@@ -87,6 +87,8 @@ EXPORT_SYMBOL(wrap_directory_iterator);
+ int iterate_dir(struct file *file, struct dir_context *ctx)
+ {
+ 	struct inode *inode = file_inode(file);
++	/* never an entry, never removed: nothing for the lock to keep still */
++	bool locked = !(file->f_op->fop_flags & FOP_IMMUTABLE);
+ 	int res = -ENOTDIR;
+ 
+ 	if (!file->f_op->iterate_shared)
+@@ -100,9 +102,11 @@ int iterate_dir(struct file *file, struct dir_context *ctx)
+ 	if (res)
+ 		goto out;
+ 
+-	res = down_read_killable(&inode->i_rwsem);
+-	if (res)
+-		goto out;
++	if (locked) {
++		res = down_read_killable(&inode->i_rwsem);
++		if (res)
++			goto out;
++	}
+ 
+ 	res = -ENOENT;
+ 	if (!IS_DEADDIR(inode)) {
+@@ -112,7 +116,8 @@ int iterate_dir(struct file *file, struct dir_context *ctx)
+ 		fsnotify_access(file);
+ 		file_accessed(file);
+ 	}
+-	inode_unlock_shared(inode);
++	if (locked)
++		inode_unlock_shared(inode);
+ out:
+ 	return res;
+ }
+diff --git a/include/linux/fs.h b/include/linux/fs.h
+index 784fa20217c4..deb411e86661 100644
+--- a/include/linux/fs.h
++++ b/include/linux/fs.h
+@@ -1978,6 +1978,8 @@ struct file_operations {
+ #define FOP_ASYNC_LOCK		((__force fop_flags_t)(1 << 6))
+ /* File system supports uncached read/write buffered IO */
+ #define FOP_DONTCACHE		((__force fop_flags_t)(1 << 7))
++/* Never changes and is never removed, readdir of a directory takes no lock */
++#define FOP_IMMUTABLE		((__force fop_flags_t)(1 << 8))
+ 
+ /* Wrap a directory iterator that needs exclusive inode access */
+ int wrap_directory_iterator(struct file *, struct dir_context *,
 
 -- 
 2.53.0
