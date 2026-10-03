@@ -1,196 +1,235 @@
-Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51E132264CA
-	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 20:47:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F5522882AB;
+	Sat,  3 Oct 2026 21:02:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791060462; cv=none; b=EQSFyckZSuDr4/RXl8V/mvojse2k+NHZmcCwVkhr+uGAAvHnougGa5yO+YgyOJeezH9pvZdRvQUahu1Ywi9OD1+8cQ+/LSQekSwSZy0BV6ZsLbJbdiTO54cJY4fdQ9FYUOVz7kgN9HX3ctw6s98sQhCkedti7QA/oXNn7Gt6lLY=
+	t=1791061366; cv=none; b=T8PQrUq7m6hwsUgbe4ZlVj8R2y/P/G/s086OrcBGO9NCKTnViPoA439nlhhRi+lq9Yo+nVyql/jYKZUWgXFE8f/Sjt8MxSZ93KifRYtQW+o9lHXDGBJxedL/lXJRET4qcjxbRRsW1IPQ7XDFzkVg7KoSMwjRJKrTbJXzKYI3Dws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791060462; c=relaxed/simple;
-	bh=3waTcqu7WfSqnyy1qyZwokR9PDx0faALLxsyPG9SpJQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XRF5MByKjee+rl6s5PmKDMhd4uzsviLQh4N+CzZcq0kkpbgDApdEahulemE0dRQCQMEL+R+aK0p0pJ29FO9IeeNiJK+yGI31pQuBzfrmTTPJdGtAu3qU1jtrpgFtJYBbCouhKwab6zyD3HFD+MMXXOcX8jPcf+q1v65YUFg24Og=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JQr9uVSX; arc=none smtp.client-ip=74.125.229.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791061366; c=relaxed/simple;
+	bh=MdkNDKFMwo0en7/phjMbXSaPZqxK8TFbLzKbBZzESuY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=hkfWC+pQt+mh3vHnlbX23Ot3tQ70WMuVBHyjD+U5HaUmUH+bqpqaZjeGwnaxBwyb06u0hB+8j/3vLYRWqaJkxydqn/Eoo87nwVNIEioQgCmkTNfDu37U4b8YHbRaqH6FxXwumKqZqN27QLJ7L6LC5gN6g7iJEpnbVLsI1Pa2ehI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=RwkyW6Xo; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JQr9uVSX"
-Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34c4a0870d2so319662eec.2
-        for <stable@vger.kernel.org>; Sat, 03 Oct 2026 13:47:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791060458; x=1791665258; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LWI6jJflnF3Jznt6V7RyFKMPgWKtj7c0n940mijqVvA=;
-        b=JQr9uVSXsv2Ua0enSnOay6YLetoxy4uX0DdfnZAoYNwmasUjq4tVDgtAWs+e0c71Zp
-         MKUO1BfrRoOaV3pGjROMiKz27HwO1cgbIUM8YI8RZeVXYabNthwWvpG8J2oR9zaJzKHF
-         6PYD8RZp3j4SRJJRsoDGRs//G18+kVz5RE1zxpKMj+aNKRm6abf27M2kNmrEgkU8Phrj
-         ISFZ5jeJ118U5oNzpTM18bHIIp2RmlxtcYiu/Sn9M9CxkULWLBDInvNzi3SgoOTJ9e1e
-         UQKRUc8Kl3bckexOdiRgxI7exnDWGXsQonMg4WyLV6Xr5r2f4Mq3szBjzxzB2j9w0q95
-         JBiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791060458; x=1791665258;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LWI6jJflnF3Jznt6V7RyFKMPgWKtj7c0n940mijqVvA=;
-        b=OP2Bdn1GUxP3dTTcTvmLbH2GgTsje8/aAon0sFy0UC5q+LnsrT1otybHXvV/CYSW5e
-         DUoaZxf3DQ5LX30ty8ZS/MlmuCwG8hT0bEt0/qX9pRg1KmBUhndcBaHDj/4S912ewnQ2
-         hIFOw3Byx/fFXM4FlcVi3rr74WRcto1w2jp0VidxxPuGpJ74J7/ZdNXIxt2pNACUfZIv
-         8j6YXxb4lPT2JJY9ZSswxVgpyZmAkCD5tn9BIAYtTQh8VaEvWivQgeye/KXcezSbbnke
-         aWqfu7x2dxCswCvhMStXRNjm4lvFbePI42JQbRY0qsyrs59ojY5I3Ic+cXhwJb+AUB7B
-         iapA==
-X-Forwarded-Encrypted: i=1; AKwUvBzw2m+HjYjIuL8u0zOSvCBnNFr9UMAARmx5y80TAABCEQ/rch62XoKJ38+Kfgr2JR0xTwJzjRw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJgDB06em78atompsgCQV2tx+hZVyDNErQ6ClWI4M1e4jw3soZm
-	mQxxxrdPcInvHEezoFdPrpnt9CSx+5qLit8hDcLM9qaL+8jd70JSK9Qc
-X-Gm-Gg: AYBFou372XPuvn8UXTZvXTSvHCRCY8Z4c8FaJQ91QzToJr4kfFAIr2KXZw6s4/koQ4n
-	2OlVYV28uAlgIVcppp2rNBgYUSmroYHoqwAp0DMLKNRMEzqq+qjRg9YL+tSFeIWZx8wBdo4F0eA
-	Ucq5QhASr4R2gaQ8Ny/LfuaC12PPyVK6lwsX5a2MUoxiKeg5QucbXKvjqO5dWeZRbZ3Jz77xCNB
-	KWE9GcnmCkxI+xYAeK9QxPxNwxJCqlvSzpRJ+QRsmSfBnrH2HFMuvhTVJ40B6gki18Naa4lOr2t
-	Q3qTt/rjqJtvtITqju2FxgcNjBlsfy/Y9iZkgscvMb/Fyc74oT9wJ3DnNWTCGxWTyH404BsKR1b
-	nR3wc2GflNucYGIzkn1vrtJtcy3wDC11S6R10JC/PwxR0S5Ga4cMFtQdTMHedtY/6UmhPMHHrzw
-	nVNAqaXQsuvwaqPYA8WQQWUCHiFLCt6eGYa1ZYuXapE8ayE2gaUp3hu9DUUF7ibmEKejOMm6eRH
-	32hasXlpnI/3Ieu5WvAIaRB9kn6YK4BKl+KFq8P75twKqAsLALO8L+ZBH4StxsTaeOIs7yZWbUn
-	MsA=
-X-Received: by 2002:a05:7301:702:b0:33b:fc17:e786 with SMTP id 5a478bee46e88-34f150c35bamr6919058eec.16.1791060458241;
-        Sat, 03 Oct 2026 13:47:38 -0700 (PDT)
-Received: from eve ([2601:644:4300:43e6:fe7a:b82e:befa:cd4b])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34f14fd4dd2sm19853100eec.20.2026.10.03.13.47.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 13:47:37 -0700 (PDT)
-From: Sergey Tiraspolsky <stiraspo@gmail.com>
-To: Benson Leung <bleung@chromium.org>,
-	Tzung-Bi Shih <tzungbi@kernel.org>
-Cc: =?UTF-8?q?=C5=81ukasz=20Bartosik?= <ukaszb@chromium.org>,
-	Andrei Kuchynski <akuchynski@chromium.org>,
-	Jameson Thies <jthies@google.com>,
-	"Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
-	chrome-platform@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="RwkyW6Xo"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=ZvFijynfxs8ibqtQRQGuVugKLLDc2R9fdiy9rm9cFaM=; b=RwkyW6XofBJdVZysxBB+Mym5Hg
+	AkMzsaF2mKZcGF9zo92CRZ7I7WslecfPMQb/4vs/5lqiFUrh0djgMFI+5EcIoMV6hEWNx/pbThxPW
+	qIyLLEBz3uCJykBkIM9yCOaL3595HIipFquPGi3DceGotUqg3ujoqWYCMUHbaa5G//hnYK3m0wmpw
+	cy+9pLbev8zeCcFaPGlfruDrTxVy29XdSI1kVfGytlNNUOIqLERCmfpa2M6WkJYx+/CnVpkclApLo
+	UbpMh9JZF5TCJwVEiTVrqxyPbSsmPbqWZfOME2gJ2UXXC9TZhLSJ+MBvLb2HYG7HVBTryAylb3FnI
+	BAwOTuCg==;
+Received: from [151.115.150.205] (port=53992 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1xD6sU-0000000GjZq-2vGZ;
+	Sat, 03 Oct 2026 23:02:38 +0200
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Hannes Reinecke <hare@suse.de>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Chaitanya Kulkarni <kch@nvidia.com>
+Cc: linux-nvme@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Sergey Tiraspolsky <stiraspo@gmail.com>,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
 	stable@vger.kernel.org
-Subject: [PATCH] platform/chrome: cros_usbpd_notify: Don't use a non-EC parent's drvdata
-Date: Sat,  3 Oct 2026 13:46:23 -0700
-Message-ID: <20261003204623.18124-1-stiraspo@gmail.com>
-X-Mailer: git-send-email 2.55.0
+Subject: [PATCH] nvmet-auth: serialize access to DH-HMAC-CHAP state to fix UAF
+Date: Sat,  3 Oct 2026 21:01:55 +0000
+Message-ID: <20261003210154.2453077-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-cros_usbpd_notify_probe_acpi() takes the parent's driver data as the
-struct cros_ec_device to talk to. Only the Chrome EC (GOOG0004) stores
-one there. On older devices without the updated device hierarchy,
-GOOG0003 is a child of the ACPI EC (PNP0C09) instead, as on the 2017
-Pixelbook (Eve), and the driver relied on the parent's driver data
-being NULL to fall back to sending a 0 event.
+A REPLY AUTH_SEND command can derive a dhchap_skey key while a
+concurrent AUTH_RECEIVE command observing this REPLY state executes
+the failure path and frees that key. The REPLY command then continues
+and writes into freed memory, causing a use-after-free. KASAN reports
+it as:
 
-Since commit db65a06d10b3 ("ACPI: EC: Convert the driver to a platform
-one"), the ACPI EC's platform device stores its struct acpi_ec as driver
-data, so on those devices the probe treats a struct acpi_ec as a struct
-cros_ec_device. The "Couldn't get Chrome EC device pointer" warning is
-no longer printed, and every USB PD notification, e.g. on resume or
-charger plug, oopses:
+  BUG: KASAN: slab-use-after-free in __sha256_final
+  Write of size 4 at addr ffff88800359c540
+  ...
+  nvmet_auth_sq_free (drivers/nvme/target/auth.c:237)
+  nvmet_execute_auth_receive (drivers/nvme/target/fabrics-cmd-auth.c:621)
 
-  BUG: unable to handle page fault for address: ffffffff96103220
-  Oops: Oops: 0002 [#1] SMP PTI
-  Workqueue: kacpi_notify acpi_os_execute_deferred
-  RIP: 0010:native_queued_spin_lock_slowpath+0x29d/0x330
-  Call Trace:
-   _raw_spin_lock_irqsave+0x59/0x80
-   cros_ec_cmd_xfer+0x2a/0xf0 [cros_ec_proto]
-   cros_ec_cmd_xfer_status+0x1a/0x90 [cros_ec_proto]
-   cros_ec_cmd+0xb7/0x140 [cros_ec_proto]
-   cros_usbpd_get_event_and_notify+0x42/0xc0 [cros_usbpd_notify]
-   acpi_ev_notify_dispatch+0x4e/0x70
+Add a mutex to each submission queue to serialize authentication
+commands and timeout handling. Unlock the mutex before completing
+requests and ignore outdated timeout callbacks. Limit timeout delays
+to prevent immediate expiry on 32-bit kernels.
 
-When it happens during resume, the machine stays on a black screen.
-
-Only use the parent's driver data when the parent is GOOG0004, as the
-probe already does when deciding whether to defer, and continue without
-an EC device pointer otherwise.
-
-The root cause was found from the oops logs, and this change and its
-changelog were written, with the help of an AI coding assistant. I
-reviewed both and tested the fix on the affected hardware.
-
-Fixes: db65a06d10b3 ("ACPI: EC: Convert the driver to a platform one")
+Fixes: 7a277c37d352 ("nvmet-auth: Diffie-Hellman key exchange support")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Sergey Tiraspolsky <stiraspo@gmail.com>
+Assisted-by: LLM
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
 ---
+ drivers/nvme/target/auth.c             |  1 +
+ drivers/nvme/target/fabrics-cmd-auth.c | 32 ++++++++++++++++++++++----
+ drivers/nvme/target/nvmet.h            |  2 ++
+ 3 files changed, 31 insertions(+), 4 deletions(-)
 
-Notes:
-    Tested on a 2017 Google Pixelbook (Eve), where GOOG0003 is a child of
-    PNP0C09, on 7.2.5 (Arch-based distro kernel; none of its patches touch
-    drivers/platform/chrome or drivers/acpi/ec.c), building this change as
-    an out-of-tree module:
-    
-     - without the patch: four oopses with the trace above in the logs, one
-       3 seconds after resume, and lid-close suspends that never resumed
-     - with the patch: the probe prints "Couldn't get Chrome EC device
-       pointer." again; a charger unplug/replug produced 9 USB PD
-       notifications, all taking the "EC device inaccessible; sending 0
-       event status" path; suspend with a charger unplug/replug while asleep
-       resumed normally; no oopses
-    
-    Not tested: a device where GOOG0003 is a child of GOOG0004 (that path
-    only moves into the if branch here, its logic is unchanged).
-
- drivers/platform/chrome/cros_usbpd_notify.c | 37 +++++++++++----------
- 1 file changed, 19 insertions(+), 18 deletions(-)
-
-diff --git a/drivers/platform/chrome/cros_usbpd_notify.c b/drivers/platform/chrome/cros_usbpd_notify.c
-index 6f5eea4938..5657b93a6c 100644
---- a/drivers/platform/chrome/cros_usbpd_notify.c
-+++ b/drivers/platform/chrome/cros_usbpd_notify.c
-@@ -110,24 +110,25 @@ static int cros_usbpd_notify_probe_acpi(struct platform_device *pdev)
- 	if (!pdnotify)
- 		return -ENOMEM;
+diff --git a/drivers/nvme/target/auth.c b/drivers/nvme/target/auth.c
+index a55319b..1680e5e 100644
+--- a/drivers/nvme/target/auth.c
++++ b/drivers/nvme/target/auth.c
+@@ -229,6 +229,7 @@ out_unlock:
  
--	/* Get the EC device pointer needed to talk to the EC. */
--	ec_dev = dev_get_drvdata(dev->parent);
--	if (!ec_dev) {
--		/*
--		 * We continue even for older devices which don't have the
--		 * correct device hierarchy, namely, GOOG0003 is a child
--		 * of GOOG0004. If GOOG0003 is a child of GOOG0004 and we
--		 * can't get a pointer to the Chrome EC device, defer the
--		 * probe function.
--		 */
--		parent_fwnode = fwnode_get_parent(dev->fwnode);
--		if (parent_fwnode) {
--			parent_adev = to_acpi_device_node(parent_fwnode);
--			if (parent_adev &&
--			    acpi_dev_hid_match(parent_adev, CREC_DRV_NAME)) {
--				return -EPROBE_DEFER;
--			}
--		}
-+	/*
-+	 * Get the EC device pointer needed to talk to the EC. Only the Chrome
-+	 * EC (GOOG0004) stores a struct cros_ec_device as its driver data, so
-+	 * only use the parent's driver data when GOOG0003 is a child of
-+	 * GOOG0004, and defer the probe until that driver has bound.
-+	 *
-+	 * We continue without the pointer for older devices which don't have
-+	 * the correct device hierarchy. There GOOG0003 is a child of another
-+	 * device, such as the ACPI EC (PNP0C09), whose driver data is not a
-+	 * struct cros_ec_device.
-+	 */
-+	parent_fwnode = fwnode_get_parent(dev->fwnode);
-+	parent_adev = to_acpi_device_node(parent_fwnode);
-+	if (parent_adev && acpi_dev_hid_match(parent_adev, CREC_DRV_NAME)) {
-+		ec_dev = dev_get_drvdata(dev->parent);
-+		if (!ec_dev)
-+			return -EPROBE_DEFER;
-+	} else {
-+		ec_dev = NULL;
- 		dev_warn(dev, "Couldn't get Chrome EC device pointer.\n");
+ void nvmet_auth_sq_free(struct nvmet_sq *sq)
+ {
++	sq->auth_expiry_active = false;
+ 	cancel_delayed_work(&sq->auth_expired_work);
+ 	kfree(sq->dhchap_c1);
+ 	sq->dhchap_c1 = NULL;
+diff --git a/drivers/nvme/target/fabrics-cmd-auth.c b/drivers/nvme/target/fabrics-cmd-auth.c
+index dccdb55..f30c253 100644
+--- a/drivers/nvme/target/fabrics-cmd-auth.c
++++ b/drivers/nvme/target/fabrics-cmd-auth.c
+@@ -6,6 +6,7 @@
+  */
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+ #include <linux/blkdev.h>
++#include <linux/jiffies.h>
+ #include <linux/random.h>
+ #include <linux/nvme-auth.h>
+ #include <crypto/kpp.h>
+@@ -17,16 +18,27 @@ static void nvmet_auth_expired_work(struct work_struct *work)
+ 	struct nvmet_sq *sq = container_of(to_delayed_work(work),
+ 			struct nvmet_sq, auth_expired_work);
+ 
++	mutex_lock(&sq->auth_lock);
++	/* A command may have cancelled or rearmed this timeout. */
++	if (!sq->auth_expiry_active ||
++	    delayed_work_pending(&sq->auth_expired_work))
++		goto out_unlock;
++	sq->auth_expiry_active = false;
++
+ 	pr_debug("%s: ctrl %d qid %d transaction %u expired, resetting\n",
+ 		 __func__, sq->ctrl->cntlid, sq->qid, sq->dhchap_tid);
+ 	sq->dhchap_step = NVME_AUTH_DHCHAP_MESSAGE_NEGOTIATE;
+ 	sq->dhchap_tid = -1;
++out_unlock:
++	mutex_unlock(&sq->auth_lock);
+ }
+ 
+ void nvmet_auth_sq_init(struct nvmet_sq *sq)
+ {
+ 	/* Initialize in-band authentication */
++	mutex_init(&sq->auth_lock);
+ 	INIT_DELAYED_WORK(&sq->auth_expired_work, nvmet_auth_expired_work);
++	sq->auth_expiry_active = false;
+ 	sq->authenticated = false;
+ 	sq->dhchap_step = NVME_AUTH_DHCHAP_MESSAGE_NEGOTIATE;
+ }
+@@ -256,6 +268,8 @@ void nvmet_execute_auth_send(struct nvmet_req *req)
+ 	u16 status = 0;
+ 	u8 dhchap_status;
+ 
++	mutex_lock(&req->sq->auth_lock);
++
+ 	if (req->cmd->auth_send.secp != NVME_AUTH_DHCHAP_PROTOCOL_IDENTIFIER) {
+ 		status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
+ 		req->error_loc =
+@@ -281,8 +295,10 @@ void nvmet_execute_auth_send(struct nvmet_req *req)
+ 			offsetof(struct nvmf_auth_send_command, tl);
+ 		goto done;
+ 	}
+-	if (!nvmet_check_transfer_len(req, tl)) {
++	if (unlikely(tl != req->transfer_len)) {
+ 		pr_debug("%s: transfer length mismatch (%u)\n", __func__, tl);
++		mutex_unlock(&req->sq->auth_lock);
++		nvmet_check_transfer_len(req, tl);
+ 		return;
  	}
  
+@@ -406,10 +422,12 @@ done:
+ 			 status, req->error_loc);
+ 	if (req->sq->dhchap_step != NVME_AUTH_DHCHAP_MESSAGE_SUCCESS2 &&
+ 	    req->sq->dhchap_step != NVME_AUTH_DHCHAP_MESSAGE_FAILURE2) {
+-		unsigned long auth_expire_secs = ctrl->kato ? ctrl->kato : 120;
++		unsigned long auth_expire = min_t(u64, MAX_JIFFY_OFFSET,
++			(u64)(ctrl->kato ? ctrl->kato : 120) * HZ);
+ 
++		req->sq->auth_expiry_active = true;
+ 		mod_delayed_work(system_percpu_wq, &req->sq->auth_expired_work,
+-				 auth_expire_secs * HZ);
++				 auth_expire);
+ 		goto complete;
+ 	}
+ 	/* Final states, clear up variables */
+@@ -418,6 +436,7 @@ done:
+ 		nvmet_ctrl_fatal_error(ctrl);
+ 
+ complete:
++	mutex_unlock(&req->sq->auth_lock);
+ 	nvmet_req_complete(req, status);
+ }
+ 
+@@ -536,6 +555,8 @@ void nvmet_execute_auth_receive(struct nvmet_req *req)
+ 	u32 al;
+ 	u16 status = 0;
+ 
++	mutex_lock(&req->sq->auth_lock);
++
+ 	if (req->cmd->auth_receive.secp != NVME_AUTH_DHCHAP_PROTOCOL_IDENTIFIER) {
+ 		status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
+ 		req->error_loc =
+@@ -561,8 +582,10 @@ void nvmet_execute_auth_receive(struct nvmet_req *req)
+ 			offsetof(struct nvmf_auth_receive_command, al);
+ 		goto done;
+ 	}
+-	if (!nvmet_check_transfer_len(req, al)) {
++	if (unlikely(al != req->transfer_len)) {
+ 		pr_debug("%s: transfer length mismatch (%u)\n", __func__, al);
++		mutex_unlock(&req->sq->auth_lock);
++		nvmet_check_transfer_len(req, al);
+ 		return;
+ 	}
+ 
+@@ -621,5 +644,6 @@ done:
+ 		nvmet_auth_sq_free(req->sq);
+ 		nvmet_ctrl_fatal_error(ctrl);
+ 	}
++	mutex_unlock(&req->sq->auth_lock);
+ 	nvmet_req_complete(req, status);
+ }
+diff --git a/drivers/nvme/target/nvmet.h b/drivers/nvme/target/nvmet.h
+index 162e2fd..2032db3 100644
+--- a/drivers/nvme/target/nvmet.h
++++ b/drivers/nvme/target/nvmet.h
+@@ -161,8 +161,10 @@ struct nvmet_sq {
+ 	u32			sqhd;
+ 	bool			sqhd_disabled;
+ #ifdef CONFIG_NVME_TARGET_AUTH
++	struct mutex		auth_lock;
+ 	bool			authenticated;
+ 	struct delayed_work	auth_expired_work;
++	bool			auth_expiry_active;
+ 	u16			dhchap_tid;
+ 	u8			sc_c;
+ 	u8			dhchap_status;
 -- 
-2.55.0
+2.47.3
 
