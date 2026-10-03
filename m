@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45AE4282F10
-	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 13:20:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CA82282F10
+	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 13:20:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791033646; cv=none; b=UnXrhqYNiUBfB358UMAYStb7BUXXDIgUV0ZXFcohj+7ZNpOIT4c98kTKd7GzKdyNmUW5mJSaGzFMG5ITrz51VuHjOCwxoMQ3QRlLeP2t5tPYmh9gRbPCG5la/lge+qDujsqBAqs1IeOcL5HC2SP9hGfwhu5nnmDUEetSjkKNzR8=
+	t=1791033656; cv=none; b=lCHkjvZriKsQL3mNOA28zICyfGABTkXhTjFws4XJtTyM/pH5L+stf8N+IHi7JMin1sZtqd04zZAaD8mdmPcf0FgTiUfG+Lbju/sX9PJ/TTlny4g7fLcYf9E+1cf264VYEEg8/vLzF/PVGz5l9wHZqbTbl/w7smqVfapduNd3mYk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791033646; c=relaxed/simple;
-	bh=c+6zhzoNhZE6Sx7R+oHiRN+a1MNGsr450p4GzuboE44=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=hh0OYKJ7aUr7t1UfVmj7002HBOdaxlzPIx0xPrm9Ndy5BcknY/g0mmHofM9ihG2AB1F1BUJcBcgRb+Xo9zW8U7ylVfhssGU8cy0eRPBdj7iYWENBa1H5fx1SBTCmJ1Rq3PNLxqTjAbV/3nwQaK/kydwoR3WXqfKy5+Wjcr8YpAE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=okd47e6a; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791033656; c=relaxed/simple;
+	bh=5S2eSLN7pwZdpkbUI0qdX91VbaxBM2Nrsy2lz9lR/CA=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Ck1jMX4zQ8moSA2LtiqtnK+C+5SDOdXCQYcB8/ZTOBpb1eQHVawkpwZmopIOsbVXom8g4q3tCbCHpmsnLqHRvDBllG45YHqja9DSSrCmkTpQoyzqtsiiolQpan62BWxXVuWkmTBM0OQxFxwL7dMEv8PVxckUfZ7X+17GmKJAxCs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=uvWpxBhq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="okd47e6a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CD951F0089B;
-	Sat,  3 Oct 2026 13:20:44 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="uvWpxBhq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E24861F0089B;
+	Sat,  3 Oct 2026 13:20:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791033645;
-	bh=A0CXzBtb6bEnE7hII/YifT7cYF+6cWDqMtj7NKTiLlI=;
+	s=korg; t=1791033654;
+	bh=+ZVe2R5IZWvZ0bn5/mfy3OXSSF8yaBd4i7ifK+dRSvg=;
 	h=Subject:To:Cc:From:Date;
-	b=okd47e6aKFKkjdOlkzp7oKoKrUu1sLOoyqFiVU0+k9PTTXTxYbTB6oAMjT3Ns6QVS
-	 mo7+L4YmJ0N8Eb9Jp0THkA1sSEKu+Pfl0nvbFqf0R5KSI248f50JbBCmqzc0i/56v7
-	 brCcDPQU2eVdgh4ITESx0j1viKE8FJeRuY/aSE+c=
-Subject: FAILED: patch "[PATCH] netfs: clear post-EOF pagecache when extending a file via" failed to apply to 6.18-stable tree
+	b=uvWpxBhqixDxWO9LAIUuyWCD5InNRX87PUjeb5KCH87+DFwZmc6sCcC3ObetozsVI
+	 MwWpQ31d39qoBTa7hI2rAeWP6eF3BAGvFnM8QqzM0JPkYXuyBJdl/fou17Rw82bcsZ
+	 4v6apg1VezZWYE6BptnuqAjSmE3WNGy1G0BpJ6sc=
+Subject: FAILED: patch "[PATCH] netfs: clear post-EOF pagecache when extending a file via" failed to apply to 6.12-stable tree
 To: pc@manguebit.org,bharathsm@microsoft.com,brauner@kernel.org,dhowells@redhat.com,linkinjeon@kernel.org,ronniesahlberg@gmail.com,sprasad@microsoft.com,tom@talpey.com,willy@infradead.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Sat, 03 Oct 2026 15:20:42 +0200
-Message-ID: <2026100342-upgrade-outclass-c63d@gregkh>
+Date: Sat, 03 Oct 2026 15:20:43 +0200
+Message-ID: <2026100343-halt-swimmer-cc9a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x 69bf14300b50631e7c2271289d347bbd1b19a06c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100342-upgrade-outclass-c63d@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100343-halt-swimmer-cc9a@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
