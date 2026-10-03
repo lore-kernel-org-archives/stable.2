@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9705F2931EE
-	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 13:14:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93FBB23E33D
+	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 13:14:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791033253; cv=none; b=OWhUofXGJ2YztVw6QxhDKQhY5FTdXWFeCcRtySIIHTfNnsZzn9BpJE8p6DFIxk6/I89UaabMuy755RGbBsHO1AnIRHuu0fck9nDq5disSD8IGa+KgiVEJR2GVkD9oNqHAkOr/tC0BCtWrDxVYNXwoCAYlXg/9OrSypMR7wO1iKg=
+	t=1791033261; cv=none; b=WN0XAFf7X2Ji8DyJNHNtE23CxiIV9SuFca9do/t7YoMhX2+U4jyyQIpvx/e8TupD/uBPb+PFfdSaj4gYwJ7UYhTeGBtKfSbT5t9In0B77gq1ia7mqriyY75wXrZkeFdr4bT2KYJZvH9BcR+5bNFnYMksUwIYrhM0n8iRVy7sKG8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791033253; c=relaxed/simple;
-	bh=mVWMlrxqNk9ABxXqOEeFwj+D+OtaS0KLW/Opk/RXnYE=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=PoTy300D4uO1q256ZeU0Q/5dT9clEzxC3SC+92qtoy5hWXsuaxM2L7H8vf7rhMCF0Dy1gxjur2FjY4xPOT9kJdadPWJTqlD2PEA2p1jIEIZKzvt+nrhTZ9R68X40mHtziIYCOj7/WCBMHoT1bIkWm7XSEBt+JzwItpxxwG33kAo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JYsg1W/M; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791033261; c=relaxed/simple;
+	bh=0PqhA2HnJ+gv5xEDiT1AivHOoH5pchQLmbMAitzRRAk=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Aj7KJaO9pCuFCDMLmLkYznX1PnFBdgKkKPTiQrix+PNV9GZGVlVLHgSiVVuP778jDymuy8f7I+sv1zvVaZnlh0e84jGtyxuF/rx+6TVq2qUhXFwc0uHixgoYMfgDJomrtpmKV/+MyhC0vPVFKuymm+CxAsYeDX9TP897C+MZBGk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JsYSriZO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JYsg1W/M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8615C1F0089B;
-	Sat,  3 Oct 2026 13:14:11 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JsYSriZO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A75891F0089B;
+	Sat,  3 Oct 2026 13:14:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791033252;
-	bh=MEsmkrVV6WxocmHwI6+GJFl155BUn+WEr1YS5eYppAM=;
+	s=korg; t=1791033260;
+	bh=nFxT1ZO4OblVfB1ioOLajA+uSxTvAG1sFGpyWB8/rIY=;
 	h=Subject:To:Cc:From:Date;
-	b=JYsg1W/MNxPXKOudJlp1UWVYYSAHh0PtTQqGhPNXqLFMErYvLFpcQxGiLXXToZ+Ai
-	 xvGUkJD2kbkDaEEaQlL1M/011jS6qRPegMX2twN+xmdxy3QYm9XDKKpYCqDD28RpKp
-	 l4zEUYGRy0OcbCZ9caT0hyA7+kJLm+XsFHn4dO6w=
-Subject: FAILED: patch "[PATCH] HID: multitouch: stop the release timer from being rearmed on" failed to apply to 5.15-stable tree
+	b=JsYSriZOTJeQlQH0f3MhZSw199IDXEmgceFjv+3zqckIeqo71JdMXj4caRwJsYj9O
+	 62EPdE9Jd1QogkSSM0BgFQJ+eQ7vPL/ODPDRyg8XZq3isMP5lw5ZTScAPBbLG6GKnT
+	 5uJ0HChfCDvx1XcmJjd7Wf5CGBPGFYIuuY0qV3wM=
+Subject: FAILED: patch "[PATCH] HID: multitouch: stop the release timer from being rearmed on" failed to apply to 5.10-stable tree
 To: qwe.aldo@gmail.com,bentiss@kernel.org,sashiko-bot@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Sat, 03 Oct 2026 15:14:03 +0200
-Message-ID: <2026100303-fender-underage-9574@gregkh>
+Date: Sat, 03 Oct 2026 15:14:04 +0200
+Message-ID: <2026100304-affecting-ferment-18a7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 5acb2dace582f061aab5e14c399ac9480315f44b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100303-fender-underage-9574@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100304-affecting-ferment-18a7@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
