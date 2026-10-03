@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34F972931C4
-	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 13:18:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB3A6239E60
+	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 13:18:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791033489; cv=none; b=ntKbbHbExNd2qK4cAnfYyT+3yj0CrBj/TnQQ0e5QM71Xwzm42BFcp79s4zfJiRbehJkzMMDx02IzBVcan28sDCI9lCedNRn7WkryB2xYNIQFDyR1+5P5LgjgU4A2bnCijmv8KTsDXWhxzpUx35bMcLPEWQKuLDAMj/k61pHO1bM=
+	t=1791033509; cv=none; b=E/6AtYlP0CWjhHE/g5V/ZEbfoMZJGof3K2F76jispvB6a4Tit5z2Wos+/2u7mjjvBdGXsN60KSey5vCpfZ1qNUx9GR8Meo/6ykfvK7M1c6f/kW65F9uZA+xKnN1ZvCPCuJIygOWPl+OBZo7bKLa4nHlId4dv9q5eyES/SFh0SzY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791033489; c=relaxed/simple;
-	bh=Hea4x8GTOIfogDBVwgCwZiUAIn3Y8WubCRdTqljHU8Q=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=sDYb4CURHGURytSNPE1pAa0P82eupfQMLMxWbniZHytLpWTKqhNCtQGJm9vSS1JfBUdMIFTsI91wqXWA/q002N583j6QPdl5N+xTnvL+UO5du+ILvdgNSF9Id/LouzYiNRnLCDE5RU8OUyEXQLMVO/de5yes4Tw9o/TzfZkszEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hdhkfFQ+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791033509; c=relaxed/simple;
+	bh=xPqRgncZSEyr4PNWWHihBrGCjjcB3Rhy2DIwCd+CA8I=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=JY32TtEOOIrJgN72sF6XeZau+FFgI2GZOAUcPzyAFvF+DlxR748wp/gQUZIrkAE2I3eSzSytHLZUAKFzPcnbO6Tk8oloXE5RjmrnTAbYdWvXjwk6E1JsMBMAKDQFGZBWtNJwo/KtJx2Mt8p6lbF2uRmyCMTy5+wvasWR8+RjUF4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VxFT1jqt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hdhkfFQ+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44CEC1F0089B;
-	Sat,  3 Oct 2026 13:18:07 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VxFT1jqt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F01A11F0089B;
+	Sat,  3 Oct 2026 13:18:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791033487;
-	bh=GGcP+NYWXICT+wtUpRW4itI/acjd7aiWjWNepamAOKw=;
+	s=korg; t=1791033507;
+	bh=LHOQJVJtMUMxOdNRI2DkgVOHwKmUppbvsAI1GWwHYvk=;
 	h=Subject:To:Cc:From:Date;
-	b=hdhkfFQ+8wjAKnTKYSFTNOkBq+4mNK2CxvaprGii+LFzR+MTHI4SBnHeYke0r45ON
-	 17Udu1EcS/fGLyPU/foSIV8oK0AmY84dYL4Fau+6HayLrOM6hk654qhuSKApVuqoVA
-	 RdHGgQSMUBp6ek5zSkYu7Uj2cJMl9e/wmgz0g0ZU=
-Subject: FAILED: patch "[PATCH] net: phy: aquantia: fix system interface type not updated in" failed to apply to 5.10-stable tree
-To: bartosz.golaszewski@oss.qualcomm.com,pabeni@redhat.com
+	b=VxFT1jqtdORac8g0/xSMIFvMWKYxpjicCeJLZgdfPOOKsjsDdJ/mGwcKcGwj3b37j
+	 Rw3dumG2C4UU6eiOhuUu2bKX5cv1/gs+fcR8ZD320fhdryK9IVI6Sm0BbI02eAVWp4
+	 nYIsm+HTnCsOkgoPxS1RQ2V/5T4Qw0o0mea/ES+Q=
+Subject: FAILED: patch "[PATCH] pfcp: fix socket lifetime on netdevice registration failure" failed to apply to 6.18-stable tree
+To: luoxuanqiang@kylinos.cn,horms@kernel.org,pabeni@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Sat, 03 Oct 2026 15:17:48 +0200
-Message-ID: <2026100348-tanned-afloat-e007@gregkh>
+Date: Sat, 03 Oct 2026 15:18:24 +0200
+Message-ID: <2026100324-detector-remember-9bba@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6e0022b5ae3dc5b833af0fcc1578dc20a1d6bc71
+git cherry-pick -x 0f17d2e3dd9cda3ee6d94033d5e5489af168920d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100348-tanned-afloat-e007@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100324-detector-remember-9bba@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,56 +62,58 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6e0022b5ae3dc5b833af0fcc1578dc20a1d6bc71 Mon Sep 17 00:00:00 2001
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Wed, 23 Sep 2026 17:14:35 +0200
-Subject: [PATCH] net: phy: aquantia: fix system interface type not updated in
- forced mode
+From 0f17d2e3dd9cda3ee6d94033d5e5489af168920d Mon Sep 17 00:00:00 2001
+From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+Date: Thu, 24 Sep 2026 13:52:52 +0800
+Subject: [PATCH] pfcp: fix socket lifetime on netdevice registration failure
 
-aqr_gen1_read_status() decodes the MDIO_PHYXS_VEND_IF_STATUS register
-to determine which SerDes interface the PHY is currently using on its
-system side and stores the result in phydev->interface. phylink relies
-on this value to configure the MAC.
+pfcp_newlink() creates the UDP socket before register_netdevice().
+If registration fails after pfcp_dev_init() succeeds, the core calls
+pfcp_dev_uninit(), which releases the socket and clears pfcp->sk.
+The newlink error path then releases it again, causing a NULL pointer
+dereference. This was observed with failslab fault injection:
 
-The autoneg == AUTONEG_DISABLE check is not correct:
-MDIO_PHYXS_VEND_IF_STATUS is set by the PHY firmware based on the
-negotiated link speed, not based on whether autoneg was used to reach
-it. When the link comes up at 1G in forced mode, the register correctly
-reads SGMII, but the early return prevents phydev->interface from being
-updated. It stays at whatever value it held before (typically 2500BASE-X
-from the initial autoneg run), so phylink configures the MAC for the
-wrong interface and the link cannot come up.
+  FAULT_INJECTION: forcing a failure.
+  kobject: kobject_add_internal failed for pfcp0 (error: -12 parent: net)
+  BUG: KASAN: null-ptr-deref in udp_tunnel_sock_release+0x1c/0x50
+  Read of size 8 at addr 0000000000000120 by task ip/1037
+  Call trace:
+   show_stack+0x18/0x24 (C)
+   dump_stack_lvl+0x78/0x90
+   print_report+0x468/0x5cc
+   kasan_report+0xa4/0xf0
+   __asan_load8+0x7c/0xd0
+   udp_tunnel_sock_release+0x1c/0x50
+   pfcp_newlink+0x128/0x184
+   rtnl_newlink+0x848/0xe44
+   rtnetlink_rcv_msg+0x468/0x514
+   netlink_rcv_skb+0xc0/0x1f0
+   rtnetlink_rcv+0x18/0x24
+   netlink_unicast+0x4b8/0x558
+   netlink_sendmsg+0x2b8/0x584
+   ...
 
-Remove the autoneg guard so that the system interface type is always
-decoded when the link is up.
+Return from pfcp_del_sock() if pfcp->sk is NULL.
 
+Fixes: 76c8764ef36a5 ("pfcp: add PFCP module")
 Cc: stable@vger.kernel.org
-Fixes: 110a2432c520 ("net: phy: aquantia: add downshift support")
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260923-qcom-sa8255p-emac-v15-1-e82f33720737@oss.qualcomm.com
+Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+Reviewed-by: Simon Horman <horms@kernel.org>
+Link: https://patch.msgid.link/20260924055252.33488-1-xuanqiang.luo@linux.dev
 Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 
-diff --git a/drivers/net/phy/aquantia/aquantia_main.c b/drivers/net/phy/aquantia/aquantia_main.c
-index e95d391a6dc2..096407bebd52 100644
---- a/drivers/net/phy/aquantia/aquantia_main.c
-+++ b/drivers/net/phy/aquantia/aquantia_main.c
-@@ -544,7 +544,7 @@ static int aqr_gen1_read_status(struct phy_device *phydev)
- 	if (ret)
- 		return ret;
+diff --git a/drivers/net/pfcp.c b/drivers/net/pfcp.c
+index e1cca779d2ec..3ecd43cafdf0 100644
+--- a/drivers/net/pfcp.c
++++ b/drivers/net/pfcp.c
+@@ -105,6 +105,9 @@ static int pfcp_encap_recv(struct sock *sk, struct sk_buff *skb)
  
--	if (!phydev->link || phydev->autoneg == AUTONEG_DISABLE)
-+	if (!phydev->link)
- 		return 0;
- 
- 	/* The status register is not immediately correct on line side link up.
-@@ -594,6 +594,9 @@ static int aqr_gen1_read_status(struct phy_device *phydev)
- 
- 	phydev->interface = aqr_translate_interface(phydev, interface);
- 
-+	if (phydev->autoneg == AUTONEG_DISABLE)
-+		return 0;
+ static void pfcp_del_sock(struct pfcp_dev *pfcp)
+ {
++	if (!pfcp->sk)
++		return;
 +
- 	/* Read rate from vendor register */
- 	return aqr_gen1_read_rate(phydev);
+ 	udp_tunnel_sock_release(pfcp->sk);
+ 	pfcp->sk = NULL;
  }
 
