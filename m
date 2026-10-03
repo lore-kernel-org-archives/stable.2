@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 577421632DD
-	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 15:43:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6920923AB9D;
+	Sat,  3 Oct 2026 15:46:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791042228; cv=none; b=GJl7H/tlGBC5q09bHnRG4GdplJ2fZptoEl6AOQ4ias7hIlWCnwMeoxVPVXsHwsc8Nf+Y0r6Fz91LZE/T2BGU+OxgOYfgqYVwXfpDdS6kG8gs2TMdHvyov5YZH4o8asDNGSpYkpfJeoMQJSW+j3USLhSCjt94FiFfzbju5Wf7HFU=
+	t=1791042383; cv=none; b=t/cGtXpwhxcDSeQEWGaKq3484h4mlwoCyQQWZjNSBARpD+uhK2/f7nzwp/LdC2qv9WCYfNGhwcQMwvyn2SjnPpCEbJeUcFUkwlG8AFI+/FSEL5ZmD6unFikcwLQJkCwcCvqG4N7F1TVfWHMhJ1C8G2qSXXPK2FqUr3F1wbiJsmk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791042228; c=relaxed/simple;
-	bh=DKfzPq3Tgj5yPAmTAhXXiQJogeVCWamzH5gA0XHzRsM=;
+	s=arc-20240116; t=1791042383; c=relaxed/simple;
+	bh=dKTVdy+yCyrLn3MnTq5spw3qQpFrz79wsn1WiJm0ywM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=godqhK4qQ7cgOjSUyGBL+flqO+dJ9I5e9QKI/4qGbdknx6Ej6N7kit6M9bt7T62lLAjns8k7+9i1S9uHIujbdzuGpreq5PELgshPVV8lsQw0FZQ2VSp4vt0ZVKZF0llHJ0S9xcxhvv8Knlp8i+PQI1q2T3cEc291XgzPmk63ukg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SEbdU4P7; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=XyG2FlogGP4++z2OhdmdrvU+e1pDU1TKXKpSk6jDr7blxtw/eB58h/xKJRj2p/pfZz6gfXxkF1oEILBqPGzJnbXrkQXeT8siP2NwX5/GlspP8dXxilrxhwvV3xdXXxxbw/ueNxeL0OyqnSc1zAE7HgfbNctLmWRrYkC2FpefAbY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V8zZnkrR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SEbdU4P7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E37DB1F0089B;
-	Sat,  3 Oct 2026 15:43:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V8zZnkrR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3A201F0089C;
+	Sat,  3 Oct 2026 15:46:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791042227;
-	bh=Di9fTDRp9RZdMWSuSPqy/Wo3kkv02wMfsJBCScJ2jzY=;
+	s=k20260515; t=1791042382;
+	bh=tkts0pDbe69YFVrBqsvwV2MRMgMY6TcvecSmyeXkG58=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SEbdU4P7fTh/9+nJjZF47kav+nAEUzI7XJ1bs/vxaQnPuleb4/oaz+u2hatZGjJCd
-	 f8S1MBhjh384CzR8+LGBjDdwYyqQlWQ7oaBsdbuU1ozsLC8e9tL+DvIXrz3Sm/hK/3
-	 zeIFdrx+tXY52WQgY6460UH8PXTXGGRfVgQGwFyVts0PU1PnkuJvbSjl81A9Q2q/XI
-	 BUD8qPeoU5I672+Ovzm0i9huG80BXyZNuKtfvCrlYu0Kl/FG4GfrZeTdKUEBbPCl/c
-	 cqIfZBXvRALI52zirbIeuNJ7QV7ezkEZz3dVIMs67zlWlt46ZkPcJbTrBp+QguusIQ
-	 at5Dcnu4pbldw==
+	b=V8zZnkrRupfrBMhPYg9eyDonKWcXD+jJWnf4kZiGoM2i+R6/JQUDhbHmc+NP2pjWO
+	 ZW7iBOBhhawcGFts+pPaNNSN8sodjTIorajAIhy88uFXizKLTHqKqoE/1XrefjD/h4
+	 V1FrYy+XpU/8i/erCjFaJmvAmZuKR1Gl/DeaCqI3C6hMMe5arRQVJaAf2O1Dzxs6jm
+	 OFntH4e7dFXFmypHnmTwGVuNKFTcu8AutiMoq22eooEEDJYDsHIg/4da3kqBEu1UtY
+	 +rScgvL6S4OdzAgGIC1pQuXjq+eqvOfdhkLqBaOUGOz9ClxYEBlLs08YWrSj0OWoE+
+	 vnFZzoYsfZ+pQ==
 From: SJ Park <sj@kernel.org>
 To: stable@vger.kernel.org
-Cc: SJ Park <sj@kernel.org>,
+Cc: damon@lists.linux.dev,
+	SJ Park <sj@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Kunwu Chan <kunwu.chan@gmail.com>
-Subject: [PATCH 6.18.y] mm/damon/core: don't skip damos_adjust_quota() while esz is not zero
-Date: Sat,  3 Oct 2026 08:43:41 -0700
-Message-ID: <20261003154341.19354-1-sj@kernel.org>
+Subject: [PATCH 6.12.y] mm/damon/core: don't skip damos_adjust_quota() while esz is not zero
+Date: Sat,  3 Oct 2026 08:46:16 -0700
+Message-ID: <20261003154616.22092-1-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <2026100311-deforest-barstool-b0d0@gregkh>
-References: <2026100311-deforest-barstool-b0d0@gregkh>
+In-Reply-To: <2026100358-repayment-destitute-a6a6@gregkh>
+References: <2026100358-repayment-destitute-a6a6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -92,18 +93,17 @@ Signed-off-by: SJ Park <sj@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
 Cc: <stable@vger.kernel.org> # 5.19.x
-(cherry picked from commit 52ae167ce16609c7e6fffef588b3c2c26de2db19)
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
  mm/damon/core.c | 3 ++-
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/mm/damon/core.c b/mm/damon/core.c
-index c0dcb190b06e..0182cc8198d3 100644
+index 32737cc5f877..2f6d60b9ca0f 100644
 --- a/mm/damon/core.c
 +++ b/mm/damon/core.c
-@@ -2248,7 +2248,8 @@ static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
- 	unsigned long cumulated_sz, cached_esz;
+@@ -1677,7 +1677,8 @@ static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
+ 	unsigned long cumulated_sz;
  	unsigned int score, max_score = 0;
  
 -	if (!quota->ms && !quota->sz && list_empty(&quota->goals))
