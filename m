@@ -1,100 +1,99 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89307243956;
-	Sat,  3 Oct 2026 20:14:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC81B221FB4;
+	Sat,  3 Oct 2026 20:22:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791058498; cv=none; b=NgJcFW35tKwRwo9QyaCI5mLOcju1qcAwHyC1eeUV3B0fI0mLxfbZReGZlD67ToG7ftCdd6g7JzIwmdNErU4WHS/q2CWLCeOopB41oF3OgVXdWwmDEVR3l4MZ0cjxaVaj/bDqgkLEE8aZEEX1elwpZB1N0ocEWI5DjanjvAF4rxQ=
+	t=1791058928; cv=none; b=nw3Vi6wScyYBPsb5A27lKxR+Ezrb/BFciF0lJvALV9/mMRYPvhAL/a/UyhMYO6TamQAOZsX3jc6h8Jd6bop4KBiG8AT/KTgm9l08SCo5Silgz2KGuHF4pulDSsjzVMycSlNbAfBGl1n4+inkinz7TlTHlZ6nKlrn0gHftlw5XHA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791058498; c=relaxed/simple;
-	bh=NSqc6QBhN3exxXHfH8Tav6Imgr0hJESeC+/6AgzrzrU=;
+	s=arc-20240116; t=1791058928; c=relaxed/simple;
+	bh=ed1lGsJ+1gqMPNVoWL3aELzqPoySA/fwsDpsdVzIxYk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=u84sG77L6n+Z8+yA/n8v7ehPpBFga4LbYkKMphlZZSpKya5DhvH1ZTEBqGl10ZDB/bjC1ztqitRjDDitQD2gPs9pwl983IdSZZW+g/6dyWk8dQdiseObEvlX55IKdmLYLZmCG76Nz5PoFtiUAwEaE7SrxJsEsk2znTUEcD8s3Cw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Q5F+IhIO; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=ruOV65F5OMxmj7BNt1NXKQCAYkgnKAWAuBhSCsnlyAo4RVdJ/J4NAs6eEJWWj2FGRHNe2g+/bazBDLwHAPe6cPW4TEiGZ6W2r3WPP9RHYewSA1LRPdD3ddfuCYe2zYxKyEhNiG5JgXkOSskppqUZhMMVPNYsqhgSzrzPO0yFmp4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b=TOixXT7a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Q5F+IhIO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791058497; x=1822594497;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=NSqc6QBhN3exxXHfH8Tav6Imgr0hJESeC+/6AgzrzrU=;
-  b=Q5F+IhIOFs2MspTCPDAHog3zOZZ/oOWnjlCeDsIEZ7+KNZKIB3UOzZld
-   gSovnT+vjtN/t8X0/7O1N7Cs4jExcWJx0TdxxPGMou+JpfCIwH7ge4nSj
-   3j5uDKKr1ssLlS04kE3KzqvMqa4vOl1LcZKBevm84fZFLCkTcjp5toKRK
-   CK3pSvHLVFtncjhEP7NvzMc+trOxXptCAkRe2LWAmdXmRpydfgBk1qDeo
-   WXsgmxdmMlSLgQ+ClqshfRpjK5hqDYxs0hp7HnRIazXBP2iGIeIvxUk4M
-   55zSz9BqHiPoKW6m4893PfAaGgmw4dCk+HA2/vqHnY0gDlKcF/SWqB5Lw
-   A==;
-X-CSE-ConnectionGUID: dyAMKkz2TSOEGNcWQdtIiA==
-X-CSE-MsgGUID: XIj8Ya1TRLOj6mj3L4D09Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11924"; a="90816665"
-X-IronPort-AV: E=Sophos;i="6.27,138,1787036400"; 
-   d="scan'208";a="90816665"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2026 13:14:56 -0700
-X-CSE-ConnectionGUID: f5mP1bFsSLqhZNHsyPD1JA==
-X-CSE-MsgGUID: xTvsdTMURy2jTFm7GKjGhw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,138,1787036400"; 
-   d="scan'208";a="280234090"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.245.78])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2026 13:14:54 -0700
-Date: Sat, 3 Oct 2026 23:14:51 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Muhammad Bilal <meatuni001@gmail.com>
-Cc: Jorge Lopez <jorge.lopez2@hp.com>, Hans de Goede <hansg@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Thomas =?iso-8859-1?Q?Wei=DFschuh?= <linux@weissschuh.net>,
-	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b="TOixXT7a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52E301F0089B;
+	Sat,  3 Oct 2026 20:22:05 +0000 (UTC)
+Authentication-Results: smtp.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20210105 header.b=TOixXT7a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105;
+	t=1791058923;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Or+qA0Cnb+L7NO6L4PEfticloQh82qWV1cmacilxU10=;
+	b=TOixXT7aovNieDKA6F6Q8JkqhABbKyM85UnwRHzgqYR52NtSNbKsxH50Xtle+dDzwdz92b
+	llcuMEq9orWrSb9qmIUWZKYl84oV+DZjB76qLXufOw2Bos152bZ/NPVI2f+nZxpzU8VgH3
+	jXemBS1VmyiGHWNY+PFYz7L+Yp03ZOQ=
+Received: 
+	by mail.zx2c4.com (OpenSMTPD) with ESMTPSA id e40e2a3a (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
+	Sat, 3 Oct 2026 20:22:02 +0000 (UTC)
+Date: Sat, 3 Oct 2026 22:22:00 +0200
+From: "Jason A. Donenfeld" <Jason@zx2c4.com>
+To: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+Cc: ebiggers@kernel.org, ardb@kernel.org, skhan@linuxfoundation.org,
+	me@brighamcampbell.com, jkoolstra@xs4all.nl,
+	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v4 1/9] platform/x86: hp-bioscfg: fix OOB reads in
- hp_get_string_from_buffer()
-Message-ID: <asFiO0hjqzGdmAMn@ashevche-desk.local>
-References: <20261002191434.58529-1-meatuni001@gmail.com>
- <20261002191434.58529-2-meatuni001@gmail.com>
+Subject: Re: [PATCH] crypto: chacha20poly1305 - Fix missing state zeroization
+ in xchacha decrypt
+Message-ID: <asFj6Nxf6fglYfor@zx2c4.com>
+References: <20261003060826.7792-1-raizudeen.kerneldev@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261002191434.58529-2-meatuni001@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261003060826.7792-1-raizudeen.kerneldev@gmail.com>
 
-On Sat, Oct 03, 2026 at 12:14:26AM +0500, Muhammad Bilal wrote:
-> The escape prescan loop uses 'size' as both its bound and its
-> accumulator, so each escape character found extends the loop and
-> reads past the end of src[].
+On Sat, Oct 03, 2026 at 11:38:26AM +0530, Mohamad Raizudeen wrote:
+> The `__chacha20poly1305_decrypt` function does not zeroize the chacha
+> state, unlike its encrypt counterpart. The regular
+> `chacha20poly1305_decrypt` function handles this by manually calling
+> chacha_zeroize_state(). However, `xchacha20poly1305_decrypt` returns
+> the result directly without clearing the state.
 > 
-> Use the original u16 count as the loop bound. Also include the 2-byte
-> length prefix in the bounds check, pass the u16 count instead of the
-> byte count to utf16s_to_utf8s(), and advance the buffer by the bytes
-> actually consumed instead of the escape-inflated count.
+> This leaves the derived chacha20 subkey on the stack after the function
+> returns. Fix this by storing the return value, calling
+> chacha_zeroize_state() and then returning the result, matching the
+> logic in `chacha20poly1305_decrypt`.
 > 
-> Tested on HP EliteBook 840 G2 (Fedora 44, Linux 7.2.7).
+> Fixes: ed20078b7e333 ("crypto: chacha20poly1305 - import construction and selftest from Zinc")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+> ---
+>  lib/crypto/chacha20poly1305.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/lib/crypto/chacha20poly1305.c b/lib/crypto/chacha20poly1305.c
+> index ea42a28f4ff7..03b14d272520 100644
+> --- a/lib/crypto/chacha20poly1305.c
+> +++ b/lib/crypto/chacha20poly1305.c
+> @@ -199,10 +199,13 @@ bool xchacha20poly1305_decrypt(u8 *dst, const u8 *src, const size_t src_len,
+>  			       const u8 key[at_least CHACHA20POLY1305_KEY_SIZE])
+>  {
+>  	struct chacha_state chacha_state;
+> +	bool ret;
+>  
+>  	xchacha_init(&chacha_state, key, nonce);
+> -	return __chacha20poly1305_decrypt(dst, src, src_len, ad, ad_len,
+> +	ret = __chacha20poly1305_decrypt(dst, src, src_len, ad, ad_len,
+>  					  &chacha_state);
+> +	chacha_zeroize_state(&chacha_state);
+> +	return ret;
+>  }
+>  EXPORT_SYMBOL(xchacha20poly1305_decrypt);
 
-...
+In my memory, the reason it's like this is because for WireGuard,
+xchapoly is just being used to encrypt a cookie value, which has no
+forward secrecy concerns at all. So it doesn't matter if it's left
+around on the stack.
 
-> -	/* Ensure there is enough space remaining to read and convert
-> -	 * the string
-> +	/* Ensure there is enough space remaining for the length prefix
-> +	 * just read plus the string data it describes.
->  	 */
+Are there other use cases, though, where you think it might matter?
 
-/*
- * While at it, fix the comment style for
- * multi-line comments. You can use this example.
- */
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Jason
