@@ -1,48 +1,48 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB08137F33F;
-	Sat,  3 Oct 2026 09:00:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09540282F10;
+	Sat,  3 Oct 2026 09:00:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791018048; cv=none; b=IvVRDsxttEqsVzlSZUQKqp7iRLkbvyWa67b8uU7VHr1Lvdf7RcUlCA7fBf4ImlSrEn54rPUAdGB0HjZXLuJlE4JzP+62NcOBuLrPgBnEJ1GBxUKpq6/ILnrStqb4nmRNpKQGAOec7JOEP0n+fUETtnYh3+U67C2uX87NK9ut0uo=
+	t=1791018062; cv=none; b=U5RfcI+9ixfCMhkMgbQP25eG2o6rFoDQ44OTxVghS3pm8xVQI0t7ZgQeptcLRLC2y/61JMWnpqxGSElMg4Xx11jFjosSrnSngveG6rluD4QSepseBGcUz/fBIqeI88nWFiYbF2MOB4H2aAIsMHR7eBZ1fnX6dv2o68/UBGdJZ0Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791018048; c=relaxed/simple;
-	bh=BmNvAz9iDqsBQM601smBEG5Vow8OZlw1HBvGuio2wtk=;
+	s=arc-20240116; t=1791018062; c=relaxed/simple;
+	bh=gCJ2Y+9Ii/0oTuh9JHBvzNRrME8urp7sA9q8osHRJFo=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=JiSdnO0/xAJbqsEwkj4s5g50ywAPb9QopE/DDxrhrdxFlFda9MY4rXZ5DHUxYItFqrWje9SXGfGlZd8kB0SMgFYM4ByE1oIXvgE+I2w4KGv4ZeZ7VZjTMbYLpvCEM7W1cjD9FmM/neT7+GhTMWkYqCEF1NScuB8mAll9+YFIqrU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Qtip454y; arc=none smtp.client-ip=220.197.31.5
+	 MIME-Version; b=Raf7XYrzJEyFGLomfgyL54QrrxoeUW4C3KQ4uZvG6Ft6Wj1j8/YquumyaoQc+flG9C7mcaQ9aGxZ0Q6LEPcNul2cjkp2KZkGBoHRH1VT3iiA+RVkZ/y8iw61oNTmTej3jjMYxEUGjnO37xQzv4o7WW21f8pCxZKdSwgCF5Pwo2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=DhHs4oAh; arc=none smtp.client-ip=220.197.31.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Qtip454y"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="DhHs4oAh"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Gi
-	i2lC8GJgEbdIvkwbUFRGt51MJKWP8vE4cre12f3Y8=; b=Qtip454yPh4kY7i9qS
-	Ngdnzls7kKDLm7OcGoEtnzZa836IVI/pr/82qbBdGf4vZpTAU7F5JcWAbvVD5XFP
-	nIJ1LRd8s4ZLrtdzsVvWX/ZMuZOCUsQ7wVt5GDXRq4P5S0fuJHArB6IrM2XPqmw1
-	PYfcHRuAPQfMRWvi1fKEBEykw=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=o6
+	pbr0MqsE4xJG+7dGbFGQ+GBFL8J44m8Mgor8rfGAs=; b=DhHs4oAhoswv88W1lb
+	V6zRjcseS5vfj2tMJvN326VftaZ9zpZSFz9IhzMhuhf+sK18hKlmYzSfWU5HpKvo
+	kr2pJ6JNxGk6s1jE0Vu5CQbcQXjwr9jp1HNO+mXqhhvA/JNw01TOkZ1LuV8U6Wll
+	3TLNy/6DzT/DxOiKzM2t0GGQA=
 Received: from pc.localdomain (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgDXP4b_w8BqInaGCg--.62290S3;
-	Sat, 03 Oct 2026 16:59:47 +0800 (CST)
+	by gzsmtp5 (Coremail) with SMTP id QCgvCgDXP4b_w8BqInaGCg--.62290S8;
+	Sat, 03 Oct 2026 16:59:57 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
-To: =?UTF-8?q?Th=C3=A9o=20Lebrun?= <theo.lebrun@bootlin.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
+To: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+	Paul Barker <paul@pbarker.dev>,
 	Andrew Lunn <andrew+netdev@lunn.ch>,
 	"David S. Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Soren Brinkmann <soren.brinkmann@xilinx.com>,
+	Sergey Shtylyov <s.shtylyov@omp.ru>,
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
 	netdev@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: Jiale Yao <yaojiale02@163.com>,
 	stable@vger.kernel.org
-Subject: [PATCH net v3 1/7] net: macb: manage the netdev lifetime with devres
-Date: Sat,  3 Oct 2026 16:59:32 +0800
-Message-Id: <20261003085940.493951-2-yaojiale02@163.com>
+Subject: [PATCH net v3 6/7] net: ravb: release managed IRQs before freeing netdev
+Date: Sat,  3 Oct 2026 16:59:37 +0800
+Message-Id: <20261003085940.493951-7-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261003085940.493951-1-yaojiale02@163.com>
 References: <20261003085940.493951-1-yaojiale02@163.com>
@@ -53,107 +53,93 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCgvCgDXP4b_w8BqInaGCg--.62290S3
-X-Coremail-Antispam: 1Uf129KBjvJXoWxAF4fGrykCw48ZFWrtryftFb_yoW5ZF1kpa
-	9rCFWrKr48WFW3twn7Kw1DZF1rGw4ft34xKay2kw4rX3yYyrykXFy8XryjvFW8JFZ5Aw4S
-	vF1jyrW8Za1kJw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piYFAJUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQP7NmrAxANFYgAA3J
+X-CM-TRANSID:QCgvCgDXP4b_w8BqInaGCg--.62290S8
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAF15Cw4kXr1rJry5uFyrCrg_yoW5Xw43p3
+	95Aa98Wr1ktrn7Xan7tw4kZ3Wru3W8Ka45GFWUtayfAwnIyrWDXr1FgF1jqF48GFWkA3yY
+	gayjy3y8u3WUu37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pibo7iUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQ3+OWrAxA1F0wAA3y
 
-macb_remove() frees the netdev while its managed IRQs are only
-released after the remove callback returns. An interrupt in that window
-can dereference the freed netdev or queue data.
+ravb_remove() frees the netdev before devres releases the managed IRQs.
+The handlers use the netdev as their data pointer, so an interrupt during
+that window can access freed memory. Probe error paths have the same
+ordering problem.
 
-Allocate the netdev with devres as well. Since the IRQs are registered
-later, devres releases them before freeing the netdev and closes the
-lifetime gap.
+Keep the netdev manually managed and place only the IRQ resources in a
+dedicated devres group. Release the group after unregistering the netdev
+and before freeing it, and release it on probe failures as well. This
+keeps the existing runtime PM error handling unchanged.
 
 This issue was found by a static analysis method used in our research.
 
-Fixes: 0a4acf08ea62 ("net: macb: Use devm_request_irq()")
+Fixes: 32f012b8c01c ("net: ravb: Move getting/requesting IRQs in the probe() method")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- drivers/net/ethernet/cadence/macb_main.c | 17 +++++++----------
- 1 file changed, 7 insertions(+), 10 deletions(-)
+ drivers/net/ethernet/renesas/ravb_main.c | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index b8234ac4b602..ebf6ffb1cc4f 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -5812,7 +5812,8 @@ static int macb_probe(struct platform_device *pdev)
- 		goto err_disable_clocks;
+diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ethernet/renesas/ravb_main.c
+index ea1c7e536791..ab4703888778 100644
+--- a/drivers/net/ethernet/renesas/ravb_main.c
++++ b/drivers/net/ethernet/renesas/ravb_main.c
+@@ -2963,28 +2963,35 @@ static int ravb_probe(struct platform_device *pdev)
+ 		priv->num_rx_ring[RAVB_NC] = NC_RX_RING_SIZE;
  	}
  
--	netdev = alloc_etherdev_mq(sizeof(*bp), num_queues);
-+	netdev = devm_alloc_etherdev_mqs(&pdev->dev, sizeof(*bp),
-+					 num_queues, num_queues);
- 	if (!netdev) {
- 		err = -ENOMEM;
- 		goto err_disable_clocks;
-@@ -5859,7 +5860,7 @@ static int macb_probe(struct platform_device *pdev)
- 			IS_ENABLED(CONFIG_MACB_USE_HWSTAMP)) {
- 		dev_err(&pdev->dev, "Timer adjust mode is not supported\n");
- 		err = -EINVAL;
--		goto err_out_free_netdev;
-+		goto err_disable_clocks;
++	if (!devres_open_group(&pdev->dev, priv, GFP_KERNEL)) {
++		error = -ENOMEM;
++		goto out_reset_assert;
++	}
++
+ 	error = ravb_setup_irqs(priv);
+ 	if (error)
+-		goto out_reset_assert;
++		goto out_release_irq_group;
++
++	devres_close_group(&pdev->dev, priv);
+ 
+ 	priv->clk = devm_clk_get(&pdev->dev, NULL);
+ 	if (IS_ERR(priv->clk)) {
+ 		error = PTR_ERR(priv->clk);
+-		goto out_reset_assert;
++		goto out_release_irq_group;
  	}
  
- 	/* By default we set to partial store and forward mode for zynqmp.
-@@ -5893,7 +5894,7 @@ static int macb_probe(struct platform_device *pdev)
- 		err = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(44));
- 		if (err) {
- 			dev_err(&pdev->dev, "failed to set DMA mask\n");
--			goto err_out_free_netdev;
-+			goto err_disable_clocks;
+ 	if (info->gptp_ref_clk) {
+ 		priv->gptp_clk = devm_clk_get(&pdev->dev, "gptp");
+ 		if (IS_ERR(priv->gptp_clk)) {
+ 			error = PTR_ERR(priv->gptp_clk);
+-			goto out_reset_assert;
++			goto out_release_irq_group;
  		}
- 		bp->caps |= MACB_CAPS_DMA_64B;
- 	}
-@@ -5903,7 +5904,7 @@ static int macb_probe(struct platform_device *pdev)
- 	netdev->irq = platform_get_irq(pdev, 0);
- 	if (netdev->irq < 0) {
- 		err = netdev->irq;
--		goto err_out_free_netdev;
-+		goto err_disable_clocks;
  	}
  
- 	/* MTU range: 68 - 1518 or 10240 */
-@@ -5932,7 +5933,7 @@ static int macb_probe(struct platform_device *pdev)
+ 	priv->refclk = devm_clk_get_optional(&pdev->dev, "refclk");
+ 	if (IS_ERR(priv->refclk)) {
+ 		error = PTR_ERR(priv->refclk);
+-		goto out_reset_assert;
++		goto out_release_irq_group;
+ 	}
+ 	clk_prepare(priv->refclk);
  
- 	err = of_get_ethdev_address(np, bp->netdev);
- 	if (err == -EPROBE_DEFER)
--		goto err_out_free_netdev;
-+		goto err_disable_clocks;
- 	else if (err)
- 		macb_get_hwaddr(bp);
- 
-@@ -5946,7 +5947,7 @@ static int macb_probe(struct platform_device *pdev)
- 	/* IP specific init */
- 	err = macb_init(pdev, macb_config);
- 	if (err)
--		goto err_out_free_netdev;
-+		goto err_disable_clocks;
- 
- 	err = macb_mii_init(bp);
- 	if (err)
-@@ -5988,9 +5989,6 @@ static int macb_probe(struct platform_device *pdev)
- err_out_phy_exit:
- 	phy_exit(bp->phy);
- 
--err_out_free_netdev:
--	free_netdev(netdev);
--
- err_disable_clocks:
- 	macb_clks_disable(pclk, hclk, tx_clk, rx_clk, tsu_clk);
+@@ -3124,6 +3131,8 @@ static int ravb_probe(struct platform_device *pdev)
  	pm_runtime_disable(&pdev->dev);
-@@ -6024,7 +6022,6 @@ static void macb_remove(struct platform_device *pdev)
- 		pm_runtime_dont_use_autosuspend(&pdev->dev);
- 		pm_runtime_set_suspended(&pdev->dev);
- 		phylink_destroy(bp->phylink);
--		free_netdev(netdev);
- 	}
- }
+ 	pm_runtime_dont_use_autosuspend(&pdev->dev);
+ 	clk_unprepare(priv->refclk);
++out_release_irq_group:
++	devres_release_group(&pdev->dev, priv);
+ out_reset_assert:
+ 	reset_control_assert(rstc);
+ out_free_netdev:
+@@ -3144,6 +3153,7 @@ static void ravb_remove(struct platform_device *pdev)
+ 		return;
  
+ 	unregister_netdev(ndev);
++	devres_release_group(dev, priv);
+ 	if (info->nc_queues)
+ 		netif_napi_del(&priv->napi[RAVB_NC]);
+ 	netif_napi_del(&priv->napi[RAVB_BE]);
 -- 
 2.34.1
 
