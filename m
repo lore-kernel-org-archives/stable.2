@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67B2F36197E
-	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 22:53:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB6AC36197E
+	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 22:55:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791067986; cv=none; b=BamOW+ke5OG0X/KvSEWzo2YTWmobWGdPHzJkkUd7ZT0gjeZOOlNWLwCEc/y9NIk52th138/8eNrufIaR1UYjKH6O3ymmDwr/9jhAVGeCGk8jmAE1phMlkU5pLjPRDuL99LG7WTZyuS/dMkUGnhGI7GQyck/u2gwNXZCu46YWQmQ=
+	t=1791068112; cv=none; b=oPxb7EVzSRUzZyOP3Au2H4Fb9msNAwNWcne4X9IAowDePdVtvN8+Rr6MaV81gLn9uK4BUxY6HN6eLmrC/Z55bp94mOTr+tD5aSBIsEh0/YXpm5D5UAOLCcYjoYxHWbz9fCZbxAnZCHOIKgyy9/adyQ1eCy9or9IyqQkjdGYBhdM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791067986; c=relaxed/simple;
-	bh=XMXI2cP5aTXjY2CHyvZJkN40u8/HwP6X/jbQTvD3boI=;
+	s=arc-20240116; t=1791068112; c=relaxed/simple;
+	bh=CcgiVJFI2b4q7d8EypS8n5Nc8+CH9Z3kCOZDoCqBnJk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PUsYprFYusQ6ktI0B6tmCbNT2BiLUDPQ5SxXT5DbVHjB5VK1/TvDYvA7ETMgjYZ++koj6dG5IEyNq3+qyTL6wcxlCgnpyjcmWC4hCpii69dz4Zgh3VZs59DwCZ6oFS2ARydDOF0QtFRcT6QGkprdmq4bOczQagUChg4rOozoXLM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z5v9k60z; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=igFoUwvJJb9HkFzsrqFS3WCxI4+XwJmlmavRHVwU+nlDiNOypu8rRXEl8aSCjxtB/K5JRROIPx6I1ksgunRYO/JqMk2SNjmECXEYBQAiykVDGHGVMZrzRF+FRuEGkipRpnDvR01QLp6ifLGN49xStYEp39x9KhDoggpQPx3mLsk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hfmxEi7v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z5v9k60z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96EAF1F0089B;
-	Sat,  3 Oct 2026 22:52:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hfmxEi7v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3585B1F0089B;
+	Sat,  3 Oct 2026 22:55:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791067985;
-	bh=jg/pQnUE7amMZWMVsWKy2iPLSd06GeeoMgwp07h7rv0=;
+	s=k20260515; t=1791068111;
+	bh=7xaxcXTdPWJr6QdplICE9XA3GC1tPaKM26ebbqOC888=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Z5v9k60zXzUpkJMaMfNOMf2uAy4jOWoENaXhyt5DSAt3T9SJBDv+9CmBg/Iw4b/WY
-	 CXjX85/EUTCHvRsvXiE3p/4V2Q8x7HPwlA9kVo8aeDCV1ZNtKB/MM2wV2qk8F2yRbe
-	 BoqO8St0jwW5ssRpFeDytMiC2qqJoXfRBZuuJaxFxn9ix7M604GylsZ5dxaTvHmPW5
-	 MeEKNEkPLW6wkHmbWmm6h/g35pMrNlkHfNO/qiUTF0ELH8AefDEQqNUwsXh+3prT1S
-	 uzBgRjsv4mqlXGFqs4R6vFItoEZvhe+x20rqBwMqCivLchGTV86J3uBMl5jtdpCkOv
-	 +UE701JxbKavQ==
+	b=hfmxEi7v9U3SEhLmhiCIs3mditwgoCh8kPV0T8jTkRx54WtCPlGlfIIG6iiIl4KE9
+	 jsZvlemEzS+qqcwie8uLRFFkoAnt5Vh9YZPPGnCrUsY9N3hfi5HPOBpVz4M/PHo1fP
+	 EvcNlx4tFT4WkLOIrWBRB9eJ0fKPLDwu8XUhP1gqd6SjegVcIB3nPE4f5B/6dGs06l
+	 Iwsm03cNRJJshLDpSRdNdQqNZQkt3pXG0q8Xxk0NEqOB+4NaIpqjNknVRsXzHeahrj
+	 ClT68y8kicmV9wXyDIJpZWomf21he0DEdVyzHHqUM/wPylO4Xnh/AeP7FsqIkDEzsn
+	 rCiRpwBL3XCFQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zhiling Zou <zhilinz@nebusec.ai>,
-	Vega <vega@nebusec.ai>,
-	Julian Anastasov <ja@ssi.bg>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
+Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
+	Sashiko AI review <sashiko-bot@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] ipvs: bound LBLCR and LBLC cache growth
-Date: Sat,  3 Oct 2026 18:52:47 -0400
-Message-ID: <20261003225116.383738-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] HID: multitouch: stop the release timer from being rearmed on remove
+Date: Sat,  3 Oct 2026 18:54:58 -0400
+Message-ID: <20261003225302.339229-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100345-backlight-penknife-9708@gregkh>
-References: <2026100345-backlight-penknife-9708@gregkh>
+In-Reply-To: <2026100300-superior-movable-b3ed@gregkh>
+References: <2026100300-superior-movable-b3ed@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,66 +46,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhiling Zou <zhilinz@nebusec.ai>
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 
-[ Upstream commit 2a3c3de660f96865f303fd25f1285f2ffbfd521d ]
+[ Upstream commit 5acb2dace582f061aab5e14c399ac9480315f44b ]
 
-ip_vs_lblcr_new() and ip_vs_lblc_new() create cache entries for
-every previously unseen destination address. The table max_size only
-tells the periodic collector to reclaim entries after the cache has
-already exceeded the limit. It does not reclaim entries that the
-attacker continues to use.
+mt_remove() quiesces the sticky-finger timer before stopping the
+hardware:
 
-Reject new cache entries once either table reaches max_size * 3 / 2.
-The extra headroom lets the periodic collector catch up while the
-existing scheduler fallback continues to use the selected destination
-when cache creation fails. New traffic therefore stays serviceable
-without growing the tables further.
+    timer_delete_sync(&td->release_timer);
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+    sysfs_remove_group(&hdev->dev.kobj, &mt_attribute_group);
+    hid_hw_stop(hdev);
+
+timer_delete_sync() waits for a running callback and dequeues the timer,
+but it does not stop the timer from being armed again. The transport is
+still delivering reports at that point, and the report path rearms it:
+
+    if (app->quirks & MT_QUIRK_STICKY_FINGERS) {
+        if (td->mt_io_flags & MT_IO_SLOTS_MASK)
+            mod_timer(&td->release_timer,
+                      jiffies + msecs_to_jiffies(100));
+
+A report that arrives after timer_delete_sync() has returned therefore
+leaves the timer queued. td is allocated with devm_kzalloc() against
+hdev->dev, so it is freed when the driver is unbound, after mt_remove()
+returns. When the timer fires afterwards, mt_expired_timeout()
+dereferences the freed td:
+
+    struct mt_device *td = timer_container_of(td, t, release_timer);
+    struct hid_device *hdev = td->hdev;
+
+    if (test_and_set_bit_lock(MT_IO_FLAGS_RUNNING, &td->mt_io_flags))
+
+Simply moving the teardown after hid_hw_stop() does not fix this on its
+own, because mt_expired_timeout() calls mt_release_contacts(), which
+walks hdev->inputs; the timer still has to be quiesced before
+hid_hw_stop() tears the input devices down.
+
+Use timer_shutdown_sync() instead, which additionally makes any later
+mod_timer() a no-op, so neither ordering constraint has to be traded off
+against the other. This is the final-teardown pattern the function was
+introduced for, and hid-wiimote already uses it for the same reason.
+
+Fixes: 4f4001bc76fd ("HID: multitouch: fix rare Win 8 cases when the touch up event gets missing")
 Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Suggested-by: Julian Anastasov <ja@ssi.bg>
-Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
-Acked-by: Julian Anastasov <ja@ssi.bg>
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
-[ sashal: Retained kmalloc() instead of kmalloc_obj() while including the missing LBLC counter-decrement prerequisite. ]
+Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260723224211.613112-1-you@example.com?part=1
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Reviewed-by: Benjamin Tissoires <bentiss@kernel.org>
+Signed-off-by: Benjamin Tissoires <bentiss@kernel.org>
+[ sashal: Adapted the patch to replace del_timer_sync() instead of timer_delete_sync(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/netfilter/ipvs/ip_vs_lblc.c  | 4 ++++
- net/netfilter/ipvs/ip_vs_lblcr.c | 3 +++
- 2 files changed, 7 insertions(+)
+ drivers/hid/hid-multitouch.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/netfilter/ipvs/ip_vs_lblc.c b/net/netfilter/ipvs/ip_vs_lblc.c
-index 9bb1e05063dc4..832066f11e67e 100644
---- a/net/netfilter/ipvs/ip_vs_lblc.c
-+++ b/net/netfilter/ipvs/ip_vs_lblc.c
-@@ -204,7 +204,11 @@ ip_vs_lblc_new(struct ip_vs_lblc_table *tbl, const union nf_inet_addr *daddr,
- 		if (en->dest == dest)
- 			return en;
- 		ip_vs_lblc_del(en);
-+		atomic_dec(&tbl->entries);
- 	}
-+	if (atomic_read(&tbl->entries) >= tbl->max_size * 3 / 2)
-+		return NULL;
-+
- 	en = kmalloc(sizeof(*en), GFP_ATOMIC);
- 	if (!en)
- 		return NULL;
-diff --git a/net/netfilter/ipvs/ip_vs_lblcr.c b/net/netfilter/ipvs/ip_vs_lblcr.c
-index 1a53c1254fe57..073d3ad177040 100644
---- a/net/netfilter/ipvs/ip_vs_lblcr.c
-+++ b/net/netfilter/ipvs/ip_vs_lblcr.c
-@@ -364,6 +364,9 @@ ip_vs_lblcr_new(struct ip_vs_lblcr_table *tbl, const union nf_inet_addr *daddr,
+diff --git a/drivers/hid/hid-multitouch.c b/drivers/hid/hid-multitouch.c
+index 454bb8b9b732f..a95e26cbccd1f 100644
+--- a/drivers/hid/hid-multitouch.c
++++ b/drivers/hid/hid-multitouch.c
+@@ -2118,7 +2118,7 @@ static void mt_remove(struct hid_device *hdev)
+ {
+ 	struct mt_device *td = hid_get_drvdata(hdev);
  
- 	en = ip_vs_lblcr_get(af, tbl, daddr);
- 	if (!en) {
-+		if (atomic_read(&tbl->entries) >= tbl->max_size * 3 / 2)
-+			return NULL;
-+
- 		en = kmalloc(sizeof(*en), GFP_ATOMIC);
- 		if (!en)
- 			return NULL;
+-	del_timer_sync(&td->release_timer);
++	timer_shutdown_sync(&td->release_timer);
+ 
+ 	sysfs_remove_group(&hdev->dev.kobj, &mt_attribute_group);
+ 	hid_hw_stop(hdev);
 -- 
 2.53.0
 
