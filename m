@@ -1,45 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9562E3B0583;
-	Sat,  3 Oct 2026 22:40:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D9A43B0583;
+	Sat,  3 Oct 2026 22:40:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791067217; cv=none; b=dnyWW84ZWCAUhITAb1yXHJrvFucET9rn8eFT1sGjuio5JLYg3CdSEIboGXDdtUT5v3hZCvzhKgini00tbBEiOYehqpJis3bZKiWmGL7KKQUe/IvxGYy/2UvS5jbjF+Dt32N+MeB0HXnqlFXP6KGkKyftAB2v6hV+zuiMRrKTUvY=
+	t=1791067227; cv=none; b=WuCUnbnMhLPTY0dpPiKnaS5aOVwerBsT76EoxjYbdjmZifHreadte4k0zO3Ju53eqmZg9WGFnH8N2fDPNi9BqIUWUgUc5SeMqj/wWnlLlLSHaJ+kfG85O8LrSv2iVitXP5MLaWl65t3Dj9bb2ebY6Q1yvqggndxKhgvwsi92aCY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791067217; c=relaxed/simple;
-	bh=ym6JHc6oYk6Hs9ATwSHnMDKHqHEJMlY8Y4Wc2OoOhjE=;
+	s=arc-20240116; t=1791067227; c=relaxed/simple;
+	bh=L7pwffU3fZsS+/W7QfK9PO0bGs2w1m1fnbDh7pK5+Tk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kpB/FO9dsV+/EYe9hF5gP8jwQOoSXl5Z7Z5RRnpJxRtGxOhwzAxGV7s9GTuyRcZOfCS8g2HssnoAMVEkfp+TqvAx7OHWQKOYXQ6JlIGatlZcsT+O2ImhwqZlPaJSAE0C+AROpAGJwaTMkmli0UUsAsu4nL2CObkzRegvXxI4XaU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A4AXoGx+; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=WYLj8HHsmF5bZIenS/AxW7HdeejpKijAqddmb/tILGGmaAcswiAl/t+XbarwGqudNP/lT1FF6wZ7m58rUpyp2dgfIWskAsdTYxumKcxMIxA6sDWGOrG3FWGbZe8ywitQWaiEGy6Kl9AgjEeaVJiU81ylsJcDF1USigmIvD1Cy38=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nc7d7Q9N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A4AXoGx+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 936F01F0089C;
-	Sat,  3 Oct 2026 22:40:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nc7d7Q9N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49DFC1F0089B;
+	Sat,  3 Oct 2026 22:40:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791067216;
-	bh=YLn69eS/CQianwmmN6z5s54JKd/AomPAJvFD5C8JUdM=;
+	s=k20260515; t=1791067225;
+	bh=ZQJP1J/W43TjYs+7RMpzpaCZzFr74DHsRH7rvfe8WjQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=A4AXoGx+8OWtio2iYBGqV8JctbAlFO7sL4HL0Y8akg7i+d74O0op1hjfSb3y9FAI3
-	 Mut4rCX5MsFJf31B1TKAVVo2Q1vhriK/vPrSU+m42L4iMPLZ9860qhaoDX61PbkPe2
-	 gQMfxU//ILz+HRDeTbj3h0PFURSy87x9AF2JTQC3e4H0MeRGq48K85YPhDrLraCwKV
-	 nfyV4HpYJkYqI7i4o+RNlNollNvn2dQbUMbjGyNKH5oE4d0Weu6PaDVP+Sc1kVpY4x
-	 VZQ2wYQ9EemjpjVbTXR1wpRtGXrEfVqC6zPpasx5+Zl4Doe53TFMf3aUyRjrxxdvq3
-	 fXI0SWW5+5kGA==
+	b=Nc7d7Q9NZ22VxhMTWY70nrf+vRyFbMM8jOZO1cmZ6tXfFTEHxmyvZyNkWzrpF9D6w
+	 DhllHUYOFL/IPh5HoY1p8ZM+XcZWGmo4UdJzxM5IS74Qa/I+dadAs6pqXMOEMszLZu
+	 Ks1H3HRE42uYlars9+9tzNUBonxe6s+DdtvTIzIHbCI85At8zg/4d1RGSuPywlXygx
+	 2aim7ZZe2NxMrjyuj5CkTiAnXflcdkg2cVPvxyWUIOAU9CiODs0P6Qt0IxoW5iQPuY
+	 RGq0w3eM99FjSo6fV1d1CWlfu3FZQ6F9MKtNeF3HYXyIZx8Ua7QoHifQA+zdYyN2fJ
+	 h5lrRrWxpb4Ng==
 From: Sasha Levin <sashal@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	stable@vger.kernel.org
+To: netdev@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	patches@lists.linux.dev,
-	Rosen Penev <rosenp@gmail.com>,
-	Corey Minyard <corey@minyard.net>,
-	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Subject: Re: [PATCH 5.15 118/752] ipmi: si: Use platform_get_irq_optional() to retrieve interrupt
-Date: Sat,  3 Oct 2026 18:33:08 -0400
-Message-ID: <2026-10-03-1-daily-reply-0027-re-of-irq-of-node-put-followup@kernel.org>
+	i.maximets@ovn.org,
+	kuba@kernel.org,
+	kees@kernel.org,
+	stable@vger.kernel.org,
+	Jean-Paul Sergent <jpsergent@gmail.com>
+Subject: Re: [Bug Report] fortify false-positive + real overread in skb_metadata_dst_cmp (geneve, gro_cell_poll)
+Date: Sat,  3 Oct 2026 18:33:09 -0400
+Message-ID: <2026-10-03-1-daily-reply-0028-re-skb-metadata-dst-cmp-fixes-tag@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <d2ea9d9c-d581-491e-bd33-072ac019d977@oracle.com>
-References: <20260930152358.131179731@linuxfoundation.org> <20260930152400.732402342@linuxfoundation.org> <d2ea9d9c-d581-491e-bd33-072ac019d977@oracle.com>
+In-Reply-To: <20261003005449.2675.1@jpsergent.gmail.com>
+References: <20261003005449.2675.1@jpsergent.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,12 +48,20 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> I think 5.15.y should take eb2b4ecf7299ee39ee9cecc4d3f2633aeb10cefb
-> ("of/irq: add missing of_node_put() for interrupt parent node") before
-> accepting this API conversion; thoughts?
+> Same disease as the
+> tun_dst_unclone fix 4c6d43db2a4d ("net: dst_metadata: fix
+> false-positive memcpy overflow in tun_dst_unclone"), on the RX/GRO
+> sibling path; that fix carries Fixes: 69050f8d6d07 for the same
+> reason.
 
-Agreed. The ipmi conversion already shipped in 5.15.222, 6.1.189 and 5.10.271,
-so this goes in as a follow-up. Queued for 6.1, 5.15 and 5.10, thanks.
+I've queued that one for 6.18: 6.18 has the counted_by annotation it trips on.
+
+For your skb_metadata_dst_cmp() patch, the Fixes: tag should be ce87fc6ce3f9
+("gro: Make GRO aware of lightweight tunnels."), not 69050f8d6d07 ("treewide:
+Replace kmalloc with kmalloc_obj for non-scalar types"). The overread predates
+kmalloc_flex, and 6.18 has no kmalloc_flex at all, so with the current tag the
+fix would miss 6.18, which is the tree that panics for you, and the older
+trees, where the overread is silent.
 
 -- 
 Thanks,
