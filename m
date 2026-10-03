@@ -1,81 +1,78 @@
-Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
+Received: from mail-qk2-f37.google.com (mail-qk2-f37.google.com [74.125.230.229])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1B501E9919
-	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 09:35:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E641E37B00E
+	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 09:55:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.229
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791020108; cv=none; b=UEs0PRHb+x3N6vKNZND8HAPYGnQa6FDbPpl8l/0ATitJDhQTLCMZEql4Jlv8kDj8ssFBLAd9bvFQfytnmNX+c0JaKT82d7exe/+VwQrp2oZG+nX16y9TnTlXl+X/Sy6s/at05o0gJSo9ZGBGkedK4q67ks3qPE5GOTI6BJ/cros=
+	t=1791021302; cv=none; b=iApm1FCk26DB2F7Oa51iPxxSp53maKl7uxfZwjikjLpLe5HWehPVYQZTcgk9gfaq+h34W4V+IzFovtP73zqHZmgrrwY+DHTxNIPWY2RxZpei93n6oR8+QLDQ9h5aVQUhCDjiV4JEA0BCRt2R6PuUp91hUqlUQuOOMAZ1fvtbGac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791020108; c=relaxed/simple;
-	bh=sMtTL70sqBS6bZKU54CdL/36q23iIjnTETx6pZYzH5s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=L9cvSqh56MQh+nuyQJ5lgJjbQ1ReNKPKfkotstdpaH+0ncdJlY+fHrdp1AGXX6+swTgr5xh5x5t+Peu+Qy+Rc/QNu7+FMppEKpPQx/iYZUMiYNoLSKDoM+tHBWRin9wje9V38o5raM67z+MCLsmBbPZV/vbK6e+sXqVRSIjcKmM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hY3mMQpG; arc=none smtp.client-ip=74.125.227.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791021302; c=relaxed/simple;
+	bh=LWL2mpu5aKq/KWBeDWwk7AH+dZECoiTwjCRx9zv3wlM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=umCkboRxyLQux2AiT0PIdgBI3bTWFilb07eyln57YTtJxVJodrZJpB3gwXwoTJEJZxB7PKcxZU3HvJKH45bB0ISUr9sqwPtEg4oRRXKTXJZnRzdRWPdmchYr6q4a0vTvQ0iBx13IQ2mVWMXiwJSETuoV+cOvQPYOdoG+tv8aGGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=UKez3Ijo; arc=none smtp.client-ip=74.125.230.229
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hY3mMQpG"
-Received: by mail-pj2-f10.google.com with SMTP id d9443c01a7336-2dd9bce707bso1258585ad.1
-        for <stable@vger.kernel.org>; Sat, 03 Oct 2026 02:35:05 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="UKez3Ijo"
+Received: by mail-qk2-f37.google.com with SMTP id d75a77b69052e-534842054b4so1379201cf.0
+        for <stable@vger.kernel.org>; Sat, 03 Oct 2026 02:55:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791020104; x=1791624904; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zWQSpGzLG7DWALbabuPoeKknlGH7FdAX1uCS5SSDZcY=;
-        b=hY3mMQpG7FmLiUZINjqfWHoG08M6zQGeP4vRc1awwlkF4WqnT3iuwfBO3VBWlepzKS
-         VkoiMNpXzT30bkM/NKdt+MsiniyZ/f+fOwLIMI5JijE9fEKhq5ZNaFLHH/FPYD4VNF0s
-         MBMqca7rWkb6IdsMMIQ398um0m0zcPDJxFwQ0jt1nE8kjutdPPsqVLxg99z6vuG6r+8A
-         grWfu6/psy2xiyk8/+I/GM3pBYXRACHipUZ+Y6CDi094PuWTShDEJ2e8kZfZTgV7RljI
-         VIER3S4j3cDS549gXB6s5bEVVQVVk1vTcLwnsbuRLQj59iFIOZs/U6LKvpV7Yzv7PMe/
-         rYzA==
+        d=mojatatu.com; s=google; t=1791021300; x=1791626100; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CNeW7Vd7tIlOnNM3yD+vQZMp3opWNzf3Bnh6aL6k2qI=;
+        b=UKez3Ijo/ujA7dJTUFD7JUhCtO4ZpDrVGpzQ0FG4MF6PXwmzjrdg+L7LAgX3+ufz3z
+         Qn+qEB12+KI0Wwjy0DqsDdiQON+gOZ+55gJwLn6SeuQ1KFpVMiB1Om7rU9XH/Ijf1gv4
+         f/c889fdAdzx08ay8SryNXdQ4y7aLtlCkvY1E=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791020104; x=1791624904;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zWQSpGzLG7DWALbabuPoeKknlGH7FdAX1uCS5SSDZcY=;
-        b=BWPVh9thEEVChGQ9ewT0OqAU5lQ/RT6AaMxnUTKDqIa8PGVuUxbSFZqHLWk7tlFLkm
-         EM3xtuGctjw0Zue2xlCPiNIM2bJWyY0yaszob8iUmJl8favbiDy6UcBH3OxWGazhWfgN
-         N6k4SH659PZGxDdzFpouEWJRfpj6kaM2WrwCucjIS59sbR6RYiQuIPNe1Pk744eqvwLS
-         5tWIzm4NxRXviCVe77hZqhe2tNRbdwOvTCKfTP3s5yRDRfP4yQFvSwSbEnYaOng5rdMV
-         MijwAS/9S2OdN9Njuh1+pLxp7SfFgmwO6HV4wNTvPbzOY2Gp3c3T7JPmM7RTyAtsEAq/
-         OpPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwbdZjg04w/nIaIF0qiXdL1TIw+Bv5kttY6djmynHYv3oLLbic2Q/vuSCRw1XuX+1OoA4WpqyQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kcLrdyyLEn0iedddy2odWAgUMpkANQOJncXvtzDB9SwuBI++ms
-	v2Irpp3PhRLFKWVj80b5JJ6Un9ZhSx0p0Gfxe9noLvfZWanRHqaSL2a0
-X-Gm-Gg: AYBFou20fNMT0XP5+6CDzbNgTpr10XWk605aBJrICVOLW++fMndI/+GDx1ca2qOEOct
-	eauR0TekdCJM8YIUxDGXHqyG4h0lhyH6LSF5+qOlqhQW/Fv0jZeORkUAR/v8qXP01Sk0kZYKOjg
-	HamGyKhF+ePtmJrgjiLOV+ON3bVb2RAhClESDD40TJaXUch1e5zwmJxKP1O+XfJdroGmKrwSKHG
-	LdYHf/qeHKhTNQMW5PbMnwMsmYxYolBAhEQM2rHrBVJpS6vWXMo9waHHrm6eX1UDCzbkQ4OwdBP
-	M5N6DX9R8r/lOWH594gJug0h2M5jMnoSVLhuWcpMD7ejXc8RBrCBc8iqzMWgtyEPvnCybDAmMBg
-	jEW/Rjx64JIhYODqhnJP04zzZ6+kqGwwPUn7ReuS19PPgOQ8jeGnBeY1JU9tt/v/j2B1tW9xzHb
-	hqae8Gm+8P0Bxvcpu1fqETfdkj4NlCxvUebvk0bhrS6i2jva2vU4vp8IjjIpwRUhgT
-X-Received: by 2002:a05:6a20:94ca:b0:3e0:b680:c3cd with SMTP id adf61e73a8af0-3e0bd2900d8mr5555662637.49.1791020104397;
-        Sat, 03 Oct 2026 02:35:04 -0700 (PDT)
-Received: from localhost ([129.227.235.110])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc9f739cba5sm1956261a12.28.2026.10.03.02.35.03
+        d=1e100.net; s=20260707; t=1791021300; x=1791626100;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CNeW7Vd7tIlOnNM3yD+vQZMp3opWNzf3Bnh6aL6k2qI=;
+        b=p2wFDYuJfVialnwzrNQQ+KGwT6SDSqQiUkwH5WYfYQKu/hb88tjXV+dcza6Mehr843
+         KuGpgKnIIl2Xco1/WbsiFuPSYW8WY2OHRD+2XKD4jtrQuC/7xniRX+Kr23QkFyVBZBBw
+         gUr1/K0nasrH+46oZseyHpj+Sb3e+mbNh2lYmOaRiFsaGi2IlrnT+tAQUelRgSQiBheq
+         ecfha5XY+NENgdgVRk0kEeLRL+RFiGgUMMQnm6/5pEdiwkpU24HUVNS8MUYK+eXhzI3D
+         IamuPLR3e0tgej1NHRplqXzvITDxs2b60VvhXIbaqJxlLvvCCBKliavvw/jvsJjnw6i3
+         YC3A==
+X-Forwarded-Encrypted: i=1; AKwUvBwopKbsi8cnNImz/GFXOmXf0SUwLtyFiQ2eMCz8idHYUYtnhi9eyq/8sYYAecubDD5IZb6FQPs=@vger.kernel.org
+X-Gm-Message-State: AFuF++npRNkHXo9SpNHnydJVOLk2R3yQWDdDn9kZDA8O7vs9vJvJDgii
+	c8GOgadcWywx5AhUxIanUwxfS9kAlWu2VcpwWMGukiFu1NHu7Bw0UcUSxJ55ny+uEw==
+X-Gm-Gg: AYBFou1+Rq59PhrbjJbkSXGjXyM6UlpvlOkTm2K0hPDliRMDla9epWtqhknHfFoIL19
+	IAMJ2esd4irws/3+fY+SE+TXRXbvsKhwBddiKnqqL2IDB3jY+MGVxBXG9+WgjwMu7Rhmfoo/Wa+
+	YRXJzJUy7wUyn4W5Q1I6vkH5mjPuk43lx/tyq+mnJyroMC9gPRXt2e+7SLLt2a03EY/qk8H91gq
+	lgqjCxHHJBuwfRmEtS1LvtDrBftk4Xk4f5MaJF/QlE2tDk/E4z1NqJdPayDPb1HD+TntJnitFvI
+	aAjVFuAxCfvivKv9141pTyA2lrGt592LDK0DQJwbAOCVOj1T7vl8CIVUf2wSUWcLQRlb1tc9XIL
+	IXcnjcMJIAme510ZYoh0TEc7kk/3VEY38SOwK7nobnfCSV1p2IsLZqTWPpyfO4saRflGZ9+EpYm
+	AaRzMEhE0QRNh8PMpknew9d3sDtyJPB/jDVvzl3nV8bV3kN7TUsAdAZQVNgX42TqdSuRgjE9D0c
+	VJL+bfkHT2Ii0wcnSXr+L3l5LSq0ZxIhTgak2ZeNRZIvFLK+RjRdYAPxLWq
+X-Received: by 2002:a05:622a:610c:b0:533:8900:4eae with SMTP id d75a77b69052e-533cba1ae1emr103536221cf.13.1791021299729;
+        Sat, 03 Oct 2026 02:54:59 -0700 (PDT)
+Received: from mbili.tail33bf8.ts.net ([64.203.83.2])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917e0c3e2bdsm40853956d6.49.2026.10.03.02.54.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 02:35:03 -0700 (PDT)
-From: Evanshenf <archwse@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Jianmin Lv <lvjianmin@loongson.cn>,
-	Qianhai Wu <wuqianhai@loongson.cn>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	Mingcong Bai <jeffbai@aosc.io>,
-	Xi Ruoyao <xry111@xry111.site>,
-	Icenowy Zheng <zhengxingda@iscas.ac.cn>,
-	Sui Jingfeng <suijingfeng@loongson.cn>,
+        Sat, 03 Oct 2026 02:54:59 -0700 (PDT)
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+To: netdev@vger.kernel.org
+Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
 	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Evanshenf <archwse@gmail.com>
-Subject: [PATCH 2/2] drm/loongson: Handle buffer mapping failures when clearing a BO
-Date: Sat,  3 Oct 2026 09:34:59 +0000
-Message-ID: <20261003093415.902f89244043-2-archwse@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261003093415.e64386de1e64-1-archwse@gmail.com>
-References: <20261003093415.e64386de1e64-1-archwse@gmail.com>
+	Jiri Pirko <jiri@resnulli.us>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Victor Nogueira <victor@mojatatu.com>,
+	Vlad Buslov <vladbu@nvidia.com>,
+	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+	hybris <hybris@mojatatu.ai>,
+	sashiko-bot@kernel.org
+Subject: [PATCH net 1/2 repost2] net/sched: act_api: reject duplicate actions in a batch
+Date: Sat,  3 Oct 2026 05:54:53 -0400
+Message-ID: <QDISC-K1TH.v1.20260922072206@mojatatu.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -83,107 +80,82 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Message-ID: <20261003095453.4jiXbPK5mkXck0VOLiLu3sM9l-NGfDiZ4G96YKNDV-0@z>
 
-lsdc_bo_clear() ignores the return value from lsdc_bo_kmap() and writes
-to lbo->kptr unconditionally. When the first mapping of a newly allocated
-buffer fails, kptr is still NULL and the subsequent memset accesses it.
+tca_action_gd() builds actions[] with one tcf_action_get_1() per nested
+TCA_ACT_TAB entry.  Each successful lookup takes its own reference to the
+resolved action, so repeated TCA_ACT_INDEX entries in one request yield
+the same pointer in multiple slots.
 
-Return the mapping error without touching the buffer and propagate it
-from lsdc_gem_object_create(). Install the GEM object functions before
-clearing so that drm_gem_object_put() can release the buffer correctly
-on failure. Do not add the failed object to the tracking list or return
-an uncleared buffer to the caller.
+For RTM_DELACTION, tcf_action_delete() then consumes two references per
+slot: one in tcf_action_put() and one in tcf_idr_delete_index().  A
+duplicate therefore drives the refcount to zero mid-walk -- the delete
+frees the action and removes its IDR slot -- and the next slot calls
+tcf_action_put() on the freed action:
 
-Imported buffers still skip clearing, and successfully mapped buffers
-are cleared and unmapped as before.
+  refcount_t: underflow; use-after-free.
+  WARNING: lib/refcount.c:87 at refcount_dec_not_one
+   refcount_dec_and_mutex_lock
+   __tcf_action_put
+   tca_action_gd
 
-Tested on LS7A2000 with a one-shot range error in ttm_bo_kmap(). Its
--EINVAL return reached userspace, the object was destroyed once, and
-no GEM handle was published. Normal create/map/zero/write/read/close
-cycles passed, with the tracked BO count and VRAM usage unchanged.
+Three duplicate entries are enough.  Reject a repeated action while a
+delete batch is built, dropping the reference the extra lookup took, and
+return -EINVAL.  RTM_GETACTION balances its own references and keeps
+accepting duplicate entries.
 
-AI assistance was used for the lifetime analysis, fix, fault-injection
-tools, build and test execution.
+Conditions to recreate the bug:
+  tc actions add action gact index 100
+  tc actions delete action gact index 100 action gact index 100 \
+                     action gact index 100
 
-Fixes: f39db26c5428 ("drm: Add kms driver for loongson display controller")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Evanshenf <archwse@gmail.com>
+Fixes: 16af6067392c ("net: sched: implement reference counted action release")
+Reported-by: Sashiko (gemini) <sashiko-bot@kernel.org>
+Link: https://sashiko.dev/#/patchset/20260824153903.4143642-1-victor@mojatatu.com
+Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
 ---
- drivers/gpu/drm/loongson/lsdc_gem.c | 12 ++++++++----
- drivers/gpu/drm/loongson/lsdc_ttm.c | 10 ++++++++--
- drivers/gpu/drm/loongson/lsdc_ttm.h |  2 +-
- 3 files changed, 17 insertions(+), 7 deletions(-)
+ net/sched/act_api.c | 21 ++++++++++++++++++++-
+ 1 file changed, 20 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/loongson/lsdc_gem.c b/drivers/gpu/drm/loongson/lsdc_gem.c
-index 2fb0348..9eba4e1 100644
---- a/drivers/gpu/drm/loongson/lsdc_gem.c
-+++ b/drivers/gpu/drm/loongson/lsdc_gem.c
-@@ -157,14 +157,18 @@ struct drm_gem_object *lsdc_gem_object_create(struct drm_device *ddev,
- 		return ERR_PTR(ret);
- 	}
- 
-+	gobj = &lbo->tbo.base;
-+	gobj->funcs = &lsdc_gem_object_funcs;
-+
- 	if (!sg) {
- 		/* VRAM is filled with random data */
--		lsdc_bo_clear(lbo);
-+		ret = lsdc_bo_clear(lbo);
-+		if (ret) {
-+			drm_gem_object_put(gobj);
-+			return ERR_PTR(ret);
-+		}
- 	}
- 
--	gobj = &lbo->tbo.base;
--	gobj->funcs = &lsdc_gem_object_funcs;
--
- 	/* tracking the BOs we created */
- 	mutex_lock(&ldev->gem.mutex);
- 	list_add_tail(&lbo->list, &ldev->gem.objects);
-diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.c b/drivers/gpu/drm/loongson/lsdc_ttm.c
-index 88536e2..7b30dea 100644
---- a/drivers/gpu/drm/loongson/lsdc_ttm.c
-+++ b/drivers/gpu/drm/loongson/lsdc_ttm.c
-@@ -388,9 +388,13 @@ void lsdc_bo_kunmap(struct lsdc_bo *lbo)
- 	ttm_bo_kunmap(&lbo->kmap);
- }
- 
--void lsdc_bo_clear(struct lsdc_bo *lbo)
-+int lsdc_bo_clear(struct lsdc_bo *lbo)
+diff --git a/net/sched/act_api.c b/net/sched/act_api.c
+index e45a63be397c..a9323c42a69a 100644
+--- a/net/sched/act_api.c
++++ b/net/sched/act_api.c
+@@ -2026,7 +2026,7 @@ static int
+ tca_action_gd(struct net *net, struct nlattr *nla, struct nlmsghdr *n,
+ 	      u32 portid, int event, struct netlink_ext_ack *extack)
  {
--	lsdc_bo_kmap(lbo);
-+	int ret;
+-	int i, ret;
++	int i, j, ret;
+ 	struct nlattr *tb[TCA_ACT_MAX_PRIO + 1];
+ 	struct tc_action *act;
+ 	size_t attr_size = 0;
+@@ -2051,6 +2051,25 @@ tca_action_gd(struct net *net, struct nlattr *nla, struct nlmsghdr *n,
+ 			ret = PTR_ERR(act);
+ 			goto err;
+ 		}
 +
-+	ret = lsdc_bo_kmap(lbo);
-+	if (ret)
-+		return ret;
- 
- 	if (lbo->is_iomem)
- 		memset_io((void __iomem *)lbo->kptr, 0, lbo->size);
-@@ -398,6 +402,8 @@ void lsdc_bo_clear(struct lsdc_bo *lbo)
- 		memset(lbo->kptr, 0, lbo->size);
- 
- 	lsdc_bo_kunmap(lbo);
++		/* A delete consumes two references per slot (tcf_action_put()
++		 * and tcf_idr_delete_index()) but each entry takes one, so a
++		 * repeated action would hit zero mid-walk.  GET balances its
++		 * own references and keeps accepting duplicates.
++		 */
++		if (event == RTM_DELACTION) {
++			for (j = 0; j < i - 1; j++) {
++				if (actions[j] != act)
++					continue;
 +
-+	return 0;
- }
- 
- int lsdc_bo_evict_vram(struct drm_device *ddev)
-diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.h b/drivers/gpu/drm/loongson/lsdc_ttm.h
-index 843e147..df47d9b 100644
---- a/drivers/gpu/drm/loongson/lsdc_ttm.h
-+++ b/drivers/gpu/drm/loongson/lsdc_ttm.h
-@@ -89,7 +89,7 @@ size_t lsdc_bo_size(struct lsdc_bo *lbo);
- 
- int lsdc_bo_kmap(struct lsdc_bo *lbo);
- void lsdc_bo_kunmap(struct lsdc_bo *lbo);
--void lsdc_bo_clear(struct lsdc_bo *lbo);
-+int lsdc_bo_clear(struct lsdc_bo *lbo);
- 
- int lsdc_bo_evict_vram(struct drm_device *ddev);
- 
++				tcf_action_put(act);
++				NL_SET_ERR_MSG(extack,
++					       "Duplicate TC action in a delete batch");
++				ret = -EINVAL;
++				goto err;
++			}
++		}
++
+ 		attr_size += tcf_action_fill_size(act);
+ 		actions[i - 1] = act;
+ 	}
 -- 
 2.43.0
 
