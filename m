@@ -1,233 +1,193 @@
-Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B415442900A;
-	Sat,  3 Oct 2026 12:56:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C559C23E33D
+	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 13:13:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791032215; cv=none; b=SgdVBidNsgqRXwjuC5hKjDjagMasR3y/rT8qJrd68vsjFZQNm/Jv6iTq+bo+XkxkgVB2AWh+WL3ewRMZn8d8pkrb7F4GWGSlWQ+bgt0YB/6ARmXCs+oj7tb8nSbAoQdCZI9nXdnZ+o3uIXFfQVvfj8vaxJ/9qmHzRYyS96PqqgE=
+	t=1791033227; cv=none; b=LdpmADZYDK18ibtsSc8dvhJ2KB6nQf7eAIBtxwNf0O+3n30JfgVkMhXvOyJH0ayXom3JAz+YafRcImHpeFh6e26Nb0tGmqujYyZuH4al/4vTUAqd17kqfhXrWsUMd5AazI68AbNH/qKlFi65VH1rYkOYqQDP/ANZqDrwtBkicuM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791032215; c=relaxed/simple;
-	bh=mQmwLLWMpP49fgkvpOE5FMyX0Zz2z3YkwDa7C0xfDv8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NXcmEOX61J6deNLodi9ytSkZP9NmONl+5Ttst3+Gt9OZUSMrdDKS6ZRyaj3pW35/2nS/M2Wil3tX9s/HKa4baxsDFuPA4x23UaWIkDBCBRqHf2yctbey+JO5p2FuylCcwOB1DjFGKchEYjXWaqHqPC6nrvIbVvSbzxzKP6wSvGk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=YrDmKIAL; arc=none smtp.client-ip=91.189.121.228
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
+	s=arc-20240116; t=1791033227; c=relaxed/simple;
+	bh=bE8eJPHqsQhJdFYwCSLsy5MbwDZz+q5zUxIouJ1FGSQ=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=WO+XTe+O3nbqcsxaZhVISs5kexZzsEHed/C+vIzZo3QpzVkZ7d5iEZAt82Ls0+VelheHymURLNrr3G4QP3Dfdw010umGboVd1u+v/a3R8JQOxp/HZQ9DQUDjbblLfgiEAD+/rLLLQRFpEqgi4gqHWG+h9E0PFQko+XYhyYZp6AI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1J3+PtRA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="YrDmKIAL"
-From: Stian Halseth <stian@itx.no>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
-	t=1791032206;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=C9hY50QGcoitZ+sT5yT4aRtRd56Iz0IeV2VLERILCs8=;
-	b=YrDmKIAL/pE2DrcWrAUeOFg160LC6eWK/9DRf8RSfn1tOP6SJLYsRrS4rCBaeijf2tO9/t
-	kyJgu/awY1VJV2BBe2IPHKrmkkhUaFi0sXMvn6eJ+Pua11wKl8ZurYjefJSnVtaU38eOzd
-	XTi4e9FHbcrRV9Mi1XJXqUfNwNnLBh8=
-To: Andreas Larsson <andreas@gaisler.com>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	sparclinux@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Stian Halseth <stian@itx.no>,
-	stable@vger.kernel.org
-Subject: [PATCH 3/3] sparc64: keep flushing the old TSB while tsb_grow() switches CPUs
-Date: Sat,  3 Oct 2026 14:56:25 +0200
-Message-ID: <20261003125627.3419702-4-stian@itx.no>
-In-Reply-To: <20261003125627.3419702-1-stian@itx.no>
-References: <20261003125627.3419702-1-stian@itx.no>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1J3+PtRA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C00901F0089B;
+	Sat,  3 Oct 2026 13:13:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791033225;
+	bh=FsJfnCsmjzxiJcyK32wbJIyyl9N2ziLyCE3zhjFqzKU=;
+	h=Subject:To:Cc:From:Date;
+	b=1J3+PtRAXInOVaQ//OFhogkzkAyoid+TjOJ0337Rm1vxXW+EiSHcIL9b0VQaHt+2w
+	 PR2LZvWT0l5F+p+C2tUMtacNQw4ciK8LpqwsOt31dNYULpzLogx4zEUo5Ai6O2sxUY
+	 ri4uq7HMdb5MA0cBUZTB3YzBEh7NvS2nOXTLgWtA=
+Subject: FAILED: patch "[PATCH] fprobe: Use guard(rcu_sched_notrace) and check" failed to apply to 6.18-stable tree
+To: mhiramat@kernel.org,paulmck@kernel.org,sashiko-bot@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Sat, 03 Oct 2026 15:13:41 +0200
+Message-ID: <2026100341-letter-overstate-ddf7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-tsb_grow() publishes the new TSB in mm->context and only then makes the
-other CPUs switch to it through smp_tsb_sync().  Until a CPU has run
-tsb_sync() its MMU still looks up the old TSB, while flush_tsb_user()
-and flush_tsb_user_page() only touch the new one.  An entry invalidated
-in that window survives in the old TSB and is loaded into the TLB
-again: a writable entry for a page that has since been unmapped, or a
-read-only entry that keeps faulting.  Under a 256-thread compile load
-on a SPARC M7 about 15% of the faults that reach the spurious-fault
-path hit this window.
 
-Record the old TSB in the context until smp_tsb_sync() has returned,
-flush it as well, and make a second grow of the same TSB wait for the
-first to finish so the record is not overwritten while CPUs may still
-use it.
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Fixes: bd40791e1d28 ("[SPARC64]: Dynamically grow TSB in response to RSS growth")
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x e0a6249190402a28f1e2925a81acf573157d55ef
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100341-letter-overstate-ddf7@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From e0a6249190402a28f1e2925a81acf573157d55ef Mon Sep 17 00:00:00 2001
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+Date: Tue, 29 Sep 2026 09:19:12 +0900
+Subject: [PATCH] fprobe: Use guard(rcu_sched_notrace) and check
+ rcu_is_watching()
+
+unregister_fprobe() and unregister_fprobe_async() (used by BPF
+kprobe-multi) rely on standard RCU grace periods (synchronize_rcu()
+and call_rcu()) to wait until in-flight fprobe handlers complete before
+freeing the fprobe.
+
+However, if an fprobe handler executes while RCU is not watching (such
+as in the idle loop or nohz_full extended quiescent states), standard
+RCU does not track preemption-disabled sections. Consequently,
+synchronize_rcu() does not wait for those executions, which can lead
+to a use-after-free if the fprobe is freed immediately after
+unregistration. Ensure handlers exit early when !rcu_is_watching().
+
+Furthermore, fprobe_fgraph_entry() and fprobe_ftrace_entry() previously
+used guard(rcu)() and rcu_read_lock(), which invoke lockdep on every
+hit under CONFIG_PROVE_LOCKING. This adds overhead and can cause lockdep
+recursion if probed functions interact with lockdep.
+
+Since rhltable_lookup() and rhl_for_each_entry_rcu() use
+rcu_dereference_all_check() (which checks rcu_read_lock_any_held()),
+holding preemption disabled via rcu_read_lock_sched_notrace() is fully
+valid and sufficient so long as rcu_is_watching() is true.
+
+Define and use guard(rcu_sched_notrace)() across fprobe_ftrace_entry(),
+fprobe_fgraph_entry(), and fprobe_return(). This eliminates fast-path
+rcu_read_lock() and lockdep overhead while guaranteeing safe grace
+period synchronization.
+
+Link: https://lore.kernel.org/all/179064115227.394389.16910234241400391996.stgit@devnote2/
+
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/bug/linux-e46bcd68-4a56-4f19-a255-e3772980e5e3
+Fixes: 657b594b2084 ("fprobe: Fix unregister_fprobe() to wait for RCU grace period")
 Cc: stable@vger.kernel.org
-Link: https://github.com/sparclinux/issues/issues/108
-Signed-off-by: Stian Halseth <stian@itx.no>
----
- arch/sparc/include/asm/mmu_64.h        |   5 +++++
- arch/sparc/mm/tsb.c                    |  80 ++++++++++++++++++++++++++++++++++++++++------
- 2 files changed, 79 insertions(+), 6 deletions(-)
+Assisted-by: LLM
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
 
-diff --git a/arch/sparc/include/asm/mmu_64.h b/arch/sparc/include/asm/mmu_64.h
---- a/arch/sparc/include/asm/mmu_64.h
-+++ b/arch/sparc/include/asm/mmu_64.h
-@@ -115,6 +115,11 @@
- 	bool			adi;
- 	tag_storage_desc_t	*tag_store;
- 	spinlock_t		tag_lock;
-+	/* TSB being replaced by tsb_grow(), still used by CPUs that
-+	 * have not run tsb_sync() yet.
-+	 */
-+	struct tsb		*tsb_old[MM_NUM_TSBS];
-+	unsigned long		tsb_old_nentries[MM_NUM_TSBS];
- } mm_context_t;
+diff --git a/kernel/trace/fprobe.c b/kernel/trace/fprobe.c
+index 9f2d98181779..da286619c5d8 100644
+--- a/kernel/trace/fprobe.c
++++ b/kernel/trace/fprobe.c
+@@ -47,6 +47,10 @@ static struct rhltable fprobe_ip_table;
+ static DEFINE_MUTEX(fprobe_mutex);
+ static struct fgraph_ops fprobe_graph_ops;
  
- #endif /* !__ASSEMBLER__ */
-diff --git a/arch/sparc/mm/tsb.c b/arch/sparc/mm/tsb.c
---- a/arch/sparc/mm/tsb.c
-+++ b/arch/sparc/mm/tsb.c
-@@ -135,6 +135,20 @@
- 			__flush_huge_tsb_one(tb, PAGE_SHIFT, base, nentries,
- 					     tb->hugepage_shift);
- #endif
-+		if (mm->context.tsb_old[MM_TSB_BASE]) {
-+			base = (unsigned long) mm->context.tsb_old[MM_TSB_BASE];
-+			nentries = mm->context.tsb_old_nentries[MM_TSB_BASE];
-+			if (tlb_type == cheetah_plus || tlb_type == hypervisor)
-+				base = __pa(base);
-+			if (tb->hugepage_shift == PAGE_SHIFT)
-+				__flush_tsb_one(tb, PAGE_SHIFT, base, nentries);
-+#if defined(CONFIG_HUGETLB_PAGE)
-+			else
-+				__flush_huge_tsb_one(tb, PAGE_SHIFT, base,
-+						     nentries,
-+						     tb->hugepage_shift);
-+#endif
-+		}
- 	}
- #if defined(CONFIG_HUGETLB_PAGE) || defined(CONFIG_TRANSPARENT_HUGEPAGE)
- 	else if (mm->context.tsb_block[MM_TSB_HUGE].tsb) {
-@@ -144,6 +158,14 @@
- 			base = __pa(base);
- 		__flush_huge_tsb_one(tb, REAL_HPAGE_SHIFT, base, nentries,
- 				     tb->hugepage_shift);
-+		if (mm->context.tsb_old[MM_TSB_HUGE]) {
-+			base = (unsigned long) mm->context.tsb_old[MM_TSB_HUGE];
-+			nentries = mm->context.tsb_old_nentries[MM_TSB_HUGE];
-+			if (tlb_type == cheetah_plus || tlb_type == hypervisor)
-+				base = __pa(base);
-+			__flush_huge_tsb_one(tb, REAL_HPAGE_SHIFT, base,
-+					     nentries, tb->hugepage_shift);
-+		}
- 	}
- #endif
- 	spin_unlock_irqrestore(&mm->context.lock, flags);
-@@ -169,6 +191,21 @@
- 			__flush_huge_tsb_one_entry(base, vaddr, PAGE_SHIFT,
- 						   nentries, hugepage_shift);
- #endif
-+		if (mm->context.tsb_old[MM_TSB_BASE]) {
-+			base = (unsigned long) mm->context.tsb_old[MM_TSB_BASE];
-+			nentries = mm->context.tsb_old_nentries[MM_TSB_BASE];
-+			if (tlb_type == cheetah_plus || tlb_type == hypervisor)
-+				base = __pa(base);
-+			if (hugepage_shift == PAGE_SHIFT)
-+				__flush_tsb_one_entry(base, vaddr, PAGE_SHIFT,
-+						      nentries);
-+#if defined(CONFIG_HUGETLB_PAGE)
-+			else
-+				__flush_huge_tsb_one_entry(base, vaddr,
-+							   PAGE_SHIFT, nentries,
-+							   hugepage_shift);
-+#endif
-+		}
- 	}
- #if defined(CONFIG_HUGETLB_PAGE) || defined(CONFIG_TRANSPARENT_HUGEPAGE)
- 	else if (mm->context.tsb_block[MM_TSB_HUGE].tsb) {
-@@ -178,6 +215,15 @@
- 			base = __pa(base);
- 		__flush_huge_tsb_one_entry(base, vaddr, REAL_HPAGE_SHIFT,
- 					   nentries, hugepage_shift);
-+		if (mm->context.tsb_old[MM_TSB_HUGE]) {
-+			base = (unsigned long) mm->context.tsb_old[MM_TSB_HUGE];
-+			nentries = mm->context.tsb_old_nentries[MM_TSB_HUGE];
-+			if (tlb_type == cheetah_plus || tlb_type == hypervisor)
-+				base = __pa(base);
-+			__flush_huge_tsb_one_entry(base, vaddr,
-+						   REAL_HPAGE_SHIFT, nentries,
-+						   hugepage_shift);
-+		}
- 	}
- #endif
- 	spin_unlock_irqrestore(&mm->context.lock, flags);
-@@ -460,17 +506,26 @@
- 	 * accessing the old TSB via TLB miss handling.  This is OK
- 	 * because those actions are just propagating state from the
- 	 * Linux page tables into the TSB, page table mappings are not
--	 * being changed.  If a real fault occurs, the processor will
--	 * synchronize with us when it hits flush_tsb_user(), this is
--	 * also true for the case where vmscan is modifying the page
--	 * tables.  The only thing we need to be careful with is to
--	 * skip any locked TSB entries during copy_tsb().
-+	 * being changed.  Processors keep using the old TSB until they
-+	 * have run tsb_context_switch(), so the old TSB is recorded in
-+	 * tsb_old[] and flushed along with the new one until the
-+	 * smp_tsb_sync() below has returned.  The only thing we need
-+	 * to be careful with is to skip any locked TSB entries during
-+	 * copy_tsb().
- 	 *
- 	 * When we finish committing to the new TSB, we have to drop
- 	 * the lock and ask all other cpus running this address space
- 	 * to run tsb_context_switch() to see the new TSB table.
-+	 *
-+	 * An earlier grow of this TSB may still be waiting for the
-+	 * other cpus; its old TSB has to stay recorded until then.
- 	 */
- 	spin_lock_irqsave(&mm->context.lock, flags);
-+	while (mm->context.tsb_old[tsb_index]) {
-+		spin_unlock_irqrestore(&mm->context.lock, flags);
-+		cond_resched();
-+		spin_lock_irqsave(&mm->context.lock, flags);
-+	}
++DEFINE_LOCK_GUARD_0(rcu_sched_notrace,
++		    rcu_read_lock_sched_notrace(),
++		    rcu_read_unlock_sched_notrace())
++
+ static u32 fprobe_node_hashfn(const void *data, u32 len, u32 seed)
+ {
+ 	return hash_ptr(*(unsigned long **)data, 32);
+@@ -329,16 +333,14 @@ static void fprobe_ftrace_entry(unsigned long ip, unsigned long parent_ip,
+ 	struct fprobe *fp;
+ 	int bit;
  
- 	old_tsb = mm->context.tsb_block[tsb_index].tsb;
- 	old_cache_index =
-@@ -511,6 +566,11 @@
- 			PAGE_SHIFT : REAL_HPAGE_SHIFT);
++	if (!rcu_is_watching())
++		return;
++
+ 	bit = ftrace_test_recursion_trylock(ip, parent_ip);
+ 	if (bit < 0)
+ 		return;
+ 
+-	/*
+-	 * ftrace_test_recursion_trylock() disables preemption, but
+-	 * rhltable_lookup() checks whether rcu_read_lcok is held.
+-	 * So we take rcu_read_lock() here.
+-	 */
+-	rcu_read_lock();
++	guard(rcu_sched_notrace)();
+ 	head = rhltable_lookup(&fprobe_ip_table, &ip, fprobe_rht_params);
+ 
+ 	rhl_for_each_entry_rcu(node, pos, head, hlist) {
+@@ -353,7 +355,6 @@ static void fprobe_ftrace_entry(unsigned long ip, unsigned long parent_ip,
+ 		else
+ 			__fprobe_handler(ip, parent_ip, fp, fregs, NULL);
  	}
- 
-+	if (old_tsb) {
-+		mm->context.tsb_old[tsb_index] = old_tsb;
-+		mm->context.tsb_old_nentries[tsb_index] =
-+			mm->context.tsb_block[tsb_index].tsb_nentries;
-+	}
- 	mm->context.tsb_block[tsb_index].tsb = new_tsb;
- 	setup_tsb_params(mm, tsb_index, new_size);
- 
-@@ -529,6 +589,12 @@
- 		preempt_enable();
- 
- 		/* Now it is safe to free the old tsb.  */
-+		spin_lock_irqsave(&mm->context.lock, flags);
-+		if (mm->context.tsb_old[tsb_index] == old_tsb) {
-+			mm->context.tsb_old[tsb_index] = NULL;
-+			mm->context.tsb_old_nentries[tsb_index] = 0;
-+		}
-+		spin_unlock_irqrestore(&mm->context.lock, flags);
- 		kmem_cache_free(tsb_caches[old_cache_index], old_tsb);
- 	}
+-	rcu_read_unlock();
+ 	ftrace_test_recursion_unlock(bit);
  }
-@@ -566,8 +632,10 @@
- 	 * us, so we need to zero out the TSB pointer or else tsb_grow()
- 	 * will be confused and think there is an older TSB to free up.
- 	 */
--	for (i = 0; i < MM_NUM_TSBS; i++)
-+	for (i = 0; i < MM_NUM_TSBS; i++) {
- 		mm->context.tsb_block[i].tsb = NULL;
-+		mm->context.tsb_old[i] = NULL;
-+	}
+ NOKPROBE_SYMBOL(fprobe_ftrace_entry);
+@@ -567,10 +568,13 @@ static int fprobe_fgraph_entry(struct ftrace_graph_ent *trace, struct fgraph_ops
+ 	struct fprobe *fp;
+ 	int used, ret;
  
- 	/* If this is fork, inherit the parent's TSB size.  We would
- 	 * grow it to that size on the first page fault anyways.
++	if (!rcu_is_watching())
++		return 0;
++
+ 	if (WARN_ON_ONCE(!fregs))
+ 		return 0;
+ 
+-	guard(rcu)();
++	guard(rcu_sched_notrace)();
+ 	head = rhltable_lookup(&fprobe_ip_table, &func, fprobe_rht_params);
+ 	reserved_words = 0;
+ 	rhl_for_each_entry_rcu(node, pos, head, hlist) {
+@@ -665,13 +669,16 @@ static void fprobe_return(struct ftrace_graph_ret *trace,
+ 	int size, curr;
+ 	int size_words;
+ 
++	if (!rcu_is_watching())
++		return;
++
+ 	fgraph_data = (unsigned long *)fgraph_retrieve_data(gops->idx, &size);
+ 	if (WARN_ON_ONCE(!fgraph_data))
+ 		return;
+ 	size_words = SIZE_IN_LONG(size);
+ 	ret_ip = ftrace_regs_get_instruction_pointer(fregs);
+ 
+-	preempt_disable_notrace();
++	guard(rcu_sched_notrace)();
+ 
+ 	curr = 0;
+ 	while (size_words > curr) {
+@@ -687,7 +694,6 @@ static void fprobe_return(struct ftrace_graph_ret *trace,
+ 		}
+ 		curr += size;
+ 	}
+-	preempt_enable_notrace();
+ }
+ NOKPROBE_SYMBOL(fprobe_return);
+ 
+
