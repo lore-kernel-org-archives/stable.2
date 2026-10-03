@@ -1,46 +1,60 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B3D237269A;
-	Sat,  3 Oct 2026 01:30:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 80BE8345736;
+	Sat,  3 Oct 2026 01:37:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790991037; cv=none; b=qiye9xQ1+IbMO+gSXWMuYj97nfp8MDMtxxuxB1RvmmjnxPcz119iJUF6XqFsjyjZDxBshLD3oQntDFtjyvf/9ds2bYYIEDLmoL8fzHnpG9uHAdqg1BG/ZP9TF3lv3aglsX2l+0+J3x6PBiTzJWeYHhEnh/JGgTzkxhIL6R3S/JI=
+	t=1790991479; cv=none; b=LIVJ/HmZL34qIi8XOHkByZfkDvZosOOCwNJrHjasl9zggrLxD76G2WSBq8x5pTRhGo4kPt220D+T9tRmf6kFWpdH0DuuaDDxJw6Ko7FcKAEpM+JZVPpIFtc2PQc9q7f+wbvUpCYAF32UBeF8axctGo6x6x/GDhuQtLf0LYn+tXo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790991037; c=relaxed/simple;
-	bh=x58q0I+dfYC1dK2J1uHBgqbj2a98hdhe6Q1Bd/ygK/w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oEDkCxl2ln/ZClU98CJz45YPoaLyUVKqD2jC10NDVMeFNWCU7lvHTzYlSi7qi47z7utC42cPIK3KjcrepRfYqZysUOPNszzXDyeCHbrhjQjIkkfXbj2bUM2IKETEo4uE/LIHTDe2wXIhQ+j5LfaNrrYxjxI84SVTZ5TywIoPwLo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YPiyHQZU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790991479; c=relaxed/simple;
+	bh=84/WBm2bfxy/qiqgOJ94kRblqGaPAeiZ5dsQOFk5Fo8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Wr44LC4qouBVssw394jmwsX9qjPxrW3kpB3v5kE4/Yq9lOmVuobZkLzpta8f3n4sI/WC9FxaMqaAz7WhVvSVKLG6C4Uuvn6seW6DAohr7yKMqMCK8PxOCclSNdj1BWZ3L96esim9Wx5B6ZpIn3osoI5wu2PWaT9QmGq+/PJniJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=T8exwm1b; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YPiyHQZU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 495231F00898;
-	Sat,  3 Oct 2026 01:30:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790991036;
-	bh=Kz/jwBC0h14fDo+khPhGV4mcwriCrNJnLVAUvk5C5Ds=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YPiyHQZUHoPuGIjHNuXUdYF1TigwUSDpGjyaHWWLTQjknxdAU6bAjyjrFQbkTfFjS
-	 gLImWGRY9JHFcIlKIt1sYHRNp2nYwCurqgL3Ak50pHqXietU1pLxeZtqp5sNRfbLmd
-	 jNB0hS2MNc50Bkylz7Yc1d/YhcOuxE07s91YRy6f06tP9J6TXVGFE9QrJaT98vH6Cm
-	 C3lSFNxwmbNsCP8XS5pCXpgCBga/2FN5xMtT2X4BTc4CnTGN9OpXeVohtCNTKomtBF
-	 UfSRA+8o7rG+xnljEaGL88dHu6o7SEoDge3d7TwYMi2vZGkRoKHzgzJZfqTvGvdLma
-	 OAJ7YljlFoXjQ==
-From: Sasha Levin <sashal@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	stable@vger.kernel.org
-Cc: Sasha Levin <sashal@kernel.org>,
-	patches@lists.linux.dev,
-	co+ac0a8c41de69121d@bugs.sh,
-	Weiming Shi <bestswngs@gmail.com>,
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="T8exwm1b"
+Received: by linux.microsoft.com (Postfix, from userid 1216)
+	id 9563A20B7166; Fri,  2 Oct 2026 18:37:03 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 9563A20B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1790991423;
+	bh=dIsNG7vzXBwypXLHIbV3oWvQJWFy/c/UmukDbeF2YNw=;
+	h=From:To:Cc:Subject:Date:From;
+	b=T8exwm1b6dmtORW1crx2KzLLofU6mgXn/wHgis9op6XD9/mLzAmyxWCUIg4C0+Kca
+	 AfjHI7xQj12eXpvpbO7cGB6I/Z4XyJtlOWJlGOuqZ8gvt/sC5YfXyStSDis3wSoGMa
+	 3Fvckjd80HQwOgCUfpiro5Kq6ZM5Avgw2creEgBM=
+From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+To: netdev@vger.kernel.org
+Cc: Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Konstantin Taranov <kotaranov@microsoft.com>,
+	Simon Horman <horms@kernel.org>,
 	Alexei Starovoitov <ast@kernel.org>,
-	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Subject: Re: [PATCH 6.12 400/877] bpf: Reject dev-bound-only programs on other devices
-Date: Fri,  2 Oct 2026 21:30:26 -0400
-Message-ID: <2026-10-02-rc-reply-0006-re-bpf-dev-bound-prereq@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <a0e22b8a-ddc8-41de-82f0-503edc57a1b9@oracle.com>
-References: <20260930152414.738996857@linuxfoundation.org> <20260930152423.316713397@linuxfoundation.org> <b3ccd2a3-a51d-41d9-9374-68a392d23ccb@oracle.com> <a0e22b8a-ddc8-41de-82f0-503edc57a1b9@oracle.com>
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Erni Sri Satya Vennela <ernis@linux.microsoft.com>,
+	Aditya Garg <gargaditya@linux.microsoft.com>,
+	Dipayaan Roy <dipayanroy@linux.microsoft.com>,
+	Breno Leitao <leitao@debian.org>,
+	Jacob Keller <jacob.e.keller@intel.com>,
+	Saurabh Sengar <ssengar@linux.microsoft.com>,
+	linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	bpf@vger.kernel.org,
+	Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net v2] net: mana: reserve RX buffer headroom to fix forwarding performance
+Date: Fri,  2 Oct 2026 21:36:47 -0400
+Message-ID: <20261003013647.2051416-1-hamzamahfooz@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,17 +63,268 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> I think we need to drop this until we take the prereq as well Greg.
+Commit 730ff06d3f5c ("net: mana: Use page pool fragments for RX buffers
+instead of full pages to improve memory efficiency.") started handing
+out RX buffers with zero headroom so that two buffers fit into one page
+at the default MTU.
 
-ad27ed7d2309 ("bpf, xdp: move offload check into dev_xdp_install()")
-is queued for the next 6.12 and 6.6 releases.
+The MANA TX path, however, stores the per scatter-gather entry DMA
+mappings in `struct mana_skb_head` at skb->head, and mana_start_xmit()
+therefore calls skb_cow_head(skb, MANA_HEADROOM). The port advertises
+this requirement as ndev->needed_headroom = MANA_HEADROOM.
 
-I'm keeping 6db1ce73e985 in this release, because it independently
-closes the BPF_LINK_CREATE/netlink path. Without the prereq the
-LINK_UPDATE path stays open, as it already is today, so the fix is
-incomplete but not a regression. Dropping it would leave both paths
-open.
+As a result every packet that is received and then forwarded out of a
+MANA port fails the skb_cow() in ip_forward() and gets reallocated and
+copied by pskb_expand_head(). This is invisible to a plain RX or TX
+workload, but it puts a full skb reallocation plus memcpy on the hot
+path of every single forwarded packet, which is exactly what a
+router/NVA workload does.
 
+Restore the headroom. Note that reserving MANA_HEADROOM (232) is not
+enough: ip_forward() asks for LL_RESERVED_SPACE(dev), which rounds
+hard_header_len + needed_headroom up to HH_DATA_MOD and is 256 bytes on
+ethernet. Use LL_RESERVED_SPACE() directly so the value keeps tracking
+both constants. Also, since LL_RESERVED_SPACE() tracks MANA_HEADROOM,
+it grows with MAX_SKB_FRAGS and for MAX_SKB_FRAGS >= 19 it is greater
+than 256, so we have to account for that by using the headroom the RX
+queue actually uses (instead of assuming XDP_PACKET_HEADROOM) and
+turning MANA_XDP_MTU_MAX into MANA_XDP_MTU_MAX(ndev) (note that at the
+default CONFIG_MAX_SKB_FRAGS=17 they are equivalent).
+
+At the default MTU on a 4K page this means a buffer no longer fits twice
+into a page (SKB_DATA_ALIGN(1500 + MANA_RXBUF_PAD + 256) = 2112), so the
+frag-vs-single decision is now made by computing the real buffer size
+instead of comparing the MTU against PAGE_SIZE / 2. The page_pool
+fragment path is still used wherever at least two buffers genuinely fit,
+e.g. on 16K and 64K page sizes.
+
+Measured on an Azure VM with a MANA NIC acting as a forwarding NVA (UDP,
+1400 byte payload, 4 streams, 8 Gbps offered, only the forwarding
+node's kernel differs), 8 runs each, median:
+
+                  forwarded pps    throughput
+  before              272,830       3.06 Gbps
+  after               390,560       4.37 Gbps   (+43%)
+
+perf on the forwarding node, same workload:
+
+                  memset_orig   __pi_memcpy   pskb_expand_head
+  before             10.07%         3.96%         present
+  after               0.94%         0.64%         gone
+
+Cc: stable@vger.kernel.org
+Fixes: 730ff06d3f5c ("net: mana: Use page pool fragments for RX buffers instead of full pages to improve memory efficiency.")
+Signed-off-by: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+---
+v2:
+- Fix the XDP headroom mismatch with CONFIG_MAX_SKB_FRAGS >= 19,
+  by passing rxq->headroom to xdp_prepare_buff().
+  mana_build_skb() then picks up the correct offset via
+  xdp->data - xdp->data_hard_start. Also, turn MANA_XDP_MTU_MAX
+  into MANA_XDP_MTU_MAX(ndev) to account for the headroom,
+  since it is no longer a constant. (Narcisa, Sashiko)
+- Use the new mana_single_rxbuf_per_page_forced() helper in
+  mana_set_priv_flags(). (Sashiko)
+- Trim the comment above mana_get_rxbuf_headroom() and drop the stale
+  "XDP headroom" wording from the comment above mana_get_rxbuf_cfg().
+  (Narcisa, Sashiko)
+---
+ .../net/ethernet/microsoft/mana/mana_bpf.c    |  8 +--
+ drivers/net/ethernet/microsoft/mana/mana_en.c | 63 ++++++++++++++-----
+ .../ethernet/microsoft/mana/mana_ethtool.c    | 10 +--
+ include/net/mana/mana.h                       | 14 ++++-
+ 4 files changed, 68 insertions(+), 27 deletions(-)
+
+diff --git a/drivers/net/ethernet/microsoft/mana/mana_bpf.c b/drivers/net/ethernet/microsoft/mana/mana_bpf.c
+index 5c9961ee9747..b27fd9b8c4f6 100644
+--- a/drivers/net/ethernet/microsoft/mana/mana_bpf.c
++++ b/drivers/net/ethernet/microsoft/mana/mana_bpf.c
+@@ -91,7 +91,7 @@ u32 mana_run_xdp(struct net_device *ndev, struct mana_rxq *rxq,
+ 		goto out;
+ 
+ 	xdp_init_buff(xdp, PAGE_SIZE, &rxq->xdp_rxq);
+-	xdp_prepare_buff(xdp, buf_va, XDP_PACKET_HEADROOM, pkt_len, true);
++	xdp_prepare_buff(xdp, buf_va, rxq->headroom, pkt_len, true);
+ 
+ 	act = bpf_prog_run_xdp(prog, xdp);
+ 
+@@ -183,9 +183,9 @@ static int mana_xdp_set(struct net_device *ndev, struct bpf_prog *prog,
+ 	if (!old_prog && !prog)
+ 		return 0;
+ 
+-	if (prog && ndev->mtu > MANA_XDP_MTU_MAX) {
++	if (prog && ndev->mtu > MANA_XDP_MTU_MAX(ndev)) {
+ 		netdev_err(ndev, "XDP: mtu:%u too large, mtu_max:%lu\n",
+-			   ndev->mtu, MANA_XDP_MTU_MAX);
++			   ndev->mtu, MANA_XDP_MTU_MAX(ndev));
+ 		NL_SET_ERR_MSG_MOD(extack, "XDP: mtu too large");
+ 
+ 		return -EOPNOTSUPP;
+@@ -238,7 +238,7 @@ static int mana_xdp_set(struct net_device *ndev, struct bpf_prog *prog,
+ 		bpf_prog_put(old_prog);
+ 
+ 	if (prog)
+-		ndev->max_mtu = min_t(unsigned int, MANA_XDP_MTU_MAX,
++		ndev->max_mtu = min_t(unsigned int, MANA_XDP_MTU_MAX(ndev),
+ 				      gc->adapter_mtu - ETH_HLEN);
+ 	else
+ 		ndev->max_mtu = gc->adapter_mtu - ETH_HLEN;
+diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
+index 591fb4191d90..a1fb06b23947 100644
+--- a/drivers/net/ethernet/microsoft/mana/mana_en.c
++++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
+@@ -758,6 +758,44 @@ static void *mana_get_rxbuf_pre(struct mana_rxq *rxq, dma_addr_t *da)
+ 	return va;
+ }
+ 
++/* Reserve enough headroom to satisfy the skb_cow() in ip_forward() and avoid
++ * reallocation: the TX path keeps the SGE DMA mappings in struct mana_skb_head
++ * at skb->head, so the port advertises ndev->needed_headroom = MANA_HEADROOM.
++ */
++static u32 mana_get_rxbuf_headroom(struct mana_port_context *apc)
++{
++	if (mana_xdp_get(apc))
++		return mana_xdp_headroom(apc->ndev);
++
++	return LL_RESERVED_SPACE(apc->ndev);
++}
++
++static u32 mana_get_rxbuf_size(struct mana_port_context *apc, u32 mtu)
++{
++	u32 len = SKB_DATA_ALIGN(mtu + MANA_RXBUF_PAD +
++				 mana_get_rxbuf_headroom(apc));
++
++	return ALIGN(len, MANA_RX_FRAG_ALIGNMENT);
++}
++
++/* Returns true when one RX buffer per page is already required by XDP or by
++ * the buffer size implied by the MTU, i.e. regardless of the
++ * MANA_PRIV_FLAG_USE_FULL_PAGE_RXBUF private flag.
++ */
++bool mana_single_rxbuf_per_page_forced(struct mana_port_context *apc, u32 mtu)
++{
++	/* For xdp make sure only one packet fits per page. */
++	if (mana_xdp_get(apc))
++		return true;
++
++	/* Only use the page_pool fragment path when at least two buffers,
++	 * including the headroom each of them has to reserve, actually fit
++	 * into one page. Otherwise the fragment path degenerates into one
++	 * buffer per page while still paying the fragment accounting cost.
++	 */
++	return PAGE_SIZE / mana_get_rxbuf_size(apc, mtu) < 2;
++}
++
+ static bool
+ mana_use_single_rxbuf_per_page(struct mana_port_context *apc, u32 mtu)
+ {
+@@ -770,32 +808,27 @@ mana_use_single_rxbuf_per_page(struct mana_port_context *apc, u32 mtu)
+ 	if (apc->priv_flags & BIT(MANA_PRIV_FLAG_USE_FULL_PAGE_RXBUF))
+ 		return true;
+ 
+-	/* For xdp and jumbo frames make sure only one packet fits per page. */
+-	if (mtu + MANA_RXBUF_PAD > PAGE_SIZE / 2 || mana_xdp_get(apc))
+-		return true;
+-
+-	return false;
++	return mana_single_rxbuf_per_page_forced(apc, mtu);
+ }
+ 
+-/* Get RX buffer's data size, alloc size, XDP headroom based on MTU */
++/* Get RX buffer's data size, alloc size, headroom and frag count based on MTU */
+ static void mana_get_rxbuf_cfg(struct mana_port_context *apc,
+ 			       int mtu, u32 *datasize, u32 *alloc_size,
+ 			       u32 *headroom, u32 *frag_count)
+ {
+-	u32 len, buf_size;
++	u32 buf_size;
+ 
+ 	/* Calculate datasize first (consistent across all cases) */
+ 	*datasize = mtu + ETH_HLEN;
+ 
++	*headroom = mana_get_rxbuf_headroom(apc);
++
+ 	if (mana_use_single_rxbuf_per_page(apc, mtu)) {
+-		if (mana_xdp_get(apc)) {
+-			*headroom = XDP_PACKET_HEADROOM;
++		if (mana_xdp_get(apc))
+ 			*alloc_size = PAGE_SIZE;
+-		} else {
+-			*headroom = 0; /* no support for XDP */
++		else
+ 			*alloc_size = SKB_DATA_ALIGN(mtu + MANA_RXBUF_PAD +
+ 						     *headroom);
+-		}
+ 
+ 		*frag_count = 1;
+ 
+@@ -809,11 +842,7 @@ static void mana_get_rxbuf_cfg(struct mana_port_context *apc,
+ 	}
+ 
+ 	/* Standard MTU case - optimize for multiple packets per page */
+-	*headroom = 0;
+-
+-	/* Calculate base buffer size needed */
+-	len = SKB_DATA_ALIGN(mtu + MANA_RXBUF_PAD + *headroom);
+-	buf_size = ALIGN(len, MANA_RX_FRAG_ALIGNMENT);
++	buf_size = mana_get_rxbuf_size(apc, mtu);
+ 
+ 	/* Calculate how many packets can fit in a page */
+ 	*frag_count = PAGE_SIZE / buf_size;
+diff --git a/drivers/net/ethernet/microsoft/mana/mana_ethtool.c b/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
+index ece7ff9cc409..33db79569d3b 100644
+--- a/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
++++ b/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
+@@ -815,12 +815,12 @@ static int mana_set_priv_flags(struct net_device *ndev, u32 priv_flags)
+ 		if (!apc->port_is_up)
+ 			return 0;
+ 
+-		/* If XDP is attached or MTU is jumbo, single-buffer-per-page
+-		 * is already forced regardless of this flag. Skip the
+-		 * expensive detach/attach cycle since nothing changes.
++		/* If XDP is attached or the MTU already forces one buffer per
++		 * page, single-buffer-per-page is used regardless of this
++		 * flag. Skip the expensive detach/attach cycle since nothing
++		 * changes.
+ 		 */
+-		if (ndev->mtu + MANA_RXBUF_PAD > PAGE_SIZE / 2 ||
+-		    mana_xdp_get(apc))
++		if (mana_single_rxbuf_per_page_forced(apc, ndev->mtu))
+ 			return 0;
+ 
+ 		/* Block RDMA from grabbing the vport during detach/attach */
+diff --git a/include/net/mana/mana.h b/include/net/mana/mana.h
+index 83b7eff4646e..8c3dc9d0b299 100644
+--- a/include/net/mana/mana.h
++++ b/include/net/mana/mana.h
+@@ -377,7 +377,18 @@ struct mana_recv_buf_oob {
+ #define MANA_RXBUF_PAD (SKB_DATA_ALIGN(sizeof(struct skb_shared_info)) \
+ 			+ ETH_HLEN)
+ 
+-#define MANA_XDP_MTU_MAX (PAGE_SIZE - MANA_RXBUF_PAD - XDP_PACKET_HEADROOM)
++/* Headroom an RX buffer has to reserve while XDP is attached: the XDP program
++ * needs XDP_PACKET_HEADROOM, and the TX path needs LL_RESERVED_SPACE() (see
++ * mana_get_rxbuf_headroom()). LL_RESERVED_SPACE() grows with MAX_SKB_FRAGS and
++ * exceeds XDP_PACKET_HEADROOM once CONFIG_MAX_SKB_FRAGS is 19 or more.
++ */
++static inline u32 mana_xdp_headroom(struct net_device *ndev)
++{
++	return max_t(u32, LL_RESERVED_SPACE(ndev), XDP_PACKET_HEADROOM);
++}
++
++#define MANA_XDP_MTU_MAX(ndev) \
++	(PAGE_SIZE - MANA_RXBUF_PAD - mana_xdp_headroom(ndev))
+ 
+ struct mana_rxq {
+ 	struct gdma_queue *gdma_rq;
+@@ -691,6 +702,7 @@ int mana_query_link_cfg(struct mana_port_context *apc);
+ int mana_set_bw_clamp(struct mana_port_context *apc, u32 speed,
+ 		      int enable_clamping);
+ void mana_query_phy_stats(struct mana_port_context *apc);
++bool mana_single_rxbuf_per_page_forced(struct mana_port_context *apc, u32 mtu);
+ int mana_pre_alloc_rxbufs(struct mana_port_context *apc, int mtu, int num_queues);
+ void mana_pre_dealloc_rxbufs(struct mana_port_context *apc);
+ void mana_unmap_skb(struct sk_buff *skb, struct mana_port_context *apc);
 -- 
-Thanks,
-Sasha
+2.55.0
+
