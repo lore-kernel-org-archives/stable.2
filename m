@@ -1,30 +1,30 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AAD736197E;
-	Sat,  3 Oct 2026 09:00:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30B3D3168E6;
+	Sat,  3 Oct 2026 09:00:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791018040; cv=none; b=urGrIpNuHSj8Iy2epwldlDL4GSXzXfd2e/lBrxLpkNQwFXz9eegKccGHIs4p6beLSaLOPzcK5Fy64ftuYbLExZlXQZMUb+pWxIj8N6JA6bDs5Y8vdAkZbLAQqjp9xlbOZlVyga5YbfyE2xpqs8ohu5XeBuzHusnzy+n1ftgUCcg=
+	t=1791018041; cv=none; b=GUFoscYg13LJjRQazw8Ih5aw0uZeWzfRwnDKLNfV9VIBbh6qqJeEk92WQ2YVR62P3S9vQIEAyK+Y8FoSZnmNtZer0cYj+r2qOoC+SQCUKhUpt/ihSGYSpaNrNcWmBLnRgci1Gq3kRJsLBRoDJyQpkBoT3IN34dkT2vW+ATfR3PY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791018040; c=relaxed/simple;
-	bh=pL7V1T2911GCpEAVh5GQTxvVppLjM0wV0JVActJVR+0=;
+	s=arc-20240116; t=1791018041; c=relaxed/simple;
+	bh=BPUu/DDjPu9FhT+Az+IgzKA/3f0Dhuss26P9gX0X/5w=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=GQYn2DDSzsNKwJToEjGO+hdqodnDEINZKzliOpcKwJBWtRYcsHopP/IMwxvg6IQh7BcRuM/FiwNkVY99Uh5NNV9u2egE/FjbJIwdjl0R/gHsq7bwCWZIKtsNdSBBUeamTdJJEHoP1IwATiUxc13Rls/hK1+zMMoxinS74h8E0LY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=dd1nuHbD; arc=none smtp.client-ip=220.197.31.3
+	 MIME-Version; b=OeAeUzP0VM7Au8wXZRHGSr/AGo6AwTNUjVwhBiGV+EXws+NdQmPPUte/AKUvHiIa8GAYToxNhssdO3u6ke51clVIPL0JtirEvE4IrzaUAyRMD8zjelIPCZxPIFHVDQo+Vqoz/UypcQF+LCceJ//ZZ/sGx++gl5ZcZh7z58/p4Vw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=OufmXyw7; arc=none smtp.client-ip=117.135.210.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="dd1nuHbD"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="OufmXyw7"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=tH
-	zxyjRVKHXodpzPlrYp99M9Bqz0YCWq/ZrlUMWQ9II=; b=dd1nuHbDmae1afaRIL
-	dssSGsZwbncjQVASDwF6ODVyKS4jEWUfQ0l/kYJa1NsDG/09TmoRg2AuXF2rvvun
-	IY843yWtVjSrJF5zBbQHCIxyJMuQdvSRzQQ4CwoWPn16vkT5wvFO5BralF69/mEv
-	GilrWbsuNYemRXz/CZVmPetiI=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Rq
+	zR6Q6qSJdPOr4kPYZPEYw6DzO74iQbBwGqyg1djt4=; b=OufmXyw7HN9yPr3/LU
+	Ns2llUvamo//i5kxpZmmC6R5a2SicU0ei9qAMzNZUHjj+fsnmuv8zCWtu48VKXHB
+	xEQdwqFUs9Nt1Q1OFjcPs20Zd6RESn/nYRHmaqgFfehAcKgfdM6eh5HX4leaGtud
+	n1WBYIzrM27C/r2SFN5qjxZQQ=
 Received: from pc.localdomain (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgDXP4b_w8BqInaGCg--.62290S6;
-	Sat, 03 Oct 2026 16:59:54 +0800 (CST)
+	by gzsmtp5 (Coremail) with SMTP id QCgvCgDXP4b_w8BqInaGCg--.62290S7;
+	Sat, 03 Oct 2026 16:59:55 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
 To: Jian Shen <shenjian15@huawei.com>,
 	Jijie Shao <shaojijie@huawei.com>,
@@ -33,15 +33,14 @@ To: Jian Shen <shenjian15@huawei.com>,
 	Eric Dumazet <edumazet@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
-	Dongpo Li <lidongpo@hisilicon.com>,
-	Jiancheng Xue <xuejiancheng@hisilicon.com>,
+	Zhangfei Gao <zhangfei.gao@linaro.org>,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: Jiale Yao <yaojiale02@163.com>,
 	stable@vger.kernel.org
-Subject: [PATCH net v3 4/7] net: hisi_femac: manage the netdev lifetime with devres
-Date: Sat,  3 Oct 2026 16:59:35 +0800
-Message-Id: <20261003085940.493951-5-yaojiale02@163.com>
+Subject: [PATCH net v3 5/7] net: hix5hd2: manage the netdev lifetime with devres
+Date: Sat,  3 Oct 2026 16:59:36 +0800
+Message-Id: <20261003085940.493951-6-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261003085940.493951-1-yaojiale02@163.com>
 References: <20261003085940.493951-1-yaojiale02@163.com>
@@ -52,78 +51,77 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCgvCgDXP4b_w8BqInaGCg--.62290S6
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Ar15AF1kZFyUXrW3CFykZrb_yoW5JFy8pa
-	yDJayxKrW8WF1fKwnrt3WjvF15Aw47Kay3GFWrtw1kZ3WayrykJa1rKFy0vF4rAFWkCF45
-	Wa12yayruayDX3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pijQ6AUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7wv9OGrAxAvkwAAA3g
+X-CM-TRANSID:QCgvCgDXP4b_w8BqInaGCg--.62290S7
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAr15GF4kJFWrJF15tw45trb_yoW5Xr47pa
+	1DGFWa9ry8Xw4fK34Dtr4UZFyrAa18Kay5CFWxKwn3ZasIyrykJF4rKFy0vF4FyFWkGF4a
+	qr4Iyr4ruan8urDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pE2YLdUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8Az+OWrAxAza6gAA3p
 
-hisi_femac_drv_remove() frees the netdev while the shared managed IRQ
-remains registered until devres cleanup. Its handler uses the netdev as
-private data, so an interrupt in this window can dereference freed
-memory.
+hix5hd2_dev_remove() manually frees the netdev before devres releases
+the IRQ. The interrupt handler receives that netdev as its data pointer
+and can access it during this teardown window.
 
-Manage the netdev allocation with devres so the later IRQ resource is
-released before the netdev.
+Allocate the netdev through devres so its later registered IRQ is
+released first.
 
 This issue was found by a static analysis method used in our research.
 
-Fixes: 542ae60af24f ("net: hisilicon: Add Fast Ethernet MAC driver")
+Fixes: 57c5bc9ad7d7 ("net: hisilicon: add hix5hd2 mac driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- drivers/net/ethernet/hisilicon/hisi_femac.c | 15 ++++++---------
+ drivers/net/ethernet/hisilicon/hix5hd2_gmac.c | 15 ++++++---------
  1 file changed, 6 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/net/ethernet/hisilicon/hisi_femac.c b/drivers/net/ethernet/hisilicon/hisi_femac.c
-index d244a40df430..d369824fa4e8 100644
---- a/drivers/net/ethernet/hisilicon/hisi_femac.c
-+++ b/drivers/net/ethernet/hisilicon/hisi_femac.c
-@@ -774,7 +774,7 @@ static int hisi_femac_drv_probe(struct platform_device *pdev)
- 	struct phy_device *phy;
+diff --git a/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c b/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
+index 02282dc86faf..ffcb281230eb 100644
+--- a/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
++++ b/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
+@@ -1100,7 +1100,7 @@ static int hix5hd2_dev_probe(struct platform_device *pdev)
+ 	struct mii_bus *bus;
  	int ret;
  
--	ndev = alloc_etherdev(sizeof(*priv));
-+	ndev = devm_alloc_etherdev(dev, sizeof(*priv));
+-	ndev = alloc_etherdev(sizeof(struct hix5hd2_priv));
++	ndev = devm_alloc_etherdev(dev, sizeof(struct hix5hd2_priv));
  	if (!ndev)
  		return -ENOMEM;
  
-@@ -788,26 +788,26 @@ static int hisi_femac_drv_probe(struct platform_device *pdev)
- 	priv->port_base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(priv->port_base)) {
- 		ret = PTR_ERR(priv->port_base);
+@@ -1115,26 +1115,26 @@ static int hix5hd2_dev_probe(struct platform_device *pdev)
+ 	priv->base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(priv->base)) {
+ 		ret = PTR_ERR(priv->base);
 -		goto out_free_netdev;
 +		goto out_return;
  	}
  
- 	priv->glb_base = devm_platform_ioremap_resource(pdev, 1);
- 	if (IS_ERR(priv->glb_base)) {
- 		ret = PTR_ERR(priv->glb_base);
+ 	priv->ctrl_base = devm_platform_ioremap_resource(pdev, 1);
+ 	if (IS_ERR(priv->ctrl_base)) {
+ 		ret = PTR_ERR(priv->ctrl_base);
 -		goto out_free_netdev;
 +		goto out_return;
  	}
  
- 	priv->clk = devm_clk_get(&pdev->dev, NULL);
- 	if (IS_ERR(priv->clk)) {
- 		dev_err(dev, "failed to get clk\n");
+ 	priv->mac_core_clk = devm_clk_get(&pdev->dev, "mac_core");
+ 	if (IS_ERR(priv->mac_core_clk)) {
+ 		netdev_err(ndev, "failed to get mac core clk\n");
  		ret = -ENODEV;
 -		goto out_free_netdev;
 +		goto out_return;
  	}
  
- 	ret = clk_prepare_enable(priv->clk);
- 	if (ret) {
- 		dev_err(dev, "failed to enable clk %d\n", ret);
+ 	ret = clk_prepare_enable(priv->mac_core_clk);
+ 	if (ret < 0) {
+ 		netdev_err(ndev, "failed to enable mac core clk %d\n", ret);
 -		goto out_free_netdev;
 +		goto out_return;
  	}
  
- 	priv->mac_rst = devm_reset_control_get(dev, "mac");
-@@ -887,9 +887,7 @@ static int hisi_femac_drv_probe(struct platform_device *pdev)
- 	phy_disconnect(phy);
- out_disable_clk:
- 	clk_disable_unprepare(priv->clk);
+ 	priv->mac_ifc_clk = devm_clk_get(&pdev->dev, "mac_ifc");
+@@ -1271,9 +1271,7 @@ static int hix5hd2_dev_probe(struct platform_device *pdev)
+ 	clk_disable_unprepare(priv->mac_ifc_clk);
+ out_disable_mac_core_clk:
+ 	clk_disable_unprepare(priv->mac_core_clk);
 -out_free_netdev:
 -	free_netdev(ndev);
 -
@@ -131,14 +129,14 @@ index d244a40df430..d369824fa4e8 100644
  	return ret;
  }
  
-@@ -903,7 +901,6 @@ static void hisi_femac_drv_remove(struct platform_device *pdev)
- 
- 	phy_disconnect(ndev->phydev);
- 	clk_disable_unprepare(priv->clk);
+@@ -1291,7 +1289,6 @@ static void hix5hd2_dev_remove(struct platform_device *pdev)
+ 	hix5hd2_destroy_hw_desc_queue(priv);
+ 	of_node_put(priv->phy_node);
+ 	cancel_work_sync(&priv->tx_timeout_task);
 -	free_netdev(ndev);
  }
  
- #ifdef CONFIG_PM
+ static const struct of_device_id hix5hd2_of_match[] = {
 -- 
 2.34.1
 
