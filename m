@@ -1,129 +1,66 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C917733B6C4;
-	Sat,  3 Oct 2026 19:26:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0129144605B;
+	Sat,  3 Oct 2026 19:29:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791055597; cv=none; b=E/fbhK5boorsggPsgclzQSm6lMx+HaUxTMCk0XCOv/PsS6KVuYnrnRf1iRdE+/QVGKT3i7PWCHulF1dQLwK77kVfoTqXe6G34lMs7hNNzy/rldKA8Xd8K5t/C4DsojgrL67hV9eFTjkdzEIAfjnJH1n1RcKGmfNRxcUW1OvMfYo=
+	t=1791055778; cv=none; b=QxgQyGsjxVUZXV3dovzlknu3eGVgJukZrB7PKhyKsmp/vFg8i1cWWTF8KGamfZ+3+CzBOgENMbfBDClgvNS3f3K9Ap3fWJRx1Kp6+V3GhonR2g4RY1VgyDldfrgqK447WuMV8eXqeJKm1a306cf/Oxu2r38jBb379ZyhKeYsx64=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791055597; c=relaxed/simple;
-	bh=ne4DE2Kbps8U9ue9LceVqg74lnohRogFSoEolKYwoRw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=q6rdu8PHckYjtu+aXOPUW1V/oCgz8ZBPfD42xMKNwxJ1Gc7f2HODYQYW2NuT0VIqLgzB/lwSSRPQ4eWtHnTn1M3WrVvRfDZwuD1Uy6CSbmzY+JE9+xkoYbf3sXxv2wYcCk+NumsZMqFbrCHaI/sfihLmTfCmfBrE+QLyn6N2ng4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=CyscC9hv; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1791055778; c=relaxed/simple;
+	bh=x8GQ9TqAFu5driuvo38kqzYt3n324pebOlaNmEELI+s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=OBQcgRa4SGese5KcQRpKYPgugBkjSWFr6k+zvdaX2NUoK/17sCzYNs9XS+yVtBhFb6zkgrPdt52dfGXRYDPOFlJPOnynYE/7qOeBxkbPaFZm7/vcF7il9HOmN2YUKffWMiEWmxJoaczl8XE7i2Uy9ltYYHlN87GAR1/k582IZEI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XMaE8i7n; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="CyscC9hv"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=DUnsrRI8Dm7GcYsyfjeM01fsNT7D1vSKGaEorMuk4N8=; b=CyscC9hvPlLWkMjMLoa/3Fqn1F
-	vOS3RTmIhxCKUrz9YFFAf1gCC9ktt3RB57J9UYUq79sis5iDkynwRynPsjutUg+WYi7LruqdAAlDT
-	FszsEriA2qdwm+F0+QCCsszGCJFRfhh/Xf3ECHinHDl0J1+SfrTVWI/elAEuqlSsQFRYTwDO1kCDs
-	0SVosPwbsG+7HijrOAT9wKWL0n5lJqukVORPpyWKTioAMRv8saoRGhNenCdt2RT5ymGU/A0Vm6ltq
-	vooAlq6sPj3O5yvgN8KUgpYtKk1wxK70Ngc5jKTI63WmPXgHXA2aCUy0H4WpEIAnr3Hf2QmFGuCH7
-	chTFSRIQ==;
-Received: from [151.115.150.205] (port=58646 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xD5NQ-0000000FAnS-3ZFO;
-	Sat, 03 Oct 2026 21:26:28 +0200
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: Tung Quang Nguyen <tung.quang.nguyen@est.tech>,
-	Jon Maloy <jmaloy@redhat.com>
-Cc: netdev@vger.kernel.org,
-	tipc-discussion@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	stable@vger.kernel.org
-Subject: [PATCH] tipc: fix use-after-free in netns teardown
-Date: Sat,  3 Oct 2026 19:25:31 +0000
-Message-ID: <20261003192530.2414682-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XMaE8i7n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7AAD1F0089B;
+	Sat,  3 Oct 2026 19:29:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791055776;
+	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=XMaE8i7nZ7VOg0GkVx56zg2JM9QtGOMPrnVt7eSDrksQKsPyk9zD/PwmQ6SuYnlg/
+	 SQkx7jWXR7ygoJ6k2MZwKZYorON4SSPrT/yPFlMts9Es3ZPH/hGqWLGzJBzIFbRYER
+	 O0RyFC75HvgItnixU9QKRzfqrfowrNOl5xZ4vf98lZdHyeWT5GmfF1UOLaG4r8wMZk
+	 n+cU1DVKX9lyrbEh/+f5IOx3IeHzOBzsI+kic9Vp4VDat4/QB+scNHOa+ZPh35i6Mr
+	 BZ5rEhavsS1sbvECbNCAANXv5D24yeHtDpqfcS4RaQtCxu42fauiGPV7lvUpEqPgTD
+	 QF1l1tjKieX5w==
+From: netdev-bot+sinfo@kernel.org
+To: =?utf-8?q?J=C3=A9r=C3=A9my?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: Tung Quang Nguyen <tung.quang.nguyen@est.tech>,
+ Jon Maloy <jmaloy@redhat.com>, netdev@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] tipc: fix use-after-free in netns teardown
+Date: Sat, 03 Oct 2026 19:29:35 +0000
+Message-ID: <179105577539.1402591.8203580811946121686@kernel.org>
+In-Reply-To: <20261003192530.2414682-2-Jeremy.Jean@oss.cyber.gouv.fr>
+References: <20261003192530.2414682-2-Jeremy.Jean@oss.cyber.gouv.fr>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
 
-conn_put() decreases the reference count of a connection, and when it
-reaches zero, tipc_conn_kref_release() removes the connection from
-conn_idr and frees it. Removing the entry is protected by idr_lock,
-but decreasing the count is not.
+Hi!
 
-During netns dismantle, it may happen that a connection gets its count
-dropped to zero by conn_put() while tipc_topsrv_stop() still holds the
-lock idr_lock. tipc_topsrv_stop() calls conn_get() on that connection
-whose count is already zero, and then releases idr_lock.
-tipc_conn_kref_release() can then free the connection before
-tipc_conn_close() uses it. KASAN reports the UAF as:
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-  BUG: KASAN: slab-use-after-free in tipc_conn_close (net/tipc/topsrv.c:158)
-  Read of size 8 at addr ff1100000cf4f408 by task kworker/u16:3/70
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-Stop accepting connections before walking conn_idr. Use
-kref_get_unless_zero() to avoid taking references when the count is zero.
-Retry from the first entry, releasing idr_lock and calling cond_resched()
-between iterations so pending work can finish.
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
-Fixes: 667eeab4999e ("tipc: Fix use-after-free in tipc_conn_close().")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
----
- net/tipc/topsrv.c | 17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
-
-diff --git a/net/tipc/topsrv.c b/net/tipc/topsrv.c
-index af530c9ed8402..9ab2349f71190 100644
---- a/net/tipc/topsrv.c
-+++ b/net/tipc/topsrv.c
-@@ -700,16 +700,23 @@ static void tipc_topsrv_stop(struct net *net)
- 	struct tipc_conn *con;
- 	int id;
- 
-+	write_lock_bh(&lsock->sk->sk_callback_lock);
-+	lsock->sk->sk_user_data = NULL;
-+	write_unlock_bh(&lsock->sk->sk_callback_lock);
-+	cancel_work_sync(&srv->awork);
-+
- 	spin_lock_bh(&srv->idr_lock);
--	for (id = 0; srv->idr_in_use; id++) {
--		con = idr_find(&srv->conn_idr, id);
-+	for (id = 0; srv->idr_in_use; id = 0) {
-+		con = idr_get_next(&srv->conn_idr, &id);
-+		if (con && !kref_get_unless_zero(&con->kref))
-+			con = NULL;
-+		spin_unlock_bh(&srv->idr_lock);
- 		if (con) {
--			conn_get(con);
--			spin_unlock_bh(&srv->idr_lock);
- 			tipc_conn_close(con);
- 			conn_put(con);
--			spin_lock_bh(&srv->idr_lock);
- 		}
-+		cond_resched();
-+		spin_lock_bh(&srv->idr_lock);
- 	}
- 	__module_get(lsock->ops->owner);
- 	__module_get(lsock->sk->sk_prot_creator->owner);
--- 
-2.47.3
-
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
