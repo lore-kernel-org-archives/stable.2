@@ -1,107 +1,101 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFD0C35676A
-	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 14:29:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BA723624A5;
+	Sat,  3 Oct 2026 14:30:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791037794; cv=none; b=OOnSJSffCGGXeLs5SkXOW2OHbX5AgZGAQNVihts7eD7+CnuGGySyEv5OvadMitn/mTdwkIPexLk2DBcZp21NFHhGp8BmVRCJWOOGIk1yd9/z8zQ18DkDtjMCCAC7I3Go8jGPlznDJ7JCj6zrF84MSpe5NLMpKXiH2DVVCr4HuAc=
+	t=1791037814; cv=none; b=TRoGuWOMvN38GLqR4y+OOG5HbgNrf2i2pDldQkWimOneJ7px+do1H/9UvbGYHxBJ9XzJ3ai/EKkD4LNVZsNFXV7+V/Re2LIVugnW0wTyLqpCT9dShmRKHXgB+KfG7lmaw6RevmfKsdhn7YFGSnUb3l7t6OFRMyX82yFyuJVyUMw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791037794; c=relaxed/simple;
-	bh=0FDlgE8/WtKxquJ1GTctYIuuqUHSqOHXaOawd/W2wAY=;
+	s=arc-20240116; t=1791037814; c=relaxed/simple;
+	bh=t0UDno8TrYYCKqsnhBUcmiISR33g6wQpfmrIYgzFs6I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jaNe9khNrVp87VUg8Z8lX0yYcdwTwTFK2q0VREYX6cHLd27Hfq9/ze2XAL1bgAFoM9Aa6/nmbfQPP4PiE0L0KbNUzYeGm51z782zwhJ5gP4WxsZvYxom3uqzGg8CDq7sIDsATtYai3SB5dfz7BniMkshIWOrUYFvUPgmxpnmRjU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DfRVTunU; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=oXrAGPhR6L/K2W2iNAIAZ5csq9G0uZ3ouitK6gGjYjPeMQ8PtzZat9O8tiE+5wnN/c7Aq+Lcly7Sb0dw3Jy1JqsfKONNzPKFx7y0ivKe8LNGQ0Y2Rsi+Czs3g2oM7kad4Pyl+l4KERrxF8PKvU+/q1NYl7BV8PLI968ajpreIpM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G5nou7g3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DfRVTunU"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-4a003bd18e5so3597615e9.0
-        for <stable@vger.kernel.org>; Sat, 03 Oct 2026 07:29:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791037791; x=1791642591; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5Nh4xYcLHpPWPglzT1Rb9TR1ScNizAo9fpmTf/BkSqU=;
-        b=DfRVTunU9jbFEsqPT9kqur/9LUCxYqIC+cipGl1i2VS8mMiqkJSoQUrdrA4NYvYU1F
-         i5yqhKQBaDUnT6qZmuLwxlfrps9z2NNB/Hdl41KPPHWvE2HNvKAW15itrkWMckQtckOg
-         ESuy/bZmn9SSge4YdhSFTpilIczq21qJSYMN0VhVdO4sLjx7112gOGUWV1GoyRItZqfn
-         FUZnvi9uX5E50UP1/cIXtLqwIxIE5Hs7mGkwjA4UptForWelIRe9wGNegybDXpI6ls+6
-         mhgSiNy1FbIthXXp48buPfw1UoEYPlTCsu3OKx9lf2IqqNUN0GYbMXqRQO+TyS7arerY
-         6Kxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791037791; x=1791642591;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5Nh4xYcLHpPWPglzT1Rb9TR1ScNizAo9fpmTf/BkSqU=;
-        b=IoU56VQk7tbGQeDf0FMY6VjBrRyZSHV8MztqgZdGnsswZ2kwqhRVbSbXW7zYTIPyKW
-         EDkbYsWglDlpc4RWj1ATZt1bsGfOcgivlHBsXjnuE+r3pEYscCfwAHI0N5j8RAm/CVXN
-         D67SdPyUg59oGbOvBzhLCmtmAdsHORlrYxGwHDf0NAteasHGUf2Kzmp7PG+ah9FIhZSu
-         piziV87CPiIrheM9Pu0Y3mNTojhi1KZVIVT8RWSGmF8URCRdYGgRgM+ig3p7s3h3Nwh3
-         pqr2o+1rr5IlR5B3s1JU9l7+GhNSPVUbc33Xa+xb9v99dT89ijofqZdafUS//ieFXalb
-         FKxg==
-X-Forwarded-Encrypted: i=1; AKwUvBz+aYbUJKUwiGV4w7AQUIL1jlzpWWCG5hnX4DkDIm6SASJKtz2uQSdkDjdc2B7kEUxNHttQdAI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lXXAOvBCU7uSzU2JqN2w3NEI7UNRzOSXpH8Gax/mUMGySv4bHm
-	7XJ4OEh0+Uclxlulen9peN+5Pk1EZ2UG4I2x4CQ7+zQKZNtgO1ue2Biv
-X-Gm-Gg: AYBFou1xs9oU9+IlEKxUmT7ImMDp2PK8XnX1BXJAgSTvkYPFNZg9zmhWSI/c03XpNvq
-	Z5l0md+KflFG6bkefQVTq+8TVMWL1OutfqAA9M0VHfQq40fKg1pPiLSL0UScYkjcL+nBUKnOohx
-	sQw9drZWrcAXkgMnE9v7DC8W2mVlhPHGYtUBPOhrxzzKM6xqEMLQbqGuXrdVKlwp8o8uYM8bjNj
-	8gZTqexcfLAvv+NvT/j+KiG6HYRUnT9zEa+Nvm+BYIGiaE4Ed846+mf9z/JJSkyDk8fGmWMcbj6
-	622NgtVdpefVcQWtrVCEhsxYASz7V4elDWpKTuVdLWS8GlVZO7HTQj52hbbHNYcplCtUryZ0Yr4
-	jcmtpRpa9fizZGWsxdDsAll/D1yvsMzRVdxByYyJHkyG5Yo5ao4I2BlAG8VTU0gdKHa5bxCOtfn
-	x0vqGZ56iXOs4l96oNJPVSc4j5BnIQtJR4CnnRu+ljYDnJumg4MS+/1c7wMKgcCvQoXELxytsJR
-	j8lLuZcZ3dQWnBys6na14ZRkoIIlnaWSVPCTzjn5T1c+0sOl0UbtbJx9UqXO712Fwqxgtd/yYC3
-	/qIGO57TWksCoh7oM7hkeFljM0Llnmk5staVoKWD4IC+IRHFiw/kAmCo2e3/iAJfHdjlZ2NYc8Q
-	=
-X-Received: by 2002:a05:600c:c162:b0:4a0:1b77:db0 with SMTP id 5b1f17b1804b1-4a0276b86b5mr102814875e9.35.1791037791041;
-        Sat, 03 Oct 2026 07:29:51 -0700 (PDT)
-Received: from unknown748F3CBA5068 (dynamic-2a02-3100-b2e2-2001-c47f-5a89-3d9a-cd2d.310.pool.telefonica.de. [2a02:3100:b2e2:2001:c47f:5a89:3d9a:cd2d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a030326132sm146494905e9.0.2026.10.03.07.29.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 07:29:50 -0700 (PDT)
-Date: Sat, 3 Oct 2026 16:29:48 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: netdev-bot+sinfo@kernel.org
-Cc: netdev@vger.kernel.org, Siddharth Vadapalli <s-vadapalli@ti.com>, 
-	Roger Quadros <rogerq@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Keerthy <j-keerthy@ti.com>, 
-	Kevin Hao <haokexin@gmail.com>, Alexander Sverdlin <alex@sverdlin.org>, 
-	Arnd Bergmann <arnd@arndb.de>, linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH net 0/2] net: cpsw: fix failed-probe cleanup
-Message-ID: <asEQ9o6etFua8Hof@gmail.com>
-References: <cover.1791035789.git.kmehltretter@gmail.com>
- <179103680648.1402591.2581152276872666183@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G5nou7g3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA99C1F0089D;
+	Sat,  3 Oct 2026 14:30:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791037812;
+	bh=0VOKNZsXt8POVkaKJcBsptOeZCCqTjnL2Hl8Rsw8LdQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=G5nou7g3BqkL8GO0V7LH3FWiz4Xoa6UoLxbdYyBRNRvGCkLhqMbp6+wA6pS2p/wVK
+	 sidohVIkYNtujZDVfUM350+FJ1wgxX60ajONcjnohTOYKxjQMkWAyWELf0CnGvr02Q
+	 gjohG0PwgaN8nLfzWqbu/L7Nia0F7RUnlNp248cYN3q92WlLgwaMyITpAQqEehfXjP
+	 sea+oh86kMUv9RdeT7EsCS9ncjSttPEBd3y2ixsVo0icKtKNxWC3oeZh/c3Q5WQ0Sk
+	 EhQsd9nLHWTRG2SBKA3cDpqFKNSGHPTNptvc7RmnmGg5bTdKrg/s5hmD3gnBUMZB7v
+	 QtpTiEniK6sSg==
+Date: Sat, 3 Oct 2026 10:30:10 -0400
+From: Sasha Levin <sashal@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: rppt@kernel.org, peterz@infradead.org, akpm@linux-foundation.org,
+	david@kernel.org, mingo@redhat.com, acme@kernel.org,
+	namhyung@kernel.org, linux-mm@kvack.org,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
+	regressions@lists.linux.dev, stable@vger.kernel.org,
+	4ncienth@gmail.com, alexander.motin@truenas.com,
+	caleb.stjohn@truenas.com, ameer.hamza@truenas.com
+Subject: Re: [REGRESSION] secretmem: SIGBUS on memfd_secret() pages while
+ perf record runs
+Message-ID: <asERcvLuNJatsBL7@laps>
+References: <20261002175651.811343-1-ameer.hamza@truenas.com>
+ <2026-10-02-rc-reply-0003-re-secretmem-sigbus-perf@kernel.org>
+ <asDF77csaLDIuHTB@gremlin>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-In-Reply-To: <179103680648.1402591.2581152276872666183@kernel.org>
+In-Reply-To: <asDF77csaLDIuHTB@gremlin>
 
-On Sat, Oct 03, 2026 at 02:13:26PM +0100, netdev-bot+sinfo@kernel.org wrote:
->  - How the issue was discovered, e.g. hit in production, hit during
->    development, syzbot report, manual code inspection, LLM or static
->    analysis tool scan.
-> 
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account. If the series needs another revision for
-> other reasons, please include the information in the commit messages
-> then.
+On Sat, Oct 03, 2026 at 10:18:34AM +0100, Lorenzo Stoakes (ARM) wrote:
+>On Fri, Oct 02, 2026 at 09:30:23PM -0400, Sasha Levin wrote:
+>> > Since commit 97d34aa65c29 ("mm/secretmem: properly account locked
+>> > pages"), in v7.3-rc2 and the 6.18.52 and 7.2.5 backports, touching a
+>> > memfd_secret() page for the first time fails with SIGBUS while the
+>> > same user is running perf record, and read() into such a page fails
+>>
+>> Thanks for the report. I've dropped 97d34aa65c29 from the 6.12 queue,
+>> and also removed the copies that were staged for 6.6 and 6.1.
+>>
+>> 7.2.y and 6.18.y already shipped it, so those need an upstream fix,
+>> which stable will pick up once it lands.
+>
+>Sasha,
+>
+>Could we perhaps take a breath and pause?
 
-The rx_mode_work lifetime issue was found during an LLM-assisted review
-of the 6.12.112-rc1 stable series.
+I pulled this out quickly because I didn't want this issue to go into the kernels that were released this morning.
 
-Reviewing the same probe error path in dual-EMAC mode then exposed the
-older secondary-netdev cleanup bug.
+In general, our policy around this type of reports is that if the issue is in a
+released LTS kernel, we will wait for a fix upstream, and if the issue is still
+in our queues, we will simply drop the patch from the queue.
 
+>This patch fixes a really quite serious vulnerability that allows an
+>unprivileged process to allocate arbitrary, unreclaimable (i.e. OOMK cannot
+>save you) memory.
+>
+>Allow me to assess the validity of this report _before_ dropping things
+>from queues perhaps? :)
+
+No disagreement that this would have been better - in this case it was timing
+as the releases were about to happen the following day, so the safest choice
+was to drop it while we figure it out.
+
+>It was sent late on Friday in a week that I was ill and it's Saturday
+>pre-LPC, so that's hardly a timeframe that I could reasonably have replied.
+
+Keep in mind that our release cycles are fairly short, so this shouldn't be too
+big of a deal?
+
+We will generally go for the safe option of dropping a commit that introduces a
+regression as it's fairly easy to queue it back up very soon after a
+diagnosis/fix shows up.
+
+-- 
 Thanks,
-Karl
+Sasha
