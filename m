@@ -1,42 +1,74 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBF1C3905EC;
-	Sat,  3 Oct 2026 10:20:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7331E412C05
+	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 10:22:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791022819; cv=none; b=VKOu++Wt9mVZ4656E6YMfQdkgZK3ll6mQdOZPi/DbXmnlja6wcEQ8xXfH6/0/jb4nJ3bPJolz8gh7D7KdyQEAJ9iWOt9NfwgZ9Rt8ps3MRv8Zxh58dhFO2r7qj76DZi5ngmmmf6C9XJ2jF4ibasUPWF5X6w91uwwm6RuSHAZLec=
+	t=1791022947; cv=none; b=VCH7nKeY4gfiG6CfgnEBtvMbwEm+9Zs0Ha/8mzUi28hRhLSXTR8ffkc6ureBkg7PGyAQtlropP4CJsg+PJeslBHKwh9Y+r71D3OUiYS9GxXP9ZJUtoc2LKBD8ZQX3vBZoIld+Lv6W6cu51zfCQ1aMmL6GK4jWTwZ5awLUP0DTN8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791022819; c=relaxed/simple;
-	bh=V48hnmGwm5Zxzh//0DXpviOCCNy2P9IUTo2RKpAvg8s=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=aCn7OvQ767KQ+qCx3XVJ2ism2NXExnd5KC0iLF0VJTYdOCaFOSqThdu7J9+PSG4XIhiLtqw8cfewTKy2QO0u1zXSjXXwIEidrlc+b8ZVlFHz3e4Qii8g0Gy32OeI/Zm34uNSBYYjTjx9rGHkx9bsfUKcU2ieeVuwNPFEbzjodMU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=pWfHVPKV; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791022947; c=relaxed/simple;
+	bh=9dbU2MdjPPQ+2L06YpaubCzSFA40VM5mN5AfcEjE9ko=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iFNJN0vV//P+Uj9jozOYF1mvUNkMD8ohxj0iwduiQHMB6Eyj6UXirHK+uGvZ2a8uCFh6lbQsJd+BhODqD9gHkRT0g218/Ggg8DIc9mTCSsvxP+IPHxCDaAmQfpNf9ah9YQZXF8Tn+SJTmMwvW+7Sm+AiyRmUvOAJvX1cz7N5hVg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UWSkUf+P; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="pWfHVPKV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=HX
-	ZZg6hcOZR13yuP5Pno2uBQWWVd5X5M6BD9+YK7sug=; b=pWfHVPKVqagQoYVFFt
-	3gsspefLzKQAfAughoECQZiPujV91ViV+LRHEZMLT+hvq80PRGl1Q8T370wsED1n
-	Z/hWADTi7VVfN/1JsRMXyOpY55hsBCMXCUIpM0j8gEykpQ/3hvl9O23lYmnq3vhT
-	OsocvjP5HZiJ1xwRxc2hyftdc=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3f8bC1sBqnrifCA--.20254S2;
-	Sat, 03 Oct 2026 18:19:47 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Jeff Johnson <jjohnson@kernel.org>,
-	Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>,
-	Baochen Qiang <quic_bqiang@quicinc.com>,
-	linux-wireless@vger.kernel.org,
-	ath12k@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UWSkUf+P"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3a782e791daso189597a91.0
+        for <stable@vger.kernel.org>; Sat, 03 Oct 2026 03:22:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791022945; x=1791627745; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BUMcFmx4x50WyYpp/LJX866o0Ow7gt7cpBwhiL0d2Ic=;
+        b=UWSkUf+PEHylaSMq5Vy3FTo6DZK+MgmkajW2dK0w3tkmPO2Ah8vCiWtNwokrmiDXX9
+         smeYQjm/1c1hTU4SPsYtq395XzCJok9ydVdda5z9aBXAwIQmL0HuJBRsfJ9prYdFPIzn
+         ma7A4q+qebzcbf8pflOCi229JTJVJ4ozc48K3V7pheeSPEo5DmKayJCmqdP87LzL8WQL
+         CWpVQ/vkfwM9G6b8qWc/L1cFWX2wTFNKTHt+fx3kZhfRs6ykB8GytJrLhgHtyAs5OR4a
+         V4UIUGkPwpvFwR3eF6UKlTBvr/wkoQfcKThV46El7JYe4wgYRm8zNB4smGP9OpwTQexs
+         VqQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791022945; x=1791627745;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BUMcFmx4x50WyYpp/LJX866o0Ow7gt7cpBwhiL0d2Ic=;
+        b=kNYN2tqccW4w3U+iNXX3iFu/c8dZdQYJFISCLKhCJ2VtMs1XHZ52ZDECzc7sDcspSa
+         ct30FDgCklKNPA64D9Zx18Bm9VJC5U7x2wfZP+FkQAUOndX/ovHpTUoZ8Bwq8oaSMwmg
+         G4RSpn235qT2q8MZ0uxEOV2I6H70he7RAG4/EQqCJFQJU3Y3mR/kBKDbwHWAdPXnBK+D
+         gVBFyPNNQqRI2VGXUAfJCtoDUaIou5zZSZ+SpUOtZsWmxL/XdXm/wu0tvIVlvWR+wLGN
+         jIaida1QPpsJolQeDXPka7jbpX4PBmnSvQaXXUHlI5/t5jkoJu39si/KDWuDPUeAhwEV
+         QOSA==
+X-Forwarded-Encrypted: i=1; AKwUvBxN+2Uv1q0UwToIyIBiD4t4Cf0biVokYThZum62Ruuozk124Sc665r8tNV/XCZCGOFX+jfEQeM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ3o/k4Om9zL0Y6bYBznCjtM7FDYVjWYGr406DoZ1PeA4KUjLhO
+	umlBaJMQBRF4ZRMToPEyp/eL3hEg/vjGBR62btz/7vYPZj/bue51YnkgKIciP7c=
+X-Gm-Gg: AYBFou2xm4myYihsMyzC2hPG4rTOEExdCJRrVeXn553HA5QnZqwGoFQVHC3jcH/vMsC
+	j+GKu+tSBAot+cCODsI6O8loDTCwFzGT3WxmK6EUMqoeBs3hkow8zWP+ODCbM1RyPumYiAsn+e0
+	V2dBu2fWI6tZytKoRkl3/EOJpi0rN+i8lE6Pv5ZWrRwvf5ouKbAbbOL6czzNlzLWDHO+NOLSBlL
+	78l0dVxUeJE9NhleotgNFjgeZY1lkzLX+FNyM+TwpXhVWNG3pm0kOs5Fjwq1ykznkYCcmf9XjMA
+	zchlnTx1vfQSUA6UjpkZR3lcZHKTJWK+SuH6AY6vicpZwTodaKJFQpDkGmhzNN/D6McZaZiFJ67
+	XWnL31zbn1eUztUKTWL8THL3BH24ygksDaYVO4nq0PInMiaehr4qOvwgt065WLE3+NEmE7Ty5jd
+	+HqN+uHVhmDsw3NtQeLouJjlCa/Y3t0cEba92BGo3UWxtKrx3U1PnTcn1tEBJiE4AKyImXc80Yt
+	8+moSDB+2O9HrBsE9RvymxG
+X-Received: by 2002:a17:90a:fc50:b0:3a2:b70b:9cc8 with SMTP id 98e67ed59e1d1-3a7877462d9mr1377137a91.61.1791022945437;
+        Sat, 03 Oct 2026 03:22:25 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA ([211.230.25.193])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a79a98e7c0sm1240273a91.0.2026.10.03.03.22.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 03 Oct 2026 03:22:25 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: bhelgaas@google.com
+Cc: alistair@alistair23.me,
+	jic23@kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	donggeunyoo.kernel@gmail.com,
 	stable@vger.kernel.org
-Subject: [PATCH v2] wifi: ath12k: validate MAC/PHY capability count before saving
-Date: Sat,  3 Oct 2026 18:19:43 +0800
-Message-Id: <20261003101944.596546-1-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
+Subject: [PATCH v2] PCI/DOE: Fix double free of a duplicate feature's sysfs name
+Date: Sat,  3 Oct 2026 19:22:21 +0900
+Message-ID: <20261003102221.59894-1-donggeunyoo.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,78 +76,73 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3f8bC1sBqnrifCA--.20254S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxAry7WF47Gr18uF1xJw1DJrb_yoW5GFyxpF
-	43ZrnrtFWrJF47Ww4DJw4UJa4Fvws5Kw4fKFy7Ka4rW3Z5ArnrX3WFvFWjyFyrKws5WF1U
-	Kr4Iv3y0kFW5tFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEubyLUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7wOw6mrA1sPNzQAA3J
 
-Firmware supplies the hardware mode count and the PHY bitmap for each
-mode in the service-ready-ext event. ath12k_wmi_save_all_mac_phy_info()
-uses those bitmaps to populate svc_ext_info->mac_phy_info, but the
-destination is a fixed array of ATH12K_MAX_MAC_PHY_CAP elements.
+When a DOE feature is reported twice, sysfs_add_file_to_group() fails
+with -EEXIST for the second copy and pci_doe_sysfs_feature_populate()
+frees that attribute's name, but leaves the pointer in place.
+pci_doe_sysfs_feature_remove() frees every name again when the device
+is removed, or when a later feature fails to register, so the name is
+freed twice:
 
-If the total number of advertised PHY entries exceeds that limit, the
-loop writes beyond mac_phy_info and corrupts adjacent memory.
+  BUG: KASAN: double-free in pci_doe_sysfs_feature_remove+0x117/0x1b0
+  Call Trace:
+   kfree+0x11a/0x420
+   pci_doe_sysfs_feature_remove+0x117/0x1b0
+   pci_doe_sysfs_teardown+0x90/0xf0
+   pci_remove_bus_device+0x128/0x2e0
+   pci_stop_and_remove_bus_device_locked+0x1d/0x30
+   remove_store+0xd2/0xf0
 
-ath12k_wmi_mac_phy_caps_parse() allocates the source array for
-tot_phy_id entries and rejects excess capability TLVs. However, if the
-event contains fewer capability TLVs than advertised, the remaining
-allocated entries stay zeroed and are saved as invalid PHY information.
+Clear the pointer after freeing the name.
 
-After parsing the MAC/PHY capability TLVs, validate the destination
-capacity and reject an incomplete capability list before saving any
-entries.
-
-Fixes: 062ade23991e ("wifi: ath12k: parse and save hardware mode info from WMI_SERVICE_READY_EXT_EVENTID event for later use")
+Fixes: 2311ab1820fe ("PCI/DOE: Expose DOE features via sysfs")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
-
+Suggested-by: Alistair Francis <alistair@alistair23.me>
+Assisted-by: LLM
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 ---
-
 Changes in v2:
-- Refer to the service-ready-ext event.
-- Describe a short capability list as a correctness issue instead of a
-  source-buffer overrun.
-- Move the checks after MAC/PHY capability parsing and use '<' for the
-  reachable count mismatch.
+- Keep freeing the duplicate's name in pci_doe_sysfs_feature_populate()
+  and clear the pointer, instead of leaving it to
+  pci_doe_sysfs_feature_remove() (Alistair Francis)
 
-diff --git a/drivers/net/wireless/ath/ath12k/wmi.c b/drivers/net/wireless/ath/ath12k/wmi.c
-index d5160af60e00..3e812c79a649 100644
---- a/drivers/net/wireless/ath/ath12k/wmi.c
-+++ b/drivers/net/wireless/ath/ath12k/wmi.c
-@@ -5050,6 +5050,7 @@ static int ath12k_wmi_svc_rdy_ext_parse(struct ath12k_base *ab,
- 					u16 tag, u16 len,
- 					const void *ptr, void *data)
- {
-+	struct ath12k_svc_ext_info *svc_ext_info = &ab->wmi_ab.svc_ext_info;
- 	struct ath12k_wmi_pdev *wmi_handle = &ab->wmi_ab.wmi[0];
- 	struct ath12k_wmi_svc_rdy_ext_parse *svc_rdy_ext = data;
- 	int ret;
-@@ -5094,6 +5095,22 @@ static int ath12k_wmi_svc_rdy_ext_parse(struct ath12k_base *ab,
- 				return ret;
- 			}
- 
-+			if (svc_rdy_ext->tot_phy_id >
-+			    ARRAY_SIZE(svc_ext_info->mac_phy_info)) {
-+				ath12k_warn(ab, "too many PHY entries %u (max %zu)\n",
-+					    svc_rdy_ext->tot_phy_id,
-+					    ARRAY_SIZE(svc_ext_info->mac_phy_info));
-+				return -EINVAL;
+v1: https://lore.kernel.org/all/20260928035035.252394-1-donggeunyoo.kernel@gmail.com/
+
+Tested under QEMU (q35, cxl-type3, KASAN) on 72d3fcf802c4. The device
+reports its CDAT feature once, so a test-only change either registers
+its DOE capability as a second mailbox or inserts the feature N extra
+times into one:
+
+  case                                   before           after
+  no duplicate, remove                   no report        no report
+  no duplicate, a name fails at probe    no report        no report
+  two mailboxes, remove                  double free      no report
+  two mailboxes, 3 remove/rescan cycles  3 double frees   no report
+  3 duplicates in one mailbox, remove    3 double frees   no report
+  2 duplicates, a later name fails,      2 double frees   no report
+    probed twice
+
+The doe_features listing is the same before and after in every case.
+
+ drivers/pci/doe.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/pci/doe.c b/drivers/pci/doe.c
+index ac95b1d2d9997..6b5d9ba8e9697 100644
+--- a/drivers/pci/doe.c
++++ b/drivers/pci/doe.c
+@@ -208,8 +208,9 @@ static int pci_doe_sysfs_feature_populate(struct pci_dev *pdev,
+ 				pci_warn(pdev, "Failed adding %s to sysfs group\n",
+ 					 attrs[i].attr.name);
+ 				goto fail;
+-			} else
+-				kfree(attrs[i].attr.name);
 +			}
-+
-+			if (svc_rdy_ext->n_mac_phy_caps < svc_rdy_ext->tot_phy_id) {
-+				ath12k_warn(ab,
-+					    "not enough MAC/PHY caps %u, expected %u\n",
-+					    svc_rdy_ext->n_mac_phy_caps,
-+					    svc_rdy_ext->tot_phy_id);
-+				return -EINVAL;
-+			}
-+
- 			ath12k_wmi_save_all_mac_phy_info(ab, svc_rdy_ext);
++			kfree(attrs[i].attr.name);
++			attrs[i].attr.name = NULL;
+ 		}
+ 	}
  
- 			svc_rdy_ext->mac_phy_done = true;
 -- 
-2.34.1
+2.53.0
 
