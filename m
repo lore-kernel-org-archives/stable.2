@@ -1,123 +1,191 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5DEE41378E;
-	Sat,  3 Oct 2026 10:22:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 543314078C0;
+	Sat,  3 Oct 2026 10:25:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791022958; cv=none; b=jeMcWn3k1YxKBOXgzu5ATALn5rihwZ0q2a7qAQhcyinvoFoJqlhJ58nGQeQQ3nZlqkIbIEWlTk8qVQeEcs1LXcBvQfvFmGRZsW6Bav0GQsxgc/YApGKiGyOvDkocsVWt2kld7utlL4+jUwCf+cNc8oBdlFInMy6JiIWG1DvQsaQ=
+	t=1791023119; cv=none; b=i2zW5k/bO/1E8rWITjo5Bf9FHH8XC+odQwwKoJeVhXh1Dog8RU541fLVnyXWgfKFUV02cjLoy1xIe9+TJg93dqCiIB/Rmy9d/TnV+uJol5sJHOCHj4B6Cc+nv4CGS1y7SrJePXogRxEJZtuMGKhNSfU2qt3vtC45yfCCf6GpvZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791022958; c=relaxed/simple;
-	bh=OvkC8Ak0od0aDwF+zPCA7ymzYYL+KvnWU2x6jJM+vLo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=Jc8loshNvY/6zWvmIda1QjlbMtzfZ3KDP5/inwrPeDBksP4Qy3lbKOm6dKo9i6nC1ANzyXk+A3PNNogpuXS59cetAmwPxjQt7+fogRtnsfdnvMLGCPphjFlnXHQQEbjMnYU5ND807NcHB+X15xMmtZqFruGyo+G8dgN6p04DcWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=MB97Y/q0; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791023119; c=relaxed/simple;
+	bh=nhCriUvIcO0estdNCYT42amqjl34rBKUTJHwUu3CMM0=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=lyixaV7jDe1fSQEBvy0e3Y0qH0SZoZaJ3xyitixbMgkwItMWUiC5fzuWoEhMDkF+9GjNLC9zvrQSOHzzAkAW6m/+q/wUVCrtYA8oQbyxGoC0tRBigAYgH1AwftuilqIn7VuHCoqI+BnSjz9QxOCdHB2ci2vlSAQlxHQx+V8qyZ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ObKK7SNv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="MB97Y/q0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=OvkC8Ak0od0aDwF+zPCA7ymzYYL+KvnWU2x6jJM+vLo=; b=M
-	B97Y/q0xrrReRlu5KC9sYbsUniQjvS8pnJX9rbcpnyNX2cMOlWZ7wQdNKe+LNQ4o
-	OxuBvxxrkq//KkkRQ7BTx95UZCosi4B135uISxa6hltLNR54OpdkMJH1h3YnP4bD
-	jsceTZUmUjHT5Y+crtvfGXKGuxYtLoJvVhFH7w6Ktw=
-Date: Sat, 3 Oct 2026 18:22:07 +0800 (CST)
-From: "jiale yao" <19888972804@163.com>
-To: "Baochen Qiang" <baochen.qiang@oss.qualcomm.com>
-Cc: "Jeff Johnson" <jjohnson@kernel.org>,
-	"Baochen Qiang" <quic_bqiang@quicinc.com>,
-	"Vasanthakumar Thiagarajan" <vasanthakumar.thiagarajan@oss.qualcomm.com>,
-	linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re:Re: [PATCH] wifi: ath12k: validate MAC/PHY capability count
- before saving
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <bb1831c7-9281-434b-8324-ea93e3d08e33@oss.qualcomm.com>
-References: <20260925121739.2061979-1-yaojiale02@163.com>
- <bb1831c7-9281-434b-8324-ea93e3d08e33@oss.qualcomm.com>
-X-NTES-SC: AL_Qu2SA/yZvUEp4SWaYukdmE8Uges8WcC0svki1YJUc+4GhzHBwiABbHpeBEnt4NmlFwSNnAm9ShFy8/5qb6BZCBucED2rynwL3IB5ycHYDg==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ObKK7SNv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3F751F0089B;
+	Sat,  3 Oct 2026 10:25:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791023117;
+	bh=vXMtAL44iVcAA9WhOxwAITTnVgekcVqTaNx1U8S7snU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ObKK7SNvJ4iK/TmrgstzeGLH8c/hvCwqZD1SP+BrFfC/TwLDEx/D3pvSBA2br3NZg
+	 QylWtd/Dml3XK2wrm+x3CG4NsZ388JrygzvySxe1ouHnZA6yBTWMCxyAQ8h3UPPVwU
+	 /X9lkwxNa1hbIxBf00Jmpzf0N7XtF5hag4S0X2WAGC0A61AVKuagROT5uyIldsHofd
+	 NKILFHMZnCaoFnwVgjm3spo7MHjpuDexFsvsXfhonXEebVNtLDZaotfuhBq7sa9Lhg
+	 VUrts4oRZUjdEE3EQwETkySLZP5u1q+HXpK92Spl8tAi97lYFqT3R9t3fK0eEM6Gpt
+	 ZhkeZJUjj8mLA==
+Subject: Re: [PATCH] net: gro: mark frag_list GRO packets as SKB_GSO_DODGY
+ when a list element exceeds gso_size
+From: netdev-bot+sashiko@kernel.org
+To: shiming.cheng@mediatek.com
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, matthias.bgg@gmail.com,
+ angelogioacchino.delregno@collabora.com, willemb@google.com,
+ daniel.zahka@gmail.com, alice@isovalent.com, sd@queasysnail.net,
+ eilaimemedsnaimel@gmail.com, imv4bel@gmail.com, nbd@nbd.name,
+ dsahern@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ stable@vger.kernel.org, steffen.klassert@secunet.com, lena.wang@mediatek.com
+Date: Sat, 03 Oct 2026 10:25:16 +0000
+Message-ID: <179102311631.434549.14789093097225958254@kernel.org>
+In-Reply-To: <20260929100256.23192-1-shiming.cheng@mediatek.com>
+References: <20260929100256.23192-1-shiming.cheng@mediatek.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <1a47e7a8.1453.1a101490eaf.Coremail.19888972804@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:jygvCgD3dxZP18Bqk0cHAA--.9443W
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzg-TDmrA109KrAAA3I
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-QXQgMjAyNi0wOS0yOSAxMTozMjozMywgIkJhb2NoZW4gUWlhbmciIDxiYW9jaGVuLnFpYW5nQG9z
-cy5xdWFsY29tbS5jb20+IHdyb3RlOgo+Cj4KPk9uIDkvMjUvMjAyNiA4OjE3IFBNLCBKaWFsZSBZ
-YW8gd3JvdGU6Cj4+IEZpcm13YXJlIHN1cHBsaWVzIHRoZSBoYXJkd2FyZSBtb2RlIGNvdW50IGFu
-ZCB0aGUgUEhZIGJpdG1hcCBmb3IgZWFjaAo+PiBtb2RlIGluIHRoZSBzZXJ2aWNlLXJlYWR5IGV2
-ZW50Cj4KPnRvIGJlIGFjY3VyYXRlLCBpdCBpcyBzZXJ2aWNlIHJlYWR5IGV4dCBldmVudC4gd2Ug
-ZG8gaGF2ZSBhbm90aGVyIGV2ZW50IG5hbWVkIHNlcnZpY2UgcmVhZHkuCj4KPj4gQSBtaXNtYXRj
-aAo+PiBiZXR3ZWVuIHRoZSBhZHZlcnRpc2VkIHRvdGFsIGFuZCB0aGUgbnVtYmVyIG9mIHBhcnNl
-ZCBjYXBhYmlsaXR5IFRMVnMgY2FuCj4+IGFsc28gbWFrZSB0aGUgc291cmNlIHBvaW50ZXIgYWR2
-YW5jZSBiZXlvbmQgaXRzIGFsbG9jYXRpb24uCj4KPlRoaXMgY2xhaW0gZG9lc24ndCBob2xkLiBU
-aGUgc291cmNlIGJ1ZmZlciBtYWNfcGh5X2NhcHMgaXMga3phbGxvYydkIGZvciB0b3RfcGh5X2lk
-Cj5lbGVtZW50cywgYW5kIHRoZSBsb29wJ3MgbWFjX3BoeV9jYXArKyBydW5zIGV4YWN0bHkgdG90
-X3BoeV9pZCB0aW1lcyB0b3RhbCwgc28gdGhlIHNvdXJjZQo+cG9pbnRlciByZWFkcyBhdCBtb3N0
-IHRvdF9waHlfaWQgZW50cmllcyChqiBwcmVjaXNlbHkgdGhlIGFsbG9jYXRpb24gYm91bmQsIG5l
-dmVyIHBhc3QgaXQuCj4KPlRoZSBuX21hY19waHlfY2FwcyA+IHRvdF9waHlfaWQgY2FzZSBpcyBh
-bHJlYWR5IHJlamVjdGVkIGF0IHBhcnNlIHRpbWUgaW4KPmF0aDEya193bWlfbWFjX3BoeV9jYXBz
-X3BhcnNlKCkuIFRoZSBvbmx5IG1pc21hdGNoIHRoYXQgY2FuIGFjdHVhbGx5IHJlYWNoCj5zYXZl
-X2FsbF9tYWNfcGh5X2luZm8oKSBpcyBuX21hY19waHlfY2FwcyA8IHRvdF9waHlfaWQsIGluIHdo
-aWNoIGNhc2UgdGhlIGxvb3AgcmVhZHMKPnplcm9lZC1idXQtYWxsb2NhdGVkIHNvdXJjZSBlbnRy
-aWVzIGFuZCBwb3B1bGF0ZXMgbWFjX3BoeV9pbmZvIHdpdGggYWxsLXplcm8gUEhZIGluZm8goaog
-YQo+Y29ycmVjdG5lc3MgYnVnLCBub3QgYSBzb3VyY2UtYnVmZmVyIG92ZXJydW4uCj4KPj4gCj4+
-IFZhbGlkYXRlIGJvdGggY291bnRzIGJlZm9yZSB3cml0aW5nIGFueSBlbnRyaWVzIGFuZCBwcm9w
-YWdhdGUgdGhlIGVycm9yIHRvCj4+IHRoZSBzZXJ2aWNlLXJlYWR5IHBhcnNlci4KPj4gCj4+IEZp
-eGVzOiAwNjJhZGUyMzk5MWUgKCJ3aWZpOiBhdGgxMms6IHBhcnNlIGFuZCBzYXZlIGhhcmR3YXJl
-IG1vZGUgaW5mbyBmcm9tIFdNSV9TRVJWSUNFX1JFQURZX0VYVF9FVkVOVElEIGV2ZW50IGZvciBs
-YXRlciB1c2UiKQo+PiBDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZwo+PiBTaWduZWQtb2ZmLWJ5
-OiBKaWFsZSBZYW8gPHlhb2ppYWxlMDJAMTYzLmNvbT4KPj4gLS0tCj4+ICBkcml2ZXJzL25ldC93
-aXJlbGVzcy9hdGgvYXRoMTJrL3dtaS5jIHwgMjIgKysrKysrKysrKysrKysrKysrKystLQo+PiAg
-MSBmaWxlIGNoYW5nZWQsIDIwIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCj4+IAo+PiBk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvd2lyZWxlc3MvYXRoL2F0aDEyay93bWkuYyBiL2RyaXZl
-cnMvbmV0L3dpcmVsZXNzL2F0aC9hdGgxMmsvd21pLmMKPj4gaW5kZXggZDUxNjBhZjYwZTAwLi41
-OWFjMTdmMGQ0OGQgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvbmV0L3dpcmVsZXNzL2F0aC9hdGgx
-Mmsvd21pLmMKPj4gKysrIGIvZHJpdmVycy9uZXQvd2lyZWxlc3MvYXRoL2F0aDEyay93bWkuYwo+
-PiBAQCAtNTAwNCw3ICs1MDA0LDcgQEAgYXRoMTJrX3dtaV9zYXZlX21hY19waHlfaW5mbyhzdHJ1
-Y3QgYXRoMTJrX2Jhc2UgKmFiLAo+PiAgCQkJCQlfX2xlMzJfdG9fY3B1KG1hY19waHlfY2FwLT5o
-aWdoXzVnaHpfY2hhbl9mcmVxKTsKPj4gIH0KPj4gIAo+PiAtc3RhdGljIHZvaWQKPj4gK3N0YXRp
-YyBpbnQKPj4gIGF0aDEya193bWlfc2F2ZV9hbGxfbWFjX3BoeV9pbmZvKHN0cnVjdCBhdGgxMmtf
-YmFzZSAqYWIsCj4+ICAJCQkJIHN0cnVjdCBhdGgxMmtfd21pX3N2Y19yZHlfZXh0X3BhcnNlICpz
-dmNfcmR5X2V4dCkKPj4gIHsKPj4gQEAgLTUwMTUsNiArNTAxNSwyMCBAQCBhdGgxMmtfd21pX3Nh
-dmVfYWxsX21hY19waHlfaW5mbyhzdHJ1Y3QgYXRoMTJrX2Jhc2UgKmFiLAo+PiAgCXUzMiBod19t
-b2RlX2lkLCBwaHlfYml0X21hcDsKPj4gIAl1OCBod19pZHg7Cj4+ICAKPj4gKwlpZiAoc3ZjX3Jk
-eV9leHQtPnRvdF9waHlfaWQgPiBBUlJBWV9TSVpFKHN2Y19leHRfaW5mby0+bWFjX3BoeV9pbmZv
-KSkgewo+PiArCQlhdGgxMmtfd2FybihhYiwgInRvbyBtYW55IFBIWSBlbnRyaWVzICV1IChtYXgg
-JXp1KVxuIiwKPj4gKwkJCSAgICBzdmNfcmR5X2V4dC0+dG90X3BoeV9pZCwKPj4gKwkJCSAgICBB
-UlJBWV9TSVpFKHN2Y19leHRfaW5mby0+bWFjX3BoeV9pbmZvKSk7Cj4+ICsJCXJldHVybiAtRUlO
-VkFMOwo+PiArCX0KPj4gKwo+PiArCWlmIChzdmNfcmR5X2V4dC0+bl9tYWNfcGh5X2NhcHMgIT0g
-c3ZjX3JkeV9leHQtPnRvdF9waHlfaWQpIHsKPgo+cGVyIGNvbW1lbnQgYWJvdmUsIHNob3VsZCB3
-ZSB1c2UgJzwnIGluc3RlYWQgb2YgJyE9JyA/Cj4KPkJlc2lkZXMsIEkgdGhpbmsgdGhlIHJpZ2h0
-IHBsYWNlIGZvciBzdWNoIGNoZWNrIHNob3VsZCBiZSBpbgo+YXRoMTJrX3dtaV9zdmNfcmR5X2V4
-dF9wYXJzZSgpLCByaWdodCBiZWZvcmUgYXRoMTJrX3dtaV9zYXZlX2FsbF9tYWNfcGh5X2luZm8o
-KSBhbmQgYWZ0ZXIKPm1hYyBwaHkgY2FwIHBhcnNlID8KClRoYW5rcyBmb3IgeW91ciByZXZpZXcs
-IHlvdSBhcmUgYWxsIHJpZ2h0LCBob3cgYWJvdXQgdGhpcyBuZXcgb25lPwoKaHR0cHM6Ly9sb3Jl
-Lmtlcm5lbC5vcmcvYWxsLzIwMjYxMDAzMTAxOTQ0LjU5NjU0Ni0xLXlhb2ppYWxlMDJAMTYzLmNv
-bQoKPgo+PiArCQlhdGgxMmtfd2FybihhYiwgImludmFsaWQgbnVtYmVyIG9mIE1BQy9QSFkgY2Fw
-cyAldSwgZXhwZWN0ZWQgJXVcbiIsCj4+ICsJCQkgICAgc3ZjX3JkeV9leHQtPm5fbWFjX3BoeV9j
-YXBzLAo+PiArCQkJICAgIHN2Y19yZHlfZXh0LT50b3RfcGh5X2lkKTsKPj4gKwkJcmV0dXJuIC1F
-SU5WQUw7Cj4+ICsJfQo+PiArCj4+ICAJbWFjX3BoeV9pbmZvID0gJnN2Y19leHRfaW5mby0+bWFj
-X3BoeV9pbmZvWzBdOwo+PiAgCW1hY19waHlfY2FwID0gc3ZjX3JkeV9leHQtPm1hY19waHlfY2Fw
-czsKPj4gIAo+PiBAQCAtNTA0NCw2ICs1MDU4LDggQEAgYXRoMTJrX3dtaV9zYXZlX2FsbF9tYWNf
-cGh5X2luZm8oc3RydWN0IGF0aDEya19iYXNlICphYiwKPj4gIAkJCXBoeV9iaXRfbWFwID4+PSAx
-Owo+PiAgCQl9Cj4+ICAJfQo+PiArCj4+ICsJcmV0dXJuIDA7Cj4+ICB9Cj4+ICAKPj4gIHN0YXRp
-YyBpbnQgYXRoMTJrX3dtaV9zdmNfcmR5X2V4dF9wYXJzZShzdHJ1Y3QgYXRoMTJrX2Jhc2UgKmFi
-LAo+PiBAQCAtNTA5NCw3ICs1MTEwLDkgQEAgc3RhdGljIGludCBhdGgxMmtfd21pX3N2Y19yZHlf
-ZXh0X3BhcnNlKHN0cnVjdCBhdGgxMmtfYmFzZSAqYWIsCj4+ICAJCQkJcmV0dXJuIHJldDsKPj4g
-IAkJCX0KPj4gIAo+PiAtCQkJYXRoMTJrX3dtaV9zYXZlX2FsbF9tYWNfcGh5X2luZm8oYWIsIHN2
-Y19yZHlfZXh0KTsKPj4gKwkJCXJldCA9IGF0aDEya193bWlfc2F2ZV9hbGxfbWFjX3BoeV9pbmZv
-KGFiLCBzdmNfcmR5X2V4dCk7Cj4+ICsJCQlpZiAocmV0KQo+PiArCQkJCXJldHVybiByZXQ7Cj4+
-ICAKPj4gIAkJCXN2Y19yZHlfZXh0LT5tYWNfcGh5X2RvbmUgPSB0cnVlOwo+PiAgCQl9IGVsc2Ug
-aWYgKCFzdmNfcmR5X2V4dC0+ZXh0X2hhbF9yZWdfZG9uZSkgewo=
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
+
+Critical: 0 · High: 0 · Medium: 2 · Low: 0
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] The patch's premise does not hold on this tree, so the new
+  check in skb_gro_receive_list() (net/core/gro.c:262-264) can never…
+- [Medium] The Fixes: tag points at the wrong commit, and the message
+  leaves out the commit the patch depends on.
+
+--
+
+net: gro: mark frag_list GRO packets as SKB_GSO_DODGY when a list element exceeds gso_size
+
+This commit sets SKB_GSO_DODGY on the aggregated skb in
+skb_gro_receive_list() when an appended frag_list element is longer than
+skb_shinfo(p)->gso_size. The goal is to push LRO-produced aggregates
+onto the conservative segmentation path instead of skb_segment_list().
+
+> Fixes: 3a1296a38d0c ("net: Support GRO/GSO fraglist chaining.")
+> Cc: <stable@vger.kernel.org>
+
+[Severity: Medium]
+Is this the right Fixes: tag?
+
+3a1296a38d0c added the generic fraglist chaining that UDP uses. The
+condition tested here doesn't look reachable through UDP fraglist GRO.
+GSO UDP skbs are flushed in dev_gro_receive():
+
+net/core/gro.c:dev_gro_receive() {
+    ...
+		if (!skb_is_gso_tcp(skb) ||
+		    (skb_shinfo(skb)->gso_type & SKB_GSO_DODGY))
+			NAPI_GRO_CB(skb)->flush = 1;
+    ...
+}
+
+Also, udp_gro_receive_segment() stops merging once an skb's ulen is larger
+than the head's, so no element can be longer than gso_size.
+
+An element longer than gso_size could only come from TCP fraglist GRO.
+That was added by 8d95dc474f85 ("net: add code for TCP fraglist GRO").
+The existing fix for this scenario, 66817a9794263c, also names
+8d95dc474f85.
+
+The DODGY bit set here only has an effect through the checks in
+tcp4_gso_segment() and tcp6_gso_segment():
+
+net/ipv4/tcp_offload.c:tcp4_gso_segment() {
+    ...
+		if ((skb_pagelen(skb) - th->doff * 4 == skb_shinfo(skb)->gso_size) &&
+		    !(skb_shinfo(skb)->gso_type & SKB_GSO_DODGY))
+			return __tcp4_gso_segment_list(skb, features);
+    ...
+}
+
+426ca15c7f6c ("net: fix segmentation of forwarding fraglist GRO") added
+the DODGY test there. 17bd3bd82f9f79 added the skb_pagelen() check next
+to it.
+
+With Cc: stable, the current tag would pull this patch into 5.10, 5.15,
+6.1 and 6.6. Those trees do not have TCP fraglist GRO, so the change
+does nothing there. Trees that have TCP fraglist GRO but not
+426ca15c7f6c never read the new bit either.
+
+Should the tag point at 8d95dc474f85 instead? Should the dependency on
+426ca15c7f6c be mentioned? The commit those stable trees seem to need is
+66817a9794263c.
+
+> diff --git a/net/core/gro.c b/net/core/gro.c
+> index 29b4d02bf5198..6c5b11b63d3b5 100644
+> --- a/net/core/gro.c
+> +++ b/net/core/gro.c
+> @@ -259,6 +259,9 @@ int skb_gro_receive_list(struct sk_buff *p, struct sk_buff *skb)
+>  	skb_shinfo(p)->flags |= skb_shinfo(skb)->flags & SKBFL_SHARED_FRAG;
+>  
+>  	NAPI_GRO_CB(skb)->same_flow = 1;
+> +	/* frag_list element larger than gso_size (already coalesced before list-append) */
+> +	if (skb_shinfo(p)->gso_size && skb->len > skb_shinfo(p)->gso_size)
+> +		skb_shinfo(p)->gso_type |= SKB_GSO_DODGY;
+
+[Severity: Medium]
+Can this condition ever be true on the current tree?
+
+Commit 66817a9794263c ("net: gro: Fix nesting of TCP GSO SKBs in
+skb_gro_receive_list()") is already an ancestor of this patch. It covers
+the same HW-GRO case by keeping GSO skbs out of fraglist GRO:
+
+net/ipv4/tcp_offload.c:tcp4_check_fraglist_gro() {
+    ...
+		/* flist GRO applies to consecutive non-GSO skbs */
+		if (!skb_is_gso(skb) || !NAPI_GRO_CB(p)->is_flist) {
+    ...
+}
+
+tcp6_check_fraglist_gro() has the same guard. A GSO skb therefore ends
+up with is_flist == 0. tcp_gro_receive() then flushes before it calls
+skb_gro_receive_list():
+
+	flush |= NAPI_GRO_CB(p)->is_flist != NAPI_GRO_CB(skb)->is_flist;
+
+A GSO skb that starts a new flow also gets
+is_flist = !sk && !skb_is_gso(skb), which is 0.
+
+For non-GSO TCP skbs, tcp_gro_receive() also flushes on:
+
+	flush |= (len - 1) >= mss;
+
+Here mss is skb_shinfo(p)->gso_size and len is skb_gro_len(skb). After
+the skb_pull(skb, skb_gro_offset(skb)) in skb_gro_receive_list(), len
+equals skb->len. So skb->len > gso_size can't hold at this point.
+
+For UDP, dev_gro_receive() flushes GSO skbs, as well as skbs that already
+carry a frag_list:
+
+	NAPI_GRO_CB(skb)->flush = skb_has_frag_list(skb);
+
+udp_gro_receive_segment() also stops merging when
+ulen > udp_get_len_short(uh2).
+
+Is there a reproducer that still hits this after 66817a9794263c? If not,
+this looks like dead code, and the stable tag would send it in place of
+66817a9794263c. Should this patch be dropped in favor of the existing
+fix?
+
+>  
+>  	return 0;
+>  }
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260929100256.23192-1-shiming.cheng%40mediatek.com
