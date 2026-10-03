@@ -1,108 +1,112 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE23636197E
-	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 22:52:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67B2F36197E
+	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 22:53:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791067955; cv=none; b=P8Wje4sTOOZI1Jj69rDI4zKsS82DPjXZ3m9ET0cYKbSbr4pDfucPR1fBHnTzbWmS7tbaVoiUv0zsCUQ7WjYIY+zw5c2VXg6vx3BLR/jn0LgkyH+K8XPi30ay390TFTE8s1YqcmmSnonYTXUc6F+VNfptkWjT4hREchtPH0beeAw=
+	t=1791067986; cv=none; b=BamOW+ke5OG0X/KvSEWzo2YTWmobWGdPHzJkkUd7ZT0gjeZOOlNWLwCEc/y9NIk52th138/8eNrufIaR1UYjKH6O3ymmDwr/9jhAVGeCGk8jmAE1phMlkU5pLjPRDuL99LG7WTZyuS/dMkUGnhGI7GQyck/u2gwNXZCu46YWQmQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791067955; c=relaxed/simple;
-	bh=2gG+DZQCNU1FjMDfS7+wDOf7eckSHFE7rxiZxDYU5pM=;
+	s=arc-20240116; t=1791067986; c=relaxed/simple;
+	bh=XMXI2cP5aTXjY2CHyvZJkN40u8/HwP6X/jbQTvD3boI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ve7qmoraYz0iM9VHNbk87KdgTR1mNnk0paoC+829A/Pt2bbJvTthauwwqCn/0XUtUBe22i7Bb00ldmcPmLD0B3BVQjcMUXbHtvBG647zAMdNymUTCq5iDMTWq/dK97txdrzZ3f/8zbC1TAUvSeKpepO1x8CklHDuMCjJz7WgyyA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b6JA1xwt; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=PUsYprFYusQ6ktI0B6tmCbNT2BiLUDPQ5SxXT5DbVHjB5VK1/TvDYvA7ETMgjYZ++koj6dG5IEyNq3+qyTL6wcxlCgnpyjcmWC4hCpii69dz4Zgh3VZs59DwCZ6oFS2ARydDOF0QtFRcT6QGkprdmq4bOczQagUChg4rOozoXLM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z5v9k60z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b6JA1xwt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E7791F0089B;
-	Sat,  3 Oct 2026 22:52:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z5v9k60z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96EAF1F0089B;
+	Sat,  3 Oct 2026 22:52:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791067953;
-	bh=0H1PTt1sdnecPFmzpQQWUkROLi962NefHEvCnwh8fYQ=;
+	s=k20260515; t=1791067985;
+	bh=jg/pQnUE7amMZWMVsWKy2iPLSd06GeeoMgwp07h7rv0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=b6JA1xwtCPq8hBtTELDpRIOUp4LaavLquSbfZDKTpbKT89MinXQHtqFkkj3DPfhLF
-	 PoAsVNEwSqaI20lWi+8vzsQjFbmDTUcMjq9BHyLpMYxOQGTu3M/yUoztmALUpj/ubq
-	 FGHrQQwp61ygRxVLJ+vFU7k4ImwWnc/dSONhdJioxsJYn0/gdYpeHYK/e7icSPSg3j
-	 c8uVgUmFkZU52nWXh++Gbf7Mb4f222EtBTGFbW8rNjlh3hTci2mQTjczFXXfvFyu/r
-	 oG8GixiMDbQyAQm+E02pdIL7XF25VXWY8PHU+/JL92TXULgrPyDDtw0QfI6oBGen8l
-	 3dUvHgIMbcmWw==
+	b=Z5v9k60zXzUpkJMaMfNOMf2uAy4jOWoENaXhyt5DSAt3T9SJBDv+9CmBg/Iw4b/WY
+	 CXjX85/EUTCHvRsvXiE3p/4V2Q8x7HPwlA9kVo8aeDCV1ZNtKB/MM2wV2qk8F2yRbe
+	 BoqO8St0jwW5ssRpFeDytMiC2qqJoXfRBZuuJaxFxn9ix7M604GylsZ5dxaTvHmPW5
+	 MeEKNEkPLW6wkHmbWmm6h/g35pMrNlkHfNO/qiUTF0ELH8AefDEQqNUwsXh+3prT1S
+	 uzBgRjsv4mqlXGFqs4R6vFItoEZvhe+x20rqBwMqCivLchGTV86J3uBMl5jtdpCkOv
+	 +UE701JxbKavQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jens Axboe <axboe@kernel.dk>,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+Cc: Zhiling Zou <zhilinz@nebusec.ai>,
+	Vega <vega@nebusec.ai>,
+	Julian Anastasov <ja@ssi.bg>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] io_uring: fix task_work add use-after-free with SQPOLL
-Date: Sat,  3 Oct 2026 18:52:14 -0400
-Message-ID: <20261003225129.513032-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] ipvs: bound LBLCR and LBLC cache growth
+Date: Sat,  3 Oct 2026 18:52:47 -0400
+Message-ID: <20261003225116.383738-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100333-unpicked-popsicle-044c@gregkh>
-References: <2026100333-unpicked-popsicle-044c@gregkh>
+In-Reply-To: <2026100345-backlight-penknife-9708@gregkh>
+References: <2026100345-backlight-penknife-9708@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jens Axboe <axboe@kernel.dk>
+From: Zhiling Zou <zhilinz@nebusec.ai>
 
-[ Upstream commit a92193c91e8839fe5fc209616ea95465ae4b919d ]
+[ Upstream commit 2a3c3de660f96865f303fd25f1285f2ffbfd521d ]
 
-For SQPOLL, the sqpoll thread runs task_work off its own list and
-doesn't need to be told about it, so it can pop and complete a request
-as soon as mpscq_push() has published it. If that was the last request
-holding the ring alive, io_ring_exit_work() then frees the ctx, stops
-the thread, and with it the tctx, while io_req_normal_work_add() is
-still looking at both after the push:
+ip_vs_lblcr_new() and ip_vs_lblc_new() create cache entries for
+every previously unseen destination address. The table max_size only
+tells the periodic collector to reclaim entries after the cache has
+already exceeded the limit. It does not reclaim entries that the
+attacker continues to use.
 
-  BUG: KASAN: slab-use-after-free in io_req_normal_work_add+0x439/0x510
-  Read of size 4 at addr ff11000000ca0000 by task repro/55
-  (...)
-  BUG: KASAN: slab-use-after-free in queue_work_on+0x25/0x70
-  Write of size 8 at addr ff11000000c3bd00 by task repro/55
+Reject new cache entries once either table reaches max_size * 3 / 2.
+The extra headroom lets the periodic collector catch up while the
+existing scheduler fallback continues to use the selected destination
+when cache creation fails. New traffic therefore stays serviceable
+without growing the tables further.
 
-Hold an RCU read lock across the add, like io_req_local_work_add() already
-does, and have io_ring_exit_work() wait for a grace period for SQPOLL rings
-as well before freeing the ctx.
-
-Reported-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Link: https://lore.kernel.org/io-uring/20260924205056.3759980-2-Jeremy.Jean@oss.cyber.gouv.fr/
-Fixes: af5d68f8892f ("io_uring/sqpoll: manage task_work privately")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-[ sashal: Relocated the task-work hunk to the existing io_req_normal_work_add() implementation. ]
+Reported-by: Vega <vega@nebusec.ai>
+Suggested-by: Julian Anastasov <ja@ssi.bg>
+Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
+Acked-by: Julian Anastasov <ja@ssi.bg>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+[ sashal: Retained kmalloc() instead of kmalloc_obj() while including the missing LBLC counter-decrement prerequisite. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- io_uring/io_uring.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ net/netfilter/ipvs/ip_vs_lblc.c  | 4 ++++
+ net/netfilter/ipvs/ip_vs_lblcr.c | 3 +++
+ 2 files changed, 7 insertions(+)
 
-diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
-index fd64ba7a0927a..524669ee19982 100644
---- a/io_uring/io_uring.c
-+++ b/io_uring/io_uring.c
-@@ -1341,6 +1341,9 @@ static void io_req_normal_work_add(struct io_kiocb *req)
- 	struct io_uring_task *tctx = req->tctx;
- 	struct io_ring_ctx *ctx = req->ctx;
- 
-+	/* SQPOLL can retire the request on push, see io_ring_exit_work() */
-+	guard(rcu)();
+diff --git a/net/netfilter/ipvs/ip_vs_lblc.c b/net/netfilter/ipvs/ip_vs_lblc.c
+index 9bb1e05063dc4..832066f11e67e 100644
+--- a/net/netfilter/ipvs/ip_vs_lblc.c
++++ b/net/netfilter/ipvs/ip_vs_lblc.c
+@@ -204,7 +204,11 @@ ip_vs_lblc_new(struct ip_vs_lblc_table *tbl, const union nf_inet_addr *daddr,
+ 		if (en->dest == dest)
+ 			return en;
+ 		ip_vs_lblc_del(en);
++		atomic_dec(&tbl->entries);
+ 	}
++	if (atomic_read(&tbl->entries) >= tbl->max_size * 3 / 2)
++		return NULL;
 +
- 	/* task_work already pending, we're done */
- 	if (!llist_add(&req->io_task_work.node, &tctx->task_list))
- 		return;
-@@ -3146,8 +3149,8 @@ static __cold void io_ring_exit_work(struct work_struct *work)
- 	spin_lock(&ctx->completion_lock);
- 	spin_unlock(&ctx->completion_lock);
+ 	en = kmalloc(sizeof(*en), GFP_ATOMIC);
+ 	if (!en)
+ 		return NULL;
+diff --git a/net/netfilter/ipvs/ip_vs_lblcr.c b/net/netfilter/ipvs/ip_vs_lblcr.c
+index 1a53c1254fe57..073d3ad177040 100644
+--- a/net/netfilter/ipvs/ip_vs_lblcr.c
++++ b/net/netfilter/ipvs/ip_vs_lblcr.c
+@@ -364,6 +364,9 @@ ip_vs_lblcr_new(struct ip_vs_lblcr_table *tbl, const union nf_inet_addr *daddr,
  
--	/* pairs with RCU read section in io_req_local_work_add() */
--	if (ctx->flags & IORING_SETUP_DEFER_TASKRUN)
-+	/* pairs with the RCU read sections in the task_work add paths */
-+	if (ctx->flags & (IORING_SETUP_DEFER_TASKRUN | IORING_SETUP_SQPOLL))
- 		synchronize_rcu();
- 
- 	io_ring_ctx_free(ctx);
+ 	en = ip_vs_lblcr_get(af, tbl, daddr);
+ 	if (!en) {
++		if (atomic_read(&tbl->entries) >= tbl->max_size * 3 / 2)
++			return NULL;
++
+ 		en = kmalloc(sizeof(*en), GFP_ATOMIC);
+ 		if (!en)
+ 			return NULL;
 -- 
 2.53.0
 
