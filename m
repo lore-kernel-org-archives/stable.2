@@ -1,199 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71CF4318EF4;
-	Sat,  3 Oct 2026 06:00:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97208311C32
+	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 06:08:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791007242; cv=none; b=D4/lrn4hcm68Yje7xitmbWimDOeVYabakVOSHWlxp4vOPINLedmwsPBcu/Z7rTYK2WzvhuKRp3+V6MP2dhUHrDZ9mZcqaYpp4mh+91ibm1n3Tjen6k5uHB+A0S3PDQ28csH3RDxXgh86LIGEVeqQ8wL7zU+k6rZ0ekwpOHDhm/s=
+	t=1791007719; cv=none; b=trzcoBWfuCnZCdGE8Ry5eDvmYuDuvakK6ECPDtl8pBzzDmQHf1ydGdqfR8IuaN1ElVhJ6RXqwKC/+nMhSXoz/kmCa5/YzogP+q+BpV0fqlmT+tKuUdg7NQXTc1mIby70mvU3lHS39AQi1zaDN8qwTjGveIA3S1Eqpbc+Yrz7N0Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791007242; c=relaxed/simple;
-	bh=xs/eu+1AGocgu3fxahmW/bsjbrDlmJogrD5CEsqckCI=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=D3W7AugdhgwQAdpCt02xpTTYX5e7WfGjMXiOsDH6qNrTJvn7C7BUSiNN9VI6HljaUJe9Z5fM8ORw2SuhDUB4XzWYfyQsxpDNI0cNzVqtfEhIfAPSqlqX5xobontWU4Z/zaz+nXSxXxNxfUqQT00peK1jB1696TULCWBh9Kb/CqQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jpkc44/+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791007719; c=relaxed/simple;
+	bh=Bq6MIY7CYCGN5YFO83plBrLT0wDS2LRD2/45NbCikMY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=C2bLIV0ERywVGo7atQx2qsb49H79IB2XFMax1iLcugOCwppt9BF83IjVf6ESJIU6ngNUhNuFZN3KbyDdzjO0+/0z/nKOa5F4MGmTMZhj8Xc12VJ6QMQB2cPwniktQRDNoweaEt34IoOfvQP3aqf8jrYDM3oXF9j+H23CNpKZz3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ONiK2IVN; arc=none smtp.client-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jpkc44/+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC1201F0089C;
-	Sat,  3 Oct 2026 06:00:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791007241;
-	bh=Xi4jqe9cG2WbOW+dJnz5XyhS0AarZpL28wD8BisZRxE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Jpkc44/+G8WwdlZ/HO5nRPNgJMyabZ4vwsP3iCy2GUSDnZh2zHrkvKQqg1eezoEhZ
-	 ZHpyvxJDXAoNkS2JCzFye4bacM8ZpwNn7M+sbGnJMRUKwEUpJID1oodqtRD/b1bS6N
-	 0bO+iBLfn28G8j1GCTW95mglYKrXMOfqX0WMaYWfZJsd1ZGY1oc/CyRBee5BoeqdqK
-	 HPVveGLVFCxnZepZS85zZoSvsXPlW0N6nOa+yQG6rPFFvSpZ4Sefc99qMv7/Vh9zxu
-	 kt2OQ3APoIuIcMD0O9w41UaZc8mu1GwH+hawocKhR5+lX/OlhKWtwCSvcgdR1bG7Yg
-	 68Yky3UgPaVZQ==
-Subject:
- Re: [PATCH v4 3/3] can: fix unique skb identifier regression under RPS
-From: netdev-bot+sashiko@kernel.org
-To: socketcan@hartkopp.net
-Cc: linux-can@vger.kernel.org, norbert@doyensec.com, stable@vger.kernel.org,
- kuba@kernel.org
-Date: Sat, 03 Oct 2026 06:00:40 +0000
-Message-ID: <179100724051.1406898.18080408504073975767@kernel.org>
-In-Reply-To: <20260929154125.3298-4-socketcan@hartkopp.net>
-References: <20260929154125.3298-4-socketcan@hartkopp.net>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ONiK2IVN"
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-34ca2d54925so350098eec.0
+        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 23:08:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791007716; x=1791612516; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xvPvgzZ7iYnqitO0H1oFllRNtu+MflvF26mLCrcp718=;
+        b=ONiK2IVNxf4hQGT6f3SZK54c9rAUF9yxU5YImJzhjRu0o8L3BR7qKqmSqd9+CrKfaL
+         9JdIS/Dv72cephy8A7J9qD/BibBIvhcV+DqCHJQcVlt7q2Gv9RSO/OLoCBR0nZEsWppl
+         eiifKI0uTUxJO4ypazFqVgwi4fTHRb3721E3uxpzEvLouIE59qRFNBtiQ2iTy7P1FLQm
+         bNSbBLKKRwrH30MzfEqoCBEDTOWXnripJk7mdguTdZIo5XadVo6Gh0KXEVDovmDbJfAH
+         qoi2wBvWlHL8f2kH7scN9diOmrdywlPZOKGB7Wm7l3red86L9OyEwguELm8wV/MzMXkB
+         KtcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791007716; x=1791612516;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xvPvgzZ7iYnqitO0H1oFllRNtu+MflvF26mLCrcp718=;
+        b=13HWb7ZUaY1YEiaBlqwuUY0meR2d/FAzWCt+43kAwwjYjuiNcjLoXdLBvFppfdTXRW
+         94qZZ97zqtEn9SxvR55UwXL2b4bkl6e7lLlmNKuyvPBrFfySEDNa7jODLb/51GJzT5kc
+         MTJf6v9vNuJYSOeKJAwAzK7pAv2kDrrwH0yXCeVNqz1/C0+EDvfZIcOHwd3cxMuuje7/
+         dd/9DCMC9eQp9j681M3aomq4qRsdBHRb73fAR8tkdu9eoHro8u7rF8it4wMG+DZpUikE
+         +Igfb56D97GlZsbtNRFUw3lVl4ydgOz3Wjl82Mle9sGV9gaIZwPP0LCGTamxvsc+igNQ
+         KTpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBztCjTAK8YopjWoRVDdTQIKEdew6A4hS0OxJqscgpDPe86peZuBM+0fNenF0IrfvgOXUkPT6Bw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIwLQxwmoBgBBgxbXZXAOP1ToXaVI5+RN80E4ChcVG5JkCsOcxR
+	i4FQOfBmnuJxkI9lb1NkJ6aEMBTbwLe3XwInn4P3sIftaMhE5GHs91OR
+X-Gm-Gg: AYBFou2VJBQ+aruzQv0wRTDQl0eAg41q4W21rJuRnoCl5gbJBU+eUSxlyT5MBy9nqPa
+	FJBM7ReClbfYMP4X8W7bUexywO8iqpVxP8KkSPIX3P452zAc5deU1VVYw8LSyqRmDnFJptpZUOA
+	ETHRLFZiNcMJ7zQJW08OS2R8TW2A6mZkUpW4dxo0Eci59x96yt1niqXRAeahvvxRKiX4u5jYaWQ
+	u0f9sfPWBhnYCyfyETLtCbC7NYKAVRxLIDTNbI804n9EIOraS/+BmEbjhjPorbHEbFYAiiNEx2k
+	4azT0dMwoEbtZaXc2N0vHZJNeSKF7PIAuB8ebKD72M0IwNJx9AFTmTKL+6XJqA9LVp+6vJpWBK8
+	qYKN97ASsPD6uznkJu8p822RzxVTvxS3i0SWChuBb3dVSIO0jzVsyC+SrvPSQVF+CG2QkBKqIqf
+	wVtvJmTwFXKoZoYPcBRKs/oTB16ppAbIxOY3Mb/acbuwJ4uvdpOytIBVOxQ2wBYWZ4PpHfLwlgc
+	DayXD+k6dXbvsPQXJs=
+X-Received: by 2002:a05:7300:550a:b0:351:fff:6cc0 with SMTP id 5a478bee46e88-351114114b8mr2562425eec.17.1791007715633;
+        Fri, 02 Oct 2026 23:08:35 -0700 (PDT)
+Received: from kernel ([103.219.206.69])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34f067301b5sm12313344eec.1.2026.10.02.23.08.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 23:08:35 -0700 (PDT)
+From: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+To: ebiggers@kernel.org,
+	ardb@kernel.org
+Cc: Jason@zx2c4.com,
+	skhan@linuxfoundation.org,
+	me@brighamcampbell.com,
+	jkoolstra@xs4all.nl,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] crypto: chacha20poly1305 - Fix missing state zeroization in xchacha decrypt
+Date: Sat,  3 Oct 2026 11:38:26 +0530
+Message-ID: <20261003060826.7792-1-raizudeen.kerneldev@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+The `__chacha20poly1305_decrypt` function does not zeroize the chacha
+state, unlike its encrypt counterpart. The regular
+`chacha20poly1305_decrypt` function handles this by manually calling
+chacha_zeroize_state(). However, `xchacha20poly1305_decrypt` returns
+the result directly without clearing the state.
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 0
+This leaves the derived chacha20 subkey on the stack after the function
+returns. Fix this by storing the return value, calling
+chacha_zeroize_state() and then returning the result, matching the
+logic in `chacha20poly1305_decrypt`.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Fixes: ed20078b7e333 ("crypto: chacha20poly1305 - import construction and selftest from Zinc")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+---
+ lib/crypto/chacha20poly1305.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-- [High] In net/can/af_can.c, can_get_unshared_skb_ext() uses the wrong
-  test to decide whether the CAN skb extension is shared.
-- [Medium] A UID set before transmission survives the new extension
-  unsharing, so duplicated or mirrored copies of such frames still share…
-
---
-
-can: fix unique skb identifier regression under RPS
-
-This patch moves the CAN per-skb unique identifier used for raw_rcv()
-duplicate detection from skb->hash into a new can_skb_uid field in
-struct can_skb_ext. The UID is now assigned in can_rcv(), canfd_rcv()
-and canxl_rcv() after the CAN skb extension is made private for cloned
-skbs, and can-gw and vxcan reset it for forwarded frames.
-
-Closes: https://lore.kernel.org/linux-can/2859AD3D-C805-41A0-9036-C5E8EE152419@clnt.de/
-
-> diff --git a/net/can/af_can.c b/net/can/af_can.c
-> index ef435f22ac933..4aa233d7e8a1d 100644
-> --- a/net/can/af_can.c
-> +++ b/net/can/af_can.c
-
-[ ... ]
-
-> @@ -684,11 +679,22 @@ static void can_receive(struct sk_buff *skb, struct net_device *dev)
->  	}
->  }
->  
-> +static struct can_skb_ext *can_get_unshared_skb_ext(struct sk_buff *skb,
-> +						    struct can_skb_ext *csx)
-> +{
-> +	/* create unshared CAN skb_extension for netem/mirred skb clones */
-> +	if (unlikely(skb_cloned(skb)))
-
-[Severity: High]
-Is skb_cloned() the right test for whether the extension is shared?
-
-skb_cloned() only tells you whether the packet data is shared through
-shinfo->dataref. The skb_ext has its own refcount.
-__copy_skb_header() shares the extension through __skb_ext_copy() for
-copies as well as clones:
-
-include/linux/skbuff.h:__skb_ext_copy() {
-    ...
-        refcount_inc(&ext->refcnt);
-        dst->extensions = ext;
-    ...
-}
-
-So results of skb_copy(), pskb_copy() and skb_unshare() have private
-data but still share the CAN extension with their source.
-
-One way to reach this is netem with duplicate and corrupt on a CAN
-device:
-
-net/sched/sch_netem.c:netem_enqueue() {
-    ...
-        skb2 = skb_clone(skb, GFP_ATOMIC);
-    ...
-        skb = skb_unshare(skb, GFP_ATOMIC);
-    ...
-}
-
-After this, skb2 has dataref == 1 and the copy has private data, so
-skb_cloned() is false for both. They still point to the same skb_ext
-with refcnt == 2.
-
-Echo skbs from can_create_echo_skb() on IFF_ECHO devices (e.g. vcan
-echo=1) can end up in the same state once the parent is consumed.
-
-In that case can_get_unshared_skb_ext() returns the shared csx, and
-can_set_skb_uid() writes can_skb_uid in place:
-
-    while (!(csx->can_skb_uid))
-        csx->can_skb_uid = atomic_inc_return(&skbcounter);
-
-The second frame then sees a non-zero UID and keeps it. Doesn't this
-contradict the commit message statement that "independently received
-clones never end up with the same UID"?
-
-With a shared UID, raw_rcv() can again drop a legitimate frame when the
-slab reuses the skb address on the same CPU:
-
-    if (this_cpu_ptr(ro->uniq)->skb == oskb &&
-        this_cpu_ptr(ro->uniq)->can_skb_uid == csx->can_skb_uid) {
-
-If the two frames go through can_rcv() on different CPUs, the
-check-then-store in can_set_skb_uid() is also an unsynchronized write
-into memory that both skbs share. The UID could then change while
-raw_rcv() on the other CPU is between filter matches. Could that break
-the join_filters counting?
-
-skb_ext_add() already does the refcount-based check in
-skb_ext_maybe_cow():
-
-    if (refcount_read(&old->refcnt) == 1)
-        return old;
-
-Would it be enough to call skb_ext_add() unconditionally here, or to
-check the extension refcount, instead of gating on skb_cloned()?
-
-> +		return skb_ext_add(skb, SKB_EXT_CAN);
-
-[Severity: Medium]
-Does the private copy really get its own UID if the frame was already
-tagged before transmission?
-
-isotp_sendmsg() and isotp_send_cframe() call can_set_skb_uid(csx) on
-the tx skb before can_send(). So the UID is already non-zero (say X)
-by the time netem duplicate (skb_clone) or tc mirred mirror/redirect
-copies the skb. Neither path resets the UID, unlike can-gw and vxcan
-in this patch.
-
-When such a clone reaches can_rcv() still cloned, skb_ext_add() goes
-through skb_ext_maybe_cow(). That function copies the whole extension,
-X included:
-
-    memcpy(new, old, old->chunks * SKB_EXT_ALIGN_VALUE);
-
-can_set_skb_uid() then leaves the non-zero X in place, so the private
-copy keeps the same identity as the original.
-
-Once can_receive() consumes the first copy, a later copy (the echo
-clone from can_create_echo_skb(), or the mirrored frame) can be
-allocated at the freed slab address. On the same CPU, a raw socket
-that did not send the frame, such as candump, would then match both
-uniq->skb and uniq->can_skb_uid in raw_rcv() and drop the frame as a
-duplicate.
-
-The commit message only explains why the UID is kept across the local
-loopback path. Should duplicated or mirrored copies of pre-tagged
-frames also get a fresh UID, so that the "never end up with the same
-UID" claim holds?
-
-> +	else
-> +		return csx;
-> +}
-
+diff --git a/lib/crypto/chacha20poly1305.c b/lib/crypto/chacha20poly1305.c
+index ea42a28f4ff7..03b14d272520 100644
+--- a/lib/crypto/chacha20poly1305.c
++++ b/lib/crypto/chacha20poly1305.c
+@@ -199,10 +199,13 @@ bool xchacha20poly1305_decrypt(u8 *dst, const u8 *src, const size_t src_len,
+ 			       const u8 key[at_least CHACHA20POLY1305_KEY_SIZE])
+ {
+ 	struct chacha_state chacha_state;
++	bool ret;
+ 
+ 	xchacha_init(&chacha_state, key, nonce);
+-	return __chacha20poly1305_decrypt(dst, src, src_len, ad, ad_len,
++	ret = __chacha20poly1305_decrypt(dst, src, src_len, ad, ad_len,
+ 					  &chacha_state);
++	chacha_zeroize_state(&chacha_state);
++	return ret;
+ }
+ EXPORT_SYMBOL(xchacha20poly1305_decrypt);
+ 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260929154125.3298-1-socketcan%40hartkopp.net
+2.53.0
+
