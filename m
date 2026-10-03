@@ -1,170 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BD01388E43;
-	Sat,  3 Oct 2026 13:26:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85554134CCF
+	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 13:31:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791033972; cv=none; b=Y7FQmaj8dMAoQVzGFjNloGtOrRrVjSIiPw+UT1XP73HNPByjS+nHADUSykmFTzUwpiPBWOaZ3VbG1hEgUJa0554wRu096MYKhRqJuf5vLTB+8wE2j3KVlS2BemhDUGaHVyRzDMIh3dBVgfJsUtSNO5QDe0ShDHLSNgaHEDJvwmI=
+	t=1791034262; cv=none; b=dtM6WjfkDfLmFgQ+NHfVieDWWEZWl5iMZ67w8ABj2cHUiDhSwmVtG3QBdH9Fpetm7c5mpNasjFEt71UiK2PCYwVq60Sxwzte7krbYpCY1ejaRsktn4jwTeMZKiG+rdeP8wDWcWCJv6PtrUGqibjA0jjqiTmL5kGB9lTOMqK6ckI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791033972; c=relaxed/simple;
-	bh=IyoEAGVOUE0r9SwliBG7P++AThoIydv1Wyz4eq45eKg=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=JxOInBtuUKfFb66rorp0H04p3dyOevCe8S2eyMZTjHzi7fH29QQCnb73aZ+m0d/M1US+j/AU9KAU0nOFBV+3T0ka/h0yYjc5NlXgROj9C4J8TKkQe9oF77f8k82n0yVzc5emFmzMAbfLWL21IjXbeCtqPf7LJH3frAiL5v2f1Ns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E/9KN4kX; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791034262; c=relaxed/simple;
+	bh=UJLfvvbibJvTuaZQsI2kGjKtiycyldBtT7wjQ0JzyME=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=lMzZ1VY/W1gfpaZVbmUe4t1M4Q3XWj1aXVUr89aI5NsU6vI40vx/D1To16bR8DS3SarYAo6+l5rDKpLuz8qYg5E30zd1LkvHoIjiCF17xpvsqiH5IVMvIfYRxyoj+nxvpcQya8cZ0iUpdL6lQJB3KILXN2DlGGw5gz/fY5rfD/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=mgRC6ddt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E/9KN4kX"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D4B47C2BCB9;
-	Sat,  3 Oct 2026 13:26:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791033971;
-	bh=IyoEAGVOUE0r9SwliBG7P++AThoIydv1Wyz4eq45eKg=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=E/9KN4kX/l6pwutIOnXJvKibDWqBIOetUzd11DCWntY6Vw/t1Ur9NKUn8l55+tsr+
-	 bNHZxo6/aItaaIOX6j/KOCBiAOolxK6ajSm9e02cI25hEl5/CeleqcULpHi2u6UEtT
-	 y2XWec8/kMr/Ywu89b8kntaLgOwqriaPEFw6C0j+UrnTH9C2z4u4xrXCxj/KfAUNBu
-	 4YaGCZKCyyj8XVUf+/lGT3eRH9PuHYEEH1BIMlHqc39qRlp6cKMfXz2UaXFpH+Y4nu
-	 yhkqGZO3ksH7FVl5agVOfJBGNBy1kHJx412WUySfPfdAhBAk+edRkVNDRtsrxH+wRq
-	 jvbmHC06EziJA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B00CCCA5FED;
-	Sat,  3 Oct 2026 13:26:11 +0000 (UTC)
-From: Henrik Enquist via B4 Relay <devnull+henrik.enquist.gmail.com@kernel.org>
-Subject: [PATCH 0/2] ALSA: aloop: Fix notify mode, add a selftest
-Date: Sat, 03 Oct 2026 15:26:10 +0200
-Message-Id: <20261003-aloop-notify-fix-v1-0-ba5dfb831bf5@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mgRC6ddt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABF521F0089B;
+	Sat,  3 Oct 2026 13:31:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791034261;
+	bh=vocYpLwbaQLhnXntYy4YpoPjJPwhY5zQwU+GtYpXvEA=;
+	h=Subject:To:Cc:From:Date;
+	b=mgRC6ddtKVyBx4+vC2d9BBSFS7R2rVy3G61iS0DkUfywwTg5a6/bGwXXL1RHCcdB4
+	 B8BPQBYBvdSjUCHCol4Iib1OFHDKrPKudV1zIVSD1Dk8G5C/aBo3OULD/0+7LyvulF
+	 3u/Lx+PyQ4uDF3CXs3VMuJVkxjo3gaHmjJ9zUyTQ=
+Subject: FAILED: patch "[PATCH] mm/damon/core: don't skip damos_adjust_quota() while esz is" failed to apply to 6.12-stable tree
+To: sj@kernel.org,akpm@linux-foundation.org,kunwu.chan@gmail.com,stable@vger.kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Sat, 03 Oct 2026 15:30:58 +0200
+Message-ID: <2026100358-repayment-destitute-a6a6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMyw5AMBCF4VeRWZukLkG8ili0TBmRVlqEiHdXL
- L+TnP8CT47JQx1d4Ghnz9YEJHEE3SjNQMh9MKQiLRIhMpSztQsau7I+UfOBuS4VqVxUUlUQbou
- jMH/Jpv3tNzVRt74duO8HFq/QPXQAAAA=
-X-Change-ID: 20261003-aloop-notify-fix-4f7beb408ab8
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Mark Brown <broonie@kernel.org>, Shuah Khan <shuah@kernel.org>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, Pavel Hofman <pavel.hofman@ivitera.com>, 
- stable@vger.kernel.org, Henrik Enquist <henrik.enquist@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791033970; l=5151;
- i=henrik.enquist@gmail.com; s=20261003; h=from:subject:message-id;
- bh=IyoEAGVOUE0r9SwliBG7P++AThoIydv1Wyz4eq45eKg=;
- b=cazZ65v/3A4S8Ddu5O/WSA0Wdyj59d2n2BuobZoaTSJ96pBvUsdMwX1lEmNGPLmV6G09dvW6b
- 4+0334zL5IbD/IcjzPYnIPbVAp+lvams0fx7Qaoo68rDEonIiRDRjpR
-X-Developer-Key: i=henrik.enquist@gmail.com; a=ed25519;
- pk=ctrSXwtuuiWIZbc1qNzu+n+1PkhB/a+2nlRyXd5j2pg=
-X-Endpoint-Received: by B4 Relay for henrik.enquist@gmail.com/20261003 with
- auth_id=1105
-X-Original-From: Henrik Enquist <henrik.enquist@gmail.com>
-Reply-To: henrik.enquist@gmail.com
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-Hi,
 
-snd-aloop has a notify mode (the pcm_notify module parameter, or the
-"PCM Notify" control per cable) where the playback side may switch
-format, rate and channels while a capture is running. The driver then
-stops the capture and updates the "PCM Slave" controls, so the capture
-application can reopen with the new parameters. alsaloop enables it in
-its slave mode, and I'd like to use it in CamillaDSP, which captures
-from a loopback and needs to follow whatever the player outputs.
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-This hasn't worked since 2018. Commit 898dfe4687f4 ("ALSA: aloop: Fix
-racy hw constraints adjustment") moved the hw rules over to the shared
-cable->hw. That fixed a real race, but it also pins the playback side
-to the capture's parameters in notify mode. Pavel reported it on
-alsa-devel in 2020 [1], and Jaroslav reproduced it and pointed at the
-same commit:
+To reproduce the conflict and resubmit, you may use the following commands:
 
-  It seems that 898dfe4687f4 from Takashi broke this functionality
-  (tied the cable parameters more strictly, so the playback cannot set
-  freely own parameters for the pcm_notify=1 case). We need to find
-  another way to detach capture stream in this case.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x 52ae167ce16609c7e6fffef588b3c2c26de2db19
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100358-repayment-destitute-a6a6@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
-The thread ended there, without a patch.
+Possible dependencies:
 
-The breakage is quiet, which probably explains why it lasted. A player
-that probes the playback device sees only the capture's rate and
-format, and resamples to them. aplay prints a warning, most players
-don't. There's no rate change, no stopped capture and no event.
 
-Patch 1 skips the hw rules for the playback side when notify is on,
-which gives it back the freedom loopback_open() still intends it to
-have. That makes the capture stop in loopback_check_format() reachable
-again. That path was hardened this year by 826af7fa62e3 ("ALSA: aloop:
-Fix racy access at PCM trigger") and e5c33cdc6f40 ("ALSA: aloop: Fix
-peer runtime UAF during format-change stop"), and with those in place
-I'm comfortable turning it back on. They need to go first in any
-stable backport.
 
-The period bytes rule is skipped as well. It came later, for the sound
-timer source, but without skipping it a playback that switches rate
-keeps the old capture's period size. The stream then runs with a period
-that doesn't match the timer, and every switch fills dmesg with "Period
-size ... not corresponding to timer resolution".
+thanks,
 
-Patch 2 adds a selftest, so this doesn't break silently again. It
-doesn't need to go to stable, so it can go via for-next if that's
-easier.
+greg k-h
 
-Testing: for-linus at b4e7fc36e31f, arm64 VM, kernel with KASAN,
-lockdep, DEBUG_ATOMIC_SLEEP and DEBUG_LIST, comparing the patched
-driver with the unpatched one built from the same tree. With the
-jiffies, hrtimer and sound timer (via snd-dummy) sources:
-- With notify on, rate, format and channel changes on the playback
-  side now go through, stop the capture and update the controls. With
-  notify off they're refused as before.
-- A capture that reopens at "PCM Slave Rate" after each stop follows a
-  player alternating between 44.1k and 96k files, 20 of 20 switches,
-  with both RW and mmap access. Unpatched: 10 of 20, the playback stays
-  pinned to the capture's rate.
-- A capture opened second is still pinned to the playback.
-- 2 minutes of random open/start/close on both ends per source gave no
-  KASAN or lockdep reports. The sound timer source logs an occasional
-  "snd_timer_stop ... failed with -16", at the same rate unpatched.
-- The new selftest fails 2 of 4 tests unpatched, and passes 4 of 4
-  patched, 50 runs in a row.
-Not tested: real hardware, other architectures, pause/resume, more
-than two substreams.
+------------------ original commit in Linus's tree ------------------
 
-One question, following up on Takashi's point in that thread about
-telling user space that a stream got invalidated. After the stop, the
-capture drains and then reads return -EBADFD. alsa-lib now documents
--ENODATA as meaning the PCM must be completely restarted, which looks
-like the right signal here. Would you want aloop to report that
-instead? I left it out since it changes what user space sees, but I'm
-happy to do it as a follow-up.
+From 52ae167ce16609c7e6fffef588b3c2c26de2db19 Mon Sep 17 00:00:00 2001
+From: SJ Park <sj@kernel.org>
+Date: Wed, 16 Sep 2026 06:50:19 -0700
+Subject: [PATCH] mm/damon/core: don't skip damos_adjust_quota() while esz is
+ not zero
 
-AI disclosure: I used Claude Code (Claude Opus 5.5) for this. Starting
-from my description of the problem and the 2020 thread, it did the
-root cause analysis from the driver source and git history, set up the
-test kernels and VM, wrote the test scripts, ran the measurements, and
-wrote both patches and their changelogs. I reviewed all of it, and both
-patches carry an Assisted-by tag.
+DAMOS could unexpectedly stop working when a user disables quota using the
+online parameters commit feature.  Fix it by correcting a wrong quota
+unset check in damos_adjust_quota().
 
-[1] https://lore.kernel.org/all/b4af9071-f8d7-5b47-4d7a-c5743bd67394@ivitera.com/
+DAMON users could disable all quotas by unsetting time and size quotas,
+and removing all quota goals.  The intention of disabling quotas would be
+making DAMOS run at full speed.  When such quota disabled setup is
+detected, damos_adjust_quota() skips all its work.  The skipped works
+include effective size quota (damos_quota->esz) updates and charged quota
+amount (damos_quota->charged_sz) resets.  The intention is to avoid doing
+unnecessary work when quotas are disabled.
 
-Henrik
+However, users could do the setup while effective size quota is non-zero,
+by doing the disabling with the online DAMON parameters commit feature.
+In this case, because the effective size quota exists, DAMOS will keep
+working with the quota until it is fully charged.  After the effective
+quota is fully charged, the charged quota amount (damos_quota->charged_sz)
+cannot be reset because damos_adjust_quota() skips it.  Then, DAMOS stops
+working until the quota is newly set or DAMON is entirely restarted.
 
----
-Henrik Enquist (2):
-      ALSA: aloop: Don't constrain playback params in notify mode
-      selftests/alsa: Add a test for snd-aloop notify mode
+The problem happens because damos_adjust_quota() assumes the user setup
+for disabling quota immediately disabled it.  In reality, the quota is
+still working until the effective size quota is also updated to zero.
+Other logic for catching that uses damos_quota_is_set(), which understands
+the fact and therefore checks the effective size quota in addition to the
+user setup.  Fix the issue by using damos_quota_is_set() in
+damos_adjust_quota() to determine if its works should be skipped.
 
- sound/drivers/aloop.c                     |  20 ++
- tools/testing/selftests/alsa/.gitignore   |   1 +
- tools/testing/selftests/alsa/Makefile     |   2 +-
- tools/testing/selftests/alsa/aloop-test.c | 345 ++++++++++++++++++++++++++++++
- 4 files changed, 367 insertions(+), 1 deletion(-)
----
-base-commit: 13dffca9043500ed6033d770b491a043fb952bc5
-change-id: 20261003-aloop-notify-fix-4f7beb408ab8
+The user impact is a non-deterministic and unexpected DAMOS stop behavior.
+That is, users would disable quotas using the online parameters commit
+feature, expecting DAMOS will run at full speed.  However, depending on
+the timing, the setup can be updated while the effective size quota is
+non-zero.  Due to the above mentioned internal mechanism, DAMOS stops
+working instead of running at full speed.  It is unexpected behavior.  It
+is also non-deterministic because sometimes the setup is done when the
+effective size quota is zero, depending on the timing.  It doesn't cause
+critical issues like crashes or leaks.  Users can simply set a reasonable
+quota again, or restart DAMON.  But definitely it is an unexpected and
+non-deterministic behavior that makes it difficult to reliably use.  Also
+investigating the root cause of the behavior would be quite difficult.
 
-Best regards,
---  
-Henrik Enquist <henrik.enquist@gmail.com>
+Link: https://lore.kernel.org/20260916135020.86483-1-sj@kernel.org
+Fixes: da87878010e5 ("mm/damon/sysfs: support online inputs update")
+Signed-off-by: SJ Park <sj@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
+Cc: <stable@vger.kernel.org> # 5.19.x
 
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 1764620903f2..ab3c4d754964 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -3147,7 +3147,7 @@ static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
+ 	unsigned long cumulated_sz, cached_esz;
+ 	unsigned int score, max_score = 0;
+ 
+-	if (!quota->ms && !quota->sz && list_empty(&quota->goals))
++	if (!damos_quota_is_set(quota))
+ 		return;
+ 
+ 	/* First charge window */
 
