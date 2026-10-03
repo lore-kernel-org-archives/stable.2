@@ -1,149 +1,99 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E85E235F161
-	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 14:09:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC3FA33ADBA
+	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 14:12:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791036580; cv=none; b=OLrDjbmV0X9Y6buvPYZBrutZKjfWLDzUHZLGCF7vatJMpnFX6IcmExK/IDVt8FbVoGee47A+rE06ZBeRpPg5iFJrxK3t6iEkiJ/DxhZx/s+kFvob0TxJngWe5RYZBHjcOt6eoJK/zRF1j6aqmiG2g4uHR5YnFglsUuniVr1i9Sw=
+	t=1791036727; cv=none; b=SIPBvN7bFuNnE0xLNY/ph4253iR+FBeU+8h++FeStZ+UcDwNcW9bqQm1IrEa9eLTlFLdo2kfTTlOHErMg6TDhgkSYH7cLFCs14t3hWENwhhDdAXn/Tawn8M3tCvubFuxtbfs9Kh6E7I+y9UKvDyL2wzJv9A/cHMcf639ug8SXSY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791036580; c=relaxed/simple;
-	bh=xdIPzQswUBuO7nIbi11zIqOM1B0LfdavrLeqJbs0KKk=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=mGrYyM+MMzdT264aLdB1WkSpnYLs60NDxFQW65jGASbnkvtZXTWjR9Ybq+VvrjVOmU3F7hm13HmPH002C3OvHVN87YrFRi9iarCFM6PVrfEI3wutRZEJmeWU/4Wzm6pRcO7UKNEElkhyncImsv5McECeiVCAk4JdlMtymFH+3rM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JD5hBlJw; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791036727; c=relaxed/simple;
+	bh=CFod7ORF5bcMXh6c7wljJrGoHS5+ucXand+nmqr10/U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=l7DTzjg5GjlF6fBe9hrrPbOv6OC21mH1PTMw7jszH/pKzSeBvaz6KsF4B28pwftE3sQ7w2ggOb1yAd9YLFHx82uFo8glJJzUTtCkXE3wMdpTBi51G/rimzUSTdFNpnQcrwSboAt4nIqDy/koizpsZPgrCC5eULnpP0Gk3EsGxVE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=iVUoeIeK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JD5hBlJw"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso6300225e9.3
-        for <stable@vger.kernel.org>; Sat, 03 Oct 2026 07:09:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791036574; x=1791641374; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hVdmfx66Gvub33TevMdmKNS+KKX8lYKVFWSjk8vfkvM=;
-        b=JD5hBlJwd/ze8Y8edMzHjAuiuSrnhHMI0HNaL6ZLZOAxOOWOuar8gnuGDU6YPrd2zT
-         HjbcLtmDiwRGh1QrmV84lzmz6HWsGaYbbufp0N0xqfyBRRuZ0VWhMj/83dALIYnNRJA+
-         COJWtM4UFmZLtXa4hZ71b+Mke90iO0WfRb8PwktxS6WLfSJXkhViFaWR22u4plLdtWzw
-         oy6YAM2B30qrQFr3Nq4/VAW+4vyA9NpLxujwEq1sOvxdSL4jI0mAsnT4+2UsH+oCVIUU
-         itiHm0Me21/u57uOdJrngI9qh25qbG8CJSCKVtpmoE1KhtFV9ew/6vVL3oyDY5NiR/Ub
-         NdaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791036574; x=1791641374;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hVdmfx66Gvub33TevMdmKNS+KKX8lYKVFWSjk8vfkvM=;
-        b=YpKzKoS2oQDaytyABr4p1R6dGqp+BfA4MVUZsJ1tFPw1s4OPpQLaXiSeRSwhS9JuF8
-         VvaMG4MfCJjEQoyKr5yXihgUMPwzZ9mIWp14fJeMLAEynBAg/PB+mJGbs+PKU01ds4/X
-         8lpwxchYsRNCMA3dVeLE2qfU2/cb7hzMke1JbEGAXRJaQGP23oyPubiJSQ7ReTuLVRra
-         SFNmYo4ACxa1H03vPOIJCupNqla/ZVUSZiNGSijvtRncoo1c0HKgDDmdvEiIs9ZZDnSB
-         kNlOj4qRgFk4KxsWSgzSKG2RaTk+DR7H+4olozn8iizl/NLNn4z/VLqmtiY1mLaYZ9AH
-         GQxw==
-X-Forwarded-Encrypted: i=1; AKwUvBxPBQRjLt3OU3rNKwG65inL6oTBQu85/MnpGhcIv6x9f++Q3eBZKFX4kPB67wHPhfgzt6rVlkg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lox2UTZPrKNxOsli4bMsOuLTa/7MBXcdaNImmMRcZsbsMNqDKj
-	7TsM6AF4ogwf1maapThVtfy/oND5OmaL2paSiX05paTNaqOl75Xxg0fD
-X-Gm-Gg: AYBFou0dR4X2xU+qnIEeLsvbbIqFnfcA+KkTk/9xf4PUUaXXndyJAXhOhomabom6mZ4
-	Dw1VoyR8o71LfgmMCaXwnuvK/AIp7I6sgY21Yy5+dloSrK90BdCMHkTmsuV+5up0QEl5pkZO64K
-	Mfiz1ClwBaGTsVcSyly8vM/uyQtvQRQgVGwR3P2tH77lbCVVPBRG8FON0o0BbR4Bb28kgOxWng5
-	qbJfQ0uvFliy1aDOHjsV67Lcxx69pIP/lutMp22gLOjWnmpO3G7hfLpQXRplRhh21ZcIv0mGIJ0
-	5TjaIEzoCLK6m9v5M0h+Tl9CP1IpDSp8l182ljnHyuYUN7WYfN0cGhhcA5MOfm51N31Z0SSjWAK
-	SPiGrGcnwjP1O5Rdg+EXARZtgm8J/7LFocJ4ag1iLUzj48GJGb266t7oVMC15JJIo8WRCmo1jYu
-	7jA8Zwiw+8uuoUpepVlyUSlor5ty+A8hrqyge7LTwrBZxGupbL8kvl/r92YWTtqEBYN9/w6F4k9
-	jStnb0RrJ/Ur8UcgjGOdq9tYGwlLaPIqv2QTxn8NV/DEKMWOrwmxIrqaDzLvQ35fnAfccAmsN67
-	mJPvD55C+h7GSpbwyvQ9OKa9ROCNOXWwAXAheUe//5RUfXpEUg2UXYqtxZnJVlQey3UDlaKekVc
-	XEQ==
-X-Received: by 2002:a05:600c:c091:b0:4a0:1f90:594b with SMTP id 5b1f17b1804b1-4a1680fd78fmr28665235e9.22.1791036573949;
-        Sat, 03 Oct 2026 07:09:33 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-b2e2-2001-c47f-5a89-3d9a-cd2d.310.pool.telefonica.de. [2a02:3100:b2e2:2001:c47f:5a89:3d9a:cd2d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0280bfafasm184098025e9.8.2026.10.03.07.09.32
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 03 Oct 2026 07:09:33 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Siddharth Vadapalli <s-vadapalli@ti.com>,
-	Roger Quadros <rogerq@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Keerthy <j-keerthy@ti.com>,
-	Kevin Hao <haokexin@gmail.com>,
-	Alexander Sverdlin <alex@sverdlin.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	linux-omap@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net 2/2] net: cpsw: cancel RX mode work on probe failure
-Date: Sat,  3 Oct 2026 16:09:15 +0200
-Message-Id: <b8146e89e0a17e6ee8d2924f64b9568402afd62d.1791035789.git.kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <cover.1791035789.git.kmehltretter@gmail.com>
-References: <cover.1791035789.git.kmehltretter@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="iVUoeIeK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B01EC1F0089B;
+	Sat,  3 Oct 2026 14:12:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791036725;
+	bh=P3v29nLDCqH85Ja4FY16YyWLhmvfC0hUp7w90sSZd3E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iVUoeIeKSUc9uB0RLbEMdw5Nj2upjvYU0qmwe48/EEfcP+wJz4Ali0tQZWBKQK+Eg
+	 TU36FkjgChU73KUvs23tfe+BgvjPg0L6rCjx2MDgmegJLU0rza1v/H2hOHVwZp41Zz
+	 zi34rbJPlc3oUnaiMlV5O0WclGTdslCUuRobhj4c=
+Date: Sat, 3 Oct 2026 16:11:57 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Miguel Mesa <miguel@miguelmesa.com>
+Cc: stable@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+	alexander.deucher@amd.com, Jerry.Zuo@amd.com,
+	harry.wentland@amd.com, mario.limonciello@amd.com,
+	mgorny@gentoo.org
+Subject: Re: [PATCH 7.2.y] drm/amd/display: keep HDMI 4:2:0-only modes and
+ automatic 4:4:4
+Message-ID: <2026100353-vintage-skipper-594a@gregkh>
+References: <20261003131523.1502250-1-miguel@miguelmesa.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261003131523.1502250-1-miguel@miguelmesa.com>
 
-The legacy CPSW driver registers its netdevs before requesting their IRQs.
-Once registered, an interface can be opened and dev_set_rx_mode() can queue
-its rx_mode_work. If a later IRQ request fails, the probe error path
-unregisters the interfaces but does not drain their work before returning.
-Driver core then releases the devm-allocated netdevs and private data,
-allowing a worker to dereference freed memory.
+On Sat, Oct 03, 2026 at 03:15:23PM +0200, Miguel Mesa wrote:
+> commit 7e5760f084d0 ("drm/amd/display: add HDMI 2.1 Compliance Support")
+> selects YCbCr 4:2:0 for a 4:2:0-only mode only when the IGT override asks
+> for it, and YCbCr 4:4:4 only when that override is YCbCr 4:4:4. On a
+> normal boot the override is unset.
+> 
+> A 3840x2160@60 mode that the sink lists only in the YCbCr 4:2:0 block
+> then falls through to 4:4:4 or RGB, and the Wayland session cannot build
+> the output layer: kwin_wayland_drm: Failed to create framebuffer (EINVAL)
+> right after login. v7.3-rc5 selects 4:2:0 again for those modes when the
+> color format is automatic. Do the same here, including HDMI FRL.
+> 
+> Keep automatic YCbCr 4:4:4 for the other HDMI modes, as 7.1 did. The TMDS
+> depth fallback also runs for HDMI FRL, so a mode that does not fit at
+> 4:4:4 can still drop to 4:2:0.
+> 
+> This is not a backport of a mainline commit. The 7.3 fix is the rewrite
+> in 0b0ff65d3c ("drm/amd/display: Refactor stream validation"), which
+> cannot be cherry-picked to 7.2;
 
-Call disable_work_sync() after unregistering each registered netdev. This
-matches cpsw_remove(). It drains the work before the error path releases
-the remaining resources.
+Why not?  What's preventing that?  We'll gladly take large sets of
+patches to fix bugs, in fact we prefer to.
 
-Without this change, a QEMU stub test reproduced a use-after-free
-after an IRQ request failure with rx_mode_work pending. KASAN reported:
+> Jerry Zuo confirmed the pre-7.3 logic is
+> gone there. This patch restores the pre-regression selection on the 7.2
+> code, following the v7.3-rc5 rule. Mario Limonciello asked for it to be
+> sent to stable in drm/amd#5760.
+> 
+> Regression: black screen after login on HDMI sinks whose modes fall
+> through to RGB, e.g. Strix Halo (gfx1151) + TCL 4K TV whose 3840x2160@60
+> is YCbCr 4:2:0-only (VIC 97). 7e5760f084d0 shipped in 7.2; still unfixed
+> in 7.2.9.
+> 
+> Tested on CachyOS linux-cachyos-bore 7.2.7-3 (znver4) on that Strix Halo
+> box: Plasma runs at 3840x2160@60 with the same userspace and firmware
+> that stayed black on every stock 7.2.x kernel.
+> 
+> Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5760
+> Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5893
+> Reported-by: Michał Górny <mgorny@gentoo.org>
+> Reported-by: Miguel Mesa <miguel@miguelmesa.com>
+> Suggested-by: Mario Limonciello <mario.limonciello@amd.com>
+> Tested-by: Miguel Mesa <miguel@miguelmesa.com>
+> Signed-off-by: Miguel Mesa <miguel@miguelmesa.com>
+> Co-authored-by: Cursor <cursoragent@cursor.com>
 
-  BUG: KASAN: slab-use-after-free in cpsw_ndo_set_rx_mode_work+0x28/0x174
-  Workqueue: events cpsw_ndo_set_rx_mode_work
-  Call trace:
-   kasan_report from cpsw_ndo_set_rx_mode_work+0x28/0x174
-   cpsw_ndo_set_rx_mode_work from process_scheduled_works+0x4ac/0x790
-   process_scheduled_works from worker_thread+0x49c/0x5b0
+A bot can not be an author.  Please read the documentation for how to
+use a LLM in the kernel.
 
-Real hardware was not tested.
+thanks,
 
-Fixes: 0b8c878d1173 ("net: cpsw: Execute ndo_set_rx_mode callback in a work queue")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
- drivers/net/ethernet/ti/cpsw.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/ti/cpsw.c b/drivers/net/ethernet/ti/cpsw.c
-index 4fc59f9f23fc..d93d94eaac2d 100644
---- a/drivers/net/ethernet/ti/cpsw.c
-+++ b/drivers/net/ethernet/ti/cpsw.c
-@@ -1766,9 +1766,15 @@ static int cpsw_probe(struct platform_device *pdev)
- 	return 0;
- 
- clean_unregister_netdev_ret:
--	if (secondary_registered)
-+	if (secondary_registered) {
-+		struct cpsw_priv *priv_sl2;
-+
-+		priv_sl2 = netdev_priv(cpsw->slaves[1].ndev);
- 		unregister_netdev(cpsw->slaves[1].ndev);
-+		disable_work_sync(&priv_sl2->rx_mode_work);
-+	}
- 	unregister_netdev(ndev);
-+	disable_work_sync(&priv->rx_mode_work);
- clean_cpts:
- 	cpts_release(cpsw->cpts);
- 	cpdma_ctlr_destroy(cpsw->dma);
--- 
-2.53.0
-
+greg k-h
