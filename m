@@ -1,217 +1,256 @@
-Received: from mail-qk2-f41.google.com (mail-qk2-f41.google.com [74.125.230.233])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 401DE8472
-	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 04:23:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B074A202F71;
+	Sat,  3 Oct 2026 06:00:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791001413; cv=none; b=OnNY7lIy+CyV3CMEsmkV0kQWyAcpaK+eQHvEiAUHwj56IkPx//0OmUDttjOLVeuwGaMCjmBtugEu7VInAb1bobiVmLq1IITFAsyff4nem7wGQ4vxHAZxVmu+kOufP2AnpKvZo6R+JP8210/RGrRHZuLWP6Ug45XLKkDOWh2VIow=
+	t=1791007242; cv=none; b=V1Bl6qP31ojdEMfz6R9f9bYccVpOJGDp0sQh/UgICl9T1S7tA23NQBO7cHjItY/D7Pffw1LDGZb069paqXPcFwgmZzo93+C/ejd3ekFQ33OEAyZN7O32USYzSRXq8iWzqucDWvT4Obg6POwbTB/WAyuEzxPEqE2rwbFNbzo6ezU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791001413; c=relaxed/simple;
-	bh=3+Kg1V0kj613TsEBc4TB23pXJMX7fcyj2k5xKdQo3zI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Hx72miYLvxJm+OBA75KQ2PQoigXIXbwhwE5xmZtAnnr/bcpg5S28RMZ386GhKdauHv463im2TxOEjiVTI2Nkge8YIqM0/kJxPPbi02bJEW/8tLwmDDqg94NXv6Lc+gsuY2BxBoY5lkP74Zb9TM8QknVwtJFA0WMmtBQQMdM3sNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LWnPBhoJ; arc=none smtp.client-ip=74.125.230.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791007242; c=relaxed/simple;
+	bh=ohIPok/BFP6uMJfM7qyNOJIMzdDYxxZNv+MIpcymZns=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=BtQm8pDX+GidtCWfbi6cfKteyggsyI72C6fmr3D4cS3R0wvzPcLtFGtQVjC0BW0XNVBVu5bpXAfqcEHIlvn8mQalURFujYuM0I1G5wKh6j7c1SjmNPC0UKdqif5bcolI4RDDaberU4Xtw4FzwhHCPm6Ty77apZekdh69Oe0qav4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gkPVsCvp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LWnPBhoJ"
-Received: by mail-qk2-f41.google.com with SMTP id d75a77b69052e-535092f91ecso77041cf.1
-        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 21:23:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791001411; x=1791606211; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+74pISs7YohlWcbEiaQCNxOuQFMKqMT5VFcFBzXMKws=;
-        b=LWnPBhoJD9IBKysXnCC339Lm/cQc6sS7GYv/7MnzsUfGdJRKSNNKtADgqq8tEEbD4U
-         g/iXauQt/ja2wHweennjhewMnRWu23CH/PbMmllcTQML/+8s9oep8m55SLev2VBS5+1c
-         tjaRlkSH4r6LOaf1zUHtgb3Tx9dnjcWTnBEeelXb1g2T8+gzCS5Dc6aPYk7HF+K/myId
-         ba3IE+xDgyOdMdvfsNgSKoDBQk1sI3gsiGFt8id7Dz8+lReIeZT6+uwr85TRcm+c1Mym
-         qSTnsm9Av5QBFApJB+FVhexT2fQEP2bur6GkHZEPTp6SyfQo34KSpOm+iivkPbDPMI13
-         aJSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791001411; x=1791606211;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+74pISs7YohlWcbEiaQCNxOuQFMKqMT5VFcFBzXMKws=;
-        b=a8eNO7PzX2UATnk0DSrRBthqOaJ2MPoBzVBQOGyKLsDQadXhG9nb5fZjnRj4ndVOSl
-         44V8fCCz9PjxJq/R1ul9GJWtiRbjSZd4LF2lrdZ1TV1WNExPDsomnIqSzgRj5aZ7jK+q
-         JrTZ5L0M2Ey683ZQdLIJMGMQvwuJolzdJ7298OwX+JRcvMOAykMk2hr0kbQeiPaBV00Y
-         kAwYCkRMzMIdA8E9nYOHUXvTZigi7Xhbqeua/nAn8xk+rGdSfmmSb96VW9r7Zi0KLGHd
-         hlK+jkQzCl9p2o+PwyuChDtlILhkp3/TBW94iN3CJkZAeeQ6NHm7gNP3oYtVK0+9VIpf
-         9klQ==
-X-Forwarded-Encrypted: i=1; AKwUvByfsiZ1io4OmWY2O+ZCN1p6kXNKJTSdchBtRSij8EmOLk1a+el/3OWVa+HUgZ+0ESLBTBaqvTE=@vger.kernel.org
-X-Gm-Message-State: AFuF++ljyGX6T/B01/laoMP9FDlxPKHtuk7UUdA8e36YwejQFRneVn56
-	IEJL5I7vVFL381qEzo6bvbuu+ite1W4em0vqnNUXI8WyNsEq+x3XH7g=
-X-Gm-Gg: AYBFou1OcKxBxrBQdHHslPpPT1MPJ6IxDBNEXZRpSIxjXBMTjvZW9DNOzP20tHwmoH3
-	uErbLI3n2F/RIBp5sNTYNeD9ujrsPOxu9opyDiLfYUI6LAbNohxl6zu+NyF8CAV2D//Buqu+3fe
-	WV6ldJb8SCGjuR9C6eOVO1x2prunF39kHW/75LapEjOAdkNgIJ3Lf1IzEVujH/lDY3qUm3v0Ulp
-	5NZE8YiofLADiv2vnAOKuKVMRfrxQHQOH6YdkL0Tx6RB1wto2pVgN8Cu2lqD7mSuU9ZFwysvOVF
-	KeK3CbslzL3XlhBS1UZKp5ta24twrs2MUeJzAobPcucfBOJT3N8QPo4q0jpRf4LqMD/pUKfPVR9
-	lyt4b0IllUqaM7Xu5l00XjvT/uiO1RpkwSkS3cTyXD2opemtpWiLKAi4N1wOlTJhwMg9rvi+RkE
-	/xvoLofBIczRAj/luTqzNv0N4oCbGiyrR8ULqhIM4wmng3UOSxmCWL3A7siiNCDvZ9Hok4c0pRk
-	FFuQXP3n9qBwQoAF+Q7VqhpmgPKAwvIUTCPfSd320rupfxV8iK3pPDoSlG1jAA4dt9Au3bF4RpQ
-	WrA8Xw==
-X-Received: by 2002:ac8:5d4c:0:b0:535:e41:533 with SMTP id d75a77b69052e-5350e410892mr44212181cf.24.1791001411180;
-        Fri, 02 Oct 2026 21:23:31 -0700 (PDT)
-Received: from gmail.com ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917e0b1aee5sm36666866d6.10.2026.10.02.21.23.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 21:23:29 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Sebastian Reichel <sre@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] HSI: nokia-modem: stop reset IRQ before killing tasklet
-Date: Sat,  3 Oct 2026 00:23:27 -0400
-Message-ID: <20261003042327.655834-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gkPVsCvp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 107221F0089B;
+	Sat,  3 Oct 2026 06:00:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791007240;
+	bh=jjTCW0XcHmBwpD7KH26Wd4I5Y6sUM0wHJc97IGGvjLU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=gkPVsCvpRlMRshL38fhu/7dV+qCi5SHzFjkgQf7AXL59AQBwVFI2s8ffNq4gICpaM
+	 G31qd22XCC0SVos3av2UGPYDqNeOU84CePwxR5qa5amw6TKNxAAr5Qzp4YE992fr1O
+	 zyCYse7wF65Zlctj02FdRDIBcc6uTHI6bKZEI5nX041IzV9wL+EtSXEzCUQILwfXlO
+	 1NgBxffSmpjpzX4NgiqdTOoKhY6qUN2CY/7xiNKPDx6vNHU2JBWoNsdw82wL4S1B1a
+	 GW6iujzswVbsDqEk3LVcT4igPyQ+QzXUj5rf/VC7DVvkPcplhDkjEBqdFktldIHye8
+	 DRSkcgXkKaqDQ==
+Subject: Re: [PATCH v4 1/3] can: remove CAN filters independent from namespace
+From: netdev-bot+sashiko@kernel.org
+To: socketcan@hartkopp.net
+Cc: linux-can@vger.kernel.org, norbert@doyensec.com, stable@vger.kernel.org,
+ kuba@kernel.org
+Date: Sat, 03 Oct 2026 06:00:39 +0000
+Message-ID: <179100723953.1406898.16481112360707650171@kernel.org>
+In-Reply-To: <20260929154125.3298-2-socketcan@hartkopp.net>
+References: <20260929154125.3298-2-socketcan@hartkopp.net>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The reset IRQ schedules a tasklet which accesses both the modem and its
-SSI protocol client. Disabling IRQ wake does not disable the IRQ, and the
-managed IRQ remains registered until after the remove callback or probe
-failure cleanup has returned. It can therefore schedule the tasklet again
-after tasklet_kill(), leaving it pending when the modem is freed. The
-existing cleanup also unregisters the SSI client before draining the
-tasklet that uses it.
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider.
 
-Explicitly release the managed IRQ before killing the tasklet, and do both
-before unregistering the child clients. Use a common post-IRQ probe error
-path so every failure drains the tasklet before releasing its dependencies.
-Track successful GPIO exports to retain the existing partial-probe cleanup
-behavior.
+Critical: 0 · High: 2 · Medium: 1 · Low: 1
 
-This issue was identified during our ongoing static-analysis research
-while reviewing kernel code.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Fixes: eafaebd987fc ("HSI: Introduce Nokia N900 modem driver")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
- drivers/hsi/clients/nokia-modem.c | 38 ++++++++++++++++++-------------
- 1 file changed, 22 insertions(+), 16 deletions(-)
+- [High] bcm_notify() now calls lock_sock(sk) right away for every BCM
+  socket on the global bcm_notifier_list.
+- [High] Releasing a BCM socket that races with a namespace move of its
+  bound device can still leave a receive filter pointing at a freed…
+- [Medium] The commit message's account of the bug cannot happen.
+- [Low] The commit message presents the isotp_release() change as
+  converting two 'missing' call sites.
 
-diff --git a/drivers/hsi/clients/nokia-modem.c b/drivers/hsi/clients/nokia-modem.c
-index 88924d757616..688ce742d358 100644
---- a/drivers/hsi/clients/nokia-modem.c
-+++ b/drivers/hsi/clients/nokia-modem.c
-@@ -131,6 +131,7 @@ static int nokia_modem_probe(struct device *dev)
- 	int irq, pflags, err;
- 	struct hsi_board_info ssip;
- 	struct hsi_board_info cmtspeech;
-+	bool gpios_exported = false;
- 
- 	np = dev->of_node;
- 	if (!np) {
-@@ -165,8 +166,9 @@ static int nokia_modem_probe(struct device *dev)
- 		err = nokia_modem_gpio_probe(dev);
- 		if (err < 0) {
- 			dev_err(dev, "Could not probe GPIOs\n");
--			goto error1;
-+			goto error;
- 		}
-+		gpios_exported = true;
- 	}
- 
- 	ssip.name = "ssi-protocol";
-@@ -179,17 +181,17 @@ static int nokia_modem_probe(struct device *dev)
- 	if (!modem->ssi_protocol) {
- 		dev_err(dev, "Could not register ssi-protocol device\n");
- 		err = -ENOMEM;
--		goto error2;
-+		goto error;
- 	}
- 
- 	err = device_attach(&modem->ssi_protocol->device);
- 	if (err == 0) {
- 		dev_dbg(dev, "Missing ssi-protocol driver\n");
- 		err = -EPROBE_DEFER;
--		goto error3;
-+		goto error;
- 	} else if (err < 0) {
- 		dev_err(dev, "Could not load ssi-protocol driver (%d)\n", err);
--		goto error3;
-+		goto error;
- 	}
- 
- 	cmtspeech.name = "cmt-speech";
-@@ -202,33 +204,35 @@ static int nokia_modem_probe(struct device *dev)
- 	if (!modem->cmt_speech) {
- 		dev_err(dev, "Could not register cmt-speech device\n");
- 		err = -ENOMEM;
--		goto error3;
-+		goto error;
- 	}
- 
- 	err = device_attach(&modem->cmt_speech->device);
- 	if (err == 0) {
- 		dev_dbg(dev, "Missing cmt-speech driver\n");
- 		err = -EPROBE_DEFER;
--		goto error4;
-+		goto error;
- 	} else if (err < 0) {
- 		dev_err(dev, "Could not load cmt-speech driver (%d)\n", err);
--		goto error4;
-+		goto error;
- 	}
- 
- 	dev_info(dev, "Registered Nokia HSI modem\n");
- 
- 	return 0;
- 
--error4:
--	hsi_remove_client(&modem->cmt_speech->device, NULL);
--error3:
--	hsi_remove_client(&modem->ssi_protocol->device, NULL);
--error2:
--	nokia_modem_gpio_unexport(dev);
--error1:
-+error:
- 	disable_irq_wake(modem->nokia_modem_rst_ind_irq);
-+	devm_free_irq(dev, modem->nokia_modem_rst_ind_irq, modem);
- 	tasklet_kill(&modem->nokia_modem_rst_ind_tasklet);
- 
-+	if (modem->cmt_speech)
-+		hsi_remove_client(&modem->cmt_speech->device, NULL);
-+	if (modem->ssi_protocol)
-+		hsi_remove_client(&modem->ssi_protocol->device, NULL);
-+	if (gpios_exported)
-+		nokia_modem_gpio_unexport(dev);
-+
- 	return err;
- }
- 
-@@ -239,6 +243,10 @@ static int nokia_modem_remove(struct device *dev)
- 	if (!modem)
- 		return 0;
- 
-+	disable_irq_wake(modem->nokia_modem_rst_ind_irq);
-+	devm_free_irq(dev, modem->nokia_modem_rst_ind_irq, modem);
-+	tasklet_kill(&modem->nokia_modem_rst_ind_tasklet);
-+
- 	if (modem->cmt_speech) {
- 		hsi_remove_client(&modem->cmt_speech->device, NULL);
- 		modem->cmt_speech = NULL;
-@@ -251,8 +259,6 @@ static int nokia_modem_remove(struct device *dev)
- 
- 	nokia_modem_gpio_unexport(dev);
- 	dev_set_drvdata(dev, NULL);
--	disable_irq_wake(modem->nokia_modem_rst_ind_irq);
--	tasklet_kill(&modem->nokia_modem_rst_ind_tasklet);
- 
- 	return 0;
- }
+--
+
+can: remove CAN filters independent from namespace
+
+This patch removes the net_eq(dev_net(dev), sock_net(sk)) early return
+from the raw, isotp and bcm netdev notifiers. In bcm.c it adds tracked
+device pointers (bo->dev, op->tx_dev) for device comparisons and takes
+lock_sock() for all of bcm_notify(). In isotp_release() it passes
+dev_net(so->dev) to can_rx_unregister() instead of sock_net(sk).
+
+Link: https://lore.kernel.org/linux-can/CEA6A38A-2646-4ADA-95B4-CBAE2F301A8E@doyensec.com/
+
+> When the devices namespace is changed the socket namespace and the device
+> namespace might differ. The net_eq(dev_net(dev), sock_net(sk)) check in
+> the CAN protocols netdev notifiers therefore led to skipping the required
+> removal of the CAN filters from the (namespace changed) CAN devices.
+
+[Severity: Medium]
+Is this description of the bug accurate? In __dev_change_net_namespace(),
+NETDEV_UNREGISTER is sent while dev_net(dev) still points to the old
+namespace. The namespace is switched only afterwards:
+
+net/core/dev.c:__dev_change_net_namespace() {
+    ...
+	call_netdevice_notifiers(NETDEV_UNREGISTER, dev);
+    ...
+	dev_net_set(dev, net);
+    ...
+}
+
+Every bound device is resolved with dev_get_by_index(sock_net(sk), ...).
+raw_bind() and isotp_bind() do this under rtnl_lock(). bcm_connect() and
+bcm_rx_setup() do it under lock_sock(). So for every socket still on the
+notifier list, the removed net_eq() check seems to have always been true
+when its device got NETDEV_UNREGISTER.
+
+In raw_notify() and isotp_notify(), the ro->dev != dev and so->dev != dev
+checks that follow already made the net_eq() check redundant.
+
+The bug that actually existed appears to be the sock_net(sk) argument in
+isotp_release(). That function runs after the socket has left the
+notifier list.
+
+Could the commit message describe the real mechanism? As written, it also
+justifies the bcm.c rework (bo->dev, op->tx_dev and the unconditional
+lock_sock() in bcm_notify()). That rework is needed only because the
+net_eq() check was removed, and it is the source of the bcm_notify()
+concern below.
+
+> In isotp.c the two missing can_rx_unregister() calling sites are converted
+> to use dev_net(dev) instead of sock_net(sk) to get the correct namespace.
+
+[Severity: Low]
+This hunk looks like the actual fix for a use-after-free, but the commit
+message doesn't say so. Could it describe the race and the use-after-free?
+
+isotp_release() removes the socket from isotp_notifier_list before it
+takes rtnl_lock(). If __dev_change_net_namespace() runs in that window,
+its NETDEV_UNREGISTER notifier never sees the socket, and the device moves
+to the new namespace.
+
+Before this patch, isotp_release() then passed sock_net(sk) to
+can_rx_unregister(), which returns early on the namespace mismatch:
+
+net/can/af_can.c:can_rx_unregister() {
+    ...
+	if (dev && !net_eq(net, dev_net(dev)))
+		return;
+    ...
+}
+
+The isotp_rcv() and isotp_rcv_echo() receivers stay registered with
+data == sk, and sock_put(sk) then frees the socket. can_rx_register()
+holds no reference on sk, so the next matching frame on the moved device
+calls isotp_rcv() on freed memory.
+
+raw_release() already used dev_net(ro->dev) under rtnl_lock(), and bcm
+goes through bcm_rx_unreg(), which uses dev_net(dev).
+
+> diff --git a/net/can/bcm.c b/net/can/bcm.c
+> index 3d637a1e0ac1a..cd3522ec32c0a 100644
+> --- a/net/can/bcm.c
+> +++ b/net/can/bcm.c
+
+[ ... ]
+
+> @@ -1792,15 +1833,13 @@ static void bcm_notify(struct bcm_sock *bo, unsigned long msg,
+>  {
+>  	struct sock *sk = &bo->sk;
+>  	struct bcm_op *op;
+> -	int notify_enodev = 0;
+> +	int sk_err = 0;
+>  
+> -	if (!net_eq(dev_net(dev), sock_net(sk)))
+> -		return;
+> +	lock_sock(sk);
+
+[Severity: High]
+Can a user confined to their own network namespace now stall rtnl_mutex
+here indefinitely?
+
+bcm_notifier() walks every BCM socket on bcm_notifier_list for each CAN
+NETDEV_DOWN or NETDEV_UNREGISTER, with rtnl_lock() held. Before this
+patch, sockets in a foreign namespace returned before taking any lock,
+and NETDEV_DOWN never took lock_sock(). Now lock_sock() is taken on every
+BCM socket in the system for both events.
+
+bcm_sendmsg() holds the socket lock across user copies:
+
+bcm_sendmsg()
+    lock_sock(sk);
+    bcm_tx_setup()
+        memcpy_from_msg((u8 *)cf, msg, op->cfsiz);
+
+bcm_rx_setup() has the same pattern.
+
+An unprivileged user can put the frame data on a page whose fault they
+control, for example a FUSE-backed mapping inside a user namespace. The
+socket lock can then be held for as long as they want.
+
+Any host-side "ip link set can0 down", unplug, unregister or netns move of
+any CAN device would then block in bcm_notify() with rtnl_lock() held.
+All link, address and route configuration and netns creation or cleanup
+would stall behind it.
+
+A similar same-namespace stall was already possible for users who can
+create and delete their own vcan. This patch extends it to host devices
+and to NETDEV_DOWN.
+
+Could the bo->dev, op->tx_dev and op->rx_reg_dev comparisons be done as a
+prefilter, so that lock_sock() is not taken on unrelated sockets? Even
+with the rest of the series applied, only the device type check in
+bcm_notifier() changes, so this lock_sock() stays unconditional.
+
+>  
+>  	switch (msg) {
+>  
+>  	case NETDEV_UNREGISTER:
+> -		lock_sock(sk);
+
+[ ... ]
+
+> @@ -1984,6 +2025,10 @@ static int bcm_release(struct socket *sock)
+>  	if (bo->bound) {
+>  		WRITE_ONCE(bo->bound, 0);
+>  		bo->ifindex = 0;
+> +		if (bo->dev) {
+> +			netdev_put(bo->dev, &bo->dev_tracker);
+> +			bo->dev = NULL;
+> +		}
+>  	}
+
+[Severity: High]
+Can bcm_release() still leave an rx filter pointing at a freed bcm_op if
+it races with a namespace move of the bound device?
+
+bcm_release() removes the socket from bcm_notifier_list and then takes
+only lock_sock(sk), not rtnl_lock(). For each rx_op with op->rx_reg_dev,
+teardown goes through bcm_rx_unreg():
+
+bcm_rx_unreg()
+    can_rx_unregister(dev_net(dev), dev, ...)
+        if (dev && !net_eq(net, dev_net(dev)))
+            return;
+
+Meanwhile __dev_change_net_namespace() runs under rtnl_lock(). Its
+NETDEV_UNREGISTER notifier skips this socket because the socket is already
+off the list. It then calls dev_net_set(dev, net).
+
+Suppose dev_net_set() lands between the dev_net(dev) read in
+bcm_rx_unreg() and the re-read in can_rx_unregister(). The receiver then
+stays linked with func == bcm_rx_handler and data == op.
+
+can_rx_unregister() returns void, so bcm_rx_unreg() still clears
+op->rx_reg_dev and drops the reference. bcm_release() then frees the op:
+
+bcm_remove_op()
+    call_rcu() -> bcm_free_op_work()
+        sock_put(op->sk);
+        kfree(op);
+
+The next matching frame on the moved device would call bcm_rx_handler()
+on freed memory. The window per op is narrow, but it can be retried, and
+a socket with many rx_ops widens it.
+
+isotp_release() and raw_release() avoid this by holding rtnl_lock() around
+the unregister. Should bcm_release() take rtnl_lock() as well?
+
 -- 
-2.53.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260929154125.3298-1-socketcan%40hartkopp.net
