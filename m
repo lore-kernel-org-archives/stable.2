@@ -1,148 +1,123 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7331E412C05
-	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 10:22:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5DEE41378E;
+	Sat,  3 Oct 2026 10:22:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791022947; cv=none; b=VCH7nKeY4gfiG6CfgnEBtvMbwEm+9Zs0Ha/8mzUi28hRhLSXTR8ffkc6ureBkg7PGyAQtlropP4CJsg+PJeslBHKwh9Y+r71D3OUiYS9GxXP9ZJUtoc2LKBD8ZQX3vBZoIld+Lv6W6cu51zfCQ1aMmL6GK4jWTwZ5awLUP0DTN8=
+	t=1791022958; cv=none; b=jeMcWn3k1YxKBOXgzu5ATALn5rihwZ0q2a7qAQhcyinvoFoJqlhJ58nGQeQQ3nZlqkIbIEWlTk8qVQeEcs1LXcBvQfvFmGRZsW6Bav0GQsxgc/YApGKiGyOvDkocsVWt2kld7utlL4+jUwCf+cNc8oBdlFInMy6JiIWG1DvQsaQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791022947; c=relaxed/simple;
-	bh=9dbU2MdjPPQ+2L06YpaubCzSFA40VM5mN5AfcEjE9ko=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iFNJN0vV//P+Uj9jozOYF1mvUNkMD8ohxj0iwduiQHMB6Eyj6UXirHK+uGvZ2a8uCFh6lbQsJd+BhODqD9gHkRT0g218/Ggg8DIc9mTCSsvxP+IPHxCDaAmQfpNf9ah9YQZXF8Tn+SJTmMwvW+7Sm+AiyRmUvOAJvX1cz7N5hVg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UWSkUf+P; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791022958; c=relaxed/simple;
+	bh=OvkC8Ak0od0aDwF+zPCA7ymzYYL+KvnWU2x6jJM+vLo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=Jc8loshNvY/6zWvmIda1QjlbMtzfZ3KDP5/inwrPeDBksP4Qy3lbKOm6dKo9i6nC1ANzyXk+A3PNNogpuXS59cetAmwPxjQt7+fogRtnsfdnvMLGCPphjFlnXHQQEbjMnYU5ND807NcHB+X15xMmtZqFruGyo+G8dgN6p04DcWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=MB97Y/q0; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UWSkUf+P"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3a782e791daso189597a91.0
-        for <stable@vger.kernel.org>; Sat, 03 Oct 2026 03:22:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791022945; x=1791627745; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BUMcFmx4x50WyYpp/LJX866o0Ow7gt7cpBwhiL0d2Ic=;
-        b=UWSkUf+PEHylaSMq5Vy3FTo6DZK+MgmkajW2dK0w3tkmPO2Ah8vCiWtNwokrmiDXX9
-         smeYQjm/1c1hTU4SPsYtq395XzCJok9ydVdda5z9aBXAwIQmL0HuJBRsfJ9prYdFPIzn
-         ma7A4q+qebzcbf8pflOCi229JTJVJ4ozc48K3V7pheeSPEo5DmKayJCmqdP87LzL8WQL
-         CWpVQ/vkfwM9G6b8qWc/L1cFWX2wTFNKTHt+fx3kZhfRs6ykB8GytJrLhgHtyAs5OR4a
-         V4UIUGkPwpvFwR3eF6UKlTBvr/wkoQfcKThV46El7JYe4wgYRm8zNB4smGP9OpwTQexs
-         VqQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791022945; x=1791627745;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BUMcFmx4x50WyYpp/LJX866o0Ow7gt7cpBwhiL0d2Ic=;
-        b=kNYN2tqccW4w3U+iNXX3iFu/c8dZdQYJFISCLKhCJ2VtMs1XHZ52ZDECzc7sDcspSa
-         ct30FDgCklKNPA64D9Zx18Bm9VJC5U7x2wfZP+FkQAUOndX/ovHpTUoZ8Bwq8oaSMwmg
-         G4RSpn235qT2q8MZ0uxEOV2I6H70he7RAG4/EQqCJFQJU3Y3mR/kBKDbwHWAdPXnBK+D
-         gVBFyPNNQqRI2VGXUAfJCtoDUaIou5zZSZ+SpUOtZsWmxL/XdXm/wu0tvIVlvWR+wLGN
-         jIaida1QPpsJolQeDXPka7jbpX4PBmnSvQaXXUHlI5/t5jkoJu39si/KDWuDPUeAhwEV
-         QOSA==
-X-Forwarded-Encrypted: i=1; AKwUvBxN+2Uv1q0UwToIyIBiD4t4Cf0biVokYThZum62Ruuozk124Sc665r8tNV/XCZCGOFX+jfEQeM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ3o/k4Om9zL0Y6bYBznCjtM7FDYVjWYGr406DoZ1PeA4KUjLhO
-	umlBaJMQBRF4ZRMToPEyp/eL3hEg/vjGBR62btz/7vYPZj/bue51YnkgKIciP7c=
-X-Gm-Gg: AYBFou2xm4myYihsMyzC2hPG4rTOEExdCJRrVeXn553HA5QnZqwGoFQVHC3jcH/vMsC
-	j+GKu+tSBAot+cCODsI6O8loDTCwFzGT3WxmK6EUMqoeBs3hkow8zWP+ODCbM1RyPumYiAsn+e0
-	V2dBu2fWI6tZytKoRkl3/EOJpi0rN+i8lE6Pv5ZWrRwvf5ouKbAbbOL6czzNlzLWDHO+NOLSBlL
-	78l0dVxUeJE9NhleotgNFjgeZY1lkzLX+FNyM+TwpXhVWNG3pm0kOs5Fjwq1ykznkYCcmf9XjMA
-	zchlnTx1vfQSUA6UjpkZR3lcZHKTJWK+SuH6AY6vicpZwTodaKJFQpDkGmhzNN/D6McZaZiFJ67
-	XWnL31zbn1eUztUKTWL8THL3BH24ygksDaYVO4nq0PInMiaehr4qOvwgt065WLE3+NEmE7Ty5jd
-	+HqN+uHVhmDsw3NtQeLouJjlCa/Y3t0cEba92BGo3UWxtKrx3U1PnTcn1tEBJiE4AKyImXc80Yt
-	8+moSDB+2O9HrBsE9RvymxG
-X-Received: by 2002:a17:90a:fc50:b0:3a2:b70b:9cc8 with SMTP id 98e67ed59e1d1-3a7877462d9mr1377137a91.61.1791022945437;
-        Sat, 03 Oct 2026 03:22:25 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([211.230.25.193])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a79a98e7c0sm1240273a91.0.2026.10.03.03.22.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 03:22:25 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: bhelgaas@google.com
-Cc: alistair@alistair23.me,
-	jic23@kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	donggeunyoo.kernel@gmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH v2] PCI/DOE: Fix double free of a duplicate feature's sysfs name
-Date: Sat,  3 Oct 2026 19:22:21 +0900
-Message-ID: <20261003102221.59894-1-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="MB97Y/q0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=OvkC8Ak0od0aDwF+zPCA7ymzYYL+KvnWU2x6jJM+vLo=; b=M
+	B97Y/q0xrrReRlu5KC9sYbsUniQjvS8pnJX9rbcpnyNX2cMOlWZ7wQdNKe+LNQ4o
+	OxuBvxxrkq//KkkRQ7BTx95UZCosi4B135uISxa6hltLNR54OpdkMJH1h3YnP4bD
+	jsceTZUmUjHT5Y+crtvfGXKGuxYtLoJvVhFH7w6Ktw=
+Date: Sat, 3 Oct 2026 18:22:07 +0800 (CST)
+From: "jiale yao" <19888972804@163.com>
+To: "Baochen Qiang" <baochen.qiang@oss.qualcomm.com>
+Cc: "Jeff Johnson" <jjohnson@kernel.org>,
+	"Baochen Qiang" <quic_bqiang@quicinc.com>,
+	"Vasanthakumar Thiagarajan" <vasanthakumar.thiagarajan@oss.qualcomm.com>,
+	linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re:Re: [PATCH] wifi: ath12k: validate MAC/PHY capability count
+ before saving
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <bb1831c7-9281-434b-8324-ea93e3d08e33@oss.qualcomm.com>
+References: <20260925121739.2061979-1-yaojiale02@163.com>
+ <bb1831c7-9281-434b-8324-ea93e3d08e33@oss.qualcomm.com>
+X-NTES-SC: AL_Qu2SA/yZvUEp4SWaYukdmE8Uges8WcC0svki1YJUc+4GhzHBwiABbHpeBEnt4NmlFwSNnAm9ShFy8/5qb6BZCBucED2rynwL3IB5ycHYDg==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <1a47e7a8.1453.1a101490eaf.Coremail.19888972804@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:jygvCgD3dxZP18Bqk0cHAA--.9443W
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzg-TDmrA109KrAAA3I
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-When a DOE feature is reported twice, sysfs_add_file_to_group() fails
-with -EEXIST for the second copy and pci_doe_sysfs_feature_populate()
-frees that attribute's name, but leaves the pointer in place.
-pci_doe_sysfs_feature_remove() frees every name again when the device
-is removed, or when a later feature fails to register, so the name is
-freed twice:
-
-  BUG: KASAN: double-free in pci_doe_sysfs_feature_remove+0x117/0x1b0
-  Call Trace:
-   kfree+0x11a/0x420
-   pci_doe_sysfs_feature_remove+0x117/0x1b0
-   pci_doe_sysfs_teardown+0x90/0xf0
-   pci_remove_bus_device+0x128/0x2e0
-   pci_stop_and_remove_bus_device_locked+0x1d/0x30
-   remove_store+0xd2/0xf0
-
-Clear the pointer after freeing the name.
-
-Fixes: 2311ab1820fe ("PCI/DOE: Expose DOE features via sysfs")
-Cc: stable@vger.kernel.org
-Suggested-by: Alistair Francis <alistair@alistair23.me>
-Assisted-by: LLM
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
----
-Changes in v2:
-- Keep freeing the duplicate's name in pci_doe_sysfs_feature_populate()
-  and clear the pointer, instead of leaving it to
-  pci_doe_sysfs_feature_remove() (Alistair Francis)
-
-v1: https://lore.kernel.org/all/20260928035035.252394-1-donggeunyoo.kernel@gmail.com/
-
-Tested under QEMU (q35, cxl-type3, KASAN) on 72d3fcf802c4. The device
-reports its CDAT feature once, so a test-only change either registers
-its DOE capability as a second mailbox or inserts the feature N extra
-times into one:
-
-  case                                   before           after
-  no duplicate, remove                   no report        no report
-  no duplicate, a name fails at probe    no report        no report
-  two mailboxes, remove                  double free      no report
-  two mailboxes, 3 remove/rescan cycles  3 double frees   no report
-  3 duplicates in one mailbox, remove    3 double frees   no report
-  2 duplicates, a later name fails,      2 double frees   no report
-    probed twice
-
-The doe_features listing is the same before and after in every case.
-
- drivers/pci/doe.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/pci/doe.c b/drivers/pci/doe.c
-index ac95b1d2d9997..6b5d9ba8e9697 100644
---- a/drivers/pci/doe.c
-+++ b/drivers/pci/doe.c
-@@ -208,8 +208,9 @@ static int pci_doe_sysfs_feature_populate(struct pci_dev *pdev,
- 				pci_warn(pdev, "Failed adding %s to sysfs group\n",
- 					 attrs[i].attr.name);
- 				goto fail;
--			} else
--				kfree(attrs[i].attr.name);
-+			}
-+			kfree(attrs[i].attr.name);
-+			attrs[i].attr.name = NULL;
- 		}
- 	}
- 
--- 
-2.53.0
-
+QXQgMjAyNi0wOS0yOSAxMTozMjozMywgIkJhb2NoZW4gUWlhbmciIDxiYW9jaGVuLnFpYW5nQG9z
+cy5xdWFsY29tbS5jb20+IHdyb3RlOgo+Cj4KPk9uIDkvMjUvMjAyNiA4OjE3IFBNLCBKaWFsZSBZ
+YW8gd3JvdGU6Cj4+IEZpcm13YXJlIHN1cHBsaWVzIHRoZSBoYXJkd2FyZSBtb2RlIGNvdW50IGFu
+ZCB0aGUgUEhZIGJpdG1hcCBmb3IgZWFjaAo+PiBtb2RlIGluIHRoZSBzZXJ2aWNlLXJlYWR5IGV2
+ZW50Cj4KPnRvIGJlIGFjY3VyYXRlLCBpdCBpcyBzZXJ2aWNlIHJlYWR5IGV4dCBldmVudC4gd2Ug
+ZG8gaGF2ZSBhbm90aGVyIGV2ZW50IG5hbWVkIHNlcnZpY2UgcmVhZHkuCj4KPj4gQSBtaXNtYXRj
+aAo+PiBiZXR3ZWVuIHRoZSBhZHZlcnRpc2VkIHRvdGFsIGFuZCB0aGUgbnVtYmVyIG9mIHBhcnNl
+ZCBjYXBhYmlsaXR5IFRMVnMgY2FuCj4+IGFsc28gbWFrZSB0aGUgc291cmNlIHBvaW50ZXIgYWR2
+YW5jZSBiZXlvbmQgaXRzIGFsbG9jYXRpb24uCj4KPlRoaXMgY2xhaW0gZG9lc24ndCBob2xkLiBU
+aGUgc291cmNlIGJ1ZmZlciBtYWNfcGh5X2NhcHMgaXMga3phbGxvYydkIGZvciB0b3RfcGh5X2lk
+Cj5lbGVtZW50cywgYW5kIHRoZSBsb29wJ3MgbWFjX3BoeV9jYXArKyBydW5zIGV4YWN0bHkgdG90
+X3BoeV9pZCB0aW1lcyB0b3RhbCwgc28gdGhlIHNvdXJjZQo+cG9pbnRlciByZWFkcyBhdCBtb3N0
+IHRvdF9waHlfaWQgZW50cmllcyChqiBwcmVjaXNlbHkgdGhlIGFsbG9jYXRpb24gYm91bmQsIG5l
+dmVyIHBhc3QgaXQuCj4KPlRoZSBuX21hY19waHlfY2FwcyA+IHRvdF9waHlfaWQgY2FzZSBpcyBh
+bHJlYWR5IHJlamVjdGVkIGF0IHBhcnNlIHRpbWUgaW4KPmF0aDEya193bWlfbWFjX3BoeV9jYXBz
+X3BhcnNlKCkuIFRoZSBvbmx5IG1pc21hdGNoIHRoYXQgY2FuIGFjdHVhbGx5IHJlYWNoCj5zYXZl
+X2FsbF9tYWNfcGh5X2luZm8oKSBpcyBuX21hY19waHlfY2FwcyA8IHRvdF9waHlfaWQsIGluIHdo
+aWNoIGNhc2UgdGhlIGxvb3AgcmVhZHMKPnplcm9lZC1idXQtYWxsb2NhdGVkIHNvdXJjZSBlbnRy
+aWVzIGFuZCBwb3B1bGF0ZXMgbWFjX3BoeV9pbmZvIHdpdGggYWxsLXplcm8gUEhZIGluZm8goaog
+YQo+Y29ycmVjdG5lc3MgYnVnLCBub3QgYSBzb3VyY2UtYnVmZmVyIG92ZXJydW4uCj4KPj4gCj4+
+IFZhbGlkYXRlIGJvdGggY291bnRzIGJlZm9yZSB3cml0aW5nIGFueSBlbnRyaWVzIGFuZCBwcm9w
+YWdhdGUgdGhlIGVycm9yIHRvCj4+IHRoZSBzZXJ2aWNlLXJlYWR5IHBhcnNlci4KPj4gCj4+IEZp
+eGVzOiAwNjJhZGUyMzk5MWUgKCJ3aWZpOiBhdGgxMms6IHBhcnNlIGFuZCBzYXZlIGhhcmR3YXJl
+IG1vZGUgaW5mbyBmcm9tIFdNSV9TRVJWSUNFX1JFQURZX0VYVF9FVkVOVElEIGV2ZW50IGZvciBs
+YXRlciB1c2UiKQo+PiBDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZwo+PiBTaWduZWQtb2ZmLWJ5
+OiBKaWFsZSBZYW8gPHlhb2ppYWxlMDJAMTYzLmNvbT4KPj4gLS0tCj4+ICBkcml2ZXJzL25ldC93
+aXJlbGVzcy9hdGgvYXRoMTJrL3dtaS5jIHwgMjIgKysrKysrKysrKysrKysrKysrKystLQo+PiAg
+MSBmaWxlIGNoYW5nZWQsIDIwIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCj4+IAo+PiBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvd2lyZWxlc3MvYXRoL2F0aDEyay93bWkuYyBiL2RyaXZl
+cnMvbmV0L3dpcmVsZXNzL2F0aC9hdGgxMmsvd21pLmMKPj4gaW5kZXggZDUxNjBhZjYwZTAwLi41
+OWFjMTdmMGQ0OGQgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvbmV0L3dpcmVsZXNzL2F0aC9hdGgx
+Mmsvd21pLmMKPj4gKysrIGIvZHJpdmVycy9uZXQvd2lyZWxlc3MvYXRoL2F0aDEyay93bWkuYwo+
+PiBAQCAtNTAwNCw3ICs1MDA0LDcgQEAgYXRoMTJrX3dtaV9zYXZlX21hY19waHlfaW5mbyhzdHJ1
+Y3QgYXRoMTJrX2Jhc2UgKmFiLAo+PiAgCQkJCQlfX2xlMzJfdG9fY3B1KG1hY19waHlfY2FwLT5o
+aWdoXzVnaHpfY2hhbl9mcmVxKTsKPj4gIH0KPj4gIAo+PiAtc3RhdGljIHZvaWQKPj4gK3N0YXRp
+YyBpbnQKPj4gIGF0aDEya193bWlfc2F2ZV9hbGxfbWFjX3BoeV9pbmZvKHN0cnVjdCBhdGgxMmtf
+YmFzZSAqYWIsCj4+ICAJCQkJIHN0cnVjdCBhdGgxMmtfd21pX3N2Y19yZHlfZXh0X3BhcnNlICpz
+dmNfcmR5X2V4dCkKPj4gIHsKPj4gQEAgLTUwMTUsNiArNTAxNSwyMCBAQCBhdGgxMmtfd21pX3Nh
+dmVfYWxsX21hY19waHlfaW5mbyhzdHJ1Y3QgYXRoMTJrX2Jhc2UgKmFiLAo+PiAgCXUzMiBod19t
+b2RlX2lkLCBwaHlfYml0X21hcDsKPj4gIAl1OCBod19pZHg7Cj4+ICAKPj4gKwlpZiAoc3ZjX3Jk
+eV9leHQtPnRvdF9waHlfaWQgPiBBUlJBWV9TSVpFKHN2Y19leHRfaW5mby0+bWFjX3BoeV9pbmZv
+KSkgewo+PiArCQlhdGgxMmtfd2FybihhYiwgInRvbyBtYW55IFBIWSBlbnRyaWVzICV1IChtYXgg
+JXp1KVxuIiwKPj4gKwkJCSAgICBzdmNfcmR5X2V4dC0+dG90X3BoeV9pZCwKPj4gKwkJCSAgICBB
+UlJBWV9TSVpFKHN2Y19leHRfaW5mby0+bWFjX3BoeV9pbmZvKSk7Cj4+ICsJCXJldHVybiAtRUlO
+VkFMOwo+PiArCX0KPj4gKwo+PiArCWlmIChzdmNfcmR5X2V4dC0+bl9tYWNfcGh5X2NhcHMgIT0g
+c3ZjX3JkeV9leHQtPnRvdF9waHlfaWQpIHsKPgo+cGVyIGNvbW1lbnQgYWJvdmUsIHNob3VsZCB3
+ZSB1c2UgJzwnIGluc3RlYWQgb2YgJyE9JyA/Cj4KPkJlc2lkZXMsIEkgdGhpbmsgdGhlIHJpZ2h0
+IHBsYWNlIGZvciBzdWNoIGNoZWNrIHNob3VsZCBiZSBpbgo+YXRoMTJrX3dtaV9zdmNfcmR5X2V4
+dF9wYXJzZSgpLCByaWdodCBiZWZvcmUgYXRoMTJrX3dtaV9zYXZlX2FsbF9tYWNfcGh5X2luZm8o
+KSBhbmQgYWZ0ZXIKPm1hYyBwaHkgY2FwIHBhcnNlID8KClRoYW5rcyBmb3IgeW91ciByZXZpZXcs
+IHlvdSBhcmUgYWxsIHJpZ2h0LCBob3cgYWJvdXQgdGhpcyBuZXcgb25lPwoKaHR0cHM6Ly9sb3Jl
+Lmtlcm5lbC5vcmcvYWxsLzIwMjYxMDAzMTAxOTQ0LjU5NjU0Ni0xLXlhb2ppYWxlMDJAMTYzLmNv
+bQoKPgo+PiArCQlhdGgxMmtfd2FybihhYiwgImludmFsaWQgbnVtYmVyIG9mIE1BQy9QSFkgY2Fw
+cyAldSwgZXhwZWN0ZWQgJXVcbiIsCj4+ICsJCQkgICAgc3ZjX3JkeV9leHQtPm5fbWFjX3BoeV9j
+YXBzLAo+PiArCQkJICAgIHN2Y19yZHlfZXh0LT50b3RfcGh5X2lkKTsKPj4gKwkJcmV0dXJuIC1F
+SU5WQUw7Cj4+ICsJfQo+PiArCj4+ICAJbWFjX3BoeV9pbmZvID0gJnN2Y19leHRfaW5mby0+bWFj
+X3BoeV9pbmZvWzBdOwo+PiAgCW1hY19waHlfY2FwID0gc3ZjX3JkeV9leHQtPm1hY19waHlfY2Fw
+czsKPj4gIAo+PiBAQCAtNTA0NCw2ICs1MDU4LDggQEAgYXRoMTJrX3dtaV9zYXZlX2FsbF9tYWNf
+cGh5X2luZm8oc3RydWN0IGF0aDEya19iYXNlICphYiwKPj4gIAkJCXBoeV9iaXRfbWFwID4+PSAx
+Owo+PiAgCQl9Cj4+ICAJfQo+PiArCj4+ICsJcmV0dXJuIDA7Cj4+ICB9Cj4+ICAKPj4gIHN0YXRp
+YyBpbnQgYXRoMTJrX3dtaV9zdmNfcmR5X2V4dF9wYXJzZShzdHJ1Y3QgYXRoMTJrX2Jhc2UgKmFi
+LAo+PiBAQCAtNTA5NCw3ICs1MTEwLDkgQEAgc3RhdGljIGludCBhdGgxMmtfd21pX3N2Y19yZHlf
+ZXh0X3BhcnNlKHN0cnVjdCBhdGgxMmtfYmFzZSAqYWIsCj4+ICAJCQkJcmV0dXJuIHJldDsKPj4g
+IAkJCX0KPj4gIAo+PiAtCQkJYXRoMTJrX3dtaV9zYXZlX2FsbF9tYWNfcGh5X2luZm8oYWIsIHN2
+Y19yZHlfZXh0KTsKPj4gKwkJCXJldCA9IGF0aDEya193bWlfc2F2ZV9hbGxfbWFjX3BoeV9pbmZv
+KGFiLCBzdmNfcmR5X2V4dCk7Cj4+ICsJCQlpZiAocmV0KQo+PiArCQkJCXJldHVybiByZXQ7Cj4+
+ICAKPj4gIAkJCXN2Y19yZHlfZXh0LT5tYWNfcGh5X2RvbmUgPSB0cnVlOwo+PiAgCQl9IGVsc2Ug
+aWYgKCFzdmNfcmR5X2V4dC0+ZXh0X2hhbF9yZWdfZG9uZSkgewo=
