@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 158C02D7DD8
-	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 13:18:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A9742D7DD8
+	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 13:18:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791033530; cv=none; b=E3cJptqipobi9aZAZWQEVoKa+8sGwGpP2Iqtl4bgU4NP1nNYiHsYUf9RNI0bCJORVIAPCmnLqIq56QuYtnd9SC9POInQH7FJTTt92ZqPnrWnLMXg9snh7f8/rm0eNk2BHPD96qKyQG8zPbgjd3gtojRKIv4lqvUfKxXK+gEqd0Q=
+	t=1791033538; cv=none; b=gTr0qTtukg54NzTCg7C2lpTZSsXXlsDW1GHm7Q0isK+FlFFfYGAUGjZkbkrt73b0mZOZOH0c/pCd5mMlkwGzkV1OpYJbk1e95mdwfU+ZQcUFC1G6GJofiLDi6a0075ZnHF4UrdO2IhXWjx2l8Eoq7u3tak37UH9UtUY6EX5PxTc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791033530; c=relaxed/simple;
-	bh=KdSFr0Pr21WIFkps5eHdnLw3TI5lKrmObOdSGs9NWtw=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=X1l8AYQ+1c8Hi3r97/sMQVBiQC78gOEry3BbiC5cpVaZTDuwzMKyjmkACEL4dJwhZh+5MtHnmGJnpBmi1cF2wzbrrGbJvHvNnNJGBLTMw2bI6IKHKp4SumtrhpLzVd6A2fNwXmKLRaQ0JN6+bSog2wmkqC+WMgAnEg9MmlSy3uw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=d6ByKjjz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791033538; c=relaxed/simple;
+	bh=SRuH0bEfkObMdrkSsyiduBWbBE0RELeglNuDVRiqhEE=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ABBVOuqCY8ehsdJ9wdKnURHxyPoohmkc9g6mmTliTCe6DKHDYts3qwsYJCMura7Cwpe27V3bnHBs+k3WGnFqSXBfoMo87xWLA89TdipxVzy8zFpzPP5I6dXdbLHttkO8zKJsm1qRf1bf3YJEdVVkEA7EuylLAA2FZVmdiNRuT/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hs8Zzddj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="d6ByKjjz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06ECA1F0089B;
-	Sat,  3 Oct 2026 13:18:47 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hs8Zzddj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2DD31F0089B;
+	Sat,  3 Oct 2026 13:18:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791033528;
-	bh=WmVH5uBfCHrhUaOlcpthH/M2C37wZwCcurZNNwUEBn0=;
+	s=korg; t=1791033537;
+	bh=q/UTZ2UdUhR5qOzaj8toLitCDkRjEtKAgRFjbqOf+UE=;
 	h=Subject:To:Cc:From:Date;
-	b=d6ByKjjzCoyaJUqocaTNPzfl0Zx+4NfImhHiOpWu1wUQXiKHhRe1pd0Lu+xwjf0ak
-	 rw7VsKRtERcumkpkpVU+Q4WwyuyhTO3HDReJ8DxhyB1XglQvvnw8NNFBI0h+cCGZKH
-	 bzaO0YjfeP8zRooZYIZXbCTmWCdB64W6Ws3ko1NI=
-Subject: FAILED: patch "[PATCH] random: vDSO: avoid call to memset() when zeroing reserved" failed to apply to 6.18-stable tree
+	b=hs8ZzddjZjPQGrT04QKBZlVc0Y1GGdZagRt729X+b2GwKfTindaBAjoyKnE9Gq7h2
+	 9+sj3OZmQAzAAc56tw+BPkFr5DAN1Urv21ofZo6MKC/R4fvQHLvBN8tF5A0TwJjmnO
+	 6bR2bFmIBQn0M+p1AUskVjWDP6s9q6+ISGwcRbFo=
+Subject: FAILED: patch "[PATCH] random: vDSO: avoid call to memset() when zeroing reserved" failed to apply to 6.12-stable tree
 To: nathan@kernel.org,Jason@zx2c4.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Sat, 03 Oct 2026 15:18:45 +0200
-Message-ID: <2026100345-regalia-overwrite-12f8@gregkh>
+Date: Sat, 03 Oct 2026 15:18:46 +0200
+Message-ID: <2026100346-hurt-purgatory-f0b6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x eb13a1ff271b0d180687eebb30611b0b276d5193
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100345-regalia-overwrite-12f8@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100346-hurt-purgatory-f0b6@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
