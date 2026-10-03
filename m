@@ -1,50 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9908338DC74;
-	Sat,  3 Oct 2026 22:40:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9562E3B0583;
+	Sat,  3 Oct 2026 22:40:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791067207; cv=none; b=ldNeR774D7CYM7FZEk2eAXFklI1gGEgqA+nev81p0Uj1Z2oJDOcjSls1LbEAfdaXqj6Hr/4ZKGf2MhWqt9x5eapsTmQqk8uLZ9RXydIpR4pdhh3+jrqUG20WwjlTdNlzGpGIImOpkhUDNEcNZqV+Bs57QYid7MS3d71ieKeQy9E=
+	t=1791067217; cv=none; b=dnyWW84ZWCAUhITAb1yXHJrvFucET9rn8eFT1sGjuio5JLYg3CdSEIboGXDdtUT5v3hZCvzhKgini00tbBEiOYehqpJis3bZKiWmGL7KKQUe/IvxGYy/2UvS5jbjF+Dt32N+MeB0HXnqlFXP6KGkKyftAB2v6hV+zuiMRrKTUvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791067207; c=relaxed/simple;
-	bh=dwLgRddozJuphK4t6xH+tSCA3BdgH+Lnqx1fz+9XCQg=;
+	s=arc-20240116; t=1791067217; c=relaxed/simple;
+	bh=ym6JHc6oYk6Hs9ATwSHnMDKHqHEJMlY8Y4Wc2OoOhjE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AeT9gN146ADP7VJQ6yqYNVnT95dA9WZ5qBvn4UTP0ByWa7Z9wQpyjZ1u/7TlapSWk1aUA/7YzwntYrJVsLca4ILVrdaLIYRqlo1UCf+1tVjgnuPF1EpxBsIGulDpp60Vz7NZS9GIKDiUtUZoiYndWP3tE2s1yoDeGU1cM5S6uBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h3WDAGnI; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=kpB/FO9dsV+/EYe9hF5gP8jwQOoSXl5Z7Z5RRnpJxRtGxOhwzAxGV7s9GTuyRcZOfCS8g2HssnoAMVEkfp+TqvAx7OHWQKOYXQ6JlIGatlZcsT+O2ImhwqZlPaJSAE0C+AROpAGJwaTMkmli0UUsAsu4nL2CObkzRegvXxI4XaU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A4AXoGx+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h3WDAGnI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED1991F0089B;
-	Sat,  3 Oct 2026 22:39:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A4AXoGx+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 936F01F0089C;
+	Sat,  3 Oct 2026 22:40:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791067206;
-	bh=Q8MeU89wcR1F3Q/A0tK1tn1RvHdQqhCgRtFNHu+sOdI=;
+	s=k20260515; t=1791067216;
+	bh=YLn69eS/CQianwmmN6z5s54JKd/AomPAJvFD5C8JUdM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=h3WDAGnI9Lw+UgNeDqI5ja0zj9FSFrLzRroxMtd4X87xTibBEZh8/mxbMaINZvfUN
-	 b+O1Giu/i1cbKE+cdoWGxd4xmuXS/+LA8mawZFb8L4A+9KpFugp7qP6cK+mcRZ1JcN
-	 EqNRmufXEAuM21bkNXM3TfLSOmsmzFhWy3bQKAYrW73vd0kUKvY26xhG/o1TJ6aHvl
-	 AXLZy3yuRG92uXTqDotMuwX22w7THSaD2Q2/QlcFwqrX8nQaQyGWqF3i+ELfuDK+L4
-	 Wfsou2i+VOunaAAKf2WLZk2ToEaWDvHEx5LwtnaQRd6jbSfRTTKxtkwIpvOiYA3LOu
-	 j0hC8wiQuOjUg==
+	b=A4AXoGx+8OWtio2iYBGqV8JctbAlFO7sL4HL0Y8akg7i+d74O0op1hjfSb3y9FAI3
+	 Mut4rCX5MsFJf31B1TKAVVo2Q1vhriK/vPrSU+m42L4iMPLZ9860qhaoDX61PbkPe2
+	 gQMfxU//ILz+HRDeTbj3h0PFURSy87x9AF2JTQC3e4H0MeRGq48K85YPhDrLraCwKV
+	 nfyV4HpYJkYqI7i4o+RNlNollNvn2dQbUMbjGyNKH5oE4d0Weu6PaDVP+Sc1kVpY4x
+	 VZQ2wYQ9EemjpjVbTXR1wpRtGXrEfVqC6zPpasx5+Zl4Doe53TFMf3aUyRjrxxdvq3
+	 fXI0SWW5+5kGA==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Artem Dinaburg <artem@trailofbits.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Chunguang Xu <chunguang.xu@shopee.com>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Keith Busch <kbusch@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 6.1.y] nvme-fabrics: use reserved tag for reg read/write command
-Date: Sat,  3 Oct 2026 18:33:07 -0400
-Message-ID: <2026-10-03-1-daily-reply-0026-re-nvme-fabrics-reserved-tag-6-1@kernel.org>
+	patches@lists.linux.dev,
+	Rosen Penev <rosenp@gmail.com>,
+	Corey Minyard <corey@minyard.net>,
+	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+Subject: Re: [PATCH 5.15 118/752] ipmi: si: Use platform_get_irq_optional() to retrieve interrupt
+Date: Sat,  3 Oct 2026 18:33:08 -0400
+Message-ID: <2026-10-03-1-daily-reply-0027-re-of-irq-of-node-put-followup@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261002204646.26451-1-artem@trailofbits.com>
-References: <20261002204646.26451-1-artem@trailofbits.com>
+In-Reply-To: <d2ea9d9c-d581-491e-bd33-072ac019d977@oracle.com>
+References: <20260930152358.131179731@linuxfoundation.org> <20260930152400.732402342@linuxfoundation.org> <d2ea9d9c-d581-491e-bd33-072ac019d977@oracle.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -53,10 +48,12 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> [ Upstream commit 7dc3bfcb4c9cc58970fff6aaa48172cb224d85aa ]
+> I think 5.15.y should take eb2b4ecf7299ee39ee9cecc4d3f2633aeb10cefb
+> ("of/irq: add missing of_node_put() for interrupt parent node") before
+> accepting this API conversion; thoughts?
 
-Queued for 6.1, thanks. I moved the backport note below Keith's Signed-off-by,
-as Harshit suggested.
+Agreed. The ipmi conversion already shipped in 5.15.222, 6.1.189 and 5.10.271,
+so this goes in as a follow-up. Queued for 6.1, 5.15 and 5.10, thanks.
 
 -- 
 Thanks,
