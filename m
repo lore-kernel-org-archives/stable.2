@@ -1,140 +1,132 @@
-Received: from server3.evolutia.digital (server3.evolutia.digital [95.216.176.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 303BF282F10
-	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 13:21:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.216.176.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8095D13CF82
+	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 13:22:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791033705; cv=none; b=C8W+D8abcXpGAP6eJ/ldnNuaYLNBP96D7sgtpxVm8cBU7xgLYexnCZpOBk645YFzs6bWSNnp2UQGcXx99VihTyr6FQAvkr1vJmENbLCkuDBp7i0XJJkoDEjO8gw7KaSdNCJLPxbboxab/sBwup1lkXHYjlZQ28F+LaJxDfR9BSw=
+	t=1791033742; cv=none; b=LCxzEARyLH3zQGlvmhBWmFeezzAfccXfzWuSSG6VhabcGF7dZfzi6lojwXYZZ0ECwHOl663GWbPs3+RNsjLDG+tIQoCq711gVC+8vzDKtHC6Ba6RB0ude+0s5l71dW1zT32hBa94xhgcDXx3/0yFXXY0P8TIOV8MaprBlO9rBf0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791033705; c=relaxed/simple;
-	bh=qH2AQmQjX+DJlFX+o9BUmNXHsYxdOrnLpzoDX17+cuE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=rrvUojF762NRg8cwkTLe4BDuOXRmKYOFoUki53AG04lo35QURG4vSgFpnOJokXF4UMuE47VdgUBg0ePdVlenimgURc++gje8R+3SBPImIfWhH9+lJ049DzWBfQMdO34zi8D8u47T4Y4th8WvTElpkI/Hrt4KIl94+cLmpZYzJ5w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=miguelmesa.com; spf=pass smtp.mailfrom=miguelmesa.com; dkim=pass (2048-bit key) header.d=miguelmesa.com header.i=@miguelmesa.com header.b=EhT2JyLl; arc=none smtp.client-ip=95.216.176.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=miguelmesa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=miguelmesa.com
+	s=arc-20240116; t=1791033742; c=relaxed/simple;
+	bh=QiZadrGeJ4wx1dz78uu3CW0hLZ76aByck4hZvXIy/f0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=WZXoolbnFcv0nBeDhnAUkmDfW2NBa3k07xuzeG3nmZpmJFp63OFuVwGekcstMJ/Bo8HJpPFV5NYiCEJuPkCTP8SbMPUsnRPoRbpWzC1I4qxPpxKwPbt4x6aDUVpsp7mNe3614LjjpQHQnnmNIPIsLopwbwd2kUgeNrwQwTq8B3E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1zuLmauF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=miguelmesa.com header.i=@miguelmesa.com header.b="EhT2JyLl"
-Received: from B5-Miguel-CachyOS (unknown [IPv6:2a0c:5a82:6807:b100:7760:f7b:d596:dc10])
-	by server3.evolutia.digital (Postfix) with ESMTPSA id 39FDE5F6E5;
-	Sat,  3 Oct 2026 15:15:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=miguelmesa.com;
-	s=default; t=1791033343;
-	bh=yn98FbPzE/tOS7dn54Zd2oHA8L4Zsp3fkAu0+jWzZ/s=; h=From:To:Subject;
-	b=EhT2JyLl9qWgmKPNSfyJobl8j/CP7sJYDfMvsqPJA5ahOnkEFZztYKSEB8TrQxPUi
-	 TckyJl7d3GJ+Jq2DAcqopWhMJ0FOzaXbvzAM8irFR4x04lAjTvY4qqc1c24H6fekk8
-	 emrUUwaSyLa1aKAoYJbndeLHTeAgBeQQnhLkXcx6nNdRzbBtn0f3MDBPff0bDK/Pme
-	 XYVWqjzQiNVHMWXRjvHC7qdfk1bFNs//uQobti35aA7rSB70uMTa7YuKMHOp6biBR+
-	 uhRg+KhLoIuSxID9qnaGCNQmMarK8zY/PYdT4+jkcV5z/zq0Z+dNBirJHUEmmFR1G2
-	 nT46Kb8H1FL5Q==
-Authentication-Results: server3.evolutia.digital;
-	spf=pass (sender IP is 2a0c:5a82:6807:b100:7760:f7b:d596:dc10) smtp.mailfrom=miguel@miguelmesa.com smtp.helo=B5-Miguel-CachyOS
-Received-SPF: pass (server3.evolutia.digital: connection is authenticated)
-From: Miguel Mesa <miguel@miguelmesa.com>
-To: stable@vger.kernel.org
-Cc: amd-gfx@lists.freedesktop.org,
-	alexander.deucher@amd.com,
-	Jerry.Zuo@amd.com,
-	harry.wentland@amd.com,
-	mario.limonciello@amd.com,
-	mgorny@gentoo.org
-Subject: [PATCH 7.2.y] drm/amd/display: keep HDMI 4:2:0-only modes and
- automatic 4:4:4
-Date: Sat,  3 Oct 2026 15:15:23 +0200
-Message-ID: <20261003131523.1502250-1-miguel@miguelmesa.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1zuLmauF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EF981F0089B;
+	Sat,  3 Oct 2026 13:22:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791033741;
+	bh=/SGsdX0BBrDLKBfx4S+Nl052H+JjtUSp+jCn6d6Ni0c=;
+	h=Subject:To:Cc:From:Date;
+	b=1zuLmauFSUQQWO8GLe4M583IJPVPRa+taIF4/mC8rM9NaOI88KYEJvstREAOZlJ7e
+	 Kk5vqrZ2w/6uIKLkvAAU7Y1Cf6gNDg7oh1VTFnx6ySVsQi6iNt2WyUW4BHnj+9VjKk
+	 IUfrgGByGWdhpwC741cABGMFXCuZguNN6DRU/8fk=
+Subject: FAILED: patch "[PATCH] mm/damon/core: don't skip damos_adjust_quota() while esz is" failed to apply to 6.6-stable tree
+To: sj@kernel.org,akpm@linux-foundation.org,kunwu.chan@gmail.com,stable@vger.kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Sat, 03 Oct 2026 15:22:18 +0200
+Message-ID: <2026100318-preteen-hazelnut-d38b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: 
- <179103334296.2856106.18265595604110516429@server3.evolutia.digital>
-X-PPP-Vhost: miguelmesa.com
 
-commit 7e5760f084d0 ("drm/amd/display: add HDMI 2.1 Compliance Support")
-selects YCbCr 4:2:0 for a 4:2:0-only mode only when the IGT override asks
-for it, and YCbCr 4:4:4 only when that override is YCbCr 4:4:4. On a
-normal boot the override is unset.
 
-A 3840x2160@60 mode that the sink lists only in the YCbCr 4:2:0 block
-then falls through to 4:4:4 or RGB, and the Wayland session cannot build
-the output layer: kwin_wayland_drm: Failed to create framebuffer (EINVAL)
-right after login. v7.3-rc5 selects 4:2:0 again for those modes when the
-color format is automatic. Do the same here, including HDMI FRL.
+The patch below does not apply to the 6.6-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Keep automatic YCbCr 4:4:4 for the other HDMI modes, as 7.1 did. The TMDS
-depth fallback also runs for HDMI FRL, so a mode that does not fit at
-4:4:4 can still drop to 4:2:0.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-This is not a backport of a mainline commit. The 7.3 fix is the rewrite
-in 0b0ff65d3c ("drm/amd/display: Refactor stream validation"), which
-cannot be cherry-picked to 7.2; Jerry Zuo confirmed the pre-7.3 logic is
-gone there. This patch restores the pre-regression selection on the 7.2
-code, following the v7.3-rc5 rule. Mario Limonciello asked for it to be
-sent to stable in drm/amd#5760.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git checkout FETCH_HEAD
+git cherry-pick -x 52ae167ce16609c7e6fffef588b3c2c26de2db19
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100318-preteen-hazelnut-d38b@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
-Regression: black screen after login on HDMI sinks whose modes fall
-through to RGB, e.g. Strix Halo (gfx1151) + TCL 4K TV whose 3840x2160@60
-is YCbCr 4:2:0-only (VIC 97). 7e5760f084d0 shipped in 7.2; still unfixed
-in 7.2.9.
+Possible dependencies:
 
-Tested on CachyOS linux-cachyos-bore 7.2.7-3 (znver4) on that Strix Halo
-box: Plasma runs at 3840x2160@60 with the same userspace and firmware
-that stayed black on every stock 7.2.x kernel.
 
-Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5760
-Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5893
-Reported-by: Michał Górny <mgorny@gentoo.org>
-Reported-by: Miguel Mesa <miguel@miguelmesa.com>
-Suggested-by: Mario Limonciello <mario.limonciello@amd.com>
-Tested-by: Miguel Mesa <miguel@miguelmesa.com>
-Signed-off-by: Miguel Mesa <miguel@miguelmesa.com>
-Co-authored-by: Cursor <cursoragent@cursor.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index e594548..8f60df9 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -7017,9 +7017,7 @@ static void fill_stream_properties_from_drm_display_mode(
- 	/* TODO: un-hardcode */
- 	if (drm_mode_is_420_only(info, mode_in)
- 			&& (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A ||
--			    stream->signal == SIGNAL_TYPE_HDMI_FRL)
--			&& aconnector
--			&& aconnector->force_yuv_pixel_format == PIXEL_ENCODING_YCBCR420)
-+			    stream->signal == SIGNAL_TYPE_HDMI_FRL))
- 		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
- 	else if (drm_mode_is_420_also(info, mode_in)
- 			&& aconnector
-@@ -7034,8 +7032,9 @@ static void fill_stream_properties_from_drm_display_mode(
- 	else if ((connector->display_info.color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444))
- 			&& (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A ||
- 			    stream->signal == SIGNAL_TYPE_HDMI_FRL)
--			&& aconnector
--			&& aconnector->force_yuv_pixel_format == PIXEL_ENCODING_YCBCR444)
-+			&& (!aconnector
-+			    || aconnector->force_yuv_pixel_format == PIXEL_ENCODING_UNDEFINED
-+			    || aconnector->force_yuv_pixel_format == PIXEL_ENCODING_YCBCR444))
- 		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR444;
- 	else
- 		timing_out->pixel_encoding = PIXEL_ENCODING_RGB;
-@@ -7104,7 +7103,8 @@ static void fill_stream_properties_from_drm_display_mode(
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 52ae167ce16609c7e6fffef588b3c2c26de2db19 Mon Sep 17 00:00:00 2001
+From: SJ Park <sj@kernel.org>
+Date: Wed, 16 Sep 2026 06:50:19 -0700
+Subject: [PATCH] mm/damon/core: don't skip damos_adjust_quota() while esz is
+ not zero
+
+DAMOS could unexpectedly stop working when a user disables quota using the
+online parameters commit feature.  Fix it by correcting a wrong quota
+unset check in damos_adjust_quota().
+
+DAMON users could disable all quotas by unsetting time and size quotas,
+and removing all quota goals.  The intention of disabling quotas would be
+making DAMOS run at full speed.  When such quota disabled setup is
+detected, damos_adjust_quota() skips all its work.  The skipped works
+include effective size quota (damos_quota->esz) updates and charged quota
+amount (damos_quota->charged_sz) resets.  The intention is to avoid doing
+unnecessary work when quotas are disabled.
+
+However, users could do the setup while effective size quota is non-zero,
+by doing the disabling with the online DAMON parameters commit feature.
+In this case, because the effective size quota exists, DAMOS will keep
+working with the quota until it is fully charged.  After the effective
+quota is fully charged, the charged quota amount (damos_quota->charged_sz)
+cannot be reset because damos_adjust_quota() skips it.  Then, DAMOS stops
+working until the quota is newly set or DAMON is entirely restarted.
+
+The problem happens because damos_adjust_quota() assumes the user setup
+for disabling quota immediately disabled it.  In reality, the quota is
+still working until the effective size quota is also updated to zero.
+Other logic for catching that uses damos_quota_is_set(), which understands
+the fact and therefore checks the effective size quota in addition to the
+user setup.  Fix the issue by using damos_quota_is_set() in
+damos_adjust_quota() to determine if its works should be skipped.
+
+The user impact is a non-deterministic and unexpected DAMOS stop behavior.
+That is, users would disable quotas using the online parameters commit
+feature, expecting DAMOS will run at full speed.  However, depending on
+the timing, the setup can be updated while the effective size quota is
+non-zero.  Due to the above mentioned internal mechanism, DAMOS stops
+working instead of running at full speed.  It is unexpected behavior.  It
+is also non-deterministic because sometimes the setup is done when the
+effective size quota is zero, depending on the timing.  It doesn't cause
+critical issues like crashes or leaks.  Users can simply set a reasonable
+quota again, or restart DAMON.  But definitely it is an unexpected and
+non-deterministic behavior that makes it difficult to reliably use.  Also
+investigating the root cause of the behavior would be quite difficult.
+
+Link: https://lore.kernel.org/20260916135020.86483-1-sj@kernel.org
+Fixes: da87878010e5 ("mm/damon/sysfs: support online inputs update")
+Signed-off-by: SJ Park <sj@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
+Cc: <stable@vger.kernel.org> # 5.19.x
+
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 1764620903f2..ab3c4d754964 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -3147,7 +3147,7 @@ static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
+ 	unsigned long cumulated_sz, cached_esz;
+ 	unsigned int score, max_score = 0;
  
- 	stream->out_transfer_func.type = TF_TYPE_PREDEFINED;
- 	stream->out_transfer_func.tf = TRANSFER_FUNCTION_SRGB;
--	if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A) {
-+	if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A ||
-+	    stream->signal == SIGNAL_TYPE_HDMI_FRL) {
- 		if (!adjust_colour_depth_from_display_info(timing_out, info) &&
- 		    drm_mode_is_420_also(info, mode_in) &&
- 		    timing_out->pixel_encoding != PIXEL_ENCODING_YCBCR420) {
--- 
-2.56.0
+-	if (!quota->ms && !quota->sz && list_empty(&quota->goals))
++	if (!damos_quota_is_set(quota))
+ 		return;
+ 
+ 	/* First charge window */
 
