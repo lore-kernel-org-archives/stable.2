@@ -1,135 +1,108 @@
-Received: from mta0.migadu.com (out-102.mta0.migadu.com [91.218.175.102])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE12230FC26
-	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 23:31:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.102
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 736D03B4EA1
+	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 23:31:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791070264; cv=none; b=PM5uy0H5cUZpeSXzjzKe9U0wy8yT9dYG3Oo4BJq47sCJOs4deaD3in4osIbLwL8oI37zBTum0hgNcqcQSjrdIa5RKUwKpAEwC9ujs6yw0yPf+8QDZwUVBNWiMtOOiPBKZ5mhBB8F77Z58h8AIL5qIg6ritumiB6PYm8lp265XXc=
+	t=1791070312; cv=none; b=MX64jqLmCx+DveRY1HovmjsccmVScoLcM4NrdVux25dQqFunwiQpTrFN6Q+QDsUWkfcsJFl5IMul3n38JF8PdVuZV7+Ky+vvt8ntqeQDJ34qyIhaKTYTrZK7Pif4IPVIKk1vt/WDxupMvY19vI8X3JMfvUQ9dn9Y6KpCpachEmg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791070264; c=relaxed/simple;
-	bh=Xw1FjG3l+X5v/tmL+AFv+0fYunh6K0cphgfqBQpcsDM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MW5XZBv3n0j8hsWBKHOBu+sFo0IFFTd2mTWJmoKR/DQmR3Rs65Ey2nhqq2rJQ/JTF6w4kmUtUaQ72DEIs7VF9FDs0z9rQOek58ciyRdL5++elqEcfTXsGf6c3Nn1Fy6ivTLBf/WbRXP72XvPyjXn9kesCeNlw3w+is98BVxklJ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=justthetip.ca; spf=pass smtp.mailfrom=justthetip.ca; dkim=pass (2048-bit key) header.d=justthetip.ca header.i=@justthetip.ca header.b=LoIZVhnD; arc=none smtp.client-ip=91.218.175.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=justthetip.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=justthetip.ca
+	s=arc-20240116; t=1791070312; c=relaxed/simple;
+	bh=8NEp9VNs1e1ZDssfHtJ14bIFKiP8C9QuAn+gLCIVMII=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=VvfcfCwZxSi/EnBWlxYnPP+ACKKbcoq21bAYGQOADJluM8JZugf65PtfQLiOTAB0AOBuP/P9cyIND/AGBh7tKSukIwTEWBkfowKzCTvybXaZD7isoKEwXCGZ7wfl/5H3t/WkEbUZQG5L0CW1hnaiK3jcV2I90ssg3zP3o3XcR+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bBDAi4KZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=justthetip.ca header.i=@justthetip.ca header.b="LoIZVhnD"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Xw1FjG3l+X5v/tmL+AFv+0fYunh6K0cphgfqBQpcsDM=;
- c=simple/simple; d=justthetip.ca;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791070259; v=1; x=1791675059;
- b=LoIZVhnDBTzw4tmm2bQcHILWhM8IEt3Rfdn5QuopCAu45qYdG4d6wqIFUA3TKrgwu306aYP2
- QcaWKpKoARndNWIXJ/7H/OsSfVdKZkb788ybIuNrEzscFTGB7QC7E50BI5i8C8VsbKfZfG89DCM
- xLrUn8DMNQhjNuN+hu9/ymMMaVKmFNveKyUU0weYpvDF8ve8ttX5k/rBV+YSBB8Ua+K1Cd69Tmc
- IhN2IrXs8wqWM7axrtc8v6+hKqGNrn+Yl/QL4p5AR1NY/XRypb0o1d1PR5CA4cC+Pjxzv/k2S2R
- awUmW14YG9SHXX2LjGDucgLGRKusGFmZ3OoaWH16K35cg==
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8392b3fc8d7e1049;
-	Sat, 03 Oct 2026 23:30:59 +0000
-X-Mizu-Trace-ID: 8392b3fc8d7e1049
-X-Migadu-Flow: FLOW_OUT
-From: Devin Wittmayer <lucid_duck@justthetip.ca>
-To: Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>
-Cc: Shayne Chen <shayne.chen@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Deren Wu <deren.wu@mediatek.com>,
-	Ming Yen Hsieh <mingyen.hsieh@mediatek.com>,
-	JB Tsai <jb.tsai@mediatek.com>,
-	Eason Lai <eason.lai@mediatek.com>,
-	linux-wireless@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	stable@vger.kernel.org
-Subject: [PATCH RESEND wireless] wifi: mt76: take rcu_read_lock in the USB/SDIO tx completion path
-Date: Sat,  3 Oct 2026 16:30:56 -0700
-Message-ID: <20261003233056.94497-1-lucid_duck@justthetip.ca>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bBDAi4KZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF0121F0089B;
+	Sat,  3 Oct 2026 23:31:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791070310;
+	bh=CsVZeO5KljrdSGH2DSwkj6dJRBabeO1R8ynrlKBd3ao=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=bBDAi4KZ9EDsXpKGKTWDLIoDdzQZoLyUC2i2WJkkPhdjzCQmeV/sR2/6RvJVdpsws
+	 AtiWN2mzib/nEXfWMWYQlwLO6rESG5yXKFyQbwAqcKbrZsISD7rR3xcbGDJlh6Ybdn
+	 51Beg7hofaDVPejrDorwcbvT3G/7+uJrTcMsmBNko/ds8kAszYMCS3QX8ztIWK1Y9K
+	 Tu4BRzheG6/gKW5prD3ObWaNVskTdMFoQCTvy39W6JhmaS91F0N9dMOoEfPmyO5dP5
+	 dLBJi13DkBDJ9zyykgSI8CkMsMXSBtzxU9rlWgVQgQxzR8StkDdWhI/wZObbgbnKRj
+	 cYD6sZYGNsH+g==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Jens Axboe <axboe@kernel.dk>,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] io_uring: fix task_work add use-after-free with SQPOLL
+Date: Sat,  3 Oct 2026 19:31:38 -0400
+Message-ID: <20261003233007.714200-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026100334-octagon-comfort-b900@gregkh>
+References: <2026100334-octagon-comfort-b900@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The USB and SDIO completion path reads a station pointer that RCU
-protects, without holding the read lock. Lockdep catches it on the
-first association:
+From: Jens Axboe <axboe@kernel.dk>
 
-  mt76.h:1305 suspicious rcu_dereference_check() usage!
-  no locks held by mt76-usb-status/1254.
-   mt7925_usb_sdio_tx_complete_skb+0x119/0x130 [mt7925_common]
-   mt76_queue_tx_complete+0x27/0x60 [mt76]
-   mt76u_status_worker+0xed/0x1e0 [mt76_usb]
+[ Upstream commit a92193c91e8839fe5fc209616ea95465ae4b919d ]
 
-  mt7925/mac.c:856 suspicious rcu_dereference_check() usage!
-   mt7925_tx_check_aggr.part.0+0xc2/0xe0 [mt7925_common]
-   mt7925_usb_sdio_tx_complete_skb+0xa0/0x130 [mt7925_common]
+For SQPOLL, the sqpoll thread runs task_work off its own list and
+doesn't need to be told about it, so it can pop and complete a request
+as soon as mpscq_push() has published it. If that was the last request
+holding the ring alive, io_ring_exit_work() then frees the ctx, stops
+the thread, and with it the tctx, while io_req_normal_work_add() is
+still looking at both after the push:
 
-mt7921 does the same, and warns once instead of twice because its
-aggregation check reads the default link directly. The DMA path makes
-the same reads but completes from softirq, so it stays quiet.
+  BUG: KASAN: slab-use-after-free in io_req_normal_work_add+0x439/0x510
+  Read of size 4 at addr ff11000000ca0000 by task repro/55
+  (...)
+  BUG: KASAN: slab-use-after-free in queue_work_on+0x25/0x70
+  Write of size 8 at addr ff11000000c3bd00 by task repro/55
 
-Take the read lock around the lookup and the check.
+Hold an RCU read lock across the add, like io_req_local_work_add() already
+does, and have io_ring_exit_work() wait for a grace period for SQPOLL rings
+as well before freeing the ctx.
 
-Tested on 7.2-rc5 with lockdep, fresh module load per arm, 4000
-packets each and no change to the link:
-
-                             splats before   after
-    MT7925  Netgear A9000          2           0
-    MT7921  Alfa                   1           0
-    mt7921e same kernel            0           0
-
-Fixes: dc66a129adf1 ("wifi: mt76: add a wrapper for wcid access with validation")
-Fixes: c22769de2509 ("wifi: mt76: mt7925u: use connac3 tx aggr check in tx complete")
+Reported-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Link: https://lore.kernel.org/io-uring/20260924205056.3759980-2-Jeremy.Jean@oss.cyber.gouv.fr/
+Fixes: af5d68f8892f ("io_uring/sqpoll: manage task_work privately")
 Cc: stable@vger.kernel.org
-Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+[ sashal: Adjusted hunk placement for the existing task-work implementation using llist_add() instead of mpscq_push(). ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/wireless/mediatek/mt76/mt7921/mac.c | 3 +++
- drivers/net/wireless/mediatek/mt76/mt7925/mac.c | 3 +++
- 2 files changed, 6 insertions(+)
+ io_uring/io_uring.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7921/mac.c b/drivers/net/wireless/mediatek/mt76/mt7921/mac.c
-index e69978184f68..ad1352ddf1fc 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7921/mac.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7921/mac.c
-@@ -831,11 +831,14 @@ void mt7921_usb_sdio_tx_complete_skb(struct mt76_dev *mdev,
- 	u16 idx;
+diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
+index 03c6ab505d74a..1e7963cc30d3e 100644
+--- a/io_uring/io_uring.c
++++ b/io_uring/io_uring.c
+@@ -1219,6 +1219,9 @@ static void io_req_normal_work_add(struct io_kiocb *req)
+ 	struct io_uring_task *tctx = req->task->io_uring;
+ 	struct io_ring_ctx *ctx = req->ctx;
  
- 	idx = le32_get_bits(txwi[1], MT_TXD1_WLAN_IDX);
++	/* SQPOLL can retire the request on push, see io_ring_exit_work() */
++	guard(rcu)();
 +
-+	rcu_read_lock();
- 	wcid = __mt76_wcid_ptr(mdev, idx);
- 	sta = wcid_to_sta(wcid);
+ 	/* task_work already pending, we're done */
+ 	if (!llist_add(&req->io_task_work.node, &tctx->task_list))
+ 		return;
+@@ -2962,8 +2965,8 @@ static __cold void io_ring_exit_work(struct work_struct *work)
+ 	spin_lock(&ctx->completion_lock);
+ 	spin_unlock(&ctx->completion_lock);
  
- 	if (sta && likely(e->skb->protocol != cpu_to_be16(ETH_P_PAE)))
- 		mt76_connac2_tx_check_aggr(sta, txwi);
-+	rcu_read_unlock();
+-	/* pairs with RCU read section in io_req_local_work_add() */
+-	if (ctx->flags & IORING_SETUP_DEFER_TASKRUN)
++	/* pairs with the RCU read sections in the task_work add paths */
++	if (ctx->flags & (IORING_SETUP_DEFER_TASKRUN | IORING_SETUP_SQPOLL))
+ 		synchronize_rcu();
  
- 	skb_pull(e->skb, headroom);
- 	mt76_tx_complete_skb(mdev, e->wcid, e->skb);
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7925/mac.c b/drivers/net/wireless/mediatek/mt76/mt7925/mac.c
-index 101f571b027f..45bc79727426 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7925/mac.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7925/mac.c
-@@ -1687,11 +1687,14 @@ void mt7925_usb_sdio_tx_complete_skb(struct mt76_dev *mdev,
- 	u16 idx;
- 
- 	idx = le32_get_bits(txwi[1], MT_TXD1_WLAN_IDX);
-+
-+	rcu_read_lock();
- 	wcid = __mt76_wcid_ptr(mdev, idx);
- 	sta = wcid_to_sta(wcid);
- 
- 	if (sta && likely(e->skb->protocol != cpu_to_be16(ETH_P_PAE)))
- 		mt7925_tx_check_aggr(sta, e->skb, wcid);
-+	rcu_read_unlock();
- 
- 	skb_pull(e->skb, headroom);
- 	mt76_tx_complete_skb(mdev, e->wcid, e->skb);
+ 	io_ring_ctx_free(ctx);
 -- 
-2.55.0
+2.53.0
 
