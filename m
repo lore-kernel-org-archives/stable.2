@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D2292CCC6
-	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 13:17:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EB932CCC6
+	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 13:17:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791033444; cv=none; b=DEEDQiihm1KJ45mOOjdP/CNaSLoL9XOUdZpZJF3tnCw9qEeZJWIlHWJ5swb5pZMj1OD+qQie3AQkxLvxAW30oqHORFH02SXR5jmFRYE2HSMGGCW7H1t1eIO35lFsAAVJ2AQSdIsp7vo86VNgVb69L+JP2ZUcUDnTKGq52dNJwFM=
+	t=1791033447; cv=none; b=KjesigqmBsPCMcP/2078HGTNXU/0Bx1v5QAgNNDlJwYSCz/mNEhXyOmtqCXqLLgtgBvQ81hHPPW003qmal8rFXJ8WlDqhH1zc6YMOaWZdUp5gmugt+L5UNhMf/8ant8CMTe3Gpn1kKCXVmmRs2iCKSTAyS2FpEXbU+hMBwIuu/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791033444; c=relaxed/simple;
-	bh=PYwQVe6KPTPBFkGMlIeNqr4NjLSOcp5btEufpQDyty8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=RfjkEPAk6EmLRpAT4AB87JUhV4fzYPrDgDlTSRl6xMrKu+f+Bm9pPOOltXYodKWrAr52zUxDsGBEuvhRdZk6LOjyDHS74VCoWMJ/EvGgNStxFFddcdEQcLGF7ZdC9lev86TMHTDJry2jISPMz6K1FH6+lIlFhR09ksX20OKB5Aw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UabsYDBC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791033447; c=relaxed/simple;
+	bh=XbYHcNQAB3Y4lJRI66qzDgTIyKw/HkJJT376czyVSec=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=sX7w1oHeRk1vKTX/8Ua+QBMRNsJM4J7fVE1dp72Eqnfw9wZPPCpYuKhLvulLe03H2bRK0XM7zCdZTTV01s+xPJF2EB3h/6XF3ijtR+yWXzs7enH2PrSFn6eQzpGZs1I/6nf+nVi2OZvjHXwyVNYOy3dm2GNng35RNxf1V91n3hI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Fxr4dZtu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UabsYDBC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4EE91F0089B;
-	Sat,  3 Oct 2026 13:17:22 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Fxr4dZtu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCF0C1F0089B;
+	Sat,  3 Oct 2026 13:17:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791033443;
-	bh=sMZlK5i8S/+lbDVcsTHJBiFR07C7GWtgSqwcKSM6Xf0=;
+	s=korg; t=1791033446;
+	bh=iQW6L30Y7phDpf2dqbs5plFIObuBifndyOnBqiPPYRI=;
 	h=Subject:To:Cc:From:Date;
-	b=UabsYDBCjh0YRPIpqHhPJJMYEBtJ4hNJw4s35wJ2JoSlKtdQBNSP3GoKaM4DqrCXf
-	 fqnNSWDW35EUdN4TCI5UdKx6XJyHfUqsmE9O6mzPNH7oetVk2w2uuH64Yw4o/Z18hx
-	 9mRHVdq8a31XFa0a1Cp9Oi2Faxi8Iu6a8VLvyYZQ=
-Subject: FAILED: patch "[PATCH] net: gso: limit recursive IP-in-IP segmentation" failed to apply to 5.15-stable tree
-To: zihanx@nebusec.ai,pabeni@redhat.com,root@tr0jan.top,vega@nebusec.ai,willemb@google.com
+	b=Fxr4dZtu/PuNVDqxY4cF8z3ZcGBQTVBFidQ8JNa7BZbqmCu5SWjnl7kZKhFGflkql
+	 8rOKArA8xfEryJRCgoNEquF19lCb5jbeTmj9HLtuiHXbix3l92dBDSXC1yEnL1aw4m
+	 HzVgD1iEX5VsIQHXtVXvjsmhDSsvLYSBeGBnlQC4=
+Subject: FAILED: patch "[PATCH] net: extend IPv6 exthdr detection of tunneled packets" failed to apply to 6.18-stable tree
+To: willemb@google.com,kuba@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Sat, 03 Oct 2026 15:17:08 +0200
-Message-ID: <2026100308-overspend-conduit-cc1e@gregkh>
+Date: Sat, 03 Oct 2026 15:17:21 +0200
+Message-ID: <2026100321-entering-brewing-b9b5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 006c8b834aed8b02bd8fb9fb05e9e7ead37d1763
+git cherry-pick -x 5f0764cb1c81a9712bce605d38efe6d844a70b29
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100308-overspend-conduit-cc1e@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100321-entering-brewing-b9b5@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,105 +62,137 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 006c8b834aed8b02bd8fb9fb05e9e7ead37d1763 Mon Sep 17 00:00:00 2001
-From: Zihan Xi <zihanx@nebusec.ai>
-Date: Thu, 24 Sep 2026 05:15:21 +0000
-Subject: [PATCH] net: gso: limit recursive IP-in-IP segmentation
+From 5f0764cb1c81a9712bce605d38efe6d844a70b29 Mon Sep 17 00:00:00 2001
+From: Willem de Bruijn <willemb@google.com>
+Date: Sat, 26 Sep 2026 10:04:54 -0400
+Subject: [PATCH] net: extend IPv6 exthdr detection of tunneled packets
 
-IP-in-IP GSO can re-enter inet_gso_segment() or ipv6_gso_segment()
-for each nested IP header. encap_level tracks header bytes, not callback
-depth, so a deep chain can exhaust the kernel stack. Making
-inet_gso_segment() stackable introduced unbounded IPv4 nesting; IPIP
-GSO/TSO later made the path reachable. The IPv6 stackable path was
-introduced separately and uses the same guard.
+Commit c4336a07eb6b ("net: correctly handle tunneled traffic on IPV6_CSUM
+GSO fallback") split skb_gso_has_extension_hdr() into mutually exclusive
+branches on skb->encapsulation. This did not yet address all paths:
 
-Count IPv4 and IPv6 GSO handler entries in skb_gso_cb, initialized once
-per top-level GSO operation and preserved across GRE/UDP context changes.
-Use the existing IP_TUNNEL_RECURSION_LIMIT for both handlers. The first
-five entries pass, and the sixth returns -EINVAL before dispatching
-another GSO callback.
+1. With skb->encapsulation set, the outer header is not checked. IPv6
+   tunnels such as ip6_gre and ip6_tunnel add an outer Destination
+   Options header by default (encap_limit). Their GSO packets skip
+   software GSO, then skb_csum_hwoffload_help() sees the outer extension
+   header and calls skb_checksum_help() on the GSO skb, which warns and
+   drops it.
 
-Fixes: 3347c9602955 ("ipv4: gso: make inet_gso_segment() stackable")
+2. Tunnels over IPv6 without an outer transport header, such as
+   ip6_tunnel, leave skb->transport_header at the inner transport
+   header. skb_network_header_len() then spans the outer IPv6, tunnel
+   and inner IP headers, a false positive.
+
+3. UDP tunnels without an inner network header, such as SCTP-in-UDP or
+   PSP, have no inner IPv6 header to check. Decide on the outer header
+   alone.
+
+4. Directly dereferencing inner_ip_hdr(skb)->version without
+   skb_header_pointer() is unsafe.
+
+Instead, check ipv6_ext_hdr(nexthdr) on the outer IPv6 header and, if
+set, on the inner IPv6 header. Read the headers with skb_header_pointer().
+Keep the skb_network_header_len() check when !skb->encapsulation to also
+catch encapsulated packets without skb->encapsulation (e.g., virtio).
+
+Use the same helper in skb_csum_hwoffload_help(). Its open coded test
+has the false positive of (2) and ignores the inner header.
+
+Background: checksum offload of tunneled packets invariants:
+
+Non-GSO skb:
+- If the inner packet is CHECKSUM_PARTIAL, Local Checksum Offload computes
+  the outer checksum in software and the device offloads only the inner L4
+  checksum.
+- If the inner packet is CHECKSUM_NONE (e.g., SCTP-in-UDP, ESP-in-UDP,
+  Remote Checksum Offload), the device offloads the outer UDP or GRE
+  checksum instead.
+
+GSO skb:
+- A device with NETIF_F_GSO_UDP_TUNNEL_CSUM or NETIF_F_GSO_GRE_CSUM
+  computes both inner and outer checksums per segment.
+  The outer checksum is seeded with only the pseudo-header checksum.
+
+A NETIF_F_IPV6_CSUM device must parse through the outer headers to
+reach the inner ones.
+
+Fixes: c4336a07eb6b ("net: correctly handle tunneled traffic on IPV6_CSUM GSO fallback")
 Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Closes: https://lore.kernel.org/all/cover.1790157745.git.zihanx@nebusec.ai/
-Assisted-by: LLM
-Co-developed-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
-Reviewed-by: Willem de Bruijn <willemb@google.com>
-Link: https://patch.msgid.link/20260924051521.32568-2-zihanx@nebusec.ai
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Willem de Bruijn <willemb@google.com>
+Link: https://patch.msgid.link/20260926140506.2335137-1-willemdebruijn.kernel@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-diff --git a/include/net/gso.h b/include/net/gso.h
-index 29975440cad5..0749230d414e 100644
---- a/include/net/gso.h
-+++ b/include/net/gso.h
-@@ -19,10 +19,18 @@ struct skb_gso_cb {
- 	int	encap_level;
- 	__wsum	csum;
- 	__u16	csum_start;
-+	/* Number of IPv4/IPv6 GSO handler entries for this packet. */
-+	u8	recursion_counter;
- };
- #define SKB_GSO_CB_OFFSET	32
- #define SKB_GSO_CB(skb) ((struct skb_gso_cb *)((skb)->cb + SKB_GSO_CB_OFFSET))
+diff --git a/net/core/dev.c b/net/core/dev.c
+index 8638c994bbcb..18dc88990510 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -3818,20 +3818,36 @@ static netdev_features_t dflt_features_check(struct sk_buff *skb,
+ 	return vlan_features_check(skb, features);
+ }
  
-+static inline bool gso_recursion_inc_test(struct sk_buff *skb,
-+					  unsigned int limit)
-+{
-+	return ++SKB_GSO_CB(skb)->recursion_counter > limit;
+-static bool skb_gso_has_extension_hdr(const struct sk_buff *skb)
++static bool __skb_has_ipv6_ext_hdr(const struct sk_buff *skb, int nhoff)
+ {
+-	if (!skb->encapsulation)
+-		return ((skb_shinfo(skb)->gso_type & SKB_GSO_TCPV6 ||
+-			 (skb_shinfo(skb)->gso_type & SKB_GSO_UDP_L4 &&
+-			  vlan_get_protocol(skb) == htons(ETH_P_IPV6))) &&
+-			skb_transport_header_was_set(skb) &&
+-			skb_network_header_len(skb) != sizeof(struct ipv6hdr));
+-	else
+-		return (!skb_inner_network_header_was_set(skb) ||
+-			((skb_shinfo(skb)->gso_type & SKB_GSO_TCPV6 ||
+-			  (skb_shinfo(skb)->gso_type & SKB_GSO_UDP_L4 &&
+-			   inner_ip_hdr(skb)->version == 6)) &&
+-			 skb_inner_network_header_len(skb) != sizeof(struct ipv6hdr)));
++	const struct ipv6hdr *ip6h;
++	struct ipv6hdr _ip6h;
++
++	ip6h = skb_header_pointer(skb, nhoff, sizeof(_ip6h), &_ip6h);
++	return ip6h && ip6h->version == 6 && ipv6_ext_hdr(ip6h->nexthdr);
 +}
 +
- static inline int skb_tnl_header_len(const struct sk_buff *inner_skb)
- {
- 	return (skb_mac_header(inner_skb) - inner_skb->head) -
-diff --git a/net/core/gso.c b/net/core/gso.c
-index bcd156372f4d..e96ef6350064 100644
---- a/net/core/gso.c
-+++ b/net/core/gso.c
-@@ -117,6 +117,7 @@ struct sk_buff *__skb_gso_segment(struct sk_buff *skb,
++static bool skb_has_ipv6_extension_hdr(const struct sk_buff *skb)
++{
++	if (vlan_get_protocol(skb) == htons(ETH_P_IPV6)) {
++		if (__skb_has_ipv6_ext_hdr(skb, skb_network_offset(skb)))
++			return true;
++
++		/* Catch tunnels without skb->encapsulation (e.g., virtio). */
++		if (!skb->encapsulation &&
++		    skb_transport_header_was_set(skb) &&
++		    skb_network_header_len(skb) != sizeof(struct ipv6hdr))
++			return true;
++	}
++
++	/* Tunnels without an inner network header, such as SCTP-in-UDP or
++	 * PSP, have no inner IP header and thus no inner extension header.
++	 */
++	if (skb->encapsulation && skb_inner_network_header_was_set(skb) &&
++	    __skb_has_ipv6_ext_hdr(skb, skb_inner_network_offset(skb)))
++		return true;
++
++	return false;
+ }
  
- 	SKB_GSO_CB(skb)->mac_offset = skb_headroom(skb);
- 	SKB_GSO_CB(skb)->encap_level = 0;
-+	SKB_GSO_CB(skb)->recursion_counter = 0;
+ static netdev_features_t gso_features_check(const struct sk_buff *skb,
+@@ -3886,7 +3902,7 @@ static netdev_features_t gso_features_check(const struct sk_buff *skb,
+ 	 * so neither does TSO that depends on it.
+ 	 */
+ 	if (features & NETIF_F_IPV6_CSUM &&
+-	    skb_gso_has_extension_hdr(skb))
++	    skb_has_ipv6_extension_hdr(skb))
+ 		features &= ~(NETIF_F_IPV6_CSUM | NETIF_F_TSO6 | NETIF_F_GSO_UDP_L4);
  
- 	skb_reset_mac_header(skb);
- 	skb_reset_mac_len(skb);
-diff --git a/net/ipv4/af_inet.c b/net/ipv4/af_inet.c
-index 32d006c1a8ee..4ce38c99fef9 100644
---- a/net/ipv4/af_inet.c
-+++ b/net/ipv4/af_inet.c
-@@ -1375,6 +1375,9 @@ struct sk_buff *inet_gso_segment(struct sk_buff *skb,
- 	int id;
+ 	return features;
+@@ -3988,8 +4004,7 @@ int skb_csum_hwoffload_help(struct sk_buff *skb,
+ 		return 0;
  
- 	skb_reset_network_header(skb);
-+	if (unlikely(gso_recursion_inc_test(skb,
-+					   IP_TUNNEL_RECURSION_LIMIT)))
-+		goto out;
- 	nhoff = skb_network_header(skb) - skb_mac_header(skb);
- 	if (unlikely(!pskb_may_pull(skb, sizeof(*iph))))
- 		goto out;
-diff --git a/net/ipv6/ip6_offload.c b/net/ipv6/ip6_offload.c
-index 78f50c93c536..700f1861d8eb 100644
---- a/net/ipv6/ip6_offload.c
-+++ b/net/ipv6/ip6_offload.c
-@@ -17,6 +17,7 @@
- #include <net/udp.h>
- #include <net/gro.h>
- #include <net/gso.h>
-+#include <net/ip_tunnels.h>
+ 	if (features & (NETIF_F_IP_CSUM | NETIF_F_IPV6_CSUM)) {
+-		if (vlan_get_protocol(skb) == htons(ETH_P_IPV6) &&
+-		    skb_network_header_len(skb) != sizeof(struct ipv6hdr))
++		if (skb_has_ipv6_extension_hdr(skb))
+ 			goto sw_checksum;
  
- #include "ip6_offload.h"
- #include "tcpv6_offload.c"
-@@ -104,6 +105,9 @@ static struct sk_buff *ipv6_gso_segment(struct sk_buff *skb,
- 	bool gso_partial;
- 
- 	skb_reset_network_header(skb);
-+	if (unlikely(gso_recursion_inc_test(skb,
-+					   IP_TUNNEL_RECURSION_LIMIT)))
-+		goto out;
- 	nhoff = skb_network_header(skb) - skb_mac_header(skb);
- 	if (unlikely(!pskb_may_pull(skb, sizeof(*ipv6h))))
- 		goto out;
+ 		switch (skb->csum_offset) {
 
