@@ -1,74 +1,77 @@
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+Received: from mail-qk2-f38.google.com (mail-qk2-f38.google.com [74.125.230.230])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF1C033DEC2
-	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 03:51:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACF7028D831
+	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 04:10:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.230
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790999477; cv=none; b=Opvbs4dOc0G0pMBfN5+zAPp2KQVs95wBUu5sD8Ep06XKUq/J9vSd0bc6s7tvGUI5Q1EQ9bCgoo/RQWfI4t82v+3qXKIE3zDOguti1eLx3umpMKoPYIIRE73b5FgaYN30dRmg1RHGsPE65GLwpDHgtRLcR65f9SKPO6UkKmSkyoM=
+	t=1791000651; cv=none; b=Le9ZQ7b62ZrmxTrXEes4jcOJi2llMmQ/IqrEdBw5Lzcg0zfmLEE1vlYrzxIImI3DxgBN7uJmuZCZBLPMZt5SeYE31IKPCTcdKCcJjLjgYqKPG3aY3lz/ZerHATW5EQxxmz81A0CoZbzv4Sj27A2BYNrUVuUWvto4oD8Fqq3hRQc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790999477; c=relaxed/simple;
-	bh=nFPh/SooiX1Ij77A7+V7rRaVFG9Og6s5MZ/sUtM08lI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=i3y48tx1i6SBNLz8UTzkQTPdh4jzM+TqU9j2l7MlXfyoraSVXLLQk6OTFvnUHPa5uPNfTq62CVLfQvzBQ5OcwSlNw8gGCvUJV6+9z8lOqxgS7okd+SXA0L8Gz01YI/I9ElVkFNP5RGrpcZ4Af+76WP2+6BBBPCMVDZG8oeLgDwE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lJO3oB6j; arc=none smtp.client-ip=209.85.222.173
+	s=arc-20240116; t=1791000651; c=relaxed/simple;
+	bh=Ub+6vjX4CwzO94wSmlNoiOA5uRtM5sEdsqQUOo8sE08=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=m5oJS3V+iMczPZNLwZo9xuH7dyYvC+TdgycLkk53NYqxVMz4lTfaHINdbsim4V8Z2J17V15yHNFS4A2r7f2Ka01eniGqYYBQga2rB1S1YZv6/NDbVqx+voPthMeawwcvF+wUcw0Nk5iTWFpRHUNH80a51HlWk936wsPjwtvn97E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Uplj0xxj; arc=none smtp.client-ip=74.125.230.230
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lJO3oB6j"
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93e58478119so3335485a.0
-        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 20:51:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Uplj0xxj"
+Received: by mail-qk2-f38.google.com with SMTP id d75a77b69052e-5339232d14cso3108061cf.2
+        for <stable@vger.kernel.org>; Fri, 02 Oct 2026 21:10:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790999475; x=1791604275; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791000648; x=1791605448; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rSMgkrHgKMhAn63kmMLC4e7ZpQOwQj9HhDjCLOUzBMU=;
-        b=lJO3oB6jZOpto1KQyC86PDZ3OG8yWPNejawVqMR64YADUp0cOX95l3b/eHBVDwCmVU
-         6UaHnp5htz8f/JSLpALc4TMZuyIJQRcoFYrngtK87z/QVlEjFaN8Wk5AmBub61RU227p
-         0yH5U08gIgbA836bcZW3IzOo0N866CRNzV6XEhF+DesKfPEt2JmaG013XvIdzyJ91kHU
-         /Uz1M2VovJbKy1RBb0bKDud8SrYoNIgNQPJaU94SEJo3GPPmjZzY1lGqp9VX2z7PMJ+O
-         ttZuHwOaNn0xql2+oA+++Cr2bhoQkvldBiplwdAe3bEo48PpbGpLY5lE4htcw03wznvZ
-         B3dA==
+        bh=eYVOFUxcrenhJA3xppslG6NmaKa0X7JLpJ2/fTHYC9E=;
+        b=Uplj0xxjRDhAsvssuzsCEZpPZW3N9lWOZjSXgvNPASBIwHoZT6ez8J+ARRzmZCpGwZ
+         TfB1t1lw5GOOO8QXscArXf5skcFmht9YUnGmpNmu+eX5Bpbq2V6QDddrKB/SdxWfMNgm
+         EPFEYqUoK6ho6Yi/BgOkQDbBLCxaJ2FK/yzXD0+9ka3cqEJZ26d0mulNTOb409rhZVV2
+         JfBkJ4szeFqDPRHHiMMeCynj9ID7Z3Uj4p34ddJO6gQDNqH2WX2yW9nKyeRyZojw9doQ
+         1yZu3Xk4O9IolctMgImoxgGEXc0lToyMDeSS9Rrt9WRElBELxE8ASYxUj9VbFTlswStq
+         2YKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790999475; x=1791604275;
+        d=1e100.net; s=20260707; t=1791000648; x=1791605448;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rSMgkrHgKMhAn63kmMLC4e7ZpQOwQj9HhDjCLOUzBMU=;
-        b=ZXd/WdLqy3/KMe5sC8SMDfEld2Jz0gkM3CE9cuxLeRuAJOMITwY6+DL7CVKvH5F4yl
-         sZj2BLb+u/Pz36ObvfIkH4oJcYZghW4IDS9nJDutLm/7JdLZYKMSsCoNr3zGKqMBsfoZ
-         sPRZl1dDopyB997pRyn0cPtilkU9T3aVlLB1SgVm8ycyglj0Z42QafufI9F8G5CsTRbB
-         bt/M49wV4imjzDH9B16ATKHoJknU85mhiV1jVB4j+8rbvv4otEM469UIevHhthK98pUK
-         TdDollBxzO+saemvVQmTjhJ7x4rqVh/+Kgkw1FSD4rTgK3RcQXOHy3H7/nyfZaKC+vHF
-         MPCQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxakfiDRaSkDbrnrESxzHE/iLAkW2HKsV8nK8k43f8kso7zuYxQd2r5BxKP3qG8SaGmzzYLT3Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++k2hkcWyIIjnfVHoW0ev0FZVjEG7bUPl3JIakYJyFAg9avW1dp/
-	9So4XxGN50aroAlDyIoz/zTkx1mPmA4q0i0U/en0H4ApbYFC9cPXHWxTz4GpdYI=
-X-Gm-Gg: AYBFou1xLgq8nU576B98sbmpLmJ/cTtlIyyIjhlg+z3RJk582Aye5oEg9QAmQlzrPKA
-	LpPRoQ0FVlT5nwOOM+vIcHpOcBKaVhXRYn6zTWP8FRCePDeR2NpZe6qh0/bbhvxGL2TThy2H+je
-	mpsEom4M44+nbyp0otjAJyPqRHVvYUpyps7gxoCsIpVMPXnpftX8R7W/JYRJn22IPUl/PxT57vC
-	KM8+oj3RRd1uLrHc6RbLXeWRw2sWNnhNYPyh7+v2XVyS0FDanIfUwZI1zdUUiAz/i0sEDBAvchP
-	X0slS/tPo8IVmJlCLzCkEN1kMMO1SJqdCorYf/tbJ5+yrqd0N2fS9DsuiZe/MaU9a5FNT1IIkFo
-	nZoxL0Mvcn+9GOpCi6NObjUwwVJF58PKJZA8AcgzivWb4J2/O6xIHf2kCzyaujdtOfYvqtYhdLk
-	U7VimHnHEiZgmBe31n9RUpPP9hGX9IisgW0wbIZI8tMwgBacKe2nNhZ2Yn03FjGHD0nv9SawaxW
-	1galSITXHNj6b+osyhn38Mu9C62snry0LDldqV9ys6DTwRrthCQhaPCtOaqh7J/Tlz0uKfYJj0d
-	yUc3xNMGqXXcEYPuVUxudheuLa09
-X-Received: by 2002:a05:620a:bd5:b0:939:feee:630 with SMTP id af79cd13be357-93e50ffc710mr247623185a.30.1790999474877;
-        Fri, 02 Oct 2026 20:51:14 -0700 (PDT)
+        bh=eYVOFUxcrenhJA3xppslG6NmaKa0X7JLpJ2/fTHYC9E=;
+        b=sOJQFw0P9vdJQfv42Ikgolxvw2MzToqM3afafJkj1LAMpPyJEhe7OBKAKRkKJqIi0L
+         dJuXnByrvtXPRyg8/5si0tPpQ7rmlrjFRUwEDbSk2+7V0Fy4sz50kiW2Bvq5W9+vMjf9
+         1CCHrVltxSEhpqUGHi4H7R8yTNRraiLylr/jFnZxMavKCugKAmizGQ+PLjVWJLEOmzpI
+         TXOwTMRdQcoiyaZMcy+cb0AgdeFbLSBF5q/YEnXYGLfkanPQI+pkAThoUbo9IChG+QUE
+         X1OjDg5C/GX1KvRHtWnNX3J6JIYb1PG+4dtHdx7UOnHLOEfrnSkpbZlVqQLGNTL67kQ5
+         jkdw==
+X-Forwarded-Encrypted: i=1; AKwUvBzBKiZG0c+QNyFO1arZVIbyBV0naTTh+xW0ZUjDbqJmciSMAQs8/sHUATCD09h6ujerXC/D3r0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lxJWZh8MjOcKeRHYqLd+RBjzIZPj+31lshZjVA5L4tMkZhwe1n
+	LtqKvpW95hchZqpTlgX8wIpUC4WWb4cG6IegAUxxhMIQ8y0SH/tHeiM=
+X-Gm-Gg: AYBFou3j1NKJGO3aQ6ogqD0JdsWkXOm8hRAHFus6HRTpq1QS0PMvoZzHfE5B7dcRUN+
+	98WUDrD+n4YIh09x2hNsBm36A1ESHba52v5a+10/Ai+Zrdt0JZNJWBuPN2s1yjsZ8l273I/CMj8
+	7TKj1YkBwnZJKaGNoKyAS0GmyFCU9L9lWG5kQOJfK7NVVNr861k+EYEpkkjARr9/1N/Lyyunc3w
+	Yu0ndqTl1TitqDYHBKSjzy0Clt4w9YzcMZJ/Q1JcnJJBUZN8yE9EAO9/o6s9izQ7UY4N/8xHOu5
+	RnQBBJ/Y+Ob3KAg+C0/YIUy+LvXoO+C9SujRA6PqxilnsHsyVyzUvCfUs6VhgOPAu/+v8WTbkkR
+	yPVX+CQENRr1CDmSapjL9AW66lvy7ZABiAG8N2NKmXnK9y7Me7e0mavWDPfhtijd3w11er5SSES
+	gIDEiCoYav/LV4C2X0LFzsg6gnGsqcLcOnTXX+e3oaUWmx9DWLPJwl1vhv7Nt8+7AO4hafqvH0D
+	u401rLm3RyETpYwzOh+y7GuV2ZodwUtBWztJ8ob0DUbmbNTwOiTMfBwcfp/GCw9gGiOTijBkHdd
+	CRZsQ/cmrms9iXPvqKuyTTfsf0Z1
+X-Received: by 2002:a05:622b:4d:10b0:533:2c5b:d668 with SMTP id d75a77b69052e-533cba67426mr63507651cf.30.1791000648550;
+        Fri, 02 Oct 2026 21:10:48 -0700 (PDT)
 Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93e472b24e1sm240755085a.24.2026.10.02.20.51.13
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-533988343b5sm42782711cf.1.2026.10.02.21.10.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 20:51:13 -0700 (PDT)
+        Fri, 02 Oct 2026 21:10:47 -0700 (PDT)
 From: Myeonghun Pak <mhun512@gmail.com>
-To: Vinod Koul <vkoul@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	linux-phy@lists.infradead.org,
+To: Oder Chiou <oder_chiou@realtek.com>,
+	Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Derek Fang <derek.fang@realtek.com>,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] phy: ti: twl4030-usb: free the IRQ before canceling work
-Date: Fri,  2 Oct 2026 23:51:11 -0400
-Message-ID: <20261003035111.623790-1-mhun512@gmail.com>
+Subject: [PATCH] ASoC: codecs: rt5682s: disable jack detection work on shutdown
+Date: Sat,  3 Oct 2026 00:10:45 -0400
+Message-ID: <20261003041045.650207-1-mhun512@gmail.com>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -78,66 +81,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The threaded IRQ handler can schedule id_workaround_work while the PHY
-is runtime active. The remove callback cancels that work, but leaves
-the managed IRQ registered until devres cleanup after remove returns.
-An interrupt after the cancellation can therefore queue work that
-accesses the freed twl4030_usb allocation.
+The jack detection and button check works can queue each other. The
+shutdown path cancels jack_detect_work first, but jd_check_work can
+queue it again after that cancellation returns. Canceling jd_check_work
+then leaves jack_detect_work pending or running while the device is
+reset and, on removal, its managed resources are released.
 
-The same work can be queued after IRQ registration if phy_create_lookup()
-fails during probe. Failed probe cleanup releases the managed IRQ and
-allocation without canceling the delayed work, and does not call remove.
-
-Free the managed IRQ before canceling the delayed work on remove and on
-the post-IRQ probe failure path. This waits for the threaded IRQ producer
-to finish before canceling any work it queued. The synchronous work
-cancellation also handles the worker's own requeueing. Generic PHY
-consumer callbacks have separate lifetime requirements.
+Disable and drain both delayed works so neither callback can revive the
+other after its cancellation. The I2C remove callback uses the same
+shutdown path.
 
 This issue was identified during our ongoing static-analysis research
 while reviewing kernel code.
 
-Fixes: 85601b8d81e2 ("usb: phy: twl4030-usb: Fix lost interrupts after ID pin goes down")
-Cc: stable@vger.kernel.org
+Fixes: c07ac3ee76e5 ("ASoC: rt5682s: Fix the wrong jack type detected")
+Cc: stable@vger.kernel.org # 6.10+
 Assisted-by: LLM
 Co-developed-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
- drivers/phy/ti/phy-twl4030-usb.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ sound/soc/codecs/rt5682s.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/phy/ti/phy-twl4030-usb.c b/drivers/phy/ti/phy-twl4030-usb.c
-index a26aec3ab29e..37c326cd1d85 100644
---- a/drivers/phy/ti/phy-twl4030-usb.c
-+++ b/drivers/phy/ti/phy-twl4030-usb.c
-@@ -779,12 +779,17 @@ static int twl4030_usb_probe(struct platform_device *pdev)
- 	if (pdata)
- 		err = phy_create_lookup(phy, "usb", "musb-hdrc.0");
- 	if (err)
--		return err;
-+		goto err_free_irq;
+diff --git a/sound/soc/codecs/rt5682s.c b/sound/soc/codecs/rt5682s.c
+index 34997cfb465b..7a196fab623a 100644
+--- a/sound/soc/codecs/rt5682s.c
++++ b/sound/soc/codecs/rt5682s.c
+@@ -3294,8 +3294,8 @@ static void rt5682s_i2c_shutdown(struct i2c_client *client)
+ 	struct rt5682s_priv *rt5682s = i2c_get_clientdata(client);
  
- 	pm_runtime_mark_last_busy(&pdev->dev);
- 	pm_runtime_put_autosuspend(twl->dev);
+ 	disable_irq(client->irq);
+-	cancel_delayed_work_sync(&rt5682s->jack_detect_work);
+-	cancel_delayed_work_sync(&rt5682s->jd_check_work);
++	disable_delayed_work_sync(&rt5682s->jack_detect_work);
++	disable_delayed_work_sync(&rt5682s->jd_check_work);
  
- 	return 0;
-+
-+err_free_irq:
-+	devm_free_irq(twl->dev, twl->irq, twl);
-+	cancel_delayed_work_sync(&twl->id_workaround_work);
-+	return err;
+ 	rt5682s_reset(rt5682s);
  }
- 
- static void twl4030_usb_remove(struct platform_device *pdev)
-@@ -794,6 +799,7 @@ static void twl4030_usb_remove(struct platform_device *pdev)
- 
- 	usb_remove_phy(&twl->phy);
- 	pm_runtime_get_sync(twl->dev);
-+	devm_free_irq(twl->dev, twl->irq, twl);
- 	cancel_delayed_work_sync(&twl->id_workaround_work);
- 	device_remove_file(twl->dev, &dev_attr_vbus);
- 
 -- 
 2.53.0
 
