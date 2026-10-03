@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44D48BA34
-	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 13:15:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C12ABA34
+	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 13:16:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791033357; cv=none; b=Z1BSEwFDuP7qSAJ+Wetp8tqIjYJPpKCyIIGrFR0WZ/eyyb3a6j9Vvm1Gacd6EN7ywyn2tszK6kK11GpbiW42IbUt/A1aD1H0+ywGhIp97Cc+sNHaxNeZqg/CVWsz4HBZWJG5gZRITJzrx+tGxO8DgG5ZRfW62mjjHIZDuMU091c=
+	t=1791033404; cv=none; b=fUSPv1/x96my8Eep4/HIiOUI1fpXPbcsY01PcniZaMVFbe+ZLb7+1iLksgkUOd7lUbkkZF6IsKVLPUQyqFp9DiDIaQZbrMsJndrOA/qERHbL8zl6GboCybD+DYontBiKUTTQ4tmmYdl+YjzxtL+bVlMxqgEoZ+Jgh/mJ1d+DhHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791033357; c=relaxed/simple;
-	bh=TanDfKmk8z8nPoNI3Rcq6g+5cItK+hBP6NrIW5BSipw=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=kaOwZSdRIG7duUz/h5YrjqODLW0jyblIGEb3IBzgrg2DszX51edqJBq355JbAuiCNbTT5Q5ZAwAcO7cXKf/x17tSqpu8z7Y+qcVajTs1TS4HAaos5wYlWE4parTlPyDb96aoVYMibY4dB3RuB5XTzZ9nfyrICcdLkhmO8nTrJew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=j6PrhXnM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791033404; c=relaxed/simple;
+	bh=Gwdtwig6eoPLr8552E4SQmYvHu0VwazPfugjBq/2mKw=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=pY9aseExes9J6XCkSaYsjHosHsNrzEF4tx4+jhV74c8z/lAMwWXXHG3QwdocKRsumdWo3p0VcEqQf8abuQU4bOs8U7R9gW4tcLasiFwGNtE7Djor4TPvy7nUagLJuAr7TfUh2oD95YpUZfwSoct6TZdrV7WQiRJTycaSX+nN5FY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=nWpRtn1u; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="j6PrhXnM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BF321F0089B;
-	Sat,  3 Oct 2026 13:15:55 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nWpRtn1u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8104A1F0089B;
+	Sat,  3 Oct 2026 13:16:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791033356;
-	bh=eWshmHoqUmLvMQ3t4DuMnb3P+n0/VEZ9oGQ3kHglZ0Q=;
+	s=korg; t=1791033403;
+	bh=+tuBLCp0Te04rbw+SyMy4Aib+1eIbjeccuKZ9QppSBA=;
 	h=Subject:To:Cc:From:Date;
-	b=j6PrhXnMIgrWV0BB3ZOokYB9fMp0q0dWcD+UaSkEiEDkhlHF+nEc4Pi3edpzcfwXR
-	 IHOhvHqKVohGczCQZnh035QejIrXdoWlFgDaxPEGJ9JT9Od93dSABSbwhdHNt+68ch
-	 gwXYzFBRwSUN5d9NU9RnSsxQT10/A4Mfwkdg8q1o=
-Subject: FAILED: patch "[PATCH] kprobes: Skip disarmed probes when checking optkprobe overlap" failed to apply to 5.10-stable tree
-To: leon.hwang@linux.dev,mhiramat@kernel.org
+	b=nWpRtn1ugdRzX9XXcBP9IyoZTYEKSSoP9QRpA7F5x5qkKecNPRtpjnSqrjH5EXhuQ
+	 +wJKBNpQe4TFggcgZv88zoJJ0Juhbl9ZsAC5Pqu7X6uSSI2sMkS9K5F0/v6DEdWQ/i
+	 e3kZ81TsNAt6M50AGcr+mC/+6ivQx0MjeMpR3SSw=
+Subject: FAILED: patch "[PATCH] of/overlay: only treat a positive changeset id as registered" failed to apply to 5.10-stable tree
+To: abdurrahman@nexthop.ai,geert+renesas@glider.be,geert@linux-m68k.org,robh@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Sat, 03 Oct 2026 15:15:45 +0200
-Message-ID: <2026100345-divorcee-other-8be6@gregkh>
+Date: Sat, 03 Oct 2026 15:16:40 +0200
+Message-ID: <2026100340-feminine-versus-f579@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 7a39c732a22ec4a369af9e19fbe3d666ec83eec4
+git cherry-pick -x 44081d708b5b885487bac792db78324b7b4c267d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100345-divorcee-other-8be6@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100340-feminine-versus-f579@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,55 +62,44 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 7a39c732a22ec4a369af9e19fbe3d666ec83eec4 Mon Sep 17 00:00:00 2001
-From: Leon Hwang <leon.hwang@linux.dev>
-Date: Wed, 30 Sep 2026 13:36:18 +0800
-Subject: [PATCH] kprobes: Skip disarmed probes when checking optkprobe overlap
+From 44081d708b5b885487bac792db78324b7b4c267d Mon Sep 17 00:00:00 2001
+From: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Date: Mon, 31 Aug 2026 18:29:23 -0700
+Subject: [PATCH] of/overlay: only treat a positive changeset id as registered
 
-On x86, an optkprobe at A replaces five bytes with a jump. If a disabled
-probe B is at A+2, get_optimized_kprobe() stops at B when arming a new
-probe C at A+4. It leaves A optimized:
+of_overlay_fdt_apply() stores the idr_alloc() return value in
+ovcs->id before checking it. On failure the stored id is negative,
+free_overlay_changeset()'s "if (ovcs->id)" check passes, idr_remove()
+is called with a negative id and list_del() runs on ovcs->ovcs_list,
+which is not initialized until after the id allocation. An allocation
+failure at that point dereferences NULL.
 
-              A    A+1  A+2  A+3  A+4
-  A's jump  | e9 | d0 | d1 | d2 | d3 |
-  after C   | e9 | d0 | d1 | d2 | cc |
+Make free_overlay_changeset() treat only a strict-positive id as
+registered. The rest of the function already copes with a
+partially-initialized ovcs, so the error path stays a plain
+goto err_free_ovcs.
 
-The INT3 for C overwrites the last byte of A's jump displacement, so
-execution can jump to the wrong address. B can have prepared optinsns
-while disarmed, but has no jump to unoptimize.
-
-Continue past disarmed and unprepared probes to find the active optimized
-probe before arming a probe in its jump.
-
-Link: https://lore.kernel.org/all/20260930053618.104498-1-leon.hwang@linux.dev/
-
-Fixes: afd66255b9a4 ("kprobes: Introduce kprobes jump optimization")
+Fixes: 61b4de4e0b38 ("of: overlay: minor restructuring")
 Cc: stable@vger.kernel.org
-Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Suggested-by: Geert Uytterhoeven <geert@linux-m68k.org>
+Assisted-by: Claude:claude-fable-5 [Claude Code]
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Link: https://patch.msgid.link/20260831-nh-of-alias-overlay-v7-5-02754604805a@nexthop.ai
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 
-diff --git a/kernel/kprobes.c b/kernel/kprobes.c
-index 4edd8ca5c657..e787e4948c8b 100644
---- a/kernel/kprobes.c
-+++ b/kernel/kprobes.c
-@@ -496,14 +496,16 @@ static bool kprobe_queued(struct kprobe *p)
- static struct kprobe *get_optimized_kprobe(kprobe_opcode_t *addr)
- {
- 	int i;
--	struct kprobe *p = NULL;
-+	struct kprobe *p;
- 	struct optimized_kprobe *op;
+diff --git a/drivers/of/overlay.c b/drivers/of/overlay.c
+index 51df2ad26f83..0cc08567c300 100644
+--- a/drivers/of/overlay.c
++++ b/drivers/of/overlay.c
+@@ -864,7 +864,8 @@ static void free_overlay_changeset(struct overlay_changeset *ovcs)
+ 	if (ovcs->cset.entries.next)
+ 		of_changeset_destroy(&ovcs->cset);
  
- 	/* Don't check i == 0, since that is a breakpoint case. */
--	for (i = 1; !p && i < MAX_OPTIMIZED_LENGTH / sizeof(kprobe_opcode_t); i++)
-+	for (i = 1; i < MAX_OPTIMIZED_LENGTH / sizeof(kprobe_opcode_t); i++) {
- 		p = get_kprobe(addr - i);
-+		/* A disabled probe can have prepared, but inactive, optinsns. */
-+		if (!p || !kprobe_optready(p) || kprobe_disarmed(p))
-+			continue;
- 
--	if (p && kprobe_optready(p)) {
- 		op = container_of(p, struct optimized_kprobe, kp);
- 		if (arch_within_optimized_kprobe(op, addr))
- 			return p;
+-	if (ovcs->id) {
++	/* a failed idr_alloc() leaves its negative error in ovcs->id */
++	if (ovcs->id > 0) {
+ 		idr_remove(&ovcs_idr, ovcs->id);
+ 		list_del(&ovcs->ovcs_list);
+ 		ovcs->id = 0;
 
