@@ -1,345 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from server3.evolutia.digital (server3.evolutia.digital [95.216.176.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CA82282F10
-	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 13:20:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 303BF282F10
+	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 13:21:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.216.176.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791033656; cv=none; b=lCHkjvZriKsQL3mNOA28zICyfGABTkXhTjFws4XJtTyM/pH5L+stf8N+IHi7JMin1sZtqd04zZAaD8mdmPcf0FgTiUfG+Lbju/sX9PJ/TTlny4g7fLcYf9E+1cf264VYEEg8/vLzF/PVGz5l9wHZqbTbl/w7smqVfapduNd3mYk=
+	t=1791033705; cv=none; b=C8W+D8abcXpGAP6eJ/ldnNuaYLNBP96D7sgtpxVm8cBU7xgLYexnCZpOBk645YFzs6bWSNnp2UQGcXx99VihTyr6FQAvkr1vJmENbLCkuDBp7i0XJJkoDEjO8gw7KaSdNCJLPxbboxab/sBwup1lkXHYjlZQ28F+LaJxDfR9BSw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791033656; c=relaxed/simple;
-	bh=5S2eSLN7pwZdpkbUI0qdX91VbaxBM2Nrsy2lz9lR/CA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Ck1jMX4zQ8moSA2LtiqtnK+C+5SDOdXCQYcB8/ZTOBpb1eQHVawkpwZmopIOsbVXom8g4q3tCbCHpmsnLqHRvDBllG45YHqja9DSSrCmkTpQoyzqtsiiolQpan62BWxXVuWkmTBM0OQxFxwL7dMEv8PVxckUfZ7X+17GmKJAxCs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=uvWpxBhq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791033705; c=relaxed/simple;
+	bh=qH2AQmQjX+DJlFX+o9BUmNXHsYxdOrnLpzoDX17+cuE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=rrvUojF762NRg8cwkTLe4BDuOXRmKYOFoUki53AG04lo35QURG4vSgFpnOJokXF4UMuE47VdgUBg0ePdVlenimgURc++gje8R+3SBPImIfWhH9+lJ049DzWBfQMdO34zi8D8u47T4Y4th8WvTElpkI/Hrt4KIl94+cLmpZYzJ5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=miguelmesa.com; spf=pass smtp.mailfrom=miguelmesa.com; dkim=pass (2048-bit key) header.d=miguelmesa.com header.i=@miguelmesa.com header.b=EhT2JyLl; arc=none smtp.client-ip=95.216.176.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=miguelmesa.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=miguelmesa.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="uvWpxBhq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E24861F0089B;
-	Sat,  3 Oct 2026 13:20:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791033654;
-	bh=+ZVe2R5IZWvZ0bn5/mfy3OXSSF8yaBd4i7ifK+dRSvg=;
-	h=Subject:To:Cc:From:Date;
-	b=uvWpxBhqixDxWO9LAIUuyWCD5InNRX87PUjeb5KCH87+DFwZmc6sCcC3ObetozsVI
-	 MwWpQ31d39qoBTa7hI2rAeWP6eF3BAGvFnM8QqzM0JPkYXuyBJdl/fou17Rw82bcsZ
-	 4v6apg1VezZWYE6BptnuqAjSmE3WNGy1G0BpJ6sc=
-Subject: FAILED: patch "[PATCH] netfs: clear post-EOF pagecache when extending a file via" failed to apply to 6.12-stable tree
-To: pc@manguebit.org,bharathsm@microsoft.com,brauner@kernel.org,dhowells@redhat.com,linkinjeon@kernel.org,ronniesahlberg@gmail.com,sprasad@microsoft.com,tom@talpey.com,willy@infradead.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Sat, 03 Oct 2026 15:20:43 +0200
-Message-ID: <2026100343-halt-swimmer-cc9a@gregkh>
+	dkim=pass (2048-bit key) header.d=miguelmesa.com header.i=@miguelmesa.com header.b="EhT2JyLl"
+Received: from B5-Miguel-CachyOS (unknown [IPv6:2a0c:5a82:6807:b100:7760:f7b:d596:dc10])
+	by server3.evolutia.digital (Postfix) with ESMTPSA id 39FDE5F6E5;
+	Sat,  3 Oct 2026 15:15:42 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=miguelmesa.com;
+	s=default; t=1791033343;
+	bh=yn98FbPzE/tOS7dn54Zd2oHA8L4Zsp3fkAu0+jWzZ/s=; h=From:To:Subject;
+	b=EhT2JyLl9qWgmKPNSfyJobl8j/CP7sJYDfMvsqPJA5ahOnkEFZztYKSEB8TrQxPUi
+	 TckyJl7d3GJ+Jq2DAcqopWhMJ0FOzaXbvzAM8irFR4x04lAjTvY4qqc1c24H6fekk8
+	 emrUUwaSyLa1aKAoYJbndeLHTeAgBeQQnhLkXcx6nNdRzbBtn0f3MDBPff0bDK/Pme
+	 XYVWqjzQiNVHMWXRjvHC7qdfk1bFNs//uQobti35aA7rSB70uMTa7YuKMHOp6biBR+
+	 uhRg+KhLoIuSxID9qnaGCNQmMarK8zY/PYdT4+jkcV5z/zq0Z+dNBirJHUEmmFR1G2
+	 nT46Kb8H1FL5Q==
+Authentication-Results: server3.evolutia.digital;
+	spf=pass (sender IP is 2a0c:5a82:6807:b100:7760:f7b:d596:dc10) smtp.mailfrom=miguel@miguelmesa.com smtp.helo=B5-Miguel-CachyOS
+Received-SPF: pass (server3.evolutia.digital: connection is authenticated)
+From: Miguel Mesa <miguel@miguelmesa.com>
+To: stable@vger.kernel.org
+Cc: amd-gfx@lists.freedesktop.org,
+	alexander.deucher@amd.com,
+	Jerry.Zuo@amd.com,
+	harry.wentland@amd.com,
+	mario.limonciello@amd.com,
+	mgorny@gentoo.org
+Subject: [PATCH 7.2.y] drm/amd/display: keep HDMI 4:2:0-only modes and
+ automatic 4:4:4
+Date: Sat,  3 Oct 2026 15:15:23 +0200
+Message-ID: <20261003131523.1502250-1-miguel@miguelmesa.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-PPP-Message-ID: 
+ <179103334296.2856106.18265595604110516429@server3.evolutia.digital>
+X-PPP-Vhost: miguelmesa.com
 
+commit 7e5760f084d0 ("drm/amd/display: add HDMI 2.1 Compliance Support")
+selects YCbCr 4:2:0 for a 4:2:0-only mode only when the IGT override asks
+for it, and YCbCr 4:4:4 only when that override is YCbCr 4:4:4. On a
+normal boot the override is unset.
 
-The patch below does not apply to the 6.12-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+A 3840x2160@60 mode that the sink lists only in the YCbCr 4:2:0 block
+then falls through to 4:4:4 or RGB, and the Wayland session cannot build
+the output layer: kwin_wayland_drm: Failed to create framebuffer (EINVAL)
+right after login. v7.3-rc5 selects 4:2:0 again for those modes when the
+color format is automatic. Do the same here, including HDMI FRL.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Keep automatic YCbCr 4:4:4 for the other HDMI modes, as 7.1 did. The TMDS
+depth fallback also runs for HDMI FRL, so a mode that does not fit at
+4:4:4 can still drop to 4:2:0.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
-git checkout FETCH_HEAD
-git cherry-pick -x 69bf14300b50631e7c2271289d347bbd1b19a06c
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100343-halt-swimmer-cc9a@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+This is not a backport of a mainline commit. The 7.3 fix is the rewrite
+in 0b0ff65d3c ("drm/amd/display: Refactor stream validation"), which
+cannot be cherry-picked to 7.2; Jerry Zuo confirmed the pre-7.3 logic is
+gone there. This patch restores the pre-regression selection on the 7.2
+code, following the v7.3-rc5 rule. Mario Limonciello asked for it to be
+sent to stable in drm/amd#5760.
 
-Possible dependencies:
+Regression: black screen after login on HDMI sinks whose modes fall
+through to RGB, e.g. Strix Halo (gfx1151) + TCL 4K TV whose 3840x2160@60
+is YCbCr 4:2:0-only (VIC 97). 7e5760f084d0 shipped in 7.2; still unfixed
+in 7.2.9.
 
+Tested on CachyOS linux-cachyos-bore 7.2.7-3 (znver4) on that Strix Halo
+box: Plasma runs at 3840x2160@60 with the same userspace and firmware
+that stayed black on every stock 7.2.x kernel.
 
+Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5760
+Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5893
+Reported-by: Michał Górny <mgorny@gentoo.org>
+Reported-by: Miguel Mesa <miguel@miguelmesa.com>
+Suggested-by: Mario Limonciello <mario.limonciello@amd.com>
+Tested-by: Miguel Mesa <miguel@miguelmesa.com>
+Signed-off-by: Miguel Mesa <miguel@miguelmesa.com>
+Co-authored-by: Cursor <cursoragent@cursor.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 69bf14300b50631e7c2271289d347bbd1b19a06c Mon Sep 17 00:00:00 2001
-From: Paulo Alcantara <pc@manguebit.org>
-Date: Mon, 21 Sep 2026 11:17:26 -0300
-Subject: [PATCH] netfs: clear post-EOF pagecache when extending a file via
- write
-
-Fix netfs to erase the contents of a hole created after the EOF by an
-ordinary write if dirty data has been previously left there by writes
-through an mmapped region.  Neither the buffered nor the unbuffered/DIO
-write path clears that stale pagecache.
-
-Zero the tail of the folio straddling the EOF before an extending
-write.  That is the only folio that can hold data written past the EOF
-through an mmap, as pages wholly beyond the EOF can't be faulted in.
-The folio is zeroed rather than dropped so a concurrent extending write
-can't lose data.
-
-Both write paths downgrade the i_rwsem to shared, so extending writes
-can run concurrently and the i_size read by the caller may be stale by
-the time the folio is locked.  Re-read i_size under the folio lock and
-clamp the zeroed range up to it, so a racing write that already put
-data into the folio isn't clobbered.
-
-Wait for any writeback on the folio to finish before zeroing it so that
-the pagecache isn't modified while it may still be read by the transport
-during transmission.  Honour IOCB_NOWAIT by returning -EAGAIN rather
-than blocking on the folio lock, on writeback, or in folio_mkclean()'s
-rmap walk when the folio is mapped.
-
-truncate_pagecache() can't be used here: it must be called with the
-i_rwsem held exclusively, but these write paths only hold it shared,
-and it would block unconditionally, breaking IOCB_NOWAIT.
-
-Callers that hold i_rwsem exclusively for the whole resize (truncate,
-setattr, fallocate, clone) exclude any genuine concurrent buffered
-writer, so staleness can instead be decided from the folio's dirty
-state, as pagecache_isize_extended() already does for filesystems that
-serialise writes against truncate/setattr via a single i_rwsem.
-Export netfs_clear_stale_post_isize() helper to handle such case.
-
-The helper is required by the CIFS client to fix generic/363.
-
-Closes: https://sashiko.dev/#/patchset/20260921230755.1133425-1-pc%40manguebit.org
-Fixes: 938e13a73b24 ("netfs: Implement buffered write API")
-Fixes: 153a9961b551 ("netfs: Implement unbuffered/DIO write support")
-Reviewed-by: David Howells <dhowells@redhat.com>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Matthew Wilcox <willy@infradead.org>
-Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
-Cc: Shyam Prasad N <sprasad@microsoft.com>
-Cc: Tom Talpey <tom@talpey.com>
-Cc: Bharath SM <bharathsm@microsoft.com>
-Cc: stable@vger.kernel.org
-
-diff --git a/Documentation/filesystems/netfs_library.rst b/Documentation/filesystems/netfs_library.rst
-index ddd799df6ce3..a9de281db8ee 100644
---- a/Documentation/filesystems/netfs_library.rst
-+++ b/Documentation/filesystems/netfs_library.rst
-@@ -451,6 +451,32 @@ one.
- The inode should be marked ``NETFS_ICTX_SINGLE_NO_UPLOAD`` if this API is to be
- used.  The writeback function requires the buffer to be of ITER_FOLIOQ type.
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index e594548..8f60df9 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -7017,9 +7017,7 @@ static void fill_stream_properties_from_drm_display_mode(
+ 	/* TODO: un-hardcode */
+ 	if (drm_mode_is_420_only(info, mode_in)
+ 			&& (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A ||
+-			    stream->signal == SIGNAL_TYPE_HDMI_FRL)
+-			&& aconnector
+-			&& aconnector->force_yuv_pixel_format == PIXEL_ENCODING_YCBCR420)
++			    stream->signal == SIGNAL_TYPE_HDMI_FRL))
+ 		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
+ 	else if (drm_mode_is_420_also(info, mode_in)
+ 			&& aconnector
+@@ -7034,8 +7032,9 @@ static void fill_stream_properties_from_drm_display_mode(
+ 	else if ((connector->display_info.color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444))
+ 			&& (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A ||
+ 			    stream->signal == SIGNAL_TYPE_HDMI_FRL)
+-			&& aconnector
+-			&& aconnector->force_yuv_pixel_format == PIXEL_ENCODING_YCBCR444)
++			&& (!aconnector
++			    || aconnector->force_yuv_pixel_format == PIXEL_ENCODING_UNDEFINED
++			    || aconnector->force_yuv_pixel_format == PIXEL_ENCODING_YCBCR444))
+ 		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR444;
+ 	else
+ 		timing_out->pixel_encoding = PIXEL_ENCODING_RGB;
+@@ -7104,7 +7103,8 @@ static void fill_stream_properties_from_drm_display_mode(
  
-+Clearing Stale Post-EOF Pagecache
-+---------------------------------
-+
-+When a file is extended, data left in the pagecache past the old EOF by a write
-+through an mmap must not be exposed as file content.  Netfslib clears this on
-+its own write paths, and exports a helper so a filesystem can do the same from
-+a resize path (truncate, setattr, fallocate and the like) that holds the
-+inode's ``i_rwsem`` exclusively across the whole resize::
-+
-+	void netfs_clear_stale_post_isize(struct inode *inode, uoff_t from,
-+					  uoff_t to);
-+
-+This zeroes any such data within the ``[from, to)`` hole to be made, where
-+@from is the old EOF and @to is the new one, and the caller must have already
-+updated ``i_size`` to @to before calling it.  Only the folio straddling @from
-+can hold data written past the EOF through an mmap, as pages wholly beyond the
-+EOF can't be faulted in, so the zeroing is limited to that folio.  The folio is
-+zeroed rather than dropped so that a concurrent extending write can't lose
-+data.
-+
-+This overlaps with ``pagecache_isize_extended()`` but can't reuse it: that
-+helper is keyed on a sub-page block size and is a no-op when the block size is
-+``>= PAGE_SIZE`` (as on network filesystems), and it doesn't wait for
-+writeback.  As both address the same problem, a change to one should probably
-+be reflected in the other to keep them in sync.
-+
- High-Level VM API
- ==================
- 
-diff --git a/fs/netfs/buffered_write.c b/fs/netfs/buffered_write.c
-index 2cdb68e6b16f..ecf119b4f916 100644
---- a/fs/netfs/buffered_write.c
-+++ b/fs/netfs/buffered_write.c
-@@ -469,6 +469,7 @@ ssize_t netfs_buffered_write_iter_locked(struct kiocb *iocb, struct iov_iter *fr
- 					 struct netfs_group *netfs_group)
- {
- 	struct file *file = iocb->ki_filp;
-+	struct inode *inode = file_inode(file);
- 	ssize_t ret;
- 
- 	trace_netfs_write_iter(iocb, from);
-@@ -481,6 +482,14 @@ ssize_t netfs_buffered_write_iter_locked(struct kiocb *iocb, struct iov_iter *fr
- 	if (ret)
- 		return ret;
- 
-+	if (iocb->ki_pos > i_size_read(inode)) {
-+		ret = netfs_clear_stale_pre_isize(inode, i_size_read(inode),
-+						  iocb->ki_pos,
-+						  iocb->ki_flags & IOCB_NOWAIT);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	return netfs_perform_write(iocb, from, netfs_group);
- }
- EXPORT_SYMBOL(netfs_buffered_write_iter_locked);
-diff --git a/fs/netfs/direct_write.c b/fs/netfs/direct_write.c
-index 2361277416c7..8be74706d85e 100644
---- a/fs/netfs/direct_write.c
-+++ b/fs/netfs/direct_write.c
-@@ -359,6 +359,15 @@ ssize_t netfs_unbuffered_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 	ret = file_update_time(file);
- 	if (ret < 0)
- 		goto out;
-+
-+	if (iocb->ki_pos > i_size_read(inode)) {
-+		ret = netfs_clear_stale_pre_isize(inode, i_size_read(inode),
-+						  iocb->ki_pos,
-+						  iocb->ki_flags & IOCB_NOWAIT);
-+		if (ret < 0)
-+			goto out;
-+	}
-+
- 	if (iocb->ki_flags & IOCB_NOWAIT) {
- 		/* We could block if there are any pages in the range. */
- 		ret = -EAGAIN;
-diff --git a/fs/netfs/internal.h b/fs/netfs/internal.h
-index c79c8e69d60c..786af76da98c 100644
---- a/fs/netfs/internal.h
-+++ b/fs/netfs/internal.h
-@@ -80,6 +80,8 @@ ssize_t netfs_wait_for_write(struct netfs_io_request *rreq);
- void netfs_wait_for_paused_read(struct netfs_io_request *rreq);
- void netfs_wait_for_paused_write(struct netfs_io_request *rreq);
- void netfs_wait_for_put_ra_refs(struct netfs_io_request *rreq);
-+int netfs_clear_stale_pre_isize(struct inode *inode, uoff_t from,
-+				uoff_t to, bool nowait);
- 
- /*
-  * objects.c
-diff --git a/fs/netfs/misc.c b/fs/netfs/misc.c
-index f5c1c463f4ff..523057390d6f 100644
---- a/fs/netfs/misc.c
-+++ b/fs/netfs/misc.c
-@@ -6,6 +6,7 @@
-  */
- 
- #include <linux/swap.h>
-+#include <linux/rmap.h>
- #include "internal.h"
- 
- /**
-@@ -582,3 +583,101 @@ void netfs_wait_for_put_ra_refs(struct netfs_io_request *rreq)
- 	trace_netfs_rreq(rreq, netfs_rreq_trace_waited_put_ra_refs);
- 	finish_wait(&rreq->waitq, &myself);
- }
-+
-+/**
-+ * netfs_clear_stale_isize - Clear stale pagecache in a to-be-created hole
-+ * @inode: The inode to act upon.
-+ * @from: The base of the hole to be made.
-+ * @to: The top of the hole to be made.
-+ * @nowait: True to return -EAGAIN rather than block.
-+ * @exclusive: True if the caller holds i_rwsem exclusively for the resize.
-+ *
-+ * Zero any data left in the pagecache within the [@from, @to) hole by a
-+ * write through an mmap so that it isn't exposed as file content once the
-+ * file is extended.  Only the uptodate folio straddling @from can hold such
-+ * data as pages wholly beyond the EOF can't be faulted in, so the zeroing
-+ * is limited to that folio.  The folio is zeroed rather than dropped so
-+ * that a concurrent extending write can't lose data.
-+ *
-+ * If @exclusive is false, @from is re-read from i_size and used to clamp
-+ * the zeroed range, for callers that may race with another writer also
-+ * extending the file (eg. multiple buffered writes extending the same file
-+ * under a shared i_rwsem).  If @exclusive is true, for callers that hold
-+ * i_rwsem exclusively across the whole resize and have already updated
-+ * i_size to @to, staleness is decided from the folio's dirty state instead:
-+ * since no genuine concurrent buffered writer can be racing, a lockless
-+ * stat() adopting a server-confirmed size mid-resize has no data behind it
-+ * and never dirties the folio, so it can't fool this check into skipping
-+ * the zeroing the way it could fool the @exclusive false clamp.
-+ *
-+ * pagecache_isize_extended() can't be reused here: it is keyed on a
-+ * sub-page block size (a no-op when the block size is >= PAGE_SIZE, as on
-+ * network filesystems), runs after i_size is updated, can't honour
-+ * @nowait, and doesn't wait for writeback.  Keep the two in sync if either
-+ * is changed.
-+ *
-+ * Return: 0 on success, or -EAGAIN if @nowait is set and the folio is
-+ * mapped or under writeback and so can't be cleaned without blocking.
-+ */
-+static int netfs_clear_stale_isize(struct inode *inode, uoff_t from,
-+				   uoff_t to, bool nowait, bool exclusive)
-+{
-+	struct address_space *mapping = inode->i_mapping;
-+	fgf_t fgp = FGP_LOCK;
-+	struct folio *folio;
-+	int ret;
-+
-+	if (from >= to)
-+		return 0;
-+
-+	if (nowait)
-+		fgp |= FGP_NOWAIT;
-+
-+	folio = __filemap_get_folio(mapping, from >> PAGE_SHIFT, fgp, 0);
-+	if (IS_ERR(folio))
-+		return PTR_ERR(folio) == -EAGAIN ? -EAGAIN : 0;
-+
-+	ret = 0;
-+	if (nowait && (folio_mapped(folio) || folio_test_writeback(folio))) {
-+		ret = -EAGAIN;
-+		goto out;
-+	}
-+
-+	folio_wait_writeback(folio);
-+
-+	if (folio_mkclean(folio))
-+		folio_mark_dirty(folio);
-+
-+	if (folio_test_uptodate(folio) &&
-+	    (!exclusive || folio_test_dirty(folio))) {
-+		uoff_t fpos = folio_pos(folio);
-+
-+		if (!exclusive)
-+			from = umax(from, i_size_read(inode));
-+		if (from < to && from < fpos + folio_size(folio)) {
-+			size_t end = umin(to - fpos, folio_size(folio));
-+			size_t offset = from - fpos;
-+
-+			folio_zero_segment(folio, offset, end);
-+		}
-+	}
-+out:
-+	folio_unlock(folio);
-+	folio_put(folio);
-+	return ret;
-+}
-+
-+/* Clear stale pagecache before an extending buffered/DIO write. */
-+int netfs_clear_stale_pre_isize(struct inode *inode, uoff_t from,
-+				uoff_t to, bool nowait)
-+{
-+	return netfs_clear_stale_isize(inode, from, to, nowait, false);
-+}
-+
-+/* Clear stale pagecache when extending a file under an exclusive resize. */
-+void netfs_clear_stale_post_isize(struct inode *inode, uoff_t from,
-+				  uoff_t to)
-+{
-+	netfs_clear_stale_isize(inode, from, to, false, true);
-+}
-+EXPORT_SYMBOL(netfs_clear_stale_post_isize);
-diff --git a/include/linux/netfs.h b/include/linux/netfs.h
-index b4dd32863dd4..fe6275e55fc2 100644
---- a/include/linux/netfs.h
-+++ b/include/linux/netfs.h
-@@ -397,6 +397,8 @@ ssize_t netfs_unbuffered_write_iter(struct kiocb *iocb, struct iov_iter *from);
- ssize_t netfs_unbuffered_write_iter_locked(struct kiocb *iocb, struct iov_iter *iter,
- 					   struct netfs_group *netfs_group);
- ssize_t netfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from);
-+void netfs_clear_stale_post_isize(struct inode *inode, uoff_t from,
-+				  uoff_t to);
- 
- /* Single, monolithic object read/write API. */
- void netfs_single_mark_inode_dirty(struct inode *inode);
+ 	stream->out_transfer_func.type = TF_TYPE_PREDEFINED;
+ 	stream->out_transfer_func.tf = TRANSFER_FUNCTION_SRGB;
+-	if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A) {
++	if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A ||
++	    stream->signal == SIGNAL_TYPE_HDMI_FRL) {
+ 		if (!adjust_colour_depth_from_display_info(timing_out, info) &&
+ 		    drm_mode_is_420_also(info, mode_in) &&
+ 		    timing_out->pixel_encoding != PIXEL_ENCODING_YCBCR420) {
+-- 
+2.56.0
 
