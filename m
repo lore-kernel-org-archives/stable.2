@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCCDD3093CB
-	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 13:17:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D2292CCC6
+	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 13:17:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791033442; cv=none; b=dpbF/By+xjX+ot02o5dxwjnd/5ugK9VH0xmUoDbQiXXm8Ts4jHlBkY5eIffVDnrWjg5+oJ/WR84KJ2WXQJlP97hU7pn9PhwKpQAc/52Oc7ObnQdM0ZWXr2DXrO9ONbhX4o8B0gTYVg5cV/OZX7cYX7VEPmbs2m34vStYNLxVekg=
+	t=1791033444; cv=none; b=DEEDQiihm1KJ45mOOjdP/CNaSLoL9XOUdZpZJF3tnCw9qEeZJWIlHWJ5swb5pZMj1OD+qQie3AQkxLvxAW30oqHORFH02SXR5jmFRYE2HSMGGCW7H1t1eIO35lFsAAVJ2AQSdIsp7vo86VNgVb69L+JP2ZUcUDnTKGq52dNJwFM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791033442; c=relaxed/simple;
-	bh=19GeyjckEgBnV06chIhzjN3ouuzREJMQ4D+pXBa39Qg=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=dIN9DXTzky12nx+n7E26RjL9ZIpAbXQwguNmNkX6mcDT1wtf2YZC+xmzRw2AnTFI2YXfSiQu0TQ8j8nDd8hhkkSs5ytZLgMSRHBzCXe6GnTN/ORoKpTdMOYeFpTiU5sLetKFwpXVMmw1ubIBpK7TGpyY0LAsnT0BH5otFmtjE80=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZN5tTGSz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791033444; c=relaxed/simple;
+	bh=PYwQVe6KPTPBFkGMlIeNqr4NjLSOcp5btEufpQDyty8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=RfjkEPAk6EmLRpAT4AB87JUhV4fzYPrDgDlTSRl6xMrKu+f+Bm9pPOOltXYodKWrAr52zUxDsGBEuvhRdZk6LOjyDHS74VCoWMJ/EvGgNStxFFddcdEQcLGF7ZdC9lev86TMHTDJry2jISPMz6K1FH6+lIlFhR09ksX20OKB5Aw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UabsYDBC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZN5tTGSz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1B871F0089B;
-	Sat,  3 Oct 2026 13:17:19 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UabsYDBC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4EE91F0089B;
+	Sat,  3 Oct 2026 13:17:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791033440;
-	bh=KbkvsMhmKCeTL4It9woHwSV4KBzTHfw1GO1cfrzBGYg=;
+	s=korg; t=1791033443;
+	bh=sMZlK5i8S/+lbDVcsTHJBiFR07C7GWtgSqwcKSM6Xf0=;
 	h=Subject:To:Cc:From:Date;
-	b=ZN5tTGSzjbF9c71/hpOzNLzvAp3y03TSylT1KmJrAOyhsRW/E8/GJEBD7obS1/B72
-	 rpyAiQI3xhP9k5hIgxlIVkIrXubTwS+VrB/t0P0ElYGK883rDT5XT4TMssh6JvdJ5Z
-	 WUPzY49J1gamCqucDlQF2RTsX5US5qtrd0kuL788=
-Subject: FAILED: patch "[PATCH] net: gso: limit recursive IP-in-IP segmentation" failed to apply to 5.10-stable tree
+	b=UabsYDBCjh0YRPIpqHhPJJMYEBtJ4hNJw4s35wJ2JoSlKtdQBNSP3GoKaM4DqrCXf
+	 fqnNSWDW35EUdN4TCI5UdKx6XJyHfUqsmE9O6mzPNH7oetVk2w2uuH64Yw4o/Z18hx
+	 9mRHVdq8a31XFa0a1Cp9Oi2Faxi8Iu6a8VLvyYZQ=
+Subject: FAILED: patch "[PATCH] net: gso: limit recursive IP-in-IP segmentation" failed to apply to 5.15-stable tree
 To: zihanx@nebusec.ai,pabeni@redhat.com,root@tr0jan.top,vega@nebusec.ai,willemb@google.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Sat, 03 Oct 2026 15:17:08 +0200
-Message-ID: <2026100308-enquirer-overlabor-d9db@gregkh>
+Message-ID: <2026100308-overspend-conduit-cc1e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 006c8b834aed8b02bd8fb9fb05e9e7ead37d1763
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100308-enquirer-overlabor-d9db@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100308-overspend-conduit-cc1e@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
