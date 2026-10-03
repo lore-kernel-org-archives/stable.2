@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93FBB23E33D
-	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 13:14:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 023252D8DDF
+	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 13:14:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791033261; cv=none; b=WN0XAFf7X2Ji8DyJNHNtE23CxiIV9SuFca9do/t7YoMhX2+U4jyyQIpvx/e8TupD/uBPb+PFfdSaj4gYwJ7UYhTeGBtKfSbT5t9In0B77gq1ia7mqriyY75wXrZkeFdr4bT2KYJZvH9BcR+5bNFnYMksUwIYrhM0n8iRVy7sKG8=
+	t=1791033279; cv=none; b=mDjO6zb+xIRVq6e0gM9Sk2PJL90ajlgXeoHBoAWw6oE+1XZ0ainqf0B+8upih773dRoyEHfiJQJiE/5AWpRMfWgdvcj7zstYQ9lDVVfLy1OT/1BNEYanjCwCQ2FqmchgfdNQhDuCvE98HjQMDQiX0UpE5f0jjcyEadiqHvDb4Cc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791033261; c=relaxed/simple;
-	bh=0PqhA2HnJ+gv5xEDiT1AivHOoH5pchQLmbMAitzRRAk=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Aj7KJaO9pCuFCDMLmLkYznX1PnFBdgKkKPTiQrix+PNV9GZGVlVLHgSiVVuP778jDymuy8f7I+sv1zvVaZnlh0e84jGtyxuF/rx+6TVq2qUhXFwc0uHixgoYMfgDJomrtpmKV/+MyhC0vPVFKuymm+CxAsYeDX9TP897C+MZBGk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JsYSriZO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791033279; c=relaxed/simple;
+	bh=vjnXTnWDpKpA+vHjFNpN66iVt5behjY7z8NBpbUO2mk=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=YhDFlqmzl+rgX8+VSbJKnYClIZHTlVDUQFa4ZZltiaHdQyhQV7m254jwd1/CDVNd2g0cJBy/2FJhSpJgqI0UOgk7ZJekr4uFM6vspyyif69yMss4GVVDyCrEy9wsJiQw6xWjBmaO+pRvATnbxicC4hiySgP6LJwpWXAIorNSWPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MAfMSgMz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JsYSriZO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A75891F0089B;
-	Sat,  3 Oct 2026 13:14:19 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MAfMSgMz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 061ED1F0089B;
+	Sat,  3 Oct 2026 13:14:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791033260;
-	bh=nFxT1ZO4OblVfB1ioOLajA+uSxTvAG1sFGpyWB8/rIY=;
+	s=korg; t=1791033276;
+	bh=vKMFKBsZMHRHdnAY1pXBZW97AFN7KJ4ibaYnbr8QKFo=;
 	h=Subject:To:Cc:From:Date;
-	b=JsYSriZOTJeQlQH0f3MhZSw199IDXEmgceFjv+3zqckIeqo71JdMXj4caRwJsYj9O
-	 62EPdE9Jd1QogkSSM0BgFQJ+eQ7vPL/ODPDRyg8XZq3isMP5lw5ZTScAPBbLG6GKnT
-	 5uJ0HChfCDvx1XcmJjd7Wf5CGBPGFYIuuY0qV3wM=
-Subject: FAILED: patch "[PATCH] HID: multitouch: stop the release timer from being rearmed on" failed to apply to 5.10-stable tree
-To: qwe.aldo@gmail.com,bentiss@kernel.org,sashiko-bot@kernel.org
+	b=MAfMSgMz3G2Fk1weFDShymzeYzMGXFYH8K0tv8Jwfsm8RsfEVEV5OJLbI1XyIK2UI
+	 x99tmcBTzycWuNXFRsEfbD8UqO36j5UtS3kv5ut2cUyymjnL9qTXzHhx4ddgNrKGHV
+	 LAMqtop3ifE+6Wrkp4WlDopInEs292ckQ7lzk+bA=
+Subject: FAILED: patch "[PATCH] io_uring: fix task_work add use-after-free with SQPOLL" failed to apply to 6.18-stable tree
+To: axboe@kernel.dk,Jeremy.Jean@oss.cyber.gouv.fr
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Sat, 03 Oct 2026 15:14:04 +0200
-Message-ID: <2026100304-affecting-ferment-18a7@gregkh>
+Date: Sat, 03 Oct 2026 15:14:33 +0200
+Message-ID: <2026100333-unpicked-popsicle-044c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 5acb2dace582f061aab5e14c399ac9480315f44b
+git cherry-pick -x a92193c91e8839fe5fc209616ea95465ae4b919d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100304-affecting-ferment-18a7@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100333-unpicked-popsicle-044c@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,69 +62,64 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 5acb2dace582f061aab5e14c399ac9480315f44b Mon Sep 17 00:00:00 2001
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Date: Wed, 23 Sep 2026 08:58:47 -0300
-Subject: [PATCH] HID: multitouch: stop the release timer from being rearmed on
- remove
+From a92193c91e8839fe5fc209616ea95465ae4b919d Mon Sep 17 00:00:00 2001
+From: Jens Axboe <axboe@kernel.dk>
+Date: Tue, 29 Sep 2026 06:52:17 -0600
+Subject: [PATCH] io_uring: fix task_work add use-after-free with SQPOLL
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-mt_remove() quiesces the sticky-finger timer before stopping the
-hardware:
+For SQPOLL, the sqpoll thread runs task_work off its own list and
+doesn't need to be told about it, so it can pop and complete a request
+as soon as mpscq_push() has published it. If that was the last request
+holding the ring alive, io_ring_exit_work() then frees the ctx, stops
+the thread, and with it the tctx, while io_req_normal_work_add() is
+still looking at both after the push:
 
-    timer_delete_sync(&td->release_timer);
+  BUG: KASAN: slab-use-after-free in io_req_normal_work_add+0x439/0x510
+  Read of size 4 at addr ff11000000ca0000 by task repro/55
+  (...)
+  BUG: KASAN: slab-use-after-free in queue_work_on+0x25/0x70
+  Write of size 8 at addr ff11000000c3bd00 by task repro/55
 
-    sysfs_remove_group(&hdev->dev.kobj, &mt_attribute_group);
-    hid_hw_stop(hdev);
+Hold an RCU read lock across the add, like io_req_local_work_add() already
+does, and have io_ring_exit_work() wait for a grace period for SQPOLL rings
+as well before freeing the ctx.
 
-timer_delete_sync() waits for a running callback and dequeues the timer,
-but it does not stop the timer from being armed again. The transport is
-still delivering reports at that point, and the report path rearms it:
-
-    if (app->quirks & MT_QUIRK_STICKY_FINGERS) {
-        if (td->mt_io_flags & MT_IO_SLOTS_MASK)
-            mod_timer(&td->release_timer,
-                      jiffies + msecs_to_jiffies(100));
-
-A report that arrives after timer_delete_sync() has returned therefore
-leaves the timer queued. td is allocated with devm_kzalloc() against
-hdev->dev, so it is freed when the driver is unbound, after mt_remove()
-returns. When the timer fires afterwards, mt_expired_timeout()
-dereferences the freed td:
-
-    struct mt_device *td = timer_container_of(td, t, release_timer);
-    struct hid_device *hdev = td->hdev;
-
-    if (test_and_set_bit_lock(MT_IO_FLAGS_RUNNING, &td->mt_io_flags))
-
-Simply moving the teardown after hid_hw_stop() does not fix this on its
-own, because mt_expired_timeout() calls mt_release_contacts(), which
-walks hdev->inputs; the timer still has to be quiesced before
-hid_hw_stop() tears the input devices down.
-
-Use timer_shutdown_sync() instead, which additionally makes any later
-mod_timer() a no-op, so neither ordering constraint has to be traded off
-against the other. This is the final-teardown pattern the function was
-introduced for, and hid-wiimote already uses it for the same reason.
-
-Fixes: 4f4001bc76fd ("HID: multitouch: fix rare Win 8 cases when the touch up event gets missing")
+Reported-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Link: https://lore.kernel.org/io-uring/20260924205056.3759980-2-Jeremy.Jean@oss.cyber.gouv.fr/
+Fixes: af5d68f8892f ("io_uring/sqpoll: manage task_work privately")
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260723224211.613112-1-you@example.com?part=1
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Reviewed-by: Benjamin Tissoires <bentiss@kernel.org>
-Signed-off-by: Benjamin Tissoires <bentiss@kernel.org>
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
 
-diff --git a/drivers/hid/hid-multitouch.c b/drivers/hid/hid-multitouch.c
-index ab4ac261fe76..4e19a0c4d238 100644
---- a/drivers/hid/hid-multitouch.c
-+++ b/drivers/hid/hid-multitouch.c
-@@ -2249,7 +2249,7 @@ static void mt_remove(struct hid_device *hdev)
- {
- 	struct mt_device *td = hid_get_drvdata(hdev);
+diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
+index 2cb9b58d04dd..c2ce83c7c1f1 100644
+--- a/io_uring/io_uring.c
++++ b/io_uring/io_uring.c
+@@ -2405,8 +2405,8 @@ static __cold void io_ring_exit_work(struct work_struct *work)
+ 	spin_lock(&ctx->completion_lock);
+ 	spin_unlock(&ctx->completion_lock);
  
--	timer_delete_sync(&td->release_timer);
-+	timer_shutdown_sync(&td->release_timer);
+-	/* pairs with RCU read section in io_req_local_work_add() */
+-	if (ctx->flags & IORING_SETUP_DEFER_TASKRUN)
++	/* pairs with the RCU read sections in the task_work add paths */
++	if (ctx->flags & (IORING_SETUP_DEFER_TASKRUN | IORING_SETUP_SQPOLL))
+ 		synchronize_rcu();
  
- 	sysfs_remove_group(&hdev->dev.kobj, &mt_attribute_group);
- 	hid_hw_stop(hdev);
+ 	io_ring_ctx_free(ctx);
+diff --git a/io_uring/tw.c b/io_uring/tw.c
+index f573bcc3af6a..f9affd68dd26 100644
+--- a/io_uring/tw.c
++++ b/io_uring/tw.c
+@@ -210,6 +210,9 @@ void io_req_normal_work_add(struct io_kiocb *req)
+ 	struct io_uring_task *tctx = req->tctx;
+ 	struct io_ring_ctx *ctx = req->ctx;
+ 
++	/* SQPOLL can retire the request on push, see io_ring_exit_work() */
++	guard(rcu)();
++
+ 	/* tw run already pending, nothing else to do */
+ 	if (!mpscq_push(&tctx->task_list, &req->io_task_work.node))
+ 		return;
 
