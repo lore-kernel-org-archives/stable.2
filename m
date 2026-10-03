@@ -1,62 +1,64 @@
-Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
+Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 434DE372661
-	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 18:32:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29440363C51
+	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 18:32:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791052371; cv=none; b=Ujojhi7gxRdcCVK65o1jhDAeBB4zjMCWr2Mwup4d1jmtUDCBJY9WvgRMbSA0JYOfVmSv/CUnQBm9RO9iVX187J3n2wYlUwte4ARoBWtmFbrRs4rXoQgdWMBDnjGkskMFikL6C/1Y/LUy9IjnNbRPhhkTJP70bSfDqXmbeQOwlpA=
+	t=1791052379; cv=none; b=H9gR/sJk5JsJ2cyayurvrddk5EiQ265FDxantcwX3nJqdZquR3x+5/bd8VIwEC08kGSe1xpY8wzPySjTq/fm6iFxP0S2iF5x7FT66twoIv8Ad+9iwaY5dYkQ2QWUoh1A0kFDhdbQKCyKIMSzpAtgUSeuLBDJnP+0vZ3GKDGywY0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791052371; c=relaxed/simple;
-	bh=4O9b2fhqkP+W3xXPcxSroMY1Stl9Hf0z/8z2N+sFacI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WR8CDEwfWl5gyOg4wqBJqW6yPZaOd3q0YQwOr9C6MfpoZl/3RcgaszpSEXXMtu648Ta8O5WozNluvHsi4WgFllEMgy/eUouEkkr8Mm/1Gm3fkCyUfCDhTGW+1PHA8wgZ+Wl6EPuxYGNvG/fX6/xedHQTlnBA5cBdZpOPftu7X8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JwcM4DdX; arc=none smtp.client-ip=74.125.229.42
+	s=arc-20240116; t=1791052379; c=relaxed/simple;
+	bh=e8+32VoGE30visGqC+voYuoBvY7B5aSastltx3abuUU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=FO2jd25UTnrb0U4J47YgmFo5eB82Tm1fW63saG50LqVlKxbjm5NKT7WSRhUpgZJO384a7txg+dutQfVFmcIYSes/59yYlSqX1vpV5LnjI8fkz4DzRmmcv3sHT7cYRw3NUBjMsrPWJ0pp5Dfj/CCxrg3HGB6YYW0UJskfuxtUN9U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mJ/cUnKX; arc=none smtp.client-ip=74.125.229.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JwcM4DdX"
-Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-3510f8aef9eso46216eec.1
-        for <stable@vger.kernel.org>; Sat, 03 Oct 2026 11:32:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mJ/cUnKX"
+Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-33bc6ff6cadso91467eec.0
+        for <stable@vger.kernel.org>; Sat, 03 Oct 2026 11:32:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791052369; x=1791657169; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NjhFw2Ze94b8Op4Wrc9mSVlEKmb9LEFTwAUiX7feoLw=;
-        b=JwcM4DdX/Lyry8WJG1nMvsKFJZpTghI5xUrcoNF0rp7DfJeHIUl6XRe62jTGwgrTL/
-         FhuvSlPospUK3tGyqISio+7pwGt8K51eiXiwdus5TixWBeZT4oJewImGCw4NXqaTT4s9
-         NiuNKg6wTQ9YOGC6iL4NXIEqbBCxseoHG4DeLTUoUlL7F3D/57iayNFObP9jS3sUuDrO
-         YVOOj12qTRDyutpDhF6w4nyfyA8/GFjGveyDvsYOLOzOGDLp3yiLcnwIHDXF9kKixVvP
-         1V9sltluPd7gN61c0Yln9Ei/+LikpjaG//NUXX6vaUscV2z+WrfA1wKzb/67tFYWkmOx
-         l7pw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791052369; x=1791657169;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791052376; x=1791657176; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NjhFw2Ze94b8Op4Wrc9mSVlEKmb9LEFTwAUiX7feoLw=;
-        b=UzJUnaefCkYrt7+vNOKNWrCQZfx8SE3UYr67+uSayvYxoBYyM2VGitoYxqhzFU7l56
-         k2DyIL+dhI8Kp0URkRngvZh2WFRB7pZcwqS/P9QwsrXPAz6ZFnZahrfI3EqWc846RHap
-         31rtlbxpeoq+HqeESUXS9OWFxfsLrRSpZPx6MdsRFm2qngHAHkqNNlM4aQ7FDn9mgjrg
-         mJC7S9CWuZKaapXqtoEaqAzFZ/9dsKBFr+/mfEL9tPsH8OiT9ak3nUuc/rIqjURI7BFa
-         QGt6cqmXgcIqr5qPs3IqcBS15E0gLHcXRMVCalFqOIE0h4c3tGg9TgSXSwhnysHm0LUC
-         1VMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzucMN+nURnR0OAVOXEqJHb5rMbHM0L1Owut08/fK7W3KES5SrrjIrcX2Skg+kpl+gvytsLcxQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ2MqhHo2H7+QLVm1I0kaGHVyXJN8/eNQna4rkszOdnq2ow0AVW
-	FDSJOYQLwvpD2qoWfVbhDBruRKQtb4bVtMF2EkLjPwoZxZmyw2RBEIdN
-X-Gm-Gg: AYBFou38YxsUPvxYT1AG1SvNrIboPOQMnsmHGpHfXPoFAX2ByJTp12hYyBe3AVz88H/
-	bjs3MvAmxjeDK3+dHPCquYR0XhQinMi1kLCRE2Vd2/3OMDyxtNcrDs2tS9zaV3h6PLB6DLuQV99
-	9XWObghlNkVZAZygmS97+HGYK2Gp/JsXoc64FcZUrlnPtnTR3hFt+/bqV/ShSevOQULk18715dn
-	fqn5lO/ervK0jNZT+c5WMbbTI8VZ+JnTtRUSwYy3U88pYzGqAS7xFRLOxJk7jwsJjb7w9MdNXhi
-	81o5HVZRHc01+diC3713s1EXHtOMAgoexOfFXdMMAICuYXW+d/jlhnka1cnq1ynVfeX8WA0rp8M
-	wGGnqODHTBPMPFmA0UgubYg8UFOlh4WTMvdhQo0Yl0DtRG9Sy48Bu7W40WVbMesnhjBNboCsJB9
-	dUUDdZ8NiaEPIV9Uy/k6dVw/L7twK+jvtRucQnGgfWBR2R6Fci5TJFfq8juOCCSPBtv3bCQpoLh
-	yb+nzG+ggQUl+P26jIaynIUpNmn8SlOHXdIYcLfbn474XsvkqfN9qksnucDQPCOiKXN3w==
-X-Received: by 2002:a05:7300:24c9:b0:343:fdea:9a0 with SMTP id 5a478bee46e88-34f15028c8fmr12536988eec.2.1791052369159;
-        Sat, 03 Oct 2026 11:32:49 -0700 (PDT)
+        bh=ts2pGekLDFXLhFg7otC8qId4L8lOf+SyIKeEb5TIWXg=;
+        b=mJ/cUnKXDA43B1SgsvRcWygp1PbGy0KzQS+p7IvMGuK4wazIRmGIxMDHALwh40nZZw
+         /cDA2l5Yb8OIk+VYUWhsrocilUtGSU0x/UfuBmJgE+2Or0NAOEi/XH8NWm69LcHym5Br
+         vGFjFHzDVtUlQ6/COsbr4mvBqC46QIe+N9uGA6ZXme0gwHmo7j6tV6CYEALYLrTXRXT6
+         qXa/X8/Iy8wwa9drojn3+x/Y6mAtTK01cGy2cwU9TfHTY+ugKiTVsJm7XK/PuUTJSyvs
+         YeTb15OmdHkuvs0wtcMW8mgBkCPWBAY/LJbpZp9b2EA3G1xKUoaUAxFh19/w3qZg/1Xe
+         ALaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791052376; x=1791657176;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ts2pGekLDFXLhFg7otC8qId4L8lOf+SyIKeEb5TIWXg=;
+        b=xIsospOEb/jC7tOn8yJnF5q3lhQHccBS+f7Hfa8Ye9lgryvMgieRe1SwpfJO0VtWmw
+         4TbpfoAoqjzbUZ7xYA97uAeK6HT/uSSogSjMXljVYZZoNeNMik8DVoOCHipRr4IuUyHb
+         C0W50wqsmram2/6yR7XY0S2RZXmNgbabqiJbooP3nJPYag5PWLIihfKsvu8ChXmyggQt
+         ANwIFtH1aYekuV+u/jA056uX/VTt2e7+HC7syCJJVNjt0L3hBXq24/VgFfpA1Ru8XAyU
+         C3yd4GKMw11g39E70w/Jsf95IcKdM1epUPvY2UZVi3JTtujquKuRffD9tH/pJUbqZO/C
+         Pz5Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxKnHVLMpRYVYIfDOxl/KtEEZk3RcReGL84wwXCIJYenO4+Dm3IT7VISIJTWLV5ORZsDscjXqI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJJJqIpqKn7RH3D4cZWXeUoXawSC146t2ni7Iijych4BI+Qe9O+
+	Z5vgdDd7BHHgqEBjoERsyPL7ToA+y7GvQLAsgov325zbgFRjBhOj99oH
+X-Gm-Gg: AYBFou0I1N4BXsf3EwR+/rlSpuMv5kpig2mtqatyse9phmWRQFecs1Kf56JF+PLWgFy
+	t4YFqamfctp3bnGn7nrNqWSjqG70zny9tjyQl0dJaeox3BtE8r3ePAjdVwDa6UVZVp5AazPyhSl
+	k/9f6M4OwTIXg+kjAiRLJfM1yVavb7i0WQHA70UWaQJNMHU4s/ukheoJLU4u0h5sAFeI2y1UyE1
+	8QNdforPg6sPuguF6BhHmxac7wqJ/3dREJN7EfxVUHWteQ3l62mts58o894k1jKQvMI99OA5g4g
+	SPtiuBm0M9dSowVglIN61dQxolHbQ8jSl9TxZymNLSmqvtCxDu2X4DUJtaWk7OQO32hYa+aGpym
+	bJuCAnEZJ7SwEp+xQ4zjFoyVrrJpEzodeTnPwHKMaDCLjTMbFDTeO15wvfoWfm6bhwowlXroq06
+	Y6XI75op1cktx0x+3PJ0N+IM9L9KEp/sk2dElAnx7p/FfZkUbMhiQFkYD9QMkyTkR3qxC5x1P+n
+	Vt5eDWgSB7wI9Ad71kl3/MA4OMFNPULXeKTwuVkDMefe/tE2W0hEy+jb6lZ2d6smmbnSg==
+X-Received: by 2002:a05:693c:864b:10b0:33e:4e49:d08d with SMTP id 5a478bee46e88-3510d2815f3mr8297160eec.1.1791052375983;
+        Sat, 03 Oct 2026 11:32:55 -0700 (PDT)
 Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34f14fd9698sm17118191eec.23.2026.10.03.11.32.45
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34f14fd9698sm17118191eec.23.2026.10.03.11.32.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 11:32:48 -0700 (PDT)
+        Sat, 03 Oct 2026 11:32:55 -0700 (PDT)
 From: Chengfeng Ye <nicoyip.dev@gmail.com>
 To: alibuda@linux.alibaba.com,
 	dust.li@linux.alibaba.com,
@@ -74,10 +76,12 @@ Cc: tonylu@linux.alibaba.com,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH net v2 0/2] net/smc: fix link group teardown races
-Date: Sun,  4 Oct 2026 02:32:35 +0800
-Message-ID: <20261003183237.2284245-1-nicoyip.dev@gmail.com>
+Subject: [PATCH net v2 1/2] net/smc: serialize link group free work scheduling
+Date: Sun,  4 Oct 2026 02:32:36 +0800
+Message-ID: <20261003183237.2284245-2-nicoyip.dev@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261003183237.2284245-1-nicoyip.dev@gmail.com>
+References: <20261003183237.2284245-1-nicoyip.dev@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -86,39 +90,120 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-These two fixes were posted separately, but both change the link group's
-freeing protocol. Resend them together so scheduling and early cleanup
-use the same locked teardown transition.
+smc_lgr_schedule_free_work() checks lgr->freeing without the link group
+list lock held by the teardown paths. A concurrent smc_lgr_free_work()
+can set freeing and cancel the delayed work between that check and
+mod_delayed_work(), leaving a timer pending on a freed link group:
 
-Patch 1 serializes the freeing check and delayed-work rearm with teardown.
-It gives freeing its own storage and sets it under the list lock during
-early cleanup, so another connection cannot rearm after cancellation.
-It also corrects the cancellation comment: cancel_delayed_work() cancels
-pending work but does not synchronize with an already-running callback.
+  CPU 0 (smc_conn_free)            CPU 1 (smc_lgr_free_work)
+  observe lgr->freeing == 0
+                                  set lgr->freeing under lgr_lock
+                                  cancel_delayed_work()
+                                  smc_lgr_free(): drop lgr reference
+  mod_delayed_work()
+  smc_lgr_put(): drop last reference and free lgr
 
-Patch 2 excludes competing early teardown and pins both early-cleanup
-callers through their ownership checks, including failed registration of
-a new link group. Each patch retains its original KASAN evidence and
-Fixes tag. The evidence comes from earlier instrumented runs.
+When the timer expires, the timer core accesses the freed memory.
 
-The separate pre-existing race in which an already-running free_work
-callback outlives the group is outside this series. The callback reference
-and cancellation mechanisms are unchanged. The socket-lock versus
-abort-work wait cycle also remains separate.
+  BUG: KASAN: use-after-free in __run_timers+0x86d/0x8d0
+  Write of size 8 at addr ffff8881186902a8 by task swapper/2/0
+  Call Trace:
+   <IRQ>
+   __run_timers+0x86d/0x8d0
+   timer_expire_remote+0xd3/0x120
+   tmigr_handle_remote_up+0x4f4/0xab0
+   __walk_groups_from+0x40/0x150
+   tmigr_handle_remote+0x229/0x2c0
+   run_timer_softirq+0x1f5/0x250
+   handle_softirqs+0x18d/0x5b0
+   </IRQ>
 
-The series is based on net/main 71a77ab76e74. Local validation results are
-recorded alongside the exported patches; no runtime test is claimed.
+Hold the existing link group list lock across the freeing check and
+mod_delayed_work(). Set freeing under that lock in early cleanup as well,
+before __smc_lgr_terminate() cancels the work. An SMC-D server releases
+smc_server_lgr_pending before receiving CONFIRM, so another connection can
+reuse the group and race its removal with early cleanup.
 
-Chengfeng Ye (2):
-  net/smc: serialize link group free work scheduling
-  net/smc: serialize early link group cleanup with termination
+Give freeing its own storage. The neighbouring sync_err and terminating
+bitfields are written without the list lock; their read-modify-write
+updates must not overwrite the freeing transition.
 
- net/smc/af_smc.c   |  8 ++++++--
- net/smc/smc_core.c | 16 +++++++++++++++-
- net/smc/smc_core.h |  2 +-
- 3 files changed, 22 insertions(+), 4 deletions(-)
+Rearming then either precedes the freeing transition and is caught by the
+subsequent cancellation, or sees freeing set and is skipped.
+smc_conn_free() retains its link group reference until after scheduling,
+keeping the group alive while acquiring the lock.
 
+Fixes: 8e316b9e7260 ("net/smc: improve link group freeing")
+Cc: stable@vger.kernel.org
+Assisted-by: GPT-6.1-Sol
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+---
+Changes in v2:
+- Give freeing its own storage so adjacent bitfield updates cannot
+  overwrite the list-lock-protected transition.
+- Set freeing under the list lock during early cleanup to prevent a
+  concurrent SMC-D connection from rearming after cancellation.
+- Keep asynchronous cancellation without adding work-owned references.
+- Send with the early-cleanup ownership fix as an ordered two-patch series.
 
-base-commit: 71a77ab76e74131a101f4d2d2afb0dcbf81b4e3c
+v1: https://lore.kernel.org/r/20260927074520.3694663-1-nicoyip.dev@gmail.com/
+
+ net/smc/smc_core.c | 8 +++++++-
+ net/smc/smc_core.h | 2 +-
+ 2 files changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
+index 9974149659c2..478c8bc2759a 100644
+--- a/net/smc/smc_core.c
++++ b/net/smc/smc_core.c
+@@ -80,6 +80,10 @@ static void smc_ibdev_cnt_dec(struct smc_link *lnk)
+ 
+ static void smc_lgr_schedule_free_work(struct smc_link_group *lgr)
+ {
++	spinlock_t *lgr_lock; /* protects lgr->freeing */
++
++	smc_lgr_list_head(lgr, &lgr_lock);
++	spin_lock_bh(lgr_lock);
+ 	/* client link group creation always follows the server link group
+ 	 * creation. For client use a somewhat higher removal delay time,
+ 	 * otherwise there is a risk of out-of-sync link groups.
+@@ -90,6 +94,7 @@ static void smc_lgr_schedule_free_work(struct smc_link_group *lgr)
+ 						SMC_LGR_FREE_DELAY_CLNT :
+ 						SMC_LGR_FREE_DELAY_SERV);
+ 	}
++	spin_unlock_bh(lgr_lock);
+ }
+ 
+ /* Register connection's alert token in our lookup structure.
+@@ -691,6 +696,7 @@ void smc_lgr_cleanup_early(struct smc_link_group *lgr)
+ 	/* do not use this link group for new connections */
+ 	if (!list_empty(&lgr->list))
+ 		list_del_init(&lgr->list);
++	lgr->freeing = 1;
+ 	spin_unlock_bh(lgr_lock);
+ 	__smc_lgr_terminate(lgr, true);
+ }
+@@ -1565,7 +1571,7 @@ static void __smc_lgr_terminate(struct smc_link_group *lgr, bool soft)
+ 
+ 	if (lgr->terminating)
+ 		return;	/* lgr already terminating */
+-	/* cancel free_work sync, will terminate when lgr->freeing is set */
++	/* cancel pending free_work; a running instance rechecks freeing */
+ 	cancel_delayed_work(&lgr->free_work);
+ 	lgr->terminating = 1;
+ 
+diff --git a/net/smc/smc_core.h b/net/smc/smc_core.h
+index 5c18f08a4c8a..b8c67f277337 100644
+--- a/net/smc/smc_core.h
++++ b/net/smc/smc_core.h
+@@ -303,7 +303,7 @@ struct smc_link_group {
+ 	struct workqueue_struct	*tx_wq;		/* wq for conn. tx workers */
+ 	u8			sync_err : 1;	/* lgr no longer fits to peer */
+ 	u8			terminating : 1;/* lgr is terminating */
+-	u8			freeing : 1;	/* lgr is being freed */
++	bool			freeing;	/* lgr is being freed */
+ 
+ 	refcount_t		refcnt;		/* lgr reference count */
+ 	bool			is_smcd;	/* SMC-R or SMC-D */
 -- 
 2.43.0
