@@ -1,43 +1,50 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-114.mta1.migadu.com [95.215.58.114])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A9BF3AB27B
-	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 23:44:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3CEC328B7F
+	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 23:49:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.114
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791071086; cv=none; b=CGxXOmzss/jPstLHQL73DpehCMmxZDoTDqUteEqXiAqRzEfsr4XofLP4MwRuUFtXaDUNEB5Z5Dx3EW6Of3U6D3q6w936gQ5c/6O6z59dvX+XTtSshVnpif0uQUA1XIWk0Mt2+CZVZMtHcN3tR1KOklAHidMbs8C3ckMaQgVE+io=
+	t=1791071393; cv=none; b=S3knfOZMajITn3DDptoKwONo1ncghQ8dqB5cmkZSwmsZjYOXSWAl8VV3UB7cG1z03t/fvcUL/GYVkE2G8ryJyK7e+0aySjKjPMzhL4xFFxurkSB+ryK79MB6yK3AjelGOpnwuK1XsPwI7e31KvDnl63enxHWhRHmEU6Ba6wb+oQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791071086; c=relaxed/simple;
-	bh=l0uxk2qhQcKWpSkfl4d3IjS9jtbU7Q8p+LiqY2qT7v4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CbJdfOI6DFM3SFWA3btjNxdSK+sB6rK5WNL6nDzXACT0dMU97vumZ0imRxDtJcY0h+/liGOVcTlxSU5C2u05XSp4JQZuBXBIHxUfSe+W0JxgIB2OyFYqeRlofWSJ7K3FxGDyJgasCeYnz1GntYHZMNEcyCuNK6F2MhYnG/nda2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WqY0cPqq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791071393; c=relaxed/simple;
+	bh=xl4GPcatPDKKUjDT7CDuYUyfau6OOsS9xvgfmbROSqc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Jv2dTcGr76UU00nggK5GZrOlmwF6PyS88eB8K7n4aiLfjUp6Xi5OhiZJDJMGaJw3tTPDVt+EUfey9j5Y/6YgmOoU6XNSmhSrg8dVX6TMhwDQpx4vJzZyyy4GoPnxr2auen7GZypsTFdLph4NLoV0MroOFse52PUJCFw5SwtsGVA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=justthetip.ca; spf=pass smtp.mailfrom=justthetip.ca; dkim=pass (2048-bit key) header.d=justthetip.ca header.i=@justthetip.ca header.b=sPQ7gGb6; arc=none smtp.client-ip=95.215.58.114
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=justthetip.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=justthetip.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WqY0cPqq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FBCE1F0089B;
-	Sat,  3 Oct 2026 23:44:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791071085;
-	bh=SNGGDKtMqKaZQ789e8Ty+diO14wxLGtAQY4nx6pEKhc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WqY0cPqq21VLuOZz4T1CUS+bqdZ1GLc0Wso8JCSl8Yuv01jeeJzuKBscA6bYyIxQh
-	 zeZFNe8Z2/qg3alb63e938072I3dQVMgMqivYqp79R6WSQVp/qQhdORh0IH77f5ZvB
-	 nsmR+BgbZ39xazoO24hn5GPEAIkwButFEyuQddUVLhd5uJgveKE3UIXft3NZVXYQyI
-	 zHNa4mk4xpc/E6TsBvFI5bn+vz93WjRzwlGCHFCthZC3IDrVzuT0OVXY+CFJqbi1lc
-	 TbMbqEwMlVDupTZziWUXg0mE5EVUkSHjqZo2tFeuWrPx0lI6zpTevhJB3oHiclqLUG
-	 t/uobS0iDhPUw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Leon Hwang <leon.hwang@linux.dev>,
-	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 3/3] kprobes: Skip disarmed probes when checking optkprobe overlap
-Date: Sat,  3 Oct 2026 19:44:19 -0400
-Message-ID: <20261003234356.710783-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261003234356.710783-1-sashal@kernel.org>
-References: <2026100344-anchor-outpost-f7ad@gregkh>
- <20261003234356.710783-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=justthetip.ca header.i=@justthetip.ca header.b="sPQ7gGb6"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=xl4GPcatPDKKUjDT7CDuYUyfau6OOsS9xvgfmbROSqc=;
+ c=simple/simple; d=justthetip.ca;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791071387; v=1; x=1791676187;
+ b=sPQ7gGb6BAfQmWRqMNl8fj4Rsq/LpO113aTNzxZzfJEdJbwwfCmdxje/59JhsXTMbbt2DXgJ
+ A+31lDT/+ckb/pH7/KVy/I78ezw7Zh95IrW7f66NzdzG+TPii+KApOgxCqSYBc1ypY9WOIP1k07
+ AejzTZ8r8OfUOXaufH2pIooCmBKBpSX/a9Dd7+5gNq5rV1WF58c3tXWLldeNIH1T7nmhYleGPdx
+ pTOLjoQMl+PUlQzGKOGVIvReReZj5rmGiLibHPPqnYJpzKfy+6qdJvJcofpPA68FekgMaMPGqWI
+ w2tGLoySjzTlHeZa8EvkA0mFClasLmEkdvXShTL3zVpGA==
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b4c22351e5f5a4a7;
+	Sat, 03 Oct 2026 23:49:47 +0000
+X-Mizu-Trace-ID: b4c22351e5f5a4a7
+X-Migadu-Flow: FLOW_OUT
+From: Devin Wittmayer <lucid_duck@justthetip.ca>
+To: Felix Fietkau <nbd@nbd.name>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Ryder Lee <ryder.lee@mediatek.com>
+Cc: Shayne Chen <shayne.chen@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Deren Wu <deren.wu@mediatek.com>,
+	Ming Yen Hsieh <mingyen.hsieh@mediatek.com>,
+	linux-wireless@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	stable@vger.kernel.org
+Subject: [PATCH RESEND wireless] wifi: mt76: mt7925: cancel mlo_pm_work on the USB stop path
+Date: Sat,  3 Oct 2026 16:49:44 -0700
+Message-ID: <20261003234944.96066-1-lucid_duck@justthetip.ca>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,60 +53,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Leon Hwang <leon.hwang@linux.dev>
+Every other teardown path cancels this work, PCIe unbind included. USB
+unbind does not: PCIe has its own unregister hook for it, while USB
+shares a generic one and the stop callback that would have covered it is
+replaced in probe.
 
-[ Upstream commit 7a39c732a22ec4a369af9e19fbe3d666ec83eec4 ]
+That cancel came in commit 81faf578320d ("wifi: mt76: mt7925: cancel
+mlo_pm_work on stop"), whose last line says it covers both buses. That's
+mine and it's a boo-boo.
 
-On x86, an optkprobe at A replaces five bytes with a jump. If a disabled
-probe B is at A+2, get_optimized_kprobe() stops at B when arming a new
-probe C at A+4. It leaves A optimized:
+Give the USB path its own stop that cancels the work first.
 
-              A    A+1  A+2  A+3  A+4
-  A's jump  | e9 | d0 | d1 | d2 | d3 |
-  after C   | e9 | d0 | d1 | d2 | cc |
+Two-link MLO on a Netgear A9000, work armed then the interface down:
 
-The INT3 for C overwrites the last byte of A's jump displacement, so
-execution can jump to the wrong address. B can have prepared optinsns
-while disarmed, but has no jump to unoptimize.
+                   stock    patched
+    stop ran        3/3      3/3
+    work still ran  3/3      0/3
 
-Continue past disarmed and unprepared probes to find the active optimized
-probe before arming a probe in its jump.
+Skipping the stop entirely leaves both builds running it, so the zero is
+the cancel.
 
-Link: https://lore.kernel.org/all/20260930053618.104498-1-leon.hwang@linux.dev/
-
-Fixes: afd66255b9a4 ("kprobes: Introduce kprobes jump optimization")
+Fixes: 276a56883257 ("wifi: mt76: mt7925: update the power-saving flow")
 Cc: stable@vger.kernel.org
-Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
 ---
- kernel/kprobes.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/net/wireless/mediatek/mt76/mt7925/usb.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/kprobes.c b/kernel/kprobes.c
-index 5b52dc2a34145..65ccc9cf40f9c 100644
---- a/kernel/kprobes.c
-+++ b/kernel/kprobes.c
-@@ -485,14 +485,16 @@ static int kprobe_queued(struct kprobe *p)
- static struct kprobe *get_optimized_kprobe(kprobe_opcode_t *addr)
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7925/usb.c b/drivers/net/wireless/mediatek/mt76/mt7925/usb.c
+index 1757023ea70d..db6fd014447b 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7925/usb.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7925/usb.c
+@@ -147,6 +147,15 @@ static int mt7925u_mac_reset(struct mt792x_dev *dev)
+ 	return err;
+ }
+ 
++static void mt7925u_stop(struct ieee80211_hw *hw, bool suspend)
++{
++	struct mt792x_dev *dev = mt792x_hw_dev(hw);
++
++	cancel_delayed_work_sync(&dev->mlo_pm_work);
++
++	mt792xu_stop(hw, suspend);
++}
++
+ static int mt7925u_probe(struct usb_interface *usb_intf,
+ 			 const struct usb_device_id *id)
  {
- 	int i;
--	struct kprobe *p = NULL;
-+	struct kprobe *p;
- 	struct optimized_kprobe *op;
+@@ -193,7 +202,7 @@ static int mt7925u_probe(struct usb_interface *usb_intf,
+ 	if (!ops)
+ 		return -ENOMEM;
  
- 	/* Don't check i == 0, since that is a breakpoint case. */
--	for (i = 1; !p && i < MAX_OPTIMIZED_LENGTH / sizeof(kprobe_opcode_t); i++)
-+	for (i = 1; i < MAX_OPTIMIZED_LENGTH / sizeof(kprobe_opcode_t); i++) {
- 		p = get_kprobe(addr - i);
-+		/* A disabled probe can have prepared, but inactive, optinsns. */
-+		if (!p || !kprobe_optready(p) || kprobe_disarmed(p))
-+			continue;
+-	ops->stop = mt792xu_stop;
++	ops->stop = mt7925u_stop;
  
--	if (p && kprobe_optready(p)) {
- 		op = container_of(p, struct optimized_kprobe, kp);
- 		if (arch_within_optimized_kprobe(op, addr))
- 			return p;
+ 	mdev = mt76_alloc_device(&usb_intf->dev, sizeof(*dev), ops, &drv_ops);
+ 	if (!mdev)
 -- 
-2.53.0
+2.55.0
 
