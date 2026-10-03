@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A4AA282F10
-	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 13:20:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8135130FC1F
+	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 13:20:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791033623; cv=none; b=sdW5EWtW+6iR2hI/lmbTwa4m0Zm4HmrZOjnX6PdYtT+LaxtWpbcqHbJ9GRj/cCsrYZpmHzp1UV57UcNVQlqD4xl8W2Cp9xFMH+BzQBZb4XMBBmNxaWZvDUjh8x5k9pAceeAhNHsv92D/9yZu81CIDx53xqm9k1L5IMcTrmT/b68=
+	t=1791033628; cv=none; b=qDVH5ST+04yC4s3z1OBa/MvvV2R1CMhEJ2WgWEfJQrabNiy2DVcV1hooZLOvEreZZUW7WQUKrdjoLHH83NdvoTp2MM2kQBpmjzJu+yb955UJz5shLcpH3zFro+puT8rsVISVpSbgBUIw0qyIsI7JCqK/UPpOBmgkjP+O9uEP4uw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791033623; c=relaxed/simple;
-	bh=jwW2ff4a1EvbrGD4xHMJFx0VqJg5BcGY4GVBLUm/liI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=draLOp9lmYje5hV/vz1GLD4Zg+oPx8TyRzWX2Kq4QDnrpa+uSE0IuZHzlIFBcoJQcSV5BVc2Jyho8AH6zhIj12M8xRhk4zbCFU42Sbio1Cp5XemaHDC65+KdysybuPN/vx1bWFY6LmSw67snXJxDljJv0uIG8HDPamKpy5sPxXs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KYzDuTFs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791033628; c=relaxed/simple;
+	bh=mZVDyCnGIUnVOJ7xHkdNCw/i6z7TBctM/WCdzDFvn9s=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Hgtm9Ym0REkrLrtPfxrSi2RR1uqVKfqskZLKL8Is7hDr2kAo1s1V9RNKQvkrXBb6eEpi7HhsnC2S0/O7OHC6DvjcmQq/JeAgRtBDxjTJop5MRFkG2jCOBKoGmfkLaddtAu4MEGoB9MtFlcCzhFHUfm0KY4mmYGWgwQwvuRjISmM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xNNjzxvm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KYzDuTFs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5711D1F0089B;
-	Sat,  3 Oct 2026 13:20:21 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xNNjzxvm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D967C1F0089B;
+	Sat,  3 Oct 2026 13:20:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791033621;
-	bh=HAHd+8KLgqeomynOR3CUtXP3rDlH3WAQc3W+iBQZXII=;
+	s=korg; t=1791033627;
+	bh=Hyxuu1lxXkwTTtOtsyCA8/kuOB260QOq4Glv8fLir9s=;
 	h=Subject:To:Cc:From:Date;
-	b=KYzDuTFsF22SNazy105i+o9dkghvQnMykUbbX728LEO9k4NAfDPLNAGZCj1Zxk9lJ
-	 JDJnRDQ6fzumyuTUoM8GTk5UuT1CvRx0gK1qRPsSPtOXJwMuqOe2tgkBCv/+FQRoBf
-	 IATTm5Mz1sG87LKLfYFq8CM3ZBsnWz3qG8ay5Uk8=
-Subject: FAILED: patch "[PATCH] tpm: fix off-by-four bounds check in tpm2_get_random()" failed to apply to 6.18-stable tree
-To: yijiangshan@kylinos.cn,jarkko@kernel.org,sashiko-bot@kernel.org
+	b=xNNjzxvmqapb1Kpzltx6NPNaE0A4CVwzIhN5D5ACd1MzIr4l0mf51L3We0HqcbxFY
+	 mPFa7iUwgmzrtMJquXn1/+iSaqdCdqAAkC6+/CdX+O9qS1kPs7tBnEhNIn7vtWnhpf
+	 35pOekXf92F6OVAa59GIYN6X4TWumLvvGw3svXtA=
+Subject: FAILED: patch "[PATCH] tpm: Fix auth session leak in tpm2_get_random() error path" failed to apply to 7.2-stable tree
+To: yijiangshan@kylinos.cn,jarkko@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Sat, 03 Oct 2026 15:20:08 +0200
-Message-ID: <2026100308-undertook-vividly-2e61@gregkh>
+Date: Sat, 03 Oct 2026 15:20:16 +0200
+Message-ID: <2026100316-exclusion-mustang-f624@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 7.2-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
-git cherry-pick -x 9b522400bf5c082feb9a0037a053ea822a2c7e4d
+git cherry-pick -x 1e2f9a611b334ce6ed1dc4a9e1587c7a11d2be30
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100308-undertook-vividly-2e61@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100316-exclusion-mustang-f624@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,41 +62,36 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 9b522400bf5c082feb9a0037a053ea822a2c7e4d Mon Sep 17 00:00:00 2001
+From 1e2f9a611b334ce6ed1dc4a9e1587c7a11d2be30 Mon Sep 17 00:00:00 2001
 From: Jiangshan Yi <yijiangshan@kylinos.cn>
-Date: Thu, 3 Sep 2026 11:58:37 +0800
-Subject: [PATCH] tpm: fix off-by-four bounds check in tpm2_get_random()
+Date: Wed, 2 Sep 2026 15:48:39 +0800
+Subject: [PATCH] tpm: Fix auth session leak in tpm2_get_random() error path
 
-When the response carries the TPM2_ST_SESSIONS tag, tpm2_get_random()
-skips the 4-byte parameter size field before locating the random data,
-but the bounds check still validates the response length against
-TPM_HEADER_SIZE.  A truncated response can pass the check and make
-memcpy() read up to 4 bytes past the response end, so stale buffer
-contents end up in the caller's random bytes.
+When tpm_buf_fill_hmac_session() fails in tpm2_get_random(), the error
+path returns without calling tpm2_end_auth_session(), leaking the auth
+session. All other error paths in the function handle this correctly.
 
-Fix this by checking the response length against 'offset', which
-already includes the skipped parameter size field.
-
-Cc: stable@vger.kernel.org #  v6.12+
-Fixes: 1b6d7f9eb150 ("tpm: add session encryption protection to tpm2_get_random()")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260902074839.417419-1-yijiangshan%40kylinos.cn
+Fixes: 3d9e043dab0a ("tpm-buf: Memory-safe allocations")
+Cc: stable@vger.kernel.orga # v6.12+
 Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+Link: https://lore.kernel.org/r/20260902074839.417419-1-yijiangshan@kylinos.cn
 Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-Link: https://lore.kernel.org/r/20260903035837.219284-1-yijiangshan@kylinos.cn
 Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
 
 diff --git a/drivers/char/tpm/tpm2-cmd.c b/drivers/char/tpm/tpm2-cmd.c
-index 96e0e06bbbf0..ae22295df798 100644
+index 48cec39995fe..96e0e06bbbf0 100644
 --- a/drivers/char/tpm/tpm2-cmd.c
 +++ b/drivers/char/tpm/tpm2-cmd.c
-@@ -307,7 +307,7 @@ int tpm2_get_random(struct tpm_chip *chip, u8 *dest, size_t max)
- 		out = (struct tpm2_get_random_out *)&buf->data[offset];
- 		recd = min_t(u32, be16_to_cpu(out->size), num_bytes);
- 		if (tpm_buf_length(buf) <
--		    TPM_HEADER_SIZE +
-+		    offset +
- 		    offsetof(struct tpm2_get_random_out, buffer) +
- 		    recd) {
- 			tpm2_end_auth_session(chip);
+@@ -281,8 +281,10 @@ int tpm2_get_random(struct tpm_chip *chip, u8 *dest, size_t max)
+ 		}
+ 		tpm_buf_append_u16(buf, num_bytes);
+ 		err = tpm_buf_fill_hmac_session(chip, buf);
+-		if (err)
++		if (err) {
++			tpm2_end_auth_session(chip);
+ 			return err;
++		}
+ 
+ 		err = tpm_transmit_cmd(chip, buf,
+ 				       offsetof(struct tpm2_get_random_out,
 
