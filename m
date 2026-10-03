@@ -1,109 +1,117 @@
-Received: from out30-110.freemail.mail.aliyun.com (out30-110.freemail.mail.aliyun.com [115.124.30.110])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B9F226B2D2;
-	Sat,  3 Oct 2026 15:32:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.110
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 577421632DD
+	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 15:43:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791041529; cv=none; b=nCCXR5Blany6SWQLop+I/i4rQJrMWFszn3yNvkZpiMjhYH9WUNLUwTime6F+n1h4q1IPJfQeIQh0ad+ou5UUOmToosU5FRmO5KTqh72CJ7Uwrcf0EuWpDFydMmvVOrldv439sR1O55E3Dc1K2KIF2H3FObgjeFNYLbPRqAlCm2w=
+	t=1791042228; cv=none; b=GJl7H/tlGBC5q09bHnRG4GdplJ2fZptoEl6AOQ4ias7hIlWCnwMeoxVPVXsHwsc8Nf+Y0r6Fz91LZE/T2BGU+OxgOYfgqYVwXfpDdS6kG8gs2TMdHvyov5YZH4o8asDNGSpYkpfJeoMQJSW+j3USLhSCjt94FiFfzbju5Wf7HFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791041529; c=relaxed/simple;
-	bh=MFmLvT77Mgu4kbHevUXpBG0j6PHP5aHmQ/20UkpSgd4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bHPVIfdSqVsfE+jt7wWFRMNmLCJjTJ2QvpQ2wnfVjOzpBeRa//H7ihJQ+X2B/f5NFMZmAdp8kjonPQUK2+amQfVCBcXs9oSoVLpQboqT1yBBzDFaCyzqORwaGUUUWndwiEAh7kxen3CdNaCgsQI3RqMsXcx8xO1WD34PC9zAqY4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=jNG2PapK; arc=none smtp.client-ip=115.124.30.110
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1791042228; c=relaxed/simple;
+	bh=DKfzPq3Tgj5yPAmTAhXXiQJogeVCWamzH5gA0XHzRsM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=godqhK4qQ7cgOjSUyGBL+flqO+dJ9I5e9QKI/4qGbdknx6Ej6N7kit6M9bt7T62lLAjns8k7+9i1S9uHIujbdzuGpreq5PELgshPVV8lsQw0FZQ2VSp4vt0ZVKZF0llHJ0S9xcxhvv8Knlp8i+PQI1q2T3cEc291XgzPmk63ukg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SEbdU4P7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="jNG2PapK"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1791041523; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=A/NIwPVTd5bPLlgHKr5rnTA2yn/oLfnJpor+eX2oCkQ=;
-	b=jNG2PapKi2gfrqVqWPXk2hKv/1ynM+8BsK09ZRvuKYSOUN5ANO/3lDGhCvUswSmxm2lG229w8yaC2wg0wu7H4Vj9If/RC2BkL4qtnPPcWe2ZIu7eZpUvcJ6kVfRzl3VGUnJXiPrKG2zMCtdD/12lG2vXgao+sYgicfj14IYPmrk=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R111e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=libaokun@linux.alibaba.com;NM=1;PH=DS;RN=9;SR=0;TI=SMTPD_---0XC0iAjb_1791041522;
-Received: from 30.251.45.45(mailfrom:libaokun@linux.alibaba.com fp:SMTPD_---0XC0iAjb_1791041522 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Sat, 03 Oct 2026 23:32:02 +0800
-Message-ID: <bb6a03a7-ab53-40e9-b22b-967ac75d1a7b@linux.alibaba.com>
-Date: Sat, 3 Oct 2026 23:32:01 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SEbdU4P7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E37DB1F0089B;
+	Sat,  3 Oct 2026 15:43:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791042227;
+	bh=Di9fTDRp9RZdMWSuSPqy/Wo3kkv02wMfsJBCScJ2jzY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=SEbdU4P7fTh/9+nJjZF47kav+nAEUzI7XJ1bs/vxaQnPuleb4/oaz+u2hatZGjJCd
+	 f8S1MBhjh384CzR8+LGBjDdwYyqQlWQ7oaBsdbuU1ozsLC8e9tL+DvIXrz3Sm/hK/3
+	 zeIFdrx+tXY52WQgY6460UH8PXTXGGRfVgQGwFyVts0PU1PnkuJvbSjl81A9Q2q/XI
+	 BUD8qPeoU5I672+Ovzm0i9huG80BXyZNuKtfvCrlYu0Kl/FG4GfrZeTdKUEBbPCl/c
+	 cqIfZBXvRALI52zirbIeuNJ7QV7ezkEZz3dVIMs67zlWlt46ZkPcJbTrBp+QguusIQ
+	 at5Dcnu4pbldw==
+From: SJ Park <sj@kernel.org>
+To: stable@vger.kernel.org
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Kunwu Chan <kunwu.chan@gmail.com>
+Subject: [PATCH 6.18.y] mm/damon/core: don't skip damos_adjust_quota() while esz is not zero
+Date: Sat,  3 Oct 2026 08:43:41 -0700
+Message-ID: <20261003154341.19354-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <2026100311-deforest-barstool-b0d0@gregkh>
+References: <2026100311-deforest-barstool-b0d0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ext4: Fix maximum orphan file size check
-To: Jan Kara <jack@suse.cz>
-Cc: Ted Tso <tytso@mit.edu>, linux-ext4@vger.kernel.org,
- Mikulas Patocka <mpatocka@redhat.com>, Zhang Yi <yi.zhang@huawei.com>,
- Ojaswin Mujoo <ojaswin@linux.ibm.com>, Ritesh Harjani
- <ritesh.list@gmail.com>, stable@vger.kernel.org, libaokun@linux.alibaba.com
-References: <20261002115040.2783654-2-jack@suse.cz>
-Content-Language: en-US
-From: Baokun Li <libaokun@linux.alibaba.com>
-In-Reply-To: <20261002115040.2783654-2-jack@suse.cz>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 2026/10/2 19:50, Jan Kara wrote:
-> Mikulas reported that e2fsprogs 1.47.4 with 1k fs blocksize by default
-> creates orphan file of the size the kernel rejects. This is because that
-> version of e2fsprogs creates 2MB file by default regardless of the block
-> size and with 1k blocks that's more than the limit of 512 fs blocks.
-> Fix the check to make kernel accept any file upto those 2MB regardless
-> of the number of blocks.
->
-> Fixes: 7c11c56eb32e ("ext4: align max orphan file size with e2fsprogs limit")
-> CC: stable@vger.kernel.org
-> Reported-by: Mikulas Patocka <mpatocka@redhat.com>
-> Link: https://lore.kernel.org/all/e65cdbfe-3ff9-4638-fbd3-4d8f8880966f@redhat.com
-> Signed-off-by: Jan Kara <jack@suse.cz>
+DAMOS could unexpectedly stop working when a user disables quota using the
+online parameters commit feature.  Fix it by correcting a wrong quota
+unset check in damos_adjust_quota().
 
-Thanks for fixing this.
+DAMON users could disable all quotas by unsetting time and size quotas,
+and removing all quota goals.  The intention of disabling quotas would be
+making DAMOS run at full speed.  When such quota disabled setup is
+detected, damos_adjust_quota() skips all its work.  The skipped works
+include effective size quota (damos_quota->esz) updates and charged quota
+amount (damos_quota->charged_sz) resets.  The intention is to avoid doing
+unnecessary work when quotas are disabled.
 
-The problem is only triggered by images created with the problematic
-e2fsprogs: 1k-block filesystems between 512MiB and 2GiB, and 2k-block
-filesystems between 2GiB and 4GiB.
+However, users could do the setup while effective size quota is non-zero,
+by doing the disabling with the online DAMON parameters commit feature.
+In this case, because the effective size quota exists, DAMOS will keep
+working with the quota until it is fully charged.  After the effective
+quota is fully charged, the charged quota amount (damos_quota->charged_sz)
+cannot be reset because damos_adjust_quota() skips it.  Then, DAMOS stops
+working until the quota is newly set or DAMON is entirely restarted.
 
-A more thorough fix would be to rebuild the orphan file with tune2fs.
-However, some instances may not get the chance to do that. So I think
-it's good to keep the kernel compatible with both versions of
-e2fsprogs. Feel free to add:
+The problem happens because damos_adjust_quota() assumes the user setup
+for disabling quota immediately disabled it.  In reality, the quota is
+still working until the effective size quota is also updated to zero.
+Other logic for catching that uses damos_quota_is_set(), which understands
+the fact and therefore checks the effective size quota in addition to the
+user setup.  Fix the issue by using damos_quota_is_set() in
+damos_adjust_quota() to determine if its works should be skipped.
 
-Reviewed-by: Baokun Li <libaokun@linux.alibaba.com>
+The user impact is a non-deterministic and unexpected DAMOS stop behavior.
+That is, users would disable quotas using the online parameters commit
+feature, expecting DAMOS will run at full speed.  However, depending on
+the timing, the setup can be updated while the effective size quota is
+non-zero.  Due to the above mentioned internal mechanism, DAMOS stops
+working instead of running at full speed.  It is unexpected behavior.  It
+is also non-deterministic because sometimes the setup is done when the
+effective size quota is zero, depending on the timing.  It doesn't cause
+critical issues like crashes or leaks.  Users can simply set a reasonable
+quota again, or restart DAMON.  But definitely it is an unexpected and
+non-deterministic behavior that makes it difficult to reliably use.  Also
+investigating the root cause of the behavior would be quite difficult.
 
-> ---
->  fs/ext4/orphan.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
->
-> diff --git a/fs/ext4/orphan.c b/fs/ext4/orphan.c
-> index b4675aa7ea96..7394d04e0fd9 100644
-> --- a/fs/ext4/orphan.c
-> +++ b/fs/ext4/orphan.c
-> @@ -576,6 +576,7 @@ int ext4_init_orphan_info(struct super_block *sb)
->  	int inodes_per_ob = ext4_inodes_per_orphan_block(sb);
->  	struct ext4_orphan_block_tail *ot;
->  	ino_t orphan_ino = le32_to_cpu(EXT4_SB(sb)->s_es->s_orphan_file_inum);
-> +	loff_t max_size;
->  
->  	if (!ext4_has_feature_orphan_file(sb))
->  		return 0;
-> @@ -589,8 +590,13 @@ int ext4_init_orphan_info(struct super_block *sb)
->  	 * This is just an artificial limit to prevent corrupted fs from
->  	 * consuming absurd amounts of memory when pinning blocks of orphan
->  	 * file in memory.
-> +	 *
-> +	 * e2fsprogs 1.47.4 produces 2MB orphan files by default regardless
-> +	 * of the number of blocks so that's where the second limit comes from.
->  	 */
-> -	if (inode->i_size > (EXT4_MAX_ORPHAN_FILE_BLOCKS << inode->i_blkbits)) {
-> +	max_size = max(EXT4_MAX_ORPHAN_FILE_BLOCKS << inode->i_blkbits,
-> +		       2 << 20);
-> +	if (inode->i_size > max_size) {
->  		ext4_msg(sb, KERN_ERR, "orphan file too big: %llu",
->  			 (unsigned long long)inode->i_size);
->  		ret = -EFSCORRUPTED;
+Link: https://lore.kernel.org/20260916135020.86483-1-sj@kernel.org
+Fixes: da87878010e5 ("mm/damon/sysfs: support online inputs update")
+Signed-off-by: SJ Park <sj@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
+Cc: <stable@vger.kernel.org> # 5.19.x
+(cherry picked from commit 52ae167ce16609c7e6fffef588b3c2c26de2db19)
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+ mm/damon/core.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index c0dcb190b06e..0182cc8198d3 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -2248,7 +2248,8 @@ static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
+ 	unsigned long cumulated_sz, cached_esz;
+ 	unsigned int score, max_score = 0;
+ 
+-	if (!quota->ms && !quota->sz && list_empty(&quota->goals))
++	if (!quota->esz && !quota->ms && !quota->sz &&
++			list_empty(&quota->goals))
+ 		return;
+ 
+ 	/* First charge window */
+-- 
+2.47.3
 
