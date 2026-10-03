@@ -1,56 +1,42 @@
-Received: from mail.nppct.ru (mail.nppct.ru [195.133.245.4])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD89139CD0A
-	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 10:11:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.133.245.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBF1C3905EC;
+	Sat,  3 Oct 2026 10:20:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791022312; cv=none; b=AWDhoRUNujnDTBOzSOJfhy4tuz/chHro7ayv0006jElgcEgoutTy7QoiuuWsMcBmf+aDFZRkDfXJDejud8cTrtBUtuct2ajbhDciQ5Kky6CVhNPdEW13TJZsM6WWRVpvvNk7mG9Nhf0DSag0BecmFcS0mbPwXIKTdGuKE+MzXe4=
+	t=1791022819; cv=none; b=VKOu++Wt9mVZ4656E6YMfQdkgZK3ll6mQdOZPi/DbXmnlja6wcEQ8xXfH6/0/jb4nJ3bPJolz8gh7D7KdyQEAJ9iWOt9NfwgZ9Rt8ps3MRv8Zxh58dhFO2r7qj76DZi5ngmmmf6C9XJ2jF4ibasUPWF5X6w91uwwm6RuSHAZLec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791022312; c=relaxed/simple;
-	bh=p6wAteknLTFMLbws31q1Ibfxgf0w34kWpjIk5elFF00=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YfLURp/DzpsOUyZWiNe48b3VfFyQ3+MILYs862QfuENGZdnt7n0Wj70/KbPva8uI4TE/g24eOclRDfUpQEQqFuJwIiOpw5KWYF9IJ7J4LzVRaUsOqwrLUe1rxQ1377lFjETJF76dNur70pU6gglpaui9OThOULRDx7NEwCaav4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nppct.ru; spf=pass smtp.mailfrom=nppct.ru; dkim=pass (1024-bit key) header.d=nppct.ru header.i=@nppct.ru header.b=nojcn/qW; arc=none smtp.client-ip=195.133.245.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nppct.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nppct.ru
+	s=arc-20240116; t=1791022819; c=relaxed/simple;
+	bh=V48hnmGwm5Zxzh//0DXpviOCCNy2P9IUTo2RKpAvg8s=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=aCn7OvQ767KQ+qCx3XVJ2ism2NXExnd5KC0iLF0VJTYdOCaFOSqThdu7J9+PSG4XIhiLtqw8cfewTKy2QO0u1zXSjXXwIEidrlc+b8ZVlFHz3e4Qii8g0Gy32OeI/Zm34uNSBYYjTjx9rGHkx9bsfUKcU2ieeVuwNPFEbzjodMU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=pWfHVPKV; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=nppct.ru header.i=@nppct.ru header.b="nojcn/qW"
-Received: from mail.nppct.ru (localhost [127.0.0.1])
-	by mail.nppct.ru (Postfix) with ESMTP id 31D361C1847
-	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 13:11:45 +0300 (MSK)
-Authentication-Results: mail.nppct.ru (amavisd-new); dkim=pass (1024-bit key)
-	reason="pass (just generated, assumed good)" header.d=nppct.ru
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nppct.ru; h=
-	content-transfer-encoding:mime-version:x-mailer:message-id:date
-	:date:subject:subject:to:from:from; s=dkim; t=1791022293; x=
-	1791886294; bh=p6wAteknLTFMLbws31q1Ibfxgf0w34kWpjIk5elFF00=; b=n
-	ojcn/qWraZ1RoHSZQhlsudrWNAZHLlqiz57XW0mhAEoebnfuwTTv5qjMMwV/EMw4
-	A4G3yY5m27CypPrm91RFtoYA4yuIrCkAg0ct+nMuuhNTO7GySJauJ3VUhpuZpylL
-	+Dmy2UhkLliEcPHHj/BUtxxxizbx4qUItQXvSDFpbM=
-X-Virus-Scanned: Debian amavisd-new at mail.nppct.ru
-Received: from mail.nppct.ru ([127.0.0.1])
-	by mail.nppct.ru (mail.nppct.ru [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id MyHllo67Uz25 for <stable@vger.kernel.org>;
-	Sat,  3 Oct 2026 13:11:33 +0300 (MSK)
-Received: from onyx3 (109-252-38-116.nat.spd-mgts.ru [109.252.38.116])
-	by mail.nppct.ru (Postfix) with ESMTPSA id 5CCC91C2304;
-	Sat,  3 Oct 2026 13:11:19 +0300 (MSK)
-From: Mikhail Mirkin <mmirkin@nppct.ru>
-To: stable@vger.kernel.org
-Cc: dhowells@redhat.com,
-	sfrench@samba.org,
-	linux-cifs@vger.kernel.org,
-	Mikhail Mirkin <mmirkin@nppct.ru>,
-	"Paulo Alcantara (Red Hat)" <pc@manguebit.org>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	netfs@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	Steve French <stfrench@microsoft.com>
-Subject: [PATCH 6.12.y v2] cifs: Fix handling of a beyond-EOF DIO/unbuffered read over SMB1
-Date: Sat,  3 Oct 2026 13:09:40 +0300
-Message-ID: <20261003101004.4162-1-mmirkin@nppct.ru>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="pWfHVPKV"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=HX
+	ZZg6hcOZR13yuP5Pno2uBQWWVd5X5M6BD9+YK7sug=; b=pWfHVPKVqagQoYVFFt
+	3gsspefLzKQAfAughoECQZiPujV91ViV+LRHEZMLT+hvq80PRGl1Q8T370wsED1n
+	Z/hWADTi7VVfN/1JsRMXyOpY55hsBCMXCUIpM0j8gEykpQ/3hvl9O23lYmnq3vhT
+	OsocvjP5HZiJ1xwRxc2hyftdc=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3f8bC1sBqnrifCA--.20254S2;
+	Sat, 03 Oct 2026 18:19:47 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Jeff Johnson <jjohnson@kernel.org>,
+	Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>,
+	Baochen Qiang <quic_bqiang@quicinc.com>,
+	linux-wireless@vger.kernel.org,
+	ath12k@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: Jiale Yao <yaojiale02@163.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] wifi: ath12k: validate MAC/PHY capability count before saving
+Date: Sat,  3 Oct 2026 18:19:43 +0800
+Message-Id: <20261003101944.596546-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -58,62 +44,78 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3f8bC1sBqnrifCA--.20254S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAry7WF47Gr18uF1xJw1DJrb_yoW5GFyxpF
+	43ZrnrtFWrJF47Ww4DJw4UJa4Fvws5Kw4fKFy7Ka4rW3Z5ArnrX3WFvFWjyFyrKws5WF1U
+	Kr4Iv3y0kFW5tFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEubyLUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7wOw6mrA1sPNzQAA3J
 
-From: David Howells <dhowells@redhat.com>
+Firmware supplies the hardware mode count and the PHY bitmap for each
+mode in the service-ready-ext event. ath12k_wmi_save_all_mac_phy_info()
+uses those bitmaps to populate svc_ext_info->mac_phy_info, but the
+destination is a fixed array of ATH12K_MAX_MAC_PHY_CAP elements.
 
-commit 9d85ac939d52e93d80efb01a299c6f0bedb30487 upstream.
+If the total number of advertised PHY entries exceeds that limit, the
+loop writes beyond mac_phy_info and corrupts adjacent memory.
 
-If a DIO read or an unbuffered read request extends beyond the EOF, the
-server will return a short read and a status code indicating that EOF was
-hit, which gets translated to -ENODATA.  Note that the client does not cap
-the request at i_size, but asks for the amount requested in case there's a
-race on the server with a third party.
+ath12k_wmi_mac_phy_caps_parse() allocates the source array for
+tot_phy_id entries and rejects excess capability TLVs. However, if the
+event contains fewer capability TLVs than advertised, the remaining
+allocated entries stay zeroed and are saved as invalid PHY information.
 
-Now, on the client side, the request will get split into multiple
-subrequests if rsize is smaller than the full request size.  A subrequest
-that starts before or at the EOF and returns short data up to the EOF will
-be correctly handled, with the NETFS_SREQ_HIT_EOF flag being set,
-indicating to netfslib that we can't read more.
+After parsing the MAC/PHY capability TLVs, validate the destination
+capacity and reject an incomplete capability list before saving any
+entries.
 
-If a subrequest, however, starts after the EOF and not at it, HIT_EOF will
-not be flagged, its error will be set to -ENODATA and it will be abandoned.
-This will cause the request as a whole to fail with -ENODATA.
+Fixes: 062ade23991e ("wifi: ath12k: parse and save hardware mode info from WMI_SERVICE_READY_EXT_EVENTID event for later use")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
 
-Fix this by setting NETFS_SREQ_HIT_EOF on any subrequest that lies beyond
-the EOF marker.
-
-This can be reproduced by mounting with "cache=none,sign,vers=1.0" and
-doing a read of a file that's significantly bigger than the size of the
-file (e.g. attempting to read 64KiB from a 16KiB file).
-
-Fixes: a68c74865f51 ("cifs: Fix SMB1 readv/writev callback in the same way as SMB2/3")
-Signed-off-by: David Howells <dhowells@redhat.com>
-Reviewed-by: Paulo Alcantara (Red Hat) <pc@manguebit.org>
-cc: Shyam Prasad N <sprasad@microsoft.com>
-cc: linux-cifs@vger.kernel.org
-cc: netfs@lists.linux.dev
-cc: linux-fsdevel@vger.kernel.org
-cc: lvc-project@linuxtesting.org
-Signed-off-by: Steve French <stfrench@microsoft.com>
-[Mikhail Mirkin: Adopted for 6.12]
-Signed-off-by: Mikhail Mirkin <mmirkin@nppct.ru>
 ---
- fs/smb/client/cifssmb.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
-index 01c78d9e7..11d408d1a 100644
---- a/fs/smb/client/cifssmb.c
-+++ b/fs/smb/client/cifssmb.c
-@@ -1321,7 +1321,7 @@ cifs_readv_callback(struct mid_q_entry *mid)
- 	} else {
- 		size_t trans = rdata->subreq.transferred + rdata->got_bytes;
- 		if (trans < rdata->subreq.len &&
--		    rdata->subreq.start + trans == ictx->remote_i_size) {
-+		    rdata->subreq.start + trans >= ictx->remote_i_size) {
- 			__set_bit(NETFS_SREQ_HIT_EOF, &rdata->subreq.flags);
- 			rdata->result = 0;
- 		}
+Changes in v2:
+- Refer to the service-ready-ext event.
+- Describe a short capability list as a correctness issue instead of a
+  source-buffer overrun.
+- Move the checks after MAC/PHY capability parsing and use '<' for the
+  reachable count mismatch.
+
+diff --git a/drivers/net/wireless/ath/ath12k/wmi.c b/drivers/net/wireless/ath/ath12k/wmi.c
+index d5160af60e00..3e812c79a649 100644
+--- a/drivers/net/wireless/ath/ath12k/wmi.c
++++ b/drivers/net/wireless/ath/ath12k/wmi.c
+@@ -5050,6 +5050,7 @@ static int ath12k_wmi_svc_rdy_ext_parse(struct ath12k_base *ab,
+ 					u16 tag, u16 len,
+ 					const void *ptr, void *data)
+ {
++	struct ath12k_svc_ext_info *svc_ext_info = &ab->wmi_ab.svc_ext_info;
+ 	struct ath12k_wmi_pdev *wmi_handle = &ab->wmi_ab.wmi[0];
+ 	struct ath12k_wmi_svc_rdy_ext_parse *svc_rdy_ext = data;
+ 	int ret;
+@@ -5094,6 +5095,22 @@ static int ath12k_wmi_svc_rdy_ext_parse(struct ath12k_base *ab,
+ 				return ret;
+ 			}
+ 
++			if (svc_rdy_ext->tot_phy_id >
++			    ARRAY_SIZE(svc_ext_info->mac_phy_info)) {
++				ath12k_warn(ab, "too many PHY entries %u (max %zu)\n",
++					    svc_rdy_ext->tot_phy_id,
++					    ARRAY_SIZE(svc_ext_info->mac_phy_info));
++				return -EINVAL;
++			}
++
++			if (svc_rdy_ext->n_mac_phy_caps < svc_rdy_ext->tot_phy_id) {
++				ath12k_warn(ab,
++					    "not enough MAC/PHY caps %u, expected %u\n",
++					    svc_rdy_ext->n_mac_phy_caps,
++					    svc_rdy_ext->tot_phy_id);
++				return -EINVAL;
++			}
++
+ 			ath12k_wmi_save_all_mac_phy_info(ab, svc_rdy_ext);
+ 
+ 			svc_rdy_ext->mac_phy_done = true;
 -- 
-2.50.1
+2.34.1
 
