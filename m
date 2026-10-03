@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D9A43B0583;
-	Sat,  3 Oct 2026 22:40:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9256833936F
+	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 22:46:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791067227; cv=none; b=WuCUnbnMhLPTY0dpPiKnaS5aOVwerBsT76EoxjYbdjmZifHreadte4k0zO3Ju53eqmZg9WGFnH8N2fDPNi9BqIUWUgUc5SeMqj/wWnlLlLSHaJ+kfG85O8LrSv2iVitXP5MLaWl65t3Dj9bb2ebY6Q1yvqggndxKhgvwsi92aCY=
+	t=1791067589; cv=none; b=B70KtGio8zMczVRXOAMe0X5zgI4RhNeNab+/0gdLrh4U/nerOYD55pFvHQ3tE40mFS7feuBwLWkrQaQzquGN4Od1ir0Ml3rgk4LP0+gEshR8KdLwSEkTLQql8OahQoY28xCegKGRQhSajCsVxyRFatuS14azOUF4G/bwalUoxXM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791067227; c=relaxed/simple;
-	bh=L7pwffU3fZsS+/W7QfK9PO0bGs2w1m1fnbDh7pK5+Tk=;
+	s=arc-20240116; t=1791067589; c=relaxed/simple;
+	bh=KB2yxKkixqut5ModUUMeBSzZZ/lZPMN7thDmej/BPrk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WYLj8HHsmF5bZIenS/AxW7HdeejpKijAqddmb/tILGGmaAcswiAl/t+XbarwGqudNP/lT1FF6wZ7m58rUpyp2dgfIWskAsdTYxumKcxMIxA6sDWGOrG3FWGbZe8ywitQWaiEGy6Kl9AgjEeaVJiU81ylsJcDF1USigmIvD1Cy38=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nc7d7Q9N; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Da96RDlsNm9XoxGTu7pPcudvECCcy1adu7pcPvTHfXt89Ppm69GaCabNxo8FRukRbNLs3KG7XIhwAGxpwcLSccypv8D0g6Gxo8VHmDKNic/IyghqFgnuE3dVwCXvDkEXxm75l15NZKxSDKHMT++e12n+uZ4DFOvMbkUedQauFs0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LyK2OUG1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nc7d7Q9N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49DFC1F0089B;
-	Sat,  3 Oct 2026 22:40:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LyK2OUG1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B86881F0089B;
+	Sat,  3 Oct 2026 22:46:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791067225;
-	bh=ZQJP1J/W43TjYs+7RMpzpaCZzFr74DHsRH7rvfe8WjQ=;
+	s=k20260515; t=1791067588;
+	bh=sT+VAcyHGeox7xWQmLBK3Ze8dptwT2MWWx91kJXjnqw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Nc7d7Q9NZ22VxhMTWY70nrf+vRyFbMM8jOZO1cmZ6tXfFTEHxmyvZyNkWzrpF9D6w
-	 DhllHUYOFL/IPh5HoY1p8ZM+XcZWGmo4UdJzxM5IS74Qa/I+dadAs6pqXMOEMszLZu
-	 Ks1H3HRE42uYlars9+9tzNUBonxe6s+DdtvTIzIHbCI85At8zg/4d1RGSuPywlXygx
-	 2aim7ZZe2NxMrjyuj5CkTiAnXflcdkg2cVPvxyWUIOAU9CiODs0P6Qt0IxoW5iQPuY
-	 RGq0w3eM99FjSo6fV1d1CWlfu3FZQ6F9MKtNeF3HYXyIZx8Ua7QoHifQA+zdYyN2fJ
-	 h5lrRrWxpb4Ng==
+	b=LyK2OUG1TRDd0zKAw5nYs9nECoSYJ6760+3nnLHxG25Bodwy1t6DZaU0oKHb8wQlI
+	 6e6REFaHO7yPLJ1cl/CYcxhYXVlu10VFPpjzvGUwlPKDdltcP26Sqpai52KNtQpxNO
+	 Gj2wsWQ2CLKeOlsVsdFvhihbaAyxIbuM22Qv93xsiS8Wt/Tq8OFmewDNqPsEV3zWCJ
+	 6nk5uSOrz6HfVmF9CL3UUaBFQzLXH+14rIKMAMwyGXSOdMU3is+79di1ikjxxX0Ek4
+	 Mlca5vseP4TJyy7XCjyiKg/fYdwCwDvhgEgIALgJ6Wsx8cd7zAj4GPG0AqDUkyXYBt
+	 yk464WakOWjFA==
 From: Sasha Levin <sashal@kernel.org>
-To: netdev@vger.kernel.org
-Cc: Sasha Levin <sashal@kernel.org>,
-	i.maximets@ovn.org,
-	kuba@kernel.org,
-	kees@kernel.org,
-	stable@vger.kernel.org,
-	Jean-Paul Sergent <jpsergent@gmail.com>
-Subject: Re: [Bug Report] fortify false-positive + real overread in skb_metadata_dst_cmp (geneve, gro_cell_poll)
-Date: Sat,  3 Oct 2026 18:33:09 -0400
-Message-ID: <2026-10-03-1-daily-reply-0028-re-skb-metadata-dst-cmp-fixes-tag@kernel.org>
+To: stable@vger.kernel.org
+Cc: Menglong Dong <menglong8.dong@gmail.com>,
+	kernel test robot <oliver.sang@intel.com>,
+	Menglong Dong <dongml2@chinatelecom.cn>,
+	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] tracing: fprobe: fix suspicious rcu usage in fprobe_entry
+Date: Sat,  3 Oct 2026 18:46:10 -0400
+Message-ID: <20261003224546.706125-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261003005449.2675.1@jpsergent.gmail.com>
-References: <20261003005449.2675.1@jpsergent.gmail.com>
+In-Reply-To: <2026100341-letter-overstate-ddf7@gregkh>
+References: <2026100341-letter-overstate-ddf7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,21 +47,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Same disease as the
-> tun_dst_unclone fix 4c6d43db2a4d ("net: dst_metadata: fix
-> false-positive memcpy overflow in tun_dst_unclone"), on the RX/GRO
-> sibling path; that fix carries Fixes: 69050f8d6d07 for the same
-> reason.
+From: Menglong Dong <menglong8.dong@gmail.com>
 
-I've queued that one for 6.18: 6.18 has the counted_by annotation it trips on.
+[ Upstream commit ceb5d8d367d6d37a220023df443d8b67c2f4d1cd ]
 
-For your skb_metadata_dst_cmp() patch, the Fixes: tag should be ce87fc6ce3f9
-("gro: Make GRO aware of lightweight tunnels."), not 69050f8d6d07 ("treewide:
-Replace kmalloc with kmalloc_obj for non-scalar types"). The overread predates
-kmalloc_flex, and 6.18 has no kmalloc_flex at all, so with the current tag the
-fix would miss 6.18, which is the tree that panics for you, and the older
-trees, where the overread is silent.
+rcu_read_lock() is not needed in fprobe_entry, but rcu_dereference_check()
+is used in rhltable_lookup(), which causes suspicious RCU usage warning:
 
+  WARNING: suspicious RCU usage
+  6.17.0-rc1-00001-gdfe0d675df82 #1 Tainted: G S
+  -----------------------------
+  include/linux/rhashtable.h:602 suspicious rcu_dereference_check() usage!
+  ......
+  stack backtrace:
+  CPU: 1 UID: 0 PID: 4652 Comm: ftracetest Tainted: G S
+  Tainted: [S]=CPU_OUT_OF_SPEC, [I]=FIRMWARE_WORKAROUND
+  Hardware name: Dell Inc. OptiPlex 7040/0Y7WYT, BIOS 1.1.1 10/07/2015
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x7c/0x90
+   lockdep_rcu_suspicious+0x14f/0x1c0
+   __rhashtable_lookup+0x1e0/0x260
+   ? __pfx_kernel_clone+0x10/0x10
+   fprobe_entry+0x9a/0x450
+   ? __lock_acquire+0x6b0/0xca0
+   ? find_held_lock+0x2b/0x80
+   ? __pfx_fprobe_entry+0x10/0x10
+   ? __pfx_kernel_clone+0x10/0x10
+   ? lock_acquire+0x14c/0x2d0
+   ? __might_fault+0x74/0xc0
+   function_graph_enter_regs+0x2a0/0x550
+   ? __do_sys_clone+0xb5/0x100
+   ? __pfx_function_graph_enter_regs+0x10/0x10
+   ? _copy_to_user+0x58/0x70
+   ? __pfx_kernel_clone+0x10/0x10
+   ? __x64_sys_rt_sigprocmask+0x114/0x180
+   ? __pfx___x64_sys_rt_sigprocmask+0x10/0x10
+   ? __pfx_kernel_clone+0x10/0x10
+   ftrace_graph_func+0x87/0xb0
+
+As we discussed in [1], fix this by using guard(rcu)() in fprobe_entry()
+to protect the rhltable_lookup() and rhl_for_each_entry_rcu() with
+rcu_read_lock and suppress this warning.
+
+Link: https://lore.kernel.org/all/20250904062729.151931-1-dongml2@chinatelecom.cn/
+
+Link: https://lore.kernel.org/all/20250829021436.19982-1-dongml2@chinatelecom.cn/ [1]
+Reported-by: kernel test robot <oliver.sang@intel.com>
+Closes: https://lore.kernel.org/oe-lkp/202508281655.54c87330-lkp@intel.com
+Fixes: dfe0d675df82 ("tracing: fprobe: use rhltable for fprobe_ip_table")
+Signed-off-by: Menglong Dong <dongml2@chinatelecom.cn>
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Stable-dep-of: e0a624919040 ("fprobe: Use guard(rcu_sched_notrace) and check rcu_is_watching()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ kernel/trace/fprobe.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/kernel/trace/fprobe.c b/kernel/trace/fprobe.c
+index 1c9ae332afad1..2ba7470443551 100644
+--- a/kernel/trace/fprobe.c
++++ b/kernel/trace/fprobe.c
+@@ -428,6 +428,7 @@ static int fprobe_fgraph_entry(struct ftrace_graph_ent *trace, struct fgraph_ops
+ 	if (WARN_ON_ONCE(!fregs))
+ 		return 0;
+ 
++	guard(rcu)();
+ 	head = rhltable_lookup(&fprobe_ip_table, &func, fprobe_rht_params);
+ 	reserved_words = 0;
+ 	rhl_for_each_entry_rcu(node, pos, head, hlist) {
 -- 
-Thanks,
-Sasha
+2.53.0
+
