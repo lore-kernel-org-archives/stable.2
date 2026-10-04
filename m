@@ -1,56 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE252FDC20;
-	Sun,  4 Oct 2026 16:30:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A50483C3443;
+	Sun,  4 Oct 2026 16:30:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791131402; cv=none; b=T1s2zWnJhNkmdtHUv13VAYia7MDjv+HLMtsuo0lkGB4sPLnMlEKONeMEIYb+CFA3apJfcb6WXOzDXtCLqZpKfJKvTjphn4nsM/NFlY9QLrK//mxYeA0jVCq8zdEn572DE2Y7ztcI+Z4zvouReInmt+b5VfO06BLPvp7gMAdVRbc=
+	t=1791131404; cv=none; b=o8LQTI1D/BRMZlvSTbXkf9436yvcsa+7nXAgV6BGyi64Lc/GqhVe32eTOU3sed8LoJVt+dSX0/2V9ZaHieHzH4cBAPJ9gx747dhPMWM80EWkxp81jDt0EiTGZUcARKrnshxwmsGqM51a10OOw76vO6/PzgzxyJcXsQGBxVMpTW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791131402; c=relaxed/simple;
-	bh=KliaJSf/Kubgbv84iSKKMro7NAMVM3nQjDKXNfBSoBY=;
+	s=arc-20240116; t=1791131404; c=relaxed/simple;
+	bh=w/6AvkHm1eUPp5fcJ+l4F6yi+c6XlH7/Dklw/cXw9R4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TRIa2AM+iwbM+e2Hcq8AQ36cgblZOJ0u5JdVKxxLLl2E5t6qRxYZy3a9zbDfSoY/pmbUnVNAkRv6kR9auYztaTSQJXPAA40wLudyq8BCOGpQ30ALH+cCrFq8rk7vF3WQmMlT0vbMGMTqys/W+h/6W5GwudfUJWd/pcmD+Kdi1wg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dH7NmgBy; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=jz0VBxrbCSyEtq+t3BYGve8tYMq6iwAROgg3KoZCG7YTVsE8Ma13YfOmDlMmj9CjztMkpsPejmZFMqAyPhaCY5fr6VGthIiDD4fPLfNrIcuEC50Ovjz8AEae+BLi1zHtpSs0XdG+KAnMPDlg81mlSyVWmVn0NkYo5eVaRUoe++Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n78pJipv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dH7NmgBy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A6B81F000FF;
-	Sun,  4 Oct 2026 16:29:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n78pJipv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAD661F00893;
+	Sun,  4 Oct 2026 16:30:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791131401;
-	bh=97WWKyNUowiVmaJRkjk0Al/JXN2jGgBELzTH1zbyjYQ=;
+	s=k20260515; t=1791131403;
+	bh=EFrMYW3fMwQxhOv8HCPif+Dcyo6/fkWlqXW0pzGXkYU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dH7NmgBycpzyrZSdve1C8Fk8TXpjSh7JeCqZ+8ihWJ/HuR3oxJqwF9Oq1hdERXVWE
-	 vyCYzU1ATQKgtRC+7Mmx+PDQ7iclPH8vYwLkg+5EBtCYqof275CGpRJBFmLmFz5IGJ
-	 a//2TC6E5ElJ0act+1CRfkrUcatD0l/qcrIRN0KVZOLAFCQy6lYZ6Sl6jyVcpN06G1
-	 Brj3skB1mAqRz7rypA/HIhAdN942xNbqDo6GN5ZrOcGpKshYNBUvWhoRA+L4TYOYLo
-	 Jz3Be2L/wOr5lJeVqc3yDyFtzgeDrRndW1x64TQJJNDhXKvDkYFn8TQtdsDQnLaSmw
-	 ZU9rGYoJAp7hg==
+	b=n78pJipvNsTlRvChSgAUK4AQBnDSXuaCwEFf3swhAS8XELbgn98Z0DUrj2RDsl7s9
+	 8t6szmDAp+RadseWGxuouxuabkCKN7SiU2nROTT49eT+sblzbGIajd/K8E0y/fuV0S
+	 pDTHOc4SpKfReU1pGZAcwqRSU3pSUVVEx3g610v3baOB0IFK9QmBSId8Hs0Iv63Fwd
+	 V7/l3dRLHUdkyivZJG65bSUB1VwZ/7mbpYyjCHqQj99D4cI6ztUo7Y9tX7Ujy+MpmA
+	 oYUsoi8ntVMqq6Ol+r7/VE/cTuRJ+hG528hb2mrEY2MAkSghNeRTQr6mwZ7ecfEMWp
+	 BdtXbe09p9y1w==
 From: Sasha Levin <sashal@kernel.org>
-To: ljs@kernel.org,
-	rppt@kernel.org,
-	peterz@infradead.org
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	mingo@redhat.com,
-	acme@kernel.org,
-	namhyung@kernel.org,
-	linux-mm@kvack.org,
+	penguin-kernel@I-love.SAKURA.ne.jp,
 	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev,
-	stable@vger.kernel.org,
-	4ncienth@gmail.com,
-	alexander.motin@truenas.com,
-	caleb.stjohn@truenas.com,
-	ameer.hamza@truenas.com
-Subject: Re: [REGRESSION] secretmem: SIGBUS on memfd_secret() pages while perf record runs
-Date: Sun,  4 Oct 2026 12:29:39 -0400
-Message-ID: <2026-10-04-1-daily-reply-0001-secretmem-requeue@kernel.org>
+	vineash <vineash30640@gmail.com>
+Subject: Re: Request to backport "perf/core: Fix WARN in perf_sigtrap()" to 6.12.y, 6.6.y, 6.1.y and 5.15.y
+Date: Sun,  4 Oct 2026 12:29:40 -0400
+Message-ID: <2026-10-04-1-daily-reply-0002-perf-sigtrap-warn@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261002175651.811343-1-ameer.hamza@truenas.com>
-References: <20261002175651.811343-1-ameer.hamza@truenas.com>
+In-Reply-To: <179105913174.1859134.5466929391582828993@gmail.com>
+References: <179105913174.1859134.5466929391582828993@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -59,14 +46,12 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Since commit 97d34aa65c29 ("mm/secretmem: properly account locked
-> pages"), in v7.3-rc2 and the 6.18.52 and 7.2.5 backports, touching a
-> memfd_secret() page for the first time fails with SIGBUS while the
-> same user is running perf record, and read() into such a page fails
-> with EFAULT.
+> Please consider backporting the following upstream commit to the 6.12.y,
+> 6.6.y, 6.1.y and 5.15.y stable trees:
+>
+>   3da6bb419750 ("perf/core: Fix WARN in perf_sigtrap()")
 
-Re-queued the secretmem accounting fix for 6.12, 6.6 and 6.1, per Lorenzo.
-The perf fix will be needed on these trees once it lands.
+Queued for 6.12, 6.6, 6.1 and 5.15, thanks.
 
 -- 
 Thanks,
