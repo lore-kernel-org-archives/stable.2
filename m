@@ -1,101 +1,112 @@
-Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch [109.224.244.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F3141922FD
-	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 00:51:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE0F51922FD
+	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 00:58:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791075115; cv=none; b=Whl1IyYwEWgx2eF+uWsBUMVcPyFw587ltqhTE8/f+1vc9WNfbQmASr6h2jDVCV05Hm0ZwuijEM7qQUlwKK5FKGIFAWfm9xeR2jt3rE1yoN9CFfvgeNf0XhgRMe1kBSsdK2fAh0v5TzrLA9q5YqKFUlozL3MakMeJEKTclGDIOFg=
+	t=1791075492; cv=none; b=hPYQxZD9YMs2UfCpFJbVraW819hStGKatWTEyI4x9N5oEl+Y7OE6Y4LUZRdyALScmv9wBK9Lyw04hHeal5Cxw5OT7ZO48BvLOE378u3H973vcfkbsZHH7u6vXD9Sw38f/GsGMwHume+V/pnffB+bnp5xZjPiSqbXtEBLSdOXZUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791075115; c=relaxed/simple;
-	bh=+xXRChb7pRTKeEKacaBfsTdJsfEptT6xDoTfO6eJkpA=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=LpNDk9a25Yd75X6PdxtacvfTkB6RTECZUGdbM38WbgjB/Rh+sGWflUdS6+BcgGi5nLIYD6qeaNTA92LBF73Ui2AgavGcJv9PgYM70QGvXybx1QjfW1wSm6cvzdO6SClpuQpVeW0V6a7ddSgkgj/VrS7sp3d0eFIhnu1RAuaItaU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=kSqBw0Wb; arc=none smtp.client-ip=109.224.244.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1791075492; c=relaxed/simple;
+	bh=LYxoSp6A7nT3XNiH0FkmTpqL/IgXBBNtqPa607AvI8g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ARgjhd+vP4L5WP7JJOxlJ0nFYqBEkkbAjhtE4swmpm4yxWVmatANE7Sf7AZkeAllxB3BV4PGA/QqyZmA6FlSQkmX4QUb62s0lnp5NJEtazSuYc+PQzbwvzLy7i2jhKC5bLllju8uTFtuz2zimRCCGo3ih3PybKBQAN60FDuDhxg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LcEg2lPa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="kSqBw0Wb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1791075102; x=1791334302;
-	bh=+xXRChb7pRTKeEKacaBfsTdJsfEptT6xDoTfO6eJkpA=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=kSqBw0WbR/0gTff/dbPKzurZq9fdCYlKgko5qUzlv4Jllsby2isilo9777hI+ugkx
-	 jM9lcbUDWvESLDMznr2FKvofHEVWKLigRpz7advQvpLYzgiXl8wBH0fP1EdhQm3TYF
-	 DM6dSVULvA8pXhMF5aLmARdZj0PN7oh4A5Qd7PDyI1zMmEQbJLzY9wB65HLLMXBAaQ
-	 zrlOUhfCeQ4y7qroMYjTo/aXtAg4kCphHmOaW4ICWbE/QNjnKkH4nugPpEwGkWJkNn
-	 t1NWVaTUeWNf1kyaTfHufZQMteoZnYuF4BhYJx2iZPWP2tYGw9KiDRkfzCtJ5NrzEG
-	 BqwVTNWcG7SgA==
-Date: Sun, 04 Oct 2026 00:51:40 +0000
-To: "rafael@kernel.org" <rafael@kernel.org>
-From: Charis Stratakis <c.stratakis@proton.me>
-Cc: "regressions@lists.linux.dev" <regressions@lists.linux.dev>, "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>, "stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: [REGRESSION] thermal: core: battery data corrupted after resume on ThinkPad P1 Gen2 since d33e89d12295
-Message-ID: <37N_jFulf7n-Z55NfKfE71C_wVPxYvZ0xD_iRUg2fXu7TypDiF5PStQ6siSfVBih6fThg5WoPes8U5ZQpfVm_teMFcUGXFxz2DdMbfSWuws=@proton.me>
-Feedback-ID: 224044180:user:proton
-X-Pm-Message-ID: 9b9be756796ff897da51b7220e70e8d7add16813
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LcEg2lPa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 660D91F0089B;
+	Sun,  4 Oct 2026 00:58:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791075491;
+	bh=KNe2NZ+pUD31L8Qj9kjkn5HSouGleau3zC3Tst0RRbg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=LcEg2lPafGRr4dew1+KL8Q8yeM5K53aPcE0qjU/vfG/ZtOJW0NYYihU3NPKNmO7JG
+	 3i4ibUimlOMaiBkWCCefduTVEfkQy2t9yu1tUE1zUobwgcGGIyJsCRVzcELIznRjq4
+	 PUGXZgHmlA3f13tqbxd4nPI6osTRxMs4cfzUAqb6KpmGt//y/NqUMPCNZw5MgtPHeL
+	 IXw7si4JdCLV1U2pSi2HaYBk7O0IOSjICNSaUrrJyukk1GzNdmNdWQfxO8zt4epwYu
+	 cT8C8I5kptY1tkvtdiKGhPVTT0jXKNMapvhGfmxplYPHMMzJHL9JqlNgJad+wAFSA7
+	 Y6V25g3ADrw0Q==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Alice Mikityanska <alice@isovalent.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] net/ipv6: Remove jumbo_remove step from TX path
+Date: Sat,  3 Oct 2026 20:57:54 -0400
+Message-ID: <20261004005714.1288223-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026100322-crisply-undrafted-2051@gregkh>
+References: <2026100322-crisply-undrafted-2051@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
+From: Alice Mikityanska <alice@isovalent.com>
 
-On my ThinkPad P1 Gen2 with Fedora 44 I've noticed that the battery=C2=
-=A0percentage started showing garbage values, mainly showing less, while th=
-e battery was fully charged.
+[ Upstream commit 1676ebba391dee944988ce3de1c23e038a3121d3 ]
 
-I enlisted the help of Claude to help me debug this so I am providing the r=
-esults here. All the testing was done on my laptop and no vanilla kernel wa=
-s installed. Started with Fedora's build of 7.1.6 and currently I'm on 7.2.=
-8 with the same results.
+Now that the kernel doesn't insert HBH for BIG TCP IPv6 packets, remove
+unnecessary steps from the GSO TX path, that used to check and remove
+HBH.
 
-Since v7.1, _BIX and _BST data read after resume from S3 on my Lenovo Think=
-Pad P1 Gen2 (latest BIOS 1.57) is often garbage, energy_full 327.97 Wh (des=
-ign 78 Wh), voltage_min_design 32.8 V, serial changes, or energy_now ~328 W=
-h giving 424%, reported percentage wrong until the next re-read. Same sympt=
-om as https://bugzilla.kernel.org/show_bug.cgi?id=3D218881, fixed in 494c7d=
-055081 ("thermal: core: Change PM notifier priority to the minimum").
+Signed-off-by: Alice Mikityanska <alice@isovalent.com>
+Acked-by: Paolo Abeni <pabeni@redhat.com>
+Reviewed-by: Eric Dumazet <edumazet@google.com>
+Link: https://patch.msgid.link/20260205133925.526371-5-alice.kernel@fastmail.im
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-#regzbot introduced: d33e89d12295
-#regzbot link: https://bugzilla.kernel.org/show_bug.cgi?id=3D218881
+Backport adjustment: retain the existing tunnel-aware extension-header
+helper and remove only the jumbo exemptions from the GSO feature and
+checksum-offload checks. This prepares those checks for the follow-up
+extension-header detection fix.
 
-Out of the suspend/resume cycles I logged on this machine, the battery data=
- came back corrupted in 0 of 39 on 7.0.11-7.0.14, 14 of 22 on 7.1.6-7.1.13 =
-and 5 of 12 on 7.2.5. 7.2.8 and mainline still carry the same code.
+BIG TCP still inserts hop-by-hop headers on transmit and GRO completion,
+so retain ipv6_hopopt_jumbo_remove() in ipv6_gso_segment(). Removing it
+would leave the synthetic jumbo option in software-segmented packets.
+Devices with restricted IPv6 checksum offload now use software GSO for
+these packets, which strips the option before segmentation.
 
-d33e89d12295 dropped the INT_MIN-priority PM notifier and starts thermal zo=
-ne resume from dpm_complete(), so INT3403 _TMP now runs concurrently with t=
-he ACPI battery driver's _BIX refresh in battery_notify().
+[ sashal: Reduced backport -- upstream 1676ebba391de touches 2 file(s), this
+  backport carries 1. Not backported here:
+  net/ipv6/ip6_offload.c
+  This note is generated from the file lists only. ]
 
-Claude provided this explanation for the "firmware confusion" left unexplai=
-ned in 494c7d055081:
+Stable-dep-of: 5f0764cb1c81 ("net: extend IPv6 exthdr detection of tunneled packets")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/core/dev.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-the DSDT method \GTST, called by every INT3403 _TMP, writes the EC page sel=
-ector (HIID =3D 0x60) without taking the BATM
-mutex that the battery methods hold while paging through the same EC window=
-. EC register trace (ec.c dyndbg) at resume:
+diff --git a/net/core/dev.c b/net/core/dev.c
+index 97be4f9dfa771..ac506d1a41f01 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -3641,8 +3641,7 @@ static netdev_features_t gso_features_check(const struct sk_buff *skb,
+ 	 * so neither does TSO that depends on it.
+ 	 */
+ 	if (features & NETIF_F_IPV6_CSUM &&
+-	    skb_gso_has_extension_hdr(skb) &&
+-	    !ipv6_has_hopopt_jumbo(skb))
++	    skb_gso_has_extension_hdr(skb))
+ 		features &= ~(NETIF_F_IPV6_CSUM | NETIF_F_TSO6 | NETIF_F_GSO_UDP_L4);
+ 
+ 	return features;
+@@ -3745,8 +3744,7 @@ int skb_csum_hwoffload_help(struct sk_buff *skb,
+ 
+ 	if (features & (NETIF_F_IP_CSUM | NETIF_F_IPV6_CSUM)) {
+ 		if (vlan_get_protocol(skb) == htons(ETH_P_IPV6) &&
+-		    skb_network_header_len(skb) != sizeof(struct ipv6hdr) &&
+-		    !ipv6_has_hopopt_jumbo(skb))
++		    skb_network_header_len(skb) != sizeof(struct ipv6hdr))
+ 			goto sw_checksum;
+ 
+ 		switch (skb->csum_offset) {
+-- 
+2.53.0
 
-=C2=A0 =C2=A0 WR 81=3D02 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<- GBIX (=
-_BIX) selects battery page 2
-=C2=A0 =C2=A0 WR 81=3D60 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<- GTST f=
-rom a concurrent _TMP
-=C2=A0 =C2=A0 RD a2->3a a3->80 =C2=A0 =C2=A0<- _BIX reads "design voltage" =
-=3D 0x803A
-
-Test: 3 suspend/resume cycles (rtcwake + systemctl suspend), checking /sys/=
-class/power_supply/BAT0/{energy_full,voltage_min_design,serial_number} afte=
-r each. int3403_thermal loaded: 3/3 corrupted. Unloaded: 3/3 correct.
-
-I did not bisect though, the analysis of the responsible commit was perform=
-ed statically, happy to test patches, and can provide the DSDT/SSDT dump an=
-d full EC trace.
-
-This issue seems also similar to https://bugs.launchpad.net/ubuntu/+source/=
-linux/+bug/2070441
-
-Regards,
-Charalampos Stratakis
