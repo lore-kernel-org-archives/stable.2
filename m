@@ -1,95 +1,162 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC15E347536;
-	Sun,  4 Oct 2026 12:13:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58FF834D93C;
+	Sun,  4 Oct 2026 12:16:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791115994; cv=none; b=i5+zvPebX6hD6XTJOcfl2EUqIT7Uy9R8zHo158PmelS1flIHXK0s6FmDYOPfX6PxRgPwTdIUYkMc4aOE0p4sUGGY5dUO+eNv+3JTbv8Y0CfzQh6hsJ5Rs9ZfikF7UAxqcScVEY7WOfiMW0SBOQHLohzwo79RoIXEAnaEqSV1n88=
+	t=1791116173; cv=none; b=mwpajRUdq76yqG/tbeX0CkF/5xZ2A4wXdUKaZ+lPK1pDXIJK4SAWCkVsQxcLSkY33hpPv/mBzf4k0ikAQ3UdC886TeDb9oSljeS3Sx/JmcJtDIhEgTue5KZD2iUiCVxuVv+ZJNWjrQUURfyAUpH6ALi//JL0z+SLznMD/8eHFrk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791115994; c=relaxed/simple;
-	bh=clC3Ra4ilIlBmI1xpPqz3JnH4QU67loNKQHDk0ueN5o=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=kBtkdL7K+eFa8eJdfPSd22jW2Ve86VBnz8e4cEBGjnzCcPWrX71spmHE3PjpKD6hF6N0GYq2jqmTdZNGwu/8SRHYN/4ADTkd+eLkBAjfzGoU9crfL5EwldGVkDg4yl1+NtqoWie++pzMHTf5fgzsK05h7ZAYyeNRMM+yetLoO2c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=EHZanvJO; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1791116173; c=relaxed/simple;
+	bh=2a7sjE0Ej82Ld/95ZmU5sYX3XYm6v4XNVe5QDwuwNRo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=TCVJ5GFrZ1TaUtCyAs4n58HFjJzfT+JDnYIVl4yiXh2HItv9Wp36t8kREXhIb+C+db7ufohpzOM+vwE5uerqBN+66FQdCzAZVai4E1pPA9FbsFlcOJa2AEE2DLBagPxyVXcyDGX2eIYHhJv50SFy1lFUWTls+fzq9lYEbr1oIdU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=kKyKWwnD; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="EHZanvJO"
-Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4fec2680c;
-	Sun, 4 Oct 2026 20:13:07 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Tariq Toukan <tariqt@nvidia.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH net] net/mlx4: shut down catas recovery timer during teardown
-Date: Sun,  4 Oct 2026 20:12:59 +0800
-Message-Id: <20261004121259.1245171-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="kKyKWwnD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=2a7sjE0Ej82Ld/95ZmU5sYX3XYm6v4XNVe5QDwuwNRo=; b=k
+	KyKWwnDrTwb3lWXRL6vrpkRMFjK7SmsZbp2+pVyt2CoZx5K+4TGYdBXcm4tiBDRJ
+	a4GJ/Gn3pMJxpgqfGWog9iQSh/0rNkJuOuOR38u7PLb0QXGZQP5NqYeH7n3x69+L
+	RGzPnl6j3Kqmaf449LPmup8xRdmv7iTwXSCx1MhU1w=
+Received: from 19888972804$163.com (
+ [2408:8207:2421:84e0:61d7:4f14:bc92:6eb5] ) by ajax-webmail-wmsvr-40-122
+ (Coremail) ; Sun, 4 Oct 2026 20:14:40 +0800 (CST)
+Date: Sun, 4 Oct 2026 20:14:40 +0800 (CST)
+From: "jiale yao" <19888972804@163.com>
+To: =?GBK?Q?Th=A8=A6o_Lebrun?= <theo.lebrun@bootlin.com>
+Cc: "Conor Dooley" <conor.dooley@microchip.com>,
+	"Andrew Lunn" <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	"Eric Dumazet" <edumazet@google.com>,
+	"Jakub Kicinski" <kuba@kernel.org>,
+	"Paolo Abeni" <pabeni@redhat.com>,
+	"Russell King" <linux@armlinux.org.uk>,
+	"Nicolas Ferre" <nicolas.ferre@microchip.com>,
+	"Soren Brinkmann" <soren.brinkmann@xilinx.com>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v3 1/7] net: macb: manage the netdev lifetime with
+ devres
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <DLVX7ZLU4GOM.1WCL74N0U7PUP@bootlin.com>
+References: <20261003085940.493951-1-yaojiale02@163.com>
+ <20261003085940.493951-2-yaojiale02@163.com>
+ <DLVX7ZLU4GOM.1WCL74N0U7PUP@bootlin.com>
+X-NTES-SC: AL_Qu2SA/2auUgj5imYZ+kdmE8Uges8WcC0svki1YJUc/AEvQrH+wIGc0daIVzG1sa+NxmGtBuRUShj5upLWoReJAgrODIcUChwF7TRUfAZfg==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa106d50a1903a1kunm4cfc896833c1b9
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTUMfVkpLH0IaQkhLGUhPQlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
-	xVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=EHZanvJOzWoQk6w8US9ZuI7g86oeQL7zqCK2Op3GwUWc3puP3D9+/ClvxIOuG63XFXbNRrzmPjcfPgVWpkPxKhICQSkRBEAA4ojZdGnLGUfX/dj1qtcIVLtgiV0fpOwuUpk46H3T/Yoo2/ELpRlqLUM7xEKXrMJQ4+MRQaqdL1o=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=OUEMRtWmjylDs/HhQsxvQBKuzZdXHJDRqFQOscXEJig=;
-	h=date:mime-version:subject:message-id:from;
+Message-ID: <178a0ccc.167b.1a106d6770f.Coremail.19888972804@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:eigvCgDnTywxQ8JqRlBSAA--.15W
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8BAoYmrCQzDPWgAA3k
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-The catas error timer can rearm itself while the device is being
-stopped. If poll_catas() is running when timer_delete_sync() drops the
-timer-base lock, it can call mod_timer() after the deletion. The delete
-can then return with the timer queued again, allowing a subsequent callback
-to access teardown-owned MMIO state after it has been unmapped.
-
-On PFs, poll_catas() accesses catas_err.map; on VFs, it accesses the
-mapped communication channel. Use timer_shutdown_sync() to prevent the
-callback from rearming the timer once teardown starts.
-
-mlx4_start_catas_poll() calls timer_setup() when device registration is
-restarted after reload or port reconfiguration, so the timer is
-reinitialized before it is used again.
-
-The change was validated by source review and a target-object build.
-Runtime validation on mlx4 hardware was not available.
-
-Fixes: ee49bd9397cd ("mlx4_core: Reset device when internal error is detected")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/net/ethernet/mellanox/mlx4/catas.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/mellanox/mlx4/catas.c b/drivers/net/ethernet/mellanox/mlx4/catas.c
-index edcc6f662..62574b790 100644
---- a/drivers/net/ethernet/mellanox/mlx4/catas.c
-+++ b/drivers/net/ethernet/mellanox/mlx4/catas.c
-@@ -305,7 +305,7 @@ void mlx4_stop_catas_poll(struct mlx4_dev *dev)
- {
- 	struct mlx4_priv *priv = mlx4_priv(dev);
- 
--	timer_delete_sync(&priv->catas_err.timer);
-+	timer_shutdown_sync(&priv->catas_err.timer);
- 
- 	if (priv->catas_err.map) {
- 		iounmap(priv->catas_err.map);
--- 
-2.34.1
+QXQgMjAyNi0xMC0wNCAxNjo0NTo1OCwgIlRoqKZvIExlYnJ1biIgPHRoZW8ubGVicnVuQGJvb3Rs
+aW4uY29tPiB3cm90ZToKPkhlbGxvIEppYWxlLAo+Cj5UaG9zZSBMTE0gYnVncyBhcmUgY29kZSBj
+aHVybiwgdGhhdCdzIHdoeSB5b3UgYXJlIHNlZWluZyBwdXNoYmFjay4KPlBsZWFzZSBkb24ndCBp
+Z25vcmUgdGhlIHB1c2hiYWNrLiBGb3IgZXhhbXBsZSBvbiBWMiB5b3UgZ290IGFza2VkIHRvCj5y
+ZXBseSB0byBhbiBhdXRvbWF0ZWQgbWVzc2FnZSwgd2hpY2ggeW91IGRpZG4ndCBkby4KPgo+aHR0
+cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbmV0ZGV2LzIwMjYwOTI3MTUzMDIwLjUzMTFkYmE2QGtlcm5l
+bC5vcmcvCj4KPk9uIFNhdCBPY3QgMywgMjAyNiBhdCAxMDo1OSBBTSBDRVNULCBKaWFsZSBZYW8g
+d3JvdGU6Cj4+IG1hY2JfcmVtb3ZlKCkgZnJlZXMgdGhlIG5ldGRldiB3aGlsZSBpdHMgbWFuYWdl
+ZCBJUlFzIGFyZSBvbmx5Cj4+IHJlbGVhc2VkIGFmdGVyIHRoZSByZW1vdmUgY2FsbGJhY2sgcmV0
+dXJucy4gQW4gaW50ZXJydXB0IGluIHRoYXQgd2luZG93Cj4+IGNhbiBkZXJlZmVyZW5jZSB0aGUg
+ZnJlZWQgbmV0ZGV2IG9yIHF1ZXVlIGRhdGEuCj4KPlBsZWFzZSBpbmRpY2F0ZSBob3cgYW4gaW50
+ZXJydXB0IGNvdWxkIGxhbmQgaW4gdGhhdCB3aW5kb3cuCj5UaGlua2luZyBhYm91dCBpdCBmb3Ig
+YSBicmllZiBpbnN0YW50LCBJIGNhbm5vdCB0aGluayBvZiBvbmUuCgpJIHJlcHJvZHVjZWQgdGhp
+cyBvbiBRRU1VIGFhcmNoNjQgdmlydCArIEtBU0FOOgpJIGFkZGVkIGEgbWFjYiBub2RlIHZpYSBh
+biBleHRlbmRlZCBkZXZpY2UgdHJlZSwgd2l0aCBpdHMgaW50ZXJydXB0CmxpbmUgc2hhcmVkIHdp
+dGggdmlydGlvLXJuZy4gS2VlcGluZyB0aGUgcm5nIGJ1c3kgdHJpZ2dlcnMgYSBzdGVhZHkKc3Ry
+ZWFtIG9mIGludGVycnVwdHMgZHVyaW5nIHVuYmluZC9yZWJpbmQsIGFuZCBtYWNiX2ludGVycnVw
+dCgpIGhpdHMgdGhlCndpbmRvdyBhZnRlciBgZnJlZV9uZXRkZXYoKWAgb24gdGhlIGZpcnN0IGF0
+dGVtcHQuIAoKLS0tClsgICAgNC40NTcwNzddIEJVRzogS0FTQU46IHVzZS1hZnRlci1mcmVlIGlu
+IG1hY2JfaW50ZXJydXB0KzB4YzQwLzB4MTA3NApbICAgIDQuNDU3NTY5XSBSZWFkIG9mIHNpemUg
+OCBhdCBhZGRyIGZmZmYwMDAwMGY4YWNhYzggYnkgdGFzayBwb2MvODIKWyAgICA0LjQ1NzYxNF0g
+ClsgICAgNC40NTc5MzhdIENQVTogMCBVSUQ6IDAgUElEOiA4MiBDb21tOiBwb2MgTm90IHRhaW50
+ZWQgNy4zLjAtcmM0ICMxIFBSRUVNUFQgClsgICAgNC40NTgwMjVdIEhhcmR3YXJlIG5hbWU6IGxp
+bnV4LGR1bW15LXZpcnQgKERUKQpbICAgIDQuNDU4MTY3XSBDYWxsIHRyYWNlOgpbICAgIDQuNDU4
+MjU4XSAgc2hvd19zdGFjaysweDE4LzB4MjQgKEMpClsgICAgNC40NTgzMjFdICBkdW1wX3N0YWNr
+X2x2bCsweDc4LzB4OTAKWyAgICA0LjQ1ODM0MF0gIHByaW50X3JlcG9ydCsweDExNC8weDVjYwpb
+ICAgIDQuNDU4MzUzXSAga2FzYW5fcmVwb3J0KzB4YTQvMHhmMApbICAgIDQuNDU4MzYzXSAgX19h
+c2FuX3JlcG9ydF9sb2FkOF9ub2Fib3J0KzB4MjAvMHgyYwpbICAgIDQuNDU4Mzc0XSAgbWFjYl9p
+bnRlcnJ1cHQrMHhjNDAvMHgxMDc0ClsgICAgNC40NTgzODVdICBfX2hhbmRsZV9pcnFfZXZlbnRf
+cGVyY3B1KzB4YzgvMHgzNDAKWyAgICA0LjQ1ODM5OF0gIGhhbmRsZV9pcnFfZXZlbnQrMHhiMC8w
+eDFkOApbICAgIDQuNDU4NDA3XSAgaGFuZGxlX2Zhc3Rlb2lfaXJxKzB4Mjk4LzB4NmEwClsgICAg
+NC40NTg0MTldICBoYW5kbGVfaXJxX2Rlc2MrMHhjNC8weDEwNApbICAgIDQuNDU4NDU0XSAgZ2Vu
+ZXJpY19oYW5kbGVfZG9tYWluX2lycSsweDE4LzB4MjQKWyAgICA0LjQ1ODQ4NV0gIGdpY19oYW5k
+bGVfaXJxKzB4NTQvMHgxOTQKWyAgICA0LjQ1ODQ5OF0gIGNhbGxfb25faXJxX3N0YWNrKzB4MzAv
+MHg0OApbICAgIDQuNDU4NTExXSAgZG9faW50ZXJydXB0X2hhbmRsZXIrMHhmMC8weDEzMApbICAg
+IDQuNDU4NTIzXSAgZWwxX2ludGVycnVwdCsweDNjLzB4NjAKWyAgICA0LjQ1ODUzOF0gIGVsMWhf
+NjRfaXJxX2hhbmRsZXIrMHgxOC8weDI0ClsgICAgNC40NTg1NTBdICBlbDFoXzY0X2lycSsweDZj
+LzB4NzAKWyAgICA0LjQ1ODYxOV0gIGdldF9wZm5ibG9ja19taWdyYXRldHlwZSsweGQwLzB4MTQ0
+IChQKQpbICAgIDQuNDU4NjM4XSAgX19mcmVlX2Zyb3plbl9wYWdlcysweDJkOC8weGVjNApbICAg
+IDQuNDU4NjUwXSAgZnJlZV9mcm96ZW5fcGFnZXMrMHgxNC8weDIwClsgICAgNC40NTg2NjFdICBm
+cmVlX2xhcmdlX2ttYWxsb2MrMHhhMC8weDEyMApbICAgIDQuNDU4Njc0XSAga2ZyZWUrMHg4NC8w
+eDQyNApbICAgIDQuNDU4Njg0XSAga3ZmcmVlKzB4M2MvMHg0YwpbICAgIDQuNDU4Njk0XSAgbmV0
+ZGV2X3JlbGVhc2UrMHg3MC8weDk4ClsgICAgNC40NTg3MDddICBkZXZpY2VfcmVsZWFzZSsweDEw
+NC8weDIxMApbICAgIDQuNDU4NzIwXSAga29iamVjdF9wdXQrMHgxNDAvMHgyNDAKWyAgICA0LjQ1
+ODczMV0gIHB1dF9kZXZpY2UrMHgxNC8weDI0ClsgICAgNC40NTg3NDBdICBmcmVlX25ldGRldisw
+eDQxNC8weDZjNApbICAgIDQuNDU4NzUyXSAgbWFjYl9yZW1vdmUrMHgxNGMvMHgxOWMKWyAgICA0
+LjQ1ODc2M10gIHBsYXRmb3JtX3JlbW92ZSsweDU4LzB4NzgKWyAgICA0LjQ1ODc3NF0gIGRldmlj
+ZV9yZW1vdmUrMHhiMC8weDE0YwpbICAgIDQuNDU4Nzg1XSAgZGV2aWNlX3JlbGVhc2VfZHJpdmVy
+X2ludGVybmFsKzB4MmZjLzB4NDY4ClsgICAgNC40NTg3OTVdICBkZXZpY2VfZHJpdmVyX2RldGFj
+aCsweDNjLzB4NTQKWyAgICA0LjQ1ODgwNF0gIHVuYmluZF9zdG9yZSsweGVjLzB4MTAwClsgICAg
+NC40NTg4MTRdICBkcnZfYXR0cl9zdG9yZSsweDYwLzB4OWMKWyAgICA0LjQ1ODgyNF0gIHN5c2Zz
+X2tmX3dyaXRlKzB4MTcwLzB4MWU4ClsgICAgNC40NTg4MzhdICBrZXJuZnNfZm9wX3dyaXRlX2l0
+ZXIrMHgyOTgvMHg0MDQKWyAgICA0LjQ1ODg0OF0gIHZmc193cml0ZSsweDY0OC8weDhjYwpbICAg
+IDQuNDU4ODU5XSAga3N5c193cml0ZSsweGYwLzB4MWUwClsgICAgNC40NTg4NjhdICBfX2FybTY0
+X3N5c193cml0ZSsweDcwLzB4YTAKWyAgICA0LjQ1ODg3N10gIGludm9rZV9zeXNjYWxsKzB4NzAv
+MHgyNGMKWyAgICA0LjQ1ODg4N10gIGVsMF9zdmNfY29tbW9uLmNvbnN0cHJvcC4wKzB4YTgvMHgy
+MmMKWyAgICA0LjQ1ODg5Nl0gIGRvX2VsMF9zdmMrMHg0NC8weDVjClsgICAgNC40NTg5MDVdICBl
+bDBfc3ZjKzB4NTgvMHhkMApbICAgIDQuNDU4OTE3XSAgZWwwdF82NF9zeW5jX2hhbmRsZXIrMHhh
+MC8weGU0ClsgICAgNC40NTg5MjldICBlbDB0XzY0X3N5bmMrMHgxOTgvMHgxOWMKWyAgICA0LjQ1
+OTAwN10gClsgICAgNC40NTkwNTNdIFRoZSBidWdneSBhZGRyZXNzIGJlbG9uZ3MgdG8gdGhlIHBo
+eXNpY2FsIHBhZ2U6ClsgICAgNC40NTkyNjFdIHBhZ2U6IHJlZmNvdW50OjAgbWFwY291bnQ6MCBt
+YXBwaW5nOjAwMDAwMDAwMDAwMDAwMDAgaW5kZXg6MHgwIHBmbjoweDRmOGFjClsgICAgNC40NTkz
+ODRdIGZsYWdzOiAweDNmZmZlMDAwMDAwMDAwMChub2RlPTB8em9uZT0wfGxhc3RjcHVwaWQ9MHgx
+ZmZmZikKWyAgICA0LjQ1OTcyMV0gcmF3OiAwM2ZmZmUwMDAwMDAwMDAwIDAwMDAwMDAwMDAwMDAw
+MDAgZGVhZDAwMDAwMDAwMDEyMiAwMDAwMDAwMDAwMDAwMDAwClsgICAgNC40NTk3MzddIHJhdzog
+MDAwMDAwMDAwMDAwMDAwMCAwMDAwMDAwMDAwMDAwMDAwIDAwMDAwMDAwZmZmZmZmZmYgMDAwMDAw
+MDAwMDAwMDAwMApbICAgIDQuNDU5NzgxXSBwYWdlIGR1bXBlZCBiZWNhdXNlOiBrYXNhbjogYmFk
+IGFjY2VzcyBkZXRlY3RlZApbICAgIDQuNDU5NzkyXSAKWyAgICA0LjQ1OTc5OV0gTWVtb3J5IHN0
+YXRlIGFyb3VuZCB0aGUgYnVnZ3kgYWRkcmVzczoKWyAgICA0LjQ1OTkxMl0gIGZmZmYwMDAwMGY4
+YWM5ODA6IGZmIGZmIGZmIGZmIGZmIGZmIGZmIGZmIGZmIGZmIGZmIGZmIGZmIGZmIGZmIGZmClsg
+ICAgNC40NTk5MzVdICBmZmZmMDAwMDBmOGFjYTAwOiBmZiBmZiBmZiBmZiBmZiBmZiBmZiBmZiBm
+ZiBmZiBmZiBmZiBmZiBmZiBmZiBmZgpbICAgIDQuNDU5OTUxXSA+ZmZmZjAwMDAwZjhhY2E4MDog
+ZmYgZmYgZmYgZmYgZmYgZmYgZmYgZmYgZmYgZmYgZmYgZmYgZmYgZmYgZmYgZmYKWyAgICA0LjQ1
+OTk2Ml0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF4KWyAg
+ICA0LjQ1OTk5Nl0gIGZmZmYwMDAwMGY4YWNiMDA6IGZmIGZmIGZmIGZmIGZmIGZmIGZmIGZmIGZm
+IGZmIGZmIGZmIGZmIGZmIGZmIGZmClsgICAgNC40NjAwMDJdICBmZmZmMDAwMDBmOGFjYjgwOiBm
+ZiBmZiBmZiBmZiBmZiBmZiBmZiBmZiBmZiBmZiBmZiBmZiBmZiBmZiBmZiBmZgpbICAgIDQuNDYw
+MDIwXSA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT0KLS0tCldpdGggdGhlIGZpeCBhcHBsaWVkLCBzZXZlcmFsIHRob3VzYW5k
+IGN5Y2xlcyBwcm9kdWNlIG5vIHJlcG9ydCBhdCBhbGwuCj4KPj4gQWxsb2NhdGUgdGhlIG5ldGRl
+diB3aXRoIGRldnJlcyBhcyB3ZWxsLiBTaW5jZSB0aGUgSVJRcyBhcmUgcmVnaXN0ZXJlZAo+PiBs
+YXRlciwgZGV2cmVzIHJlbGVhc2VzIHRoZW0gYmVmb3JlIGZyZWVpbmcgdGhlIG5ldGRldiBhbmQg
+Y2xvc2VzIHRoZQo+PiBsaWZldGltZSBnYXAuCj4+Cj4+IFRoaXMgaXNzdWUgd2FzIGZvdW5kIGJ5
+IGEgc3RhdGljIGFuYWx5c2lzIG1ldGhvZCB1c2VkIGluIG91ciByZXNlYXJjaC4KPj4KPj4gRml4
+ZXM6IDBhNGFjZjA4ZWE2MiAoIm5ldDogbWFjYjogVXNlIGRldm1fcmVxdWVzdF9pcnEoKSIpCj4+
+IENjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnCj4+IFNpZ25lZC1vZmYtYnk6IEppYWxlIFlhbyA8
+eWFvamlhbGUwMkAxNjMuY29tPgo+PiAtLS0KPj4gIGRyaXZlcnMvbmV0L2V0aGVybmV0L2NhZGVu
+Y2UvbWFjYl9tYWluLmMgfCAxNyArKysrKysrLS0tLS0tLS0tLQo+PiAgMSBmaWxlIGNoYW5nZWQs
+IDcgaW5zZXJ0aW9ucygrKSwgMTAgZGVsZXRpb25zKC0pCj4KPlJldmlld2VkLWJ5OiBUaKimbyBM
+ZWJydW4gPHRoZW8ubGVicnVuQGJvb3RsaW4uY29tPgo+Cj5JIHN0aWxsIGdpdmUgbXkgUmIgYmVj
+YXVzZSB0aGUgcGF0Y2ggaXMgdmFsaWQuIFRoZSB3YXN0ZWQgdGltZSBpcyBvbiBuZXQKPm1haW50
+YWluZXJzIHRob3VnaDsgdGhleSdsbCBkZWNpZGUgaWYgdGhleSB3YW50IGl0IG9yIG5vdC4KPgo+
+Rm9yIHRoaXMgTUFDQiBwYXRjaCwgaXQgY291bGQgbGFuZCBpbiBuZXQtbmV4dCBhcyBJIGRvbid0
+IHNlZSBhCj5wcmFjdGljYWwgYnVnIGhlcmUgKGluIGxpZ2h0IG9mIHRoZSByZWNlbnQgcHVzaGJh
+Y2sgYWJvdXQgdGhlICMgb2YKPmZpeGVzIGluIG5ldCkuCj4KPlRoYW5rcywKPgo+LS0KPlRoqKZv
+IExlYnJ1biwgQm9vdGxpbgo+RW1iZWRkZWQgTGludXggYW5kIEtlcm5lbCBlbmdpbmVlcmluZwo+
+aHR0cHM6Ly9ib290bGluLmNvbQo=
