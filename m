@@ -1,33 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F4A7414429;
-	Sun,  4 Oct 2026 13:52:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC67D43711B;
+	Sun,  4 Oct 2026 13:52:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791121921; cv=none; b=mCBx9adqmlPoXD5jTcEpfgwgC4AO/MLcry8c0i8jzw4Kn4nHyRUYfBHcgStpFFZmVgPqLYLl0i7nOqJ/ViMydu8OCktT8iW8k90ojWN9uSu0cFnADG+soBZSkeS5x8g8AAHeBhEnuOE1VdgCsIdPOSQ+n1vWQ7VHxRWERRw6EJM=
+	t=1791121923; cv=none; b=OaAcJkdWBxyFmpY6M2sUeknSwj3q9nTKJ8gK7KnXw2M8sDNGNhZJNwFrlAQ2h23jdsH/RcFwN+SUNMVoQGK9LxzRSDp+5rWapRD/5bM0k25FBWFKV0YyA1tOJW86+lk9KortHGdxWWLgZKu0YTUxDO2KakpXVcwIRuopiAiiUko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791121921; c=relaxed/simple;
-	bh=s0hiy5OYhz4Ndzng0x6zSqGNllf91Ny78Cz5Qjy30PI=;
+	s=arc-20240116; t=1791121923; c=relaxed/simple;
+	bh=eh4JmCl2z9v5o/njO6EO9oQWrrTNVlmYZ3s0b+sxhu8=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=CJzEsKbYfMcumAoTTmSBo616cqWs8MSnnYbV/uDvN7ZyFkQP/XcVU5M91PyBwrNPTVhVi/kl8+8PwqFkjVM/ukwdDnbtWXDL9nvNtYBbzFjAQ4uIbC5+b4L92Y7iOgKiNBGjwb7mOA/RpQ6t9hVr93kNY8khww8VtyKno8i9nqI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IOuh0OPl; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=BDoKgT3EMnUM/yg91Zaah2vQXYQIJcS/VUvxv+a/I8pZP2nJ4F3FV6cICI+CoeocTSH4pascZXD/O0wBmk0JU77fiQDyJtsWQj+yYb+0KKFgcfHzNM5e9OMYTjvbbdNv+xsIPup9VzImfjmfD4RQUK/mhly68AdfV+xsqtvmOU4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Toy1Xkr/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IOuh0OPl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29D891F000FF;
-	Sun,  4 Oct 2026 13:51:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Toy1Xkr/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE3C01F00893;
+	Sun,  4 Oct 2026 13:52:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791121920;
-	bh=HBxIkHX7eeDxI00ootJ3OgpFno/GRxR40OHG91yZNGE=;
+	s=k20260515; t=1791121921;
+	bh=0Tyn+idJA29Oyha2JL7pM0fMPsUIj8MxRZ7brWvzlec=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=IOuh0OPl+clS2andzYiFK279vBmHTHGyk+C41VOGTySF+woTBE/XceHPw+cxTdTWy
-	 BTYBAurz37r4QltCkNGLbEtz3Fu6yRzuXye9/2yCAoTVSedJdIJ06/DEkrWX+xA4cj
-	 LDE6VUImu55+5JmY+o7Qzxt0dU4p0xaz9YQzEGLQ7Ww76mbZiX3VZ5VtxPJViin3Mh
-	 Eihl9y04lWmtdA+L3uI7nYIcqfK+jXO6/BIdRzEerG0AV7KmFxouE6s6Tn/cxGaJg/
-	 s55cTzgo7FpxnA0r0ilgKPCgFRMr4lU3mv4rzVtrz8Ss+dFQGenVhZIownjsNx76x+
-	 U551dE8pYicJg==
-Subject:
- Re: [PATCH net v13 1/2] llc: release unaccepted listener child sockets
+	b=Toy1Xkr/EPH5xSvY20V5Z7YYtw2juIV4lhszynUFJjv1IKBZTycsUiL6yYTFrA0rq
+	 n4oRta/sAN9/ZQeTC0YC/E9RfNOHR5Ig4lNCg9wj9rHF9zJYBypdvfmbGBBc7/w1B/
+	 hbhrJcppP6Cxp9lSocBW8bVw6kOgVUQ+N0OBV9CiIJNAWbFw3jV+ZiR82Xy4KV0PBF
+	 PanXscRi3//JuPASmG9d2YtlchRy9+KEM/DTmTP1T8Zi5E35xzf3+333JIQ130h7sF
+	 I7ORRxbDcYF3lo996jW18WBTG2DXBdzjcUrdDmzHAKgN1s5X8jaElTDE+rM06l7IG/
+	 1LRjU7VPsOREw==
+Subject: Re: [PATCH net v13 2/2] llc: create listener children only for SABME
 From: netdev-bot+sashiko@kernel.org
 To: zihanx@nebusec.ai
 Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
@@ -36,12 +35,12 @@ Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
  shuangpeng.kernel@gmail.com, luoxuanqiang@kylinos.cn, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org, vega@nebusec.ai,
  root@tr0jan.top
-Date: Sun, 04 Oct 2026 13:51:58 +0000
-Message-ID: <179112191866.434549.16775046304606164752@kernel.org>
+Date: Sun, 04 Oct 2026 13:52:00 +0000
+Message-ID: <179112192029.434549.16529360000343263003@kernel.org>
 In-Reply-To:
- <1878b0954c763cf23bb99d7d09118eaae4588c45.1790688018.git.zihanx@nebusec.ai>
+ <6d816ade8765b81d69d06af0d1970f3f09504a48.1790688018.git.zihanx@nebusec.ai>
 References:
- <1878b0954c763cf23bb99d7d09118eaae4588c45.1790688018.git.zihanx@nebusec.ai>
+ <6d816ade8765b81d69d06af0d1970f3f09504a48.1790688018.git.zihanx@nebusec.ai>
 X-sashiko-severity: Critical
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -52,10 +51,10 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 7 potential
+Thank you for your contribution! Sashiko AI review found 1 potential
 issue(s) to consider.
 
-Critical: 1 · High: 0 · Medium: 3 · Low: 3
+Critical: 1 · High: 0 · Medium: 0 · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -63,302 +62,108 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Critical] The new established-connection lookup in the listener
-  receive path does not exclude the listener, so the lookup can return…
-- [Medium] The patch uses `llc_data_accept_state()` to decide that an
-  unaccepted child is dead.
-- [Medium] The new `llc_incoming_sock_work()` item is queued on
-  `system_percpu_wq` through `schedule_work()` in…
-- [Medium] A blocking accept() can fail with -EINVAL when there is no
-  error.
-- [Low] The patch adds listen() backlog enforcement to LLC, and the
-  commit message does not say so.
-- [Low] `llc_ui_connect()` now returns -EINVAL for a socket in
-  TCP_LISTEN.
-- [Low] This patch left stale comments.
+- [Critical] In llc_conn_rcv_existing_sabme() (net/llc/llc_conn.c), the
+  patch calls bh_lock_sock_nested(newsk) on whatever socket…
 
 --
 
-llc: release unaccepted listener child sockets
+llc: create listener children only for SABME
 
-This patch tracks each passive-open LLC child socket until it is accepted
-or released. Children are released asynchronously through a work item
-when setup fails, when the listener closes, or when the indication is
-discarded. It also defers listener frame processing while userspace owns
-the listener, and it stops timers synchronously before the SAP and device
-references are dropped.
-
-> diff --git a/net/llc/af_llc.c b/net/llc/af_llc.c
-> index b0447c33dbf09..6a72a8a601547 100644
-> --- a/net/llc/af_llc.c
-> +++ b/net/llc/af_llc.c
-
-[ ... ]
-
-> @@ -489,6 +499,9 @@ static int llc_ui_connect(struct socket *sock, struct sockaddr_unsized *uaddr,
->  		goto out;
->  	if (unlikely(sk->sk_type != SOCK_STREAM))
->  		goto out;
-> +	rc = -EINVAL;
-> +	if (unlikely(sk->sk_state == TCP_LISTEN))
-> +		goto out;
-
-[Severity: Low]
-This isn't a bug, but connect() on a listening LLC socket now returns
--EINVAL. Before this patch it went ahead and turned the listener into a
-connecting socket.
-
-Rejecting it seems reasonable. Could the commit message mention this
-userspace-visible change? It currently covers only accept, release,
-receive and timer handling.
-
->  	rc = -EALREADY;
->  	if (unlikely(sock->state == SS_CONNECTING))
->  		goto out;
-
-[ ... ]
-
-> @@ -718,10 +731,19 @@ static int llc_ui_accept(struct socket *sock, struct socket *newsock,
->  		llc_sk(sk)->laddr.lsap);
->  	skb = skb_dequeue(&sk->sk_receive_queue);
->  	rc = -EINVAL;
-> -	if (!skb->sk)
-> +	if (!skb || !skb->sk || skb->sk == sk)
->  		goto frees;
-
-[Severity: Medium]
-Can a blocking accept() return -EINVAL here when nothing has actually
-gone wrong?
-
-The skb_queue_empty()/llc_wait_data() check and the skb_dequeue() are
-separate steps. Holding the listener with lock_sock() does not stop
-softirq processing of child frames.
-
-A DISC for a QUEUED child is handled in llc_conn_handler() while holding
-only the child's bh lock:
-
-llc_conn_handler()
-  llc_conn_rcv(child)
-    llc_conn_state_process()
-      llc_release_incoming_sock()
-        llc_remove_incoming_skb()  <- unlinks from listener->sk_receive_queue
-
-If that was the only queued indication, skb_dequeue() returns NULL. The
-new !skb check then jumps to frees with rc = -EINVAL.
-
-Should accept() wait again here? Or should it at least return
--ECONNABORTED, as the aborted-child path just below does?
-
-[ ... ]
+With this patch, an LLC listener creates a passive-open child only for a
+SABME command. It answers DISC and other P=1 commands with DM and drops
+all other frames. A duplicate SABME that matches an existing connection
+now goes to that child through the new llc_conn_rcv_existing_sabme()
+helper instead of being dropped, and llc_backlog_rcv() checks backlog
+packets more strictly.
 
 > diff --git a/net/llc/llc_conn.c b/net/llc/llc_conn.c
-> index 260460d50f54c..349a7c5b9bb1a 100644
+> index 349a7c5b9bb1a..79c29c57cd471 100644
 > --- a/net/llc/llc_conn.c
 > +++ b/net/llc/llc_conn.c
 
 [ ... ]
 
-> @@ -69,6 +70,15 @@ int llc_conn_state_process(struct sock *sk, struct sk_buff *skb)
->  		goto out_skb_put;
->  	}
+> @@ -801,7 +801,64 @@ static struct sock *llc_create_incoming_sock(struct sock *sk,
+>  	return newsk;
+>  }
 >  
-> +	/*
-> +	 * An unaccepted child that leaves a data-accepting state cannot be
-> +	 * delivered by accept(). Release it before processing the indication.
-> +	 */
-> +	if (unlikely(atomic_read(&llc->incoming_state) ==
-> +		     LLC_INCOMING_QUEUED &&
-> +		     llc_data_accept_state(READ_ONCE(llc->state))))
-> +		llc_release_incoming_sock(skb->sk);
-
-[Severity: Medium]
-Is llc_data_accept_state() the right test for deciding that an unaccepted
-child is dead?
-
-Its kernel-doc says it tells whether data can be sent in a given state.
-It returns true for every state except NORMAL, BUSY and REJ:
-
-	return state != LLC_CONN_STATE_NORMAL && state != LLC_CONN_STATE_BUSY &&
-	       state != LLC_CONN_STATE_REJ;
-
-That also covers the connected checkpoint states AWAIT, AWAIT_BUSY and
-AWAIT_REJ, plus ERROR and RESET.
-
-For example, suppose the peer sends RNR. llc_conn_ac_set_remote_busy()
-arms busy_state_timer. When the timer fires, llc_normal_state_trans_20b
-moves the child from NORMAL to AWAIT:
-
-llc_process_tmr_ev()
-  llc_conn_state_process()
-    llc_conn_service()          <- NORMAL -> AWAIT
-    llc_data_accept_state()     <- true
-    llc_release_incoming_sock()
-
-The child is set to OUT_OF_SVC and unhashed. Its indication is removed
-from the listener queue and the child is freed, and no DISC or DM is
-sent. The peer still considers the link up. Without this check,
-llc_await_state_trans_8a would have moved the connection back to NORMAL
-once the poll was answered.
-
-llc_accept_incoming_sock() uses the same test, so accept() would return
--ECONNABORTED for a child that is only in a checkpoint state.
-
-The commit message says:
-
-    Release an unaccepted child as soon as the connection state machine moves it
-    out of a data-accepting state, so a peer disconnect cannot keep an unusable
-    child in the listener accept queue.
-
-Should this test only for states where the connection is actually gone,
-such as ADM?
-
-> +
->  	switch (ev->ind_prim) {
->  	case LLC_DATA_PRIM:
->  		skb_get(skb);
-> @@ -87,7 +97,18 @@ int llc_conn_state_process(struct sock *sk, struct sk_buff *skb)
->  		 * Can't be sock_queue_rcv_skb, because we have to leave the
->  		 * skb->sk pointing to the newly created struct sock in
->  		 * llc_conn_handler. -acme
-
-[Severity: Low]
-This isn't a bug, but two comments are now out of date. This one and the
--acme block in llc_conn_handler() still say the child is created in
-llc_conn_handler(). With this patch, creation can be deferred to
-llc_backlog_rcv() through llc_conn_rcv_listener().
-
-The llc_backlog_rcv() kernel-doc also does not mention the new child
-creation path.
-
-Later in the series, "llc: create listener children only for SABME"
-rewrites both comments to name llc_conn_rcv_sabme(). After that, only
-the incomplete llc_backlog_rcv() kernel-doc would remain.
-
-[ ... ]
-
-> @@ -755,37 +776,257 @@ static struct sock *llc_create_incoming_sock(struct sock *sk,
-
-[ ... ]
-
-> +static int llc_conn_rcv_listener(struct sock *sk, struct sk_buff *skb,
-> +			       struct llc_addr *saddr,
-> +			       struct llc_addr *daddr)
+> -static int llc_conn_rcv_listener(struct sock *sk, struct sk_buff *skb,
+> +/* The listener is locked and bottom halves are disabled. */
+> +static int llc_conn_rcv_existing_sabme(struct sock *listener,
+> +				       struct sock *newsk,
+> +				       struct sk_buff *skb)
 > +{
-> +	struct sock *newsk;
+> +	struct llc_sock *llc = llc_sk(newsk);
+> +	int incoming_state;
 > +	int rc = 0;
 > +
-> +	local_bh_disable();
-> +	newsk = __llc_lookup_established(llc_sk(sk)->sap, saddr, daddr,
-> +					 dev_net(skb->dev));
-> +	if (newsk) {
-> +		sock_put(newsk);
-> +		goto drop;
-> +	}
+> +	bh_lock_sock_nested(newsk);
+
+[ ... ]
+
+> @@ -812,8 +869,9 @@ static int llc_conn_rcv_listener(struct sock *sk, struct sk_buff *skb,
+>  	newsk = __llc_lookup_established(llc_sk(sk)->sap, saddr, daddr,
+>  					 dev_net(skb->dev));
+>  	if (newsk) {
+> -		sock_put(newsk);
+> -		goto drop;
+> +		rc = llc_conn_rcv_existing_sabme(sk, newsk, skb);
+> +		local_bh_enable();
+> +		return rc;
+>  	}
 
 [Severity: Critical]
+
 Can __llc_lookup_established() return the listener itself here?
 
-llc_estab_match() compares only the netns, the local and remote LSAPs,
-and the local and remote MACs. It does not skip TCP_LISTEN sockets:
+Listeners are hashed in the same sap->sk_laddr_hash, and
+llc_estab_match() does not check sk_state:
 
+net/llc/llc_conn.c:llc_estab_match() {
+	...
 	return net_eq(sock_net(sk), net) &&
-	       llc->laddr.lsap == laddr->lsap &&
-	       llc->daddr.lsap == daddr->lsap &&
-	       ether_addr_equal(llc->laddr.mac, laddr->mac) &&
-	       ether_addr_equal(llc->daddr.mac, daddr->mac);
+		llc->laddr.lsap == laddr->lsap &&
+		llc->daddr.lsap == daddr->lsap &&
+		ether_addr_equal(llc->laddr.mac, laddr->mac) &&
+		ether_addr_equal(llc->daddr.mac, daddr->mac);
+}
 
-A listener's llc->daddr is all zeroes after allocation. Its only writer
-is llc_ui_connect(), and the value is never cleared, even when connect()
-fails and the socket is then passed to listen():
+A listener that was bound but never connected has an all-zero daddr.
+llc_ui_bind() relies on that zero daddr in its clash check.
 
-	llc->daddr.lsap = addr->sllc_sap;
-	memcpy(llc->daddr.mac, addr->sllc_mac, IFHWADDRLEN);
+A socket whose connect() failed keeps llc->daddr set to the peer, because
+llc_ui_connect() fills it in before the attempt. llc_ui_listen() only
+requires SS_UNCONNECTED, so that socket can then become a listener that
+still matches the peer.
 
-So for a listener bound to the device MAC, the lookup would match the
-listener for either:
-
-  - a SABME from the peer that an earlier failed connect() targeted, or
-  - on a never-connected listener, a frame with source MAC
-    00:00:00:00:00:00 and SSAP 0.
-
-In that case llc_conn_rcv_listener() treats the hit as an existing
-connection and drops every retry, so that peer can never connect.
-Before this patch, a child was created.
-
-Later in the series, "llc: create listener children only for SABME"
-changes this hit to call llc_conn_rcv_existing_sabme(sk, newsk, skb)
-with newsk == sk. That function starts with bh_lock_sock_nested(newsk),
-but llc_conn_handler() already holds bh_lock_sock(sk) on the same
-socket:
+Suppose a peer sends one SABME command to the listener's MAC and SAP,
+using SA 00:00:00:00:00:00 and SSAP 0. The softirq path then looks like
+this:
 
 llc_conn_handler()
+  __llc_lookup() returns the listener
   bh_lock_sock(sk)
-  llc_conn_rcv_sabme()
-    __llc_lookup_established()     <- returns sk
-    llc_conn_rcv_existing_sabme()
-      bh_lock_sock_nested(sk)      <- same slock
+  sk_state is TCP_LISTEN, !newsk, frame is SABME, not owned by user
+  llc_conn_rcv_sabme(sk, skb, &saddr, &daddr)
+    __llc_lookup_established() returns the same listener
+    llc_conn_rcv_existing_sabme(sk, sk, skb)
+      bh_lock_sock_nested(sk)
 
-Wouldn't that self-deadlock in softirq? Any L2-adjacent host could
-trigger it with a spoofed frame. Should the lookup skip newsk == sk, or
-should llc_estab_match() skip TCP_LISTEN sockets?
+Wouldn't this CPU spin forever on sk->sk_lock.slock, which it already
+holds? SINGLE_DEPTH_NESTING only changes the lockdep subclass. It does not
+stop a real recursive acquisition.
 
-> +	if (sk_acceptq_is_full(sk))
-> +		goto drop;
+Before this patch, a lookup hit here just called sock_put(newsk) and
+dropped the skb without taking any child lock.
 
-[Severity: Low]
-This isn't a bug, but this adds listen() backlog enforcement that LLC did
-not have before, and the commit message does not mention it.
+The deferred path does not deadlock, because __release_sock() has already
+dropped the slock. In that case the skb is queued again on the listener as
+LLC_PACKET, and llc_backlog_rcv() drops it because the listener's
+llc->state is ADM.
 
-In the baseline, llc_ui_listen() stored sk_max_ack_backlog but nothing
-ever checked it. llc_ui_accept() also called sk_acceptq_removed() with
-no matching add, so the counter underflowed.
-
-With this patch, listener frames are dropped once the backlog is full.
-Released children also keep their slot until llc_incoming_sock_work()
-runs.
-
-The commit message only says "update the accept backlog". Since this is
-tagged for stable, could it say that connection attempts beyond the
-listen() backlog are now dropped, and that the old underflow is fixed?
-
-[ ... ]
-
-> +static void llc_incoming_sock_work(struct work_struct *work)
-> +{
-
-[ ... ]
-
-> +	netdev_put(dev, &llc->dev_tracker);
-> +	llc_sk_free(sk);
-> +	llc_sap_put(sap);
-> +	if (listener) {
-> +		lock_sock(listener);
-> +		sk_acceptq_removed(listener);
-> +		release_sock(listener);
-> +		sock_put(listener);
-> +	}
-> +}
-
-[Severity: Medium]
-Can this work item still be running llc2 module code after the module has
-been freed?
-
-llc_release_incoming_sock() queues incoming_work on system_percpu_wq
-with schedule_work(). Nothing in llc2_exit() flushes or cancels it.
-
-At the end of llc_incoming_sock_work(), llc_sk_free(sk) and
-sock_put(listener) can drop the last LLC socket reference. llc_proto.owner
-is THIS_MODULE, so the final sock_put() runs sk_prot_free() ->
-module_put() synchronously. At that point the worker is still executing
-llc_incoming_sock_work() in llc2.ko text.
-
-On a preemptible kernel, the worker can be preempted after the last
-sock_put(). If rmmod llc2 completes in that window, the worker resumes
-in freed module text. The synchronize_rcu() in free_module() does not
-wait for a preempted task that is outside an RCU read-side section.
-
-Would a dedicated workqueue that llc2_exit() destroys, or a flush in
-llc2_exit(), close this window?
+Should llc_conn_rcv_sabme() drop the frame when newsk == sk (or when
+newsk->sk_state == TCP_LISTEN) before taking the child lock? The
+established match could also skip listening sockets instead.
 
 [ ... ]
 
