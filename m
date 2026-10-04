@@ -1,140 +1,199 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2CB245C700;
-	Sun,  4 Oct 2026 14:50:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93034463B91
+	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 14:52:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791125420; cv=none; b=R8orFa6cViOriQfbbV6s49ENoFcV1QNzUw3/PkRnjmo3fz1ZXAU++JkFVG0912YCwx/UyXvj9trwO2FuOY64oeHOwLX1vNmvP56YdCz6Kg/5ZAXchgEC1uySHSuKPffqx2G8d1awOtv+FE4ln4CxfaNz7qGsXTVwpzJ+zhuLIuY=
+	t=1791125536; cv=none; b=dC39Oksap30bE/urbTLgSFXdQNyv66apzuKRS4ScBtlJ90qlpPFjje3Jy/YijlrqkygllsDVNfO7whogdiVM40hhPhxqKuqLBYWJf6gaiiAEsmJo8OgjqrUeQ78mr87nPTOV0+T3QJJEYaPZx5ZY1U1usTTdlwtv0ch/Rnui3zQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791125420; c=relaxed/simple;
-	bh=ksNh/cGrEv1PgupfeXYl3pyjEDpGERY+1FVkyy1VR28=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=YLwN0+m2u9sSONA/HzJ8ACwFf4IfPauHTe95n6PbL/wRntfNyB5YX68h2+HMaNV2l48tUcv+2cDt9jDlQ/d+rISzhAu3XecrHi1PlgKWg7c0jnwTw2jEkhbq4o/30VuuKC8o5/BCDufju+pjJKPqjmLm+EbEGMxMhU3uvW59pBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OIly5H5p; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791125536; c=relaxed/simple;
+	bh=3PSXjUUgkP+CTkZuRfK+qx3dquiLCcTTSglpG8kopjI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=A/Eh5DfelyQAVK3wFveTY3nd9afrAYMuuLSOqlfNtvuUoFYG/Wod8GjtfQ8K+lJncTDr7PrS3NlxIt+0qMBU4o1w3Nky/zpIPOogxT5Uejf6EoXUALFuWxcalVqhjdPMNrcBdUCdUC9B4XR5gMQtPRJnWW/boFdRN0UkJ2+4OgI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eAnsVz5/; arc=none smtp.client-ip=74.125.229.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OIly5H5p"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A42A1C2BCB9;
-	Sun,  4 Oct 2026 14:50:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791125419;
-	bh=ksNh/cGrEv1PgupfeXYl3pyjEDpGERY+1FVkyy1VR28=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=OIly5H5pCnSTczTQArt7HZa6P6KS2y6CYkzLuUgX9Q+/IYH7WMRN70J042jE+FeE2
-	 N6i7ujPPOXpsvOZP56HOCk9PQGSVpsXK6wWCLrVJV0BFDznwmigBtxIN6EXuDJvK/l
-	 lw/aTs1gFtloYtxTLTMCoFZYquc9o3ZCKYfztoTkpBg/myYvcbGKrLVzXvM4dDbp0D
-	 +dgx+BQy8hEP+IXe9k7zb10w3FM1D8tBZnXvdTl0sdyWjBcDwQgG9dn9eEdZve67oJ
-	 tkyeowW+cw2YGpt65wm2xGqrsWt1+D4DeWCLzykf+CYY4SWX/IzH9p2VMeyaA7bvV9
-	 +bpCO1JcdjWxw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7FDE4CA5FCE;
-	Sun,  4 Oct 2026 14:50:19 +0000 (UTC)
-From: Shigeaki Asai via B4 Relay <devnull+y-asai.0816.docomonet.jp@kernel.org>
-Date: Sun, 04 Oct 2026 23:50:17 +0900
-Subject: [PATCH] drm/meson: encoder_dsi: load ENCL gamma table while ENCL
- is disabled
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eAnsVz5/"
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5ba42966d5fso763465e87.2
+        for <stable@vger.kernel.org>; Sun, 04 Oct 2026 07:52:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791125530; x=1791730330; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pcvaVcm7AzJh6OuMh0IbSjO1x/AShhDM4lk+aq/Dp1g=;
+        b=eAnsVz5/SUnTqJP1to58ZQ/GocqiqUktGmRmlcOT0kguh4PJr1hzCuXPb7vzyEVBO5
+         YQcA3ihao5ZqLaGAhuGhS+q8GrZONTHlW6MRXFQbAsGxOVcX2dJ8xKGqwN/lJoY0VDrn
+         STm5IDTvgDYtkHvXyP8uXuveaW6YsUIkvjiYf3c+HojHRM4q1EZ3Vk27d2rqbbIokuqp
+         XxPmByE0+F4R616D+p8tYc4yrDXYMmbyMZMdjDLLqbnXv/tsSDHEIa50vh0aEAtNRdBg
+         jTbpfD7mWjZOiOoXXxY95bve20/cA8D+gvA2nVZl7fJSioArKfVfJq8CSSBpMr7f+efw
+         NllQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791125530; x=1791730330;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pcvaVcm7AzJh6OuMh0IbSjO1x/AShhDM4lk+aq/Dp1g=;
+        b=PlNUNr/S1iKROd3/XBR60fpZIML/LbfiC5EmO6tqbHB9r+rNpyepBSb1Q0znND3HK1
+         F+6oC1Dwg9ZNjQnziOvlnp/rjrAYRqM44GjPo+I0nlGx4nC5eX9eujjSS9o4xRLzN50K
+         zCs6SncDAUy7UC7AeAMx7dx6wyuyMm/GPop00aVQ2hlKd8vkLcgtFun3Tm+xgc8pgJxf
+         kHJYZ8gmULxFQGr+28idFAZbIwkEvEssWhyfE7jk/oJdK69T6MVsgxaaEjFMCIV8IIqi
+         oGlRTgscHP/yB68yvNzVEiGhpAqbL2kR7wkfmi00InD7xf6oOdICyCIwKnWK/IPgvB+L
+         OJaQ==
+X-Forwarded-Encrypted: i=1; AKwUvByzPUf3nr1RDbBN/r2dmOWYB4IByZKUkqaP07FngiNaZBfEszXRZW12V/sTsXvroTiZt+pg1BI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK7RBtOY/lCe+YrBtHa77R21iPcidVbQDySb/z3fh6iIkFRuMJC
+	gULnwnl8h/dRdjj6es03dIvieGPbPFAyOrilPEeNxOZmeMoQFtAkfWdc
+X-Gm-Gg: AYBFou3eS1t9mNDh1Hn0x5BDCOOeQcL9nVPmM+yRyIZ5EVdnUIgWsChk4I+oLwAduxu
+	/7ub8QFmTUfdkilpnxbF9L8A3tvr1IR3cg531I7vXGAvEzWXhVywG+LHv6XdKL97n/wLmG1VyDS
+	8ni0AwHwYNWso9UedPDBbf2wuNPoNsVRNpoU7CKVZUvZMb81//hiPBDENT/H9zTWiyK0XguWjMh
+	0CQ24HM9EMggrILVM0pn5MvgrEHzH2orxcJD5dmHS6oK/lI7oxomKpDCQWmUKqGZCmX56aEZXd8
+	YoRp1sYkgOuW2lgSDRxAUlRyxJCo3iP1plemKi+e8ru8zk9CUmaPVdFJrtRPTD5mlc31dwCt/ih
+	D4E97jjyjmhH/WkoBLiROZpxCCgXsixXO2cROZCpbNmbmyZTaxm/ud4MPYZ+xJMhVTFM+lzcD6O
+	n3l90nYaS78lC/iabmeFyKY1dYXv5G24ZBZNuhljmTqZBN15FKAw03ISd5/DOHmVtZw447QX0tD
+	/aqzJATnakgzoQL3wZMKFAWvvk+A0y0OpF2elPd6Q==
+X-Received: by 2002:a05:6512:65d4:10b0:5ba:4329:1c6c with SMTP id 2adb3069b0e04-5bb93812b49mr2768336e87.6.1791125530191;
+        Sun, 04 Oct 2026 07:52:10 -0700 (PDT)
+Received: from dau-home-pc.. ([212.35.161.1])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bb7c795b22sm2360569e87.36.2026.10.04.07.52.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 07:52:09 -0700 (PDT)
+From: Anton Danilov <littlesmilingcloud@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Eric Dumazet <edumazet@kernel.org>,
+	Florian Westphal <fw@strlen.de>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Simon Horman <horms@kernel.org>,
+	David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Mazin Al Haddad <mazin@getstate.dev>,
+	Matthias May <matthias.may@westermo.com>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net v4] ip6_gre: use skb_vlan_inet_prepare() instead of pskb_inet_may_pull()
+Date: Sun,  4 Oct 2026 17:52:04 +0300
+Message-ID: <20261004145205.226974-1-littlesmilingcloud@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261004-meson-gamma-v1-1-6347558e2bb3@docomonet.jp>
-X-B4-Tracking: v=1; b=H4sIAKhnwmoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDAwMT3dzU4vw83fTE3NxEXWNjAzMjU/NkgxQjCyWgjoKi1LTMCrBp0bE
- QfnFpUlZqcgnICKXaWgDtxUAKbwAAAA==
-X-Change-ID: 20261004-meson-gamma-3306257c0d28
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Nicolas Belin <nbelin@baylibre.com>, 
- Jagan Teki <jagan@amarulasolutions.com>
-Cc: dri-devel@lists.freedesktop.org, linux-amlogic@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, John Williams <porschemad911@gmail.com>, 
- Shigeaki Asai <y-asai.0816@docomonet.jp>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791125418; l=2799;
- i=y-asai.0816@docomonet.jp; s=20261004; h=from:subject:message-id;
- bh=epdsIAmy9JIKhg6OxImAsy/RAjs7ztCfGy7gPcYMgNE=;
- b=h1/oYAEa0HS+pqwwtr8ShKjfVW0AjgRlYY9z53yxUQUK0hbzAlVR8WNCPGetlPDMDGiY6cTF2
- en6s7mGAgp2D8IBtRWbfgNkpTT4Jym6j+2p7MFWctL/CZY5Yu0idK3I
-X-Developer-Key: i=y-asai.0816@docomonet.jp; a=ed25519;
- pk=jkd95ViSn8i/X3oPMHYG1A8mae8IOwOKGE64kzLqC5c=
-X-Endpoint-Received: by B4 Relay for y-asai.0816@docomonet.jp/20261004 with
- auth_id=1110
-X-Original-From: Shigeaki Asai <y-asai.0816@docomonet.jp>
-Reply-To: y-asai.0816@docomonet.jp
+Content-Transfer-Encoding: 8bit
 
-From: Shigeaki Asai <y-asai.0816@docomonet.jp>
+ip6gre_tunnel_xmit() and ip6erspan_tunnel_xmit() check the packet length
+with pskb_inet_may_pull(), which looks at skb->protocol only, while the
+code that follows parses the packet through VLAN tags with
+skb_protocol(skb, true). The parsing started to look through the tags
+with the two commits in the Fixes tags; the check was left as it was.
+A VLAN-tagged frame whose inner IPv4/IPv6 header is not in the linear
+area passes the check, and the inner header is read anyway. A 20 byte
+tagged frame on ip6gretap and a 10 byte frame on ip6erspan are sent
+out, while an untagged frame that is too short for its IP header is
+already dropped.
 
-meson_encoder_dsi_atomic_enable() programmed the ENCL gamma LUT right
-after meson_venc_mipi_dsi_mode_set(), i.e. while the ENCL timing
-generator was already running (ENCL_VIDEO_EN=1). Writing the LUT
-during active video stalls the hardware: L_GAMMA_CNTL_PORT
-WR_RDY/ADR_RDY deassert and the ENCL line counter (ENCL_INFO_READ)
-freezes, so every remaining write times out (~8s total at boot) and
-the panel ends up with a corrupted gamma table (wrong colors).
+Use skb_vlan_inet_prepare(), as the IPv6 receive path does since
+commit 81c734dae203 ("ip6_tunnel: use skb_vlan_inet_prepare() in
+__ip6_tnl_rcv()"). The second argument (inner_proto_inherit) depends on
+the device: ip6gre_tunnel_xmit() serves both ip6gre (ARPHRD_IP6GRE, no
+MAC header) and ip6gretap (ARPHRD_ETHER), so it is
+dev->type != ARPHRD_ETHER there; ip6erspan is always an Ethernet device,
+so it is false. vxlan does the same with no_eth_encap.
 
-Instrumented boots on the ODROID-GO Ultra (S922X) show:
+The tag walk starts at skb->mac_len - VLAN_HLEN, or at ETH_HLEN if
+skb->mac_len is 0, and on transmit skb->mac_len is still what the skb
+was received with. For a packet that came in through an NBMA gre
+device and is routed out of a VLAN on ip6gretap or ip6erspan, the walk
+starts inside the inner IPv4 header. Clear skb->mac_len for Ethernet
+devices first.
 
-  failing:  start: VIDEO_EN=1 INFO 0000001a->002d0000 GAMMA_CNTL=00000030
-            stall: INFO 002d0000->002d0000 GAMMA_CNTL=00000000
-            (VID_CLK_CNTL2 / VIID_CLK_CNTL / VIID_CLK_DIV unchanged,
-             i.e. the ENCL clock is still running)
-  fixed:    start: VIDEO_EN=0 INFO 00000000->00000000 GAMMA_CNTL=00000030
-            no stall, no timeout
+An ip6gre device created without a remote uses ip6gre_header_ops, and
+ip6gre_header() pushes a pseudo IPv6 header in front of the packet, so
+there skb->data is not where the packet starts. skb_vlan_inet_prepare()
+would move the network header onto that pseudo header, whose payload
+length and GRE words are never written, and an ICMPv6 error for the
+packet then quotes them: KMSAN reports uninit-value in
+icmpv6_push_pending_frames(). Keep pskb_inet_may_pull() for that case,
+as before this change.
 
-Whether it failed depended only on timing, which is why enabling
-lock debugging (LOCKDEP etc.) appeared to "fix" it most of the time.
-It happens regardless of the bootloader (mainline or Hardkernel vendor
-U-Boot).
+With this change the two short frames above are dropped. gre_gso.sh,
+l2_tos_ttl_inherit.sh and the mirror_gre, mirror_gre_vlan,
+mirror_gre_bridge_1q and mirror_gre_changes forwarding selftests pass.
+A constant true instead breaks the ip6gretap cases of mirror_gre.sh,
+and a constant false breaks the ip6gre GSO cases of gre_gso.sh.
 
-The function already writes ENCL_VIDEO_EN=0 right afterwards before
-re-enabling the encoder, so simply move meson_encl_load_gamma() after
-that write. This matches the order used by the vendor U-Boot's own LCD
-driver, which never times out.
-
-Tested on the ODROID-GO Ultra with mainline U-Boot: 5 cold boots +
-3 warm reboots, no timeouts, correct colors, LOCKDEP disabled.
-
-Fixes: 42dcf15f901c ("drm/meson: add DSI encoder")
+Fixes: 3f8a8447fd0b ("ip6_gre: use actual protocol to select xmit")
+Fixes: b09ab9c92e50 ("ip6_tunnel: allow to inherit from VLAN encapsulated IP")
+Reported-by: syzbot+6023ea32e206eef7920a@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=6023ea32e206eef7920a
+Suggested-by: Eric Dumazet <edumazet@kernel.org>
 Cc: stable@vger.kernel.org
-Tested-by: John Williams <porschemad911@gmail.com>
-Signed-off-by: Shigeaki Asai <y-asai.0816@docomonet.jp>
----
-This was found on the ODROID-GO Ultra while bringing it up on
-Lakka / ROCKNIX. Happy to test any alternative approach.
----
- drivers/gpu/drm/meson/meson_encoder_dsi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/meson/meson_encoder_dsi.c b/drivers/gpu/drm/meson/meson_encoder_dsi.c
-index faa309cb97a6..912cd676bbe2 100644
---- a/drivers/gpu/drm/meson/meson_encoder_dsi.c
-+++ b/drivers/gpu/drm/meson/meson_encoder_dsi.c
-@@ -65,9 +65,9 @@ static void meson_encoder_dsi_atomic_enable(struct drm_bridge *bridge,
- 	/* ENCL clock setup is handled by CCF */
- 
- 	meson_venc_mipi_dsi_mode_set(priv, &crtc_state->adjusted_mode);
--	meson_encl_load_gamma(priv);
- 
- 	writel_relaxed(0, priv->io_base + _REG(ENCL_VIDEO_EN));
-+	meson_encl_load_gamma(priv);
- 
- 	writel_bits_relaxed(ENCL_VIDEO_MODE_ADV_VFIFO_EN, ENCL_VIDEO_MODE_ADV_VFIFO_EN,
- 			    priv->io_base + _REG(ENCL_VIDEO_MODE_ADV));
+Assisted-by: LLM
+Signed-off-by: Anton Danilov <littlesmilingcloud@gmail.com>
 
 ---
-base-commit: 70456f05d4b6396b22048c4b8cd3cb98ecf9f9e3
-change-id: 20261004-meson-gamma-3306257c0d28
 
-Best regards,
---  
-Shigeaki Asai <y-asai.0816@docomonet.jp>
+v4: Anton Danilov takes over the patch, as Eric suggested in the v3 thread.
+ - inner_proto_inherit follows the device type instead of being a
+   constant.
+ - Clear skb->mac_len for Ethernet devices before the VLAN walk.
+ - Keep pskb_inet_may_pull() for ip6gre with header_ops.
+ - Fixes tags point at the commits that made the parsing look through
+   VLAN tags, instead of d8a6213d70ac ("geneve: fix header validation
+   in geneve[6]_xmit_skb"), which only added the helper.
+ - Discussion: https://lore.kernel.org/netdev/20261003220513.107668-1-littlesmilingcloud@gmail.com/
+v3: https://lore.kernel.org/netdev/20260119112512.28196-1-fw@strlen.de/
+v2: https://lore.kernel.org/netdev/20260106144529.1424886-1-edumazet@google.com/
+v1: https://lore.kernel.org/netdev/20260105100330.2258612-1-edumazet@google.com/
 
+ net/ipv6/ip6_gre.c | 25 ++++++++++++++++++++++---
+ 1 file changed, 22 insertions(+), 3 deletions(-)
+
+diff --git a/net/ipv6/ip6_gre.c b/net/ipv6/ip6_gre.c
+index e61cb10b50dc..f48141820fb5 100644
+--- a/net/ipv6/ip6_gre.c
++++ b/net/ipv6/ip6_gre.c
+@@ -883,8 +883,22 @@ static netdev_tx_t ip6gre_tunnel_xmit(struct sk_buff *skb,
+ 	__be16 payload_protocol;
+ 	int ret;
+ 
+-	if (!pskb_inet_may_pull(skb))
+-		goto tx_err;
++	if (dev->type != ARPHRD_ETHER && dev->header_ops) {
++		/* ip6gre_header() has pushed a pseudo header in front of
++		 * the packet, so skb->data is not where the packet starts.
++		 */
++		if (!pskb_inet_may_pull(skb))
++			goto tx_err;
++	} else {
++		/* The VLAN tag walks below start at skb->mac_len - VLAN_HLEN,
++		 * or at ETH_HLEN if it is 0, and a forwarded skb still has
++		 * the mac_len of the device it was received on.
++		 */
++		if (dev->type == ARPHRD_ETHER)
++			skb->mac_len = 0;
++		if (skb_vlan_inet_prepare(skb, dev->type != ARPHRD_ETHER))
++			goto tx_err;
++	}
+ 
+ 	if (!ip6_tnl_xmit_ctl(t, &t->parms.laddr, &t->parms.raddr))
+ 		goto tx_err;
+@@ -934,7 +948,12 @@ static netdev_tx_t ip6erspan_tunnel_xmit(struct sk_buff *skb,
+ 	__u32 mtu;
+ 	int nhoff;
+ 
+-	if (!pskb_inet_may_pull(skb))
++	/* The VLAN tag walks below start at skb->mac_len - VLAN_HLEN, or at
++	 * ETH_HLEN if it is 0, and a forwarded skb still has the mac_len of
++	 * the device it was received on.
++	 */
++	skb->mac_len = 0;
++	if (skb_vlan_inet_prepare(skb, false))
+ 		goto tx_err;
+ 
+ 	if (!ip6_tnl_xmit_ctl(t, &t->parms.laddr, &t->parms.raddr))
+-- 
+2.47.3
 
