@@ -1,345 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF69138B7CD
-	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 08:24:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33E5B221546;
+	Sun,  4 Oct 2026 08:38:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791102252; cv=none; b=qDG9C/bU1Z4YuBt/vvvlOOtWYuMcqajTqeKnjy7P83fqQ+PJhcZeuj4/AMv7yHdbwx6iG+s2qzNrDFcPiCSw4jN4Z2jRVrIiUX9sI7WZgKYxDXg8kChBW51Ymiy6a+TbXg6zxz8FGo2G2hhhXgOmDpjKQC7eZKsXiuA5wH+uJkc=
+	t=1791103085; cv=none; b=WdS8m72+33TqCvUiPOB6fWHxYVMQlZWLCdA+nHRVAr7pa2TJbsyZDX5VwBZhrUW/8AJM3se2cvS3XvV2kvoCAy+RJmP0jsYrrjj/e0Ee8hqscDMOWC+SA5+EuvYQsd3uUwR81494fLfX2q9xuOkEooDz4QlExXfqbMOVwkgX+Rw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791102252; c=relaxed/simple;
-	bh=6gQrJIkFJ3RBTg2e4nsEYNNVtm+99CxywG1T1xCD/Eo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=P/i18vcpRHf3zeVn4QgXR3qQtmpIZ4LC6Q7TxsTOUA7puJ3Cr7n+l/j6o7BalAHWWkMUYCC6H6bEeWHsBLKfcqPXwSod+rx6EZJoV7MqKaopkK8EOA+IBIFXBYD4LDl2x3f7Fiup4HDP0Ap4VL0a703EqUlFV1NPenEScWCEaWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nWYC6ahM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791103085; c=relaxed/simple;
+	bh=IMcLQQxd7Mxh6dB7j3tZV6cCtdB4uJjBpBLuMnuoQw4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NReYw8/Tjhk1i2QO6P9EwI+4AeWNERGfthn706HBBaidkSfwvPSkATbctZJbB3Ux2XbN+i3a30vMoz124Za9UDN9spAHKV4ucmz/8yomjHicB+9AjtPGbgs5ir2W31l1Nxz/IkU9ReLWAhjZeEyiQKNWeoaGi3VEAaJP282Z+W4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KWHyS57Q; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nWYC6ahM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01A851F000FF;
-	Sun,  4 Oct 2026 08:24:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791102250;
-	bh=FY0sAxcN58597NxaRXOq8tfaAQVeGMbbZgVPxsz4g6s=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nWYC6ahMVkbSw5i1gOwn55ch2vr17tpCYsEV13U674Ee7nA+eWN6pAWlPEgSKDbfr
-	 tKSdYb/EIX00Es3sgxf2PHn2fH4stq/YZLQBIe7mRQLbP7/wlhYEZXDWmUlMWHi8c1
-	 DeszAfxsIuuAOZqs9jyUc+T8v0z2TF3rq+PVV9zMBr67QuihOYQICV5kPZuuaTp3HV
-	 iEnoFK0n+mSUZrU4LV42E+K1+9FYQrTo7U09yEc+XqA0tDB4OD8pLx8wW2g66UxaDq
-	 thfm91b6b5fLALctJq2PNklqKGHcjj2yUUzIkl1H2OaOCHx+CjFkZEq6iMKIJBYBOg
-	 IllnZZWXz6oIg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Paulo Alcantara <pc@manguebit.org>,
-	David Howells <dhowells@redhat.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] netfs: clear post-EOF pagecache when extending a file via write
-Date: Sun,  4 Oct 2026 04:24:05 -0400
-Message-ID: <20261004082318.1376075-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100342-upgrade-outclass-c63d@gregkh>
-References: <2026100342-upgrade-outclass-c63d@gregkh>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KWHyS57Q"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791103084; x=1822639084;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=IMcLQQxd7Mxh6dB7j3tZV6cCtdB4uJjBpBLuMnuoQw4=;
+  b=KWHyS57QG+TEJwJXIb5exi/h0aGU0VbOFxAok7mdq+eaTXq1I9J4epeh
+   hnqi+tzfHJaAOOkhhFkLDSlXHdTq2kjs7V2JK2kGfN8xhhwK7wY97yOuC
+   WdZfymHPMSDf+AsZIIY00HdpFX+i4Gig7w5I0eWyseyqhls76eJ08Ev0Z
+   iitgDdyTAWaccp7VR52eBl3Go8/s5VuzzO1zLdRgwUSD9F+zfry0kr2Ac
+   lVuN6/b22v2oSkmhsAlwQARloh+lzcJUbMXxs8vMCdN2W5QgI4VLQIJI+
+   lctbwUkuvcviH4EFEw5Okcfd6TfNh1qStsiLK6U4SH9gHaXTtnFVCy5sq
+   w==;
+X-CSE-ConnectionGUID: vCshJOtkQYybizUmr0nypw==
+X-CSE-MsgGUID: qeUOhELoRWmBD2qZ8/D5Jw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11924"; a="94513098"
+X-IronPort-AV: E=Sophos;i="6.27,139,1787036400"; 
+   d="scan'208";a="94513098"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Oct 2026 01:38:03 -0700
+X-CSE-ConnectionGUID: ngJrZwJlRLeKKNCMs4tMCA==
+X-CSE-MsgGUID: n+3jFFvORWm0bwj4IQ8fng==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,139,1787036400"; 
+   d="scan'208";a="274691150"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.100])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Oct 2026 01:38:01 -0700
+Date: Sun, 4 Oct 2026 11:37:59 +0300
+From: Andriy Shevchenko <andriy.shevchenko@intel.com>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Karol Wrona <k.wrona@samsung.com>,
+	Kyungmin Park <kyungmin.park@samsung.com>,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: Re: [PATCH] iio: ssp: Serialize watchdog timer state changes
+Message-ID: <asIQZ7no-0OrOGn0@ashevche-desk.local>
+References: <20260930070319.2933744-1-runyu.xiao@seu.edu.cn>
+ <arzdLtzXQ4cvObrL@ashevche-desk.local>
+ <20261004053915.1138888-1-runyu.xiao@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261004053915.1138888-1-runyu.xiao@seu.edu.cn>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-From: Paulo Alcantara <pc@manguebit.org>
+On Sun, Oct 04, 2026 at 01:39:15PM +0800, Runyu Xiao wrote:
+> On Wed, Sep 30, 2026 at 03:03:19PM +0800, Runyu Xiao wrote:
 
-[ Upstream commit 69bf14300b50631e7c2271289d347bbd1b19a06c ]
+...
 
-Fix netfs to erase the contents of a hole created after the EOF by an
-ordinary write if dirty data has been previously left there by writes
-through an mmapped region.  Neither the buffered nor the unbuffered/DIO
-write path clears that stale pagecache.
+> > struct ssp_data {
+> >     struct timer_list wdt_timer;
+> >     struct mutex wdt_lock;
+> >     bool wdt_enabled;
+> >     struct work_struct work_wdt;
+> > };
+> 
+> On the x86_64 build, pahole reports wdt_timer at offset 16, wdt_lock at
+> 56, wdt_enabled at 80, and work_wdt at 88; sizeof(struct ssp_data) is
+> 816 bytes. There is a 7-byte hole after wdt_enabled.
 
-Zero the tail of the folio straddling the EOF before an extending
-write.  That is the only folio that can hold data written past the EOF
-through an mmap, as pages wholly beyond the EOF can't be faulted in.
-The folio is zeroed rather than dropped so a concurrent extending write
-can't lose data.
+Right, so you can make it 3, correct?
 
-Both write paths downgrade the i_rwsem to shared, so extending writes
-can run concurrently and the i_size read by the caller may be stale by
-the time the folio is locked.  Re-read i_size under the folio lock and
-clamp the zeroed range up to it, so a racing write that already put
-data into the folio isn't clobbered.
-
-Wait for any writeback on the folio to finish before zeroing it so that
-the pagecache isn't modified while it may still be read by the transport
-during transmission.  Honour IOCB_NOWAIT by returning -EAGAIN rather
-than blocking on the folio lock, on writeback, or in folio_mkclean()'s
-rmap walk when the folio is mapped.
-
-truncate_pagecache() can't be used here: it must be called with the
-i_rwsem held exclusively, but these write paths only hold it shared,
-and it would block unconditionally, breaking IOCB_NOWAIT.
-
-Callers that hold i_rwsem exclusively for the whole resize (truncate,
-setattr, fallocate, clone) exclude any genuine concurrent buffered
-writer, so staleness can instead be decided from the folio's dirty
-state, as pagecache_isize_extended() already does for filesystems that
-serialise writes against truncate/setattr via a single i_rwsem.
-Export netfs_clear_stale_post_isize() helper to handle such case.
-
-The helper is required by the CIFS client to fix generic/363.
-
-Closes: https://sashiko.dev/#/patchset/20260921230755.1133425-1-pc%40manguebit.org
-Fixes: 938e13a73b24 ("netfs: Implement buffered write API")
-Fixes: 153a9961b551 ("netfs: Implement unbuffered/DIO write support")
-Reviewed-by: David Howells <dhowells@redhat.com>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Matthew Wilcox <willy@infradead.org>
-Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
-Cc: Shyam Prasad N <sprasad@microsoft.com>
-Cc: Tom Talpey <tom@talpey.com>
-Cc: Bharath SM <bharathsm@microsoft.com>
-Cc: stable@vger.kernel.org
-[ sashal: Replaced uoff_t with unsigned long long and adjusted insertion context because netfs_wait_for_put_ra_refs() is absent. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- Documentation/filesystems/netfs_library.rst | 26 ++++++
- fs/netfs/buffered_write.c                   |  9 ++
- fs/netfs/direct_write.c                     |  9 ++
- fs/netfs/internal.h                         |  2 +
- fs/netfs/misc.c                             | 99 +++++++++++++++++++++
- include/linux/netfs.h                       |  2 +
- 6 files changed, 147 insertions(+)
-
-diff --git a/Documentation/filesystems/netfs_library.rst b/Documentation/filesystems/netfs_library.rst
-index ddd799df6ce36..2f0bc30029763 100644
---- a/Documentation/filesystems/netfs_library.rst
-+++ b/Documentation/filesystems/netfs_library.rst
-@@ -451,6 +451,32 @@ one.
- The inode should be marked ``NETFS_ICTX_SINGLE_NO_UPLOAD`` if this API is to be
- used.  The writeback function requires the buffer to be of ITER_FOLIOQ type.
- 
-+Clearing Stale Post-EOF Pagecache
-+---------------------------------
-+
-+When a file is extended, data left in the pagecache past the old EOF by a write
-+through an mmap must not be exposed as file content.  Netfslib clears this on
-+its own write paths, and exports a helper so a filesystem can do the same from
-+a resize path (truncate, setattr, fallocate and the like) that holds the
-+inode's ``i_rwsem`` exclusively across the whole resize::
-+
-+	void netfs_clear_stale_post_isize(struct inode *inode, unsigned long long from,
-+					  unsigned long long to);
-+
-+This zeroes any such data within the ``[from, to)`` hole to be made, where
-+@from is the old EOF and @to is the new one, and the caller must have already
-+updated ``i_size`` to @to before calling it.  Only the folio straddling @from
-+can hold data written past the EOF through an mmap, as pages wholly beyond the
-+EOF can't be faulted in, so the zeroing is limited to that folio.  The folio is
-+zeroed rather than dropped so that a concurrent extending write can't lose
-+data.
-+
-+This overlaps with ``pagecache_isize_extended()`` but can't reuse it: that
-+helper is keyed on a sub-page block size and is a no-op when the block size is
-+``>= PAGE_SIZE`` (as on network filesystems), and it doesn't wait for
-+writeback.  As both address the same problem, a change to one should probably
-+be reflected in the other to keep them in sync.
-+
- High-Level VM API
- ==================
- 
-diff --git a/fs/netfs/buffered_write.c b/fs/netfs/buffered_write.c
-index 0f61746bee2ac..7da07737ced8a 100644
---- a/fs/netfs/buffered_write.c
-+++ b/fs/netfs/buffered_write.c
-@@ -470,6 +470,7 @@ ssize_t netfs_buffered_write_iter_locked(struct kiocb *iocb, struct iov_iter *fr
- 					 struct netfs_group *netfs_group)
- {
- 	struct file *file = iocb->ki_filp;
-+	struct inode *inode = file_inode(file);
- 	ssize_t ret;
- 
- 	trace_netfs_write_iter(iocb, from);
-@@ -482,6 +483,14 @@ ssize_t netfs_buffered_write_iter_locked(struct kiocb *iocb, struct iov_iter *fr
- 	if (ret)
- 		return ret;
- 
-+	if (iocb->ki_pos > i_size_read(inode)) {
-+		ret = netfs_clear_stale_pre_isize(inode, i_size_read(inode),
-+						  iocb->ki_pos,
-+						  iocb->ki_flags & IOCB_NOWAIT);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	return netfs_perform_write(iocb, from, netfs_group);
- }
- EXPORT_SYMBOL(netfs_buffered_write_iter_locked);
-diff --git a/fs/netfs/direct_write.c b/fs/netfs/direct_write.c
-index e05f69eb56a6c..ba0cc6172a67c 100644
---- a/fs/netfs/direct_write.c
-+++ b/fs/netfs/direct_write.c
-@@ -363,6 +363,15 @@ ssize_t netfs_unbuffered_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 	ret = file_update_time(file);
- 	if (ret < 0)
- 		goto out;
-+
-+	if (iocb->ki_pos > i_size_read(inode)) {
-+		ret = netfs_clear_stale_pre_isize(inode, i_size_read(inode),
-+						  iocb->ki_pos,
-+						  iocb->ki_flags & IOCB_NOWAIT);
-+		if (ret < 0)
-+			goto out;
-+	}
-+
- 	if (iocb->ki_flags & IOCB_NOWAIT) {
- 		/* We could block if there are any pages in the range. */
- 		ret = -EAGAIN;
-diff --git a/fs/netfs/internal.h b/fs/netfs/internal.h
-index d889caa401dc2..a4a5cec256b04 100644
---- a/fs/netfs/internal.h
-+++ b/fs/netfs/internal.h
-@@ -78,6 +78,8 @@ ssize_t netfs_wait_for_read(struct netfs_io_request *rreq);
- ssize_t netfs_wait_for_write(struct netfs_io_request *rreq);
- void netfs_wait_for_paused_read(struct netfs_io_request *rreq);
- void netfs_wait_for_paused_write(struct netfs_io_request *rreq);
-+int netfs_clear_stale_pre_isize(struct inode *inode, unsigned long long from,
-+				unsigned long long to, bool nowait);
- 
- /*
-  * objects.c
-diff --git a/fs/netfs/misc.c b/fs/netfs/misc.c
-index 1109ac3791281..628c45f53d83c 100644
---- a/fs/netfs/misc.c
-+++ b/fs/netfs/misc.c
-@@ -6,6 +6,7 @@
-  */
- 
- #include <linux/swap.h>
-+#include <linux/rmap.h>
- #include "internal.h"
- 
- /**
-@@ -548,3 +549,101 @@ void netfs_wait_for_paused_write(struct netfs_io_request *rreq)
- {
- 	return netfs_wait_for_pause(rreq, netfs_write_collection);
- }
-+
-+/**
-+ * netfs_clear_stale_isize - Clear stale pagecache in a to-be-created hole
-+ * @inode: The inode to act upon.
-+ * @from: The base of the hole to be made.
-+ * @to: The top of the hole to be made.
-+ * @nowait: True to return -EAGAIN rather than block.
-+ * @exclusive: True if the caller holds i_rwsem exclusively for the resize.
-+ *
-+ * Zero any data left in the pagecache within the [@from, @to) hole by a
-+ * write through an mmap so that it isn't exposed as file content once the
-+ * file is extended.  Only the uptodate folio straddling @from can hold such
-+ * data as pages wholly beyond the EOF can't be faulted in, so the zeroing
-+ * is limited to that folio.  The folio is zeroed rather than dropped so
-+ * that a concurrent extending write can't lose data.
-+ *
-+ * If @exclusive is false, @from is re-read from i_size and used to clamp
-+ * the zeroed range, for callers that may race with another writer also
-+ * extending the file (eg. multiple buffered writes extending the same file
-+ * under a shared i_rwsem).  If @exclusive is true, for callers that hold
-+ * i_rwsem exclusively across the whole resize and have already updated
-+ * i_size to @to, staleness is decided from the folio's dirty state instead:
-+ * since no genuine concurrent buffered writer can be racing, a lockless
-+ * stat() adopting a server-confirmed size mid-resize has no data behind it
-+ * and never dirties the folio, so it can't fool this check into skipping
-+ * the zeroing the way it could fool the @exclusive false clamp.
-+ *
-+ * pagecache_isize_extended() can't be reused here: it is keyed on a
-+ * sub-page block size (a no-op when the block size is >= PAGE_SIZE, as on
-+ * network filesystems), runs after i_size is updated, can't honour
-+ * @nowait, and doesn't wait for writeback.  Keep the two in sync if either
-+ * is changed.
-+ *
-+ * Return: 0 on success, or -EAGAIN if @nowait is set and the folio is
-+ * mapped or under writeback and so can't be cleaned without blocking.
-+ */
-+static int netfs_clear_stale_isize(struct inode *inode, unsigned long long from,
-+				   unsigned long long to, bool nowait, bool exclusive)
-+{
-+	struct address_space *mapping = inode->i_mapping;
-+	fgf_t fgp = FGP_LOCK;
-+	struct folio *folio;
-+	int ret;
-+
-+	if (from >= to)
-+		return 0;
-+
-+	if (nowait)
-+		fgp |= FGP_NOWAIT;
-+
-+	folio = __filemap_get_folio(mapping, from >> PAGE_SHIFT, fgp, 0);
-+	if (IS_ERR(folio))
-+		return PTR_ERR(folio) == -EAGAIN ? -EAGAIN : 0;
-+
-+	ret = 0;
-+	if (nowait && (folio_mapped(folio) || folio_test_writeback(folio))) {
-+		ret = -EAGAIN;
-+		goto out;
-+	}
-+
-+	folio_wait_writeback(folio);
-+
-+	if (folio_mkclean(folio))
-+		folio_mark_dirty(folio);
-+
-+	if (folio_test_uptodate(folio) &&
-+	    (!exclusive || folio_test_dirty(folio))) {
-+		unsigned long long fpos = folio_pos(folio);
-+
-+		if (!exclusive)
-+			from = umax(from, i_size_read(inode));
-+		if (from < to && from < fpos + folio_size(folio)) {
-+			size_t end = umin(to - fpos, folio_size(folio));
-+			size_t offset = from - fpos;
-+
-+			folio_zero_segment(folio, offset, end);
-+		}
-+	}
-+out:
-+	folio_unlock(folio);
-+	folio_put(folio);
-+	return ret;
-+}
-+
-+/* Clear stale pagecache before an extending buffered/DIO write. */
-+int netfs_clear_stale_pre_isize(struct inode *inode, unsigned long long from,
-+				unsigned long long to, bool nowait)
-+{
-+	return netfs_clear_stale_isize(inode, from, to, nowait, false);
-+}
-+
-+/* Clear stale pagecache when extending a file under an exclusive resize. */
-+void netfs_clear_stale_post_isize(struct inode *inode, unsigned long long from,
-+				  unsigned long long to)
-+{
-+	netfs_clear_stale_isize(inode, from, to, false, true);
-+}
-+EXPORT_SYMBOL(netfs_clear_stale_post_isize);
-diff --git a/include/linux/netfs.h b/include/linux/netfs.h
-index 62a528f90666b..40eedb7bb06d0 100644
---- a/include/linux/netfs.h
-+++ b/include/linux/netfs.h
-@@ -402,6 +402,8 @@ ssize_t netfs_unbuffered_write_iter(struct kiocb *iocb, struct iov_iter *from);
- ssize_t netfs_unbuffered_write_iter_locked(struct kiocb *iocb, struct iov_iter *iter,
- 					   struct netfs_group *netfs_group);
- ssize_t netfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from);
-+void netfs_clear_stale_post_isize(struct inode *inode, unsigned long long from,
-+				  unsigned long long to);
- 
- /* Single, monolithic object read/write API. */
- void netfs_single_mark_inode_dirty(struct inode *inode);
 -- 
-2.53.0
+With Best Regards,
+Andy Shevchenko
+
 
