@@ -1,77 +1,171 @@
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+Received: from mail-dy2-f21.google.com (mail-dy2-f21.google.com [74.125.229.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7516941D118
-	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 10:43:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B67941228F
+	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 10:51:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791110630; cv=none; b=Tre6//UC5w6IbdyBTCNSxKqHPa5D2DPFFW1YoquvB9hc6MwYUvCk0H3Ry8aRUg6EenJXKWM87Xg/hkwLGOrxubwlj/Z+XJM/n13NfdgeqG4rXrH2M4sEuFSDRcEzHiK9b9rTii32unA9hq98YsufrPZTrAadZ2XgTwFk8VwHn30=
+	t=1791111094; cv=none; b=q/xQM0g9zF5ZexQlWZIVmgKpgMt3lPyiuKPRDjbFe2CKYAJx51PVNU6rNXw13iTggXe7QZbJRfRisYDCb1Roxv5KtkfJEHm5ACysY0Obu7StZ0OVFPFTsEE+BWV/RoNwqX04HAyL0pz2D4g++WCjIPfyuOJPfA9yndmoKZRu4kM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791110630; c=relaxed/simple;
-	bh=mGbdhxauRSb1VFQP1UYcstcwcKmt4bai9EGt5Kadvko=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=uauaRvl+D6s5qcXGGNT4PxcYPCDSF/96VPmpnoUQxOGkwLVVSRipxdfdMEzU/JCIrIBHnBIOaAtnh6tU7TaG3MbARLN/JJKCR5r9rov209Ptc0qkXa+k9bPs5nfct40fI7wIju7Zs7B0Baj+62muClodyQuEcCShy/IDOeooQQA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BPW7rHeI; arc=none smtp.client-ip=74.125.225.98
+	s=arc-20240116; t=1791111094; c=relaxed/simple;
+	bh=4MRxwd7MzrAqfyJ7mimlrfGaFAcX/tkMDz0Yg+CsHtE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=DpfQhoMFLSXjhiSKXLReEgx5nGMix2VLARXxqkMY9FVQVZ35+4V1cIoOgnpTcx03DOyZOWMfBeDdeUT/mQlQBliR/9Utg8qPOtUrsGUmIarppCk7KGEo5gBgLaCJQ0yTG92K3kbPlovaKX4T2T76LNTYxJXb01lyWqqFTzWO15Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OVA34rGy; arc=none smtp.client-ip=74.125.229.21
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BPW7rHeI"
-Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48aff407b13so105902f8f.3
-        for <stable@vger.kernel.org>; Sun, 04 Oct 2026 03:43:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OVA34rGy"
+Received: by mail-dy2-f21.google.com with SMTP id 5a478bee46e88-33e46a156f4so818132eec.0
+        for <stable@vger.kernel.org>; Sun, 04 Oct 2026 03:51:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791110626; x=1791715426; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vuzfUhec6lTMalGhDglyxwQlHTBIqwq6CfD+AAkmFlE=;
-        b=BPW7rHeI2ezrj7hSf7mMb4hO0oMLYDQYKrb8LU68y3Agd6Nx+9dwh1iho1pOgy6KWY
-         U2CvndQkMzz/zm9s/9LkbvxNJK/gyidgaGYPgRlxYaLCwIlURpgCY9kHuFOAi1IlJSWj
-         foc4Y+ubQeWFkd8VNEQA06D3GQFcJTC8tu31sWZ3qIFqq5fFBAAREaZv7DHqHxgIduMw
-         PVPIMDzHklJWclMxjMFUAJHorhDfKSQFoQk7DKLBb5Iv50VMnd3DpgdXUxT0ZjOvcNnm
-         Hv3QMQE7qjEW5RJInH14TyP1XitwU66B2iugLcM2ofsAqxo8HFZyqCdTT7FpTwDXzDmU
-         le0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791110626; x=1791715426;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791111087; x=1791715887; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vuzfUhec6lTMalGhDglyxwQlHTBIqwq6CfD+AAkmFlE=;
-        b=HcrZsmV5EB4A1eRMiF29i5Zmwf6PJbAML7w8Q7WjZlQtg4UGBxehZUvq2L7lqAhn9i
-         o4TG1A+UkMhvaPgdQoiqBVF5PgmaI/lKUzKbc+wc9l0NFeHHyih0LnYnzRemT8SbunsC
-         2bScwlkr9Oi/IRLySdxAA9AKDrUfnJpQOkq43kNrgLYLfw31orAKK1GgzVscaIG62YnU
-         M5I55+XsRMdIyXdf9jloBpIBGVNnOdOhuluzU3jS3+psxk+yjgE08FgOFx5tDsoip26F
-         fnGni+udQiOOJhCYK+pLuitHFQsf1ZNjJhKIAckfi+ibGZAlw4MWnnJ+3pfX+QUzeYQO
-         1U8g==
-X-Forwarded-Encrypted: i=1; AKwUvBwmR18/b3BSu27yX6K9Z3PxcNvEUHWXcP6L8omMaQohMFlmyE51axqsqEi++34VxLb6zHuMS1c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL1yzMBxAp5I0QjuVmdMxNuE/0vFM8xpyon/bIn217UV4kNobpB
-	8p6gRbciqGeiBc5zYRG4xFZrFcFr/F3LAmAr0nKALMTTYjOaBOpakbQj
-X-Gm-Gg: AYBFou1OYv5Y48jPDX54IIun1rLg/RTRBJn7hZJ1Th+xSn2i03kow9nRSpvZn77A9Xe
-	ARhlfo5r2oxPtsBO6b61Z0vtz8stgHlJQ2eBkA8f3bCFNlynkas/DKU/b28lXn/BOIoDX/ImKso
-	jDvo0MMBt31a4i/iANkrpnB2hjPFSk5os/dDX0/NgNIoaJnVV+f3bO5dsy945H0P/4OZPuma1sZ
-	q+IyhvKgxSUsPhhwXYELL4UxjfhKqmxBGHOmDp7BxCWdBlpjbekyBe2gmtTzdRhwoGJIKYjpEVc
-	4w4C5FnewvFTvHB5mCBeuKmzBIfLr58jFMa5xKr4SeYDSlvzfIl9rzXvbft0H5Ox/RkweVMmYwD
-	ZTcrFHGdHuJyulMSxcWNcqy9W0a6zAj+FXzeVigKwehjxlbjO5zO4Qw+kUQ3iGrsuGfzlsWvWc/
-	zMZ4wzV1zhCyH3fzQ45n1yLr5xvJTTkMYVKMlVbJOM1Y/xSXNbUtJCI3nkxDcaaISeBS572Jtfz
-	6lz74Nw7eDN2tlZl8A=
-X-Received: by 2002:a05:6000:260a:b0:48c:45c1:5592 with SMTP id ffacd0b85a97d-48c45c1565fmr8429713f8f.0.1791110626430;
-        Sun, 04 Oct 2026 03:43:46 -0700 (PDT)
-Received: from L-P-ITAIH2-L-RF.rf.local ([193.169.70.108])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b380f0858sm19831719f8f.8.2026.10.04.03.43.44
+        bh=OU10JUkOnCjExkP9pLJslSiL15VSpV7uAw3VaBnuTMo=;
+        b=OVA34rGyoQxPo0wRv2zEemiSYWkKsDXwZStVOByBQRpu1DQU+Ux1wXdGhPRfPWJ2ht
+         ouzg/l9fDoy4wZ4euP5p8lSaoWg9rG9fZaKYtejcMe2sLNInHQTJRfxfmQZMe1qawkEv
+         rk+ljgwDABA0aWwMOyjO7W2/GmSrlrEnlMsehl8voU4xsbmKVz9gk/Ogj6oGfr8ii6sS
+         l3qesCpMjIJp2mX/KknTTgJj92xvPMlxpmMvI3gaZdf5nWW0UYLAXpFpOv2tT9v3D2Li
+         xbUQ3aLXlQsME980CGogDR3xWSx3k1tqD8k2m/VTgDE0NLGWeD4a92JNkkElYfXQZNzC
+         HlPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791111087; x=1791715887;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OU10JUkOnCjExkP9pLJslSiL15VSpV7uAw3VaBnuTMo=;
+        b=n6RJOHqCZyI6SZ0MYUISoJF2X8Y9ZBgbL6qnaXRnFJi4FZPl6Wb+du62QxFHJex4te
+         6sK3JnrgF9Mgz4tUUIBfyE24Hr0TJ79HoOv7Fb0CB7Sk1ZOa/Z6FN3Bhy5x65GjdC+ME
+         jASXTgx2h1F5NKR2zlavMy6vQASJ4VYUgM/lXDvZ6hOLFZmY+/RYaeW/mFxQN5QxTQqL
+         eAFY96QoGt+wVzsR69VlqXgc9VX9zqFVU43+bYEKtIlg5IKuZgwML1opf1tJxExX3/LK
+         ilu3eeU9V93Qnr/DrUrSXaPrJGqDv4D/ObiRGqXdCqpJ8qXQUXRtlI4F/JRE+D9Gn25B
+         6tcg==
+X-Forwarded-Encrypted: i=1; AKwUvBx1qGm0cItyUaU9osc+5G+NMnEgiFmx1E7j+r7EzMoF/fDQd3rydJYvhmpU3Bng8gvYzf4bM1M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKv5S/+vfdjTLKAcrgkxOhKhchAy+fXEUfpL1iW1RLnvOf8Bv+Y
+	D5VY4X8Hcc5uDfYJp6Wklm6wiaHsUW9VaDqwCBpxnDLrJ+9qd1e83a4Y
+X-Gm-Gg: AYBFou0H05gc/Ucroc0RJhcQHDYRFR3y8NGNZ+GEJYMEwmHqGs2F0Crd7KLdAWHgURH
+	WHkEKnhm0gHKDqprduJzUHoInuDkKmkwPup70HkiXe7jHoPJH4M6d8CfFhMzGIPu4hIlW+S/l28
+	l4QSZVte0mvsxV1cseVVFMEMdLrDKAhdpCXx96Q3+Z47zRYMLdgzzqBdGEZC4DhSSgf7P+e7Nkf
+	2kanktiobIWmBvLC+dUOwb2UzOcOpi2hoZqFanXs2YGvOvx4hN2BYNeG6BbBCIYGDZXqvTIYPYI
+	DOCrpqhtjyxUaKAsiSEZ4S2OcLVaT2cy5JOtWB5kB1YoZ23U4L4WKfxJCnr8YEimOGaTd+RRnqb
+	G4fkx4Uot9UFiE1VetLjW5/LgT6H79fqOnAYwPKXZFRJS1iqBqJ8g2ofoPq+XvZpw9GXkN0X66q
+	GoPTDKFlCY+FKltqkdn24HIezInoiXHhIk18VleGZkw/u0hWT2j+FTswwPYvimBk/lJ0ZClL/7x
+	t2W+HDpc7ZYbXMrjfZQ3mZIWSH138lXl84P4l5iMkr1qmw=
+X-Received: by 2002:a05:7300:e5c2:b0:341:3ca2:de2d with SMTP id 5a478bee46e88-34f15077edfmr9383419eec.6.1791111087081;
+        Sun, 04 Oct 2026 03:51:27 -0700 (PDT)
+Received: from Anshuman ([123.63.59.156])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35127161474sm3815965eec.13.2026.10.04.03.50.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 03:43:46 -0700 (PDT)
-From: Itai Handler <itai.handler@gmail.com>
-To: mwalle@kernel.org,
-	pratyush@kernel.org
-Cc: miquel.raynal@bootlin.com,
-	richard@nod.at,
-	vigneshr@ti.com,
-	takahiro.kuwano@infineon.com,
-	linux-mtd@lists.infradead.org,
+        Sun, 04 Oct 2026 03:51:26 -0700 (PDT)
+From: Anshuman <anshumantewari123@gmail.com>
+To: kees@kernel.org
+Cc: Frank.Li@kernel.org,
+	James.Bottomley@HansenPartnership.com,
+	airlied@gmail.com,
+	akpm@linux-foundation.org,
+	andriy.shevchenko@linux.intel.com,
+	anton.ivanov@cambridgegreys.com,
+	apparmor@lists.ubuntu.com,
+	atomlin@atomlin.com,
+	benjamin.berg@intel.com,
+	bhelgaas@google.com,
+	bp@alien8.de,
+	bvanassche@acm.org,
+	corey@minyard.net,
+	da.gomez@kernel.org,
+	daniel.lezcano@kernel.org,
+	dave.hansen@linux.intel.com,
+	david.e.box@linux.intel.com,
+	dmaengine@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	dvyukov@google.com,
+	elver@google.com,
+	eperezma@redhat.com,
+	georgia.garcia@canonical.com,
+	glider@google.com,
+	gor@linux.ibm.com,
+	gregkh@linuxfoundation.org,
+	hansg@kernel.org,
+	hare@suse.de,
+	hca@linux.ibm.com,
+	hpa@zytor.com,
+	ilpo.jarvinen@linux.intel.com,
+	intel-gfx@lists.freedesktop.org,
+	jani.nikula@linux.intel.com,
+	jasowang@redhat.com,
+	jbaron@akamai.com,
+	jgg@ziepe.ca,
+	jim.cromie@gmail.com,
+	jirislaby@kernel.org,
+	jmorris@namei.org,
+	johannes@sipsolutions.net,
+	john.johansen@canonical.com,
+	joonas.lahtinen@linux.intel.com,
+	kasan-dev@googlegroups.com,
+	kvm@vger.kernel.org,
+	laurent.pinchart@ideasonboard.com,
+	lenb@kernel.org,
+	leon@kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-arch@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-hardening@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-modules@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	linux-usb@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	lukasz.luba@arm.com,
+	macro@orcam.me.uk,
+	martin.petersen@oracle.com,
+	mcgrof@kernel.org,
+	mchehab@kernel.org,
+	mingo@redhat.com,
+	mst@redhat.com,
+	netdev@vger.kernel.org,
+	openipmi-developer@lists.sourceforge.net,
+	paul@paul-moore.com,
+	pbonzini@redhat.com,
+	pengpeng@iscas.ac.cn,
+	peterz@infradead.org,
+	petr.pavlu@suse.com,
+	qemu-devel@nongnu.org,
+	rafael@kernel.org,
+	richard@nod.at,
+	rodrigo.vivi@intel.com,
+	rui.zhang@intel.com,
+	samitolvanen@google.com,
+	seanjc@google.com,
+	serge@hallyn.com,
+	simona@ffwll.ch,
+	somlo@cmu.edu,
+	srinivas.pandruvada@linux.intel.com,
 	stable@vger.kernel.org,
-	tudor.ambarus@linaro.org
-Subject: [PATCH v4] mtd: spi-nor: take the flash lock in spi_nor_restore()
-Date: Sun,  4 Oct 2026 13:43:11 +0300
-Message-Id: <20261004104311.2196527-1-itai.handler@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	stern@rowland.harvard.edu,
+	tglx@kernel.org,
+	tiwei.btw@antgroup.com,
+	tursulin@ursulin.net,
+	usb-storage@lists.one-eyed-alien.net,
+	virtualization@lists.linux.dev,
+	vkoul@kernel.org,
+	x86@kernel.org,
+	xuanzhuo@linux.alibaba.com
+Subject: Re: [PATCH 01/11] params: bound array element output to the caller's page buffer
+Date: Sun,  4 Oct 2026 16:17:41 +0530
+Message-ID: <20261004104741.51238-1-anshumantewari123@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260521133326.2465264-1-kees@kernel.org>
+References: <20260521133326.2465264-1-kees@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,97 +174,23 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-spi_nor_shutdown() and spi_nor_remove() reach the chip through
-spi_nor_restore() without holding nor->lock, which every other path to
-the flash takes through spi_nor_prep_and_lock(). Both run with the MTD
-device still registered, so another thread can be mid-operation.
+On Thu, May 21, 2026 at 06:33:14AM -0700, Kees Cook wrote:
+> ret = min(ret, (int)(PAGE_SIZE - 1 - off));
+> if (!ret)
+> 	break;
 
-Neither outcome of that race is good. While the chip is busy the
-address mode exit is typically ignored, so the restore is silently
-dropped and the chip is left in 4-byte addressing, which a kexec then
-hands to a kernel that cannot read it. The soft reset is typically
-accepted even while busy, so it instead aborts an in-flight erase part
-way through.
+One question about the truncation behavior here: when an element does
+not fully fit in the remaining buffer, this min() can cause only part
+of that element to be copied. For example, if the remaining space is
+4 bytes and the next element produces "123456789\n", the resulting
+output could contain only "1234".
 
-Take the lock in spi_nor_restore(); both callers are teardown paths
-that can sleep and neither already holds it. Waiting is deliberate: a
-partially erased sector cannot be undone from here, and the wait is
-bounded by the one operation already in flight. If the lock cannot be
-taken the restore is skipped with a warning.
+This leaves the reader with no way to distinguish a genuinely short
+value from one that was truncated due to the PAGE_SIZE limit, while
+the array otherwise still looks like a normal comma-separated list.
 
-Requests arriving after the restore are a separate problem: they race
-with device removal itself rather than with the restore.
-
-Fixes: 59b356ffd0b0 ("mtd: m25p80: restore the status of SPI flash when exiting")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude Opus 5
-Signed-off-by: Itai Handler <itai.handler@gmail.com>
----
-Changes in v4:
-- Correct what v3 claimed a busy chip does. v3 said it "ignores
-  everything but status reads", which is roughly right for the address
-  mode exit but wrong for the soft reset: that one is accepted while
-  busy and aborts an in-flight erase. This strengthens the case for
-  taking the lock rather than weakening it, but the old wording was
-  not accurate and the comment now says both halves.
-- Lock inside spi_nor_restore() instead of adding a
-  spi_nor_restore_locked() wrapper around it. The _locked suffix
-  conventionally means "the caller holds the lock", which is the
-  opposite of what that wrapper did, and spi_nor_restore() is static
-  with only the two teardown callers.
-- Handle the spi_nor_prep_and_lock() error return instead of ignoring
-  it, and warn when the restore is skipped.
-- Say what happens to an operation that is already in flight, which
-  Michael asked about on v3. Short answer: it is waited for, because
-  an erase cannot be cancelled safely.
-- Rebased on mainline. v3 depended on the spi_nor_rww_start_exclusive()
-  mutex leak fix, which has since merged as 44b8a0bf5f96 ("mtd:
-  spi-nor: core: Fix mutex leak in spi_nor_rww_start_exclusive()"), so
-  this no longer depends on anything unmerged. Note that it is not yet
-  in a released tag: v7.3-rc5 does not have it.
-
-Link to v3:
-  https://lore.kernel.org/r/20260915113811.2429311-1-itai.handler@gmail.com
-Link to v2:
-  https://lore.kernel.org/r/20260914081149.1916589-1-itai.handler@gmail.com
-
- drivers/mtd/spi-nor/core.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
-
-diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
-index 8bc117b..94dbf1b 100644
---- a/drivers/mtd/spi-nor/core.c
-+++ b/drivers/mtd/spi-nor/core.c
-@@ -3455,6 +3455,21 @@ static void spi_nor_restore(struct spi_nor *nor)
- {
- 	int ret;
- 
-+	/*
-+	 * The MTD device is still registered here, so another thread may
-+	 * have an operation in flight. Wait for it rather than cut in:
-+	 * while the chip is busy the address mode exit below is typically
-+	 * ignored, which silently loses the restore, and the soft reset is
-+	 * typically accepted, which aborts an erase part way through.
-+	 */
-+	ret = spi_nor_prep_and_lock(nor);
-+	if (ret) {
-+		dev_warn(nor->dev,
-+			 "Failed to lock flash, skipping restore, err = %d\n",
-+			 ret);
-+		return;
-+	}
-+
- 	/* restore the addressing mode */
- 	if (nor->addr_nbytes == 4 && !(nor->flags & SNOR_F_4B_OPCODES) &&
- 	    nor->flags & SNOR_F_BROKEN_RESET) {
-@@ -3470,6 +3485,8 @@ static void spi_nor_restore(struct spi_nor *nor)
- 
- 	if (nor->flags & SNOR_F_SOFT_RESET)
- 		spi_nor_soft_reset(nor);
-+
-+	spi_nor_unlock_and_unprep(nor);
- }
- 
- static const struct flash_info *spi_nor_match_name(struct spi_nor *nor,
-
-base-commit: 6addb4f385570ebc11c4eb499a4f1c149f313e84
+Is this partial-element truncation intentional for this patch, or is
+the expectation that it gets handled as part of the later seq_buf
+conversion? Would it be preferable to avoid copying an element unless
+it fits completely, and leave the larger-buffer case to be addressed
+later in the series?
