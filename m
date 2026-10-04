@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3345223DFF
-	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 01:40:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14131223DFF
+	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 01:40:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791078021; cv=none; b=UTp8DIAMjC+H928obRK2mBMNj7AEsVoEhuQvLBaq19pCnEyiEJtySK7ZhL3Kq//2cbl/NAfcdXx5BX8EcU2bFFN2S9NdDe9BM2Rz9+/8kIXmW5TkrLbncnKD9PyZbD4ojN2ne+j2W3rDMiNsRJFaNFonAZV5Bm6gIpKliQeFwuQ=
+	t=1791078030; cv=none; b=TlksGz9qD0w7KmDJeJ2wfd3KBD3EdPL+KhQDjjrheLv7JjBITn/N0D8xrSR3WSPqZM3DurztZEO7dvtOGtLg5ktwafHWDmIBQ/YXw4l6pYsx0s9yDKlwmtO2WY4SBpndtItkRfGfaqBJ4RVlkTiCG9SxHSs6obzzGSsjEW2QQUc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791078021; c=relaxed/simple;
-	bh=5cQMr5oR2i2mOteUyGmjIMBMhFbG3WV7f8lzBh+AXcM=;
+	s=arc-20240116; t=1791078030; c=relaxed/simple;
+	bh=tH/+F+0zZhLMrC27Lvb2MdtwFGae9hWZSSiw9XrZwyQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qG/eJ2nlvnioTctKAXGl17c4Tg1PU/Ge7+6ny8dE6Gug4XbVmH7GiGNOQiOC3dVW9NXC9e2Xti5aUhdoRQXgyzN1/wdU4zcTLvZIQOkvy2sIAq26bv2/byUlT1ZLYHhSvY4m7UW7b1hrkM3NgulBSGpnoPXCOhjxyQt62XvIx1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VJmlJqCX; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=N6cefLYwHhCEbTukmiz8SulbONly7uYm6kJoj2f8rz06NCmawou9/OH9kU3W7fbew0501vYMoW0VCRFK9G6cjl94ban0bOje0Z4mtfGg67DIUkYVyhXiTMm3TgG+MIqqLn7arpP6RdPvS5KyHYi/4YLYzgdg2guHy/9fVzOS/nE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lTNqkMKA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VJmlJqCX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D25C1F0089B;
-	Sun,  4 Oct 2026 01:40:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lTNqkMKA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 696301F0089C;
+	Sun,  4 Oct 2026 01:40:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791078019;
-	bh=KMcoZK7YT7ryBTG5i39+KMj9uv9QVzLyqtGBduNNzBs=;
+	s=k20260515; t=1791078028;
+	bh=9dQzRc7rGiauAiW0rQFcMhO/jGhi8QbSa0U4txyQ7aY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VJmlJqCXYbXtbOWf9R/877QIkzzyOhMsHWTV8t8JYf1V1r2DtyOxbrLwVJd9c1x7n
-	 J6ytLbahfLKdf3Xjca6wqT8lsEth8xOB6Q4/tGfdjczXXnJtJzBKCyGcCSizQbb1N1
-	 CQoz8RT9VL7iXkFGhs8sS77Faei/nxVdXcn0QEITkiNgMHtqB18fjVALduLBG8/CL2
-	 htK/jR+y8u3FCl5q0lJq8Dv7X4pegZEG0B95Q6d70Tvh/vxGSuHQvc9mtFYehcBRjJ
-	 IUg8o7MC48QnP5QmvvzgMNFqSxgdIyEpqdKoihWWddJHJ73QWuqo25r3NIIyHWG6N0
-	 FyNh/E7/QRhYw==
+	b=lTNqkMKA+yEqAgaX4DnSmoM8nAYJsvhFyOzsfPGOxtuf82VlPGDLpIzKRoCBsPHES
+	 I3zy2WeBy3qDmvjzjOoUEXBpKq/1DZu9VQzYiCx6F0hcXfo5/ptXFn+Sa7QQ4QDA0s
+	 a/YDchbDIncnAabJAxcMxbMH2Rp/4YxacikWWbu3oMEPk6Tf5MlvcgEnL5wILk5Fpd
+	 T1aQZfZ0GIIzdtdFP33Rwu/rEY3GqixqrqZVEVBLu9tdUNjROgftzTwyxu3TLJg+Ix
+	 MqZK+hZ/T1ADDqq4NmSpsf09fGEkexWG+UlMMvKMaOrY2sh4hvWYMCjBCY+vD2gR5X
+	 Wzzla0T48EoeQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Ross Philipson <ross.philipson@gmail.com>,
@@ -33,12 +33,13 @@ Cc: Ross Philipson <ross.philipson@gmail.com>,
 	Alec Brown <alec.r.brown@oracle.com>,
 	Jarkko Sakkinen <jarkko@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 1/8] tpm: Initial step to reorganize TPM public headers
-Date: Sat,  3 Oct 2026 21:39:55 -0400
-Message-ID: <20261004012400.1311672-1-sashal@kernel.org>
+Subject: [PATCH 7.2.y 2/8] tpm: Move TPM1 specific definitions to the command header
+Date: Sat,  3 Oct 2026 21:39:56 -0400
+Message-ID: <20261004012400.1311672-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100307-vacancy-udder-83a1@gregkh>
+In-Reply-To: <20261004012400.1311672-1-sashal@kernel.org>
 References: <2026100307-vacancy-udder-83a1@gregkh>
+ <20261004012400.1311672-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,10 +50,17 @@ Content-Transfer-Encoding: 8bit
 
 From: Ross Philipson <ross.philipson@gmail.com>
 
-[ Upstream commit e06f28d32f31206c0be32a08b0273e26cfc1fc92 ]
+[ Upstream commit 94d48062eb9626244f6ddb5a682cdaae40540030 ]
 
-Consolidate TPM1 constants in tpm_command.h and remove duplicate
-constants from tpm1-cmd.c.
+Gather all the TPM1 definitions and structures from the internal header
+file drivers/char/tpm/tpm.h into the command header. In addition, bring
+in the single RNG structure from tpm1-cmd.c.
+
+The definitions moved to these files correspond to the TCG specification
+for TPM 1 family:
+
+TPM 1.2 Main Specification
+ -  https://trustedcomputinggroup.org/resource/tpm-main-specification/
 
 Co-developed-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
@@ -64,215 +72,276 @@ Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
 Stable-dep-of: 9b522400bf5c ("tpm: fix off-by-four bounds check in tpm2_get_random()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/char/tpm/tpm-buf.c                |  1 -
- drivers/char/tpm/tpm1-cmd.c               | 14 +-------
- include/keys/trusted_tpm.h                |  1 -
- include/linux/tpm.h                       |  2 ++
- include/linux/tpm_command.h               | 41 ++++++++++++++++-------
- security/keys/trusted-keys/trusted_tpm1.c |  1 -
- security/keys/trusted-keys/trusted_tpm2.c |  1 -
- 7 files changed, 31 insertions(+), 30 deletions(-)
+ drivers/char/tpm/tpm.h      | 102 --------------------------------
+ drivers/char/tpm/tpm1-cmd.c |   5 --
+ include/linux/tpm_command.h | 115 ++++++++++++++++++++++++++++++++++++
+ 3 files changed, 115 insertions(+), 107 deletions(-)
 
-diff --git a/drivers/char/tpm/tpm-buf.c b/drivers/char/tpm/tpm-buf.c
-index dc882fc9fa9ef..4c4f450630dfe 100644
---- a/drivers/char/tpm/tpm-buf.c
-+++ b/drivers/char/tpm/tpm-buf.c
-@@ -3,7 +3,6 @@
-  * Handling of TPM command and other buffers.
-  */
+diff --git a/drivers/char/tpm/tpm.h b/drivers/char/tpm/tpm.h
+index 87d68ddf270a7..043d78a9617a2 100644
+--- a/drivers/char/tpm/tpm.h
++++ b/drivers/char/tpm/tpm.h
+@@ -52,105 +52,9 @@ enum tpm_addr {
+ 	TPM_ADDR = 0x4E,
+ };
  
--#include <linux/tpm_command.h>
- #include <linux/module.h>
- #include <linux/tpm.h>
+-#define TPM_WARN_RETRY          0x800
+-#define TPM_WARN_DOING_SELFTEST 0x802
+-#define TPM_ERR_DEACTIVATED     0x6
+-#define TPM_ERR_DISABLED        0x7
+-#define TPM_ERR_FAILEDSELFTEST  0x1C
+-#define TPM_ERR_INVALID_POSTINIT 38
+-
+-#define TPM_TAG_RQU_COMMAND 193
+-
+ /* TPM2 specific constants. */
+ #define TPM2_SPACE_BUFFER_SIZE		16384 /* 16 kB */
  
+-struct	stclear_flags_t {
+-	__be16	tag;
+-	u8	deactivated;
+-	u8	disableForceClear;
+-	u8	physicalPresence;
+-	u8	physicalPresenceLock;
+-	u8	bGlobalLock;
+-} __packed;
+-
+-struct tpm1_version {
+-	u8 major;
+-	u8 minor;
+-	u8 rev_major;
+-	u8 rev_minor;
+-} __packed;
+-
+-struct tpm1_version2 {
+-	__be16 tag;
+-	struct tpm1_version version;
+-} __packed;
+-
+-struct	timeout_t {
+-	__be32	a;
+-	__be32	b;
+-	__be32	c;
+-	__be32	d;
+-} __packed;
+-
+-struct duration_t {
+-	__be32	tpm_short;
+-	__be32	tpm_medium;
+-	__be32	tpm_long;
+-} __packed;
+-
+-struct permanent_flags_t {
+-	__be16	tag;
+-	u8	disable;
+-	u8	ownership;
+-	u8	deactivated;
+-	u8	readPubek;
+-	u8	disableOwnerClear;
+-	u8	allowMaintenance;
+-	u8	physicalPresenceLifetimeLock;
+-	u8	physicalPresenceHWEnable;
+-	u8	physicalPresenceCMDEnable;
+-	u8	CEKPUsed;
+-	u8	TPMpost;
+-	u8	TPMpostLock;
+-	u8	FIPS;
+-	u8	operator;
+-	u8	enableRevokeEK;
+-	u8	nvLocked;
+-	u8	readSRKPub;
+-	u8	tpmEstablished;
+-	u8	maintenanceDone;
+-	u8	disableFullDALogicInfo;
+-} __packed;
+-
+-typedef union {
+-	struct	permanent_flags_t perm_flags;
+-	struct	stclear_flags_t	stclear_flags;
+-	__u8	owned;
+-	__be32	num_pcrs;
+-	struct tpm1_version version1;
+-	struct tpm1_version2 version2;
+-	__be32	manufacturer_id;
+-	struct timeout_t  timeout;
+-	struct duration_t duration;
+-} cap_t;
+-
+-enum tpm_capabilities {
+-	TPM_CAP_FLAG = 4,
+-	TPM_CAP_PROP = 5,
+-	TPM_CAP_VERSION_1_1 = 0x06,
+-	TPM_CAP_VERSION_1_2 = 0x1A,
+-};
+-
+-enum tpm_sub_capabilities {
+-	TPM_CAP_PROP_PCR = 0x101,
+-	TPM_CAP_PROP_MANUFACTURER = 0x103,
+-	TPM_CAP_FLAG_PERM = 0x108,
+-	TPM_CAP_FLAG_VOL = 0x109,
+-	TPM_CAP_PROP_OWNER = 0x111,
+-	TPM_CAP_PROP_TIS_TIMEOUT = 0x115,
+-	TPM_CAP_PROP_TIS_DURATION = 0x120,
+-};
+-
+ enum tpm2_pt_props {
+ 	TPM2_PT_NONE = 0x00000000,
+ 	TPM2_PT_GROUP = 0x00000100,
+@@ -225,12 +129,6 @@ enum tpm2_pt_props {
+ 	TPM2_PT_AUDIT_COUNTER_1 = TPM2_PT_VAR + 20,
+ };
+ 
+-/* 128 bytes is an arbitrary cap. This could be as large as TPM_BUFSIZE - 18
+- * bytes, but 128 is still a relatively large number of random bytes and
+- * anything much bigger causes users of struct tpm_cmd_t to start getting
+- * compiler warnings about stack frame size. */
+-#define TPM_MAX_RNG_DATA	128
+-
+ extern const struct class tpm_class;
+ extern const struct class tpmrm_class;
+ extern dev_t tpm_devt;
 diff --git a/drivers/char/tpm/tpm1-cmd.c b/drivers/char/tpm/tpm1-cmd.c
-index b49a790f1bd53..664ca1fff2e89 100644
+index 664ca1fff2e89..96f189b5fd6f2 100644
 --- a/drivers/char/tpm/tpm1-cmd.c
 +++ b/drivers/char/tpm/tpm1-cmd.c
-@@ -22,8 +22,6 @@
- 
- #include "tpm.h"
- 
--#define TPM_MAX_ORDINAL 243
--
- /*
-  * Array with one entry per ordinal defining the maximum amount
-  * of time the chip could take to return the result.  The ordinal
-@@ -308,9 +306,6 @@ unsigned long tpm1_calc_ordinal_duration(struct tpm_chip *chip, u32 ordinal)
- 		return duration;
- }
- 
--#define TPM_ORD_STARTUP 153
--#define TPM_ST_CLEAR 1
--
- /**
-  * tpm1_startup() - turn on the TPM
-  * @chip: TPM chip to use
-@@ -459,7 +454,6 @@ int tpm1_get_timeouts(struct tpm_chip *chip)
- 	return 0;
- }
- 
--#define TPM_ORD_PCR_EXTEND 20
- int tpm1_pcr_extend(struct tpm_chip *chip, u32 pcr_idx, const u8 *hash,
- 		    const char *log_msg)
- {
-@@ -478,7 +472,6 @@ int tpm1_pcr_extend(struct tpm_chip *chip, u32 pcr_idx, const u8 *hash,
- 	return rc;
- }
- 
--#define TPM_ORD_GET_CAP 101
- ssize_t tpm1_getcap(struct tpm_chip *chip, u32 subcap_id, cap_t *cap,
- 		    const char *desc, size_t min_cap_length)
- {
-@@ -511,7 +504,6 @@ ssize_t tpm1_getcap(struct tpm_chip *chip, u32 subcap_id, cap_t *cap,
+@@ -504,11 +504,6 @@ ssize_t tpm1_getcap(struct tpm_chip *chip, u32 subcap_id, cap_t *cap,
  }
  EXPORT_SYMBOL_GPL(tpm1_getcap);
  
--#define TPM_ORD_GET_RANDOM 70
- struct tpm1_get_random_out {
- 	__be32 rng_data_len;
- 	u8 rng_data[TPM_MAX_RNG_DATA];
-@@ -580,13 +572,12 @@ int tpm1_get_random(struct tpm_chip *chip, u8 *dest, size_t max)
- 	return rc;
- }
- 
--#define TPM_ORD_PCRREAD 21
- int tpm1_pcr_read(struct tpm_chip *chip, u32 pcr_idx, u8 *res_buf)
- {
- 	struct tpm_buf buf;
- 	int rc;
- 
--	rc = tpm_buf_init(&buf, TPM_TAG_RQU_COMMAND, TPM_ORD_PCRREAD);
-+	rc = tpm_buf_init(&buf, TPM_TAG_RQU_COMMAND, TPM_ORD_PCR_READ);
- 	if (rc)
- 		return rc;
- 
-@@ -609,7 +600,6 @@ int tpm1_pcr_read(struct tpm_chip *chip, u32 pcr_idx, u8 *res_buf)
- 	return rc;
- }
- 
--#define TPM_ORD_CONTINUE_SELFTEST 83
- /**
-  * tpm1_continue_selftest() - run TPM's selftest
-  * @chip: TPM chip to use
-@@ -726,8 +716,6 @@ int tpm1_auto_startup(struct tpm_chip *chip)
- 	return rc;
- }
- 
--#define TPM_ORD_SAVESTATE 152
+-struct tpm1_get_random_out {
+-	__be32 rng_data_len;
+-	u8 rng_data[TPM_MAX_RNG_DATA];
+-} __packed;
 -
  /**
-  * tpm1_pm_suspend() - pm suspend handler
-  * @chip: TPM chip to use.
-diff --git a/include/keys/trusted_tpm.h b/include/keys/trusted_tpm.h
-index 0fadc6a4f1663..3a0fa3bc84543 100644
---- a/include/keys/trusted_tpm.h
-+++ b/include/keys/trusted_tpm.h
-@@ -3,7 +3,6 @@
- #define __TRUSTED_TPM_H
- 
- #include <keys/trusted-type.h>
--#include <linux/tpm_command.h>
- 
- extern struct trusted_key_ops trusted_key_tpm_ops;
- 
-diff --git a/include/linux/tpm.h b/include/linux/tpm.h
-index 202da079d500f..1846d5485a2ca 100644
---- a/include/linux/tpm.h
-+++ b/include/linux/tpm.h
-@@ -25,6 +25,8 @@
- #include <crypto/hash_info.h>
- #include <crypto/aes.h>
- 
-+#include <linux/tpm_command.h>
-+
- #define TPM_DIGEST_SIZE 20	/* Max TPM v1.2 PCR size */
- 
- #define TPM2_MAX_DIGEST_SIZE	SHA512_DIGEST_SIZE
+  * tpm1_get_random() - get random bytes from the TPM's RNG
+  * @chip:	a &struct tpm_chip instance
 diff --git a/include/linux/tpm_command.h b/include/linux/tpm_command.h
-index f5c03e9c3913e..174b043d8bbc9 100644
+index 174b043d8bbc9..30d01953a6f8d 100644
 --- a/include/linux/tpm_command.h
 +++ b/include/linux/tpm_command.h
-@@ -3,27 +3,42 @@
- #define __LINUX_TPM_COMMAND_H__
+@@ -36,6 +36,121 @@ enum tpm_command_ordinals {
+ 	TPM_ORD_UNSEAL			= 24,
+ };
  
- /*
-- * TPM Command constants from specifications at
-- * http://www.trustedcomputinggroup.org
-+ * == TPM 1 Family Chips ==
-+ *
-+ * TPM 1.2 Main Specification:
-+ * https://trustedcomputinggroup.org/resource/tpm-main-specification/
-  */
- 
-+#define TPM_MAX_ORDINAL	243
++enum tpm_capabilities {
++	TPM_CAP_FLAG		= 4,
++	TPM_CAP_PROP		= 5,
++	TPM_CAP_VERSION_1_1	= 0x06,
++	TPM_CAP_VERSION_1_2	= 0x1A,
++};
 +
- /* Command TAGS */
--#define TPM_TAG_RQU_COMMAND             193
--#define TPM_TAG_RQU_AUTH1_COMMAND       194
--#define TPM_TAG_RQU_AUTH2_COMMAND       195
--#define TPM_TAG_RSP_COMMAND             196
--#define TPM_TAG_RSP_AUTH1_COMMAND       197
--#define TPM_TAG_RSP_AUTH2_COMMAND       198
-+enum tpm_command_tags {
-+	TPM_TAG_RQU_COMMAND		= 193,
-+	TPM_TAG_RQU_AUTH1_COMMAND	= 194,
-+	TPM_TAG_RQU_AUTH2_COMMAND	= 195,
-+	TPM_TAG_RSP_COMMAND		= 196,
-+	TPM_TAG_RSP_AUTH1_COMMAND	= 197,
-+	TPM_TAG_RSP_AUTH2_COMMAND	= 198,
++enum tpm_sub_capabilities {
++	TPM_CAP_PROP_PCR		= 0x101,
++	TPM_CAP_PROP_MANUFACTURER	= 0x103,
++	TPM_CAP_FLAG_PERM		= 0x108,
++	TPM_CAP_FLAG_VOL		= 0x109,
++	TPM_CAP_PROP_OWNER		= 0x111,
++	TPM_CAP_PROP_TIS_TIMEOUT	= 0x115,
++	TPM_CAP_PROP_TIS_DURATION	= 0x120,
 +};
- 
- /* Command Ordinals */
--#define TPM_ORD_GETRANDOM               70
--#define TPM_ORD_OSAP                    11
--#define TPM_ORD_OIAP                    10
--#define TPM_ORD_SEAL                    23
--#define TPM_ORD_UNSEAL                  24
-+enum tpm_command_ordinals {
-+	TPM_ORD_CONTINUE_SELFTEST	= 83,
-+	TPM_ORD_GET_CAP			= 101,
-+	TPM_ORD_GET_RANDOM		= 70,
-+	TPM_ORD_PCR_EXTEND		= 20,
-+	TPM_ORD_PCR_READ		= 21,
-+	TPM_ORD_OSAP			= 11,
-+	TPM_ORD_OIAP			= 10,
-+	TPM_ORD_SAVESTATE		= 152,
-+	TPM_ORD_SEAL			= 23,
-+	TPM_ORD_STARTUP			= 153,
-+	TPM_ORD_UNSEAL			= 24,
++
++/* Return Codes */
++enum tpm_return_codes {
++	TPM_BASE_MASK			= 0,
++	TPM_NON_FATAL_MASK		= 0x00000800,
++	TPM_SUCCESS			= TPM_BASE_MASK + 0,
++	TPM_ERR_DEACTIVATED		= TPM_BASE_MASK + 6,
++	TPM_ERR_DISABLED		= TPM_BASE_MASK + 7,
++	TPM_ERR_FAIL			= TPM_BASE_MASK + 9,
++	TPM_ERR_FAILEDSELFTEST		= TPM_BASE_MASK + 28,
++	TPM_ERR_INVALID_POSTINIT	= TPM_BASE_MASK + 38,
++	TPM_ERR_INVALID_FAMILY		= TPM_BASE_MASK + 55,
++	TPM_WARN_RETRY			= TPM_BASE_MASK + TPM_NON_FATAL_MASK + 0,
++	TPM_WARN_DOING_SELFTEST		= TPM_BASE_MASK + TPM_NON_FATAL_MASK + 2,
 +};
- 
++
++struct	stclear_flags_t {
++	__be16 tag;
++	u8 deactivated;
++	u8 disableForceClear;
++	u8 physicalPresence;
++	u8 physicalPresenceLock;
++	u8 bGlobalLock;
++} __packed;
++
++struct tpm1_version {
++	u8 major;
++	u8 minor;
++	u8 rev_major;
++	u8 rev_minor;
++} __packed;
++
++struct tpm1_version2 {
++	__be16 tag;
++	struct tpm1_version version;
++} __packed;
++
++struct	timeout_t {
++	__be32 a;
++	__be32 b;
++	__be32 c;
++	__be32 d;
++} __packed;
++
++struct duration_t {
++	__be32 tpm_short;
++	__be32 tpm_medium;
++	__be32 tpm_long;
++} __packed;
++
++struct permanent_flags_t {
++	__be16 tag;
++	u8 disable;
++	u8 ownership;
++	u8 deactivated;
++	u8 readPubek;
++	u8 disableOwnerClear;
++	u8 allowMaintenance;
++	u8 physicalPresenceLifetimeLock;
++	u8 physicalPresenceHWEnable;
++	u8 physicalPresenceCMDEnable;
++	u8 CEKPUsed;
++	u8 TPMpost;
++	u8 TPMpostLock;
++	u8 FIPS;
++	u8 operator;
++	u8 enableRevokeEK;
++	u8 nvLocked;
++	u8 readSRKPub;
++	u8 tpmEstablished;
++	u8 maintenanceDone;
++	u8 disableFullDALogicInfo;
++} __packed;
++
++typedef union {
++	struct permanent_flags_t perm_flags;
++	struct stclear_flags_t stclear_flags;
++	__u8 owned;
++	__be32 num_pcrs;
++	struct tpm1_version version1;
++	struct tpm1_version2 version2;
++	__be32 manufacturer_id;
++	struct timeout_t timeout;
++	struct duration_t duration;
++} cap_t;
++
++/*
++ * 128 bytes is an arbitrary cap. This could be as large as TPM_BUFSIZE - 18
++ * bytes, but 128 is still a relatively large number of random bytes and
++ * anything much bigger causes users of struct tpm_cmd_t to start getting
++ * compiler warnings about stack frame size.
++ */
++#define TPM_MAX_RNG_DATA		128
++
++struct tpm1_get_random_out {
++	__be32 rng_data_len;
++	u8 rng_data[TPM_MAX_RNG_DATA];
++} __packed;
++
  /* Other constants */
  #define SRKHANDLE                       0x40000000
  #define TPM_NONCE_SIZE                  20
-+#define TPM_ST_CLEAR			1
- 
- #endif
-diff --git a/security/keys/trusted-keys/trusted_tpm1.c b/security/keys/trusted-keys/trusted_tpm1.c
-index 8f57c6111e7e4..ae256c540ca07 100644
---- a/security/keys/trusted-keys/trusted_tpm1.c
-+++ b/security/keys/trusted-keys/trusted_tpm1.c
-@@ -18,7 +18,6 @@
- #include <keys/trusted-type.h>
- #include <linux/key-type.h>
- #include <linux/tpm.h>
--#include <linux/tpm_command.h>
- 
- #include <keys/trusted_tpm.h>
- 
-diff --git a/security/keys/trusted-keys/trusted_tpm2.c b/security/keys/trusted-keys/trusted_tpm2.c
-index e8c129396b8b8..70913da617631 100644
---- a/security/keys/trusted-keys/trusted_tpm2.c
-+++ b/security/keys/trusted-keys/trusted_tpm2.c
-@@ -9,7 +9,6 @@
- #include <linux/string.h>
- #include <linux/err.h>
- #include <linux/tpm.h>
--#include <linux/tpm_command.h>
- 
- #include <keys/trusted-type.h>
- #include <keys/trusted_tpm.h>
 -- 
 2.53.0
 
