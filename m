@@ -1,73 +1,62 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cvsmtppost15.nm.naver.com (cvsmtppost15.nm.naver.com [114.111.35.158])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2726E394499
-	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 14:45:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E8E8416115
+	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 14:48:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.111.35.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791125141; cv=none; b=Lq2zpeYpvhMMIUj/gcCX4dCDoH+KJ5gc/tOEjnHk7as3uUXdEf1tF88z9mkUDLXhC8RkDBFTlNFAx2gUFOs0D5Xx6oidPw/wOj/HJO0S8k5eMMD2TSlt1ZSy0lVO5ZbubCUvAo7B5G4afTqb7Jswrbb1utJN5SL1MKYOtvk97pI=
+	t=1791125301; cv=none; b=QZGwIwhVOWQK2C//MRWBGvy26JWK1UBzgWCaO7PXGqaxs6AfOrtNtExlS/1rt5Z9gONuornXGwq7ONET7k9mP509gTPeVDFGsfblVRa30wAkhrfXmwkQLoCWKkxUsYrUMcRSWkYQhwG3LQAWWlb7avyZydpJLW/jGNT3XpxHwAM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791125141; c=relaxed/simple;
-	bh=nknuNnEAxHvHKNnkMy5LoBq1XFHvy4iJ7nU+10qXxzM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DahUeBZi4rJ2uHXSqLsmceVYO8h2x/iM4zHPePvw21ug2r4oLryY/Qw1SJE6lodeVSvzbo2y2IXJpATYF4zr7Deeg6kXgUU8E5owf4fMFD6T74522/1iizM/pygQSBnaAwLWW5fmrWvttTVZfNozzwEmGKK2VayH1Gbn91zOUZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eEr9dGxp; arc=none smtp.client-ip=209.85.221.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791125301; c=relaxed/simple;
+	bh=XcNN7eJ8pqt5t9I3uN7RYCmycRwA+uReKRMPHRBCfAU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=lYcIl2MDsadYdN/PVatYGsWnCtJBneDxywrHeC8rKpklDTzvu+MJ279x6iJ1tUvCxndtSgZfY1WDH0d+NiGe1N9K/zoswJijXoW2FNVOOkhvczVegf3AXRWuTiptRlZFOiWqGkygXb6rPpJPsHCWJhqT5JTQY2m6j2VzyBoKyG0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com; spf=pass smtp.mailfrom=naver.com; dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b=u0R9aV+V; arc=none smtp.client-ip=114.111.35.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eEr9dGxp"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48c4649b35bso980061f8f.3
-        for <stable@vger.kernel.org>; Sun, 04 Oct 2026 07:45:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791125137; x=1791729937; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LpdK/spNmgN6+9nx+ZFn2n/Lj/yxaVrVG3OMjpGohSg=;
-        b=eEr9dGxpATN7UfiYX8iTGjeTwyKd7ljvYbyB3EOQ5LNEB+9f3OXSJ22sSOXFkHCjq0
-         EY6uju5gqSG/bar4wUAPBbVxigjoy4/8ZxhpkMsmOj9723r3q8igMYPcnZsgsG6GwMkr
-         d9cNSObLTzs8/ZZcnZQuUvLqx4frtPXi5MfdbjGBKmB9TyfjR6p+IF+8kLAc/Xju0qT8
-         k+A0eNATozyfA4JX+H0bHt/SJ1pENtkgaVMXdwk4nzL57buZvkq6JyaOqcBEjPvAo0uQ
-         GJ4bn8dWwo4sGEka/pnOZE0ZMlEowZA2H8UT8/FaAPg/vqmLV7qgnlLQVhTDs4mzoU1o
-         Tp2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791125137; x=1791729937;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LpdK/spNmgN6+9nx+ZFn2n/Lj/yxaVrVG3OMjpGohSg=;
-        b=0DHW4iqIDigBk5JJ5ARjjwnx8ul0IdjXgfKRHHNgsagQS8GZVuNcKHifb2XWFac5hf
-         NkeNt5ctgCEDayQu64h5eKYlxOTx+pBJUa/nwU0DJwVEeUaL1xeR7JSSakiUWbpOP3E+
-         bI/SZ1w/kY4Bb+RdTVvimvdTZdo/xh/zX0EZyTV5FPP+HlNF4ooDZkbgLZ2PHmHKU7bb
-         4HBabYvujq9aZtYPfXUNVjjYLblPZXgMn1yZ253iML5N6IfNIrfz1GDR4R2dz19Bd0EQ
-         c86UV8AdTSmwAIfHfEQbGutm46wSfeYX2P6Io8q4Bw9aFG/ozhVtQuHwmnsxdU0GKnKQ
-         AdiA==
-X-Gm-Message-State: AFq9FYLW891fXOModwslnYrO/g+pwFfwIQEjOI7B69eKtfnCBtSUoKA4
-	mSkGyjcMI6Nh6t/raIOn7qXZBdJaLbg3RHeue67/5tjkADR1OQTGJ0fwzybCrMk6
-X-Gm-Gg: AYBFou3+je8cYMQreNT9ucVPYvtzV5yqh++QgXRE+t071YyX8TW+U0ZnztiA/hXQVdX
-	P4z6vEJXe4cTcm1KETABD/4P4MpmgmTjxAtePWyE7tYyeQoYFYd7d/4275DYvDqffa7DxHLjUCX
-	OMS86CJ8mWix2danHrmQqDSBAI25LjhaJ647GmeCXGDN439sFe2t8lU+iBHSAFW9nbBpJ7ev1XS
-	EiHMJCHoREKMGT5gXgNjymABYa9FDT6U5rpNJYaT2aGxE08mAKjr/vtfZkVmKS8GX6d2ZVPd8Pe
-	C7XC88rU/WZijDVkgfJRvkPoe4c5Z6yJp/GvCzR3+jgzr/tc4/7rAN4p1IJ1PkQB9eWm10RTCJK
-	0a68fBR2JWiSwQ4ZRnBSqDtk+QcEMcYt7jAsGBJNZ2p/2bKW8WJBIx9ksdvqX+DBjxwRE3D5Rri
-	+rWUO5oPboKEqDgG5FhSjs+fXdkyHYCNtWN96OtEUESJFPKtvBbmvO/Mb7Isa4HQLbzd+XyjZKr
-	HiGiu+uE8GmhYZxMAQ32FlR+aqtnQ1Mpmh51pHJzCzGGhy+amBj9IQmpV5MqvnNS8FwCuRZ49ky
-	HXdwnx7CutBrwsRNCrEr4/Hef+8L5PwU/YBiMHr6IKpVgQXEWAmUMbj8wqTNxBDre94KpkPo7MV
-	7W8JXlruyrkGjBNpiAN7osg==
-X-Received: by 2002:a5d:64e9:0:b0:48a:fdb2:f2f4 with SMTP id ffacd0b85a97d-48c4801be23mr9176768f8f.57.1791125137116;
-        Sun, 04 Oct 2026 07:45:37 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a00-1028-c000-0ddf-f41d-5ef7-f7c3-c578.ipv6.o2.cz. [2a00:1028:c000:ddf:f41d:5ef7:f7c3:c578])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b382f9ad6sm19836819f8f.40.2026.10.04.07.45.34
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 04 Oct 2026 07:45:35 -0700 (PDT)
-From: Josef Schlehofer <pepe.schlehofer@gmail.com>
-To: stable@vger.kernel.org
-Cc: John Pavlick <jspavlick@posteo.net>,
-	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
-	Marcin Nita <marcin.nita@leolabs.pl>,
-	Jakub Kicinski <kuba@kernel.org>
-Subject: [PATCH 6.6.y] net: sfp: add quirks for Hisense and HSGQ GPON ONT SFP modules
-Date: Sun,  4 Oct 2026 16:45:28 +0200
-Message-ID: <20261004144528.54801-1-pepe.schlehofer@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b="u0R9aV+V"
+Received: from cvsendbo010.nm ([10.112.20.44])
+  by cvsmtppost15.nm.naver.com with ESMTP id KnKOFhBkRsCKo2icfPuEeA
+  for <stable@vger.kernel.org>;
+  Sun, 04 Oct 2026 14:48:12 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
+	t=1791125292; bh=XcNN7eJ8pqt5t9I3uN7RYCmycRwA+uReKRMPHRBCfAU=;
+	h=From:To:Subject:Date:Message-ID:From:Subject:Feedback-ID:
+	 X-Works-Security;
+	b=u0R9aV+VwksgHAfzZ8mWR1H1Rr2l2UzuYcqBSfZHCgVYbkGOyADg9tSFrQytXTtMm
+	 AQY/1BxkyriNvX9x57SI5psmDiJy65l3ozdPVl34emVC3XtSvgJEUtAQkH9pMgvZW+
+	 3xNu8aJqkIc/vh4GIltZz6PWWsfrb3ApeMVWSmSpRlsxDNtSv3mdfL3+bDWwoyUNdC
+	 sEpEcu4sKtn1QTDGzAHVowuyhuFdYiu2dboPRHlcNHGf06FR1yvmhFoNS6iluYBVjl
+	 bhP2G05nK+qETn5rpqGS7mDR9HIkembYSWKEYWm0p/0zCvx9B2ky1UsNjvG7CLl73Z
+	 vGy/cl7VVTa3A==
+X-Session-ID: LmKJ5MAwSoyrVmVIaLe33g
+X-Works-Send-Opt: O9ewpzGdjHmdKHFOMr39Ko3YKHmwKNmwFAbrFxKrKqEmjJkaBd9YKBmm
+X-Works-Smtp-Source: sdKlKAulFqJZ+Hmwax2Z+6E=
+Received: from localhost.localdomain ([115.136.205.4])
+  by cvnsmtp006.nm.naver.com with ESMTP id LmKJ5MAwSoyrVmVIaLe33g
+  for <multiple recipients>
+  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+  Sun, 04 Oct 2026 14:48:11 -0000
+From: Byeongchan Sung <tjdqudcks0424@naver.com>
+To: German Maglione <gmaglione@redhat.com>,
+	Vivek Goyal <vgoyal@redhat.com>,
+	Stefan Hajnoczi <stefanha@redhat.com>,
+	Miklos Szeredi <miklos@szeredi.hu>
+Cc: =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	"Michael S . Tsirkin" <mst@redhat.com>,
+	virtualization@lists.linux.dev,
+	fuse-devel@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: [PATCH v2] virtiofs: validate fixed-output response length
+Date: Sun,  4 Oct 2026 23:48:00 +0900
+Message-ID: <20261004144801.663923-1-tjdqudcks0424@naver.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261004123405.586168-1-tjdqudcks0424@naver.com>
+References: <20261004123405.586168-1-tjdqudcks0424@naver.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -76,72 +65,128 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: John Pavlick <jspavlick@posteo.net>
+A short successful virtiofs response can leave the fixed-output
+portion of the request argument buffer unwritten. The completion path
+nevertheless copies the full declared output to the request destination,
+allowing stale allocator contents to reach callers such as
+fuse_statfs().
 
-commit 95aca8602ef70ffd3d971675751c81826e124f90 upstream.
+Require successful fixed-output responses to contain their complete
+declared output. Continue to permit a shorter final argument only for
+out_argvar requests. Reject positive and internal restart error values,
+require valid error replies to be header-only, and do not copy output
+arguments from error replies.
 
-Several GPON ONT SFP sticks based on Realtek RTL960x report
-1000BASE-LX at 1300MBd in their EEPROM but can operate at 2500base-X.
-On hosts capable of 2500base-X (e.g. Banana Pi R3 / MT7986), the
-kernel negotiates only 1G because it trusts the incorrect EEPROM data.
+A header-only FUSE_STATFS success returned stale fields in nine of
+nine calls across three boots. The fixed kernel rejected the short
+response and preserved complete replies, valid error replies, and
+variable-output controls.
 
-Add quirks for:
-- Hisense-Leox LXT-010S-H
-- Hisense ZNID-GPON-2311NA
-- HSGQ HSGQ-XPON-Stick
-
-Each quirk advertises 2500base-X and ignores TX_FAULT during the
-module's ~40s Linux boot time.
-
-Tested on Banana Pi R3 (MT7986) with OpenWrt 25.12.1, confirmed
-2.5Gbps link and full throughput with flow offloading.
-
-Reviewed-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-Suggested-by: Marcin Nita <marcin.nita@leolabs.pl>
-Signed-off-by: John Pavlick <jspavlick@posteo.net>
-Link: https://patch.msgid.link/20260406132321.72563-1-jspavlick@posteo.net
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
+Fixes: a62a8ef9d97d ("virtio-fs: add virtiofs filesystem")
+Cc: stable@vger.kernel.org
+Signed-off-by: Byeongchan Sung <tjdqudcks0424@naver.com>
 ---
-Backport note: in 6.6 the quirk after Huawei MA5671A is FS SFP-2.5G-T,
-not the Lantech 8330-262D-E/8330-265D one, so the upstream patch does
-not apply cleanly. The entries are added at the same place, right after
-MA5671A. No other changes.
+Changes in v2:
+- Reject positive and internal restart error values.
+- Require error replies to be header-only.
+- Rate-limit malformed-response warnings.
+- Rely on the existing FUSE pr_fmt prefix.
+- Add Cc: stable@vger.kernel.org.
+- Use the author's real name consistently.
 
-The same change is proposed for OpenWrt 24.10 (6.6.157). Its CI built
-it on mvebu and realtek, both with CONFIG_SFP=y:
-https://github.com/openwrt/openwrt/pull/25592
+ fs/fuse/virtio_fs.c | 43 ++++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 38 insertions(+), 5 deletions(-)
 
- drivers/net/phy/sfp.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
-
-diff --git a/drivers/net/phy/sfp.c b/drivers/net/phy/sfp.c
-index e352ceb2f7cb..38ab35e57127 100644
---- a/drivers/net/phy/sfp.c
-+++ b/drivers/net/phy/sfp.c
-@@ -514,6 +514,22 @@ static const struct sfp_quirk sfp_quirks[] = {
- 	SFP_QUIRK("HUAWEI", "MA5671A", sfp_quirk_2500basex,
- 		  sfp_fixup_ignore_tx_fault_and_los),
+diff --git a/fs/fuse/virtio_fs.c b/fs/fuse/virtio_fs.c
+index f15e516ebcb5c..fffbe08d9114a 100644
+--- a/fs/fuse/virtio_fs.c
++++ b/fs/fuse/virtio_fs.c
+@@ -4,6 +4,8 @@
+  * Copyright (C) 2018 Red Hat, Inc.
+  */
  
-+	// Hisense LXT-010S-H is a GPON ONT SFP (sold as LEOX LXT-010S-H) that
-+	// can operate at 2500base-X, but reports 1000BASE-LX / 1300MBd in its
-+	// EEPROM
-+	SFP_QUIRK("Hisense-Leox", "LXT-010S-H", sfp_quirk_2500basex,
-+		  sfp_fixup_ignore_tx_fault),
++#include "fuse_i.h"
 +
-+	// Hisense ZNID-GPON-2311NA can operate at 2500base-X, but reports
-+	// 1000BASE-LX / 1300MBd in its EEPROM
-+	SFP_QUIRK("Hisense", "ZNID-GPON-2311NA", sfp_quirk_2500basex,
-+		  sfp_fixup_ignore_tx_fault),
-+
-+	// HSGQ HSGQ-XPON-Stick can operate at 2500base-X, but reports
-+	// 1000BASE-LX / 1300MBd in its EEPROM
-+	SFP_QUIRK("HSGQ", "HSGQ-XPON-Stick", sfp_quirk_2500basex,
-+		  sfp_fixup_ignore_tx_fault),
-+
- 	// FS 2.5G Base-T
- 	SFP_QUIRK_M("FS", "SFP-2.5G-T", sfp_quirk_oem_2_5g),
+ #include <linux/fs.h>
+ #include <linux/dax.h>
+ #include <linux/pci.h>
+@@ -20,7 +22,6 @@
+ #include <linux/cleanup.h>
+ #include <linux/uio.h>
+ #include "dev.h"
+-#include "fuse_i.h"
+ #include "fuse_dev_i.h"
  
+ /* Used to help calculate the FUSE connection's max_pages limit for a request's
+@@ -730,6 +731,10 @@ static void copy_args_from_argbuf(struct fuse_args *args, struct fuse_req *req)
+ 	unsigned int num_out;
+ 	unsigned int i;
+ 
++	/* Error replies contain only the output header. */
++	if (req->out.h.error)
++		goto out;
++
+ 	remaining = req->out.h.len - sizeof(req->out.h);
+ 	num_in = args->in_numargs - args->in_pages;
+ 	num_out = args->out_numargs - args->out_pages;
+@@ -755,6 +760,7 @@ static void copy_args_from_argbuf(struct fuse_args *args, struct fuse_req *req)
+ 	if (args->out_argvar)
+ 		args->out_args[args->out_numargs - 1].size = remaining;
+ 
++out:
+ 	kfree(req->argbuf);
+ 	req->argbuf = NULL;
+ }
+@@ -762,19 +768,46 @@ static void copy_args_from_argbuf(struct fuse_args *args, struct fuse_req *req)
+ /* Verify that the server properly follows the FUSE protocol */
+ static bool virtio_fs_verify_response(struct fuse_req *req, unsigned int len)
+ {
++	struct fuse_args *args = req->args;
+ 	struct fuse_out_header *oh = &req->out.h;
++	unsigned int expected;
+ 
+ 	if (len < sizeof(*oh)) {
+-		pr_warn("virtio-fs: response too short (%u)\n", len);
++		pr_warn_ratelimited("response too short (%u)\n", len);
+ 		return false;
+ 	}
+ 	if (oh->len != len) {
+-		pr_warn("virtio-fs: oh.len mismatch (%u != %u)\n", oh->len, len);
++		pr_warn_ratelimited("oh.len mismatch (%u != %u)\n",
++				    oh->len, len);
+ 		return false;
+ 	}
+ 	if (oh->unique != req->in.h.unique) {
+-		pr_warn("virtio-fs: oh.unique mismatch (%llu != %llu)\n",
+-			oh->unique, req->in.h.unique);
++		pr_warn_ratelimited("oh.unique mismatch (%llu != %llu)\n",
++				    oh->unique, req->in.h.unique);
++		return false;
++	}
++	if (oh->error <= -ERESTARTSYS || oh->error > 0) {
++		pr_warn_ratelimited("invalid error value (%d)\n", oh->error);
++		return false;
++	}
++
++	if (oh->error) {
++		if (len != sizeof(*oh)) {
++			pr_warn_ratelimited("error response too long (%u)\n",
++					    len);
++			return false;
++		}
++		return true;
++	}
++
++	expected = sizeof(*oh) +
++		   fuse_len_args(args->out_numargs, args->out_args);
++	if (len > expected ||
++	    (len < expected &&
++	     (!args->out_argvar ||
++	      expected - len > args->out_args[args->out_numargs - 1].size))) {
++		pr_warn_ratelimited("invalid response length (%u, expected %u)\n",
++				    len, expected);
+ 		return false;
+ 	}
+ 	return true;
 -- 
-2.54.0 (Apple Git-157)
-
+2.43.0
