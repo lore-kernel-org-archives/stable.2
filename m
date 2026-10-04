@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B26403B585F;
-	Sun,  4 Oct 2026 07:39:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D43092E4257;
+	Sun,  4 Oct 2026 07:39:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791099572; cv=none; b=unhLBbUQMui0XFGyeWf1LSZyrNX8/2VSDe7j63ZndAPF6d0UmBjPQk9Z/CnNC3nqkHfoFuPbB3ul5vd8Sfm7N0QiAW0ggTY6ytz/46QCEbKjZ9rygxOSiMTnnACHx+LcTXM5NIvGElez/m+RCS98Azu1UKtdcyTvEUPRlWTe1AE=
+	t=1791099573; cv=none; b=CICB54ORhWYTvOkkxH3nstrRpIYVXRW0H4XtHtGYWE7te5q24+ndGxs0iYvnfFJik4WzD8EJCxKdpkZkmQXovBIIXIFfTKYXNgU1+jQbN6FImDSRGLAgjmeH+iI9JO513wpIzsNIh3d2Yfd+hT3bSvXrFKiJTt4lXm4v6e1I8hY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791099572; c=relaxed/simple;
-	bh=bNHru6tPNOl7NkQDLeKwO5c/1mzXsHz05Fm4tjjZdvM=;
+	s=arc-20240116; t=1791099573; c=relaxed/simple;
+	bh=NffAOsD/RLNLka6XB70MGaXpERV5MUxvEURq64HeRq4=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Uw6PmvmU9gpF6chL1nAYoE/lWa0E6uCWnrbbvPi9mn0s/d29+ExDzXcAvdBjBt+yYd/PAOxC1DyYBK6z1BLDQ0YFP56uBTqFjdgMuwj1AHpfAEfJBHB5q5crTDa0WV57J7BvxtkhfU5Gb9Ml9zIT8UTUXhxylsQdRvEpWt+1WLs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bc9EBcST; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=opZLVLFBjK9ZoLv6DD0bUAeqpw+lBVOiuXHD/2qvMY1rLNNotucETnp6L8d3VyiwecGZBG/Hn+rlpJf+IMc20VbcUfsnMYiqWKmJxuASu2YuYE0xeUicqAqWyRbMGduWbv0g82Aqb6zZ1bZHexqIASl0kSFj2B0pVRQUzvEjxP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GrrM70DD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bc9EBcST"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A38B61F000FF;
-	Sun,  4 Oct 2026 07:39:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GrrM70DD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D4041F00898;
+	Sun,  4 Oct 2026 07:39:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791099568;
-	bh=1/SM6hfU17pkgG+PJ5/yRnxH8auKg8f1+S1/we4zQ4U=;
+	s=k20260515; t=1791099570;
+	bh=lSUoBFfGhuHMZDOmmp8eSQSG+S5lhuHFHUZbk7wvcRI=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Bc9EBcSTn0DNh6IJtBZ/RTNMu5OqtcEF+t8q1eYCVlnE4PKzQzuQLKJ58pipQVGOK
-	 Mbh3T/vNL80V4DuymurHUiNrCQxeZlpBIe3zf5ZqRyYksc+fkxBFTzGo3pazg3OI9r
-	 3H7s7kWjM6sk9d9JrLomnxStZalwB6c3vezgQOGZ+PjcWOmrvPKEEwuASraT+E9jmF
-	 ugsjJ47UqQwhyX5EC9d9TcAVrcMrQ5DF0vTnUtxwiOo89to4gxI+ggziXunyRLPBLw
-	 B/4yXxYRKjGX6TK6RMlFzb1J2BZWq6vdoe+BcVfhDUlpkPO85iPTPx8wSvw3r0JWzu
-	 H21D7IpqdMr9g==
-Subject: Re: [PATCH net v3 1/3] ieee802154: ca8210: prevent stack buffer
- overflow in ca8210_rx_done()
+	b=GrrM70DDvdwWLuma+G0MU6S424LsQAXkoqZisDyg5PUEjo+by6ZsC/pLTj/LmovLO
+	 oiFiTbRMfLwZ0mKqj7Pg0hr/YC5MTw7dtj5UDji4ByMEkhyxTooXHRRycHYOdJl0ku
+	 wznnUoTwA+ZqQyp1VCBPBzkn6IxM8mG6fl8FwLNX6e4RcgUGV1yG5JIXfuJqns9c16
+	 RBjK3FZfOzh212DAeUQtA2iKuNCf+uRsq+rHYhsafo744+IoL1fwT0jg4Z/mwSui08
+	 F5cUUzKPrskTNN0VT9w/qIrKpOmM4VDYIKaZGLBdQhsXDJztKicuTKv9panXsA3lcS
+	 Ykic8Q17+f3Xg==
+Subject: Re: [PATCH net v3 3/3] ieee802154: ca8210: validate data_ind length
+ upfront in ca8210_skb_rx()
 From: netdev-bot+sashiko@kernel.org
 To: benquike@gmail.com
 Cc: h.morris@cascoda.com, alex.aring@gmail.com, miquel.raynal@bootlin.com,
  stefan@datenfreihafen.org, david.laight.linux@gmail.com,
  linux-wpan@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org, kuba@kernel.org
-Date: Sun, 04 Oct 2026 07:39:27 +0000
-Message-ID: <179109956717.434549.8174843499392291323@kernel.org>
-In-Reply-To: <20260930071914.421586-2-benquike@gmail.com>
-References: <20260930071914.421586-2-benquike@gmail.com>
-X-sashiko-severity: High
+Date: Sun, 04 Oct 2026 07:39:29 +0000
+Message-ID: <179109956960.434549.9439305358402977833@kernel.org>
+In-Reply-To: <20260930071914.421586-4-benquike@gmail.com>
+References: <20260930071914.421586-4-benquike@gmail.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -48,10 +48,10 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
+Thank you for your contribution! Sashiko AI review found 2 potential
 issue(s) to consider.
 
-Critical: 0 · High: 1 (2) · Medium: 0 · Low: 0 (1)
+Critical: 0 · High: 0 · Medium: 2 · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -59,195 +59,163 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] ieee802154: ca8210: dropped Rx frames and log flood DoS due to
-  length limit
-
-Pre-existing issues:
-- [High] priv->sync_command_response is a plain pointer to a synchronous
-  caller's on-stack struct mac_message, and nothing synchronizes access…
-- [High] ca8210_rx_done() calls msleep(2000) (line 718) and then
-  kmalloc_obj(*mlme_reset_wpc) (line 723, default GFP_KERNEL) when it…
-- [Low] Baseline decision: not reported (preexisting, low impact, outside
-  the bug class the commit claims to fix).
+- [Medium] The commit message says the patch fixes a slab-out-of-bounds
+  read, quotes a KASAN splat from a kmalloc-32 object and adds Cc:…
+- [Medium] The new truncation check in ca8210_skb_rx() reads
+  priv->promiscuous without a lock at line 1781 to decide whether to…
 
 --
 
-ieee802154: ca8210: prevent stack buffer overflow in ca8210_rx_done()
+ieee802154: ca8210: validate data_ind length upfront in ca8210_skb_rx()
 
-This patch changes the length check in ca8210_rx_done() so that it compares
-against sizeof(struct mac_message) instead of CA8210_SPI_BUF_SIZE. A
-response that is too long is now logged and dropped. It is no longer copied
-into the synchronous caller's on-stack response buffer or passed to
-ca8210_net_rx().
+This patch moves the length checks in ca8210_skb_rx() ahead of the skb
+allocation. It adds checks that len covers the fixed 30-byte header, the
+msdu payload, and the security header when one is present. It also
+zero-initializes hdr.
+
+> In ca8210_skb_rx(), data_ind is read at offsets 22 (msdulen), 23
+> (mpdulinkquality), 29 + msdulen (hdr.sec.level), 30..39 + msdulen
+> (security header), and 29 .. 29 + msdulen (payload) without verifying
+> that the received SPI frame length len covers those offsets, causing an
+> out-of-bounds read when msdulen exceeds len - 30:
+>
+>   BUG: KASAN: slab-out-of-bounds in ca8210_skb_rx.constprop.0.isra.0+0x137/0x160
+>   Read of size 64 at addr ffff888006453ddd by task init/1
+
+[ ... ]
+
+>   The buggy address belongs to the object at ffff888006453dc0
+>    which belongs to the cache kmalloc-32 of size 32
+
+[ ... ]
+
+> Tested in QEMU with KASAN enabled by passing a short data_ind buffer with
+> msdulen = 64 and len = 30 into ca8210_skb_rx().
+
+[Severity: Medium]
+Can this slab-out-of-bounds read happen on a real driver path? As far as
+I can tell, ca8210_skb_rx() has only one caller chain,
+ca8210_spi_transfer_complete()->ca8210_rx_done()->ca8210_net_rx(), and
+data_ind always points into the fixed-size tx_in_buf:
+
+drivers/net/ieee802154/ca8210.c:
+#define CA8210_SPI_BUF_SIZE 256
+
+struct cas_control {
+    ...
+	u8 tx_in_buf[CA8210_SPI_BUF_SIZE];
+};
+
+ca8210_rx_done() {
+    ...
+	buf = cas_ctl->tx_in_buf;
+    ...
+	ca8210_net_rx(priv->hw, buf, len);
+}
+
+ca8210_net_rx() {
+    ...
+		return ca8210_skb_rx(hw, len - 2, command + 2);
+}
+
+The existing check already caps msdulen at IEEE802154_MTU (127). That
+makes the largest read data_ind[39 + 127], which is tx_in_buf[168]. The
+payload copy of data_ind[29..155] also stays well inside the 256-byte
+array, both before and after this patch.
+
+The kmalloc-32 object in the splat seems to come from the test harness,
+which passed a short buffer directly into ca8210_skb_rx(). The trace
+still shows ca8210_net_rx() as the caller, though, so it reads like a
+live heap over-read.
+
+The real effect looks like a data-integrity problem, not a memory-safety
+one. Bytes past the length the device declared get delivered as payload
+and security header fields. Those bytes are the rest of the MISO transfer
+or the SPI_IDLE fill from ca8210_spi_transfer(), and this can only happen
+with a buggy or malicious SPI peripheral.
+
+Could the commit message describe it that way instead of presenting a
+KASAN slab-out-of-bounds report? The Cc: stable tag was added on the
+basis of that report.
 
 > diff --git a/drivers/net/ieee802154/ca8210.c b/drivers/net/ieee802154/ca8210.c
-> index 01af4f9cf7f29..a990a0f347ad8 100644
+> index 8aa7ffeb22d78..ab245add9ff5c 100644
 > --- a/drivers/net/ieee802154/ca8210.c
 > +++ b/drivers/net/ieee802154/ca8210.c
-> @@ -686,7 +686,7 @@ static void ca8210_rx_done(struct cas_control *cas_ctl)
->  
->  	buf = cas_ctl->tx_in_buf;
->  	len = buf[1] + 2;
-> -	if (len > CA8210_SPI_BUF_SIZE) {
-> +	if (len > sizeof(struct mac_message)) {
->  		dev_crit(
+
+[ ... ]
+
+> @@ -1778,9 +1774,25 @@ static int ca8210_skb_rx(
 >  			&priv->spi->dev,
->  			"Received packet len (%u) erroneously long\n",
+>  			"received erroneously large msdu length!\n"
+>  		);
+> -		kfree_skb(skb);
+>  		return -EMSGSIZE;
+>  	}
+> +
+> +	if (len < 30 + msdulen ||
+> +	    (!priv->promiscuous && data_ind[29 + msdulen] > 0 &&
+> +	     len < 29 + msdulen + sizeof(struct secspec))) {
+> +		dev_err(&priv->spi->dev,
+> +			"received truncated data indication!\n");
+> +		return -EMSGSIZE;
+> +	}
+> +
+> +	mpdulinkquality = data_ind[23];
+> +
+> +	/* Allocate mtu size buffer for every rx packet */
+> +	skb = dev_alloc_skb(IEEE802154_MTU + sizeof(hdr));
+> +	if (!skb)
+> +		return -ENOMEM;
+> +
+> +	skb_reserve(skb, sizeof(hdr));
+>  	dev_dbg(&priv->spi->dev, "skb buffer length = %d\n", msdulen);
+>
+>  	if (priv->promiscuous)
 
-[Severity: High]
-Does this new limit also drop legitimate MCPS-DATA.indication frames?
+[Severity: Medium]
+Can the two reads of priv->promiscuous in ca8210_skb_rx() disagree? The
+new truncation check reads the flag once, and the later "if
+(priv->promiscuous) goto copy_payload;" reads it again. The
+dev_alloc_skb() call in between forces a reload.
 
-The check sits at the top of ca8210_rx_done(), so it applies to every
-message from the device. It is not limited to the synchronous responses
-that get copied into priv->sync_command_response.
+priv->promiscuous is a plain bool with no locking. It is written from
+process context by ca8210_set_promiscuous_mode(), which mac802154 calls
+through drv_set_promiscuous_mode():
 
-ca8210_net_rx() passes SPI_MCPS_DATA_INDICATION payloads to
-ca8210_skb_rx() as buf + 2. ca8210_skb_rx() then reads the security
-spec that follows the MSDU:
-
-	hdr.sec.level = data_ind[29 + msdulen];
-	...
-	if (hdr.sec.level > 0) {
-		hdr.sec.key_id_mode = data_ind[30 + msdulen];
-		memcpy(&hdr.sec.extended_src, &data_ind[31 + msdulen], 8);
-		hdr.sec.key_id = data_ind[39 + msdulen];
+ca8210_set_promiscuous_mode() {
+    ...
+	} else {
+		priv->promiscuous = on;
 	}
-
-That makes a full indication 42 + msdulen bytes. With a 127-byte MSDU
-(IEEE802154_MTU), the device reports len = 169. That is larger than
-sizeof(struct mac_message), which is 150 according to the KASAN report
-in the changelog. If I read this right, any received frame with more
-than 108 bytes of payload is now discarded.
-
-Each dropped frame also triggers a dev_crit() with no rate limiting.
-Anyone in radio range can send long frames, so a remote peer could
-flood the kernel log this way. Should this at least use
-dev_crit_ratelimited() or dev_err_ratelimited()?
-
-ca8210_spi_transfer() only clocks in sizeof(struct mac_message) bytes.
-So before this patch, the tail of a long indication may already have
-come from stale tx_in_buf contents.
-
-Would it be better to keep the generic limit here, and check against
-sizeof(struct mac_message) only before the memcpy() into
-priv->sync_command_response? Or should the transfer length be sized to
-cover the largest MCPS-DATA.indication? Either way, dropping long data
-frames on stable kernels looks like a regression worth avoiding.
-
-[Severity: High]
-This is a pre-existing issue, but since this patch is about the memcpy()
-into priv->sync_command_response, can the pointer itself go stale?
-
-Later in ca8210_rx_done(), the pointer is checked and then written through.
-No lock or barrier protects it:
-
-drivers/net/ieee802154/ca8210.c:ca8210_rx_done() {
-    ...
-	if (buf[0] & SPI_SYN) {
-		if (priv->sync_command_response) {
-			memcpy(priv->sync_command_response, buf, len);
-			complete(&priv->sync_exchange_complete);
-    ...
 }
 
-ca8210_spi_exchange() stores a pointer to the caller's stack buffer. It
-then waits with an interruptible timeout. On timeout or signal, it clears
-the pointer and returns:
+ca8210_reset_send() also sets it to false. The RX path runs from SPI
+completion context, and ca8210_net_rx() drops priv->lock before it calls
+ca8210_skb_rx(). So one possible interleaving is:
 
-drivers/net/ieee802154/ca8210.c:ca8210_spi_exchange() {
-    ...
-		priv->sync_command_response = response;
-    ...
-	wait_remaining = wait_for_completion_interruptible_timeout(
-		&priv->sync_exchange_complete,
-		msecs_to_jiffies(CA8210_SYNC_TIMEOUT)
-	);
-    ...
-cleanup:
-	priv->sync_command_response = NULL;
-	return status;
-}
+RX: ca8210_rx_done()->ca8210_net_rx()->ca8210_skb_rx()
+    new check sees priv->promiscuous == true
+    secspec length check skipped, len == 30 + msdulen
 
-Suppose the device response arrives just as the waiter times out or gets a
-signal. Could this interleaving happen?
+                        ca8210_set_promiscuous_mode(hw, false)
+                            priv->promiscuous = on;   /* false */
 
-CPU1 (SPI completion)
-ca8210_spi_transfer_complete()
-  ca8210_rx_done()
-    if (priv->sync_command_response)   <- sees the caller's buffer
+RX: dev_alloc_skb()
+    if (priv->promiscuous)         /* now false, no goto */
+    hdr.sec.level = data_ind[29 + msdulen];     /* > 0 */
+    hdr.sec.key_id_mode = data_ind[30 + msdulen];
+    memcpy(&hdr.sec.extended_src, &data_ind[31 + msdulen], 8);
+    hdr.sec.key_id = data_ind[39 + msdulen];
 
-CPU2 (a sync caller such as mlme_reset_request_sync())
-ca8210_spi_exchange()
-  wait_for_completion_interruptible_timeout() returns 0 or -ERESTARTSYS
-  priv->sync_command_response = NULL;
-  returns, and the on-stack response buffer goes out of scope
+These reads go up to 10 bytes past the validated len. This is the case
+the new check is meant to reject. The bytes are still inside the
+256-byte tx_in_buf, so the result is garbage security header fields
+rather than a memory-safety fault.
 
-CPU1
-    memcpy(priv->sync_command_response, buf, len);
-
-That would write up to sizeof(struct mac_message) bytes supplied by the
-device into a stack frame that the caller no longer owns.
-
-Also, ca8210_spi_exchange() callers are not serialized by any mutex. Can
-two concurrent synchronous callers overwrite each other's
-sync_command_response and sync_exchange_complete? If so, one caller's
-reply could land in the other caller's buffer.
-
-[Severity: High]
-This isn't a bug introduced by this patch, but can ca8210_rx_done() sleep
-in a context where sleeping is not allowed?
-
-The only caller of ca8210_rx_done() is ca8210_spi_transfer_complete().
-ca8210_spi_transfer() installs that function as the spi_async() completion
-callback:
-
-	cas_ctl->msg.complete = ca8210_spi_transfer_complete;
-	...
-	status = spi_async(spi, &cas_ctl->msg);
-
-The spi_async() kernel-doc in drivers/spi/spi.c says:
-
- * The completion callback is invoked in a context which can't sleep.
-
-When ca8210_rx_done() receives SPI_MCPS_DATA_CONFIRM with
-IEEE802154_TRANSACTION_OVERFLOW, it does this:
-
-		if (buf[3] == IEEE802154_TRANSACTION_OVERFLOW) {
-			...
-			msleep(2000);
-			...
-			mlme_reset_wpc = kmalloc_obj(*mlme_reset_wpc);
-
-Some controllers finalize messages from IRQ or tasklet context. Would this
-trigger "scheduling while atomic" there?
-
-Other controllers finalize from the message pump kthread. There, it looks
-like this would stall the SPI bus for two seconds.
-
-[Severity: Low]
-This is a pre-existing issue, but ca8210_spi_transfer_complete() dumps the
-received buffer using the device's length byte without checking it. That
-happens before ca8210_rx_done() reaches the new check:
-
-	if (duplex_rx) {
-		dev_dbg(&priv->spi->dev, "READ CMD DURING TX\n");
-		for (i = 0; i < cas_ctl->tx_in_buf[1] + 2; i++)
-			dev_dbg(
-				&priv->spi->dev,
-				"%#03x\n",
-				cas_ctl->tx_in_buf[i]
-			);
-		ca8210_rx_done(cas_ctl);
-	}
-
-If tx_in_buf[1] == 0xff, does i reach 256 and read tx_in_buf[256]? That is
-one byte past the end of the CA8210_SPI_BUF_SIZE array.
-
-This only happens when the dev_dbg() call site is enabled. The loop also
-prints bytes beyond the sizeof(struct mac_message) bytes that the transfer
-actually received.
-
-Should this loop be limited to sizeof(struct mac_message) as well?
+Would it make sense to read the flag once into a local, for example
+"bool promisc = READ_ONCE(priv->promiscuous);", and use it in both
+places?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260930071914.421586-1-benquike%40gmail.com
