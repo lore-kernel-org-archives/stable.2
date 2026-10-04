@@ -1,141 +1,158 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3FBE2EEE75;
-	Sun,  4 Oct 2026 13:40:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B7443932A;
+	Sun,  4 Oct 2026 13:41:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791121258; cv=none; b=XlthzY7dko5wVMZU7zdlC+l210v+lQNjv1CvbAurbcpufDyDU2+mQ8kYDonH9zfgOMDoPlP9p7i/BIxg/jHYLszaX3wZcSLKON3N2GeaoetbzYDC8Qt72qNjHn1PtLl7BMcEqwyf55EF2qrvZ3a8ez5nk5WzaHPlhDxxuYy4ovg=
+	t=1791121293; cv=none; b=HzEDu9In0kD1OOGMxsvMzWfTjFI6whr8J9pUVERfb/rHS/KvNwpIn4AGBuniyM8exyv1PS/92jdjDJo8Mv+SIWzXhePEDxSfvUJ953/9t3rj3daHPItWnc7PouIBmKQefYbiFOXniFfDf569p7gaUw5oCDxApNluXrzeyeThf50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791121258; c=relaxed/simple;
-	bh=Dv2Ua7MXA5dtZts5viztmq6JwFunwK6yVp7/ORmzEek=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=sewWtA2g0oGuE7Rr+TdUtMIwaZNgVVfIGTFBpi0vzMXvUJtHbL+UvwoNe8UYmBQpjvHnkMS7dAxCZ9yotdvuK33m/kJlRJFBqDfkMeiLovF+7kN20+Ca1WmKg52J1zZq0JObaRSQgwCkhXw+QofjImSC1n/RrLGVpvENP66Ev+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=KBeav0P7; arc=none smtp.client-ip=117.135.210.2
+	s=arc-20240116; t=1791121293; c=relaxed/simple;
+	bh=PtkV7iCUL7SLX+DkR5SZirNeigd2I/22pujk//bGiF4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=uDSZazJ+xKOrQ05oPmof8Fq9DE05DJ4OuZGlGjU5nRq5KuCEf9d7f8tgTH9utk9UoWkHcp0V7gB8VPmKGlH096/st8yYRqiwYecWKLGuBL2HbGwWo1dOMH8sr2HXCtRNkSdWLSR4hS4jz+Ypua12003H7FmI0Q5j8C2p/42pBcY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=MKTsDSv0; arc=none smtp.client-ip=220.197.31.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="KBeav0P7"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="MKTsDSv0"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=xa
-	GSrAXnZ+Z3T7RiHauSv5ej51+uW1g/VCDLxuiRwFA=; b=KBeav0P765Hbgzs/Jw
-	dFIoJ479M4zWdKB40qh9Dms7KjxbcSCI40Hcc7LfMSuCmOIBrKdxQ8uwWrYOSVWE
-	FP+OZn4VX+JZFJ/aO9wMzlNrtgxG3FbkzHvtiYyvzuZJh0624jZsaYtnzVhn8eZH
-	+cuaV60UWXBsGdyJwoflUq3Wk=
-Received: from u2.. (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wDX35ELV8Jq3nX5CA--.2906S3;
-	Sun, 04 Oct 2026 21:39:31 +0800 (CST)
-From: taozj888@163.com
-To: theo.lebrun@bootlin.com
-Cc: taozijin <taozj888@163.com>,
-	stable@vger.kernel.org,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=PtkV7iCUL7SLX+DkR5SZirNeigd2I/22pujk//bGiF4=; b=M
+	KTsDSv01XbHu1gvNc6ES4jdUMS/Mfwl9bAMVkkX7wOU8EzKvZdvVIcAf2khZ2F+8
+	DtBkfpGpwvZfnwF8KOEFYjsGuzztc8AMDRXOEHIgXyPMROxFt/N/GGCDZPJzd10x
+	iBOWiM5vNjLk6VrKY1fq0hsfiRp/pE2n2MclQg2JmY=
+Received: from taozj888$163.com ( [2409:8a20:22c4:8eb0:4c8a:acdb:bd14:bd14]
+ ) by ajax-webmail-wmsvr-40-126 (Coremail) ; Sun, 4 Oct 2026 21:40:05 +0800
+ (CST)
+Date: Sun, 4 Oct 2026 21:40:05 +0800 (CST)
+From: taozj888  <taozj888@163.com>
+To: =?GBK?Q?Th=A8=A6o_Lebrun?= <theo.lebrun@bootlin.com>
+Cc: "Nicolai Buchwitz" <nb@tipi-net.de>, stable@vger.kernel.org,
+	"Conor Dooley" <conor.dooley@microchip.com>,
+	"Andrew Lunn" <andrew+netdev@lunn.ch>,
 	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Haavard Skinnemoen <hskinnemoen@atmel.com>,
-	Jeff Garzik <jeff@garzik.org>,
-	netdev@vger.kernel.org (open list:NETWORKING DRIVERS),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH net v3 1/1] net: macb: rate limit netdev error info print in the data path
-Date: Sun,  4 Oct 2026 13:39:15 +0000
-Message-Id: <20261004133916.559956-2-taozj888@163.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261004133916.559956-1-taozj888@163.com>
-References: <20261004133916.559956-1-taozj888@163.com>
+	"Eric Dumazet" <edumazet@google.com>,
+	"Jakub Kicinski" <kuba@kernel.org>,
+	"Paolo Abeni" <pabeni@redhat.com>,
+	"Haavard Skinnemoen" <hskinnemoen@atmel.com>,
+	"Jeff Garzik" <jeff@garzik.org>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re:Re: [PATCH net v2] net: macb: rate limit netdev error info print
+ in the data path
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <DLUC9MKOACM3.OPW5RYHOYZV1@bootlin.com>
+References: <20260930113520.392025-1-taozj888@163.com>
+ <b06cb02d9b26ceff272d7e34927a7eac@tipi-net.de>
+ <DLUC9MKOACM3.OPW5RYHOYZV1@bootlin.com>
+X-NTES-SC: AL_Qu2SA/2Zvkor4ySZYekfm04bju07UMu2v/4l2Y9SOp9wjA3pxxorW0JOFHr86eOOOjqUoBelVgZE6tx/bKBaZroJznldgSEDtjhpY+sK4thzEA==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDX35ELV8Jq3nX5CA--.2906S3
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXFWrAry3tw18ZF1rGr1xXwb_yoW5AF43pa
-	yUA398Ww4kJr47A3Z7try8Ar1rAr98Kry5WrWkK3W3Xw15Ar90gFyagryYkFW8Ga9xAw1S
-	yw1UZayqkan3ZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zig_-PUUUUU=
-X-CM-SenderInfo: hwdr6yqyyyqiywtou0bp/xtbC3hMl7GrCVxNS2AAA3i
+Message-ID: <7cd93a53.199d.1a10724a8ae.Coremail.taozj888@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:figvCgD3X2k1V8JqbX9SAA--.81W
+X-CM-SenderInfo: hwdr6yqyyyqiywtou0bp/xtbC3RUu9WrCVzVNHQAA3J
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-From: taozijin <taozj888@163.com>
-
-Now the MACB ethernet driver print the netdev error information
-directly by netdev_err(), which would lead to a large number of
-error information print if there was a significant number of
-error or just jumbo packets exceeding the MTU received when booting.
-For example, it would print a large number of:
-
-macb PHYT0036:00 eth0: not whole frame pointed by descriptor
-macb PHYT0036:00 eth0: not whole frame pointed by descriptor
-...
-
-in gem_rx() by having received a large number of packets without
-RX_EOF flag set, especially with unknown packet
-type that would penetrate the hardware offload for the IP packets.
-
-The unlimited prints here would greatly bother and delay
-the system booting process unless the source stop sending
-packets since they occupy the console output bandwidth and
-other processes have to wait for the completion of printing those
-messages.
-
-So rate limit the netdev error information print in the receive
-and transmit data path.
-
-Fixes: 89e5785fc8a6 ("[PATCH] Atmel MACB ethernet driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zijin Tao <taozj888@163.com>
----
- drivers/net/ethernet/cadence/macb_main.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index 8e5c034dc3a4..ca60960bec36 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -1617,16 +1617,16 @@ static int gem_rx(struct macb_queue *queue, struct napi_struct *napi,
- 		count++;
- 
- 		if (!(ctrl & MACB_BIT(RX_SOF) && ctrl & MACB_BIT(RX_EOF))) {
--			netdev_err(bp->netdev,
--				   "not whole frame pointed by descriptor\n");
-+			if (net_ratelimit())
-+				netdev_err(bp->netdev, "not whole frame pointed by descriptor\n");
- 			bp->netdev->stats.rx_dropped++;
- 			queue->stats.rx_dropped++;
- 			break;
- 		}
- 		skb = queue->rx_skbuff[entry];
- 		if (unlikely(!skb)) {
--			netdev_err(bp->netdev,
--				   "inconsistent Rx descriptor chain\n");
-+			if (net_ratelimit())
-+				netdev_err(bp->netdev, "inconsistent Rx descriptor chain\n");
- 			bp->netdev->stats.rx_dropped++;
- 			queue->stats.rx_dropped++;
- 			break;
-@@ -1829,7 +1829,8 @@ static int macb_rx(struct macb_queue *queue, struct napi_struct *napi,
- 		unsigned long flags;
- 		u32 ctrl;
- 
--		netdev_err(bp->netdev, "RX queue corruption: reset it\n");
-+		if (net_ratelimit())
-+			netdev_err(bp->netdev, "RX queue corruption: reset it\n");
- 
- 		spin_lock_irqsave(&bp->lock, flags);
- 
-@@ -2102,7 +2103,8 @@ static int macb_interrupt_misc(struct macb_queue *queue, u32 status)
- 
- 	if (status & MACB_BIT(HRESP)) {
- 		queue_work(system_bh_wq, &bp->hresp_err_bh_work);
--		netdev_err(netdev, "DMA bus error: HRESP not OK\n");
-+		if (net_ratelimit())
-+			netdev_err(netdev, "DMA bus error: HRESP not OK\n");
- 		macb_queue_isr_clear(bp, queue, MACB_BIT(HRESP));
- 	}
- 
--- 
-2.34.1
-
+SGVsbG8gVGhlbywgTmljb2xhaToKClBsZWFzZSBzZWUgYW5zd2VyIGlubGluZS4KClRoYW5rcywK
+ClppamluIFRhbwoKCgoKQXQgMjAyNi0xMC0wMiAyMDowODowMywgIlRoqKZvIExlYnJ1biIgPHRo
+ZW8ubGVicnVuQGJvb3RsaW4uY29tPiB3cm90ZToKPkhlbGxvIE5pY29sYWksCj4KPk9uIEZyaSBP
+Y3QgMiwgMjAyNiBhdCAxMjoxMCBQTSBDRVNULCBOaWNvbGFpIEJ1Y2h3aXR6IHdyb3RlOgo+PiBP
+biAzMC45LjIwMjYgMTM6MzUsIHRhb3pqODg4QDE2My5jb20gd3JvdGU6Cj4+PiBGcm9tOiB0YW96
+aWppbiA8dGFvemo4ODhAMTYzLmNvbT4KPj4+IAo+Pj4gTm93IHRoZSBNQUNCIGV0aGVybmV0IGRy
+aXZlciBwcmludCB0aGUgbmV0ZGV2IGVycm9yIGluZm9ybWF0aW9uCj4+PiBkaXJlY3RseSBieSBu
+ZXRkZXZfZXJyKCksIHdoaWNoIHdvdWxkIGxlYWQgdG8gYSBsYXJnZSBudW1iZXIgb2YKPj4+IGVy
+cm9yIGluZm9ybWF0aW9uIHByaW50IGlmIHRoZXJlIHdhcyBhIHNpZ25pZmljYW50IG51bWJlciBv
+Zgo+Pj4gZXJyb3Igb3IganVzdCBqdW1ibyBwYWNrZXRzIGV4Y2VlZGluZyB0aGUgTVRVIHJlY2Vp
+dmVkIHdoZW4gYm9vdGluZy4KPj4+IEZvciBleGFtcGxlLCBpdCB3b3VsZCBwcmludCBhIGxhcmdl
+IG51bWJlciBvZjoKPj4+IAo+Pj4gbWFjYiBQSFlUMDAzNjowMCBldGgwOiBub3Qgd2hvbGUgZnJh
+bWUgcG9pbnRlZCBieSBkZXNjcmlwdG9yCj4+PiBtYWNiIFBIWVQwMDM2OjAwIGV0aDA6IG5vdCB3
+aG9sZSBmcmFtZSBwb2ludGVkIGJ5IGRlc2NyaXB0b3IKPj4+IC4uLgo+Pgo+PiBPdXQgb2YgaW50
+ZXJlc3Q6IElzIHRoaXMgYSBQaHl0aXVtIHZlbmRvciBrZXJuZWw/Cj4KPkkgbG9va2VkIGluIHRo
+ZSBwYXN0IHNvIEknbGwgYW5zd2VyOiB5ZXMhCj4KPkludGVybmV0IHNlYXJjaCBnaXZlcyBvbmUg
+d29ydGh5IHJlc3VsdDogYSAyMDI1IHNlcmllcyB0byBEUERLIGFkZGluZwo+TUFDQiBzdXBwb3J0
+LiBTb21lIGV4dHJhY3RzIGFib3V0IHRoZSBleGFjdCBzdHJpbmcgbWF0Y2ggYW5kIGFsc28gaG93
+Cj50aGV5IHN1cHBvcnQgQUNQSSBvciBPRiBhbmQgbm8gb3RoZXIgcGxhdGZvcm0gYXBwYXJlbnRs
+eS4KPgo+I2RlZmluZSBPRl9QSFlUSVVNX0dFTTFQMF9NQUMJImNkbnMscGh5dGl1bS1nZW0tMS4w
+IgkvKiBQaHl0aXVtIDEuMCBNQUMgKi8KPiNkZWZpbmUgT0ZfUEhZVElVTV9HRU0yUDBfTUFDCSJj
+ZG5zLHBoeXRpdW0tZ2VtLTIuMCIJLyogUGh5dGl1bSAyLjAgTUFDICovCj4jZGVmaW5lIEFDUElf
+UEhZVElVTV9HRU0xUDBfTUFDCSJQSFlUMDAzNiIJLyogUGh5dGl1bSAxLjAgIE1BQyAqLwo+Cj5z
+dGF0aWMgaW50IG1hY2JfZ2V0X2Rldl90eXBlKHN0cnVjdCBydGVfZXRoX2RldiAqZGV2KQo+ewo+
+CS8vIC4uLgo+Cj4JaWYgKCFzdHJjbXAoZGV2X3R5cGUsIE9GX1BIWVRJVU1fR0VNMVAwX01BQykg
+fHwKPgkgICAgIXN0cmNtcChkZXZfdHlwZSwgQUNQSV9QSFlUSVVNX0dFTTFQMF9NQUMpKSB7Cj4J
+CXByaXYtPmRldl90eXBlID0gREVWX1RZUEVfUEhZVElVTV9HRU0xUDBfTUFDOwo+CX0gZWxzZSBp
+ZiAoIXN0cmNtcChkZXZfdHlwZSwgT0ZfUEhZVElVTV9HRU0yUDBfTUFDKSkgewo+CQlwcml2LT5k
+ZXZfdHlwZSA9IERFVl9UWVBFX1BIWVRJVU1fR0VNMlAwX01BQzsKPgl9IGVsc2Ugewo+CQlNQUNC
+X0xPRyhFUlIsICJVbnN1cHBvcnRlZCBkZXZpY2UgdHlwZTogJXMuIiwgZGV2X3R5cGUpOwo+CQly
+ZXQgPSAtRUlOVkFMOwo+CX0KPgo+CS8vIC4uLgo+fQo+Cj5AWmlqaW46IGRvIHlvdSBoYXZlIGFu
+eSBvdGhlciBMaW51eCBNQUNCIHBhdGNoZXMgZm9yIGl0IHRvIHdvcms/CgpObywgSSBoYXZlIG5v
+IG90aGVyIHBhdGNoZXMgZm9yIExpbnV4IE1BQ0IgZXhjZXB0IHRoZSBjdXJyZW50IG9uZS4KCgo+
+Cj4+PiBpbiBnZW1fcngoKSBieSByZWNlaXZlZCBhIGxhcmdlIG51bWJlciBvZiBwYWNrZXRzIHdp
+dGhvdXQKPj4+IFJYX0VPRiBmbGFnIHNldCwgZXNwZWNpYWxseSB3aXRoIHVua25vd24gcGFja2V0
+Cj4+PiB0eXBlIHRoYXQgd291bGQgcGVuZXRyYXRlIHRoZSBoYXJkd2FyZSBvZmZsb2FkIGZvciB0
+aGUgSVAgcGFja2V0cy4KPj4+IAo+Pj4gVGhlIHVubGltaXRlZCBwcmludHMgaGVyZSB3b3VsZCBn
+cmVhdGx5IGJvdGhlciBhbmQgZGVsYXkKPj4+IHRoZSBzeXN0ZW0gYm9vdGluZyBwcm9jZXNzIHVu
+bGVzcyB0aGUgc291cmNlIHN0b3Agc2VuZGluZwo+Pj4gcGFja2V0cyBzaW5jZSB0aGV5IG9jY3Vw
+eSB0aGUgY29uc29sZSBvdXRwdXQgYmFuZHdpZHRoIGFuZAo+Pj4gb3RoZXIgcHJvY2Vzc2VzIGhh
+dmUgdG8gd2FpdCBmb3IgdGhlIGNvbXBsZXRpb24gb2YgcHJpbnRpbmcgdGhvc2UKPj4+IG1lc3Nh
+Z2VzLgo+Pj4gCj4+PiBTbyByYXRlIGxpbWl0IHRoZSBuZXRkZXYgZXJyb3IgaW5mb3JtYXRpb24g
+cHJpbnQgaW4gdGhlIHJlY2VpdmUKPj4+IGFuZCB0cmFuc21pdCBkYXRhIHBhdGguCj4+PiAKPj4+
+IEZpeGVzOiA4OWU1Nzg1ZmM4YTYgKCJbUEFUQ0hdIEF0bWVsIE1BQ0IgZXRoZXJuZXQgZHJpdmVy
+IikKPj4KPj4gSU1ITyB0aGUgY29ycmVjdCB0YWcgaXMgNGRmOTUxMzFlYTgwICgibmV0L21hY2I6
+IGNoYW5nZSBSWCBwYXRoIGZvciAKPj4gR0VNIik/Cj4+IEF0IGxlYXN0IHRoZSBnZW1fcngoKSBt
+ZXNzYWdlcyB3ZXJlIGludHJvZHVjZWQgaGVyZS4KPgo+VGhlIHBhdGNoIHVzZWQgdG8gdG91Y2gg
+bWFjYl9zdGFydF94bWl0KCksIHdoaWNoIGV4cGxhaW5zIHdoeSBJIHRvbGQKPlppamluIHRvIHRh
+cmdldCB0aGUgaW5pdGlhbCBjb21taXQgb24gcHJldmlvdXMgcmV2aXNpb24uCj4KT0ssIEkgd2ls
+bCBzdGlsbCB1c2UgdGhlIGluaXRpYWwgY29tbWl0IGluZGljYXRlZCBieSBUaGVvLgoKPkBaaWpp
+bjogd2hlcmUgaXMgdGhlIFYyIGNoYW5nZWxvZz8gRWFjaCBuZXcgcmV2aXNpb24gbXVzdCBsaXN0
+IChiZWxvdwo+dGhlIGZvbGQgbGluZSBmb3Igc2luZ2xlIHBhdGNoZXMpIHRoZWlyIGV4aGF1c3Rp
+dmUgbGlzdCBvZiBjaGFuZ2VzCj5jb21wYXJlZCB0byB0aGUgcHJldmlvdXMgcmV2aXNpb24uCgpT
+b3JyeSBmb3IgbWlzc2luZyB0aGUgVjIgY2hhbmdlbG9nLiBJIHdpbGwgYWRkIGl0IGluIHRoZSBW
+MyBwYXRjaC4KCj4KPmh0dHBzOi8vd3d3Lmtlcm5lbC5vcmcvZG9jL2h0bWwvbGF0ZXN0L3Byb2Nl
+c3Mvc3VibWl0dGluZy1wYXRjaGVzLmh0bWwjcmVzcG9uZC10by1yZXZpZXctY29tbWVudHMKPmh0
+dHBzOi8vd3d3Lmtlcm5lbC5vcmcvZG9jL2h0bWwvbGF0ZXN0L3Byb2Nlc3Mvc3VibWl0dGluZy1w
+YXRjaGVzLmh0bWwjdGhlLWNhbm9uaWNhbC1wYXRjaC1mb3JtYXQKPgo+Pj4gQ2M6IHN0YWJsZUB2
+Z2VyLmtlcm5lbC5vcmcKPj4+IAo+Pgo+PiBEcm9wIHRoZSBibGFuayBsaW5lIGFzIG90aGVyd2lz
+ZSB0b29saW5nIG1pZ2h0IGdldCBjb25mdXNlZCBhbmQgZG9lc24ndAo+PiBnZXQgYWxsIHRhZ3Mg
+Y29ycmVjdGx5LgoKT0ssIEkgd2lsbCB0YWtlIGNhcmUgb2YgaXQgaW4gdGhlIFYzIHBhdGNoLgoK
+Pj4KPj4+IFNpZ25lZC1vZmYtYnk6IFppamluIFRhbyA8dGFvemo4ODhAMTYzLmNvbT4KPj4+IC0t
+LQo+Pj4gIGRyaXZlcnMvbmV0L2V0aGVybmV0L2NhZGVuY2UvbWFjYl9tYWluLmMgfCAxNCArKysr
+KysrKy0tLS0tLQo+Pj4gIDEgZmlsZSBjaGFuZ2VkLCA4IGluc2VydGlvbnMoKyksIDYgZGVsZXRp
+b25zKC0pCj4+PiAKPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9jYWRlbmNl
+L21hY2JfbWFpbi5jIAo+Pj4gYi9kcml2ZXJzL25ldC9ldGhlcm5ldC9jYWRlbmNlL21hY2JfbWFp
+bi5jCj4+PiBpbmRleCA4ZTVjMDM0ZGMzYTQuLmNhNjA5NjBiZWMzNiAxMDA2NDQKPj4+IC0tLSBh
+L2RyaXZlcnMvbmV0L2V0aGVybmV0L2NhZGVuY2UvbWFjYl9tYWluLmMKPj4+ICsrKyBiL2RyaXZl
+cnMvbmV0L2V0aGVybmV0L2NhZGVuY2UvbWFjYl9tYWluLmMKPj4+IEBAIC0xNjE3LDE2ICsxNjE3
+LDE2IEBAIHN0YXRpYyBpbnQgZ2VtX3J4KHN0cnVjdCBtYWNiX3F1ZXVlICpxdWV1ZSwgCj4+PiBz
+dHJ1Y3QgbmFwaV9zdHJ1Y3QgKm5hcGksCj4+PiAgCQljb3VudCsrOwo+Pj4gCj4+PiAgCQlpZiAo
+IShjdHJsICYgTUFDQl9CSVQoUlhfU09GKSAmJiBjdHJsICYgTUFDQl9CSVQoUlhfRU9GKSkpIHsK
+Pj4+IC0JCQluZXRkZXZfZXJyKGJwLT5uZXRkZXYsCj4+PiAtCQkJCSAgICJub3Qgd2hvbGUgZnJh
+bWUgcG9pbnRlZCBieSBkZXNjcmlwdG9yXG4iKTsKPj4+ICsJCQlpZiAobmV0X3JhdGVsaW1pdCgp
+KQo+Pj4gKwkJCQluZXRkZXZfZXJyKGJwLT5uZXRkZXYsICJub3Qgd2hvbGUgZnJhbWUgcG9pbnRl
+ZCBieSBkZXNjcmlwdG9yXG4iKTsKPj4KPj4gVGhpcyB3aWxsIGp1c3QgaGlkZSB0aGUgZXJyb3Ig
+bWVzc2FnZSwgYnV0IHRoZSBzcGxpdC9kcm9wIGlzIHN0aWxsIAo+PiBwcmVzZW50Lgo+PiBIb3cg
+YWJvdXQgbGltaXRpbmcgSk1MIGluIG1hY2JfaW5pdF9odygpIHByb3Blcmx5Pwo+Pgo+PiAgICAg
+ICAgICBpZiAoKGJwLT5jYXBzICYgTUFDQl9DQVBTX0pVTUJPKSAmJiBicC0+anVtYm9fbWF4X2xl
+bikgewo+PiAgICAgICAgICAgICAgICAgIHUzMiBqbWwgPSBicC0+cnhfYnVmZmVyX3NpemUgLSBO
+RVRfSVBfQUxJR04gKyAKPj4gRVRIX0ZDU19MRU47Cj4+ICAgICAgICAgICAgICAgICAgZ2VtX3dy
+aXRlbChicCwgSk1MLCBtaW4oam1sLCBicC0+anVtYm9fbWF4X2xlbikpOwo+PiAgICAgICAgICB9
+Cj4+Cj4+IFRoZSBjb2RlIGFib3ZlIGlzIHVudGVzdGVkLCBzbyBwcm9iYWJseSBuZWVkcyBmdXJ0
+aGVyIHR3ZWFraW5nLiBBbiAKPj4gYWx0ZXJuYXRpdmUgY291bGQKPj4gYmUgdG8gaGFuZGxlIHRo
+ZSBzcGxpdCBmcmFtZXMgaW4gZ2VtX3J4KCkgY29ycmVjdGx5Lgo+Cj5JIGFncmVlIHdpdGggeW91
+IGJ1dCB0byBjbGFyaWZ5IGZvciBaaWppbjogaWYgeW91IGRvIHRoaXMgdGhlbiBpdCBzaG91bGQK
+PmJlIGEgc2VwYXJhdGUgcGF0Y2ggYXMgY2hhbmdlcyBhcmUgcHJldHR5IHVucmVsYXRlZC4KClll
+cywgd2l0aCB5b3VyIGV4cGVyaWVuY2UgaW4gdGhpcyBhcmVhLCBtYXliZSBhIHNlcGFyYXRlIHBh
+dGNoIGZvciBpdCBpcyBwcmVmZXJyZWQuCkkgdGhpbmsgdGhlIGVycm9yIHJlcG9ydGVkIGlzIG5v
+dCBqdXN0IHJlbGF0ZWQgdGhlIEp1bWJvIGZyYW1lLCBidXQgdGhlIGp1bWJvIGZyYW1lCndvdWxk
+IHRyaWdnZXIgdGhlIGVycm9yLiBTbyByYXRlIGxpbWl0IHByaW50aW5nIHRoaXMga2luZCBvZiBt
+c2cgaXMgbmVlZGVkIGJ1dCBub3QKdG90YWxseSBoaWRlIHRob3NlIG1zZ3MuICAKCgo+Cj5UaGFu
+a3MsCj4KPi0tCj5UaKimbyBMZWJydW4sIEJvb3RsaW4KPkVtYmVkZGVkIExpbnV4IGFuZCBLZXJu
+ZWwgZW5naW5lZXJpbmcKPmh0dHBzOi8vYm9vdGxpbi5jb20K
