@@ -1,162 +1,127 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 841283AFCFD;
-	Sun,  4 Oct 2026 11:45:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED9FC313E03;
+	Sun,  4 Oct 2026 11:46:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791114334; cv=none; b=cBV87aUSFGWZW4f8N0dtxHqVt2bxre7u5lwe/SQ11eEGaEgkfIFgmtuZykqQsEPxvQibPqIsvmSWrlGx5lTLoHEjyyGEESG9BG9F2YFtiUWcaVk3gnxy0J8na620UtcKsqkaGrCu9iK5hUkLbgYVfqRmpp7PYE33bGRqulSlpt8=
+	t=1791114374; cv=none; b=CckdIcsTxVM5SJ1kqpuglTnYHvlEWd7bcl7NUdXq6qRumAB3FEm6zrCqVpJgzZyvYg9foEn2W1x1cUKiM6KEeVxELcbQRfqygEnbQo1UGsSzW4Kt9JYH3ovVh6QMoU48oCIVX1QAHLb/n+k0Z7VNDq7P6Yg2Ykm+7gpuwzU5vbI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791114334; c=relaxed/simple;
-	bh=IT5BxubQMI/Iak7U6pnOoT3QYzv2WNyRub1/q3h1l0g=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=nB2pmFjNR6wt0WZHclqe+TorO5ykVCD2Yz6K0SMPWMn4X5xLYtIh5KzHTC/QUU2iRzuxrqDdsckzUubAxEV2euEC9mqCdFEbrbeXN4fWkI/fnsxpjCY0BmzQ2a3QOkXlUDULUo5SU2BSExnSKs1PW3jt10eBQJld1xCPltVqtyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=bz7hXTdv; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1791114374; c=relaxed/simple;
+	bh=BNCNvqlSdQgCGZglcBRKo95ngBtg2fwoeaiBlf8VQtM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AUUROwFDWCZYPtHUZRllmVXC6V12J2zQ4K1ekGvDKUOyebifd9k5U/3K12MoBP8l344xjGRQEHAUvQuwok8ylekCTaNVP9Olh6n/LVAUIsd9nfx2lKBsf6k0eCMlcBTwbftd4fs8+YfvwFwNnE3jsO13Aw+322yXn3piLkp9Aos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QvXUOYB2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="bz7hXTdv"
-Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4fec266c9;
-	Sun, 4 Oct 2026 19:45:27 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Stanislaw Gruszka <stf_xl@wp.pl>
-Cc: Julia Lawall <Julia.Lawall@lip6.fr>,
-	Kalle Valo <kvalo@kernel.org>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH] wifi: iwlegacy: serialize watchdog updates with device teardown
-Date: Sun,  4 Oct 2026 19:45:19 +0800
-Message-Id: <20261004114519.1233305-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QvXUOYB2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAB3F1F000FF;
+	Sun,  4 Oct 2026 11:46:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791114372;
+	bh=HR+Flyh6aOq+YBmyhdw6aQRstQVaH53Q+XG2o/BckCY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=QvXUOYB2TXNKa27HG2yT/mfKhjcX55Ox92w9jLAkcgxIlqqkLJCc76iMVFMgaOg9w
+	 a/gFfoXfqcR71AWpEcwy/qoR5o2ORanMxbuWvSE5+nWoXfMagTLOqIaouKJSds0d1D
+	 xbokGQP+TaojNSnMYBJH5YtXHMoxdHrpPm5AV1Ib3vzC8GRpC+JhiEPmQh1wpAScvD
+	 vcslQC17rw7wb6FGR1H+FEvBZJNnlpsRbePwpxl6e3L5nuObPH/FNWqcEBPAq51uif
+	 BSwikk6tPfnxgPYma6PBaNz4XO2Qx8uBaDoymu5y3dubJOCaEquMI0VAd8a+JYBGZm
+	 MJDFPjaSitgGw==
+Message-ID: <f0c52ecb-b85d-4a53-8329-a8d2fd5d72b8@kernel.org>
+Date: Sun, 4 Oct 2026 13:46:08 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa106bbb4d403a1kunm649ed7a833b323
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTE0fVkNCSB8fGUwZSx9KS1YeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
-	xVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=bz7hXTdvECGTBoTJ5JCbvoW27wsXw2HOi8l8SuZWanR+CdXge1E9+BcY75d0e92bUYELf2MeBWVovlNxEtTcDZgvEocVv4Q3ZLP81f9zCB0YFBvskXc9UNJgLqrVmXqxkQ/BzD/H9u+nbHduduw79/4pmhTtou1TUU33rM90A9o=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=JPE5ptbZUkOvuHA147QHON/5zpeNHl6yD9nBynhAV4E=;
-	h=date:mime-version:subject:message-id:from;
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION] Commit 447cbe95ebb9 causes IOMMU DMA faults on
+ macvlan/vlan with bnxt_en
+To: Stefan Fleischmann <sfle@kth.se>, netdev@vger.kernel.org,
+ stable@vger.kernel.org
+Cc: Michael Chan <michael.chan@broadcom.com>,
+ Pavan Chebbi <pavan.chebbi@broadcom.com>, regressions@lists.linux.dev,
+ Joe Damato <joe@dama.to>
+References: <20261004122616.56714cbd@nargothrond>
+Content-Language: en-US
+From: Eric Dumazet <edumazet@kernel.org>
+In-Reply-To: <20261004122616.56714cbd@nargothrond>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The writable wd_timeout debugfs file changes il->cfg->wd_timeout, but the
-iwl3945 configuration is shared and const. The handler also rearms the
-watchdog without taking il->mutex. The down paths hold this mutex, delete
-the timer, and then free the TX queues, so an unlocked debugfs write can
-rearm the timer after deletion. The callback can then access the queues
-after they have been freed.
 
-Store wd_timeout in per-device state. Serialize the debugfs update with
-the down paths and only arm the watchdog while TX queues exist. Use
-READ_ONCE() and WRITE_ONCE() for accesses that do not hold il->mutex.
 
-Fixes: 1dc80798a8ca ("iwlegacy: constify local structures")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/net/wireless/intel/iwlegacy/3945-mac.c | 1 +
- drivers/net/wireless/intel/iwlegacy/4965-mac.c | 1 +
- drivers/net/wireless/intel/iwlegacy/common.c   | 6 +++---
- drivers/net/wireless/intel/iwlegacy/common.h   | 1 +
- drivers/net/wireless/intel/iwlegacy/debug.c    | 8 ++++++--
- 5 files changed, 12 insertions(+), 5 deletions(-)
+On 10/4/26 12:26, Stefan Fleischmann wrote:
+> Hi,
+> 
+> I have bisected a regression introduced in kernel 6.18.51 (and 7.2.3).
+> The issue is still present in 6.18.55 and 7.2.9. Verified by reverting
+> 1517d1996b52 (the equivalent of 447cbe95ebb9 in the 6.18 branch) on top
+> of 6.18.51 and 6.18.55.
+> 
+> The hardware is a Dell R640 server with Intel Xeon Silver 4210 and
+> Broadcom BCM57412 NetXtreme-E NIC.
+> 
+> The network interface is configured as an untagged interface and has a
+> couple of tagged VLAN interfaces configured on top. All of these are
+> used by LXC containers with Macvlan.
+> 
+> The interface comes up fine after boot, but after some time (anywhere
+> between 2 to 40 minutes) I see a DMA error in the kernel log (attached),
+> and the driver ends up tearing down the interface. It can be brought up
+> again after that, but it will hit a DMA error again after a while and
+> the interface goes down again.
+> 
+> I'm happy to provide more debug info if needed, or test patches.
 
-diff --git a/drivers/net/wireless/intel/iwlegacy/3945-mac.c b/drivers/net/wireless/intel/iwlegacy/3945-mac.c
-index cbaf250626..ee40cf534d 100644
---- a/drivers/net/wireless/intel/iwlegacy/3945-mac.c
-+++ b/drivers/net/wireless/intel/iwlegacy/3945-mac.c
-@@ -3563,6 +3563,7 @@ il3945_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 
- 	D_INFO("*** LOAD DRIVER ***\n");
- 	il->cfg = cfg;
-+	il->wd_timeout = cfg->wd_timeout;
- 	il->ops = &il3945_ops;
- #ifdef CONFIG_IWLEGACY_DEBUGFS
- 	il->debugfs_ops = &il3945_debugfs_ops;
-diff --git a/drivers/net/wireless/intel/iwlegacy/4965-mac.c b/drivers/net/wireless/intel/iwlegacy/4965-mac.c
-index 18bb556826..9a42a74cf8 100644
---- a/drivers/net/wireless/intel/iwlegacy/4965-mac.c
-+++ b/drivers/net/wireless/intel/iwlegacy/4965-mac.c
-@@ -6500,6 +6500,7 @@ il4965_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 
- 	D_INFO("*** LOAD DRIVER ***\n");
- 	il->cfg = cfg;
-+	il->wd_timeout = cfg->wd_timeout;
- 	il->ops = &il4965_ops;
- #ifdef CONFIG_IWLEGACY_DEBUGFS
- 	il->debugfs_ops = &il4965_debugfs_ops;
-diff --git a/drivers/net/wireless/intel/iwlegacy/common.c b/drivers/net/wireless/intel/iwlegacy/common.c
-index 0bb807ff8e..c2adb1ef63 100644
---- a/drivers/net/wireless/intel/iwlegacy/common.c
-+++ b/drivers/net/wireless/intel/iwlegacy/common.c
-@@ -4774,7 +4774,7 @@ il_check_stuck_queue(struct il_priv *il, int cnt)
- 
- 	timeout =
- 	    txq->time_stamp +
--	    msecs_to_jiffies(il->cfg->wd_timeout);
-+	    msecs_to_jiffies(READ_ONCE(il->wd_timeout));
- 
- 	if (time_after(now, timeout)) {
- 		IL_ERR("Queue %d stuck for %u ms.\n", q->id,
-@@ -4806,7 +4806,7 @@ il_bg_watchdog(struct timer_list *t)
- 	if (test_bit(S_EXIT_PENDING, &il->status))
- 		return;
- 
--	timeout = il->cfg->wd_timeout;
-+	timeout = READ_ONCE(il->wd_timeout);
- 	if (timeout == 0)
- 		return;
- 
-@@ -4831,7 +4831,7 @@ EXPORT_SYMBOL(il_bg_watchdog);
- void
- il_setup_watchdog(struct il_priv *il)
- {
--	unsigned int timeout = il->cfg->wd_timeout;
-+	unsigned int timeout = READ_ONCE(il->wd_timeout);
- 
- 	if (timeout)
- 		mod_timer(&il->watchdog,
-diff --git a/drivers/net/wireless/intel/iwlegacy/common.h b/drivers/net/wireless/intel/iwlegacy/common.h
-index 21f1c7702a..9c1c252dcc 100644
---- a/drivers/net/wireless/intel/iwlegacy/common.h
-+++ b/drivers/net/wireless/intel/iwlegacy/common.h
-@@ -1129,6 +1129,7 @@ struct il_priv {
- 	struct ieee80211_rate *ieee_rates;
- 
- 	struct il_cfg *cfg;
-+	unsigned int wd_timeout;
- 	const struct il_ops *ops;
- #ifdef CONFIG_IWLEGACY_DEBUGFS
- 	const struct il_debugfs_ops *debugfs_ops;
-diff --git a/drivers/net/wireless/intel/iwlegacy/debug.c b/drivers/net/wireless/intel/iwlegacy/debug.c
-index 8a9f79ff1c..13dfc263a2 100644
---- a/drivers/net/wireless/intel/iwlegacy/debug.c
-+++ b/drivers/net/wireless/intel/iwlegacy/debug.c
-@@ -1284,8 +1284,12 @@ il_dbgfs_wd_timeout_write(struct file *file, const char __user *user_buf,
- 	if (timeout < 0 || timeout > IL_MAX_WD_TIMEOUT)
- 		timeout = IL_DEF_WD_TIMEOUT;
- 
--	il->cfg->wd_timeout = timeout;
--	il_setup_watchdog(il);
-+	mutex_lock(&il->mutex);
-+	WRITE_ONCE(il->wd_timeout, timeout);
-+	if (il->txq)
-+		il_setup_watchdog(il);
-+	mutex_unlock(&il->mutex);
-+
- 	return count;
- }
- 
--- 
-2.34.1
+Hi Stefan,
+
+Thanks for the bisect and detailed report.
+
+Notice that 0xfc499000 is on an exact 4KB page boundary. This points to 
+a DMA read overrun where the Broadcom DMA engine reads past the end of a 
+buffer mapped in page 0xfc498xxx into the adjacent unmapped page 0xfc499000.
+
+Have you tried a recent net kernel ?
+
+Could you please test whether disabling TSO or hardware VLAN offload 
+prevents the crash? (maybe adding one option at a time)
+
+   # ethtool -K eno1np0 tso off
+
+   # ethtool -K eno1np0 tx-vlan-offload off
+
+Adding Joe to this thread, because some parts in
+tso_dma_map_init() or tso_start() might have bugs.
+
+# Disable USO on the physical interface
+ethtool -K eno1np0 tx-udp-segmentation off
+
+This reminds me on a prior attempt I made months ago to sanitize tso_start()
+
+Note that my email address has changed to edumazet@kernel.org
+
+Thanks.
+
+> 
+> I've already updated to the latest firmware released by Dell, the problem
+> persist. Here is some more info on the network device:
+> 
+> 18:00.0 Ethernet controller [0200]: Broadcom Inc. and subsidiaries BCM57412 NetXtreme-E 10Gb RDMA Ethernet Controller [14e4:16d6] (rev 01)
+> 	Subsystem: Broadcom Inc. and subsidiaries NetXtreme E-Series Advanced Dual-port 10Gb SFP+ Ethernet Network Daughter Card [14e4:4120]
+> 
+> # ethtool -i eno1np0
+> driver: bnxt_en
+> version: 7.2.9-1-generic
+> firmware-version: 238.1.168.0/pkg 38.11.70.00
+> expansion-rom-version:
+> bus-info: 0000:18:00.0
+> supports-statistics: yes
+> supports-test: yes
+> supports-eeprom-access: yes
+> supports-register-dump: yes
+> supports-priv-flags: no
+> 
+> Best,
+> Stefan
+
