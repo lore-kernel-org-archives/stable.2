@@ -1,176 +1,227 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06C9E352030
-	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 11:05:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94F1339CCFE
+	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 11:15:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791111936; cv=none; b=rv1/dnPnVKQkdWAE9SPs1dI47y6FLmujCIhtGsBjF1+MNbFMdQ8/68+7qhPr+b2NCQHGXT3jNccZ3oY2sN7dLzhRNbG1ltwkWToi0HX6FH4Gnei/JiPbxNGAKq105K0ChLY+Q8w4K7Y8kju1bDd17lNY1pKwoq8g57WjWXeIydg=
+	t=1791112537; cv=none; b=sux3xR5XtwzjGZ+V0PKA5zsVFxno15DQcW0D3hIO7w0TgKh71lOGYKBtt3bBI85Rp/hvz4ym9PhgV+Pua6GzmXlTVlNe2QNakIl+Drk3Q9qYd/R1fl/H/8g95AmIHAnNxDoOpq5jPRubcuBePkiNsfwyD+DNA/TjzrBsP7xO1wE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791111936; c=relaxed/simple;
-	bh=pqU0AmLH7J2NewvDYsALCFE8C0uhZNes4u+zqrHAxe0=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ENUzfJXokltpt3jKfC40txWK1tb/DDf32yIFnYquNFRlg+dU0cO8K7D+6Odn4rAFO15Z/sYRp17aUU0gyMVS9BkOBffcRZ3steAAUkZRuU6u3DBFm0J/rrJ5A3/wYAACzCGNS8MDJql5MylDH+HqwdV+mVC9bAGaH38XAdyH5Bg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=yTdfayOW; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	s=arc-20240116; t=1791112537; c=relaxed/simple;
+	bh=5souf5P8cdCDKNKE8Vfd9AYxuOtIE3Hf7UU1MdVziio=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dq0AujPseTV77+x+3C1JyhphqbTt+UcHavrRNWJ0U7NMScQvmi5k8Yy3bYqXtBju/+RVoEyh87ctD4ITyJa6CS34GSbRwq1HcWAiCM+dryDEAGmjXt30vnk0yVleDlqw/WG2LcTMFaiy7WQu1zoWHPv4LgHgqDNq+LZJ5pV7hcc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o4fii7NG; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="yTdfayOW"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ff9642c57so3520915e9.0
-        for <stable@vger.kernel.org>; Sun, 04 Oct 2026 04:05:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o4fii7NG"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3a7bf792424so317823a91.1
+        for <stable@vger.kernel.org>; Sun, 04 Oct 2026 04:15:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1791111933; x=1791716733; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1gMc178loumsMJ2fyhcP0L7Qn5VoTNXOEWwEnxYnAdM=;
-        b=yTdfayOWQ3zBdIqo/GqJotRigsGDXtWYbKQb4UDmdEM1/8uHY3feaNyMPhDFsmxgsy
-         E4OVEIRmq0N1dBro3FC0s2+PFe/hznxvsB12oM/S8c9mRdDtmrhLPspf/8GBPlAF7jC8
-         SphKsprLg76y3kMKXrKZ6MoYURGM9dmESWdPigAqvq7Sl/FFvxe2AvPdmQ0A06XjpqxZ
-         Mj5cmhGvSNe4L2HwnWT8e5Lkbycfh+O3EKvsE9sGGnM9fUVANFUFmZDYw6E65NSZrx13
-         ixKY2uZIrAZy06N+46STisgkBuJSCUoIEOyN9+yj65atz37UUDeoDO9NtiwgwQ//gZXt
-         vmIA==
+        d=gmail.com; s=20251104; t=1791112535; x=1791717335; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Tsx+aDb2dwCtUhjqNMOb40F6ukqlNEoo0x6nqwwDid0=;
+        b=o4fii7NGfBvUvDI/+fVjIoC9oPfR3VhAO4DFVri39Kd1n6gF5/6YfJJO7gZ0dtRthp
+         x/bQ12tMNPP8f4KVMS+2DHVHHY9Y37L7bsdHp+CsS6tsXEF9TOfDThE5HaovGPCmtn0T
+         Da/+/jsASYv2s7gt9q7xGRehXeA/X7QL3Ve7leZMH5zyhQNvLcFFjDCj+fdJ2DjsNd3w
+         2LAIeak/P/5gbwFN77gZ2z6M6QRWb3R/Dc5+6TsMlZIyekmOpDsBCjeo93yB7Wkjokzr
+         2scGZrKu+EdiSBX0C+Ri4bxe0rWBAI44vKM9t2ki029kIebOQWcL/1d3exNTDOcwywPs
+         OfyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791111933; x=1791716733;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1gMc178loumsMJ2fyhcP0L7Qn5VoTNXOEWwEnxYnAdM=;
-        b=oVHYpyeFhwFRKfCJe4K0u1jTl8J8VmmQ7lAlHQwuwvfMTzrIa+UpuQYibwnOvDaOIX
-         Stzqmj778uDC1iDsyeNbLQydmiM30AW5CoEPw34G+P+U+q4RQ3gxruK1qzPT+5I0OPFP
-         Qv9Qv/tf8WSGCBiGlsXqSyp6a2G5yRaebrzYFscgyIqA6PHTFmbqKVxHbjgMlJiaKoXF
-         PkRfZw0Z60nac9QSVn0LK6esXILEzCGTJL8utw68Le4WE4EHTGSXH2uXf3BaMlRoD2JB
-         JnRNeYEsUY2bfE/d2KvZ660wAGn6A0EAoWA85oeinrygVhc2XP5oWGqxhvuqod0xth3F
-         PxvQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzZMrJ+kuA8wjVVBLx3P8QLqOR8XfLIRkkj4iZSoQZKLwCydGecvjlC6GvIDJJUgjekCkgQaiU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kqpb1wqA1NdjTxfwvS0pCAhSBX9240uqWRCaJq26PwSy5o0v3k
-	D8igbpR2ItW6V/gy3gGnHhxRTDF53rMJLYsHMJcm7EixTv23oQ3E9p18N1252QGzK4A=
-X-Gm-Gg: AYBFou04QpZi+rXgk6W2bCDsB001q/bKGMHx3foTzR081skNvA7JX/WS4K/Q0TQnQQK
-	A1gNm2VkRzTzCH0e16+djBolJDpub/vxPxqpssHWQA9l6v4e46S5AFxNQ0XYZtRCH7KOcdsJz72
-	skxeSsAy2FFidb8H0jWSPrQBJehRgNVZJuUSmNotiCYfzGZSQ78+IJPfuIV8mb5OMFMuh8YDk3v
-	rdCPJ5iBWf9fzMZxUJofTt7xWu1wkWWOMgmh7XCzMa1b1vibxV8zNGurXsb8uDm6T53mVW4rOiA
-	c/MOfJFmiFD9UlmIJ4Bm7oFL7lVGSDFEvx87ccAHS/jE7kp0BTgAijAX4yftfETEe9pbQ32AN9b
-	GB52SYapjOSfe7rmT1iRYp9r7jOBA4SVfMaoyRkc21NEhIY+4JsSPuuHq5G7ZzqYcvRyURrg2tN
-	JS66LY8ZG+jkg+4e8tRVI1ys3dbaNsoN+x8yLxlP81WpHihu9YNwowcxwKbhjIQ/8OuON7svCo4
-	HYlQuTGsBf5uVFtQWn1Jrh8ITkLz5awl5W5ZWbgHuSQX/adcb5DNWUcRC203rNzIbKwCjPKVoak
-	RUYoYnlhpCbzazgJicuLvIzWGaaU1KL2ZsbZtSfP
-X-Received: by 2002:a05:600c:548c:b0:49e:65f2:db64 with SMTP id 5b1f17b1804b1-4a027534bd7mr125807085e9.5.1791111932983;
-        Sun, 04 Oct 2026 04:05:32 -0700 (PDT)
-Received: from ?IPv6:2001:1aeb:400:6f00:73f4:bfe7:a3e6:c16f? (2001-1aeb-400-6f00-73f4-bfe7-a3e6-c16f.ip6.tmcz.cz. [2001:1aeb:400:6f00:73f4:bfe7:a3e6:c16f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a03048abc9sm100142955e9.0.2026.10.04.04.05.31
+        d=1e100.net; s=20260707; t=1791112535; x=1791717335;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Tsx+aDb2dwCtUhjqNMOb40F6ukqlNEoo0x6nqwwDid0=;
+        b=vQIz1pXWqPSPvw2CtL25AsNGdIrN3swQNvU30/qixoeNSRpOjIBa+1iobsQmYYlDBF
+         yhSB66emSiRlPrO/+GoOl6w9IxfnB9XHNkMgz/+W4T87I53jMQCDkYFnRvdS4rotJM9Q
+         os2jTBNCJ6PzY7QSPevdlvg9yCO8o3sglV8Bk86oNIOjiCyj4iojMUqa0dgw8f9dK5/v
+         5zqBSFUznJXymD8IUVP3bP5ZFoT8aL1kgmqKUz548Dmztt2kcIRTd1HrV9znEesddni4
+         xq8KKK6igG1NqM9z/0gcW2hprfjmN5R9QNDVc3sopCGlyd2Q1SpnSfJI+WNyc47X5wPv
+         rndQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxV+E1iYBO+6AcXugrSrRdDvOhWUqMSEuJdw8mOYC1VePhiEgo34HbXRTgzDQ7y4ECCD1jaK8g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKKN4b0EabrPFUU8R69F+9kzV5nvJ7C+XPZnei+r0/JrdFaklrf
+	T2FWn+ZhaKVNouYS+/Y0Ewqp8rLh5Lt0KwQchAMN5hQAFAiip2LVDwHL
+X-Gm-Gg: AYBFou1JB3ZUEmzo3OTxYuLt8j9hfgMFqHJICX5bqbUIfFOrYGkh8QuFtRMsim2PeQi
+	3YL9VNYmVF+1aB9uNkpKwe/wLAXRgxCTMIMcsqQvM70XEh5ksgoiGUC3Oed32T0K5swybvWhIMK
+	3QqIV3EtCQ+YfcFpY7/zHqp1lBUk4afSKSEPYhJDDczhi2zew2Vt+FSLpIIYzcOcIvMxyQ6Umou
+	Ce6fBF8GbG7RpV3I2gdDOlvi63/KI0CA1W4uDLJGZOJhaz/xy5bZ1rOWVC8gkmCD3Xz+RDLdY+T
+	e3AynRlgmnWa9QZyQs1HStT692AcAEZlhvWvTpKDYgrF/czNU0YYEIAxVsR7O0JXkczFVQX9l/A
+	5PR2tCFIh9wnU2PoDTFswECDRlPf3eNK1eMo115oobTwsS2OrjeWSzR1Job1zXKAKFxGOyOB91C
+	64QSmRmmRfMy+0N02F1JX6k/lNYiyb20SvGKdH3pUIbb2W2trom0wNW3mfFzEr66QsY1k5d6BVG
+	uZEgM+HTiYy9LVGedlO2Xc=
+X-Received: by 2002:a17:90b:3949:b0:3a4:7d7c:1866 with SMTP id 98e67ed59e1d1-3a787775e3cmr3455592a91.61.1791112534791;
+        Sun, 04 Oct 2026 04:15:34 -0700 (PDT)
+Received: from jmoon ([118.220.156.4])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc9f73556efsm2776007a12.9.2026.10.04.04.15.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 04:05:31 -0700 (PDT)
-Message-ID: <d166bd7190c1a71921a1eaff3359ffcd8b825afb.camel@ndufresne.ca>
-Subject: Re: [PATCH] media: mediatek: jpeg: Avoid context access after job
- finish
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Kazuki Hanai <hnkz.64@gmail.com>, Bin Liu <bin.liu@mediatek.com>, Mauro
- Carvalho Chehab <mchehab@kernel.org>
-Cc: Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno	
- <angelogioacchino.delregno@collabora.com>, Hans Verkuil
- <hverkuil@kernel.org>,  Tomasz Figa <tfiga@chromium.org>, Xia Jiang
- <xia.jiang@mediatek.com>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-mediatek@lists.infradead.org, stable@vger.kernel.org
-Date: Sun, 04 Oct 2026 07:05:30 -0400
-In-Reply-To: <e7aef28efd9860e80b8be8865dd04268ee2fd786.camel@ndufresne.ca>
-References: <20260902112230.452176-1-hnkz.64@gmail.com>
-	 <e7aef28efd9860e80b8be8865dd04268ee2fd786.camel@ndufresne.ca>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-Xzpp1i9yhFiY86lHCQIK"
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+        Sun, 04 Oct 2026 04:15:34 -0700 (PDT)
+From: Jinmo Yang <jinmo44.yang@gmail.com>
+To: ping.cheng@wacom.com,
+	jason.gerecke@wacom.com,
+	jikos@kernel.org,
+	bentiss@kernel.org
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jinmo Yang <jinmo44.yang@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/1] HID: wacom: serialize mode changes with device removal
+Date: Sun,  4 Oct 2026 20:13:26 +0900
+Message-ID: <20261004111353.118025-2-jinmo44.yang@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261004111353.118025-1-jinmo44.yang@gmail.com>
+References: <20261004111353.118025-1-jinmo44.yang@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+wacom_mode_change_work() takes both siblings' struct wacom out of
+wacom_shared and tears down and rebuilds them, holding no reference to
+either. wacom_remove() cancels only the work owned by the device being
+removed, so a worker owned by the other sibling keeps using this device
+after its remove callback returns, and hid_device_remove() then frees
+struct wacom along with the driver's devres group.
 
---=-Xzpp1i9yhFiY86lHCQIK
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Reproduced under KASAN on hid.git master (fe2ec83746e5) with a uhid
+reproducer that binds a sibling pair, sends a mode-change report and then
+closes one sibling's descriptor, 10 boots out of 10:
 
-Le jeudi 03 septembre 2026 =C3=A0 09:26 -0400, Nicolas Dufresne a =C3=A9cri=
-t=C2=A0:
-> Le mercredi 02 septembre 2026 =C3=A0 20:22 +0900, Kazuki Hanai a =C3=A9cr=
-it=C2=A0:
-> > v4l2_m2m_job_finish() publishes job completion and wakes waiters
-> > before it returns. A concurrent file release can therefore finish
-> > v4l2_m2m_ctx_release() and free the context while the single-core IRQ
-> > handler continues with its tail.
-> >=20
-> > Both handlers only need the device for the matching runtime PM put.
-> > Use the IRQ-owned jpeg pointer instead of dereferencing ctx after
-> > completion has been published. This preserves the get/put pairing and
-> > removes the post-completion context access.
-> >=20
-> > Fixes: 45f13a57d813 ("media: platform: Add jpeg enc feature")
-> > Fixes: 5827e4b14ee7 ("media: platform: Improve power on and power off f=
-low")
-> > Cc: stable@vger.kernel.org
-> > Assisted-by: Codex:gpt-5
-> > Signed-off-by: Kazuki Hanai <hnkz.64@gmail.com>
->=20
-> Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+  BUG: KASAN: slab-use-after-free in wacom_parse_and_register+0x4fa8/0x58e0
+  Read of size 8 at addr ffff88800be431f8 by task kworker/0:2/75
+  Workqueue: events wacom_mode_change_work
+   wacom_parse_and_register+0x4fa8/0x58e0
+   wacom_mode_change_work+0x333/0x7e0
+   process_one_work+0xa3b/0x19b0
+  Allocated by task 11:  devm_kmalloc <- wacom_probe
+  Freed by task 82:      devres_release_group <- hid_device_remove,
+                         under uhid_char_release <- __x64_sys_close
 
-Also applied to my tree now, ty
+The same object is also written: wacom_feature_mapping() stores
+features->touch_max into it, four bytes at a fixed offset, with the value
+taken from a feature report. Closing one sibling's /dev/uhid descriptor is
+all it takes, with no privilege, and a reference on the hid_device would
+not help: struct wacom is devm_kzalloc() on &hdev->dev.
 
->=20
-> > ---
-> >  drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c | 4 ++--
-> >  1 file changed, 2 insertions(+), 2 deletions(-)
-> >=20
-> > diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/dri=
-vers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> > index d147ec4830811..9010e7b1108fa 100644
-> > --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> > +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> > @@ -1574,7 +1574,7 @@ static irqreturn_t mtk_jpeg_enc_done(struct mtk_j=
-peg_dev *jpeg)
-> >  	v4l2_m2m_buf_done(src_buf, buf_state);
-> >  	v4l2_m2m_buf_done(dst_buf, buf_state);
-> >  	v4l2_m2m_job_finish(jpeg->m2m_dev, ctx->fh.m2m_ctx);
-> > -	pm_runtime_put(ctx->jpeg->dev);
-> > +	pm_runtime_put(jpeg->dev);
-> >  	return IRQ_HANDLED;
-> >  }
-> > =20
-> > @@ -1855,7 +1855,7 @@ static irqreturn_t mtk_jpeg_dec_irq(int irq, void=
- *priv)
-> >  	v4l2_m2m_buf_done(src_buf, buf_state);
-> >  	v4l2_m2m_buf_done(dst_buf, buf_state);
-> >  	v4l2_m2m_job_finish(jpeg->m2m_dev, ctx->fh.m2m_ctx);
-> > -	pm_runtime_put(ctx->jpeg->dev);
-> > +	pm_runtime_put(jpeg->dev);
-> >  	return IRQ_HANDLED;
-> >  }
-> > =20
+Serialize mode-change workers with wacom_remove() using a driver-wide
+mutex, cancelling the device's own work first so that a worker blocked on
+the mutex cannot deadlock removal. wacom_add_shared_data() registers its
+devres action inside the group wacom_parse_and_register() opens, so
+wacom_remove() clears this device's shared pen or touch pointer under the
+mutex and no later worker can pick it up.
 
---=-Xzpp1i9yhFiY86lHCQIK
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+The worker also snapshots both shared pointers and returns on a NULL
+wacom_wac.shared, because releasing the first sibling's devres can drop
+the last reference to the shared data.
 
------BEGIN PGP SIGNATURE-----
+Fixes: 4082da80f46a ("HID: wacom: generic: add mode change touch key")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jinmo Yang <jinmo44.yang@gmail.com>
+---
+Applies to hid.git master (fe2ec83746e5). It does not apply to for-next;
+see the cover letter.
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCasIy+gAKCRDZQZRRKWBy
-9O1/AP0Ub/AIchVgAs3Ts4yTOsB4mOEvnEYHlNzN5kVNk8UUrAEAtPaya56szHHG
-qpbxCFdG4wfkrMMaiqEo5qcevW0q1QM=
-=L2sR
------END PGP SIGNATURE-----
+ drivers/hid/wacom_sys.c | 36 +++++++++++++++++++++++++++---------
+ 1 file changed, 27 insertions(+), 9 deletions(-)
 
---=-Xzpp1i9yhFiY86lHCQIK--
+diff --git a/drivers/hid/wacom_sys.c b/drivers/hid/wacom_sys.c
+index 40770affdbde..ecd7b38b1418 100644
+--- a/drivers/hid/wacom_sys.c
++++ b/drivers/hid/wacom_sys.c
+@@ -764,6 +764,7 @@ struct wacom_hdev_data {
+ 
+ static LIST_HEAD(wacom_udev_list);
+ static DEFINE_MUTEX(wacom_udev_list_lock);
++static DEFINE_MUTEX(wacom_mode_change_lock);
+ 
+ static bool wacom_are_sibling(struct hid_device *hdev,
+ 		struct hid_device *sibling)
+@@ -2783,22 +2784,32 @@ static void wacom_remote_work(struct work_struct *work)
+ static void wacom_mode_change_work(struct work_struct *work)
+ {
+ 	struct wacom *wacom = container_of(work, struct wacom, mode_change_work);
+-	struct wacom_shared *shared = wacom->wacom_wac.shared;
++	struct wacom_shared *shared;
++	struct hid_device *pen;
++	struct hid_device *touch;
+ 	struct wacom *wacom1 = NULL;
+ 	struct wacom *wacom2 = NULL;
+-	bool is_direct = wacom->wacom_wac.is_direct_mode;
++	bool is_direct;
+ 	int error = 0;
+ 
+-	if (shared->pen) {
+-		wacom1 = hid_get_drvdata(shared->pen);
++	mutex_lock(&wacom_mode_change_lock);
++	shared = wacom->wacom_wac.shared;
++	if (!shared)
++		goto out;
++	pen = shared->pen;
++	touch = shared->touch;
++	is_direct = wacom->wacom_wac.is_direct_mode;
++
++	if (pen) {
++		wacom1 = hid_get_drvdata(pen);
+ 		wacom_release_resources(wacom1);
+ 		hid_hw_stop(wacom1->hdev);
+ 		wacom1->wacom_wac.has_mode_change = true;
+ 		wacom1->wacom_wac.is_direct_mode = is_direct;
+ 	}
+ 
+-	if (shared->touch) {
+-		wacom2 = hid_get_drvdata(shared->touch);
++	if (touch) {
++		wacom2 = hid_get_drvdata(touch);
+ 		wacom_release_resources(wacom2);
+ 		hid_hw_stop(wacom2->hdev);
+ 		wacom2->wacom_wac.has_mode_change = true;
+@@ -2808,16 +2819,17 @@ static void wacom_mode_change_work(struct work_struct *work)
+ 	if (wacom1) {
+ 		error = wacom_parse_and_register(wacom1, false);
+ 		if (error)
+-			return;
++			goto out;
+ 	}
+ 
+ 	if (wacom2) {
+ 		error = wacom_parse_and_register(wacom2, false);
+ 		if (error)
+-			return;
++			goto out;
+ 	}
+ 
+-	return;
++out:
++	mutex_unlock(&wacom_mode_change_lock);
+ }
+ 
+ static int wacom_probe(struct hid_device *hdev,
+@@ -2916,6 +2928,10 @@ static void wacom_remove(struct hid_device *hdev)
+ 	cancel_work_sync(&wacom->battery_work);
+ 	cancel_work_sync(&wacom->remote_work);
+ 	cancel_work_sync(&wacom->mode_change_work);
++
++	/* A sibling's mode-change work can also access this device. */
++	mutex_lock(&wacom_mode_change_lock);
++
+ 	timer_delete_sync(&wacom->idleprox_timer);
+ 	if (hdev->bus == BUS_BLUETOOTH)
+ 		device_remove_file(&hdev->dev, &dev_attr_speed);
+@@ -2925,6 +2941,8 @@ static void wacom_remove(struct hid_device *hdev)
+ 
+ 	if (wacom->wacom_wac.features.type != REMOTE)
+ 		wacom_release_resources(wacom);
++
++	mutex_unlock(&wacom_mode_change_lock);
+ }
+ 
+ static int wacom_resume(struct hid_device *hdev)
+-- 
+2.53.0
+
