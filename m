@@ -1,170 +1,146 @@
-Received: from mta1.migadu.com (out-120.mta1.migadu.com [95.215.58.120])
+Received: from mail-dy2-f29.google.com (mail-dy2-f29.google.com [74.125.229.29])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B32E13B961B
-	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 03:03:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.120
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5318E3E1713
+	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 03:20:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.29
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791083011; cv=none; b=eL+yLFoLets8/w6VjsTtPIMhvJzXcHHqOmrtmeuizh7jgyxqp0tsaJl84h6VAcDeK0B5kQ/m16r4c9IxnH7ZSXcPHwewXoIxIqxnWIOz/22LUkHWf6Liq0djTLgZ1P4JZcwDTw09j4Or6MPA/dmWTWyn/LX8JrxAZihaQntBM7g=
+	t=1791084056; cv=none; b=mPJJkGqF7R903/vGDux1kR8mQc2IPteF3S/9BzERQp1de+o0cdvKt0z67WIlUXygtF6M6vuHly3D+yrqzN0iAqX6J7fO2Y75aJ06Op90WE2Miy5fqu8nKmXGRNWX5hYwM6Rl2XPInW6JO4GKKvsumyqNojvHzSlcH6ntrML5sn4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791083011; c=relaxed/simple;
-	bh=Jwr5K51ukqdtnHr4Uin+bWG/FzAyJskE0K5YWYJSjM8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CHbOzBz9ic7OY6hc3lSq0fDrJ90jt/4F/auyfXbA6Lmmh3eIe//svJFvRhuqPLk7CpAe6Q9zVcGQMgFW8oFf9HRxHdqPn5zQ36TR4iJLa9z0o+tZmS9HGhRpF5BaRwyYaADB0xP72mggjLo2ql6q3LKsyq8UH2eBIqdDkcXxmjk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=vdNXYr5A; arc=none smtp.client-ip=95.215.58.120
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791084056; c=relaxed/simple;
+	bh=ZuoVLXI9mZ7Ed8I5MUuPHCLNfDIzZ0wmyd2KS2Qgu5M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bMN7XeZAWKpFuHhz0xzh6IJDL15Voe/ocSPMKaLRT4QuUGS4jpe+4ydpRMl8nTNlwtwmHPuaIu7huW80n4ZtxsxzkG1YQCNg/Um891/HQ9fK9Ijhll2dHSQOCaqYebQX8Y5d/f12SZmwmYUR6Fg/kFYeRY8ypXdZgkLOZcWYSo8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B0XgZHiw; arc=none smtp.client-ip=74.125.229.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="vdNXYr5A"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Jwr5K51ukqdtnHr4Uin+bWG/FzAyJskE0K5YWYJSjM8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791083005; v=1; x=1791687805;
- b=vdNXYr5ADhcPxbo/4GaKwR8GdMTjigve5cSeDv7JQsyhDaeqHE+hwio0Liq3GSL3yRMD5r/x
- fUmRrh2fRuRNjdZJhHPMlatXDQM/A0o1hNOBkiJue3cKAedtv2FHfYAs6nj9U/L6yIaYx7D55ix
- eK6pwCUxJnCGckt9ThHC62ag=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f5c2ae1123ce7d6d;
-	Sun, 04 Oct 2026 03:03:24 +0000
-X-Mizu-Trace-ID: f5c2ae1123ce7d6d
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu
-Cc: alex@ghiti.fr,
-	akpm@linux-foundation.org,
-	zhangchunyan@iscas.ac.cn,
-	rppt@kernel.org,
-	kas@kernel.org,
-	david@kernel.org,
-	andrew+kernel@donnellan.id.au,
-	rmclure@linux.ibm.com,
-	debug@rivosinc.com,
-	baolin.wang@linux.alibaba.com,
-	usama.arif@linux.dev,
-	wangruikang@iscas.ac.cn,
-	namcao@linutronix.de,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	alexghiti@rivosinc.com,
-	viro@zeniv.linux.org.uk,
-	ajones@ventanamicro.com,
-	arnd@arndb.de,
-	axelrasmussen@google.com,
-	brauner@kernel.org,
-	conor.dooley@microchip.com,
-	conor@kernel.org,
-	jack@suse.cz,
-	liam@infradead.org,
-	ljs@kernel.org,
-	mhocko@suse.com,
-	paul.walmsley@sifive.com,
-	peterx@redhat.com,
-	robh@kernel.org,
-	surenb@google.com,
-	vbabka@kernel.org,
-	yuanchu@google.com,
-	stable@vger.kernel.org,
-	pasha.tatashin@soleen.com,
-	linux-mm@kvack.org,
-	me@ziyao.cc,
-	Lance Yang <lance.yang@linux.dev>
-Subject: [PATCH 1/1] riscv/mm: fix soft-dirty migration PMDs being treated as present
-Date: Sun,  4 Oct 2026 11:03:12 +0800
-Message-ID: <20261004030312.90163-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B0XgZHiw"
+Received: by mail-dy2-f29.google.com with SMTP id 5a478bee46e88-34b48100af4so596635eec.3
+        for <stable@vger.kernel.org>; Sat, 03 Oct 2026 20:20:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791084054; x=1791688854; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=x2thzfSt5QLT8HAsgWdixq/Y9P05apsvpgjsWLwXNuo=;
+        b=B0XgZHiwIuXftckS6QbH+LUuWK7NJZDT3/wKixb7SF2xgjN+IcAmACMyKp3RMn14Go
+         op8+gW0fVXk5In3Gk89F36XPaIhwDc4TYGoaIOsSBpRS2j6CRj6GZUG5305h4dTrsLCO
+         GqJ7Fz6CvTGCBXVHAGDkOQTO8hNn37AvcVSWejREOxelnu7OgwXs13R6mbEIZM2QOcEA
+         FYT05de1UJGniKCblrixXDM3hguvsd9VI2Y1fVaeoiyYOxnQ7qge7S/dK7WLirdrhLkh
+         c/No4shSCuZfOUkHMeiHi5g3ESe6S6RVvZxODTLSSige2A7MVdGT5u74ND/C3RW3a1sW
+         jQgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791084054; x=1791688854;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=x2thzfSt5QLT8HAsgWdixq/Y9P05apsvpgjsWLwXNuo=;
+        b=iEpSF1WA6TobaGg/Kse22VA3e9WrjoBCJlSfrbUNnSwXVjxvjFTUNoqwt8U4RLUxSz
+         dcn5fi7UD/pGXdzoUerrKrtBsYbfcv4mUIFd2bCBJS954DLo/T+8ntBTzmvToy9To8vj
+         2sctIgCKd+b+pugM1aCnvD9AeqXp6T8HMlOrH+ssTr3RQe8BK5/sxG+7g8kBqYRrWJrr
+         RpEctSzMatfF9KHcux/8oIGCU9F/UpqyaCKLsQyGqeaHZu/d2djHfnnbLaa/maGyFAkV
+         MeNF0lWvdugwHszpQMKAmcIxcVbno6bieupc9ta59iPPpM3d+yzBSlXlqvcYIqZxVRFN
+         CGXg==
+X-Forwarded-Encrypted: i=1; AKwUvBxEDXSn0CC8Ms/aw8OllYMKwZ5mVdKaYZVal0gKbelmvAg/1QjMQuWfD0I3cPlE12HzM46SV3k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLg2aziKXuCrXaCpVApzAs5HNT1s0gxXlvybzII+hppOCmYce8+
+	77w9E7UYwYO1aCXx01ctdfpZ0+W4gmeVl5zQtfkyAxs5pyHvqV5Xvk/n
+X-Gm-Gg: AYBFou2F28jxaAQDp1j5+Ol/rlbGbimObVMtXFe9bOKoA/TK5xfI+HVPUGenx6OXPKZ
+	Tt8mtGDbcjRFdRmTuSiOez0zsTYSF08MAgYi0vtKhJZqj+fkplG4aI3C8BwKZhG+tKyGElkum5/
+	+PdY/P7riwN55BAcTNWjPMGZV1LfDfQkjXyDjRlQNNW+pq7dPcYeZgRi+Q3hhOypkckIG8/r0nW
+	bk2YIkyaxfMglR3U0KK6Qc4s+7dxsV778x/FmC52nBNMX3bEn+BbMQsJiiOCtx08Ox8jFT1C0U5
+	g8aVrdB44ew8RgsHgddJ7x5XQC5q3C7e8f89INbXquP6AAfghoCwmmF0Gm9hsuHoe6t1ifE8p69
+	qHEuIuDDT4FGI7421i+JVG3oc9f6WLellWAO/hgV+Z7ptD/hsFaowmIsyFotffd5xL8tIKTgyal
+	ufpgaiC26M6zWYITW2hwm23uAiJbR5zuGyQep/e21K3ThzGsjjOKi86fDE+pkO8/O7J+GY8D3cL
+	YkgI1JSf6KwOXkyYVg=
+X-Received: by 2002:a05:7300:6a90:b0:339:8131:424e with SMTP id 5a478bee46e88-34f2185ad93mr8712750eec.34.1791084054190;
+        Sat, 03 Oct 2026 20:20:54 -0700 (PDT)
+Received: from kernel ([103.219.206.69])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-351272bb9basm1070301eec.24.2026.10.03.20.20.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 03 Oct 2026 20:20:53 -0700 (PDT)
+Date: Sun, 4 Oct 2026 08:50:47 +0530
+From: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+To: "Jason A. Donenfeld" <Jason@zx2c4.com>
+Cc: ebiggers@kernel.org, ardb@kernel.org, skhan@linuxfoundation.org,
+	me@brighamcampbell.com, jkoolstra@xs4all.nl,
+	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] crypto: chacha20poly1305 - Fix missing state zeroization
+ in xchacha decrypt
+Message-ID: <asHGD1_z-N9k0czy@kernel>
+References: <20261003060826.7792-1-raizudeen.kerneldev@gmail.com>
+ <asFj6Nxf6fglYfor@zx2c4.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <asFj6Nxf6fglYfor@zx2c4.com>
 
-RISC-V uses _PAGE_EXEC for swap soft-dirty tracking when
-CONFIG_MEM_SOFT_DIRTY is enabled and Svrsw60t59b is available. That's
-a problem for PMD migration entries, since pmd_present() also checks
-_PAGE_LEAF (R/W/X) to recognize THPs with _PAGE_PRESENT temporarily
-cleared during splitting.
+On Sat, Oct 03, 2026 at 10:22:00PM +0200, Jason A. Donenfeld wrote:
+> On Sat, Oct 03, 2026 at 11:38:26AM +0530, Mohamad Raizudeen wrote:
+> > The `__chacha20poly1305_decrypt` function does not zeroize the chacha
+> > state, unlike its encrypt counterpart. The regular
+> > `chacha20poly1305_decrypt` function handles this by manually calling
+> > chacha_zeroize_state(). However, `xchacha20poly1305_decrypt` returns
+> > the result directly without clearing the state.
+> > 
+> > This leaves the derived chacha20 subkey on the stack after the function
+> > returns. Fix this by storing the return value, calling
+> > chacha_zeroize_state() and then returning the result, matching the
+> > logic in `chacha20poly1305_decrypt`.
+> > 
+> > Fixes: ed20078b7e333 ("crypto: chacha20poly1305 - import construction and selftest from Zinc")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+> > ---
+> >  lib/crypto/chacha20poly1305.c | 5 ++++-
+> >  1 file changed, 4 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/lib/crypto/chacha20poly1305.c b/lib/crypto/chacha20poly1305.c
+> > index ea42a28f4ff7..03b14d272520 100644
+> > --- a/lib/crypto/chacha20poly1305.c
+> > +++ b/lib/crypto/chacha20poly1305.c
+> > @@ -199,10 +199,13 @@ bool xchacha20poly1305_decrypt(u8 *dst, const u8 *src, const size_t src_len,
+> >  			       const u8 key[at_least CHACHA20POLY1305_KEY_SIZE])
+> >  {
+> >  	struct chacha_state chacha_state;
+> > +	bool ret;
+> >  
+> >  	xchacha_init(&chacha_state, key, nonce);
+> > -	return __chacha20poly1305_decrypt(dst, src, src_len, ad, ad_len,
+> > +	ret = __chacha20poly1305_decrypt(dst, src, src_len, ad, ad_len,
+> >  					  &chacha_state);
+> > +	chacha_zeroize_state(&chacha_state);
+> > +	return ret;
+> >  }
+> >  EXPORT_SYMBOL(xchacha20poly1305_decrypt);
+> 
+> In my memory, the reason it's like this is because for WireGuard,
+> xchapoly is just being used to encrypt a cookie value, which has no
+> forward secrecy concerns at all. So it doesn't matter if it's left
+> around on the stack.
+> 
+> Are there other use cases, though, where you think it might matter?
+> 
+> Jason
 
-When a soft-dirty THP is migrated, set_pmd_migration_entry() preserves
-soft-dirty with pmd_swp_mksoft_dirty(), setting the X bit in the
-migration PMD. Even with _PAGE_PRESENT clear, we end up treating a
-migration PMD as a present THP! The fault handler skips
-pmd_migration_entry_wait(), and a write fault can end up in
-do_huge_pmd_wp_page(), where pmd_page() decodes the migration entry
-as a mapped PFN.
+No, none that exist today. The only in-tree callers are the wireguard
+cookie code and the kunit test and I agree the cookie has no forward
+secrecy concerns. My only thought is that the function is
+EXPORT_SYMBOL()ed, so a future caller with a long term key would leave
+the derived subkey on the stack and since chacha20poly1305_decrypt()
+already wipes the state, having the xchacha variant do the same seemed
+like safer default.
 
-Move the swap soft-dirty bit to bit 12 and start the swap offset at
-bit 13 when CONFIG_MEM_SOFT_DIRTY is enabled. This keeps R/W/X clear
-in migration PMDs and lets us keep the existing pmd_present() check
-for invalidated THPs. Leave the offset at bit 12 when soft-dirty
-tracking is disabled.
+Also, Eric requested a v2 that moves the zeroization into the helper
+function for consistency with the encrypt path, so I will be sending
+that out shortly.
 
-Fixes: 2a3ebad4db63 ("riscv: mm: add soft-dirty page tracking support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Lance Yang <lance.yang@linux.dev>
----
-I found this while reviewing Usama's PMD-level swap entries series [1]
-and comparing the swap flag bits with the PMD presence checks across
-architectures.
-
-[1] https://lore.kernel.org/all/20261002095503.3585565-1-usama.arif@linux.dev/
-
- arch/riscv/include/asm/pgtable-bits.h |  6 +++---
- arch/riscv/include/asm/pgtable.h      | 10 ++++++----
- 2 files changed, 9 insertions(+), 7 deletions(-)
-
-diff --git a/arch/riscv/include/asm/pgtable-bits.h b/arch/riscv/include/asm/pgtable-bits.h
-index d5a86b4df3ce6..d84b459e010c1 100644
---- a/arch/riscv/include/asm/pgtable-bits.h
-+++ b/arch/riscv/include/asm/pgtable-bits.h
-@@ -27,12 +27,12 @@
- 	((riscv_has_extension_unlikely(RISCV_ISA_EXT_SVRSW60T59B)) ?	\
- 	 (1UL << 59) : 0)
- /*
-- * Bit 3 is always zero for swap entry computation, so we
-- * can borrow it for swap page soft-dirty tracking.
-+ * Bit 12 is reserved for swap soft-dirty tracking. The swap offset
-+ * starts at bit 13 when CONFIG_MEM_SOFT_DIRTY is enabled.
-  */
- #define _PAGE_SWP_SOFT_DIRTY						\
- 	((riscv_has_extension_unlikely(RISCV_ISA_EXT_SVRSW60T59B)) ?	\
--	 _PAGE_EXEC : 0)
-+	 (1UL << 12) : 0)
- #else
- #define _PAGE_SOFT_DIRTY	0
- #define _PAGE_SWP_SOFT_DIRTY	0
-diff --git a/arch/riscv/include/asm/pgtable.h b/arch/riscv/include/asm/pgtable.h
-index b644db16bda94..acaf6d3b54d04 100644
---- a/arch/riscv/include/asm/pgtable.h
-+++ b/arch/riscv/include/asm/pgtable.h
-@@ -1178,18 +1178,20 @@ static inline pud_t pud_modify(pud_t pud, pgprot_t newprot)
-  *
-  * Format of swap PTE:
-  *	bit            0:	_PAGE_PRESENT (zero)
-- *	bit       1 to 2:	(zero)
-- *	bit            3:	_PAGE_SWP_SOFT_DIRTY
-+ *	bit       1 to 3:	_PAGE_LEAF (zero)
-  *	bit            4:	_PAGE_SWP_UFFD
-  *	bit            5:	_PAGE_PROT_NONE (zero)
-  *	bit            6:	exclusive marker
-  *	bits      7 to 11:	swap type
-- *	bits 12 to XLEN-1:	swap offset
-+ *	bit           12:	_PAGE_SWP_SOFT_DIRTY (CONFIG_MEM_SOFT_DIRTY)
-+ *	bits 12/13 to XLEN-1:	swap offset (without/with CONFIG_MEM_SOFT_DIRTY)
-  */
- #define __SWP_TYPE_SHIFT	7
- #define __SWP_TYPE_BITS		5
- #define __SWP_TYPE_MASK		((1UL << __SWP_TYPE_BITS) - 1)
--#define __SWP_OFFSET_SHIFT	(__SWP_TYPE_BITS + __SWP_TYPE_SHIFT)
-+#define __SWP_OFFSET_SHIFT \
-+	(__SWP_TYPE_BITS + __SWP_TYPE_SHIFT + \
-+	 IS_ENABLED(CONFIG_MEM_SOFT_DIRTY))
- 
- #define MAX_SWAPFILES_CHECK()	\
- 	BUILD_BUG_ON(MAX_SWAPFILES_SHIFT > __SWP_TYPE_BITS)
--- 
-2.49.0
-
+Thanks,
+Mohamad Raizudeen
