@@ -1,108 +1,167 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08B0D480DEB
-	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 21:03:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A2D443F4B8
+	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 21:04:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791147820; cv=none; b=oDMTr2+lNKWQFo/05Wp5g4TNuYJ0C/AwM3C3iwSB36mXnE/d0y4YbNLdsSFdmvR3gNQKAU8ZsgUl16wQgHXbDA931LtLXKBXvWbLQpnfLcWKNBKukeNuiViN6IEjOWeitBOMfLCc8jz7lf/OETpz12FaF48MT+e3fl5xJB0K6yI=
+	t=1791147889; cv=none; b=Sk+M/e/sYu4BGyDP5680CiuqEG5i3NX7krDNiDxt4rg3CJkBD98bxDUjReV3Jc5CcGz6IXhcOmItTjrNtMWv6pqvl6m1ljv/5GfcvRizDu9tWkANuEOo9Lw2sTPx1IfgeaAgSk6CvW/bS2Ozd12jroUC5YyHFFVRc05i6IUoNpo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791147820; c=relaxed/simple;
-	bh=MJhCB7uRhMADT4eh41CKINoVvSDQQtbHuD4lX8vPSK4=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=UlWrjekugMgZxIaDIHJm24DHzBi1TfR6w5i6w7xCzHocw7f3hASc74nrDcSBcSCu0oiXvVjSbBgYc03wmdONY6cqBz8Jv1sNY9HbT3kR0chbL70o1Tkm4QfN0hFKVk3rZ0y3gk84P+jq5QDIvdLTHpNELxcHvCYazttdviVtmWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=hsQ3cvRB; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1791147889; c=relaxed/simple;
+	bh=VZqB+0XvEiVduxeGBeit6IRjxo4ihWt/yhVVmDiU3mE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WutkWYHhJK/+/VaT/JWNvGfUSVFa0OmB5W2ZVHlhRV1LI3cE/YwVxOymHmzt9W/ACjUaJ6X8BDVr4idLka4ElNNHKTeJtb4aauCIM+rXaR8/qmD4O9II4dU7kE66NqQlj9bZTYgHX2Rpe63Lw9FjIZheox7rIPvkw3gXua3ExeE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FYV/Gu3n; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="hsQ3cvRB"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 744571A113A;
-	Sun,  4 Oct 2026 21:03:36 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 304E8604FE;
-	Sun,  4 Oct 2026 21:03:36 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2088210328384;
-	Sun,  4 Oct 2026 23:03:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791147815; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=7pjV1gWlf9aETc+XjjWgbEA19fRIN9x9kDhtbidus5o=;
-	b=hsQ3cvRBkVAPGTOiAm1ZbKxiFVFBP8YlDHA/cUOBFt04VsqYpUOx4izUP0Gc6CO//Qxrec
-	egFUav/rvvqAroNgzZOoJxeNUCblqwNiKo0Y+PNZ9KLwt8HR/qcVT5rxw3nRcVkuKNDvre
-	U3zsO8mqjPjqolluPwdt2VkHmNx3A8qItzxuk/pmhh3I8V5M1O6QM95VK/HNQO18XYHAJT
-	TlI2GIn0eZ1CKZr/raSdXro9EF4VtGMgFbuMQ4oWJXLEyGd0bszew1KY60kkx6UsvgntCl
-	TXnpbpkesL4CzLZg1+AQ5i8fhqBu8MF01kez7rMRwPLobAeIKJ1XB14QUEAy/w==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Hui Peng <benquike@gmail.com>
-Cc: Harry Morris <h.morris@cascoda.com>,  Alexander Aring
- <alex.aring@gmail.com>,  Stefan Schmidt <stefan@datenfreihafen.org>,
-  David Laight <david.laight.linux@gmail.com>,  linux-wpan@vger.kernel.org,
-  netdev@vger.kernel.org,  linux-kernel@vger.kernel.org,
-  stable@vger.kernel.org
-Subject: Re: [PATCH net v3 2/3] ieee802154: ca8210: prevent stack buffer
- overflow in hwme_get_request_sync()
-In-Reply-To: <20260930071914.421586-3-benquike@gmail.com> (Hui Peng's message
-	of "Wed, 30 Sep 2026 07:19:13 +0000")
-References: <20260930071914.421586-1-benquike@gmail.com>
-	<20260930071914.421586-3-benquike@gmail.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Sun, 04 Oct 2026 23:03:31 +0200
-Message-ID: <87ece5jhzw.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FYV/Gu3n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 991131F000FF;
+	Sun,  4 Oct 2026 21:04:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791147887;
+	bh=TDG14GEglpV1DeagzHyppXzfYykYnl72TNObMnVhs7Q=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=FYV/Gu3ne9eD2fbcm//2ksibWu4b6gh2ZjxANjqNfvy/cHuRQVDmqBWKxbEpSAvVk
+	 se9erF0I4j9g8no9yY4OPYnNwXlrlg8VEV3LyWTtoLCk76OWirlzera6MLvZA5Kpbg
+	 6tip4udzvdlcMvDZpkXd2KEsR8sIFaf3sP7Jzxrkef+s/33sxTlcwk71+KZ2ziYefi
+	 w1D9Nd652e9C6CeSj0Ssic8RlXCeYj8fpLs0HePhHbPM91Nx5o3i8dbuPBAo1ltZ/v
+	 dvSFc30Vv7bd8XMiVLH6o/UsvC8Qk9O30CayxtpCYoxHgE3T0HTQ/aErMVbJjHz93z
+	 1w3L/QMQPo+tw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+	Kalle Valo <kvalo@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] wifi: wlcore: Convert to platform remove callback returning void
+Date: Sun,  4 Oct 2026 17:04:43 -0400
+Message-ID: <20261004210417.1052493-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026100446-celtic-uplifting-ac0e@gregkh>
+References: <2026100446-celtic-uplifting-ac0e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+From: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 
-> Initialize lenvar =3D 1 in ca8210_get_ed() and return
-> IEEE802154_SYSTEM_ERROR in hwme_get_request_sync() if
-> response.pdata.hwme_get_cnf.hw_attribute_length exceeds
-> *hw_attribute_length.
+[ Upstream commit f00928012886a07ca6817ea70eb4856ce280ce05 ]
 
-The relationship is not obvious to me.
+The .remove() callback for a platform driver returns an int which makes
+many driver authors wrongly assume it's possible to do error handling by
+returning an error code.  However the value returned is (mostly) ignored
+and this typically results in resource leaks. To improve here there is a
+quest to make the remove callback return void. In the first step of this
+quest all drivers are converted to .remove_new() which already returns
+void.
 
-> Tested in QEMU with KASAN enabled by passing an oversized
-> hw_attribute_length response into ca8210_get_ed().
->
-> Fixes: ded845a781a5 ("ieee802154: Add CA8210 IEEE 802.15.4 device driver")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
-> ---
-> Changes in v3:
-> - No changes.
->
-> Changes in v2:
-> - Split out as patch 2/3.
-> - Replaced the temporary stack buffer in ca8210_get_ed() with lenvar =3D 1
->   and an upper-bound check against *hw_attribute_length in
->   hwme_get_request_sync() as requested by Miquel Raynal.
->
->  drivers/net/ieee802154/ca8210.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/net/ieee802154/ca8210.c b/drivers/net/ieee802154/ca8=
-210.c
-> index a990a0f..8aa7ffe 100644
-> --- a/drivers/net/ieee802154/ca8210.c
-> +++ b/drivers/net/ieee802154/ca8210.c
-> @@ -1677,6 +1677,9 @@ static u8 hwme_get_request_sync(
->  		return IEEE802154_SYSTEM_ERROR;
->=20=20
->  	if (response.pdata.hwme_get_cnf.status =3D=3D IEEE802154_SUCCESS) {
-> +		if (response.pdata.hwme_get_cnf.hw_attribute_length >
-> +		    *hw_attribute_length)
-> +			return IEEE802154_SYSTEM_ERROR;
+wlcore_remove() returned zero unconditionally. With that converted to
+return void instead, the wl12xx and wl18xx driver can be converted to
+.remove_new trivially.
 
-Why is hw_attribute_length use here before being set (or re-set) just
-below?
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+Signed-off-by: Kalle Valo <kvalo@kernel.org>
+Link: https://lore.kernel.org/r/20230912171249.755901-1-u.kleine-koenig@pengutronix.de
+Stable-dep-of: a8b8881d0c1a ("wifi: wlcore: Fix runtime PM leak in wlcore_remove()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/net/wireless/ti/wl12xx/main.c   | 6 +++---
+ drivers/net/wireless/ti/wl18xx/main.c   | 2 +-
+ drivers/net/wireless/ti/wlcore/main.c   | 6 ++----
+ drivers/net/wireless/ti/wlcore/wlcore.h | 2 +-
+ 4 files changed, 7 insertions(+), 9 deletions(-)
 
-The organization of this patch is weird.
+diff --git a/drivers/net/wireless/ti/wl12xx/main.c b/drivers/net/wireless/ti/wl12xx/main.c
+index d06a2c4194479..de045fe4ca1eb 100644
+--- a/drivers/net/wireless/ti/wl12xx/main.c
++++ b/drivers/net/wireless/ti/wl12xx/main.c
+@@ -1919,7 +1919,7 @@ static int wl12xx_probe(struct platform_device *pdev)
+ 	return ret;
+ }
+ 
+-static int wl12xx_remove(struct platform_device *pdev)
++static void wl12xx_remove(struct platform_device *pdev)
+ {
+ 	struct wl1271 *wl = platform_get_drvdata(pdev);
+ 	struct wl12xx_priv *priv;
+@@ -1928,7 +1928,7 @@ static int wl12xx_remove(struct platform_device *pdev)
+ 
+ 	kfree(priv->rx_mem_addr);
+ 
+-	return wlcore_remove(pdev);
++	wlcore_remove(pdev);
+ }
+ 
+ static const struct platform_device_id wl12xx_id_table[] = {
+@@ -1939,7 +1939,7 @@ MODULE_DEVICE_TABLE(platform, wl12xx_id_table);
+ 
+ static struct platform_driver wl12xx_driver = {
+ 	.probe		= wl12xx_probe,
+-	.remove		= wl12xx_remove,
++	.remove_new	= wl12xx_remove,
+ 	.id_table	= wl12xx_id_table,
+ 	.driver = {
+ 		.name	= "wl12xx_driver",
+diff --git a/drivers/net/wireless/ti/wl18xx/main.c b/drivers/net/wireless/ti/wl18xx/main.c
+index 0b3cf8477c6cd..d4a89401f2c47 100644
+--- a/drivers/net/wireless/ti/wl18xx/main.c
++++ b/drivers/net/wireless/ti/wl18xx/main.c
+@@ -2033,7 +2033,7 @@ MODULE_DEVICE_TABLE(platform, wl18xx_id_table);
+ 
+ static struct platform_driver wl18xx_driver = {
+ 	.probe		= wl18xx_probe,
+-	.remove		= wlcore_remove,
++	.remove_new	= wlcore_remove,
+ 	.id_table	= wl18xx_id_table,
+ 	.driver = {
+ 		.name	= "wl18xx_driver",
+diff --git a/drivers/net/wireless/ti/wlcore/main.c b/drivers/net/wireless/ti/wlcore/main.c
+index 2c3f7fbd04330..b5ae25e7ed897 100644
+--- a/drivers/net/wireless/ti/wlcore/main.c
++++ b/drivers/net/wireless/ti/wlcore/main.c
+@@ -6734,7 +6734,7 @@ int wlcore_probe(struct wl1271 *wl, struct platform_device *pdev)
+ }
+ EXPORT_SYMBOL_GPL(wlcore_probe);
+ 
+-int wlcore_remove(struct platform_device *pdev)
++void wlcore_remove(struct platform_device *pdev)
+ {
+ 	struct wlcore_platdev_data *pdev_data = dev_get_platdata(&pdev->dev);
+ 	struct wl1271 *wl = platform_get_drvdata(pdev);
+@@ -6749,7 +6749,7 @@ int wlcore_remove(struct platform_device *pdev)
+ 	if (pdev_data->family && pdev_data->family->nvs_name)
+ 		wait_for_completion(&wl->nvs_loading_complete);
+ 	if (!wl->initialized)
+-		return 0;
++		return;
+ 
+ 	if (wl->wakeirq >= 0) {
+ 		dev_pm_clear_wake_irq(wl->dev);
+@@ -6769,8 +6769,6 @@ int wlcore_remove(struct platform_device *pdev)
+ 
+ 	free_irq(wl->irq, wl);
+ 	wlcore_free_hw(wl);
+-
+-	return 0;
+ }
+ EXPORT_SYMBOL_GPL(wlcore_remove);
+ 
+diff --git a/drivers/net/wireless/ti/wlcore/wlcore.h b/drivers/net/wireless/ti/wlcore/wlcore.h
+index 81c94d390623b..1f8511bf9bb35 100644
+--- a/drivers/net/wireless/ti/wlcore/wlcore.h
++++ b/drivers/net/wireless/ti/wlcore/wlcore.h
+@@ -497,7 +497,7 @@ struct wl1271 {
+ };
+ 
+ int wlcore_probe(struct wl1271 *wl, struct platform_device *pdev);
+-int wlcore_remove(struct platform_device *pdev);
++void wlcore_remove(struct platform_device *pdev);
+ struct ieee80211_hw *wlcore_alloc_hw(size_t priv_size, u32 aggr_buf_size,
+ 				     u32 mbox_size);
+ int wlcore_free_hw(struct wl1271 *wl);
+-- 
+2.53.0
 
-Miqu=C3=A8l
