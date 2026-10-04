@@ -1,145 +1,159 @@
-Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010006.outbound.protection.outlook.com [52.101.229.6])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2606472F90;
-	Sun,  4 Oct 2026 17:49:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CDD24779AA
+	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 17:55:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.171
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791136142; cv=fail; b=OamnPE3UGrak0L8F468muNo2Oi8y248CPQ+kmnAo7g7FTiUOz5raEOJR9qFEoDZH+X5qHmpJDGBkQd2FUaIXd5N3DBiGt2BKFcWgermAHgVuxZbm3spBKX7FE3nrLrm7CsxbCXmpcbUnLm56XUtIGPW3/N2fKGXePgJOkbrHjfk=
+	t=1791136542; cv=pass; b=TpjER6gwcB0d+5n1opyTQLW15mTJz2aJKkBv9nJ7oYqjUeff2GTmxD+uJ5pyHE50XN8TLohLea98p/jvrOV+Sf39OG7SrxmswEcThZbf1gXuTS9gAf1ySnDeEIESDI4o7KMyr+++ZvGH46f18mFkH6nT23lUPJZ8SKyZ+XZaM5s=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791136142; c=relaxed/simple;
-	bh=vU6zBmPDVWbBgYOZ7xV2N18EGAcwGXXzjTNh39IrkCE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PFyg/np59ElRDCC8M9nHMMRX3PTjmSLyMKZ1zIsr7jLuFVcRly8HAH7cw9/IWoxfhvvQ0eptqQB/egIeZdLehNt+eqJxDSCaFQwp/cq0OSz9g4Wcv4f67t7voO6FvWhFx+o+33zTZzomH+FiQyA9r4x66ymlI7dWHS1JEGx+/zo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=QQUtOkUi; arc=fail smtp.client-ip=52.101.229.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+	s=arc-20240116; t=1791136542; c=relaxed/simple;
+	bh=JS/DfHmzCQBktqfBDcLgWFGsP1pDN4vWax4Q2BX0O+w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZeoiMqUJ15TnR95BvvgD6k83FIwZUrWFSzKddetv8/dE7OaxKcJn7rlv30rcenkk4dZ+k4qWusn5ZaKc2hnv7lXHalbyAImZ7yaG4QFu/PAyN3uHMaPy0Xa0mTNrUxd5bxt/W344oNyeWbPgYjKJD2Ap/FeD7nqZCwPV1Z5UfS8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=eo7Lxbwq; arc=pass smtp.client-ip=209.85.160.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="QQUtOkUi"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xcyVItASx3XxiaZ6qd3Aw/QTNkxUCCwoz7WBmwq+bcjkKWdWkX3NuSqGp2mNs7ZAGb+0RfwJy3516i11mAvY0uUiIw3Rd6LZ6krdRrE6DaOoo/ZDb2pSB0JyfLmo6n9JNyY5LQFpFf16Qxm7y61fRov4IblDyXD5NxR/IZmwPix8GB44xlNwjX1vlyifxzWYK6eaid6qfOejTQy72556xqipsWoOndjVsUmQ2uK2GcAwbKXCYyMVre4Y7cKG3MXAOrwarzSxOtENLZ3Lk8tdWhBqexiFgKvPoe4U9zgIDZgaPfR3WyVwTzQHf0u3R69GamWMTE0Q9et1IIqPXC2osQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AA5mdpuCMyWNUTq5cYgaaHSYpI55VhXyh8K7YrhUZ2s=;
- b=twxOz/1h8OHP4Vo235AXPlvFM+1cGrWWYaIJR1v1NmFyLNQw/TsJHUE1Xo3M/0w6RddYYcKJZsXTd+YgmhkuNNXTjRTJgqu2i1jjHyk6NPhAtA5SJhlwfNOHF3/+O60OigMxvc4f36KG/uLH1GDgJK+tfj8qng4UP8gBZe2tiu+bzJ0QjqmDsu9ROIVOIinXQgfR9t3BWDjTEQpWiZk3TshN78OTyMkRXFc/bKd0+3hSek5hqmwAVXRQBUQbNK49OAzJmjxNVw43ecgA+4kurd//l5KK7XEnWk2V/NcMdfw7cuRVkb9vpnhkPXp4aKxlqcGsxdTAyfdNbHcV6v2NAQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 8.62.32.50) smtp.rcpttodomain=bp.renesas.com smtp.mailfrom=renesas.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=renesas.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AA5mdpuCMyWNUTq5cYgaaHSYpI55VhXyh8K7YrhUZ2s=;
- b=QQUtOkUiRuoVjFtw0uWiuz8KTOHJUxibB8KoqUdx30xE7DZHt1+wrtAvKAUc2zL2oKO+02CB+wWOjex4SYxI8pbpbYYmjjo85YFaRc1VLiVQE/Ig6DNdsQI/hs3UKpOiihxXAjK6kW5fEuuMVGvutnpIoDhmzz5Qu7IoGvrNr5c=
-Received: from OS7PR01CA0157.jpnprd01.prod.outlook.com (2603:1096:604:24d::20)
- by TYCPR01MB11803.jpnprd01.prod.outlook.com (2603:1096:400:37f::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Sun, 4 Oct
- 2026 17:48:53 +0000
-Received: from OS3PEPF0000003B.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:604:24d:cafe::36) by OS7PR01CA0157.outlook.office365.com
- (2603:1096:604:24d::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Sun, 4
- Oct 2026 17:48:53 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 8.62.32.50) smtp.mailfrom=renesas.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=renesas.com;
-Received-SPF: Pass (protection.outlook.com: domain of renesas.com designates
- 8.62.32.50 as permitted sender) receiver=protection.outlook.com;
- client-ip=8.62.32.50; helo=ejcrelay004p.adwin.renesas.com; pr=E
-Received: from ejcrelay004p.adwin.renesas.com (8.62.32.50) by
- OS3PEPF0000003B.mail.protection.outlook.com (10.167.240.4) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14
- via Frontend Transport; Sun, 4 Oct 2026 17:48:53 +0000
-Received: from demon-pc (unknown [10.226.92.36])
-	by ejcrelay004p.adwin.renesas.com (Postfix) with ESMTP id F04603000246;
-	Mon,  5 Oct 2026 02:48:50 +0900 (JST)
-From: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-To: Biju Das <biju.das.jz@bp.renesas.com>,
-	William Breathitt Gray <wbg@kernel.org>
-Cc: linux-iio@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 01/15] counter: rz-mtu3-cnt: put runtime PM on initialization error path
-Date: Sun,  4 Oct 2026 20:47:38 +0300
-Message-ID: <20261004174752.507499-2-cosmin-gabriel.tanislav.xa@renesas.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261004174752.507499-1-cosmin-gabriel.tanislav.xa@renesas.com>
-References: <20261004174752.507499-1-cosmin-gabriel.tanislav.xa@renesas.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="eo7Lxbwq"
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-533202fe429so249391cf.0
+        for <stable@vger.kernel.org>; Sun, 04 Oct 2026 10:55:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791136525; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aid2jkI1ixp2vg29KcIJVKlgvZjoxqvUsi1Y0yOqdLRRnGPATgytXSyE/iw74Ckhlu
+         GG0hRwEKsx+RZVtEiaCpi5v3CqcKHQkr+9tN5tSSlNf7f4BrQLPstCCXb4/yWv+yLtp+
+         aWcs3E1DzMUOgqj7zh2pXfJWFhvuoFmh/GzfBeNTWMi7gkIr7/w7BQCL7pcGa6PfHQZ9
+         M28W6RbJpZvAAwpR/4lMF4AdaezxpyXJyLi5a9zABglpip2TVIVfMrOceZqu4XBOQDwV
+         KwrrEvdVjirNHWU73QiQb8XSfi0BO2MNKssDZW7cSD0Wo+9Gd4kdAtUgi9NnCavveaSs
+         5G9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=TFRiHWm52m67lLPZ4QttIFc2/s9ESzUdGTCBMadUb1o=;
+        fh=cgo08jWFl+Kt8V5H8IoYCmCkX4yPL4Z2dEisvy8yL/8=;
+        b=fZXcLrwvcybSMGxPghp2eEDDAqk3scJV5e1HrGrPZHM3//FnM8u8AJ5NW/H9uNOf0p
+         3iN5kNp6S7DHNLTyO1/W1MPJWUNjYA9Rs7ju0VBlKna+x45H45ClHyRj/9vAp9m53jWb
+         luPhT54p7kQ+xYVAN33hu6QEzYxxVwkxe5KrTunck6VTJhqGEQkQd0AZsZh8mKDoCEh7
+         O3iMXUNySd3FG8vicbdK+IUE7GILG8CSHjZqywgtj1cX78ThqheUYq2Yrqw6KCm98zcE
+         88bIhAEG0dAH/l7GVscudJ95uTrzIcyvqeDZDFiO3oSsZw7qZs2kM7/8+YBIKjLfy0u4
+         rlQA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791136525; x=1791741325; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TFRiHWm52m67lLPZ4QttIFc2/s9ESzUdGTCBMadUb1o=;
+        b=eo7Lxbwq+tvykVl3jsl+khAQDgShQ2Tccxz+XQGYPbszWI5v6dRbn9UKzEjJ7snPhZ
+         bc4wjz2ApoF/eY3f37u4KH0OOxFVgIB3VIdirmzC7kKVpG4dSygLMlbny5EMLja16fw3
+         GBP6leu7UZPutM1QXufrPRm8hLdOws1SCk6Q5l7IikMQkl+u8NbKtWUjAhEVof70x16u
+         daDFFMtqnK+tlrmiKN16UdbYKHLSdP8YcnMWEb9o/Mj3go9K4sWDPUWUq93kMW2Qxae9
+         GRGxJH9i5j2TKyFo/C+ycnreJwp3KVdAZI6mYzAshvw+onBYLswzrYrNIPj1NPxi80CV
+         sRRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791136525; x=1791741325;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TFRiHWm52m67lLPZ4QttIFc2/s9ESzUdGTCBMadUb1o=;
+        b=b/eLzUMenfKwENJLtrdTyX57MfIg2qYYsu/bB9aLJxRc6UsEj2WmPuiUOMp8qGmn/t
+         IWokyJf2fP2KruEQCZ3UdGQUJB2w8oAgV2dqwJMWYWe7zHAxhGB/LwrSgDcjtzMnr7JH
+         1yeaWMDaaglwPTkgb01OE6szwx/XkAd0nkoL06MwU7a0nZE8rn/tPNp72R0pxs1K7fwQ
+         och2OjSOhwZNEFumaqHfNAPXTLHg250Gva2H4FqLAfcd2PRKYcy63c3w2N25Aa9ivyAb
+         aqY9XDrHg9T4wcuQTWxb0v3KuxT63pfoujhLyFKm1JwlzaXR+AK6CxbY/HtRNHVrj1lO
+         Zpkw==
+X-Forwarded-Encrypted: i=1; AKwUvBz/juMq2Z345dhG/4NVEHzMoAMzQVgsaSgCXGy4dNmoYGUS1RyAW53ya6MgcqK7/CacZQtq2oE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kgr1FoPCm7tZk+DklCDKyRgAbiZjAgBe66YcpyZTMk46IG4k3n
+	RDjh9yY8VcwcVhN+iUtr6JgtYV8hqoYfyjVMCNUmsIicEJ7HW0gqwB2MJBFXzywBxlOh22kfYt3
+	lJ1d6LHVdimhxbDhrAuIMpTnSh4GlyO5aRMGChP6M
+X-Gm-Gg: AYBFou2Uc9Oazu5+rkiiKS828OyoptiQgSqzHwH8seYXsSfhnBUhSgHYiFx5Xsem44V
+	GOCEeKNNUi45QujtOfX2E8n9ay3nFnt7uuFd42kga5xekEAtsXyGXEPoKTW4eznmgAHNtOxgIDm
+	PI13nbGgpWTr2w4HaLBOMx0c/mFknwUFiInVYhrtFUj9LSRqEpRCG2CsFLLiCZUhBYHjNsSw53Z
+	JIIzeQtHcbQVqvtCbWqJEUJUR9Gq6fL5jEzyaH2UI5VGlYff9pwxKvdwl9V3GafUbdkmIziKirU
+	1CozgS6JwHVauWgE7MfcL7tA2wypE7C2r4zKwotm+0JReSSiWXE3/rcscbugymR7Aik=
+X-Received: by 2002:a05:622a:191c:b0:532:9003:35b1 with SMTP id
+ d75a77b69052e-535146541aemr3824271cf.2.1791136524268; Sun, 04 Oct 2026
+ 10:55:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS3PEPF0000003B:EE_|TYCPR01MB11803:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: dda778f7-c81d-424d-9b7c-08df223fc17a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|36860700016|1800799024|23010399003|22082099003|18002099003|10067099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	nn0Ifj6+vyPBlsbL0laP8qUD4PzVD08WOYwFwb/SMLTjK8gT7NBhK3wLJEHYh+aBrK1S0VcwKbzpu6DlpVyh0nk874RvjT+KYcal48iBvzaevEjfMP4xauNuUfsavQkmtSXQBVxvZH4F1MdiHmopNqjPw5pFDqikX1IuD5v7RNnyGNpNtzVLl8tQ2olUHW6+Z29hwARTTJ0poheaOlFI6FFkMiSFmKrk17rvAiDypUlVdXzyerp9O1oLb3UYFc5NtF7CljeiAsvcp6vzv0+y2N2qUk6RH/NGxQo3GUZYiUMz4K0dI37s1iI0UwvtWblafep4pyCSLWQD+fqvoh+IPeGMCvNszoVOORw1SPLmfGE3loQSDxpEuSSZNl0C7xdHOdHtcEpsTrmY5KXy9LSlkGdRqR65cTpyl659EDWE0+BIkLHuwB0Gdnq2zpoZEuw8hthNsKmCSTBNLgsY8ypbdgCH8qE6pSArDQAv/qO1Z+i8Q7mQtWEY/pr5cOobHaUN1MXnk8TgxvPgvoUpBwuse3PDjisvg/qmjbiahW4VZvju6N7mLNLLjZaiHQxXdmRfVohmX1tbzm47KaAraxiCY+xwWfIEd9t9aEZKeimnXKPXip7zh97pjdZ+5cWW8Vyn+KH45mFTAKFY/WCkQ2k15KruJzwGAShjsmDZcL6bJhQ8MJberXyfxRXVSH+fXZ7qdzkKS1M7dJX7DHxhxyuHeg==
-X-Forefront-Antispam-Report:
-	CIP:8.62.32.50;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ejcrelay004p.adwin.renesas.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(23010399003)(22082099003)(18002099003)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	rE/y+Zo1EDKCbsDlcvOfGi5Hy+NlnJojeebOkUhq/BUutGyiaIL4WRJJvXoykBkEpHEsFarpc3eJMhJXMVGXNDDyd8aWDg40/LozZTcYaNrSw1KCe5xUZFOn/r2kxw8txioUrVi57M6wYSLSM9jPYxf6PwQZn+HHAC3TRTcojtzvWmbQMLFsA/3zIdZ4sWV/XVGfoHXY6zEDvpToQQ6/0XMwihfuZurK2OsAaX9WoOeE8KlpG5Ay+QraTA0UhYBxwWnL1vDNXKOiiEBYdCQ+QtI5e/ruKHWhiCOLqZtUho1AkxjklVy/cTXDlkP8JNd4g/4L+eu2SK6SaMKiBC9a1TioMoBjoxnW3qk1tuDQgSFm8BjN3QqzRN1YS0pV4CRBCtulRhVHeZ2pgDSWydp8CFwBPv+myJqGXECRsP+pePImNZ2G3gJGnB2gNDqRAl4B
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2026 17:48:53.3588
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dda778f7-c81d-424d-9b7c-08df223fc17a
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=53d82571-da19-47e4-9cb4-625a166a4a2a;Ip=[8.62.32.50];Helo=[ejcrelay004p.adwin.renesas.com]
-X-MS-Exchange-CrossTenant-AuthSource: OS3PEPF0000003B.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB11803
+References: <20260929082014.160587-1-hao.ge@linux.dev> <20260929082014.160587-4-hao.ge@linux.dev>
+In-Reply-To: <20260929082014.160587-4-hao.ge@linux.dev>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Sun, 4 Oct 2026 19:55:12 +0200
+X-Gm-Features: AclHuK9GuJ1R4AG2eys0TOfTlndz5Q1KT7n5Xy5IteGOVBALshKC8Ehhj3tDVOw
+Message-ID: <CAJuCfpHXT41Y3N70xOF3MXtZm118-mR2DuXP=vt1M+TuMG2Uqw@mail.gmail.com>
+Subject: Re: [PATCH v11 3/7] alloc_tag: clean up the populate failure path
+To: Hao Ge <hao.ge@linux.dev>
+Cc: "=Kent Overstreet" <kent.overstreet@linux.dev>, Luis Chamberlain <mcgrof@kernel.org>, 
+	Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
+	Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Alexander Potapenko <glider@google.com>, 
+	Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
+	Vlastimil Babka <vbabka@kernel.org>, Michal Hocko <mhocko@suse.com>, 
+	Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
+	Uladzislau Rezki <urezki@gmail.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-modules@vger.kernel.org, kasan-dev@googlegroups.com, 
+	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-If rz_mtu3_initialize_counter() fails, the runtime PM usage count is not
-decremented.
+On Tue, Sep 29, 2026 at 10:20=E2=80=AFAM Hao Ge <hao.ge@linux.dev> wrote:
+>
+> The reservation is already stored in the maple tree when
+> vm_module_tags_populate() fails. A failed load never unloads the
+> module, so nothing releases the entry. Release it and roll
+> module_tags.size back. Without the rollback a concurrent load that
+> already passed needs_section_mem() can reuse the freed gap, skip
+> vm_module_tags_populate() and write to unmapped memory.
+>
+> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compress=
+ion")
+> Fixes: 0f9b685626da ("alloc_tag: populate memory for module tags as neede=
+d")
 
-rz_mtu3_initialize_counter() will fail if the requested channel is busy.
+I think 0f9b685626da is the only one being fixed here. 4835f747d3ed
+contains the issue simply because 0f9b685626da already had it.
 
-Call pm_runtime_put() in the error path to decrement the usage count,
-and flip the check to keep the success path straightforward.
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hao Ge <hao.ge@linux.dev>
 
-Cc: stable@vger.kernel.org
-Fixes: 0be8907359df ("counter: Add Renesas RZ/G2L MTU3a counter driver")
-Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
----
+Acked-by: Suren Baghdasaryan <surenb@google.com>
 
-V2:
- * no changes
-
- drivers/counter/rz-mtu3-cnt.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/counter/rz-mtu3-cnt.c b/drivers/counter/rz-mtu3-cnt.c
-index 7bfb6979193c..48f183f0b54f 100644
---- a/drivers/counter/rz-mtu3-cnt.c
-+++ b/drivers/counter/rz-mtu3-cnt.c
-@@ -506,8 +506,12 @@ static int rz_mtu3_count_enable_write(struct counter_device *counter,
- 	if (enable) {
- 		pm_runtime_get_sync(counter->parent);
- 		ret = rz_mtu3_initialize_counter(counter, count->id);
--		if (ret == 0)
--			priv->count_is_enabled[count->id] = true;
-+		if (ret) {
-+			pm_runtime_put(counter->parent);
-+			goto exit;
-+		}
-+
-+		priv->count_is_enabled[count->id] = true;
- 	} else {
- 		rz_mtu3_terminate_counter(counter, count->id);
- 		priv->count_is_enabled[count->id] = false;
--- 
-2.55.0
+> ---
+>  mm/alloc_tag.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
+> index 2070e682fe10..3e6306ee0764 100644
+> --- a/mm/alloc_tag.c
+> +++ b/mm/alloc_tag.c
+> @@ -947,6 +947,7 @@ static void *reserve_module_tags(struct module *mod, =
+unsigned long size,
+>                 return ret;
+>
+>         if (module_tags.size < offset + size) {
+> +               unsigned long prev_size =3D module_tags.size;
+>                 int grow_res;
+>
+>                 module_tags.size =3D offset + size;
+> @@ -961,6 +962,8 @@ static void *reserve_module_tags(struct module *mod, =
+unsigned long size,
+>                         shutdown_mem_profiling(true);
+>                         pr_err("Failed to allocate memory for allocation =
+tags in the module %s. Memory allocation profiling is disabled!\n",
+>                                mod->name);
+> +                       release_module_tags(mod, false);
+> +                       module_tags.size =3D prev_size;
+>                         return ERR_PTR(grow_res);
+>                 }
+>         }
+> --
+> 2.25.1
+>
