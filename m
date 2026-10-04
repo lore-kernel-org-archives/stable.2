@@ -1,181 +1,148 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69DBE41441B
-	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 10:07:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 775CF134CCF;
+	Sun,  4 Oct 2026 10:14:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791108483; cv=none; b=H+zaYx4G3z9zD9tvJVdAOuDkLj6G8ctzTQJVQCvUrWdg1BwM+5otrt5NTwjZ8Avu/htXU34ElpwetX4fNxos/PH58HVfF6n+fvZQEQMaNOrnDXin4xdst1nSE+FtLuBTxuLMAJQEZBN9k+lqWEgAYNLi7W9ZEiiiuMxEBd+erVY=
+	t=1791108880; cv=none; b=gdfA/PJexPMahGmbezWp7CB2yomdThguvFX+Yb+cBpNQHUm8kKHRm/wkYk0yv1oDTNFZ1gdr7QhRKSq5Zi+88eKCVPd66eLMAiqdU1liIJMwwjzYeuMowvlhVGIS/9lJ6Rzg9bjzSq4DY0xmlm3vhQaTB+XNMYPBaojTDeFHApQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791108483; c=relaxed/simple;
-	bh=cmwdYXaQEPpllQNN37SxJSYqTwAgWmylyfZBms9d8po=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Fi7mtSLGYQGhEKYnS/yDL4xB0rlTHPw8jHLMtGPOJPUzNOJFNsjH8qBuFf/vD1UUTPaliYfXZzhWxL2KI3CW9bHzJDuZiIL3HtIopR0ekwAXKWy1XMfORLyMt3ndaoJVkS7bqECWyxE2vgKyume0t32rLqi5vbd9fOu2qLwO/fE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eFKenC9F; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791108880; c=relaxed/simple;
+	bh=aQBpPbkz7ZDBMOBOV8wDOvq9JzIBpm/LNzyMWA0JHKk=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=iwjuaJxbtbBiHrdqHTp4Izii0+UosPtZ1hEbGR60MoZEhQQQv4FZYpW69pq97hJnupn9jaCV7OftgSEr/+a1wbDUKf3nxACRNd8o0D+Xzeht1TA5NbtKc0Lp9qDxvMcbOLSYiIwQFukmfkVrb/p9v/jY/IEBLXvbCZrLkSxmp6g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B1FqCqr7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eFKenC9F"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48c4649b35bso853127f8f.3
-        for <stable@vger.kernel.org>; Sun, 04 Oct 2026 03:07:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791108478; x=1791713278; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mVoy+1DKk/EAuFh26qVXsO+Sc45U9WmkeSYeupZYfeU=;
-        b=eFKenC9FL+FVOiRGp8J5TRFlYZ/KeTzUD/tUTUFIAQjcFoER7BkqWRB0JEsAkaooog
-         ysULlsdazp9XSwu61W1oA3pDntH0dOk8MNJpYbFcUPRk0DH8ukguBq7Laj0/OGz5513a
-         eHAznODivoDlJXiWmQ4z9HHo4TWjiKriLHRMpPyt+9TvyuVzqAy90EA/NV4bXRJNlZ2n
-         mpznIjrs7UcEBVCx7fEO1OkCMR6jS5MCZCt4DX9+8rCblXodIebz3YdioAnmRpj/B+gI
-         bjGv1NLQznyi1DVUBqKFk0UGjMwINJ+4BNVP7O5B5EN8sMRnY7lXxkDICJQ/IwRSWkgF
-         hYAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791108478; x=1791713278;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mVoy+1DKk/EAuFh26qVXsO+Sc45U9WmkeSYeupZYfeU=;
-        b=RTN8WphInRBUc2gqQvxj+erAkZKxdJRLauZtbk7EiR//kxYvj/91dI1WCBHUlLq3BK
-         1AybdCpc+fvSkyyyC1XWhdaTN/CgA2VERO8iPsjT6gEEsrKgfQff9Xng6fwvpBS2aTKy
-         fmiLiCTTU9bM0iy50ao/jcDjWokA0ExD1Lj6pOjVFn5Swa4o8PGTzmQYyNrVMB5d73AO
-         T4CHTT0gnyror+3NT1heO7V4eFVX5WcdsD5uLfiG3uujj+eJZY2lr8oIWaosgZ/oVZGH
-         l0Yh3vhc5u3bzfX4nv3JTLQjcrGe9fO5tgbiPnu2UpT4KoztJkjcP/SWvl5isJhjWszU
-         F6Uw==
-X-Forwarded-Encrypted: i=1; AKwUvBxEsIX5wLsvNJZCrVwMoBHGCzRSwNl2FLYaC0T4JAtLYCH7PnYt/qMrbkl321Dqj5ejuV5qev4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJtN0rrikgUQXz8IR99HcK8hgywspjXlbYHiZkmBoxOkg6mZxwu
-	6gcMlY7buC781j3xNwDIqnGGRI0vx85z2+XcF74xr7z6WV/rUgjdRE4p
-X-Gm-Gg: AYBFou20wMJ8U6T1emaz4StfWNvmR4N6MYsWs2o+iKRaGQ2CvMy4t8cKvUfs3qd/zH/
-	y3WNcxBjJotUpjwKT/C5s+k116AeTE4QWG9T1+XRIwhqWrrdhK0TJ1oNIjLwa9EiHuVwEgguHyf
-	7Km1BlCD+GsaewxyzSm+4cpd/Vb3WzF8YRaiNcDbSW1ZdjnY26zNsXm/eKCBQItyNqWMAf14xJq
-	SqYCL4WhM/GRbEIsodlaHuMjWzWIlxBzJc9R0zKJNhsvKC7U1iC6dqdDq52cDDPVCsb+6rkQK7v
-	U5utWr0xu8K3+EbRC/lPKE6oB5xqTdp6zZT+24NSQUvXBtIgnn7ex3Qsj884w0KBY+ofjxFAxa0
-	CPVV0RN0Ys7zFv7/165YiRk4fMpyoHLRuL+1frohNilb69PS3z6hHYO9fUnALxUfzZwGllNa1g7
-	U6/S2GUdNE2/oNuClI5xsbbIKW0RM4kgEp5XGd1r33P5lJ4yuQSWbMKp7KIBS/cELvY5RUKF13N
-	fqqJzXOGAjQxWIFahweSaemUrUVJq/Jx6JR7TuXZfE3zuAwC0MxQFf1T7H9d7iOXq6Y/Si8tAzK
-	mCkETspVtu4/GR33qf8Un5zmUwS2hNhq0g10+EN5ZVZ/wg5vrhfx33eAgMr/W8X+QH5vjWhmrUS
-	jiZCfXqNJS9UkjHsUuL3W
-X-Received: by 2002:a05:6000:2211:b0:488:57ad:d5c8 with SMTP id ffacd0b85a97d-48c47c8dc09mr7131551f8f.3.1791108477594;
-        Sun, 04 Oct 2026 03:07:57 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a00-1028-c000-0ddf-b17d-de75-1ac4-0a1a.ipv6.o2.cz. [2a00:1028:c000:ddf:b17d:de75:1ac4:a1a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b38104602sm18136032f8f.26.2026.10.04.03.07.56
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 04 Oct 2026 03:07:57 -0700 (PDT)
-From: Josef Schlehofer <pepe.schlehofer@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hyunwoo Kim <imv4bel@gmail.com>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 6/6] media: dvb-core: wake up CA users on release
-Date: Sun,  4 Oct 2026 12:07:41 +0200
-Message-ID: <20261004100741.71711-7-pepe.schlehofer@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261004100741.71711-1-pepe.schlehofer@gmail.com>
-References: <20261004100741.71711-1-pepe.schlehofer@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B1FqCqr7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55FFF1F000FF;
+	Sun,  4 Oct 2026 10:14:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791108879;
+	bh=4r5/C4JCJZeEUGXdTQ3rAADP0uRBtsY2xFNcp4jidH0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=B1FqCqr7nq9qX1hvafa0Lbd8V5iO0ku/V2kP3bolCqyZq+I7TwiCY0mTNr9X10pEN
+	 McE0C235vtElkMMT9lhx06zpNaUxQ87p6em/bx937n9/L1CxTQ3LtblPyeY/0MYKxo
+	 SwzESCLeTPhse3gAsCQgQf/TIjmyY6lu4fhejkrODtoviIDkScrRSUahjhpsObtLyO
+	 ReNqSsFxrS/FhjmmRRiQ7x68q9iDQ9vt0vJoo4BryfVf25u1icLmq7L2TIKuF3uRNi
+	 Bxnr97zdwov9KC/EPFMVKfclieVusXY5zb+cZSYIflGzf7slx8CU0hqcY6cSEELdp6
+	 J1NgO9hq5bxLA==
+Subject: Re: [PATCH] bnxt: prevent timer rearming during teardown
+From: netdev-bot+sashiko@kernel.org
+To: runyu.xiao@seu.edu.cn
+Cc: michael.chan@broadcom.com, pavan.chebbi@broadcom.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, huangjw@broadcom.com,
+ eddie.wai@broadcom.com, prashant@broadcom.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, jianhao.xu@seu.edu.cn
+Date: Sun, 04 Oct 2026 10:14:37 +0000
+Message-ID: <179110887788.434549.16288034417298811962@kernel.org>
+In-Reply-To: <20260930092806.2977763-1-runyu.xiao@seu.edu.cn>
+References: <20260930092806.2977763-1-runyu.xiao@seu.edu.cn>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-dvb_ca_en50221_release() sets ca->exit and waits for open users to close
-the CA device, but read, write, poll and ioctl can continue and blocked
-readers and pollers are not woken.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Return -ENODEV from CA read, write and ioctl operations and EPOLLERR
-from poll after ca->exit is set, and wake the corresponding wait queues.
-Keep the release wait so the existing lifetime protection remains in
-place.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-tvheadend keeps the CA device open and waits for it with epoll, so it
-needs to observe the disconnect before it can close the device.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Fixes: 280a8ab81733 ("media: dvb-core: Fix use-after-free due to race condition at dvb_ca_en50221")
-Cc: stable@vger.kernel.org
-Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
----
-The unlocked users check in dvb_ca_en50221_release() still races with
-a concurrent close(), and waking the users makes that race easier to
-hit.
+- [Medium] The commit message describes a bug that does not exist, and
+  the change does not work the way the message says.
 
- drivers/media/dvb-core/dvb_ca_en50221.c | 24 +++++++++++++++++++++++-
- 1 file changed, 23 insertions(+), 1 deletion(-)
+--
 
-diff --git a/drivers/media/dvb-core/dvb_ca_en50221.c b/drivers/media/dvb-core/dvb_ca_en50221.c
-index 1b91ebb8f667..d478f995d5a9 100644
---- a/drivers/media/dvb-core/dvb_ca_en50221.c
-+++ b/drivers/media/dvb-core/dvb_ca_en50221.c
-@@ -1353,6 +1353,9 @@ static int dvb_ca_en50221_io_do_ioctl(struct file *file,
- 
- 	dprintk("%s\n", __func__);
- 
-+	if (ca->exit)
-+		return -ENODEV;
-+
- 	if (mutex_lock_interruptible(&ca->ioctl_mutex))
- 		return -ERESTARTSYS;
- 
-@@ -1460,6 +1463,9 @@ static ssize_t dvb_ca_en50221_io_write(struct file *file,
- 
- 	dprintk("%s\n", __func__);
- 
-+	if (ca->exit)
-+		return -ENODEV;
-+
- 	/*
- 	 * Incoming packet has a 2 byte header.
- 	 * hdr[0] = slot_id, hdr[1] = connection_id
-@@ -1618,6 +1624,9 @@ static ssize_t dvb_ca_en50221_io_read(struct file *file, char __user *buf,
- 
- 	dprintk("%s\n", __func__);
- 
-+	if (ca->exit)
-+		return -ENODEV;
-+
- 	/*
- 	 * Outgoing packet has a 2 byte header.
- 	 * hdr[0] = slot_id, hdr[1] = connection_id
-@@ -1635,8 +1644,11 @@ static ssize_t dvb_ca_en50221_io_read(struct file *file, char __user *buf,
- 		/* wait for some data */
- 		status = wait_event_interruptible(ca->wait_queue,
- 						  dvb_ca_en50221_io_read_condition
--						  (ca, &result, &slot));
-+						  (ca, &result, &slot) ||
-+						  ca->exit);
- 	}
-+	if (ca->exit)
-+		return -ENODEV;
- 	if ((status < 0) || (result < 0)) {
- 		if (result)
- 			return result;
-@@ -1819,6 +1831,9 @@ static __poll_t dvb_ca_en50221_io_poll(struct file *file, poll_table *wait)
- 
- 	poll_wait(file, &ca->wait_queue, wait);
- 
-+	if (ca->exit)
-+		return EPOLLERR;
-+
- 	if (dvb_ca_en50221_io_read_condition(ca, &result, &slot) == 1)
- 		mask |= EPOLLIN;
- 
-@@ -1965,6 +1980,13 @@ void dvb_ca_en50221_release(struct dvb_ca_en50221 *pubca)
- 	ca->exit = 1;
- 	mutex_unlock(&ca->remove_mutex);
- 
-+	/*
-+	 * Wake up everyone blocked in read() or poll() on the CA device, so
-+	 * that they see the error and close it. The wait below cannot finish
-+	 * before the last user has closed the device.
-+	 */
-+	wake_up_interruptible_all(&ca->wait_queue);
-+
- 	if (ca->dvbdev->users < 1)
- 		wait_event(ca->dvbdev->wait_queue,
- 				ca->dvbdev->users == 1);
+bnxt: prevent timer rearming during teardown
+
+This patch adds a BNXT_STATE_OPEN check before the final mod_timer() in
+bnxt_timer(). The goal is to stop a callback that is already running from
+rearming the timer once __bnxt_close_nic() has cleared the flag. It is
+tagged Fixes: c0c050c58d84 and Cc: stable.
+
+> diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+> index d7728d0c5b6e6..c506b6160902f 100644
+> --- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+> +++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+> @@ -14521,7 +14521,8 @@ static void bnxt_timer(struct timer_list *t)
+>  		bnxt_queue_sp_work(bp, BNXT_RING_COAL_NOW_SP_EVENT);
+>  
+>  bnxt_restart_timer:
+> -	mod_timer(&bp->timer, jiffies + bp->current_interval);
+> +	if (test_bit(BNXT_STATE_OPEN, &bp->state))
+> +		mod_timer(&bp->timer, jiffies + bp->current_interval);
+
+[Severity: Medium]
+Is there actually a teardown race here? The commit message says:
+
+  If teardown clears BNXT_STATE_OPEN while the callback is running, the
+  callback can rearm the timer after __bnxt_close_nic() has started
+  deleting it.
+
+In __bnxt_close_nic(), the teardown sequence is:
+
+drivers/net/ethernet/broadcom/bnxt/bnxt.c:__bnxt_close_nic() {
+    ...
+	clear_bit(BNXT_STATE_OPEN, &bp->state);
+	smp_mb__after_atomic();
+    ...
+	timer_delete_sync(&bp->timer);
+    ...
+}
+
+timer_delete_sync() already handles a callback that rearms itself. While
+the callback is running, __timer_delete_sync() keeps retrying:
+
+kernel/time/timer.c:__timer_delete_sync() {
+    ...
+	do {
+		ret = __try_to_del_timer_sync(timer, shutdown);
+
+		if (unlikely(ret < 0)) {
+			del_timer_wait_running(timer);
+			cpu_relax();
+		}
+	} while (ret < 0);
+    ...
+}
+
+After the callback returns, __try_to_del_timer_sync() sees that
+base->running_timer != timer and calls detach_if_pending(). That removes
+any timer the callback rearmed. The kerneldoc for timer_delete_sync()
+says:
+
+  Upon exit the timer is not queued and the handler is not running on any
+  CPU.
+
+The rearmed timer could also fire before it is detached. In that case the
+entry check in bnxt_timer() returns without rearming, because
+BNXT_STATE_OPEN is already clear. The only other place that arms the
+timer is __bnxt_open_nic(), and it does so after
+set_bit(BNXT_STATE_OPEN).
+
+So before this patch, the worst case looks like one extra mod_timer()
+that timer_delete_sync() then detaches.
+
+The commit message also says the new check "prevents a callback already
+in progress from starting another timer period". But test_bit() and
+mod_timer() are two separate steps with no lock around them. A
+clear_bit() on another CPU can land between them, and the callback can
+still rearm. The guarantee still comes from timer_delete_sync().
+
+Would it be better to treat this as a cleanup? That would mean dropping
+the Fixes: and Cc: stable tags and rewording the commit message so it
+doesn't describe a teardown race fix.
+
 -- 
-2.54.0 (Apple Git-157)
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260930092806.2977763-1-runyu.xiao%40seu.edu.cn
