@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98CF93F6C55
-	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 08:24:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B9383F6C55
+	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 08:24:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791102247; cv=none; b=WmwyhB2NTEJxJI/+px757cvXRd5KnwRWonSxMQVxQi8Jos+h/of6Z1lxFXiIMrFemzvgO/0xS0fGIwTULnmJW6e+fJMi8aWm1XiwPe6ZGXurhQsDoFTilJZBbxgNP7lx2gKSH4o0PfBWKfStWT20XHWu36aC49JJdcWCI+A2sSM=
+	t=1791102249; cv=none; b=iQrnBtu+06MPp/ERz50+Oewn7CsRHOMsPQL081SwNg9gDZ+DHJgGP2WgENcLlp8LEXDYBL3w0TWyS29pO6PHlgN4cjfokWhE2au0kEAFkFBWPEy9temMn24g7VSSXN0bzDiz+y5EiwfK3UDYLDzcUNzQXYmSgoX7GORaBdzKiPU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791102247; c=relaxed/simple;
-	bh=IlOaNbd/hg0nSvptWArewV3FCVWLiII0tR9BwTTqKG8=;
+	s=arc-20240116; t=1791102249; c=relaxed/simple;
+	bh=Fc/XnuzrcLX+cgi2C/YLyaeFpy64Eac6R2G8B8PNwFk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=H7zvsp+NrXW4OuAVE11ZnIaLpOoXJzQlcHfgtRcyMTwbVlPPaBb8fWUaJA5D00YFGd4OlENWFjYnBLpJybXvOnUSiPKdxgwa1zmqsGGXVgw6DBy+KDIiQKJJzEtLq1f6JWAqj0gDO6JQKzBEBPYYC2zduesDyj786VqisIORKro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f06+ebrq; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=A4ZNChtcpu6aUCIokVMdn61IXljFTtQ3K94kl/uVjVV0F9u14QptVU/882R523YZeJd/WZ1o8TCd/HcwmzWRSK73aeRCkT+TIopG99noaB8ZmoCvLEOaY/MWEehVe52UJ337e5ohiB75DOVbWfnn2boJlUGcrv37WaRxEWjaHl0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QKQLCbAN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f06+ebrq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D5CE1F000FF;
-	Sun,  4 Oct 2026 08:24:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QKQLCbAN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FEF01F00893;
+	Sun,  4 Oct 2026 08:24:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791102246;
-	bh=FeI5dtb0m8VzPiHbPCUWWWt59oUG3J5TFdFRdYHfxIg=;
+	s=k20260515; t=1791102248;
+	bh=EY/W5+gGJdKVj4eQhGYUdOHYPfAC4Uw6EZDNsoobWEY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=f06+ebrqbHnUECYGXnEwsdOFt31wUjHcnkDU3Ci9u8JB2lg3Hmhg3+sDapFDP8esH
-	 tWq7xqoOY8EsWwVn1zBt0IMQL6yYlsY53e+8/60QVQe8E7yxDDb97PjWcmOerA3iXq
-	 0X6GJsZt8E3nPo8Rc7rZtVmtOECVMhTXYahVVAORfr6eDr/LdUvF9/AS9sQAN4fMjP
-	 D6yd5yKG0sCRs/46sg1KA1+EiCtH05CczJ0OTrBTvW7gwCIZkJjaEjH0dT6Dv98qoJ
-	 8z70vs/bg+46B3wWYE82wrhMJYsjbviPHRJDjEjENiSp0KZg4LB2vXlqpxTOmg1dDF
-	 ATD3EKlMJQIIg==
+	b=QKQLCbAN5me4mIJBQPBpOdBE5GvYQHrKYtLBmS1FBVefVmpMBwF+aEX+hOOha5hON
+	 YzyJURhu+sc/QdU1Srw+vqvoB2wUCD36hM0JFoC2578H4Q+7ePq6EHo/sYtsDX00lr
+	 aFiwGqLnKf2v+PrvXYqOoG54nhZ4KFHHVsFfFvkbCbPegO/2C6t9Jgez7DqTy1Ev+8
+	 9cgtMj00YREebjadC1UEfHb3yzaoQBMryW+gUBSmHwJRK9lZ/SL7nDSRXoz9dMQhBF
+	 wvqDKUbfYCPEpVCW6vF1XZ+hsLDM67b4yAG5Lb3m3LfMiFx6oyPT2vYCpkgjUPmTUX
+	 YJT4liSYJCJvA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: Jiangshan Yi <yijiangshan@kylinos.cn>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] net: phy: aquantia: fix system interface type not updated in forced mode
-Date: Sun,  4 Oct 2026 04:24:02 -0400
-Message-ID: <20261004082324.1385326-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] tpm: fix off-by-four bounds check in tpm2_get_random()
+Date: Sun,  4 Oct 2026 04:24:04 -0400
+Message-ID: <20261004082322.1389916-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100347-subside-retiree-87ef@gregkh>
-References: <2026100347-subside-retiree-87ef@gregkh>
+In-Reply-To: <2026100308-drew-squeamish-a28c@gregkh>
+References: <2026100308-drew-squeamish-a28c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,61 +46,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+From: Jiangshan Yi <yijiangshan@kylinos.cn>
 
-[ Upstream commit 6e0022b5ae3dc5b833af0fcc1578dc20a1d6bc71 ]
+[ Upstream commit 9b522400bf5c082feb9a0037a053ea822a2c7e4d ]
 
-aqr_gen1_read_status() decodes the MDIO_PHYXS_VEND_IF_STATUS register
-to determine which SerDes interface the PHY is currently using on its
-system side and stores the result in phydev->interface. phylink relies
-on this value to configure the MAC.
+When the response carries the TPM2_ST_SESSIONS tag, tpm2_get_random()
+skips the 4-byte parameter size field before locating the random data,
+but the bounds check still validates the response length against
+TPM_HEADER_SIZE.  A truncated response can pass the check and make
+memcpy() read up to 4 bytes past the response end, so stale buffer
+contents end up in the caller's random bytes.
 
-The autoneg == AUTONEG_DISABLE check is not correct:
-MDIO_PHYXS_VEND_IF_STATUS is set by the PHY firmware based on the
-negotiated link speed, not based on whether autoneg was used to reach
-it. When the link comes up at 1G in forced mode, the register correctly
-reads SGMII, but the early return prevents phydev->interface from being
-updated. It stays at whatever value it held before (typically 2500BASE-X
-from the initial autoneg run), so phylink configures the MAC for the
-wrong interface and the link cannot come up.
+Fix this by checking the response length against 'offset', which
+already includes the skipped parameter size field.
 
-Remove the autoneg guard so that the system interface type is always
-decoded when the link is up.
-
-Cc: stable@vger.kernel.org
-Fixes: 110a2432c520 ("net: phy: aquantia: add downshift support")
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260923-qcom-sa8255p-emac-v15-1-e82f33720737@oss.qualcomm.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ sashal: adapted aqr_gen1_read_status() changes to the existing aqr107_read_status() implementation. ]
+Cc: stable@vger.kernel.org #  v6.12+
+Fixes: 1b6d7f9eb150 ("tpm: add session encryption protection to tpm2_get_random()")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260902074839.417419-1-yijiangshan%40kylinos.cn
+Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+Link: https://lore.kernel.org/r/20260903035837.219284-1-yijiangshan@kylinos.cn
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+[ sashal: adapted buf pointer access to a local structure variable ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/phy/aquantia_main.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/char/tpm/tpm2-cmd.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/phy/aquantia_main.c b/drivers/net/phy/aquantia_main.c
-index 2f2765d7f84c8..00495c87b778b 100644
---- a/drivers/net/phy/aquantia_main.c
-+++ b/drivers/net/phy/aquantia_main.c
-@@ -389,7 +389,7 @@ static int aqr107_read_status(struct phy_device *phydev)
- 	if (ret)
- 		return ret;
- 
--	if (!phydev->link || phydev->autoneg == AUTONEG_DISABLE)
-+	if (!phydev->link)
- 		return 0;
- 
- 	val = phy_read_mmd(phydev, MDIO_MMD_PHYXS, MDIO_PHYXS_VEND_IF_STATUS);
-@@ -417,6 +417,9 @@ static int aqr107_read_status(struct phy_device *phydev)
- 		break;
- 	}
- 
-+	if (phydev->autoneg == AUTONEG_DISABLE)
-+		return 0;
-+
- 	/* Read possibly downshifted rate from vendor register */
- 	return aqr107_read_rate(phydev);
- }
+diff --git a/drivers/char/tpm/tpm2-cmd.c b/drivers/char/tpm/tpm2-cmd.c
+index c710128f49b11..63d26aebf55db 100644
+--- a/drivers/char/tpm/tpm2-cmd.c
++++ b/drivers/char/tpm/tpm2-cmd.c
+@@ -361,7 +361,7 @@ int tpm2_get_random(struct tpm_chip *chip, u8 *dest, size_t max)
+ 		out = (struct tpm2_get_random_out *)&buf.data[offset];
+ 		recd = min_t(u32, be16_to_cpu(out->size), num_bytes);
+ 		if (tpm_buf_length(&buf) <
+-		    TPM_HEADER_SIZE +
++		    offset +
+ 		    offsetof(struct tpm2_get_random_out, buffer) +
+ 		    recd) {
+ 			err = -EFAULT;
 -- 
 2.53.0
 
