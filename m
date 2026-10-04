@@ -1,78 +1,73 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30C0738655C
-	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 14:39:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2726E394499
+	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 14:45:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791124756; cv=none; b=BpMWsbgaGK4jYEjCy3dGIWiD+XqjtZyotOL9YC+fKwIwvBuzzbnYNivIWT1m2vtbCbh1JHzTyx3yLDyoEDdn/oJnh5Gw09TDgDKvOB5R0kD1VhZuMKyowQHEoJc+l/EWVmfRaUAhn0OVYVwf6c0vFz3EsJ6a7gppq2nZGnSt7wo=
+	t=1791125141; cv=none; b=Lq2zpeYpvhMMIUj/gcCX4dCDoH+KJ5gc/tOEjnHk7as3uUXdEf1tF88z9mkUDLXhC8RkDBFTlNFAx2gUFOs0D5Xx6oidPw/wOj/HJO0S8k5eMMD2TSlt1ZSy0lVO5ZbubCUvAo7B5G4afTqb7Jswrbb1utJN5SL1MKYOtvk97pI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791124756; c=relaxed/simple;
-	bh=3f58ui2UaAqFqyMV2EtClVFH3yRcP7QyTZuYCQDYmHg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TNT+GzOrvYH8dpX+Mfygymlt8f2/DVlRh278eIyajIItQujYC9q8bt4LVyZkwUrVM8tp6fspVxjaSMCOw+sZS07v9gHD7WcOY1+gs5vZw0NCeLeXpfOZK2SHmNDTAhp06ZKxk0m0uShx4GUE864L2E/RaEjuOxLdL4OIVBcsthY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hgncOthD; arc=none smtp.client-ip=209.85.215.173
+	s=arc-20240116; t=1791125141; c=relaxed/simple;
+	bh=nknuNnEAxHvHKNnkMy5LoBq1XFHvy4iJ7nU+10qXxzM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DahUeBZi4rJ2uHXSqLsmceVYO8h2x/iM4zHPePvw21ug2r4oLryY/Qw1SJE6lodeVSvzbo2y2IXJpATYF4zr7Deeg6kXgUU8E5owf4fMFD6T74522/1iizM/pygQSBnaAwLWW5fmrWvttTVZfNozzwEmGKK2VayH1Gbn91zOUZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eEr9dGxp; arc=none smtp.client-ip=209.85.221.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hgncOthD"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-ccce967aa8dso76016a12.1
-        for <stable@vger.kernel.org>; Sun, 04 Oct 2026 07:39:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eEr9dGxp"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48c4649b35bso980061f8f.3
+        for <stable@vger.kernel.org>; Sun, 04 Oct 2026 07:45:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791124754; x=1791729554; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=35o3ClarjDsqmKRMmMbK/8uDTJyS4jnUyX4ib9jP+ms=;
-        b=hgncOthDbuu/BNRMGtr5ARMJEJhMoEpNTtVHjYNkjpFEgGyPQbdUAeqvpSCR1lkZMl
-         KqmEvy0gb7ZIFMfFR0G8dyP/1WSfSlq1ylFHoLS9zCJta+S92Z8Y2oV69eB/RVggzXSd
-         gzvFDFpgRRA6IcRlmVqnfCnifSraSS+y4lm2eWi98x1G2MTmIx/+pILO0HtnZc3r0Ns5
-         3UDZ082guzwNlcDaxlwWGCpYBDct50pepVdpDzzohi8WnwRsajr4BZin5lXdBdNREF24
-         RPRdX71zZC3tWAXN/GnBl42mSw4oYLdEw8LB9/kOXZ1lvCGm1Rc8pXnS7jOSH2tPPnNx
-         aK3w==
+        d=gmail.com; s=20251104; t=1791125137; x=1791729937; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LpdK/spNmgN6+9nx+ZFn2n/Lj/yxaVrVG3OMjpGohSg=;
+        b=eEr9dGxpATN7UfiYX8iTGjeTwyKd7ljvYbyB3EOQ5LNEB+9f3OXSJ22sSOXFkHCjq0
+         EY6uju5gqSG/bar4wUAPBbVxigjoy4/8ZxhpkMsmOj9723r3q8igMYPcnZsgsG6GwMkr
+         d9cNSObLTzs8/ZZcnZQuUvLqx4frtPXi5MfdbjGBKmB9TyfjR6p+IF+8kLAc/Xju0qT8
+         k+A0eNATozyfA4JX+H0bHt/SJ1pENtkgaVMXdwk4nzL57buZvkq6JyaOqcBEjPvAo0uQ
+         GJ4bn8dWwo4sGEka/pnOZE0ZMlEowZA2H8UT8/FaAPg/vqmLV7qgnlLQVhTDs4mzoU1o
+         Tp2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791124754; x=1791729554;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=35o3ClarjDsqmKRMmMbK/8uDTJyS4jnUyX4ib9jP+ms=;
-        b=gDeCagp918BDBMQZYJP72eiH2FfDyUBj6GYZ/vywr5wuKIHMMAYoOVm93TeLDlKxMZ
-         ph7TGQTM2rWZeiABQVrpHkmh6jcaSFctkie93SLzjciFGl9wwRb3RwPWceOgRQi3gvxE
-         JsTKonHmVzrTLUU4vS+0Owr/B5yyL4khoKuKlrBu1bj8Nnw+3vg4q1PuCA6z/SPjLvFV
-         A7lm3SKRzs4awM6btTrnEoVWZRqa/Hugxpq2VVhUxMpkKlJysVLKmqbBlTLdUAjPy+bX
-         ArHXToZ1Y/ZCiuZ+SyCkp4n1g1/jpd4kF0u9ghE2r5YZaUJyz8V/z3IXj4U+29C8a+Tj
-         W8Ag==
-X-Forwarded-Encrypted: i=1; AKwUvBzWqo6K+nv8vGN7BU/CKzqpZiXeUuokoS6Ecx+Tx3tIjdtkWat8FU8kzugZ9ci05DUq3En58ng=@vger.kernel.org
-X-Gm-Message-State: AFuF++kVDy9h3aX6c3AX0G7zNWbuW/+HfaJyXclY0aTc6QpvQqwVTSOk
-	w9e+86PC60dkOuMK+5nDz+72A1wVAiRv6HoHf2fNhHTSn3+jdEW0Vc9bP7hVtL84
-X-Gm-Gg: AYBFou3MxJgyy0hGJ1uKdMvbcVamy0EBEKRKnEvRoAbU3rWv3upay+6UqCPDM9GgMBB
-	LfSst5NPBG7ZsYx4Dr2uDhnGvQ1IifFj728HbO1JVPv1K72eF3xZBD/UKONzhPAhLpsvaGFaRLc
-	yOiRACyimkiBGybzXoWAiddoZpqLJjm25hyrW0RVql7yV9AnZ5w02KM3YZKrB+H46t7ev9VnVMN
-	S3zzhNp/Ghg0lOfmTvtPJUvNezpZ5OPtbFeZ2Ar6VMDpWpfa7xezrDpUN94jQmrH1IN9tAV+/TW
-	Wr/jPIYFhf0YytOohZz9H7wL8cNUZSKODCVALkuZKAOjnpRqsYiIQyXj9JNnyuRefYKAJ2aLCQa
-	vZWYIJnpz2z9WHpIr8+yiwT20LhbEMqZPXjfXE8sHOMnRwbgptWimNXiefTt5ls5iDd7lwPYson
-	AejXEPHVpgfbGz0ikrPVKafXbpbCBCEs/d6xVjtXKzDbA7hGg5wveUbiN9VW7+jj+Nv2KtAIlnN
-	lMV6981
-X-Received: by 2002:a05:6a21:3113:b0:3de:91a6:f7e with SMTP id adf61e73a8af0-3e0d6cedcb6mr4095555637.39.1791124754431;
-        Sun, 04 Oct 2026 07:39:14 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2a09:bac5:d45f:e6::17:34f])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc9f736b20fsm2862036a12.13.2026.10.04.07.39.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 07:39:14 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Antti Palosaari <crope@iki.fi>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	syzbot+ac020fbb657e00356ca2@syzkaller.appspotmail.com,
-	syzbot+c35815bad054e6ad396e@syzkaller.appspotmail.com
-Subject: Re: [PATCH v2] media: dvb-usb-v2: set active_fe before the demux goes live
-Date: Sun,  4 Oct 2026 21:39:09 +0700
-Message-ID: <20261004143909.120584-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260927061102.47451-1-ngocthang2710.1999@gmail.com>
-References: <20260927061102.47451-1-ngocthang2710.1999@gmail.com>
+        d=1e100.net; s=20260707; t=1791125137; x=1791729937;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LpdK/spNmgN6+9nx+ZFn2n/Lj/yxaVrVG3OMjpGohSg=;
+        b=0DHW4iqIDigBk5JJ5ARjjwnx8ul0IdjXgfKRHHNgsagQS8GZVuNcKHifb2XWFac5hf
+         NkeNt5ctgCEDayQu64h5eKYlxOTx+pBJUa/nwU0DJwVEeUaL1xeR7JSSakiUWbpOP3E+
+         bI/SZ1w/kY4Bb+RdTVvimvdTZdo/xh/zX0EZyTV5FPP+HlNF4ooDZkbgLZ2PHmHKU7bb
+         4HBabYvujq9aZtYPfXUNVjjYLblPZXgMn1yZ253iML5N6IfNIrfz1GDR4R2dz19Bd0EQ
+         c86UV8AdTSmwAIfHfEQbGutm46wSfeYX2P6Io8q4Bw9aFG/ozhVtQuHwmnsxdU0GKnKQ
+         AdiA==
+X-Gm-Message-State: AFq9FYLW891fXOModwslnYrO/g+pwFfwIQEjOI7B69eKtfnCBtSUoKA4
+	mSkGyjcMI6Nh6t/raIOn7qXZBdJaLbg3RHeue67/5tjkADR1OQTGJ0fwzybCrMk6
+X-Gm-Gg: AYBFou3+je8cYMQreNT9ucVPYvtzV5yqh++QgXRE+t071YyX8TW+U0ZnztiA/hXQVdX
+	P4z6vEJXe4cTcm1KETABD/4P4MpmgmTjxAtePWyE7tYyeQoYFYd7d/4275DYvDqffa7DxHLjUCX
+	OMS86CJ8mWix2danHrmQqDSBAI25LjhaJ647GmeCXGDN439sFe2t8lU+iBHSAFW9nbBpJ7ev1XS
+	EiHMJCHoREKMGT5gXgNjymABYa9FDT6U5rpNJYaT2aGxE08mAKjr/vtfZkVmKS8GX6d2ZVPd8Pe
+	C7XC88rU/WZijDVkgfJRvkPoe4c5Z6yJp/GvCzR3+jgzr/tc4/7rAN4p1IJ1PkQB9eWm10RTCJK
+	0a68fBR2JWiSwQ4ZRnBSqDtk+QcEMcYt7jAsGBJNZ2p/2bKW8WJBIx9ksdvqX+DBjxwRE3D5Rri
+	+rWUO5oPboKEqDgG5FhSjs+fXdkyHYCNtWN96OtEUESJFPKtvBbmvO/Mb7Isa4HQLbzd+XyjZKr
+	HiGiu+uE8GmhYZxMAQ32FlR+aqtnQ1Mpmh51pHJzCzGGhy+amBj9IQmpV5MqvnNS8FwCuRZ49ky
+	HXdwnx7CutBrwsRNCrEr4/Hef+8L5PwU/YBiMHr6IKpVgQXEWAmUMbj8wqTNxBDre94KpkPo7MV
+	7W8JXlruyrkGjBNpiAN7osg==
+X-Received: by 2002:a5d:64e9:0:b0:48a:fdb2:f2f4 with SMTP id ffacd0b85a97d-48c4801be23mr9176768f8f.57.1791125137116;
+        Sun, 04 Oct 2026 07:45:37 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a00-1028-c000-0ddf-f41d-5ef7-f7c3-c578.ipv6.o2.cz. [2a00:1028:c000:ddf:f41d:5ef7:f7c3:c578])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b382f9ad6sm19836819f8f.40.2026.10.04.07.45.34
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 04 Oct 2026 07:45:35 -0700 (PDT)
+From: Josef Schlehofer <pepe.schlehofer@gmail.com>
+To: stable@vger.kernel.org
+Cc: John Pavlick <jspavlick@posteo.net>,
+	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+	Marcin Nita <marcin.nita@leolabs.pl>,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: [PATCH 6.6.y] net: sfp: add quirks for Hisense and HSGQ GPON ONT SFP modules
+Date: Sun,  4 Oct 2026 16:45:28 +0200
+Message-ID: <20261004144528.54801-1-pepe.schlehofer@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,40 +76,72 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-syzbot has filed a second report for the same race, this time through
-the gl861 (Friio White) driver:
+From: John Pavlick <jspavlick@posteo.net>
 
-  https://syzkaller.appspot.com/bug?extid=ac020fbb657e00356ca2
+commit 95aca8602ef70ffd3d971675751c81826e124f90 upstream.
 
-  Oops: general protection fault, probably for non-canonical address 0xdffffc0000000061
-  KASAN: null-ptr-deref in range [0x0000000000000308-0x000000000000030f]
-  RIP: 0010:friio_streaming_ctrl+0x43/0xd0 drivers/media/usb/dvb-usb-v2/gl861.c:521
-   dvb_usb_start_feed+0x57a/0xc70 drivers/media/usb/dvb-usb-v2/dvb_usb_core.c:308
-   dmx_section_feed_start_filtering+0x519/0x6b0
-   dvb_dmxdev_filter_start+0xcdb/0x10d0
-   dvb_demux_do_ioctl+0x470/0x540
+Several GPON ONT SFP sticks based on Realtek RTL960x report
+1000BASE-LX at 1300MBd in their EEPROM but can operate at 2500base-X.
+On hosts capable of 2500base-X (e.g. Banana Pi R3 / MT7986), the
+kernel negotiates only 1G because it trusts the incorrect EEPROM data.
 
-The root cause is the same. The demux is registered while
-adap->active_fe still holds the kzalloc'ed 0 and adap->fe[0] is NULL.
-A DMX_SET_FILTER issued in that window passes the NULL frontend to
-->streaming_ctrl(). In this report that is friio_streaming_ctrl(), which
-dereferences fe->dvb (offset 0x308). The fault is in the core, not in
-either driver, so this patch fixes both reports.
+Add quirks for:
+- Hisense-Leox LXT-010S-H
+- Hisense ZNID-GPON-2311NA
+- HSGQ HSGQ-XPON-Stick
 
-I tested this with syzbot's C reproducer, which binds a configfs
-SourceSink gadget with the Friio VID/PID (0x7a69:0x0001) over dummy_hcd
-while 8 threads keep opening the demux and starting section filters.
-Both kernels were built from the same tree and syzbot's config, with and
-without this patch:
+Each quirk advertises 2500base-X and ignores TX_FAULT during the
+module's ~40s Linux boot time.
 
-  - without the patch: the oops above on the first Friio probe, 3/3 runs
-  - with the patch:    no oops over 20 Friio probe cycles in 300s
+Tested on Banana Pi R3 (MT7986) with OpenWrt 25.12.1, confirmed
+2.5Gbps link and full throughput with flow offloading.
 
-Mauro, if you pick up v2, please add the following tags for the second
-report:
+Reviewed-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+Suggested-by: Marcin Nita <marcin.nita@leolabs.pl>
+Signed-off-by: John Pavlick <jspavlick@posteo.net>
+Link: https://patch.msgid.link/20260406132321.72563-1-jspavlick@posteo.net
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
+---
+Backport note: in 6.6 the quirk after Huawei MA5671A is FS SFP-2.5G-T,
+not the Lantech 8330-262D-E/8330-265D one, so the upstream patch does
+not apply cleanly. The entries are added at the same place, right after
+MA5671A. No other changes.
 
-Reported-by: syzbot+ac020fbb657e00356ca2@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=ac020fbb657e00356ca2
+The same change is proposed for OpenWrt 24.10 (6.6.157). Its CI built
+it on mvebu and realtek, both with CONFIG_SFP=y:
+https://github.com/openwrt/openwrt/pull/25592
 
-Thanks,
-Thang
+ drivers/net/phy/sfp.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/drivers/net/phy/sfp.c b/drivers/net/phy/sfp.c
+index e352ceb2f7cb..38ab35e57127 100644
+--- a/drivers/net/phy/sfp.c
++++ b/drivers/net/phy/sfp.c
+@@ -514,6 +514,22 @@ static const struct sfp_quirk sfp_quirks[] = {
+ 	SFP_QUIRK("HUAWEI", "MA5671A", sfp_quirk_2500basex,
+ 		  sfp_fixup_ignore_tx_fault_and_los),
+ 
++	// Hisense LXT-010S-H is a GPON ONT SFP (sold as LEOX LXT-010S-H) that
++	// can operate at 2500base-X, but reports 1000BASE-LX / 1300MBd in its
++	// EEPROM
++	SFP_QUIRK("Hisense-Leox", "LXT-010S-H", sfp_quirk_2500basex,
++		  sfp_fixup_ignore_tx_fault),
++
++	// Hisense ZNID-GPON-2311NA can operate at 2500base-X, but reports
++	// 1000BASE-LX / 1300MBd in its EEPROM
++	SFP_QUIRK("Hisense", "ZNID-GPON-2311NA", sfp_quirk_2500basex,
++		  sfp_fixup_ignore_tx_fault),
++
++	// HSGQ HSGQ-XPON-Stick can operate at 2500base-X, but reports
++	// 1000BASE-LX / 1300MBd in its EEPROM
++	SFP_QUIRK("HSGQ", "HSGQ-XPON-Stick", sfp_quirk_2500basex,
++		  sfp_fixup_ignore_tx_fault),
++
+ 	// FS 2.5G Base-T
+ 	SFP_QUIRK_M("FS", "SFP-2.5G-T", sfp_quirk_oem_2_5g),
+ 
+-- 
+2.54.0 (Apple Git-157)
+
