@@ -1,64 +1,64 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92C624AA02B
-	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 21:24:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 791D84AA004
+	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 21:24:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791149086; cv=none; b=Zu0yKOVWwwBhn90CSVL0+QsWhJuDJGScA9mqjgOxfvoN9sT3frsfHy3uKL9YwnfCSpVbnb62oykIXYJY9X1A4elfPjxhZkGFh6RWP2tOPVsYA6LIHPVfIS4VLHNQDAiLym50DaYyM2s/28WiRNslGrzWFbUzJIb4X2luu4V/QNw=
+	t=1791149087; cv=none; b=T5AoHWLM3UJdNWkVeY/6wn13YDJNWiks9da9TNu7ViCG8NYHlf3V4xbFF2ZCi2/ZWQ0Vs2TYrlZIPXzJlAW7kosWYL7ZIj/O3uE9jU13EJTAr0AQ+RAK8XAlg6I5YybD4zGz1Bl/HJA/F3mRr96K3joDX5q1Up4YneB9YPBieoc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791149086; c=relaxed/simple;
-	bh=yd3SvQ1usHAP4aqbb+hfLrE84zju6x7zQRRGsOcQdx8=;
+	s=arc-20240116; t=1791149087; c=relaxed/simple;
+	bh=9hCcjqOT46xAP7xaIdc0Z4fk9Wd1Z9HkTA12fTdiRn8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=V1jipzTXZw49oKBXYefztorYcXX8gWty57qchRFzs0LnA3epLn/RGQ8kBq1PWalwvzAE2zYnDvpUT5KARMRzoSoB9vlcixgyLVC4UUC9gDBKi7GibLYLWhllAEwDXJ3Y9p41sLjKFCcBcvxX5M8Bie8YKCqvFsQmgIDVngnShPs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gnn81NSO; arc=none smtp.client-ip=209.85.128.46
+	 MIME-Version; b=uAIt62bG0S8T5JPIRj+nAIP8O16am7Ymd/02qVgxGZqZJpVjSCEFU6of9ODtzUDl89b0WhXuP6GyKlEyhWANKLnVdYDapQdUcdjlPVcf384cNlzyy1DGqqHzmX+sjdiAhptjb5r+t6A8407y0uJ6TlAE5xx/VV89Xs8G6opPHXs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BhxsxrQs; arc=none smtp.client-ip=209.85.221.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gnn81NSO"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49ff680331aso11510855e9.3
-        for <stable@vger.kernel.org>; Sun, 04 Oct 2026 14:24:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BhxsxrQs"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48bbb06e746so441365f8f.3
+        for <stable@vger.kernel.org>; Sun, 04 Oct 2026 14:24:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791149082; x=1791753882; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791149083; x=1791753883; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=hrVnCdYeysPlKE3eqVZUbon5985jaaujr6rHDKXwGGE=;
-        b=gnn81NSO44KA+Bsj2W3hrpsvLdEcNIvYZuJqaKGUWMv8C9fEgzbs2OC6ZyW1lzYf6W
-         xIeBtSNvjILDN4Da1xWgZF7wn+dtpwMcOLbuXwKHCsOBS2KZLHae2ypuuccZ8eVEnNZE
-         OS7JXf9IDnDn4xKwSsNp1blcESgGtLmANzcd1sZWl9HghPfZdjNTUEfyI7D06EAG7uHZ
-         RSgiQpu2/HrcjVs3mxFonMvfnwHO/NBYBUEfT7LVl5HM+IE8iwezwYZ4bKldz62OXKsv
-         n1V7NlkwHms0jRVy1zgEYNX4Uyv3BsnNFOFaDP34dJmAYibKXlrprePPncAPcsLG0o6g
-         8u/Q==
+        bh=1iTQTid8V/cmqf8L65z4iELp7ouOSYsaWQ30R10Lt58=;
+        b=BhxsxrQsyF4jlJd29+D9OP1vZV4eqt4xrC5NiT82mwg1NvMuLWC6eS0hVRDVaSEglJ
+         QEHBHBiZMp5wkb8uFSPAFWvmp7sfGqX0TTkQZ4tet4NJwSbTLfTliPaELg6mi7P00ooZ
+         j+oSddjMc89E99LIQ2Yw0iyS+rCPUEepVC6jz3p0BOdvP8LRsXdoNWyyxUURn01G11dp
+         7QehuLQdK24uNWctiTSHCCjtO5VRheqjdgMVMdUp/ZKRCKOYRHd9FTCrx7YQV9pfiSO2
+         odhSm1m00N8spa3Afz8vELj5O3f4+4cHXRQHv2fXG+iThZRzBzc7VUv7M92Trs/JdwNn
+         Hs/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791149082; x=1791753882;
+        d=1e100.net; s=20260707; t=1791149083; x=1791753883;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hrVnCdYeysPlKE3eqVZUbon5985jaaujr6rHDKXwGGE=;
-        b=hVWeAHVSgldYW7kEl8uUT+JUsIFmq7baCFpSg+EKp02cbKnU8ZeFm/T5/7wnYoy5Vg
-         U/YE1GedGNHr7Ug7LeazxgtQq27HX30AFmecRD4xaBlZ1Jy5z5tt5u1np+OotJYOgNk2
-         5UmBRMCa6W2Qarlwn2hWNNM7YAVOe60XYErjvGjI0S/qYwsbAcccVqFUX5IhFIU9W++N
-         ivboCyJ//VKlyaXnOoRJUG6agNPODTXi+4G/LVqdZ9Uof043U4owyLKoX6PRfmlAvUbJ
-         GyMChBOwuoLb4TKeV+AhdvWJ5PzE+YS/5aZhs4ljA3/mK66LxhznLnwKcGCQtn1UK1EN
-         ARTQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwiJIj2QTeu2095kZKxCIU0CbzQ1Zurt9/3upf2z04F+Iy6NWgSLIxgr1djPHaG4MuMaA+QOFc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mGpeUsMXPXyIJPOpzQ9e19U7aa4IfyZr80lLaeOd7afqYBkrcJ
-	auESBvSJWFIdSZeaKXTGXBDjxff8NGLSpY8guRF2zm39eSZB+py/eEtT
-X-Gm-Gg: AYBFou0qNIymcR2A0G6m8rrJbP2Apa3BMFG3XpXf3x+FpKGhstCpnHihSjqTlxJv1dI
-	2u1SCXGX6PBQMOmAhv+6IjgN0FysC28OHgCpVu5RbPPxKyFJNWYB4XiDDej3eOLkFa4B8j0IMhv
-	+bfM3RKB96hfQfJV8cH3n9zrGEuZKMFPmRYSXLMW2w97FKIfcrfk/W90FGs47ZYVh1oVi1mhNeV
-	m8Gtd2hxTtLhnXYdEsUlU2/w8CiGIEo43fulPCd+EkRJbEEtpEVDTrnfNu5kczNqGVDaCvHVLPZ
-	ZsPCwKBMYq7k9c0OqqCP3eEQ8gHJKoEIqtnI6t/2+CxtJQnrhI+gy3MGl+H/QOJiQ9JNCaTMdzT
-	63H1t+FfmTA96joqzd87b3PYZoIlvTYvcLdlFaJAmQsx+mXcT3C05YWT0H9qPaJtXFlyvOzjs4F
-	33EKYJIWk34zssdfn6K1GP8PQBXoXsvg3i2GsgZdwGw5UJCu73mTjECHU1T3IsNhvgMFv0jNbYG
-	S408EgE3Kxg1qGl3vLihTYM7WWaQ8n5wc82yQdrTG9h/iGrcw==
-X-Received: by 2002:a05:600c:548e:b0:4a0:4a8:d444 with SMTP id 5b1f17b1804b1-4a168106b7bmr77512805e9.33.1791149081734;
-        Sun, 04 Oct 2026 14:24:41 -0700 (PDT)
+        bh=1iTQTid8V/cmqf8L65z4iELp7ouOSYsaWQ30R10Lt58=;
+        b=XzO2H8FxayMUsP0XUvDwNSOJsTEIgOojDEN4ShrwyoIEDX7LfnphyHl7dCnLwOObyk
+         +FMzyxrdVeLnSH5Bnf3syFatVYSWSJc7XkTI852DUyumXXezDD66uh/yQ6lL4kfzKnW0
+         z7gfOk9sIk0QBBdtP5MAFKLyEybr9gKsTq8WOdmEa/zGr8Tvy1lDP5azIv7CTgcGORPj
+         5bwR10/Fv/JGSWTwzxFgx/UAVJ8p9vFxg8wt0YxXjoRIrqDbOceZpEdAlGQ/biv4PalY
+         iceV0E70b2ri3qsQQQrwon6mTuSIuWeOiFEvFbpJyj73ZyCCpnrtLSsvGf5QVOAyBjDI
+         WT0w==
+X-Forwarded-Encrypted: i=1; AKwUvBw2Sne4+YYpA5aPtvvORA3/61Ek2z/X81CWddlp4UgNoYuPJqwdfoH341vmCCCtEEGbreUyo5k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK9jwHLSsaYq0CJzHjoYmvgLxKBmXmJ+alOEVDzf15KRlRRrw/M
+	D6ufuG8Nif+1WA0H8h+2QRG3NehNgZmJxSGpFK9C5IxnQNGIGlJ4uw28
+X-Gm-Gg: AYBFou1PQJFVZ76tU1dQAU4ZwRLlKF3/bFawYzdeZ8xNw/ddYVLsQCnGdhLI9Pw7lp1
+	L6cDX3D/OMUK2D6u0qJw6pN/WqzEJQ9u94qXYq3J3oOrq4SO28ctCB2XKCWWWMLpim2TodvIcG8
+	7wpjVKgDiMnPZACwaMyjUtMHenA+k89OD0pgvww4dNs3y04SWOcX+dHcc/oBbtgihgEU8NHVSVu
+	H51nmH+DVsZ/I4VH5GQmwFA/0YHAQtIGNWMec00H/AkVw3fK3zVwlhY39IsxwR1fuOkCmSuYuKV
+	GzoDTubbN/tlHrPLO87JAic6k5lgZ1hGm23fMIYT4fxgq2pFGwAQ1iZavkq2t76+aarIJuCWOwG
+	TexVMdacyitASUq8Q28CQAy1jMrcJmy8J3DHSoTRoAB6fXcZhJpJdVV9dLyhHwKYJT9+MBenVbR
+	nEaJrWBxgr+ohLuUmSg7cVTt2hTYPYrojlftNR3W85wYoaMsqEemG+LyPlSIvqsshHinJj+P08x
+	Hr7aVc/bvggmL2Jv1BXnMZtnGkig3WYjJiXQAvDzIERI9ai2w==
+X-Received: by 2002:a05:6000:2912:b0:48b:ec8:b0d8 with SMTP id ffacd0b85a97d-48c47fe556dmr8699999f8f.32.1791149083490;
+        Sun, 04 Oct 2026 14:24:43 -0700 (PDT)
 Received: from andreayoga.localdomain ([195.122.200.174])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b38104417sm20407354f8f.27.2026.10.04.14.24.40
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b38104417sm20407354f8f.27.2026.10.04.14.24.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 14:24:41 -0700 (PDT)
+        Sun, 04 Oct 2026 14:24:43 -0700 (PDT)
 From: Andrea Parri <parri.andrea@gmail.com>
 To: Pablo Neira Ayuso <pablo@netfilter.org>,
 	Florian Westphal <fw@strlen.de>,
@@ -78,9 +78,9 @@ Cc: Andrea Parri <parri.andrea@gmail.com>,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH nf v2 1/2] netfilter: br_netfilter: restore VLAN tag on refragmented IPv6 packets
-Date: Sun,  4 Oct 2026 23:24:27 +0200
-Message-ID: <20261004212429.3648-2-parri.andrea@gmail.com>
+Subject: [PATCH nf v2 2/2] netfilter: br_netfilter: clear stale VLAN tag on refragmented packets
+Date: Sun,  4 Oct 2026 23:24:28 +0200
+Message-ID: <20261004212429.3648-3-parri.andrea@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261004212429.3648-1-parri.andrea@gmail.com>
 References: <20261004212429.3648-1-parri.andrea@gmail.com>
@@ -92,120 +92,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Bridged IPv6 packets can lose their VLAN tag or acquire an unrelated tag
-when conntrack-reassembled packets are refragmented. On a VLAN-aware
-bridge, or on any bridge with bridge-nf-filter-vlan-tagged enabled, this
-can send fragments with a different VLAN tag from the one selected for
-forwarding.
+Bridged packets that conntrack reassembles and br_netfilter refragments
+can leave a port that is an untagged member of their VLAN with all but
+the first fragment still carrying the ingress VLAN tag.
 
-br_nf_push_frag_xmit() restores the VLAN tag from per-CPU storage, but
-only the IPv4 branch of br_nf_dev_queue_xmit() saves it. The IPv6 branch
-leaves the saved tag from the previous IPv4 refragmentation on that CPU.
-Newly allocated fragments do not inherit the tag through
-ip6_copy_metadata().
+With bridge-nf-filter-vlan-tagged enabled, conntrack defrag keeps the
+original fragments on the frag_list of the reassembled skb, and each of
+them keeps the tag it had on ingress. br_handle_vlan() only strips the
+tag of the head skb. When that skb is not cloned, ip_do_fragment() and
+ip6_fragment() send the frag_list skbs as the fragments, and
+br_nf_push_frag_xmit() only ever sets a tag.
 
-Commit d7b597421519 ("netfilter: bridge: restore vlan tag when
-refragmenting") added VLAN tag restoration for IPv4 only, shortly after
-IPv6 refragmentation was introduced.
+This was triggered with a reproducer that sends fragmented IPv4 and
+IPv6 packets in VLAN 10 to a port that is untagged in VLAN 10, through
+a static FDB entry. The first fragment of each packet left untagged and
+the others left tagged:
 
-This was reproduced on a VLAN-aware bridge by first refragmenting an IPv4
-VLAN 100 flow on the same CPU. All fragments of subsequent IPv6 flows left
-with stale VLAN 100 instead of the VLAN selected for their egress ports.
+  ... ethertype 802.1Q (0x8100), length 1514: vlan 10, p 0,
+      ethertype IPv6 (0x86dd), fd00:10::1 > fd00:10::4:
+      frag (1448|1448)
 
-Move saving the L2 header and VLAN tag into br_nf_save_frag_data() and
-call it from both branches, so the fragments that ip6_fragment() builds
-use the current packet's VLAN information.
+IPv6 became affected when commit efb6de9b4ba0 ("netfilter: bridge:
+forward IPv6 fragmented packets") added IPv6 refragmentation.
+
+IPv4 has been affected since commit 7885198861fc ("bridge: Implement
+vlan ingress/egress policy with PVID.") made the bridge strip the tag on
+untagged egress, when IPv4 defragmentation retained fragments on
+frag_list. Commit 14fe22e33462 ("Revert "ipv4: use skb coalescing in
+defragmentation"") later restored unconditional frag_list reuse.
+
+Clear the tag when no tag was saved, as nf_ct_bridge_frag_restore()
+does on the nf_conntrack_bridge path.
 
 Fixes: efb6de9b4ba0 ("netfilter: bridge: forward IPv6 fragmented packets")
+Fixes: 7885198861fc ("bridge: Implement vlan ingress/egress policy with PVID.")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
 ---
- net/bridge/br_netfilter_hooks.c | 45 +++++++++++++++------------------
- 1 file changed, 21 insertions(+), 24 deletions(-)
+ net/bridge/br_netfilter_hooks.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/net/bridge/br_netfilter_hooks.c b/net/bridge/br_netfilter_hooks.c
-index 0a394e5f43916..fe8d2910dae21 100644
+index fe8d2910dae21..2519c3820fb00 100644
 --- a/net/bridge/br_netfilter_hooks.c
 +++ b/net/bridge/br_netfilter_hooks.c
-@@ -832,6 +832,25 @@ static unsigned int nf_bridge_mtu_reduction(const struct sk_buff *skb)
- 	return 0;
- }
- 
-+/* Saved for br_nf_push_frag_xmit() to restore on every fragment. */
-+static void br_nf_save_frag_data(const struct sk_buff *skb)
-+{
-+	struct brnf_frag_data *data = this_cpu_ptr(&brnf_frag_data_storage);
-+
-+	if (skb_vlan_tag_present(skb)) {
-+		data->vlan_tci = skb->vlan_tci;
-+		data->vlan_proto = skb->vlan_proto;
-+	} else {
-+		data->vlan_proto = 0;
-+	}
-+
-+	data->encap_size = nf_bridge_encap_header_len(skb);
-+	data->size = ETH_HLEN + data->encap_size;
-+
-+	skb_copy_from_linear_data_offset(skb, -data->size, data->mac,
-+					 data->size);
-+}
-+
- static int br_nf_dev_queue_xmit(struct net *net, struct sock *sk, struct sk_buff *skb)
- {
- 	struct nf_bridge_info *nf_bridge = nf_bridge_info_get(skb);
-@@ -866,28 +885,13 @@ static int br_nf_dev_queue_xmit(struct net *net, struct sock *sk, struct sk_buff
- 	 */
- 	if (IS_ENABLED(CONFIG_NF_DEFRAG_IPV4) &&
- 	    skb->protocol == htons(ETH_P_IP)) {
--		struct brnf_frag_data *data;
--
- 		if (br_validate_ipv4(net, skb))
- 			goto drop;
- 
- 		IPCB(skb)->frag_max_size = nf_bridge->frag_max_size;
- 
- 		local_lock_nested_bh(&brnf_frag_data_storage.bh_lock);
--		data = this_cpu_ptr(&brnf_frag_data_storage);
--
--		if (skb_vlan_tag_present(skb)) {
--			data->vlan_tci = skb->vlan_tci;
--			data->vlan_proto = skb->vlan_proto;
--		} else {
--			data->vlan_proto = 0;
--		}
--
--		data->encap_size = nf_bridge_encap_header_len(skb);
--		data->size = ETH_HLEN + data->encap_size;
--
--		skb_copy_from_linear_data_offset(skb, -data->size, data->mac,
--						 data->size);
-+		br_nf_save_frag_data(skb);
- 
- 		ret = br_nf_ip_fragment(net, sk, skb, br_nf_push_frag_xmit);
- 		local_unlock_nested_bh(&brnf_frag_data_storage.bh_lock);
-@@ -895,20 +899,13 @@ static int br_nf_dev_queue_xmit(struct net *net, struct sock *sk, struct sk_buff
+@@ -795,8 +795,12 @@ static int br_nf_push_frag_xmit(struct net *net, struct sock *sk, struct sk_buff
+ 		return 0;
  	}
- 	if (IS_ENABLED(CONFIG_NF_DEFRAG_IPV6) &&
- 	    skb->protocol == htons(ETH_P_IPV6)) {
--		struct brnf_frag_data *data;
--
- 		if (br_validate_ipv6(net, skb))
- 			goto drop;
  
- 		IP6CB(skb)->frag_max_size = nf_bridge->frag_max_size;
+-	if (data->vlan_proto)
++	if (data->vlan_proto) {
+ 		__vlan_hwaccel_put_tag(skb, data->vlan_proto, data->vlan_tci);
++	} else if (skb_vlan_tag_present(skb)) {
++		/* Fragments reused from frag_list keep their ingress tag. */
++		__vlan_hwaccel_clear_tag(skb);
++	}
  
- 		local_lock_nested_bh(&brnf_frag_data_storage.bh_lock);
--		data = this_cpu_ptr(&brnf_frag_data_storage);
--		data->encap_size = nf_bridge_encap_header_len(skb);
--		data->size = ETH_HLEN + data->encap_size;
--
--		skb_copy_from_linear_data_offset(skb, -data->size, data->mac,
--						 data->size);
-+		br_nf_save_frag_data(skb);
- 
- 		ret = ip6_fragment(net, sk, skb, br_nf_push_frag_xmit);
- 		local_unlock_nested_bh(&brnf_frag_data_storage.bh_lock);
+ 	skb_copy_to_linear_data_offset(skb, -data->size, data->mac, data->size);
+ 	__skb_push(skb, data->encap_size);
 -- 
 2.53.0
 
