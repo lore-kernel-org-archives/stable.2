@@ -1,127 +1,177 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED9FC313E03;
-	Sun,  4 Oct 2026 11:46:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 971542EEE75;
+	Sun,  4 Oct 2026 11:56:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791114374; cv=none; b=CckdIcsTxVM5SJ1kqpuglTnYHvlEWd7bcl7NUdXq6qRumAB3FEm6zrCqVpJgzZyvYg9foEn2W1x1cUKiM6KEeVxELcbQRfqygEnbQo1UGsSzW4Kt9JYH3ovVh6QMoU48oCIVX1QAHLb/n+k0Z7VNDq7P6Yg2Ykm+7gpuwzU5vbI=
+	t=1791115013; cv=none; b=HsE78A6PqBHzCsZjMJhfoFMr73d8YKkLEYlSh+rclsIpx/mSrmWHarFzVzY3jg2rsfHnLq0a7ENJNS9TWOy7qcy3yhQQLpUYa72h51+24qlZkcNhEiTKvpPIp7FgYAYKDK5UwAwG66PYUoOUN0NwfLac2JMwwPE/M5Z28nFrfr0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791114374; c=relaxed/simple;
-	bh=BNCNvqlSdQgCGZglcBRKo95ngBtg2fwoeaiBlf8VQtM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AUUROwFDWCZYPtHUZRllmVXC6V12J2zQ4K1ekGvDKUOyebifd9k5U/3K12MoBP8l344xjGRQEHAUvQuwok8ylekCTaNVP9Olh6n/LVAUIsd9nfx2lKBsf6k0eCMlcBTwbftd4fs8+YfvwFwNnE3jsO13Aw+322yXn3piLkp9Aos=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QvXUOYB2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791115013; c=relaxed/simple;
+	bh=4e1cggxNcpNhzjwVlx5Tr8gCS/0Wm34WDbMKjABmtCo=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=bOk4CPmJSsMFCVTl7v6odZgQMhlgFcen5KVdPyObK/lGsY1RKyMcNYZi8BdjbI9cQ4v0ex6LOcxbD7K8/x/nGGgMkiw05L3Wwo8mpZ/bowxhiWSiKZgM1AzP3LxYyXJJT0ozgbs4Fo3buLcVPtzXsQfuW4nQE38GFVPbjntHtZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xi3uw4c/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QvXUOYB2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAB3F1F000FF;
-	Sun,  4 Oct 2026 11:46:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xi3uw4c/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BFFB1F000FF;
+	Sun,  4 Oct 2026 11:56:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791114372;
-	bh=HR+Flyh6aOq+YBmyhdw6aQRstQVaH53Q+XG2o/BckCY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=QvXUOYB2TXNKa27HG2yT/mfKhjcX55Ox92w9jLAkcgxIlqqkLJCc76iMVFMgaOg9w
-	 a/gFfoXfqcR71AWpEcwy/qoR5o2ORanMxbuWvSE5+nWoXfMagTLOqIaouKJSds0d1D
-	 xbokGQP+TaojNSnMYBJH5YtXHMoxdHrpPm5AV1Ib3vzC8GRpC+JhiEPmQh1wpAScvD
-	 vcslQC17rw7wb6FGR1H+FEvBZJNnlpsRbePwpxl6e3L5nuObPH/FNWqcEBPAq51uif
-	 BSwikk6tPfnxgPYma6PBaNz4XO2Qx8uBaDoymu5y3dubJOCaEquMI0VAd8a+JYBGZm
-	 MJDFPjaSitgGw==
-Message-ID: <f0c52ecb-b85d-4a53-8329-a8d2fd5d72b8@kernel.org>
-Date: Sun, 4 Oct 2026 13:46:08 +0200
+	s=k20260515; t=1791115012;
+	bh=sCLAUkbhpcI/kDJevY41b6eZab5uxLiANrpl2/hnmQ8=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Xi3uw4c/F1Bv0NPLI9+5z0aM5ZdBVBXbDqAwolhyVxtrBgdKE2PB1GvGgltu5w/Mh
+	 g/QsNTJesZC7sEDTXjQWV7Tg2r39D8p699PODjHztCNEy9IQn1N31YGVbQTKW1Dmkf
+	 hiCrgFJr1DDwTcP7euTvxp/6qCwKCGejxvXJsHag8BbIvKbsNvM1XiG1q5i2kT/bxB
+	 zAdMcP1/3yemSGlFNDAzFmQaYoieU3zTU9C8gYMt07ot/iLOVa5BjpPPfK1iSd04NJ
+	 IXLUb17l7uxvTDNLhs5PZzO70aMHzabnN8PwAux7IcGGDlZBMC1OiB7mUrKQcbsm25
+	 1POj5Oqw5XA4g==
+Subject: Re: [PATCH net v2] net: macb: rate limit netdev error info print in
+ the data path
+From: netdev-bot+sashiko@kernel.org
+To: taozj888@163.com
+Cc: theo.lebrun@bootlin.com, stable@vger.kernel.org,
+ conor.dooley@microchip.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ hskinnemoen@atmel.com, jeff@garzik.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Sun, 04 Oct 2026 11:56:51 +0000
+Message-ID: <179111501100.434549.3605361274069666617@kernel.org>
+In-Reply-To: <20260930113520.392025-1-taozj888@163.com>
+References: <20260930113520.392025-1-taozj888@163.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] Commit 447cbe95ebb9 causes IOMMU DMA faults on
- macvlan/vlan with bnxt_en
-To: Stefan Fleischmann <sfle@kth.se>, netdev@vger.kernel.org,
- stable@vger.kernel.org
-Cc: Michael Chan <michael.chan@broadcom.com>,
- Pavan Chebbi <pavan.chebbi@broadcom.com>, regressions@lists.linux.dev,
- Joe Damato <joe@dama.to>
-References: <20261004122616.56714cbd@nargothrond>
-Content-Language: en-US
-From: Eric Dumazet <edumazet@kernel.org>
-In-Reply-To: <20261004122616.56714cbd@nargothrond>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
+Critical: 0 · High: 1 · Medium: 0 · Low: 1
 
-On 10/4/26 12:26, Stefan Fleischmann wrote:
-> Hi,
-> 
-> I have bisected a regression introduced in kernel 6.18.51 (and 7.2.3).
-> The issue is still present in 6.18.55 and 7.2.9. Verified by reverting
-> 1517d1996b52 (the equivalent of 447cbe95ebb9 in the 6.18 branch) on top
-> of 6.18.51 and 6.18.55.
-> 
-> The hardware is a Dell R640 server with Intel Xeon Silver 4210 and
-> Broadcom BCM57412 NetXtreme-E NIC.
-> 
-> The network interface is configured as an untagged interface and has a
-> couple of tagged VLAN interfaces configured on top. All of these are
-> used by LXC containers with Macvlan.
-> 
-> The interface comes up fine after boot, but after some time (anywhere
-> between 2 to 40 minutes) I see a DMA error in the kernel log (attached),
-> and the driver ends up tearing down the interface. It can be brought up
-> again after that, but it will hit a DMA error again after a while and
-> the interface goes down again.
-> 
-> I'm happy to provide more debug info if needed, or test patches.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Hi Stefan,
+- [High] The fix does not cover what its commit message claims.
+- [Low] The author identity "taozijin <taozj888@163.com>" does not match
+  the Signed-off-by trailer "Zijin Tao <taozj888@163.com>".
 
-Thanks for the bisect and detailed report.
+--
 
-Notice that 0xfc499000 is on an exact 4KB page boundary. This points to 
-a DMA read overrun where the Broadcom DMA engine reads past the end of a 
-buffer mapped in page 0xfc498xxx into the adjacent unmapped page 0xfc499000.
+net: macb: rate limit netdev error info print in the data path
 
-Have you tried a recent net kernel ?
+This patch wraps four netdev_err() calls in the macb driver with
+net_ratelimit(). Two are in gem_rx(), one is the RX queue corruption
+message in macb_rx(), and one is the HRESP DMA bus error in
+macb_interrupt_misc(). The goal is to stop console floods at boot when
+many bad or oversized frames arrive.
 
-Could you please test whether disabling TSO or hardware VLAN offload 
-prevents the crash? (maybe adding one option at a time)
+> Fixes: 89e5785fc8a6 ("[PATCH] Atmel MACB ethernet driver")
+> Cc: stable@vger.kernel.org
+>
+> Signed-off-by: Zijin Tao <taozj888@163.com>
 
-   # ethtool -K eno1np0 tso off
+[Severity: Low]
+This isn't a bug, but the name in the Author line does not match the
+name in the Signed-off-by. The email address is the same:
 
-   # ethtool -K eno1np0 tx-vlan-offload off
+  Author: taozijin <taozj888@163.com>
+  Signed-off-by: Zijin Tao <taozj888@163.com>
 
-Adding Joe to this thread, because some parts in
-tso_dma_map_init() or tso_start() might have bugs.
+checkpatch.pl reports this as FROM_SIGN_OFF_MISMATCH.
 
-# Disable USO on the physical interface
-ethtool -K eno1np0 tx-udp-segmentation off
+Also, a blank line separates the Fixes: and Cc: tags from the
+Signed-off-by, so they don't form a single trailer block.
 
-This reminds me on a prior attempt I made months ago to sanitize tso_start()
+> diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
+> index 8e5c034dc3a48..ca60960bec362 100644
+> --- a/drivers/net/ethernet/cadence/macb_main.c
+> +++ b/drivers/net/ethernet/cadence/macb_main.c
 
-Note that my email address has changed to edumazet@kernel.org
+[ ... ]
 
-Thanks.
+> @@ -2102,7 +2103,8 @@ static int macb_interrupt_misc(struct macb_queue *queue, u32 status)
+>  
+>  	if (status & MACB_BIT(HRESP)) {
+>  		queue_work(system_bh_wq, &bp->hresp_err_bh_work);
+> -		netdev_err(netdev, "DMA bus error: HRESP not OK\n");
+> +		if (net_ratelimit())
+> +			netdev_err(netdev, "DMA bus error: HRESP not OK\n");
+>  		macb_queue_isr_clear(bp, queue, MACB_BIT(HRESP));
+>  	}
 
-> 
-> I've already updated to the latest firmware released by Dell, the problem
-> persist. Here is some more info on the network device:
-> 
-> 18:00.0 Ethernet controller [0200]: Broadcom Inc. and subsidiaries BCM57412 NetXtreme-E 10Gb RDMA Ethernet Controller [14e4:16d6] (rev 01)
-> 	Subsystem: Broadcom Inc. and subsidiaries NetXtreme E-Series Advanced Dual-port 10Gb SFP+ Ethernet Network Daughter Card [14e4:4120]
-> 
-> # ethtool -i eno1np0
-> driver: bnxt_en
-> version: 7.2.9-1-generic
-> firmware-version: 238.1.168.0/pkg 38.11.70.00
-> expansion-rom-version:
-> bus-info: 0000:18:00.0
-> supports-statistics: yes
-> supports-test: yes
-> supports-eeprom-access: yes
-> supports-register-dump: yes
-> supports-priv-flags: no
-> 
-> Best,
-> Stefan
+[Severity: High]
+The commit message says:
 
+  So rate limit the netdev error information print in the receive
+  and transmit data path.
+
+Does the patch match that description? The only non-RX print it
+converts is this HRESP one in macb_interrupt_misc(). That is a DMA bus
+error interrupt, not the transmit data path. No TX data path print
+seems to be rate limited.
+
+Several prints of the same kind in macb_main.c look like they are still
+unlimited. at91ether_interrupt() runs in hard IRQ context and still
+does:
+
+	if (intstatus & MACB_BIT(ISR_ROVR))
+		netdev_err(netdev, "ROVR error\n");
+
+at91ether_open() enables ISR_ROVR. A line rate flood from a link peer
+would cause exactly this RX overrun, which is the scenario in the commit
+message. macb_interrupt_misc() handles the same bit by only incrementing
+hw_stats rx_overruns.
+
+gem_rx_refill() runs at the end of every gem_rx() poll and still has:
+
+	if (unlikely(!skb)) {
+		netdev_err(bp->netdev,
+			   "Unable to allocate sk_buff\n");
+		break;
+	}
+
+Under memory pressure, would this log again on every poll, right next
+to the gem_rx() prints that are now rate limited?
+
+On the TX side, these still print without a limit:
+
+  macb_tx_map():
+	netdev_err(bp->netdev, "TX DMA map failed\n");
+
+  macb_start_xmit():
+	netdev_err(bp->netdev, "Error - LSO headers fragmented!!!\n");
+	/* if this is required, would need to copy to single buffer */
+	return NETDEV_TX_BUSY;
+
+  at91ether_start_xmit():
+	netdev_err(netdev, "%s: DMA mapping error\n", __func__);
+	...
+	netdev_err(netdev, "%s called, but device is busy!\n",
+		   __func__);
+	return NETDEV_TX_BUSY;
+
+  macb_tx_error_task():
+	netdev_err(bp->netdev,
+		   "BUG: TX buffers exhausted mid-frame\n");
+
+The comment in macb_tx_error_task() says that last print is meant to be
+loud, so it may be fine to leave as is.
+
+For the two paths that return NETDEV_TX_BUSY, won't the qdisc requeue
+the same skb and print the message again on every retry?
+
+This is tagged for stable. Should the remaining RX, IRQ and TX data path
+sites be converted too? Or should the commit message only describe the
+RX and HRESP prints this patch changes?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260930113520.392025-1-taozj888%40163.com
