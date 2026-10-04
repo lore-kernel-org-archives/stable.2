@@ -1,43 +1,63 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB79526296
-	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 01:42:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8692B3B42FA
+	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 02:30:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791078155; cv=none; b=rz2ZcfbY5gL6XyI4/7Vdc4Gf1aGR5dhrRzRE86DaAGA+u9hxnoBWquMzOa94Wm1qqOSIDxmRTvNOXZJmXNZ7SJDqfzgXBM9Oh1r1J5M7IpjPazTiVbPBQ00O2QfLLXtK1o6xkP6Fgu92Dd9kcQi+6juprrhuNuTARjVwfHIDLp0=
+	t=1791081009; cv=none; b=K6vvq5RaKANx0Z1XVdly7jDcW/c/6axRj2rjjCWODaFfpWV6QFKbiF/R7G2chO7mPCEIrY1PSP7Ix+lFMup5MXMGVWuxCnhJdqPS6KIPiBTC5hP2q4gpkWq17DtX2/cigLtbJn3AEXOxMQIikE/qE/F80OstosYt01ICNZysW7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791078155; c=relaxed/simple;
-	bh=v6BEgvkihQl+p7UiX0ew4oTZP+nRB+fLD48nF8Wb4q4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tcU0qkqjoXFumZ5CulAH9PTHQsPXjJHPD97B1Ly+Ioffc81RXq2JiDePfZ6WY9M+hRuCbV1BZqekqNlZA58Wu8vgzv+q8BLEqcRpIIzKJfo26WBTz3mT69Vd53HdB78OUZIzgj6nRcW8BAGk+8ROGg4sOu7MTgl3bYcWFDIHcbQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MJXpcw05; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791081009; c=relaxed/simple;
+	bh=sWsYvesYnU5c+i58lp531XeDIngeCeCzRlMjgbPm8lU=;
+	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=sNTcZx4Ry/gNgDTgULfgexhRvb0xCRfdQTDAo95DTGH3pAEWKVd95wx35Dl5Bsap5jESEpBhNorCEeCprmdprdvSJzioIOc+9/zy38GSpi+dVkCFMO+TfHpJyHcwiFARdX35uxf8Qf+ythoGU4WeseHT81nVMQ9zL9b1QTey2zs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=ZNMtjDi+; arc=none smtp.client-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MJXpcw05"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A0741F0089C;
-	Sun,  4 Oct 2026 01:42:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791078154;
-	bh=8y0L38mNJz0J1AdD8GJCwcU7alsPo4IbwivlYYE+VyM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MJXpcw05/JcseW0jrWDtVZf1eqtW5bX54bYEk/Ts93FdL0+bsp5NSC5f2qoeYWTfM
-	 nWFSh9myc83R4aFhM/9zue8ZLp7K2vnhWDiq9/ioOpNWF05NyXkhDfOKNWmF2P1O9T
-	 F64BDbIw1Vz4UQL4vr/Mra7sZ5iJcKAg4RVWZPSTJyGXbBtWCqflo45WVCFmQ8hQGV
-	 1ly5Drts+3qtAapaGqY1IG0pcMhBCH/akNWDcywI1k17X2TuCWac1fmVH/zu4Ncf2u
-	 FSKgCbf6GHvghAWwWmDVRfjb7Q7mDED6kDCVeKKPRx2KMl2VrLcpmporIAnUgodSeY
-	 HPMJLe/a0UTHQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Willem de Bruijn <willemb@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] net: extend IPv6 exthdr detection of tunneled packets
-Date: Sat,  3 Oct 2026 21:42:11 -0400
-Message-ID: <20261004013959.1318049-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261004013959.1318049-1-sashal@kernel.org>
-References: <2026100323-outfit-headgear-cf23@gregkh>
- <20261004013959.1318049-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="ZNMtjDi+"
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-34ca2d54925so1150963eec.0
+        for <stable@vger.kernel.org>; Sat, 03 Oct 2026 19:30:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernelci.org; s=google; t=1791081006; x=1791685806; darn=vger.kernel.org;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=71dESqg5wR+TOuOQTrtYNZXdWnf6cp/vQz6JnD/BYow=;
+        b=ZNMtjDi+eObS+c9GWt4SYnc9EaS4XJ8nEsmFrjPOXYW2HZcBpcdDBwqzyVldBcbais
+         csNUup2i0PED+5/6WZY39u6oQi27LHDRdM/9Kiews6hBL6s+WkgpigwOABlVhLyZMVjD
+         WsFEXhvKjmNXddMlRqqcQ1+W15uqfvjr4c2KRdbmk5bq0bU/5oIyRt4tQkZkdJX2LoVT
+         VtivG2Fxg6S8YI5yhFXS1c1p8J+azmW6bLrIhtk5/LWBlwR+8uHoala3rNL5M30eRf6y
+         eqXAZcwHedVL+651w5TALi1Y9YjNu/X3k793Q1AKeIIwc0GZgar2hgGZrRm8R9zwKcYU
+         qnTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791081006; x=1791685806;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=71dESqg5wR+TOuOQTrtYNZXdWnf6cp/vQz6JnD/BYow=;
+        b=TF3NPirr4jW9mhvWwrYnv0COi+kNLqTt4TBbc3LLA6+NWpP9lFiTxQhvpb9NN+j27g
+         N4dyqHLkJR/AW6kASGONxRKZgLdJLK0wAzWoCPZ0Mvcf3ksP+b+F2S0gNsnKTMRmfsGu
+         2koIJ7G5wFSoySBh1Zqk5c8LCpjJq2XK3EGYA+a64gN409CBoPn2evjBgvaBVMPegBE2
+         UcIoTY+V10yWcZ8oQn1b/R5YBafzKfys2GZG062Un8KJ0X/LyJzgPVd5vv8oIH89Ryz7
+         yctcuDt7v8H7M56F5kjdr3rOw2KLOsnyz5JVZptm1WWYrWVqH5uNm6EfZlvqtsA9al6S
+         nIxA==
+X-Gm-Message-State: AFq9FYKggtihBHX2uAvtqENyG70S2vSD7UuYSuPXgq2DOUD3HpAnjetM
+	1suSAp427lgp/I/Sdsn1TZYUpuMXVS/zkPTfevSU249gewYSf0WabfyZqtFnmGqJHSM=
+X-Gm-Gg: AYBFou37NvOy19tzqDgGIMurCrUDjAq2qpeSos6VEMacre1B1PJEa+ic/RXAGOwFnzD
+	VfOZWtD3D8uwpNEEQcc/X2Ov4Cq7cwTRVpRx/WQ1q04PjrzsnrCs1BKae1MNZHCve8Z8EUbPOjR
+	wPNFwOWGojm5hNzMcptUyrij27FxbyI8BYVm2VzBGlTplMP5rMx+WDfIcSgkUtlNSwAVx4yFY4h
+	gWpMEL808Jm+hhDn21x9zZW/bEAQq/P/uxlMejmsyu4/Pidy9YAKaOCqgShpDzXIokPOUaaItxF
+	Uf7EdYT/d/OwYCODEGjMPlc0PxVLS36CyyfyBCg4yKNd2LGX16P2XrXtV+3u6BSMonoXJccRovq
+	f1Nbr8FfumNxk1XhNQ3nZqJJvl4czoNhoOedvy9DWCmm1/3jsRMUoKFdak8ofANUCV6K1A5hIem
+	LO3TbhdPauBXmHsCfFCztOC54XVoaOL7Cupvua6kvsK4uAIRpVdM4rG/jtOzSlXIU=
+X-Received: by 2002:a05:693c:8809:20b0:314:267f:46e2 with SMTP id 5a478bee46e88-351114743e7mr4779244eec.20.1791081006214;
+        Sat, 03 Oct 2026 19:30:06 -0700 (PDT)
+Received: from 5a6d9a2c18a2 ([20.38.40.137])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-351272a45a8sm836511eec.22.2026.10.03.19.30.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 03 Oct 2026 19:30:05 -0700 (PDT)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,144 +65,63 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-
-From: Willem de Bruijn <willemb@google.com>
-
-[ Upstream commit 5f0764cb1c81a9712bce605d38efe6d844a70b29 ]
-
-Commit c4336a07eb6b ("net: correctly handle tunneled traffic on IPV6_CSUM
-GSO fallback") split skb_gso_has_extension_hdr() into mutually exclusive
-branches on skb->encapsulation. This did not yet address all paths:
-
-1. With skb->encapsulation set, the outer header is not checked. IPv6
-   tunnels such as ip6_gre and ip6_tunnel add an outer Destination
-   Options header by default (encap_limit). Their GSO packets skip
-   software GSO, then skb_csum_hwoffload_help() sees the outer extension
-   header and calls skb_checksum_help() on the GSO skb, which warns and
-   drops it.
-
-2. Tunnels over IPv6 without an outer transport header, such as
-   ip6_tunnel, leave skb->transport_header at the inner transport
-   header. skb_network_header_len() then spans the outer IPv6, tunnel
-   and inner IP headers, a false positive.
-
-3. UDP tunnels without an inner network header, such as SCTP-in-UDP or
-   PSP, have no inner IPv6 header to check. Decide on the outer header
-   alone.
-
-4. Directly dereferencing inner_ip_hdr(skb)->version without
-   skb_header_pointer() is unsafe.
-
-Instead, check ipv6_ext_hdr(nexthdr) on the outer IPv6 header and, if
-set, on the inner IPv6 header. Read the headers with skb_header_pointer().
-Keep the skb_network_header_len() check when !skb->encapsulation to also
-catch encapsulated packets without skb->encapsulation (e.g., virtio).
-
-Use the same helper in skb_csum_hwoffload_help(). Its open coded test
-has the false positive of (2) and ignores the inner header.
-
-Background: checksum offload of tunneled packets invariants:
-
-Non-GSO skb:
-- If the inner packet is CHECKSUM_PARTIAL, Local Checksum Offload computes
-  the outer checksum in software and the device offloads only the inner L4
-  checksum.
-- If the inner packet is CHECKSUM_NONE (e.g., SCTP-in-UDP, ESP-in-UDP,
-  Remote Checksum Offload), the device offloads the outer UDP or GRE
-  checksum instead.
-
-GSO skb:
-- A device with NETIF_F_GSO_UDP_TUNNEL_CSUM or NETIF_F_GSO_GRE_CSUM
-  computes both inner and outer checksums per segment.
-  The outer checksum is seeded with only the pseudo-header checksum.
-
-A NETIF_F_IPV6_CSUM device must parse through the outer headers to
-reach the inner ones.
-
-Fixes: c4336a07eb6b ("net: correctly handle tunneled traffic on IPV6_CSUM GSO fallback")
+Subject: [STATUS] stable/linux-5.15.y -
+ a051a4bf909f76f470ccb3761ee0cf6e2395616e
+From: KernelCI bot <bot@kernelci.org>
+To: kernelci-results@groups.io
 Cc: stable@vger.kernel.org
-Signed-off-by: Willem de Bruijn <willemb@google.com>
-Link: https://patch.msgid.link/20260926140506.2335137-1-willemdebruijn.kernel@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/core/dev.c | 49 ++++++++++++++++++++++++++++++++-----------------
- 1 file changed, 32 insertions(+), 17 deletions(-)
+Reply-To: kernelci@lists.linux.dev
+Date: Sun, 04 Oct 2026 02:30:05 -0000
+Message-ID: <179108100486.282967.14491913626578253257@5a6d9a2c18a2>
 
-diff --git a/net/core/dev.c b/net/core/dev.c
-index c61a33d74380f..44548adc9f8f0 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -3540,20 +3540,36 @@ static netdev_features_t dflt_features_check(struct sk_buff *skb,
- 	return vlan_features_check(skb, features);
- }
- 
--static bool skb_gso_has_extension_hdr(const struct sk_buff *skb)
--{
--	if (!skb->encapsulation)
--		return ((skb_shinfo(skb)->gso_type & SKB_GSO_TCPV6 ||
--			 (skb_shinfo(skb)->gso_type & SKB_GSO_UDP_L4 &&
--			  vlan_get_protocol(skb) == htons(ETH_P_IPV6))) &&
--			skb_transport_header_was_set(skb) &&
--			skb_network_header_len(skb) != sizeof(struct ipv6hdr));
--	else
--		return (!skb_inner_network_header_was_set(skb) ||
--			((skb_shinfo(skb)->gso_type & SKB_GSO_TCPV6 ||
--			  (skb_shinfo(skb)->gso_type & SKB_GSO_UDP_L4 &&
--			   inner_ip_hdr(skb)->version == 6)) &&
--			 skb_inner_network_header_len(skb) != sizeof(struct ipv6hdr)));
-+static bool __skb_has_ipv6_ext_hdr(const struct sk_buff *skb, int nhoff)
-+{
-+	const struct ipv6hdr *ip6h;
-+	struct ipv6hdr _ip6h;
-+
-+	ip6h = skb_header_pointer(skb, nhoff, sizeof(_ip6h), &_ip6h);
-+	return ip6h && ip6h->version == 6 && ipv6_ext_hdr(ip6h->nexthdr);
-+}
-+
-+static bool skb_has_ipv6_extension_hdr(const struct sk_buff *skb)
-+{
-+	if (vlan_get_protocol(skb) == htons(ETH_P_IPV6)) {
-+		if (__skb_has_ipv6_ext_hdr(skb, skb_network_offset(skb)))
-+			return true;
-+
-+		/* Catch tunnels without skb->encapsulation (e.g., virtio). */
-+		if (!skb->encapsulation &&
-+		    skb_transport_header_was_set(skb) &&
-+		    skb_network_header_len(skb) != sizeof(struct ipv6hdr))
-+			return true;
-+	}
-+
-+	/* Tunnels without an inner network header, such as SCTP-in-UDP or
-+	 * PSP, have no inner IP header and thus no inner extension header.
-+	 */
-+	if (skb->encapsulation && skb_inner_network_header_was_set(skb) &&
-+	    __skb_has_ipv6_ext_hdr(skb, skb_inner_network_offset(skb)))
-+		return true;
-+
-+	return false;
- }
- 
- static netdev_features_t gso_features_check(const struct sk_buff *skb,
-@@ -3597,7 +3613,7 @@ static netdev_features_t gso_features_check(const struct sk_buff *skb,
- 	 * so neither does TSO that depends on it.
- 	 */
- 	if (features & NETIF_F_IPV6_CSUM &&
--	    skb_gso_has_extension_hdr(skb))
-+	    skb_has_ipv6_extension_hdr(skb))
- 		features &= ~(NETIF_F_IPV6_CSUM | NETIF_F_TSO6 | NETIF_F_GSO_UDP_L4);
- 
- 	return features;
-@@ -3699,8 +3715,7 @@ int skb_csum_hwoffload_help(struct sk_buff *skb,
- 		return 0;
- 
- 	if (features & (NETIF_F_IP_CSUM | NETIF_F_IPV6_CSUM)) {
--		if (vlan_get_protocol(skb) == htons(ETH_P_IPV6) &&
--		    skb_network_header_len(skb) != sizeof(struct ipv6hdr))
-+		if (skb_has_ipv6_extension_hdr(skb))
- 			goto sw_checksum;
- 
- 		switch (skb->csum_offset) {
--- 
-2.53.0
 
+
+Hello,
+
+Status summary for stable/linux-5.15.y
+
+Dashboard:
+https://d.kernelci.org/c/stable/linux-5.15.y/a051a4bf909f76f470ccb3761ee0cf6e2395616e/
+
+giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
+branch: linux-5.15.y
+commit hash: a051a4bf909f76f470ccb3761ee0cf6e2395616e
+origin: maestro
+test start time: 2026-10-03 11:23:56.478000+00:00
+
+Builds:	   50 ✅    1 ❌    0 ⚠️
+Boots: 	   35 ✅    0 ❌    0 ⚠️
+Tests: 	 2966 ✅  397 ❌  552 ⚠️
+
+### POSSIBLE REGRESSIONS
+
+  No possible regressions observed.
+
+
+### FIXED REGRESSIONS
+    
+Hardware: beaglebone-black
+  > Config: multi_v7_defconfig
+    - Architecture/compiler: arm/gcc-14
+      - ltp
+      last run: https://d.kernelci.org/test/maestro:6ac0f727a3f195e1aa2a982d
+      history:  > ❌  > ❌  > ❌  > ✅  > ✅  
+            
+
+
+### UNSTABLE TESTS
+
+  No unstable tests observed.
+
+
+
+This branch has 1 pre-existing build issues. See details in the dashboard.
+
+Sent every day if there were changes in the past 24 hours.
+Legend: ✅ PASS   ❌ FAIL  ⚠️ INCONCLUSIVE
+
+--
+This is an experimental report format. Please send feedback in!
+Talk to us at kernelci@lists.linux.dev
+
+Made with love by the KernelCI team - https://kernelci.org
