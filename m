@@ -1,162 +1,123 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f226.google.com (mail-pf1-f226.google.com [209.85.210.226])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58FF834D93C;
-	Sun,  4 Oct 2026 12:16:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A67A3AE712
+	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 12:29:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791116173; cv=none; b=mwpajRUdq76yqG/tbeX0CkF/5xZ2A4wXdUKaZ+lPK1pDXIJK4SAWCkVsQxcLSkY33hpPv/mBzf4k0ikAQ3UdC886TeDb9oSljeS3Sx/JmcJtDIhEgTue5KZD2iUiCVxuVv+ZJNWjrQUURfyAUpH6ALi//JL0z+SLznMD/8eHFrk=
+	t=1791116947; cv=none; b=Ow3e1SfM+SbQRr7dNQ6/zI+jOkOSZ/htqs0GnvKQXI/UNVTSbgByv2LxmPIOSYrT7EDNOcE50JjIpoYhJ3Qpsty52Mord9V04k99kHfZwskzYHCmBJ1R3shj/s9BCt0zivgX258I9bG0wu2ukkjc4NCLiZKvFRC0ne+rJpv+qIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791116173; c=relaxed/simple;
-	bh=2a7sjE0Ej82Ld/95ZmU5sYX3XYm6v4XNVe5QDwuwNRo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=TCVJ5GFrZ1TaUtCyAs4n58HFjJzfT+JDnYIVl4yiXh2HItv9Wp36t8kREXhIb+C+db7ufohpzOM+vwE5uerqBN+66FQdCzAZVai4E1pPA9FbsFlcOJa2AEE2DLBagPxyVXcyDGX2eIYHhJv50SFy1lFUWTls+fzq9lYEbr1oIdU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=kKyKWwnD; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791116947; c=relaxed/simple;
+	bh=O8AOb5QLaO7btcj37/Ldlt4sf7K5LubilbX/lofAehA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dxGu2E2NhVawNmPxSuW3AaSs1OJb9LD7CDuFp3FfgHkQ+kC+d1tWGX6bwunPV+oe+73WrRwTnlR9fjaJBJWhQ/SzGxbaakR5zurV2fuzJFIXYxvUKhxwrVDh0tpKQCi8llHSGdkP1uqU4EAf71s+E+55QtDdsZ6jVVuHJCEpM6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=gvPb8qHC; arc=none smtp.client-ip=209.85.210.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="kKyKWwnD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=2a7sjE0Ej82Ld/95ZmU5sYX3XYm6v4XNVe5QDwuwNRo=; b=k
-	KyKWwnDrTwb3lWXRL6vrpkRMFjK7SmsZbp2+pVyt2CoZx5K+4TGYdBXcm4tiBDRJ
-	a4GJ/Gn3pMJxpgqfGWog9iQSh/0rNkJuOuOR38u7PLb0QXGZQP5NqYeH7n3x69+L
-	RGzPnl6j3Kqmaf449LPmup8xRdmv7iTwXSCx1MhU1w=
-Received: from 19888972804$163.com (
- [2408:8207:2421:84e0:61d7:4f14:bc92:6eb5] ) by ajax-webmail-wmsvr-40-122
- (Coremail) ; Sun, 4 Oct 2026 20:14:40 +0800 (CST)
-Date: Sun, 4 Oct 2026 20:14:40 +0800 (CST)
-From: "jiale yao" <19888972804@163.com>
-To: =?GBK?Q?Th=A8=A6o_Lebrun?= <theo.lebrun@bootlin.com>
-Cc: "Conor Dooley" <conor.dooley@microchip.com>,
-	"Andrew Lunn" <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	"Eric Dumazet" <edumazet@google.com>,
-	"Jakub Kicinski" <kuba@kernel.org>,
-	"Paolo Abeni" <pabeni@redhat.com>,
-	"Russell King" <linux@armlinux.org.uk>,
-	"Nicolas Ferre" <nicolas.ferre@microchip.com>,
-	"Soren Brinkmann" <soren.brinkmann@xilinx.com>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="gvPb8qHC"
+Received: by mail-pf1-f226.google.com with SMTP id d2e1a72fcca58-8875d220446so56877b3a.3
+        for <stable@vger.kernel.org>; Sun, 04 Oct 2026 05:29:06 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791116946; x=1791721746;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lFxRZe/WwmbBPaTtaFu4NCRozMGI6L0mmZzZk89wk58=;
+        b=LVxrQ5x5eDb7cGwhl96/rtmC8cyYA7WpN8Sv5ZnsZIwXWZt5v64p61C2kQu8UMhnGt
+         OZ+xUyCftD6zTHYqdj/FT8V9ruvIOgNWvSEArsRqdTbU9p7SVkNltN4QfDxK2LnQbw4N
+         CEls7Itz+NZA2H59Afg61g3YssY9DtxesF0ZFSR+hdwE2aysa0/113BWXMCZSHj8rQPb
+         sBwqvt5Hys9bCj87grc9ib0UmVcIv0tdZwUvaL+u18CG6nH0Orj8MtUo7OemXh6BpZXS
+         zUKYERtxt4bkAu3I5QTxE/9ASO4lcKlzSVWAxWtZ7cGq01JgjIyQj5tehEJKgG9chM9t
+         rx+A==
+X-Forwarded-Encrypted: i=1; AKwUvBwK9GSNb1MUNmc28bNbJeyGVNYKkOxrbvJ+n6gPXVNiEocvH9+5o4Taxd6FyucCDj3RJCoyCBA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKF0mQwcSqnl3wtsHdiAIrGfDdnFgo1t+TdThKxsqoh3JGJQaEs
+	j24GolxzbyT35nXk+jMPIygmuJcHMZF5AoDKcslLQ6ZiF7D2aobyKWOrAgmcfbQvXQSW/SEvzzb
+	UvV9Yxrv5xOJe1/Y3+WbYauRRvYDNH5GqDebaGitq2v2cHfL4s/qJCXP7gGrlioY5RHTZsLcd+1
+	fR9iE94UMsq+388LyIygYPJMMAPBfOX0loI1TVYZPNvuRMgIhkW63KSF316ejChbdqaRI3MC1q1
+	U/IeiAxs6TfWIK4pw==
+X-Gm-Gg: AYBFou0Cd4AqqogKRCTl9Zfjqq+5+nqdSCC/WXV7/tUbswpsF3VhFMIkdCCPxOXQ8J4
+	pFse3Bq2wsi4etvWSl3RjkbtxV+dU1Ed4F0UrhQQAFfNKegG1M68UXYcTqgsFDFUpihVrwKWDlm
+	gHNDeuUw3jxE/cjo9Bu7dfoMlq0XEsZCfxMQKyMqIsrksejav1kcmJFNG01hFNl6wGWeuZvLSqO
+	OMTF7zyfjx/Ls2vrKjU0nrtAysNaMmRJHIP4+pX+vGLYUvXIGh+nDwmK4IGbHtKlyYDGQnWM6jx
+	BzyzZfKYGA1x2rpmR7R5/DaX/mXSUtihRhZe5/cxo/geP+39NLogoeTqel67ypwFvRsKfa8NHDD
+	E+zzVCX3Xx1rIkrDjrsWPNY+dwNRSsWWfvkDEoyyJ6q9/JGKGmEAR/j4+YXFkltmhZWd288w4Mi
+	z6RwlB1korIAY2pkM1q+hOhJzQBBaBUbIhmaVjdxFGYQ==
+X-Received: by 2002:a17:90a:e7c9:b0:3a0:eeda:39f3 with SMTP id 98e67ed59e1d1-3a6e72a7fdbmr3396111a91.24.1791116945671;
+        Sun, 04 Oct 2026 05:29:05 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3a78d62242csm2672028a91.3.2026.10.04.05.29.05
+        for <stable@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sun, 04 Oct 2026 05:29:05 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-34bbf2e3c5cso1967670eec.0
+        for <stable@vger.kernel.org>; Sun, 04 Oct 2026 05:29:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1791116944; x=1791721744; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lFxRZe/WwmbBPaTtaFu4NCRozMGI6L0mmZzZk89wk58=;
+        b=gvPb8qHCErwh5NKRsf5UFEwscCV9c5S2eu+wxpiamYPbZf9l4WkdeYTyveOivSn7IN
+         6Et0yXw0UM8kVfOf/GPgv6+8MM0PiBkwMMPQCQJlG06fD0/Kktj2LOnzlCgufqSovCGv
+         yr7Srn/6hRj/NkMu5Hn5EBQ/AWOPsy+1a4TLE=
+X-Forwarded-Encrypted: i=1; AKwUvBxc8U21w5lDJbXsH2lbZ6EsFGzpDjHW2JUucsQGGcPMIrKoAExyZssJn9YomcMkJrtgKR+bN8I=@vger.kernel.org
+X-Received: by 2002:a05:7300:d518:b0:34b:dbbc:a72 with SMTP id 5a478bee46e88-34f2185446fmr13565352eec.24.1791116943854;
+        Sun, 04 Oct 2026 05:29:03 -0700 (PDT)
+X-Received: by 2002:a05:7300:d518:b0:34b:dbbc:a72 with SMTP id 5a478bee46e88-34f2185446fmr13565295eec.24.1791116943044;
+        Sun, 04 Oct 2026 05:29:03 -0700 (PDT)
+Received: from bld-bun-02.bun.broadcom.net ([192.19.176.227])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3512713861fsm4656855eec.10.2026.10.04.05.29.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 05:29:02 -0700 (PDT)
+From: Arend van Spriel <arend.vanspriel@broadcom.com>
+To: Michele Dionisio <michele.dionisio@gmail.com>
+Cc: Arend van Spriel <arend.vanspriel@broadcom.com>,
+	Hante Meuleman <meuleman@broadcom.com>,
+	Fan Wu <fanwu01@zju.edu.cn>,
+	Kalle Valo <kvalo@kernel.org>,
+	Pieter-Paul Giesberts <pieterpg@broadcom.com>,
+	linux-wireless@vger.kernel.org,
+	brcm80211@lists.linux.dev,
+	brcm80211-dev-list.pdl@broadcom.com,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH net v3 1/7] net: macb: manage the netdev lifetime with
- devres
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <DLVX7ZLU4GOM.1WCL74N0U7PUP@bootlin.com>
-References: <20261003085940.493951-1-yaojiale02@163.com>
- <20261003085940.493951-2-yaojiale02@163.com>
- <DLVX7ZLU4GOM.1WCL74N0U7PUP@bootlin.com>
-X-NTES-SC: AL_Qu2SA/2auUgj5imYZ+kdmE8Uges8WcC0svki1YJUc/AEvQrH+wIGc0daIVzG1sa+NxmGtBuRUShj5upLWoReJAgrODIcUChwF7TRUfAZfg==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+Subject: Re: [PATCH wireless 1/1] wifi: brcmfmac: fix P2P device removal race in brcmf_detach()
+Date: Sun,  4 Oct 2026 05:28:57 -0700
+Message-ID: <20261004122857.1391917-1-arend.vanspriel@broadcom.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260924123027.4122909-2-michele.dionisio@gmail.com>
+References: <20260924123027.4122909-1-michele.dionisio@gmail.com> <20260924123027.4122909-2-michele.dionisio@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178a0ccc.167b.1a106d6770f.Coremail.19888972804@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:eigvCgDnTywxQ8JqRlBSAA--.15W
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8BAoYmrCQzDPWgAA3k
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-QXQgMjAyNi0xMC0wNCAxNjo0NTo1OCwgIlRoqKZvIExlYnJ1biIgPHRoZW8ubGVicnVuQGJvb3Rs
-aW4uY29tPiB3cm90ZToKPkhlbGxvIEppYWxlLAo+Cj5UaG9zZSBMTE0gYnVncyBhcmUgY29kZSBj
-aHVybiwgdGhhdCdzIHdoeSB5b3UgYXJlIHNlZWluZyBwdXNoYmFjay4KPlBsZWFzZSBkb24ndCBp
-Z25vcmUgdGhlIHB1c2hiYWNrLiBGb3IgZXhhbXBsZSBvbiBWMiB5b3UgZ290IGFza2VkIHRvCj5y
-ZXBseSB0byBhbiBhdXRvbWF0ZWQgbWVzc2FnZSwgd2hpY2ggeW91IGRpZG4ndCBkby4KPgo+aHR0
-cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbmV0ZGV2LzIwMjYwOTI3MTUzMDIwLjUzMTFkYmE2QGtlcm5l
-bC5vcmcvCj4KPk9uIFNhdCBPY3QgMywgMjAyNiBhdCAxMDo1OSBBTSBDRVNULCBKaWFsZSBZYW8g
-d3JvdGU6Cj4+IG1hY2JfcmVtb3ZlKCkgZnJlZXMgdGhlIG5ldGRldiB3aGlsZSBpdHMgbWFuYWdl
-ZCBJUlFzIGFyZSBvbmx5Cj4+IHJlbGVhc2VkIGFmdGVyIHRoZSByZW1vdmUgY2FsbGJhY2sgcmV0
-dXJucy4gQW4gaW50ZXJydXB0IGluIHRoYXQgd2luZG93Cj4+IGNhbiBkZXJlZmVyZW5jZSB0aGUg
-ZnJlZWQgbmV0ZGV2IG9yIHF1ZXVlIGRhdGEuCj4KPlBsZWFzZSBpbmRpY2F0ZSBob3cgYW4gaW50
-ZXJydXB0IGNvdWxkIGxhbmQgaW4gdGhhdCB3aW5kb3cuCj5UaGlua2luZyBhYm91dCBpdCBmb3Ig
-YSBicmllZiBpbnN0YW50LCBJIGNhbm5vdCB0aGluayBvZiBvbmUuCgpJIHJlcHJvZHVjZWQgdGhp
-cyBvbiBRRU1VIGFhcmNoNjQgdmlydCArIEtBU0FOOgpJIGFkZGVkIGEgbWFjYiBub2RlIHZpYSBh
-biBleHRlbmRlZCBkZXZpY2UgdHJlZSwgd2l0aCBpdHMgaW50ZXJydXB0CmxpbmUgc2hhcmVkIHdp
-dGggdmlydGlvLXJuZy4gS2VlcGluZyB0aGUgcm5nIGJ1c3kgdHJpZ2dlcnMgYSBzdGVhZHkKc3Ry
-ZWFtIG9mIGludGVycnVwdHMgZHVyaW5nIHVuYmluZC9yZWJpbmQsIGFuZCBtYWNiX2ludGVycnVw
-dCgpIGhpdHMgdGhlCndpbmRvdyBhZnRlciBgZnJlZV9uZXRkZXYoKWAgb24gdGhlIGZpcnN0IGF0
-dGVtcHQuIAoKLS0tClsgICAgNC40NTcwNzddIEJVRzogS0FTQU46IHVzZS1hZnRlci1mcmVlIGlu
-IG1hY2JfaW50ZXJydXB0KzB4YzQwLzB4MTA3NApbICAgIDQuNDU3NTY5XSBSZWFkIG9mIHNpemUg
-OCBhdCBhZGRyIGZmZmYwMDAwMGY4YWNhYzggYnkgdGFzayBwb2MvODIKWyAgICA0LjQ1NzYxNF0g
-ClsgICAgNC40NTc5MzhdIENQVTogMCBVSUQ6IDAgUElEOiA4MiBDb21tOiBwb2MgTm90IHRhaW50
-ZWQgNy4zLjAtcmM0ICMxIFBSRUVNUFQgClsgICAgNC40NTgwMjVdIEhhcmR3YXJlIG5hbWU6IGxp
-bnV4LGR1bW15LXZpcnQgKERUKQpbICAgIDQuNDU4MTY3XSBDYWxsIHRyYWNlOgpbICAgIDQuNDU4
-MjU4XSAgc2hvd19zdGFjaysweDE4LzB4MjQgKEMpClsgICAgNC40NTgzMjFdICBkdW1wX3N0YWNr
-X2x2bCsweDc4LzB4OTAKWyAgICA0LjQ1ODM0MF0gIHByaW50X3JlcG9ydCsweDExNC8weDVjYwpb
-ICAgIDQuNDU4MzUzXSAga2FzYW5fcmVwb3J0KzB4YTQvMHhmMApbICAgIDQuNDU4MzYzXSAgX19h
-c2FuX3JlcG9ydF9sb2FkOF9ub2Fib3J0KzB4MjAvMHgyYwpbICAgIDQuNDU4Mzc0XSAgbWFjYl9p
-bnRlcnJ1cHQrMHhjNDAvMHgxMDc0ClsgICAgNC40NTgzODVdICBfX2hhbmRsZV9pcnFfZXZlbnRf
-cGVyY3B1KzB4YzgvMHgzNDAKWyAgICA0LjQ1ODM5OF0gIGhhbmRsZV9pcnFfZXZlbnQrMHhiMC8w
-eDFkOApbICAgIDQuNDU4NDA3XSAgaGFuZGxlX2Zhc3Rlb2lfaXJxKzB4Mjk4LzB4NmEwClsgICAg
-NC40NTg0MTldICBoYW5kbGVfaXJxX2Rlc2MrMHhjNC8weDEwNApbICAgIDQuNDU4NDU0XSAgZ2Vu
-ZXJpY19oYW5kbGVfZG9tYWluX2lycSsweDE4LzB4MjQKWyAgICA0LjQ1ODQ4NV0gIGdpY19oYW5k
-bGVfaXJxKzB4NTQvMHgxOTQKWyAgICA0LjQ1ODQ5OF0gIGNhbGxfb25faXJxX3N0YWNrKzB4MzAv
-MHg0OApbICAgIDQuNDU4NTExXSAgZG9faW50ZXJydXB0X2hhbmRsZXIrMHhmMC8weDEzMApbICAg
-IDQuNDU4NTIzXSAgZWwxX2ludGVycnVwdCsweDNjLzB4NjAKWyAgICA0LjQ1ODUzOF0gIGVsMWhf
-NjRfaXJxX2hhbmRsZXIrMHgxOC8weDI0ClsgICAgNC40NTg1NTBdICBlbDFoXzY0X2lycSsweDZj
-LzB4NzAKWyAgICA0LjQ1ODYxOV0gIGdldF9wZm5ibG9ja19taWdyYXRldHlwZSsweGQwLzB4MTQ0
-IChQKQpbICAgIDQuNDU4NjM4XSAgX19mcmVlX2Zyb3plbl9wYWdlcysweDJkOC8weGVjNApbICAg
-IDQuNDU4NjUwXSAgZnJlZV9mcm96ZW5fcGFnZXMrMHgxNC8weDIwClsgICAgNC40NTg2NjFdICBm
-cmVlX2xhcmdlX2ttYWxsb2MrMHhhMC8weDEyMApbICAgIDQuNDU4Njc0XSAga2ZyZWUrMHg4NC8w
-eDQyNApbICAgIDQuNDU4Njg0XSAga3ZmcmVlKzB4M2MvMHg0YwpbICAgIDQuNDU4Njk0XSAgbmV0
-ZGV2X3JlbGVhc2UrMHg3MC8weDk4ClsgICAgNC40NTg3MDddICBkZXZpY2VfcmVsZWFzZSsweDEw
-NC8weDIxMApbICAgIDQuNDU4NzIwXSAga29iamVjdF9wdXQrMHgxNDAvMHgyNDAKWyAgICA0LjQ1
-ODczMV0gIHB1dF9kZXZpY2UrMHgxNC8weDI0ClsgICAgNC40NTg3NDBdICBmcmVlX25ldGRldisw
-eDQxNC8weDZjNApbICAgIDQuNDU4NzUyXSAgbWFjYl9yZW1vdmUrMHgxNGMvMHgxOWMKWyAgICA0
-LjQ1ODc2M10gIHBsYXRmb3JtX3JlbW92ZSsweDU4LzB4NzgKWyAgICA0LjQ1ODc3NF0gIGRldmlj
-ZV9yZW1vdmUrMHhiMC8weDE0YwpbICAgIDQuNDU4Nzg1XSAgZGV2aWNlX3JlbGVhc2VfZHJpdmVy
-X2ludGVybmFsKzB4MmZjLzB4NDY4ClsgICAgNC40NTg3OTVdICBkZXZpY2VfZHJpdmVyX2RldGFj
-aCsweDNjLzB4NTQKWyAgICA0LjQ1ODgwNF0gIHVuYmluZF9zdG9yZSsweGVjLzB4MTAwClsgICAg
-NC40NTg4MTRdICBkcnZfYXR0cl9zdG9yZSsweDYwLzB4OWMKWyAgICA0LjQ1ODgyNF0gIHN5c2Zz
-X2tmX3dyaXRlKzB4MTcwLzB4MWU4ClsgICAgNC40NTg4MzhdICBrZXJuZnNfZm9wX3dyaXRlX2l0
-ZXIrMHgyOTgvMHg0MDQKWyAgICA0LjQ1ODg0OF0gIHZmc193cml0ZSsweDY0OC8weDhjYwpbICAg
-IDQuNDU4ODU5XSAga3N5c193cml0ZSsweGYwLzB4MWUwClsgICAgNC40NTg4NjhdICBfX2FybTY0
-X3N5c193cml0ZSsweDcwLzB4YTAKWyAgICA0LjQ1ODg3N10gIGludm9rZV9zeXNjYWxsKzB4NzAv
-MHgyNGMKWyAgICA0LjQ1ODg4N10gIGVsMF9zdmNfY29tbW9uLmNvbnN0cHJvcC4wKzB4YTgvMHgy
-MmMKWyAgICA0LjQ1ODg5Nl0gIGRvX2VsMF9zdmMrMHg0NC8weDVjClsgICAgNC40NTg5MDVdICBl
-bDBfc3ZjKzB4NTgvMHhkMApbICAgIDQuNDU4OTE3XSAgZWwwdF82NF9zeW5jX2hhbmRsZXIrMHhh
-MC8weGU0ClsgICAgNC40NTg5MjldICBlbDB0XzY0X3N5bmMrMHgxOTgvMHgxOWMKWyAgICA0LjQ1
-OTAwN10gClsgICAgNC40NTkwNTNdIFRoZSBidWdneSBhZGRyZXNzIGJlbG9uZ3MgdG8gdGhlIHBo
-eXNpY2FsIHBhZ2U6ClsgICAgNC40NTkyNjFdIHBhZ2U6IHJlZmNvdW50OjAgbWFwY291bnQ6MCBt
-YXBwaW5nOjAwMDAwMDAwMDAwMDAwMDAgaW5kZXg6MHgwIHBmbjoweDRmOGFjClsgICAgNC40NTkz
-ODRdIGZsYWdzOiAweDNmZmZlMDAwMDAwMDAwMChub2RlPTB8em9uZT0wfGxhc3RjcHVwaWQ9MHgx
-ZmZmZikKWyAgICA0LjQ1OTcyMV0gcmF3OiAwM2ZmZmUwMDAwMDAwMDAwIDAwMDAwMDAwMDAwMDAw
-MDAgZGVhZDAwMDAwMDAwMDEyMiAwMDAwMDAwMDAwMDAwMDAwClsgICAgNC40NTk3MzddIHJhdzog
-MDAwMDAwMDAwMDAwMDAwMCAwMDAwMDAwMDAwMDAwMDAwIDAwMDAwMDAwZmZmZmZmZmYgMDAwMDAw
-MDAwMDAwMDAwMApbICAgIDQuNDU5NzgxXSBwYWdlIGR1bXBlZCBiZWNhdXNlOiBrYXNhbjogYmFk
-IGFjY2VzcyBkZXRlY3RlZApbICAgIDQuNDU5NzkyXSAKWyAgICA0LjQ1OTc5OV0gTWVtb3J5IHN0
-YXRlIGFyb3VuZCB0aGUgYnVnZ3kgYWRkcmVzczoKWyAgICA0LjQ1OTkxMl0gIGZmZmYwMDAwMGY4
-YWM5ODA6IGZmIGZmIGZmIGZmIGZmIGZmIGZmIGZmIGZmIGZmIGZmIGZmIGZmIGZmIGZmIGZmClsg
-ICAgNC40NTk5MzVdICBmZmZmMDAwMDBmOGFjYTAwOiBmZiBmZiBmZiBmZiBmZiBmZiBmZiBmZiBm
-ZiBmZiBmZiBmZiBmZiBmZiBmZiBmZgpbICAgIDQuNDU5OTUxXSA+ZmZmZjAwMDAwZjhhY2E4MDog
-ZmYgZmYgZmYgZmYgZmYgZmYgZmYgZmYgZmYgZmYgZmYgZmYgZmYgZmYgZmYgZmYKWyAgICA0LjQ1
-OTk2Ml0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF4KWyAg
-ICA0LjQ1OTk5Nl0gIGZmZmYwMDAwMGY4YWNiMDA6IGZmIGZmIGZmIGZmIGZmIGZmIGZmIGZmIGZm
-IGZmIGZmIGZmIGZmIGZmIGZmIGZmClsgICAgNC40NjAwMDJdICBmZmZmMDAwMDBmOGFjYjgwOiBm
-ZiBmZiBmZiBmZiBmZiBmZiBmZiBmZiBmZiBmZiBmZiBmZiBmZiBmZiBmZiBmZgpbICAgIDQuNDYw
-MDIwXSA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT0KLS0tCldpdGggdGhlIGZpeCBhcHBsaWVkLCBzZXZlcmFsIHRob3VzYW5k
-IGN5Y2xlcyBwcm9kdWNlIG5vIHJlcG9ydCBhdCBhbGwuCj4KPj4gQWxsb2NhdGUgdGhlIG5ldGRl
-diB3aXRoIGRldnJlcyBhcyB3ZWxsLiBTaW5jZSB0aGUgSVJRcyBhcmUgcmVnaXN0ZXJlZAo+PiBs
-YXRlciwgZGV2cmVzIHJlbGVhc2VzIHRoZW0gYmVmb3JlIGZyZWVpbmcgdGhlIG5ldGRldiBhbmQg
-Y2xvc2VzIHRoZQo+PiBsaWZldGltZSBnYXAuCj4+Cj4+IFRoaXMgaXNzdWUgd2FzIGZvdW5kIGJ5
-IGEgc3RhdGljIGFuYWx5c2lzIG1ldGhvZCB1c2VkIGluIG91ciByZXNlYXJjaC4KPj4KPj4gRml4
-ZXM6IDBhNGFjZjA4ZWE2MiAoIm5ldDogbWFjYjogVXNlIGRldm1fcmVxdWVzdF9pcnEoKSIpCj4+
-IENjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnCj4+IFNpZ25lZC1vZmYtYnk6IEppYWxlIFlhbyA8
-eWFvamlhbGUwMkAxNjMuY29tPgo+PiAtLS0KPj4gIGRyaXZlcnMvbmV0L2V0aGVybmV0L2NhZGVu
-Y2UvbWFjYl9tYWluLmMgfCAxNyArKysrKysrLS0tLS0tLS0tLQo+PiAgMSBmaWxlIGNoYW5nZWQs
-IDcgaW5zZXJ0aW9ucygrKSwgMTAgZGVsZXRpb25zKC0pCj4KPlJldmlld2VkLWJ5OiBUaKimbyBM
-ZWJydW4gPHRoZW8ubGVicnVuQGJvb3RsaW4uY29tPgo+Cj5JIHN0aWxsIGdpdmUgbXkgUmIgYmVj
-YXVzZSB0aGUgcGF0Y2ggaXMgdmFsaWQuIFRoZSB3YXN0ZWQgdGltZSBpcyBvbiBuZXQKPm1haW50
-YWluZXJzIHRob3VnaDsgdGhleSdsbCBkZWNpZGUgaWYgdGhleSB3YW50IGl0IG9yIG5vdC4KPgo+
-Rm9yIHRoaXMgTUFDQiBwYXRjaCwgaXQgY291bGQgbGFuZCBpbiBuZXQtbmV4dCBhcyBJIGRvbid0
-IHNlZSBhCj5wcmFjdGljYWwgYnVnIGhlcmUgKGluIGxpZ2h0IG9mIHRoZSByZWNlbnQgcHVzaGJh
-Y2sgYWJvdXQgdGhlICMgb2YKPmZpeGVzIGluIG5ldCkuCj4KPlRoYW5rcywKPgo+LS0KPlRoqKZv
-IExlYnJ1biwgQm9vdGxpbgo+RW1iZWRkZWQgTGludXggYW5kIEtlcm5lbCBlbmdpbmVlcmluZwo+
-aHR0cHM6Ly9ib290bGluLmNvbQo=
+On 9/24/2026 2:30 PM, Michele Dionisio wrote:
+> When the driver is removed while the user space process that created
+> the P2P device (e.g. wpa_supplicant) is still exiting, the P2P device
+> interface is removed twice and the kernel crashes.
+
+[...]
+
+> For the interface without a netdev (the P2P device), take RTNL and the
+> wiphy mutex in brcmf_detach() before reading iflist, and remove it with
+> locked=true. If brcmf_p2p_del_vif() runs first, brcmf_detach() finds the
+> slot empty. If brcmf_detach() runs first, nl80211 does not find the wdev
+> any more. The interfaces with a netdev are removed as before, because
+> brcmf_del_if() takes RTNL on its own for the primary interface.
+> 
+> Fixes: 9831bcb987df ("brcmfmac: Deleting of p2p device is leaking memory.")
+> Cc: stable@vger.kernel.org
+> Assisted-by: claude-opus-5-5
+
+Acked-by: Arend van Spriel <arend.vanspriel@broadcom.com>
+
+> Signed-off-by: Michele Dionisio <michele.dionisio@gmail.com>
