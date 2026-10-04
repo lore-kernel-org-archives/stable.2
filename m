@@ -1,49 +1,49 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33E5B221546;
-	Sun,  4 Oct 2026 08:38:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CD502F0661;
+	Sun,  4 Oct 2026 08:40:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791103085; cv=none; b=WdS8m72+33TqCvUiPOB6fWHxYVMQlZWLCdA+nHRVAr7pa2TJbsyZDX5VwBZhrUW/8AJM3se2cvS3XvV2kvoCAy+RJmP0jsYrrjj/e0Ee8hqscDMOWC+SA5+EuvYQsd3uUwR81494fLfX2q9xuOkEooDz4QlExXfqbMOVwkgX+Rw=
+	t=1791103232; cv=none; b=Voo0gG2bS1BaAABFsbLm6DRntzVOP2hsp/WVpDPE/nCwurF0loY30IT/ub8Hn6IJHslbU5BRe3l+EWCr4rsmo2ogMo8qVxxWhmkmypwkzejIpCed/jTVK5t64+gu5PMLA1HSn2pzw1txwknRowXsMUqTYKgMzGDz1rVURncbEB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791103085; c=relaxed/simple;
-	bh=IMcLQQxd7Mxh6dB7j3tZV6cCtdB4uJjBpBLuMnuoQw4=;
+	s=arc-20240116; t=1791103232; c=relaxed/simple;
+	bh=XNntfym4tCch+zSlU8Wn7sbDuve181DhutZT19j5h7I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NReYw8/Tjhk1i2QO6P9EwI+4AeWNERGfthn706HBBaidkSfwvPSkATbctZJbB3Ux2XbN+i3a30vMoz124Za9UDN9spAHKV4ucmz/8yomjHicB+9AjtPGbgs5ir2W31l1Nxz/IkU9ReLWAhjZeEyiQKNWeoaGi3VEAaJP282Z+W4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KWHyS57Q; arc=none smtp.client-ip=198.175.65.15
+	 Content-Type:Content-Disposition:In-Reply-To; b=CuKEqbeAU3SltxLTVTdQ6/wMwpgz55qhXRUgFJusTnW9TvoAGw3Aqi5Tl3QJOrfQiW+bR5LFutNFGsbJJ8X55BERBFT/GtPCgWrN0bkKysWQFl28gaVMf31Xn+iKMG7iz5pR96fqB1oTFeZ697Cw2hK49EAvFCwy20eNPSPodLc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Y7zpUmmj; arc=none smtp.client-ip=192.198.163.13
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KWHyS57Q"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Y7zpUmmj"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791103084; x=1822639084;
+  t=1791103231; x=1822639231;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=IMcLQQxd7Mxh6dB7j3tZV6cCtdB4uJjBpBLuMnuoQw4=;
-  b=KWHyS57QG+TEJwJXIb5exi/h0aGU0VbOFxAok7mdq+eaTXq1I9J4epeh
-   hnqi+tzfHJaAOOkhhFkLDSlXHdTq2kjs7V2JK2kGfN8xhhwK7wY97yOuC
-   WdZfymHPMSDf+AsZIIY00HdpFX+i4Gig7w5I0eWyseyqhls76eJ08Ev0Z
-   iitgDdyTAWaccp7VR52eBl3Go8/s5VuzzO1zLdRgwUSD9F+zfry0kr2Ac
-   lVuN6/b22v2oSkmhsAlwQARloh+lzcJUbMXxs8vMCdN2W5QgI4VLQIJI+
-   lctbwUkuvcviH4EFEw5Okcfd6TfNh1qStsiLK6U4SH9gHaXTtnFVCy5sq
+  bh=XNntfym4tCch+zSlU8Wn7sbDuve181DhutZT19j5h7I=;
+  b=Y7zpUmmjfqtUVn5TsnJV4Chr/+jbg+vM/z2ksmMUshRNZ6RyjTDtu7ZM
+   pGetPD8BSaykzUUfeqqyVhIBiBC8MP95JLtTlCc8hBbj7s0XxdPfGoisj
+   wTgTRQq9aFR11RrhaBZnNXW+FWczv2P8lKcrnWoKaK0KkDVQOyVDBH9TJ
+   aellP0P7MWNEX5/8YAtDTIAOfDDdNZIpCxXQtHugXRa88LQIhhclPbiMC
+   gUq4Il91ZU5800RbblQLpQ0seqkTBFpiQobuJdQO+TRWVsCdG3oVE4OuG
+   EKHa8XN3ZwLN1ojD/+NSe6wy54s31sgvH5V+RINaTgMQJKdOH3akS9wlI
    w==;
-X-CSE-ConnectionGUID: vCshJOtkQYybizUmr0nypw==
-X-CSE-MsgGUID: qeUOhELoRWmBD2qZ8/D5Jw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11924"; a="94513098"
+X-CSE-ConnectionGUID: UZBghlimRR++LJ6D6N1rAA==
+X-CSE-MsgGUID: MucGCTefRlODUiSOyS0Xpw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11924"; a="94288894"
 X-IronPort-AV: E=Sophos;i="6.27,139,1787036400"; 
-   d="scan'208";a="94513098"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Oct 2026 01:38:03 -0700
-X-CSE-ConnectionGUID: ngJrZwJlRLeKKNCMs4tMCA==
-X-CSE-MsgGUID: n+3jFFvORWm0bwj4IQ8fng==
+   d="scan'208";a="94288894"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Oct 2026 01:40:30 -0700
+X-CSE-ConnectionGUID: qydToNTrQPqRlmYbYybmGA==
+X-CSE-MsgGUID: nhZ5LfQITjK4WMGO/v6k8Q==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,139,1787036400"; 
-   d="scan'208";a="274691150"
+   d="scan'208";a="302814897"
 Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.100])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Oct 2026 01:38:01 -0700
-Date: Sun, 4 Oct 2026 11:37:59 +0300
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Oct 2026 01:40:28 -0700
+Date: Sun, 4 Oct 2026 11:40:26 +0300
 From: Andriy Shevchenko <andriy.shevchenko@intel.com>
 To: Runyu Xiao <runyu.xiao@seu.edu.cn>
 Cc: Jonathan Cameron <jic23@kernel.org>,
@@ -54,11 +54,10 @@ Cc: Jonathan Cameron <jic23@kernel.org>,
 	Kyungmin Park <kyungmin.park@samsung.com>,
 	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: Re: [PATCH] iio: ssp: Serialize watchdog timer state changes
-Message-ID: <asIQZ7no-0OrOGn0@ashevche-desk.local>
-References: <20260930070319.2933744-1-runyu.xiao@seu.edu.cn>
- <arzdLtzXQ4cvObrL@ashevche-desk.local>
- <20261004053915.1138888-1-runyu.xiao@seu.edu.cn>
+Subject: Re: [PATCH v2] iio: ssp: Serialize watchdog timer state changes
+Message-ID: <asIQ-lnNBk8isPa0@ashevche-desk.local>
+References: <arzdLtzXQ4cvObrL@ashevche-desk.local>
+ <20261004053927.1139035-1-runyu.xiao@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,27 +66,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261004053915.1138888-1-runyu.xiao@seu.edu.cn>
+In-Reply-To: <20261004053927.1139035-1-runyu.xiao@seu.edu.cn>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sun, Oct 04, 2026 at 01:39:15PM +0800, Runyu Xiao wrote:
-> On Wed, Sep 30, 2026 at 03:03:19PM +0800, Runyu Xiao wrote:
+On Sun, Oct 04, 2026 at 01:39:27PM +0800, Runyu Xiao wrote:
+> The SSP watchdog timer rearms itself from its callback, but the driver uses
+> timer_delete_sync() when the last sensor is disabled and during suspend.
+> Those operations do not prevent a concurrent enable or callback from
+> rearming the timer after deletion. The final remove path also used
+> timer_delete_sync(), which does not permanently prevent rearming before the
+> device state is released.
+> 
+> Protect watchdog state and the enable reference count with wdt_lock. The
+> timer callback rearms only while the timer is enabled, and synchronous
+> deletion drains an in-flight callback. Use timer_shutdown_sync() for final
+> removal so later rearm attempts are rejected permanently.
+> 
+> A refresh work item can call ssp_sync_available_sensors() and
+> ssp_enable_sensor() during suspend. If the enable count is zero when
+> suspend checks it, that work can otherwise start the watchdog after the
+> suspend stop. Track the suspended state under wdt_lock. Sensor enables may
+> update the count without restarting the timer. Stop the watchdog before
+> sending the suspend command, and restart it only after resume succeeds or
+> suspend fails.
+> 
+> Cancel watchdog work after releasing wdt_lock because reset work can wait
+> for the threaded IRQ handler, which may synchronously wait for refresh work
+> that enables sensors. Remove MFD children before destroying the locks;
+> IIO child teardown can disable an active sensor.
+
+General rule of thumb is to defer a new version until the discussion is settled
+down in the previous round(s).
 
 ...
 
-> > struct ssp_data {
-> >     struct timer_list wdt_timer;
-> >     struct mutex wdt_lock;
-> >     bool wdt_enabled;
-> >     struct work_struct work_wdt;
-> > };
-> 
-> On the x86_64 build, pahole reports wdt_timer at offset 16, wdt_lock at
-> 56, wdt_enabled at 80, and work_wdt at 88; sizeof(struct ssp_data) is
-> 816 bytes. There is a 7-byte hole after wdt_enabled.
+> struct ssp_data {
 
-Right, so you can make it 3, correct?
+>  	struct spi_device *spi;
+>  	const struct ssp_sensorhub_info *sensorhub_info;
+>  	struct timer_list wdt_timer;
+> +	struct mutex wdt_lock; /* protects watchdog timer state */
+> +	bool wdt_enabled;
+> +	bool wdt_suspended;
+>  	struct work_struct work_wdt;
+>  	struct delayed_work work_refresh;
+
+Same Q here, can you reduce the gap by 4 bytes by rearranging the new members?
 
 -- 
 With Best Regards,
