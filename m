@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72FC120DD51
-	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 00:28:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9928B12F585
+	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 00:28:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791073686; cv=none; b=NqUN7bQt+AzL9frJB6RAiJa2QiE4+cct8T2QX0HcpHxmBMj8FrO3i4yH7qpFSeGcGA3W0k9UmuBK1fr2VpfGEUJBTjRJh8smsCzWElIcY0mUAZyAOOtbGbl8IIR8VvYFKjtrqIHzMoGufZV2vIRtNunvIFUJkpLRdWGMBCLQrDk=
+	t=1791073693; cv=none; b=Pk/IU+YAC3b5Iz9H+OnZI7AXYFC5x9rrJaPjdPQL3yBZCbUwTVodJZ7HgNDVgbfEkT88EC7wK88JiVQXjCmtfGBWDhxYl5iaBEgROEHvqwQCIO73AMr8imGG5Ykbnoc+gXqekcubiVmBjOA4WhZRzz1HC24StsB6UuO4URvSkOk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791073686; c=relaxed/simple;
-	bh=vBdn+uGRrZSqTygIM8rct7JQHE6MG/y+T2fFfRTAaCc=;
+	s=arc-20240116; t=1791073693; c=relaxed/simple;
+	bh=xXoBay0XPbv+yCuKVB6b9f904BQ8OL0195xTyrJIm3g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iimDeL7c76zJnvMnm5DcvgReiiRHuDWwreGEMnfxM1vw+SROXrBAnGUrc/gCToCusXMqC5kGflYvImvr8PbOwxFX9/a9UBiKOnebx1zOawNaGm9MJpu1HcpWgWF3TA2E+9f6Sf7aaT7lIsmlBTCCObNxmsj6BZtZ78Fr+OXpalc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G3hsj+fx; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=OLfYVQdi9psUKV5TPzSsbl/H+SPKk0LAoZgz81xJs9Zi+yqFITd8i/qfZaIvZIaaNAxftHALcxP5k86lqZ1NGFLAu/Q+eBZgnNHNL8GgY9qwsX9IMYYv9w3fnllEWenPNT5wjF/P836+MZsycAv2+LIOjIUSVV6tARYpbc4mB6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EhQ9Km66; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G3hsj+fx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4A051F0089B;
-	Sun,  4 Oct 2026 00:27:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EhQ9Km66"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7B7F1F0089B;
+	Sun,  4 Oct 2026 00:28:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791073684;
-	bh=Q7gh14PXQSZWryw9zNRvJq0h2l3NIrIWOF6KNUlQc4M=;
+	s=k20260515; t=1791073692;
+	bh=Xb3OVQCzSKk1mXrVshySbsBxpw9n1HcY8oGigaAwM7M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=G3hsj+fxtP2M6e5rOWoZ7avmtJ9lR0uVOi+b3GO9HQfjRd8DAHix9nDHCakwLgO2/
-	 Z1EWp/lhco7x4a0J1ltpmge/0OvEB80DJc4asIlNeZkW/sNmiS34OI11k0j1lQbmo1
-	 sndBknYrLs31TWFv4vr4Uy+Qi8im8HNl4wgy8D9ApION69dleg6xJe4EunX24bVhy1
-	 kgZ3NZbfkhvkScZRKSoV45Onpjya0HWtKk9e502AVHUyFhi2Af3GI52/HOLH4vn6xA
-	 ykWzGE8w4/C7xfbWYAvcDxg/n45K3QC8CgqerU17YqcKJu1G+Uw0rQqoX+eSCMfi3s
-	 0TV4G5KgzIGgw==
+	b=EhQ9Km66hgbG/pR+TTZgHuoz0OpYDVhMMfdY6pgErsIpBor7NjQgwPLxejfcT5N01
+	 1n1K0MVIB5YurGZbUdiByy7A2xZI+gYjEmzTkNltrdU+1L0DNXSqeSq7ghAtUvjPFw
+	 qYhJr1tD1h1OeBtGYZwceAS3xaK78XYeKfrt8iyAgm6JL3QpJUIWr3J9BlEnuIm51r
+	 UTAXvX2ub/TwVzfT+dcDT7ud8TKjK6A9gmEHDUH4swNx4T7BNN6LWHUWOg2n6qu9Ls
+	 hLNJYy95C7+Ey8HduWPB6O4NJlsEWt4LZPADBP/I3h5MYV0BAcP+21FzL040Q2VC4k
+	 ky/t6iKHU5+XQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Alice Mikityanska <alice@isovalent.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Eric Dumazet <edumazet@google.com>,
+Cc: Willem de Bruijn <willemb@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] net/ipv6: Remove jumbo_remove step from TX path
-Date: Sat,  3 Oct 2026 20:27:48 -0400
-Message-ID: <20261004002714.1231436-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] net: extend IPv6 exthdr detection of tunneled packets
+Date: Sat,  3 Oct 2026 20:27:49 -0400
+Message-ID: <20261004002714.1231436-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100321-entering-brewing-b9b5@gregkh>
+In-Reply-To: <20261004002714.1231436-1-sashal@kernel.org>
 References: <2026100321-entering-brewing-b9b5@gregkh>
+ <20261004002714.1231436-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,65 +46,140 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Alice Mikityanska <alice@isovalent.com>
+From: Willem de Bruijn <willemb@google.com>
 
-[ Upstream commit 1676ebba391dee944988ce3de1c23e038a3121d3 ]
+[ Upstream commit 5f0764cb1c81a9712bce605d38efe6d844a70b29 ]
 
-Now that the kernel doesn't insert HBH for BIG TCP IPv6 packets, remove
-unnecessary steps from the GSO TX path, that used to check and remove
-HBH.
+Commit c4336a07eb6b ("net: correctly handle tunneled traffic on IPV6_CSUM
+GSO fallback") split skb_gso_has_extension_hdr() into mutually exclusive
+branches on skb->encapsulation. This did not yet address all paths:
 
-Signed-off-by: Alice Mikityanska <alice@isovalent.com>
-Acked-by: Paolo Abeni <pabeni@redhat.com>
-Reviewed-by: Eric Dumazet <edumazet@google.com>
-Link: https://patch.msgid.link/20260205133925.526371-5-alice.kernel@fastmail.im
+1. With skb->encapsulation set, the outer header is not checked. IPv6
+   tunnels such as ip6_gre and ip6_tunnel add an outer Destination
+   Options header by default (encap_limit). Their GSO packets skip
+   software GSO, then skb_csum_hwoffload_help() sees the outer extension
+   header and calls skb_checksum_help() on the GSO skb, which warns and
+   drops it.
+
+2. Tunnels over IPv6 without an outer transport header, such as
+   ip6_tunnel, leave skb->transport_header at the inner transport
+   header. skb_network_header_len() then spans the outer IPv6, tunnel
+   and inner IP headers, a false positive.
+
+3. UDP tunnels without an inner network header, such as SCTP-in-UDP or
+   PSP, have no inner IPv6 header to check. Decide on the outer header
+   alone.
+
+4. Directly dereferencing inner_ip_hdr(skb)->version without
+   skb_header_pointer() is unsafe.
+
+Instead, check ipv6_ext_hdr(nexthdr) on the outer IPv6 header and, if
+set, on the inner IPv6 header. Read the headers with skb_header_pointer().
+Keep the skb_network_header_len() check when !skb->encapsulation to also
+catch encapsulated packets without skb->encapsulation (e.g., virtio).
+
+Use the same helper in skb_csum_hwoffload_help(). Its open coded test
+has the false positive of (2) and ignores the inner header.
+
+Background: checksum offload of tunneled packets invariants:
+
+Non-GSO skb:
+- If the inner packet is CHECKSUM_PARTIAL, Local Checksum Offload computes
+  the outer checksum in software and the device offloads only the inner L4
+  checksum.
+- If the inner packet is CHECKSUM_NONE (e.g., SCTP-in-UDP, ESP-in-UDP,
+  Remote Checksum Offload), the device offloads the outer UDP or GRE
+  checksum instead.
+
+GSO skb:
+- A device with NETIF_F_GSO_UDP_TUNNEL_CSUM or NETIF_F_GSO_GRE_CSUM
+  computes both inner and outer checksums per segment.
+  The outer checksum is seeded with only the pseudo-header checksum.
+
+A NETIF_F_IPV6_CSUM device must parse through the outer headers to
+reach the inner ones.
+
+Fixes: c4336a07eb6b ("net: correctly handle tunneled traffic on IPV6_CSUM GSO fallback")
+Cc: stable@vger.kernel.org
+Signed-off-by: Willem de Bruijn <willemb@google.com>
+Link: https://patch.msgid.link/20260926140506.2335137-1-willemdebruijn.kernel@gmail.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-
-Remove the BIG TCP jumbo-header exemptions from the GSO feature and
-checksum offload checks. Keep the existing skb_gso_has_extension_hdr()
-helper when updating the GSO check so tunneled-packet handling is retained.
-
-The transmit and GRO paths still insert hop-by-hop headers for BIG TCP,
-so retain their removal during software segmentation. Dropping that
-cleanup requires the earlier BIG TCP representation changes and is not
-needed for the subsequent IPv6 extension-header detection fix.
-
-BIG TCP packets with these headers now fall back to software segmentation
-on devices limited to IPv6 checksum offload, where the retained cleanup
-removes the synthetic header before producing segments.
-
-[ sashal: Reduced backport -- upstream 1676ebba391de touches 2 file(s), this
-  backport carries 1. Not backported here:
-  net/ipv6/ip6_offload.c
-  This note is generated from the file lists only. ]
-
-Stable-dep-of: 5f0764cb1c81 ("net: extend IPv6 exthdr detection of tunneled packets")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/core/dev.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ net/core/dev.c | 49 ++++++++++++++++++++++++++++++++-----------------
+ 1 file changed, 32 insertions(+), 17 deletions(-)
 
 diff --git a/net/core/dev.c b/net/core/dev.c
-index 6569605cc666a..e42ac7a306d07 100644
+index e42ac7a306d07..f6fc7047bd405 100644
 --- a/net/core/dev.c
 +++ b/net/core/dev.c
-@@ -3824,8 +3824,7 @@ static netdev_features_t gso_features_check(const struct sk_buff *skb,
+@@ -3756,20 +3756,36 @@ static netdev_features_t dflt_features_check(struct sk_buff *skb,
+ 	return vlan_features_check(skb, features);
+ }
+ 
+-static bool skb_gso_has_extension_hdr(const struct sk_buff *skb)
+-{
+-	if (!skb->encapsulation)
+-		return ((skb_shinfo(skb)->gso_type & SKB_GSO_TCPV6 ||
+-			 (skb_shinfo(skb)->gso_type & SKB_GSO_UDP_L4 &&
+-			  vlan_get_protocol(skb) == htons(ETH_P_IPV6))) &&
+-			skb_transport_header_was_set(skb) &&
+-			skb_network_header_len(skb) != sizeof(struct ipv6hdr));
+-	else
+-		return (!skb_inner_network_header_was_set(skb) ||
+-			((skb_shinfo(skb)->gso_type & SKB_GSO_TCPV6 ||
+-			  (skb_shinfo(skb)->gso_type & SKB_GSO_UDP_L4 &&
+-			   inner_ip_hdr(skb)->version == 6)) &&
+-			 skb_inner_network_header_len(skb) != sizeof(struct ipv6hdr)));
++static bool __skb_has_ipv6_ext_hdr(const struct sk_buff *skb, int nhoff)
++{
++	const struct ipv6hdr *ip6h;
++	struct ipv6hdr _ip6h;
++
++	ip6h = skb_header_pointer(skb, nhoff, sizeof(_ip6h), &_ip6h);
++	return ip6h && ip6h->version == 6 && ipv6_ext_hdr(ip6h->nexthdr);
++}
++
++static bool skb_has_ipv6_extension_hdr(const struct sk_buff *skb)
++{
++	if (vlan_get_protocol(skb) == htons(ETH_P_IPV6)) {
++		if (__skb_has_ipv6_ext_hdr(skb, skb_network_offset(skb)))
++			return true;
++
++		/* Catch tunnels without skb->encapsulation (e.g., virtio). */
++		if (!skb->encapsulation &&
++		    skb_transport_header_was_set(skb) &&
++		    skb_network_header_len(skb) != sizeof(struct ipv6hdr))
++			return true;
++	}
++
++	/* Tunnels without an inner network header, such as SCTP-in-UDP or
++	 * PSP, have no inner IP header and thus no inner extension header.
++	 */
++	if (skb->encapsulation && skb_inner_network_header_was_set(skb) &&
++	    __skb_has_ipv6_ext_hdr(skb, skb_inner_network_offset(skb)))
++		return true;
++
++	return false;
+ }
+ 
+ static netdev_features_t gso_features_check(const struct sk_buff *skb,
+@@ -3824,7 +3840,7 @@ static netdev_features_t gso_features_check(const struct sk_buff *skb,
  	 * so neither does TSO that depends on it.
  	 */
  	if (features & NETIF_F_IPV6_CSUM &&
--	    skb_gso_has_extension_hdr(skb) &&
--	    !ipv6_has_hopopt_jumbo(skb))
-+	    skb_gso_has_extension_hdr(skb))
+-	    skb_gso_has_extension_hdr(skb))
++	    skb_has_ipv6_extension_hdr(skb))
  		features &= ~(NETIF_F_IPV6_CSUM | NETIF_F_TSO6 | NETIF_F_GSO_UDP_L4);
  
  	return features;
-@@ -3928,8 +3927,7 @@ int skb_csum_hwoffload_help(struct sk_buff *skb,
+@@ -3926,8 +3942,7 @@ int skb_csum_hwoffload_help(struct sk_buff *skb,
+ 		return 0;
  
  	if (features & (NETIF_F_IP_CSUM | NETIF_F_IPV6_CSUM)) {
- 		if (vlan_get_protocol(skb) == htons(ETH_P_IPV6) &&
--		    skb_network_header_len(skb) != sizeof(struct ipv6hdr) &&
--		    !ipv6_has_hopopt_jumbo(skb))
-+		    skb_network_header_len(skb) != sizeof(struct ipv6hdr))
+-		if (vlan_get_protocol(skb) == htons(ETH_P_IPV6) &&
+-		    skb_network_header_len(skb) != sizeof(struct ipv6hdr))
++		if (skb_has_ipv6_extension_hdr(skb))
  			goto sw_checksum;
  
  		switch (skb->csum_offset) {
