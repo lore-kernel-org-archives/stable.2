@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6553230BE9;
-	Sun,  4 Oct 2026 16:30:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CBF4339719;
+	Sun,  4 Oct 2026 16:30:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791131420; cv=none; b=rSYtFyatQ+goSqv/QplV621FkKdotABImpWMAuqKarYDjjR2bsINHy3k8cDy9Dl9KZmAtpp4W3YC14jmIs2LIo64ErZOOJmL2LyLPaAbXb0zigUi90EzFNtdSjHGPZNeMDAI4u0nYf2vQFq18TPVEsUPw7AflbEluf2UMPTwrm8=
+	t=1791131424; cv=none; b=RjS7VhywKNKkn7lrlFZAn0CIVXYvFzSgqCxjffWGZxd8U39AIaIXTZACRmC2qNg6uU0c2AzHgbAzjXX+Bea87ErYDkzUM6BBjd37CUmiQQWqEANcGcKRSiUQNs/j2y4pdKylCWFzmxjSdTGM1tVkHeXc+L0LkJQiMlgIdMcsQbY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791131420; c=relaxed/simple;
-	bh=vjoH8uxTlEFA3Ofxlf/fUAqZz+LMf9eeft6QBgcr7oU=;
+	s=arc-20240116; t=1791131424; c=relaxed/simple;
+	bh=z21mwh4hWsZV8xYmF7gftACzk4ugTfFteRg9uhx5Mq8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VSPR1XIly05Df47q7GUBHIm+rMfT13uyWroh3TfSh5ipBinAuEJWX6Intb0OpCkIBAwaPQdglk7nqWwQpVLDGMhrjPfErJ79Qtey6syCCF7dgHswFRaIp4OUTWnTOWupoWj+mwVSSj3quljAKtFtBFu23b4B3ALtg8BgUZOkzcI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LbLlbxnT; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=IOCX+lHZqbgTNHr5YuNNbOH3yoIOnxijBIr0bC99va+yIJjj1IIbS66I3P12jx2py7Y7KL9bo9JP6i3vhpaLSCd4qCaiAQPuJ7Ga8jIm2FZZYoX1LcH1+7zcCF7npNjjUbvxMBhX/AB0RangFCf35y30+0htbLW0HzuaTVe7owU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cHJMY7Tv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LbLlbxnT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 368E41F00893;
-	Sun,  4 Oct 2026 16:30:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cHJMY7Tv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 487071F000FF;
+	Sun,  4 Oct 2026 16:30:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791131419;
-	bh=MXTzGPw3PKVNJiwd82nxvwPA6v+axfBGoLDgJi7kSo8=;
+	s=k20260515; t=1791131422;
+	bh=TOhpHzRRGAK71CrDI/fuQj76b+OuTtOAwfdFRFK1FaI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LbLlbxnTcY4gwl/qhL9ho5Z686478kThIbK/LQp21188l8WxSc+Sty1wKnidrZtTb
-	 AOwUxvwa2/5YSAx93roaPjHQtQmst9JIGc3OnEeMVJA3VEX6PzrWm94Gt3m1AkUCrH
-	 qNEl5rrYfgliaQIpWhVTde9NoXYiLU0ZoHuRs69lu+aOa3Qp/AgqhrAaIxi5VqHVK+
-	 juwo5DNjcNTZDy6KLW7CTOx2CMpx57HN8vk4Ank4LkwAnYuyCieGJg5b/j7FwA8BsL
-	 0jDs630490dkqUVcMAHivACixzpF6jzbuqt7URkYmvC2uS3RtNJuLcVx5gf0H+w7TG
-	 muxwZXjwGxEBA==
+	b=cHJMY7TvyxDUgUeZ45tr0jgJA9w28OSimD61i/joOpl2G6z6rz6oWIOvMgngJdOnG
+	 tazVHcsDd1BF6ynqfgmHd+IM53THOE2GMqT/Nb/aiUVSj3pTxnJhVCcrg2KaKI73wg
+	 obDNB2ErIVCv59sA+4jKwBi/i6wItmXsWx6EnOMBPeyD/5j2NkP/xQD0TfxRToQuPY
+	 MssyYOxRKHJxjPLPmvEpT4Q9l3iHY3aNMfFOvpgv+RXkevpQauna2Bl5Nd7SZP27pI
+	 MvtXC9ZFrFoBrBvG6IeiYZtWwcjQKVVdNC5YDuCBjf3G051VyM3ij+uOSlndxHVcXb
+	 co3Rmh9FX5HqA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
@@ -33,12 +33,12 @@ Cc: Sasha Levin <sashal@kernel.org>,
 	SJ Park <sj@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Kunwu Chan <kunwu.chan@gmail.com>
-Subject: Re: [PATCH 6.12.y] mm/damon/core: don't skip damos_adjust_quota() while esz is not zero
-Date: Sun,  4 Oct 2026 12:29:47 -0400
-Message-ID: <2026-10-04-1-daily-reply-0009-damon-adjust-quota-6.12@kernel.org>
+Subject: Re: [PATCH 6.6.y] mm/damon/core: don't skip damos_adjust_quota() while esz is not zero
+Date: Sun,  4 Oct 2026 12:29:48 -0400
+Message-ID: <2026-10-04-1-daily-reply-0010-damon-adjust-quota-6.6@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261003154616.22092-1-sj@kernel.org>
-References: <20261003154616.22092-1-sj@kernel.org>
+In-Reply-To: <20261003154818.24786-1-sj@kernel.org>
+References: <20261003154818.24786-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,7 +51,7 @@ Content-Transfer-Encoding: 8bit
 > online parameters commit feature.  Fix it by correcting a wrong quota
 > unset check in damos_adjust_quota().
 
-Queued for 6.12, thanks.
+Queued for 6.6, thanks.
 
 -- 
 Thanks,
