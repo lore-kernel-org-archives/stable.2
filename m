@@ -1,76 +1,72 @@
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C731E3B3894
-	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 04:27:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDAD91632DD
+	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 04:32:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791088027; cv=none; b=L+Psos3gfGt96vBZK2Cdt07do6b1HNdUSQJkdFea8SKGn/k6k1dvpMZU9GTRr9KyFz3ZWFiALGH1WDx0ZjrS6Lwc8oMNsDsMG1Ec08mc+LDrcbfq172AlcTKk4Aa1NaYTdpayeoZt05DmFCQ0QNjiB+AyUulp1Nw+cxmX8w+5cg=
+	t=1791088334; cv=none; b=EuguyaRgEaXyjcLApa58Gtpwl1YM+e4rjaZNJcmv4e2OMaMp8BVWk0W+pDh7L0dQk8PDjl9bZn/DA2y5VVOfIu616p/SXCyedu0PUnPPANrtVdU9FzEq8RJx3HAciuQ7ehJ0qQacPUSRl/4Z9BL7NV2WNQkhOCcSyXZAzmdSkTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791088027; c=relaxed/simple;
-	bh=UzB+W8GkiSnjNiEwgE3e6swB1W7HFwpILYFfQew3kLQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RBHgHhF7SpBSOs+CWgwwCqyZMjTZ4b24aZxGLkKZ0o+bGzywbq8wGyG6li6MwFv+0VF1gJxWOl0QrBzNyx6/3M8vH1J+S0PCwIr+TVV3t1EL/702OiFwQxr0ChcQF++/w8f1q6h7ED+zh5Hfl4ZZFWffYfC7LknVjHQwuWvHlxI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hsAwVE70; arc=none smtp.client-ip=209.85.160.179
+	s=arc-20240116; t=1791088334; c=relaxed/simple;
+	bh=9erteH596wXutvyZZZYexewCpFU1dXOiHruQ4j7BF+4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=syvcaZwC4mvF8DTp121NE/p0JoNdswjGW9AkMGlrd8TnPvLoygJOAJQ+hl8+hbaopwoKXzanIhq5jAj41gw405sTbZuwtXcypV9q7T8D1GGLka3OLhBzsQtSFr+rKI9g+MwJW91H4+yZK/IFnvd60rcWM4e9WG3pfVu1gIE1UKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tlf/3oHG; arc=none smtp.client-ip=74.125.230.204
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hsAwVE70"
-Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-5351748222cso5137571cf.1
-        for <stable@vger.kernel.org>; Sat, 03 Oct 2026 21:27:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tlf/3oHG"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-52fb76ef1d0so4728051cf.0
+        for <stable@vger.kernel.org>; Sat, 03 Oct 2026 21:32:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791088025; x=1791692825; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791088332; x=1791693132; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=abpir8BYL825hyvaRsoY2mSsbuMYUcaKMePmeAwHmvU=;
-        b=hsAwVE7009iZAQmkLB7iYdPqA0PGq+S3uc0dl9IzhiVUfJ/WMSOOA4eXgWR5FqJfbJ
-         5oeTxh7xyYWZOQdIRMIrgeVVKoNCO/yfFYCLQAEx1wgnMASID1Jfcsz0N/LWBef49Q/p
-         f1xyn1PiRCIUgO6hwY324HPAxYfQ7W2O+YUUSmLbq4Dn0sbgYCfJ4OAZbbh+zkXJatQ7
-         LDz3I+1fRdZVHfI4wUNqR4zh9HVFdqZ0HaNyUNwYTD2ogIvkYGB7ee05IB/g4zS1LGUD
-         2JJPl55siYmbuaWE+o+NgXfsY5eezlYuwjIXNG6r777df7YFiCqWidNINrq3Ny6V9d+7
-         5ERA==
+        bh=RqM21WrlpOyZNVMgtLzt66M+0MPhsreG+St4PF2KtwM=;
+        b=Tlf/3oHGC+2Mx2oK9bNIcvR90Q/AV4+yKVmPqJ+DY4YfexL8QMar/BvnqsNmn2pp6J
+         FnfYtUcQgCxhegTYJttWXtxB+rZ8Fu67toV+8vc3XD+oT5ustTPpm9LdYcXo10cLfdtw
+         Af5MsSiynCG8aXSvP5EZGCg6q3wiu3Gur5Ow6He5Zr4s9PjYRYnhsl9mJxwgz0+U/apx
+         VKEBwGLzxQyY0r9H9KRrBPgH65jlfIcLrpz+bO175s82cPo5cPPd44kXDJyrLKzr8Cqc
+         scldm/vsFWZ5LjUSsR/cXLN0OC/YDd6mqgSzOdvou7KDkXItKk+X/z3TCfLomBCecP2A
+         KTdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791088025; x=1791692825;
+        d=1e100.net; s=20260707; t=1791088332; x=1791693132;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=abpir8BYL825hyvaRsoY2mSsbuMYUcaKMePmeAwHmvU=;
-        b=rKnM4cznLO+WXnh/OsCfZVXSCNhSNGuI2+7rMfQfq390UIIcSVMcKJLV42EowL1eVR
-         qvhhRsCJBXRcHs9LkcaraUx6djVvZuINqEHjaNLuy7tjkPSPHucueq+lxeunKTOYdIRh
-         fh+5qzh6cy+tSgkeOsXnQXtIaLncZIwkEAuph7Q9IAn+PJnBW/WaXwkpUKbYXdXnMkd5
-         pE/geuXu8mBPwNbpqbFMcGsIzPyDN4AfgvgT9Lpc2qztM2/wz5swvgTG1lkpo95s4Vd/
-         WY4YWVY4q+Z3S12yX4Pvqo9rXa+dC1HcGvodG5EOVj1iDhRUTmyLrkudJdHiqSgH51om
-         jKow==
-X-Forwarded-Encrypted: i=1; AKwUvBwCT7JHkQtG206jePGv4KLXzCe7kq2iIMLhCB/Ra3kpHIimBQCGDguVyktwZaWd59h0T3saZ4s=@vger.kernel.org
-X-Gm-Message-State: AFuF++kWHPh+g5hWti1FTRDNqb9yj9li0zFQ2zVw8ZyH8EbjP/S759sM
-	C6tYMRE2zcvMqzFW0naUuY4CcBcgxXmllgySs4vXn6b8A5YihvregDs=
-X-Gm-Gg: AYBFou3KEkWue5UuMfx/bg71pszqbUPwz0/h7wt8jHqlO8+RhxfGEBJlkxRCY+6EAHI
-	zcdpju6kZOospz/oWbUz4GoHK9xCkngpdqmV4EJ0ATxsmOroADILBCuPLU41R0oMp3jMEh2/vRS
-	gKHBM8clcCPCbP5FZJtll/3lyl6URQzrK73j4qrJkR7aMvq/XkqQY5uiQ4wiLAlh7hnEHRwS4PN
-	W2mzOhKRp8YmJ2DgCzEQWeyl9D6a563ON3cYbLoXvCXyAqI4FyWB+jeVvqB81mHPvdsn2uPo+jo
-	3USvaF0JYrNqej3ah7MeqSVIyppHmwyYyusUR1xct6Te6GCC1kf4scwpL4rx1f7LYl/wCupe4te
-	ZjN+vW8+FWB+2+S4EZ0KLEmR4H31J84/jTc+2V4EGvtzvmEZPqwAQL3+hKjwGeiULZNPVLe7MoO
-	Z6AAMN+kOlnSiJkSfl6HRtf0fQl8ump2CPMx+46K/ioJw6lgl1Igz1qp6zU4ZqlAR7a+c2xyKQO
-	Behx5b/P12bD4C7HXmv43VL0QxunZndUfXBh2nbJvdNXvcGt+xaaw+vKQyoMzXKGNW0IKtHLwLw
-	lGTQA0a+MNDNbCQduAdSSZERdBjRZLY31taurkM=
-X-Received: by 2002:ac8:5cc1:0:b0:535:1bf:6195 with SMTP id d75a77b69052e-53511d17715mr74684071cf.9.1791088024517;
-        Sat, 03 Oct 2026 21:27:04 -0700 (PDT)
+        bh=RqM21WrlpOyZNVMgtLzt66M+0MPhsreG+St4PF2KtwM=;
+        b=o98Zry6DBdXDa6gvwR+qh/jzrcs7r65fBOeWxRDHslF8TdFTaDeoA7pAGXeK0OoFR1
+         2frVv/OBJnDWy6FTSjwehCK68zLZCzO/myaPPYyoHnWBguSaPx09b2SQubdNqWNHsm6e
+         9pa4VVpDIIdb4LJUI92sS1mwc5ybH9QiARmO9s5Pr8PZ40c6Vdr5FBBpA8nS1keV5QKM
+         iKPOtPmPeiT+HT83PZ9typQU1HV4LXm7PSggMZQAD8gdDWvC44V8hb8dogSEgyOfPGTA
+         3xhSD5zcUGYGoq/teIzBVvSVlnfptcy0nOyLm8qVPRFTsv1yMYToWxVIt6DFOg+ijS/2
+         tupg==
+X-Forwarded-Encrypted: i=1; AKwUvByJMUl8iFhbA0Xfn7YX0L+Jt2dKISxEHBUad11iIFfCtGUnCDIZk0hnzRqzDpXPb44wpWMhSQ4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lmk32Sy0ARRUd0fTs+p0GmKOL9IAfxMP1+Zp41AaPXMGdFiKiu
+	+KpcJvoYzz/OH7F1L4CW0qVaqBh9TQdR76QMP07WzoWwbaTOBKGjLNU=
+X-Gm-Gg: AYBFou3lccN6JwRxGkv8yC8VF7iL0cwnqj6B1k3P+j5zLDLmhSfv2KpFC6RIEQ+8Np5
+	u2XGym+JJJSh/1osSEDO8XfusXyZpJ/rXKl6UitRU/0DesJhk+snZOY4voqYMskk0ctbu42iAB1
+	+M6k7xoF/QVy1gBaQMqh+NTf5PpEd9HBoiheqigNCI4Ym5rxqfj3jkOmzyHkS7n+wsLSaorvEbj
+	Yea1Vg/R/MpsQx4O39SamZ78eJZtu94oFhb601TBkkquzL2aXyCxeMehYSFwMwj7bW+gguZnTqG
+	uW4sqMJlbaOIo1IYrlhnRf7NNCrzNWl8reqxsgChUd2ZkxdBAWjxZ7ISHO6vAkReha6LRhC22Yv
+	iL1MMTtvpWAP7R9Ys6hT8ncJC6VAy9cEqBTKUqbDY8jRv5yRUidqYcSOvS68HDYNoDSe+vipbaT
+	fwRAjlsyCt7kBEEGcMMeV2D+OIds9zLmzEvzEyWcskt+1VTC/wGONR4oxJXxo1dUeFv3k+DgaZD
+	cElvzGhB5v6U4QyRViNYtTA5E0oF7K9TtEfGVhv52v3KXL86KTQD+NkjkoE4FAJGwJurR0zJxme
+	Ocuk4hQuur9/MWbBj5vcpSJ4vXBG
+X-Received: by 2002:ac8:5d8b:0:b0:533:9607:f136 with SMTP id d75a77b69052e-533d96a6439mr126598771cf.25.1791088331728;
+        Sat, 03 Oct 2026 21:32:11 -0700 (PDT)
 Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-533988343b5sm65291551cf.1.2026.10.03.21.27.03
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53398d59747sm67134111cf.31.2026.10.03.21.32.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 21:27:03 -0700 (PDT)
+        Sat, 03 Oct 2026 21:32:10 -0700 (PDT)
 From: Myeonghun Pak <mhun512@gmail.com>
-To: netdev@vger.kernel.org
-Cc: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux-kernel@vger.kernel.org,
+To: myungjoo.ham@samsung.com,
+	cw00.choi@samsung.com
+Cc: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	ae878000@gmail.com
-Subject: [PATCH net v2] net: nixge: stop IRQ producers before draining DMA error tasklet
-Date: Sun,  4 Oct 2026 00:27:02 -0400
-Message-ID: <20261004042702.1130389-1-mhun512@gmail.com>
+Subject: [PATCH] extcon: int3496: cancel ID work before releasing dependencies
+Date: Sun,  4 Oct 2026 00:32:05 -0400
+Message-ID: <20261004043205.1135625-1-mhun512@gmail.com>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -80,122 +76,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The TX and RX IRQ handlers can reschedule dma_err_tasklet after
-tasklet_kill(), allowing it to access rings freed by nixge_stop().
+The managed delayed-work cancellation is registered before the GPIO,
+regulator, and extcon resources used by the work. Devres can release
+those resources while queued work still runs.
 
-Free both IRQs before killing the tasklet. Since pending recovery can
-restart DMA, mask channel interrupts and wait for a DMA reset to finish
-before releasing the rings. Clearing RUNSTOP alone does not ensure that
-outstanding DMA accesses have completed.
+Register work cancellation after its dependencies but before the IRQ
+that schedules it. Cleanup then frees the IRQ, cancels the work, and
+releases the dependent resources.
 
-If reset times out, retain the DMA buffers and reject subsequent opens
-to prevent those buffers from being freed or their pointers overwritten.
+The teardown ordering issue was found by static analysis.
 
-Fixes: 492caffa8a1a ("net: ethernet: nixge: Add support for National Instruments XGE netdev")
+Fixes: f94a5becabf4 ("extconn: Clean-up few drivers by using managed work init")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Co-developed-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
-Changes in v2:
-- Wait for DMA reset completion; retain buffers and reject reopen on timeout.
+ drivers/extcon/extcon-intel-int3496.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-Based on net commit 6dc989ea46b96ce170840174b4a38c4a387fb005.
-No hardware testing was performed.
-
- drivers/net/ethernet/ni/nixge.c | 33 ++++++++++++++++++++++++++++++---
- 1 file changed, 30 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/ethernet/ni/nixge.c b/drivers/net/ethernet/ni/nixge.c
-index 230d5ff..878ca67 100644
---- a/drivers/net/ethernet/ni/nixge.c
-+++ b/drivers/net/ethernet/ni/nixge.c
-@@ -185,6 +185,7 @@ struct nixge_priv {
- 	void __iomem *dma_regs;
+diff --git a/drivers/extcon/extcon-intel-int3496.c b/drivers/extcon/extcon-intel-int3496.c
+index 7d16d5b7d58f..13c585d978f2 100644
+--- a/drivers/extcon/extcon-intel-int3496.c
++++ b/drivers/extcon/extcon-intel-int3496.c
+@@ -130,10 +130,6 @@ static int int3496_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
  
- 	struct tasklet_struct dma_err_tasklet;
-+	bool dma_stop_failed;
- 
- 	int tx_irq;
- 	int rx_irq;
-@@ -391,7 +392,7 @@ out:
- 	return -ENOMEM;
- }
- 
--static void __nixge_device_reset(struct nixge_priv *priv, off_t offset)
-+static int __nixge_device_reset(struct nixge_priv *priv, off_t offset)
- {
- 	u32 status;
- 	int err;
-@@ -407,6 +408,8 @@ static void __nixge_device_reset(struct nixge_priv *priv, off_t offset)
- 				     1000);
- 	if (err)
- 		netdev_err(priv->ndev, "%s: DMA reset timeout!\n", __func__);
-+
-+	return err;
- }
- 
- static void nixge_device_reset(struct net_device *ndev)
-@@ -869,6 +872,10 @@ static int nixge_open(struct net_device *ndev)
- 	struct phy_device *phy;
- 	int ret;
- 
-+	/* A failed stop retained buffers which DMA may still be using. */
-+	if (priv->dma_stop_failed)
-+		return -EIO;
-+
- 	nixge_device_reset(ndev);
- 
- 	phy = of_phy_connect(ndev, priv->phy_node,
-@@ -911,6 +918,7 @@ static int nixge_stop(struct net_device *ndev)
- {
- 	struct nixge_priv *priv = netdev_priv(ndev);
- 	u32 cr;
-+	int ret;
- 
- 	netif_stop_queue(ndev);
- 	napi_disable(&priv->napi);
-@@ -920,6 +928,7 @@ static int nixge_stop(struct net_device *ndev)
- 		phy_disconnect(ndev->phydev);
+ 	data->dev = dev;
+-	ret = devm_delayed_work_autocancel(dev, &data->work, int3496_do_usb_id);
+-	if (ret)
+-		return ret;
+-
+ 	data->gpio_usb_id =
+ 		devm_gpiod_get(dev, "id", GPIOD_IN | GPIOD_FLAGS_BIT_NONEXCLUSIVE);
+ 	if (IS_ERR(data->gpio_usb_id)) {
+@@ -169,6 +165,10 @@ static int int3496_probe(struct platform_device *pdev)
+ 		return ret;
  	}
  
-+	/* Stop DMA while the completion IRQ handlers are still installed. */
- 	cr = nixge_dma_read_reg(priv, XAXIDMA_RX_CR_OFFSET);
- 	nixge_dma_write_reg(priv, XAXIDMA_RX_CR_OFFSET,
- 			    cr & (~XAXIDMA_CR_RUNSTOP_MASK));
-@@ -927,11 +936,29 @@ static int nixge_stop(struct net_device *ndev)
- 	nixge_dma_write_reg(priv, XAXIDMA_TX_CR_OFFSET,
- 			    cr & (~XAXIDMA_CR_RUNSTOP_MASK));
- 
--	tasklet_kill(&priv->dma_err_tasklet);
--
-+	/* Remove both producers before draining the error tasklet. */
- 	free_irq(priv->tx_irq, ndev);
- 	free_irq(priv->rx_irq, ndev);
- 
-+	tasklet_kill(&priv->dma_err_tasklet);
-+
-+	/* Error recovery may have restarted DMA and enabled interrupts. */
-+	cr = nixge_dma_read_reg(priv, XAXIDMA_RX_CR_OFFSET);
-+	nixge_dma_write_reg(priv, XAXIDMA_RX_CR_OFFSET,
-+			    cr & ~(XAXIDMA_CR_RUNSTOP_MASK | XAXIDMA_IRQ_ALL_MASK));
-+	cr = nixge_dma_read_reg(priv, XAXIDMA_TX_CR_OFFSET);
-+	nixge_dma_write_reg(priv, XAXIDMA_TX_CR_OFFSET,
-+			    cr & ~(XAXIDMA_CR_RUNSTOP_MASK | XAXIDMA_IRQ_ALL_MASK));
-+
-+	/* Either channel's reset quiesces the entire AXI DMA engine. */
-+	ret = __nixge_device_reset(priv, XAXIDMA_TX_CR_OFFSET);
-+	if (ret) {
-+		/* Retain DMA buffers and prevent a subsequent open replacing them. */
-+		priv->dma_stop_failed = true;
-+		netdev_err(ndev, "DMA stop failed; retaining DMA buffers\n");
++	ret = devm_delayed_work_autocancel(dev, &data->work, int3496_do_usb_id);
++	if (ret)
 +		return ret;
-+	}
 +
- 	nixge_hw_dma_bd_release(ndev);
- 
- 	return 0;
--- 
-2.53.0
-
+ 	ret = devm_request_threaded_irq(dev, data->usb_id_irq,
+ 					NULL, int3496_thread_isr,
+ 					IRQF_SHARED | IRQF_ONESHOT |
