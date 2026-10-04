@@ -1,109 +1,143 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B28762F5A0E
-	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 07:35:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0E9D2222A9
+	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 07:36:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791099343; cv=none; b=CnjtaQJfXHTpEvYtPsdgF8B/sNxwT5snQhHlZBTaorCEIHJ+UiDVr+VkonRT5D9oMMT/pLEyiNMloWPPL4AaMJYoREcsv7kSfYwEw8F6alW1SwBLnH++cADswAmU4znToOEHQ7y9SMqkxgrbmKNsBLtUDqF1rtMdLgv2g2qGrqs=
+	t=1791099418; cv=none; b=gch4dVI05SXcn0QiuA6wWQiismR/Tw9cJBzQTfWfzgxr2RrMiLHD391J8lx3CylCZan6FoTbiSRebl09Hh9dZKDEo13UNqZKt4mRx2e1kONjUt6tww4jVvmxHfNN+7ZxghlETqqoEYzVg4okF6YfeD2V7/SYRFNCP+3iRb/hUu0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791099343; c=relaxed/simple;
-	bh=VomrjMSgJIiANnzQHQfRzcWxgHVVDFqPNEdiou/q514=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=f44L2Kj+YOmZSUSqjKbaOsDyhcgrqKl+jXUNzDPZBF8kMi/I9XfFH1K54vcHsdoFBAaTmY+RQZlCGuM4ODBsl1WInyT27FylYcwAOaq51JaZs97Dh9M0Un6wgNETOZuVpJHd/KKuC1c67EUXv/FgTfhKHGYHM63lOuA3C4y0IR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=frDy3f4F; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791099418; c=relaxed/simple;
+	bh=fEWO6XDSF5BvdPOVRextmnD2J70Rr+6/NlpoB0sSEq0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=aFIZXopr9RbyXy6TV6htpavtbhq1X/cRomyzP2fFsrDtKKrjJwoqucipl0Ci5jfgvecLJHs+TPnykt7gGErxU9B/u6sQ8JoZF8SRa7xn++Dmfzw3RIm3i3+Z6jNaEC1IxvKrgf/PKSbtW0Rrw16oOCW01CG3yGlPJvrv4n4rgpc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XWon3xOv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="frDy3f4F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC6561F000FF;
-	Sun,  4 Oct 2026 07:35:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791099338;
-	bh=HjOwu0YjPD+FdsExXXR00XtB68oJtd5teDZOABJbOYQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=frDy3f4F2Ff+vFOzDeIU5F3ejPUqibTrh7HQ7ggP56SxjFjb1idxcvAlMyY+79xou
-	 sWWdSL9fyJUXMaTfEnDQXrQe7ybwQ1kpWMDZWx1a4I7xGA7aHxLEBYrdtkOQOtwi5W
-	 RPoKW6Nsyq2y+CqKNWi8VmIiBCr0n5Wbz0w+ttTLmRg1IDluxIMkKc5gUhuDT323m+
-	 rOXSv9XmAEUdxixc9M48OYkPn+qYWU+E7t6N6envyvtimwHo1LmigpIhIMkNicIFfa
-	 RhlfclGOHcWsYJsmeBgrEROfSDwVLZKzCLzHPmqBjCyzFk+cg3EePT6ypHw1Ej5sD7
-	 J4k/JTtseCg7Q==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Xuanqiang Luo <luoxuanqiang@kylinos.cn>,
-	Simon Horman <horms@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] pfcp: fix socket lifetime on netdevice registration failure
-Date: Sun,  4 Oct 2026 03:35:32 -0400
-Message-ID: <20261004073524.1373170-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100324-detector-remember-9bba@gregkh>
-References: <2026100324-detector-remember-9bba@gregkh>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XWon3xOv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0A151F000FF;
+	Sun,  4 Oct 2026 07:36:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791099416;
+	bh=5krAHDteebw5kXAgqy5GXFO17v0siSAIg9jp+6RmhXA=;
+	h=Subject:To:Cc:From:Date;
+	b=XWon3xOv9Ur7u0Z9EEmasafl8h/9pWBnuBBgFtbcwoaTGmKYiUC0wiCwfv3XHfmdj
+	 Y7VBZANCswpyASHCu3t7g7JOub+J7/SzhauZ9VjzadCVrG2MYWmXFruFtTBMUlknyZ
+	 qVpaMkpqa7y2S40rH9F/izZKmEu9GeaDtLo09pJY=
+Subject: FAILED: patch "[PATCH] vc_screen: reload vc pointer before if (ret) in vcs_write()" failed to apply to 6.12-stable tree
+To: yiyang13@huawei.com,gregkh@linuxfoundation.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Sun, 04 Oct 2026 09:36:53 +0200
+Message-ID: <2026100453-thorn-hurricane-763b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
 
-[ Upstream commit 0f17d2e3dd9cda3ee6d94033d5e5489af168920d ]
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-pfcp_newlink() creates the UDP socket before register_netdevice().
-If registration fails after pfcp_dev_init() succeeds, the core calls
-pfcp_dev_uninit(), which releases the socket and clears pfcp->sk.
-The newlink error path then releases it again, causing a NULL pointer
-dereference. This was observed with failslab fault injection:
+To reproduce the conflict and resubmit, you may use the following commands:
 
-  FAULT_INJECTION: forcing a failure.
-  kobject: kobject_add_internal failed for pfcp0 (error: -12 parent: net)
-  BUG: KASAN: null-ptr-deref in udp_tunnel_sock_release+0x1c/0x50
-  Read of size 8 at addr 0000000000000120 by task ip/1037
-  Call trace:
-   show_stack+0x18/0x24 (C)
-   dump_stack_lvl+0x78/0x90
-   print_report+0x468/0x5cc
-   kasan_report+0xa4/0xf0
-   __asan_load8+0x7c/0xd0
-   udp_tunnel_sock_release+0x1c/0x50
-   pfcp_newlink+0x128/0x184
-   rtnl_newlink+0x848/0xe44
-   rtnetlink_rcv_msg+0x468/0x514
-   netlink_rcv_skb+0xc0/0x1f0
-   rtnetlink_rcv+0x18/0x24
-   netlink_unicast+0x4b8/0x558
-   netlink_sendmsg+0x2b8/0x584
-   ...
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x 226bd5603371cd9f6642cbb9e9a677f445de3530
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100453-thorn-hurricane-763b@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
-Return from pfcp_del_sock() if pfcp->sk is NULL.
+Possible dependencies:
 
-Fixes: 76c8764ef36a5 ("pfcp: add PFCP module")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Link: https://patch.msgid.link/20260924055252.33488-1-xuanqiang.luo@linux.dev
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ sashal: Changed the NULL check from pfcp->sk to pfcp->sock. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/pfcp.c | 3 +++
- 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/net/pfcp.c b/drivers/net/pfcp.c
-index a6aa30ae0af76..c1c8eaea63fc3 100644
---- a/drivers/net/pfcp.c
-+++ b/drivers/net/pfcp.c
-@@ -104,6 +104,9 @@ static int pfcp_encap_recv(struct sock *sk, struct sk_buff *skb)
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 226bd5603371cd9f6642cbb9e9a677f445de3530 Mon Sep 17 00:00:00 2001
+From: Yi Yang <yiyang13@huawei.com>
+Date: Tue, 1 Sep 2026 11:31:31 +0000
+Subject: [PATCH] vc_screen: reload vc pointer before if (ret) in vcs_write()
+ to avoid UAF
+
+The reload of 'vc' added by commit 8fb9ea65c9d1 ("vc_screen: reload load
+of struct vc_data pointer in vcs_write() to avoid UAF") sits after the
+'if (ret)' block, so the copy-failure break path exits the loop without
+reloading vc. If the vc was kfree()'d via vc_port_destruct during the
+unlocked copy_from_user() window, the post-loop
+'if (written && vc) vcs_scr_updated(vc)' is reached with a stale
+non-NULL vc. The '&& vc' guard from commit a287620312dc ("vc_screen:
+fix null-ptr-deref in vcs_notifier() during concurrent vcs_write") only
+handles the NULL case, not this stale-non-NULL case; vcs_notifier() then
+reads param->vc->vc_num from freed memory:
+
+  BUG: KASAN: slab-use-after-free in vcs_notifier+0x7c/0xd0
+  Read of size 2 at addr ffff888007149190
+  Call Trace:
+   vcs_notifier+0x7c/0xd0
+   atomic_notifier_call_chain+0x70/0xa0
+   vcs_scr_updated+0x77/0xa0
+   vcs_write+0x71b/0x7e0
+  Allocated by task: vc_allocate -> con_install -> tty_open
+  Freed by task: kfree <- vt_ioctl (VT_DISALLOCATE -> vc_port_destruct)
+
+Move the reload to immediately after console_lock(), before 'if (ret)',
+so every break path below passes a fresh vc to the post-loop
+vcs_scr_updated().
+
+Fixes: a287620312dc ("vc_screen: fix null-ptr-deref in vcs_notifier() during concurrent vcs_write")
+Cc: stable@kernel.org
+Signed-off-by: Yi Yang <yiyang13@huawei.com>
+Link: https://patch.msgid.link/20260901113131.2760010-1-yiyang13@huawei.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+diff --git a/drivers/tty/vt/vc_screen.c b/drivers/tty/vt/vc_screen.c
+index bf1502fd5bd4..79453abcf4d9 100644
+--- a/drivers/tty/vt/vc_screen.c
++++ b/drivers/tty/vt/vc_screen.c
+@@ -631,6 +631,18 @@ vcs_write(struct file *file, const char __user *buf, size_t count, loff_t *ppos)
+ 		ret = copy_from_user(con_buf, buf, this_round);
+ 		console_lock();
  
- static void pfcp_del_sock(struct pfcp_dev *pfcp)
- {
-+	if (!pfcp->sock)
-+		return;
++		/* The vc might have been freed or vcs_size might have changed
++		 * while we slept to grab the user buffer; recheck here, before
++		 * if (ret), so every break path below passes a fresh vc to the
++		 * post-loop vcs_scr_updated(). Return data written so far.
++		 */
++		vc = vcs_vc(inode, &viewed);
++		if (!vc) {
++			if (written)
++				break;
++			return -ENXIO;
++		}
 +
- 	udp_tunnel_sock_release(pfcp->sock);
- 	pfcp->sock = NULL;
- }
--- 
-2.53.0
+ 		if (ret) {
+ 			this_round -= ret;
+ 			if (!this_round) {
+@@ -642,17 +654,6 @@ vcs_write(struct file *file, const char __user *buf, size_t count, loff_t *ppos)
+ 				return -EFAULT;
+ 			}
+ 		}
+-
+-		/* The vc might have been freed or vcs_size might have changed
+-		 * while we slept to grab the user buffer, so recheck.
+-		 * Return data written up to now on failure.
+-		 */
+-		vc = vcs_vc(inode, &viewed);
+-		if (!vc) {
+-			if (written)
+-				break;
+-			return -ENXIO;
+-		}
+ 		size = vcs_size(vc, attr, false);
+ 		if (size < 0) {
+ 			if (written)
 
