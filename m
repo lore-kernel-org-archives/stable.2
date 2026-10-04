@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD35039F16B
-	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 17:39:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7024339F16B
+	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 17:39:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791135544; cv=none; b=IfQDq5eN+NxUPCSP24utfDjpIgWFejNcEJY7vSvLHm7dfnwxm68wy1CJVqAyhc0D89c36NUyn9V0SuYvPDsmE1ldLRi9FUPD4ayji5ALN4UlfKIts8haeXtzR8vJLPaxRos3idcv5cmUFnkhUGKL84nL6j9lZopY5kBqIkulW6M=
+	t=1791135546; cv=none; b=Zjpc13xPr1SeI5C1kyTt4TjSbOCoMlEtBR8kB/wtvTwRavCsbJH1u4nqjSLIiCF2fWAtAh2vSXk4yI0juIi5+fEdrljDSz5qbR4Wn3ibshJgd98wVyHMMuMNJVc9ONj9ZDXNFUrqD3BAse48AFq19tsXscsom5Rk0qireDzKHZg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791135544; c=relaxed/simple;
-	bh=DIDeLH7QI4HTN/TdR1gDrvYFGwgGXfUvpY6+VQsP4cM=;
+	s=arc-20240116; t=1791135546; c=relaxed/simple;
+	bh=+VNfsMK96Xcv9FRbn0fqWwjBWZ1jbumT5jLl3yrmdYQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QgJ06xf1iAXdiK3WImOie2zkiz9u0G1oOagrjLjWv9zFetw0W0p/W+TS/J63bR0Uea8PP2fQmsPGPzeOQ4VwHuQ71YNlVL8DNKjE1a1df//z92Tbx0/qTtf10NZBu5KBsrlOle8cI1KOsHg6hrCfLw10jWQrGCQO8+bRRsmeZC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B3RCk2WG; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=aiFxJPbA5kXj+gUJMi24ylp0OQu9UcWMJJLnjApLesXKMuwJNQpSv4xHvYp82hJd53sSPEsKVJACJCdkh+T25iFSqFlh0ZxmjJS6u3I0hmeh5yQv9ISyOW0wz2Jpd7ijGC26b0u69W36/pKDkKK87Vq1PYWIquSzBtcwiY4C95o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oDUq4evX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B3RCk2WG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4052F1F000FF;
-	Sun,  4 Oct 2026 17:39:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oDUq4evX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEDA31F00893;
+	Sun,  4 Oct 2026 17:39:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791135543;
-	bh=fiVlH15TbPjxCvR3rNK1Di8B2TcpsV0AKExzsYv/15U=;
+	s=k20260515; t=1791135545;
+	bh=VbIX2FBU8ElTmA0ZoIOeSKq3qO3y+REc9lIXx6cTvkw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=B3RCk2WGR1CFsXz9ElEL8nnY8+3OCSWmkoQ4cPrD1BOF69ZZQjxcm+L315ZlCf8of
-	 0DcXJSl3cHUd8rVzi8g0YrnEAhkfB68sAc+X00/C3YrGtYOYlsCqiJYSEXAyCAPEzb
-	 1YR/OcCE2op0cydaqTFBFShY7VCt/RprIfALtygbG0mPkcED/S7lGSu3uqndvkVZrl
-	 hZuPjA/upOq2LK19Tm2CbPUHXDb6x4G3TzLbDfDOjXvt2tzvCICdlxPwH6bCC9/wY3
-	 7PSwdEa/0R9s2/JfFnPb5WSfhZCtrEqrws7uidizDGVL5OmJ/WlSRb/WTrU69SKXnq
-	 RtLjgeLNkX7zw==
+	b=oDUq4evXSPLXM54CIqDIAZS3adFnki0ovxSybfx8oMdUo9zjVOJoJHU0riloYUEsh
+	 69oC2yW5eoCanRkmq5bxXBhjqy2vXSQ9Uy1bRSnSsGgEFBAEH6n7n+JQ/lBR3H2/Ln
+	 8Hcvth8oDF89nzqhqcbQyalw2KYrAxljrunv/ZcP/qO1LDpohUouXKNaOOE2LQ05f+
+	 nr7sTXrb+MCnqAw+8cs2v7JAlpFxt6MylM7jJRp8/P6RLcTzj56DPjtr2z/eHslLzz
+	 wJJCYnh8Y/Pw45NBvsdLQnQQV5HuNxIomHpZMSFHe42jaGN7MyBYrMgITgS/H00lA+
+	 X1G03HxtU7U2w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/3] console: introduce console_lock guard()s
-Date: Sun,  4 Oct 2026 13:38:57 -0400
-Message-ID: <20261004173840.989210-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/3] tty/vt: use guard()s
+Date: Sun,  4 Oct 2026 13:38:58 -0400
+Message-ID: <20261004173840.989210-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100453-thorn-hurricane-763b@gregkh>
+In-Reply-To: <20261004173840.989210-1-sashal@kernel.org>
 References: <2026100453-thorn-hurricane-763b@gregkh>
+ <20261004173840.989210-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,39 +48,137 @@ Content-Transfer-Encoding: 8bit
 
 From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
 
-[ Upstream commit 4847d1187402a5027d9a04393f12d52a5a1d7f98 ]
+[ Upstream commit e730c373b6ff16a177e132859bf6ea4dbb15105f ]
 
-Having this, guards like these work:
-  guard(console_lock)();
-or
-  scoped_guard(console_lock) {
-    ...
-  }
+Having all the new guards, use them in the vt code. This improves
+readability, makes error handling easier, and marks locked portions of
+code explicit.
 
-See e.g. "vc_screen: use guard()s" later in this series.
+A local free_page_ptr __free guard is introduced for
+__get_free_page/free_page (with proper casts). This could be made public
+in include/. But I am not sure if there are more possible users, so
+keeping completely private here.
 
 Signed-off-by: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
-Link: https://lore.kernel.org/r/20250814072456.182853-2-jirislaby@kernel.org
+Link: https://lore.kernel.org/r/20250814072456.182853-16-jirislaby@kernel.org
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+Use scope-based console locking and buffer cleanup in vcs_write() so
+error paths can return directly while releasing both resources.
+
+Limit the conversion to the function needed by the follow-up console
+pointer reload fix. Omit the other guard conversions, including the
+selection changes whose context assumes bracketed-paste support.
+
+Allocate the page-sized copy buffer with kmalloc() and reuse the existing
+kfree cleanup guard instead of introducing a new cleanup helper. Declare
+the buffer before the console guard so the console is unlocked before
+the buffer is freed, preserving the original cleanup order.
+
+[ sashal: REDUCED BACKPORT of e730c373b6ff: carries 29/414 upstream
+  changed lines; not carried:
+  drivers/tty/vt/consolemap.c:con_set_trans_old(),
+  drivers/tty/vt/consolemap.c:con_get_trans_old(),
+  drivers/tty/vt/consolemap.c:con_set_trans_new(),
+  drivers/tty/vt/consolemap.c:con_get_trans_new(),
+  drivers/tty/vt/consolemap.c:con_clear_unimap(),
+  drivers/tty/vt/selection.c:sel_loadlut(),
+  drivers/tty/vt/selection.c:set_selection_kernel(),
+  drivers/tty/vt/selection.c:paste_selection(), +28 more ]
+
 Stable-dep-of: 226bd5603371 ("vc_screen: reload vc pointer before if (ret) in vcs_write() to avoid UAF")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/console.h | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/tty/vt/vc_screen.c | 29 +++++++++--------------------
+ 1 file changed, 9 insertions(+), 20 deletions(-)
 
-diff --git a/include/linux/console.h b/include/linux/console.h
-index eba367bf605da..cfc7125daf626 100644
---- a/include/linux/console.h
-+++ b/include/linux/console.h
-@@ -666,6 +666,8 @@ void vcs_remove_sysfs(int index);
-  */
- extern atomic_t ignore_console_lock_warning;
+diff --git a/drivers/tty/vt/vc_screen.c b/drivers/tty/vt/vc_screen.c
+index 2536635153552..a59d2006b1a99 100644
+--- a/drivers/tty/vt/vc_screen.c
++++ b/drivers/tty/vt/vc_screen.c
+@@ -591,7 +591,6 @@ vcs_write(struct file *file, const char __user *buf, size_t count, loff_t *ppos)
+ {
+ 	struct inode *inode = file_inode(file);
+ 	struct vc_data *vc;
+-	char *con_buf;
+ 	u16 *org0, *org;
+ 	unsigned int written;
+ 	int size;
+@@ -602,7 +601,7 @@ vcs_write(struct file *file, const char __user *buf, size_t count, loff_t *ppos)
+ 	if (use_unicode(inode))
+ 		return -EOPNOTSUPP;
  
-+DEFINE_LOCK_GUARD_0(console_lock, console_lock(), console_unlock());
-+
- extern void console_init(void);
+-	con_buf = (char *) __get_free_page(GFP_KERNEL);
++	char *con_buf __free(kfree) = kmalloc(PAGE_SIZE, GFP_KERNEL);
+ 	if (!con_buf)
+ 		return -ENOMEM;
  
- /* For deferred console takeover */
+@@ -611,22 +610,18 @@ vcs_write(struct file *file, const char __user *buf, size_t count, loff_t *ppos)
+ 	/* Select the proper current console and verify
+ 	 * sanity of the situation under the console lock.
+ 	 */
+-	console_lock();
++	guard(console_lock)();
+ 
+ 	attr = use_attributes(inode);
+-	ret = -ENXIO;
+ 	vc = vcs_vc(inode, &viewed);
+ 	if (!vc)
+-		goto unlock_out;
++		return -ENXIO;
+ 
+ 	size = vcs_size(vc, attr, false);
+-	if (size < 0) {
+-		ret = size;
+-		goto unlock_out;
+-	}
+-	ret = -EINVAL;
++	if (size < 0)
++		return size;
+ 	if (pos < 0 || pos > size)
+-		goto unlock_out;
++		return -EINVAL;
+ 	if (count > size - pos)
+ 		count = size - pos;
+ 	written = 0;
+@@ -651,8 +646,7 @@ vcs_write(struct file *file, const char __user *buf, size_t count, loff_t *ppos)
+ 				 */
+ 				if (written)
+ 					break;
+-				ret = -EFAULT;
+-				goto unlock_out;
++				return -EFAULT;
+ 			}
+ 		}
+ 
+@@ -664,15 +658,13 @@ vcs_write(struct file *file, const char __user *buf, size_t count, loff_t *ppos)
+ 		if (!vc) {
+ 			if (written)
+ 				break;
+-			ret = -ENXIO;
+-			goto unlock_out;
++			return -ENXIO;
+ 		}
+ 		size = vcs_size(vc, attr, false);
+ 		if (size < 0) {
+ 			if (written)
+ 				break;
+-			ret = size;
+-			goto unlock_out;
++			return size;
+ 		}
+ 		if (pos >= size)
+ 			break;
+@@ -702,9 +694,6 @@ vcs_write(struct file *file, const char __user *buf, size_t count, loff_t *ppos)
+ 	if (written && vc)
+ 		vcs_scr_updated(vc);
+ 
+-unlock_out:
+-	console_unlock();
+-	free_page((unsigned long) con_buf);
+ 	return ret;
+ }
+ 
 -- 
 2.53.0
 
