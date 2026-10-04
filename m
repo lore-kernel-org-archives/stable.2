@@ -1,81 +1,71 @@
-Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38B073E5A33
-	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 03:41:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6210833F5A8
+	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 03:49:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791085300; cv=none; b=egSamlARsAIp980Chy4NQx7EorSKv2w4gEMT+W9kY3xXSq2OvPEDiHjm5WA+O++wooRxrJcUPM+2kcN1O+TyApCp5ELNwxVplk6n2iQGkWtDyOBNQ8N+cSE345WUGGFFqI32HpeBGKPCNpuZUQ2sbn6KvWTgfHc3G/p9KRlZOg8=
+	t=1791085785; cv=none; b=aYoxL0c1Ya2nTMF6lgKlco4vuqdRnA6+tUUjwU4WOjTx6cLG0etULsdlBthXKgLF85kCtuU/xyh3nw/UCroXYounqiIN6PXxD2WwRsFIXDcBaSPuICjCiQcCgOuYvRLvR7H0Wvy8dW4/aj5XmXilH9iydcnahBYM3gx1Tu2WBxE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791085300; c=relaxed/simple;
-	bh=fhR73NhC9+vNuwHlbmh1kyAcAjMvzf/ZTywGsRy2//0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=chd952AVg0aR5v776J3P4qvYKitwhNbhpso4bF0ld28qFOkpn7TS3jw31XxduL1j1gFGyIjD/3Qrz4x+LujREN5M0JqShPHdJVoUFLSNKryE98l5mk3gwfK/bGz2quRO02VaXOidAcj3N9T+p2QpEYZXrHsqZU0F9jxNyTzr8uY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=KC6jiuWX; arc=none smtp.client-ip=74.125.229.12
+	s=arc-20240116; t=1791085785; c=relaxed/simple;
+	bh=/6I2hA6GsEXGdVEF6v+iLa+2A0Pts4hK73T0JGKi5Mo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Z5d55JdjwuwBksecpPuNW67aK0aKp3oQ4VloKjNNEQLGu0/uJ269JbTp2t7BBMFFU9PIPht7dNGYKcLCMP9HSpLSlRAXqjMwBFT7xMfGmiroL73Ubc7wQQ8ZEBmVoJ9iHWleQ3k/gFW5R1cfli2OElqzaykv8fgBosUF5Z4flLA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=kKOant5K; arc=none smtp.client-ip=74.125.82.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="KC6jiuWX"
-Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-3396cec93b6so775567eec.3
-        for <stable@vger.kernel.org>; Sat, 03 Oct 2026 20:41:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="kKOant5K"
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-33fb4680717so2001401eec.1
+        for <stable@vger.kernel.org>; Sat, 03 Oct 2026 20:49:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1791085298; x=1791690098; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MGayYLSpo+HONIxnPrP/qqWGzQP0aiWVlT8XEDLeFKY=;
-        b=KC6jiuWXgXiS5S2eGib2N12itxKTHdUOO5tGuswvNC7ihtVdIogS6i6QJS928e2Rzh
-         6Rekp/ODKvtHUrwhkqtvmrDuwTT2h+tVfq5rV7kgIcrVabfRoPiDSBO8UBzcxXFJfnSC
-         awIfhMF3H7Mh5A4ZDUVa/EqAfDXCoUEbZqy/S55ui2dfPuabypo+FTpimM0OlKANlHl2
-         yaE70YagJiiA8zOhj0AIlA5vZTUd8pWsLEXouJIvzzDxZSIm6M9PmnWFfycaaBVFHSiY
-         oblCZ3rh+fWMvvPBZ2ixsQA8Hydoc0MjkPFKS2A9lUwJ3zbvdCtcT971ganyDHgW4RmU
-         YdqQ==
+        d=trailofbits.com; s=google; t=1791085783; x=1791690583; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BlpNX7iexQd3fC/4/YWVoO3rXK3espdgEA9PSfX0GmU=;
+        b=kKOant5KnjlUYfgAkJCGd+jAGiaAMyvFEpP+5pvF5UXlSlaAJYxu0IHrurrl+BC3gc
+         TZfd29JoOrBsUl7lL96R3XVV1vZ3FqiOYpzB5i6Kg3SUJ9VztzMz2rcoNda+Bh/XHuVO
+         buChzYYz+2PO/+eb65rCWMcgQibZSfbo7rtwm/9Y1tr42c1j2uBhGEOGPatSXN69q8L2
+         g+gRNTy1WiENnWVA7ws4C5Vc4xG2KhSZGn4QzMxIY//3qiiuaFr7yjmNeThq1uvlDB4/
+         QPr3w57xliA4UbGRQhIs55Ebu18lcrirXEBsQk2M9xmIilhZDTeRB9U4FEH20YSZHJOE
+         ieIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791085298; x=1791690098;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MGayYLSpo+HONIxnPrP/qqWGzQP0aiWVlT8XEDLeFKY=;
-        b=a9UGtJLqifqV/KFlR/KE5+ZMlt+DflwRSXQuaU5/FU2FGhWprxDK8HONsMbrwOTEN3
-         ZXCa3HPOkTAFv7eEWGc5Zi1vOGJkc7z4jh1ShbzBCSHWpzfgV8c086Xl4hIku4iHR9kj
-         nwH5Y7v47msIbPuoVcpfLJ/5LR/GUWniDFlr6ztnYTT0cc8VK53Pby4sFNwS4B2nrXna
-         M8MbIFruwkoqSWmAwTuP54ofPFRV3iFl6gLeiIS4OjtdevY+to1k96DxowhCTZqEqYyk
-         VZVYB7dysh86+3uD2IciCiFo66amt8twsKADQr0g/XGNy1/0ongs3Db8ZA35jKhR+xuV
-         3F6Q==
-X-Forwarded-Encrypted: i=1; AKwUvByEz4AI6kifougM+Yc2flUCIxhwFcZB4j2eAe4s1+ZxfAkV1q9541/XsDQCerBdkHiqLOhFruk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJC+lQr5NuQLg4vvoRjrIJrhz5+37FTi5SNnst0b3s/KyVNSzm0
-	D7//VY4v0toiznOJTE13IXf/ayEkga2tqDCYVKk7dCXAzrX1891NbRffKkPEbg/hlA0=
-X-Gm-Gg: AYBFou2Z1f4XesyE7K9JNhutbjxjO/t/oKWjN3XO6nB4gUEOCD0UL5p3F//T9IlqqW1
-	dwEYc0o+oZQc+s9rgLmaTNizpPi270nkGWpXOz3kMUvdyvAIrzEsqVfW/pXdbMQXAgPmtxMkW7n
-	JI56dm0UR/w8wXEvLGPKBdEW/2gV/R2dELrv6W8BjMj77n4gL8EVRDmwPswgsgRstOrvwlAeEBq
-	H2X/8b2nj5CBXzFUhyX6K1CJHAXdhU0oTJjWf20N96MKl1Vhqj7CqVS6BPCByjqbRdfhNJErawJ
-	W8N37uqerXDLzIO81tV9Wzig8MsymqjpzSOdR2gzL+oXcpCbqpwvrqDUDMCwmb5JzFnJrUyedFh
-	/cDLLRiPdNSIjdySJNGPqqWbtKsyei27XW9hFgtOuDCPqTi9iUobIX2TU7oeSV1Py2Uzv4kA+bl
-	wA4eFk25YsDHZRTx0z3ee4VauwUpoU8bM5cWbqB+7NodwxgwlWWF8jIjGjNYSxN2aO9StaaWM+O
-	H0OosFua3L9rnd15gxySZKFsRh6Qa7sObvShgSY2ZOK2ZKoqM/aYlEAjii6n+qpzrjriBM=
-X-Received: by 2002:a05:7301:618d:10b0:34a:e7ba:863c with SMTP id 5a478bee46e88-34f150d227emr8378610eec.18.1791085297893;
-        Sat, 03 Oct 2026 20:41:37 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791085783; x=1791690583;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BlpNX7iexQd3fC/4/YWVoO3rXK3espdgEA9PSfX0GmU=;
+        b=DPkI4lTG/eCU/u+7DVeO2Wc5gllmSmstdCKxoqbR2ydfzO/jiI7Vo34ijPI/jyGYSf
+         5eBCkuN9fbtTnYY7W7wZvP9zNP5xI44dKkaWrIkL0In2M6U8WVLFEQ+1m+nYBVjIf/6l
+         upnLHmXa8XkkZ5NCmA4WujI0XsvvQqlyG1jljQvPt5lTtU5l+XVsNEOjmucuUkdGAo+o
+         USVlQDBzadDs8S1Ox22QHkC+70MWS1GvzcdaNtM1ZcFqYVOtUopEk/VvWjSyT7CN2fxc
+         cflnyyklKYjGw/S5W3mlAorrdIewTe3qXLaHIng1eNuF+FOhEanA36hcKIysCjhWnlms
+         7TvA==
+X-Gm-Message-State: AFuF++kGXM6HZGxjIRs4Lwipz/Oavqia/enT+g/EhV/lfL7VhT7q00VI
+	e8ocV8GGMys7jn4iDViLAtZEJmfn7ZeePw5urDZRHYhqmDq6ehd6G6QnOy28vJG9waLwc7r1Fuc
+	ANvtoXFE=
+X-Gm-Gg: AYBFou0akLeiqrqteWvutScpxK3nCKqw06pczYHHxBmd0zOsHndEnXIHurB3ktf7BBX
+	qr52q0wceR++4f62wcfzAUezyG//sSSAjc08GIA+8jmL2bIUUmtc9l21fUOeLJ9Gr3y4EzRlLWK
+	LqKObUZpUNy7jBtyXPHAqoyxaAq1S0HX2teqAzKmJ34Ca8AGf/m2nbGcxUa4cTkYF8V6bkP9FbG
+	bqJR/P4DzYrN12wjsKuL6/1GQK3cBLtpfP4kuRAacL1NJtZ6+BgiKXNgmaT2hI0YTpRNDQWL+GR
+	IQHJFNtnL0tkeRGjE6JosluYIdYgSTZ1mMh1fsmj8dx+7X8hUTpK6nhxtHz7BrZ5bSVcDHJuKCY
+	q/R8kpJxtgzuysLIowQMAcdB/1L78mQAcekXOgxuWH5MmJ8K1ZvrQVm48aqiw+2667zeUZylEwQ
+	rokUSDjwlxfQkvIvICwSCYDIIzvypYw0tZhRxNlx9RS9BV4kZLhQe64OTI0t5YGVLZvTYcXoomG
+	OfGXvPM2VR5+sxkA0/23C8dezNYkhOCjxa1urX+ka9u2Pdavv/6YMXcC4Dx0Yyh/0JdYJY=
+X-Received: by 2002:a05:7022:108b:b0:14d:c7ae:85e1 with SMTP id a92af1059eb24-151c3aa1f5emr5699377c88.21.1791085783128;
+        Sat, 03 Oct 2026 20:49:43 -0700 (PDT)
 Received: from localhost.localdomain ([2603:8001:5f01:8bab:a817:e330:2fc8:fa47])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3512718a18esm1308920eec.17.2026.10.03.20.41.37
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-151fc39a6cbsm10107071c88.5.2026.10.03.20.49.42
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 03 Oct 2026 20:41:37 -0700 (PDT)
+        Sat, 03 Oct 2026 20:49:42 -0700 (PDT)
 From: Artem Dinaburg <artem@trailofbits.com>
-To: Justin Tee <justin.tee@broadcom.com>,
-	Paul Ely <paul.ely@broadcom.com>
-Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	James Smart <James.Smart@Emulex.Com>,
-	James Bottomley <James.Bottomley@SteelEye.com>,
-	"Martin K . Petersen" <mkp@kernel.org>,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Artem Dinaburg <artem@trailofbits.com>,
-	stable@vger.kernel.org
-Subject: [RFC PATCH 2/3] scsi: lpfc: Resolve synchronous mailbox wait ownership under hbalock
-Date: Sat,  3 Oct 2026 23:41:35 -0400
-Message-ID: <f6aba409fd4bf25e833d72bc943ca2788854985d.1790968549.git.artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: Artem Dinaburg <artem@trailofbits.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: Please consider these upstream CVE fixes for 6.1.y
+Date: Sat,  3 Oct 2026 23:49:36 -0400
+Message-ID: <20261004034937.70523-1-artem@trailofbits.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1790968549.git.artem@trailofbits.com>
-References: <cover.1790968549.git.artem@trailofbits.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -84,95 +74,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-lpfc_sli_issue_mbox_wait() detaches the waiter under hbalock and, on
-timeout, switches mbox_cmpl to lpfc_sli_def_mbox_cmpl() so that a late
-completion frees the mailbox. The completion side does not make its
-decision under the same lock. lpfc_sli_wake_mbox_wait() sets
-LPFC_MBX_WAKE before taking hbalock, and the mailbox worker and the
-flush path load mbox_cmpl without hbalock (lpfc_sli_handle_mb_event(),
-lpfc_sli_mbox_sys_flush()). A completion that loaded the wake callback
-before the waiter timed out then finds no waiter, wakes nobody and leaks
-the mailbox. Because LPFC_MBX_WAKE is set before hbalock is taken, a
-waiter that times out in that window also returns MBX_SUCCESS, and its
-caller can free the mailbox before the wake handler reads it. This
-affects every caller of lpfc_sli_issue_mbox_wait().
+Hi Greg and Sasha,
 
-Decide ownership in lpfc_sli_wake_mbox_wait() under hbalock. If a waiter
-is still attached, set LPFC_MBX_WAKE and complete it. Otherwise run
-lpfc_sli_def_mbox_cmpl() after dropping the lock.
+The seven commits below are in mainline but remain missing from Linux 6.1.188
+and its current stable queue. The Linux CNA records mark 6.1.188 affected by
+each CVE. I checked every newer supported stable branch independently; each
+already contains the fix or is officially unaffected. I also checked the
+current mainline history for effective reverts.
 
-The wake callback now handles the detached case itself, so the timeout
-path no longer switches mbox_cmpl, and the waiter no longer writes it
-while the completion side may be reading it without the lock.
+I cherry-picked this exact set, without changes and in the order shown, onto
+Linux 6.1.188 plus stable-queue d0298d81c97e (tree aab7b6473661). The
+cumulative x86_64 allmodconfig build with CONFIG_WERROR=y passed. 
 
-Fixes: 858c9f6c19c6 ("[SCSI] lpfc: bug fixes")
-Cc: stable@vger.kernel.org
+Could you please queue these commits for 6.1.y?
+
+  573601521277119f2e2ba5f28ae6e87fc594f4d4 (CVE-2024-38630)
+    watchdog: cpu5wdt.c: Fix use-after-free bug caused by cpu5wdt_trigger
+  63b7af49496d0e32f7a748b6af3361ec138b1bd3 (CVE-2024-58096)
+    wifi: ath11k: add srng->lock for ath11k_hal_srng_* in monitor mode
+  afd0f17ca46258cec3a5cc48b8df9327fe772490 (CVE-2026-53353)
+    hsr: Remove WARN_ONCE() in hsr_addr_is_self().
+  2a892294b83f541115c94b0bb637f39bef187657 (CVE-2026-80602)
+    perf/x86/amd/lbr: Fix kernel address leakage
+  c4ef5ba1131346159e31f4ef858525cf377380a6 (CVE-2026-80883)
+    drm/tegra: gr2d/gr3d: Initialize address register map before HOST1X
+      client is registered
+  7e85f6dbc85616de2172bce8eaf84b387a723cd1 (CVE-2026-89860, 1/2)
+    scsi: qla2xxx: Initialize NVMe abort_work once at submission
+  06b5b2a5d499323f1c3256ead35798e8e3d15e60 (CVE-2026-89860, 2/2)
+    scsi: qla2xxx: Fix NVMe abort reference leak on repeated abort
+
+I used an LLM to compare the histories, review the vulnerable paths, and
+prepare this request.
+
 Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
----
- drivers/scsi/lpfc/lpfc_sli.c | 29 +++++++++++++----------------
- 1 file changed, 13 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/scsi/lpfc/lpfc_sli.c b/drivers/scsi/lpfc/lpfc_sli.c
-index cfa437116..c2086f331 100644
---- a/drivers/scsi/lpfc/lpfc_sli.c
-+++ b/drivers/scsi/lpfc/lpfc_sli.c
-@@ -2814,9 +2814,9 @@ lpfc_sli_chk_mbx_command(uint8_t mbxCommand)
-  *
-  * This is completion handler function for mailbox commands issued from
-  * lpfc_sli_issue_mbox_wait function. This function is called by the
-- * mailbox event handler function with no lock held. This function
-- * will wake up thread waiting on the wait queue pointed by context1
-- * of the mailbox.
-+ * mailbox event handler function with no lock held. If the waiter is
-+ * still attached, wake it; otherwise the caller timed out and the
-+ * callback owns the mailbox resources.
-  **/
- void
- lpfc_sli_wake_mbox_wait(struct lpfc_hba *phba, LPFC_MBOXQ_t *pmboxq)
-@@ -2824,17 +2824,18 @@ lpfc_sli_wake_mbox_wait(struct lpfc_hba *phba, LPFC_MBOXQ_t *pmboxq)
- 	unsigned long drvr_flag;
- 	struct completion *pmbox_done;
- 
--	/*
--	 * If pmbox_done is empty, the driver thread gave up waiting and
--	 * continued running.
--	 */
--	pmboxq->mbox_flag |= LPFC_MBX_WAKE;
-+	/* Decide who owns the mailbox under the same lock as waiter detach. */
- 	spin_lock_irqsave(&phba->hbalock, drvr_flag);
- 	pmbox_done = pmboxq->ctx_u.mbox_wait;
--	if (pmbox_done)
--		complete(pmbox_done);
-+	if (!pmbox_done) {
-+		spin_unlock_irqrestore(&phba->hbalock, drvr_flag);
-+		lpfc_sli_def_mbox_cmpl(phba, pmboxq);
-+		return;
-+	}
-+
-+	pmboxq->mbox_flag |= LPFC_MBX_WAKE;
-+	complete(pmbox_done);
- 	spin_unlock_irqrestore(&phba->hbalock, drvr_flag);
--	return;
- }
- 
- /**
-@@ -13313,15 +13314,11 @@ lpfc_sli_issue_mbox_wait(struct lpfc_hba *phba, LPFC_MBOXQ_t *pmboxq,
- 
- 		spin_lock_irqsave(&phba->hbalock, flag);
- 		pmboxq->ctx_u.mbox_wait = NULL;
--		/*
--		 * if LPFC_MBX_WAKE flag is set the mailbox is completed
--		 * else do not free the resources.
--		 */
-+		/* The callback owns cleanup if it has not woken the waiter. */
- 		if (pmboxq->mbox_flag & LPFC_MBX_WAKE) {
- 			retval = MBX_SUCCESS;
- 		} else {
- 			retval = MBX_TIMEOUT;
--			pmboxq->mbox_cmpl = lpfc_sli_def_mbox_cmpl;
- 		}
- 		spin_unlock_irqrestore(&phba->hbalock, flag);
- 	}
--- 
-2.43.0
+Thanks,
+Artem Dinaburg
+Trail of Bits
