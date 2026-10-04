@@ -1,41 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E6D12E4257;
-	Sun,  4 Oct 2026 01:26:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77DD7379993;
+	Sun,  4 Oct 2026 01:26:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791077196; cv=none; b=QatuNIFsSmpQ0BvnF0H5XzmXtaS1Ae8290r+fV6YuWXsK+okgrNNUaRSppkv29jywaxnF59jH6MUewpIRPhtcmrMecCUsElZ5AMHcRgpV2EBGhdji3w3OUMpOM2Cr//f1Jj+y+sA+9+Uc75OXJJlXKf9N+0uNiGBngWUdIxfhd0=
+	t=1791077197; cv=none; b=enNM2+7Rq16wEiDiUVGalMAPJJQNN3Oi88DzKdCJKOKQcdKUqGTJCTA1vufYf4y4CShIPyaRft6TcTsdsESSV2YgzWqs3Pqc99q4J/DhmFH8l+beF71mFqySSTfFq6YQQiuQIFPRace8nL+2kKywgWJfavSnvylRnl2SiHtcoBY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791077196; c=relaxed/simple;
-	bh=BEzGUI5h/7CJwvvqrOXWTza+u1N8nXzax5WHQtls7pY=;
+	s=arc-20240116; t=1791077197; c=relaxed/simple;
+	bh=sDzb+9XAxHR21u675SEIHxFuHBI7eu+neLUAoLP0Mzk=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=YkOVfPum3Kf9hfaKgbxmNRd+bPzJopMG1vHTsLrp1KPiT9nCy9O+rLBp4mI4wRg6VGLRzh3MTIltTbn7u7U+v58m17yfn8SSwdrT7ciD5lNSdAmTIrWtF1d/BPWOFO4gS9PaTrTNGKbSKftvOzYfrnza3X9bqsc38pda0oCI/Jg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aznCVEOL; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=kLz/Iv4YUxwLFCdVCywa3yddtZaaaU7H2lLLhRGnWQTP1Oxb3vhQobJ/O4/zJEZDLy/z4EabIbSlqLxozbX+zoJhG5g6cBGUZm/96lZ1fq6+m0mfTMomCH4QdmeyE+iZYIw82LAoSSzqMyBwisQK6jLtrBkkUkm+gpqBcwY5y+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NZQE5nkH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aznCVEOL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9194C1F0089B;
-	Sun,  4 Oct 2026 01:26:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NZQE5nkH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6AD81F0089C;
+	Sun,  4 Oct 2026 01:26:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791077194;
-	bh=SKOKmZ+6noJA7PYh2xhgEd2D5EveHhrMqvu/m6C+lmU=;
+	s=k20260515; t=1791077196;
+	bh=uptfHPgWljdWsUZOtLuRKG6qwtK2ze6it9zMEZTX3Ao=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=aznCVEOLW99zQHsiDofVXMXPvEIbLxwjxU2jGitRy+ec6VCvp2G3zjHwHo83Lf2Bi
-	 iRqKg7/VOO5khTxBG0sRWkiqgbqhDPZSNd5y9BIr1loFFf8B4CgS8ynvkQDRexJnkZ
-	 ZbwKkXB6CWw4dQpdC4zEliS6AB5ivR1t/MohlDWnP+Mm9UgmKSFSr/3rwGST6dtcAr
-	 h6LVK+/PXRZjr/GXGdJ/EXHok8vxD7tL9TBTTF5MHfkVKWZfHYhpzzmNfSR5znFrFL
-	 BgkV7twRlgd1jLeUEO3REEszEcqwLJz56Im+YWqj8r5IAbASO/v+igzYT9Hu1Ehm+m
-	 xgPjamoSaCslw==
-Subject: Re: [PATCH] net: dst_metadata: fix fortify trap + overread in
+	b=NZQE5nkHQcf0sDo2dhqNp4NHzz02ZRhRkH7IjBq9t4sDf+C6HGCW3WMGGWw9+9Exz
+	 de7ZCfYiB36mNuEwUoz3MFRnWA280NfwN4XYAboeJI35NOFwvbaUX53YEHt8sc2/qO
+	 YFhcu9cBZ2H25fJnec4fQNw4/ogYI+SAw57C6XQDHa7iIIyE2PpFgAE4ko/XroPbt4
+	 7/06nV6svWg5zeMe9sM+QDKrP8QkQn3HtYqUk1+0wxeVbzoVmYOakP4lRb7gG+Y9Iq
+	 UwOxz861nRxHzlgxpetmWtKRKe39NlIYMB5dt7ZfCrmShu6hdb0hzEu3q95Dvl8rth
+	 rsQoC3ncJB08Q==
+Subject: Re: [PATCH net v2] net: dst_metadata: fix fortify trap + overread in
  skb_metadata_dst_cmp
 From: netdev-bot+sashiko@kernel.org
 To: jpsergent@gmail.com
 Cc: netdev@vger.kernel.org, i.maximets@ovn.org, kuba@kernel.org,
  kees@kernel.org, stable@vger.kernel.org
-Date: Sun, 04 Oct 2026 01:26:34 +0000
-Message-ID: <179107719409.434549.17882025479449823991@kernel.org>
-In-Reply-To: <20261003005449.2675.2@jpsergent.gmail.com>
-References: <20261003005449.2675.2@jpsergent.gmail.com>
+Date: Sun, 04 Oct 2026 01:26:35 +0000
+Message-ID: <179107719545.434549.13172512532862853272@kernel.org>
+In-Reply-To: <20261003005449.2675.3@jpsergent.gmail.com>
+References: <20261003005449.2675.3@jpsergent.gmail.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -49,7 +49,7 @@ MIME-Version: 1.0
 Thank you for your contribution! Sashiko AI review found 3 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 3 · Low: 0
+Critical: 0 · High: 0 · Medium: 2 · Low: 1
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -57,57 +57,61 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] The commit message and the new comment in
-  skb_metadata_dst_cmp() (include/net/dst_metadata.h) give the wrong…
+- [Medium] The commit message and the new code comment give the wrong
+  root cause, while the code change itself works.
 - [Medium] The Fixes: tag points at 69050f8d6d07 ("treewide: Replace
-  kmalloc with kmalloc_obj for non-scalar types", Feb 2026), but the…
-- [Medium] The commit trailers are Reported-by, Closes, Cc: stable and
-  'Assisted-by: LLM', with no Signed-off-by.
+  kmalloc with kmalloc_obj for non-scalar types", Feb 2026, first in…
+- [Low] The commit has no Signed-off-by:.
 
 --
 
 net: dst_metadata: fix fortify trap + overread in skb_metadata_dst_cmp
 
-This commit reworks the METADATA_IP_TUNNEL case in skb_metadata_dst_cmp().
-It first checks that both sides have the same options_len. It then compares
-the fixed part of struct ip_tunnel_info and the options in two separate
-memcmp() calls through ip_tunnel_info_opts(). The goal is to fix a
-FORTIFY_SOURCE panic seen in GRO on a geneve device.
+This patch changes the METADATA_IP_TUNNEL case of skb_metadata_dst_cmp()
+to address a FORTIFY_SOURCE memcmp() panic in the GRO path with geneve.
+Dsts with different options_len values are now rejected up front.
+The struct and the options are then compared with two separate memcmp()
+calls.
 
 Closes: https://lore.kernel.org/netdev/20261003005449.2675.1@jpsergent.gmail.com/
 
 > Fixes: 69050f8d6d07 ("treewide: Replace kmalloc with kmalloc_obj for non-scalar types")
 
 [Severity: Medium]
-Is this the right Fixes target? The commit message says the crash was seen
-on 6.18.54. In v6.18, metadata_dst_alloc() still allocates with
-kmalloc(struct_size(md_dst, u.tun_info.options, optslen), flags), not
-kmalloc_flex().
 
-Both pieces needed for the trap are older than 69050f8d6d07:
+Is this the right Fixes: target? 69050f8d6d07 first appears in v7.0, but
+the panic was reproduced on 6.18.54. In v6.18, metadata_dst_alloc() still
+uses plain kmalloc(struct_size(md_dst, u.tun_info.options, optslen),
+flags).
 
-  - the __counted_by(options_len) annotation on options[] in struct
-    ip_tunnel_info, added by bb5e62f2d547 ("net: Add options as a flexible
-    array to struct ip_tunnel_info")
+FORTIFY can size both objects here because of the __counted_by
+annotation added by bb5e62f2d547 ("net: Add options as a flexible array
+to struct ip_tunnel_info"), which is in v6.15:
 
-  - the memcmp() in skb_metadata_dst_cmp() that uses a's options_len for
-    both sides, which dates back to 3fcece12bc1b
+	u8			options[] __aligned_largest __counted_by(options_len);
 
-This patch is Cc: stable. With the current Fixes target, would the fix miss
-6.15 through 6.19, including the 6.18 tree where the crash was seen? Would
-bb5e62f2d547 be a better target?
+The memcmp() itself goes back to 3fcece12bc1b (2017).
+
+With the current tag, would stable tooling skip 6.15 through 6.18,
+including the 6.18 kernel where this was observed?
 
 > Cc: stable@vger.kernel.org
 > Reported-by: Jean-Paul Sergent <jpsergent@gmail.com>
 > Closes: https://lore.kernel.org/netdev/20261003005449.2675.1@jpsergent.gmail.com/
 > Assisted-by: LLM
+>
+> v2: fix subject prefix to [PATCH net]; no code changes.
 
-[Severity: Medium]
-The trailer block has no Signed-off-by line.
-Documentation/process/coding-assistants.rst says the human submitter is
-responsible for "Adding their own Signed-off-by tag to certify the DCO".
+[Severity: Low]
 
-Could a respin add a Signed-off-by so the patch can be applied?
+The commit has no Signed-off-by: line.
+Documentation/process/coding-assistants.rst says the human submitter
+must add their own Signed-off-by to certify the DCO. Can the patch be
+applied without it?
+
+The v2 changelog is also in the commit body, not below the --- line, so
+git am would keep it in the permanent history. Could it be moved below
+the ---?
 
 > diff --git a/include/net/dst_metadata.h b/include/net/dst_metadata.h
 > index f45d1e3163f00..60878ea1eb50a 100644
@@ -143,51 +147,73 @@ Could a respin add a Signed-off-by so the patch can be applied?
 > +		 */
 
 [Severity: Medium]
-Does this comment, and the commit message, describe the actual root cause?
-The commit message says:
 
-  kmalloc_flex() in metadata_dst_alloc() sets __counted_by for the
-  structure to options_len, which is then initialized to zero, so the
-  compiler's view of the metadata_dst tail is 96 bytes at the time of
-  the access. Geneve carries 108 bytes of options
+Is this the right explanation for the trap? The commit message says the
+same thing:
 
-On the geneve RX path, options_len is overwritten before the skb reaches
-gro_cell_poll():
+  Same disease as the tun_dst_unclone fix (4c6d43db2a4d), on the RX
+  sibling: kmalloc_flex() in metadata_dst_alloc() sets __counted_by for
+  the structure to options_len, which is then initialized to zero, so
+  the compiler's view of the metadata_dst tail is 96 bytes at the time
+  of the access. Geneve carries 108 bytes of options, ...
 
-geneve_rx()
-  udp_tun_rx_dst() -> ... -> tun_rx_dst()
-      tun_dst->u.tun_info.options_len = 0;
-  ip_tunnel_info_opts_set(&tun_dst->u.tun_info,
-                          gnvh->options, gnvh->opt_len * 4, flags);
-      info->options_len = len;
+The old code computed the read length from the current value:
+sizeof(a->u.tun_info) + a->u.tun_info.options_len. sizeof(struct
+ip_tunnel_info) is 96. A 108 byte read therefore means
+a->u.tun_info.options_len was 12 when the call ran. So geneve carried
+12 bytes of options, not 108.
 
-So by the time gro_list_prepare() calls skb_metadata_dst_cmp(p, skb), both
-objects hold their real options lengths.
+The fortified memcmp() checks the first buffer before the second:
 
-The old code read sizeof(a->u.tun_info) + a->u.tun_info.options_len bytes,
-and FORTIFY sizes a's object with the same options_len, so a's side cannot
-trip. That means "108 byte read of buffer size 96" points to
-a->options_len == 12 and b->options_len == 0. In other words, 12 bytes of
-options, not 108.
+include/linux/fortify-string.h:memcmp() {
+    ...
+	if (p_size < size)
+		fortify_panic(FORTIFY_FUNC_memcmp, FORTIFY_READ, p_size, size, INT_MIN);
+	else if (q_size < size)
+		fortify_panic(FORTIFY_FUNC_memcmp, FORTIFY_READ, q_size, size, INT_MIN);
+    ...
+}
 
-If so, the real bug is the old memcmp() using a's options_len for both
-sides. __counted_by only exposed it. Without FORTIFY, it is a slab
-out-of-bounds read past b's allocation.
+For a, p_size is 96 + 12 = 108, so the reported 96 has to be q_size.
+That means b->u.tun_info.options_len was 0.
 
-The options_len pre-check, which the commit message calls a "While here"
-fix, is what actually stops the panic. Once the lengths are known to be
-equal, a single memcmp() of sizeof(tun_info) + options_len would also pass
-FORTIFY on both sides, so the two-stage split does not seem to add
-anything.
+On RX, neither dst still holds its allocation-time zero when
+gro_list_prepare() calls skb_metadata_dst_cmp(). geneve_rx() fills in
+the length right after udp_tun_rx_dst():
 
-The commit message also says this was seen "under sustained cross-node RX".
-Can any Geneve sender trigger it remotely by mixing packets with and
-without options in the same inner flow?
+drivers/net/geneve.c:geneve_rx() {
+    ...
+		ip_tunnel_info_opts_set(&tun_dst->u.tun_info,
+					gnvh->options, gnvh->opt_len * 4,
+					flags);
+    ...
+}
 
-Could the commit message and this comment be updated to describe the
-options_len mismatch between a and b as the root cause?
+If options_len really were 0 at compare time, the read length would be
+96 and nothing would trap.
+
+So isn't FORTIFY correctly catching a compare of a (12 bytes of options)
+against b (no options), with a's length used for both buffers? If so,
+the options_len pre-check, which the commit message calls a "While here"
+fix, is the actual fix.
+
+Once the lengths are known to match, a single struct+options memcmp()
+fits both counted_by views. Is the split into two memcmp() calls needed?
+
+options_len sits at offset 88 and options[] at offset 96. The old
+memcmp() would hit the options_len difference before it reached b's
+missing options. So the user-visible failure looks like the FORTIFY
+panic, not a real overread past b's allocation.
+
+Could the commit message and this comment describe the mismatched
+options_len case instead of an allocation-time zero?
+
+> +		return memcmp(ip_tunnel_info_opts(&a->u.tun_info),
+> +			      ip_tunnel_info_opts(&b->u.tun_info),
+> +			      a->u.tun_info.options_len);
+> +	}
 
 [ ... ]
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261003005449.2675.2%40jpsergent.gmail.com
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261003005449.2675.3%40jpsergent.gmail.com
