@@ -1,72 +1,69 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B56A3D3D18;
-	Sun,  4 Oct 2026 16:52:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5684530146C;
+	Sun,  4 Oct 2026 16:54:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791132745; cv=none; b=ZgVXvXERT5EkFdywiC+Wi92qyCEyhTHwlrIhMqeZ7pGyxWmjTa15R8L1aZq1vVbUyWKan8+XCX+XeucK19dKMLqmcOqdAeFh3yTdfc2fgg7hnO84D6sO1Tq2knwH2K+8KRxuCK3sDUeR22Q/jPBOEcq9H2zZYZzp1JRuz1ZAI1M=
+	t=1791132905; cv=none; b=sQn69icaUYZEYwcPlJqNpLPqQn9Ml4GQMCiRsYJPYk6+BiMRpdjmB5nOieD+6S8yyUMW4cWHygvmieJctIbeiH+e0jTovgqgnxY33yCl+GvNselBhUu9b7TARW1+zyedvsiKMUK0Zr9wRZiRlb6x1cVZaIvSIjw1ojLUholE7Po=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791132745; c=relaxed/simple;
-	bh=qX2kD00LoShHUJeqfQ0txX5qVkmYqqfCL20wCxM2a9A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WaUA/Ep6y43gHP366M8mhR8WGk7dlonL6nOK0wPpJsNfUDhfMpV+XA31SJPw0GkIGS6vd3KZsUJF/FznC7DI/2lHCUJp06hiiabnimkl3UGmPNq9fYJqqbX4C8dl70ZPeRr57HCoaxbc0xQe5rsDrlVCjRaNTDOFCihO7wb0X7o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C/lDAlZg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791132905; c=relaxed/simple;
+	bh=T80pmibn7aSi6N9hDzJvCBDoLXDCN4HDH9fhrQVJ60g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=tSnKuvWYgz/18CPb8KQ1y+Dqq728ndLIFccmO1iEtxX7rrEAkYJwkoNuoHELapA8JE7LQwQuXeLaD6xL8XvSUP9FNN+42a8cgUQa0TKlTBb5seuEWaDkENpJtN86bQZ9DfwxoA6lc06HRWXHirTaMUcaBEXjLv80OWMGwoI6gCw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QNJ4BsFJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C/lDAlZg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BA6B1F000FF;
-	Sun,  4 Oct 2026 16:52:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QNJ4BsFJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1206C1F000FF;
+	Sun,  4 Oct 2026 16:54:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791132743;
-	bh=kmAKu2vBNEAoE9JjYsHDWA/wFqOqWYoE1rkFuq+61LI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=C/lDAlZgbSfDKHkdlV8Gnm47G8kS+374jKA5pIUeTKBMf0nQma3saj5b/sd2JiQnM
-	 GmlC6Vli9EXH+x8MA2iSidAZYfgeMYJE5kfiCMnbKu3MEtx+yPfsu+BX9r/NNV+wI1
-	 xBsQQeZqg4DoAoYhy8IP73Yzl2317vllv5lWV5+jns9Ao98+8NRKpJnI9+LXyYirpL
-	 km2jbkBOr4D2FfXYHV2dx/MXyA+hdliSIqp3XpawZt3Mi9iLU7z+BV6RAB/VmvAzKF
-	 fcZVnbaoPU30b4/4DFrFAd7LtP99xlo4OmBPBSypWcR7OzeOg2Ef9pXjYNfWMZDlY+
-	 YfiyrcFKMyLtg==
-Date: Sun, 4 Oct 2026 18:52:17 +0200
-From: Eric Biggers <ebiggers@kernel.org>
-To: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
-Cc: "Jason A. Donenfeld" <Jason@zx2c4.com>, ardb@kernel.org,
-	skhan@linuxfoundation.org, me@brighamcampbell.com,
-	jkoolstra@xs4all.nl, linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] crypto: chacha20poly1305 - Fix missing state zeroization
- in xchacha decrypt
-Message-ID: <20261004165217.GA1906@quark>
-References: <20261003060826.7792-1-raizudeen.kerneldev@gmail.com>
- <asFj6Nxf6fglYfor@zx2c4.com>
- <asHGD1_z-N9k0czy@kernel>
+	s=k20260515; t=1791132892;
+	bh=ZCAoLYZlSrLohEk+mBrzJi43HvKosm2TxiN/tMhp9/s=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=QNJ4BsFJsV5oWgAFzxq0CAaWUNVWQIUTaNRVjywYyxDI1D7/W73DdPSiG2dwc030L
+	 b5iliC9akvhKPmToxWDtW2SZWxxjMBrSFGRulimNaCQgUCq0SEu7tVZH8yxYgenYIb
+	 xc1w+EFy2ANqwCYP76HNjlfQVK0IhVBl8vskQGldWElQWm3gO59+CS04BuyDSsl/gY
+	 gboVNjEAPIDzj+xcM7YAo55LsaHLENg8IGC6PkQOd0bC/FhN6RfM5sRobygBV/aeKd
+	 5oybUA062gscSwOH3Is876fTaUq7GVHhuw/0vHxdtf04VvQvX55J+cRvI+wIy6BOGM
+	 FrGPPBi/H0xIw==
+From: netdev-bot+sinfo@kernel.org
+To: Weiming Shi <bestswngs@gmail.com>
+Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, co+71b6509cb791e531@bugs.sh,
+ Xiang Mei <xmei5@asu.edu>, Eric Dumazet <edumazet@kernel.org>,
+ stable@vger.kernel.org
+Subject: Re: [PATCH net v2] tcp: reject zero CWND route metrics
+Date: Sun, 04 Oct 2026 16:54:51 +0000
+Message-ID: <179113289156.1402591.11780212844994913254@kernel.org>
+In-Reply-To: <20261004164944.2006741-1-bestswngs@gmail.com>
+References: <20261004164944.2006741-1-bestswngs@gmail.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <asHGD1_z-N9k0czy@kernel>
 
-On Sun, Oct 04, 2026 at 08:50:47AM +0530, Mohamad Raizudeen wrote:
-> No, none that exist today. The only in-tree callers are the wireguard
-> cookie code and the kunit test and I agree the cookie has no forward
-> secrecy concerns. My only thought is that the function is
-> EXPORT_SYMBOL()ed, so a future caller with a long term key would leave
-> the derived subkey on the stack and since chacha20poly1305_decrypt()
-> already wipes the state, having the xchacha variant do the same seemed
-> like safer default.
-> 
-> Also, Eric requested a v2 that moves the zeroization into the helper
-> function for consistency with the encrypt path, so I will be sending
-> that out shortly.
-> 
-> Thanks,
-> Mohamad Raizudeen
+Hi!
 
-I agree: the crypto code should be compatible with callers that need the
-key to be zeroized, even if none needs it right now.  Otherwise it's
-just way too subtle, with some functions doing it and others not.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-- Eric
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
+
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
