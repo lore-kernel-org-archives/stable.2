@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B8872D9797
-	for <stable@vger.kernel.org>; Sat,  3 Oct 2026 23:56:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACCDF8834
+	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 00:08:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791071816; cv=none; b=g0xb3k18QN5xryJ8h/37qID7rRdaYrsyY4CK2aFRogK2wPFuuFUgQGDQ36tEc0kSl8tftGm6PqSW7BX3LVpghrCc02Y4Dlw6/XqmhUgNTbToQAmtFaZgQnjsv0A1OJftNVd9i8oXG342XWuccUqkeBV5iXS54Cy4onZ3avSj7bY=
+	t=1791072535; cv=none; b=g9BENq2bM9IZexozNmSJm79vkN93mLz/IIzqMT/02nTooaD6fOtr6VBMt4UZ+XYwlnVYgQAdCL40nIaNwpjekiPeJdu0aI/mZWfeBcpvAB3OWyQjKPB+L8IljGUc/F+zTlUAVDfHcC1ckd7Z5zsIer5l1UQfvBWonaJWRmmKOJs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791071816; c=relaxed/simple;
-	bh=SAi9AD18RxpFeEiYEFPCGdlCfBveR1OucrFnnRgJP7o=;
+	s=arc-20240116; t=1791072535; c=relaxed/simple;
+	bh=uH/OZDfXjfIQnq0CvQMrjL3yoDJGS78m9u+ojX3UuEs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lBlFyWFrtO0PXey2BTh77zcTuz8j45CZ6j7VRAGJywcOvmMbo6dGtTptaKCmutirXeNbylcdKjpncRMsb4YyUie/yjvcen9KbSFePEjU/qi87VI1Bo/5Rqu6ayDerPGfJXag1+PwJyWPH92Doxm3HU7iA9VY4l01ueWgy0dnlIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EGMxZYwv; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=IgMKF/fToqGuQxDrzX19V7nz9XJtx40bTOckdOPwjM2CAcGoma9IXaSe7HtG7NLCI7KLIOHVzRtiJ4Pc/tLjfP/YxOGs5VOe++Bw65kjGcIAftvWpsB/wQ2EN6hXfuYfAmZsg9P4Uwe2CgBuc75xrTQ/2p8SlGmfXIGRQZe87wE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aucP4gAc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EGMxZYwv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C90AB1F0089B;
-	Sat,  3 Oct 2026 23:56:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aucP4gAc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C72C91F0089B;
+	Sun,  4 Oct 2026 00:08:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791071814;
-	bh=pzAy20ACJm6ZeUi8mqOWrRMu7clFwkyC4g5KEaIdano=;
+	s=k20260515; t=1791072534;
+	bh=w3UpVB27Nc65FuI8QwOzKH93JAhubgQDP7zZYoP2f/U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EGMxZYwvAR2IubcjYTdChGIEDp/0COvBBxZ9yvn9zhIG86we5NYeIqubgKxBBGL3Z
-	 C63lUKiZOo1kcYEcpqoOhNwozxR8FMczG/Ui4f24qlMWOS9eIkW9jx1U+r3NtzjFJm
-	 5JNgD2h61LwHQbxXwOO8pDuUWOmAIA5NNLTZwbGtTeQ2C2sJCQZCZHs0dQihp6svz7
-	 vjMiIu23WSClmaWaZ6y50llJ/IfnUoCFLY5kWfTG3AunVDvmfCpOEcEWYC/1ynJXkg
-	 pg6aFsmLr05FCVd/WfUk6gR4j3hZga2jc8/MbJ4ROpO5SZ2sFEg12t9NrhSm3oAqZI
-	 wlL9Q8lWdWskQ==
+	b=aucP4gAcJnwB+FYO7nrDdlAQzmzriLa43bzjVmZiZQzsKHF/ux29Wp8JBPxMoQTDM
+	 WNCWW0xoQzZ1ip+wPNxQ8uCa8Yv+p/xfD3w/ATTmDOATi2VrD6fFCtR5TdHfqHLuib
+	 QtO8FFRONhjWS0MZw1zowvUTu+bIzFaKWbwLpnH4QBMAFgCwrwXGyBq0SNvwNOz5dn
+	 inALf5Srq0i7aDP67cKWlGbioAN56c9hic6iq1lCOzETz17hPmroPZAzdQWu2pfGvA
+	 +Q4Neavb1hvfpITRSdqeWzRWMlRuU/XBB5PmxYFTJiBERPi1+Eeq2+yH+8+Hv0Spnf
+	 s7IxZwsw17gLQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zhiling Zou <zhilinz@nebusec.ai>,
-	Vega <vega@nebusec.ai>,
-	Julian Anastasov <ja@ssi.bg>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
+Cc: Leon Hwang <leon.hwang@linux.dev>,
+	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] ipvs: bound LBLCR and LBLC cache growth
-Date: Sat,  3 Oct 2026 19:56:36 -0400
-Message-ID: <20261003235545.909116-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] kprobes: Skip disarmed probes when checking optkprobe overlap
+Date: Sat,  3 Oct 2026 20:08:37 -0400
+Message-ID: <20261004000753.1184782-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100349-mourner-headboard-23b4@gregkh>
-References: <2026100349-mourner-headboard-23b4@gregkh>
+In-Reply-To: <2026100345-divorcee-other-8be6@gregkh>
+References: <2026100345-divorcee-other-8be6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,66 +45,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhiling Zou <zhilinz@nebusec.ai>
+From: Leon Hwang <leon.hwang@linux.dev>
 
-[ Upstream commit 2a3c3de660f96865f303fd25f1285f2ffbfd521d ]
+[ Upstream commit 7a39c732a22ec4a369af9e19fbe3d666ec83eec4 ]
 
-ip_vs_lblcr_new() and ip_vs_lblc_new() create cache entries for
-every previously unseen destination address. The table max_size only
-tells the periodic collector to reclaim entries after the cache has
-already exceeded the limit. It does not reclaim entries that the
-attacker continues to use.
+On x86, an optkprobe at A replaces five bytes with a jump. If a disabled
+probe B is at A+2, get_optimized_kprobe() stops at B when arming a new
+probe C at A+4. It leaves A optimized:
 
-Reject new cache entries once either table reaches max_size * 3 / 2.
-The extra headroom lets the periodic collector catch up while the
-existing scheduler fallback continues to use the selected destination
-when cache creation fails. New traffic therefore stays serviceable
-without growing the tables further.
+              A    A+1  A+2  A+3  A+4
+  A's jump  | e9 | d0 | d1 | d2 | d3 |
+  after C   | e9 | d0 | d1 | d2 | cc |
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+The INT3 for C overwrites the last byte of A's jump displacement, so
+execution can jump to the wrong address. B can have prepared optinsns
+while disarmed, but has no jump to unoptimize.
+
+Continue past disarmed and unprepared probes to find the active optimized
+probe before arming a probe in its jump.
+
+Link: https://lore.kernel.org/all/20260930053618.104498-1-leon.hwang@linux.dev/
+
+Fixes: afd66255b9a4 ("kprobes: Introduce kprobes jump optimization")
 Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Suggested-by: Julian Anastasov <ja@ssi.bg>
-Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
-Acked-by: Julian Anastasov <ja@ssi.bg>
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
-[ sashal: Retained kmalloc(sizeof(*en), GFP_ATOMIC) instead of kmalloc_obj(). ]
+Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+[ sashal: Adapted get_optimized_kprobe() to use unsigned long addresses with byte-wise scanning. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/netfilter/ipvs/ip_vs_lblc.c  | 4 ++++
- net/netfilter/ipvs/ip_vs_lblcr.c | 3 +++
- 2 files changed, 7 insertions(+)
+ kernel/kprobes.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/net/netfilter/ipvs/ip_vs_lblc.c b/net/netfilter/ipvs/ip_vs_lblc.c
-index 70014c89955d6..cfe0c0a3e2cfd 100644
---- a/net/netfilter/ipvs/ip_vs_lblc.c
-+++ b/net/netfilter/ipvs/ip_vs_lblc.c
-@@ -205,7 +205,11 @@ ip_vs_lblc_new(struct ip_vs_lblc_table *tbl, const union nf_inet_addr *daddr,
- 		if (en->dest == dest)
- 			return en;
- 		ip_vs_lblc_del(en);
-+		atomic_dec(&tbl->entries);
- 	}
-+	if (atomic_read(&tbl->entries) >= tbl->max_size * 3 / 2)
-+		return NULL;
-+
- 	en = kmalloc(sizeof(*en), GFP_ATOMIC);
- 	if (!en)
- 		return NULL;
-diff --git a/net/netfilter/ipvs/ip_vs_lblcr.c b/net/netfilter/ipvs/ip_vs_lblcr.c
-index 6b582be087785..9c471a14e3d06 100644
---- a/net/netfilter/ipvs/ip_vs_lblcr.c
-+++ b/net/netfilter/ipvs/ip_vs_lblcr.c
-@@ -365,6 +365,9 @@ ip_vs_lblcr_new(struct ip_vs_lblcr_table *tbl, const union nf_inet_addr *daddr,
+diff --git a/kernel/kprobes.c b/kernel/kprobes.c
+index 46398072b5bea..4f2d0638644c8 100644
+--- a/kernel/kprobes.c
++++ b/kernel/kprobes.c
+@@ -481,14 +481,16 @@ static int kprobe_queued(struct kprobe *p)
+ static struct kprobe *get_optimized_kprobe(unsigned long addr)
+ {
+ 	int i;
+-	struct kprobe *p = NULL;
++	struct kprobe *p;
+ 	struct optimized_kprobe *op;
  
- 	en = ip_vs_lblcr_get(af, tbl, daddr);
- 	if (!en) {
-+		if (atomic_read(&tbl->entries) >= tbl->max_size * 3 / 2)
-+			return NULL;
-+
- 		en = kmalloc(sizeof(*en), GFP_ATOMIC);
- 		if (!en)
- 			return NULL;
+ 	/* Don't check i == 0, since that is a breakpoint case. */
+-	for (i = 1; !p && i < MAX_OPTIMIZED_LENGTH; i++)
++	for (i = 1; i < MAX_OPTIMIZED_LENGTH; i++) {
+ 		p = get_kprobe((void *)(addr - i));
++		/* A disabled probe can have prepared, but inactive, optinsns. */
++		if (!p || !kprobe_optready(p) || kprobe_disarmed(p))
++			continue;
+ 
+-	if (p && kprobe_optready(p)) {
+ 		op = container_of(p, struct optimized_kprobe, kp);
+ 		if (arch_within_optimized_kprobe(op, addr))
+ 			return p;
 -- 
 2.53.0
 
