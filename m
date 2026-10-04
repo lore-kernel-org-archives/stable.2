@@ -1,185 +1,366 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013004.outbound.protection.outlook.com [40.93.196.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2271643B489;
-	Sun,  4 Oct 2026 13:43:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.4
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791121424; cv=fail; b=aVrCkxD1/xf3gYV7y1GVZxdmIQbmQEhrv74lOU1TrbiGvQWhxPcLzpv58f4pEWWpYlNoyGlgQdBHADxtXZhL2n75fRVeEyD9FEVP5U/cZmVuAu705eA6jSaz5F9xxn+5HQIs2UbOxcB7xNmBCsR0Q8LwUTBSZ4um4Dfqs0pdFLI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791121424; c=relaxed/simple;
-	bh=ix9BJVOqoj5Xb2MmZyUzlpCxGn9GX8sby7MoJKMLIRI=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=tq/vewJt1XKkZF/rS5wrXHhWGNdEtOMnwP78IV1QP7yLDZ6XE/iV016udMoieScUI9X3ESsyKuHox9t6QfGx/m5sDZ4T1lhZPcuLuu5YITE4bVjhlPrtP8SwWHPNdjA5HF75Xe/vE8+hxdH6Fe1QSPShvopppxDB0+LN9Xq93j8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=XjSM37mV; arc=fail smtp.client-ip=40.93.196.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F4A7414429;
+	Sun,  4 Oct 2026 13:52:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791121921; cv=none; b=mCBx9adqmlPoXD5jTcEpfgwgC4AO/MLcry8c0i8jzw4Kn4nHyRUYfBHcgStpFFZmVgPqLYLl0i7nOqJ/ViMydu8OCktT8iW8k90ojWN9uSu0cFnADG+soBZSkeS5x8g8AAHeBhEnuOE1VdgCsIdPOSQ+n1vWQ7VHxRWERRw6EJM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791121921; c=relaxed/simple;
+	bh=s0hiy5OYhz4Ndzng0x6zSqGNllf91Ny78Cz5Qjy30PI=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=CJzEsKbYfMcumAoTTmSBo616cqWs8MSnnYbV/uDvN7ZyFkQP/XcVU5M91PyBwrNPTVhVi/kl8+8PwqFkjVM/ukwdDnbtWXDL9nvNtYBbzFjAQ4uIbC5+b4L92Y7iOgKiNBGjwb7mOA/RpQ6t9hVr93kNY8khww8VtyKno8i9nqI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IOuh0OPl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="XjSM37mV"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lu/Bjaz/XXD3NxOOFJIKRZVhuwaPbYlLp1al/ToS/d0l9n0KVPgoLFBFuB7bmuJfqLbLA9PQHE5UaGVmsMH3ftAt+vdzIygrz6ApWtkiW61e01urQdVTqYumqF2iJlaYfaiXUjpbECdyY7YSwpySKy/FrdNthL96ZUIJ1BaxUmSjpd08Vbq+TvasmeBMImYKh1KuD1LY3U/v2yOMiBU2jlPruRYL6lIXWDg79gmf00EWEczn0TiFjEdi9bc+A6yS68JuMhseH2oBvHHh8W8mmVRBzHWCviktbKWWvQtlcvZf7Hi1auX4REE7opEsaaztFC9LGCUvpvI+L3zLbSXl3A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qbDJQl7PwBycyjEgcasKSeYNjmgpizKZ1On35NKlZRs=;
- b=v0Px9/krm+cxKvCyYFofcCO8NAeYV3VEebEAtWhQNcMVSkO8MfxUnYCB/5CC+mRzQfblAprYfPpMk+C/DdfhX/QOO+SfDn7ktRVbEsFUDyQU5LG16jk3jKOA6mEG1cMyj9msvLToF4GMpT2kMiTfEJehussmSPdX17u8PDeW5hR0QY6Wt+62Wao/Z0Ch1Okp1fGQD6DQiQbU7NUNfTjDBwLfFAaTDRZUbPolMGFWH76L0AabHkpWqFEn+WRw6EUP4kPEFT3Ah+FZrkIaVPAw/ZC18qjy1bktePy7tryjfjIu7qflmHIHAanU6i8hLU6EjY0mIjF5F2i8sMFR5nBOpg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qbDJQl7PwBycyjEgcasKSeYNjmgpizKZ1On35NKlZRs=;
- b=XjSM37mVVGt9WvBoV3/ZQrgALBVV3v2Bv9AGh2+dcB/UWctV2CarN65AGM8Rk4/0TWshATBt5IiDoNbf9jcBHFq3lJNiTKwbaZwvQsg0Ylp8yf1XgC7oPaPXk7Vyz1z7j8HTT4w1A8ujT81e4bYRTbbBe3RmmE5LzaRIqTZK+MiTk8N/PS8Vrhm+3B/gTNHosnTzN8OqgJsBUe8GYNlKBdlgB0LmmmdhbyVFlCMyduJMszQGC9rYOL52+Ox2aR64alG54J76quZZmCZLph/g0FsNOP9goS3cOVuy/njUsbJu4LekEs/si3fqPSO18ooB3EYY0Mhr6Y77+i3w/c0Nrw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SA0PR12MB7090.namprd12.prod.outlook.com (2603:10b6:806:2d5::16)
- by PH7PR12MB5806.namprd12.prod.outlook.com (2603:10b6:510:1d2::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.16; Sun, 4 Oct
- 2026 13:43:40 +0000
-Received: from SA0PR12MB7090.namprd12.prod.outlook.com
- ([fe80::de78:df30:c2e6:7adc]) by SA0PR12MB7090.namprd12.prod.outlook.com
- ([fe80::de78:df30:c2e6:7adc%3]) with mapi id 15.21.0472.015; Sun, 4 Oct 2026
- 13:43:39 +0000
-Message-ID: <bcc09996-e71c-43af-b3f2-0d072f6d402a@nvidia.com>
-Date: Sun, 4 Oct 2026 16:43:31 +0300
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net/mlx4: shut down catas recovery timer during
- teardown
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>, Tariq Toukan <tariqt@nvidia.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>
-References: <20261004121259.1245171-1-runyu.xiao@seu.edu.cn>
-Content-Language: en-US
-From: Tariq Toukan <tariqt@nvidia.com>
-In-Reply-To: <20261004121259.1245171-1-runyu.xiao@seu.edu.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0133.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9e::17) To SA0PR12MB7090.namprd12.prod.outlook.com
- (2603:10b6:806:2d5::16)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IOuh0OPl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29D891F000FF;
+	Sun,  4 Oct 2026 13:51:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791121920;
+	bh=HBxIkHX7eeDxI00ootJ3OgpFno/GRxR40OHG91yZNGE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=IOuh0OPl+clS2andzYiFK279vBmHTHGyk+C41VOGTySF+woTBE/XceHPw+cxTdTWy
+	 BTYBAurz37r4QltCkNGLbEtz3Fu6yRzuXye9/2yCAoTVSedJdIJ06/DEkrWX+xA4cj
+	 LDE6VUImu55+5JmY+o7Qzxt0dU4p0xaz9YQzEGLQ7Ww76mbZiX3VZ5VtxPJViin3Mh
+	 Eihl9y04lWmtdA+L3uI7nYIcqfK+jXO6/BIdRzEerG0AV7KmFxouE6s6Tn/cxGaJg/
+	 s55cTzgo7FpxnA0r0ilgKPCgFRMr4lU3mv4rzVtrz8Ss+dFQGenVhZIownjsNx76x+
+	 U551dE8pYicJg==
+Subject:
+ Re: [PATCH net v13 1/2] llc: release unaccepted listener child sockets
+From: netdev-bot+sashiko@kernel.org
+To: zihanx@nebusec.ai
+Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, kees@kernel.org,
+ ernestas.k@iconn-networks.com, leitao@debian.org, tim.bird@sony.com,
+ shuangpeng.kernel@gmail.com, luoxuanqiang@kylinos.cn, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, vega@nebusec.ai,
+ root@tr0jan.top
+Date: Sun, 04 Oct 2026 13:51:58 +0000
+Message-ID: <179112191866.434549.16775046304606164752@kernel.org>
+In-Reply-To:
+ <1878b0954c763cf23bb99d7d09118eaae4588c45.1790688018.git.zihanx@nebusec.ai>
+References:
+ <1878b0954c763cf23bb99d7d09118eaae4588c45.1790688018.git.zihanx@nebusec.ai>
+X-sashiko-severity: Critical
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7090:EE_|PH7PR12MB5806:EE_
-X-MS-Office365-Filtering-Correlation-Id: 17fd8355-3d0e-42a6-93a3-08df221d7f32
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|7416014|11063799006|6133799003|10067099003|5023799004|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	qbQqrtesOgWJ1FdFPMGoyjxI0kimW6puz5FFW238o0nuBz5Ulto3m9hbK8/f8lo63v6xv81lVqtmdYZWUvy+vI8Lz+cyEcIonrQ5Qm3SCi8f3/PrHcZ9mIGcYORFO4jo1ZZnabt8ogbDzcDJZBypmKwHmm2L3juc4fE2TeKdb1TQHk63tWnYTtkZjQmxAZbWESuionkI5Jn5ymljaXYWX9KAUY8kwzbcAgsnWYaEMo8nlGhyxbpiIHbo+PD8n/cBtjlhChHiU9WVVT/rzYJENw0oW/mPPn52o6y/8XJXsu8i5bT8t0HNOHfz/0diFD4QwhIua+I2pQ56ioPafoniMcYEQw/hX1g2wCwSy2wI7J6dxKNMWMz6cZ9gzHEQNVsc4E9de1/wPtJk7kelZIMCpJwmKo8WEON2XFNP3Rxi0yC0SwRQBKI8nxsSMJPFQEXyV3h6IFZ9vAAHTxCVKo3N0DKruuDmCQeo/1HFt8id6X0s98aTC0nrX6go8GdHZ7BVkM3SVQ8E8yagKxv7PXmaiIKj2Ih1Y7b0Pc4Y1osdft7pbEtZcWlQuxoWsACzDRvAhure2MzGH+lGRn+akMNU5u57ZODaK+bTc0d3TdmvcdXjN1yLvRQbzpINtsOpSYyv7/wqDLSzPwhhtpfjid6l5mziZPA0HOTbWymKo+ouUq8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA0PR12MB7090.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(7416014)(11063799006)(6133799003)(10067099003)(5023799004)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Zk1KSEVMbTdXRXlNQ2JyK0RQNzhPVWdacHRFM25NK0g2enB6Mlc0R1pEUmh2?=
- =?utf-8?B?ZGFEdWJFRkxQTDZ4L1E1b1RCenIvN2VDWEphQWhsMUlJdFhUWldvdEdqVk1Y?=
- =?utf-8?B?VjNvQmZmUEthOWp0bGZjWEhqdHoyc0s3SmdManphdWZaMjVvN2I1KzlQNThl?=
- =?utf-8?B?SmJQdmovYUpCWWY4ZXJjWGNIcnVsMUpPdS9DYm5CTkxHZTZ4c0w0c1RLM0g1?=
- =?utf-8?B?bk8xanFvdDFjeEFsVlpaWlltVHNIVUZOeXRrc3AzWmxORUNqV1RkWVQvVysv?=
- =?utf-8?B?OHczZ1MvWjZOcWk4Sjd6VlludlQzMmsxc0FyNHZMU2VBTGNINkZ5WHB2b043?=
- =?utf-8?B?SnhjT1kxb1loSWQ1SnQwZ3pSaGJqaWNadFJSekpUeHFWVmhHVXRmNCtqUVR4?=
- =?utf-8?B?QzhNRHdKVjdlU0N1VERhcVVNRmhrRStVYkhlaGpYYkFwdFZ6ZFFmS2diTHRP?=
- =?utf-8?B?OTZENDIvUzlaV0lKb3pGRHBrWUZDWDRZZlVCNGJveFFkbkxGY1JHMXpsTlk1?=
- =?utf-8?B?OHU0ZUl5ZmlmQlpPOER3NWd6NXNnWERlYjJtTDRDOStFNUJybG1PdVJjY2hV?=
- =?utf-8?B?Ym1rRjVRbW5sMDNzTG96aGhnbXBqSUJDeERPbGxZcmlzQ09EaVlzT2V3TEhP?=
- =?utf-8?B?aVVyT0xwdXM2NXhJYWg0dEhWTDg5eUlkNUVXSTVHcXplaWJwRWV1OHIveWlM?=
- =?utf-8?B?a29HbGwzOTRERm9ZbUZKSjFZUUFiYUJieHJlS3J1OWlmc2FvSzArQUZ6b0NZ?=
- =?utf-8?B?WnA2RGE1MVpiMEU4cCs4L2pVcmxnUFVYKzBYTGhTenR0NnB0d0hGN2p3NzM3?=
- =?utf-8?B?KzhkUzViRHBFQnpFUmFpQmp0Ty95RmJQZEV1SjR1YjA3NW1pSXFWZ3o5ZWZs?=
- =?utf-8?B?QUUxN3JDN2RkVDFVaE41UjhZcHIwNCtHQy9zakhQQ1FGd004VDZtTUhFK3cr?=
- =?utf-8?B?SXV6REIzclBqd1kvOEdWdk9KbU5BS0t4aVdNWGUxQ0FlTVEzUHpmOCtrSm9q?=
- =?utf-8?B?dkdyb25oV013Q2VsSDFaRVBod2pibzdQbU5Ib1phUWplV0dVMThpRmZvdCtj?=
- =?utf-8?B?RzVZN1RoTFBSVXFmUllxMktVM2J3UnFqd0d6YTU4elJTZkdsTFpXVXpoOTJn?=
- =?utf-8?B?dktLVUNSTlY0NGVtdTM1T2QzMTZxNUh0enNxS1c2TlZqTm1yYU9HYWs3Sk9F?=
- =?utf-8?B?dkg3QzQ5VjAyVmVVaEIxZFJtVlVHbG41eXN6c1RiekoxV01nbnl6aitpUzRL?=
- =?utf-8?B?TWJlMlJHdkNTR2tVZW9TMldFOXNBTWQ1OHQ0TXdrcGFoN2NxZ1IvUW1iS0pL?=
- =?utf-8?B?cDk0MFZTSWJ3Ym56S2Z3OXRVcUFuSUZXWE5JNmZ5Qk10RlRDQ0RaLytkcG1a?=
- =?utf-8?B?cVBmdVE5aStISzVsM0VnZDlORDNhejY5eXNydUwvZkpoWGNUSm0vY01ZemRY?=
- =?utf-8?B?MXp1dTVtOWllNlV1cVVxNXNJNXhMc2VJZ2VSdkhaSEpDcmI2Q0t5UDByMFpQ?=
- =?utf-8?B?VmI4ZnExQ253WjdjWVM0L2FNck4vLzAra0ljUnJtSTFKRDNSODlIR3hEbU40?=
- =?utf-8?B?c1ZnZ1ZYdU85emcwL2RIUlpqeWlTcnl1dFNEaWk1bmFmR05rbmgxUTF2Rkt2?=
- =?utf-8?B?M1dKU01qWVRaTHFlTmNuaVlaRDVnUVhkaVBwcUJlTitRSHRUYjJkaVBieUJK?=
- =?utf-8?B?bnY3M05CWmU5K1BOSm1SSmlJK0pjOXAzcXNiZllhZTNRZG1ubXFEM0tyazhI?=
- =?utf-8?B?RURzcWNaWlNwYWc5NUwyS2NmaERTVnBCcmNXc3J5L2VJU053ZnpNdUd5Smpq?=
- =?utf-8?B?Y3FNS2I0MndlME1MQ3BTb1dHWWZoamlFWXpRdkhhRUhOZHlORUh1d2hLL1Nk?=
- =?utf-8?B?Zis2ZGs2UDhuZkVnYkdtRHlEUmJ4clByRThOV2IxMHovMDNsZXdTamhLdS9G?=
- =?utf-8?B?eFRCQi81KzNBNUgwNmo1UHAvYnd1ejh6Ty91SjJaWWpzOXY5VnVYdWpaODk2?=
- =?utf-8?B?KzJsTmdHbE83cDB6VU9IdDhVQ0szN1k5RUpnNGEzRU5Eai9QV2lhSHJSVzh5?=
- =?utf-8?B?dDNGeGxZekd3Q0hXMUlhWHYwek51a2dWNGQ3dlFva1Y4QUlwU25aNnFaWTRH?=
- =?utf-8?B?d3JheUNNbVpsYXZzSWtnV3RWbVplNDFiRFhMN0U4dFJVZUlrRkh4RVd4SmZz?=
- =?utf-8?B?U0ZLbll1TFdQZkJVS1lpYUFQWU5TS3Q5K3FZYWoyUnlPQ1d1cmJYZUwzTmVy?=
- =?utf-8?B?OEk0emtMQTVHRzNZaTBEbCtQdlV6SFZsbzkvZVcwUHV0WGsyV2Z2TkpNeGVr?=
- =?utf-8?B?R29JOG16R0NqRjI5aXQwbW5FemhIdUhhSmEraGpQdnhTMFBrNmpLUT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 17fd8355-3d0e-42a6-93a3-08df221d7f32
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7090.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2026 13:43:39.5784
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ubxgdz9SnO1PUlN1US+L9eceHnILyCX4ia4D5hJmYgD6WgGYuJ9/UOUNp0ha8AbqK2w4LQ1/szbfjP+po4TLSw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5806
 
+Thank you for your contribution! Sashiko AI review found 7 potential
+issue(s) to consider.
 
+Critical: 1 · High: 0 · Medium: 3 · Low: 3
 
-On 04/10/2026 15:12, Runyu Xiao wrote:
-> The catas error timer can rearm itself while the device is being
-> stopped. If poll_catas() is running when timer_delete_sync() drops the
-> timer-base lock, it can call mod_timer() after the deletion. The delete
-> can then return with the timer queued again, allowing a subsequent callback
-> to access teardown-owned MMIO state after it has been unmapped.
-> 
-> On PFs, poll_catas() accesses catas_err.map; on VFs, it accesses the
-> mapped communication channel. Use timer_shutdown_sync() to prevent the
-> callback from rearming the timer once teardown starts.
-> 
-> mlx4_start_catas_poll() calls timer_setup() when device registration is
-> restarted after reload or port reconfiguration, so the timer is
-> reinitialized before it is used again.
-> 
-> The change was validated by source review and a target-object build.
-> Runtime validation on mlx4 hardware was not available.
-> 
-> Fixes: ee49bd9397cd ("mlx4_core: Reset device when internal error is detected")
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-This is fixing a patch from 2007.
+- [Critical] The new established-connection lookup in the listener
+  receive path does not exclude the listener, so the lookup can return…
+- [Medium] The patch uses `llc_data_accept_state()` to decide that an
+  unaccepted child is dead.
+- [Medium] The new `llc_incoming_sock_work()` item is queued on
+  `system_percpu_wq` through `schedule_work()` in…
+- [Medium] A blocking accept() can fail with -EINVAL when there is no
+  error.
+- [Low] The patch adds listen() backlog enforcement to LLC, and the
+  commit message does not say so.
+- [Low] `llc_ui_connect()` now returns -EINVAL for a socket in
+  TCP_LISTEN.
+- [Low] This patch left stale comments.
 
-Did you hit this issue in reality, or just claimed by an AI tool?
+--
 
-We need to have a very good justification to touch this old piece of 
-code now, especially in stable.
+llc: release unaccepted listener child sockets
 
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-> ---
->   drivers/net/ethernet/mellanox/mlx4/catas.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/net/ethernet/mellanox/mlx4/catas.c b/drivers/net/ethernet/mellanox/mlx4/catas.c
-> index edcc6f662..62574b790 100644
-> --- a/drivers/net/ethernet/mellanox/mlx4/catas.c
-> +++ b/drivers/net/ethernet/mellanox/mlx4/catas.c
-> @@ -305,7 +305,7 @@ void mlx4_stop_catas_poll(struct mlx4_dev *dev)
->   {
->   	struct mlx4_priv *priv = mlx4_priv(dev);
->   
-> -	timer_delete_sync(&priv->catas_err.timer);
-> +	timer_shutdown_sync(&priv->catas_err.timer);
->   
->   	if (priv->catas_err.map) {
->   		iounmap(priv->catas_err.map);
+This patch tracks each passive-open LLC child socket until it is accepted
+or released. Children are released asynchronously through a work item
+when setup fails, when the listener closes, or when the indication is
+discarded. It also defers listener frame processing while userspace owns
+the listener, and it stops timers synchronously before the SAP and device
+references are dropped.
 
+> diff --git a/net/llc/af_llc.c b/net/llc/af_llc.c
+> index b0447c33dbf09..6a72a8a601547 100644
+> --- a/net/llc/af_llc.c
+> +++ b/net/llc/af_llc.c
+
+[ ... ]
+
+> @@ -489,6 +499,9 @@ static int llc_ui_connect(struct socket *sock, struct sockaddr_unsized *uaddr,
+>  		goto out;
+>  	if (unlikely(sk->sk_type != SOCK_STREAM))
+>  		goto out;
+> +	rc = -EINVAL;
+> +	if (unlikely(sk->sk_state == TCP_LISTEN))
+> +		goto out;
+
+[Severity: Low]
+This isn't a bug, but connect() on a listening LLC socket now returns
+-EINVAL. Before this patch it went ahead and turned the listener into a
+connecting socket.
+
+Rejecting it seems reasonable. Could the commit message mention this
+userspace-visible change? It currently covers only accept, release,
+receive and timer handling.
+
+>  	rc = -EALREADY;
+>  	if (unlikely(sock->state == SS_CONNECTING))
+>  		goto out;
+
+[ ... ]
+
+> @@ -718,10 +731,19 @@ static int llc_ui_accept(struct socket *sock, struct socket *newsock,
+>  		llc_sk(sk)->laddr.lsap);
+>  	skb = skb_dequeue(&sk->sk_receive_queue);
+>  	rc = -EINVAL;
+> -	if (!skb->sk)
+> +	if (!skb || !skb->sk || skb->sk == sk)
+>  		goto frees;
+
+[Severity: Medium]
+Can a blocking accept() return -EINVAL here when nothing has actually
+gone wrong?
+
+The skb_queue_empty()/llc_wait_data() check and the skb_dequeue() are
+separate steps. Holding the listener with lock_sock() does not stop
+softirq processing of child frames.
+
+A DISC for a QUEUED child is handled in llc_conn_handler() while holding
+only the child's bh lock:
+
+llc_conn_handler()
+  llc_conn_rcv(child)
+    llc_conn_state_process()
+      llc_release_incoming_sock()
+        llc_remove_incoming_skb()  <- unlinks from listener->sk_receive_queue
+
+If that was the only queued indication, skb_dequeue() returns NULL. The
+new !skb check then jumps to frees with rc = -EINVAL.
+
+Should accept() wait again here? Or should it at least return
+-ECONNABORTED, as the aborted-child path just below does?
+
+[ ... ]
+
+> diff --git a/net/llc/llc_conn.c b/net/llc/llc_conn.c
+> index 260460d50f54c..349a7c5b9bb1a 100644
+> --- a/net/llc/llc_conn.c
+> +++ b/net/llc/llc_conn.c
+
+[ ... ]
+
+> @@ -69,6 +70,15 @@ int llc_conn_state_process(struct sock *sk, struct sk_buff *skb)
+>  		goto out_skb_put;
+>  	}
+>  
+> +	/*
+> +	 * An unaccepted child that leaves a data-accepting state cannot be
+> +	 * delivered by accept(). Release it before processing the indication.
+> +	 */
+> +	if (unlikely(atomic_read(&llc->incoming_state) ==
+> +		     LLC_INCOMING_QUEUED &&
+> +		     llc_data_accept_state(READ_ONCE(llc->state))))
+> +		llc_release_incoming_sock(skb->sk);
+
+[Severity: Medium]
+Is llc_data_accept_state() the right test for deciding that an unaccepted
+child is dead?
+
+Its kernel-doc says it tells whether data can be sent in a given state.
+It returns true for every state except NORMAL, BUSY and REJ:
+
+	return state != LLC_CONN_STATE_NORMAL && state != LLC_CONN_STATE_BUSY &&
+	       state != LLC_CONN_STATE_REJ;
+
+That also covers the connected checkpoint states AWAIT, AWAIT_BUSY and
+AWAIT_REJ, plus ERROR and RESET.
+
+For example, suppose the peer sends RNR. llc_conn_ac_set_remote_busy()
+arms busy_state_timer. When the timer fires, llc_normal_state_trans_20b
+moves the child from NORMAL to AWAIT:
+
+llc_process_tmr_ev()
+  llc_conn_state_process()
+    llc_conn_service()          <- NORMAL -> AWAIT
+    llc_data_accept_state()     <- true
+    llc_release_incoming_sock()
+
+The child is set to OUT_OF_SVC and unhashed. Its indication is removed
+from the listener queue and the child is freed, and no DISC or DM is
+sent. The peer still considers the link up. Without this check,
+llc_await_state_trans_8a would have moved the connection back to NORMAL
+once the poll was answered.
+
+llc_accept_incoming_sock() uses the same test, so accept() would return
+-ECONNABORTED for a child that is only in a checkpoint state.
+
+The commit message says:
+
+    Release an unaccepted child as soon as the connection state machine moves it
+    out of a data-accepting state, so a peer disconnect cannot keep an unusable
+    child in the listener accept queue.
+
+Should this test only for states where the connection is actually gone,
+such as ADM?
+
+> +
+>  	switch (ev->ind_prim) {
+>  	case LLC_DATA_PRIM:
+>  		skb_get(skb);
+> @@ -87,7 +97,18 @@ int llc_conn_state_process(struct sock *sk, struct sk_buff *skb)
+>  		 * Can't be sock_queue_rcv_skb, because we have to leave the
+>  		 * skb->sk pointing to the newly created struct sock in
+>  		 * llc_conn_handler. -acme
+
+[Severity: Low]
+This isn't a bug, but two comments are now out of date. This one and the
+-acme block in llc_conn_handler() still say the child is created in
+llc_conn_handler(). With this patch, creation can be deferred to
+llc_backlog_rcv() through llc_conn_rcv_listener().
+
+The llc_backlog_rcv() kernel-doc also does not mention the new child
+creation path.
+
+Later in the series, "llc: create listener children only for SABME"
+rewrites both comments to name llc_conn_rcv_sabme(). After that, only
+the incomplete llc_backlog_rcv() kernel-doc would remain.
+
+[ ... ]
+
+> @@ -755,37 +776,257 @@ static struct sock *llc_create_incoming_sock(struct sock *sk,
+
+[ ... ]
+
+> +static int llc_conn_rcv_listener(struct sock *sk, struct sk_buff *skb,
+> +			       struct llc_addr *saddr,
+> +			       struct llc_addr *daddr)
+> +{
+> +	struct sock *newsk;
+> +	int rc = 0;
+> +
+> +	local_bh_disable();
+> +	newsk = __llc_lookup_established(llc_sk(sk)->sap, saddr, daddr,
+> +					 dev_net(skb->dev));
+> +	if (newsk) {
+> +		sock_put(newsk);
+> +		goto drop;
+> +	}
+
+[Severity: Critical]
+Can __llc_lookup_established() return the listener itself here?
+
+llc_estab_match() compares only the netns, the local and remote LSAPs,
+and the local and remote MACs. It does not skip TCP_LISTEN sockets:
+
+	return net_eq(sock_net(sk), net) &&
+	       llc->laddr.lsap == laddr->lsap &&
+	       llc->daddr.lsap == daddr->lsap &&
+	       ether_addr_equal(llc->laddr.mac, laddr->mac) &&
+	       ether_addr_equal(llc->daddr.mac, daddr->mac);
+
+A listener's llc->daddr is all zeroes after allocation. Its only writer
+is llc_ui_connect(), and the value is never cleared, even when connect()
+fails and the socket is then passed to listen():
+
+	llc->daddr.lsap = addr->sllc_sap;
+	memcpy(llc->daddr.mac, addr->sllc_mac, IFHWADDRLEN);
+
+So for a listener bound to the device MAC, the lookup would match the
+listener for either:
+
+  - a SABME from the peer that an earlier failed connect() targeted, or
+  - on a never-connected listener, a frame with source MAC
+    00:00:00:00:00:00 and SSAP 0.
+
+In that case llc_conn_rcv_listener() treats the hit as an existing
+connection and drops every retry, so that peer can never connect.
+Before this patch, a child was created.
+
+Later in the series, "llc: create listener children only for SABME"
+changes this hit to call llc_conn_rcv_existing_sabme(sk, newsk, skb)
+with newsk == sk. That function starts with bh_lock_sock_nested(newsk),
+but llc_conn_handler() already holds bh_lock_sock(sk) on the same
+socket:
+
+llc_conn_handler()
+  bh_lock_sock(sk)
+  llc_conn_rcv_sabme()
+    __llc_lookup_established()     <- returns sk
+    llc_conn_rcv_existing_sabme()
+      bh_lock_sock_nested(sk)      <- same slock
+
+Wouldn't that self-deadlock in softirq? Any L2-adjacent host could
+trigger it with a spoofed frame. Should the lookup skip newsk == sk, or
+should llc_estab_match() skip TCP_LISTEN sockets?
+
+> +	if (sk_acceptq_is_full(sk))
+> +		goto drop;
+
+[Severity: Low]
+This isn't a bug, but this adds listen() backlog enforcement that LLC did
+not have before, and the commit message does not mention it.
+
+In the baseline, llc_ui_listen() stored sk_max_ack_backlog but nothing
+ever checked it. llc_ui_accept() also called sk_acceptq_removed() with
+no matching add, so the counter underflowed.
+
+With this patch, listener frames are dropped once the backlog is full.
+Released children also keep their slot until llc_incoming_sock_work()
+runs.
+
+The commit message only says "update the accept backlog". Since this is
+tagged for stable, could it say that connection attempts beyond the
+listen() backlog are now dropped, and that the old underflow is fixed?
+
+[ ... ]
+
+> +static void llc_incoming_sock_work(struct work_struct *work)
+> +{
+
+[ ... ]
+
+> +	netdev_put(dev, &llc->dev_tracker);
+> +	llc_sk_free(sk);
+> +	llc_sap_put(sap);
+> +	if (listener) {
+> +		lock_sock(listener);
+> +		sk_acceptq_removed(listener);
+> +		release_sock(listener);
+> +		sock_put(listener);
+> +	}
+> +}
+
+[Severity: Medium]
+Can this work item still be running llc2 module code after the module has
+been freed?
+
+llc_release_incoming_sock() queues incoming_work on system_percpu_wq
+with schedule_work(). Nothing in llc2_exit() flushes or cancels it.
+
+At the end of llc_incoming_sock_work(), llc_sk_free(sk) and
+sock_put(listener) can drop the last LLC socket reference. llc_proto.owner
+is THIS_MODULE, so the final sock_put() runs sk_prot_free() ->
+module_put() synchronously. At that point the worker is still executing
+llc_incoming_sock_work() in llc2.ko text.
+
+On a preemptible kernel, the worker can be preempted after the last
+sock_put(). If rmmod llc2 completes in that window, the worker resumes
+in freed module text. The synchronize_rcu() in free_module() does not
+wait for a preempted task that is outside an RCU read-side section.
+
+Would a dedicated workqueue that llc2_exit() destroys, or a flush in
+llc2_exit(), close this window?
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1790688018.git.zihanx%40nebusec.ai
