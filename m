@@ -1,202 +1,171 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE7D83D6CDE;
-	Sun,  4 Oct 2026 20:45:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6C7627442;
+	Sun,  4 Oct 2026 20:46:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791146756; cv=none; b=ZpqgFr+n5Dyp44h3CLdvnwCzhKcrmDKI7QN1dGu6WFkZ9kPuzgRFoq/PgWI7ZMttY3LK5EP6jW7aoWXOgh4wZ418MzAlR4rnFbQnOlnrEMgtCuif74LCqYaNc6dHd5RNni68SXDv7muQkZRma/I77QVS+SguVDUuAJuy2+w2gX4=
+	t=1791146764; cv=none; b=GRrn6+hI9AD7OEo2+ejvPN8CA9HkAvRuXGdwGtmiJ6L231prVF4acwtnszbsdt0ESRnul4bJPdZ9seuUKVTfGGr8QvoHpJNmsU1B8mmetIV/ta6XVVmkv9qZitLelfXGqeD9QUEVOyG54Bcgo/ENNVm1AtCzXYV8Y7iVyXYZcV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791146756; c=relaxed/simple;
-	bh=AZ/Id6ZYC0nEjD0j7yvd+4hstmqkPbdt1uKeJgEDyso=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=tGT0o5IdNrE3GGtq+IGaVrlqA74PeirqV5DcIok0PZO6vUJdiSnY4dTsZN5JWF52S0uhtNOehSTZXSRsYQ4MqKDAHb8QBhFjHXbQrSRVFXzSKqIejp43YeeGc5L9nkQjGtA5xrqR3gNDYr3RddjT0hv1/AwMSjg6pUOzaOApXfs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=iEMMcRcL; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1791146764; c=relaxed/simple;
+	bh=db9SFA/KGU/pqnC7bMvwtpTe8qtTG2BaOyoEvKnKf8o=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Lr+YDtGDTgKWUccJODL/NH8DJXEZkSRaCNHojraSud7zoo82Y6Dy16uJ9W3DimqzepbimpUA/BZ7Z7fVMnVJQpvh8NVTf2GzR4QAAx9WCcGm3/jGYJO1dCQ7vrR6lw0uUzPpITw58YQla5z49nyximywcwuYod3Gfu3T5ArcWjw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=zy7Xk1uj; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="iEMMcRcL"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
-	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=NPvZyu0myKxwG9F9SdBTbUKeFJxAzSnA3inj1//jMKU=; b=iEMMcRcLJ2Es5+AJxeSY9pECgF
-	O5lJXFX7M68SifImCdrXLROlV4JWBEJuJ/3Y0R3yBl5dZxoQ61XNUvHt9SB6dCIaK9E5Lv55uJhAH
-	/45n9FViOOWqgg0CIr/jmPsL01K17XBQT/75WUj+yYvNOl2ogy3m5SEssP1/Vp2yK4mGxsdmGmbnU
-	uxt0d5WbYc/2UDzbPDmZeLn/tz2o4b1eGLBjmwW3Ho9mdTOEeRKBTqOEGA8pih1OVx2NdaFZ4Ey49
-	Hhoh7+PF9YuXljfXBUGkz7QRWyVmi4Y8HenQt+WlTgD1vcpAMwN7ARNG8YXONwJV3UiS4Zw5EdVAv
-	mhvh3n8w==;
-Received: from [::1] (port=59926 helo=pf-012.whm.fr-par.scw.cloud)
-	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
-	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
-	id 1xDT5k-000000075yp-3Wxn;
-	Sun, 04 Oct 2026 22:45:52 +0200
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="zy7Xk1uj"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id A08E31A1138;
+	Sun,  4 Oct 2026 20:45:54 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 608DC604FE;
+	Sun,  4 Oct 2026 20:45:54 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 95C391032820F;
+	Sun,  4 Oct 2026 22:45:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791146752; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=gC3OleyJKgnJ5LUZdRxV0dp/lgoJ6NvFVgDD5ChAQv8=;
+	b=zy7Xk1ujx8kwT9FNMekMWn/MuPuEbYGm5AVoGO/UAhzf1fpRzszd59RYR2nsd1Mz0OqN5A
+	diiB4FDwOBnTaL3oAW6El1dke5EWLeANKf38rtwgjx1ARJm9M1AMY0nlACjp/02KxAvoeb
+	9gJ17oX30zMUJG/OnuUAco9t8fTCjV4+e1ifcu5LJD+l7lP/zy9sMrfYXtiVW0YYG7ePoC
+	i5JUbCaitKBaM8cmLWdlUqeJg9IEPedvDPsklp6CvjhCGOyZD86b4z5OQI2EgmKdkERuh6
+	XDROOdBTY28gav156u4EQBbJ3yMUdnAfUS6tvsX40D7rPfzTu3C0d+S3xhSZWw==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+Subject: [PATCH v8 0/7] clk: nuvoton: ma35d1: Fix mux parenting and
+ peripheral clock rates
+Date: Sun, 04 Oct 2026 22:45:24 +0200
+Message-Id: <20261004-perso-ma35d1-upstream-clk-v8-0-e1a106a128c0@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Sun, 04 Oct 2026 22:45:52 +0200
-From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
-To: netdev-bot+sashiko@kernel.org
-Cc: tung.quang.nguyen@est.tech, jmaloy@redhat.com, netdev@vger.kernel.org,
- tipc-discussion@lists.sourceforge.net, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, kuba@kernel.org
-Subject: Re: [PATCH] tipc: fix use-after-free in netns teardown
-In-Reply-To: <179114204389.434549.3724053905057286143@kernel.org>
-References: <20261003192530.2414682-2-Jeremy.Jean@oss.cyber.gouv.fr>
- <179114204389.434549.3724053905057286143@kernel.org>
-User-Agent: Roundcube Webmail/1.6.19
-Message-ID: <be98434488231b3464631e6df78a5b5a@oss.cyber.gouv.fr>
-X-Sender: jeremy.jean@oss.cyber.gouv.fr
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43Q20rEMBAG4FdZcm0kh+a0V76HeJGkEze4bUpSi
+ 7L03U1X0GIhePkPzDc/c0MFcoSCzqcbyrDEEtNYg344IX+x4yvg2NeMGGGSaMrxBLkkPFgueor
+ fpzJnsAP21zcshbc+eGq1dKjuTxlC/Ljbzy81X2KZU/68n1rENv1WDTMNdRGYYKkF52C4AOieX
+ ErzNY6PPg1ocxf6a7UbLhRTDEqDAEkVA3u02L4XbVms9mLEhJ4zqx0hR4vvLdGyeLVCcBYUEEa
+ sPlrdv61us7g0StSfGRqOltxZnLQsWa1OG64ApDfOHS31Y1FCWMtS1fKuN7WSlUz9+de6rl9bb
+ iRJjAIAAA==
+X-Change-ID: 20260813-perso-ma35d1-upstream-clk-65cacfc1a86b
+To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
+ openbmc@lists.ozlabs.org, Miquel Raynal <miquel.raynal@bootlin.com>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 2026-10-04 21:27, netdev-bot+sashiko@kernel.org wrote:
-> [Severity: Medium]
-> 
-> Can restarting from id 0 on every pass livelock the teardown?
-> 
-> rcv_wq is an ordered workqueue:
-> 
-> tipc_topsrv_work_start()
->     s->rcv_wq = alloc_ordered_workqueue("tipc_rcv", 0);
-> 
-> Take a lower-id connection A whose rwork is queued behind the running
-> rwork of a higher-id connection B. The loop closes A, but the reference
-> held by A's queued rwork keeps A in conn_idr. On every later pass
-> idr_get_next() returns A again, so the loop never reaches B.
-> 
-> tipc_conn_recv_work() keeps running while B is connected and requests
-> keep arriving:
-> 
->     while (connected(con)) {
->         if (tipc_conn_rcv_from_sock(con))
->             break;
->     ...
-> 
-> The cond_resched() here gives up the CPU. A's work still cannot run on
-> the ordered queue until B's worker returns. If B's receive queue never
-> empties, idr_in_use never reaches 0 and cleanup_net() spins.
-> 
-> The old loop advanced with id++. It would have cleared CF_CONNECTED on 
-> B,
-> which ends B's worker.
-> 
-> Local peers probably cannot keep this going. The listener is bound with
-> TIPC_NODE_SCOPE, and local user sockets hold a reference on the netns.
-> 
-> Remote peers are another matter. tipc_net_ops is registered before
-> tipc_topsrv_net_ops, so the bearers are still up when 
-> tipc_topsrv_stop()
-> runs. The TIPC_LISTEN branch of tipc_sk_filter_connect() has no scope
-> check. A remote node that knows the listener's port id might be able to
-> connect and keep sending TIPC_SUB_CANCEL requests. That precondition 
-> has
-> not been confirmed.
-> 
-> Would it work to first walk forward through all entries, using
-> idr_get_next() from id + 1 and closing each one? The loop could then
-> retry from 0 only for the entries still waiting on asynchronous 
-> release.
+I am in possession of an MA35D1 NuMaker board. The SPI controller has
+been contributed, but at this stage it does not work with the current
+clock driver.
 
-This looks like a valid concern. I will address it in a v2.
+The clock controller registers its muxes with .fw_name parent data,
+which requires every internal clock name to be declared in the DT. As
+the DT does not declare them, all parent lookups fail: muxes end up
+registered as root clocks and most peripherals read a zero rate.
 
-> 
->> +		if (con && !kref_get_unless_zero(&con->kref))
->> +			con = NULL;
->> +		spin_unlock_bh(&srv->idr_lock);
->>  		if (con) {
->> -			conn_get(con);
->> -			spin_unlock_bh(&srv->idr_lock);
->>  			tipc_conn_close(con);
-> 
-> [Severity: High]
-> 
-> This is a pre-existing issue, but can this call to tipc_conn_close()
-> dereference a NULL con->sock?
+This conversion exposed a first issue with the WDT/WWDT parents which
+were actually missing in the clock driver. I am not using these clocks
+myself but it is worth fixing.
 
-Indeed, Sashiko is right. I reproduced it.
+The second round of reviews raised another problem with the
+crystals. HXT and LXT are external crystal oscillators wired on the
+board, while HIRC and LIRC are on-chip RC oscillators. HXT was described
+whereas LXT was not. The series now also takes the two crystal inputs
+from the DT: they get documented in the bindings, described in the
+boards and looked up by the driver (with a fallback for backward
+compatibility).
 
-I will fix it in a seperate commit in the v2, by guarding 
-tipc_conn_close()
-behind a check on con->sock:
+Finally, I was still unsatisfied by the clock tree because there were
+too many root clocks. Many "gates" were wrongly set aside from the
+downstream clocks they would gate, and SYSPLL was simply not parented at
+all (?).
 
-diff --git a/net/tipc/topsrv.c b/net/tipc/topsrv.c
-index af530c9..01dd34b 100644
---- a/net/tipc/topsrv.c
-+++ b/net/tipc/topsrv.c
-@@ -706,7 +706,8 @@ static void tipc_topsrv_stop(struct net *net)
-                 if (con) {
-                         conn_get(con);
-                         spin_unlock_bh(&srv->idr_lock);
--                       tipc_conn_close(con);
-+                       if (con->sock)
-+                               tipc_conn_close(con);
-                         conn_put(con);
-                         spin_lock_bh(&srv->idr_lock);
-                 }
+The clock tree now looks much more accurate.
 
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+---
+Changes in v8:
+- Fix an out-of-bound bug (syspll parenting structure was wrongly
+  defined).
+- Make sure HXT_GATE is validated before being reused (and possibly
+  dereferencced blindly by the core.
+- Link to v7: https://lore.kernel.org/r/20261002-perso-ma35d1-upstream-clk-v7-0-cbd991fa6270@bootlin.com
 
-> tipc_topsrv_kern_subscr() creates conn_idr entries that have no socket:
-> 
->     con = tipc_conn_alloc(tipc_topsrv(net), NULL);
-> 
-> tipc_conn_close() dereferences the socket before it tests CF_CONNECTED:
-> 
->     static void tipc_conn_close(struct tipc_conn *con)
->     {
->         struct sock *sk = con->sock->sk;
-> 
-> Other code in this file already allows for a NULL sock.
-> tipc_conn_kref_release() checks if (con->sock). 
-> tipc_conn_send_to_sock()
-> only calls tipc_conn_close() inside its if (con->sock) branch.
-> 
-> Here is a possible sequence:
-> 
-> 1. tipc_topsrv_queue_evt() takes a reference on a kernel subscription
->    connection K through tipc_conn_lookup(). It then queues K->swork on
->    send_wq.
-> 
-> 2. Before that work runs, the group socket is closed:
->    tipc_release()->tipc_group_delete()->tipc_topsrv_kern_unsubscr().
->    This clears CF_CONNECTED and drops two references. K stays in
->    conn_idr, held only by the swork reference.
-> 
-> 3. cleanup_net()->tipc_topsrv_exit_net()->tipc_topsrv_stop() runs.
->    cancel_work_sync(&srv->awork) does not drain send_wq. idr_get_next()
->    returns K, kref_get_unless_zero() succeeds, and tipc_conn_close(K)
->    dereferences NULL.
-> 
-> The old idr_find() plus conn_get() loop had the same exposure. The new
-> loop retries until idr_in_use reaches 0, so any socketless entry still 
-> in
-> conn_idr is now guaranteed to reach tipc_conn_close() at least once.
-> 
-> This loop is being rewritten anyway. Could it skip tipc_conn_close() 
-> when
-> con->sock is NULL? Alternatively, tipc_conn_close() could check
-> con->sock before using it.
-> 
->>  			conn_put(con);
->> -			spin_lock_bh(&srv->idr_lock);
->>  		}
->> +		cond_resched();
->> +		spin_lock_bh(&srv->idr_lock);
->>  	}
-> 
-> [ ... ]
+Changes in v7:
+- Avoid opencoding core helpers, replace them with existing helpers
+  (mentioned by Jerome)
+- Rebased on top of clk-next since the first patches have been applied
+- Link to v6: https://lore.kernel.org/r/20260930-perso-ma35d1-upstream-clk-v6-0-48937ee6c9bb@bootlin.com
+
+Changes in v6:
+- Drop the clock output names entirely, they are not relevant.
+- Error out when the crystal providers defer probing.
+- Make sure gates are correctly parented.
+- Make sure SYSPLL is parented.
+- Link to v5: https://lore.kernel.org/r/20260929-perso-ma35d1-upstream-clk-v5-0-68533e935ee4@bootlin.com
+
+Changes in v5:
+- Fix the bindings wrt HXT and LXT.
+- Fix the DT descriptions of HXT and LXT.
+- Collect tags.
+- Link to v4: https://lore.kernel.org/r/20260925-perso-ma35d1-upstream-clk-v4-0-f3697553391f@bootlin.com
+
+Changes in v4:
+- I forgot to bump the clock counter in the driver after adding the two
+  new clocks in the bindings. Sashiko will keep complaining about the
+  incoherency though. Since binding and driver changes should be kept
+  separated, I cannot do both at the same time.
+- Link to v3: https://lore.kernel.org/r/20260925-perso-ma35d1-upstream-clk-v3-0-ffbae7e020a8@bootlin.com
+
+Changes in v3:
+- Drop the number of clocks from the binding, set it in the driver only
+- Split the binding/driver patches completely
+- Link to v2: https://lore.kernel.org/r/20260921-perso-ma35d1-upstream-clk-v2-0-209fd32a8b00@bootlin.com
+
+Changes in v2:
+- New patch 1/3: register the missing WDT/WWDT parent clocks
+- New patch 3/3: harden the code
+- Link to v1: https://lore.kernel.org/r/20260813-perso-ma35d1-upstream-clk-v1-1-e78e5e6172ea@bootlin.com
+
+---
+Miquel Raynal (7):
+      clk: nuvoton: ma35d1: Use clk_hw pointers as mux parents
+      clk: nuvoton: ma35d1: Avoid possible error pointer dereferencing
+      clk: nuvoton: ma35d1: Retrieve HXT/LXT from DT when possible
+      clk: nuvoton: ma35d1: Reparent the gates correctly
+      clk: nuvoton: ma35d1: Reparent SYSPLL correctly
+      arm64: dts: nuvoton: ma35d1: Drop HXT clock output name
+      arm64: dts: nuvoton: ma35d1: Add LXT crystal and clock-names
+
+ arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts |   7 +-
+ arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts |   7 +-
+ arch/arm64/boot/dts/nuvoton/ma35d1.dtsi         |   3 +-
+ drivers/clk/nuvoton/clk-ma35d1-divider.c        |   3 +
+ drivers/clk/nuvoton/clk-ma35d1-pll.c            |   3 +
+ drivers/clk/nuvoton/clk-ma35d1.c                | 710 +++++++++---------------
+ 6 files changed, 267 insertions(+), 466 deletions(-)
+---
+base-commit: 6b78cda327cc2dbcd0e60f411ae014997a684b55
+change-id: 20260813-perso-ma35d1-upstream-clk-65cacfc1a86b
+
+Best regards,
+-- 
+Miquel Raynal <miquel.raynal@bootlin.com>
+
