@@ -1,374 +1,262 @@
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5A5938F95A
-	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 18:24:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791138258; cv=pass; b=bzpFzp5Ogbho1flwZM+bxcTdhzIDPrNWK/VUqDKc+Fag4QJXA8GwBZwzfOkSNUeoYgvHwWMhStR+JY+zouO0S50+nFBCKMWPoKBm3WmduC26mTbbeRYI+SNdxCEDV8Y9k2QTog9uShBSxnoIREZUKVDw1FJYc2IzmPHs36zDNrQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791138258; c=relaxed/simple;
-	bh=zLwoLrxRD9bnB1A5PWyAC+jyBSiDyJrolS6BO3uVX+k=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QPPEzVlXj8hkuDXhM//f/z5dT+apMeUJmrJGu1yd3C6Q7NHyf+ddnh0kAzUr+H0REHxyiqgBIQDuDhC94dnwQsIEQNPcKZDJRiC3CrL/P36xRVdrwXjKCu1tC5WokWSqZK1BX9h6u70psGjIwYX01SkJCMKWRXMG1tckpx/Fwq0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=e9NB+9gI; arc=pass smtp.client-ip=209.85.208.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1335B3B6BEE;
+	Sun,  4 Oct 2026 18:34:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791138867; cv=none; b=WDAnmFYCV3QJQH6Rxey+221Mx5mlh5eAvN0MNFP08khSoO/OrcLXw+o/beSRA9FOKMRUAsxLn8ifpa/m6DqNzZXhu6qTDKP5NYXVWjZcwkkbX+X3dKqniyCg5iAt6pXGyUZEgvITY8krSOmmu95qdZvOp6tONR3NfAbWyn7tXsQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791138867; c=relaxed/simple;
+	bh=gLw90hxFsa/ClkQtbv9ZCyhLYqtMx55ygEUZgw/PJf0=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=YtqwqZ/ZzaMbFlR3wuohDRP233JTq3kdwynT6h2ByO5m4EVOCaetVHosz0C8yVSrVF7D2PVwZWizj3HzAaW5PGaVHMpLbYFfqol/VpydVzUk+/d/t2E2fq8A7MkOAv9L3r+0pSutldXDYqGyT+2s97MXsr9MPiCkVyZRiLiB8Fk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FC383d7Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="e9NB+9gI"
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6afac79b3a3so5641a12.1
-        for <stable@vger.kernel.org>; Sun, 04 Oct 2026 11:24:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791138254; cv=none;
-        d=google.com; s=arc-20260327;
-        b=IFdYa2hNCogxFlEgbBgauZtBdxCtyB/Vb4NCM5TFSzuBB9Fc43mWEZIlvIodrLsRcW
-         DHp9I8L+x2kwIyVycBNFqpXnQHcAU8VLKmPZxXyh6FbSzLLlOCTOGT3oWCtHDau8xQlK
-         X61QGGdN4c2TLpW1MPhpghARvBsG1VB4quYQFNF0x4uLTh+I0YhGl7oW2jQNEUXdKvVl
-         om84fjAfxPGZl4sTCaQhwrMfZkhf6OdAUZ24/Zzzvx69UaJNnG/mn8zavHTrf0dtWi40
-         DuhzCb7ui0JuvCsDmzq6/1QUwi/3NpAockT74eu+pRT256TWOrnGc3+bZEXnB7BIz8XZ
-         syxA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=+kvayuBhXRE2GquXHfPa/A7+zWFdbc7YesX/WrD9SmY=;
-        fh=MkXVEMjAumb5ieNU/TLA8zsbhTgdqBUiEEzu1kuLhpU=;
-        b=oeXD5AtzPH7wsMZGZBXOEuq/kG6FIWXkFlUv/S/4AugSPq65rTdwsjJux9o3PT6u/M
-         ZqWp0k4M9oPm/mWZWpjSLqmHoXQH/MLuIccFmGRlvv/Mfi5PYWtsfJio4Z9t8hTcyOBr
-         SFlDNJIMUh+wSbl9tcyaM4kVs8ta5+6q6UXQg0L2pUET75eodUE/m7HcysbE+kQX3H0r
-         eX5ZVO+cF1+p8bnFYYU9KKOuaZBcTfMV0so6oK2Ud1/cNa1311vKynyZa6/6mGLAqVpy
-         qVxbVHI22pC513Al6O25rGjmTPdIaoGSsNhvOmKKeGzTQdqWxsry8+N1tfY63iet6fne
-         ksrw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791138254; x=1791743054; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+kvayuBhXRE2GquXHfPa/A7+zWFdbc7YesX/WrD9SmY=;
-        b=e9NB+9gIoM4uA2CHvRW0/2Nk3hptMSh640cVkBS1gZauPadKna8ayfo4ezmWPpB9bd
-         uMT83RMJfX4N9nfG7+USOcHLQ88QoDLPWu/+1/web98ZuNt6x7WuDqJNKHYBO0imTz1n
-         7XOyUcWjLg0bwrbQsuxrGO8DY4I3VCqmnqTDXzWNBKi8jAlZm30RByV05iJyzwMxmU8v
-         GM8gbvnxcGjvLT1zXjnuQ3TTvXkQMbCcSbl69NmA0fMYlQj+lXuZ/AYirYpBHQp8yWif
-         bRp2WcRA5TeRXNanwihcMdm4Hesw2fsEq6/Nd7XHMccKnW1HbN6g+z/A3YkxUPPBuR+Z
-         VTSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791138254; x=1791743054;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+kvayuBhXRE2GquXHfPa/A7+zWFdbc7YesX/WrD9SmY=;
-        b=x4kD0fyXz8ePoOwyYX2crBr2TNj0J+LfqnKHgLZbJ+JCnmoHcPeV9qzK85mrL9CDuk
-         83cK0bUOyFGD7SK02r+bfzij8nS9UqlSiUl529CJ1Huh3qIcZ8V1Nai5T1cM47JxEvJW
-         ZFoSimxLrzj5Ds3BB5oevdoo+fSoXcxFP3F0JgqP7HoYwx0Iy/IX1wD9fC9tUI3fnzxM
-         sY84eyQ3qtxGTrD/Mwog/qRSG168z1dD6yEP8aHF0yMRxbwFP0GpFZjIowLOUd1cAz22
-         x8wCMoLEqpBQThIXygEaxeb2uEplJa0iAGQLa6DSFmPvCd0ezVqlpUmkuKWHEM55rlGY
-         /XUg==
-X-Forwarded-Encrypted: i=1; AKwUvBxBJUbpg38jhp+/0jLe18ydawKZh+wBZ+3Ri+RFV/kCUTUE2szyGJ/e6UlwBtEIcrwGVpQ8JVA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK5fqFTdD1wSvvdPB4Of8n4x9BXUreMCxpQrrmIaoZ5r4PAMKtF
-	HPe5J/V2uH7MLjBL4MnSw2eW9Hs0V47pnNnsTjKLskWjJi3+1WWRUDns0DXTrGEzFtT1HDAjbC+
-	JSebKxvZSO4dvlHpdTxe+j9xoFUSeh7elWsiVbEDz
-X-Gm-Gg: AYBFou0e3Hn9rvnfnuKGjqPmxuxBg7QkIpbL7DMNztaI/yuMA8NOXUrqTYEH8ow+9KB
-	8qao1XriTEvV8QREvtGo0j2kdYlvJY+ckqNwN9rJ6UmbllrIWLMP4rNARBQ+pvEunPSnEBa3syK
-	WwuQxVIvN0OngQqLbAoUw/40RI6p/X+Rtp2JAY7VEk1y4FpI7SEEV/UmMVGUOgLe22gKcUraO0q
-	UBMB4rX2nx7tuqhX0S8h9rKEDK27hOxbJVDX8loj1XwYp4EGmIrkNPEaXW69bRU38NigMo52v+d
-	RUuXvWEoW6o95IjcQcbHxwrVPvNodHyRsIpugLrf10EGR5i5vf5A7qDU
-X-Received: by 2002:a05:6402:22d0:b0:6ae:1866:cdfe with SMTP id
- 4fb4d7f45d1cf-6afaf69c8dfmr26911a12.11.1791138252600; Sun, 04 Oct 2026
- 11:24:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FC383d7Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C61C01F000FF;
+	Sun,  4 Oct 2026 18:34:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791138865;
+	bh=Sjya9qHx6cALlHzqDrLnhEqFfoUxcFbm1p3mIJcgqOs=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=FC383d7YrT9ccBTOd31LNQfpPi48xb3msmKvXUk8uDBuBx44FRe7wT0mJxjrqlyGq
+	 tXV6T6c9X++i8bkuqkXwKUIANUfyyoMaj10dqwgOu/BYZpZsqN3Hi67X05xl4O/jlV
+	 Y/AjGYoFsaKUOPpBKDI+4GZEd9snep+/ksgb8ubiL/Ex/flwgHCErgAHie+3yKRwwJ
+	 9ZtdeQC6UHMW3pcPUfcsRphZ5HmzwpTix4ebjqcQTSPdOxEsJn0Wpa7Dir1WSvSp0c
+	 hVSTjm/wst9sv568DMdLN072p4UfbIPWFXZwajdYWe3U9ZbVg7FOePJzaCwK1IgIyP
+	 iuSqvjYeqZZIw==
+Subject:
+ Re: [PATCH net v2 1/2] net/smc: serialize link group free work scheduling
+From: netdev-bot+sashiko@kernel.org
+To: nicoyip.dev@gmail.com
+Cc: alibuda@linux.alibaba.com, dust.li@linux.alibaba.com,
+ sidraya@linux.ibm.com, mjambigi@linux.ibm.com, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ tonylu@linux.alibaba.com, guwen@linux.alibaba.com, horms@kernel.org,
+ linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Sun, 04 Oct 2026 18:34:24 +0000
+Message-ID: <179113886433.434549.10069135669585050618@kernel.org>
+In-Reply-To: <20261003183237.2284245-2-nicoyip.dev@gmail.com>
+References: <20261003183237.2284245-2-nicoyip.dev@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929082014.160587-1-hao.ge@linux.dev> <20260929082014.160587-8-hao.ge@linux.dev>
-In-Reply-To: <20260929082014.160587-8-hao.ge@linux.dev>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Sun, 4 Oct 2026 20:23:57 +0200
-X-Gm-Features: AclHuK86etgyIPJ222To041zNkSoFNgDLomueBKSopElcapCeLMOxFHBtlsBju0
-Message-ID: <CAJuCfpEwrdOKQmt9_=J4Qawtg48AUuwwbc2Lp-1oWiNbKO_UVw@mail.gmail.com>
-Subject: Re: [PATCH v11 7/7] alloc_tag: fix the /proc/allocinfo lifecycle
-To: Hao Ge <hao.ge@linux.dev>
-Cc: "=Kent Overstreet" <kent.overstreet@linux.dev>, Luis Chamberlain <mcgrof@kernel.org>, 
-	Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
-	Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Alexander Potapenko <glider@google.com>, 
-	Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
-	Vlastimil Babka <vbabka@kernel.org>, Michal Hocko <mhocko@suse.com>, 
-	Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
-	Uladzislau Rezki <urezki@gmail.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-modules@vger.kernel.org, kasan-dev@googlegroups.com, 
-	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 29, 2026 at 10:20=E2=80=AFAM Hao Ge <hao.ge@linux.dev> wrote:
->
-> shutdown_mem_profiling() calls remove_proc_entry() from
-> reserve_module_tags(), which runs under mod_lock held for write.
-> remove_proc_entry() waits for readers, and a reader takes mod_lock for
-> read in allocinfo_start():
->
->   CPU0 (insmod)                      CPU1 (read /proc/allocinfo)
->   ----------------                   ----------------------------
->   reserve_module_tags()
->     down_write(&mod_lock)  [held]
->                                      use_pde()            [in_use++]
->                                      allocinfo_start()
->                                        down_read(&mod_lock)  <- blocks
->     shutdown_mem_profiling()
->       remove_proc_entry()
->         wait for in_use =3D=3D 0         <- blocks
->
-> Move remove_proc_entry() to a workqueue.
->
-> The deferred removal also affects alloc_tag_init(). The file is
-> created before the type, so on a failure it is still there with
-> alloc_tag_cttype NULL or an error pointer, and a reader panics in
-> allocinfo_start(). Create the file at the end of alloc_tag_init()
-> instead, a failed init leaves nothing behind.
->
-> If proc_create() fails, the codetag type and the module tags memory
-> leak. Call codetag_unregister_type() and free the memory.
->
-> alloc_tag_cttype can now be freed at runtime. alloc_tag_top_users()
-> reads it from __show_mem() without locks, read the pointer under
-> rcu_read_lock() and take mod_lock before dropping the RCU lock, the
-> type stays alive until then. The only caller never sleeps, drop the
-> can_sleep argument.
->
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compress=
-ion")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hao Ge <hao.ge@linux.dev>
-> ---
->  include/linux/alloc_tag.h |  2 +-
->  include/linux/codetag.h   |  2 ++
->  lib/codetag.c             | 26 ++++++++++++++++++++
->  mm/alloc_tag.c            | 52 +++++++++++++++++++++++++++------------
->  mm/show_mem.c             |  2 +-
->  5 files changed, 66 insertions(+), 18 deletions(-)
->
-> diff --git a/include/linux/alloc_tag.h b/include/linux/alloc_tag.h
-> index 7f2d80a59792..852dc10c00ee 100644
-> --- a/include/linux/alloc_tag.h
-> +++ b/include/linux/alloc_tag.h
-> @@ -81,7 +81,7 @@ struct codetag_bytes {
->         s64 bytes;
->  };
->
-> -size_t alloc_tag_top_users(struct codetag_bytes *tags, size_t count, boo=
-l can_sleep);
-> +size_t alloc_tag_top_users(struct codetag_bytes *tags, size_t count);
->
->  static inline struct alloc_tag *ct_to_alloc_tag(struct codetag *ct)
->  {
-> diff --git a/include/linux/codetag.h b/include/linux/codetag.h
-> index a25a085c2df1..0c4e0337b474 100644
-> --- a/include/linux/codetag.h
-> +++ b/include/linux/codetag.h
-> @@ -87,6 +87,8 @@ void codetag_to_text(struct seq_buf *out, struct codeta=
-g *ct);
->  struct codetag_type *
->  codetag_register_type(const struct codetag_type_desc *desc);
->
-> +void codetag_unregister_type(struct codetag_type *cttype);
-> +
->  #if defined(CONFIG_CODE_TAGGING) && defined(CONFIG_MODULES)
->
->  bool codetag_needs_module_section(struct module *mod, const char *name,
-> diff --git a/lib/codetag.c b/lib/codetag.c
-> index a0b600720afc..46d0904b08b3 100644
-> --- a/lib/codetag.c
-> +++ b/lib/codetag.c
-> @@ -429,3 +429,29 @@ codetag_register_type(const struct codetag_type_desc=
- *desc)
->
->         return cttype;
->  }
-> +
-> +/**
-> + * codetag_unregister_type - unregister a codetag type
-> + * @cttype: the codetag type to unregister
-> + *
-> + * Undo codetag_register_type() and free @cttype. The caller must make
-> + * sure no lockless reader still uses @cttype, e.g. clear the pointer
-> + * to it and wait for an RCU grace period first.
-> + */
-> +void __init codetag_unregister_type(struct codetag_type *cttype)
-> +{
-> +       struct codetag_module *cmod;
-> +       unsigned long id, tmp;
-> +
-> +       mutex_lock(&codetag_lock);
-> +       list_del(&cttype->link);
-> +       mutex_unlock(&codetag_lock);
-> +
-> +       down_write(&cttype->mod_lock);
-> +       idr_for_each_entry_ul(&cttype->mod_idr, cmod, tmp, id)
-> +               kfree(cmod);
-> +       idr_destroy(&cttype->mod_idr);
-> +       up_write(&cttype->mod_lock);
-> +
-> +       kfree(cttype);
-> +}
-> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
-> index ba8a651769e3..b9af5fe5bba2 100644
-> --- a/mm/alloc_tag.c
-> +++ b/mm/alloc_tag.c
-> @@ -15,6 +15,7 @@
->  #include <linux/seq_file.h>
->  #include <linux/string_choices.h>
->  #include <linux/vmalloc.h>
-> +#include <linux/workqueue.h>
->  #include <linux/kmemleak.h>
->  #include <uapi/linux/alloc_tag.h>
->
-> @@ -484,22 +485,28 @@ static const struct proc_ops allocinfo_proc_ops =3D=
- {
->  #endif
->  };
->
-> -size_t alloc_tag_top_users(struct codetag_bytes *tags, size_t count, boo=
-l can_sleep)
-> +size_t alloc_tag_top_users(struct codetag_bytes *tags, size_t count)
->  {
->         struct codetag_iterator iter;
-> +       struct codetag_type *cttype;
->         struct codetag *ct;
->         struct codetag_bytes n;
->         unsigned int i, nr =3D 0;
-> +       bool locked;
->
-> -       if (IS_ERR_OR_NULL(alloc_tag_cttype))
-> +       rcu_read_lock();
-> +       cttype =3D READ_ONCE(alloc_tag_cttype);
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Code looks correct to me but if you are changing alloc_tag_cttype to
-be accessed under RCU, then you should declare it as __rcu and use
-rcu_assign_pointer()/rcu_access_pointer()/rcu_dereference()/rcu_dereference=
-_protected().
+Critical: 0 · High: 1 · Medium: 0 · Low: 0 (3)
 
-> +       if (IS_ERR_OR_NULL(cttype)) {
-> +               rcu_read_unlock();
->                 return 0;
-> +       }
->
-> -       if (can_sleep)
-> -               codetag_lock_module_list(alloc_tag_cttype);
-> -       else if (!codetag_trylock_module_list(alloc_tag_cttype))
-> +       locked =3D codetag_trylock_module_list(cttype);
-> +       rcu_read_unlock();
-> +       if (!locked)
->                 return 0;
->
-> -       iter =3D codetag_get_ct_iter(alloc_tag_cttype);
-> +       iter =3D codetag_get_ct_iter(cttype);
->         while ((ct =3D codetag_next_ct(&iter))) {
->                 struct alloc_tag_counters counter =3D alloc_tag_read(ct_t=
-o_alloc_tag(ct));
->
-> @@ -520,7 +527,7 @@ size_t alloc_tag_top_users(struct codetag_bytes *tags=
-, size_t count, bool can_sl
->                 }
->         }
->
-> -       codetag_unlock_module_list(alloc_tag_cttype);
-> +       codetag_unlock_module_list(cttype);
->
->         return nr;
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] __smc_lgr_terminate() (net/smc/smc_core.c) still cancels
+  free_work with cancel_delayed_work(), which does not wait for a…
+
+Pre-existing issues:
+- [Low] Baseline decision: not a valid finding for the final state of the
+  series.
+- [Low] Baseline decision: not reported (a pre-existing, low-impact race
+  the patch does not claim to fix).
+- [Low] Baseline decision: not a valid finding for the final state of the
+  series.
+
+--
+
+net/smc: serialize link group free work scheduling
+
+This patch holds the link group list lock across the freeing check and
+mod_delayed_work() in smc_lgr_schedule_free_work(). It also sets
+lgr->freeing under that lock in smc_lgr_cleanup_early(). Finally, it moves
+freeing out of the shared bitfield byte and gives it its own bool.
+
+> diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
+> index 9974149659c2f..478c8bc2759a0 100644
+> --- a/net/smc/smc_core.c
+> +++ b/net/smc/smc_core.c
+
+[ ... ]
+
+> @@ -691,6 +696,7 @@ void smc_lgr_cleanup_early(struct smc_link_group *lgr)
+>  	/* do not use this link group for new connections */
+>  	if (!list_empty(&lgr->list))
+>  		list_del_init(&lgr->list);
+> +	lgr->freeing = 1;
+>  	spin_unlock_bh(lgr_lock);
+>  	__smc_lgr_terminate(lgr, true);
 >  }
-> @@ -591,6 +598,13 @@ void pgalloc_tag_swap(struct folio *new, struct foli=
-o *old)
->         put_page_tag_ref(handle_new);
->  }
->
-> +static void remove_allocinfo_file(struct work_struct *work)
-> +{
-> +       remove_proc_entry(ALLOCINFO_FILE_NAME, NULL);
-> +}
-> +
-> +static DECLARE_WORK(remove_allocinfo_work, remove_allocinfo_file);
-> +
->  static void shutdown_mem_profiling(bool remove_file)
->  {
->         if (mem_alloc_profiling_enabled())
-> @@ -600,7 +614,7 @@ static void shutdown_mem_profiling(bool remove_file)
->                 return;
->
->         if (remove_file)
-> -               remove_proc_entry(ALLOCINFO_FILE_NAME, NULL);
-> +               schedule_work(&remove_allocinfo_work);
->         mem_profiling_support =3D false;
->  }
->
-> @@ -1351,16 +1365,10 @@ static int __init alloc_tag_init(void)
->                 return 0;
->         }
->
-> -       if (!proc_create(ALLOCINFO_FILE_NAME, 0400, NULL, &allocinfo_proc=
-_ops)) {
-> -               pr_err("Failed to create %s file\n", ALLOCINFO_FILE_NAME)=
-;
-> -               shutdown_mem_profiling(false);
-> -               return -ENOMEM;
-> -       }
-> -
->         res =3D alloc_mod_tags_mem();
->         if (res) {
->                 pr_err("Failed to reserve address space for module tags, =
-errno =3D %d\n", res);
-> -               shutdown_mem_profiling(true);
-> +               shutdown_mem_profiling(false);
->                 return res;
->         }
->
-> @@ -1368,10 +1376,22 @@ static int __init alloc_tag_init(void)
->         if (IS_ERR(alloc_tag_cttype)) {
->                 pr_err("Allocation tags registration failed, errno =3D %p=
-e\n", alloc_tag_cttype);
->                 free_mod_tags_mem();
-> -               shutdown_mem_profiling(true);
-> +               shutdown_mem_profiling(false);
->                 return PTR_ERR(alloc_tag_cttype);
->         }
->
-> +       if (!proc_create(ALLOCINFO_FILE_NAME, 0400, NULL, &allocinfo_proc=
-_ops)) {
-> +               struct codetag_type *cttype =3D alloc_tag_cttype;
-> +
-> +               pr_err("Failed to create %s file\n", ALLOCINFO_FILE_NAME)=
-;
-> +               shutdown_mem_profiling(false);
-> +               WRITE_ONCE(alloc_tag_cttype, NULL);
-> +               synchronize_rcu();
-> +               codetag_unregister_type(cttype);
-> +               free_mod_tags_mem();
-> +               return -ENOMEM;
-> +       }
-> +
->         return 0;
->  }
->  module_init(alloc_tag_init);
-> diff --git a/mm/show_mem.c b/mm/show_mem.c
-> index b938cbcd774a..a2e710404a48 100644
-> --- a/mm/show_mem.c
-> +++ b/mm/show_mem.c
-> @@ -439,7 +439,7 @@ void __show_mem(unsigned int filter, const nodemask_t=
- *nodemask,
->                 struct codetag_bytes tags[10];
->                 size_t i, nr;
->
-> -               nr =3D alloc_tag_top_users(tags, ARRAY_SIZE(tags), false)=
-;
-> +               nr =3D alloc_tag_top_users(tags, ARRAY_SIZE(tags));
->                 if (nr) {
->                         pr_notice("Memory allocations (profiling is curre=
-ntly turned %s):\n",
->                                 mem_alloc_profiling_enabled() ? "on" : "o=
-ff");
-> --
-> 2.25.1
->
+
+[Severity: Low]
+This is a pre-existing issue, but is lgr still guaranteed to be alive when
+smc_lgr_cleanup_early() is reached from smc_conn_abort()?
+
+net/smc/af_smc.c:smc_conn_abort() {
+    ...
+	smc_conn_free(conn);
+	if (local_first && lgr_valid)
+		smc_lgr_cleanup_early(lgr);
+}
+
+smc_conn_free() drops the connection's reference:
+
+	smc_lgr_put(lgr); /* lgr_hold in smc_conn_create() */
+
+After that, smc_lgr_list_head(), spin_lock_bh(), list_del_init() and the
+new freeing store all run without a reference held.
+
+The unreferenced access was already there before this patch. The next
+patch in the series, "net/smc: serialize early link group cleanup with
+termination", adds smc_lgr_hold()/smc_lgr_put() around smc_conn_free()
+and smc_lgr_cleanup_early(). It does the same on the registration
+failure path in smc_conn_create().
+
+Both patches carry Cc: stable. Could this changelog say that the
+follow-up patch has to be backported with it?
+
+[Severity: Low]
+This isn't a bug introduced by this patch, but should lgr->freeing be
+tested before it is set here?
+
+At this commit, smc_lgr_cleanup_early() sets freeing unconditionally and
+always calls __smc_lgr_terminate(). Suppose smc_lgr_free_work() has
+already claimed the group:
+
+smc_lgr_free_work()
+    lgr->freeing = 1; /* this instance does the freeing, no new schedule */
+    ...
+    smc_lgr_free(lgr);
+
+__smc_lgr_terminate() only checks lgr->terminating, and
+smc_lgr_free_work() never sets it. The second teardown would then go into
+smc_lgr_free() again. The same applies to a group already claimed by
+smc_lgr_terminate_sched() or smc_smcd_terminate().
+
+Can this end in a second destroy_workqueue() of lgr->tx_wq, a second
+put_device(), and an lgr refcount underflow?
+
+The baseline smc_lgr_cleanup_early() did not test freeing either. The
+follow-up patch "net/smc: serialize early link group cleanup with
+termination" adds the check under lgr_lock:
+
+	if (lgr->freeing) {
+		spin_unlock_bh(lgr_lock);
+		return;
+	}
+
+[ ... ]
+
+> @@ -1565,7 +1571,7 @@ static void __smc_lgr_terminate(struct smc_link_group *lgr, bool soft)
+>  
+>  	if (lgr->terminating)
+>  		return;	/* lgr already terminating */
+> -	/* cancel free_work sync, will terminate when lgr->freeing is set */
+> +	/* cancel pending free_work; a running instance rechecks freeing */
+>  	cancel_delayed_work(&lgr->free_work);
+>  	lgr->terminating = 1;
+
+[Severity: High]
+Can a running free_work instance safely do that recheck?
+
+smc_lgr_free_work() holds no reference on lgr, and the recheck itself
+dereferences lgr:
+
+smc_lgr_free_work() {
+    ...
+	smc_lgr_list_head(lgr, &lgr_lock);
+	spin_lock_bh(lgr_lock);
+	if (lgr->freeing) {
+    ...
+}
+
+cancel_delayed_work() does not wait for a callback that is already
+running. smc_lgr_free() only drains tx_wq before it drops the base
+reference.
+
+Could this sequence free lgr while the worker is still using it?
+
+CPU 0 (kworker)                     CPU 1 (terminator)
+smc_lgr_free_work() starts
+  (PENDING already cleared)
+  preempted before
+  smc_lgr_list_head()
+                                    set lgr->freeing under lgr_lock
+                                    __smc_lgr_terminate()
+                                      cancel_delayed_work() returns false
+                                      smc_lgr_cleanup()
+                                      smc_lgr_free()
+                                        smc_lgr_put()
+                                          __smc_lgr_free()
+                                            kfree(lgr)
+  smc_lgr_list_head(lgr, ...)
+  spin_lock_bh(lgr_lock)
+  reads lgr->freeing
+
+free_work is only scheduled when the group has no connections. So the put
+in smc_lgr_free() drops the last reference.
+
+The terminator could be any of these:
+
+  terminate_work after a peer-triggered smc_smcd_terminate()
+  smc_lgr_terminate_sched() after a CLC DECLINE with the first contact flag
+  smc_smcr_terminate_all() or smc_smcd_terminate_all()
+
+If the freed memory reads freeing == 0, the worker also goes on to
+list_del_init() and a second smc_lgr_free() on the freed object.
+
+The asynchronous cancel predates this patch. However, the new comment
+describes running instances as safe, and the v2 notes say the patch keeps
+"asynchronous cancellation without adding work-owned references".
+
+Does this need cancel_delayed_work_sync() on the terminate paths that can
+drop the last reference, or a reference owned by the work item?
+
+> diff --git a/net/smc/smc_core.h b/net/smc/smc_core.h
+> index 5c18f08a4c8a5..b8c67f277337a 100644
+> --- a/net/smc/smc_core.h
+> +++ b/net/smc/smc_core.h
+> @@ -303,7 +303,7 @@ struct smc_link_group {
+>  	struct workqueue_struct	*tx_wq;		/* wq for conn. tx workers */
+>  	u8			sync_err : 1;	/* lgr no longer fits to peer */
+>  	u8			terminating : 1;/* lgr is terminating */
+> -	u8			freeing : 1;	/* lgr is being freed */
+> +	bool			freeing;	/* lgr is being freed */
+
+[Severity: Low]
+This is a pre-existing issue, but sync_err and terminating still share a
+byte after freeing moves out.
+
+smc_clc_wait_msg() does:
+
+	smc->conn.lgr->sync_err = 1;
+	smc_lgr_terminate_sched(smc->conn.lgr);
+
+and __smc_lgr_terminate() does:
+
+	lgr->terminating = 1;
+
+The two writes have no common lock. Can one read-modify-write overwrite
+the other?
+
+The impact looks limited. freeing and list membership still prevent
+reuse or a double teardown. If terminating = 1 is lost, the main effect
+is that smc_wr_tx_get_free_slot() waits instead of failing fast on:
+
+	if (in_softirq() || lgr->terminating) {
+
+That wait ends when the link stops being sendable or after
+SMC_WR_TX_WAIT_FREE_SLOT_TIME. The changelog only claims to protect
+freeing, so this could be handled in a separate patch.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261003183237.2284245-1-nicoyip.dev%40gmail.com
