@@ -1,81 +1,76 @@
-Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE87133E37A
-	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 04:34:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EE263328FC
+	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 04:37:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791088497; cv=none; b=K+krd0B21Hm94Edo9XIc1nmGnrCvUqbdL4Flx7sI5hcuMDcg1mhCt46s6dgE+Y3TKsrFOmNwFoHk/bVoEsYDfjTr6Olmqm/fwlamCccVhaDhddYOUH4C7Wr29p/3MwqA1ArFLfdRKLYSiG/D4lKc7Y/RAEm11NlDwqIf0mbOZ2M=
+	t=1791088655; cv=none; b=quT+XismNMOyfAliqjYwaw4aApbDuTI85E5PQW9N4YfPmmOion/3xZ7m5XD73mpEFmiKNr/TyZDLhTmewK9HTXCM+ovymRonbj6ylDPjxbFTzs4dqv/Bjn4FInuKE3pI08whS9Qi0Z9n6zdCNqAYcRrM3L+P5Ik8a79f5owQdn8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791088497; c=relaxed/simple;
-	bh=Vmps6vY9NLS9tyiubMVQem9SCekTglBk1P9mmvjIZiU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iSBtawZErW9MLKszP+iFZ34laaR1Ouulu0kx1eEbnSq4S1V0w0aw1tbcBe7qYssTrtkVza8bpYTVIuuWRDwAQ386TCztMYgBitLcedtgzrPgLhok85rlf3GczgiP0dnui60xtIwQRkmsyphGHXm/D+bTcRaBrWDQMtg+aGOOfu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=On1xZvLo; arc=none smtp.client-ip=74.125.230.235
+	s=arc-20240116; t=1791088655; c=relaxed/simple;
+	bh=y5MWv1hH6XNIhEimYcmLK1JF49F0Ht6bbn+rO0Eehvg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fze+LPuMMUYgEaLC95Bk608sn11nPbazg085ybKOWI5QLevujMWM8NYkCW6XjtmaVEpYdXJ9yZ8VTv002r6ByK+DJZpkSWATaiDBl11n+SSX+UUPhoLxuGmAzl2Q95OYUUndMvNaPmnviGhyM4wxUaVdipJ4U3SQUOcbdd+PRmQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cwDQaeEH; arc=none smtp.client-ip=209.85.160.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="On1xZvLo"
-Received: by mail-qk2-f43.google.com with SMTP id af79cd13be357-93caa7d3af4so82216485a.2
-        for <stable@vger.kernel.org>; Sat, 03 Oct 2026 21:34:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cwDQaeEH"
+Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-5338f65913dso9912781cf.2
+        for <stable@vger.kernel.org>; Sat, 03 Oct 2026 21:37:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791088494; x=1791693294; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791088651; x=1791693451; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TLz4nHVaS7y0EmUWAv+zVMASjUD+Cyg6g4C6h0mdgTk=;
-        b=On1xZvLo1JWOkk28nNcPnubT0+E4OgI1QpeUlJvfmln2c/Er17uZ+lsDYY5gd4ZE4f
-         8eHQFq/I8jPtngi1KIncR6ZxyqayVKs380IniJYYNR/wVtvatmklrtpXL2QiyapKCv/n
-         UCGUTltDppv+0Zb5Ejaxh3dVKeVP/rZZtp68eRtHJ6blhHu1zCTLlXES3sAA2jDOKogk
-         fTt7bsQnwuAx68xNj/pND9As9QR7wso36B0AboOvjtmZQVRzldECx3/+PyeI4RWA6hwT
-         cbK0wUib3WnRnxM81sY3yN3gC/+z5g9aou3yfM+cRCkinmQShSPvw5cGqco2qnPBfpHT
-         54PA==
+        bh=LpE22LeFXokQmJjuzufi6upumdakctZxmE2Fi+Aqg9M=;
+        b=cwDQaeEHfwRqx3+WB09X00YHCJaU3k2NHsbH/yTkJUZDIRB2Zq+xgSk6cfxZwj5AE8
+         8AfcEPwwi4+/Z27r7tR1VSfMuGwwEsGudqQIyhInPbwJ05kK2MVqkccXwmvbGjXmIbJ5
+         nQ988rhelmTIYNIDNp+ZYUtMgP4TCDBafAjfurVZi7q5CPlVbwyz2y8uEzvpBXxtpbYb
+         gi6vY303ASg/5qedQZOY06a3P/AUNmJOz0Op0JWZeMwt+Xq/QPofFkUwHKGa6JPF1rnR
+         dRzXSQNkwQUG5dRxUQXiPB64mVEoJtfDD7zndDb2ThDnR5qBhQJREBpKRjMzmqE1GNye
+         FhaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791088494; x=1791693294;
+        d=1e100.net; s=20260707; t=1791088651; x=1791693451;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=TLz4nHVaS7y0EmUWAv+zVMASjUD+Cyg6g4C6h0mdgTk=;
-        b=mflSh6Tif7rDGqeZueq6nyc8/upC7/8oVnbvmIbJNY7IKjhHDfa5NRlrMvx0f6pueb
-         KJBCXDTMaFPrJlDKRirow0zB5Th0m/Cm48hfLVYJFWuLWg1Y7lPzM4P/K+6J/LicleGi
-         +77hbOmq3BU4jScsyNqBi/TTuRcF3GttnK/KpbVcsn/XN0aUjlZtJMHGrloeQ96qi0tC
-         f3s0RVonFDX7M2BGMQwawearpHOcTRTpttqXXAzBXz2PF/klfJaIfCK4iYJU2ogZkMNJ
-         7djns8rq6HaQ/qzl8vJ6XzjRwAYhixCXxut8ANUcHv7Y6yTWwB231jvOukXIR0q6m3Cj
-         JzUg==
-X-Forwarded-Encrypted: i=1; AKwUvBw66k+X8DIRKNiKuZLM2DjqIP3nH8oDzu+EUVnGEIg58rwSsJUITN0nq/AIh2DkO2U2GXEwwcE=@vger.kernel.org
-X-Gm-Message-State: AFuF++neDLyZAx9kknYiN3UBRaCJXewUGx78osy8FNbplkxlUtLmrLJB
-	+HgfySAdPJEUALe4c3NwjgtjRBzeSKz0Hu8U1ADzzqdCF0IWgcwGVuo=
-X-Gm-Gg: AYBFou1DsVy0CNRAT2s705u0wfTuTeCNmFxPtBwdU1nCapVZnE1NdhZzBJAuNjetfw8
-	sxDfDgYo1KaWcw6tDzdU+po2mBYNTNMTZz6oFDnD88BRoALJFh8gFFxq1JFuZbMht58j0OZesUV
-	LJ7E5SbmrE/eirVBF0Tsnspn57OyP/HIBmwK17tWu5DHwp7rYyP5PIUJSzOJBuVEld2LOVRcd9+
-	/UJ4aiym4ovBk7e/lb1DTAmj+FTPfPO6rMPBZ8QG0mScUI5Vp8wlIa8q16GQltDSg24a/GEj04h
-	jLm2rX5rmsS5FCu1wQOysPaZ8Hi/HPyK3r+LaVdJt1y/327C7G4rIjFL3RVnC4HaykIVA50Kckp
-	iQcRhZGyAagYjyVwN2ee7Y8XQ/2pWkNBXfABMm857AeZf6ATURwuFFm/cYPu9Gti4x6iPBc6jql
-	dJ4sTkbb8Oc56m/xH42P19YubZp1nKxQO+9IECzFZm22ABvjSOZe/KhXH4zjDWl93c6K0WarJR6
-	C8UKruoOUnbxhHV+Wc1tmihtAFARow7GJOomGjbA90vwm3cV+9/2cmKk+fJXgStIW8og3yCLazz
-	VUt5NvJ/ukgwvfJ5O+RTfB0M5ZUN
-X-Received: by 2002:a05:620a:4113:b0:93c:80d8:57ec with SMTP id af79cd13be357-93cf1a611b4mr1231450885a.64.1791088494588;
-        Sat, 03 Oct 2026 21:34:54 -0700 (PDT)
+        bh=LpE22LeFXokQmJjuzufi6upumdakctZxmE2Fi+Aqg9M=;
+        b=FsdMyySCZXJjgWEkZpJdTGiHbLNCnyqTKiDWH7WvB2rbSWmMHxvEiAR4oNL1yRWYOA
+         O9TBfq7xbbcpIUUKmo58jjUYAQ4fZIidKVSAHNZZCt8dniYB8ME68YJOjcPwqibkyNVV
+         4BI28eKkWv8yJcodjTi06bRcgzwFAGf7AXgmfcjKOD6elX4kA7bUBVY4jDY6XxPIbUnP
+         tplAGNo5eCj833ynPrXZjfgLHlVmJGaqLNeDF0I0eou5GCvjjGOl4qvHKuLSk4M+rJ6p
+         4phh7otffoIh9KvKYBepN865WNeL2ASkg0r/heAzF8rcYmZGoAz5BO4lm3jDtPAahYRr
+         vEew==
+X-Forwarded-Encrypted: i=1; AKwUvBz1dtwU/ossxfkH8ZQ9MldwpzXafhd/ZSnbQ2BJoE1w7qTrZH6vAQ6aTqDc08J8JBuii9YM/T8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lJnm4oZx5Tgk2wdeB5tI0CfiWsPWdyr01C9M5cybOMaf4dI0nR
+	E4TlPuoLQHDnyPvKIfIItfDGiReTakOjBiBfBS9mvs4u+5Y217vbQAM=
+X-Gm-Gg: AYBFou2ubpUY/+tvfXUIhAMV5oS4KBp5BFwmkFBSxZyJzMTbQ0ykfyhDiHO285E7a/V
+	bvaECqJMjI6ev/9YZ7MnsYVFcxmnMjgbdLft/qFNzPh9bnabb8/ldkcSLXtsQUDl/v0pBgk2JJA
+	jZ/S9w+xUxNQaJaBkWBCyuVB45m9SVa5bG81xvtbtln6TvYV06dAeSLFN9bCuikKyEz7FOPG6lb
+	81ASTwH0LX+XOVu1cOByv0DwzzvbRGdYrnBu/0FvCzr61KtwY+mAGL04IdI5eSuHHadT7HOJT6M
+	k5N7m14WNE+/dKWtNDq9hPdHA3nwnF8oRI8RHHPqmXRAzQ0uYq9tf/8FLYmjMZxNX5hVd9gO9J3
+	ncQhPa5DDhHMYp68/6UxRmVP47U71gaf43lpmYhhMDrFa9oZtq3O3jLX1Wa/tdcv87kmCdwulnh
+	/ry/T2B3J+sOk5pMsCAhfHa1jhnjupuFczcKg97OqU0q1BMLjMceZBEA8uCDhx8ykquKHZxVbNQ
+	M2aTk9X0PHYyra4Oj5G+dHkGzOO9zx1mBQSWTUmhPi3M6+EBNE1q6RnrfLZoX5AwuoH+dZnY0LM
+	FHjuIhuw/8MGxC/59GRc9ZEgMCrBb4didKZ0Gss=
+X-Received: by 2002:a05:622a:411:b0:533:8c7e:c6ec with SMTP id d75a77b69052e-53511e814afmr69716011cf.36.1791088651268;
+        Sat, 03 Oct 2026 21:37:31 -0700 (PDT)
 Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93cca21d8fcsm596671585a.26.2026.10.03.21.34.52
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53398d32e19sm64829641cf.27.2026.10.03.21.37.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 21:34:53 -0700 (PDT)
+        Sat, 03 Oct 2026 21:37:29 -0700 (PDT)
 From: Myeonghun Pak <mhun512@gmail.com>
-To: Olivier Moysan <olivier.moysan@foss.st.com>,
-	Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
-	Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	linux-sound@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
+To: Samuel Kayode <samkay014@gmail.com>,
+	Sebastian Reichel <sre@kernel.org>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	Lee Jones <lee@kernel.org>,
+	imx@lists.linux.dev,
+	linux-pm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] ASoC: stm: stm32_i2s: request IRQ after regmap initialization
-Date: Sun,  4 Oct 2026 00:34:51 -0400
-Message-ID: <20261004043451.1138613-1-mhun512@gmail.com>
+Subject: [PATCH] power: supply: pf1550: drain IRQ work before unregistering supplies
+Date: Sun,  4 Oct 2026 00:37:28 -0400
+Message-ID: <20261004043728.1140015-1-mhun512@gmail.com>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -85,77 +80,78 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The ISR accesses the managed regmap, but probe requests the IRQ before
-creating it. An early interrupt can reach an uninitialized regmap.
-Reverse-order cleanup can free the regmap while the IRQ remains active.
+The VBUS work calls power_supply_changed(), but its managed
+cancellation is registered before the supplies. Cleanup can therefore
+unregister a supply while IRQ-triggered work is still pending.
 
-Request the IRQ after regmap initialization so probe unwind and
-removal free and synchronize it before releasing the regmap.
+Commit 838767f50747 ("power: supply: pf1550: Fix use-after-free in
+power_supply_changed()") moved IRQ requests after supply registration,
+but left work cancellation before the supplies. That change protects
+the direct IRQ callbacks, while this fix drains the work they queue.
+
+Register the three work items after both supplies and before the IRQs.
+Cleanup then frees the IRQ producers, drains the work, and unregisters
+the supplies.
 
 The teardown ordering issue was found by static analysis.
 
-Fixes: e4e6ec7b127c ("ASoC: stm32: Add I2S driver")
+Fixes: 4b6b6433a97d ("power: supply: pf1550: add battery charger support")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Co-developed-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
- sound/soc/stm/stm32_i2s.c | 23 +++++++++++------------
- 1 file changed, 11 insertions(+), 12 deletions(-)
+ drivers/power/supply/pf1550-charger.c | 32 +++++++++++++--------------
+ 1 file changed, 16 insertions(+), 16 deletions(-)
 
-diff --git a/sound/soc/stm/stm32_i2s.c b/sound/soc/stm/stm32_i2s.c
-index 83b51893b37c..7fcf23bd0aff 100644
---- a/sound/soc/stm/stm32_i2s.c
-+++ b/sound/soc/stm/stm32_i2s.c
-@@ -1185,7 +1185,7 @@ static int stm32_i2s_parse_dt(struct platform_device *pdev,
- 	struct device_node *np = pdev->dev.of_node;
- 	struct reset_control *rst;
- 	struct resource *res;
--	int irq, ret;
-+	int ret;
+diff --git a/drivers/power/supply/pf1550-charger.c b/drivers/power/supply/pf1550-charger.c
+index 2ead1df60e65..e3d4e9817f91 100644
+--- a/drivers/power/supply/pf1550-charger.c
++++ b/drivers/power/supply/pf1550-charger.c
+@@ -566,6 +566,22 @@ static int pf1550_charger_probe(struct platform_device *pdev)
  
- 	if (!np)
- 		return -ENODEV;
-@@ -1231,16 +1231,6 @@ static int stm32_i2s_parse_dt(struct platform_device *pdev,
- 			return ret;
- 	}
+ 	platform_set_drvdata(pdev, chg);
  
--	/* Get irqs */
--	irq = platform_get_irq(pdev, 0);
--	if (irq < 0)
--		return irq;
--
--	ret = devm_request_irq(&pdev->dev, irq, stm32_i2s_isr, 0,
--			       dev_name(&pdev->dev), i2s);
--	if (ret)
--		return ret;
--
- 	/* Reset */
- 	rst = devm_reset_control_get_optional_exclusive(&pdev->dev, NULL);
- 	if (IS_ERR(rst))
-@@ -1265,7 +1255,7 @@ static int stm32_i2s_probe(struct platform_device *pdev)
- {
- 	struct stm32_i2s_data *i2s;
- 	u32 val;
--	int ret;
-+	int irq, ret;
- 
- 	i2s = devm_kzalloc(&pdev->dev, sizeof(*i2s), GFP_KERNEL);
- 	if (!i2s)
-@@ -1291,6 +1281,15 @@ static int stm32_i2s_probe(struct platform_device *pdev)
- 		return dev_err_probe(&pdev->dev, PTR_ERR(i2s->regmap),
- 				     "Regmap init error\n");
- 
-+	irq = platform_get_irq(pdev, 0);
-+	if (irq < 0)
-+		return irq;
++	psy_cfg.drv_data = chg;
 +
-+	ret = devm_request_irq(&pdev->dev, irq, stm32_i2s_isr, 0,
-+			       dev_name(&pdev->dev), i2s);
-+	if (ret)
-+		return ret;
++	chg->charger = devm_power_supply_register(&pdev->dev,
++						  &pf1550_charger_desc,
++						  &psy_cfg);
++	if (IS_ERR(chg->charger))
++		return dev_err_probe(&pdev->dev, PTR_ERR(chg->charger),
++				     "failed: power supply register\n");
 +
- 	ret = snd_dmaengine_pcm_register(&pdev->dev, &stm32_i2s_pcm_config, 0);
++	chg->battery = devm_power_supply_register(&pdev->dev,
++						  &pf1550_battery_desc,
++						  &psy_cfg);
++	if (IS_ERR(chg->battery))
++		return dev_err_probe(&pdev->dev, PTR_ERR(chg->battery),
++				     "failed: power supply register\n");
++
+ 	ret = devm_delayed_work_autocancel(chg->dev, &chg->vbus_sense_work,
+ 					   pf1550_chg_vbus_work);
  	if (ret)
- 		return ret;
+@@ -584,22 +600,6 @@ static int pf1550_charger_probe(struct platform_device *pdev)
+ 		return dev_err_probe(chg->dev, ret,
+ 				     "failed to add battery sense work\n");
+ 
+-	psy_cfg.drv_data = chg;
+-
+-	chg->charger = devm_power_supply_register(&pdev->dev,
+-						  &pf1550_charger_desc,
+-						  &psy_cfg);
+-	if (IS_ERR(chg->charger))
+-		return dev_err_probe(&pdev->dev, PTR_ERR(chg->charger),
+-				     "failed: power supply register\n");
+-
+-	chg->battery = devm_power_supply_register(&pdev->dev,
+-						  &pf1550_battery_desc,
+-						  &psy_cfg);
+-	if (IS_ERR(chg->battery))
+-		return dev_err_probe(&pdev->dev, PTR_ERR(chg->battery),
+-				     "failed: power supply register\n");
+-
+ 	for (i = 0; i < PF1550_CHARGER_IRQ_NR; i++) {
+ 		irq = platform_get_irq(pdev, i);
+ 		if (irq < 0)
