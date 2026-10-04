@@ -1,44 +1,51 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 059D5339719;
-	Sun,  4 Oct 2026 16:30:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F8C0330D24
+	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 16:30:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791131426; cv=none; b=MrIfQB9CV93X6xNmofGTrJkB3z8BzZaj84lfKn9+QWwUnPhFo+zTkPmviaGxOn6sHnsXlfI54F6JMGIUq56AVd8xysiaEEnOx6gXV1fvczVYisqNSQXVt5bOz6qVxLSdw7N8MT/7Xr0I2ctJ3Se0X4iYgpcbGKTo+7VL20uVuDA=
+	t=1791131429; cv=none; b=K8WoDeiAZdlmp/UMvMA+ilAqgOvGmceKb7TZxOiXufG1k5ha03tfyMkSKrbze02/n6H1KfUibaNg/5t8EpcXta8vUBHZn6hw2VdUv+61LTTGPZuySo6eK57SskhbCQwO677haxCyw1UW5MuRTmzCYv09gpxG/YpT7ULmtly2QS4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791131426; c=relaxed/simple;
-	bh=hgdppLBc8R3oXIpC/R+MsreYCZG2s6GWGpuxHGBWO78=;
+	s=arc-20240116; t=1791131429; c=relaxed/simple;
+	bh=PlrN4KgpuWeNcwFhrngZqVI154v6CVWMREBg32RUXIg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FZuhZSy4inCwiTvGSS3CuT2os0wuSAAytjNS3X/r3NcTGi26gRDlTBlKaVRFjcRQ7//sZh1RJhxCiyfKgz+LosJaPXC4jiSjHE8GX6UWRYochJokxO1hnVMMWSs0l7MUwBxUdVgXKuRWjBNKO1IOrsfonqdtzGSFVvu5AnRLzSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d/H6OEw9; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=TkyOo/L6YnI98g/E/jYwRKH47hh3JVaOez39nVWSALfe/nv3hbF1wADvwDDR6vlng6jK7DcKylCi+44EMpZGUVlgEPgRBKiH6t8z7cfXhJ0s7VqTEiiCk+cJCFe5EO5TIdo97N2nxiIPJ9TssWFJtq73R7sJ1rQRPoFgZZhffbg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AS9VLNu2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d/H6OEw9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6AD51F00893;
-	Sun,  4 Oct 2026 16:30:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AS9VLNu2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20EDA1F000FF;
+	Sun,  4 Oct 2026 16:30:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791131424;
-	bh=vXlolKQiTYSOLQhCm8ad1YUNOY84PG857e+1oHNMmlQ=;
+	s=k20260515; t=1791131428;
+	bh=WAQCWRj4aFr3UmdeJpbIV0bQB3YBwLMP8aIVJSy3Iwo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=d/H6OEw9hUH9QBmndLutyB2+xUE1vGuanwBe0BxdQ70hIQ3HcBVMhlDUXF9kXAkh3
-	 JcuVhKwh37Fn9AVnmC8Pw4muqqCowsrsvDU74RYpk14Zu/z1ETVR9nX3hU2aifEy9/
-	 u9twb4L0qD5tFl7rn/f9fKI+pdZA6g7hT6R3cy/6nbiAYRL8ALSEzOzF80lHfbaPex
-	 u3pdzHSz3CNH/wrOwd1DOymHY5XtHo7qtNtdR/Y4elX+NrKY/VC5+/Q+usGq1Cfu2b
-	 tIAtZnbIN0KxMBdRzqyCepUt8ARBvkeqM2Qq/t9t4PQY+/Y8Hceds02LddvgpCEQq/
-	 dTdGU6pMA02uw==
+	b=AS9VLNu2X528q4978Ni74lZo9OV8SaOZJftRYD/kIsxu3eiMV/J1Q1/coDqMK7zNh
+	 MY2KJ1GLKaeWzlC3yTu7oCUaCm/bENU5WRssYB3zLLqcJvFgEN0EIuwDP+PxPIox2E
+	 aTmKjiCYatbYdNwA+k/I38gF5EyE3yFO9Kix579wTu4FQhbDgXaEtOtyb43Gl4/5A6
+	 3TUXcJpFEoeydUozuAt9mW8CWyJ//EOFwgtfRIvUhxXKHaX6W3CYg+m+nkS8gvk4br
+	 /BtmUoghZORU5kk4aQYuXjEc5oaO6Qfov7WPVm/y5Eo8OF+eFXrTFCQUIvBgqudHhf
+	 K+RG7TAouB4MA==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: Sasha Levin <sashal@kernel.org>,
-	damon@lists.linux.dev,
-	SJ Park <sj@kernel.org>,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	Ackerley Tng <ackerleytng@google.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
-	Kunwu Chan <kunwu.chan@gmail.com>
-Subject: Re: [PATCH 6.1.y] mm/damon/core: don't skip damos_adjust_quota() while esz is not zero
-Date: Sun,  4 Oct 2026 12:29:49 -0400
-Message-ID: <2026-10-04-1-daily-reply-0011-damon-adjust-quota-6.1@kernel.org>
+	Breno Leitao <leitao@debian.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	Peter Xu <peterx@redhat.com>,
+	Rik van Riel <riel@surriel.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 6.6.y] mm/hugetlb: fix avoid_reserve to allow taking folio from subpool
+Date: Sun,  4 Oct 2026 12:29:50 -0400
+Message-ID: <2026-10-04-1-daily-reply-0012-hugetlb-avoid-reserve-6.6@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261003155119.28683-1-sj@kernel.org>
-References: <20261003155119.28683-1-sj@kernel.org>
+In-Reply-To: <20260926071811.77481-1-kmehltretter@gmail.com>
+References: <20260926071811.77481-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,11 +54,10 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> DAMOS could unexpectedly stop working when a user disables quota using the
-> online parameters commit feature.  Fix it by correcting a wrong quota
-> unset check in damos_adjust_quota().
+> commit 58db7c5fbe7daa42098d4965133a864f98ba90ba upstream.
 
-Queued for 6.1, thanks.
+Peter, Oscar: I will queue all four backports (6.6, 6.1, 5.15 and 5.10) on
+October 9 unless someone objects before then.
 
 -- 
 Thanks,
