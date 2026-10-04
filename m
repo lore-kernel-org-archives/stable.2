@@ -1,160 +1,141 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9462212542
-	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 13:18:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3FBE2EEE75;
+	Sun,  4 Oct 2026 13:40:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791119903; cv=none; b=BbxzKrdBNQxrdmCgSuZvFk3Gvh26xaKO/dCU084nywbXB+N8imBt9uTz2aJ1Wh29A5YDTr+0is5ggbtzSQZodIZCUeQz/9vFAOrvDWqxJZwrD8iGIgwbPRgy6U01W4ENNpGFBdTg6yfZ9jpvMBpxJFUCxmlI5wvxbQmiyKs/1i4=
+	t=1791121258; cv=none; b=XlthzY7dko5wVMZU7zdlC+l210v+lQNjv1CvbAurbcpufDyDU2+mQ8kYDonH9zfgOMDoPlP9p7i/BIxg/jHYLszaX3wZcSLKON3N2GeaoetbzYDC8Qt72qNjHn1PtLl7BMcEqwyf55EF2qrvZ3a8ez5nk5WzaHPlhDxxuYy4ovg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791119903; c=relaxed/simple;
-	bh=z6rFrkhq8w0RyZKav4VCDTJcQaUJhW5zOfT4ozFYGzs=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=pF4nmMiXTrJB0YxIHhjhD4kG/QBlzcmYDU3Z2+lAFhtLmWyJHaGG5mssPVzEzWGDMMbgnjxr0aLDiYmCmuzleYh5+loILjwfv+ShZwYN0ab2cDRzLd4SyzO4l7HBMylwnfoDAkJlPJSeU0a/ePLgXc6rw8boxzdot++HYrlyYYc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=OSux0YaK; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	s=arc-20240116; t=1791121258; c=relaxed/simple;
+	bh=Dv2Ua7MXA5dtZts5viztmq6JwFunwK6yVp7/ORmzEek=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=sewWtA2g0oGuE7Rr+TdUtMIwaZNgVVfIGTFBpi0vzMXvUJtHbL+UvwoNe8UYmBQpjvHnkMS7dAxCZ9yotdvuK33m/kJlRJFBqDfkMeiLovF+7kN20+Ca1WmKg52J1zZq0JObaRSQgwCkhXw+QofjImSC1n/RrLGVpvENP66Ev+4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=KBeav0P7; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="OSux0YaK"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a0280d4f56so5888085e9.2
-        for <stable@vger.kernel.org>; Sun, 04 Oct 2026 06:18:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1791119900; x=1791724700; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=z6rFrkhq8w0RyZKav4VCDTJcQaUJhW5zOfT4ozFYGzs=;
-        b=OSux0YaKMQPqEWpd/pVzVPELPTbxTWpxqpxof1osuUkMV5pdTPv60Rr3scGDzYPTcs
-         xPJY/4uwFiU9390NUEB6ZgDcijpUo74zJzNyQ8owWWOV+6Ayd9fNMeP8OZ30UyPNGnts
-         pegaSdDBKAbMB468ZkRlp0VoLPc8yWEAquXiHwtejkwLkXYTYklowXpxn5qXClYcuWgM
-         74OypZhrkGMq2mdjosE+gyZ4Srh11JHyODYLqjrU2gF99QUodWBxFolTZ8JeQgl/gnGF
-         BkBupu8R7tbD09KVjhOsdV+d9lWvCfbL8jVhaH1fNRgjsNFUUgb5xm83Lzwdf0+DL7Co
-         Cwnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791119900; x=1791724700;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=z6rFrkhq8w0RyZKav4VCDTJcQaUJhW5zOfT4ozFYGzs=;
-        b=u9WX6jdWxGk+T3bpcFDUR4sOH6KuCc6vXMu+lS73SXl7ceerYtviEdMM+MIwGWfQpb
-         TeVidpNUrF2Drs56Tvr4Q++QvMDkhkqZyr9k6+7pp8HkYLVst1MkTx4IvnHBeeSwhLuc
-         +ZFuA857TjErR7saVjLRg5ufSyLOIClLwhIjD/mqn0auf7/X1xb3S8m95xc2DSDN9g2P
-         /FMaSWS0rK4dnl1f/ws75IKbKVfw8jPFgbgmOetYqsKqYm+UgnszjdJ9V6JOG9avKaKn
-         MZoCZKxTiCUJkyC8nOMUSvZhhVZ83Dr3LHXc4LCgq7ufRUguYHtQI6N8F6fviVovzpmE
-         jQvQ==
-X-Forwarded-Encrypted: i=1; AKwUvBybVqO49xUevPBBCBQ0ZfQLeJOvEwaaOQu65wmr6NwDNMJKDSTKUW9/+yy5qpZr20TMVW6Gxb0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lb7lvmKxpIfAbChFUZKytsvyQih+Xr8KOehFywFgZJckXUAGuw
-	q0xLZHiq1Alc9nXLxUipkCFQl1zOlTaYJvJBehXaKbKtRKIJxKJfEkaNK/ZbUUUPPTc=
-X-Gm-Gg: AYBFou2i+USI1Kn9gjCz7wfLhDxSIBdIqbkvcz9huNQ/879l7WL7XIKiA0sI9IaaxFF
-	fG0jUjAIlOEqcqtqTfhvZcmULWBTnWIGcWwTuoX8F68tRE7Z+kgcDesqhOsHFr6R/7ylV02E3IC
-	k+5TME5r8gEmrWXdBE+ElXxGHJGYqLKXg8jBCRO8nmAr6ROgqq4pGldIBV/BnpUavmM2n5UfpkQ
-	DgKZ/ZQEJtdjL4TDaLMQH4hPI6YTWXJhGMYbTT0QltuXDpCfkJUH+tzxSXh/9leJyrWIWsZPpyW
-	HYLclZl3U4sPLDOxuGywfWtWA+qPBbVAVVnTsvIqUCgLY/f9HAgOisY6BVZHsuFWIO7zyVvXdxw
-	UTYfSsde303WCn1MQNdPumQfR3Ehradv82Hu5tJI6KcCbWqbcXEjsO57URClVxLDSylmMaXLza6
-	XJX0D5rKLgeJGZXp/Jbkw6cwPbc0yMBH9KkH8arkwFILeBC+DzWOI1lK8R7anWZGCTOYpZUbuwv
-	mlAY77gkLoO+HQWRJ8Ae94lOX4Of/BDWiy6d6bek1KTm2s=
-X-Received: by 2002:a05:600c:8b2a:b0:49f:fd2d:23c7 with SMTP id 5b1f17b1804b1-4a0276ad704mr166262085e9.27.1791119899862;
-        Sun, 04 Oct 2026 06:18:19 -0700 (PDT)
-Received: from [10.1.39.236] (90-181-163-241.rco.o2.cz. [90.181.163.241])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027f2a4cfsm222293665e9.1.2026.10.04.06.18.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 06:18:19 -0700 (PDT)
-Message-ID: <c9b5b9ffef594023e25e174cf9936e0b74575e87.camel@ndufresne.ca>
-Subject: Re: [PATCH] media: mediatek: vcodec: Initialize context lock before
- firmware setup
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen	
- <andrew-ct.chen@mediatek.com>, Yunfei Dong <yunfei.dong@mediatek.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno	
- <angelogioacchino.delregno@collabora.com>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>, 
-	stable@vger.kernel.org
-Date: Sun, 04 Oct 2026 15:18:17 +0200
-In-Reply-To: <20261004123920.1251165-1-runyu.xiao@seu.edu.cn>
-References: <20260830144827.2701887-1-runyu.xiao@seu.edu.cn>
-	 <8ea77a207f6f99d4f20610670e5f88fc56df3faa.camel@ndufresne.ca>
-	 <20261004123920.1251165-1-runyu.xiao@seu.edu.cn>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-waE4nCMfjxRVoMMu6WzC"
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="KBeav0P7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=xa
+	GSrAXnZ+Z3T7RiHauSv5ej51+uW1g/VCDLxuiRwFA=; b=KBeav0P765Hbgzs/Jw
+	dFIoJ479M4zWdKB40qh9Dms7KjxbcSCI40Hcc7LfMSuCmOIBrKdxQ8uwWrYOSVWE
+	FP+OZn4VX+JZFJ/aO9wMzlNrtgxG3FbkzHvtiYyvzuZJh0624jZsaYtnzVhn8eZH
+	+cuaV60UWXBsGdyJwoflUq3Wk=
+Received: from u2.. (unknown [])
+	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wDX35ELV8Jq3nX5CA--.2906S3;
+	Sun, 04 Oct 2026 21:39:31 +0800 (CST)
+From: taozj888@163.com
+To: theo.lebrun@bootlin.com
+Cc: taozijin <taozj888@163.com>,
+	stable@vger.kernel.org,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Haavard Skinnemoen <hskinnemoen@atmel.com>,
+	Jeff Garzik <jeff@garzik.org>,
+	netdev@vger.kernel.org (open list:NETWORKING DRIVERS),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH net v3 1/1] net: macb: rate limit netdev error info print in the data path
+Date: Sun,  4 Oct 2026 13:39:15 +0000
+Message-Id: <20261004133916.559956-2-taozj888@163.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261004133916.559956-1-taozj888@163.com>
+References: <20261004133916.559956-1-taozj888@163.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDX35ELV8Jq3nX5CA--.2906S3
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXFWrAry3tw18ZF1rGr1xXwb_yoW5AF43pa
+	yUA398Ww4kJr47A3Z7try8Ar1rAr98Kry5WrWkK3W3Xw15Ar90gFyagryYkFW8Ga9xAw1S
+	yw1UZayqkan3ZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zig_-PUUUUU=
+X-CM-SenderInfo: hwdr6yqyyyqiywtou0bp/xtbC3hMl7GrCVxNS2AAA3i
 
+From: taozijin <taozj888@163.com>
 
---=-waE4nCMfjxRVoMMu6WzC
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Now the MACB ethernet driver print the netdev error information
+directly by netdev_err(), which would lead to a large number of
+error information print if there was a significant number of
+error or just jumbo packets exceeding the MTU received when booting.
+For example, it would print a large number of:
 
-Le dimanche 04 octobre 2026 =C3=A0 20:39 +0800, Runyu Xiao a =C3=A9crit=C2=
-=A0:
-> Hi Nicolas,
->=20
-> On Sun, 4 Oct 2026 07:17:43 -0400, Nicolas Dufresne wrote:
->=20
-> > The very first place the lock will be taken is in _open() and that cann=
-ot
-> > happen before video_register_device(), which is kept last. Please
-> > demonstrate what the issue you are suggesting if you'd like to see this
-> > merged.
->=20
-> The normal encoder open path is as you describe. On VPU-backed systems,
-> firmware setup registers the encoder reset callback before dev_ctx_lock i=
-s
-> initialized. A timeout on the shared VPU while another client is active
-> queues reset work, which invokes registered callbacks. If that work runs
-> before spin_lock_init(), the callback takes the uninitialized lock. The
-> context list is initialized but empty during probe, so I cannot claim lis=
-t
-> corruption or a user-visible failure. With CONFIG_DEBUG_SPINLOCK, the
-> zeroed lock fails the magic check.
+macb PHYT0036:00 eth0: not whole frame pointed by descriptor
+macb PHYT0036:00 eth0: not whole frame pointed by descriptor
+...
 
-Then please make a v2 that includes the mention of the encoder path, and th=
-at
-includes the debug output when CONFIG_DEBUG_SPINLOCK in your message. That =
-will
-show that you actually tested it. Its extra effort, but please understand t=
-hat I
-receive dozen of hypothetical fixes (sometimes multiple time the same fix m=
-ade
-by LLM users that may or may not follow the list).
+in gem_rx() by having received a large number of packets without
+RX_EOF flag set, especially with unknown packet
+type that would penetrate the hardware offload for the IP packets.
 
-cheers,
-Nicolas
+The unlimited prints here would greatly bother and delay
+the system booting process unless the source stop sending
+packets since they occupy the console output bandwidth and
+other processes have to wait for the completion of printing those
+messages.
 
->=20
-> Thanks,
-> Runyu
+So rate limit the netdev error information print in the receive
+and transmit data path.
 
---=-waE4nCMfjxRVoMMu6WzC
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+Fixes: 89e5785fc8a6 ("[PATCH] Atmel MACB ethernet driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zijin Tao <taozj888@163.com>
+---
+ drivers/net/ethernet/cadence/macb_main.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
------BEGIN PGP SIGNATURE-----
+diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
+index 8e5c034dc3a4..ca60960bec36 100644
+--- a/drivers/net/ethernet/cadence/macb_main.c
++++ b/drivers/net/ethernet/cadence/macb_main.c
+@@ -1617,16 +1617,16 @@ static int gem_rx(struct macb_queue *queue, struct napi_struct *napi,
+ 		count++;
+ 
+ 		if (!(ctrl & MACB_BIT(RX_SOF) && ctrl & MACB_BIT(RX_EOF))) {
+-			netdev_err(bp->netdev,
+-				   "not whole frame pointed by descriptor\n");
++			if (net_ratelimit())
++				netdev_err(bp->netdev, "not whole frame pointed by descriptor\n");
+ 			bp->netdev->stats.rx_dropped++;
+ 			queue->stats.rx_dropped++;
+ 			break;
+ 		}
+ 		skb = queue->rx_skbuff[entry];
+ 		if (unlikely(!skb)) {
+-			netdev_err(bp->netdev,
+-				   "inconsistent Rx descriptor chain\n");
++			if (net_ratelimit())
++				netdev_err(bp->netdev, "inconsistent Rx descriptor chain\n");
+ 			bp->netdev->stats.rx_dropped++;
+ 			queue->stats.rx_dropped++;
+ 			break;
+@@ -1829,7 +1829,8 @@ static int macb_rx(struct macb_queue *queue, struct napi_struct *napi,
+ 		unsigned long flags;
+ 		u32 ctrl;
+ 
+-		netdev_err(bp->netdev, "RX queue corruption: reset it\n");
++		if (net_ratelimit())
++			netdev_err(bp->netdev, "RX queue corruption: reset it\n");
+ 
+ 		spin_lock_irqsave(&bp->lock, flags);
+ 
+@@ -2102,7 +2103,8 @@ static int macb_interrupt_misc(struct macb_queue *queue, u32 status)
+ 
+ 	if (status & MACB_BIT(HRESP)) {
+ 		queue_work(system_bh_wq, &bp->hresp_err_bh_work);
+-		netdev_err(netdev, "DMA bus error: HRESP not OK\n");
++		if (net_ratelimit())
++			netdev_err(netdev, "DMA bus error: HRESP not OK\n");
+ 		macb_queue_isr_clear(bp, queue, MACB_BIT(HRESP));
+ 	}
+ 
+-- 
+2.34.1
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCasJSGQAKCRDZQZRRKWBy
-9JhWAQDGSUaLmIY5JdJTgW6/78Eu5NkYiG8DJqlOcA7s9ZIXSQD/f+kiZ+H1prGg
-XPDSh3pwtV56tX31Q+YhZqlKkIWGzgA=
-=gqBD
------END PGP SIGNATURE-----
-
---=-waE4nCMfjxRVoMMu6WzC--
