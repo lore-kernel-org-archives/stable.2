@@ -1,121 +1,130 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EEDE3AAF76;
-	Sun,  4 Oct 2026 14:06:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6302E3955FE;
+	Sun,  4 Oct 2026 14:10:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791122811; cv=none; b=HiWpu+NT+9hPAItSi7Zx6hgrqnRpNE8SMsy5s7r4GoHMoc3pgmjzei873rGwK7Tw8LFsq79XiYPzzLPlEhaiDRrPL1mci8bnre8iKEk0GQ1PU1CmM1XyBAajU6nHTiJ2usg+GN4oIc2XMaQZbUKVduRrcer0ZR0Vs7+0iDT4F+M=
+	t=1791123034; cv=none; b=biqMLUQW1ekO4TQFegXKXxT2eJ//Yfbl9Qs9BEkNw5X5C3d+6N6z2493oXsiM+gi7MrG4zVG8RdgLUuDVRl5/q0LV83kAqJKfJXrOwje43k8dZsxTgcOwITvgnaNOBJiN2v52saE5M4bACBRGf+6zzfR+XUfNha/iJyGnJWgoXw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791122811; c=relaxed/simple;
-	bh=6TQU99ZxPLl25Z5d8u7Lw2UQbiSmpsjiuw/9CUgNGVA=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=rHffX2BIzzGw1YcAfM4CXCFGfgoYRh6D0XjCokT13cvzYciT0XbQf64W/cfIpzQ5AC5qnWbZRKw9KQVSd6N5/jMHQ3Mnrh1+Y/tCsU/FJ80xw2zACjFn05k7dqlxsCgLKNrAhXeKAuooa6HVOC6QmGEQGgns6JamKd+wX3gyHPU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=4CrKI84a; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1791123034; c=relaxed/simple;
+	bh=kbqvkRuOvhOGbq6l3L0HKHsp9gtavI4tXwtIjeNf+i8=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=gZC2V6SBYSg34wcQ7KUs88WeptRg2CUMx+UlqZyN2JJ2BTmq3exTe4Zm70W8VeBNDltp5IvHNQAJOack82ChgN33XGRb35JoB+R7/DM0CWpLEw28UE165qNPKQPZdH1ozQ0bGSoo7i8+twhltqQA9CMBoh77A5i00ES4oBgggZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZjVmPfHp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="4CrKI84a"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6EF9BA4AAA;
-	Sun,  4 Oct 2026 16:06:24 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1791122797; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=V6NodY8DyUMIuCa57++t9sOldBOCncTm1xIwkM0+LBM=;
-	b=4CrKI84aynEGEmycx52axRHFafVllW2P96SkEDtbvSvoWeqLPtqvnkoyvJ+ikurwwhUSlj
-	FwVnldO1OGM2cEiOSnkvjou77BDvKBgonYZY7BT6QEItX8PdwVDXJ0M5bn/1BJDXd/Sa1p
-	N+oE8gKqZ7cEaUxwSeXWFGNPdaHbbCmzhhUKaSO7RMphIIlurmrvIb1d/4inmM1JYwq8WH
-	/sv7jSg/s0l2Fv1DtdJ7gKJ5dffPf8TAsJrL3sxD/W0vumTfKB9lhgf/qhqduMYUHZnxL+
-	1BSs+xmCmBs9NdiYdt6jvIGq3moRJXzCMaiIEz46VUMYUB+WVQ4XE886JSto0g==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZjVmPfHp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 178891F000FF;
+	Sun,  4 Oct 2026 14:10:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791123033;
+	bh=QANzCq5wf6O8mXgh9UVvU9WkUp/U54WKm0cktzoIPOk=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ZjVmPfHprwS+q4H+GoSksxOK0TNXl6FP0MTqBIdT6cau8rJgcnJ+XIuXqdjowEHXo
+	 jl6vs4N/tL/Jz3rh+3aBbPWaVO7JydXEL4PWUA3Cje13jEEdYAfehJIlnYA8iyH6Tc
+	 ilUO/T+SKhtgOsymyepS1/A6LRrtEqLdBeoRVtEP3DuwTR2kaa2aa4yqbbKeVLvQma
+	 U+WbPJ2p611MAOZD4DMTpQQyj9f3G6Qy5lfvXzavhFha6tC4JqzGKQ9CdzHMWlLiKg
+	 9b1Qj3ABUMJH7iX4rI+LlYTmoQbgGgjyChC5D9m0fMI1/sltUf9TKBk6Owyk7WfMok
+	 RrBpTgI+2F8IQ==
+Subject:
+ Re: [PATCH net 1/2] net: cpsw: unregister secondary netdev on probe failure
+From: netdev-bot+sashiko@kernel.org
+To: kmehltretter@gmail.com
+Cc: netdev@vger.kernel.org, s-vadapalli@ti.com, rogerq@kernel.org,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, j-keerthy@ti.com, haokexin@gmail.com,
+ alex@sverdlin.org, arnd@arndb.de, linux-omap@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Sun, 04 Oct 2026 14:10:31 +0000
+Message-ID: <179112303157.434549.9729493516800136823@kernel.org>
+In-Reply-To: =?utf-8?q?=3C2f459154f5bca89a07dc978c834e98198c08c331=2E1791035?=
+ =?utf-8?q?789=2Egit=2Ekmehltretter=40gmail=2Ecom=3E?=
+References: =?utf-8?q?=3C2f459154f5bca89a07dc978c834e98198c08c331=2E17910357?=
+ =?utf-8?q?89=2Egit=2Ekmehltretter=40gmail=2Ecom=3E?=
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Sun, 04 Oct 2026 16:06:24 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: taozj888 <taozj888@163.com>
-Cc: =?UTF-8?Q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>,
- stable@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>, Andrew
- Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Haavard Skinnemoen <hskinnemoen@atmel.com>, Jeff Garzik
- <jeff@garzik.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2] net: macb: rate limit netdev error info print in
- the data path
-In-Reply-To: <7cd93a53.199d.1a10724a8ae.Coremail.taozj888@163.com>
-References: <20260930113520.392025-1-taozj888@163.com>
- <b06cb02d9b26ceff272d7e34927a7eac@tipi-net.de>
- <DLUC9MKOACM3.OPW5RYHOYZV1@bootlin.com>
- <7cd93a53.199d.1a10724a8ae.Coremail.taozj888@163.com>
-Message-ID: <3e1515e162d084e2200eeaa6074bfbaf@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-On 4.10.2026 15:40, taozj888 wrote:
-> Hello Theo, Nicolai:
-> 
-> Please see answer inline.
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-> [...]
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
->>>> Fixes: 89e5785fc8a6 ("[PATCH] Atmel MACB ethernet driver")
->>> 
->>> IMHO the correct tag is 4df95131ea80 ("net/macb: change RX path for
->>> GEM")?
->>> At least the gem_rx() messages were introduced here.
->> 
->> The patch used to touch macb_start_xmit(), which explains why I told
->> Zijin to target the initial commit on previous revision.
->> 
-> OK, I will still use the initial commit indicated by Theo.
+- [High] In this patch, the cpsw_probe() error label
+  clean_unregister_netdev_ret in drivers/net/ethernet/ti/cpsw.c now…
 
-Please re-read Théo's reply: he only suggested the initial
-because v1 also touched macb_start_xmit(). v2 doesn't anymore,
-89e5785fc8a6 is no longer the right target. Please use:
+--
 
-Fixes: 4df95131ea80 ("net/macb: change RX path for GEM")
+net: cpsw: unregister secondary netdev on probe failure
 
-> [...]
+This patch records whether cpsw_probe() registered the secondary
+dual-EMAC netdev. If it did, the clean_unregister_netdev_ret error path
+now unregisters it before the primary netdev. This avoids the reg_state
+BUG_ON in free_netdev() when devres frees a netdev that is still
+registered after a late IRQ request failure.
 
->>> This will just hide the error message, but the split/drop is still
->>> present.
->>> How about limiting JML in macb_init_hw() properly?
->>> 
->>>          if ((bp->caps & MACB_CAPS_JUMBO) && bp->jumbo_max_len) {
->>>                  u32 jml = bp->rx_buffer_size - NET_IP_ALIGN +
->>> ETH_FCS_LEN;
->>>                  gem_writel(bp, JML, min(jml, bp->jumbo_max_len));
->>>          }
->>> 
->>> The code above is untested, so probably needs further tweaking. An
->>> alternative could
->>> be to handle the split frames in gem_rx() correctly.
->> 
->> I agree with you but to clarify for Zijin: if you do this then it 
->> should
->> be a separate patch as changes are pretty unrelated.
-> 
-> Yes, with your experience in this area, maybe a separate patch for it 
-> is preferred.
-> I think the error reported is not just related the Jumbo frame, but the 
-> jumbo frame
-> would trigger the error. So rate limit printing this kind of msg is 
-> needed but not
-> totally hide those msgs.
+> diff --git a/drivers/net/ethernet/ti/cpsw.c b/drivers/net/ethernet/ti/cpsw.c
+> index aa3531e844e87..4fc59f9f23fcb 100644
+> --- a/drivers/net/ethernet/ti/cpsw.c
+> +++ b/drivers/net/ethernet/ti/cpsw.c
 
-Which other cases do you have in mind?
+[ ... ]
 
-Rate limiting the message in this patch is fine with me. I can look
-into the JML patch separately, or you can give it a try.
+> @@ -1764,6 +1766,8 @@ static int cpsw_probe(struct platform_device *pdev)
+>  	return 0;
+>  
+>  clean_unregister_netdev_ret:
+> +	if (secondary_registered)
+> +		unregister_netdev(cpsw->slaves[1].ndev);
+>  	unregister_netdev(ndev);
 
-> [...]
+[Severity: High]
+Can rx_mode_work still be pending on either netdev when devres frees it?
 
-Thanks,
-Nicolai
+Both netdevs are registered before the devm_request_irq() calls, so an
+interface can be brought up during that window. Bringing it up, or
+changing its address lists, reaches cpsw_ndo_set_rx_mode(), which does:
+
+    schedule_work(&priv->rx_mode_work);
+
+cpsw_ndo_stop() does not cancel this work.
+
+cpsw_remove() follows each unregister with a disable:
+
+    priv = netdev_priv(ndev);
+    unregister_netdev(ndev);
+    disable_work_sync(&priv->rx_mode_work);
+
+This error path does not. After probe returns the error, devres calls
+free_netdev() on the devm-allocated netdevs. A queued or rtnl-blocked
+cpsw_ndo_set_rx_mode_work() would then dereference the freed priv,
+priv->cpsw and priv->ndev. The workqueue core would also touch the freed
+work_struct.
+
+The primary netdev already had this gap. For the secondary netdev, the
+free_netdev() BUG_ON used to fire first. This patch removes that BUG_ON,
+so the use-after-free on the secondary netdev can now be reached.
+
+The next patch in the series, "net: cpsw: cancel RX mode work on probe
+failure", appears to fix this. It adds disable_work_sync() after both
+unregister_netdev() calls here, which matches cpsw_remove(). Its commit
+message quotes a KASAN report of "slab-use-after-free in
+cpsw_ndo_set_rx_mode_work".
+
+Could that change be folded into this patch, so the two are not applied
+separately?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1791035789.git.kmehltretter%40gmail.com
