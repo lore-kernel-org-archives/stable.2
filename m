@@ -1,124 +1,70 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA25846F48D;
-	Sun,  4 Oct 2026 20:32:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A5257262E;
+	Sun,  4 Oct 2026 20:33:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791145941; cv=none; b=D3vFFWJsaaIbpe2ZGY4C+IZlPrMmtT7aSjLEUOGmLuq2+4n3lqzUIv2U+aqeclfxMjruq9FXvr/Bo1oZY6pKUZzCeAE0y3Te+cu+h69fOsqRWWBmTCzDdKIV/zes1DOifYHTSNbmKQ64W5NY8Xe1TBzdu2IOcbNSoJ0fWV9UaUg=
+	t=1791145995; cv=none; b=jRCnUVU3CLQD94ubG0iQbu50S6qiZAOlJ1utw9OZ8H0YckqsphgAQZRDDWTwwiS8KX9aNiWQiwF9VC84TdPgAm0wnWzDQl4D0TTYB+z1l9ElfweBXc7bPSGxvafaWEr3UHWhZ/LHaE+v7JLnoL9B1wBgpTGCdwtc9lNYBwYIChk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791145941; c=relaxed/simple;
-	bh=oIzCA0Ouk7T109u03t6jw/xCJYMvbOFK80sJbAbO0EE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=kjzuf3zaelzN+k07JvHHo/veaVMxwiqVMQJPESad24a01bnOGOQAJJEc/2QHQ8zmXvDyPS+t17H4B2j60k9yidG9l9qQt5SAT0TWsnMv+igG3hv9333UBOkUizwgpih7bklTuvNnYbpbom5Oe1vbS1AfDzUvVvTXMUJvnafvGSQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=MWFTrdwZ; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1791145995; c=relaxed/simple;
+	bh=gp7PRv3WjAiMJrp0DvXpRvTv3mwC8R3NiezXzUE7FxE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Gw8zmSbqN6alYuzjykOU77JS3Gu2t72QIicxn3ADD/6PGDZiffUG2j1b/UiBoanUCWSlFSkb63wjmHzY/SfoyM18+TBh27he4pOCaaewPHw/VSgS5Dgcx8Bs6nWEmiMRqWfNlDu8wokPBoXz2IU+yJRLQtWAHundy2Qja1NJgkc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j7qncoNy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="MWFTrdwZ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=p+iesSfsDsR+tdcNJWQ0YJUQsl3KCeOY72NG0wBFil4=; b=MWFTrdwZnU9c0JUEmu3X2R4Ya2
-	3SrsWre6H7veF0oY08o2tZcqqa+/cvC+P9ckC3CFSlqOzmcrXsoVziWogGITXVIdqt0zlrLLbuPla
-	pqeW9bWVpIQ/Xud3GMV26WdbWfBafQKGUJUxZRu0oPR5AWZu47QGeXlaTvMQqoeMrhaMnpKfxTj8k
-	rGjM8MrXP4NddkZZSt1/XDY5snnoA+9HipcTruArqUlzAbDqDsoxEnlDUSybNak4ZtvW5id1Cpi4V
-	i8FO4wUPRCTlNuRSWbs6kqiXbq5+xM9arwscROzul4Vue7osUlt1BuZYx/WT/h9PniBg4/F7rcw6I
-	bffOjKgA==;
-Received: from [151.115.150.205] (port=57118 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xDSsT-00000006qBz-023y;
-	Sun, 04 Oct 2026 22:32:09 +0200
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: Subash Abhinov Kasiviswanathan <subash.a.kasiviswanathan@oss.qualcomm.com>,
-	Sean Tranchetti <sean.tranchetti@oss.qualcomm.com>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] net: qualcomm: rmnet: require real-netns admin for bridging
-Date: Sun,  4 Oct 2026 20:31:50 +0000
-Message-ID: <20261004203149.3042491-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j7qncoNy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 846D91F000FF;
+	Sun,  4 Oct 2026 20:33:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791145993;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=j7qncoNyNWAC4CUHpkM6czLwGBuqnKyAwehiFqc+zrCn18l+qTUJwrgkq0hlry7ZQ
+	 kmdEHPq8vLkQp0Wp4p0R5LfgA8HYPN090jiDqiMBuZQUAgzJFhb63eewOzbQGN9duf
+	 Q4E3DJFHlbWa9uGlU8Ge7BxBC6/Hdskib9jh4YLSsStYXXS8NOZMFMf4V7kSqAFQqr
+	 aN6PQv7MQW6raWIoyBQHUQTEugutEdN6uQpOUhCnMqwSbBdVBIwYSrwiBV/yxIjbCQ
+	 1fvmHU5gQ+idElqjoC3vuS7mc+/lkZrOzOjoj5fHyDiJhDeeees1nBjVg6UZWsJFgJ
+	 NuxkZNn2s5FJQ==
+From: netdev-bot+sinfo@kernel.org
+To: =?utf-8?q?J=C3=A9r=C3=A9my?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: Subash Abhinov Kasiviswanathan <subash.a.kasiviswanathan@oss.qualcomm.com>,
+ Sean Tranchetti <sean.tranchetti@oss.qualcomm.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net v2] net: qualcomm: rmnet: require real-netns admin for
+ bridging
+Date: Sun, 04 Oct 2026 20:33:13 +0000
+Message-ID: <179114599305.1402591.13084971051679051287@kernel.org>
+In-Reply-To: <20261004203149.3042491-2-Jeremy.Jean@oss.cyber.gouv.fr>
+References: <20261004203149.3042491-2-Jeremy.Jean@oss.cyber.gouv.fr>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
 
-An rmnet device keeps its link to the real device when moved to another
-network namespace. The bridge callbacks change the real port, but rtnetlink
-only checks CAP_NET_ADMIN in the slave device's namespace.
+Hi!
 
-Require CAP_NET_ADMIN in the real device's namespace before adding or
-removing a bridge. Use the slave device's namespace for the comparison,
-since that is the namespace rtnetlink authorized.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Fixes: 60d58f971c10 ("net: qualcomm: rmnet: Implement bridge mode")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
----
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-Changes in v2, after Subash Abhinov's review:
-- Add the teardown check and use slave_dev for both capability checks.
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
-v1: https://lore.kernel.org/all/20260821202845.4053530-2-Jeremy.Jean@oss.cyber.gouv.fr/
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
- .../ethernet/qualcomm/rmnet/rmnet_config.c    | 20 ++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c b/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
-index bed6f63facf2..62d7acb13e0c 100644
---- a/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
-+++ b/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
-@@ -441,6 +441,13 @@ int rmnet_add_bridge(struct net_device *rmnet_dev,
- 	struct rmnet_port *port, *slave_port;
- 	int err;
- 
-+	/* The rtnl path only checks CAP_NET_ADMIN against dev_net(slave_dev),
-+	 * but bridge mode below controls real_dev, which may live in another
-+	 * netns.
-+	 */
-+	if (!rtnl_dev_link_net_capable(slave_dev, dev_net(real_dev)))
-+		return -EPERM;
-+
- 	port = rmnet_get_port_rtnl(real_dev);
- 
- 	/* If there is more than one rmnet dev attached, its probably being
-@@ -489,7 +496,18 @@ int rmnet_add_bridge(struct net_device *rmnet_dev,
- int rmnet_del_bridge(struct net_device *rmnet_dev,
- 		     struct net_device *slave_dev)
- {
--	struct rmnet_port *port = rmnet_get_port_rtnl(slave_dev);
-+	struct rmnet_priv *priv = netdev_priv(rmnet_dev);
-+	struct net_device *real_dev = priv->real_dev;
-+	struct rmnet_port *port;
-+
-+	/* The rtnl path only checks CAP_NET_ADMIN against dev_net(slave_dev),
-+	 * but bridge teardown also updates real_dev, which may live in another
-+	 * netns.
-+	 */
-+	if (!rtnl_dev_link_net_capable(slave_dev, dev_net(real_dev)))
-+		return -EPERM;
-+
-+	port = rmnet_get_port_rtnl(slave_dev);
- 
- 	rmnet_unregister_bridge(port);
- 
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
