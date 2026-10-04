@@ -1,155 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C99AB38F947;
-	Sun,  4 Oct 2026 20:08:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA25846F48D;
+	Sun,  4 Oct 2026 20:32:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791144515; cv=none; b=Kzu0QMJejfwkNEWrt43rlBylCwv95y4EyE903DRU/LS8jDADoJBr4iWjCHj6G5RIn+3miBtQbsQIFRVNec+/9wdvY9wVQb6sWca9GEhzRF8zRdHxVbRuP/mcYFzuOXdslB71Kbl/vw4O+XvQuWDkRzacuHgfKRky3T1CPb8FjMk=
+	t=1791145941; cv=none; b=D3vFFWJsaaIbpe2ZGY4C+IZlPrMmtT7aSjLEUOGmLuq2+4n3lqzUIv2U+aqeclfxMjruq9FXvr/Bo1oZY6pKUZzCeAE0y3Te+cu+h69fOsqRWWBmTCzDdKIV/zes1DOifYHTSNbmKQ64W5NY8Xe1TBzdu2IOcbNSoJ0fWV9UaUg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791144515; c=relaxed/simple;
-	bh=Mr/2io6B/3cuhwSfHNImjIpSas/+kIagGwy4rZP8jK8=;
-	h=Date:To:From:Subject:Message-Id; b=UWk5qKl6p1wtmvskydlbvBn0xZN0SfSqgJbiWNyfFAYjQdqKLGFqTmWX71+D9jkmL340aofjlLWsmBo4/jxFKysSm42NGJA8QN1f0NAslYgQ0HObcb9HWYCqkcagWyqNWrUt+nnqnb7dbnCfVJy41iWML2lX7Xlhld3tOGxhXVA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=qbtNZG2B; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791145941; c=relaxed/simple;
+	bh=oIzCA0Ouk7T109u03t6jw/xCJYMvbOFK80sJbAbO0EE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=kjzuf3zaelzN+k07JvHHo/veaVMxwiqVMQJPESad24a01bnOGOQAJJEc/2QHQ8zmXvDyPS+t17H4B2j60k9yidG9l9qQt5SAT0TWsnMv+igG3hv9333UBOkUizwgpih7bklTuvNnYbpbom5Oe1vbS1AfDzUvVvTXMUJvnafvGSQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=MWFTrdwZ; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="qbtNZG2B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 622691F00893;
-	Sun,  4 Oct 2026 20:08:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791144513;
-	bh=oyfQEDe5LLvOHuhpIL4Z0qUePRtpTKpUVvfiqEsI6Is=;
-	h=Date:To:From:Subject;
-	b=qbtNZG2BoTY+UeSLIvYsnGb+cmX2x5ccACsZGp0VBDCvq09+jPftjIoEsxQmh829s
-	 Odt8WXbrHk00W4KMsPjMaOM6XZwOZK+HwQN3mMpk/aP5kQ64W6dnQV8UdIWtw0HKqe
-	 TB/TxYYvdYLatYyaMGwAhpzO4vJqMu0NMVmF2U+Q=
-Date: Sun, 04 Oct 2026 13:08:32 -0700
-To: mm-commits@vger.kernel.org,vbabka@kernel.org,surenb@google.com,stable@vger.kernel.org,shuah@kernel.org,rppt@kernel.org,peterx@redhat.com,mhocko@suse.com,ljs@kernel.org,liam@infradead.org,kas@kernel.org,david@kernel.org,aarcange@redhat.com,donggeunyoo.kernel@gmail.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + userfaultfd-clear-the-inherited-uffd-bit-in-move_swap_pte.patch added to mm-hotfixes-unstable branch
-Message-Id: <20261004200833.622691F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="MWFTrdwZ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=p+iesSfsDsR+tdcNJWQ0YJUQsl3KCeOY72NG0wBFil4=; b=MWFTrdwZnU9c0JUEmu3X2R4Ya2
+	3SrsWre6H7veF0oY08o2tZcqqa+/cvC+P9ckC3CFSlqOzmcrXsoVziWogGITXVIdqt0zlrLLbuPla
+	pqeW9bWVpIQ/Xud3GMV26WdbWfBafQKGUJUxZRu0oPR5AWZu47QGeXlaTvMQqoeMrhaMnpKfxTj8k
+	rGjM8MrXP4NddkZZSt1/XDY5snnoA+9HipcTruArqUlzAbDqDsoxEnlDUSybNak4ZtvW5id1Cpi4V
+	i8FO4wUPRCTlNuRSWbs6kqiXbq5+xM9arwscROzul4Vue7osUlt1BuZYx/WT/h9PniBg4/F7rcw6I
+	bffOjKgA==;
+Received: from [151.115.150.205] (port=57118 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1xDSsT-00000006qBz-023y;
+	Sun, 04 Oct 2026 22:32:09 +0200
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Subash Abhinov Kasiviswanathan <subash.a.kasiviswanathan@oss.qualcomm.com>,
+	Sean Tranchetti <sean.tranchetti@oss.qualcomm.com>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	stable@vger.kernel.org
+Subject: [PATCH net v2] net: qualcomm: rmnet: require real-netns admin for bridging
+Date: Sun,  4 Oct 2026 20:31:50 +0000
+Message-ID: <20261004203149.3042491-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
+An rmnet device keeps its link to the real device when moved to another
+network namespace. The bridge callbacks change the real port, but rtnetlink
+only checks CAP_NET_ADMIN in the slave device's namespace.
 
-The patch titled
-     Subject: userfaultfd: clear the inherited uffd bit in move_swap_pte()
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     userfaultfd-clear-the-inherited-uffd-bit-in-move_swap_pte.patch
+Require CAP_NET_ADMIN in the real device's namespace before adding or
+removing a bridge. Use the slave device's namespace for the comparison,
+since that is the namespace rtnetlink authorized.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/userfaultfd-clear-the-inherited-uffd-bit-in-move_swap_pte.patch
-
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Subject: userfaultfd: clear the inherited uffd bit in move_swap_pte()
-Date: Sat,  3 Oct 2026 19:30:29 +0900
-
-Patch series "userfaultfd: clear the inherited uffd bit in
-move_swap_pte()", v4.
-
-UFFDIO_MOVE on a swapped-out page installs the source PTE at the
-destination unchanged, so a uffd bit set on a write-protected or
-RWP-protected source lands in a destination VMA that was never registered
-for either, and nothing clears it afterwards.  Patch 1 clears the bit,
-then re-arms it if the destination is RWP-registered, which is what the
-present-page and zeropage move paths already do.  Patch 2 adds the tests
-that catch it.
-
-
-This patch (of 2):
-
-UFFDIO_MOVE on a swapped-out page installs the source PTE at the
-destination unchanged, so a uffd bit set on a write-protected or
-RWP-protected source lands in a destination VMA that was never
-registered for either.  Nothing clears it there, and userspace sees:
-
- - /proc/<pid>/pagemap reports the page as uffd-tracked (bit 57), both
-   while it is swapped out and after it is faulted back in.
- - MADV_COLLAPSE fails with EINVAL on a range containing it, because the
-   collapse scan bails on a swap entry with the uffd bit set.
- - With CONFIG_PAGE_TABLE_CHECK, faulting the page in warns.
-   do_swap_page() carries the bit into the present PTE and, since the
-   destination isn't WP-registered, also makes it writable:
-
-   WARNING: mm/page_table_check.c:202 at __page_table_check_ptes_set+0x185/0x1e0
-   Call Trace:
-    set_ptes+0x67/0xc0
-    do_swap_page+0x990/0xfe0
-    __handle_mm_fault+0x7d0/0xeb0
-    handle_mm_fault+0x9c/0x250
-    do_user_addr_fault+0x207/0x650
-    exc_page_fault+0x65/0x150
-    asm_exc_page_fault+0x26/0x30
-
-Reaching it takes UFFDIO_MOVE out of a WP- or RWP-protected area into
-one that isn't, on a page that is swapped out at the time.  It hasn't
-been seen in practice.
-
-A resident page doesn't carry the bit, because move_present_ptes() builds
-the destination PTE from dst_vma->vm_page_prot.  Clear it on the moved
-swap entry as well, then re-arm it if the destination is RWP-registered.
-
-The WP case has been there since v6.8, where UFFDIO_MOVE was added.
-
-Link: https://lore.kernel.org/20261003103030.63380-1-donggeunyoo.kernel@gmail.com
-Link: https://lore.kernel.org/20261003103030.63380-2-donggeunyoo.kernel@gmail.com
-Fixes: adef440691ba ("userfaultfd: UFFDIO_MOVE uABI")
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Fixes: 60d58f971c10 ("net: qualcomm: rmnet: Implement bridge mode")
+Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Andrea Arcangeli <aarcange@redhat.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Shuah Khan <shuah@kernel.org>
-Cc: Kiryl Shutsemau <kas@kernel.org>
-Cc: <stable@vger.kernel.org>
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
 ---
 
- mm/userfaultfd.c |    1 +
- 1 file changed, 1 insertion(+)
+Changes in v2, after Subash Abhinov's review:
+- Add the teardown check and use slave_dev for both capability checks.
 
---- a/mm/userfaultfd.c~userfaultfd-clear-the-inherited-uffd-bit-in-move_swap_pte
-+++ a/mm/userfaultfd.c
-@@ -1449,6 +1449,7 @@ static int move_swap_pte(struct mm_struc
- 	orig_src_pte = ptep_get_and_clear(mm, src_addr, src_pte);
- 	if (pgtable_supports_soft_dirty())
- 		orig_src_pte = pte_swp_mksoft_dirty(orig_src_pte);
-+	orig_src_pte = pte_swp_clear_uffd(orig_src_pte);
- 	/* Re-arm RWP on the moved swap entry if dst_vma is RWP-registered. */
- 	if (userfaultfd_rwp(dst_vma))
- 		orig_src_pte = pte_swp_mkuffd(orig_src_pte);
-_
+v1: https://lore.kernel.org/all/20260821202845.4053530-2-Jeremy.Jean@oss.cyber.gouv.fr/
 
-Patches currently in -mm which might be from donggeunyoo.kernel@gmail.com are
+ .../ethernet/qualcomm/rmnet/rmnet_config.c    | 20 ++++++++++++++++++-
+ 1 file changed, 19 insertions(+), 1 deletion(-)
 
-userfaultfd-clear-the-inherited-uffd-bit-in-move_swap_pte.patch
-selftests-mm-add-tests-for-uffdio_move-of-a-uffd-protected-swap-entry.patch
-mm-damon-core-charge-only-the-part-of-a-region-the-filter-left.patch
-mm-damon-tests-core-kunit-test-the-size-charged-for-a-filter-trimmed-region.patch
-mm-damon-core-prevent-size-quota-overflow-in-the-temporal-goal-tuner.patch
-mm-damon-tests-core-kunit-test-the-temporal-tuners-size-quota-conversion.patch
-
+diff --git a/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c b/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
+index bed6f63facf2..62d7acb13e0c 100644
+--- a/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
++++ b/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
+@@ -441,6 +441,13 @@ int rmnet_add_bridge(struct net_device *rmnet_dev,
+ 	struct rmnet_port *port, *slave_port;
+ 	int err;
+ 
++	/* The rtnl path only checks CAP_NET_ADMIN against dev_net(slave_dev),
++	 * but bridge mode below controls real_dev, which may live in another
++	 * netns.
++	 */
++	if (!rtnl_dev_link_net_capable(slave_dev, dev_net(real_dev)))
++		return -EPERM;
++
+ 	port = rmnet_get_port_rtnl(real_dev);
+ 
+ 	/* If there is more than one rmnet dev attached, its probably being
+@@ -489,7 +496,18 @@ int rmnet_add_bridge(struct net_device *rmnet_dev,
+ int rmnet_del_bridge(struct net_device *rmnet_dev,
+ 		     struct net_device *slave_dev)
+ {
+-	struct rmnet_port *port = rmnet_get_port_rtnl(slave_dev);
++	struct rmnet_priv *priv = netdev_priv(rmnet_dev);
++	struct net_device *real_dev = priv->real_dev;
++	struct rmnet_port *port;
++
++	/* The rtnl path only checks CAP_NET_ADMIN against dev_net(slave_dev),
++	 * but bridge teardown also updates real_dev, which may live in another
++	 * netns.
++	 */
++	if (!rtnl_dev_link_net_capable(slave_dev, dev_net(real_dev)))
++		return -EPERM;
++
++	port = rmnet_get_port_rtnl(slave_dev);
+ 
+ 	rmnet_unregister_bridge(port);
+ 
