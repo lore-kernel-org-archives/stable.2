@@ -1,101 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A35B3B585F
-	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 07:38:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C437D334692
+	for <stable@vger.kernel.org>; Sun,  4 Oct 2026 07:38:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791099484; cv=none; b=YiAP+MNFah8dT+Ps0Lhh6ieFcwcCpFFy0kTXgLlbMzNPH3UX8s31OI/RTpnKywsBUK5mdvZxVLFsScXFMIjvQG1FVQTY6fY1pQipSnSbgNuBfROwd+CS2mj9oGw1ifl3gyx5jOTIFlnikHgxP87g9r6/2npsH4uxk7x9/bVuRq8=
+	t=1791099521; cv=none; b=HEP+s8auUT+Q12vhZhVRDlhJhNGIWcFA9MMHt7fPx8Z4vc5XsG/I6mmTANu7CJLqIRBkaohEM6K3aTmtdwLOpijFcyFNE+9v/9hDuk6Kx9EqrDNpRh/stwrbxluWd051rzHsfbMS4NWYK7zqtfNvz6qhwwAmjAtWCs2GI1KPaqY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791099484; c=relaxed/simple;
-	bh=gl4Q92XjNQ8U0uiY/6KDZZHtve/Q4K/A0W86XTzX6cQ=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=TOddbWplhYKvd/JaTowxGGVIKt3ZFiKC5p2/ci7d4e91Ka1A42xw/UwZ1y9im0HcyhfkazJ/pUO5vLfBTFnNHmuxhLAj1RxPHGMC8kGn4YP5UNlwBV9s1tuBdA3w5+/gpKynYqmy5hDY9u7PXQipjHoelkeRA9WCwH7ic5lI4fg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=qmLyubi5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791099521; c=relaxed/simple;
+	bh=JjUhofgZK2oQyBwqTP6Op7ba9fSx0Zbzhetm5+HQ1O8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OMYeWmbJyXVdBVAU2j0K0xzln/yrK9cRDOkJsciRINp/P40s3uHi0O8NrHwfS7Dv+aNpJUYF5vrEeT/g0Chwg29P/c4V0vLyLmclWD27S2rGF+wBtaDYBncUyFku7UgyxEYtF0L4J+iDtv8UemWldQkBa7w9yZmuL/GBRESiKqA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mEruQb9Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="qmLyubi5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B34721F000FF;
-	Sun,  4 Oct 2026 07:38:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791099483;
-	bh=+t9rBk47KBCxrO4SfOg2GiCDUoTxzeYDssUmgFlHTCg=;
-	h=Subject:To:Cc:From:Date;
-	b=qmLyubi5wJdkMt+jVWlN/IgXREdOLX80pmDCWGrRCPJhk5xU+BH8iPg9SaQ3uz7vF
-	 3+TeB97vD+PQ6gs8D88h3xaYVq2gW6a0WvwgPu9iteaGmPz9gP5GSFCcZKbFmpGbEx
-	 jyKqROj6nK+mfub3IkP7hWtdZ33Za0U+YU1pWLig=
-Subject: FAILED: patch "[PATCH] wifi: wlcore: Fix runtime PM leak in wlcore_remove()" failed to apply to 5.15-stable tree
-To: vulab@iscas.ac.cn,johannes.berg@intel.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Sun, 04 Oct 2026 09:37:47 +0200
-Message-ID: <2026100447-retainer-dude-dd4a@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mEruQb9Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE1661F000FF;
+	Sun,  4 Oct 2026 07:38:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791099518;
+	bh=XJAnwPwQexQeYknAY6Nq78dyOQ9vchAezvfLt3tCPQQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=mEruQb9ZHyIJp0d02Ki7MzeAzXTMD4mw2auHYy2BoEQWRIw+B9tL5BjKWVInvTzlG
+	 DHFeFltntrwrbEDNJ7uHYW4FTsKDgGZbtxdDdqWOVBsfhxWVE/VMnE6C8qfQRx7aSf
+	 mIcQu1d5z9rg1e4T2W5o0nMzVHm9y5HnunWFLu2s3YB2UNPj4w/ASX0Zx1uJxzS1XU
+	 KUIGOL0fSADIgQRfMFsD3zvLH0WV+tJNwljVCeIYJi+OcXWSqNhJZrs5nfLrh78kLy
+	 f4OO5UF6+dmOqmseSHL1Wb8LOSyXgu4E0AnXVR1bTVIe+kZM7S9BSLdx84u5HNv7a8
+	 Aa4sZBb4vYHfQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] net: phy: aquantia: fix system interface type not updated in forced mode
+Date: Sun,  4 Oct 2026 03:38:35 -0400
+Message-ID: <20261004073823.1373257-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026100347-battered-hesitant-c91f@gregkh>
+References: <2026100347-battered-hesitant-c91f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-The patch below does not apply to the 5.15-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+[ Upstream commit 6e0022b5ae3dc5b833af0fcc1578dc20a1d6bc71 ]
 
-To reproduce the conflict and resubmit, you may use the following commands:
+aqr_gen1_read_status() decodes the MDIO_PHYXS_VEND_IF_STATUS register
+to determine which SerDes interface the PHY is currently using on its
+system side and stores the result in phydev->interface. phylink relies
+on this value to configure the MAC.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
-git checkout FETCH_HEAD
-git cherry-pick -x a8b8881d0c1aff544fae190469d86db7b07f43a9
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100447-retainer-dude-dd4a@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+The autoneg == AUTONEG_DISABLE check is not correct:
+MDIO_PHYXS_VEND_IF_STATUS is set by the PHY firmware based on the
+negotiated link speed, not based on whether autoneg was used to reach
+it. When the link comes up at 1G in forced mode, the register correctly
+reads SGMII, but the early return prevents phydev->interface from being
+updated. It stays at whatever value it held before (typically 2500BASE-X
+from the initial autoneg run), so phylink configures the MAC for the
+wrong interface and the link cannot come up.
 
-Possible dependencies:
+Remove the autoneg guard so that the system interface type is always
+decoded when the link is up.
 
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From a8b8881d0c1aff544fae190469d86db7b07f43a9 Mon Sep 17 00:00:00 2001
-From: Wentao Liang <vulab@iscas.ac.cn>
-Date: Thu, 17 Sep 2026 12:23:25 +0000
-Subject: [PATCH] wifi: wlcore: Fix runtime PM leak in wlcore_remove()
-
-pm_runtime_get_sync() keeps the runtime PM usage counter elevated even
-when it returns an error, so the reference taken at the beginning of
-wlcore_remove() has to be dropped on every exit path. When the device
-was not initialized the function returned early without doing so,
-leaking the reference.
-
-Release it with pm_runtime_put_noidle() as done on the other early error
-paths of this driver.
-
-Fixes: fa2648a34e73f ("wlcore: Add support for runtime PM")
 Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-Link: https://patch.msgid.link/20260917122325.2150910-1-vulab@iscas.ac.cn
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+Fixes: 110a2432c520 ("net: phy: aquantia: add downshift support")
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260923-qcom-sa8255p-emac-v15-1-e82f33720737@oss.qualcomm.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+[ sashal: Adapted the change to aqr107_read_status(), which assigns the interface directly. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/net/phy/aquantia_main.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/wireless/ti/wlcore/main.c b/drivers/net/wireless/ti/wlcore/main.c
-index edf6ca23c6c3..26aabf4ea127 100644
---- a/drivers/net/wireless/ti/wlcore/main.c
-+++ b/drivers/net/wireless/ti/wlcore/main.c
-@@ -6809,8 +6809,10 @@ void wlcore_remove(struct platform_device *pdev)
+diff --git a/drivers/net/phy/aquantia_main.c b/drivers/net/phy/aquantia_main.c
+index 47a76df36b747..9b51f76652863 100644
+--- a/drivers/net/phy/aquantia_main.c
++++ b/drivers/net/phy/aquantia_main.c
+@@ -423,7 +423,7 @@ static int aqr107_read_status(struct phy_device *phydev)
+ 	if (ret)
+ 		return ret;
  
- 	if (pdev_data->family && pdev_data->family->nvs_name)
- 		wait_for_completion(&wl->nvs_loading_complete);
--	if (!wl->initialized)
-+	if (!wl->initialized) {
-+		pm_runtime_put_noidle(wl->dev);
- 		return;
-+	}
+-	if (!phydev->link || phydev->autoneg == AUTONEG_DISABLE)
++	if (!phydev->link)
+ 		return 0;
  
- 	if (wl->wakeirq >= 0) {
- 		dev_pm_clear_wake_irq(wl->dev);
+ 	val = phy_read_mmd(phydev, MDIO_MMD_PHYXS, MDIO_PHYXS_VEND_IF_STATUS);
+@@ -460,6 +460,9 @@ static int aqr107_read_status(struct phy_device *phydev)
+ 		break;
+ 	}
+ 
++	if (phydev->autoneg == AUTONEG_DISABLE)
++		return 0;
++
+ 	/* Read possibly downshifted rate from vendor register */
+ 	return aqr107_read_rate(phydev);
+ }
+-- 
+2.53.0
 
