@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD5AA1632DD
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 22:17:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06DA51632DD
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 22:17:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791238651; cv=none; b=rpEwZr+t/DCoEABxfjHpnlh2FJ1ei1hCGehUaE1E5DE8jhsI0HAtRfk26lc47G9vRi2QGVNhQcl8I8InGO3MS7twJPkX91VNN9ozp1TArkedQ8hfWfnoJbHFJENh+yCXy2OgaRhBfg4vex9hOUr6ja/XmNKmcRqMT0watfhj6KQ=
+	t=1791238653; cv=none; b=vD2eYdS63tOraZIYInWtzzn+Ku8RsNdTtUMfxDdOmpZ/6ib4CPVbfbFoMOZ3YIBYHhJWVoyMtqlSRGHEflhS6mmgxN9+VwjHeNo89ZSbOYUlofXuwO1j1N23TPoijv1yL/SdvZcImaGGj6Gqfd9nkLFBl84GvZH7b+tTOtYdq2Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791238651; c=relaxed/simple;
-	bh=B9q4AfPvV/YcVPVXbl1keYW+nrlXLI5m3gk+2re92EU=;
+	s=arc-20240116; t=1791238653; c=relaxed/simple;
+	bh=XWuUTIIcpZE+dwyZGjAtfyRFnc+Fb7ItuXklFQNNLMo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=I/9E9Z2vbzT5U8cDvVFBABHvUrEeb2EQF2TZjGSDiZd8XcVZ4qPqUm8dOr0mF89SRhpeFRMOXO8v45LTeuXiGduSUiygvifd5CqnPf+7vu8gwMLJ8Vpn0P6oSh/jmfzbvbdDTKubGo7lr0UB+LY6RVJIaV1rJ6ZtQph2B5UNKfA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UlQprDaN; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=kn/ArY216XCm7FjnRt9HXIyTwUJskg7krRjRW8zLTzMgAXig9XzljE+tde0uBtep2Gc5iIqDQ/HtM6bIKzzpn36wswd7THeBCf6dzVB+NBA+F571Q0+RlOJN2kmZ3+E7amMEOWFMmKEzy/N3/YQD2ErVF3A28h/ljPBB2zidWOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hQxkBlnx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UlQprDaN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF8E81F000FF;
-	Mon,  5 Oct 2026 22:17:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hQxkBlnx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFBFC1F00893;
+	Mon,  5 Oct 2026 22:17:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791238649;
-	bh=YHWLQA60Dm5C3gZZsOKv5rgY3Fm1VFmktFdeSMFcqqU=;
+	s=k20260515; t=1791238651;
+	bh=MVcG0L1U0+dGb97Tb8JgfBEmTk2scNqXiB13jpNsb8Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UlQprDaNDDjmKr8W4lzjRGRWU/pKcUc1JKs5Nuo6PAVdzX4RQOvYz63un2OXxcAj5
-	 umB9peB4PO5VTKGNCExyOswSenifP2yjOfkCCoarZYyU1QjPOQqPJEtywiCuuIKd6h
-	 Jx7Fr1DhmLcKfn49BVBvma1OhR0/dnIN+sfRxrOQbCWEFUznmVqfItGoSD5r3+zpNA
-	 1J7J4V7CaB2B1qxlmiwUv8jDYZgrlG1g4O8FmcVLi9S23rgRNfKF1WnRtDoCCBkwKh
-	 TZYmr6KYanqwFbaOVO4arSSivWD+7Behe8jkv6S8seN/bvrgCIRpQ9lEetP1OBtiCc
-	 dZFIpW78Xwdbw==
+	b=hQxkBlnxmW2qZ6y10iTOz3iQgY+FRicFDAhiYhe9c6zQf2XnVuxxKUiQ51d1d8xz+
+	 9R09wUiLQB7q4BQPGbrKZG3GAoJy+jZPuw46HElLOblxidAkBSbHM/O0D1RWxvXdvJ
+	 u7PP5DNJ8waWYHl9P6fF4ORpZcX9cyOEkm0s9FltPZhyAguP3XiHCCstoGMwTKlQPt
+	 XWu5rPPx0dYegqlRcIlIVOEsJGs0M0ZbDjpQfZlha3LmuKh4PzF2K8Wh5u/PWtmN+I
+	 WlyAI2zeUpspj49qydJr9WKC7pGZYnwc9/MvrEB7+Ayezc8CrfnsrOj2Y17qxoqJJ1
+	 6wNVtJS6i7bNw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Johan Hovold <johan@kernel.org>,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	stable@kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Mark Rutland <mark.rutland@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] tty: fix saved termios reset race
-Date: Mon,  5 Oct 2026 18:17:25 -0400
-Message-ID: <20261005221635.3407833-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] arm64/fpsimd: signal: Consistently read FPSIMD context
+Date: Mon,  5 Oct 2026 18:17:26 -0400
+Message-ID: <20261005221636.3436132-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100545-equivocal-violin-1936@gregkh>
-References: <2026100545-equivocal-violin-1936@gregkh>
+In-Reply-To: <2026100534-amigo-discolor-973f@gregkh>
+References: <2026100534-amigo-discolor-973f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,135 +48,177 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Johan Hovold <johan@kernel.org>
+From: Mark Rutland <mark.rutland@arm.com>
 
-[ Upstream commit 8df07fe93573e9e548d6645273e9bcb6eb74059e ]
+[ Upstream commit be625d803c3bbfa9652697eb57589fe6f2f24b89 ]
 
-Resetting saved termios state on device registration is needed where a
-minor number can be reused for an entirely different device and where
-the old settings may prevent the port from even being opened (e.g. when
-CLOCAL is not set).
+For historical reasons, restore_sve_fpsimd_context() has an open-coded
+copy of the logic from read_fpsimd_context(), which is used to either
+restore an FPSIMD-only context, or to merge FPSIMD state into an
+SVE state when restoring an SVE+FPSIMD context. The logic is *almost*
+identical.
 
-Not all TTY drivers guarantee that the minor number is no longer in use
-when registering devices however, something which can lead to a
-use-after-free when closing a TTY (and saving its termios) races with
-re-registration.
+Refactor the logic to avoid duplication and make this clearer.
 
-Add a new TTY_DRIVER_RESET_SAVED_TERMIOS flag to request that any saved
-termios state is reset on registration and only set it for drivers that
-make sure that the minor number is no longer in use.
+This comes with two functional changes that I do not believe will be
+problematic in practice:
 
-Fixes: 93857edd9829 ("tty: reset termios state on device registration")
-Reported-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-Link: https://lore.kernel.org/20260926184154.3017929-1-nicoyip.dev@gmail.com
-Cc: stable@kernel.org	# 4.12
-Signed-off-by: Johan Hovold <johan@kernel.org>
-Link: https://patch.msgid.link/20260930131845.1809256-1-johan@kernel.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ sashal: Adapted the new flag to existing driver->flags assignments and hexadecimal #define conventions. ]
+* The user_fpsimd_state::size field will be checked in all restore paths
+  that consume it user_fpsimd_state. The kernel always populates this
+  field when delivering a signal, and so this should contain the
+  expected value unless it has been corrupted.
+
+* If a read of user_fpsimd_state fails, we will return early without
+  modifying TIF_SVE, the saved SVCR, or the save fp_type. This will
+  leave the task in a consistent state, without potentially resurrecting
+  stale FPSIMD state. A read of user_fpsimd_state should never fail
+  unless the structure has been corrupted or the stack has been
+  unmapped.
+
+Suggested-by: Will Deacon <will@kernel.org>
+Signed-off-by: Mark Rutland <mark.rutland@arm.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Marc Zyngier <maz@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Will Deacon <will@kernel.org>
+Link: https://lore.kernel.org/r/20250508132644.1395904-5-mark.rutland@arm.com
+[will: Ensure read_fpsimd_context() returns negative error code or zero]
+Signed-off-by: Will Deacon <will@kernel.org>
+
+Route header-only non-streaming SVE contexts through the existing
+FPSIMD restore path so that the FPSIMD context size is checked and user
+reads complete before the task's FPSIMD state flags are changed. Clear
+saved streaming mode in that path to preserve the state transition
+previously performed by the SVE restore path.
+
+Retain the inline register reads in the existing restore functions instead
+of extracting a new helper. Check the FPSIMD context size in the SVE
+payload path as well, and return read errors before updating the hardware
+registers.
+
+Include the streaming-mode flag handling and payload requirement expected
+by the subsequent SME-only signal-context validation fix. A streaming SVE
+context without a payload must fail validation rather than fall back to
+FPSIMD-only restoration.
+
+Stable-dep-of: e060d9069b49 ("arm64/fpsimd: signal: Forbid non-streaming SVE payload on SME-only systems")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/staging/greybus/uart.c  |  3 ++-
- drivers/tty/tty_io.c            | 18 ++++++++++--------
- drivers/usb/class/cdc-acm.c     |  3 ++-
- drivers/usb/serial/usb-serial.c |  3 ++-
- include/linux/tty_driver.h      |  5 +++++
- 5 files changed, 21 insertions(+), 11 deletions(-)
+ arch/arm64/kernel/signal.c | 48 ++++++++++++++++++++++++--------------
+ 1 file changed, 30 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/staging/greybus/uart.c b/drivers/staging/greybus/uart.c
-index 5cdc5dff9f55b..2a88314058a86 100644
---- a/drivers/staging/greybus/uart.c
-+++ b/drivers/staging/greybus/uart.c
-@@ -974,7 +974,8 @@ static int gb_tty_init(void)
- 	gb_tty_driver->minor_start = 0;
- 	gb_tty_driver->type = TTY_DRIVER_TYPE_SERIAL;
- 	gb_tty_driver->subtype = SERIAL_TYPE_NORMAL;
--	gb_tty_driver->flags = TTY_DRIVER_REAL_RAW | TTY_DRIVER_DYNAMIC_DEV;
-+	gb_tty_driver->flags = TTY_DRIVER_REAL_RAW | TTY_DRIVER_DYNAMIC_DEV |
-+			      TTY_DRIVER_RESET_SAVED_TERMIOS;
- 	gb_tty_driver->init_termios = tty_std_termios;
- 	gb_tty_driver->init_termios.c_cflag = B9600 | CS8 |
- 		CREAD | HUPCL | CLOCAL;
-diff --git a/drivers/tty/tty_io.c b/drivers/tty/tty_io.c
-index f0d36f992616f..d6322a1493861 100644
---- a/drivers/tty/tty_io.c
-+++ b/drivers/tty/tty_io.c
-@@ -3244,14 +3244,16 @@ struct device *tty_register_device_attr(struct tty_driver *driver,
- 		goto err_put;
+diff --git a/arch/arm64/kernel/signal.c b/arch/arm64/kernel/signal.c
+index f7b05267a76b2..59d9e7fca936a 100644
+--- a/arch/arm64/kernel/signal.c
++++ b/arch/arm64/kernel/signal.c
+@@ -265,7 +265,7 @@ static int preserve_fpsimd_context(struct fpsimd_context __user *ctx)
+ static int restore_fpsimd_context(struct user_ctxs *user)
+ {
+ 	struct user_fpsimd_state fpsimd;
+-	int err = 0;
++	int err;
  
- 	if (!(driver->flags & TTY_DRIVER_DYNAMIC_ALLOC)) {
--		/*
--		 * Free any saved termios data so that the termios state is
--		 * reset when reusing a minor number.
--		 */
--		tp = driver->termios[index];
--		if (tp) {
--			driver->termios[index] = NULL;
--			kfree(tp);
-+		if (driver->flags & TTY_DRIVER_RESET_SAVED_TERMIOS) {
-+			/*
-+			 * Free any saved termios data so that the termios
-+			 * state is reset when reusing a minor number.
-+			 */
-+			tp = driver->termios[index];
-+			if (tp) {
-+				driver->termios[index] = NULL;
-+				kfree(tp);
-+			}
- 		}
+ 	/* check the size information */
+ 	if (user->fpsimd_size != sizeof(struct fpsimd_context))
+@@ -276,15 +276,16 @@ static int restore_fpsimd_context(struct user_ctxs *user)
+ 			       sizeof(fpsimd.vregs));
+ 	__get_user_error(fpsimd.fpsr, &(user->fpsimd->fpsr), err);
+ 	__get_user_error(fpsimd.fpcr, &(user->fpsimd->fpcr), err);
++	if (err)
++		return -EFAULT;
  
- 		retval = tty_cdev_add(driver, devt, index, 1);
-diff --git a/drivers/usb/class/cdc-acm.c b/drivers/usb/class/cdc-acm.c
-index 6b60b4dd508ca..b49b25d055a5a 100644
---- a/drivers/usb/class/cdc-acm.c
-+++ b/drivers/usb/class/cdc-acm.c
-@@ -2094,7 +2094,8 @@ static int __init acm_init(void)
- 	acm_tty_driver->minor_start = 0,
- 	acm_tty_driver->type = TTY_DRIVER_TYPE_SERIAL,
- 	acm_tty_driver->subtype = SERIAL_TYPE_NORMAL,
--	acm_tty_driver->flags = TTY_DRIVER_REAL_RAW | TTY_DRIVER_DYNAMIC_DEV;
-+	acm_tty_driver->flags = TTY_DRIVER_REAL_RAW | TTY_DRIVER_DYNAMIC_DEV |
-+			       TTY_DRIVER_RESET_SAVED_TERMIOS;
- 	acm_tty_driver->init_termios = tty_std_termios;
- 	acm_tty_driver->init_termios.c_cflag = B9600 | CS8 | CREAD |
- 								HUPCL | CLOCAL;
-diff --git a/drivers/usb/serial/usb-serial.c b/drivers/usb/serial/usb-serial.c
-index 98797c2b96ca2..38980e851667a 100644
---- a/drivers/usb/serial/usb-serial.c
-+++ b/drivers/usb/serial/usb-serial.c
-@@ -1232,7 +1232,8 @@ static int __init usb_serial_init(void)
- 	usb_serial_tty_driver->type = TTY_DRIVER_TYPE_SERIAL;
- 	usb_serial_tty_driver->subtype = SERIAL_TYPE_NORMAL;
- 	usb_serial_tty_driver->flags = TTY_DRIVER_REAL_RAW |
--						TTY_DRIVER_DYNAMIC_DEV;
-+				      TTY_DRIVER_DYNAMIC_DEV |
-+				      TTY_DRIVER_RESET_SAVED_TERMIOS;
- 	usb_serial_tty_driver->init_termios = tty_std_termios;
- 	usb_serial_tty_driver->init_termios.c_cflag = B9600 | CS8 | CREAD
- 							| HUPCL | CLOCAL;
-diff --git a/include/linux/tty_driver.h b/include/linux/tty_driver.h
-index 2f719b471d524..dd76a4139fbcd 100644
---- a/include/linux/tty_driver.h
-+++ b/include/linux/tty_driver.h
-@@ -403,6 +403,10 @@ static inline struct tty_driver *tty_driver_kref_get(struct tty_driver *d)
-  *	other words create /dev/ttyprintk and not /dev/ttyprintk0.
-  *	Applicable only when a driver for a single tty device is
-  *	being allocated.
-+ *
-+ * TTY_DRIVER_RESET_SAVED_TERMIOS -- reset any saved termios settings on
-+ *	device registration when reusing a minor number. Must only be set by
-+ *	drivers that guarantee that the minor number is no longer in use.
-  */
- #define TTY_DRIVER_INSTALLED		0x0001
- #define TTY_DRIVER_RESET_TERMIOS	0x0002
-@@ -412,6 +416,7 @@ static inline struct tty_driver *tty_driver_kref_get(struct tty_driver *d)
- #define TTY_DRIVER_HARDWARE_BREAK	0x0020
- #define TTY_DRIVER_DYNAMIC_ALLOC	0x0040
- #define TTY_DRIVER_UNNUMBERED_NODE	0x0080
-+#define TTY_DRIVER_RESET_SAVED_TERMIOS	0x0200
+ 	clear_thread_flag(TIF_SVE);
++	current->thread.svcr &= ~SVCR_SM_MASK;
+ 	current->thread.fp_type = FP_STATE_FPSIMD;
  
- /* tty driver types */
- #define TTY_DRIVER_TYPE_SYSTEM		0x0001
+ 	/* load the hardware registers from the fpsimd_state structure */
+-	if (!err)
+-		fpsimd_update_current_state(&fpsimd);
+-
+-	return err ? -EFAULT : 0;
++	fpsimd_update_current_state(&fpsimd);
++	return 0;
+ }
+ 
+ static int preserve_fpmr_context(struct fpmr_context __user *ctx)
+@@ -391,6 +392,7 @@ static int restore_sve_fpsimd_context(struct user_ctxs *user)
+ 	unsigned int vl, vq;
+ 	struct user_fpsimd_state fpsimd;
+ 	u16 user_vl, flags;
++	bool sm;
+ 
+ 	if (user->sve_size < sizeof(*user->sve))
+ 		return -EINVAL;
+@@ -400,7 +402,8 @@ static int restore_sve_fpsimd_context(struct user_ctxs *user)
+ 	if (err)
+ 		return err;
+ 
+-	if (flags & SVE_SIG_FLAG_SM) {
++	sm = flags & SVE_SIG_FLAG_SM;
++	if (sm) {
+ 		if (!system_supports_sme())
+ 			return -EINVAL;
+ 
+@@ -420,12 +423,17 @@ static int restore_sve_fpsimd_context(struct user_ctxs *user)
+ 	if (user_vl != vl)
+ 		return -EINVAL;
+ 
+-	if (user->sve_size == sizeof(*user->sve)) {
+-		clear_thread_flag(TIF_SVE);
+-		current->thread.svcr &= ~SVCR_SM_MASK;
+-		current->thread.fp_type = FP_STATE_FPSIMD;
+-		goto fpsimd_only;
+-	}
++	/*
++	 * Non-streaming SVE state may be preserved without an SVE payload, in
++	 * which case the SVE context only has a header with VL==0, and all
++	 * state can be restored from the FPSIMD context.
++	 *
++	 * Streaming SVE state is always preserved with an SVE payload. For
++	 * consistency and robustness, reject restoring streaming SVE state
++	 * without an SVE payload.
++	 */
++	if (!sm && user->sve_size == sizeof(*user->sve))
++		return restore_fpsimd_context(user);
+ 
+ 	vq = sve_vq_from_vl(vl);
+ 
+@@ -455,25 +463,29 @@ static int restore_sve_fpsimd_context(struct user_ctxs *user)
+ 	if (err)
+ 		return -EFAULT;
+ 
+-	if (flags & SVE_SIG_FLAG_SM)
++	if (sm)
+ 		current->thread.svcr |= SVCR_SM_MASK;
+ 	else
+ 		set_thread_flag(TIF_SVE);
+ 	current->thread.fp_type = FP_STATE_SVE;
+ 
+-fpsimd_only:
++	/* check the size information */
++	if (user->fpsimd_size != sizeof(struct fpsimd_context))
++		return -EINVAL;
++
+ 	/* copy the FP and status/control registers */
+ 	/* restore_sigframe() already checked that user->fpsimd != NULL. */
+ 	err = __copy_from_user(fpsimd.vregs, user->fpsimd->vregs,
+ 			       sizeof(fpsimd.vregs));
+ 	__get_user_error(fpsimd.fpsr, &user->fpsimd->fpsr, err);
+ 	__get_user_error(fpsimd.fpcr, &user->fpsimd->fpcr, err);
++	if (err)
++		return -EFAULT;
+ 
+-	/* load the hardware registers from the fpsimd_state structure */
+-	if (!err)
+-		fpsimd_update_current_state(&fpsimd);
++	/* Merge the FPSIMD registers into the SVE state */
++	fpsimd_update_current_state(&fpsimd);
+ 
+-	return err ? -EFAULT : 0;
++	return 0;
+ }
+ 
+ #else /* ! CONFIG_ARM64_SVE */
 -- 
 2.53.0
 
