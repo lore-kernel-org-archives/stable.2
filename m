@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8401E43B6D3
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 14:39:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF0674AD4A1
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 14:39:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791211202; cv=none; b=RCiFhon5nXMZwKQbTK7FUIw18NCb12dEcLdOdae9Rla49BRiiZwmbLDvVpxI9vgz3AhLPfb/dpAjG+VeES6dpsIES9jHN/y/nYtkBQjQkrg2pIL1G+n7PJSlQGjLKJ9DpeIeEzAYPphwZXgO3vVBPDjQNU5a6cVQhhqeFcBVNhI=
+	t=1791211205; cv=none; b=KvQzctrQWmlTk1ZrG5ZSR1pnKJRfIgNeqyNvVve/4XORiNvtgGNn9sh8CNHYaDpznKLSA2GZonc9A6vSzWeJKwxU+DVb7Z1rhnIUnMGFBzt5UJnGULrp0k4MpwJ37kYvMf57sTivmeAJ5XLFPwdmPUHfyxG7RiqqM5qQzmc/et0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791211202; c=relaxed/simple;
-	bh=GM+64IiPgd36u9jypVRoKUg/XSldqQEvJvOvlGqLm1E=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=etmBA9bXFm7ndId0S41VcNZTQDWqXVMMcgj2rXcvBA1vN8BJvnJv9v89exrHc2XMm7hbPgAN54fiWpojLU7l3PxP811z44YM8/EhCX4L9JQPCRyQEejJc15hgqiK0BvROHBA8ICj4vo4pERygv8ACEjuqqR6LtBu0rjRr539j1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MY2mdST6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791211205; c=relaxed/simple;
+	bh=HoV182LVoapkLp7aE53kfJzG9g/7meitXf5OeO4A/P8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=tvHLrgsWr+FoRX9voslEFMivBdh6a6CauXbfHubHv3z72SrrP0Ffp7qrwWCxhMaJm83rf6HfuZFTEHJUTJDJ5NaKBgVPYDW52Lj9CK2Fn8XyeZEXUa+BAYg+V//1ZBkTIX6U6y0aV1wDbV2mGl0yzM/zCrEHjy8h7awM53j+SvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jd3w/3Bn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MY2mdST6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE6471F00893;
-	Mon,  5 Oct 2026 14:39:51 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jd3w/3Bn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0BDE1F00898;
+	Mon,  5 Oct 2026 14:39:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791211192;
-	bh=+QZhFlN5quIW8N3MMlaYMXI7XAlHfvqBashuWHjXde4=;
+	s=korg; t=1791211195;
+	bh=Od8kEdrmPwKq4yIJzTxlsnRDmS8lt8T1hrlhWQEUNEk=;
 	h=Subject:To:Cc:From:Date;
-	b=MY2mdST6JQ+Mh4jwllhPT/RhaUaw5UUWYHztqoHPBjSq4jxSoMi/oHQGAqWnC+LXE
-	 gott/Sx30yeASSL3cYdgyI/oM94ETDhpGhc65xiz2f4jD/XkN4V0rTaXTnGFRprlHV
-	 B6OC46Y0Uv6mcGLjheQ/Eal1T5naW1OBfMgfbbDI=
-Subject: FAILED: patch "[PATCH] wifi: mac80211: set info->band for 802.3 encap offload frames" failed to apply to 6.12-stable tree
+	b=jd3w/3BnpIc7usE3jWJHwassdDMNBriHb00g+8Hhtf7tVrGcNbIos9st4aLzR8QmM
+	 X1jTdbR5SxXn2SIJbfNdx1CJymdHbhTLheH2AfvFEFL7jZ9SjXG1NOCG0g49TOCeiJ
+	 Nb79X/P6lKfQlg87YeexlRKMpdPi1U2fpVOQQJaQ=
+Subject: FAILED: patch "[PATCH] wifi: mac80211: set info->band for 802.3 encap offload frames" failed to apply to 5.10-stable tree
 To: nbd@nbd.name,andreapesaresi82@gmail.com,johannes.berg@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 05 Oct 2026 16:39:33 +0200
-Message-ID: <2026100532-train-unsecured-ec6f@gregkh>
+Date: Mon, 05 Oct 2026 16:39:34 +0200
+Message-ID: <2026100534-stonewall-borax-0afd@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 4febc02cd02f021f2b6d0768332be643ef14a12d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100532-train-unsecured-ec6f@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100534-stonewall-borax-0afd@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
