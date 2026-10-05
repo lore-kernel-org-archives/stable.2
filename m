@@ -1,167 +1,171 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1C3F375ACB
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 12:56:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6E2647F2C8;
+	Mon,  5 Oct 2026 13:00:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791205020; cv=none; b=GkjH8Wzpz2ul83TMwM0/ZTeTIPnP6WT7luog9zbUlgi+OTLLrARziUnFdJH1C9hcnfEoD5GrZ0LiW7r0ZAEln5vliUlNiIjmR7D1c1C5RV2yqXzw0dpUbCl4JmCk0kk/fywhQ9AVof5CWon74U+2U0harLKB6sgphKtuuiat1tI=
+	t=1791205250; cv=none; b=kOh88fk0xgpy1Zj3aF12sN1OnoQC4dNYyVTOkDL0cQBLHu/JokxouMbD9BBQvy0zVoS3GExoPhdi8wBLTGrhdi45KjyMnhGQF67Mku2Xs/4KeDZcFR0rylFklc5eSCVMPR0iVRzbZvb0ANwEDq/5nTZ85ovJ8K5qiOHjqWQdq54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791205020; c=relaxed/simple;
-	bh=HI9Ca2Fo2tkQcb4WshVMmwmxrgJVc/dv7UEoTbCUW/4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=d7ecIapR7pfXuLsOg4LJgU02WaOixR9UH5d1O7zPn0SfKDTItbkfV7NGQgrO47u1pAOgjZHZN7Nh6yp/dY0xWUYVzfVxciDBer70XRJBktQnzkoTh2TnWBRwaYE1nxvGdoQpU065nUbYw3Y0VNUQJHdZ9zvU7b798A2o48vxk3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=FE4x+P20; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1791205250; c=relaxed/simple;
+	bh=OWzRwoTTuWQnunHy0mJCPcV646SUG8qTbfbf6Un3tCQ=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=g1ZTWZNwCzGhe5em7LAT1fnEzN5Wz7wuHU5vtGXmapXsN/uwOq49+TDixzci3B4iymvk6rpayEMpOtRvrC3ntMzr6XHiA8kmYt95iTH53Zv0qI67q8d4sGl4VzNPU2AxiI2O8l+rKDYlRIxOtYSLGT285ccE995h7F2S+JKZ/3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UryTw2M7; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="FE4x+P20"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3856d6fbcb3so869523a91.2
-        for <stable@vger.kernel.org>; Mon, 05 Oct 2026 05:56:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791205018; x=1791809818; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4pdPpjclY/Qu2NFmchOm2ms5jkg4XhM0PjITCIKS9/s=;
-        b=FE4x+P20FB0vWAbnKqkpUmFCRwZM18clW1RxQVNZUOzNHjj5VpqFP65/TqeIwi6/MR
-         90PIQJ+DO+5ExKnTLTBdaFTp5PSiVV32C4BVQld0N7qQNI25CQQqK2rsTtek11TwES8T
-         KPRLB+duK9xpnIzW8113PlV5rz/SbAphMuE/Cphsz8TcpkJtBXPcu7MupYmxJPhPzCR2
-         abZSrpSSQJcTp+dVawm0DCZ2Ry4qvO422AWxv3yuexR8sBn8r44FpLbd6woleWZidGN8
-         AUf2rZ2loCXV/EvPMidFZ2TDVQyam06EZJSzsPduH348nsJpjjy/JBTb+GyxNG9slPLu
-         6G4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791205018; x=1791809818;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4pdPpjclY/Qu2NFmchOm2ms5jkg4XhM0PjITCIKS9/s=;
-        b=BF8jO8CdQ8LKUtkkobD6M4Oj1SyIawOVR7FD4JwU74l7RhDhrOjQx8/ND+tpPFNngQ
-         RPZksBQ6YwW/5AX+Is1wUE8g3mYVJiDOqCwCUOsdng0DbyZaPklCUEeqDBwrmDRrxZOh
-         h2oo2/4wqjQABlYqRvFV1qyp8QPQ7rgwkQJ3mW3urG5bt/AUaM7zyw5WRA1qSlvlY2B7
-         lF60K61vy3NivLGSG/pJr9l7vGJ9L6mlTLzrtMlW4l29Wc2sxK41egBQOWVeEhkeibsi
-         NxIrmm7ZKa5VYdWuqHg6bdC6sb5lCWRGhfgaNhzQpFCPalQ61NIPs7JXnAWGlw4H50g0
-         0+QQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxtPgnKjbjIFZ5AxNkb2B1cTc2PBpOgyNMnPoDzldGWyzs0JiVK/bAYNYDSh41RjuOes1i1GYs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLKCZnv53Fm1f1vZg3cEMXQMG7DqgpSS/rXQRnP7GVDx4AnoGDA
-	PuF4+pFOu9ZWW6k3t15740PFo35HMsLqNlSn20YvnFBs0EwW+yTTJfGEbf0Hp8odUZ2tFkQrEPn
-	fubZe
-X-Gm-Gg: AYBFou2Ca0X1qggTDeRbdoHuUsMV2N40Q8yUbYvKAmQjGk821kcSeKu0FGVfeeU0xyl
-	unj3kC5FESIaMhWpprR+gGkPA9WtoQSUo1Ox94qQPXHRbZwH3GjVIYESjVS8m8WlcFxwflnN+IK
-	DJFIKHfNPr1hTwmiXWCTcLPpVgsi9zfN/wtTZ+nHGT2lM1fRJMzJm4w2ofpilKMvib0QINqtsJU
-	0EnZkcaflWwHZpxbFbqF6X+wCh4NfQDACIQmj/iMWicQ9WANW8RrDbT/DHp9hrw8XPnenqWIDR5
-	uLnWge8FCzzRZ3Vpnu5TxL3i1WnQ1AT46MfKsq6mUga/lt4OpFYIVQFq5QSdPq8g93AtWHqDwFu
-	dHa08aMY+tJaokLajjky+WYkc3r/joK4NXoaPqIJAYDPgPSsfqWQeY75xqI60XFAN2SX+tW0c2n
-	0HW4+IePhKh4VkNzz7I/cnYsZDK0+nPrAc+I5HqZn1Qr1Qnom6RL/aFliTcaf5n109Gn78NbTcf
-	j6Cg/CIEcIJdTif1IsSWA==
-X-Received: by 2002:a17:90b:35c8:b0:3a8:2046:7e5f with SMTP id 98e67ed59e1d1-3a82046834amr1284780a91.12.1791205017933;
-        Mon, 05 Oct 2026 05:56:57 -0700 (PDT)
-Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:5364:bba9:2adf:d611])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cce6e3a7470sm761661a12.30.2026.10.05.05.56.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 05:56:57 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: Eric Van Hensbergen <ericvh@kernel.org>,
-	Latchesar Ionkov <lucho@ionkov.net>,
-	Dominique Martinet <asmadeus@codewreck.org>,
-	Christian Schoenebeck <linux_oss@crudebyte.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	v9fs@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Cc: Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] 9p/xen: validate the response size from the backend
-Date: Mon,  5 Oct 2026 21:56:38 +0900
-Message-ID: <20261005125640.274054-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UryTw2M7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791205247; x=1822741247;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=OWzRwoTTuWQnunHy0mJCPcV646SUG8qTbfbf6Un3tCQ=;
+  b=UryTw2M7WB8uZwygkyvOJZmZPboFHcbRlR6ZpxlFUGc+aR6VGzOSqMUi
+   SPZu550esT+E0wq3YEwrykO2C0ud246HXSFW0uHrAYFcYyVM2h7eI4QDj
+   7w8GC856Z+Zlh1hfdSBQZY25jjo5fbc9YoCvgjf87mR6hvKLJyKe1St8l
+   tIFXe3oWk06qS0EyUSxCXu2VThK/LxwRAfRmnUcZwna552NEi7ayZ/xNF
+   FQq9ktr/Ft+OhV8mG65TAas4Ojg8/p4K98JYnHbU/VyJG7INVsK6IIjhl
+   jA3uGUOnoEqz7WTz9+CH7lJwI/8KeA3AeepfwpytQTzoe9Cxn4JsaSltr
+   Q==;
+X-CSE-ConnectionGUID: /61MIXpETbeFyVo8mkySRQ==
+X-CSE-MsgGUID: 5vDjzkoARaCu3EPd8XnV5w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11925"; a="108251560"
+X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
+   d="scan'208";a="108251560"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 06:00:47 -0700
+X-CSE-ConnectionGUID: 3FayfDV2SPO2RyVABEwAzA==
+X-CSE-MsgGUID: 0z0V8M5bRG+zxcU1oLhcVQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
+   d="scan'208";a="891106"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.199])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 06:00:44 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Mon, 5 Oct 2026 16:00:40 +0300 (EEST)
+To: Muhammad Bilal <meatuni001@gmail.com>
+cc: Jorge Lopez <jorge.lopez2@hp.com>, Hans de Goede <hansg@kernel.org>, 
+    =?ISO-8859-15?Q?Thomas_Wei=DFschuh?= <linux@weissschuh.net>, 
+    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
+    stable@vger.kernel.org
+Subject: Re: [PATCH v2] platform/x86: hp-bioscfg: fix OOB read in
+ hp_get_integer_from_buffer() on unaligned input
+In-Reply-To: <20260919060404.85742-1-meatuni001@gmail.com>
+Message-ID: <9e0d2b45-e931-bf3a-7fb8-f6fc25964cf4@linux.intel.com>
+References: <20260919060404.85742-1-meatuni001@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed; boundary="8323328-2092172039-1791205240=:1173"
 
-p9_xen_response() takes the length of an incoming response from the ring
--- the first field of the 9p header, which the Xen transport reuses as
-its framing header -- and uses it to advance the consumer index, but
-never checks that it is at least the header size or no larger than the
-number of bytes the backend has actually produced.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-A malicious or buggy backend can post a response whose size is smaller
-than the header (for example 0). The consumer index then never advances,
-so the response work re-reads the same ring contents instead of making
-progress. In testing this raced with the teardown that the malformed
-reply triggers and dereferenced a freed p9_client:
+--8323328-2092172039-1791205240=:1173
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-  9pfs 9pfs-0: Wrong req tag=ffff
-  BUG: kernel NULL pointer dereference, address: 0000000000000060
-  #PF: supervisor read access in kernel mode
-  #PF: error_code(0x0000) - not-present page
-  PGD 0 P4D 0
-  Oops: Oops: 0000 [#1] SMP NOPTI
-  CPU: 0 UID: 0 PID: 11 Comm: kworker/0:1 Not tainted 7.2.0-rc5 #6 PREEMPT(lazy)
-  Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
-  Workqueue: events p9_xen_response
-  RIP: 0010:idr_find+0x4/0x10
-  RSP: 0018:ffffbf5d80063de8 EFLAGS: 00010202
-  RAX: 0000000000000001 RBX: ffffa229c21195a0 RCX: ffffa229c2400000
-  RDX: ffffa229c11c2200 RSI: 000000000000ffff RDI: 0000000000000050
-  RBP: 000000000000ffff R08: 3fffffffffffdfff R09: ffffffffffffffff
-  R10: 3fffffffffffdfff R11: ffffffff87a60e80 R12: 0000000000000050
-  R13: 0000000000000000 R14: 000000000000ffff R15: 0000000000100000
-  FS:  0000000000000000(0000) GS:ffffa22a7661c000(0000) knlGS:0000000000000000
-  CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-  CR2: 0000000000000060 CR3: 000000003ac34002 CR4: 0000000000770ef0
-  PKRU: 55555554
-  Call Trace:
-   <TASK>
-   p9_tag_lookup+0x2b/0x90
-   p9_xen_response+0x17c/0x2e0
-   process_one_work+0x16a/0x3a0
-   worker_thread+0x172/0x2e0
-   kthread+0xdd/0x110
-   ret_from_fork+0x18b/0x240
-   ret_from_fork_asm+0x1a/0x30
-   </TASK>
-  Modules linked in:
-  CR2: 0000000000000060
-  ---[ end trace 0000000000000000 ]---
+On Sat, 19 Sep 2026, Muhammad Bilal wrote:
 
-Reject a response whose size is outside [sizeof(header), queued] before
-using it, matching the validation the backend already applies to
-incoming requests.
+> hp_get_integer_from_buffer() aligns the read pointer before dereferencing
+> it:
+>=20
+>   int *ptr =3D PTR_ALIGN((int *)*buffer, sizeof(int));
+>=20
+> When *buffer is not 4-byte aligned, PTR_ALIGN() advances ptr forward by
+> 1-3 bytes to reach the next aligned address. The bounds check that
+> follows does not account for that advance:
+>=20
+>   if (*buffer_size < sizeof(int))
+>           return -EINVAL;
+>=20
+> This only confirms 4 bytes remain from the original *buffer, not from
+> the aligned ptr. If *buffer is unaligned and *buffer_size is between 4
+> and (pad + 3) bytes, *(ptr++) reads up to 3 bytes past the end of the
+> buffer.
+>=20
+> *buffer_size is also under-decremented on every call, aligned or not:
 
-Fixes: f66c72bea129 ("xen/9pfs: receive responses")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
-v2: use dev_warn_ratelimited() so a backend that keeps re-triggering the
-    event channel cannot flood the log.
-v1: https://lore.kernel.org/all/20261005021157.207947-1-yhlee@isslab.korea.ac.kr/
+I don't see the explanation telling why things go wrong in the aligned=20
+case.
 
- net/9p/trans_xen.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+>=20
+>   *buffer_size -=3D sizeof(int);
+>=20
+> *buffer is advanced to the aligned, post-read position, but
+> *buffer_size only accounts for the 4 bytes of the integer itself, not
+> the alignment padding skipped to reach it. Each unaligned read leaves
+> *buffer_size overstating the true remaining space by the pad amount,
+> an error that compounds across repeated calls against the same buffer
+> (hp_get_common_data_from_buffer() calls this in a sequence), making
+> later bounds checks against *buffer_size progressively less reliable.
+>=20
+> Compute the padding explicitly, check for it, and account for it when
+> advancing *buffer_size, so the pointer and the remaining-length count
+> stay consistent with each other.
+>=20
+> Also switch ptr from "int *" to "u32 *", matching the type of the
+> output parameter it's really standing in for, and size everything off
+> sizeof(*ptr)/sizeof(*integer) instead of the bare "int" type name.
+>=20
+> Fixes: a34fc329b189 ("platform/x86: hp-bioscfg: bioscfg")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
 
-diff --git a/net/9p/trans_xen.c b/net/9p/trans_xen.c
-index f9fb2db7a0663..0ea8e17725c24 100644
---- a/net/9p/trans_xen.c
-+++ b/net/9p/trans_xen.c
-@@ -200,6 +200,14 @@ static void p9_xen_response(struct work_struct *work)
- 				     masked_prod, &masked_cons,
- 				     XEN_9PFS_RING_SIZE(ring));
- 
-+		if (h.size < sizeof(h) ||
-+		    h.size > xen_9pfs_queued(prod, cons,
-+					     XEN_9PFS_RING_SIZE(ring))) {
-+			dev_warn_ratelimited(&priv->dev->dev,
-+					     "bad response size %u from backend\n", h.size);
-+			break;
-+		}
-+
- 		req = p9_tag_lookup(priv->client, h.tag);
- 		if (!req || req->status != REQ_STATUS_SENT) {
- 			dev_warn(&priv->dev->dev, "Wrong req tag=%x\n", h.tag);
--- 
-2.43.0
+This also lacks information whether this problem is actually seen to occur=
+=20
+on some real device.
 
+--=20
+ i.
+
+
+> ---
+> Changes in v2:
+>   - Use sizeof(*ptr)/sizeof(*integer) instead of bare sizeof(int), and
+>     change ptr from "int *" to "u32 *" to match *integer's type, per
+>     Ilpo J=C3=A4rvinen's review.
+>=20
+> Link: https://lore.kernel.org/r/20260824225610.18471-2-meatuni001@gmail.c=
+om [v1]
+> ---
+>  drivers/platform/x86/hp/hp-bioscfg/bioscfg.c | 12 ++++++++----
+>  1 file changed, 8 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c b/drivers/platf=
+orm/x86/hp/hp-bioscfg/bioscfg.c
+> index 309634c..f59957e 100644
+> --- a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
+> +++ b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
+> @@ -38,15 +38,19 @@ struct kobj_attribute common_display_langcode =3D
+> =20
+>  int hp_get_integer_from_buffer(u8 **buffer, u32 *buffer_size, u32 *integ=
+er)
+>  {
+> -=09int *ptr =3D PTR_ALIGN((int *)*buffer, sizeof(int));
+> +=09u32 *ptr =3D PTR_ALIGN((u32 *)*buffer, sizeof(*ptr));
+> +=09u32 pad =3D (u8 *)ptr - *buffer;
+> =20
+> -=09/* Ensure there is enough space remaining to read the integer */
+> -=09if (*buffer_size < sizeof(int))
+> +=09/*
+> +=09 * Ensure there is enough space remaining to read the integer,
+> +=09 * including any padding PTR_ALIGN() introduced to reach it.
+> +=09 */
+> +=09if (*buffer_size < pad + sizeof(*ptr))
+>  =09=09return -EINVAL;
+> =20
+>  =09*integer =3D *(ptr++);
+>  =09*buffer =3D (u8 *)ptr;
+> -=09*buffer_size -=3D sizeof(int);
+> +=09*buffer_size -=3D pad + sizeof(*integer);
+> =20
+>  =09return 0;
+>  }
+>=20
+--8323328-2092172039-1791205240=:1173--
