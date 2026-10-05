@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6051236E470
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 22:33:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DF92430CE3
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 22:40:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791239629; cv=none; b=rHXNaR2m+fg1e9t8EzC9HWh/Q5sz4Zty7fZ+ztoswZIfRxYKxSfJEPjm7HJRROcTxK95k7g0CHiacVbY39WTSYnmIdnqitgbLn+jSDSVK1aFABlbnJ4H63n6tJMNx0W6i2Ppw4+w4AhpQY8or7gHrHdaTi1mZtFm7Tq9I6zDsF0=
+	t=1791240053; cv=none; b=gO2uxth/WnIr5sxo7zn+9jSKiHY6coTPFDS8eJX9nvjsM+jOJFNPzA5RK3oYxhrr6Llv49iRVxCDtdqhXTXIpHBmYiP86KRpxwLVpktOEa76pgzHRpz2GXHtCbyL/5mH6uoq3Bx+CneqYilZA9eWWTN4cVqQgv7s93GUJccZpVs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791239629; c=relaxed/simple;
-	bh=lSAbdO/ZrIN2neFdrefjo0+YCnZsv8OtsSWUBIEzQPY=;
+	s=arc-20240116; t=1791240053; c=relaxed/simple;
+	bh=fJlbScjmtyEtvIYTXjt3WjCSOyEuLft4sXnqsrxFAlo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WiO7eEyGXi7lyFOZY9UzuR5zNeyfAp2FuQ19yYNIeyUxeKYQBx2VkG2gqB2DtNfu/rPTe27UCJqUjC1z+LzVZ/20aOplFylqiLlmV59jR/a33Q3pTeWpRp2xuGXEsUa2J7mBAkZgV9uq8eBPKTkty4kYbOwLmwB3pKDVw9QG+As=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YsgZKMay; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=keJmfNclNgUt4vcUtmpFI1lWEIbU/KJLfxGAeS90mozCzlUNytIH/bmO/bdSmXYtq0NFh7EvEJcCx4sQZ6wOVOYydVHCntheJhuQMYtiO/4FyXiRDdB9J2Ub91/4RpW+A1o6UGaBMDkWPe5qPr+uWMRlPtsZr9qu9QSwJF8Bgag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HG3a35fA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YsgZKMay"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0B451F000FF;
-	Mon,  5 Oct 2026 22:33:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HG3a35fA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00C451F00898;
+	Mon,  5 Oct 2026 22:40:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791239627;
-	bh=aLY556Ny8CB1DoX7GNyJnNjUVIBMBKQo3xCGkOwcPh8=;
+	s=k20260515; t=1791240046;
+	bh=BevOX2qaHxTT69qFnlf1/gkv6Cp5fHZz0K7MjeTd/QM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YsgZKMayadAFfvLVWoOnIH+C/56hfHJ6iToZq7gpzNjiHpGr5vUGcJQetEUFtDR20
-	 O2hvFcFmz6YdvnDgVmqcgIggIFpOy8lYxBxrvQZeaN+Zp67uZJ6tkVcKSJ/Axb2TOx
-	 hh6P6GYAAUzm8d2M2mFKBLa/MoUjBZ8iGZaFyW64xa26vYH344bmD/bk3+ghgga3nw
-	 EdmxdzwmV4SvgJP2Mmr+eubOYV38LttPN2YgVpgqZJ7nOJWeTA6t5WZEjlGhB/Z8GY
-	 8Yzle0tT+eYMklTfUxg4paEHlXLrJv4pXzaauztJkx55xcRIJkeRVzphWoU6WLO1K0
-	 PXIXRTDbEf3cw==
+	b=HG3a35fARECRDEl6ProKZX/J+LpAlSqanuGi7KWy1oWPlgK8X3QOtyNuLYdbwRov6
+	 gQ0oRDdAZl+zc6T4bu1vOoBzAproJagRdIUSzkQ2404X40C3FpSUjPHkm3mMbLXLQF
+	 qCWn5zrWdG4xaJSdh0CsF7IIQFLSpNJ6GJWRdhZ6jIS5KJFQzBPsK9zqCuSq/4pf2Q
+	 CRfloY9oq4nUqDjaC2y8QQApY34DR3uz2IVFU1oQNiuYnDWe4ih0f1bMM4wBKpjwiO
+	 oCVE5H32UqSUkUsHqho5w6EPZ9eBYSK0dGbb+M4mNpY+wCaAgFDJaEYQjrR2admB1i
+	 k2KMlc0lGYuEA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
-	stable@kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Zhengchuan Liang <zcliangcn@gmail.com>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] tty: serial: max3100: shut down timer before freeing port
-Date: Mon,  5 Oct 2026 18:33:44 -0400
-Message-ID: <20261005223256.3427262-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] perf: Require kernel access for text poke events
+Date: Mon,  5 Oct 2026 18:40:42 -0400
+Message-ID: <20261005224004.3467502-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100501-duckling-overlying-9d15@gregkh>
-References: <2026100501-duckling-overlying-9d15@gregkh>
+In-Reply-To: <2026100517-unfixed-scale-50cd@gregkh>
+References: <2026100517-unfixed-scale-50cd@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,89 +45,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+From: Zhengchuan Liang <zcliangcn@gmail.com>
 
-[ Upstream commit db0949bbd06db0a75b4b1076f1e25194be7d956a ]
+[ Upstream commit 357e8a77a501d96c9517f01f4a211eed5e9c9184 ]
 
-max3100_shutdown() stops the polling timer but returns early during
-system suspend. If the SPI device is unbound before resume, the serial
-core does not call max3100_shutdown() again, so max3100_remove() frees
-the port while the timer remains armed. max3100_timeout() may then
-access the freed port and re-arm the timer.
+Perf events with exclude_kernel=1 can be opened without kernel perf
+access. However, exclude_kernel does not suppress text-poke sideband
+records. Every PERF_RECORD_TEXT_POKE is marked PERF_RECORD_MISC_KERNEL
+and contains a raw kernel instruction address.
 
-Add final timer teardown to max3100_remove() and use
-timer_shutdown_sync() to prevent a racing callback from re-arming it.
-Also free the IRQ and destroy the workqueue there before freeing the
-port. Keep timer_delete_sync() in max3100_shutdown() so that a
-subsequent open() can re-arm the timer.
+An unprivileged task can therefore open and mmap a task-local software
+event with text_poke=1. Both opening a count-only tracepoint event and
+configuring UDP GRO for ESP-in-UDP cause updates to inline static calls;
+the observer receives the relocated addresses of the modified instructions.
+For a known kernel image, any such address reveals the runtime kernel
+text base despite KASLR.
 
-The workqueue is created before request_irq() and destroyed on both
-request_irq() failure and normal shutdown. Its presence at remove thus
-identifies the IRQ left registered when suspend bypasses shutdown.
+Call perf_allow_kernel() whenever attr.text_poke is set, regardless of
+exclude_kernel. Events that neither monitor kernel execution nor request
+text-poke records retain their existing permissions.
 
-Free the IRQ before destroying the workqueue, in both
-max3100_shutdown() and max3100_remove(), and cancel the pending work
-in between. free_irq() waits for a running interrupt handler to
-finish and no new handler can start afterwards, so a racing handler
-cannot queue work on a workqueue that is being destroyed; the
-force_end_work check in max3100_dowork() only narrows that window, as
-a handler delayed between the check and queue_work() could still run
-after the teardown has cleared the workqueue pointer. Cancelling the
-work also keeps destroy_workqueue() from waiting on a queued work item
-in case remove() ever runs while the freezable workqueue is still
-frozen, e.g. device removal during the resume window, before
-workqueues are thawed.
-
-This issue was found by an in-house static analysis tool.
-
-Fixes: 7831d56b0a35 ("tty: MAX3100")
-Cc: stable@kernel.org # 6.2+
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Link: https://patch.msgid.link/20260927055957.561030-1-fanwu01@zju.edu.cn
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ sashal: Replaced unavailable timer_shutdown_sync() with timer_delete_sync(). ]
+Fixes: e17d43b93e54 ("perf: Add perf text poke event")
+Assisted-by: LLM
+Signed-off-by: Zhengchuan Liang <zcliangcn@gmail.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/99131354c41e23188f778b92f90363775b482395.1790573390.git.zcliangcn@gmail.com
+[ sashal: Adjusted context for the missing kernel-callchain condition while retaining perf_allow_kernel(&attr). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/tty/serial/max3100.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+ kernel/events/core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/tty/serial/max3100.c b/drivers/tty/serial/max3100.c
-index 17b6f4a872d6a..a1b24c7d5d865 100644
---- a/drivers/tty/serial/max3100.c
-+++ b/drivers/tty/serial/max3100.c
-@@ -571,12 +571,11 @@ static void max3100_shutdown(struct uart_port *port)
- 		del_timer_sync(&s->timer);
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index a986ed1ad221a..3169742fd98ad 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -12647,7 +12647,7 @@ SYSCALL_DEFINE5(perf_event_open,
+ 	if (err)
+ 		return err;
  
- 	if (s->workqueue) {
--		flush_workqueue(s->workqueue);
-+		free_irq(s->irq, s);
-+		cancel_work_sync(&s->work);
- 		destroy_workqueue(s->workqueue);
- 		s->workqueue = NULL;
- 	}
--	if (s->irq)
--		free_irq(s->irq, s);
- 
- 	/* set shutdown mode to save power */
- 	if (s->max3100_hw_suspend)
-@@ -835,6 +834,16 @@ static int max3100_remove(struct spi_device *spi)
- 		if (max3100s[i] == s) {
- 			dev_dbg(&spi->dev, "%s: removing port %d\n", __func__, i);
- 			uart_remove_one_port(&max3100_uart_driver, &max3100s[i]->port);
-+
-+			s->force_end_work = 1;
-+			/* Only the timer callback can rearm it after port removal. */
-+			timer_delete_sync(&s->timer);
-+			if (s->workqueue) {
-+				free_irq(s->irq, s);
-+				cancel_work_sync(&s->work);
-+				destroy_workqueue(s->workqueue);
-+				s->workqueue = NULL;
-+			}
- 			kfree(max3100s[i]);
- 			max3100s[i] = NULL;
- 			break;
+-	if (!attr.exclude_kernel) {
++	if (!attr.exclude_kernel || attr.text_poke) {
+ 		err = perf_allow_kernel(&attr);
+ 		if (err)
+ 			return err;
 -- 
 2.53.0
 
