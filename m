@@ -1,116 +1,283 @@
-Received: from sender6-of-o55.zoho.com (sender6-of-o55.zoho.com [165.173.180.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE37119CC0F;
-	Mon,  5 Oct 2026 00:25:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.55
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791159945; cv=pass; b=gPldSzmhUohIdw4GBT5ShPg6IqDvgK+ReP0W2LljqzNPUehUxbrrLatvdOgb6XpGryVxZmBx2gQ0fNytJxFFg9umos2NbilyehFI/pggaMLua/ttkTSnddanXVjohY5fIxw+/AcfFInNPT1l45EYR0tgld1PIweP1iFU6eyEa7Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791159945; c=relaxed/simple;
-	bh=g6Id/CITe1AjCOe8BiyGg2h/PT4nBSQdxzRDYcfScYQ=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:Subject:MIME-Version:
-	 Content-Type; b=nlmTa+HT09ieMjdPPl83ikA3QZuzxfudfXMEliypPiMelFBCCe1W0F82uyW5RhqMO9/M/2WDJqJ3Zgh+9eg090UijAT5fmVgrlQfIRS1sGY2NsPJOy2w8v/v6cOUCQvKexYOhMQd4yk85ZWjDcFgx9Y7mCQw2VEzJ2f3Fv/4+As=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lazaarsec.com; spf=pass smtp.mailfrom=lazaarsec.com; dkim=pass (1024-bit key) header.d=lazaarsec.com header.i=haitam@lazaarsec.com header.b=IcaliGFB; arc=pass smtp.client-ip=165.173.180.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lazaarsec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lazaarsec.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55AD3547073;
+	Mon,  5 Oct 2026 00:59:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791161943; cv=none; b=qRfKKktJ0Cb3czv/qOCKQRORAhgP6iJWSZ/RgwGoJ0Sb0KgHMczBMI9jxgqLl5zki05BLIesNA8L59QleDRcSPSI2PNZ3Py8UrJE6k9lg6ygEWVQSP04XoE3GsEQymkINB8nyTuIhruCuhZYuTY4wuzz236ja/LLvU9EYVne3rc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791161943; c=relaxed/simple;
+	bh=M2+TvvQC1xeBQe1EBP0Mj/6nPJqDm5DZDX8zZN8hAVw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TsU3o9fHNGnfarSCwxG47uFsjf2MoJtLRpm+qytkmoz9fuaJ+VpXiENJjJqw3qi17TGZfZ9UN2pQe14UPQtBFGyacESXuAPIQQnjwl6sJ8LEEvr6vUXvy9rJUAngeZgJyT+UvcdTvTam69saQnw1nNxT7hG8E/ECHQXx356P2Ts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C+MGEhBq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lazaarsec.com header.i=haitam@lazaarsec.com header.b="IcaliGFB"
-ARC-Seal: i=1; a=rsa-sha256; t=1791159937; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=SFG+UL0pCCK98a6LIqckXsYMchHYNIEl6T84lsqsvTbIHS4ezrf3fHhQAtQ2w/T3ybcLZzYiTjB+S34o2oljoVocYkC4EgGfPdXahdjL1nTCCGySW8rkWaObNU5AxrQEaVMa4M/64AJWNq+5O4sipAhsEkvYHJj2cM4cVYCTCfc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791159937; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=QjlTM+K9c2VSwtfFNdZjfx0yyzVG/WinHq6Izi14f8A=; 
-	b=HmoMft81pT4PSUQRGgnQlI49ac5dYHHjr4sV1GZyKws2zHnIKBwx5iwSefNeymAqN8tn+iuLguBTA2xwwN+ZFkXruXC74OuafgcT2dgUoBs8WK/jQ0YtQ+8kKhjO8ummTJauJdSqq0kRBZP0fUC5CpLuC5KQMVHDDpKsbaYSJwY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=lazaarsec.com;
-	spf=pass  smtp.mailfrom=haitam@lazaarsec.com;
-	dmarc=pass header.from=<haitam@lazaarsec.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791159937;
-	s=zmail; d=lazaarsec.com; i=haitam@lazaarsec.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Message-ID:In-Reply-To:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=QjlTM+K9c2VSwtfFNdZjfx0yyzVG/WinHq6Izi14f8A=;
-	b=IcaliGFBf1jejekqvuj5B1hecXmYDPEVgiMEm6y+OiQBTlI73XLO29bKc8R08+Hk
-	YqVl3mr9ZGls+bBOyMLHUfseclUQn7T1zILERCjYRTuBh/BplV822dmuep37PWHlgAc
-	I06C+8hWIr6kf1CVrKkjHkb654TGpv6XVWsf3gO8=
-Received: from mail.zoho.com by mx.zohomail.com
-	with SMTP id 1791159937285562.4403118885974; Sun, 4 Oct 2026 17:25:37 -0700 (PDT)
-Received: from mail.zoho.com by mx.zohomail.com
-	with SMTP id 1791159935674155.37696301141693; Sun, 4 Oct 2026 17:25:35 -0700 (PDT)
-Date: Mon, 05 Oct 2026 00:25:35 +0000
-From: Haitam Lazaar <haitam@lazaarsec.com>
-To: "Bernard Metzler" <bernard.metzler@linux.dev>
-Cc: "Jason Gunthorpe" <jgg@ziepe.ca>, "Leon Romanovsky" <leon@kernel.org>,
-	"linux-rdma" <linux-rdma@vger.kernel.org>,
-	"stable" <stable@vger.kernel.org>
-Message-ID: <1a10973a2a8.17e04b672219.8760522594078806286@lazaarsec.com>
-In-Reply-To: 
-Subject: [PATCH for-rc] RDMA/siw: Enforce IB_ACCESS_REMOTE_READ for read
- responses
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C+MGEhBq"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 520A71F000FF;
+	Mon,  5 Oct 2026 00:59:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791161941;
+	bh=GvNRAx7nbNSFO/BRLKhYAnDBuujlG6qX3d+ce8CaBII=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=C+MGEhBqmGXrNg6ldjGnUOH0i6huNVsUTFBhv6OpQp/RTpViZMmj6bEnREYkvOu96
+	 MbDZ9FT8tY+5RqiW3Q19lFJlV9jetRZnTERXpIq2QQIS++Vl74od5F9WPhDVWgAv5z
+	 dZ87ZWEF7esSw6f7YLF5BWMz1mnliOmuYF6QwSpz/pMhSG9sMFge77+vCMAwHtIttC
+	 syI3kHH9YKNMM5g4fL37lAKv1HdBJMfiLHMpeXHVN67MvmxTbweFgC+eBmyLkKpDSC
+	 FFhWg53EjlB50HvLxn2te0BEbAABLUQpl4O8DD7aKPdPnS6g6/gGET7jADHBE0qa3S
+	 JB1+ld/p12Z6g==
+Date: Mon, 5 Oct 2026 03:58:57 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Chengfeng Ye <nicoyip.dev@gmail.com>
+Cc: David Howells <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E . Hallyn" <serge@hallyn.com>, keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] keys: Protect key_user lifetime during ownership
+ changes
+Message-ID: <asL2UQjYCxt9SF9K@kernel.org>
+References: <20260927162528.943886-1-nicoyip.dev@gmail.com>
+ <20260927162528.943886-2-nicoyip.dev@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Importance: Medium
-User-Agent: Zoho Mail
-X-Mailer: Zoho Mail
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260927162528.943886-2-nicoyip.dev@gmail.com>
 
-When generating an RDMA READ response (SIW_OP_READ_RESPONSE),
-siw_check_sgl_tx() unconditionally passes 0 as the required permission
-mask:
+While preparing PR some changes in this patch started to bother me so
+let's do a sanity check.
 
-    /* Reference memory to be tx'd w/o checking access for LOCAL_READ */
-    rv = siw_check_sgl_tx(qp->pd, wqe, 0);
+On Mon, Sep 28, 2026 at 12:25:27AM +0800, Chengfeng Ye wrote:
+> keyctl_chown_key() replaces key->user under key->sem and drops the
+> reference to the previous owner after releasing the semaphore. Readers
+> which do not hold that semaphore can still be using the previous owner
+> when key_user_put() frees it.
+> 
+> For example, namespace filtering in /proc/keys can race with chown:
+> 
+>   /proc/keys reader                 keyctl_chown_key()
+>   user = key->user
+>                                     key->user = newowner
+>                                     key_user_put(old)
+>                                       kfree(old)
+>   read user->uid
+> 
+> An earlier instrumented run reported:
+> 
+>   BUG: KASAN: slab-use-after-free in proc_keys_start+0x353/0x440
+>   Read of size 4 at addr ffff8881128abbc0 by task poc/88
+>   Call Trace:
+>    proc_keys_start+0x353/0x440
+>    seq_read_iter+0x25d/0x1190
+>    proc_reg_read_iter+0x19e/0x260
+>   Allocated by task 86:
+>    key_user_lookup+0x1b4/0x540
+>    keyctl_chown_key+0x3cc/0xbf0
+>   Freed by task 87:
+>    kfree+0x149/0x330
+>    keyctl_chown_key+0x7b0/0xbf0
+> 
+> Serialize pointer replacement and the affected readers with key_user_lock,
+> which already protects final key_user removal. Take the lock explicitly
+> while /proc/keys and find_keyring_by_name() copy the owner's UID. Retain
+> the quota-owner UID rather than substituting key->uid, since they may
+> differ for thread keyrings.
+> 
+> Also hold the lock across owner accesses in key_payload_reserve() and
+> across the instantiated-key count increments. Instantiation need not hold
+> the target key's semaphore, so these paths need the same lifetime
+> protection. Leave key-state publication and the chown accounting transfer
+> outside the new critical sections for the separate accounting fix.
+> 
+> Fixes: 5801649d8b83 ("[PATCH] keys: let keyctl_chown() change a key's owner")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+> ---
+> Changes in v3:
+> - Split from v2 as patch 1/2; see the cover letter for the full split.
+> - Rebase onto current mainline and retain explicit reader-side locking.
+> 
+> v2: https://lore.kernel.org/r/20260904080940.575882-1-nicoyip.dev@gmail.com/
+> 
+>  security/keys/key.c     | 13 +++++++++++--
+>  security/keys/keyctl.c  |  2 ++
+>  security/keys/keyring.c |  7 ++++++-
+>  security/keys/proc.c    | 15 +++++++++++++--
+>  4 files changed, 32 insertions(+), 5 deletions(-)
+> 
+> diff --git a/security/keys/key.c b/security/keys/key.c
+> index b34a64d81d47..d0d583194b05 100644
+> --- a/security/keys/key.c
+> +++ b/security/keys/key.c
+> @@ -21,6 +21,7 @@ struct rb_root		key_serial_tree; /* tree of keys indexed by serial */
+>  DEFINE_SPINLOCK(key_serial_lock);
+>  
+>  struct rb_root	key_user_tree; /* tree of quota records indexed by UID */
+> +/* Protects key_user_tree and key ownership changes. */
 
-Because perms is 0, siw_check_mem()'s authorization test:
-    if ((mem->perms & perms) < perms)
-evaluates to (mem->perms & 0) < 0, which is always false. Consequently,
-an untrusted remote peer can issue an RDMA Read targeting any valid
-STag in the Protection Domain, even if the memory was registered strictly
-as write-only (IB_ACCESS_REMOTE_WRITE) without IB_ACCESS_REMOTE_READ.
+This type of extras in bug fixes do not make any possible sense and set
+an extra backporting cost.
 
-Enforce that the target memory region was granted IB_ACCESS_REMOTE_READ
-when answering SIW_OP_READ_RESPONSE work queue entries, while preserving
-perms = 0 for standard local sends.
+>  DEFINE_SPINLOCK(key_user_lock);
+>  
+>  unsigned int key_quota_root_maxkeys = 1000000;	/* root's key count quota */
+> @@ -380,9 +381,12 @@ int key_payload_reserve(struct key *key, size_t datalen)
+>  
+>  	/* contemplate the quota adjustment */
+>  	if (delta != 0 && test_bit(KEY_FLAG_IN_QUOTA, &key->flags)) {
+> -		unsigned maxbytes = uid_eq(key->user->uid, GLOBAL_ROOT_UID) ?
+> -			key_quota_root_maxbytes : key_quota_maxbytes;
+>  		unsigned long flags;
+> +		unsigned int maxbytes;
+> +
+> +		spin_lock(&key_user_lock);
+> +		maxbytes = uid_eq(key->user->uid, GLOBAL_ROOT_UID) ?
+> +			key_quota_root_maxbytes : key_quota_maxbytes;
+>  
+>  		spin_lock_irqsave(&key->user->lock, flags);
+>  
+> @@ -396,6 +400,7 @@ int key_payload_reserve(struct key *key, size_t datalen)
+>  			key->quotalen += delta;
+>  		}
+>  		spin_unlock_irqrestore(&key->user->lock, flags);
+> +		spin_unlock(&key_user_lock);
 
-Fixes: b9be6f18cf9e ("rdma/siw: transmit path")
-Cc: stable@vger.kernel.org
-Signed-off-by: Haitam Lazaar <haitam@lazaarsec.com>
----
- drivers/infiniband/sw/siw/siw_qp_tx.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+I don't understand the necessity of key_user_lock here.
 
-diff --git a/drivers/infiniband/sw/siw/siw_qp_tx.c b/drivers/infiniband/sw/siw/siw_qp_tx.c
-index f7dd32c6e5ba..9e652585f904 100644
---- a/drivers/infiniband/sw/siw/siw_qp_tx.c
-+++ b/drivers/infiniband/sw/siw/siw_qp_tx.c
-@@ -810,12 +810,17 @@ static int siw_qp_sq_proc_tx(struct siw_qp *qp, struct siw_wqe *wqe)
- 
- 			if (tx_type(wqe) != SIW_OP_READ &&
- 			    tx_type(wqe) != SIW_OP_READ_LOCAL_INV) {
-+				enum ib_access_flags perms = 0;
-+
- 				/*
--				 * Reference memory to be tx'd w/o checking
--				 * access for LOCAL_READ permission, since
--				 * not defined in RDMA core.
-+				 * Local READ permission doesn't exist in RDMA core.
-+				 * A READ RESPONSE source is read by the remote peer,
-+				 * so it must be checked for REMOTE_READ permission.
- 				 */
--				rv = siw_check_sgl_tx(qp->pd, wqe, 0);
-+				if (tx_type(wqe) == SIW_OP_READ_RESPONSE)
-+					perms = IB_ACCESS_REMOTE_READ;
-+
-+				rv = siw_check_sgl_tx(qp->pd, wqe, perms);
- 				if (rv < 0) {
- 					if (tx_type(wqe) ==
- 					    SIW_OP_READ_RESPONSE)
--- 
+>  	}
+>  
+>  	/* change the recorded data length if that didn't generate an error */
+> @@ -447,7 +452,9 @@ static int __key_instantiate_and_link(struct key *key,
+>  
+>  		if (ret == 0) {
+>  			/* mark the key as being instantiated */
+> +			spin_lock(&key_user_lock);
+>  			atomic_inc(&key->user->nikeys);
+> +			spin_unlock(&key_user_lock);
+>  			mark_key_instantiated(key, 0);
+>  			notify_key(key, NOTIFY_KEY_INSTANTIATED, 0);
+>  
+> @@ -604,7 +611,9 @@ int key_reject_and_link(struct key *key,
+>  	/* can't instantiate twice */
+>  	if (key->state == KEY_IS_UNINSTANTIATED) {
+>  		/* mark the key as being negatively instantiated */
+> +		spin_lock(&key_user_lock);
+>  		atomic_inc(&key->user->nikeys);
+> +		spin_unlock(&key_user_lock);
 
+atomic_inc() is wrapped under spinlock in the two changes above. Why
+is that necessary?
 
+>  		mark_key_instantiated(key, -error);
+>  		notify_key(key, NOTIFY_KEY_INSTANTIATED, -error);
+>  		key_set_expiry(key, ktime_get_real_seconds() + timeout);
+> diff --git a/security/keys/keyctl.c b/security/keys/keyctl.c
+> index d14ace88e529..c17924609317 100644
+> --- a/security/keys/keyctl.c
+> +++ b/security/keys/keyctl.c
+> @@ -1036,8 +1036,10 @@ long keyctl_chown_key(key_serial_t id, uid_t user, gid_t group)
+>  			atomic_inc(&newowner->nikeys);
+>  		}
+>  
+> +		spin_lock(&key_user_lock);
+>  		zapowner = key->user;
+>  		key->user = newowner;
+> +		spin_unlock(&key_user_lock);
+
+This is where I get it as you swap the key->user.
+
+>  		key->uid = uid;
+>  	}
+>  
+> diff --git a/security/keys/keyring.c b/security/keys/keyring.c
+> index 15bf4af8f282..5943e8b48c0f 100644
+> --- a/security/keys/keyring.c
+> +++ b/security/keys/keyring.c
+> @@ -1148,6 +1148,7 @@ struct key *find_keyring_by_name(const char *name, bool uid_keyring)
+>  {
+>  	struct user_namespace *ns = current_user_ns();
+>  	struct key *keyring;
+> +	kuid_t uid;
+>  
+>  	if (!name)
+>  		return ERR_PTR(-EINVAL);
+> @@ -1158,7 +1159,11 @@ struct key *find_keyring_by_name(const char *name, bool uid_keyring)
+>  	 * grants Search permission and that hasn't been revoked
+>  	 */
+>  	list_for_each_entry(keyring, &ns->keyring_name_list, name_link) {
+> -		if (!kuid_has_mapping(ns, keyring->user->uid))
+> +		spin_lock(&key_user_lock);
+> +		uid = keyring->user->uid;
+> +		spin_unlock(&key_user_lock);
+
+In this and similar site I do not get it. Why key->user->-lock could not
+be instead?
+
+> +
+> +		if (!kuid_has_mapping(ns, uid))
+>  			continue;
+>  
+>  		if (test_bit(KEY_FLAG_REVOKED, &keyring->flags))
+> diff --git a/security/keys/proc.c b/security/keys/proc.c
+> index 4f4e2c1824f1..e507c500c068 100644
+> --- a/security/keys/proc.c
+> +++ b/security/keys/proc.c
+> @@ -68,7 +68,13 @@ static struct rb_node *key_serial_next(struct seq_file *p, struct rb_node *n)
+>  	n = rb_next(n);
+>  	while (n) {
+>  		struct key *key = rb_entry(n, struct key, serial_node);
+> -		if (kuid_has_mapping(user_ns, key->user->uid))
+> +		kuid_t uid;
+> +
+> +		spin_lock(&key_user_lock);
+> +		uid = key->user->uid;
+> +		spin_unlock(&key_user_lock);
+> +
+> +		if (kuid_has_mapping(user_ns, uid))
+>  			break;
+>  		n = rb_next(n);
+
+Isn't procfs change at least out of scope? It
+
+>  	}
+> @@ -80,6 +86,7 @@ static struct key *find_ge_key(struct seq_file *p, key_serial_t id)
+>  	struct user_namespace *user_ns = seq_user_ns(p);
+>  	struct rb_node *n = key_serial_tree.rb_node;
+>  	struct key *minkey = NULL;
+> +	kuid_t uid;
+>  
+>  	while (n) {
+>  		struct key *key = rb_entry(n, struct key, serial_node);
+> @@ -100,7 +107,11 @@ static struct key *find_ge_key(struct seq_file *p, key_serial_t id)
+>  		return NULL;
+>  
+>  	for (;;) {
+> -		if (kuid_has_mapping(user_ns, minkey->user->uid))
+> +		spin_lock(&key_user_lock);
+> +		uid = minkey->user->uid;
+> +		spin_unlock(&key_user_lock);
+> +
+> +		if (kuid_has_mapping(user_ns, uid))
+>  			return minkey;
+>  		n = rb_next(&minkey->serial_node);
+>  		if (!n)
+> -- 
+> 2.43.0
+> 
+
+By putting global lock every possible site the bug does get fixed but
+nothing really makes the case that this is ultimately least intrusive
+way to fix this.
+
+I could fix almost any possible race condition if there was a preference
+to use global lock for everything. I'm neither sure whether this is a
+superset change that covers the bug fix or not.
+
+Br, Jarkko
+
+Br, Jarkko
