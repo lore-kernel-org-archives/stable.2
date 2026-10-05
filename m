@@ -1,93 +1,121 @@
-Received: from mailgw1.uni-kl.de (mailgw1.uni-kl.de [131.246.120.220])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lr2-f3.google.com (mail-lr2-f3.google.com [74.125.230.67])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01047429037
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 12:37:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=131.246.120.220
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6065547DD50
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 12:37:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.67
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791203841; cv=none; b=W8qkYNzQdcJYBZzsZRE/o9gj4SOz1qtydTYiKk1TW7tHTo6XCwDpO98YYF4jRoYvG7azvlE2BRd/dSZUnK0+Tl3zHdea3flMOpK3SuecbA4OgTjeeWDX75OtnAO8FMQNaMJ5y4eCxSo/jkQiSwKg+JSI1o/POoWE+gVvutOAvsE=
+	t=1791203855; cv=none; b=MxqXkN4cit8dGoCnwJA3FLjXJJYJVPd3xgAka+XVqZTGgGGwBQ+BvJoAvQuHwopGDFPo0VMEdI58fFVPKdvA9TVzOj/e80dGtNBmpBevsx5ECXmUy4ffai82pgYEir2XL/J6xoPSWIczCwlvKYjUOSP2WAaVc/Q0vHpQCB135Yk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791203841; c=relaxed/simple;
-	bh=yDdqInFk3YpdDUiRGSXuiC/zzCHwu67hYsiL6JTzZlI=;
-	h=Subject:MIME-Version:Cc:From:To:Date:Message-ID:Content-Type; b=GKzRj/G33MeSJ3X1LZjs0UgbkEJ1qCuPkEaEILaHVmvaETtbeKGVfcQ5G4yzr6WmgE76a3aB7jGK5hyhy4iVWHoiohxiq/ClLB3MoypAS/IDxkJXtbhOn1wvnUOXi7kEQpnp6o/phehXPwU6ZOVb0mcx9hCyJfUH7/e3hrzRQFU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rptu.de; spf=pass smtp.mailfrom=rptu.de; dkim=pass (2048-bit key) header.d=rptu.de header.i=@rptu.de header.b=HMkk8ytz; arc=none smtp.client-ip=131.246.120.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rptu.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rptu.de
+	s=arc-20240116; t=1791203855; c=relaxed/simple;
+	bh=kBexbWtC4+MyoxidFkM/IIOP2Geigs/tBXSpL3HrsRQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MgnL1IQNqhz9/o28fRhKlyc7e1KpM872dGVigamCNajrb0byms1TY8OayioALWHgCa+KG+X1pFXe2pvM7VN0RbS8IJQApW9dU5pbjpXPDUrlEWUNVJgwiCJ9WzYf8I2srT2viJCBDgOMV+3EKArOVC5MOiBeV/yEInS3mysufjg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qvzL1VD6; arc=none smtp.client-ip=74.125.230.67
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rptu.de header.i=@rptu.de header.b="HMkk8ytz"
-Received: from uni-kl.de (mail.uni-kl.de [131.246.120.212])
-	by mailgw1.uni-kl.de (8.18.1/8.18.1/Debian-6) with ESMTPS id 695CZPBU1272841
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
-	for <stable@vger.kernel.org>; Mon, 5 Oct 2026 14:35:25 +0200
-Received: from [2003:f6:2713:f52:6111:977:9049:d446] (account fyw21nur@rptu.de)
-  by rptu.de (CommuniGate Pro XIMSS 6.3.11)
-  with HTTPU id 325891654; Mon, 05 Oct 2026 14:35:25 +0200
-X-Mailer: Samoware HTML5 6.3.6509139
-Subject: [PATCH] ALSA: hda/realtek: Add quirk for LG gram 16 (16Z90SP)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qvzL1VD6"
+Received: by mail-lr2-f3.google.com with SMTP id 38308e7fff4ca-3a77df9781eso11734521fa.1
+        for <stable@vger.kernel.org>; Mon, 05 Oct 2026 05:37:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791203851; x=1791808651; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gt2QZueXCtMYUg/+LdAV+X7CcqwaR0yZcibIjcXuM5k=;
+        b=qvzL1VD6uM0sytgBhyC3jR+W1WlZGDTYiTyunLh2P3wWkp2PzcE4RdfxVwpXld/zLd
+         SoQfOa71Netzo04XfJTOw2ZKUUoO9iX3hJcqNZY0Uq1kOknVYkSoeJs+CyTCw72rIQKJ
+         oynUVidqYa7k+vnuY0eAbd1GcCtlYDPOHD2TJq0d+YSe8NaCLo2zW60+/cvMQAwia7cp
+         2JyiK+M/GJwZU2sGcqUZHDlWtAVPbk+pkBRWUtqytKp+UCI/wwGUtM0sS+Rijxn71pla
+         UQQyIulaUsNADU1RWpxUbWVUQ1YQXsLWnSaFnKMvRWMWErQP1QrHFhi/wTiuQRpQf943
+         kReQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791203851; x=1791808651;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gt2QZueXCtMYUg/+LdAV+X7CcqwaR0yZcibIjcXuM5k=;
+        b=MAEJqsTkXNJs9JKgysd77zTrUhFbvw5/oQXQkQRflV2TwEIXrAOm8oopPlakZgrcrz
+         9P1gF7oisDFw3sPXg/qAnrxtrxNOisOimOrRPoz9yfX+0zQzNdsyfA1TNV6yJ7PkCi33
+         /hYrcXL6sKm/GYYWRp7n62A5fFKYOH/jpS0iTA9Wr1/ACtAbxr2OkMGwvQh2O59Gy95a
+         eAGo+M0Fme/ysDFGuSo1CPvcBnbhxlHfnBHq+pc65eW0/qtIwFesYJDNjWTublqjqa9Z
+         wgkhjUXN9s2Kibp83zKfDBC+o5fRgHCPiEvEEUOOM2xq3bDN4J4BYAW9nXAKuVAz9Kqt
+         UhKw==
+X-Gm-Message-State: AFq9FYLlbQKTunFM4OoWGDYF2AcyhCv6Rhy6XczdY5JbZWOe9/epWTJf
+	fQ8ACFEoMVP+ATyMLoEiff2OGUZ3cTKlQH/aMk2+8eWeL6FYaNS/5sZYQezfWNmt
+X-Gm-Gg: AYBFou1FrM/MsTUtLSTNXBZPKhTD81jtHzY5y5f0utrlnANwzMwotCbrhEqhk16dn9z
+	uCtPzYcA0NBHPBvaGuYAh2zP2NM4m/S/ebElQH2EbbmtqXMVVoZfrGhZ5QgTLTBj38dVtB1fX1+
+	+iSwyxvAM6RQq6umc53mN6TnpQDLYNYW4+9htBOuS4Y3M/WdjREwHqGqFNxol7fCEWnpH1fJd2z
+	CYDvD7+cNn2+1Y1rDBOA+Y3OOSBToD+HEZ7jn/1bxXXB6oBW4excyFkiGXMoETJxlx15bI8HbS5
+	ZjBUvrKdWWcOOY25ybx3n6lCWh8F2YH9by8S7ZYaQkP6lGF4VGLThMdpht8jl+2apfyQsPQJLq8
+	ncQwMhdGN6T1FbkmLE2rPMY8cYwSRF8btGQmf5XG4jy1b1/ONBBRsYkwm5O+WWAgkFtmodLLLRm
+	IZ/UlVcJJO/VsIFW/dzhJw6Ymp9yM394A9W9D9B/5Z2+zmYB/kYvUOfW4AXSbQChZEwuF0H/EiC
+	VKphYpNNYnKQxAe
+X-Received: by 2002:a05:6512:688d:20b0:5b8:bc5e:d118 with SMTP id 2adb3069b0e04-5bb9bc2ba85mr2534588e87.66.1791203851108;
+        Mon, 05 Oct 2026 05:37:31 -0700 (PDT)
+Received: from localhost.localdomain ([78.40.184.2])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bb7c718f62sm3228393e87.12.2026.10.05.05.37.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 05:37:30 -0700 (PDT)
+From: Roman Demidov <roman.demidov.nn@gmail.com>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Wanpeng Li <wanpengli@tencent.com>,
+	Jim Mattson <jmattson@google.com>,
+	Joerg Roedel <joro@8bytes.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org
+Subject: [PATCH 5.10 1/3] KVM: LAPIC: Advancing the timer expiration on guest initiated write
+Date: Mon,  5 Oct 2026 15:36:58 +0300
+Message-ID: <20261005123705.137028-1-roman.demidov.nn@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Cc:  tiwai@suse.de, stable@vger.kernel.org
-From:  "Prateek Yadav" <fyw21nur@rptu.de>
-To:  alsa-devel@alsa-project.org
-Date: Mon, 05 Oct 2026 14:35:25 +0200
-Message-ID: <ximss-325891667@mail1.uni-kl.de>
-Content-Type: text/plain; charset="utf-8"; format="flowed"
 Content-Transfer-Encoding: 8bit
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed; d=rptu.de; h=subject:mime-version:cc:from:to:date:message-id:content-type:content-transfer-encoding; s=rptu2026; bh=yDdqInFk3YpdDUiRGSXuiC/zzCHwu67hYsiL6JTzZlI=; b=HMkk8ytzlzH/3i9a46OPWDcjCpHbFFXV0GCrddbdDFOteY1TPNbb3RLsf2fTDRT++U2z3NyWhMUYFh6AdZZXEsCppM9cAxZzMOYDylHy3UrjPyevj+ej2t5682Iuw/sA0UCZpISUnlRBqKmjIvReVUSfP8m9/Qd/VcgKu2gxKhQh+5kbRY/RQEa/qE+Gqs2f169OdH4Uf/aUxoXsg+XP19qGSZ943L9/CHx3LvjO8RrcPdf3KfwKkI3zNMHehK/EwzL0h56k/FMN4bVEjMViticfHiiW0OLiAWqCfHOb6ZHDMEb7UTDHNTtxXtcRVfRqTEYTb6SDg8FB1UXvSo4xSg==
-X-Spam-ID: 155943::1791203730-D99F8827-93CC9F59/0/0
-X-Spam-Score:  (-1.92)
-X-Spam-Flag: NO
 
-The LG gram 16 (16Z90SP, SSID 1854:053b) drives its internal speakers
-through Samsung-style smart amplifiers on an ALC298. Nothing
-initialises them, so the internal speakers are silent after a cold
-boot, while headphones, HDMI and the microphones work. A warm reboot
-masks the problem, as the amps stay initialised.
+From: Wanpeng Li <wanpengli@tencent.com>
 
-Evidence (kernel 7.2.5-3-omarchy, sof-firmware 2025.12.2-1,
-PipeWire 1.6.8):
-- aplay -D plughw:0,0 completes with exit 0 but no audible output.
-- During playback the codec shows Node 0x03 Converter stream=1,
-   Amp-Out vals [0x69 0x69] unmuted, and Pin 0x17 OUT with EAPD on —
-   the digital path is correct, the amps simply never start.
-- Headphone Jack reports off, Speaker Phantom Jack reports on.
-- Running the known 4-amp hda-verb init sequence
-   (amps 0x38/0x39/0x3C/0x3D, cf. joshuagrisham/galaxy-book2-pro-linux
-   necessary-verbs.sh) restores speaker output immediately.
-- Machine dual-boots Windows, which explains cold-boot-only silence.
+commit 35737d2db2f4567106c90060ad110b27cb354fa4 upstream.
 
-This mirrors the 16Z90TR (1854:0554) case fixed with
-ALC298_FIXUP_SAMSUNG_AMP_V2_2_AMPS, and the 16" 16Z90R-A (1854:0489)
-which uses the 4-amp variant. I verified the 4-amp init works on this
-machine; please adjust to _2_AMPS if COEF 0x22 indicates two amps.
+Advancing the timer expiration should only be necessary on guest initiated
+writes. When we cancel the timer and clear .pending during state restore,
+clear expired_tscdeadline as well.
 
-  sound/hda/codecs/realtek/alc269.c | 1 +
-  1 file changed, 1 insertion(+)
+Reviewed-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Wanpeng Li <wanpengli@tencent.com>
+Message-Id: <1614818118-965-1-git-send-email-wanpengli@tencent.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Stable-dep-of: 54b3439c8e70 ("KVM: LAPIC: Also cancel preemption timer during SET_LAPIC")
+Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
+---
+ arch/x86/kvm/lapic.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/hda/codecs/realtek/alc269.c 
-b/sound/hda/codecs/realtek/alc269.c
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -8114,6 +8114,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
-      SND_PCI_QUIRK(0x1854, 0x0489, "LG gram 16 (16Z90R-A)", 
-ALC298_FIXUP_SAMSUNG_AMP_V2_4_AMPS),
-      SND_PCI_QUIRK(0x1854, 0x048a, "LG gram 17 (17ZD90R)", 
-ALC298_FIXUP_SAMSUNG_AMP_V2_4_AMPS),
-      SND_PCI_QUIRK(0x1854, 0x0490, "LG Gram Style 14 (14Z90RS)", 
-ALC298_FIXUP_LG_GRAM_STYLE_14),
-+    SND_PCI_QUIRK(0x1854, 0x053b, "LG gram 16 (16Z90SP)", 
-ALC298_FIXUP_SAMSUNG_AMP_V2_4_AMPS),
-      SND_PCI_QUIRK(0x1854, 0x0554, "LG gram 16 (16Z90TR)", 
-ALC298_FIXUP_SAMSUNG_AMP_V2_2_AMPS),
+diff --git a/arch/x86/kvm/lapic.c b/arch/x86/kvm/lapic.c
+index 8b7c3f773d70..0b6fc5395798 100644
+--- a/arch/x86/kvm/lapic.c
++++ b/arch/x86/kvm/lapic.c
+@@ -2629,6 +2629,7 @@ int kvm_apic_set_state(struct kvm_vcpu *vcpu, struct kvm_lapic_state *s)
+ 
+ 	apic_update_ppr(apic);
+ 	hrtimer_cancel(&apic->lapic_timer.timer);
++	apic->lapic_timer.expired_tscdeadline = 0;
+ 	apic_update_lvtt(apic);
+ 	apic_manage_nmi_watchdog(apic, kvm_lapic_get_reg(apic, APIC_LVT0));
+ 	update_divide_count(apic);
+-- 
+2.53.0
 
-Hardware: LG 16Z90SP-A.AD7BG, Intel Meteor Lake-P HD Audio [8086:7e28],
-Realtek ALC298 [10ec:0298] rev 0x100103, SSID 1854:053b.
-ALSA info: 
-https://alsa-project.org/db/?f=7e8c49270f1b902ebb9fa76a4695f8301db040cf
-
-
-Signed-off-by: Prateek prateek.yadav@edu.rptu.de
