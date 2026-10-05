@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8532247AF57
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 20:16:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 087072FDC20
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 20:16:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791231409; cv=none; b=ZO7uqlIKjXpEVcIa4jvapIt0Hrpa2PItbwzMMkqSYxnVjbWXFe667yXBcxUfDabZIiFjhEYDEjxHTbOskFF8t5LO8SDGkuOm1RK6KM/awg9S8Ta3cY3PXlgML+1JvJBea5xu6T7DoswdsDYloAYrSKSaOmkUajrJ0+BYxiK8POg=
+	t=1791231421; cv=none; b=Pm8afalabehoFHqNTkCfkJ266mN+UgOiJN+hSc/yECwpJkU/tFU/GQegBiZKrRgBpIgbRQjRm30+PeSM6ue4mg0QuXwquqyNH4KN5Vy9XUypSuijA0cCXUc2gTvQc5UP9asVxyEWP1+C+Rlr0B1pxW7Q0KSTtVpaEHueUKy7H/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791231409; c=relaxed/simple;
-	bh=lD1iy5dlOxTDbMRJC7ZauTG0WFtzT0IfaqvnIS9DoEA=;
+	s=arc-20240116; t=1791231421; c=relaxed/simple;
+	bh=GBOS7wCfdINnpihQPBRBtsXHf8A/cu34Xbi9OMBvnzI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ol0GWPUt1NOj873OIpUuB6rnCRgNiM57WueG54RIxFTFjVtOCIfs7UT/i4ixzqreXDAtQnh3EFvVqCj59FTHacBEDM77eNY9Ge57Mgu1qsjGNtejIHbGTdL2pBGuwpD1ajXOktVe/2c7SZrBRj3ZXEotCFtY2HCVHwnL34bFsTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YjkSmUL2; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=lnFfBmXJQ/PmX7x7nYkUJjk1NWPmFPt/LO9NIWu3pPVc7YJOurvD718IUQw4t9MoouVt/6hQNPFsqR+BDLJ1tXElxmrJrEf10gT8IPW6doz5AuI15R8Y/AbCJM3byRwAzpa5ojhIulJnSiqOEU30bjjBEqg7qvM80xfJ7qNzkvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IS20J8B4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YjkSmUL2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B48591F00893;
-	Mon,  5 Oct 2026 20:16:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IS20J8B4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E14DF1F00893;
+	Mon,  5 Oct 2026 20:16:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791231407;
-	bh=TNcx2YTmLMrvGahqntcaSuROrnyNY0hRxG+pUAZ/F24=;
+	s=k20260515; t=1791231419;
+	bh=//vh8bzsWj/JtOw4RBtRBJGm8SUm7rTohX4JMQKEOwI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YjkSmUL2gORgxOTPHZhN82/WKLu53j3EXs5eCHZWUlsWXF55y7mZvUG0Sl7ThgA9V
-	 lvNNIXQjAwGVVqFycFrnFgc266AfLJZ3TDlE71REewk20xWXP2Wx4sy46itKTOy/HU
-	 LlgMovY1FIUmfOGnLmv+lXUVuGClIf72aOrcZFsj77gV97bolg08MBKsbPSQicFvCk
-	 jowcvUjgBXmVbBXUzrXkTzFWT/QUOm7kPjeE6K6pJRQM6866l/Sd/nFIWSPxAL/0d3
-	 o3zhCkkYozLiXP/Audl7+xA4nRNWIA4bAdP/ZyD8KKoAgyMncJa1ep1Ga9XD8A6iQn
-	 SsyNCuGECPLXw==
+	b=IS20J8B4wt/xvAJCoPPrByuwEP17lJZJD4KvlzxgdHLpxbUBbGMPWBusck1hzTAbZ
+	 WF5TG2Kh5AsVWMB6ag5YocereiPOT6DjggcvlUDF85TR/UkD2qAMN35l1cxFUaqaHT
+	 zFpdWAuVu0MRqWeWTZFnBd+5wfK13EFc7gclweE530aepb2qQx3a2Zl7CoC6g6lg0U
+	 gAAhMn4KM1hJqpPnIVp9doqOjOzOOmGar6XFDE+0Ded4v96veNxG1iWIhUssgjoUX/
+	 +rZ8/HxDqEp3Pe1ppyFpvUG9Eir3prcL6JPYDrUQ8Z8WXWw7F/uhqbhuwXqkYM3uL9
+	 UIz+hLGMBL+cg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jiazi Liu <jiazi.liu1984@gmail.com>,
+Cc: Pannarat Wiriyaarritham <pannarat.wiriyaarritham@danielcorp.dev>,
 	stable <stable@kernel.org>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] usb: dwc3: gadget: fix IRQ storm on invalid event buffer count
-Date: Mon,  5 Oct 2026 16:16:43 -0400
-Message-ID: <20261005201514.3154115-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] usb: typec: ucsi: acpi: Assume UCSI 1.2 on Acer Nitro ANV15-41
+Date: Mon,  5 Oct 2026 16:16:55 -0400
+Message-ID: <20261005201508.3155216-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100540-ember-mystified-7271@gregkh>
-References: <2026100540-ember-mystified-7271@gregkh>
+In-Reply-To: <2026100552-arrival-nuzzle-44d7@gregkh>
+References: <2026100552-arrival-nuzzle-44d7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,355 +47,89 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jiazi Liu <jiazi.liu1984@gmail.com>
+From: Pannarat Wiriyaarritham <pannarat.wiriyaarritham@danielcorp.dev>
 
-[ Upstream commit 1ff77cbefe5a653ea12874c213ea4bd0d72c1067 ]
+[ Upstream commit 8c51ea651d043c786c37668c51624bd6b338a0ef ]
 
-When dwc3_check_event_buf() reads a GEVNTCOUNT value exceeding the
-event buffer length, commit 63ccd26cd1f6 ("usb: dwc3: gadget: check
-that event count does not exceed event buffer length") returns IRQ_NONE
-without writing back GEVNTCOUNT. Since the DWC3 interrupt is
-level-triggered, the uncleared IRQ source keeps the line asserted,
-causing a tight IRQ storm that accumulates 99,900 unhandled interrupts
-and triggers spurious.c:184 BUG -> kernel panic.
+The Acer Nitro ANV15-41 exposes a functional UCSI ACPI PPM but
+reports a UCSI VERSION value of zero.
 
-The resulting call stack:
-  __report_bad_irq+0xac/0xc8
-  note_interrupt+0x340/0x468
-  handle_irq_event+0xac/0xc0
-  handle_fasteoi_irq+0x120/0x228
-  gic_handle_irq+0x68/0x108
-  ...
-  kernel BUG at kernel/irq/spurious.c:184
+ucsi_register() rejects a zero version with -ENODEV, leaving the
+system without registered USB Type-C connectors.
 
-To reproduce, write a bogus value exceeding the event buffer length
-directly to the GEVNTCOUNT register:
+The PPM works correctly when using the UCSI 1.2 layout. With UCSI
+1.2 assumed, both Type-C connectors register correctly and USB Power
+Delivery negotiation works.
 
-  devmem <DWC3_BASE + 0xc40c> 4 0x1004
+Add a DMI-specific UCSI operation for the Acer Nitro ANV15-41 that
+substitutes UCSI 1.2 only when firmware reports a zero version.
+Preserve any valid non-zero firmware version.
 
-Write the bogus count back to GEVNTCOUNT to clear the IRQ source,
-consistent with the stale event clearing pattern in
-dwc3_event_buffers_setup(), and schedule error recovery to
-reinitialize the controller.
+Tested on an Acer Nitro ANV15-41 with BIOS V1.51.
 
-Fixes: 63ccd26cd1f6 ("usb: dwc3: gadget: check that event count does not exceed event buffer length")
+Fixes: c1b0bc2dabfa ("usb: typec: Add support for UCSI interface")
 Cc: stable <stable@kernel.org>
-Suggested-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Signed-off-by: Jiazi Liu <jiazi.liu1984@gmail.com>
-Link: https://patch.msgid.link/20260915110637.17658-1-jiazi.liu1984@gmail.com
-Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Assisted-by: LLM
+Signed-off-by: Pannarat Wiriyaarritham <pannarat.wiriyaarritham@danielcorp.dev>
+Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Link: https://patch.msgid.link/20260910023338.31816-1-pannarat.wiriyaarritham@danielcorp.dev
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ sashal: changed dwc3_writel() calls to pass dwc->regs instead of dwc. ]
+[ sashal: Adapted .read_version to the generic .read callback with offset and length checks. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/dwc3/core.h   |  19 +++++++
- drivers/usb/dwc3/ep0.c    |   9 ++++
- drivers/usb/dwc3/gadget.c | 104 +++++++++++++++++++++++++++++++++++++-
- 3 files changed, 130 insertions(+), 2 deletions(-)
+ drivers/usb/typec/ucsi/ucsi_acpi.c | 32 ++++++++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
-diff --git a/drivers/usb/dwc3/core.h b/drivers/usb/dwc3/core.h
-index 933a208c3aab5..e4e0c40dc51d3 100644
---- a/drivers/usb/dwc3/core.h
-+++ b/drivers/usb/dwc3/core.h
-@@ -42,6 +42,7 @@
- #define DWC3_ENDPOINTS_NUM	32
- #define DWC3_XHCI_RESOURCES_NUM	2
- #define DWC3_ISOC_MAX_RETRIES	5
-+#define DWC3_ERR_RECOVERY_MAX	3
- 
- #define DWC3_SCRATCHBUF_SIZE	4096	/* each buffer is assumed to be 4KiB */
- #define DWC3_EVENT_BUFFERS_SIZE	4096
-@@ -817,6 +818,12 @@ enum dwc3_link_state {
- 	DWC3_LINK_STATE_MASK		= 0x0f,
+diff --git a/drivers/usb/typec/ucsi/ucsi_acpi.c b/drivers/usb/typec/ucsi/ucsi_acpi.c
+index 1054947497bb2..7a4969a086df2 100644
+--- a/drivers/usb/typec/ucsi/ucsi_acpi.c
++++ b/drivers/usb/typec/ucsi/ucsi_acpi.c
+@@ -107,6 +107,31 @@ static const struct ucsi_operations ucsi_acpi_ops = {
+ 	.async_write = ucsi_acpi_async_write
  };
  
-+enum dwc3_err_state {
-+	DWC3_ERR_NONE = 0,
-+	DWC3_ERR_RECOVERY,
-+	DWC3_ERR_UNRECOVERABLE,
-+};
-+
- /* TRB Length, PCM and Status */
- #define DWC3_TRB_SIZE_MASK	(0x00ffffff)
- #define DWC3_TRB_SIZE_LENGTH(n)	((n) & DWC3_TRB_SIZE_MASK)
-@@ -972,6 +979,7 @@ struct dwc3_scratchpad_array {
- /**
-  * struct dwc3 - representation of our controller
-  * @drd_work: workqueue used for role swapping
-+ * @err_recovery_work: workqueue used for controller error recovery
-  * @ep0_trb: trb which is used for the ctrl_req
-  * @bounce: address of bounce buffer
-  * @scratchbuf: address of scratch buffer
-@@ -983,6 +991,7 @@ struct dwc3_scratchpad_array {
-  * @ep0_in_setup: one control transfer is completed and enter setup phase
-  * @lock: for synchronizing
-  * @mutex: for mode switching
-+ * @connect_mutex: for the pull-up and err_recovery_work
-  * @dev: pointer to our struct device
-  * @sysdev: pointer to the DMA-capable device
-  * @xhci: pointer to our xHCI child
-@@ -1041,6 +1050,9 @@ struct dwc3_scratchpad_array {
-  * @ep0_next_event: hold the next expected event
-  * @ep0state: state of endpoint zero
-  * @link_state: link state
-+ * @err_state: current error recovery state.
-+ * @err_recovery_count: number of consecutive error recovery attempts until
-+ *		confirmed healthy and reset to 0 on reset event.
-  * @speed: device speed (super, high, full, low)
-  * @hwparams: copy of hwparams registers
-  * @regset: debugfs pointer to regdump file
-@@ -1133,6 +1145,7 @@ struct dwc3_scratchpad_array {
-  */
- struct dwc3 {
- 	struct work_struct	drd_work;
-+	struct work_struct	err_recovery_work;
- 	struct dwc3_trb		*ep0_trb;
- 	void			*bounce;
- 	void			*scratchbuf;
-@@ -1149,6 +1162,9 @@ struct dwc3 {
- 	/* mode switching lock */
- 	struct mutex		mutex;
- 
-+	/* serializes pull-up run/stop vs error recovery */
-+	struct mutex		connect_mutex;
-+
- 	struct device		*dev;
- 	struct device		*sysdev;
- 
-@@ -1265,6 +1281,9 @@ struct dwc3 {
- 	enum dwc3_ep0_next	ep0_next_event;
- 	enum dwc3_ep0_state	ep0state;
- 	enum dwc3_link_state	link_state;
-+	enum dwc3_err_state	err_state;
-+
-+	u32			err_recovery_count;
- 
- 	u16			u2sel;
- 	u16			u2pel;
-diff --git a/drivers/usb/dwc3/ep0.c b/drivers/usb/dwc3/ep0.c
-index f30ad37ea8a19..c4aa925bcd7cf 100644
---- a/drivers/usb/dwc3/ep0.c
-+++ b/drivers/usb/dwc3/ep0.c
-@@ -198,6 +198,11 @@ int dwc3_gadget_ep0_queue(struct usb_ep *ep, struct usb_request *request,
- 	int				ret;
- 
- 	spin_lock_irqsave(&dwc->lock, flags);
-+	if (dwc->err_state != DWC3_ERR_NONE) {
-+		ret = -ESHUTDOWN;
-+		goto out;
-+	}
-+
- 	if (!dep->endpoint.desc || !dwc->pullups_connected || !dwc->connected) {
- 		dev_err(dwc->dev, "%s: can't queue to disabled endpoint\n",
- 				dep->name);
-@@ -269,6 +274,10 @@ int dwc3_gadget_ep0_set_halt(struct usb_ep *ep, int value)
- 	int				ret;
- 
- 	spin_lock_irqsave(&dwc->lock, flags);
-+	if (dwc->err_state != DWC3_ERR_NONE) {
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+		return -ESHUTDOWN;
-+	}
- 	ret = __dwc3_gadget_ep0_set_halt(ep, value);
- 	spin_unlock_irqrestore(&dwc->lock, flags);
- 
-diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c
-index 25f7ab01c3c3c..cd0532158ba0b 100644
---- a/drivers/usb/dwc3/gadget.c
-+++ b/drivers/usb/dwc3/gadget.c
-@@ -1108,6 +1108,10 @@ static int dwc3_gadget_ep_enable(struct usb_ep *ep,
- 		return 0;
- 
- 	spin_lock_irqsave(&dwc->lock, flags);
-+	if (dwc->err_state != DWC3_ERR_NONE) {
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+		return -ESHUTDOWN;
-+	}
- 	ret = __dwc3_gadget_ep_enable(dep, DWC3_DEPCFG_ACTION_INIT);
- 	spin_unlock_irqrestore(&dwc->lock, flags);
- 
-@@ -2006,6 +2010,10 @@ static int dwc3_gadget_ep_queue(struct usb_ep *ep, struct usb_request *request,
- 	int				ret;
- 
- 	spin_lock_irqsave(&dwc->lock, flags);
-+	if (dwc->err_state != DWC3_ERR_NONE) {
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+		return -ESHUTDOWN;
-+	}
- 	ret = __dwc3_gadget_ep_queue(dep, req);
- 	spin_unlock_irqrestore(&dwc->lock, flags);
- 
-@@ -2238,6 +2246,10 @@ static int dwc3_gadget_ep_set_halt(struct usb_ep *ep, int value)
- 	int				ret;
- 
- 	spin_lock_irqsave(&dwc->lock, flags);
-+	if (dwc->err_state != DWC3_ERR_NONE) {
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+		return -ESHUTDOWN;
-+	}
- 	ret = __dwc3_gadget_ep_set_halt(dep, value, false);
- 	spin_unlock_irqrestore(&dwc->lock, flags);
- 
-@@ -2252,6 +2264,10 @@ static int dwc3_gadget_ep_set_wedge(struct usb_ep *ep)
- 	int				ret;
- 
- 	spin_lock_irqsave(&dwc->lock, flags);
-+	if (dwc->err_state != DWC3_ERR_NONE) {
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+		return -ESHUTDOWN;
-+	}
- 	dep->flags |= DWC3_EP_WEDGE;
- 
- 	if (dep->number == 0 || dep->number == 1)
-@@ -2373,6 +2389,10 @@ static int dwc3_gadget_wakeup(struct usb_gadget *g)
- 	int			ret;
- 
- 	spin_lock_irqsave(&dwc->lock, flags);
-+	if (dwc->err_state != DWC3_ERR_NONE) {
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+		return -ESHUTDOWN;
-+	}
- 	ret = __dwc3_gadget_wakeup(dwc);
- 	spin_unlock_irqrestore(&dwc->lock, flags);
- 
-@@ -2706,10 +2726,13 @@ static int dwc3_gadget_pullup(struct usb_gadget *g, int is_on)
- 
- 	synchronize_irq(dwc->irq_gadget);
- 
-+	/* Serialize against dwc3_err_recovery_work() */
-+	mutex_lock(&dwc->connect_mutex);
- 	if (!is_on)
- 		ret = dwc3_gadget_soft_disconnect(dwc);
- 	else
- 		ret = dwc3_gadget_soft_connect(dwc);
-+	mutex_unlock(&dwc->connect_mutex);
- 
- 	pm_runtime_put(dwc->dev);
- 
-@@ -3984,6 +4007,10 @@ static void dwc3_gadget_reset_interrupt(struct dwc3 *dwc)
- 
- 	dwc->suspended = false;
- 
-+	/* The controller is recovered. */
-+	if (dwc->err_state == DWC3_ERR_NONE)
-+		dwc->err_recovery_count = 0;
-+
- 	/*
- 	 * Ideally, dwc3_reset_gadget() would trigger the function
- 	 * drivers to stop any active transfers through ep disable.
-@@ -4446,6 +4473,12 @@ static irqreturn_t dwc3_thread_interrupt(int irq, void *_evt)
- 	return ret;
- }
- 
-+static void dwc3_schedule_err_recovery(struct dwc3 *dwc)
++static int ucsi_acer_read(struct ucsi *ucsi, unsigned int offset,
++			  void *val, size_t val_len)
 +{
-+	dwc->err_state = DWC3_ERR_RECOVERY;
-+	schedule_work(&dwc->err_recovery_work);
-+}
-+
- static irqreturn_t dwc3_check_event_buf(struct dwc3_event_buffer *evt)
- {
- 	struct dwc3 *dwc = evt->dwc;
-@@ -4479,9 +4512,21 @@ static irqreturn_t dwc3_check_event_buf(struct dwc3_event_buffer *evt)
- 		return IRQ_NONE;
- 
- 	if (count > evt->length) {
--		dev_err_ratelimited(dwc->dev, "invalid count(%u) > evt->length(%u)\n",
-+		dev_err(dwc->dev, "invalid count(%u) > evt->length(%u)\n",
- 			count, evt->length);
--		return IRQ_NONE;
-+		/*
-+		 * This is a fatal error - the driver and controller are out of
-+		 * sync on which event has been consumed. Reinitializing the
-+		 * controller is required to recover. Write the bogus count back
-+		 * to GEVNTCOUNT to clear the IRQ source, consistent with the
-+		 * stale event clearing in dwc3_event_buffers_setup(), then
-+		 * schedule error recovery.
-+		 */
-+		spin_lock(&dwc->lock);
-+		dwc3_schedule_err_recovery(dwc);
-+		spin_unlock(&dwc->lock);
-+		dwc3_writel(dwc->regs, DWC3_GEVNTCOUNT(0), count);
-+		return IRQ_HANDLED;
- 	}
- 
- 	evt->count = count;
-@@ -4546,6 +4591,57 @@ static void dwc_gadget_release(struct device *dev)
- 	kfree(gadget);
- }
- 
-+static void dwc3_err_recovery_work(struct work_struct *work)
-+{
-+	struct dwc3 *dwc = container_of(work, struct dwc3, err_recovery_work);
-+	unsigned long flags;
++	struct ucsi_acpi *ua = ucsi_get_drvdata(ucsi);
++	u16 *version = val;
 +	int ret;
 +
-+	/* serializes against dwc3_gadget_pullup() */
-+	mutex_lock(&dwc->connect_mutex);
-+
-+	ret = dwc3_gadget_soft_disconnect(dwc);
-+
-+	dwc3_disconnect_gadget_sleepable(dwc);
-+
++	ret = ucsi_acpi_read(ucsi, offset, val, val_len);
 +	if (ret)
-+		goto err_unrecoverable;
++		return ret;
 +
-+	if (dwc->softconnect) {
-+		u32 count;
-+		/*
-+		 * Wait irq to finish before soft_connect resets evt->lpos and
-+		 * the event buffer registers to avoid racing with
-+		 * dwc3_process_event_buf().
-+		 */
-+		synchronize_irq(dwc->irq_gadget);
-+
-+		spin_lock_irqsave(&dwc->lock, flags);
-+		count = ++dwc->err_recovery_count;
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+
-+		if (count > DWC3_ERR_RECOVERY_MAX)
-+			goto err_unrecoverable;
-+
-+		ret = dwc3_gadget_soft_connect(dwc);
-+		if (ret)
-+			goto err_unrecoverable;
++	if (offset == UCSI_VERSION && val_len == sizeof(*version) && !*version) {
++		dev_warn(ua->dev, "UCSI version is zero, assuming 1.2\n");
++		*version = UCSI_VERSION_1_2;
 +	}
-+	mutex_unlock(&dwc->connect_mutex);
 +
-+	spin_lock_irqsave(&dwc->lock, flags);
-+	dwc->err_state = DWC3_ERR_NONE;
-+	spin_unlock_irqrestore(&dwc->lock, flags);
-+	return;
-+
-+err_unrecoverable:
-+	dev_err(dwc->dev, "Unable to recover the controller\n");
-+	mutex_unlock(&dwc->connect_mutex);
-+	spin_lock_irqsave(&dwc->lock, flags);
-+	dwc->err_state = DWC3_ERR_UNRECOVERABLE;
-+	spin_unlock_irqrestore(&dwc->lock, flags);
++	return 0;
 +}
 +
- /**
-  * dwc3_gadget_init - initializes gadget related registers
-  * @dwc: pointer to our controller context structure
-@@ -4589,6 +4685,8 @@ int dwc3_gadget_init(struct dwc3 *dwc)
- 	}
++static const struct ucsi_operations ucsi_acer_ops = {
++	.read = ucsi_acer_read,
++	.sync_write = ucsi_acpi_sync_write,
++	.async_write = ucsi_acpi_async_write
++};
++
+ static int
+ ucsi_zenbook_read(struct ucsi *ucsi, unsigned int offset, void *val, size_t val_len)
+ {
+@@ -174,6 +199,13 @@ static const struct ucsi_operations ucsi_dell_ops = {
+ };
  
- 	init_completion(&dwc->ep0_in_setup);
-+	INIT_WORK(&dwc->err_recovery_work, dwc3_err_recovery_work);
-+	mutex_init(&dwc->connect_mutex);
- 	dwc->gadget = kzalloc(sizeof(struct usb_gadget), GFP_KERNEL);
- 	if (!dwc->gadget) {
- 		ret = -ENOMEM;
-@@ -4679,6 +4777,8 @@ void dwc3_gadget_exit(struct dwc3 *dwc)
- 	if (!dwc->gadget)
- 		return;
- 
-+	cancel_work_sync(&dwc->err_recovery_work);
-+	mutex_destroy(&dwc->connect_mutex);
- 	dwc3_enable_susphy(dwc, true);
- 	usb_del_gadget(dwc->gadget);
- 	dwc3_gadget_free_endpoints(dwc);
+ static const struct dmi_system_id ucsi_acpi_quirks[] = {
++	{
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "Acer"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "Nitro ANV15-41"),
++		},
++		.driver_data = (void *)&ucsi_acer_ops,
++	},
+ 	{
+ 		.matches = {
+ 			DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
 -- 
 2.53.0
 
