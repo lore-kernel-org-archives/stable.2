@@ -1,97 +1,106 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DFEE43B6D3
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 10:32:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41A2946D09A;
+	Mon,  5 Oct 2026 10:33:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791196341; cv=none; b=JidexUgQ9iPd6wQ6Hsw5Nbkwf1MtVzIvKvNQ+P4oR+v7rkqRKRXj9jvrpWWIUWgcriwP9Ea8lDQHLGLUZCLgxKNXnraDFNIqwUboLiF4FdKNdz0XyDPxReA+unRwOi8DBeWGTg0eYx5BxYdqPHcAEdwEjh7rFkze1C01NIPC7Ko=
+	t=1791196387; cv=none; b=MJVy1M8U5x1Bkf0dP8dNpz9nlbUY2EiDD21PQjVqqpK7vw/wzALEuxdsTuBSlPKY8KWUpQXiR+l2kVkNLiVGUurbajkRqjt5PVcuhEPtvMfCQMXD2Vu5Ox8Lv/Ne15XpApqbzWnsBF1YksPZdU6QowDHxhS4pFRLHquGDVUnmb0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791196341; c=relaxed/simple;
-	bh=z5zSbLmguQ+KczxRvZRz9HioBJ7EmIPYZKVTLI1qInM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=LxB/xKorgwCFTAYypECwxUlNGB1rMYpBggqgPXqPxarCZfIyGu0/Jv7EqM7e8a48X7HAyzeQOnYSnnIB58FPLLNbVEUH9VTKwmXQsvYRdpTyT/EiGjwBLYrudwRltG75mNlmBbxyyw/x7q3FgBR0MBWldxAesTrCFqJ74r/MRRo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Y65WSBg+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791196387; c=relaxed/simple;
+	bh=HeYnKht+rbXkuUa4EohCDb03waSQr6SlS8L/YvVyIcI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=qOV5u9GlmJiz306NsASNY1vCHAmpOUqSdomi8JiAUUXDESdRIBZ1JK3yBEWpJQV8MSUXS5ekf727vFoImaOt4iSeiI/zHSbCG13nr6H4Z2OH2+QCelyiQu+PKMGhzCVcIQ1eLL2WwxfMRh7OxgT+1Q3OFZj+wqW7HiKy+CI4Zag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XIKbOsTL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Y65WSBg+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CABF41F000FF;
-	Mon,  5 Oct 2026 10:32:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791196340;
-	bh=cYbxwQ1fVGphkrdrdzALqWXZQwpRr0jwja2C3T2eois=;
-	h=Subject:To:Cc:From:Date;
-	b=Y65WSBg+i+WcorUZ+mJO2MCpmKBtw41hNYy+oe8ObD7+tRxeW13v3TLvffxD38Bn1
-	 KbKc66pV9F5tWbZAEs7tYYCnIY6QBIXUmeO8M6WidvNy8eUrroEcolFaiflcEyFUTR
-	 fMEKcmBGGLBAMXUWCg50uAYMu33Wzsz0Va5dppyg=
-Subject: FAILED: patch "[PATCH] serial: abort TIOCMIWAIT on hangup" failed to apply to 5.10-stable tree
-To: johan@kernel.org,gregkh@linuxfoundation.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 05 Oct 2026 12:31:58 +0200
-Message-ID: <2026100557-cresting-plausibly-c85b@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XIKbOsTL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 619791F000FF;
+	Mon,  5 Oct 2026 10:33:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791196386;
+	bh=mJAWf/W409wQdx9doBOu157lRcmZ2hxa/1jrWIjHjcM=;
+	h=From:Date:Subject:To:Cc;
+	b=XIKbOsTLThS/39UM4QHfq9nlzcCJ1R0cIhknq74mI4QBHNxaliTFmlLNd/f398uyH
+	 puooWoXQmtSZbuJECh1j93tK/2E+OFNdUMc/2r5xbLLeW8RcDuT/08PhI7KFyR36v1
+	 r21t85yWTIwlUA8scSga1+drWWdTZ8vZ0NSLBQoUVAQ8U5Po//9OtgKfKIUOl0kjVg
+	 3DkM1s+wbon/NJuL8RaoUOb1i6H9TXBUf0bg5Mil9y6ivrgVPf0UgiI15tpDHY+6eQ
+	 G7qRvTeiazBFvk4Xmpz5rKTh5J8rhk8iiK8d6s/hyPTEk0Bsl8oyfBQmHirb7sAlQB
+	 FK0KPuKYjMNHg==
+From: Nathan Chancellor <nathan@kernel.org>
+Date: Mon, 05 Oct 2026 12:32:59 +0200
+Subject: [PATCH] wifi: brcmsmac: Adjust txpwrindex value in
+ nphy_ipa_rxcal_gaintbl_2GHz
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261005-brcmsmac-clang-24-constant-conversion-v1-1-a30c5692d582@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNQQrCMBBFr1Jm7UAa00K8irhIx4mO2FQysQild
+ zfR3X98eG8D5SyscOo2yLyKypIq9IcO6B7SjVGulcEaO/bGDDhlmnUOhPSsN1qHtCQtIZU2Vs7
+ NgEw++nh0g/MjVNcrc5TPr3O+/Fnf04OpNDns+xdb4z/UiQAAAA==
+X-Change-ID: 20261005-brcmsmac-clang-24-constant-conversion-ec9f9f345496
+To: Arend van Spriel <arend.vanspriel@broadcom.com>, 
+ linux-wireless@vger.kernel.org
+Cc: brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com, 
+ linux-kernel@vger.kernel.org, llvm@lists.linux.dev, stable@vger.kernel.org, 
+ Nathan Chancellor <nathan@kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2170; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=HeYnKht+rbXkuUa4EohCDb03waSQr6SlS8L/YvVyIcI=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFmHa+7OqKl//f6v2ekg54VvzsyYEW1z5dVbjVl3dqZ/P
+ cCfey3QrKOUhUGMi0FWTJGl+rHqcUPDOWcZb5yaBDOHlQlkCAMXpwBMJMOP4X+CcVz9hJmGs4qY
+ LULjbtzJitWcmjn7arPuF3n/+LBvvaaMDBPqTweXba2dYlH4ZPFrsYPJqnY2Wz/5rC79q8yj/2P
+ 7Z14A
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
+After a recent change in clang to warn on signed char conversions within
+array initializers [1], there is a warning (or error with
+CONFIG_WERROR=y / W=e) from nphy_ipa_rxcal_gaintbl_2GHz:
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+  drivers/net/wireless/broadcom/brcm80211/brcmsmac/phy/phy_n.c:224:18: error: implicit conversion from 'int' to 's8' (aka 'signed char') changes value from 128 to -128 [-Werror,-Wconstant-conversion]
+    224 |         {0, 0, 0, 0, 0, 128},
+        |         ~               ^~~
+  1 error generated.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+This value was introduced in the original staging merge of brcmsmac in
+commit a9533e7ea3c4 ("Staging: Add initial release of brcm80211 - Broadcom
+802.11n wireless LAN driver.") and it is the same in the proprietary
+driver [2]. Presumably it is correct since there have been no reported issues,
+so update the value to '-128' to be type correct and clear up the warning.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x eb35b73e133686e5b999eb7130c4e3d22fe03089
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100557-cresting-plausibly-c85b@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+Cc: stable@vger.kernel.org
+Fixes: a9533e7ea3c4 ("Staging: Add initial release of brcm80211 - Broadcom 802.11n wireless LAN driver.")
+Link: https://github.com/llvm/llvm-project/commit/a5ef934a8d295dc03be3960f2b3744ec2e53238e [1]
+Link: https://lore.kernel.org/1a107e21b08.2873.9b12b7fc0a3841636cfb5e919b41b954@broadcom.com/ [2]
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+---
+ drivers/net/wireless/broadcom/brcm80211/brcmsmac/phy/phy_n.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From eb35b73e133686e5b999eb7130c4e3d22fe03089 Mon Sep 17 00:00:00 2001
-From: Johan Hovold <johan@kernel.org>
-Date: Thu, 10 Sep 2026 15:08:16 +0200
-Subject: [PATCH] serial: abort TIOCMIWAIT on hangup
-
-Add the missing hangup check to the TIOCMIWAIT wait loop to avoid going
-back to sleep (indefinitely) after being woken on hangup.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: sashiko-bot@kernel.org
-Link: https://lore.kernel.org/r/20260904115542.E20D11F00A3D@smtp.kernel.org
-Cc: stable@kernel.org
-Signed-off-by: Johan Hovold <johan@kernel.org>
-Link: https://patch.msgid.link/20260910130816.642699-5-johan@kernel.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-
-diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
-index f7b30f77b231..33c8f3b6ac81 100644
---- a/drivers/tty/serial/serial_core.c
-+++ b/drivers/tty/serial/serial_core.c
-@@ -1244,6 +1244,11 @@ static int uart_wait_modem_status(struct tty_struct *tty, struct uart_state *sta
- 			break;
- 		}
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/phy/phy_n.c b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/phy/phy_n.c
+index 86cfa3e87a04..9ddd5d519893 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/phy/phy_n.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/phy/phy_n.c
+@@ -221,7 +221,7 @@ static const struct nphy_ipa_txrxgain nphy_ipa_rxcal_gaintbl_5GHz[] = {
+ };
  
-+		if (tty_io_error(tty)) {
-+			ret = -EIO;
-+			break;
-+		}
-+
- 		schedule();
- 
- 		/* see if a signal did it */
+ static const struct nphy_ipa_txrxgain nphy_ipa_rxcal_gaintbl_2GHz[] = {
+-	{0, 0, 0, 0, 0, 128},
++	{0, 0, 0, 0, 0, -128},
+ 	{0, 0, 0, 0, 0, 70},
+ 	{0, 0, 0, 0, 0, 20},
+ 	{0, 0, 0, 3, 0, 20},
+
+---
+base-commit: d24e8ac715de2e16a53c144005b1863660a5fbea
+change-id: 20261005-brcmsmac-clang-24-constant-conversion-ec9f9f345496
+
+Best regards,
+--  
+Cheers,
+Nathan
 
