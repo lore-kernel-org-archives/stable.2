@@ -1,170 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-2-59.ptr.blmpb.com (va-2-59.ptr.blmpb.com [209.127.231.59])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2EF52868B4;
-	Mon,  5 Oct 2026 16:52:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 497712E1EE0
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 17:02:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.59
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791219138; cv=none; b=mbJIbxVETXsTUy3xdW/63Rdc37XfIEowSAc+dYLAzYli/dV4xfL0mXZ5dE4wStoqMSEhR9TnB4oZSmUSlKWqWvWit8UoVHRNaF8G6IRZdXxfy0KXfg0iVpnlFqVtT9kDMtbDf8GjlzHbEjFRhZQ2pgNWyC8d2cLM91Rj4h+7M6U=
+	t=1791219753; cv=none; b=Kdkg3y+TYjqaorAGB17X9+TnmNHFfqIKbpftf591yOaxTy+cRSeGH4JXIq400ueAEq16kSgbFmHxckm4DBBUvvsAy2F99KZKTny9/nWbORBtiM202Zf/fuYHxjolzbG8fzj4dOOi0Qwz4uRwuNB+3TjuJkpskABad4Vao3sWOxA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791219138; c=relaxed/simple;
-	bh=ThwnO0ZqW23dg9Rvi9a8YjvO99W4F+lredTWaNy2D3w=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=JusXV1xWkc/kykirQU8pHq47JDM/d6MiSIdSKNi7zixiyb12HOZR6Bvg4lUtFKgYejo9/Y6Urx8xGpCWpkAlb4AxZaLkfboSMANURLTmFGfuZBUem312PcolqE6EAcNvHPwkQ8s7OgPokVa10Se/XnEsQkFOeGWFFKsD2BmShsY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QSKIP36A; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791219753; c=relaxed/simple;
+	bh=Fbzv8yDM0VkFzJyVWmyQ4yf3QgaTqALVYscqe7fJ0zA=;
+	h=Subject:Message-Id:References:In-Reply-To:To:Cc:Mime-Version:
+	 Content-Type:From:Date; b=F1WeUs8FJ2Fi39V5v2f55NWFKlITidJRMHUacQZDVT+aMtBT3oeAM7fcIIpeNplnYbssOF0jfTas2Y4N2TEtjlqVT2MXzRSRHNF9+09QLhmG8MoAlUJzNK5iUI9WEKFjrLcdLuVlz0V91iXX247ykkxWYn+BaCPO7n8co2FHJVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=lI0sZV5r; arc=none smtp.client-ip=209.127.231.59
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QSKIP36A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B1171F000FF;
-	Mon,  5 Oct 2026 16:52:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791219137;
-	bh=HRxEkL1IAUgC2G4AWcfq7OttzJ4GxtkLGdjSWS21CBY=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=QSKIP36AY9RlYw/Wf6Mi6UqMoDOtTQ/fiyxOIwhjSScyyeFeuJxgEiShGVkU+azNu
-	 IrY2Gh804gaD6ukltlUB0PIpT5YAUzqINl5/9NkHs1slpG1ctakTaCRDyA2aZiGjcK
-	 b7OgKx+jfwXh81Z/wyJz1YtIZ0eMMeoEEn5Bq9q0qMJoxAkcTiD15Vsa33zP/PpzYh
-	 MFuHBN+5Lj6Lp24mmNOrvi96iLnBJkkKWuZKtVC2R20TPA0W9Er/aPU62HdEVaONkI
-	 F59+Gn3omRquSxEpALgwoBc4DcbXoKAfwHgtI3p0JkpdNmnE2ra/I4gyvNIXyeZlON
-	 OMujDLm8lMqig==
-Subject: Re: [PATCH net v2] tcp: reject zero CWND route metrics
-From: netdev-bot+sashiko@kernel.org
-To: bestswngs@gmail.com
-Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- co+71b6509cb791e531@bugs.sh, xmei5@asu.edu, edumazet@kernel.org,
- stable@vger.kernel.org
-Date: Mon, 05 Oct 2026 16:52:16 +0000
-Message-ID: <179121913618.434549.2293013212977621085@kernel.org>
-In-Reply-To: <20261004164944.2006741-1-bestswngs@gmail.com>
-References: <20261004164944.2006741-1-bestswngs@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="lI0sZV5r"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1791219740;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=X4Gvcf+R5aAfrJIPwztiC9I1x6Y02SwTPFLotN7X9mI=;
+ b=lI0sZV5rx2953+OuAqKN1eFTaSZE8fCihyzU9Pg1TH8IPZzeAIxDd7pvys0hQkjXVmqcf7
+ Ndaw21CYgkeIL4P7uFD/V+Iyp37FJwk5+QInMcQqZiGJq9JcE0ZCNjdsB6wJPIsl58DOqA
+ DIM3R24ihie0SU/ZKOMnl30aLwE97aENNqcKl1CvTeF61a2kt3cecCJB2WoaZ4YbK78PNX
+ sZKZgs6+dvtSHuQXwfSDGM69DG4cRW2jVFCT2VzpTwBxByZbXqZWdXJbX83WXAwNIwIyB6
+ mRcKhjzQXnoiNpJgi+AXD0K1K8pleKnwOV1tyzLlZl6akOK37Lrk8MGtAQU08Q==
+Subject: Re: [PATCH] md/raid5: set conf->mddev before the first setup_conf() error path
+Message-Id: <4dd02c5d-a1c5-463d-a678-b06c7f9d2f45@fygo.io>
+Received: from [192.168.1.104] ([39.182.0.177]) by smtp.larksuite.com with ESMTPS; Mon, 05 Oct 2026 17:02:19 +0000
+References: <20261004060203.1379-1-yogeshgaur.83@gmail.com>
+In-Reply-To: <20261004060203.1379-1-yogeshgaur.83@gmail.com>
+Content-Transfer-Encoding: quoted-printable
+Reply-To: yukuai@fygo.io
+To: "Yogesh Gaur" <yogeshgaur.83@gmail.com>, "Song Liu" <song@kernel.org>, 
+	"yu kuai" <yukuai@fygo.io>
+Cc: <linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	"Li Nan" <magiclinan@didiglobal.com>, "Xiao Ni" <xiao@kernel.org>, 
+	"Christoph Hellwig" <hch@lst.de>, "Hannes Reinecke" <hare@suse.de>, 
+	"Logan Gunthorpe" <logang@deltatee.com>, 
+	<syzbot+270624bb31d478afe62e@syzkaller.appspotmail.com>, 
+	<stable@vger.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+X-Lms-Return-Path: <lba+26ac3d81b+b33c75+vger.kernel.org+yukuai@fygo.io>
+From: "yu kuai" <yukuai@fygo.io>
+Date: Tue, 6 Oct 2026 01:02:15 +0800
+X-Original-From: yu kuai <yukuai@fygo.io>
+User-Agent: Mozilla Thunderbird
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Hi,
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] In net/ipv4/metrics.c:ip_metrics_convert(), the new per-
-  attribute check `if ((type == RTAX_CWND || type == RTAX_INITCWND) &&…
-- [Low] The commit message says the locked-CWND check exists 'so a zero
-  CWND cannot enter the TCP metrics cache'.
-
---
-
-tcp: reject zero CWND route metrics
-
-This patch makes ip_metrics_convert() reject RTAX_CWND and RTAX_INITCWND
-metrics that have a value of zero. It also rejects routes that set the
-RTAX_CWND lock bit but do not supply a CWND value. The aim is to stop a
-zero snd_cwnd_clamp from reaching tcp_cong_avoid_ai().
-
-> Reject zero RTAX_CWND and RTAX_INITCWND metrics while parsing route
-> metrics. Also reject a locked CWND without a value, so a zero CWND cannot
-> enter the TCP metrics cache.
-
-[Severity: Low]
-Is this description accurate? tcpm_suck_dst() always copies the raw route
-metric into the cache:
-
-net/ipv4/tcp_metrics.c:tcpm_suck_dst() {
-    ...
-	tcp_metric_set(tm, TCP_METRIC_CWND,
-		       dst_metric_raw(dst, RTAX_CWND));
-    ...
-}
-
-dst_metric_raw() returns 0 for any route that has no RTAX_CWND metric. So
-even with this patch, a zero CWND still enters the TCP metrics cache for
-most routes.
-
-That zero does no harm, because tcp_init_metrics() only uses it when the
-CWND lock bit is set. What the new check really prevents is a locked zero
-CWND.
-
-Could the commit message say that a locked zero CWND can no longer reach
-snd_cwnd_clamp, rather than saying no zero CWND can enter the cache?
-
-> diff --git a/net/ipv4/metrics.c b/net/ipv4/metrics.c
-> index ad40762a8b383..c26f95126ae72 100644
-> --- a/net/ipv4/metrics.c
-> +++ b/net/ipv4/metrics.c
-> @@ -54,9 +54,19 @@ static int ip_metrics_convert(struct nlattr *fc_mx,
->  			NL_SET_ERR_MSG(extack, "Unknown flag set in feature mask in metrics attribute");
->  			return -EINVAL;
->  		}
-> +		if ((type == RTAX_CWND || type == RTAX_INITCWND) && !val) {
-> +			NL_SET_ERR_MSG(extack, "CWND metric must be greater than zero");
-> +			return -EINVAL;
-> +		}
-
-[Severity: Medium]
-Does this per-attribute check reject more than the divide by zero fix
-needs?
-
-The kernel used to accept route installs such as "ip route add ...
-initcwnd 0" and "ip route add ... cwnd 0" (without lock). Both now fail
-with -EINVAL in ip_fib_metrics_init()->ip_metrics_convert(), for IPv4 and
-IPv6 alike.
-
-The only reader of RTAX_INITCWND treats zero as "use the default":
-
-net/ipv4/tcp_input.c:tcp_init_cwnd() {
-	__u32 cwnd = (dst ? dst_metric(dst, RTAX_INITCWND) : 0);
-
-	if (!cwnd)
-		cwnd = TCP_INIT_CWND;
-    ...
-}
-
-A cached CWND only reaches snd_cwnd_clamp when the lock bit is set:
-
-net/ipv4/tcp_metrics.c:tcp_init_metrics() {
-    ...
-	if (tcp_metric_locked(tm, TCP_METRIC_CWND))
-		tp->snd_cwnd_clamp = tcp_metric_get(tm, TCP_METRIC_CWND);
-    ...
-}
-
-When it is not locked, tcp_update_metrics() only compares or averages it.
-It is never used as a divisor.
-
-The lock-gated check after the loop already rejects a locked zero CWND on
-its own. That covers both an explicit zero and a missing attribute, since
-ip_fib_metrics_init() zero-initializes the metrics array.
-
-This patch is tagged for stable. Would it be better to keep only the
-lock-gated check, and drop the INITCWND and unlocked CWND rejections?
-
-Also, Documentation/netlink/specs/rt-route.yaml still describes cwnd and
-initcwnd as plain u32 values and does not exclude zero. If these
-rejections stay, should the spec be updated to match?
-
->  		metrics[type - 1] = val;
->  	}
->  
-> +	if ((metrics[RTAX_LOCK - 1] & (1U << RTAX_CWND)) &&
-> +	    !metrics[RTAX_CWND - 1]) {
-> +		NL_SET_ERR_MSG(extack, "Locked CWND metric requires a value");
-> +		return -EINVAL;
-> +	}
+=E5=9C=A8 2026/10/4 14:02, Yogesh Gaur =E5=86=99=E9=81=93:
+> free_conf() starts with log_exit(), which falls through to
+> raid5_has_ppl() when conf->log is NULL:
+>
+> 	static inline void log_exit(struct r5conf *conf)
+> 	{
+> 		if (conf->log)
+> 			r5l_exit_log(conf);
+> 		else if (raid5_has_ppl(conf))
+> 			ppl_exit_log(conf);
+> 	}
+>
+> raid5_has_ppl() reads conf->mddev->flags. setup_conf() only assigns
+> conf->mddev after bioset_init(), but five of its error paths -- the
+> pending_data, alloc_thread_groups(), conf->disks, extra_page and
+> bioset_init() failures -- jump to "abort:" before that, and abort: calls
+> free_conf(). conf comes from kzalloc, so conf->mddev is still NULL and
+> free_conf() dereferences it:
+>
+> 	BUG: KASAN: null-ptr-deref in raid5_has_ppl drivers/md/raid5-log.h:54 [i=
+nline]
+> 	BUG: KASAN: null-ptr-deref in log_exit drivers/md/raid5-log.h:128 [inlin=
+e]
+> 	BUG: KASAN: null-ptr-deref in free_conf+0x81/0x5d0 drivers/md/raid5.c:75=
+49
+> 	Read of size 8 at addr 0000000000000028 by task syz.3.20/5681
+> 	Call Trace:
+> 	 <TASK>
+> 	 free_conf+0x81/0x5d0 drivers/md/raid5.c:7549
+> 	 setup_conf+0x1720/0x2ad0 drivers/md/raid5.c:7885
+> 	 raid5_run+0x8cc/0x2560 drivers/md/raid5.c:8129
+> 	 md_run+0xc3d/0x1cd0 drivers/md/md.c:6779
+> 	 do_md_run+0x35/0x720 drivers/md/md.c:6880
+> 	 array_state_store+0x958/0xe90 drivers/md/md.c:-1
+> 	 </TASK>
+>
+> The faulting address is offsetof(struct mddev, flags).
+>
+> conf->mddev is a back pointer that is constant for the lifetime of the
+> conf and does not depend on anything computed in between, so assign it
+> as soon as the conf is allocated. Nothing between the allocation and the
+> old assignment reads conf->mddev -- alloc_thread_groups() takes the conf
+> but never looks at its mddev, and the rdev_for_each() loop walks the
+> mddev argument directly.
+>
+> All five paths are allocation failures, so this needs memory pressure or
+> fault injection to hit, which is how syzbot found it.
+>
+> Reported-by: syzbot+270624bb31d478afe62e@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3D270624bb31d478afe62e
+> Fixes: ff875738edd4 ("raid5: separate header for log functions")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
+> ---
+>   drivers/md/raid5.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
+> index b91545ce090d..f98d3bdd3484 100644
+> --- a/drivers/md/raid5.c
+> +++ b/drivers/md/raid5.c
+> @@ -7675,6 +7675,9 @@ static struct r5conf *setup_conf(struct mddev *mdde=
+v)
+>   	if (conf =3D=3D NULL)
+>   		goto abort;
+>  =20
+> +	/* free_conf() dereferences this, so set it before the first goto */
+> +	conf->mddev =3D mddev;
 > +
+>   #if PAGE_SIZE !=3D DEFAULT_STRIPE_SIZE
+>   	conf->stripe_size =3D DEFAULT_STRIPE_SIZE;
+>   	conf->stripe_shift =3D ilog2(DEFAULT_STRIPE_SIZE) - 9;
+> @@ -7743,7 +7746,6 @@ static struct r5conf *setup_conf(struct mddev *mdde=
+v)
+>   	ret =3D bioset_init(&conf->bio_split, BIO_POOL_SIZE, 0, 0);
+>   	if (ret)
+>   		goto abort;
+> -	conf->mddev =3D mddev;
+>  =20
+>   	ret =3D -ENOMEM;
+>   	conf->stripe_hashtbl =3D kzalloc(PAGE_SIZE, GFP_KERNEL);
 
-[ ... ]
+The same patch is already applied.
 
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261004164944.2006741-1-bestswngs%40gmail.com
+https://patch.msgid.link/20260915081731.122933-1-chengzhihao1@huawei.com
+
+--=20
+Thanks,
+Kuai
