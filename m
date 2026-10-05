@@ -1,278 +1,205 @@
-Received: from mail-dy2-f24.google.com (mail-dy2-f24.google.com [74.125.229.24])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 785BD36B930
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 07:50:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.24
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D864137D133;
+	Mon,  5 Oct 2026 07:53:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791186647; cv=none; b=PZbp4mXT8V9Bn92+qL/f3et2/hecMhEBK5ZpeuGqphsAOc+Zfr/rt1M5As5rn87PsKbQXEDkl/P67UKE994MW15eNQSmhfoTlUajNz4T2TInaxRP6N580SJmJhXEdWtNX9QTA88r5DUl+ZT7i2HZZWE2hcBLBbzk5K1mejR5Bc8=
+	t=1791186797; cv=none; b=iSz+b9tfcewVjihD7++Md5I7uF/nOm7ZDGiu1NgrvMqSnMKe/newc37OzB+fA8por2CZ8OWD+JjgIBBpe9la1TMk+ebClXH7LV5hdlGZWAQMecyUieKiOhxMYhrKgExpjFWHDT8wACM4jW2Fs3EjspbpacoW42YzV5jB+DKkKmo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791186647; c=relaxed/simple;
-	bh=QZ59mKj4ZUd2qpuSQoUIYpqfyRpwSaXfp4FROqH5314=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qEsSV76XTOkvUWSzx4NpnU+brISmtjKkwRl+UZ0rwoiPDGc3ZMkVBArRUQTM6qN2JZBTHaGwQWUKKw2ap4+j7rg5w0xqCbJK40zM5l6wLy5QW/VhLpWWjfY+jXzQJ6KX2LkhhR+K7jQP6X0YhPtXTvxsxK8bB8zXTa121FrKH+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XX3JKT/N; arc=none smtp.client-ip=74.125.229.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791186797; c=relaxed/simple;
+	bh=cZoKzXfW+ICxc0xbdGx+9g/g9nxFz7RtNyJINpsT5Sg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=E707YrmoKb9WIm60/CCGA4dMwZ58Rg37iGzUhgmZIGePmfeE/57SqCFEuHMrY+yvjf25afSnrjxHXLND4F6GkhNuN7+0u3yLQj2ZTuz6cNDqy3U0O2dt1sOIbz91cjM5YXw5Oh/0NezBZwhTiAN/4IV9PmCXMX/suxpjxv5KZKg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=TCmTSY5Z; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XX3JKT/N"
-Received: by mail-dy2-f24.google.com with SMTP id 5a478bee46e88-35127b8ed25so63021eec.2
-        for <stable@vger.kernel.org>; Mon, 05 Oct 2026 00:50:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791186644; x=1791791444; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8z19BP688py0czkN+LRGu7/Yeuom+ZY+Pv4eF3IVDqU=;
-        b=XX3JKT/Ncl3lb5chRN1jcfSJMT1jJAKIYhRpdan3LLUyajzJsZ6RixlwP6tEO9EOdj
-         gDLkHXw+WuO0q1+nNYLwP3j2aO2uDrfD8j3rcOs2DimpzTD2tv7jW200tE753yHW72ep
-         6Qrfl2zCCspA7KOQonlXBPn2lGHkDsS3xfXJrogBCTwV7dSODXCxbCeVp/cCNW6646j6
-         6rOb+8EzNHhfzrc2g+Sb8mWDYyej4PcLt/e+nxkgOCbjIdI6CpcRvQZzXcWyL5FvpSz3
-         SSg2Hnbz2nnM6G6Jhw9A0tYQvCnQRW5DwtrcgJy2OkhruM6nK11ZRnnbrSskgTpnUHTc
-         +w5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791186644; x=1791791444;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8z19BP688py0czkN+LRGu7/Yeuom+ZY+Pv4eF3IVDqU=;
-        b=Ornhbfih70OUKaKJY/4c5+fIAesR3+rEXTIC/THpby691ofsEFTztPyQxsKJXWi16W
-         2NE4nElTXiXTJkRv023A1pvsDov7VJeeNzawgyB9XZPoFyp80mnJAu6rbDMLbkV7qUbk
-         3KGc3VLWC0odOjunMd1MoxI7eSb8Tp447vvi6jU+WqWlgzOrFiuZHFDne9+CDEkdDs8T
-         fUPcu0fwr2zLBPBbYE6z4M4UdwK6iFR40yXq5XMt+QnBTAhXxrjGaiWE5ticTZwl/r1T
-         zR7DtPzfQaDvaLARDaO7/yHCZ77lFNEhT9keZ2atw24eJdBpg/GPxOEtH+L3A0S8zBQn
-         CjXQ==
-X-Forwarded-Encrypted: i=1; AKwUvByW2SjzCSmD7LLfQ99dCcNxD8KHanqIse76uzHe4u2DS7rYsss9uVW1UR9D3vU3inBFjYXt5IM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mXHtai/u7Rp4ijBkOiNNFetBMh4EviulWT9qT+/jw4C1+VTLAE
-	YZiiSTA2jZN6VSuJ6/HrRAFYpQqA0ApFDy/BkXdXY6U8IsJYhqr/GBST
-X-Gm-Gg: AYBFou3iadMzvNdMYw2NSBr994YkgyBu30cx5ofa5ZGIe5aIuyKUgSorcODIJX8Dmh/
-	QICWoIf2cCYU7cvdI8e03bqPKWiw8iJmFEQdWS/gabLtZuTrAwcxRRTlcfnQbnOqG0IySjrJ6Je
-	zW8g3ou0HhZJ7JGpIZVdiYliO8rdXoS/mN5jpkImtgSHylsv9sjyOfG690d+FpuqitrgxxVeXHt
-	FrM1+0/zFvxX72DyPcoQiISZvZLZCnx8O5gfbQ93C6ScAeCenDgTMoSoRlPLWZTMH0Xh1IrR+zd
-	lPSIXMc6XgLgnWVTbhLkiW1tDa0uegszGItFS+8vrWHZrHMXoIDOyzeyPMxuoy1rMS+e2hoVMap
-	yMhdDEUDebCftzdmU/KxqD0LXzSDNkRh8fzT0glouNf4C+g95TLx2yzAD5iE6tmxoPulQ3dQ44h
-	Pl7RUPvYkEX0Q5pGRa1Yr839nfS/IDZQrOsJt/itUNOKPRY8TtGT9FnPi4tumKpDwHWuMrQGxVS
-	MwDvWSIJmECVCaLPXmCMRFQQoNsV6Q1xTOh1oHOLcvEy9tH7nkuaeI22/zF0HqDKwIzBw==
-X-Received: by 2002:a05:7022:6896:b0:147:d430:7322 with SMTP id a92af1059eb24-14f5a646964mr26661077c88.1.1791186644196;
-        Mon, 05 Oct 2026 00:50:44 -0700 (PDT)
-Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-151fca985c6sm28706150c88.10.2026.10.05.00.50.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 00:50:43 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: Pauli Virtanen <pav@iki.fi>,
-	linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] Bluetooth: ISO: Serialize concurrent connect calls
-Date: Mon,  5 Oct 2026 15:50:31 +0800
-Message-ID: <20261005075031.868260-1-nicoyip.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="TCmTSY5Z"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69515Y7c2065822;
+	Mon, 5 Oct 2026 07:52:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=wovB45gTblG2t7xU0qO9DxtlTJom+P
+	bKDVPM7twlFec=; b=TCmTSY5Zh9AKcHz80FXkejP0Z01sDWYfwb2RBkH1jbIXM3
+	sMRHTTsCfANAYCF7vGoDzuLqimMOpLjhDVh2RpN6zvEa8AVHQK+9wCiBi5w322H5
+	HXZqIP8vzgueFu/cdLvYfka/eKtBAjvUDLRZcM1bGQ9ZdlcQ8YHqgzQY+PF35Fnr
+	epuHoJIWoQurHpmiIFD2sfM3W5TfhsOR1mrRdeJPURO19bkob+r6g6/wTTzEgoIk
+	8x+oVrZIwMHkp+VBi9PJI1AF63X5LP6Lf8O5rhHwVkEgYy1ZI/ThVfIeHrHdZ+tg
+	u3YSAPg5rdylSaR3oNiOzz1rWfWo9x2NBBSrguSQ==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2r4frg3s-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 05 Oct 2026 07:52:55 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69569p1v2203886;
+	Mon, 5 Oct 2026 07:52:55 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h3dhgmed1-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 05 Oct 2026 07:52:55 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6957qo6h35455236
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 5 Oct 2026 07:52:50 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id B3D972004F;
+	Mon,  5 Oct 2026 07:52:50 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 2757F2004B;
+	Mon,  5 Oct 2026 07:52:48 +0000 (GMT)
+Received: from fedora (unknown [9.5.7.39])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Mon,  5 Oct 2026 07:52:47 +0000 (GMT)
+Date: Mon, 5 Oct 2026 13:30:59 +0530
+From: Amit Machhiwal <amachhiw@linux.ibm.com>
+To: Gautam Menghani <gautam@linux.ibm.com>
+Cc: maddy@linux.ibm.com, npiggin@gmail.com, mpe@ellerman.id.au,
+        chleroy@kernel.org, ritesh.list@gmail.com, sshegde@linux.ibm.com,
+        nnmlinux@linux.ibm.com, amachhiw@linux.ibm.com,
+        linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+        Timothy Pearson <tpearson@raptorengineering.com>
+Subject: Re: [PATCH v3] KVM: PPC: Book3S HV: Avoid spurious interrupts caused
+ by LPCR_MER bit
+Message-ID: <20261005131832.8f6b2b14-d5-amachhiw@linux.ibm.com>
+Mail-Followup-To: Gautam Menghani <gautam@linux.ibm.com>, 
+	maddy@linux.ibm.com, npiggin@gmail.com, mpe@ellerman.id.au, chleroy@kernel.org, 
+	ritesh.list@gmail.com, sshegde@linux.ibm.com, nnmlinux@linux.ibm.com, 
+	linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Timothy Pearson <tpearson@raptorengineering.com>
+References: <20260921111043.49825-1-gautam@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921111043.49825-1-gautam@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=TOPQ2Fla c=1 sm=1 tr=0 ts=6ac35758 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
+ a=yKAn6K1XAAAA:8 a=_AprYWD3AAAA:8 a=VnNF1IyMAAAA:8 a=EThlqOoKbmT7VKALfbcA:9
+ a=CjuIK1q_8ugA:10 a=6M1ixcW_PCWoKiWyFx5v:22 a=fKH2wJO7VO9AkD4yHysb:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAzMCBTYWx0ZWRfX2InbMOps9S09
+ JI+jwuFS/ZBJCj7AAFdKAc8Wis3oh+tm2iyOkkOBXYk5rOsUx4OPGw6qD98MbVu0I5Oo/dVfLNC
+ rfMKo7sN31SO7dEBQmfK5c1yEy1WGXKPgzdIHwGEzMwmvYFh30YdUB7JrzjleyCD/Kc54Wl1t4+
+ NOCUjRVZFeS+3jwuIujjxRkxPyXJg5JYqHLM6X4TJpOi1ztnoujWXPyHcfqsZRlzNkaH3N+nPqk
+ tDa6zEK+ZPCGp9t2em/YmPqWL9gQwmHXQ4tw48Ldw67mCjI+ofPc53DUQatEzJOFH/pPbWnNpC+
+ vU6s0sZTZeX7W2mFA1nMOjJD+8DVJdbxNLlFzGR19LRrMocxYKdlPLntstwDDyZ9BQBudjE5QxQ
+ UK8yD2/gXh+hiQUICAn3IcrKxejyyM9AEg38XpUSDmovniqVUuAUY3Vog0lQWHP9VSZ4ofeBzVr
+ NulN/EI6QqioziJ8wLA==
+X-Proofpoint-GUID: z3VeellNhN-20HClfkBmum5rlFaw0hFJ
+X-Proofpoint-ORIG-GUID: is6NVzq44xhVgSXksG9snG8P5amf8ebg
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDAzMCBTYWx0ZWRfX6INeK+u8IbeW
+ 9yV2bMXqmwIx1n4til78OiMAuYtKetphFSAXcTv7HLO3RKb5DTu9ZhDkxNq+hNIvwJX6s3B+WCv
+ OkDWbsYrtFWXHmIX2XBrql0x+PmqUFU=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-05_01,2026-10-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 priorityscore=1501 spamscore=0 adultscore=0 clxscore=1011
+ lowpriorityscore=0 impostorscore=0 bulkscore=0 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050030
 
-iso_sock_connect() checks the socket state before taking the socket lock
-and drops the lock again before setting up a connection. Two callers can
-both pass the admission check while the socket is open or bound.
+Hi Gautam,
 
-Caller A can copy its destination for route selection, then caller B can
-replace the socket destination before A binds or connects the CIS. A
-then uses B's destination with the route selected for its own request.
-B can also proceed after A attaches a connection and sets BT_CONNECT.
-For deferred BIS setup, B can bind a second BIS and overwrite
-iso_pi(sk)->conn, leaving the first connection's reference and conn->sk
-back-pointer stranded. Concurrent CIS connects can likewise replace the
-socket's connection. Later teardown only detaches the current connection,
-so a callback on the old connection can race with socket release and
-access a freed socket.
+Thanks for the patch and working on this.  I have a couple of questions though.
 
-KASAN reported:
+On 2026/09/21 04:40 PM, Gautam Menghani wrote:
+> A huge number of spurious interrupts can be seen immediately after a KVM
+> on PowerNV guest boots up in XIVE mode.
+> 
+> $ cat /proc/interrupts  | grep SPU
+> SPU:     223705     192439     273526     147623   Spurious interrupts
+> 
+> This bug was introduced by commit ecd10702baae5 ("KVM: PPC: Book3S HV:
+> Handle pending exceptions on guest entry with MSR_EE"). The root cause
+> is that once LPCR_MER bit is set, it is supposed to be reset by
+> software. But when a vCPU starts running with LPCR_MER set, the vCPU does
+> not exit back to the host until the decrementer expires or there is an
+> hcall, etc. This is because KVM on PowerNV guests have support for
+> native XIVE, so they are not dependent on host for interrupt emulation.
+> Due to this behaviour, a huge number of spurious interrupts are seen
+> since LPCR_MER continues to be set and LPCR_MER cannot be reset until the
+> vCPU exits to the host.
+> 
+> Fix this behaviour by not using the LPCR_MER bit whenever native XIVE is
+> available (currently in case of KVM on PowerNV only), as the XIVE hardware
+> can present interrupts to the KVM guest vCPU directly. So the LPCR_MER
+> functionality is not required. This reduces the number of spurious
+> interrupts drastically.
+> 
+> Fixes: ecd10702baae5 ("KVM: PPC: Book3S HV: Handle pending exceptions on guest entry with MSR_EE")
+> Cc: stable@vger.kernel.org # 6.8+
+> Reported-by: Timothy Pearson <tpearson@raptorengineering.com>
+> Closes: https://lore.kernel.org/linuxppc-dev/582904882.11159.1786719390349.JavaMail.zimbra@raptorengineeringinc.com
+> Signed-off-by: Gautam Menghani <gautam@linux.ibm.com>
+> ---
+> v3:
+> 1. Continue the use of LPCR_MER when kernel-irqchip=off (Sashiko)
+> 
+> v2:
+> 1. Handle the case where xive_interrupt_pending() is true and also the
+> external exception bit is set. (Narayana)
+> 
+>  arch/powerpc/include/asm/kvm_ppc.h | 7 +++++++
+>  arch/powerpc/kvm/book3s_hv.c       | 2 +-
+>  2 files changed, 8 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/powerpc/include/asm/kvm_ppc.h b/arch/powerpc/include/asm/kvm_ppc.h
+> index 169ea6a7fbad..580ad2548c2b 100644
+> --- a/arch/powerpc/include/asm/kvm_ppc.h
+> +++ b/arch/powerpc/include/asm/kvm_ppc.h
+> @@ -747,6 +747,11 @@ static inline int kvmppc_xive_enabled(struct kvm_vcpu *vcpu)
+>  	return vcpu->arch.irq_type == KVMPPC_IRQ_XIVE;
+>  }
+>  
+> +static inline bool kvmppc_xive_native_enabled(struct kvm *kvm)
+> +{
+> +	return kvm->arch.xive_devices.native;
+> +}
+> +
+>  extern int kvmppc_xive_native_connect_vcpu(struct kvm_device *dev,
+>  					   struct kvm_vcpu *vcpu, u32 cpu);
+>  extern void kvmppc_xive_native_cleanup_vcpu(struct kvm_vcpu *vcpu);
+> @@ -782,6 +787,8 @@ static inline bool kvmppc_xive_rearm_escalation(struct kvm_vcpu *vcpu) { return
+>  
+>  static inline int kvmppc_xive_enabled(struct kvm_vcpu *vcpu)
+>  	{ return 0; }
+> +static inline bool kvmppc_xive_native_enabled(struct kvm *kvm) { return false; }
+> +
+>  static inline int kvmppc_xive_native_connect_vcpu(struct kvm_device *dev,
+>  			  struct kvm_vcpu *vcpu, u32 cpu) { return -EBUSY; }
+>  static inline void kvmppc_xive_native_cleanup_vcpu(struct kvm_vcpu *vcpu) { }
+> diff --git a/arch/powerpc/kvm/book3s_hv.c b/arch/powerpc/kvm/book3s_hv.c
+> index dbac3573b2c8..cb2bb29451a7 100644
+> --- a/arch/powerpc/kvm/book3s_hv.c
+> +++ b/arch/powerpc/kvm/book3s_hv.c
+> @@ -4980,7 +4980,7 @@ int kvmhv_run_single_vcpu(struct kvm_vcpu *vcpu, u64 time_limit,
+>  			if (!kvmhv_on_pseries() && (__kvmppc_get_msr_hv(vcpu) & MSR_EE))
+>  				kvmppc_inject_interrupt_hv(vcpu,
+>  							   BOOK3S_INTERRUPT_EXTERNAL, 0);
+> -			else
+> +			else if (!kvmppc_xive_native_enabled(vcpu->kvm))
+>  				lpcr |= LPCR_MER;
 
-  BUG: KASAN: slab-use-after-free in iso_sock_hold+0xf7/0x1b0
-  Call Trace:
-   iso_sock_hold+0xf7/0x1b0
-   iso_conn_del+0x7b/0x1d0
-   iso_connect_cfm+0x186/0x16a0
-   hci_conn_failed+0x154/0x280
-   hci_abort_conn_sync+0x3dc/0x7d0
-   hci_cmd_sync_work+0x173/0x300
+1. What happens when an L1 KVM guest is booted with (native) XIVE and then the
+   guest is rebooted with `xive=off` i.e., with XICS?  Will we stop setting
+   LPCR_MER as kvm->arch.xive_devices.native would still be set?
+2. What happends when an L1 KVM guest is booted with XIVE and then we kexec into
+   a new kernel with `xive=off`?  You did mention in your other reply that with
+   kexec, `xive=off` is ignored currently but IMO, we would want to understand
+   where this limiation lies and fix that if need be.  I do understand we are
+   trying to fix spurious interrupts problem with XIVE in this patch and this
+   particular problem can be taken separately but it worth investigating.
 
-  Allocated by task 121:
-   sk_alloc+0x2b/0x6d0
-   bt_sock_alloc+0x29/0x370
-   iso_sock_alloc.constprop.0+0x19/0x300
-   iso_sock_create+0x94/0x100
-
-  Freed by task 121:
-   kfree+0x121/0x3c0
-   __sk_destruct+0x42b/0x540
-   iso_sock_release+0x29d/0x340
-   __sock_release+0xa1/0x260
-
-Check admission under the socket lock and mark the connect operation in
-progress before publishing its destination. Keep that flag set across
-route lookup and connection setup, rejecting another connect with
--EBADFD before it can change the destination or attach a connection.
-Clear the flag after either helper returns, including on failure, so a
-failed setup can be retried.
-
-A separate flag is needed because the socket lock must be released before
-acquiring the HCI device lock, while BT_CONNECT requires an attached
-connection. Keep the existing state transitions and the deferred CIS
-completion through iso_sock_recvmsg().
-
-Reject an existing socket attachment in __iso_chan_add() before taking
-a new reference or publishing either pointer, so every caller preserves
-the connection association. Keep the same-socket, same-connection success
-case for deferred CIS setup. Reject an attached socket before BIS setup
-so a reusable BIS is not claimed before the attachment is rejected.
-
-In CIS setup, reject a different HCI connection before iso_conn_add()
-and drop the per-attempt HCI hold directly. An unowned iso_conn may still
-carry another reference after detachment, so its destruction cannot be
-relied on to release that hold.
-
-iso_listen_bis() creates a fresh PA HCI/ISO pair under the device lock,
-so the temporary iso_conn_put() frees the ISO candidate and drops its
-HCI hold on rejection. iso_conn_ready() uses a freshly allocated,
-unpublished child with no connection, making the socket-side rejection
-unreachable.
-
-Fixes: ccf74f2390d6 ("Bluetooth: Add BTPROTO_ISO socket type")
-Cc: stable@vger.kernel.org
-Suggested-by: Pauli Virtanen <pav@iki.fi>
-Assisted-by: GPT-6 Astra
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
----
-Changes in v2:
-- Reject an existing socket attachment in __iso_chan_add(), as suggested
-  by Pauli Virtanen, while retaining same-connection deferred CIS setup.
-- Reject an attached socket before BIS setup can claim a reusable BIS.
-- Under the socket lock, reject a different HCI connection in CIS setup
-  before iso_conn_add() and release the returned HCI hold directly. This
-  also handles an unowned candidate whose iso_conn has other references.
-- Keep the connect admission guard to protect destination publication
-  across route lookup and connection setup.
-- Rebase on the current Bluetooth fixes tree.
-
-v1: https://lore.kernel.org/r/20261004162458.3968546-1-nicoyip.dev@gmail.com
-Review: https://lore.kernel.org/r/225d8d84c8e5155d5af0adfbea270eeeda326021.camel@iki.fi
-
- net/bluetooth/iso.c | 47 +++++++++++++++++++++++++++++++++++----------
- 1 file changed, 37 insertions(+), 10 deletions(-)
-
-diff --git a/net/bluetooth/iso.c b/net/bluetooth/iso.c
-index 7657c2a0abbf..37e5f084d9ed 100644
---- a/net/bluetooth/iso.c
-+++ b/net/bluetooth/iso.c
-@@ -61,6 +61,7 @@ enum {
- 	BT_SK_BIG_SYNC,
- 	BT_SK_PA_SYNC,
- 	BT_SK_KILLED,
-+	BT_SK_CONNECTING,
- };
- 
- struct iso_pinfo {
-@@ -350,6 +351,9 @@ static int __iso_chan_add(struct iso_conn *conn, struct sock *sk,
- 		return -EBUSY;
- 	}
- 
-+	if (iso_pi(sk)->conn)
-+		return -EISCONN;
-+
- 	if (!conn->hcon) {
- 		BT_ERR("conn->hcon missing");
- 		return -EIO;
-@@ -410,6 +414,11 @@ static int iso_connect_bis(struct sock *sk)
- 	hci_dev_lock(hdev);
- 	lock_sock(sk);
- 
-+	if (iso_pi(sk)->conn) {
-+		err = -EISCONN;
-+		goto unlock;
-+	}
-+
- 	if (!bis_capable(hdev)) {
- 		err = -EOPNOTSUPP;
- 		goto unlock;
-@@ -562,6 +571,13 @@ static int iso_connect_cis(struct sock *sk)
- 
- 	lockdep_assert_held(&hcon->hdev->lock);
- 
-+	/* The socket lock keeps the current attachment and its hcon stable. */
-+	if (iso_pi(sk)->conn && iso_pi(sk)->conn->hcon != hcon) {
-+		hci_conn_drop(hcon);
-+		err = -EISCONN;
-+		goto unlock;
-+	}
-+
- 	conn = iso_conn_add(hcon);
- 	if (!conn) {
- 		hci_conn_drop(hcon);
-@@ -1269,17 +1285,26 @@ static int iso_sock_connect(struct socket *sock, struct sockaddr_unsized *addr,
- 	    addr->sa_family != AF_BLUETOOTH)
- 		return -EINVAL;
- 
--	if (sk->sk_state != BT_OPEN && sk->sk_state != BT_BOUND)
--		return -EBADFD;
-+	lock_sock(sk);
- 
--	if (sk->sk_type != SOCK_SEQPACKET)
--		return -EINVAL;
-+	if ((sk->sk_state != BT_OPEN && sk->sk_state != BT_BOUND) ||
-+	    test_bit(BT_SK_CONNECTING, &iso_pi(sk)->flags)) {
-+		err = -EBADFD;
-+		goto done;
-+	}
-+
-+	if (sk->sk_type != SOCK_SEQPACKET) {
-+		err = -EINVAL;
-+		goto done;
-+	}
- 
- 	/* Check if the address type is of LE type */
--	if (!bdaddr_type_is_le(sa->iso_bdaddr_type))
--		return -EINVAL;
-+	if (!bdaddr_type_is_le(sa->iso_bdaddr_type)) {
-+		err = -EINVAL;
-+		goto done;
-+	}
- 
--	lock_sock(sk);
-+	set_bit(BT_SK_CONNECTING, &iso_pi(sk)->flags);
- 
- 	bacpy(&iso_pi(sk)->dst, &sa->iso_bdaddr);
- 	iso_pi(sk)->dst_type = sa->iso_bdaddr_type;
-@@ -1291,16 +1316,18 @@ static int iso_sock_connect(struct socket *sock, struct sockaddr_unsized *addr,
- 	else
- 		err = iso_connect_bis(sk);
- 
--	if (err)
--		return err;
--
- 	lock_sock(sk);
- 
-+	clear_bit(BT_SK_CONNECTING, &iso_pi(sk)->flags);
-+	if (err)
-+		goto done;
-+
- 	if (!test_bit(BT_SK_DEFER_SETUP, &bt_sk(sk)->flags)) {
- 		err = bt_sock_wait_state(sk, BT_CONNECTED,
- 					 sock_sndtimeo(sk, flags & O_NONBLOCK));
- 	}
- 
-+done:
- 	release_sock(sk);
- 	return err;
- }
-
-base-commit: 08e90633377f1b2567ab5ad6810b74c552246a07
--- 
-2.43.0
-
+Thanks,
+Amit
