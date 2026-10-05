@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83DEA37F735
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 08:11:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 635E937F322
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 08:11:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791187890; cv=none; b=iJYdzF4Hg7gvMjBRL58NwJaPW0bKOJBAzjrZBnQhK+C3rASzJ5VqUow4EdKuA5tFUQRw3okZ4pNwtFloFeGIxpD65mpVHwMabkA+nE0jj9nGVGUzNEQANLMxEttCWd4HEaxT/TFLcndkp+U/0W8h381CdUWzdIRnjdvaFpxNYlM=
+	t=1791187892; cv=none; b=t3GLNoKjb/E5uur/mHI3mzsRay5nIfMTH2ZxKV78F4hCDCTboa77if0YM7o5LBEUEPIpassrhKDTjHyzKAM6ttAaqYoKUpQqcE/NlqarCpZDmpGc9qM7exGiNpb3T0wSLPO7ZzEoGH8Z0qawqrAU9BYIgA2Es68ff9RskNtPWMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791187890; c=relaxed/simple;
-	bh=QUOHOz5jZ6VYDwfrAhFmicRTqKgQ1gP8yHcol2QLKYQ=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=bm8pO52cosjvWM4wIdJWus3ZkNZF7TNH6pXtsahVSXY/wrrjfP5xPWw3XvBglW4pQBUrsANbyRjRPWYPZHyTLfVXwPgmReLF4qCpSVVPmWRiv3if45sToNmJ3KjYbN24HYKQc+UEAMciIAnSX/0d82gzyiV5XTYY+V1WWFe/WJI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=pri8wUbC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791187892; c=relaxed/simple;
+	bh=MZ0O3nvl/GqERCBDMcz/1qCfD9gZ7pWUU1IVluh3nJw=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=tTDuWxU1C9qCppN8qCbd1KfBjURlL2NInX/ofRqFCb0vWzlPdScYnxthe+gbcN49nhBD07tQ4bsdshFBQhNL6lVV2v2865YlBpac47xEQDE1YJ8R4UPS88mKOc+GfNu3ioh34VWbXnOVeZToGpxiuWOHJfph7D8OO1Oz/x02DLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Bdrk7MBk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="pri8wUbC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABABD1F000FF;
-	Mon,  5 Oct 2026 08:11:27 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Bdrk7MBk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C14C81F000FF;
+	Mon,  5 Oct 2026 08:11:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791187888;
-	bh=pkg5GgiJA0eWhqHdoCqv/v4xql/foh6jrfmftKrMpdY=;
+	s=korg; t=1791187891;
+	bh=54OnnVEllD8XtebojTuWFVhDeAuVghgA4MCbQo7/wck=;
 	h=Subject:To:Cc:From:Date;
-	b=pri8wUbC9XMT9dir4ao1SxVOvG68pNIdjXEFqh0ItejpdbqVJMU8wlkfoshYUNCVV
-	 1eplhrC24DJUKC/bCnC+lLKrwe70og9aQ2EUz85N01W1fGlJ+838KrcA1pwS+OaFiS
-	 PjzKvSKQuCH2Ht1BFJKndh91rP/Ewy711y+ijlQA=
-Subject: FAILED: patch "[PATCH] drm/amdgpu: skip the noirq suspend reset for a" failed to apply to 6.1-stable tree
-To: andersen.theo@gmail.com,alexander.deucher@amd.com
+	b=Bdrk7MBkTOBz8UeaKgLTCEndR9U7p4A18EH/bWA3LjeTyD/JXBnHHG5NkkxpvLWUt
+	 LW8WuOEHmYE9CyowujnXoZHIiJKZ8lvnOp2yqET7ox2uVOSPjDVqgoEZIkNzI6/iwh
+	 Vfo9DTSZHflZm7gGifhbnqsTCxmK3T999me03WeY=
+Subject: FAILED: patch "[PATCH] drm/amdgpu: reset VI ASIC on MacBookPro14,3" failed to apply to 7.2-stable tree
+To: fbeltranmillalen@gmail.com,alexander.deucher@amd.com,christian.koenig@amd.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 05 Oct 2026 10:11:13 +0200
-Message-ID: <2026100513-directed-aerosol-a94f@gregkh>
+Date: Mon, 05 Oct 2026 10:11:25 +0200
+Message-ID: <2026100525-showcase-spirited-0675@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 7.2-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
-git cherry-pick -x eadb85cca111152bd334b861fb53747ab851d13a
+git cherry-pick -x a22e5e4f2ebbdbb962cc3233094d189c4dfaa051
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100513-directed-aerosol-a94f@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100525-showcase-spirited-0675@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,55 +62,58 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From eadb85cca111152bd334b861fb53747ab851d13a Mon Sep 17 00:00:00 2001
-From: Theo Andersen Carton <andersen.theo@gmail.com>
-Date: Thu, 17 Sep 2026 21:15:12 +0200
-Subject: [PATCH] drm/amdgpu: skip the noirq suspend reset for a
- switcheroo-parked GPU
+From a22e5e4f2ebbdbb962cc3233094d189c4dfaa051 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Francisco=20Beltr=C3=A1n=20Millal=C3=A9n?=
+ <fbeltranmillalen@gmail.com>
+Date: Thu, 24 Sep 2026 18:05:23 -0300
+Subject: [PATCH] drm/amdgpu: reset VI ASIC on MacBookPro14,3
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-amdgpu_pmops_suspend_noirq() resets the ASIC unconditionally. When the GPU
-has been parked by vga_switcheroo it has neither power nor a PCIe link, so
-the reset cannot reach it: pci_set_power_state() reports the device as
-inaccessible and amdgpu_asic_reset() returns -EINVAL. A failure there
-aborts the entire noirq suspend phase, and with it the system suspend, so
-the machine cannot sleep at all while the GPU is switched off.
+On a MacBookPro14,3 with a Radeon Pro 555 (Polaris11), the framebuffer
+is at MC address 0 when amdgpu loads after a cold boot, as the firmware
+leaves it (MC_VM_FB_LOCATION = 0x007f0000), while the VBIOS ASIC_Init
+table places it at 0xF4_0000_0000 (0xf47ff400).  amdgpu reads the
+location once, at init, so after a re-POST (S3 resume or GPU reset)
+the framebuffer has moved and the driver keeps programming the old
+one: the SMU is handed a table that was never written and the GPU
+does not come back, which leaves the internal panel black.
 
-amdgpu_device_prepare(), amdgpu_device_suspend() and amdgpu_device_resume()
-all bail out early on DRM_SWITCH_POWER_OFF. This callback was added later,
-for an unrelated reason, and did not inherit the check. nouveau guards
-every one of its PM callbacks the same way.
+Resetting the ASIC on load makes ASIC_Init run before the driver reads
+the location, so the driver uses the VBIOS placement from the start and
+every later re-POST puts the framebuffer back where it already is.
 
-Bail out the same way here. On a single-GPU system switch_power_state is
-never DRM_SWITCH_POWER_OFF, so this is a no-op there.
+Add the Radeon Pro 555 used in this machine to the existing VI reset
+quirk table.
 
-Found on a MacBookPro11,5, where the Radeon is powered down through
-apple-gmux so that the internal panel can be driven by the iGPU instead.
-Every suspend failed in amdgpu_pmops_suspend_noirq() while the card was
-off; with this check a full S3 cycle completes.
+Tested on a MacBookPro14,3 on 6.18.49 with the quirk table backported
+(the kernel also carries unrelated local PCI and ACPI patches for this
+machine).  The framebuffer is at 0x000000F400000000 after both cold and
+warm boot, and the GPU survived 9 S3 cycles (lid close and rtcwake, one
+of them with the lid closed for about 7.5 minutes and a USB-C disk
+attached), each followed by a few minutes of 3D load; no ring timeouts
+or VM faults were reported.  The reset adds about 0.23 s to amdgpu init.
 
-Fixes: 9e051720f9d3 ("drm/amdgpu: Ensure HDA function is suspended before ASIC reset")
-Signed-off-by: Theo Andersen Carton <andersen.theo@gmail.com>
+Suggested-by: Christian König <christian.koenig@amd.com>
+Suggested-by: Alex Deucher <alexander.deucher@amd.com>
+Link: https://lore.kernel.org/all/20260924132952.25054-1-fbeltranmillalen@gmail.com/
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Francisco Beltrán Millalén <fbeltranmillalen@gmail.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 539d0558638a6dcc066f1cf592b6b9a52adc8ea4)
+(cherry picked from commit b6b1d97218518003107d4446fac278fa3e0a19a0)
 Cc: stable@vger.kernel.org
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 5c33c19fd9bc..d9d794a7db96 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -2664,6 +2664,14 @@ static int amdgpu_pmops_suspend_noirq(struct device *dev)
- 	struct amdgpu_device *adev = drm_to_adev(drm_dev);
- 	int r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
+index 352c27103305..e926d09128e0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vi.c
++++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+@@ -1397,6 +1397,7 @@ struct vi_reset_quirk {
+ static const struct vi_reset_quirk vi_reset_quirks[] = {
+ 	{ 0x67ef, PCI_VENDOR_ID_APPLE, 0x0190, 0xe3 }, /* Radeon Pro 555X */
+ 	{ 0x67ef, PCI_VENDOR_ID_APPLE, 0x018f, 0xc2 }, /* Radeon Pro 560X */
++	{ 0x67ef, PCI_VENDOR_ID_APPLE, 0x017a, 0xc7 }, /* Radeon Pro 555 */
+ };
  
-+	/*
-+	 * A GPU parked by vga_switcheroo has no power and no PCIe link, so the
-+	 * ASIC reset below would fail and abort the whole noirq suspend phase.
-+	 * Bail out like amdgpu_device_prepare/suspend/resume() already do.
-+	 */
-+	if (drm_dev->switch_power_state == DRM_SWITCH_POWER_OFF)
-+		return 0;
-+
- 	if (amdgpu_acpi_should_gpu_reset(adev)) {
- 		amdgpu_device_lock_reset_domain(adev->reset_domain);
- 		r = amdgpu_asic_reset(adev);
+ static bool vi_need_reset_on_init(struct amdgpu_device *adev)
 
