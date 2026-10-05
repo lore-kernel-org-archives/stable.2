@@ -1,44 +1,76 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7251E44A3F1
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 12:33:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ECEE4195D0
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 12:36:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791203631; cv=none; b=Ly2ICJ+RTpeUihQve/ufn5f/T5qBKwFzlxxP5knws2kvATJ4kB4NDQaihwTs99krP9FAQf98C6jX65f1oJjqaPFai6BLGvDBgINe7eh0hvxaNFuGZm7LsRVyCG7TLrM/x59bg907aC+St5kLvHTk5SjgZf4GOMs0luLahbV/7do=
+	t=1791203770; cv=none; b=liibfw5FkH5IuOmUfVRmUQ/gEW9YFefCt57d+bDwVkBR0YrxIg3E9wg9Lo/4zROVDmkbmC2vrdrBZaE+iSnK5hiZTiQfYwqv4oKr0ZzHzyu4hCSSpj0JnFTjBJEm8vi+eo2nR9bIxpm1xklHBp9C+Gk6R/rj0qpAyHH6NvfWphI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791203631; c=relaxed/simple;
-	bh=xKdvVOkclsoTCELbXxl2utzQ78oLLvfA9ghmQHU3LZQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KMv9RTspxrqBw5c/5/AhwHbhMiJXIeWeGslv9gQe2AIRfgyuis8AvxncuyFyB9XrWn2arzdFd540nb6dlwmhI5Q/KL3VJ8h2sTdNI7Vv1NLiIoykEE3HivGVvxWCg/n/SAw4F5X3384eC22O7N6x7GFBpCZL8aYZ5Z2HR/F2ghE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W8gWjkmc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791203770; c=relaxed/simple;
+	bh=QQ//D5UNEFrMdGNsE0x2XqrDjRfkmbQnZlSDOkPsLjM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nsISrUI+HdQlwx2rffwX0I/alKug/8gjTIi4ZgWEDZ2hJP3Wy3FnCeQV5P7PwSygWm/ClRWZhQe6lF7CesT6Xb2qDUNMzzhcgcaGxQWs8GX0GGIDwvIcAm9RAF7M8z17T58cQjEHhWyJ5PhGa6AJoaYKV2Cpy9dMsKDyYdTZOKM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=LRrDNRz0; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W8gWjkmc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B24B51F000FF;
-	Mon,  5 Oct 2026 12:33:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791203630;
-	bh=2nJTx00vFp92jaQEDK0nT6SmUJoCdeaGvGgxoVlNI38=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=W8gWjkmc9CszF+YsRJM/1Q2CBTkaJHBJq30ZXjTlWDoKb95JH+p1YLOCuFe3s2HMv
-	 3+Ez5boQNHhczvIwmYSBeOPrMlBP+mI5IN3a8r2HrLzV4a1dg0fUhuMWadsmfJtZzP
-	 +N1KWhfHCvbbF+3CHh73HYzwzJrirDiLZyJFtB9pT3rAxwU5aN2plgX1r6tYd7WHoR
-	 Lo7bKsGXJOpJmaT96G34KD7BpiXcJb/0zFLf/lmIn6T8nTYmqbx5j0KM3jOQIA2+3d
-	 HMgPB7Yz5NkN1jmhCKjPVZ+diFFMYYJfJX81O6VgaGFJoPUA+x/lxLtXkX4zbnRBy/
-	 xJnt/GxFIxF0w==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Jiangshan Yi <yijiangshan@kylinos.cn>,
-	George Zhang <george.zhang@amd.com>,
-	Dan Wheeler <daniel.wheeler@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] drm/amd/display: check dc_state_create_copy() for NULL in dm_suspend
-Date: Mon,  5 Oct 2026 08:33:46 -0400
-Message-ID: <20261005123238.1909936-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100557-droplet-spousal-f396@gregkh>
-References: <2026100557-droplet-spousal-f396@gregkh>
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="LRrDNRz0"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2dd58e1e2c7so6146445ad.0
+        for <stable@vger.kernel.org>; Mon, 05 Oct 2026 05:36:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791203765; x=1791808565; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4jU8vbkoMdpm/iDka5HS8l6OLmahdMWqgTkrbnwvknU=;
+        b=LRrDNRz0pHvIpLpLE2H9qGw9RxTzk6KPEJByVvSTdcI1tFZDoj7i+fjzwbHLVVRtD3
+         gpxJcOa4kN5oAMIlIIjX1aH+s8EW5f2m+zEsQ0s0JRIef8mYDo7iUh3DyU5lxbT6Pz/2
+         VaDBzU9Zm50NzDVD66drpFqOyuGdNHTdU+qlxAPuLgVheNowU5BjxlMs7iSq4mNQBw+F
+         2P33Z9u4PwhNUfLS7hEM5vv8FstSBsKehuH2jAuPUTI1YONbm59kB2rWd+BWBf1PMNOi
+         wOKSm2Afa2Xi9OR/yzXxBQekswq5Y2sTrn8y/56E2bCtDBDH/RxV01xpAnDMSqw/89me
+         c4bw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791203765; x=1791808565;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4jU8vbkoMdpm/iDka5HS8l6OLmahdMWqgTkrbnwvknU=;
+        b=a/VJWJMkmELzlIYueJcYml9Ue8fm8v+IjXoEErFywJxI1NTM3FZ9Os1Kf+2uCghppp
+         9ZPTuJfi54QH4/y/ZFm3aCnpFU8nk01sG2U9q33ynjnAEpOH86uh4mTpkCf0pc9+MYSL
+         gvvAttjBn78nO/njGLJryAzfEOEUWeQR7ZApcDqfhuc2qnlS5YfvYq8RgCEqd8Y9Ylmq
+         xQlVCorjcbtsOwxWDQI1O95dPeYRzhbxqYJemtI57Sah8t10gFYSaxgk2MvA9WGxe0RY
+         gKb6Y2hYDEZWIRLx4u5DNIT8BCdErOyT26oz6XVR2APfuuDxuBPIkUXXLSHPkDhqUdJi
+         B/lw==
+X-Gm-Message-State: AFq9FYKfl9DcaBTh8OA/967ShoCdqcJHb1h75pPxEVqDscIDrYdtgQWN
+	gsPMkNqxBmyKiU2iw734WjTZ+QX9xjEH1v8y9Rk8klHTW4FUsff2M+AWWXu+AeXLrY8=
+X-Gm-Gg: AYBFou1kOaFdzGmKalKJrIhi3tsE69SwmW7NCZkIm1neCHiq4nWFXqHLXvIsskC3iYX
+	vzlNIcQiRQBOFsUQ+WbcznMqJ7oD7sKl/76HlJmG5tLFhNjTj0MqMopMfUNbY8nWI47FuxzCFj1
+	c4YKQZvwhqKuH40N060c8D8fCYs1jZp/5IQA6gfeUNnBx9mOB0YW7eV4pgp9tyLkFwWK894Hij6
+	99QmKP8LSmyT0kIVY+JskllP+hAqk9eoCmSCzG2KUcfWXzyF5HrzCA8t02Ie8dfaxbFCB7a+cu/
+	E3qauLQuXoflGRy+L9AkfYRsxGjmr0hAUSzzDE/RC3IPjUP25XTyPVf9bdCw6Kc7JwYjyH0YYee
+	WYAMVBPwh0sBccamYzswsByjCc6NOzFJhiif3U/4GV5WexBGR5kraHKTVTEhCYXfivHLHUsIxvI
+	vEOaf6yhLoq49qjaF3D3smL/kN9yuWk3wq1sal/+Yf7Eji2Ry/evpbwI3NH43AZMZ/YoOpPy0gu
+	uQzT9VjZD5RNiJzskvMug==
+X-Received: by 2002:a17:903:186:b0:2dd:c053:c209 with SMTP id d9443c01a7336-2e49b6df076mr106567665ad.37.1791203765331;
+        Mon, 05 Oct 2026 05:36:05 -0700 (PDT)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:5364:bba9:2adf:d611])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e5a5caea48sm6542495ad.14.2026.10.05.05.36.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 05:36:04 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	xen-devel@lists.xenproject.org,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH] xen/scsifront: check for a NULL shadow entry on a backend response
+Date: Mon,  5 Oct 2026 21:35:54 +0900
+Message-ID: <20261005123555.253995-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,54 +79,42 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jiangshan Yi <yijiangshan@kylinos.cn>
+scsifront_do_response() validates the rqid in a backend response against
+VSCSIIF_MAX_REQS before using it to index info->shadow[], but then
+dereferences the entry to test ->inflight without checking that the slot
+is populated.  Shadow slots are NULL before a command is submitted (the
+host private area is zeroed at allocation) and are reset to NULL in
+_scsifront_put_rqid() once a request completes, so an in-range rqid that
+does not correspond to an outstanding request makes the frontend
+dereference a NULL pointer.
 
-[ Upstream commit 015e72cde567d2450e282c2790773463156b2d0a ]
+A malicious or buggy backend can thus crash the guest by returning a
+response whose rqid is in range but not in flight -- for example a
+spurious response before any command has been issued, or a duplicate of
+one already completed.  The ring has only VSCSIIF_MAX_REQS (16) slots, so
+before the first command every in-range rqid selects a NULL slot.
 
-dc_state_create_copy() can return NULL on allocation failure.
-dm_suspend() only conditionally skips dm_gpureset_toggle_interrupts()
-and continues execution, returning success.  dm_resume() then
-dereferences the NULL cached_dc_state in link_enc_cfg_copy() and the
-following dc_state->stream_count loop, crashing during GPU reset
-recovery.
+Reject a response whose shadow slot is not populated.
 
-Return -ENOMEM immediately if the copy fails, so the caller aborts
-suspend instead of leaving a NULL cached state for resume.
-
-Fixes: 8092aa3ab8f7 ("drm/amd/display: Add null checker before passing variables")
-Reviewed-by: George Zhang <george.zhang@amd.com>
-Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
-Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 84b6d7932fdd2857795a257f9f258562a3cddcab)
+Fixes: 6d1c2f48f3fc ("xen/scsifront: harden driver against malicious backend")
 Cc: stable@vger.kernel.org
-[ sashal: Adapted context from dc_state_create_copy() to the existing dc_copy_state() call. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ drivers/scsi/xen-scsifront.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index deaf98957cb76..86282119252bd 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -2645,9 +2645,14 @@ static int dm_suspend(void *handle)
- 		dc_allow_idle_optimizations(adev->dm.dc, false);
+diff --git a/drivers/scsi/xen-scsifront.c b/drivers/scsi/xen-scsifront.c
+index 989bcaee42caf..aa44a233eac8d 100644
+--- a/drivers/scsi/xen-scsifront.c
++++ b/drivers/scsi/xen-scsifront.c
+@@ -367,6 +367,7 @@ static void scsifront_do_response(struct vscsifrnt_info *info,
+ 	struct vscsifrnt_shadow *shadow;
  
- 		dm->cached_dc_state = dc_copy_state(dm->dc->current_state);
-+		if (!dm->cached_dc_state) {
-+			drm_err(adev_to_drm(adev),
-+				"Failed to allocate cached DC state during suspend\n");
-+			mutex_unlock(&dm->dc_lock);
-+			return -ENOMEM;
-+		}
- 
--		if (dm->cached_dc_state)
--			dm_gpureset_toggle_interrupts(adev, dm->cached_dc_state, false);
-+		dm_gpureset_toggle_interrupts(adev, dm->cached_dc_state, false);
- 
- 		amdgpu_dm_commit_zero_streams(dm->dc);
- 
+ 	if (ring_rsp->rqid >= VSCSIIF_MAX_REQS ||
++	    !info->shadow[ring_rsp->rqid] ||
+ 	    !info->shadow[ring_rsp->rqid]->inflight) {
+ 		scsifront_set_error(info, "illegal rqid returned by backend!");
+ 		return;
 -- 
-2.53.0
+2.43.0
 
