@@ -1,162 +1,88 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C46BE4AA1D3
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 14:41:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8E7B4AC172
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 14:41:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791211275; cv=none; b=TqBmHuxHoMP9lPPWUmfL4dnkULJsdS0blj67CIAftQQMAlFK6V68c2O4U1j03Y19AGLmCxkfLQjrJKrWXLSvno+eFLdKeRV/AEnxIhBjD2s25ZXg9Qahe2L/BJLM6pYC7ZBfpn1B4cKB4zvA8v3qK5EZny+JWnqq1eRtNxkJLgs=
+	t=1791211276; cv=none; b=Nhbwjqf2SdMhiJYan9gxXdptXAYcJUv30z5fmDY8gKFLbP7CSUR3eCLh4F5iv4lHZK/EyoHk4wxtpbPauR/SXhYUoJd6sRLV/fdsEzbN6l0MnSP1vPvqRHfJM/bvd3x91weWfIwrQWhTGnCfoywHLjK2awYWDwq78Dsd0aj+HBM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791211275; c=relaxed/simple;
-	bh=mle5ZPL8AlQGvs4XeCXNWhhQAay/efIEaV+voGLuDXI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Dz1/7VCebFRTqwhIPPZ7eoVbQ2P7nkZDzOCQn9Vo8tq6SeMuzSUG/tKAs5K4muWRWZX/4Cm554p8ejmaUdNCIF/bheJmGNzB2St/059uTfk0gfzQLHmB0gbvLmM0o93NNektvDY97W1fcoqCndLd9/tGAnCzn1URWUSdLbIwU7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KMG53c5O; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791211276; c=relaxed/simple;
+	bh=u4cegiD+QtXTyG3m77gQH7Rwx0XOKu21z/HjTpUtrXc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=F9myxADobpl4BFam7gZ+6se6t9t/jFG41EfKo1CiZh2AalNA6bxKicDqjTldH6IjKqVbE5L0Y+rwgfcDGIjK5rRZv2THExZkQeXuaUE64HpT2Wv9eJ6UVVH+tiNbOGyQOQBVPorhH0shF2mRWy/BQAcJsX8K60CiyHNGYgqFjPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qn/J9Ryw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KMG53c5O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0454A1F00893;
-	Mon,  5 Oct 2026 14:41:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791211265;
-	bh=lSDSRmfZFM52Piit6Gh2MuaOmgwHsULLmsKnWBLzya8=;
-	h=Subject:To:Cc:From:Date;
-	b=KMG53c5OIIpklv4VYZhYOpIQ/KsDF99RI4m6NNhdx20LH0fALBBUmM0KR3b5HDva6
-	 GGZW49IBlc5GigNOXMvwS0VLDWYFkBlBZakYNi8osjTxP1zIMcEFMDMcIeFOg13+ZS
-	 8wqQXf39dKGZkYeknCyHYKtfm02Yz9dEiD+WsF7E=
-Subject: FAILED: patch "[PATCH] USB: serial: fix driver deregistration order" failed to apply to 5.10-stable tree
-To: johan@kernel.org,stern@rowland.harvard.edu
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 05 Oct 2026 16:40:54 +0200
-Message-ID: <2026100554-punctual-reviving-6cb6@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qn/J9Ryw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F28021F0089A;
+	Mon,  5 Oct 2026 14:41:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791211272;
+	bh=B62Y8URpQsOHhXSxgt8KK19/TKadycqJ/XHqZFte1GU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Qn/J9RywK1hsWhNUcHFds6XEj4CZq+9x5bsgH//hlIvemN6Qn6IJZW0+LkqR+EL7r
+	 NT298fvH/9NWWERTH9YdWG6cZefkk4FquNxma1opPR5t5MOZrVETnhLJ7AxhaxQF98
+	 G1nc1bcCM/mcE0OEXMnpiSScrVc5JPb7SsDXF8qBzPTb17YeJ72sYVB2XShju22sxE
+	 gCo6xwduMP15s8QQWT6UqxgFF8xIgiVl/MwsAw0Ofa50Qf0dlo0Q3cHHwtPXIDYZlB
+	 finUiAk8PuDIF3f7SyoINWCcu7pWfVWTaWqRqSYH4lCHjpzVzau1qL8kgkdGESAraL
+	 kLUSJns2X0ERw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] drm/amd/display: Mark DCE 6.4 as not APU
+Date: Mon,  5 Oct 2026 10:41:08 -0400
+Message-ID: <20261005144039.2984708-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026100516-conjure-falsify-cbe0@gregkh>
+References: <2026100516-conjure-falsify-cbe0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+From: Timur Kristóf <timur.kristof@gmail.com>
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+[ Upstream commit 3a52d587d1fc8e8bf94ba1b07374f7ec91aaffb4 ]
 
-To reproduce the conflict and resubmit, you may use the following commands:
+DCE 6.4 is found in Oland chips, which were advertised
+as low-end gaming GPUs in 2013~2015 and then have been
+sold as low-end workstation GPUs until 2017~2019.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 646e5b28b4fdbc1b828a2398d6ced2c1dd308a46
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100554-punctual-reviving-6cb6@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+These are not APUs.
 
-Possible dependencies:
+Fixes: 7c15fd86aaec ("drm/amd/display: dc/dce: add initial DCE6 support (v10)")
+Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+Link: https://patch.msgid.link/20260923122033.1046651-3-timur.kristof@gmail.com
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 1072aa811ea1e61d5f763e4ec1bc6d24bb61f14a)
+Cc: stable@vger.kernel.org
+[ sashal: adjusted context in dce64_construct() due to missing debug and check_config initializations ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 646e5b28b4fdbc1b828a2398d6ced2c1dd308a46 Mon Sep 17 00:00:00 2001
-From: Johan Hovold <johan@kernel.org>
-Date: Fri, 21 Aug 2026 17:45:45 +0200
-Subject: [PATCH] USB: serial: fix driver deregistration order
-
-USB serial driver modules register one driver for the USB bus and one or
-more drivers for the ports on the USB serial bus.
-
-When unloading a driver module, the USB driver must be deregistered
-before the USB serial bus drivers so that I/O is stopped before
-unbinding the ports to avoid use-after-free in completion handlers
-accessing port data.
-
-Note that the "new_id" attributes must first be removed to prevent new
-ids from being added and triggering a probe of the USB driver after it
-has been deregistered.
-
-Fixes: 765e0ba62613 ("usb-serial: new API for driver registration")
-Cc: stable@vger.kernel.org	# 3.4
-Cc: Alan Stern <stern@rowland.harvard.edu>
-Signed-off-by: Johan Hovold <johan@kernel.org>
-
-diff --git a/drivers/usb/serial/bus.c b/drivers/usb/serial/bus.c
-index 295c61afa44c..ea1fe5d1e449 100644
---- a/drivers/usb/serial/bus.c
-+++ b/drivers/usb/serial/bus.c
-@@ -169,3 +169,7 @@ void usb_serial_bus_deregister(struct usb_serial_driver *driver)
- 	free_dynids(driver);
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c b/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
+index bcdd8a958fc01..fd064a5196d26 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
+@@ -1359,7 +1359,6 @@ static bool dce64_construct(
+ 	dc->caps.max_downscale_ratio = 200;
+ 	dc->caps.i2c_speed_in_khz = 40;
+ 	dc->caps.max_cursor_size = 64;
+-	dc->caps.is_apu = true;
  
-+void usb_serial_bus_remove_new_id(struct usb_serial_driver *driver)
-+{
-+	driver_remove_file(&driver->driver, &driver_attr_new_id);
-+}
-diff --git a/drivers/usb/serial/usb-serial.c b/drivers/usb/serial/usb-serial.c
-index a4fbc849c0fa..11a0ed6d6546 100644
---- a/drivers/usb/serial/usb-serial.c
-+++ b/drivers/usb/serial/usb-serial.c
-@@ -1469,7 +1469,7 @@ int __usb_serial_register_drivers(struct usb_serial_driver *const serial_drivers
- {
- 	int rc;
- 	struct usb_driver *udriver;
--	struct usb_serial_driver * const *sd;
-+	struct usb_serial_driver * const *sd, * const *s;
- 
- 	/*
- 	 * udriver must be registered before any of the serial drivers,
-@@ -1522,9 +1522,11 @@ int __usb_serial_register_drivers(struct usb_serial_driver *const serial_drivers
- 	return 0;
- 
- err_deregister_drivers:
-+	for (s = serial_drivers; s < sd; ++s)
-+		usb_serial_bus_remove_new_id(*s);
-+	usb_deregister(udriver);
- 	while (sd-- > serial_drivers)
- 		usb_serial_deregister(*sd);
--	usb_deregister(udriver);
- err_free_driver:
- 	kfree(udriver);
- 	return rc;
-@@ -1542,10 +1544,23 @@ EXPORT_SYMBOL_GPL(__usb_serial_register_drivers);
- void usb_serial_deregister_drivers(struct usb_serial_driver *const serial_drivers[])
- {
- 	struct usb_driver *udriver = (*serial_drivers)->usb_driver;
-+	struct usb_serial_driver * const *sd;
-+
-+	/*
-+	 * udriver must be deregistered before the serial drivers so that
-+	 * I/O is stopped before unbinding the ports.
-+	 *
-+	 * Remove the new_id attributes to prevent ids from being added and
-+	 * triggering a probe of udriver after it has been deregistered.
-+	 */
-+	for (sd = serial_drivers; *sd; ++sd)
-+		usb_serial_bus_remove_new_id(*sd);
-+
-+	usb_deregister(udriver);
- 
- 	for (; *serial_drivers; ++serial_drivers)
- 		usb_serial_deregister(*serial_drivers);
--	usb_deregister(udriver);
-+
- 	kfree(udriver);
- }
- EXPORT_SYMBOL_GPL(usb_serial_deregister_drivers);
-diff --git a/include/linux/usb/serial.h b/include/linux/usb/serial.h
-index 534e6650e2aa..ab0a32a90629 100644
---- a/include/linux/usb/serial.h
-+++ b/include/linux/usb/serial.h
-@@ -381,6 +381,7 @@ void usb_serial_handle_dcd_change(struct usb_serial_port *usb_port,
- 
- int usb_serial_bus_register(struct usb_serial_driver *device);
- void usb_serial_bus_deregister(struct usb_serial_driver *device);
-+void usb_serial_bus_remove_new_id(struct usb_serial_driver *driver);
- 
- extern const struct bus_type usb_serial_bus_type;
- extern struct tty_driver *usb_serial_tty_driver;
+ 	/*************************************************
+ 	 *  Create resources                             *
+-- 
+2.53.0
 
