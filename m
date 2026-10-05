@@ -1,101 +1,85 @@
-Received: from mta1.migadu.com (out-187.mta1.migadu.com [95.215.58.187])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A7DD296BA9
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 14:59:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.187
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E55A64A384C;
+	Mon,  5 Oct 2026 14:59:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791212353; cv=none; b=KtocntSfIihmUzFpimPF1rQIBiKs79aFjumqMVVuZvdYhB2jNMH2ihYJIYeqoAtOfx4jl9lQKD9Ox2ON0MZBGAhU1AacWLllZTMW/alh83AvRDCbnIakuEn3bqZvyRnxh+xGZn3ztakhOVKftguxHmUgFj4lRlVQIajMk1+h5KA=
+	t=1791212354; cv=none; b=An0gVb8E7IVRDfqVoVi5oS0UwoF7Zbwq6nQJ6NaWLpHmgNELSQlI5m1KAmApUKLgQtHnj449XOU9nTvTzpP3PNvxXvPRg6OYEIiIAnDO6ybnZ7Sq0LzWajbOpZbmGkkIsD60oHU2GDkYwb+/1gyrgoCGij9JPKxfRfKTgE+PeLg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791212353; c=relaxed/simple;
-	bh=sjluPKWYfXjAFZOlS3RybtthbiIfsFMylOb79mxumII=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qDD8La4XXIAD4MHB4vWp1Zhw9fvh3BhJokVnxzfE8PJ2Tujc7VYXvk8snwRDlFigLlPq60TMBY2VU4ckJRF+MAMHF6yQGgUEbcutS5o9xBg1n11d8XKuOnnYo+M5+V8W0/EvGMFMxsfP13W/ErG2QL/LEeEfVEKh1Cq6fNPqQnI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=O8oxLrRe; arc=none smtp.client-ip=95.215.58.187
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791212354; c=relaxed/simple;
+	bh=znDke5HFY/BA6R8clC5onR4T86VhHl83wHxMzWOhhB0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SN8VCJti6+IZPmLf7qKXcJ33lKz+xDtl8sKF6Hpwbz56DaW7gB4Xt0Qi9Pet0n4+V0FlWcOk9pypzUM3O0PY0NTkAZw+bjQ77+hJi2SIhUrEL2N/xqLMqeEE1sA5uTOgtXeDR4O21l4mXzHsaHD8bDnpM1bU9ESKXr0mghM3rZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AXF+Prk7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="O8oxLrRe"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=sjluPKWYfXjAFZOlS3RybtthbiIfsFMylOb79mxumII=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791212349; v=1; x=1791817149;
- b=O8oxLrReTSLDu+Z76neS4/JkLodm7FAW2gZRctdVrX/+lQoDA6ybypXYcOlheBTAuJbrvih1
- jHl6iZf8K4Ox5SuLQa/YE5QsRpYZgNVI6FJzgbqVpeBpWnLXD9AYP0/ln3bHyrzUD6gVC/c/ZgC
- m+o9OZZdrAOOdgRkncu5NQOg=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 93dd8002214013a1;
-	Mon, 05 Oct 2026 14:59:08 +0000
-X-Mizu-Trace-ID: 93dd8002214013a1
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <0a0f7ae5-5fa0-430c-8074-9217f594a563@linux.dev>
-Date: Mon, 5 Oct 2026 22:58:52 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AXF+Prk7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE67A1F000FF;
+	Mon,  5 Oct 2026 14:59:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791212352;
+	bh=yChXRVF8zlmSR4yRBEYFeg9ujmUpZOAXCnxjIybRe5s=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=AXF+Prk7MWHrAkb7MCYM61wp4qkLuFTZfisjhcJgdTYZGv7YnaOgbwl9nm62sBGD4
+	 dGlePVLXsDwHYpxwPl65vKzRMQpfbNbkWLHcN1J92fqmG71XabKDcq+o5Pa75qwhUi
+	 k5+Ny5jaOvnym35n+Qahe4SulFz77ZQpcehgHuj/r6tPNemFtzOAOa6zw8Jbut/KD7
+	 PWi5Hr7+ejgSo0Z+tNEOAjnoJ3ckio2kTO3L/2q7bdTJEy9+dhyCsZOgjYMtm7ilsp
+	 pAP+Caki/D45rJTMRJpjDKdSBg8PvJ6pDuPp81WIoWqRQ0741XynBhn58/fhNakcL3
+	 6UDCk8Zct2KSw==
+From: Chuck Lever <cel@kernel.org>
+To: Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Olga Kornievskaia <okorniev@redhat.com>,
+	Dai Ngo <Dai.Ngo@oracle.com>,
+	Tom Talpey <tom@talpey.com>,
+	Boyan Liu <yymhvert@gmail.com>
+Cc: linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	co+7aebac19e62711ff@bugs.sh,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] nfsd: Fix out-of-bounds read in clientstr_hashval()
+Date: Mon,  5 Oct 2026 10:59:07 -0400
+Message-ID: <179121233712.30586.16853326888693672488.b4-ty@b4>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260927142319.12054-1-yymhvert@gmail.com>
+References: <20260927142319.12054-1-yymhvert@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] x86/mm: fix incomplete page-table invalidation with
- TCE
-Content-Language: en-US
-To: Borislav Petkov <bp@alien8.de>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Pedro Falcato <pfalcato@suse.de>, dave.hansen@linux.intel.com,
- luto@kernel.org, peterz@infradead.org, tglx@kernel.org, mingo@redhat.com,
- x86@kernel.org, hpa@zytor.com, riel@surriel.com,
- linux-kernel@vger.kernel.org, qi.zheng@linux.dev, nadav.amit@gmail.com,
- thomas.lendacky@amd.com, kernel-team@meta.com, linux-mm@kvack.org,
- akpm@linux-foundation.org, brendan.jackman@linux.dev, jannh@google.com,
- mhklinux@outlook.com, Manali.Shukla@amd.com, mingo@kernel.org,
- stable@vger.kernel.org, toshi.kani@hpe.com, david@kernel.org,
- mikhail.v.gavrilov@gmail.com
-References: <20261005052302.43042-1-lance.yang@linux.dev>
- <asM7b8ECO34-jiwi@pedro-suse.tail5790ac.ts.net>
- <60d5db86-8002-4d87-b8d3-c161d674122b@linux.dev>
- <ab077b6a-160f-41a2-a167-813f0560e30d@citrix.com>
- <38541ec6-d796-4f35-a700-75ab097b6df5@linux.dev>
- <7ad90e94-d04d-453a-ba22-9640a5024d8c@citrix.com>
- <6801221a-6307-407a-85fc-46906f95d22e@linux.dev>
- <20261005142216.GAasOymJHYnmn6wD5m@fat_crate.local>
- <de41b083-6368-429e-9928-90aa5440f750@linux.dev>
- <20261005145315.GCasO523MWyIIx2ngl@fat_crate.local>
-From: Lance Yang <lance.yang@linux.dev>
-In-Reply-To: <20261005145315.GCasO523MWyIIx2ngl@fat_crate.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
 
+On Sun, 27 Sep 2026 22:23:19 +0800, Boyan Liu wrote:
+> clientstr_hashval() always hashes 8 bytes of the client name, but
+> since commit 6b1891052a3f ("nfsd: make nfs4_client_reclaim use an
+> xdr_netobj instead of a fixed char array") the name is a
+> kmemdup()'d xdr_netobj of arbitrary length. A 1-7 byte ownerid is
+> legal, so the hash reads past the allocation:
+> 
+>     BUG: KASAN: slab-out-of-bounds in nfsd4_find_reclaim_client
+>     Read of size 1 at addr ffff888010acf1a1 by task nfsd/141
+>     Call Trace:
+>      kasan_report (mm/kasan/report.c:595)
+>      nfsd4_find_reclaim_client (fs/nfsd/nfs4state.c:1622)
+>      nfsd4_reclaim_complete (fs/nfsd/nfs4state.c:5286)
+>      nfsd4_proc_compound (fs/nfsd/nfs4proc.c:3313)
+>      nfsd_dispatch (fs/nfsd/nfssvc.c:1038)
+>      svc_process_common (net/sunrpc/svc.c:1527)
+>      svc_process (net/sunrpc/svc.c:1682)
+>      svc_recv (net/sunrpc/svc_xprt.c:886)
+>      nfsd (fs/nfsd/nfssvc.c:919)
+> 
+> [...]
 
-On 2026/10/5 22:53, Borislav Petkov wrote:
-> On Mon, Oct 05, 2026 at 10:36:26PM +0800, Lance Yang wrote:
->> I don't have an AMD machine to test this on. I spotted something
->> that looked wrong in the code and sent it out to see what others
->> think.
-> 
-> You send a normal mail - not a patch.
->   
->> Maybe I'm reading the manual wrong, but is raising a concern
->> based on the code and the manual really just "a wild hunch"?
-> 
-> If it is formulated like a patch which is supposed to be even urgent, then
-> you're reading our process wrong.
-> 
-> https://docs.kernel.org/process/development-process.html
-> 
-> And since you have not tested it to actually fix anything, then this patch is
-> nothing but a wild hunch.
-> 
-> And to answer your question, no, it is not needed. Definitely not the TCE
-> angle.
-> 
-> Now, the speculative thing is another story but that whole story you're
-> referring to needs a lot more debugging.
-> 
-> But we do not apply patches on a wild hunch, without any definitive data that
-> they fix an issue and, if very much possible, with a clear explanation why
-> they fix it.
+Applied, thanks!
 
-OK, let's drop the patch.
+[1/1] nfsd: Fix out-of-bounds read in clientstr_hashval()
+      commit: bd3622da433d2f6cecc10a49f559383e0e13654b
+
+Best regards,
+-- 
+Chuck Lever <cel@kernel.org>
