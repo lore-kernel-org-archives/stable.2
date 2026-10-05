@@ -1,37 +1,58 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 938764D954B;
-	Mon,  5 Oct 2026 18:51:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF24336B905;
+	Mon,  5 Oct 2026 18:52:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791226260; cv=none; b=onmTjATzuynCF5XTMMDCeUI72mI1k/UCc0PytLCuty7QlBV9Ad/BmX4BD3qf1oBR6gcahXejfpFCBBYiLKop0pz1MY1NDULlps1tl3R1b875H2zBuXw6iPTI8wmwbiLKypakGd58on6Pv1Ian1AMzIXAlut1iqmLzUS8d/9RD4U=
+	t=1791226372; cv=none; b=n8XO3qmn0ezoqReTogRM6ubTPfkoMzRxZcED9zdIchSSOwlSQhUxF/60UL7hSicypLk11j5sda1MWKdv0RIeY+yXT9D88LMX/3Lh+SE4lZsA8naLyh9MY4Fhy2kjnsflhryxtClOJ5ebjIg50M8oj3ousnVtSWSqhcGEfQkMv98=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791226260; c=relaxed/simple;
-	bh=5aAEkw2iwnE0qx2mn9ArMXdEruAVBBEKJr/annndjZE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=F63uT38rna2xJfmKnJMQ4UVDfEBidx2m6NVLb+zZ1bM0axlhnjHepv7Dde03eiTqATbsb3bxloIDzLVMKSmECLoegbN6KTqRn0/UmuhemmCONhpHzBrmuX0WArjM4SyWo6+fpa0stZSpEHsf9KbDQ/YrxrEwUt/WdTn271/8lKI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qTwo3lHq; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791226372; c=relaxed/simple;
+	bh=OkJCuGC2gGRqCjdLY+RRAaxFUzi8cu/lPqoc8P8kmzg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=sIcPZnyEKCBUgfoOXhijmjSIcvm64KE5HZfij7692iSvogCcw3Wceo+vJJtr6d5lxr2q5F2cY9YoD2swH+IX2ZvRh400HTtlxTDNGRkxjpxC9Edi9yWN07xKVKfWXVeQ+aGCwvE/bMZ3gn5TGkMilYiDRbp+4E/ltOBsegG3H1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FAugaEob; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qTwo3lHq"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id F2282C2BCF4;
-	Mon,  5 Oct 2026 18:50:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791226260;
-	bh=5aAEkw2iwnE0qx2mn9ArMXdEruAVBBEKJr/annndjZE=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=qTwo3lHqME7QQjGhxxHmrTGEOMjANtMtHVw/xMTE837rmFyqwboqBFzr/c63vRVN7
-	 st+BNyll5CqXH22YVI5NmBHiQo0962tqxj75iaTLFBlmsT8Z+5PeBivKAxP7ojbzd2
-	 xfJmra61XFZGpRdent+SgF0k2sieer8mOmDXzI3AqUdCvRpkqfygKhXafle4YedZo/
-	 BARxSz9X1LcVHhtelmmXcutlKFhIKJD+eXY7W5JJosIHvS3vu4CKhxDzsO26utA0d5
-	 EcZ7rgusz8TQBhxHfchGrlTirkY+cXZiLz4Ca1a4vZ4TKboZAQT+Iya4CFgeIuz2nB
-	 14E3yVKetXaQA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DFBC5CA5FCE;
-	Mon,  5 Oct 2026 18:50:59 +0000 (UTC)
-From: Siddarth Chilukuri via B4 Relay <devnull+siddarth.nexthop.ai@kernel.org>
-Date: Mon, 05 Oct 2026 18:50:57 +0000
-Subject: [PATCH] i2c: xiic: don't fail a read whose data is already in the
- RX FIFO
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FAugaEob"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791226371; x=1822762371;
+  h=from:to:cc:in-reply-to:references:subject:message-id:
+   date:mime-version:content-transfer-encoding;
+  bh=OkJCuGC2gGRqCjdLY+RRAaxFUzi8cu/lPqoc8P8kmzg=;
+  b=FAugaEobMs/cmyYMgM/ND6L8F+HRT5n7YmvcbIWzKTcAREZGzRgQ1AkU
+   xJQFZ7Bj8I8vFSb9ql5JYLaNDbIoPcPMkxUtPQuL77zRhNHslnP9KB8vH
+   nAMGXOAJVMWIhUtxrfv+H4ydemkKKLjK8F44DgouSmjB+xHhizq85YO43
+   OYJzzzyNOWui4BqFU2a0eZtuSnNEOQOHoGtiK1MlZoAcvYMXYg+Hr1Ig8
+   aeJu9VaelzrZuZHOCnEYaXNnupxy2V94DxlFfTTIkpji16HCU6X5r6nq9
+   5nWHggnEuTGrCKzBsinWMe8b4frk/RkVm2aBnTezJzujNPu4lcSnY69o8
+   w==;
+X-CSE-ConnectionGUID: 4a2vvGWLRT+xsEiiVhi4pw==
+X-CSE-MsgGUID: ng9vBIB9T2OWbqD6wZ2T3w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="90860991"
+X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
+   d="scan'208";a="90860991"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 11:52:50 -0700
+X-CSE-ConnectionGUID: wF7BIzXDR5mu0UVZxFCBkw==
+X-CSE-MsgGUID: mVJnbkY7RKKA06LkEVFGHA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
+   d="scan'208";a="303160445"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.199])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 11:52:47 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org, 
+ Ciro Pedrini <ciro.pedrini@gmail.com>
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20260925205226.883724-1-ciro.pedrini@gmail.com>
+References: <20260925205226.883724-1-ciro.pedrini@gmail.com>
+Subject: Re: [PATCH] platform/x86: hp-wmi: Add OMEN board 8A17 thermal
+ profile support
+Message-Id: <179122636351.41716.18367302210533871678.b4-ty@b4>
+Date: Mon, 05 Oct 2026 21:52:43 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -40,128 +61,35 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-i2c-xiic-rx-fifo-v1-1-0177ac5f72d7@nexthop.ai>
-X-B4-Tracking: v=1; b=H4sIAJDxw2oC/yXMQQ6DIBBG4auYWTsJQmxMr2JcCAzt34UaUENiu
- HupXX6L9y5KEiGJns1FUU4krEtF1zbk3vPyEoavJq30o1OqZ2jHGXAcMweElY0xNgx+9nawVLM
- tSkC+l+P0dzrsR9z++1ApXykwNPZ0AAAA
-X-Change-ID: 20261005-i2c-xiic-rx-fifo-333bf8dadb8b
-To: Michal Simek <michal.simek@amd.com>, Andi Shyti <andi.shyti@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Siddarth Chilukuri <siddarth@nexthop.ai>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791226262; l=3974;
- i=siddarth@nexthop.ai; s=20261005; h=from:subject:message-id;
- bh=+OMLHRv9yGnRH1ltNBvfAy2ZGPv/CunRdqkdVFB3ta4=;
- b=fRMJFO9GuGN1sByoQ3O+tITvMHEb87DpmbBz/kSKqiCXKGR0xFvy7Cu/78q8cQeHEANs8ySrl
- 9e7sjYJ3fR+Bb9YTlpfxfO6Of53gcBwmKoea1n5iPAVPsWioHPVgFW3
-X-Developer-Key: i=siddarth@nexthop.ai; a=ed25519;
- pk=mqZgV5HLHwCtP2hfnYLQEnd3V9s5LQLC664snM9/mlQ=
-X-Endpoint-Received: by B4 Relay for siddarth@nexthop.ai/20261005 with
- auth_id=1116
-X-Original-From: Siddarth Chilukuri <siddarth@nexthop.ai>
-Reply-To: siddarth@nexthop.ai
+X-Mailer: b4 0.15.2
 
-From: Siddarth Chilukuri <siddarth@nexthop.ai>
+On Fri, 25 Sep 2026 17:52:26 -0300, Ciro Pedrini wrote:
 
-When the controller is the master receiver, TX_ERROR is set once the
-core has NACKed the last byte ("transmit complete" in PG090). We have
-seen xiic_process() run with TX_ERROR set but RX_FULL not yet set,
-while the RX FIFO already holds all of the remaining bytes of the
-message.
+> The HP OMEN 17-ck1xxx (board 8A17) isn't in omen_thermal_profile_boards,
+> so hp-wmi uses the generic thermal profile query. The firmware only
+> stores that value and never acts on it, so the EC stays in its default
+> mode and the CPU is held at 45 W whatever profile is selected.
+> 
+> The board uses the OMEN interface (mode byte at EC 0x95, thermal policy
+> v1) and also needs the timed profile quirk: without it, the EC drops
+> back to the default mode about two minutes after each profile change.
+> 
+> [...]
 
-xiic_process() treats TX_ERROR without RX_FULL as an error, so in this
-case it reinitializes the core, the data in the FIFO is lost, and the
-read returns -EIO even though it finished on the bus. The next read on
-the same adapter can also return stale data without reporting an error.
+Thank you for your contribution, it has been applied to my local
+review-ilpo-next branch. Note it will show up in the public
+platform-drivers-x86/review-ilpo-next branch only once I've pushed my
+local branch there, which might take a while.
 
-Fix this by checking the RX FIFO in the error path. If the message is
-a read, there was no arbitration loss, and the FIFO has all of the
-remaining bytes, handle it the same way as RX_FULL and complete the
-message. Since IISR is toggle-on-write, only clear RX_FULL if it was
-actually set.
+FYI [if applicable to your patch], as per Linus' policy change, also
+fixes are mostly routed through for-next unless the fix is for a
+commit introduced in the most recent cycle or is clearly a regression
+fix.
 
-We found this on a system with several AXI IIC controllers in one PCIe
-FPGA that share an interrupt. It only happens when at least two
-controllers are busy at the same time. With 12 QSFP-DD modules being
-read in parallel for 480 seconds, the failures went from 2083 -EIO and
-1158 reads with wrong data (out of 11.2M reads) to none.
+The list of commits applied:
+[1/1] platform/x86: hp-wmi: Add OMEN board 8A17 thermal profile support
+      commit: 06ea16200e6bbb9bb91a34fbf892c5239e7a070c
 
-Fixes: e1d5b6598cdc ("i2c: Add support for Xilinx XPS IIC Bus Interface")
-Cc: stable@vger.kernel.org
-Signed-off-by: Siddarth Chilukuri <siddarth@nexthop.ai>
----
-I tested this on hardware with the 6.11 kernel we found the problem
-on. On mainline it is compile-tested only.
----
- drivers/i2c/busses/i2c-xiic.c | 26 ++++++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
-
-diff --git a/drivers/i2c/busses/i2c-xiic.c b/drivers/i2c/busses/i2c-xiic.c
-index 5e397a7e6..11319ac09 100644
---- a/drivers/i2c/busses/i2c-xiic.c
-+++ b/drivers/i2c/busses/i2c-xiic.c
-@@ -755,6 +755,7 @@ static irqreturn_t xiic_process(int irq, void *dev_id)
- 	int wakeup_req = 0;
- 	enum xilinx_i2c_state wakeup_code = STATE_DONE;
- 	int ret;
-+	bool rx_done_no_rx_full = false;
- 
- 	/* Get the interrupt Status from the IPIF. There is no clearing of
- 	 * interrupts in the IPIF. Interrupts must be cleared at the source.
-@@ -787,6 +788,27 @@ static irqreturn_t xiic_process(int irq, void *dev_id)
- 
- 		dev_dbg(i2c->adap.dev.parent, "%s error\n", __func__);
- 
-+		/*
-+		 * For a master receiver TX_ERROR also means "transfer complete" and
-+		 * can be seen before RX_FULL. If the FIFO already holds the rest of
-+		 * the message, finish the read instead of resetting the core.
-+		 */
-+		if (i2c->rx_msg && !(pend & XIIC_INTR_ARB_LOST_MASK) &&
-+		    !(xiic_getreg8(i2c, XIIC_SR_REG_OFFSET) &
-+		      XIIC_SR_RX_FIFO_EMPTY_MASK)) {
-+			unsigned int in_fifo =
-+				xiic_getreg8(i2c, XIIC_RFO_REG_OFFSET) + 1;
-+			unsigned int space = xiic_rx_space(i2c);
-+
-+			if (space && in_fifo >= space) {
-+				rx_done_no_rx_full =
-+					!(isr & XIIC_INTR_RX_FULL_MASK);
-+				pend |= XIIC_INTR_RX_FULL_MASK;
-+				clr |= XIIC_INTR_TX_ERROR_MASK;
-+				goto rx_complete;
-+			}
-+		}
-+
- 		/* dynamic mode seem to suffer from problems if we just flushes
- 		 * fifos and the next message is a TX with len 0 (only addr)
- 		 * reset the IP instead of just flush fifos
-@@ -806,6 +828,7 @@ static irqreturn_t xiic_process(int irq, void *dev_id)
- 		/* don't try to handle other events */
- 		goto out;
- 	}
-+rx_complete:
- 	if (pend & XIIC_INTR_RX_FULL_MASK) {
- 		/* Receive register/FIFO is full */
- 
-@@ -911,6 +934,9 @@ static irqreturn_t xiic_process(int irq, void *dev_id)
- out:
- 	dev_dbg(i2c->adap.dev.parent, "%s clr: 0x%x\n", __func__, clr);
- 
-+	/* IISR is toggle-on-write: don't toggle an RX_FULL bit that wasn't set */
-+	if (rx_done_no_rx_full)
-+		clr &= ~XIIC_INTR_RX_FULL_MASK;
- 	xiic_setreg32(i2c, XIIC_IISR_OFFSET, clr);
- 	if (xfer_more)
- 		__xiic_start_xfer(i2c);
-
----
-base-commit: 67f0943b394d920b6c142aad8c6af94340342ae7
-change-id: 20261005-i2c-xiic-rx-fifo-333bf8dadb8b
-
-Best regards,
---  
-Siddarth Chilukuri <siddarth@nexthop.ai>
-
+--
+ i.
 
