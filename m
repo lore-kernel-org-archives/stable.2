@@ -1,95 +1,116 @@
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EEC936B909;
-	Mon,  5 Oct 2026 08:34:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E12C403B16
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 08:39:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791189272; cv=none; b=TzFU0ER4uOlqg2D9XRQihUP4netlQtammeutOJGaZ//pqX4n9qJn34qYEVxWdxKJ1F/BklCuiOrpxjrHzSVp4dW0shrD3L1x3l7N2ZyHCz33qBM93mawWnTJDOtDw43yY9iU2vMpzvYojFkrfMOmA/LkQ1Y6na87umPPoTFJOeU=
+	t=1791189601; cv=none; b=U+jA2y/T0PU1uTBPI73XgHmpQcNSg1habl4NdxwXCRu0KccURPiadB/k+ypeCK8DLUKVAoB9mgjMIrseUOg7WkBb9eAghWByOws3kdML/ghSMbxeapZwiuzQViaOJmkVXjLbBngkKMYUBdVnJyKFK1VqxYXCY7RUlrstyc+8ELU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791189272; c=relaxed/simple;
-	bh=w+wwFVK6KHQeaI9uRymOZz39D1QHGigoaSM3nqJFb2o=;
-	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=cuTcruimFhmMA0lHmoeqeup3xV4csyRrv1RVG9yqvjPqpPoV6u+jZgK3q1D9NpTKhpF0tAuAgbrmOcL4tzI7W2rbrB8aF153j+86x4+znCr0BWJ0jvVgDiPn/YQo2xmANAef32pQ78lIYZ3D7m8Z4QifVC3X3wwBJmGA1GJ8opE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=T82Yj+bf; arc=none smtp.client-ip=210.61.82.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	s=arc-20240116; t=1791189601; c=relaxed/simple;
+	bh=EJS6kV/G2Vp8TMwD9OqKXY9zS6OnIATePTfCYDJRRYI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=StMh8J3W3OFgajgdhYIYpfSjJZaRZu/LBIxUKnJGmb8IQGvmmbJiLA+h5qwBzGxVxd2iTtKLsScaIoAWMus06F06JJvaBwusfi0Y4BL3qwnH7fLjpWViCEsz65CWyo0gWATt3Kuw5OUC/vZ4Ws9VwfRVDPVO/lZFPdY4jkuXUzg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MLzhADGF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="T82Yj+bf"
-X-UUID: 91014c30c09711f18dc8c9802ae25ab1-20261005
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID; bh=w+wwFVK6KHQeaI9uRymOZz39D1QHGigoaSM3nqJFb2o=;
-	b=T82Yj+bfTswDS50xJKmn8YEuCE/0gz5Dwpekm18qsdMCgRXxZ8QyY0yuTzaWVgb7zSbQ+iLJTYSZIIFYAOHQN0tWuZy5+lv2gB04NdpU7rp/LJwUdFQ+/uQ2WyLMF48ahaPJwyNDLmz3JedCkaFb6TdOg0eVPOVaLy9gjUAFtyo=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.20,REQID:101acceb-3428-4f4d-88bd-8739f094ec14,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:291e20b,CLOUDID:8e95a094-f92e-44c1-a195-feed1a426245,B
-	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|836|865|888|898,TC:-5,Content:
-	0|15|50|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,
-	OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 91014c30c09711f18dc8c9802ae25ab1-20261005
-Received: from mtkmbs11n1.mediatek.inc [(172.21.101.185)] by mailgw02.mediatek.com
-	(envelope-from <alice.chao@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 106743173; Mon, 05 Oct 2026 16:34:23 +0800
-Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
- MTKMBS09N2.mediatek.inc (172.21.101.94) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Mon, 5 Oct 2026 16:34:21 +0800
-Received: from [10.233.130.16] (10.233.130.16) by mtkmbs11n1.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
- Transport; Mon, 5 Oct 2026 16:34:21 +0800
-Message-ID: <be68524572540edfd87ec4b5f25c28933ccd45f6.camel@mediatek.com>
-Subject: Re: [PATCH 6.18.y] scsi: ufs: core: Re-arm the device command
- completion before submitting
-From: Alice Chao <alice.chao@mediatek.com>
-To: <martin.petersen@oracle.com>, <bvanassche@acm.org>
-CC: Sasha Levin <sashal@kernel.org>, <stable@vger.kernel.org>,
-	<linux-scsi@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<James.Bottomley@HansenPartnership.com>, <avri.altman@sandisk.com>,
-	<alim.akhtar@samsung.com>, <wsd_upstream@mediatek.com>,
-	<linux-mediatek@lists.infradead.org>, <peter.wang@mediatek.com>,
-	<chun-hung.wu@mediatek.com>, <cc.chou@mediatek.com>,
-	<chaotian.jing@mediatek.com>, <tun-yu.yu@mediatek.com>,
-	<naomi.chu@mediatek.com>, <ed.tsai@mediatek.com>
-Date: Mon, 5 Oct 2026 16:34:21 +0800
-In-Reply-To: <daily-reply-20260915-0008-re-ufs-dev-cmd-completion@kernel.org>
-References: <20260915052638.459390-1-alice.chao@mediatek.com>
-	 <daily-reply-20260915-0008-re-ufs-dev-cmd-completion@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MLzhADGF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2D1B1F00893;
+	Mon,  5 Oct 2026 08:39:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791189592;
+	bh=/I0C+1ATWf35wQwiIiSiQMylWQ/DIvbOZtlBfRL1iFI=;
+	h=Subject:To:Cc:From:Date;
+	b=MLzhADGFp9jzw200KbTPflIds//M2STjPiRs/FZKMX0EYyMFP94jYVeGcobfR9tko
+	 goGVauXWZ+7PUjYQjmjiDWhyPRDm+XVU+uRtM3WiT0fjm5IVH+7IaQjL/7s1XWQTIn
+	 3dDGfERf1U64jX2A26Kyo8sf6+Yaicw4Q+PKDMMs=
+Subject: FAILED: patch "[PATCH] soc: qcom: geni-se: Correct QUP Core ICC vote constants" failed to apply to 6.6-stable tree
+To: viken.dadhaniya@oss.qualcomm.com,gregkh@linuxfoundation.org,konrad.dybcio@oss.qualcomm.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 05 Oct 2026 10:39:48 +0200
+Message-ID: <2026100548-sprang-reverence-95f5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MTK: N
-
-On Tue, 2026-09-15 at 21:52 -0400, Sasha Levin wrote:
-> > Re-arm the completion in ufshcd_issue_dev_cmd(), immediately before
-> > submitting. All submitters - ufshcd_exec_dev_cmd(),
-> > ufshcd_issue_devman_upiu_cmd() and ufshcd_advanced_rpmb_op() -
-> > reach it
-> > holding hba->dev_cmd.lock, so no extra serialization is needed.
->=20
-> The analysis reads correct to me and the patch is clean against 6.18,
-> but
-> this is a stable only change in the UFS core completion path with no
-> mainline counterpart, since 08b12cda6c44 ("scsi: ufs: core: Switch to
-> scsi_get_internal_cmd()") deleted this code outright. I would like a
-> subsystem ack before queueing it.
->=20
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
 
-Gentle Ping.
+The patch below does not apply to the 6.6-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Hi Martin and Bart, any thoughts on this one?
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Thanks.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git checkout FETCH_HEAD
+git cherry-pick -x 1cd9b1be5a9c56fd69e3f555b200a1844f9b873e
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100548-sprang-reverence-95f5@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 1cd9b1be5a9c56fd69e3f555b200a1844f9b873e Mon Sep 17 00:00:00 2001
+From: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+Date: Tue, 15 Sep 2026 18:56:27 +0530
+Subject: [PATCH] soc: qcom: geni-se: Correct QUP Core ICC vote constants
+
+The GENI_TO_CORE ("qup-core") ICC vote selects the QUP Core 2X clock
+rate. The CORE_2X_*_MHZ constants are expressed in Bps, but their
+values are several orders of magnitude too small. For example, the
+50 MHz threshold is represented by 2500 rather than 25000000 Bps.
+
+As a result, clients using these constants can severely under-vote the
+QUP Core clock.
+
+Correct the constants to their intended Bps thresholds so that the ICC
+provider selects the corresponding QUP Core 2X clock rate. Drop the unused
+definitions.
+
+Fixes: 58ffbba6a399 ("soc: qcom: geni: Support for ICC voting")
+Cc: stable@kernel.org
+Signed-off-by: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260915-correct-icc-bandwidth-vote-constants-v2-1-f78eb611204e@oss.qualcomm.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+diff --git a/include/linux/soc/qcom/geni-se.h b/include/linux/soc/qcom/geni-se.h
+index 29a53bbc0dd4..5f18d281e6a4 100644
+--- a/include/linux/soc/qcom/geni-se.h
++++ b/include/linux/soc/qcom/geni-se.h
+@@ -347,17 +347,12 @@ struct geni_se {
+ #define QUP_SE_VERSION_2_5                  0x20050000
+ 
+ /*
+- * Define bandwidth thresholds that cause the underlying Core 2X interconnect
+- * clock to run at the named frequency. These baseline values are recommended
+- * by the hardware team, and are not dynamically scaled with GENI bandwidth
+- * beyond basic on/off.
++ * QUP Core 2X clock votes used by GENI clients through the "qup-core" ICC
++ * path. Values are in Bps and must be converted with Bps_to_icc() before
++ * setting avg_bw.
+  */
+-#define CORE_2X_19_2_MHZ		960
+-#define CORE_2X_50_MHZ			2500
+-#define CORE_2X_100_MHZ			5000
+-#define CORE_2X_150_MHZ			7500
+-#define CORE_2X_200_MHZ			10000
+-#define CORE_2X_236_MHZ			16383
++#define CORE_2X_19_2_MHZ		9600000
++#define CORE_2X_50_MHZ			25000000
+ 
+ #define GENI_DEFAULT_BW			Bps_to_icc(1000)
+ 
+
