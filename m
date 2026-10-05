@@ -1,77 +1,232 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EB3A475338;
-	Mon,  5 Oct 2026 10:53:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E851D47B41C
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 10:56:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791197599; cv=none; b=o1Rjd0sjOr9PtPosAShCxnDpHngdAHsDjA1/hk2BESkMQSS/zd81avNkWVHbmEBI9h7JWWXzocPdcvwMIU2x4mmPawWP04HMUXze1Px+zCtNUlImn+GY8ygQrcuJ7cJEBePR4GLIgqGJ2BzuvKzfP/b4SbeI8hssYAilPieMBdk=
+	t=1791197802; cv=none; b=mJloTzet8eCdZXlb9aJCHmcclGWxv71N7gQpegXtarJka9e+qOfe9jLXp4OmrCwM9My7LwtMP8U80yvIRS3y08tGKnWfvS/WkUoLtuVMHEZ8HjP0PTRlCuH+Td4N7SQYFhZOshDxw5xGXgKqOslV7L+WFLFveE/DFIH4vrFbVBs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791197599; c=relaxed/simple;
-	bh=gp7PRv3WjAiMJrp0DvXpRvTv3mwC8R3NiezXzUE7FxE=;
+	s=arc-20240116; t=1791197802; c=relaxed/simple;
+	bh=PsvBh8XG90HwICE8VLGKoRg6vUUaY+kfhj0jv12P6Ec=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=IoygIwiEpgwwSAVtr0IzaX+XkhAyWsmYNp9J7eKF5BvH4w3+HEgDn56vIUS1D3/28b4dFVrkPyRa5FWF28DZSNQmjmPdkHLEhbBv1Jv5Hb2BP1jVCYci1LZN91DOU8LLOEr/srnUmU5YENcKcJ5kBybI9bvTrmYHIVlvUaRZEqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DrSoIlXi; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ludjZ5p9FnvriD9/0iA7ijA8Iy9g1D/zacB7KPo6VAd9k7el5tTfdB1gPLo/j12ZRVL6+hqMG06kgHSO1+hl4honPrIoDhJTy+PlPzdvRvY8u0L0NU/MVitV/qxF473NSaTFb3EcPZDGPVUBcTVxQxtWUyh7LqTJrLz5havr7bw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mBv/pQL4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DrSoIlXi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 435491F000FF;
-	Mon,  5 Oct 2026 10:53:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mBv/pQL4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 467EA1F000FF;
+	Mon,  5 Oct 2026 10:56:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791197598;
-	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	s=k20260515; t=1791197792;
+	bh=kf5KSjH2is2p0DFNWEVCiRHXK4A4hmOjqSzNAyXIe14=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DrSoIlXiGR4Hn9+cSfMUi8oc6xCATyYk3LEXhRejXGNYTd+S+8zV388wgowGubC6R
-	 xl/4LsCowJhKvULNedWhn2Bl6tdPJ3WHet0PMccgxwEEOXVQAUkssBOt0ilQRE6Lv1
-	 sb9lraZfYS8BKiUG9juUiwMurjNchRzLgc1Iw1e0r2adHHKNZaOzBWr78Rl/cy0Gqs
-	 LPM3paGhcbzKI5/+RK/V1A9y+VHZPaoTSEgwc62yvJIyOPPzdztTwL7EaAUiB7lDK/
-	 dWNrisSXAWUD91YQjJv5vZc3hXjVYc7HX1xZYksww2XZtXoVeMOfOMvR8vd7HS9hD9
-	 Q2bCV31iT5shQ==
-From: netdev-bot+sinfo@kernel.org
-To: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Cc: stable@vger.kernel.org, Jamal Hadi Salim <jhs@mojatatu.com>,
- Cong Wang <xiyou.wangcong@gmail.com>, Jiri Pirko <jiri@resnulli.us>,
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- "Samudrala, Sridhar" <sridhar.samudrala@intel.com>,
- John Fastabend <john.r.fastabend@intel.com>,
- Benjamin Robin <benjamin.robin@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Victor Nogueira <victor@mojatatu.com>,
- Pedro Tammela <pctammela@mojatatu.com>,
- Simon Horman <simon.horman@corigine.com>, Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH 5.15.y] net: sched: cls_u32: Undo tcf_bind_filter if
- u32_replace_hw_knode
-Date: Mon, 05 Oct 2026 10:53:16 +0000
-Message-ID: <179119759679.1402591.553723338940135052@kernel.org>
-In-Reply-To: <20261005-cve-2023-53733-5-15-v1-1-caeaaf7de3f5@bootlin.com>
-References: <20261005-cve-2023-53733-5-15-v1-1-caeaaf7de3f5@bootlin.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	b=mBv/pQL43AKao6nNUsj9Uh3FjpR9UyVVVXodm0nwxg41vE8pCPa2isKkf/GaJ/z0J
+	 VWIEXuVK4+Q8bljwYNu3qsAL9B9l2H5X7w8wBY7oPHlaEgytOmTTd3h/26ijxg9/Qa
+	 KYfm2YLqt66zrl2pHHEPOq2rAQfpe64xeTqZ92wuvTIbwkT0Dk4QWx49PvsbHRSRcv
+	 6oKxstOj3uYncqzEOc+RcTc/N4XAmHnvGU8iL/7F3C6vwAPdr92YNuIxbRkBEZUvt7
+	 U7XmBmt1Pb+c/MaivMnhAQIGyRdIJoe48JPJgFlgPMIp9G9lGqQC5w7KVxqxmFQb7F
+	 ugrt8lg3CSxDA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Ray Wu <ray.wu@amd.com>,
+	Fangzhi Zuo <jerry.zuo@amd.com>,
+	"ChiaHsuan (Tom) Chung" <chiahsuan.chung@amd.com>,
+	Dan Wheeler <daniel.wheeler@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.2.y] drm/amd/display: map PWM brightness through custom backlight curve
+Date: Mon,  5 Oct 2026 06:56:29 -0400
+Message-ID: <20261005105605.1547203-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026100550-splotchy-cheesy-cd92@gregkh>
+References: <2026100550-splotchy-cheesy-cd92@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi!
+From: Ray Wu <ray.wu@amd.com>
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+[ Upstream commit 51cc916648d1421e0271090fb4fa86550a7a96d9 ]
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+[Why/How]
+On the PWM path, convert the userspace brightness to an input signal and
+derive the target luminance from the custom backlight curve, then pass
+the resulting millipercent to the power module.
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+This keeps PWM programming and backlight curve mapping in the power
+module, aligning the Linux path with the Windows behavior.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5723
+Fixes: 3c108046e1d6 ("drm/amd/display: Add power module on Linux")
+Assisted-by: Cursor:Claude-Opus-4.8
+Signed-off-by: Ray Wu <ray.wu@amd.com>
+Signed-off-by: Fangzhi Zuo <jerry.zuo@amd.com>
+Reviewed-by: ChiaHsuan (Tom) Chung <chiahsuan.chung@amd.com>
+Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit bc4e099caa85e8d4c3555851a0feb07058c4a1fe)
+Cc: stable@vger.kernel.org
+[ sashal: Relocated the changes into the existing display manager code because the backlight code had not been split out. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 92 ++++++++++++++++---
+ 1 file changed, 80 insertions(+), 12 deletions(-)
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 5d46bfe475269..4ee7db8a6a226 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -70,6 +70,7 @@
+ #include "ivsrcid/ivsrcid_vislands30.h"
+ 
+ #include <linux/backlight.h>
++#include <linux/minmax.h>
+ #include <linux/module.h>
+ #include <linux/moduleparam.h>
+ #include <linux/types.h>
+@@ -1974,6 +1975,8 @@ static int amdgpu_dm_init_power_module(struct amdgpu_display_manager *dm)
+ 		init_data[i].use_custom_backlight_caps = false;
+ 		init_data[i].custom_backlight_caps_config_no = 0;
+ 		init_data[i].use_linear_backlight_curve = false;
++		if (amdgpu_dc_debug_mask & DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE)
++			init_data[i].use_linear_backlight_curve = true;
+ 		init_data[i].def_varibright_enable = 0;
+ 		init_data[i].varibright_level = 0;
+ 		/*
+@@ -5304,6 +5307,68 @@ static inline u32 scale_fw_to_input(int min, int max, u64 input)
+ 	return min + DIV_ROUND_CLOSEST_ULL(input * (max - min), AMDGPU_MAX_BL_LEVEL);
+ }
+ 
++static u32 backlight_signal_to_luminance(const struct amdgpu_dm_backlight_caps *caps,
++					 u32 signal)
++{
++	u32 lower_signal, upper_signal;
++	u32 lower_lum, upper_lum;
++	int i;
++
++	if (!caps->data_points)
++		return DIV_ROUND_CLOSEST(signal * 100, AMDGPU_MAX_BL_LEVEL);
++
++	if (signal < caps->luminance_data[0].input_signal) {
++		lower_signal = 0;
++		lower_lum = 0;
++		upper_signal = caps->luminance_data[0].input_signal;
++		upper_lum = caps->luminance_data[0].luminance;
++	} else if (signal >=
++		   caps->luminance_data[caps->data_points - 1].input_signal) {
++		lower_signal = caps->luminance_data[caps->data_points - 1].input_signal;
++		lower_lum = caps->luminance_data[caps->data_points - 1].luminance;
++		upper_signal = caps->max_input_signal;
++		upper_lum = 100;
++	} else {
++		for (i = 1;
++		     i < caps->data_points &&
++		     signal > caps->luminance_data[i].input_signal;
++		     i++)
++			;
++
++		lower_signal = caps->luminance_data[i - 1].input_signal;
++		upper_signal = caps->luminance_data[i].input_signal;
++		lower_lum = caps->luminance_data[i - 1].luminance;
++		upper_lum = caps->luminance_data[i].luminance;
++	}
++
++	if (upper_signal == lower_signal)
++		return upper_lum;
++
++	return lower_lum + DIV_ROUND_CLOSEST((upper_lum - lower_lum) *
++					     (signal - lower_signal),
++					     upper_signal - lower_signal);
++}
++
++static u32 convert_brightness_to_millipercent(const struct amdgpu_dm_backlight_caps *caps,
++					      u32 user_brightness)
++{
++	unsigned int min, max;
++	u32 signal, luminance;
++
++	if (!get_brightness_range(caps, &min, &max))
++		return DIV_ROUND_CLOSEST_ULL((u64)user_brightness * 100000,
++					     MAX_BACKLIGHT_LEVEL);
++
++	user_brightness = clamp(user_brightness, min, max);
++	if (amdgpu_dc_debug_mask & DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE)
++		return DIV_ROUND_CLOSEST_ULL((u64)user_brightness * 100000, max);
++
++	signal = scale_input_to_fw(max, user_brightness);
++	luminance = backlight_signal_to_luminance(caps, signal);
++
++	return min_t(u32, luminance * 1000, 100000);
++}
++
+ static void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps,
+ 				      unsigned int min, unsigned int max,
+ 				      uint32_t *user_brightness)
+@@ -5421,10 +5486,10 @@ static void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
+ 	struct amdgpu_dm_backlight_caps *caps;
+ 	struct dc_link *link;
+ 	u32 brightness = 0;
++	u32 millipercent = 0;
+ 	bool rc = false, reallow_idle = false;
+ 	struct drm_connector *connector;
+ 	struct dc_stream_state *stream;
+-	unsigned int min, max;
+ 
+ 	list_for_each_entry(connector, &dm->ddev->mode_config.connector_list, head) {
+ 		struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
+@@ -5447,12 +5512,21 @@ static void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
+ 	/* update scratch register */
+ 	if (bl_idx == 0)
+ 		amdgpu_atombios_scratch_regs_set_backlight_level(dm->adev, dm->brightness[bl_idx]);
+-	brightness = convert_brightness_from_user(caps, dm->brightness[bl_idx]);
++
+ 	link = (struct dc_link *)dm->backlight_link[bl_idx];
++	stream = dm_find_stream_with_link(dm, link);
++	if (!stream)
++		return;
+ 
+-	/* Apply brightness quirk */
+-	if (caps->brightness_mask)
+-		brightness |= caps->brightness_mask;
++	if (caps->aux_support) {
++		brightness = convert_brightness_from_user(caps, dm->brightness[bl_idx]);
++		/* Apply brightness quirk */
++		if (caps->brightness_mask)
++			brightness |= caps->brightness_mask;
++	} else {
++		millipercent = convert_brightness_to_millipercent(caps,
++								  user_brightness);
++	}
+ 
+ 	if (trace_amdgpu_dm_brightness_enabled()) {
+ 		trace_amdgpu_dm_brightness(__builtin_return_address(0),
+@@ -5462,10 +5536,6 @@ static void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
+ 					   power_supply_is_system_supplied() > 0);
+ 	}
+ 
+-	stream = dm_find_stream_with_link(dm, link);
+-	if (!stream)
+-		return;
+-
+ 	mutex_lock(&dm->dc_lock);
+ 	if (dm->dc->caps.ips_support && dm->dc->ctx->dmub_srv->idle_allowed) {
+ 		dc_allow_idle_optimizations(dm->dc, false);
+@@ -5477,10 +5547,8 @@ static void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
+ 			AUX_BL_DEFAULT_TRANSITION_TIME_MS, false, true);
+ 	} else {
+ 		/* power module uses millipercent */
+-		get_brightness_range(caps, &min, &max);
+-		brightness = DIV_ROUND_CLOSEST(brightness * 100, (max - min)) * 1000;
+ 		rc = mod_power_set_backlight_percent(dm->power_module, stream,
+-						     brightness, 0, false);
++						     millipercent, 0, false);
+ 	}
+ 
+ 	/*
+-- 
+2.53.0
+
