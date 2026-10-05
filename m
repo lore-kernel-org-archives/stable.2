@@ -1,193 +1,143 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012034.outbound.protection.outlook.com [52.101.43.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD263547065;
-	Mon,  5 Oct 2026 09:30:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA30A429CD3;
+	Mon,  5 Oct 2026 09:42:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.34
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791192662; cv=pass; b=CwVAROlqG5TnOHuG9jCZjea99pgMW6f5oKgGV+oorqWpRvVP2QjUZLeNCaiKPOYJ0CPrTPPgYW3fjbfBwXLXV4oJjizYs13INFTLthT3Dt971ONHXZai9xGlrzpOtwm4WORvZGrlO6/eYUShuq/v7jsAtXCHU6iBB20Wke6a0gU=
+	t=1791193349; cv=fail; b=UQ0UmSF8bFjqHxS4/MJ4qesi4n0LUW7PDJgEPtk66sYlJ6Ye3B+SGIO5GzIR1aFwogkF+S8ntuHET4u59QMCkd0w6Ym4xo6CeJL457V0UGUG9fN7X8/dBiTh7iDjVh4im24CaqqXr/E9xoVtuZgiq2gIBr7Y4d4OAIByChmVsu8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791192662; c=relaxed/simple;
-	bh=XxZp9me/M+rcQ65zWoq/SpEAMV7nEol5j+mbLLq+s/U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aScxnTtbK1oms1tyS0nrkcrDm8QNcP7UmkBXAr72H/qCHHbEgVpAzpiLEe7AX/eHF1UEjbZo+VCUAZgpVW+NiHMbl/sCPdbA7RrmESe5662pQo3Elb7w9NnZJBkGzZUxYDT+lRITpV4TK/NvV5ZMjzkJFFWPFNpiRBEBO1f7Sjs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=G6FVsgMt; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	s=arc-20240116; t=1791193349; c=relaxed/simple;
+	bh=ICRhXE0aEDUooY2fbvxL+2KN3M0+rqKJcaAhn2J4BtA=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=TdGxinMmxAll7wDpdcIeB8gigBMVrpTShlS69vk8JywMJEKvQ5Xn4owLbMrpXe/Sez/T8xXY/zeqQR6V1cin3r9TtBJIBcWPZR34hYJGVj356O4pLc4rSL/iWO6TTbkAkoyU7ObAnUMQLX57ZhW1ekeO3GUcYYbmLeyJfGKz6ug=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=PoaGKsjq; arc=fail smtp.client-ip=52.101.43.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="G6FVsgMt"
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 93F2F2018A0;
-	Mon, 05 Oct 2026 11:30:57 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1791192657;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RFO5ZXSt8TLkL01e7cbVBIy8e8TGVKgQ+fA2lCydsoU=;
-	b=G6FVsgMtv6+O5Nai5cjZqEaS7ai3SArUDKVVlSLInZDv+HoLa3YyUpYzlIiXou2kapZOFH
-	Nq2cgCSzP7adW48JVyNeDfKlTUL9U8E3Pgi1phip8Fe/rLGAxORld851O6QnGzkQiFcXq0
-	8oAiaYCGRWVjUajXRVFhOwVsY3yoCiwg//rbfzgTZMzs2/1djKiXK1m2BwGxb0rr7rJFMI
-	GfRr63dVHnY9oR/iT/OnUu8Do5r+ZjggyIBOOYEml8h1TyQ3OSdyn5qxKoUIJAUyDP90vK
-	Fwfv39fn552Sd3Q9Ux2WR8//pjJYZhuLIwQ6E0Sty+W5+inPDNtGFuqKhw0Wzw==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1791192657; a=rsa-sha256;
-	cv=none;
-	b=ShrLDiK0uCokfQM1tp3t03LlLXuS2/0VAj3kmb0cZUpk3KtGQyZkCjId7J1rq/cVAzr6tZ
-	MCt61WEHma4kgZ3cqOGPKxd5teG0l4ZyYAmivsn1nCAbclMeVcPYoJlzT9waTdV9hFRgC1
-	tEjlIQjK/V3ORFI6hmq19en4ewgMX4nQl26h3+33sCXp+3wiY7oRrKDfwYCU8E7eJ+evWT
-	/YwjnnHi7anwcKRKOg3rHTZWsH64laei/R3CDPZRhn3EeUPzTwxl32ozeCt2e0jtXcKeuo
-	ALvmLXXfCJeIyOACflIkgUQHbRvHhtKMSlCc/lWMrosPWnIL49ISUyIr98fniQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1791192657;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RFO5ZXSt8TLkL01e7cbVBIy8e8TGVKgQ+fA2lCydsoU=;
-	b=d2RcX77MDIvFWv8OKlpztNNQt/Fsyl4rf35fbZJdUOodgRM0yYGZGVEFtFMV0l2N5RsyuB
-	3RPtk5a9Aqzb/YJVDhWsvoycwT6reRndLnmRZhOEYWGEByocFtug2FDccWomLiwNdX/Y3Z
-	/8jXivOUOBS+Z4mAPUtmzemqZ8WXzLXv4Nte1y7CE5bGe311ytQdcwLdrEoA3vOi9zC3Zm
-	hhqbr8ctqvo8qQc4khzfmL/RQBiOTtYeibsS/yDhkp+cx5+e/0KLCCOhzQy+SdbIXuise0
-	6R0yDk9oaa7W9NIKVoGirVR7TPzCzO8/CMprT9RdUsxsC0iJQ340qjW4ESyagg==
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xDf29-004MSO-1Q;
-	Mon, 05 Oct 2026 11:30:57 +0200
-Received: from pengutronix.de (90-182-211-1.rcp.o2.cz [90.182.211.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id E86E65BA00B;
-	Mon, 05 Oct 2026 09:30:56 +0000 (UTC)
-Date: Mon, 5 Oct 2026 11:30:56 +0200
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: netdev@vger.kernel.org
-Cc: davem@davemloft.net, kuba@kernel.org, linux-can@vger.kernel.org, 
-	kernel@pengutronix.de, "Ji-Ze Hong (Peter Hong)" <peter_hong@fintek.com.tw>, 
-	stable@vger.kernel.org, "Dynetrex, Admin" <admin@dynetrex.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Drew Willey <dwilley@google.com>
-Subject: Re: [PATCH net 3/3] usb: f81604: fix struct f81604_int_data size
- mismatch
-Message-ID: <20261005-weightless-fat-seriema-802f2e-mkl@pengutronix.de>
-References: <20261001151905.1556270-1-mkl@pengutronix.de>
- <20261001151905.1556270-4-mkl@pengutronix.de>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="PoaGKsjq"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gJfJIEJmwddmhi1QoBC5zYzAAk991dxGAg0IScn/kZhF65OYoJrfhUZZxw/FVdOBjNkstYE6S19GWmDUGOZ0ucNV4/GBkinNE7Zm/P8tbB5LMZm9BFXvOnI/0PSGZm5vgOU43xzILzxrHw677wnjxeVPBw61bAeeStAFXrH2rGZG0APC43ll542tEz1IhqmmE9vcZd38bbNAprJUw7oqffX/Rr9rN7Qa2K2+9ccd/qJVaMjy8mPc72oZmhvuXmFSRf/3O/QvNsWIuxtbgtwv7MZbPsK2uTFtFVEU9fNVwjAQol0AcU6cuytZyDfjNE20ORVu7yDvqkfpxMiJCqAWJQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1m0VKyXAl9UvOM2m80f7vibkh+DaQDic+AOY37wFW5E=;
+ b=SMxeo8FmOHEWxyLZs7h2aBhklBSmjO/S28d9VdPjYgKw5zj0/UrMMauI/a0bmvIPyDSUZeP6TX4BLEqpDHX/Tr5Wwz5+5Myu4QMBVDM/Vr6tTEbW2Fc++ywWYxfs3D8xannbvXtVrdgNlHbKVXVjAVa4v6NRa5ebVrfsTOZsh2/Sk+BdCNsNgq0Y7Bx4C7bPZxSE3cfDrgHWNFcbsHxKAhfVpBMRW5COAqgXgMjiwdAotdYztlyzH5MRuC+UuH7GBhFY8lLE+ll3GmA2Ut1bSjnwTEppt5B8pjBNRgj2Cuc4jU0XA0dNn35muVz3pQNh6r8SciohgLKNdUYF9qY7JA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1m0VKyXAl9UvOM2m80f7vibkh+DaQDic+AOY37wFW5E=;
+ b=PoaGKsjqtRcXVAlc/LWuw1TlZNgl7w+aVgW0T+pA4kGDzlmDWMh1G/1Vi6tOVH8VytvWX017rs/FDnYweilDVuYKmQajLcTJU707UmGuIe2ORF2PfZANv7va5DWrmIloCfJkF/Sa34Oa7sNr1t5pRVLEaLKrc+ui0vn2L/lKsH4=
+Received: from BN0PR03CA0013.namprd03.prod.outlook.com (2603:10b6:408:e6::18)
+ by PH6PR12MB944609.namprd12.prod.outlook.com (2603:10b6:510:3de::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Mon, 5 Oct
+ 2026 09:42:20 +0000
+Received: from BL02EPF0002992D.namprd02.prod.outlook.com
+ (2603:10b6:408:e6:cafe::8e) by BN0PR03CA0013.outlook.office365.com
+ (2603:10b6:408:e6::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon, 5
+ Oct 2026 09:42:20 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL02EPF0002992D.mail.protection.outlook.com (10.167.249.58) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Mon, 5 Oct 2026 09:42:20 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 5 Oct
+ 2026 04:42:18 -0500
+Received: from xhdappanad40.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Mon, 5 Oct 2026 04:42:15 -0500
+From: Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com>
+To: Jonathan Cameron <jic23@kernel.org>, David Lechner
+	<dlechner@baylibre.com>, =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Michal Simek <michal.simek@amd.com>,
+	Conall O'Griofa <conall.ogriofa@amd.com>
+CC: <linux-iio@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <git@amd.com>, Dileep Kumar Nagavarapu
+	<dileepkumar.nagavarapu@amd.com>, <stable@vger.kernel.org>
+Subject: [PATCH v4 01/15] iio: adc: xilinx-xadc: Correct write edge in CFG
+Date: Mon, 5 Oct 2026 15:11:51 +0530
+Message-ID: <20261005094205.1045874-2-dileepkumar.nagavarapu@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261005094205.1045874-1-dileepkumar.nagavarapu@amd.com>
+References: <20261005094205.1045874-1-dileepkumar.nagavarapu@amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rlf27b4rnrtsomql"
-Content-Disposition: inline
-In-Reply-To: <20261001151905.1556270-4-mkl@pengutronix.de>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0002992D:EE_|PH6PR12MB944609:EE_
+X-MS-Office365-Filtering-Correlation-Id: dc3fff11-e344-4687-0d06-08df22c4f364
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|82310400026|23010399003|36860700016|18002099003|22082099003|11063799006|6133799003|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	0u6J8anENjJrQAtnMV/mfwQYuOEtvRw71yKLjpltHoEiSpeyuX+fzwLHeGlRyjql5Dsv6cerriLMTpKXJqZQOJWM2VaeprFcNL09AcD0rFsYrszNabPr4P7KHP+XUcZ196cL7CpfIq7IPxLWrZDsjDavfo2x1wdpOfwiHI1jSxXyJDwN8zOLEBGCWLTcLjagLDBpCP/m367HxX0EJQMsxHWnZ+xuaLMSwT1kCWpMXhZ3aKkOeZNWid5GxPfKUt6UkgjsFhXgAZ2yW1FxLb8FoTWEp3xxQPWEDr8iloFNTJG48phL2rDmwG1lAI/vr5lDlhvc4B8kzpUpTcqV1lrHBhGNgjxlLp5D5Ps7S5GBMqTONTOwqu/rPZyvfSxZad0SSN+VXGjIq5zwNJShlLugXw6nsZdXDZfPYLOhfkv/TkfYvQuPw1s/fSok78/n3izgFWQbNycM+V9qedEfosODcfOoOAqcSe4afdulTGOZr4cJLWRlNfU51ZbixOzdRHTtS+hhq+3fKALeHRInSL+nRjc9Iypv51MMo4jRx7ASmxll/ysrhQrzyWVWpUklVwuc6kdE81/Aa9buGHYaqB43y0S9XmX5LMlGcPHiQ8fiIH3QPuKBJsK6WWNq4/QVdPnd2W5SwzCBhraTbLLp/7+PPqZUE9TjInvJAn6HM9xYbrfIZDdBKn1v3kh4KWiEhPUt
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(82310400026)(23010399003)(36860700016)(18002099003)(22082099003)(11063799006)(6133799003)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	dtNOCcMScX6z7vuA9qOtl5dQAajdKnMzphzJYagPVrqLpz6x77Jufk2FkclGKeaWqirr2RzXRRuQcJH+ULOWABjNk8D0zVhw9SJ6n/tGqMmZmmqNfPbwTQzKTlAeNsxmwX3tW3UipkpApsNUYAnfuZ1pE1qEOMhBxE65/V7SBnZjNWwcb5h8A6I5LFA2MTZzHj47rN5bkgWxmRqn2PvGLbG8cdIsjIMvg8jud0w5JogiYMyO/4nLxbQ2/Xos3dZ+Lj1IoJ5VmjCMRtCTfbABCR58zyUUhhuQzXMsuw5zFmb23wa8oES9MdqC9m37NlczETg2yF6CeE/kIbrAEwjv6ihjyx4aAAF9ksIRPbj7gar9lfykPqHXDiZsWXhOLNCzhkhmIW6x6zMUdUv8qM6oKt+ULflwVcbsdp2lae25NOmK8cXQ1wu2GC/fYlao4bPN
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 09:42:20.1826
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dc3fff11-e344-4687-0d06-08df22c4f364
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL02EPF0002992D.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH6PR12MB944609
 
+UG585 describes the PS-XADC interface configuration steps: REDGE is
+1 and WEDGE is 0. This is consistent with the XADCIF_CFG register
+default value.
 
---rlf27b4rnrtsomql
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH net 3/3] usb: f81604: fix struct f81604_int_data size
- mismatch
-MIME-Version: 1.0
+Configure WEDGE to 0 as specified by the TRM. Abnormal
+XADC temperature readings observed on Zynq-7000 are no
+longer reproducible with the documented setting applied.
 
-On 01.10.2026 17:14:25, Marc Kleine-Budde wrote:
-> From: "Ji-Ze Hong (Peter Hong)" <peter_hong@fintek.com.tw>
->
-> The struct f81604_int_data defines 9 bytes of interrupt data:
-> - Byte 0: Status register (sr)
-> - Byte 1: Interrupt register (isrc)
-> - Byte 2: Interrupt enable register (ier)
-> - Byte 3: Arbitration lost capture (alc)
-> - Byte 4: Error code capture (ecc)
-> - Byte 5: Error warning limit register (ewlr)
-> - Byte 6: RX error counter (rxerr)
-> - Byte 7: TX error counter (txerr)
-> - Byte 8: Reserved (val)
->
-> The hardware sends exactly 9 bytes for the interrupt endpoint.
-> However, the struct was defined with __aligned(4) attribute which
-> caused the compiler to pad the struct to 12 bytes.
->
-> This causes a problem in f81604_read_int_callback() where the short
-> URB check compares urb->actual_length against sizeof(*data). When
-> sizeof(struct f81604_int_data) is 12 but the hardware only sends 9
-> bytes, the check fails and valid interrupt messages are discarded.
->
-> This results in the driver only being able to transmit once because
-> the TX complete interrupt is never processed.
->
-> Fix this by removing the __aligned(4) attribute so the struct size
-> matches the actual hardware data size of 9 bytes.
->
-> Fixes: 7299b1b39a25 ("can: usb: f81604: handle short interrupt urb messag=
-es properly")
-> Cc: stable@vger.kernel.org
-> Reported-by: Dynetrex, Admin <admin@dynetrex.com>
-> Closes: https://lore.kernel.org/all/A3834A07-5639-4779-844F-C5843DFC3928@=
-dynetrex.com/
-> Signed-off-by: Ji-Ze Hong (Peter Hong) <peter_hong@fintek.com.tw>
-> Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Tested-by: Drew Willey <dwilley@google.com>
-> Link: https://patch.msgid.link/20260824-f81604-fix-v2-1-fc9be5581394@fint=
-ek.com.tw
-> Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+Fixes: bdc8cda1d010 ("iio:adc: Add Xilinx XADC driver")
+Co-developed-by: Conall O'Griofa <conall.ogriofa@amd.com>
+Signed-off-by: Conall O'Griofa <conall.ogriofa@amd.com>
+Signed-off-by: Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com>
+Cc: stable@vger.kernel.org
+---
+ drivers/iio/adc/xilinx-xadc-core.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-The netdev bots have found a "high" severity, which is a preexisting
-issue, but not clearly flagged as such.
+diff --git a/drivers/iio/adc/xilinx-xadc-core.c b/drivers/iio/adc/xilinx-xadc-core.c
+index cab66bb8cc1c..bfabe78b66e3 100644
+--- a/drivers/iio/adc/xilinx-xadc-core.c
++++ b/drivers/iio/adc/xilinx-xadc-core.c
+@@ -390,8 +390,7 @@ static int xadc_zynq_setup(struct platform_device *pdev,
+ 	xadc_write_reg(xadc, XADC_ZYNQ_REG_INTSTS, ~0);
+ 	xadc_write_reg(xadc, XADC_ZYNQ_REG_INTMSK, xadc->zynq_intmask);
+ 	xadc_write_reg(xadc, XADC_ZYNQ_REG_CFG, XADC_ZYNQ_CFG_ENABLE |
+-			XADC_ZYNQ_CFG_REDGE | XADC_ZYNQ_CFG_WEDGE |
+-			tck_div | XADC_ZYNQ_CFG_IGAP(igap));
++			XADC_ZYNQ_CFG_REDGE | tck_div | XADC_ZYNQ_CFG_IGAP(igap));
+ 
+ 	if (pcap_rate > XADC_ZYNQ_PCAP_RATE_MAX) {
+ 		ret = clk_set_rate(xadc->clk, pcap_rate);
+-- 
+2.34.1
 
-https://netdev-ai.bots.linux.dev/sashiko/#inline-kq9vc8hku
-
-| Consequence: use-after-free of the freed netdev private data and of the
-| embedded work_struct, which can corrupt memory or oops in the workqueue.
-|
-| Triggering path: interface up with CAN bus errors, arbitration loss or
-| overruns (so clear_flags gets set) -> driver unbind, rmmod or disconnect
-| -> unregister_netdev() -> f81604_close() -> cancel_work_sync() returns
-| -> an interrupt URB completion in flight before usb_kill_anchored_urbs()
-| calls f81604_handle_can_bus_errors() -> schedule_work() -> close returns
-| -> free_candev() -> f81604_clear_reg_work() runs on freed memory. I
-| checked that nothing between line 1078 and the free in
-| f81604_disconnect() drains this work: close_candev() and
-| usb_kill_anchored_urbs() do not flush it, and disconnect only calls
-| unregister_netdev() and free_candev().
-|
-| Reachability: the race window is short, and triggering it needs
-| privileged unbind or physical disconnect while bus errors are occurring.
-| So it rates High rather than Critical, though the consequence is memory
-| corruption. Pre-existing: git blame attributes f81604_close() entirely
-| to 88da17436973. This patch does not add the ordering, but it re-enables
-| the only producer of the work, which had been dead code since
-| 7299b1b39a25. The commit message neither claims to fix this nor depends
-| on it.
-
-We have a patch for it pending, but not included in the PR, to keep it
-to the absolute minimum.
-
-regards,
-Marc
-
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
-
---rlf27b4rnrtsomql
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCasNuRgAKCRDMOmT6rpmt
-0rwMAP9eiqoTtU79Brq2nmHVcBjJ0PbQzYu4Y3k2z6rjbYcOpgD/d/+Pk1e2x2Kw
-Gal3uvyklvc8MOL3tf7sS0yEiTFWtA4=
-=EH5/
------END PGP SIGNATURE-----
-
---rlf27b4rnrtsomql--
