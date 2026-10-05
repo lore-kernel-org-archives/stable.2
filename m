@@ -1,88 +1,79 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4D5841D216
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 13:14:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B270C4825CD;
+	Mon,  5 Oct 2026 13:14:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791206052; cv=none; b=sBHhj3BO5PRL0HXoWLnCfC/QnCJU3WvLAP89FbL/zPa9uEpEidsX5NfNvt0owvVw0GtvQ5rZV1lPw7Wo7TpXMTMBBjDkBmb6JeVtAJ36t351rtjs/jYRBh+5ELwpZ1B/51tXOJUet3U33M78EnFwGWhyyS0f5s5NH5LXDaNxREM=
+	t=1791206071; cv=none; b=igY4bVDZtbY0IixCVMLrjOATbD8p/IXoxJcauxg/eCdoWjpzi3BH3QY5oA7N1v8Pe3cZgdS/wMADXcWFqszZQ3fVR/gDs0kh/M5kFOD3xbQj0hReeH7PFzWENvY9i8+Ma6mcZ5tF1SCAyXMieEOzWR9zPC6ZrNywNdFzFofxhz8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791206052; c=relaxed/simple;
-	bh=5vWt0VJmM70wjDbP5wEkV65aatlNMn9IZN6WWYIMEPM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pVdWdBNaxoz2rL4sV7XyWh9yea7dOFiHp31SC2WdV0EWQamLbdKtBy0wXoqWnoD8GmcQ0t+GtC/keQS4Drz4qisMd7GdrnecIiT71DmR9qadfx2FctWi/6XdAcA/MYB1mA9Tdlq4YIZAYfW5awpKv5Z6q0YBPzJqgeOaU9badVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TZF5vVST; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791206071; c=relaxed/simple;
+	bh=65VyyGajm/xg2ros0aURKRbNtrWlyUynlzIogiOsLek=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=j6HtngbNJxsUZr9HVlO13vRmE6K6OTDGFYkZ05oAzMMRVquLoDQF1aPtGurbUUSitGJX9/H1W1GspSYfQHwhOsbiqHKUHidDBoUzKrIFozXlDAcQotVjjtdmW+iYEirYlI7rTahmZWMwWhwdsrck4AsWjyRuhA17gdd9eY9W5wU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=Kyu/U9ZX; arc=none smtp.client-ip=168.119.38.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TZF5vVST"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E45EB1F000FF;
-	Mon,  5 Oct 2026 13:14:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791206051;
-	bh=gRM3n+KUJ4S3UWv97lwpTtkiCRR/UhznQw+QTqCTJYc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TZF5vVST4Yok0Hr2H4tb9sT19MVdXY6hh+ee19ngoLUnb6K1pz9RKKbNbY3gKNBBa
-	 Q+O91fp9H9K7r/+svEmDKiI6s9dwKh3aNEIBw6BLhKO8d214jzZNTWLMpIi1tB9dia
-	 biEDNCAkpiDxWEAhaQK9UO8i24yjygSxaU8MpnI+lB6T/KrizxIYQRrSoC8PpK4LSe
-	 /YRA5bmX2mOpEGJDWb3oj1UosFpLJwDaug/Idn/XHztnuZz9V0slY7yMilD2CgDChY
-	 UmRJ3kBbHi+srQhYhy87SGh8z8aMWHCvlyiRR4Lh1SMpUsZZOc0HpLxsk4bXeIKU0g
-	 3FHWF+u00RnDg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] drm/amd/display: Mark DCE 6.4 as not APU
-Date: Mon,  5 Oct 2026 09:14:07 -0400
-Message-ID: <20261005131343.2491482-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100515-snazzy-basket-56a9@gregkh>
-References: <2026100515-snazzy-basket-56a9@gregkh>
+	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="Kyu/U9ZX"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=65VyyGajm/xg2ros0aURKRbNtrWlyUynlzIogiOsLek=;
+	t=1791206069; x=1792415669; b=Kyu/U9ZXN+Igbqjk6vCB6fSM9mDnicyA6jMmgtwCzWxO7+a
+	bj6eq3Tj4l8ZWmZpJ4Pqu8GCk2OGE8i6tRN/z8MY0v3HIxLj+uj4/mSWSvVaSgDBH1kwfNRRoWfQO
+	cBMaf86GZmlSQscDM2+X/ZFGrXcu2k/dCot3lLIsiv1n8Ol05d5i+oToqevilpvcaZrsvXFs8DM2n
+	6gKWmlmPFR+JZ1ioviFiz3PqD3jfYL+ofQAS9L3dsQTjzhpZTImwbbYdzwB4/gi5/wHs1aretD7S1
+	zoKF089XOVHIZEaIHKPgrVEnVsTXFczXg1upi6NxgLSoAhJcfXTAuAyXCnrd5zGg==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1xDiWL-00000005Ki7-1iYf;
+	Mon, 05 Oct 2026 15:14:22 +0200
+Message-ID: <7360e480d5eb194dc7c16c6e82944dfb73f3892f.camel@sipsolutions.net>
+Subject: Re: [PATCH] wifi: iwlegacy: 3945: protect sysfs TX power update
+ with mutex
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Stanislaw Gruszka <stf_xl@wp.pl>, Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: "David S . Miller" <davem@davemloft.net>, "John W . Linville"
+	 <linville@tuxdriver.com>, Zhu Yi <yi.zhu@intel.com>, 
+	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>
+Date: Mon, 05 Oct 2026 15:14:20 +0200
+In-Reply-To: <20260929181458.GA17064@wp.pl>
+References: <20260929123329.2135878-1-runyu.xiao@seu.edu.cn>
+	 <20260929181458.GA17064@wp.pl>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-malware-bazaar: not-scanned
 
-From: Timur Kristóf <timur.kristof@gmail.com>
+On Tue, 2026-09-29 at 20:14 +0200, Stanislaw Gruszka wrote:
+> On Tue, Sep 29, 2026 at 08:33:29PM +0800, Runyu Xiao wrote:
+> > The sysfs tx_power store handler calls il3945_hw_reg_set_txpower(), who=
+se
+> > command path requires il->mutex to be held. The callback bypasses the m=
+utex
+> > used by the other 3945 control paths, triggering the lockdep assertion =
+and
+> > allowing concurrent TX power updates to race with other command or stat=
+e
+> > transitions. Serialize the update with the same mutex.
+> >=20
+> > Fixes: b481de9ca074 ("[IWLWIFI]: add iwlwifi wireless drivers")
+> > Cc: stable@vger.kernel.org
+> > Assisted-by: LLM
+> > Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+> Acked-by: Stanislaw Gruszka <stf_xl@wp.pl>
 
-[ Upstream commit 3a52d587d1fc8e8bf94ba1b07374f7ec91aaffb4 ]
+I think we should rather remove these files: custom, undocumented sysfs
+shouldn't be there anyway...
 
-DCE 6.4 is found in Oland chips, which were advertised
-as low-end gaming GPUs in 2013~2015 and then have been
-sold as low-end workstation GPUs until 2017~2019.
-
-These are not APUs.
-
-Fixes: 7c15fd86aaec ("drm/amd/display: dc/dce: add initial DCE6 support (v10)")
-Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
-Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
-Link: https://patch.msgid.link/20260923122033.1046651-3-timur.kristof@gmail.com
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 1072aa811ea1e61d5f763e4ec1bc6d24bb61f14a)
-Cc: stable@vger.kernel.org
-[ sashal: Adjusted context for missing dc->debug and dc->check_config assignments. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c b/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
-index 8db9f75144662..556c453666a74 100644
---- a/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
-@@ -1355,7 +1355,6 @@ static bool dce64_construct(
- 	dc->caps.max_downscale_ratio = 200;
- 	dc->caps.i2c_speed_in_khz = 40;
- 	dc->caps.max_cursor_size = 64;
--	dc->caps.is_apu = true;
- 
- 	/*************************************************
- 	 *  Create resources                             *
--- 
-2.53.0
-
+johannes
