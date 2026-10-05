@@ -1,197 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender6-of-o55.zoho.com (sender6-of-o55.zoho.com [165.173.180.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5CAC4BB7F0
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 15:17:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791213454; cv=none; b=XAnZ9bMMnaV8dmChCZBUy5gb+icN5BuUG4JPSV8z7RrI8W8WuBjCbAV5YDj/xi5attAy7y2vtPmUyKO276EYT2JHxC2ZsDuMjRiiAtFYenNgFWyN/AQ4wZ81rN2NNlvCgYKkQ2gu6pPLrRmgBhWA4q5Jfj4eW5HH2iIgOX3x2r4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791213454; c=relaxed/simple;
-	bh=E+yeflO41IJb4lkrxwShoaUJwvUPWMO+Zsx/xiY3U6Y=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Qkpl/gXNScRtRz8JITRhwWf367ht2xS/tbnncwSxhOZW/QfKTt+1jioYjnZwNLYNkFl0arSsD5sn/f6e4g1hJLL884RcQJRswPMyGfPrt8C6MsZ9D+AtQKIwmr5dEd2rWMaV1lfqf39h7/nyQAE630ONy6iyD/DzGxyLZ90LDX8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VLZxuiqS; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3668B4AD4A1;
+	Mon,  5 Oct 2026 15:18:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.55
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791213515; cv=pass; b=SfDj+zjyjEXe+LSkVBtTqpl5xBTBgDxPiZKl+OVfUn9PgGw+OxoVsJnEMOXUi7rhJI8sliaAwXHE4MLyHt+LO5LlWYuSVFZhUfcX3SsU/79qPsx8J6vIevsuq0BzcUcCOrMdst6GQ+HiojcJBUHGKetKpknIKJ6zVpArqgcC+4k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791213515; c=relaxed/simple;
+	bh=9yE0K0KnfxY256k6cb1m5zTR0Vqh5BVIOtS7Rc+fsEU=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=FZFvCLKC8tdU1Pn8uO8pudQnUxOFgGc+L5NWYgfN7LPTkPTDXfN4u2o+jupr/palKRNcHyg/vXZhZgAIQMLckKYUtHxrnsaKpe96PhVpnK/+zlNDQwVlF6QPJbkDeLV4FJo/BIgYc8D0y9jqw1YK4uPeDpeBpqaljaVSEkFgdwc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lazaarsec.com; spf=pass smtp.mailfrom=lazaarsec.com; dkim=pass (1024-bit key) header.d=lazaarsec.com header.i=haitam@lazaarsec.com header.b=T9A/SEDd; arc=pass smtp.client-ip=165.173.180.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lazaarsec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lazaarsec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VLZxuiqS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 033861F000FF;
-	Mon,  5 Oct 2026 15:17:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791213453;
-	bh=qtjUsDOt6lrLkGHKheveNLHqJDKVGC/4/sB8eUdbGnY=;
-	h=Subject:To:Cc:From:Date;
-	b=VLZxuiqSyNtxen9AAK7j70NNItYwzkg+CrwbBMSRaMH3OtGo/GD3tcvkKWKlaUaUb
-	 Vm3n3OzvQK+2UgM80EsFTfpuwQv5LxzQruVGPJuHfgNz/V/eh6Ky7YhuHv5Z7jyoQX
-	 MFqB1MLKV26cKxkiluChdb8lBfh0GTQHgIm1LUrI=
-Subject: FAILED: patch "[PATCH] smb: client: flush and commit data before querying allocated" failed to apply to 6.12-stable tree
-To: pc@manguebit.org,bharathsm@microsoft.com,brauner@kernel.org,dhowells@redhat.com,linkinjeon@kernel.org,ronniesahlberg@gmail.com,sprasad@microsoft.com,tom@talpey.com,willy@infradead.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 05 Oct 2026 17:16:59 +0200
-Message-ID: <2026100559-agency-driven-c7f7@gregkh>
+	dkim=pass (1024-bit key) header.d=lazaarsec.com header.i=haitam@lazaarsec.com header.b="T9A/SEDd"
+ARC-Seal: i=1; a=rsa-sha256; t=1791213507; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=RLtHvH32l3etp8jvjpBjbqnSqGK7x9BkQ9POF7iywPWttdzYeREfBBnn5HIA7AI4Qn0VqzCDhfoYzlikY9v8hDrzDUsjTfqw8t6Qj7XsZ3ovA3+hz/+P76UnbqTsHmRaYCQqDUXW+rZQqB2dA4iZAqJmp/kjHm+wdEoxPava16U=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791213507; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=9j8EnpDO+PvmefT89bDOgjlKvhc36MR5LPBLf5aa3Zg=; 
+	b=jjbQrx621O0bWypseQ8cYd5FAxbAeerI78Fz33OrvF6QLI/3XhwXlfBueLjSdDE3GB8/f4OTh83bnXwojcMRHXTqpZadNs5JOc68TTwfCWhAhpQtsJG1z+9ZZyn0q30JLOjAqtVq+Pdv9c4bpHt9nmrI52qz9Zo4CitxerBUpLs=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=lazaarsec.com;
+	spf=pass  smtp.mailfrom=haitam@lazaarsec.com;
+	dmarc=pass header.from=<haitam@lazaarsec.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791213507;
+	s=zmail; d=lazaarsec.com; i=haitam@lazaarsec.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Message-ID:In-Reply-To:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=9j8EnpDO+PvmefT89bDOgjlKvhc36MR5LPBLf5aa3Zg=;
+	b=T9A/SEDdmKMjn0eiy4aamGbK/SfaczL/mmi3Fxyebw1HF2zxx5VdHCX05f+9JJ/+
+	4X8enmZdZzu7S/+N8uKtAb1WB+vy+3fp7DnB/xaBK+qvYKcBFo9wWU/4pSPoHftH9R2
+	cpVr5RTn0ucdExq+ZhnRLqoTRuryZVQ8foYtvNsg=
+Received: from mail.zoho.com by mx.zohomail.com
+	with SMTP id 1791213507367634.0366848917367; Mon, 5 Oct 2026 08:18:27 -0700 (PDT)
+Received: from mail.zoho.com by mx.zohomail.com
+	with SMTP id 1791213505436363.02545003773287; Mon, 5 Oct 2026 08:18:25 -0700 (PDT)
+Date: Mon, 05 Oct 2026 15:18:25 +0000
+From: Haitam Lazaar <haitam@lazaarsec.com>
+To: "Bernard Metzler" <bernard.metzler@linux.dev>
+Cc: "Jason Gunthorpe" <jgg@ziepe.ca>, "Leon Romanovsky" <leon@kernel.org>,
+	"linux-rdma" <linux-rdma@vger.kernel.org>,
+	"stable" <stable@vger.kernel.org>
+Message-ID: <1a10ca50b82.4c79b9977088.8671544618706545172@lazaarsec.com>
+In-Reply-To: <ecf307a2-e814-480d-8da8-1a7b76537d3f@linux.dev>
+References: <1a10973a2a8.17e04b672219.8760522594078806286@lazaarsec.com> <ecf307a2-e814-480d-8da8-1a7b76537d3f@linux.dev>
+Subject: [PATCH v2 for-rc] RDMA/siw: Enforce IB_ACCESS_REMOTE_READ for read
+ responses
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Importance: Medium
+User-Agent: Zoho Mail
+X-Mailer: Zoho Mail
 
+When generating an RDMA READ response (SIW_OP_READ_RESPONSE),
+siw_check_sgl_tx() unconditionally passes 0 as the required permission
+mask:
 
-The patch below does not apply to the 6.12-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+    /* Reference memory to be tx'd w/o checking access for LOCAL_READ */
+    rv = siw_check_sgl_tx(qp->pd, wqe, 0);
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Because perms is 0, siw_check_mem()'s authorization test:
+    if ((mem->perms & perms) < perms)
+evaluates to (mem->perms & 0) < 0, which is always false. Consequently,
+an untrusted remote peer can issue an RDMA Read targeting any valid
+STag in the Protection Domain, even if the memory was registered strictly
+as write-only (IB_ACCESS_REMOTE_WRITE) without IB_ACCESS_REMOTE_READ.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
-git checkout FETCH_HEAD
-git cherry-pick -x aa994489bd835547c191827acc460192e147032d
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100559-agency-driven-c7f7@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+Enforce that the target memory region was granted IB_ACCESS_REMOTE_READ
+when answering SIW_OP_READ_RESPONSE work queue entries, while preserving
+perms = 0 for standard local sends.
 
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From aa994489bd835547c191827acc460192e147032d Mon Sep 17 00:00:00 2001
-From: Paulo Alcantara <pc@manguebit.org>
-Date: Fri, 25 Sep 2026 19:35:12 -0300
-Subject: [PATCH] smb: client: flush and commit data before querying allocated
- ranges
-
-The mode 0 / FALLOC_FL_KEEP_SIZE fallocate emulation for small interior
-ranges in smb3_simple_fallocate_range() issues
-FSCTL_QUERY_ALLOCATED_RANGES and zero-fills any sub-range the server
-reports as an unallocated hole, to force block allocation without
-changing file contents.
-
-This is unsafe against Windows servers.  Per the Win32 documentation,
-FSCTL_QUERY_ALLOCATED_RANGES only reports ranges that *may* contain
-nonzero data and is explicitly not coherent with recently written data:
-
-  "a call to FSCTL_QUERY_ALLOCATED_RANGES [after writing to a network
-   file] would not necessarily return a correct list of allocated
-   regions.  To ensure coherency [...] flush the data to the file"
-
-fsx (generic/363) reproduces the resulting corruption against Windows
-Server 2022: a range is written, an uncached read returns the data, yet
-the next FSCTL_QUERY_ALLOCATED_RANGES on that range reports it as a whole
-hole, so the emulation overwrites live data with zeroes.  A network trace
-confirmed the WRITE, the READ returning data and the query returning an
-empty range list within microseconds.  Samba does not exhibit this; its
-query is coherent with the written data.
-
-Write back the dirty pages, drain any outstanding I/O and issue an SMB2
-FLUSH to force the server to commit the data before querying the
-allocated ranges, so the query reflects the data actually present.
-
-With this, generic/363 passes against both Windows Server 2022 and Samba
-over 100000 fsx operations.
-
-Fixes: 966a3cb7c7db ("cifs: improve fallocate emulation")
-Reviewed-by: David Howells <dhowells@redhat.com>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Matthew Wilcox <willy@infradead.org>
-Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
-Cc: Shyam Prasad N <sprasad@microsoft.com>
-Cc: Tom Talpey <tom@talpey.com>
-Cc: Bharath SM <bharathsm@microsoft.com>
+Fixes: b9be6f18cf9e ("rdma/siw: transmit path")
 Cc: stable@vger.kernel.org
+Signed-off-by: Haitam Lazaar <haitam@lazaarsec.com>
+---
+v1 -> v2:
+ - Compact READ_RESPONSE handling by combining num_sge and perms assignment
+   as suggested by Bernard Metzler.
 
-diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
-index 849cfd2de705..1c41d3b24c6d 100644
---- a/fs/smb/client/smb2ops.c
-+++ b/fs/smb/client/smb2ops.c
-@@ -3750,6 +3750,24 @@ static int smb3_simple_fallocate_range(unsigned int xid,
- 		goto out;
- 	}
+ drivers/infiniband/sw/siw/siw_qp_tx.c | 18 +++++++++++-------
+ 1 file changed, 11 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/infiniband/sw/siw/siw_qp_tx.c b/drivers/infiniband/sw/siw/siw_qp_tx.c
+index f7dd32c6e5ba..7dac144cc903 100644
+--- a/drivers/infiniband/sw/siw/siw_qp_tx.c
++++ b/drivers/infiniband/sw/siw/siw_qp_tx.c
+@@ -805,17 +805,21 @@ static int siw_qp_sq_proc_tx(struct siw_qp *qp, struct siw_wqe *wqe)
  
-+	filemap_invalidate_lock(inode->i_mapping);
+ 	if (wqe->wr_status == SIW_WR_QUEUED) {
+ 		if (!(wqe->sqe.flags & SIW_WQE_INLINE)) {
+-			if (tx_type(wqe) == SIW_OP_READ_RESPONSE)
+-				wqe->sqe.num_sge = 1;
+-
+ 			if (tx_type(wqe) != SIW_OP_READ &&
+ 			    tx_type(wqe) != SIW_OP_READ_LOCAL_INV) {
++				enum ib_access_flags perms = 0;
 +
-+	/*
-+	 * Flush and commit the data to the server, otherwise
-+	 * FSCTL_QUERY_ALLOCATED_RANGES might report recently written data as
-+	 * unallocated holes on Windows Servers, and the loop below would
-+	 * then zero-fill them and corrupt the file.
-+	 */
-+	rc = filemap_write_and_wait_range(inode->i_mapping, off,
-+					  off + len - 1);
-+	if (rc)
-+		goto out_unlock;
-+	netfs_wait_for_outstanding_io(inode);
-+	rc = SMB2_flush(xid, tcon, cfile->fid.persistent_fid,
-+			cfile->fid.volatile_fid);
-+	if (rc)
-+		goto out_unlock;
+ 				/*
+-				 * Reference memory to be tx'd w/o checking
+-				 * access for LOCAL_READ permission, since
+-				 * not defined in RDMA core.
++				 * Local READ permission doesn't exist in RDMA core.
++				 * A READ RESPONSE source is read by the remote peer,
++				 * so it must be checked for REMOTE_READ permission.
+ 				 */
+-				rv = siw_check_sgl_tx(qp->pd, wqe, 0);
++				if (tx_type(wqe) == SIW_OP_READ_RESPONSE) {
++					perms = IB_ACCESS_REMOTE_READ;
++					wqe->sqe.num_sge = 1;
++				}
 +
- 	in_data.file_offset = cpu_to_le64(off);
- 	in_data.length = cpu_to_le64(len);
- 	rc = SMB2_ioctl(xid, tcon, cfile->fid.persistent_fid,
-@@ -3759,7 +3777,7 @@ static int smb3_simple_fallocate_range(unsigned int xid,
- 			1024 * sizeof(struct file_allocated_range_buffer),
- 			(char **)&out_data, &out_data_len);
- 	if (rc)
--		goto out;
-+		goto out_unlock;
- 
- 	tmp_data = out_data;
- 	while (len) {
-@@ -3769,12 +3787,12 @@ static int smb3_simple_fallocate_range(unsigned int xid,
- 		if (out_data_len == 0) {
- 			rc = smb3_simple_fallocate_write_range(xid, tcon,
- 					       cfile, off, len, buf);
--			goto out;
-+			goto out_unlock;
- 		}
- 
- 		if (out_data_len < sizeof(struct file_allocated_range_buffer)) {
- 			rc = -EINVAL;
--			goto out;
-+			goto out_unlock;
- 		}
- 
- 		range_start = le64_to_cpu(tmp_data->file_offset);
-@@ -3782,7 +3800,7 @@ static int smb3_simple_fallocate_range(unsigned int xid,
- 		if (check_add_overflow(range_start, range_len, &range_end) ||
- 		    range_end > S64_MAX) {
- 			rc = -EINVAL;
--			goto out;
-+			goto out_unlock;
- 		}
- 
- 		if (off < range_start) {
-@@ -3797,11 +3815,11 @@ static int smb3_simple_fallocate_range(unsigned int xid,
- 			rc = smb3_simple_fallocate_write_range(xid, tcon,
- 					       cfile, off, l, buf);
- 			if (rc)
--				goto out;
-+				goto out_unlock;
- 			off = off + l;
- 			len = len - l;
- 			if (len == 0)
--				goto out;
-+				goto out_unlock;
- 		}
- 		/*
- 		 * We are at a section of allocated data, just skip forward
-@@ -3820,6 +3838,8 @@ static int smb3_simple_fallocate_range(unsigned int xid,
- 		out_data_len -= sizeof(struct file_allocated_range_buffer);
- 	}
- 
-+ out_unlock:
-+	filemap_invalidate_unlock(inode->i_mapping);
-  out:
- 	kfree(out_data);
- 	kvfree(buf);
++				rv = siw_check_sgl_tx(qp->pd, wqe, perms);
+ 				if (rv < 0) {
+ 					if (tx_type(wqe) ==
+ 					    SIW_OP_READ_RESPONSE)
+-- 
+2.43.0
+
 
