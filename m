@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 201874BEE45
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 15:08:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4DD24C226D
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 15:10:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791212894; cv=none; b=RBxvCEjOFLON9ViOZuegovQ6FgRQsWjNMNjpMr7N1WTMi7/n8SBMfNb4wyr6WR/yEFqtYmqYxsqh0+0XmDTG30FQ7W/DRT4OhL5dl7F1MOMocdhe0mDly9QDWL69ajUgI4KMWt5YdRPbJBi9xL+nl26AQlSt4Le3L+0H3VPQas8=
+	t=1791213057; cv=none; b=ToQODzASIkL+TuamjjFztM0NuxY7Nf25auIrlYhMLalNOhKUR+GVt3Aut/LSDv+F2gHvGSrwMCBF8ImwCtbF4j5A3rSwHGBMB9TgiuBAc8VzPknbFO8mOOib/h/5z8CRADNMahvKCLGAMwe6ZTb2i8bdamPBMDrH6YbJ73by87s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791212894; c=relaxed/simple;
-	bh=V83y5tsI9PQARVml+53sd592LknUqOZRaDmPXa2CDag=;
+	s=arc-20240116; t=1791213057; c=relaxed/simple;
+	bh=vXsuY1BU+vWzHGgb4SfC8gKp/9x7UxJs1ZpK8YK8noc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jlN4IH7Klfy9/261JClpJdGY4mPjbSK00vuEiAAMH42B/tqeUu1uz3F6Zrr6/LpHjVQ8JD8u0PZCH54cATqa4mrTw5xAgPMjGELcR8hte+jdRhcBhVpkPV3z/ShzfyXnQ2SyWTRolSyF0Cq1sDhHgVKANRq7nG+8ANexGQHrTbs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FaS+2KFN; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=VCGLPMDuyjBA71r3Q7qnOhBEJ8v7uhbC3rV8S4erf8knaYT8itiBwpdqiuq8C/cIt5TOwZXk2tz0F1L2TXwRVOVP6mEk0oQKJTw+cIlqicVHLdcx3vWLPK1kiBGoh3X7sUztpyPUBkD+cwiSxzDLUacB1amNLqQehlBt0xPjmWM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dfcvZpxN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FaS+2KFN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 861C81F00893;
-	Mon,  5 Oct 2026 15:08:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dfcvZpxN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4489A1F00893;
+	Mon,  5 Oct 2026 15:10:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791212892;
-	bh=GJ41EMGwsFxBWsnZ+KWpJbcHoRG+hZjgaG4xbK6a0xs=;
+	s=k20260515; t=1791213055;
+	bh=/SEn1LVk6pxj4/FUKiv0uziOvMzmUgKCOdy/7fTiFaM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FaS+2KFN4xCywfK4g+wwU5n0MjgpGpWwhWTrg0P2wnaBM8Hp+7xWuRs1bRYT12ciq
-	 GKI859wwvXamjY87oRgNFDWnczEP17yu1M0tN1wppy5IxHpokDRvWiFYc4Ta0qlTqZ
-	 1tFOg7SL+GMte92SNe6yUCT36jiSSMN3397uvN3FlLucQctJKZ5rZH8/A46sORxXUm
-	 aV196c5ILlmPj/Y8Hnu8r3dEQwv6C5bTIo+YaAfrWxjGR3hRUVMrFBKrh+A9NjS+j+
-	 ZSAzSPLpm47WshH0zcPFXbo51+p6a1sK31v8Plpk6iu69ULCXw1PDOMq896c/HUUIu
-	 YqcFL7mRQbvpA==
+	b=dfcvZpxNhS4yHESEB9X4kxHUgjHQF7u46ewbleadulZ42mbdE1xA9/MmpHMdeNS4l
+	 zYFs98QuT3vI2aZcaaF05UanvsBUHryoYjHd2YZCq+W3RH77EFv5aCnYnYnpcERWgj
+	 QpYKLcH5VFLbBkCUWJDXRh35CAfuj+l0ZK60skqzzyhmkopLJX0vnuau/H99F6n0KN
+	 /AcXA6DGr8/e0xSbUPE+dN1jFGfcfob3wYcPl+Mrf59ua2h4gxa8abq/BXtfyEYcjB
+	 LjYFuJNr1Ee6OcjZe+bQH9Jzqv3/EE6iyg2A4FBqNWckYhqv3PGfRKG8ChRODLyKaQ
+	 Xw6WAnqO1+aXQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	stable <stable@kernel.org>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+Cc: Chen Ni <nichen@iscas.ac.cn>,
+	Alan Stern <stern@rowland.harvard.edu>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] USB: dwc2: shut down wakeup timer before freeing HCD state
-Date: Mon,  5 Oct 2026 11:08:09 -0400
-Message-ID: <20261005150735.3034056-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] usb: ohci-spear: Remove unnecessary NULL check before clk_disable_unprepare()
+Date: Mon,  5 Oct 2026 11:10:51 -0400
+Message-ID: <20261005151017.3044548-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100530-judicial-cilantro-08d1@gregkh>
-References: <2026100530-judicial-cilantro-08d1@gregkh>
+In-Reply-To: <2026100502-nanometer-helpless-c302@gregkh>
+References: <2026100502-nanometer-helpless-c302@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,52 +46,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+From: Chen Ni <nichen@iscas.ac.cn>
 
-[ Upstream commit fd772af9512cdecb83de34a461801533828e77fd ]
+[ Upstream commit a891b9aebcc7406fe2f439d184bac3948fb08645 ]
 
-dwc2_wakeup_detected() accesses the DWC2 host state and can rearm the
-wakeup timer.  dwc2_hcd_free() currently deletes the timer only after
-freeing host-owned state, and timer_delete() does not synchronize a
-callback or prevent it from being queued again.
+clk_disable_unprepare() already checks NULL by using IS_ERR_OR_NULL.
+Remove unneeded NULL check for clk here.
 
-Stop and shut down the timer in dwc2_hcd_release(), before the HCD
-resources are freed.  This covers both the HCD initialization error path
-and normal HCD removal.
-
-Fixes: 7359d482eb4d ("staging: HCD files for the DWC2 driver")
-Cc: stable <stable@kernel.org>
-Assisted-by: Codex:GPT-5
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Reviewed-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Link: https://patch.msgid.link/20260904065323.4047026-1-runyu.xiao@seu.edu.cn
+Signed-off-by: Chen Ni <nichen@iscas.ac.cn>
+Acked-by: Alan Stern <stern@rowland.harvard.edu>
+Link: https://lore.kernel.org/r/20250617042050.1930940-1-nichen@iscas.ac.cn
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ sashal: Adapted the timer_delete() removal to the existing del_timer() call. ]
+Stable-dep-of: b1b0f8bdbbc8 ("usb: ohci-spear: disable controller wakeup on removal")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/dwc2/hcd.c | 3 +--
+ drivers/usb/host/ohci-spear.c | 3 +--
  1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/usb/dwc2/hcd.c b/drivers/usb/dwc2/hcd.c
-index e0f84726f4b1d..5e71094a22b2f 100644
---- a/drivers/usb/dwc2/hcd.c
-+++ b/drivers/usb/dwc2/hcd.c
-@@ -5082,14 +5082,13 @@ static void dwc2_hcd_free(struct dwc2_hsotg *hsotg)
- 	}
+diff --git a/drivers/usb/host/ohci-spear.c b/drivers/usb/host/ohci-spear.c
+index b4cd9e6c72fd0..986406f7aeb15 100644
+--- a/drivers/usb/host/ohci-spear.c
++++ b/drivers/usb/host/ohci-spear.c
+@@ -105,8 +105,7 @@ static int spear_ohci_hcd_drv_remove(struct platform_device *pdev)
+ 	struct spear_ohci *sohci_p = to_spear_ohci(hcd);
  
- 	cancel_work_sync(&hsotg->phy_reset_work);
--
--	del_timer(&hsotg->wkp_timer);
- }
+ 	usb_remove_hcd(hcd);
+-	if (sohci_p->clk)
+-		clk_disable_unprepare(sohci_p->clk);
++	clk_disable_unprepare(sohci_p->clk);
  
- static void dwc2_hcd_release(struct dwc2_hsotg *hsotg)
- {
- 	/* Turn off all host-specific interrupts */
- 	dwc2_disable_host_interrupts(hsotg);
-+	timer_shutdown_sync(&hsotg->wkp_timer);
- 
- 	dwc2_hcd_free(hsotg);
- }
+ 	usb_put_hcd(hcd);
+ 	return 0;
 -- 
 2.53.0
 
