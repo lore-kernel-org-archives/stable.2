@@ -1,115 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C15022931C3
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 08:48:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C14F31F99C;
+	Mon,  5 Oct 2026 08:49:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=119.15.109.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791190119; cv=none; b=k+SWt4woUnfR0+b8nO4NKt1WalA2p+mHfQ9yV90sZar7Z0Y406ZHGEDOzlx6zUS+wn5NC77At6eFHkLaTl00CNnwdqK7Rcxkg+jPURabT2+XyXRLHFy055PHq/fx2yxKXSFnmK5LxoNiC/kXRMP+5Bf5+CcTBp6IgPQFno/vKuo=
+	t=1791190146; cv=none; b=A1jAj+/Tg2BT5sM/5H5ObAdF1NzoFe6AuH6a4gJnI6412nJ1FMiLbdQnFYXBhXkGM61wQzWG5wk3VHsrx5bdw0GQAQRsN4ah4rplgLHk2HvsD3CSzPdLm8UY2P0M3P+6ms9p12AwtLB4fKEJJDu8zatqF4hNzQ1epyc+BFSaM/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791190119; c=relaxed/simple;
-	bh=90ud6nlkIvph3ger9YYHxq1b2IVS8faY/4jb8VtFh10=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=A+K44O7BGyoHlSStrO02SsKESZrhPwqmbfh+p9s5JsyEMmxq1NpsvN5mn194NVc9/q9g6xRnCMoLne0kSpe5AeFEH79MuIOZdhkPDQ/p2vAhDOUfp/p2fXMIsXplIsCFzh0YSXH7SxxDM9+REppXt+cmlf4aSrU8/02qdsKlFyg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=NnQgZfui; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791190146; c=relaxed/simple;
+	bh=ZOFDXKT9pT7NF5wfa2BqNEVmLTyM+7q+Z9SIUx/78b0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oSOhCa/o4xXvhfPVPYAgGfgYV/xb1fOqeHU1hYTfFFKK6QyGRaxPyM0/kJva7bfWhX6Q5vtzYDru9c7Nk9reMl9blSQAiRH7010r4Id4Eco8GF7MvDTXgNyl7OBbogdQENMbWfsyWCV341nkWGEw5Q/qe9W9q8EF+N5mXbB9GeI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org; spf=pass smtp.mailfrom=d-silva.org; dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b=1AfoSKjS; arc=none smtp.client-ip=119.15.109.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NnQgZfui"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23A781F000FF;
-	Mon,  5 Oct 2026 08:48:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791190117;
-	bh=bDMXgZ4DWNOqrxdf8wOVJJA4drzuMhV5Bwnuu4RHQgw=;
-	h=Subject:To:Cc:From:Date;
-	b=NnQgZfuiVoRJNfUAsG9E1n8eQjhO8HJCtorvK4S8jZ7wJyvOiTjdEra1NPMA7Sqq6
-	 baMDOrlpeZUdJjDZT6o+Plkb4ChrdYpwBOMVOcSemr4+keues61nqW/1sNBT+Lgn5Q
-	 oRHMi3/Eb6x/URopyCEnj4lTYHb4VnhvqUyhCceQ=
-Subject: FAILED: patch "[PATCH] usb: cdns3: fix use-after-free in cdns3_gadget_exit()" failed to apply to 5.10-stable tree
-To: fanwu01@zju.edu.cn,congei42@163.com,gregkh@linuxfoundation.org,peter.chen@kernel.org,songl@zju.edu.cn,stable@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 05 Oct 2026 10:48:34 +0200
-Message-ID: <2026100534-purging-uniquely-0db7@gregkh>
+	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b="1AfoSKjS"
+Received: from Hawking.lan (hawking.lan [10.0.1.4])
+	by www.nmnhosting.com (Postfix) with ESMTP id DECEA4086D;
+	Mon,  5 Oct 2026 19:48:55 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
+	t=1791190135;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qIZ2AGLmaSEsGXYA99RwBuup26bsgg2d0YHri6TJQ/Q=;
+	b=1AfoSKjSXRsREwn2HSqH4bWzRLcMVWLYt1wFklopJIHhhDs8/MO+hhc5OdnM1lE5HmrIAA
+	9XFR6/wv75NEy2PuIYAlM8IiMi7KrTi/DXn/QKrVu4RzTlFVJ/RpskI4Log+dn2jq20j2t
+	roUH5NaJfFF7iUywzClwjsNEFbqMmLd1lfg3FIb55gHkOltIpfOgX3DInYVWSSCaJBzm3r
+	OdiGomVNHuqbt9CGbjGZY4SWfXbMwm+jg9sLv5dVYd9JLFkNRzBn4E3t/Qx8OgepXTnFZv
+	/5T8zCcE9ecWQrYqvReON3O7wuh8DLhI7EPc5VFbD75vecfLTaIuwi23UGA4sA==
+X-GPT-Reason: legitimate; the email is a technical kernel patch
+	submission containing a code diff and a description of a fix for
+	a realtek wireless driver; the sender (alastair@d-silva.org) matches
+	the personal mailbox address provided in the context; the content
+	is highly specific, technical, and lacks any marketing, urgency, or
+	phishing indicators; the subject line follows standard Linux kernel
+	mailing list formatting for patches.
+From: Alastair D'Silva <alastair@d-silva.org>
+To: linux-wireless@vger.kernel.org,
+	Ping-Ke Shih <pkshih@realtek.com>,
+	Kalle Valo <kvalo@kernel.org>
+Cc: Luka Gejak <luka.gejak@linux.dev>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Alastair D'Silva <alastair@d-silva.org>,
+	stable@vger.kernel.org
+Subject: [PATCH rtw-next v4 1/4] wifi: rtw88: sdio: Handle allocation and read errors in rtw_sdio_rxfifo_recv
+Date: Mon,  5 Oct 2026 19:48:46 +1100
+Message-ID: <20261005084849.3109337-2-alastair@d-silva.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261005084849.3109337-1-alastair@d-silva.org>
+References: <20261005084849.3109337-1-alastair@d-silva.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+When dev_alloc_skb() or rtw_sdio_read_port() fails, rtw_sdio_rxfifo_recv()
+returns without reading data. Because it returned void, the caller still
+counted rx_len against the loop budget while leaving data stranded in the
+FIFO.
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Return an error code from rtw_sdio_rxfifo_recv() on failure and break out
+of the receive loop in the caller immediately.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Fixes: 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation for SDIO based chipsets")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
+---
+ drivers/net/wireless/realtek/rtw88/sdio.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x ebe9b68c396792c15d0ac690d592e449e74ed804
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100534-purging-uniquely-0db7@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From ebe9b68c396792c15d0ac690d592e449e74ed804 Mon Sep 17 00:00:00 2001
-From: Fan Wu <fanwu01@zju.edu.cn>
-Date: Wed, 9 Sep 2026 09:56:55 +0000
-Subject: [PATCH] usb: cdns3: fix use-after-free in cdns3_gadget_exit()
-
-cdns3_gadget_start() arms two works on system_freezable_wq:
-pending_status_wq for the deferred ep0 status stage and aligned_buf_wq
-for realigned request buffers. Both handlers use the cdns3_device the
-works are embedded in, and cdns3_pending_setup_status_handler() also
-calls the ep0 request completion.
-
-cdns3_gadget_exit() does not wait for these works. It frees all
-endpoints and aligned buffers and drops the last reference to the
-gadget device, which frees priv_dev, so a work queued before the exit
-can run after the free.
-
-Fix this by waiting for both works after the gadget driver is unbound
-and the IRQ is freed, when no new work can be queued, and before the
-endpoints and buffers are released.
-
-This issue was found by an in-house static analysis tool.
-
-Fixes: 7733f6c32e36 ("usb: cdns3: Add Cadence USB3 DRD Driver")
-Cc: stable <stable@kernel.org>
-Reported-by: Sicong Huang <congei42@163.com>
-Closes: https://lore.kernel.org/linux-usb/7f5719b.8700.18f67b324d3.Coremail.congei42@163.com/
-Suggested-by: Sicong Huang <congei42@163.com>
-Assisted-by: Codex:gpt-5.6
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Acked-by: Peter Chen <peter.chen@kernel.org>
-Link: https://patch.msgid.link/20260909095655.694527-1-fanwu01@zju.edu.cn
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-
-diff --git a/drivers/usb/cdns3/cdns3-gadget.c b/drivers/usb/cdns3/cdns3-gadget.c
-index 42311c1bfada..0d272e9c556c 100644
---- a/drivers/usb/cdns3/cdns3-gadget.c
-+++ b/drivers/usb/cdns3/cdns3-gadget.c
-@@ -3269,6 +3269,10 @@ static void cdns3_gadget_exit(struct cdns *cdns)
- 	usb_del_gadget(&priv_dev->gadget);
- 	devm_free_irq(cdns->dev, cdns->dev_irq, priv_dev);
+diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
+index dc2fd0f8f9ff..e39284b71837 100644
+--- a/drivers/net/wireless/realtek/rtw88/sdio.c
++++ b/drivers/net/wireless/realtek/rtw88/sdio.c
+@@ -1349,7 +1349,7 @@ static void rtw_sdio_rx_skb(struct rtw_dev *rtwdev, struct sk_buff *skb,
+ 	ieee80211_rx_irqsafe(rtwdev->hw, skb);
+ }
  
-+	/* The works can still be queued until the IRQ is freed. */
-+	cancel_work_sync(&priv_dev->pending_status_wq);
-+	cancel_work_sync(&priv_dev->aligned_buf_wq);
+-static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
++static int rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
+ {
+ 	struct rtw_sdio *rtwsdio = (struct rtw_sdio *)rtwdev->priv;
+ 	const struct rtw_chip_info *chip = rtwdev->chip;
+@@ -1366,12 +1366,12 @@ static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
+ 
+ 	skb = dev_alloc_skb(bufsz);
+ 	if (!skb)
+-		return;
++		return -ENOMEM;
+ 
+ 	ret = rtw_sdio_read_port(rtwdev, skb->data, bufsz);
+ 	if (ret) {
+ 		dev_kfree_skb_any(skb);
+-		return;
++		return ret;
+ 	}
+ 
+ 	while (true) {
+@@ -1380,7 +1380,7 @@ static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
+ 					   &pkt_stat, &rx_status);
+ 		if (ret) {
+ 			dev_kfree_skb_any(skb);
+-			return;
++			return ret;
+ 		}
+ 
+ 		pkt_offset = pkt_desc_sz + pkt_stat.drv_info_sz +
+@@ -1416,11 +1416,14 @@ static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
+ 		skb_reserve(skb, curr_pkt_len);
+ 		rx_len -= curr_pkt_len;
+ 	}
 +
- 	cdns3_free_all_eps(priv_dev);
++	return 0;
+ }
  
- 	while (!list_empty(&priv_dev->aligned_buf_list)) {
+ static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
+ {
+ 	u32 rx_len, hisr, total_rx_bytes = 0;
++	int ret;
+ 
+ 	do {
+ 		if (rtw_chip_wcpu_8051(rtwdev))
+@@ -1431,7 +1434,9 @@ static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
+ 		if (!rx_len)
+ 			break;
+ 
+-		rtw_sdio_rxfifo_recv(rtwdev, rx_len);
++		ret = rtw_sdio_rxfifo_recv(rtwdev, rx_len);
++		if (ret)
++			break;
+ 
+ 		total_rx_bytes += rx_len;
+ 
+-- 
+2.53.0
 
