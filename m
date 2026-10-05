@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D13BA445AFE;
-	Mon,  5 Oct 2026 23:02:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6932544682E;
+	Mon,  5 Oct 2026 23:02:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791241367; cv=none; b=eTOCoKMQY+q9GPmZY9BrzwlAOy0PJlpl6MaZ1G8Ldjhn69Rlpky4MuiH4lILrZovkacyPyrLLm0qGNoe0ID3rw3YeOCUGvXsT8WveyE3xuH/kG6XzkSNP3aopisyKUFZtqiVx8mctt6/CWLUHu9bzMtqKd0elJ3Ti8ZZVGGXyTk=
+	t=1791241368; cv=none; b=ECDKh56092dvmRR/8Hm1PzbSlxpNw4yqNoqrdpFezdqXsV+VthCYQmXzFHGw1vaKrGcIPZHCwdtC/51SXtIgqLZz16cFDtUhMsdXG6WXJxAcQgfrWgBgsvMF5NMxsD2Z4qohLeRyTBAwUhdFyuBKwfP3eok/kP7+7v3pcQ45100=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791241367; c=relaxed/simple;
-	bh=yNHbVuv0O/5rdFaj/0Y9AEaRLX/seBtS04v78XepPZo=;
+	s=arc-20240116; t=1791241368; c=relaxed/simple;
+	bh=gkbRjPmdRWgGn8j7vcI8rmJs6bN9/LXGWeo+jDEoQdk=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=JU4PWH3Np4Ge3mpR59CRq4ybwG9Z3KwNjUn9ARkZHanvzqY6kTwJmSeDJBbF3MFQWhlWML79wTCPcx+xueRl3LPjjyiMuiKp4dPcbBjIEdBwv21FesjgSWoWMCQDTH3AtEQfpEL5ICIPH4fY13ojyaQwYNDbdQxXIRqzwOt4H3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jSAaWg6/; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=K4VGaa6u0C8+DRzX9tOce0KS0J6UQQo83axOUJ90Fs5CreCk5znMycrUPkccz+1Pnb1PH0hv9Gkx+sbsVonHR7pqjudHB1flVJEtei7WMdv2A1xVq04kmdotUjHHG6wj+sAcq41bpTMNNWlTBrAXmDdT2Z3WJFUciMVs3zwD4Vg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i5bbcGwm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jSAaWg6/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E8071F000FF;
-	Mon,  5 Oct 2026 23:02:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i5bbcGwm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 283BD1F00893;
+	Mon,  5 Oct 2026 23:02:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791241365;
-	bh=wflY3NyBHI60sZwNeNEK7rfq0qRKQiiOaScUkJWpQVs=;
+	s=k20260515; t=1791241367;
+	bh=xXsl2dsCGxNVOfwWuosDoCl8g6qp+UwKPTctGHWqXF8=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=jSAaWg6/LjbF8tvLl6uB3SB8LfvRpqA5LsuPgQnnoLQsFbKpxXn3QLo83IuraUQl9
-	 Mm7HehMFHfD+19ZRie1pGsNViY2aMYoUCzjYYskiQg9q9LsA4XIphy63Cn34ZJN7iB
-	 eefe/Rj4NshxxzaFrLODAa5Pp8TphihdDamFKNa+TxGtlh93m5eBzJTpRY1GE6085p
-	 eQhMrk6YTn2t1lPBCvLtsY87MpZWPX35su+AzR1vWdMchcCtx/A4QhzsAK0vVkBQ01
-	 GY5AVFL8JE7HaJN45N4aPxbPbYiutyiqQAkJAGne+gGLHvZY3a8C7ps3UjS0DYC7oF
-	 vC20RDQYsTRsQ==
-Subject: Re: [PATCH net 3/6] igb: only strip Rx timestamp header on the first
- buffer of a frame
+	b=i5bbcGwmo20x9S/4QHpYfSVEMo+9Dcy+LLa6zIYS+CeudW341DHqj1SUhALQ8vm7T
+	 oLvVPVx6M6ApTxAmgmiGcoEwr8zUFm3ysg4v1ojRqwz6GniCYSXYK/vu1j1rJ5Tbpg
+	 pDGWVmFstHFYEKPMeRfv0q1a0oo4wFoQoEhcGFylM1mhZF1ufr6IKhLzs5iBaGZXsc
+	 SfCllcJeAgynYk2G60dQ7FLB6ReS4MIZPpJows4GqrqXOiHd/y2cbamRh5Eshtf1zR
+	 +aeO1gp7UbQnzv+EYIEF9AEZV/BUErqN3nNYEy3sJQUmqenvCMB4N/DQyUVPIb2HaM
+	 MulS48rCrNq9A==
+Subject: Re: [PATCH net 5/6] e1000e: Fix out-of-bounds MMIO access by
+ validating BAR0 size
 From: netdev-bot+sashiko@kernel.org
 To: anthony.l.nguyen@intel.com
 Cc: davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com,
@@ -37,11 +37,11 @@ Cc: davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com,
  dima.ruinskiy@intel.com, raanan.avargil@intel.com, gil.fine@intel.com,
  stable@vger.kernel.org, javier.herrera@afronta.com,
  aleksandr.loktionov@intel.com
-Date: Mon, 05 Oct 2026 23:02:44 +0000
-Message-ID: <179124136413.434549.11535076575423885448@kernel.org>
-In-Reply-To: <20261001222443.3500206-4-anthony.l.nguyen@intel.com>
-References: <20261001222443.3500206-4-anthony.l.nguyen@intel.com>
-X-sashiko-severity: High
+Date: Mon, 05 Oct 2026 23:02:45 +0000
+Message-ID: <179124136574.434549.6280763039812570100@kernel.org>
+In-Reply-To: <20261001222443.3500206-6-anthony.l.nguyen@intel.com>
+References: <20261001222443.3500206-6-anthony.l.nguyen@intel.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -54,7 +54,7 @@ MIME-Version: 1.0
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue(s) to consider.
 
-Critical: 0 · High: 1 (1) · Medium: 0 · Low: 0
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -62,173 +62,95 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] The fix is incomplete.
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the same
-  unguarded strip exists in igb's AF_XDP zero-copy Rx path.
+- [Medium] The patch checks the size of BAR0 only.
 
 --
 
-igb: only strip Rx timestamp header on the first buffer of a frame
+e1000e: Fix out-of-bounds MMIO access by validating BAR0 size
 
-When Rx hardware timestamping is enabled, igb_clean_rx_irq() tries to strip
-the 16-byte timestamp header from every Rx buffer of a frame. A continuation
-buffer whose payload starts with 8 zero bytes then loses 16 bytes of data.
-The patch adds a !skb check so that the strip only runs on the first buffer
-of a frame.
+This commit makes e1000_probe() reject devices whose BAR0 is smaller than
+SZ_64K, before ioremap() is called. It fixes a syzkaller-reported oops.
+In that report a foreign device with a 4K BAR0 was bound through new_id,
+and probe read EEMNGCTL past the end of the mapping.
 
-> diff --git a/drivers/net/ethernet/intel/igb/igb_main.c b/drivers/net/ethernet/intel/igb/igb_main.c
-> index d4a897a8c82c6..5c09dc4a25660 100644
-> --- a/drivers/net/ethernet/intel/igb/igb_main.c
-> +++ b/drivers/net/ethernet/intel/igb/igb_main.c
-> @@ -9069,8 +9069,11 @@ static int igb_clean_rx_irq(struct igb_q_vector *q_vector, const int budget)
->  		rx_buffer = igb_get_rx_buffer(rx_ring, size, &rx_buf_pgcnt);
->  		pktbuf = page_address(rx_buffer->page) + rx_buffer->page_offset;
+> diff --git a/drivers/net/ethernet/intel/e1000e/netdev.c b/drivers/net/ethernet/intel/e1000e/netdev.c
+> index 746a395869998..ad9b88c9af225 100644
+> --- a/drivers/net/ethernet/intel/e1000e/netdev.c
+> +++ b/drivers/net/ethernet/intel/e1000e/netdev.c
+> @@ -7455,6 +7455,12 @@ static int e1000_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+>  	mmio_len = pci_resource_len(pdev, 0);
 >  
-> -		/* pull rx packet timestamp if available and valid */
-> -		if (igb_test_staterr(rx_desc, E1000_RXDADV_STAT_TSIP)) {
-> +		/* pull rx packet timestamp if available and valid; it is only
-> +		 * present on the first buffer of a frame
-> +		 */
-> +		if (!skb &&
-> +		    igb_test_staterr(rx_desc, E1000_RXDADV_STAT_TSIP)) {
+>  	err = -EIO;
+> +	/* Smallest BAR0 that covers every register the driver accesses */
+> +	if (mmio_len < SZ_64K) {
+> +		dev_err(&pdev->dev, "MMIO len is too small\n");
+> +		goto err_ioremap;
+> +	}
+> +
+>  	adapter->hw.hw_addr = ioremap(mmio_start, mmio_len);
+>  	if (!adapter->hw.hw_addr)
+>  		goto err_ioremap;
 
-[Severity: High]
-Is !skb a reliable stand-in for "first buffer of a frame" when an XDP
-program is attached?
+[Severity: Medium]
+Does this check also cover the flash registers on ICH/PCH parts older
+than SPT?
 
-The commit message says "skb is NULL until the first buffer has been
-processed". However, when igb_run_xdp() returns a verdict other than PASS
-(DROP, ABORTED, TX or REDIRECT) for the first buffer of a multi-descriptor
-frame, skb is never assigned:
+The commit message says:
 
-igb_clean_rx_irq() {
-    ...
-		if (xdp_res) {
-			if (xdp_res & (IGB_XDP_TX | IGB_XDP_REDIR)) {
-				xdp_xmit |= xdp_res;
-				igb_rx_buffer_flip(rx_ring, rx_buffer, size);
-			} else {
-				rx_buffer->pagecnt_bias++;
-			}
-    ...
-		if (igb_is_non_eop(rx_ring, rx_desc))
-			continue;
-    ...
-}
+  This accounts not only for standard registers up to E1000_SYSSTMPH,
+  but also for flash registers mapped on ICH/PCH chipsets (up to offset
+  0xE074 / ~57.1 KB). Since PCI BAR sizes are power-of-two aligned,
+  SZ_64K is the minimum valid BAR0 size required to ensure all
+  subsequent MMIO accesses remain strictly within the mapped boundary.
 
-So the continuation descriptor goes through the loop with skb still NULL.
-If the budget runs out mid-frame, rx_ring->skb = NULL carries that state
-into the next poll.
+That seems true only for e1000_pch_spt and later. On those parts,
+e1000_init_nvm_params_ich8lan() puts the flash registers inside BAR0:
 
-On 82580 and newer, any Rx timestamp filter is upgraded to
-HWTSTAMP_FILTER_ALL. Per the commit message, continuation descriptors also
-carry TSIP. That means the !skb && TSIP check passes on payload, and
-igb_ptp_rx_pktstamp() returns IGB_TS_HDR_LEN whenever the first 8 payload
-bytes are zero.
+	hw->flash_address = hw->hw_addr + E1000_FLASH_BASE_ADDR;
 
-Won't that still strip 16 bytes from the continuation buffer?
+On ICH8/9/10, PCH, PCH2 and PCH_LPT the flash registers are in BAR1.
+e1000_probe() maps BAR1 right after this hunk, with no minimum length:
 
-Now suppose the final fragment is shorter than 16 bytes, for example 8 zero
-bytes chosen by the sender. Can size -= ts_hdr_len wrap the unsigned size?
-xdp_prepare_buff() takes an int data_len, so data_end would end up before
-data:
+	if ((adapter->flags & FLAG_HAS_FLASH) &&
+	    (pci_resource_flags(pdev, 1) & IORESOURCE_MEM) &&
+	    (hw->mac.type < e1000_pch_spt)) {
+		flash_start = pci_resource_start(pdev, 1);
+		flash_len = pci_resource_len(pdev, 1);
+		adapter->hw.flash_address = ioremap(flash_start, flash_len);
 
-include/net/xdp.h:xdp_prepare_buff() {
-    ...
-	xdp->data_end = data + data_len;
-    ...
-}
+Probe then reads and writes fixed offsets in that mapping. The second
+step runs because FLAG_READ_ONLY_NVM is on by default for ICH parts:
 
-On XDP_PASS, igb_build_skb() then does:
+e1000_probe()
+  ei->get_variants()
+    e1000_init_nvm_params_ich8lan()
+      er32flash(ICH_FLASH_GFPREG)             /* 0x0 */
+  e1000e_write_protect_nvm_ich8lan()
+    er32flash(ICH_FLASH_PR0)                  /* 0x74 */
+    ew32flash(ICH_FLASH_PR0, pr0.regval)
+    er16flash(ICH_FLASH_HSFSTS)
+    ew32flash(ICH_FLASH_HSFSTS, hsfsts.regval)
 
-	__skb_put(skb, xdp->data_end - xdp->data);
+new_id_store() accepts a 7-field new_id. The driver_data can match any
+existing table entry, such as board_ich8lan, board_pchlan or
+board_pch_lpt. So the reproducer from the commit message can still be
+used against a foreign device that has:
 
-As an unsigned length that is roughly 4 GiB. With legacy-rx,
-igb_construct_skb() passes a frag of similar size to skb_add_rx_frag(). On
-XDP_TX/REDIRECT, the bogus length goes into the xdp_frame and into
-igb_rx_buffer_flip().
+  - a BAR0 of at least 64K, which passes the new check
+  - a memory BAR1 smaller than 0x78 bytes (PCI allows memory BARs as
+    small as 16 bytes)
 
-Multi-descriptor frames do seem to reach XDP rings:
+Would the PR0 read-modify-write at offset 0x74 then go past the end of
+the BAR1 mapping? If the small BAR sits at the end of a page, this
+could fault like the EEMNGCTL oops. Otherwise it could read and write
+registers of whatever device decodes the next addresses.
 
-- igb_xdp_setup() and igb_change_mtu() only check
-  mtu + IGB_ETH_PKT_HDR_PAD against igb_rx_bufsz(). That check ignores the
-  16-byte in-buffer timestamp that igb_setup_srrctl() enables with
-  E1000_SRRCTL_TIMESTAMP.
-- igb_setup_rctl() always sets E1000_RCTL_LPE.
-- igb_set_rx_mode() leaves RLPML at MAX_JUMBO_FRAME_SIZE when the MTU is
-  above about 1514 on 4K pages, when VFs are allocated, or when
-  PAGE_SIZE >= 8192.
+The later "e1000e: add system to disable K1 list" patch in this series
+does not appear to change this path.
 
-The underflow was already possible on this path before this patch, and the
-patch doesn't change it. Still, the continuation-buffer strip that this
-commit sets out to fix looks reachable here.
-
-Would explicit first-buffer state work better? Two options are a flag set
-at frame start and cleared after the first descriptor, or discarding the
-rest of the frame once XDP has consumed the head. Checking that
-size >= ts_hdr_len before the subtraction might also help.
-
-[Severity: High]
-This isn't a bug introduced by this patch, but the AF_XDP zero-copy Rx path
-has the same unguarded strip, and this patch only changes
-igb_clean_rx_irq():
-
-drivers/net/ethernet/intel/igb/igb_xsk.c:igb_clean_rx_irq_zc() {
-    ...
-		xsk_buff_set_size(xdp, size);
-		...
-		if (igb_test_staterr(rx_desc, E1000_RXDADV_STAT_TSIP)) {
-			int ts_hdr_len;
-
-			ts_hdr_len = igb_ptp_rx_pktstamp(rx_ring->q_vector,
-							 xdp->data,
-							 &timestamp);
-
-			xdp->data += ts_hdr_len;
-			xdp->data_meta += ts_hdr_len;
-			size -= ts_hdr_len;
-		}
-    ...
-}
-
-This code runs on every TSIP descriptor. It has no first-buffer check and
-no size >= IGB_TS_HDR_LEN check, and it treats each descriptor as its own
-frame.
-
-In ZC mode, igb_setup_srrctl() sizes the hardware buffer from
-xsk_pool_get_rx_frame_size(), rounded down to 1 KB. With 2K chunks, a
-normal 1500-byte frame therefore spans more than one descriptor.
-
-Can a zero-prefixed final fragment shorter than 16 bytes push xdp->data and
-xdp->data_meta past data_end here?
-
-On XDP_PASS, igb_construct_skb_zc() does:
-
-	unsigned int totalsize = xdp->data_end - xdp->data_meta;
-	...
-	skb = napi_alloc_skb(&rx_ring->q_vector->napi, totalsize);
-	...
-	memcpy(__skb_put(skb, totalsize), xdp->data_meta,
-	       ALIGN(totalsize, sizeof(long)));
-
-For an 8-byte fragment, totalsize would be 0xFFFFFFF8. napi_alloc_skb()
-adds NET_SKB_PAD + NET_IP_ALIGN in unsigned int, which wraps to a small
-value, so the allocation succeeds. For fragments of 1 to 8 bytes, the
-memcpy length then stays at 0xFFFFFFF8.
-
-Would that overflow the skb head?
-
-For fragments of 9 to 15 bytes, the copy length wraps to 0, but the skb
-still ends up with a len of about 4 GiB. Fragments of 16 bytes or more lose
-16 bytes of payload, the same data loss described in this commit message.
-
-The kernel-doc for igb_ptp_rx_pktstamp() also says it is meant to read the
-timestamp from the first buffer of an incoming frame, and the ZC caller
-doesn't follow that.
-
-[ ... ]
+Would BAR1 need its own minimum size check for the commit message's
+claim to hold? That could be at least ICH_FLASH_PR0 + 4, or SZ_4K to
+match real hardware.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261001222443.3500206-1-anthony.l.nguyen%40intel.com
