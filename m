@@ -1,236 +1,150 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 612A447207D
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 10:04:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791194654; cv=pass; b=cbhAl/Py9Gq5ymBx9Z1eEVPl9r+GtJI1b83ybTUok+e/YGqXoTUNXoR7g6x7ZzwFtBTulQMiIiMLyOKRA6r9a3bzGTQ7PV9JW/wtHaQmynNYtmL/eys8eez0djJK7EWoHo1nCV5mmACkEFaFsf0Eqf1/aVeC6mipSNmKPnIu/VQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791194654; c=relaxed/simple;
-	bh=k2spEhPKKDs1hsoa0+BsiKrY1mHQ2Y7FvSFpHY4YUxQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=iQ2ZrHTiD9h9nwKONKczgCx9Wx3k1G3bDa+ChTxo5yFs+AthgA9fVz2tsEpY8nyRfiePO7f2fO/tehE3IvrLY5xyb3JPtzLPUxqUYM2P02SYFyg3lOSoaDirCTz6X580XeSnZC7/mIIb/e8RA/h8IMzZWjy8s463DxReUr5t1qc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XkX5UsVy; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SHHL/Th1; arc=pass smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4D79472521
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 10:04:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791194699; cv=none; b=gRRde8dDsQHCdkZ4FQdwPrc8Bmk3+9dlG/W1P6B8eI4MNnGeqm+FWfCCEwRjGD14sA/KUZ5hw/TNOUeiEDGB67V3iI9Os5v12S6OjxCExoEy6BuyRK6GfOtdCr2VUJapvO8ttqLGLYDf2QqM7VfsmgnZwHSzSt6lujpfnjJEIEo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791194699; c=relaxed/simple;
+	bh=V4f/K/Gnk/Z8OVIaq6Zpt4Non3+0kQdnB7k+cIA+TA0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=aMWc4nUorAy+2rms5wZYICOkW+Q0IVzav2C6FMEjF/ngv11iSzLC3u1ikJBebOqEYDIoqvXezrIHz4PKEz1l3lrhYOM+ddk/t1cFJXkVUZKrCBzkpnLEx4uv3BexQwJMk/WeP1O37knJZg+BUfn3hMDHHdO8uVI9LTRX1Oj9c6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=OmrgNyPO; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XkX5UsVy";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SHHL/Th1"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6958xRml1502310
-	for <stable@vger.kernel.org>; Mon, 5 Oct 2026 10:04:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	dqR2VsOJHxm1rWLbQhiJEicrbZzmNLQLjY+Jd8gYyV4=; b=XkX5UsVyg1u3Q0GZ
-	KYC0Jwvkvw7s8pazgeqorwlp/VselmEAkfKgWvnWkLPezyLE2Kqr0/xmwc2P/mC8
-	Cc+k9tgI/m56FIVgPauEGISOam4c7WOJF/njkInawNRxsCD3A2rcKXonm9r8yV6h
-	PFuFwcMKS1CPxe5vsQk9K4Dpyd3Tpd0jQNDvV7gCrdFeU55xbiP1YMgdK3BbP5Ko
-	8b0+t+NjBy1T9iLZHEbycfK3GF51lFlhB4Fy/CxpwBJnp0Oq+PLKofgV7juxTzKZ
-	e1YrwottOZOGhmd96nDWHLdkr0g35ZKQOIoSoRZ77dIn2oXzk+OkGqAvKFm8jpJL
-	VCQTXQ==
-Received: from mail-yw1-f197.google.com (mail-yw1-f197.google.com [209.85.128.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h3xgysmr7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Mon, 05 Oct 2026 10:04:09 +0000 (GMT)
-Received: by mail-yw1-f197.google.com with SMTP id 00721157ae682-895241d7405so17709287b3.2
-        for <stable@vger.kernel.org>; Mon, 05 Oct 2026 03:04:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791194649; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pP/t+AptexbSXXv39+HwLCX2Hg1P2P/I2/bzRkgS4Jd3IbJAXKkz44DM7g33DWsj7x
-         d9gQDV41qnuiknsGi6J6Rc5UZud8XNHO/7a2kGGKDtdwgcQgocS8opndgt/KDjHsczAp
-         RTzF+cjsTsoQQGy9BVobvU2e2cZRHtH7AvASvE+DA2SxqV4ok4+2zk1LnRhXHgTbJEvU
-         bVFpMdeNGXv0Uw5nq24PXJBplRDTzGtjLbi68lFr7CxBZvowqrt8uLgJH8KPXW9clID4
-         qtrEA8wo6Pbf5JDxO4RfnbC01fCT8QuKachS+KCPJ+gTikBZQRfpOt3hf2E8sXGZzwAx
-         SOIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=dqR2VsOJHxm1rWLbQhiJEicrbZzmNLQLjY+Jd8gYyV4=;
-        fh=wPco6QbSoZ2pU+M7qxBOChRWvwDdozoklqfWvq/pvVY=;
-        b=edcsdK5RUba7fcNBgosUsgWGdMWAM6D15RbnpmkYZmcWIXVD4HWwR3pZ9cnnxajqSq
-         Yib49dIQQPuNOTy/7paJR2gEezzemTQAZnd50tukIs2ItO3iV1UBsbfAo0JHk9SYBzqy
-         DgmaY5aNTsQn8S8Q71cnLrw5Y1touthBJQztIYd2coa5Mlv2xQcpuIeIxWKyJ0zxMLok
-         jdJK5KxHGHCGd+WwbsziYW4SdZU/KzE8b8IB3zAwAU1yMGti+5K4MBnxDYqDXMAwmd22
-         H1EcEwSO4y6On9Ca4EhaOM/NzU6BwY6S7RWKDMLgTJXJ40vj0z/6Z849/0HlOOobeMAG
-         Ojeg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791194649; x=1791799449; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dqR2VsOJHxm1rWLbQhiJEicrbZzmNLQLjY+Jd8gYyV4=;
-        b=SHHL/Th1VwxGCqYvg5m4lEwQPab1n7yG93x3r+e8toSNy+udiN1BCZwDJwSNP1tAhV
-         dma0eNfCzYjEIxw8csc08dnPhmsOIgw8CplT1ZJA7GBH1Vz7R/OAeFxuHV30qizUh9BY
-         dUb1vbA9eno+n5i5T5hAul549V30pBeqB63P+qnq227kCldXCTdVa/pi6TyCGr9H2wO5
-         ttM2ASNj/tbUene8gbXYinwZIXPNCpqiz6vX4iSN1lBdOzJFZE7rdTPoAVq//ESg4G1g
-         BszMaFp9Tae2wqbR0y5dj4TQ+Uxr2dPI82/0mq6KhqCsB2EoG2SKW+Waspa7hi2ZKbHK
-         VW1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791194649; x=1791799449;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dqR2VsOJHxm1rWLbQhiJEicrbZzmNLQLjY+Jd8gYyV4=;
-        b=UeAahrCttJNUvi/KEFTUi12sdZAESOoRHDrESu5bLZBfGgwiEBWZBabNZkcTxhcApv
-         fDY98qY9VhHEY9uAm+lh2AowEfLgFdjLWbpEIm719jTKFIRDuIjYGFD2oPrbTpA70YQX
-         9JP0BQCAFT4K74CJvw7CYr3E8+z2ERCDMCoRLHhNXzyu757VNvJprtcTVrV1ThSPgPaQ
-         ZU/wXPNyhj6RMZxI1jK3Zp8kgB7yy/MOIo11LbStEM5Udv1ljVxnIUDGtezcXYAS4IIP
-         ixUM4mWht21ZI+LdR//vx4y3vAwMOqmUEFwXrD6JJTgoOmm4hhpyE6YFZQKiuBqhdqI3
-         IEmA==
-X-Forwarded-Encrypted: i=1; AKwUvBwrTnfocMrMHMvMIrX8gZHUxXhZP3zCIDVgomkkDIvV3cW2Zvp/865rXfXYC1K/OGJUJrTY9tU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJD8jHS7zgNwTi0MkogleiXBMszoLeBAVnxOTZpeOm7kNZUDDYW
-	Zy5iINXVGZoW2sVg5b4NL5tUdMnDokPXFQaGwbiaw+vRi8OQoI4o/Y2a5f8wVHunQ2qwNmgq7WT
-	KNuLgDsDlOGr1qo8Mh9h1tFuIVAuasJ/hw1tDGCmRf9QvW78JMARoKp+YG327ggKPsQHmdE5vCp
-	iOn+g03m17ksd4MdOkrIZmZxUtxBr/mjhJZA==
-X-Gm-Gg: AYBFou0w0dlDhyI2vXptjLfLAOVTebNjiv6x3cGm7HtdaEJyH+wPFbw2dAzL9ERoA7y
-	cMfWLfNCQwP9vIS/b64ojI+3CHcMxuxuOU6O0qqEKxUdgQZRJgKaBhOVvzfd4pLbOVBQbzbDBGw
-	geazOsqLLPNUU8uCnlE8KN9rzRjbVF3qEREWnbYAfdzML+y6EqdEAMAH1c7ZI=
-X-Received: by 2002:a05:690e:4808:b0:674:1cc0:3523 with SMTP id 956f58d0204a3-677abe3a67cmr2176023d50.10.1791194648655;
-        Mon, 05 Oct 2026 03:04:08 -0700 (PDT)
-X-Received: by 2002:a05:690e:4808:b0:674:1cc0:3523 with SMTP id
- 956f58d0204a3-677abe3a67cmr2176015d50.10.1791194648059; Mon, 05 Oct 2026
- 03:04:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="OmrgNyPO"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id DF2811A1176;
+	Mon,  5 Oct 2026 10:04:51 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id ABA5D604FE;
+	Mon,  5 Oct 2026 10:04:51 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BE5EE103306CC;
+	Mon,  5 Oct 2026 12:04:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791194690; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=fVpBYsXmVA5NBWB0gWGRojHkpJX3RwWJ3gjajsOdKJQ=;
+	b=OmrgNyPOVZj81RVXkuRvREAzl/uvGKvX77+1gse4ENETKgJDi0yPU3TeyxW5cUE4d5fnGe
+	A+JKI/vesJDp/T+/9CU0gBjIG929MPwlBm+AHf1vI5k+nu+wMJ9cTBzNqZH5ZfEwa426Zk
+	07VUBhv6WTrNjgivEaNiwvwqhjRFAmuR9gdYB3wsGlzHhK8bXNgazui3G2anxYnr8pQen4
+	Dc1LFOZk6eusq2yrS6pfli8amYsF35LhGJKr1+5qsIxnE4Xp6EMoCmKTjTHToR8KiyQRZv
+	UsuQjjagUB06Nv0oY20AZNymHQyuWZoQHSbmRNwbH622pytvC0/tIta1Ww/+PA==
+From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+Date: Mon, 05 Oct 2026 12:04:33 +0200
+Subject: [PATCH 5.10.y] loop: Fix use-after-free issues
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929092939.1806907-1-uttkarsh.aggarwal@oss.qualcomm.com> <arzNOP4jBd9uqnGv@hu-petche-lv.qualcomm.com>
-In-Reply-To: <arzNOP4jBd9uqnGv@hu-petche-lv.qualcomm.com>
-From: Uttkarsh Aggarwal <uttkarsh.aggarwal@oss.qualcomm.com>
-Date: Mon, 5 Oct 2026 15:33:57 +0530
-X-Gm-Features: AclHuK9oHSdFJXWHB3qCGwtJHa-TWOaryqpxlOsBriiYH30mtE2nCh7iseTF7SA
-Message-ID: <CAHBxaDc+pZ3+04iZsQwABrTEnbcFVi8oD7H5LP1ecyyOqQrziA@mail.gmail.com>
-Subject: Re: [PATCH v2] usb: typec: ucsi: Set ucsi->connector before enabling notifications
-To: Peter Chen <peter.chen@oss.qualcomm.com>
-Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Hans de Goede <hdegoede@redhat.com>, linux-usb@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-GUID: InVdV7mawLMwoB2ilNk-sS-ViliKhbii
-X-Proofpoint-ORIG-GUID: InVdV7mawLMwoB2ilNk-sS-ViliKhbii
-X-Authority-Analysis: v=2.4 cv=A6b5rKWG c=1 sm=1 tr=0 ts=6ac37619 cx=c_pps
- a=0mLRTIufkjop4KoA/9S1MA==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yOCtJkima9RkubShWh1s:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=Xu-oKv-mTIZ1_Gn-t1YA:9 a=QEXdDO2ut3YA:10 a=WgItmB6HBUc_1uVUp3mg:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAzOSBTYWx0ZWRfX6k1GlNAZJl/s
- 6Xe9cHzF0qK/wbhL0mbHCB/Agr7pNReSMQYpxAzBwjBOJL3Z1NV3bMuUkneDHTYGbWKRWKoCBWl
- foli6GveLmkBvPdqvPPm3IXTrPCOSIMCeN5CHsYCIrRfNk7DBiHMA84P4RjD8sme29Rhp6XuyzV
- ZRIDztfLCXsNLReNElnpQs/MwfgahJIbyla8Fq6uOPXUbdgYtLKcAGZXTK3MRatE27IhR67XRjK
- xxtv5pTpB3wVG70HkkaJAX9EF+Edaoho8RP3L8Sswm3oPlW4gafGDbQdODU03wX+fECb8klS1Fe
- Ki/KbWksRcIagAKd7wKDWHB3eDgxlcwA4/PR43DL8mwnhiivtSfhEq7elBuXyU+HKYPKPVlsFJt
- k28FIZXkU1SIqijk7g6VhZno1POlJWWE+7/38kqRUD+oBJTiBf4Ib6Hv7IpEByw8Sranv/zNroc
- 0EaVZ25VZotleOPxB/A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDAzOSBTYWx0ZWRfX0zUDtsUwKt1i
- RKEeClE4k3uwkzGvr5+8X/4Czw6ZtJgEbRfupaZaIU/oIF9RvgwkxYTplDAFT3ezV9LsTgCukE3
- kgCZ5MSODCidzfo+BzGVKviKhPoe1/o=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-05_01,2026-10-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 lowpriorityscore=0 bulkscore=0 suspectscore=0
- priorityscore=1501 impostorscore=0 phishscore=0 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050039
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261005-cve-2023-53111-v1-1-d844a2fc5e57@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMBCE4Vche2ZJt9hKeBXjAeqg6wFNi42E8
+ O5WPX6TzL9RQlQk6quNIrImfcwFUlcUbsN8BeulmKyxXoxxHDK4oGXXigh38AOmoz90YqmcnhG
+ Tvn/BE7lGTLPS+b+n13hHWL412vcPfgwvjHoAAAA=
+X-Change-ID: 20261005-cve-2023-53111-8e6aef764812
+To: stable@vger.kernel.org, Jens Axboe <axboe@kernel.dk>, 
+ Johannes Weiner <hannes@cmpxchg.org>, 
+ Dan Schatzberg <schatzberg.dan@gmail.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Ming Lei <ming.lei@canonical.com>
+Cc: Benjamin Robin <benjamin.robin@bootlin.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Bart Van Assche <bvanassche@acm.org>, Christoph Hellwig <hch@lst.de>, 
+ Ming Lei <ming.lei@redhat.com>, Jan Kara <jack@suse.cz>, 
+ Sasha Levin <sashal@kernel.org>, 
+ "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791194683; l=2740;
+ i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
+ bh=3J3ULDIaQHTyYc9Lu+HeWPvp/O2decHG7gb4ZyGY2zk=;
+ b=YS0cSVRrDOnYT/9q6tL57bC3wcTaTeKvYga7g+yYHHrX8eWerRBWCJImhjj5lacaHX4/987cN
+ AIJtZVhEhh2AuUrmJCyyWxt1N/Nz8SCjSA0lQQOq+1aU5ksSRfhHNju
+X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
+ pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, Sep 30, 2026 at 2:20=E2=80=AFPM Peter Chen <peter.chen@oss.qualcomm=
-.com> wrote:
->
-> On 26-09-29 14:59:39, Uttkarsh Aggarwal wrote:
-> > In ucsi_init(), ucsi->connector is assigned only after the
-> > UCSI_SET_NOTIFICATION_ENABLE command completes. But once that command
-> > is sent, the PPM is free to raise a connector change notification at
-> > any time, which is handled through:
-> >
-> >     ucsi_notify_common() -> ucsi_connector_change()
-> >
-> > ucsi_connector_change() indexes into ucsi->connector to get the
-> > connector and schedule its work item. If this notification arrives
-> > before ucsi_init() reaches the "ucsi->connector =3D connector;" line,
-> > ucsi->connector is still NULL and the driver crashes dereferencing it.
-> >
-> > Fix this by setting ucsi->connector right after the connectors are
-> > registered, before notifications are enabled, so it is always valid
-> > by the time a connector change event can be delivered. Also clear
-> > ucsi->connector in the err_unregister path so it isn't left pointing
-> > at freed memory if a later step in ucsi_init() fails.
-> >
-> > Fixes: 0482c34ec6f8 ("usb: ucsi: Fix ucsi->connector race")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Uttkarsh Aggarwal <uttkarsh.aggarwal@oss.qualcomm.com>
->
-> Reviewed-by: Peter Chen <peter.chen@oss.qualcomm.com>
->
-> It is better cc the one who gave you the comment :)
->
-> Peter
-> > ---
-> > Changes in v2:
-> >  - Add Fixes tag pointing to 0482c34ec6f8 ("usb: ucsi: Fix ucsi->connec=
-tor race").
-> >  - Add Cc: stable@vger.kernel.org.
-> >  - Link to v1: https://lore.kernel.org/all/20260923060434.2599545-1-utt=
-karsh.aggarwal@oss.qualcomm.com/
-> >
-> >  drivers/usb/typec/ucsi/ucsi.c | 10 +++++++++-
-> >  1 file changed, 9 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucs=
-i.c
-> > index bef3f9b71d71..8f7b73a9f4f4 100644
-> > --- a/drivers/usb/typec/ucsi/ucsi.c
-> > +++ b/drivers/usb/typec/ucsi/ucsi.c
-> > @@ -2122,6 +2122,14 @@ static int ucsi_init(struct ucsi *ucsi)
-> >                       goto err_unregister;
-> >       }
-> >
-> > +     /*
-> > +      * Set ucsi->connector before enabling notifications. A connector
-> > +      * change event can be handled as soon as the notifications are
-> > +      * enabled below, and ucsi_connector_change() indexes into
-> > +      * ucsi->connector, so it must not be NULL at that point.
-> > +      */
-> > +     ucsi->connector =3D connector;
-> > +
-> >       /* Enable all supported notifications */
-> >       ntfy =3D ucsi_get_supported_notifications(ucsi);
-> >       command =3D UCSI_SET_NOTIFICATION_ENABLE | ntfy;
-> > @@ -2129,7 +2137,6 @@ static int ucsi_init(struct ucsi *ucsi)
-> >       if (ret < 0)
-> >               goto err_unregister;
-> >
-> > -     ucsi->connector =3D connector;
-> >       ucsi->ntfy =3D ntfy;
-> >
-> >       mutex_lock(&ucsi->ppm_lock);
-> > @@ -2143,6 +2150,7 @@ static int ucsi_init(struct ucsi *ucsi)
-> >       return 0;
-> >
-> >  err_unregister:
-> > +     ucsi->connector =3D NULL;
-> >       for (con =3D connector; con->port; con++)
-> >               ucsi_unregister_port(con);
-> >       for (i =3D 0; i < ucsi->cap.num_connectors; i++)
-> > --
-> > 2.34.1
-> >
-> >
->
-> --
->
-> Thanks,
-> Peter Chen
+From: Bart Van Assche <bvanassche@acm.org>
 
-Sure, Peter. I will take care of it. Thanks for the review.
+[ Upstream commit 9b0cb770f5d7b1ff40bea7ca385438ee94570eec ]
 
-Thanks,
-Uttkarsh
+do_req_filebacked() calls blk_mq_complete_request() synchronously or
+asynchronously when using asynchronous I/O unless memory allocation fails.
+Hence, modify loop_handle_cmd() such that it does not dereference 'cmd' nor
+'rq' after do_req_filebacked() finished unless we are sure that the request
+has not yet been completed. This patch fixes the following kernel crash:
+
+Unable to handle kernel NULL pointer dereference at virtual address 0000000000000054
+Call trace:
+ css_put.42938+0x1c/0x1ac
+ loop_process_work+0xc8c/0xfd4
+ loop_rootcg_workfn+0x24/0x34
+ process_one_work+0x244/0x558
+ worker_thread+0x400/0x8fc
+ kthread+0x16c/0x1e0
+ ret_from_fork+0x10/0x20
+
+[ Dropped the part fixing c74d40e8b5e2 as this commit isn't included in
+5.10. Kept the part fixing bc07c10a3603 ]
+
+Cc: Christoph Hellwig <hch@lst.de>
+Cc: Ming Lei <ming.lei@redhat.com>
+Cc: Jan Kara <jack@suse.cz>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Dan Schatzberg <schatzberg.dan@gmail.com>
+Fixes: c74d40e8b5e2 ("loop: charge i/o to mem and blk cg")
+Fixes: bc07c10a3603 ("block: loop: support DIO & AIO")
+Signed-off-by: Bart Van Assche <bvanassche@acm.org>
+Reviewed-by: Ming Lei <ming.lei@redhat.com>
+Link: https://lore.kernel.org/r/20230314182155.80625-1-bvanassche@acm.org
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+---
+ drivers/block/loop.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/block/loop.c b/drivers/block/loop.c
+index 3db4dad0d072..dab31049bd4f 100644
+--- a/drivers/block/loop.c
++++ b/drivers/block/loop.c
+@@ -2032,16 +2032,24 @@ static void loop_handle_cmd(struct loop_cmd *cmd)
+ 	const bool write = op_is_write(req_op(rq));
+ 	struct loop_device *lo = rq->q->queuedata;
+ 	int ret = 0;
++	const bool use_aio = cmd->use_aio;
+ 
+ 	if (write && (lo->lo_flags & LO_FLAGS_READ_ONLY)) {
+ 		ret = -EIO;
+ 		goto failed;
+ 	}
+ 
++	/*
++	 * do_req_filebacked() may call blk_mq_complete_request() synchronously
++	 * or asynchronously if using aio. Hence, do not touch 'cmd' after
++	 * do_req_filebacked() has returned unless we are sure that 'cmd' has
++	 * not yet been completed.
++	 */
+ 	ret = do_req_filebacked(lo, rq);
++
+  failed:
+ 	/* complete non-aio request */
+-	if (!cmd->use_aio || ret) {
++	if (!use_aio || ret) {
+ 		if (ret == -EOPNOTSUPP)
+ 			cmd->ret = ret;
+ 		else
+
+---
+base-commit: 587461ddf5d522bfcb50ebd55078c0dac37be496
+change-id: 20261005-cve-2023-53111-8e6aef764812
+
+Best regards,
+--  
+Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+
