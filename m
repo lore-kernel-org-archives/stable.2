@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD393475346
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 10:25:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12A2446AF08
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 10:25:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791195932; cv=none; b=NmgGXbGbJb3mj/yPv6wp9BJTgpQ7xie8eoOjB2NaeuJU9LjxFeRDc1qICKEDe0EVnBJTXqxOvGZ1SPlViIGmufhvmriBQimyuPOEL1Cx2m+y3Xhdz2zkfUlv4u9Tt7tS6lwYq3Wnz2b+YovlLN3MEgrsnS6CdhESZd32+4LXZI4=
+	t=1791195953; cv=none; b=inqQag8jUBOm7qm3eRTq5rjgLDI20pbCLVVxE3zwWZX92asDAUnlfpTuC0qO0ifbAe2eQd2SqrgqoYZ60GVLvypdcVHzqY/BILEF3nrl1YEx33FT9DY34Zk2+RoShLdGg4sShoNKX/llwt5XmNhrhF8AZNkUNh4xu0heeOhfGpc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791195932; c=relaxed/simple;
-	bh=L//4Camo8mh+sEc5sRNQyvgRiUD7IoZwwlfNOyYqV4A=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=HwnnieFexcYp3Bm9vzk2mrVIfr1dAWnlEIK2dvzWJGdnWShXC9TDC32J4g9qMCf7+OfAWvl9By+oWEPEeBlwkQYwRuQf7tqrqffcB8CemBubdsBusUe1Sq/k3PK1VKojX76GP1zRZ8IPhBPvTrYrUzNndjwnPfNQani6FITfr4c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=HtCDtRpO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791195953; c=relaxed/simple;
+	bh=U3n6yWyFEup3hfSYyivpTTwVA1LWHqmyrUfFpAIZzzk=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=FNa4PLLHti2ImoPGUuPvBY2x1SxU5ER8FfmK+EbwT2EPKrRE41Czy0/ZzgkQ+i4HCXRSs8O7cNbWtPfjV0vr/TNdqPwJRlnwvN9MzPlSzX0QgsefmCZgcYOrjxVizXcGxIFebKOkzFNPNSIh0d5pqYh9IG7lqa/id6ez5PxN+6w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=q16pytlp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="HtCDtRpO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 300861F000FF;
-	Mon,  5 Oct 2026 10:25:30 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="q16pytlp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D57B1F0089D;
+	Mon,  5 Oct 2026 10:25:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791195930;
-	bh=EZ1eBhaSRAGi36OLDQvQkWiGhVh83N5UPszc8CYcPRI=;
+	s=korg; t=1791195951;
+	bh=in/HEkDB7wD0+DkELZtHJFwqlLBQAm70JPiJIgHIxrc=;
 	h=Subject:To:Cc:From:Date;
-	b=HtCDtRpO069IK2LOkEk1BO/uW3FlDHsF/BDV/fkepkAsCdv5FoAXXJd3Uo7OAXKuf
-	 gc3mc1Gid9uiKgLzlzGiKN1RAYBw1tp2yM8JnN30EkjAJ4dyOcl5oYGVBAOJ6+pCnC
-	 YTLqe5yb5TnQRlTV5RO2+Ny4U1SSj7VzEWFoDjM8=
-Subject: FAILED: patch "[PATCH] ALSA: hda/tegra: Re-enable SDO workaround for Tegra194" failed to apply to 6.6-stable tree
-To: webgeek1234@gmail.com,tiwai@suse.de
+	b=q16pytlpV8xb509NXJHyyElOqMXWEw+K72ZxXKmswzU875A7y9cqLLboxdKXs+csR
+	 1M42aEbO4eofXOAHRR/Pp+rfhm6MuIFncld11X6STMB/L7pBDFR7RiLHazFShkm1UE
+	 elFsIoqKwhfKmfeByp3ENcriVQ+YiYowcEcWcRmU=
+Subject: FAILED: patch "[PATCH] ALSA: usb-audio: Apply IGNORE_CTL_ERROR quirk to all Audient" failed to apply to 7.2-stable tree
+To: tiwai@suse.de,faarisansari@googlemail.com,stable@vger.kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 05 Oct 2026 12:25:18 +0200
-Message-ID: <2026100518-diagnosis-entomb-8d1e@gregkh>
+Date: Mon, 05 Oct 2026 12:25:47 +0200
+Message-ID: <2026100547-traffic-dispute-c1d0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 7.2-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
-git cherry-pick -x 89365897f4210979966aa808d7b013edf4080558
+git cherry-pick -x a154f7b9f197b3d5e41fa3ad62083f5aa93b1fe8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100518-diagnosis-entomb-8d1e@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100547-traffic-dispute-c1d0@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,37 +62,56 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 89365897f4210979966aa808d7b013edf4080558 Mon Sep 17 00:00:00 2001
-From: Aaron Kling <webgeek1234@gmail.com>
-Date: Sat, 26 Sep 2026 02:24:19 -0500
-Subject: [PATCH] ALSA: hda/tegra: Re-enable SDO workaround for Tegra194
+From a154f7b9f197b3d5e41fa3ad62083f5aa93b1fe8 Mon Sep 17 00:00:00 2001
+From: Takashi Iwai <tiwai@suse.de>
+Date: Tue, 29 Sep 2026 16:41:26 +0200
+Subject: [PATCH] ALSA: usb-audio: Apply IGNORE_CTL_ERROR quirk to all Audient
+ devices
 
-This workaround was originally added for Tegra194, but no longer gets
-applied for it. Commit 615d43540043 ("ALSA: hda/tegra: fix tegra-hda on
-tegra30 soc") changed the guard to tegra30-hda, which worked because all
-affected archs had the fallback compatible. However, commit 7f0ea5acfc19
-("arm64: tegra: Use correct compatible string for Tegra194 HDA") removed
-the fallback compatible for Tegra194, causing this to break.
+Faaris reported a problem with Audient EVO4 device and it turned out
+to be a regression by the recent fix commit 87a6f2fa6e6c ("ALSA:
+usb-audio: Propagate write errors in generic mixer put callbacks").
+It exhibited that the hardware gives errors at accessing the mixer
+unit 10 on certain channels, and the change above made it a fatal
+error.
 
-Fixes: 7f0ea5acfc19 ("arm64: tegra: Use correct compatible string for Tegra194 HDA")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
-Link: https://patch.msgid.link/20260926-tegra194-hda-sdo-v1-1-f7a636a07a58@gmail.com
+We had already a quirk for Audient iD14 to work around such errors
+from the mixer controls, and we can simply apply the same for EVO4.
+OTOH, it's highly possible that other Audient devices suffer from the
+same issue; they must be using similar firmware, after all.
+
+So, in this patch, we apply the quirk generically to all devices with
+the vendor ID Audient (2708), instead.  Ignoring the control error
+isn't usually less critical than overreaction to the firmware
+misbehavior.
+
+Fixes: 87a6f2fa6e6c ("ALSA: usb-audio: Propagate write errors in generic mixer put callbacks")
+Reported-and-tested-by: Faaris Ansari <faarisansari@googlemail.com>
+Closes: https://lore.kernel.org/CANBVYRCL=8QdLxGg4S6qrahrFtwJxhv-aSGpW7-1S=+iOe4ZGA@mail.gmail.com
+Cc: <stable@vger.kernel.org>
+Link: https://patch.msgid.link/20260929144132.1521617-1-tiwai@suse.de
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 
-diff --git a/sound/hda/controllers/tegra.c b/sound/hda/controllers/tegra.c
-index 31c14c4bbe68..674cc0f79c3c 100644
---- a/sound/hda/controllers/tegra.c
-+++ b/sound/hda/controllers/tegra.c
-@@ -374,7 +374,8 @@ static int hda_tegra_first_init(struct azx *chip, struct platform_device *pdev)
- 	 * in powers of 2, next available ratio is 16 which can be
- 	 * used as a limiting factor here.
- 	 */
--	if (of_device_is_compatible(np, "nvidia,tegra30-hda"))
-+	if (of_device_is_compatible(np, "nvidia,tegra30-hda") ||
-+	    of_device_is_compatible(np, "nvidia,tegra194-hda"))
- 		chip->bus.core.sdo_limit = 16;
- 
- 	/* codec detection */
+diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+index f55b02d6dd39..3afc49565963 100644
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -2516,8 +2516,6 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
+ 		   QUIRK_FLAG_FORCE_IFACE_RESET | QUIRK_FLAG_IFACE_DELAY),
+ 	DEVICE_FLG(0x262a, 0x9302, /* ddHiFi TC44C */
+ 		   QUIRK_FLAG_DSD_RAW),
+-	DEVICE_FLG(0x2708, 0x0002, /* Audient iD14 */
+-		   QUIRK_FLAG_IGNORE_CTL_ERROR),
+ 	DEVICE_FLG(0x2772, 0x0502, /* Musical Fidelity M6s DAC */
+ 		   0), /* for avoiding QUIRK_FLAG_DSD_RAW with vendor match */
+ 	DEVICE_FLG(0x2912, 0x30c8, /* Audioengine D1 */
+@@ -2616,6 +2614,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
+ 		   QUIRK_FLAG_DSD_RAW),
+ 	VENDOR_FLG(0x2622, /* IAG Limited devices */
+ 		   QUIRK_FLAG_DSD_RAW),
++	VENDOR_FLG(0x2708, /* Audient devices */
++		   QUIRK_FLAG_IGNORE_CTL_ERROR),
+ 	VENDOR_FLG(0x2772, /* Musical Fidelity devices */
+ 		   QUIRK_FLAG_DSD_RAW),
+ 	VENDOR_FLG(0x278b, /* Rotel? */
 
