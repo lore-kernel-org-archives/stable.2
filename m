@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8929C40627B
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 08:51:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7705B37F322
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 08:51:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791190272; cv=none; b=NJPP+ZESFdkl3CHaEi5Hs6CKXtgAYzyuxhL3mOPKlRZ/hdIiXCK8BM0BT5NO+QvgZ0SCBPeLA89FxUswvqhSEt8PDJGxeel9j+1NX2uMXEnZOYYNzJmWzisFyQI668ReQnTgryNCv8Tyv1fMxKmP/jJJKoy/FJMZH75PJqDTzUo=
+	t=1791190293; cv=none; b=s5mQQExGKP7TpkyKhi73BKqzOnrP397TmR4mE1UcJelAWJFlDZEr6nwu4P0GvIKYLS589u5uvR6lK6X95/kk1BaKxeKBZbVPoRJ3z4TvfZWOSGGhWz59313NVlal/Hchk2FtOZ1GdZPTpXenaUhXJDS0vTesof+aBkiRLhUDrvk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791190272; c=relaxed/simple;
-	bh=re4kumUTj3Mb2dBASt8WMYDTMFW4CbVy8bUtcg6yCp0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=FKRqMBEtxR6MMbplb4J5qs3C7wyrwx7bM0utLKyVh9WIxme1udKMCZNPJlzHQxC5x/+kWUBxH73wturS+M3kq3m+FjiFYd77HkkPn8LHRAdxm3O0zYlf7wVF6YPsKIWC5kbBlZhOznZnfJfLG63XHrMI8hZWjEWQkn8NYKi0Uuc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=IT8IlfFO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791190293; c=relaxed/simple;
+	bh=DW5KmrK+ydr8CeMPtnmPvdGptp55I0ZiABXbV7if0po=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=dWJkHnhdGCNV6d3yXLV2Okl+2QFFvYJy0xLqmOVn/5u3uXb+9P6hdaj778/ooVllwJTYXeu94mdjr5k6CHX0Dl0/O2zGWGUX9JRnpXJ7OdxZFi3fATZFgyTYpGRWOrBbsaKicPfO8vsvVfmmnuv1/7Gw2Mn7Upt6i7jny4xIcbI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jQpwBI6L; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="IT8IlfFO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA0BC1F000FF;
-	Mon,  5 Oct 2026 08:51:10 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jQpwBI6L"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC6001F000FF;
+	Mon,  5 Oct 2026 08:51:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791190271;
-	bh=spBkipLCfLSmL9xFq7McvFofQUBwGf0cPOpdvHGIdtA=;
+	s=korg; t=1791190292;
+	bh=yYbNDp7oni6yBSuTZu8NaOa8TuBNeMuDX05NhJu8Hes=;
 	h=Subject:To:Cc:From:Date;
-	b=IT8IlfFOInPj8lmFf9fwRo2kASAxlNz3aZ3kUBTe+UZOvJwjLkBTPaj369vWpYZOC
-	 oglCX9l8FqL8t9C7q8FV7kidGVsyBQGlxV+p+/8QCQ473WcAPWZEFcH/G5rKQAWzl3
-	 29gk4eK9CmvyykjcYid1RZnp91MpxQ0vqlLxli1g=
-Subject: FAILED: patch "[PATCH] tty: port: fix tty_port_tty_vhangup() race" failed to apply to 5.15-stable tree
-To: johan@kernel.org,gregkh@linuxfoundation.org
+	b=jQpwBI6LccoJz//DFIEKQixFin4L+gxMgM5tUNiCMXjjNMxl/Stp3TrjAe+UrnMXk
+	 GTPIMrEfvXiBbSN8lWCUPveCZzm0ntK2yMkcTigrnFABJpQ9k8Yhw0Z8BgUfX9HhKc
+	 MpwexCVQUFd5Cwm4GUiQjgGebw6PZ8aP31zY7ta4=
+Subject: FAILED: patch "[PATCH] tty: abort break signalling on hangup" failed to apply to 5.15-stable tree
+To: johan@kernel.org,gregkh@linuxfoundation.org,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 05 Oct 2026 10:50:52 +0200
-Message-ID: <2026100552-dumpster-splashed-bbd3@gregkh>
+Date: Mon, 05 Oct 2026 10:51:29 +0200
+Message-ID: <2026100529-visitor-zoning-adb2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x b48820de8c1a596c5b99775524dfce73c6576c5d
+git cherry-pick -x 845a2737e0f5ffe5ca8d38de556012b0c9472cdd
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100552-dumpster-splashed-bbd3@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100529-visitor-zoning-adb2@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,202 +62,124 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From b48820de8c1a596c5b99775524dfce73c6576c5d Mon Sep 17 00:00:00 2001
+From 845a2737e0f5ffe5ca8d38de556012b0c9472cdd Mon Sep 17 00:00:00 2001
 From: Johan Hovold <johan@kernel.org>
-Date: Thu, 10 Sep 2026 14:51:14 +0200
-Subject: [PATCH] tty: port: fix tty_port_tty_vhangup() race
+Date: Thu, 3 Sep 2026 18:37:36 +0200
+Subject: [PATCH] tty: abort break signalling on hangup
 
-Drivers rely on tty_port_tty_vhangup() to synchronously hang up their
-ports before tearing down resources as part of deregistration (e.g. on
-physical disconnect).
+The break ioctls can race with hangup and end up calling into a tty
+driver for a device that is already gone or powered down.
 
-If tty_port_tty_vhangup() races with another hangup it may however
-return before the port has been shut down. This is in turn can lead to
-use-after-free and NULL-pointer dereferences in racing ioctls (including
-a synchronous hangup) and in processing of racing asynchronous hangups
-(carrier loss).
+Drivers must handle this race, but TCSBRK and TCSBRKP should still be
+aborted to avoid calling back into the driver after a user-controlled
+timeout (possibly even after the tty has been reopened).
 
-Add the missing serialisation to tty_port_tty_vhangup() and
-tty_port_hangup() so that the former does not return until the port has
-been shut down also when there is a racing hangup.
+Note that drivers should disable any break state on shutdown so just
+return on hangup (calling break_ctl() again is racy and will most likely
+fail for drivers handling the race).
 
-Note that serial core does not use tty_port_hangup(), but it already
-holds the port mutex when clearing port->tty and shutting down the port
-in uart_hangup().
-
-Fixes: 7ca0ff9ab321 ("tty: Add a full port_close function")
-Cc: stable@kernel.org	# 2.6.32: 2b5eac0f8c6e: tty: introduce and use tty_port_tty_vhangup() helper
-Cc: stable@kernel.org	# 2.6.32
-Reported-by: syzbot+5fabc1ae99ff40690d84@syzkaller.appspotmail.com
-Link: https://lore.kernel.org/6a944641.4d659fcc.734b4.003c.GAE@google.com
+Fixes: f34d7a5b7010 ("tty: The big operations rework")
+Cc: stable <stable@kernel.org>
 Signed-off-by: Johan Hovold <johan@kernel.org>
-Link: https://patch.msgid.link/20260910125114.640880-1-johan@kernel.org
+Link: https://patch.msgid.link/20260903163736.1499280-1-johan@kernel.org
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-diff --git a/drivers/tty/tty_port.c b/drivers/tty/tty_port.c
-index ae33987207b6..b22ff9eb7778 100644
---- a/drivers/tty/tty_port.c
-+++ b/drivers/tty/tty_port.c
-@@ -340,19 +340,9 @@ void tty_port_tty_set(struct tty_port *port, struct tty_struct *tty)
- }
- EXPORT_SYMBOL(tty_port_tty_set);
+diff --git a/drivers/tty/tty_io.c b/drivers/tty/tty_io.c
+index 48569035da56..1c30faae9ec1 100644
+--- a/drivers/tty/tty_io.c
++++ b/drivers/tty/tty_io.c
+@@ -620,6 +620,8 @@ static void __tty_hangup(struct tty_struct *tty, int exit_session)
  
--/**
-- * tty_port_shutdown - internal helper to shutdown the device
-- * @port: tty port to be shut down
-- * @tty: the associated tty
-- *
-- * It is used by tty_port_hangup() and tty_port_close(). Its task is to
-- * shutdown the device if it was initialized (note consoles remain
-- * functioning). It lowers DTR/RTS (if @tty has HUPCL set) and invokes
-- * @port->ops->shutdown().
-- */
--static void tty_port_shutdown(struct tty_port *port, struct tty_struct *tty)
-+static void tty_port_shutdown_locked(struct tty_port *port, struct tty_struct *tty)
- {
--	guard(mutex)(&port->mutex);
-+	lockdep_assert_held(&port->mutex);
+ 	tty_ldisc_hangup(tty, cons_filp != NULL);
  
- 	if (port->console)
- 		return;
-@@ -372,6 +362,23 @@ static void tty_port_shutdown(struct tty_port *port, struct tty_struct *tty)
- 		port->ops->shutdown(port);
- }
- 
-+/**
-+ * tty_port_shutdown - internal helper to shutdown the device
-+ * @port: tty port to be shut down
-+ * @tty: the associated tty
-+ *
-+ * It is used by tty_port_hangup() and tty_port_close(). Its task is to
-+ * shutdown the device if it was initialized (note consoles remain
-+ * functioning). It lowers DTR/RTS (if @tty has HUPCL set) and invokes
-+ * @port->ops->shutdown().
-+ */
-+static void tty_port_shutdown(struct tty_port *port, struct tty_struct *tty)
-+{
-+	guard(mutex)(&port->mutex);
++	wake_up_interruptible(&tty->break_wait);
 +
-+	tty_port_shutdown_locked(port, tty);
-+}
-+
- /**
-  * tty_port_hangup		-	hangup helper
-  * @port: tty port
-@@ -385,36 +392,58 @@ void tty_port_hangup(struct tty_port *port)
+ 	spin_lock_irq(&tty->ctrl.lock);
+ 	clear_bit(TTY_THROTTLED, &tty->flags);
+ 	clear_bit(TTY_DO_WRITE_WAKEUP, &tty->flags);
+@@ -2431,6 +2433,7 @@ static int tiocgetd(struct tty_struct *tty, int __user *p)
+  * send_break - performed time break
+  * @tty: device to break on
+  * @duration: timeout in mS
++ * @file: file object
+  *
+  * Perform a timed break on hardware that lacks its own driver level timed
+  * break functionality.
+@@ -2438,8 +2441,9 @@ static int tiocgetd(struct tty_struct *tty, int __user *p)
+  * Locking:
+  *	@tty->atomic_write_lock serializes
+  */
+-static int send_break(struct tty_struct *tty, unsigned int duration)
++static int send_break(struct file *file, struct tty_struct *tty, unsigned int duration)
  {
- 	struct tty_struct *tty;
++	long timeout;
+ 	int retval;
  
--	scoped_guard(spinlock_irqsave, &port->lock) {
--		port->count = 0;
--		tty = port->tty;
--		if (tty)
--			set_bit(TTY_IO_ERROR, &tty->flags);
--		port->tty = NULL;
--	}
-+	scoped_guard(mutex, &port->mutex) {
-+		scoped_guard(spinlock_irqsave, &port->lock) {
-+			port->count = 0;
-+			tty = port->tty;
-+			if (tty)
-+				set_bit(TTY_IO_ERROR, &tty->flags);
-+			port->tty = NULL;
+ 	if (tty->ops->break_ctl == NULL)
+@@ -2453,13 +2457,26 @@ static int send_break(struct tty_struct *tty, unsigned int duration)
+ 		return -EINTR;
+ 
+ 	retval = tty->ops->break_ctl(tty, -1);
+-	if (!retval) {
+-		msleep_interruptible(duration);
+-		retval = tty->ops->break_ctl(tty, 0);
+-	} else if (retval == -EOPNOTSUPP) {
+-		/* some drivers can tell only dynamically */
+-		retval = 0;
++	if (retval) {
++		if (retval == -EOPNOTSUPP) {
++			/* some drivers can tell only dynamically */
++			retval = 0;
 +		}
- 
--	tty_port_set_active(port, false);
--	tty_port_shutdown(port, tty);
-+		tty_port_set_active(port, false);
-+		tty_port_shutdown_locked(port, tty);
-+	}
- 	tty_kref_put(tty);
- 	wake_up_interruptible(&port->open_wait);
- 	wake_up_interruptible(&port->delta_msr_wait);
- }
- EXPORT_SYMBOL(tty_port_hangup);
- 
--void __tty_port_tty_hangup(struct tty_port *port, bool check_clocal, bool async)
-+/**
-+ * tty_port_tty_hangup - helper to hang up a tty asynchronously
-+ * @port: tty port
-+ * @check_clocal: hang only ttys with %CLOCAL unset?
-+ */
-+void tty_port_tty_hangup(struct tty_port *port, bool check_clocal)
- {
- 	scoped_guard(tty_port_tty, port) {
- 		struct tty_struct *tty = scoped_tty();
- 
--		if (!check_clocal || !C_CLOCAL(tty)) {
--			if (async)
--				tty_hangup(tty);
--			else
--				tty_vhangup(tty);
--		}
-+		if (!check_clocal || !C_CLOCAL(tty))
-+			tty_hangup(tty);
++		goto out_unlock;
  	}
- }
--EXPORT_SYMBOL_GPL(__tty_port_tty_hangup);
-+EXPORT_SYMBOL_GPL(tty_port_tty_hangup);
 +
-+/**
-+ * tty_port_tty_vhangup - helper to hang up a tty synchronously
-+ * @port: tty port
-+ */
-+void tty_port_tty_vhangup(struct tty_port *port)
-+{
-+	struct tty_struct *tty;
-+
-+	mutex_lock(&port->mutex);
-+	tty = tty_port_tty_get(port);
-+	mutex_unlock(&port->mutex);
-+
-+	if (tty) {
-+		tty_vhangup(tty);
-+		tty_kref_put(tty);
++	timeout = msecs_to_jiffies(duration);
++	timeout = wait_event_interruptible_timeout(tty->break_wait,
++						   tty_hung_up_p(file),
++						   timeout);
++	/* return early on hangup only */
++	if (timeout > 0) {
++		retval = -EIO;
++		goto out_unlock;
 +	}
-+}
-+EXPORT_SYMBOL_GPL(tty_port_tty_vhangup);
++
++	retval = tty->ops->break_ctl(tty, 0);
++out_unlock:
+ 	tty_write_unlock(tty);
  
- /**
-  * tty_port_tty_wakeup - helper to wake up a tty
-diff --git a/include/linux/tty_port.h b/include/linux/tty_port.h
-index 23cad403bb8f..8d22c59c6f15 100644
---- a/include/linux/tty_port.h
-+++ b/include/linux/tty_port.h
-@@ -245,7 +245,8 @@ bool tty_port_carrier_raised(struct tty_port *port);
- void tty_port_raise_dtr_rts(struct tty_port *port);
- void tty_port_lower_dtr_rts(struct tty_port *port);
- void tty_port_hangup(struct tty_port *port);
--void __tty_port_tty_hangup(struct tty_port *port, bool check_clocal, bool async);
-+void tty_port_tty_hangup(struct tty_port *port, bool check_clocal);
-+void tty_port_tty_vhangup(struct tty_port *port);
- void tty_port_tty_wakeup(struct tty_port *port);
- int tty_port_block_til_ready(struct tty_port *port, struct tty_struct *tty,
- 		struct file *filp);
-@@ -264,25 +265,6 @@ static inline int tty_port_users(struct tty_port *port)
- 	return port->count + port->blocked_open;
- }
+ 	if (signal_pending(current))
+@@ -2727,10 +2744,10 @@ long tty_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+ 		 * This is used by the tcdrain() termios function.
+ 		 */
+ 		if (!arg)
+-			return send_break(tty, 250);
++			return send_break(file, tty, 250);
+ 		return 0;
+ 	case TCSBRKP:	/* support for POSIX tcsendbreak() */
+-		return send_break(tty, arg ? arg*100 : 250);
++		return send_break(file, tty, arg ? arg * 100 : 250);
  
--/**
-- * tty_port_tty_hangup - helper to hang up a tty asynchronously
-- * @port: tty port
-- * @check_clocal: hang only ttys with %CLOCAL unset?
-- */
--static inline void tty_port_tty_hangup(struct tty_port *port, bool check_clocal)
--{
--	__tty_port_tty_hangup(port, check_clocal, true);
--}
--
--/**
-- * tty_port_tty_vhangup - helper to hang up a tty synchronously
-- * @port: tty port
-- */
--static inline void tty_port_tty_vhangup(struct tty_port *port)
--{
--	__tty_port_tty_hangup(port, false, false);
--}
--
- #ifdef CONFIG_TTY
- void tty_kref_put(struct tty_struct *tty);
- __DEFINE_CLASS_IS_CONDITIONAL(tty_port_tty, true);
+ 	case TIOCMGET:
+ 		return tty_tiocmget(tty, p);
+@@ -3090,6 +3107,7 @@ struct tty_struct *alloc_tty_struct(struct tty_driver *driver, int idx)
+ 	init_ldsem(&tty->ldisc_sem);
+ 	init_waitqueue_head(&tty->write_wait);
+ 	init_waitqueue_head(&tty->read_wait);
++	init_waitqueue_head(&tty->break_wait);
+ 	INIT_WORK(&tty->hangup_work, do_tty_hangup);
+ 	mutex_init(&tty->atomic_write_lock);
+ 	spin_lock_init(&tty->ctrl.lock);
+diff --git a/include/linux/tty.h b/include/linux/tty.h
+index 0a46e4054dec..ad4e4a835f90 100644
+--- a/include/linux/tty.h
++++ b/include/linux/tty.h
+@@ -230,6 +230,7 @@ struct tty_struct {
+ 	struct fasync_struct *fasync;
+ 	wait_queue_head_t write_wait;
+ 	wait_queue_head_t read_wait;
++	wait_queue_head_t break_wait;
+ 	struct work_struct hangup_work;
+ 	void *disc_data;
+ 	void *driver_data;
 
