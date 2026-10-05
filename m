@@ -1,94 +1,118 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D3F031AA92;
-	Mon,  5 Oct 2026 06:24:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1AD9322B6D
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 06:30:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791181493; cv=none; b=FV23n/SZlsAcnBUgqMH0VVDNbsO+L52uD3LfFk02Myu6ilxnR5XKcfIDHRm9U/2SAHV+5kT4XjiTO06EFgZM82sQejIJFk2ZIea67tdT1w4FSr8GYYanIjBoxV4DnANw3NjtjIkpxDUQvfYeMoWywRClml9JISyZQMXPVKfC4YU=
+	t=1791181850; cv=none; b=Qx+HQenW1o5o2Sd+KBK9sVU+zFLGaIT03nga2AnCvs3ZZJ08uz7s6cngsi+meVxiWr3UqMEt9uIF8u8cnoTMTyq1hdxKlnCl8OFW6epELKghoWP6Od0TSGQCJtDOsNqaCDs2G/h+FWTHOlA9vcLjVnFbrMg3t3YS9ugJPmwr1mw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791181493; c=relaxed/simple;
-	bh=RC4OwZ7ZaEBF9P4eLnxhVzqJAdpccCosy3AcdFlcdco=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=po2rITecrsaU7Zn4kXJ+OfiHBPQCChSoj5KuuYjlRj002Z5dGJ6c5z66dRG9wFWZAnlfvnQqijXdzsi7+zjg9UnVModuCMQPI6HH4idw8H6vPKH1nj66SWym16f5pekF5A9aug76PgPGQwLoGy8pTI75dcoa7DRQg4T2qHrSFWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZWD4htRX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791181850; c=relaxed/simple;
+	bh=7Go1pW3kqcjzpvNXBPm8wCORyJtiYwbxuEZdhDPXEl4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZczxtRDCuJ7YpIpWQmatv33QyNI9YjS8gU1cUW/DvmpSpTQRJeL1Vl0HYz9OwVD+fmO1fwK+9Ks0ROYVRFgPc6zHN7qSitSZq+8mOYXKOdxtfiMUZU6lCWTtkZX9hAHNiNJiPYliNjsHRmfLGijFqmTokOge5d8FVsOAhehuKV4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TNjA+qqU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZWD4htRX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 483481F00893;
-	Mon,  5 Oct 2026 06:24:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TNjA+qqU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B023B1F0089D
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 06:30:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791181492;
-	bh=11wT2lLDb34axa7W/ud0mXtdsFwrKpKNkMXKWRKs/O8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZWD4htRX9YeeS8j+g+3SS/z8e7BsFxEGYxOiYrFz99cWkSbdSm76IOO7RlHyAHnnt
-	 D9RBo8g+xeYsOmAQ+vVy5R4y+usk2c2DKGi9l4b2JRHY/daA29+KPBzMEgLR8qxjng
-	 g5LoADq9M5RAI8nlPrzvo/s+GVqi5twwhgZraELnlHaHT+EJWgrPEdLHcyO8E5q8lN
-	 pULDL3z3Sd5fXq/7iJap+gvR5uHRX6gbAoMqM2nnYfQl8YctGnsyG3/vGWi5gM89Hv
-	 ft9Nl6pqgXvUahqFm+MD1TWq8+NWKNZ6pcAZ6lntJS+NBCWYw3yi+Lya8U0VDx1hMi
-	 TOS2AXfyD9f8g==
-Date: Mon, 5 Oct 2026 06:24:48 +0000
-From: Tzung-Bi Shih <tzungbi@kernel.org>
-To: Andrew Pam <andrew@fastmailteam.com>
-Cc: Thomas =?iso-8859-1?Q?Wei=DFschuh?= <linux@weissschuh.net>,
-	Sebastian Reichel <sre@kernel.org>,
-	Benson Leung <bleung@chromium.org>,
-	Guenter Roeck <groeck@chromium.org>,
-	Matt DeVillier <matt.devillier@gmail.com>,
-	chrome-platform@lists.linux.dev, linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] power: supply: cros_charge-control: restore EC state
- on resume
-Message-ID: <asNCsCTIzzFMwOPX@google.com>
-References: <20261004225606.30577-1-andrew@fastmailteam.com>
- <20261005043418.243937-1-andrew@fastmailteam.com>
+	s=k20260515; t=1791181849;
+	bh=7Go1pW3kqcjzpvNXBPm8wCORyJtiYwbxuEZdhDPXEl4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=TNjA+qqUJDRTWZBsH1n3gz7lESCG3bZsRFEaMpgrCq4Y1zuyYxKUk8htOzw1oKCCu
+	 SxQ4byo1vq2hBZe0qs24tzuQAhtAb5lf0xUuRB1+6xBsMMoMb17JYdE1AYee2XXB5H
+	 Wwq7hAXJUMTvxXnPM5vhVdhu+Cu0CE6FzsfCw8D3vIeELbvZSJLGtBcyoSdtVaOSKE
+	 aBNgnjpXxu6w1rhD8xIYlpsubw019cWNaoo6oD3D7W7zNM/+PuWyW/jPidN5aO1kBC
+	 5ex7UrZPk+HZM8e47q2LFjdptnhWmGZ1GxC4OJWvJRPKztmFVDM2+AkJns6T6trPQ7
+	 7GF0M1i/ySAOA==
+Received: by mail-qk2-f41.google.com with SMTP id af79cd13be357-93c5818c4a4so99317485a.3
+        for <stable@vger.kernel.org>; Sun, 04 Oct 2026 23:30:49 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBy2slURWjglCfxkxH6Qd+cFNnGYKvJn1vp7glb/EJUcPGUc5bM0rxuwWnppjdH8RjSPCOUVT/c=@vger.kernel.org
+X-Gm-Message-State: AFuF++nd5Jw0O8HQ2DRhEQhtLn37dlsX2DjO4XU0TJf6cARGkqCiKWMu
+	QtPldonjx7Vx84kVl1lNxA+82BsKiY9UWKeGULBb/s6Tq6SPiNxMNI2z38Zy+ZCGMGL6ZJyiYG/
+	CpZzLZ3hnHuCEpTpTbTHttYivFKBNBCQ=
+X-Received: by 2002:a05:620a:2591:b0:93b:ec83:80ee with SMTP id
+ af79cd13be357-93cf19daf2fmr1840183185a.57.1791181848984; Sun, 04 Oct 2026
+ 23:30:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261005043418.243937-1-andrew@fastmailteam.com>
+References: <20261005062236.564210-1-vernon2gm@gmail.com>
+In-Reply-To: <20261005062236.564210-1-vernon2gm@gmail.com>
+From: Barry Song <baohua@kernel.org>
+Date: Mon, 5 Oct 2026 14:30:36 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4yKSoCwcEDhtd=biKoUjUX9eTJJhFJGFAZWc=WsAyXycg@mail.gmail.com>
+X-Gm-Features: AclHuK8CRONO2VtLENz3jDK7DYC4CRj5Gx_73AqOwMereSu4SIWXUmZ8CWWfcGc
+Message-ID: <CAGsJ_4yKSoCwcEDhtd=biKoUjUX9eTJJhFJGFAZWc=WsAyXycg@mail.gmail.com>
+Subject: Re: [PATCH] mm: vmscan: don't count per-node proactive reclaim as
+ memory pressure
+To: Vernon Yang <vernon2gm@gmail.com>
+Cc: akpm@linux-foundation.org, david@kernel.org, kasong@tencent.com, 
+	qi.zheng@linux.dev, shakeel.butt@linux.dev, axelrasmussen@google.com, 
+	yuanchu@google.com, weixugc@google.com, baoquan.he@linux.dev, 
+	hannes@cmpxchg.org, mhocko@kernel.org, ljs@kernel.org, 
+	roman.gushchin@linux.dev, dave@stgolabs.net, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Vernon Yang <yanglincheng@kylinos.cn>, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 05, 2026 at 03:34:18PM +1100, Andrew Pam wrote:
-> The EC resets its charge control configuration when the AP powers off,
-> so configured sustainer thresholds and charge behaviour are lost across
-> hibernation.
-> 
-> Nothing notices the reset. Commit 4fc88ba435da ("power: supply:
-> cros_charge-control: adopt EC charge state on probe"), in the
-> power-supply tree, made the driver adopt the EC's charge state, but only
-> at probe, and a resume is not a probe. Sysfs therefore keeps reporting
-> the configured values while the EC charges the battery to full. On a
-> Framework Laptop 16 (Ryzen AI 300, charge control command version 3)
-> with charge_control_end_threshold set to 80, a hibernate and resume
-> cycle leaves the attribute still reading 80 while the battery charges
-> past it to 100%.
-> 
-> Add a system sleep resume hook that reprograms the EC from the cached
-> state. The same EC behaviour and the same fix already exist for another
-> driver, see commit 2643187ccb86 ("platform/x86: ayaneo-ec: Add suspend
-> hook").
-> 
-> Reprogramming the EC is only strictly required after hibernation, but it
-> is cheap and idempotent, so hook every resume path rather than rely on
-> the EC preserving its state across each kind of sleep transition.
-> 
-> Note that re-reading the state from the EC on resume, by reusing
-> cros_chctl_init_state() or otherwise, would be wrong even on the command
-> versions that support GET: the EC has been reset to its defaults by the
-> time the hook runs, so adopting that state would silently discard the
-> configuration the user asked for. The driver's cached state is the only
-> remaining record of it, which is why it is pushed to the EC rather than
-> refreshed from it.
-> 
-> Fixes: c6ed48ef5259 ("power: supply: add ChromeOS EC based charge control driver")
+On Mon, Oct 5, 2026 at 2:23=E2=80=AFPM Vernon Yang <vernon2gm@gmail.com> wr=
+ote:
+>
+> From: Vernon Yang <yanglincheng@kylinos.cn>
+>
+> When the cgroup has no memory pressure at all, writing to
+> /sys/devices/system/nodeX/reclaim triggers proactive reclaim on
+> NUMA node, causing increase in the writer cgroup's memory PSI.
+>
+> Due to this reclaim is performed in the context of the write(),
+> accounted as memory pressure on the writer, like
+> commit e22c6ed90aa9 ("mm: memcontrol: don't count limit-setting reclaim
+> as memory pressure"). This is unexpected, the phenomenon resembling
+> senpai will appear again.
+>
+> The Documentation/ABI/stable/sysfs-devices-node documentation also
+> notes that "This interface is equivalent to the memcg variant."
+>
+> This patch unifies the semantics of the memcg and node interfaces:
+> per-node proactive reclaim is no longer counted as memory pressure,
+> and the per-node proactive reclaim interface no longer produces
+> phantom pressure.
+>
+> I ran demo[1] that performs per-node proactive reclaim 10000 times
+> in qemu, writer cgroup memory.pressure as follows:
+>
+> without patch:
+>
+> some avg10=3D31.53 avg60=3D13.42 avg300=3D3.31 total=3D10602985
+> full avg10=3D31.53 avg60=3D13.42 avg300=3D3.31 total=3D10602985
+>
+> with patch:
+>
+> some avg10=3D9.59 avg60=3D3.41 avg300=3D0.81 total=3D2686221
+> full avg10=3D9.59 avg60=3D3.41 avg300=3D0.81 total=3D2686221
+>
+> [1] https://github.com/vernon2gh/app_and_module/tree/main/reclaim_node_ps=
+i
+>
+> Fixes: b980077899ea ("mm: introduce per-node proactive reclaim interface"=
+)
 > Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Andrew Pam <andrew@fastmailteam.com>
+> Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
+> ---
 
-Reviewed-by: Tzung-Bi Shih <tzungbi@kernel.org>
+This seems to be a valid concern. Personally, I don't like
+having the code depend on whether `__node_reclaim()` and
+`node_reclaim()` are called from proactive reclaim or page
+allocation.
 
-You should send new versions (e.g., v2) independently next time, instead of
-replying to your previous versions (e.g., v1).
+Can't we check whether `sc->proactive` is true? Am I missing
+something?
+
+Best Regards
+Barry
