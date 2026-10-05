@@ -1,126 +1,98 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1842547252F
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 10:25:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D54E3F3288
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 10:25:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791195923; cv=none; b=m5i1yDUNxZTNOuCs5fdkjS1jqEkV2NwHt2PvGH1yg3JA/UXDQfomSJbQIWViU4FqgJQZVkopen92wzoqlbAEcGaZKUlNHunClA4TifvxSyz3sxmlHKWVoyw5CN7huNLTfLaTkJCATBBPKGS5BnXAp80LOik+oRICAIxYAAob4X8=
+	t=1791195925; cv=none; b=XZ8TEADcHwb79mDlQ9Gs0NUq/hJ7Hr7J+Wtn5NlgprjtnpfKMSdiaVO7+snZk4DQxq3dzg9tL9ZGyfk9fMUvU2QF14aQU+2wrhw7VCcHBkCXDifJGx8AnDXwRhK0wJ8X3H0SWS6XzrKgmzbNz0yGUN3REnM0sZay4e49rsx89ok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791195923; c=relaxed/simple;
-	bh=Y6AHpCH+T8evjj3Ed3/jDSteDn+/5njUVIFmbjusn4A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=F+s0rMqzoS1I5SLf8JkZjuv/5LHbhLMAk5awQ+nYJpdHDdAabiQarssIW+jhwuc8CjIXKTTpAwb2h/NOhaP60rZWmvCovv8lD5Q7obLumrayswJth0YWo6pbn4t7cGeAP7Liu/G4owDiqkSgK/dKjc2hj05/KtG0zl2vqa630pI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ajOnJFa3; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791195925; c=relaxed/simple;
+	bh=noPRqWlnlERPBuJUfJktqEMqL4acO7N2FeUtBvALsS4=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=uofIzuqYHG7Liyogu9b2Jsnr2YMTUpYwvCL6Oxxs5Pjhg+EvzfVdbGRZa7hKo2N625LuRrCayA2GilEzAJxnzY8Z9OJrlGTt/D/iIyd3TppV11g2UT8JiFMcHNXtNlug0aSepHQr5PY+VxkoRllFG8mIv+XiWlglmAHCBNR3ujg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=iqtjB3bC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ajOnJFa3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=7z
-	kyvSIZb7yzsrgnBf3y3sUB/QOaKW72wUX6zt/1eFM=; b=ajOnJFa3ozvKO9D3HO
-	zKJYE7Ps5dVqZyG4cJ596ymb8NSbeIYWSlv/NY7NQmRYMugdxKnoGrpq8l6imBrd
-	lEwOVSUTDZ9CEglOcbFSXN4NsIsuTZROHFzX7g2MeeK4gJFy3tmswdx9O/u4gZTq
-	urJrnoB/o1keszUXsFdJ9LRY4=
-Received: from 163.com (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgBnX6_tesNql_rOCg--.32055S2;
-	Mon, 05 Oct 2026 18:24:45 +0800 (CST)
-From: Xizhe Tang <xizheTang2005@163.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: ville.syrjala@linux.intel.com,
-	jani.nikula@linux.intel.com,
-	rodrigo.vivi@intel.com,
-	ankit.k.nautiyal@intel.com,
-	stable@vger.kernel.org
-Subject: [PATCH v3 0/3] drm/i915: stop sending a fake Adaptive-Sync SDP
-Date: Mon,  5 Oct 2026 18:24:42 +0800
-Message-ID: <20261005102445.12710-1-xizheTang2005@163.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260923195200.21362-1-xizheTang2005@163.com>
-References: <20260923195200.21362-1-xizheTang2005@163.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="iqtjB3bC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F2F31F000FF;
+	Mon,  5 Oct 2026 10:25:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791195923;
+	bh=jGBXYip2WfKEVaidkaeTPQnMXc0Gd+1s3d0xeon+4gc=;
+	h=Subject:To:Cc:From:Date;
+	b=iqtjB3bCADe1LB9g7IED7yylbRRap9ZKW+AB5FaEjHphxGq2pQ5fMgUUS7Ahs2Lq6
+	 AA16d4ixPA/ZcTkNymzTSqYVOMlSm3rQKUyM85R/czLhnc5zbPtP6pj8JlS91uP5uq
+	 xrliFbUNjeMZd5Lld83J46QJq1phuCzB24OgmICA=
+Subject: FAILED: patch "[PATCH] ALSA: hda/tegra: Re-enable SDO workaround for Tegra194" failed to apply to 6.12-stable tree
+To: webgeek1234@gmail.com,tiwai@suse.de
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 05 Oct 2026 12:25:18 +0200
+Message-ID: <2026100518-penniless-browsing-d792@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSgvCgBnX6_tesNql_rOCg--.32055S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZF1kCw4UCF1xGr4rtw48tFb_yoW5uF4xpa
-	1xuF1rKw48JFyIqrWxu3WIyFy5Jws3J3yrG3sxK3sFvas8Ar9rJr4Svw4jgayDuFs2g3WY
-	qrn3XFyjkw4UZ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jY-e5UUUUU=
-X-CM-SenderInfo: x0l2xvpwdqwjqqqvqiywtou0bp/xtbC6g9lvGrDeu8JMgAA37
 
-v2 gated intel_dp_needs_as_sdp() on vrr.enable || cmrr.enable. Ville
-pointed out that this function is also how we size the optimized VRR
-guardband, and that looking at vrr.enable there forces a full modeset
-when userspace toggles Adaptive Sync.
 
-That coupling is the bug, not the send predicate. Split it:
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-  1/3  intel_dp_sdp_min_guardband(..., true) reserves AS SDP lines on
-       HAS_AS_SDP platforms even when the packet is not enabled. After
-       this, toggling vrr.enable does not change crtc_vblank_start.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-  2/3  Send the packet only when VRR or CMRR is actually running.
-       Predicate is vrr.enable || vrr.cmrr.enable to match drm-tip's
-       nested cmrr (v2 used the older sibling cmrr.enable). Now safe
-       because 1/3 already reserved the guardband. This is the 7.2
-       regression: intel_vrr_possible() is flipline != 0, and fixed-RR
-       timings program flipline, so we transmit DP_AS_SDP_AVT_FIXED_VTOTAL
-       on a constant refresh. Panel Replay aux-less without async video
-       timing still takes the early return in intel_dp_needs_as_sdp()
-       from 6a1712052859 and still gets that packet; this machine does
-       not hit that path. A 7.2 stable backport needs the sibling
-       crtc_state->cmrr.enable spelling.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x 89365897f4210979966aa808d7b013edf4080558
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100518-penniless-browsing-d792@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
-  3/3  On this panel, Adaptive Sync = Always still streaks on s2idle
-       resume after 1+2 (operation mode 0, not the mode-1 packet). Write
-       the SDP in intel_ddi_enable() after intel_vrr_transcoder_enable()
-       and before intel_enable_transcoder(). Fastset still updates the
-       packet from intel_ddi_update_pipe_dp() so a runtime Adaptive Sync
-       toggle does not become a full modeset.
+Possible dependencies:
 
-1+2 are the regression fix. 3/3 is the Always resume path on this eDP;
-drop it if you want only the Never/Automatic half.
 
-Why not vrr.in_range (series 174831 1/3): this panel's EDID range is
-30-120 Hz. 60 Hz and 120 Hz with Adaptive Sync = Never stay in_range,
-so that patch still sends AVT_FIXED_VTOTAL here. Reported at
-https://lore.kernel.org/r/RxSA9gIRRBSaKwxlF7t96Q@163.com
 
-Not Closes: #9252. 1+2 do not fix Always. 3/3 does.
+thanks,
 
-These patches are against drm-tip, not 7.2.8.
+greg k-h
 
-Machine: Lenovo ThinkBook 14 G8+ IPH (21VG), PTL 8086:b080, eDP
-3072x1920, EDID 30-120 Hz. Tested by rebuilding xe.ko on
-7.2.8-200.fc44.x86_64, and on a full drm-tip kernel. Same results
-on both:
+------------------ original commit in Linus's tree ------------------
 
-  Never / Automatic, boot and lid s2idle: clean with 1+2 (and with 1+2+3).
-  Always, lid s2idle: still streaks with 1+2; clean with 1+2+3.
-  Runtime Never <-> Always on an already-lit panel: already clean.
+From 89365897f4210979966aa808d7b013edf4080558 Mon Sep 17 00:00:00 2001
+From: Aaron Kling <webgeek1234@gmail.com>
+Date: Sat, 26 Sep 2026 02:24:19 -0500
+Subject: [PATCH] ALSA: hda/tegra: Re-enable SDO workaround for Tegra194
 
-Ville in_range, delayed send, and never-send were tried earlier; the
-first two still streak, never-send is clean on both policies but is
-not upstreamable.
+This workaround was originally added for Tegra194, but no longer gets
+applied for it. Commit 615d43540043 ("ALSA: hda/tegra: fix tegra-hda on
+tegra30 soc") changed the guard to tegra30-hda, which worked because all
+affected archs had the fallback compatible. However, commit 7f0ea5acfc19
+("arm64: tegra: Use correct compatible string for Tegra194 HDA") removed
+the fallback compatible for Tegra194, causing this to break.
 
-v1: https://lore.kernel.org/r/20260923052937.22817-1-xizheTang2005@163.com
-v2: https://lore.kernel.org/r/20260923195200.21362-1-xizheTang2005@163.com
+Fixes: 7f0ea5acfc19 ("arm64: tegra: Use correct compatible string for Tegra194 HDA")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+Link: https://patch.msgid.link/20260926-tegra194-hda-sdo-v1-1-f7a636a07a58@gmail.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 
-Xizhe Tang (3):
-  drm/i915/dp: Reserve AS SDP guardband even when VRR is off
-  drm/i915/dp: Send AS SDP only when VRR or CMRR is enabled
-  drm/i915/ddi: Program AS SDP before enabling the transcoder
-
- drivers/gpu/drm/i915/display/intel_ddi.c |  4 ++++
- drivers/gpu/drm/i915/display/intel_dp.c  | 35 ++++++++++++++++++++++++++++----
- drivers/gpu/drm/i915/display/intel_dp.h  |  2 ++
- 3 files changed, 37 insertions(+), 4 deletions(-)
-
-Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9252
+diff --git a/sound/hda/controllers/tegra.c b/sound/hda/controllers/tegra.c
+index 31c14c4bbe68..674cc0f79c3c 100644
+--- a/sound/hda/controllers/tegra.c
++++ b/sound/hda/controllers/tegra.c
+@@ -374,7 +374,8 @@ static int hda_tegra_first_init(struct azx *chip, struct platform_device *pdev)
+ 	 * in powers of 2, next available ratio is 16 which can be
+ 	 * used as a limiting factor here.
+ 	 */
+-	if (of_device_is_compatible(np, "nvidia,tegra30-hda"))
++	if (of_device_is_compatible(np, "nvidia,tegra30-hda") ||
++	    of_device_is_compatible(np, "nvidia,tegra194-hda"))
+ 		chip->bus.core.sdo_limit = 16;
+ 
+ 	/* codec detection */
 
