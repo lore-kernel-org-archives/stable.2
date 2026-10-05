@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC6A54B1267
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 14:48:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F318543B6D3
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 14:48:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791211689; cv=none; b=BOqPvt+sQfEAUW/h1x0fE0TzG2oXk9BYrwoTr+zW+uzUHJKIjyoAzPIq03PdM/JMoq5Eh+pOuJz+NyKISV0rpnf2wiGWuuKcXJlO+nt7sDLbpAfS4VCnQ49W2HGfREDZ7FzHLfbLmYfCVfHgFm/mMsne/1qNUE9xj5MlU3EIio4=
+	t=1791211724; cv=none; b=gsxzflE+CA6IwOzNrPlA0MecJoOBNyLhaOG2Nx7KF+eQCC8b7FqBUDoref3Rp7IgQc9/pZLFESVwGmSV5zqGICTvpvAQDWiDXDnfeUFp6kmPP61wl03qmHa6kb+gp8QC/aLXTSa6BI5knwv3+SNEDkFMbgCOlDtxrjMo1sjQqx8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791211689; c=relaxed/simple;
-	bh=gwxgKHxMvMbQdRl6hdufO1giXUOXEHPqF+6UHGn/vhs=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=bz2YTvNzYGT/hjqKjdTvzYiox2fxlWJXTFXxq/D7IEsvsRdQ5VP/xKAsjPsJYcecioOoeTS+aYGJvJ1pArdAQc3F6w+xCGxHnRBYV/hLXcoo0xc2gkK569MJW7U5eTcF9hX8XVTfBVVI5Ur2ciWyBQ3gR6JXJixdOnxqZuIQ4C8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=W/IUfk5o; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791211724; c=relaxed/simple;
+	bh=x7bEJkB5vWSsLNQjs3SbWdjJcGsly5jvilxXl1P5too=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=oG6rS9gQVtCAf6v+MdCIglInlCnXBYZl1aL1KQngfNDsNhJYas+qfidHteV4FJEK5RLIfVqNDe3PzPLjj11FrbdyFNOI2hnj/fcakFOHTjIhK1kTWumF5Xo7qoutn+Hk0Ops+fOCLfRXG1LMyptgPbFNClc+4gBaJ7oqex+9c/o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=y6ScR8cy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="W/IUfk5o"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F66D1F000FF;
-	Mon,  5 Oct 2026 14:48:04 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="y6ScR8cy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0393A1F000FF;
+	Mon,  5 Oct 2026 14:48:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791211685;
-	bh=UwbfmMfwcE7e+ewxQnWN6z70kx7Bc/JqhbzfJcfMnZ8=;
+	s=korg; t=1791211720;
+	bh=/WQ3R3PQ8W/XOW9HAFEc3/xkuRW8YEn68/LDaGXLY9I=;
 	h=Subject:To:Cc:From:Date;
-	b=W/IUfk5oVsPOLxvUO0BFhMw/+5w5ZmGUQSkz8mO4LrILfpn7AIDPVt/Yt+4bmIDwn
-	 qzWADCoqQ0hBGSHTYa4B/MlstsgxBL7RkgQygF1ZlOUXQCiG9SJggAX+kkoNnv7yKa
-	 VF5hKj5hQM8iZ5Wm7pwnS2fqYXpDk+LAbRPI0FD4=
-Subject: FAILED: patch "[PATCH] smb: client: drain and invalidate before server-side" failed to apply to 6.6-stable tree
-To: pc@manguebit.org,bharathsm@microsoft.com,brauner@kernel.org,dhowells@redhat.com,linkinjeon@kernel.org,ronniesahlberg@gmail.com,sprasad@microsoft.com,tom@talpey.com,willy@infradead.org
+	b=y6ScR8cyqagHeXKqnxX6yiEDtBbpdr9LHd7qzGrM7vMgANdjQFbf9YBWTmpq/Xtdk
+	 TKYeFWAlF259imPoOv9b7R2EawkklmxAiDlI4xfPRWCfp3ed8Eb7CqZugaQ3iR9+Vm
+	 h7nNQvlFL1AV/cw6jQK1z+78BOfA9cZOXPrZElTc=
+Subject: FAILED: patch "[PATCH] smb: client: split cifsFileInfo bitfields to avoid" failed to apply to 6.1-stable tree
+To: sorenson@redhat.com,linkinjeon@kernel.org,pc@manguebit.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 05 Oct 2026 16:48:02 +0200
-Message-ID: <2026100502-unlisted-alright-ea82@gregkh>
+Date: Mon, 05 Oct 2026 16:48:37 +0200
+Message-ID: <2026100537-childlike-directory-22a4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x c9b1194e8ec99d95db25db45edd2fbf690f043ab
+git cherry-pick -x 19465a9aeb664f1d710d0d22c07c31bfb7c85446
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100502-unlisted-alright-ea82@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100537-childlike-directory-22a4@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,140 +62,52 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From c9b1194e8ec99d95db25db45edd2fbf690f043ab Mon Sep 17 00:00:00 2001
-From: Paulo Alcantara <pc@manguebit.org>
-Date: Sat, 26 Sep 2026 13:04:44 -0300
-Subject: [PATCH] smb: client: drain and invalidate before server-side
- copy/clone
+From 19465a9aeb664f1d710d0d22c07c31bfb7c85446 Mon Sep 17 00:00:00 2001
+From: Frank Sorenson <sorenson@redhat.com>
+Date: Wed, 30 Sep 2026 15:47:15 -0500
+Subject: [PATCH] smb: client: split cifsFileInfo bitfields to avoid
+ shared-byte RMW races
 
-cifs_file_copychunk_range() and the clone (FICLONE) path of
-cifs_remap_file_range() do not serialise the destination page cache
-against the server-side copy the way the other server-side range
-operations (smb3_zero_range(), smb3_punch_hole(), smb3_collapse_range()
-and smb3_insert_range()) do.
+The invalidHandle, swapfile, oplock_break_cancelled, offload,
+and status_file_deleted fields are stored in the same bitfield byte
+in struct cifsFileInfo, but are updated in different code paths that
+may run simultaneously, and are protected by different locks.  Since
+bitfield assignments generate byte-level read-modify-write operations,
+a modification to one flag can overwrite a concurrent modification to
+another flag.
 
-cifs_file_copychunk_range() invalidates the destination range with
-filemap_invalidate_inode(), which takes and drops the mapping's
-invalidate_lock internally, so the lock is no longer held when the
-copychunk ioctl is issued.  It also never drains in-flight netfs I/O on
-the target.  The clone path never takes the invalidate_lock at all (only
-i_rwsem), uses a bare truncate_inode_pages_range() and likewise does not
-drain outstanding I/O.
+To avoid these races, convert these flags from a bitfield to
+separate bool fields.
 
-As a result an asynchronous destination writeback can complete after the
-server-side copy/clone has run and reinstate stale data over the region
-just written by the server, corrupting the file.  This is the same class
-of corruption as commit d7d2adcd022b ("smb/client: flush dirty data
-before punching a hole") and has been seen randomly in generic/363
-against Windows Server.
-
-Fix both paths to follow the established ordering: hold the target
-mapping's invalidate_lock across the flush and invalidation of the
-destination and the server ioctl, and call netfs_wait_for_outstanding_io()
-on the target to drain in-flight writes before the ioctl is issued.  Only
-the target inode's invalidate_lock is required, as the source is merely
-flushed and not invalidated; i_rwsem (already held via
-lock_two_nondirectories()) is acquired before the invalidate_lock,
-matching the VFS lock ordering.  Since filemap_invalidate_inode() takes
-that same lock internally, replace it with its own unmap/flush/invalidate
-steps instead of calling it, and return early on a zero-length copy to
-avoid a range underflow.
-
-Fixes: 8101d6e112e2 ("cifs: Fix copy offload to flush destination region")
-Fixes: c54fc3a4f375 ("cifs: Fix flushing, invalidation and file size with FICLONE")
-Reviewed-by: David Howells <dhowells@redhat.com>
+Closes: https://lore.kernel.org/r/7689764e-c0f6-4016-9557-b54cf4a3de4e@redhat.com
+Fixes: 3bc303c254335 ("cifs: convert oplock breaks to use slow_work facility (try #4)")
+Fixes: 4e8aea30f7751 ("smb3: enable swap on SMB3 mounts")
+Fixes: ffceb7640cbfe ("smb: client: do not defer close open handles to deleted files")
+Fixes: 173217bd73365 ("smb3: retrying on failed server close")
+Signed-off-by: Frank Sorenson <sorenson@redhat.com>
+Cc: stable@vger.kernel.org
 Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Matthew Wilcox <willy@infradead.org>
-Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
-Cc: Shyam Prasad N <sprasad@microsoft.com>
-Cc: Tom Talpey <tom@talpey.com>
-Cc: Bharath SM <bharathsm@microsoft.com>
-Cc: stable@vger.kernel.org
 
-diff --git a/fs/smb/client/cifsfs.c b/fs/smb/client/cifsfs.c
-index 6410249f529a..98b610b2a114 100644
---- a/fs/smb/client/cifsfs.c
-+++ b/fs/smb/client/cifsfs.c
-@@ -1412,6 +1412,7 @@ static loff_t cifs_remap_file_range(struct file *src_file, loff_t off,
- 	 * server could even support copy of range where source = target
- 	 */
- 	lock_two_nondirectories(target_inode, src_inode);
-+	filemap_invalidate_lock(target_inode->i_mapping);
- 
- 	if (len == 0) {
- 		loff_t src_size = i_size_read(src_inode);
-@@ -1475,6 +1476,7 @@ static loff_t cifs_remap_file_range(struct file *src_file, loff_t off,
- 	cifs_dbg(FYI, "about to discard pages %llx-%llx\n", fstart, fend);
- 	truncate_inode_pages_range(&target_inode->i_data,
- 				   min(fstart, i_size), fend);
-+	netfs_wait_for_outstanding_io(target_inode);
- 
- 	fscache_invalidate(cifs_inode_cookie(target_inode), NULL, i_size, 0);
- 
-@@ -1513,6 +1515,7 @@ static loff_t cifs_remap_file_range(struct file *src_file, loff_t off,
- 	if (rc)
- 		CIFS_I(target_inode)->time = 0;
- unlock:
-+	filemap_invalidate_unlock(target_inode->i_mapping);
- 	/* although unlocking in the reverse order from locking is not
- 	   strictly necessary here it is a little cleaner to be consistent */
- 	unlock_two_nondirectories(src_inode, target_inode);
-@@ -1536,6 +1539,9 @@ ssize_t cifs_file_copychunk_range(unsigned int xid,
- 	struct cifs_tcon *target_tcon;
- 	ssize_t rc;
- 
-+	if (len == 0)
-+		return 0;
-+
- 	cifs_dbg(FYI, "copychunk range\n");
- 
- 	if (!src_file->private_data || !dst_file->private_data) {
-@@ -1565,6 +1571,7 @@ ssize_t cifs_file_copychunk_range(unsigned int xid,
- 	 * server could even support copy of range where source = target
- 	 */
- 	lock_two_nondirectories(target_inode, src_inode);
-+	filemap_invalidate_lock(target_inode->i_mapping);
- 
- 	cifs_dbg(FYI, "about to flush pages\n");
- 
-@@ -1590,11 +1597,24 @@ ssize_t cifs_file_copychunk_range(unsigned int xid,
- 	 * Start at the old EOF when extending so the folio straddling it, which
- 	 * may hold data written past EOF through an mmap, is dropped too.
- 	 */
--	rc = filemap_invalidate_inode(target_inode, true,
--				      min(destoff, i_size_read(target_inode)),
--				      destoff + len - 1);
--	if (rc)
--		goto unlock;
-+	if (target_inode->i_mapping->nrpages) {
-+		loff_t fstart = min(destoff, i_size_read(target_inode));
-+		loff_t fend = destoff + len - 1;
-+
-+		unmap_mapping_pages(target_inode->i_mapping,
-+				    fstart >> PAGE_SHIFT,
-+				    (fend >> PAGE_SHIFT) -
-+				    (fstart >> PAGE_SHIFT) + 1,
-+				    false);
-+		rc = filemap_write_and_wait_range(target_inode->i_mapping,
-+						  fstart, fend);
-+		if (rc)
-+			goto unlock;
-+		invalidate_inode_pages2_range(target_inode->i_mapping,
-+					      fstart >> PAGE_SHIFT,
-+					      fend >> PAGE_SHIFT);
-+	}
-+	netfs_wait_for_outstanding_io(target_inode);
- 
- 	fscache_invalidate(cifs_inode_cookie(target_inode), NULL,
- 			   i_size_read(target_inode), 0);
-@@ -1626,6 +1646,7 @@ ssize_t cifs_file_copychunk_range(unsigned int xid,
- 	CIFS_I(target_inode)->time = 0;
- 
- unlock:
-+	filemap_invalidate_unlock(target_inode->i_mapping);
- 	/* although unlocking in the reverse order from locking is not
- 	 * strictly necessary here it is a little cleaner to be consistent
- 	 */
+diff --git a/fs/smb/client/cifsglob.h b/fs/smb/client/cifsglob.h
+index 79e4e84f8985..5c5b76a9e9fe 100644
+--- a/fs/smb/client/cifsglob.h
++++ b/fs/smb/client/cifsglob.h
+@@ -1450,11 +1450,11 @@ struct cifsFileInfo {
+ 	struct dentry *dentry;
+ 	struct tcon_link *tlink;
+ 	unsigned int f_flags;
+-	bool invalidHandle:1;	/* file closed via session abend */
+-	bool swapfile:1;
+-	bool oplock_break_cancelled:1;
+-	bool status_file_deleted:1; /* file has been deleted */
+-	bool offload:1; /* offload final part of _put to a wq */
++	bool invalidHandle;	/* file closed via session abend */
++	bool swapfile;
++	bool oplock_break_cancelled;
++	bool status_file_deleted; /* file has been deleted */
++	bool offload; /* offload final part of _put to a wq */
+ 	__u16 oplock_epoch; /* epoch from the lease break */
+ 	__u32 oplock_level; /* oplock/lease level from the lease break */
+ 	int count;
 
