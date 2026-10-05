@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 708FC475338
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 10:14:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CB2D472F83
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 10:14:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791195258; cv=none; b=Znvi1zxKNeTCgZ/lR1qht2xYBdzk9pTs71FoyeCnyvvXP8gKdpzLLKcKH3bqbYwvzHPZIrG3kphysP8fcaPrmAwLjMUU1IecYSh75ny36aJtzkZbXRtOnG2GZIkxuywi4K4zdD13s1JU2/Pc+S0UKsvY86ZxwWneu0YCy7vJUQ0=
+	t=1791195261; cv=none; b=jeJHfw4U7wvPikFr5E2tQjjtORHCXFit6ZnrMXNVsWxJ1Qjhsps08ZKEKQQgf1aGvZVP7a1aUPuJ8G9k4F5qT7FajCZ/3dNtdYBs+vU5OrZhhBM/zSdYT+3vfHp5QHtN06sat3tN+DHgaTGaRH+DMZb6FEYQUvrb3mhIW90xFf0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791195258; c=relaxed/simple;
-	bh=CE4jiE8cqJ1k2jqkSCwSnVn+I4lObMQaWnaoFrD4UFA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=CjUykRYnWTzYYPw8BXq3O5Jwd9cL3JFIVQJ8TnfO8oJYox3YbMvKNErieHTJd3hbZ97wDYYTsflfcDGrCLQbNYEWh2k6pGX6PZQjzI8ivGvJjzlvm5ontni6TqsZ+8JfVpckilsLrEI/AWlLGxlMiLK8fQTtcrpFpnqam+2OFTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hilRX6/5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791195261; c=relaxed/simple;
+	bh=/+DHSB65WgNWk4pkDiu1BCP38G1tPaHJ2yxnZPwRwGc=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=epkj7ixTIdm3bTpN5nUV9m9Lv+Xi/vWYKmWaJ0fcJe/CZOB1pG4KCXMywadqcadgT85RdfWMuycFygrWGCoszG8NscI1B6rXEjsdxYNsKuI/u+ok0PAPtxzAb8JTDkAcxkCtjjuJyR7+74NPrVdNiVZ52A4e4kqkbmBDqWTNKws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Axer2sRe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hilRX6/5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB89D1F000FF;
-	Mon,  5 Oct 2026 10:14:16 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Axer2sRe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A969C1F000FF;
+	Mon,  5 Oct 2026 10:14:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791195257;
-	bh=WKsSoBVzee8Gw4VilO6eW9xbQsdX40yR3rCazAJ1x4U=;
+	s=korg; t=1791195260;
+	bh=RJIrduCQD60QTE0jOAGy+BTqA+WJi5G9kd/lHThOta4=;
 	h=Subject:To:Cc:From:Date;
-	b=hilRX6/5BiU3QEC+f/4k+F/g0/wQUJzyKIAmrXRV83G5bTgYHwI2i+7+z09ZLT4kF
-	 AaR/IT/UgjiYekXBA+N9HT5RiIXFwBoq56aV9/Z6Ef3ehtw/evnpdeuRgzdnBcG+Kd
-	 cOn6O6lkJZr3fTEkXV99EjLqUfDNTI0BKP/PEbqk=
-Subject: FAILED: patch "[PATCH] serial: 8250_omap: fix wake irq cleared during suspend" failed to apply to 6.12-stable tree
+	b=Axer2sReSzUkrAVzHPjRSj96jdFn0+BJpemd5N7hy7O3iBsqNVEion2QTZJdzfaUU
+	 5ppNlgmcC+Jr9dbCR1NWWirWvXqRCiDezt7YtkLmPp6bfprSGggaHrW3UqLr7Pkutr
+	 NyCJO75DxUL0KuCiBmZtvw/UszqKX2FWz149J7Qc=
+Subject: FAILED: patch "[PATCH] serial: 8250_omap: fix wake irq cleared during suspend" failed to apply to 6.6-stable tree
 To: k-willis@ti.com,gregkh@linuxfoundation.org,tony.lindgren@linux.intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 05 Oct 2026 12:14:13 +0200
-Message-ID: <2026100513-calibrate-afraid-a8fe@gregkh>
+Date: Mon, 05 Oct 2026 12:14:14 +0200
+Message-ID: <2026100514-paddling-retry-68e4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 73f3e6ca7a6a7c952977c7c94f1c6dddebcafa34
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100513-calibrate-afraid-a8fe@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100514-paddling-retry-68e4@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
