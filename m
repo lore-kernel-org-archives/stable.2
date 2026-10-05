@@ -1,175 +1,174 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE6304746C9
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 10:24:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8764646AA80;
+	Mon,  5 Oct 2026 10:25:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791195868; cv=none; b=iXFNKDhNreTPTBzOhynpAfLFZsY0hi3GLLSVw1GzU5Vpn+LHk3v52gaXwlvNyTpEKBEnlHX5sLaTBZ2950Q3C4s6i88p9Y3tVWRFH48Tf6n82xE5Z4lI6In/f+aDPesQt032sjav+HT7WbyNCBS9LsqcG1w9sOOLTo5uU2qR6Vk=
+	t=1791195903; cv=none; b=Yl8EuKxTK0LIxkcXk8YGWp3/hP29aFB2F1YfS1d7wLQ/Mow9+51v8DGR2SGF0fqmxYjtVexOhO5/X6t0Q+ODdKb0bZbLHd4lED2lRc3UT1lEJhGaQJL8HCN4Qb92cyfTu98RHV0jBzp6Fs+ryvlSNY+g5OVSRTJllhkyGX1Jy4k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791195868; c=relaxed/simple;
-	bh=VSOsr4vhX2Ur/25os1Nx10/wk0CWGXYl2rXomQV0kv8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=P+ZAI7Y0cx9D7gWLXuJeaTyrwg35x/Zf9x39XqpK5UbEJ7T3ilctgp28gA8G5WnXeE/1J83YL5wwo3H5MxYhT4Twf6pVCISdxgGfI9Yv9gZJt3KA5ndIerX3nxE1Grm3srZuTyNU1m2iANzuBN/ofrRPralpCNcAquVsK1e46v0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZBKMWdaz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791195903; c=relaxed/simple;
+	bh=Ufo1yWo3YliqzrbbK15dXSNgC1i3K628kdQ7a5VjK2E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=T3v6cRlLRNUR1LxiiGnqfKhbQMW2IZM/YOeIBakzX1YQdVwGBR7nPoUCKvZXcGQElBokV7fwhF85W7GRbCqYH4DaGZMpDRoLrgL+Fk2zPN/l26u/Kl1WkcwnqeXTdQjNVBoPugjKLvnU9OKEoAnq0BaHrOWk4UCGp8dED9Psqpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ikDzCcEp; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=imk4MGAA; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Aki+slgp; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=PzR80h+l; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZBKMWdaz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 275501F000FF;
-	Mon,  5 Oct 2026 10:24:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791195866;
-	bh=WyfLi6NMskXA6+J8bqEwlAgv0G58w8HH5/gCQAEhT3E=;
-	h=Subject:To:Cc:From:Date;
-	b=ZBKMWdaz782gknJ6zh6Mp+lIl1QsswGNwY4BaDdMieJaevGXp4lsoq+n599+dlQ26
-	 +JyCIc1KC8YmaUa4pMgIHljtwQQufLxKv8VNB7mx80en7DoSnhsLMxSppYR1HGfWBd
-	 M0QZgAh/Z9ybIbk/n+4HwoRKgKy3LZMq3ToHyEWY=
-Subject: FAILED: patch "[PATCH] arm64: errata: Add Cortex-A725 erratum 3821522 workaround" failed to apply to 5.10-stable tree
-To: beata.michalska@arm.com,vladimir.murzin@arm.com,will@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 05 Oct 2026 12:24:03 +0200
-Message-ID: <2026100503-gummy-amniotic-e701@gregkh>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ikDzCcEp";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="imk4MGAA";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Aki+slgp";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="PzR80h+l"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 1177721C05;
+	Mon,  5 Oct 2026 10:24:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791195895; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kFZLgiG+4IlxeGD7HzroLABOVng6ksFHCgPf63OPIsQ=;
+	b=ikDzCcEpGmruSsQFidAwp9wkCVax1gJ0Pv2ATGDvLWy03YdpR6dCYK2gB8XyOYeTVcUeeq
+	f5SHU+sPvKCd9adBJn8PZ8yYrP59v7aZHRC53ZR9MscOs64jCNeO7Cyh8jBT3Q7JiaXG4Z
+	e0WW02FyNpBpXroTiDYKc4JPGHoKAPE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791195895;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kFZLgiG+4IlxeGD7HzroLABOVng6ksFHCgPf63OPIsQ=;
+	b=imk4MGAA27siQ7Wm3brQLl/xx6WXMa95OMHIlhcvzjR7gINYEK5qo/eTF3K5VTDqSCeNxB
+	q2eH36l5FgbsMyDQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791195891; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kFZLgiG+4IlxeGD7HzroLABOVng6ksFHCgPf63OPIsQ=;
+	b=Aki+slgpTsmNNEwyAniczbuR1ttLN3oToyA2eo3vd9afv2kR8oLde1VoYLDH4JRcWyXv4C
+	OOcf5d15kRYXS8KYok+fFklkabzDFcudjYtsc3txnNn2v24ZqxFf3puDeuERonyf4RFXep
+	euC+wEF0YcP/jgOd/97BWOXRDFYL6uw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791195891;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kFZLgiG+4IlxeGD7HzroLABOVng6ksFHCgPf63OPIsQ=;
+	b=PzR80h+l23n/FtRrjUo1OMeYZiUz9OAVyLs//nM87tk51pUm3lBc4cW9t/aW1mpex2kvD8
+	V7NfQgyq5ps/b3Aw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A0BD8132D3;
+	Mon,  5 Oct 2026 10:24:50 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id HqCSGfJ6w2rFIgAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Mon, 05 Oct 2026 10:24:50 +0000
+Date: Mon, 5 Oct 2026 12:24:49 +0200
+From: Pedro Falcato <pfalcato@suse.de>
+To: Lance Yang <lance.yang@linux.dev>
+Cc: dave.hansen@linux.intel.com, luto@kernel.org, peterz@infradead.org, 
+	tglx@kernel.org, mingo@redhat.com, bp@alien8.de, x86@kernel.org, hpa@zytor.com, 
+	riel@surriel.com, linux-kernel@vger.kernel.org, qi.zheng@linux.dev, 
+	nadav.amit@gmail.com, thomas.lendacky@amd.com, kernel-team@meta.com, 
+	linux-mm@kvack.org, akpm@linux-foundation.org, brendan.jackman@linux.dev, 
+	jannh@google.com, mhklinux@outlook.com, andrew.cooper3@citrix.com, 
+	Manali.Shukla@amd.com, mingo@kernel.org, stable@vger.kernel.org, toshi.kani@hpe.com, 
+	david@kernel.org, mikhail.v.gavrilov@gmail.com
+Subject: Re: [PATCH 1/1] x86/mm: fix incomplete page-table invalidation with
+ TCE
+Message-ID: <asN4wjUbDAIcrfA-@pedro-suse.tail5790ac.ts.net>
+References: <20261005052302.43042-1-lance.yang@linux.dev>
+ <asM7b8ECO34-jiwi@pedro-suse.tail5790ac.ts.net>
+ <60d5db86-8002-4d87-b8d3-c161d674122b@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <60d5db86-8002-4d87-b8d3-c161d674122b@linux.dev>
+X-Spamd-Result: default: False [-2.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[27];
+	MISSING_XM_UA(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com,outlook.com];
+	R_RATELIMIT(0.00)[to_ip_from(RL3mhzhn45zpqpmgqn4z7synfm)];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,infradead.org,redhat.com,alien8.de,zytor.com,surriel.com,vger.kernel.org,linux.dev,gmail.com,amd.com,meta.com,kvack.org,linux-foundation.org,google.com,outlook.com,citrix.com,hpe.com];
+	RCVD_TLS_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -2.80
+X-Spam-Level: 
+X-Spam-Flag: NO
 
+On Mon, Oct 05, 2026 at 03:29:22PM +0800, Lance Yang wrote:
+> 
+> 
+> On 2026/10/5 14:09, Pedro Falcato wrote:
+> > On Mon, Oct 05, 2026 at 01:23:02PM +0800, Lance Yang wrote:
+> > > pud_free_pmd_page() uses a single-address invalidation to flush the
+> > > paging-structure caches before freeing the page tables. With AMD TCE
+> > > enabled, this only invalidates upper-level entries associated with the
+> > > target address. Cached PMD entries for other addresses in the PUD range can
+> > > still reference the PTE pages being freed.
+> > > 
+> > > The AMD manual quoted in the commit enabling TCE says these instructions
+> > > remove
+> > > 
+> > >    "only those upper-level entries that lead to the target PTE in the page
+> > >    table hierarchy, leaving unrelated upper-level entries intact."
+> > > 
+> > > Even with all PTEs cleared, speculative page walks can cache present PMD
+> > > entries after the earlier TLB purge.
+> > > 
+> > > Use a full TLB flush before freeing the page tables on CPUs with TCE. Keep
+> > > the single-address invalidation otherwise.
+> > > 
+> > > Fixes: 440a65b7d25f ("x86/mm: Enable AMD translation cache extensions")
+> > > Cc: stable@vger.kernel.org
+> > > Signed-off-by: Lance Yang <lance.yang@linux.dev>
+> > 
+> > I'm not sure this is correct. The PUD is clear. We invalidate the TLB, which
+> > invalidates the translation caches for that walk. invlpg will notice the PUD
+> > isn't present. I don't see a case where it can ever not clear the rest
+> > of the translation caches for all leaves. And, in fact, by that point the CPU
+> > can (does?) probably formally treat the PUD as the leaf.
+> 
+> IIUC, clearing the PUD in memory doesn't invalidate cached PMD entries by
+> itself. With TCE enabled, flushing one address only invalidates the entries
+> associated with that address ...
+> 
+> (That's how I read the manual, but AMD folks, please correct me if I'm
+> missing something.)
+> 
+> So couldn't other cached PMDs under the same PUD survive?
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
-
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 45f7304679875eb000d67e194090ee7abd05c89c
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100503-gummy-amniotic-e701@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 45f7304679875eb000d67e194090ee7abd05c89c Mon Sep 17 00:00:00 2001
-From: Beata Michalska <beata.michalska@arm.com>
-Date: Thu, 1 Oct 2026 11:00:32 +0200
-Subject: [PATCH] arm64: errata: Add Cortex-A725 erratum 3821522 workaround
-
-Cortex-A725 erratum 3821522 affects the CNT_CYCLES event, which can
-incur a significant increment error when a CPU enters and subsequently
-exits WFE or WFI, and may no longer track the system counter
-frequency.
-
-The AMEVCNTR01_EL0 counter is used as the AMU constant counter for
-frequency invariance and CPPC FFH feedback counters. Wire the affected
-Cortex-A725 range into the shared broken AMU constant-counter capability
-so the affected counter is treated as unavailable by returning zero in
-the AMU counter paths. This prevents the broken counter from being used
-as a reference source.
-
-The erratum can also affect PMUv3 users of the CNT_CYCLES event,
-but this workaround intentionally does not change PMU event handling.
-Hiding or rejecting the PMU event from the erratum code would change
-the perf-visible PMU event interface, including raw event selection,
-and would need a separate PMU-specific approach rather than being
-folded into the AMU reference-counter workaround.
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Beata Michalska <beata.michalska@arm.com>
-Reviewed-by: Vladimir Murzin <vladimir.murzin@arm.com>
-Signed-off-by: Will Deacon <will@kernel.org>
-
-diff --git a/Documentation/arch/arm64/silicon-errata.rst b/Documentation/arch/arm64/silicon-errata.rst
-index ac3248b9f2f3..99a1eb4b833d 100644
---- a/Documentation/arch/arm64/silicon-errata.rst
-+++ b/Documentation/arch/arm64/silicon-errata.rst
-@@ -174,6 +174,8 @@ stable kernels.
- +----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Cortex-A725     | #3456106        | ARM64_ERRATUM_3194386       |
- +----------------+-----------------+-----------------+-----------------------------+
-+| ARM            | Cortex-A725     | #3821522        | ARM64_ERRATUM_3821522       |
-++----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Cortex-X1       | #1502854        | N/A                         |
- +----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Cortex-X1       | #3324344        | ARM64_ERRATUM_3194386       |
-diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index 3b6c052d46a1..cab741a695f5 100644
---- a/arch/arm64/Kconfig
-+++ b/arch/arm64/Kconfig
-@@ -1081,6 +1081,28 @@ config ARM64_ERRATUM_2645198
+I don't read it as that. I read it as "flushing one address only invalidates
+the entries on that path". So, if you flush one address, you'll flush the
+whole translation cache for that range. And page table zapping agrees; if you
+follow the code from zap_pte_range() -> pte_free_tlb(), it will do a single flush
+for each PTE table (if the whole table is empty/non-present).
  
- 	  If unsure, say Y.
- 
-+config ARM64_ERRATUM_3821522
-+	bool "Cortex-A725: 3821522: workaround for possible CNT_CYCLES increment error due to WFE/WFI"
-+	depends on ARM64_AMU_EXTN
-+	select ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
-+	default y
-+	help
-+	  This option adds the workaround for ARM Cortex-A725 erratum 3821522.
-+
-+	  On affected A725 cores, the CNT_CYCLES event may incur a significant
-+	  increment error when entering and subsequently exiting WFx.
-+	  As a result, the CNT_CYCLES may diverge from the system counter
-+	  frequency at which it is expected to increment.
-+	  This renders the AMU counter AMEVCNTR01, that implements CNT_CYCLES,
-+	  being unreliable and unsuitable for use.
-+
-+	  Since there is no hardware workaround, reads of the affected CNT_CYCLES
-+	  counter return 0 in the relevant paths. This causes users of the counter
-+	  to treat it as unavailable and is functionally equivalent to firmware
-+	  disabling the affected counter.
-+
-+	  If unsure, say Y.
-+
- config ARM64_WORKAROUND_SPECULATIVE_UNPRIV_LOAD
- 	bool
- 
-diff --git a/arch/arm64/kernel/cpu_errata.c b/arch/arm64/kernel/cpu_errata.c
-index dbd70728a9bd..e0c09402540c 100644
---- a/arch/arm64/kernel/cpu_errata.c
-+++ b/arch/arm64/kernel/cpu_errata.c
-@@ -389,6 +389,10 @@ static const struct midr_range workaround_amu_constcnt_list[] = {
- #ifdef CONFIG_ARM64_ERRATUM_2457168
- 	/* Cortex-A510 r0p0-r1p1 */
- 	MIDR_RANGE(MIDR_CORTEX_A510, 0, 0, 1, 1),
-+#endif
-+#ifdef CONFIG_ARM64_ERRATUM_3821522
-+	/* Cortex-A725 r0p0 - r0p2 */
-+	MIDR_RANGE(MIDR_CORTEX_A725, 0, 0, 0, 2),
- #endif
- 	{}
- };
-diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
-index 214d153cba6e..806373aac3db 100644
---- a/arch/arm64/kernel/topology.c
-+++ b/arch/arm64/kernel/topology.c
-@@ -395,10 +395,11 @@ static void cpu_read_corecnt(void *val)
- static void cpu_read_constcnt(void *val)
- {
- 	/*
--	 * Return 0 if the current CPU is affected by erratum 2457168. A value
--	 * of 0 is also returned if the current CPU does not support AMUs or if
--	 * the counter is disabled. A return value of 0 at counter read is
--	 * properly handled as an error case by the users of the counter.
-+	 * Return 0 if the current CPU is affected by a HW erratum.
-+	 * A value of 0 is also returned if the current CPU does not
-+	 * support AMUs or if the counter is disabled. A return
-+	 * value of 0 at counter read is properly handled as an error
-+	 * case by the users of the counter.
- 	 */
- 	*(u64 *)val = this_cpu_has_cap(ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT) ?
- 		      0UL : read_constcnt();
-
+-- 
+Pedro
