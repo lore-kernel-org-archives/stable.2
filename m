@@ -1,74 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx3.wp.pl (mx3.wp.pl [212.77.101.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 216494D796C;
-	Mon,  5 Oct 2026 15:43:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C6294CEE4E
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 15:44:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.77.101.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791215013; cv=none; b=M8sf8glynagrimT6pY77bJhE50+k7wJM7b/LPyfbPwH3ie0LUdd/pM8dHKbltGNfZnhsMgWDOnDXgDL+NdYk8LQGb8ae4RD3ZlTaLJg3F/uYhm57pYsgK3urvA89ULIOTARgMMLnTKuc650O77z+a5+4VdFxLzDPozH2i6WX10s=
+	t=1791215072; cv=none; b=JUwcxDr4d6IcTvWWXzioTii9c7xD+eW8Ba/ioXzWuEYpXUd+MdqJGX5SO2yMAAyraSHEJpUFxQMZmLL1vkfZfdV5UEFR6TYnb91MPSX5b9Ix/IqcXayoS/8gnUp73Z3BlM77Q+l6kCW3mGdyNppmhmBBK8a+JtPOSU0YUG0fpQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791215013; c=relaxed/simple;
-	bh=MGtCI72p328j03OTkEC7xfAJkAt4172XIwEPAbwPTRg=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=IvawWL4KI50oxHYq/yBkFyIWkgouW/qKHty+3x8DjFN5hR7aGdOkIG8x/9CyzdyLyWcdNU2Tr12qdXYA4+SGt/0ElNDvnsy9yEX5Oxab6FE+7R0MWwCXpBk7v0q8n7f0CbfmGBfp0RUOsqhkNbEhrmK1Ap9X9Z6KiT9A4pi8dUQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XUaACKvr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791215072; c=relaxed/simple;
+	bh=O2Cqy9X0cnY0zi9KCWois5E09rbBzlQSIft3jT/xZ7U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TRJK7WiM1QjhZVk4KnR00oYcqxW7g7f7uBrEPRizrtu417g5hxrResgFXPZYgjMZM7NZhJtosEON/unQ/fapqt/crzNIw7YdFnjhPAbz6xw+dCbh6+g6jfO9GiFv0P7KRT6NI/fzSXpC3HF+e2TlVC1MKPK2RUxfKgEsNNk5KVU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl; spf=pass smtp.mailfrom=wp.pl; dkim=pass (2048-bit key) header.d=wp.pl header.i=@wp.pl header.b=MdffjIsO; arc=none smtp.client-ip=212.77.101.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wp.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XUaACKvr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 364C91F000FF;
-	Mon,  5 Oct 2026 15:43:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791215011;
-	bh=2mhnBnDa3icGYBlrsRq1w0WPoVIqoiIvOyy81bKb3so=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=XUaACKvrL85sLcsCKGppctEwswqkz0y46759GPzWH6IWfvv15rfvUqguVEdufq0L8
-	 wG9NUWLDmTDqtUE//pKuwtEdNRxBevJVNvQ4KUXfLG+uaGeN9sPcYqSukrNokLbo2y
-	 y8jd0F7MvAXHcKYDfHRF/d9rtZG75SStAqJS3rm3Jq9Coz3MQCBZCKvg/SObgNa5r2
-	 Q6QHUPPsjh/Gig15vUCQVaNI2N0NVFonMGjru5LL/eplXE/6GfCVxET067IEBDExNN
-	 OVk3Ve43ThwdlEPqT73A4oY7TVGCaACaAmiyBIuiJ5+A4l75DgiLCdYnZ4pZC4UFuG
-	 eT00+8fBj2Nqg==
-From: Vinod Koul <vkoul@kernel.org>
-To: Frank.Li@kernel.org, biju.das.jz@bp.renesas.com, 
- geert+renesas@glider.be, Claudiu Beznea <claudiu.beznea@kernel.org>
-Cc: claudiu.beznea@tuxon.dev, dmaengine@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, stable@vger.kernel.org, 
- Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-In-Reply-To: <20260922092037.224884-1-claudiu.beznea@kernel.org>
-References: <20260922092037.224884-1-claudiu.beznea@kernel.org>
-Subject: Re: [PATCH] dmaengine: sh: rz-dmac: Fix off-by-one in residue
- lmdesc lookup
-Message-Id: <179121500885.358863.14766200941521520131.b4-ty@kernel.org>
-Date: Mon, 05 Oct 2026 17:43:28 +0200
+	dkim=pass (2048-bit key) header.d=wp.pl header.i=@wp.pl header.b="MdffjIsO"
+Received: (wp-smtpd smtp.wp.pl 25876 invoked from network); 5 Oct 2026 17:37:41 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wp.pl; s=s20261001;
+          t=1791214661; bh=sl8bWpKfvgeoaqT0IZcQdTriNS+Ul+cP85zNN6ZqRpI=;
+          h=From:To:Cc:Subject;
+          b=MdffjIsO1wtqXGuBDovF0N2ZpKa1jamJ1j34ITePSQu2K0H+MxH76312yjf1yGF5P
+           unnqOIllpckdzoYH5+vmXPNt4borUCwirw9jl2oQAKnOfoooEOCPlnhCK5hK8IC0yR
+           CN5sHYKNn9zdX2lAWQ0ryxR0iDvy6CyyEXxbIQhCECWEiwm5KQ9OAMTP0J045GFZo7
+           9nj+xNnLoMhNQm9+3e2OO7P56YkWMa0sIikzZ18jCBMp1Yqb/L1xbtdZVprrPfjbru
+           s8mkQ8vHERshyNJABkvlg0HYcn0tNeKkbwWRxqmxlEhAd5CMpWnNPs/dhQ+1gseuks
+           jjbcwMI1pz4+A==
+Received: from localhost (77-236-6-58.static.play.pl [77.236.6.58])
+          (envelope-sender <stf_xl@wp.pl>)
+          by smtp.wp.pl (WP-SMTPD) with TLS_AES_256_GCM_SHA384 encrypted SMTP
+          for <johannes@sipsolutions.net>; 5 Oct 2026 17:37:41 +0200
+Date: Mon, 5 Oct 2026 17:37:41 +0200
+From: Stanislaw Gruszka <stf_xl@wp.pl>
+To: Johannes Berg <johannes@sipsolutions.net>
+Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	"David S . Miller" <davem@davemloft.net>,
+	"John W . Linville" <linville@tuxdriver.com>,
+	Zhu Yi <yi.zhu@intel.com>, linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: Re: [PATCH] wifi: iwlegacy: 3945: protect sysfs TX power update with
+ mutex
+Message-ID: <20261005153741.GA25122@wp.pl>
+References: <20260929123329.2135878-1-runyu.xiao@seu.edu.cn>
+ <20260929181458.GA17064@wp.pl>
+ <7360e480d5eb194dc7c16c6e82944dfb73f3892f.camel@sipsolutions.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7360e480d5eb194dc7c16c6e82944dfb73f3892f.camel@sipsolutions.net>
+X-WP-MailID: 2dc24ef8d6483809a3b1acb1846c8421
+X-WP-AV: skaner antywirusowy Poczty Wirtualnej Polski
+X-WP-SPAM: NO 0000000 [MdMh]                               
 
-
-On Tue, 22 Sep 2026 12:20:37 +0300, Claudiu Beznea wrote:
-> lmdesc->nxla is the address of the next descriptor, so comparing it
-> against CRLA, which is the address of the current descriptor,
-> finds the descriptor before the active one, not the active one.
-> The residue loops below then summed one lmdesc too many on top of
-> that.
+On Mon, Oct 05, 2026 at 03:14:20PM +0200, Johannes Berg wrote:
+> On Tue, 2026-09-29 at 20:14 +0200, Stanislaw Gruszka wrote:
+> > On Tue, Sep 29, 2026 at 08:33:29PM +0800, Runyu Xiao wrote:
+> > > The sysfs tx_power store handler calls il3945_hw_reg_set_txpower(), whose
+> > > command path requires il->mutex to be held. The callback bypasses the mutex
+> > > used by the other 3945 control paths, triggering the lockdep assertion and
+> > > allowing concurrent TX power updates to race with other command or state
+> > > transitions. Serialize the update with the same mutex.
+> > > 
+> > > Fixes: b481de9ca074 ("[IWLWIFI]: add iwlwifi wireless drivers")
+> > > Cc: stable@vger.kernel.org
+> > > Assisted-by: LLM
+> > > Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+> > Acked-by: Stanislaw Gruszka <stf_xl@wp.pl>
 > 
-> Compare each descriptor's own address to CRLA instead, and add tb
-> after advancing to the next lmdesc.
-> 
-> [...]
+> I think we should rather remove these files: custom, undocumented sysfs
+> shouldn't be there anyway...
 
-Applied, thanks!
+Maybe some of them should be moved to debugfs. I'll consider that,
+and move/remove them. 
 
-[1/1] dmaengine: sh: rz-dmac: Fix off-by-one in residue lmdesc lookup
-      commit: 9db8e502b34bc1df8078abd0169a4fa0624de3bb
-
-Best regards,
--- 
-~Vinod
-
-
+Regards
+Stanislaw
