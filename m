@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 116232E737F
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 16:17:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ACA34AD4C8
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 16:18:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791217075; cv=none; b=YRB06vs+YhIk6BbGIGpDluEACfUc13HMl9I+Y0rWESDLu+W/d5bDvyMNIJaRww8QV4B+rb67GdokBUBwe52/JtKPoHR5zN42iSFtlcljvTQ1Ral5bV5OZ19mCZrZZ4sY/fixTUm36qCtChkSdvKUA0ztEIlvD5Z5NFWTbARnbls=
+	t=1791217100; cv=none; b=iDVo93s47mWzW4ROCY9NqXqjDl6eoNhqwfysfAH6dttn9qE1yet5B/vmcdjvQ+okZFVrt6SYRz+X3YC8ZCw6nVzF4PBdkOTrOQEg5fDZjOABqgW260CDpnJXwenJ+gVrrZLBmKmrxPWOcatAB97qgRKvcMuh5TWOA7esPK9PGa0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791217075; c=relaxed/simple;
-	bh=3uHEZq/37PkZxn3U+9N1O6VeSqixASlANdImyn078hA=;
+	s=arc-20240116; t=1791217100; c=relaxed/simple;
+	bh=yzSX0IfxHv2O+YMG/+rHqESNfSJDUU9GtXajFMiaIqI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=On6wX+qB7XCmf1jI5U7TkpfyMkIFwiVuexhYtZIu7eSc7zMuXAM7LZ5VeAx7vfIpmIsG0j5XM2h8AVY4uEDIWwAofjlDdcfmp8d7E8JwYMv/vn1EziauSJ5pLOfycQUtR27mHq7p2XHbv3lBPej0HyPvhYp+upiwxlgpbivDDZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BpkbKdeU; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Ul0OEzf/eBJA8jswNPYXjMmkxU2Hyefa0XrGC2i/xiNJP7vGnp1cKKYlOa1bUsc0oRTdqYH1AKuXHskBi4lN42fUoBg2F7F3jE1rGypsZidvPOxTYx+BIiQ5O4xh5aWsbYLjKr7Fh30VyJKMP6pRHAPf4oadxBnDZFgoVeZJEFI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cm7bnImL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BpkbKdeU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1ABF1F000FF;
-	Mon,  5 Oct 2026 16:17:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cm7bnImL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 907A11F000FF;
+	Mon,  5 Oct 2026 16:18:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791217073;
-	bh=hULtvVD1py9qQODCRmZPdnTQH/gEIAidu+T8iZjHZYo=;
+	s=k20260515; t=1791217098;
+	bh=8bD15CTuKbZDqUmDorNElkPAzJVQhAUoB/NnW4hUrUk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BpkbKdeUlR4w9vxi1B+kmQv1y51U09TD78sSo/BaR4X67HOiwosupzm4K1ulDNxUf
-	 qRxhFj4AF8NvGQVuFexPW+MzG9XwBfksA+j1QtX7zTtbO2yjalhQVxFq6XBSOkU3yv
-	 E1F7zmSJ2Ar2446Sf7hzdxzMMJR6gYI70jbtDTjq2DicPfG8OziQqwVSdFaDOprJz9
-	 lxdLYnhn2JQcTAIdkmHOXwOAhOUuhVJ/8aVBoXwxtHKDWB8ZvpUMch8zPYWhpEkzbJ
-	 YhyQAZcnecyrGdiahOS0fCWUm4kv8qMZtnD8WdWxGA5yn/pwfpl2Jlw4HztWVuDt8t
-	 UDSKExscUD6uQ==
+	b=cm7bnImLIm0auauWcbsXPoEHQ++wRCDlFxQ0xcHy7UxC4gkqf1ynchssPrO6+5hY8
+	 XIjcUyKNkqtyMnUevnZuLj54r1Gp4RMEVGtnxopheD5VWL8IdUkQYm2DdHW0UBEala
+	 Ry09Wul+csV9U5pzlDJ/o9EF6XXcjuS17vZEMp7gXqG2G9O/g6OM7Ks93XrbYituKb
+	 XDW5hVvuUC9sLz8r0Hykd6KT+D8DEnXoFNslD5aRhTID+lKaLLvYWayRmnAzIGgO9m
+	 ZfXPLpsq1EPW6vViTKKBzO5xI5N5eG4IAvlvrTumSUoCO6VqnIfovH/imrC8C5sVj2
+	 0Q5lwt8dlS+sA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Arthur Heymans <arthur@aheymans.xyz>,
-	George Zhang <george.zhang@amd.com>,
-	Alex Hung <alex.hung@amd.com>,
-	Dan Wheeler <daniel.wheeler@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Chen Ni <nichen@iscas.ac.cn>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] drm/amd/display: Preserve eDP mode on initial ASSR failure
-Date: Mon,  5 Oct 2026 12:17:48 -0400
-Message-ID: <20261005161718.3002957-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] usb: ohci-spear: Remove unnecessary NULL check before clk_disable_unprepare()
+Date: Mon,  5 Oct 2026 12:18:13 -0400
+Message-ID: <20261005161720.3050479-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100541-wages-celibate-8917@gregkh>
-References: <2026100541-wages-celibate-8917@gregkh>
+In-Reply-To: <2026100503-protegee-laborer-f4f5@gregkh>
+References: <2026100503-protegee-laborer-f4f5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,78 +46,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Arthur Heymans <arthur@aheymans.xyz>
+From: Chen Ni <nichen@iscas.ac.cn>
 
-[ Upstream commit 5e08102d1d336593160d1434261d50b0c0f6cbe6 ]
+[ Upstream commit a891b9aebcc7406fe2f439d184bac3948fb08645 ]
 
-Commit 56d8ce9d8c17 ("drm/amd/display: Apply correct panel mode when
-reinitializing hardware") made ASSR failure fall back to the default panel
-mode unless eDP mode had previously been applied.
+clk_disable_unprepare() already checks NULL by using IS_ERR_OR_NULL.
+Remove unneeded NULL check for clk here.
 
-However, dc_link is zero-initialized and DP_PANEL_MODE_DEFAULT is zero.
-Before the first call to dp_set_panel_mode(), panel_mode therefore looks
-like a previously applied default mode. If ASSR setup fails during the
-first link training attempt, the driver incorrectly trains the eDP link
-using the default scrambling mode.
-
-On a Google Vilboz Chromebook running self-built coreboot firmware and
-PSP verstage, this leaves the panel mostly black with corrupted output
-along the top edge.
-
-Track whether panel_mode has actually been initialized, and only consult
-the saved mode after it has been applied. This retains the recovery
-behavior while preserving eDP mode during initial link training.
-
-Fixes: 56d8ce9d8c17 ("drm/amd/display: Apply correct panel mode when reinitializing hardware")
-Assisted-by: Pi:gpt-5.6-sol
-Reviewed-by: George Zhang <george.zhang@amd.com>
-Reviewed-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Arthur Heymans <arthur@aheymans.xyz>
-Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit ccb6c2702033f1002b45807fb3cc938760f26f78)
-Cc: stable@vger.kernel.org # 6.4.x
-[ sashal: Adjusted context for the different eDP panel-mode logging format. ]
+Signed-off-by: Chen Ni <nichen@iscas.ac.cn>
+Acked-by: Alan Stern <stern@rowland.harvard.edu>
+Link: https://lore.kernel.org/r/20250617042050.1930940-1-nichen@iscas.ac.cn
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: b1b0f8bdbbc8 ("usb: ohci-spear: disable controller wakeup on removal")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dc.h                           | 1 +
- .../amd/display/dc/link/protocols/link_edp_panel_control.c    | 4 +++-
- 2 files changed, 4 insertions(+), 1 deletion(-)
+ drivers/usb/host/ohci-spear.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index a4f6ff7155c2a..f7cd6cb06638b 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -1721,6 +1721,7 @@ struct dc_link {
- 	struct ddc_service *ddc;
+diff --git a/drivers/usb/host/ohci-spear.c b/drivers/usb/host/ohci-spear.c
+index 5cc05449281c8..ed019c459ea0d 100644
+--- a/drivers/usb/host/ohci-spear.c
++++ b/drivers/usb/host/ohci-spear.c
+@@ -105,8 +105,7 @@ static int spear_ohci_hcd_drv_remove(struct platform_device *pdev)
+ 	struct spear_ohci *sohci_p = to_spear_ohci(hcd);
  
- 	enum dp_panel_mode panel_mode;
-+	bool panel_mode_initialized;
- 	bool aux_mode;
+ 	usb_remove_hcd(hcd);
+-	if (sohci_p->clk)
+-		clk_disable_unprepare(sohci_p->clk);
++	clk_disable_unprepare(sohci_p->clk);
  
- 	/* Private to DC core */
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-index fa642f4b88c2d..17220177479a3 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-@@ -91,6 +91,7 @@ void dp_set_panel_mode(struct dc_link *link, enum dp_panel_mode panel_mode)
- 	}
- 
- 	link->panel_mode = panel_mode;
-+	link->panel_mode_initialized = true;
- 	DC_LOG_DETECTION_DP_CAPS("Link: %d eDP panel mode supported: %d "
- 		 "eDP panel mode enabled: %d \n",
- 		 link->link_index,
-@@ -1231,7 +1232,8 @@ void edp_set_panel_assr(struct dc_link *link, struct pipe_ctx *pipe_ctx,
- 
- 		result = cp_psp->funcs.enable_assr(cp_psp->handle, link);
- 
--		if (!result && link->panel_mode != DP_PANEL_MODE_EDP)
-+		if (!result && link->panel_mode_initialized &&
-+		    link->panel_mode != DP_PANEL_MODE_EDP)
- 			*panel_mode = DP_PANEL_MODE_DEFAULT;
- 	}
- }
+ 	usb_put_hcd(hcd);
+ 	return 0;
 -- 
 2.53.0
 
