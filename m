@@ -1,72 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B272344780F;
-	Mon,  5 Oct 2026 13:19:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D61B347D935
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 13:23:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791206374; cv=none; b=n50E5j76cu/2qg0ZYCp+ogCHXbyfAM/ab3yJmtPIapsYiF/4iMyIXVdCRPOBUATweUuX6wLGYgvYjozFPTzhDysnEumALlxc3LT30mBExORnIdUNUsPPQqd9vLB4pzDrWSR7PDOYmIqhVUWfXW94kK1X+f7Pip9v09F+J/WWl/k=
+	t=1791206611; cv=none; b=NZbp2rvCOrpFmFwVkUHRUK7mOsNQQxkmOHLOYYrC4V/pimRymhBHtgjU41hnJNVShZ7CuXPKu+1LIV6KQh4OVVP+xy5GvxgJZ1Wel2LfEfMHqyOZui3aF5zjuwu9knl/rWPVXBRDXkqE/HROjwXGJSVGdQ9j/ffM7ZNSFQbxE/g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791206374; c=relaxed/simple;
-	bh=gp7PRv3WjAiMJrp0DvXpRvTv3mwC8R3NiezXzUE7FxE=;
+	s=arc-20240116; t=1791206611; c=relaxed/simple;
+	bh=gI8o6MP+5RiY9CXPYhdlU512m+M+/fsxUd1sSEANTY0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=MDhAobq9c4NP5kMEAPPBm8rMdL+KH3aEaUH+LVsq7IxB9B55sGZF8rTsWFGXft6+L8t9zGW0gl1FSqVtPc6IXsfsaG+h2c1bz2ZpPdZ4kWJfGRX8chYv34EapxsAuclhHEJ0jFQ+AF/qe5v5p+MBpfsGYCxYR9nugsvfEDfeWcY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OLepsIBf; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=QvBUnkpKzsU4RBmfM/Jxq+5I+4/S4AjZ/sqGOxuW1CM/yIV7R487xfg9ikm8sr/9ovWcAGgPmXBBDWtXiVIysmLB3nTeqew4wo1iCoHnogmXy5zZyXp6Zy2f/bYT8pDrBQlwmKdvPil9+UV2/hnH8IKufghGiSPwK8tYw01FLBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=foEgahFB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OLepsIBf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B393A1F000FF;
-	Mon,  5 Oct 2026 13:19:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="foEgahFB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 223BB1F000FF;
+	Mon,  5 Oct 2026 13:23:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791206365;
-	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	s=k20260515; t=1791206585;
+	bh=KP8KVHdScN5MscbWxQTcoZnvFW9pOwJRp0vp+LtGjZs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OLepsIBfvIegkLKM4ZNB4+47Vn40pL79B0S6VECDq6saZtGnop2w/1eqk8BxYTY1x
-	 fJPDBKqEa4H0UrqzYJkvuj6KlcnqKscO+6ryTB3mqZSaw8a18DnUDPC52B8432Jwry
-	 xetj7spDcsAIZwCgEug+5+48dk17A4BmyGZLAdDO/kqtC2SrsPwS/1Pt6ePG678CXY
-	 Zy6jb/giotZhZZjdkm+7vZBlQWJg8ewXYiBO9Tsv88xApwaul3cxUsaHplvGvlezB4
-	 UKZ9HVfpEU2kEIE52jvvRgoWHV74J54azDyenyhSpNe72CamlLEESk2iQVOE7qHqAt
-	 52usuuipzZyvQ==
-From: netdev-bot+sinfo@kernel.org
-To: Mahanta Jambigi <mjambigi@linux.ibm.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, alibuda@linux.alibaba.com,
- dust.li@linux.alibaba.com, sidraya@linux.ibm.com, hidayath@linux.ibm.com,
- pasic@linux.ibm.com, horms@kernel.org, tonylu@linux.alibaba.com,
- guwen@linux.alibaba.com, stable@vger.kernel.org, netdev@vger.kernel.org,
- linux-s390@vger.kernel.org, linux-rdma@vger.kernel.org
-Subject: Re: [PATCH net v8] net/smc: fix lgr/lnk lifetime vs diag reader race
-Date: Mon, 05 Oct 2026 13:19:24 +0000
-Message-ID: <179120636424.1402591.14325781567092984615@kernel.org>
-In-Reply-To: <20261005131241.1575131-1-mjambigi@linux.ibm.com>
-References: <20261005131241.1575131-1-mjambigi@linux.ibm.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	b=foEgahFBXKRTKwMmC4rKG/XPPuK0LtAzXPAxQtJt5axQuhcKfBafpihZntuVh4LEx
+	 6Qxkc14tq2FLs/QwHm5LidTAU07F7tGACh/sefDF9uPz0h6U+ccwev92nzMMeY7s7X
+	 bPB86dZ3LogshHch1hcbGnFIFCoJfREh1iwLjfNN2JfrbUgd5WgqaruY1NmvgE9Lnc
+	 HdD3yGw4TbKMM/RA4jXUn8ihSI04qd0cmxOnfF+NVUoYxMeiCnpKppEzH91R7Iru7Q
+	 RQhmRai0LTvViyhfO2Xl4pdD1E+fQ5q4brejIEwarMfocl9tzc3WDhu37ilxtJXHQ9
+	 6AROdQdslIF2Q==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Andre Eikmeyer <dev@deq.rocks>,
+	Frederick Morlock <me@freddy.us>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.2.y 1/2] drm/amdgpu: reset VI ASIC on MacBookPro15,1
+Date: Mon,  5 Oct 2026 09:23:01 -0400
+Message-ID: <20261005132251.2627312-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026100525-showcase-spirited-0675@gregkh>
+References: <2026100525-showcase-spirited-0675@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi!
+From: Andre Eikmeyer <dev@deq.rocks>
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+[ Upstream commit a5be7ad8f5f0e067613e9197638f216f46252946 ]
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+After S3, reloading amdgpu on MacBookPro15,1 systems with a Radeon Pro
+555X or 560X fails while loading the SMU firmware. The existing SMC
+register check does not request a reset because the registers do not
+reliably reflect the stale SMU state on these machines.
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+Frederick Morlock found that forcing a VI ASIC reset allows the driver to
+initialize again. This patch limits his workaround to the exact PCI
+device, Apple subsystem device and revision combinations used by these
+two GPUs, leaving other VI hardware unchanged.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+Suggested-by: Frederick Morlock <me@freddy.us>
+Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Stable-dep-of: a22e5e4f2ebb ("drm/amdgpu: reset VI ASIC on MacBookPro14,3")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/amdgpu/vi.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
+index a256320b92f33..320c43143e5d3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vi.c
++++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+@@ -1407,10 +1407,30 @@ static uint64_t vi_get_pcie_replay_count(struct amdgpu_device *adev)
+ 	return (nak_r + nak_g);
+ }
+ 
++struct vi_reset_quirk {
++	u16 device;
++	u16 subsystem_vendor;
++	u16 subsystem_device;
++	u8 revision;
++};
++
++static const struct vi_reset_quirk vi_reset_quirks[] = {
++	{ 0x67ef, PCI_VENDOR_ID_APPLE, 0x0190, 0xe3 }, /* Radeon Pro 555X */
++	{ 0x67ef, PCI_VENDOR_ID_APPLE, 0x018f, 0xc2 }, /* Radeon Pro 560X */
++};
++
+ static bool vi_need_reset_on_init(struct amdgpu_device *adev)
+ {
++	unsigned int i;
+ 	u32 clock_cntl, pc;
+ 
++	for (i = 0; i < ARRAY_SIZE(vi_reset_quirks); i++)
++		if (adev->pdev->device == vi_reset_quirks[i].device &&
++		    adev->pdev->subsystem_vendor == vi_reset_quirks[i].subsystem_vendor &&
++		    adev->pdev->subsystem_device == vi_reset_quirks[i].subsystem_device &&
++		    adev->pdev->revision == vi_reset_quirks[i].revision)
++			return true;
++
+ 	if (adev->flags & AMD_IS_APU)
+ 		return false;
+ 
+-- 
+2.53.0
+
