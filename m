@@ -1,165 +1,76 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EB584D7977
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 17:40:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483DB1F5821;
+	Mon,  5 Oct 2026 17:42:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791222038; cv=none; b=k9llM+3goZ9xvw9GR9FtCFgy7ixpt+zaX2oVcHzffredDmxNsIsAv+RQzU8ROBbkCeym6C3TqcziEgNhk5CVC+uIHCU7i5xmQW2HMSalg6NQFTbra0bI3cX06nUn2CcjDS47eZboHuHe0vzXFtIsjJMIH3dlTK5A8iOTvAisLvA=
+	t=1791222132; cv=none; b=kD99JfLztDOjZEnHSgx7+hvWfjUufBXpydGuhYcn8dX1zPEf5ki3+LBmofqWAL51dsuNkJm04zb4Zb6YDPfZ/Dt5OCxz4pO5UnK7nyizBPoIapjsJzN6ARfxuAnuTPQvCeFOYpiS70KXFw6dXilJP07YwO/Rav8ktFfTf1iR4us=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791222038; c=relaxed/simple;
-	bh=1SNVf0OzwSJjZ/H/GrPwTJuOEsFyldZn9rfOqh91Pbc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CmDEd59RqT/yxcC5UURKMjTzYFAtwUcWtvE907gnVab+MkroWq1Ws1dqWqRagtPWyK069Epqy2SYkbcJZI3/thKARjec0SdM4J9Bb7a2VGSONtQ48RPBVVVfQVU7sXayMSEHazn5Szmt8VzTEGyut7OdDhbDGSGIP1eL8qi/IIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X0JjwWPU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791222132; c=relaxed/simple;
+	bh=CGm6ph1IBhJ8hiJ/GT1AIMCs4pBFUcVB/aSkqQRyHQQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cDYnIQMo5c+J3SmEOe3Qyfse5EVImP51mmRcZ3eBirtPA46e4XCDXsb9LKPjHdQNqxKvV/OD+5nxiAa1GgQkm4omQzco+46NvJhLC/0O2DmNPMjMwOHYqANa1W0TfbYvmkaD+cI4tTcZNrUJLg3OBILdR2VfHIeQsDBb683odzE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PXS7LhA9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X0JjwWPU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7EEB1F000FF;
-	Mon,  5 Oct 2026 17:40:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PXS7LhA9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1352F1F000FF;
+	Mon,  5 Oct 2026 17:42:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791222036;
-	bh=uUzASmZH2DQSeuFgSaiYJ4vbmnBNCUSfiooi3uoKEx8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=X0JjwWPUcMtAcGjeMuJ2hq6mH1D0CSF4b1um0pdns731k4AjB4zPq7MrGCiwzyBO1
-	 DvygA56EmczjPxd9z6EBGmyU9D9sP9rT9xYNq55vl6KgpXSu1XpDNhnpgcXUUGqMpm
-	 0uytYBYvH50c/IG9E4XOE0vOpHBIvGuDPVdHrugrxS6KYaFi9lJmb146hLpqQdCXXq
-	 Z3peCL1XOmHbQXA8yd1OOUBtzpo3RJcg37vg7b2648VZwHbtMaVkzW0R8+9nNJFf4R
-	 pAGTlqATnYh4XiY4dzPjVH+/D1BNzPMt/OO9Jo2I+k5HBaC94z2L8rcwpTKpPKwVia
-	 CTUrmn+Zd144Q==
-Message-ID: <9b7ad8ef-a10a-4a94-9244-0ff983ad480b@kernel.org>
-Date: Mon, 5 Oct 2026 19:40:33 +0200
+	s=k20260515; t=1791222131;
+	bh=bDTdKoSj30/4yoqOoyu9+GmBwMUZtlmLRAXIIKlDZc4=;
+	h=From:To:Cc:Subject:Date;
+	b=PXS7LhA98X0Xt+ouSyukD+Au7IHeapO/WEXrauHqtAZZMrz0OswFZik+fBGQ9gJ8u
+	 PD+01k8w1bbo/gA1lQHPe4gEuNGoxJ/YKJo4TNubYbGqZ7s2DWopF8WrmMs7LiXdPp
+	 k1LUMdtuONuS+qTVy4wcLLLSU426XThN0QQ6X9zjKI43DoSHSseAJs4YpBZ1nM1y7z
+	 ccznw4Ltp/my6expOSLKezuQH71ZIckZcsm0C8I4ViqOomxiH16y+fiyDk3iq8MZNg
+	 tL03N0pWefst7SLykPdcfaJ4OABSeHp6IFrwxOOBaeInEQuuU03RQ9ihW935Px1nWY
+	 TljD1Xki6lTOw==
+From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
+To: stable@vger.kernel.org,
+	gregkh@linuxfoundation.org,
+	sashal@kernel.org
+Cc: MPTCP Upstream <mptcp@lists.linux.dev>,
+	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>
+Subject: [PATCH 6.18.y] mptcp: fix msk->timer_ival reset
+Date: Mon,  5 Oct 2026 19:41:17 +0200
+Message-ID: <20261005174116.3521187-2-matttbe@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: stable: queue/* branches no longer updated
-Content-Language: fr
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org
-References: <e6ea1805-3e82-476c-86a8-096b80bde74a@kernel.org>
- <aImjNPvGPMqFu3RD@lappy> <9989cd82-d126-4dd3-96e5-37dad7f733fb@kernel.org>
- <c9ca13cc-a7ce-48ac-a7b2-a8bdc823aed3@kernel.org>
- <08bac413-ad6c-4e3d-a879-554ab0f195db@kernel.org> <anNf2xwwXDfinNQs@laps>
-From: Matthieu Baerts <matttbe@kernel.org>
-Autocrypt: addr=matttbe@kernel.org; keydata=
- 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
- lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
-Organization: NGI0 Core
-In-Reply-To: <anNf2xwwXDfinNQs@laps>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1106; i=matttbe@kernel.org; h=from:subject; bh=CGm6ph1IBhJ8hiJ/GT1AIMCs4pBFUcVB/aSkqQRyHQQ=; b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLIOP7Td+4SlmM3OdtumFx4GVmkJC/dc9Infrnzu2fW04 q+HX4Uf7yhlYRDjYpAVU2SRbovMn/m8irfEy88CZg4rE8gQBi5OAZjImXyGfwYzfZuyCzc/zPLz X/f0TLrUtSW31hlKSaWfmn5L28TfL4nhf8kH2dTFAuE73yhd6X998d30zmqpC+uWn+Zc6DnhN6u UFDcA
+X-Developer-Key: i=matttbe@kernel.org; a=openpgp; fpr=E8CB85F76877057A6E27F77AF6B7824F4269A073
+Content-Transfer-Encoding: 8bit
 
-Hi Sasha,
+In this kernel version, icsk->icsk_rto_min is not initialised, because
+this version doesn't contain commit ea4eb2adb0d3 ("mptcp: honour
+configured min/max RTO in retransmit paths").
 
-On 05/08/2026 18:07, Sasha Levin wrote:
-> On Wed, Aug 05, 2026 at 05:16:10PM +0200, Matthieu Baerts wrote:
->> Hi Sasha,
->>
->> On 11/02/2026 11:10, Matthieu Baerts wrote:
->>> Hi Sasha,
->>>
->>> On 19/09/2025 23:30, Matthieu Baerts wrote:
->>>> Hi Sasha,
->>>>
->>>> On 30/07/2025 06:44, Sasha Levin wrote:
->>>>> On Mon, Jul 28, 2025 at 11:06:17AM +0200, Matthieu Baerts wrote:
->>>>>> Hi Sasha,
->>>>>>
->>>>>> Thank you for maintaining the stable versions with Greg!
->>>>>>
->>>>>> If I remember well, you run some scripts on your side to maintain the
->>>>>> queue/* branches in the linux-stable-rc Git tree [1], is that
->>>>>> correct?
->>>>>>
->>>>>> These branches have not been updated for a bit more than 3 weeks.
->>>>>> Is it
->>>>>> normal?
->>>>>>
->>>>>> Personally, I find them useful. But if it is just me, I can work
->>>>>> without
->>>>>> them.
->>>>>
->>>>> Nope, it's a bug!
->>>>>
->>>>> Looks like git was throwing:
->>>>>
->>>>> fatal: Unable to create '/home/sasha/data/stable-queue-builder/linux-
->>>>> stable/.git/index.lock': File exists.
->>>>>
->>>>> Another git process seems to be running in this repository, e.g.
->>>>> an editor opened by 'git commit'. Please make sure all processes
->>>>> are terminated then try again. If it still fails, a git process
->>>>> may have crashed in this repository earlier:
->>>>> remove the file manually to continue.
->>>>>
->>>>>
->>>>> Which my script was promptly ignoring...
->>>>>
->>>>> Fixed now, thanks for the heads up!
->>>>
->>>> It looks like these branches are no longer updated. Do you mind
->>>> checking
->>>> on your side please? :)
->>>
->>> These stable queue/* branches have not been updated for more than two
->>> weeks. Do you mind checking if there is something stuck on your side,
->>> please? :)
->> It looks like the last update was from 2 months ago. When you have a
->> chance, do you mind fixing your script please? (no urgency on my side)
->> Cheers,
->> Matt
-> 
-> Sorry, should be fixed now
-Sorry, do you mind checking again, please? :)
+Reset it to TCP_RTO_MIN, which is how msk->timer_ival is also reset in
+__mptcp_init_sock() in this version.
 
-(Maybe I shouldn't rely on them to send patches depending on others from
-the queue.)
+Fixes: 374da2b9be12 ("mptcp: prevent race between disconnect() and rtx")
+Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+---
+ net/mptcp/protocol.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Cheers,
-Matt
+diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
+index e9967d55b8ac..d0e3e17c698e 100644
+--- a/net/mptcp/protocol.c
++++ b/net/mptcp/protocol.c
+@@ -3312,7 +3312,7 @@ static int mptcp_disconnect(struct sock *sk, int flags)
+ 	/* The later subflow close can not kick again the tout timer,
+ 	 * as the msk is already in closed status.
+ 	 */
+-	msk->timer_ival = icsk->icsk_rto_min;
++	msk->timer_ival = TCP_RTO_MIN;
+ 	sk_stop_timer_sync(sk, &sk->mptcp_retransmit_timer);
+ 	icsk->icsk_mtup.probe_timestamp = 0;
+ 	sk_stop_timer_sync(sk, &icsk->mptcp_tout_timer);
 -- 
-Sponsored by the NGI0 Core fund.
+2.55.0
 
