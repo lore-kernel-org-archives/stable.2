@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A2A44DDB2A
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 20:15:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCB444CE68A
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 20:15:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791231344; cv=none; b=sP9/B8cPUmNn0RBiLN8wLecuhyfoMmwhRBUE9jbtANJTFzRlj87avnArR+WIZpeSix+2e8ws7Le4DAYo2gWXrD1f3ABpyWBqVwtSFI++7uOeCZFF7g40ITw6oCIA/jA6rNyr7E6ye2h8cqfGK81JzaDHNhPDGbKPsbyc8gmef58=
+	t=1791231351; cv=none; b=jbVTO2dHjW57cc/9tWPEbdkNlv7A+KTSc5Vlps+nGOePyeBsRghrGK+L7ls3DygMtCZ79s4BuUeOmOeQxT/09nfSSq65GDTGlW51VEgO+pyDYBbZAmzx7T8U/eHxawFqa81dYJHfaREWhrl9Yff06eF7rGx3GLfnMKJwMHR7PAg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791231344; c=relaxed/simple;
-	bh=Jw2ZilMn4LmjBhJk9ZyF74pKNEe4EtZNcGVcm9RYtL8=;
+	s=arc-20240116; t=1791231351; c=relaxed/simple;
+	bh=jreJlihI1LDoDEXzXT34D/OpoByeoc72EvJAwXb4cs8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PbTjZG3DmebVhK409uorxwBBVuN1KdrMUSva9kJH2Ga3EiM5Ep0lvgaRgAtA8ZgzDk4ne/SUTz3/PZqDXcO26+GRKUX77s0vDzbGZQFdHyMyHmq9sz0lfHTG/2qZ+/P19OfO2mSnpM4flKsOe+gbkFB5anR+yjrTw2HSnbjGpS4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QLMSm/K7; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=QxkXrbO9fugIGXTsfZV1AunuXYOYA+eXKLU3PJTCAaaZ37g2hWkJSX1NjfuoP65cNMWHHZC9zE1SIXJF9sJlyeI2q+yhdvLWrkgsj4gzmIWS5IH9JFRWpoTbiCHThvpkWwS3TTv6V9YVXxZtGu+QA2Dqzhn2XRq2gkC1tsCu+6g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gqZE9KbQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QLMSm/K7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F38B61F00898;
-	Mon,  5 Oct 2026 20:15:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gqZE9KbQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBB631F00893;
+	Mon,  5 Oct 2026 20:15:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791231343;
-	bh=pLBJehbve1lRzLxgDst39i5Ce3Icek/Lijk6xa3gcyY=;
+	s=k20260515; t=1791231349;
+	bh=SKfnu51q3muAyl30vNyHGQXoM+ASfY+KxO5loPRrSB4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QLMSm/K7j6O7Th+7xdd7Qe+dkv8/G4GUamcQz38/tN8FDejofQhGWhREnYr1fLa0Q
-	 bvCetDrdLyXYsYuh7omi/3FjxZgKFyq3mmLj7PiH5sZWUTZAKP/cVqglyaIRiSVGVt
-	 lG+eJcmV+raseJpTe4/oqZJg8G81zXZk2iX3MQsfpaMxhL/Ddj/e3zYtu+bwV0mfdV
-	 fx34BTbTDTtU5wCKA3/E366WEcgG6TOZg+/uxHn1Opm1VK3NlEbbXc0S2GpwmGqYl4
-	 q05o3rFqZ+bZiuW1WXZB6jjNuhrGwHxBIjR2Sjo+P6KjQ9FLF9w4RP+rwKYbEZqbNs
-	 bhyfU+IekU68g==
+	b=gqZE9KbQ4R7T1LpNqG55m9fXU5lrEQ8emvFG6bXqxG0BUwwGUIhxi7qQVjAdYDr1y
+	 XXAUnxKNZT4nQhIF1F04JqKrQHHSrI3nuA6RsRjlHFl9mRAWgEGnHK/bl0DJrvJ5mT
+	 PiUUx50IhVymFHgllMM9sV9x2jjN6FNpj4bOvNfJCQ85Ebrq/7j0RWEWmxik5p4c+O
+	 HLUoj6fSRrTynn4pJDHz55tRpDdItNoIZ+qvYxSRz+ycJ3b4XXnt66HGnL4zHEVR/I
+	 LjWeoqQ4MuZpDmAqjl0DExuW8Z7wfJghIOvrxkmZMnVEUr1ooazfAjpp6qK/gqKv9M
+	 uY4xcnCYxk7vQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Daniel Starke <daniel.starke@siemens.com>,
-	stable <stable@kernel.org>,
+Cc: Johan Hovold <johan@kernel.org>,
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	stable@kernel.org,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] tty: n_gsm: fix missing modem controls after DLCI open in convergence layer type 2
-Date: Mon,  5 Oct 2026 16:15:39 -0400
-Message-ID: <20261005201517.3125011-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] tty: fix saved termios reset race
+Date: Mon,  5 Oct 2026 16:15:45 -0400
+Message-ID: <20261005201516.3124531-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100502-retread-clique-9665@gregkh>
-References: <2026100502-retread-clique-9665@gregkh>
+In-Reply-To: <2026100542-sloping-tumble-a7c6@gregkh>
+References: <2026100542-sloping-tumble-a7c6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,178 +47,135 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Daniel Starke <daniel.starke@siemens.com>
+From: Johan Hovold <johan@kernel.org>
 
-[ Upstream commit 11ea5a63d30ad6d305b1c22301cd99ff45a98c8d ]
+[ Upstream commit 8df07fe93573e9e548d6645273e9bcb6eb74059e ]
 
-The current implementation only updates the virtual V.24 control signals
-after DLCI open in basic option mode. In advanced option mode with
-convergence layer type 2 an empty data frame needs to be transmitted to
-inform the peer about the initial virtual V.24 control signals. Not doing
-so has two unwanted side effects:
-1. hardware flow control status is unclear (initial CTS line is unknown)
-2. DLCI user presence is not transmitted (initial DTR line is unknown)
+Resetting saved termios state on device registration is needed where a
+minor number can be reused for an entirely different device and where
+the old settings may prevent the port from even being opened (e.g. when
+CLOCAL is not set).
 
-Applications waiting on these lines can not start after a DLCI has been
-opened until the first data frame has been transmitted.
+Not all TTY drivers guarantee that the minor number is no longer in use
+when registering devices however, something which can lead to a
+use-after-free when closing a TTY (and saving its termios) races with
+re-registration.
 
-Fix this by using gsm_modem_update() thoroughly which handles basic and
-advanced option mode correctly. Add a flag in gsm_modem_update() and the
-delegated gsm_modem_upd_via_msc() to control whether waiting for the MSC
-command response is possible. Remove obsolete gsm_modem_send_initial_msc().
+Add a new TTY_DRIVER_RESET_SAVED_TERMIOS flag to request that any saved
+termios state is reset on registration and only set it for drivers that
+make sure that the minor number is no longer in use.
 
-Fixes: 3cf0b3c243e5 ("tty: n_gsm: Don't block input queue by waiting MSC")
-Cc: stable <stable@kernel.org>
-Signed-off-by: Daniel Starke <daniel.starke@siemens.com>
-Link: https://patch.msgid.link/20260826063026.2472-1-daniel.starke@siemens.com
+Fixes: 93857edd9829 ("tty: reset termios state on device registration")
+Reported-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Link: https://lore.kernel.org/20260926184154.3017929-1-nicoyip.dev@gmail.com
+Cc: stable@kernel.org	# 4.12
+Signed-off-by: Johan Hovold <johan@kernel.org>
+Link: https://patch.msgid.link/20260930131845.1809256-1-johan@kernel.org
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ sashal: Adjusted context to match the @dlci parameter comment without a colon. ]
+[ sashal: Adjusted flag and documentation placement because TTY_DRIVER_NO_WORKQUEUE is absent. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/tty/n_gsm.c | 47 ++++++++++++++-------------------------------
- 1 file changed, 14 insertions(+), 33 deletions(-)
+ drivers/staging/greybus/uart.c  |  3 ++-
+ drivers/tty/tty_io.c            | 18 ++++++++++--------
+ drivers/usb/class/cdc-acm.c     |  2 +-
+ drivers/usb/serial/usb-serial.c |  3 ++-
+ include/linux/tty_driver.h      |  6 ++++++
+ 5 files changed, 21 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/tty/n_gsm.c b/drivers/tty/n_gsm.c
-index c917fc20b469a..028b37d6f06a6 100644
---- a/drivers/tty/n_gsm.c
-+++ b/drivers/tty/n_gsm.c
-@@ -454,14 +454,13 @@ static const u8 gsm_fcs8[256] = {
+diff --git a/drivers/staging/greybus/uart.c b/drivers/staging/greybus/uart.c
+index 10df5c37c83ed..78bf8c4031e93 100644
+--- a/drivers/staging/greybus/uart.c
++++ b/drivers/staging/greybus/uart.c
+@@ -944,7 +944,8 @@ static int gb_tty_init(void)
+ 	int retval = 0;
  
- static void gsm_dlci_close(struct gsm_dlci *dlci);
- static int gsmld_output(struct gsm_mux *gsm, u8 *data, int len);
--static int gsm_modem_update(struct gsm_dlci *dlci, u8 brk);
-+static int gsm_modem_update(struct gsm_dlci *dlci, u8 brk, bool wait);
- static struct gsm_msg *gsm_data_alloc(struct gsm_mux *gsm, u8 addr, int len,
- 								u8 ctrl);
- static int gsm_send_packet(struct gsm_mux *gsm, struct gsm_msg *msg);
- static struct gsm_dlci *gsm_dlci_alloc(struct gsm_mux *gsm, int addr);
- static void gsmld_write_trigger(struct gsm_mux *gsm);
- static void gsmld_write_task(struct work_struct *work);
--static int gsm_modem_send_initial_msc(struct gsm_dlci *dlci);
+ 	gb_tty_driver = tty_alloc_driver(GB_NUM_MINORS, TTY_DRIVER_REAL_RAW |
+-					 TTY_DRIVER_DYNAMIC_DEV);
++					 TTY_DRIVER_DYNAMIC_DEV |
++					 TTY_DRIVER_RESET_SAVED_TERMIOS);
+ 	if (IS_ERR(gb_tty_driver)) {
+ 		pr_err("Can not allocate tty driver\n");
+ 		retval = -ENOMEM;
+diff --git a/drivers/tty/tty_io.c b/drivers/tty/tty_io.c
+index f74705a37c41f..dd7231d9cab96 100644
+--- a/drivers/tty/tty_io.c
++++ b/drivers/tty/tty_io.c
+@@ -3283,14 +3283,16 @@ struct device *tty_register_device_attr(struct tty_driver *driver,
+ 		goto err_put;
  
- /**
-  *	gsm_fcs_add	-	update FCS
-@@ -2175,7 +2174,7 @@ static void gsm_dlci_open(struct gsm_dlci *dlci)
- 		pr_debug("DLCI %d goes open.\n", dlci->addr);
- 	/* Send current modem state */
- 	if (dlci->addr) {
--		gsm_modem_send_initial_msc(dlci);
-+		gsm_modem_update(dlci, 0, false);
- 	} else {
- 		/* Start keep-alive control */
- 		gsm->ka_num = 0;
-@@ -4132,9 +4131,10 @@ static void gsm_modem_upd_via_data(struct gsm_dlci *dlci, u8 brk)
-  *	gsm_modem_upd_via_msc	-	send modem bits via control frame
-  *	@dlci: channel
-  *	@brk: break signal
-+ *	@wait: wait for the MSC command
-  */
+ 	if (!(driver->flags & TTY_DRIVER_DYNAMIC_ALLOC)) {
+-		/*
+-		 * Free any saved termios data so that the termios state is
+-		 * reset when reusing a minor number.
+-		 */
+-		tp = driver->termios[index];
+-		if (tp) {
+-			driver->termios[index] = NULL;
+-			kfree(tp);
++		if (driver->flags & TTY_DRIVER_RESET_SAVED_TERMIOS) {
++			/*
++			 * Free any saved termios data so that the termios
++			 * state is reset when reusing a minor number.
++			 */
++			tp = driver->termios[index];
++			if (tp) {
++				driver->termios[index] = NULL;
++				kfree(tp);
++			}
+ 		}
  
--static int gsm_modem_upd_via_msc(struct gsm_dlci *dlci, u8 brk)
-+static int gsm_modem_upd_via_msc(struct gsm_dlci *dlci, u8 brk, bool wait)
+ 		retval = tty_cdev_add(driver, devt, index, 1);
+diff --git a/drivers/usb/class/cdc-acm.c b/drivers/usb/class/cdc-acm.c
+index 080a7dc79ecdc..b980cb08d675b 100644
+--- a/drivers/usb/class/cdc-acm.c
++++ b/drivers/usb/class/cdc-acm.c
+@@ -2145,7 +2145,7 @@ static int __init acm_init(void)
  {
- 	u8 modembits[3];
- 	struct gsm_control *ctrl;
-@@ -4151,41 +4151,22 @@ static int gsm_modem_upd_via_msc(struct gsm_dlci *dlci, u8 brk)
- 		modembits[2] = (brk << 4) | 2 | EA; /* Length, Break, EA */
- 		len++;
- 	}
-+	if (!wait)
-+		return gsm_control_command(dlci->gsm, CMD_MSC, modembits, len);
- 	ctrl = gsm_control_send(dlci->gsm, CMD_MSC, modembits, len);
- 	if (ctrl == NULL)
- 		return -ENOMEM;
- 	return gsm_control_wait(dlci->gsm, ctrl);
- }
+ 	int retval;
+ 	acm_tty_driver = tty_alloc_driver(ACM_TTY_MINORS, TTY_DRIVER_REAL_RAW |
+-			TTY_DRIVER_DYNAMIC_DEV);
++			TTY_DRIVER_DYNAMIC_DEV | TTY_DRIVER_RESET_SAVED_TERMIOS);
+ 	if (IS_ERR(acm_tty_driver))
+ 		return PTR_ERR(acm_tty_driver);
+ 	acm_tty_driver->driver_name = "acm",
+diff --git a/drivers/usb/serial/usb-serial.c b/drivers/usb/serial/usb-serial.c
+index 45c27b18fb459..3cccddaabb51a 100644
+--- a/drivers/usb/serial/usb-serial.c
++++ b/drivers/usb/serial/usb-serial.c
+@@ -1375,7 +1375,8 @@ static int __init usb_serial_init(void)
+ 	int result;
  
--/**
-- * gsm_modem_send_initial_msc - Send initial modem status message
-- *
-- * @dlci channel
-- *
-- * Send an initial MSC message after DLCI open to set the initial
-- * modem status lines. This is only done for basic mode.
-- * Does not wait for a response as we cannot block the input queue
-- * processing.
-- */
--static int gsm_modem_send_initial_msc(struct gsm_dlci *dlci)
--{
--	u8 modembits[2];
--
--	if (dlci->adaption != 1 || dlci->gsm->encoding != GSM_BASIC_OPT)
--		return 0;
--
--	modembits[0] = (dlci->addr << 2) | 2 | EA; /* DLCI, Valid, EA */
--	modembits[1] = (gsm_encode_modem(dlci) << 1) | EA;
--	return gsm_control_command(dlci->gsm, CMD_MSC, (const u8 *)&modembits, 2);
--}
--
- /**
-  *	gsm_modem_update	-	send modem status line state
-  *	@dlci: channel
-  *	@brk: break signal
-+ *	@wait: wait for the MSC command
+ 	usb_serial_tty_driver = tty_alloc_driver(USB_SERIAL_TTY_MINORS,
+-			TTY_DRIVER_REAL_RAW | TTY_DRIVER_DYNAMIC_DEV);
++			TTY_DRIVER_REAL_RAW | TTY_DRIVER_DYNAMIC_DEV |
++			TTY_DRIVER_RESET_SAVED_TERMIOS);
+ 	if (IS_ERR(usb_serial_tty_driver))
+ 		return PTR_ERR(usb_serial_tty_driver);
+ 
+diff --git a/include/linux/tty_driver.h b/include/linux/tty_driver.h
+index 188ee9b768eb6..77d0789642394 100644
+--- a/include/linux/tty_driver.h
++++ b/include/linux/tty_driver.h
+@@ -69,6 +69,11 @@ struct serial_struct;
+  *	Do not create numbered ``/dev`` nodes. For example, create
+  *	``/dev/ttyprintk`` and not ``/dev/ttyprintk0``. Applicable only when a
+  *	driver for a single tty device is being allocated.
++ *
++ * @TTY_DRIVER_RESET_SAVED_TERMIOS:
++ *	Reset any saved termios settings on device registration when reusing a
++ *	minor number. Must only be set by drivers that guarantee that the minor
++ *	number is no longer in use.
   */
+ enum tty_driver_flag {
+ 	TTY_DRIVER_INSTALLED		= BIT(0),
+@@ -79,6 +84,7 @@ enum tty_driver_flag {
+ 	TTY_DRIVER_HARDWARE_BREAK	= BIT(5),
+ 	TTY_DRIVER_DYNAMIC_ALLOC	= BIT(6),
+ 	TTY_DRIVER_UNNUMBERED_NODE	= BIT(7),
++	TTY_DRIVER_RESET_SAVED_TERMIOS	= BIT(9),
+ };
  
--static int gsm_modem_update(struct gsm_dlci *dlci, u8 brk)
-+static int gsm_modem_update(struct gsm_dlci *dlci, u8 brk, bool wait)
- {
- 	if (dlci->gsm->dead)
- 		return -EL2HLT;
-@@ -4195,7 +4176,7 @@ static int gsm_modem_update(struct gsm_dlci *dlci, u8 brk)
- 		return 0;
- 	} else if (dlci->gsm->encoding == GSM_BASIC_OPT) {
- 		/* Send as MSC control message. */
--		return gsm_modem_upd_via_msc(dlci, brk);
-+		return gsm_modem_upd_via_msc(dlci, brk, wait);
- 	}
- 
- 	/* Modem status lines are not supported. */
-@@ -4261,7 +4242,7 @@ static void gsm_dtr_rts(struct tty_port *port, bool active)
- 		modem_tx &= ~(TIOCM_DTR | TIOCM_RTS);
- 	if (modem_tx != dlci->modem_tx) {
- 		dlci->modem_tx = modem_tx;
--		gsm_modem_update(dlci, 0);
-+		gsm_modem_update(dlci, 0, true);
- 	}
- }
- 
-@@ -4457,7 +4438,7 @@ static int gsmtty_tiocmset(struct tty_struct *tty,
- 
- 	if (modem_tx != dlci->modem_tx) {
- 		dlci->modem_tx = modem_tx;
--		return gsm_modem_update(dlci, 0);
-+		return gsm_modem_update(dlci, 0, true);
- 	}
- 	return 0;
- }
-@@ -4539,7 +4520,7 @@ static void gsmtty_throttle(struct tty_struct *tty)
- 		dlci->modem_tx &= ~TIOCM_RTS;
- 	dlci->throttled = true;
- 	/* Send an MSC with RTS cleared */
--	gsm_modem_update(dlci, 0);
-+	gsm_modem_update(dlci, 0, true);
- }
- 
- static void gsmtty_unthrottle(struct tty_struct *tty)
-@@ -4551,7 +4532,7 @@ static void gsmtty_unthrottle(struct tty_struct *tty)
- 		dlci->modem_tx |= TIOCM_RTS;
- 	dlci->throttled = false;
- 	/* Send an MSC with RTS set */
--	gsm_modem_update(dlci, 0);
-+	gsm_modem_update(dlci, 0, true);
- }
- 
- static int gsmtty_break_ctl(struct tty_struct *tty, int state)
-@@ -4569,7 +4550,7 @@ static int gsmtty_break_ctl(struct tty_struct *tty, int state)
- 		if (encode > 0x0F)
- 			encode = 0x0F;	/* Best effort */
- 	}
--	return gsm_modem_update(dlci, encode);
-+	return gsm_modem_update(dlci, encode, true);
- }
- 
- static void gsmtty_cleanup(struct tty_struct *tty)
+ enum tty_driver_type {
 -- 
 2.53.0
 
