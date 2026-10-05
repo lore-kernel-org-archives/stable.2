@@ -1,171 +1,215 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5419A3E5A33;
-	Mon,  5 Oct 2026 21:16:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 420F03F58C9;
+	Mon,  5 Oct 2026 21:18:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791234995; cv=none; b=qYAu099n33HIFyPyUA4N82t3BnQ+SI1hGSYDmqdQTNu10AFo8XFBG6Ld2CBXB5a+vNaZRDPuD7YMxBHex0t6h1T1fyInCC0KlKQd2dTuH+CoLzDDqw4eDuLPoHPNWvzLeq0RRTAYwu3f934TuiGHxtz0LCGtqEQZfBl+NxJkQg4=
+	t=1791235122; cv=none; b=gp0ywc9B2GTTFifexo29vzKajv2OkXW/YbyY17yFZjKjdcxhSt8O+Z1Q8qIvdV89gNg7WoADFduJuLzdUNCVRviUNmqWnPHCN0wdobQ2l4livSrA+TC0hMlU50jBhZ/fxaBYOlEdWuLvk0P5sbD3bh927DR7nljZe0nkeezFjYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791234995; c=relaxed/simple;
-	bh=LO1J7bob4991rz5cYh3HMP9AtOg22//J0+f124dtHYA=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ZR/bHiMS13qRI761vQ0pZq+VwUCkjqC8wmrsoXyEqYAmCQAjra4DKowDzLq2IMPPB7r/lATqLbhArIXIAsJ5c7MKIcdy4O5TSV039Tnj1hR0G/Yktd33PdQsJ0RsqYjPm0+qLKC4YzYsBpQQA2Z9n7Xh4gGQEFINzc+06FHQ5iY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T2Zjn/Yv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791235122; c=relaxed/simple;
+	bh=uzRxCjrPOby7teDpJTsYpBxFtosuVxFM0j1PPjdNbIA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EMP1kEFzz/ING0koKhMEJqUEsDznybgbOtPz0vsF8qsW1krjshfoN4enzpw6GY7MvC/vFemdGl+a9H1i0ODN2SvOwUTpaxNCdUK1k4CHKP06r6RFd+w3SEixRnG9yde3D3EYPDEZ+i2qqZ9vC30hLhXkePLqWoE0QW1B5uNfy74=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b=EYeFbHym; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T2Zjn/Yv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB3AF1F000FF;
-	Mon,  5 Oct 2026 21:16:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791234990;
-	bh=GxjGPAdbTyWkLNOx6DyvChvOCeh+LjtpxWD/8SPN/T4=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=T2Zjn/YvgGxax7u4MrUGgo/D9q7To56Huux8cqyni3X8TGdTZFpzcUXAqBWiu79Ns
-	 ONI0/sUJUZG/HgLWID/BlnVlMWAmGm5gAY6M/m1r2FljwURF1D3H03J2MO+mADmGln
-	 6e9x81r+Qt315TM+aFZFcEaIjyvejoHFGSPHeQhl+QPSsGR7526HEGbEfUag8FBVde
-	 WRsTCZW5nIieVZTJEolXzneYRKapIFykfuqtxW3+8MXytuvbR47RZCnUcnWobN2X+n
-	 xJ3pwY5wpA1+4uDKyuRyCCZURgswcR/MrEcyb33BMjt/EA/jljWlA+Vi/EP82ImSiO
-	 //Dec2hJaUhHw==
-Subject:
- Re: [PATCH net] bnxt_en: fix DMA mapping length for padded small packets
-From: netdev-bot+sashiko@kernel.org
-To: edumazet@kernel.org
-Cc: davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- netdev@vger.kernel.org, stable@vger.kernel.org, sfle@kth.se,
- edumazet@google.com, michael.chan@broadcom.com, pavan.chebbi@broadcom.com,
- andrew+netdev@lunn.ch
-Date: Mon, 05 Oct 2026 21:16:29 +0000
-Message-ID: <179123498942.434549.13440734253618262332@kernel.org>
-In-Reply-To: <20261005023812.130639-1-edumazet@kernel.org>
-References: <20261005023812.130639-1-edumazet@kernel.org>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b="EYeFbHym"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0767B1F000FF;
+	Mon,  5 Oct 2026 21:18:37 +0000 (UTC)
+Authentication-Results: smtp.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20210105 header.b=EYeFbHym
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105;
+	t=1791235116;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ArXPZwkOS21svTqyVFuDaFFdnY9qfU5vfWtScr/h5DQ=;
+	b=EYeFbHymVSJkadjsLFpufo37mu0pzdItcuzxYQSucZfWL3N4HCOGN+/Rx5ZANWm8cmtZwO
+	scY1MxjrSOus2i0osYjaZHf7hE94krpdUm3jwnBcK7iMGzw/703W5soEUcZGz4nbqO/75n
+	VNJwL+yAI3OzCgdtSAyuPuvMFupqf9Q=
+Received: 
+	by mail.zx2c4.com (OpenSMTPD) with ESMTPSA id 7b51b2b2 (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
+	Mon, 5 Oct 2026 21:18:35 +0000 (UTC)
+Date: Mon, 5 Oct 2026 23:18:33 +0200
+From: "Jason A. Donenfeld" <Jason@zx2c4.com>
+To: =?utf-8?B?SsOpcsOpbXk=?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: wireguard@lists.zx2c4.com, netdev@vger.kernel.org,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net] wireguard: noise: reject responses for replaced
+ initiations
+Message-ID: <asQUKTOiEn6GB5sy@zx2c4.com>
+References: <20261005203555.3552816-2-Jeremy.Jean@oss.cyber.gouv.fr>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261005203555.3552816-2-Jeremy.Jean@oss.cyber.gouv.fr>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Hi,
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The fix is incomplete for short non-linear skbs, and for them it
-  changes the wire frame for the worse.
-
---
-
-bnxt_en: fix DMA mapping length for padded small packets
-
-This patch replaces skb_pad() with skb_put_padto() in the normal_tx path
-of bnxt_start_xmit(). After the change, skb->len and skb_headlen() include
-the padding, so dma_map_single() maps the whole padded buffer. The pad
-variable and the rewrite of the last BD length are removed.
-
-Closes: https://lore.kernel.org/netdev/20261004122616.56714cbd@nargothrond/
-
-> diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-> index d7728d0c5b6e6..7ea27e81e88c5 100644
-> --- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-> +++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-
-[ ... ]
-
-> @@ -672,14 +672,12 @@ static netdev_tx_t bnxt_start_xmit(struct sk_buff *skb, struct net_device *dev)
->  	}
+On Mon, Oct 05, 2026 at 08:35:55PM +0000, Jérémy Jean wrote:
+> WireGuard can accept an old handshake response after starting a new
+> handshake. This reinstalls old keys and resets transport counters and
+> replay state, enabling nonce reuse, replay and packet forgery. This
+> breaks confidentiality and integrity guarantees.
+> 
+> Compare ephemeral secrets under the write lock to reject responses for
+> replaced initiations.
+> 
+> Fixes: e7096c131e51 ("net: WireGuard secure network tunnel")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+> ---
+>  drivers/net/wireguard/noise.c | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/net/wireguard/noise.c b/drivers/net/wireguard/noise.c
+> index 9c0a09bf6c95..88cc9acc7dc7 100644
+> --- a/drivers/net/wireguard/noise.c
+> +++ b/drivers/net/wireguard/noise.c
+> @@ -784,10 +784,12 @@ wg_noise_handshake_consume_response(struct message_handshake_response *src,
 >  
->  normal_tx:
-> -	if (length < BNXT_MIN_PKT_SIZE) {
-> -		pad = BNXT_MIN_PKT_SIZE - length;
-> -		if (skb_pad(skb, pad))
-> -			/* SKB already freed. */
-> -			goto tx_kick_pending;
-> -		length = BNXT_MIN_PKT_SIZE;
-> +	if (skb_put_padto(skb, BNXT_MIN_PKT_SIZE)) {
-> +		/* SKB already freed. */
-> +		goto tx_kick_pending;
+>  	/* Success! Copy everything to peer */
+>  	down_write(&handshake->lock);
+> -	/* It's important to check that the state is still the same, while we
+> -	 * have an exclusive lock.
+> +	/* Check that this is still the initiation we authenticated against,
+> +	 * while we have an exclusive lock.
+>  	 */
+> -	if (handshake->state != state) {
+> +	if (handshake->state != state ||
+> +	    crypto_memneq(handshake->ephemeral_private, ephemeral_private,
+> +			  NOISE_PUBLIC_KEY_LEN)) {
+>  		up_write(&handshake->lock);
+>  		goto fail;
 >  	}
-> -
-> +	length = skb->len;
-> +	len = skb_headlen(skb);
 
-[Severity: High]
-What happens here when the skb is non-linear and shorter than
-BNXT_MIN_PKT_SIZE?
+Could you describe the flow that you think causes a bug? Trying
+to recreate your mental model. Something like this?
 
-bnxt_start_xmit() reads last_frag and tx_buf->nr_frags earlier, before
-any padding:
+== thread 1 ==
 
-	last_frag = skb_shinfo(skb)->nr_frags;
-	...
-	tx_buf->nr_frags = last_frag;
+	down_read(&handshake->lock);
+	state = handshake->state;
+	memcpy(hash, handshake->hash, NOISE_HASH_LEN);
+	memcpy(chaining_key, handshake->chaining_key, NOISE_HASH_LEN);
+	memcpy(ephemeral_private, handshake->ephemeral_private,
+	       NOISE_PUBLIC_KEY_LEN);
+	memcpy(preshared_key, handshake->preshared_key,
+	       NOISE_SYMMETRIC_KEY_LEN);
+	up_read(&handshake->lock);
 
-For a non-linear skb, skb_put_padto()->__skb_pad() skips the tailroom
-fast path and calls skb_linearize(). __pskb_pull_tail() then:
+	if (state != HANDSHAKE_CREATED_INITIATION)
+		goto fail;
 
-  - copies the frags into the head
-  - calls skb_frag_unref() on each one
-  - sets nr_frags to 0
+	/* e */
+	message_ephemeral(e, src->unencrypted_ephemeral, chaining_key, hash);
 
-The frags[] slots themselves are not cleared.
+	/* ee */
+	if (!mix_dh(chaining_key, NULL, ephemeral_private, e))
+		goto fail;
 
-After that, len = skb_headlen(skb) covers all 52 padded bytes, but
-last_frag still holds the old count. TX_BD_CNT(last_frag + 2) and
-SET_TX_OPAQUE(bp, txr, prod, 2 + last_frag) still count the old
-fragments. The frag loop also still runs over them:
+	/* se */
+	if (!mix_dh(chaining_key, NULL, wg->static_identity.static_private, e))
+		goto fail;
 
-	for (i = 0; i < last_frag; i++) {
-		frag = &skb_shinfo(skb)->frags[i];
-		...
-		mapping = skb_frag_dma_map(&pdev->dev, frag, 0, len,
-					   DMA_TO_DEVICE);
+	/* psk */
+	mix_psk(chaining_key, hash, key, preshared_key);
 
-This emits a BD for each stale frag, and TX_BD_FLAGS_PACKET_END is set on
-the last stale BD:
+	/* {} */
+	if (!message_decrypt(NULL, src->encrypted_nothing,
+			     sizeof(src->encrypted_nothing), key, hash))
+		goto fail;
 
-	txbd->tx_bd_len_flags_type |= cpu_to_le32(TX_BD_FLAGS_PACKET_END);
+== thread 2 ==
 
-As an example, take a 42-byte frame with a 14-byte linear head and one
-28-byte frag. AF_PACKET PACKET_TX_RING can build one through
-tpacket_fill_skb(). The head BD would describe 52 bytes and the stale frag
-BD another 28. Wouldn't that put an 80-byte frame on the wire, with the
-payload duplicated?
+	down_read(&handshake->static_identity->lock);
+	down_write(&handshake->lock);
 
-The NIC would also DMA-read pages that the skb no longer holds a
-reference on. If this skb held the last reference, those pages could
-already be freed or recycled.
+	if (unlikely(!handshake->static_identity->has_identity))
+		goto out;
 
-The completion path in __bnxt_tx_int() (last = tx_buf->nr_frags) and the
-tx_dma_error unwind path also trust the stale count.
+	dst->header.type = cpu_to_le32(MESSAGE_HANDSHAKE_INITIATION);
 
-bnxt sets NETIF_F_SG, so the core does not linearize these skbs first.
-They reach normal_tx whenever the push path is skipped, for example when
-tx_push_thresh is 0, the ring is not empty, or lflags is set.
+	handshake_init(handshake->chaining_key, handshake->hash,
+		       handshake->remote_static);
 
-The old code mapped the same stale frags, so that part is not new. Its
-total descriptor length still came to 52, though, because the pad was
-added to the last BD. The oversized frame with duplicated data seems to
-come from this change. It also doesn't match this part of the commit
-message:
+	/* e */
+	curve25519_generate_secret(handshake->ephemeral_private);
+	if (!curve25519_generate_public(dst->unencrypted_ephemeral,
+					handshake->ephemeral_private))
+		goto out;
+	message_ephemeral(dst->unencrypted_ephemeral,
+			  dst->unencrypted_ephemeral, handshake->chaining_key,
+			  handshake->hash);
 
-  so that dma_map_single() maps the full buffer and the descriptor
-  length is consistent.
+	/* es */
+	if (!mix_dh(handshake->chaining_key, key, handshake->ephemeral_private,
+		    handshake->remote_static))
+		goto out;
 
-Could the padding be done before length, len, last_frag and
-tx_buf->nr_frags are read, and before the free_size check? Or could
-last_frag and tx_buf->nr_frags be read again after skb_put_padto()
-succeeds?
+	/* s */
+	message_encrypt(dst->encrypted_static,
+			handshake->static_identity->static_public,
+			NOISE_PUBLIC_KEY_LEN, key, handshake->hash);
 
-[ ... ]
+	/* ss */
+	if (!mix_precomputed_dh(handshake->chaining_key, key,
+				handshake->precomputed_static_static))
+		goto out;
 
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261005023812.130639-1-edumazet%40kernel.org
+	/* {t} */
+	tai64n_now(timestamp);
+	message_encrypt(dst->encrypted_timestamp, timestamp,
+			NOISE_TIMESTAMP_LEN, key, handshake->hash);
+
+	dst->sender_index = wg_index_hashtable_insert(
+		handshake->entry.peer->device->index_hashtable,
+		&handshake->entry);
+
+	handshake->state = HANDSHAKE_CREATED_INITIATION;
+	ret = true;
+
+out:
+	up_write(&handshake->lock);
+	up_read(&handshake->static_identity->lock);
+
+== thread 1 ==
+
+	down_write(&handshake->lock);
+	/* It's important to check that the state is still the same, while we
+	 * have an exclusive lock.
+	 */
+	if (handshake->state != state) {
+		up_write(&handshake->lock);
+		goto fail;
+	}
+	memcpy(handshake->remote_ephemeral, e, NOISE_PUBLIC_KEY_LEN);
+	memcpy(handshake->hash, hash, NOISE_HASH_LEN);
+	memcpy(handshake->chaining_key, chaining_key, NOISE_HASH_LEN);
+	handshake->remote_index = src->sender_index;
+	handshake->state = HANDSHAKE_CONSUMED_RESPONSE;
+	up_write(&handshake->lock);
+	ret_peer = peer;
+	goto out;
+
+And now begin_session is called on the older completed handshake rather
+than the half-completed newer handshake?
+
+Or did you see some other flow?
+
+Let me know.
+
+Thanks,
+Jason
