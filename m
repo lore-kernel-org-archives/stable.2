@@ -1,114 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-130.mta0.migadu.com [91.218.175.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D918B377019;
-	Mon,  5 Oct 2026 07:10:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B2C3259C82
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 07:23:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791184247; cv=none; b=egqmPCac9bXvTuBLwocmY0F6ft+l7CZ4eYSRUH3yZ/HCmKS3A4ezhH1vylnMNZIVXjh6AUmZ7ivwy3rf23TnDkjzwMOdisHftS6fzO+CLeIkIzh4OdFJ2Uyd/TTmoVYPst/V5lxcbPyKSdjiNka0bkvLj4bNxOyG6chz3+S0iGk=
+	t=1791185044; cv=none; b=B7j7YG+AsOUU2vHiv2qWszOWufkxsi+U+ASGnfMu/OhU0g3vlbqGm5jHCfx8ehnW9V6B55/We0r7WmsFqQ77qq4sowvPNMu5dSlasNkzMSpQF6fhCdlitG4xjPiKkLi8oIFtLoPQ7O4000hn+LipIPNoJtCAR3s3+6cOuJxARyE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791184247; c=relaxed/simple;
-	bh=/FTZKXzlSbj1Qu4aUjm3DPWDwD4aGAHpPQhwec2f760=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=g1tCjLgMkd0fJTdV9ESLBnKcJGxTdMQEonjMGCYbbiEplsTnejusA/ETotsQ0KAF9ogCvYdsdhv22I5gXKJEWIjttiahE32LoRRgflVol++A3+xvzphn56EiZXHSanndygYN9h/PevWJH/Orwy6FQvdBmvooGZZv+Pk4Hpqlgtg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sa2bZ0Hn; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791185044; c=relaxed/simple;
+	bh=Gmsh/yjeWQhuRRzt7tOzKvgXe8nse8xEadBQY+u8XjM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JkkT+gy6nieMN/2C7GvUKcBLPpnRH4Pn42zN6MN8d5Brunq/v2YhyKjun98VnzZJu0baoKxoM6mOGpAdtaGYXiPgV8TNgUFkgUNWCvQttM0F732EDxfiTVu67TZrCdiiusnrG53/FhHr3f92Zm4iO5gWKBPTqJaHrrd8efOJWZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wchswUTx; arc=none smtp.client-ip=91.218.175.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sa2bZ0Hn"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 679C9C4AF0B;
-	Mon,  5 Oct 2026 07:10:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791184247;
-	bh=/FTZKXzlSbj1Qu4aUjm3DPWDwD4aGAHpPQhwec2f760=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=Sa2bZ0HnA8sak6TN/VzHR/qzl1S6U19EKIcdDpG/glqCBiaSEOG2OSTFhPsmNuapo
-	 +q8Dm9ESHOUzMLy9exM09eqDFnzQcKSDAPYWcMrDwcX7yuIM4L50O62CYon2qabq5g
-	 LfNSAxf8J5DSoboiynqHQ9gVFe1zae4+QGPuza6VrcPkOY2jgQZdlz3xkVCdODhE7u
-	 jqk3YfW9l9nLxApq6LxnEdM9liOA/Ar5k/vH8X3Kp0kxeUSJ4oYFC0zBUJu1IEVhJb
-	 W9lsj/nx6E8ssaHk0wMU5C2tlJYV1WoeZdEVT0GhPadCTjZXY9cjKf8Yr4LUoSCbET
-	 u5lEcNWv/Owsw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 516BECA5FFD;
-	Mon,  5 Oct 2026 07:10:47 +0000 (UTC)
-From: Michael Garland via B4 Relay <devnull+minimelkav.gmail.com@kernel.org>
-Date: Mon, 05 Oct 2026 01:10:32 -0600
-Subject: [PATCH] ASoC: amd: yc: Add DMI quirk for Acer Aspire Go 15
- (AG15-21P)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wchswUTx"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Gmsh/yjeWQhuRRzt7tOzKvgXe8nse8xEadBQY+u8XjM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791185037; v=1; x=1791789837;
+ b=wchswUTx3q4XFhZr3lr+cgPzLyyaYnbldXpuAa9VsE3xssRtOj4zVsJIpyLPxu3HEhVRX2ME
+ M3HYnlJv8VM/2eyRq3DwN4cP+SlhP/xQuacqs9sKiTsnAyr7bF6c6H+kpfYvFo7D/R9u7eNhQ0k
+ wR66Obpf1Ms+0IuHeSUFnnL4=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 943f59b3aa53cf7d;
+	Mon, 05 Oct 2026 07:23:57 +0000
+X-Mizu-Trace-ID: 943f59b3aa53cf7d
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <c6421cab-1a21-4d39-87ff-05dc7be6bc02@linux.dev>
+Date: Mon, 5 Oct 2026 15:23:45 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/1] x86/mm: fix incomplete page-table invalidation with
+ TCE
+To: Nadav Amit <nadav.amit@gmail.com>
+Cc: dave.hansen@linux.intel.com, luto@kernel.org, peterz@infradead.org,
+ tglx@kernel.org, mingo@redhat.com, bp@alien8.de, x86@kernel.org,
+ hpa@zytor.com, riel@surriel.com, linux-kernel@vger.kernel.org,
+ qi.zheng@linux.dev, thomas.lendacky@amd.com, kernel-team@meta.com,
+ linux-mm@kvack.org, akpm@linux-foundation.org, brendan.jackman@linux.dev,
+ jannh@google.com, mhklinux@outlook.com, andrew.cooper3@citrix.com,
+ Manali.Shukla@amd.com, mingo@kernel.org, stable@vger.kernel.org,
+ toshi.kani@hpe.com, david@kernel.org, mikhail.v.gavrilov@gmail.com,
+ pfalcato@suse.de
+References: <20261005052302.43042-1-lance.yang@linux.dev>
+ <D8AEF6EF-D92A-4838-95A7-EB93BE319BE1@gmail.com>
+Content-Language: en-US
+From: Lance Yang <lance.yang@linux.dev>
+In-Reply-To: <D8AEF6EF-D92A-4838-95A7-EB93BE319BE1@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-acp6x-herbag2-quirk-v1-1-a1f2683d758f@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqDMBBA4avIrDuQCak/vUpxEeOo04LaiYog3
- r1pXX6L9w6IrMIRHtkByptEmcYEumUQBj/2jNImgzU2J2Pu6MOc7ziwNr63+FlF3+gckQtFWVH
- rIZWzcif7//qsL8e1eXFYfis4zy9UYpbSdwAAAA==
-X-Change-ID: 20261005-acp6x-herbag2-quirk-44114c7891da
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, 
- Venkata Prasad Potturu <venkataprasad.potturu@amd.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Michael Garland <minimelkav@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791184246; l=1417;
- i=minimelkav@gmail.com; s=20261005; h=from:subject:message-id;
- bh=Rc372Nll5VxRtwlHdHYkmK+PKfsdL8c4K22pmtyJb7E=;
- b=Q7WbuefFzM3v8XRdrT7tEayQ3HnLgqisFG8NVVaLcVLDclOEm1h6lmzaqqryhtlNflI/Bq7dN
- Wx0jHN9JUqMDMqgjKfrJBBkKhvEZyFHspRvzcOQx+3ZIZeo4ZQX0vHK
-X-Developer-Key: i=minimelkav@gmail.com; a=ed25519;
- pk=YgP8zoqOpwmElHd5xoqUtKJTkGSY9Jg/LavDAoXazjs=
-X-Endpoint-Received: by B4 Relay for minimelkav@gmail.com/20261005 with
- auth_id=1113
-X-Original-From: Michael Garland <minimelkav@gmail.com>
-Reply-To: minimelkav@gmail.com
-
-From: Michael Garland <minimelkav@gmail.com>
-
-The Acer Aspire Go 15 (AG15-21P, board MDC Herbag2_MDU) has two PDM
-DMICs connected to the ACP. The BIOS does not set the AcpDmicConnected
-_DSD property, so the acp6x machine driver never registers the DMIC
-card. The existing Herbag_MDU entry does not match this board name, so
-add a DMI quirk for it.
-
-Tested on BIOS V1.11: the acp6x DMIC capture device is registered and
-records audio on both channels.
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Michael Garland <minimelkav@gmail.com>
----
-The board name differs from the existing Herbag_MDU entry by one
-character, so DMI_MATCH() does not cover it.
----
- sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
-index e798bf6a9cd0..1be8504571ad 100644
---- a/sound/soc/amd/yc/acp6x-mach.c
-+++ b/sound/soc/amd/yc/acp6x-mach.c
-@@ -787,6 +787,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
- 			DMI_MATCH(DMI_BOARD_NAME, "Herbag_MDU"),
- 		}
- 	},
-+	{
-+		.driver_data = &acp6x_card,
-+		.matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "MDC"),
-+			DMI_MATCH(DMI_BOARD_NAME, "Herbag2_MDU"),
-+		}
-+	},
- 	{
- 		.driver_data = &acp6x_card,
- 		.matches = {
-
----
-base-commit: 695f659d296fb05a76f03967733e79b6c2085bae
-change-id: 20261005-acp6x-herbag2-quirk-44114c7891da
-
-Best regards,
---  
-Michael Garland <minimelkav@gmail.com>
 
 
+
+On 2026/10/5 14:38, Nadav Amit wrote:
+> 
+> 
+>>
+>>
+>> On 5 Oct 2026, at 8:23, Lance Yang <lance.yang@linux.dev> wrote:
+>>
+>> pud_free_pmd_page() uses a single-address invalidation to flush the
+>> paging-structure caches before freeing the page tables. With AMD TCE
+>> enabled, this only invalidates upper-level entries associated with the
+>> target address. Cached PMD entries for other addresses in the PUD range can
+>> still reference the PTE pages being freed.
+>>
+>> The AMD manual quoted in the commit enabling TCE says these instructions
+>> remove
+>>
+>>   "only those upper-level entries that lead to the target PTE in the page
+>>   table hierarchy, leaving unrelated upper-level entries intact."
+>>
+>> Even with all PTEs cleared, speculative page walks can cache present PMD
+>> entries after the earlier TLB purge.
+>>
+>> Use a full TLB flush before freeing the page tables on CPUs with TCE. Keep
+>> the single-address invalidation otherwise.
+>>
+>> Fixes: 440a65b7d25f ("x86/mm: Enable AMD translation cache extensions")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Lance Yang <lance.yang@linux.dev>
+>> ---
+>> arch/x86/mm/pgtable.c | 11 ++++++++++-
+>> 1 file changed, 10 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/arch/x86/mm/pgtable.c b/arch/x86/mm/pgtable.c
+>> index 4a105f283cfb..6b7fa44f1bf6 100644
+>> --- a/arch/x86/mm/pgtable.c
+>> +++ b/arch/x86/mm/pgtable.c
+>> @@ -727,7 +727,16 @@ int pud_free_pmd_page(pud_t *pud, unsigned long addr)
+>> 	 * via normal page walks. Make them unreachable
+>> 	 * in cached mid-level walks too:
+>> 	 */
+>> -	flush_tlb_kernel_range(addr, addr + PAGE_SIZE-1);
+>> +	if (boot_cpu_has(X86_FEATURE_TCE)) {
+>> +		/*
+>> +		 * With TCE enabled, a single-address flush does not invalidate
+>> +		 * cached PMD entries for the rest of the PUD range.
+>> +		 */
+>> +		flush_tlb_all();
+>> +	} else {
+>> +		/* INVLPG to clear all paging-structure caches */
+>> +		flush_tlb_kernel_range(addr, addr + PAGE_SIZE-1);
+>> +	}
+>>
+> 
+> 
+> It might be cleaner to replace flush_tlb_all() with:
+> 
+> 	flush_tlb_kernel_range(addr, addr + PUD_SIZE - 1);
+
+Looks much cleaner, Thanks!
+
+> While the flush-ceiling would usually end up doing a full flush, the
+> code would be easier to follow (the very least). Maybe adding stride
+> to kernel TLB range flushing would make sense in the future.
+
+Ack.
