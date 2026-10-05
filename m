@@ -1,124 +1,125 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+Received: from mail.haxxors.com (mail.haxxors.com [85.14.200.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C896148422C;
-	Mon,  5 Oct 2026 13:28:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 869F848989D;
+	Mon,  5 Oct 2026 13:29:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.14.200.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791206917; cv=none; b=of0mGpD+BalD80JUhZwQXqtezar+ooxMAN4qMl11dwrRO5qExyDrN2IY1fY9weMEAjGjY1oV87IafKa9i2+RYPfqR7ywlUVz16hcbXcnSzL4aoO08WqjC1za+eqxB0xetD3KiNkWdb7KThcsfJQXj0v6yzxRAzWYHAbIDP7NnHo=
+	t=1791206981; cv=none; b=ZFyTm9ST9um4y8XH64WBvrGpabOFO6v/M28GS8ncx2Fu5Bqz8eLtw0XTWkE003Q0/IU6o8nbcp0WuY4IKzM6+EsLZRO0bdZSpK5Rh6JOUf0S2OzqTh9xvd1jGTDufHhOkbSiAslOIoFLVmfoWi41UFvGzk4Q7mq9BgQrxhIi0Gk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791206917; c=relaxed/simple;
-	bh=LA6IZhE3Rb+EGOJa2cBrPZ/JWMp6h4v2CRmE7thuZs4=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=EKHu/oVTGi4KzAmnHP9o33kDZ3Rq/ebM8dFom4Vw7xLTnvEMe1qeau3T0CwkUHkR2yiRTGS0Rfr6IKWEQt6OZr2bjp7hk2aU56CdSOeJ5xenpGKd7raZP00mAHuxtU1ayvi5YrAM1zavLAOGexYdeYVS0yTA1oC3IXbdY6T+gpI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Xf9ojWwS; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791206981; c=relaxed/simple;
+	bh=cUk6hleFdTXonVJwfenNDEbW9WoUZ0doBHdHP/ROhaY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=VQacii2/uzdRFGmcgw0Id/bilU1FJtqtm/4b+0jsrQWv+Sn2WhcgLlaz0KkZhWY4sbWZkCTy3OW3Q7gvtxBT0RvUpH8LsY+1dEbgfPJnVq/e/DHpOzYgqTw0eITkiDuCcW0snMMhFUTZC6RYoprMZb+YYK6CARKdUHKc5/zxq3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=buechner.me; spf=pass smtp.mailfrom=buechner.me; dkim=pass (1024-bit key) header.d=buechner.me header.i=@buechner.me header.b=bLS5NlJ/; dkim=pass (1024-bit key) header.d=buechner.me header.i=@buechner.me header.b=dnxVhqSi; arc=none smtp.client-ip=85.14.200.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=buechner.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=buechner.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Xf9ojWwS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791206913; x=1822742913;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=LA6IZhE3Rb+EGOJa2cBrPZ/JWMp6h4v2CRmE7thuZs4=;
-  b=Xf9ojWwSkFuloqKnkUG6qsAKW4rfoRntoi94tURPIl5I0VsRRAoKzex2
-   WJBM+A4S6hPJfNr9b1/UAQcDFjrvozom/reR7byKEBc8LpN+k2fhYxY5I
-   0pXmlCJIwrhrZ2Gqi2fWg5unqEHPCudqdBKSG5RXI8TO8mvYppw0q/Nli
-   +Xj+1L1GiakAUOhHWrMyJR0y9URNLSqg6HiMY4J31/o8pmN/vsVRtKsy5
-   ii0Gpj+r/Dn4VPwN/EzYGjKtlUfcXp3Iy9wFBLmK1kmmduxNZOG8VdYzx
-   4B++YP0WjJqN72QN8UNvehifU7qmjZ8KwE9FTaqTYRez7RqciguEZ7Rqo
-   A==;
-X-CSE-ConnectionGUID: pXnYqL+iQcmHcGvFPdpD7w==
-X-CSE-MsgGUID: QVfmvjNZTmmgc7PfjWsc8w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11925"; a="90826172"
-X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
-   d="scan'208";a="90826172"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 06:28:27 -0700
-X-CSE-ConnectionGUID: opLLjo6uRXigo5QvTgElrw==
-X-CSE-MsgGUID: VGcLgWKWQsaWiqJtebxxFQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
-   d="scan'208";a="314829811"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.199])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 06:28:24 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Mon, 5 Oct 2026 16:28:20 +0300 (EEST)
-To: Muhammad Bilal <meatuni001@gmail.com>
-cc: Jorge Lopez <jorge.lopez2@hp.com>, Hans de Goede <hansg@kernel.org>, 
-    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-    =?ISO-8859-15?Q?Thomas_Wei=DFschuh?= <linux@weissschuh.net>, 
-    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
-    stable@vger.kernel.org
-Subject: Re: [PATCH v4 7/9] platform/x86: hp-bioscfg: validate SPM state
- returned by firmware
-In-Reply-To: <20261002191434.58529-8-meatuni001@gmail.com>
-Message-ID: <cf163f06-b7ac-2353-a251-f678b3a5a802@linux.intel.com>
-References: <20261002191434.58529-1-meatuni001@gmail.com> <20261002191434.58529-8-meatuni001@gmail.com>
+	dkim=pass (1024-bit key) header.d=buechner.me header.i=@buechner.me header.b="bLS5NlJ/";
+	dkim=pass (1024-bit key) header.d=buechner.me header.i=@buechner.me header.b="dnxVhqSi"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=buechner.me; s=mail;
+	t=1791206367; bh=cUk6hleFdTXonVJwfenNDEbW9WoUZ0doBHdHP/ROhaY=;
+	h=From:To:Cc:Subject:Date:From;
+	b=bLS5NlJ/bi+nBz0Mv1zcrkBKhij34z6FyPnn3o66uBgwOTuacYzijng67QjPCd47t
+	 vBTffegyWKV+f5QOLBSJagL4JnX9SkCVrxZkcPxRkLHGQ4MKSZLapC07mMG0EpZ5c3
+	 sKbgPQBM6dP+w0TdZZAv3+KETUYBmqrySc3XtthA=
+Received: from localhost (localhost [127.0.0.1])
+	by mail.haxxors.com (Postfix) with ESMTP id 71647515F0;
+	Mon, 05 Oct 2026 15:19:27 +0200 (CEST)
+X-Virus-Scanned: Debian amavis at mail.haxxors.com
+Received: from mail.haxxors.com ([127.0.0.1])
+ by localhost (mail.haxxors.com [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id D_R2qTLR8hRm; Mon,  5 Oct 2026 15:19:25 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=buechner.me; s=mail;
+	t=1791206365; bh=cUk6hleFdTXonVJwfenNDEbW9WoUZ0doBHdHP/ROhaY=;
+	h=From:To:Cc:Subject:Date:From;
+	b=dnxVhqSidQ3/E788YaD5mDIaQPJcROYgs7/t9niKEEiPSWZ3kt5pPZ2V3V7leoC9H
+	 q5IQJBx5zSoJVApF9A6oA8g2Aea/PqTFqcv4WISFCz6dkBhaEhuvUM0Guj/UfV7nx8
+	 06rraQQkPrXU9RsOpYwTz91J8wblqvKRLS4+vHXY=
+Received: from esports.myloc.de (p200300ee8f09a300264bfefffe4ffb4b.dip0.t-ipconnect.de [IPv6:2003:ee:8f09:a300:264b:feff:fe4f:fb4b])
+	(Authenticated sender: nils@buechner.me)
+	by mail.haxxors.com (Postfix) with ESMTPSA id 8178A51670;
+	Mon, 05 Oct 2026 15:19:25 +0200 (CEST)
+From: =?UTF-8?q?Nils=20B=C3=BCchner?= <nils@buechner.me>
+To: Ulf Hansson <ulfh@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	=?UTF-8?q?Nils=20B=C3=BCchner?= <nils@buechner.me>,
+	stable@vger.kernel.org
+Subject: [PATCH] pmdomain: mediatek: mt8183: Fix silent audio from premature sync_state
+Date: Mon,  5 Oct 2026 15:19:23 +0200
+Message-ID: <20261005131923.291619-1-nils@buechner.me>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sat, 3 Oct 2026, Muhammad Bilal wrote:
+Commit 0e789b491ba0 ("pmdomain: core: Leave powered-on genpds on until
+sync_state") made genpd trust that a power domain already on at probe
+time is correctly, fully initialized, and stopped forcing a real
+power-off/power-on cycle for it until the devicetree provider's
+sync_state() callback fires.
 
-> status_show() and update_spm_state() use the state byte from firmware
-> to index 3-entry string arrays without a range check. A value above 2
-> indexes past the arrays, and the result is printed with %s by the
-> world-readable status and key_mechanism files.
-> 
-> For example, a state of 3 makes status treat whatever follows
-> spm_state_types[] as a string pointer.
-> 
-> Return -EIO for an out of range state.
-> 
-> Compile tested only.
-> 
-> Fixes: b2715aa2e135 ("platform/x86: hp-bioscfg: spmobj-attributes")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
-> ---
-> Changes in v4:
->  - New patch
-> 
->  drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
-> index 4d94e48c1..f0eb5c445 100644
-> --- a/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
-> +++ b/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
-> @@ -118,6 +118,9 @@ static ssize_t update_spm_state(void)
->  	if (ret < 0)
->  		return ret;
->  
-> +	if (data.state >= ARRAY_SIZE(spm_mechanism_types))
+On the Juniper board (Acer Chromebook Spin 311, MT8183), the firmware
+leaves the audio power domain in exactly this misleading state: genpd
+reports it as on, so this new behavior never runs the real hardware
+sequencing in scpsys_power_on() that clears the domain's AXI bus
+protection. Register access to the AFE block over APB keeps working
+normally, giving no obvious sign anything is wrong, but the memif DMA
+engine's own bus transactions silently never complete: its current-
+position register stays frozen at the value it was reset to, the
+period-elapsed interrupt is never raised, and ALSA playback fails with
+-EIO. The net effect is silent internal speakers on every boot.
 
-Please add the include for this (to the .c file, I know it includes 
-bioscfg.h as is but common include handing all includes for a multi-file 
-driver is undesirable practice).
+This is the same class of problem already fixed for the MFG/GPU
+domains in commit 818d56ac1d ("pmdomain: mediatek: Fix mt8183 hang on
+boot"), which does not cover the audio domain. Apply the identical,
+already-reviewed fix here: MTK_SCPD_KEEP_DEFAULT_OFF makes genpd start
+the domain in GENPD_STATE_OFF instead of trusting the bootloader's
+"on" state, so the AFE driver's own first pm_runtime resume triggers a
+genuine power-on transition and actually runs the bus-protection
+clear.
 
-> +		return -EIO;
-> +
->  	bioscfg_drv.spm_data.mechanism = data.state;
->  	if (bioscfg_drv.spm_data.mechanism)
->  		bioscfg_drv.spm_data.is_enabled = 1;
-> @@ -153,6 +156,9 @@ static ssize_t status_show(struct kobject *kobj, struct kobj_attribute
->  	if (ret < 0)
->  		return ret;
->  
-> +	if (data.state >= ARRAY_SIZE(spm_state_types))
-> +		return -EIO;
-> +
->  	/*
->  	 * 'status' is a read-only file that returns ASCII text in
->  	 * JSON format reporting the status information.
-> 
+Root-caused with a git bisect across released kernel versions on real
+Juniper hardware (audio works on v6.6, fails from v6.16 onward),
+narrowing the regression down to this exact commit, and confirmed
+fixed with speaker-test playback after applying this change.
 
+Fixes: 0e789b491ba0 ("pmdomain: core: Leave powered-on genpds on until sync_state")
+Cc: stable@vger.kernel.org
+Signed-off-by: Nils Büchner <nils@buechner.me>
+---
+ drivers/pmdomain/mediatek/mt8183-pm-domains.h | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/drivers/pmdomain/mediatek/mt8183-pm-domains.h b/drivers/pmdomain/mediatek/mt8183-pm-domains.h
+index 5e33b8628..8e29e5117 100644
+--- a/drivers/pmdomain/mediatek/mt8183-pm-domains.h
++++ b/drivers/pmdomain/mediatek/mt8183-pm-domains.h
+@@ -22,6 +22,15 @@ static const struct scpsys_domain_data scpsys_domain_data_mt8183[] = {
+ 		.pwr_sta2nd_offs = 0x0184,
+ 		.sram_pdn_bits = GENMASK(11, 8),
+ 		.sram_pdn_ack_bits = GENMASK(15, 12),
++		/*
++		 * Depending on firmware, the audio domain may be left
++		 * partially on at boot, with genpd detecting it as on when
++		 * it isn't fully initialized. Force a real off/on cycle
++		 * instead of trusting that state, same as the MFG domains
++		 * in commit 818d56ac1d ("pmdomain: mediatek: Fix mt8183
++		 * hang on boot").
++		 */
++		.caps = MTK_SCPD_KEEP_DEFAULT_OFF,
+ 	},
+ 	[MT8183_POWER_DOMAIN_CONN] = {
+ 		.name = "conn",
 -- 
- i.
+2.53.0
 
