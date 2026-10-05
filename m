@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C808B4CB8CF
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 16:43:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D49AB3DB65A
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 16:44:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791218632; cv=none; b=oUahjzI3l4v66uN2AMbmn6s5vB4JK7lZiy+UUh6JqfzXN9rd1ARnQTKTDwNJcVRhaWDUUSBaX3p80XoC1H37f7zz4gVFqbwjwQ6YE30zkY1fkdqlULOkULLjwxFHgenqF+wgfRkX22+wlp7NLcVfLQp4ICe1+AfQAuOcTAjQPIg=
+	t=1791218666; cv=none; b=nMGryFEFnoA0IOJ7nq+xW4096hjv/1lFZJKHXlcBhISiccjZwgJByszf9l+KesJgA/3kA57DWWVWpSGgoiXRff0JbkUfSatUiZ1nUX56hCPMKbcxr8k0k5ykBnxmFwB0U3PbiS4cb7WmhVvbjFfBZY78Y/QdVnCvEsJIxQDy27s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791218632; c=relaxed/simple;
-	bh=Bp3mcVQbstdsX4J6mITtft8ZpLr0XIZ7iQInuAj3IVY=;
+	s=arc-20240116; t=1791218666; c=relaxed/simple;
+	bh=ONBXf2g6uBBSykGRthZjU98M8c11JP72lAatNptgLPo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gHv4aU7gAIt/RdiZEw53Daokf4q1nPGcauqd2A5hCM/d6Tdxpaiper+zXSOPQa0KFo291MNtP8o6geVC+Z/GkOYAyM9U4Qgv6mSqmJhnZcU1xVD/AhQia0pvvpr1OLBU9dBdSsODx0NZu1DjT8TQnUVWjV2CBEnFw6gNfk+j/K8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lK8HQVZ2; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=slYTDISDI/yclsEP2nA6LqAhTg19t/dDqqB2NwZ297EoEQYIPI+v6mwYBmf3oPiY+PpgjvMs/VznH4bt5kwp/xfDhRNtKsN1IzK3ZQ/wLXcSnSY5Sl4G23Ch7kcbplSUi57x3/pHGZcc7ZVvRGRmYIbnkF83lLI7dZAHgI19QR4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cNEPJOr9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lK8HQVZ2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F3A71F000FF;
-	Mon,  5 Oct 2026 16:43:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cNEPJOr9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEF8E1F000FF;
+	Mon,  5 Oct 2026 16:44:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791218630;
-	bh=GOVf1qW4FVrKgOHO/hYx+Mk0zavwXV+zS7n/08yOJ7s=;
+	s=k20260515; t=1791218664;
+	bh=J4LAbHXuSmgy/NF2R7lQQHj1sjX2pN5tr3yYm7XcjHo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lK8HQVZ2/BCu4jjPVfujspST/pk0pBMxNH+IlJ3BTP8BMkl2Tr8/iHEeQVa1O2+RV
-	 JqtOh0c9EyMzmm5J2QL96XcFI2rYgZYq2eIOXqC+c1NUp21kYSbvlMWXPnVO8XVTLy
-	 8B5R74HGtqGJTeofaUA2AdLsVZndGGNDzE7WLiRzNjAtHAz7Lpz5G7r5PqsPXAv6q2
-	 BPLOjB0tEKtrmNuc3wiCoYGm8n2sfUutbsu05do9XLgvXRbe4i+uaNn+WxUUh7I0qB
-	 0SMXqcBS0p9I3hvrW5MXcO0Iz/wjKFOu6WjXutcD4tJrm9CpVQicPEz1taAZSu18ra
-	 1uAKqQGVIlJdg==
+	b=cNEPJOr9zpFx5gr+FcwZJW63kxAMhLKEHm8yzEy/xngnatY54b56A+vQhlHj+5Egl
+	 X+7X9Lo9CyME/iNlMpIPvZD+SZ+wQ7j8R58COw44HWu4Q35iXKLVxN40TG9KWdNyKD
+	 0V/PQ4ugYmjOv3a2e/AFI3f1muKq2JohJh/kxN+G9pUliPd5VUmEfXb/WeaUxHlDqf
+	 zVT6TIJeAS90CJmtfzd1152FIoy8/CsIhpQL6wTZeOvLem0d73sLsV87UH3cgVeIwe
+	 5q4WwSpQbSIr37SS1gCzqcEIQvI5lF3i+62BzC/mlHNVee6oonD7LuPKKhipwpZV3D
+	 ipdZz3+27AX8w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Daniel Starke <daniel.starke@siemens.com>,
+Cc: Pannarat Wiriyaarritham <pannarat.wiriyaarritham@danielcorp.dev>,
 	stable <stable@kernel.org>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] tty: n_gsm: fix missing modem controls after DLCI open in convergence layer type 2
-Date: Mon,  5 Oct 2026 12:43:46 -0400
-Message-ID: <20261005164328.3063521-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] usb: typec: ucsi: acpi: Assume UCSI 1.2 on Acer Nitro ANV15-41
+Date: Mon,  5 Oct 2026 12:44:14 -0400
+Message-ID: <20261005164300.3061797-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100502-outsell-unclothed-a941@gregkh>
-References: <2026100502-outsell-unclothed-a941@gregkh>
+In-Reply-To: <2026100537-fang-cold-8093@gregkh>
+References: <2026100537-fang-cold-8093@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,178 +47,90 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Daniel Starke <daniel.starke@siemens.com>
+From: Pannarat Wiriyaarritham <pannarat.wiriyaarritham@danielcorp.dev>
 
-[ Upstream commit 11ea5a63d30ad6d305b1c22301cd99ff45a98c8d ]
+[ Upstream commit 8c51ea651d043c786c37668c51624bd6b338a0ef ]
 
-The current implementation only updates the virtual V.24 control signals
-after DLCI open in basic option mode. In advanced option mode with
-convergence layer type 2 an empty data frame needs to be transmitted to
-inform the peer about the initial virtual V.24 control signals. Not doing
-so has two unwanted side effects:
-1. hardware flow control status is unclear (initial CTS line is unknown)
-2. DLCI user presence is not transmitted (initial DTR line is unknown)
+The Acer Nitro ANV15-41 exposes a functional UCSI ACPI PPM but
+reports a UCSI VERSION value of zero.
 
-Applications waiting on these lines can not start after a DLCI has been
-opened until the first data frame has been transmitted.
+ucsi_register() rejects a zero version with -ENODEV, leaving the
+system without registered USB Type-C connectors.
 
-Fix this by using gsm_modem_update() thoroughly which handles basic and
-advanced option mode correctly. Add a flag in gsm_modem_update() and the
-delegated gsm_modem_upd_via_msc() to control whether waiting for the MSC
-command response is possible. Remove obsolete gsm_modem_send_initial_msc().
+The PPM works correctly when using the UCSI 1.2 layout. With UCSI
+1.2 assumed, both Type-C connectors register correctly and USB Power
+Delivery negotiation works.
 
-Fixes: 3cf0b3c243e5 ("tty: n_gsm: Don't block input queue by waiting MSC")
+Add a DMI-specific UCSI operation for the Acer Nitro ANV15-41 that
+substitutes UCSI 1.2 only when firmware reports a zero version.
+Preserve any valid non-zero firmware version.
+
+Tested on an Acer Nitro ANV15-41 with BIOS V1.51.
+
+Fixes: c1b0bc2dabfa ("usb: typec: Add support for UCSI interface")
 Cc: stable <stable@kernel.org>
-Signed-off-by: Daniel Starke <daniel.starke@siemens.com>
-Link: https://patch.msgid.link/20260826063026.2472-1-daniel.starke@siemens.com
+Assisted-by: LLM
+Signed-off-by: Pannarat Wiriyaarritham <pannarat.wiriyaarritham@danielcorp.dev>
+Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Link: https://patch.msgid.link/20260910023338.31816-1-pannarat.wiriyaarritham@danielcorp.dev
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ sashal: Adjusted deletion context for the missing colon in the `@dlci` comment. ]
+[ sashal: Omitted the unsupported .write_message_out initializer from ucsi_acer_ops. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/tty/n_gsm.c | 47 ++++++++++++++-------------------------------
- 1 file changed, 14 insertions(+), 33 deletions(-)
+ drivers/usb/typec/ucsi/ucsi_acpi.c | 33 ++++++++++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
-diff --git a/drivers/tty/n_gsm.c b/drivers/tty/n_gsm.c
-index 553d8c70352b1..0749f50cff90a 100644
---- a/drivers/tty/n_gsm.c
-+++ b/drivers/tty/n_gsm.c
-@@ -454,14 +454,13 @@ static const u8 gsm_fcs8[256] = {
+diff --git a/drivers/usb/typec/ucsi/ucsi_acpi.c b/drivers/usb/typec/ucsi/ucsi_acpi.c
+index 94b52ccf6f426..c3f6856032c20 100644
+--- a/drivers/usb/typec/ucsi/ucsi_acpi.c
++++ b/drivers/usb/typec/ucsi/ucsi_acpi.c
+@@ -105,6 +105,32 @@ static const struct ucsi_operations ucsi_acpi_ops = {
+ 	.async_control = ucsi_acpi_async_control
+ };
  
- static void gsm_dlci_close(struct gsm_dlci *dlci);
- static int gsmld_output(struct gsm_mux *gsm, u8 *data, int len);
--static int gsm_modem_update(struct gsm_dlci *dlci, u8 brk);
-+static int gsm_modem_update(struct gsm_dlci *dlci, u8 brk, bool wait);
- static struct gsm_msg *gsm_data_alloc(struct gsm_mux *gsm, u8 addr, int len,
- 								u8 ctrl);
- static int gsm_send_packet(struct gsm_mux *gsm, struct gsm_msg *msg);
- static struct gsm_dlci *gsm_dlci_alloc(struct gsm_mux *gsm, int addr);
- static void gsmld_write_trigger(struct gsm_mux *gsm);
- static void gsmld_write_task(struct work_struct *work);
--static int gsm_modem_send_initial_msc(struct gsm_dlci *dlci);
- 
- /**
-  *	gsm_fcs_add	-	update FCS
-@@ -2175,7 +2174,7 @@ static void gsm_dlci_open(struct gsm_dlci *dlci)
- 		pr_debug("DLCI %d goes open.\n", dlci->addr);
- 	/* Send current modem state */
- 	if (dlci->addr) {
--		gsm_modem_send_initial_msc(dlci);
-+		gsm_modem_update(dlci, 0, false);
- 	} else {
- 		/* Start keep-alive control */
- 		gsm->ka_num = 0;
-@@ -4137,9 +4136,10 @@ static void gsm_modem_upd_via_data(struct gsm_dlci *dlci, u8 brk)
-  *	gsm_modem_upd_via_msc	-	send modem bits via control frame
-  *	@dlci: channel
-  *	@brk: break signal
-+ *	@wait: wait for the MSC command
-  */
- 
--static int gsm_modem_upd_via_msc(struct gsm_dlci *dlci, u8 brk)
-+static int gsm_modem_upd_via_msc(struct gsm_dlci *dlci, u8 brk, bool wait)
++static int ucsi_acer_read_version(struct ucsi *ucsi, u16 *version)
++{
++	struct ucsi_acpi *ua = ucsi_get_drvdata(ucsi);
++	int ret;
++
++	ret = ucsi_acpi_read_version(ucsi, version);
++	if (ret)
++		return ret;
++
++	if (!*version) {
++		dev_warn(ua->dev, "UCSI version is zero, assuming 1.2\n");
++		*version = UCSI_VERSION_1_2;
++	}
++
++	return 0;
++}
++
++static const struct ucsi_operations ucsi_acer_ops = {
++	.read_version = ucsi_acer_read_version,
++	.read_cci = ucsi_acpi_read_cci,
++	.poll_cci = ucsi_acpi_poll_cci,
++	.read_message_in = ucsi_acpi_read_message_in,
++	.sync_control = ucsi_sync_control_common,
++	.async_control = ucsi_acpi_async_control
++};
++
+ static int ucsi_gram_sync_control(struct ucsi *ucsi, u64 command, u32 *cci,
+ 				  void *val, size_t len)
  {
- 	u8 modembits[3];
- 	struct gsm_control *ctrl;
-@@ -4156,41 +4156,22 @@ static int gsm_modem_upd_via_msc(struct gsm_dlci *dlci, u8 brk)
- 		modembits[2] = (brk << 4) | 2 | EA; /* Length, Break, EA */
- 		len++;
- 	}
-+	if (!wait)
-+		return gsm_control_command(dlci->gsm, CMD_MSC, modembits, len);
- 	ctrl = gsm_control_send(dlci->gsm, CMD_MSC, modembits, len);
- 	if (ctrl == NULL)
- 		return -ENOMEM;
- 	return gsm_control_wait(dlci->gsm, ctrl);
- }
+@@ -144,6 +170,13 @@ static const struct ucsi_operations ucsi_gram_ops = {
+ };
  
--/**
-- * gsm_modem_send_initial_msc - Send initial modem status message
-- *
-- * @dlci channel
-- *
-- * Send an initial MSC message after DLCI open to set the initial
-- * modem status lines. This is only done for basic mode.
-- * Does not wait for a response as we cannot block the input queue
-- * processing.
-- */
--static int gsm_modem_send_initial_msc(struct gsm_dlci *dlci)
--{
--	u8 modembits[2];
--
--	if (dlci->adaption != 1 || dlci->gsm->encoding != GSM_BASIC_OPT)
--		return 0;
--
--	modembits[0] = (dlci->addr << 2) | 2 | EA; /* DLCI, Valid, EA */
--	modembits[1] = (gsm_encode_modem(dlci) << 1) | EA;
--	return gsm_control_command(dlci->gsm, CMD_MSC, (const u8 *)&modembits, 2);
--}
--
- /**
-  *	gsm_modem_update	-	send modem status line state
-  *	@dlci: channel
-  *	@brk: break signal
-+ *	@wait: wait for the MSC command
-  */
- 
--static int gsm_modem_update(struct gsm_dlci *dlci, u8 brk)
-+static int gsm_modem_update(struct gsm_dlci *dlci, u8 brk, bool wait)
- {
- 	if (dlci->gsm->dead)
- 		return -EL2HLT;
-@@ -4200,7 +4181,7 @@ static int gsm_modem_update(struct gsm_dlci *dlci, u8 brk)
- 		return 0;
- 	} else if (dlci->gsm->encoding == GSM_BASIC_OPT) {
- 		/* Send as MSC control message. */
--		return gsm_modem_upd_via_msc(dlci, brk);
-+		return gsm_modem_upd_via_msc(dlci, brk, wait);
- 	}
- 
- 	/* Modem status lines are not supported. */
-@@ -4266,7 +4247,7 @@ static void gsm_dtr_rts(struct tty_port *port, bool active)
- 		modem_tx &= ~(TIOCM_DTR | TIOCM_RTS);
- 	if (modem_tx != dlci->modem_tx) {
- 		dlci->modem_tx = modem_tx;
--		gsm_modem_update(dlci, 0);
-+		gsm_modem_update(dlci, 0, true);
- 	}
- }
- 
-@@ -4472,7 +4453,7 @@ static int gsmtty_tiocmset(struct tty_struct *tty,
- 
- 	if (modem_tx != dlci->modem_tx) {
- 		dlci->modem_tx = modem_tx;
--		return gsm_modem_update(dlci, 0);
-+		return gsm_modem_update(dlci, 0, true);
- 	}
- 	return 0;
- }
-@@ -4554,7 +4535,7 @@ static void gsmtty_throttle(struct tty_struct *tty)
- 		dlci->modem_tx &= ~TIOCM_RTS;
- 	dlci->throttled = true;
- 	/* Send an MSC with RTS cleared */
--	gsm_modem_update(dlci, 0);
-+	gsm_modem_update(dlci, 0, true);
- }
- 
- static void gsmtty_unthrottle(struct tty_struct *tty)
-@@ -4566,7 +4547,7 @@ static void gsmtty_unthrottle(struct tty_struct *tty)
- 		dlci->modem_tx |= TIOCM_RTS;
- 	dlci->throttled = false;
- 	/* Send an MSC with RTS set */
--	gsm_modem_update(dlci, 0);
-+	gsm_modem_update(dlci, 0, true);
- }
- 
- static int gsmtty_break_ctl(struct tty_struct *tty, int state)
-@@ -4584,7 +4565,7 @@ static int gsmtty_break_ctl(struct tty_struct *tty, int state)
- 		if (encode > 0x0F)
- 			encode = 0x0F;	/* Best effort */
- 	}
--	return gsm_modem_update(dlci, encode);
-+	return gsm_modem_update(dlci, encode, true);
- }
- 
- static void gsmtty_cleanup(struct tty_struct *tty)
+ static const struct dmi_system_id ucsi_acpi_quirks[] = {
++	{
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "Acer"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "Nitro ANV15-41"),
++		},
++		.driver_data = (void *)&ucsi_acer_ops,
++	},
+ 	{
+ 		.matches = {
+ 			DMI_MATCH(DMI_SYS_VENDOR, "LG Electronics"),
 -- 
 2.53.0
 
