@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA5F0412BF3
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 22:53:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 491C642466A
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 22:54:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791240821; cv=none; b=aV8LRJhqyHHR6Y1HO6vxovvYe1edrvvWULl213LAtWOeFNPFHrzX+KkU/TcKampjR60xyPVOvd2qydO32rxWptWg+cCbUbWcl5ziaXD0MXkyzHW28Jz9m49Leyy7dbrL3mU3+9fzSej6qEY7o2d72svvF6GKfSINIB4bdnmwoU0=
+	t=1791240845; cv=none; b=Jw4psnpiTSbFTC27bTQUuWyDGNcJ8588KhdlpzAG1I3bBOk0TE+H306kDxgHYz8s0XOkIcYH/Pbc0a5eeEfEdVNoCYD8O4AeU3SvC+vQsPJsvF3K9PqT4o5tseEA5kVA35988NwrZMynWnOWbkUK4K8YUlaPcMKB1coyc9vUkSc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791240821; c=relaxed/simple;
-	bh=tdOFE6FcJ8Zaz8nWme+IK4YauiWyzaLXFkG6MfVuq24=;
+	s=arc-20240116; t=1791240845; c=relaxed/simple;
+	bh=78Wwv0gNWOo5kU8TgV+fJGzYN4UvVhv3rvCqdUou0Ng=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mVqq10C63gzqhLO/ohFgVg6e6c1vtKHtae1FCKU3/dz7riSIbeY8bwTn2WAAD3OtV8ma+SshnPS+1to+00vgcjkkIcrNct2jlWHJdTBZqvop8IX8ZftNEfR1Kh3McmasbQ+EtrR6FN8EyLpZMVihyALDQFGOCHk5aP7qDSsS5fk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OM+0MhIl; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=D9aYu1X23WYXdL6ow/wOfgGjO7MF6La8M80nocqCx0ONgcS5yRwyKIRyI4p9RvGmgYWls3P+dW8rphNdKoDHtFR7i4eKFQqJnSx63Z7cE64gl1Uii+pIiUYm5cPdcx+JHHaQn8ksPcHJzXR0PxZuVd+3UlJxezEFz4YbHZ0DVGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LQRLCBvP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OM+0MhIl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1990B1F00893;
-	Mon,  5 Oct 2026 22:53:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LQRLCBvP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C9911F00893;
+	Mon,  5 Oct 2026 22:54:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791240819;
-	bh=/9u5YCDZZWTHgBHcgeJoLuJwzUonN+kLMnwAF3Cl/UM=;
+	s=k20260515; t=1791240844;
+	bh=mi7IvZcqZBPna0hzcXGkgESMTdoU9n4bpJp8LwWe6m8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OM+0MhIl2AgrLGQkZlFPgJUbDrQ9ekml51UDrVPfY24sIYGz5rrugImGH/tbIGLVt
-	 Wx+nS08zLtQhDHauIOz14w4VgN4RMwz0F/lDSO7JOZqpOoJ8LKHkkDiOUNb9Isu4Yy
-	 qcLDKpGtMsUWEeg7EKLnigXl8tyRUyHNsWxZvfIF5W7jVdspup1XDT2qzQ37tDDRIq
-	 6uWKrjlXYlk0W8FwdySUbcQlf+Cx4lAUcWv2s6DMi88vrrFF5LIkXrlt97RKpCRDNy
-	 ZGLANo4tTOQ7CJs/3Nl3O9lKdwD+dUT6n05hK01S407tzX68SMnnHa0b7LTinbsN12
-	 Tj9UD/QmLtuFQ==
+	b=LQRLCBvPyxe3FVtq/xFVApurnGRa4P8tPXRuC2nojfkBWtR+CVyPS6i3oblXl+peL
+	 oWlzXdm/4U93mTOGXBO/VsFQLd4tG0IBzN9c6NG29+4/ykTofDfKMAgk9ajycfn9uq
+	 IaAy17qJTyaJ0TUZ0xfwJqPU2bNza6wSpdvCRpqKxH77ocwTULd9uRcEZhFL8ycy7I
+	 W/4gOpMlsTBt5YTuVHC/o/jZ3FkNFqLWh8hgYHZ3vMl1CgDcFl/2W4yKOamg90zpRq
+	 cNd3UIbMTzDKK5D82OVB5q9isf2gn13/1tw3CeHSUNAUdiLOlqzcs8elll2aQw/YtE
+	 9JI/Yhh+xiwCw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Beata Michalska <beata.michalska@arm.com>,
-	Vladimir Murzin <vladimir.murzin@arm.com>,
+Cc: Mark Rutland <mark.rutland@arm.com>,
+	Mark Brown <broonie@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
 	Will Deacon <will@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 2/2] arm64: errata: Add Cortex-A725 erratum 3821522 workaround
-Date: Mon,  5 Oct 2026 18:53:34 -0400
-Message-ID: <20261005225325.3487067-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y] arm64/fpsimd: signal: Forbid non-streaming SVE payload on SME-only systems
+Date: Mon,  5 Oct 2026 18:54:00 -0400
+Message-ID: <20261005225320.3519534-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261005225325.3487067-1-sashal@kernel.org>
-References: <2026100500-widget-handcart-8d85@gregkh>
- <20261005225325.3487067-1-sashal@kernel.org>
+In-Reply-To: <2026100536-creative-pusher-9bf0@gregkh>
+References: <2026100536-creative-pusher-9bf0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,122 +47,144 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Beata Michalska <beata.michalska@arm.com>
+From: Mark Rutland <mark.rutland@arm.com>
 
-[ Upstream commit 45f7304679875eb000d67e194090ee7abd05c89c ]
+[ Upstream commit e060d9069b49fe55f38057dfe592068014652671 ]
 
-Cortex-A725 erratum 3821522 affects the CNT_CYCLES event, which can
-incur a significant increment error when a CPU enters and subsequently
-exits WFE or WFI, and may no longer track the system counter
-frequency.
+When system_supports_sme() is true but system_supports_sve() is false,
+restoring a specifically crafted SVE signal context can result in the
+task erroneously having non-streaming SVE state. Subsequent attempts to
+manipulate the task's FPSIMD/SVE/SME state can result in a variety of
+problems, including fatal EL1 UNDEFs.
 
-The AMEVCNTR01_EL0 counter is used as the AMU constant counter for
-frequency invariance and CPPC FFH feedback counters. Wire the affected
-Cortex-A725 range into the shared broken AMU constant-counter capability
-so the affected counter is treated as unavailable by returning zero in
-the AMU counter paths. This prevents the broken counter from being used
-as a reference source.
+In such configurations, the kernel always creates an SVE signal context
+when delivering a signal, and this can only be in one of two states:
 
-The erratum can also affect PMUv3 users of the CNT_CYCLES event,
-but this workaround intentionally does not change PMU event handling.
-Hiding or rejecting the PMU event from the erratum code would change
-the perf-visible PMU event interface, including raw event selection,
-and would need a separate PMU-specific approach rather than being
-folded into the AMU reference-counter workaround.
+(1) SVE_SIG_FLAG_SM is set, and an SVE payload is present containing
+    streaming mode SVE state. The recorded VL is the task's live
+    streaming VL.
 
+(2) SVE_SIG_FLAG_SM is clear, and an SVE payload is not present. The
+    FPSIMD context contains the non-streaming mode FPSIMD state. The
+    recorded VL is 0.
+
+Currently restore_sve_fpsimd_context() correctly rejects cases where
+SVE_SIG_FLAG_SM is set and an SVE payload is not present, but fails to
+reject cases where SVE_SIG_FLAG_SM is clear and an SVE payload is
+present. Consequently, restore_sve_fpsimd_context() can place the task
+in a state where it has non-streaming SVE state even when this is not
+supported by HW.
+
+For example, this can cause a later EL1 UNDEF when the kernel attempts to
+restore the task's ZCR_EL1 value:
+
+| # ./sme-sigcontext-to-sve
+| Internal error: Oops - Undefined instruction: 0000000002000000 [#1]  SMP
+| Modules linked in:
+| CPU: 0 UID: 0 PID: 131 Comm: sme-sigcontext- Not tainted 7.3.0-rc1 #1 PREEMPT
+| Hardware name: linux,dummy-virt (DT)
+| pstate: 61402009 (nZCv daif +PAN -UAO -TCO +DIT -SSBS BTYPE=--)
+| pc : fpsimd_restore_current_state+0x258/0x458
+| lr : exit_to_user_mode_loop+0xb8/0x188
+| sp : ffff80008056be40
+| x29: ffff80008056be40 x28: fff00000c1670000 x27: 0000000000000000
+| x26: 0000000000000000 x25: 0000000000000000 x24: 0000000000000000
+| x23: ffff80008056bec0 x22: 0000000000000008 x21: 0000000000000040
+| x20: 0000000000000081 x19: 0000000008800010 x18: 0000000000000000
+| x17: 0000fffffd412570 x16: 0000000000001000 x15: 0000fffffd4123b0
+| x14: 0000fffffd412780 x13: 0000fffffd412be8 x12: 0000000047435300
+| x11: 0000fffffd412570 x10: 0000000000000000 x9 : 0000000045585401
+| x8 : fff00000c18a6c44 x7 : 0000000000000000 x6 : 0000000000000002
+| x5 : 0000000000000002 x4 : ffff800080568000 x3 : 0000000000000001
+| x2 : 0000000008800010 x1 : fff00000c1670000 x0 : 0000000008800000
+| Call trace:
+|  fpsimd_restore_current_state+0x258/0x458 (P)
+|  exit_to_user_mode_loop+0xb8/0x188
+|  el0_svc+0x1cc/0x1d0
+|  el0t_64_sync_handler+0xa0/0xe4
+|  el0t_64_sync+0x198/0x19c
+| Code: d5384101 f9400020 53175c03 36b80de0 (d5381202)
+| ---[ end trace 0000000000000000 ]---
+| Kernel panic - not syncing: Oops - Undefined instruction: Fatal exception in interrupt
+| Kernel Offset: 0x291fb1000000 from 0xffff800080000000
+| PHYS_OFFSET: 0x40000000
+| CPU features: 0x0,00000000,0052802f,ffb88f43,3afcf73f
+| Memory Limit: none
+
+Rework restore_sve_fpsimd_context() to reject cases where
+SVE_SIG_FLAG_SM is clear and an SVE payload is not present. As
+parse_user_sigframe() rejects SVE signal frames when neither SVE nor SME
+are supported, it isn't necessary for restore_sve_fpsimd_context() to
+handle the case where neither are supported.
+
+Fixes: 7dde62f0687c  ("arm64/signal: Always accept SVE signal frames on SME only systems")
+Signed-off-by: Mark Rutland <mark.rutland@arm.com>
+Reviewed-by: Mark Brown <broonie@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Will Deacon <will@kernel.org>
 Cc: stable@vger.kernel.org
-Signed-off-by: Beata Michalska <beata.michalska@arm.com>
-Reviewed-by: Vladimir Murzin <vladimir.murzin@arm.com>
 Signed-off-by: Will Deacon <will@kernel.org>
+[ sashal: Used the copied sve.head.size instead of the unavailable user->sve_size field. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- Documentation/arch/arm64/silicon-errata.rst |  2 ++
- arch/arm64/Kconfig                          | 22 +++++++++++++++++++++
- arch/arm64/kernel/cpu_errata.c              |  4 ++++
- arch/arm64/kernel/topology.c                |  9 +++++----
- 4 files changed, 33 insertions(+), 4 deletions(-)
+ arch/arm64/kernel/signal.c | 25 ++++++++++++++++++++-----
+ 1 file changed, 20 insertions(+), 5 deletions(-)
 
-diff --git a/Documentation/arch/arm64/silicon-errata.rst b/Documentation/arch/arm64/silicon-errata.rst
-index 88b4aa45a2066..826dfb90c8f7a 100644
---- a/Documentation/arch/arm64/silicon-errata.rst
-+++ b/Documentation/arch/arm64/silicon-errata.rst
-@@ -174,6 +174,8 @@ stable kernels.
- +----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Cortex-A725     | #3456106        | ARM64_ERRATUM_3194386       |
- +----------------+-----------------+-----------------+-----------------------------+
-+| ARM            | Cortex-A725     | #3821522        | ARM64_ERRATUM_3821522       |
-++----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Cortex-X1       | #1502854        | N/A                         |
- +----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Cortex-X1       | #3324344        | ARM64_ERRATUM_3194386       |
-diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index a38a3940cf208..89b6a7dc6d32d 100644
---- a/arch/arm64/Kconfig
-+++ b/arch/arm64/Kconfig
-@@ -1058,6 +1058,28 @@ config ARM64_ERRATUM_2645198
+diff --git a/arch/arm64/kernel/signal.c b/arch/arm64/kernel/signal.c
+index 9fd7f78d11d1e..b00bf1a415400 100644
+--- a/arch/arm64/kernel/signal.c
++++ b/arch/arm64/kernel/signal.c
+@@ -271,22 +271,37 @@ static int restore_sve_fpsimd_context(struct user_ctxs *user)
+ 	unsigned int vl, vq;
+ 	struct user_fpsimd_state fpsimd;
+ 	struct sve_context sve;
++	bool fpsimd_only;
  
- 	  If unsure, say Y.
+ 	if (__copy_from_user(&sve, user->sve, sizeof(sve)))
+ 		return -EFAULT;
  
-+config ARM64_ERRATUM_3821522
-+	bool "Cortex-A725: 3821522: workaround for possible CNT_CYCLES increment error due to WFE/WFI"
-+	depends on ARM64_AMU_EXTN
-+	select ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
-+	default y
-+	help
-+	  This option adds the workaround for ARM Cortex-A725 erratum 3821522.
++	fpsimd_only = (sve.head.size <= sizeof(*user->sve));
 +
-+	  On affected A725 cores, the CNT_CYCLES event may incur a significant
-+	  increment error when entering and subsequently exiting WFx.
-+	  As a result, the CNT_CYCLES may diverge from the system counter
-+	  frequency at which it is expected to increment.
-+	  This renders the AMU counter AMEVCNTR01, that implements CNT_CYCLES,
-+	  being unreliable and unsuitable for use.
-+
-+	  Since there is no hardware workaround, reads of the affected CNT_CYCLES
-+	  counter return 0 in the relevant paths. This causes users of the counter
-+	  to treat it as unavailable and is functionally equivalent to firmware
-+	  disabling the affected counter.
-+
-+	  If unsure, say Y.
-+
- config ARM64_WORKAROUND_SPECULATIVE_UNPRIV_LOAD
- 	bool
+ 	if (sve.flags & SVE_SIG_FLAG_SM) {
+ 		if (!system_supports_sme())
+ 			return -EINVAL;
  
-diff --git a/arch/arm64/kernel/cpu_errata.c b/arch/arm64/kernel/cpu_errata.c
-index a6dc9f20373e5..f67ae51dc2395 100644
---- a/arch/arm64/kernel/cpu_errata.c
-+++ b/arch/arm64/kernel/cpu_errata.c
-@@ -382,6 +382,10 @@ static const struct midr_range workaround_amu_constcnt_list[] = {
- #ifdef CONFIG_ARM64_ERRATUM_2457168
- 	/* Cortex-A510 r0p0-r1p1 */
- 	MIDR_RANGE(MIDR_CORTEX_A510, 0, 0, 1, 1),
-+#endif
-+#ifdef CONFIG_ARM64_ERRATUM_3821522
-+	/* Cortex-A725 r0p0 - r0p2 */
-+	MIDR_RANGE(MIDR_CORTEX_A725, 0, 0, 0, 2),
- #endif
- 	{}
- };
-diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
-index 15035f051c25b..b4f6eb213aa89 100644
---- a/arch/arm64/kernel/topology.c
-+++ b/arch/arm64/kernel/topology.c
-@@ -385,10 +385,11 @@ static void cpu_read_corecnt(void *val)
- static void cpu_read_constcnt(void *val)
- {
- 	/*
--	 * Return 0 if the current CPU is affected by erratum 2457168. A value
--	 * of 0 is also returned if the current CPU does not support AMUs or if
--	 * the counter is disabled. A return value of 0 at counter read is
--	 * properly handled as an error case by the users of the counter.
-+	 * Return 0 if the current CPU is affected by a HW erratum.
-+	 * A value of 0 is also returned if the current CPU does not
-+	 * support AMUs or if the counter is disabled. A return
-+	 * value of 0 at counter read is properly handled as an error
-+	 * case by the users of the counter.
- 	 */
- 	*(u64 *)val = this_cpu_has_cap(ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT) ?
- 		      0UL : read_constcnt();
++		/*
++		 * Streaming SVE state is always preserved with an SVE payload.
++		 * Only accept streaming state which has an SVE payload.
++		 */
++		if (fpsimd_only)
++			return -EINVAL;
++
+ 		vl = task_get_sme_vl(current);
+ 	} else {
+ 		/*
+-		 * A SME only system use SVE for streaming mode so can
+-		 * have a SVE formatted context with a zero VL and no
+-		 * payload data.
++		 * Non-streaming SVE state may be preserved without an SVE
++		 * payload, in which case all state is saved in the FPSIMD
++		 * context.
++		 *
++		 * On SME-only systems, non-streaming (FPSIMD-only) state is
++		 * always preserved without an SVE payload, and with VL==0. On
++		 * such systems, only accept non-streaming state without an SVE
++		 * payload.
+ 		 */
+-		if (!system_supports_sve() && !system_supports_sme())
++		if (!system_supports_sve() && !fpsimd_only)
+ 			return -EINVAL;
+ 
+ 		vl = task_get_sve_vl(current);
+@@ -295,7 +310,7 @@ static int restore_sve_fpsimd_context(struct user_ctxs *user)
+ 	if (sve.vl != vl)
+ 		return -EINVAL;
+ 
+-	if (sve.head.size <= sizeof(*user->sve)) {
++	if (fpsimd_only) {
+ 		clear_thread_flag(TIF_SVE);
+ 		current->thread.svcr &= ~SVCR_SM_MASK;
+ 		current->thread.fp_type = FP_STATE_FPSIMD;
 -- 
 2.53.0
 
