@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B46B84AAC73
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 15:15:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5FC64C6536
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 15:15:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791213323; cv=none; b=oXCRLwNAN0Gb22r56R6j8OIGEyz1fxqsMPUX2jCgCUdJDJLrZZ/GWBhYHytAaktg5iqD/t4fh/zFvijP2zm4EGDaYyFvD5JviOn0JGU+/Qgo5TekAMAxc8cGsPm6PV+c4yYuMmPMOg2Ohh+83Ai5aHsX2SsoKSCA6EcaATJXtrM=
+	t=1791213326; cv=none; b=SR4Q1D2khqJgKyhqXDDLYrBDtwwk5lGkI9/cafPUIcExGE8NJjIcvZD74VB1jcyWpu61NzPH1Nw5HSl8ZwxF9Bt2P5Bn1BrtGg5hA/ANefmP0Aa2QC9v8n/7W217yOIoD7LDWEhaY5f1ZCID4aF5HXfTPG/zhej9HdZ69EHz/x4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791213323; c=relaxed/simple;
-	bh=nK66EQ0a3AjREquWMR7BvnzfMufTKE6W6EtaVhEZcpo=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=HYytV8eMXNophcVGsYkE7ZJOa6urxfVp6hdAyv85bBpgbYSHj0Bq7eYSYr+CCfegmyC/wrBeWhZGWBNHDvqGmXDex2Y7doKWITwBHL/kfCXQWWXrdazwVezkg24yHZcoaqnDxXmkeDCLyknWt4SFtwaV8E3xey9FhuI3lKgWquE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=NRY6KL3X; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791213326; c=relaxed/simple;
+	bh=5nuGjSZFb7uxds7Uuxk/Oxt7D8V+T2unVamgqWm9vSA=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=C4yQwhoTAFUJisd8vEjQtaYI0dzYiqxVhOMmHtTCyGeeSjGBv83Jt2R5ww2XkbGPnKxVWlMtbuMkj8xQV6/S0Lsf6+etHWc2LxQ+/A5c6C09pBt1HxFIySRl21kua57mdvvf1x8BLecfulVZWTfv924QgMJMmmkAYKmawJn3Dmg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=CbB3jksm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NRY6KL3X"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 211EA1F000FF;
-	Mon,  5 Oct 2026 15:15:20 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="CbB3jksm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D213C1F000FF;
+	Mon,  5 Oct 2026 15:15:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791213321;
-	bh=GKp6cVgDTBuizhn4qhQSlMA/BYHYZT1+eM/xFahoFts=;
+	s=korg; t=1791213324;
+	bh=ckMv6HsBk+NT8SNuSYWN1hUnaC0wsO1A/hRzMdfUfsw=;
 	h=Subject:To:Cc:From:Date;
-	b=NRY6KL3XaheYIqDlob7tWXcmNTy0Ej3RlVzS+0zpeYqHpSjJVSxcll7A4EqkR3J0c
-	 8c4F4+TVwJpY25AcYky1VmYq58VQ2XrAzWyhgQiVpDlqQciBr2IrBUYVnxk1aBNePH
-	 OazuCWOQTARepe7F20dFnGEYuazhC5a/6yomxQes=
-Subject: FAILED: patch "[PATCH] smb: client: require stable pages for signed connections" failed to apply to 6.12-stable tree
+	b=CbB3jksm9RlWp+pkw7iwyAnywthDSWPXupnNwaUjCH5IZ1e57HytdMnGHcax6u2BA
+	 8G/oMxYtQoJY4kOB5sRrGu59D74vOBZRw7Oku/cJjTLi+B1/EDltJURBQOxTUyJV+8
+	 LRxAbw4PzjLHW5CjqHx1QIfpy4MtoyWRAIc5UJnw=
+Subject: FAILED: patch "[PATCH] smb: client: flush and commit data before querying allocated" failed to apply to 6.6-stable tree
 To: pc@manguebit.org,bharathsm@microsoft.com,brauner@kernel.org,dhowells@redhat.com,linkinjeon@kernel.org,ronniesahlberg@gmail.com,sprasad@microsoft.com,tom@talpey.com,willy@infradead.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 05 Oct 2026 17:12:44 +0200
-Message-ID: <2026100544-sasquatch-illusive-c85c@gregkh>
+Date: Mon, 05 Oct 2026 17:13:42 +0200
+Message-ID: <2026100542-gigabyte-gumball-ac3b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 53c5c2c1095eb21e214811fec16cd75f89d72ee2
+git cherry-pick -x aa994489bd835547c191827acc460192e147032d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100544-sasquatch-illusive-c85c@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100542-gigabyte-gumball-ac3b@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,23 +62,42 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 53c5c2c1095eb21e214811fec16cd75f89d72ee2 Mon Sep 17 00:00:00 2001
+From aa994489bd835547c191827acc460192e147032d Mon Sep 17 00:00:00 2001
 From: Paulo Alcantara <pc@manguebit.org>
-Date: Mon, 28 Sep 2026 10:23:00 -0300
-Subject: [PATCH] smb: client: require stable pages for signed connections
+Date: Fri, 25 Sep 2026 19:35:12 -0300
+Subject: [PATCH] smb: client: flush and commit data before querying allocated
+ ranges
 
-When signing, cifs computes the SMB signature over the pagecache folios
-in place and then hands those same folios to the socket.  If a buffered
-write mutates a folio while a write subrequest is still in flight, the
-signature no longer matches the data that follows it, the server rejects
-the write with STATUS_ACCESS_DENIED (-EACCES), and the error is latched
-in the mapping, so the next fsync()/fallocate() returns -EIO.
+The mode 0 / FALLOC_FL_KEEP_SIZE fallocate emulation for small interior
+ranges in smb3_simple_fallocate_range() issues
+FSCTL_QUERY_ALLOCATED_RANGES and zero-fills any sub-range the server
+reports as an unallocated hole, to force block allocation without
+changing file contents.
 
-Mark the mapping for stable writes so netfs_perform_write() waits for
-writeback to complete before modifying an in-flight folio.  This is
-only needed when the connection is signed.
+This is unsafe against Windows servers.  Per the Win32 documentation,
+FSCTL_QUERY_ALLOCATED_RANGES only reports ranges that *may* contain
+nonzero data and is explicitly not coherent with recently written data:
 
-Fixes: 3ee1a1fc3981 ("cifs: Cut over to using netfslib")
+  "a call to FSCTL_QUERY_ALLOCATED_RANGES [after writing to a network
+   file] would not necessarily return a correct list of allocated
+   regions.  To ensure coherency [...] flush the data to the file"
+
+fsx (generic/363) reproduces the resulting corruption against Windows
+Server 2022: a range is written, an uncached read returns the data, yet
+the next FSCTL_QUERY_ALLOCATED_RANGES on that range reports it as a whole
+hole, so the emulation overwrites live data with zeroes.  A network trace
+confirmed the WRITE, the READ returning data and the query returning an
+empty range list within microseconds.  Samba does not exhibit this; its
+query is coherent with the written data.
+
+Write back the dirty pages, drain any outstanding I/O and issue an SMB2
+FLUSH to force the server to commit the data before querying the
+allocated ranges, so the query reflects the data actually present.
+
+With this, generic/363 passes against both Windows Server 2022 and Samba
+over 100000 fsx operations.
+
+Fixes: 966a3cb7c7db ("cifs: improve fallocate emulation")
 Reviewed-by: David Howells <dhowells@redhat.com>
 Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
@@ -90,17 +109,89 @@ Cc: Tom Talpey <tom@talpey.com>
 Cc: Bharath SM <bharathsm@microsoft.com>
 Cc: stable@vger.kernel.org
 
-diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
-index 5062474991cf..f29555f3c7d0 100644
---- a/fs/smb/client/inode.c
-+++ b/fs/smb/client/inode.c
-@@ -88,6 +88,8 @@ static void cifs_set_ops(struct inode *inode)
- 		else
- 			inode->i_data.a_ops = &cifs_addr_ops;
- 		mapping_set_large_folios(inode->i_mapping);
-+		if (tcon->ses->server->sign)
-+			mapping_set_stable_writes(inode->i_mapping);
- 		break;
- 	case S_IFDIR:
- 		if (IS_AUTOMOUNT(inode)) {
+diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
+index 849cfd2de705..1c41d3b24c6d 100644
+--- a/fs/smb/client/smb2ops.c
++++ b/fs/smb/client/smb2ops.c
+@@ -3750,6 +3750,24 @@ static int smb3_simple_fallocate_range(unsigned int xid,
+ 		goto out;
+ 	}
+ 
++	filemap_invalidate_lock(inode->i_mapping);
++
++	/*
++	 * Flush and commit the data to the server, otherwise
++	 * FSCTL_QUERY_ALLOCATED_RANGES might report recently written data as
++	 * unallocated holes on Windows Servers, and the loop below would
++	 * then zero-fill them and corrupt the file.
++	 */
++	rc = filemap_write_and_wait_range(inode->i_mapping, off,
++					  off + len - 1);
++	if (rc)
++		goto out_unlock;
++	netfs_wait_for_outstanding_io(inode);
++	rc = SMB2_flush(xid, tcon, cfile->fid.persistent_fid,
++			cfile->fid.volatile_fid);
++	if (rc)
++		goto out_unlock;
++
+ 	in_data.file_offset = cpu_to_le64(off);
+ 	in_data.length = cpu_to_le64(len);
+ 	rc = SMB2_ioctl(xid, tcon, cfile->fid.persistent_fid,
+@@ -3759,7 +3777,7 @@ static int smb3_simple_fallocate_range(unsigned int xid,
+ 			1024 * sizeof(struct file_allocated_range_buffer),
+ 			(char **)&out_data, &out_data_len);
+ 	if (rc)
+-		goto out;
++		goto out_unlock;
+ 
+ 	tmp_data = out_data;
+ 	while (len) {
+@@ -3769,12 +3787,12 @@ static int smb3_simple_fallocate_range(unsigned int xid,
+ 		if (out_data_len == 0) {
+ 			rc = smb3_simple_fallocate_write_range(xid, tcon,
+ 					       cfile, off, len, buf);
+-			goto out;
++			goto out_unlock;
+ 		}
+ 
+ 		if (out_data_len < sizeof(struct file_allocated_range_buffer)) {
+ 			rc = -EINVAL;
+-			goto out;
++			goto out_unlock;
+ 		}
+ 
+ 		range_start = le64_to_cpu(tmp_data->file_offset);
+@@ -3782,7 +3800,7 @@ static int smb3_simple_fallocate_range(unsigned int xid,
+ 		if (check_add_overflow(range_start, range_len, &range_end) ||
+ 		    range_end > S64_MAX) {
+ 			rc = -EINVAL;
+-			goto out;
++			goto out_unlock;
+ 		}
+ 
+ 		if (off < range_start) {
+@@ -3797,11 +3815,11 @@ static int smb3_simple_fallocate_range(unsigned int xid,
+ 			rc = smb3_simple_fallocate_write_range(xid, tcon,
+ 					       cfile, off, l, buf);
+ 			if (rc)
+-				goto out;
++				goto out_unlock;
+ 			off = off + l;
+ 			len = len - l;
+ 			if (len == 0)
+-				goto out;
++				goto out_unlock;
+ 		}
+ 		/*
+ 		 * We are at a section of allocated data, just skip forward
+@@ -3820,6 +3838,8 @@ static int smb3_simple_fallocate_range(unsigned int xid,
+ 		out_data_len -= sizeof(struct file_allocated_range_buffer);
+ 	}
+ 
++ out_unlock:
++	filemap_invalidate_unlock(inode->i_mapping);
+  out:
+ 	kfree(out_data);
+ 	kvfree(buf);
 
