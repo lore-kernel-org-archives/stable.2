@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4190436F90F
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 22:24:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 501371632DD
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 22:24:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791239086; cv=none; b=F6UOXj47Y4nazu3oNl0MBOzh/ZK8X3BgUmoOffxtWJnNumsT6zG7tNHCEO4pYyf98not+yRkc6GiV06AC288i53ujoTbAoFxaqUYJipv+pgS2RxcFxJ2wLuWWItLEhPhQI6TkKsfUCRe3tbA4uUzxPWCfr+wMdAz8N/AlammT8w=
+	t=1791239100; cv=none; b=jVqu54CWAK18eLwobAmtfOC2v4H5SBqXhYGhj6NOTmKUI1Ju9jLdftwHhnu+FrVVvhFFPueKQDsM0YSkikm0jLFTR63QlwKdL4PUwD1gmse8baxZAHQ029+Vnr7A3w3ha7uv801VxgrISS8i3+lUi3j2jK4Fr6ppUjdCwE8v6Wg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791239086; c=relaxed/simple;
-	bh=k4OJiq2Mo2aITU9HdLPK9bRz20KkPoLsgMNjsfGSkqc=;
+	s=arc-20240116; t=1791239100; c=relaxed/simple;
+	bh=mFRxzb7+H5E8gqKt/7OXwbin9jlqZB7KMo1wDDwkV74=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GtmoAR+9Vn4O5Zq6HsM1HqDkc4ugetDpYEpN4lylHU4vHH1Zj5WDR7Fnje53e0eBxSIBiLRng8GzSDXxg3vBBzo7WrqhXr1KJbgRcnx/NAaynN7O07luI3Bgzez3AcPzso8tX9HRhqy/09nPSVsE8Iv3K/I/GcB/GFR4gt9+ZeA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DkpqP81I; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ZJoRzGcq53d9jzbooHKtKeUni6eL5OwuGhuJ6kRDV4IJMjI0E/OQHEPVXhIJdHGYh+OMu6thosrMgpQ23zH++g1QuRDqQcc2yVKqa3vXW3Z2/pAVLX1w9VnaYJjdHcno4ahWVHIjctDRl4gVF5kB6rJnUs6s9afq4MWZffpTQ9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E3ejvvb0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DkpqP81I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE9DD1F000FF;
-	Mon,  5 Oct 2026 22:24:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E3ejvvb0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23C8E1F000FF;
+	Mon,  5 Oct 2026 22:24:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791239084;
-	bh=ImRt6E4LyZn+IkN9baZ1RtljyZ1L4k/c1nEp4PIXuoQ=;
+	s=k20260515; t=1791239099;
+	bh=znMWQDYvOE62XxswcPsL0MD6g0uRy9DJZHA2rmfqwlE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DkpqP81IPP3UIutV1eKTMAuORLfQ7T/3uiNx3O9zEchLvoabL9e0BBjx6/hX05jJ/
-	 Rhv/WTccuXQ9gZ2xb3JVpIK9RoFTo/VZak4X0P4KWtnca26uTNJA/zDfT3F6lQssMt
-	 kgC6y1oP3xKTG4Mlg7IEaw/qfm63yY/7/gWl3jpWZvZULI0RAFzw/S6pcmtE0gg9lN
-	 UwQN5cYZVkad3gV2ZCQ0Cgz1O/A0q4kJDk8R/7hEUHdp3BkmPGcxGTX7F9bjkyeskA
-	 vbIqeSjOXIi+JPlL4dDrbvSIENSluhcgmpHuIp2UQZjN+egWF7UoHYMqh3Ob2uhZHi
-	 Bt9m/FOzpsbew==
+	b=E3ejvvb0dynvOdVldeoFh1gqZ34hgs6BWUqIVb87OrmdMqYsXqmXRMjkAaFrffLhW
+	 N12XgHHbt5DZXBFgvf/zY4GZRGsFjqTl8n1LGdLyx5l3JR+Pem3OJrX+cYate2Izts
+	 pyEaKod+akSX36Fc3pOWpmzqgFnYjfdcDsATD51XRp9TVj/4RBKmT0qreBeoJip+Bc
+	 sFWDsalQn6NE4+Y/01DBwPrQnmkkw0x49Nf8GCDnqRD5runpP2SrLuPQ373l1bErWZ
+	 6Mb2ulVjMvRpWkmZzh7hsNtiLPVKX0jKBEyRuYZxycvOeTHsqz/exhKdFbnfjkbs89
+	 eUzHI6sN7jaPg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Aaron Kling <webgeek1234@gmail.com>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] ALSA: hda/tegra: Re-enable SDO workaround for Tegra194
-Date: Mon,  5 Oct 2026 18:24:41 -0400
-Message-ID: <20261005222431.3492789-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/3] serial: introduce uart_port_lock() guard()s
+Date: Mon,  5 Oct 2026 18:24:53 -0400
+Message-ID: <20261005222419.3425745-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100518-penniless-browsing-d792@gregkh>
-References: <2026100518-penniless-browsing-d792@gregkh>
+In-Reply-To: <2026100556-skincare-lumping-5e28@gregkh>
+References: <2026100556-skincare-lumping-5e28@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,42 +45,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Aaron Kling <webgeek1234@gmail.com>
+From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
 
-[ Upstream commit 89365897f4210979966aa808d7b013edf4080558 ]
+[ Upstream commit 0fd60b689b0dacce659253ec15cb3d3bf660e30b ]
 
-This workaround was originally added for Tegra194, but no longer gets
-applied for it. Commit 615d43540043 ("ALSA: hda/tegra: fix tegra-hda on
-tegra30 soc") changed the guard to tegra30-hda, which worked because all
-affected archs had the fallback compatible. However, commit 7f0ea5acfc19
-("arm64: tegra: Use correct compatible string for Tegra194 HDA") removed
-the fallback compatible for Tegra194, causing this to break.
+Having this, guards like these work:
+  guard(uart_port_lock_irq)(&up->port);
+or
+  scoped_guard(uart_port_lock_irqsave, port) {
+    ...
+  }
 
-Fixes: 7f0ea5acfc19 ("arm64: tegra: Use correct compatible string for Tegra194 HDA")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
-Link: https://patch.msgid.link/20260926-tegra194-hda-sdo-v1-1-f7a636a07a58@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+See e.g. "serial: 8250: use guard()s" later in this series.
+
+Signed-off-by: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
+Link: https://lore.kernel.org/r/20250814072456.182853-4-jirislaby@kernel.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: 8ca59f7baee7 ("serial: fix ioctl hangup race")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/pci/hda/hda_tegra.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ include/linux/serial_core.h | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/sound/pci/hda/hda_tegra.c b/sound/pci/hda/hda_tegra.c
-index 12a144a269ee8..de47ea7b9ee13 100644
---- a/sound/pci/hda/hda_tegra.c
-+++ b/sound/pci/hda/hda_tegra.c
-@@ -376,7 +376,8 @@ static int hda_tegra_first_init(struct azx *chip, struct platform_device *pdev)
- 	 * in powers of 2, next available ratio is 16 which can be
- 	 * used as a limiting factor here.
- 	 */
--	if (of_device_is_compatible(np, "nvidia,tegra30-hda"))
-+	if (of_device_is_compatible(np, "nvidia,tegra30-hda") ||
-+	    of_device_is_compatible(np, "nvidia,tegra194-hda"))
- 		chip->bus.core.sdo_limit = 16;
+diff --git a/include/linux/serial_core.h b/include/linux/serial_core.h
+index 4ab65874a850b..191154b8ada2a 100644
+--- a/include/linux/serial_core.h
++++ b/include/linux/serial_core.h
+@@ -782,6 +782,19 @@ static inline void uart_port_unlock_irqrestore(struct uart_port *up, unsigned lo
+ 	spin_unlock_irqrestore(&up->lock, flags);
+ }
  
- 	/* codec detection */
++DEFINE_GUARD(uart_port_lock, struct uart_port *, uart_port_lock(_T), uart_port_unlock(_T));
++DEFINE_GUARD_COND(uart_port_lock, _try, uart_port_trylock(_T));
++
++DEFINE_GUARD(uart_port_lock_irq, struct uart_port *, uart_port_lock_irq(_T),
++	     uart_port_unlock_irq(_T));
++
++DEFINE_LOCK_GUARD_1(uart_port_lock_irqsave, struct uart_port,
++                    uart_port_lock_irqsave(_T->lock, &_T->flags),
++                    uart_port_unlock_irqrestore(_T->lock, _T->flags),
++                    unsigned long flags);
++DEFINE_LOCK_GUARD_1_COND(uart_port_lock_irqsave, _try,
++			 uart_port_trylock_irqsave(_T->lock, &_T->flags));
++
+ static inline int serial_port_in(struct uart_port *up, int offset)
+ {
+ 	return up->serial_in(up, offset);
 -- 
 2.53.0
 
