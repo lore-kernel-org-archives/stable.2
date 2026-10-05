@@ -1,109 +1,112 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CA73445AC4
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 10:38:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C8D6477E2E
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 10:43:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791196723; cv=none; b=bajjkoXiPzYoJUIOTIPZzYydUjSI5Vizvndr5PBr5TyEmddAdQZbo7Jzg/OkRZmSUj0wqp6QfL4DZB88yleSIEOyyyrQ8b8b3ZNLAF5DRto9r8+5brNlVjqWzftC4MGkGkL9ShZGK1RL20aOhiwgHsx7MYLUWnAH/PcJeqjDcow=
+	t=1791196984; cv=none; b=cSn6Yu/GjzXtdUOEM2Hrx7HpNbcOTGP22JL//GNNTBezEEwQSE2QYfMEVDBh7rDW0gj9/2wB/spNJyQgrkHm8/WfaLMoSVu1Ggamy96XrKGHlpsbXlexB+IBum2m89m1taAOYKlPeZcombqDvsPi5yO8xaJCsuIht+MFszXykEc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791196723; c=relaxed/simple;
-	bh=UBkDA3s+QGLz4peqSWeFMKgTbB6hbDJ5TkZD9IEE/G4=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=H+jv4ApDKvIhrJVWloZuZs/EFpwF88/XNNJPqBKNejTYmBVQKK38FUvYg/lkeCNtFKnlofkKFmxec0nN7ACZg/Q42SyL8vjW/Nb4vmAotS8Ki3Rwqx0RA8sZ1Ydma4pv1a6E2AoyzBh/D7nG4ED41ZpPJp1/85gHSA7xvO5TczE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=mBmMakio; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791196984; c=relaxed/simple;
+	bh=SAR9dgr4+EXhj93uqEzSXls5BNFL+50Ud2uM/7Eimcc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=kQTaxiE9c/hDdv+vJciRGusM4azHuwd/TOrv3s65VpPiX4mJMbPVnA01REFQtNKNPnIy4qwCI6NAzoR6USTwpHx6iCrB5tGypvuKXjRpziiT1GtWn699bwQCY/UZkSDxgktvdKtDXKMGl3n/eII+L9gSubBYV2xaKrVv6TUZcaw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JyxXPxXY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mBmMakio"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60DD41F000FF;
-	Mon,  5 Oct 2026 10:38:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791196721;
-	bh=kEipzxgIEzVoFZ/8qdHfhjPLnpZSTG+IM/2OCvUYRoM=;
-	h=Subject:To:Cc:From:Date;
-	b=mBmMakionGejrDTEU/AdMVCXlxeLQAzxwS8wziA3BRSyBvBFC6HAcNuT88ml2w94p
-	 qdOP81sEyynFw7QpqeP1lZHTANupXrQP9cwyku3u5Zh7WT/pG4zF6lBcW1N2BIXIGM
-	 bDaZlC1WuVFRuXwJgvOrQVnizayGK9FjU2IHfSOo=
-Subject: FAILED: patch "[PATCH] ALSA: seq: Serialize compat port-info ioctls" failed to apply to 5.10-stable tree
-To: kylebot@openai.com,bruno.produit@trailofbits.com,tiwai@suse.de
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 05 Oct 2026 12:38:29 +0200
-Message-ID: <2026100529-huskiness-jaywalker-12ee@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JyxXPxXY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDE311F000FF;
+	Mon,  5 Oct 2026 10:43:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791196983;
+	bh=WipYD8H8D0uihJfKuHMjAiADyhEf9WwTgm/ryo0FeBI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=JyxXPxXY9F88uHMk0TkfHQhDdqoltAd1xGHbyCIm8Puw3W8bmT4oSyPrDXG61DwfO
+	 AuXcIr0IsESm88zxeSctCk4NM6qfGG0bQOl/ZERbGaZtSMd7XFd5VTKHFiYArVQyG0
+	 4h5RFdbsranOPjAA24F2U5mt7qPqx/R9kXJjwuR78SWjc+hby0ASLidbRwJWpLe5J7
+	 biQ3/jwBJmbbB/CI96CeFh9sJ7Zw77aa7jQQMR6+flqeSKlgzxLVP3r2BYkNFneKfO
+	 vHIX8KEriX3gCQsYh9ff/N3GHVDC+bEndXzwsAxJKeWGwTqMD0YN+LP9aJ5mYSAuuS
+	 PBtqF2h+SP3Yg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] drm/amd/pm/si: Check AMD_IS_MOBILITY flag for PPSMC_SYSTEMFLAG_GPIO_DC
+Date: Mon,  5 Oct 2026 06:42:59 -0400
+Message-ID: <20261005104243.1561435-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026100558-skimming-septic-47b8@gregkh>
+References: <2026100558-skimming-septic-47b8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+From: Timur Kristóf <timur.kristof@gmail.com>
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+[ Upstream commit cd883d0a3937df82a5ea03709ba8ba623b868419 ]
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Unfortunately, some desktop boards eg. the FirePro D500
+have the HARDWAREDC platform flag set and also have
+a battery power state configured in their VBIOS.
+This makes no sense for a desktop GPU and results in
+incorrect behaviour: the clocks are stuck at lowest.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 95b2e0361c88753afa030c10698be0a1a5b67650
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100529-huskiness-jaywalker-12ee@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+We observed that the kernel driver can work around
+the issue in two possible ways:
+1. Set PPSMC_SWSTATE_FLAG_DC on all power states
+2. Clear PPSMC_SYSTEMFLAG_GPIO_DC
 
-Possible dependencies:
+We think that the PPSMC_SYSTEMFLAG_GPIO_DC flag
+makes the SMC assume it's running on battery even
+though this is a desktop machine with no battery,
+and that's why it doesn't do DPM on power states
+without PPSMC_SYSTEMFLAG_GPIO_DC.
 
+Issue was uncovered by "Fix updating clock limits from
+power states" because previously the limits for the
+battery state were not tracked separately. However,
+battery power state has lower frequencies and voltages,
+so the kernel doesn't set the DC flag on the current
+power state anymore. That causes the SMC to be stuck
+on the lowest clocks.
 
+Let's clear PPSMC_SYSTEMFLAG_GPIO_DC on desktop GPUs.
+We can use the AMD_IS_MOBILITY flag to determine that.
 
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 95b2e0361c88753afa030c10698be0a1a5b67650 Mon Sep 17 00:00:00 2001
-From: Kyle Zeng <kylebot@openai.com>
-Date: Thu, 17 Sep 2026 12:56:43 +0200
-Subject: [PATCH] ALSA: seq: Serialize compat port-info ioctls
-
-The native sequencer ioctl path serializes handler calls with
-client->ioctl_mutex, but the translated port-info compat path invokes the
-same handlers through snd_seq_kernel_client_ctl() without taking that
-mutex.
-
-This lets concurrent compat CREATE_PORT requests pass the port-count
-check before any request reaches the serialized insertion. The computed
-integer port index can then exceed the address field range and wrap to an
-existing index. Subsequent subscriber teardown can resolve the duplicate
-address to the wrong port and access a freed subscriber.
-
-Take ioctl_mutex while dispatching converted port-info requests, matching
-the native ioctl path. All translated port-info commands share this
-helper, so their accesses to the client port state are serialized as
-well.
-
-Fixes: b3defb791b26 ("ALSA: seq: Make ioctls race-free")
+Fixes: e6c5d36756e7 ("drm/amd/pm/si: Fix updating clock limits from power states")
+Closes: https://gitlab.freedesktop.org/mesa/mesa/-/work_items/16352
+Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+Link: https://patch.msgid.link/20260923120354.1027996-1-timur.kristof@gmail.com
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 58473c7c49ce9f5f5a4a1c24ffb9aa1d3c8771f4)
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6-sol gpt-6-astra
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
-Signed-off-by: Bruno Produit <bruno.produit@trailofbits.com>
-Link: https://patch.msgid.link/20260917105643.90102-1-bruno.produit@trailofbits.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/pm/powerplay/si_dpm.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/sound/core/seq/seq_compat.c b/sound/core/seq/seq_compat.c
-index 22679dca9aae..80110501da6f 100644
---- a/sound/core/seq/seq_compat.c
-+++ b/sound/core/seq/seq_compat.c
-@@ -44,7 +44,9 @@ static int snd_seq_call_port_info_ioctl(struct snd_seq_client *client, unsigned
- 		return -EFAULT;
- 	data->kernel = NULL;
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c b/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
+index 8cf2ad07ce620..be459903139fb 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
+@@ -5164,7 +5164,8 @@ static int si_init_smc_table(struct amdgpu_device *adev)
+ 		break;
+ 	}
  
--	err = snd_seq_kernel_client_ctl(client->number, cmd, data);
-+	scoped_guard(mutex, &client->ioctl_mutex) {
-+		err = snd_seq_kernel_client_ctl(client->number, cmd, data);
-+	}
- 	if (err < 0)
- 		return err;
+-	if (adev->pm.dpm.platform_caps & ATOM_PP_PLATFORM_CAP_HARDWAREDC)
++	if ((adev->flags & AMD_IS_MOBILITY) &&
++	    (adev->pm.dpm.platform_caps & ATOM_PP_PLATFORM_CAP_HARDWAREDC))
+ 		table->systemFlags |= PPSMC_SYSTEMFLAG_GPIO_DC;
  
+ 	if (adev->pm.dpm.platform_caps & ATOM_PP_PLATFORM_CAP_REGULATOR_HOT) {
+-- 
+2.53.0
 
