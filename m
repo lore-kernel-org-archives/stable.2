@@ -1,63 +1,63 @@
 Received: from mail-lr2-f10.google.com (mail-lr2-f10.google.com [74.125.230.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87DD448034A
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 12:37:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE0E7429037
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 12:37:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791203862; cv=none; b=tuKtmcThjy43jRkTf8s7Uhty9NdBhXvn7FAueJ6ZVtry8V77a1h2xpvTMXNisgBHBeCmdzr13/D+6UbEADHvgCohPGjFNpjYb7QRkGh3KPcj2Ie4KE9xIlxDVl+EkKskwAd/+LJCuwgfFLLolfz12Qq7bXlD+h0Rs++3MATBjUk=
+	t=1791203869; cv=none; b=rBgCq6ciayEKNr8XBxPSNHO0I9SSco1D9TEOMrGhwu8xaYvsizWf1QWwee66J8HHeFIe3i0oIw23t/LsKr/aoCZxsbolSou40dFn3Zck9Jwfg2xWJZE5MLV5OYdY3MBGvMQm7AXBmNnUWtjsb0S4FO1kMVE49Wrz5Vtx5XO7sIw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791203862; c=relaxed/simple;
-	bh=vQKu+UkPI9YjIq5HOgB6KhXt09s7QFB7hmE7d9Yluoo=;
+	s=arc-20240116; t=1791203869; c=relaxed/simple;
+	bh=WznUrqowx7pqS0je/qrzTF9QX6muzU1oPBAfrPoo47Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sf6qutBsAJakCJmu+9wLFwXPumnPrMOH68MEGpAKHPAEdMK6cxeSSc7iyeg8x+ETvnc0pvU+xYWdUI+G/FJ53udDl2rfZSdo6Azv/nFANhUrnNwZVq+xyXAr3wBmV0NU1iX4q6jswoglzoPHfUgC9V2IZE5ldRo6LJpkZQKXiKc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hduv/qeG; arc=none smtp.client-ip=74.125.230.74
+	 MIME-Version; b=rTL24MUNb04C3j5l7g3SG1P+CIK4+D4xtdle73bX+YwYweQVk9fwQY3m8o3kOMGfwwm4Yg6Nak84Ne/33ZkXTyPcBCn3sOKFhKdFmESqy3VVB65u/NH/U63T/263jDZ8Vs0mlFGhBIxkeDKyRbKVOXI1qK+p9QtRzWd4T9Cjmng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LJKRh5ko; arc=none smtp.client-ip=74.125.230.74
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hduv/qeG"
-Received: by mail-lr2-f10.google.com with SMTP id 38308e7fff4ca-3a7f674d148so7428071fa.1
-        for <stable@vger.kernel.org>; Mon, 05 Oct 2026 05:37:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LJKRh5ko"
+Received: by mail-lr2-f10.google.com with SMTP id 38308e7fff4ca-3a88780168dso12286661fa.1
+        for <stable@vger.kernel.org>; Mon, 05 Oct 2026 05:37:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791203858; x=1791808658; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791203866; x=1791808666; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qj//7+DFfG4bjalHxPM61XYRGHUSK9Wt4HF8q9klA4w=;
-        b=Hduv/qeGXzcob3fIA6+/ydb1J9L6T/d9zDkFCVwAG/OUDkrLCMUFmw+cuuppDxk6Xp
-         VWEOse8IPwS7/K6GQSrjaegkeLnucyfm60O/gfR7ljj9EckU0g1tl1R+nvTVfPSg+3wK
-         K6GDMJZaq/nHPezwlFWuEYFG89UlQdYEhL/j+WbiFh9yGXtssSdRJYfs5neJyZIEFzpI
-         sNYSaTi2fIxDOUZQCariU9J1nUyfAgAksIfs5y9sUg9eXwImXCgw4pWFTxiCK3Ly9pCg
-         sFXm8htUK7e9z3512TWggQMTxzSp91Nb0d4Vxj+y5o8EhBvpSgFIcxoJa19OEZmh71fh
-         Ad5A==
+        bh=MxIknM10jxHR7Ff/pID+idHLGqI71Opd6kPGDGqz4Vs=;
+        b=LJKRh5koEgrIc16QTIArECJJCcBpocNhffVn+S6m9ix/Ee/Ak7ImArFmgv+hORuXzy
+         AbHptF112fagphWYlXid9055Jr6zHDMPl4WipCWaae+R6YPzILAxTMOftp492txwwUPk
+         0iNhAoe+/Q46vDyZ/crOtnwBI6GfDQlyvfrni4BOUBVH7elhTRgH+1DD2N5aF22f0+LC
+         WvtO417YYkNkcj1USOxY5WJPukIO46XijdCIPtyCSNoZwPPF+AfOuj0NNdjvTwzlg+F4
+         dhVeS1tDIGUHv1LYCffCM0FgaLqrxRpm4Qa8UY3S+MJIEulOe61rzIUic/py5i489Swf
+         1HJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791203858; x=1791808658;
+        d=1e100.net; s=20260707; t=1791203866; x=1791808666;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qj//7+DFfG4bjalHxPM61XYRGHUSK9Wt4HF8q9klA4w=;
-        b=ZK3v851NsXA5wC+4+JA0t8mGOEw4J8+rV/ARIoG0QH8u62VeRuA8ku4NAtP0Uhk56n
-         B5CMmkZ6Jvf5h6nn0w+wxgHF9xtSK+gLU93PDITDWaHLb8eQT9oJ2oQilboCy8qbJRPl
-         wEvYdUk75p+qHRb2UBjw0yKlreN1Ja3dg4qAwqzIyUTOeYBWnhxqqTydh8mmvzcmf/t8
-         VUhcfpdWp+SJIronUxvc2B9KY0X4Ak6iOQbfe+1WXWro1lYft981e5ezxhRYz/AJpsev
-         7Nt+ZgALCQP8xeLOrwPfG7k0COU5gmIXziXpxGFteHchpw4//O5YFOedg8kD4k3Q3QeI
-         5XFw==
-X-Gm-Message-State: AFq9FYJwVtrKjZ/iHuvVmZ7WRKrkV9Suhcfc92yBDh1n2hYZOcNMqPs9
-	4qbQ/hwpSa4RwEGJN+o8A3D6rIwkZb/VEiXD2Sw0KRE3Y3rPDIF57WJclPVXy3VO
-X-Gm-Gg: AYBFou2OxyIvz5XkzoohAZX70/UKeczws7Fv3NTIi0TD2dp5uC75OQu7dHChUMHr8gQ
-	uXoAld98Nazmg0uoNIHYed5wIN3TTf4Xnx6YLrRlRTWBwuDwAG277FdbfvBBYVyV9GtA5TTESFM
-	3dKcnoPCfkyjXn2zGXrMYnPJG6tdQIRqb0/9W8CCFsgbST9xFiHOfKX03pgGE3phYA66ZtM2X4o
-	uKMHg3YQFp9LJlLLLbtjxKMIuZECIgh0apqZmyK0mfo6wwWwqkoBLcCyd9gp8Ziae9NWdB6cIvT
-	NTfg6qT7I8+ZWGbW6zb2+DBOh8xXvN21ur+2Xujs8SqtSocWeV4b+ubbdPQaX/+jDjXfYgCy3AF
-	2aZZbFEtpUgjD6lQb5ONnOWDaEzb42xpegEZSxkgD2dtUEL08fgk8HOfhcAW69YOReAG5UBP6cO
-	xqZmZsMIBqbX56UctNN3pyPJBBlv8sO2hhpzGxSldNsmFTqFeYKhabpo26t/0us1shnj3KR7mk+
-	oU+Nz0AyQduq6ln
-X-Received: by 2002:a05:6512:688c:20b0:5ba:3c46:bc43 with SMTP id 2adb3069b0e04-5bcb543e623mr1703373e87.24.1791203858298;
-        Mon, 05 Oct 2026 05:37:38 -0700 (PDT)
+        bh=MxIknM10jxHR7Ff/pID+idHLGqI71Opd6kPGDGqz4Vs=;
+        b=mVriOFqXA72chE+fRAqWJRCrCnl2sON23XxAgu52hrfrtf3GkIdbNDo6QZbrXqroH7
+         MajLbMTD//mEdzwIN44oo1r/4HlWeYMixh7m9QkDaiq6Zb8tiAIc3iRyIR/N4kbUpR84
+         pNTC3RjXLhmNzkndjuOYDJz/r/WsP7NIwQ6HPSAKOSQCjwTj/mv9gQkHH+6RY4Rj0PK/
+         o3doGIpU4GRsqCAeBCtK8q3+IHSbhin3/vfkhsReQq9ZnHomvPtH6QxkGaJjM4N8QIfe
+         sqjuZCNZJYcm3hEEyLtF5IO+MZlXD9GeX9Ygl7CLmRweUHqXpqfM745NNT5NBWWMQ1lq
+         4UZA==
+X-Gm-Message-State: AFq9FYKhzIX4fJseEPFPssC9ImaVvzhtSlEjx7akgvmYLzB+q8arodTu
+	uxMtZysmUfaFBGvCgs/DqqllkPXuM6cDzFlVKHZllja9KUpaMeO+JZokPtMkHLrZ
+X-Gm-Gg: AYBFou0bcX9GFiwFuebpBujSYgyaQTBKXujN76fb0hQsFPZhsVw8aNUHHc03mk1lBDa
+	GNLLxWpHcbiYp5epEDzy0edwMk63y+Jw7nwOhmNUZpp2Gl9MoThg79n+hFoSG2LjN+7UWuM77HI
+	yxO6cTKT1IGsErMlFNvoLB9mqHoN8iHkqwq2E6Ao30WbJtdAje63YKAn+zQN8VXBNMCzro/ppRx
+	9w/YcojRJoGxfjx1Kc2JbuktGfIBj/Zir9ZwWhOUwPEe2+8mANa0UTmYDUbSC+zP5WRuT2+h4fd
+	gwk6f/3DjdmiSU8dwxHP9wYcs/5ZGncmRs4xuxgSDWqoHXKgpzC2uRT0Y0qauLjxLHV7MZSO4y1
+	9QhYdB5WN/BhQEp9d3ovEFpD3Z8TdM0lt5/j7Hlz/vzRYO7oyjKjQi1hJmtTenlq0Dw2eTwFUZP
+	nwDUvo4fhb1eYe1mLzYx7YHPw81ibdcYEq+F8DZAgSpn3dmvHzPK/V8Vge2VGQRqgsuylZ3M23b
+	J4u2OmgYCnO++NPfcWoBYhj/pM=
+X-Received: by 2002:a05:6512:b2a:b0:5ba:3797:ba with SMTP id 2adb3069b0e04-5bb9bc41740mr4179902e87.53.1791203865574;
+        Mon, 05 Oct 2026 05:37:45 -0700 (PDT)
 Received: from localhost.localdomain ([78.40.184.2])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bb7c718f62sm3228393e87.12.2026.10.05.05.37.37
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bb7c718f62sm3228393e87.12.2026.10.05.05.37.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 05:37:37 -0700 (PDT)
+        Mon, 05 Oct 2026 05:37:45 -0700 (PDT)
 From: Roman Demidov <roman.demidov.nn@gmail.com>
 To: stable@vger.kernel.org,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
@@ -76,9 +76,9 @@ Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
 	kvm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	lvc-project@linuxtesting.org
-Subject: [PATCH 5.10 2/3] KVM: LAPIC: Write 0 to TMICT should also cancel vmx-preemption timer
-Date: Mon,  5 Oct 2026 15:36:59 +0300
-Message-ID: <20261005123705.137028-2-roman.demidov.nn@gmail.com>
+Subject: [PATCH 5.10 3/3] KVM: LAPIC: Also cancel preemption timer during SET_LAPIC
+Date: Mon,  5 Oct 2026 15:37:00 +0300
+Message-ID: <20261005123705.137028-3-roman.demidov.nn@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261005123705.137028-1-roman.demidov.nn@gmail.com>
 References: <20261005123705.137028-1-roman.demidov.nn@gmail.com>
@@ -92,71 +92,57 @@ Content-Transfer-Encoding: 8bit
 
 From: Wanpeng Li <wanpengli@tencent.com>
 
-commit e898da784aed0ea65f7672d941c01dc9b79e6299 upstream.
+commit 35fe7cfbab2e81f1afb23fc4212210b1de6d9633 upstream.
 
-According to the SDM 10.5.4.1:
+The below warning is splatting during guest reboot.
 
-  A write of 0 to the initial-count register effectively stops the local
-  APIC timer, in both one-shot and periodic mode.
+  ------------[ cut here ]------------
+  WARNING: CPU: 0 PID: 1931 at arch/x86/kvm/x86.c:10322 kvm_arch_vcpu_ioctl_run+0x874/0x880 [kvm]
+  CPU: 0 PID: 1931 Comm: qemu-system-x86 Tainted: G          I       5.17.0-rc1+ #5
+  RIP: 0010:kvm_arch_vcpu_ioctl_run+0x874/0x880 [kvm]
+  Call Trace:
+   <TASK>
+   kvm_vcpu_ioctl+0x279/0x710 [kvm]
+   __x64_sys_ioctl+0x83/0xb0
+   do_syscall_64+0x3b/0xc0
+   entry_SYSCALL_64_after_hwframe+0x44/0xae
+  RIP: 0033:0x7fd39797350b
 
-However, the lapic timer oneshot/periodic mode which is emulated by vmx-preemption
-timer doesn't stop by writing 0 to TMICT since vmx->hv_deadline_tsc is still
-programmed and the guest will receive the spurious timer interrupt later. This
-patch fixes it by also cancelling the vmx-preemption timer when writing 0 to
-the initial-count register.
+This can be triggered by not exposing tsc-deadline mode and doing a reboot in
+the guest. The lapic_shutdown() function which is called in sys_reboot path
+will not disarm the flying timer, it just masks LVTT. lapic_shutdown() clears
+APIC state w/ LVT_MASKED and timer-mode bit is 0, this can trigger timer-mode
+switch between tsc-deadline and oneshot/periodic, which can result in preemption
+timer be cancelled in apic_update_lvtt(). However, We can't depend on this when
+not exposing tsc-deadline mode and oneshot/periodic modes emulated by preemption
+timer. Qemu will synchronise states around reset, let's cancel preemption timer
+under KVM_SET_LAPIC.
 
-Reviewed-by: Sean Christopherson <seanjc@google.com>
 Signed-off-by: Wanpeng Li <wanpengli@tencent.com>
-Message-Id: <1623050385-100988-1-git-send-email-wanpengli@tencent.com>
+Message-Id: <1643102220-35667-1-git-send-email-wanpengli@tencent.com>
+Cc: stable@vger.kernel.org
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-Stable-dep-of: 54b3439c8e70 ("KVM: LAPIC: Also cancel preemption timer during SET_LAPIC")
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
 ---
- arch/x86/kvm/lapic.c | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
+Backport fix for CVE-2022-48765
+
+ arch/x86/kvm/lapic.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/arch/x86/kvm/lapic.c b/arch/x86/kvm/lapic.c
-index 8f41a5ecea22..c17628c30c8c 100644
+index 0b6fc5395798..8f41a5ecea22 100644
 --- a/arch/x86/kvm/lapic.c
 +++ b/arch/x86/kvm/lapic.c
-@@ -1491,6 +1491,15 @@ static void limit_periodic_timer_frequency(struct kvm_lapic *apic)
+@@ -2628,7 +2628,7 @@ int kvm_apic_set_state(struct kvm_vcpu *vcpu, struct kvm_lapic_state *s)
+ 	kvm_apic_set_version(vcpu);
  
- static void cancel_hv_timer(struct kvm_lapic *apic);
- 
-+static void cancel_apic_timer(struct kvm_lapic *apic)
-+{
-+	hrtimer_cancel(&apic->lapic_timer.timer);
-+	preempt_disable();
-+	if (apic->lapic_timer.hv_timer_in_use)
-+		cancel_hv_timer(apic);
-+	preempt_enable();
-+}
-+
- static void apic_update_lvtt(struct kvm_lapic *apic)
- {
- 	u32 timer_mode = kvm_lapic_get_reg(apic, APIC_LVTT) &
-@@ -1499,11 +1508,7 @@ static void apic_update_lvtt(struct kvm_lapic *apic)
- 	if (apic->lapic_timer.timer_mode != timer_mode) {
- 		if (apic_lvtt_tscdeadline(apic) != (timer_mode ==
- 				APIC_LVT_TIMER_TSCDEADLINE)) {
--			hrtimer_cancel(&apic->lapic_timer.timer);
--			preempt_disable();
--			if (apic->lapic_timer.hv_timer_in_use)
--				cancel_hv_timer(apic);
--			preempt_enable();
-+			cancel_apic_timer(apic);
- 			kvm_lapic_set_reg(apic, APIC_TMICT, 0);
- 			apic->lapic_timer.period = 0;
- 			apic->lapic_timer.tscdeadline = 0;
-@@ -2099,7 +2104,7 @@ int kvm_lapic_reg_write(struct kvm_lapic *apic, u32 reg, u32 val)
- 		if (apic_lvtt_tscdeadline(apic))
- 			break;
- 
--		hrtimer_cancel(&apic->lapic_timer.timer);
-+		cancel_apic_timer(apic);
- 		kvm_lapic_set_reg(apic, APIC_TMICT, val);
- 		start_apic_timer(apic);
- 		break;
+ 	apic_update_ppr(apic);
+-	hrtimer_cancel(&apic->lapic_timer.timer);
++	cancel_apic_timer(apic);
+ 	apic->lapic_timer.expired_tscdeadline = 0;
+ 	apic_update_lvtt(apic);
+ 	apic_manage_nmi_watchdog(apic, kvm_lapic_get_reg(apic, APIC_LVT0));
 -- 
 2.53.0
 
