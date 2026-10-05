@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FD3F403AFB
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 08:44:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 575BB37268C
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 08:44:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791189896; cv=none; b=rrXqtREH9gts3nlF4SS1D6r1Kk3PgimmSVr5oZRaQZ+ZNAtPgQBxJJS4CWCa0GgMg0tiU0HF52ZksaqwK56kfnqU796vw4/VZKsm7e+zvn8q//H/7sF/6MGZaLmSgPWAijnUdwA32FK10F8n3Q2p1QWsFM0PFxIarbs3sQeklk8=
+	t=1791189899; cv=none; b=LP/6EULJi7xvz/GsNtgkkHn1NIa+kQAkCCOyYOX1Riok0oCvEc8ZwMBR6t9c640tjzkgj5qViMRWiaHyMep8IFhmB2HOoom5Mq8Siysz2r+d42VmB8fcgB1G4bmcVZy+W+7J/rIPCSUMvRCq1tiePWPlASwGp/vNBjsalE3TNd0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791189896; c=relaxed/simple;
-	bh=vCDgdj+U67z+1Z3Gaqz+bjJ/bGaRFJQAQanNZk2oqgg=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=bpB5mAxBOqZrx7ZpCW1C3E5VCHFXE2Q7uygekIbwlnYr2mrn0NIncsq6KNTh6lxD8DcwxWvYpBHYOTmHJPrrJPskgCR6RM/ALQZ5VIex7MkU5pjkO1Sshzv6zjOddP3jFFidvYt0/u8s/wDEjtyAV5cOC9BYUF4LU0mF4IGHyto=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=D5wTm7et; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791189899; c=relaxed/simple;
+	bh=MlUetYtWmBryXxv7HYVTrAmA31Oyd8LPkVWGuZ71T+4=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=InjCqhBTm3KT+2XoFpNymMcVekby02sF/agQBmUCPelnVdVVoLmV6+0SFMByQfgnrYh0UpyAYOfxBOqNxBfSEUHlTxUcMVhzYLq+vxvyALwf+ZPeKZw9NbYJ+mAhQOJHyoc1lnJI5P9aLrF2cjb6OO9cuA6CpHeZZL8zc7tKX1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=nCHY3wRB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="D5wTm7et"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F148D1F000FF;
-	Mon,  5 Oct 2026 08:44:53 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nCHY3wRB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F60B1F000FF;
+	Mon,  5 Oct 2026 08:44:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791189894;
-	bh=l0wmlv1zMJWh+yrsddhentQ4FbpA9msnIRCOD9xVfgM=;
+	s=korg; t=1791189898;
+	bh=wee+vVymEntStNHUa0E0xAtnmUwBAMI9fv/3UL+gHGM=;
 	h=Subject:To:Cc:From:Date;
-	b=D5wTm7etSXmt/G+DF3Gj6KscATYnefaA6M/FJQKNgMuj1XiGv7oCYgWXXHXxdyJfB
-	 LTQVB38t45zPNs9MSespCF5XO9CoejonVnHChn9fRS3e02Ss9CkRJUNwUO27duiSdm
-	 8654KrXhHWmhsVcr0n5325DGyxYhvgGMFIPXKEZw=
-Subject: FAILED: patch "[PATCH] usb: dwc3: gadget: fix IRQ storm on invalid event buffer" failed to apply to 5.15-stable tree
+	b=nCHY3wRBAfhhk+L2T+oW8iwEBi6PWtFPQQYvg/C2hDO/ZpP5NkLUVybLjQPJM1lgQ
+	 i7lylWSSywVn/EurQaYYQenvCfw4wy6uempChAGSEi1BJLDq0IK5I/iQf0X4JtFf2R
+	 z9Z4euhq9bG5jQSD9aq+j1fBD3Oo8Qz612lUSYnQ=
+Subject: FAILED: patch "[PATCH] usb: dwc3: gadget: fix IRQ storm on invalid event buffer" failed to apply to 5.10-stable tree
 To: jiazi.liu1984@gmail.com,Thinh.Nguyen@synopsys.com,gregkh@linuxfoundation.org,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 05 Oct 2026 10:44:41 +0200
-Message-ID: <2026100541-obtrusive-fragile-64f9@gregkh>
+Date: Mon, 05 Oct 2026 10:44:42 +0200
+Message-ID: <2026100542-unable-stopped-3708@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 1ff77cbefe5a653ea12874c213ea4bd0d72c1067
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100541-obtrusive-fragile-64f9@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100542-unable-stopped-3708@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
