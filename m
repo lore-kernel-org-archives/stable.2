@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 194294B1286
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 14:47:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6754C47DD76
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 14:47:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791211656; cv=none; b=nWwAK9+DSGrYd1jlECvRrCBVyYSDgMhamXWzYe5rCpcbN8TMgalwK7eff0gsQlDmBpLn/QxaiWYPYTQwCIr7GpteM//bkf2XXulNaHp7ueSyHNfUL3BGpjAq7aBMjBebE73X3lZSyyKtc7KEtE8W+vCQj1GSzRbi1ZRJPRNG2p0=
+	t=1791211670; cv=none; b=CMzIdARc34rodpwmT2pFUEn4o4/eJwVBUQmg86gUR2FAr+mqGf65WymycG4tdPbWrZYkeptGUwVEeT7h9w0FsD065xuWUV6RwZgwvw6CTRCAUxYxMiQq452QtG/xH7ziC0VGHdmIERFBZCPkVh9MkLeHdNkxbRiXxDQvUd9aMQ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791211656; c=relaxed/simple;
-	bh=qmflZMtbPRFGkJRzCn3fzNL6WHMuSgn34mZjN4xPQ1M=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=KUqPlS/v3qvFluae1HVXs7x2ies52SzTZ/A33XC68LQRQibHIBKtQkbAC4reJTetyyHI+9Anit+G/jhbE+5tk7HdlvzK7FN23HKplnzv6WVOJKxHEIiI7zeYRFturMXtNjyaOJr7a4fI1ERT7+w2D77MFpXFtMDOx4h7pQqucgE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=qGBU3CiL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791211670; c=relaxed/simple;
+	bh=2oszX/alrsKQMzC5tNIICSgbFZ5vp/OyBwGK5+LE6ms=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=CvAOaJQK6LQTFxblnix5smm8FK5vRAC3OqvQLdru/7H1j5q29Vz5A1b1uhjkwzFM/B5z/G9U708UqtWXkisD1uGqv9ok9Rh5wr0UvImJN0empyq/yBeaiWJta+YF/HcjutsceTUkZoDSIrkckF8haGWVCXjN2C7gNJmXrUsIS1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=IU2nAeDT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="qGBU3CiL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCA091F000FF;
-	Mon,  5 Oct 2026 14:47:29 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="IU2nAeDT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4CD61F000FF;
+	Mon,  5 Oct 2026 14:47:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791211650;
-	bh=YnA5VkE1vrCZ4fdbX+OqSuAhZ2v+Ejpks/P3s7bUoJ8=;
+	s=korg; t=1791211664;
+	bh=jKPGoiZ9ZvjziYXSxjWvZHIJHimKFbZo8ZnOIWpW9n8=;
 	h=Subject:To:Cc:From:Date;
-	b=qGBU3CiLiuWODrjJL2r/HK66cyUrfffeaOYC7vqxZfTAuqn5LgbDaMdQhSUVme1qi
-	 qWvySTYtEdimN+BjYTv91OydhhMDprAmxLiA2avS5PB6A3jZp4sC0kgM6/oA3M0jgT
-	 bItmHpr7SF5Dp1dgsk+Al0J3G7bZG47npEy58NBA=
-Subject: FAILED: patch "[PATCH] smb: client: flush dirty data before zeroing a range" failed to apply to 6.1-stable tree
+	b=IU2nAeDThSCA7xpeAT5dSCPHoQ6qPKQWkATinP1sMOUxqRslR/b8GkjVoOAIulRMW
+	 jFW7wrvmDMzfk9LNAMCwvMa3zbpjXpl6fR55UNXfwwmr7TOvFV0vyYFNQk2TPl02NH
+	 NUWVd9vP6KdQkCvAtArYKIFkrQoCUpGOaqxDmsZk=
+Subject: FAILED: patch "[PATCH] smb: client: distinguish real EOF from a stale remote_i_size" failed to apply to 6.18-stable tree
 To: pc@manguebit.org,bharathsm@microsoft.com,brauner@kernel.org,dhowells@redhat.com,linkinjeon@kernel.org,ronniesahlberg@gmail.com,sprasad@microsoft.com,tom@talpey.com,willy@infradead.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 05 Oct 2026 16:47:12 +0200
-Message-ID: <2026100512-wronged-junction-e53b@gregkh>
+Date: Mon, 05 Oct 2026 16:47:41 +0200
+Message-ID: <2026100541-badass-squint-41b0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 8f8d32c1044f70e46e87550e039a15ff20a4b21c
+git cherry-pick -x 75aa4b4d557114276bb72e19a9bce5cb27b5e4b8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100512-wronged-junction-e53b@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100541-badass-squint-41b0@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,31 +62,30 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 8f8d32c1044f70e46e87550e039a15ff20a4b21c Mon Sep 17 00:00:00 2001
+From 75aa4b4d557114276bb72e19a9bce5cb27b5e4b8 Mon Sep 17 00:00:00 2001
 From: Paulo Alcantara <pc@manguebit.org>
-Date: Sat, 26 Sep 2026 12:59:18 -0300
-Subject: [PATCH] smb: client: flush dirty data before zeroing a range
+Date: Sun, 27 Sep 2026 18:56:55 -0300
+Subject: [PATCH] smb: client: distinguish real EOF from a stale remote_i_size
+ on read
 
-smb3_zero_range() emulates FALLOC_FL_ZERO_RANGE by invalidating the
-page cache over the target range with truncate_pagecache_range() and
-then issuing FSCTL_SET_ZERO_DATA to the server.
+smb2_readv_callback() sets NETFS_SREQ_HIT_EOF whenever a short read
+lines up with netfs_read_remote_i_size(inode), the server's EOF as the
+client currently believes it. That belief can be stale: after a lease
+downgrade and handle reopen, the tracked remote_i_size can sit below
+the client's own i_size while an extending write hasn't reached the
+server yet. A read in that gap comes back short for a reason that has
+nothing to do with the file's real size, but was still marked HIT_EOF,
+and netfs reports a short read for it as-is.
 
-Dirty data was only flushed conditionally, when the range reached or
-extended EOF.  For a purely interior zero range that does not reach
-EOF, no flush happened, so a dirty folio overlapping the range could
-be written back to the server after the FSCTL and refill the range
-that was just zeroed with stale data.
+Only treat it as real EOF when the position is also at or past the
+client's own i_size; otherwise mark it NETFS_SREQ_CLEAR_TAIL instead,
+which tells netfs the shortfall is safe to zero-fill rather than
+report as a short read.
 
-Fix this by unconditionally flushing and waiting for dirty data in the
-range before invalidating the page cache and issuing
-FSCTL_SET_ZERO_DATA, exactly as was done for smb3_punch_hole() in
-commit d7d2adcd022b ("smb/client: flush dirty data before punching a
-hole"); the two paths are structurally identical here.
+This is what fsx (generic/363) sees as "short read: 0x0 bytes instead
+of 0x<n>" against a Windows server.
 
-This is observed as generic/363 randomly reading stale data where a
-zeroed range is expected against Windows Server.
-
-Fixes: 91d1dfae4649 ("cifs: Fix FALLOC_FL_ZERO_RANGE to preflush buffered part of target region")
+Fixes: 1da29f2c39b6 ("netfs, cifs: Fix handling of short DIO read")
 Reviewed-by: David Howells <dhowells@redhat.com>
 Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
@@ -98,26 +97,31 @@ Cc: Tom Talpey <tom@talpey.com>
 Cc: Bharath SM <bharathsm@microsoft.com>
 Cc: stable@vger.kernel.org
 
-diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
-index 1c41d3b24c6d..a0fcb564e7a3 100644
---- a/fs/smb/client/smb2ops.c
-+++ b/fs/smb/client/smb2ops.c
-@@ -3549,13 +3549,11 @@ static long smb3_zero_range(struct file *file, struct cifs_tcon *tcon,
- 	filemap_invalidate_lock(inode->i_mapping);
+diff --git a/fs/smb/client/smb2pdu.c b/fs/smb/client/smb2pdu.c
+index 3d7ead36d1a0..cfe3c4b4abe7 100644
+--- a/fs/smb/client/smb2pdu.c
++++ b/fs/smb/client/smb2pdu.c
+@@ -4796,14 +4796,20 @@ smb2_readv_callback(struct TCP_Server_Info *server, struct mid_q_entry *mid)
+ 				     rdata->got_bytes);
  
- 	netfs_read_sizes(inode, &i_size, &remote_i_size, &zero_point);
--	if (offset + len >= remote_i_size && offset < i_size) {
--		unsigned long long top = umin(offset + len, i_size);
- 
--		rc = filemap_write_and_wait_range(inode->i_mapping, offset, top - 1);
--		if (rc < 0)
--			goto zero_range_exit;
--	}
-+	rc = filemap_write_and_wait_range(inode->i_mapping, offset,
-+					  offset + len - 1);
-+	if (rc < 0)
-+		goto zero_range_exit;
- 
- 	/*
- 	 * We zero the range through ioctl, so we need remove the page caches
+ 	if (rdata->result == -ENODATA) {
+-		__set_bit(NETFS_SREQ_HIT_EOF, &rdata->subreq.flags);
+ 		rdata->result = 0;
++		if (rdata->subreq.start + rdata->subreq.transferred >= i_size_read(inode))
++			__set_bit(NETFS_SREQ_HIT_EOF, &rdata->subreq.flags);
++		else
++			__set_bit(NETFS_SREQ_CLEAR_TAIL, &rdata->subreq.flags);
+ 	} else {
+ 		size_t trans = rdata->subreq.transferred + rdata->got_bytes;
+ 		if (trans < rdata->subreq.len &&
+ 		    rdata->subreq.start + trans >= netfs_read_remote_i_size(inode)) {
+-			__set_bit(NETFS_SREQ_HIT_EOF, &rdata->subreq.flags);
+ 			rdata->result = 0;
++			if (rdata->subreq.start + trans >= i_size_read(inode))
++				__set_bit(NETFS_SREQ_HIT_EOF, &rdata->subreq.flags);
++			else
++				__set_bit(NETFS_SREQ_CLEAR_TAIL, &rdata->subreq.flags);
+ 		}
+ 		if (rdata->got_bytes)
+ 			__set_bit(NETFS_SREQ_MADE_PROGRESS, &rdata->subreq.flags);
 
