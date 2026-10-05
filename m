@@ -1,412 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4F654B7157
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 14:57:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA896468C16
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 14:57:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791212238; cv=none; b=mHhAepcIpMI1dj5jS/AUJebpAuqam1ibcShF9Y/KxLgcImf046vsNR4CwlGurVtiOSzLdnlq0FDVducJAx6HaH7mfJ+ybdvws76cJbRuKx+ZcT0msz/gT7qOFT0b0Kk7orBgPp7Cftlll3IJ0Skai5UDnJWl9mfYQG3t++DKQnk=
+	t=1791212270; cv=none; b=NoqEQhC3ciHFiPQTMfrj6ybnRsU4PZ5qqFyR1d7kJaSfeQRBGvMOhpZ3BrIGxznT8/frbJvaSUcjLxUKqDiCwfsWeYFhxNhtx6npXSO1MLv9dp/3MCKhQxWKYQbSL/jge7I961zwhHXpiqxW6KH0R77BagR8S5Wbi39B/KEyN1k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791212238; c=relaxed/simple;
-	bh=DdFoge88S68k4kWcMqja6ErjmKkqwMjNzn9Y8j9LxYM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=n7s5SJO5od61jMv6XpnKG5zRSmUw9vvMxGDnFYAF016KJvdzSM4JfeCDRvBc13T7nurz9iWs9VSlc4HsP4MIfbgrNE+N3ex1hIEFa+I4eaVwmPN3YGBmM1YfxMpNeDceF9rA3nigW2uMK4KSPN5qPijPsL5vbCImW7+z2/08PKg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IXPTbVS2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791212270; c=relaxed/simple;
+	bh=2P/9V4ylzB1hGsJiLG3D15l8z6rMZXj95l9Kk37n+2o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Tv7Kxyn59aQr+0lsubYzC/WUsDR+Xkyu9ZsutxKYO11+t3gyxR0mjZhdSrFmoZ2YZXpaeNR+AY2pj24BgKJlejYuuFAgrnAk2uaLOdVDlrzZHSeN3o/0ILnw3WN1UOLGO0RrRcD+bIexmjGPRES0SvK9JyVPB4Chu2QbcclxZiY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=N9JOa+xd; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IXPTbVS2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEF091F00893;
-	Mon,  5 Oct 2026 14:57:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791212234;
-	bh=EbNzYLimeOJpISBmzixvXav/4qhTCHExtK6o19GAxyc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IXPTbVS2qSsbHTIdDFYBE5MUBn7S3K0jXJRqQcC6SwlMYlaAbwHNBmi3kzQHqjwC2
-	 zlDAG6rxRvQ1Ob1Lf8qm53zMWsoqhTR6pGN7mm3ff3F3kmZgYXvs6dbkJTiKIL4xpi
-	 6i6hhGtBeqaNnUGFXW9+NTJPdlw6DrMVwBpxKogSSux1NYZV2ygrwYMCcYw0+imugi
-	 ejkBvyHI0K60Uw+6P6pzFfhUFir5cE61eHK5qbdToxIwUcCmIKraSIJ1jqV6bp9BwY
-	 +u6fV+tLWJn0BR7vkt7lxO6/XkCwQaUYFxhnPwtpAVcVo1W3vB2ojdZdixxahKZDmJ
-	 LEmRs+ODKRqbA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Jiazi Liu <jiazi.liu1984@gmail.com>,
-	stable <stable@kernel.org>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] usb: dwc3: gadget: fix IRQ storm on invalid event buffer count
-Date: Mon,  5 Oct 2026 10:57:10 -0400
-Message-ID: <20261005145621.3013229-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100538-surplus-shredding-3f5f@gregkh>
-References: <2026100538-surplus-shredding-3f5f@gregkh>
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="N9JOa+xd"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 76BFD40E0481;
+	Mon,  5 Oct 2026 14:57:43 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id 0J9h7yH4isPT; Mon,  5 Oct 2026 14:57:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1791212253; bh=N+xpnxH7V22C0Xoe4UOwrwr5hw0pQwUziRetdyqR5zE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=N9JOa+xdC2os9yHuhR+EuYIa7lDk/dqeO5MtJUU/fyaicCVeSts9AyuCU+t+2iCXj
+	 4H2XRXDDBSMPVcxTEGzKOiOBh6Y1wTtB0fUY/NUF61uo8gb8RtxayRD1UTLkV+r0zR
+	 644AgYO6BhGrOjbRDihpx8OP3BOw/Bd3dOd1QK60Z8K3SGPlJQ4LXzxvxonpbIaF8R
+	 OX8IeT4QFjwt926w1AJ0qfRJQOv/lC6rphngsu+njHQZdiU3kvEaG7ZppSDnNfq/XA
+	 oURhmU05SwjIUsB26OwBeGttj6PIowHPbTo86XYihB5jpFdnvf/mdmmJxEG/iBKhmy
+	 TKb5lzcF5AJGxTrEiIUdcnjoWLRy/Jj74lhsOf/smKlHyF3NrokRbPsxpxtAyBwR6X
+	 PzM1TOdtL8IWzxXQ8MWTsYSywLWcSaU6REE8HBmnK5x3u3fA57cv6J8GtILGegBSny
+	 L0JPm6WP/8gJOetbl/ifpK/nVrPvqgNl67zl2HmFIxLB9noHYqKHGYbEpPxuaj58ve
+	 rU76nKLmMWyk4qHTNXqHqtXRBPP5FkjeFGomlub7IC64pmVXN0m0/PmvqzzDsBnjdE
+	 qMxZi4mmvVf+lKyM7PVl2own7kULZAcZF78uZXmMVFjEp/Zlki7n2P66NvvRejS5Ik
+	 ibBSSrqt2aBVMPF7tMqGR5ew=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 15B4640E02B3;
+	Mon,  5 Oct 2026 14:57:29 +0000 (UTC)
+Date: Mon, 5 Oct 2026 07:57:27 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: dinguyen@kernel.org, stable@vger.kernel.org
+Subject: Re: FAILED: patch "[PATCH] EDAC/altera: Fix memory leak on dci
+ allocation failure" failed to apply to 5.15-stable tree
+Message-ID: <20261005145727.GDasO616AnvymDNLbK@fat_crate.local>
+References: <2026100524-payer-capricorn-e50f@gregkh>
+ <20261005142732.GBasOz1POO8wYBLJC2@fat_crate.local>
+ <2026100558-empty-water-c908@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <2026100558-empty-water-c908@gregkh>
 
-From: Jiazi Liu <jiazi.liu1984@gmail.com>
+On Mon, Oct 05, 2026 at 04:51:24PM +0200, Greg KH wrote:
+> Ugh, but the Fixes: tag points at 4.6, so which do I believe?  :)
 
-[ Upstream commit 1ff77cbefe5a653ea12874c213ea4bd0d72c1067 ]
+Yeah, I know. Dinh wanted it limited to 6.18 and newer only.
 
-When dwc3_check_event_buf() reads a GEVNTCOUNT value exceeding the
-event buffer length, commit 63ccd26cd1f6 ("usb: dwc3: gadget: check
-that event count does not exceed event buffer length") returns IRQ_NONE
-without writing back GEVNTCOUNT. Since the DWC3 interrupt is
-level-triggered, the uncleared IRQ source keeps the line asserted,
-causing a tight IRQ storm that accumulates 99,900 unhandled interrupts
-and triggers spurious.c:184 BUG -> kernel panic.
+> thanks for letting me know.
 
-The resulting call stack:
-  __report_bad_irq+0xac/0xc8
-  note_interrupt+0x340/0x468
-  handle_irq_event+0xac/0xc0
-  handle_fasteoi_irq+0x120/0x228
-  gic_handle_irq+0x68/0x108
-  ...
-  kernel BUG at kernel/irq/spurious.c:184
+Anytime.
 
-To reproduce, write a bogus value exceeding the event buffer length
-directly to the GEVNTCOUNT register:
+Thx.
 
-  devmem <DWC3_BASE + 0xc40c> 4 0x1004
-
-Write the bogus count back to GEVNTCOUNT to clear the IRQ source,
-consistent with the stale event clearing pattern in
-dwc3_event_buffers_setup(), and schedule error recovery to
-reinitialize the controller.
-
-Fixes: 63ccd26cd1f6 ("usb: dwc3: gadget: check that event count does not exceed event buffer length")
-Cc: stable <stable@kernel.org>
-Suggested-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Signed-off-by: Jiazi Liu <jiazi.liu1984@gmail.com>
-Link: https://patch.msgid.link/20260915110637.17658-1-jiazi.liu1984@gmail.com
-Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ sashal: Adjusted context for the existing kzalloc() call instead of kzalloc_obj(). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/usb/dwc3/core.h   |  19 +++++++
- drivers/usb/dwc3/ep0.c    |   9 ++++
- drivers/usb/dwc3/gadget.c | 108 +++++++++++++++++++++++++++++++++++++-
- 3 files changed, 134 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/usb/dwc3/core.h b/drivers/usb/dwc3/core.h
-index a39bf284c763f..7d310c56fe084 100644
---- a/drivers/usb/dwc3/core.h
-+++ b/drivers/usb/dwc3/core.h
-@@ -49,6 +49,7 @@
- #define DWC3_ENDPOINTS_NUM	32
- #define DWC3_XHCI_RESOURCES_NUM	2
- #define DWC3_ISOC_MAX_RETRIES	5
-+#define DWC3_ERR_RECOVERY_MAX	3
- 
- #define DWC3_SCRATCHBUF_SIZE	4096	/* each buffer is assumed to be 4KiB */
- #define DWC3_EVENT_BUFFERS_SIZE	4096
-@@ -842,6 +843,12 @@ enum dwc3_link_state {
- 	DWC3_LINK_STATE_MASK		= 0x0f,
- };
- 
-+enum dwc3_err_state {
-+	DWC3_ERR_NONE = 0,
-+	DWC3_ERR_RECOVERY,
-+	DWC3_ERR_UNRECOVERABLE,
-+};
-+
- /* TRB Length, PCM and Status */
- #define DWC3_TRB_SIZE_MASK	(0x00ffffff)
- #define DWC3_TRB_SIZE_LENGTH(n)	((n) & DWC3_TRB_SIZE_MASK)
-@@ -1005,6 +1012,7 @@ struct dwc3_glue_ops {
- /**
-  * struct dwc3 - representation of our controller
-  * @drd_work: workqueue used for role swapping
-+ * @err_recovery_work: workqueue used for controller error recovery
-  * @ep0_trb: trb which is used for the ctrl_req
-  * @bounce: address of bounce buffer
-  * @setup_buf: used while precessing STD USB requests
-@@ -1014,6 +1022,7 @@ struct dwc3_glue_ops {
-  * @ep0_in_setup: one control transfer is completed and enter setup phase
-  * @lock: for synchronizing
-  * @mutex: for mode switching
-+ * @connect_mutex: for the pull-up and err_recovery_work
-  * @dev: pointer to our struct device
-  * @sysdev: pointer to the DMA-capable device
-  * @xhci: pointer to our xHCI child
-@@ -1078,6 +1087,9 @@ struct dwc3_glue_ops {
-  * @ep0_next_event: hold the next expected event
-  * @ep0state: state of endpoint zero
-  * @link_state: link state
-+ * @err_state: current error recovery state.
-+ * @err_recovery_count: number of consecutive error recovery attempts until
-+ *		confirmed healthy and reset to 0 on reset event.
-  * @speed: device speed (super, high, full, low)
-  * @hwparams: copy of hwparams registers
-  * @regset: debugfs pointer to regdump file
-@@ -1186,6 +1198,7 @@ struct dwc3_glue_ops {
-  */
- struct dwc3 {
- 	struct work_struct	drd_work;
-+	struct work_struct	err_recovery_work;
- 	struct dwc3_trb		*ep0_trb;
- 	void			*bounce;
- 	u8			*setup_buf;
-@@ -1200,6 +1213,9 @@ struct dwc3 {
- 	/* mode switching lock */
- 	struct mutex		mutex;
- 
-+	/* serializes pull-up run/stop vs error recovery */
-+	struct mutex		connect_mutex;
-+
- 	struct device		*dev;
- 	struct device		*sysdev;
- 
-@@ -1325,6 +1341,9 @@ struct dwc3 {
- 	enum dwc3_ep0_next	ep0_next_event;
- 	enum dwc3_ep0_state	ep0state;
- 	enum dwc3_link_state	link_state;
-+	enum dwc3_err_state	err_state;
-+
-+	u32			err_recovery_count;
- 
- 	u16			u2sel;
- 	u16			u2pel;
-diff --git a/drivers/usb/dwc3/ep0.c b/drivers/usb/dwc3/ep0.c
-index fe479bba10c3a..5000de8446dce 100644
---- a/drivers/usb/dwc3/ep0.c
-+++ b/drivers/usb/dwc3/ep0.c
-@@ -200,6 +200,11 @@ int dwc3_gadget_ep0_queue(struct usb_ep *ep, struct usb_request *request,
- 	int				ret;
- 
- 	spin_lock_irqsave(&dwc->lock, flags);
-+	if (dwc->err_state != DWC3_ERR_NONE) {
-+		ret = -ESHUTDOWN;
-+		goto out;
-+	}
-+
- 	if (!dep->endpoint.desc || !dwc->pullups_connected || !dwc->connected) {
- 		dev_err(dwc->dev, "%s: can't queue to disabled endpoint\n",
- 				dep->name);
-@@ -271,6 +276,10 @@ int dwc3_gadget_ep0_set_halt(struct usb_ep *ep, int value)
- 	int				ret;
- 
- 	spin_lock_irqsave(&dwc->lock, flags);
-+	if (dwc->err_state != DWC3_ERR_NONE) {
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+		return -ESHUTDOWN;
-+	}
- 	ret = __dwc3_gadget_ep0_set_halt(ep, value);
- 	spin_unlock_irqrestore(&dwc->lock, flags);
- 
-diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c
-index 050ea2b463bf9..ed9f759c9575d 100644
---- a/drivers/usb/dwc3/gadget.c
-+++ b/drivers/usb/dwc3/gadget.c
-@@ -1149,6 +1149,10 @@ static int dwc3_gadget_ep_enable(struct usb_ep *ep,
- 		return 0;
- 
- 	spin_lock_irqsave(&dwc->lock, flags);
-+	if (dwc->err_state != DWC3_ERR_NONE) {
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+		return -ESHUTDOWN;
-+	}
- 	ret = __dwc3_gadget_ep_enable(dep, DWC3_DEPCFG_ACTION_INIT);
- 	spin_unlock_irqrestore(&dwc->lock, flags);
- 
-@@ -2060,6 +2064,10 @@ static int dwc3_gadget_ep_queue(struct usb_ep *ep, struct usb_request *request,
- 	int				ret;
- 
- 	spin_lock_irqsave(&dwc->lock, flags);
-+	if (dwc->err_state != DWC3_ERR_NONE) {
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+		return -ESHUTDOWN;
-+	}
- 	ret = __dwc3_gadget_ep_queue(dep, req);
- 	spin_unlock_irqrestore(&dwc->lock, flags);
- 
-@@ -2292,6 +2300,10 @@ static int dwc3_gadget_ep_set_halt(struct usb_ep *ep, int value)
- 	int				ret;
- 
- 	spin_lock_irqsave(&dwc->lock, flags);
-+	if (dwc->err_state != DWC3_ERR_NONE) {
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+		return -ESHUTDOWN;
-+	}
- 	ret = __dwc3_gadget_ep_set_halt(dep, value, false);
- 	spin_unlock_irqrestore(&dwc->lock, flags);
- 
-@@ -2306,6 +2318,10 @@ static int dwc3_gadget_ep_set_wedge(struct usb_ep *ep)
- 	int				ret;
- 
- 	spin_lock_irqsave(&dwc->lock, flags);
-+	if (dwc->err_state != DWC3_ERR_NONE) {
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+		return -ESHUTDOWN;
-+	}
- 	dep->flags |= DWC3_EP_WEDGE;
- 
- 	if (dep->number == 0 || dep->number == 1)
-@@ -2437,6 +2453,10 @@ static int dwc3_gadget_wakeup(struct usb_gadget *g)
- 	}
- 
- 	spin_lock_irqsave(&dwc->lock, flags);
-+	if (dwc->err_state != DWC3_ERR_NONE) {
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+		return -ESHUTDOWN;
-+	}
- 	if (!dwc->gadget->wakeup_armed) {
- 		dev_err(dwc->dev, "not armed for remote wakeup\n");
- 		spin_unlock_irqrestore(&dwc->lock, flags);
-@@ -2464,6 +2484,10 @@ static int dwc3_gadget_func_wakeup(struct usb_gadget *g, int intf_id)
- 	}
- 
- 	spin_lock_irqsave(&dwc->lock, flags);
-+	if (dwc->err_state != DWC3_ERR_NONE) {
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+		return -ESHUTDOWN;
-+	}
- 	/*
- 	 * If the link is in U3, signal for remote wakeup and wait for the
- 	 * link to transition to U0 before sending device notification.
-@@ -2833,10 +2857,13 @@ static int dwc3_gadget_pullup(struct usb_gadget *g, int is_on)
- 
- 	synchronize_irq(dwc->irq_gadget);
- 
-+	/* Serialize against dwc3_err_recovery_work() */
-+	mutex_lock(&dwc->connect_mutex);
- 	if (!is_on)
- 		ret = dwc3_gadget_soft_disconnect(dwc);
- 	else
- 		ret = dwc3_gadget_soft_connect(dwc);
-+	mutex_unlock(&dwc->connect_mutex);
- 
- 	pm_runtime_put(dwc->dev);
- 
-@@ -4142,6 +4169,10 @@ static void dwc3_gadget_reset_interrupt(struct dwc3 *dwc)
- 
- 	dwc->suspended = false;
- 
-+	/* The controller is recovered. */
-+	if (dwc->err_state == DWC3_ERR_NONE)
-+		dwc->err_recovery_count = 0;
-+
- 	/*
- 	 * Ideally, dwc3_reset_gadget() would trigger the function
- 	 * drivers to stop any active transfers through ep disable.
-@@ -4629,6 +4660,12 @@ static irqreturn_t dwc3_thread_interrupt(int irq, void *_evt)
- 	return ret;
- }
- 
-+static void dwc3_schedule_err_recovery(struct dwc3 *dwc)
-+{
-+	dwc->err_state = DWC3_ERR_RECOVERY;
-+	schedule_work(&dwc->err_recovery_work);
-+}
-+
- static irqreturn_t dwc3_check_event_buf(struct dwc3_event_buffer *evt)
- {
- 	struct dwc3 *dwc = evt->dwc;
-@@ -4662,9 +4699,21 @@ static irqreturn_t dwc3_check_event_buf(struct dwc3_event_buffer *evt)
- 		return IRQ_NONE;
- 
- 	if (count > evt->length) {
--		dev_err_ratelimited(dwc->dev, "invalid count(%u) > evt->length(%u)\n",
-+		dev_err(dwc->dev, "invalid count(%u) > evt->length(%u)\n",
- 			count, evt->length);
--		return IRQ_NONE;
-+		/*
-+		 * This is a fatal error - the driver and controller are out of
-+		 * sync on which event has been consumed. Reinitializing the
-+		 * controller is required to recover. Write the bogus count back
-+		 * to GEVNTCOUNT to clear the IRQ source, consistent with the
-+		 * stale event clearing in dwc3_event_buffers_setup(), then
-+		 * schedule error recovery.
-+		 */
-+		spin_lock(&dwc->lock);
-+		dwc3_schedule_err_recovery(dwc);
-+		spin_unlock(&dwc->lock);
-+		dwc3_writel(dwc, DWC3_GEVNTCOUNT(0), count);
-+		return IRQ_HANDLED;
- 	}
- 
- 	evt->count = count;
-@@ -4724,6 +4773,57 @@ static void dwc_gadget_release(struct device *dev)
- 	kfree(gadget);
- }
- 
-+static void dwc3_err_recovery_work(struct work_struct *work)
-+{
-+	struct dwc3 *dwc = container_of(work, struct dwc3, err_recovery_work);
-+	unsigned long flags;
-+	int ret;
-+
-+	/* serializes against dwc3_gadget_pullup() */
-+	mutex_lock(&dwc->connect_mutex);
-+
-+	ret = dwc3_gadget_soft_disconnect(dwc);
-+
-+	dwc3_disconnect_gadget_sleepable(dwc);
-+
-+	if (ret)
-+		goto err_unrecoverable;
-+
-+	if (dwc->softconnect) {
-+		u32 count;
-+		/*
-+		 * Wait irq to finish before soft_connect resets evt->lpos and
-+		 * the event buffer registers to avoid racing with
-+		 * dwc3_process_event_buf().
-+		 */
-+		synchronize_irq(dwc->irq_gadget);
-+
-+		spin_lock_irqsave(&dwc->lock, flags);
-+		count = ++dwc->err_recovery_count;
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+
-+		if (count > DWC3_ERR_RECOVERY_MAX)
-+			goto err_unrecoverable;
-+
-+		ret = dwc3_gadget_soft_connect(dwc);
-+		if (ret)
-+			goto err_unrecoverable;
-+	}
-+	mutex_unlock(&dwc->connect_mutex);
-+
-+	spin_lock_irqsave(&dwc->lock, flags);
-+	dwc->err_state = DWC3_ERR_NONE;
-+	spin_unlock_irqrestore(&dwc->lock, flags);
-+	return;
-+
-+err_unrecoverable:
-+	dev_err(dwc->dev, "Unable to recover the controller\n");
-+	mutex_unlock(&dwc->connect_mutex);
-+	spin_lock_irqsave(&dwc->lock, flags);
-+	dwc->err_state = DWC3_ERR_UNRECOVERABLE;
-+	spin_unlock_irqrestore(&dwc->lock, flags);
-+}
-+
- /**
-  * dwc3_gadget_init - initializes gadget related registers
-  * @dwc: pointer to our controller context structure
-@@ -4767,6 +4867,8 @@ int dwc3_gadget_init(struct dwc3 *dwc)
- 	}
- 
- 	init_completion(&dwc->ep0_in_setup);
-+	INIT_WORK(&dwc->err_recovery_work, dwc3_err_recovery_work);
-+	mutex_init(&dwc->connect_mutex);
- 	dwc->gadget = kzalloc(sizeof(struct usb_gadget), GFP_KERNEL);
- 	if (!dwc->gadget) {
- 		ret = -ENOMEM;
-@@ -4862,6 +4964,8 @@ void dwc3_gadget_exit(struct dwc3 *dwc)
- 	if (!dwc->gadget)
- 		return;
- 
-+	cancel_work_sync(&dwc->err_recovery_work);
-+	mutex_destroy(&dwc->connect_mutex);
- 	dwc3_enable_susphy(dwc, true);
- 	usb_del_gadget(dwc->gadget);
- 	dwc3_gadget_free_endpoints(dwc);
 -- 
-2.53.0
+Regards/Gruss,
+    Boris.
 
+https://people.kernel.org/tglx/notes-about-netiquette
