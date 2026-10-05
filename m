@@ -1,170 +1,172 @@
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B959F534466
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 17:19:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220791; cv=pass; b=Dh0eyzTqlx9PWhjuK5mVil+6p+6zXgFM7N6cPWMESLBaKByGQMymqOJdHkQKP5o4astozXwLhDKlbY7mybVj+HKjVcEBZJ9HoC+yDksdUgX01h8m3gN4MsKTkAdbvrigicaLA40DdR1mxujG0Vym1fTYWrHbE0fpWLxQQTMWZfE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220791; c=relaxed/simple;
-	bh=Iyy/EbW0PV9CgJFXeNSzqijmw9jKbQl0yvOdKn8dVN8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TOrZ2jBszJMjSy2Z3ghovZuSoyBF/cPIMlgKaFAnwz2Q4+GiL9B6FRH8FlfWXzv2vlCKFvL/YvGj2sGeQAAEG6OsGp4lWYcwxmaVhAVrFP9dL+DTbDyMgKyp3wlsR3n7t7otX87VLWld6Y0Krfl5Dkbw+PDYG6C++o62ZjDCnMw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gE8JLIr7; arc=pass smtp.client-ip=209.85.215.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C34D4DB560
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 17:26:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.51
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791221168; cv=none; b=dbGF7zoKXsCHWguyBZbdGna3nPVaRfZvAVhfcumVhjhRSEtK2qCtrFjDzg1XANi0f8iC/FpGL5usqZD640YMO2V9Vc77p7gXu75FLzLb8PO1mD8lY0NRym+MI+KBoWfN29C4e9K3N1QqvF8N20oQ1gUPA19YiDMBKoVYzT096Nc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791221168; c=relaxed/simple;
+	bh=0tlu23Wb+fnBd//rKVf7iA12CVAByRfBiHkTg/vcoM8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=O+E7FNUZlURiYz1FJ26/BrhYwpOiscMjLI9Ot4SeHEzfPDnBojCONPW4DKaenj5LFxsqn8XAKcNHTikVdobG87tblS6vE5tg3cHl2gVBHzFjEp58XLfVLpv17634LTW7LREeUNV3Y3OJmEEZyWIPEkI85Kd+j1Jb4mJEEZ1sNRk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s4PAApbf; arc=none smtp.client-ip=74.125.224.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gE8JLIr7"
-Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cc1bc88a20eso1387990a12.3
-        for <stable@vger.kernel.org>; Mon, 05 Oct 2026 10:19:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791220789; cv=none;
-        d=google.com; s=arc-20260327;
-        b=EKipDAtXZhVfmbsFcR7ucRmbmYN+DY6KGlUaIFh9vce4Y++CoiF7Xc9n6lkKrApLzE
-         UcJJzWDa91QAe9qrJEToc6dyNNXKeHXXsk0SmHKmSEsR0KnCmtiqe496hsPha0wHSrUT
-         NPk7gwbGuiAe0yeE0z72m9ZiKJkTHwLH1M1MxoNLCUOkaJvKoZ2NGWq12beMWmUQC4Mt
-         bWAzLHzftPnv/u/iHw981F6QLQOdWBvt9WRSurity6dFuRU+BlTXrIzauWAjAJ9OkHSe
-         VZweEyx6p9m8gfSZaD29pv/2yd+rYTA+VNUy8t1UybzTwYL4uKIh98BBe9LDVXDvAoah
-         Y6ZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=kZaUwiZFto6aopJ87je3gAd8sYajiTqXcqFYb3kLz6E=;
-        fh=U7Y97keqYPqWKxjivEhBOup+sYYU8JzN7iDJTTC0fqE=;
-        b=bVeX5kp79uI983K1oo4o1cdfU/2lEP1M0p+kpGAAWvYmpOJaH02QkEREj1GaMCI0iK
-         LUeCycIFkc6ZrFU+dWO+yvsTsQb11koOYOPR93QTECPZ2R8K4pHd9Z8b4I6JZA4ldgNi
-         U9uhITkSUV05fNGT2Hd4YAlPeBGiQA2x5Arf4TrWdl24MlXw0O4Y5a3DcjOW375euujg
-         1aHfcGQbDMjN5lxgnVfDPC0+xURbfS0I0AHj8qhkPdjAaX5TZWBFymIzaay2gvnSzHXc
-         2x7Snqi/0PLaX66fvmklmXCqattjHitE38wZpWyjndkmrVKnm7zAqTVzE7SpZDrFHU/U
-         63nQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s4PAApbf"
+Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-6768a9fc0e8so1774210d50.2
+        for <stable@vger.kernel.org>; Mon, 05 Oct 2026 10:26:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791220789; x=1791825589; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kZaUwiZFto6aopJ87je3gAd8sYajiTqXcqFYb3kLz6E=;
-        b=gE8JLIr7W6DAIA2P/MDRVo2hmbxwnbtXbOE3gq2W5rAmpUVaJBoVaVt94axWAYNIrw
-         x90UBYGBiEorg40G5/vkF3/Ui2+UEFjI5rsIlrBBcPFU/DCVKvLb3lCXf0FjRZbutzA4
-         Rnv8+MKrtnkziCBFsmFRkAnq/FrDGrr4d7bxmnuGfATx6pj076+7qVqdw56HcC16t2WB
-         I+eNJr3ikBf5QaXFPSxcTjFSKfjeu8ks1VVeut3gYUjnwVFgSUrV0rI18/ifY2rLt/MK
-         MrZpuQpB85gJJdBs50UXgW0rOj3j78mzHK5jNGxKDgUDroqFwfN+RLAi+Tg/tb4mtDeU
-         oM+Q==
+        d=gmail.com; s=20251104; t=1791221165; x=1791825965; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tSg+xg0GISK2TLhhUpUId1buzLRTI6rIxrwQhAMstEk=;
+        b=s4PAApbfY21QX23KWxHio34rm6HlbMcddSM7pYE7WIYfSGuVV06/NIXwg0olbnDk8j
+         EOFOpGW7dos9algdEj0QXMU5C5KDV0Ew1bSrFlDazwT7iVlC/1djNpFGuLOhHuaCSWO5
+         Eei1XEN3/sLhU2+w6j0qcQaIve1+r+G2GsS78bQlMnCy+fv0ycF6yuHIbkTzmUGqw5fG
+         rcQ4/lYWWKMQxwiLnPFR0C5tWwTfqxuzzrp3LpppvL9/Uf+yea4QYtxcmMpRyE2bDcI9
+         KNuELPvSFKuN6Ch6v4vilCq7vdm/Do786DhXLfMaQpIhPvBovw7AFgsBS/e036KfLacu
+         1hPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791220789; x=1791825589;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kZaUwiZFto6aopJ87je3gAd8sYajiTqXcqFYb3kLz6E=;
-        b=EkFnjZuK98ecclkNj8/C9Z5NjHt2QnVsfU7ThUCBQtP0nEzl50rtZofR2YQXFRQDZr
-         5rB6tNFpLzMSqdibiS0aijVoD/vcDZqhGP85fuymtARUuYZ1G71vZUJNjA5PBFMbQvPJ
-         nMkwXovOlvw4ckKvq77eCxhTeyNhHOC6cd9dQBNlbjTt+28GifOwMLxTsu6ZQftNMuD5
-         VUbivJRsWKl6LpsXLY5kWuMDU1EGkfRXP9e4mJKbb/gb11Lh2NiudNdbNZ3IZZp8DJP4
-         yv6JECM0llzG73PjvtM5z3oH9F9H45VHnNRwTMdoq1dFkPPjX2yHnhOOiC8nfEvXDeoZ
-         +A2g==
-X-Forwarded-Encrypted: i=1; AKwUvBzL+NW/iKPprBGcpTdYw+/+tuzcgeQJdlFi/fgVEx8vMu0Coy0nVPwvFsPnPiUeJNs98+8HjzY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kY4Zx5IliFpIE0IKql/bLcqXSifzk4/x21HkOaKcmPoUC+JA/j
-	ePTJEWs3f8+lBjb9wwgBCEA9gmav2DRCAfANQM7lAIUnn5tvmzNmUsOTESXCqYWk8L+aYBpK2XJ
-	z6WOGdmPVpSUlEgg8CLZdRN3SlANwh0k=
-X-Gm-Gg: AYBFou0aq77VuPXMkVfwK4KWCrI5Snf64lPI/mrBrmHaH5oL17n1KXSIwPhv0wG9uJY
-	j+YQoyBh2HJaETyMOfi+xAVvhSyn7xhWzUg95nAqhWhbcsc+4x+7KXithvwLLrkMzsRK39sj+h8
-	ItHTpAmUcK9pdZuCQeVA3C2c0xqfInSIL9hz+z5/xrURU4W5gF60sqIUPnWwROYJJiyqelB2Aij
-	uGA7K29x8DsJQ9P+pqV6RsZVA6t5lMTTtmpCpMl52ecpEYrVmNn5TvVsJ/spLls9qRUfwty7g0x
-	4Sw2uwXBEVTDEPVXQQvB9LaxBSv476kZJXDdGr9CE4J81MI7D6/aXA7SCw5HpKd44typUkOYbLI
-	TQFyIGp2n5NyfcoErXdVjU/TvsqfZJO3bsgIt/DgSnpPTo7X3Nb3tUmQ=
-X-Received: by 2002:a05:6a20:394a:b0:3dd:a197:edfb with SMTP id
- adf61e73a8af0-3e0d6cbdc69mr7529764637.74.1791220789033; Mon, 05 Oct 2026
- 10:19:49 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791221165; x=1791825965;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tSg+xg0GISK2TLhhUpUId1buzLRTI6rIxrwQhAMstEk=;
+        b=wniAaz2CAseHI01z0STWe5Ua2PdDqPbJ6sKuSC4Oe+1Sui3GXIXXMKDwC+jjJ6xfAl
+         AWuG3SDpSureTeZvwrW266npW9H9MSXPqtFG6jaZx1skiwPnI43EBlof8nU/5UM9rJNJ
+         8n8Q9feFFxmsPHyBCgADDwy/ObbYRw1SkbMWnBg/OjACmRRP/Spvh0KsBzccP1rO9zKF
+         Gxy66S9tehI3mVWkNhRfPO8/uqJAMV+S9VVHQkuW6ctrvQ9TjfO7sj1HGyUT4ePchkhX
+         a6IvCyd5m8m3eN+ozwZTfTqTQk9bxtn99Je4ciXVFcWixORX6mnq3CspUgQ6TiVhQvgN
+         0QLQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwpXPnAqb3u5tzgw9GPUZHvv6MirrRw1eFOUPNsxsvN3kKyasPDH7fwugGy9NzczvXXQTI/x+0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKv07Cm/84QRZemJy1TYyfPSUtrDW91YDYfCd6pcpvdLrm/pFW7
+	229Q6ERk0Q0mGzS3PHkHeUkd4zvK7Un+QPRSnUEY2S/5ICSeDYmd0QQx
+X-Gm-Gg: AYBFou1j6r7zzC4OtogsYrhlUWcdL0Hl7SSOAzzfsISw6kuPHpwWjMnx1FhQYoVd1sa
+	47WzdFaW+nt+62A4XLtl2UnCx4UfL76fZxTgvG9ZhfDojjHYDcvFQqzrIm8VsDEnXCdMj2WKLYg
+	9LALsU0uMfdLi7nM/stQO54x+1Wm/eeBg8bFIBrC0eXZx+nLHtZ9RZSRfwi+kKIHYXJ6ffY3nqh
+	ECQIEayFI57hQwYJtyvWPv3wHpc8vMZ2dO7ooiQZPpivhuMgYYEBvj2CK2CaLQo0g+p0K3bAFue
+	r5RhoI8DKnpOOFzHxkhQu0xPUl5iv9QSakt5DKfiSjCRVE5lm82onhYmhXFGVJ5eOypFDS98bqW
+	8NW0Y1sxQibPoi84laxl9tPE3LXtbW1hJCiZvsxT0MW1KbSHsPvTT2nAgD8Wi59SN9quXC5rAQA
+	dd4QUFI1aYDy8zHkFEotHswWiB9v3JfUvD0EiF9LD0V20T58XEq6RWfsP8kPW8FVkoNeMNc4mDy
+	EzZcTRU1hb4gh7IPfzbOIkIJ6hGHPtGFCyRQr54MC3LBTWbi5A32VC5x2tV9jrsFiy7RbcFr2Gr
+	t0edhw==
+X-Received: by 2002:a05:690e:4006:b0:676:97e6:d7a9 with SMTP id 956f58d0204a3-677bd338f18mr3368433d50.40.1791221165074;
+        Mon, 05 Oct 2026 10:26:05 -0700 (PDT)
+Received: from MaquinaLab.. ([179.179.237.181])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-677c1b1b585sm3449969d50.5.2026.10.05.10.26.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 10:26:04 -0700 (PDT)
+From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+To: linux-serial@vger.kernel.org
+Cc: gregkh@linuxfoundation.org,
+	jirislaby@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andriy.shevchenko@linux.intel.com,
+	ilpo.jarvinen@linux.intel.com,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-sunxi@lists.linux.dev,
+	Enzo Adriano <enzo.adriano.code@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/3] serial: 8250_dw: Keep the BUSY-safe divisor hook when DLF is present
+Date: Mon,  5 Oct 2026 14:25:36 -0300
+Message-ID: <20261005172538.398522-2-vinicius.eduardo.pedrosa@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261005172538.398522-1-vinicius.eduardo.pedrosa@gmail.com>
+References: <20261005172538.398522-1-vinicius.eduardo.pedrosa@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930044611.204739-1-benquike@gmail.com> <20261005170632.GB83879@horms.kernel.org>
-In-Reply-To: <20261005170632.GB83879@horms.kernel.org>
-From: Xin Long <lucien.xin@gmail.com>
-Date: Mon, 5 Oct 2026 13:19:37 -0400
-X-Gm-Features: AclHuK-lyDkgT7D3dyZG9byu4tcMRkf70JRI3r14isoIqeQu9dgZ6L1lP-o_t_Y
-Message-ID: <CADvbK_eAWQbGs7EUogG3kZDgpX_9bzrR-okU_6cAobcyp_SbtQ@mail.gmail.com>
-Subject: Re: [PATCH net-next v2] sctp: copy zeroed stats to user in
- sctp_getsockopt_pr_streamstatus() when !streamoute
-To: Simon Horman <horms@kernel.org>
-Cc: Hui Peng <benquike@gmail.com>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Vlad Yasevich <vyasevich@gmail.com>, Neil Horman <nhorman@tuxdriver.com>, linux-sctp@vger.kernel.org, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 5, 2026 at 1:06=E2=80=AFPM Simon Horman <horms@kernel.org> wrot=
-e:
->
-> On Wed, Sep 30, 2026 at 04:46:11AM +0000, Hui Peng wrote:
-> > When an SCTP stream output extension structure (streamoute) has not yet
-> > been allocated, sctp_getsockopt_pr_streamstatus() sets the local stack
-> > variables params.sprstat_abandoned_unsent =3D 0 and
-> > params.sprstat_abandoned_sent =3D 0, but then immediately jumps to 'out=
-:',
-> > bypassing copy_to_user(). As a result, when an uninitialized user buffe=
-r
-> > is passed to getsockopt(SCTP_PR_STREAM_STATUS), the kernel returns
-> > success (0) without copying the zeroed stats back to user space, leavin=
-g
-> > uninitialized data in the user buffer.
-> >
-> > Refactor the !streamoute check into an if-else chain so that when
-> > streamoute is NULL, params is zeroed and falls through to copy_to_user(=
-),
-> > copying the zeroed stats to user space and setting retval =3D 0 once be=
-fore
-> > returning.
-> >
-> > Tested in QEMU against Linux 7.3.0-rc3 using an uninitialized
-> > sctp_prstatus user struct passed to getsockopt(SCTP_PR_STREAM_STATUS) o=
-n a
-> > freshly created stream: on the unfixed kernel the user struct contains
-> > uninitialized stack garbage; whereas with this fix applied, getsockopt(=
-)
-> > copies zeroed stats into user space and returns 0.
-> >
-> > Fixes: 28b7eab0f910 ("sctp: add SCTP_PR_STREAM_STATUS getsockopt")
->
-> The hash cited above does not seem to exist.
-> I suggest that the appropriate fixes tag is as you had for v1:
->
-> Fixes: 28b7eab0f910 ("sctp: add SCTP_PR_STREAM_STATUS getsockopt")
->
-> Also, the patch should probably be targeted at net, again as you had for =
-v1.
-> I realised that Paolo suggested net-next, without a Fixes tag. But I
-> believe the premise of that suggestion was that he felt this was not a bu=
-g fix.
-> However, Xin responded stating he thought it was, and I expect that carri=
-es,
-> especially when combined with the updated patch description you have
-> supplied in v2.
->
-> Please treat the above as FYI at this point.
-> I do not expect a repost is required at this time.
->
-Thanks Simon,
+dw8250_probe() installs dw8250_set_divisor(), which brackets the
+DLAB/DLL/DLH sequence with dw8250_idle_enter()/dw8250_idle_exit() so that
+a BUSY UART cannot drop the divisor LCR write. dw8250_setup_port() runs
+afterwards and replaces that hook with the dwlib one whenever it detects
+a DLF register. The dwlib hook programs the divisor through
+serial8250_do_set_divisor() without entering idle.
 
-Yes, the fixes tag should be the one in v1:
+When termios changes while the UART is transmitting, the LCR|DLAB write
+is ignored and dw8250_check_lcr() retries it between
+dw8250_idle_enter() and dw8250_idle_exit(). dw8250_idle_exit() restores
+IER while DLAB is still set, so the value lands in DLH. The real IER
+keeps the zero written by dw8250_idle_enter(), and the port gets no
+further TX or RX interrupts while up->ier says they're enabled.
 
-Fixes: f952be79cebd ("sctp: introduce struct sctp_stream_out_ext")
+Program DLF from dw8250_set_divisor() inside the idle section and keep
+that hook after dw8250_setup_port().
 
-> > Cc: stable@vger.kernel.org
-> > Reviewed-by: Xin Long <lucien.xin@gmail.com>
-> > Assisted-by: LLM
-> > Signed-off-by: Hui Peng <benquike@gmail.com>
-> > ---
-> > Changes in v2:
-> > - Re-target subject tag to [PATCH net-next v2].
-> > - Remove redundant retval =3D 0 assignment in !streamoute block and fal=
-l
-> >   through to copy_to_user() as suggested by Paolo Abeni and Xin Long.
->
-> ...
+Observed on an Allwinner A733 (Radxa Cubie A7Z): the first interactive
+tcsetattr() during console output left hardware IER at 0 and up->ier at
+0x07. The shell never printed its prompt or read input. With this change
+alone the same boot reached the prompt and echoed input, and hardware
+IER matched up->ier afterwards.
+
+Fixes: a7b9ce39fbe4 ("serial: 8250_dw: Ensure BUSY is deasserted")
+Cc: stable@vger.kernel.org
+Signed-off-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+---
+The A733 has no real DLF. Offset 0xc0 is an RS485 control register that
+dw8250_setup_port() mistakes for one (patch 3), which is how this path
+was reached. The new DLF write hasn't been tested on a UART with a real
+DLF register.
+
+ drivers/tty/serial/8250/8250_dw.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
+index 0ab558230370..ba414306c98a 100644
+--- a/drivers/tty/serial/8250/8250_dw.c
++++ b/drivers/tty/serial/8250/8250_dw.c
+@@ -189,6 +189,7 @@ static int dw8250_idle_enter(struct uart_port *p)
+ static void dw8250_set_divisor(struct uart_port *p, unsigned int baud,
+ 			       unsigned int quot, unsigned int quot_frac)
+ {
++	struct dw8250_data *d = to_dw8250_data(p->private_data);
+ 	struct uart_8250_port *up = up_to_u8250p(p);
+ 	int ret;
+ 
+@@ -196,6 +197,9 @@ static void dw8250_set_divisor(struct uart_port *p, unsigned int baud,
+ 	if (ret < 0)
+ 		return;
+ 
++	if (d->data.dlf_size)
++		dw8250_writel_ext(p, DW_UART_DLF, quot_frac);
++
+ 	serial_port_out(p, UART_LCR, up->lcr | UART_LCR_DLAB);
+ 	if (!(serial_port_in(p, UART_LCR) & UART_LCR_DLAB))
+ 		goto idle_failed;
+@@ -650,7 +654,6 @@ static int dw8250_probe(struct platform_device *pdev)
+ 
+ 	p->set_ldisc	= dw8250_set_ldisc;
+ 	p->set_termios	= dw8250_set_termios;
+-	p->set_divisor	= dw8250_set_divisor;
+ 
+ 	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
+ 	if (!data)
+@@ -767,6 +770,13 @@ static int dw8250_probe(struct platform_device *pdev)
+ 	if (!data->skip_autocfg)
+ 		dw8250_setup_port(p);
+ 
++	/*
++	 * dw8250_setup_port() installs the library divisor hook when it finds
++	 * DLF. Keep the BUSY-safe hook instead: it also programs DLF, and it
++	 * must own DLAB so that a BUSY UART never drops the divisor LCR write.
++	 */
++	p->set_divisor = dw8250_set_divisor;
++
+ 	/* If we have a valid fifosize, try hooking up DMA */
+ 	if (p->fifosize) {
+ 		data->data.dma.rxconf.src_maxburst = p->fifosize / 4;
+-- 
+2.43.0
+
