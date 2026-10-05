@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D107476CF4
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 10:27:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06492476072
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 10:27:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791196060; cv=none; b=CZM0MzEXNnaOtY8uHJmGYfZM93d0hMdUjlv/r49OkevKkzPAOFVMQ3OXilKpyvI/7aOZg/ebK08mi/Fv2rsNMZ3ixvaEYElBUPMyvFjFW9mNOfrbaSNo9Pbo3j/lSnL4fKuJuyyTE9vPgqxvhY8eBvSWOEQ3Se9ODjm4s8aaGuI=
+	t=1791196063; cv=none; b=pThw2C8rq7mTMChC2F9yBq3eEFSyLmr3bmjgbSy6kQqIhZxlTbqqEWVY4Ml59Pe2Nz+CjnpkkN3jLluCwLL7Sn+vMK34xSg7uq7Pts8sUt4ohN/XqiQWCLZ1pa/bh35dI0YJaqIm8kKlv9rFrQ6mfjhkV1uOnC4umkPDQo54L30=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791196060; c=relaxed/simple;
-	bh=iosooUUqd9X8McSMlUCEryVJVgziChHPXJZnW/t46c8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=tm1QgTwMX45ibIFkZWVEfExuzPyGxooTdqA/2ZpBlO3iJ7MHYhqEZJFhjq9z8xxtVrkl0/yoHPehhfsLTKiuco6DYr+XS5M+x5ILAHfFkyl72ixKnscHKFlZ+Ch4+KSoZGH2fRXk+MQi+AWrERfSjvFkzFF6dV39NA2KvvAVDcM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=rXSWktIB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791196063; c=relaxed/simple;
+	bh=ziNYgPO37s2yZvDjUJt1KkLhe3EemJ8mSb0KXcZJZj4=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=DAIBnZ9Wgkk332h5jKViHzeXw8ZDgU6rucxYNM1Lem4+U1W3rGs8dtJeULDXtscKcf0LomKSAq6Otbq/pwYo7ei/DuojEEJvYe1De/P9/s8e7woSAVO1iqaNqC0TUWUE+3vYumBz4HOlcjOcDhDAjLBzzT57eOWm7dW532xmvZM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1AgFhhoM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="rXSWktIB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 996861F00893;
-	Mon,  5 Oct 2026 10:27:38 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1AgFhhoM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 637641F000FF;
+	Mon,  5 Oct 2026 10:27:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791196059;
-	bh=H8PIChVqVm/R3u5/qccigI7fTM0iw9CHB0qYqmMBD1w=;
+	s=korg; t=1791196061;
+	bh=TE1Qgki21vfZbekbCEjIlcWGFGvjERGiRyCiPed+T+8=;
 	h=Subject:To:Cc:From:Date;
-	b=rXSWktIBpPHifrHBbwRMT3U781YQZBiQPOP3V/DdpOD+SFIZ4mEaXj8aSuZK9GnGv
-	 hHMhhgcDnEGGrm+oSB7GcsTEzgq5FOn1+b2KMFK+SZQVeRa2N3IDb/z3besdVm2Jnx
-	 xNRxnUJIUptyeQVIB3JCaP0NhQ8ML1iO6QVam18Q=
-Subject: FAILED: patch "[PATCH] EDAC/altera: Fix memory leak on dci allocation failure" failed to apply to 5.15-stable tree
+	b=1AgFhhoMomlrKLRazUZXRZeJcoWo2XykpAXiabquVzWb2kjJwEZtrAWOUZUq15iLK
+	 ZQpvbGyXolLg3sVE8phVXoYj5C7fQJ/tjsgaemo3SkihwtlwjxLzkjRgdHhcHEnzj3
+	 jZrGet+PtamPOGD17y35Yihee6ywa7H8URFg21mQ=
+Subject: FAILED: patch "[PATCH] EDAC/altera: Fix memory leak on dci allocation failure" failed to apply to 5.10-stable tree
 To: dinguyen@kernel.org,bp@alien8.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 05 Oct 2026 12:27:24 +0200
-Message-ID: <2026100524-payer-capricorn-e50f@gregkh>
+Date: Mon, 05 Oct 2026 12:27:25 +0200
+Message-ID: <2026100525-punctuate-diaphragm-216d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 3e4a10a4718e3d963ee4d6c5f26bc5ad57c1d2b1
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100524-payer-capricorn-e50f@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100525-punctuate-diaphragm-216d@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
