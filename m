@@ -1,99 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailtransmit04.runbox.com (mailtransmit04.runbox.com [185.226.149.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D532137C936;
-	Mon,  5 Oct 2026 07:57:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3F2337CD45;
+	Mon,  5 Oct 2026 07:59:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.226.149.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791187060; cv=none; b=j4Hzp9SwBZKOkweO4mq9KXnVkTsiWdHFKWD//UJHbKMj+uDC7vll0PHL8KvKdsHaWk0HTXtnjHmM2AumAxkBXtoz681xLOPi4IW3pt33xQNCTZH/o2hVuTMtd7HwcN8DBZcDU1WNVwrSiHZbSCgTyVpy40g7plqFb+O8qG6UOJU=
+	t=1791187174; cv=none; b=Er3aYZviywFjSYVM4ViP2pTOguW22zU12gOYVv+sZtx8Z5CLC7paRDmh4R3Sg7JznfiRNslTvWkkIaNnlRggUNMECx74k9WkwRmf+UPk9wmTiAZkj/MGnvddOjWH/CtUQ2mcbQwr2WlZQetjblEsOhM/ZxZkMrSpoXeTc27SIMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791187060; c=relaxed/simple;
-	bh=RVCSNcrJGL/bizGutYQ8HT7sf+E2lGeoUzCF/NOvyP8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bg2Xo0QoWYlEF9s414c3fvyOEdIR+5PMJvLenmpnc6is7ApVmJht350dYLPun5rLytQhru5/N3vXs8gHLQEIorkfAkidWGjuoOIYuFlAF6VkgdOudvDdO7FxTdfhYMjR8bSCRRpu1Q+Vfb4zqaA0BEK7mNUcC1QDlm/6RkbVpec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BsMWvlC0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791187174; c=relaxed/simple;
+	bh=jpWF2fgTTsQNMBqjrX3o9f1OjcJ8sDKl5kFBIYtr1z0=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=UWZmz+qjdsWt8abl8jOKucaODetlClNmn4NG1Ty0rXykU8ErT14ajkausQf7nc+81t9gTP9fusLCAmgtUh+PuimaUCDeKO21olL9srufrnlShshX4q1LSnJwZDq811p37vxRnLeVPcbHwYlHR6FAE4pUNKwCC+sVPASIDWKEQZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co; spf=pass smtp.mailfrom=rbox.co; dkim=pass (2048-bit key) header.d=rbox.co header.i=@rbox.co header.b=kW049N0E; arc=none smtp.client-ip=185.226.149.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rbox.co
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BsMWvlC0"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id D3BC41F000FF;
-	Mon,  5 Oct 2026 07:57:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791187056;
-	bh=slmbwfy5IfGI7Oq6JJxTikw0Zbl7iHw8bAJtDZftGzY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BsMWvlC0RXZ+STEWLT5QpqQ8ZiXqLyOc+EfDF1ziKubdyWTE6uutpzvyBGWg4glA4
-	 vtlmfe895h+MAWVZ1wvDbT93kaVQuf/jFEL/Snb4K+fa/nSfyk7Zs4iZlySMtSQHSc
-	 YaqJWMXlpFPP43V2QiyzlmilSIT6EOQTtvnurXp6mq3p6w4aCoRQe1Jr5xGFhLFxem
-	 9Evh3I//xOO532aj8qEZlRG1P80lwAN+hmE66vuEzwSjLw1K0ZwAkiQbW/fgKrlqyZ
-	 9F+u8uT3fBKAyMcJzl1R8jH9mb3yVyNCDkLR6KxK24pT4gGiSKOJpDnxSF7MF4Vo9n
-	 OXmVFEPgRN8cA==
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: stable@vger.kernel.org
-Cc: Jiangshan Yi <yijiangshan@kylinos.cn>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Jarkko Sakkinen <jarkko@kernel.org>,
-	Peter Huewe <peterhuewe@gmx.de>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jonathan McDowell <noodles@meta.com>,
-	Roberto Sassu <roberto.sassu@huawei.com>,
-	Baoli Zhang <baoli.zhang@linux.intel.com>,
-	Gunnar Kudrjavets <gunnarku@amazon.com>,
-	James Bottomley <James.Bottomley@HansenPartnership.com>,
-	linux-integrity@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 6.18.y] tpm: fix off-by-four bounds check in tpm2_get_random()
-Date: Mon,  5 Oct 2026 10:57:28 +0300
-Message-ID: <20261005075730.134611-1-jarkko@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <2026100308-undertook-vividly-2e61@gregkh>
-References: <2026100308-undertook-vividly-2e61@gregkh>
+	dkim=pass (2048-bit key) header.d=rbox.co header.i=@rbox.co header.b="kW049N0E"
+Received: from mailtransmit03.runbox ([10.9.9.163] helo=aibo.runbox.com)
+	by mailtransmit04.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.93)
+	(envelope-from <mhal@rbox.co>)
+	id 1xDdbY-00C9cH-Ug; Mon, 05 Oct 2026 09:59:24 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=rbox.co;
+	s=selector1; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:References:
+	Cc:To:Subject:From:MIME-Version:Date:Message-ID;
+	bh=AJpRXQHRBb4+gY4/3S+W6fpaM8ojmDIBRhQ4aGx7Imw=; b=kW049N0Ewaq+URE6huHVFmZ0di
+	5O0JtV6sqo7SlROpp2utVSdu3YzDX5lKRidExLdFTskN2YdxIyaKXQG+B9wLNElUC0aSCDYQyQTDz
+	8seBh+lh8ri+ifM0z1MWwthdR1gbJoDH8C5Twx8PQBN0rbOqvdA9w1rvfp8M0I1FJwQeTJ+O6nMVV
+	G8uPsJnnDTacK7qJUwq1tNEEKfWVYmoS46OwFI4cyb1kQz5jAZzyp7tm3I6Quw+Gm3t12A2+5paHy
+	rz3OpuC88yeL4Ik0UvyCBETAtNP4Fri4EjRfTIF4WX4bEY3JcnsKSTo8TjurZpYBWdFYr6HbiaWSL
+	1GLZjbNg==;
+Received: from [10.9.9.74] (helo=submission03.runbox)
+	by mailtransmit03.runbox with esmtp (Exim 4.86_2)
+	(envelope-from <mhal@rbox.co>)
+	id 1xDdbR-0003yJ-Qv; Mon, 05 Oct 2026 09:59:17 +0200
+Received: by submission03.runbox with esmtpsa  [Authenticated ID (604044)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.95)
+	id 1xDdbJ-00BpL3-Pe;
+	Mon, 05 Oct 2026 09:59:09 +0200
+Message-ID: <4dfb9200-8bd1-4806-90d8-892529b79962@rbox.co>
+Date: Mon, 5 Oct 2026 09:59:08 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+From: Michal Luczaj <mhal@rbox.co>
+Subject: Re: [PATCH net] vsock/bpf: release sock lock while waiting for data
+ in recvmsg
+To: Stefano Garzarella <sgarzare@redhat.com>, jrmmhm.kernel@eldare.de,
+ Bobby Eshleman <bobbyeshleman@meta.com>
+Cc: "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Bobby Eshleman <bobby.eshleman@bytedance.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>, virtualization@lists.linux.dev,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260929-kbh3-1-022-fix-v1-1-cc97cc95d269@eldare.de>
+ <ar4gvlZL1JyPycg1@sgarzare-redhat>
+Content-Language: pl-PL, en-GB
+In-Reply-To: <ar4gvlZL1JyPycg1@sgarzare-redhat>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Jiangshan Yi <yijiangshan@kylinos.cn>
+On 10/1/26 11:01, Stefano Garzarella wrote:
+> +cc Bobby and Michal who touched this code recently
+> 
+> On Tue, Sep 29, 2026 at 06:33:04PM +0200, Jerome Mohm via B4 Relay wrote:
+>> From: Jerome Mohm <jrmmhm.kernel@eldare.de>
+>>
+>> vsock_bpf_recvmsg() takes lock_sock(sk) and holds it across the whole
+>> receive loop, including vsock_msg_wait_data(), which sleeps in
+>> wait_woken() without dropping the lock. When data arrives, the
+>> transport's delivery context (the vsock-loopback worker, or the
+>> virtio/vhost rx path) calls virtio_transport_recv_pkt() -> lock_sock()
+>> on the same socket and blocks. That context is the only one that would
+>> queue the skb and call sk_data_ready() to wake the reader, so neither
+>> side makes progress. A blocking recv() hangs until a signal arrives (a
+>> finite SO_RCVTIMEO also breaks it); while it lasts the shared delivery
+>> worker is stalled, so all vsock rx on that transport stops, not only
+>> the affected socket. The hung-task watchdog reports the worker blocked
+>> in D state:
+>>
+>>  INFO: task kworker/1:3:107 blocked for more than 5 seconds.
+>>  task:kworker/1:3 state:D Workqueue: vsock-loopback vsock_loopback_work
+>>  Call Trace:
+>>   __schedule
+>>   schedule
+>>   __lock_sock
+>>   lock_sock_nested
+>>   virtio_transport_recv_pkt
+>>   vsock_loopback_work
+>>
+>> The reader holds the same sk_lock-AF_VSOCK it is waiting on, taken in
+>> vsock_bpf_recvmsg().
+>>
+>> This code is based on net/unix/unix_bpf.c, whose unix_msg_wait_data()
+>> drops u->iolock around wait_woken() and re-takes it afterwards. The
+>> vsock port substituted lock_sock() for that serialisation lock but
+>> omitted the unlock and relock. tcp_bpf and the native
+>> vsock_connectible_wait_data() both drop the lock across the wait;
+>> vsock_bpf is the only one that does not.
+>>
+>> Release the socket lock around the wait and re-acquire it before
+>> re-checking for data, so the caller's locking is unchanged.
+>>
+>> Fixes: 634f1a7110b4 ("vsock: support sockmap")
+>> Cc: stable@vger.kernel.org
+>> Assisted-by: LLM
+>> Signed-off-by: Jerome Mohm <jrmmhm.kernel@eldare.de>
+>> ---
+>> net/vmw_vsock/vsock_bpf.c | 2 ++
+>> 1 file changed, 2 insertions(+)
+>>
+>> diff --git a/net/vmw_vsock/vsock_bpf.c b/net/vmw_vsock/vsock_bpf.c
+>> index 9049d2648646..bb7d81a95baa 100644
+>> --- a/net/vmw_vsock/vsock_bpf.c
+>> +++ b/net/vmw_vsock/vsock_bpf.c
+>> @@ -50,7 +50,9 @@ static bool vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock, long ti
+>> 	sk_set_bit(SOCKWQ_ASYNC_WAITDATA, sk);
+>> 	ret = vsock_has_data(sk, psock);
+>> 	if (!ret) {
+>> +		release_sock(sk);
+>> 		wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
+>> +		lock_sock(sk);
+>> 		ret = vsock_has_data(sk, psock);
+>> 	}
+>> 	sk_clear_bit(SOCKWQ_ASYNC_WAITDATA, sk);
+>>
+>> ---
+>> base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+>> change-id: 20260929-kbh3-1-022-fix-340aa3f7f071
+>>
+>> Best regards,
+>> --
+>> Jerome Mohm <jrmmhm.kernel@eldare.de>
+>>
+> 
+> LGTM, but I'd like also Bobby and Michal opinion:
+> 
+> Acked-by: Stefano Garzarella <sgarzare@redhat.com>
 
-[ Upstream commit 9b522400bf5c082feb9a0037a053ea822a2c7e4d ]
+I took a look at v2 and I don't really have any functional comments. Well,
+besides the use of READ_ONCE, but that's probably something we need to
+tackle separately?
 
-When the response carries the TPM2_ST_SESSIONS tag, tpm2_get_random()
-skips the 4-byte parameter size field before locating the random data,
-but the bounds check still validates the response length against
-TPM_HEADER_SIZE.  A truncated response can pass the check and make
-memcpy() read up to 4 bytes past the response end, so stale buffer
-contents end up in the caller's random bytes.
+A single-patch v2 addresses not only the original bug, but also sashiko's
+complains about the pre-existing issues (making the subject stale?), but I
+didn't know if you'd rather have all of that stuffed together, so I
+refrained from commenting to avoid confusing the author.
 
-Fix this by checking the response length against 'offset', which
-already includes the skipped parameter size field.
-
-Cc: stable@vger.kernel.org #  v6.12+
-Fixes: 1b6d7f9eb150 ("tpm: add session encryption protection to tpm2_get_random()")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260902074839.417419-1-yijiangshan%40kylinos.cn
-Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-Link: https://lore.kernel.org/r/20260903035837.219284-1-yijiangshan@kylinos.cn
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
----
- drivers/char/tpm/tpm2-cmd.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/char/tpm/tpm2-cmd.c b/drivers/char/tpm/tpm2-cmd.c
-index 2f506cdb5f45..c5465834396a 100644
---- a/drivers/char/tpm/tpm2-cmd.c
-+++ b/drivers/char/tpm/tpm2-cmd.c
-@@ -298,7 +298,7 @@ int tpm2_get_random(struct tpm_chip *chip, u8 *dest, size_t max)
- 		out = (struct tpm2_get_random_out *)&buf.data[offset];
- 		recd = min_t(u32, be16_to_cpu(out->size), num_bytes);
- 		if (tpm_buf_length(&buf) <
--		    TPM_HEADER_SIZE +
-+		    offset +
- 		    offsetof(struct tpm2_get_random_out, buffer) +
- 		    recd) {
- 			err = -EFAULT;
--- 
-2.47.3
-
+thanks,
+Michal
