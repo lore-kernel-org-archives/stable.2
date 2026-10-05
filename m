@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0637F4A2E19
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 14:39:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D440E48FF75
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 14:39:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791211185; cv=none; b=rcipBs0zHM5slsIyy3Qms6GOH4XXPMCmHPNcl47NVtsMyO+UC3I5QBEGZROLIv15JGzAKT0Ujd3BqmrHzmFEkQRT/FPuV0Ug0lR/rW0FNEF+ENQ5zoFSS/wo+VMqTqQqR0q9dCiVYJWkwRKDCG8QPtY4ayONjJIq4zaJ9UVc9wc=
+	t=1791211194; cv=none; b=Yy8yyneCzZCJy2Q0QapnlQXoIOmuq6SslBIaWEwzqIVY9sKTrMP1hfzkmzsTCeXwEKqu0jAVo/iY4OlF1RpVhKyEEpGld4knChOpWBljjKKLgjjZLalJjc3YL28tlQJAQzFKceRbXJktrmGPABwQ1SBUvpIyDKq5nL4lB00nl30=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791211185; c=relaxed/simple;
-	bh=9S4ANd9EQAMjpS1DdkRAl7gDu9tmXhm5mcxp729vURI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=h5gAsE9kJsAJjKT4LKo3XSWXBwC9NLX63aClFVPb0sbCckrPcIjl8YQg28shVImoLDSjCc6oaOguZtVFSBL8QdVfwIV5tojavFp28DLxg3hJQjxfb/MW25SrpzrsMXwP4N7EUBNWPODssRHXV6qgwj9mGDNUVaNrQuH4OxlawOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=R9Obuilp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791211194; c=relaxed/simple;
+	bh=ODLE6qMncr+L0rQci//R5hOHj4qhnO7l4EJeKfpJ76E=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=H4lt4uEr4syehX5iQrNo3fo3Z11PhAWdYaan4MVL1h5vbJbEzECZudiUikBTl/TukiynI9BzUfgm+Z9xADPTsmIrwI83k8v9oohqj+IbDseKNGZgHQ/J+2bvyFyEGD4OKTCJj4EHGv6erUbuN0FUiHApxI2V13r/DfY3nv3c+m0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UFN/XunW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="R9Obuilp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7EA61F000FF;
-	Mon,  5 Oct 2026 14:39:34 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UFN/XunW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E012E1F000FF;
+	Mon,  5 Oct 2026 14:39:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791211175;
-	bh=q/QDYfwR4RXgNtZQcbzEeVFyEMjS8qGHxqnGMptNKeY=;
+	s=korg; t=1791211189;
+	bh=lompTFiItU3REyhe0lkOSpeArKpjDZTJxUSUn+MrdAo=;
 	h=Subject:To:Cc:From:Date;
-	b=R9ObuilpbnvTA/1tq7MCoO9H7awOSGd77guoIDuh1FLVdUNgTuhuHSzebG52ZT+sk
-	 o2aEDgNAHLdse4OrBsCJDOqdah2j3Y/nYAyiJoHucNYLTs7cl8G6/VZ0RT2jF0F6EY
-	 UrIbGZbNvaQXtCXmNUksrMFqEr2tNVaT/pU84UsU=
-Subject: FAILED: patch "[PATCH] wifi: mac80211: set info->band for 802.3 encap offload frames" failed to apply to 6.18-stable tree
+	b=UFN/XunWOrB832v4BQrwDoBUQSig1MMIhYbew/LuZjmAZ27hKbBdqYessFngcNOgB
+	 yH+9fD9FpdExufSm8+W6eYb/26QWOVoMHzosctub1s6TOQxnExa93/eOls7y4xyar6
+	 90S5q8cVqiVK9qZgbS27TpAr9W6zjeSxO4Qj3Jnc=
+Subject: FAILED: patch "[PATCH] wifi: mac80211: set info->band for 802.3 encap offload frames" failed to apply to 5.15-stable tree
 To: nbd@nbd.name,andreapesaresi82@gmail.com,johannes.berg@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 05 Oct 2026 16:39:32 +0200
-Message-ID: <2026100532-destruct-relative-8c7b@gregkh>
+Date: Mon, 05 Oct 2026 16:39:33 +0200
+Message-ID: <2026100533-rarity-deafening-ae05@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 4febc02cd02f021f2b6d0768332be643ef14a12d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100532-destruct-relative-8c7b@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100533-rarity-deafening-ae05@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
