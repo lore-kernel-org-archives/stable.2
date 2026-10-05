@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C5DF20B80B
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 08:09:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C00D037BE7F
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 08:10:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791187778; cv=none; b=nJsJT+GJQTr/40RjFLvyWrPZ4mXeZMZsuNeHUmk131dxjnMKM4OCPGuMRjl6aSLHNLBX4GskdlVYSudNm1Jkc5OSYeZO4h5u+H6cvYiAcyPuOiz1ntIxQ/hlSCekY3gl6Ez6cOlzzRoOMCjImf5s77YsELRQ+guk8SFUNKrhHH0=
+	t=1791187857; cv=none; b=SdkoHhy4oZcjTrDiyOAYrlzpwwDC68RQBH1VjqN2q4f8EV10ko/dRcXq1SwZLI0qYDYkx01H50lAlGPgphk7grTv7/7RvFlUeSYC4Bfud3ZUADaVtqNrzhnOJOA+Niy5G7YWf0NG7Q+aQHctjxQs7+TRNfarlS1F7xXxLJ017iw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791187778; c=relaxed/simple;
-	bh=S3KzjMjnlDAq8fSIL+KMRl0KhZL/xNsqbcWbbWEPkB0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=cAccahFHc/sQyHb9csoRR1UMhYwU7OnJJzCvwTLQuCa2VDXsabCmlowhffs+05wIIFe86F2vlvU+pWOAXxzZbMRUZEBZfAjJBfh2bLz+DvAdH3KnZI081gSpp33HEeRaiuJDT/xL40RZ3uRm9glqTCll0b7plNaprHccYwAZJTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=RYvxjy1X; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791187857; c=relaxed/simple;
+	bh=1fwMzgKS1yF3M8xow09J7i9kduspWFFlvSX+brSrv10=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=tE6eUH45is5W2Zu0gMsyDSRGU7MLs8GzaIBt3wY6vu+jCuPX972vxyL4vhLUo9MpjiVpWCCEStS46dh0yRvrC3Vpny/eGZGKhcTB0FfUzv+j+3uAfkTSWFvi3p7MjGjzk8xdppkBt06WPaM82RFp4Hdv8na+0Bk3gcwUkYpHsfY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=LV1cwjiT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="RYvxjy1X"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98D8C1F000FF;
-	Mon,  5 Oct 2026 08:09:36 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="LV1cwjiT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F5AB1F000FF;
+	Mon,  5 Oct 2026 08:10:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791187777;
-	bh=XcYX1YO0rMevufe+usoIFeYZVEZ+A3KdZWbcCrx3Bxk=;
+	s=korg; t=1791187856;
+	bh=xD3RIQevL+YdVYZN0DPJHl4FJmKgkpy53DrqkaqeYrc=;
 	h=Subject:To:Cc:From:Date;
-	b=RYvxjy1XVgnF0d6QkMnBCha3FaS5X11XDMg1bNDIYxqcF5XnZ4/fK7VjyHsRRViNI
-	 HjY/NxEVflmqWMWMMXTIirBQlPu2SF4+3JElJ0Z/DU5ppwiCkpNSJgw6rUW7yjYrTO
-	 iG5cBEb8hpZj2Pj3QrMQoanBsg0ybp1O+byOlJGA=
-Subject: FAILED: patch "[PATCH] drm/amdkfd: Fix always mapped range mapping to all ACCESS" failed to apply to 7.2-stable tree
-To: andrew.martin@amd.com,alexander.deucher@amd.com,philip.yang@amd.com
+	b=LV1cwjiTNh34ZMwrK9nSpq0T4hpmF+fFqnPcrmuWGYLKX0EvuZNHmY5SCm54vyd4a
+	 HUXJ6EEYKBTLjP2V4c7U88qaKHB3qzWVPF4U4KzqImrIwaPDB25lZ9BCXGSs+Nbktm
+	 UFB5nngRBDG1KCrN5d1DRN+rmShDfsK9fWwQ9Z1k=
+Subject: FAILED: patch "[PATCH] drm/amdgpu: fix ACP MFD device leak on init failure" failed to apply to 5.15-stable tree
+To: lgs201920130244@gmail.com,alexander.deucher@amd.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 05 Oct 2026 10:09:34 +0200
-Message-ID: <2026100534-driving-grip-8fa4@gregkh>
+Date: Mon, 05 Oct 2026 10:10:52 +0200
+Message-ID: <2026100552-handbag-remission-3ce9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.2-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 0e4101c11aed803e6e69a83f8cc48160a676c19d
+git cherry-pick -x f0013046151b7467e62c471c1c83d63ea255799c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100534-driving-grip-8fa4@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100552-handbag-remission-3ce9@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,57 +62,84 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 0e4101c11aed803e6e69a83f8cc48160a676c19d Mon Sep 17 00:00:00 2001
-From: Andrew Martin <andrew.martin@amd.com>
-Date: Mon, 14 Sep 2026 12:19:10 +0000
-Subject: [PATCH] drm/amdkfd: Fix always mapped range mapping to all ACCESS
- GPUs
+From f0013046151b7467e62c471c1c83d63ea255799c Mon Sep 17 00:00:00 2001
+From: Guangshuo Li <lgs201920130244@gmail.com>
+Date: Mon, 21 Sep 2026 18:33:18 +0800
+Subject: [PATCH] drm/amdgpu: fix ACP MFD device leak on init failure
 
-CWSR ranges use the always mapped flag and only need a mapping on the
-GPU running the queue. However, svm_range_validate_and_map now updates
-the mapping on every GPU with the ACCESS attribute, which is all
-supported GPUs when XNACK is on. After the range is prefetched to VRAM,
-those GPUs may span different XGMI hives, so the page owner mismatches
-and is set to NULL. hmm_range_fault then tries to migrate the VRAM
-pages back to system memory, but svm_migrate_to_ram skips it because
-migrating pages back to system memory is not allowed while the GPU
-mapping is being updated, so the CPU page fault is never resolved.
+acp_hw_init() registers ACP child devices with mfd_add_devices() before
+attaching them to the ACP power domain and initializing the hardware.
 
-Only map to the ACCESS GPUs if the range is not mapped to any GPU and
-is not in VRAM.
+If attaching a child to the power domain fails, or if the ACP reset or
+clock enable operation times out, the failure path frees only the
+source cell, resource, and platform-data allocations. The child
+platform devices already registered by mfd_add_devices() remain
+registered and are never released.
 
-Fixes: b96f26104946 ("drm/amdkfd: Unmap svm range from GPU set to no-access")
-Signed-off-by: Andrew Martin <andrew.martin@amd.com>
-Assisted-by: Claude:claude-opus-5
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-Reviewed-by: Philip Yang <philip.yang@amd.com>
+Remove the children from the power domain and unregister the MFD
+devices on failures that occur after mfd_add_devices() succeeds. Keep
+mfd_add_devices() failures on the existing cleanup path since the MFD
+core already rolls back partially registered children itself.
+
+The issue was identified by a static analysis tool I developed and
+confirmed by manual review.
+
+Fixes: 25030321ba28 ("drm/amd: add pm domain for ACP IP sub blocks")
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 093cf8842ace35ce212858d5059fee007ec8e778)
+(cherry picked from commit 63da68d6a2279ec945581c990c5a59a5ae8b5560)
 Cc: stable@vger.kernel.org
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index fa4054d51f60..d7f2ff5c8f02 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1752,12 +1752,15 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
- 		}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
+index 9014678d75ab..be4d00ac96b3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
+@@ -318,7 +318,7 @@ static int acp_hw_init(struct amdgpu_ip_block *ip_block)
+ 		r = device_for_each_child(adev->acp.parent, &adev->acp.acp_genpd->gpd,
+ 					  acp_genpd_add_device);
+ 		if (r)
+-			goto failure;
++			goto failure_remove_mfd;
+ 		break;
+ 	}
+ 	default:
+@@ -443,7 +443,7 @@ static int acp_hw_init(struct amdgpu_ip_block *ip_block)
+ 		r = device_for_each_child(adev->acp.parent, &adev->acp.acp_genpd->gpd,
+ 					  acp_genpd_add_device);
+ 		if (r)
+-			goto failure;
++			goto failure_remove_mfd;
+ 	}
  
- 		/*
--		 * If prange with always mapped flag, update mapping on GPUs with
--		 * ACCESS attribute
-+		 * If prange with always mapped flag is not mapped or migrated
-+		 * yet, update mapping on GPUs with ACCESS attribute. Don't add
-+		 * them otherwise, ACCESS GPUs may be on different XGMI hives,
-+		 * that would force hmm_range_fault to migrate VRAM back to ram.
- 		 */
--		if (prange->flags & KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED)
--			bitmap_or(ctx->bitmap, ctx->bitmap, prange->bitmap_access,
--				  MAX_GPU_INSTANCE);
-+		if (bitmap_empty(ctx->bitmap, MAX_GPU_INSTANCE) &&
-+		    prange->flags & KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED)
-+			bitmap_copy(ctx->bitmap, prange->bitmap_access,
-+				    MAX_GPU_INSTANCE);
- 	} else {
- 		bitmap_or(ctx->bitmap, prange->bitmap_access,
- 			  prange->bitmap_aip, MAX_GPU_INSTANCE);
+ 	/* Assert Soft reset of ACP */
+@@ -461,7 +461,7 @@ static int acp_hw_init(struct amdgpu_ip_block *ip_block)
+ 		if (--count == 0) {
+ 			dev_err(&adev->pdev->dev, "Failed to reset ACP\n");
+ 			r = -ETIMEDOUT;
+-			goto failure;
++			goto failure_remove_mfd;
+ 		}
+ 		udelay(100);
+ 	}
+@@ -479,7 +479,7 @@ static int acp_hw_init(struct amdgpu_ip_block *ip_block)
+ 		if (--count == 0) {
+ 			dev_err(&adev->pdev->dev, "Failed to reset ACP\n");
+ 			r = -ETIMEDOUT;
+-			goto failure;
++			goto failure_remove_mfd;
+ 		}
+ 		udelay(100);
+ 	}
+@@ -489,6 +489,11 @@ static int acp_hw_init(struct amdgpu_ip_block *ip_block)
+ 	cgs_write_register(adev->acp.cgs_device, mmACP_SOFT_RESET, val);
+ 	return 0;
+ 
++failure_remove_mfd:
++	device_for_each_child(adev->acp.parent, NULL,
++			      acp_genpd_remove_device);
++	mfd_remove_devices(adev->acp.parent);
++
+ failure:
+ 	kfree(adev->acp.i2s_pdata);
+ 	kfree(adev->acp.acp_res);
 
