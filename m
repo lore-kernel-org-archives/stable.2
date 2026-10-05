@@ -1,106 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5D684AB3B5
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 14:34:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5CE64A4404
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 14:34:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791210879; cv=none; b=p/FA1u6c+rygw8aG24VgzxnZvacqxpMPegtQQqKGbpw96LTMxD7NEp3wRgWHxf8SL3inpfulS31dMOe0u7p+NV3gVaQ4NdHrz+HHJ06vn0Cfpr0h8xL7fh5QGtWJiPpkwMpbh20+xZdFgVmZoagvdASh655pqvL264zmJy6dVak=
+	t=1791210899; cv=none; b=NhuFCtbC59G1waYvm2IXPAU7dhXsmf/3om9SF2vhTzOGgbOoMpVhwgJIuMs0r9lDdborPUeT0ovaOJeT3unxAx/YJe3ou5C6sWBaZM4Kfb6LMo4B8LVoTcXEHtXJ7z53Ond1UYtcj9VwfnnO7wVl+MVDjHe7VYZSKz3i7+jzBB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791210879; c=relaxed/simple;
-	bh=gx0EN9wIlwix+MHr+EpwRdPdUGQSFv+eWLvHaLuUMos=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=IfcngW1ocejxRbEWRj1D/1Tr5KEKjAKa29izHoZPx/NRCHHE6I+692lrlnO9IeJ+h7K6cZFgZn7N4WRp7cftIRUOEFPEDh54uuP3p8XNPSo9hAz4PhSpXYR6GkA0BM1WoPFkb+O8yGJ3cgfkTA4V/XnA5NQnkUfH4fdzpz939Zo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KcjHoHwX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791210899; c=relaxed/simple;
+	bh=Ya/tzhlWd8V4VHqEft6duvSK0g+ynHBI9IGxELeI27M=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=l+HbV89O7fzQlTeZeB7MxdBjffyBCQUww1PSuJTXJm3ENkRV1fnlBhxPywHbY2VE+7rkmQAOTPtZhZ9UDTTeB9vk7jFQdZowqK0i/dI3leqGCWgwMY4oxZLym4D9CWfHzEoV/i2hJ4Hv7bCx+VRQAInoVR1uVtjACiz0FFN6MHE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TWRJE50M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KcjHoHwX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 735121F00899;
-	Mon,  5 Oct 2026 14:34:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791210863;
-	bh=1DIMPU8DIAHQmpXAbf1bSutiT6LpGUAsQLlpLWAxXS0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KcjHoHwXD8/KynpMbSmbhuU6eOowkAD7AFkBphF2JixEDUHGxcKYs98iZ4wIMKK5Z
-	 HX6DGuHFJJ+YdfGEfj15SY9R3Rj1Wfnc7XOTsUwzS24tEJ/qmLWYqETz/xoCmry8h5
-	 eBF6A8khtz8JU2UTc4r/KuGQ8hmq5z9SsVDtdhD5RxJ5HyMuXB46bSoOr9CsjewjgV
-	 FuLta70CS31rNzc37tkzL+VpfxMnZLs4FOYjpBv3V78Az9fZDqTftLwSHNiAMEnrGO
-	 2pv3t7ZlK/xePvmVO60T9CuV/YZllj6ttUgxZBnK2TxO0UrIh9O2z1kjgQXHKgPG+t
-	 U+K8W47Wwt0gg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Francisco=20Beltr=C3=A1n=20Millal=C3=A9n?= <fbeltranmillalen@gmail.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] drm/amdgpu: reset VI ASIC on MacBookPro14,3
-Date: Mon,  5 Oct 2026 10:34:18 -0400
-Message-ID: <20261005143404.3017125-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261005143404.3017125-1-sashal@kernel.org>
-References: <2026100530-delay-deceiving-2b8e@gregkh>
- <20261005143404.3017125-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TWRJE50M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 842371F00893;
+	Mon,  5 Oct 2026 14:34:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791210887;
+	bh=C1zzFOg2Jf+h29WXvfBOReDhJ5w78waKktfU4l0ha6U=;
+	h=Subject:To:Cc:From:Date;
+	b=TWRJE50M9cL8gBZX6sGZ5VVmHZ+k5RjtS/3D28muMKTPW52m1FKciA3aW8eq6Uxm3
+	 FbjdnhdRfJD9ZefJKxIGYTEtIp0N0u2JruBJk9+jcBdKSjOPpSz8RY5glwt+PKeT36
+	 gDSmOsW3w175pSDuIu91OENHwdrhPYwI2eS+3MsA=
+Subject: FAILED: patch "[PATCH] KVM: SVM: Use the active VMCB's MSR bitmap when checking if" failed to apply to 6.18-stable tree
+To: seanjc@google.com,fane@google.com,pbonzini@redhat.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 05 Oct 2026 16:34:44 +0200
+Message-ID: <2026100544-compile-overact-e445@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-From: Francisco Beltrán Millalén <fbeltranmillalen@gmail.com>
 
-[ Upstream commit a22e5e4f2ebbdbb962cc3233094d189c4dfaa051 ]
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-On a MacBookPro14,3 with a Radeon Pro 555 (Polaris11), the framebuffer
-is at MC address 0 when amdgpu loads after a cold boot, as the firmware
-leaves it (MC_VM_FB_LOCATION = 0x007f0000), while the VBIOS ASIC_Init
-table places it at 0xF4_0000_0000 (0xf47ff400).  amdgpu reads the
-location once, at init, so after a re-POST (S3 resume or GPU reset)
-the framebuffer has moved and the driver keeps programming the old
-one: the SMU is handed a table that was never written and the GPU
-does not come back, which leaves the internal panel black.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Resetting the ASIC on load makes ASIC_Init run before the driver reads
-the location, so the driver uses the VBIOS placement from the start and
-every later re-POST puts the framebuffer back where it already is.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x 9e06bbb9ade7cdf28d4a3b5b14e5812881c8df85
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100544-compile-overact-e445@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
-Add the Radeon Pro 555 used in this machine to the existing VI reset
-quirk table.
+Possible dependencies:
 
-Tested on a MacBookPro14,3 on 6.18.49 with the quirk table backported
-(the kernel also carries unrelated local PCI and ACPI patches for this
-machine).  The framebuffer is at 0x000000F400000000 after both cold and
-warm boot, and the GPU survived 9 S3 cycles (lid close and rtcwake, one
-of them with the lid closed for about 7.5 minutes and a USB-C disk
-attached), each followed by a few minutes of 3D load; no ring timeouts
-or VM faults were reported.  The reset adds about 0.23 s to amdgpu init.
 
-Suggested-by: Christian König <christian.koenig@amd.com>
-Suggested-by: Alex Deucher <alexander.deucher@amd.com>
-Link: https://lore.kernel.org/all/20260924132952.25054-1-fbeltranmillalen@gmail.com/
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Francisco Beltrán Millalén <fbeltranmillalen@gmail.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit b6b1d97218518003107d4446fac278fa3e0a19a0)
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 9e06bbb9ade7cdf28d4a3b5b14e5812881c8df85 Mon Sep 17 00:00:00 2001
+From: Sean Christopherson <seanjc@google.com>
+Date: Wed, 26 Aug 2026 12:58:33 -0700
+Subject: [PATCH] KVM: SVM: Use the active VMCB's MSR bitmap when checking if
+ MSR is intercepted
+
+Use the MSR permission bitmap of the active VMCB instead of assuming that
+KVM is always using vmcb02's bitmap when L2 is active, as KVM uses msrpm02
+if and only if L1 wants to intercept MSR accesses, i.e. if and only if KVM
+needs to merge msprm01 with msrpm12.
+
+Don't bother tracking the virtual address of the bitmap that's being used,
+as __va() is cheap on x86, and caching the virtual address would introduce
+yet another source of potentially stale information.
+
+Fixes: b2ac58f90540 ("KVM/SVM: Allow direct access to MSR_IA32_SPEC_CTRL")
 Cc: stable@vger.kernel.org
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/amdgpu/vi.c | 1 +
- 1 file changed, 1 insertion(+)
+Reported-by: Stefan Teodorescu <fane@google.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Message-ID: <20260826195833.844526-1-seanjc@google.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
-index c394be0ac5fa7..ef26e8973829a 100644
---- a/drivers/gpu/drm/amd/amdgpu/vi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vi.c
-@@ -1442,6 +1442,7 @@ struct vi_reset_quirk {
- static const struct vi_reset_quirk vi_reset_quirks[] = {
- 	{ 0x67ef, PCI_VENDOR_ID_APPLE, 0x0190, 0xe3 }, /* Radeon Pro 555X */
- 	{ 0x67ef, PCI_VENDOR_ID_APPLE, 0x018f, 0xc2 }, /* Radeon Pro 560X */
-+	{ 0x67ef, PCI_VENDOR_ID_APPLE, 0x017a, 0xc7 }, /* Radeon Pro 555 */
- };
+diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+index f4f488328ea4..fe0cba4731b2 100644
+--- a/arch/x86/kvm/svm/svm.c
++++ b/arch/x86/kvm/svm/svm.c
+@@ -673,16 +673,7 @@ static void clr_dr_intercepts(struct vcpu_svm *svm)
  
- static bool vi_need_reset_on_init(struct amdgpu_device *adev)
--- 
-2.53.0
+ static bool msr_write_intercepted(struct vcpu_svm *svm, u32 msr)
+ {
+-	/*
+-	 * For non-nested case:
+-	 * If the L01 MSR bitmap does not intercept the MSR, then we need to
+-	 * save it.
+-	 *
+-	 * For nested case:
+-	 * If the L02 MSR bitmap does not intercept the MSR, then we need to
+-	 * save it.
+-	 */
+-	void *msrpm = is_guest_mode(&svm->vcpu) ? svm->nested.msrpm : svm->msrpm;
++	void *msrpm = __va(__sme_clr(svm->vmcb->control.msrpm_base_pa));
+ 
+ 	return svm_test_msr_bitmap_write(msrpm, msr);
+ }
 
