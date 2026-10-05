@@ -1,137 +1,99 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC9E37D12E
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 07:57:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791187022; cv=pass; b=leNH1KW4sSfIytHVpV+jZMInFaBVvpbYJAQna+d/A0YBtFJjytuZNBFel7Z6aOL6XgNRXcxHLbe/HGUTAvhHZLRjDcKK0zJqXOf6lZQUGT9DJaDz9TUmGqoWCaA0CqXyHqsyVV9bwPeEoE/hho7giwYkG9zi4PRD07WY31bSMxQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791187022; c=relaxed/simple;
-	bh=Cqt6Fu+sk8V6mLKmZzliQOQ130R6uksTirlfpR1CVrU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Xvlh5Eg8DcKbU1EcdlFGibBRoGN/1U6SuuK4oFykiasieiZYoU4G6H9VCIlDHe4z2Qe3c5tsfPvdAJAYI/56qzORt3XFXmOtSyvWfK95swvkg9uym80BuvC19mnhB82iB721V9QCPf35dNIUKtyvk18kiFJGtbNsGKKogw3s/eE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NdFTF936; arc=pass smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D532137C936;
+	Mon,  5 Oct 2026 07:57:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791187060; cv=none; b=j4Hzp9SwBZKOkweO4mq9KXnVkTsiWdHFKWD//UJHbKMj+uDC7vll0PHL8KvKdsHaWk0HTXtnjHmM2AumAxkBXtoz681xLOPi4IW3pt33xQNCTZH/o2hVuTMtd7HwcN8DBZcDU1WNVwrSiHZbSCgTyVpy40g7plqFb+O8qG6UOJU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791187060; c=relaxed/simple;
+	bh=RVCSNcrJGL/bizGutYQ8HT7sf+E2lGeoUzCF/NOvyP8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bg2Xo0QoWYlEF9s414c3fvyOEdIR+5PMJvLenmpnc6is7ApVmJht350dYLPun5rLytQhru5/N3vXs8gHLQEIorkfAkidWGjuoOIYuFlAF6VkgdOudvDdO7FxTdfhYMjR8bSCRRpu1Q+Vfb4zqaA0BEK7mNUcC1QDlm/6RkbVpec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BsMWvlC0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NdFTF936"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a5d8fe8912so139134a12.2
-        for <stable@vger.kernel.org>; Mon, 05 Oct 2026 00:57:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791187019; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GGy63BTER307KNEw5AyhDddmJZROZPFiTJiPU/iTCr6twY20xuCxsGT4hq923T4Y2Z
-         sq7Qt5oMG3E5Y7H6pqdPZBOnC6eyGIsP9L3s5SVxpYWghSAJyTiThCdrK/ZHOo0FrnPa
-         O+FlcNMnc4P+WfmDeyb4FKfr6l/5JAl5ZucvRFI8othpExCBzfJy0ARAdvygW5vxYL5H
-         kpC+dcdEEg58QEBvsjv3tLxuVNZM+q1wtHYB3BERWSRIs6kTMBhLMAAEgQtlVUaFduLn
-         nz28CIy5NjIbpyOR+e3okZlZLxXNAb8DBlcRo8oAmj6Llpn7SYF7iikddt2mvgJMaPGW
-         koFA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Cqt6Fu+sk8V6mLKmZzliQOQ130R6uksTirlfpR1CVrU=;
-        fh=l5Xx2A6PQxmveGREqW5MX8hLsR6ac5+k1b1tOSeJPqY=;
-        b=SH9DWQRWcT9L9gRYzW8dAwsxEIBodmEN8hmQciwoNJIjCOPNduZXjZFCJb/ytrQvkB
-         ux3s1F5aleDfJ3HKe+xx+mZaJ/LrePcu3CUDcz19rqYqf32CetE3VeSxkMN+s2LYCSma
-         Boa65/t9UAQT9DFz5gRxy9daPl2oAIQ8RTOvL9JnRKrOCo1da48Kqiuyox/ILccv+tYt
-         FlvXUCtT8y9zRXQUAV/JU2t9YXT2WMbRaawEeGvi4VK3etjhQXRvSYjSGt2xY2njr0JP
-         OW6IBygoS7Ds7XocCtOS/r/7yGX3+qM1ylH58+Zqc74lOnAQR+Tink1XhuzE8pw7J6A6
-         gy/A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791187019; x=1791791819; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Cqt6Fu+sk8V6mLKmZzliQOQ130R6uksTirlfpR1CVrU=;
-        b=NdFTF936OLuM/81O1dlM+ND24KqVqhozqAzWRiQFixsNqqaeCAd3FPwgM9BMQEv1Qd
-         VlwakQ3Jbexah13atoyKeaBwMHoFyr+Pt409dWN8TuvbyTo5MosAQR7DrhX1z4JFNzox
-         6VIlz2f8MXudLIrFBg9pWKeBBD1tlb/PJIbT3dG4+kzIaft/VAYXVpXLrWo1fml1ighR
-         ZzLVdexNT3AFUvcRK8/piOsjRTQAhRiloy8BrvPG8xi9n4Nia9W1CbrAq8BPZbMdSQI8
-         U4SBR/9zsyigUNMkoKoYCfKC3KRGSY9qef4Qq4z7AJiCc3M7TXr2dHrVejzHG8o85fEL
-         PhQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791187019; x=1791791819;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Cqt6Fu+sk8V6mLKmZzliQOQ130R6uksTirlfpR1CVrU=;
-        b=Fv25eDCSrJkqZAcQ9+t+ZoNFu8r+neGXjMfz++3F/56Ik8FSgOAsaRTNs+HaLF9s5C
-         3dNrbrjGebGTgcuiD2p0aXUEEshSKTnUMEoE2Ajj77mkUGCTxgP3UX0VEpEwRIpOkeKe
-         rwLAFu9zZS5RDvSFrk21KTrzKjcLlCjtku9TokYKzBiV2dqXLdd2GKsqPILX3r+3iN5J
-         wI5VDxsK1FrFlXR1sIBcX1vmJ6OLgffoR+fijiUPXOc6vHpL4wnoKtTrl6rCrl19L3w0
-         0RlI2GligKgx4lyMO2LBaNsantae6JnjMJE0ixOA9RXr6vsYrUZgNc1AGzmrdN/3KsZY
-         +lmQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwcSKYuT14Ss5Hs0DuASiAMJX1cRWBfxFWO0d8MjzT5scCkmo2XFGwdBaxOHPJABxpvT+YIAgs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLKcOch7rk4PVKMKlRBHQUrCv6Fv+MWorWpQpWoz4KE3utNCVn5
-	H/D6gqCvZU1yZWnR/Su6Xa8YZnYbNGY7hSpX/2s/bHaCFlaS1k/kH/vlZFo3WFfGQB2gcc3V9j8
-	+hSJP6eHK6aSzwlTULP3a6k5/yvQ36Zc=
-X-Gm-Gg: AYBFou38Fh/ZH4QTRlV+VHEsg6/9bWlVtXW6QUd08dhpAwsqXKZ3DMHKpfOLIf24ioe
-	HknNEUovbMu8SCwF6RxnHUaVEW+TCoq4EImVJBPljbwR2W990qWycuJe9bzRnPH3qNkLStxXz5p
-	/+uZjvlrAplJCUJyDRk98pZ6j0CdHflXFQ3kzdOlFULqoOEevF01849uqcCcd9WJzc3YasCn79r
-	FmwXRrDwoQsDAsuds1F10LX1d2FF/nz0A5rosYirZoVFFVXQ8Mu6/EUxQDbplJrqqZDlgQIvW3l
-	MHYtkl3vpHj3jqCEdMgIFNEpgKFi1CO3xaoums2J5kPNcpJ3sbW7GnhGT+O2gb13VhPyQVV8WcY
-	GWJHrl2+Fhm0=
-X-Received: by 2002:a05:6402:3228:b0:6aa:d21c:9c18 with SMTP id
- 4fb4d7f45d1cf-6af9e2f9d57mr8176215a12.3.1791187018776; Mon, 05 Oct 2026
- 00:56:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BsMWvlC0"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id D3BC41F000FF;
+	Mon,  5 Oct 2026 07:57:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791187056;
+	bh=slmbwfy5IfGI7Oq6JJxTikw0Zbl7iHw8bAJtDZftGzY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=BsMWvlC0RXZ+STEWLT5QpqQ8ZiXqLyOc+EfDF1ziKubdyWTE6uutpzvyBGWg4glA4
+	 vtlmfe895h+MAWVZ1wvDbT93kaVQuf/jFEL/Snb4K+fa/nSfyk7Zs4iZlySMtSQHSc
+	 YaqJWMXlpFPP43V2QiyzlmilSIT6EOQTtvnurXp6mq3p6w4aCoRQe1Jr5xGFhLFxem
+	 9Evh3I//xOO532aj8qEZlRG1P80lwAN+hmE66vuEzwSjLw1K0ZwAkiQbW/fgKrlqyZ
+	 9F+u8uT3fBKAyMcJzl1R8jH9mb3yVyNCDkLR6KxK24pT4gGiSKOJpDnxSF7MF4Vo9n
+	 OXmVFEPgRN8cA==
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: stable@vger.kernel.org
+Cc: Jiangshan Yi <yijiangshan@kylinos.cn>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	Peter Huewe <peterhuewe@gmx.de>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jonathan McDowell <noodles@meta.com>,
+	Roberto Sassu <roberto.sassu@huawei.com>,
+	Baoli Zhang <baoli.zhang@linux.intel.com>,
+	Gunnar Kudrjavets <gunnarku@amazon.com>,
+	James Bottomley <James.Bottomley@HansenPartnership.com>,
+	linux-integrity@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 6.18.y] tpm: fix off-by-four bounds check in tpm2_get_random()
+Date: Mon,  5 Oct 2026 10:57:28 +0300
+Message-ID: <20261005075730.134611-1-jarkko@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <2026100308-undertook-vividly-2e61@gregkh>
+References: <2026100308-undertook-vividly-2e61@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261004162458.3968546-1-nicoyip.dev@gmail.com> <225d8d84c8e5155d5af0adfbea270eeeda326021.camel@iki.fi>
-In-Reply-To: <225d8d84c8e5155d5af0adfbea270eeeda326021.camel@iki.fi>
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-Date: Mon, 5 Oct 2026 15:56:46 +0800
-X-Gm-Features: AclHuK9vopQGKPch616H4XPEsAiU40667tZEfF-9543oK_7dTTKxojOLxqJFuSY
-Message-ID: <CAAo+4rV9B=QUBAWZfpHL_W8jCoCLTqv79kha6G-x0UZP9Swm_A@mail.gmail.com>
-Subject: Re: [PATCH] Bluetooth: ISO: Serialize concurrent connect calls
-To: Pauli Virtanen <pav@iki.fi>
-Cc: Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
-	linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 5, 2026 at 1:16=E2=80=AFAM Pauli Virtanen <pav@iki.fi> wrote:
->
-> Hi,
->
-> ma, 2026-10-05 kello 00:24 +0800, Chengfeng Ye kirjoitti:
-> > iso_sock_connect() checks the socket state before taking the socket loc=
-k
-> > and drops the lock again before setting up a connection. Two callers ca=
-n
-> > both pass the admission check while the socket is open or bound.
-> >
-> > Caller A can copy its destination for route selection, then caller B ca=
-n
-> > replace the socket destination before A binds or connects the CIS. A
-> > then uses B's destination with the route selected for its own request.
-> > B can also proceed after A attaches a connection and sets BT_CONNECT.
-> > For deferred BIS setup, B can bind a second BIS and overwrite
-> > iso_pi(sk)->conn, leaving the first connection's reference and conn->sk
-> > back-pointer stranded. Concurrent CIS connects can likewise replace the
->
-> Memory safety probably should be enforced somewhat down the calls,
-> likely __iso_chan_add() should reject adding a different iso_conn to sk
-> if it already has one, since that looks like it leaks the
-> iso_conn_hold() reference and the back pointer association.
+From: Jiangshan Yi <yijiangshan@kylinos.cn>
 
-Hi Pauli,
+[ Upstream commit 9b522400bf5c082feb9a0037a053ea822a2c7e4d ]
 
-Thanks for the review. I have just sent v2 with the check in __iso_chan_add=
-().
+When the response carries the TPM2_ST_SESSIONS tag, tpm2_get_random()
+skips the 4-byte parameter size field before locating the random data,
+but the bounds check still validates the response length against
+TPM_HEADER_SIZE.  A truncated response can pass the check and make
+memcpy() read up to 4 bytes past the response end, so stale buffer
+contents end up in the caller's random bytes.
 
-I also adjusted the outgoing BIS and CIS callers to handle conflicting
-attachments early. The BIS check prevents modifying a reusable
-connection before attachment is rejected. The CIS check releases the
-HCI hold acquired by the current attempt on rejection, while
-preserving same-connection reuse for deferred setup.
+Fix this by checking the response length against 'offset', which
+already includes the skipped parameter size field.
 
-Best regards,
-Chengfeng
+Cc: stable@vger.kernel.org #  v6.12+
+Fixes: 1b6d7f9eb150 ("tpm: add session encryption protection to tpm2_get_random()")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260902074839.417419-1-yijiangshan%40kylinos.cn
+Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+Link: https://lore.kernel.org/r/20260903035837.219284-1-yijiangshan@kylinos.cn
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+---
+ drivers/char/tpm/tpm2-cmd.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/char/tpm/tpm2-cmd.c b/drivers/char/tpm/tpm2-cmd.c
+index 2f506cdb5f45..c5465834396a 100644
+--- a/drivers/char/tpm/tpm2-cmd.c
++++ b/drivers/char/tpm/tpm2-cmd.c
+@@ -298,7 +298,7 @@ int tpm2_get_random(struct tpm_chip *chip, u8 *dest, size_t max)
+ 		out = (struct tpm2_get_random_out *)&buf.data[offset];
+ 		recd = min_t(u32, be16_to_cpu(out->size), num_bytes);
+ 		if (tpm_buf_length(&buf) <
+-		    TPM_HEADER_SIZE +
++		    offset +
+ 		    offsetof(struct tpm2_get_random_out, buffer) +
+ 		    recd) {
+ 			err = -EFAULT;
+-- 
+2.47.3
+
