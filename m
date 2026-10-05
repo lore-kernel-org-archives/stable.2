@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67BD72FDC20
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 21:21:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 547A73DFC6D
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 21:24:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791235311; cv=none; b=tbia9BmTPlvCSsZ+q0hTXULnUxHb5kwYTaW/B7i7uS5l5vlmrA42luphzSitVTC4jWk0OCHMuKpbg1Hvhmnyb11iVlV0MjwIblIOJH8K33HNI3n3Uc5vukbRmtg6f3GLSet3L6ZEYBJickFmkZaxv6Hv8ivgU3YHA8L7wBmeR8Q=
+	t=1791235442; cv=none; b=SRTxDwXZwR4dDv4wDtLEG+Z5oNRJ/TAdx2BD5IIO0Z5Z6F6+vR+rmmfA+v9UcqQRMck+Es3/Vq6k877Vm9tT2YXqcq/iuJnmrySGg8mNNvmCVq7RpiB2GAOFVVE2k6r8YHQtePjNJ5N9v7zvz8t13qloEauGUkymGIOlP+5veCo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791235311; c=relaxed/simple;
-	bh=uHqDnb332pyBXgnpOZmTExMjxOEJ3vSMJDtyQa/7RPI=;
+	s=arc-20240116; t=1791235442; c=relaxed/simple;
+	bh=60sOS/L6aP0bQbCdUHYjg21bVXdU+MHMtKhGa4axjEw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ne9vbOq+2/paYw+pqzpboO5UIvDcXlyRBptHBfsRGkNQgdNhlGbYS0W13L+Dvj9jPZUgw9DzGwvDR4AnAbilKgM1Kl27dZVgtFlYd8Fr1Rwr8Xm+n77b+Wtuk1m1+gBMkRedC9U25EunXXUGGPk6BOHUDLb8PoCm4OFZHJKqwEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WSiwza9k; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Lqrfbi2U8t975AuLE/RUesoPqlevd97SXA+oqBZxyAMhjXL9Q80IYQ3DO/t6AfzkN1DnrT+2Yin2y5Cp+fHMMM6S+mbQZgZYFCtwOogmhxpBUUChIPlzL3V0gh/17CWnPPYJqbmXs++LPWTuNNo1NItYEBefNE3bewHKMW1sx38=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OqJkC/74; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WSiwza9k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A74B31F000FF;
-	Mon,  5 Oct 2026 21:21:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OqJkC/74"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C01691F000FF;
+	Mon,  5 Oct 2026 21:23:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791235310;
-	bh=+aGRhh3oXFo+ur1mgV3ybvgfyOvtiDjY/0voRtEEcjk=;
+	s=k20260515; t=1791235440;
+	bh=6igb6aNqYjvedIw0OhYNtHac/CDMGH3QWeYMCRKe1n4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WSiwza9kFjoY9Vz0Lezggr9hS0nzquCIddCWscfYAwcnBKSlkF3DcJ0rSTd/kULjc
-	 epDsJgccvklzJPgJhWkRg7uWDUEcI896TBK6A0neGsJxbN9CPyVWmBUn5bZNs9sJlj
-	 KLJOwj7Z2juqFbgNGX9ZYnDcpymK6a+zqmfVlIk0daPOjFD5vndclzVuW0FMS9DCwI
-	 kVMpx/F8ZmReT7YI9q699vYA68lWnBlGaP7vsQG7ZIlxTz+4DS/w8BBw01vg6yZ9Xf
-	 mIAjzPuv9A+JvTrQnqqcw6VBxCDvyRldosjqy2SoH48sSmBnjoNevfgxEg2uwgbaZV
-	 IvD6CP8pTPAow==
+	b=OqJkC/74+ItMQb/7FgS4eLAgFcvQJgTxFVT/hl0D/+ZrWKjhyOn1TYoQ4LPGgofST
+	 c6e7j78b5Pffb//zub1I04ugJbyX8NNp7B2AQWpTLioBNbfwekYUmzgXrVx18Nz2Bp
+	 BYo98LTBgXx+k/2mDZVwU4OZYqA2GSRA5l/n9qXDaHulfwQpBkE8KLYUh7mdxHpxm8
+	 SnJc+aOOA8oP4ZZWOWKPCSiuhKRVsGGldetf4SVOYKuB/9cty9iDuoJlrUZcFpgcbW
+	 Bl6lfXwBJwBIxsFTfx4Jr6bjZg2Jf/zWFTTxkoL5nPc/2YW9j8+TlM/v9+fE1i+LS5
+	 17aBnWPC+LstQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Johan Hovold <johan@kernel.org>,
-	stable <stable@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Dapeng Mi <dapeng1.mi@linux.intel.com>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] tty: tty_port: restore TTY_IO_ERROR on activation failure
-Date: Mon,  5 Oct 2026 17:21:45 -0400
-Message-ID: <20261005212016.3390176-1-sashal@kernel.org>
+Subject: [PATCH 7.2.y 1/2] perf/core: Check kernel access when kernel callchains are requested
+Date: Mon,  5 Oct 2026 17:23:56 -0400
+Message-ID: <20261005212346.3373480-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100523-caramel-unstopped-5721@gregkh>
-References: <2026100523-caramel-unstopped-5721@gregkh>
+In-Reply-To: <2026100516-douche-preview-30a6@gregkh>
+References: <2026100516-douche-preview-30a6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,44 +45,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Johan Hovold <johan@kernel.org>
+From: Dapeng Mi <dapeng1.mi@linux.intel.com>
 
-[ Upstream commit 56964f6a31238fb41d5830bb42520c5b10ff7d8f ]
+[ Upstream commit a4573a3838ae4fc73b70019cfa1dac9aaea7cc2f ]
 
-Make sure to restore the TTY_IO_ERROR flag if activation fails to
-prevent I/O attempts on a port that is gone or powered down.
+perf_event_open() currently gates perf_allow_kernel() only on
+!attr.exclude_kernel.
 
-This specifically avoids issues like kernel panic due to unclocked
-accesses or NULL-pointer dereferences when accessing powered down or
-deregistered ports when a TTY ioctl races with hangup and open.
+However, users can still request kernel callchain collection with
+attr.exclude_callchain_kernel == 0 even when attr.exclude_kernel == 1.
+That still requires kernel profiling privilege, but the existing check
+does not enforce it.
 
-Note that the flag is set again in tty_port_close() but not restoring it
-on activation failure leaves a window where drivers fail to handle the
-ioctl-hangup race.
+Update the permission check to call perf_allow_kernel() when either
+kernel sampling is requested or kernel callchains are requested.
 
-Fixes: a9a37ec33a1b ("tty: tty_port: Move the IO_ERROR clear")
-Cc: stable <stable@kernel.org>  # 2.6.33
-Signed-off-by: Johan Hovold <johan@kernel.org>
-Link: https://patch.msgid.link/20260908084000.218528-1-johan@kernel.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ sashal: adapted to the existing braced error block containing mutex_unlock() ]
+This keeps permission checks aligned with requested data and prevents
+unprivileged use of kernel callchain capture.
+
+Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Link: https://patch.msgid.link/20260616044654.3468742-9-dapeng1.mi@linux.intel.com
+Stable-dep-of: 357e8a77a501 ("perf: Require kernel access for text poke events")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/tty/tty_port.c | 1 +
- 1 file changed, 1 insertion(+)
+ kernel/events/core.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/tty/tty_port.c b/drivers/tty/tty_port.c
-index cbb56f725bc4a..77e28059ad982 100644
---- a/drivers/tty/tty_port.c
-+++ b/drivers/tty/tty_port.c
-@@ -689,6 +689,7 @@ int tty_port_open(struct tty_port *port, struct tty_struct *tty,
- 		if (port->ops->activate) {
- 			int retval = port->ops->activate(port, tty);
- 			if (retval) {
-+				set_bit(TTY_IO_ERROR, &tty->flags);
- 				mutex_unlock(&port->mutex);
- 				return retval;
- 			}
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index 8a7fcb902a9f7..3c3166d50ec7b 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -13882,7 +13882,9 @@ SYSCALL_DEFINE5(perf_event_open,
+ 	if (err)
+ 		return err;
+ 
+-	if (!attr.exclude_kernel) {
++	if (!attr.exclude_kernel ||
++	    ((attr.sample_type & PERF_SAMPLE_CALLCHAIN) &&
++	     !attr.exclude_callchain_kernel)) {
+ 		err = perf_allow_kernel();
+ 		if (err)
+ 			return err;
 -- 
 2.53.0
 
