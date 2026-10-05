@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C05983CF211
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 21:12:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3165E3DC4B6
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 21:12:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791234748; cv=none; b=uBY446nPwDcXd4oATd9K62l7JxGma1/Mwl78j7TvKT2fyPj73xCdLQJY5m7ZPXY29aLECXgT2WXgIXDvdLbccvJYRUekI19UMuevdYgC4M+UcHqw3dJztht8kFtRFtX1twDM/1aQzb4zcq9NTtqlsEydQxyUg2M94m6dTHI/6RM=
+	t=1791234752; cv=none; b=do8LuHWeU37L0sIPFBdMWjSEVKaKWNSL+3T1tQvhy1GhVoGZF3fGqlv0fxZjh5FQyw2sKPHh7W1/JtXuknRRlgyZ+psod0NmMYP++xYt1rXcuYrLCJfUNNV6gWk/hHudKeumF1lHvpq0MT3snSIKVnScS+stxQwqOuyS/c7tEzg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791234748; c=relaxed/simple;
-	bh=Z9XSd8C7xb2DVNonik4J1ojD7Wx7qSbKIcbYlH9WGAQ=;
+	s=arc-20240116; t=1791234752; c=relaxed/simple;
+	bh=+8P9N6kJjJm1mZRRoJM78zckOSDn1Bl5DPhHk7pF3w8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=e14Hwoam1noG7nfGs3Zjxwtj+K7drtbdVGoZ+CuRcJ3JeF3KmrH/nr1Jynep83pDz8GN8qIgUW7elEFKe+P/hloO7v8NEUHi9cwQ+dMHfYjLD9Ywp2tZ+UlbVFvDB9jWa/Mko44s62quoFm46OJjNyNi1/E4qM/5f3QLKnulhGU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lz9FaO4E; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ifz7EmQ5f13AABzK9K3q/h0A4OCWbS6npLg7ezsTt9hWofLWPJxOSN7o4g5HeHUoCj0qLChSLRzRMidfgM80+9r0hybqgbZZ+ZUFTgtm3jsSsqYPHCJBI1Y64Bd9bbsLNLMoLzs4htiLbZD1o9ShWe/q+7eYztVEML2idj5i6xQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fKLerwqD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lz9FaO4E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6766D1F000FF;
-	Mon,  5 Oct 2026 21:12:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fKLerwqD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4E781F000FF;
+	Mon,  5 Oct 2026 21:12:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791234746;
-	bh=Mg/HPuMQLwLYiqK61aTaa3L00aoHzaCEK/J2fLAuX3U=;
+	s=k20260515; t=1791234750;
+	bh=jbx4YGhLgjdDwdWoDaPASXP54CyyYN4aPNQkT6rldr0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lz9FaO4EgnIxWY4XS/R/SAigsn7olv769tjhoZH9QYtpwqEe//l2g80hr9sHm/DVv
-	 k+bjairzzOY8iWDQ9GKyOUIw2+Eec/Xrl5T/X9Int33E1vGAo27EGrqV1k6/0Zduo+
-	 MnxBqMMlRWyA98G+mGMaDnRuaY2/I1QES/EGmHWKQSaNnNfJIZBlHO7hlnRrKB88nX
-	 kykgS7KS7PR5WJjGYMMmBQVpiQoBQB6PFp0ddN0IglJmmvq6sRJwp/SytkV7WTEQ+W
-	 NfB5auzTIMSrkRPeWIKrVpcG4EhqnunTc8at1EhEYv0lb/CSHJ/pXvqkQP6qYUxqnR
-	 2cSjQZ+kuJBhg==
+	b=fKLerwqDPc1MDlrQfoqEMIQqUoJmvk5Oau2blkXUjbOAXj/pZf7teVQg3/XgWdY3N
+	 n+/SZ6D+2185nRSf91kozH+2vjRj6Grh8RBWZmEe5gCpS2QH0HOYc2szXN9agn1mBo
+	 av0IqGfl28IjFt/kJc2QsTEsNZrLuajmSgPVnr0VO1txl00Cj0WzYOwBMg+qvhGCZV
+	 Vs0CgOciIBxCMsXLvzQ0K+PUTgnTS8YegtpuLvdC7kQR7I9h7+PpneY9FXmYuoM4b9
+	 RqK4H8U0DHT6Kf0uJU2GuZv1Bd/uQIFyPL/HArBb/dafGwiNKpoXnPfGb34jbxrQWE
+	 Hts3JJiEEJsRg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Johan Hovold <johan@kernel.org>,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	stable@kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	"Steven Rostedt (Google)" <rostedt@goodmis.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] tty: fix saved termios reset race
-Date: Mon,  5 Oct 2026 17:12:21 -0400
-Message-ID: <20261005211140.3348667-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] unwind: Shorten lines
+Date: Mon,  5 Oct 2026 17:12:24 -0400
+Message-ID: <20261005211144.3318946-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100544-gleaming-outgrow-c8b6@gregkh>
-References: <2026100544-gleaming-outgrow-c8b6@gregkh>
+In-Reply-To: <2026100506-cough-hurled-681c@gregkh>
+References: <2026100506-cough-hurled-681c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,135 +45,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Johan Hovold <johan@kernel.org>
+From: Peter Zijlstra <peterz@infradead.org>
 
-[ Upstream commit 8df07fe93573e9e548d6645273e9bcb6eb74059e ]
+[ Upstream commit c31b9d2f589463a7cb286467a618b3b598654890 ]
 
-Resetting saved termios state on device registration is needed where a
-minor number can be reused for an entirely different device and where
-the old settings may prevent the port from even being opened (e.g. when
-CLOCAL is not set).
+There are some exceptionally long lines that cause ugly wrapping.
 
-Not all TTY drivers guarantee that the minor number is no longer in use
-when registering devices however, something which can lead to a
-use-after-free when closing a TTY (and saving its termios) races with
-re-registration.
-
-Add a new TTY_DRIVER_RESET_SAVED_TERMIOS flag to request that any saved
-termios state is reset on registration and only set it for drivers that
-make sure that the minor number is no longer in use.
-
-Fixes: 93857edd9829 ("tty: reset termios state on device registration")
-Reported-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-Link: https://lore.kernel.org/20260926184154.3017929-1-nicoyip.dev@gmail.com
-Cc: stable@kernel.org	# 4.12
-Signed-off-by: Johan Hovold <johan@kernel.org>
-Link: https://patch.msgid.link/20260930131845.1809256-1-johan@kernel.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ sashal: adapted flag handling to use a hexadecimal macro assigned through gb_tty_driver->flags. ]
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Acked-by: Steven Rostedt (Google) <rostedt@goodmis.org>
+Link: https://patch.msgid.link/20250924080118.545274393@infradead.org
+Stable-dep-of: b9d1fdc6f4ac ("perf: Replace perf_event_header__init_id with full header init")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/staging/greybus/uart.c  |  3 ++-
- drivers/tty/tty_io.c            | 18 ++++++++++--------
- drivers/usb/class/cdc-acm.c     |  2 +-
- drivers/usb/serial/usb-serial.c |  3 ++-
- include/linux/tty_driver.h      |  6 ++++++
- 5 files changed, 21 insertions(+), 11 deletions(-)
+ include/linux/unwind_deferred.h | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/staging/greybus/uart.c b/drivers/staging/greybus/uart.c
-index 074c02f123e20..0bdef38a15d72 100644
---- a/drivers/staging/greybus/uart.c
-+++ b/drivers/staging/greybus/uart.c
-@@ -954,7 +954,8 @@ static int gb_tty_init(void)
- 	gb_tty_driver->minor_start = 0;
- 	gb_tty_driver->type = TTY_DRIVER_TYPE_SERIAL;
- 	gb_tty_driver->subtype = SERIAL_TYPE_NORMAL;
--	gb_tty_driver->flags = TTY_DRIVER_REAL_RAW | TTY_DRIVER_DYNAMIC_DEV;
-+	gb_tty_driver->flags = TTY_DRIVER_REAL_RAW | TTY_DRIVER_DYNAMIC_DEV |
-+			       TTY_DRIVER_RESET_SAVED_TERMIOS;
- 	gb_tty_driver->init_termios = tty_std_termios;
- 	gb_tty_driver->init_termios.c_cflag = B9600 | CS8 |
- 		CREAD | HUPCL | CLOCAL;
-diff --git a/drivers/tty/tty_io.c b/drivers/tty/tty_io.c
-index dd5e8a850f6ec..4124603a0b44f 100644
---- a/drivers/tty/tty_io.c
-+++ b/drivers/tty/tty_io.c
-@@ -3272,14 +3272,16 @@ struct device *tty_register_device_attr(struct tty_driver *driver,
- 		goto err_put;
+diff --git a/include/linux/unwind_deferred.h b/include/linux/unwind_deferred.h
+index 26122d00708a2..25f4dffebd1bf 100644
+--- a/include/linux/unwind_deferred.h
++++ b/include/linux/unwind_deferred.h
+@@ -8,7 +8,9 @@
  
- 	if (!(driver->flags & TTY_DRIVER_DYNAMIC_ALLOC)) {
--		/*
--		 * Free any saved termios data so that the termios state is
--		 * reset when reusing a minor number.
--		 */
--		tp = driver->termios[index];
--		if (tp) {
--			driver->termios[index] = NULL;
--			kfree(tp);
-+		if (driver->flags & TTY_DRIVER_RESET_SAVED_TERMIOS) {
-+			/*
-+			 * Free any saved termios data so that the termios
-+			 * state is reset when reusing a minor number.
-+			 */
-+			tp = driver->termios[index];
-+			if (tp) {
-+				driver->termios[index] = NULL;
-+				kfree(tp);
-+			}
- 		}
+ struct unwind_work;
  
- 		retval = tty_cdev_add(driver, devt, index, 1);
-diff --git a/drivers/usb/class/cdc-acm.c b/drivers/usb/class/cdc-acm.c
-index bbb31a074c35e..80e86fa38eabe 100644
---- a/drivers/usb/class/cdc-acm.c
-+++ b/drivers/usb/class/cdc-acm.c
-@@ -2119,7 +2119,7 @@ static int __init acm_init(void)
- {
- 	int retval;
- 	acm_tty_driver = tty_alloc_driver(ACM_TTY_MINORS, TTY_DRIVER_REAL_RAW |
--			TTY_DRIVER_DYNAMIC_DEV);
-+			TTY_DRIVER_DYNAMIC_DEV | TTY_DRIVER_RESET_SAVED_TERMIOS);
- 	if (IS_ERR(acm_tty_driver))
- 		return PTR_ERR(acm_tty_driver);
- 	acm_tty_driver->driver_name = "acm",
-diff --git a/drivers/usb/serial/usb-serial.c b/drivers/usb/serial/usb-serial.c
-index 2b3b7b10f7382..eb3c9f626e5d6 100644
---- a/drivers/usb/serial/usb-serial.c
-+++ b/drivers/usb/serial/usb-serial.c
-@@ -1321,7 +1321,8 @@ static int __init usb_serial_init(void)
- 	int result;
+-typedef void (*unwind_callback_t)(struct unwind_work *work, struct unwind_stacktrace *trace, u64 cookie);
++typedef void (*unwind_callback_t)(struct unwind_work *work,
++				  struct unwind_stacktrace *trace,
++				  u64 cookie);
  
- 	usb_serial_tty_driver = tty_alloc_driver(USB_SERIAL_TTY_MINORS,
--			TTY_DRIVER_REAL_RAW | TTY_DRIVER_DYNAMIC_DEV);
-+			TTY_DRIVER_REAL_RAW | TTY_DRIVER_DYNAMIC_DEV |
-+			TTY_DRIVER_RESET_SAVED_TERMIOS);
- 	if (IS_ERR(usb_serial_tty_driver))
- 		return PTR_ERR(usb_serial_tty_driver);
+ struct unwind_work {
+ 	struct list_head		list;
+@@ -68,9 +70,17 @@ static __always_inline void unwind_reset_info(void)
+ static inline void unwind_task_init(struct task_struct *task) {}
+ static inline void unwind_task_free(struct task_struct *task) {}
  
-diff --git a/include/linux/tty_driver.h b/include/linux/tty_driver.h
-index ff5791373cf96..1e5241b823856 100644
---- a/include/linux/tty_driver.h
-+++ b/include/linux/tty_driver.h
-@@ -542,6 +542,11 @@ static inline void tty_set_operations(struct tty_driver *driver,
-  *	Do not create numbered ``/dev`` nodes. For example, create
-  *	``/dev/ttyprintk`` and not ``/dev/ttyprintk0``. Applicable only when a
-  *	driver for a single tty device is being allocated.
-+ *
-+ * TTY_DRIVER_RESET_SAVED_TERMIOS
-+ *	Reset any saved termios settings on device registration when reusing a
-+ *	minor number. Must only be set by drivers that guarantee that the minor
-+ *	number is no longer in use.
-  */
- #define TTY_DRIVER_INSTALLED		0x0001
- #define TTY_DRIVER_RESET_TERMIOS	0x0002
-@@ -551,6 +556,7 @@ static inline void tty_set_operations(struct tty_driver *driver,
- #define TTY_DRIVER_HARDWARE_BREAK	0x0020
- #define TTY_DRIVER_DYNAMIC_ALLOC	0x0040
- #define TTY_DRIVER_UNNUMBERED_NODE	0x0080
-+#define TTY_DRIVER_RESET_SAVED_TERMIOS	0x0200
+-static inline int unwind_user_faultable(struct unwind_stacktrace *trace) { return -ENOSYS; }
+-static inline int unwind_deferred_init(struct unwind_work *work, unwind_callback_t func) { return -ENOSYS; }
+-static inline int unwind_deferred_request(struct unwind_work *work, u64 *timestamp) { return -ENOSYS; }
++static inline int unwind_user_faultable(struct unwind_stacktrace *trace)
++{ return -ENOSYS; }
++
++static inline int
++unwind_deferred_init(struct unwind_work *work, unwind_callback_t func)
++{ return -ENOSYS; }
++
++static inline int
++unwind_deferred_request(struct unwind_work *work, u64 *timestamp)
++{ return -ENOSYS; }
++
+ static inline void unwind_deferred_cancel(struct unwind_work *work) {}
  
- /* tty driver types */
- #define TTY_DRIVER_TYPE_SYSTEM		0x0001
+ static inline void unwind_deferred_task_exit(struct task_struct *task) {}
 -- 
 2.53.0
 
