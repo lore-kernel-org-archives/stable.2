@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03BFB43B6D3
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 14:44:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC8254AA3F4
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 14:44:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791211489; cv=none; b=NCIntvuvXlepN8rmALvvcej3Rjc+ThxOHak3TMsd1XlBjHiPp3UpsbLy4/Vo4UGngRHhbMu214QHY0ajiU0oZ93+OLWr8QH8PTx4DVvQ89blkSnAkUYpdjPZ1FPpfBo0gK7/8/9jtcMMBhjGsbFZZErVI0DpX4Q/lrZsPSbFhME=
+	t=1791211496; cv=none; b=IH7GWTdrKonZTALImnSnJnZyKTHkmQsigX0D0Nq+Fpqy5StblrpXEXo9QGm3fU7C3cT2/DoGwPqLXp8j5uZo4PjYc5uw2gjPIWmwx73SWAHamawy/DnVbyStNuPvTdQ4DDr8XP77JT3dAdPdTTjCiA6CnKZtcHVy0JjqXlaTz8Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791211489; c=relaxed/simple;
-	bh=D9UWa9fLHoEvFbUH5Y+UEx74UBO4Dp6+8ASbUsIgqD4=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=JdQZ5ATbS0Wwp6RQzvx2o8wsg/OvYmVMWm9p4XD9amaZNp+xk30q5EcJPTHudgX+t3Su+YILl1nI4ak7MdNg/ap1U0mQc3Xj3b0JYDQSRyrWmzAxPT8LhHnMTpeZNtO6XpVmNQM32eqPV59KjU7BbbiDs8yjn04UVy99vcaB9ro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Z/SnPNok; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791211496; c=relaxed/simple;
+	bh=LZYT72qasvDgOBDvIGIq4QZAR/MXHyooL49S5e7Fju0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=CVBtaTYTOpN4H7IAHjfEWefSHScuX5YZH2P2nqGZQF/xDjOu8dIqPpck0qFV6/GAa4vKnoiR45aPe+ADJexX60JAA6ziABB/VEvgNfzz54Ort458iwbZrqQOvykY911yvf5bPAykZj/gwat6tM8ou6zMP7t5mM/+RNE0DZQLipY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=E9ENo1db; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Z/SnPNok"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06F881F0089A;
-	Mon,  5 Oct 2026 14:44:42 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="E9ENo1db"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0454A1F000FF;
+	Mon,  5 Oct 2026 14:44:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791211483;
-	bh=hRFMjMmgIYW2vB9EQAPxAQ0R5byb67VBhURZbYSIICw=;
+	s=korg; t=1791211486;
+	bh=ekRjO0Sm1KQxSg1/sp8DvZbwk5LLjV+cqE0UulryQM0=;
 	h=Subject:To:Cc:From:Date;
-	b=Z/SnPNokb7Ym4mWbEMONl/gHLOZaB6ZhMxJIRTJ6bMBNxaHvWn2PyMovMdU3IRO1m
-	 0Y1Gqiut07uRfR2/M3BkC21nVbuGOh02EQqfFB+vFF0WN3H37rsRwLkg2nqANOwZPk
-	 K8R1yFI8INev40lJLokAgArmyDOQ6n7wR2RKuoV0=
-Subject: FAILED: patch "[PATCH] smb: client: discard post-EOF pagecache when extending a file" failed to apply to 5.10-stable tree
+	b=E9ENo1dbyquG64y+ntemAPB0xsRZQsV/rXtA85rMj+yAskn1ypmx0XsAwHLEcbER1
+	 1rQBCVd2q6zhmFQVD4Mn1SOhY/RROvP4utMbpAVMxquImPQ/JfXq1BkUfP+faEIjcN
+	 2jIY2J2GwwnDd635VOlcsH3QyldP40Rf5mrm1300=
+Subject: FAILED: patch "[PATCH] smb: client: discard post-EOF pagecache when extending a file" failed to apply to 6.1-stable tree
 To: pc@manguebit.org,bharathsm@microsoft.com,brauner@kernel.org,dhowells@redhat.com,linkinjeon@kernel.org,ronniesahlberg@gmail.com,sprasad@microsoft.com,tom@talpey.com,willy@infradead.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Mon, 05 Oct 2026 16:44:30 +0200
-Message-ID: <2026100530-nativity-awaken-c831@gregkh>
+Message-ID: <2026100530-arousal-gigahertz-46ff@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x da4fe97fb6c730d9c94a115c7bfa6f98e0d578d0
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100530-nativity-awaken-c831@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100530-arousal-gigahertz-46ff@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
