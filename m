@@ -1,181 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCB444CE68A
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 20:15:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F33E547073;
+	Mon,  5 Oct 2026 20:16:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791231351; cv=none; b=jbVTO2dHjW57cc/9tWPEbdkNlv7A+KTSc5Vlps+nGOePyeBsRghrGK+L7ls3DygMtCZ79s4BuUeOmOeQxT/09nfSSq65GDTGlW51VEgO+pyDYBbZAmzx7T8U/eHxawFqa81dYJHfaREWhrl9Yff06eF7rGx3GLfnMKJwMHR7PAg=
+	t=1791231378; cv=none; b=jEmJ+28ezySkiQKR8o0a2u1GALCdwMZbyQ75ef+s8S8dWTHJqmQd1Eak4jLN7Z86zU8X1clwEcvoLPQNEsv+A3XjsPG6RtIGXgokCDf9cQn3w8EXHRPka4X8z/H9J1DHFJCQTH0Pgmryzo0UH37XH/ZurwOMW/GVUSEA1f97xYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791231351; c=relaxed/simple;
-	bh=jreJlihI1LDoDEXzXT34D/OpoByeoc72EvJAwXb4cs8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QxkXrbO9fugIGXTsfZV1AunuXYOYA+eXKLU3PJTCAaaZ37g2hWkJSX1NjfuoP65cNMWHHZC9zE1SIXJF9sJlyeI2q+yhdvLWrkgsj4gzmIWS5IH9JFRWpoTbiCHThvpkWwS3TTv6V9YVXxZtGu+QA2Dqzhn2XRq2gkC1tsCu+6g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gqZE9KbQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791231378; c=relaxed/simple;
+	bh=/jtXsg7zg5YsVSpKktYmCl2HOLTmXcA3pq8mmylJWnQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=rwERS18StRioy8jk7U+DhAVfVIf6hmzWdOYgsQ3ejHHCfdQRXC3nVUN7zH302vsfkFnRN9WX/Bd//rNGPX2sAzJf+tLXcSeqEYyLsdmMQauwjnyjK7Pd3qCsAHQ1B0TS4J6B/nJGDimSQ1pGP+Bcn9z6sbExLtFOqPDLpw3ymuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=asEDHv88; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gqZE9KbQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBB631F00893;
-	Mon,  5 Oct 2026 20:15:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791231349;
-	bh=SKfnu51q3muAyl30vNyHGQXoM+ASfY+KxO5loPRrSB4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gqZE9KbQ4R7T1LpNqG55m9fXU5lrEQ8emvFG6bXqxG0BUwwGUIhxi7qQVjAdYDr1y
-	 XXAUnxKNZT4nQhIF1F04JqKrQHHSrI3nuA6RsRjlHFl9mRAWgEGnHK/bl0DJrvJ5mT
-	 PiUUx50IhVymFHgllMM9sV9x2jjN6FNpj4bOvNfJCQ85Ebrq/7j0RWEWmxik5p4c+O
-	 HLUoj6fSRrTynn4pJDHz55tRpDdItNoIZ+qvYxSRz+ycJ3b4XXnt66HGnL4zHEVR/I
-	 LjWeoqQ4MuZpDmAqjl0DExuW8Z7wfJghIOvrxkmZMnVEUr1ooazfAjpp6qK/gqKv9M
-	 uY4xcnCYxk7vQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Johan Hovold <johan@kernel.org>,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	stable@kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] tty: fix saved termios reset race
-Date: Mon,  5 Oct 2026 16:15:45 -0400
-Message-ID: <20261005201516.3124531-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100542-sloping-tumble-a7c6@gregkh>
-References: <2026100542-sloping-tumble-a7c6@gregkh>
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="asEDHv88"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=/3KL0C/nw0xYEK9+GdpscS3wjuMLqlg3B/VsPRrgino=; b=asEDHv88pciBOR1xFCUufLW6gt
+	kl8QeG1uJfbFDwZaT8pH49WRm6kM9NYNK/VLdxAnZh6d3pWot8WNiI05iHi/yWvX6CLfDYB1iZ+ne
+	yrn0TDzoUULw1Q+vdEPk6dddRPd7l/gKQBNxWBFDQU5c8XCynwp5ch8Z12v/NoKzzJ35QVB7KqRZ/
+	1vbBtLHcrnBty5SSmCmc8vunBDyMOgvU5DGYIUMdGtsLeX6ZQZtRNR/hxH3pDPvFyv/XFl5mOKj4Z
+	OvpNsJa/gZw7g5ROvXjNI5uqFBU52pfd7TRyizX5mavqGV1URY5+PBfn+rIx4O8RH8oPAvJTh9Vwy
+	E93KTpBw==;
+Received: from [151.115.150.205] (port=35328 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1xDp6c-0000000FI5a-2Kmn;
+	Mon, 05 Oct 2026 22:16:14 +0200
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>
+Cc: Phil Sutter <phil@nwl.cc>,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	stable@vger.kernel.org
+Subject: [PATCH nf] netfilter: nft_set_rbtree: reject expired interval ends
+Date: Mon,  5 Oct 2026 20:04:05 +0000
+Message-ID: <20261005200404.3544062-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-From: Johan Hovold <johan@kernel.org>
+Consider two ranges in a netfilter verdict map:
+* keys 10-19 accept packets, and
+* keys 30-39 jump to chain 'victim'.
+Now, delete the end marker at 20. The lookup array now uses element 30
+as the first range's end, so an INTERVAL_END query for key 15 returns
+element 30, including its jump verdict and chain pointer. This can make
+KASAN reports a UAF after the GC releases reference chain for 30 that
+has expired:
 
-[ Upstream commit 8df07fe93573e9e548d6645273e9bcb6eb74059e ]
+  BUG: KASAN: slab-use-after-free in nft_verdict_dump+0xdd/0x110
+  Read of size 8 at addr ff110000009dfb58 by task repro/50
+  ...
+  Call Trace:
+  ...
+   nft_verdict_dump+0xdd/0x110
+   nft_data_dump+0x4d/0x80
+   nf_tables_fill_setelem+0x30b/0x8a0
+   ? __asan_memcpy+0x3c/0x60
+   nf_tables_fill_setelem_info+0x1b0/0x200
+   nft_get_set_elem+0x3fd/0x4b0
+  ...
+  Freed by task 24:
+  ...
+   kfree+0x1a5/0x280
+   nf_tables_trans_destroy_work+0x2cb/0x520
 
-Resetting saved termios state on device registration is needed where a
-minor number can be reused for an entirely different device and where
-the old settings may prevent the port from even being opened (e.g. when
-CLOCAL is not set).
+Reject expired endpoints in nft_rbtree_get() before returning them.
 
-Not all TTY drivers guarantee that the minor number is no longer in use
-when registering devices however, something which can lead to a
-use-after-free when closing a TTY (and saving its termios) races with
-re-registration.
-
-Add a new TTY_DRIVER_RESET_SAVED_TERMIOS flag to request that any saved
-termios state is reset on registration and only set it for drivers that
-make sure that the minor number is no longer in use.
-
-Fixes: 93857edd9829 ("tty: reset termios state on device registration")
-Reported-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-Link: https://lore.kernel.org/20260926184154.3017929-1-nicoyip.dev@gmail.com
-Cc: stable@kernel.org	# 4.12
-Signed-off-by: Johan Hovold <johan@kernel.org>
-Link: https://patch.msgid.link/20260930131845.1809256-1-johan@kernel.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ sashal: Adjusted flag and documentation placement because TTY_DRIVER_NO_WORKQUEUE is absent. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 2aa34191f06f ("netfilter: nft_set_rbtree: use binary search array in get command")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
 ---
- drivers/staging/greybus/uart.c  |  3 ++-
- drivers/tty/tty_io.c            | 18 ++++++++++--------
- drivers/usb/class/cdc-acm.c     |  2 +-
- drivers/usb/serial/usb-serial.c |  3 ++-
- include/linux/tty_driver.h      |  6 ++++++
- 5 files changed, 21 insertions(+), 11 deletions(-)
+ net/netfilter/nft_set_rbtree.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/staging/greybus/uart.c b/drivers/staging/greybus/uart.c
-index 10df5c37c83ed..78bf8c4031e93 100644
---- a/drivers/staging/greybus/uart.c
-+++ b/drivers/staging/greybus/uart.c
-@@ -944,7 +944,8 @@ static int gb_tty_init(void)
- 	int retval = 0;
+diff --git a/net/netfilter/nft_set_rbtree.c b/net/netfilter/nft_set_rbtree.c
+index 9894832..1fd9cbe 100644
+--- a/net/netfilter/nft_set_rbtree.c
++++ b/net/netfilter/nft_set_rbtree.c
+@@ -187,6 +187,8 @@ nft_rbtree_get(const struct net *net, const struct nft_set *set,
+ 	if (flags & NFT_SET_ELEM_INTERVAL_END) {
+ 		if (!interval->to)
+ 			return NULL;
++		if (nft_set_elem_expired(interval->to))
++			return ERR_PTR(-ENOENT);
  
- 	gb_tty_driver = tty_alloc_driver(GB_NUM_MINORS, TTY_DRIVER_REAL_RAW |
--					 TTY_DRIVER_DYNAMIC_DEV);
-+					 TTY_DRIVER_DYNAMIC_DEV |
-+					 TTY_DRIVER_RESET_SAVED_TERMIOS);
- 	if (IS_ERR(gb_tty_driver)) {
- 		pr_err("Can not allocate tty driver\n");
- 		retval = -ENOMEM;
-diff --git a/drivers/tty/tty_io.c b/drivers/tty/tty_io.c
-index f74705a37c41f..dd7231d9cab96 100644
---- a/drivers/tty/tty_io.c
-+++ b/drivers/tty/tty_io.c
-@@ -3283,14 +3283,16 @@ struct device *tty_register_device_attr(struct tty_driver *driver,
- 		goto err_put;
- 
- 	if (!(driver->flags & TTY_DRIVER_DYNAMIC_ALLOC)) {
--		/*
--		 * Free any saved termios data so that the termios state is
--		 * reset when reusing a minor number.
--		 */
--		tp = driver->termios[index];
--		if (tp) {
--			driver->termios[index] = NULL;
--			kfree(tp);
-+		if (driver->flags & TTY_DRIVER_RESET_SAVED_TERMIOS) {
-+			/*
-+			 * Free any saved termios data so that the termios
-+			 * state is reset when reusing a minor number.
-+			 */
-+			tp = driver->termios[index];
-+			if (tp) {
-+				driver->termios[index] = NULL;
-+				kfree(tp);
-+			}
- 		}
- 
- 		retval = tty_cdev_add(driver, devt, index, 1);
-diff --git a/drivers/usb/class/cdc-acm.c b/drivers/usb/class/cdc-acm.c
-index 080a7dc79ecdc..b980cb08d675b 100644
---- a/drivers/usb/class/cdc-acm.c
-+++ b/drivers/usb/class/cdc-acm.c
-@@ -2145,7 +2145,7 @@ static int __init acm_init(void)
- {
- 	int retval;
- 	acm_tty_driver = tty_alloc_driver(ACM_TTY_MINORS, TTY_DRIVER_REAL_RAW |
--			TTY_DRIVER_DYNAMIC_DEV);
-+			TTY_DRIVER_DYNAMIC_DEV | TTY_DRIVER_RESET_SAVED_TERMIOS);
- 	if (IS_ERR(acm_tty_driver))
- 		return PTR_ERR(acm_tty_driver);
- 	acm_tty_driver->driver_name = "acm",
-diff --git a/drivers/usb/serial/usb-serial.c b/drivers/usb/serial/usb-serial.c
-index 45c27b18fb459..3cccddaabb51a 100644
---- a/drivers/usb/serial/usb-serial.c
-+++ b/drivers/usb/serial/usb-serial.c
-@@ -1375,7 +1375,8 @@ static int __init usb_serial_init(void)
- 	int result;
- 
- 	usb_serial_tty_driver = tty_alloc_driver(USB_SERIAL_TTY_MINORS,
--			TTY_DRIVER_REAL_RAW | TTY_DRIVER_DYNAMIC_DEV);
-+			TTY_DRIVER_REAL_RAW | TTY_DRIVER_DYNAMIC_DEV |
-+			TTY_DRIVER_RESET_SAVED_TERMIOS);
- 	if (IS_ERR(usb_serial_tty_driver))
- 		return PTR_ERR(usb_serial_tty_driver);
- 
-diff --git a/include/linux/tty_driver.h b/include/linux/tty_driver.h
-index 188ee9b768eb6..77d0789642394 100644
---- a/include/linux/tty_driver.h
-+++ b/include/linux/tty_driver.h
-@@ -69,6 +69,11 @@ struct serial_struct;
-  *	Do not create numbered ``/dev`` nodes. For example, create
-  *	``/dev/ttyprintk`` and not ``/dev/ttyprintk0``. Applicable only when a
-  *	driver for a single tty device is being allocated.
-+ *
-+ * @TTY_DRIVER_RESET_SAVED_TERMIOS:
-+ *	Reset any saved termios settings on device registration when reusing a
-+ *	minor number. Must only be set by drivers that guarantee that the minor
-+ *	number is no longer in use.
-  */
- enum tty_driver_flag {
- 	TTY_DRIVER_INSTALLED		= BIT(0),
-@@ -79,6 +84,7 @@ enum tty_driver_flag {
- 	TTY_DRIVER_HARDWARE_BREAK	= BIT(5),
- 	TTY_DRIVER_DYNAMIC_ALLOC	= BIT(6),
- 	TTY_DRIVER_UNNUMBERED_NODE	= BIT(7),
-+	TTY_DRIVER_RESET_SAVED_TERMIOS	= BIT(9),
- };
- 
- enum tty_driver_type {
+ 		rbe = container_of(interval->to, struct nft_rbtree_elem, ext);
+ 	} else {
 -- 
-2.53.0
+2.47.3
 
