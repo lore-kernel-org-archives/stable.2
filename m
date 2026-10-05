@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13D2D41D23A;
-	Mon,  5 Oct 2026 10:37:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6189F37BE7F;
+	Mon,  5 Oct 2026 10:38:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791196656; cv=none; b=IzNNKd9yOpnHQeaQHwR1mkhYhCq2kB1lYEOlxL3gYGnQSwKgPAfDxy5JAZttmcIeX94j1VTs9YJzCyR6cV5caRb3rfjwOC98RCwIeRfUarIV51MKRiewNUcrGefZc9UASGRrQVXiPPJleslveP3HIJmOEVF8me/V0mBQswP0gnY=
+	t=1791196698; cv=none; b=FVlqq2rsou4j6PlaZvURo4Qy4YSKFAAtaZTc+NXPULX+ho9GjIpRyWAiJsYu9meEZSKstem8rPB3vwv5Yp3ShxvcZWIv8GCf12Z9zoDVjK3JfjXcsafLRcQpgN1PblOdGPZqGnXWH0nHLShzgsXBzrXNb+SyqPVDo0+1Z93hyJE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791196656; c=relaxed/simple;
-	bh=RDylGjdxj83XUypNAqtDW03hXKOxfYH18mbcAQXXxcg=;
+	s=arc-20240116; t=1791196698; c=relaxed/simple;
+	bh=j8wyTefbsbtfFLV5cRmAHzJ85gOEq8aYtQ47JwtEOwo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=X7nqYEEO+7V+mM32p3nowK2UAKsoloZ9aLyEcjc/r6TP95r9ht0GYPvudzv3yyyaKLD9uQNy3Y+G4WgNrHyp+QTZNWW6+F/YxbKIDSyqftZW6PIGydaB048cKZwM1Fww1mpfuQ2Ho0mpUWHnoz6U2oP95/X3+EDOZlq8DhhoIwY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UFzxhi2O; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=WNCCFHotnvy7IrjgTLTR5vBqLz80lgXeLw5GczckJ3AudBjOjJVJyT12vvspn0ojbAzKyQIgCJDR+e6WQnhdImUdzqoYjlM+i9T+X08eLfwuLwoW1aa/3CIFg67ddVvBY87p4LxPCFys5BVCNpSuJZmkrglvEiTJxAQLz/GfD1s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RKqmEfKR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UFzxhi2O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 394661F000FF;
-	Mon,  5 Oct 2026 10:37:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RKqmEfKR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 289651F000FF;
+	Mon,  5 Oct 2026 10:38:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791196654;
-	bh=cByG7GqhBvWV2hjaYwUvk7XARELXPjKV24/eCyNbhZQ=;
+	s=k20260515; t=1791196697;
+	bh=5Vc3pQESdRpcWqTuss+dPZ/DLBJnzfWaOHoQnAvQTc0=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=UFzxhi2OKhI7lOTnQNuT5HIVGpaxAbS1fgEPpdjeuyurAwRR8AVghIocUlZW6JGwR
-	 mnGCuSA4j3JWEpMfC4xPkdvyQAKVzSd/Jkj5tOT+vRbqFF0BcqFAj4HDAiqRyeXpgK
-	 rVFOS1s6YKwWKEiM//Z2aU/vsloh6wNr8iUpImltVL/MxI0rmEfGjkQkyLO3tsVRvK
-	 npu3l3PXt8mv0PZPj+ZEqOibABFIOqYktx455TvhuC6zXUmzbvs0vEi+sj+Xp5wBKR
-	 9N8QlqbV6+nm2AsncAr4ROh3G1k2HdVRDF68iEod47EmNtXDGQTexWFteH0cOtkckq
-	 LQ4dPVDY4yBrQ==
-Message-ID: <fabd52b6-36a7-442e-9cfb-47a39e4ae3d6@kernel.org>
-Date: Mon, 5 Oct 2026 12:37:20 +0200
+	b=RKqmEfKRxP8fAHQMJMcrK1N47J5Kf29T154D+wJlWpgAcpFhX73rOYp/QpS5LFWtf
+	 T9lo54D1QXoEUSj8pch7RiOpTACrtNAi9ja7Te1FUor5TyK6i5aYSaAPKoLYR8KHOu
+	 0rusExbXF+n6zMnAqfBNkulPB9xvjjKeCX8BsQjsRfh+xTRxRDmfU4TaFvJFZMpxVX
+	 QZVpVqZkWvRs5oKNSoInnQfjiAkxYiS1Lr6FLizYmlNbGiFkOveLc/WnntNlquuVNn
+	 GDsC0F0hF6aZ84lDwR+S+loJJVUpF9EfcLk9zrDKe9gi3N/9hkSJWXqqjwM5SuIs2Y
+	 UbWYGOgiuNjNw==
+Message-ID: <d286ba75-c89c-4b34-8447-e1d9eeb2d515@kernel.org>
+Date: Mon, 5 Oct 2026 12:38:09 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,24 +35,17 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] riscv/mm: fix soft-dirty migration PMDs being treated
- as present
-To: Lance Yang <lance.yang@linux.dev>, pjw@kernel.org, palmer@dabbelt.com,
- aou@eecs.berkeley.edu
-Cc: alex@ghiti.fr, akpm@linux-foundation.org, zhangchunyan@iscas.ac.cn,
- rppt@kernel.org, kas@kernel.org, andrew+kernel@donnellan.id.au,
- rmclure@linux.ibm.com, debug@rivosinc.com, baolin.wang@linux.alibaba.com,
- usama.arif@linux.dev, wangruikang@iscas.ac.cn, namcao@linutronix.de,
- linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
- alexghiti@rivosinc.com, viro@zeniv.linux.org.uk, ajones@ventanamicro.com,
- arnd@arndb.de, axelrasmussen@google.com, brauner@kernel.org,
- conor.dooley@microchip.com, conor@kernel.org, jack@suse.cz,
- liam@infradead.org, ljs@kernel.org, mhocko@suse.com,
- paul.walmsley@sifive.com, peterx@redhat.com, robh@kernel.org,
- surenb@google.com, vbabka@kernel.org, yuanchu@google.com,
- stable@vger.kernel.org, pasha.tatashin@soleen.com, linux-mm@kvack.org,
- me@ziyao.cc
-References: <20261004030312.90163-1-lance.yang@linux.dev>
+Subject: Re: [REGRESSION] secretmem: SIGBUS on memfd_secret() pages while perf
+ record runs
+To: Ameer Hamza <ameer.hamza@truenas.com>
+Cc: ljs@kernel.org, rppt@kernel.org, peterz@infradead.org,
+ akpm@linux-foundation.org, mingo@redhat.com, acme@kernel.org,
+ namhyung@kernel.org, linux-mm@kvack.org, linux-perf-users@vger.kernel.org,
+ linux-kernel@vger.kernel.org, regressions@lists.linux.dev,
+ stable@vger.kernel.org, 4ncienth@gmail.com, sashal@kernel.org,
+ alexander.motin@truenas.com, caleb.stjohn@truenas.com
+References: <20261002175651.811343-1-ameer.hamza@truenas.com>
+ <3c5b9d1e-5ed4-4bd1-b532-39f2d4612965@kernel.org> <asE0ctESLO306qYs@hamza-PC>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -99,108 +92,25 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20261004030312.90163-1-lance.yang@linux.dev>
+In-Reply-To: <asE0ctESLO306qYs@hamza-PC>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/4/26 05:03, Lance Yang wrote:
-> RISC-V uses _PAGE_EXEC for swap soft-dirty tracking when
-> CONFIG_MEM_SOFT_DIRTY is enabled and Svrsw60t59b is available. That's
-> a problem for PMD migration entries, since pmd_present() also checks
-> _PAGE_LEAF (R/W/X) to recognize THPs with _PAGE_PRESENT temporarily
-> cleared during splitting.
-
-I'm curious: why do we have to set leaf indications for non-present things? The
-HW sure will ignore it, right?
-
-Is this a sw problem? Who needs that?
-
+On 10/3/26 19:05, Ameer Hamza wrote:
+> On Sat, Oct 03, 2026 at 04:14:49PM +0200, David Hildenbrand (Arm) wrote:
+>> May I know whether this problem was found by
+>>
+>> (a) A real workload
+>>
+>> (b) A test case
+>>
+>> (c) Complains by some tooling
 > 
-> When a soft-dirty THP is migrated, set_pmd_migration_entry() preserves
-> soft-dirty with pmd_swp_mksoft_dirty(), setting the X bit in the
-> migration PMD. Even with _PAGE_PRESENT clear, we end up treating a
-> migration PMD as a present THP! The fault handler skips
-> pmd_migration_entry_wait(), and a write fault can end up in
-> do_huge_pmd_wp_page(), where pmd_page() decodes the migration entry
-> as a mapped PFN.
+> (a). A root userspace process that keeps secrets in memfd_secret()
+> failed while perf record ran on the same machine. I reduced it to the
+> snippet in the report.
 
-That sounds bad.
-
-> 
-> Move the swap soft-dirty bit to bit 12 and start the swap offset at
-> bit 13 when CONFIG_MEM_SOFT_DIRTY is enabled. This keeps R/W/X clear
-> in migration PMDs and lets us keep the existing pmd_present() check
-> for invalidated THPs. Leave the offset at bit 12 when soft-dirty
-> tracking is disabled.
-
-That reduces the effective swap size (and PFN we can store). Could that be a
-problem?
-
-> 
-> Fixes: 2a3ebad4db63 ("riscv: mm: add soft-dirty page tracking support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lance Yang <lance.yang@linux.dev>
-> ---
-> I found this while reviewing Usama's PMD-level swap entries series [1]
-> and comparing the swap flag bits with the PMD presence checks across
-> architectures.
-> 
-> [1] https://lore.kernel.org/all/20261002095503.3585565-1-usama.arif@linux.dev/
-> 
->  arch/riscv/include/asm/pgtable-bits.h |  6 +++---
->  arch/riscv/include/asm/pgtable.h      | 10 ++++++----
->  2 files changed, 9 insertions(+), 7 deletions(-)
-> 
-> diff --git a/arch/riscv/include/asm/pgtable-bits.h b/arch/riscv/include/asm/pgtable-bits.h
-> index d5a86b4df3ce6..d84b459e010c1 100644
-> --- a/arch/riscv/include/asm/pgtable-bits.h
-> +++ b/arch/riscv/include/asm/pgtable-bits.h
-> @@ -27,12 +27,12 @@
->  	((riscv_has_extension_unlikely(RISCV_ISA_EXT_SVRSW60T59B)) ?	\
->  	 (1UL << 59) : 0)
->  /*
-> - * Bit 3 is always zero for swap entry computation, so we
-> - * can borrow it for swap page soft-dirty tracking.
-> + * Bit 12 is reserved for swap soft-dirty tracking. The swap offset
-> + * starts at bit 13 when CONFIG_MEM_SOFT_DIRTY is enabled.
->   */
->  #define _PAGE_SWP_SOFT_DIRTY						\
->  	((riscv_has_extension_unlikely(RISCV_ISA_EXT_SVRSW60T59B)) ?	\
-> -	 _PAGE_EXEC : 0)
-> +	 (1UL << 12) : 0)
->  #else
->  #define _PAGE_SOFT_DIRTY	0
->  #define _PAGE_SWP_SOFT_DIRTY	0
-> diff --git a/arch/riscv/include/asm/pgtable.h b/arch/riscv/include/asm/pgtable.h
-> index b644db16bda94..acaf6d3b54d04 100644
-> --- a/arch/riscv/include/asm/pgtable.h
-> +++ b/arch/riscv/include/asm/pgtable.h
-> @@ -1178,18 +1178,20 @@ static inline pud_t pud_modify(pud_t pud, pgprot_t newprot)
->   *
->   * Format of swap PTE:
->   *	bit            0:	_PAGE_PRESENT (zero)
-> - *	bit       1 to 2:	(zero)
-> - *	bit            3:	_PAGE_SWP_SOFT_DIRTY
-> + *	bit       1 to 3:	_PAGE_LEAF (zero)
->   *	bit            4:	_PAGE_SWP_UFFD
->   *	bit            5:	_PAGE_PROT_NONE (zero)
->   *	bit            6:	exclusive marker
->   *	bits      7 to 11:	swap type
-> - *	bits 12 to XLEN-1:	swap offset
-> + *	bit           12:	_PAGE_SWP_SOFT_DIRTY (CONFIG_MEM_SOFT_DIRTY)
-> + *	bits 12/13 to XLEN-1:	swap offset (without/with CONFIG_MEM_SOFT_DIRTY)
->   */
->  #define __SWP_TYPE_SHIFT	7
->  #define __SWP_TYPE_BITS		5
->  #define __SWP_TYPE_MASK		((1UL << __SWP_TYPE_BITS) - 1)
-> -#define __SWP_OFFSET_SHIFT	(__SWP_TYPE_BITS + __SWP_TYPE_SHIFT)
-> +#define __SWP_OFFSET_SHIFT \
-> +	(__SWP_TYPE_BITS + __SWP_TYPE_SHIFT + \
-> +	 IS_ENABLED(CONFIG_MEM_SOFT_DIRTY))
->  
->  #define MAX_SWAPFILES_CHECK()	\
->  	BUILD_BUG_ON(MAX_SWAPFILES_SHIFT > __SWP_TYPE_BITS)
-
+Thanks!
 
 -- 
 Cheers,
