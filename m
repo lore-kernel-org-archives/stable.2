@@ -1,42 +1,44 @@
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FF563DB65A;
-	Mon,  5 Oct 2026 13:28:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 686F8483831;
+	Mon,  5 Oct 2026 13:28:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791206912; cv=pass; b=T3QsKhjzLlHRDOWDSF7hxbGVs/5Wlma0z8ExGe11/+C0sBlr6/VdsFzb72w4VxcTVKPo7ObcAbDi3u8Z1Bk8Nw2KeOU4w3kl2qm07xfqApsM9Z8gkQqf2hlbPA0GdC9GqvretjWnOG9NA9Ef5Eox9mao/3kfo9MCGSH4UoKwzho=
+	t=1791206911; cv=pass; b=KHG5/GcUSrRYsHk7p7ILKLmuujwZjAjDuwyoc2jO3jNTLbQkufZeWj2omFGQ88M7/LKBFORxjlLmasSupYRynPeZXlRIiSUN7wBfkcEZvV//MUSniGI4ta6nkhraHQrnBL9vho2SRa9prM35hfWUfSLgtHHgJ+GScIJ9G8cBRVw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791206912; c=relaxed/simple;
-	bh=qblQEc9bv3zS3PbOKKlp6Dqadq1oJleKof+0/JVLdtU=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=nAqXJYaFUmVdF8qJR3hYUlD8hCe2nQC3ECTga7Ihsx1Uf02LAU3/hHv1mcxGcHX+WR8MUD3ng9pmIUQtGwx5CxQmOvawAhexUSIhjaWdFlR+gHioaxqlDuk9OFwnpUzHNfdgr8lV6ad7vOe8XHPa7EhgPfI2xBJ3YLA3RIeyayQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=VO4ifw70; arc=pass smtp.client-ip=185.203.200.13
+	s=arc-20240116; t=1791206911; c=relaxed/simple;
+	bh=zqMjDW9XcckY4Q9BC4MUHyEe/RMuBVvJWCYstB1ZWyc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=TsntmCWfTCh/eq6ZRpvUOsMP4heZI/JBAXiULNKpaFunCWK0TNnyukCRR7Tw3bHohkzwO/DL8EwJWO80RSMJTDixZOfIJQAFnriK+AtvEZtRH1n195Oy7kXL8whfpdv6vvYDinLRnlG1jC6kvSvWV58k3TZlkFZfVnrEgfX31BI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=GDrb1D6k; arc=pass smtp.client-ip=185.203.200.13
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="VO4ifw70"
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="GDrb1D6k"
 Received: from [127.0.1.1] (unknown [IPv6:2a02:560:5ca5:d100:9ebf:dff:fe00:fdb5])
 	(Authenticated sender: sha@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 23399201F18;
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 3DC7E202013;
 	Mon, 05 Oct 2026 15:28:22 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1791206902;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=3V8N820IBJDGfbEgp90WfrzITJ46pVVuhCieemYPhLg=;
-	b=VO4ifw70ourzOesQ5JGipadJCljNFfrgfxyRCvgw7cZ9Kisgy0On6jzSuIcwI1EeVHIwFo
-	qM4LbOZlgBGx7InEJBuNS5mJP3OuO89kstamEO/Yb2/hYESAUzebbh2jRCzH6bPpvWTy3w
-	L8U88CBWmOWxrZbxChC5R1R1WouCKnHFLIv25qUIdKih+7853YXwPzMGQviKLQHR1FS03x
-	RQ1OUdNu53uHpfWOieayk9576YRUD98IIi41HUwLUH0zltR+TTMTrpuCDPpz4ZkvTevGfv
-	xKVOqwCfwvaHau5eBOMBi/DzxS3eZxVHQtKyv3HsU8q159Y5LRtIM0DCKomYaA==
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Qprud1QZ951MHLpiIP6SCwgCJESiKNFWNtMKb7r9D60=;
+	b=GDrb1D6kDme+esnJ03myAfioVSDafAD07XGrR/ImSY87WPTdwm+B2ckGRdtirkfspONXvr
+	eyMKTKWM8lDb7a4M3fVxPusqIHMxbvr6miI8APXxkxErPbezO/eK74y/OB0XOrxU6yVA9a
+	8DcWRouWd7WaCRDw8zikTguDt9JpJhb736ICcmqk1sahXI9T/hBToAfn3CV4U8p8K7ut+l
+	egOuriuvOLKdpUM3+SX1GRK8pBiognh9F8Buel7ABz0GVX6BYLN1lFBNazTz//HxohA6rC
+	Q1DtUYPagtIGBg+DUSPJI3EUvQPH3TzVmPEM6yQ6ZxZG72Qqk8OvizHBFCToUQ==
 ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1791206902; a=rsa-sha256;
 	cv=none;
-	b=H2NNEmXsAKn2urjPJyvOoUBMusy2Kft7lPz5m2qLEwUWSJHMhkZwzz2GlcwPRoXr2p5Ox9
-	agXU5VFmIlgSBTFMODTdKNl+edwx7DERWMiZ5FgyCTQF1Jo545CzKShkqv+O7GaBZtlir9
-	ewx0lCIHutT3ls15UzPwltMAALHJ11GpsoMM68t8RipLbL+gQHBRFSqSu8VsEEGs2fBw+3
-	hTkuqJj5AvnvJaz81lQdckvPy3LzFEnAmhsKRkdlAJCjOl425ZQeYCz3FFr7oE/Q3N0GF5
-	IrhqWVd4aWpFIbEFlApSJ1X8pVY5wfy39medtEXRS5XgDp/wKOPc1t7oCX+/Ww==
+	b=CosbWXjZueWDjOyUCdSLM4cx2jhaDdgiCmgy8fseUn964BNLrHcFAfDSPYj7y8kcJe1fXV
+	bEISNhASDnJscky8VToOTHb35Cg9k3yjlSeKygCnQ7Il4Pratl+3dg+Vr+J+2IGjmPW/TH
+	HM3aB/3kWuUeizE4jH9FZBJSMJOpCtAVWYLD5Ge1fU4lLL+djuoAXch2IYWD1Ts4j7hg9k
+	olQyELKWRuTt3gWMmniMXOKUl0JyN+WkKJoZW/zH4TJ5DKlFCdgAg94qqP9XU+9giF/Iyh
+	fUU/vo+fcVZ4uPaBcapU+uGyim25iwHNkyykVLSCT+YAEKxhncvQKiiy4P6xow==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=sha@pengutronix.de smtp.mailfrom=s.hauer@pengutronix.de
@@ -44,18 +46,18 @@ ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1791206902;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=3V8N820IBJDGfbEgp90WfrzITJ46pVVuhCieemYPhLg=;
-	b=cHXKUTURy9udSvWlAyUl/Y10j62K+gIgeVmtjs8pivrVHYpvPCfOWCrmIjgOrbYPR97O4G
-	aKJeSl1//nn+4HGlzpJoP2RK563kgTCiLarbWN0AHTf4AySYtqR7MJJzksXSeStK48J2ZW
-	oxDkh9SaioSSl/Q1SpICa/wOp+hy8NCf4PU7q9onLCsAtxmuYsMtiE3mc8+mxRiWE35/x3
-	E3FeaqeYwwhqVsCKxfvFt7gicK9x+yhac5NlAptMocfGWvcWG28Bz+tBYlUBnxXSnG9cN3
-	aAKW0/tJ4N2/qLYgLnZM9chktvguvdqr2V7xEASmqOj/mVgOpXngn+mJeZcKCw==
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Qprud1QZ951MHLpiIP6SCwgCJESiKNFWNtMKb7r9D60=;
+	b=d4L9kVYIe3HMhfQHIkUk4HEpauGFP0b5wwCETpj9LrNO0AUbx1fsgHeAYcfnzmR+z6pf9m
+	+w+rvzLHj7VDDgqM1ZhFlQ7eyTdd2Td2HSx3cUMKuaBtuS7amMhF7vTLWrzwNBxzZxW/MB
+	n/4BvXH35BaGJF0qg20PuuHDUedvgg4pyGwbpbrvz5Wf5xNVH1zJV+Ny4ZzNCMEMP+Omvg
+	srVgYFDqQEF65s76XBzMcM2OEeUiucYo9jXf3SFZ3NC6YD4fZH4JaHSIsU7RHxZGmLvQad
+	AtDzgkoh51AGhEyfMY6oK3XchUzyVtqwe+C4bNZ9e/nQIdcebUjrzf7Hz3DzBA==
 From: Sascha Hauer <s.hauer@pengutronix.de>
-Subject: [PATCH v3 00/10] media: synopsys: hdmirx: support an HDMI bridge
- in front of the receiver
-Date: Mon, 05 Oct 2026 15:28:19 +0200
-Message-Id: <20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de>
+Date: Mon, 05 Oct 2026 15:28:20 +0200
+Subject: [PATCH v3 01/10] media: synopsys: hdmirx: free the driver data
+ when the last user is gone
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -64,11 +66,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAPSlw2oC/2XOyw7CIBCF4VcxrMXA0It15XsYF1CGdha9BCqpa
- fru0saFl+V/kvkyCwvoCQO7HBbmMVKgoU+hjgdWt7pvkJNNzUBAISqR8dZ25GfeoSXNHZZoqhw
- MGGTpZPToaN652z11S2Ea/HPXo9zWNwTqG4qSC45a2bK0mc6duo7YN4/JDz3NJ4ts0yJ8Cj+vR
- EhCLcEVmbRnI9yfsK7rC7/Jm63vAAAA
-X-Change-ID: 20260904-hdmirx-media-fe7eb952b2be
+Message-Id: <20261005-hdmirx-media-v3-1-71a11a2e3e76@pengutronix.de>
+References: <20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de>
+In-Reply-To: <20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de>
 To: Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
  Mauro Carvalho Chehab <mchehab@kernel.org>, 
  Hans Verkuil <hverkuil@kernel.org>, Rob Herring <robh@kernel.org>, 
@@ -79,141 +79,184 @@ Cc: Gerald Loacker <gerald.loacker@wolfvision.net>,
  Lucas Sinn <lucas.sinn@wolfvision.net>, linux-media@vger.kernel.org, 
  devicetree@vger.kernel.org, kernel@collabora.com, 
  linux-kernel@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>, 
- stable@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
+ stable@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791206902; l=7004;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791206902; l=6170;
  i=s.hauer@pengutronix.de; s=20230412; h=from:subject:message-id;
- bh=qblQEc9bv3zS3PbOKKlp6Dqadq1oJleKof+0/JVLdtU=;
- b=uC03mHE508WVCfhlOUg/G3KjWm3ipnXVAXGlyoGkOdy8s/T9YRs0bnMolgkXUjrk7ENBNmgXt
- DXj+T2PHnH7CiQ8FT80kjQeJjEO2LM9x1yWODR1qj4Lv53uEPnI2aso
+ bh=zqMjDW9XcckY4Q9BC4MUHyEe/RMuBVvJWCYstB1ZWyc=;
+ b=CgQUg/L2jKmRCAeVGNnv6lJw0QGMQsiZjAGqPdGWtTas0188c6IHfW8zi6D9/EC04z+4AIGoQ
+ R7pvknq8XHjB/TtRkG7cSsc2i4tf5CANNfISFs00bBVJWv+vx2UBmZp
 X-Developer-Key: i=s.hauer@pengutronix.de; a=ed25519;
  pk=4kuc9ocmECiBJKWxYgqyhtZOHj5AWi7+d0n/UjhkwTg=
 
-The Synopsys HDMI receiver driver assumes the HDMI connector belongs to
-it: the connector's +5V line arrives on hpd-gpios, and there is nothing
-between the source and the receiver. On the board this series comes from
-that is not the case. An HDMI bridge owns the connector, the receiver
-sits behind it, and the two are described by an OF graph endpoint.
+The driver data is allocated with devm_kzalloc() and contains the
+video_device, the vb2 queue and the control handler. devres frees it when
+the device is unbound, but an open file descriptor on the video device
+node keeps the video_device referenced beyond that point:
+video_unregister_device() only drops the reference taken at registration,
+and the core's release of the device node is deferred until the last
+close. When that close comes, the core calls the vb2 release fop on the
+freed queue and v4l2_device_release() reads the minor, the cdev and the
+release callback from the freed video_device. A file that subscribed to
+control events additionally has the core look the control up in the
+freed handler.
 
-Three things follow from that, and the series is arranged in that order.
+Documentation/driver-api/media/v4l2-dev.rst asks drivers that embed the
+video_device to free the containing structure from a release callback,
+when the last user of the device node is gone. Do that, using the
+v4l2_device release callback since that refcount is taken per registered
+device node. Allocate the driver data with kzalloc(), free it together
+with the control handler from the release callback, and have remove() and
+the probe error paths drop the reference instead of relying on devres.
+Error paths before v4l2_device_register() free the allocation directly,
+no reference exists yet.
 
-Patch 1 comes before them and is a fix for the driver as it is. The
-driver data is devm allocated, but an open file descriptor keeps the
-video device alive past unbind, so the last close works on freed memory.
-The media device the series adds would have been torn down the same way,
-which is why the fix leads the series. It stands on its own and is
-marked for stable.
+With the controls alive until the last user is gone, hdmirx_disable() can
+run before the control handler is freed on both remove and the probe
+error paths. The NULL checks in hdmirx_plugout() and the pointer clearing
+in hdmirx_remove() that worked around the old order go away. The
+hdl->error path in probe also no longer leaks the handler.
 
-Patches 2-3 give the driver a media device and register the video device
-as an entity with a sink pad. On their own they add a graph with one node
-in it; they exist so that there is somewhere for the bridge to appear.
-
-Patches 4-5 add the endpoint to the binding and bind the remote subdev
-through a v4l2 async notifier, linking its source pad to the receiver's
-sink pad. Such a board cannot provide hpd-gpios, so the binding requires
-either hpd-gpios or the port. Without an endpoint in the device tree the
-driver keeps working exactly as before, so boards wired straight to the
-connector are unaffected.
-
-Patch 6 is fallout from the wait for signal lock, which was bounded by an
-iteration count whose duration came from the 5V debounce it called
-each time round. That debounce goes away on a board with no hpd-gpios
-later in the series, so the wait gets a real timeout first.
-
-Patches 7-10 are the 5V state itself. Patch 7 stops probe requiring an
-interrupt for hpd-gpios. Patch 8 makes v4l2_device_unregister_subdev()
-wait for notifications already in flight. Nothing kept a subdev from
-notifying a v4l2_device that was unbinding it; that is not new with this
-series, as asynchronously bound subdevs sending V4L2_EVENT_SOURCE_CHANGE
-race the same way today. Patch 9 adds V4L2_DEVICE_NOTIFY_RX_POWER_PRESENT,
-and patch 10 has the receiver set v4l2_dev.notify and take the state from
-whatever is bound in front of it. The notification is only an edge, as
-the 5V interrupt is with hpd-gpios: the hotplug worker then asks the
-subdev through g_input_status(), so nothing is cached that could go
-stale against bind or unbind. Without a det_irq there is nothing to
-disable across suspend and remove either, so patch 10 disables the
-hotplug work items themselves instead of cancelling them. Patch 8 is
-what lets the notify callback read sd->v4l2_dev while the subdev is
-being unbound.
-
-V4L2_CID_DV_RX_POWER_PRESENT is otherwise the only place this state is
-published - adv7604, adv7842, tc358743 and tda1997x all set that control
-from their cable detect interrupt and stop there - while a format change
-already gets an in-kernel notification through v4l2_subdev_notify_event().
-An earlier version of this series hooked the control with
-v4l2_ctrl_notify() instead. That reaches into another device's control
-handler, and the only thing it bought was working with those four
-drivers unmodified, which turns out to be worth nothing: they are HDMI
-sinks, so none of them could sit in front of an HDMI receiver anyway.
-
-Nothing in tree sends the new notification yet. The driver for the device
-on this board does, and the alternative was a mechanism that no in-tree
-driver could have used either.
-
-There is no in-tree device tree using the new port yet: the board is not
-upstream, and the device in front of the receiver, a Lontium LT86102UXE
-1:2 HDMI splitter, has no driver upstream either. I would rather send the
-infrastructure for review now than sit on it until the board lands.
-
-Tested on that board, and build tested for arm64 at each patch with W=1.
-
+Fixes: 7b59b132ad439 ("media: platform: synopsys: Add support for HDMI input driver")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
 Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
 ---
-Changes in v3:
-- new patch 1: free the driver data from the v4l2_device release callback
-  instead of devres, an open file descriptor keeps the video device alive
-  past unbind. The media device cleanup Sashiko flagged on the old patch
-  1 was the same problem, which predates the series (Sashiko on patch 1)
-- v4l2-device: wait for the SRCU grace period on every subdev
-  unregistration, not only when the v4l2_device has a notify callback,
-  as the reader dereferences v4l2_dev either way (Sashiko on patch 7)
-- Link to v2: https://lore.kernel.org/r/20260924-hdmirx-media-v2-0-c12f641d8b0f@pengutronix.de
+ .../media/platform/synopsys/hdmirx/snps_hdmirx.c   | 56 +++++++++++++---------
+ 1 file changed, 34 insertions(+), 22 deletions(-)
 
-Changes in v2:
-- dt-bindings: squash "add the source port" and "make hpd-gpios optional"
-  into one patch and require exactly one of hpd-gpios and port (Conor)
-- dt-bindings: drop the OS-specific sentence from the port description
-  (Conor)
-- hdmirx: take graph_mutex around media_create_pad_link() in the async
-  bound callback, the media device is already registered (Sashiko)
-- new patch 7: v4l2-device: wait for notifications when unregistering a
-  subdev, so a notification cannot outlive the unbind of the receiver
-  (Sashiko on patch 9)
-- hdmirx: ask the subdev in front for the 5V state on every notification
-  instead of caching what the notification carries, and disable the
-  hotplug work items across probe, suspend and remove instead of gating
-  the workers on a flag and cancelling once more after the notifier is
-  unregistered
-- Link to v1: https://lore.kernel.org/r/20260923-hdmirx-media-v1-0-ea3d77d4a5f3@pengutronix.de
+diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+index 25f8ca0d6d946..bc541431638e7 100644
+--- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
++++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+@@ -637,13 +637,9 @@ static void hdmirx_plugout(struct snps_hdmirx_dev *hdmirx_dev)
+ 	hdmirx_writel(hdmirx_dev, PHYCREG_CONFIG0, 0x0);
+ 	cancel_delayed_work(&hdmirx_dev->delayed_work_res_change);
+ 
+-	/* will be NULL on driver removal */
+-	if (hdmirx_dev->rgb_range)
+-		v4l2_ctrl_s_ctrl(hdmirx_dev->rgb_range, V4L2_DV_RGB_RANGE_AUTO);
+-
+-	if (hdmirx_dev->content_type)
+-		v4l2_ctrl_s_ctrl(hdmirx_dev->content_type,
+-				 V4L2_DV_IT_CONTENT_TYPE_NO_ITC);
++	v4l2_ctrl_s_ctrl(hdmirx_dev->rgb_range, V4L2_DV_RGB_RANGE_AUTO);
++	v4l2_ctrl_s_ctrl(hdmirx_dev->content_type,
++			 V4L2_DV_IT_CONTENT_TYPE_NO_ITC);
+ 
+ 	hdmirx_dev->plugged = false;
+ }
+@@ -2646,6 +2642,16 @@ static int hdmirx_register_cec(struct snps_hdmirx_dev *hdmirx_dev,
+ 	return 0;
+ }
+ 
++/* Runs when the last user of a device node is gone, possibly after remove() */
++static void hdmirx_v4l2_release(struct v4l2_device *v4l2_dev)
++{
++	struct snps_hdmirx_dev *hdmirx_dev =
++		container_of(v4l2_dev, struct snps_hdmirx_dev, v4l2_dev);
++
++	v4l2_ctrl_handler_free(&hdmirx_dev->hdl);
++	kfree(hdmirx_dev);
++}
++
+ static int hdmirx_probe(struct platform_device *pdev)
+ {
+ 	struct snps_hdmirx_dev *hdmirx_dev;
+@@ -2655,7 +2661,7 @@ static int hdmirx_probe(struct platform_device *pdev)
+ 	struct v4l2_device *v4l2_dev;
+ 	int ret;
+ 
+-	hdmirx_dev = devm_kzalloc(dev, sizeof(*hdmirx_dev), GFP_KERNEL);
++	hdmirx_dev = kzalloc_obj(*hdmirx_dev);
+ 	if (!hdmirx_dev)
+ 		return -ENOMEM;
+ 
+@@ -2665,23 +2671,25 @@ static int hdmirx_probe(struct platform_device *pdev)
+ 	 */
+ 	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
+ 	if (ret)
+-		return ret;
++		goto err_free;
+ 
+ 	hdmirx_dev->dev = dev;
+ 	dev_set_drvdata(dev, hdmirx_dev);
+ 
+ 	ret = hdmirx_parse_dt(hdmirx_dev);
+ 	if (ret)
+-		return ret;
++		goto err_free;
+ 
+ 	ret = hdmirx_setup_irq(hdmirx_dev, pdev);
+ 	if (ret)
+-		return ret;
++		goto err_free;
+ 
+ 	hdmirx_dev->regs = devm_platform_ioremap_resource(pdev, 0);
+-	if (IS_ERR(hdmirx_dev->regs))
+-		return dev_err_probe(dev, PTR_ERR(hdmirx_dev->regs),
+-				     "failed to remap regs resource\n");
++	if (IS_ERR(hdmirx_dev->regs)) {
++		ret = dev_err_probe(dev, PTR_ERR(hdmirx_dev->regs),
++				    "failed to remap regs resource\n");
++		goto err_free;
++	}
+ 
+ 	mutex_init(&hdmirx_dev->phy_rw_lock);
+ 	mutex_init(&hdmirx_dev->stream_lock);
+@@ -2735,11 +2743,12 @@ static int hdmirx_probe(struct platform_device *pdev)
+ 		goto err_pm;
+ 	}
+ 	hdmirx_dev->v4l2_dev.ctrl_handler = hdl;
++	hdmirx_dev->v4l2_dev.release = hdmirx_v4l2_release;
+ 
+ 	ret = v4l2_device_register(dev, &hdmirx_dev->v4l2_dev);
+ 	if (ret < 0) {
+ 		dev_err_probe(dev, ret, "v4l2 device registration failed\n");
+-		goto err_hdl;
++		goto err_pm;
+ 	}
+ 
+ 	stream = &hdmirx_dev->stream;
+@@ -2771,10 +2780,16 @@ static int hdmirx_probe(struct platform_device *pdev)
+ 	vb2_video_unregister_device(&hdmirx_dev->stream.vdev);
+ err_unreg_v4l2_dev:
+ 	v4l2_device_unregister(&hdmirx_dev->v4l2_dev);
+-err_hdl:
+-	v4l2_ctrl_handler_free(&hdmirx_dev->hdl);
++	hdmirx_disable(dev);
++	v4l2_device_put(&hdmirx_dev->v4l2_dev);
++
++	return ret;
++
+ err_pm:
+ 	hdmirx_disable(dev);
++	v4l2_ctrl_handler_free(&hdmirx_dev->hdl);
++err_free:
++	kfree(hdmirx_dev);
+ 
+ 	return ret;
+ }
+@@ -2792,16 +2807,13 @@ static void hdmirx_remove(struct platform_device *pdev)
+ 	hdmirx_disable_irq(dev);
+ 
+ 	vb2_video_unregister_device(&hdmirx_dev->stream.vdev);
+-	v4l2_ctrl_handler_free(&hdmirx_dev->hdl);
+ 	v4l2_device_unregister(&hdmirx_dev->v4l2_dev);
+ 
+-	/* touched by hdmirx_disable()->hdmirx_plugout() */
+-	hdmirx_dev->rgb_range = NULL;
+-	hdmirx_dev->content_type = NULL;
+-
+ 	hdmirx_disable(dev);
+ 
+ 	reset_control_bulk_assert(HDMIRX_NUM_RST, hdmirx_dev->resets);
++
++	v4l2_device_put(&hdmirx_dev->v4l2_dev);
+ }
+ 
+ static const struct of_device_id hdmirx_id[] = {
 
----
-Gerald Loacker (6):
-      media: synopsys: hdmirx: add media device infrastructure
-      media: synopsys: hdmirx: add media entity for video capture device
-      media: synopsys: hdmirx: add async subdevice support
-      media: synopsys: hdmirx: give the signal lock wait a real timeout
-      media: synopsys: hdmirx: skip the 5V detect interrupt without a GPIO
-      media: synopsys: hdmirx: get the 5V state from the upstream subdev
-
-Sascha Hauer (4):
-      media: synopsys: hdmirx: free the driver data when the last user is gone
-      dt-bindings: media: snps,dw-hdmi-rx: add a port for a bridge in front
-      media: v4l2-device: wait for notifications when unregistering a subdev
-      media: v4l2-subdev: notify the bridge when the source power changes
-
- .../devicetree/bindings/media/snps,dw-hdmi-rx.yaml |  21 +-
- Documentation/driver-api/media/v4l2-subdev.rst     |   8 +-
- drivers/media/platform/synopsys/hdmirx/Kconfig     |   1 +
- .../media/platform/synopsys/hdmirx/snps_hdmirx.c   | 355 +++++++++++++++++----
- drivers/media/v4l2-core/v4l2-device.c              |  42 +++
- include/media/v4l2-device.h                        |  15 +-
- include/media/v4l2-subdev.h                        |  12 +
- 7 files changed, 386 insertions(+), 68 deletions(-)
----
-base-commit: bc35965f6940a9bf834d54187b6088b8eb09206d
-change-id: 20260904-hdmirx-media-fe7eb952b2be
-
-Best regards,
 -- 
-Sascha Hauer <s.hauer@pengutronix.de>
+2.47.3
 
