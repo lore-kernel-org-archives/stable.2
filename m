@@ -1,215 +1,135 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 420F03F58C9;
-	Mon,  5 Oct 2026 21:18:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 736A13EDE57
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 21:20:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791235122; cv=none; b=gp0ywc9B2GTTFifexo29vzKajv2OkXW/YbyY17yFZjKjdcxhSt8O+Z1Q8qIvdV89gNg7WoADFduJuLzdUNCVRviUNmqWnPHCN0wdobQ2l4livSrA+TC0hMlU50jBhZ/fxaBYOlEdWuLvk0P5sbD3bh927DR7nljZe0nkeezFjYY=
+	t=1791235226; cv=none; b=t01GkUK8xzD8T4FYTvtbzuIMn5VoAi8jjTDvlNCby1aQECBO/nawjplRLPtbjkOp+G+xJxlYkV+L+6eqFAh04v0wIDwa3u69U34FvOYBwDqwzIWgO5gvk45M23HL+005uD5PWphHXUlFPXt/xzayjo1ySbSS9cJtI/whb0kj8Pw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791235122; c=relaxed/simple;
-	bh=uzRxCjrPOby7teDpJTsYpBxFtosuVxFM0j1PPjdNbIA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EMP1kEFzz/ING0koKhMEJqUEsDznybgbOtPz0vsF8qsW1krjshfoN4enzpw6GY7MvC/vFemdGl+a9H1i0ODN2SvOwUTpaxNCdUK1k4CHKP06r6RFd+w3SEixRnG9yde3D3EYPDEZ+i2qqZ9vC30hLhXkePLqWoE0QW1B5uNfy74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b=EYeFbHym; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791235226; c=relaxed/simple;
+	bh=VjxrAlnRRU7GOLHmJeBnhkJHwdTiS0T921YR0E015Bw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=sHGKzUL22LJuC3qHQQqr0w6YxkWaSVTdEiEPvspAN91BZmwnxnOcEFhFxZdl6x8r9GRqolAbna6xACm1+gJHSCTs3MxnNb/jljGdH1Wdl9V7YAh5TjE6EYjUPCWEZddkJJMQ+tMo/SQAuHyhxHcq6f/g2c9hFsEo7tq2ixR88Ws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Aeml2n5x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b="EYeFbHym"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0767B1F000FF;
-	Mon,  5 Oct 2026 21:18:37 +0000 (UTC)
-Authentication-Results: smtp.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20210105 header.b=EYeFbHym
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105;
-	t=1791235116;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ArXPZwkOS21svTqyVFuDaFFdnY9qfU5vfWtScr/h5DQ=;
-	b=EYeFbHymVSJkadjsLFpufo37mu0pzdItcuzxYQSucZfWL3N4HCOGN+/Rx5ZANWm8cmtZwO
-	scY1MxjrSOus2i0osYjaZHf7hE94krpdUm3jwnBcK7iMGzw/703W5soEUcZGz4nbqO/75n
-	VNJwL+yAI3OzCgdtSAyuPuvMFupqf9Q=
-Received: 
-	by mail.zx2c4.com (OpenSMTPD) with ESMTPSA id 7b51b2b2 (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
-	Mon, 5 Oct 2026 21:18:35 +0000 (UTC)
-Date: Mon, 5 Oct 2026 23:18:33 +0200
-From: "Jason A. Donenfeld" <Jason@zx2c4.com>
-To: =?utf-8?B?SsOpcsOpbXk=?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Cc: wireguard@lists.zx2c4.com, netdev@vger.kernel.org,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net] wireguard: noise: reject responses for replaced
- initiations
-Message-ID: <asQUKTOiEn6GB5sy@zx2c4.com>
-References: <20261005203555.3552816-2-Jeremy.Jean@oss.cyber.gouv.fr>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Aeml2n5x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8726B1F00893;
+	Mon,  5 Oct 2026 21:20:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791235223;
+	bh=DST2koj8dRH8b8A1UooBDMtrB2Kxt8i6wSBRDBkMdXc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Aeml2n5xINAdQ1eiF9B5gV1JDgQ7u95lT7GVcf2RrnnjfeFanWr/dDKuovX8N/dTH
+	 wn/VZN8kVOjotyQ8p6Hzh0CAec7P7ese2+nFha9mhwoxSK5XCkXeCt2ejMUb3yFDEq
+	 1j6VRWboZep2wCsmJ6I7hepp9qEMQyPkY0zy94Wbifh7P5zcRzkyU/1n37Du0HZ3xN
+	 u9dPivTQcoxbYICZlhbsQk/UZW0uo8R349JZxhnwrXD1u+2yPi4e29V8tjZnyTWfG0
+	 Wd8y31WWvMYyOS32e5fLjdhxKifdc5fL8rXPnBHBn8fsC+g80QgXP8277hUo35F/1G
+	 Tt8pb615kQzUQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Pannarat Wiriyaarritham <pannarat.wiriyaarritham@danielcorp.dev>,
+	stable <stable@kernel.org>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] usb: typec: ucsi: acpi: Assume UCSI 1.2 on Acer Nitro ANV15-41
+Date: Mon,  5 Oct 2026 17:20:18 -0400
+Message-ID: <20261005211853.3352114-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026100553-eloquent-shallot-2e9e@gregkh>
+References: <2026100553-eloquent-shallot-2e9e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261005203555.3552816-2-Jeremy.Jean@oss.cyber.gouv.fr>
 
-Hi,
+From: Pannarat Wiriyaarritham <pannarat.wiriyaarritham@danielcorp.dev>
 
-On Mon, Oct 05, 2026 at 08:35:55PM +0000, Jérémy Jean wrote:
-> WireGuard can accept an old handshake response after starting a new
-> handshake. This reinstalls old keys and resets transport counters and
-> replay state, enabling nonce reuse, replay and packet forgery. This
-> breaks confidentiality and integrity guarantees.
-> 
-> Compare ephemeral secrets under the write lock to reject responses for
-> replaced initiations.
-> 
-> Fixes: e7096c131e51 ("net: WireGuard secure network tunnel")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-> ---
->  drivers/net/wireguard/noise.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/net/wireguard/noise.c b/drivers/net/wireguard/noise.c
-> index 9c0a09bf6c95..88cc9acc7dc7 100644
-> --- a/drivers/net/wireguard/noise.c
-> +++ b/drivers/net/wireguard/noise.c
-> @@ -784,10 +784,12 @@ wg_noise_handshake_consume_response(struct message_handshake_response *src,
->  
->  	/* Success! Copy everything to peer */
->  	down_write(&handshake->lock);
-> -	/* It's important to check that the state is still the same, while we
-> -	 * have an exclusive lock.
-> +	/* Check that this is still the initiation we authenticated against,
-> +	 * while we have an exclusive lock.
->  	 */
-> -	if (handshake->state != state) {
-> +	if (handshake->state != state ||
-> +	    crypto_memneq(handshake->ephemeral_private, ephemeral_private,
-> +			  NOISE_PUBLIC_KEY_LEN)) {
->  		up_write(&handshake->lock);
->  		goto fail;
->  	}
+[ Upstream commit 8c51ea651d043c786c37668c51624bd6b338a0ef ]
 
-Could you describe the flow that you think causes a bug? Trying
-to recreate your mental model. Something like this?
+The Acer Nitro ANV15-41 exposes a functional UCSI ACPI PPM but
+reports a UCSI VERSION value of zero.
 
-== thread 1 ==
+ucsi_register() rejects a zero version with -ENODEV, leaving the
+system without registered USB Type-C connectors.
 
-	down_read(&handshake->lock);
-	state = handshake->state;
-	memcpy(hash, handshake->hash, NOISE_HASH_LEN);
-	memcpy(chaining_key, handshake->chaining_key, NOISE_HASH_LEN);
-	memcpy(ephemeral_private, handshake->ephemeral_private,
-	       NOISE_PUBLIC_KEY_LEN);
-	memcpy(preshared_key, handshake->preshared_key,
-	       NOISE_SYMMETRIC_KEY_LEN);
-	up_read(&handshake->lock);
+The PPM works correctly when using the UCSI 1.2 layout. With UCSI
+1.2 assumed, both Type-C connectors register correctly and USB Power
+Delivery negotiation works.
 
-	if (state != HANDSHAKE_CREATED_INITIATION)
-		goto fail;
+Add a DMI-specific UCSI operation for the Acer Nitro ANV15-41 that
+substitutes UCSI 1.2 only when firmware reports a zero version.
+Preserve any valid non-zero firmware version.
 
-	/* e */
-	message_ephemeral(e, src->unencrypted_ephemeral, chaining_key, hash);
+Tested on an Acer Nitro ANV15-41 with BIOS V1.51.
 
-	/* ee */
-	if (!mix_dh(chaining_key, NULL, ephemeral_private, e))
-		goto fail;
+Fixes: c1b0bc2dabfa ("usb: typec: Add support for UCSI interface")
+Cc: stable <stable@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Pannarat Wiriyaarritham <pannarat.wiriyaarritham@danielcorp.dev>
+Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Link: https://patch.msgid.link/20260910023338.31816-1-pannarat.wiriyaarritham@danielcorp.dev
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ sashal: Moved the read_version callback logic into ucsi_acpi_read() because the dedicated callback is unavailable. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/usb/typec/ucsi/ucsi_acpi.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-	/* se */
-	if (!mix_dh(chaining_key, NULL, wg->static_identity.static_private, e))
-		goto fail;
+diff --git a/drivers/usb/typec/ucsi/ucsi_acpi.c b/drivers/usb/typec/ucsi/ucsi_acpi.c
+index 0c88d5bf09cae..17567bd134d11 100644
+--- a/drivers/usb/typec/ucsi/ucsi_acpi.c
++++ b/drivers/usb/typec/ucsi/ucsi_acpi.c
+@@ -9,6 +9,7 @@
+ #include <linux/platform_device.h>
+ #include <linux/module.h>
+ #include <linux/acpi.h>
++#include <linux/dmi.h>
+ 
+ #include "ucsi.h"
+ 
+@@ -25,6 +26,16 @@ struct ucsi_acpi {
+ 	guid_t guid;
+ };
+ 
++static const struct dmi_system_id ucsi_acpi_quirks[] = {
++	{
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "Acer"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "Nitro ANV15-41"),
++		},
++	},
++	{ }
++};
++
+ static int ucsi_acpi_dsm(struct ucsi_acpi *ua, int func)
+ {
+ 	union acpi_object *obj;
+@@ -45,6 +56,7 @@ static int ucsi_acpi_read(struct ucsi *ucsi, unsigned int offset,
+ 			  void *val, size_t val_len)
+ {
+ 	struct ucsi_acpi *ua = ucsi_get_drvdata(ucsi);
++	u16 *version = val;
+ 	int ret;
+ 
+ 	ret = ucsi_acpi_dsm(ua, UCSI_DSM_FUNC_READ);
+@@ -53,6 +65,12 @@ static int ucsi_acpi_read(struct ucsi *ucsi, unsigned int offset,
+ 
+ 	memcpy(val, (const void __force *)(ua->base + offset), val_len);
+ 
++	if (offset == UCSI_VERSION && val_len == sizeof(*version) && !*version &&
++	    dmi_check_system(ucsi_acpi_quirks)) {
++		dev_warn(ua->dev, "UCSI version is zero, assuming 1.2\n");
++		*version = 0x0120;
++	}
++
+ 	return 0;
+ }
+ 
+-- 
+2.53.0
 
-	/* psk */
-	mix_psk(chaining_key, hash, key, preshared_key);
-
-	/* {} */
-	if (!message_decrypt(NULL, src->encrypted_nothing,
-			     sizeof(src->encrypted_nothing), key, hash))
-		goto fail;
-
-== thread 2 ==
-
-	down_read(&handshake->static_identity->lock);
-	down_write(&handshake->lock);
-
-	if (unlikely(!handshake->static_identity->has_identity))
-		goto out;
-
-	dst->header.type = cpu_to_le32(MESSAGE_HANDSHAKE_INITIATION);
-
-	handshake_init(handshake->chaining_key, handshake->hash,
-		       handshake->remote_static);
-
-	/* e */
-	curve25519_generate_secret(handshake->ephemeral_private);
-	if (!curve25519_generate_public(dst->unencrypted_ephemeral,
-					handshake->ephemeral_private))
-		goto out;
-	message_ephemeral(dst->unencrypted_ephemeral,
-			  dst->unencrypted_ephemeral, handshake->chaining_key,
-			  handshake->hash);
-
-	/* es */
-	if (!mix_dh(handshake->chaining_key, key, handshake->ephemeral_private,
-		    handshake->remote_static))
-		goto out;
-
-	/* s */
-	message_encrypt(dst->encrypted_static,
-			handshake->static_identity->static_public,
-			NOISE_PUBLIC_KEY_LEN, key, handshake->hash);
-
-	/* ss */
-	if (!mix_precomputed_dh(handshake->chaining_key, key,
-				handshake->precomputed_static_static))
-		goto out;
-
-	/* {t} */
-	tai64n_now(timestamp);
-	message_encrypt(dst->encrypted_timestamp, timestamp,
-			NOISE_TIMESTAMP_LEN, key, handshake->hash);
-
-	dst->sender_index = wg_index_hashtable_insert(
-		handshake->entry.peer->device->index_hashtable,
-		&handshake->entry);
-
-	handshake->state = HANDSHAKE_CREATED_INITIATION;
-	ret = true;
-
-out:
-	up_write(&handshake->lock);
-	up_read(&handshake->static_identity->lock);
-
-== thread 1 ==
-
-	down_write(&handshake->lock);
-	/* It's important to check that the state is still the same, while we
-	 * have an exclusive lock.
-	 */
-	if (handshake->state != state) {
-		up_write(&handshake->lock);
-		goto fail;
-	}
-	memcpy(handshake->remote_ephemeral, e, NOISE_PUBLIC_KEY_LEN);
-	memcpy(handshake->hash, hash, NOISE_HASH_LEN);
-	memcpy(handshake->chaining_key, chaining_key, NOISE_HASH_LEN);
-	handshake->remote_index = src->sender_index;
-	handshake->state = HANDSHAKE_CONSUMED_RESPONSE;
-	up_write(&handshake->lock);
-	ret_peer = peer;
-	goto out;
-
-And now begin_session is called on the older completed handshake rather
-than the half-completed newer handshake?
-
-Or did you see some other flow?
-
-Let me know.
-
-Thanks,
-Jason
