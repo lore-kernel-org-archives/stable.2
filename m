@@ -1,171 +1,120 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f9.google.com (mail-wm2-f9.google.com [74.125.225.137])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6E2647F2C8;
-	Mon,  5 Oct 2026 13:00:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34D89481FCF
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 13:01:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791205250; cv=none; b=kOh88fk0xgpy1Zj3aF12sN1OnoQC4dNYyVTOkDL0cQBLHu/JokxouMbD9BBQvy0zVoS3GExoPhdi8wBLTGrhdi45KjyMnhGQF67Mku2Xs/4KeDZcFR0rylFklc5eSCVMPR0iVRzbZvb0ANwEDq/5nTZ85ovJ8K5qiOHjqWQdq54=
+	t=1791205319; cv=none; b=jCXPPyHmaDzwEaqDFDZkfAvV67CSqTb+NT/hHWqt/1weJGRi3qIsdpzjt+ErxdvNIT4BGzFfL3oawL4cEYmbFuaRsC1Crhz3o/JFS5FTxBz5ktO1AjCfuyYKEKmClHDYB7f0CpsLZeHh5/UXe3t+jZ15QPy43p5TlpqIYmQWMAU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791205250; c=relaxed/simple;
-	bh=OWzRwoTTuWQnunHy0mJCPcV646SUG8qTbfbf6Un3tCQ=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=g1ZTWZNwCzGhe5em7LAT1fnEzN5Wz7wuHU5vtGXmapXsN/uwOq49+TDixzci3B4iymvk6rpayEMpOtRvrC3ntMzr6XHiA8kmYt95iTH53Zv0qI67q8d4sGl4VzNPU2AxiI2O8l+rKDYlRIxOtYSLGT285ccE995h7F2S+JKZ/3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UryTw2M7; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791205319; c=relaxed/simple;
+	bh=VvilBy3XcUhF0XYjdlJZyZ52j6ao/IKk5T8hVx2QVuw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rW9cFwSGnTr2qj+4oOBLarY3Pj3awuy+mSCjAAFXHw+7rvpic+nvRUc9TF178k/j964gOSPbpOtqspRm4kZZTPHT790WJk5oXWFuMdrCRjW9+1yuJK6ADfdjjiBp8aWpu2SZeIY+Dlq76qcXEA51PCa8wU3gAuRSVCZ2PMnAePA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ynua4U+A; arc=none smtp.client-ip=74.125.225.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UryTw2M7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791205247; x=1822741247;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=OWzRwoTTuWQnunHy0mJCPcV646SUG8qTbfbf6Un3tCQ=;
-  b=UryTw2M7WB8uZwygkyvOJZmZPboFHcbRlR6ZpxlFUGc+aR6VGzOSqMUi
-   SPZu550esT+E0wq3YEwrykO2C0ud246HXSFW0uHrAYFcYyVM2h7eI4QDj
-   7w8GC856Z+Zlh1hfdSBQZY25jjo5fbc9YoCvgjf87mR6hvKLJyKe1St8l
-   tIFXe3oWk06qS0EyUSxCXu2VThK/LxwRAfRmnUcZwna552NEi7ayZ/xNF
-   FQq9ktr/Ft+OhV8mG65TAas4Ojg8/p4K98JYnHbU/VyJG7INVsK6IIjhl
-   jA3uGUOnoEqz7WTz9+CH7lJwI/8KeA3AeepfwpytQTzoe9Cxn4JsaSltr
-   Q==;
-X-CSE-ConnectionGUID: /61MIXpETbeFyVo8mkySRQ==
-X-CSE-MsgGUID: 5vDjzkoARaCu3EPd8XnV5w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11925"; a="108251560"
-X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
-   d="scan'208";a="108251560"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 06:00:47 -0700
-X-CSE-ConnectionGUID: 3FayfDV2SPO2RyVABEwAzA==
-X-CSE-MsgGUID: 0z0V8M5bRG+zxcU1oLhcVQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
-   d="scan'208";a="891106"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.199])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 06:00:44 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Mon, 5 Oct 2026 16:00:40 +0300 (EEST)
-To: Muhammad Bilal <meatuni001@gmail.com>
-cc: Jorge Lopez <jorge.lopez2@hp.com>, Hans de Goede <hansg@kernel.org>, 
-    =?ISO-8859-15?Q?Thomas_Wei=DFschuh?= <linux@weissschuh.net>, 
-    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
-    stable@vger.kernel.org
-Subject: Re: [PATCH v2] platform/x86: hp-bioscfg: fix OOB read in
- hp_get_integer_from_buffer() on unaligned input
-In-Reply-To: <20260919060404.85742-1-meatuni001@gmail.com>
-Message-ID: <9e0d2b45-e931-bf3a-7fb8-f6fc25964cf4@linux.intel.com>
-References: <20260919060404.85742-1-meatuni001@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ynua4U+A"
+Received: by mail-wm2-f9.google.com with SMTP id 5b1f17b1804b1-49e7361175bso1166665e9.0
+        for <stable@vger.kernel.org>; Mon, 05 Oct 2026 06:01:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791205316; x=1791810116; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rl1OZheCBCPMjKUjI2TjxKZoMfCFhn7MxZPI1BYjjA4=;
+        b=Ynua4U+AmGdC6hXpt7xNuA5XnAgKcStwIYOn4G4HmkcoQ/hgkM703XYybQJUZ+LcJ5
+         QRtHk7WEYzQtCvZc51eSJ3Ni018cwRhkuYlCfFy6ZztzfMkWVGSmwdC6SiPL0M/013q/
+         X0nGQzZYBd2yh5sBL+fhbgOPUlLkz2njnCBGyStCBDqiEM/wJhPCdb6sq54FbWiudQiR
+         v8rrJ3J9D8dy9hrLxrgCPmPPP6Jla4fex4aSR47vpvopTYj61ET4fhZvnD6QDIBiN1rP
+         pyFMF3KUihFgcwZ8qdqIM7SdQiidbb4pwaQCWp29ucPlofUtoxeCYKo36aSwf07IggHg
+         bhlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791205316; x=1791810116;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rl1OZheCBCPMjKUjI2TjxKZoMfCFhn7MxZPI1BYjjA4=;
+        b=cNsBuwCRmb7m2CuH1tbyOsXs6zlBx9bEaiy/WlS5SxYhwbmfKwj+nMNd9MbuT8GxJg
+         8B8nFWm+2pEq8VqjVYb591kPQUKsIkwnVGZAKiN6OSvVkIK+ZUld8j1fW73EdRGZZ+tA
+         /NF/9mDyQLbgGNwchH8LiDLjXY8xwmHKUrdBJM9QSVZ5wLuu9+X65Op6yd0rOftWOYw2
+         bg0uqIM63hQh6L8mvrYtosXwStUB6NTCDKrJdrMmh4nFo0YSEU0AIsnn+t1NLO3JxCLg
+         9jnWZy0SqN8Czvo7gwK3APiLWuPDm4l55aXEzUhJhnfKu0HgKTr+de3L8WXY3zF2TUPQ
+         /DFw==
+X-Gm-Message-State: AFuF++n93pJ9C5a7Kl333+LDaIP5zveHIq7yqV0AfWwR/5EhlabS6KOl
+	PNzAkJOoRM3Wlyo9CxuUb9vJS9jZqBMgO8Q51wuNPa8wg4T/IQPcXMos4/cLPbz0
+X-Gm-Gg: AYBFou0Cki9EbYkSPldWBIR9RjDv9M33XU4ePOgYTfUDVdOVQvRkR+ijEWL/7qilhj5
+	Ygb+bSfwnUrH8LAW+DVeAjUGlUUsQ5AMt6ptrBrOj9ghbJqAUpIJVqWcbe6cR9/fTVMyfYlsq7N
+	uyIJd7CiVlmipZUff7P/xgHY4d53HuuoebdlqLhuv7LqZ+/UrlYnhZwU8cmj8MZL8v1CKgQJZH/
+	LmHF/c+F7YadAMh6yO8bX80DyJXrdhjMxNlNmZCq6Ozl1vOlkfqBqYH0VpKoebXBetetp7FZefX
+	OiOMe4M5UZKIVGCDgHhpJ0ASfXVZYFrLOuN0op3dQH/aaXHc/qPgmxx9eqGoC/YFpwqwa/ThUcf
+	eYknt+qwTBnGIJzoxQmQBFW82Pzeb9JZGeozK9M03KjrIVsb0RGRtLrgoiwxzm0n97ZKEqyWN+C
+	YM6nQo4BZ/at2oTCrZ/rGwTUJxzoOHPQ/X2rgwHOMIxO9ob38bt56Q/oRPbZuYPHIY0zRVeP98M
+	rUjez2ZiuEk77r7
+X-Received: by 2002:a05:600c:870f:b0:49f:fc4f:9efb with SMTP id 5b1f17b1804b1-4a02753fd01mr186622465e9.7.1791205316083;
+        Mon, 05 Oct 2026 06:01:56 -0700 (PDT)
+Received: from localhost.localdomain ([78.40.184.2])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a03950375dsm137485215e9.1.2026.10.05.06.01.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 06:01:55 -0700 (PDT)
+From: Roman Demidov <roman.demidov.nn@gmail.com>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
+	Nicolas Saenz Julienne <nsaenzjulienne@suse.de>,
+	bcm-kernel-feedback-list@broadcom.com,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	Nicolas Saenz Julienne <nsaenz@kernel.org>,
+	Stefan Wahren <stefan.wahren@i2se.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10] staging: vchiq_arm: Avoid NULL ptr deref in vchiq_dump_platform_instances
+Date: Mon,  5 Oct 2026 16:01:41 +0300
+Message-ID: <20261005130143.138638-1-roman.demidov.nn@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-2092172039-1791205240=:1173"
+Content-Transfer-Encoding: 8bit
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+From: Stefan Wahren <stefan.wahren@i2se.com>
 
---8323328-2092172039-1791205240=:1173
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+commit aa899e686d442c63d50f4d369cc02dbbf0941cb0 upstream.
 
-On Sat, 19 Sep 2026, Muhammad Bilal wrote:
+vchiq_get_state() can return a NULL pointer. So handle this cases and
+avoid a NULL pointer derefence in vchiq_dump_platform_instances.
 
-> hp_get_integer_from_buffer() aligns the read pointer before dereferencing
-> it:
->=20
->   int *ptr =3D PTR_ALIGN((int *)*buffer, sizeof(int));
->=20
-> When *buffer is not 4-byte aligned, PTR_ALIGN() advances ptr forward by
-> 1-3 bytes to reach the next aligned address. The bounds check that
-> follows does not account for that advance:
->=20
->   if (*buffer_size < sizeof(int))
->           return -EINVAL;
->=20
-> This only confirms 4 bytes remain from the original *buffer, not from
-> the aligned ptr. If *buffer is unaligned and *buffer_size is between 4
-> and (pad + 3) bytes, *(ptr++) reads up to 3 bytes past the end of the
-> buffer.
->=20
-> *buffer_size is also under-decremented on every call, aligned or not:
+Reviewed-by: Nicolas Saenz Julienne <nsaenz@kernel.org>
+Signed-off-by: Stefan Wahren <stefan.wahren@i2se.com>
+Link: https://lore.kernel.org/r/1642968143-19281-17-git-send-email-stefan.wahren@i2se.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
+---
+Backport fix for CVE-2022-49106
 
-I don't see the explanation telling why things go wrong in the aligned=20
-case.
+ drivers/staging/vc04_services/interface/vchiq_arm/vchiq_arm.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
->=20
->   *buffer_size -=3D sizeof(int);
->=20
-> *buffer is advanced to the aligned, post-read position, but
-> *buffer_size only accounts for the 4 bytes of the integer itself, not
-> the alignment padding skipped to reach it. Each unaligned read leaves
-> *buffer_size overstating the true remaining space by the pad amount,
-> an error that compounds across repeated calls against the same buffer
-> (hp_get_common_data_from_buffer() calls this in a sequence), making
-> later bounds checks against *buffer_size progressively less reliable.
->=20
-> Compute the padding explicitly, check for it, and account for it when
-> advancing *buffer_size, so the pointer and the remaining-length count
-> stay consistent with each other.
->=20
-> Also switch ptr from "int *" to "u32 *", matching the type of the
-> output parameter it's really standing in for, and size everything off
-> sizeof(*ptr)/sizeof(*integer) instead of the bare "int" type name.
->=20
-> Fixes: a34fc329b189 ("platform/x86: hp-bioscfg: bioscfg")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+diff --git a/drivers/staging/vc04_services/interface/vchiq_arm/vchiq_arm.c b/drivers/staging/vc04_services/interface/vchiq_arm/vchiq_arm.c
+index 178cf90fb3e5..adde80b56073 100644
+--- a/drivers/staging/vc04_services/interface/vchiq_arm/vchiq_arm.c
++++ b/drivers/staging/vc04_services/interface/vchiq_arm/vchiq_arm.c
+@@ -2063,6 +2063,9 @@ int vchiq_dump_platform_instances(void *dump_context)
+ 	int len;
+ 	int i;
+ 
++	if (!state)
++		return -ENOTCONN;
++
+ 	/* There is no list of instances, so instead scan all services,
+ 		marking those that have been dumped. */
+ 
+-- 
+2.53.0
 
-This also lacks information whether this problem is actually seen to occur=
-=20
-on some real device.
-
---=20
- i.
-
-
-> ---
-> Changes in v2:
->   - Use sizeof(*ptr)/sizeof(*integer) instead of bare sizeof(int), and
->     change ptr from "int *" to "u32 *" to match *integer's type, per
->     Ilpo J=C3=A4rvinen's review.
->=20
-> Link: https://lore.kernel.org/r/20260824225610.18471-2-meatuni001@gmail.c=
-om [v1]
-> ---
->  drivers/platform/x86/hp/hp-bioscfg/bioscfg.c | 12 ++++++++----
->  1 file changed, 8 insertions(+), 4 deletions(-)
->=20
-> diff --git a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c b/drivers/platf=
-orm/x86/hp/hp-bioscfg/bioscfg.c
-> index 309634c..f59957e 100644
-> --- a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-> +++ b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-> @@ -38,15 +38,19 @@ struct kobj_attribute common_display_langcode =3D
-> =20
->  int hp_get_integer_from_buffer(u8 **buffer, u32 *buffer_size, u32 *integ=
-er)
->  {
-> -=09int *ptr =3D PTR_ALIGN((int *)*buffer, sizeof(int));
-> +=09u32 *ptr =3D PTR_ALIGN((u32 *)*buffer, sizeof(*ptr));
-> +=09u32 pad =3D (u8 *)ptr - *buffer;
-> =20
-> -=09/* Ensure there is enough space remaining to read the integer */
-> -=09if (*buffer_size < sizeof(int))
-> +=09/*
-> +=09 * Ensure there is enough space remaining to read the integer,
-> +=09 * including any padding PTR_ALIGN() introduced to reach it.
-> +=09 */
-> +=09if (*buffer_size < pad + sizeof(*ptr))
->  =09=09return -EINVAL;
-> =20
->  =09*integer =3D *(ptr++);
->  =09*buffer =3D (u8 *)ptr;
-> -=09*buffer_size -=3D sizeof(int);
-> +=09*buffer_size -=3D pad + sizeof(*integer);
-> =20
->  =09return 0;
->  }
->=20
---8323328-2092172039-1791205240=:1173--
