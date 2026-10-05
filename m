@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0600141A549
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 22:12:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26DD737F735
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 22:12:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791238368; cv=none; b=fSlM7JzDLkePqGXnhIPkwbjLyv1KW03cc39vJev0DYVNA0gZqIMXFtnyxd3eQ6pxLqUN6PNDlFQzlLbO+nCd3jUFZiMvphaYfU/SgPKSDEfMgrd+ukWNgwaZ65ayzT4mFZn0+HDrRy/G9c/10JgvFOkxTH659tTsTsBSgeY19G4=
+	t=1791238371; cv=none; b=crU4VGNvoL8uyYLtrtIO7UTk4mO1LdkxAHLTJ3D7NiGF3c/sO/q/PADxkJCzSnmhpcSBN5y3aHQoK1IGlQY6RaR4A+k0qkvO/MgDDbNfEzO5lzkzafZsjaCg4RqV7pZ+ZabWSZU9o4rLtMVrnMLZqkrkptGZpuidpyjqfLRqsfs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791238368; c=relaxed/simple;
-	bh=C07NBeRzGEuXKwOxO038QJuwp67YaJiR42vDllsiGfg=;
+	s=arc-20240116; t=1791238371; c=relaxed/simple;
+	bh=51r7Qn1EdOh4+IU4xRj67TOm56yzhQpLTGe5BxNhkBE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hpN32zQIUxwf9OLkCoA5CJpm51tuZmiquXfja9DH7DEbfKprWwdUovVSUKJTmKd96/4aSI1bVKbDdHMTvW16J+NH3cA1BoMcVVbAZfUPTTU53tA6xIDQ0LvFma26ylcBFHAgGWFR+d4I+3irgWxo9Wxj6qgUgGqY32tFA202qSk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WHouq2Yh; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=TBEWTcEFdH1BtTM9Ryut04iJiTVHN5Q0q/OyFpQ8ajNWOjRpQLN83bjabXTLiYOFspgQaL7eXbWPFcgDKNWivQ2YYFoH6vAjaU+pEnOwdKbd/ar2SAWCDIDwwQ+6l8Ps+d816Duw2axeeyW2tQD69nbo4d7+4n5SrVjcNo4VCzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e3BnIJCX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WHouq2Yh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B2FF1F000FF;
-	Mon,  5 Oct 2026 22:12:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e3BnIJCX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F8AA1F000FF;
+	Mon,  5 Oct 2026 22:12:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791238366;
-	bh=WYpP92992Ddn/hjhQmuRBOkHKwWBA0GoxvprPFEZmjk=;
+	s=k20260515; t=1791238369;
+	bh=MULkRSjL5V/Ei6Ziy/VHbivuXzk0TiwsZl/8cle5vNc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WHouq2Yhb8+Z78J0y7o8pdS5Bc84ew/lbYKV7VFSpWR5Lm4t6S3LtrTu/xKi7cKXM
-	 8989MP+LD4Bl9St7osTNn/0hIbDyIwOf+GAaUsiiML9V2WHLR0g60x4W3GqRC+iAL2
-	 EKVgJ0fY+FEXf07m7mKPX1U9jGaELBLkdFyj0Xu6qcpEQU6IW4gtHeCH1oDmvNeG/T
-	 CdlCMvnSLCP38e30yVG4WZwYcfc7cb8ypx2sy10H15CuWWEmCF4eWoNxQz/mzrs5hh
-	 DO3h1JxMndaKSo4qYFAykpYGrreHxUv7f9mWWbhgTk8pFF4RppOEM9Im3LX6XBypRO
-	 GitTQ5Y/hD+Hw==
+	b=e3BnIJCX4Tx9zxSLVKxYiHRB7R/I/w5ZxU4RiVE/J1ltyMFHVyDBZB7GiRyt0RMMB
+	 MYXU2vGeQEaEc2Guyus7D+qjrVwZpm1DJO6QMmQAMg2PEYdd+ukplA6xD7C7GOUYUA
+	 7fIT5rTTpNV9O5RT3sW0iKnAetOR1RaCNBNwYZC+8wYnaNJsPbEya0mrumE6neB4xk
+	 pctHeRz0iJ58LIgJgAyg0rbDqvAg3u6y4xMOkTTIAPFLSicep8iR810+23CHvbieIe
+	 ABez/nVC2ZqdxhGQNih50P/Km9gPj14d8qI/UnnLs6GyKFwfn2Sa6CNqZWyFb9H2hZ
+	 IWnlsFkef/Y7g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zhengchuan Liang <zcliangcn@gmail.com>,
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
+Cc: Johan Hovold <johan@kernel.org>,
+	sashiko-bot@kernel.org,
+	stable@kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 3/3] perf: Require kernel access for text poke events
-Date: Mon,  5 Oct 2026 18:12:39 -0400
-Message-ID: <20261005221222.3426405-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y] serial: fix TIOCMIWAIT race
+Date: Mon,  5 Oct 2026 18:12:45 -0400
+Message-ID: <20261005221224.3435172-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261005221222.3426405-1-sashal@kernel.org>
-References: <2026100517-flask-antiviral-2fbf@gregkh>
- <20261005221222.3426405-1-sashal@kernel.org>
+In-Reply-To: <2026100501-rubber-equipment-9072@gregkh>
+References: <2026100501-rubber-equipment-9072@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,50 +47,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhengchuan Liang <zcliangcn@gmail.com>
+From: Johan Hovold <johan@kernel.org>
 
-[ Upstream commit 357e8a77a501d96c9517f01f4a211eed5e9c9184 ]
+[ Upstream commit 40adffec8c0090533dfaa863ced7901b60bbf1dc ]
 
-Perf events with exclude_kernel=1 can be opened without kernel perf
-access. However, exclude_kernel does not suppress text-poke sideband
-records. Every PERF_RECORD_TEXT_POKE is marked PERF_RECORD_MISC_KERNEL
-and contains a raw kernel instruction address.
+The task state must be updated before checking the wakeup condition to
+avoid missing a racing modem status update.
 
-An unprivileged task can therefore open and mmap a task-local software
-event with text_poke=1. Both opening a count-only tracepoint event and
-configuring UDP GRO for ESP-in-UDP cause updates to inline static calls;
-the observer receives the relocated addresses of the modified instructions.
-For a known kernel image, any such address reveals the runtime kernel
-text base despite KASLR.
-
-Call perf_allow_kernel() whenever attr.text_poke is set, regardless of
-exclude_kernel. Events that neither monitor kernel execution nor request
-text-poke records retain their existing permissions.
-
-Fixes: e17d43b93e54 ("perf: Add perf text poke event")
-Assisted-by: LLM
-Signed-off-by: Zhengchuan Liang <zcliangcn@gmail.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/99131354c41e23188f778b92f90363775b482395.1790573390.git.zcliangcn@gmail.com
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: sashiko-bot@kernel.org
+Link: https://lore.kernel.org/r/20260904115542.E20D11F00A3D@smtp.kernel.org
+Cc: stable@kernel.org
+Signed-off-by: Johan Hovold <johan@kernel.org>
+Link: https://patch.msgid.link/20260910130816.642699-4-johan@kernel.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ sashal: Retained direct spinlock calls instead of the upstream UART port locking helpers. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/events/core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/tty/serial/serial_core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index 3791c84ffe2cf..41f05c932e15b 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -12893,7 +12893,7 @@ SYSCALL_DEFINE5(perf_event_open,
- 	if (err)
- 		return err;
+diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
+index c3a51bd59ff74..87bd1be81f77c 100644
+--- a/drivers/tty/serial/serial_core.c
++++ b/drivers/tty/serial/serial_core.c
+@@ -1253,12 +1253,12 @@ static int uart_wait_modem_status(struct uart_state *state, unsigned long arg)
  
--	if (!attr.exclude_kernel ||
-+	if (!attr.exclude_kernel || attr.text_poke ||
- 	    ((attr.sample_type & PERF_SAMPLE_CALLCHAIN) &&
- 	     !attr.exclude_callchain_kernel)) {
- 		err = perf_allow_kernel();
+ 	add_wait_queue(&port->delta_msr_wait, &wait);
+ 	for (;;) {
++		set_current_state(TASK_INTERRUPTIBLE);
++
+ 		spin_lock_irq(&uport->lock);
+ 		memcpy(&cnow, &uport->icount, sizeof(struct uart_icount));
+ 		spin_unlock_irq(&uport->lock);
+ 
+-		set_current_state(TASK_INTERRUPTIBLE);
+-
+ 		if (((arg & TIOCM_RNG) && (cnow.rng != cprev.rng)) ||
+ 		    ((arg & TIOCM_DSR) && (cnow.dsr != cprev.dsr)) ||
+ 		    ((arg & TIOCM_CD)  && (cnow.dcd != cprev.dcd)) ||
 -- 
 2.53.0
 
