@@ -1,131 +1,137 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EB7D34EF1F;
-	Mon,  5 Oct 2026 23:03:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86232446857;
+	Mon,  5 Oct 2026 23:05:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.190.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791241438; cv=none; b=TzOg6zM8LWRzVxCZzSwAawns9DM7DtpZw2OXNGFqT3Z2MFtUVXR6rbLywbTOtB4G+GdZUjo28pFaGO/epjJd28v2SSI1ji0oayOlCHXf0xCO0d0VVDnAxuhJpghn2GSvwxZ3qYYV3/Xevm6fjip+0uSXh7tyySYP6G7dWWEGirw=
+	t=1791241544; cv=none; b=pRMuc9m6zk+YYbvMSYJn6xUqEKp2oZOQEZsQva9IBg5XIFvjit4WRecvIZaCvyCdKHpY8FVdueAQKpxXHGWL2hGsN5rw02gwnbO050JrcFjJ+VjWxsSLeRNbxN4sOmYSBaemt39hHdZ2qpwTEc4NFM+kDGaA6aCEunkQhhX9iFw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791241438; c=relaxed/simple;
-	bh=P6JQPlHoeafJGRYinVjy9w8WTTzF6bJg18Bvk4Fd1vQ=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=MUQtcWKg4VV/+xiL0mPgX6WW3VamTn2N9qRJD5D/dFCMbPNa49tG5H0k5eMEDMdlTkkTYPbpXFYvewdGY4lLmpBfW2UL7j+DJu+YsfBvAA9oII7Xeqku5vz968V/d8lHe9ahj02tZg4gAD9BMAcmEY8zFlCIbLYJ9fkG+Uq6kJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=qOJnVq0f; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1791241544; c=relaxed/simple;
+	bh=LXlPLXZ616GpRTYLWPN6QbfAdOSQGfoV+w7HBJmol5g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=I657/loFIaQfx3UhEpS3R7vjlSsgE2mWPPDvxk3Fznk6O1PxK3aiDkFcwwMIPFGROkSMCPWkVBQ+yvgP4O2+yANsm7aSI79hf601Yl7WoHOQl5rf5oFYQfG5sz6Zh5MJHNgrpLsiMW50Sb8wq51wrXfq1vVDvXlqNg5iVYNL2ME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org; spf=pass smtp.mailfrom=netfilter.org; dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b=O0WG+DDS; arc=none smtp.client-ip=217.70.190.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="qOJnVq0f"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:Cc:To:From:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=zUJ5Wg4hDTNRhIDxP93tWlP4XCV4f22ojxdYcCOKUDI=; b=qOJnVq0fAk9690E4Y+J8xQDk4C
-	wHTkhnooMFjCLB2rcjuYLl6wPWvgQPmVhEV20SPd9G7xkz5ddTFnKASJ2IQ42wfjCdNbokhlC1FaN
-	3JgPAa1njzOD7NwMIaG+LsasgaoV/I4rEQEG4u0lCru2lOVaTLCtvv9mc1v9JGXIowhHKQxBSRpA1
-	12j6pZ7gAPDVjVUlQKF2XuoZQkTtkrkdCnasJjROAiRoN8SXjtgg284hpDeJtbx5JcGURPYMgEGYy
-	Ut9cxcRikDPoxeKQA37plB1z7WBo/mIHeyh0E5qWL3ZQYatpAw/Mk3knmW/EyIy1rgbJW2BfoPUP1
-	m0O7IGOg==;
-Received: from [187.90.178.110] (helo=[192.168.15.93])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1xDrih-00C5aM-42; Tue, 06 Oct 2026 01:03:43 +0200
-Message-ID: <9b44943a-fd07-ba56-b5b4-77777f64685f@igalia.com>
-Date: Mon, 5 Oct 2026 20:03:37 -0300
+	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b="O0WG+DDS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
+	s=2025; t=1791241536;
+	bh=c99KASve6Ees45vUEP4qfb1SchJPRipEWmwIvCrBhYo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=O0WG+DDS1ZcrqM/HOs5kqAGYM3cmZsr+E1MK0535kpVbYQjE6HR3/lr1TOpTBNXri
+	 anFPAeemjcgo7+/jWX1Wqe664D/pGGlxJ2qPSlG0/trXdPraCRWzRhK9ymEzZvWcIU
+	 awTH7lH7eYqudzjEwBmuQl/4TLrqXydDl7vQqEaeJDOekp3u/DEe/wG50G5TDRYEB0
+	 xee83E+aB47bmwu7+QaN1XG43bRT4giq+g41PQP4TOLMb1qlaALnLzhdY8M9hx5OxL
+	 WnzL1N8OwAgw+1hzu3Ko9kTc6Z5GQH2JlK0ymxsDr87O+Eyrv/2xzvCe78hE4EoQKW
+	 vUCp8OLVLY23Q==
+Received: from netfilter.org (mail-agni [217.70.190.124])
+	by mail.netfilter.org (Postfix) with UTF8SMTPSA id 6666060058;
+	Tue,  6 Oct 2026 01:05:36 +0200 (CEST)
+Date: Tue, 6 Oct 2026 01:05:33 +0200
+From: Pablo Neira Ayuso <pablo@netfilter.org>
+To: =?utf-8?B?SsOpcsOpbXk=?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
+	netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH nf] netfilter: nft_set_rbtree: reject expired interval
+ ends
+Message-ID: <asQtPfgYhK1uxMpR@chamomile>
+References: <20261005200404.3544062-2-Jeremy.Jean@oss.cyber.gouv.fr>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [PATCH] efi: pstore: Fix pstore_disable parameter setting (if
- built as module)
-From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-To: Ard Biesheuvel <ardb@kernel.org>, Kees Cook <kees@kernel.org>
-Cc: linux-efi@vger.kernel.org, linux-hardening@vger.kernel.org,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Tony Luck <tony.luck@intel.com>, stable@vger.kernel.org,
- kernel-dev@igalia.com, kernel@gpiccoli.net
-References: <20260906235838.2928815-1-gpiccoli@igalia.com>
- <273c9217-4630-4585-8cb5-3c5c8f0b77d3@app.fastmail.com>
- <cdd454e2-a311-71b5-2449-25cdfba893fd@igalia.com>
-Content-Language: en-US
-In-Reply-To: <cdd454e2-a311-71b5-2449-25cdfba893fd@igalia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-On 09/09/2026 14:12, Guilherme G. Piccoli wrote:
-> Hi Ard, thanks for your prompt response!
-> 
-> 
->>> [...]
->>>  	if (pstore_disable)
->>>  		return 0;
->>>
->>> +	if (efi_pstore_info.bufsize)
->>> +		return 0;
->>> +
->>
->> Can we please address the root cause rather than paper over it here?
->>
->> What is the point of having a) a pstore_disable= param on a module
->> (which can be blacklisted or simply not loaded) and b) having it
->> runtime writable so pstore-efi can be toggled on/off at will?
->>
-> 
-> Well ... despite we agree on that, I think removing pstore_disable is
-> kinda breaking "the contract" we're following since long time ago.
-> 
-> The thing is: unlike ramoops, or even maybe pstore/blk and other
-> potential backends, efi_pstore is a bit of a different beast IIUC.
-> 
-> It doesn't require any config, by having it loaded, it'll just go ahead
-> and ...get enabled as pstore backend (unless pstore.backend sets otherwise).
-> 
-> And not only that: efi_pstore is **usually built-in** - I guess in all
-> distros I've checked and by default config, it's built-in.
-> 
-> So, probably to avoid having to use {initcall,module}_blacklist
-> (depending on the build type), I guess it was decided to have this
-> parameter. The commit [0] that added that, >13y ago, mentions that since
-> it was enabled by default and some EFI implementations had issues when
-> filling its memory with oops logs, the option was to add such
-> parameter+Kconfig to force disabling efi_pstore. Good decision or not,
-> we should now live with that IMO.
-> 
-> 
->> Also, the practice of controlling the functionality of a builtin
->> diagnostic feature by poking something under /sys/module/foo/params
->> is in rather poor taste IMNSHO.
->>
-> 
-> Not only poor taste, I would say super counter-intuitive. But allowing
-> the sysfs playing was added by myself, to enable users to change it
-> without requiring a reboot, for a very cheap cost (well...not so cheap,
-> since I added a bug and here am I now, trying to fix it heh).
-> 
-> If we require a reboot, we are in the same situation of kdump -
-> crashkernel must be set on command-line and requires a reboot to
-> properly reserve the memory. There is no technical reason for that in
-> case of efi_pstore, at least, none I can see.
-> 
-> 
-> So, with all that said, what is the path you suggest we follow?
-> 
-> a) This simple fix (or something similar)?
-> 
-> b) Drop entirely pstore_disable, risking a lot of users to just face
-> breakages in their setups?
-> 
-> c) Other ideas?
-> 
+Content-Type: multipart/mixed; boundary="qEnWkv4Thx0oRRZb"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261005200404.3544062-2-Jeremy.Jean@oss.cyber.gouv.fr>
 
 
-Hey Ard / Kees, gentle ping - how should / could we proceed here?
+--qEnWkv4Thx0oRRZb
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-Apologies for the ping during LPC week, no hurries - just didn't want to
-leave this bug without fixing waaay too much time heh
+Hi,
+
+On Mon, Oct 05, 2026 at 08:04:05PM +0000, Jérémy Jean wrote:
+> Consider two ranges in a netfilter verdict map:
+> * keys 10-19 accept packets, and
+> * keys 30-39 jump to chain 'victim'.
+> Now, delete the end marker at 20. The lookup array now uses element 30
+> as the first range's end, so an INTERVAL_END query for key 15 returns
+> element 30, including its jump verdict and chain pointer. This can make
+> KASAN reports a UAF after the GC releases reference chain for 30 that
+> has expired:
+> 
+>   BUG: KASAN: slab-use-after-free in nft_verdict_dump+0xdd/0x110
+>   Read of size 8 at addr ff110000009dfb58 by task repro/50
+>   ...
+>   Call Trace:
+>   ...
+>    nft_verdict_dump+0xdd/0x110
+>    nft_data_dump+0x4d/0x80
+>    nf_tables_fill_setelem+0x30b/0x8a0
+>    ? __asan_memcpy+0x3c/0x60
+>    nf_tables_fill_setelem_info+0x1b0/0x200
+>    nft_get_set_elem+0x3fd/0x4b0
+>   ...
+>   Freed by task 24:
+>   ...
+>    kfree+0x1a5/0x280
+>    nf_tables_trans_destroy_work+0x2cb/0x520
+> 
+> Reject expired endpoints in nft_rbtree_get() before returning them.
+> 
+> Fixes: 2aa34191f06f ("netfilter: nft_set_rbtree: use binary search array in get command")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+> ---
+>  net/netfilter/nft_set_rbtree.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/net/netfilter/nft_set_rbtree.c b/net/netfilter/nft_set_rbtree.c
+> index 9894832..1fd9cbe 100644
+> --- a/net/netfilter/nft_set_rbtree.c
+> +++ b/net/netfilter/nft_set_rbtree.c
+> @@ -187,6 +187,8 @@ nft_rbtree_get(const struct net *net, const struct nft_set *set,
+>  	if (flags & NFT_SET_ELEM_INTERVAL_END) {
+>  		if (!interval->to)
+>  			return NULL;
+> +		if (nft_set_elem_expired(interval->to))
+> +			return ERR_PTR(-ENOENT);
+>  
+>  		rbe = container_of(interval->to, struct nft_rbtree_elem, ext);
+>  	} else {
+> -- 
+> 2.47.3
 
 
-Cheers!
+Can you test this fix instead? Thanks
+
+--qEnWkv4Thx0oRRZb
+Content-Type: text/x-diff; charset=utf-8
+Content-Disposition: attachment; filename="tentative-fix.patch"
+
+diff --git a/net/netfilter/nft_set_rbtree.c b/net/netfilter/nft_set_rbtree.c
+index 12431b55752f..fbe1750f1ca2 100644
+--- a/net/netfilter/nft_set_rbtree.c
++++ b/net/netfilter/nft_set_rbtree.c
+@@ -1091,7 +1091,8 @@ static void nft_rbtree_commit(struct nft_set *set)
+ 		 * representation. Use next start element to complete this
+ 		 * interval.
+ 		 */
+-		if (nft_rbtree_interval_start(rbe) &&
++		if (nft_set_is_anonymous(set) &&
++		    nft_rbtree_interval_start(rbe) &&
+ 		    nft_rbtree_interval_start(prev_rbe) &&
+ 		    priv->array_next->intervals[num_intervals].from)
+ 			priv->array_next->intervals[num_intervals++].to = &prev_rbe->ext;
+
+--qEnWkv4Thx0oRRZb--
