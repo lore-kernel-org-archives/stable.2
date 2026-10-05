@@ -1,91 +1,106 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26DD737F735
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 22:12:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75B653DAABC
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 22:13:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791238371; cv=none; b=crU4VGNvoL8uyYLtrtIO7UTk4mO1LdkxAHLTJ3D7NiGF3c/sO/q/PADxkJCzSnmhpcSBN5y3aHQoK1IGlQY6RaR4A+k0qkvO/MgDDbNfEzO5lzkzafZsjaCg4RqV7pZ+ZabWSZU9o4rLtMVrnMLZqkrkptGZpuidpyjqfLRqsfs=
+	t=1791238381; cv=none; b=G+DeDo0DXJKo0JuUTGSQBsw0ZDS/bAOULAPNlf9WBR9RqI2VO7mmPDeuSFe0pIYM0Lsk7vNhv2NoBr0cILkF+Zevzj6uCxajwr+NN6d78LiSxd1X14ise4RIpFA8/EIBO+mFAXOqURQ6panuukfrk0ihHBLq1ZQxwuDhYw1x9Vo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791238371; c=relaxed/simple;
-	bh=51r7Qn1EdOh4+IU4xRj67TOm56yzhQpLTGe5BxNhkBE=;
+	s=arc-20240116; t=1791238381; c=relaxed/simple;
+	bh=6JVGRbK80TLwd54dli82mMF8wgELp9wwjUftKthjuDM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TBEWTcEFdH1BtTM9Ryut04iJiTVHN5Q0q/OyFpQ8ajNWOjRpQLN83bjabXTLiYOFspgQaL7eXbWPFcgDKNWivQ2YYFoH6vAjaU+pEnOwdKbd/ar2SAWCDIDwwQ+6l8Ps+d816Duw2axeeyW2tQD69nbo4d7+4n5SrVjcNo4VCzQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e3BnIJCX; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=SF8XDs21KENPiv8uCAlCgFzwUAAG7SoPCnd9NLRMVIztOAjuVk1pHJosmAuXDg9XYZ16QmGKGxrU5HxYh5V5WNNGVwxbWZHkFH/ZWNP0jCrboKjxJKTGlI5riLY8Dfv0fXK7EzvbtT1s48U+q2jk8gQ+MZJPdJTxHA0O479z/pY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VzBi7hin; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e3BnIJCX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F8AA1F000FF;
-	Mon,  5 Oct 2026 22:12:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VzBi7hin"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE57F1F000FF;
+	Mon,  5 Oct 2026 22:12:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791238369;
-	bh=MULkRSjL5V/Ei6Ziy/VHbivuXzk0TiwsZl/8cle5vNc=;
+	s=k20260515; t=1791238380;
+	bh=4kxVyz3W2dIZmkhAHd36nCd+DtLmRSNJ8rOvFEdLpes=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=e3BnIJCX4Tx9zxSLVKxYiHRB7R/I/w5ZxU4RiVE/J1ltyMFHVyDBZB7GiRyt0RMMB
-	 MYXU2vGeQEaEc2Guyus7D+qjrVwZpm1DJO6QMmQAMg2PEYdd+ukplA6xD7C7GOUYUA
-	 7fIT5rTTpNV9O5RT3sW0iKnAetOR1RaCNBNwYZC+8wYnaNJsPbEya0mrumE6neB4xk
-	 pctHeRz0iJ58LIgJgAyg0rbDqvAg3u6y4xMOkTTIAPFLSicep8iR810+23CHvbieIe
-	 ABez/nVC2ZqdxhGQNih50P/Km9gPj14d8qI/UnnLs6GyKFwfn2Sa6CNqZWyFb9H2hZ
-	 IWnlsFkef/Y7g==
+	b=VzBi7hinlScdspgqWxXuCHwDumVLo51aLrK5IigoZKTxD6XHEBBJaVvz1Z8nljLp+
+	 NSjHFWjtYnW44woqbXNj6Z3RysPruyabeqwG6vg+wi6vB3PApbOnjQ1/fNZ8nR5eYk
+	 QTyymeyq/xbVt14NTIQ3Lxm9lumprvXTyq4iN2klJ7nA95yDcYsLUKqIYrgQZ6CRab
+	 jYEJ12MkwB0/hvtSbuoan9NCA6VO8ESSCIF3w3EhioZ6/oBeEcucDTTp30KF7u7uxQ
+	 deWF17ZFENnqMNqWwdjMICINBvBSNs6qUHmYG396CrMm1xOW7XfKzZj2TIXuMO5ccr
+	 zDFR9UvVpIhsg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Johan Hovold <johan@kernel.org>,
-	sashiko-bot@kernel.org,
-	stable@kernel.org,
+Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] serial: fix TIOCMIWAIT race
-Date: Mon,  5 Oct 2026 18:12:45 -0400
-Message-ID: <20261005221224.3435172-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] serial: ma35d1: Convert to platform remove callback returning void
+Date: Mon,  5 Oct 2026 18:12:55 -0400
+Message-ID: <20261005221225.3435549-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100501-rubber-equipment-9072@gregkh>
-References: <2026100501-rubber-equipment-9072@gregkh>
+In-Reply-To: <2026100517-epic-chomp-5963@gregkh>
+References: <2026100517-epic-chomp-5963@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Johan Hovold <johan@kernel.org>
+From: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 
-[ Upstream commit 40adffec8c0090533dfaa863ced7901b60bbf1dc ]
+[ Upstream commit cec346ec4649bb9d741a52da1632db4e6fd13947 ]
 
-The task state must be updated before checking the wakeup condition to
-avoid missing a racing modem status update.
+The .remove() callback for a platform driver returns an int which makes
+many driver authors wrongly assume it's possible to do error handling by
+returning an error code. However the value returned is ignored (apart
+from emitting a warning) and this typically results in resource leaks.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: sashiko-bot@kernel.org
-Link: https://lore.kernel.org/r/20260904115542.E20D11F00A3D@smtp.kernel.org
-Cc: stable@kernel.org
-Signed-off-by: Johan Hovold <johan@kernel.org>
-Link: https://patch.msgid.link/20260910130816.642699-4-johan@kernel.org
+To improve here there is a quest to make the remove callback return
+void. In the first step of this quest all drivers are converted to
+.remove_new(), which already returns void. Eventually after all drivers
+are converted, .remove_new() will be renamed to .remove().
+
+Trivially convert this driver from always returning zero in the remove
+callback to the void returning variant.
+
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+Link: https://lore.kernel.org/r/20231110152927.70601-22-u.kleine-koenig@pengutronix.de
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ sashal: Retained direct spinlock calls instead of the upstream UART port locking helpers. ]
+Stable-dep-of: 98401cf912fe ("serial: ma35d1: Fix clock reference leak in ma35d1serial_probe()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/tty/serial/serial_core.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/tty/serial/ma35d1_serial.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
-index c3a51bd59ff74..87bd1be81f77c 100644
---- a/drivers/tty/serial/serial_core.c
-+++ b/drivers/tty/serial/serial_core.c
-@@ -1253,12 +1253,12 @@ static int uart_wait_modem_status(struct uart_state *state, unsigned long arg)
+diff --git a/drivers/tty/serial/ma35d1_serial.c b/drivers/tty/serial/ma35d1_serial.c
+index 6e5458b085541..f6f832ba7204d 100644
+--- a/drivers/tty/serial/ma35d1_serial.c
++++ b/drivers/tty/serial/ma35d1_serial.c
+@@ -760,14 +760,13 @@ static int ma35d1serial_probe(struct platform_device *pdev)
+ /*
+  * Remove serial ports registered against a platform device.
+  */
+-static int ma35d1serial_remove(struct platform_device *dev)
++static void ma35d1serial_remove(struct platform_device *dev)
+ {
+ 	struct uart_port *port = platform_get_drvdata(dev);
+ 	struct uart_ma35d1_port *up = to_ma35d1_uart_port(port);
  
- 	add_wait_queue(&port->delta_msr_wait, &wait);
- 	for (;;) {
-+		set_current_state(TASK_INTERRUPTIBLE);
-+
- 		spin_lock_irq(&uport->lock);
- 		memcpy(&cnow, &uport->icount, sizeof(struct uart_icount));
- 		spin_unlock_irq(&uport->lock);
+ 	uart_remove_one_port(&ma35d1serial_reg, port);
+ 	clk_disable_unprepare(up->clk);
+-	return 0;
+ }
  
--		set_current_state(TASK_INTERRUPTIBLE);
--
- 		if (((arg & TIOCM_RNG) && (cnow.rng != cprev.rng)) ||
- 		    ((arg & TIOCM_DSR) && (cnow.dsr != cprev.dsr)) ||
- 		    ((arg & TIOCM_CD)  && (cnow.dcd != cprev.dcd)) ||
+ static int ma35d1serial_suspend(struct platform_device *dev, pm_message_t state)
+@@ -800,7 +799,7 @@ static int ma35d1serial_resume(struct platform_device *dev)
+ 
+ static struct platform_driver ma35d1serial_driver = {
+ 	.probe      = ma35d1serial_probe,
+-	.remove     = ma35d1serial_remove,
++	.remove_new = ma35d1serial_remove,
+ 	.suspend    = ma35d1serial_suspend,
+ 	.resume     = ma35d1serial_resume,
+ 	.driver     = {
 -- 
 2.53.0
 
