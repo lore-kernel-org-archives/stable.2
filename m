@@ -1,167 +1,189 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8673D32E128;
-	Mon,  5 Oct 2026 06:09:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD00F33F368
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 06:22:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791180589; cv=none; b=I5i5uG0AiOjQdEUgXz2JIHfwmRguwCFjerrR5/wkGzi79MnpA3WP+jRmBR/VVHYItHgfSlHk9BDss8tBk4VnNo2YpQpYi+m2gG8RQLf/SMNVMudiG4y86AoVF/pbeDlop7/jSbwKT6aFsngs9nk55oHifn+WHY6RG+w5RHTkzAI=
+	t=1791181381; cv=none; b=bi2DMrO3h0CNqP94l42VTQ1lbJj+IPRYgivOPnHyovizw4JVlUUNaWXf0j1T6P0jXmircbyIze3DajO0dSw0z3CisiYwviqc9SW1sInt2GxzunJwx/EjHgTkyU2BB3zUUsT1jCGY7gJI0iw+EkCkUzdHuIJZAH5ZndGNCdeftFI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791180589; c=relaxed/simple;
-	bh=DdYtC2idGqrXoP58FxPkiOC3c/hKm551aqQAaJQcVvw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A+1o0jbzr56Ff0/S944nTmrnnPNuiDZr/sRcg826TGShspL/boPY0Ub31t5+U5cxWTlGehIIz8yy1QKyqRxIswtG+1U6yxMM3rjfkdPOFKVYMCD5RyLuYX4pHTuCm6aJ/WZMo11z+S7UauGbfqFSV+AaW/Wy4G2mrD6ooccnEjc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ry9geKI6; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=//qhazbQ; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=SJbVbon5; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=B8Z8v9rg; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1791181381; c=relaxed/simple;
+	bh=B1rUO/u1yZK5lxU112EnHVMjQBFnPZUb8pDBsyHxQUE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZJot/igOsw9aga0h85j+Z9Ky1OjYQqUXE3AnWkQLnkO/Ulf4Ikyo6v/S57SBL6DEBo3CWQwMcFC/rFJqvsIngOQjdq8PBfUWhmArScu6CEjVaBVWHnNj8E5mNRXxbMjd5+ilMYECgRU3m1GSzmq3B8ro+GwOAe/n91lO7Ndk6Us=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ugb6AfYC; arc=none smtp.client-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ry9geKI6";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="//qhazbQ";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="SJbVbon5";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="B8Z8v9rg"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id BA62A21E86;
-	Mon,  5 Oct 2026 06:09:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791180580; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=s/ejuC82x28bAndFLSItnOGKHqAeicBTwXUq8uK5v1Q=;
-	b=ry9geKI6pF6M9QVELgUcIpqEQ1VAuj2yrQmleMftMLPZATU/dwl0qyKb7B8r0bOjnkqvf0
-	L8x5kSRDo/CjphWS/wnmUarWkywSKnrJINMOaPu2WnmR3/WQwPc8AbGNytuZ0OIM2t5RfQ
-	+0jLOqGdTDbZwjaTtXKifrQXReOReE8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791180580;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=s/ejuC82x28bAndFLSItnOGKHqAeicBTwXUq8uK5v1Q=;
-	b=//qhazbQCMNmF5Go41k/pRzufO5Rjb3yi/U7HM5ED0wRsmGLuKk9aF6Ll8GiIpM2Nil3Km
-	DVonZWNtJdEiSqCg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=SJbVbon5;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=B8Z8v9rg
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791180576; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=s/ejuC82x28bAndFLSItnOGKHqAeicBTwXUq8uK5v1Q=;
-	b=SJbVbon5JV5mnQRgQ0jGovGLeXzEt4BOwiYjz6efFIVmmOQkAr0PEjfUM/7P0ASQNPcgfD
-	9GBwCkzf84o8MK42Ov2jVfGvsI/LBoB9onMzzRqsp7PQVNCPlC1W/bTb7O+rQEcrba+DED
-	NtdXomhXQ7CZLLvurEp0yRa8A6JgdEo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791180576;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=s/ejuC82x28bAndFLSItnOGKHqAeicBTwXUq8uK5v1Q=;
-	b=B8Z8v9rgicrwKF/cCc2/ox4K/Z+vy5h9dn8QcYR2drEnQhtfKAe5ccHZQeLXeVWBocQRFw
-	SnTv6tpReDGIOpDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 43831132D3;
-	Mon,  5 Oct 2026 06:09:36 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Z2cGASA/w2oBDwAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Mon, 05 Oct 2026 06:09:36 +0000
-Date: Mon, 5 Oct 2026 08:09:30 +0200
-From: Pedro Falcato <pfalcato@suse.de>
-To: Lance Yang <lance.yang@linux.dev>
-Cc: dave.hansen@linux.intel.com, luto@kernel.org, peterz@infradead.org, 
-	tglx@kernel.org, mingo@redhat.com, bp@alien8.de, x86@kernel.org, hpa@zytor.com, 
-	riel@surriel.com, linux-kernel@vger.kernel.org, qi.zheng@linux.dev, 
-	nadav.amit@gmail.com, thomas.lendacky@amd.com, kernel-team@meta.com, 
-	linux-mm@kvack.org, akpm@linux-foundation.org, brendan.jackman@linux.dev, 
-	jannh@google.com, mhklinux@outlook.com, andrew.cooper3@citrix.com, 
-	Manali.Shukla@amd.com, mingo@kernel.org, stable@vger.kernel.org, toshi.kani@hpe.com, 
-	david@kernel.org, mikhail.v.gavrilov@gmail.com
-Subject: Re: [PATCH 1/1] x86/mm: fix incomplete page-table invalidation with
- TCE
-Message-ID: <asM7b8ECO34-jiwi@pedro-suse.tail5790ac.ts.net>
-References: <20261005052302.43042-1-lance.yang@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ugb6AfYC"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3a7d7287703so741379a91.2
+        for <stable@vger.kernel.org>; Sun, 04 Oct 2026 23:22:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791181379; x=1791786179; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sK5flBSyUz9JPc2AauHO028it+gKWcI0pXP1AO189cA=;
+        b=Ugb6AfYCAIY8EVoqgB4yHxYkebtOWSa9/Ivo1IL/voScXitIbGIvXQa7IZC1+ILh+b
+         1kCuQrYTA7k3i8x9LbZrdwSsga6LT+YoI73IY+FUrDVFDoYWGQvzFDd8q/PKC4C2KXc+
+         x7Sxa9LeDB4P38/+I9UGngt6XQy+sH+J5pTmRcjjzbEpx27W6g1relUALrhLl7S9SRev
+         vaaJ6mJbpwYB0OXOk06s2fSbkfLUosXzlZvRFJuJCYVBqC7mOUf1nQdNM4rmjwjQps1t
+         Az9k7Mc2r/PeiEdnPJaXAhDOHNq8/2JC+6rpTBzA6iaNC+8zSq/q+sXCp6z7IwK5gnR7
+         /EYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791181379; x=1791786179;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sK5flBSyUz9JPc2AauHO028it+gKWcI0pXP1AO189cA=;
+        b=2SGWt8cz9yHNSOa7SnTibGe/GdPkCfYnJHkzVp48IJCQPpJIzfu4c5+nzQKKVlMkeu
+         T5hvCz6slQH6AdMhofv+DOfy4MD7QxkETg1Lce+m6zAoW+odjagnhU0HLi2C3neWPeKH
+         QhZz3jYXcgipoiY2O54B8MBXvvGJAHKD5T/FIFW42MyS+w+yfGfa1FlyUrMt8mIbJVe2
+         ixI6aLpXP3rubl4d3s8NNXn1Tj7VlTbMCqTxUqdOvg4/P7GhVqjaLoN337kEd6vlFTGS
+         KfgZ9dj8qPnTScqWu3AhA03ph4KrykynwEJEZvEEpa54zpphQ8J9/xFLKp+l1axAB4/5
+         c9oA==
+X-Forwarded-Encrypted: i=1; AKwUvBzJAZVhElsSY3tOJHm6t25Euk5RNWbDimxv1R5+o0L/87DOr9pPxEkHk+Ym3Fs58mI9FYD5ucM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ2xbLGO+L4WUB6MEGxIYy5tplc/KYaTBKLndNZVkPPDfHqOs0S
+	968tnoG3PIJ2CfzmfRVXVUkTkF1qGyMrfyVGUvMuTB+Q+V86f2WWw9H5
+X-Gm-Gg: AYBFou1Ey7VkgaHyym9QJaXvQVx9QdlDmnpFpmmHq1RJ1VsrVOPRLGqrlO7wzAJiEa6
+	qke5gEFmAl4qOAqKWiXHdrBRdpfo+Z6oiZx8Jfs83JdBIpONgcoL6A75r4EXCm+ffF9YsWEIzlE
+	wc+RteTJr27SHVjBXkHSpEd17Fwel8yOUwpoCG4a/vUyMX8IFIgggRi/g50xxcZyN77j+Ns8QG7
+	G0q6wp72nAhDlrupMc5Mpt/Wr8DspbVOoWBNyH8UTvCDOFT54ak/0CurB/cqMmJxLtMKq+a+A56
+	Auh/mL2FT4+IODYi9s2r9gWlk5SQ4MgxjYZqnAfsAptXq5jj1vU+TFToKaCEI9B+akHl7/DmoDq
+	V84cRBTzUknwA1Uja2ra0pSVFKq6ke6BZlfAbvs44u/TakSJh1a9GwezcEN/TLJxE6j3F/rIasD
+	Z9XGliD565YplzoirsCqXe5B/FPE2L/XtmbaL26A12i+V23xsuJe02EdFzZE2Id2A5FBRkmDv2B
+	KFbzKnHLw28XA==
+X-Received: by 2002:a17:90b:2f0e:b0:3a8:1cc6:c8e0 with SMTP id 98e67ed59e1d1-3a81cc6c99amr788163a91.6.1791181379004;
+        Sun, 04 Oct 2026 23:22:59 -0700 (PDT)
+Received: from localhost.localdomain ([240e:b8f:1df9:a600:c693:b19f:ada0:748])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78e4a1bfesm10661197a91.12.2026.10.04.23.22.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 23:22:58 -0700 (PDT)
+From: Vernon Yang <vernon2gm@gmail.com>
+To: akpm@linux-foundation.org,
+	david@kernel.org,
+	kasong@tencent.com,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	baohua@kernel.org,
+	axelrasmussen@google.com,
+	yuanchu@google.com,
+	weixugc@google.com,
+	baoquan.he@linux.dev,
+	hannes@cmpxchg.org,
+	mhocko@kernel.org,
+	ljs@kernel.org,
+	roman.gushchin@linux.dev,
+	dave@stgolabs.net
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Vernon Yang <yanglincheng@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] mm: vmscan: don't count per-node proactive reclaim as memory pressure
+Date: Mon,  5 Oct 2026 14:22:36 +0800
+Message-ID: <20261005062236.564210-1-vernon2gm@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261005052302.43042-1-lance.yang@linux.dev>
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	URIBL_BLOCKED(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,linux.dev:email,pedro-suse.tail5790ac.ts.net:mid];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,outlook.com];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_TWELVE(0.00)[27];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,infradead.org,redhat.com,alien8.de,zytor.com,surriel.com,vger.kernel.org,linux.dev,gmail.com,amd.com,meta.com,kvack.org,linux-foundation.org,google.com,outlook.com,citrix.com,hpe.com];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	R_RATELIMIT(0.00)[to_ip_from(RLziudqfrzo6b7hzgpxksh1d9i)];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[pedro-suse.tail5790ac.ts.net:mid,linux.dev:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim]
-X-Spam-Score: -3.01
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: BA62A21E86
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Flag: NO
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 05, 2026 at 01:23:02PM +0800, Lance Yang wrote:
-> pud_free_pmd_page() uses a single-address invalidation to flush the
-> paging-structure caches before freeing the page tables. With AMD TCE
-> enabled, this only invalidates upper-level entries associated with the
-> target address. Cached PMD entries for other addresses in the PUD range can
-> still reference the PTE pages being freed.
-> 
-> The AMD manual quoted in the commit enabling TCE says these instructions
-> remove
-> 
->   "only those upper-level entries that lead to the target PTE in the page
->   table hierarchy, leaving unrelated upper-level entries intact."
-> 
-> Even with all PTEs cleared, speculative page walks can cache present PMD
-> entries after the earlier TLB purge.
-> 
-> Use a full TLB flush before freeing the page tables on CPUs with TCE. Keep
-> the single-address invalidation otherwise.
-> 
-> Fixes: 440a65b7d25f ("x86/mm: Enable AMD translation cache extensions")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lance Yang <lance.yang@linux.dev>
+From: Vernon Yang <yanglincheng@kylinos.cn>
 
-I'm not sure this is correct. The PUD is clear. We invalidate the TLB, which
-invalidates the translation caches for that walk. invlpg will notice the PUD
-isn't present. I don't see a case where it can ever not clear the rest
-of the translation caches for all leaves. And, in fact, by that point the CPU
-can (does?) probably formally treat the PUD as the leaf.
+When the cgroup has no memory pressure at all, writing to
+/sys/devices/system/nodeX/reclaim triggers proactive reclaim on
+NUMA node, causing increase in the writer cgroup's memory PSI.
 
-Did you repro any bug related to this? The functionality is perhaps
-underspecified in the AMD manual.
+Due to this reclaim is performed in the context of the write(),
+accounted as memory pressure on the writer, like
+commit e22c6ed90aa9 ("mm: memcontrol: don't count limit-setting reclaim
+as memory pressure"). This is unexpected, the phenomenon resembling
+senpai will appear again.
 
+The Documentation/ABI/stable/sysfs-devices-node documentation also
+notes that "This interface is equivalent to the memcg variant."
+
+This patch unifies the semantics of the memcg and node interfaces:
+per-node proactive reclaim is no longer counted as memory pressure,
+and the per-node proactive reclaim interface no longer produces
+phantom pressure.
+
+I ran demo[1] that performs per-node proactive reclaim 10000 times
+in qemu, writer cgroup memory.pressure as follows:
+
+without patch:
+
+some avg10=31.53 avg60=13.42 avg300=3.31 total=10602985
+full avg10=31.53 avg60=13.42 avg300=3.31 total=10602985
+
+with patch:
+
+some avg10=9.59 avg60=3.41 avg300=0.81 total=2686221
+full avg10=9.59 avg60=3.41 avg300=0.81 total=2686221
+
+[1] https://github.com/vernon2gh/app_and_module/tree/main/reclaim_node_psi
+
+Fixes: b980077899ea ("mm: introduce per-node proactive reclaim interface")
+Cc: stable@vger.kernel.org
+Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
+---
+ mm/vmscan.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 91295070ca33..8e22b8a6038b 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -7988,13 +7988,10 @@ static unsigned long __node_reclaim(struct pglist_data *pgdat,
+ {
+ 	struct task_struct *p = current;
+ 	unsigned int noreclaim_flag;
+-	unsigned long pflags;
+ 
+ 	trace_mm_vmscan_node_reclaim_begin(pgdat->node_id, sc->order,
+ 					   sc->gfp_mask);
+ 
+-	cond_resched();
+-	psi_memstall_enter(&pflags);
+ 	delayacct_freepages_start();
+ 	fs_reclaim_acquire(sc->gfp_mask);
+ 	/*
+@@ -8011,7 +8008,6 @@ static unsigned long __node_reclaim(struct pglist_data *pgdat,
+ 	memalloc_noreclaim_restore(noreclaim_flag);
+ 	fs_reclaim_release(sc->gfp_mask);
+ 	delayacct_freepages_end();
+-	psi_memstall_leave(&pflags);
+ 
+ 	trace_mm_vmscan_node_reclaim_end(sc->nr_reclaimed, NULL);
+ 
+@@ -8021,6 +8017,7 @@ static unsigned long __node_reclaim(struct pglist_data *pgdat,
+ unsigned long node_reclaim(struct pglist_data *pgdat, gfp_t gfp_mask, unsigned int order)
+ {
+ 	unsigned long ret;
++	unsigned long pflags;
+ 	/* Minimum pages needed in order to stay on node */
+ 	const unsigned long nr_pages = 1 << order;
+ 	struct scan_control sc = {
+@@ -8067,7 +8064,10 @@ unsigned long node_reclaim(struct pglist_data *pgdat, gfp_t gfp_mask, unsigned i
+ 	if (test_and_set_bit_lock(PGDAT_RECLAIM_LOCKED, &pgdat->flags))
+ 		return 0;
+ 
++	cond_resched();
++	psi_memstall_enter(&pflags);
+ 	ret = __node_reclaim(pgdat, nr_pages, &sc);
++	psi_memstall_leave(&pflags);
+ 	clear_bit_unlock(PGDAT_RECLAIM_LOCKED, &pgdat->flags);
+ 
+ 	if (ret >= nr_pages)
+@@ -8193,6 +8193,7 @@ int user_proactive_reclaim(char *buf,
+ 						  &pgdat->flags))
+ 				return -EBUSY;
+ 
++			cond_resched();
+ 			reclaimed = __node_reclaim(pgdat, batch_size, &sc);
+ 			clear_bit_unlock(PGDAT_RECLAIM_LOCKED, &pgdat->flags);
+ 		}
 -- 
-Pedro
+2.53.0
+
