@@ -1,157 +1,100 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 463AB4A207D
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 14:18:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9DAC349CC3;
+	Mon,  5 Oct 2026 14:23:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791209942; cv=none; b=vGicrVCpAngy/bG/xt6pCPZ7Jo3Kalv8F1O3TxQdcpy7zPOAJqEd7a5iPCHLGuN+hgPDyjHQWx4YQzb6kA4T2hBa0L6/B+CtEEDHYwxCyBe6VZse/elbVwHhGhqDoZSOSOY5uttdoaAmaB8qCJji7thvYHw9XE+f4Alt5IWNW+Q=
+	t=1791210229; cv=none; b=F8JHVOMI9s2eCqa6s7wTJRq5NAe6fcznqaIkSss+WGPJwO5UJln0pFP2OEnAAa41yPcUHTWkmsUrkxQxRA3DWorelhUk74JvLSK8iyLu8LRhogJG3p2wWGI7jRdi4foTfVGjXmd/RT6tidFnY3BrBRhPE+BQIuqOpjOfz4n3Fzo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791209942; c=relaxed/simple;
-	bh=khhPwX+MmApBh1r6x/eUB4xZNi8NIK0p6TVSIGaHi/Q=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=aBMcfK1H4szGe669V+5/KZN0qoc878ppqeFGvpAoKA3RUJa2K72SBFAcRy5zodmY8U4mabi62mBWfneXjqquGCv8mEWqVQ+3rZOxr4T1uGrEw4/KQiT871Nf8yqbfnvtmphvZjb/UwRpMnpFPUuP43ATR5FutlPvb+Ia1I2RGn0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hbqSnwG0; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791210229; c=relaxed/simple;
+	bh=jZLOfI7EStIVEtWBQeUXSu1WMUw32YaxRQuhUpfPZWQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tCD3sP+igH/hUXrp1XUy4SWyDdGdlG93DDCckuqs4NDDzVXuTpMZ6CpPm1XPzQLjFzjoyx1pSQvI9zvZoZAkMytcpkPCP+fbNwAh/OUffGeYu5NtWfRRqMOoBDrmRCAcHIhuL7nk+Wek7vDkv+oyeA4mBjVSHdMWFZZwifghhEM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=edwoG1ZI; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hbqSnwG0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791209937; x=1822745937;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=khhPwX+MmApBh1r6x/eUB4xZNi8NIK0p6TVSIGaHi/Q=;
-  b=hbqSnwG0qYtyEcE1+I/CdgHkCmUnLuPxIE4y4v/3E4di5NpQ+5oNmIzC
-   qJ/Fb7g6JDXAki4W421TVsx+GkbTKuu14yOJuPOiIW1Lh3262TI+d5oLT
-   G+9NVvWslJXe0S0X20eiWovDfFEGyhJb9dCx00w/vxKmOjEnNSdKWWZ/i
-   uw6S4JJLmxcssB5YQ0rMGCci74EvPa8WUj3j5dcUS+efWEXeogv39Bend
-   6ISdE32oP+KzWhj92443dZiWMHVz6DnSjNGWonHHaaZ7teAj6idpA9toI
-   ue+edQiLd87HROMDNJo/fWbmFI5cc4HGZViaowDnbu0Srtq+arJbEq601
-   Q==;
-X-CSE-ConnectionGUID: TXysmyLrS3yCc2unAk8xfA==
-X-CSE-MsgGUID: JK2J3FQeShe10MePeWW57Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="79439655"
-X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
-   d="scan'208";a="79439655"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 07:17:40 -0700
-X-CSE-ConnectionGUID: Kj3OHN9lQ1e4gQxhKSjlGg==
-X-CSE-MsgGUID: tl6ZZSxTTFiPpxlQU6475g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
-   d="scan'208";a="886467"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.245.209]) ([10.245.245.209])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 07:17:37 -0700
-Message-ID: <8ba544fe1a920392ee9449b398fbd0f3a5ede2a8.camel@linux.intel.com>
-Subject: Re: [PATCH 2/2] drm/xe/vm: make PREFETCH to TT sticky
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Matthew Auld <matthew.auld@intel.com>, intel-xe@lists.freedesktop.org
-Cc: Matthew Brost <matthew.brost@intel.com>, stable@vger.kernel.org
-Date: Mon, 05 Oct 2026 16:17:27 +0200
-In-Reply-To: <04c348e7-2fed-4fe9-a151-860b05433a75@intel.com>
-References: <20260928164820.1237049-4-matthew.auld@intel.com>
-	 <20260928164820.1237049-6-matthew.auld@intel.com>
-	 <92619c231f212306eb1c0c274b69c47687696159.camel@linux.intel.com>
-	 <04c348e7-2fed-4fe9-a151-860b05433a75@intel.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="edwoG1ZI"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 0AE0A40E0481;
+	Mon,  5 Oct 2026 14:23:25 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id SfeJXfSwf0Mm; Mon,  5 Oct 2026 14:23:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1791210167; bh=VtxSKsJ4qGQk3yWu0lOPutFCnBFJGvqMqZUqiGmUgtc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=edwoG1ZI14EIMdNF67HsrYiBouyMCpEIy3nCTt1PEHsrII7VArul7mdVaTmz1x9CR
+	 YdsYOkDAkNx+pRmV4iNo7Ig5GlVFLEKpY0cii8033hQIvYPX7D6Na7Pu8p1ZMMN/A9
+	 4piG+QUR6jU5DU0fPhQk5ZcnpRnux/4yAOEWEUMPhOInR3hFVvoBVuEdJDNpoIOkqc
+	 p0APwJl1EiGtb8nDKugJqpiHrULK4lo1vcFiUI+zcp4+WUvWo7JjqtD5b4V6VSCCHM
+	 p6oLWpG0EQcAkJFCvTi3lrWtHDnVYKa/8iitfr58mgirIxJZf9BzO5kQBxVBRPr1wS
+	 h+xWch6cDdnpFTp0S8+PPgjihPufoLiNvMhzLtVQiK7NsK2vcU6Ns4MyZqKpkMEsNp
+	 b5ijrkPOrFoTwYD4Pju+0hX1/vmPgbijJJK6AGsQwWRHXcM2wLtnveJRRsOyPRIkVW
+	 0Upd+1IXHDK82rszWXX5+wVXRT9qyIbJTfKJgVtNNqf9dydiUdvIpc+2yqiTsspdYq
+	 pO8yUmbZ/KazByJV+WiKJqge9S0pHNSxJ5ajuwEzuCMXmnd9qiCKyPrTTd/iKqopWx
+	 nWB+OlmoX5pzGQdK+/q2L09ZXXseom19k45twk/kEmWIbFwmFSZpRezvAUKQf9R0zi
+	 ngVZO6NsosL1VrqQwhxyMYXw=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id F1A7140E02A8;
+	Mon,  5 Oct 2026 14:22:19 +0000 (UTC)
+Date: Mon, 5 Oct 2026 07:22:16 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Lance Yang <lance.yang@linux.dev>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Pedro Falcato <pfalcato@suse.de>, dave.hansen@linux.intel.com,
+	luto@kernel.org, peterz@infradead.org, tglx@kernel.org,
+	mingo@redhat.com, x86@kernel.org, hpa@zytor.com, riel@surriel.com,
+	linux-kernel@vger.kernel.org, qi.zheng@linux.dev,
+	nadav.amit@gmail.com, thomas.lendacky@amd.com, kernel-team@meta.com,
+	linux-mm@kvack.org, akpm@linux-foundation.org,
+	brendan.jackman@linux.dev, jannh@google.com, mhklinux@outlook.com,
+	Manali.Shukla@amd.com, mingo@kernel.org, stable@vger.kernel.org,
+	toshi.kani@hpe.com, david@kernel.org, mikhail.v.gavrilov@gmail.com
+Subject: Re: [PATCH 1/1] x86/mm: fix incomplete page-table invalidation with
+ TCE
+Message-ID: <20261005142216.GAasOymJHYnmn6wD5m@fat_crate.local>
+References: <20261005052302.43042-1-lance.yang@linux.dev>
+ <asM7b8ECO34-jiwi@pedro-suse.tail5790ac.ts.net>
+ <60d5db86-8002-4d87-b8d3-c161d674122b@linux.dev>
+ <ab077b6a-160f-41a2-a167-813f0560e30d@citrix.com>
+ <38541ec6-d796-4f35-a700-75ab097b6df5@linux.dev>
+ <7ad90e94-d04d-453a-ba22-9640a5024d8c@citrix.com>
+ <6801221a-6307-407a-85fc-46906f95d22e@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <6801221a-6307-407a-85fc-46906f95d22e@linux.dev>
 
-On Fri, 2026-10-02 at 14:32 +0100, Matthew Auld wrote:
-> On 02/10/2026 13:43, Thomas Hellstr=C3=B6m wrote:
-> > On Mon, 2026-09-28 at 17:48 +0100, Matthew Auld wrote:
-> > > When userspace explicitly requests DRM_XE_VM_BIND_OP_PREFETCH to
-> > > system
-> > > memory (XE_PL_TT), xe_bo_migrate() moves the buffer object to TT.
-> > > However, because XE_PL_TT is marked with TTM_PL_FLAG_FALLBACK in
-> > > the
-> > > buffer's default placement (introduced in commit 5c87fee3c96c
-> > > ("drm/xe:
-> > > Attempt to bring bos back to VRAM after eviction")), any
-> > > subsequent
-> > > validation during exec immediately migrates the buffer back to
-> > > VRAM,
-> > > completely undoing the userspace prefetch request.
-> > >=20
-> > > Use xe_bo_migrate_tt_sticky() when prefetching to XE_PL_TT so
-> > > that
-> > > the
-> > > buffer remains resident in system memory across subsequent
-> > > validations.
-> > >=20
-> > > Assisted-by: LLM
-> > > Reported-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
-> > > Fixes: 5c87fee3c96c ("drm/xe: Attempt to bring bos back to VRAM
-> > > after
-> > > eviction")
-> > > Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-> > > Cc: Matthew Brost <matthew.brost@intel.com>
-> > > Cc: <stable@vger.kernel.org> # v6.12+
-> >=20
-> > I think we need somewhere to clear this stickiness. Perhaps if
-> > xe_bo_migrate() is called with another destination than the sticky
-> > one,
-> > we'd clear it?
->=20
-> In the other patch in bo_migrate() there is:
->=20
-> +	ret =3D ttm_bo_validate(&bo->ttm, &placement, tctx);
-> +	if (!ret)
-> +		xe_bo_reset_sticky_placement(bo);
-> +	return ret;
-> +}
->=20
-> So if something successfully uses a non-sticky migrate(), it will
-> reset.=20
-> Is this enough?
+On Mon, Oct 05, 2026 at 06:12:45PM +0800, Lance Yang wrote:
+> Which CPU? None so far. As I said, I don't have a reproducer. I'm trying
+> to make sense of what the manual says and what the code does ...
 
-Yes, I missed that. That should be enough IMO.
+So you're sending a patch for which you have absolutely no justification? And
+CCing it to stable too?
 
-Reviewed-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+And that patch hasn't been tested to actually address anything?
 
+Just a wild hunch?
 
->=20
-> >=20
-> > Thanks,
-> > Thomas
-> >=20
-> >=20
-> >=20
-> >=20
-> > > ---
-> > > =C2=A0=C2=A0drivers/gpu/drm/xe/xe_vm.c | 5 ++++-
-> > > =C2=A0=C2=A01 file changed, 4 insertions(+), 1 deletion(-)
-> > >=20
-> > > diff --git a/drivers/gpu/drm/xe/xe_vm.c
-> > > b/drivers/gpu/drm/xe/xe_vm.c
-> > > index 425c678f4480..2068e0cf50ff 100644
-> > > --- a/drivers/gpu/drm/xe/xe_vm.c
-> > > +++ b/drivers/gpu/drm/xe/xe_vm.c
-> > > @@ -3406,7 +3406,10 @@ static int op_lock_and_prep(struct
-> > > drm_exec
-> > > *exec, struct xe_vm *vm,
-> > > =C2=A0=C2=A0				mem_type =3D
-> > > region_to_mem_type[region];
-> > > =C2=A0=C2=A0			}
-> > > =C2=A0=20
-> > > -			err =3D xe_bo_migrate(bo, mem_type, NULL,
-> > > exec);
-> > > +			if (mem_type =3D=3D XE_PL_TT)
-> > > +				err =3D
-> > > xe_bo_migrate_tt_sticky(bo,
-> > > NULL, exec);
-> > > +			else
-> > > +				err =3D xe_bo_migrate(bo,
-> > > mem_type,
-> > > NULL, exec);
-> > > =C2=A0=C2=A0		}
-> > > =C2=A0=C2=A0		break;
-> > > =C2=A0=C2=A0	}
+I wouldn't do that in the future if I were you.
+
+HTH.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
