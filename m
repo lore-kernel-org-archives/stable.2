@@ -1,115 +1,216 @@
-Received: from mta1.migadu.com (out-198.mta1.migadu.com [95.215.58.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04F2547ECEE
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 12:10:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5329B47CA6D;
+	Mon,  5 Oct 2026 12:14:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791202242; cv=none; b=YUnGLzDE3Lh1nJ1FOkiZyBMRwF7AdN9OFNp43Ub5dSmua818gw21DUAvgXZrCqsqe26jeaUi1X316+QA9J45O4il6xWtzzycWZFyhGxu1xBq6O++ZfAvuci1uCieBKNOxh08iL4l3DL71SYvLLqEnL5oIAAzXihMNtth3JQ4FV0=
+	t=1791202468; cv=none; b=YXB0mGyQb5Aax5yr3PtSda3pSvqN9fLMj0h+GbnYGIFo5kMxGvX3IYV3EkMhs8fj9hkc6S4v1MnSiKHBpj27DPKWM5/j/sJm80H6dtSJ8jY1aZClWEXp1rkT1mRU4UG8yqozm03Hmddu4pOkiOE0eGWe533Dw8eVgZx32eBafJE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791202242; c=relaxed/simple;
-	bh=f+hFXIzzuMe3tcXs0GPJ00JVOEjMIu0ORPYVIQIfNH4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kSObI2x4xlUA+bbNwdv5ZBTShqhiXO7PusQNcTQYQCDMY1Ao2FBPKIyaXZXv4uTy2c2DweMsuZM3OU6Ufxg+z2MTWUw2oMrZaFAM26k+/1Erqx+uCLB1qNLDeOYMkDsR9MuRjEz5CXwmVVgCEFQRTHOO0vRZnEuAH8JGBh5SLXM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qc4uRKrd; arc=none smtp.client-ip=95.215.58.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791202468; c=relaxed/simple;
+	bh=SNsnIfFnFrv7ERvU9BJmAAQ6b0WKS+QkMy5FSGZnQaU=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=QnKlFUewEtxsG8ttr8ytlLRKuTxk24mp0NNlAGb8k8CRmlckkEHcXEUC6GZpzf9qY1TJBqDVlc9xkcxWZJesQ06oBT57+DaD7+f3iU6o1CTzku6iu5uc0PIXahX9WxTJ1ZwveyOK3tQpP57zDumHjPGXaSRheYRWaewRHrqGyFc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jbjn4Ezy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qc4uRKrd"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=f+hFXIzzuMe3tcXs0GPJ00JVOEjMIu0ORPYVIQIfNH4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791202237; v=1; x=1791807037;
- b=qc4uRKrdD6qeP5GjqsjJ4Cz/Rrj6iackxl9sFUoPmCvOaYE8EX8Hbl6TnvA+elrpiXZPs0Du
- GJRdmcMJ+6fTBQ47KSYs4kVRaEXBale69wybiJ6i3YGqbb45Hmy9hpcsA559USq/HiU1/NaGSUH
- 19T5pTfp6wE6ki5goZxoBEDg=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b52a094f8f923b80;
-	Mon, 05 Oct 2026 12:10:37 +0000
-X-Mizu-Trace-ID: b52a094f8f923b80
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <c07ede42-408a-4959-9ca5-bb94ff851b0f@linux.dev>
-Date: Mon, 5 Oct 2026 20:10:24 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jbjn4Ezy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 547501F00893;
+	Mon,  5 Oct 2026 12:14:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791202467;
+	bh=aVIb7jPoL1eesVxmqEjccrKuhRuUWn1hPHO9OIWOzHc=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Jbjn4EzyLfk6iSe19ngfyhCkxM5Q6HPQX2LRWNHWE8CmtRpTFMVCbtUubbWPyeIom
+	 Fqe2jTKSkq56cB5Rs6MNOGf7FgTVseekzrlHb0yTSRqX6NYHiZUyO9/QUkrAmwYkfB
+	 KrbtrWO+9aPuRbjhNn/IFzszVMOI2jvmlVr+ZoW/hJhklWkF/g3honhDXHphCg6qjJ
+	 fPozvqzMFdFxoQ6h9gco3Ce8Db64unHY642FAtFCOhKf+OUBiP4hh+X6lcRx67/Ap3
+	 cPU3aL1fbP7q/QqwicW1VDdKAyuGTKPVktRnPCR4nZe6ZKWdKtz3MgjstXl5lVMNvV
+	 cjj0hjpiUziyg==
+Subject:
+ Re: [PATCH net] net/mlx4: shut down catas recovery timer during teardown
+From: netdev-bot+sashiko@kernel.org
+To: runyu.xiao@seu.edu.cn
+Cc: tariqt@nvidia.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux-rdma@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, jianhao.xu@seu.edu.cn
+Date: Mon, 05 Oct 2026 12:14:25 +0000
+Message-ID: <179120246587.434549.3026247098770560135@kernel.org>
+In-Reply-To: <20261004121259.1245171-1-runyu.xiao@seu.edu.cn>
+References: <20261004121259.1245171-1-runyu.xiao@seu.edu.cn>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] x86/mm: fix incomplete page-table invalidation with
- TCE
-Content-Language: en-US
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: dave.hansen@linux.intel.com, luto@kernel.org, peterz@infradead.org,
- tglx@kernel.org, mingo@redhat.com, bp@alien8.de, x86@kernel.org,
- hpa@zytor.com, riel@surriel.com, linux-kernel@vger.kernel.org,
- qi.zheng@linux.dev, nadav.amit@gmail.com, thomas.lendacky@amd.com,
- kernel-team@meta.com, linux-mm@kvack.org, akpm@linux-foundation.org,
- brendan.jackman@linux.dev, jannh@google.com, mhklinux@outlook.com,
- andrew.cooper3@citrix.com, Manali.Shukla@amd.com, mingo@kernel.org,
- stable@vger.kernel.org, toshi.kani@hpe.com, david@kernel.org,
- mikhail.v.gavrilov@gmail.com
-References: <20261005052302.43042-1-lance.yang@linux.dev>
- <asM7b8ECO34-jiwi@pedro-suse.tail5790ac.ts.net>
- <60d5db86-8002-4d87-b8d3-c161d674122b@linux.dev>
- <asN4wjUbDAIcrfA-@pedro-suse.tail5790ac.ts.net>
-From: Lance Yang <lance.yang@linux.dev>
-In-Reply-To: <asN4wjUbDAIcrfA-@pedro-suse.tail5790ac.ts.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
+Critical: 0 · High: 0 (1) · Medium: 1 · Low: 0 (1)
 
-On 2026/10/5 18:24, Pedro Falcato wrote:
-> On Mon, Oct 05, 2026 at 03:29:22PM +0800, Lance Yang wrote:
->>
->>
->> On 2026/10/5 14:09, Pedro Falcato wrote:
->>> On Mon, Oct 05, 2026 at 01:23:02PM +0800, Lance Yang wrote:
->>>> pud_free_pmd_page() uses a single-address invalidation to flush the
->>>> paging-structure caches before freeing the page tables. With AMD TCE
->>>> enabled, this only invalidates upper-level entries associated with the
->>>> target address. Cached PMD entries for other addresses in the PUD range can
->>>> still reference the PTE pages being freed.
->>>>
->>>> The AMD manual quoted in the commit enabling TCE says these instructions
->>>> remove
->>>>
->>>>     "only those upper-level entries that lead to the target PTE in the page
->>>>     table hierarchy, leaving unrelated upper-level entries intact."
->>>>
->>>> Even with all PTEs cleared, speculative page walks can cache present PMD
->>>> entries after the earlier TLB purge.
->>>>
->>>> Use a full TLB flush before freeing the page tables on CPUs with TCE. Keep
->>>> the single-address invalidation otherwise.
->>>>
->>>> Fixes: 440a65b7d25f ("x86/mm: Enable AMD translation cache extensions")
->>>> Cc: stable@vger.kernel.org
->>>> Signed-off-by: Lance Yang <lance.yang@linux.dev>
->>>
->>> I'm not sure this is correct. The PUD is clear. We invalidate the TLB, which
->>> invalidates the translation caches for that walk. invlpg will notice the PUD
->>> isn't present. I don't see a case where it can ever not clear the rest
->>> of the translation caches for all leaves. And, in fact, by that point the CPU
->>> can (does?) probably formally treat the PUD as the leaf.
->>
->> IIUC, clearing the PUD in memory doesn't invalidate cached PMD entries by
->> itself. With TCE enabled, flushing one address only invalidates the entries
->> associated with that address ...
->>
->> (That's how I read the manual, but AMD folks, please correct me if I'm
->> missing something.)
->>
->> So couldn't other cached PMDs under the same PUD survive?
-> 
-> I don't read it as that. I read it as "flushing one address only invalidates
-> the entries on that path". So, if you flush one address, you'll flush the
-> whole translation cache for that range. And page table zapping agrees; if you
-> follow the code from zap_pte_range() -> pte_free_tlb(), it will do a single flush
-> for each PTE table (if the whole table is empty/non-present).
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Let's wait for AMD folks to clarify whether a single-address flush is
-sufficient :)
+- [Medium] The commit message describes a race that the timer core
+  already prevents, and the patch carries Fixes: and Cc: stable tags for…
+
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but device removal
+  can deadlock with catas recovery.
+- [Low] This problem wasn't introduced by this patch, but on the first-
+  ever registration mlx4_stop_catas_poll() can run timer_shutdown_sync()…
+
+--
+
+net/mlx4: shut down catas recovery timer during teardown
+
+This commit changes mlx4_stop_catas_poll() to call timer_shutdown_sync()
+instead of timer_delete_sync(), so that poll_catas() cannot re-arm the
+catas timer during teardown. The timer is set up again by timer_setup() in
+mlx4_start_catas_poll() before it is reused.
+
+> The catas error timer can rearm itself while the device is being
+> stopped. If poll_catas() is running when timer_delete_sync() drops the
+> timer-base lock, it can call mod_timer() after the deletion. The delete
+> can then return with the timer queued again, allowing a subsequent callback
+> to access teardown-owned MMIO state after it has been unmapped.
+
+[Severity: Medium]
+Can this sequence happen with timer_delete_sync()?
+
+While the callback is running, __try_to_del_timer_sync() does not detach
+the timer and returns -1:
+
+kernel/time/timer.c:__try_to_del_timer_sync() {
+    ...
+	if (base->running_timer != timer) {
+		ret = detach_if_pending(timer, base, true);
+		if (shutdown)
+			timer->function = NULL;
+	}
+    ...
+}
+
+__timer_delete_sync() keeps retrying until that changes:
+
+	do {
+		ret = __try_to_del_timer_sync(timer, shutdown);
+		if (unlikely(ret < 0)) {
+			del_timer_wait_running(timer);
+			cpu_relax();
+		}
+	} while (ret < 0);
+
+So the delete cannot return while poll_catas() is still running. After the
+callback finishes, the next retry calls detach_if_pending() under the base
+lock. That removes the timer that poll_catas() re-queued with mod_timer().
+
+__mod_timer() also does not move a running timer to another base:
+
+	if (likely(base->running_timer != timer)) {
+
+The comment there says this lets timer_delete_sync() detect that the
+handler has not finished yet. The timer_delete_sync() kerneldoc only rules
+out add_timer_on() from the handler, and poll_catas() re-arms only with
+mod_timer().
+
+So timer_shutdown_sync() does not seem to change runtime behaviour for
+this timer. The only other place that arms it is mlx4_start_catas_poll(),
+and that calls timer_setup() first.
+
+Could the race description and the Fixes: and Cc: stable tags be dropped,
+with the change described as hardening instead? Or is there a different
+re-arm path that the commit message should name?
+
+> diff --git a/drivers/net/ethernet/mellanox/mlx4/catas.c b/drivers/net/ethernet/mellanox/mlx4/catas.c
+> index edcc6f6626180..62574b790fd59 100644
+> --- a/drivers/net/ethernet/mellanox/mlx4/catas.c
+> +++ b/drivers/net/ethernet/mellanox/mlx4/catas.c
+> @@ -305,7 +305,7 @@ void mlx4_stop_catas_poll(struct mlx4_dev *dev)
+>  {
+>  	struct mlx4_priv *priv = mlx4_priv(dev);
+>  
+> -	timer_delete_sync(&priv->catas_err.timer);
+> +	timer_shutdown_sync(&priv->catas_err.timer);
+
+[Severity: Low]
+This isn't a bug introduced by this patch, but can this run on a
+catas_err.timer that was never initialized?
+
+On the first registration, mlx4_register_device() sets
+MLX4_INTERFACE_STATE_UP before calling rescan_drivers_locked(). If
+add_drivers() fails, it unregisters before mlx4_start_catas_poll() has
+called timer_setup():
+
+drivers/net/ethernet/mellanox/mlx4/intf.c:mlx4_register_device() {
+    ...
+	if (ret) {
+		mlx4_unregister_device(dev);
+		return ret;
+	}
+
+	mlx4_start_catas_poll(dev);
+    ...
+}
+
+mlx4_unregister_device() only checks STATE_UP before calling
+mlx4_stop_catas_poll(). That then calls timer_shutdown_sync() on a timer
+that devlink_alloc() zeroed but timer_setup() never initialized.
+
+Production kernels see no effect. With CONFIG_LOCKDEP, the zeroed
+lockdep_map triggers a "trying to register non-static key" splat and
+lockdep is turned off. With CONFIG_DEBUG_OBJECTS_TIMERS, debug_assert_init()
+emits an ODEBUG warning. timer_delete_sync() behaved the same way before
+this patch.
+
+[Severity: High]
+This is a pre-existing issue, but can device removal deadlock against
+catas_work in this function?
+
+mlx4_remove_one() takes devl_lock(devlink), sets
+MLX4_INTERFACE_STATE_DELETION, and calls mlx4_unload_one() while still
+holding the lock. That path reaches the flush here:
+
+mlx4_remove_one()
+  devl_lock(devlink)
+  mlx4_unload_one()
+    mlx4_unregister_device()
+      mlx4_stop_catas_poll()
+        flush_workqueue(dev->persist->catas_wq)
+
+If the interface is already down, mlx4_catas_end() drains the same
+workqueue through destroy_workqueue().
+
+If poll_catas() has already queued catas_work, the worker first runs the
+device reset. That can take a long time; the VF reset loop alone can run
+for up to MLX4_COMM_TIME (10000 ms). Only then does the worker take the
+devlink lock, before it checks DELETION:
+
+drivers/net/ethernet/mellanox/mlx4/catas.c:mlx4_handle_error_state() {
+	mlx4_enter_error_state(persist);
+	devlink = priv_to_devlink(mlx4_priv(dev));
+	devl_lock(devlink);
+	mutex_lock(&persist->interface_state_mutex);
+	if (persist->interface_state & MLX4_INTERFACE_STATE_UP &&
+	    !(persist->interface_state & MLX4_INTERFACE_STATE_DELETION)) {
+    ...
+}
+
+The remover waits for the work to finish, and the work waits for the
+devlink lock that the remover holds. Neither wait has a timeout.
+
+timer_shutdown_sync() only prevents future timer runs, so work that is
+already queued is not covered. Could catas_wq be drained without holding
+the devlink lock? Alternatively, mlx4_handle_error_state() could check
+DELETION before calling devl_lock().
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261004121259.1245171-1-runyu.xiao%40seu.edu.cn
