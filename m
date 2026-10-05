@@ -1,106 +1,77 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41A2946D09A;
-	Mon,  5 Oct 2026 10:33:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B92F478868;
+	Mon,  5 Oct 2026 10:33:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791196387; cv=none; b=MJVy1M8U5x1Bkf0dP8dNpz9nlbUY2EiDD21PQjVqqpK7vw/wzALEuxdsTuBSlPKY8KWUpQXiR+l2kVkNLiVGUurbajkRqjt5PVcuhEPtvMfCQMXD2Vu5Ox8Lv/Ne15XpApqbzWnsBF1YksPZdU6QowDHxhS4pFRLHquGDVUnmb0=
+	t=1791196396; cv=none; b=TdCAT1pa78uyjr+D3coFjoQ7/FCDbOWD7fkZc6A8JEYDWKQRvWbEg2kVGQdY1jVfvXguil83cvaiUFCHSZu6U/ZcXjAx8H0JTA7FmUIu0i5NZ+ZAWW8asusAv9w6bwI16cG3P98IDGK52rn4GHo0LUH07wSCeZNCegK0CB4bOEk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791196387; c=relaxed/simple;
-	bh=HeYnKht+rbXkuUa4EohCDb03waSQr6SlS8L/YvVyIcI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=qOV5u9GlmJiz306NsASNY1vCHAmpOUqSdomi8JiAUUXDESdRIBZ1JK3yBEWpJQV8MSUXS5ekf727vFoImaOt4iSeiI/zHSbCG13nr6H4Z2OH2+QCelyiQu+PKMGhzCVcIQ1eLL2WwxfMRh7OxgT+1Q3OFZj+wqW7HiKy+CI4Zag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XIKbOsTL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791196396; c=relaxed/simple;
+	bh=gp7PRv3WjAiMJrp0DvXpRvTv3mwC8R3NiezXzUE7FxE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=TYJ3PmTCLgWtibTc29COI+p6p6NQ6WFrBc1+QVBdlWHHOhrs98/9C5m4KgOS+Atd9qDISOBHlT1L5lh2o82Aw8R+47+jC3gPXcMXsWpedqkiloxVkh2ARevad00zhdcat08JGxp1NA81MhWdBsk/H8bhA4Hsb3aVc8SiJBVE0Uk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BXglm/yD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XIKbOsTL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 619791F000FF;
-	Mon,  5 Oct 2026 10:33:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BXglm/yD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4296C1F000FF;
+	Mon,  5 Oct 2026 10:33:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791196386;
-	bh=mJAWf/W409wQdx9doBOu157lRcmZ2hxa/1jrWIjHjcM=;
-	h=From:Date:Subject:To:Cc;
-	b=XIKbOsTLThS/39UM4QHfq9nlzcCJ1R0cIhknq74mI4QBHNxaliTFmlLNd/f398uyH
-	 puooWoXQmtSZbuJECh1j93tK/2E+OFNdUMc/2r5xbLLeW8RcDuT/08PhI7KFyR36v1
-	 r21t85yWTIwlUA8scSga1+drWWdTZ8vZ0NSLBQoUVAQ8U5Po//9OtgKfKIUOl0kjVg
-	 3DkM1s+wbon/NJuL8RaoUOb1i6H9TXBUf0bg5Mil9y6ivrgVPf0UgiI15tpDHY+6eQ
-	 G7qRvTeiazBFvk4Xmpz5rKTh5J8rhk8iiK8d6s/hyPTEk0Bsl8oyfBQmHirb7sAlQB
-	 FK0KPuKYjMNHg==
-From: Nathan Chancellor <nathan@kernel.org>
-Date: Mon, 05 Oct 2026 12:32:59 +0200
-Subject: [PATCH] wifi: brcmsmac: Adjust txpwrindex value in
- nphy_ipa_rxcal_gaintbl_2GHz
+	s=k20260515; t=1791196395;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=BXglm/yDkhX91Jz/tA2TuU/72rH4Q1xtPjYYAsdLfVdEwNuFJW/lXcbKWQl2uBJAf
+	 F6dW/NB2rrnTbYfJX8+cmPz49RBP2qZBIXAyEhbGv68JzxbQ2VcFUkr6srd4bNcP8z
+	 l2m63N4KfWcd7PNrTFYOjosDMzAWxLR1vYkI0P0kt1xzp5+TIiJ/gXiHKSLepCTPsp
+	 sKv15OS5fVcb19ehjvokc+4XdG0NYY2tGHafG2O8xqKCo8uaNDHWhYfBVUxkID8tNP
+	 Wd3vgUjGxbdrhY00dslTZoZfhPnBEtjfJS5ZDhPsf/ikoPE9Cjom+HgEpV6WapjgWu
+	 rKuJVL4bG28vA==
+From: netdev-bot+sinfo@kernel.org
+To: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+Cc: stable@vger.kernel.org, Jamal Hadi Salim <jhs@mojatatu.com>,
+ Cong Wang <xiyou.wangcong@gmail.com>, Jiri Pirko <jiri@resnulli.us>,
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ "Samudrala, Sridhar" <sridhar.samudrala@intel.com>,
+ John Fastabend <john.r.fastabend@intel.com>,
+ Benjamin Robin <benjamin.robin@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Victor Nogueira <victor@mojatatu.com>,
+ Pedro Tammela <pctammela@mojatatu.com>,
+ Simon Horman <simon.horman@corigine.com>, Sasha Levin <sashal@kernel.org>
+Subject: Re: [PATCH 5.10.y] net: sched: cls_u32: Undo tcf_bind_filter if
+ u32_replace_hw_knode
+Date: Mon, 05 Oct 2026 10:33:13 +0000
+Message-ID: <179119639380.1402591.2155637888002963@kernel.org>
+In-Reply-To: <20261005-cve-2023-53733-v1-1-d716b944802c@bootlin.com>
+References: <20261005-cve-2023-53733-v1-1-d716b944802c@bootlin.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-brcmsmac-clang-24-constant-conversion-v1-1-a30c5692d582@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNQQrCMBBFr1Jm7UAa00K8irhIx4mO2FQysQild
- zfR3X98eG8D5SyscOo2yLyKypIq9IcO6B7SjVGulcEaO/bGDDhlmnUOhPSsN1qHtCQtIZU2Vs7
- NgEw++nh0g/MjVNcrc5TPr3O+/Fnf04OpNDns+xdb4z/UiQAAAA==
-X-Change-ID: 20261005-brcmsmac-clang-24-constant-conversion-ec9f9f345496
-To: Arend van Spriel <arend.vanspriel@broadcom.com>, 
- linux-wireless@vger.kernel.org
-Cc: brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com, 
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev, stable@vger.kernel.org, 
- Nathan Chancellor <nathan@kernel.org>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2170; i=nathan@kernel.org;
- h=from:subject:message-id; bh=HeYnKht+rbXkuUa4EohCDb03waSQr6SlS8L/YvVyIcI=;
- b=owGbwMvMwCUmm602sfCA1DTG02pJDFmHa+7OqKl//f6v2ekg54VvzsyYEW1z5dVbjVl3dqZ/P
- cCfey3QrKOUhUGMi0FWTJGl+rHqcUPDOWcZb5yaBDOHlQlkCAMXpwBMJMOP4X+CcVz9hJmGs4qY
- LULjbtzJitWcmjn7arPuF3n/+LBvvaaMDBPqTweXba2dYlH4ZPFrsYPJqnY2Wz/5rC79q8yj/2P
- 7Z14A
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-After a recent change in clang to warn on signed char conversions within
-array initializers [1], there is a warning (or error with
-CONFIG_WERROR=y / W=e) from nphy_ipa_rxcal_gaintbl_2GHz:
+Hi!
 
-  drivers/net/wireless/broadcom/brcm80211/brcmsmac/phy/phy_n.c:224:18: error: implicit conversion from 'int' to 's8' (aka 'signed char') changes value from 128 to -128 [-Werror,-Wconstant-conversion]
-    224 |         {0, 0, 0, 0, 0, 128},
-        |         ~               ^~~
-  1 error generated.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-This value was introduced in the original staging merge of brcmsmac in
-commit a9533e7ea3c4 ("Staging: Add initial release of brcm80211 - Broadcom
-802.11n wireless LAN driver.") and it is the same in the proprietary
-driver [2]. Presumably it is correct since there have been no reported issues,
-so update the value to '-128' to be type correct and clear up the warning.
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-Cc: stable@vger.kernel.org
-Fixes: a9533e7ea3c4 ("Staging: Add initial release of brcm80211 - Broadcom 802.11n wireless LAN driver.")
-Link: https://github.com/llvm/llvm-project/commit/a5ef934a8d295dc03be3960f2b3744ec2e53238e [1]
-Link: https://lore.kernel.org/1a107e21b08.2873.9b12b7fc0a3841636cfb5e919b41b954@broadcom.com/ [2]
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
----
- drivers/net/wireless/broadcom/brcm80211/brcmsmac/phy/phy_n.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/phy/phy_n.c b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/phy/phy_n.c
-index 86cfa3e87a04..9ddd5d519893 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/phy/phy_n.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/phy/phy_n.c
-@@ -221,7 +221,7 @@ static const struct nphy_ipa_txrxgain nphy_ipa_rxcal_gaintbl_5GHz[] = {
- };
- 
- static const struct nphy_ipa_txrxgain nphy_ipa_rxcal_gaintbl_2GHz[] = {
--	{0, 0, 0, 0, 0, 128},
-+	{0, 0, 0, 0, 0, -128},
- 	{0, 0, 0, 0, 0, 70},
- 	{0, 0, 0, 0, 0, 20},
- 	{0, 0, 0, 3, 0, 20},
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
----
-base-commit: d24e8ac715de2e16a53c144005b1863660a5fbea
-change-id: 20261005-brcmsmac-clang-24-constant-conversion-ec9f9f345496
-
-Best regards,
---  
-Cheers,
-Nathan
-
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
