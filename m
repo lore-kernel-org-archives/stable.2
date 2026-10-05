@@ -1,204 +1,118 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3BB14A49A1;
-	Mon,  5 Oct 2026 14:26:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F0F54A4EE2
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 14:27:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791210421; cv=none; b=BgvA4/2m1XWnZ5A65EE6IDD53fIEJxxluDUX/cjpxpxPFm4CIWm0Fjw472AGrgbf3foxZX5cBaUNXQt1S1SWPn6UgrGXx1/NYsn4g5rtEl5JIez9h6soD1H/DRYBtcKeGhJd0MCqxs7236vcVF9rmQoM7GruxiEVuDFQr1KS13I=
+	t=1791210481; cv=none; b=u5fs7CvAP3eE7fWLTHI3zfmwCVKIj22MedgqesjbdmV40XnfuiX7l5hsoHk5+b/C587IgL6mUzVxe/jpiOORleubck4aPx9nIEexQ1Pj3i4nikPpVFOYpFCOynjudSpoZ8I0quuIAPVIzQ8sVU7PjfZsZmA6A9NjT4jWxP+Rle8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791210421; c=relaxed/simple;
-	bh=0yyC+ESpXKhGW9JyND6IpPYZrDmnBMh6jvBVKCFXGOk=;
+	s=arc-20240116; t=1791210481; c=relaxed/simple;
+	bh=8aHhvrXOqmGPePIkLtxikGO2wK12h9aCV5UV5DWpIR4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bkO41OmfnLbRzQSLi6ga37A9QpGpx7PkMeKNMbGwbyP/tjCaSL1ASjJbq27CaPhxky+N9oV9wrL0WQzvz1w3jwCMCFoMS9Lv/AXv65AuX6G5Tw6D8Tb6MrkNRDmU2HVHM8boMli3BUiFPmBWGsfTvtELgbyrQAvrZ+ulZaaFyLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=CvvsrQ5z; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=L/C13grGY2CORFoLoVA25l42HHcFPXyV8Q3xSfP9ndaLI5RGSct/h2LYMn5XMNtlpGP2MBxUKYpdl2YJBekCBhhbVWYIvMzfbqjmXGXttGqLtLETwaYs7IqCXd/EuGY75gzTXBV8F5S3l9WeMRZHM3XDIHuxS6ZEFY+L2E0YNOc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=jIJrGqUA; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="CvvsrQ5z"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=AuAjci21RomupAGSpd5pEqjhHbtI6CVTBIMXgTXsE9o=; b=CvvsrQ5zbwL1RXN83SqMLxsemp
-	ptp0r7SEpnBs9NyahkiZyaTtOQSXqPjdu9q/3wuPu/b/90k32HnUlBEGcyCUeP54weCHBmyYU2kzo
-	08S/GWdCPbkak0lyM8zEU7vHEt5Uc9vYWIE5Tk13h+BLHusXrMGAL0/Ucjo4NNn6AIjL5Q4QaDfUv
-	BtSpT7A4KZtQzB8wsIzj7hJuwYibblQCdpReRf+I/ZaKWTZzfXg64c7fDk1Z33HaXDNGhon6s3w3K
-	sSVPghPpbkBlME9R9/v+8Rgx/v2ojRLBnLonFqfTDaAp8ahziqRb+MKDOlCfeJC+8O35pbFQrGeeK
-	5gj1n5MQ==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <berni@debian.org>)
-	id 1xDje9-003G3Q-00;
-	Mon, 05 Oct 2026 14:26:29 +0000
-Received: from localhost (mail.svr02.mucip.net [127.0.0.1])
-	by mailout.mucip.net (Postfix) with ESMTP id 4AC1B7299;
-	Mon, 05 Oct 2026 16:26:27 +0200 (CEST)
-Received: from mailout.mucip.net ([127.0.0.1])
- by localhost (mail.svr02.mucip.net [127.0.0.1]) (amavis, port 10125)
- with ESMTP id frvvpiVYRALC; Mon,  5 Oct 2026 16:26:27 +0200 (CEST)
-Received: from fliwatuet.svr02.mucip.net (fliwatuet.birkenwald.de [IPv6:2001:1b10:1000:0:5054:ff:fe67:68e8])
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="jIJrGqUA"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 54B3E40E02A8;
+	Mon,  5 Oct 2026 14:27:50 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id 2BNUDeMeS2P9; Mon,  5 Oct 2026 14:27:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1791210458; bh=cZtHqlO0XZbeiyjkyXGFxI+e36HVHGVU3NICYNx/TZ4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=jIJrGqUAH2RrE2PT0rhIhq3ZLtLsmGutFeipsxcwSYPpFZQK2BT0x6g49wsVD6YLU
+	 k5BRvuKxx9gZygao7jrGLo3/iS1+Ouo4xY669Y7vtcirDCZyfLWwrWE6ZGL0Y47o+B
+	 wCh1W5LMnKBEteirI6fLkJ7EZQRQ/if77FNtK+uJrJXPKmkVX8qwX9GOQFJUF5yK2F
+	 mHPqC9PMcFt8lAZ+2D+NIGWuJ5EhPcJ+r0ZQjjYitIiTP+kd0iYTME3Ij7oBNYK636
+	 yPI4yP2ekfYiWQ99JrEFywb0/5vUyLyG+XMTBZSIa3sFhlWebxDYz/oEgTxOBv0OeN
+	 G3ztPbFyYg6ZfZTjBBHsbntHHYUYf768V1yhL+PfSu8gGDNfRFWGTEqfe4V5Infio/
+	 F4nOneiBuKFFmvemdQylE8XXGyOulluPIugkplV+OAloZQ94P6f2AXmhkYLNvIgJpk
+	 DEqgGCXgdzjU+FoH09Xlk2rFHSlujFF+h+3A3yxtUs2fc2cjzZB0lRmYBlbeRiOF6D
+	 whpRuszFigiF8hcKYMrWy81dglfLUyE5Vk9lskZIfgpcDDtGL1F//48S/GnL2xqrKI
+	 w19FV8Nla2gt877Ze2gl4MV+tEHY9VaaoUWS+76hmO9eOsjK3eo574iA0zYRvurJgA
+	 UKyLIPnCyBT9Eh8P2M8QPAm4=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature ECDSA (secp384r1) server-digest SHA384)
-	(Client did not present a certificate)
-	by mailout.mucip.net (Postfix) with ESMTPSA id 220D52236;
-	Mon, 05 Oct 2026 16:26:27 +0200 (CEST)
-Date: Mon, 5 Oct 2026 16:26:25 +0200
-From: Bernhard Schmidt <berni@debian.org>
-To: Salvatore Bonaccorso <carnil@debian.org>
-Cc: Eric Dumazet <edumazet@kernel.org>,
-	"David S . Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
-	stable@vger.kernel.org, Stefan Fleischmann <sfle@kth.se>,
-	Eric Dumazet <edumazet@google.com>,
-	Michael Chan <michael.chan@broadcom.com>,
-	Pavan Chebbi <pavan.chebbi@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>
-Subject: Re: [PATCH net] bnxt_en: fix DMA mapping length for padded small
- packets
-Message-ID: <asOzkZIrKusyF1d0@fliwatuet.svr02.mucip.net>
-References: <20261005023812.130639-1-edumazet@kernel.org>
- <asOHdc6HMSVrS9z9@eldamar.lan>
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 6D6E740E02B3;
+	Mon,  5 Oct 2026 14:27:35 +0000 (UTC)
+Date: Mon, 5 Oct 2026 07:27:32 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: gregkh@linuxfoundation.org
+Cc: dinguyen@kernel.org, stable@vger.kernel.org
+Subject: Re: FAILED: patch "[PATCH] EDAC/altera: Fix memory leak on dci
+ allocation failure" failed to apply to 5.15-stable tree
+Message-ID: <20261005142732.GBasOz1POO8wYBLJC2@fat_crate.local>
+References: <2026100524-payer-capricorn-e50f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <asOHdc6HMSVrS9z9@eldamar.lan>
-X-Debian-User: berni
+In-Reply-To: <2026100524-payer-capricorn-e50f@gregkh>
 
-On 05/10/26 01:18 PM, Salvatore Bonaccorso wrote:
-> Hi,
+On Mon, Oct 05, 2026 at 12:27:24PM +0200, gregkh@linuxfoundation.org wrote:
 > 
-> On Mon, Oct 05, 2026 at 04:38:12AM +0200, Eric Dumazet wrote:
-> > Stefan Fleischmann reported Intel IOMMU DMA Read faults on BCM57412
-> > NetXtreme-E NICs when transmitting packets on VLAN/macvlan interfaces:
-> > 
-> >   DMAR: [DMA Read NO_PASID] Request device [18:00.0] fault addr 0xfc499000
-> >         [fault reason 0x06] PTE Read access is not set
-> >   bnxt_en 0000:18:00.0 eno1np0: Abandoning msg {0xb4 0x41a} len: 0 due to firmware status: 0x2000001
-> >   ...
-> >   NETDEV WATCHDOG: eno1np0 (bnxt_en): transmit queue 0 timed out
-> > 
-> > The fault address (0xfc499000) is on an exact 4KB page boundary,
-> > pointing to a DMA read buffer overrun.
-> > 
-> > In bnxt_start_xmit(), packets smaller than BNXT_MIN_PKT_SIZE (52 bytes),
-> > such as 42-byte untagged ARP frames, are padded:
-> > 
-> >     if (length < BNXT_MIN_PKT_SIZE) {
-> >         pad = BNXT_MIN_PKT_SIZE - length;
-> >         if (skb_pad(skb, pad))
-> >             goto tx_kick_pending;
-> >         length = BNXT_MIN_PKT_SIZE;
-> >     }
-> > 
-> >     mapping = dma_map_single(&pdev->dev, skb->data, len, DMA_TO_DEVICE);
-> >     ...
-> >     dma_unmap_len_set(tx_buf, len, len);
-> > 
-> > However, 'len' was initialized earlier to skb_headlen(skb) (e.g. 42 bytes)
-> > and is left unadjusted after padding. Consequently, dma_map_single() and
-> > dma_unmap_len_set() map and track only 42 bytes.
-> > 
-> > Later, the hardware TX buffer descriptor is programmed with the padded length:
-> > 
-> >     txbd->tx_bd_len_flags_type =
-> >         cpu_to_le32(((len + pad) << TX_BD_LEN_SHIFT) | flags |
-> >                     TX_BD_FLAGS_PACKET_END);
-> > 
-> > The NIC DMA engine is thus instructed to read 52 bytes from a region where
-> > only 42 bytes were DMA-mapped. If skb->data ends near the boundary of a 4KB
-> > page (within 'pad' bytes of the next page), the hardware DMA read overruns
-> > into the unmapped adjacent page, triggering an IOMMU fault.
-> > 
-> > This issue was exposed after commit 447cbe95ebb9 ("vlan: fix skb_under_panic
-> > and races when toggling HW VLAN offload") because reserving extra VLAN
-> > headroom rounded LL_RESERVED_SPACE from 48 up to 64 bytes, shifting skb->data
-> > offsets and potentially causing small frames to land right against page
-> > boundaries.
-> > 
-> > Fix this by using skb_put_padto(skb, BNXT_MIN_PKT_SIZE) in the normal_tx
-> > path. This ensures skb->len and skb_headlen(skb) reflect the padded size so
-> > that dma_map_single() maps the full buffer and the descriptor length is
-> > consistent. This also removes the temporary 'pad' variable and masking logic.
-> > 
-> > Fixes: c0c050c58d84 ("bnxt_en: New Broadcom ethernet driver.")
-> > Cc: stable@vger.kernel.org
-> > Reported-by: Stefan Fleischmann <sfle@kth.se>
-> > Closes: https://lore.kernel.org/netdev/20261004122616.56714cbd@nargothrond/
-> > Signed-off-by: Eric Dumazet <edumazet@google.com>
-> > ---
-> > Cc: Michael Chan <michael.chan@broadcom.com>
-> > Cc: Pavan Chebbi <pavan.chebbi@broadcom.com>
-> > Cc: Andrew Lunn <andrew+netdev@lunn.ch>
-> > ---
-> >  drivers/net/ethernet/broadcom/bnxt/bnxt.c | 19 +++++++------------
-> >  1 file changed, 7 insertions(+), 12 deletions(-)
-> > 
-> > diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-> > index d7728d0c5b6e63ee72de9dea54426bb4c8b7a9fc..7ea27e81e88c5ca82a453b449982b791e8acc831 100644
-> > --- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-> > +++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-> > @@ -486,7 +486,7 @@ static netdev_tx_t bnxt_start_xmit(struct sk_buff *skb, struct net_device *dev)
-> >  	struct netdev_queue *txq;
-> >  	int i;
-> >  	dma_addr_t mapping;
-> > -	unsigned int length, pad = 0;
-> > +	unsigned int length;
-> >  	u32 len, free_size, vlan_tag_flags, cfa_action, flags;
-> >  	struct bnxt_ptp_cfg *ptp = bp->ptp_cfg;
-> >  	struct pci_dev *pdev = bp->pdev;
-> > @@ -672,14 +672,12 @@ static netdev_tx_t bnxt_start_xmit(struct sk_buff *skb, struct net_device *dev)
-> >  	}
-> >  
-> >  normal_tx:
-> > -	if (length < BNXT_MIN_PKT_SIZE) {
-> > -		pad = BNXT_MIN_PKT_SIZE - length;
-> > -		if (skb_pad(skb, pad))
-> > -			/* SKB already freed. */
-> > -			goto tx_kick_pending;
-> > -		length = BNXT_MIN_PKT_SIZE;
-> > +	if (skb_put_padto(skb, BNXT_MIN_PKT_SIZE)) {
-> > +		/* SKB already freed. */
-> > +		goto tx_kick_pending;
-> >  	}
-> > -
-> > +	length = skb->len;
-> > +	len = skb_headlen(skb);
-> >  	mapping = dma_map_single(&pdev->dev, skb->data, len, DMA_TO_DEVICE);
-> >  
-> >  	if (unlikely(dma_mapping_error(&pdev->dev, mapping)))
-> > @@ -759,10 +757,7 @@ static netdev_tx_t bnxt_start_xmit(struct sk_buff *skb, struct net_device *dev)
-> >  		txbd->tx_bd_len_flags_type = cpu_to_le32(flags);
-> >  	}
-> >  
-> > -	flags &= ~TX_BD_LEN;
-> > -	txbd->tx_bd_len_flags_type =
-> > -		cpu_to_le32(((len + pad) << TX_BD_LEN_SHIFT) | flags |
-> > -			    TX_BD_FLAGS_PACKET_END);
-> > +	txbd->tx_bd_len_flags_type |= cpu_to_le32(TX_BD_FLAGS_PACKET_END);
-> >  
-> >  	netdev_tx_sent_queue(txq, skb->len);
-> >  
-> > -- 
-> > 2.53.0
+> The patch below does not apply to the 5.15-stable tree.
+> If someone wants it applied there, or to any other stable or longterm
+> tree, then please email the backport, including the original git commit
+> id to <stable@vger.kernel.org>.
 > 
-> FWIW, got as well reported in Debian for an update in the 6.12.y
-> series: https://bugs.debian.org/1149564 , in case you would like to
-> add a further Link/Closes reference. Bernhard Schmidt is testing the
-> patch as well on top of 6.12.111 (what we have right now in Debian)
-> and looks promissing: https://bugs.debian.org/1149564#89 .
+> To reproduce the conflict and resubmit, you may use the following commands:
 > 
-> Berhard, want to report back a Tested-by from you?
+> git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+> git checkout FETCH_HEAD
+> git cherry-pick -x 3e4a10a4718e3d963ee4d6c5f26bc5ad57c1d2b1
+> # <resolve conflicts, build, test, etc.>
+> git commit -s
+> git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100524-payer-capricorn-e50f@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+> 
+> Possible dependencies:
+> 
+> 
+> 
+> thanks,
+> 
+> greg k-h
+> 
+> ------------------ original commit in Linus's tree ------------------
+> 
+> From 3e4a10a4718e3d963ee4d6c5f26bc5ad57c1d2b1 Mon Sep 17 00:00:00 2001
+> From: Dinh Nguyen <dinguyen@kernel.org>
+> Date: Fri, 11 Sep 2026 07:06:26 -0500
+> Subject: [PATCH] EDAC/altera: Fix memory leak on dci allocation failure
+> 
+> Sashiko reports:
+> 
+> "If devres_open_group() fails, the function returns -ENOMEM without freeing the
+> dci structure allocated earlier with edac_device_alloc_ctl_info()."
+> 
+> Free the dci structure if devres_open_group() fails.
+> 
+> Fixes: c3eea1942a16 ("EDAC, altera: Add Altera L2 cache and OCRAM support")
+> Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
+> Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+> Cc: stable@vger.kernel.org # 6.18+
+			       ^^^^^
 
-Looks good. Machine has been stable with that patch applied to 6.12
+You probably should drop all backports before 6.18.
 
-Tested-by: Bernhard Schmidt <berni@debian.org>
+Like we marked it!!! :-P
 
-Bernhard
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
