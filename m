@@ -1,56 +1,56 @@
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com [209.85.128.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FA0546AA6B
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 09:47:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF146469820
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 09:47:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791193672; cv=none; b=TQjkZAZp7kmZSARrdss8gGIZzi3kF5I2WfLKFAlMgN2qSEz3hgkBRTV8FjBBUzw3OMNPktaRdqNHYeomyD9ej1Aervuoih3jkTCkjIXnEIoU0+lC3q+rCH3+Vekn65S70VbSJOAU9wMSMnjwqTb5k1nbez3lrQGUX9jRiqEtQ1Q=
+	t=1791193673; cv=none; b=LFnv7SD19hqrWEeX3q+2WAd5ds0d4DQqN8YddLgWh6D5Ouxq/Pr6pvJy7jLSvLorlFPiMMKyYleDHDrf6CeZtJT50TbUORkIKD9OPBvxHIIfN3xgyGdK5y6IgwQFt9XNZ9bJ/wGy++mVENjg94VMfwKj/zvkormAi1x47X8BWec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791193672; c=relaxed/simple;
-	bh=C/HalkpVc/aaLPRcuY8K3fmDX5xNBnpE2HlADon4V+4=;
+	s=arc-20240116; t=1791193673; c=relaxed/simple;
+	bh=28uiTWIIABkfwULio8qpodsyvAtD54gc+3tq5EFHoJM=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=nljiTf/eh6XSQVKdiPS7QttB1vLh6wApX5ksCeeHsStUSzPn1id4q4piGkhlRJDdidzqwS9ZgC+do6PEknQdernCd6WACzGQoTDBwRJLihw0YO3ylhDceOel2kK2w6BxIxjlcyfT6bIeXSuDy6C3EUqkLp/o+VWcmIGJCWRZ9SU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=SBf94Xq3; arc=none smtp.client-ip=209.85.128.69
+	 To:Cc:Content-Type; b=a0uiGvpopcdtVeuaXHcaqmv9s4SNdLZf0tk0iduilEagoF4vewqtjHLAhoe6Q/MDLKWxCzqqrGF36tpRVV2ijcVmQWcNntmaRhPfgdzE5vwoBqux7hckOm0k+TYXMFyOrgym6WhTwBZeVNmY82xW+ZhqJK2T28vhqu2MEz4GOYY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ppyv0vLx; arc=none smtp.client-ip=209.85.128.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="SBf94Xq3"
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a166a9ea21so13921175e9.2
-        for <stable@vger.kernel.org>; Mon, 05 Oct 2026 02:47:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ppyv0vLx"
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a0101292baso17551655e9.2
+        for <stable@vger.kernel.org>; Mon, 05 Oct 2026 02:47:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791193664; x=1791798464; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1791193667; x=1791798467; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=BbsBB7teGYK9VKfbxNuqfeRouM1sExnVepBnTLGc54E=;
-        b=SBf94Xq3RDkh/2auYXT3fbWcadjJC6vDOa82FcbqK9VBd85xGBwwdDVJ26VbHZu1hD
-         cAveRO9FJMVjUISgtHFrJivbhF3N2KGmnKsdTquGdLbzF8pwAdTRmFpBvQYUh1Q/5eVP
-         18jFn7cK3O5Y4v5xdXUwndbVAcZb7E1Uglx9jYCVVZV624uf5XHs7oQlcPgsqHkbbf/a
-         UjenayaNSCfLX56ZJuSQLMu90o2c2gZJdvQjgpMfMF7D4gj0RD7d/R7o8eUYlxjxWHVH
-         hEaxFQVMeY+I8S1iyPiPZmRZu6+qZYwo6Qnl/mGLpzRQ5UDcGuLBiEK3ZG0OTJmCTGtQ
-         29nA==
+        bh=0jMEn+uojeugEvTLf+dfsz2SFwaZUIeudYt/IVuG/qU=;
+        b=ppyv0vLxx9Pp2WNjtrD40LZXZyU8AuYCb5OSo/lIThuYpJRgoSKYvroSFwLDGeudRS
+         qXyAQiDE6jA09G2yaRi+jxme41H5WP5w1csEEkMrFYRTNl+laWIfcBpc/rxcAI+szjjg
+         uGSKUeCCW6THHI1wfHL+OaJgJPNc3R76RiB5Toioz+6BvBx+X3HE2TttSojJ/8stNGdR
+         IrGcylA3IeU2TtCNYh780BDgkTNaX4IiudRSzBDEix/gqyLCpdv8mRZ0sO05MBgLFYBS
+         fh3u2CaG/GGKeopTKB7lT3kSqygx6hy9K5l9j9rSjqqqkUOLSdAxvrM7/h9x2yRuTraP
+         Q5mA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791193664; x=1791798464;
+        d=1e100.net; s=20260707; t=1791193667; x=1791798467;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BbsBB7teGYK9VKfbxNuqfeRouM1sExnVepBnTLGc54E=;
-        b=GrMcREytKKR9hNvIIgDaeHqZ70g6ZwKw2PBhCQ/jUgXkqW7cC4zYOgviM6y/oyMGAo
-         Fk3n8PhPQ/9HvxTKwS9NBg8P0JZowItrdCY3StZSQarqk9ZXBi3vMBVmvr4gGY6ZeciZ
-         V/5bV3P9Us7h7RsjcVzZjqm8vNSk8ElRGYhtmjvrHTNb9uCzCfRNHPE8L41olXAwxa0P
-         5hsV2D616VXDxjo+2aiTAKiI7+tmH+wK2JC56BZp232BeVo/3l/ydNYG03YYeQD/yVH2
-         qdjGamm4Unw1xgKAGxkz3f3m+1snz5+hnKw45goVNWC9n0Z717b/cvmqEGm5nCapAgDg
-         lODQ==
-X-Gm-Message-State: AFuF++mNe5mJLoXt/QQo9A2YzG9jx91WAJ3aq93K9bWC7D0FRGFAG1fb
-	WiAZXracYRGABXkGri2mXPXGitjk3hNcdx8hkpTQp2IsE4RU1i43bo5Pzew+COHoT298bRBOUVt
-	AZTxhDve0lgI5SDHR8r1n+4dnMgmzdGNtjDVxPneDsRWFR2IpDUVIYm+7+j4tduaqkSjtNlNqwy
-	bXxfqQ0TSjMv1FqjsVF1/A7ifsn0qUvxVc05am8eBBVKhQCDTwcJpN
-X-Received: from wmpl19.prod.google.com ([2002:a05:600c:893:b0:4a1:6fa9:2d03])
+        bh=0jMEn+uojeugEvTLf+dfsz2SFwaZUIeudYt/IVuG/qU=;
+        b=aTidL8A+1DDyJEOgbwCXAUVX/l+vuGrtuB3x+lhHJ5WtSsN2W/M7wskL2L8vzuWER0
+         DJZ885dBYcrbwoedDT8pYQVAVQ83+s3eIPaqeUYNrjyIL718UdjQGe0/c7zWWR4QZIiR
+         r1P9eHfzWU1G4ahXfc4hgtzvRbL0E5ObtAYwYnmSQ96x5+DchVNS4lmwwT5ILKe8kEu/
+         4DvR1oX1V8dCgxyo6Snb5yBmi6iuKGSQaWkQc28G/O5LV/nLMDs4HwcEABYYgzBDED42
+         UqZYzByqCcXogQVuPFcpwHNJL+rmReDktqQ58gtammqmPDAyhInDdetsM2qAsJv79ZCy
+         M9sw==
+X-Gm-Message-State: AFuF++m/E25NIX6FEqDXI0MqAf+SlhnNbIQh73s8+qWa8WTKHleEoTE4
+	RubB0ykXCeb3Syaw/NvOo+//tyYhklGyPxVFDTAFGpqQxf7lcEnutpZqlZ9ik7Hzqbe7WrtIQ0u
+	ZuREeZOrOp3gkexZHMVF5dT2EYw4nVGJow35QM2edp3bnPMh3IEniAWO9bioGAseXnshCr6E8zb
+	ngUgd18vJVlj30NbgDRd8hZP7bONh+V2XKZZQTQRLhgeUEc+tM6hN0
+X-Received: from wmok21.prod.google.com ([2002:a05:600c:4795:b0:4a0:2845:31c9])
  (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:6215:b0:49d:1fd8:b874 with SMTP id 5b1f17b1804b1-4a027564c86mr168001755e9.19.1791193663635;
- Mon, 05 Oct 2026 02:47:43 -0700 (PDT)
-Date: Mon, 05 Oct 2026 09:47:27 +0000
+ 2002:a05:600c:4ec6:b0:49d:1cc7:5ec3 with SMTP id 5b1f17b1804b1-4a02756637cmr181239935e9.9.1791193666905;
+ Mon, 05 Oct 2026 02:47:46 -0700 (PDT)
+Date: Mon, 05 Oct 2026 09:47:29 +0000
 In-Reply-To: <20261005-devres-6-18-backport-v1-0-06dcf0e592d5@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -60,22 +60,23 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20261005-devres-6-18-backport-v1-0-06dcf0e592d5@google.com>
 X-Developer-Key: i=aliceryhl@google.com; a=openpgp; fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2136; i=aliceryhl@google.com;
- h=from:subject:message-id; bh=/W9/p/qUlI7c+Vp8Q94K4vcY+BU6ZQPqrD1mg6wzcFI=;
- b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBqw3I6RxE3WbmZPE+KA8VBS08Df1RqphB6A+wPj
- scmipIk34iJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCasNyOgAKCRAEWL7uWMY5
- RkT2D/4lM2bD7ln830RsI8zOjVjIR67yUnU1DOiP9PrXWtmyiLUgjij5MZRBRIFuxJ9MaXwC747
- mV7kskmGyj9uvZFKnJvyzRUYg4t/1zG45ODmg1PwVqaAHElsUhsSqC/vhurzgOE3P7k/UdqHRB1
- 5xuLtTCsYG2ZM9fhMNXCcpHnySjRrAHLuv16C7LfEG9tULS6gRbxa77D+znu8NeBYFdofyrWMkZ
- wIOv6cCyulWeWtOY8ptqMLgxI/lmevH+lQyE7vlEUW4cutcS5Xg0geBO9p1u9ifKkk+SP39gu7m
- dVJG/yw5yYWS3tC2NeCBGalAafbmhlcqwLn5eEQNm0E23dbMfp+1hoi+spu0AeZSF4IDmeUaQla
- OnI5/sxYs342CQgdxiq8IlQZTMDnkrXjkXc9Tylyl7kh1pjyeX8cRPCl4usrCHbmDaA943Qp6ZE
- PYRmxGGBI1RKy817zvidz9/AuaUfBLLIFAnuUB1/hQWI6lWLt4cq9yoP6BmUu126iNH8nAYSGtX
- F7w44ofCMUPStjRl0gggtKU3fBe3NY4mtT6+pSOVR7Z+/v03P7ObrTDZs9q0KOW83F5a84QZS0f
- 81CirftdX1+uJMqIe4Kd9EUMxel7HntoeH+Jofo+eVsZqNOeFcc2r5gMQZlQnRFK6t5tjw5W0Y9 j7QQ147Cn4UOvcw==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2717; i=aliceryhl@google.com;
+ h=from:subject:message-id; bh=7I4O+g3s8+7UkGcF3WGN5dLLRIwv6sGTRiTYgZQAeNk=;
+ b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBqw3I6z25lJhoxLkMfeGvQ3dP+jgpGUCfhYI96v
+ goLu5RRKzeJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCasNyOgAKCRAEWL7uWMY5
+ Ru4CD/9vz3AJzlCzvqxa/3mkfoBpYmcTc1JCDPk3w1aMhCzC1FtotJKcy2S5mrXiz+rrWigrSTq
+ iXyTPoF6/KXur8twcF63idkdC75PuHlvuW85UM76Kz13xd8hDcTrHZbZwBNtufxtT56WZZFEWsS
+ YPYwChI67vhUqRLSti8BPuVTWD3dUuuugI+hghsgUR1zuZYc5rmove2UGibFEmfP1YOgt60fsaY
+ McUj4+YCthMIrErLl2QF1c3OHNy6YXhwRBvBJpIhU7gZdL4uNGVfBj6iL99iZzJUVXr0Bs38ASt
+ Ic0fMzxwZ+LoSaYSFRN+x4ejYoMxKszdmUTBU+wBaNTgh0ODrVB5pEgrf7YdJwj1jZgW0w83sD4
+ u7PjT0PiksnaXt74Q35hUm+CTOsp0aPoma3C4qLIqdc1A3XaYMmOJugk5a046CsSxcVwUT6UVGE
+ mBcmNycTTLqfQqu4qPrc1GxWWym9FipycnJJNUyVE1p58nVXclWOykaht0Qa66ons3rWHQ8CIPM
+ H2f7ojJ433PvM0/pCU5LWT91L21Bp/9vWMwm4kUz1/sXhuTfdkIGxHYMDqrdWx9ktPDcCbJRsSk
+ eTmdobXTbNnXYH4sjjt9GAQY+NQbQaDtQSpPZZRxQkZsT2a3QaIZZroW+7qINd3DFWVz0o41v8c 6VKI2tUPiKPW7vw==
 X-Mailer: b4 0.14.3
-Message-ID: <20261005-devres-6-18-backport-v1-2-06dcf0e592d5@google.com>
-Subject: [PATCH 6.18.y 2/5] rust: devres: add 'static bound to Devres<T>
+Message-ID: <20261005-devres-6-18-backport-v1-4-06dcf0e592d5@google.com>
+Subject: [PATCH 6.18.y 4/5] rust: devres: ensure revocation is complete before
+ device finishes unbinding
 From: Alice Ryhl <aliceryhl@google.com>
 To: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
 	Sasha Levin <sashal@kernel.org>, Danilo Krummrich <dakr@kernel.org>
@@ -92,59 +93,62 @@ Content-Type: text/plain; charset="utf-8"
 
 From: Danilo Krummrich <dakr@kernel.org>
 
-commit 016267b521b18529c977c9eca9597a1669c3d73c upstream.
+commit a10639966fd72fff8f7fbf3c8e733307daabd38f upstream.
 
-Devres::new() registers a callback with the C devres subsystem via
-devres_node_add(). If the Devres is leaked (e.g. via
-core::mem::forget(), which is safe), its Drop impl never runs, and the
-devres release callback will revoke the inner Revocable on device
-unbind, which drops T in place. If T contains non-'static references,
-those may be dangling by that point.
+Now that the revocation Completion is in place, also address the
+symmetric case. When Devres::drop() wins the is_available swap and the
+devres callback loses, the callback returns to devres_release_all()
+without waiting. This means device unbinding can complete while
+Devres::drop() is still executing drop_in_place() on another CPU, which
+is a problem if T's destructor accesses device state.
 
-Add a 'static bound to prevent storing types with borrowed data in
-Devres.
+Make the synchronization bidirectional. Whichever side performs
+drop_in_place() signals the Completion, and the other side waits.
 
-Fixes: 76c01ded724b ("rust: add devres abstraction")
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
-Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
-Link: https://patch.msgid.link/20260526000447.350558-1-dakr@kernel.org
+This does not reintroduce the nested Devres deadlock fixed by commit
+ba268514ea14 ("rust: devres: fix race condition due to nesting"),
+because that deadlock was caused by drop waiting for the release
+callback to return (the old 'devm' Completion). Here, both sides only
+wait for drop_in_place() to finish, which completes within the current
+call chain. The Arc<Inner<T>> keeps the Inner allocation alive
+independently.
+
+Cc: stable@vger.kernel.org
+Fixes: ba268514ea14 ("rust: devres: fix race condition due to nesting")
+Reviewed-by: Gary Guo <gary@garyguo.net>
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+Link: https://patch.msgid.link/20260628200304.2365598-1-dakr@kernel.org
 Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 Signed-off-by: Alice Ryhl <aliceryhl@google.com>
 ---
- rust/kernel/devres.rs | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ rust/kernel/devres.rs | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
 diff --git a/rust/kernel/devres.rs b/rust/kernel/devres.rs
-index 562dd54fbe43..0fea4f2844a5 100644
+index 02916f80db5a..fc0d8b2cb7b2 100644
 --- a/rust/kernel/devres.rs
 +++ b/rust/kernel/devres.rs
-@@ -97,7 +97,7 @@
- /// # Ok(())
- /// # }
- /// ```
--pub struct Devres<T: Send> {
-+pub struct Devres<T: Send + 'static> {
-     dev: ARef<Device>,
-     /// Pointer to [`Self::devres_callback`].
-     ///
-@@ -107,7 +107,7 @@ pub struct Devres<T: Send> {
-     data: Arc<Revocable<T>>,
- }
+@@ -173,6 +173,11 @@ fn data(&self) -> &Revocable<T> {
  
--impl<T: Send> Devres<T> {
-+impl<T: Send + 'static> Devres<T> {
-     /// Creates a new [`Devres`] instance of the given `data`.
-     ///
-     /// The `data` encapsulated within the returned `Devres` instance' `data` will be
-@@ -236,7 +236,7 @@ unsafe impl<T: Send> Send for Devres<T> {}
- // SAFETY: `Devres` can be shared with any task, if `T: Sync`.
- unsafe impl<T: Send + Sync> Sync for Devres<T> {}
+         if inner.data.revoke() {
+             inner.revocation.complete_all();
++        } else {
++            // Devres::drop() is concurrently revoking; wait for it to finish `drop_in_place()`
++            // before returning to `devres_release_all()`, ensuring `T` is fully torn down before
++            // the device finishes unbinding.
++            inner.revocation.wait_for_completion();
+         }
+     }
  
--impl<T: Send> Drop for Devres<T> {
-+impl<T: Send + 'static> Drop for Devres<T> {
-     fn drop(&mut self) {
+@@ -261,6 +266,8 @@ fn drop(&mut self) {
          // SAFETY: When `drop` runs, it is guaranteed that nobody is accessing the revocable data
          // anymore, hence it is safe not to wait for the grace period to finish.
+         if unsafe { self.data().revoke_nosync() } {
++            self.inner.revocation.complete_all();
++
+             // We revoked `self.data` before the devres action did, hence try to remove it.
+             if self.remove_action() {
+                 // SAFETY: In `Self::new` we have taken an additional reference count of `self.inner`
 
 -- 
 2.56.0.360.g66cac248cb-goog
