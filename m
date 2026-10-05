@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9393A47ECFB
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 16:23:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 998BC486404
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 16:23:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791217384; cv=none; b=Hay5hU1XeLGo24upV6Kaek07ZRvL6lEG0NGNTWet88qwzYNfbN0H+rmjMy8bKNhcjhmGDv+UU96anzQza/AvE7X7B24Vl27VZ/3hOVP3WxrQINLpCqHbEO3BrBdBprKLgY5KB9zzjCVeLwo5FCAThodr0jQ4KZTaq5ijfgjZlsk=
+	t=1791217391; cv=none; b=KStptBeBDQP/4D9AW1qBCgxiMMCRK04KEEMbfI2tOO5G/+IvDlbe+bxj3FwJQLJQ5Dnr9Cw/kY/1MK+CV9/pKTIFp+ugmi4ITjGRED9K7Ox2Ag6oEO2GonpNtsph9b33fGuyRRECGs0rFaTzpJgNQGd7NzE4kyutCN2D+XOMnR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791217384; c=relaxed/simple;
-	bh=Sdt5km9aLhwuxK1RXntp1h78+9rhy30dNmTtc+oqbiM=;
+	s=arc-20240116; t=1791217391; c=relaxed/simple;
+	bh=DV/WnWJZuYXFkqv9AoRoznktjcB8DfcZV4QJeraiKN0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=e78mEJ1ABwZc9lE3JoHBtCx0dFH6HdWSj8ouKKJNKPWFNLU+o6SdL90ANl1tIt77PkXfQo6y1AVc35cfmxVaLL7KGUffXFIkSK3anvdkSLQY81xNqn9FBugGhlxTNKbodIZ70hFZsOj9LxsICpA5GhOqqESvnJprZlavwNM5zU0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gDDR4OeQ; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=niGtjWSY3d7fT5zv+AM1FiuI4KUiPXsJw2jNkvqXjFuobmf5qKgb3nRkTKmgMzUdotaCQ9VMhoJGgYIwz5RY8sfyYMNfJX6C5yw7Y2VROHP+hvzfPKjpz44gDtyMnHM4n/H+Otj3t3QIhXcoPJ08TkY0TGmitKeKhS7CWj9VqOo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UeSR5as/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gDDR4OeQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 540681F000FF;
-	Mon,  5 Oct 2026 16:23:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UeSR5as/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EA831F000FF;
+	Mon,  5 Oct 2026 16:23:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791217383;
-	bh=2W8wPE/n0B6SbVHctuYafETxNxutiasO4QA0dhG8Ejo=;
+	s=k20260515; t=1791217390;
+	bh=Mda7+yIjIBR3Qqe+VFjoT3FF7oC4qOUUWMYXDMMcUC4=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=gDDR4OeQzBfutMlQ1ieHSX/Q3TkpULaaMvbpKTqFsbaVwWei2V0/rVUcNanPO2drT
-	 rAOae/vJAOMmzDy4BvRDRI43Dc+Vfk3MBLp6xer86fN8pz6GyQpJ2BI+hsMMdIlObv
-	 7ZWOpTGYP6tczPulmvhNKxqYQay/mpLLZAGJPHMyb+XiDcnf0ACnFtUKLmViH1tLpX
-	 V4bEFsne5WbjXbhWWTODkc7Hm+nlXQLZJ4Rpdf+2c1JKL1U8TXVzi576h3b55E6++k
-	 eBfnMOEbF8A82J78q6Z8CUkobed19cf0870tjMEs2+k5V+/VbYtLdfEWLnGYTbRSjn
-	 Mb4gAuK925OaA==
-Message-ID: <83ad680c-9f5e-4328-b87f-ad0f14de9ed6@kernel.org>
-Date: Mon, 5 Oct 2026 18:23:00 +0200
+	b=UeSR5as/UsIufpyyMXG3LJRC3gTGqixqRApX4dZ9Ad6CEIWNtELgPCa9uT7tBmxYy
+	 IVvK6n0WuZDXH9vmErAym6ps+lfobe6cpzMcTo61/SYk2JN64EJXpOOLsG0zQTe7ZI
+	 ihJU38JYTTusgZKiuWdSGtsapkj/M2AyVKBGUPuLSE3eCg34u9BblD+2DRdqNNEiAH
+	 9FCAY/GGmFnJbqlV56WAvci+101XHe5JFG38363JI9fBQ+/w2H5cNOiwd9g9QKLxH0
+	 NqDL0g24b138phAOmWI7yQ/ufDtnF2Yz2dH0zcwFpFTWTBje9P4SrbWx7p8C6VTYVq
+	 d2eBrf/PY506g==
+Message-ID: <25ffce03-e064-497a-9cbf-8bcbeccf14b7@kernel.org>
+Date: Mon, 5 Oct 2026 18:23:08 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,14 +35,14 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH 6.6.y 2/2] mptcp: prevent race between disconnect() and
+Subject: Re: [PATCH 6.1.y 2/2] mptcp: prevent race between disconnect() and
  rtx
 Content-Language: fr
 To: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org
 Cc: Paolo Abeni <pabeni@redhat.com>, Jakub Kicinski <kuba@kernel.org>
-References: <2026091621-borough-happiness-9e59@gregkh>
- <20260917124903.223926-1-sashal@kernel.org>
- <20260917124903.223926-2-sashal@kernel.org>
+References: <2026091622-thieving-raffle-4915@gregkh>
+ <20260917133440.405725-1-sashal@kernel.org>
+ <20260917133440.405725-2-sashal@kernel.org>
 From: Matthieu Baerts <matttbe@kernel.org>
 Autocrypt: addr=matttbe@kernel.org; keydata=
  xsFNBFXj+ekBEADxVr99p2guPcqHFeI/JcFxls6KibzyZD5TQTyfuYlzEp7C7A9swoK5iCvf
@@ -88,13 +88,13 @@ Autocrypt: addr=matttbe@kernel.org; keydata=
  JY6dglzGKnCi/zsmp2+1w559frz4+IC7j/igvJGX4KDDKUs0mlld8J2u2sBXv7CGxdzQoHaz
  lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
 Organization: NGI0 Core
-In-Reply-To: <20260917124903.223926-2-sashal@kernel.org>
+In-Reply-To: <20260917133440.405725-2-sashal@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 Hi Sasha,
 
-On 17/09/2026 14:49, Sasha Levin wrote:
+On 17/09/2026 15:34, Sasha Levin wrote:
 > From: Paolo Abeni <pabeni@redhat.com>
 > 
 > [ Upstream commit 85c580b0d8590520ae00a15c29e9fb9c99427a3e ]
@@ -117,10 +117,10 @@ Thank you for the backport!
 >  1 file changed, 8 insertions(+), 2 deletions(-)
 > 
 > diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
-> index eb5ade30f1a31..8e67f3ef8cac6 100644
+> index 70810fa673c34..3e01ed990cf07 100644
 > --- a/net/mptcp/protocol.c
 > +++ b/net/mptcp/protocol.c
-> @@ -3302,6 +3302,7 @@ static void mptcp_copy_inaddrs(struct sock *msk, const struct sock *ssk)
+> @@ -3267,6 +3267,7 @@ static void mptcp_copy_inaddrs(struct sock *msk, const struct sock *ssk)
 >  
 >  static int mptcp_disconnect(struct sock *sk, int flags)
 >  {
@@ -128,9 +128,9 @@ Thank you for the backport!
 >  	struct mptcp_sock *msk = mptcp_sk(sk);
 >  
 >  	/* We are on the fastopen error path. We can't call straight into the
-> @@ -3314,8 +3315,13 @@ static int mptcp_disconnect(struct sock *sk, int flags)
+> @@ -3279,8 +3280,13 @@ static int mptcp_disconnect(struct sock *sk, int flags)
 >  	mptcp_check_listen_stop(sk);
->  	mptcp_set_state(sk, TCP_CLOSE);
+>  	inet_sk_state_store(sk, TCP_CLOSE);
 >  
 > -	mptcp_stop_rtx_timer(sk);
 > -	mptcp_stop_tout_timer(sk);
@@ -139,30 +139,18 @@ Thank you for the backport!
 > +	 */
 > +	msk->timer_ival = icsk->icsk_rto_min;
 
-Because commit ea4eb2adb0d3 ("mptcp: honour configured min/max RTO in
-retransmit paths") is not in this version, this line should be adapted to:
+Same here in this version, and also because commit ea4eb2adb0d3 ("mptcp:
+honour configured min/max RTO in retransmit paths") is not in this
+version, this line should be adapted to:
 
   msk->timer_ival = TCP_RTO_MIN;
-
-(Before commit ea4eb2adb0d3, icsk->icsk_rto_min is not initialised)
-
-Just to avoid a deadlock, do you plan to send a v2 for that, or do you
-prefer someone else doing so?
-
-I can send a patch to fix v6.18 and v7.2. The patch has been dropped
-from the v6.12 queue. I can send a fixed version for that one too.
-
-Also, a more general question, when you resolve these conflicts, do you
-expect an explicit Acked-by? I tend not to send them on backports, I
-only react when I think something is wrong, but maybe that's not what
-the stable team is expecting?
 
 > +	sk_stop_timer_sync(sk, &sk->mptcp_retransmit_timer);
 > +	icsk->icsk_mtup.probe_timestamp = 0;
 > +	sk_stop_timer_sync(sk, &icsk->mptcp_tout_timer);
 >  
->  	mptcp_pm_connection_closed(msk);
->  
+>  	if (mptcp_sk(sk)->token)
+>  		mptcp_event(MPTCP_EVENT_CLOSED, mptcp_sk(sk), NULL, GFP_KERNEL);
 
 Cheers,
 Matt
