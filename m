@@ -1,76 +1,66 @@
-Received: from mail-qk2-f39.google.com (mail-qk2-f39.google.com [74.125.230.231])
+Received: from mta0.migadu.com (out-110.mta0.migadu.com [91.218.175.110])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47D0D2BB13
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 04:49:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.231
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 690EC30C632
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 05:23:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.110
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791175763; cv=none; b=RfQQZr6l47r7ES3oUTbcgBEeHqCzhAq2x/T/SemMKHheC0XOgkxm/drLzewWtK8C4ETi+8GceCpPAX3ukS44mvfZsVUqF70YN5WQ+JtJYGNWM5+pMFStks9GRI+LpEoFjLmhJ2doH43CXwySeTrFL9S4wAwuH9jy27nUgJkLfEw=
+	t=1791177810; cv=none; b=H70wOcouXa0kxq0VCuHOeJX4JIM3frMVdQ5Glb69FQoKj1C+zuPW4SEFgwNrSIJhJrYfbMUmPT/L2U2rn/xHiGtXj9zb3exV/2Lji6hPHJs9CEnkjGkW+h7NHKDXENvM3I53F7sG3WA6e2Tf1wpN3zlnanCkCxRpg8IgFgH55RU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791175763; c=relaxed/simple;
-	bh=RlwK2Cmq0cHokex+6+EAEcjz6T0MlTNy+oIrYy7vIgY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JiHJfxjv30URDGry6SmhQnQQIQKStFU93C5LZloNHstXe1QBYO3W4yf08Qn31KxVghmFY7O8uUfoSOlg92MXiSRSiZByArebV/yPRZDw/JgAbexJJWe5o/THsVj8CeEDtIoe97oV9G25twm83NyotpezYM1lFDB458IHbQZRwlQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YzWxzmrU; arc=none smtp.client-ip=74.125.230.231
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791177810; c=relaxed/simple;
+	bh=HvCCfJG7Kj4AzwyPWL74XPayQRFxzYMNbzWN/592PQA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D1M/SiCPjMAiIKWAAsEmKawrE+AB7U1brFQ7VV/G6d0YuNQ+0jWjt9Xrnkdy6pPVAoek4i76pDzInEwqZ5rhNK5t2th0BWQPFkKL/kxlsyJJlYz5iJg0eNspRw4a5W7tZEoIMPlnrTXWCtFPqk1efcntUwgvFCbcJXajFVxLFFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=I9IJYLy8; arc=none smtp.client-ip=91.218.175.110
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YzWxzmrU"
-Received: by mail-qk2-f39.google.com with SMTP id af79cd13be357-93cb545be7fso112158385a.2
-        for <stable@vger.kernel.org>; Sun, 04 Oct 2026 21:49:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791175760; x=1791780560; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kcJnHXIt83QrSyOF8UJnIWTRMzOTcOywYQswfygDEJY=;
-        b=YzWxzmrUlp43y/iwRUEI02fU1yysOIrZ1wCYn7Iq5rEZATcrIU97uguB6fRahoAauK
-         8r545MnSVUSt5Fdf0nos1N+RsSF2RuHoZUT1Ov+TUsj5dtDZR5cQdp7IBMSMAwCmsotS
-         ece2bFvYNUQ+VBvFT/xnqYWorr9gPvLAZarDMdrT+4DBKVoANYC4DZ1bKQCI8IAYjk/h
-         tuxaYiXiUPOxeD8aQN48WD3p3CIZNGt1pk1Xyump1mUS9z/Bk53hQ71DbsWnzr9B7KPi
-         Dm2LzATTsdVKKlSWOkcn17BbNclsjXJql+fqm337DZmUNoPBqhERBnq/VQKVOKD2WvxA
-         t4tg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791175760; x=1791780560;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kcJnHXIt83QrSyOF8UJnIWTRMzOTcOywYQswfygDEJY=;
-        b=VfX57JvQjtjM88U8nx5UcGj4+ksVwwD9W1gTzKfbn2OBumVjVlOETASGVL3dblnpC0
-         PQq57ckGVQDANDJ4ggQyfhZ+Q0EaaKcEbKn88zvNn7L1f4ZociuoV55/ltTMEVtajbPI
-         X4i2D6UwZ/sqzOGCKMhkI1lr6MSo2xo95TrpUNvSPm4R7yTTD2jjc5xdp92Rxp7CwVmR
-         Gt29QF3rMP6ss+xVU+kUIzRefAq1FtXRk8hit6N6IcOd8a5oyf2/jyuxmjjyw0ftANGA
-         P9njAS4V/PJJC6qGJjJc62IMmk2xFVA2YQtd1KV2mD7peTCNhOvLoeRn/qgVQutei/G4
-         gkzw==
-X-Forwarded-Encrypted: i=1; AKwUvBz6lQHi8qoEUpSZAE7sI9ZT+f3ZPE9DiQO5TyieGTfIVcUPQicziG8cN7yhAxVjZm6wxjQ7c+w=@vger.kernel.org
-X-Gm-Message-State: AFuF++kMHaw/IVf9mntUUJNrzL4EAIG8z06j4dDBsxM49OQ5j9ALyxwU
-	3ywt6PfYPoo9vP04qPQ5ki7cpBUkZlQ2+1xOeIf7ar7+W0IMccd/R4v9
-X-Gm-Gg: AYBFou3qFgw34ATQ60jt9DNZCkPOMj+RwnG/yHGaW0cxximrAR/Jpagv4jyFZGMgvJ4
-	41Ii5OvIbFs05OpFV1r/i4s9TdH4e9D+fCdrWqnqff4qmsL+sassfrDbVrhDwWR3WXkOhEMw9dH
-	f6iupRQ5ZT6AILQ5O14wNYT6+zzl8qp4zoVnPNWA5s+ZO5x9KgtVady00F7ZPDUwfK0A/LJwZzX
-	c28ectoUpvUXqTF5tdDFMv95D5WY/MsuyM6oniVM6M9Kw6lZQvKrpAGh/SpyMsiXT1lnCfjtacG
-	Tuv90Ois/TNNztAKUTwd4NI9izbKY2/LjJYOCQBfP9vP7keRbjTg88scfAmAQh1tCMIebN0srsn
-	D9mh4UpCe9HgtoMSuyAFpSlRiVMYhsb1WMuo/s1B5xVjq+gElWp7MA+q5QWTLwDS8rmAsIPO0Zy
-	c9Y/uNCV5S+BE3eWf9V+j9kZRPyKs4cAjaZl9JPrVNRYmpB45TXCYAO5LNdk+jSNAJ3Ggy5BKnQ
-	LL8qMh3MvzhXMzDMU3DZw==
-X-Received: by 2002:a05:620a:438f:b0:939:bc7c:15c8 with SMTP id af79cd13be357-93cf18979e3mr1635069085a.45.1791175760243;
-        Sun, 04 Oct 2026 21:49:20 -0700 (PDT)
-Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917e0b67167sm79120846d6.21.2026.10.04.21.49.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 21:49:18 -0700 (PDT)
-From: Yuho Choi <oss.patchbox@gmail.com>
-To: Alvaro Karsz <alvaro.karsz@solid-run.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>
-Cc: =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	virtualization@lists.linux.dev,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="I9IJYLy8"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=HvCCfJG7Kj4AzwyPWL74XPayQRFxzYMNbzWN/592PQA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791177806; v=1; x=1791782606;
+ b=I9IJYLy8QzPqdAqyDxJCc6wp3NlWaRvJhXv1CwRTO7cwyvygY6Wz3tlHvmZXqCJp5fn+6QbF
+ ytbQ4NAXlmav/Io2IXiwS/il6SakYlN9bvsDelrEfdo3RIpUalHw2/bAkC6pc3Kbo/FFYKJD2we
+ wcSYS8TnIKMvAjxvWCXbwtTQ=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0fbe826855e32b70;
+	Mon, 05 Oct 2026 05:23:15 +0000
+X-Mizu-Trace-ID: 0fbe826855e32b70
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: dave.hansen@linux.intel.com
+Cc: luto@kernel.org,
+	peterz@infradead.org,
+	tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	x86@kernel.org,
+	hpa@zytor.com,
+	riel@surriel.com,
 	linux-kernel@vger.kernel.org,
-	Yuho Choi <oss.patchbox@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v1] vdpa/snet: Don't discard the DPU error in snet_send_ctrl_msg()
-Date: Mon,  5 Oct 2026 00:47:45 -0400
-Message-ID: <20261005044915.264532-1-oss.patchbox@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	qi.zheng@linux.dev,
+	nadav.amit@gmail.com,
+	thomas.lendacky@amd.com,
+	kernel-team@meta.com,
+	linux-mm@kvack.org,
+	akpm@linux-foundation.org,
+	brendan.jackman@linux.dev,
+	jannh@google.com,
+	mhklinux@outlook.com,
+	andrew.cooper3@citrix.com,
+	Manali.Shukla@amd.com,
+	mingo@kernel.org,
+	stable@vger.kernel.org,
+	toshi.kani@hpe.com,
+	david@kernel.org,
+	mikhail.v.gavrilov@gmail.com,
+	pfalcato@suse.de,
+	Lance Yang <lance.yang@linux.dev>
+Subject: [PATCH 1/1] x86/mm: fix incomplete page-table invalidation with TCE
+Date: Mon,  5 Oct 2026 13:23:02 +0800
+Message-ID: <20261005052302.43042-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -79,52 +69,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-snet_send_ctrl_msg() reads the error code the DPU reports when it ACKs
-a control message, but then overwrites it with the return value of
-snet_wait_for_dpu_completion(). As a result, a DESTROY, SUSPEND or
-RESUME that the DPU rejects is reported to the caller as a success as
-long as the DPU clears the opcode register in time.
+pud_free_pmd_page() uses a single-address invalidation to flush the
+paging-structure caches before freeing the page tables. With AMD TCE
+enabled, this only invalidates upper-level entries associated with the
+target address. Cached PMD entries for other addresses in the PUD range can
+still reference the PTE pages being freed.
 
-For SUSPEND this means vhost-vdpa marks the device as suspended and
-lets userspace reprogram the vrings while the DPU is still running
-them; for DESTROY, snet_reset_dev() never even sees that the device
-failed to stop.
+The AMD manual quoted in the commit enabling TCE says these instructions
+remove
 
-Return the error from the saved ACK value once the completion wait
-itself has succeeded.
+  "only those upper-level entries that lead to the target PTE in the page
+  table hierarchy, leaving unrelated upper-level entries intact."
 
-Fixes: 3f3a1675b731 ("vdpa/snet: support getting and setting VQ state")
+Even with all PTEs cleared, speculative page walks can cache present PMD
+entries after the earlier TLB purge.
+
+Use a full TLB flush before freeing the page tables on CPUs with TCE. Keep
+the single-address invalidation otherwise.
+
+Fixes: 440a65b7d25f ("x86/mm: Enable AMD translation cache extensions")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
+Signed-off-by: Lance Yang <lance.yang@linux.dev>
 ---
-Compile-tested only (x86_64 defconfig + SNET_VDPA, W=1, sparse).
+ arch/x86/mm/pgtable.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
- drivers/vdpa/solidrun/snet_ctrl.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/vdpa/solidrun/snet_ctrl.c b/drivers/vdpa/solidrun/snet_ctrl.c
-index e284c3a06717..09afa0487fd6 100644
---- a/drivers/vdpa/solidrun/snet_ctrl.c
-+++ b/drivers/vdpa/solidrun/snet_ctrl.c
-@@ -291,7 +291,6 @@ static int snet_send_ctrl_msg(struct snet *snet, u16 opcode, u16 vq_idx)
+diff --git a/arch/x86/mm/pgtable.c b/arch/x86/mm/pgtable.c
+index 4a105f283cfb..6b7fa44f1bf6 100644
+--- a/arch/x86/mm/pgtable.c
++++ b/arch/x86/mm/pgtable.c
+@@ -727,7 +727,16 @@ int pud_free_pmd_page(pud_t *pud, unsigned long addr)
+ 	 * via normal page walks. Make them unreachable
+ 	 * in cached mid-level walks too:
+ 	 */
+-	flush_tlb_kernel_range(addr, addr + PAGE_SIZE-1);
++	if (boot_cpu_has(X86_FEATURE_TCE)) {
++		/*
++		 * With TCE enabled, a single-address flush does not invalidate
++		 * cached PMD entries for the rest of the PUD range.
++		 */
++		flush_tlb_all();
++	} else {
++		/* INVLPG to clear all paging-structure caches */
++		flush_tlb_kernel_range(addr, addr + PAGE_SIZE-1);
++	}
  
- 	/* Check for errors */
- 	val = snet_read_ctrl(regs);
--	ret = SNET_VAL_TO_ERR(val);
- 
- 	/* Clear the chunk ready bit */
- 	val &= ~SNET_CTRL_CHUNK_RDY_MASK;
-@@ -301,6 +300,8 @@ static int snet_send_ctrl_msg(struct snet *snet, u16 opcode, u16 vq_idx)
- 	if (ret)
- 		SNET_WARN(pdev, "Timeout waiting for DPU to complete a control command, err %d\n",
- 			  ret);
-+	else
-+		ret = SNET_VAL_TO_ERR(val);
- 
- exit:
- 	mutex_unlock(&snet->ctrl_lock);
-
-base-commit: 7704c4c5bb127673b4f0ead839919db573559e38
+ 	for (i = 0; i < PTRS_PER_PMD; i++) {
+ 		if (!pmd_none(pmd[i])) {
 -- 
-2.43.0
+2.49.0
 
