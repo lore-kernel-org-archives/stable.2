@@ -1,141 +1,223 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C34C4CDA3C
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 16:35:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C808B4CB8CF
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 16:43:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791218135; cv=none; b=KSqn5TpCBGFvKh3FGisgEIbu8unWKpkyONeBg9/QGJ8AF9nGBvrInQM/kyLjWQ0K7LflTbR0KszZtoiXgN2nELQNCd5QIRChn6efUsp49PIBn1yvDlhOjl1z6b2ocz4sLUssRKsYK23UX+QZC1P8rlknmxkmUKg5k2+IfxTUNPQ=
+	t=1791218632; cv=none; b=oUahjzI3l4v66uN2AMbmn6s5vB4JK7lZiy+UUh6JqfzXN9rd1ARnQTKTDwNJcVRhaWDUUSBaX3p80XoC1H37f7zz4gVFqbwjwQ6YE30zkY1fkdqlULOkULLjwxFHgenqF+wgfRkX22+wlp7NLcVfLQp4ICe1+AfQAuOcTAjQPIg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791218135; c=relaxed/simple;
-	bh=TWLfNiXPDPKmCfrw5m0MxceJ08WtbyK0nEtydasz60w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WLaUWV71hBS0odHhUDuf2DcdEu0s/sC6a+6/u1qhQ6AdY9k57+nwtbA6utA2QpMcb6v9SNaGxfTtSj/VjwoOBEA/4I6I4im7JxfhbSaX/xgJaZKFAt9AG83nfX21h3OIdiCwFoRczy/36Q3dYVZR/23YD+b1ZWXx25vlCTgi6ZE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Iz2KyDiv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791218632; c=relaxed/simple;
+	bh=Bp3mcVQbstdsX4J6mITtft8ZpLr0XIZ7iQInuAj3IVY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gHv4aU7gAIt/RdiZEw53Daokf4q1nPGcauqd2A5hCM/d6Tdxpaiper+zXSOPQa0KFo291MNtP8o6geVC+Z/GkOYAyM9U4Qgv6mSqmJhnZcU1xVD/AhQia0pvvpr1OLBU9dBdSsODx0NZu1DjT8TQnUVWjV2CBEnFw6gNfk+j/K8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lK8HQVZ2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Iz2KyDiv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 207751F000FF;
-	Mon,  5 Oct 2026 16:35:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lK8HQVZ2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F3A71F000FF;
+	Mon,  5 Oct 2026 16:43:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791218132;
-	bh=eR+jRk0GdQ3dm6roiX3We+PUG31+cSGPVrvkxDy9zZw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Iz2KyDivq5qS6tFPDaM5u7WsODCIv8OqSIdxfU7cOG4QBRZb3yrHxbYNqiVZPsY38
-	 V8lfOezWR9tzn8D+xJehcZpheqnOdgbjZ+X8KsCvvXop4NeLjP3Km7xRWlsU9zYqle
-	 jKBA2zyeQvxAMnRWTi0nG8bbHMRXRXDFbXzaLZ8xSFd0gdvDWiJxQiTFarrKq42msK
-	 6TgWwaErJSanNeFkGtM/DgVyIkHTqT6WSHMxIglRshhOAGzdZZ7/7sQR4Nml25OjAU
-	 jZ+cQVuyYxsJtsjBHfoikxF1FPEJKwssOJ8x6cad8B1S7pDdKAZ4xINIQ1O67ODrq6
-	 MRru3uGqBamRQ==
-Message-ID: <d2282814-3b75-45b5-a110-f2debb8e2635@kernel.org>
-Date: Mon, 5 Oct 2026 18:35:29 +0200
+	s=k20260515; t=1791218630;
+	bh=GOVf1qW4FVrKgOHO/hYx+Mk0zavwXV+zS7n/08yOJ7s=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=lK8HQVZ2/BCu4jjPVfujspST/pk0pBMxNH+IlJ3BTP8BMkl2Tr8/iHEeQVa1O2+RV
+	 JqtOh0c9EyMzmm5J2QL96XcFI2rYgZYq2eIOXqC+c1NUp21kYSbvlMWXPnVO8XVTLy
+	 8B5R74HGtqGJTeofaUA2AdLsVZndGGNDzE7WLiRzNjAtHAz7Lpz5G7r5PqsPXAv6q2
+	 BPLOjB0tEKtrmNuc3wiCoYGm8n2sfUutbsu05do9XLgvXRbe4i+uaNn+WxUUh7I0qB
+	 0SMXqcBS0p9I3hvrW5MXcO0Iz/wjKFOu6WjXutcD4tJrm9CpVQicPEz1taAZSu18ra
+	 1uAKqQGVIlJdg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Daniel Starke <daniel.starke@siemens.com>,
+	stable <stable@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] tty: n_gsm: fix missing modem controls after DLCI open in convergence layer type 2
+Date: Mon,  5 Oct 2026 12:43:46 -0400
+Message-ID: <20261005164328.3063521-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026100502-outsell-unclothed-a941@gregkh>
+References: <2026100502-outsell-unclothed-a941@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH 6.6.y 2/2] mptcp: prevent race between disconnect() and
- rtx
-Content-Language: fr
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
- Jakub Kicinski <kuba@kernel.org>
-References: <2026091621-borough-happiness-9e59@gregkh>
- <20260917124903.223926-1-sashal@kernel.org>
- <20260917124903.223926-2-sashal@kernel.org>
- <83ad680c-9f5e-4328-b87f-ad0f14de9ed6@kernel.org> <asPQM7yBMxN3K6Jg@laps>
-From: Matthieu Baerts <matttbe@kernel.org>
-Autocrypt: addr=matttbe@kernel.org; keydata=
- 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
- lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
-Organization: NGI0 Core
-In-Reply-To: <asPQM7yBMxN3K6Jg@laps>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 05/10/2026 18:28, Sasha Levin wrote:
-> On Mon, Oct 05, 2026 at 06:23:00PM +0200, Matthieu Baerts wrote:
->> On 17/09/2026 14:49, Sasha Levin wrote:
->>> +    msk->timer_ival = icsk->icsk_rto_min;
->>
->> Because commit ea4eb2adb0d3 ("mptcp: honour configured min/max RTO in
->> retransmit paths") is not in this version, this line should be adapted
->> to:
->>
->>  msk->timer_ival = TCP_RTO_MIN;
->>
->> (Before commit ea4eb2adb0d3, icsk->icsk_rto_min is not initialised)
->>
->> Just to avoid a deadlock, do you plan to send a v2 for that, or do you
->> prefer someone else doing so?
-> 
-> I can fix it up and queue it.
+From: Daniel Starke <daniel.starke@siemens.com>
 
-Thank you!
+[ Upstream commit 11ea5a63d30ad6d305b1c22301cd99ff45a98c8d ]
 
->> I can send a patch to fix v6.18 and v7.2. The patch has been dropped
->> from the v6.12 queue. I can send a fixed version for that one too.
->>
->> Also, a more general question, when you resolve these conflicts, do you
->> expect an explicit Acked-by? I tend not to send them on backports, I
->> only react when I think something is wrong, but maybe that's not what
->> the stable team is expecting?
-> 
-> An explicit ack helps, but not necessary (since most people don't
-> bother :) ).
-> I am letting these backports sit on the mailing list for at least a day,
-> and
-> then pull them in if no one complained.
-Understood, I will ACK them when I can.
+The current implementation only updates the virtual V.24 control signals
+after DLCI open in basic option mode. In advanced option mode with
+convergence layer type 2 an empty data frame needs to be transmitted to
+inform the peer about the initial virtual V.24 control signals. Not doing
+so has two unwanted side effects:
+1. hardware flow control status is unclear (initial CTS line is unknown)
+2. DLCI user presence is not transmitted (initial DTR line is unknown)
 
-Also, this might not be possible with your automated scripts, but do you
-think you could easily Cc the MPTCP ML on these series modifying MPTCP
-files?
-It just to have our CI picking them up, but that's OK if not.
+Applications waiting on these lines can not start after a DLCI has been
+opened until the first data frame has been transmitted.
 
-Cheers,
-Matt
+Fix this by using gsm_modem_update() thoroughly which handles basic and
+advanced option mode correctly. Add a flag in gsm_modem_update() and the
+delegated gsm_modem_upd_via_msc() to control whether waiting for the MSC
+command response is possible. Remove obsolete gsm_modem_send_initial_msc().
+
+Fixes: 3cf0b3c243e5 ("tty: n_gsm: Don't block input queue by waiting MSC")
+Cc: stable <stable@kernel.org>
+Signed-off-by: Daniel Starke <daniel.starke@siemens.com>
+Link: https://patch.msgid.link/20260826063026.2472-1-daniel.starke@siemens.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ sashal: Adjusted deletion context for the missing colon in the `@dlci` comment. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/tty/n_gsm.c | 47 ++++++++++++++-------------------------------
+ 1 file changed, 14 insertions(+), 33 deletions(-)
+
+diff --git a/drivers/tty/n_gsm.c b/drivers/tty/n_gsm.c
+index 553d8c70352b1..0749f50cff90a 100644
+--- a/drivers/tty/n_gsm.c
++++ b/drivers/tty/n_gsm.c
+@@ -454,14 +454,13 @@ static const u8 gsm_fcs8[256] = {
+ 
+ static void gsm_dlci_close(struct gsm_dlci *dlci);
+ static int gsmld_output(struct gsm_mux *gsm, u8 *data, int len);
+-static int gsm_modem_update(struct gsm_dlci *dlci, u8 brk);
++static int gsm_modem_update(struct gsm_dlci *dlci, u8 brk, bool wait);
+ static struct gsm_msg *gsm_data_alloc(struct gsm_mux *gsm, u8 addr, int len,
+ 								u8 ctrl);
+ static int gsm_send_packet(struct gsm_mux *gsm, struct gsm_msg *msg);
+ static struct gsm_dlci *gsm_dlci_alloc(struct gsm_mux *gsm, int addr);
+ static void gsmld_write_trigger(struct gsm_mux *gsm);
+ static void gsmld_write_task(struct work_struct *work);
+-static int gsm_modem_send_initial_msc(struct gsm_dlci *dlci);
+ 
+ /**
+  *	gsm_fcs_add	-	update FCS
+@@ -2175,7 +2174,7 @@ static void gsm_dlci_open(struct gsm_dlci *dlci)
+ 		pr_debug("DLCI %d goes open.\n", dlci->addr);
+ 	/* Send current modem state */
+ 	if (dlci->addr) {
+-		gsm_modem_send_initial_msc(dlci);
++		gsm_modem_update(dlci, 0, false);
+ 	} else {
+ 		/* Start keep-alive control */
+ 		gsm->ka_num = 0;
+@@ -4137,9 +4136,10 @@ static void gsm_modem_upd_via_data(struct gsm_dlci *dlci, u8 brk)
+  *	gsm_modem_upd_via_msc	-	send modem bits via control frame
+  *	@dlci: channel
+  *	@brk: break signal
++ *	@wait: wait for the MSC command
+  */
+ 
+-static int gsm_modem_upd_via_msc(struct gsm_dlci *dlci, u8 brk)
++static int gsm_modem_upd_via_msc(struct gsm_dlci *dlci, u8 brk, bool wait)
+ {
+ 	u8 modembits[3];
+ 	struct gsm_control *ctrl;
+@@ -4156,41 +4156,22 @@ static int gsm_modem_upd_via_msc(struct gsm_dlci *dlci, u8 brk)
+ 		modembits[2] = (brk << 4) | 2 | EA; /* Length, Break, EA */
+ 		len++;
+ 	}
++	if (!wait)
++		return gsm_control_command(dlci->gsm, CMD_MSC, modembits, len);
+ 	ctrl = gsm_control_send(dlci->gsm, CMD_MSC, modembits, len);
+ 	if (ctrl == NULL)
+ 		return -ENOMEM;
+ 	return gsm_control_wait(dlci->gsm, ctrl);
+ }
+ 
+-/**
+- * gsm_modem_send_initial_msc - Send initial modem status message
+- *
+- * @dlci channel
+- *
+- * Send an initial MSC message after DLCI open to set the initial
+- * modem status lines. This is only done for basic mode.
+- * Does not wait for a response as we cannot block the input queue
+- * processing.
+- */
+-static int gsm_modem_send_initial_msc(struct gsm_dlci *dlci)
+-{
+-	u8 modembits[2];
+-
+-	if (dlci->adaption != 1 || dlci->gsm->encoding != GSM_BASIC_OPT)
+-		return 0;
+-
+-	modembits[0] = (dlci->addr << 2) | 2 | EA; /* DLCI, Valid, EA */
+-	modembits[1] = (gsm_encode_modem(dlci) << 1) | EA;
+-	return gsm_control_command(dlci->gsm, CMD_MSC, (const u8 *)&modembits, 2);
+-}
+-
+ /**
+  *	gsm_modem_update	-	send modem status line state
+  *	@dlci: channel
+  *	@brk: break signal
++ *	@wait: wait for the MSC command
+  */
+ 
+-static int gsm_modem_update(struct gsm_dlci *dlci, u8 brk)
++static int gsm_modem_update(struct gsm_dlci *dlci, u8 brk, bool wait)
+ {
+ 	if (dlci->gsm->dead)
+ 		return -EL2HLT;
+@@ -4200,7 +4181,7 @@ static int gsm_modem_update(struct gsm_dlci *dlci, u8 brk)
+ 		return 0;
+ 	} else if (dlci->gsm->encoding == GSM_BASIC_OPT) {
+ 		/* Send as MSC control message. */
+-		return gsm_modem_upd_via_msc(dlci, brk);
++		return gsm_modem_upd_via_msc(dlci, brk, wait);
+ 	}
+ 
+ 	/* Modem status lines are not supported. */
+@@ -4266,7 +4247,7 @@ static void gsm_dtr_rts(struct tty_port *port, bool active)
+ 		modem_tx &= ~(TIOCM_DTR | TIOCM_RTS);
+ 	if (modem_tx != dlci->modem_tx) {
+ 		dlci->modem_tx = modem_tx;
+-		gsm_modem_update(dlci, 0);
++		gsm_modem_update(dlci, 0, true);
+ 	}
+ }
+ 
+@@ -4472,7 +4453,7 @@ static int gsmtty_tiocmset(struct tty_struct *tty,
+ 
+ 	if (modem_tx != dlci->modem_tx) {
+ 		dlci->modem_tx = modem_tx;
+-		return gsm_modem_update(dlci, 0);
++		return gsm_modem_update(dlci, 0, true);
+ 	}
+ 	return 0;
+ }
+@@ -4554,7 +4535,7 @@ static void gsmtty_throttle(struct tty_struct *tty)
+ 		dlci->modem_tx &= ~TIOCM_RTS;
+ 	dlci->throttled = true;
+ 	/* Send an MSC with RTS cleared */
+-	gsm_modem_update(dlci, 0);
++	gsm_modem_update(dlci, 0, true);
+ }
+ 
+ static void gsmtty_unthrottle(struct tty_struct *tty)
+@@ -4566,7 +4547,7 @@ static void gsmtty_unthrottle(struct tty_struct *tty)
+ 		dlci->modem_tx |= TIOCM_RTS;
+ 	dlci->throttled = false;
+ 	/* Send an MSC with RTS set */
+-	gsm_modem_update(dlci, 0);
++	gsm_modem_update(dlci, 0, true);
+ }
+ 
+ static int gsmtty_break_ctl(struct tty_struct *tty, int state)
+@@ -4584,7 +4565,7 @@ static int gsmtty_break_ctl(struct tty_struct *tty, int state)
+ 		if (encode > 0x0F)
+ 			encode = 0x0F;	/* Best effort */
+ 	}
+-	return gsm_modem_update(dlci, encode);
++	return gsm_modem_update(dlci, encode, true);
+ }
+ 
+ static void gsmtty_cleanup(struct tty_struct *tty)
 -- 
-Sponsored by the NGI0 Core fund.
+2.53.0
 
