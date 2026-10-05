@@ -1,96 +1,71 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC1EF4B66F1
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 15:40:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E3FA4CB8A6;
+	Mon,  5 Oct 2026 15:43:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791214803; cv=none; b=fbB1FiQe+LsvVIRdKWeiyVZzqhw72gVeSMznN2pTnGp2UbNaQPrezGvXzVj/qf+KrUtkQLdELoTqtFbytGDiasUXwk+tRXLoKSoSo6ViIwEc8thEOb6208ZcBHAPfcJPvkMu2+KqNA2i7gGGqKgjfyvcvc2XY+xPCexkNS1uoms=
+	t=1791214992; cv=none; b=kGzqAYxQZ6CNIip1wcd9SJqeoEMBYgR+LKaNHXpPWuwtferGeHHIRKS7ABzq9/Kr+CpKgiWqbTgOH/kFrpm7oKgxOMIrOgCBKLMOQ+KuLC0zwO6c7Dfs3coQdJ2Sv4Ti92g+SIkwHsnsjwEyQd6TNEmBfkN6EsR9eM40SMnkgK4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791214803; c=relaxed/simple;
-	bh=ba9A40Eocxg6BUjCC0uK7jmLBuw9L87fvv223hooHCk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=t9QrHcF1tbXhtyo6z23ySHBQq4xOGlouCsnDdgec8h/ssaP9wh5e1ijXot0IB3MFAy+59Lbyqm5m3eSp6vpROd3Z50NVPRzSU7V7xXQxy9MHhZLRdJ34B/H3vz6AqIpFQSwnrAry6m9Um5LyPIg1yCynqwl04AmxT1wOpIwGjlg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KtOChNb+; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791214992; c=relaxed/simple;
+	bh=GXAQZUSWpy4hKJwe2mGmv4PutXDENGVjexFI2E2MPYk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=XQmraznhjjW1ooqYzpT3NvqMldKSis1RxVHUimTSBX5OumMBo2FbzLOEMpcGBQFBhSbC1rb33GcHSuI94sla0s+iyMK/Q6fXBgogNX/JSZq5DWlybpSAbGr1dlEHNpNiZLIod/n/ZynQSebBJgi5L0xr6K8RR6/YGstDdDbITUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sx4/jEcs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KtOChNb+"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6351831so992923f8f.1
-        for <stable@vger.kernel.org>; Mon, 05 Oct 2026 08:40:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791214797; x=1791819597; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=r5zceH4jNrBdEqXJOgqRFynavUkkfMoVyT3whsFnol4=;
-        b=KtOChNb+gL3oxzpUQpDsCC55P3wlNTpNGtkjfpKc0ZR9KupUB3C1b6BAIKDl/96QIC
-         mLizkPXmUyI25HFNt5podcFNKywmCMZQmbzYgDZvZLLm5LT0qKkx09oT9hrQuaiPkSRh
-         jGbDR9M+yX0NlaH1rbXJnY5CqQ2VU2POxCbRVBUFlAHhBz26c98Xm7iFV5GeKZmTvY9k
-         998XAhBlkEjuGYmMIHT3zYuYnoJWhNqHyB5gyJaajmUeOq8x3JijWsyfHvivHk0+c3ua
-         e2xWFaHTkyAkZgkLc9+r9j8tmuTle7+jB+4Qyl+LweXoK1FQb27HhO+xjHW6RwhoYjAK
-         +J+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791214797; x=1791819597;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=r5zceH4jNrBdEqXJOgqRFynavUkkfMoVyT3whsFnol4=;
-        b=2IbfNlAGk1fPj5QK7KqzuupmRDwWzIhXIrc7Vm6Lk9Y4z3Qtb0f7GuXiJK+JS/CA35
-         yvaXDUJTqwJlau+pmv9coF37lWxfUf7NJkcUiFXc2WEOkP8j4E8+yZrW+BPdhnsiAmSr
-         VvlNTwohQKflMIojp9b1ZlZ1lXuHun90PjO+Kf5k7be84AMXilprjzR385zs/3XY8N8I
-         xLE20BtQujZnbqw6VaIx/n+2jNhM316mVqqaNhW6OTAa+jb+YgFY5TJGyGlB059DvfZ5
-         3WjX1t8yfP4vj/f6YcFDUGnVYOCQI/VOH7+do0l4Icr8P+nZF1G94cQcarRnfTdO9DT8
-         pDaw==
-X-Gm-Message-State: AFq9FYL7txHr4UoKb26gBH8DAucurCO9oPg1PNnUXG0sU0okubI3lira
-	1htcuWJvgPOJEW1M60IfvIa3GLtbGh/7o6/5VTadTkzByuc2EvPuI4yfovLrvQ==
-X-Gm-Gg: AYBFou3PP3Ac14uXF7JyHCSH0y5HZomnbjSi6H42Bfl60fMztB0ZdHFeXJh0+OY8FE/
-	XZBNMXX6Cz4u/Z4lO3F+0Z+rZHY6lA6JxooHVSroJqwcnhvLlQfYisC1qDtFKzwdbJLamZP2fTB
-	34dZnEMCjmjuDLi7bedyWVIIv65QbqXBo5688stG9Du+yE+di9xCa8v395NlatShgT1RBVzfW2Z
-	rUTV2rdSQ5KlbBdLAirRJ7lDx9GDT4Wtimds6KFC3IU58wMuKYFjz7/UOgSKtxW9fNezCEN5duw
-	P4UaZ5/Kxc2al0VFKuSdsfhmL2WdpIWej6bzimca3nxDc2Ct8EJahvYBv1ua8dyj/LtC8gijhOO
-	9Bm+bZHG+7OqCIpwQ+uZ2H5QG1/6XmVJXiXagpyak+p2H8esM8lwrRxeLlJnjEZk+saC0bxX9Xv
-	Mi8hX9hz7MOCISoZ7jhVs/5Ob6NTMV53Dr9vwa3kr3vYSByBq2sRsDUmXVwxqBoOntgDCHODgH0
-	MsWdCvWFbctZSg=
-X-Received: by 2002:adf:f04f:0:b0:488:88f6:36a9 with SMTP id ffacd0b85a97d-48b12717780mr13929101f8f.21.1791214797488;
-        Mon, 05 Oct 2026 08:39:57 -0700 (PDT)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c622bb172sm9124104f8f.42.2026.10.05.08.39.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 08:39:56 -0700 (PDT)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: stable@vger.kernel.org
-Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
-	linux-mtd@lists.infradead.org,
-	mehmet.fide@screeningeagle.com
-Subject: Please apply 68fe2faf5c69 ("mtd: rawnand: vf610_nfc: fix false bitflips on reads of erased pages") to the stable trees
-Date: Mon,  5 Oct 2026 17:39:56 +0200
-Message-ID: <20261005153956.238827-1-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sx4/jEcs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7146A1F000FF;
+	Mon,  5 Oct 2026 15:43:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791214991;
+	bh=0gYw3HiLxnLxVmIB/d2DZS1XkezGBNZsq55r+hnmTl4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=Sx4/jEcsnd5SS+JfzczFUpSgaTqrZcwsJTCDtOH8jwvEYHBPA1ZuuWk1WSztbCiwG
+	 5aOSovAvIgLmXWW0E7cS39MbTxRh/vNn4g/pRfKEuhJaA9ldLiFmnxJTBB4JW4vCyT
+	 NjQkW4NcVMai2F7QdSdcNulgeJCBDfPQP8t6c2jg+Uf40RvfxsE/G4tg2WT8e48SsY
+	 n33YS50hQwO19Nc+RkrEr/hU/topY2rC6SgChKA4UQlBJiicrDHc8PW7wl4AYF13y2
+	 maVH1NtbDyqJTP+peyZL/vuVTazTy28SZWieQkoYQJfudXP+StxbL7A4s8Nda51xIK
+	 t0H+S72Lw4kXw==
+From: Vinod Koul <vkoul@kernel.org>
+To: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
+Cc: Binbin Zhou <zhoubinbin@loongson.cn>, Frank Li <Frank.Li@kernel.org>, 
+ dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, "Claude Opus 4.8" <noreply@anthropic.com>
+In-Reply-To: <20260905062833.272484-1-diegomancera.dev@gmail.com>
+References: <20260905062833.272484-1-diegomancera.dev@gmail.com>
+Subject: Re: [PATCH] dmaengine: loongson2-apb-cmc: fix descriptor leak in
+ prep_slave_sg()
+Message-Id: <179121498909.358863.17544428904174593757.b4-ty@kernel.org>
+Date: Mon, 05 Oct 2026 17:43:09 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
 
-Hi,
 
-please consider
+On Sat, 05 Sep 2026 00:28:33 -0600, Diego Fernando Mancera Gomez wrote:
+> loongson2_cmc_dma_prep_slave_sg() allocates the descriptor with
+> kzalloc_flex() before iterating over the scatterlist. If
+> loongson2_cmc_dma_set_xfer_param() fails inside the loop, the function
+> returns ERR_PTR(ret) without freeing the descriptor. At this point the
+> descriptor has not been handed to vchan_tx_prep() yet, so nothing else
+> will ever free it, leaking it on every failed ->device_prep_slave_sg()
+> call (e.g. an unsupported transfer direction or bus width).
+> 
+> [...]
 
-  68fe2faf5c69 ("mtd: rawnand: vf610_nfc: fix false bitflips on reads of erased pages")
+Applied, thanks!
 
-for 5.10.y, 5.15.y, 6.1.y, 6.6.y, 6.12.y, 6.18.y and 7.2.y. It is in
-mainline since 7.3-rc6 and applies cleanly to each of them on top of
+[1/1] dmaengine: loongson2-apb-cmc: fix descriptor leak in prep_slave_sg()
+      commit: 4bbfc1d7e56134336dd1f792f51ee88a600a27ad
 
-  37adc9c5789c ("mtd: rawnand: vf610_nfc: fix reads on chips with more than 64 bytes of OOB")
+Best regards,
+-- 
+~Vinod
 
-which is already queued for all seven.
 
-Without it the driver reports one corrected bitflip for every erased
-page it reads (18035 on a 126 MiB partition on a Colibri VF50, one per
-erased page, while raw reads of the same pages return clean 0xff), so
-the corrected counter of every Vybrid NAND device grows on every scan
-and anything that watches it sees a flash going bad.
-
-Thanks,
-Mehmet
