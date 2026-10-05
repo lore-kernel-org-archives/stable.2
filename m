@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 904F93A75BB
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 20:54:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 449233AA9E2
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 20:54:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791233682; cv=none; b=NLVBbehGrq/KQAFn1apWqOvbC1h3YXMFn9SS3xrPT6QS7sUwWsNnHEHsuGBH6HIBFLOC4zuyNl9QtVG4HzPMoceZMVlGQb8vgIwuEDonNXy7tQ3RU6kfrEKDmQsSrddD/aR1yenWC9jjiw/bUJYwF+XTobmsBRwaj7VcL/QWrSc=
+	t=1791233689; cv=none; b=iMjb1GPmy0TWO62LLxvNhUtyQPGcEdixJeq6nhFmRVmowFkEQJkvOszmFbb6waX81lDOMiqgDMiq3OfFpPujBaf4bxJZlI+MnWi43+9a7y8T4c5Fu/aE6Tv9OFvMLOgQkQckuHIJjCviyVWg8Veg/pRxQQEy5jZoPrqq4tRnrew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791233682; c=relaxed/simple;
-	bh=byHpXya8aQfHXqMN91G0i0/yPdfTQwemZO6BBbPwPuc=;
+	s=arc-20240116; t=1791233689; c=relaxed/simple;
+	bh=ZDwYvAX4AqSpiCy1YXGCSHB4tjNDhbvCD+TQPrtx30c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=psaOFc1Rjf7ZJRNJw1pmUdz7mmMqjhwCVQyzWhVvDuxq8X0uLcAdb2ZDZQAy0pLLEdFOir+vIlc7tYbZAQ3+f0Ez+7lI+K6JGIz96gDEXVB32AzYDp3EA0HXKj3m7CRBQQLtNeoh0wBOZGIq91Bdc8T7gTIF0ZkYH0h33YiGYvo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W7WRwPXD; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=YteGXdEACEqJXeTkeaQ3s7IOcGqomhSR8ywDZVPntiLTpjwpMgh0fRvHtBBdXT+qg1rtmQR0qbM5OrRnOpjuBKcutwbrLV1llEkYqAldEGwID9JlSDSYolDCbW9jogEpbAX22gzmUh0HFXLzYqUi1Sgip6a8PXH+T2pAJXY4WD4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ie+XEJvN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W7WRwPXD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAAF11F000FF;
-	Mon,  5 Oct 2026 20:54:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ie+XEJvN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EA5C1F000FF;
+	Mon,  5 Oct 2026 20:54:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791233681;
-	bh=WcPwtQOcGizEoZ0B3ghBbrETCSUaUihZXHMSOokE+OI=;
+	s=k20260515; t=1791233686;
+	bh=+vwOL9vMIhK+J5RmKBslcQpJUCBdOIyFZM8/IBqsHiA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=W7WRwPXDo7/hgUgj3G3YPLa4QZJqRa16CbwirQqz7qEubOBiz3BiNNYI+g0Wq+7k+
-	 Qfqn9jjQ3k121xg4HZn2cEKZHH17HPba777k9o8XzzJWR0Xrvh3SpUUTxPssRPD4Xs
-	 E35wvAzQ954IHW8KMvHDjiJHVxPYyqSY400wa0qj0vEwIGRAA/1dkhcYtLaIPor9qn
-	 oVajejN1a7/c/vSR/A2Cq1Q/Ci9CoLOqUiVBVmQFP6ceU9CkFpazg0HdJ9i1y8kB+o
-	 CSc+wYJlBZ2XeYhsBQYGoiw9f3mP+i9IusaLw4g82mmFCm/G4M6s0L3zmE6B9hcOn5
-	 r9LRb+EGDyN2g==
+	b=Ie+XEJvNmh2Z8SazjZrYrNA7VomwE5KSBtYv9TwZP9/eFXJz3ajaXnKolbsWxIfyd
+	 +cwZry118ln6DvL1yBso+mvCsmDTLn7e5faGI0fbLvN0OKawIDFHMKvto4p3r3T+g2
+	 jYT6Ae2r09WiE5ybORrOhkSb9wzB4FGEN/OhHO7/1juX6c/T6V0Vir5eLv+JEpD0n5
+	 1DuHslp0eXMmMmtXtJKfXJs9/8tLZM0HO8ZQhpz8TgysTcM9JHECUgAcNzljjPTbOI
+	 oxm8KLdYlAKurYYM8y8TXN8X9d2NPZ7Zl5uAPWsTXNrzo09Lwe0kWN6dFYKN1tOZ4l
+	 xIKq9l4St7GjA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: David Heidelberg <david@ixit.cz>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+Cc: Johan Hovold <johan@kernel.org>,
+	stable <stable@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] Input: s6sy761 - fix resume ordering and restore sensing
-Date: Mon,  5 Oct 2026 16:54:37 -0400
-Message-ID: <20261005205258.3279498-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] tty: tty_port: restore TTY_IO_ERROR on activation failure
+Date: Mon,  5 Oct 2026 16:54:42 -0400
+Message-ID: <20261005205257.3275534-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100513-squatting-hankie-9c73@gregkh>
-References: <2026100513-squatting-hankie-9c73@gregkh>
+In-Reply-To: <2026100522-tidings-ouch-9669@gregkh>
+References: <2026100522-tidings-ouch-9669@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,67 +46,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: David Heidelberg <david@ixit.cz>
+From: Johan Hovold <johan@kernel.org>
 
-[ Upstream commit a215720959c5450b3699e243904b39c3f8f68888 ]
+[ Upstream commit 56964f6a31238fb41d5830bb42520c5b10ff7d8f ]
 
-System suspend powers the controller off and resume powers it back on,
-but the resume path enables the interrupt before s6sy761_power_on()
-checks the boot. The firmware raises its boot-complete event on the
-interrupt line, the threaded handler consumes it, s6sy761_power_on()
-then reads an empty event and resume fails with -ENODEV, skipping the
-touch function setup:
+Make sure to restore the TTY_IO_ERROR flag if activation fails to
+prevent I/O attempts on a port that is gone or powered down.
 
-s6sy761 2-0048: PM: dpm_run_callback(): s6sy761_resume [s6sy761] returns -19
+This specifically avoids issues like kernel panic due to unclocked
+accesses or NULL-pointer dereferences when accessing powered down or
+deregistered ports when a TTY ioctl races with hangup and open.
 
-Power the chip on first and only then unmask the interrupt. Once resume
-completes the boot handshake the chip comes back with sensing off, as
-at probe where input_open() turns it on, so the touchscreen stays dead
-after resume. Send SENSE_ON again when the input device is open.
+Note that the flag is set again in tty_port_close() but not restoring it
+on activation failure leaves a window where drivers fail to handle the
+ioctl-hangup race.
 
-Tested on a Pixel 3 XL over several s2idle cycles: resume succeeds and
-the touch function and sense status match the pre-suspend state.
-
-Assisted-by: LLM
-Cc: stable@vger.kernel.org
-Fixes: 0145a7141e59 ("Input: add support for the Samsung S6SY761 touchscreen")
-Signed-off-by: David Heidelberg <david@ixit.cz>
-Link: https://patch.msgid.link/20260926-s6sy761-suspend-v2-1-8f00a96ee6e8@ixit.cz
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-[ sashal: Replaced guard(mutex) with explicit mutex_lock()/mutex_unlock() calls for C90 compatibility. ]
+Fixes: a9a37ec33a1b ("tty: tty_port: Move the IO_ERROR clear")
+Cc: stable <stable@kernel.org>  # 2.6.33
+Signed-off-by: Johan Hovold <johan@kernel.org>
+Link: https://patch.msgid.link/20260908084000.218528-1-johan@kernel.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ sashal: Adapted to the existing braced error block with explicit mutex_unlock(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/input/touchscreen/s6sy761.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
+ drivers/tty/tty_port.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/input/touchscreen/s6sy761.c b/drivers/input/touchscreen/s6sy761.c
-index 85a1f465c097e..6f1827cfc720d 100644
---- a/drivers/input/touchscreen/s6sy761.c
-+++ b/drivers/input/touchscreen/s6sy761.c
-@@ -510,10 +510,22 @@ static int __maybe_unused s6sy761_suspend(struct device *dev)
- static int __maybe_unused s6sy761_resume(struct device *dev)
- {
- 	struct s6sy761_data *sdata = dev_get_drvdata(dev);
-+	int err;
-+
-+	err = s6sy761_power_on(sdata);
-+	if (err)
-+		return err;
+diff --git a/drivers/tty/tty_port.c b/drivers/tty/tty_port.c
+index 494500c453ccb..6f3b4eeb44b38 100644
+--- a/drivers/tty/tty_port.c
++++ b/drivers/tty/tty_port.c
+@@ -783,6 +783,7 @@ int tty_port_open(struct tty_port *port, struct tty_struct *tty,
+ 			int retval = port->ops->activate(port, tty);
  
- 	enable_irq(sdata->client->irq);
- 
--	return s6sy761_power_on(sdata);
-+	mutex_lock(&sdata->input->mutex);
-+
-+	if (input_device_enabled(sdata->input))
-+		err = i2c_smbus_write_byte(sdata->client, S6SY761_SENSE_ON);
-+
-+	mutex_unlock(&sdata->input->mutex);
-+
-+	return err;
- }
- 
- static const struct dev_pm_ops s6sy761_pm_ops = {
+ 			if (retval) {
++				set_bit(TTY_IO_ERROR, &tty->flags);
+ 				mutex_unlock(&port->mutex);
+ 				return retval;
+ 			}
 -- 
 2.53.0
 
