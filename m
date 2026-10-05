@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E41C372056
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 08:05:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B2E5377A98
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 08:05:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791187554; cv=none; b=Av4X7t9XgkMuVqs0T+wDMtYTGhmIMohl2YuvZG01vZEjsiQtVAAIAXd2ZCqowR0GJCnneZatZmkGoPkQyrrMXZFx8aRhLnyrCw/CDNscgjL3/dSoxY/m568QYQW3pCCcjQZgipmB2kX5SO0QVevHhIElBeCVuClSs1nYB64amGk=
+	t=1791187557; cv=none; b=dhQuex+CmepQn6v0zqmiueFDGHxDMdNcsCKWBkRbpDpKZ5ZRorkgCRhLsbRTlg+mUZsRGQorPkV6fC6fETW7Xs503WZ4nYcN6wv+Wa3Ve5IoVeuZOo9g9NuBjrKWt0xjA+JPZRTA6wCq0K+hqh5/gOTnnryxtbACa8+lnniIbWE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791187554; c=relaxed/simple;
-	bh=G7zFdB+2Y6fEYkP5Sr3pD2iES6lOXBvOLUjjMDAWZw8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=CJZLxVc/mfrDlAKZ3tp8b3A60XSVWnILvl1DUM2yVkc15xAQWPodtfFmVZ6sjwLnrB6t/jP2gNAKOjlrLIHrP8LT4hZwh8yKw3UeQ69TOsG/CZMR8IxPYNW+qcbNIyXHyaA1OQcxPtEMYsnmprPpBXFuH/Llt+95Jege3hV3EGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xiBjIFap; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791187557; c=relaxed/simple;
+	bh=+SDBhrikZgLb9OpXDHUr5+PQ9fasKTsdLGOucn5p5Dw=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=tvRI5dRb7S1tBj7FvqA93FefV1ucnk+W9awl8vrij7b9ngBUENbC68QrubRb8WyFgr71sL1nOs7FsX//SrrPYRlI3Z/7XbhehGyTrWuABli8TX3ofF+bU09OB4OPUw110J3Dp5rN1dwowTUoaOfVY6hlQ+NH8h2sE/UtG4Wjg1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=AfFICirW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xiBjIFap"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDE941F000FF;
-	Mon,  5 Oct 2026 08:05:51 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="AfFICirW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3368F1F000FF;
+	Mon,  5 Oct 2026 08:05:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791187552;
-	bh=k7aalcL/ahIlx7YLY6QrvX0+YB5F/RCfpJEEdIBfRnk=;
+	s=korg; t=1791187555;
+	bh=3ZlbIvADeGua6G0kTfxo9fKqkah8Ls/EzuoPxvw+KW8=;
 	h=Subject:To:Cc:From:Date;
-	b=xiBjIFapXK6a/jg372TApf23RRsvyj9X6tXXTjXGOtXpfceu0JNzNfKMuC48dFIRS
-	 rkhIV6LJ2lhZDaShyb7o94OBp0awcQFzzj4LqXDKxDdrGKAkB3JOHJK9YVkpaeLggd
-	 QIIfcGRpAkHWGZ2yf0SJbLVHqesO276eCJIPTji4=
-Subject: FAILED: patch "[PATCH] drm/amd/display: Preserve eDP mode on initial ASSR failure" failed to apply to 6.12-stable tree
+	b=AfFICirWjOBSixjX1+sQ+gE+QLwUq26Xhjdino2fNHMxP8S5xZKQWiHnLdsL05JUW
+	 P4sHkPld6zUeJ37JBlQ36yU30JQ3RY7EBtDKbSkgzaaTONyDzp+YQ5UV5L4bdRCts2
+	 LNsgIPgmT6N99ZLWyeQ9OKqFBO4C1xHkHFwFRNuc=
+Subject: FAILED: patch "[PATCH] drm/amd/display: Preserve eDP mode on initial ASSR failure" failed to apply to 6.6-stable tree
 To: arthur@aheymans.xyz,alex.hung@amd.com,alexander.deucher@amd.com,daniel.wheeler@amd.com,george.zhang@amd.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 05 Oct 2026 10:05:41 +0200
-Message-ID: <2026100541-wages-celibate-8917@gregkh>
+Date: Mon, 05 Oct 2026 10:05:42 +0200
+Message-ID: <2026100542-ripening-rematch-74c5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 5e08102d1d336593160d1434261d50b0c0f6cbe6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100541-wages-celibate-8917@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100542-ripening-rematch-74c5@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
