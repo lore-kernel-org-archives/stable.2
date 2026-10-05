@@ -1,201 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2F3925D1E9;
-	Mon,  5 Oct 2026 02:49:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD5B52DE709;
+	Mon,  5 Oct 2026 03:00:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791168569; cv=none; b=uB5FS3/L2g11Xz1arPlsdjZORGN1F5P4MORB82hv0RchmdniLYb0GAIMUfGzzQfSnQelvPG7Uo7VhypcTX03R/ndIcNKl/yDIAdnh2ot8mv74M3OYBZUBhoTyxVkYHZz7f6kVNjyfUfJQ6BEdctkiAGO6bI7okQpN0YX8DQIYo4=
+	t=1791169209; cv=none; b=XQeIjCWx+dE9xPRkTe4gb7Gugs9nmlyM76sIkpJg6E0S5FfMmkhcBZrhkLSW9F9rNOll/xBUGDtDOT04hmiYI8mQtYHfCXpzmW8SR9J5cdJbvNmF0Zxy6zxRJLhs7tUQFJlVQ2NEKnEzrwrbqxnvR7PAa0aYBlYAlHcW9Upgpso=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791168569; c=relaxed/simple;
-	bh=bHcQHEbMxPpAZQkh1POf87FHyoRuYDVIl6LWCcl/Ugo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DCGZPs/pFuZcBZGdpb3pBn6HjH7fIhrR1AUfz7VUtDsw83llaHqgybZnCResLn5Z68IcBvRAC9LAt3EaEGOJ78zN2cjYjrvf5DR1QU0A5KBCVKcIZc59OFi/CkcBQVwZOGuM3OmAvQkgnn6Bb/qf9DplP9oszWywwQUDJ+4Ixds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iFI3GrbD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791169209; c=relaxed/simple;
+	bh=5Q7x7OEo80zK/HpoBsQgszZkuak8WIzB/w4O3z0B2mw=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=JMW54ji2eRVwcFDRQr7v9SlSzrk79jXXggWN/fxJnkpwsCZfsyBp+3X2GtaCE7tSNaBzhFYtj2ZNAI17h84BwMugfR4gwjURWQgIZLoKiMgSSJEVZ6iWH7sY+8Vqt76qAoxUHZDAp76MSDFpdbgX+UGUm4KvHvfUE6bNZvnSjLQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WpmjYbED; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iFI3GrbD"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id A48621F000FF;
-	Mon,  5 Oct 2026 02:49:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WpmjYbED"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0703B1F000FF;
+	Mon,  5 Oct 2026 03:00:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791168567;
-	bh=nJA/eoLkp5QJqnVOP24dmqXGkOpyJ/rD4WY4SmUd6i0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iFI3GrbDyCPJY3vhQEi1yavMOhGcBqZvZexslRWp408/sLBPaAOwTUW+N47NQDFVe
-	 NFm3yhc9X2WORu5VmfXeAZsTk7yn9UG7vp4uhBz2fCJEWILx3dBhZg4oE+HHHoeV7F
-	 L5WoqYYTGDi/YUXfkTEMDmkAxolF46eAkeecsbc6DY/GGowDgWuq3NAu1fj0/BQJH7
-	 pTgvK7wPLgsK6NCk3D9SQM0ChAxYHm585ug+jgrH95LbXbvhikDuvv7gfnaFrA0aiy
-	 i2hehJppO+Jv5yn4sa3YPXzo/HbAdOec8hpipBsXBKv8YUfqI1ZQ/euNwUVr961uDW
-	 9visofQaOG+Fg==
-Date: Mon, 5 Oct 2026 05:49:23 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Chengfeng Ye <nicoyip.dev@gmail.com>
-Cc: David Howells <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E . Hallyn" <serge@hallyn.com>, keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] keys: Serialize ownership transfers with key
- accounting
-Message-ID: <asMQMzqVkmYhwgMB@kernel.org>
-References: <20260927162528.943886-1-nicoyip.dev@gmail.com>
- <20260927162528.943886-3-nicoyip.dev@gmail.com>
- <asMIwpXXWQaD3gAD@kernel.org>
+	s=k20260515; t=1791169207;
+	bh=hkJHbTNZVUgNMyLsyy+h+fbjU0R4JLRIMOcMopTbZgA=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=WpmjYbED3OFRUBM7y4Ptfm6FEe7FEW8akW+zgSQwNlV9omLoM/aoi96WlNXFJtJI4
+	 99Ea2UH7LR5WeK0zWnjOt2t7u74tte1qJy2wVDtM+vL3eD0PCvFZ4ufhW3WnX7FlrP
+	 AxYqVDIbouHILIO+QLMC0QZiMq9TFJU/zh21fYowGothHVO8xhikdP7HCtMYBRRAjJ
+	 hLNf3J4InA34j9degLq8vONRnORZn9wAlbcXVm99bTPG+py+ZSRYpYDsnbaYFrcCt8
+	 HfepjwvhAtU7g00pFROEHTnXB0xD7JMGGfqid0GiDh452W3E84I6ax4xNtC29ctYXR
+	 xv7J1FfTMWQYg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F145E39253C0;
+	Mon,  5 Oct 2026 03:00:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <asMIwpXXWQaD3gAD@kernel.org>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v3] openvswitch: fix soft lockup in the netlink flow
+ dump
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179116920578.1072741.16152613062513950480.git-patchwork-notify@kernel.org>
+Date: Mon, 05 Oct 2026 03:00:05 +0000
+References: <20260929072519.2803304-2-den@openvz.org>
+In-Reply-To: <20260929072519.2803304-2-den@openvz.org>
+To: Denis V. Lunev <den@openvz.org>
+Cc: netdev@vger.kernel.org, dev@openvswitch.org, aconole@redhat.com,
+ echaudro@redhat.com, i.maximets@ovn.org, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ stable@vger.kernel.org
 
-On Mon, Oct 05, 2026 at 05:17:42AM +0300, Jarkko Sakkinen wrote:
-> On Mon, Sep 28, 2026 at 12:25:28AM +0800, Chengfeng Ye wrote:
-> > Protecting individual accesses to key->user does not make ownership
-> > transfers atomic with accounting updates. keyctl_chown_key() holds
-> > key->sem, but instantiation is serialized by key_construction_mutex and
-> > need not hold that semaphore. KEY_LOOKUP_PARTIAL also permits chown of
-> > an uninstantiated key.
-> > 
-> > The instantiated-key count can therefore be charged to the wrong owner:
-> > 
-> >   instantiate                       keyctl_chown_key()
-> >   lock key_user_lock
-> >   increment old->nikeys
-> >   unlock key_user_lock
-> >                                     observe KEY_IS_UNINSTANTIATED
-> >                                     skip the nikeys transfer
-> >                                     replace key->user
-> >   mark key instantiated
-> > 
-> > The key becomes instantiated under the new owner while the increment
-> > remains with the old owner. Negative instantiation has the same race.
-> > 
-> > Quota reservation can likewise run between charging the new owner and
-> > replacing key->user. It then adjusts the old owner's quota and changes
-> > key->quotalen while chown is transferring that quota burden.
-> > 
-> > Extend the key_user_lock critical section in keyctl_chown_key() across
-> > the quota and key-count transfers, state check, and owner replacement.
-> > Also extend the instantiation critical sections across the state update,
-> > so chown observes the count increment and instantiated state together.
-> > The existing per-user quota locks continue to serialize quota changes
-> > against other keys owned by the same user.
-> > 
-> > Keep allocations, notifications and reference release outside
-> > key_user_lock, and release it on the quota-overrun path.
-> > 
-> > Fixes: 5801649d8b83 ("[PATCH] keys: let keyctl_chown() change a key's owner")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-> > ---
-> > Changes in v3:
-> > - Split from v2 as patch 2/2; see the cover letter for the full split.
-> > - Rebase onto current mainline and retain explicit reader-side locking.
-> > 
-> > v2: https://lore.kernel.org/r/20260904080940.575882-1-nicoyip.dev@gmail.com/
-> > 
-> >  security/keys/key.c    | 4 ++--
-> >  security/keys/keyctl.c | 6 ++++--
-> >  2 files changed, 6 insertions(+), 4 deletions(-)
-> > 
-> > diff --git a/security/keys/key.c b/security/keys/key.c
-> > index d0d583194b05..54c675b3b58d 100644
-> > --- a/security/keys/key.c
-> > +++ b/security/keys/key.c
-> > @@ -454,8 +454,8 @@ static int __key_instantiate_and_link(struct key *key,
-> >  			/* mark the key as being instantiated */
-> >  			spin_lock(&key_user_lock);
-> >  			atomic_inc(&key->user->nikeys);
-> > -			spin_unlock(&key_user_lock);
-> >  			mark_key_instantiated(key, 0);
-> > +			spin_unlock(&key_user_lock);
-> >  			notify_key(key, NOTIFY_KEY_INSTANTIATED, 0);
-> >  
-> >  			if (test_and_clear_bit(KEY_FLAG_USER_CONSTRUCT, &key->flags))
-> > @@ -613,8 +613,8 @@ int key_reject_and_link(struct key *key,
-> >  		/* mark the key as being negatively instantiated */
-> >  		spin_lock(&key_user_lock);
-> >  		atomic_inc(&key->user->nikeys);
-> > -		spin_unlock(&key_user_lock);
-> >  		mark_key_instantiated(key, -error);
-> > +		spin_unlock(&key_user_lock);
-> >  		notify_key(key, NOTIFY_KEY_INSTANTIATED, -error);
-> >  		key_set_expiry(key, ktime_get_real_seconds() + timeout);
-> >  
-> > diff --git a/security/keys/keyctl.c b/security/keys/keyctl.c
-> > index c17924609317..83a9575b084e 100644
-> > --- a/security/keys/keyctl.c
-> > +++ b/security/keys/keyctl.c
-> > @@ -1004,6 +1004,8 @@ long keyctl_chown_key(key_serial_t id, uid_t user, gid_t group)
-> >  		if (!newowner)
-> >  			goto error_put;
-> >  
-> > +		spin_lock(&key_user_lock);
-> > +
-> >  		/* transfer the quota burden to the new user */
-> >  		if (test_bit(KEY_FLAG_IN_QUOTA, &key->flags)) {
-> >  			unsigned maxkeys = uid_eq(uid, GLOBAL_ROOT_UID) ?
-> > @@ -1036,11 +1038,10 @@ long keyctl_chown_key(key_serial_t id, uid_t user, gid_t group)
-> >  			atomic_inc(&newowner->nikeys);
-> >  		}
-> >  
-> > -		spin_lock(&key_user_lock);
-> >  		zapowner = key->user;
-> >  		key->user = newowner;
-> > -		spin_unlock(&key_user_lock);
-> >  		key->uid = uid;
-> > +		spin_unlock(&key_user_lock);
-> >  	}
-> >  
-> >  	/* change the GID */
-> > @@ -1060,6 +1061,7 @@ long keyctl_chown_key(key_serial_t id, uid_t user, gid_t group)
-> >  
-> >  quota_overrun:
-> >  	spin_unlock_irqrestore(&newowner->lock, flags);
-> > +	spin_unlock(&key_user_lock);
-> >  	zapowner = newowner;
-> >  	ret = -EDQUOT;
-> >  	goto error_put;
-> > -- 
-> > 2.43.0
-> > 
+Hello:
+
+This patch was applied to netdev/net.git (main)
+by David S. Miller <davem@davemloft.net>:
+
+On Tue, 29 Sep 2026 09:25:19 +0200 you wrote:
+> From: Denis V. Lunev <den@openvz.org>
 > 
-> I double-checked this patch too given the concerns on 1/2 but nope, this
-> does not raise similar concerns as every critical section is strictly
-> related to ownership change.
+> A production compute node carrying a few thousand datapath flows hit a
+> soft lockup inside a single netlink flow dump and panicked.
 > 
-> E.g., I can be sure that the granularity is where it should be and locks
-> are actually needed in the first place.
+> ovs_flow_cmd_dump() calls ovs_flow_stats_get() for every flow it
+> emits, and that releases stats->lock with spin_unlock_bh() once per
+> CPU that has touched the flow. Every release is a local_bh_enable(),
+> and each one runs the pending softirq backlog in the dumping thread's
+> own context.
 > 
-> Thus, I'm still including this patch to my next PR, and drop the first
-> one.
+> [...]
 
-By dropping 1/2 I found out that 2/2 key.c becomes:
+Here is the summary with links:
+  - [net,v3] openvswitch: fix soft lockup in the netlink flow dump
+    https://git.kernel.org/netdev/net/c/aaaaf87ea99b
 
-diff --git a/security/keys/key.c b/security/keys/key.c
-index a438c4508595..de63120c51ad 100644
---- a/security/keys/key.c
-+++ b/security/keys/key.c
-@@ -449,6 +449,7 @@ static int __key_instantiate_and_link(struct key *key,
- 			/* mark the key as being instantiated */
- 			atomic_inc(&key->user->nikeys);
- 			mark_key_instantiated(key, 0);
-+			spin_unlock(&key_user_lock);
- 			notify_key(key, NOTIFY_KEY_INSTANTIATED, 0);
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
- 			if (test_and_clear_bit(KEY_FLAG_USER_CONSTRUCT, &key->flags))
-@@ -606,6 +607,7 @@ int key_reject_and_link(struct key *key,
- 		/* mark the key as being negatively instantiated */
- 		atomic_inc(&key->user->nikeys);
- 		mark_key_instantiated(key, -error);
-+		spin_unlock(&key_user_lock);
- 		notify_key(key, NOTIFY_KEY_INSTANTIATED, -error);
- 		key_set_expiry(key, ktime_get_real_seconds() + timeout);
 
-This type of interleaving should never happen in a patch series.
-
-Please don't rush your changes like this in future.
-
-Br, Jarkko
