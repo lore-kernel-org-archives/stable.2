@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2884D483BEB
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 14:10:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28D6044AB9B
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 14:10:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791209434; cv=none; b=d6RKK1FN18JLzqzPXsJhu7UREpUrxhT/8/IuuDQ3N+UCY9htbkBDVW0v+QjpidYYfRW/cYOl0wAXxDFEOQ8DX2gMaf6+OlnM5wPO5RIPtTBGO2Jwh/wvhdmEae7kBJi+C+MN4yY9ly7EY/3w4Lixc3oDva07K/tNCPkcIaUGPJM=
+	t=1791209441; cv=none; b=jZN/SG1MTjR09mtxbGf0CMsV2nT4I4/Kvi79pPSfL7qxA5hmXN7fvjDDCWrLJeWgJpANHjhZcOYnW21UeHcekM7e92CYzgEu45LM2ILBNnUaaGzlJ5GCJqXAwONCaeUOxocZUuV+Ijt0vuKKVHuuTjGlLu7TrzO+yxyxjjFG1RM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791209434; c=relaxed/simple;
-	bh=N9453Ce0TAJlTTBkmJf+nzTOXuCwU+UwuG5gG6nUvS8=;
+	s=arc-20240116; t=1791209441; c=relaxed/simple;
+	bh=8DT50Ou2AOtvKGk9/nCApY8h5N9oTbvwNPEMR37piPU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=K9b05PISOIZor24eEIJmxo0fMcftB2pqW01Zop3a0W3hsbP5RLBObQ+DBVchIRhnJIlNQPzIMgoRTB8GShgrwUVcZLOx3dVEXX6T9s68H2D5gFj8yJqjgoAtacp9QZP2j07pDPJiRLoWtcYqHzs090bclmYOKQ/123zoVSdQQnE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K3W1bhxi; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=sZM5yyFAqiJnwVAlo1IB2QuyQTCkOHyUBVTcWn/YB9Pvb+cu6fBl29Ao9ClFtvECg7DWUuZ/nGZsVAHNyPk8TBa2zJea1/PFlsmw84hMFDbwWhkCzptfVZhauswPOwHfEG2qv4VGObHyrHMSwNZxrGWPhSZNG7+RV0eOCHrFpR4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gOvVo0sH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K3W1bhxi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2269D1F000FF;
-	Mon,  5 Oct 2026 14:10:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gOvVo0sH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD6161F000FF;
+	Mon,  5 Oct 2026 14:10:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791209432;
-	bh=BhaK+WrU/knvGH5VsQPJ445dGoqSf6EtPB5daImptvA=;
+	s=k20260515; t=1791209439;
+	bh=SBmefpHW0ukAen0Iy4lgUwmExRG1C/Wm4LqDtjheVAc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=K3W1bhxizh5mOQ9/UOdPrGbODKTaIhHJY7eZ1uz2zsnTDKXBuKMzq/6kPpxzIOYdh
-	 XM5xxo6o/E32PsCk3kOrCOq5WhMR2Pz3yhRHkRMrRcJ63gWI1K8dzf+LWxEvMcE2Mo
-	 6LA6oaqukr/AezhVHnlkpjjPqpym6KSqcUO9jAEEO17IHrmaIxXMFpriliMhzNIUld
-	 pw0geI1JsvhB/TW0Aeq+9AhZZoWoqhtWVdvBVt1EJuffCohmXCErBsd8haC9wA+pcb
-	 3/CvYxMiqTkJVVOVsTXw2Wgy68WshcOrc5WI9i5ZnIrJTctLGKasMNghkWRTIAoUYZ
-	 +q7jDbedoEThA==
+	b=gOvVo0sHVFuhftNzooeJQ+MecVAcfik58ZvOHUft6T02iC3ZATj8eNZz8AAmQSgVb
+	 io88xdu6TmYZgMG9bLH5ZeYQzSmBIZ6xEFNNP7x/I556x06X6/QCzBX732h1OafdXA
+	 YGP5Zdg9FGD0MKqk1IY4KbfI9XQYJGVx5bW1suDDkQbRGcKUAsz/UsVAQN7RHx7nPT
+	 3IcJse9FgXcuvPUaYQJJ7hP7JzbiEpyJjOtyvbAiNgq1AUH1RlWIOyoGQM3ADTDwOi
+	 1MHPTh/Nzy1NaaTKKMqTLFE0PoJSpZ3uvAVXOfEW4NxGY3cFDDkO82gRS0NwEf0sAv
+	 wXvPwX7HzvQJQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
-	stable@kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+Cc: Orgad Shaneh <orgads@gmail.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] soc: qcom: geni-se: Correct QUP Core ICC vote constants
-Date: Mon,  5 Oct 2026 10:10:27 -0400
-Message-ID: <20261005141008.3003614-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] usb: octeon-hcd: fix the FIFO-flush timeout computation
+Date: Mon,  5 Oct 2026 10:10:36 -0400
+Message-ID: <20261005141009.3003096-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100550-cradle-juncture-3156@gregkh>
-References: <2026100550-cradle-juncture-3156@gregkh>
+In-Reply-To: <2026100527-aloof-resort-fe25@gregkh>
+References: <2026100527-aloof-resort-fe25@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,60 +45,50 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+From: Orgad Shaneh <orgads@gmail.com>
 
-[ Upstream commit 1cd9b1be5a9c56fd69e3f555b200a1844f9b873e ]
+[ Upstream commit 4c7a1b9f1f1979f2b3b69428ada12680695159c2 ]
 
-The GENI_TO_CORE ("qup-core") ICC vote selects the QUP Core 2X clock
-rate. The CORE_2X_*_MHZ constants are expressed in Bps, but their
-values are several orders of magnitude too small. For example, the
-50 MHz threshold is represented by 2500 rather than 25000000 Bps.
+cvmx_wait_tx_rx() computes its 100us deadline from
+(u64)octeon_get_clock_rate - the address of the function, not its
+return value; the parentheses have been missing since the
+CVMX_WAIT_FOR_FIELD32 macro became a function. The cast makes it
+compile silently, and the resulting deadline is effectively infinite.
 
-As a result, clients using these constants can severely under-vote the
-QUP Core clock.
+On a healthy controller the flush bit clears on the first read and
+nothing is noticed. On a controller whose PHY did not come up (for
+example when the reference-clock configuration is wrong for the board),
+txfflsh/rxfflsh never clear and probe spins forever in __delay() -
+observed as a hard hang with a soft-lockup splat on a CN5020 board,
+where the board watchdog then resets the system with no console output.
 
-Correct the constants to their intended Bps thresholds so that the ICC
-provider selects the corresponding QUP Core 2X clock rate. Drop the unused
-definitions.
+Call the function, restoring the 100us timeout the code always
+intended.
 
-Fixes: 58ffbba6a399 ("soc: qcom: geni: Support for ICC voting")
-Cc: stable@kernel.org
-Signed-off-by: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260915-correct-icc-bandwidth-vote-constants-v2-1-f78eb611204e@oss.qualcomm.com
+Fixes: 3e195a80e096 ("Staging: octeon-usb: Replaces CVMX_WAIT_FOR_FIELD32 macro with a function")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Orgad Shaneh <orgads@gmail.com>
+Link: https://patch.msgid.link/20260901193100.1352110-1-orgads@gmail.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/qcom-geni-se.h | 15 +++++----------
- 1 file changed, 5 insertions(+), 10 deletions(-)
+ drivers/staging/octeon-usb/octeon-hcd.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/linux/qcom-geni-se.h b/include/linux/qcom-geni-se.h
-index 964cfe68f72cc..9e98c4525a0ed 100644
---- a/include/linux/qcom-geni-se.h
-+++ b/include/linux/qcom-geni-se.h
-@@ -252,17 +252,12 @@ struct geni_se {
- #define QUP_SE_VERSION_2_5                  0x20050000
+diff --git a/drivers/staging/octeon-usb/octeon-hcd.c b/drivers/staging/octeon-usb/octeon-hcd.c
+index e2f8b6b67f75e..10dcc9b8072e8 100644
+--- a/drivers/staging/octeon-usb/octeon-hcd.c
++++ b/drivers/staging/octeon-usb/octeon-hcd.c
+@@ -576,7 +576,7 @@ static int cvmx_wait_tx_rx(struct octeon_hcd *usb, int fflsh_type)
+ 	int result;
+ 	u64 address = CVMX_USBCX_GRSTCTL(usb->index);
+ 	u64 done = cvmx_get_cycle() + 100 *
+-		   (u64)octeon_get_clock_rate / 1000000;
++		   (u64)octeon_get_clock_rate() / 1000000;
+ 	union cvmx_usbcx_grstctl c;
  
- /*
-- * Define bandwidth thresholds that cause the underlying Core 2X interconnect
-- * clock to run at the named frequency. These baseline values are recommended
-- * by the hardware team, and are not dynamically scaled with GENI bandwidth
-- * beyond basic on/off.
-+ * QUP Core 2X clock votes used by GENI clients through the "qup-core" ICC
-+ * path. Values are in Bps and must be converted with Bps_to_icc() before
-+ * setting avg_bw.
-  */
--#define CORE_2X_19_2_MHZ		960
--#define CORE_2X_50_MHZ			2500
--#define CORE_2X_100_MHZ			5000
--#define CORE_2X_150_MHZ			7500
--#define CORE_2X_200_MHZ			10000
--#define CORE_2X_236_MHZ			16383
-+#define CORE_2X_19_2_MHZ		9600000
-+#define CORE_2X_50_MHZ			25000000
- 
- #define GENI_DEFAULT_BW			Bps_to_icc(1000)
- 
+ 	while (1) {
 -- 
 2.53.0
 
