@@ -1,156 +1,112 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C465C79CD;
-	Mon,  5 Oct 2026 19:01:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 640C731D730;
+	Mon,  5 Oct 2026 19:06:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791226913; cv=none; b=bQsmc1YPTuTMDXRW5vTaa6LX6FJOma0fbebR495maURxZZBBsRN/opMK742nZI8fSAS2kKAAQd24VFBRzL5sygV4sGamVq5/wc8BM4XTdNB4Kc9O5odd9qHXNI3qD4IxMU1QeBkp48N8uxkSe/wtqGSRXZ/1eTUvO68jF1fWP5I=
+	t=1791227162; cv=none; b=Iqs/ikb9Ez2q32XCLzxgPQPhEqGlRB6/SHRZt2KTQ0YXEw01/NFDN7xSLFxMGr0X7QwFGY2eB2ITPhxfC8t+q9n4Pw9Vj6SLaYV+Gz78uSd+YPNLGIdQ527KphTQIMzr4cbihAM8E1keqk1dmQI+Kzqdwrro0KH2cRx7j3YtLC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791226913; c=relaxed/simple;
-	bh=hnm6bOUZbgMgPBRT4+7ffT/wy4OyP5ZauIF5q/q0wHw=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=aOQd7UTtDGY7Z0gNOBpg+Ga448cX/0XY/TlzML/fgu9RMamsZav8WPO3wCd5ihdig/619a9uek48TXXzqWndtt9UJ1bqxnrmEEHPc+WR/0CImrHE8ml91uiKaWS9i2tKs6wGqd+gg/AiCeKWFb/YiU9fMTR+W8T4QsyRfjormyc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=OEBkDISV; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1791227162; c=relaxed/simple;
+	bh=jd3cIebWslGe2SluqUeOouUcjNDtvQn8n5sEySelsZ8=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=O8MgJAELuMxJDmFXIBiMWfqgxuy/TpZMoS23YHmQIkY3KpQA1KbmSXHiQp+J8GvocjTBF9SdkOrq0XRbvApsnXgGb4IqqJzxcyh7BV57gMpuf7H+rtVzYVLnHdE17VH+Nbz5O6BFKyvKd9whJRWHDEwX03OwrcWKpLkzyVirBHo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nHHkwOPu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="OEBkDISV"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
-	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=MFmvViKGM02BTIPHCsWBHeyAcfFFDZ4nwZbqK2y2Fco=; b=OEBkDISVDy6iMQlVMG44QL6uCr
-	m7Jh0cTlwe6WWjkOummiuJA9pYYzUJPfMV1wu2IGzlDVYoEHacByBGJfDrEqUPIW6mwECm9oUofpE
-	esdQoaVhTdDToNBTBEyBFbFs9kf4CcPqQCpRytEetWsyp36oiq5r1WbQItM6wPEsROad3qcV4udZ2
-	wRSYP3TA16RiPdCxOp4Uq8FJXpjrP0W4j5r+6OVcjzXpuuc82QgoGeoi4P6NbK6H4dG6tk1JiDmiE
-	PskV7AiU7Dsiq/DYBiw2s2hYNuf40NkNXExUXl33wk3HJdtjfnL0l8htSANWB0J0YQ7aKjDn41E3i
-	xUwUiJew==;
-Received: from [::1] (port=36386 helo=pf-012.whm.fr-par.scw.cloud)
-	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
-	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
-	id 1xDnwc-0000000E0B2-0Qa3;
-	Mon, 05 Oct 2026 21:01:49 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nHHkwOPu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0F0E1F000FF;
+	Mon,  5 Oct 2026 19:06:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791227160;
+	bh=SNODs5FbLpBfmraE85X0V3Oi5UUM7z6D6PE8VhoZEoo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=nHHkwOPuimd70cQZVRVzcCQ1MH+35tAUZ/tpFxE2p8QJbR9YZG5YKTOa5xAN5GzjV
+	 4tW9WcKuG/a90atgTnVKXYmXqT6iZcc9gcEAUYBJHF4gsGCXqsqPvXsO9rLgIz7joC
+	 8xVGt0EtEVvsk8p1zgFVzhPcUuDm8Zqg+v57EFVGzfmfosV6HXHBqa1qR1f5KoXU9Y
+	 QQbhJGBwEWa63xjLl8gUhPPU+KKT9yu6UambZmUAFCJ2wu+Nribtw4AQr5s2ljSy1P
+	 daMYHhqYhSFt1dQckdGBR1I6J2fTYEEA+brz22UvLqQyLW6qeiMjB3gLkd3kyxw8T9
+	 xg77jhZ2FI9ZQ==
+Date: Mon, 5 Oct 2026 14:05:59 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Cc: jgross@suse.com, sstabellini@kernel.org, oleksandr_tyshchenko@epam.com,
+	bhelgaas@google.com, jbeulich@suse.com, konrad.wilk@oracle.com,
+	xen-devel@lists.xenproject.org, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	Jan Beulich <JBeulich@novell.com>
+Subject: Re: [PATCH] xen/pcifront: check that an AER callback exists before
+ calling it
+Message-ID: <20261005190559.GA601702@bhelgaas>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Mon, 05 Oct 2026 21:01:49 +0200
-From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
-To: Tung Quang Nguyen <tung.quang.nguyen@est.tech>
-Cc: netdev@vger.kernel.org, tipc-discussion@lists.sourceforge.net,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, Jon Maloy
- <jmaloy@redhat.com>
-Subject: Re: [PATCH net v2] tipc: protect received keys from concurrent flush
-In-Reply-To: <DU4P189MB37501CA7DBF5D6C3C8752349C6962@DU4P189MB3750.EURP189.PROD.OUTLOOK.COM>
-References: <20261002205932.1874012-2-Jeremy.Jean@oss.cyber.gouv.fr>
- <DU4P189MB37501CA7DBF5D6C3C8752349C6962@DU4P189MB3750.EURP189.PROD.OUTLOOK.COM>
-User-Agent: Roundcube Webmail/1.6.19
-Message-ID: <2ac35bd0a3d8c774d0ee2bc977a45cf0@oss.cyber.gouv.fr>
-X-Sender: jeremy.jean@oss.cyber.gouv.fr
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261005133019.284053-1-yhlee@isslab.korea.ac.kr>
 
-Hello,
-
-On 2026-10-05 04:14, Tung Quang Nguyen wrote:
->> 	/* Attach it to the crypto */
->> 	if (likely(!rc)) {
->> -		rc = tipc_crypto_key_attach(c, aead, 0, master_key);
->> +		spin_lock_bh(&c->lock);
->> +		if (ukey == c->skey_in_use && c->skey != ukey)
->> +			rc = -ECANCELED;
+On Mon, Oct 05, 2026 at 10:30:18PM +0900, Yehyeong Lee wrote:
+> pcifront_common_process() handles an AER request from the backend by
+> dispatching on aer_op.cmd to the bound driver's PCI error handler.  It
+> only checks that err_handler and err_handler->error_detected are present,
+> then for the mmio_enabled, slot_reset and resume commands it calls the
+> corresponding callback unconditionally.  Those three callbacks are
+> optional -- the PCI core NULL-checks each of them individually before
+> use -- and many drivers (for example igb, igc, ice and ixgbevf) install
+> error_detected without all of them.
 > 
-> This check should be done earlier, before calling tipc_ahead_init() ?
-
-Would moving the check before tipc_aead_init() be enough, given that a
-flush can still happen while AEAD setup is running and before the key
-is attached?
-
-Indeed, the race goes something like:
-1. Worker starts tipc_aead_init()
-2. Flush clears rx->skey
-3. Worker finishes AEAD setup
-
-AFAIU, we still need the check under c->lock, immediately before
-tipc_crypto_key_attach(), so that a revoked key cannot be published
-after flush.
-
+> aer_op.cmd comes from the shared ring, so a malicious or buggy backend
+> can send XEN_PCI_OP_aer_mmio (or _slotreset/_resume) for a device whose
+> driver leaves that callback NULL and make the frontend call through a
+> NULL pointer, crashing the guest.
 > 
->> +		else
->> +			rc = tipc_crypto_key_attach(c, aead, 0, master_key);
->> +		spin_unlock_bh(&c->lock);
->> 		if (rc < 0)
->> 			tipc_aead_free(&aead->rcu);
->> 	}
->> @@ -1151,6 +1158,8 @@ int tipc_crypto_key_init(struct tipc_crypto *c, 
->> struct
->> tipc_aead_key *ukey,
->>  * @pos: desired slot in the crypto key array, = 0 if any!
->>  * @master_key: specify this is a cluster master key
->>  *
->> + * The caller must hold c->lock.
->> + *
->>  * Return: new key id in case of success, otherwise: -EBUSY
->>  */
->> static int tipc_crypto_key_attach(struct tipc_crypto *c, @@ -1158,20 
->> +1167,19
->> @@ static int tipc_crypto_key_attach(struct tipc_crypto *c,
->> 				  bool master_key)
->> {
->> 	struct tipc_key key;
->> -	int rc = -EBUSY;
->> 	u8 new_key;
->> 
->> -	spin_lock_bh(&c->lock);
->> +	lockdep_assert_held(&c->lock);
->> 	key = c->key;
->> 	if (master_key) {
->> 		new_key = KEY_MASTER;
->> 		goto attach;
->> 	}
->> 	if (key.active && key.passive)
->> -		goto exit;
->> +		return -EBUSY;
->> 	if (key.pending) {
->> 		if (tipc_aead_users(c->aead[key.pending]) > 0)
->> -			goto exit;
->> +			return -EBUSY;
->> 		/* if (pos): ok with replacing, will be aligned when needed */
->> 		/* Replace it */
->> 		new_key = key.pending;
->> @@ -1201,11 +1209,7 @@ attach:
->> 	c->working = 1;
->> 	c->nokey = 0;
->> 	c->key_master |= master_key;
->> -	rc = new_key;
->> -
->> -exit:
->> -	spin_unlock_bh(&c->lock);
->> -	return rc;
->> +	return new_key;
+> Check each callback before calling it, as the PCI core already does, and
+> fall through to PCI_ERS_RESULT_NONE when it is absent.
 > 
-> Remove lock from tipc_crypto_key_attach() is enough. Why adding many 
-> irrelevant changes that do not seem necessary ?
+> Fixes: 956a9202cd12 ("xen-pcifront: Xen PCI frontend driver.")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 
-Those extra changes in tipc_crypto_key_attach() are more cleanup than
-anything else; I preferred the direct returns since the function no
-longer owns the lock, but I can reduce the patch and keep the exit
-label.
+Seems right to me, but I assume the Xen folks will pick this up.
 
-Thanks,
-Jérémy
+Acked-by: Bjorn Helgaas <bhelgaas@google.com>
+
+> ---
+> There is an in-flight fix for a refcount leak in this same function
+> ("xen/pcifront: Fix PCI device reference leak in AER handling"); this
+> change is orthogonal and applies in either order.
+> 
+>  drivers/pci/xen-pcifront.c | 13 +++++++++----
+>  1 file changed, 9 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/pci/xen-pcifront.c b/drivers/pci/xen-pcifront.c
+> index cffc32d660327..490913676f244 100644
+> --- a/drivers/pci/xen-pcifront.c
+> +++ b/drivers/pci/xen-pcifront.c
+> @@ -599,12 +599,17 @@ static pci_ers_result_t pcifront_common_process(int cmd,
+>  		case XEN_PCI_OP_aer_detected:
+>  			return pdrv->err_handler->error_detected(pcidev, state);
+>  		case XEN_PCI_OP_aer_mmio:
+> -			return pdrv->err_handler->mmio_enabled(pcidev);
+> +			if (pdrv->err_handler->mmio_enabled)
+> +				return pdrv->err_handler->mmio_enabled(pcidev);
+> +			break;
+>  		case XEN_PCI_OP_aer_slotreset:
+> -			return pdrv->err_handler->slot_reset(pcidev);
+> +			if (pdrv->err_handler->slot_reset)
+> +				return pdrv->err_handler->slot_reset(pcidev);
+> +			break;
+>  		case XEN_PCI_OP_aer_resume:
+> -			pdrv->err_handler->resume(pcidev);
+> -			return PCI_ERS_RESULT_NONE;
+> +			if (pdrv->err_handler->resume)
+> +				pdrv->err_handler->resume(pcidev);
+> +			break;
+>  		default:
+>  			dev_err(&pdev->xdev->dev,
+>  				"bad request in aer recovery operation!\n");
+> -- 
+> 2.43.0
+> 
