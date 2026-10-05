@@ -1,125 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E8013DD87B;
-	Mon,  5 Oct 2026 21:03:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C0C938228A
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 21:04:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791234203; cv=none; b=Fw0eAahwoPIJnJq5iAa7d4KC6l3Wk+4pUOwK72GkB5o6emSr/gzENWlcwdxz1EHbVPZFbHF6AeqxIvA5LKs157a+hRBPbe7yJzMAWkB0eEccLjFWCF6CQ1l7U3H9lhywkQ+pFLVO7VqrQ+E78uCXHeU2WKXO3QNsk6HY8hCuyLA=
+	t=1791234252; cv=none; b=scsTL0Cx1n3UGW4/ag9gxlv+z6bp49Okvg8zgByuGnJ5sm7tCwFtKKdTipsaEvEPgHLH6YflOwEtvjpvl/rn2/BiWFxZxJlcXZymZ4w8qg45KH7XSBp7A1hZjp/jj0YICbZwi5zKjHpt3gX3FPnJnnss4/LnOLw2JXUVt2y9luU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791234203; c=relaxed/simple;
-	bh=aVX6Ao29QGAf3mitZkGZkzKlwKGwrMO8++0iOj1DtyM=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=G1vTKKaE9Tot6y/XRFuEf83o3GqlRcp1AJyo9IsrQXFe6nvo6X0bo+kXgQTpec+DsYPGx94eEUn42oD1qWhiXRS35IbQyPfkqPSrYcG7BAOTSAs38xAIZ7SrfoRaquKhhln/jS4OPJHJKCMQCPAFdqfRj1SU7IBiNOWuuvNrJrU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HpnjAp0k; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791234252; c=relaxed/simple;
+	bh=GqENyHzUgMbXKlINYnRobWBPCuWfQb3DXxBVjcrad28=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uZFZUwyvqJ9+7qzWxwNxuDx7F3dwC6LzOUxUHYlCj+5DGIi0wNmsf9hvVi4afMsZMXoYZgkt+rwSK3oosA7VjCC6+aGTZ8p3FDLDFqDdni57T3FodIe90tQP4EA1N6YMyvDtRJBa63WdvnL1lxs7T6L5rTImLA9lx4U8Y1/JN+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YBHYaFyU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HpnjAp0k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 149901F00893;
-	Mon,  5 Oct 2026 21:03:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YBHYaFyU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EF3C1F000FF;
+	Mon,  5 Oct 2026 21:04:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791234202;
-	bh=cK7MK+kzcK8gWwXWnBrCk7CQu8mValjttqE5AbyN8Co=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=HpnjAp0krZaHmORh3OkprUKk+ci7J50Wc6YkshN9+R3QR/Sts930MdL3bh3Dr9GNb
-	 sJSTuSgOPqLnmaFxLmfiBxvCiFZndFWZkpcOlmwVJVcSQnxmcLqcQjIqtF7PgI5bZZ
-	 nLtavcU78dnycQLRSqjxkEjkH/UwNlexFwQczJRa1oWTQpM72ijWNkPRULi34IbX7L
-	 2ZzJRJ/GgrR82a+S2OFTDjKrDZ7XFeTrobcvXgzTDMNO4plg0RPZ6b4ayjmGjbKus6
-	 tMaDj4S91mLCHkHNoVjxvPN8dv9EVEXLFp0mPiIyLBjK0aPN+5Q0dPEf6QmqD6CYiu
-	 1WZqUD2T7xw4Q==
-Subject: Re: [PATCH v2 2/2] tipc: fix use-after-free in netns teardown
-From: netdev-bot+sashiko@kernel.org
-To: Jeremy.Jean@oss.cyber.gouv.fr
-Cc: tung.quang.nguyen@est.tech, jmaloy@redhat.com, netdev@vger.kernel.org,
- tipc-discussion@lists.sourceforge.net, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, kuba@kernel.org
-Date: Mon, 05 Oct 2026 21:03:21 +0000
-Message-ID: <179123420166.434549.12436565517014196849@kernel.org>
-In-Reply-To: <20261004210016.3051310-3-Jeremy.Jean@oss.cyber.gouv.fr>
-References: <20261004210016.3051310-3-Jeremy.Jean@oss.cyber.gouv.fr>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1791234251;
+	bh=IECixjPv27gG4PzL5lvjm6gcgiW9+nqGZj9g7L9BPik=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=YBHYaFyUeyoai5Tg0uMd3VsXvCGsmGGptCsu0oas2v3mP8zANFIfGY2aKXcjjlN+g
+	 Ct7+j7vmTTY3G0sUanLk5XOldOTVZGGyK+rfDEq8xf3i0XU1iEWKCUQrdLq3rRXbMn
+	 rKJ/7Uhjh07wzZ6kw3p68XaasW6z3kcuLbYxe0rtocz6VU526D2jA2FnovX++2L39F
+	 iuqM317jJ2ORGdSdFyNggq+KYsCqziIwhGoJEmtCUxsK6WayfmR3FT1/YPcmMIO+il
+	 wNSDuuFZjAq+fyuJGPnZ3DWiVM6Gwag4pM2K8r1J7/psHy4l2WXqY7jsuF2dNhrjWv
+	 H424lOO8nwnVg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Mingyu Wang <25181214217@stu.xidian.edu.cn>,
+	stable <stable@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] tty: vt: fix memory leak in vc_allocate()
+Date: Mon,  5 Oct 2026 17:04:06 -0400
+Message-ID: <20261005210231.3279008-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026100540-disbelief-sphinx-4c6a@gregkh>
+References: <2026100540-disbelief-sphinx-4c6a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
 
-Low priority / nit picks for your consideration:
+[ Upstream commit 5b114bfc1dfd88f9d50822d532f7f1fce0f7388a ]
 
-- [Low] After this patch, `struct tipc_topsrv::idr_in_use` is dead state.
+If the screen buffer allocation fails in vc_allocate(), the error handling
+path jumps to `err_free`. However, this path fails to release the unicode
+screen map attached to `vc->uni_pagedict_loc`.
 
---
+During the early stages of vc_allocate(), the unicode screen map is either
+newly allocated via con_set_default_unimap() or shares the default unicode
+map from a previously initialized console (which increments its refcount).
+If the subsequent kzalloc() for the screen buffer fails, the err_free path
+frees the vc structure but leaves the attached uni_pagedict with an
+elevated refcount. This results in an unreferenced object memory leak, as
+the reference to the dictionary is lost and its refcount can never reach
+zero.
 
-tipc: fix use-after-free in netns teardown
+This issue was discovered by DevGen (an automated virtual device modeling
+fuzzer based on Syzkaller). During fuzzing with kernel fault injection
+(failslab) enabled, the fuzzer forcefully failed the kzalloc() for the
+screen buffer, exposing this error-handling path leak.
 
-This patch stops the listener and cancels the accept work before
-tipc_topsrv_stop() walks conn_idr. The walk now goes forward with
-idr_get_next_ul() and uses kref_get_unless_zero(), so it no longer takes
-a reference on a connection whose count has already reached zero.
-Connections are disconnected before the workqueues are drained.
+Fix this by checking *vc->uni_pagedict_loc and calling con_free_unimap(vc)
+in the err_free path before kfree(vc). This safely decrements the refcount
+and releases the dictionary memory if this was the last reference. The
+explicit check is added to maintain consistency with other callers.
 
-> diff --git a/net/tipc/topsrv.c b/net/tipc/topsrv.c
-> index 01dd34b758f4b..f3f32fd8134ac 100644
-> --- a/net/tipc/topsrv.c
-> +++ b/net/tipc/topsrv.c
+Fixes: 34902b7f2754 ("tty: vt, get rid of weird source code flow")
+Cc: stable <stable@kernel.org>
+Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+Link: https://patch.msgid.link/20260803144556.163856-1-25181214217@stu.xidian.edu.cn
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ sashal: Replaced the upstream uni_pagedict_loc field with the existing vc_uni_pagedir_loc field. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/tty/vt/vt.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-[ ... ]
-
->  	spin_lock_bh(&srv->idr_lock);
-> -	for (id = 0; srv->idr_in_use; id++) {
-> -		con = idr_find(&srv->conn_idr, id);
-> +	for (id = 0; (con = idr_get_next_ul(&srv->conn_idr, &id)); id++) {
-
-[Severity: Low]
-This isn't a bug, but this loop condition was the only place that read
-srv->idr_in_use. Is the field still needed after this change?
-
-It is still declared and documented in struct tipc_topsrv:
-
- * @idr_in_use: amount of allocated identifier entry
- ...
-	int idr_in_use;
-
-It is also still written under idr_lock. It is set to 0 in
-tipc_topsrv_start(), incremented in tipc_conn_alloc() and decremented in
-tipc_conn_kref_release():
-
-	s->idr_in_use++;
-	...
-	s->idr_in_use--;
-
-Nothing reads it now.
-
-I checked whether dropping the old termination condition removes a
-guarantee that all connections are gone before kfree(srv), and it does
-not appear to.
-
-tipc_conn_close() unsubscribes synchronously via tipc_conn_delete_sub()
-->tipc_sub_unsubscribe() before it drops its reference. That
-unsubscribe serializes on sc->lock and calls timer_delete_sync(). The
-get/put pairs in tipc_conn_data_ready() and tipc_conn_write_space() are
-bounded by sk_callback_lock. The remaining final puts run from
-rcv_wq/send_wq, and tipc_topsrv_work_stop() drains those.
-
-The old loop also held idr_lock while stepping over empty ids, so it
-could not act as a wait-for-empty barrier anyway.
-
-Could the field and its kernel-doc entry be removed in this patch? If
-it is kept, could the commit message say that the old idr_in_use
-termination condition was dropped on purpose?
-
-> +		if (!kref_get_unless_zero(&con->kref))
-> +			con = NULL;
-> +		spin_unlock_bh(&srv->idr_lock);
->  		if (con) {
-
-[ ... ]
-
+diff --git a/drivers/tty/vt/vt.c b/drivers/tty/vt/vt.c
+index 124c1e5875629..187d42f61426e 100644
+--- a/drivers/tty/vt/vt.c
++++ b/drivers/tty/vt/vt.c
+@@ -1160,6 +1160,8 @@ int vc_allocate(unsigned int currcons)	/* return 0 on success */
+ 	return 0;
+ err_free:
+ 	visual_deinit(vc);
++	if (*vc->vc_uni_pagedir_loc)
++		con_free_unimap(vc);
+ 	kfree(vc);
+ 	vc_cons[currcons].d = NULL;
+ 	return err;
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261004210016.3051310-1-Jeremy.Jean%40oss.cyber.gouv.fr
+2.53.0
+
