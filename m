@@ -1,412 +1,198 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FCC94BE443
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 16:18:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18F024C14E2
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 16:20:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791217112; cv=none; b=YFCYA0zd9tJ4kNLXaYxDHfqhDau6yJFbObqiaYVg20eCx/qC59abN7mKET48v3F+DBoYN8h5wGSgQ9j20tl1viKWYJarZmKS820uKGlujOC2L0WyaMoub5pP1+svOAsLYH83lbEZxW+7YYbR4PSeB8JqZdOK0AR1RAgZwtXpJiY=
+	t=1791217228; cv=none; b=W8ZB17tlfpu9OreDhsO57JgjD/vjiTkHednuXO49cYE2emIoPlSqwxz53V6epsvzEmNRE/T4Wbs40SkuhLY8YDbJAm9qFPnyU/Eel2iZgO5p1+V5U0rzgeDyjRBWKCSBAnBTVyA/tB0gp8/DswtC/nv9WcrBbRBbAwIOuLUWwHQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791217112; c=relaxed/simple;
-	bh=FLRIJ4JbzxvhfIYfTm8XunZNBWGUC+LEITP/G23RIA4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iVjFh2IKmba7mYFG4F/LmfhgFI/HjaiXj9G9+FRaT6wQk4T1HW4iUVGRb3cGxUPeQWMvCyQfNAvx/GCKTNK1CePktEu3WENvoKcO2BIMplOpbkDADsQ7ufxqc8Y55eZV77iMqTXgyi9MZ0zhP0mexsDjVrVvtbcWhupHQVeTX9g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K9LbljPR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791217228; c=relaxed/simple;
+	bh=O9lBSXMX8ZJn6NCV7Qo+OyrqttL2Cz+ZVuV4r4U4v7w=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=BrThC+JxutttY2ICbelcU9yEcPuyNAF17CEymlc2YzYH8HBdAjL2uHcnDd9BYMNKRUzyjTOpkJM7asAt+GRcavfq0f4d+j/5h+ZI9qpUkfDI6uRCGGH4oyaUDV2tw/m27M6rH//xL4zdJ6D/hzBCPjIVnDTzgFZFb4a4NG6vc4Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alistair23.me; spf=pass smtp.mailfrom=alistair23.me; dkim=pass (2048-bit key) header.d=alistair23.me header.i=@alistair23.me header.b=mIgou8xm; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=A9ahTLT0; arc=none smtp.client-ip=103.168.172.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alistair23.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alistair23.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K9LbljPR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E8C71F000FF;
-	Mon,  5 Oct 2026 16:18:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791217110;
-	bh=GxtoRhg23j9HWec4XZobOMdsbVdvIFmb9v0tVxI/n98=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=K9LbljPRzDGVqoGO6JdkuPc/IJBdDKIzOhp5ZSYHZ6Y3SPkE/dBvbZ9OwdqXDihjt
-	 L9/Swz9xibmkpeRGoWuNJshaMLfCO1xn/iw2y9RGwfBVko1o298x+ljZhtWm/TCuja
-	 8R1GhJNePoSGM//ypo06fAZg3vdMQJ8itYu8tdczn3eO3oMjj1IVktgDHAIKSQO1hn
-	 iHlyHvA9hJYNzCi4FihRysPugb3ip9uelF+OYY7qzaiuSZxxQuNazQvR8WgJQ5pBWU
-	 OFFWDnr//EpcB57SdG2GBZXRf3sgmEqa3zJrqIqCI10D0/++6Bajsi4l1bHfoNhrvS
-	 B1C9hjzMunaqw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Jiazi Liu <jiazi.liu1984@gmail.com>,
-	stable <stable@kernel.org>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] usb: dwc3: gadget: fix IRQ storm on invalid event buffer count
-Date: Mon,  5 Oct 2026 12:18:25 -0400
-Message-ID: <20261005161721.3041620-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100539-phrasing-unsolved-a15e@gregkh>
-References: <2026100539-phrasing-unsolved-a15e@gregkh>
+	dkim=pass (2048-bit key) header.d=alistair23.me header.i=@alistair23.me header.b="mIgou8xm";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="A9ahTLT0"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 351ED1400192
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 12:20:24 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Mon, 05 Oct 2026 12:20:24 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alistair23.me;
+	 h=cc:cc:content-transfer-encoding:content-type:content-type
+	:date:date:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:subject:subject:to:to; s=fm2;
+	 t=1791217224; x=1791303624; bh=7fMFCyfAKjqs4FLoFtn1JpAUKI3aqzrN
+	/pKxZJGObMQ=; b=mIgou8xmRmQnWl1jG2bYSBVWn5upPWkEFbyGutYEjl5wadYH
+	4FHLz2titj2IMGoyV0KV1h1hdvPX2xvGf9b5IrDASAT5WYHepCHnB2aHDhdYclLu
+	v+0hmMlweoI2PTFmA+iKG1U1opfeuTgh07OvOV2VhVxFxvBMMlGHdzdnGotDTioT
+	FO7XZpGFcg931e1Bb+hhf5yYhNicElYEteA48EgBbI3GBubQEsv9374cJKj9HXJ1
+	0Iufk+knAMgDZvWoz0NrYfnEWo7rNgfsskNF3QjWsaKNgFB6Pllt90TALwOMV1Ts
+	ZrTA0njpkikg67lztwbMncDYusJhLQSiaaFeOQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791217224; x=
+	1791303624; bh=7fMFCyfAKjqs4FLoFtn1JpAUKI3aqzrN/pKxZJGObMQ=; b=A
+	9ahTLT0YDH561qtE/GIYgQ+NSbR5rJR0pQl+EnOvX690+Cr9N7XESXE1PK8EY4Kj
+	m1iTIA4aahWpdlZI3UhIfGw4Arjugokc27nNq6bIzH4kulfcKaEcMawGMqLxAmKz
+	OrzOqzRP4AbJiQNGS3euz1eaypFDooCgRzpdr8TTN4/uDvb0sFop50gmtAxIFa//
+	mFLlT/R7UfSCpFvpxp/gVFk4WgIGTH3nlJHFqsuftMNsNIUfmgIMMttdq3QAI7Ee
+	OVxTJh02Rie51Q1iz7+uqxA0XhI9GoERN0cZuGxURmVz9jS+SGvFsBG8JrzpGC+v
+	Dl8Ouf52epzsJefcsnPsQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=sign d=alistair23.me a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791217224; d=alistair23.me;
+	mf=PGFsaXN0YWlyQGFsaXN0YWlyMjMubWU+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:CMCMoY4xdbxZh/R9bjZuBTJYZ7+5IsvQ4diRuv8ge01umfb
+	jGoOu+VzKK5A9tzm2y2JVciB7HPDStZAkj5jFOCYp5F4pA1q9IDpee6bO9jowySx
+	7/tAyCkoPF3fxxpjJMK/dl8Q6PCtIxtYL+dNl21q/21fxs17frnnMkS6dlXjEwUq
+	Oq/dKfUiVprpHal//ekgaEx0O2Mev89HHGFHwUq12OzhkYBSioJdQomcS6uPPV2l
+	jD1xdU7zJlQpR8gIulK6lompGKO7Mgb7iiOzfJ2fjxbMEbpLTE10V2wsjYRWAC6L
+	ocZv9vO/xZv0KLZdhMGxcyRTpMcjIUW1FaHJVvw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to,
+	user-agent;
+Message-Instance: m=1; h=sha256:Ym0n0XQ7xg5cI/IqpJPTITJX+PX/w+HnRNia046nXas=:O9lBSXMX8ZJn6NCV7Qo+OyrqttL2Cz+ZVuV4r4U4v7w=;
+X-ME-Sender: <xms:SM7Dar7ievLkTtpdlDBGpuKCO1fCLQ8MFhg4KE_puh6pQuVJQNzttA>
+    <xme:SM7Dar1dYQABq6kh58KEo5z2Ys1ZTmqyVBDRhMvNt8W3XfCGciGUHq2CB_uLWjZNw
+    R8MEm3OO5qz-2zwnIIAVZLS3h9Wvykw3nWQ2WF02qgUAPGCORQkGv4>
+X-ME-Received: <xmr:SM7Dahcu8QHq9AyB_CaaBg6XR76Jpl6WgBAzCLquTc7ZDbaglInN0NWW8osjQXg31E0i>
+X-ME-Proxy-Cause: dmFkZTG2GWtYYlVMtomge/gx37ag7n9csUJSdjArruSeSXk4B76Is1uGN33Q4siC5LZeA/
+    gpym4yBZDbw9thPZ3JMFMRVZHbf0TzGnowwyAEDzdUvCCoXHDrd6+yB9fkPXr3nEzG8UOq
+    UhELnnypi/+b+WK0xiakK7QQEZp3Cqksc8fxvd6Frio6YW/guM4cEGVhJIOpZm9r3/6tWW
+    mdZyuWylNVbnxUf78cgJTlbQgBQq6FGYBPucqr4ZzHIYLy+5mDL4xwcJL7JemuFHrTzFxz
+    D/+63kw+u/7B3bpa1h6Bl55RGIZPZXDZAdC4hj3NLY40iT/y0Ha1yhZoNtpCCJtXMZwxSU
+    XJ5GwoLuJX+ONXYoMoLrWjxYcb1D4zT4SwWbt7ytyRkWoUrRviWDmswzkPLvNKqWM3yyQM
+    3y/iEK8bbQtPswvk6NMLsd70x5e9hLvlmhOZQRGh3Di8US7pVOsKMO/5vQV73UUdicblwt
+    cqF7/Flx+NSv06H+Wx8JocLHjOLCPE0GjejPDh3jiFxW71vvWTuoobYMDa3T4G2TBJkF4T
+    nGxLX5J1HXu9cwfvw9zzIm881uFC1ibN/dd+g/RHfFCaMb2oKlakb8s8VFuTVhknGyKq0p
+    GwOtxGa/dh8d4jCuX0J3suzTt4n7D0G5oEhKyG0Aqm+5gAW044LEgtlVWShA
+X-ME-Proxy: <xmx:SM7DahdOG_GLINh14KzgXm6l3tIjj0tAVvaPhmTm9YlDFnIe9m7LrA>
+    <xmx:SM7DaszFQAvBS3U-t0QgsRUaR5bU4kfTrhPxtQK795lWctFTRDek-g>
+    <xmx:SM7Dag_uCMtBYB2d_oOfAgvTupMx8BDw4NRdvL7Iu05ZEnX_pQAZ5w>
+    <xmx:SM7DasiqNziRHLqQGinGgGIxZPQhZ7bghcWeFjPWROlMLAnz7kBWig>
+    <xmx:SM7DarIal5lvns-HZNW50xcxkCG2YuGL0_AXXE5osmr9goCqgdzkhFcT>
+Feedback-ID: ifd214418:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 5 Oct 2026 12:20:23 -0400 (EDT)
+Message-ID: <53f642cf76a2b6c405bebd254afc6d37255af749.camel@alistair23.me>
+Subject: Re: [PATCH v2] PCI/DOE: Fix double free of a duplicate feature's
+ sysfs name
+From: Alistair <alistair@alistair23.me>
+To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>, bhelgaas@google.com
+Cc: jic23@kernel.org, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 	stable@vger.kernel.org
+Date: Tue, 06 Oct 2026 02:20:22 +1000
+In-Reply-To: <20261003102221.59894-1-donggeunyoo.kernel@gmail.com>
+References: <20261003102221.59894-1-donggeunyoo.kernel@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.62.0 (by Flathub.org) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Jiazi Liu <jiazi.liu1984@gmail.com>
+On Sat, 2026-10-03 at 19:22 +0900, Donggeun Yoo wrote:
+> When a DOE feature is reported twice, sysfs_add_file_to_group() fails
+> with -EEXIST for the second copy and pci_doe_sysfs_feature_populate()
+> frees that attribute's name, but leaves the pointer in place.
+> pci_doe_sysfs_feature_remove() frees every name again when the device
+> is removed, or when a later feature fails to register, so the name is
+> freed twice:
+>=20
+> =C2=A0 BUG: KASAN: double-free in pci_doe_sysfs_feature_remove+0x117/0x1b=
+0
+> =C2=A0 Call Trace:
+> =C2=A0=C2=A0 kfree+0x11a/0x420
+> =C2=A0=C2=A0 pci_doe_sysfs_feature_remove+0x117/0x1b0
+> =C2=A0=C2=A0 pci_doe_sysfs_teardown+0x90/0xf0
+> =C2=A0=C2=A0 pci_remove_bus_device+0x128/0x2e0
+> =C2=A0=C2=A0 pci_stop_and_remove_bus_device_locked+0x1d/0x30
+> =C2=A0=C2=A0 remove_store+0xd2/0xf0
+>=20
+> Clear the pointer after freeing the name.
+>=20
+> Fixes: 2311ab1820fe ("PCI/DOE: Expose DOE features via sysfs")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Alistair Francis <alistair@alistair23.me>
+> Assisted-by: LLM
+> Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 
-[ Upstream commit 1ff77cbefe5a653ea12874c213ea4bd0d72c1067 ]
+Reviewed-by: Alistair Francis <alistair@alistair23.me>
 
-When dwc3_check_event_buf() reads a GEVNTCOUNT value exceeding the
-event buffer length, commit 63ccd26cd1f6 ("usb: dwc3: gadget: check
-that event count does not exceed event buffer length") returns IRQ_NONE
-without writing back GEVNTCOUNT. Since the DWC3 interrupt is
-level-triggered, the uncleared IRQ source keeps the line asserted,
-causing a tight IRQ storm that accumulates 99,900 unhandled interrupts
-and triggers spurious.c:184 BUG -> kernel panic.
+Alistair
 
-The resulting call stack:
-  __report_bad_irq+0xac/0xc8
-  note_interrupt+0x340/0x468
-  handle_irq_event+0xac/0xc0
-  handle_fasteoi_irq+0x120/0x228
-  gic_handle_irq+0x68/0x108
-  ...
-  kernel BUG at kernel/irq/spurious.c:184
-
-To reproduce, write a bogus value exceeding the event buffer length
-directly to the GEVNTCOUNT register:
-
-  devmem <DWC3_BASE + 0xc40c> 4 0x1004
-
-Write the bogus count back to GEVNTCOUNT to clear the IRQ source,
-consistent with the stale event clearing pattern in
-dwc3_event_buffers_setup(), and schedule error recovery to
-reinitialize the controller.
-
-Fixes: 63ccd26cd1f6 ("usb: dwc3: gadget: check that event count does not exceed event buffer length")
-Cc: stable <stable@kernel.org>
-Suggested-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Signed-off-by: Jiazi Liu <jiazi.liu1984@gmail.com>
-Link: https://patch.msgid.link/20260915110637.17658-1-jiazi.liu1984@gmail.com
-Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ sashal: Adjusted gadget initialization context for kzalloc() instead of kzalloc_obj(). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/usb/dwc3/core.h   |  19 +++++++
- drivers/usb/dwc3/ep0.c    |   9 ++++
- drivers/usb/dwc3/gadget.c | 108 +++++++++++++++++++++++++++++++++++++-
- 3 files changed, 134 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/usb/dwc3/core.h b/drivers/usb/dwc3/core.h
-index 7ee7228b31eb9..9d6420c06aeec 100644
---- a/drivers/usb/dwc3/core.h
-+++ b/drivers/usb/dwc3/core.h
-@@ -49,6 +49,7 @@
- #define DWC3_ENDPOINTS_NUM	32
- #define DWC3_XHCI_RESOURCES_NUM	2
- #define DWC3_ISOC_MAX_RETRIES	5
-+#define DWC3_ERR_RECOVERY_MAX	3
- 
- #define DWC3_SCRATCHBUF_SIZE	4096	/* each buffer is assumed to be 4KiB */
- #define DWC3_EVENT_BUFFERS_SIZE	4096
-@@ -841,6 +842,12 @@ enum dwc3_link_state {
- 	DWC3_LINK_STATE_MASK		= 0x0f,
- };
- 
-+enum dwc3_err_state {
-+	DWC3_ERR_NONE = 0,
-+	DWC3_ERR_RECOVERY,
-+	DWC3_ERR_UNRECOVERABLE,
-+};
-+
- /* TRB Length, PCM and Status */
- #define DWC3_TRB_SIZE_MASK	(0x00ffffff)
- #define DWC3_TRB_SIZE_LENGTH(n)	((n) & DWC3_TRB_SIZE_MASK)
-@@ -1000,6 +1007,7 @@ struct dwc3_scratchpad_array {
- /**
-  * struct dwc3 - representation of our controller
-  * @drd_work: workqueue used for role swapping
-+ * @err_recovery_work: workqueue used for controller error recovery
-  * @ep0_trb: trb which is used for the ctrl_req
-  * @bounce: address of bounce buffer
-  * @setup_buf: used while precessing STD USB requests
-@@ -1009,6 +1017,7 @@ struct dwc3_scratchpad_array {
-  * @ep0_in_setup: one control transfer is completed and enter setup phase
-  * @lock: for synchronizing
-  * @mutex: for mode switching
-+ * @connect_mutex: for the pull-up and err_recovery_work
-  * @dev: pointer to our struct device
-  * @sysdev: pointer to the DMA-capable device
-  * @xhci: pointer to our xHCI child
-@@ -1072,6 +1081,9 @@ struct dwc3_scratchpad_array {
-  * @ep0_next_event: hold the next expected event
-  * @ep0state: state of endpoint zero
-  * @link_state: link state
-+ * @err_state: current error recovery state.
-+ * @err_recovery_count: number of consecutive error recovery attempts until
-+ *		confirmed healthy and reset to 0 on reset event.
-  * @speed: device speed (super, high, full, low)
-  * @hwparams: copy of hwparams registers
-  * @regset: debugfs pointer to regdump file
-@@ -1177,6 +1189,7 @@ struct dwc3_scratchpad_array {
-  */
- struct dwc3 {
- 	struct work_struct	drd_work;
-+	struct work_struct	err_recovery_work;
- 	struct dwc3_trb		*ep0_trb;
- 	void			*bounce;
- 	u8			*setup_buf;
-@@ -1191,6 +1204,9 @@ struct dwc3 {
- 	/* mode switching lock */
- 	struct mutex		mutex;
- 
-+	/* serializes pull-up run/stop vs error recovery */
-+	struct mutex		connect_mutex;
-+
- 	struct device		*dev;
- 	struct device		*sysdev;
- 
-@@ -1314,6 +1330,9 @@ struct dwc3 {
- 	enum dwc3_ep0_next	ep0_next_event;
- 	enum dwc3_ep0_state	ep0state;
- 	enum dwc3_link_state	link_state;
-+	enum dwc3_err_state	err_state;
-+
-+	u32			err_recovery_count;
- 
- 	u16			u2sel;
- 	u16			u2pel;
-diff --git a/drivers/usb/dwc3/ep0.c b/drivers/usb/dwc3/ep0.c
-index 5e4f35e572659..58d80db072954 100644
---- a/drivers/usb/dwc3/ep0.c
-+++ b/drivers/usb/dwc3/ep0.c
-@@ -200,6 +200,11 @@ int dwc3_gadget_ep0_queue(struct usb_ep *ep, struct usb_request *request,
- 	int				ret;
- 
- 	spin_lock_irqsave(&dwc->lock, flags);
-+	if (dwc->err_state != DWC3_ERR_NONE) {
-+		ret = -ESHUTDOWN;
-+		goto out;
-+	}
-+
- 	if (!dep->endpoint.desc || !dwc->pullups_connected || !dwc->connected) {
- 		dev_err(dwc->dev, "%s: can't queue to disabled endpoint\n",
- 				dep->name);
-@@ -271,6 +276,10 @@ int dwc3_gadget_ep0_set_halt(struct usb_ep *ep, int value)
- 	int				ret;
- 
- 	spin_lock_irqsave(&dwc->lock, flags);
-+	if (dwc->err_state != DWC3_ERR_NONE) {
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+		return -ESHUTDOWN;
-+	}
- 	ret = __dwc3_gadget_ep0_set_halt(ep, value);
- 	spin_unlock_irqrestore(&dwc->lock, flags);
- 
-diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c
-index 077e3ac2de460..23daa8b59374d 100644
---- a/drivers/usb/dwc3/gadget.c
-+++ b/drivers/usb/dwc3/gadget.c
-@@ -1136,6 +1136,10 @@ static int dwc3_gadget_ep_enable(struct usb_ep *ep,
- 		return 0;
- 
- 	spin_lock_irqsave(&dwc->lock, flags);
-+	if (dwc->err_state != DWC3_ERR_NONE) {
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+		return -ESHUTDOWN;
-+	}
- 	ret = __dwc3_gadget_ep_enable(dep, DWC3_DEPCFG_ACTION_INIT);
- 	spin_unlock_irqrestore(&dwc->lock, flags);
- 
-@@ -2049,6 +2053,10 @@ static int dwc3_gadget_ep_queue(struct usb_ep *ep, struct usb_request *request,
- 	int				ret;
- 
- 	spin_lock_irqsave(&dwc->lock, flags);
-+	if (dwc->err_state != DWC3_ERR_NONE) {
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+		return -ESHUTDOWN;
-+	}
- 	ret = __dwc3_gadget_ep_queue(dep, req);
- 	spin_unlock_irqrestore(&dwc->lock, flags);
- 
-@@ -2281,6 +2289,10 @@ static int dwc3_gadget_ep_set_halt(struct usb_ep *ep, int value)
- 	int				ret;
- 
- 	spin_lock_irqsave(&dwc->lock, flags);
-+	if (dwc->err_state != DWC3_ERR_NONE) {
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+		return -ESHUTDOWN;
-+	}
- 	ret = __dwc3_gadget_ep_set_halt(dep, value, false);
- 	spin_unlock_irqrestore(&dwc->lock, flags);
- 
-@@ -2295,6 +2307,10 @@ static int dwc3_gadget_ep_set_wedge(struct usb_ep *ep)
- 	int				ret;
- 
- 	spin_lock_irqsave(&dwc->lock, flags);
-+	if (dwc->err_state != DWC3_ERR_NONE) {
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+		return -ESHUTDOWN;
-+	}
- 	dep->flags |= DWC3_EP_WEDGE;
- 
- 	if (dep->number == 0 || dep->number == 1)
-@@ -2426,6 +2442,10 @@ static int dwc3_gadget_wakeup(struct usb_gadget *g)
- 	}
- 
- 	spin_lock_irqsave(&dwc->lock, flags);
-+	if (dwc->err_state != DWC3_ERR_NONE) {
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+		return -ESHUTDOWN;
-+	}
- 	if (!dwc->gadget->wakeup_armed) {
- 		dev_err(dwc->dev, "not armed for remote wakeup\n");
- 		spin_unlock_irqrestore(&dwc->lock, flags);
-@@ -2453,6 +2473,10 @@ static int dwc3_gadget_func_wakeup(struct usb_gadget *g, int intf_id)
- 	}
- 
- 	spin_lock_irqsave(&dwc->lock, flags);
-+	if (dwc->err_state != DWC3_ERR_NONE) {
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+		return -ESHUTDOWN;
-+	}
- 	/*
- 	 * If the link is in U3, signal for remote wakeup and wait for the
- 	 * link to transition to U0 before sending device notification.
-@@ -2819,10 +2843,13 @@ static int dwc3_gadget_pullup(struct usb_gadget *g, int is_on)
- 
- 	synchronize_irq(dwc->irq_gadget);
- 
-+	/* Serialize against dwc3_err_recovery_work() */
-+	mutex_lock(&dwc->connect_mutex);
- 	if (!is_on)
- 		ret = dwc3_gadget_soft_disconnect(dwc);
- 	else
- 		ret = dwc3_gadget_soft_connect(dwc);
-+	mutex_unlock(&dwc->connect_mutex);
- 
- 	pm_runtime_put(dwc->dev);
- 
-@@ -4115,6 +4142,10 @@ static void dwc3_gadget_reset_interrupt(struct dwc3 *dwc)
- 
- 	dwc->suspended = false;
- 
-+	/* The controller is recovered. */
-+	if (dwc->err_state == DWC3_ERR_NONE)
-+		dwc->err_recovery_count = 0;
-+
- 	/*
- 	 * Ideally, dwc3_reset_gadget() would trigger the function
- 	 * drivers to stop any active transfers through ep disable.
-@@ -4602,6 +4633,12 @@ static irqreturn_t dwc3_thread_interrupt(int irq, void *_evt)
- 	return ret;
- }
- 
-+static void dwc3_schedule_err_recovery(struct dwc3 *dwc)
-+{
-+	dwc->err_state = DWC3_ERR_RECOVERY;
-+	schedule_work(&dwc->err_recovery_work);
-+}
-+
- static irqreturn_t dwc3_check_event_buf(struct dwc3_event_buffer *evt)
- {
- 	struct dwc3 *dwc = evt->dwc;
-@@ -4635,9 +4672,21 @@ static irqreturn_t dwc3_check_event_buf(struct dwc3_event_buffer *evt)
- 		return IRQ_NONE;
- 
- 	if (count > evt->length) {
--		dev_err_ratelimited(dwc->dev, "invalid count(%u) > evt->length(%u)\n",
-+		dev_err(dwc->dev, "invalid count(%u) > evt->length(%u)\n",
- 			count, evt->length);
--		return IRQ_NONE;
-+		/*
-+		 * This is a fatal error - the driver and controller are out of
-+		 * sync on which event has been consumed. Reinitializing the
-+		 * controller is required to recover. Write the bogus count back
-+		 * to GEVNTCOUNT to clear the IRQ source, consistent with the
-+		 * stale event clearing in dwc3_event_buffers_setup(), then
-+		 * schedule error recovery.
-+		 */
-+		spin_lock(&dwc->lock);
-+		dwc3_schedule_err_recovery(dwc);
-+		spin_unlock(&dwc->lock);
-+		dwc3_writel(dwc, DWC3_GEVNTCOUNT(0), count);
-+		return IRQ_HANDLED;
- 	}
- 
- 	evt->count = count;
-@@ -4697,6 +4746,57 @@ static void dwc_gadget_release(struct device *dev)
- 	kfree(gadget);
- }
- 
-+static void dwc3_err_recovery_work(struct work_struct *work)
-+{
-+	struct dwc3 *dwc = container_of(work, struct dwc3, err_recovery_work);
-+	unsigned long flags;
-+	int ret;
-+
-+	/* serializes against dwc3_gadget_pullup() */
-+	mutex_lock(&dwc->connect_mutex);
-+
-+	ret = dwc3_gadget_soft_disconnect(dwc);
-+
-+	dwc3_disconnect_gadget_sleepable(dwc);
-+
-+	if (ret)
-+		goto err_unrecoverable;
-+
-+	if (dwc->softconnect) {
-+		u32 count;
-+		/*
-+		 * Wait irq to finish before soft_connect resets evt->lpos and
-+		 * the event buffer registers to avoid racing with
-+		 * dwc3_process_event_buf().
-+		 */
-+		synchronize_irq(dwc->irq_gadget);
-+
-+		spin_lock_irqsave(&dwc->lock, flags);
-+		count = ++dwc->err_recovery_count;
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+
-+		if (count > DWC3_ERR_RECOVERY_MAX)
-+			goto err_unrecoverable;
-+
-+		ret = dwc3_gadget_soft_connect(dwc);
-+		if (ret)
-+			goto err_unrecoverable;
-+	}
-+	mutex_unlock(&dwc->connect_mutex);
-+
-+	spin_lock_irqsave(&dwc->lock, flags);
-+	dwc->err_state = DWC3_ERR_NONE;
-+	spin_unlock_irqrestore(&dwc->lock, flags);
-+	return;
-+
-+err_unrecoverable:
-+	dev_err(dwc->dev, "Unable to recover the controller\n");
-+	mutex_unlock(&dwc->connect_mutex);
-+	spin_lock_irqsave(&dwc->lock, flags);
-+	dwc->err_state = DWC3_ERR_UNRECOVERABLE;
-+	spin_unlock_irqrestore(&dwc->lock, flags);
-+}
-+
- /**
-  * dwc3_gadget_init - initializes gadget related registers
-  * @dwc: pointer to our controller context structure
-@@ -4740,6 +4840,8 @@ int dwc3_gadget_init(struct dwc3 *dwc)
- 	}
- 
- 	init_completion(&dwc->ep0_in_setup);
-+	INIT_WORK(&dwc->err_recovery_work, dwc3_err_recovery_work);
-+	mutex_init(&dwc->connect_mutex);
- 	dwc->gadget = kzalloc(sizeof(struct usb_gadget), GFP_KERNEL);
- 	if (!dwc->gadget) {
- 		ret = -ENOMEM;
-@@ -4835,6 +4937,8 @@ void dwc3_gadget_exit(struct dwc3 *dwc)
- 	if (!dwc->gadget)
- 		return;
- 
-+	cancel_work_sync(&dwc->err_recovery_work);
-+	mutex_destroy(&dwc->connect_mutex);
- 	dwc3_enable_susphy(dwc, true);
- 	usb_del_gadget(dwc->gadget);
- 	dwc3_gadget_free_endpoints(dwc);
--- 
-2.53.0
-
+> ---
+> Changes in v2:
+> - Keep freeing the duplicate's name in
+> pci_doe_sysfs_feature_populate()
+> =C2=A0 and clear the pointer, instead of leaving it to
+> =C2=A0 pci_doe_sysfs_feature_remove() (Alistair Francis)
+>=20
+> v1:
+> https://lore.kernel.org/all/20260928035035.252394-1-donggeunyoo.kernel@gm=
+ail.com/
+>=20
+> Tested under QEMU (q35, cxl-type3, KASAN) on 72d3fcf802c4. The device
+> reports its CDAT feature once, so a test-only change either registers
+> its DOE capability as a second mailbox or inserts the feature N extra
+> times into one:
+>=20
+> =C2=A0 case=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 befor=
+e=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 after
+> =C2=A0 no duplicate, remove=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 no report=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 no report
+> =C2=A0 no duplicate, a name fails at probe=C2=A0=C2=A0=C2=A0 no report=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 no report
+> =C2=A0 two mailboxes, remove=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 double free=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 no report
+> =C2=A0 two mailboxes, 3 remove/rescan cycles=C2=A0 3 double frees=C2=A0=
+=C2=A0 no report
+> =C2=A0 3 duplicates in one mailbox, remove=C2=A0=C2=A0=C2=A0 3 double fre=
+es=C2=A0=C2=A0 no report
+> =C2=A0 2 duplicates, a later name fails,=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 2 =
+double frees=C2=A0=C2=A0 no report
+> =C2=A0=C2=A0=C2=A0 probed twice
+>=20
+> The doe_features listing is the same before and after in every case.
+>=20
+> =C2=A0drivers/pci/doe.c | 5 +++--
+> =C2=A01 file changed, 3 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/pci/doe.c b/drivers/pci/doe.c
+> index ac95b1d2d9997..6b5d9ba8e9697 100644
+> --- a/drivers/pci/doe.c
+> +++ b/drivers/pci/doe.c
+> @@ -208,8 +208,9 @@ static int pci_doe_sysfs_feature_populate(struct
+> pci_dev *pdev,
+> =C2=A0				pci_warn(pdev, "Failed adding %s to
+> sysfs group\n",
+> =C2=A0					 attrs[i].attr.name);
+> =C2=A0				goto fail;
+> -			} else
+> -				kfree(attrs[i].attr.name);
+> +			}
+> +			kfree(attrs[i].attr.name);
+> +			attrs[i].attr.name =3D NULL;
+> =C2=A0		}
+> =C2=A0	}
+> =C2=A0
