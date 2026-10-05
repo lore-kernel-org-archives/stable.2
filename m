@@ -1,106 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2681748988A
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 14:03:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EA36497B66
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 14:03:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791208999; cv=none; b=ADHy7U5ijC7INM0kQ5XCOY7wSKrTvHCuNZtAB4GGnf0kUvDitIdRNXXgM2BwUhM6K9vQvS3D0anOOWQuKWewAYJYJyPpCDpU2zv//dXvMyYzwzqbYWS5aEx3Sp50e8vlCvp6KrY3U0GtS8rif2icRO/aSRfhBqX4DG581SN5uNE=
+	t=1791209022; cv=none; b=DZTaxfFI3BYyXWLzj4iSnhREv2RmS8fPRflFFF3cp5AtZxfzHKmBZ9Y21ERyu6GLIm1dJMxBehPfpOHcAeWy5+pkB/54vU+opZK5gbVADowrVee78sb0rKFlHN+NH6tzjMM6+mk+7XXLqVFTENGvQFHg3jmQR7S75SqJO8MVGIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791208999; c=relaxed/simple;
-	bh=Nm9Rlk1A0CWAMYH8VyNSZ7mNCy988xosE+ntU6XhZVo=;
+	s=arc-20240116; t=1791209022; c=relaxed/simple;
+	bh=ThtFfkiAs5oo0Pkft2jlDhF5vLEjthoX88xHJfyJ9P0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tn/UZHTMTJfAQMZnBpNB8ck9AZ33zpZMPWXFLSmZzo8/vx6D4uEz0nDtrdqmkDRMr7IbSp+HzGVybvEOPVaWtHPUjc3EyeLuRBTxyUwTwMtgzpUKC+NgVWh6QrasKsT44jhNpfKIKdHrsuMGfBjqSuT8y2pPLZtH32Gb9QTwJis=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f4y5M/D8; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=mTq3KoUIkQG2ZT9Bq8NwoKXkllRcTHfXn1m2t1uCCAgyYOpro4eJvXCbIK89hk27WoP7ftzl8nES8qVBUshXOP+yY/ZBjVDphKXbq7IlXjdIQwrPa97JOJNHw0rzrft1Rndn314oVBnT+yoDRlEmG+vpEm2j4MSzy0JGoAQnhNw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yc8ShETS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f4y5M/D8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEE531F00893;
-	Mon,  5 Oct 2026 14:03:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yc8ShETS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4E9C1F000FF;
+	Mon,  5 Oct 2026 14:03:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791208997;
-	bh=oGbi1kuIU1qFBi2bcm+3PbGpcDMTZCoxCmJf2TIEOMk=;
+	s=k20260515; t=1791209020;
+	bh=4BZIqloR7jg6qSr1Mjjpspk6kytQApPH5AF5pV7I7g4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=f4y5M/D8yn/coVGJM7OcS9g7QF5HonPlU8xcpCdLpujzayhvBPOOVZZFbHXWExppT
-	 0qPSO4SvAwTXC4z96ZNZ4vPdTTlDegag8BXQFTjlNDkGhI7dx7+Hm+x0TM49oP7sAB
-	 ggagBmcfQ03KIYRPOvkJ0K1BGIWut+plvkuXwdYgMcv2sYuRy5YLH56LfkeTRmGpVF
-	 yJoJz47lRu7jDqwu9U8w8Xd5gg4lsinY7PbGbVYaqWH7rR1+XreEqcIWqLk6Wvv8oM
-	 jsDGnKPVZU0XBBnu1LJ3MQ49dUghhOnlQyzj4oHgdpdm8qrU1VguNa/rnVx3q6nupb
-	 xAjk1vfuyeV8w==
+	b=Yc8ShETSmjrg/ZpugltEBJ0xcZRAv8aI7uLovRs0JyNpKxfQZ7CLe+1EhIRLRXJ3I
+	 GHJ9ZFOWT+a+QWU9qpA2v86BwJYRRCjTk02r7GD3DwdlslMFuwRw7FXUc7XkeLzIxo
+	 FcLmjfZWNVNaWuJEwVp6AEArTh7Uah+D0jnrYJ3h+R6J47JxR2uW4EWe8Pw6dTpQMN
+	 v0oLi9UAxeoHWh70kuXncXeXVzvpf18eyQt/4pDpyAW7Pi8Je0TfTgO38kxq4u9S3s
+	 wSEhmyq/K5936s5QYbbthWO2PSuo8QinumGceIiVelqBm25jmxe0wjzA+vKd702gP0
+	 vPe3NxWNZcPcA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Francisco=20Beltr=C3=A1n=20Millal=C3=A9n?= <fbeltranmillalen@gmail.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Orgad Shaneh <orgads@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] drm/amdgpu: reset VI ASIC on MacBookPro14,3
-Date: Mon,  5 Oct 2026 10:03:13 -0400
-Message-ID: <20261005140300.2983832-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y] usb: octeon-hcd: fix the FIFO-flush timeout computation
+Date: Mon,  5 Oct 2026 10:03:37 -0400
+Message-ID: <20261005140323.2988609-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261005140300.2983832-1-sashal@kernel.org>
-References: <2026100528-almighty-whoopee-38d8@gregkh>
- <20261005140300.2983832-1-sashal@kernel.org>
+In-Reply-To: <2026100526-seizing-camping-01bc@gregkh>
+References: <2026100526-seizing-camping-01bc@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Francisco Beltrán Millalén <fbeltranmillalen@gmail.com>
+From: Orgad Shaneh <orgads@gmail.com>
 
-[ Upstream commit a22e5e4f2ebbdbb962cc3233094d189c4dfaa051 ]
+[ Upstream commit 4c7a1b9f1f1979f2b3b69428ada12680695159c2 ]
 
-On a MacBookPro14,3 with a Radeon Pro 555 (Polaris11), the framebuffer
-is at MC address 0 when amdgpu loads after a cold boot, as the firmware
-leaves it (MC_VM_FB_LOCATION = 0x007f0000), while the VBIOS ASIC_Init
-table places it at 0xF4_0000_0000 (0xf47ff400).  amdgpu reads the
-location once, at init, so after a re-POST (S3 resume or GPU reset)
-the framebuffer has moved and the driver keeps programming the old
-one: the SMU is handed a table that was never written and the GPU
-does not come back, which leaves the internal panel black.
+cvmx_wait_tx_rx() computes its 100us deadline from
+(u64)octeon_get_clock_rate - the address of the function, not its
+return value; the parentheses have been missing since the
+CVMX_WAIT_FOR_FIELD32 macro became a function. The cast makes it
+compile silently, and the resulting deadline is effectively infinite.
 
-Resetting the ASIC on load makes ASIC_Init run before the driver reads
-the location, so the driver uses the VBIOS placement from the start and
-every later re-POST puts the framebuffer back where it already is.
+On a healthy controller the flush bit clears on the first read and
+nothing is noticed. On a controller whose PHY did not come up (for
+example when the reference-clock configuration is wrong for the board),
+txfflsh/rxfflsh never clear and probe spins forever in __delay() -
+observed as a hard hang with a soft-lockup splat on a CN5020 board,
+where the board watchdog then resets the system with no console output.
 
-Add the Radeon Pro 555 used in this machine to the existing VI reset
-quirk table.
+Call the function, restoring the 100us timeout the code always
+intended.
 
-Tested on a MacBookPro14,3 on 6.18.49 with the quirk table backported
-(the kernel also carries unrelated local PCI and ACPI patches for this
-machine).  The framebuffer is at 0x000000F400000000 after both cold and
-warm boot, and the GPU survived 9 S3 cycles (lid close and rtcwake, one
-of them with the lid closed for about 7.5 minutes and a USB-C disk
-attached), each followed by a few minutes of 3D load; no ring timeouts
-or VM faults were reported.  The reset adds about 0.23 s to amdgpu init.
-
-Suggested-by: Christian König <christian.koenig@amd.com>
-Suggested-by: Alex Deucher <alexander.deucher@amd.com>
-Link: https://lore.kernel.org/all/20260924132952.25054-1-fbeltranmillalen@gmail.com/
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Francisco Beltrán Millalén <fbeltranmillalen@gmail.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit b6b1d97218518003107d4446fac278fa3e0a19a0)
+Fixes: 3e195a80e096 ("Staging: octeon-usb: Replaces CVMX_WAIT_FOR_FIELD32 macro with a function")
 Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Orgad Shaneh <orgads@gmail.com>
+Link: https://patch.msgid.link/20260901193100.1352110-1-orgads@gmail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/vi.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/staging/octeon-usb/octeon-hcd.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
-index 162077d3bf765..86be88171bbaf 100644
---- a/drivers/gpu/drm/amd/amdgpu/vi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vi.c
-@@ -1419,6 +1419,7 @@ struct vi_reset_quirk {
- static const struct vi_reset_quirk vi_reset_quirks[] = {
- 	{ 0x67ef, PCI_VENDOR_ID_APPLE, 0x0190, 0xe3 }, /* Radeon Pro 555X */
- 	{ 0x67ef, PCI_VENDOR_ID_APPLE, 0x018f, 0xc2 }, /* Radeon Pro 560X */
-+	{ 0x67ef, PCI_VENDOR_ID_APPLE, 0x017a, 0xc7 }, /* Radeon Pro 555 */
- };
+diff --git a/drivers/staging/octeon-usb/octeon-hcd.c b/drivers/staging/octeon-usb/octeon-hcd.c
+index a1cd81d4a1144..16fb72eb3d185 100644
+--- a/drivers/staging/octeon-usb/octeon-hcd.c
++++ b/drivers/staging/octeon-usb/octeon-hcd.c
+@@ -578,7 +578,7 @@ static int cvmx_wait_tx_rx(struct octeon_hcd *usb, int fflsh_type)
+ 	int result;
+ 	u64 address = CVMX_USBCX_GRSTCTL(usb->index);
+ 	u64 done = cvmx_get_cycle() + 100 *
+-		   (u64)octeon_get_clock_rate / 1000000;
++		   (u64)octeon_get_clock_rate() / 1000000;
+ 	union cvmx_usbcx_grstctl c;
  
- static bool vi_need_reset_on_init(struct amdgpu_device *adev)
+ 	while (1) {
 -- 
 2.53.0
 
