@@ -1,120 +1,93 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw1.uni-kl.de (mailgw1.uni-kl.de [131.246.120.220])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ECEE4195D0
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 12:36:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01047429037
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 12:37:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=131.246.120.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791203770; cv=none; b=liibfw5FkH5IuOmUfVRmUQ/gEW9YFefCt57d+bDwVkBR0YrxIg3E9wg9Lo/4zROVDmkbmC2vrdrBZaE+iSnK5hiZTiQfYwqv4oKr0ZzHzyu4hCSSpj0JnFTjBJEm8vi+eo2nR9bIxpm1xklHBp9C+Gk6R/rj0qpAyHH6NvfWphI=
+	t=1791203841; cv=none; b=W8qkYNzQdcJYBZzsZRE/o9gj4SOz1qtydTYiKk1TW7tHTo6XCwDpO98YYF4jRoYvG7azvlE2BRd/dSZUnK0+Tl3zHdea3flMOpK3SuecbA4OgTjeeWDX75OtnAO8FMQNaMJ5y4eCxSo/jkQiSwKg+JSI1o/POoWE+gVvutOAvsE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791203770; c=relaxed/simple;
-	bh=QQ//D5UNEFrMdGNsE0x2XqrDjRfkmbQnZlSDOkPsLjM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nsISrUI+HdQlwx2rffwX0I/alKug/8gjTIi4ZgWEDZ2hJP3Wy3FnCeQV5P7PwSygWm/ClRWZhQe6lF7CesT6Xb2qDUNMzzhcgcaGxQWs8GX0GGIDwvIcAm9RAF7M8z17T58cQjEHhWyJ5PhGa6AJoaYKV2Cpy9dMsKDyYdTZOKM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=LRrDNRz0; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1791203841; c=relaxed/simple;
+	bh=yDdqInFk3YpdDUiRGSXuiC/zzCHwu67hYsiL6JTzZlI=;
+	h=Subject:MIME-Version:Cc:From:To:Date:Message-ID:Content-Type; b=GKzRj/G33MeSJ3X1LZjs0UgbkEJ1qCuPkEaEILaHVmvaETtbeKGVfcQ5G4yzr6WmgE76a3aB7jGK5hyhy4iVWHoiohxiq/ClLB3MoypAS/IDxkJXtbhOn1wvnUOXi7kEQpnp6o/phehXPwU6ZOVb0mcx9hCyJfUH7/e3hrzRQFU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rptu.de; spf=pass smtp.mailfrom=rptu.de; dkim=pass (2048-bit key) header.d=rptu.de header.i=@rptu.de header.b=HMkk8ytz; arc=none smtp.client-ip=131.246.120.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rptu.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rptu.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="LRrDNRz0"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2dd58e1e2c7so6146445ad.0
-        for <stable@vger.kernel.org>; Mon, 05 Oct 2026 05:36:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791203765; x=1791808565; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4jU8vbkoMdpm/iDka5HS8l6OLmahdMWqgTkrbnwvknU=;
-        b=LRrDNRz0pHvIpLpLE2H9qGw9RxTzk6KPEJByVvSTdcI1tFZDoj7i+fjzwbHLVVRtD3
-         gpxJcOa4kN5oAMIlIIjX1aH+s8EW5f2m+zEsQ0s0JRIef8mYDo7iUh3DyU5lxbT6Pz/2
-         VaDBzU9Zm50NzDVD66drpFqOyuGdNHTdU+qlxAPuLgVheNowU5BjxlMs7iSq4mNQBw+F
-         2P33Z9u4PwhNUfLS7hEM5vv8FstSBsKehuH2jAuPUTI1YONbm59kB2rWd+BWBf1PMNOi
-         wOKSm2Afa2Xi9OR/yzXxBQekswq5Y2sTrn8y/56E2bCtDBDH/RxV01xpAnDMSqw/89me
-         c4bw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791203765; x=1791808565;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4jU8vbkoMdpm/iDka5HS8l6OLmahdMWqgTkrbnwvknU=;
-        b=a/VJWJMkmELzlIYueJcYml9Ue8fm8v+IjXoEErFywJxI1NTM3FZ9Os1Kf+2uCghppp
-         9ZPTuJfi54QH4/y/ZFm3aCnpFU8nk01sG2U9q33ynjnAEpOH86uh4mTpkCf0pc9+MYSL
-         gvvAttjBn78nO/njGLJryAzfEOEUWeQR7ZApcDqfhuc2qnlS5YfvYq8RgCEqd8Y9Ylmq
-         xQlVCorjcbtsOwxWDQI1O95dPeYRzhbxqYJemtI57Sah8t10gFYSaxgk2MvA9WGxe0RY
-         gKb6Y2hYDEZWIRLx4u5DNIT8BCdErOyT26oz6XVR2APfuuDxuBPIkUXXLSHPkDhqUdJi
-         B/lw==
-X-Gm-Message-State: AFq9FYKfl9DcaBTh8OA/967ShoCdqcJHb1h75pPxEVqDscIDrYdtgQWN
-	gsPMkNqxBmyKiU2iw734WjTZ+QX9xjEH1v8y9Rk8klHTW4FUsff2M+AWWXu+AeXLrY8=
-X-Gm-Gg: AYBFou1kOaFdzGmKalKJrIhi3tsE69SwmW7NCZkIm1neCHiq4nWFXqHLXvIsskC3iYX
-	vzlNIcQiRQBOFsUQ+WbcznMqJ7oD7sKl/76HlJmG5tLFhNjTj0MqMopMfUNbY8nWI47FuxzCFj1
-	c4YKQZvwhqKuH40N060c8D8fCYs1jZp/5IQA6gfeUNnBx9mOB0YW7eV4pgp9tyLkFwWK894Hij6
-	99QmKP8LSmyT0kIVY+JskllP+hAqk9eoCmSCzG2KUcfWXzyF5HrzCA8t02Ie8dfaxbFCB7a+cu/
-	E3qauLQuXoflGRy+L9AkfYRsxGjmr0hAUSzzDE/RC3IPjUP25XTyPVf9bdCw6Kc7JwYjyH0YYee
-	WYAMVBPwh0sBccamYzswsByjCc6NOzFJhiif3U/4GV5WexBGR5kraHKTVTEhCYXfivHLHUsIxvI
-	vEOaf6yhLoq49qjaF3D3smL/kN9yuWk3wq1sal/+Yf7Eji2Ry/evpbwI3NH43AZMZ/YoOpPy0gu
-	uQzT9VjZD5RNiJzskvMug==
-X-Received: by 2002:a17:903:186:b0:2dd:c053:c209 with SMTP id d9443c01a7336-2e49b6df076mr106567665ad.37.1791203765331;
-        Mon, 05 Oct 2026 05:36:05 -0700 (PDT)
-Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:5364:bba9:2adf:d611])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e5a5caea48sm6542495ad.14.2026.10.05.05.36.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 05:36:04 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	xen-devel@lists.xenproject.org,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH] xen/scsifront: check for a NULL shadow entry on a backend response
-Date: Mon,  5 Oct 2026 21:35:54 +0900
-Message-ID: <20261005123555.253995-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=rptu.de header.i=@rptu.de header.b="HMkk8ytz"
+Received: from uni-kl.de (mail.uni-kl.de [131.246.120.212])
+	by mailgw1.uni-kl.de (8.18.1/8.18.1/Debian-6) with ESMTPS id 695CZPBU1272841
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+	for <stable@vger.kernel.org>; Mon, 5 Oct 2026 14:35:25 +0200
+Received: from [2003:f6:2713:f52:6111:977:9049:d446] (account fyw21nur@rptu.de)
+  by rptu.de (CommuniGate Pro XIMSS 6.3.11)
+  with HTTPU id 325891654; Mon, 05 Oct 2026 14:35:25 +0200
+X-Mailer: Samoware HTML5 6.3.6509139
+Subject: [PATCH] ALSA: hda/realtek: Add quirk for LG gram 16 (16Z90SP)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Cc:  tiwai@suse.de, stable@vger.kernel.org
+From:  "Prateek Yadav" <fyw21nur@rptu.de>
+To:  alsa-devel@alsa-project.org
+Date: Mon, 05 Oct 2026 14:35:25 +0200
+Message-ID: <ximss-325891667@mail1.uni-kl.de>
+Content-Type: text/plain; charset="utf-8"; format="flowed"
 Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed; d=rptu.de; h=subject:mime-version:cc:from:to:date:message-id:content-type:content-transfer-encoding; s=rptu2026; bh=yDdqInFk3YpdDUiRGSXuiC/zzCHwu67hYsiL6JTzZlI=; b=HMkk8ytzlzH/3i9a46OPWDcjCpHbFFXV0GCrddbdDFOteY1TPNbb3RLsf2fTDRT++U2z3NyWhMUYFh6AdZZXEsCppM9cAxZzMOYDylHy3UrjPyevj+ej2t5682Iuw/sA0UCZpISUnlRBqKmjIvReVUSfP8m9/Qd/VcgKu2gxKhQh+5kbRY/RQEa/qE+Gqs2f169OdH4Uf/aUxoXsg+XP19qGSZ943L9/CHx3LvjO8RrcPdf3KfwKkI3zNMHehK/EwzL0h56k/FMN4bVEjMViticfHiiW0OLiAWqCfHOb6ZHDMEb7UTDHNTtxXtcRVfRqTEYTb6SDg8FB1UXvSo4xSg==
+X-Spam-ID: 155943::1791203730-D99F8827-93CC9F59/0/0
+X-Spam-Score:  (-1.92)
+X-Spam-Flag: NO
 
-scsifront_do_response() validates the rqid in a backend response against
-VSCSIIF_MAX_REQS before using it to index info->shadow[], but then
-dereferences the entry to test ->inflight without checking that the slot
-is populated.  Shadow slots are NULL before a command is submitted (the
-host private area is zeroed at allocation) and are reset to NULL in
-_scsifront_put_rqid() once a request completes, so an in-range rqid that
-does not correspond to an outstanding request makes the frontend
-dereference a NULL pointer.
+The LG gram 16 (16Z90SP, SSID 1854:053b) drives its internal speakers
+through Samsung-style smart amplifiers on an ALC298. Nothing
+initialises them, so the internal speakers are silent after a cold
+boot, while headphones, HDMI and the microphones work. A warm reboot
+masks the problem, as the amps stay initialised.
 
-A malicious or buggy backend can thus crash the guest by returning a
-response whose rqid is in range but not in flight -- for example a
-spurious response before any command has been issued, or a duplicate of
-one already completed.  The ring has only VSCSIIF_MAX_REQS (16) slots, so
-before the first command every in-range rqid selects a NULL slot.
+Evidence (kernel 7.2.5-3-omarchy, sof-firmware 2025.12.2-1,
+PipeWire 1.6.8):
+- aplay -D plughw:0,0 completes with exit 0 but no audible output.
+- During playback the codec shows Node 0x03 Converter stream=1,
+   Amp-Out vals [0x69 0x69] unmuted, and Pin 0x17 OUT with EAPD on —
+   the digital path is correct, the amps simply never start.
+- Headphone Jack reports off, Speaker Phantom Jack reports on.
+- Running the known 4-amp hda-verb init sequence
+   (amps 0x38/0x39/0x3C/0x3D, cf. joshuagrisham/galaxy-book2-pro-linux
+   necessary-verbs.sh) restores speaker output immediately.
+- Machine dual-boots Windows, which explains cold-boot-only silence.
 
-Reject a response whose shadow slot is not populated.
+This mirrors the 16Z90TR (1854:0554) case fixed with
+ALC298_FIXUP_SAMSUNG_AMP_V2_2_AMPS, and the 16" 16Z90R-A (1854:0489)
+which uses the 4-amp variant. I verified the 4-amp init works on this
+machine; please adjust to _2_AMPS if COEF 0x22 indicates two amps.
 
-Fixes: 6d1c2f48f3fc ("xen/scsifront: harden driver against malicious backend")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
- drivers/scsi/xen-scsifront.c | 1 +
- 1 file changed, 1 insertion(+)
+  sound/hda/codecs/realtek/alc269.c | 1 +
+  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/scsi/xen-scsifront.c b/drivers/scsi/xen-scsifront.c
-index 989bcaee42caf..aa44a233eac8d 100644
---- a/drivers/scsi/xen-scsifront.c
-+++ b/drivers/scsi/xen-scsifront.c
-@@ -367,6 +367,7 @@ static void scsifront_do_response(struct vscsifrnt_info *info,
- 	struct vscsifrnt_shadow *shadow;
- 
- 	if (ring_rsp->rqid >= VSCSIIF_MAX_REQS ||
-+	    !info->shadow[ring_rsp->rqid] ||
- 	    !info->shadow[ring_rsp->rqid]->inflight) {
- 		scsifront_set_error(info, "illegal rqid returned by backend!");
- 		return;
--- 
-2.43.0
+diff --git a/sound/hda/codecs/realtek/alc269.c 
+b/sound/hda/codecs/realtek/alc269.c
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -8114,6 +8114,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+      SND_PCI_QUIRK(0x1854, 0x0489, "LG gram 16 (16Z90R-A)", 
+ALC298_FIXUP_SAMSUNG_AMP_V2_4_AMPS),
+      SND_PCI_QUIRK(0x1854, 0x048a, "LG gram 17 (17ZD90R)", 
+ALC298_FIXUP_SAMSUNG_AMP_V2_4_AMPS),
+      SND_PCI_QUIRK(0x1854, 0x0490, "LG Gram Style 14 (14Z90RS)", 
+ALC298_FIXUP_LG_GRAM_STYLE_14),
++    SND_PCI_QUIRK(0x1854, 0x053b, "LG gram 16 (16Z90SP)", 
+ALC298_FIXUP_SAMSUNG_AMP_V2_4_AMPS),
+      SND_PCI_QUIRK(0x1854, 0x0554, "LG gram 16 (16Z90TR)", 
+ALC298_FIXUP_SAMSUNG_AMP_V2_2_AMPS),
 
+Hardware: LG 16Z90SP-A.AD7BG, Intel Meteor Lake-P HD Audio [8086:7e28],
+Realtek ALC298 [10ec:0298] rev 0x100103, SSID 1854:053b.
+ALSA info: 
+https://alsa-project.org/db/?f=7e8c49270f1b902ebb9fa76a4695f8301db040cf
+
+
+Signed-off-by: Prateek prateek.yadav@edu.rptu.de
