@@ -1,91 +1,190 @@
-Received: from mta1.migadu.com (out-49.mta1.migadu.com [95.215.58.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EB2E3F927A
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 14:36:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 482DE4A3F27
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 14:37:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791211017; cv=none; b=NEmMqVy/GxgGNG9HqirAiz4R6LhBkczz0Az4D7uNQ3gYW91OD8BhDjnOWZ2ZShBglLYMEx+YNNR1x0hAYRcc/ZnvUEC2rlPrXnTmKKMH563Bb59hJ+jC+TCYWJwK4zyUQcEGVewKBNLyuKQy5nO3aJl4Skk46ihDKh7sD/1WldQ=
+	t=1791211065; cv=none; b=I1Wt4bQ7D+g/jgdNPEqyE2lyQ2hnhgpHuz3XqbXVJAzhMa8xul+zXVZX0yhGas7SaazddWoc5R/orjTnrTpxBi9zr1ceEaxZTmDouwZpvEzupgVMfmi9KKgIBp7NZJ0rvrKyebZkVmdjNc0ZoRkaEWbM2l5/C/U87cvhpd/IMpQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791211017; c=relaxed/simple;
-	bh=F9by0ha0YQK0T/c0DHTwYvhzhlGXnVnEdgz0tUOz0JM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=j+8DH3el+CkCDiSts4YV0dE7PYasgh2/tQE4XPtrdFHLN+DeGvK85nY5eZi9KjmMsaF0sAuw5HyFCjbLtxuqq9+a4ALLTsm5fBD/HhgqFP7A+kASxSQEgaK5Qu45cIeVw+TtLAxgNYCOlcLjJxWUXNOOgROOx5UxwJuwLuNfMdw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=r8Y3d/2t; arc=none smtp.client-ip=95.215.58.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791211065; c=relaxed/simple;
+	bh=xqMbqrSTh4R3hsBEDbgVhPTW5gI9TVqJCHQ9nV1K5nA=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=IGVvhJOWBOxQ9HLiOKrZhhZPBPFdkLBpVW6/ZU0SPA5iSpHrzEqfGbB4HfufbBk5gWvjmUv7744aGG7ezlY0EAR5nNMygmj26kmzmJFOK9pVzrL0vxhcGkf9bXkw7WcdAQgWLbR54brAqzi8mTkA16q07KmVrfPlISTm5RJd534=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=O0wQOjcy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="r8Y3d/2t"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=F9by0ha0YQK0T/c0DHTwYvhzhlGXnVnEdgz0tUOz0JM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791211006; v=1; x=1791815806;
- b=r8Y3d/2tMptWxAOP35SYvkYzFgJtbLlxH9J+ZqwvEuWk8cRnrzsQ8zrqILyhOjE/qZn7VyAp
- b2y4Q/MgYEU2N/t1TMxgei6oaYMZWXcIFAhtUT0qMB8xQx4GkPYfljqAuYJN+mhuRJA18QUAf0k
- MiGcocgfBrYxJtFe1jit0fzk=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 16f5694261043640;
-	Mon, 05 Oct 2026 14:36:45 +0000
-X-Mizu-Trace-ID: 16f5694261043640
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <de41b083-6368-429e-9928-90aa5440f750@linux.dev>
-Date: Mon, 5 Oct 2026 22:36:26 +0800
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="O0wQOjcy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6386E1F000FF;
+	Mon,  5 Oct 2026 14:37:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791211056;
+	bh=RcPu/KIv5MpFIlxvwFEvmmzPs8uIeN19KVCHdQaYJiw=;
+	h=Subject:To:Cc:From:Date;
+	b=O0wQOjcyuifQ4R+h+iRYi+f3cVns1cFEX9RyMgX1wbxk4jDJIq02h/03Yk76qH/bX
+	 Wze25vO+ot/mNPoBzoExbdonK2E16YSegxCDDS4hvpT5KZIiYunqz4yFSA94hm1p3R
+	 sWGq1GGoqJmyq1MNh1M5edlN6PDdcYm/iOP/fluY=
+Subject: FAILED: patch "[PATCH] wifi: mac80211: count only matching reservations in reserved" failed to apply to 6.18-stable tree
+To: zhilinz@nebusec.ai,johannes.berg@intel.com,vega@nebusec.ai
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 05 Oct 2026 16:37:34 +0200
+Message-ID: <2026100534-sector-drab-5350@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] x86/mm: fix incomplete page-table invalidation with
- TCE
-Content-Language: en-US
-To: Borislav Petkov <bp@alien8.de>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Pedro Falcato <pfalcato@suse.de>, dave.hansen@linux.intel.com,
- luto@kernel.org, peterz@infradead.org, tglx@kernel.org, mingo@redhat.com,
- x86@kernel.org, hpa@zytor.com, riel@surriel.com,
- linux-kernel@vger.kernel.org, qi.zheng@linux.dev, nadav.amit@gmail.com,
- thomas.lendacky@amd.com, kernel-team@meta.com, linux-mm@kvack.org,
- akpm@linux-foundation.org, brendan.jackman@linux.dev, jannh@google.com,
- mhklinux@outlook.com, Manali.Shukla@amd.com, mingo@kernel.org,
- stable@vger.kernel.org, toshi.kani@hpe.com, david@kernel.org,
- mikhail.v.gavrilov@gmail.com
-References: <20261005052302.43042-1-lance.yang@linux.dev>
- <asM7b8ECO34-jiwi@pedro-suse.tail5790ac.ts.net>
- <60d5db86-8002-4d87-b8d3-c161d674122b@linux.dev>
- <ab077b6a-160f-41a2-a167-813f0560e30d@citrix.com>
- <38541ec6-d796-4f35-a700-75ab097b6df5@linux.dev>
- <7ad90e94-d04d-453a-ba22-9640a5024d8c@citrix.com>
- <6801221a-6307-407a-85fc-46906f95d22e@linux.dev>
- <20261005142216.GAasOymJHYnmn6wD5m@fat_crate.local>
-From: Lance Yang <lance.yang@linux.dev>
-In-Reply-To: <20261005142216.GAasOymJHYnmn6wD5m@fat_crate.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
+
+
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
+
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x 437f3727b4fd715266c296435c116288f82666fd
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100534-sector-drab-5350@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+
+Possible dependencies:
 
 
 
-On 2026/10/5 22:22, Borislav Petkov wrote:
-> On Mon, Oct 05, 2026 at 06:12:45PM +0800, Lance Yang wrote:
->> Which CPU? None so far. As I said, I don't have a reproducer. I'm trying
->> to make sense of what the manual says and what the code does ...
-> 
-> So you're sending a patch for which you have absolutely no justification? And
-> CCing it to stable too?
-> 
-> And that patch hasn't been tested to actually address anything?
-> 
-> Just a wild hunch?
-> 
-> I wouldn't do that in the future if I were you.
-> 
-> HTH.
+thanks,
 
-I don't have an AMD machine to test this on. I spotted something
-that looked wrong in the code and sent it out to see what others
-think.
+greg k-h
 
-Maybe I'm reading the manual wrong, but is raising a concern
-based on the code and the manual really just "a wild hunch"?
+------------------ original commit in Linus's tree ------------------
+
+From 437f3727b4fd715266c296435c116288f82666fd Mon Sep 17 00:00:00 2001
+From: Zhiling Zou <zhilinz@nebusec.ai>
+Date: Mon, 3 Aug 2026 11:28:22 +0800
+Subject: [PATCH] wifi: mac80211: count only matching reservations in reserved
+ switch
+
+ieee80211_vif_use_reserved_switch() validates a replacement by counting
+assigned links on ctx->replace_ctx and treating reservations too
+broadly. A link can still be assigned to the old channel context while
+holding a reservation that belongs to a different replacement
+operation.
+
+That can make the current replacement appear complete too early. If
+another link finalizes first, the function can free the
+WILL_BE_REPLACED chanctx while the unmatched link and driver still use
+it, leading to a use-after-free in later beacon generation.
+
+Require an in-place reservation to point at the current replacement
+context, and require the reserved and assigned contexts to be the
+matching replacement pair, before counting or moving the link.
+
+Fixes: 5bcae31d9cb1 ("mac80211: implement multi-vif in-place reservations")
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
+Link: https://patch.msgid.link/4b6c4b8648ab1920c38a40be32c0b1a2797b4ac6.1785726007.git.zhilinz@nebusec.ai
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+
+diff --git a/net/mac80211/chan.c b/net/mac80211/chan.c
+index 75bb204ad743..17b935448f13 100644
+--- a/net/mac80211/chan.c
++++ b/net/mac80211/chan.c
+@@ -1772,7 +1772,8 @@ ieee80211_link_use_reserved_assign(struct ieee80211_link_data *link)
+ }
+ 
+ static bool
+-ieee80211_link_has_in_place_reservation(struct ieee80211_link_data *link)
++ieee80211_link_has_in_place_reservation(struct ieee80211_link_data *link,
++					struct ieee80211_chanctx *ctx)
+ {
+ 	struct ieee80211_sub_if_data *sdata = link->sdata;
+ 	struct ieee80211_chanctx *old_ctx, *new_ctx;
+@@ -1782,6 +1783,9 @@ ieee80211_link_has_in_place_reservation(struct ieee80211_link_data *link)
+ 	new_ctx = link->reserved_chanctx;
+ 	old_ctx = ieee80211_link_get_chanctx(link);
+ 
++	if (new_ctx != ctx)
++		return false;
++
+ 	if (!old_ctx)
+ 		return false;
+ 
+@@ -1794,6 +1798,12 @@ ieee80211_link_has_in_place_reservation(struct ieee80211_link_data *link)
+ 	if (new_ctx->replace_state != IEEE80211_CHANCTX_REPLACES_OTHER)
+ 		return false;
+ 
++	if (new_ctx->replace_ctx != old_ctx)
++		return false;
++
++	if (old_ctx->replace_ctx != new_ctx)
++		return false;
++
+ 	return true;
+ }
+ 
+@@ -1823,7 +1833,8 @@ static int ieee80211_chsw_switch_vifs(struct ieee80211_local *local,
+ 		}
+ 
+ 		for_each_chanctx_user_reserved(local, ctx, &iter) {
+-			if (!ieee80211_link_has_in_place_reservation(iter.link))
++			if (!ieee80211_link_has_in_place_reservation(iter.link,
++								     ctx))
+ 				continue;
+ 
+ 			old_ctx = ieee80211_link_get_chanctx(iter.link);
+@@ -1925,7 +1936,9 @@ static int ieee80211_vif_use_reserved_switch(struct ieee80211_local *local)
+ 
+ 		for_each_chanctx_user_assigned(local, ctx->replace_ctx, &iter) {
+ 			n_assigned++;
+-			if (iter.link && iter.link->reserved_chanctx) {
++			if (iter.link &&
++			    ieee80211_link_has_in_place_reservation(iter.link,
++								    ctx)) {
+ 				n_reserved++;
+ 				if (iter.link->reserved_ready)
+ 					n_ready++;
+@@ -1950,7 +1963,8 @@ static int ieee80211_vif_use_reserved_switch(struct ieee80211_local *local)
+ use_reserved:
+ 		ctx->conf.radar_enabled = false;
+ 		for_each_chanctx_user_reserved(local, ctx, &iter) {
+-			if (ieee80211_link_has_in_place_reservation(iter.link) &&
++			if (ieee80211_link_has_in_place_reservation(iter.link,
++								    ctx) &&
+ 			    !iter.link->reserved_ready)
+ 				return -EAGAIN;
+ 
+@@ -1991,7 +2005,8 @@ static int ieee80211_vif_use_reserved_switch(struct ieee80211_local *local)
+ 		}
+ 
+ 		for_each_chanctx_user_reserved(local, ctx, &iter) {
+-			if (!ieee80211_link_has_in_place_reservation(iter.link))
++			if (!ieee80211_link_has_in_place_reservation(iter.link,
++								     ctx))
+ 				continue;
+ 
+ 			ieee80211_chan_bw_change(local,
+@@ -2040,7 +2055,7 @@ static int ieee80211_vif_use_reserved_switch(struct ieee80211_local *local)
+ 			struct ieee80211_bss_conf *link_conf = link->conf;
+ 			u64 changed = 0;
+ 
+-			if (!ieee80211_link_has_in_place_reservation(link))
++			if (!ieee80211_link_has_in_place_reservation(link, ctx))
+ 				continue;
+ 
+ 			rcu_assign_pointer(link_conf->chanctx_conf,
+@@ -2091,7 +2106,8 @@ static int ieee80211_vif_use_reserved_switch(struct ieee80211_local *local)
+ 		for_each_chanctx_user_reserved(local, ctx, &iter) {
+ 			struct ieee80211_link_data *link = iter.link;
+ 
+-			if (WARN_ON(ieee80211_link_has_in_place_reservation(link)))
++			if (WARN_ON(ieee80211_link_has_in_place_reservation(link,
++									    ctx)))
+ 				continue;
+ 
+ 			if (!link->reserved_ready)
+
