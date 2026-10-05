@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29A5241A575
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 22:13:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BA253A1693
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 22:16:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791238383; cv=none; b=LgQQgbMU1BHezunOOOXeef2wkFAl0PNC6AdOpKJiTNEfWE6qhUcBsCDMj8KQ6pP8ERkonHgZSIWIZz+52a+IfGY6K9DCXqfFOYLLMbDyhhfdLyHOOrnA/tSte1UUP90BlvmVCPgKHbQnmaA1rQVTTZ7NNnLd5y/yAt73zPJSAjk=
+	t=1791238619; cv=none; b=ANaWBQqSMJffJAryOX6VZ6EX/N/XGWtb5pDT9qwmQtn/JF6zvGN0TIEnLMEnl/Sw9K/9ijgfNc1MN+9aOcRdr3WGEUAeLHlnlaHr4OOFF4cGexhnxf3uJaC49Mph6FvomUme8l01RTu9Siv5Ij+OobLyDH3nUaPFJvfue7EQmr8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791238383; c=relaxed/simple;
-	bh=WT3Otilcc8TmFA7Lp+csOtJFEQLR2pZbs69v/hRnQbU=;
+	s=arc-20240116; t=1791238619; c=relaxed/simple;
+	bh=SB2MGnZnKalAuAJJyHqZXrrjL5/TPtmctY2c8+pbRdQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TjwZOTK0ERhPRsxnIsxYiJADMx2cep+HTVs2J/TZ56cCTosHXKDbPKy0ovD3FbeOJoJzSaOHZo7T3DccJPFx1qZ7WOLkXN8iY2b2w2EdGjY+9wEshXz7eXVUN9M2YG+dmm/JOQB6pgiqiVBkc+kGSj7UFxSYLqlEAHUEeQm+HWI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qz7ZPu6U; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Fwd8DEoKCHw/nEDip2I6cvHRVLjJ5iq9h1LzcLkru75z03bd8AfVHXfpneL4oh7OYXzOCv6CTkAlkxmpldoLRkumOaiXlYhS1g8uMFIe6l2P9urpRYRiacysHgIJT9oL3HaHIIAtCE9P7lbf4o2SW15rBzPV8QYaY45ri8RFrRY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jLZ7JaPr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qz7ZPu6U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C7741F0089B;
-	Mon,  5 Oct 2026 22:13:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jLZ7JaPr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD6AB1F00893;
+	Mon,  5 Oct 2026 22:16:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791238382;
-	bh=6itm+XDq8c0jbVjM18ZQld3oNhHVxFi8j8RQKSWfNWY=;
+	s=k20260515; t=1791238617;
+	bh=Al0j51QZGSMSI9Zf6iBe7gxtfeGwO2PwZ2DVuVJCQKE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Qz7ZPu6UCIF7auwCS5pFO89qY75sW+MghwqOA7+mH/H8XTQKFjjunVcdey3gqsLoR
-	 YqvDiHL87U2nWl1k6jeXyUoMd2a3ll3/Djr5dXfvK0CTo2U9AE0NezpoI3ai1ahF+S
-	 ZdtWO1z/tUzaE1adQFTBz3kJ5n6DA3d4vw8X6N7v6LXreO2FwQgTMhcn0tmB5yblDh
-	 nTeWIIvrHjBd9aXWXWBOcbWvSiELJ5TD0T1dgNFHV0fCRbfyuqKTKTu84tPVJj6+LW
-	 i6pZAdnM0cob9RMZhVEX5wyCw+0D4Ti4mLMdiXBKopmCNk4CJHyig3+v2YJBeWetJn
-	 aPvvUtBlpINsQ==
+	b=jLZ7JaPrtF47/Hz4ypiq0b+V0Rue5t0S6F0ZVbVIXYLCdh2hBlJV8ImvBp263APir
+	 wZifseD2HuDmPv+ZJZBvrYDx5egVaczL82/4Uaan1QiSG1i62bmM54X5BSwTY0yidN
+	 vTq7qh2Ue9/p10XrU04cEOonjKCc5VbaN4OMlTIz6lxFK+rT3atdaW32DUef8/bccD
+	 NBSDOmiE6tA9iiVxQrHunVI2g1kzse2Myfss8yd5WjmsZZ7WDJr+OiSdFzCfuuW3rx
+	 Xxyk0j9slqeYdSdFxnwm4DRPgapL26AdXi+5vFrDTYf7qDkoMolF4jWUHWwVBNYX6v
+	 NUQL2cuL0TXjg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Wentao Liang <vulab@iscas.ac.cn>,
-	stable@kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Andrea Parri <parri.andrea@gmail.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Will Deacon <will@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] serial: ma35d1: Fix clock reference leak in ma35d1serial_probe()
-Date: Mon,  5 Oct 2026 18:12:56 -0400
-Message-ID: <20261005221225.3435549-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y] arm64: mm: Fix the break-before-make flush range for erratum 2645198
+Date: Mon,  5 Oct 2026 18:16:53 -0400
+Message-ID: <20261005221633.3438428-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261005221225.3435549-1-sashal@kernel.org>
-References: <2026100517-epic-chomp-5963@gregkh>
- <20261005221225.3435549-1-sashal@kernel.org>
+In-Reply-To: <2026100552-severity-animate-dbb7@gregkh>
+References: <2026100552-severity-animate-dbb7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,57 +46,56 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Wentao Liang <vulab@iscas.ac.cn>
+From: Andrea Parri <parri.andrea@gmail.com>
 
-[ Upstream commit 98401cf912fe8a081ef8e500c421b6d957b55a99 ]
+[ Upstream commit 1fef81669147d63eb8c5d3627d54eadc21173a0b ]
 
-of_clk_get() returns a clock with a reference that has to be released
-with clk_put(). ma35d1serial_probe() never does that, so the reference
-is leaked on the probe error paths and also when the port is removed.
+modify_prot_start_ptes() performs the break-before-make TLB invalidation
+required by erratum 2645198 with __flush_tlb_range(), whose third
+argument is the end address of the range.  It passes nr * PAGE_SIZE
+instead of addr + nr * PAGE_SIZE, so __do_flush_tlb_range() computes the
+page count as (nr * PAGE_SIZE - addr) >> PAGE_SHIFT.
 
-Release it on the error paths and in ma35d1serial_remove().
+For addr > nr * PAGE_SIZE that subtraction underflows, the page count
+exceeds the batching limit and the flush degenerates to flush_tlb_mm(),
+so a single-page mprotect broadcasts an ASID-wide invalidation and a
+full-range mmu notifier call.
 
-Fixes: 930cbf92db01 ("tty: serial: Add Nuvoton ma35d1 serial driver support")
-Cc: stable@kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-Link: https://patch.msgid.link/20260917155650.2161274-1-vulab@iscas.ac.cn
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+For addr <= nr * PAGE_SIZE only [addr, nr * PAGE_SIZE) is invalidated,
+and when the cleared batch starts below nr * PAGE_SIZE the tail is left
+in the TLB.  The workaround then no longer covers the whole batch, and
+for addr == nr * PAGE_SIZE the flush is empty.
+
+On affected Cortex-A715 CPUs, this can corrupt ESR_ELx and FAR_ELx on the
+next instruction abort caused by a permission fault.
+
+Pass addr + nr * PAGE_SIZE as the end address.
+
+Fixes: 7efa1cd5f89b5 ("arm64: add batched versions of ptep_modify_prot_start/commit")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+Reviewed-by: Dev Jain <dev.jain@arm.com>
+Signed-off-by: Will Deacon <will@kernel.org>
+[ sashal: Adapted __flush_tlb_range() arguments from PAGE_SIZE, 3, TLBF_NOWALKCACHE to PAGE_SIZE, true, 3. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/tty/serial/ma35d1_serial.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ arch/arm64/mm/mmu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/tty/serial/ma35d1_serial.c b/drivers/tty/serial/ma35d1_serial.c
-index f6f832ba7204d..225feb5868e85 100644
---- a/drivers/tty/serial/ma35d1_serial.c
-+++ b/drivers/tty/serial/ma35d1_serial.c
-@@ -725,7 +725,7 @@ static int ma35d1serial_probe(struct platform_device *pdev)
+diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
+index a4503910afb8b..71841b5c31928 100644
+--- a/arch/arm64/mm/mmu.c
++++ b/arch/arm64/mm/mmu.c
+@@ -2150,7 +2150,7 @@ pte_t modify_prot_start_ptes(struct vm_area_struct *vma, unsigned long addr,
+ 		 * in cases where cpu is affected with errata #2645198.
+ 		 */
+ 		if (pte_accessible(vma->vm_mm, pte) && pte_user_exec(pte))
+-			__flush_tlb_range(vma, addr, nr * PAGE_SIZE,
++			__flush_tlb_range(vma, addr, addr + nr * PAGE_SIZE,
+ 					  PAGE_SIZE, true, 3);
+ 	}
  
- 	ret = clk_prepare_enable(up->clk);
- 	if (ret)
--		goto err_iounmap;
-+		goto err_put_clk;
- 
- 	if (up->port.line != 0)
- 		up->port.uartclk = clk_get_rate(up->clk);
-@@ -752,6 +752,9 @@ static int ma35d1serial_probe(struct platform_device *pdev)
- err_clk_disable:
- 	clk_disable_unprepare(up->clk);
- 
-+err_put_clk:
-+	clk_put(up->clk);
-+
- err_iounmap:
- 	iounmap(up->port.membase);
- 	return ret;
-@@ -767,6 +770,7 @@ static void ma35d1serial_remove(struct platform_device *dev)
- 
- 	uart_remove_one_port(&ma35d1serial_reg, port);
- 	clk_disable_unprepare(up->clk);
-+	clk_put(up->clk);
- }
- 
- static int ma35d1serial_suspend(struct platform_device *dev, pm_message_t state)
 -- 
 2.53.0
 
