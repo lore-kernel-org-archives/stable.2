@@ -1,133 +1,138 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1CD94825D9;
-	Mon,  5 Oct 2026 13:13:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BC0D483817
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 13:13:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791206028; cv=none; b=eK/K5tAWa0xYY5y+oZRZyWAlqEGhtR6PgxibQoOR3gq2CFr2usHuvW3tBE00CEWXbQw6pwtCjbdVTmSMTgN6iBLkcFa82aYV9bZ0gx3Kiurz+BQOgmg/t6hRsD91mIipprORJxcAzAwY9PuG2vykWHrxrcs+3bLoRwNyVCprD9k=
+	t=1791206034; cv=none; b=gjbiDagFWrCPokR3i/YYypUqf7RLHzTgDQn/hd/FPmJQE3QcbYr5UOt9/n3g74WMi6CrhEAKog3ZQEfjoZVNIRfbmOs+p5XO775ZeyUKjh7XSm4lMqUBrqwbqx1SdrRh3bW3xjLNW46LFmMWyhrjExgZB0uUt8NrcCRs2Ou661U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791206028; c=relaxed/simple;
-	bh=jHYIbSaADz5P1gQxuCMHQV3cSCPTdVjdEGqvYaf9DMg=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=cYvcxeK6TIwQB8gvqEPHse+IN69bsMHarH21GtxFGO/tuGv8wWkvuXJtiJJxTJfvLERpEYoA6M0cDmCLFj7voektptq99fi2UVnS3jwQAtYo2RycQ39e1e+UBO7TiutkDZ3QNCcTmkg6rWD1TtnuL9uNtBBxNQZRbgDsQSEz2Vk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GFLk0JwG; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791206034; c=relaxed/simple;
+	bh=7Wuw1YxGtjnkBXkbkQ8baij3Mlyu1PxXqVAnAEHtSaM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=itOsSf+aBZBu3QxuI/RZiwb4V7d8gZVUZVtZoeg1Q2vvXad0mfFcAP9xj+6gApn2mj8WkDCXbk4Z9nNNzW6S9y+sayGTHspHtvQP5ameyanWYEmqJPl//qNFOp6ryJK1cyV+RWPYoJvq4ZNnqqz3XaTRtFuWAstNVL6gKqo0LIo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TH7Gqy9i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GFLk0JwG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791206027; x=1822742027;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=jHYIbSaADz5P1gQxuCMHQV3cSCPTdVjdEGqvYaf9DMg=;
-  b=GFLk0JwG30HOaDVlep5DvlDOJgWNsxbhuVnO61DEbN78bMkC2wmxD68t
-   wMAyZiAYEVHc2HlTxcPvd0Liuu8VjWerZTjTihZkm3VEcogxk3+2k/o2/
-   HejoUnvFB1lue/46RQYTVVte6obEnbivj1MRfcZHkedWbNKy+q0zd92qf
-   CWjESveP6azTDndItLxlrIQYF01VZrxoImPNa1Q149xDCLRwCVQA8z6Zj
-   LsDe1y6mWmkXy6H1rCm7L/O82EMDWQrRAWI6Tlg800Z2lDZ5GhkuoAy0t
-   m+bcCE7F6HdiK9iTOnc1Y6YDNxQ4uKtWc3QuwCy7U3FANyCkHmxIEtJAx
-   g==;
-X-CSE-ConnectionGUID: 46aEwm8/SGaCFFzN5Tasig==
-X-CSE-MsgGUID: WoTpnC+nRBSXkOonSPaJZw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11925"; a="90824816"
-X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
-   d="scan'208";a="90824816"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 06:13:47 -0700
-X-CSE-ConnectionGUID: 2EAiuyU3RNuIH2fw3c2Tgw==
-X-CSE-MsgGUID: NrO5WPpKQGCsSijM4yzicA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
-   d="scan'208";a="314826421"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.199])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 06:13:43 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Mon, 5 Oct 2026 16:13:39 +0300 (EEST)
-To: Muhammad Bilal <meatuni001@gmail.com>
-cc: Jorge Lopez <jorge.lopez2@hp.com>, Hans de Goede <hansg@kernel.org>, 
-    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-    =?ISO-8859-15?Q?Thomas_Wei=DFschuh?= <linux@weissschuh.net>, 
-    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
-    stable@vger.kernel.org
-Subject: Re: [PATCH v4 4/9] platform/x86: hp-bioscfg: allow clearing
- current_password
-In-Reply-To: <20261002191434.58529-5-meatuni001@gmail.com>
-Message-ID: <5522067a-b952-6e75-8e76-beda285fa4c9@linux.intel.com>
-References: <20261002191434.58529-1-meatuni001@gmail.com> <20261002191434.58529-5-meatuni001@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TH7Gqy9i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A41B1F00899;
+	Mon,  5 Oct 2026 13:13:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791206033;
+	bh=d/nfV8oUPoVXcPuEXZa5ZPyhoMU0ZrexTYqyLSbSfx4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=TH7Gqy9i/3PaMsqWi/eyyb9qVrnCus56gZW3f4xsuQ4Pj5s2ZFdiNZ4OQz3mgBex2
+	 ir0e4w2kBVmKnoH5EQiQfZk/DzOI1FiiXvlzGWAnA2sncPUMh7tUjCm2+9pbkEVx14
+	 gXdC02M1pA+mystGHVV+SCNfq608pRvDBof0/u7kW3aEkpyjE9EWso5NxBJunHa77T
+	 DVAhS2sHDOa4laHX2PjXYsj5XupCYROmR4DKdd6HmyBLf80Wv5yqNvDedHaS/7a1cR
+	 38L9/ldJcw1Einug1v0iI6KShzw2J4aX5bmGQ8W6/L/79V6DyjWYuBEw/v7wpnFb+w
+	 MKXI6YwPme2Fw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] drm/amd/pm/si: Fix updating clock limits on AC/DC
+Date: Mon,  5 Oct 2026 09:13:50 -0400
+Message-ID: <20261005131331.2596237-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026100545-whole-mutiny-321e@gregkh>
+References: <2026100545-whole-mutiny-321e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sat, 3 Oct 2026, Muhammad Bilal wrote:
+From: Timur Kristóf <timur.kristof@gmail.com>
 
-> The ABI documents echo "" > current_password as the way to end a
-> session, but validate_password_input() rejects an empty string when
-> min_password_length is nonzero. The password stays cached, and since
-> the previous patch the write also fails with -E2BIG.
+[ Upstream commit 08c9100f65299c64439e22e6057d750ae0e6c660 ]
 
-After I apply a patch, it's no longer a "patch", so the wording should 
-anticipate that.
+Assume that the AC limits are the maximum of all power states,
+and the DC limits are the maximum of battery power states.
+This shouldn't make any difference in practice, but is
+cleaner and more robust against bogus information in the VBIOS.
 
-> Skip the length check for an empty current_password so the write
-> clears it.
-> 
-> Before the previous patch the write returned 1 on an HP EliteBook 840
-> G2 (min_password_length is 8) but cleared nothing.
-> 
-> Compile tested only.
-> 
-> Fixes: 8646a3b5ee3a ("platform/x86: hp-bioscfg: passwdobj-attributes")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
-> ---
-> Changes in v4:
->  - New patch
-> 
->  .../platform/x86/hp/hp-bioscfg/passwdobj-attributes.c    | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c
-> index 3f4c45d9b..f0551b455 100644
-> --- a/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c
-> +++ b/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c
-> @@ -60,7 +60,8 @@ int hp_get_password_instance_for_type(const char *name)
->  	return -EINVAL;
->  }
->  
-> -static int validate_password_input(int instance_id, const char *buf)
-> +static int validate_password_input(int instance_id, const char *buf,
-> +				   bool is_current)
->  {
->  	int length;
->  	struct password_data *password_data = &bioscfg_drv.password_data[instance_id];
-> @@ -69,6 +70,10 @@ static int validate_password_input(int instance_id, const char *buf)
->  	if (length > 0 && buf[length - 1] == '\n')
->  		length--;
->  
-> +	/* An empty current_password clears the session password */
-> +	if (is_current && !length)
-> +		return 0;
-> +
->  	if (length > MAX_PASSWD_SIZE)
->  		return -E2BIG;
->  
-> @@ -97,7 +102,7 @@ static int store_password_instance(struct kobject *kobj, const char *buf,
->  		id = get_password_instance_id(kobj);
->  
->  		if (id >= 0)
-> -			ret = validate_password_input(id, buf_cp);
-> +			ret = validate_password_input(id, buf_cp, is_current);
->  	}
->  
->  	if (!ret) {
-> 
+Fixes: e6c5d36756e7 ("drm/amd/pm/si: Fix updating clock limits from power states")
+Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+Link: https://patch.msgid.link/20260923120354.1027996-2-timur.kristof@gmail.com
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit ef8cb9dcc7db7b7abcbdbe870a080cc81e4f0bf3)
+Cc: stable@vger.kernel.org
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/pm/powerplay/si_dpm.c | 36 +++++++++++------------
+ 1 file changed, 18 insertions(+), 18 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c b/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
+index 8cf2ad07ce620..069bf1d67c849 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
+@@ -7132,6 +7132,19 @@ static void si_parse_pplib_non_clock_info(struct amdgpu_device *adev,
+ 		adev->pm.dpm.uvd_ps = rps;
+ }
+ 
++static void si_update_limits(struct amdgpu_clock_and_voltage_limits *limits,
++			     struct rv7xx_pl *pl)
++{
++	if (pl->sclk > limits->sclk)
++		limits->sclk = pl->sclk;
++	if (pl->mclk > limits->mclk)
++		limits->mclk = pl->mclk;
++	if (pl->vddc > limits->vddc)
++		limits->vddc = pl->vddc;
++	if (pl->vddci > limits->vddci)
++		limits->vddci = pl->vddci;
++}
++
+ static void si_parse_pplib_clock_info(struct amdgpu_device *adev,
+ 				      struct amdgpu_ps *rps, int index,
+ 				      union pplib_clock_info *clock_info)
+@@ -7140,7 +7153,6 @@ static void si_parse_pplib_clock_info(struct amdgpu_device *adev,
+ 	struct evergreen_power_info *eg_pi = evergreen_get_pi(adev);
+ 	struct si_power_info *si_pi = si_get_pi(adev);
+ 	struct  si_ps *ps = si_get_ps(rps);
+-	struct amdgpu_clock_and_voltage_limits *limits;
+ 	u16 leakage_voltage;
+ 	struct rv7xx_pl *pl = &ps->performance_levels[index];
+ 	int ret;
+@@ -7205,26 +7217,14 @@ static void si_parse_pplib_clock_info(struct amdgpu_device *adev,
+ 	 * VBIOS can contain conflicting values between:
+ 	 * - the maximum allowed clocks and voltages on AC or DC
+ 	 * - the clocks and voltages in power states on AC or DC
++	 *
++	 * Assume that the AC limits are the maximum of all power states,
++	 * and the DC limits are the maximum of battery power states.
+ 	 */
++	si_update_limits(&adev->pm.dpm.dyn_state.max_clock_voltage_on_ac, pl);
+ 	if ((rps->class & ATOM_PPLIB_CLASSIFICATION_UI_MASK) ==
+-	    ATOM_PPLIB_CLASSIFICATION_UI_PERFORMANCE)
+-		limits = &adev->pm.dpm.dyn_state.max_clock_voltage_on_ac;
+-	else if ((rps->class & ATOM_PPLIB_CLASSIFICATION_UI_MASK) ==
+ 		 ATOM_PPLIB_CLASSIFICATION_UI_BATTERY)
+-		limits = &adev->pm.dpm.dyn_state.max_clock_voltage_on_dc;
+-	else
+-		limits = NULL;
+-
+-	if (limits) {
+-		if (pl->sclk > limits->sclk)
+-			limits->sclk = pl->sclk;
+-		if (pl->mclk > limits->mclk)
+-			limits->mclk = pl->mclk;
+-		if (pl->vddc > limits->vddc)
+-			limits->vddc = pl->vddc;
+-		if (pl->vddci > limits->vddci)
+-			limits->vddci = pl->vddci;
+-	}
++		si_update_limits(&adev->pm.dpm.dyn_state.max_clock_voltage_on_dc, pl);
+ }
+ 
+ union pplib_power_state {
 -- 
- i.
+2.53.0
 
