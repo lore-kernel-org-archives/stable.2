@@ -1,51 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5C89488755
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 13:51:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BD35202C29
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 13:55:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791208293; cv=none; b=PFIPlY55fUgSvTICPd9H1wpg/A0TR6f1UfNPYg/00HkNXOdSgu3GlHMjKu5F/7PSrpx9s4itH8T+H+wl+W+ff14ValAAB3T4Dyp7gJ9XpOosmCwJAr64rt5XtEtMWIsERp0+wUnjkSdLUSVruSPimikAF7/Yq5mBLhfiJL8nJF4=
+	t=1791208541; cv=none; b=nj/zWnIfKOUqXAKuT3cORQ4UosVZiF7GR0DtMY2NLJBwdpwTLUVs+mtaTjVDXo1cL17drcDa9ZtBibXMJruwqOgiC8KXORmCMA+Cs6Z5ThQihP1vPwneUQriDro3gVWo80ACsPZQfiXYCZmFbb/qnV2VjAHFmzjnSWS6ZATYyEo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791208293; c=relaxed/simple;
-	bh=HrHePazhvMNht8ItXF60cR4DRoRhfFWqdEDrFMWEK84=;
+	s=arc-20240116; t=1791208541; c=relaxed/simple;
+	bh=Ap9HpUp0cM0t5GHkBi0Uc/6b6AUhwNZOcIHC+roGt4U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QzP3YMR9yB0DR8MJOsTN9SFH4ZXZjeLobrO/LIMNHk95Z/f3rfRNSxgGqs4DrNVwHewoyVOjKAOW9xcq3r2i6Gy9M0QcYMJYA+tsiexDICtRfXmoeukjWQPd2NdC/WDepLPjb1W2oEZMN2fmCR5Y/DEF9W4oQifs2kSKpl86aBY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jmm94aTa; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ecPMVQ3gnPw6x+hIkaThOwjfPHuq4jM6G0MFKSo6PXeR+HQysJ30X9mcBe4iJidCxVszY9Cp1d+32GEBWGNsQRP8jAl5l+tU9OBK71o21bZyzlvzoVD1oHy1QyFi4SdvMSfluyggYZuuJLAbefKrm5qQwH097EPzxvXRzECO1SE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PohUc8RQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jmm94aTa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B66D81F000FF;
-	Mon,  5 Oct 2026 13:51:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PohUc8RQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D66011F000FF;
+	Mon,  5 Oct 2026 13:55:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791208291;
-	bh=koT+oMQ3WqftJggx7juo+p1cvqa9ktKlQQOaj5Qd28Y=;
+	s=k20260515; t=1791208539;
+	bh=DNrhJne5KLRucCDw+W2fSJzZapynG9BGSX+30Kq3dfs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Jmm94aTaLKVa3i7Xb9oaFqJbOL173QqqbLKtzDgPSqvpJENayevaPS6raI97TYMqh
-	 k9xOCXlylKgRfWJ3xlxBpzkFnHUbbhgjz7HB4uTIwfDkvm9xmb5i5mMzzfq1RS42uS
-	 CGkbhvocr7qYxGz4U4WyaLSYTXIbkgbwPXT5iuo5FJFtExutUhRytQWa4LCJATIMbB
-	 FQOp0RjkZlKSYaCBRS8EeKSblSKo5WW9+bxsbn7gsCrj3N4K3yeuI4rEvIW+yHSpqt
-	 Ubp4+YspAxl0kD0ptknuXArSM5HzNO+64wK+11pe8IN2LaioMgFEFLHws5C3RLtVxQ
-	 OHxebZJb9JcGw==
+	b=PohUc8RQppr9LjWSRgmvQZUGGjU9p0/DidCeOh16u0kqquBDrNAX3FRdu3f+IJ8U0
+	 HXFj0IJsClIrBBvnvKm9wvP+sBIrCByc0D/2Pjjqfd6UK4Vu31zySICUn1iD7sjFxh
+	 NjrkGF55dT8q72+OFz6kaC4LJ+Y7P7Hkjv/lme2rmNmRqw13sPeXS7DCc5FRL/5WGC
+	 tGIjM4P1qQ8wVM2GMPti3/BAUVaQYTA5ltVoTZ88r9KZqjnFU+BsSg/JkgrAd4DUnY
+	 c14O/RNBpBREXqnFZpcDQyvl2zseRv1kQb8AXPhtNwM/rzaJtip6YQZyWFjpR60saa
+	 skcRsHYAI2bAA==
 From: Sasha Levin <sashal@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Sasha Levin <sashal@kernel.org>,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	Ackerley Tng <ackerleytng@google.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Breno Leitao <leitao@debian.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	Oscar Salvador <osalvador@suse.de>,
-	Peter Xu <peterx@redhat.com>,
-	Rik van Riel <riel@surriel.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 6.6.y] mm/hugetlb: fix avoid_reserve to allow taking folio from subpool
-Date: Mon,  5 Oct 2026 09:50:28 -0400
-Message-ID: <2026-10-05-1-daily-reply-0007-hugetlb-avoid-reserve-cover-link@kernel.org>
+To: stable@vger.kernel.org
+Cc: Willian Oliveira <williandossantosdeoliveira287@gmail.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] drm/amdgpu/gfx6: fix firmware leak on teardown
+Date: Mon,  5 Oct 2026 09:55:36 -0400
+Message-ID: <20261005135448.2964978-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260926071811.77481-1-kmehltretter@gmail.com>
-References: <20260926071811.77481-1-kmehltretter@gmail.com>
+In-Reply-To: <2026100502-reprise-spinner-8d6e@gregkh>
+References: <2026100502-reprise-spinner-8d6e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -54,20 +45,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Ackerley Tng <ackerleytng@google.com> writes:
+From: Willian Oliveira <williandossantosdeoliveira287@gmail.com>
 
-> If this patch replaces the linked series, the commit message should
-> reference the upstream merged patch 88819619688c5 ("mm: hugetlb:
-> consolidate interpretation of gbl_chg within alloc_hugetlb_folio()")
-> instead of the unmerged series.
+[ Upstream commit cc172e177795c5f87bc2d71768d077e1c10633e8 ]
 
-The commit messages carry Peter Xu's upstream text verbatim, so the
-cover.1728684491 link stays. 88819619688c ("mm: hugetlb: consolidate
-interpretation of gbl_chg within alloc_hugetlb_folio()") only reached
-mainline in v7.3-rc1, well after 58db7c5fbe7d ("mm/hugetlb: fix
-avoid_reserve to allow taking folio from subpool"), where this text
-comes from.
+The firmware requested in gfx_v6_0_init_microcode() is not released
+when the GFX block is torn down, leaking the firmware resources.
 
+Add gfx_v6_0_free_microcode() and call it from gfx_v6_0_sw_fini()
+to release the PFP, ME, CE and RLC firmware.
+
+Signed-off-by: Willian Oliveira <williandossantosdeoliveira287@gmail.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 386e81346f95ab0be5a82c5535de932e7a456924)
+Cc: stable@vger.kernel.org
+[ sashal: Replaced unavailable amdgpu_ucode_release() calls with inline release_firmware() and pointer clearing in gfx_v6_0_sw_fini(). ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+index 8f9a2e9c276ae..8d894a55c5d1c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+@@ -3222,6 +3222,15 @@ static int gfx_v6_0_sw_fini(void *handle)
+ 
+ 	amdgpu_gfx_rlc_fini(adev);
+ 
++	release_firmware(adev->gfx.pfp_fw);
++	adev->gfx.pfp_fw = NULL;
++	release_firmware(adev->gfx.me_fw);
++	adev->gfx.me_fw = NULL;
++	release_firmware(adev->gfx.ce_fw);
++	adev->gfx.ce_fw = NULL;
++	release_firmware(adev->gfx.rlc_fw);
++	adev->gfx.rlc_fw = NULL;
++
+ 	return 0;
+ }
+ 
 -- 
-Thanks,
-Sasha
+2.53.0
+
