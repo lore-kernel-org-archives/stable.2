@@ -1,221 +1,181 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B86B025B094;
-	Mon,  5 Oct 2026 21:06:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C05983CF211
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 21:12:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791234394; cv=none; b=UiiAmScyB1dmkCmfZf5uc3Oo2dkgOP861zQJyq2QG0aZBaVKvhe13TBzTVl2O9+1iCCSye/5NTRbKXpb+OHEviBViMVYpvKoUG1hYWPByKgX6Les8SaqnCb7fDliz41Yh6hqxBPRxIl1i4tGRXoEFqAivc9/6q3e8CNPlJFtacE=
+	t=1791234748; cv=none; b=uBY446nPwDcXd4oATd9K62l7JxGma1/Mwl78j7TvKT2fyPj73xCdLQJY5m7ZPXY29aLECXgT2WXgIXDvdLbccvJYRUekI19UMuevdYgC4M+UcHqw3dJztht8kFtRFtX1twDM/1aQzb4zcq9NTtqlsEydQxyUg2M94m6dTHI/6RM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791234394; c=relaxed/simple;
-	bh=2vK3/pCd5wSr3buEAt8um8z9E85a66favZXRB/rXKVI=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=jHwP0gN8MdytIqIvIOY4kselj9Us61i9e086HwzNFbDkYOHZeuR78k0F1Rkyd9emTSSDrn6h7lIwFIiv4c+fXJAKoUgS9C8QF5LiZJyJUVOSVvJIuDSQQJ0ahf+LEAoxURuQghzTK+9iNrCUZKK5xCkpQb5JF6s88qWIYZPZsHo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C/pacUp9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791234748; c=relaxed/simple;
+	bh=Z9XSd8C7xb2DVNonik4J1ojD7Wx7qSbKIcbYlH9WGAQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=e14Hwoam1noG7nfGs3Zjxwtj+K7drtbdVGoZ+CuRcJ3JeF3KmrH/nr1Jynep83pDz8GN8qIgUW7elEFKe+P/hloO7v8NEUHi9cwQ+dMHfYjLD9Ywp2tZ+UlbVFvDB9jWa/Mko44s62quoFm46OJjNyNi1/E4qM/5f3QLKnulhGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lz9FaO4E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C/pacUp9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 083B31F000FF;
-	Mon,  5 Oct 2026 21:06:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lz9FaO4E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6766D1F000FF;
+	Mon,  5 Oct 2026 21:12:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791234392;
-	bh=bEXPh/gBLTg9XMtJ69jAnXwzbGULNfqTXAFztxkmtno=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=C/pacUp9d05vx4UkIUSUoqDaO5lIF2i/i2VcYK/4RdfrnteH9tBwc/VRElIuli5vc
-	 7mDfD9kymOHPYQD/GtWwpOAXPn6NIFdPBU5goUbc0v53hoPF8X/vIO34ILncg2Eapt
-	 Wn8QtMiM1KVMEa/srlZZ+45UsXSj804stTaX8cGoOx5xEJyEjoccU5gEF8TzfcFXBp
-	 PeyMNcmyHUpG4tXjEo2kNwg96jSWQL8v2GEJ5IcUEXhcQ1JgbAuWMbXpOXKMKpGjX/
-	 MT3YilnH691w/oDJswa2tXoHEIEK65o5V/LQQBXb9z2USn38lWowfOEnBBmquG/FVO
-	 xAUvYbFY+4iIQ==
-Subject: Re: [PATCH net v2] net: qualcomm: rmnet: require real-netns admin for
- bridging
-From: netdev-bot+sashiko@kernel.org
-To: Jeremy.Jean@oss.cyber.gouv.fr
-Cc: subash.a.kasiviswanathan@oss.qualcomm.com,
- sean.tranchetti@oss.qualcomm.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, kuba@kernel.org
-Date: Mon, 05 Oct 2026 21:06:31 +0000
-Message-ID: <179123439155.434549.10322630340184585592@kernel.org>
-In-Reply-To: <20261004203149.3042491-2-Jeremy.Jean@oss.cyber.gouv.fr>
-References: <20261004203149.3042491-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1791234746;
+	bh=Mg/HPuMQLwLYiqK61aTaa3L00aoHzaCEK/J2fLAuX3U=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=lz9FaO4EgnIxWY4XS/R/SAigsn7olv769tjhoZH9QYtpwqEe//l2g80hr9sHm/DVv
+	 k+bjairzzOY8iWDQ9GKyOUIw2+Eec/Xrl5T/X9Int33E1vGAo27EGrqV1k6/0Zduo+
+	 MnxBqMMlRWyA98G+mGMaDnRuaY2/I1QES/EGmHWKQSaNnNfJIZBlHO7hlnRrKB88nX
+	 kykgS7KS7PR5WJjGYMMmBQVpiQoBQB6PFp0ddN0IglJmmvq6sRJwp/SytkV7WTEQ+W
+	 NfB5auzTIMSrkRPeWIKrVpcG4EhqnunTc8at1EhEYv0lb/CSHJ/pXvqkQP6qYUxqnR
+	 2cSjQZ+kuJBhg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Johan Hovold <johan@kernel.org>,
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	stable@kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] tty: fix saved termios reset race
+Date: Mon,  5 Oct 2026 17:12:21 -0400
+Message-ID: <20261005211140.3348667-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026100544-gleaming-outgrow-c8b6@gregkh>
+References: <2026100544-gleaming-outgrow-c8b6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+From: Johan Hovold <johan@kernel.org>
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 0
+[ Upstream commit 8df07fe93573e9e548d6645273e9bcb6eb74059e ]
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Resetting saved termios state on device registration is needed where a
+minor number can be reused for an entirely different device and where
+the old settings may prevent the port from even being opened (e.g. when
+CLOCAL is not set).
 
-- [High] The patch closes the cross-netns real-port privilege gap only in
-  the bridge ndo callbacks.
-- [Medium] The commit message says it will 'Require CAP_NET_ADMIN in the
-  real device's namespace before ... removing a bridge'.
+Not all TTY drivers guarantee that the minor number is no longer in use
+when registering devices however, something which can lead to a
+use-after-free when closing a TTY (and saving its termios) races with
+re-registration.
 
---
+Add a new TTY_DRIVER_RESET_SAVED_TERMIOS flag to request that any saved
+termios state is reset on registration and only set it for drivers that
+make sure that the minor number is no longer in use.
 
-net: qualcomm: rmnet: require real-netns admin for bridging
+Fixes: 93857edd9829 ("tty: reset termios state on device registration")
+Reported-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Link: https://lore.kernel.org/20260926184154.3017929-1-nicoyip.dev@gmail.com
+Cc: stable@kernel.org	# 4.12
+Signed-off-by: Johan Hovold <johan@kernel.org>
+Link: https://patch.msgid.link/20260930131845.1809256-1-johan@kernel.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ sashal: adapted flag handling to use a hexadecimal macro assigned through gb_tty_driver->flags. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/staging/greybus/uart.c  |  3 ++-
+ drivers/tty/tty_io.c            | 18 ++++++++++--------
+ drivers/usb/class/cdc-acm.c     |  2 +-
+ drivers/usb/serial/usb-serial.c |  3 ++-
+ include/linux/tty_driver.h      |  6 ++++++
+ 5 files changed, 21 insertions(+), 11 deletions(-)
 
-An rmnet device keeps its link to the real device after it is moved to
-another network namespace. This patch adds rtnl_dev_link_net_capable()
-checks to rmnet_add_bridge() and rmnet_del_bridge(). With the checks,
-changing the bridge state of the real port needs CAP_NET_ADMIN in the
-real device's namespace.
-
-> diff --git a/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c b/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
-> index bed6f63facf25..62d7acb13e0c0 100644
-> --- a/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
-> +++ b/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
-> @@ -441,6 +441,13 @@ int rmnet_add_bridge(struct net_device *rmnet_dev,
->  	struct rmnet_port *port, *slave_port;
->  	int err;
->  
-> +	/* The rtnl path only checks CAP_NET_ADMIN against dev_net(slave_dev),
-> +	 * but bridge mode below controls real_dev, which may live in another
-> +	 * netns.
-> +	 */
-> +	if (!rtnl_dev_link_net_capable(slave_dev, dev_net(real_dev)))
-> +		return -EPERM;
-> +
-
-[Severity: High]
-The bridge ops are not the only rtnl entry point that modifies the shared
-real port. Should rmnet_changelink() get the same check?
-
-rmnet_changelink() looks up the port shared by every rmnet endpoint on
-real_dev and modifies it. The only capability check is the one rtnetlink
-does in dev_net(dev):
-
-drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c:rmnet_changelink() {
-    ...
-	port = rmnet_get_port_rtnl(real_dev);
-
-	if (data[IFLA_RMNET_MUX_ID]) {
-		...
-			hlist_del_init_rcu(&ep->hlnode);
-			hlist_add_head_rcu(&ep->hlnode,
-					   &port->muxed_ep[mux_id]);
-		...
-	}
-
-	if (data[IFLA_RMNET_FLAGS]) {
-		...
-		port->data_format &= ~flags->mask;
-		port->data_format |= flags->flags & flags->mask;
-
-		if (rmnet_vnd_update_dev_mtu(port, real_dev)) {
-    ...
-}
-
-Suppose an rmnet device has been moved into netns B while real_dev stays
-in netns A. A user with CAP_NET_ADMIN only in B can then send
-RTM_NEWLINK with IFLA_RMNET_FLAGS. That rewrites port->data_format,
-which controls deaggregation, MAP checksum offload and MAPv5 handling
-for every rmnet endpoint on real_dev in A.
-
-The same user can also move the endpoint between port->muxed_ep[]
-buckets by changing IFLA_RMNET_MUX_ID.
-
-rmnet_vnd_update_dev_mtu() walks every endpoint on the port and calls
-rmnet_vnd_change_mtu(ep->egress_dev, real_dev->mtu - headroom). So
-setting a flag that grows the headroom, such as
-RMNET_FLAGS_EGRESS_MAP_CKSUMV4, also shrinks the MTU of rmnet devices
-in netns A.
-
-macvlan_changelink() already guards shared lower-port settings with:
-
-	!rtnl_dev_link_net_capable(dev, dev_net(vlan->lowerdev))
-
-Would a similar guard in rmnet_changelink(), at least for
-IFLA_RMNET_FLAGS and IFLA_RMNET_MUX_ID, be needed for this fix to be
-complete? The other option would be to mark rmnet devices
-netns_immutable.
-
->  	port = rmnet_get_port_rtnl(real_dev);
->  
->  	/* If there is more than one rmnet dev attached, its probably being
-> @@ -489,7 +496,18 @@ int rmnet_add_bridge(struct net_device *rmnet_dev,
->  int rmnet_del_bridge(struct net_device *rmnet_dev,
->  		     struct net_device *slave_dev)
->  {
-> -	struct rmnet_port *port = rmnet_get_port_rtnl(slave_dev);
-> +	struct rmnet_priv *priv = netdev_priv(rmnet_dev);
-> +	struct net_device *real_dev = priv->real_dev;
-> +	struct rmnet_port *port;
-> +
-> +	/* The rtnl path only checks CAP_NET_ADMIN against dev_net(slave_dev),
-> +	 * but bridge teardown also updates real_dev, which may live in another
-> +	 * netns.
-> +	 */
-> +	if (!rtnl_dev_link_net_capable(slave_dev, dev_net(real_dev)))
-> +		return -EPERM;
-
-[Severity: Medium]
-The commit message says:
-
-    Require CAP_NET_ADMIN in the real device's namespace before adding or
-    removing a bridge.
-
-This check gates only the ndo_del_slave path. Two other teardown paths
-reach rmnet_unregister_bridge() and make the same real port change:
-
-	real_port->bridge_ep = NULL;
-	real_port->rmnet_mode = RMNET_EPMODE_VND;
-
-The first is RTM_DELLINK on the rmnet device. rtnl_delete_link() calls
-ops->dellink directly:
-
-rtnl_delete_link()->rmnet_dellink() {
-    ...
-	bridge_dev = real_port->bridge_ep;
-	if (bridge_dev) {
-		bridge_port = rmnet_get_port_rtnl(bridge_dev);
-		rmnet_unregister_bridge(bridge_port);
-	}
-    ...
-}
-
-The second is NETDEV_UNREGISTER on the slave, which fires when a
-virtual slave is deleted or moved to another netns:
-
-rmnet_config_notify_cb()->rmnet_force_unassociate_device() {
-    ...
-	} else {
-		rmnet_unregister_bridge(port);
-	}
-}
-
-Neither path has a real-netns capability check. Both are void or
-notifier paths, so they cannot fail the same way.
-
-A user who is admin only in the rmnet/slave netns would now get -EPERM
-from "ip link set slave nomaster" or from a master change. In that case
-do_set_master() returns after ndo_del_slave fails, before it attaches the
-new master. The same user can still remove the bridge without
-real-netns privilege by deleting the rmnet device, or the slave if it is
-virtual.
-
-Does the del-side check give any real protection here? The add-side
-check already blocks unprivileged bridge creation. Would it make sense
-to drop or rethink this check rather than block the clean unenslave
-path?
-
-> +
-> +	port = rmnet_get_port_rtnl(slave_dev);
->  
->  	rmnet_unregister_bridge(port);
->
-
+diff --git a/drivers/staging/greybus/uart.c b/drivers/staging/greybus/uart.c
+index 074c02f123e20..0bdef38a15d72 100644
+--- a/drivers/staging/greybus/uart.c
++++ b/drivers/staging/greybus/uart.c
+@@ -954,7 +954,8 @@ static int gb_tty_init(void)
+ 	gb_tty_driver->minor_start = 0;
+ 	gb_tty_driver->type = TTY_DRIVER_TYPE_SERIAL;
+ 	gb_tty_driver->subtype = SERIAL_TYPE_NORMAL;
+-	gb_tty_driver->flags = TTY_DRIVER_REAL_RAW | TTY_DRIVER_DYNAMIC_DEV;
++	gb_tty_driver->flags = TTY_DRIVER_REAL_RAW | TTY_DRIVER_DYNAMIC_DEV |
++			       TTY_DRIVER_RESET_SAVED_TERMIOS;
+ 	gb_tty_driver->init_termios = tty_std_termios;
+ 	gb_tty_driver->init_termios.c_cflag = B9600 | CS8 |
+ 		CREAD | HUPCL | CLOCAL;
+diff --git a/drivers/tty/tty_io.c b/drivers/tty/tty_io.c
+index dd5e8a850f6ec..4124603a0b44f 100644
+--- a/drivers/tty/tty_io.c
++++ b/drivers/tty/tty_io.c
+@@ -3272,14 +3272,16 @@ struct device *tty_register_device_attr(struct tty_driver *driver,
+ 		goto err_put;
+ 
+ 	if (!(driver->flags & TTY_DRIVER_DYNAMIC_ALLOC)) {
+-		/*
+-		 * Free any saved termios data so that the termios state is
+-		 * reset when reusing a minor number.
+-		 */
+-		tp = driver->termios[index];
+-		if (tp) {
+-			driver->termios[index] = NULL;
+-			kfree(tp);
++		if (driver->flags & TTY_DRIVER_RESET_SAVED_TERMIOS) {
++			/*
++			 * Free any saved termios data so that the termios
++			 * state is reset when reusing a minor number.
++			 */
++			tp = driver->termios[index];
++			if (tp) {
++				driver->termios[index] = NULL;
++				kfree(tp);
++			}
+ 		}
+ 
+ 		retval = tty_cdev_add(driver, devt, index, 1);
+diff --git a/drivers/usb/class/cdc-acm.c b/drivers/usb/class/cdc-acm.c
+index bbb31a074c35e..80e86fa38eabe 100644
+--- a/drivers/usb/class/cdc-acm.c
++++ b/drivers/usb/class/cdc-acm.c
+@@ -2119,7 +2119,7 @@ static int __init acm_init(void)
+ {
+ 	int retval;
+ 	acm_tty_driver = tty_alloc_driver(ACM_TTY_MINORS, TTY_DRIVER_REAL_RAW |
+-			TTY_DRIVER_DYNAMIC_DEV);
++			TTY_DRIVER_DYNAMIC_DEV | TTY_DRIVER_RESET_SAVED_TERMIOS);
+ 	if (IS_ERR(acm_tty_driver))
+ 		return PTR_ERR(acm_tty_driver);
+ 	acm_tty_driver->driver_name = "acm",
+diff --git a/drivers/usb/serial/usb-serial.c b/drivers/usb/serial/usb-serial.c
+index 2b3b7b10f7382..eb3c9f626e5d6 100644
+--- a/drivers/usb/serial/usb-serial.c
++++ b/drivers/usb/serial/usb-serial.c
+@@ -1321,7 +1321,8 @@ static int __init usb_serial_init(void)
+ 	int result;
+ 
+ 	usb_serial_tty_driver = tty_alloc_driver(USB_SERIAL_TTY_MINORS,
+-			TTY_DRIVER_REAL_RAW | TTY_DRIVER_DYNAMIC_DEV);
++			TTY_DRIVER_REAL_RAW | TTY_DRIVER_DYNAMIC_DEV |
++			TTY_DRIVER_RESET_SAVED_TERMIOS);
+ 	if (IS_ERR(usb_serial_tty_driver))
+ 		return PTR_ERR(usb_serial_tty_driver);
+ 
+diff --git a/include/linux/tty_driver.h b/include/linux/tty_driver.h
+index ff5791373cf96..1e5241b823856 100644
+--- a/include/linux/tty_driver.h
++++ b/include/linux/tty_driver.h
+@@ -542,6 +542,11 @@ static inline void tty_set_operations(struct tty_driver *driver,
+  *	Do not create numbered ``/dev`` nodes. For example, create
+  *	``/dev/ttyprintk`` and not ``/dev/ttyprintk0``. Applicable only when a
+  *	driver for a single tty device is being allocated.
++ *
++ * TTY_DRIVER_RESET_SAVED_TERMIOS
++ *	Reset any saved termios settings on device registration when reusing a
++ *	minor number. Must only be set by drivers that guarantee that the minor
++ *	number is no longer in use.
+  */
+ #define TTY_DRIVER_INSTALLED		0x0001
+ #define TTY_DRIVER_RESET_TERMIOS	0x0002
+@@ -551,6 +556,7 @@ static inline void tty_set_operations(struct tty_driver *driver,
+ #define TTY_DRIVER_HARDWARE_BREAK	0x0020
+ #define TTY_DRIVER_DYNAMIC_ALLOC	0x0040
+ #define TTY_DRIVER_UNNUMBERED_NODE	0x0080
++#define TTY_DRIVER_RESET_SAVED_TERMIOS	0x0200
+ 
+ /* tty driver types */
+ #define TTY_DRIVER_TYPE_SYSTEM		0x0001
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261004203149.3042491-2-Jeremy.Jean%40oss.cyber.gouv.fr
+2.53.0
+
