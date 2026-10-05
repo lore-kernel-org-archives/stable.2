@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDB683A48F7
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 20:53:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 904F93A75BB
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 20:54:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791233627; cv=none; b=EQPB3TY3+Ud7e9hHLTE5cb8HVtiZtXL/HTe63POglBYNNvKN2VbKepFDrX2FinOouAwL0ACyC9i0Jn3z4PPnGxVueg2fB1e9sl2FPiALzN6Ww2BWM6ZxL37tmASUMLnfUWETHmoBTCRROkgjYjkCDDpJxk2nyswBWMcjmacjk7s=
+	t=1791233682; cv=none; b=NLVBbehGrq/KQAFn1apWqOvbC1h3YXMFn9SS3xrPT6QS7sUwWsNnHEHsuGBH6HIBFLOC4zuyNl9QtVG4HzPMoceZMVlGQb8vgIwuEDonNXy7tQ3RU6kfrEKDmQsSrddD/aR1yenWC9jjiw/bUJYwF+XTobmsBRwaj7VcL/QWrSc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791233627; c=relaxed/simple;
-	bh=Y58zHLZtmkoWrYxvKMVAzNvaZfO6GXLoDGj35NW1mp8=;
+	s=arc-20240116; t=1791233682; c=relaxed/simple;
+	bh=byHpXya8aQfHXqMN91G0i0/yPdfTQwemZO6BBbPwPuc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=l3IAe9N2dcSjtd1pvu2c0IIIoBhDGSnD0TPNTiPQialqsdvGIwVzfrGmqRS1tHPuebW7Pk5ULvRFqxCnHhOmHGM+deGasInWSUPvX13eGykwkg28cy4nZdnCC3GvQ29QgBZ+bsL1UD521qbJh3idfpHBxUALamnO8FqjsDdXsno=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yi35v9Ua; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=psaOFc1Rjf7ZJRNJw1pmUdz7mmMqjhwCVQyzWhVvDuxq8X0uLcAdb2ZDZQAy0pLLEdFOir+vIlc7tYbZAQ3+f0Ez+7lI+K6JGIz96gDEXVB32AzYDp3EA0HXKj3m7CRBQQLtNeoh0wBOZGIq91Bdc8T7gTIF0ZkYH0h33YiGYvo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W7WRwPXD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yi35v9Ua"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B12C1F000FF;
-	Mon,  5 Oct 2026 20:53:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W7WRwPXD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAAF11F000FF;
+	Mon,  5 Oct 2026 20:54:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791233620;
-	bh=aJ98KGzsm0tESH2/Y+7FCXazMxNxPYniXREV2tJ4mec=;
+	s=k20260515; t=1791233681;
+	bh=WcPwtQOcGizEoZ0B3ghBbrETCSUaUihZXHMSOokE+OI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Yi35v9UasUUnrQ13vccGIfnY6KkzXzo3WVFB4z8I5lD7KQYnx6ohAAuKTfOaARcyg
-	 WaONFlYJhFvVDov8Ojxoo5MmWF6tJd3OVpkKlU44bgVXE43CeHOb7zek/RALVM2dsE
-	 CHO9Z7XhHHSdD3ICwYgD/W6KsmskqkiOmsXNzw9vHliluZRVPese6whKDcw5Vjy/Gz
-	 JY7rDPEeRL+RZT2nrhazIUcMupol1/feivwd1xJSppKgQyIkv6NV7E8yzgrkgF2Zw6
-	 29+xbZ239xgyl2y/MCeu7x7s8DgcjwV09qig8msVmfVKVtySYNpSA8v0vEUIlsIEZM
-	 Wx8ztfJQDbwqA==
+	b=W7WRwPXDo7/hgUgj3G3YPLa4QZJqRa16CbwirQqz7qEubOBiz3BiNNYI+g0Wq+7k+
+	 Qfqn9jjQ3k121xg4HZn2cEKZHH17HPba777k9o8XzzJWR0Xrvh3SpUUTxPssRPD4Xs
+	 E35wvAzQ954IHW8KMvHDjiJHVxPYyqSY400wa0qj0vEwIGRAA/1dkhcYtLaIPor9qn
+	 oVajejN1a7/c/vSR/A2Cq1Q/Ci9CoLOqUiVBVmQFP6ceU9CkFpazg0HdJ9i1y8kB+o
+	 CSc+wYJlBZ2XeYhsBQYGoiw9f3mP+i9IusaLw4g82mmFCm/G4M6s0L3zmE6B9hcOn5
+	 r9LRb+EGDyN2g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Johan Hovold <johan@kernel.org>,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	stable@kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: David Heidelberg <david@ixit.cz>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] tty: fix saved termios reset race
-Date: Mon,  5 Oct 2026 16:53:36 -0400
-Message-ID: <20261005205256.3307238-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] Input: s6sy761 - fix resume ordering and restore sensing
+Date: Mon,  5 Oct 2026 16:54:37 -0400
+Message-ID: <20261005205258.3279498-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100543-saggy-scooter-3ab4@gregkh>
-References: <2026100543-saggy-scooter-3ab4@gregkh>
+In-Reply-To: <2026100513-squatting-hankie-9c73@gregkh>
+References: <2026100513-squatting-hankie-9c73@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,135 +45,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Johan Hovold <johan@kernel.org>
+From: David Heidelberg <david@ixit.cz>
 
-[ Upstream commit 8df07fe93573e9e548d6645273e9bcb6eb74059e ]
+[ Upstream commit a215720959c5450b3699e243904b39c3f8f68888 ]
 
-Resetting saved termios state on device registration is needed where a
-minor number can be reused for an entirely different device and where
-the old settings may prevent the port from even being opened (e.g. when
-CLOCAL is not set).
+System suspend powers the controller off and resume powers it back on,
+but the resume path enables the interrupt before s6sy761_power_on()
+checks the boot. The firmware raises its boot-complete event on the
+interrupt line, the threaded handler consumes it, s6sy761_power_on()
+then reads an empty event and resume fails with -ENODEV, skipping the
+touch function setup:
 
-Not all TTY drivers guarantee that the minor number is no longer in use
-when registering devices however, something which can lead to a
-use-after-free when closing a TTY (and saving its termios) races with
-re-registration.
+s6sy761 2-0048: PM: dpm_run_callback(): s6sy761_resume [s6sy761] returns -19
 
-Add a new TTY_DRIVER_RESET_SAVED_TERMIOS flag to request that any saved
-termios state is reset on registration and only set it for drivers that
-make sure that the minor number is no longer in use.
+Power the chip on first and only then unmask the interrupt. Once resume
+completes the boot handshake the chip comes back with sensing off, as
+at probe where input_open() turns it on, so the touchscreen stays dead
+after resume. Send SENSE_ON again when the input device is open.
 
-Fixes: 93857edd9829 ("tty: reset termios state on device registration")
-Reported-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-Link: https://lore.kernel.org/20260926184154.3017929-1-nicoyip.dev@gmail.com
-Cc: stable@kernel.org	# 4.12
-Signed-off-by: Johan Hovold <johan@kernel.org>
-Link: https://patch.msgid.link/20260930131845.1809256-1-johan@kernel.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ sashal: Adapted TTY_DRIVER_RESET_SAVED_TERMIOS to the existing macro-based driver flag setup. ]
+Tested on a Pixel 3 XL over several s2idle cycles: resume succeeds and
+the touch function and sense status match the pre-suspend state.
+
+Assisted-by: LLM
+Cc: stable@vger.kernel.org
+Fixes: 0145a7141e59 ("Input: add support for the Samsung S6SY761 touchscreen")
+Signed-off-by: David Heidelberg <david@ixit.cz>
+Link: https://patch.msgid.link/20260926-s6sy761-suspend-v2-1-8f00a96ee6e8@ixit.cz
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+[ sashal: Replaced guard(mutex) with explicit mutex_lock()/mutex_unlock() calls for C90 compatibility. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/staging/greybus/uart.c  |  3 ++-
- drivers/tty/tty_io.c            | 18 ++++++++++--------
- drivers/usb/class/cdc-acm.c     |  2 +-
- drivers/usb/serial/usb-serial.c |  3 ++-
- include/linux/tty_driver.h      |  6 ++++++
- 5 files changed, 21 insertions(+), 11 deletions(-)
+ drivers/input/touchscreen/s6sy761.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/staging/greybus/uart.c b/drivers/staging/greybus/uart.c
-index 526573556cda6..f067f26fefcb3 100644
---- a/drivers/staging/greybus/uart.c
-+++ b/drivers/staging/greybus/uart.c
-@@ -954,7 +954,8 @@ static int gb_tty_init(void)
- 	gb_tty_driver->minor_start = 0;
- 	gb_tty_driver->type = TTY_DRIVER_TYPE_SERIAL;
- 	gb_tty_driver->subtype = SERIAL_TYPE_NORMAL;
--	gb_tty_driver->flags = TTY_DRIVER_REAL_RAW | TTY_DRIVER_DYNAMIC_DEV;
-+	gb_tty_driver->flags = TTY_DRIVER_REAL_RAW | TTY_DRIVER_DYNAMIC_DEV |
-+			       TTY_DRIVER_RESET_SAVED_TERMIOS;
- 	gb_tty_driver->init_termios = tty_std_termios;
- 	gb_tty_driver->init_termios.c_cflag = B9600 | CS8 |
- 		CREAD | HUPCL | CLOCAL;
-diff --git a/drivers/tty/tty_io.c b/drivers/tty/tty_io.c
-index 6be960c6c6339..84fc068cdd745 100644
---- a/drivers/tty/tty_io.c
-+++ b/drivers/tty/tty_io.c
-@@ -3273,14 +3273,16 @@ struct device *tty_register_device_attr(struct tty_driver *driver,
- 		goto err_put;
- 
- 	if (!(driver->flags & TTY_DRIVER_DYNAMIC_ALLOC)) {
--		/*
--		 * Free any saved termios data so that the termios state is
--		 * reset when reusing a minor number.
--		 */
--		tp = driver->termios[index];
--		if (tp) {
--			driver->termios[index] = NULL;
--			kfree(tp);
-+		if (driver->flags & TTY_DRIVER_RESET_SAVED_TERMIOS) {
-+			/*
-+			 * Free any saved termios data so that the termios
-+			 * state is reset when reusing a minor number.
-+			 */
-+			tp = driver->termios[index];
-+			if (tp) {
-+				driver->termios[index] = NULL;
-+				kfree(tp);
-+			}
- 		}
- 
- 		retval = tty_cdev_add(driver, devt, index, 1);
-diff --git a/drivers/usb/class/cdc-acm.c b/drivers/usb/class/cdc-acm.c
-index 59b039c524413..7c6ea7d1d6d77 100644
---- a/drivers/usb/class/cdc-acm.c
-+++ b/drivers/usb/class/cdc-acm.c
-@@ -2145,7 +2145,7 @@ static int __init acm_init(void)
+diff --git a/drivers/input/touchscreen/s6sy761.c b/drivers/input/touchscreen/s6sy761.c
+index 85a1f465c097e..6f1827cfc720d 100644
+--- a/drivers/input/touchscreen/s6sy761.c
++++ b/drivers/input/touchscreen/s6sy761.c
+@@ -510,10 +510,22 @@ static int __maybe_unused s6sy761_suspend(struct device *dev)
+ static int __maybe_unused s6sy761_resume(struct device *dev)
  {
- 	int retval;
- 	acm_tty_driver = tty_alloc_driver(ACM_TTY_MINORS, TTY_DRIVER_REAL_RAW |
--			TTY_DRIVER_DYNAMIC_DEV);
-+			TTY_DRIVER_DYNAMIC_DEV | TTY_DRIVER_RESET_SAVED_TERMIOS);
- 	if (IS_ERR(acm_tty_driver))
- 		return PTR_ERR(acm_tty_driver);
- 	acm_tty_driver->driver_name = "acm",
-diff --git a/drivers/usb/serial/usb-serial.c b/drivers/usb/serial/usb-serial.c
-index c9f66b7e68757..e2c78e4225707 100644
---- a/drivers/usb/serial/usb-serial.c
-+++ b/drivers/usb/serial/usb-serial.c
-@@ -1375,7 +1375,8 @@ static int __init usb_serial_init(void)
- 	int result;
+ 	struct s6sy761_data *sdata = dev_get_drvdata(dev);
++	int err;
++
++	err = s6sy761_power_on(sdata);
++	if (err)
++		return err;
  
- 	usb_serial_tty_driver = tty_alloc_driver(USB_SERIAL_TTY_MINORS,
--			TTY_DRIVER_REAL_RAW | TTY_DRIVER_DYNAMIC_DEV);
-+			TTY_DRIVER_REAL_RAW | TTY_DRIVER_DYNAMIC_DEV |
-+			TTY_DRIVER_RESET_SAVED_TERMIOS);
- 	if (IS_ERR(usb_serial_tty_driver))
- 		return PTR_ERR(usb_serial_tty_driver);
+ 	enable_irq(sdata->client->irq);
  
-diff --git a/include/linux/tty_driver.h b/include/linux/tty_driver.h
-index b4f99f6a5385a..91aa2d5b15da6 100644
---- a/include/linux/tty_driver.h
-+++ b/include/linux/tty_driver.h
-@@ -542,6 +542,11 @@ static inline void tty_set_operations(struct tty_driver *driver,
-  *	Do not create numbered ``/dev`` nodes. For example, create
-  *	``/dev/ttyprintk`` and not ``/dev/ttyprintk0``. Applicable only when a
-  *	driver for a single tty device is being allocated.
-+ *
-+ * TTY_DRIVER_RESET_SAVED_TERMIOS
-+ *	Reset any saved termios settings on device registration when reusing a
-+ *	minor number. Must only be set by drivers that guarantee that the minor
-+ *	number is no longer in use.
-  */
- #define TTY_DRIVER_INSTALLED		0x0001
- #define TTY_DRIVER_RESET_TERMIOS	0x0002
-@@ -551,6 +556,7 @@ static inline void tty_set_operations(struct tty_driver *driver,
- #define TTY_DRIVER_HARDWARE_BREAK	0x0020
- #define TTY_DRIVER_DYNAMIC_ALLOC	0x0040
- #define TTY_DRIVER_UNNUMBERED_NODE	0x0080
-+#define TTY_DRIVER_RESET_SAVED_TERMIOS	0x0200
+-	return s6sy761_power_on(sdata);
++	mutex_lock(&sdata->input->mutex);
++
++	if (input_device_enabled(sdata->input))
++		err = i2c_smbus_write_byte(sdata->client, S6SY761_SENSE_ON);
++
++	mutex_unlock(&sdata->input->mutex);
++
++	return err;
+ }
  
- /* tty driver types */
- #define TTY_DRIVER_TYPE_SYSTEM		0x0001
+ static const struct dev_pm_ops s6sy761_pm_ops = {
 -- 
 2.53.0
 
