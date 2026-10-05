@@ -1,202 +1,231 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 393F7363C50
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 06:39:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791182351; cv=pass; b=U09nE5VJ+36ahvB964O7B6XLEYozc52ksG63go7caWKVTZ5C/E4uFiQXcW+udP10ITqzTbYxxURPxAUUeZYj3LCoND8lanbyrVRMume/mJJ1T0dBAaNMj0gJJgpMGnBv1as6krhpeXycOJ/05FII/H3MyC8BjDthf6g3AIzuJd4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791182351; c=relaxed/simple;
-	bh=c6c/s/pctr4hlsIP37l3x3OtmGRnTk6yxQpJpwTRc38=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=b7eYDOiQgOhkrM0q6xOqUCqK3Ua91WHrHFxnKM0HsMjHUAPbJlEVapVICdyA9NGvPSgnlQaRT25YCgzkOKzenDOQhMRk6/38sZYdipIKgS8InLBJGZ/D+IzZ/TjLJesb2zfQCAseyz9VF56fDX0H7M+lHi+RTMvhDT6Wu6Pcw00=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=XN2kghPU; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=iPQGk78h; arc=pass smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C21B036197E;
+	Mon,  5 Oct 2026 06:39:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791182400; cv=none; b=OiqsjxgipCGJjmW6HmafPPoI4vq9xCwkNVTyaJga0PURtME+cG/KBIgaedcB0PDt7sfbf6Blq2/cRNkBU+nrMvMhW9HCIvXr6P/HEkKGr3U4F/M2WG/gJTZtxV5a1dCwtwGJi3l0nHnFNvQ0u3Q7M4yY+F2lDf1jz9GZIF8vBHE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791182400; c=relaxed/simple;
+	bh=kvZ8iK2XNg8Pj0Y1AckmPYP3vHm3VWgMIyBgcTgaZUI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UGih+ITm1wdfhfmlK9uOsvINzU1eMO3lIKur23C5sHUDyZT/qqxFGYPdBLGYBnC7sHmqoV3wGisnK708SiApXF0aO8/I1XFkDdmhPQyfEjTqM4jr9YaIMHWRkxkSukuL8mF3INvemqPaY7fBEjUgQANbEibM1A7PuellPsTYbC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jC4VNCLN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="XN2kghPU";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="iPQGk78h"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791182348;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=taemSpvQjcZer5/jR7Uz6W6jqE478Le4hwIyaN3A7qY=;
-	b=XN2kghPUL+vHvxDCvAY+/DWTfbBoAHuW8hsTTAfqHUJopBeERw5oZUD74oS0/To6UXWeMK
-	2GDaJ+WAYZCPHsWgS7sXDD8dU1/BlC2Xgz30jEMrNtMt3Xb5q8RyD0NVArEI0mr7ClBOV/
-	AuJs/Uk74OpZsKpiYH9FHWOtgX/P2dc=
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-530-o0TRvymOOm-x-jqYWl9a2A-1; Mon, 05 Oct 2026 02:39:06 -0400
-X-MC-Unique: o0TRvymOOm-x-jqYWl9a2A-1
-X-Mimecast-MFC-AGG-ID: o0TRvymOOm-x-jqYWl9a2A_1791182346
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-53513d2a70eso30363661cf.3
-        for <stable@vger.kernel.org>; Sun, 04 Oct 2026 23:39:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791182346; cv=none;
-        d=google.com; s=arc-20260327;
-        b=W/xJvv/XmwPQxO5/E7jiKusM+vKhp2eeJHc8qkYuiIeLuPKrWUSW59ZB/W+4akJUFs
-         SVI0PFKY3TaIftjqmscAk2wS1Jfe44T7j1hBK4WOFNgv/VhbumRJNgTOxV2rlcSaCX3D
-         wnrK2rMdgIV5SqO8nq2LmRKl4pguSKYXQZhLumaPiWNFmH/uR2/wPwLXuFC6aTe8Hu0/
-         DA6FJM0TCld3gvTuTCgSkJPEzAOmmC0ycNi4/z2XrT/8z7E+Ps3YWnY0B+Jkv1g2WUsD
-         0WlqJZh/rgxHT85R1ILXxzHakQPDRwRMo7rs069zFWsAzv12NvFWc13ek/yCbN62lUb+
-         hjug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=taemSpvQjcZer5/jR7Uz6W6jqE478Le4hwIyaN3A7qY=;
-        fh=jo5FON/9r2ZC3iqABZhhFt+NXCf1IJDKBB8KhfZxieA=;
-        b=jpRTnzQgQuMSYsjkmSEgk6LgFrdLUARSKlOww52FjUQJJYZroSWpqJN2yqEXtRO/pN
-         BSRMsLVY0QUmz414z7yJEkSWcqiqLvGGDoeXWaeg4w9hYD2TgVh6WvchC6DU7JWaUHIX
-         paF0Yg2vKC0YPYIw9awz58WEhirPtv0RpMtPr1pbx2r2lVXxO59IWijPdWw1fOAjORbn
-         OkeDGpr38qO9i7IQhH2rkbQkzYgHI8CUZa65ASRpMdrivyvx+jICobgPgBcf2I4+gto4
-         dHGOePRs5hnKOinGNo9Xzglz6uf0oMKqptfWcqSJ+PwSH5jB7AIEW3VcMKudjq4PE1M0
-         4tAg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791182346; x=1791787146; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=taemSpvQjcZer5/jR7Uz6W6jqE478Le4hwIyaN3A7qY=;
-        b=iPQGk78hbfWP7Xklv1e/0D3wD3cJa9gI89czUs+o4AJzNzM8TNGnhMx+ozyIEGdE/j
-         5p5LbWKcuKJlO/zokkfe0NOjwARk4WtrULKp1qsPeYkXkmFs4hLBrnj8dbDltb0r2OY9
-         jf10+qgnCFafOqZzEx8Hfe52DCjoBwb65TfxnbbIwb4sSelkW8YAQ5wyMoZ8RpMxOuhu
-         eyyZFJhio5XVKyr+birw7JGZwdENq6DZbFJi5SPcfNs31wuH0sV6/IAfNTEOxPpP7pA2
-         0G23U5FRZ2vsz53WGZ8CTdcUP2PhvXditb9TZo9durGJWztYq0NUPHi9GlIPLpOYSn5i
-         haxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791182346; x=1791787146;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=taemSpvQjcZer5/jR7Uz6W6jqE478Le4hwIyaN3A7qY=;
-        b=gkj+IQLENGCcXUwHV/0JzXwvXyicNjYKsTVlQU+6xvVtpZB2kR3QbJfJywI+qA1PQZ
-         fFbwj35puohgnpAAygWCBWPlkchiCTyH3FCaFAMOaWXF1agoVe+LOKbfR/TzBDcU7+RA
-         hHE9UMHXFhWCJ7r9+TokZkRgv3dgiOLkVYlLMMAsFn1lEBrgYY65ojfL51iu20h3pr+Q
-         QOUUP/URqmTBEC6Vmv1Xb/Imqgjc/mcAgc0W5RrVDfn32lQOEzwVTMsEZ/e8oZ32x/s9
-         HWUwvCJpZl8gY3xCT33mQq624/lWl/Req+KoswXEtDWipNLZsluLW55O/SzQHpR0Mt+v
-         dS4w==
-X-Gm-Message-State: AFuF++llnvsS4IpvBEq4ktg49WJVu3r6QNkPYs9HCvKvX5InKrWDZGIG
-	nJZWR08P7Ea5jmARh/djT2D/q9iESctRjwm2bxAOujbq+aSq93HfG9zE23Mhh9NOBGDw/AjSq+G
-	QZ2mVCUngObKV3IirQO6qLMxiLe82Pl8VJX1QWPZS46etsR3uvjb/WJNBF1sMPWOIQXPbZnPE+X
-	TtFmtnOuYYPgH5ESbuP/Rt/2igzqpLnhUwhqLiiULma2k=
-X-Gm-Gg: AYBFou2bmnxQT3HGP7SL0m535kZc7JMl/p3tw2PKpPbFLTQGgYeBTExcN0hi62cjEE/
-	i2565KRk9XAXgm0wQf8IBNoqwJbAYO0q2c1NfmZDTs8IbH7Mfixy/RoNarHQamQU8pnwo4BUCgb
-	47EgIv1Cd+259ka4dS5GLLf6iurUgQX+4lui3akjb7xQGpSmXPTONJxgevL50=
-X-Received: by 2002:ac8:7fcc:0:b0:533:3f82:3b80 with SMTP id d75a77b69052e-53511e92086mr105892021cf.39.1791182346036;
-        Sun, 04 Oct 2026 23:39:06 -0700 (PDT)
-X-Received: by 2002:ac8:7fcc:0:b0:533:3f82:3b80 with SMTP id
- d75a77b69052e-53511e92086mr105891801cf.39.1791182345584; Sun, 04 Oct 2026
- 23:39:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jC4VNCLN"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 248591F00893;
+	Mon,  5 Oct 2026 06:39:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791182398;
+	bh=1d2EodIpxVWoMlO3htkWgV6Xs1hq7/mTcOa8KBS+yIo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jC4VNCLN0EGBCCGXxGRHtcZCQgkf0hOYGVr0JAiiDy/iGBJkVdIByKI6uhNBdFKgJ
+	 1bTYbeoBg3tSIb79WFo/DzKGIu+RTPuHUnfGlbP+MnveQdLuBtLUM2eExiwlEEG8JQ
+	 zr4adR7xeuq5pwM/YbS+7udYT+q8QCyR5p0eDQa1IDUXqaTPBg650hOgXz7YC70S/v
+	 mHi3O+UKtxXTptKantJLMA69VEMSjkE5bx3oC4Bjs/rp0sjjIDXtFbJKagRDgpJS1a
+	 uYlc60NdmOOiLx3DMMhOY1sCA22/2qHyZOEhJ7fU4mA285Ysc6qacYebpC+JvI1Lv2
+	 Rj8M0hbeIiKrw==
+Date: Mon, 5 Oct 2026 09:39:54 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Chengfeng Ye <nicoyip.dev@gmail.com>
+Cc: David Howells <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E . Hallyn" <serge@hallyn.com>, keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] keys: Serialize ownership transfers with key
+ accounting
+Message-ID: <asNCIs3OshLwGWrB@kernel.org>
+References: <20260927162528.943886-1-nicoyip.dev@gmail.com>
+ <20260927162528.943886-3-nicoyip.dev@gmail.com>
+ <asMIwpXXWQaD3gAD@kernel.org>
+ <asMQMzqVkmYhwgMB@kernel.org>
+ <CAAo+4rULBiu6tOrdOjsgFcudjvyQO+DR9oZK=wms_3KxgFPNHA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261005063703.1404522-1-sashal@kernel.org>
-In-Reply-To: <20261005063703.1404522-1-sashal@kernel.org>
-From: Maurizio Lombardi <mlombard@redhat.com>
-Date: Mon, 5 Oct 2026 08:38:53 +0200
-X-Gm-Features: AclHuK9cGMdynwC9MoDwAesimcriDes-TkyQ4HDJzEm_NlMqwDICmIK00881roc
-Message-ID: <CAFL455mC4cyq1TZsB9PXCZQQCWRjxcDTZvFKdoARCMU1e-+UrQ@mail.gmail.com>
-Subject: Re: Patch "nvme: do not reset controllers in NVME_CTRL_NEW state" has
- been added to the 6.6-stable tree
-To: stable@vger.kernel.org
-Cc: stable-commits@vger.kernel.org, Keith Busch <kbusch@kernel.org>, 
-	Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAAo+4rULBiu6tOrdOjsgFcudjvyQO+DR9oZK=wms_3KxgFPNHA@mail.gmail.com>
 
-Sasha,
+On Mon, Oct 05, 2026 at 01:53:29PM +0800, Chengfeng Ye wrote:
+> On Mon, Oct 5, 2026 at 10:49 AM Jarkko Sakkinen <jarkko@kernel.org> wrote:
+> >
+> > On Mon, Oct 05, 2026 at 05:17:42AM +0300, Jarkko Sakkinen wrote:
+> > > On Mon, Sep 28, 2026 at 12:25:28AM +0800, Chengfeng Ye wrote:
+> > > > Protecting individual accesses to key->user does not make ownership
+> > > > transfers atomic with accounting updates. keyctl_chown_key() holds
+> > > > key->sem, but instantiation is serialized by key_construction_mutex and
+> > > > need not hold that semaphore. KEY_LOOKUP_PARTIAL also permits chown of
+> > > > an uninstantiated key.
+> > > >
+> > > > The instantiated-key count can therefore be charged to the wrong owner:
+> > > >
+> > > >   instantiate                       keyctl_chown_key()
+> > > >   lock key_user_lock
+> > > >   increment old->nikeys
+> > > >   unlock key_user_lock
+> > > >                                     observe KEY_IS_UNINSTANTIATED
+> > > >                                     skip the nikeys transfer
+> > > >                                     replace key->user
+> > > >   mark key instantiated
+> > > >
+> > > > The key becomes instantiated under the new owner while the increment
+> > > > remains with the old owner. Negative instantiation has the same race.
+> > > >
+> > > > Quota reservation can likewise run between charging the new owner and
+> > > > replacing key->user. It then adjusts the old owner's quota and changes
+> > > > key->quotalen while chown is transferring that quota burden.
+> > > >
+> > > > Extend the key_user_lock critical section in keyctl_chown_key() across
+> > > > the quota and key-count transfers, state check, and owner replacement.
+> > > > Also extend the instantiation critical sections across the state update,
+> > > > so chown observes the count increment and instantiated state together.
+> > > > The existing per-user quota locks continue to serialize quota changes
+> > > > against other keys owned by the same user.
+> > > >
+> > > > Keep allocations, notifications and reference release outside
+> > > > key_user_lock, and release it on the quota-overrun path.
+> > > >
+> > > > Fixes: 5801649d8b83 ("[PATCH] keys: let keyctl_chown() change a key's owner")
+> > > > Cc: stable@vger.kernel.org
+> > > > Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+> > > > ---
+> > > > Changes in v3:
+> > > > - Split from v2 as patch 2/2; see the cover letter for the full split.
+> > > > - Rebase onto current mainline and retain explicit reader-side locking.
+> > > >
+> > > > v2: https://lore.kernel.org/r/20260904080940.575882-1-nicoyip.dev@gmail.com/
+> > > >
+> > > >  security/keys/key.c    | 4 ++--
+> > > >  security/keys/keyctl.c | 6 ++++--
+> > > >  2 files changed, 6 insertions(+), 4 deletions(-)
+> > > >
+> > > > diff --git a/security/keys/key.c b/security/keys/key.c
+> > > > index d0d583194b05..54c675b3b58d 100644
+> > > > --- a/security/keys/key.c
+> > > > +++ b/security/keys/key.c
+> > > > @@ -454,8 +454,8 @@ static int __key_instantiate_and_link(struct key *key,
+> > > >                     /* mark the key as being instantiated */
+> > > >                     spin_lock(&key_user_lock);
+> > > >                     atomic_inc(&key->user->nikeys);
+> > > > -                   spin_unlock(&key_user_lock);
+> > > >                     mark_key_instantiated(key, 0);
+> > > > +                   spin_unlock(&key_user_lock);
+> > > >                     notify_key(key, NOTIFY_KEY_INSTANTIATED, 0);
+> > > >
+> > > >                     if (test_and_clear_bit(KEY_FLAG_USER_CONSTRUCT, &key->flags))
+> > > > @@ -613,8 +613,8 @@ int key_reject_and_link(struct key *key,
+> > > >             /* mark the key as being negatively instantiated */
+> > > >             spin_lock(&key_user_lock);
+> > > >             atomic_inc(&key->user->nikeys);
+> > > > -           spin_unlock(&key_user_lock);
+> > > >             mark_key_instantiated(key, -error);
+> > > > +           spin_unlock(&key_user_lock);
+> > > >             notify_key(key, NOTIFY_KEY_INSTANTIATED, -error);
+> > > >             key_set_expiry(key, ktime_get_real_seconds() + timeout);
+> > > >
+> > > > diff --git a/security/keys/keyctl.c b/security/keys/keyctl.c
+> > > > index c17924609317..83a9575b084e 100644
+> > > > --- a/security/keys/keyctl.c
+> > > > +++ b/security/keys/keyctl.c
+> > > > @@ -1004,6 +1004,8 @@ long keyctl_chown_key(key_serial_t id, uid_t user, gid_t group)
+> > > >             if (!newowner)
+> > > >                     goto error_put;
+> > > >
+> > > > +           spin_lock(&key_user_lock);
+> > > > +
+> > > >             /* transfer the quota burden to the new user */
+> > > >             if (test_bit(KEY_FLAG_IN_QUOTA, &key->flags)) {
+> > > >                     unsigned maxkeys = uid_eq(uid, GLOBAL_ROOT_UID) ?
+> > > > @@ -1036,11 +1038,10 @@ long keyctl_chown_key(key_serial_t id, uid_t user, gid_t group)
+> > > >                     atomic_inc(&newowner->nikeys);
+> > > >             }
+> > > >
+> > > > -           spin_lock(&key_user_lock);
+> > > >             zapowner = key->user;
+> > > >             key->user = newowner;
+> > > > -           spin_unlock(&key_user_lock);
+> > > >             key->uid = uid;
+> > > > +           spin_unlock(&key_user_lock);
+> > > >     }
+> > > >
+> > > >     /* change the GID */
+> > > > @@ -1060,6 +1061,7 @@ long keyctl_chown_key(key_serial_t id, uid_t user, gid_t group)
+> > > >
+> > > >  quota_overrun:
+> > > >     spin_unlock_irqrestore(&newowner->lock, flags);
+> > > > +   spin_unlock(&key_user_lock);
+> > > >     zapowner = newowner;
+> > > >     ret = -EDQUOT;
+> > > >     goto error_put;
+> > > > --
+> > > > 2.43.0
+> > > >
+> > >
+> > > I double-checked this patch too given the concerns on 1/2 but nope, this
+> > > does not raise similar concerns as every critical section is strictly
+> > > related to ownership change.
+> > >
+> > > E.g., I can be sure that the granularity is where it should be and locks
+> > > are actually needed in the first place.
+> > >
+> > > Thus, I'm still including this patch to my next PR, and drop the first
+> > > one.
+> >
+> > By dropping 1/2 I found out that 2/2 key.c becomes:
+> >
+> > diff --git a/security/keys/key.c b/security/keys/key.c
+> > index a438c4508595..de63120c51ad 100644
+> > --- a/security/keys/key.c
+> > +++ b/security/keys/key.c
+> > @@ -449,6 +449,7 @@ static int __key_instantiate_and_link(struct key *key,
+> >                         /* mark the key as being instantiated */
+> >                         atomic_inc(&key->user->nikeys);
+> >                         mark_key_instantiated(key, 0);
+> > +                       spin_unlock(&key_user_lock);
+> >                         notify_key(key, NOTIFY_KEY_INSTANTIATED, 0);
+> >
+> >                         if (test_and_clear_bit(KEY_FLAG_USER_CONSTRUCT, &key->flags))
+> > @@ -606,6 +607,7 @@ int key_reject_and_link(struct key *key,
+> >                 /* mark the key as being negatively instantiated */
+> >                 atomic_inc(&key->user->nikeys);
+> >                 mark_key_instantiated(key, -error);
+> > +               spin_unlock(&key_user_lock);
+> >                 notify_key(key, NOTIFY_KEY_INSTANTIATED, -error);
+> >                 key_set_expiry(key, ktime_get_real_seconds() + timeout);
+> >
+> > This type of interleaving should never happen in a patch series.
+> >
+> > Please don't rush your changes like this in future.
+> >
+> > Br, Jarkko
+> 
+> Sorry for the mistake, I should have carefully verified that the tree
+> remained valid at each step of the series.
+> 
+> I will rework the locking on 1/2 to inspect if there might be any
+> unnecessary coverage, and verify each intermediate commit
+> independently before sending a revised version for the patch series.
 
-Please remove this patch from the stable trees.
+No problem. I just wanted to underline this :-) And I will gladly take
+part of the blame given that I also rushed and this should have been
+catched and fixed during the review cycle.
 
-A regression has been reported and this patch must be reverted.
-https://lore.kernel.org/linux-nvme/a8975c9a-b0c8-41cf-90e4-a770666e975a@cyb=
-erchaos.dev/T/#mff8a81bd072a044c77e85070e754532d969155b2
+So let's just address this, phase down a bit so that at least correct
+stuff gets out (and as many review cycles that requires).
 
-Thanks.
+The basis of the fix is not rotten. It does address the correct
+root cause and is going into right direction. It's just not taken
+to the end.
 
-po 5. 10. 2026 v 8:37 odes=C3=ADlatel Sasha Levin <sashal@kernel.org> napsa=
-l:
->
-> This is a note to let you know that I've just added the patch titled
->
->     nvme: do not reset controllers in NVME_CTRL_NEW state
->
-> to the 6.6-stable tree which can be found at:
->     http://www.kernel.org/git/?p=3Dlinux/kernel/git/stable/stable-queue.g=
-it;a=3Dsummary
->
-> The filename of the patch is:
->      nvme-do-not-reset-controllers-in-nvme_ctrl_new-state.patch
-> and it can be found in the queue-6.6 subdirectory.
->
-> If you, or anyone else, feels it should not be added to the stable tree,
-> please let <stable@vger.kernel.org> know about it.
->
->
->
-> commit 03198f12b3bd565406a3549fe54e2eac163ff506
-> Author: Maurizio Lombardi <mlombard@redhat.com>
-> Date:   Tue Sep 15 11:58:27 2026 +0200
->
->     nvme: do not reset controllers in NVME_CTRL_NEW state
->
->     [ Upstream commit c20bba234f3e1dcd81f7a2ec21ea7bf01a4cf35f ]
->
->     During NVMe controller creation, the controller is exposed to sysfs v=
-ia
->     nvme_add_ctrl() while it is still in the NVME_CTRL_NEW state.
->     This creates a narrow race window where a userspace process can write=
- to
->     the reset_controller sysfs node before the initialization thread
->     transitions the state to NVME_CTRL_CONNECTING.
->
->     If a reset is triggered during this window, the state machine allows =
-the
->     transition from NVME_CTRL_NEW to NVME_CTRL_RESETTING, and the reset w=
-ork
->     is queued. However, the original creation thread continues its execut=
-ion,
->     subsequently moving the state to NVME_CTRL_CONNECTING and finally to
->     NVME_CTRL_LIVE.
->
->     When the delayed reset work finally executes, it attempts to tear dow=
-n
->     the controller and transition the state to NVME_CTRL_CONNECTING. Beca=
-use
->     the state is now NVME_CTRL_LIVE, this transition fails, triggering a
->     WARN_ON in the reset work.
->
->     Fix this by removing NVME_CTRL_NEW from the allowed prior states for
->     the NVME_CTRL_RESETTING transition.
->
->     Fixes: 8bfc3b4c6f9d ("nvmet: switch loopback target state to connecti=
-ng when resetting")
->     Reported-by: syzbot+4a1d521d19d6321f5aad@syzkaller.appspotmail.com
->     Reviewed-by: Daniel Wagner <dwagner@suse.de>
->     Signed-off-by: Maurizio Lombardi <mlombard@redhat.com>
->     Signed-off-by: Keith Busch <kbusch@kernel.org>
->     Signed-off-by: Sasha Levin <sashal@kernel.org>
->
-> diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-> index c34ecb2c96562..76d781aaf31fc 100644
-> --- a/drivers/nvme/host/core.c
-> +++ b/drivers/nvme/host/core.c
-> @@ -512,7 +512,6 @@ bool nvme_change_ctrl_state(struct nvme_ctrl *ctrl,
->                 break;
->         case NVME_CTRL_RESETTING:
->                 switch (old_state) {
-> -               case NVME_CTRL_NEW:
->                 case NVME_CTRL_LIVE:
->                         changed =3D true;
->                         fallthrough;
->
+> 
+> Best regards,
+> Chengfeng
 
+Br, Jarkko
