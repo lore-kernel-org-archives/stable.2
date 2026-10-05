@@ -1,45 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06DA51632DD
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 22:17:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D10ED1632DD
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 22:17:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791238653; cv=none; b=vD2eYdS63tOraZIYInWtzzn+Ku8RsNdTtUMfxDdOmpZ/6ib4CPVbfbFoMOZ3YIBYHhJWVoyMtqlSRGHEflhS6mmgxN9+VwjHeNo89ZSbOYUlofXuwO1j1N23TPoijv1yL/SdvZcImaGGj6Gqfd9nkLFBl84GvZH7b+tTOtYdq2Q=
+	t=1791238655; cv=none; b=Ke3kmIJHC+o5nxzUozfS9/rnS8G9knNhbLy6YPmvG6huHoue32AP5mjcmlw/KVPOWyDGELvMdTZARGyLP5naNDXMOHV+Pbx6oEyNQVS6KJIn1CuR94LG1qy2B26ZfHs1sFV/Tf+c7CdOzjVNEpGi57cks/R7vXIKfjk3sh4fsY4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791238653; c=relaxed/simple;
-	bh=XWuUTIIcpZE+dwyZGjAtfyRFnc+Fb7ItuXklFQNNLMo=;
+	s=arc-20240116; t=1791238655; c=relaxed/simple;
+	bh=HtlWRYVx55XPFHLaXNC15T5DQTTXKW1alDum9H22kq4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kn/ArY216XCm7FjnRt9HXIyTwUJskg7krRjRW8zLTzMgAXig9XzljE+tde0uBtep2Gc5iIqDQ/HtM6bIKzzpn36wswd7THeBCf6dzVB+NBA+F571Q0+RlOJN2kmZ3+E7amMEOWFMmKEzy/N3/YQD2ErVF3A28h/ljPBB2zidWOA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hQxkBlnx; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=GqYY/fJ3Ngm1wsfgq8dKtV/ybjZmF4go7Wc6A3y2lJpbJR1QBslTv6iqgEqnwx+Qsg7A1s+x5brPD3Q9UkGXDLRtAbWlgmvLmgB67PLaY+aLZGy0qwQZyulV995XXk3CuYNB784Bw4Qber55K9LG6u4iEfkaopwCXexCP418x3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UD7p8ty/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hQxkBlnx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFBFC1F00893;
-	Mon,  5 Oct 2026 22:17:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UD7p8ty/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F34E41F000FF;
+	Mon,  5 Oct 2026 22:17:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791238651;
-	bh=MVcG0L1U0+dGb97Tb8JgfBEmTk2scNqXiB13jpNsb8Q=;
+	s=k20260515; t=1791238653;
+	bh=ay/hSsIOHUUHzoqB4jU5UFFQOkfAQ5cWtSi7HWbeayY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hQxkBlnxmW2qZ6y10iTOz3iQgY+FRicFDAhiYhe9c6zQf2XnVuxxKUiQ51d1d8xz+
-	 9R09wUiLQB7q4BQPGbrKZG3GAoJy+jZPuw46HElLOblxidAkBSbHM/O0D1RWxvXdvJ
-	 u7PP5DNJ8waWYHl9P6fF4ORpZcX9cyOEkm0s9FltPZhyAguP3XiHCCstoGMwTKlQPt
-	 XWu5rPPx0dYegqlRcIlIVOEsJGs0M0ZbDjpQfZlha3LmuKh4PzF2K8Wh5u/PWtmN+I
-	 WlyAI2zeUpspj49qydJr9WKC7pGZYnwc9/MvrEB7+Ayezc8CrfnsrOj2Y17qxoqJJ1
-	 6wNVtJS6i7bNw==
+	b=UD7p8ty/AhRW0Lj8hFPhvbUox3Njmn3rCR3mwFZTM25xe0aIloUU4CVa36RfumceT
+	 LAFFTiGl9VP3OGGtk1AfbpLTywOGumaq3Eb7hMHrcZi5IRsqz5OGAc5oufbs6Gufmb
+	 uCLcRVHcT3sH+k7LJ3ve3XJbsywnIrmEtrrZdn6ZkQkvNoqzFG+bUrUuppFjw5TKbd
+	 1LGqFVhavbuuI9KJj1y/Vb9W5X2cKk290kr5ufjF7qs5br8fkPsvkN2nMkUpOkgSZT
+	 puYYTkQBMqpOlgf4FR8Jwi5mPfi/bDsZVPRqL+daozsHro66rFU7svP+YL0pJD+Ogt
+	 e8CdWdDAx5Qzg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Mark Rutland <mark.rutland@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Marc Zyngier <maz@kernel.org>,
 	Mark Brown <broonie@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] arm64/fpsimd: signal: Consistently read FPSIMD context
-Date: Mon,  5 Oct 2026 18:17:26 -0400
-Message-ID: <20261005221636.3436132-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] arm64/fpsimd: signal: Forbid non-streaming SVE payload on SME-only systems
+Date: Mon,  5 Oct 2026 18:17:27 -0400
+Message-ID: <20261005221636.3436132-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100534-amigo-discolor-973f@gregkh>
+In-Reply-To: <20261005221636.3436132-1-sashal@kernel.org>
 References: <2026100534-amigo-discolor-973f@gregkh>
+ <20261005221636.3436132-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,175 +50,154 @@ Content-Transfer-Encoding: 8bit
 
 From: Mark Rutland <mark.rutland@arm.com>
 
-[ Upstream commit be625d803c3bbfa9652697eb57589fe6f2f24b89 ]
+[ Upstream commit e060d9069b49fe55f38057dfe592068014652671 ]
 
-For historical reasons, restore_sve_fpsimd_context() has an open-coded
-copy of the logic from read_fpsimd_context(), which is used to either
-restore an FPSIMD-only context, or to merge FPSIMD state into an
-SVE state when restoring an SVE+FPSIMD context. The logic is *almost*
-identical.
+When system_supports_sme() is true but system_supports_sve() is false,
+restoring a specifically crafted SVE signal context can result in the
+task erroneously having non-streaming SVE state. Subsequent attempts to
+manipulate the task's FPSIMD/SVE/SME state can result in a variety of
+problems, including fatal EL1 UNDEFs.
 
-Refactor the logic to avoid duplication and make this clearer.
+In such configurations, the kernel always creates an SVE signal context
+when delivering a signal, and this can only be in one of two states:
 
-This comes with two functional changes that I do not believe will be
-problematic in practice:
+(1) SVE_SIG_FLAG_SM is set, and an SVE payload is present containing
+    streaming mode SVE state. The recorded VL is the task's live
+    streaming VL.
 
-* The user_fpsimd_state::size field will be checked in all restore paths
-  that consume it user_fpsimd_state. The kernel always populates this
-  field when delivering a signal, and so this should contain the
-  expected value unless it has been corrupted.
+(2) SVE_SIG_FLAG_SM is clear, and an SVE payload is not present. The
+    FPSIMD context contains the non-streaming mode FPSIMD state. The
+    recorded VL is 0.
 
-* If a read of user_fpsimd_state fails, we will return early without
-  modifying TIF_SVE, the saved SVCR, or the save fp_type. This will
-  leave the task in a consistent state, without potentially resurrecting
-  stale FPSIMD state. A read of user_fpsimd_state should never fail
-  unless the structure has been corrupted or the stack has been
-  unmapped.
+Currently restore_sve_fpsimd_context() correctly rejects cases where
+SVE_SIG_FLAG_SM is set and an SVE payload is not present, but fails to
+reject cases where SVE_SIG_FLAG_SM is clear and an SVE payload is
+present. Consequently, restore_sve_fpsimd_context() can place the task
+in a state where it has non-streaming SVE state even when this is not
+supported by HW.
 
-Suggested-by: Will Deacon <will@kernel.org>
+For example, this can cause a later EL1 UNDEF when the kernel attempts to
+restore the task's ZCR_EL1 value:
+
+| # ./sme-sigcontext-to-sve
+| Internal error: Oops - Undefined instruction: 0000000002000000 [#1]  SMP
+| Modules linked in:
+| CPU: 0 UID: 0 PID: 131 Comm: sme-sigcontext- Not tainted 7.3.0-rc1 #1 PREEMPT
+| Hardware name: linux,dummy-virt (DT)
+| pstate: 61402009 (nZCv daif +PAN -UAO -TCO +DIT -SSBS BTYPE=--)
+| pc : fpsimd_restore_current_state+0x258/0x458
+| lr : exit_to_user_mode_loop+0xb8/0x188
+| sp : ffff80008056be40
+| x29: ffff80008056be40 x28: fff00000c1670000 x27: 0000000000000000
+| x26: 0000000000000000 x25: 0000000000000000 x24: 0000000000000000
+| x23: ffff80008056bec0 x22: 0000000000000008 x21: 0000000000000040
+| x20: 0000000000000081 x19: 0000000008800010 x18: 0000000000000000
+| x17: 0000fffffd412570 x16: 0000000000001000 x15: 0000fffffd4123b0
+| x14: 0000fffffd412780 x13: 0000fffffd412be8 x12: 0000000047435300
+| x11: 0000fffffd412570 x10: 0000000000000000 x9 : 0000000045585401
+| x8 : fff00000c18a6c44 x7 : 0000000000000000 x6 : 0000000000000002
+| x5 : 0000000000000002 x4 : ffff800080568000 x3 : 0000000000000001
+| x2 : 0000000008800010 x1 : fff00000c1670000 x0 : 0000000008800000
+| Call trace:
+|  fpsimd_restore_current_state+0x258/0x458 (P)
+|  exit_to_user_mode_loop+0xb8/0x188
+|  el0_svc+0x1cc/0x1d0
+|  el0t_64_sync_handler+0xa0/0xe4
+|  el0t_64_sync+0x198/0x19c
+| Code: d5384101 f9400020 53175c03 36b80de0 (d5381202)
+| ---[ end trace 0000000000000000 ]---
+| Kernel panic - not syncing: Oops - Undefined instruction: Fatal exception in interrupt
+| Kernel Offset: 0x291fb1000000 from 0xffff800080000000
+| PHYS_OFFSET: 0x40000000
+| CPU features: 0x0,00000000,0052802f,ffb88f43,3afcf73f
+| Memory Limit: none
+
+Rework restore_sve_fpsimd_context() to reject cases where
+SVE_SIG_FLAG_SM is clear and an SVE payload is not present. As
+parse_user_sigframe() rejects SVE signal frames when neither SVE nor SME
+are supported, it isn't necessary for restore_sve_fpsimd_context() to
+handle the case where neither are supported.
+
+Fixes: 7dde62f0687c  ("arm64/signal: Always accept SVE signal frames on SME only systems")
 Signed-off-by: Mark Rutland <mark.rutland@arm.com>
+Reviewed-by: Mark Brown <broonie@kernel.org>
 Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Marc Zyngier <maz@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>
 Cc: Will Deacon <will@kernel.org>
-Link: https://lore.kernel.org/r/20250508132644.1395904-5-mark.rutland@arm.com
-[will: Ensure read_fpsimd_context() returns negative error code or zero]
+Cc: stable@vger.kernel.org
 Signed-off-by: Will Deacon <will@kernel.org>
-
-Route header-only non-streaming SVE contexts through the existing
-FPSIMD restore path so that the FPSIMD context size is checked and user
-reads complete before the task's FPSIMD state flags are changed. Clear
-saved streaming mode in that path to preserve the state transition
-previously performed by the SVE restore path.
-
-Retain the inline register reads in the existing restore functions instead
-of extracting a new helper. Check the FPSIMD context size in the SVE
-payload path as well, and return read errors before updating the hardware
-registers.
-
-Include the streaming-mode flag handling and payload requirement expected
-by the subsequent SME-only signal-context validation fix. A streaming SVE
-context without a payload must fail validation rather than fall back to
-FPSIMD-only restoration.
-
-Stable-dep-of: e060d9069b49 ("arm64/fpsimd: signal: Forbid non-streaming SVE payload on SME-only systems")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/kernel/signal.c | 48 ++++++++++++++++++++++++--------------
- 1 file changed, 30 insertions(+), 18 deletions(-)
+ arch/arm64/kernel/signal.c | 34 ++++++++++++++++++++--------------
+ 1 file changed, 20 insertions(+), 14 deletions(-)
 
 diff --git a/arch/arm64/kernel/signal.c b/arch/arm64/kernel/signal.c
-index f7b05267a76b2..59d9e7fca936a 100644
+index 59d9e7fca936a..13f4a95ca2315 100644
 --- a/arch/arm64/kernel/signal.c
 +++ b/arch/arm64/kernel/signal.c
-@@ -265,7 +265,7 @@ static int preserve_fpsimd_context(struct fpsimd_context __user *ctx)
- static int restore_fpsimd_context(struct user_ctxs *user)
- {
- 	struct user_fpsimd_state fpsimd;
--	int err = 0;
-+	int err;
- 
- 	/* check the size information */
- 	if (user->fpsimd_size != sizeof(struct fpsimd_context))
-@@ -276,15 +276,16 @@ static int restore_fpsimd_context(struct user_ctxs *user)
- 			       sizeof(fpsimd.vregs));
- 	__get_user_error(fpsimd.fpsr, &(user->fpsimd->fpsr), err);
- 	__get_user_error(fpsimd.fpcr, &(user->fpsimd->fpcr), err);
-+	if (err)
-+		return -EFAULT;
- 
- 	clear_thread_flag(TIF_SVE);
-+	current->thread.svcr &= ~SVCR_SM_MASK;
- 	current->thread.fp_type = FP_STATE_FPSIMD;
- 
- 	/* load the hardware registers from the fpsimd_state structure */
--	if (!err)
--		fpsimd_update_current_state(&fpsimd);
--
--	return err ? -EFAULT : 0;
-+	fpsimd_update_current_state(&fpsimd);
-+	return 0;
- }
- 
- static int preserve_fpmr_context(struct fpmr_context __user *ctx)
-@@ -391,6 +392,7 @@ static int restore_sve_fpsimd_context(struct user_ctxs *user)
+@@ -392,6 +392,7 @@ static int restore_sve_fpsimd_context(struct user_ctxs *user)
  	unsigned int vl, vq;
  	struct user_fpsimd_state fpsimd;
  	u16 user_vl, flags;
-+	bool sm;
++	bool fpsimd_only;
+ 	bool sm;
  
  	if (user->sve_size < sizeof(*user->sve))
- 		return -EINVAL;
-@@ -400,7 +402,8 @@ static int restore_sve_fpsimd_context(struct user_ctxs *user)
+@@ -402,19 +403,33 @@ static int restore_sve_fpsimd_context(struct user_ctxs *user)
  	if (err)
  		return err;
  
--	if (flags & SVE_SIG_FLAG_SM) {
-+	sm = flags & SVE_SIG_FLAG_SM;
-+	if (sm) {
++	fpsimd_only = (user->sve_size == sizeof(*user->sve));
+ 	sm = flags & SVE_SIG_FLAG_SM;
++
+ 	if (sm) {
  		if (!system_supports_sme())
  			return -EINVAL;
  
-@@ -420,12 +423,17 @@ static int restore_sve_fpsimd_context(struct user_ctxs *user)
++		/*
++		 * Streaming SVE state is always preserved with an SVE payload.
++		 * Only accept streaming state which has an SVE payload.
++		 */
++		if (fpsimd_only)
++			return -EINVAL;
++
+ 		vl = task_get_sme_vl(current);
+ 	} else {
+ 		/*
+-		 * A SME only system use SVE for streaming mode so can
+-		 * have a SVE formatted context with a zero VL and no
+-		 * payload data.
++		 * Non-streaming SVE state may be preserved without an SVE
++		 * payload, in which case all state is saved in the FPSIMD
++		 * context.
++		 *
++		 * On SME-only systems, non-streaming (FPSIMD-only) state is
++		 * always preserved without an SVE payload, and with VL==0. On
++		 * such systems, only accept non-streaming state without an SVE
++		 * payload.
+ 		 */
+-		if (!system_supports_sve() && !system_supports_sme())
++		if (!system_supports_sve() && !fpsimd_only)
+ 			return -EINVAL;
+ 
+ 		vl = task_get_sve_vl(current);
+@@ -423,16 +438,7 @@ static int restore_sve_fpsimd_context(struct user_ctxs *user)
  	if (user_vl != vl)
  		return -EINVAL;
  
--	if (user->sve_size == sizeof(*user->sve)) {
--		clear_thread_flag(TIF_SVE);
--		current->thread.svcr &= ~SVCR_SM_MASK;
--		current->thread.fp_type = FP_STATE_FPSIMD;
--		goto fpsimd_only;
--	}
-+	/*
-+	 * Non-streaming SVE state may be preserved without an SVE payload, in
-+	 * which case the SVE context only has a header with VL==0, and all
-+	 * state can be restored from the FPSIMD context.
-+	 *
-+	 * Streaming SVE state is always preserved with an SVE payload. For
-+	 * consistency and robustness, reject restoring streaming SVE state
-+	 * without an SVE payload.
-+	 */
-+	if (!sm && user->sve_size == sizeof(*user->sve))
-+		return restore_fpsimd_context(user);
+-	/*
+-	 * Non-streaming SVE state may be preserved without an SVE payload, in
+-	 * which case the SVE context only has a header with VL==0, and all
+-	 * state can be restored from the FPSIMD context.
+-	 *
+-	 * Streaming SVE state is always preserved with an SVE payload. For
+-	 * consistency and robustness, reject restoring streaming SVE state
+-	 * without an SVE payload.
+-	 */
+-	if (!sm && user->sve_size == sizeof(*user->sve))
++	if (fpsimd_only)
+ 		return restore_fpsimd_context(user);
  
  	vq = sve_vq_from_vl(vl);
- 
-@@ -455,25 +463,29 @@ static int restore_sve_fpsimd_context(struct user_ctxs *user)
- 	if (err)
- 		return -EFAULT;
- 
--	if (flags & SVE_SIG_FLAG_SM)
-+	if (sm)
- 		current->thread.svcr |= SVCR_SM_MASK;
- 	else
- 		set_thread_flag(TIF_SVE);
- 	current->thread.fp_type = FP_STATE_SVE;
- 
--fpsimd_only:
-+	/* check the size information */
-+	if (user->fpsimd_size != sizeof(struct fpsimd_context))
-+		return -EINVAL;
-+
- 	/* copy the FP and status/control registers */
- 	/* restore_sigframe() already checked that user->fpsimd != NULL. */
- 	err = __copy_from_user(fpsimd.vregs, user->fpsimd->vregs,
- 			       sizeof(fpsimd.vregs));
- 	__get_user_error(fpsimd.fpsr, &user->fpsimd->fpsr, err);
- 	__get_user_error(fpsimd.fpcr, &user->fpsimd->fpcr, err);
-+	if (err)
-+		return -EFAULT;
- 
--	/* load the hardware registers from the fpsimd_state structure */
--	if (!err)
--		fpsimd_update_current_state(&fpsimd);
-+	/* Merge the FPSIMD registers into the SVE state */
-+	fpsimd_update_current_state(&fpsimd);
- 
--	return err ? -EFAULT : 0;
-+	return 0;
- }
- 
- #else /* ! CONFIG_ARM64_SVE */
 -- 
 2.53.0
 
