@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03BFA377A98
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 08:06:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2720536A36B
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 08:06:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791187576; cv=none; b=HV371rlvINIeDCSejPEI5iFxB3SE9CVXsnmeEd1gK+RfUvHeGh3+yTLnR0ddhrI6VaCWF9rd5R9qMIA5Mix2mzTGX22cXC3edQq2DR4/+J83gpALkVJMsKs0CEouTSqFvzZmn8EYV1w77dIlj7KSclfSz4aWYRZb5eTtaWP+NNk=
+	t=1791187585; cv=none; b=PBcBXw7pXlm/XGSg7kqmvVfE7DqK83+rMrHMpKQEG5B3fEBS/ud4eY8z2U+borqzfL8Qc8c43bgxVuHOW4YMXAy/cKhrOWVVgSX/UMPve9gX17z/FFNYxIPrxVe5YyVOD7emYTcFITSHTsuItyNZcnlo+YTC8FeVgj3IFoBVlcU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791187576; c=relaxed/simple;
-	bh=w/a6dP8mKV87tmYvaqZdSliGse4B1GDg9HZkq2PmH9w=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=hPYNR/v/WmzHf7HJ9SsLiTHrDFk8zg1Y8NXPZ1MewvdcOqn/GKi5aANMTmD8IXG16tfl38HlORlzVvHz5PZ1+PKx77wLlhkXJQOAkdXjmUHEZ0D2qObbLhl0gIstaxqg7hAKW4DjIl8PkQTeGn/xx4xFDelh39R2LTCgMh/RfMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Fuuo4EyR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791187585; c=relaxed/simple;
+	bh=IJLDwHJsHAY1Cd6SkaaP24WEeuyCMdRNCfZkvZPN568=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=KvkNnF5MpmU92uH8E6+F0Q6B24iYiDG2tio2hIOZm7u7oBKHEDUlwnv/glVCyTolSkQqzJR1slkg35DTvU0Q+tKG7yQO1uRLzPz7HDrUZId/eYe669/oYjfwPQCCD26H0yQPc5FuTxdTCuQ4midNQE8NvNv+emAN5YlOhX8wJKo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=NUg35Kp/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Fuuo4EyR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17EA01F000FF;
-	Mon,  5 Oct 2026 08:06:13 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NUg35Kp/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A9281F000FF;
+	Mon,  5 Oct 2026 08:06:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791187574;
-	bh=dCRNDGoi0R77dgZ+OTWPfLgiwscBUO8mk7mzXXO7Yic=;
+	s=korg; t=1791187584;
+	bh=r2nteGupT9ETxP+R5ATc+zPOI37FURDXscMThTYNBUI=;
 	h=Subject:To:Cc:From:Date;
-	b=Fuuo4EyRWxUpTgfFo0SPEmHkKrNwZRbgMc8OYdc/73wcMNVMavBgK9X+J79/aGg9z
-	 zDkw+Hj7Fe+XO/MfI2hHSQNPXj9po9D7Z3YM8ow/uENrvAPDkCRGmDtTkvleboc1AW
-	 59w4CTSW42JwMFh+Tt6QyCu7hkelNsX2i/YHYY6g=
-Subject: FAILED: patch "[PATCH] drm/amd/display: check dc_state_create_copy() for NULL in" failed to apply to 5.15-stable tree
-To: yijiangshan@kylinos.cn,alexander.deucher@amd.com,daniel.wheeler@amd.com,george.zhang@amd.com
+	b=NUg35Kp/c0YlZr2hA860kR6InAAmE9s9SPqzO+8KNUClJQ+yqVnC3plRKbIRbtacA
+	 WDzlcFUKap7IA4GmAQc6Jmxhc9yGgMK1dquBRLu/uDKmx1Z/2Lp1luDqilzeoRkPV9
+	 50/FOwP4qiU5FIxT8zxxk3pxSw986Q17s5BOeWtI=
+Subject: FAILED: patch "[PATCH] drm/amd/display: Fix fast updates on DCE 6.x" failed to apply to 6.12-stable tree
+To: timur.kristof@gmail.com,alexander.deucher@amd.com,mario.limonciello@amd.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 05 Oct 2026 10:05:58 +0200
-Message-ID: <2026100558-hardness-compare-fb18@gregkh>
+Date: Mon, 05 Oct 2026 10:06:12 +0200
+Message-ID: <2026100512-compare-pediatric-e0ed@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 015e72cde567d2450e282c2790773463156b2d0a
+git cherry-pick -x 88427119e1f039c8cdffd63726c136a986ef519f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100558-hardness-compare-fb18@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100512-compare-pediatric-e0ed@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,49 +62,82 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 015e72cde567d2450e282c2790773463156b2d0a Mon Sep 17 00:00:00 2001
-From: Jiangshan Yi <yijiangshan@kylinos.cn>
-Date: Fri, 4 Sep 2026 17:18:17 +0800
-Subject: [PATCH] drm/amd/display: check dc_state_create_copy() for NULL in
- dm_suspend
+From 88427119e1f039c8cdffd63726c136a986ef519f Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+Date: Wed, 23 Sep 2026 14:20:31 +0200
+Subject: [PATCH] drm/amd/display: Fix fast updates on DCE 6.x
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-dc_state_create_copy() can return NULL on allocation failure.
-dm_suspend() only conditionally skips dm_gpureset_toggle_interrupts()
-and continues execution, returning success.  dm_resume() then
-dereferences the NULL cached_dc_state in link_enc_cfg_copy() and the
-following dc_state->stream_count loop, crashing during GPU reset
-recovery.
+DCE6 should use legacy fast updates, just like all DCE8 - DCN2.
+Set that flag for DCE 6.0, 6.1 and 6.4 (all DCE6 versions).
 
-Return -ENOMEM immediately if the copy fails, so the caller aborts
-suspend instead of leaving a NULL cached state for resume.
+Technically DCE6 should have been included when the fast update
+code was refactored, but it just happened to work until now.
 
-Fixes: 8092aa3ab8f7 ("drm/amd/display: Add null checker before passing variables")
-Reviewed-by: George Zhang <george.zhang@amd.com>
-Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
-Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
+A recent commit "Attach only plane updates that actually changed"
+has exposed this issue because with that commit, DC accidentally
+took the new fast update code path for DCE6 as well, which caused
+it to boot into a black screen with a flip done timeout.
+
+This fix should be backported to all kernel versions that
+have "Refactor fast update to use new HWSS build sequence",
+but this patch won't apply cleanly to older kernels due to
+another refactor in "Remove dc param from check_update".
+
+Fixes: 0baae6246307 ("drm/amd/display: Refactor fast update to use new HWSS build sequence")
+Fixes: 9ec11bb842b6 ("drm/amd/display: Remove dc param from check_update")
+Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+Link: https://patch.msgid.link/20260923122033.1046651-1-timur.kristof@gmail.com
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 84b6d7932fdd2857795a257f9f258562a3cddcab)
+(cherry picked from commit 698fda6e360625850413a2d1a90b72ae5f03073d)
 Cc: stable@vger.kernel.org
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 91fdf3de7202..e0485d76dc59 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1582,9 +1582,14 @@ static int dm_suspend(struct amdgpu_ip_block *ip_block)
- 		dc_allow_idle_optimizations(adev->dm.dc, false);
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
+index d2d56a1c4b8b..8612cc66a6ba 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
+@@ -448,6 +448,12 @@ static const struct dce_abm_mask abm_mask = {
+ 		ABM_MASK_SH_LIST_DCE110(_MASK)
+ };
  
- 		dm->cached_dc_state = dc_state_create_copy(dm->dc->current_state);
-+		if (!dm->cached_dc_state) {
-+			drm_err(adev_to_drm(adev),
-+				"Failed to allocate cached DC state during suspend\n");
-+			mutex_unlock(&dm->dc_lock);
-+			return -ENOMEM;
-+		}
++static const struct dc_debug_options debug_defaults = { 0 };
++
++static const struct dc_check_config config_defaults = {
++	.enable_legacy_fast_update = true,
++};
++
+ #define CTX  ctx
+ #define REG(reg) mm ## reg
  
--		if (dm->cached_dc_state)
--			dm_gpureset_toggle_interrupts(adev, dm->cached_dc_state, false);
-+		dm_gpureset_toggle_interrupts(adev, dm->cached_dc_state, false);
+@@ -937,6 +943,8 @@ static bool dce60_construct(
+ 	dc->caps.max_cursor_size = 64;
+ 	dc->caps.dual_link_dvi = true;
+ 	dc->caps.extended_aux_timeout_support = false;
++	dc->debug = debug_defaults;
++	dc->check_config = config_defaults;
  
- 		res = amdgpu_dm_commit_zero_streams(dm->dc);
- 		if (res != DC_OK) {
+ 	/*************************************************
+ 	 *  Create resources                             *
+@@ -1134,6 +1142,8 @@ static bool dce61_construct(
+ 	dc->caps.i2c_speed_in_khz = 40;
+ 	dc->caps.max_cursor_size = 64;
+ 	dc->caps.is_apu = true;
++	dc->debug = debug_defaults;
++	dc->check_config = config_defaults;
+ 
+ 	/*************************************************
+ 	 *  Create resources                             *
+@@ -1332,6 +1342,8 @@ static bool dce64_construct(
+ 	dc->caps.i2c_speed_in_khz = 40;
+ 	dc->caps.max_cursor_size = 64;
+ 	dc->caps.is_apu = true;
++	dc->debug = debug_defaults;
++	dc->check_config = config_defaults;
+ 
+ 	/*************************************************
+ 	 *  Create resources                             *
 
