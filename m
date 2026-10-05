@@ -1,119 +1,176 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F33E547073;
-	Mon,  5 Oct 2026 20:16:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E31B44E0201
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 20:16:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791231378; cv=none; b=jEmJ+28ezySkiQKR8o0a2u1GALCdwMZbyQ75ef+s8S8dWTHJqmQd1Eak4jLN7Z86zU8X1clwEcvoLPQNEsv+A3XjsPG6RtIGXgokCDf9cQn3w8EXHRPka4X8z/H9J1DHFJCQTH0Pgmryzo0UH37XH/ZurwOMW/GVUSEA1f97xYQ=
+	t=1791231402; cv=none; b=QdlcyGLVKjcEaKchBWYwwLjFA+Df2xUg1ZSicH1LXwXcVGHuEpZulWWo+LDordoS8PPVCB8hb+ea8wkmRT2smWafZsKEvg0Y+2scwYC04NbpOG4wJbbOsuxxDZ7pWRI5R5xkDUZ1+nFlRWVMbivE0pT/kXb5YBJzVxwELt+q0+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791231378; c=relaxed/simple;
-	bh=/jtXsg7zg5YsVSpKktYmCl2HOLTmXcA3pq8mmylJWnQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=rwERS18StRioy8jk7U+DhAVfVIf6hmzWdOYgsQ3ejHHCfdQRXC3nVUN7zH302vsfkFnRN9WX/Bd//rNGPX2sAzJf+tLXcSeqEYyLsdmMQauwjnyjK7Pd3qCsAHQ1B0TS4J6B/nJGDimSQ1pGP+Bcn9z6sbExLtFOqPDLpw3ymuU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=asEDHv88; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1791231402; c=relaxed/simple;
+	bh=dC7SxuZKh17BNT2uOpuctHpedjBDGmGXuzMUN6RuMzQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=mlaIfT0k3TJt2aDGzedecSaY+NcrRANbFy7MjPcTnGZykdX0aTYqnOKCbTw0z+sQ+Dk0n271zVGrgRY6MFCp//nYH7FxHTpJ9ssDK9Cuzxb3k5uCLEft8kx9Vpob+i9cp211Vui8c99mYsBJUF7qTsy/M/mQmnUZeaMkQsjYYxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P2J7ky/W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="asEDHv88"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=/3KL0C/nw0xYEK9+GdpscS3wjuMLqlg3B/VsPRrgino=; b=asEDHv88pciBOR1xFCUufLW6gt
-	kl8QeG1uJfbFDwZaT8pH49WRm6kM9NYNK/VLdxAnZh6d3pWot8WNiI05iHi/yWvX6CLfDYB1iZ+ne
-	yrn0TDzoUULw1Q+vdEPk6dddRPd7l/gKQBNxWBFDQU5c8XCynwp5ch8Z12v/NoKzzJ35QVB7KqRZ/
-	1vbBtLHcrnBty5SSmCmc8vunBDyMOgvU5DGYIUMdGtsLeX6ZQZtRNR/hxH3pDPvFyv/XFl5mOKj4Z
-	OvpNsJa/gZw7g5ROvXjNI5uqFBU52pfd7TRyizX5mavqGV1URY5+PBfn+rIx4O8RH8oPAvJTh9Vwy
-	E93KTpBw==;
-Received: from [151.115.150.205] (port=35328 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xDp6c-0000000FI5a-2Kmn;
-	Mon, 05 Oct 2026 22:16:14 +0200
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>
-Cc: Phil Sutter <phil@nwl.cc>,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	stable@vger.kernel.org
-Subject: [PATCH nf] netfilter: nft_set_rbtree: reject expired interval ends
-Date: Mon,  5 Oct 2026 20:04:05 +0000
-Message-ID: <20261005200404.3544062-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P2J7ky/W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 590F71F00898;
+	Mon,  5 Oct 2026 20:16:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791231400;
+	bh=sQBdCc5ZNebt6sdsjeOd4kIKgzKRTtpPHLOTsQjIVpg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=P2J7ky/Wrjxpnp3aM5Kx2cDGFtRiy7gML6igNNIvRBGPvQib8WF+PzHRIJAmeiwAV
+	 8mX49YBV6dN5Wmuvb85SByWo6Gp62osSUJKEwU0wrr3DnaIO3D4vYXGZzYbZfdKaoA
+	 Ud3RJbiazeDBmTFVuM6474kEJxPoOvwBt7v3URgQn8EQiwPF635x119fVy4TcY+YVM
+	 S42rt2RNg0USLF/gp6ic+eI+eGpUziPViPJoAkv5FNWaLNzuyz2/hvBjOqTtWgp+zb
+	 iQESOiksPa9GXTQ0994rkPEOCrv8P/5uQYw4rLyNjxWxbhdtS8/Pc/NCjs7yZGyTQj
+	 2/efq+V11fWDw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Johan Hovold <johan@kernel.org>,
+	stable <stable@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/2] tty: abort break signalling on hangup
+Date: Mon,  5 Oct 2026 16:16:35 -0400
+Message-ID: <20261005201512.3067187-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261005201512.3067187-1-sashal@kernel.org>
+References: <2026100529-visitor-zoning-adb2@gregkh>
+ <20261005201512.3067187-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
 
-Consider two ranges in a netfilter verdict map:
-* keys 10-19 accept packets, and
-* keys 30-39 jump to chain 'victim'.
-Now, delete the end marker at 20. The lookup array now uses element 30
-as the first range's end, so an INTERVAL_END query for key 15 returns
-element 30, including its jump verdict and chain pointer. This can make
-KASAN reports a UAF after the GC releases reference chain for 30 that
-has expired:
+From: Johan Hovold <johan@kernel.org>
 
-  BUG: KASAN: slab-use-after-free in nft_verdict_dump+0xdd/0x110
-  Read of size 8 at addr ff110000009dfb58 by task repro/50
-  ...
-  Call Trace:
-  ...
-   nft_verdict_dump+0xdd/0x110
-   nft_data_dump+0x4d/0x80
-   nf_tables_fill_setelem+0x30b/0x8a0
-   ? __asan_memcpy+0x3c/0x60
-   nf_tables_fill_setelem_info+0x1b0/0x200
-   nft_get_set_elem+0x3fd/0x4b0
-  ...
-  Freed by task 24:
-  ...
-   kfree+0x1a5/0x280
-   nf_tables_trans_destroy_work+0x2cb/0x520
+[ Upstream commit 845a2737e0f5ffe5ca8d38de556012b0c9472cdd ]
 
-Reject expired endpoints in nft_rbtree_get() before returning them.
+The break ioctls can race with hangup and end up calling into a tty
+driver for a device that is already gone or powered down.
 
-Fixes: 2aa34191f06f ("netfilter: nft_set_rbtree: use binary search array in get command")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Drivers must handle this race, but TCSBRK and TCSBRKP should still be
+aborted to avoid calling back into the driver after a user-controlled
+timeout (possibly even after the tty has been reopened).
+
+Note that drivers should disable any break state on shutdown so just
+return on hangup (calling break_ctl() again is racy and will most likely
+fail for drivers handling the race).
+
+Fixes: f34d7a5b7010 ("tty: The big operations rework")
+Cc: stable <stable@kernel.org>
+Signed-off-by: Johan Hovold <johan@kernel.org>
+Link: https://patch.msgid.link/20260903163736.1499280-1-johan@kernel.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/netfilter/nft_set_rbtree.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/tty/tty_io.c | 36 +++++++++++++++++++++++++++---------
+ include/linux/tty.h  |  1 +
+ 2 files changed, 28 insertions(+), 9 deletions(-)
 
-diff --git a/net/netfilter/nft_set_rbtree.c b/net/netfilter/nft_set_rbtree.c
-index 9894832..1fd9cbe 100644
---- a/net/netfilter/nft_set_rbtree.c
-+++ b/net/netfilter/nft_set_rbtree.c
-@@ -187,6 +187,8 @@ nft_rbtree_get(const struct net *net, const struct nft_set *set,
- 	if (flags & NFT_SET_ELEM_INTERVAL_END) {
- 		if (!interval->to)
- 			return NULL;
-+		if (nft_set_elem_expired(interval->to))
-+			return ERR_PTR(-ENOENT);
+diff --git a/drivers/tty/tty_io.c b/drivers/tty/tty_io.c
+index c92416df20d6e..d672b17aaff98 100644
+--- a/drivers/tty/tty_io.c
++++ b/drivers/tty/tty_io.c
+@@ -636,6 +636,8 @@ static void __tty_hangup(struct tty_struct *tty, int exit_session)
  
- 		rbe = container_of(interval->to, struct nft_rbtree_elem, ext);
- 	} else {
+ 	tty_ldisc_hangup(tty, cons_filp != NULL);
+ 
++	wake_up_interruptible(&tty->break_wait);
++
+ 	spin_lock_irq(&tty->ctrl.lock);
+ 	clear_bit(TTY_THROTTLED, &tty->flags);
+ 	clear_bit(TTY_DO_WRITE_WAKEUP, &tty->flags);
+@@ -2459,6 +2461,7 @@ static int tiocgetd(struct tty_struct *tty, int __user *p)
+  * send_break	-	performed time break
+  * @tty: device to break on
+  * @duration: timeout in mS
++ * @file: file object
+  *
+  * Perform a timed break on hardware that lacks its own driver level timed
+  * break functionality.
+@@ -2466,8 +2469,9 @@ static int tiocgetd(struct tty_struct *tty, int __user *p)
+  * Locking:
+  *	@tty->atomic_write_lock serializes
+  */
+-static int send_break(struct tty_struct *tty, unsigned int duration)
++static int send_break(struct file *file, struct tty_struct *tty, unsigned int duration)
+ {
++	long timeout;
+ 	int retval;
+ 
+ 	if (tty->ops->break_ctl == NULL)
+@@ -2481,13 +2485,26 @@ static int send_break(struct tty_struct *tty, unsigned int duration)
+ 		return -EINTR;
+ 
+ 	retval = tty->ops->break_ctl(tty, -1);
+-	if (!retval) {
+-		msleep_interruptible(duration);
+-		retval = tty->ops->break_ctl(tty, 0);
+-	} else if (retval == -EOPNOTSUPP) {
+-		/* some drivers can tell only dynamically */
+-		retval = 0;
++	if (retval) {
++		if (retval == -EOPNOTSUPP) {
++			/* some drivers can tell only dynamically */
++			retval = 0;
++		}
++		goto out_unlock;
++	}
++
++	timeout = msecs_to_jiffies(duration);
++	timeout = wait_event_interruptible_timeout(tty->break_wait,
++						   tty_hung_up_p(file),
++						   timeout);
++	/* return early on hangup only */
++	if (timeout > 0) {
++		retval = -EIO;
++		goto out_unlock;
+ 	}
++
++	retval = tty->ops->break_ctl(tty, 0);
++out_unlock:
+ 	tty_write_unlock(tty);
+ 
+ 	if (signal_pending(current))
+@@ -2740,10 +2757,10 @@ long tty_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+ 		 * This is used by the tcdrain() termios function.
+ 		 */
+ 		if (!arg)
+-			return send_break(tty, 250);
++			return send_break(file, tty, 250);
+ 		return 0;
+ 	case TCSBRKP:	/* support for POSIX tcsendbreak() */
+-		return send_break(tty, arg ? arg*100 : 250);
++		return send_break(file, tty, arg ? arg * 100 : 250);
+ 
+ 	case TIOCMGET:
+ 		return tty_tiocmget(tty, p);
+@@ -3112,6 +3129,7 @@ struct tty_struct *alloc_tty_struct(struct tty_driver *driver, int idx)
+ 	init_ldsem(&tty->ldisc_sem);
+ 	init_waitqueue_head(&tty->write_wait);
+ 	init_waitqueue_head(&tty->read_wait);
++	init_waitqueue_head(&tty->break_wait);
+ 	INIT_WORK(&tty->hangup_work, do_tty_hangup);
+ 	mutex_init(&tty->atomic_write_lock);
+ 	spin_lock_init(&tty->ctrl.lock);
+diff --git a/include/linux/tty.h b/include/linux/tty.h
+index 168e57e40bbb8..9501a8640baa8 100644
+--- a/include/linux/tty.h
++++ b/include/linux/tty.h
+@@ -188,6 +188,7 @@ struct tty_struct {
+ 	struct fasync_struct *fasync;
+ 	wait_queue_head_t write_wait;
+ 	wait_queue_head_t read_wait;
++	wait_queue_head_t break_wait;
+ 	struct work_struct hangup_work;
+ 	void *disc_data;
+ 	void *driver_data;
 -- 
-2.47.3
+2.53.0
 
