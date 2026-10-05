@@ -1,169 +1,234 @@
-Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D38931F99C;
-	Mon,  5 Oct 2026 08:49:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=119.15.109.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB7A23DA7E4
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 08:50:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791190160; cv=none; b=RKNj8LPl9ykbvkL/7sd98Te1yYA/gv6QC5aIe4hSYLy6xWUETe/FQSq+6xTWJCNwmjvdiRVqhCAp8RSxmSqC9ivyWP1R1eTWX7vRzNgmgwkgmaespjtwpsVM2T5Jx10WNUt3P0Fb5KmZB5kCXg+PXgLL0P+tJKEEslHMaS3yyOI=
+	t=1791190207; cv=none; b=T4b39GnOMKTdR5T0/MrulXfyBO5MWx2/3YW1CDz3wf9jBMiAk3gxjFGUQwF1hfWL5wIM8L4+5xY2rySiVRVsTkOMfkFNV1e48+K+ipRcbbEhinzVCp1AxnLOWXfdere6NDCZru+4qfctaR3cpqsDl6Wp+4nGGCUvfnrrSNj5vgE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791190160; c=relaxed/simple;
-	bh=RnWS1j2aUumgTwD9bXbOSjWMva5n8rBE1ueYMcqm2ss=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=U33KqkeomONdmUyBjN0TJeOv809B3qKZvmZ0EY+lKDo9VHu1oNk+lxVdpbQawxuIDLhVPFMoG1q/0seZqT//luges8x1h5tbE95S2bvTNGLiAKmPpmB2cDCX6+7w54UGu0840xvuohVY+EVITDygT/EeVkP0p0P/xRvttqsR4bc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org; spf=pass smtp.mailfrom=d-silva.org; dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b=uB3xXbw6; arc=none smtp.client-ip=119.15.109.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
+	s=arc-20240116; t=1791190207; c=relaxed/simple;
+	bh=2EI5xmB+i5Ubl4Wfug606MlxCvMw7Wo52mC/VHHMRhU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=bj189dkai1wN/E45JpVhz0UXks1eyeOS5tmSl9CkczUIAsa77JTOquTxOa8iErHrjBX0pUWi80mpFg818Ru1a2QSEbIXoe159TkQ5ao5KvAxTLRyRYciDVtnGM3Be9jCTtPStvMp1LXcIu45eEPW2Ag2+VjLzIX60AqmzGjEtxY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Uhr/wyyK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b="uB3xXbw6"
-Received: from Hawking.lan (hawking.lan [10.0.1.4])
-	by www.nmnhosting.com (Postfix) with ESMTP id 4D5F943457;
-	Mon,  5 Oct 2026 19:49:09 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1791190149;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vCHEL+YHmsc/pYIliGTtl/6HHDGLLEbat52vHftAACg=;
-	b=uB3xXbw6HHJfFLlL8tkoH1JJGFdRbXsdLQk6HRxEUPhURQ0/ZpnOoOIe1gmIjZ2tP0qE0U
-	2w1+ZyoE6XWdMAviVco02py8aZ+nUxiNnl7KUqf+ve8pbx3RHK7UVMEbpHtL7Bh793QIkp
-	ksGdsoiruadsErwwv9+hEmF/zANQ7eFkd+tckzreUnSgoTCakNES7wQn8kWn4xWj6hVl/g
-	TDHKw3DDo+HLD9T+HtH7IIf2TjkbXrNRwWL3T10Ur/vK99HgveJfDF2mcA1fSWeGNdWytm
-	m5iyrgYY54L/3mGtqJpuzYEtse4U5u5RhGQtHDOwN4jYpPPx7zIe9qbxgiHGcA==
-X-GPT-Reason: legitimate; the email is a technical Linux kernel
-	patch submission containing a "diff" and functional code changes
-	for a wireless driver. The sender's domain (d-silva.org) matches
-	the "From" header (alastair@d-silva.org), the subject is highly
-	specific to software development (rtw88 wifi driver), and the content
-	describes hardware register handling without any marketing, urgency,
-	or phishing indicators.
-From: Alastair D'Silva <alastair@d-silva.org>
-To: linux-wireless@vger.kernel.org,
-	Ping-Ke Shih <pkshih@realtek.com>,
-	Kalle Valo <kvalo@kernel.org>
-Cc: Luka Gejak <luka.gejak@linux.dev>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Alastair D'Silva <alastair@d-silva.org>,
-	stable@vger.kernel.org
-Subject: [PATCH rtw-next v4 3/4] wifi: rtw88: sdio: Fix unhandled RX request interrupt storm
-Date: Mon,  5 Oct 2026 19:48:48 +1100
-Message-ID: <20261005084849.3109337-4-alastair@d-silva.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261005084849.3109337-1-alastair@d-silva.org>
-References: <20261005084849.3109337-1-alastair@d-silva.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Uhr/wyyK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07E0C1F000FF;
+	Mon,  5 Oct 2026 08:50:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791190205;
+	bh=rdR9MKVmyex6bRZvvYqiIdzqu5fnIw8IIoIUC2Je914=;
+	h=Subject:To:Cc:From:Date;
+	b=Uhr/wyyKNB+U5Eik93qXyOtEeRf3vzZg8LThn5WWcbvBeaGgcOa7Waf5DlBJne7Cs
+	 nlZuPqYtnGXOAd+J1qn7K8H+Xh3lAt5O8meCnsXakkNLUHLCi80Xk7InBBOeY4aeMz
+	 /MgUF8HCnYfhrO8RkIC4H6fFg5fSXwnmR3JkwMVI=
+Subject: FAILED: patch "[PATCH] tty: n_gsm: fix missing modem controls after DLCI open in" failed to apply to 6.18-stable tree
+To: daniel.starke@siemens.com,gregkh@linuxfoundation.org,stable@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 05 Oct 2026 10:50:02 +0200
+Message-ID: <2026100502-outsell-unclothed-a941@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-On 3081-based SDIO chips (e.g. RTL8821CS), hardware does not automatically
-clear REG_SDIO_HISR_RX_REQUEST when the RX buffer is empty. Masking this
-bit out before writing back to HISR prevents it from being acknowledged,
-causing an infinite interrupt storm loop that locks up the system.
 
-8051-based chips instead rely on hardware to clear this bit automatically
-once the buffer is empty, and software must not clear it.
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Split rtw_sdio_handle_interrupt() into separate 8051 and 3081 handlers.
-For 3081, disable interrupts via HIMR, acknowledge pending status bits
-via W1C writeback, service pending events, and re-enable interrupts.
-For 8051 chips, preserve the existing behavior.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Fixes: 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation for SDIO based chipsets")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
----
- drivers/net/wireless/realtek/rtw88/sdio.c | 60 +++++++++++++++++------
- 1 file changed, 44 insertions(+), 16 deletions(-)
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x 11ea5a63d30ad6d305b1c22301cd99ff45a98c8d
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100502-outsell-unclothed-a941@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
-diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
-index d2f4d7e8bc83..c74644bf14ba 100644
---- a/drivers/net/wireless/realtek/rtw88/sdio.c
-+++ b/drivers/net/wireless/realtek/rtw88/sdio.c
-@@ -1466,23 +1466,8 @@ static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
- 	} while (total_rx_bytes < SZ_64K && hisr & REG_SDIO_HISR_RX_REQUEST);
- }
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 11ea5a63d30ad6d305b1c22301cd99ff45a98c8d Mon Sep 17 00:00:00 2001
+From: Daniel Starke <daniel.starke@siemens.com>
+Date: Wed, 26 Aug 2026 08:30:26 +0200
+Subject: [PATCH] tty: n_gsm: fix missing modem controls after DLCI open in
+ convergence layer type 2
+
+The current implementation only updates the virtual V.24 control signals
+after DLCI open in basic option mode. In advanced option mode with
+convergence layer type 2 an empty data frame needs to be transmitted to
+inform the peer about the initial virtual V.24 control signals. Not doing
+so has two unwanted side effects:
+1. hardware flow control status is unclear (initial CTS line is unknown)
+2. DLCI user presence is not transmitted (initial DTR line is unknown)
+
+Applications waiting on these lines can not start after a DLCI has been
+opened until the first data frame has been transmitted.
+
+Fix this by using gsm_modem_update() thoroughly which handles basic and
+advanced option mode correctly. Add a flag in gsm_modem_update() and the
+delegated gsm_modem_upd_via_msc() to control whether waiting for the MSC
+command response is possible. Remove obsolete gsm_modem_send_initial_msc().
+
+Fixes: 3cf0b3c243e5 ("tty: n_gsm: Don't block input queue by waiting MSC")
+Cc: stable <stable@kernel.org>
+Signed-off-by: Daniel Starke <daniel.starke@siemens.com>
+Link: https://patch.msgid.link/20260826063026.2472-1-daniel.starke@siemens.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+diff --git a/drivers/tty/n_gsm.c b/drivers/tty/n_gsm.c
+index c13e050de83b..e55779ff0af2 100644
+--- a/drivers/tty/n_gsm.c
++++ b/drivers/tty/n_gsm.c
+@@ -454,14 +454,13 @@ static const u8 gsm_fcs8[256] = {
  
--static void rtw_sdio_handle_interrupt(struct sdio_func *sdio_func)
-+static void rtw_sdio_handle_interrupt_8051(struct rtw_dev *rtwdev, u32 hisr)
+ static void gsm_dlci_close(struct gsm_dlci *dlci);
+ static int gsmld_output(struct gsm_mux *gsm, u8 *data, int len);
+-static int gsm_modem_update(struct gsm_dlci *dlci, u8 brk);
++static int gsm_modem_update(struct gsm_dlci *dlci, u8 brk, bool wait);
+ static struct gsm_msg *gsm_data_alloc(struct gsm_mux *gsm, u8 addr, int len,
+ 								u8 ctrl);
+ static int gsm_send_packet(struct gsm_mux *gsm, struct gsm_msg *msg);
+ static struct gsm_dlci *gsm_dlci_alloc(struct gsm_mux *gsm, int addr);
+ static void gsmld_write_trigger(struct gsm_mux *gsm);
+ static void gsmld_write_task(struct work_struct *work);
+-static int gsm_modem_send_initial_msc(struct gsm_dlci *dlci);
+ 
+ /**
+  *	gsm_fcs_add	-	update FCS
+@@ -2174,7 +2173,7 @@ static void gsm_dlci_open(struct gsm_dlci *dlci)
+ 		pr_debug("DLCI %d goes open.\n", dlci->addr);
+ 	/* Send current modem state */
+ 	if (dlci->addr) {
+-		gsm_modem_send_initial_msc(dlci);
++		gsm_modem_update(dlci, 0, false);
+ 	} else {
+ 		/* Start keep-alive control */
+ 		gsm->ka_num = 0;
+@@ -4136,9 +4135,10 @@ static void gsm_modem_upd_via_data(struct gsm_dlci *dlci, u8 brk)
+  *	gsm_modem_upd_via_msc	-	send modem bits via control frame
+  *	@dlci: channel
+  *	@brk: break signal
++ *	@wait: wait for the MSC command
+  */
+ 
+-static int gsm_modem_upd_via_msc(struct gsm_dlci *dlci, u8 brk)
++static int gsm_modem_upd_via_msc(struct gsm_dlci *dlci, u8 brk, bool wait)
  {
--	struct ieee80211_hw *hw = sdio_get_drvdata(sdio_func);
--	struct rtw_sdio *rtwsdio;
--	struct rtw_dev *rtwdev;
--	u32 hisr;
--
--	rtwdev = hw->priv;
--	rtwsdio = (struct rtw_sdio *)rtwdev->priv;
--
--	if (!rtwsdio->running)
--		return;
--
--	rtwsdio->irq_thread = current;
--
--	hisr = rtw_read32(rtwdev, REG_SDIO_HISR);
--
- 	if (hisr & REG_SDIO_HISR_TXERR)
- 		rtw_sdio_tx_err_isr(rtwdev);
- 	if (hisr & REG_SDIO_HISR_RX_REQUEST) {
-@@ -1499,7 +1484,50 @@ static void rtw_sdio_handle_interrupt(struct sdio_func *sdio_func)
- 		hisr &= RTW_SDIO_HISR_CLEAR_MASK;
- 
- 	rtw_write32(rtwdev, REG_SDIO_HISR, hisr);
-+}
-+
-+static void rtw_sdio_handle_interrupt_3081(struct rtw_dev *rtwdev, u32 hisr)
-+{
-+	struct rtw_sdio *rtwsdio = (struct rtw_sdio *)rtwdev->priv;
-+
-+	rtw_sdio_disable_interrupt(rtwdev);
-+	rtw_write32(rtwdev, REG_SDIO_HISR, hisr);
-+
-+	if (hisr & REG_SDIO_HISR_TXERR)
-+		rtw_sdio_tx_err_isr(rtwdev);
-+	if (hisr & REG_SDIO_HISR_RX_REQUEST)
-+		rtw_sdio_rx_isr(rtwdev);
-+
-+	/* Unmasking HIMR re-asserts the IRQ line if new packets arrived */
-+	if (rtwsdio->running)
-+		rtw_sdio_enable_interrupt(rtwdev);
-+}
-+
-+static void rtw_sdio_handle_interrupt(struct sdio_func *sdio_func)
-+{
-+	struct ieee80211_hw *hw = sdio_get_drvdata(sdio_func);
-+	struct rtw_sdio *rtwsdio;
-+	struct rtw_dev *rtwdev;
-+	u32 hisr;
-+
-+	rtwdev = hw->priv;
-+	rtwsdio = (struct rtw_sdio *)rtwdev->priv;
-+
-+	if (!rtwsdio->running)
-+		return;
-+
-+	rtwsdio->irq_thread = current;
-+
-+	hisr = rtw_read32(rtwdev, REG_SDIO_HISR);
-+	if (!hisr)
-+		goto out;
-+
-+	if (rtw_chip_wcpu_8051(rtwdev))
-+		rtw_sdio_handle_interrupt_8051(rtwdev, hisr);
-+	else
-+		rtw_sdio_handle_interrupt_3081(rtwdev, hisr);
- 
-+out:
- 	rtwsdio->irq_thread = NULL;
+ 	u8 modembits[3];
+ 	struct gsm_control *ctrl;
+@@ -4155,41 +4155,22 @@ static int gsm_modem_upd_via_msc(struct gsm_dlci *dlci, u8 brk)
+ 		modembits[2] = (brk << 4) | 2 | EA; /* Length, Break, EA */
+ 		len++;
+ 	}
++	if (!wait)
++		return gsm_control_command(dlci->gsm, CMD_MSC, modembits, len);
+ 	ctrl = gsm_control_send(dlci->gsm, CMD_MSC, modembits, len);
+ 	if (ctrl == NULL)
+ 		return -ENOMEM;
+ 	return gsm_control_wait(dlci->gsm, ctrl);
  }
  
--- 
-2.53.0
+-/**
+- * gsm_modem_send_initial_msc - Send initial modem status message
+- *
+- * @dlci: channel
+- *
+- * Send an initial MSC message after DLCI open to set the initial
+- * modem status lines. This is only done for basic mode.
+- * Does not wait for a response as we cannot block the input queue
+- * processing.
+- */
+-static int gsm_modem_send_initial_msc(struct gsm_dlci *dlci)
+-{
+-	u8 modembits[2];
+-
+-	if (dlci->adaption != 1 || dlci->gsm->encoding != GSM_BASIC_OPT)
+-		return 0;
+-
+-	modembits[0] = (dlci->addr << 2) | 2 | EA; /* DLCI, Valid, EA */
+-	modembits[1] = (gsm_encode_modem(dlci) << 1) | EA;
+-	return gsm_control_command(dlci->gsm, CMD_MSC, (const u8 *)&modembits, 2);
+-}
+-
+ /**
+  *	gsm_modem_update	-	send modem status line state
+  *	@dlci: channel
+  *	@brk: break signal
++ *	@wait: wait for the MSC command
+  */
+ 
+-static int gsm_modem_update(struct gsm_dlci *dlci, u8 brk)
++static int gsm_modem_update(struct gsm_dlci *dlci, u8 brk, bool wait)
+ {
+ 	if (dlci->gsm->dead)
+ 		return -EL2HLT;
+@@ -4199,7 +4180,7 @@ static int gsm_modem_update(struct gsm_dlci *dlci, u8 brk)
+ 		return 0;
+ 	} else if (dlci->gsm->encoding == GSM_BASIC_OPT) {
+ 		/* Send as MSC control message. */
+-		return gsm_modem_upd_via_msc(dlci, brk);
++		return gsm_modem_upd_via_msc(dlci, brk, wait);
+ 	}
+ 
+ 	/* Modem status lines are not supported. */
+@@ -4265,7 +4246,7 @@ static void gsm_dtr_rts(struct tty_port *port, bool active)
+ 		modem_tx &= ~(TIOCM_DTR | TIOCM_RTS);
+ 	if (modem_tx != dlci->modem_tx) {
+ 		dlci->modem_tx = modem_tx;
+-		gsm_modem_update(dlci, 0);
++		gsm_modem_update(dlci, 0, true);
+ 	}
+ }
+ 
+@@ -4471,7 +4452,7 @@ static int gsmtty_tiocmset(struct tty_struct *tty,
+ 
+ 	if (modem_tx != dlci->modem_tx) {
+ 		dlci->modem_tx = modem_tx;
+-		return gsm_modem_update(dlci, 0);
++		return gsm_modem_update(dlci, 0, true);
+ 	}
+ 	return 0;
+ }
+@@ -4553,7 +4534,7 @@ static void gsmtty_throttle(struct tty_struct *tty)
+ 		dlci->modem_tx &= ~TIOCM_RTS;
+ 	dlci->throttled = true;
+ 	/* Send an MSC with RTS cleared */
+-	gsm_modem_update(dlci, 0);
++	gsm_modem_update(dlci, 0, true);
+ }
+ 
+ static void gsmtty_unthrottle(struct tty_struct *tty)
+@@ -4565,7 +4546,7 @@ static void gsmtty_unthrottle(struct tty_struct *tty)
+ 		dlci->modem_tx |= TIOCM_RTS;
+ 	dlci->throttled = false;
+ 	/* Send an MSC with RTS set */
+-	gsm_modem_update(dlci, 0);
++	gsm_modem_update(dlci, 0, true);
+ }
+ 
+ static int gsmtty_break_ctl(struct tty_struct *tty, int state)
+@@ -4583,7 +4564,7 @@ static int gsmtty_break_ctl(struct tty_struct *tty, int state)
+ 		if (encode > 0x0F)
+ 			encode = 0x0F;	/* Best effort */
+ 	}
+-	return gsm_modem_update(dlci, encode);
++	return gsm_modem_update(dlci, encode, true);
+ }
+ 
+ static void gsmtty_cleanup(struct tty_struct *tty)
 
