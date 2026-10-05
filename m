@@ -1,92 +1,84 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8817B30C168;
-	Mon,  5 Oct 2026 22:58:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DB103AEF34;
+	Mon,  5 Oct 2026 23:00:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791241112; cv=none; b=ndtcuf5+JLzH1VXkxAnZjQUN4dEJpSJsXuRDhj2/YeGDwcrUB8yf/LEYRVusuzE7Nk41rCsNCe/rl7x3gdxHIeJ8kx4uwsqReUq7eAEX40UDMAXYyZKrQWI4UeTQesc6h0HLfPV47axoMzENBaX+Q5BJDIPg9SniRCf7xN3P65g=
+	t=1791241216; cv=none; b=Ct7SqXik/y5FPzeg75lNrDcxJy4VnJ0udnbvFe0fYj0xa8Al/tCwJD1PkMYcW+8G9/5gc18Ww37bzSLkekY4P9qGCfnS/fpQGa58tSgXLjYP0edkld4W1PvvA0+ZEFZrRkIeTxAk921iliU6TybsNnzup3996wlwYaELe7a50qs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791241112; c=relaxed/simple;
-	bh=YbIChEOL3ptri2LXxa3qlBjqQ0hf+hVpTKWCXP4FzME=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CtlUsw8r1OdWESWfgC97fi6zJpK/nlfmFB0xz+RSSElmazM96izO1tho8Isz9eVLZelksrbuK0+oKyee3bbyxAAtXCdQL0cH56HAkOkieDYfHUCOgiVHE17PRee1c5bl5KX1siuY+kdQu0eu9Aw2x3YgzPFbdyF6ye+1H9jVJUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RreWbYwe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791241216; c=relaxed/simple;
+	bh=o43liJqJNbFN3+C78wuJlsruteMBju/ohu9rC4ZdoEQ=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=iGIrwlxDfxYKzf0ezh81X0VQKcEaLJbYfAbjBvCorWbKhUJU0wBgZAjmh8ZtqWUn55JEQIDuvkledDobIjiV7l48nUSun4FqlY0ovlyw7q/tFPThc27ckPQ+5SdChIyPHmlHF7pTw3v6x2LfSmvOAT0f+1CjRXniswEqE/Z+2AY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KJrThIUT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RreWbYwe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D3ED1F000FF;
-	Mon,  5 Oct 2026 22:58:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KJrThIUT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEC841F00898;
+	Mon,  5 Oct 2026 23:00:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791241111;
-	bh=YHqtZCAF1YS3R+3clhU5z4/uaYRZAiBK++WyNrkIInE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RreWbYwejLsb8r5wyOo8e9q6v4Y5AAh1s8JRyaIbO32JN/Eqm/LagxjnUy5/jw6/9
-	 iXTDFOBOHMMz+D32wbxQzw8zJF8svM6XLSnkkEOHM+LJeu6MmwG+SVJ+i5/IVhApn1
-	 9kdMjn9pyFFPjVjuMN9TH48UOvho6dbzIn4OFFkZyGkEftYu4kSgGwJOw7aBm7OKS4
-	 PcA00w4X7AmGOW3BS9JWL7OSJQjrLXtdmD/Y14WwIYI7Ad6LScH3tvd7HPZJzWsFOp
-	 WAOtRRmELNKi62TFs/E4KGVRSAY2tpJHbE2iM7N3vzBr9Dagy7Nz0Idy1z3McPuDgR
-	 fKbJe+HPPhb1g==
-Date: Mon, 5 Oct 2026 18:58:28 -0400
-From: Sasha Levin <sashal@kernel.org>
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: Jakub Kicinski <kuba@kernel.org>, netdev-bot+sinfo@kernel.org,
-	"Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>,
-	stable@vger.kernel.org, Jamal Hadi Salim <jhs@mojatatu.com>,
-	Cong Wang <xiyou.wangcong@gmail.com>, Jiri Pirko <jiri@resnulli.us>,
-	"David S. Miller" <davem@davemloft.net>,
-	"Samudrala, Sridhar" <sridhar.samudrala@intel.com>,
-	John Fastabend <john.r.fastabend@intel.com>,
-	Benjamin Robin <benjamin.robin@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Victor Nogueira <victor@mojatatu.com>,
-	Pedro Tammela <pctammela@mojatatu.com>,
-	Simon Horman <simon.horman@corigine.com>
-Subject: Re: netdev LLM review for backports (WAS: [PATCH 5.10.y] net: sched:
- cls_u32: Undo tcf_bind_filter if u32_replace_hw_knode)
-Message-ID: <asQrlAkQSIGqbV7k@laps>
-References: <20261005-cve-2023-53733-v1-1-d716b944802c@bootlin.com>
- <179119639380.1402591.2155637888002963@kernel.org>
- <asOtjgd0NMXMjCCZ@laps>
- <20261005142128.30f80c5b@kernel.org>
- <1acb8eb0-3443-43e3-ab66-5328b98a6143@broadcom.com>
+	s=k20260515; t=1791241214;
+	bh=+KifzE8OuwlSMxqAzy77ToDN+y0cXJJv9XDlsHSB4jY=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=KJrThIUTHmdwImcAqLGIbuaSzAMCYrAAGTSefytylpYUEX5Y4qAROKniCcXU0xSSB
+	 CJbwpT6OlaB++wylSBQru7w1/SSNi5GnVIkL6jOZ3PvCBGUPgeJQ2couhnu+m+WdnM
+	 0cOwwmXdTGrayOP01NPLKKv5Nf+VcaR0Gzd3IsbnpDXatmhNJAK0+fTfuPb67b6ZtO
+	 BGaccjtr+tx2mvvvlfbxPUPM5Nw85X3+IM/26N9jaWqotxg1OvfjxHDIqVf78yhxH6
+	 N/fKeXn4M5LIg24HjId5adDc4yk9t47+thFwkTrzymP0Zf1dGsqtT5MiHROxiE+gUu
+	 dO6SP6o1T+KNg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B433B3926677;
+	Mon,  5 Oct 2026 23:00:14 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <1acb8eb0-3443-43e3-ab66-5328b98a6143@broadcom.com>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v2] net-sysfs: release queue trackers before allowing
+ reuse
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179124121327.1929441.6321889114483475605.git-patchwork-notify@kernel.org>
+Date: Mon, 05 Oct 2026 23:00:13 +0000
+References: <20260930181106.271547-1-nicoyip.dev@gmail.com>
+In-Reply-To: <20260930181106.271547-1-nicoyip.dev@gmail.com>
+To: Chengfeng Ye <nicoyip.dev@gmail.com>
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, broonie@kernel.org, brauner@kernel.org,
+ atenart@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
 
-On Mon, Oct 05, 2026 at 02:51:18PM -0700, Florian Fainelli wrote:
->On 10/5/26 14:21, Jakub Kicinski wrote:
->>On Mon, 5 Oct 2026 10:00:46 -0400 Sasha Levin wrote:
->>>I started seeing these reviews on proposed backports of net/ commits, and while
->>>they are REALLY great for upstream commits, I do not think that these comments
->>>make sense in the context of a backport.
->>
->>Blah, sorry about that.
->>Let me add a regex on the tags to exclude patches with 5.x/6.x/7.x
->>
->
->They are useful if the backport does not cleanly cherry pick, because 
->it is possible to introduce bugs in the process of back porting a 
->specific commit. I don't think sashiko is quite smart enough to be 
->able to do that however.
+Hello:
 
-Oh, sorry, I agree with Florian. To be clear, my objection was with the
-questions that it's asking, not the review itself:
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-> - How the issue was discovered, e.g. hit in production, hit during
->   development, syzbot report, manual code inspection, LLM or static
->   analysis tool scan.
->
-> - Whether the issue was actually triggered, or is only theoretical
->   (e.g. found by code inspection). If it was triggered please include
->   the symptoms, like the stack trace or error messages.
+On Thu,  1 Oct 2026 02:11:06 +0800 you wrote:
+> An interrupted sysfs_rtnl_lock() can drop the last kobject reference to a
+> removed TX queue without holding RTNL. netdev_queue_release() clears the
+> kobject before releasing queue->dev_tracker, allowing the queue to be
+> re-added while the old release still needs the shared tracker slot:
+> 
+>   CPU 0                               CPU 1
+>   netdev_queue_release()
+>     memset(kobj, 0, sizeof(*kobj))
+>                                       netdev_queue_add_kobject()
+>                                         state_initialized is clear
+>                                         netdev_hold() installs new tracker
+>     netdev_put() releases the new tracker
+> 
+> [...]
 
+Here is the summary with links:
+  - [net,v2] net-sysfs: release queue trackers before allowing reuse
+    https://git.kernel.org/netdev/net-next/c/a9d60b086944
+
+You are awesome, thank you!
 -- 
-Thanks,
-Sasha
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
