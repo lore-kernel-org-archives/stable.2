@@ -1,280 +1,193 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9D0043F0B5
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 09:29:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD263547065;
+	Mon,  5 Oct 2026 09:30:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791192599; cv=fail; b=RjuhKI1pKi5vLQn2R3DWK+43SOSuKIUR0Qmqc+/bz7rzhVxdOoJXQ417uRmAXv5hHwc408mYpoK3s1k21vGOm4CQuuzbLeoUaZzU0BomX0758+Z3dAI+5NqykU+qiDaXomPeOFLRWW4rQOE5GGFSJVHlCwNgTlzgZBHCHULbxAU=
+	t=1791192662; cv=pass; b=CwVAROlqG5TnOHuG9jCZjea99pgMW6f5oKgGV+oorqWpRvVP2QjUZLeNCaiKPOYJ0CPrTPPgYW3fjbfBwXLXV4oJjizYs13INFTLthT3Dt971ONHXZai9xGlrzpOtwm4WORvZGrlO6/eYUShuq/v7jsAtXCHU6iBB20Wke6a0gU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791192599; c=relaxed/simple;
-	bh=udgDrujdgooVUI9f/CXH1rrXtKxkTcieFORHwpdojD0=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=FGg1J5r7g3Ielc9c2q2rUVZ4JKQSXf+o1++7YQGhBCo1dv92Yt1RRa+XziUrftKskvPaysfaZn4Wtr1QaU/iuIwq5/qNkTgLMcDHSGcvCqD72VxlkVeocu49n7Tz/ImzuhCy8QsFlcu3Z8+NH3GmZtzsVUWKCdcsRRg3GlETxAM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eE3StNB9; arc=fail smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791192662; c=relaxed/simple;
+	bh=XxZp9me/M+rcQ65zWoq/SpEAMV7nEol5j+mbLLq+s/U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aScxnTtbK1oms1tyS0nrkcrDm8QNcP7UmkBXAr72H/qCHHbEgVpAzpiLEe7AX/eHF1UEjbZo+VCUAZgpVW+NiHMbl/sCPdbA7RrmESe5662pQo3Elb7w9NnZJBkGzZUxYDT+lRITpV4TK/NvV5ZMjzkJFFWPFNpiRBEBO1f7Sjs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=G6FVsgMt; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eE3StNB9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791192599; x=1822728599;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=udgDrujdgooVUI9f/CXH1rrXtKxkTcieFORHwpdojD0=;
-  b=eE3StNB9OVOBliLo5bocR3rGtEE151GqrCoRvqAkhHTYdjilqu5NPC2t
-   +TTBoKjULyU+6f8j9QWzx6v8VhDMG1QV+5m4vrGCooeyHetNcZIgBOBNj
-   sWPdBpZChtzQYdRaux+yw7crRiD/sIxh8+yBjofwImgyxi8po+eRwgoWc
-   45tQLf3OQteGUWWScz7SpjJi+iVrr/UVpEDINPOyky/ge9pHjL3bxkB3t
-   ZJbtzVQOWS/Opu9cqM1t4+7Qoc7PJ6xUU/qSs6o0fLrNf9sMjhBBPnA89
-   YAZbgl3ELFtxZPqCjI5aKyhNoiT6KLiu3YsC5jb4osPYVnQeYAKYUaMzX
-   g==;
-X-CSE-ConnectionGUID: bfohfRY2QaiLqdGu1KXjPw==
-X-CSE-MsgGUID: 4Ah5pyn1R/WRlKnyE1bJLg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11925"; a="101183040"
-X-IronPort-AV: E=Sophos;i="6.27,141,1787036400"; 
-   d="scan'208";a="101183040"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 02:29:58 -0700
-X-CSE-ConnectionGUID: gdgp0KwTTu+ZVQAH49myUA==
-X-CSE-MsgGUID: 9VNFBIKZRvOEGpH4ug1xvA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,141,1787036400"; 
-   d="scan'208";a="281544716"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
-  by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 02:29:57 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 5 Oct 2026 02:29:56 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Mon, 5 Oct 2026 02:29:56 -0700
-Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.46) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 5 Oct 2026 02:29:56 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RjSYoUHZHxfFrGBo0T//leJWf/TYyMMZE2XVqwRsfhjWUmzFWjQKGejNN4KxAPjjpwcB05Dc4+hbE945NSi2B3oiX8bhp1VaJN+1WyRjhLSk3HKcJK6VHkc289qOO2g3Nw4D47sxjjwjAUB+/8EzP3FkK4diRNB9jqqLNOjJwldl830lky88My0Gw+Nyq4hmBxJrP1bf1wA/KkW86Lsu+O3WAR4WpxAGm3qanoOqiRs+RYPDawuqh6kPvorS2os7WNS1DnoVQQVOeN8oqXYGMtf00uXs9TkE0h70pEIEs5kYb73caCVjh7ITE9tUN/qtZvjm0gj8gdfa2gICbIn6tw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oQrcZpkpyOB1JGWICCnxd8kYeedFwwtY4OpEImpZb80=;
- b=mPcUddcOzI7VNAh2SAG9Fzb9zoQotUih5q0bjp04eMx8pFk0CtXarxDLgTIDnFtPmj5f9mIG7QYj9EdMjVWMOisuEuoOPsK1hxoQ4Dv3GREtJmUvZuS8ZtMrT+TxUXk83+nog/LsH8xpVCTzFnIAp0seGYnuFj4k03q0FbetpOMIoPJK5phTsWi/CK8XrGImFtFQRrb79wVQIY3I5CqRsyOLqCg47PGR5EBYuVISlAGHriZ0o0hhvMGnTRfJ3CTk4q6PaJy54gInIeMrWzmTU2pTmB+GeBqBntu/3GlGYwpLsWIBmjAH4GO/Cibl/8j35GBkjUELwD9/p3sHoB2bGw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS4PPF691668CDD.namprd11.prod.outlook.com
- (2603:10b6:f:fc02::2a) by CH3PR11MB243846.namprd11.prod.outlook.com
- (2603:10b6:610:362::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Mon, 5 Oct
- 2026 09:29:55 +0000
-Received: from DS4PPF691668CDD.namprd11.prod.outlook.com
- ([fe80::3a:cd0a:2af8:5837]) by DS4PPF691668CDD.namprd11.prod.outlook.com
- ([fe80::3a:cd0a:2af8:5837%3]) with mapi id 15.21.0472.016; Mon, 5 Oct 2026
- 09:29:55 +0000
-Message-ID: <d116ce1e-abc3-4f4a-8805-6d718416cf8c@intel.com>
-Date: Mon, 5 Oct 2026 14:59:46 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] drm/xe: Fix stale pinned_link entry when fb-pin
- performs the final unpin
-To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	<intel-xe@lists.freedesktop.org>
-CC: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Rodrigo Vivi
-	<rodrigo.vivi@intel.com>, <stable@vger.kernel.org>, Matthew Auld
-	<matthew.auld@intel.com>, Matthew Brost <matthew.brost@intel.com>
-References: <20261002100830.12297-1-thomas.hellstrom@linux.intel.com>
- <20261002100830.12297-3-thomas.hellstrom@linux.intel.com>
-Content-Language: en-US
-From: "Ghimiray, Himal Prasad" <himal.prasad.ghimiray@intel.com>
-In-Reply-To: <20261002100830.12297-3-thomas.hellstrom@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5PR01CA0239.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1f4::16) To DS4PPF691668CDD.namprd11.prod.outlook.com
- (2603:10b6:f:fc02::2a)
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="G6FVsgMt"
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 93F2F2018A0;
+	Mon, 05 Oct 2026 11:30:57 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1791192657;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RFO5ZXSt8TLkL01e7cbVBIy8e8TGVKgQ+fA2lCydsoU=;
+	b=G6FVsgMtv6+O5Nai5cjZqEaS7ai3SArUDKVVlSLInZDv+HoLa3YyUpYzlIiXou2kapZOFH
+	Nq2cgCSzP7adW48JVyNeDfKlTUL9U8E3Pgi1phip8Fe/rLGAxORld851O6QnGzkQiFcXq0
+	8oAiaYCGRWVjUajXRVFhOwVsY3yoCiwg//rbfzgTZMzs2/1djKiXK1m2BwGxb0rr7rJFMI
+	GfRr63dVHnY9oR/iT/OnUu8Do5r+ZjggyIBOOYEml8h1TyQ3OSdyn5qxKoUIJAUyDP90vK
+	Fwfv39fn552Sd3Q9Ux2WR8//pjJYZhuLIwQ6E0Sty+W5+inPDNtGFuqKhw0Wzw==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1791192657; a=rsa-sha256;
+	cv=none;
+	b=ShrLDiK0uCokfQM1tp3t03LlLXuS2/0VAj3kmb0cZUpk3KtGQyZkCjId7J1rq/cVAzr6tZ
+	MCt61WEHma4kgZ3cqOGPKxd5teG0l4ZyYAmivsn1nCAbclMeVcPYoJlzT9waTdV9hFRgC1
+	tEjlIQjK/V3ORFI6hmq19en4ewgMX4nQl26h3+33sCXp+3wiY7oRrKDfwYCU8E7eJ+evWT
+	/YwjnnHi7anwcKRKOg3rHTZWsH64laei/R3CDPZRhn3EeUPzTwxl32ozeCt2e0jtXcKeuo
+	ALvmLXXfCJeIyOACflIkgUQHbRvHhtKMSlCc/lWMrosPWnIL49ISUyIr98fniQ==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1791192657;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RFO5ZXSt8TLkL01e7cbVBIy8e8TGVKgQ+fA2lCydsoU=;
+	b=d2RcX77MDIvFWv8OKlpztNNQt/Fsyl4rf35fbZJdUOodgRM0yYGZGVEFtFMV0l2N5RsyuB
+	3RPtk5a9Aqzb/YJVDhWsvoycwT6reRndLnmRZhOEYWGEByocFtug2FDccWomLiwNdX/Y3Z
+	/8jXivOUOBS+Z4mAPUtmzemqZ8WXzLXv4Nte1y7CE5bGe311ytQdcwLdrEoA3vOi9zC3Zm
+	hhqbr8ctqvo8qQc4khzfmL/RQBiOTtYeibsS/yDhkp+cx5+e/0KLCCOhzQy+SdbIXuise0
+	6R0yDk9oaa7W9NIKVoGirVR7TPzCzO8/CMprT9RdUsxsC0iJQ340qjW4ESyagg==
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xDf29-004MSO-1Q;
+	Mon, 05 Oct 2026 11:30:57 +0200
+Received: from pengutronix.de (90-182-211-1.rcp.o2.cz [90.182.211.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id E86E65BA00B;
+	Mon, 05 Oct 2026 09:30:56 +0000 (UTC)
+Date: Mon, 5 Oct 2026 11:30:56 +0200
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: netdev@vger.kernel.org
+Cc: davem@davemloft.net, kuba@kernel.org, linux-can@vger.kernel.org, 
+	kernel@pengutronix.de, "Ji-Ze Hong (Peter Hong)" <peter_hong@fintek.com.tw>, 
+	stable@vger.kernel.org, "Dynetrex, Admin" <admin@dynetrex.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Drew Willey <dwilley@google.com>
+Subject: Re: [PATCH net 3/3] usb: f81604: fix struct f81604_int_data size
+ mismatch
+Message-ID: <20261005-weightless-fat-seriema-802f2e-mkl@pengutronix.de>
+References: <20261001151905.1556270-1-mkl@pengutronix.de>
+ <20261001151905.1556270-4-mkl@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS4PPF691668CDD:EE_|CH3PR11MB243846:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5cc0e302-9a82-4708-e760-08df22c336f1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|11063799006|56012099006|4143699003|10067099003|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info: DL42VqYHwsjDg4C4iO6rh89x5vmG6myDAKrH3I2sYC0Qi2PnRGYndD3Xt5WVS211C6ScqpHQpuaT/j0NXFPpa5jua8mpqx/y39T1KZS8PSc5F8V38g5yDI5Q9EoB7c8tu3yWmKai3wS20cZzQZOg3ln/J2X4jPCPRD5qTu+MzkEdwOdcIRVcNwxtwQnOTF0eSLeQGffvFgnkweJnfrDuuYKMJINmi2iQIum53XNjSKBw5NIXAJby84eisrWA8A1HtDD+aGlf3GAvbzEiGgDBiW1ICGmaXUoX6k7+Ex6uOAAj8l43rnYACmBTtsZvXFyfGP41DWAknZK6TwIVtNsZrd6GwzoT2D/JUswrNLwtwzewam6H056Qh4mMSHFWDcxZFyEpBQUugF9Pu37h6Icgr740Mu8QTJVTR93bXHn0yDKW3Xww5eAXEd7X9NpTa1Bpu7IFf2omAE58eH3cLbX9DlT/jS4F2JskeRE4uj7k2Vnc6iFNqKz70CoFdBZS6aOG+jlqx+3eWGfDmlTqAVVNPUlb+TurSiqJYN6D+OY/SWKXBeViVcf7Ctr3h9vCDQ/6dhzhwcDBR6dwixBEAxl+a8bhL6tFWsGhfwuLpamPNh61Q/J7Eb2MzHKJfGmOsD/yfhfUQUEecX+J4226c4IaP6vHlkwPPHmrnL/Wlk9SW18=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPF691668CDD.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(11063799006)(56012099006)(4143699003)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cElTZG9JWE5SY3crcWJqMVBjMWpQMGQxd2Fta2NKV0NNNFJQN3djeFlRMENk?=
- =?utf-8?B?NWZnMEQ3VFpsTEJZS1JYTkUzVWxKcmYrbkI0d01UangySm5nd2FFWmxpeW8y?=
- =?utf-8?B?c3Q2S2E0a3hDNmRITFRnV0hOdDllSzNyKzhzQzNZSUNBRXM2U09tNzJFaTV5?=
- =?utf-8?B?MmtxWlArSnpGNlVaQUVYbkZBaSt5SWFlRUQ1bjNGcUNLZUFST1NWR1JNcVRE?=
- =?utf-8?B?MVAzK3ZEbDJpdHJqdVByc3BFSWdXZWFZMERlTThuY2ttakxsMnU0eVdoekVR?=
- =?utf-8?B?Z01nM3krSmpJYkxJcXlUSFdGeEhkL1J4bCsrRkRaenhnNGVQM09KSUhDTHJn?=
- =?utf-8?B?cVZkeVlxVlZNb3NvakJEWTI5dmVOS3JzMmVvUnNVaUNLMXh4bEJBYUhOazVn?=
- =?utf-8?B?MTk0dEc4TDg3QU5IdEwvaTViNFVTa3dwQytDeStxT2N3TmgyemEvM25VUWVj?=
- =?utf-8?B?eUZZRVhpOFZMYjNYSmpHclZQRGkwVGVuQTVSaDJpZklmai9KTjBNQUZKcG85?=
- =?utf-8?B?Z05yYWNsLzZSNTBpeVJyWURZRGIxbzBtZXVYcGt3eGt6NVI3VlNvUXlId0Na?=
- =?utf-8?B?TU5tQVgzY20vOFFObU5MbEpka0lXM0J5ckJBNCtDOVcxRjFIOUdPem1kd1JY?=
- =?utf-8?B?enI5NXV1cXErUEo4V2pDUEViUE44Q1ovdEJiUTFCTlBKNlFqWWJCam1NUXJo?=
- =?utf-8?B?YXlpSlByZTNVa2NsNkJLMWwvK2J0empnN0h5MzI3NEVqWjRobFJjaXVTcXph?=
- =?utf-8?B?STlVV0x3c3FwODREeitWZzNEVUFuTzQ3TlRwQUx5N0tSd25xNkltdTNWNzRL?=
- =?utf-8?B?anNlLzBueHNaQVVQcThXS0tPcTZ1TXBKTnhtcDcramxCN1QxTnE3a0RGNkxz?=
- =?utf-8?B?VXNNQ20xSEtIbU9oQzkwTnVjSnI2SlBQRE9xMFRxQ29ENVJMUVpqR3l2d1dI?=
- =?utf-8?B?MFphN1k2SHdETTU5dHU2Q1ZBZ0swQ3pXS1pqRHpySllOZVVUWFlNMU9oMUxQ?=
- =?utf-8?B?bURSWHR5V0kvTEVyS1BlbkwyWjlkS2lDK0psRWdBVTlpOWRiWEZWeit6bWhq?=
- =?utf-8?B?UDZNWlcydkNQR3Z3NkVLeUdsUGVKYkdDdHBYWTFkWlBRcWphczhaOWd3ZTlQ?=
- =?utf-8?B?YlNSVW12Rm5TZktXa1pDSksySkY4Z3BDZ0ZhU3Rjb0htbXpudCswVTk5WnR0?=
- =?utf-8?B?NFVjaUZ3RHlkSDdCMFBVVmZISGtlUk5Tcnd3eno3Nmo5VDVhbmtHd1F6dFpt?=
- =?utf-8?B?Q0d1VmFaZWFtbndWalF4dWtBandtQ2prZWc4Y2lFdUhRWU8rS29xK1dyd2ly?=
- =?utf-8?B?SjRMVi9YSEIzR1AwSGo1Q1ZlenV1Qjh4QWVwQjNMYWdLL2Z2d0FiSUpwbEFC?=
- =?utf-8?B?TkRPV2gwMDdCVDZKVXV3RzJYcjR4enFPRC9rK0EzcTRyR3ZrVkVTWUMwYlNO?=
- =?utf-8?B?bWNva1ozUG1ZQ0hrVk9MYTJkaG5GNzRLWE5QWkhWaWVuUUlxcy9mSlVYQ2p1?=
- =?utf-8?B?azB2bWl1eDZ5QzRVMENFMVVUMk8yT1RWTk03elpJYTRoSEZLNVo2b3puT2U5?=
- =?utf-8?B?QWpJZkZoK3hpU2hPRW9EZHJ2bGpvUzZEUkczaE1DcFZaZXlFc1lEelNzZU1q?=
- =?utf-8?B?SDBBc2g2Y3pNWGx5NVlIbVV6MnNnRUJDbEtkTmZqNVRBZ2JTL2NZbk9Rc1ZS?=
- =?utf-8?B?cDhhTHU4WE1jTGo3R3JZOG00NHNoVUNqNzVHR2NwSHdiS2pGMEV3emYyYzJx?=
- =?utf-8?B?cjJvTm5wUCtGcHlJRFl4S2VYSnNYTUREZ1g0WFByTXdrWG5FOUloS09RWjVo?=
- =?utf-8?B?Wmx3Z2JOQm1PTm9CYndjL2w4ZnlVUXdINHg1SVVWK283SklWL3plS05mdkEv?=
- =?utf-8?B?cU50d0RqRE9PTHdJbDZRd1doenZVWHE2WWI5QjFuSUJuNk4vU2dkUW5yWEpl?=
- =?utf-8?B?ajVHZlM1RGdwTWRvbjg5K2lIYXY2SDFFVFZRVlJZd3dqamI3L1dQSEVWbGx4?=
- =?utf-8?B?VHRnRUN2SEJ5K2IvNGc3VGhNLzFRaXJkamdyOTBleDFXZ3hOa0YxQkRqeXBk?=
- =?utf-8?B?TFVQN3NEbVBvN1dBVTFuSGNwMTVia2NYdUJBN1ZOS2NRYTJEbm5yeUdoVW5x?=
- =?utf-8?B?b1lJUTI1TkNZeGdqZUVHdmVWaThLS0xxcytoMTBsc1o2VjUyVTRidE5EV2w0?=
- =?utf-8?B?VDh1YXp0Nk9saW5SdkNLSG1tUEVTTFQzT3VCSmhqSk1tRk0rc1VJTGNYcGQw?=
- =?utf-8?B?c1hEd09zaDY0Y0o3THBzU2x0bHRKNFg4ajBtQ0g3RGNabXp3T09yK2kvMWNI?=
- =?utf-8?B?OCtKZk15SUxNemNXRXg3dkp1OHA2OFlEZGNsSEJIQkNkZlFWb2JjekhXSHhY?=
- =?utf-8?Q?jAXBiu+fAmpG+JTA=3D?=
-X-Exchange-RoutingPolicyChecked: D6DzTmZZODv3jZvWmGHFFOiIMDFRzJB5ruE0xqMj7fklx5k3RkUvSsBrFucpLBWNUSb6UFKii27w8DE+EyskJSmInghPjrvk05WOO+oihBNAhAZRBZ/Az/PTGsfkhlDAhKkh3vMVPpFfuY1iDTEYl621D3CjkvTgFI3MPEMThLuoeQqMN1RI7dqScJ6LO+RkeXimrO2XIcu5xAWSr58L/j934hgdt5ELSNhkW40f41iunDIwbVvtpQ9RtIOLIysSXJbDaIJyfcGxoJ9vc/erBbqmGgT5slJvzFNsmKu180LW+L0V5luN4W7c43MmymIdMfuqrbvgwoIcfVEXbek+dg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5cc0e302-9a82-4708-e760-08df22c336f1
-X-MS-Exchange-CrossTenant-AuthSource: DS4PPF691668CDD.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 09:29:55.0476
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 42PhR9oq3naE9XLVxx5LiMgM3HND917PgLArkhLSrL9T+qB/AMJI7fnlQTDDa+49TXdKNZMtr7cU9yYbiAME9VX5b+oX8VKa7xi9eBqKeoA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB243846
-X-OriginatorOrg: intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="rlf27b4rnrtsomql"
+Content-Disposition: inline
+In-Reply-To: <20261001151905.1556270-4-mkl@pengutronix.de>
 
 
+--rlf27b4rnrtsomql
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH net 3/3] usb: f81604: fix struct f81604_int_data size
+ mismatch
+MIME-Version: 1.0
 
-On 02-10-2026 15:38, Thomas Hellström wrote:
-> xe_bo_pin_external() and xe_bo_unpin_external() maintain the bo's
-> pinned_link list membership in xe->pinned.late.external, based on
-> whether the current call is the outermost pin or the final unpin.
-> However, the same external bo's pin_count can also be raised and
-> lowered directly by __xe_pin_fb_vma()/__xe_unpin_fb_vma(), which pin
-> the bo as a display scanout buffer without going through
-> xe_bo_pin_external()/xe_bo_unpin_external() at all, and have no
-> notion of, or ownership over, pinned_link.
-> 
-> If a bo is pinned both externally (e.g. dma-buf export) and as an fb,
-> and the external unpin happens first, xe_bo_unpin_external() correctly
-> observes pin_count > 1 and leaves the bo on pinned_link. When the fb
-> unpin later performs the true last unpin (pin_count 1 -> 0), it never
-> touches pinned_link, leaving the bo linked on xe->pinned.late.external
-> indefinitely. Once the bo is subsequently freed, this stale list entry
-> points into freed memory, corrupting the list and risking a
-> use-after-free the next time the list is walked or spliced.
-> 
-> The backup object pin/unpin sites in xe_bo_notifier_prepare_pinned()/
-> xe_bo_notifier_unprepare_pinned() have the same bypass characteristic,
-> though they never add their bo to a pinned list, so are not affected
-> by this particular list-corruption issue.
-> 
-> Move the pinned_link removal into xe_bo_account_unpin(), which already
-> runs on every unpin path (kernel, external, framebuffer, backup
-> object) right before the true 1 -> 0 pin_count transition. Since
-> list_del_init() only operates on the node itself, this removal is
-> list-agnostic and safe to perform regardless of which list (external
-> or kernel_bo_present) the bo happens to be linked on, or which code
-> path is performing the final unpin. Drop the now-redundant explicit
-> list_del_init() calls in xe_bo_unpin_external() and xe_bo_unpin().
-> 
-> Fixes: 44e694958b95 ("drm/xe/display: Implement display support")
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> Cc: intel-xe@lists.freedesktop.org
-> Cc: <stable@vger.kernel.org> # v6.8+
-> Reviewed-by: Matthew Auld <matthew.auld@intel.com> # v2
-> Assisted-by: LLM
-> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> 
-> v2:
-> - New patch
-> 
-> v3:
-> - Rebased on changes to previous patch.
-> ---
->   drivers/gpu/drm/xe/xe_bo.c | 25 ++++++++++++++++---------
->   1 file changed, 16 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-> index 6cc3f0bc0be4..5a70e652895b 100644
-> --- a/drivers/gpu/drm/xe/xe_bo.c
-> +++ b/drivers/gpu/drm/xe/xe_bo.c
-> @@ -505,12 +505,27 @@ static void xe_bo_account_pin(struct xe_bo *bo)
->    * ttm_bo_unpin(), so that the check against the true 1->0 transition sees
->    * the pin count that is about to be released. See xe_bo_account_pin() for
->    * why imported bos are excluded.
-> + *
-> + * On the true last unpin, also removes @bo from whichever pinned-bo list
-> + * (external or kernel_bo_present) it may currently be linked on, since a
-> + * bo's final unpin can happen through a pin path (e.g. framebuffer,
-> + * backup object) that has no notion of, or ownership over, that list.
-> + * This is safe and list-agnostic: list_del_init() only needs the node
-> + * itself, not knowledge of which list it is threaded through, and is a
-> + * no-op if @bo is not linked.
->    */
->   static void xe_bo_account_unpin(struct xe_bo *bo)
->   {
->   	struct xe_device *xe = xe_bo_device(bo);
-> +	bool last_unpin = bo->ttm.pin_count == 1;
->   
-> -	if (bo->ttm.pin_count == 1 && bo->ttm.ttm && ttm_tt_is_populated(bo->ttm.ttm) &&
-> +	if (last_unpin && !list_empty(&bo->pinned_link)) {
-> +		spin_lock(&xe->pinned.lock);
-> +		list_del_init(&bo->pinned_link);
-> +		spin_unlock(&xe->pinned.lock);
-> +	}
-> +
-> +	if (last_unpin && bo->ttm.ttm && ttm_tt_is_populated(bo->ttm.ttm) &&
->   	    !xe_ttm_bo_is_imported(&bo->ttm))
->   		xe_ttm_tt_account_add(xe, bo->ttm.ttm);
->   }
+On 01.10.2026 17:14:25, Marc Kleine-Budde wrote:
+> From: "Ji-Ze Hong (Peter Hong)" <peter_hong@fintek.com.tw>
+>
+> The struct f81604_int_data defines 9 bytes of interrupt data:
+> - Byte 0: Status register (sr)
+> - Byte 1: Interrupt register (isrc)
+> - Byte 2: Interrupt enable register (ier)
+> - Byte 3: Arbitration lost capture (alc)
+> - Byte 4: Error code capture (ecc)
+> - Byte 5: Error warning limit register (ewlr)
+> - Byte 6: RX error counter (rxerr)
+> - Byte 7: TX error counter (txerr)
+> - Byte 8: Reserved (val)
+>
+> The hardware sends exactly 9 bytes for the interrupt endpoint.
+> However, the struct was defined with __aligned(4) attribute which
+> caused the compiler to pad the struct to 12 bytes.
+>
+> This causes a problem in f81604_read_int_callback() where the short
+> URB check compares urb->actual_length against sizeof(*data). When
+> sizeof(struct f81604_int_data) is 12 but the hardware only sends 9
+> bytes, the check fails and valid interrupt messages are discarded.
+>
+> This results in the driver only being able to transmit once because
+> the TX complete interrupt is never processed.
+>
+> Fix this by removing the __aligned(4) attribute so the struct size
+> matches the actual hardware data size of 9 bytes.
+>
+> Fixes: 7299b1b39a25 ("can: usb: f81604: handle short interrupt urb messag=
+es properly")
+> Cc: stable@vger.kernel.org
+> Reported-by: Dynetrex, Admin <admin@dynetrex.com>
+> Closes: https://lore.kernel.org/all/A3834A07-5639-4779-844F-C5843DFC3928@=
+dynetrex.com/
+> Signed-off-by: Ji-Ze Hong (Peter Hong) <peter_hong@fintek.com.tw>
+> Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Tested-by: Drew Willey <dwilley@google.com>
+> Link: https://patch.msgid.link/20260824-f81604-fix-v2-1-fc9be5581394@fint=
+ek.com.tw
+> Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 
-LGTM
-Reviewed-by: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
+The netdev bots have found a "high" severity, which is a preexisting
+issue, but not clearly flagged as such.
 
-> @@ -3322,11 +3337,6 @@ void xe_bo_unpin_external(struct xe_bo *bo)
->   	xe_assert(xe, xe_bo_is_pinned(bo));
->   	xe_assert(xe, xe_bo_is_user(bo));
->   
-> -	spin_lock(&xe->pinned.lock);
-> -	if (bo->ttm.pin_count == 1 && !list_empty(&bo->pinned_link))
-> -		list_del_init(&bo->pinned_link);
-> -	spin_unlock(&xe->pinned.lock);
-> -
->   	xe_bo_unpin_account(bo);
->   
->   	/*
-> @@ -3348,10 +3358,7 @@ void xe_bo_unpin(struct xe_bo *bo)
->   	xe_assert(xe, xe_bo_is_pinned(bo));
->   
->   	if (mem_type_is_vram(place->mem_type) || bo->flags & XE_BO_FLAG_GGTT) {
-> -		spin_lock(&xe->pinned.lock);
->   		xe_assert(xe, !list_empty(&bo->pinned_link));
-> -		list_del_init(&bo->pinned_link);
-> -		spin_unlock(&xe->pinned.lock);
->   
->   		if (bo->backup_obj) {
->   			if (xe_bo_is_pinned(bo->backup_obj))
+https://netdev-ai.bots.linux.dev/sashiko/#inline-kq9vc8hku
 
+| Consequence: use-after-free of the freed netdev private data and of the
+| embedded work_struct, which can corrupt memory or oops in the workqueue.
+|
+| Triggering path: interface up with CAN bus errors, arbitration loss or
+| overruns (so clear_flags gets set) -> driver unbind, rmmod or disconnect
+| -> unregister_netdev() -> f81604_close() -> cancel_work_sync() returns
+| -> an interrupt URB completion in flight before usb_kill_anchored_urbs()
+| calls f81604_handle_can_bus_errors() -> schedule_work() -> close returns
+| -> free_candev() -> f81604_clear_reg_work() runs on freed memory. I
+| checked that nothing between line 1078 and the free in
+| f81604_disconnect() drains this work: close_candev() and
+| usb_kill_anchored_urbs() do not flush it, and disconnect only calls
+| unregister_netdev() and free_candev().
+|
+| Reachability: the race window is short, and triggering it needs
+| privileged unbind or physical disconnect while bus errors are occurring.
+| So it rates High rather than Critical, though the consequence is memory
+| corruption. Pre-existing: git blame attributes f81604_close() entirely
+| to 88da17436973. This patch does not add the ordering, but it re-enables
+| the only producer of the work, which had been dead code since
+| 7299b1b39a25. The commit message neither claims to fix this nor depends
+| on it.
+
+We have a patch for it pending, but not included in the PR, to keep it
+to the absolute minimum.
+
+regards,
+Marc
+
+--=20
+Pengutronix e.K.                 | Marc Kleine-Budde          |
+Embedded Linux                   | https://www.pengutronix.de |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+
+--rlf27b4rnrtsomql
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCasNuRgAKCRDMOmT6rpmt
+0rwMAP9eiqoTtU79Brq2nmHVcBjJ0PbQzYu4Y3k2z6rjbYcOpgD/d/+Pk1e2x2Kw
+Gal3uvyklvc8MOL3tf7sS0yEiTFWtA4=
+=EH5/
+-----END PGP SIGNATURE-----
+
+--rlf27b4rnrtsomql--
