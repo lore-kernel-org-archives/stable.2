@@ -1,152 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47F553859D3;
-	Mon,  5 Oct 2026 23:27:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69DA237F735
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 23:37:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791242841; cv=none; b=s8U2+ve4b+3cfePlPrspnFk/RUm5zgAEZRfS/cLvcsT7qIG5nugGFi3SK2FlIc4CJymq2WBfGXsNyYj0ezIaM2Yda08qlq/fFc6C5sFsbDNeWzYXTr8/5X9WcpaYwMNbtRDl1wuWixHe4o3nhBRqSNvqYPv0XuAQuS6hekPx2K4=
+	t=1791243459; cv=none; b=kqLDBZ6/luRJSLE4oTcwalpg/uUBIhVi+8hPA1HfvPdLS41UVKA/TMjzLR/zulO4NWkscmsseDO3D4/hbvW/q6iAcOz+YEMOZydefH1AzFSghF075SJlI9AdSUA4W2X+V34Q8QOq4cPiA7EuO8xnhH7/FGLRnPGrbeJqqK5zY+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791242841; c=relaxed/simple;
-	bh=5JGnocJYw30HbGm83ZIUd63l0uZkU7FSISeu12sc8iQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=pG9KJR3FAhW9eQ010ICb6R+fcP4pGe7bIXGUUnVWWfZSIhrpymbAbvpSE3m9GcgvXxiIniQl7nTCIQ1i4LfFceOdij6aKr9ak8egpyRSiXQgr1tbBh4mQIUcTjIPWJFkz89/tQbYuGV2O4d5x7C+uzy+DsVLSwLVyxpivWmb2Pw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JiAtA938; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791243459; c=relaxed/simple;
+	bh=C7gbci83GD+t9Huu16iGSHml008dP62awDJLoswA3s0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RYZ5d/+CGOx09aIRmtoXLg+rxw+ze5rqpbXpfcYLT18ak4JuWJmlzwxtaayrFbiPf7o2ijc+Y+IMxqp99jUugA+79Y4vvC5iz2rr0NKgOLO4rmWUo1R0LVoXzFydvxTs4RF+QFGZXH8XGCWGgW4hJnFS6UnLQTXdgFVb8J7ADoc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=AC0xIYIe; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JiAtA938"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A56601F000FF;
-	Mon,  5 Oct 2026 23:27:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791242839;
-	bh=WBg20LLYaRPC5p8DnVDECrTO6jgh2E+qFuXSSu1+OPE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=JiAtA9389pKiNZ/CFNdNGZg9ElYghY3oQCZaMIdG7HN1kBL+JCey9eKAJbuxAXkIM
-	 D5TNRQ4bL6Bc9bnSaYT00Cfla7K2k95ur+YyPKYhXOrs8tln3u2NGmWfVONYo4RHuA
-	 qHVr2g17PYxa6ZWaP9e+qSo/9dmJtJbGYTdh9Zxr6aCBMMeoRh1rpyeQ7WWRosLAcS
-	 7Eu3PUUZnf741EfbF54G9O4QMgoCfFfDDVqE9anoy3l8VUI6apGYzzyZeUNmVDlDHU
-	 BtrFFsqJyrf5OlmlUUFODHWzMCreON7H3qXeHYXEsz20oOvlTg6PM0C9WJtIDkOTwO
-	 lFKUUaO+Kl8yA==
-Date: Mon, 5 Oct 2026 18:27:18 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Priyank Rathod <rathodpriyank@google.com>
-Cc: Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
-	Oliver O'Halloran <oohall@gmail.com>,
-	Bjorn Helgaas <bhelgaas@google.com>, Lukas Wunner <lukas@wunner.de>,
-	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Shiju Jose <shiju.jose@huawei.com>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	linuxppc-dev@lists.ozlabs.org, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v5 0/3] PCI/AER: Fix ghes_estatus_pool memory leaks in
- error handling
-Message-ID: <20261005232718.GA644801@bhelgaas>
+	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="AC0xIYIe"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a16aaf2067so24819075e9.0
+        for <stable@vger.kernel.org>; Mon, 05 Oct 2026 16:37:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sifive.com; s=google; t=1791243457; x=1791848257; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=G/tHJXYEmrDPsmKmiT0kZDlKzYZtfAGjKXPf1jJKMEU=;
+        b=AC0xIYIegX1QOd8KmwEYpn06C3gOaZy2zHbvC3Igtv88yUqzu/Fb2LFWdMOpibqjbi
+         9UdCY/yll2hX5jjJhlp1l6Lws2MBzCoyeamxO2z+wd5rGBW4OGk6co15bgIMqZq8ouqL
+         wjXQ5qaQi0I2dWjhircE2LGVZShnm0JePz3i43ylz0OI0EiqevJ1JUbJv06O6ZcuibAw
+         HKtw2R8iQjTmW4UNYbwuRoL6f3ehUuiZf8dpN2F+25zG6f+ePH4F8g6hg2dl9AbejIH2
+         sOZBqOnDr4T4WLSgpKBMyBoBc8obH6hnNlZYkXTb2KNswOpYLgnjDjWBfoXgXBRaUSqg
+         l84A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791243457; x=1791848257;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=G/tHJXYEmrDPsmKmiT0kZDlKzYZtfAGjKXPf1jJKMEU=;
+        b=dBg5AGjrVkFByhw0zcP0UPdwc4cwO+E+SsMXSQ29t0gBjPHwh+SJoaHZ5Mq/qDH/No
+         +TbX209YN9w8D/al+kEDzpEap5N69Cwwm24KcNUGuZukHHk6JMgqT7lcz4F7t+LGdbDF
+         UY0spMVtzMFp78ckSMmJv2pq2jh/Xil1EbiLAehd9XcPCLFtRBHdjPgOXJm4nzlYs0un
+         yHQqPJeAWpp0vUtdhK4g0S7UBX3rM6sRN+DBbXaS1/YrLGcdLd66PZAADt8URYh0j0v2
+         XlJgS63vFxNj29DHlPnxW5CMeiCXY7smAw5+SEuZv96JIGmPhoOfybKdy6OMR5DeXpef
+         xVUQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxI/QnctjkO8iTG5mdZzKMa4rkLbeHqN+PM6SZP33QuOKaV6IKuiqERfac6WF48P+vSAmJ2Qx0=@vger.kernel.org
+X-Gm-Message-State: AFuF++l8icXkiHN0ppTOASFW5/0C/jVcNx+IFPi9r70gPtI7ggYR5Dee
+	gWqjtOjSnOWQMPpHewXjGxT3R8W/dl97anbrUpg10Tgmy/PllfvcdlZm+G4J3DTFV0Q=
+X-Gm-Gg: AYBFou0w/iC7BM0tdLHJHoCX7wKGT+NVP+gun2HY/gKo+mEFlBqeo8K3r4kf1VwB5SO
+	UCquuL9LJ8v5610CKL0Lgv2Jk8rocQmL4r36Hq6TlAzx8pMkuHOrzh3p7WxyCXZbJ2ah6v/u8tC
+	sRlsO9mNtHMOS2N5SpN6iWBDTa4djJRu1WQ2133RloCEZxh3RfFA1Hnt20xEJjYhmMXezpKy6CV
+	PyQC6wCmWWv1iyXd7zSJP0Kj00fuUCcTPbx5BP8bVD2Sql1+kvmaSNmObOxJm6X3K0uTiBRI9kC
+	NlxQFtuyKrAf0qQfIqqrIADzkXSmyJyzHvr2ciuwJvUOZpzlH+FOq8JqhUgKk+BqJ73TWYkesfp
+	OdDt0ACn9sWMuhSjm4qMkLfRFY3LlxaK0DEjWGljCVSmwqIjjXDMfUJ3JpiU5J0oV4GWLCKudsL
+	W3fPsi3cnZFop4Ff6lNBF782svQb4WK3pHabXnnPnnz4DSso4XDXSWbMNJYDmHfdVCMmA15xcuR
+	tL7GxWhfGzcRdqB2lgth3I=
+X-Received: by 2002:a05:600c:3b01:b0:49c:ffab:551f with SMTP id 5b1f17b1804b1-4a1680ed179mr129727315e9.22.1791243456729;
+        Mon, 05 Oct 2026 16:37:36 -0700 (PDT)
+Received: from [100.64.0.1] ([147.161.130.187])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178db0929sm24701835e9.12.2026.10.05.16.37.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 05 Oct 2026 16:37:36 -0700 (PDT)
+Message-ID: <a25d01cd-e21d-4e51-9d24-6cc41589c041@sifive.com>
+Date: Tue, 6 Oct 2026 01:37:35 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260928-b4-fix-aer-memleaks-v5-0-ba6b94c9c9a6@google.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] riscv: futex: untag the user pointer before the atomic
+ access
+To: Ziyi Guo <guoziyi114@gmail.com>, palmer@dabbelt.com, pjw@kernel.org,
+ aou@eecs.berkeley.edu, alex@ghiti.fr
+Cc: thecharlesjenkins@gmail.com, linux-riscv@lists.infradead.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261001184355.2395068-1-guoziyi114@gmail.com>
+Content-Language: en-US
+From: Samuel Holland <samuel.holland@sifive.com>
+In-Reply-To: <20261001184355.2395068-1-guoziyi114@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 28, 2026 at 05:40:11PM +0000, Priyank Rathod wrote:
-> When firmware reports PCIe Advanced Error Reporting (AER) events via ACPI
-> APEI GHES (ghes_handle_aer()), it allocates a snapshot buffer from
-> ghes_estatus_pool to store the aer_capability_regs registers before
-> enqueuing the error record into aer_recover_ring.
+On 2026-10-01 8:43 PM, Ziyi Guo wrote:
+> access_ok() checks untagged_addr(uaddr), but arch_futex_atomic_op_inuser()
+> and futex_atomic_cmpxchg_inatomic() hand the raw uaddr to the inline asm
+> amoswap/amoadd/.../lr.w+sc.w through the "+m" (*uaddr) operand.  When the
+> tagged address ABI is enabled (CONFIG_RISCV_ISA_SUPM, prctl
+> PR_SET_TAGGED_ADDR_CTRL with PMLEN != 0), those two addresses differ: a
+> user pointer whose top PMLEN bits hold a tag passes access_ok() after
+> untagging, but the atomic is then performed on the still-tagged raw
+> address.
 > 
-> aer_recover_queue() returns void, so ghes_handle_aer() cannot release that
-> buffer itself; ownership is handed to the AER code, which until now freed
-> it only on the fully successful path. If the record cannot be enqueued, or
-> if a dequeued record cannot be mapped to a pci_dev, the allocation is
-> silently leaked. Under a sustained error storm this exhausts
-> ghes_estatus_pool, which then breaks GHES hardware error reporting
-> system-wide.
-> 
-> This series fixes both leak paths and documents the ownership rule:
-> 
-> Patch 1: aer_recover_queue() when kfifo_in_spinlocked() fails because
->          aer_recover_ring (capacity 16) is full. The rejected entry is
->          freed immediately via ghes_estatus_pool_region_free().
-> 
-> Patch 2: aer_recover_work_func() when a dequeued entry cannot be mapped to
->          an active PCI device (pdev is NULL). The loop is restructured so
->          ghes_estatus_pool_region_free() runs unconditionally for every
->          dequeued item.
-> 
-> Patch 3: Add a kernel-doc comment stating that aer_recover_queue() takes
->          ownership of @aer_regs, which must be allocated from
->          ghes_estatus_pool. This is documentation only, so unlike
->          patches 1 and 2 it has no Fixes: or Cc: stable tag.
-> 
-> Signed-off-by: Priyank Rathod <rathodpriyank@google.com>
+> Supervisor-mode data accesses are not subject to the U-mode pointer
+> masking (that is governed by menvcfg.PMM, which the kernel does not set),
+> so hardware does not strip the tag for the kernel's own access.  With
+> Sv57 and PMLEN=16 the tag bits overlap the canonical-address bits, so a
+> tagged pointer can name a canonical kernel virtual address (e.g. in the
+> linear map) whose untagged form is a valid user address.  An unprivileged
 
-Applied to pci/aer for v7.4, thanks!
+Thankfully, the combination Sv57 + PMLEN=16 is unlikely to be in use because the
+address bit overlap tends to create performance problems.
 
+> process can thus make FUTEX_WAKE_OP perform an atomic read-modify-write on
+> an arbitrary kernel address, with the matching FUTEX_OP_CMP_* result
+> serving as a read oracle.
+> 
+> get_user()/put_user()/raw_copy_{to,from}_user() already untag the pointer
+> after the access_ok() check; do the same in the futex helpers so the
+> atomic operates on the address that was actually validated.
+
+> Fixes: 2e1743085887 ("riscv: Add support for the tagged address ABI")
+> Signed-off-by: Ziyi Guo <guoziyi114@gmail.com>
 > ---
-> Changes in v5:
-> - Add patch 3, a kernel-doc comment on aer_recover_queue() stating that
->   it takes ownership of @aer_regs, which must come from ghes_estatus_pool
->   (suggested by Kuppuswamy Sathyanarayanan). It is a separate patch so
->   that the two fixes stay minimal for stable backports, and because the
->   comment is only accurate once patch 2 is applied.
-> - Add Kuppuswamy's Reviewed-by to patches 1 and 2. Their code is
->   unchanged from v4.
-> - Still applies cleanly to pci/next (94e8d4e94266), before or after
->   Lukas' "Error reporting for AER-incapable devices" series:
->   https://lore.kernel.org/r/cover.1790531238.git.lukas@wunner.de
-> - Cc Kuppuswamy Sathyanarayanan, Jonathan Cameron, Ilpo Järvinen and
->   Dave Jiang, plus Shiju Jose and Rafael J. Wysocki as the author and
->   committer of the commit in Fixes:.
-> - Link to v4: https://lore.kernel.org/r/20260918-b4-fix-aer-memleaks-v4-0-f0a2c21ed1d1@google.com
+>  arch/riscv/include/asm/futex.h | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
-> Changes in v4:
-> - Rebased onto v7.3-rc3+ (f259f446f519); applies cleanly to pci/next as
->   well. No conflicts with the Advisory Non-Fatal Error support that landed
->   in the meantime.
-> - Added missing Fixes: e2abc47a5a1a ("ACPI: APEI: Fix AER info corruption
->   when error status data has multiple sections") and Cc: stable to both
->   patches; that commit (v6.7-rc1) introduced the ghes_estatus_pool
->   allocation whose ownership these paths drop.
-> - Patch 1: use braces on both arms of the if/else and fix the continuation
->   alignment (checkpatch --strict).
-> - Both patches now build warning-free with W=1 and CONFIG_ACPI_APEI_PCIEAER=y
->   (earlier revisions were only build-tested with APEI disabled, which
->   compiles neither of the modified functions).
-> - Explained in both commit messages why the caller cannot free the buffer,
->   and when the missing-pci_dev path is reachable.
-> - Cc: Lukas Wunner, who has been active in this code.
-> - Link to v3: https://lore.kernel.org/r/20260803-b4-fix-aer-memleaks-v3-1-e87159611933@google.com
-> 
-> Changes in v3:
-> - Resent to fix threading of the series.
-> - Link to v2: https://lore.kernel.org/r/20260803-b4-fix-aer-memleaks-v2-1-fd199b0171fd@google.com
-> 
-> Changes in v2:
-> - Refactored aer_recover_work_func() to ensure ghes_estatus_pool_region_free()
->   is called unconditionally for every dequeued record.
-> - Added Patch 1 to fix related memory leak in aer_recover_queue() on kfifo
->   buffer overflow.
-> - Link to v1: https://lore.kernel.org/r/20260803183853.432459-2-rathodpriyank@google.com
-> 
-> ---
-> Priyank Rathod (3):
->       PCI/AER: Fix memory leak in aer_recover_queue() on kfifo buffer overflow
->       PCI/AER: Fix memory leak in aer_recover_work_func() when pci_dev is missing
->       PCI/AER: Document that aer_recover_queue() takes ownership of aer_regs
-> 
->  drivers/pci/pcie/aer.c | 48 +++++++++++++++++++++++++++++++++++-------------
->  1 file changed, 35 insertions(+), 13 deletions(-)
-> ---
-> base-commit: f259f446f5198d98e13756d2cd531812a0ad3064
-> change-id: 20260803-b4-fix-aer-memleaks-524a1bd5e888
-> 
-> Best regards,
-> -- 
-> Priyank Rathod <rathodpriyank@google.com>
-> 
+> diff --git a/arch/riscv/include/asm/futex.h b/arch/riscv/include/asm/futex.h
+> index 90c86b115e00..8d80e580eec5 100644
+> --- a/arch/riscv/include/asm/futex.h
+> +++ b/arch/riscv/include/asm/futex.h
+> @@ -40,6 +40,7 @@ arch_futex_atomic_op_inuser(int op, int oparg, int *oval, u32 __user *uaddr)
+>  
+>  	if (!access_ok(uaddr, sizeof(u32)))
+>  		return -EFAULT;
+> +	uaddr = untagged_addr(uaddr);   /* FIX: operate on the checked address */
+>  
+>  	switch (op) {
+>  	case FUTEX_OP_SET:
+> @@ -82,6 +83,7 @@ futex_atomic_cmpxchg_inatomic(u32 *uval, u32 __user *uaddr,
+>  
+>  	if (!access_ok(uaddr, sizeof(u32)))
+>  		return -EFAULT;
+> +	uaddr = untagged_addr(uaddr);   /* FIX: operate on the checked address */
+
+The comments are not necessary. The reason for the change is in the commit log.
+With them removed:
+
+Reviewed-by: Samuel Holland <samuel.holland@sifive.com>
+
+>  
+>  	__enable_user_access();
+>  	__asm__ __volatile__ (
+
