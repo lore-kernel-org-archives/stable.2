@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 289E2419FB0
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 08:52:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DF7A401492
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 08:56:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791190337; cv=none; b=nmS7fxQLGST/b6fsHmtUbgwX/kEfRVfGn8dfjf36OpsJP4NGSxPShMycgcsCIGxgvjClJ49EUmEgWjYoUXix0UPXK/vT8DpbIQ1HB+rukoex6EyqAVxm9qbIymLOkASQYiAaaVC9ajokYeXbudqRIIa2rqJB41OCOxYBv/kepog=
+	t=1791190602; cv=none; b=d+XBs9BCSoGSU/L+yOZACbJHrqs85lMef8jSj6gUbLHPT73wer6CtCPelhYLIisulXlzFNN7GA2V/ub6vHNOPLIoJ+h+GZXJMSM1yYU+SM1Sx7v6+kIoHYNQpuqzWRodT86tieIyJvlLXRqobIRPbbyz0xlXyRcai5WKejqx5sI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791190337; c=relaxed/simple;
-	bh=JeS45IRb6rIvgNSKWOiqNrvTgb07bvN295fr4wm5rs0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=RIyaEg8/NbQpRndOLmfCf+9Ck/C4yx3l68vM5sN2VALcVyJ8UxyefsOJyC9XsMunUZOByDa5MzG8CCSigqekNE3Ub6hDc1ZGuuFgBM5iO8yWdG8MfxeBsifOYVr51wLt43yW+iwIcoCVcbPDkP6xCAQcbfqRzEWdh2MBXJF6nlI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=uxg9Zx8h; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791190602; c=relaxed/simple;
+	bh=TbVxnB97M6Hbl3AmmLoraAhrlrQiBF4SiBtrvvUezjk=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=S/ri1QuPDsm4+YDEAbcH7A0YiiZtO8oiK6nJo0aIfwVLIcgeEpLlAWLJtIW6DLpx/wf4xP9Dd6AETKB4XWDqAiKvIctdT2OkwUUuzjm+UvEBBdTTPfgOFC9bh+ovtSvhFlyddPCnP697PdUhDIHPAAKKVP2tyY+zlKesWleACiU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=FOXK3NN6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="uxg9Zx8h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE1F61F00893;
-	Mon,  5 Oct 2026 08:52:12 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="FOXK3NN6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 267371F000FF;
+	Mon,  5 Oct 2026 08:56:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791190333;
-	bh=YRx12Sqdgwgw31HaTY11Jag89tJNqur+kA0r/tm0odg=;
+	s=korg; t=1791190600;
+	bh=bBqUFnzQ7Nk99ZNl4lLEavcGhJ5r9oDgrV73nnMc19w=;
 	h=Subject:To:Cc:From:Date;
-	b=uxg9Zx8hcspD+WonSbPSm9TUo67v+yfJWt0YEhj1Xa8MB2+zlPbgGTVu9wtcCLeER
-	 ZG+pclFAmw5Es12PXY5mBxUvIjTg7XIvxVAGyIomeqePFKhuQCcLakABVaL9zZVDWL
-	 qNMh6ZAskgm0LauJG4vIkttJTaixc0qAE4eL65Qg=
-Subject: FAILED: patch "[PATCH] tty: serial: max3100: shut down timer before freeing port" failed to apply to 5.10-stable tree
-To: fanwu01@zju.edu.cn,gregkh@linuxfoundation.org
+	b=FOXK3NN6G+abpgRT/ecdqsejwxf1Y6JbamGf4KWlHqkg5viQvD/dTB8tz5Y7/uKxb
+	 UU6LCy1jlqWlthDkRv8La8ehqhJkswMVNL4/UKvybg9/KJuSu0a9cUKrOacYLhMcjA
+	 JRMPB/B4/Fg8TJc4Y7bSszrr+OT/q7oCFfilEpto=
+Subject: FAILED: patch "[PATCH] usb: typec: ucsi: acpi: Assume UCSI 1.2 on Acer Nitro" failed to apply to 6.18-stable tree
+To: pannarat.wiriyaarritham@danielcorp.dev,gregkh@linuxfoundation.org,heikki.krogerus@linux.intel.com,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 05 Oct 2026 10:52:01 +0200
-Message-ID: <2026100501-duckling-overlying-9d15@gregkh>
+Date: Mon, 05 Oct 2026 10:56:37 +0200
+Message-ID: <2026100537-fang-cold-8093@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x db0949bbd06db0a75b4b1076f1e25194be7d956a
+git cherry-pick -x 8c51ea651d043c786c37668c51624bd6b338a0ef
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100501-duckling-overlying-9d15@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100537-fang-cold-8093@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,81 +62,86 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From db0949bbd06db0a75b4b1076f1e25194be7d956a Mon Sep 17 00:00:00 2001
-From: Fan Wu <fanwu01@zju.edu.cn>
-Date: Sun, 27 Sep 2026 05:59:57 +0000
-Subject: [PATCH] tty: serial: max3100: shut down timer before freeing port
+From 8c51ea651d043c786c37668c51624bd6b338a0ef Mon Sep 17 00:00:00 2001
+From: Pannarat Wiriyaarritham <pannarat.wiriyaarritham@danielcorp.dev>
+Date: Thu, 10 Sep 2026 09:33:37 +0700
+Subject: [PATCH] usb: typec: ucsi: acpi: Assume UCSI 1.2 on Acer Nitro
+ ANV15-41
 
-max3100_shutdown() stops the polling timer but returns early during
-system suspend. If the SPI device is unbound before resume, the serial
-core does not call max3100_shutdown() again, so max3100_remove() frees
-the port while the timer remains armed. max3100_timeout() may then
-access the freed port and re-arm the timer.
+The Acer Nitro ANV15-41 exposes a functional UCSI ACPI PPM but
+reports a UCSI VERSION value of zero.
 
-Add final timer teardown to max3100_remove() and use
-timer_shutdown_sync() to prevent a racing callback from re-arming it.
-Also free the IRQ and destroy the workqueue there before freeing the
-port. Keep timer_delete_sync() in max3100_shutdown() so that a
-subsequent open() can re-arm the timer.
+ucsi_register() rejects a zero version with -ENODEV, leaving the
+system without registered USB Type-C connectors.
 
-The workqueue is created before request_irq() and destroyed on both
-request_irq() failure and normal shutdown. Its presence at remove thus
-identifies the IRQ left registered when suspend bypasses shutdown.
+The PPM works correctly when using the UCSI 1.2 layout. With UCSI
+1.2 assumed, both Type-C connectors register correctly and USB Power
+Delivery negotiation works.
 
-Free the IRQ before destroying the workqueue, in both
-max3100_shutdown() and max3100_remove(), and cancel the pending work
-in between. free_irq() waits for a running interrupt handler to
-finish and no new handler can start afterwards, so a racing handler
-cannot queue work on a workqueue that is being destroyed; the
-force_end_work check in max3100_dowork() only narrows that window, as
-a handler delayed between the check and queue_work() could still run
-after the teardown has cleared the workqueue pointer. Cancelling the
-work also keeps destroy_workqueue() from waiting on a queued work item
-in case remove() ever runs while the freezable workqueue is still
-frozen, e.g. device removal during the resume window, before
-workqueues are thawed.
+Add a DMI-specific UCSI operation for the Acer Nitro ANV15-41 that
+substitutes UCSI 1.2 only when firmware reports a zero version.
+Preserve any valid non-zero firmware version.
 
-This issue was found by an in-house static analysis tool.
+Tested on an Acer Nitro ANV15-41 with BIOS V1.51.
 
-Fixes: 7831d56b0a35 ("tty: MAX3100")
-Cc: stable@kernel.org # 6.2+
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Link: https://patch.msgid.link/20260927055957.561030-1-fanwu01@zju.edu.cn
+Fixes: c1b0bc2dabfa ("usb: typec: Add support for UCSI interface")
+Cc: stable <stable@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Pannarat Wiriyaarritham <pannarat.wiriyaarritham@danielcorp.dev>
+Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Link: https://patch.msgid.link/20260910023338.31816-1-pannarat.wiriyaarritham@danielcorp.dev
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-diff --git a/drivers/tty/serial/max3100.c b/drivers/tty/serial/max3100.c
-index a5a5cd68f696..f858a6669011 100644
---- a/drivers/tty/serial/max3100.c
-+++ b/drivers/tty/serial/max3100.c
-@@ -535,11 +535,11 @@ static void max3100_shutdown(struct uart_port *port)
- 	timer_delete_sync(&s->timer);
+diff --git a/drivers/usb/typec/ucsi/ucsi_acpi.c b/drivers/usb/typec/ucsi/ucsi_acpi.c
+index 18286d3e9cc5..5697ccc24ec3 100644
+--- a/drivers/usb/typec/ucsi/ucsi_acpi.c
++++ b/drivers/usb/typec/ucsi/ucsi_acpi.c
+@@ -121,6 +121,33 @@ static const struct ucsi_operations ucsi_acpi_ops = {
+ 	.async_control = ucsi_acpi_async_control
+ };
  
- 	if (s->workqueue) {
-+		free_irq(port->irq, s);
-+		cancel_work_sync(&s->work);
- 		destroy_workqueue(s->workqueue);
- 		s->workqueue = NULL;
- 	}
--	if (port->irq)
--		free_irq(port->irq, s);
- 
- 	/* set shutdown mode to save power */
- 	max3100_sr(s, MAX3100_WC | MAX3100_SHDN, &rx);
-@@ -753,6 +753,15 @@ static void max3100_remove(struct spi_device *spi)
- 		if (max3100s[i] == s) {
- 			dev_dbg(&spi->dev, "%s: removing port %d\n", __func__, i);
- 			uart_remove_one_port(&max3100_uart_driver, &max3100s[i]->port);
++static int ucsi_acer_read_version(struct ucsi *ucsi, u16 *version)
++{
++	struct ucsi_acpi *ua = ucsi_get_drvdata(ucsi);
++	int ret;
 +
-+			s->force_end_work = 1;
-+			timer_shutdown_sync(&s->timer);
-+			if (s->workqueue) {
-+				free_irq(s->port.irq, s);
-+				cancel_work_sync(&s->work);
-+				destroy_workqueue(s->workqueue);
-+				s->workqueue = NULL;
-+			}
- 			kfree(max3100s[i]);
- 			max3100s[i] = NULL;
- 			break;
++	ret = ucsi_acpi_read_version(ucsi, version);
++	if (ret)
++		return ret;
++
++	if (!*version) {
++		dev_warn(ua->dev, "UCSI version is zero, assuming 1.2\n");
++		*version = UCSI_VERSION_1_2;
++	}
++
++	return 0;
++}
++
++static const struct ucsi_operations ucsi_acer_ops = {
++	.read_version = ucsi_acer_read_version,
++	.read_cci = ucsi_acpi_read_cci,
++	.poll_cci = ucsi_acpi_poll_cci,
++	.read_message_in = ucsi_acpi_read_message_in,
++	.write_message_out = ucsi_acpi_write_message_out,
++	.sync_control = ucsi_sync_control_common,
++	.async_control = ucsi_acpi_async_control
++};
++
+ static int ucsi_gram_sync_control(struct ucsi *ucsi, u64 command, u32 *cci,
+ 				  void *val, size_t len, void *msg_out,
+ 				  size_t msg_out_size)
+@@ -162,6 +189,13 @@ static const struct ucsi_operations ucsi_gram_ops = {
+ };
+ 
+ static const struct dmi_system_id ucsi_acpi_quirks[] = {
++	{
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "Acer"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "Nitro ANV15-41"),
++		},
++		.driver_data = (void *)&ucsi_acer_ops,
++	},
+ 	{
+ 		.matches = {
+ 			DMI_MATCH(DMI_SYS_VENDOR, "LG Electronics"),
 
