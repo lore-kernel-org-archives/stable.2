@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 472EB37BE9E
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 08:11:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97AC037F301
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 08:11:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791187866; cv=none; b=abwk3S3NAXU48ujBnBv6uaNI2xApvpkMIlCN+dDYjLjahYFadNDkK3dFWxD6qwidj4G5fQcYXp1Q439yF/bqdqvc7whgfRQK6seZ4+NGphdhcTRSBqyT277Hh93BG24Qz8Sp9DWi+vswTzngPkjGFBdFaVgTLBZEDX5gE6Cvowo=
+	t=1791187875; cv=none; b=Auci+mN5xptVIPiREUC/A1vuFCHQKgeUdqXnhhqbWDPgvUAj3qM3H2Eq/SkfXkM41/GYBAlhsgoCgaReiuUl3KwrkOs3aFjfYrjzFjaEhz3i4FI6q7V1lsaCXrcX9d74LhEu1uY2G/CANEsxTtKz2A9jQjW/ZRMYJp19CyunmVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791187866; c=relaxed/simple;
-	bh=fctvl6foNIyJMdrdNIrgC9TafJkQ8jXf0KOgnQDHiD8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=cFUvPYLnE4Bkb8GSWZNkt5Gr08+/sXCINcUNJ7Cbk1tcl9H5JJ/D/yTx6t7dRQsLFkj1MMWkN7CLBljPx3QvoHkRC571XmJMO6i6B55V4gg8ASdjv1nhXjWVKoJxwU7bOZEsmavQb8Z27xN1EBFpNBpUqiFSQaQLi0LG7R/uiZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=EAQPyjBR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791187875; c=relaxed/simple;
+	bh=mDwBIqe6SNPZ/uhZR1hTQHNORYkpEvClnFjo2Zc93js=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=SxLkuI9iDymikraIaLvEea9C/CmRii2FprTvAxD5Mt1ehNUDUctu41Zyc39dC6GX9QAKmfqdiHsIgL5Y3wWKNR+AlXpdIDLcJYHVhleilw9HPw3JzHboWJhuRCPCJ0tFikn++zrWsfkUNs7YjCH5jDPYcduQRMWErMqFx5lReQY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Se+x0VWy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="EAQPyjBR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE8F41F000FF;
-	Mon,  5 Oct 2026 08:11:03 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Se+x0VWy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2DD71F000FF;
+	Mon,  5 Oct 2026 08:11:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791187864;
-	bh=1uYE8YSuqJ7U20m4Xjuo/QuLQE0rmQICLdZDBPtQItc=;
+	s=korg; t=1791187874;
+	bh=nIXBxWubwCj9cvU9nlP/N68t1ZK/E4VB5XalpPeRw5Y=;
 	h=Subject:To:Cc:From:Date;
-	b=EAQPyjBR9J5cIs5u+/1GgjXEoKdbaaXxYaypLyQfSuKkonLeeHkoaTPBwOlzp9cym
-	 aP72rn0am4vHjtjsvqQeCWFFbCjtPPEMSNmKhDVcNtThFBYiGnF3zh6x0kqlvcXWX6
-	 Bgk8l873sh1C7SBulFRvmvWJbJHLEF2zAEHZZ4F8=
-Subject: FAILED: patch "[PATCH] drm/amdgpu: fix ACP MFD device leak on init failure" failed to apply to 5.10-stable tree
-To: lgs201920130244@gmail.com,alexander.deucher@amd.com
+	b=Se+x0VWys0XAgZupBfFSL21BPGo9upMiWi5aFmfC+UtAakXpUDBBrT7yk4Fsoto/a
+	 7P48NL0PtQ/0E7mAGDjxbo0U8UX/ZLrwgo7i9hvAE12H7eFIbdULgxzxupVuEVrGjE
+	 wCd4bkeMxZ89mFfnnkVP+OdtIyoL/MB8HuO5lnMA=
+Subject: FAILED: patch "[PATCH] drm/amdgpu: skip the noirq suspend reset for a" failed to apply to 6.12-stable tree
+To: andersen.theo@gmail.com,alexander.deucher@amd.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 05 Oct 2026 10:10:53 +0200
-Message-ID: <2026100553-flattered-brought-ee78@gregkh>
+Date: Mon, 05 Oct 2026 10:11:11 +0200
+Message-ID: <2026100511-recital-body-6c65@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x f0013046151b7467e62c471c1c83d63ea255799c
+git cherry-pick -x eadb85cca111152bd334b861fb53747ab851d13a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100553-flattered-brought-ee78@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100511-recital-body-6c65@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,84 +62,55 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From f0013046151b7467e62c471c1c83d63ea255799c Mon Sep 17 00:00:00 2001
-From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Mon, 21 Sep 2026 18:33:18 +0800
-Subject: [PATCH] drm/amdgpu: fix ACP MFD device leak on init failure
+From eadb85cca111152bd334b861fb53747ab851d13a Mon Sep 17 00:00:00 2001
+From: Theo Andersen Carton <andersen.theo@gmail.com>
+Date: Thu, 17 Sep 2026 21:15:12 +0200
+Subject: [PATCH] drm/amdgpu: skip the noirq suspend reset for a
+ switcheroo-parked GPU
 
-acp_hw_init() registers ACP child devices with mfd_add_devices() before
-attaching them to the ACP power domain and initializing the hardware.
+amdgpu_pmops_suspend_noirq() resets the ASIC unconditionally. When the GPU
+has been parked by vga_switcheroo it has neither power nor a PCIe link, so
+the reset cannot reach it: pci_set_power_state() reports the device as
+inaccessible and amdgpu_asic_reset() returns -EINVAL. A failure there
+aborts the entire noirq suspend phase, and with it the system suspend, so
+the machine cannot sleep at all while the GPU is switched off.
 
-If attaching a child to the power domain fails, or if the ACP reset or
-clock enable operation times out, the failure path frees only the
-source cell, resource, and platform-data allocations. The child
-platform devices already registered by mfd_add_devices() remain
-registered and are never released.
+amdgpu_device_prepare(), amdgpu_device_suspend() and amdgpu_device_resume()
+all bail out early on DRM_SWITCH_POWER_OFF. This callback was added later,
+for an unrelated reason, and did not inherit the check. nouveau guards
+every one of its PM callbacks the same way.
 
-Remove the children from the power domain and unregister the MFD
-devices on failures that occur after mfd_add_devices() succeeds. Keep
-mfd_add_devices() failures on the existing cleanup path since the MFD
-core already rolls back partially registered children itself.
+Bail out the same way here. On a single-GPU system switch_power_state is
+never DRM_SWITCH_POWER_OFF, so this is a no-op there.
 
-The issue was identified by a static analysis tool I developed and
-confirmed by manual review.
+Found on a MacBookPro11,5, where the Radeon is powered down through
+apple-gmux so that the internal panel can be driven by the iGPU instead.
+Every suspend failed in amdgpu_pmops_suspend_noirq() while the card was
+off; with this check a full S3 cycle completes.
 
-Fixes: 25030321ba28 ("drm/amd: add pm domain for ACP IP sub blocks")
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Fixes: 9e051720f9d3 ("drm/amdgpu: Ensure HDA function is suspended before ASIC reset")
+Signed-off-by: Theo Andersen Carton <andersen.theo@gmail.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 63da68d6a2279ec945581c990c5a59a5ae8b5560)
+(cherry picked from commit 539d0558638a6dcc066f1cf592b6b9a52adc8ea4)
 Cc: stable@vger.kernel.org
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-index 9014678d75ab..be4d00ac96b3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-@@ -318,7 +318,7 @@ static int acp_hw_init(struct amdgpu_ip_block *ip_block)
- 		r = device_for_each_child(adev->acp.parent, &adev->acp.acp_genpd->gpd,
- 					  acp_genpd_add_device);
- 		if (r)
--			goto failure;
-+			goto failure_remove_mfd;
- 		break;
- 	}
- 	default:
-@@ -443,7 +443,7 @@ static int acp_hw_init(struct amdgpu_ip_block *ip_block)
- 		r = device_for_each_child(adev->acp.parent, &adev->acp.acp_genpd->gpd,
- 					  acp_genpd_add_device);
- 		if (r)
--			goto failure;
-+			goto failure_remove_mfd;
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 5c33c19fd9bc..d9d794a7db96 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2664,6 +2664,14 @@ static int amdgpu_pmops_suspend_noirq(struct device *dev)
+ 	struct amdgpu_device *adev = drm_to_adev(drm_dev);
+ 	int r;
  
- 	/* Assert Soft reset of ACP */
-@@ -461,7 +461,7 @@ static int acp_hw_init(struct amdgpu_ip_block *ip_block)
- 		if (--count == 0) {
- 			dev_err(&adev->pdev->dev, "Failed to reset ACP\n");
- 			r = -ETIMEDOUT;
--			goto failure;
-+			goto failure_remove_mfd;
- 		}
- 		udelay(100);
- 	}
-@@ -479,7 +479,7 @@ static int acp_hw_init(struct amdgpu_ip_block *ip_block)
- 		if (--count == 0) {
- 			dev_err(&adev->pdev->dev, "Failed to reset ACP\n");
- 			r = -ETIMEDOUT;
--			goto failure;
-+			goto failure_remove_mfd;
- 		}
- 		udelay(100);
- 	}
-@@ -489,6 +489,11 @@ static int acp_hw_init(struct amdgpu_ip_block *ip_block)
- 	cgs_write_register(adev->acp.cgs_device, mmACP_SOFT_RESET, val);
- 	return 0;
- 
-+failure_remove_mfd:
-+	device_for_each_child(adev->acp.parent, NULL,
-+			      acp_genpd_remove_device);
-+	mfd_remove_devices(adev->acp.parent);
++	/*
++	 * A GPU parked by vga_switcheroo has no power and no PCIe link, so the
++	 * ASIC reset below would fail and abort the whole noirq suspend phase.
++	 * Bail out like amdgpu_device_prepare/suspend/resume() already do.
++	 */
++	if (drm_dev->switch_power_state == DRM_SWITCH_POWER_OFF)
++		return 0;
 +
- failure:
- 	kfree(adev->acp.i2s_pdata);
- 	kfree(adev->acp.acp_res);
+ 	if (amdgpu_acpi_should_gpu_reset(adev)) {
+ 		amdgpu_device_lock_reset_domain(adev->reset_domain);
+ 		r = amdgpu_asic_reset(adev);
 
