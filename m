@@ -1,140 +1,109 @@
-Received: from mta1.migadu.com (out-84.mta1.migadu.com [95.215.58.84])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 212054A261C
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 14:24:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.84
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E8864A0133
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 14:25:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791210268; cv=none; b=VuVP4ewYq4zwne0EomRdPCevrzq6ttlqmLs/PmVhhzS3xnud/gasmo8yNnjKEjNo7/EH1SizEF5ZpIYxTLDbw/ufE12jddjxHSbSJtjFwzPZ1RII28F5Y33+ZlRS2Bs/WIBNQWMwiP4FiouZUtzzYU+vLK5kgLmtywdYL+P+C6s=
+	t=1791210306; cv=none; b=oNpcca8aGuz2EfijifLy+nZrwpM7jgNRAt4RuCwoMZ6mL4IuxKh1vjJoY1V/p1PWxWOgEY+0XrkmmH9vkQjbA5m20EXB3dvoc807Acz47Dpvqqd5VIvDJfplvAJkjT+2e8euwvYH1HR+m67kT7R3JIHs6z1jtnQ5q+jobb0iRLs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791210268; c=relaxed/simple;
-	bh=CbENxEWT081LxG9Ca/66oabxXg/6aD0RFXIFh5r/llo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bGg3ssR0QfNxuMFXzxL4XDKCukGZIeAhgaTCVKY/GpDk//BOK9Jd6c/bAVBbzSuOKKWTzLFOJnYrSK6E3tPAvKNXZOuHhgnduOZdyRsk/JeCPYMRvMFMFNFNmOww3FFtA42+kK29vuG/SsbHMeaWCud0ZfsPYoWYpCCUJ/nAzHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=h6zOtN/q; arc=none smtp.client-ip=95.215.58.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791210306; c=relaxed/simple;
+	bh=ANUr8EB1IMGrC+TSg6e8HhCMttdLk3xGVNODeH45Gqk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ipvlE0atlMXMW91lzFwvuUSXZ3QYDUxIfhFnCgW2eamafj6EhIClv5Xm9AyVy7t4fSiYlEhfIONS4oLGEbcRvSm3SQqTgTQbIK66fa0XLx2us9YDbHP+r8BZKumPFk2FgDSCqp44y5zfoT1fCqeH7sRJGW6vwHHp+2j9k+XjoTk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N7wwWmNU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="h6zOtN/q"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=CbENxEWT081LxG9Ca/66oabxXg/6aD0RFXIFh5r/llo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791210255; v=1; x=1791815055;
- b=h6zOtN/qBwuHI80mhLldSlsEthK5OvmsfCxKoEmVv2prrKumZMQj6qMudQmsfYofcg7Jl3EM
- L/j2MfunxfX0R4jcbjOvxnrn6aynQP4GlaV/XAgKD6WmslFoiCAUaIzX7R7qx7D6UigUlZCz6g8
- Ue9KIaQgKfVXdGG8VrRLtjfo=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ca78f09690eedc77;
-	Mon, 05 Oct 2026 14:24:15 +0000
-X-Mizu-Trace-ID: ca78f09690eedc77
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <b928b8a4-5ec5-4642-ac02-9ecbbbfd6218@linux.dev>
-Date: Mon, 5 Oct 2026 22:23:57 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N7wwWmNU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4350F1F00899;
+	Mon,  5 Oct 2026 14:24:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791210299;
+	bh=RN9jnd9BTQO99jvoCvl520b0zD8yUbALctAdVZ2Hcmw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=N7wwWmNU9oyWuaFXkEQcSdE2aCkeRXXeQMlOw7Fd1DQKWbiM77H40pR44hhppNefw
+	 XdSjj5BABRds1ktW6VYH3/dvzqcO3En60EZ4nz63nN6S4fpBq2lzMudhdAIeIKtmzf
+	 3zcfE0/5PO2XgSsSf5f4RHfym07A55CuEgxL54l4T5JPnm2jlRLkoY2JeMJ4g58dmV
+	 8nXDyr4rAgoN/KnUEb1vJFVNNuRtkMfQzyGiPMvVjb+rohB4yWeuy+PNR9YaTs0KDG
+	 KPiCVXXtOeA4sg0vu9Y5zHFbRHO7WxSljDniSHq8TEBJ1ULzWC/qlhidVFFfAHMKPD
+	 P6+usELFTpCOw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Andre Eikmeyer <dev@deq.rocks>,
+	Frederick Morlock <me@freddy.us>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] drm/amdgpu: reset VI ASIC on MacBookPro15,1
+Date: Mon,  5 Oct 2026 10:24:55 -0400
+Message-ID: <20261005142441.3002030-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026100529-unstirred-endurance-7a1b@gregkh>
+References: <2026100529-unstirred-endurance-7a1b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] riscv/mm: fix soft-dirty migration PMDs being treated
- as present
-Content-Language: en-US
-To: david@kernel.org
-Cc: pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
- akpm@linux-foundation.org, zhangchunyan@iscas.ac.cn, rppt@kernel.org,
- kas@kernel.org, andrew+kernel@donnellan.id.au, rmclure@linux.ibm.com,
- debug@rivosinc.com, baolin.wang@linux.alibaba.com, usama.arif@linux.dev,
- wangruikang@iscas.ac.cn, namcao@linutronix.de,
- linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
- alexghiti@rivosinc.com, viro@zeniv.linux.org.uk, ajones@ventanamicro.com,
- arnd@arndb.de, axelrasmussen@google.com, brauner@kernel.org,
- conor.dooley@microchip.com, conor@kernel.org, jack@suse.cz,
- liam@infradead.org, ljs@kernel.org, mhocko@suse.com,
- paul.walmsley@sifive.com, peterx@redhat.com, robh@kernel.org,
- surenb@google.com, vbabka@kernel.org, yuanchu@google.com,
- stable@vger.kernel.org, pasha.tatashin@soleen.com, linux-mm@kvack.org,
- me@ziyao.cc
-References: <fabd52b6-36a7-442e-9cfb-47a39e4ae3d6@kernel.org>
- <20261005134641.5801-1-lance.yang@linux.dev>
-From: Lance Yang <lance.yang@linux.dev>
-In-Reply-To: <20261005134641.5801-1-lance.yang@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+From: Andre Eikmeyer <dev@deq.rocks>
 
+[ Upstream commit a5be7ad8f5f0e067613e9197638f216f46252946 ]
 
-On 2026/10/5 21:46, Lance Yang wrote:
-> 
-> On Mon, Oct 05, 2026 at 12:37:20PM +0200, David Hildenbrand (Arm) wrote:
->> On 10/4/26 05:03, Lance Yang wrote:
->>> RISC-V uses _PAGE_EXEC for swap soft-dirty tracking when
->>> CONFIG_MEM_SOFT_DIRTY is enabled and Svrsw60t59b is available. That's
->>> a problem for PMD migration entries, since pmd_present() also checks
->>> _PAGE_LEAF (R/W/X) to recognize THPs with _PAGE_PRESENT temporarily
->>> cleared during splitting.
->>
->> I'm curious: why do we have to set leaf indications for non-present things? The
->> HW sure will ignore it, right?
-> 
-> Yeah, that surprised me too :) Still wrapping my head around the details
-> ...
-> 
->> Is this a sw problem? Who needs that?
-> 
-> IIUC, it's for software during a PMD split.
-> 
-> __split_huge_pmd_locked() invalidates the huge PMD and flushes the TLB
-> before installing the PTE table. Software still needs pmd_present() and
-> pmd_trans_huge() to recognize the THP in between.
+After S3, reloading amdgpu on MacBookPro15,1 systems with a Radeon Pro
+555X or 560X fails while loading the SMU firmware. The existing SMC
+register check does not request a reset because the registers do not
+reliably reflect the stale SMU state on these machines.
 
-Also, x86 keeps _PAGE_PSE to identify the huge PMD. RISC-V doesn't
-have a separate leaf bit, so it keeps the R/W/X bits to identify
-the PMD as a leaf entry :)
+Frederick Morlock found that forcing a VI ASIC reset allows the driver to
+initialize again. This patch limits his workaround to the exact PCI
+device, Apple subsystem device and revision combinations used by these
+two GPUs, leaving other VI hardware unchanged.
 
-> 
-> RISC-V clears V but keeps the R/W/X bits for that, so the entry is invalid
-> to hardware but still identifiable as a THP by software.
-> 
-> Hopefully I didn't miss something.
-> 
->>>
->>> When a soft-dirty THP is migrated, set_pmd_migration_entry() preserves
->>> soft-dirty with pmd_swp_mksoft_dirty(), setting the X bit in the
->>> migration PMD. Even with _PAGE_PRESENT clear, we end up treating a
->>> migration PMD as a present THP! The fault handler skips
->>> pmd_migration_entry_wait(), and a write fault can end up in
->>> do_huge_pmd_wp_page(), where pmd_page() decodes the migration entry
->>> as a mapped PFN.
->>
->> That sounds bad.
-> 
-> YES, looks a bit off ...
-> 
->>>
->>> Move the swap soft-dirty bit to bit 12 and start the swap offset at
->>> bit 13 when CONFIG_MEM_SOFT_DIRTY is enabled. This keeps R/W/X clear
->>> in migration PMDs and lets us keep the existing pmd_present() check
->>> for invalidated THPs. Leave the offset at bit 12 when soft-dirty
->>> tracking is disabled.
->>
->> That reduces the effective swap size (and PFN we can store). Could that be a
->> problem?
-> 
-> We don't need all 52 bits of the swap offset.
-> 
-> RV64 PFNs only need 44 bits for migration entries, and actual swap is
-> already limited to about 16 TiB per area with 4 KiB pages by
-> last_page (__u32) and swap_info_struct.max (unsigned int).
-> 
-> So there's room to reserve a bit without reducing the supported swap
-> size or PFN range.
-> 
-> CONFIG_MEM_SOFT_DIRTY is only available on RV64, so RV32 keeps its 20-bit
-> offset.
-> 
-> [...]
-> 
-> Cheers, Lance
+Suggested-by: Frederick Morlock <me@freddy.us>
+Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Stable-dep-of: a22e5e4f2ebb ("drm/amdgpu: reset VI ASIC on MacBookPro14,3")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/amdgpu/vi.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
+index 1bfd7b49fe9c3..c6f77e5207be6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vi.c
++++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+@@ -1432,10 +1432,30 @@ static uint64_t vi_get_pcie_replay_count(struct amdgpu_device *adev)
+ 	return (nak_r + nak_g);
+ }
+ 
++struct vi_reset_quirk {
++	u16 device;
++	u16 subsystem_vendor;
++	u16 subsystem_device;
++	u8 revision;
++};
++
++static const struct vi_reset_quirk vi_reset_quirks[] = {
++	{ 0x67ef, PCI_VENDOR_ID_APPLE, 0x0190, 0xe3 }, /* Radeon Pro 555X */
++	{ 0x67ef, PCI_VENDOR_ID_APPLE, 0x018f, 0xc2 }, /* Radeon Pro 560X */
++};
++
+ static bool vi_need_reset_on_init(struct amdgpu_device *adev)
+ {
++	unsigned int i;
+ 	u32 clock_cntl, pc;
+ 
++	for (i = 0; i < ARRAY_SIZE(vi_reset_quirks); i++)
++		if (adev->pdev->device == vi_reset_quirks[i].device &&
++		    adev->pdev->subsystem_vendor == vi_reset_quirks[i].subsystem_vendor &&
++		    adev->pdev->subsystem_device == vi_reset_quirks[i].subsystem_device &&
++		    adev->pdev->revision == vi_reset_quirks[i].revision)
++			return true;
++
+ 	if (adev->flags & AMD_IS_APU)
+ 		return false;
+ 
+-- 
+2.53.0
 
