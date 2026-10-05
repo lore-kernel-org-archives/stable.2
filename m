@@ -1,117 +1,154 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-173.mta1.migadu.com [95.215.58.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F0D547CC61;
-	Mon,  5 Oct 2026 13:41:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67E3347F3BF
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 13:46:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791207687; cv=none; b=RMoK0+BiVdTPjDbaj8+L79eK7laHu6jB9q47ef/j9m7tfIE0HO+oLYTLLWvhcnR7qXqBoRU6XnUG9WDHHiEXrBIkxH+bm1hLiAoUK+5Lkzf4YxaMY2FiUHjHS3dP0qMZRLVkT55OSOQyXuL7MeSB2TVr1Db4wjALe0VkRP/sprY=
+	t=1791208013; cv=none; b=o5WloFGewcEpFFLwwQYAA0iQWabDmXHj8knFr3i49vwEh9FeVhxos952agWYLw1SaAgTbMkIkbKlESW4YuntE0KPyLrFoVXxJSlZF/vLu5dSVi7/mEWxpUmKhMQ9tAfCRUXefoEDEw7U+aWereGLVSekS5ZJFX19O4B6vr6As84=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791207687; c=relaxed/simple;
-	bh=Its1uLI0Y7rFTMZltg1TOVMxLOEmgb3xiZrFUQigsE0=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=taBKh6lBR7Kc5AFJ2LbaOLspXPSGCZ86R30yyO/PtfmYXmG+/7lLn01su4xvDQPhIiB0eB8ng2hpIcETTQFUCeWqoYmLUSyFP2VWtJ5GX9zWsTpYxzQ+gVT/yO5O17ea8tX7XFiGhdOgGHYXVmVoH0iK5u97LBrihssvVv6Laig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YNPo21cb; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791208013; c=relaxed/simple;
+	bh=UPW5rxLXXCUQyxl4itU7Omf05ILDh+oFB7ALgw7XWYk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=QEHm4ysRzIQ2g+BR95OhYioYt1+MAx0qldZ4d6KdX/xHv5HwSpKR7JBEsK2Ca5OPUUjcd0NH5jkzI6xLpgagYSZ1vrvTN03cBR/VuvcV8TRjFmIiJbSsN4KLQVtUuumas3J8znZ1wRa4hVDiHTKb/PfP94fLRgscSSysgRXip5I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tx0L2iTv; arc=none smtp.client-ip=95.215.58.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YNPo21cb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791207686; x=1822743686;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=Its1uLI0Y7rFTMZltg1TOVMxLOEmgb3xiZrFUQigsE0=;
-  b=YNPo21cboTKOI+N8w22KRlDA0mwuXyMSr1VmXvwtCvqV/sk95y171IGV
-   ZRdd6cD8NE95tvvFzW7OgSbBHJe0Qdvcvcly9b21JC81pH/LqfumR8YKp
-   kk0JJZxmz9cmwG16i3+a/roKb47N3+OfFg9AGYuzdg33lyefCuyZz/WbS
-   GUIEkFOs+zx6sZFEtdwrWFYnUby8mge2tRokijXD/ds5RX/9cL8CZYbnD
-   loot88+5bXRxSZct+J+xiPRwmz4uF75RvfKXjf3lEYkh6M1y8tJOCkxOt
-   cOWF+Q79eL2vemID+piTaB9hs22NrGXZis1yOcMt73gK88gOtu3pwfPs7
-   Q==;
-X-CSE-ConnectionGUID: yTwc1wopS7yPnNmeYeDnRA==
-X-CSE-MsgGUID: mgXUBHmWRcC4jxSGnKzBCw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11925"; a="117395291"
-X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
-   d="scan'208";a="117395291"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 06:41:25 -0700
-X-CSE-ConnectionGUID: zl2w/f3/TH6eDlbSJGz8fg==
-X-CSE-MsgGUID: pvbg3saRQUCYrzbTzRrGNw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
-   d="scan'208";a="275463252"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.199])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 06:41:21 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Mon, 5 Oct 2026 16:41:18 +0300 (EEST)
-To: Muhammad Bilal <meatuni001@gmail.com>
-cc: Jorge Lopez <jorge.lopez2@hp.com>, Hans de Goede <hansg@kernel.org>, 
-    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-    =?ISO-8859-15?Q?Thomas_Wei=DFschuh?= <linux@weissschuh.net>, 
-    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
-    stable@vger.kernel.org
-Subject: Re: [PATCH v4 8/9] platform/x86: hp-bioscfg: NUL-terminate the SPM
- auth token
-In-Reply-To: <20261002191434.58529-9-meatuni001@gmail.com>
-Message-ID: <ec29e795-2b9a-36de-490e-64bb843d5dc8@linux.intel.com>
-References: <20261002191434.58529-1-meatuni001@gmail.com> <20261002191434.58529-9-meatuni001@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tx0L2iTv"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=UPW5rxLXXCUQyxl4itU7Omf05ILDh+oFB7ALgw7XWYk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791208009; v=1; x=1791812809;
+ b=tx0L2iTvL1t4Gc/ZauTkCdpHFTdtsUKl8VPxSamBBRMTVwXZ5qqXopDuGeJG4ImvGBpQ9j5S
+ +vGxW1iw07Lnb0rcg90dbiqvRzPH+Dp/22EmpQXX0xvY4VM4aGH8mpzWGd6EZYzx/hk5JlnatTg
+ yJtBUGrVEm2BY2B+LAGWpIto=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2868cb32e0b71532;
+	Mon, 05 Oct 2026 13:46:48 +0000
+X-Mizu-Trace-ID: 2868cb32e0b71532
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: david@kernel.org
+Cc: lance.yang@linux.dev,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	akpm@linux-foundation.org,
+	zhangchunyan@iscas.ac.cn,
+	rppt@kernel.org,
+	kas@kernel.org,
+	andrew+kernel@donnellan.id.au,
+	rmclure@linux.ibm.com,
+	debug@rivosinc.com,
+	baolin.wang@linux.alibaba.com,
+	usama.arif@linux.dev,
+	wangruikang@iscas.ac.cn,
+	namcao@linutronix.de,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	alexghiti@rivosinc.com,
+	viro@zeniv.linux.org.uk,
+	ajones@ventanamicro.com,
+	arnd@arndb.de,
+	axelrasmussen@google.com,
+	brauner@kernel.org,
+	conor.dooley@microchip.com,
+	conor@kernel.org,
+	jack@suse.cz,
+	liam@infradead.org,
+	ljs@kernel.org,
+	mhocko@suse.com,
+	paul.walmsley@sifive.com,
+	peterx@redhat.com,
+	robh@kernel.org,
+	surenb@google.com,
+	vbabka@kernel.org,
+	yuanchu@google.com,
+	stable@vger.kernel.org,
+	pasha.tatashin@soleen.com,
+	linux-mm@kvack.org,
+	me@ziyao.cc
+Subject: Re: [PATCH 1/1] riscv/mm: fix soft-dirty migration PMDs being treated as present
+Date: Mon,  5 Oct 2026 21:46:41 +0800
+Message-ID: <20261005134641.5801-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <fabd52b6-36a7-442e-9cfb-47a39e4ae3d6@kernel.org>
+References: <fabd52b6-36a7-442e-9cfb-47a39e4ae3d6@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sat, 3 Oct 2026, Muhammad Bilal wrote:
 
-> auth_token_store() copies the token with kmemdup(), which does not NUL
-> terminate it, but hp_calculate_security_buffer() and
-> hp_populate_security_buffer() treat it as a C string and read past the
-> allocation.
+On Mon, Oct 05, 2026 at 12:37:20PM +0200, David Hildenbrand (Arm) wrote:
+>On 10/4/26 05:03, Lance Yang wrote:
+>> RISC-V uses _PAGE_EXEC for swap soft-dirty tracking when
+>> CONFIG_MEM_SOFT_DIRTY is enabled and Svrsw60t59b is available. That's
+>> a problem for PMD migration entries, since pmd_present() also checks
+>> _PAGE_LEAF (R/W/X) to recognize THPs with _PAGE_PRESENT temporarily
+>> cleared during splitting.
+>
+>I'm curious: why do we have to set leaf indications for non-present things? The
+>HW sure will ignore it, right?
 
-Again here.
+Yeah, that surprised me too :) Still wrapping my head around the details
+...
 
-If something is treated as C string later, how is it valid to prepare it 
-with kmemdup_nul()? I just don't follow that logic.
+>Is this a sw problem? Who needs that?
 
-Either something is a string or it isn't, which way this is?
+IIUC, it's for software during a PMD split.
 
-> A lone newline (echo > auth_token) is worse: kmemdup() of 0 bytes
-> returns ZERO_SIZE_PTR, which passes the NULL checks, so a later
-> attribute write calls strlen() on address 0x10.
-> 
-> Use kmemdup_nul(), which allocates one extra byte for the terminator
-> and never returns ZERO_SIZE_PTR.
-> 
-> Compile tested only.
-> 
-> Fixes: b2715aa2e135 ("platform/x86: hp-bioscfg: spmobj-attributes")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
-> ---
-> Changes in v4:
->  - New patch
-> 
->  drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
-> index f0eb5c445..19f0f9f16 100644
-> --- a/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
-> +++ b/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
-> @@ -316,7 +316,7 @@ static ssize_t auth_token_store(struct kobject *kobj,
->  		length--;
->  
->  	/* allocate space and copy current auth token */
-> -	bioscfg_drv.spm_data.auth_token = kmemdup(buf, length, GFP_KERNEL);
-> +	bioscfg_drv.spm_data.auth_token = kmemdup_nul(buf, length, GFP_KERNEL);
->  	if (!bioscfg_drv.spm_data.auth_token) {
->  		ret = -ENOMEM;
->  		goto exit_token;
-> 
+__split_huge_pmd_locked() invalidates the huge PMD and flushes the TLB
+before installing the PTE table. Software still needs pmd_present() and
+pmd_trans_huge() to recognize the THP in between.
 
--- 
- i.
+RISC-V clears V but keeps the R/W/X bits for that, so the entry is invalid
+to hardware but still identifiable as a THP by software.
 
+Hopefully I didn't miss something.
+
+>> 
+>> When a soft-dirty THP is migrated, set_pmd_migration_entry() preserves
+>> soft-dirty with pmd_swp_mksoft_dirty(), setting the X bit in the
+>> migration PMD. Even with _PAGE_PRESENT clear, we end up treating a
+>> migration PMD as a present THP! The fault handler skips
+>> pmd_migration_entry_wait(), and a write fault can end up in
+>> do_huge_pmd_wp_page(), where pmd_page() decodes the migration entry
+>> as a mapped PFN.
+>
+>That sounds bad.
+
+YES, looks a bit off ...
+
+>> 
+>> Move the swap soft-dirty bit to bit 12 and start the swap offset at
+>> bit 13 when CONFIG_MEM_SOFT_DIRTY is enabled. This keeps R/W/X clear
+>> in migration PMDs and lets us keep the existing pmd_present() check
+>> for invalidated THPs. Leave the offset at bit 12 when soft-dirty
+>> tracking is disabled.
+>
+>That reduces the effective swap size (and PFN we can store). Could that be a
+>problem?
+
+We don't need all 52 bits of the swap offset.
+
+RV64 PFNs only need 44 bits for migration entries, and actual swap is
+already limited to about 16 TiB per area with 4 KiB pages by
+last_page (__u32) and swap_info_struct.max (unsigned int).
+
+So there's room to reserve a bit without reducing the supported swap
+size or PFN range.
+
+CONFIG_MEM_SOFT_DIRTY is only available on RV64, so RV32 keeps its 20-bit
+offset.
+
+[...]
+
+Cheers, Lance
