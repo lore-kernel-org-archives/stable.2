@@ -1,78 +1,73 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C38B83264CC;
-	Mon,  5 Oct 2026 19:20:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07E343515FA;
+	Mon,  5 Oct 2026 19:20:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791228002; cv=none; b=YMkoY1cQDq3IIhcNX7hgIEz/Yrou0doV1YodvxSl+KOszfjLeC/oL386y4zrilWiUbYb18WpqtXklFojN8zb+XPBkKEuIyGzqHg0AMQJua6lMIMT7njFh/eFFX/gCO3rXlAZppDOeklNtlMeAnISurCy1CRmxcC/jOmDONuHU4Q=
+	t=1791228037; cv=none; b=hV0hA3QAH1c7MYFb29b3O+3dyLh4r/07VXXvGksiSokUNg6L2nfVf7PMppEpUuN8A4i1oN0H7fFnqwNz7383VifciKubZ3Y+k+nuVTQ5hFsHMEDJRVH6V4hRU1jznre4c3QSe17O5PWKSxtSAsf0S/idzbH4xSenOwqhZTiawCU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791228002; c=relaxed/simple;
-	bh=KNZMnt9O9Y/VSXc2y3uWP6nlNU77j3GEuU34n1NPT50=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jd83AXFiIORazQpGFu9OAAcwb7coMAF2RXlCFkY/xWyilktbSuFpPLctz3DrljxLiIwrKncHpjprPdHSbmy2nnIjx1Rv3fW6nV5yRjh2OuMbi9jLOpawgxXfsCNU9gtSIJ7lcKh57i/tsnso7CTVC33HhgAr6WXsPjwTuL4c9Qk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lGXhOxFq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791228037; c=relaxed/simple;
+	bh=gp7PRv3WjAiMJrp0DvXpRvTv3mwC8R3NiezXzUE7FxE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=kg5qwNDcGSxSYfBMGX1jN9cOo2htIJZ90rHgR71YZekg/VwyWroN+VTnYRX0twEBMR+zRN/ASsM3Ie2bnSuivLATHShaHBCP6Dep9GmJp1ZnvLpV+o8OjL+kBzprsXpvczzTZhsdQt+EBWMXabTmnimS+R8Lo+XPNBotk8pydbA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZcOB74ww; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lGXhOxFq"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id BAC211F000FF;
-	Mon,  5 Oct 2026 19:20:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZcOB74ww"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 287391F000FF;
+	Mon,  5 Oct 2026 19:20:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791228001;
-	bh=poz2do/LGppvKRbWIc373ATvQ1pRicG6op/w5cF/aD0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lGXhOxFqF5R3f63h53AnGuCcyfhAlkXm0eWaLJ5JCbqp94iz2JYBrNXELK0P/+aHe
-	 a6oztQbG7CKK6iuO3fC8/SLAVoyPBUxRvNBVJUOdqA3KXNiJDEHpBPR0cK37u4RY7Y
-	 7lhgzlAlJbNN93OBCQ9lHdAUOnhI5S6WjkCnjCJdiJx+3+C7fEogKugE7fCI2S6rTu
-	 dG1aKRryZeiJ8TLfRWrODmpcQ3NPHKw5VO2Utq3ywG5a589a8+n9Wx+oB50d2AyoN/
-	 6KeCx0ZCRLJfTF0xypIlnosGn7ier0E5vPYDjoieAx1xA2ndxthaXJOnAyYyeQbF6K
-	 DvnpWRaJUgXyw==
-Date: Mon, 5 Oct 2026 22:19:56 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, Jiangshan Yi <yijiangshan@kylinos.cn>,
-	Sashiko <sashiko-bot@kernel.org>, Peter Huewe <peterhuewe@gmx.de>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jonathan McDowell <noodles@meta.com>,
-	Justinien Bouron <jbouron@amazon.com>,
-	Gunnar Kudrjavets <gunnarku@amazon.com>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
-	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 6.12.y] tpm: fix off-by-four bounds check in
- tpm2_get_random()
-Message-ID: <asP4XGM3P1Fdj5Ko@kernel.org>
-References: <20261005075934.151106-1-jarkko@kernel.org>
- <2026-10-05-1-daily-reply-0006-tpm-get-random-6.12@kernel.org>
+	s=k20260515; t=1791228035;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ZcOB74wwbPJcPjJlVeRpUGrWG9CO71O+Prnolp/E9RFX87VQvkCkj6v0eHHJGMSdq
+	 FCHq3sr0En5cf824BqinXCYbzEanYj+fTCYAVjBXXAA8xqMhfPzGVgO3FXpIW8IUR8
+	 feCDFOXM2RiPw7npEMzpraBoyHTiYOiSVIB4RUSqqrmybdhipugRROlm+NNW52k8PX
+	 gPSS25+0Ijiaeg5zKywisOQy8wTWhmMEY5BXNs/eigPdU2xRfMre9B9Ce5an6T6sK5
+	 /G0SSVcuRM8oe2WzYIrw5Rag1tYp6EK6O8PXbdmIGkfUOQK9ZmUlmd/M1jEskFWzOq
+	 bzPxTKpGeqy5g==
+From: netdev-bot+sinfo@kernel.org
+To: Anton Danilov <littlesmilingcloud@gmail.com>
+Cc: netdev@vger.kernel.org, David Ahern <dsahern@kernel.org>,
+ Ido Schimmel <idosch@nvidia.com>, "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ William Tu <u9012063@gmail.com>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH net] ip6_gre: let collect_md ip6gretap send from the
+ unspecified address
+Date: Mon, 05 Oct 2026 19:20:34 +0000
+Message-ID: <179122803467.1402591.12893544301783319251@kernel.org>
+In-Reply-To: <20261005191227.894665-1-littlesmilingcloud@gmail.com>
+References: <20261005191227.894665-1-littlesmilingcloud@gmail.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2026-10-05-1-daily-reply-0006-tpm-get-random-6.12@kernel.org>
 
-On Mon, Oct 05, 2026 at 09:50:27AM -0400, Sasha Levin wrote:
-> > Fix this by checking the response length against 'offset', which
-> > already includes the skipped parameter size field.
-> 
-> Queued for 6.12, thanks.
-> 
-> -- 
-> Thanks,
-> Sasha
+Hi!
 
-Phew, good to hear, thank you!
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-There might be for some time more than usual merge conflicts in TPM
-driver given making tpm_buf memory layout flat for the sake of being
-able to use __free for of its allocations, and thus completely 
-prevent any possible memory leaks from transient buffers.
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-Right, and also merge conflicts could happen also in trusted keys.
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
-They are cheap to fix and I'll monitor this situation proactively,
-and try to react fast.
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
-Br, Jarkko
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
