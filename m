@@ -1,91 +1,68 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010062.outbound.protection.outlook.com [52.101.61.62])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3225303C8A
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 18:01:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791223277; cv=none; b=OVHdCaDFdthVGAxmSwg2bGZt+MjGOL/rDBxW3nQW7vGqO5KAQuVfY/gyjUwmNVffz72aD8i4W0hPMpivtTqqn52w+/Zj4nR5BwIA4CDtinjxByCksNvsodVgbeLdCB4I0Azq/ZJZ5lGEboe1pAdRARQWgs0E5RYQY73Pm/UDFsw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791223277; c=relaxed/simple;
-	bh=81vfYV5TOagwpFVdscsaZpT186hf2zZp3KNJK+187EI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=juXu7n3qLrrqRh+3aMn8SqKAsjdfV+29W1pVxoLa6ugtztPGXqk73KDmwA8zG2/k0tmXuGPmywnlf1mGJrWnf4HlIR0jQcU0TTuAqQxXpvqmf7jsowDKLApiOyQjJBe2I9HVm5zTYL/a0K/2ycFTrfHxtHQG1iBU6bcmieakbIA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=EPwcsBzY; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=jGLKw+1Z; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B3342E2DDD;
+	Mon,  5 Oct 2026 18:02:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.62
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791223358; cv=fail; b=JspsFyssMofmiPsopscADmjaD6g9tjekaI0LCwyHzyB81DZ7wcmyi4QrcPum+72eNPRt8FeXaD/q4qwCRTEoqdwQAVqXtOlaPGCrRUxxWGkvzFqmb2b95xXBNgpad+BNwdKh30W5xFmX7kf1tIwTQG/61mJjLvNxPri7lwMNejo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791223358; c=relaxed/simple;
+	bh=qPqteqKqJKnfJGjmTS+92EKFez+DvYnWK22SRgaj7I8=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=P5eBOVXAwCd9yCLku2W6uqNX2/yQOokUlQMAvuykDQH+M1FrI3OfxkvKQ3kFas7K70OJh65tgEZh4hzDtpEEGMHkQtj+h++t1JpCAiPiHzNru2Zbgg4c+4OCwP68vWA88Z5oQx2B3YdV5OcHc3RVli6LbPWPMfMLgG/K9O9g26s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=EYxO7m3b; arc=fail smtp.client-ip=52.101.61.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="EPwcsBzY";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="jGLKw+1Z"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791223274;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=QJepOKO9SMOEdU9WwD4yz29xGrgQCpaOXUKK8EHvPNg=;
-	b=EPwcsBzYeBwOrH0RxZtnGOIWNLSUKmWHajoXf9XxsvVWsxsYIUVUlRzCLj31cNkzCFNgGg
-	IHnb+xfuefPxMeewCi9t/pNGkW1Ho3EaBD9/l8kFq6j7a8M28TCqmWR9xtwbbKS6Vqnuda
-	jWUQE9iJ2IaRTBVw3UEX6Pl0JSQ/Gus=
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-302-yX_Jx16PN6-QO9UcaGkvTw-1; Mon, 05 Oct 2026 14:01:12 -0400
-X-MC-Unique: yX_Jx16PN6-QO9UcaGkvTw-1
-X-Mimecast-MFC-AGG-ID: yX_Jx16PN6-QO9UcaGkvTw_1791223272
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93cc7a6e4e1so538693785a.1
-        for <stable@vger.kernel.org>; Mon, 05 Oct 2026 11:01:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791223272; x=1791828072; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QJepOKO9SMOEdU9WwD4yz29xGrgQCpaOXUKK8EHvPNg=;
-        b=jGLKw+1ZYj2VlCuq8cpq6D0ITnvj2LpAqwsnoLyEt6xL8IjqjC+GBD0JkhXJTPgxVz
-         gLy5O+uJvkFP7yQ3yKbDfA9+ITE0CkqaHYYqJfCl5Prkwyi6tc7hLPTdySChtG/i4y6C
-         ocSSkuw4t6T0eHKjegGacXaBZtTM66bhkARiH3+RnwY09IqHlVp0cQVM0db7OXfxqy20
-         lW9L0tVEfgoRh3AesWejeXqBwKRpiD1Zw9rcgGKW5d5X1XLZ2BqPuK5+5xxNRBj/791p
-         57iKDoIXHHa8lVKYFzlInp7DPn2gPuX6Y85+QcI5T6L5KMtXtH8LJucmCFirJkfR9mbg
-         4T7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791223272; x=1791828072;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QJepOKO9SMOEdU9WwD4yz29xGrgQCpaOXUKK8EHvPNg=;
-        b=qpA1RVXbW1Nl2/eTDfpGbPENx52ApULsRup5q3tJJRwIUxZy+ffPXJBTNcC/IUfMYT
-         8w5RecelCZLL+AqDsNpiJIEA3m/GYSENJxPQFHI53hy4plxhEUbhMZ+2nwKxHGMm2naY
-         qsxOmy1lf6ev6dvBIGsIpxTYA554IyCHkOU/k1jM9+dGm99mdOzVmha5me43ktyTU9HL
-         fhSBCCX103FUU1Z+2FUU3PyO05Jd4UPCk56vcHkIB6w+P8j+N/la/T00m+qu8Yka0XmQ
-         vW+lJaipkbAHXcnEc3F1bksyx3LspKKM4HgHSV54zxP0UT4QBfkgx3M9S2XxZAoPspy4
-         oHIA==
-X-Gm-Message-State: AFuF++nUj55k1xvgEeAE9ZNalHzsjzVLg+kIV5lk2jisf+jwRFXL3mwq
-	L3qWWLum1dk5o2GitbPkuk9FyZDnOH1g55raDRkAfUmlmItB6u6x1ufk17IMCnDyWvEleD7cWcL
-	AV9r5xsRCiONhS+qq00Y8DnT8E6FOSvHQqHhLmhYriV6sNnmp6r/pO9qle3a7kOUpQc7robGlOX
-	0v3nbdeFBAmyZ5wLzEtAXiZEDAMiSMVd+AbSvjsIKacw==
-X-Gm-Gg: AYBFou1RJ2gvHQHBXnfxer7JuCTa1e+SWGlZiqLC9wbe4qz2LUmaVI3RV1/qM9mqpeH
-	GSG41E4qoDof9/vqy673aqAu+gEMUjwqcRDVpsPL41XrRyBpsMv1W0XWWzeDzxDLvbwtEcv03R+
-	ptneuBt3qtBnlLj/Zoh9D/hHPy5g2cDU1E4U0LVEqYEe5RzxmaOR2Je68vMw6pzmFYrHxPf7N8V
-	muFS6/pnggT4cts9vs/Pl4GtWlkVzJHkOKQQ5RRsCV66RQljuSa/2qAY5LWkUEf8PHjNyImBs0D
-	1eWEmQfLvOdqdY0oW+higthtMV04m2SVOWNXq195FkFz8Am2prDWqKwDwGCfAuzr6LwKLx+Bep6
-	v4Bmekuy5egR0ZRwU/oVDWtgKk3uKEFD6ehryHwa0aITDatJeYjp2lEUE0KRTc42j
-X-Received: by 2002:a05:620a:269d:b0:93e:7944:b869 with SMTP id af79cd13be357-93e7944cdbemr491436685a.42.1791223269926;
-        Mon, 05 Oct 2026 11:01:09 -0700 (PDT)
-X-Received: by 2002:a05:620a:269d:b0:93e:7944:b869 with SMTP id af79cd13be357-93e7944cdbemr491431085a.42.1791223269279;
-        Mon, 05 Oct 2026 11:01:09 -0700 (PDT)
-Received: from bearskin.echidna-sunfish.ts.net (c-98-227-24-213.hsd1.il.comcast.net. [98.227.24.213])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93cca26dae0sm932883885a.33.2026.10.05.11.01.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 11:01:08 -0700 (PDT)
-From: Frank Sorenson <sorenson@redhat.com>
-To: stable@vger.kernel.org
-Cc: Namjae Jeon <linkinjeon@kernel.org>
-Subject: [PATCH 5.15.y] smb: client: split cifsFileInfo bitfields to avoid shared-byte RMW races
-Date: Mon,  5 Oct 2026 13:01:02 -0500
-Message-ID: <20261005180102.3978996-1-sorenson@redhat.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <2026100538-wool-unveiled-ca0d@gregkh>
-References: <2026100538-wool-unveiled-ca0d@gregkh>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="EYxO7m3b"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=R/8xKiiGkYsJt6BIU2KzunrQhgLTfYD47/1oeBE3ckwR1Qz/N6ZKWceNfYyBJEbBEALRqUpIIXyOzyO+A0QxEqfLIEq1NspOeP9c9dFKJVwN7pbrm5iMMMHaT8aVIKcsV2kEGrJ+8SPknfXzWdOWh++z9U6/nEXqYcpfmupa1GdK8l4VAMN6hL6ouI+Ir0XaGL3paYpzLW0Wf+0bdngimK4Dn0nKRrYEqWM6YmyVZ5xqeQZ5wyFOjDNg8969DSWwHJmVYQYhCbKy2m0JmeYp3ActPCC6ENqGWzEqsux14TRPDQ8aOTU3fHYRaB56mTa4FN8L0C5JAdchtojDvUhqng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CrRbQQfyxavAMqZJL4v4XhKo7k/c+9n8pNe8GCoKdHI=;
+ b=fZkr13v5jDop4hJIAsGIsDXMdURPqR5F3vwJ4tHC/sajfe7JevxVjZOZ41Zn40eLhHkLJ30Oftpp8RBAzAz8E4yflMPsWBsoP+7GNlEOy8mdvsmorAiWqMufAVbxBLzNZhAWGEgkzNDR54/4Ed+l9l5Tf9bKvTnawG3NtCwVFHOMbZYSD5p496MOiSLQM8zCGpf9BxMuvvSWKb5yUN0u1wFXkwqfqr8gsvnoeU1MW5ui442xxqDGCL5IS2Zvw9FHGZSCfap87SbbtHxwcFYhOngARC2OR+5kU+OrWrRPDh15WAH6qsiEOhSnnLS3gjfSoetwj/blMRf7Mw93DkZ7uQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CrRbQQfyxavAMqZJL4v4XhKo7k/c+9n8pNe8GCoKdHI=;
+ b=EYxO7m3bway3c+JkOzW4oYmed4X7irj6s3mIwba5bJCWEAkGX7viy4NR2yHrdyGuPpxYdNzYxkQbCun6hxGC/MnRIDYi330Xf2c4s9by78qszxMHmih5cyNg+GP8dWN+lMZ+MExbRucj62fDCEw/uf9X46pimxYmrvdPyVTi40Y=
+Received: from DS7PR06CA0040.namprd06.prod.outlook.com (2603:10b6:8:54::28) by
+ BY5PR12MB4097.namprd12.prod.outlook.com (2603:10b6:a03:213::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Mon, 5 Oct
+ 2026 18:02:08 +0000
+Received: from DM3PEPF000265B7.namprd04.prod.outlook.com
+ (2603:10b6:8:54:cafe::46) by DS7PR06CA0040.outlook.office365.com
+ (2603:10b6:8:54::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon, 5
+ Oct 2026 18:02:06 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DM3PEPF000265B7.mail.protection.outlook.com (10.167.23.244) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.496.14 via Frontend Transport; Mon, 5 Oct 2026 18:02:05 +0000
+Received: from ausmlimonci-lx1.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 5 Oct
+ 2026 13:02:04 -0500
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: <Basavaraj.Natikar@amd.com>, <Shyam-sundar.S-k@amd.com>,
+	<linusw@kernel.org>, <mario.limonciello@amd.com>
+CC: Olzhas Marat <marat.olzhas@gmail.com>, <stable@vger.kernel.org>,
+	<linux-gpio@vger.kernel.org>
+Subject: [PATCH v2] pinctrl: amd: Clear S4 wake bits when firmware has _AEI
+Date: Mon, 5 Oct 2026 13:01:47 -0500
+Message-ID: <20261005180150.1024336-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -93,53 +70,97 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM3PEPF000265B7:EE_|BY5PR12MB4097:EE_
+X-MS-Office365-Filtering-Correlation-Id: 02e20fee-705c-475b-c27f-08df230ac438
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|23010399003|36860700016|376014|6133799003|18002099003|13003099007|56012099006|10067099003|11063799006|5023799004;
+X-Microsoft-Antispam-Message-Info:
+	q5RQZKZhcp51kYmsa6cBqkaRG2GzjUB3YTB8YcQNAcHBr2vxDivmPZGWbIQ+8K8p6EHCGNrrP9DeHI5zq6fY9uXD4D0+oBr1d37rcjAzXU8MpjWmk19NpO53Gxoq5osA1uWsRdcwuHj1xnydrOl4UzBvYC3EmirTWn+4gfCYFmY3JIjJcYlpD0LpUNX3xfdf2d+/8w+bM1B9JHJRypqjeZgVhvEYdkzUZsP8RNsviKhTr9y0/TqxYI36nuInVB8Rwm4iZXgCXznS9A1pXti77Jlwx0E32MbxYB5xDKASe/30hapohBKLJwH/Sfy1p55+wutzH6XbbIyG/yL2VJLQxcFwG2mVVP7V/D7k9Y4h6JOmOP8XwWmAoTHYJ6/sDHgL3TA3WVxNBU90wrY5e/1vr4cIkeKXmWR5XQT1Lrn6cN8jOGKcuJJuQ2LHLW7nYjXJB/OqaDpO1rLDSiW7Tf+W9KkpHBFvNbQcNjc4bqGiUPhnKKlj2MVMkhXYry+yXpV4f1G859nEyCz8pzajhhQWa8EifPfm42CVQ5WHuM2r0PKho/Dqy4ZrW/YkbJirNJ19oxC6m046CBctds2/PHLABCc+zQLXu7M/T4hya1KgTb2R+Yvw6b7w08Ss7dZo2fA7DYW2Vn+NX+WL3LqvuLlyauLvjIG+EIOib+8CwYbQOHq5LNHxqeLXGfBXFG/E3NTKP/I0mMzT1VwlXXaKA+IzPw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(23010399003)(36860700016)(376014)(6133799003)(18002099003)(13003099007)(56012099006)(10067099003)(11063799006)(5023799004);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	zFvhbz1Hn5uq9eMPY26v3HWBI7wal+zBKSSFQsthQxkzd/7+1b5XwyGyUD2Ers36gNP7zRZntU16jjs4kUkU1FH+y1h/Z3CMoW2eXmxYDaBforJukCgpbsLi3MIBBcYIn4HQdCy2nfJy1sjRMkrvpO6QCKUoV9dqFfVanZAtaZqMmp35UdJbVgGMOGVaBXh/Z/C4Crjzh+2UVYQfrq5KUJFcy37WwS1nqreQtSzptcU7kwLIAyziPW0wUC0ZnfvOfJUBzE5K7CZxmDPVVP0Zr3a2gYIckuGHys+a7X0DBcO6uH9pQQvfkxQRhD+2TOzIGOvy2LtwGf4HKWBKSo56LeVA6bK4AROyjmOAPZEemTjKXft4AsVlYZrMY8DXccDfMwYxaWDftZ6BtKIf526IZkCpkRU38OENN5scmbmgSsOovJfuYYUJVPt4haqc+L+d
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 18:02:05.8189
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 02e20fee-705c-475b-c27f-08df230ac438
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DM3PEPF000265B7.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4097
 
-[ Upstream commit 19465a9aeb664f1d710d0d22c07c31bfb7c85446 ]
+Commit ffe8a0c6b552 ("pinctrl-amd: Don't clear S4 wake bits at probe")
+preserves firmware-programmed S4 wake sources because some PCIe devices
+rely on them for Wake-on-LAN. The system that motivated that change does
+not expose ACPI GPIO events through _AEI.
 
-The invalidHandle, swapfile, oplock_break_cancelled, offload,
-and status_file_deleted fields are stored in the same bitfield byte
-in struct cifsFileInfo, but are updated in different code paths that
-may run simultaneously, and are protected by different locks.  Since
-bitfield assignments generate byte-level read-modify-write operations,
-a modification to one flag can overwrite a concurrent modification to
-another flag.
+On a Chuwi CoreBook Plus, firmware exposes _AEI but also leaves the S4/S5
+wake bit set for GPIO 24. This causes the machine to power back on
+immediately after shutdown even though Wake-on-LAN is not enabled.
 
-To avoid these races, convert these flags from a bitfield to
-separate bool fields.
+GPIO register dumps show that the only relevant difference is bit 15 on
+GPIO 24. Clearing that bit makes the machine remain off. GPIO 24 is not
+itself listed in _AEI, so _AEI is not a per-pin indication of which pins
+the OS manages; it is a platform level signal of which wake model the
+firmware follows.
 
-Closes: https://lore.kernel.org/r/7689764e-c0f6-4016-9557-b54cf4a3de4e@redhat.com
-Fixes: 3bc303c254335 ("cifs: convert oplock breaks to use slow_work facility (try #4)")
-Fixes: 4e8aea30f7751 ("smb3: enable swap on SMB3 mounts")
-Fixes: ffceb7640cbfe ("smb: client: do not defer close open handles to deleted files")
-Fixes: 173217bd73365 ("smb3: retrying on failed server close")
-Signed-off-by: Frank Sorenson <sorenson@redhat.com>
+Use that signal to decide what to clear. Continue clearing S0i3/S3 bits on
+every system. Clear S4 bits when firmware exposes _AEI, indicating that the
+platform hands GPIO events to the OS, but preserve S4 bits when _AEI is
+absent so that firmware-programmed sources such as PCIe PME that bypass the
+GPIO IRQ wake API keep working.
+
+A platform that exposes _AEI for some pins while routing a wake capable
+device through a raw GPIO not listed in _AEI would lose that wake source
+unless firmware re-arms it during the sleep transition. No such system has
+been reported.
+
+Fixes: ffe8a0c6b552 ("pinctrl-amd: Don't clear S4 wake bits at probe")
+Reported-by: Olzhas Marat <marat.olzhas@gmail.com>
+Closes: https://bugzilla.kernel.org/show_bug.cgi?id=222041
 Cc: stable@vger.kernel.org
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-(cherry picked from commit 19465a9aeb664f1d710d0d22c07c31bfb7c85446)
-[ status_file_deleted and offload not present in kernel 5.15 ]
-Signed-off-by: Frank Sorenson <sorenson@redhat.com>
+Tested-by: Olzhas Marat <marat.olzhas@gmail.com>
+Reviewed-by: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- fs/cifs/cifsglob.h | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+v2:
+ * Add tag
+ * Drop handle declaration
+---
+ drivers/pinctrl/pinctrl-amd.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/fs/cifs/cifsglob.h b/fs/cifs/cifsglob.h
-index 9b08020634f1..be53b788ea4f 100644
---- a/fs/cifs/cifsglob.h
-+++ b/fs/cifs/cifsglob.h
-@@ -1265,9 +1265,9 @@ struct cifsFileInfo {
- 	struct dentry *dentry;
- 	struct tcon_link *tlink;
- 	unsigned int f_flags;
--	bool invalidHandle:1;	/* file closed via session abend */
--	bool swapfile:1;
--	bool oplock_break_cancelled:1;
-+	bool invalidHandle;	/* file closed via session abend */
-+	bool swapfile;
-+	bool oplock_break_cancelled;
- 	unsigned int oplock_epoch; /* epoch from the lease break */
- 	__u32 oplock_level; /* oplock/lease level from the lease break */
- 	int count;
+diff --git a/drivers/pinctrl/pinctrl-amd.c b/drivers/pinctrl/pinctrl-amd.c
+index 15a398bb3be23..6835e943909ca 100644
+--- a/drivers/pinctrl/pinctrl-amd.c
++++ b/drivers/pinctrl/pinctrl-amd.c
+@@ -886,6 +886,15 @@ static void amd_gpio_irq_init(struct amd_gpio *gpio_dev)
+ 
+ 	mask = BIT(WAKE_CNTRL_OFF_S0I3) | BIT(WAKE_CNTRL_OFF_S3);
+ 
++#ifdef CONFIG_ACPI
++	/*
++	 * Platforms without _AEI leave GPIO wake sources to firmware, so
++	 * preserve their S4 wake bits.
++	 */
++	if (acpi_has_method(ACPI_HANDLE(&gpio_dev->pdev->dev), "_AEI"))
++		mask |= BIT(WAKE_CNTRL_OFF_S4);
++#endif
++
+ 	for (i = 0; i < desc->npins; i++) {
+ 		int pin = desc->pins[i].number;
+ 		const struct pin_desc *pd = pin_desc_get(gpio_dev->pctrl, pin);
 -- 
-2.55.0
+2.43.0
 
