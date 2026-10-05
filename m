@@ -1,109 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from sender6-of-o55.zoho.com (sender6-of-o55.zoho.com [165.173.180.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA81B30DD10;
-	Sun,  4 Oct 2026 23:57:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791158222; cv=none; b=aX6Myu+8eelhWxd9LwHp+/3HOozRCQLJ9cNxghOH6LlcNZ5myCCnG8zgzUEMJ+rqBVx0psDIuAxwHJUx2iHye9Ms5gIz3i+hu3kI7bHh6ZSZ8KUHxI8rID0BMpELxQwkjDMU9ZnQzaodL1eMAH2NCgHigkiS2iQqOMhpuTMaOvA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791158222; c=relaxed/simple;
-	bh=RBW/AScZyJu3/Gw/LE/zFDLua18BzFY0Xm+UOGzItuw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=meR4iR1XFL1yttsgY/vCrMhLClHUNk/aC5tpGUJlOmOvyfbdmtSzxZld+0ayB6waSE0WZAB+NS2p7CE7yFhGU0MmSdXOSjfBC0l+30W8OreCLvGj3TG7BqUKGcF6oFdeB8428eURkxqUFXkHEg5s6Q+HU44DbMFaxyyGBLjof5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V1Kk1jhE; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE37119CC0F;
+	Mon,  5 Oct 2026 00:25:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.55
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791159945; cv=pass; b=gPldSzmhUohIdw4GBT5ShPg6IqDvgK+ReP0W2LljqzNPUehUxbrrLatvdOgb6XpGryVxZmBx2gQ0fNytJxFFg9umos2NbilyehFI/pggaMLua/ttkTSnddanXVjohY5fIxw+/AcfFInNPT1l45EYR0tgld1PIweP1iFU6eyEa7Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791159945; c=relaxed/simple;
+	bh=g6Id/CITe1AjCOe8BiyGg2h/PT4nBSQdxzRDYcfScYQ=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:Subject:MIME-Version:
+	 Content-Type; b=nlmTa+HT09ieMjdPPl83ikA3QZuzxfudfXMEliypPiMelFBCCe1W0F82uyW5RhqMO9/M/2WDJqJ3Zgh+9eg090UijAT5fmVgrlQfIRS1sGY2NsPJOy2w8v/v6cOUCQvKexYOhMQd4yk85ZWjDcFgx9Y7mCQw2VEzJ2f3Fv/4+As=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lazaarsec.com; spf=pass smtp.mailfrom=lazaarsec.com; dkim=pass (1024-bit key) header.d=lazaarsec.com header.i=haitam@lazaarsec.com header.b=IcaliGFB; arc=pass smtp.client-ip=165.173.180.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lazaarsec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lazaarsec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V1Kk1jhE"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id DC624C2BCB9;
-	Sun,  4 Oct 2026 23:57:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791158221;
-	bh=RBW/AScZyJu3/Gw/LE/zFDLua18BzFY0Xm+UOGzItuw=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=V1Kk1jhEDWyYCAKPZGNsnyVM+hxrBzZqGxSFPO4Sw4bFO5k7S77W8MHRiP9AGStoo
-	 CVFwMC+OxZVIMv5cc9I6ENp/rOFbi2zLGUTXAaCRuuyNdSdUwe+cjiyKPsn2fB+yr1
-	 88p99hFjL27UepWki8j7GTs6rp39bBVoGzaz0gB8heCNbA6WrqqSNgNXKoIt+QYWaE
-	 j4l+KR9WqGJXy5ZXXoJHfammsigTJiA2dsj8+a+Am6rvnczT3Iq+gB3+zdqLYGokT8
-	 1rt8LRwtr5zjZIuvPhjQfotH2A3qCiPigwTHwL2X6NchovZsLjMJSE+Kn/AzPppi/I
-	 ZDWmBH4yv7rWQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B9F05CA5FF5;
-	Sun,  4 Oct 2026 23:57:01 +0000 (UTC)
-From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
-Date: Sun, 04 Oct 2026 23:56:53 +0000
-Subject: [PATCH] rtc: pcf8563: pass the driver data to the alarm interrupt
- handler
+	dkim=pass (1024-bit key) header.d=lazaarsec.com header.i=haitam@lazaarsec.com header.b="IcaliGFB"
+ARC-Seal: i=1; a=rsa-sha256; t=1791159937; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=SFG+UL0pCCK98a6LIqckXsYMchHYNIEl6T84lsqsvTbIHS4ezrf3fHhQAtQ2w/T3ybcLZzYiTjB+S34o2oljoVocYkC4EgGfPdXahdjL1nTCCGySW8rkWaObNU5AxrQEaVMa4M/64AJWNq+5O4sipAhsEkvYHJj2cM4cVYCTCfc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791159937; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=QjlTM+K9c2VSwtfFNdZjfx0yyzVG/WinHq6Izi14f8A=; 
+	b=HmoMft81pT4PSUQRGgnQlI49ac5dYHHjr4sV1GZyKws2zHnIKBwx5iwSefNeymAqN8tn+iuLguBTA2xwwN+ZFkXruXC74OuafgcT2dgUoBs8WK/jQ0YtQ+8kKhjO8ummTJauJdSqq0kRBZP0fUC5CpLuC5KQMVHDDpKsbaYSJwY=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=lazaarsec.com;
+	spf=pass  smtp.mailfrom=haitam@lazaarsec.com;
+	dmarc=pass header.from=<haitam@lazaarsec.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791159937;
+	s=zmail; d=lazaarsec.com; i=haitam@lazaarsec.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Message-ID:In-Reply-To:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=QjlTM+K9c2VSwtfFNdZjfx0yyzVG/WinHq6Izi14f8A=;
+	b=IcaliGFBf1jejekqvuj5B1hecXmYDPEVgiMEm6y+OiQBTlI73XLO29bKc8R08+Hk
+	YqVl3mr9ZGls+bBOyMLHUfseclUQn7T1zILERCjYRTuBh/BplV822dmuep37PWHlgAc
+	I06C+8hWIr6kf1CVrKkjHkb654TGpv6XVWsf3gO8=
+Received: from mail.zoho.com by mx.zohomail.com
+	with SMTP id 1791159937285562.4403118885974; Sun, 4 Oct 2026 17:25:37 -0700 (PDT)
+Received: from mail.zoho.com by mx.zohomail.com
+	with SMTP id 1791159935674155.37696301141693; Sun, 4 Oct 2026 17:25:35 -0700 (PDT)
+Date: Mon, 05 Oct 2026 00:25:35 +0000
+From: Haitam Lazaar <haitam@lazaarsec.com>
+To: "Bernard Metzler" <bernard.metzler@linux.dev>
+Cc: "Jason Gunthorpe" <jgg@ziepe.ca>, "Leon Romanovsky" <leon@kernel.org>,
+	"linux-rdma" <linux-rdma@vger.kernel.org>,
+	"stable" <stable@vger.kernel.org>
+Message-ID: <1a10973a2a8.17e04b672219.8760522594078806286@lazaarsec.com>
+In-Reply-To: 
+Subject: [PATCH for-rc] RDMA/siw: Enforce IB_ACCESS_REMOTE_READ for read
+ responses
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261004-pcf8563-irq-data-v1-1-f176763ddf2f@iav.lv>
-X-B4-Tracking: v=1; b=H4sIAMTnwmoC/x3MQQ5AMBBA0avIrE0ySktdRSyKwWyoVkQi7q6xf
- Iv/H4gchCO02QOBL4mybwlFnsG4um1hlCkZFClTEGn049xoU6KEAyd3OjRDRVZZVdeaIGU+8Cz
- 3v+z69/0AWucVj2IAAAA=
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: Nobuhiro Iwamatsu <iwamatsu@nigauri.org>, linux-rtc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Igor Velkov <iav@iav.lv>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1490; i=iav@iav.lv;
- h=from:subject:message-id;
- bh=pgQ6LIQ51UNGiuJ/Vyx/S0XE1D1zzqJGLztwxvNwcnA=;
- b=owGbwMvMwCVmNH1q96v4SmbG02pJDFmHnp9Q82D8NGOhXbNL47YzUbkzL6xRXPa8bqPbFwXVl
- muHhIQ9OkpZGMS4GGTFFFkmHNK4lbHk6l9/D/MHMHNYmUCGMHBxCsBEIhkY/nBtOrSgZPPPQqWz
- n2KCuu57XNJvm/O7878D296UH5WiAX0M/0P3fN/7zG1D/c/FDvEyuXfivW/x3uI75/tKPcK1VbP
- 0HA8A
-X-Developer-Key: i=iav@iav.lv; a=openpgp;
- fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
-X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
-X-Original-From: Igor Velkov <iav@iav.lv>
-Reply-To: iav@iav.lv
+Importance: Medium
+User-Agent: Zoho Mail
+X-Mailer: Zoho Mail
 
-From: Igor Velkov <iav@iav.lv>
+When generating an RDMA READ response (SIW_OP_READ_RESPONSE),
+siw_check_sgl_tx() unconditionally passes 0 as the required permission
+mask:
 
-pcf8563_irq() takes its dev_id as struct pcf8563, but probe still
-registers the interrupt with the i2c client. The handler then takes the
-regmap pointer from the wrong structure: the first alarm oopses, the
-level-low INT is never acknowledged, and the interrupt gets disabled as
-spurious.
+    /* Reference memory to be tx'd w/o checking access for LOCAL_READ */
+    rv = siw_check_sgl_tx(qp->pd, wqe, 0);
 
-Only an RTC that has an interrupt (client->irq > 0) reaches this path.
+Because perms is 0, siw_check_mem()'s authorization test:
+    if ((mem->perms & perms) < perms)
+evaluates to (mem->perms & 0) < 0, which is always false. Consequently,
+an untrusted remote peer can issue an RDMA Read targeting any valid
+STag in the Protection Domain, even if the memory was registered strictly
+as write-only (IB_ACCESS_REMOTE_WRITE) without IB_ACCESS_REMOTE_READ.
 
-Fixes: 00f1bb9b8486 ("rtc: pcf8563: Switch to regmap")
+Enforce that the target memory region was granted IB_ACCESS_REMOTE_READ
+when answering SIW_OP_READ_RESPONSE work queue entries, while preserving
+perms = 0 for standard local sends.
+
+Fixes: b9be6f18cf9e ("rdma/siw: transmit path")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Igor Velkov <iav@iav.lv>
+Signed-off-by: Haitam Lazaar <haitam@lazaarsec.com>
 ---
-Tested on ODROID-HC4, 7.3-rc5, with the INT line wired to GPIOX_5 in the
-device tree: the alarm interrupt fires once, the alarm flag is cleared,
-no oops.
----
- drivers/rtc/rtc-pcf8563.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/infiniband/sw/siw/siw_qp_tx.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/rtc/rtc-pcf8563.c b/drivers/rtc/rtc-pcf8563.c
-index 7eebdb058067..0767331a2cc7 100644
---- a/drivers/rtc/rtc-pcf8563.c
-+++ b/drivers/rtc/rtc-pcf8563.c
-@@ -531,7 +531,7 @@ static int pcf8563_probe(struct i2c_client *client)
- 		err = devm_request_threaded_irq(&client->dev, client->irq,
- 				NULL, pcf8563_irq,
- 				IRQF_SHARED | IRQF_ONESHOT | irqflags,
--				pcf8563_driver.driver.name, client);
-+				pcf8563_driver.driver.name, pcf8563);
- 		if (err) {
- 			dev_err(&client->dev, "unable to request IRQ %d\n",
- 								client->irq);
-
----
-base-commit: 8ef8e9839a23ca7f5dda6a69b670633de5a23716
-change-id: 20261005-pcf8563-irq-data-6b4092927750
-
-Best regards,
+diff --git a/drivers/infiniband/sw/siw/siw_qp_tx.c b/drivers/infiniband/sw/siw/siw_qp_tx.c
+index f7dd32c6e5ba..9e652585f904 100644
+--- a/drivers/infiniband/sw/siw/siw_qp_tx.c
++++ b/drivers/infiniband/sw/siw/siw_qp_tx.c
+@@ -810,12 +810,17 @@ static int siw_qp_sq_proc_tx(struct siw_qp *qp, struct siw_wqe *wqe)
+ 
+ 			if (tx_type(wqe) != SIW_OP_READ &&
+ 			    tx_type(wqe) != SIW_OP_READ_LOCAL_INV) {
++				enum ib_access_flags perms = 0;
++
+ 				/*
+-				 * Reference memory to be tx'd w/o checking
+-				 * access for LOCAL_READ permission, since
+-				 * not defined in RDMA core.
++				 * Local READ permission doesn't exist in RDMA core.
++				 * A READ RESPONSE source is read by the remote peer,
++				 * so it must be checked for REMOTE_READ permission.
+ 				 */
+-				rv = siw_check_sgl_tx(qp->pd, wqe, 0);
++				if (tx_type(wqe) == SIW_OP_READ_RESPONSE)
++					perms = IB_ACCESS_REMOTE_READ;
++
++				rv = siw_check_sgl_tx(qp->pd, wqe, perms);
+ 				if (rv < 0) {
+ 					if (tx_type(wqe) ==
+ 					    SIW_OP_READ_RESPONSE)
 -- 
-Igor Velkov <iav@iav.lv>
 
 
