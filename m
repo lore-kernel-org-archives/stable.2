@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 022943793B0
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 08:08:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD1B537B3E4
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 08:08:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791187684; cv=none; b=eWNnPJmK+cA5V4+LO2qUpqrY4B6PZQKAWnF7wNia3zfmy9a1XDH9CAkLDfkOFg+IKdyqbMbNhAzXAo533nidfi7cRHQ4j1WYOgl94KICyXHWOpoixZDqaPEsSibH8jJ91ThT461Bn5s1G4VtmdlnOVIZ2dvkCwrOkYA1UljrtDI=
+	t=1791187687; cv=none; b=ZJxYl9++pHtnuvIFau/Ryns9RIVpY5NGX11+/Wbn4Ev9V/6i+dmIDygULyrhBfP1bAtq7CwMpSFkXa2b66CR8e1LmAHLeGhyc3q4scygIy2S1+Y5Ka8LmVwFAVeLysHlM1apFMZ4w/YOMy96U0UPEhMhoHfIwXhlTOOd3njxWmo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791187684; c=relaxed/simple;
-	bh=uTGXRcft0b1z1tyMcV7xSf52+n6WFtbGeCGziFh9wzE=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=JSOy902Gcajhvd+IXcw2lwEbUZCziFfHRNvXW0EicEbYzh5SarZY7EMA1piSs6V9wpR0v/Wditvy3x7nkixovhnxrGJiX1tXGEghZrXS5LoBHdphhSNy2qTTDeN4JtdYApRe/hHofHL9PFZfnqoDkcpQfbE085DjzkqEXmA1CSk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=J7k1Jswg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791187687; c=relaxed/simple;
+	bh=DAdvX4eL727HF05trlhQ8gTcwTwNSDG3KUSM1Dwzf88=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=VVU6s+9q/DqKEVbN4Gjt4CAYmhAVvAXJbokqw4fUt5/imq0V9C3kuJB+w3YElLanHQR7+joI95ZH1xCXm0gk0oPEGn18tDIwlZJiqcRefbQCqZZK9ojE7ykG+jeZ9PsaD1HzrNJSouHH6EKi96LSSWVl2yWWWH8ErBWGl6HhIhI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZKbMBzDo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="J7k1Jswg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC1121F000FF;
-	Mon,  5 Oct 2026 08:08:01 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZKbMBzDo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E28A1F000FF;
+	Mon,  5 Oct 2026 08:08:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791187682;
-	bh=33aWAA7as5+RuXz0fbd8ujlrEj3kSQJZ0xOWePUIQ8Y=;
+	s=korg; t=1791187685;
+	bh=PYm4kuYJnbfH5N4ZottAMUz5o3A2240X+3leJbyRiD0=;
 	h=Subject:To:Cc:From:Date;
-	b=J7k1JswgC4nQ4WUm53NmBSZoqG22H7ps7WiEVrDW1jrhnTgrf1I1yNkvxpN2Ci9jH
-	 Ev89a6fifR/Y9jzn5AbOL6rtolAjC/XPZBtJ/9nh4GDkOO0NQYd/4l/Gm98ncJ+I1N
-	 fFQ/BZEKpcM7ZHb6f7SGcoHTezS5i2v5aVKRx3sc=
-Subject: FAILED: patch "[PATCH] drm/amd/pm/si: Check AMD_IS_MOBILITY flag for" failed to apply to 5.15-stable tree
+	b=ZKbMBzDoBTRuXQxr0psgjYUMJvPnPEnAWXi2oiFb/CHuNq6j+ULOkyGVujvR178HL
+	 yDZZi+J+YXVP0BRKmGo5b8Lm/D+/oFCBoZWixq/T8U93Ndf6lZ7eOC3wX7utMjIoCS
+	 26Y5zMrHA/0NViV9v59QWpXJkS4xoffugQZbq5d4=
+Subject: FAILED: patch "[PATCH] drm/amd/pm/si: Check AMD_IS_MOBILITY flag for" failed to apply to 5.10-stable tree
 To: timur.kristof@gmail.com,alexander.deucher@amd.com,mario.limonciello@amd.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 05 Oct 2026 10:07:58 +0200
-Message-ID: <2026100558-skimming-septic-47b8@gregkh>
+Date: Mon, 05 Oct 2026 10:07:59 +0200
+Message-ID: <2026100559-unboxed-evaporate-2cfb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x cd883d0a3937df82a5ea03709ba8ba623b868419
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100558-skimming-septic-47b8@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100559-unboxed-evaporate-2cfb@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
