@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 934B73BD65D
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 08:48:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C15022931C3
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 08:48:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791190094; cv=none; b=SnZLiI2wdObCf7PFBd2s6YdJ7rZwzF+VkvGwbCAS3xFoSWl8VPD5T7vFZ0XGm1iL5GFUZpBxqVsrMc8fLzoViOctaaWu7IfUtV3q99lEfIYZYRP14wMBDUz1rd2JFNQtL3GP+ZR7FF+OF+K4Yav3kyFMfNOplFatetKBeBBbsaU=
+	t=1791190119; cv=none; b=k+SWt4woUnfR0+b8nO4NKt1WalA2p+mHfQ9yV90sZar7Z0Y406ZHGEDOzlx6zUS+wn5NC77At6eFHkLaTl00CNnwdqK7Rcxkg+jPURabT2+XyXRLHFy055PHq/fx2yxKXSFnmK5LxoNiC/kXRMP+5Bf5+CcTBp6IgPQFno/vKuo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791190094; c=relaxed/simple;
-	bh=gGA8HlFKm2ZSHkQV2Xc0MLuGImBSE7G6RgowG3Ylyxg=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=KFVgDOaHR0EJNvA4ifyiSeUQbgL8Ur1lLUebp8SybMFSIyVZBeP8KH7uDAydXiD1azS/J6QPZw1qAIj1VfL4gaOkIz6GQ15KGww3tBTkuHbynIQqQvGtD5nFNvrxcEqPSxH3NQF7hdu/hZfBV65jGmwOBNbmBwXkMVG+7aoX6hI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=i4YnSyCw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791190119; c=relaxed/simple;
+	bh=90ud6nlkIvph3ger9YYHxq1b2IVS8faY/4jb8VtFh10=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=A+K44O7BGyoHlSStrO02SsKESZrhPwqmbfh+p9s5JsyEMmxq1NpsvN5mn194NVc9/q9g6xRnCMoLne0kSpe5AeFEH79MuIOZdhkPDQ/p2vAhDOUfp/p2fXMIsXplIsCFzh0YSXH7SxxDM9+REppXt+cmlf4aSrU8/02qdsKlFyg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=NnQgZfui; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="i4YnSyCw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D2431F000FF;
-	Mon,  5 Oct 2026 08:48:12 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NnQgZfui"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23A781F000FF;
+	Mon,  5 Oct 2026 08:48:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791190093;
-	bh=gbGshplNKfhne7AsORZE0wKAMWcahUR5wu2BNO6AvN8=;
+	s=korg; t=1791190117;
+	bh=bDMXgZ4DWNOqrxdf8wOVJJA4drzuMhV5Bwnuu4RHQgw=;
 	h=Subject:To:Cc:From:Date;
-	b=i4YnSyCwX6Kj22CSXjwiAWQQj6ItEg7ozAAN1VJVr4+p1xpuV+InGIcBoH1ThVZ7L
-	 rVmYF8LSMoa0Is7uCWpQ67B1FFN4pAKIBJEhih3L74EA9KZrofjT7tr4JWWWsZpH1J
-	 ReDCz+HbQMQqMCjdIkdP42lngs4/+n0z3e/xzXbA=
-Subject: FAILED: patch "[PATCH] usb: typec: ucsi: acpi: Assume UCSI 1.2 on Acer Nitro" failed to apply to 5.10-stable tree
-To: pannarat.wiriyaarritham@danielcorp.dev,gregkh@linuxfoundation.org,heikki.krogerus@linux.intel.com,stable@kernel.org
+	b=NnQgZfuiVoRJNfUAsG9E1n8eQjhO8HJCtorvK4S8jZ7wJyvOiTjdEra1NPMA7Sqq6
+	 baMDOrlpeZUdJjDZT6o+Plkb4ChrdYpwBOMVOcSemr4+keues61nqW/1sNBT+Lgn5Q
+	 oRHMi3/Eb6x/URopyCEnj4lTYHb4VnhvqUyhCceQ=
+Subject: FAILED: patch "[PATCH] usb: cdns3: fix use-after-free in cdns3_gadget_exit()" failed to apply to 5.10-stable tree
+To: fanwu01@zju.edu.cn,congei42@163.com,gregkh@linuxfoundation.org,peter.chen@kernel.org,songl@zju.edu.cn,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 05 Oct 2026 10:47:54 +0200
-Message-ID: <2026100554-catcall-scoreless-e7d8@gregkh>
+Date: Mon, 05 Oct 2026 10:48:34 +0200
+Message-ID: <2026100534-purging-uniquely-0db7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 8c51ea651d043c786c37668c51624bd6b338a0ef
+git cherry-pick -x ebe9b68c396792c15d0ac690d592e449e74ed804
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100554-catcall-scoreless-e7d8@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100534-purging-uniquely-0db7@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,86 +62,54 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 8c51ea651d043c786c37668c51624bd6b338a0ef Mon Sep 17 00:00:00 2001
-From: Pannarat Wiriyaarritham <pannarat.wiriyaarritham@danielcorp.dev>
-Date: Thu, 10 Sep 2026 09:33:37 +0700
-Subject: [PATCH] usb: typec: ucsi: acpi: Assume UCSI 1.2 on Acer Nitro
- ANV15-41
+From ebe9b68c396792c15d0ac690d592e449e74ed804 Mon Sep 17 00:00:00 2001
+From: Fan Wu <fanwu01@zju.edu.cn>
+Date: Wed, 9 Sep 2026 09:56:55 +0000
+Subject: [PATCH] usb: cdns3: fix use-after-free in cdns3_gadget_exit()
 
-The Acer Nitro ANV15-41 exposes a functional UCSI ACPI PPM but
-reports a UCSI VERSION value of zero.
+cdns3_gadget_start() arms two works on system_freezable_wq:
+pending_status_wq for the deferred ep0 status stage and aligned_buf_wq
+for realigned request buffers. Both handlers use the cdns3_device the
+works are embedded in, and cdns3_pending_setup_status_handler() also
+calls the ep0 request completion.
 
-ucsi_register() rejects a zero version with -ENODEV, leaving the
-system without registered USB Type-C connectors.
+cdns3_gadget_exit() does not wait for these works. It frees all
+endpoints and aligned buffers and drops the last reference to the
+gadget device, which frees priv_dev, so a work queued before the exit
+can run after the free.
 
-The PPM works correctly when using the UCSI 1.2 layout. With UCSI
-1.2 assumed, both Type-C connectors register correctly and USB Power
-Delivery negotiation works.
+Fix this by waiting for both works after the gadget driver is unbound
+and the IRQ is freed, when no new work can be queued, and before the
+endpoints and buffers are released.
 
-Add a DMI-specific UCSI operation for the Acer Nitro ANV15-41 that
-substitutes UCSI 1.2 only when firmware reports a zero version.
-Preserve any valid non-zero firmware version.
+This issue was found by an in-house static analysis tool.
 
-Tested on an Acer Nitro ANV15-41 with BIOS V1.51.
-
-Fixes: c1b0bc2dabfa ("usb: typec: Add support for UCSI interface")
+Fixes: 7733f6c32e36 ("usb: cdns3: Add Cadence USB3 DRD Driver")
 Cc: stable <stable@kernel.org>
-Assisted-by: LLM
-Signed-off-by: Pannarat Wiriyaarritham <pannarat.wiriyaarritham@danielcorp.dev>
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Link: https://patch.msgid.link/20260910023338.31816-1-pannarat.wiriyaarritham@danielcorp.dev
+Reported-by: Sicong Huang <congei42@163.com>
+Closes: https://lore.kernel.org/linux-usb/7f5719b.8700.18f67b324d3.Coremail.congei42@163.com/
+Suggested-by: Sicong Huang <congei42@163.com>
+Assisted-by: Codex:gpt-5.6
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Acked-by: Peter Chen <peter.chen@kernel.org>
+Link: https://patch.msgid.link/20260909095655.694527-1-fanwu01@zju.edu.cn
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-diff --git a/drivers/usb/typec/ucsi/ucsi_acpi.c b/drivers/usb/typec/ucsi/ucsi_acpi.c
-index 18286d3e9cc5..5697ccc24ec3 100644
---- a/drivers/usb/typec/ucsi/ucsi_acpi.c
-+++ b/drivers/usb/typec/ucsi/ucsi_acpi.c
-@@ -121,6 +121,33 @@ static const struct ucsi_operations ucsi_acpi_ops = {
- 	.async_control = ucsi_acpi_async_control
- };
+diff --git a/drivers/usb/cdns3/cdns3-gadget.c b/drivers/usb/cdns3/cdns3-gadget.c
+index 42311c1bfada..0d272e9c556c 100644
+--- a/drivers/usb/cdns3/cdns3-gadget.c
++++ b/drivers/usb/cdns3/cdns3-gadget.c
+@@ -3269,6 +3269,10 @@ static void cdns3_gadget_exit(struct cdns *cdns)
+ 	usb_del_gadget(&priv_dev->gadget);
+ 	devm_free_irq(cdns->dev, cdns->dev_irq, priv_dev);
  
-+static int ucsi_acer_read_version(struct ucsi *ucsi, u16 *version)
-+{
-+	struct ucsi_acpi *ua = ucsi_get_drvdata(ucsi);
-+	int ret;
++	/* The works can still be queued until the IRQ is freed. */
++	cancel_work_sync(&priv_dev->pending_status_wq);
++	cancel_work_sync(&priv_dev->aligned_buf_wq);
 +
-+	ret = ucsi_acpi_read_version(ucsi, version);
-+	if (ret)
-+		return ret;
-+
-+	if (!*version) {
-+		dev_warn(ua->dev, "UCSI version is zero, assuming 1.2\n");
-+		*version = UCSI_VERSION_1_2;
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct ucsi_operations ucsi_acer_ops = {
-+	.read_version = ucsi_acer_read_version,
-+	.read_cci = ucsi_acpi_read_cci,
-+	.poll_cci = ucsi_acpi_poll_cci,
-+	.read_message_in = ucsi_acpi_read_message_in,
-+	.write_message_out = ucsi_acpi_write_message_out,
-+	.sync_control = ucsi_sync_control_common,
-+	.async_control = ucsi_acpi_async_control
-+};
-+
- static int ucsi_gram_sync_control(struct ucsi *ucsi, u64 command, u32 *cci,
- 				  void *val, size_t len, void *msg_out,
- 				  size_t msg_out_size)
-@@ -162,6 +189,13 @@ static const struct ucsi_operations ucsi_gram_ops = {
- };
+ 	cdns3_free_all_eps(priv_dev);
  
- static const struct dmi_system_id ucsi_acpi_quirks[] = {
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Acer"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "Nitro ANV15-41"),
-+		},
-+		.driver_data = (void *)&ucsi_acer_ops,
-+	},
- 	{
- 		.matches = {
- 			DMI_MATCH(DMI_SYS_VENDOR, "LG Electronics"),
+ 	while (!list_empty(&priv_dev->aligned_buf_list)) {
 
