@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BC0D483817
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 13:13:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4D5841D216
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 13:14:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791206034; cv=none; b=gjbiDagFWrCPokR3i/YYypUqf7RLHzTgDQn/hd/FPmJQE3QcbYr5UOt9/n3g74WMi6CrhEAKog3ZQEfjoZVNIRfbmOs+p5XO775ZeyUKjh7XSm4lMqUBrqwbqx1SdrRh3bW3xjLNW46LFmMWyhrjExgZB0uUt8NrcCRs2Ou661U=
+	t=1791206052; cv=none; b=sBHhj3BO5PRL0HXoWLnCfC/QnCJU3WvLAP89FbL/zPa9uEpEidsX5NfNvt0owvVw0GtvQ5rZV1lPw7Wo7TpXMTMBBjDkBmb6JeVtAJ36t351rtjs/jYRBh+5ELwpZ1B/51tXOJUet3U33M78EnFwGWhyyS0f5s5NH5LXDaNxREM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791206034; c=relaxed/simple;
-	bh=7Wuw1YxGtjnkBXkbkQ8baij3Mlyu1PxXqVAnAEHtSaM=;
+	s=arc-20240116; t=1791206052; c=relaxed/simple;
+	bh=5vWt0VJmM70wjDbP5wEkV65aatlNMn9IZN6WWYIMEPM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=itOsSf+aBZBu3QxuI/RZiwb4V7d8gZVUZVtZoeg1Q2vvXad0mfFcAP9xj+6gApn2mj8WkDCXbk4Z9nNNzW6S9y+sayGTHspHtvQP5ameyanWYEmqJPl//qNFOp6ryJK1cyV+RWPYoJvq4ZNnqqz3XaTRtFuWAstNVL6gKqo0LIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TH7Gqy9i; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=pVdWdBNaxoz2rL4sV7XyWh9yea7dOFiHp31SC2WdV0EWQamLbdKtBy0wXoqWnoD8GmcQ0t+GtC/keQS4Drz4qisMd7GdrnecIiT71DmR9qadfx2FctWi/6XdAcA/MYB1mA9Tdlq4YIZAYfW5awpKv5Z6q0YBPzJqgeOaU9badVI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TZF5vVST; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TH7Gqy9i"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A41B1F00899;
-	Mon,  5 Oct 2026 13:13:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TZF5vVST"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E45EB1F000FF;
+	Mon,  5 Oct 2026 13:14:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791206033;
-	bh=d/nfV8oUPoVXcPuEXZa5ZPyhoMU0ZrexTYqyLSbSfx4=;
+	s=k20260515; t=1791206051;
+	bh=gRM3n+KUJ4S3UWv97lwpTtkiCRR/UhznQw+QTqCTJYc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TH7Gqy9i/3PaMsqWi/eyyb9qVrnCus56gZW3f4xsuQ4Pj5s2ZFdiNZ4OQz3mgBex2
-	 ir0e4w2kBVmKnoH5EQiQfZk/DzOI1FiiXvlzGWAnA2sncPUMh7tUjCm2+9pbkEVx14
-	 gXdC02M1pA+mystGHVV+SCNfq608pRvDBof0/u7kW3aEkpyjE9EWso5NxBJunHa77T
-	 DVAhS2sHDOa4laHX2PjXYsj5XupCYROmR4DKdd6HmyBLf80Wv5yqNvDedHaS/7a1cR
-	 38L9/ldJcw1Einug1v0iI6KShzw2J4aX5bmGQ8W6/L/79V6DyjWYuBEw/v7wpnFb+w
-	 MKXI6YwPme2Fw==
+	b=TZF5vVST4Yok0Hr2H4tb9sT19MVdXY6hh+ee19ngoLUnb6K1pz9RKKbNbY3gKNBBa
+	 Q+O91fp9H9K7r/+svEmDKiI6s9dwKh3aNEIBw6BLhKO8d214jzZNTWLMpIi1tB9dia
+	 biEDNCAkpiDxWEAhaQK9UO8i24yjygSxaU8MpnI+lB6T/KrizxIYQRrSoC8PpK4LSe
+	 /YRA5bmX2mOpEGJDWb3oj1UosFpLJwDaug/Idn/XHztnuZz9V0slY7yMilD2CgDChY
+	 UmRJ3kBbHi+srQhYhy87SGh8z8aMWHCvlyiRR4Lh1SMpUsZZOc0HpLxsk4bXeIKU0g
+	 3FHWF+u00RnDg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
 	Mario Limonciello <mario.limonciello@amd.com>,
 	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] drm/amd/pm/si: Fix updating clock limits on AC/DC
-Date: Mon,  5 Oct 2026 09:13:50 -0400
-Message-ID: <20261005131331.2596237-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] drm/amd/display: Mark DCE 6.4 as not APU
+Date: Mon,  5 Oct 2026 09:14:07 -0400
+Message-ID: <20261005131343.2491482-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100545-whole-mutiny-321e@gregkh>
-References: <2026100545-whole-mutiny-321e@gregkh>
+In-Reply-To: <2026100515-snazzy-basket-56a9@gregkh>
+References: <2026100515-snazzy-basket-56a9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,90 +49,40 @@ Content-Transfer-Encoding: 8bit
 
 From: Timur Kristóf <timur.kristof@gmail.com>
 
-[ Upstream commit 08c9100f65299c64439e22e6057d750ae0e6c660 ]
+[ Upstream commit 3a52d587d1fc8e8bf94ba1b07374f7ec91aaffb4 ]
 
-Assume that the AC limits are the maximum of all power states,
-and the DC limits are the maximum of battery power states.
-This shouldn't make any difference in practice, but is
-cleaner and more robust against bogus information in the VBIOS.
+DCE 6.4 is found in Oland chips, which were advertised
+as low-end gaming GPUs in 2013~2015 and then have been
+sold as low-end workstation GPUs until 2017~2019.
 
-Fixes: e6c5d36756e7 ("drm/amd/pm/si: Fix updating clock limits from power states")
+These are not APUs.
+
+Fixes: 7c15fd86aaec ("drm/amd/display: dc/dce: add initial DCE6 support (v10)")
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
-Link: https://patch.msgid.link/20260923120354.1027996-2-timur.kristof@gmail.com
+Link: https://patch.msgid.link/20260923122033.1046651-3-timur.kristof@gmail.com
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit ef8cb9dcc7db7b7abcbdbe870a080cc81e4f0bf3)
+(cherry picked from commit 1072aa811ea1e61d5f763e4ec1bc6d24bb61f14a)
 Cc: stable@vger.kernel.org
+[ sashal: Adjusted context for missing dc->debug and dc->check_config assignments. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/pm/powerplay/si_dpm.c | 36 +++++++++++------------
- 1 file changed, 18 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c b/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
-index 8cf2ad07ce620..069bf1d67c849 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
-@@ -7132,6 +7132,19 @@ static void si_parse_pplib_non_clock_info(struct amdgpu_device *adev,
- 		adev->pm.dpm.uvd_ps = rps;
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c b/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
+index 8db9f75144662..556c453666a74 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
+@@ -1355,7 +1355,6 @@ static bool dce64_construct(
+ 	dc->caps.max_downscale_ratio = 200;
+ 	dc->caps.i2c_speed_in_khz = 40;
+ 	dc->caps.max_cursor_size = 64;
+-	dc->caps.is_apu = true;
  
-+static void si_update_limits(struct amdgpu_clock_and_voltage_limits *limits,
-+			     struct rv7xx_pl *pl)
-+{
-+	if (pl->sclk > limits->sclk)
-+		limits->sclk = pl->sclk;
-+	if (pl->mclk > limits->mclk)
-+		limits->mclk = pl->mclk;
-+	if (pl->vddc > limits->vddc)
-+		limits->vddc = pl->vddc;
-+	if (pl->vddci > limits->vddci)
-+		limits->vddci = pl->vddci;
-+}
-+
- static void si_parse_pplib_clock_info(struct amdgpu_device *adev,
- 				      struct amdgpu_ps *rps, int index,
- 				      union pplib_clock_info *clock_info)
-@@ -7140,7 +7153,6 @@ static void si_parse_pplib_clock_info(struct amdgpu_device *adev,
- 	struct evergreen_power_info *eg_pi = evergreen_get_pi(adev);
- 	struct si_power_info *si_pi = si_get_pi(adev);
- 	struct  si_ps *ps = si_get_ps(rps);
--	struct amdgpu_clock_and_voltage_limits *limits;
- 	u16 leakage_voltage;
- 	struct rv7xx_pl *pl = &ps->performance_levels[index];
- 	int ret;
-@@ -7205,26 +7217,14 @@ static void si_parse_pplib_clock_info(struct amdgpu_device *adev,
- 	 * VBIOS can contain conflicting values between:
- 	 * - the maximum allowed clocks and voltages on AC or DC
- 	 * - the clocks and voltages in power states on AC or DC
-+	 *
-+	 * Assume that the AC limits are the maximum of all power states,
-+	 * and the DC limits are the maximum of battery power states.
- 	 */
-+	si_update_limits(&adev->pm.dpm.dyn_state.max_clock_voltage_on_ac, pl);
- 	if ((rps->class & ATOM_PPLIB_CLASSIFICATION_UI_MASK) ==
--	    ATOM_PPLIB_CLASSIFICATION_UI_PERFORMANCE)
--		limits = &adev->pm.dpm.dyn_state.max_clock_voltage_on_ac;
--	else if ((rps->class & ATOM_PPLIB_CLASSIFICATION_UI_MASK) ==
- 		 ATOM_PPLIB_CLASSIFICATION_UI_BATTERY)
--		limits = &adev->pm.dpm.dyn_state.max_clock_voltage_on_dc;
--	else
--		limits = NULL;
--
--	if (limits) {
--		if (pl->sclk > limits->sclk)
--			limits->sclk = pl->sclk;
--		if (pl->mclk > limits->mclk)
--			limits->mclk = pl->mclk;
--		if (pl->vddc > limits->vddc)
--			limits->vddc = pl->vddc;
--		if (pl->vddci > limits->vddci)
--			limits->vddci = pl->vddci;
--	}
-+		si_update_limits(&adev->pm.dpm.dyn_state.max_clock_voltage_on_dc, pl);
- }
- 
- union pplib_power_state {
+ 	/*************************************************
+ 	 *  Create resources                             *
 -- 
 2.53.0
 
