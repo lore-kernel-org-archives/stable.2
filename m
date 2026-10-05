@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 797B84AE12F
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 14:42:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 469F04ADD9E
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 14:42:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791211362; cv=none; b=ZMk5ng34ZTpl2GI4ryX9LOjEqObnvQA6NVggDtIQ5BcACgy0XZFBJWmj6/fAX2tzg0M0682VLayZ2c+kH1TMZdWKw9/0RSzKUy23lVGO0p1HqZbPldJjDdDayaZ8opszp+M845KMKMyutLlGzlRdq/n+og0LFX8hy9U+Xbds9S0=
+	t=1791211378; cv=none; b=Cyt7Q4RLsni16fMtwBwUnbVKb4B7gZNx/wuDqSga/V3XBLH4xbQee0Q8bUCy20YQRMjL04QRF9Gr32ThYcKy+McdxhqI4uMWF+rg3R09QZPgTyiiRuE/I821J+/vC66x9ioJg5hi5715MJ6ocNtAmZxcSaU8vWbFHz22g5ATVmg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791211362; c=relaxed/simple;
-	bh=b/kvS8l2Hb3kFzbK+OA3Ai+fxTjyJOjHGECSs4pIdxw=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=YNWUDQI3/I8bcuKdffhDe6DmAtGWPPoaXgHoP81oruksCx+BY+RVzpMJuW7r6njHZQo4G0Tgfn8pXkJuVeQxpzKgH8sH+Cqjtixn5Jlk2tZD3gHUUgWUNyGjmRorni9U2S7qQ4EujT3B1PAkN0GBHxPOrkoU3aThzlWvnsudJ34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VOkU+bqu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791211378; c=relaxed/simple;
+	bh=3aeP1IhcmO+GRymhj6Nhpy8g9MP5U5lUmZNnzMlnKzY=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=HkVwqUGpZW2MMfB2qLcUrBFfWnIJ8f/u98l+8UwyCtoN8Q4OG7deZ0Isqh7b3GRPt3KrlTgjGC0RQ8a8Yy9I9gQmHQm0iODfJzLoL4vB5/Ao8GSRxwTlquo8D/RlKTEh1Vc3JJH8Ex5NSSsZyXysYXxAh8bl4X7GA1QI4n7ePSM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=LfgSDI3Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VOkU+bqu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC9641F00893;
-	Mon,  5 Oct 2026 14:42:31 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="LfgSDI3Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 297971F000FF;
+	Mon,  5 Oct 2026 14:42:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791211352;
-	bh=37PIrxdqhuWC742fBo22Lx7smDyGMr8DikQtsvDN5iY=;
+	s=korg; t=1791211370;
+	bh=YBIw6Q6GsC165NBFywKVByddFcIUmPAqPoXzFPTgUxM=;
 	h=Subject:To:Cc:From:Date;
-	b=VOkU+bquvEvFVqqF2KFxl/MZ4A5j0CpCxBxqR80k30U3fik40dLYthju5J0u3j/Lq
-	 kfU21+iUt7oM4cfgvBlDpj2GwffnweNxDIicjcKeWkhcbOCZ/zu8OOrZ+p3tObOqP6
-	 z0+LfVVSXjx7MX1cctYOcFc0IsYQE0q4physPBAw=
-Subject: FAILED: patch "[PATCH] thunderbolt: Fix KASAN reported use-after-free when request" failed to apply to 5.10-stable tree
-To: mika.westerberg@linux.intel.com,alan.borzeszkowski@linux.intel.com
+	b=LfgSDI3Qn3MUqc9Vdn8YPKwva7OnGMqtsdbPXNsQmpT1WawJlE+F2/GcEBu87lKju
+	 0lYf48VaYMaRY3CCXfJfAvHozTPw1Jp2YSpIc484dubkhnj1VicR1vGqy42cu20DoP
+	 MrgPr6VhCwM8eBpV9kmgRs+EkEFCD9vFDngqz828=
+Subject: FAILED: patch "[PATCH] thunderbolt: Make the DP tunnel activation callback mandatory" failed to apply to 6.18-stable tree
+To: sven@kernel.org,mika.westerberg@linux.intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 05 Oct 2026 16:42:21 +0200
-Message-ID: <2026100521-impale-unsettled-8d6f@gregkh>
+Date: Mon, 05 Oct 2026 16:42:48 +0200
+Message-ID: <2026100547-plywood-foothold-2f02@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x a02188ddc24b7872f0c5e0c5873f827318717803
+git cherry-pick -x 12f5d8b85a66a0ac08d082517d92ce136f8c0d42
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100521-impale-unsettled-8d6f@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100547-plywood-foothold-2f02@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,244 +62,312 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From a02188ddc24b7872f0c5e0c5873f827318717803 Mon Sep 17 00:00:00 2001
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-Date: Thu, 7 May 2026 08:06:48 +0300
-Subject: [PATCH] thunderbolt: Fix KASAN reported use-after-free when request
- is canceled
+From 12f5d8b85a66a0ac08d082517d92ce136f8c0d42 Mon Sep 17 00:00:00 2001
+From: Sven Peter <sven@kernel.org>
+Date: Sat, 29 Aug 2026 10:08:34 +0200
+Subject: [PATCH] thunderbolt: Make the DP tunnel activation callback mandatory
 
-Alan reported that when doing stress testing sometimes KASAN notices
-use-after-free during control channel operation (stripped down keeping
-the relevant parts):
+tb_tunnel_alloc_dp() takes an optional callback which is run from
+dprx_work once the DPRX capabilities read has completed. Without that
+callback tb_dp_dprx_start() reads the capabilities synchronously and
+never queues the work. It however always takes a tunnel reference which
+is only dropped by dprx_work itself or by tb_dp_dprx_stop() when
+cancel_delayed_work() actually canceled that work. That reference is
+thus leaked for every tunnel without a callback.
 
- BUG: KASAN: slab-use-after-free in tb_cfg_request_sync+0x240/0x250 [thunderbolt]
- Read of size 24 at addr ffff88811067f290 by task kworker/u40:2/1760
-  <TASK>
-  tb_cfg_request_sync+0x240/0x250 [thunderbolt]
-  tb_cfg_read_raw+0x367/0x510 [thunderbolt]
-  tb_cfg_read+0xec/0x240 [thunderbolt]
-  tb_port_get_link_generation+0x258/0x420 [thunderbolt]
-  tb_usb3_consumed_bandwidth+0x1c1/0x2c0 [thunderbolt]
-  tb_tunnel_consumed_bandwidth+0xfd/0x910 [thunderbolt]
-  tb_available_bandwidth+0x5f2/0xeb0 [thunderbolt]
-  tb_recalc_estimated_bandwidth+0x2a0/0x1bc0 [thunderbolt]
-  tb_handle_dp_bandwidth_request+0x1897/0x5e20 [thunderbolt]
-  process_one_work+0x675/0x1230
-  worker_thread+0x5e6/0xf70
-  kthread+0x365/0x470
-  ret_from_fork+0x54d/0x710
-  ret_from_fork_asm+0x1a/0x30
-  </TASK>
+The only tunnels without one are those from tb_tunnel_discover_dp(),
+which are activated again when restoring from hibernation.
+Pass the callback to tb_tunnel_discover_dp() as well and drop the
+synchronous path such that the DPRX capabilities are always read from
+dprx_work. Hibernation restore then also no longer blocks for up to 12
+seconds while waiting for that read to complete.
 
- Allocated by task 1760:
-  __kmalloc_cache_noprof+0x1ee/0x550
-  tb_cfg_read_raw+0x1d3/0x510 [thunderbolt]
-  tb_cfg_read+0xec/0x240 [thunderbolt]
-  tb_port_get_link_generation+0x258/0x420 [thunderbolt]
-  tb_usb3_consumed_bandwidth+0x1c1/0x2c0 [thunderbolt]
-  tb_tunnel_consumed_bandwidth+0xfd/0x910 [thunderbolt]
-  tb_available_bandwidth+0x5f2/0xeb0 [thunderbolt]
-  tb_recalc_estimated_bandwidth+0x2a0/0x1bc0 [thunderbolt]
-  tb_handle_dp_bandwidth_request+0x1897/0x5e20 [thunderbolt]
-  process_one_work+0x675/0x1230
-  worker_thread+0x5e6/0xf70
-  kthread+0x365/0x470
-  ret_from_fork+0x54d/0x710
-  ret_from_fork_asm+0x1a/0x30
+Also fix up the KUnit tests.
 
- Freed by task 926:
-  kfree+0x18f/0x4a0
-  tb_cfg_request_put+0xb7/0xe0 [thunderbolt]
-  tb_cfg_request_work+0x82/0x120 [thunderbolt]
-  process_one_work+0x675/0x1230
-  worker_thread+0x5e6/0xf70
-  kthread+0x365/0x470
-  ret_from_fork+0x54d/0x710
-  ret_from_fork_asm+0x1a/0x30
-
- Second to last potentially related work creation:
-  __queue_work+0x575/0xd00
-  queue_work_on+0x77/0x80
-  tb_cfg_request_cancel+0xc7/0x260 [thunderbolt]
-  tb_cfg_request_sync+0x1f6/0x250 [thunderbolt]
-  tb_cfg_read_raw+0x367/0x510 [thunderbolt]
-  tb_cfg_read+0xec/0x240 [thunderbolt]
-  tb_port_get_link_generation+0x258/0x420 [thunderbolt]
-  tb_usb3_consumed_bandwidth+0x1c1/0x2c0 [thunderbolt]
-  tb_tunnel_consumed_bandwidth+0xfd/0x910 [thunderbolt]
-  tb_available_bandwidth+0x5f2/0xeb0 [thunderbolt]
-  tb_recalc_estimated_bandwidth+0x2a0/0x1bc0 [thunderbolt]
-  tb_handle_dp_bandwidth_request+0x1897/0x5e20 [thunderbolt]
-  process_one_work+0x675/0x1230
-  worker_thread+0x5e6/0xf70
-  kthread+0x365/0x470
-  ret_from_fork+0x54d/0x710
-  ret_from_fork_asm+0x1a/0x30
-
-The last stack trace is helpful because it shows that we are cancelling
-a request and looking at tb_cfg_request_cancel() what might happen is
-that tb_cfg_request_work() completes right before tb_cfg_request_cancel()
-starts and because of this it will call schedule_work() queueing the
-same work to run again. However, it is already removed from the
-request_queue and reference count is dropped so when
-tb_cfg_request_work() triggers again it will access memory that is
-already released.
-
-Fix this so that we first make sure a cancelled request is not handed
-away from tb_cfg_request_find() or scheduled to run. Then instead of
-relying on the worker to clean up the request we will do it in
-tb_cfg_request_cancel() after the work is canceled from running. Make
-tb_cfg_request_dequeue() release the request only if it was actually
-removed from the queue.
-
-Reported-by: Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>
-Fixes: d7f781bfdbf4 ("thunderbolt: Rework control channel to be more reliable")
+Fixes: d6d458d42e1e ("thunderbolt: Handle DisplayPort tunnel activation asynchronously")
 Cc: stable@vger.kernel.org
+Signed-off-by: Sven Peter <sven@kernel.org>
 Signed-off-by: Mika Westerberg <mika.westerberg@linux.intel.com>
 
-diff --git a/drivers/thunderbolt/ctl.c b/drivers/thunderbolt/ctl.c
-index cd47b627f97b..965988b18608 100644
---- a/drivers/thunderbolt/ctl.c
-+++ b/drivers/thunderbolt/ctl.c
-@@ -73,7 +73,6 @@ struct tb_ctl {
- #define tb_ctl_dbg_once(ctl, format, arg...) \
- 	dev_dbg_once((ctl)->nhi->dev, format, ## arg)
+diff --git a/drivers/thunderbolt/tb.c b/drivers/thunderbolt/tb.c
+index 47753a5c0f2e..20f0f8f4bdf7 100644
+--- a/drivers/thunderbolt/tb.c
++++ b/drivers/thunderbolt/tb.c
+@@ -89,6 +89,7 @@ static void tb_dp_resource_unavailable(struct tb *tb, struct tb_port *port,
+ 				       const char *reason);
+ static void tb_queue_dp_bandwidth_request(struct tb *tb, u64 route, u8 port,
+ 					  int retry, unsigned long delay);
++static void tb_dp_tunnel_active(struct tb_tunnel *tunnel, void *data);
  
--static DECLARE_WAIT_QUEUE_HEAD(tb_cfg_request_cancel_queue);
- /* Serializes access to request kref_get/put */
- static DEFINE_MUTEX(tb_cfg_request_lock);
- 
-@@ -133,41 +132,42 @@ void tb_cfg_request_put(struct tb_cfg_request *req)
- static int tb_cfg_request_enqueue(struct tb_ctl *ctl,
- 				  struct tb_cfg_request *req)
+ static void tb_queue_hotplug(struct tb *tb, u64 route, u8 port, bool unplug)
  {
-+	tb_cfg_request_get(req);
-+
- 	WARN_ON(test_bit(TB_CFG_REQUEST_ACTIVE, &req->flags));
- 	WARN_ON(req->ctl);
+@@ -385,7 +386,8 @@ static void tb_switch_discover_tunnels(struct tb_switch *sw,
  
--	mutex_lock(&ctl->request_queue_lock);
-+	guard(mutex)(&ctl->request_queue_lock);
- 	if (!ctl->running) {
--		mutex_unlock(&ctl->request_queue_lock);
-+		tb_cfg_request_put(req);
- 		return -ENOTCONN;
- 	}
- 	req->ctl = ctl;
- 	list_add_tail(&req->list, &ctl->request_queue);
- 	set_bit(TB_CFG_REQUEST_ACTIVE, &req->flags);
--	mutex_unlock(&ctl->request_queue_lock);
- 	return 0;
- }
- 
-+static bool tb_cfg_request_is_active(struct tb_cfg_request *req)
-+{
-+	return test_bit(TB_CFG_REQUEST_ACTIVE, &req->flags);
-+}
-+
-+static bool tb_cfg_request_is_canceled(struct tb_cfg_request *req)
-+{
-+	return test_bit(TB_CFG_REQUEST_CANCELED, &req->flags);
-+}
-+
- static void tb_cfg_request_dequeue(struct tb_cfg_request *req)
- {
- 	struct tb_ctl *ctl = req->ctl;
- 
--	mutex_lock(&ctl->request_queue_lock);
--	if (!test_bit(TB_CFG_REQUEST_ACTIVE, &req->flags)) {
--		mutex_unlock(&ctl->request_queue_lock);
--		return;
-+	guard(mutex)(&ctl->request_queue_lock);
-+	if (tb_cfg_request_is_active(req)) {
-+		list_del(&req->list);
-+		clear_bit(TB_CFG_REQUEST_ACTIVE, &req->flags);
-+		tb_cfg_request_put(req);
- 	}
--
--	list_del(&req->list);
--	clear_bit(TB_CFG_REQUEST_ACTIVE, &req->flags);
--	if (test_bit(TB_CFG_REQUEST_CANCELED, &req->flags))
--		wake_up(&tb_cfg_request_cancel_queue);
--	mutex_unlock(&ctl->request_queue_lock);
--}
--
--static bool tb_cfg_request_is_active(struct tb_cfg_request *req)
--{
--	return test_bit(TB_CFG_REQUEST_ACTIVE, &req->flags);
- }
- 
- static struct tb_cfg_request *
-@@ -178,7 +178,7 @@ tb_cfg_request_find(struct tb_ctl *ctl, struct ctl_pkg *pkg)
- 	mutex_lock(&pkg->ctl->request_queue_lock);
- 	list_for_each_entry(iter, &pkg->ctl->request_queue, list) {
- 		tb_cfg_request_get(iter);
--		if (iter->match(iter, pkg)) {
-+		if (!tb_cfg_request_is_canceled(iter) && iter->match(iter, pkg)) {
- 			req = iter;
+ 		switch (port->config.type) {
+ 		case TB_TYPE_DP_HDMI_IN:
+-			tunnel = tb_tunnel_discover_dp(tb, port, alloc_hopids);
++			tunnel = tb_tunnel_discover_dp(tb, port, alloc_hopids,
++						       tb_dp_tunnel_active, tb);
+ 			tb_increase_tmu_accuracy(tunnel);
  			break;
- 		}
-@@ -512,8 +512,11 @@ static void tb_ctl_rx_callback(struct tb_ring *ring, struct ring_frame *frame,
- 	trace_tb_rx(pkg->ctl->index, frame->eof, pkg->buffer, frame->size, !req);
  
- 	if (req) {
--		if (req->copy(req, pkg))
--			schedule_work(&req->work);
-+		scoped_guard(mutex, &pkg->ctl->request_queue_lock) {
-+			if (!tb_cfg_request_is_canceled(req) &&
-+			    req->copy(req, pkg))
-+				schedule_work(&req->work);
-+		}
- 		tb_cfg_request_put(req);
+diff --git a/drivers/thunderbolt/test.c b/drivers/thunderbolt/test.c
+index 799ada97cbc9..c8c648f31107 100644
+--- a/drivers/thunderbolt/test.c
++++ b/drivers/thunderbolt/test.c
+@@ -1407,6 +1407,10 @@ static void tb_test_tunnel_pcie(struct kunit *test)
+ 	tb_tunnel_put(tunnel1);
+ }
+ 
++static void tb_test_dp_tunnel_active(struct tb_tunnel *tunnel, void *data)
++{
++}
++
+ static void tb_test_tunnel_dp(struct kunit *test)
+ {
+ 	struct tb_switch *host, *dev;
+@@ -1427,7 +1431,8 @@ static void tb_test_tunnel_dp(struct kunit *test)
+ 	in = &host->ports[5];
+ 	out = &dev->ports[13];
+ 
+-	tunnel = tb_tunnel_alloc_dp(NULL, in, out, 1, 0, 0, NULL, NULL);
++	tunnel = tb_tunnel_alloc_dp(NULL, in, out, 1, 0, 0,
++				    tb_test_dp_tunnel_active, NULL);
+ 	KUNIT_ASSERT_NOT_NULL(test, tunnel);
+ 	KUNIT_EXPECT_EQ(test, tunnel->type, TB_TUNNEL_DP);
+ 	KUNIT_EXPECT_PTR_EQ(test, tunnel->src_port, in);
+@@ -1473,7 +1478,8 @@ static void tb_test_tunnel_dp_chain(struct kunit *test)
+ 	in = &host->ports[5];
+ 	out = &dev4->ports[14];
+ 
+-	tunnel = tb_tunnel_alloc_dp(NULL, in, out, 1, 0, 0, NULL, NULL);
++	tunnel = tb_tunnel_alloc_dp(NULL, in, out, 1, 0, 0,
++				    tb_test_dp_tunnel_active, NULL);
+ 	KUNIT_ASSERT_NOT_NULL(test, tunnel);
+ 	KUNIT_EXPECT_EQ(test, tunnel->type, TB_TUNNEL_DP);
+ 	KUNIT_EXPECT_PTR_EQ(test, tunnel->src_port, in);
+@@ -1523,7 +1529,8 @@ static void tb_test_tunnel_dp_tree(struct kunit *test)
+ 	in = &dev2->ports[13];
+ 	out = &dev5->ports[13];
+ 
+-	tunnel = tb_tunnel_alloc_dp(NULL, in, out, 1, 0, 0, NULL, NULL);
++	tunnel = tb_tunnel_alloc_dp(NULL, in, out, 1, 0, 0,
++				    tb_test_dp_tunnel_active, NULL);
+ 	KUNIT_ASSERT_NOT_NULL(test, tunnel);
+ 	KUNIT_EXPECT_EQ(test, tunnel->type, TB_TUNNEL_DP);
+ 	KUNIT_EXPECT_PTR_EQ(test, tunnel->src_port, in);
+@@ -1588,7 +1595,8 @@ static void tb_test_tunnel_dp_max_length(struct kunit *test)
+ 	in = &dev6->ports[13];
+ 	out = &dev12->ports[13];
+ 
+-	tunnel = tb_tunnel_alloc_dp(NULL, in, out, 1, 0, 0, NULL, NULL);
++	tunnel = tb_tunnel_alloc_dp(NULL, in, out, 1, 0, 0,
++				    tb_test_dp_tunnel_active, NULL);
+ 	KUNIT_ASSERT_NOT_NULL(test, tunnel);
+ 	KUNIT_EXPECT_EQ(test, tunnel->type, TB_TUNNEL_DP);
+ 	KUNIT_EXPECT_PTR_EQ(test, tunnel->src_port, in);
+@@ -1658,7 +1666,8 @@ static void tb_test_tunnel_3dp(struct kunit *test)
+ 	out2 = &dev5->ports[13];
+ 	out3 = &dev4->ports[14];
+ 
+-	tunnel1 = tb_tunnel_alloc_dp(NULL, in1, out1, 1, 0, 0, NULL, NULL);
++	tunnel1 = tb_tunnel_alloc_dp(NULL, in1, out1, 1, 0, 0,
++				     tb_test_dp_tunnel_active, NULL);
+ 	KUNIT_ASSERT_TRUE(test, tunnel1 != NULL);
+ 	KUNIT_EXPECT_EQ(test, tunnel1->type, TB_TUNNEL_DP);
+ 	KUNIT_EXPECT_PTR_EQ(test, tunnel1->src_port, in1);
+@@ -1666,7 +1675,8 @@ static void tb_test_tunnel_3dp(struct kunit *test)
+ 	KUNIT_ASSERT_EQ(test, tunnel1->npaths, 3);
+ 	KUNIT_ASSERT_EQ(test, tunnel1->paths[0]->path_length, 3);
+ 
+-	tunnel2 = tb_tunnel_alloc_dp(NULL, in2, out2, 1, 0, 0, NULL, NULL);
++	tunnel2 = tb_tunnel_alloc_dp(NULL, in2, out2, 1, 0, 0,
++				     tb_test_dp_tunnel_active, NULL);
+ 	KUNIT_ASSERT_TRUE(test, tunnel2 != NULL);
+ 	KUNIT_EXPECT_EQ(test, tunnel2->type, TB_TUNNEL_DP);
+ 	KUNIT_EXPECT_PTR_EQ(test, tunnel2->src_port, in2);
+@@ -1674,7 +1684,8 @@ static void tb_test_tunnel_3dp(struct kunit *test)
+ 	KUNIT_ASSERT_EQ(test, tunnel2->npaths, 3);
+ 	KUNIT_ASSERT_EQ(test, tunnel2->paths[0]->path_length, 4);
+ 
+-	tunnel3 = tb_tunnel_alloc_dp(NULL, in3, out3, 1, 0, 0, NULL, NULL);
++	tunnel3 = tb_tunnel_alloc_dp(NULL, in3, out3, 1, 0, 0,
++				     tb_test_dp_tunnel_active, NULL);
+ 	KUNIT_ASSERT_TRUE(test, tunnel3 != NULL);
+ 	KUNIT_EXPECT_EQ(test, tunnel3->type, TB_TUNNEL_DP);
+ 	KUNIT_EXPECT_PTR_EQ(test, tunnel3->src_port, in3);
+@@ -1772,7 +1783,8 @@ static void tb_test_tunnel_port_on_path(struct kunit *test)
+ 	in = &dev2->ports[13];
+ 	out = &dev5->ports[13];
+ 
+-	dp_tunnel = tb_tunnel_alloc_dp(NULL, in, out, 1, 0, 0, NULL, NULL);
++	dp_tunnel = tb_tunnel_alloc_dp(NULL, in, out, 1, 0, 0,
++				       tb_test_dp_tunnel_active, NULL);
+ 	KUNIT_ASSERT_NOT_NULL(test, dp_tunnel);
+ 
+ 	KUNIT_EXPECT_TRUE(test, tb_tunnel_port_on_path(dp_tunnel, in));
+@@ -2204,7 +2216,8 @@ static void tb_test_credit_alloc_dp(struct kunit *test)
+ 	in = &host->ports[5];
+ 	out = &dev->ports[14];
+ 
+-	tunnel = tb_tunnel_alloc_dp(NULL, in, out, 1, 0, 0, NULL, NULL);
++	tunnel = tb_tunnel_alloc_dp(NULL, in, out, 1, 0, 0,
++				    tb_test_dp_tunnel_active, NULL);
+ 	KUNIT_ASSERT_NOT_NULL(test, tunnel);
+ 	KUNIT_ASSERT_EQ(test, tunnel->npaths, (size_t)3);
+ 
+@@ -2440,7 +2453,8 @@ static struct tb_tunnel *TB_TEST_DP_TUNNEL1(struct kunit *test,
+ 
+ 	in = &host->ports[5];
+ 	out = &dev->ports[13];
+-	dp_tunnel1 = tb_tunnel_alloc_dp(NULL, in, out, 1, 0, 0, NULL, NULL);
++	dp_tunnel1 = tb_tunnel_alloc_dp(NULL, in, out, 1, 0, 0,
++					tb_test_dp_tunnel_active, NULL);
+ 	KUNIT_ASSERT_NOT_NULL(test, dp_tunnel1);
+ 	KUNIT_ASSERT_EQ(test, dp_tunnel1->npaths, (size_t)3);
+ 
+@@ -2477,7 +2491,8 @@ static struct tb_tunnel *TB_TEST_DP_TUNNEL2(struct kunit *test,
+ 
+ 	in = &host->ports[6];
+ 	out = &dev->ports[14];
+-	dp_tunnel2 = tb_tunnel_alloc_dp(NULL, in, out, 1, 0, 0, NULL, NULL);
++	dp_tunnel2 = tb_tunnel_alloc_dp(NULL, in, out, 1, 0, 0,
++					tb_test_dp_tunnel_active, NULL);
+ 	KUNIT_ASSERT_NOT_NULL(test, dp_tunnel2);
+ 	KUNIT_ASSERT_EQ(test, dp_tunnel2->npaths, (size_t)3);
+ 
+diff --git a/drivers/thunderbolt/tunnel.c b/drivers/thunderbolt/tunnel.c
+index 7e8284575dff..6ac44b371266 100644
+--- a/drivers/thunderbolt/tunnel.c
++++ b/drivers/thunderbolt/tunnel.c
+@@ -1109,8 +1109,7 @@ static void tb_dp_dprx_work(struct work_struct *work)
+ 		mutex_unlock(&tb->lock);
  	}
  
-@@ -525,11 +528,10 @@ static void tb_cfg_request_work(struct work_struct *work)
- {
- 	struct tb_cfg_request *req = container_of(work, typeof(*req), work);
- 
--	if (!test_bit(TB_CFG_REQUEST_CANCELED, &req->flags))
-+	if (!tb_cfg_request_is_canceled(req))
- 		req->callback(req->callback_data);
- 
- 	tb_cfg_request_dequeue(req);
--	tb_cfg_request_put(req);
+-	if (tunnel->callback)
+-		tunnel->callback(tunnel, tunnel->callback_data);
++	tunnel->callback(tunnel, tunnel->callback_data);
+ 	tb_tunnel_put(tunnel);
  }
  
- /**
-@@ -555,10 +557,9 @@ int tb_cfg_request(struct tb_ctl *ctl, struct tb_cfg_request *req,
- 	INIT_WORK(&req->work, tb_cfg_request_work);
- 	INIT_LIST_HEAD(&req->list);
+@@ -1123,15 +1122,10 @@ static int tb_dp_dprx_start(struct tb_tunnel *tunnel)
+ 	tb_tunnel_get(tunnel);
  
--	tb_cfg_request_get(req);
- 	ret = tb_cfg_request_enqueue(ctl, req);
- 	if (ret)
--		goto err_put;
-+		return ret;
+ 	tunnel->dprx_started = true;
++	tunnel->dprx_timeout = dprx_timeout_to_ktime(dprx_timeout);
++	queue_delayed_work(tunnel->tb->wq, &tunnel->dprx_work, 0);
  
- 	ret = tb_ctl_tx(ctl, req->request, req->request_size,
- 			req->request_type);
-@@ -572,9 +573,6 @@ int tb_cfg_request(struct tb_ctl *ctl, struct tb_cfg_request *req,
- 
- err_dequeue:
- 	tb_cfg_request_dequeue(req);
--err_put:
--	tb_cfg_request_put(req);
+-	if (tunnel->callback) {
+-		tunnel->dprx_timeout = dprx_timeout_to_ktime(dprx_timeout);
+-		queue_delayed_work(tunnel->tb->wq, &tunnel->dprx_work, 0);
+-		return -EINPROGRESS;
+-	}
 -
- 	return ret;
+-	return tb_dp_is_usb4(tunnel->src_port->sw) ?
+-		tb_dp_wait_dprx(tunnel, dprx_timeout) : 0;
++	return -EINPROGRESS;
  }
  
-@@ -588,9 +586,10 @@ int tb_cfg_request(struct tb_ctl *ctl, struct tb_cfg_request *req,
+ static void tb_dp_dprx_stop(struct tb_tunnel *tunnel)
+@@ -1582,20 +1576,28 @@ static void tb_dp_dump(struct tb_tunnel *tunnel)
+  * @tb: Pointer to the domain structure
+  * @in: DP in adapter
+  * @alloc_hopid: Allocate HopIDs from visited ports
++ * @callback: Callback that is called when the DP tunnel is fully
++ *	      activated (or there is an error)
++ * @callback_data: Data for @callback
+  *
+  * If @in adapter is active, follows the tunnel to the DP out adapter
+  * and back. Returns the discovered tunnel or %NULL if there was no
+- * tunnel.
++ * tunnel. See tb_tunnel_alloc_dp() for @callback.
+  *
+  * Return: Pointer to &struct tb_tunnel or %NULL if no tunnel found.
   */
- void tb_cfg_request_cancel(struct tb_cfg_request *req, int err)
+ struct tb_tunnel *tb_tunnel_discover_dp(struct tb *tb, struct tb_port *in,
+-					bool alloc_hopid)
++					bool alloc_hopid,
++					void (*callback)(struct tb_tunnel *, void *),
++					void *callback_data)
  {
--	set_bit(TB_CFG_REQUEST_CANCELED, &req->flags);
--	schedule_work(&req->work);
--	wait_event(tb_cfg_request_cancel_queue, !tb_cfg_request_is_active(req));
-+	scoped_guard(mutex, &req->ctl->request_queue_lock)
-+		set_bit(TB_CFG_REQUEST_CANCELED, &req->flags);
-+	cancel_work_sync(&req->work);
-+	tb_cfg_request_dequeue(req);
- 	req->result.err = err;
- }
+ 	struct tb_tunnel *tunnel;
+ 	struct tb_port *port;
+ 	struct tb_path *path;
  
++	if (WARN_ON(!callback))
++		return NULL;
++
+ 	if (!tb_dp_port_is_enabled(in))
+ 		return NULL;
+ 
+@@ -1611,6 +1613,9 @@ struct tb_tunnel *tb_tunnel_discover_dp(struct tb *tb, struct tb_port *in,
+ 	tunnel->alloc_bandwidth = tb_dp_alloc_bandwidth;
+ 	tunnel->consumed_bandwidth = tb_dp_consumed_bandwidth;
+ 	tunnel->src_port = in;
++	tunnel->callback = callback;
++	tunnel->callback_data = callback_data;
++	INIT_DELAYED_WORK(&tunnel->dprx_work, tb_dp_dprx_work);
+ 
+ 	path = tb_path_discover(in, TB_DP_VIDEO_HOPID, NULL, -1,
+ 				&tunnel->dst_port, "Video", alloc_hopid);
+@@ -1677,16 +1682,16 @@ struct tb_tunnel *tb_tunnel_discover_dp(struct tb *tb, struct tb_port *in,
+  *	    %0 if no available bandwidth.
+  * @max_down: Maximum available downstream bandwidth for the DP tunnel.
+  *	      %0 if no available bandwidth.
+- * @callback: Optional callback that is called when the DP tunnel is
+- *	      fully activated (or there is an error)
+- * @callback_data: Optional data for @callback
++ * @callback: Callback that is called when the DP tunnel is fully
++ *	      activated (or there is an error)
++ * @callback_data: Data for @callback
+  *
+  * Allocates a tunnel between @in and @out that is capable of tunneling
+- * Display Port traffic. If @callback is not %NULL it will be called
+- * after tb_tunnel_activate() once the tunnel has been fully activated.
+- * It can call tb_tunnel_is_active() to check if activation was
+- * successful (or if it returns %false there was some sort of issue).
+- * The @callback is called without @tb->lock held.
++ * Display Port traffic. The @callback is called after tb_tunnel_activate()
++ * once the tunnel has been fully activated. It can call
++ * tb_tunnel_is_active() to check if activation was successful (or if it
++ * returns %false there was some sort of issue). The @callback is called
++ * without @tb->lock held.
+  *
+  * Return: Pointer to @struct tb_tunnel or %NULL in case of failure.
+  */
+@@ -1701,7 +1706,7 @@ struct tb_tunnel *tb_tunnel_alloc_dp(struct tb *tb, struct tb_port *in,
+ 	struct tb_path *path;
+ 	bool pm_support;
+ 
+-	if (WARN_ON(!in->cap_adap || !out->cap_adap))
++	if (WARN_ON(!in->cap_adap || !out->cap_adap || !callback))
+ 		return NULL;
+ 
+ 	tunnel = tb_tunnel_alloc(tb, 3, TB_TUNNEL_DP);
+diff --git a/drivers/thunderbolt/tunnel.h b/drivers/thunderbolt/tunnel.h
+index 4878763a82b3..7d1d255ab5a7 100644
+--- a/drivers/thunderbolt/tunnel.h
++++ b/drivers/thunderbolt/tunnel.h
+@@ -66,8 +66,8 @@ enum tb_tunnel_state {
+  * @dprx_canceled: Was DPRX capabilities read poll canceled
+  * @dprx_timeout: If set DPRX capabilities read poll work will timeout after this passes
+  * @dprx_work: Worker that is scheduled to poll completion of DPRX capabilities read
+- * @callback: Optional callback called when DP tunnel is fully activated
+- * @callback_data: Optional data for @callback
++ * @callback: Callback called when DP tunnel is fully activated
++ * @callback_data: Data for @callback
+  * @paths: All paths required by the tunnel
+  */
+ struct tb_tunnel {
+@@ -117,7 +117,9 @@ struct tb_tunnel *tb_tunnel_alloc_pci(struct tb *tb, struct tb_port *up,
+ bool tb_tunnel_reserved_pci(struct tb_port *port, int *reserved_up,
+ 			    int *reserved_down);
+ struct tb_tunnel *tb_tunnel_discover_dp(struct tb *tb, struct tb_port *in,
+-					bool alloc_hopid);
++					bool alloc_hopid,
++					void (*callback)(struct tb_tunnel *, void *),
++					void *callback_data);
+ struct tb_tunnel *tb_tunnel_alloc_dp(struct tb *tb, struct tb_port *in,
+ 				     struct tb_port *out, int link_nr,
+ 				     int max_up, int max_down,
 
