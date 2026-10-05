@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8566B4AB3D3
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 14:35:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 556E34AD4AE
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 14:35:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791210940; cv=none; b=OMekRaysRuxvaFGEib9kUic5963F05tmCTJOhhZg485vn4epO4OlNi2w/EXhbKZcJYdM+vUBPpaNTpF+Cn2+9YB6SCd9Ddkm7uJlESTPJHrSTXdWRRvFZLN5xY4HgwJwXLqSmjb2YOhDXow/9Xjxqmntxzd3r5ccNB7KU6XeZ+4=
+	t=1791210963; cv=none; b=EdNUQlCEHzigI/t/Fugtquhz2VY60Mb8OxFTuph9hkm+NzbvwdiIV8NVccmHosnrnqlmLLY2PByPdbsXquUbgqk14KIDTf2C8ZoH0YqPtxEH2IEMg+a1jRMiuL2QT1xa2qOpVD0NzvQhpE8Y5JZDTCUuUPk5dsqM/L0RJHawRqQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791210940; c=relaxed/simple;
-	bh=Ds6qb1a/eHtXHXIM6hn3SlWh3KfCv+cwVHkxCq8RYXM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=JVPKMKenL7G1iigiNrvz+kA8x4lkRRJXBpT0B34MmUcKmD7IF0+VuTrxmh1CD4zvO5aCb/1GXCA7JolTe4ikimSjtkfLkFDN0z8KBfjOwWUXsrIJE4n0dZ3EUmuLK2iUhmxvLYwRz2FaBgmYG+1OwP6U9NeSQP4IrDUMkYVtmWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xAevKUmq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791210963; c=relaxed/simple;
+	bh=wM8fKp5Y+Z4RRdxgtsBUPOad7x0ATF/5ulF6VpVy1cc=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=GJCCCPJFzzluZ4l+uB/rQcUa7w0sHI7TVwxPCSxeNyuVtuiRLHFV9p2K04Cionu70P0SKL22CuU1vXG/UkVd6rrIfrtTAnN/z8f2nkstHlnWNyk4vb7UNeKodwomntZ1r3VH1XXdRGqFTeVtXHxOZ4kjwgGyXzx1+72+dW3FcSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BR7NUFAG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xAevKUmq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 416401F00899;
-	Mon,  5 Oct 2026 14:35:28 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BR7NUFAG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A2701F000FF;
+	Mon,  5 Oct 2026 14:35:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791210928;
-	bh=x8zQBJzKXc8Q4zGJWuynVcNqAgT9ycfRKdXscHGw89E=;
+	s=korg; t=1791210951;
+	bh=xRMaT7ytMi7g9bjqDT932CEsTcU1xU15BF8fRT93FCQ=;
 	h=Subject:To:Cc:From:Date;
-	b=xAevKUmq7x/sQd4Q6cWma7LQtalVJjeVWUTcBW0Z/i1TuzmBeND71Besvm1NF1ARi
-	 rUXdcgb3XzKiIxO3i5Thh3rHo66jY+coHHPBwMaLXQMa8McX8wPZtDTvMeaiWc4ve/
-	 UrZjviRBFpIHKZS3eLHfyZv045BRccXz775Rnwx4=
-Subject: FAILED: patch "[PATCH] KVM: SVM: Preserve TLB control (i.e. pending TLB flush) on" failed to apply to 5.10-stable tree
-To: seanjc@google.com,fane@google.com,jmattson@google.com,pbonzini@redhat.com,thomas.lendacky@amd.com,yosry@kernel.org
+	b=BR7NUFAGXgJImgMvY2p/MEtDBogMSvQuNzghNUZ0TuQMjTLVybhZvK2DDUSK+W+Y5
+	 VFOdODYBA608Tty9bK/PVuBD+SDiymeL2XbnZAjS38af77PX7o1m2hGGU+83NN79Yu
+	 ikaZnD8Wp4U/rjBRuuPR/E/82KJCZzXbJBPL1ciM=
+Subject: FAILED: patch "[PATCH] KVM: arm64: Apply the fine-grained UNDEFs without FEAT_FGT" failed to apply to 6.18-stable tree
+To: fuad.tabba@linux.dev,oupton@kernel.org,weilin.chang@arm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 05 Oct 2026 16:35:11 +0200
-Message-ID: <2026100511-finalize-stove-13fb@gregkh>
+Date: Mon, 05 Oct 2026 16:35:49 +0200
+Message-ID: <2026100548-subsidy-prepay-7444@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 60d93c27859fb3ec5b5a689e24de303f166477d0
+git cherry-pick -x 4bdd2b3a708c1feb701cb8b62feb8ad2fd77bb07
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100511-finalize-stove-13fb@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100548-subsidy-prepay-7444@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,92 +62,42 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 60d93c27859fb3ec5b5a689e24de303f166477d0 Mon Sep 17 00:00:00 2001
-From: Sean Christopherson <seanjc@google.com>
-Date: Fri, 4 Sep 2026 10:06:39 -0700
-Subject: [PATCH] KVM: SVM: Preserve TLB control (i.e. pending TLB flush) on
- failed VMRUN
+From 4bdd2b3a708c1feb701cb8b62feb8ad2fd77bb07 Mon Sep 17 00:00:00 2001
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Tue, 29 Sep 2026 10:00:28 +0100
+Subject: [PATCH] KVM: arm64: Apply the fine-grained UNDEFs without FEAT_FGT
 
-Don't reset the VMCB's TLB control back to "do nothing" on a failed VMRUN,
-as empirical testing shows that the CPU performs the requested TLB flush if
-and only if VMRUN is successful, i.e. clearing TLB control on a failed
-VMRUN effectively drops a TLB flush.
+FGUs don't actually require hardware support, so don't gate fgt trap
+config insertion on FGT. This is the only action required to allow FGUs
+always, as kvm_calculate_traps() already computes the FGU bits with or
+without FEAT_FGT.
 
-Explicitly track the need to flush all ASIDs on a per-CPU basis, as the
-ASID reuse condition is tied to the pCPU, not to the vCPU.  As a bonus,
-this also obviates the need to avoid clobbering FLUSH_ALL_ASID with
-TLB_CONTROL_FLUSH_ASID, e.g. in svm_flush_tlb_asid().
+This also fixes a spurious WARN when a TLBI OS is run on a guest in vEL1
+without FEAT_TLBIOS on non FEAT_FGT hardware. In this configuration the
+course-grained HCR_EL2.TTLBOS trap reaches the handler handle_tlbi_el1(),
+which expects an EL1 TLBI only from vEL2. With FGUs enabled the UNDEF
+will be injected without needing the specific handler.
 
-Deliberately don't bother saving/restoring the "old" tlb_ctl on failure,
-in quotes because it's not exactly the old tlb_ctl, it's the tlb_ctl from
-after pre_svm_run(), but before updating tlb_ctl for flush_all_asids.  If
-VMRUN fails and TLB_CONTROL_FLUSH_ALL_ASID is forced, then the next
-successful run of the VMCB *may* unnecessarily flush all ASIDs, which
-strictly speaking could result in noisy neighbor issues.  However, the
-fact that new_asid() is already guest-triggerable, because of KVM's flawed
-behavior of clearing the ASID on emulated INIT, means that a guest can
-already trigger a flush of all ASIDs at roughly the same rate.  And once
-KVM stops clobbering the ASID on emulated INIT, *or* assigns a static ASID
-to each vCPU, this flaw goes away.
-
-Fixes: 38e5e92fe8c0 ("KVM: SVM: Implement Flush-By-Asid feature")
+Fixes: f5a5a406b4b8b ("KVM: arm64: Propagate and handle Fine-Grained UNDEF bits")
 Cc: stable@vger.kernel.org
-Reported-by: Stefan Teodorescu <fane@google.com>
-Suggested-by: Yosry Ahmed <yosry@kernel.org>
-Cc: Tom Lendacky <thomas.lendacky@amd.com>
-Cc: Jim Mattson <jmattson@google.com>
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Message-ID: <20260904170642.3291466-2-seanjc@google.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+Reviewed-by: Wei-Lin Chang <weilin.chang@arm.com>
+Link: https://patch.msgid.link/20260929090031.3829185-2-fuad.tabba@linux.dev
+[oliver: Take Wei-Lin's suggested changelog]
+Signed-off-by: Oliver Upton <oupton@kernel.org>
 
-diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index 7d59d301e1e5..afbaaaab84ed 100644
---- a/arch/x86/kvm/svm/svm.c
-+++ b/arch/x86/kvm/svm/svm.c
-@@ -1902,8 +1902,7 @@ static void new_asid(struct vcpu_svm *svm, struct svm_cpu_data *sd)
- 	if (sd->next_asid > sd->max_asid) {
- 		++sd->asid_generation;
- 		sd->next_asid = sd->min_asid;
--		svm->vmcb->control.tlb_ctl = TLB_CONTROL_FLUSH_ALL_ASID;
--		vmcb_mark_dirty(svm->vmcb, VMCB_ASID);
-+		sd->flush_all_asids = true;
- 	}
+diff --git a/arch/arm64/kvm/emulate-nested.c b/arch/arm64/kvm/emulate-nested.c
+index 3806ff0920fe..f59d89d04eca 100644
+--- a/arch/arm64/kvm/emulate-nested.c
++++ b/arch/arm64/kvm/emulate-nested.c
+@@ -2386,9 +2386,6 @@ int __init populate_nv_trap_config(void)
+ 				print_nv_trap_error(fgt, "FGT bit is reserved", ret);
+ 			}
  
- 	svm->current_vmcb->asid_generation = sd->asid_generation;
-@@ -4528,6 +4527,11 @@ static __no_kcsan fastpath_t svm_vcpu_run(struct kvm_vcpu *vcpu, u64 run_flags)
- 		svm->vmcb->control.asid = svm->asid;
- 		vmcb_mark_dirty(svm->vmcb, VMCB_ASID);
- 	}
-+	if (this_cpu_ptr(&svm_data)->flush_all_asids) {
-+		svm->vmcb->control.tlb_ctl = TLB_CONTROL_FLUSH_ALL_ASID;
-+		vmcb_mark_dirty(svm->vmcb, VMCB_ASID);
-+	}
-+
- 	svm->vmcb->save.cr2 = vcpu->arch.cr2;
+-			if (!cpus_have_final_cap(ARM64_HAS_FGT))
+-				continue;
+-
+ 			prev = xa_store(&sr_forward_xa, enc,
+ 					xa_mk_value(tc.val), GFP_KERNEL);
  
- 	if (guest_cpu_cap_has(vcpu, X86_FEATURE_ERAPS) &&
-@@ -4618,7 +4622,10 @@ static __no_kcsan fastpath_t svm_vcpu_run(struct kvm_vcpu *vcpu, u64 run_flags)
- 		vcpu->arch.nested_run_pending = 0;
- 	}
- 
--	svm->vmcb->control.tlb_ctl = TLB_CONTROL_DO_NOTHING;
-+	if (!svm_is_vmrun_failure(svm->vmcb->control.exit_code)) {
-+		this_cpu_ptr(&svm_data)->flush_all_asids = false;
-+		svm->vmcb->control.tlb_ctl = TLB_CONTROL_DO_NOTHING;
-+	}
- 
- 	/*
- 	 * Unconditionally mask off the CLEAR_RAP bit, the AND is just as cheap
-diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
-index e958943b8162..84f19026d3e8 100644
---- a/arch/x86/kvm/svm/svm.h
-+++ b/arch/x86/kvm/svm/svm.h
-@@ -376,6 +376,7 @@ struct svm_cpu_data {
- 	u32 next_asid;
- 	u32 min_asid;
- 
-+	bool flush_all_asids;
- 	bool bp_spec_reduce_set;
- 
- 	struct vmcb *save_area;
 
