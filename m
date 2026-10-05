@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79DEB3AC0D0
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 22:12:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0600141A549
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 22:12:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791238366; cv=none; b=QpnRlWELjFGX94cR8w4hnRGL+N3HO13k5554o5W1byzf/+1bs+Kd0zrAlpae2DlXJdvPEP02qkOSJ5ETgi5omegv+rnrGZPifjxsqzibhGReUabGjrrNt8V3UvGxhSn4afHE3bbbZSdDzn2LjjEv7rgj5qk91qZJ8MiaPrkAJFs=
+	t=1791238368; cv=none; b=fSlM7JzDLkePqGXnhIPkwbjLyv1KW03cc39vJev0DYVNA0gZqIMXFtnyxd3eQ6pxLqUN6PNDlFQzlLbO+nCd3jUFZiMvphaYfU/SgPKSDEfMgrd+ukWNgwaZ65ayzT4mFZn0+HDrRy/G9c/10JgvFOkxTH659tTsTsBSgeY19G4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791238366; c=relaxed/simple;
-	bh=XA9vyd8rXaRSJvtR0v1YPTxnDPOs6LqLzEQ1Css16uQ=;
+	s=arc-20240116; t=1791238368; c=relaxed/simple;
+	bh=C07NBeRzGEuXKwOxO038QJuwp67YaJiR42vDllsiGfg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YQiBFMHcI3yr5GeFRbBm1L/ybCM84ArIguPWAiCaMX8zjuSLnhRR5P7U1prNpdsTBxag+uSQ6UWoNXK7/FYSDG3M9litvxrcDjaI/Iv8/7SKtjrw+4UCpJIQcnr7EqD586RBwdMvgMZYcRY916ZEjq4I8aMjxXCu41EmBKiadO0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gUxwl0t/; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=hpN32zQIUxwf9OLkCoA5CJpm51tuZmiquXfja9DH7DEbfKprWwdUovVSUKJTmKd96/4aSI1bVKbDdHMTvW16J+NH3cA1BoMcVVbAZfUPTTU53tA6xIDQ0LvFma26ylcBFHAgGWFR+d4I+3irgWxo9Wxj6qgUgGqY32tFA202qSk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WHouq2Yh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gUxwl0t/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEBCE1F00893;
-	Mon,  5 Oct 2026 22:12:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WHouq2Yh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B2FF1F000FF;
+	Mon,  5 Oct 2026 22:12:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791238365;
-	bh=w+4RjG0cBsTb8izqz6gdZED/hHJYvgzxLdDjDIXKwZM=;
+	s=k20260515; t=1791238366;
+	bh=WYpP92992Ddn/hjhQmuRBOkHKwWBA0GoxvprPFEZmjk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gUxwl0t/pRwy2qJDfYOSjl5kxPXgSYkhK/JJ3YFRPyHoDCFhi3zf4u1YYzGg9PkjT
-	 96IpZZ0wNhajk9Vri4Jw6UhmeeXzL+kgs9H6yYO4OJGIXtuOLI/9YmKxETQLjyyfCY
-	 /fcMZoA5UOf/F0Q5dkv1btxP0Rm5Uy72dq5xe9xcOpLRr1UM3RDuIkbuFgUhFgzLNW
-	 yvCN43G7hazRwHsNfh2H04LCzTe0nJpUNyzRXdVa5bWkv97xsC4H+V5zZ3uMdWK6LS
-	 s1LfjR7FnamMp5KH1PuPAfRSNcCfTdC7K1uN7/+y1ZexVuJygBcsf02ViAUfFNZBcC
-	 D1ORkPqA+BvGQ==
+	b=WHouq2Yhb8+Z78J0y7o8pdS5Bc84ew/lbYKV7VFSpWR5Lm4t6S3LtrTu/xKi7cKXM
+	 8989MP+LD4Bl9St7osTNn/0hIbDyIwOf+GAaUsiiML9V2WHLR0g60x4W3GqRC+iAL2
+	 EKVgJ0fY+FEXf07m7mKPX1U9jGaELBLkdFyj0Xu6qcpEQU6IW4gtHeCH1oDmvNeG/T
+	 CdlCMvnSLCP38e30yVG4WZwYcfc7cb8ypx2sy10H15CuWWEmCF4eWoNxQz/mzrs5hh
+	 DO3h1JxMndaKSo4qYFAykpYGrreHxUv7f9mWWbhgTk8pFF4RppOEM9Im3LX6XBypRO
+	 GitTQ5Y/hD+Hw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Dapeng Mi <dapeng1.mi@linux.intel.com>,
+Cc: Zhengchuan Liang <zcliangcn@gmail.com>,
 	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/3] perf/core: Check kernel access when kernel callchains are requested
-Date: Mon,  5 Oct 2026 18:12:38 -0400
-Message-ID: <20261005221222.3426405-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 3/3] perf: Require kernel access for text poke events
+Date: Mon,  5 Oct 2026 18:12:39 -0400
+Message-ID: <20261005221222.3426405-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261005221222.3426405-1-sashal@kernel.org>
 References: <2026100517-flask-antiviral-2fbf@gregkh>
@@ -46,48 +46,50 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Dapeng Mi <dapeng1.mi@linux.intel.com>
+From: Zhengchuan Liang <zcliangcn@gmail.com>
 
-[ Upstream commit a4573a3838ae4fc73b70019cfa1dac9aaea7cc2f ]
+[ Upstream commit 357e8a77a501d96c9517f01f4a211eed5e9c9184 ]
 
-perf_event_open() currently gates perf_allow_kernel() only on
-!attr.exclude_kernel.
+Perf events with exclude_kernel=1 can be opened without kernel perf
+access. However, exclude_kernel does not suppress text-poke sideband
+records. Every PERF_RECORD_TEXT_POKE is marked PERF_RECORD_MISC_KERNEL
+and contains a raw kernel instruction address.
 
-However, users can still request kernel callchain collection with
-attr.exclude_callchain_kernel == 0 even when attr.exclude_kernel == 1.
-That still requires kernel profiling privilege, but the existing check
-does not enforce it.
+An unprivileged task can therefore open and mmap a task-local software
+event with text_poke=1. Both opening a count-only tracepoint event and
+configuring UDP GRO for ESP-in-UDP cause updates to inline static calls;
+the observer receives the relocated addresses of the modified instructions.
+For a known kernel image, any such address reveals the runtime kernel
+text base despite KASLR.
 
-Update the permission check to call perf_allow_kernel() when either
-kernel sampling is requested or kernel callchains are requested.
+Call perf_allow_kernel() whenever attr.text_poke is set, regardless of
+exclude_kernel. Events that neither monitor kernel execution nor request
+text-poke records retain their existing permissions.
 
-This keeps permission checks aligned with requested data and prevents
-unprivileged use of kernel callchain capture.
-
-Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+Fixes: e17d43b93e54 ("perf: Add perf text poke event")
+Assisted-by: LLM
+Signed-off-by: Zhengchuan Liang <zcliangcn@gmail.com>
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Link: https://patch.msgid.link/20260616044654.3468742-9-dapeng1.mi@linux.intel.com
-Stable-dep-of: 357e8a77a501 ("perf: Require kernel access for text poke events")
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/99131354c41e23188f778b92f90363775b482395.1790573390.git.zcliangcn@gmail.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/events/core.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ kernel/events/core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/kernel/events/core.c b/kernel/events/core.c
-index ddabdc16e3880..3791c84ffe2cf 100644
+index 3791c84ffe2cf..41f05c932e15b 100644
 --- a/kernel/events/core.c
 +++ b/kernel/events/core.c
-@@ -12893,7 +12893,9 @@ SYSCALL_DEFINE5(perf_event_open,
+@@ -12893,7 +12893,7 @@ SYSCALL_DEFINE5(perf_event_open,
  	if (err)
  		return err;
  
--	if (!attr.exclude_kernel) {
-+	if (!attr.exclude_kernel ||
-+	    ((attr.sample_type & PERF_SAMPLE_CALLCHAIN) &&
-+	     !attr.exclude_callchain_kernel)) {
+-	if (!attr.exclude_kernel ||
++	if (!attr.exclude_kernel || attr.text_poke ||
+ 	    ((attr.sample_type & PERF_SAMPLE_CALLCHAIN) &&
+ 	     !attr.exclude_callchain_kernel)) {
  		err = perf_allow_kernel();
- 		if (err)
- 			return err;
 -- 
 2.53.0
 
