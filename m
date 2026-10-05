@@ -1,43 +1,43 @@
 Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C14F31F99C;
-	Mon,  5 Oct 2026 08:49:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09FFE37F322;
+	Mon,  5 Oct 2026 08:49:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=119.15.109.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791190146; cv=none; b=A1jAj+/Tg2BT5sM/5H5ObAdF1NzoFe6AuH6a4gJnI6412nJ1FMiLbdQnFYXBhXkGM61wQzWG5wk3VHsrx5bdw0GQAQRsN4ah4rplgLHk2HvsD3CSzPdLm8UY2P0M3P+6ms9p12AwtLB4fKEJJDu8zatqF4hNzQ1epyc+BFSaM/s=
+	t=1791190152; cv=none; b=HxS7sJyvG3cT0cVKYe7PooeUcn8TYfj/utzZMt7qCJ5IpWWmV9A5HXiYKhyocbfjVFFBe49Vt2tKzpomG0xGznZdKpuCQW5Q8+DaHp75YDiXNm7nuwVADIrVAK9UVTib8gSyvYRaVyhJJwUCsiFNiaH/w1vGFZafJ9TCFbHa8WI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791190146; c=relaxed/simple;
-	bh=ZOFDXKT9pT7NF5wfa2BqNEVmLTyM+7q+Z9SIUx/78b0=;
+	s=arc-20240116; t=1791190152; c=relaxed/simple;
+	bh=kTkhrVTAO5GMjPKBb3aCo2c3nPtQ9xe7/SLbVhe4i+U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oSOhCa/o4xXvhfPVPYAgGfgYV/xb1fOqeHU1hYTfFFKK6QyGRaxPyM0/kJva7bfWhX6Q5vtzYDru9c7Nk9reMl9blSQAiRH7010r4Id4Eco8GF7MvDTXgNyl7OBbogdQENMbWfsyWCV341nkWGEw5Q/qe9W9q8EF+N5mXbB9GeI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org; spf=pass smtp.mailfrom=d-silva.org; dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b=1AfoSKjS; arc=none smtp.client-ip=119.15.109.137
+	 MIME-Version; b=rteF9fsWNuA8GrlSvWM2aiZ2VP2F8AlSChRWotoOcr6jkeIUJq9yFHkA3NgH4TTdwL5VExUwq7kPSbGmu92N2ozFECp9HA0yJzzzoy3KAd3FzLY1+GT4doMdXEvgahjNv+oaswmzEocdNC9cFnoZjVKGoRXN4MFc5+ovs/eMWIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org; spf=pass smtp.mailfrom=d-silva.org; dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b=lHs8c/NK; arc=none smtp.client-ip=119.15.109.137
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b="1AfoSKjS"
+	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b="lHs8c/NK"
 Received: from Hawking.lan (hawking.lan [10.0.1.4])
-	by www.nmnhosting.com (Postfix) with ESMTP id DECEA4086D;
-	Mon,  5 Oct 2026 19:48:55 +1100 (AEDT)
+	by www.nmnhosting.com (Postfix) with ESMTP id 70C87424F4;
+	Mon,  5 Oct 2026 19:49:02 +1100 (AEDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1791190135;
+	t=1791190142;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=qIZ2AGLmaSEsGXYA99RwBuup26bsgg2d0YHri6TJQ/Q=;
-	b=1AfoSKjSXRsREwn2HSqH4bWzRLcMVWLYt1wFklopJIHhhDs8/MO+hhc5OdnM1lE5HmrIAA
-	9XFR6/wv75NEy2PuIYAlM8IiMi7KrTi/DXn/QKrVu4RzTlFVJ/RpskI4Log+dn2jq20j2t
-	roUH5NaJfFF7iUywzClwjsNEFbqMmLd1lfg3FIb55gHkOltIpfOgX3DInYVWSSCaJBzm3r
-	OdiGomVNHuqbt9CGbjGZY4SWfXbMwm+jg9sLv5dVYd9JLFkNRzBn4E3t/Qx8OgepXTnFZv
-	/5T8zCcE9ecWQrYqvReON3O7wuh8DLhI7EPc5VFbD75vecfLTaIuwi23UGA4sA==
-X-GPT-Reason: legitimate; the email is a technical kernel patch
-	submission containing a code diff and a description of a fix for
-	a realtek wireless driver; the sender (alastair@d-silva.org) matches
-	the personal mailbox address provided in the context; the content
-	is highly specific, technical, and lacks any marketing, urgency, or
-	phishing indicators; the subject line follows standard Linux kernel
-	mailing list formatting for patches.
+	bh=fGW3NlkX62S45sEbjjI+fX46KWVMMEaNaAB1fTOPLCs=;
+	b=lHs8c/NK9rkYDzrMA9IaGZbQRCgMWzIN3EYbYDb05Oa8NuPGYbqc8z4GQQ/kazUx9gYQfk
+	0pUqS2vNRvk8k22jXv+6Clqu4auGbqqwNyLLYRAaBjagnykeqKLTklNjw8HPwgYa48PpmP
+	Gbsq6/Tda68mUTdol9dpJtkbH+NFHyiVFsOzct/cm0cmjvM7/E4Z0tumNvR7okdAoF3qgk
+	wtVycROLEXAxKxnKgLVIzPoG2Ul0wTuURRZjHpaMAUA2hWFNyPiMb8HWhUZVwddaxpeaBn
+	g2O9+MMC6be3KsLrnkeMrgq0QM4q1GHpu80pdCLZlxPFEnS/W6tD5+yDvvVhLg==
+X-GPT-Reason: legitimate; the message is a technical software patch
+	(Linux kernel driver update) that perfectly aligns with the
+	personal/professional context of the recipient (alastair@d-silva.org);
+	the From domain (d-silva.org) matches the recipient's domain; the
+	content contains a standard git diff and technical documentation
+	with no external links, urgency, or marketing elements; and it follows
+	a standard developer workflow for code contributions.
 From: Alastair D'Silva <alastair@d-silva.org>
 To: linux-wireless@vger.kernel.org,
 	Ping-Ke Shih <pkshih@realtek.com>,
@@ -49,9 +49,9 @@ Cc: Luka Gejak <luka.gejak@linux.dev>,
 	linux-kernel@vger.kernel.org,
 	Alastair D'Silva <alastair@d-silva.org>,
 	stable@vger.kernel.org
-Subject: [PATCH rtw-next v4 1/4] wifi: rtw88: sdio: Handle allocation and read errors in rtw_sdio_rxfifo_recv
-Date: Mon,  5 Oct 2026 19:48:46 +1100
-Message-ID: <20261005084849.3109337-2-alastair@d-silva.org>
+Subject: [PATCH rtw-next v4 2/4] wifi: rtw88: sdio: Track running state and cancel TX worker on stop
+Date: Mon,  5 Oct 2026 19:48:47 +1100
+Message-ID: <20261005084849.3109337-3-alastair@d-silva.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261005084849.3109337-1-alastair@d-silva.org>
 References: <20261005084849.3109337-1-alastair@d-silva.org>
@@ -63,85 +63,86 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When dev_alloc_skb() or rtw_sdio_read_port() fails, rtw_sdio_rxfifo_recv()
-returns without reading data. Because it returned void, the caller still
-counted rx_len against the loop budget while leaving data stranded in the
-FIFO.
+When rtw_sdio_stop() disables interrupts, in-flight interrupt handlers or
+delayed TX work may still run against a powered-down device.
 
-Return an error code from rtw_sdio_rxfifo_recv() on failure and break out
-of the receive loop in the caller immediately.
+Track the operational state in rtwsdio->running (similar to PCI), check it
+at the entry of rtw_sdio_handle_interrupt() and rtw_sdio_tx_handler(), and
+cancel the TX worker synchronously in rtw_sdio_stop().
 
 Fixes: 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation for SDIO based chipsets")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
 ---
- drivers/net/wireless/realtek/rtw88/sdio.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
+ drivers/net/wireless/realtek/rtw88/sdio.c | 12 ++++++++++++
+ drivers/net/wireless/realtek/rtw88/sdio.h |  1 +
+ 2 files changed, 13 insertions(+)
 
 diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
-index dc2fd0f8f9ff..e39284b71837 100644
+index e39284b71837..d2f4d7e8bc83 100644
 --- a/drivers/net/wireless/realtek/rtw88/sdio.c
 +++ b/drivers/net/wireless/realtek/rtw88/sdio.c
-@@ -1349,7 +1349,7 @@ static void rtw_sdio_rx_skb(struct rtw_dev *rtwdev, struct sk_buff *skb,
- 	ieee80211_rx_irqsafe(rtwdev->hw, skb);
- }
+@@ -1054,6 +1054,7 @@ static int rtw_sdio_8723bs_check_rqpn(struct rtw_dev *rtwdev)
  
--static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
-+static int rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
+ static int rtw_sdio_start(struct rtw_dev *rtwdev)
  {
- 	struct rtw_sdio *rtwsdio = (struct rtw_sdio *)rtwdev->priv;
- 	const struct rtw_chip_info *chip = rtwdev->chip;
-@@ -1366,12 +1366,12 @@ static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
++	struct rtw_sdio *rtwsdio = (struct rtw_sdio *)rtwdev->priv;
+ 	u32 clear;
  
- 	skb = dev_alloc_skb(bufsz);
- 	if (!skb)
--		return;
-+		return -ENOMEM;
- 
- 	ret = rtw_sdio_read_port(rtwdev, skb->data, bufsz);
- 	if (ret) {
- 		dev_kfree_skb_any(skb);
--		return;
-+		return ret;
+ 	if (rtw_is_8723bs(rtwdev)) {
+@@ -1075,6 +1076,7 @@ static int rtw_sdio_start(struct rtw_dev *rtwdev)
+ 			rtw_write32(rtwdev, REG_SDIO_HISR, clear);
  	}
  
- 	while (true) {
-@@ -1380,7 +1380,7 @@ static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
- 					   &pkt_stat, &rx_status);
- 		if (ret) {
- 			dev_kfree_skb_any(skb);
--			return;
-+			return ret;
- 		}
++	rtwsdio->running = true;
+ 	rtw_sdio_enable_interrupt(rtwdev);
  
- 		pkt_offset = pkt_desc_sz + pkt_stat.drv_info_sz +
-@@ -1416,11 +1416,14 @@ static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
- 		skb_reserve(skb, curr_pkt_len);
- 		rx_len -= curr_pkt_len;
- 	}
+ 	return 0;
+@@ -1082,7 +1084,11 @@ static int rtw_sdio_start(struct rtw_dev *rtwdev)
+ 
+ static void rtw_sdio_stop(struct rtw_dev *rtwdev)
+ {
++	struct rtw_sdio *rtwsdio = (struct rtw_sdio *)rtwdev->priv;
 +
-+	return 0;
++	rtwsdio->running = false;
+ 	rtw_sdio_disable_interrupt(rtwdev);
++	cancel_delayed_work_sync(&rtwsdio->tx_handler_data->work);
  }
  
- static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
- {
- 	u32 rx_len, hisr, total_rx_bytes = 0;
-+	int ret;
+ static void rtw_sdio_deep_ps_enter(struct rtw_dev *rtwdev)
+@@ -1470,6 +1476,9 @@ static void rtw_sdio_handle_interrupt(struct sdio_func *sdio_func)
+ 	rtwdev = hw->priv;
+ 	rtwsdio = (struct rtw_sdio *)rtwdev->priv;
  
- 	do {
- 		if (rtw_chip_wcpu_8051(rtwdev))
-@@ -1431,7 +1434,9 @@ static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
- 		if (!rx_len)
- 			break;
++	if (!rtwsdio->running)
++		return;
++
+ 	rtwsdio->irq_thread = current;
  
--		rtw_sdio_rxfifo_recv(rtwdev, rx_len);
-+		ret = rtw_sdio_rxfifo_recv(rtwdev, rx_len);
-+		if (ret)
-+			break;
+ 	hisr = rtw_read32(rtwdev, REG_SDIO_HISR);
+@@ -1703,6 +1712,9 @@ static void rtw_sdio_tx_handler(struct work_struct *work)
+ 	rtwdev = work_data->rtwdev;
+ 	rtwsdio = (struct rtw_sdio *)rtwdev->priv;
  
- 		total_rx_bytes += rx_len;
++	if (!rtwsdio->running)
++		return;
++
+ 	if (!rtw_fw_feature_check(&rtwdev->fw, FW_FEATURE_TX_WAKE))
+ 		rtw_sdio_deep_ps_leave(rtwdev);
  
+diff --git a/drivers/net/wireless/realtek/rtw88/sdio.h b/drivers/net/wireless/realtek/rtw88/sdio.h
+index 6e7e6009744b..a3851d4a58e7 100644
+--- a/drivers/net/wireless/realtek/rtw88/sdio.h
++++ b/drivers/net/wireless/realtek/rtw88/sdio.h
+@@ -168,6 +168,7 @@ struct rtw_sdio {
+ 	bool sdio3_bus_mode;
+ 
+ 	void *irq_thread;
++	bool running;
+ 
+ 	struct workqueue_struct *txwq;
+ 	struct rtw_sdio_work_data *tx_handler_data;
 -- 
 2.53.0
 
