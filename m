@@ -1,232 +1,112 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E851D47B41C
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 10:56:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 726FE44C66A
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 10:56:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791197802; cv=none; b=mJloTzet8eCdZXlb9aJCHmcclGWxv71N7gQpegXtarJka9e+qOfe9jLXp4OmrCwM9My7LwtMP8U80yvIRS3y08tGKnWfvS/WkUoLtuVMHEZ8HjP0PTRlCuH+Td4N7SQYFhZOshDxw5xGXgKqOslV7L+WFLFveE/DFIH4vrFbVBs=
+	t=1791197816; cv=none; b=TJgj8hKo3xul+75qhkHWGpCmZRF/My3pKfsgAzlWbhrKZco06KbpHh73EBoUmIcVfKJfEwHStlz1L/WjUTGETObakSWrnjwGWqR9+18NiHMKYw7bz2wLy94TF9Dfnzu4kRqolQ084/lV1OYY3Kj7DoNkc1YJbNXXutNQCqGrAdc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791197802; c=relaxed/simple;
-	bh=PsvBh8XG90HwICE8VLGKoRg6vUUaY+kfhj0jv12P6Ec=;
+	s=arc-20240116; t=1791197816; c=relaxed/simple;
+	bh=Z0OLiDqaREX1wjYsMWPEv6xs8KzjC804XfUwxMpTT+0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ludjZ5p9FnvriD9/0iA7ijA8Iy9g1D/zacB7KPo6VAd9k7el5tTfdB1gPLo/j12ZRVL6+hqMG06kgHSO1+hl4honPrIoDhJTy+PlPzdvRvY8u0L0NU/MVitV/qxF473NSaTFb3EcPZDGPVUBcTVxQxtWUyh7LqTJrLz5havr7bw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mBv/pQL4; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=mvbtskWPor+Wcb6JWJ7MHswX81ccRb5L8WVX40qmXZW7pWJvTrJe0GtgwLd+Tctl6eya4RZoGsNKxX+rCtxFUBIUhWwB4IjaINkOUKgay9IGeemK3HOGKxylucopYMQnflx89YAqeuqJjPgYEse/YKe+WN5PEVa5YwZZuaVq78s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ogBCnzvv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mBv/pQL4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 467EA1F000FF;
-	Mon,  5 Oct 2026 10:56:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ogBCnzvv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB1C81F000FF;
+	Mon,  5 Oct 2026 10:56:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791197792;
-	bh=kf5KSjH2is2p0DFNWEVCiRHXK4A4hmOjqSzNAyXIe14=;
+	s=k20260515; t=1791197811;
+	bh=wvdcEYPf+LjFKogn5ExfLJnmoiYjN447XgmW7dDyzMc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mBv/pQL43AKao6nNUsj9Uh3FjpR9UyVVVXodm0nwxg41vE8pCPa2isKkf/GaJ/z0J
-	 VWIEXuVK4+Q8bljwYNu3qsAL9B9l2H5X7w8wBY7oPHlaEgytOmTTd3h/26ijxg9/Qa
-	 KYfm2YLqt66zrl2pHHEPOq2rAQfpe64xeTqZ92wuvTIbwkT0Dk4QWx49PvsbHRSRcv
-	 6oKxstOj3uYncqzEOc+RcTc/N4XAmHnvGU8iL/7F3C6vwAPdr92YNuIxbRkBEZUvt7
-	 U7XmBmt1Pb+c/MaivMnhAQIGyRdIJoe48JPJgFlgPMIp9G9lGqQC5w7KVxqxmFQb7F
-	 ugrt8lg3CSxDA==
+	b=ogBCnzvv49bDao9q/59Ey0FY6Fbxprzs/n9VWV4zKVWEBOhYlX7pv7oCyT/YgvW6P
+	 svZZtBdzxzm0jgi768NhUa7eTDdC47k+7uPv+f6DcHoepe5TA2MHnVDOazYh6jNbVO
+	 uDnUXjgPaR/9XPDE/faWmHFyp0bjsOo6KuuMmXcLdRjOseDfHwa50wHJRmCeKBsDb4
+	 laS3D/8guEbf8JvFhdU+sp2Wxzt7bsmnPGcB8HjmEkV1nnQg1q3tbhxC14dpZA0TiC
+	 tsMrzUSVw/96kfmz50JfnGbEukT1fXG/F3fuRmhDAUnzPEEvsipHUSOtODcAxfJVcs
+	 EhC4NuDlGsL6Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ray Wu <ray.wu@amd.com>,
-	Fangzhi Zuo <jerry.zuo@amd.com>,
-	"ChiaHsuan (Tom) Chung" <chiahsuan.chung@amd.com>,
-	Dan Wheeler <daniel.wheeler@amd.com>,
+Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
 	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y] drm/amd/display: map PWM brightness through custom backlight curve
-Date: Mon,  5 Oct 2026 06:56:29 -0400
-Message-ID: <20261005105605.1547203-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] drm/amd/pm/si: Check AMD_IS_MOBILITY flag for PPSMC_SYSTEMFLAG_GPIO_DC
+Date: Mon,  5 Oct 2026 06:56:47 -0400
+Message-ID: <20261005105625.1647145-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100550-splotchy-cheesy-cd92@gregkh>
-References: <2026100550-splotchy-cheesy-cd92@gregkh>
+In-Reply-To: <2026100559-unboxed-evaporate-2cfb@gregkh>
+References: <2026100559-unboxed-evaporate-2cfb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Ray Wu <ray.wu@amd.com>
+From: Timur Kristóf <timur.kristof@gmail.com>
 
-[ Upstream commit 51cc916648d1421e0271090fb4fa86550a7a96d9 ]
+[ Upstream commit cd883d0a3937df82a5ea03709ba8ba623b868419 ]
 
-[Why/How]
-On the PWM path, convert the userspace brightness to an input signal and
-derive the target luminance from the custom backlight curve, then pass
-the resulting millipercent to the power module.
+Unfortunately, some desktop boards eg. the FirePro D500
+have the HARDWAREDC platform flag set and also have
+a battery power state configured in their VBIOS.
+This makes no sense for a desktop GPU and results in
+incorrect behaviour: the clocks are stuck at lowest.
 
-This keeps PWM programming and backlight curve mapping in the power
-module, aligning the Linux path with the Windows behavior.
+We observed that the kernel driver can work around
+the issue in two possible ways:
+1. Set PPSMC_SWSTATE_FLAG_DC on all power states
+2. Clear PPSMC_SYSTEMFLAG_GPIO_DC
 
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5723
-Fixes: 3c108046e1d6 ("drm/amd/display: Add power module on Linux")
-Assisted-by: Cursor:Claude-Opus-4.8
-Signed-off-by: Ray Wu <ray.wu@amd.com>
-Signed-off-by: Fangzhi Zuo <jerry.zuo@amd.com>
-Reviewed-by: ChiaHsuan (Tom) Chung <chiahsuan.chung@amd.com>
-Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
+We think that the PPSMC_SYSTEMFLAG_GPIO_DC flag
+makes the SMC assume it's running on battery even
+though this is a desktop machine with no battery,
+and that's why it doesn't do DPM on power states
+without PPSMC_SYSTEMFLAG_GPIO_DC.
+
+Issue was uncovered by "Fix updating clock limits from
+power states" because previously the limits for the
+battery state were not tracked separately. However,
+battery power state has lower frequencies and voltages,
+so the kernel doesn't set the DC flag on the current
+power state anymore. That causes the SMC to be stuck
+on the lowest clocks.
+
+Let's clear PPSMC_SYSTEMFLAG_GPIO_DC on desktop GPUs.
+We can use the AMD_IS_MOBILITY flag to determine that.
+
+Fixes: e6c5d36756e7 ("drm/amd/pm/si: Fix updating clock limits from power states")
+Closes: https://gitlab.freedesktop.org/mesa/mesa/-/work_items/16352
+Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+Link: https://patch.msgid.link/20260923120354.1027996-1-timur.kristof@gmail.com
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit bc4e099caa85e8d4c3555851a0feb07058c4a1fe)
+(cherry picked from commit 58473c7c49ce9f5f5a4a1c24ffb9aa1d3c8771f4)
 Cc: stable@vger.kernel.org
-[ sashal: Relocated the changes into the existing display manager code because the backlight code had not been split out. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 92 ++++++++++++++++---
- 1 file changed, 80 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/amd/pm/powerplay/si_dpm.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 5d46bfe475269..4ee7db8a6a226 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -70,6 +70,7 @@
- #include "ivsrcid/ivsrcid_vislands30.h"
- 
- #include <linux/backlight.h>
-+#include <linux/minmax.h>
- #include <linux/module.h>
- #include <linux/moduleparam.h>
- #include <linux/types.h>
-@@ -1974,6 +1975,8 @@ static int amdgpu_dm_init_power_module(struct amdgpu_display_manager *dm)
- 		init_data[i].use_custom_backlight_caps = false;
- 		init_data[i].custom_backlight_caps_config_no = 0;
- 		init_data[i].use_linear_backlight_curve = false;
-+		if (amdgpu_dc_debug_mask & DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE)
-+			init_data[i].use_linear_backlight_curve = true;
- 		init_data[i].def_varibright_enable = 0;
- 		init_data[i].varibright_level = 0;
- 		/*
-@@ -5304,6 +5307,68 @@ static inline u32 scale_fw_to_input(int min, int max, u64 input)
- 	return min + DIV_ROUND_CLOSEST_ULL(input * (max - min), AMDGPU_MAX_BL_LEVEL);
- }
- 
-+static u32 backlight_signal_to_luminance(const struct amdgpu_dm_backlight_caps *caps,
-+					 u32 signal)
-+{
-+	u32 lower_signal, upper_signal;
-+	u32 lower_lum, upper_lum;
-+	int i;
-+
-+	if (!caps->data_points)
-+		return DIV_ROUND_CLOSEST(signal * 100, AMDGPU_MAX_BL_LEVEL);
-+
-+	if (signal < caps->luminance_data[0].input_signal) {
-+		lower_signal = 0;
-+		lower_lum = 0;
-+		upper_signal = caps->luminance_data[0].input_signal;
-+		upper_lum = caps->luminance_data[0].luminance;
-+	} else if (signal >=
-+		   caps->luminance_data[caps->data_points - 1].input_signal) {
-+		lower_signal = caps->luminance_data[caps->data_points - 1].input_signal;
-+		lower_lum = caps->luminance_data[caps->data_points - 1].luminance;
-+		upper_signal = caps->max_input_signal;
-+		upper_lum = 100;
-+	} else {
-+		for (i = 1;
-+		     i < caps->data_points &&
-+		     signal > caps->luminance_data[i].input_signal;
-+		     i++)
-+			;
-+
-+		lower_signal = caps->luminance_data[i - 1].input_signal;
-+		upper_signal = caps->luminance_data[i].input_signal;
-+		lower_lum = caps->luminance_data[i - 1].luminance;
-+		upper_lum = caps->luminance_data[i].luminance;
-+	}
-+
-+	if (upper_signal == lower_signal)
-+		return upper_lum;
-+
-+	return lower_lum + DIV_ROUND_CLOSEST((upper_lum - lower_lum) *
-+					     (signal - lower_signal),
-+					     upper_signal - lower_signal);
-+}
-+
-+static u32 convert_brightness_to_millipercent(const struct amdgpu_dm_backlight_caps *caps,
-+					      u32 user_brightness)
-+{
-+	unsigned int min, max;
-+	u32 signal, luminance;
-+
-+	if (!get_brightness_range(caps, &min, &max))
-+		return DIV_ROUND_CLOSEST_ULL((u64)user_brightness * 100000,
-+					     MAX_BACKLIGHT_LEVEL);
-+
-+	user_brightness = clamp(user_brightness, min, max);
-+	if (amdgpu_dc_debug_mask & DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE)
-+		return DIV_ROUND_CLOSEST_ULL((u64)user_brightness * 100000, max);
-+
-+	signal = scale_input_to_fw(max, user_brightness);
-+	luminance = backlight_signal_to_luminance(caps, signal);
-+
-+	return min_t(u32, luminance * 1000, 100000);
-+}
-+
- static void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps,
- 				      unsigned int min, unsigned int max,
- 				      uint32_t *user_brightness)
-@@ -5421,10 +5486,10 @@ static void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
- 	struct amdgpu_dm_backlight_caps *caps;
- 	struct dc_link *link;
- 	u32 brightness = 0;
-+	u32 millipercent = 0;
- 	bool rc = false, reallow_idle = false;
- 	struct drm_connector *connector;
- 	struct dc_stream_state *stream;
--	unsigned int min, max;
- 
- 	list_for_each_entry(connector, &dm->ddev->mode_config.connector_list, head) {
- 		struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
-@@ -5447,12 +5512,21 @@ static void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
- 	/* update scratch register */
- 	if (bl_idx == 0)
- 		amdgpu_atombios_scratch_regs_set_backlight_level(dm->adev, dm->brightness[bl_idx]);
--	brightness = convert_brightness_from_user(caps, dm->brightness[bl_idx]);
-+
- 	link = (struct dc_link *)dm->backlight_link[bl_idx];
-+	stream = dm_find_stream_with_link(dm, link);
-+	if (!stream)
-+		return;
- 
--	/* Apply brightness quirk */
--	if (caps->brightness_mask)
--		brightness |= caps->brightness_mask;
-+	if (caps->aux_support) {
-+		brightness = convert_brightness_from_user(caps, dm->brightness[bl_idx]);
-+		/* Apply brightness quirk */
-+		if (caps->brightness_mask)
-+			brightness |= caps->brightness_mask;
-+	} else {
-+		millipercent = convert_brightness_to_millipercent(caps,
-+								  user_brightness);
-+	}
- 
- 	if (trace_amdgpu_dm_brightness_enabled()) {
- 		trace_amdgpu_dm_brightness(__builtin_return_address(0),
-@@ -5462,10 +5536,6 @@ static void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
- 					   power_supply_is_system_supplied() > 0);
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c b/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
+index f4bb4d2c3f77b..79e23092c052a 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
+@@ -5164,7 +5164,8 @@ static int si_init_smc_table(struct amdgpu_device *adev)
+ 		break;
  	}
  
--	stream = dm_find_stream_with_link(dm, link);
--	if (!stream)
--		return;
--
- 	mutex_lock(&dm->dc_lock);
- 	if (dm->dc->caps.ips_support && dm->dc->ctx->dmub_srv->idle_allowed) {
- 		dc_allow_idle_optimizations(dm->dc, false);
-@@ -5477,10 +5547,8 @@ static void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
- 			AUX_BL_DEFAULT_TRANSITION_TIME_MS, false, true);
- 	} else {
- 		/* power module uses millipercent */
--		get_brightness_range(caps, &min, &max);
--		brightness = DIV_ROUND_CLOSEST(brightness * 100, (max - min)) * 1000;
- 		rc = mod_power_set_backlight_percent(dm->power_module, stream,
--						     brightness, 0, false);
-+						     millipercent, 0, false);
- 	}
+-	if (adev->pm.dpm.platform_caps & ATOM_PP_PLATFORM_CAP_HARDWAREDC)
++	if ((adev->flags & AMD_IS_MOBILITY) &&
++	    (adev->pm.dpm.platform_caps & ATOM_PP_PLATFORM_CAP_HARDWAREDC))
+ 		table->systemFlags |= PPSMC_SYSTEMFLAG_GPIO_DC;
  
- 	/*
+ 	if (adev->pm.dpm.platform_caps & ATOM_PP_PLATFORM_CAP_REGULATOR_HOT) {
 -- 
 2.53.0
 
