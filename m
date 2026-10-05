@@ -1,95 +1,156 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF24336B905;
-	Mon,  5 Oct 2026 18:52:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C465C79CD;
+	Mon,  5 Oct 2026 19:01:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791226372; cv=none; b=n8XO3qmn0ezoqReTogRM6ubTPfkoMzRxZcED9zdIchSSOwlSQhUxF/60UL7hSicypLk11j5sda1MWKdv0RIeY+yXT9D88LMX/3Lh+SE4lZsA8naLyh9MY4Fhy2kjnsflhryxtClOJ5ebjIg50M8oj3ousnVtSWSqhcGEfQkMv98=
+	t=1791226913; cv=none; b=bQsmc1YPTuTMDXRW5vTaa6LX6FJOma0fbebR495maURxZZBBsRN/opMK742nZI8fSAS2kKAAQd24VFBRzL5sygV4sGamVq5/wc8BM4XTdNB4Kc9O5odd9qHXNI3qD4IxMU1QeBkp48N8uxkSe/wtqGSRXZ/1eTUvO68jF1fWP5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791226372; c=relaxed/simple;
-	bh=OkJCuGC2gGRqCjdLY+RRAaxFUzi8cu/lPqoc8P8kmzg=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=sIcPZnyEKCBUgfoOXhijmjSIcvm64KE5HZfij7692iSvogCcw3Wceo+vJJtr6d5lxr2q5F2cY9YoD2swH+IX2ZvRh400HTtlxTDNGRkxjpxC9Edi9yWN07xKVKfWXVeQ+aGCwvE/bMZ3gn5TGkMilYiDRbp+4E/ltOBsegG3H1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FAugaEob; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791226913; c=relaxed/simple;
+	bh=hnm6bOUZbgMgPBRT4+7ffT/wy4OyP5ZauIF5q/q0wHw=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=aOQd7UTtDGY7Z0gNOBpg+Ga448cX/0XY/TlzML/fgu9RMamsZav8WPO3wCd5ihdig/619a9uek48TXXzqWndtt9UJ1bqxnrmEEHPc+WR/0CImrHE8ml91uiKaWS9i2tKs6wGqd+gg/AiCeKWFb/YiU9fMTR+W8T4QsyRfjormyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=OEBkDISV; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FAugaEob"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791226371; x=1822762371;
-  h=from:to:cc:in-reply-to:references:subject:message-id:
-   date:mime-version:content-transfer-encoding;
-  bh=OkJCuGC2gGRqCjdLY+RRAaxFUzi8cu/lPqoc8P8kmzg=;
-  b=FAugaEobMs/cmyYMgM/ND6L8F+HRT5n7YmvcbIWzKTcAREZGzRgQ1AkU
-   xJQFZ7Bj8I8vFSb9ql5JYLaNDbIoPcPMkxUtPQuL77zRhNHslnP9KB8vH
-   nAMGXOAJVMWIhUtxrfv+H4ydemkKKLjK8F44DgouSmjB+xHhizq85YO43
-   OYJzzzyNOWui4BqFU2a0eZtuSnNEOQOHoGtiK1MlZoAcvYMXYg+Hr1Ig8
-   aeJu9VaelzrZuZHOCnEYaXNnupxy2V94DxlFfTTIkpji16HCU6X5r6nq9
-   5nWHggnEuTGrCKzBsinWMe8b4frk/RkVm2aBnTezJzujNPu4lcSnY69o8
-   w==;
-X-CSE-ConnectionGUID: 4a2vvGWLRT+xsEiiVhi4pw==
-X-CSE-MsgGUID: ng9vBIB9T2OWbqD6wZ2T3w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="90860991"
-X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
-   d="scan'208";a="90860991"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 11:52:50 -0700
-X-CSE-ConnectionGUID: wF7BIzXDR5mu0UVZxFCBkw==
-X-CSE-MsgGUID: mVJnbkY7RKKA06LkEVFGHA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
-   d="scan'208";a="303160445"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.199])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 11:52:47 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org, 
- Ciro Pedrini <ciro.pedrini@gmail.com>
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20260925205226.883724-1-ciro.pedrini@gmail.com>
-References: <20260925205226.883724-1-ciro.pedrini@gmail.com>
-Subject: Re: [PATCH] platform/x86: hp-wmi: Add OMEN board 8A17 thermal
- profile support
-Message-Id: <179122636351.41716.18367302210533871678.b4-ty@b4>
-Date: Mon, 05 Oct 2026 21:52:43 +0300
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="OEBkDISV"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
+	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=MFmvViKGM02BTIPHCsWBHeyAcfFFDZ4nwZbqK2y2Fco=; b=OEBkDISVDy6iMQlVMG44QL6uCr
+	m7Jh0cTlwe6WWjkOummiuJA9pYYzUJPfMV1wu2IGzlDVYoEHacByBGJfDrEqUPIW6mwECm9oUofpE
+	esdQoaVhTdDToNBTBEyBFbFs9kf4CcPqQCpRytEetWsyp36oiq5r1WbQItM6wPEsROad3qcV4udZ2
+	wRSYP3TA16RiPdCxOp4Uq8FJXpjrP0W4j5r+6OVcjzXpuuc82QgoGeoi4P6NbK6H4dG6tk1JiDmiE
+	PskV7AiU7Dsiq/DYBiw2s2hYNuf40NkNXExUXl33wk3HJdtjfnL0l8htSANWB0J0YQ7aKjDn41E3i
+	xUwUiJew==;
+Received: from [::1] (port=36386 helo=pf-012.whm.fr-par.scw.cloud)
+	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
+	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
+	id 1xDnwc-0000000E0B2-0Qa3;
+	Mon, 05 Oct 2026 21:01:49 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+Date: Mon, 05 Oct 2026 21:01:49 +0200
+From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
+To: Tung Quang Nguyen <tung.quang.nguyen@est.tech>
+Cc: netdev@vger.kernel.org, tipc-discussion@lists.sourceforge.net,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, Jon Maloy
+ <jmaloy@redhat.com>
+Subject: Re: [PATCH net v2] tipc: protect received keys from concurrent flush
+In-Reply-To: <DU4P189MB37501CA7DBF5D6C3C8752349C6962@DU4P189MB3750.EURP189.PROD.OUTLOOK.COM>
+References: <20261002205932.1874012-2-Jeremy.Jean@oss.cyber.gouv.fr>
+ <DU4P189MB37501CA7DBF5D6C3C8752349C6962@DU4P189MB3750.EURP189.PROD.OUTLOOK.COM>
+User-Agent: Roundcube Webmail/1.6.19
+Message-ID: <2ac35bd0a3d8c774d0ee2bc977a45cf0@oss.cyber.gouv.fr>
+X-Sender: jeremy.jean@oss.cyber.gouv.fr
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On Fri, 25 Sep 2026 17:52:26 -0300, Ciro Pedrini wrote:
+Hello,
 
-> The HP OMEN 17-ck1xxx (board 8A17) isn't in omen_thermal_profile_boards,
-> so hp-wmi uses the generic thermal profile query. The firmware only
-> stores that value and never acts on it, so the EC stays in its default
-> mode and the CPU is held at 45 W whatever profile is selected.
+On 2026-10-05 04:14, Tung Quang Nguyen wrote:
+>> 	/* Attach it to the crypto */
+>> 	if (likely(!rc)) {
+>> -		rc = tipc_crypto_key_attach(c, aead, 0, master_key);
+>> +		spin_lock_bh(&c->lock);
+>> +		if (ukey == c->skey_in_use && c->skey != ukey)
+>> +			rc = -ECANCELED;
 > 
-> The board uses the OMEN interface (mode byte at EC 0x95, thermal policy
-> v1) and also needs the timed profile quirk: without it, the EC drops
-> back to the default mode about two minutes after each profile change.
+> This check should be done earlier, before calling tipc_ahead_init() ?
+
+Would moving the check before tipc_aead_init() be enough, given that a
+flush can still happen while AEAD setup is running and before the key
+is attached?
+
+Indeed, the race goes something like:
+1. Worker starts tipc_aead_init()
+2. Flush clears rx->skey
+3. Worker finishes AEAD setup
+
+AFAIU, we still need the check under c->lock, immediately before
+tipc_crypto_key_attach(), so that a revoked key cannot be published
+after flush.
+
 > 
-> [...]
+>> +		else
+>> +			rc = tipc_crypto_key_attach(c, aead, 0, master_key);
+>> +		spin_unlock_bh(&c->lock);
+>> 		if (rc < 0)
+>> 			tipc_aead_free(&aead->rcu);
+>> 	}
+>> @@ -1151,6 +1158,8 @@ int tipc_crypto_key_init(struct tipc_crypto *c, 
+>> struct
+>> tipc_aead_key *ukey,
+>>  * @pos: desired slot in the crypto key array, = 0 if any!
+>>  * @master_key: specify this is a cluster master key
+>>  *
+>> + * The caller must hold c->lock.
+>> + *
+>>  * Return: new key id in case of success, otherwise: -EBUSY
+>>  */
+>> static int tipc_crypto_key_attach(struct tipc_crypto *c, @@ -1158,20 
+>> +1167,19
+>> @@ static int tipc_crypto_key_attach(struct tipc_crypto *c,
+>> 				  bool master_key)
+>> {
+>> 	struct tipc_key key;
+>> -	int rc = -EBUSY;
+>> 	u8 new_key;
+>> 
+>> -	spin_lock_bh(&c->lock);
+>> +	lockdep_assert_held(&c->lock);
+>> 	key = c->key;
+>> 	if (master_key) {
+>> 		new_key = KEY_MASTER;
+>> 		goto attach;
+>> 	}
+>> 	if (key.active && key.passive)
+>> -		goto exit;
+>> +		return -EBUSY;
+>> 	if (key.pending) {
+>> 		if (tipc_aead_users(c->aead[key.pending]) > 0)
+>> -			goto exit;
+>> +			return -EBUSY;
+>> 		/* if (pos): ok with replacing, will be aligned when needed */
+>> 		/* Replace it */
+>> 		new_key = key.pending;
+>> @@ -1201,11 +1209,7 @@ attach:
+>> 	c->working = 1;
+>> 	c->nokey = 0;
+>> 	c->key_master |= master_key;
+>> -	rc = new_key;
+>> -
+>> -exit:
+>> -	spin_unlock_bh(&c->lock);
+>> -	return rc;
+>> +	return new_key;
+> 
+> Remove lock from tipc_crypto_key_attach() is enough. Why adding many 
+> irrelevant changes that do not seem necessary ?
 
-Thank you for your contribution, it has been applied to my local
-review-ilpo-next branch. Note it will show up in the public
-platform-drivers-x86/review-ilpo-next branch only once I've pushed my
-local branch there, which might take a while.
+Those extra changes in tipc_crypto_key_attach() are more cleanup than
+anything else; I preferred the direct returns since the function no
+longer owns the lock, but I can reduce the patch and keep the exit
+label.
 
-FYI [if applicable to your patch], as per Linus' policy change, also
-fixes are mostly routed through for-next unless the fix is for a
-commit introduced in the most recent cycle or is clearly a regression
-fix.
-
-The list of commits applied:
-[1/1] platform/x86: hp-wmi: Add OMEN board 8A17 thermal profile support
-      commit: 06ea16200e6bbb9bb91a34fbf892c5239e7a070c
-
---
- i.
-
+Thanks,
+Jérémy
