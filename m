@@ -1,144 +1,130 @@
-Received: from mta0.migadu.com (out-6.mta0.migadu.com [91.218.175.6])
+Received: from mail-qk2-f39.google.com (mail-qk2-f39.google.com [74.125.230.231])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A616822083
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 04:39:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47D0D2BB13
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 04:49:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.231
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791175201; cv=none; b=oAMhbj4TGXCyUlODjtpFbWn2OGtjHZAMUbzxxsQ8V2m3I+Qc3QNEzarx5rQmyEX6/AeGOe11+Q95SEhkoHZZxImTZM7FjEHIpyqiAeH+gU/VZkz9rfTGFs6vbhv5a6tPn73VwcKq2wZqDOSa1SeaulKc5+uyJ44dVi224vvtzkY=
+	t=1791175763; cv=none; b=RfQQZr6l47r7ES3oUTbcgBEeHqCzhAq2x/T/SemMKHheC0XOgkxm/drLzewWtK8C4ETi+8GceCpPAX3ukS44mvfZsVUqF70YN5WQ+JtJYGNWM5+pMFStks9GRI+LpEoFjLmhJ2doH43CXwySeTrFL9S4wAwuH9jy27nUgJkLfEw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791175201; c=relaxed/simple;
-	bh=lcftc0xj9lMKoVImH9pwEX76uF/NZ9v9EpX2kIMVyCo=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=GnygZM+Kmw+oVH6Nmjd2bDOy4Ts0Gjg+RZVjw7cZW4wVXlD/jkoRLJR2Qqy7TaC2j882QtqS44LgdUW0HowDkYzxNOgPEfgnifWKhnme0qKVOrT9dIEmWLBNIpmRbAPOMaYfbSxfqU0933V/ehZcpwM6uRRU74C1QwU1CtL1du8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=dDBlfAJD; arc=none smtp.client-ip=91.218.175.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791175763; c=relaxed/simple;
+	bh=RlwK2Cmq0cHokex+6+EAEcjz6T0MlTNy+oIrYy7vIgY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JiHJfxjv30URDGry6SmhQnQQIQKStFU93C5LZloNHstXe1QBYO3W4yf08Qn31KxVghmFY7O8uUfoSOlg92MXiSRSiZByArebV/yPRZDw/JgAbexJJWe5o/THsVj8CeEDtIoe97oV9G25twm83NyotpezYM1lFDB458IHbQZRwlQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YzWxzmrU; arc=none smtp.client-ip=74.125.230.231
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="dDBlfAJD"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=lcftc0xj9lMKoVImH9pwEX76uF/NZ9v9EpX2kIMVyCo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791175196; v=1; x=1791779996;
- b=dDBlfAJDLdSdvNaEi6BqHRC3YUnkFXifSr8rq8tcee5jI7OfxoWX6zlUYdkMRRfHwni/JpaO
- 8MH5RwMYwDjk98ZwnYjAfgfQ1qp1NKGNGVodNJ4vSW3Dg6J//9/0Yioy7tYlEXMOulNxwpaDME3
- N6nRmnoDysuGT2l2rqzooBnA=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 81e8c01bc103a4b5;
-	Mon, 05 Oct 2026 04:39:56 +0000
-X-Mizu-Trace-ID: 81e8c01bc103a4b5
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YzWxzmrU"
+Received: by mail-qk2-f39.google.com with SMTP id af79cd13be357-93cb545be7fso112158385a.2
+        for <stable@vger.kernel.org>; Sun, 04 Oct 2026 21:49:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791175760; x=1791780560; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kcJnHXIt83QrSyOF8UJnIWTRMzOTcOywYQswfygDEJY=;
+        b=YzWxzmrUlp43y/iwRUEI02fU1yysOIrZ1wCYn7Iq5rEZATcrIU97uguB6fRahoAauK
+         8r545MnSVUSt5Fdf0nos1N+RsSF2RuHoZUT1Ov+TUsj5dtDZR5cQdp7IBMSMAwCmsotS
+         ece2bFvYNUQ+VBvFT/xnqYWorr9gPvLAZarDMdrT+4DBKVoANYC4DZ1bKQCI8IAYjk/h
+         tuxaYiXiUPOxeD8aQN48WD3p3CIZNGt1pk1Xyump1mUS9z/Bk53hQ71DbsWnzr9B7KPi
+         Dm2LzATTsdVKKlSWOkcn17BbNclsjXJql+fqm337DZmUNoPBqhERBnq/VQKVOKD2WvxA
+         t4tg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791175760; x=1791780560;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kcJnHXIt83QrSyOF8UJnIWTRMzOTcOywYQswfygDEJY=;
+        b=VfX57JvQjtjM88U8nx5UcGj4+ksVwwD9W1gTzKfbn2OBumVjVlOETASGVL3dblnpC0
+         PQq57ckGVQDANDJ4ggQyfhZ+Q0EaaKcEbKn88zvNn7L1f4ZociuoV55/ltTMEVtajbPI
+         X4i2D6UwZ/sqzOGCKMhkI1lr6MSo2xo95TrpUNvSPm4R7yTTD2jjc5xdp92Rxp7CwVmR
+         Gt29QF3rMP6ss+xVU+kUIzRefAq1FtXRk8hit6N6IcOd8a5oyf2/jyuxmjjyw0ftANGA
+         P9njAS4V/PJJC6qGJjJc62IMmk2xFVA2YQtd1KV2mD7peTCNhOvLoeRn/qgVQutei/G4
+         gkzw==
+X-Forwarded-Encrypted: i=1; AKwUvBz6lQHi8qoEUpSZAE7sI9ZT+f3ZPE9DiQO5TyieGTfIVcUPQicziG8cN7yhAxVjZm6wxjQ7c+w=@vger.kernel.org
+X-Gm-Message-State: AFuF++kMHaw/IVf9mntUUJNrzL4EAIG8z06j4dDBsxM49OQ5j9ALyxwU
+	3ywt6PfYPoo9vP04qPQ5ki7cpBUkZlQ2+1xOeIf7ar7+W0IMccd/R4v9
+X-Gm-Gg: AYBFou3qFgw34ATQ60jt9DNZCkPOMj+RwnG/yHGaW0cxximrAR/Jpagv4jyFZGMgvJ4
+	41Ii5OvIbFs05OpFV1r/i4s9TdH4e9D+fCdrWqnqff4qmsL+sassfrDbVrhDwWR3WXkOhEMw9dH
+	f6iupRQ5ZT6AILQ5O14wNYT6+zzl8qp4zoVnPNWA5s+ZO5x9KgtVady00F7ZPDUwfK0A/LJwZzX
+	c28ectoUpvUXqTF5tdDFMv95D5WY/MsuyM6oniVM6M9Kw6lZQvKrpAGh/SpyMsiXT1lnCfjtacG
+	Tuv90Ois/TNNztAKUTwd4NI9izbKY2/LjJYOCQBfP9vP7keRbjTg88scfAmAQh1tCMIebN0srsn
+	D9mh4UpCe9HgtoMSuyAFpSlRiVMYhsb1WMuo/s1B5xVjq+gElWp7MA+q5QWTLwDS8rmAsIPO0Zy
+	c9Y/uNCV5S+BE3eWf9V+j9kZRPyKs4cAjaZl9JPrVNRYmpB45TXCYAO5LNdk+jSNAJ3Ggy5BKnQ
+	LL8qMh3MvzhXMzDMU3DZw==
+X-Received: by 2002:a05:620a:438f:b0:939:bc7c:15c8 with SMTP id af79cd13be357-93cf18979e3mr1635069085a.45.1791175760243;
+        Sun, 04 Oct 2026 21:49:20 -0700 (PDT)
+Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917e0b67167sm79120846d6.21.2026.10.04.21.49.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 21:49:18 -0700 (PDT)
+From: Yuho Choi <oss.patchbox@gmail.com>
+To: Alvaro Karsz <alvaro.karsz@solid-run.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowangio@gmail.com>
+Cc: =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Yuho Choi <oss.patchbox@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v1] vdpa/snet: Don't discard the DPU error in snet_send_ctrl_msg()
+Date: Mon,  5 Oct 2026 00:47:45 -0400
+Message-ID: <20261005044915.264532-1-oss.patchbox@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Mon, 05 Oct 2026 04:39:55 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Luka Gejak" <luka.gejak@linux.dev>
-Message-ID: <6ef33599cc268fa12e4663461248f1700969df34@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH v3 1/2] wifi: rtw88: sdio: Fix unhandled RX request
- interrupt storm
-To: "Ping-Ke Shih" <pkshih@realtek.com>, "Alastair D'Silva"
- <alastair@d-silva.org>, linux-wireless@vger.kernel.org
-Cc: "Martin Blumenstingl" <martin.blumenstingl@googlemail.com>, "Ulf Hansson"
- <ulfh@kernel.org>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Kalle
- Valo" <kvalo@kernel.org>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, luka.gejak@linux.dev
-In-Reply-To: <661b9fc47ce942a491f8c53d90fdf39a@realtek.com>
-References: <20261001000303.3505264-1-alastair@d-silva.org>
- <20261001000303.3505264-2-alastair@d-silva.org>
- <661b9fc47ce942a491f8c53d90fdf39a@realtek.com>
+Content-Transfer-Encoding: 8bit
 
-October 5, 2026 at 05:35, "Ping-Ke Shih" <pkshih@realtek.com mailto:pkshi=
-h@realtek.com?to=3D%22Ping-Ke%20Shih%22%20%3Cpkshih%40realtek.com%3E > wr=
-ote:
+snet_send_ctrl_msg() reads the error code the DPU reports when it ACKs
+a control message, but then overwrites it with the return value of
+snet_wait_for_dpu_completion(). As a result, a DESTROY, SUSPEND or
+RESUME that the DPU rejects is reported to the caller as a success as
+long as the DPU clears the opcode register in time.
 
+For SUSPEND this means vhost-vdpa marks the device as suspended and
+lets userspace reprogram the vrings while the DPU is still running
+them; for DESTROY, snet_reset_dev() never even sees that the device
+failed to stop.
 
->=20
->=20Alastair D'Silva <alastair@d-silva.org> wrote:
->=20
->=20>=20
->=20> 8051 and 3081 SDIO chipsets handle the REG_SDIO_HISR_RX_REQUEST sta=
-tus bit
-> >  differently:
-> >=20=20
->=20>  - 8051-based chips (e.g. RTL8723BS, RTL8723CS, RTL8723DS):
-> >  The hardware automatically clears REG_SDIO_HISR_RX_REQUEST once the =
-RX
-> >  buffer is empty. Software must not clear this bit, because the drain
-> >  loop in rtw_sdio_rx_isr() re-reads REG_SDIO_HISR across iterations t=
-o
-> >  decide whether more requests are pending. Clearing it in software
-> >  terminates the loop after a single request, stranding the remainder =
-of
-> >  the FIFO. Additionally, RTL8723BS requires RTW_SDIO_HISR_CLEAR_MASK =
-to
-> >  avoid undefined bits causing resume storms.
-> >=20=20
->=20>  - 3081-based chips (e.g. RTL8821CS, RTL8822CS):
-> >  The hardware does not automatically clear REG_SDIO_HISR_RX_REQUEST w=
-hen
-> >  the RX buffer is empty. Masking this bit out in software before writ=
-ing
-> >  back to HISR prevented it from ever being acknowledged in hardware,
-> >  trapping the CPU core in an infinite interrupt storm loop that starv=
-ed
-> >  RCU and locked up the system. Furthermore, on 3081 chips the physica=
-l
-> >  RX FIFO capacity is at most 24 KB (16 KB on RTL8821CS, 24 KB on
-> >  RTL8822CS), which is well within the 64 KB loop budget.
-> >=20=20
->=20>  As the number of architecture-specific special cases has grown (16=
--bit vs
-> >  32-bit register widths, differing HISR writeback timing, synthetic l=
-oop
-> >  flags, and RTL8723BS resume masking), attempting to accommodate both
-> >  architectures within a single monolithic handler has become fragile =
-and
-> >  prone to cross-architecture regressions.
-> >=20=20
->=20>  Resolve this by making rtw_sdio_handle_interrupt() a dispatcher wi=
-th
-> >  separate paths for 8051 and 3081:
-> >=20=20
->=20>  1. 8051 chips preserve the existing unmasked writeback behavior, l=
-eaving
-> >  REG_SDIO_HISR_RX_REQUEST for hardware to drop and respecting
-> >  RTW_SDIO_HISR_CLEAR_MASK on RTL8723BS.
-> >  2. 3081 chips adopt the interrupt masking pattern: disable HIMR,
-> >  acknowledge pending status bits in HISR via W1C, service the pending
-> >  events, and re-enable HIMR. Any packet arriving during servicing
-> >  latches REG_SDIO_HISR_RX_REQUEST in hardware and re-asserts the IRQ =
-line
-> >  once unmasked.
-> >=20=20
->=20>  Splitting into separate handlers isolates these quirks cleanly and
-> >  simplifies future maintenance.
-> >=20=20
->=20>  Fixes: 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation fo=
-r SDIO based chipsets")
-> >=20
->=20At this moment, did it support 3081-seris already?
-> I feel this tag is too serious.=20
->=20
-> >=20
->=20> Cc: stable@vger.kernel.org
-> >  Assisted-by: LLM
-> >  Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
-> >=20
->=20Acked-by: Ping-Ke Shih <pkshih@realtek.com>
->
+Return the error from the saved ACK value once the completion wait
+itself has succeeded.
 
-Hi Ping-Ke,
-I think you missed my review at [1].
+Fixes: 3f3a1675b731 ("vdpa/snet: support getting and setting VQ state")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
+---
+Compile-tested only (x86_64 defconfig + SNET_VDPA, W=1, sparse).
 
-Best regards,
-Luka Gejak
+ drivers/vdpa/solidrun/snet_ctrl.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-[1]:https://lore.kernel.org/all/20261001060213.24759-1-luka.gejak@linux.d=
-ev/
+diff --git a/drivers/vdpa/solidrun/snet_ctrl.c b/drivers/vdpa/solidrun/snet_ctrl.c
+index e284c3a06717..09afa0487fd6 100644
+--- a/drivers/vdpa/solidrun/snet_ctrl.c
++++ b/drivers/vdpa/solidrun/snet_ctrl.c
+@@ -291,7 +291,6 @@ static int snet_send_ctrl_msg(struct snet *snet, u16 opcode, u16 vq_idx)
+ 
+ 	/* Check for errors */
+ 	val = snet_read_ctrl(regs);
+-	ret = SNET_VAL_TO_ERR(val);
+ 
+ 	/* Clear the chunk ready bit */
+ 	val &= ~SNET_CTRL_CHUNK_RDY_MASK;
+@@ -301,6 +300,8 @@ static int snet_send_ctrl_msg(struct snet *snet, u16 opcode, u16 vq_idx)
+ 	if (ret)
+ 		SNET_WARN(pdev, "Timeout waiting for DPU to complete a control command, err %d\n",
+ 			  ret);
++	else
++		ret = SNET_VAL_TO_ERR(val);
+ 
+ exit:
+ 	mutex_unlock(&snet->ctrl_lock);
+
+base-commit: 7704c4c5bb127673b4f0ead839919db573559e38
+-- 
+2.43.0
+
