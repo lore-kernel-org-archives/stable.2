@@ -1,247 +1,173 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013027.outbound.protection.outlook.com [40.107.159.27])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5686153BE9;
-	Mon,  5 Oct 2026 02:14:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.27
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791166449; cv=fail; b=PtSYTihGbxH4xOw3Wx0S9itq0GIFeRS2laGUtco9qCc0A3P/bEph1jCiHlly+3Nwg2TNCVlrUrNue4WYu86PoxCxB4To6P2ubR0BoPUZZYxocR9kcxNTLS3/ULgItdvKYo7PDYbg9xzJsIx5k718MJIiIjzcw3OnsNEgg6QsITg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791166449; c=relaxed/simple;
-	bh=Q7dG3pvrL0wxWBqiy4i+3yNFzrAnOzFZWf88/OIoTmI=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=e0FXY/iM+j4gT/rsuEwTFfOE1Wm1LVacoNqc8TVxsQrd7ahuuOlZbNfK2hNlfmpe2P3YCEHzKsTCmHXhISQXpMR8pDbTnArgRiEU0lUmgOWQ1h6ydw0B3h+jk8mWB1AgQRf/D/5uze3pF3hRq0qqk+2pEqH6bo/yY4RnLFJtz6E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=est.tech; spf=pass smtp.mailfrom=est.tech; dkim=pass (2048-bit key) header.d=est.tech header.i=@est.tech header.b=MMJVvycA; arc=fail smtp.client-ip=40.107.159.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=est.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=est.tech
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57F6B154425;
+	Mon,  5 Oct 2026 02:17:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791166663; cv=none; b=cnW6cmH9O9C0AMpkOdWmOFZxQx/mnEptP9pEfSuTgzKZksH71De+tZUw1BhiOZOAcrVNALyuUxACcWc3Np1CRO9EMIQBn8I7K5XJ7BbAPrPaRtw/8tYnIeE5kfxT9AeBGuCa5MTv63NLENUp1Vi5Fma8H/ggWCXnAvPqwX/WY7U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791166663; c=relaxed/simple;
+	bh=ylS8TTzsyrZM1GQKOw7m7unyXnN+OPv6+bY0H7Z7XjU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=e5HdUB7ZmAjmi7lKxB3uJhOuRnMInxRpLLs9YLQB89pvVBjUXLTmDKtJvT8gwossuZBQbuVdhPNXiKCH7vPXC/5YYFCRxEvGluRVIMs8hRVfjiaYG2b4xXTCgWONpVMuFIt+FMkJhWsTZ1HjHZyWDsUj3ODKS6vjPpkWoPuoKUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UIbA6BcF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=est.tech header.i=@est.tech header.b="MMJVvycA"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Wges//WhDNqlQpZ3n+whJWG+OhQWKaHFC7FZ47c6gQMBne4hfCc5BEkcy6x8BKe5MgNd/CuSppkGwCynjdW90JJ9rz5Y7LZKUKIk/OnCeh6m0nocYctb9MgDBKdflcZc/ItF6MaxPLDEx/D4bEPvMdvT4d4Dj7B1EIQuEaWHFYAa06qQMaXG1wlZ2DXZpOViV4Rd7M1kD61uPvTfN8z8y8w9gPA0DnxaibVLaDfOmoRzKBavlf79Ee4LrPpkqMAyDWrJvdzXSnO7UGp9NAdJDdb6I7hirJXESRYo0uc3JOnePcTRViOd72VAKcHhrVgPTqIoQHIrBaosLfj/rEPKJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Q7dG3pvrL0wxWBqiy4i+3yNFzrAnOzFZWf88/OIoTmI=;
- b=xB4OZ56HX1ASvQFmSr8SOXIJtj768DPUoKAMr04FY4X5sVxyVZ+Tn7wnBrSYomvh+lZQ4y4lNfNH4vHzJJuQlUP9xWZe+xmULVILA/3wxZZFLxgvZ5ivecfs2oU3yrsWMjudP8EjFb/fcf6euiau2Al4u6Fi4OtdZmvXGI3gvPJE393mFxQ7Hm/ZCNaX/v+gS+kS4tKomOK8sVL3kSNY4w7m2tUKFtVb1cr0A3yleTVyCfmxCZL3FnLnxjPthhISUWgi59qVVmQyp1ClWHbimZSfD47uUvvsMRc9Jpm0ISOul7LOGkYG9HoRSL83g5iMQet9CLd5nmY4JxHAnIzVtA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=est.tech; dmarc=pass action=none header.from=est.tech;
- dkim=pass header.d=est.tech; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=est.tech; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q7dG3pvrL0wxWBqiy4i+3yNFzrAnOzFZWf88/OIoTmI=;
- b=MMJVvycAgt3YbY6gIc9Dk/y9SkPex2zFtWrgdLXn0xNO0M39CchY84DQsH4J+yR9FxTaDogGbGeJeBSlcjh8vp58Seogq1P5GyoeGbCUMcsrY+r7WnhOXCyvq4WxurIXKHTHbxXkEsybsbfFOe2Bb8UyLaGMX/CFZ/bG9Gln/0vvsB6ahixGbLMcZY7N9b6nBazuk4FN0YxuY/wBFUNEmRgy8YXtaypD9x2y3DfGcbhsmhb8WigKNXNwSNKDDkZhBeesiwXQPb22FN5fASekw4hVAgKpsYR5uqedENuhv6VcTAY/OEogDOxlqMI8+GeCsQw8pmYSXAt6lTQNbYs+yA==
-Received: from DU4P189MB3750.EURP189.PROD.OUTLOOK.COM (2603:10a6:10:617::19)
- by PA1P189MB3555.EURP189.PROD.OUTLOOK.COM (2603:10a6:102:502::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Mon, 5 Oct
- 2026 02:14:04 +0000
-Received: from DU4P189MB3750.EURP189.PROD.OUTLOOK.COM
- ([fe80::d422:dd3a:7c1e:f4f3]) by DU4P189MB3750.EURP189.PROD.OUTLOOK.COM
- ([fe80::d422:dd3a:7c1e:f4f3%3]) with mapi id 15.21.0472.016; Mon, 5 Oct 2026
- 02:14:03 +0000
-From: Tung Quang Nguyen <tung.quang.nguyen@est.tech>
-To: =?utf-8?B?SsOpcsOpbXkgSmVhbg==?= <Jeremy.Jean@oss.cyber.gouv.fr>
-CC: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"tipc-discussion@lists.sourceforge.net"
-	<tipc-discussion@lists.sourceforge.net>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>, Jon Maloy <jmaloy@redhat.com>
-Subject: RE: [PATCH net v2] tipc: protect received keys from concurrent flush
-Thread-Topic: [PATCH net v2] tipc: protect received keys from concurrent flush
-Thread-Index: AQHdUrE7s1io+uH2skiVOJIMiY3+HbbuNmIQ
-Date: Mon, 5 Oct 2026 02:14:03 +0000
-Message-ID:
- <DU4P189MB37501CA7DBF5D6C3C8752349C6962@DU4P189MB3750.EURP189.PROD.OUTLOOK.COM>
-References: <20261002205932.1874012-2-Jeremy.Jean@oss.cyber.gouv.fr>
-In-Reply-To: <20261002205932.1874012-2-Jeremy.Jean@oss.cyber.gouv.fr>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=est.tech;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DU4P189MB3750:EE_|PA1P189MB3555:EE_
-x-ms-office365-filtering-correlation-id: 8817c5b4-2900-4379-f009-08df228653d3
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|38070700021|11063799006|56012099006|10067099003|18002099003|22082099003;
-x-microsoft-antispam-message-info:
- U3BX1EQVFucLcOaHyvQsJCq+oYalwOV3WmTN11ONXe/Agw8d9khuXo6kIi7VWOrn1hKRoPIcW2khg79D4OK+NMzvsAwUkkVZygFAkV8rGHPkT5hl9NaRrYfcssAwCcg6b2YdQo1lG/6aaZ2v11nhBmSowagetmnmpx+lgn+/zMyS/FmtvOawMUO70aJ8n4tJtq88onYOUAp8sLpz+uD6lrzxjntXREYFUZpu81/Vi8+pi6nwYEEOcopq6nqmJa5mKRbvv6xoq7IXUiwMandWbCXOIqpRbLTY3+d1Fo5Oo+p3yfj51VID4rhYOrQ/wutwO6+R6RTK57SscDrPDopxTLZICH/MhwST+brRfgzDIZ6avjBBPtszfHUEHUM1zDF8K1wjqFB11VaLDkiHjT5mL+vqV4NXCgkbrtpRAzHLh/SdCG/JATLhnzdBCMhl4e+rxShcAAQlNkmU9ZhzW6md2wSHGOM1TQw9KcDmCY3LqGfxQqRABvQK2l041+b2r0Gb0acp6oN1dC3BfXjysxo5R6mngudgNxbp56nhS2GdUsp1Lu7vSBh4lWwbF8CVhjlXxV3w3wL2QJpih4wDJbn2t8C7/ckXiiQzTEZ9S8xVg0skCW6IdFGoZg60sOvrpXfdMxpp99O/9mT50fRhX6VSes+YNJuAx6eGumB5+xBcWIdn4Ynf6kH96Pi/vXBKP6TgxV10kYtUX63KLUJJ4pBRsEqDl+1x96Xu4FpyjQ0LCx0=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU4P189MB3750.EURP189.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(38070700021)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?TUhLNnlvRDNvYUJuWFRFa253bEZuYXFBbnJWclhoemR2K1RXQmlCdWxHZHRZ?=
- =?utf-8?B?YVZJUkE0bXllUTBPR25ZNE9mQkVpRHFuMVRnVzNiZzZ1VFQ0MmVJQXhoMFBx?=
- =?utf-8?B?RFZNUTVzZTM3TEFBZktPTDNlUUZ1VGZmbHpWWnhBVkptdEo3dWI4SksyNmJT?=
- =?utf-8?B?MUZ5aXR2czh5dW52NndUTEVJY2VFeEtFeFB5WUxHR2dZZ2hTR2ZueTI2UDVl?=
- =?utf-8?B?cXVrS2xSQmxBVUdYR1Q5c1ZGNy9LY0VkcjR3QzNmWExxMFZjZlByc3FXRW0r?=
- =?utf-8?B?VzhNTHRxckhGVmtDMlN3b05QeUU3Y3YzUXVDSWFLaGxNa3ZPSGM3MWNrcWpY?=
- =?utf-8?B?VytsNGduc2MybWJFZzVrTjNCU1AxOXM1eDI0VWNXMWg1WlJWQ1drRHgva1dp?=
- =?utf-8?B?ZGMxVjk4UXJzTEw1QitrZ3BEand1b2hhc0g5S21DSG1PcEFmNHA1b1hJVkdu?=
- =?utf-8?B?akdQSTZCY0R5UEdBZldSZzJjTUJKVUZOaWJNZHNHaGlLUXdpZ1FxcTFnc3FX?=
- =?utf-8?B?YStac0pLUnpwZ3NiMkZ6ODRkeHF5NTBIOTNsVFkzQmFxaWpVQWVpVUVRRjkr?=
- =?utf-8?B?QjhLU2hvZWtkKzI0Q1ZtcWdwL3ZEeTlINEh4cnppbzVZR3JpSFpHVTgyYXJ6?=
- =?utf-8?B?SlBkc0JnYkR0NFEydHB0eGVGZ0w0WStlbjB2T1VUREtQdkZNalhPK25tWktL?=
- =?utf-8?B?OVp6Ynh0VU1zUnV5N01vRVpuejBkZVBteWlMRFl4elI2T0xoRWd1dzRKQTJX?=
- =?utf-8?B?VDYzZlFMTHFHTXV6b0prMTRXM04vdkkvK0FiU3BZYU56V3lWL1RCZ1VIN0Ry?=
- =?utf-8?B?cEg3emozcjNONElLbkJtRzFpSm84emFSSEJZclVsR1lWQ2ZCZjRKZ2l5RGtY?=
- =?utf-8?B?M1RmMVYzb0lwei9RV1d1cjhoMHBiK0k4WEY1ZDFrbTdQRVdBcFY0ZkN1aU5F?=
- =?utf-8?B?K0hEUUZ4MnNnbyt6enpCMUJ2cnNNYmR2eDlKNDhPSVN6cnRVMEdPV2doWG9y?=
- =?utf-8?B?SVM5STV6cENtSnlqdkhiNXkvamQvTURMUkRiTUNtd201cEdBbHJsMmk4anZk?=
- =?utf-8?B?MWkraGFHcUZlOHdjbUVlcGNITmdIL3dsQVpZL1FQazdaTGZwTTlUenN0QkdQ?=
- =?utf-8?B?elRiK2lUSUxlYzgzSUU4MTE3R0VPazFXR0prOUhFak4yMUQvZlAyeXhLMWxn?=
- =?utf-8?B?bU5xYnJITS9rdmVqQ1dmdDBkZk4xcW1TdkN2MHAyT3dUM0NOYzdGcGxhWnBN?=
- =?utf-8?B?R1lHcmxIS1Rydld5ejdKS0txN2loMzJTc1ZzanhYMzRCT3pTWGRiWldXSmE5?=
- =?utf-8?B?OUZWbTFHS001RCtZTWswVDJEOEU2Zkc5bjk4RXVpYU10ZE84Q1FRQ2d6Njc3?=
- =?utf-8?B?SHhMdXAvT2ZRUkt3ZjF5RFV2eGlZRjdncGlkYTRudi8xLzA0TXkzbFR3MHJq?=
- =?utf-8?B?K0trcFFNSkNvQWltYmFVWVV4bThYOE9FRmJEV0lLN0pyN0dUZ0oya2h6MGwz?=
- =?utf-8?B?VmJLOHFOaitVYnV2UFFFOERLZ3ZpZ2tpbXN2Rzd4dFEvbGdWZ2xkanhiYXBD?=
- =?utf-8?B?cytnYnRobXgrY0p4QjZPWGl1MFo0ZWtqRHozSkxqRWFrbk9kUGxSQ2Y0cVV3?=
- =?utf-8?B?RlhTbExGbmFkZW8wK2xLbXBYbUhkU1I4TGxqR2YzMEZodndyZGNDZmp3NnR2?=
- =?utf-8?B?RzR4ZjY4cGZqVm9TdklrNmNkdGRpcndqd1RnSG5GTThyZndweHBDNDhQUnhp?=
- =?utf-8?B?SE40MTI2RloxdFVzd3BVMDhVKzFCUFlhbVduQjhVckp3bTA0eWkrVmlUK2RE?=
- =?utf-8?B?bDU2WDkzV1FVcHdKS1pKS1hjRDlhaFpFalU2cTMydDhwZThlcmtJOVhlQTU2?=
- =?utf-8?B?N2N2K0dKdUJnd3h4RUpubXF2NGJvTHBoMkR5Y2o5QTZQWTk4d3RyeFBFZ0g1?=
- =?utf-8?B?OUY5RTVpdmw1c1ZMVjl2Y01GSjd0WU1Td213UlV6N2JlU0MvREMrM0R1SXU0?=
- =?utf-8?B?ME05SlI2NVNwTXpvSW9USjh6NXBxNUcramo0QWRJMG9nQ3VkRDdpbzdHY05Y?=
- =?utf-8?B?a2NkSHEvOG0vWEVaRmlSLzFLdUNEWVl5WFQyc2dwMGNsaE9sRWtZOW1udjc2?=
- =?utf-8?B?VjRGZk53d1pQOExROHdJSnNoMFY2QXpjOUY1ckpWckRjS3VhdUtzVWtqSEo2?=
- =?utf-8?B?TkV0V3RCV1E3TXMxS0Zwc2gxTUJicll4aEJiTWEvVFFZZkdvZllVWEs3cEtZ?=
- =?utf-8?B?TXZmcHlVYkRTOWZIVGYydmUzeDQ2dWttc1Blb0RDdmNMVVVpYjVyNUlSL1d5?=
- =?utf-8?B?eVpMaWkwQmFUeXdhN0FveXdsUVlTeldiZ1lBRTY2T0pHRDVwamZ6dz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UIbA6BcF"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 5F8411F000FF;
+	Mon,  5 Oct 2026 02:17:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791166661;
+	bh=YODgHxeSs/DUqBefSwV60XuzUgb+9/IYbG0yXc4NXV8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UIbA6BcFA7VhilW1+zO1fYqVop+Yxbyqyby1oAuBepvwk0gqeYnv8y4I0eYyYkFsY
+	 ZLQIOAS6wLqn/obMkimWDnTFHWtFe078NNo0HHz+UoBX6KE6qw7oyoY3nwr7zLfQgw
+	 GU0pAQ2YvpAE6UFE/68oDMC2oU67rxzGzrgcTJdZOtGxMCiHYJzu1SiO+BExQlO+tN
+	 0yCmKSj5zoGrgoaLBIgRhExZbhrPyI3bDNyEZ5ydIyXoA5t6iB8f+FsIJiVHANjHkX
+	 7W3MvJ/RQGSC8NF2Fqz5AYJzNsHR1658FvWL4fxsbHusTXiqUzPATq5+T3raCoMQ7/
+	 NTJG1bU8pSDuQ==
+Date: Mon, 5 Oct 2026 05:17:38 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Chengfeng Ye <nicoyip.dev@gmail.com>
+Cc: David Howells <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E . Hallyn" <serge@hallyn.com>, keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] keys: Serialize ownership transfers with key
+ accounting
+Message-ID: <asMIwpXXWQaD3gAD@kernel.org>
+References: <20260927162528.943886-1-nicoyip.dev@gmail.com>
+ <20260927162528.943886-3-nicoyip.dev@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: est.tech
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DU4P189MB3750.EURP189.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8817c5b4-2900-4379-f009-08df228653d3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Oct 2026 02:14:03.6795
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: d2585e63-66b9-44b6-a76e-4f4b217d97fd
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: xGHlGzMVb6TU2yPNwjXl0J4qPe1xnjeYqG1wy/T2gSPU5+fKEvYI9s0i8G0znfnEcAm0fUJuBpMzY8i4DaTh7BK4vCdNoLt0HqUJxHEw37c=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1P189MB3555
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260927162528.943886-3-nicoyip.dev@gmail.com>
 
-PlN1YmplY3Q6IFtQQVRDSCBuZXQgdjJdIHRpcGM6IHByb3RlY3QgcmVjZWl2ZWQga2V5cyBmcm9t
-IGNvbmN1cnJlbnQgZmx1c2gNCj4NCj50aXBjX2NyeXB0b19rZXlfc3luY2goKSBjYW4gcXVldWUg
-dGhlIFJYIHdvcmtlciBhZ2FpbiB3aGlsZSBpdCBpcyBzdGlsbCB1c2luZw0KPnRoZSBzZXNzaW9u
-IGtleSByeC0+c2tleS4gSWYgdGlwY19jcnlwdG9fa2V5X2ZsdXNoKCkgY2FuY2VscyB0aGF0IHF1
-ZXVlZCB3b3JrLA0KPml0IGZyZWVzIHRoYXQga2V5IHdpdGhvdXQgd2FpdGluZyBmb3IgdGhlIHJ1
-bm5pbmcgd29ya2VyLiBUaGUgd29ya2VyIGNhbiB0aGVuDQo+cmVhZCBmcmVlZCBtZW1vcnkgb3Ig
-ZnJlZSB0aGUga2V5IGEgc2Vjb25kIHRpbWUuDQo+DQo+VHJhY2sgdGhlIHdvcmtlciBzZXNzaW9u
-IGtleSByeC0+c2tleSB1bmRlciByeC0+bG9jayBhbmQgY2xlYXIgaXQgb24gZmx1c2guDQo+Q2hl
-Y2sgZm9yIGEgZmx1c2ggdW5kZXIgdGhlIHNhbWUgbG9jayBiZWZvcmUgYXR0YWNoaW5nIG9yIHJl
-dHJ5aW5nIHRoZSBrZXkuIExldA0KPnRoZSB3b3JrZXIgZnJlZSBpdHMgb3duIGtleSB3aXRob3V0
-IHRvdWNoaW5nIGEgcmVwbGFjZW1lbnQuDQo+DQo+Rml4ZXM6IDFlZjZmN2M5MzkwZiAoInRpcGM6
-IGFkZCBhdXRvbWF0aWMgc2Vzc2lvbiBrZXkgZXhjaGFuZ2UiKQ0KPkNjOiBzdGFibGVAdmdlci5r
-ZXJuZWwub3JnDQo+QXNzaXN0ZWQtYnk6IExMTQ0KPlNpZ25lZC1vZmYtYnk6IErDqXLDqW15IEpl
-YW4gPEplcmVteS5KZWFuQG9zcy5jeWJlci5nb3V2LmZyPg0KPi0tLQ0KPg0KPkNoYW5nZXMgaW4g
-djIgdG8gYWRkcmVzcyBhIHJldmlldyBieSBTYXNoaWtvOg0KPiogRW5zdXJlIGZsdXNoIHJldm9r
-ZXMgcmVjZWl2ZWQga2V5cy4NCj4qIFByZXNlcnZlIGtleXMgcmVjZWl2ZWQgYWZ0ZXIgYSBmbHVz
-aC4NCj4NCj52MTogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvYWxsLzIwMjYwOTMwMTE1NzA4LjM0
-OTU0MC0yLQ0KPkplcmVteS5KZWFuQG9zcy5jeWJlci5nb3V2LmZyLw0KPg0KPiBuZXQvdGlwYy9j
-cnlwdG8uYyB8IDY1ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0t
-LS0tDQo+IDEgZmlsZSBjaGFuZ2VkLCA0MSBpbnNlcnRpb25zKCspLCAyNCBkZWxldGlvbnMoLSkN
-Cj4NCj5kaWZmIC0tZ2l0IGEvbmV0L3RpcGMvY3J5cHRvLmMgYi9uZXQvdGlwYy9jcnlwdG8uYyBp
-bmRleA0KPjE2ZjFlZDFmNmIxYi4uYTMxNWZmM2Q3ZjgwIDEwMDY0NA0KPi0tLSBhL25ldC90aXBj
-L2NyeXB0by5jDQo+KysrIGIvbmV0L3RpcGMvY3J5cHRvLmMNCj5AQCAtMTg0LDYgKzE4NCw3IEBA
-IHN0cnVjdCB0aXBjX2NyeXB0b19zdGF0cyB7DQo+ICAqIEBrZXk6IHRoZSBrZXkgc3RhdGVzDQo+
-ICAqIEBza2V5X21vZGU6IHNlc3Npb24ga2V5J3MgbW9kZQ0KPiAgKiBAc2tleTogcmVjZWl2ZWQg
-c2Vzc2lvbiBrZXkNCj4rICogQHNrZXlfaW5fdXNlOiByZWNlaXZlZCBzZXNzaW9uIGtleSBvd25l
-ZCBieSB0aGUgUlggd29ya2VyDQo+ICAqIEB3cTogY29tbW9uIHdvcmtxdWV1ZSBvbiBUWCBjcnlw
-dG8NCj4gICogQHdvcms6IGRlbGF5ZWQgd29yayBzY2hlZCBmb3IgVFgvUlgNCj4gICogQGtleV9k
-aXN0cjoga2V5IGRpc3RyaWJ1dGluZyBzdGF0ZQ0KPkBAIC0yMDksNiArMjEwLDcgQEAgc3RydWN0
-IHRpcGNfY3J5cHRvIHsNCj4gCXN0cnVjdCB0aXBjX2tleSBrZXk7DQo+IAl1OCBza2V5X21vZGU7
-DQo+IAlzdHJ1Y3QgdGlwY19hZWFkX2tleSAqc2tleTsNCj4rCXN0cnVjdCB0aXBjX2FlYWRfa2V5
-ICpza2V5X2luX3VzZTsNCj4gCXN0cnVjdCB3b3JrcXVldWVfc3RydWN0ICp3cTsNCj4gCXN0cnVj
-dCBkZWxheWVkX3dvcmsgd29yazsNCj4gI2RlZmluZSBLRVlfRElTVFJfU0NIRUQJCTENCj5AQCAt
-MTEzNiw3ICsxMTM4LDEyIEBAIGludCB0aXBjX2NyeXB0b19rZXlfaW5pdChzdHJ1Y3QgdGlwY19j
-cnlwdG8gKmMsIHN0cnVjdA0KPnRpcGNfYWVhZF9rZXkgKnVrZXksDQo+DQo+IAkvKiBBdHRhY2gg
-aXQgdG8gdGhlIGNyeXB0byAqLw0KPiAJaWYgKGxpa2VseSghcmMpKSB7DQo+LQkJcmMgPSB0aXBj
-X2NyeXB0b19rZXlfYXR0YWNoKGMsIGFlYWQsIDAsIG1hc3Rlcl9rZXkpOw0KPisJCXNwaW5fbG9j
-a19iaCgmYy0+bG9jayk7DQo+KwkJaWYgKHVrZXkgPT0gYy0+c2tleV9pbl91c2UgJiYgYy0+c2tl
-eSAhPSB1a2V5KQ0KPisJCQlyYyA9IC1FQ0FOQ0VMRUQ7DQoNClRoaXMgY2hlY2sgc2hvdWxkIGJl
-IGRvbmUgZWFybGllciwgYmVmb3JlIGNhbGxpbmcgdGlwY19haGVhZF9pbml0KCkgPw0KDQo+KwkJ
-ZWxzZQ0KPisJCQlyYyA9IHRpcGNfY3J5cHRvX2tleV9hdHRhY2goYywgYWVhZCwgMCwgbWFzdGVy
-X2tleSk7DQo+KwkJc3Bpbl91bmxvY2tfYmgoJmMtPmxvY2spOw0KPiAJCWlmIChyYyA8IDApDQo+
-IAkJCXRpcGNfYWVhZF9mcmVlKCZhZWFkLT5yY3UpOw0KPiAJfQ0KPkBAIC0xMTUxLDYgKzExNTgs
-OCBAQCBpbnQgdGlwY19jcnlwdG9fa2V5X2luaXQoc3RydWN0IHRpcGNfY3J5cHRvICpjLCBzdHJ1
-Y3QNCj50aXBjX2FlYWRfa2V5ICp1a2V5LA0KPiAgKiBAcG9zOiBkZXNpcmVkIHNsb3QgaW4gdGhl
-IGNyeXB0byBrZXkgYXJyYXksID0gMCBpZiBhbnkhDQo+ICAqIEBtYXN0ZXJfa2V5OiBzcGVjaWZ5
-IHRoaXMgaXMgYSBjbHVzdGVyIG1hc3RlciBrZXkNCj4gICoNCj4rICogVGhlIGNhbGxlciBtdXN0
-IGhvbGQgYy0+bG9jay4NCj4rICoNCj4gICogUmV0dXJuOiBuZXcga2V5IGlkIGluIGNhc2Ugb2Yg
-c3VjY2Vzcywgb3RoZXJ3aXNlOiAtRUJVU1kNCj4gICovDQo+IHN0YXRpYyBpbnQgdGlwY19jcnlw
-dG9fa2V5X2F0dGFjaChzdHJ1Y3QgdGlwY19jcnlwdG8gKmMsIEBAIC0xMTU4LDIwICsxMTY3LDE5
-DQo+QEAgc3RhdGljIGludCB0aXBjX2NyeXB0b19rZXlfYXR0YWNoKHN0cnVjdCB0aXBjX2NyeXB0
-byAqYywNCj4gCQkJCSAgYm9vbCBtYXN0ZXJfa2V5KQ0KPiB7DQo+IAlzdHJ1Y3QgdGlwY19rZXkg
-a2V5Ow0KPi0JaW50IHJjID0gLUVCVVNZOw0KPiAJdTggbmV3X2tleTsNCj4NCj4tCXNwaW5fbG9j
-a19iaCgmYy0+bG9jayk7DQo+Kwlsb2NrZGVwX2Fzc2VydF9oZWxkKCZjLT5sb2NrKTsNCj4gCWtl
-eSA9IGMtPmtleTsNCj4gCWlmIChtYXN0ZXJfa2V5KSB7DQo+IAkJbmV3X2tleSA9IEtFWV9NQVNU
-RVI7DQo+IAkJZ290byBhdHRhY2g7DQo+IAl9DQo+IAlpZiAoa2V5LmFjdGl2ZSAmJiBrZXkucGFz
-c2l2ZSkNCj4tCQlnb3RvIGV4aXQ7DQo+KwkJcmV0dXJuIC1FQlVTWTsNCj4gCWlmIChrZXkucGVu
-ZGluZykgew0KPiAJCWlmICh0aXBjX2FlYWRfdXNlcnMoYy0+YWVhZFtrZXkucGVuZGluZ10pID4g
-MCkNCj4tCQkJZ290byBleGl0Ow0KPisJCQlyZXR1cm4gLUVCVVNZOw0KPiAJCS8qIGlmIChwb3Mp
-OiBvayB3aXRoIHJlcGxhY2luZywgd2lsbCBiZSBhbGlnbmVkIHdoZW4gbmVlZGVkICovDQo+IAkJ
-LyogUmVwbGFjZSBpdCAqLw0KPiAJCW5ld19rZXkgPSBrZXkucGVuZGluZzsNCj5AQCAtMTIwMSwx
-MSArMTIwOSw3IEBAIGF0dGFjaDoNCj4gCWMtPndvcmtpbmcgPSAxOw0KPiAJYy0+bm9rZXkgPSAw
-Ow0KPiAJYy0+a2V5X21hc3RlciB8PSBtYXN0ZXJfa2V5Ow0KPi0JcmMgPSBuZXdfa2V5Ow0KPi0N
-Cj4tZXhpdDoNCj4tCXNwaW5fdW5sb2NrX2JoKCZjLT5sb2NrKTsNCj4tCXJldHVybiByYzsNCj4r
-CXJldHVybiBuZXdfa2V5Ow0KDQpSZW1vdmUgbG9jayBmcm9tIHRpcGNfY3J5cHRvX2tleV9hdHRh
-Y2goKSBpcyBlbm91Z2guIFdoeSBhZGRpbmcgbWFueSBpcnJlbGV2YW50IGNoYW5nZXMgdGhhdCBk
-byBub3Qgc2VlbSBuZWNlc3NhcnkgPw0KDQo+IH0NCj4NCj4gdm9pZCB0aXBjX2NyeXB0b19rZXlf
-Zmx1c2goc3RydWN0IHRpcGNfY3J5cHRvICpjKSBAQCAtMTIxOSwxMSArMTIyMywxMyBAQA0KPnZv
-aWQgdGlwY19jcnlwdG9fa2V5X2ZsdXNoKHN0cnVjdCB0aXBjX2NyeXB0byAqYykNCj4gCQlyeCA9
-IGM7DQo+IAkJdHggPSB0aXBjX25ldChyeC0+bmV0KS0+Y3J5cHRvX3R4Ow0KPiAJCWlmIChjYW5j
-ZWxfZGVsYXllZF93b3JrKCZyeC0+d29yaykpIHsNCj4tCQkJa2ZyZWVfc2Vuc2l0aXZlKHJ4LT5z
-a2V5KTsNCj4tCQkJcngtPnNrZXkgPSBOVUxMOw0KPiAJCQlhdG9taWNfeGNoZygmcngtPmtleV9k
-aXN0ciwgMCk7DQo+IAkJCXRpcGNfbm9kZV9wdXQocngtPm5vZGUpOw0KPiAJCX0NCj4rCQkvKiBM
-ZWF2ZSBhbiBpbi1mbGlnaHQga2V5IHRvIGl0cyB3b3JrZXIsIGJ1dCByZXZva2UgaXQgbm93LiAq
-Lw0KPisJCWlmIChyeC0+c2tleSAhPSByeC0+c2tleV9pbl91c2UpDQo+KwkJCWtmcmVlX3NlbnNp
-dGl2ZShyeC0+c2tleSk7DQo+KwkJcngtPnNrZXkgPSBOVUxMOw0KPiAJCS8qIFJYIHN0b3BwaW5n
-ID0+IGRlY3JlYXNlIFRYIGtleSB1c2VycyBpZiBhbnkgKi8NCj4gCQlrID0gYXRvbWljX3hjaGco
-JnJ4LT5wZWVyX3J4X2FjdGl2ZSwgMCk7DQo+IAkJaWYgKGspIHsNCj5AQCAtMTk0MCwxMCArMTk0
-NiwxMyBAQCBzdGF0aWMgdm9pZCB0aXBjX2NyeXB0b19yY3ZfY29tcGxldGUoc3RydWN0IG5ldA0K
-PipuZXQsIHN0cnVjdCB0aXBjX2FlYWQgKmFlYWQsDQo+IAkJaWYgKHRpcGNfYWVhZF9jbG9uZSgm
-dG1wLCBhZWFkKSA8IDApDQo+IAkJCWdvdG8gcmN2Ow0KPiAJCVdBUk5fT04oIXJlZmNvdW50X2lu
-Y19ub3RfemVybygmdG1wLT5yZWZjbnQpKTsNCj4rCQlzcGluX2xvY2tfYmgoJnJ4LT5sb2NrKTsN
-Cj4gCQlpZiAodGlwY19jcnlwdG9fa2V5X2F0dGFjaChyeCwgdG1wLCBlaGRyLT50eF9rZXksIGZh
-bHNlKSA8IDApIHsNCj4rCQkJc3Bpbl91bmxvY2tfYmgoJnJ4LT5sb2NrKTsNCj4gCQkJdGlwY19h
-ZWFkX2ZyZWUoJnRtcC0+cmN1KTsNCj4gCQkJZ290byByY3Y7DQo+IAkJfQ0KPisJCXNwaW5fdW5s
-b2NrX2JoKCZyeC0+bG9jayk7DQo+IAkJdGlwY19hZWFkX3B1dChhZWFkKTsNCj4gCQlhZWFkID0g
-dG1wOw0KPiAJfQ0KPkBAIC0yMzgxLDI3ICsyMzkwLDM1IEBAIHN0YXRpYyB2b2lkIHRpcGNfY3J5
-cHRvX3dvcmtfcngoc3RydWN0IHdvcmtfc3RydWN0DQo+KndvcmspDQo+IAl9DQo+DQo+IAkvKiBD
-YXNlIDI6IEF0dGFjaCBhIHBlbmRpbmcgcmVjZWl2ZWQgc2Vzc2lvbiBrZXkgZnJvbSBwZWVyIGlm
-IGFueSAqLw0KPisJc3Bpbl9sb2NrX2JoKCZyeC0+bG9jayk7DQo+IAlpZiAocngtPnNrZXkpIHsN
-Cj4tCQlyYyA9IHRpcGNfY3J5cHRvX2tleV9pbml0KHJ4LCByeC0+c2tleSwgcngtPnNrZXlfbW9k
-ZSwgZmFsc2UpOw0KPi0JCWlmICh1bmxpa2VseShyYyA8IDApKQ0KPisJCXJ4LT5za2V5X2luX3Vz
-ZSA9IHJ4LT5za2V5Ow0KPisJCXNwaW5fdW5sb2NrX2JoKCZyeC0+bG9jayk7DQo+KwkJcmMgPSB0
-aXBjX2NyeXB0b19rZXlfaW5pdChyeCwgcngtPnNrZXlfaW5fdXNlLA0KPisJCQkJCSAgUkVBRF9P
-TkNFKHJ4LT5za2V5X21vZGUpLCBmYWxzZSk7DQo+KwkJaWYgKHVubGlrZWx5KHJjIDwgMCAmJiBy
-YyAhPSAtRUNBTkNFTEVEKSkNCj4gCQkJcHJfd2FybigiJXM6IHVuYWJsZSB0byBhdHRhY2ggcmVj
-ZWl2ZWQgc2tleSwgZXJyDQo+JWRcbiIsDQo+IAkJCQlyeC0+bmFtZSwgcmMpOw0KPi0JCXN3aXRj
-aCAocmMpIHsNCj4tCQljYXNlIC1FQlVTWToNCj4tCQljYXNlIC1FTk9NRU06DQo+KwkJaWYgKHJj
-ICE9IC1FQlVTWSAmJiByYyAhPSAtRU5PTUVNKQ0KPisJCQlzeW5jaHJvbml6ZV9yY3UoKTsNCj4r
-CQlzcGluX2xvY2tfYmgoJnJ4LT5sb2NrKTsNCj4rCQlpZiAocngtPnNrZXkgPT0gcngtPnNrZXlf
-aW5fdXNlICYmDQo+KwkJICAgIChyYyA9PSAtRUJVU1kgfHwgcmMgPT0gLUVOT01FTSkpIHsNCj4g
-CQkJLyogUmVzY2hlZCB0aGUga2V5IGF0dGFjaGluZyAqLw0KPiAJCQlyZXNjaGVkID0gdHJ1ZTsN
-Cj4tCQkJYnJlYWs7DQo+LQkJZGVmYXVsdDoNCj4tCQkJc3luY2hyb25pemVfcmN1KCk7DQo+LQkJ
-CWtmcmVlX3NlbnNpdGl2ZShyeC0+c2tleSk7DQo+LQkJCXJ4LT5za2V5ID0gTlVMTDsNCj4tCQkJ
-YnJlYWs7DQo+KwkJfSBlbHNlIHsNCj4rCQkJaWYgKHJ4LT5za2V5ID09IHJ4LT5za2V5X2luX3Vz
-ZSkNCj4rCQkJCXJ4LT5za2V5ID0gTlVMTDsNCj4rCQkJa2ZyZWVfc2Vuc2l0aXZlKHJ4LT5za2V5
-X2luX3VzZSk7DQo+IAkJfQ0KPisJCXJ4LT5za2V5X2luX3VzZSA9IE5VTEw7DQo+IAl9DQo+DQo+
-LQlpZiAocmVzY2hlZCAmJiBxdWV1ZV9kZWxheWVkX3dvcmsodHgtPndxLCAmcngtPndvcmssIGRl
-bGF5KSkNCj4rCWlmIChyZXNjaGVkICYmIHF1ZXVlX2RlbGF5ZWRfd29yayh0eC0+d3EsICZyeC0+
-d29yaywgZGVsYXkpKSB7DQo+KwkJc3Bpbl91bmxvY2tfYmgoJnJ4LT5sb2NrKTsNCj4gCQlyZXR1
-cm47DQo+Kwl9DQo+KwlzcGluX3VubG9ja19iaCgmcngtPmxvY2spOw0KPg0KPiAJdGlwY19ub2Rl
-X3B1dChyeC0+bm9kZSk7DQo+IH0NCj4NCj5iYXNlLWNvbW1pdDogNTUxYzcyMmY0MDgwOTYxODIz
-MDAwMWJhY2NmMjE5MTkzZTIyZmM1YQ0KPi0tDQo+Mi40Ny4zDQoNCnB3LWJvdDogY3INCg==
+On Mon, Sep 28, 2026 at 12:25:28AM +0800, Chengfeng Ye wrote:
+> Protecting individual accesses to key->user does not make ownership
+> transfers atomic with accounting updates. keyctl_chown_key() holds
+> key->sem, but instantiation is serialized by key_construction_mutex and
+> need not hold that semaphore. KEY_LOOKUP_PARTIAL also permits chown of
+> an uninstantiated key.
+> 
+> The instantiated-key count can therefore be charged to the wrong owner:
+> 
+>   instantiate                       keyctl_chown_key()
+>   lock key_user_lock
+>   increment old->nikeys
+>   unlock key_user_lock
+>                                     observe KEY_IS_UNINSTANTIATED
+>                                     skip the nikeys transfer
+>                                     replace key->user
+>   mark key instantiated
+> 
+> The key becomes instantiated under the new owner while the increment
+> remains with the old owner. Negative instantiation has the same race.
+> 
+> Quota reservation can likewise run between charging the new owner and
+> replacing key->user. It then adjusts the old owner's quota and changes
+> key->quotalen while chown is transferring that quota burden.
+> 
+> Extend the key_user_lock critical section in keyctl_chown_key() across
+> the quota and key-count transfers, state check, and owner replacement.
+> Also extend the instantiation critical sections across the state update,
+> so chown observes the count increment and instantiated state together.
+> The existing per-user quota locks continue to serialize quota changes
+> against other keys owned by the same user.
+> 
+> Keep allocations, notifications and reference release outside
+> key_user_lock, and release it on the quota-overrun path.
+> 
+> Fixes: 5801649d8b83 ("[PATCH] keys: let keyctl_chown() change a key's owner")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+> ---
+> Changes in v3:
+> - Split from v2 as patch 2/2; see the cover letter for the full split.
+> - Rebase onto current mainline and retain explicit reader-side locking.
+> 
+> v2: https://lore.kernel.org/r/20260904080940.575882-1-nicoyip.dev@gmail.com/
+> 
+>  security/keys/key.c    | 4 ++--
+>  security/keys/keyctl.c | 6 ++++--
+>  2 files changed, 6 insertions(+), 4 deletions(-)
+> 
+> diff --git a/security/keys/key.c b/security/keys/key.c
+> index d0d583194b05..54c675b3b58d 100644
+> --- a/security/keys/key.c
+> +++ b/security/keys/key.c
+> @@ -454,8 +454,8 @@ static int __key_instantiate_and_link(struct key *key,
+>  			/* mark the key as being instantiated */
+>  			spin_lock(&key_user_lock);
+>  			atomic_inc(&key->user->nikeys);
+> -			spin_unlock(&key_user_lock);
+>  			mark_key_instantiated(key, 0);
+> +			spin_unlock(&key_user_lock);
+>  			notify_key(key, NOTIFY_KEY_INSTANTIATED, 0);
+>  
+>  			if (test_and_clear_bit(KEY_FLAG_USER_CONSTRUCT, &key->flags))
+> @@ -613,8 +613,8 @@ int key_reject_and_link(struct key *key,
+>  		/* mark the key as being negatively instantiated */
+>  		spin_lock(&key_user_lock);
+>  		atomic_inc(&key->user->nikeys);
+> -		spin_unlock(&key_user_lock);
+>  		mark_key_instantiated(key, -error);
+> +		spin_unlock(&key_user_lock);
+>  		notify_key(key, NOTIFY_KEY_INSTANTIATED, -error);
+>  		key_set_expiry(key, ktime_get_real_seconds() + timeout);
+>  
+> diff --git a/security/keys/keyctl.c b/security/keys/keyctl.c
+> index c17924609317..83a9575b084e 100644
+> --- a/security/keys/keyctl.c
+> +++ b/security/keys/keyctl.c
+> @@ -1004,6 +1004,8 @@ long keyctl_chown_key(key_serial_t id, uid_t user, gid_t group)
+>  		if (!newowner)
+>  			goto error_put;
+>  
+> +		spin_lock(&key_user_lock);
+> +
+>  		/* transfer the quota burden to the new user */
+>  		if (test_bit(KEY_FLAG_IN_QUOTA, &key->flags)) {
+>  			unsigned maxkeys = uid_eq(uid, GLOBAL_ROOT_UID) ?
+> @@ -1036,11 +1038,10 @@ long keyctl_chown_key(key_serial_t id, uid_t user, gid_t group)
+>  			atomic_inc(&newowner->nikeys);
+>  		}
+>  
+> -		spin_lock(&key_user_lock);
+>  		zapowner = key->user;
+>  		key->user = newowner;
+> -		spin_unlock(&key_user_lock);
+>  		key->uid = uid;
+> +		spin_unlock(&key_user_lock);
+>  	}
+>  
+>  	/* change the GID */
+> @@ -1060,6 +1061,7 @@ long keyctl_chown_key(key_serial_t id, uid_t user, gid_t group)
+>  
+>  quota_overrun:
+>  	spin_unlock_irqrestore(&newowner->lock, flags);
+> +	spin_unlock(&key_user_lock);
+>  	zapowner = newowner;
+>  	ret = -EDQUOT;
+>  	goto error_put;
+> -- 
+> 2.43.0
+> 
+
+I double-checked this patch too given the concerns on 1/2 but nope, this
+does not raise similar concerns as every critical section is strictly
+related to ownership change.
+
+E.g., I can be sure that the granularity is where it should be and locks
+are actually needed in the first place.
+
+Thus, I'm still including this patch to my next PR, and drop the first
+one.
+
+Br, Jarkko
