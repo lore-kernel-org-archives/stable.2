@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5A983DA7E4
-	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 08:51:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3606E3DA7E4
+	for <stable@vger.kernel.org>; Mon,  5 Oct 2026 08:51:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791190302; cv=none; b=feMsA80Bh8h7KROGc8FWjdCwr5WvB4DPZ8dOBSX6BoFgS72FsA2chuVzblZUt7Pg0owsg/+tN2V1R8c2wZ3N3DfQ34pY8sw24Z2pwScqeBuRcIWhY8REccZKVZuKH4f5NUWlQESc/HAiCGk/+83cVY1w0HqLPaPkZxdaexBTujw=
+	t=1791190306; cv=none; b=LTTCKcBATKAP8KepTiG01RL/uCvmaEIr5DH2iBC4HQQsyHx8VqVDoKngqeOGSsh5eHXt+81Vo46HV6Q0n6i9SIyxK3axm9KTNG2J6QjwUJSZt1iMbcnaRCC0x2TU2dpdtT4jM3mBg2JukuXZmphlqRqcATB05xoEW9RI8ZibB2w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791190302; c=relaxed/simple;
-	bh=8DyNMgGnk4RPZe7nhBMaEEtL3CP0pD+Udi7hlCDl04A=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=fwgQrdoRgcdbQTps5p9RKssnHKDpPzsVdCtMl1PKoU0uVMpMVNUweLDymWDRvd4lQ3EmwJUMPEgPicYVJk/PiLsvB0YQgGv/JtPoC5pghPWOaioMDtlt9wVmfI0NUz07CRoGw0kGyuEKMyHSb0nT+VB3cuDD6+mK/3in2mPURO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=eDmnpTSl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791190306; c=relaxed/simple;
+	bh=Aq4C6Z+oHuKKlZNxAMFeOFKsCy5B0xus1mYzLqDtjRQ=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=GC3uhOhJz3Ejy4ztyZDsnD500mjLQXDb54ok5ktCE4/2o/Z0CxxbEIMR7DIFgcQdm7L5T6tKSUR9EqELrIxPheS3uxXD3HC4sH6sx4mmHclduBphzTzvIjMnEZ4Ke/ohY30z2KDIY+wPbcFs0XSEo1MbeGfToLO0CFQ3w1Uqbc8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=kTGa9LGY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="eDmnpTSl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 360AC1F000FF;
-	Mon,  5 Oct 2026 08:51:40 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="kTGa9LGY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70DE51F000FF;
+	Mon,  5 Oct 2026 08:51:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791190300;
-	bh=MEJjyaOhdEOd3rJzz+JwtNaCRBjKrdCvm+JRYdEaYeg=;
+	s=korg; t=1791190305;
+	bh=4WUsKpYlF38kiyXpzLR5tj+ew5mwqvZ6yD3QIOnCSmQ=;
 	h=Subject:To:Cc:From:Date;
-	b=eDmnpTSlmWMafCvgmgTJKYZ0BCEBFlAXNEKEE5sOZ9wjdYTQhS8dKAJcp46EuQ1kO
-	 sshyamUvROIXprTF2EDwzUz2O+WqzCCH/5H1O1FhCg14uuA66d1ifNq10Rsa+Ni1NO
-	 OmvX64lZYz5tuEI29s6ProTPpSfB5NkdbWuJjBX8=
-Subject: FAILED: patch "[PATCH] tty: abort break signalling on hangup" failed to apply to 5.10-stable tree
-To: johan@kernel.org,gregkh@linuxfoundation.org,stable@kernel.org
+	b=kTGa9LGY5Y1x8OYx3SoB3E7bNEUyX0N/alBxqM09ZhUfIAVdGUfjcBvDehYzsVtmV
+	 5+znENSncO6ArjHkaDdGOcTASSKNGiZCBkJBe/4usRvuKEHqNOMafDHpArQZHgLtzr
+	 me44nzX8KlJJ80rrPlXmB94Rrc2tJaW7TUkY5YRk=
+Subject: FAILED: patch "[PATCH] tty: fix saved termios reset race" failed to apply to 6.18-stable tree
+To: johan@kernel.org,gregkh@linuxfoundation.org,nicoyip.dev@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 05 Oct 2026 10:51:29 +0200
-Message-ID: <2026100529-shorthand-eatery-44e1@gregkh>
+Date: Mon, 05 Oct 2026 10:51:42 +0200
+Message-ID: <2026100542-sloping-tumble-a7c6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 845a2737e0f5ffe5ca8d38de556012b0c9472cdd
+git cherry-pick -x 8df07fe93573e9e548d6645273e9bcb6eb74059e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100529-shorthand-eatery-44e1@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100542-sloping-tumble-a7c6@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,124 +62,125 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 845a2737e0f5ffe5ca8d38de556012b0c9472cdd Mon Sep 17 00:00:00 2001
+From 8df07fe93573e9e548d6645273e9bcb6eb74059e Mon Sep 17 00:00:00 2001
 From: Johan Hovold <johan@kernel.org>
-Date: Thu, 3 Sep 2026 18:37:36 +0200
-Subject: [PATCH] tty: abort break signalling on hangup
+Date: Wed, 30 Sep 2026 15:18:45 +0200
+Subject: [PATCH] tty: fix saved termios reset race
 
-The break ioctls can race with hangup and end up calling into a tty
-driver for a device that is already gone or powered down.
+Resetting saved termios state on device registration is needed where a
+minor number can be reused for an entirely different device and where
+the old settings may prevent the port from even being opened (e.g. when
+CLOCAL is not set).
 
-Drivers must handle this race, but TCSBRK and TCSBRKP should still be
-aborted to avoid calling back into the driver after a user-controlled
-timeout (possibly even after the tty has been reopened).
+Not all TTY drivers guarantee that the minor number is no longer in use
+when registering devices however, something which can lead to a
+use-after-free when closing a TTY (and saving its termios) races with
+re-registration.
 
-Note that drivers should disable any break state on shutdown so just
-return on hangup (calling break_ctl() again is racy and will most likely
-fail for drivers handling the race).
+Add a new TTY_DRIVER_RESET_SAVED_TERMIOS flag to request that any saved
+termios state is reset on registration and only set it for drivers that
+make sure that the minor number is no longer in use.
 
-Fixes: f34d7a5b7010 ("tty: The big operations rework")
-Cc: stable <stable@kernel.org>
+Fixes: 93857edd9829 ("tty: reset termios state on device registration")
+Reported-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Link: https://lore.kernel.org/20260926184154.3017929-1-nicoyip.dev@gmail.com
+Cc: stable@kernel.org	# 4.12
 Signed-off-by: Johan Hovold <johan@kernel.org>
-Link: https://patch.msgid.link/20260903163736.1499280-1-johan@kernel.org
+Link: https://patch.msgid.link/20260930131845.1809256-1-johan@kernel.org
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
+diff --git a/drivers/staging/greybus/uart.c b/drivers/staging/greybus/uart.c
+index 24b4dab069c3..172cf900eaf0 100644
+--- a/drivers/staging/greybus/uart.c
++++ b/drivers/staging/greybus/uart.c
+@@ -948,7 +948,8 @@ static int gb_tty_init(void)
+ 	int retval = 0;
+ 
+ 	gb_tty_driver = tty_alloc_driver(GB_NUM_MINORS, TTY_DRIVER_REAL_RAW |
+-					 TTY_DRIVER_DYNAMIC_DEV);
++					 TTY_DRIVER_DYNAMIC_DEV |
++					 TTY_DRIVER_RESET_SAVED_TERMIOS);
+ 	if (IS_ERR(gb_tty_driver)) {
+ 		pr_err("Can not allocate tty driver\n");
+ 		retval = PTR_ERR(gb_tty_driver);
 diff --git a/drivers/tty/tty_io.c b/drivers/tty/tty_io.c
-index 48569035da56..1c30faae9ec1 100644
+index 1c30faae9ec1..1a6c8a1bc764 100644
 --- a/drivers/tty/tty_io.c
 +++ b/drivers/tty/tty_io.c
-@@ -620,6 +620,8 @@ static void __tty_hangup(struct tty_struct *tty, int exit_session)
+@@ -3256,14 +3256,16 @@ struct device *tty_register_device_attr(struct tty_driver *driver,
+ 		goto err_put;
  
- 	tty_ldisc_hangup(tty, cons_filp != NULL);
+ 	if (!(driver->flags & TTY_DRIVER_DYNAMIC_ALLOC)) {
+-		/*
+-		 * Free any saved termios data so that the termios state is
+-		 * reset when reusing a minor number.
+-		 */
+-		tp = driver->termios[index];
+-		if (tp) {
+-			driver->termios[index] = NULL;
+-			kfree(tp);
++		if (driver->flags & TTY_DRIVER_RESET_SAVED_TERMIOS) {
++			/*
++			 * Free any saved termios data so that the termios
++			 * state is reset when reusing a minor number.
++			 */
++			tp = driver->termios[index];
++			if (tp) {
++				driver->termios[index] = NULL;
++				kfree(tp);
++			}
+ 		}
  
-+	wake_up_interruptible(&tty->break_wait);
-+
- 	spin_lock_irq(&tty->ctrl.lock);
- 	clear_bit(TTY_THROTTLED, &tty->flags);
- 	clear_bit(TTY_DO_WRITE_WAKEUP, &tty->flags);
-@@ -2431,6 +2433,7 @@ static int tiocgetd(struct tty_struct *tty, int __user *p)
-  * send_break - performed time break
-  * @tty: device to break on
-  * @duration: timeout in mS
-+ * @file: file object
-  *
-  * Perform a timed break on hardware that lacks its own driver level timed
-  * break functionality.
-@@ -2438,8 +2441,9 @@ static int tiocgetd(struct tty_struct *tty, int __user *p)
-  * Locking:
-  *	@tty->atomic_write_lock serializes
-  */
--static int send_break(struct tty_struct *tty, unsigned int duration)
-+static int send_break(struct file *file, struct tty_struct *tty, unsigned int duration)
+ 		retval = tty_cdev_add(driver, devt, index, 1);
+diff --git a/drivers/usb/class/cdc-acm.c b/drivers/usb/class/cdc-acm.c
+index 7bc5329fa3ed..eeb401c0e5e1 100644
+--- a/drivers/usb/class/cdc-acm.c
++++ b/drivers/usb/class/cdc-acm.c
+@@ -2140,7 +2140,7 @@ static int __init acm_init(void)
  {
-+	long timeout;
  	int retval;
+ 	acm_tty_driver = tty_alloc_driver(ACM_TTY_MINORS, TTY_DRIVER_REAL_RAW |
+-			TTY_DRIVER_DYNAMIC_DEV);
++			TTY_DRIVER_DYNAMIC_DEV | TTY_DRIVER_RESET_SAVED_TERMIOS);
+ 	if (IS_ERR(acm_tty_driver))
+ 		return PTR_ERR(acm_tty_driver);
+ 	acm_tty_driver->driver_name = "acm",
+diff --git a/drivers/usb/serial/usb-serial.c b/drivers/usb/serial/usb-serial.c
+index 17edc057a311..06e246426361 100644
+--- a/drivers/usb/serial/usb-serial.c
++++ b/drivers/usb/serial/usb-serial.c
+@@ -1313,7 +1313,8 @@ static int __init usb_serial_init(void)
+ 	int result;
  
- 	if (tty->ops->break_ctl == NULL)
-@@ -2453,13 +2457,26 @@ static int send_break(struct tty_struct *tty, unsigned int duration)
- 		return -EINTR;
+ 	usb_serial_tty_driver = tty_alloc_driver(USB_SERIAL_TTY_MINORS,
+-			TTY_DRIVER_REAL_RAW | TTY_DRIVER_DYNAMIC_DEV);
++			TTY_DRIVER_REAL_RAW | TTY_DRIVER_DYNAMIC_DEV |
++			TTY_DRIVER_RESET_SAVED_TERMIOS);
+ 	if (IS_ERR(usb_serial_tty_driver))
+ 		return PTR_ERR(usb_serial_tty_driver);
  
- 	retval = tty->ops->break_ctl(tty, -1);
--	if (!retval) {
--		msleep_interruptible(duration);
--		retval = tty->ops->break_ctl(tty, 0);
--	} else if (retval == -EOPNOTSUPP) {
--		/* some drivers can tell only dynamically */
--		retval = 0;
-+	if (retval) {
-+		if (retval == -EOPNOTSUPP) {
-+			/* some drivers can tell only dynamically */
-+			retval = 0;
-+		}
-+		goto out_unlock;
- 	}
-+
-+	timeout = msecs_to_jiffies(duration);
-+	timeout = wait_event_interruptible_timeout(tty->break_wait,
-+						   tty_hung_up_p(file),
-+						   timeout);
-+	/* return early on hangup only */
-+	if (timeout > 0) {
-+		retval = -EIO;
-+		goto out_unlock;
-+	}
-+
-+	retval = tty->ops->break_ctl(tty, 0);
-+out_unlock:
- 	tty_write_unlock(tty);
+diff --git a/include/linux/tty_driver.h b/include/linux/tty_driver.h
+index 1f2896e56e77..62e459c5d3ae 100644
+--- a/include/linux/tty_driver.h
++++ b/include/linux/tty_driver.h
+@@ -73,6 +73,11 @@ struct serial_struct;
+  * @TTY_DRIVER_NO_WORKQUEUE:
+  *	Do not create workqueue when tty_register_driver(). Whenever set, flip
+  *	buffer workqueue can be set by tty_port_link_wq() for every port.
++ *
++ * @TTY_DRIVER_RESET_SAVED_TERMIOS
++ *	Reset any saved termios settings on device registration when reusing a
++ *	minor number. Must only be set by drivers that guarantee that the minor
++ *	number is no longer in use.
+  */
+ enum tty_driver_flag {
+ 	TTY_DRIVER_INSTALLED		= BIT(0),
+@@ -84,6 +89,7 @@ enum tty_driver_flag {
+ 	TTY_DRIVER_DYNAMIC_ALLOC	= BIT(6),
+ 	TTY_DRIVER_UNNUMBERED_NODE	= BIT(7),
+ 	TTY_DRIVER_NO_WORKQUEUE		= BIT(8),
++	TTY_DRIVER_RESET_SAVED_TERMIOS	= BIT(9),
+ };
  
- 	if (signal_pending(current))
-@@ -2727,10 +2744,10 @@ long tty_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
- 		 * This is used by the tcdrain() termios function.
- 		 */
- 		if (!arg)
--			return send_break(tty, 250);
-+			return send_break(file, tty, 250);
- 		return 0;
- 	case TCSBRKP:	/* support for POSIX tcsendbreak() */
--		return send_break(tty, arg ? arg*100 : 250);
-+		return send_break(file, tty, arg ? arg * 100 : 250);
- 
- 	case TIOCMGET:
- 		return tty_tiocmget(tty, p);
-@@ -3090,6 +3107,7 @@ struct tty_struct *alloc_tty_struct(struct tty_driver *driver, int idx)
- 	init_ldsem(&tty->ldisc_sem);
- 	init_waitqueue_head(&tty->write_wait);
- 	init_waitqueue_head(&tty->read_wait);
-+	init_waitqueue_head(&tty->break_wait);
- 	INIT_WORK(&tty->hangup_work, do_tty_hangup);
- 	mutex_init(&tty->atomic_write_lock);
- 	spin_lock_init(&tty->ctrl.lock);
-diff --git a/include/linux/tty.h b/include/linux/tty.h
-index 0a46e4054dec..ad4e4a835f90 100644
---- a/include/linux/tty.h
-+++ b/include/linux/tty.h
-@@ -230,6 +230,7 @@ struct tty_struct {
- 	struct fasync_struct *fasync;
- 	wait_queue_head_t write_wait;
- 	wait_queue_head_t read_wait;
-+	wait_queue_head_t break_wait;
- 	struct work_struct hangup_work;
- 	void *disc_data;
- 	void *driver_data;
+ enum tty_driver_type {
 
