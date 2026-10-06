@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D28E3D5C05
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 08:08:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 505393D524C
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 08:09:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791274108; cv=none; b=a8rjkK8luv2ufUsIrit/XJ/5TT+8GXwArQJjXGdczj2OtQ5VHHWbCMEM8kamMy6nwfH8RvnAjAdBWMou1p1MlRbgszq2VewsGdPcAHw3rqbdQ786R3W5Tv5SPEPkMM/b6ruRwv5PLQWVzYJJfVUhPM/4RnC7wWSCda6+aHj4mNw=
+	t=1791274147; cv=none; b=uK2tFsN85Q4JCatfTbxoG5JqJ6geBN77iPMpCOPwpfpkbSE6HTAx/An72JZiWAkTy9jtkd/ywO48SEnwQFJMAK0XmSi8PwlXgqE6UGwxGtDqNej97azQQhtjqxJxjbv/GABvqWQSjIlIXcgT3sXNAW068vT7Bq4PmVNxF/+EbaA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791274108; c=relaxed/simple;
-	bh=pZ9/MwD52wHEQFtTX6CTmaYklKMR92IBMyJCs5gKmuE=;
+	s=arc-20240116; t=1791274147; c=relaxed/simple;
+	bh=HFHj9SXBV86uf0icRteBPtxPimRz1sQI6vCB2/Fy/E4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KX1c2X9yAg5qKongqvjemjc3StZQSXcgofTQUiwDvlfZRd3AHZ4GGgYUtlexsEifLO6UlKQB2U9qdQpNc3s13p0Qt7S0Z8buMg+/I14//xuTrN4DhzOpgCzIJRPO657N86AF8kD/ZQADOizCcjEuWEOj25FY75soxOsPHzZ6OMw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MHWaPOqo; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=hc+gy2zF2UXrAHgAd0CLcUcj5jr88cAm2uedn34HEAnYYdmAT0MXAYnTjQLuBmVAvWlr0eRhShY+L3HWZ9RYbruFYOIqa6/C8//qcI0w0I/a1L4tA8NMPsLNf+G4kfeg8ZXUxSyD4PyY5c0ssI81/aHNINpVS8jMW5OJZXH5zFk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YfEpGNKn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MHWaPOqo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02C3B1F00893;
-	Tue,  6 Oct 2026 08:08:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YfEpGNKn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11E481F000FF;
+	Tue,  6 Oct 2026 08:09:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791274107;
-	bh=1zvoBIoz/LHB7fHJ25nSey4kfdIw2UhKlnhmrblGH5M=;
+	s=k20260515; t=1791274145;
+	bh=vMHLydc1ASYoguID2GbeUzRmSUBIJlzaeiylOK6zHaw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MHWaPOqoDWeyI2OjIIslqZHEFMjcCO8hn5/OFV7sUqpjfpsTohLWJ/XtavhXYNorO
-	 3yk/vfMTlxb9SgpOW/rHovJEmwFNarGHb1phUb5jMznrgNbYjpCMb4cx3rrEjuYIa5
-	 45ysRttQ2rpeiGsthNbACOUtGHEOzkNyqnJc1NEdrBRwExr1Lr9NxoueWLinPCEz1M
-	 /d+i8CqyyB9WmNAyW/N0Swy3q3aVUklwkhXWoc/fgT+We9x4m0HPf2W6fcTu96G3We
-	 ByV3FRve3tVyAVQ1bwClk6NmIZKbdPwoxNihaUi1CEwq+ebeDMl5COsUlBKhvMHB2g
-	 D0gwMG1/u5S8g==
+	b=YfEpGNKnFvFGrPb5GeyF0I3f7zKvXhWCbq7kiW7SQvOYsDywInoCTtlzjQdVQ8ASS
+	 6vUPRtlWxFa+sEzWFiWniuKBSHkxaLm7vuGE7wnn0NXdEbNMNfM9YhlFFYnFXU6/28
+	 wjJF3Qf1H+BqndmGlqnB+letn+FgJUoK1mPlGcv6ro9g8K2r71ABUjvj5zFCuKMDBZ
+	 JyOElwQhvbk6tvexAiPnzox4V0euUVODZt3Kw2w50FWlbfgJi88qzUKIA2mSthXrTz
+	 8U/11ospN63C4RxdMxigV4KbLD4c3T0g76yJ5NVVV9Qbi7sSu6PU8egBzshX66QQQC
+	 RBxXu2BHZT8lA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Johan Hovold <johan@kernel.org>,
-	sashiko-bot@kernel.org,
-	stable@kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Chengfeng Ye <nicoyip.dev@gmail.com>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] serial: fix TIOCMIWAIT race
-Date: Tue,  6 Oct 2026 04:08:21 -0400
-Message-ID: <20261006072809.3619274-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] Bluetooth: hci_core: Serialize SCO and ISO scheduling with teardown
+Date: Tue,  6 Oct 2026 04:08:59 -0400
+Message-ID: <20261006080812.3618743-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100502-kinetic-respect-a4ff@gregkh>
-References: <2026100502-kinetic-respect-a4ff@gregkh>
+In-Reply-To: <2026100509-kinswoman-oops-e21f@gregkh>
+References: <2026100509-kinswoman-oops-e21f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,45 +45,158 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Johan Hovold <johan@kernel.org>
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
 
-[ Upstream commit 40adffec8c0090533dfaa863ced7901b60bbf1dc ]
+[ Upstream commit 848a7a91c7f03675d3bd8db6f7721cbf9cb50e21 ]
 
-The task state must be updated before checking the wakeup condition to
-avoid missing a racing modem status update.
+hci_low_sent() selects a connection under RCU but drops the read lock
+before calculating its quota and returning it to the scheduler. The
+connection is then used without lifetime protection by hci_sched_iso()
+and hci_sched_sco().
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: sashiko-bot@kernel.org
-Link: https://lore.kernel.org/r/20260904115542.E20D11F00A3D@smtp.kernel.org
-Cc: stable@kernel.org
-Signed-off-by: Johan Hovold <johan@kernel.org>
-Link: https://patch.msgid.link/20260910130816.642699-4-johan@kernel.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ sashal: adjusted context for spin_lock_irq()/spin_unlock_irq() instead of uart_port_lock_irq()/uart_port_unlock_irq() ]
+After the TX worker drops the RCU read lock, hci_abort_conn_sync() on
+hdev->req_workqueue can remove the connection from the hash, complete
+synchronize_rcu(), purge its queues and release it. The TX worker on
+hdev->workqueue can then access the freed connection in hci_quote_sent()
+or while dequeuing packets and updating conn->sent.
+
+KASAN reported:
+
+  BUG: KASAN: slab-use-after-free in hci_low_sent+0x730/0x840
+  Workqueue: hci0 hci_tx_work
+  Call Trace:
+   hci_low_sent+0x730/0x840
+   hci_sched_iso+0x25e/0x4d0
+   hci_tx_work+0x239/0xcb0
+
+  Allocated by task 93:
+   __hci_conn_add+0x16f/0x1b40
+   hci_bind_bis+0x782/0x17b0
+   hci_connect_bis+0xa0/0x510
+   iso_sock_connect+0x589/0x1050
+
+  Freed by task 88:
+   kfree+0x131/0x3c0
+   device_release+0xc8/0x240
+   kobject_put+0x14d/0x280
+   hci_conn_del+0x55a/0xe80
+   hci_disconnect_sync+0x156/0x180
+   hci_abort_conn_sync+0x3e7/0x940
+   hci_cmd_sync_work+0x13c/0x290
+
+Hold hci_dev_lock() across connection selection and transmission in both
+SCO and ISO scheduling, serializing them with connection teardown. This
+also prevents queuing completion timestamps after the connection queues
+have been purged. Extending RCU across transmission would be unsafe
+because the transmit path can sleep. Keep the ISO timeout check outside
+the mutex since hci_link_tx_to() takes it itself.
+
+The preceding channel fix already holds this mutex in the ACL and LE
+schedulers, which call the SCO scheduler between packets. Move the SCO
+body to __hci_sched_sco(), assert that its caller holds the mutex, and
+use it directly from these locked paths. Keep a locking hci_sched_sco()
+wrapper for the direct calls from hci_tx_work(). This avoids recursively
+acquiring the device mutex while preserving the scheduling order.
+
+Remove the obsolete claim that connection removal disables TX.
+
+Fixes: bf4c63252490 ("Bluetooth: convert conn hash to RCU")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+[ sashal: Adjusted hci_sched_iso() lock placement around existing ISO/LE/ACL credit selection with no ISO timeout check. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/tty/serial/serial_core.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ net/bluetooth/hci_core.c | 27 +++++++++++++++++++--------
+ 1 file changed, 19 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
-index 6d7d448d0fbf5..7e4cab742321c 100644
---- a/drivers/tty/serial/serial_core.c
-+++ b/drivers/tty/serial/serial_core.c
-@@ -1240,12 +1240,12 @@ static int uart_wait_modem_status(struct uart_state *state, unsigned long arg)
+diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
+index 4f973e22ce86e..253ee56d7bf66 100644
+--- a/net/bluetooth/hci_core.c
++++ b/net/bluetooth/hci_core.c
+@@ -3450,9 +3450,6 @@ static struct hci_conn *hci_low_sent(struct hci_dev *hdev, __u8 type,
+ 	struct hci_conn *conn = NULL, *c;
+ 	unsigned int num = 0, min = ~0;
  
- 	add_wait_queue(&port->delta_msr_wait, &wait);
- 	for (;;) {
-+		set_current_state(TASK_INTERRUPTIBLE);
-+
- 		spin_lock_irq(&uport->lock);
- 		memcpy(&cnow, &uport->icount, sizeof(struct uart_icount));
- 		spin_unlock_irq(&uport->lock);
- 
--		set_current_state(TASK_INTERRUPTIBLE);
+-	/* We don't have to lock device here. Connections are always
+-	 * added and removed with TX task disabled. */
 -
- 		if (((arg & TIOCM_RNG) && (cnow.rng != cprev.rng)) ||
- 		    ((arg & TIOCM_DSR) && (cnow.dsr != cprev.dsr)) ||
- 		    ((arg & TIOCM_CD)  && (cnow.dcd != cprev.dcd)) ||
+ 	rcu_read_lock();
+ 
+ 	list_for_each_entry_rcu(c, &h->list, list) {
+@@ -3640,13 +3637,15 @@ static void __check_timeout(struct hci_dev *hdev, unsigned int cnt, u8 type)
+ }
+ 
+ /* Schedule SCO */
+-static void hci_sched_sco(struct hci_dev *hdev, __u8 type)
++static void __hci_sched_sco(struct hci_dev *hdev, __u8 type)
+ {
+ 	struct hci_conn *conn;
+ 	struct sk_buff *skb;
+ 	int quote, *cnt;
+ 	unsigned int pkts = hdev->sco_pkts;
+ 
++	lockdep_assert_held(&hdev->lock);
++
+ 	bt_dev_dbg(hdev, "type %u", type);
+ 
+ 	if (!hci_conn_num(hdev, type) || !pkts)
+@@ -3681,6 +3680,13 @@ static void hci_sched_sco(struct hci_dev *hdev, __u8 type)
+ 		queue_work(hdev->workqueue, &hdev->tx_work);
+ }
+ 
++static void hci_sched_sco(struct hci_dev *hdev, __u8 type)
++{
++	hci_dev_lock(hdev);
++	__hci_sched_sco(hdev, type);
++	hci_dev_unlock(hdev);
++}
++
+ static void hci_sched_acl_pkt(struct hci_dev *hdev)
+ {
+ 	unsigned int cnt = hdev->acl_cnt;
+@@ -3716,8 +3722,8 @@ static void hci_sched_acl_pkt(struct hci_dev *hdev)
+ 			chan->conn->sent++;
+ 
+ 			/* Send pending SCO packets right away */
+-			hci_sched_sco(hdev, SCO_LINK);
+-			hci_sched_sco(hdev, ESCO_LINK);
++			__hci_sched_sco(hdev, SCO_LINK);
++			__hci_sched_sco(hdev, ESCO_LINK);
+ 		}
+ 	}
+ 
+@@ -3776,8 +3782,8 @@ static void hci_sched_le(struct hci_dev *hdev)
+ 			chan->conn->sent++;
+ 
+ 			/* Send pending SCO packets right away */
+-			hci_sched_sco(hdev, SCO_LINK);
+-			hci_sched_sco(hdev, ESCO_LINK);
++			__hci_sched_sco(hdev, SCO_LINK);
++			__hci_sched_sco(hdev, ESCO_LINK);
+ 		}
+ 	}
+ 
+@@ -3801,6 +3807,9 @@ static void hci_sched_iso(struct hci_dev *hdev, __u8 type)
+ 
+ 	cnt = hdev->iso_pkts ? &hdev->iso_cnt :
+ 		hdev->le_pkts ? &hdev->le_cnt : &hdev->acl_cnt;
++
++	hci_dev_lock(hdev);
++
+ 	while (*cnt && (conn = hci_low_sent(hdev, type, &quote))) {
+ 		while (quote-- && (skb = skb_dequeue(&conn->data_q))) {
+ 			BT_DBG("skb %p len %d", skb, skb->len);
+@@ -3812,6 +3821,8 @@ static void hci_sched_iso(struct hci_dev *hdev, __u8 type)
+ 			(*cnt)--;
+ 		}
+ 	}
++
++	hci_dev_unlock(hdev);
+ }
+ 
+ static void hci_tx_work(struct work_struct *work)
 -- 
 2.53.0
 
