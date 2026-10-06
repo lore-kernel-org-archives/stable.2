@@ -1,67 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50FC9255F28
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 03:59:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2F323368A2
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 04:19:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791259177; cv=none; b=PXpICNPfx7/zYtbv9vRStBFjwQgDIp7NEdqMZ97B6oEsRDsuTejXRQ/nyuMwRj/+Z3MkqHymCPLTDswW+R4SpvmJQaRnn1tgkCL9IeNTkUMhI4jAH3Y4LpvFNZud0lnEZzHLao2rPX3JYpjzyKVyRZLDkkikhmju6BVsN2Kx6r8=
+	t=1791260357; cv=none; b=nL+teIBboKG4PUPXWoWQvv3NmP6uX5tzDqhH26o5pdjUzEapcX+4NxNAMrVPa2o6K1lt8vzx23Q6c8z/uetJtx13DxmAdD6ge5iSdebd2pgS+0hsjKM9TCwviNtACd5WtQQVQ9c83aUDYJpUhUngsB+eF4Pyl85RrR4dBxdPn8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791259177; c=relaxed/simple;
-	bh=WQmFHAI99v1cMif0KgogEHAyCvt3FSObu0aHSWXuIow=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=eyQ48dbS9Lll9lCix184qIURw0hbqINu9HyBIHSvzHKFm2UZ5PbAUX38Z/b9dwMn6dBmyDpS/die4W4XaILG8mNl+gCV7VWhTfAYPFhIt1MGsW48e+dSlEHqx13J+aO34apgUdEHNihvZwmIteeDnnMFbOwVfH4FbRzG64qfEYA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=awRS47nN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791260357; c=relaxed/simple;
+	bh=k3RSUY4fxdXMS3ZnKpvJScrf6J75V/fZ8Jp7axykJk8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aENv8NW3++BgphdDj6But5Bby4V1XstznpF5T4sjE485ZlW07smKnZA9jT05FcVvAPVztz+2drZF6muP0G7JPFozGfwxQRi506JWM4JAmpzTfpQdA2S5FGehtdhLs749NzASa/agtbAqiVpuwbxeXtNkht6ZoYAuTGqy6324YQk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IbPgxINj; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="awRS47nN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED4741F0089D
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 03:59:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791259176;
-	bh=WQmFHAI99v1cMif0KgogEHAyCvt3FSObu0aHSWXuIow=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=awRS47nN1lY8enGymoI0K4Xcwjgkemcqt4/O/POHcD5UpaM5Gl8goE9z/m2ey8IfX
-	 Kv+zJGv8x9DSsjZvpZ+UeTj+TB/HuTJLLly64cmm5+px5PO8HP3j4h98MS3Tk8YNkm
-	 e9d7BPl4CbMaIIkF82fShWerqp/mNsDbZ07+svAMbbWzRQgQCzOd7juGxRN484kqhC
-	 2WqbS3XF3Wf/PnD7WPhToAEf9NC5/K2bg6OoKHGbbKKnlkzJYSIKNvzO9mdXsSKsKk
-	 CoJQX7F8y8vKfR2ECP2xmGB9369sS7ijirgaRQM+YttfvjJri4vQLUs9/0QfiRff4J
-	 7o5x/UCWq9CeA==
-Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-7fccba9c675so349354a34.0
-        for <stable@vger.kernel.org>; Mon, 05 Oct 2026 20:59:35 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxrX1zm3UVefIICdYXGm198+sqZD6e8BJa0a/i8topcyk1o1EKj/fgTIX5Yj2hWK/yoeRk43xw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nep7SrLMzdAFJQX37QEj34c8mx7DZL7M93Kotg8ZCJrw7ceP0A
-	RrfJn2HiQ55G9ZSxvF8QPSJukAkeo80d2elrHVxi0GH5lWce9Tl/CCC0VtPGNu1dY6rHYxwUBAP
-	scFAU9OZ8O4ncxk8ofHV3zAUpircNX/Q=
-X-Received: by 2002:a05:6820:1908:b0:6d3:abd1:9b92 with SMTP id
- 006d021491bc7-6e4a7d4ee70mr1048558eaf.56.1791259175300; Mon, 05 Oct 2026
- 20:59:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IbPgxINj"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a172eb31f0so1689535e9.1
+        for <stable@vger.kernel.org>; Mon, 05 Oct 2026 21:19:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791260354; x=1791865154; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=b4cq9NsXa/9Ah4XIfTqt/umKWCh8D9nJZ3hIc35Disk=;
+        b=IbPgxINjCvplytLmNPCsTLTmB1c1v2BFp0asKSns/n0IdBsxtShIzICiNTsd2ulGjh
+         T8NQJRAjilYMaiXgC9v6HEjmI1dAgNbq2YOnQt7kYTXpr/s3Q/QSwZG/I1HWTNxeRHty
+         PUcTxY4HxKBPeDT2kzLsOXLeaW9FNQ6m/yuqYYgBk4BuNHtRdDoKAKtS0heuTEbEthd1
+         0iwJtXZPU23/Xjw4Lb6xi867SfUvTExj7RAaw0e7XCHsZpj2nbY4dO4wn52LNRGS7F2f
+         bbOMtAtLiD9b4cMOaL17FZq/NoX2w6DE7S+wovPWkxywPfwgXxcgaQFv6X8g7Lm14+5r
+         CPUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791260354; x=1791865154;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=b4cq9NsXa/9Ah4XIfTqt/umKWCh8D9nJZ3hIc35Disk=;
+        b=Jzy7zBMonXOYXhKVyVoO8QWxIonxSVKeO2k3+CJOawpE60hTDb1LC0f67yZThWx4ih
+         MMZ0qXfmlvnzrRoDaCApObnXmCOWtRdDKE2yvwL1D0BTdrY76J+rI3wVeybLPzPsjLLe
+         B07BEUu6EfF9C2pu3liyCHELSZ7C7v+DUrdolnDP9Muc8djtXeIy6c9oBHMLyWY9vFLj
+         C/0bxubsEuznVkpCE4r5eCfWv+GbcA3a2rMjq4BPm+7ndwUsoLbKDfP7IprdQN2NiBfw
+         U0XF/6bg6JGH284jLoA1X4km2AbTfPiFn4jJbhLYU1MEV233V0CaEB/4Nbwq+uV67Qoh
+         V0JA==
+X-Forwarded-Encrypted: i=1; AKwUvBxPpj9zGlNCxJTG8f8opM8J8PxL7umhtckC8Z/q7QbGPka48xkPkhaYPlcSfJjZkZKyXAVW4AA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nlqy7E21Yq2DW5P+bP6W8zpc9V3+QLuAML/g9FRIPMH0rDJ2gI
+	bsZk1GswH6iTiEk4SypZrFFScy+XIZ1vKBywLAiRJ/pU3HwzbIgK8RQT
+X-Gm-Gg: AYBFou2POMrFsuBeFq4eS75kzukgivuH2nFigSTzlYY0Nizxg2aRtNmHMG8j6mCyMQn
+	i93fuUQDO+HHuiZsivNDxQhijbxzp5mfsWuvhH5kGHDiYd8kA17JeRzMPgOdOef9aCUEZxTzsj+
+	+McQerwc0taOom8bjUs0Oddyf4PEOs2D/MHkVoUliDUo0vXvWlR9SeEWGs5mRvqa/+kyb6K/P1s
+	QPpgfxzcNZBkvL/9AGZIxvDp4fRnHtwUPPuUaZWMCY1wJgyXyEaeEvTm3FR7VifBQJYmVa3z+l8
+	yFT/cvWXlv8GIPwX0wTNkpNMJUfjkEeS+7rxagMUtW+TfKk3d2bW5npyIRV2+xIJ9gQWpWBOOed
+	7U+CgvvbAIO0oNiDeFQbl7B+EzsEU60dwJ92+oTuFAYV8qD94nZgXxFfcFYa0Tx2viW5fpEeoJV
+	9+5/BxqQnKg5iaxdlK6Drnamlp3emZ2Q6ip4sThnOSCtUXk0eaYlnEVATDsTE/kPHb+1xqGzxdi
+	PL16LmBMzRUn2d43xYrA+8GkzsAKNPo31G+L/QFIxJysqeN/CCVT/mqcAX00Ob24ihbimLpK9lm
+	E18FUs9bsjUD/w2YW6Hvzz8hm7hnC50BLg==
+X-Received: by 2002:a05:600c:3510:b0:4a0:1c43:3c04 with SMTP id 5b1f17b1804b1-4a17b53e298mr3201995e9.13.1791260353780;
+        Mon, 05 Oct 2026 21:19:13 -0700 (PDT)
+Received: from MacBook-Pro-von-Karl (dynamic-095-117-040-097.95.117.pool.telefonica.de. [95.117.40.97])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1776cfe45sm44826795e9.1.2026.10.05.21.19.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 21:19:13 -0700 (PDT)
+Date: Tue, 6 Oct 2026 06:18:41 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Arend van Spriel <arend.vanspriel@broadcom.com>
+Cc: linux-wireless@vger.kernel.org, 
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com, 
+	linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH] wifi: brcmfmac: avoid sleeping tx locks in netpoll
+ context
+Message-ID: <asR1TaKQJlPFqEvR@gmail.com>
+References: <20260930185417.61865-1-kmehltretter@gmail.com>
+ <20261004122910.1392318-1-arend.vanspriel@broadcom.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261005023812.130639-1-edumazet@kernel.org> <179123498942.434549.13440734253618262332@kernel.org>
- <CAL4WiiqwLH51iXsqmuUKTeP4Mo5Tv-qZ_D_MzaGK6C81nxQ6SA@mail.gmail.com>
-In-Reply-To: <CAL4WiiqwLH51iXsqmuUKTeP4Mo5Tv-qZ_D_MzaGK6C81nxQ6SA@mail.gmail.com>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Tue, 6 Oct 2026 05:59:23 +0200
-X-Gmail-Original-Message-ID: <CAL4WiipgggQfFhc2DMTaBF+j0N0A8wg6TDb3gsEfdDAnPLaV_w@mail.gmail.com>
-X-Gm-Features: AclHuK-b2Ms5MyWpBUCSQaVi5Vka2572xYI4b5qcUJXxeDvEvRQbYAASAqOr3Jc
-Message-ID: <CAL4WiipgggQfFhc2DMTaBF+j0N0A8wg6TDb3gsEfdDAnPLaV_w@mail.gmail.com>
-Subject: Re: [PATCH net] bnxt_en: fix DMA mapping length for padded small packets
-To: netdev-bot+sashiko@kernel.org
-Cc: davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	netdev@vger.kernel.org, stable@vger.kernel.org, sfle@kth.se, 
-	edumazet@google.com, michael.chan@broadcom.com, pavan.chebbi@broadcom.com, 
-	andrew+netdev@lunn.ch
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261004122910.1392318-1-arend.vanspriel@broadcom.com>
 
-Le mar. 6 oct. 2026 =C3=A0 05:56, Eric Dumazet <edumazet@kernel.org> a =C3=
-=A9crit :
+On Sun, Oct 04, 2026 at 05:29:10AM +0100, Arend van Spriel wrote:
+> Is there an opportunity to reuse/refactor brcmf_sdio_prec_enq() rather than
+> adding a separate brcmf_sdio_prec_enq_irqoff() helper? For example, passing
+> a can_evict parameter:
+> 
 
->
-> Looks legit, I am cooking a V2, thanks.
+Thanks for the review!
 
-pw-bot: cr
+Sharing the helper with a can_evict argument is cleaner.
+
+One queue user does not hold txq_lock: brcmf_fws_bus_txq_cleanup()
+dequeues through brcmu_pktq_pdeq_match(). 
+
+Lockdep instrumentation in fcmode=1 and 2 confirmed that cleanup enters
+without txq_lock.
+
+I combined the helpers, but kept brcmu_pktq_penq() for normal calls.
+
+Karl
