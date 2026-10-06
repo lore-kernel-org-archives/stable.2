@@ -1,141 +1,130 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013071.outbound.protection.outlook.com [40.93.196.71])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2F033E49C0;
-	Tue,  6 Oct 2026 10:45:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.71
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791283508; cv=fail; b=o4lCWSWPWcNa1lZDu+wU2pLnrg8tQKz9G/HLtsxiCT72QEuZyWWfy1cfaGcwSKsGH2qgzjE7lmpIXDoBQpNc176GaD7cjTyfhEU+/sTzaZ6o+/ecFmGi7WC5ugJb670VJlezkS5k8Ad/eOE2rRMQe1YFAPPSovAcbz67WLb66eI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791283508; c=relaxed/simple;
-	bh=XIohklggiPbJYiapBBVtiiGPjOyWekNkx2A2AYXcX6E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dJ9oBZ73jBbS2dn4ieDCiqx+Hg/53IhvK70qQL4JctNkadYyiYIEg9laNbHBDwuZ3ywkeFAquS6qg6TzJ/rS2sVVmsBBDkmbzWrNsIChaQT7KU87YX0s8MF1+czdXnj9FNGgWWt8l8n7tFrrptxBd7JpCgVena6rRSCH/BnZ+u0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gehealthcare.com; spf=pass smtp.mailfrom=gehealthcare.com; dkim=pass (2048-bit key) header.d=gehealthcare.com header.i=@gehealthcare.com header.b=mRvuwAkF; arc=fail smtp.client-ip=40.93.196.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gehealthcare.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gehealthcare.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B92036A36B
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 10:45:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791283545; cv=none; b=jJumLngczFSUtLd/iHpSSxVvRP0xPBBm3YKhsMbgxGC0bGUGCr1csajZtVtnHxBoUNf6PwRa5GAAUe4f9aYz/f4mq2DIiz8uqdlJp7lNkQmZpBfw90e1WkWS+lfKFOjUfpG08KXblSpdTMI3qOlPzXwNR+KHYHUfSjrXbdhzTnM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791283545; c=relaxed/simple;
+	bh=+MjGIxK9Jk63M4CtfaLkqfeF1NAeiO7gV3AJG3b5cbE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=erhx1QzleeaxnHNG1Lr/QWVT//DFGjzW30/Q2mBhNRpTKMpt91FWGXGN5thMtz0qFAd7FGGE0RsOrbSPhqr5CIn9eklU8c/XvOQrcrCfrk4hJhRkwAL6WUHnIO3N8WWTtrqDP1GuVHwjN/BfUtQyCY20G+CzSdROFMHjmWWwvU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MXD2vQvV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gehealthcare.com header.i=@gehealthcare.com header.b="mRvuwAkF"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IutqDVYUKtWKjikPbsXn02I9cUkyc1A5iqcpB846XxQHmrNTRNUSOrMn88vfHGYH7EaYEnQaILAXN+da31ZEonr0Ioh0OnVcpDMed2PhuOllClmhtAVTFMdjiMugh14h9vk5+/0UanZScidx0YuQEwtflQVzEjz7Lxzy4szAQrX2lYX5BHgp+9TbtkZR4qJC5yvHndc3byqk2TvHw8/aW0JuVCqORoiFxml0ZXDsiZtruEBpuo833U3iPYRCh0UZUwrtjadm5RGUAfo19+25eff/4QUtANM4Zt3PnO6KNkcrr3NrmQbBfwCha4TTNKh0gx7I62wD0Hq4H5Omp84HkQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DiwQTIRJ3XkIz6//JAsVmsRphAzJRCsXm3qcWbIGvAQ=;
- b=HYkV3+2wzrLGTklC4rlcSb59fAhXedfqoNUBKeCHob+hFYUtEJZ4szNuKOjbnzDSxINukj5CJyqHAEVwZI1UNk1fPTG5ITx4W7XTsmSsQeEJ78dORJXYZyICyTq3miiH5RYRR+9Y6KfwHNn6YmiurHImhYe0Nw+rCQPPIgXKsoVahdahOieTcz8AzziXtqUWp4UGlVTO1Nr71KEyasTt82/6TPlbrDQBcakPG/JBaCw/bMiyzmVtBDChWivpjRELS+1FtPf+AHDmUa/lyaTBGGM+1E3BmPp+pMEqIHix72R/xoQb67iUG4j8WyLhHXO61d9BY0XkhH2FThnuZMyG6Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 165.85.157.49) smtp.rcpttodomain=vger.kernel.org
- smtp.mailfrom=gehealthcare.com; dmarc=fail (p=quarantine sp=quarantine
- pct=100) action=quarantine header.from=gehealthcare.com; dkim=none (message
- not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gehealthcare.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DiwQTIRJ3XkIz6//JAsVmsRphAzJRCsXm3qcWbIGvAQ=;
- b=mRvuwAkFeVRYScsPgWq44v3kQTIwCeb8vcSU8dmYa7B52eNZb6WeXI0jqTn/xNBbe4RIg0X0ajLZ41mHuQNbOKJ3NcMzyorDKA13Sy2rfVOJD7e7opItnbhYncGQCLf+fu/SmpqvO7N/yHnMHLXVYb4zl58K4/EAHPadkYGdS0p5I7yXdxfSm43iD/QW+sG+R7SzxCszvbR8QDdOOPdv0u7C+OGibt1KWZXxy20vz5HrRq58AhTmisVjCfWjvRs8FctaMVakVtDK42Bxl4+Z1bp+voXeOwFJ17PPMczSFsx7f/02dd82x8zfTnC42/KR/hfGOJ6S5LiYT38JL5kSpQ==
-Received: from CH0PR03CA0099.namprd03.prod.outlook.com (2603:10b6:610:cd::14)
- by LV1PR22MB6016.namprd22.prod.outlook.com (2603:10b6:408:2b3::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Tue, 6 Oct
- 2026 10:45:01 +0000
-Received: from BL6PEPF0006C3DF.namprd02.prod.outlook.com
- (2603:10b6:610:cd:cafe::8a) by CH0PR03CA0099.outlook.office365.com
- (2603:10b6:610:cd::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Tue, 6
- Oct 2026 10:45:01 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 165.85.157.49) smtp.mailfrom=gehealthcare.com; dkim=none (message not
- signed) header.d=none;dmarc=fail action=quarantine
- header.from=gehealthcare.com;
-Received-SPF: Fail (protection.outlook.com: domain of gehealthcare.com does
- not designate 165.85.157.49 as permitted sender)
- receiver=protection.outlook.com; client-ip=165.85.157.49;
- helo=atlrelay1.compute.ge-healthcare.net;
-Received: from atlrelay1.compute.ge-healthcare.net (165.85.157.49) by
- BL6PEPF0006C3DF.mail.protection.outlook.com (10.167.249.234) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Tue, 6 Oct 2026 10:45:01 +0000
-Received: from zeus (zoo13.fihel.lab.ge-healthcare.net [10.168.174.111])
-	by builder1.fihel.lab.ge-healthcare.net (Postfix) with ESMTP id E1ABD1A2D0;
-	Tue,  6 Oct 2026 13:44:58 +0300 (EEST)
-Date: Tue, 6 Oct 2026 13:44:58 +0300
-From: Ian Ray <ian.ray@gehealthcare.com>
-To: Adrian Hunter <adrian.hunter@intel.com>
-Cc: Ulf Hansson <ulf.hansson@oss.qualcomm.com>,
-	Ulf Hansson <ulfh@kernel.org>, Shawn Lin <shawn.lin@rock-chips.com>,
-	Kamal Dasu <kamal.dasu@broadcom.com>, stable@vger.kernel.org,
-	linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	ian.ray@gehealthcare.com
-Subject: Re: [PATCH] mmc: core: Don't program invalid host driver type for
- fixed eMMC type
-Message-ID: <asTRKmmNKIyGw_PO@zeus>
-References: <20260926122908.866-1-ian.ray@gehealthcare.com>
- <CAPx+jO-59V8bg+DB4pOqEmdPZrfLi098YsyzkBRnf2Krb7ufVA@mail.gmail.com>
- <791c00cf-4f25-423c-b2f3-4cdc2d2c4a2b@intel.com>
- <ar5-udUwk8JeB-ut@zeus>
- <ae9b702d-6a19-4f97-8117-b6626e69cc9d@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MXD2vQvV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 129941F00898;
+	Tue,  6 Oct 2026 10:45:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791283544;
+	bh=w3+73jkUyx5gK4A8w3tH5oevnMFHXHRGR8fkQlrmHzc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=MXD2vQvVKTMuKiK68Uqc5eShLAOGJWuQ8Rml7m96S94oODTamaFUK4XT/kILo4Q6G
+	 S3xgXKCbjraMjOQxD23ngwSObOeI929Ld5jqVKDRAChgAqSCb6Rt3ilCYXGO5H5ZkD
+	 Ca52V1JXa2SbLTC4IGuB++YfDQGb2CkFAYEsQBZZQ3uXmc0GHjdhL7y89MbOZFwFEu
+	 2YK5uL7OFlmwf51Cy8lDdFTyEK5RQYzE8PqQqaH/RF+Xb8iS9dSSnSUiOHHiYLkwNV
+	 lcOkjnhBukM1Kpxyw+RmKjkdzK0Lvr367DVTLxS7cbotj5v18+MZsNfSv3jrh684jc
+	 pQ7699RLGC8nQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=valley-girl.lan)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xE2g2-0000000HNla-1k0Q;
+	Tue, 06 Oct 2026 10:45:42 +0000
+From: Marc Zyngier <maz@kernel.org>
+To: stable@vger.kernel.org
+Cc: Oliver Upton <oupton@kernel.org>
+Subject: [PATCH 6.12.y] KVM: arm64: vgic-its: Fix MOVALL handling of source redistributor
+Date: Tue,  6 Oct 2026 11:45:38 +0100
+Message-ID: <20261006104538.685611-1-maz@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <2026100519-line-generous-1624@gregkh>
+References: <2026100519-line-generous-1624@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <ae9b702d-6a19-4f97-8117-b6626e69cc9d@intel.com>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0006C3DF:EE_|LV1PR22MB6016:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3eff6059-a741-41fb-847e-08df2396dfb3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|23010399003|1800799024|36860700016|22082099003|18002099003|10067099003|4143699003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	AW4qiv0+ZWY02X5d3/e3lTDe+c3V6JkBMCfBPWbyjSfrlmFuzX61peaFUsJhcF0aRypZbfvznTx2esMrBhQcPHeSGmLF/Hh6hivffZWkRfcGnG1OD0fqApzWCiZz/h/OMHjxNRpPGCn8VNWe0w7xG21HO9mNS/2Ti2iwNS8dQK+3l2rK65wtdCgrAkhxKoZILETyhDG65+iyyNQGwqQWgCpjjCGoT0VH5P/rZsVqZdxOkfsFi26tIvZ4tuWVibkF1OtSymmOHnP9mcqzAc530wFEX1YEnZF0squ3ndhXU1uLe5sajlbz7gIiIGhMusigD/RWwWJi0zyydG6TtV4pmZcHJbRBQOjkm7/Qd7jZdlrWcbmTMhpMG4q5xW1Tazm07yN5mC6LJOTmVIpTHgfReLQsGPglxeQ8T84B5Eknv6GAj9AdZ4LFagkDisZ0AftqV2Bq9D31Ia9bMsN4cwVWKoe8vRN6MaOcaWf8+JidtzYxLMV8L+NbA5/8pp7DuP0r07KvX2ldMGxX2HWOC6AISbsJPl3HoATOcxj4v9CcaCc3H6balurv56XKeg5U5VqxOTmDKvrh5kz1w0IqZttlN1CXuYvLnR3s3NWl4BYtXaF+/WRdnS8mpPLJdFz2HhxeBDcxeDiBAH3l1dq3JnMxTRSnzNg7j5qSLY69Si0N9jpmzBOn78kU11fNSa/cosUGMXFMl6MfwGlpp5061fdS4Q==
-X-Forefront-Antispam-Report:
-	CIP:165.85.157.49;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:atlrelay1.compute.ge-healthcare.net;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(23010399003)(1800799024)(36860700016)(22082099003)(18002099003)(10067099003)(4143699003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	MWGRjGtjgB/HDY49hUvYwOG3SAxX2rBOX2geBofiFpPvVyPMdz4J/EX67Iul3BxZ92ljRhMrDrbIgNPsAImzNWq9CfiLL1WUvsyZpFVSxD8Gxh+zY842ueII03Pl6FgZi2TaIcvm0VNl1BzvyBGLV5rZeTPccYaKPsvHVGVSRo2j6agHvXhHInCz2/CR+4BSXTxCvfNwGNERre2dqGRmNTXzKqB0/vo5SgvC03/xXtUmXRSnuOR4jvi1QhlLFk+pA3UkCUTxTu/ZqWdrT3cgcZi6r2JSxN97qXPEhq5p9BSx+AvqZuDiH+B6UE0G1PRqUQ27t0OjdqzI6FsjiVVvhW9tVyhY3lqSFGQKWa6gYhf+LNnLg/i7usPjn9gBwj/Sj3ad3XrEq8XsVOln+4snNfc5bXrJbgZZU9REckCz5cmH5IvJSekEkylu1ah+mQRm
-X-OriginatorOrg: gehealthcare.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 10:45:01.2401
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3eff6059-a741-41fb-847e-08df2396dfb3
-X-MS-Exchange-CrossTenant-Id: 9a309606-d6ec-4188-a28a-298812b4bbbf
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=9a309606-d6ec-4188-a28a-298812b4bbbf;Ip=[165.85.157.49];Helo=[atlrelay1.compute.ge-healthcare.net]
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-BL6PEPF0006C3DF.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV1PR22MB6016
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: stable@vger.kernel.org, oupton@kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Tue, Oct 06, 2026 at 10:28:23AM +0300, Adrian Hunter wrote:
-> On 01/10/2026 18:39, Ian Ray wrote:
-> > On Wed, Sep 30, 2026 at 10:00:47PM +0300, Adrian Hunter wrote:
-> >> On 29/09/2026 16:06, Ulf Hansson wrote:
-> >>> + Adrian
-> >>>
-> >>> On Sat, Sep 26, 2026 at 2:29 PM Ian Ray <ian.ray@gehealthcare.com> wrote:
-> >>>>
-> >>>> The host controller driver type value used by the MMC core [1] _mostly_
-> >>>> overlaps with the eMMC device I/O driver strength value [2] as shown in
-> >>>> the table below; however, there is _no_ host mapping for eMMC value 4.
-[...]
-> >
-> > The "invalid driver type" warning that I originally observed originates
-> > in sdhci_set_ios_common() which is shared by all SDHCI hosts (IIUC).
-> >
-> > Thus any SDHCI host configured with `fixed-emmc-driver-type = <4>` would
-> > log that warning.
-> 
-> The warning is valid.  SDHCI does not support value 4 and doesn't know
-> what is a valid alternative or even if there is one.  That is up to the
-> driver to sort out.  If other drivers do it the same way, then a
-> helper or something could be added.
-[...]
-> The objective is not to avoid the warning.  The warning is valid.  The
-> objective is to provide a valid value.  4 is not.
+The MOVALL command moves the pending state of all LPIs targeting a given
+redistributor to another one. However, we seem to have lost the
+filtering on the source RD, which means we move all LPIs to the target.
+
+Not quite what the spec mandates.
+
+Hack update_affinity() to take an optional source vcpu that is used as a
+filter when non-NULL, restoring the filtering that was performed by
+vgic_copy_lpi_list() back in the days.
+
+Fixes: 11f4f8f3e6e06 ("KVM: arm64: vgic-its: Walk LPI xarray in vgic_its_cmd_handle_movall()")
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260929093548.3598547-7-maz@kernel.org
+Signed-off-by: Oliver Upton <oupton@kernel.org>
+(cherry picked from commit 751f4641560be8568dcc5af400c0e55a283abf51)
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+---
+ arch/arm64/kvm/vgic/vgic-its.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
+
+diff --git a/arch/arm64/kvm/vgic/vgic-its.c b/arch/arm64/kvm/vgic/vgic-its.c
+index 4b56de3352053..5ba833a288813 100644
+--- a/arch/arm64/kvm/vgic/vgic-its.c
++++ b/arch/arm64/kvm/vgic/vgic-its.c
+@@ -344,12 +344,18 @@ static int update_lpi_config(struct kvm *kvm, struct vgic_irq *irq,
+ 	return 0;
+ }
  
-Thank you, I will send a v2 in which sdhci_esdhc_imx_set_ios implements
-a bounds check against MMC_SET_DRIVER_TYPE_D.
+-static int update_affinity(struct vgic_irq *irq, struct kvm_vcpu *vcpu)
++static int update_affinity(struct vgic_irq *irq,
++			   struct kvm_vcpu *from_vcpu, struct kvm_vcpu *vcpu)
+ {
+ 	int ret = 0;
+ 	unsigned long flags;
+ 
+ 	raw_spin_lock_irqsave(&irq->irq_lock, flags);
++	if (from_vcpu && irq->target_vcpu != from_vcpu) {
++		raw_spin_unlock_irqrestore(&irq->irq_lock, flags);
++		return 0;
++	}
++
+ 	irq->target_vcpu = vcpu;
+ 	raw_spin_unlock_irqrestore(&irq->irq_lock, flags);
+ 
+@@ -391,7 +397,7 @@ static void update_affinity_ite(struct kvm *kvm, struct its_ite *ite)
+ 		return;
+ 
+ 	vcpu = collection_to_vcpu(kvm, ite->collection);
+-	update_affinity(ite->irq, vcpu);
++	update_affinity(ite->irq, NULL, vcpu);
+ }
+ 
+ /*
+@@ -869,7 +875,7 @@ static int vgic_its_cmd_handle_movi(struct kvm *kvm, struct vgic_its *its,
+ 
+ 	vgic_its_invalidate_cache(its);
+ 
+-	return update_affinity(ite->irq, vcpu);
++	return update_affinity(ite->irq, NULL, vcpu);
+ }
+ 
+ static bool __is_visible_gfn_locked(struct vgic_its *its, gpa_t gpa)
+@@ -1396,7 +1402,7 @@ static int vgic_its_cmd_handle_movall(struct kvm *kvm, struct vgic_its *its,
+ 		if (!irq)
+ 			continue;
+ 
+-		update_affinity(irq, vcpu2);
++		update_affinity(irq, vcpu1, vcpu2);
+ 
+ 		vgic_put_irq(kvm, irq);
+ 	}
+-- 
+2.47.3
+
