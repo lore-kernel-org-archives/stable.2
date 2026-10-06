@@ -1,199 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f225.google.com (mail-qk1-f225.google.com [209.85.222.225])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC1563BD22F
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 08:26:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F03F73AB28F
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 08:27:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.225
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791275196; cv=none; b=ZeQ5uts/pcSQV/Dt9vkwZOZZH7ugDQqDnjJZbliceHJJy4Jt+Tf2Pi2uivq86KOW+FTYvmj/G9w7WKIUiuJPBR8vTkNTvonnvxpw6v11Z1cDAiL1fTm0fO13xGeWY+9YoVWVDFfxj5mFZPSFdib63uQPrcm1dG+D4eHsEdGQi0I=
+	t=1791275254; cv=none; b=d6hd8qUsqJR1no5ojzS5J0rn8KmLNKsmeKB3KG6mLy5SvNWgzBrXdLAnCHPsmdEUw7FJQNtlhhGlk561cHbstkw/jM0zJTXOZQ8Sp3yF+BqC0bbXLpcWtKoT4YaLcpIxOaSkPFAjMj5AGDkB2KEC22J/JAH0jOSxzW/piXZXAYE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791275196; c=relaxed/simple;
-	bh=dhChC+/C+eWge+IJDjyffi0w9nnJZepxgmimKCKvb6U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YZ3YHWiI2DlWFq8g4JYVQBN7N6i1lSNaVinYMGPHJ0kb71OKVAr9eWoXbGQ8GZ4BWryoQvuX6ERVs1ewGp35zNI8yGd2MhZDz+7qwDbMBF7ZGGwuP1vDD4OlUaTD0reD1rWsCIg0VTAaCfP1JO+7pbuD9u/F0PB18G6wc8OGJRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VNI91ZX8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791275254; c=relaxed/simple;
+	bh=AhTSB+hX8DW5/UqPj/kPlDv4TilOhsZezix19Q9Y0hU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rBum2dushufF/GsoS8FmTTI4aqToSKMJBqUmmqzcAIVGmC1tj3QsM2NVNdASxkTLVNNWDUN0RtPLxG2H1oQV78P47yucOl+CY0gUCyrQ86wp95HYl2w2A6oBaZ4BXJS0Ni51b2esmZrOW5hpfAPILoSHU/OqVkUnk8Q1OsJSKeE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=YWnPD1cK; arc=none smtp.client-ip=209.85.222.225
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VNI91ZX8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55F181F000FF;
-	Tue,  6 Oct 2026 08:26:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791275194;
-	bh=/LkuW3cQgg7D/JrsyLdB0e6fVSDuxKq6Tfah5+nOcQs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VNI91ZX8ERMFc8jNH2WLL8Dq6wP/oQBayDVwYmOfbW/poXvpPGLWteBs2sjPZvzi0
-	 pj727KUTSmQUAx9bas6Jat4yw1q79AexNFUjjRXs2wp7VMTDc0xuT0PJ29EUFfenHO
-	 ZfWqoTsvLWxLlLatrAabTw090yGsJUfBZGrqG4IRHmPgpjQxuWA2XgtZK16uAQIssm
-	 Wl6I/WtwNwBH8E/QExx+zIhN+owUZD14lZfje0KCBE5i+1g7CSCL9zuY+G/vNmRbeV
-	 ZZPgC+LIjp338gzFAygDZYru9Nd34iLw/hsowt2tNHPHj9fGcKX2wgwNAdHzQWK78B
-	 Jx8JS29bC1a7w==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Chengfeng Ye <nicoyip.dev@gmail.com>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] Bluetooth: Serialize SMP remote OOB data access
-Date: Tue,  6 Oct 2026 04:26:27 -0400
-Message-ID: <20261006082549.3863943-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100542-breezy-handwrite-680e@gregkh>
-References: <2026100542-breezy-handwrite-680e@gregkh>
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="YWnPD1cK"
+Received: by mail-qk1-f225.google.com with SMTP id af79cd13be357-93e4e37788cso23553185a.2
+        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 01:27:32 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791275252; x=1791880052;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=aO7ZMNOXH20rZFoB1a96CWPC5jLhbhIpE9Whu53E080=;
+        b=PEenGqLCOPGfeImH87COk9hVzlHSBfyiz77Dm22f1xD9dBJQ58IwXoEOmDUNXteHoS
+         0hBTZjDJ0VGM7SfhIxr1w5ZyUrYsZZreWVD+8fgSbHYH9R1qlvL46NNI7nXrOG032azy
+         PCMQCo4g0BYi1OtVuoPX2dJmH+S5K5hOWTV08uF4WokY/+O08rBOK70L/M2EYPG240P8
+         VGLzHzwui2FAmvWfibWmPo4ZVCFlVwccmj+UNaUaPe2xkw2cmUFsM/NzwLEu1yBl0NaR
+         lKiPh8vnHWGowM2rSP7x2pOzKLLMBDWUjv1vno/vNwnk2nmIdX5ZWskurJzpwCcFkRwE
+         GUZw==
+X-Forwarded-Encrypted: i=1; AKwUvBy+XJhILCVS2XVL3+zbqmnFN0qxKajfLusVZdSExigUdkV7hfvb4EdUv45tkRpsQMr62cuo5fU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mG3nv9T8LSkYg/Jb2NACLELj+ROLhtbKdDwbXuh0mswI3MhrA7
+	Kz9iWZQ6+rlJ/MTxClV7w0MksnNSa1Qp1GbObxibt9mZLMz4yheGGlN1cF/w5HK562Ienu0aEZW
+	ArTl7GEKmg/Yiv2HCWlCe3CIw/G48A3fXZ67JQiedTxYw6wxhor60bdXjMXhAgaPyzo/3xwszu3
+	tAasfwCmzFA58uJ1s9qAzhks/CaEIAWf9Ta4ABsNsWRW/rMOKxLSAA2LVXjz2bjv0qGOOYAsSnq
+	GZhvjSVxoMY//dTtQ==
+X-Gm-Gg: AYBFou38KXkAr993FpNukxI2KdGpkwQCclOOOZCGVstTwggGdgzkcgSvW13wmp+4Ml9
+	aNUeYODHYeR6Bi15L/EDSbypSBCNIedXmMwtqPnZ9FJacc5SlQCMqKbjc39DMsQ+SBlcSs4dGfA
+	qcoUXGspaHA2ymAWhxO9u99r2HfZMbR74irEGPR9Cs4bX7hZeC6/9wQdRN3exznLZwuS+H0JuBe
+	V/JC7Or6x14szG2INsUxMk6ONDFGVx6fZUsOmjcvWLRPihl8Fkr2jhbJTHfbxIpMeIlkAPqJqqm
+	1cLkRcCBb7iiI2BbqINE+HCoEfq/KPeHLl41K5X5a4Rmf+z1GATBDdPhxsVfGl8JE5OhtuWZM03
+	JcAvrZH5zi/Pjok/lr38yZABwgWBBUyG2oRxGNV30V45dq4CuiEhUGQY3esKhPS5BxtxYTRGaWH
+	JZb6Hgvy+i3ykbVTscIkiPWs3B0xkKtEACyfZv7Uuu+g==
+X-Received: by 2002:a05:620a:46a0:b0:93e:5060:f929 with SMTP id af79cd13be357-93e8f31c384mr134455985a.19.1791275251861;
+        Tue, 06 Oct 2026 01:27:31 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
+        by smtp-relay.gmail.com with ESMTPS id af79cd13be357-93cca03cdd2sm494531685a.1.2026.10.06.01.27.31
+        for <stable@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 06 Oct 2026 01:27:31 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-3510562ef98so3410752eec.0
+        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 01:27:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1791275250; x=1791880050; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aO7ZMNOXH20rZFoB1a96CWPC5jLhbhIpE9Whu53E080=;
+        b=YWnPD1cKKv+BA9qxVUDRvhJ12vc39zoc3nN2jC2KGqTtbX3crNdvFDVFXuJuHyaZ+O
+         CQtpD0ZDauOFIfP/CwEKHoxGLdMEgvN7n7qi6SZ3n+lMTIkHjF0vgiREXyPi320/R+OH
+         xiuqZ/rh8pyH1DGqoQapZvMzn2kBEix92aqlE=
+X-Forwarded-Encrypted: i=1; AKwUvBy+cjY90jra26bTHQg5J/AguqjQoaSgg/eL4JFjT+sN+CTnJxYfWGnGqFVlD6XqA4OnuxK5Cbo=@vger.kernel.org
+X-Received: by 2002:a05:7022:288:b0:143:4d12:396d with SMTP id a92af1059eb24-15ec7b02b1dmr978949c88.26.1791275250345;
+        Tue, 06 Oct 2026 01:27:30 -0700 (PDT)
+X-Received: by 2002:a05:7022:288:b0:143:4d12:396d with SMTP id a92af1059eb24-15ec7b02b1dmr978913c88.26.1791275249521;
+        Tue, 06 Oct 2026 01:27:29 -0700 (PDT)
+Received: from [10.176.3.41] ([192.19.176.250])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-15d83d6af11sm5335442c88.10.2026.10.06.01.27.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 06 Oct 2026 01:27:28 -0700 (PDT)
+Message-ID: <802a092a-314a-4f77-aa1d-134b3d020069@broadcom.com>
+Date: Tue, 6 Oct 2026 10:27:27 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] wifi: brcmfmac: avoid sleeping tx locks in netpoll
+ context
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: linux-wireless@vger.kernel.org,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, brcm80211@lists.linux.dev,
+ brcm80211-dev-list.pdl@broadcom.com, linux-kernel@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev, stable@vger.kernel.org
+References: <20260930185417.61865-1-kmehltretter@gmail.com>
+ <20261004122910.1392318-1-arend.vanspriel@broadcom.com>
+ <asR1TaKQJlPFqEvR@gmail.com>
+Content-Language: en-US
+From: Arend van Spriel <arend.vanspriel@broadcom.com>
+In-Reply-To: <asR1TaKQJlPFqEvR@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
+On 06/10/2026 06:18, Karl Mehltretter wrote:
+> On Sun, Oct 04, 2026 at 05:29:10AM +0100, Arend van Spriel wrote:
+>> Is there an opportunity to reuse/refactor brcmf_sdio_prec_enq() rather than
+>> adding a separate brcmf_sdio_prec_enq_irqoff() helper? For example, passing
+>> a can_evict parameter:
+>>
+> 
+> Thanks for the review!
+> 
+> Sharing the helper with a can_evict argument is cleaner.
+> 
+> One queue user does not hold txq_lock: brcmf_fws_bus_txq_cleanup()
+> dequeues through brcmu_pktq_pdeq_match().
+> 
+> Lockdep instrumentation in fcmode=1 and 2 confirmed that cleanup enters
+> without txq_lock.
 
-[ Upstream commit 81a2345f1984f0b36d3226571bc196316a01b648 ]
+This is an observation unrelated to the patch, right? You mentioned in 
+the patch it only covers fcmode=0, right?
 
-build_pairing_cmd() looks up remote OOB data and copies its contents
-without holding hdev->lock, which serializes the list's writers. After
-SMP finds an entry, a concurrent management Remove Remote OOB Data
-command can unlink and free it before SMP reads its present flag or
-copies its random and confirmation values. Removal can also invalidate
-an entry while the lookup is still traversing the list.
+> I combined the helpers, but kept brcmu_pktq_penq() for normal calls.
+Sure.
 
-KASAN reported:
-
-  BUG: KASAN: slab-use-after-free in build_pairing_cmd+0x948/0x9b0
-  Call Trace:
-   build_pairing_cmd+0x948/0x9b0
-   smp_recv_cb+0x459f/0x8110
-   l2cap_recv_frame+0xf14/0x9190
-   l2cap_recv_acldata+0xa64/0xd40
-   hci_rx_work+0x4ca/0x730
-
-  Allocated by task 87:
-   hci_add_remote_oob_data+0x11d/0x530
-   add_remote_oob_data+0x282/0x400
-   hci_sock_sendmsg+0x1033/0x1ea0
-
-  Freed by task 93:
-   hci_remote_oob_data_clear+0x108/0x1c0
-   remove_remote_oob_data+0x198/0x220
-   hci_sock_sendmsg+0x1033/0x1ea0
-
-Taking hdev->lock in build_pairing_cmd() would recurse for callers that
-already hold it and invert the device-to-L2CAP lock order on the receive
-path. Add a per-device remote_oob_lock instead, held across the SMP
-lookup and copies and by the add, remove and clear helpers. Cover
-initialization and in-place updates as well, so SMP cannot read partially
-initialized or updated OOB values. Release the mutex on allocation
-failure, preserving the existing error return.
-
-The new critical sections acquire no device, connection or channel locks.
-Writers retain their existing hdev->lock protection, which continues to
-serialize the other readers without changing their locking or behavior.
-
-Link: https://lore.kernel.org/r/00660cd3-7d71-13a4-f617-229e6defb701@gmail.com
-Fixes: 02b05bd8b0a6 ("Bluetooth: Set SMP OOB flag if OOB data is available")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-[ sashal: Replaced kmalloc_obj(*data) with kmalloc(sizeof(*data), GFP_KERNEL). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- include/net/bluetooth/hci_core.h |  1 +
- net/bluetooth/hci_core.c         | 12 +++++++++++-
- net/bluetooth/smp.c              |  2 ++
- 3 files changed, 14 insertions(+), 1 deletion(-)
-
-diff --git a/include/net/bluetooth/hci_core.h b/include/net/bluetooth/hci_core.h
-index 84711eef45967..35249d2550ee9 100644
---- a/include/net/bluetooth/hci_core.h
-+++ b/include/net/bluetooth/hci_core.h
-@@ -555,6 +555,7 @@ struct hci_dev {
- 	struct list_head	link_keys;
- 	struct list_head	long_term_keys;
- 	struct list_head	identity_resolving_keys;
-+	struct mutex		remote_oob_lock;
- 	struct list_head	remote_oob_data;
- 	struct list_head	le_accept_list;
- 	struct list_head	le_resolv_list;
-diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
-index 2e523ffd1a42f..b73be421a6566 100644
---- a/net/bluetooth/hci_core.c
-+++ b/net/bluetooth/hci_core.c
-@@ -1521,8 +1521,10 @@ int hci_remove_remote_oob_data(struct hci_dev *hdev, bdaddr_t *bdaddr,
- 
- 	BT_DBG("%s removing %pMR (%u)", hdev->name, bdaddr, bdaddr_type);
- 
-+	mutex_lock(&hdev->remote_oob_lock);
- 	list_del(&data->list);
- 	kfree(data);
-+	mutex_unlock(&hdev->remote_oob_lock);
- 
- 	return 0;
- }
-@@ -1531,10 +1533,12 @@ void hci_remote_oob_data_clear(struct hci_dev *hdev)
- {
- 	struct oob_data *data, *n;
- 
-+	mutex_lock(&hdev->remote_oob_lock);
- 	list_for_each_entry_safe(data, n, &hdev->remote_oob_data, list) {
- 		list_del(&data->list);
- 		kfree(data);
- 	}
-+	mutex_unlock(&hdev->remote_oob_lock);
- }
- 
- int hci_add_remote_oob_data(struct hci_dev *hdev, bdaddr_t *bdaddr,
-@@ -1543,11 +1547,14 @@ int hci_add_remote_oob_data(struct hci_dev *hdev, bdaddr_t *bdaddr,
- {
- 	struct oob_data *data;
- 
-+	mutex_lock(&hdev->remote_oob_lock);
- 	data = hci_find_remote_oob_data(hdev, bdaddr, bdaddr_type);
- 	if (!data) {
- 		data = kmalloc(sizeof(*data), GFP_KERNEL);
--		if (!data)
-+		if (!data) {
-+			mutex_unlock(&hdev->remote_oob_lock);
- 			return -ENOMEM;
-+		}
- 
- 		bacpy(&data->bdaddr, bdaddr);
- 		data->bdaddr_type = bdaddr_type;
-@@ -1580,6 +1587,8 @@ int hci_add_remote_oob_data(struct hci_dev *hdev, bdaddr_t *bdaddr,
- 
- 	BT_DBG("%s for %pMR", hdev->name, bdaddr);
- 
-+	mutex_unlock(&hdev->remote_oob_lock);
-+
- 	return 0;
- }
- 
-@@ -2514,6 +2523,7 @@ struct hci_dev *hci_alloc_dev_priv(int sizeof_priv)
- 	mutex_init(&hdev->lock);
- 	mutex_init(&hdev->req_lock);
- 	mutex_init(&hdev->mgmt_pending_lock);
-+	mutex_init(&hdev->remote_oob_lock);
- 
- 	ida_init(&hdev->unset_handle_ida);
- 
-diff --git a/net/bluetooth/smp.c b/net/bluetooth/smp.c
-index c87b39380de29..83eef7a02e0db 100644
---- a/net/bluetooth/smp.c
-+++ b/net/bluetooth/smp.c
-@@ -684,6 +684,7 @@ static void build_pairing_cmd(struct l2cap_conn *conn,
- 		else
- 			bdaddr_type = BDADDR_LE_RANDOM;
- 
-+		mutex_lock(&hdev->remote_oob_lock);
- 		oob_data = hci_find_remote_oob_data(hdev, &hcon->dst,
- 						    bdaddr_type);
- 		if (oob_data && oob_data->present) {
-@@ -694,6 +695,7 @@ static void build_pairing_cmd(struct l2cap_conn *conn,
- 			SMP_DBG("OOB Remote Confirmation: %16phN", smp->pcnf);
- 			SMP_DBG("OOB Remote Random: %16phN", smp->rr);
- 		}
-+		mutex_unlock(&hdev->remote_oob_lock);
- 
- 	} else {
- 		authreq &= ~SMP_AUTH_SC;
--- 
-2.53.0
-
+Regards,
+Arend
