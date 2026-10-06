@@ -1,132 +1,211 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24D4737C926
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 06:04:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CC4B2E737E
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 06:14:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791266654; cv=none; b=Wrj3Jo6TTD2SX1ajZlLlhTL2EGHHGINy+DeUFOzXDCi4trylTFqvVcaytcF9/5d/47xZC+2jJMHRtOTsEcAzGEvZiGV8r08+eALtmdj3eEtQfwteukLRU2QlScZv6m+/zH5TZpt44gC90NbjTvhyHmlHlo1ISAsm6fDxnKd6kok=
+	t=1791267259; cv=none; b=la3gdB7N6Wu6GI3EVjsmX3keDhpXLfcKvnMomLDI3CN7kHYtwp64aQSUJdOY0RbN9y1lpmDLjALupU6cfoxd+qndwkY29jOg/RTl2tJEta1YPjzJlbYd5KbHJC7TijTWivZE8P0q5+GQVVHQZfrboqIm7Xpcr8aQGoL6oLn1yII=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791266654; c=relaxed/simple;
-	bh=BNgmcKSZXcGUVU8k7WxmELTXP/8N0YkOdPBXblP3Yeo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X6rsrVNB6vOSW90gh76O3+ecHefOkuZfhM0nuT4q6pnRWIVoEFUJ3GzhHjnljNyejdsO9HqT2UMHlOseet4zmbHIRjiMm/bCcwJJBkfqtBI/gz/Tgy5/qjfq2SbTlndiGJFE6nI2oZmBXUD1CKK0pg1rutjJCE4UpGhZMYGcx5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S9Av9cTm; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791267259; c=relaxed/simple;
+	bh=fcY4p8z17weLxzT7Fs10+fGcXH/D8wfaxpDRZCQ03Cg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QRazE3nM33PyHD0m1AkoV0iLaSUDi78D2hfVIBeOq5zhiyzh929F7eRQxhqZKBrQ1mNC4Ufp8K3dbRv7PouXLFQxEa0FoBk0QRiqwoekdlvK7J/bBkhlWzCCCCl/vQ6jTgiWMc75CrQ6V4jEHtqZQ2wsoS9JWRh8SkS0rP43r5M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=EhOFm7ia; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S9Av9cTm"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3a4cdc9025bso299685a91.0
-        for <stable@vger.kernel.org>; Mon, 05 Oct 2026 23:04:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791266652; x=1791871452; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UV1Wpg++CLTH0y2WXLJtTkZDyBO1kADLVwQMoaPRuB8=;
-        b=S9Av9cTm2VA2DhCXUT+YMp8k/6on4HC+eUziH3wq7IwlTPvtI/ELiT96Med1Qzt+T1
-         cQ6E8YFWRM4Tf9dlbSrQ8Id9YtkFOgFOyKOgcmA8J/GiiXdXY2eWxWfiMsd17Ch0CMcF
-         BbtgGeIOjapLM9Xylx9DBxCJjIwEyWLfoJ4fZkxO4Xjo3Vpl8G5METqBUkb9DuGjxejd
-         Xuy0zJckJu4qZLsBfEsj0aEumXlOT2J6U8sVA5ZRBMeTeFS4t0W95K0QY++I2jLm3KW5
-         9aFv5ugwuOuGW1JIcctopFx6XY7Pa4RTil4taE3dosHXb0GOus30KcvXyQ4yoliNpM4K
-         V6Vg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791266652; x=1791871452;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UV1Wpg++CLTH0y2WXLJtTkZDyBO1kADLVwQMoaPRuB8=;
-        b=BS1ZVG+TIAhJ/gKzc0SAfHINRsDZONyEXxya3Q/fOdrXqFhroKufnfDfisqbkERPOA
-         W2YHS7jIyBBc6/jx17PCIiSfDt+4zuQTiR8zcinmBdzou9vZ7CGAdeM5a5mWR52nRmZQ
-         3lt8kEEG7pF2ULBA43OvjMCxraPuDU/tnXgWT2kg6lA1O6pwf0Jv3u9xi9TLySF/Sp+v
-         zW2DlgDlPxFOWnoQWmW5XMkUrzMmaWiiOQDLGLoSUOSk6yd8LrVcNi5VAp4TVX3N+fuD
-         aVL+B96gQ6G2lRAyz7kB9CH9OyDlrwqiQ6r9oe9eEM7KoorvUI62qquSiECrTR40Knsh
-         CLSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwae941juw8XSdeeIEQ6fROHZcEPvqkQd3HIIaGmt6XLWW9YCngEuVBIVRe5JbCXE0Tc3yDEnY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKnqAS2TJqvNblOQVthm37td2atEGtsUuIXx5XByx5RXiaP7qNL
-	/hybfAOpsXwi/ec0mQx2EwmszrjizUvL3m3C0x8/ogYhtRdPSvardgje
-X-Gm-Gg: AYBFou3p2NsbVbI5s7uNRaJBEB4uapSz66jkNBgWyBPNnvPB924G6TP9vU1n1p86IZt
-	38Fiy7NCZbZDblk9D7fI53emSMx07gBp8VtNDH8VXebPets6+ex5if2BUaIeJatrNe+wZrQ8TIL
-	gki5XfcioDyPwCY0imx1Pw10XJUrv1NmUJl9J/59xfeKK+9OuJ6M+bdhU53v+OL3DIEc3ZWSb2h
-	LJjE89dIED1X7a9cfnB4SBaEFVrwaX2pmxLnr9IfWlTRvkj00MyXDitDtE0dQyurdQU1my9bIao
-	X0qfxLjsi+J9mqfhwpq/GEYEF/75yfx27rwAFdaCKif4uahriqp3Jw0pQNNFnfMO6dcws23Hf9H
-	fGpVGy82KHQB2px5wpHImAQHle5WaIpC4HhgvvYXeaeqrg2LLFkz09m+23ilSsy+L3c6waWBLFv
-	eUD677ligch7JsaH6DrMAvvwuolKK/LEpPaicVbpAiEif2lW4VUbRKGNUerhja
-X-Received: by 2002:a17:90b:3cce:b0:3a7:ee74:e8d2 with SMTP id 98e67ed59e1d1-3a87354e80bmr139385a91.25.1791266652342;
-        Mon, 05 Oct 2026 23:04:12 -0700 (PDT)
-Received: from localhost ([27.122.242.71])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a79e7c243csm6954884a91.0.2026.10.05.23.04.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 23:04:11 -0700 (PDT)
-Date: Tue, 6 Oct 2026 15:04:08 +0900
-From: Hyunchul Lee <hyc.lee@gmail.com>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Namjae Jeon <linkinjeon@kernel.org>, ntfs@lists.linux.dev,
-	stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] ntfs: fix two kmap_local bugs on 32-bit kernels
-Message-ID: <asSPWFQM60is9C0-@hyunchul-PC02>
-References: <20261006045136.5911-1-kmehltretter@gmail.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="EhOFm7ia"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791267256;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=9zZ5aL4QpTxtgEj8CNjX/E/lt1NREauZr/P3nTFrvSY=;
+	b=EhOFm7iaVsqybaTqKAmlqlbV2AU4ewFvoiRYAjDrH7L7Kydf1Hh/tygiBcKZtbSjbkjFH9
+	ElZQT5atzFwlkKBrOU7354ya6+wAJJNVCnSXwexZD7u5ukjXlfHs2mRKhko4rKtpR/Y9I8
+	GoX5Dwthy8y2LpUPGgVdTALYS4I6SFI=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-602-DLcV-1JwMMStanwR-8B0eQ-1; Tue,
+ 06 Oct 2026 02:14:13 -0400
+X-MC-Unique: DLcV-1JwMMStanwR-8B0eQ-1
+X-Mimecast-MFC-AGG-ID: DLcV-1JwMMStanwR-8B0eQ_1791267249
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6E72D1869BB4;
+	Tue,  6 Oct 2026 06:14:08 +0000 (UTC)
+Received: from snishika-thinkpadp16vgen1.tokyo.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 75A6F1800473;
+	Tue,  6 Oct 2026 06:13:59 +0000 (UTC)
+From: Seiji Nishikawa <snishika@redhat.com>
+To: Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Josh Don <joshdon@google.com>,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	hpa@zytor.com,
+	x86@kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+681e729b2cf0d4860042@syzkaller.appspotmail.com,
+	syzkaller-bugs@googlegroups.com,
+	Seiji Nishikawa <snishika@redhat.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] sched/core: Do not touch SMT siblings that have not joined the core yet
+Date: Tue,  6 Oct 2026 15:12:53 +0900
+Message-ID: <20261006061253.1199941-1-snishika@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261006045136.5911-1-kmehltretter@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-On Tue, Oct 06, 2026 at 06:51:34AM +0200, Karl Mehltretter wrote:
-> Two kmap_local bugs in the mount path of fs/ntfs. Both only show on
-> 32-bit kernels with HIGHMEM, where kmap_local_folio() hands out fixmap
-> slots from a per task stack of 16 entries. multi_v7_defconfig enables
-> both NTFS_FS and HIGHMEM, so the stock 32-bit ARM configuration is
-> affected.
-> 
-> Patch 1: check_mft_mirror() unmaps pointers that were advanced past the
-> end of the page. On 32-bit ARM this clears the wrong fixmap entry and
-> the mount dies with a BUG a few calls later. syzkaller found it on a
-> multi_v7_defconfig kernel. A fresh mkntfs volume reproduces it on the
-> first mount.
-> 
-> Patch 2: ntfs_check_logfile() maps the same page once per loop
-> iteration and unmaps it once, so a mount leaves three entries on the
-> stack of the mounting task. After one mount the CPU it ran on can no
-> longer be taken offline. A process that mounts ntfs volumes five times
-> hits the BUG_ON() in kmap_local_idx_push(). x86-32 also warns when
-> mount(2) returns.
-> 
-> The two fixes are independent of each other. Patch 2 was tested on top
-> of patch 1. Both were tested on 32-bit ARM and x86-32 in QEMU. Details
-> are below the --- line of each patch.
-> 
-> Changes in v2:
-> - v1 carried an older copy of patch 2 as a second 2/2 by mistake. The
->   patches are unchanged.
-> 
-> v1:
->   https://lore.kernel.org/r/20261006043810.5393-1-kmehltretter@gmail.com/
-> 
-> Karl Mehltretter (2):
->   ntfs: fix kunmap_local() of advanced pointers in check_mft_mirror()
->   ntfs: fix kmap_local leak in ntfs_check_logfile()
+When a CPU comes online, it is added to cpu_smt_mask() of its siblings
+before sched_core_cpu_starting() sets its rq->core to the core leader.
+For example, on x86, ap_starting() calls set_cpu_sibling_map() first,
+and calls notify_cpu_starting() after that. This order is intended.
 
-The whole series look good to me.
+Before sched_core_cpu_starting() runs, rq->core of the new CPU still
+points to its own rq. But rq->core_enabled of the new CPU is already
+set. __sched_core_flip() sets it for all possible CPUs, also for
+offline CPUs, and CPU offline does not clear it. So __rq_lockp() of the
+new CPU returns its own rq->__lock. It does not return the core wide
+lock.
 
-Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
+If a sibling CPU runs pick_next_task() for SCHED_CORE at this time, it
+checks all CPUs in cpu_smt_mask(). It calls update_rq_clock() and
+pick_task() for the rq of the new CPU. But it holds only its own core
+lock, not the lock of the new CPU. Then lockdep shows this warning in
+update_rq_clock().
 
-> 
->  fs/ntfs/logfile.c | 11 ++++++-----
->  fs/ntfs/super.c   | 20 +++++++++++---------
->  2 files changed, 17 insertions(+), 14 deletions(-)
-> 
-> 
-> base-commit: 551c722f40809618230001baccf219193e22fc5a
-> -- 
-> 2.53.0
-> 
+  debug_locks && !(lock_is_held(&(__rq_lockp(rq))->dep_map) != 0)
+  WARNING: kernel/sched/sched.h:1666 at update_rq_clock+0x40a/0xd20 kernel/sched/core.c:875, CPU#0: syz-executor251/5712
+  Call Trace:
+   <TASK>
+   pick_next_task kernel/sched/core.c:6375 [inline]
+   __schedule+0x1c69/0x6920 kernel/sched/core.c:7199
+   preempt_schedule_irq+0x4e/0x90 kernel/sched/core.c:7606
 
+The next loops in pick_next_task() also change rq_i->core_pick of this
+rq, and can call resched_curr() for it, without its lock.
+resched_curr() has the same lockdep_assert_rq_held() check.
+__sched_core_account_forceidle() also checks all CPUs in the same mask.
+
+CPU offline does not have this problem. remove_siblinginfo() and
+sched_core_cpu_dying() both run in take_cpu_down() under stop_machine.
+So no sibling CPU can be in pick_next_task() at that time.
+
+Fix this. In these loops, skip a sibling CPU if its rq->core is
+different from our rq->core. At run time, rq->core of a CPU is changed
+by sched_core_cpu_starting(), sched_core_cpu_deactivate() and
+sched_core_cpu_dying(). The first two hold sched_core_lock(), and
+sched_core_lock() takes the rq locks of all CPUs in the SMT mask. The
+last one runs under stop_machine, as written above. So while we hold
+our core lock, the result of this check does not change. A CPU that is
+not in the core yet will pick its own tasks. The comment in the
+reschedule loop of pick_next_task() already expects this case.
+
+I tested this with the syzbot C reproducer in QEMU. The two vCPUs were
+SMT siblings (-smp 2,sockets=1,cores=1,threads=2). Without this patch,
+the warning came after about 100 seconds. Just before the warning, a
+debug print showed that the loop on CPU 0 saw CPU 1 with rq->core
+pointing to CPU 1 itself, and cpu_online() was false for CPU 1. With
+this patch, the same state still happened, but there was no warning
+in more than 2 hours.
+
+Fixes: 3c474b3239f1 ("sched: Fix Core-wide rq->lock for uninitialized CPUs")
+Reported-by: syzbot+681e729b2cf0d4860042@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=681e729b2cf0d4860042
+Cc: stable@vger.kernel.org
+Signed-off-by: Seiji Nishikawa <snishika@redhat.com>
+---
+ kernel/sched/core.c       |  7 +++++++
+ kernel/sched/core_sched.c |  3 +++
+ kernel/sched/sched.h      | 11 +++++++++++
+ 3 files changed, 21 insertions(+)
+
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 1fe40de6ebe3..7f9330e2ef8e 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -6365,6 +6365,8 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
+ 	max = NULL;
+ 	for_each_cpu_wrap(i, smt_mask, cpu) {
+ 		rq_i = cpu_rq(i);
++		if (!sched_core_sibling(rq, rq_i))
++			continue;
+ 
+ 		/*
+ 		 * Current cpu always has its clock updated on entrance to
+@@ -6398,6 +6400,9 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
+ 	 */
+ 	for_each_cpu(i, smt_mask) {
+ 		rq_i = cpu_rq(i);
++		if (!sched_core_sibling(rq, rq_i))
++			continue;
++
+ 		p = rq_i->core_pick;
+ 
+ 		if (!cookie_equals(p, cookie)) {
+@@ -6444,6 +6449,8 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
+ 	 */
+ 	for_each_cpu(i, smt_mask) {
+ 		rq_i = cpu_rq(i);
++		if (!sched_core_sibling(rq, rq_i))
++			continue;
+ 
+ 		/*
+ 		 * An online sibling might have gone offline before a task
+diff --git a/kernel/sched/core_sched.c b/kernel/sched/core_sched.c
+index 43e0bde3038e..b21eade02c23 100644
+--- a/kernel/sched/core_sched.c
++++ b/kernel/sched/core_sched.c
+@@ -275,6 +275,9 @@ void __sched_core_account_forceidle(struct rq *rq)
+ 
+ 	for_each_cpu(i, smt_mask) {
+ 		rq_i = cpu_rq(i);
++		if (!sched_core_sibling(rq, rq_i))
++			continue;
++
+ 		p = rq_i->core_pick ?: rq_i->curr;
+ 
+ 		if (p == rq_i->idle)
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index e656c7059bf8..c65d9cb8ad2e 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -1513,6 +1513,17 @@ static inline raw_spinlock_t *__rq_lockp(struct rq *rq)
+ 	return &rq->__lock;
+ }
+ 
++/*
++ * A CPU coming online is set in cpu_smt_mask() before
++ * sched_core_cpu_starting() links its rq->core to the core leader.
++ * Until then it does not share the core-wide lock, so it must not be
++ * touched as part of the core.
++ */
++static inline bool sched_core_sibling(struct rq *rq, struct rq *rq_i)
++{
++	return rq_i->core == rq->core;
++}
++
+ extern bool
+ cfs_prio_less(const struct task_struct *a, const struct task_struct *b, bool fi);
+ 
 -- 
-Thanks,
-Hyunchul
+2.55.0
+
