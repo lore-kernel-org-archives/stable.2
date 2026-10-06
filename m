@@ -1,211 +1,189 @@
-Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CD0E33F8AD
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 03:43:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791258196; cv=pass; b=BslUDAom1t22e5WLocvLEM7y8SIxXA2AvooeTbcxCTFi4OPeHprHoEGx+Temdxoi2Z/GmC8wWuWeiQrbt7jXA3Bn+L4eFyNRfqgfVBnN7NFkchVr6qBL33WzefyQiSUUYv9Bp076J5eLVG/wocsra3hqwW/W4N6DCS3DMSlX5pk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791258196; c=relaxed/simple;
-	bh=TE1M8Xp9r8nWKhc0pgoLmT0J1KG+EsmuYHdJ9qwlb4k=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73602347BD4
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 03:57:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791259025; cv=none; b=Dy6ODqL0rE8QWm30gh6s/by7IqRlktQtyEFzMKNQzXj1M52iwAmDxaKzTZCKvCVQzoME6jF1rK7C1rRjlVYia+4gFGLc8FVvrWqUneRPO4GtFE5eTY6aEO+XOceAgU0AxxuC/9zOVtXKiJ0e4EgIX9r0UZp+XLf8ERG/UhFsaNo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791259025; c=relaxed/simple;
+	bh=SgUAhzu7Itx6WZw68Z1rbdS8ZGs4SpersdAcLF4qBSw=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZHc7ZsIX3Osq+jxgBCAEG5ILM/LRHPuzGqjoZREpyrv22Twgm0mkgsXB6cO3N3T6PbmpusINay9l2V1dWRlGt2e+6Pz8B5ZkroaeGunobS4IyCT70Q29H8dw8Ndp3FBs9zOabaJ1jFMU1AbNK8HYqgZ/sS+fSz0NWtTT+ZYHYLU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PDDHg3a2; arc=pass smtp.client-ip=74.125.224.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=V5KwNff/mbPIpD9TG/M42+WjbIXgzHymH1U495xQkXIHnZn9MohRG0IrotbA9Zpap8vlE4AlR0Qt6OiBt3h9kJKVlVPZENzEX+EYTxMi8KVLmxVzFbz2D/6GI1QU6E2hjxvPHK2BNv0ShtBxES6PlDcCAcPAZ5KC0UfMzuSIAWM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KyDCUUW1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PDDHg3a2"
-Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-6774639a8a4so2154411d50.0
-        for <stable@vger.kernel.org>; Mon, 05 Oct 2026 20:43:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791258194; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RwqI0r/afZsDW5YGK3MStdoidjdgQCHO7iMrliFnaVW8ZctLPwTv5u/DcK+VI2EhyT
-         jk8Mw1hd7k9jLeKhqw4M9FaNeiwE8nsOJkA3yYTP7nD+ur4Qh9Q9SjydOItCakwvtX4h
-         PbthjfU5SfMiGkEDgl/vHjGZMT94rnq/cJnGdqkQKIDyocyZ8riY5NCVtiohfZh8jW+c
-         D9Gq34+YGczpM7JqbX1hnuy1lYP4qnDtLuULKFojKeNDWDQ3V+bM0BbkvPuE535YLNRz
-         i57LnPiMObOEnqabeE9InvUWO9+lROWu1Fil7ykuR8NKuTF5/aO1GbMpGtVNCFFKGX8j
-         E1XQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=BEXTeQGLzgEVv8xuPTN36lgrQGwcruNuHdFhXGEDQxE=;
-        fh=rb/TC9nbyrxoEWudF8Jk7IAg2fZA82IyKo6uLE/HDGY=;
-        b=jUSVf0pEUuHCVtSW35RyLRvbSH7wUeNSkPWAMFBpcldIj3WvgLLzD8+FEHswruoQ1S
-         EyK8GpFwH5OyHI8K5bbRclEUhkIwB2Kj2ld5vm2gluxH5N2Z7cD/UwXDXcgHIRiMe2/D
-         qRA37A1UaGwGAiTyaYLo0fU7gscwNX9ZAu7J1EhByDHM65MES7AqZGSjPSjxPWSH+NW4
-         MRZpEZcoyO8MoTJbj5YpATdRYpjeSHZQB8UJAg3w8RGI264yVelNYf8p0PDlfANsFCO/
-         KttFmntagCUaAQek8Q5fqcD/ECae9aRSlulTmXTGo+EqTPHamHtgM1ZJgzkC+0xywUFs
-         wV1A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791258194; x=1791862994; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BEXTeQGLzgEVv8xuPTN36lgrQGwcruNuHdFhXGEDQxE=;
-        b=PDDHg3a2LCqs+3XiRwyQt0AVuCeWE893FNKT0ilCYLizGNoF0Ro72mkC4XZ7pZiRGY
-         fJUrVp50i0p6gdpkFdWfuutcSlbokOt4n+OoPdfXMr/1jKQB3iIDQz4gotpKFoeyLBJC
-         f1wZCI1S6ch9Q0qU0LGW7r8Z589g7lh5Pam02mEIdrEHKdKURfYupRCAP9gWyuU+bDkD
-         0+Kj/582bszSJRZMz32uOfB3p37sk/FHyXl71OBivn/+XJaYCtOF/5Up5Ss/qOyvglRq
-         zr/ZJRrVMp/CcrlWGaBbwAoKhUPZaCkvuwOgFZSZE4cm4jpJ5nTC8x7ytU0pTATQuwcy
-         V1CQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791258194; x=1791862994;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BEXTeQGLzgEVv8xuPTN36lgrQGwcruNuHdFhXGEDQxE=;
-        b=itvZHZirCG7KE2Blf8ycZ1UCjd0iZ50G2pX1hbhir2MerExVvwpD3Nx4z8nXqpi301
-         94Ej64vcGYLXPfk/l0iRuaZtNQQ1TpQ+lVyyRgItDqpB2P93Z/kC0v7da7fb0GltLafo
-         k5BxB+Ld8XF+HLCizaGyVT5sauP1YGzoHmr3KUH8ZceCfzxyM7knEFRKGzwIwwnhjoLu
-         2bouiWe4W7KXTBMnDeBqOztcaYWp+5Ofh1hGd0pKDIt+ndHIS9xNuSxQqnBs5VyfWIxS
-         31U9036KaOqeY2Kv7mgWIQQb4bar/hdPUTlNO+B6FSD+iJECRLwSR14j1tUYnidrNY5j
-         A7yQ==
-X-Forwarded-Encrypted: i=1; AKwUvByzQQyoftUK9BY33nNzAAijTqj/Y/Q4YZGYVMfDGBP+s5ahQuR48/49Zt+fdbj94RzSQff7NIk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIM9Dl2d6owJEjk6CU6sAL/0UeCiT/DgDsmlnI3kyojrfhi/dS3
-	L4+3sxfT2NeW/AWFkHWUDChZEcfRsNr0AgAEN4Z3PzMGSwojHy8Fp4fwtna1t9LPoiA8DI/zO3m
-	RgJxdvyQiILH9xo8f882Z4n9pdx4Hpts=
-X-Gm-Gg: AYBFou0915F9Sj+a7AuqP3kly0ei8agmgATu8RX/N8qWdWa7e24MYmi74KToJYMEdpe
-	1Rr5zlQ894lnM3X1T0uJnl7ocgAvjOeSqGg2ysVzSG/xaHAYS0FJFuCKqgjADkB/uKGEKnzz4B7
-	aQkwHLWkxoDflRvM1kYipKYK/WF4fecxb88OiPLPiDv/mKqVcC0JgEEV0feIc4iwQrds5x/TFyC
-	vYLjeh4TJpHg0K4LoQbjfngN10dIxkWDTsbjtmMaP+vBjao6MdjVidtmhloh4qgOw4VLRv02gra
-	xPCW1ANWK/G4L6kx2dAl4qC65d2Pn+IVm7zI7xbnwHPqSoVTQcy0giDrgMHU754ytYeG
-X-Received: by 2002:a05:690e:4145:b0:674:1336:7d5b with SMTP id
- 956f58d0204a3-677bd380447mr3369449d50.52.1791258193959; Mon, 05 Oct 2026
- 20:43:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KyDCUUW1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A8A11F0089C
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 03:57:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791259024;
+	bh=nylbsV/BGOOjUon/OhSun9x/7q39ACZXXGxsuDGpM5w=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=KyDCUUW1tRFxQ0g0tP2U2BpmHNZ5u21AEem/jiMNEx30JY65mlm3LcY8peWy/vG72
+	 006FoYm5Fnb1BVnAZJSDjJIG9XwP+vkUzYY2Z9nmCOPJf9uCySxJkx6JRgL0wbuj9y
+	 bqGFvJOiJEItEysIJ3/emptHaU8oUkb0odhNxQ7nDXVwdT3I4G6RsL/twNzZ/gEiID
+	 yEPUDrjHp1xXqLJ4WhJx0l2f47vZfSZNHUPeVIerDqkziIN5zYdhwVqib/2BmMf7Tq
+	 m4G3MfRi5m+KA49J9O/EI7Jc04Dnhk65586LDFIguG6Tbtu8pUm51lgt2QChYdBAQ6
+	 G2/1kmRNv4jRw==
+Received: by mail-oo1-f52.google.com with SMTP id 006d021491bc7-6cfed5dd071so90005eaf.0
+        for <stable@vger.kernel.org>; Mon, 05 Oct 2026 20:57:04 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxJMPItbLt4gMG4k03zmYhb/APIjkJL43scvLSMqquP0v/mqxgFr0weYmw4N3PpWh9DytmhpjQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nlthvZgjjWiHfcT0T1fPMu1A+5gKUzriM+qhOo4czgyy0JYOnc
+	mRSfFIsoZ1ntA40nGI1WGJrCGeFlxD0i45VVz2amvCJIaXOnd/2/wf3bs0hxq1lsrk0bqAKNO16
+	mn1gNim9G/y9tQHQL7Sj/YpUcUuud2mc=
+X-Received: by 2002:a05:6820:8184:b0:6e2:3d8b:a01c with SMTP id
+ 006d021491bc7-6e554301635mr27703eaf.19.1791259023447; Mon, 05 Oct 2026
+ 20:57:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261004055712.1293-1-yogeshgaur.83@gmail.com> <32152011-b196-4dc0-ba7e-495f2132ad15@fygo.io>
-In-Reply-To: <32152011-b196-4dc0-ba7e-495f2132ad15@fygo.io>
-From: Yogesh Gaur <yogeshgaur.83@gmail.com>
-Date: Tue, 6 Oct 2026 09:13:03 +0530
-X-Gm-Features: AclHuK-etZgMZhRThOtRlbtdP2ce2Ph0ESLyjNgIBlEnFN-xlVATRsrCZ1wzbZg
-Message-ID: <CAG6enPwFpBK=VyEPEnw9a26Yg+Gzt0enieHpYvnJz-v7L5ALyw@mail.gmail.com>
-Subject: Re: [PATCH] md: don't hand out the array before md_alloc() has added mddev->kobj
-To: yukuai@fygo.io
-Cc: Song Liu <song@kernel.org>, linux-raid@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Li Nan <magiclinan@didiglobal.com>, 
-	Xiao Ni <xiao@kernel.org>, Christoph Hellwig <hch@lst.de>, Hannes Reinecke <hare@suse.de>, 
-	Logan Gunthorpe <logang@deltatee.com>, syzbot+95eeb4ada2349a2170ea@syzkaller.appspotmail.com, 
-	stable@vger.kernel.org, "xiaobai050@gmail.com" <xiaobai050@gmail.com>
+References: <20261005023812.130639-1-edumazet@kernel.org> <179123498942.434549.13440734253618262332@kernel.org>
+In-Reply-To: <179123498942.434549.13440734253618262332@kernel.org>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Tue, 6 Oct 2026 05:56:51 +0200
+X-Gmail-Original-Message-ID: <CAL4WiiqwLH51iXsqmuUKTeP4Mo5Tv-qZ_D_MzaGK6C81nxQ6SA@mail.gmail.com>
+X-Gm-Features: AclHuK8X7N50oa_vNPjBaL2CiYSW9zS2hkkKF2T2tKJn8ehllNz5e-34bB0K3IQ
+Message-ID: <CAL4WiiqwLH51iXsqmuUKTeP4Mo5Tv-qZ_D_MzaGK6C81nxQ6SA@mail.gmail.com>
+Subject: Re: [PATCH net] bnxt_en: fix DMA mapping length for padded small packets
+To: netdev-bot+sashiko@kernel.org
+Cc: davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
+	netdev@vger.kernel.org, stable@vger.kernel.org, sfle@kth.se, 
+	edumazet@google.com, michael.chan@broadcom.com, pavan.chebbi@broadcom.com, 
+	andrew+netdev@lunn.ch
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 5, 2026 at 10:35=E2=80=AFPM yu kuai <yukuai@fygo.io> wrote:
+Le lun. 5 oct. 2026 =C3=A0 23:16, <netdev-bot+sashiko@kernel.org> a =C3=A9c=
+rit :
 >
-> Hi,
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
 >
-> =E5=9C=A8 2026/10/4 13:57, Yogesh Gaur =E5=86=99=E9=81=93:
-> > md_alloc() publishes the gendisk before it is done setting the mddev up=
-:
-> >
-> >       disk->private_data =3D mddev;
-> >       ...
-> >       error =3D add_disk(disk);
-> >       if (error)
-> >               goto out_put_disk;
-> >
-> >       kobject_init(&mddev->kobj, &md_ktype);
-> >       error =3D kobject_add(&mddev->kobj, &disk_to_dev(disk)->kobj, "%s=
-", "md");
-> >
-> > add_disk() makes /dev/mdN openable, and md_open() only refuses the open
-> > when MD_CLOSING is set.  mddev comes from mddev_alloc() and is zeroed,
-> > so anything that gets in between add_disk() and kobject_add() sees an
-> > mddev->kobj that has never been through kobject_init() - no ktype, no
-> > kref, state_initialized clear.
-> >
-> > syzbot opens the array in that window and issues ADD_NEW_DISK:
-> >
-> >    kobject: '(null)' (ffff8880120640f0): is not initialized, yet kobjec=
-t_get() is being called.
-> >    WARNING: lib/kobject.c:642 at kobject_add_internal+0xea/0xcd0 lib/ko=
-bject.c:225
-> >     kobject_add_varg lib/kobject.c:374 [inline]
-> >     kobject_add+0x163/0x240 lib/kobject.c:426
-> >     bind_rdev_to_array+0x80c/0xdd0 drivers/md/md.c:2621
-> >     md_add_new_disk+0xe3b/0x1850 drivers/md/md.c:7684
-> >     md_ioctl+0x200a/0x2610 drivers/md/md.c:8499
-> >
-> > bind_rdev_to_array() is not the only way in.  md_run() calls
-> > sysfs_create_group(&mddev->kobj, &md_redundancy_group), and
-> > internal_create_group() has its own WARN_ON(!kobj->sd), so RUN_ARRAY in
-> > the same window warns too.  Guarding the individual callers would mean
-> > finding all of them; the window itself is what should not be reachable.
-> >
-> > Refuse the open until md_alloc() has added the kobject.  mddev->kobj.sd
-> > is NULL until kobject_add() creates the directory, and stays set for th=
-e
-> > rest of the mddev's life: commit ca39f7502425 ("md: fix mddev->kobj
-> > lifetime") dropped the explicit kobject_del() and lets the final put do
-> > the removal.  md.c already tests mddev->kobj.sd for "is this array
-> > published yet" in mddev_unlock() and md_run().
-> >
-> > This cannot deadlock against add_disk() itself: device_add_disk() only
-> > opens the disk to scan partitions when get_capacity(disk) is non-zero,
-> > and md_alloc() does not set the capacity - md_run() does, long after.
-> >
-> > Fixes: ca39f7502425 ("md: fix mddev->kobj lifetime")
-> > Reported-by: syzbot+95eeb4ada2349a2170ea@syzkaller.appspotmail.com
-> > Closes: https://syzkaller.appspot.com/bug?extid=3D95eeb4ada2349a2170ea
-> > Cc: stable@vger.kernel.org
-> > Assisted-by: LLM
-> > ---
-> >   drivers/md/md.c | 9 +++++++++
-> >   1 file changed, 9 insertions(+)
-> >
-> > diff --git a/drivers/md/md.c b/drivers/md/md.c
-> > index 680b34a63cb3..e3326b78aef7 100644
-> > --- a/drivers/md/md.c
-> > +++ b/drivers/md/md.c
-> > @@ -8610,6 +8610,15 @@ static int md_open(struct gendisk *disk, blk_mod=
-e_t mode)
-> >       if (test_bit(MD_CLOSING, &mddev->flags))
-> >               goto out_unlock;
-> >
-> > +     /*
-> > +      * md_alloc() publishes the gendisk with add_disk() before it has
-> > +      * initialised and added mddev->kobj, so an array opened in that =
-window
-> > +      * would let ioctls reach a kobject that is still all zeroes.  Wa=
-it for
-> > +      * md_alloc() to finish rather than handing out the device early.
-> > +      */
-> > +     if (!mddev->kobj.sd)
-> > +             goto out_unlock;
-> > +
-> >       atomic_inc(&mddev->openers);
-> >       mutex_unlock(&mddev->open_mutex);
+> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 0 =C2=B7 Low: 0
 >
-> This is the same problem that I already replied in another thread, the sa=
-me solution
-> with different code.
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
 >
-> Re: [PATCH] md: prevent opening an array before its sysfs kobject is
-> ready - yu kuai <https://lore.kernel.org/all/a19e3020-272b-4f93-8535-00fa=
-07002d91@fygo.io/#t>
->
-
-Thanks Kuai. Yes just refusing the open would be going to move the
-race condition. I had missed earlier patch from xiaobai050, sorry for
-the duplicate.
-
-I would send a v2 that holds reconfig_mutex from add_disk() through
-kobject_add() in md_alloc(), so an ioctl issued in that window waits
-instead of failing the open. RUN_ARRAY is covered as well, since
-md_run() also uses mddev->kobj and runs under same lock.
-
-Thanks
-Yogesh
-> >
+> - [High] The fix is incomplete for short non-linear skbs, and for them it
+>   changes the wire frame for the worse.
 >
 > --
-> Thanks,
-> Kuai
+>
+> bnxt_en: fix DMA mapping length for padded small packets
+>
+> This patch replaces skb_pad() with skb_put_padto() in the normal_tx path
+> of bnxt_start_xmit(). After the change, skb->len and skb_headlen() includ=
+e
+> the padding, so dma_map_single() maps the whole padded buffer. The pad
+> variable and the rewrite of the last BD length are removed.
+>
+> Closes: https://lore.kernel.org/netdev/20261004122616.56714cbd@nargothron=
+d/
+>
+> > diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/et=
+hernet/broadcom/bnxt/bnxt.c
+> > index d7728d0c5b6e6..7ea27e81e88c5 100644
+> > --- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+> > +++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+>
+> [ ... ]
+>
+> > @@ -672,14 +672,12 @@ static netdev_tx_t bnxt_start_xmit(struct sk_buff=
+ *skb, struct net_device *dev)
+> >       }
+> >
+> >  normal_tx:
+> > -     if (length < BNXT_MIN_PKT_SIZE) {
+> > -             pad =3D BNXT_MIN_PKT_SIZE - length;
+> > -             if (skb_pad(skb, pad))
+> > -                     /* SKB already freed. */
+> > -                     goto tx_kick_pending;
+> > -             length =3D BNXT_MIN_PKT_SIZE;
+> > +     if (skb_put_padto(skb, BNXT_MIN_PKT_SIZE)) {
+> > +             /* SKB already freed. */
+> > +             goto tx_kick_pending;
+> >       }
+> > -
+> > +     length =3D skb->len;
+> > +     len =3D skb_headlen(skb);
+>
+> [Severity: High]
+> What happens here when the skb is non-linear and shorter than
+> BNXT_MIN_PKT_SIZE?
+>
+> bnxt_start_xmit() reads last_frag and tx_buf->nr_frags earlier, before
+> any padding:
+>
+>         last_frag =3D skb_shinfo(skb)->nr_frags;
+>         ...
+>         tx_buf->nr_frags =3D last_frag;
+>
+> For a non-linear skb, skb_put_padto()->__skb_pad() skips the tailroom
+> fast path and calls skb_linearize(). __pskb_pull_tail() then:
+>
+>   - copies the frags into the head
+>   - calls skb_frag_unref() on each one
+>   - sets nr_frags to 0
+>
+> The frags[] slots themselves are not cleared.
+>
+> After that, len =3D skb_headlen(skb) covers all 52 padded bytes, but
+> last_frag still holds the old count. TX_BD_CNT(last_frag + 2) and
+> SET_TX_OPAQUE(bp, txr, prod, 2 + last_frag) still count the old
+> fragments. The frag loop also still runs over them:
+>
+>         for (i =3D 0; i < last_frag; i++) {
+>                 frag =3D &skb_shinfo(skb)->frags[i];
+>                 ...
+>                 mapping =3D skb_frag_dma_map(&pdev->dev, frag, 0, len,
+>                                            DMA_TO_DEVICE);
+>
+> This emits a BD for each stale frag, and TX_BD_FLAGS_PACKET_END is set on
+> the last stale BD:
+>
+>         txbd->tx_bd_len_flags_type |=3D cpu_to_le32(TX_BD_FLAGS_PACKET_EN=
+D);
+>
+> As an example, take a 42-byte frame with a 14-byte linear head and one
+> 28-byte frag. AF_PACKET PACKET_TX_RING can build one through
+> tpacket_fill_skb(). The head BD would describe 52 bytes and the stale fra=
+g
+> BD another 28. Wouldn't that put an 80-byte frame on the wire, with the
+> payload duplicated?
+>
+> The NIC would also DMA-read pages that the skb no longer holds a
+> reference on. If this skb held the last reference, those pages could
+> already be freed or recycled.
+>
+> The completion path in __bnxt_tx_int() (last =3D tx_buf->nr_frags) and th=
+e
+> tx_dma_error unwind path also trust the stale count.
+>
+> bnxt sets NETIF_F_SG, so the core does not linearize these skbs first.
+> They reach normal_tx whenever the push path is skipped, for example when
+> tx_push_thresh is 0, the ring is not empty, or lflags is set.
+>
+> The old code mapped the same stale frags, so that part is not new. Its
+> total descriptor length still came to 52, though, because the pad was
+> added to the last BD. The oversized frame with duplicated data seems to
+> come from this change. It also doesn't match this part of the commit
+> message:
+>
+>   so that dma_map_single() maps the full buffer and the descriptor
+>   length is consistent.
+>
+> Could the padding be done before length, len, last_frag and
+> tx_buf->nr_frags are read, and before the free_size check? Or could
+> last_frag and tx_buf->nr_frags be read again after skb_put_padto()
+> succeeds?
+
+Looks legit, I am cooking a V2, thanks.
