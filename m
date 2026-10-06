@@ -1,63 +1,63 @@
-Received: from pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.245.243.92])
+Received: from pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.12.53.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0C7B49E14B
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 16:14:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.245.243.92
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB3E745C700
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 16:14:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.12.53.23
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791303282; cv=none; b=UPQceyMDEbXet0K8rOkdNGS2vg1CUp0eBbKU8hcXz4L/NbrLsX+DCqivFtpYHMRPczKUHEuUjZfyQaUgHi9znI9/73c5os1ofZ6cSgEFvKFCv6k4HeQfSbsEkh3eN0IBxeHtO/7CjCRDdoH8577kWG/XQqYZGCDTlLwzg7XUAM4=
+	t=1791303284; cv=none; b=ZcwFp7fNgg9nkW0nZXF30Ws6ZY2L+HWIm/lTglmOAnH2AxH1mZ3d18+H2wcAb4O7GppBYMKviWYIfqo9LthppdtU0BwMBFvJnUcr3G1dL3XdW0VpkndILYIIBc61vIjB21Fx9stpU/t1gkf/ztKfFq4hbADk6vjg7USUKhONlbU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791303282; c=relaxed/simple;
-	bh=lRpPQn2VhOWcOvapKYUl1TW4BFY5cOKuSa5Cibcbmw0=;
+	s=arc-20240116; t=1791303284; c=relaxed/simple;
+	bh=e2oB1Z1Vyr6Gr2Rm9VvpOSXZzPcjtMVL9kgVSYVl+eM=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DP95FTexNyeeDQPZQgEpWwO5fQL7wFXC9FUGm4Z81Evo4I+r3UUqPEEgFt794bE5fexgdmZK0EWIepskXZTxAi5vTRqE5q4+I9BknIrrHlurH7baBSOB3qr43FazIpuy1Qa3RCL3jL7o5xpSoVFimNbi1pxWUIwKrDFKnWefdos=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=CxNDBdi9; arc=none smtp.client-ip=44.245.243.92
+	 MIME-Version:Content-Type; b=UHXeIip0K4htQLWB62C0PA8KRLT3iEb3QEZyCt1sPny/cYu9hCcEYUOsyGYDeKDaBJYy9guTSQPRYhz0Sd2HBQYxqSu3gyRbVzh/6E679YsNScYMmE6I2wDOVuABjwJVx8mJ/usH0niLEZPf1Im0nJgMHal/fypIjt2ngheWCeQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=N8vcv+KL; arc=none smtp.client-ip=52.12.53.23
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="CxNDBdi9"
+	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="N8vcv+KL"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1791303280; x=1822839280;
+  t=1791303282; x=1822839282;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=xfuEaNlLujuXheMJ0vj6sQG7ke2yCOQhZIjvU6utCNY=;
-  b=CxNDBdi9UMaDx8Q7M7whFg0WkoZ9cPX1CRSf5u3DJPx5iyRyYsB5SXBX
-   lG5Iqic7zXt9Li0lTl89yyGnxFMIyagWRiEmtpnlY42c5s+KuwfOGW0it
-   CxZcrw5G8MJ6rwkFTwsqxK/co8wLM5Vahq6obkC03eMIUTZUqFlLr/cmt
-   zyaEVYSriaJMz2NWGdU/V0ecrw7DHYNWoCYatHFDizrvEA7wo1IC1e9r/
-   /EMR8FHzj7wHC1LkSJcdm11Ebhakz+NugWNp7UphogYiTqNPum7GmRYa+
-   RfHGKJM8mura6WeymAfvFOG8xGIEVMU98ILkEMdZ6Yld8BPfW/RshHafF
-   Q==;
-X-CSE-ConnectionGUID: 7+0UmZLXRP2cchq+MMYLSg==
-X-CSE-MsgGUID: 3McST4xyTsuhymXwlisnbQ==
+  bh=3/FHb9nAa9+Vxb9VxkkdP0WJb6VAwlHScTEzmlJ0T4M=;
+  b=N8vcv+KLi/j6tj8t7O7e9wEu0Xz/viX2Ylyu0yU3ZkRXwHGR+0f4rp+o
+   WS0jUuMvPwwepo5ZRUL3cp7c30Y6z6eoPRfd03IMllmQ5y9ysXfqjbmI5
+   /wpniRMusacyT43BgnVC0COXOMFw38/ljnvTPUB52Y58dwIVf/L/6YU4C
+   dv5xzHkhHO7wBABLwX4UQpOTYcGbe4epn9wBQCUgrMc1hr5b5gO/ws3fF
+   PSkChrcGKLFtypGcv6mlk96dh/pvrkw2uOwbUQk7/5a1XVwTgmz5Atcpy
+   ODiB8eeuerSDvYvJ7qy1YJPBLsfSWxDE4R++24NdhKqDSJowuj/WADwUO
+   w==;
+X-CSE-ConnectionGUID: TIegs2avSpuKOmjnYe4NZg==
+X-CSE-MsgGUID: TQfIntx+QHSUjG6vHQllUA==
 X-IronPort-AV: E=Sophos;i="6.27,143,1787011200"; 
-   d="scan'208";a="30058594"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 16:14:38 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:22426]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.24.164:2525] with esmtp (Farcaster)
- id 20fcf1d6-a3a2-43c5-bade-9c6fc48a921b; Tue, 6 Oct 2026 16:14:37 +0000 (UTC)
-X-Farcaster-Flow-ID: 20fcf1d6-a3a2-43c5-bade-9c6fc48a921b
+   d="scan'208";a="30416194"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 16:14:40 +0000
+Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:12696]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.44.113:2525] with esmtp (Farcaster)
+ id 2eea44ba-9a5f-43a2-84ce-7d6546234e4b; Tue, 6 Oct 2026 16:14:39 +0000 (UTC)
+X-Farcaster-Flow-ID: 2eea44ba-9a5f-43a2-84ce-7d6546234e4b
 Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
+ EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Tue, 6 Oct 2026 16:14:37 +0000
+ Tue, 6 Oct 2026 16:14:39 +0000
 Received: from dev-dsk-doebel-1a-7b355d76.us-east-1.amazon.com (10.169.119.5)
  by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Tue, 6 Oct 2026 16:14:36 +0000
+ Tue, 6 Oct 2026 16:14:38 +0000
 From: Bjoern Doebel <doebel@amazon.de>
 To: <stable@vger.kernel.org>
 CC: Sasha Levin <sashal@kernel.org>, Jiangshan Yi <yijiangshan@kylinos.cn>,
 	Namjae Jeon <linkinjeon@kernel.org>, Paulo Alcantara <pc@manguebit.org>,
 	Bjoern Doebel <doebel@amazon.de>
-Subject: [PATCH v2 5.15] smb: client: clear setuid/setgid bit on write with cifsacl/modefromsid/posix extensions
-Date: Tue, 6 Oct 2026 16:14:20 +0000
-Message-ID: <20261006161421.1948193-2-doebel@amazon.de>
+Subject: [PATCH v2 6.1] smb: client: clear setuid/setgid bit on write with cifsacl/modefromsid/posix extensions
+Date: Tue, 6 Oct 2026 16:14:21 +0000
+Message-ID: <20261006161421.1948193-3-doebel@amazon.de>
 X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261002145352.3925654-1-doebel@amazon.de>
-References: <20261002145352.3925654-1-doebel@amazon.de>
+In-Reply-To: <20261002145450.3926570-1-doebel@amazon.de>
+References: <20261002145450.3926570-1-doebel@amazon.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -117,30 +117,29 @@ Cc: stable@vger.kernel.org
 Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
 Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ Backport note for 5.15: code lives in fs/cifs/inode.c; no sbflags
-  local exists here, so test cifs_sb->mnt_cifs_flags directly (same flag
-  bits). Drop the upstream posix_extensions clause: 5.15 lacks
-  d413eabff18d ("fs/smb/client: implement chmod() for SMB3 POSIX
-  Extensions"), so cifs_setattr_nounix() has no POSIX ATTR_MODE branch;
-  match its CIFS_ACL/MODE_FROM_SID check. ]
+[ Backport note for 6.1: no sbflags local exists here, so test
+  cifs_sb->mnt_cifs_flags directly (same flag bits).  Drop the upstream
+  posix_extensions clause: 6.1 lacks d413eabff18d ("fs/smb/client:
+  implement chmod() for SMB3 POSIX Extensions"), so cifs_setattr_nounix()
+  has no POSIX ATTR_MODE branch; match its CIFS_ACL/MODE_FROM_SID check. ]
 Signed-off-by: Bjoern Doebel <doebel@amazon.de>
 Assisted-by: opencode:kimi-k3
 ---
 v2:
 - Drop the posix_extensions clause from the cifs_setattr_nounix() check:
-  5.15 lacks d413eabff18d, so there is no POSIX ATTR_MODE branch and the
+  6.1 lacks d413eabff18d, so there is no POSIX ATTR_MODE branch and the
   clause would route the kill-suid mode change into the DOS READONLY
   emulation. Mention this in the backport note. (Sasha)
-- v1: https://lore.kernel.org/stable/20261002145352.3925654-1-doebel@amazon.de/
+- v1: https://lore.kernel.org/stable/20261002145450.3926570-1-doebel@amazon.de/
 
- fs/cifs/inode.c | 28 +++++++++++++++++++++++-----
+ fs/smb/client/inode.c | 28 +++++++++++++++++++++++-----
  1 file changed, 23 insertions(+), 5 deletions(-)
 
-diff --git a/fs/cifs/inode.c b/fs/cifs/inode.c
-index bb0b172c5a74d..52dba9bd31329 100644
---- a/fs/cifs/inode.c
-+++ b/fs/cifs/inode.c
-@@ -2713,9 +2713,13 @@ cifs_setattr_unix(struct dentry *direntry, struct iattr *attrs)
+diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
+index 51d38449ca855..be8b2469f5c64 100644
+--- a/fs/smb/client/inode.c
++++ b/fs/smb/client/inode.c
+@@ -2826,9 +2826,13 @@ cifs_setattr_unix(struct dentry *direntry, struct iattr *attrs)
  			goto out;
  	}
  
@@ -157,7 +156,7 @@ index bb0b172c5a74d..52dba9bd31329 100644
  
  	args = kmalloc(sizeof(*args), GFP_KERNEL);
  	if (args == NULL) {
-@@ -2898,8 +2902,22 @@ cifs_setattr_nounix(struct dentry *direntry, struct iattr *attrs)
+@@ -3014,8 +3018,22 @@ cifs_setattr_nounix(struct dentry *direntry, struct iattr *attrs)
  	if (!(cifs_sb->mnt_cifs_flags & CIFS_MOUNT_SET_UID))
  		attrs->ia_valid &= ~(ATTR_UID | ATTR_GID);
  
