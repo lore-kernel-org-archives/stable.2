@@ -1,142 +1,148 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E85BA3ED5D6;
-	Tue,  6 Oct 2026 13:17:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 708423ED5D6;
+	Tue,  6 Oct 2026 13:17:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791292630; cv=none; b=V3TMdpqv0yxYgHb/YieKYlo1x49zO2cRf8OI8AMldoZuN5uJojxX5kH7rxIfGR3DCpjtnDwYeXkmzXffi5Em9RomRXJ5R6a4guqhLjcwi+skWzB13xFJXefwodyRAB8madJpm8RZJKJbidX1GnqNye6D/8vgjRXerQIea9mGHAo=
+	t=1791292665; cv=none; b=fVh8Kr5gbCEG8Z+yXaWVbFgiYnF6/Mf+j5Ugzq0x+OSUdTI1pA9Swd4QilWIJ0qwrrGiKRD72tBAvqXCe+VOjIOskVX1YeNyESrJTf9ALC9MXmFVJ302ziH1ImT7KVd9YGfs+nN7wDN3Suai7eJ8qy/N5FsHDTy7s8Qy/Fafbp8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791292630; c=relaxed/simple;
-	bh=nMLIv5b8FgYxUAJL70j13ODD8h60rrpKuPu4YZIEV6A=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=TB/FECdcSQklBQlrNlEm7qiD5g+p4GMzPGwxYAjHFZX+7N+Ohs6nBEGjMwlb8oON40RSbmRcPdRLYSEMol4poGgV8qyf0lZTKNhjTFq5RgPp/0Zn5FMGnyRRXqWAL09ZgxpmGJc1KaP+bc+DUITDJBRMcpO0gUxfQTrqP0Zi9jU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=LJwznXkd; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1791292665; c=relaxed/simple;
+	bh=uCCDQHKiQ1WD3t9bncVW9QO65qcSW+LrGDAjCuW8mGE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YPl0QZkjThQVULDnj6hXXZ4QZA8FzVV/eOqnOxE1oNwT1LWCGKI+V6wv9E2hhonv/I4WZtRqtlZNMfZyyThaWiJW5hFeuXLJYPUMRq8KaNjhxTTs7vDF1s3TlCbRK8bCv/Mbu7ZgSljLXC2Dlf8yyHjs6eWrFfDVHNyFupCyS70=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=d3tTgvp0; arc=none smtp.client-ip=188.68.63.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="LJwznXkd"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
-	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=k5vD5U2vDHop2y93h5RObps/SJVwtXt/ikqi9pmsRyw=; b=LJwznXkd9feDS7KEE+0TKpJfvK
-	UbX3SvWbrB/3yge0aTnVhNkc8Pgg13hP6lEQvfmsv9/rtioKOjB+4TgrxNg0w+/V8FfDsOidGdGJR
-	/GVl5d2cgoIjIkmbi4OxjgIAU7b7fsY0+Arj82FoR8ibWTRjniUU1NNDylM1AE8Eti20fQf9F4n9t
-	UkH7M0vFA5EzNEkE8elskAnt4qb8RGJTA0UIA9sspK5R+BA8sYGsJvFvZSoBC7viylvemfJmYzxPz
-	8nSLnCXDdB1+iRvtNjz3R5Lw+CV4kABmLoxM2YY6i1I76Z/RVUFZdsF1S2PWLyFeXSQeu+P6PoJSs
-	TByaNAiw==;
-Received: from [::1] (port=50768 helo=pf-012.whm.fr-par.scw.cloud)
-	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
-	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
-	id 1xE52Z-0000000Fv2X-486s;
-	Tue, 06 Oct 2026 15:17:06 +0200
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="d3tTgvp0"
+Received: from mors-relay-2501.netcup.net (localhost [127.0.0.1])
+	by mors-relay-2501.netcup.net (Postfix) with ESMTPS id 4hzc7k2vt2z6LqQ;
+	Tue,  6 Oct 2026 15:10:42 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1791292242;
+	bh=uCCDQHKiQ1WD3t9bncVW9QO65qcSW+LrGDAjCuW8mGE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=d3tTgvp0Gugf+r/GpSQ8heVAUqHVY6oxbDSAtMMBR4sIx90Saoq3GxcaVENr6IVls
+	 lCBsYpIg5nS97qrfBIxWoBAKehVAT5VYx3TO6no7a8Rwh8dEM3C8a4gPlN4q+/lW67
+	 xygYWT0gSn8OViHjlnsld8wzsoDov4wtpTNMC6rjcKabK5Q7sAv7JBqrZpaQ7E47Bh
+	 O2c4yc39lNmDTvoP5bb5NTg4UfFVStpmqmPgDRWcAKzTUMoQ8dpWevDfIoDLfHNd0h
+	 7U8IomrSo6tmuGJIPbFlEnFTWZ9o51zdtJc+p+Gb9xrwGsWgAXJWi7MZ6NdQYpvTAn
+	 ldyv6LgO7IyAQ==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay-2501.netcup.net (Postfix) with ESMTPS id 4hzc7k2BJkz4xpJ;
+	Tue,  6 Oct 2026 15:10:42 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hzc7j4pzNz8tH6;
+	Tue,  6 Oct 2026 15:10:41 +0200 (CEST)
+Received: from [192.168.142.38] (90-182-211-1.rcp.o2.cz [90.182.211.1])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 017F25FB4E;
+	Tue,  6 Oct 2026 15:10:40 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 90.182.211.1) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[192.168.142.38]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <f73ca71a-8a22-495c-91a9-12d89968ac2c@leemhuis.info>
+Date: Tue, 6 Oct 2026 15:10:40 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 06 Oct 2026 15:17:06 +0200
-From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
-To: Pablo Neira Ayuso <pablo@netfilter.org>
-Cc: Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
- netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH nf] netfilter: nft_set_rbtree: reject expired interval
- ends
-In-Reply-To: <asQtPfgYhK1uxMpR@chamomile>
-References: <20261005200404.3544062-2-Jeremy.Jean@oss.cyber.gouv.fr>
- <asQtPfgYhK1uxMpR@chamomile>
-User-Agent: Roundcube Webmail/1.6.19
-Message-ID: <9a9f2587b7bd37c8d03d0105cf968b25@oss.cyber.gouv.fr>
-X-Sender: jeremy.jean@oss.cyber.gouv.fr
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION][BISECTED] r8169: TX stall with checksum offload on
+ VLAN frames with inline tag (REORDER_HDR off) since 1517d1996b52
+To: =?UTF-8?B?SmFuIMSMZXJtw6Fr?= <sairon@sairon.cz>,
+ Eric Dumazet <edumazet@google.com>, Heiner Kallweit <hkallweit1@gmail.com>
+Cc: netdev@vger.kernel.org, regressions@lists.linux.dev,
+ stable@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, nic_swsd@realtek.com,
+ Sasha Levin <sashal@kernel.org>
+References: 
+ <CAPa5EdCj3v17tB-SF2JNecq5Q8s1Pranr-XzAFWNpNTBPgPG7w@mail.gmail.com>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: 
+ <CAPa5EdCj3v17tB-SF2JNecq5Q8s1Pranr-XzAFWNpNTBPgPG7w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+X-PPP-Message-ID: <179129224130.3559709.5435972012489445442@mxe9fb.netcup.net>
+X-NC-CID: 40GMaFCj8XTzy3SLEIrrdQalchxRrRhm+3W3Zn/aek0HDsVESko=
 
-On 2026-10-06 01:05, Pablo Neira Ayuso wrote:
-> Hi,
+On 10/6/26 13:45, Jan Čermák wrote:
 > 
-> On Mon, Oct 05, 2026 at 08:04:05PM +0000, Jérémy Jean wrote:
->> Consider two ranges in a netfilter verdict map:
->> * keys 10-19 accept packets, and
->> * keys 30-39 jump to chain 'victim'.
->> Now, delete the end marker at 20. The lookup array now uses element 30
->> as the first range's end, so an INTERVAL_END query for key 15 returns
->> element 30, including its jump verdict and chain pointer. This can 
->> make
->> KASAN reports a UAF after the GC releases reference chain for 30 that
->> has expired:
->> 
->>   BUG: KASAN: slab-use-after-free in nft_verdict_dump+0xdd/0x110
->>   Read of size 8 at addr ff110000009dfb58 by task repro/50
->>   ...
->>   Call Trace:
->>   ...
->>    nft_verdict_dump+0xdd/0x110
->>    nft_data_dump+0x4d/0x80
->>    nf_tables_fill_setelem+0x30b/0x8a0
->>    ? __asan_memcpy+0x3c/0x60
->>    nf_tables_fill_setelem_info+0x1b0/0x200
->>    nft_get_set_elem+0x3fd/0x4b0
->>   ...
->>   Freed by task 24:
->>   ...
->>    kfree+0x1a5/0x280
->>    nf_tables_trans_destroy_work+0x2cb/0x520
->> 
->> Reject expired endpoints in nft_rbtree_get() before returning them.
->> 
->> Fixes: 2aa34191f06f ("netfilter: nft_set_rbtree: use binary search 
->> array in get command")
->> Cc: stable@vger.kernel.org
->> Assisted-by: LLM
->> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
->> ---
->>  net/netfilter/nft_set_rbtree.c | 2 ++
->>  1 file changed, 2 insertions(+)
->> 
->> diff --git a/net/netfilter/nft_set_rbtree.c 
->> b/net/netfilter/nft_set_rbtree.c
->> index 9894832..1fd9cbe 100644
->> --- a/net/netfilter/nft_set_rbtree.c
->> +++ b/net/netfilter/nft_set_rbtree.c
->> @@ -187,6 +187,8 @@ nft_rbtree_get(const struct net *net, const struct 
->> nft_set *set,
->>  	if (flags & NFT_SET_ELEM_INTERVAL_END) {
->>  		if (!interval->to)
->>  			return NULL;
->> +		if (nft_set_elem_expired(interval->to))
->> +			return ERR_PTR(-ENOENT);
->> 
->>  		rbe = container_of(interval->to, struct nft_rbtree_elem, ext);
->>  	} else {
->> --
->> 2.47.3
+> the Home Assistant OS recently shipped kernel update from 6.18.39 to
+> 6.18.52 which was followed by a bunch of community reports about fatal
+> network breakages [1] which had one thing in common - r8169 driver and
+> configured VLANs. This manifested as network stall early in the setup
+> of the system with dmesg events like this:
 > 
+>> r8169 0000:03:00.0 enp3s0: NETDEV WATCHDOG: CPU: 7: transmit queue 0 timed out 6125 ms
+>> r8169 0000:03:00.0 enp3s0: rtl_rxtx_empty_cond == 0 (loop: 42, delay: 100).
 > 
-> Can you test this fix instead? Thanks
+> As there was no change in the r8169 driver itself, I focused on the
+> vlan subsystem, where AI pointed me shortly to this suspect commit in
+> the range: 1517d1996b5236fe69eccd9d253f725e06996eb1 ("vlan: fix
+> skb_under_panic and races when toggling HW VLAN offload"), added in
+> 6.18.51. I'm not referring to the mainline counterpart below for
+> regzbot (447cbe95ebb9) as I can't confirm whether it triggers the bug
+> there as well. FWIW there was another issue [2] with a similar
+> combination recently in the regressions ML but that one seems
+> unrelated, as disabling EEE fixed that issue, and it doesn't fix it
+> here.
 
-Hello Pablo,
+Not my area of expertise, so take the following carefully, as it might
+send you in the wrong direction:
 
-Thanks for this improved fix. I replayed the reproducer I had that 
-triggers the
-bug on the kernel that includes your patch, and I confirm that it fixes 
-the UAF.
+There is another issue known for 447cbe95ebb9:
+Commit 447cbe95ebb9 causes IOMMU DMA faults on macvlan/vlan with bnxt_en
+https://lore.kernel.org/all/20261004122616.56714cbd@nargothrond/
 
-Let me know if I could be of further assistance.
+A fix for it is under review:
+bnxt_en: fix DMA mapping length for padded small packets
+https://lore.kernel.org/all/20261006042153.199444-1-edumazet@kernel.org/
 
-Regards,
-Jérémy
+Is that maybe related?
+
+Ciao, Thorsten
+
+
+
+> I don't have the hardware myself, I asked for testing with this commit
+> reverted, which confirmed that this change indeed started to cause
+> trouble. However, it's obvious that the change itself is not bad, as
+> it fixes another issue and the regression is scoped to very specific
+> hardware/setup combo.
+> 
+> Besides the revert, following workarounds were reported to fix the
+> issue as well:
+> - Disabling TX checksum offload with `ethtool.feature-tx off` in
+> NetworkManager for the connection (HAOS doesn't have ethtool binary,
+> hence this option instead of direct ethtool command)
+> - Enabling REORDER_HDR with `ip link set enp1s0.100 type vlan reorder_hdr on`
+> 
+> Clearly, this needs rather esoteric setup to trigger the bug - I guess
+> most systems set the REORDER_HDR flag by default, however, due to some
+> legacy in the DBus interface that HAOS stack uses to configure the
+> network [3], it was disabled. Anyway, I think that disabling it should
+> not lead to driver breakage as we're seeing.
+> 
+> So far it appears that this only affects RTL8168h/8111h, XID 541 -
+> there isn't any report of another chip/XID combination yet.
+> Unfortunately, as I said above, I don't have the hardware available
+> for testing but I believe I'll find some community members who'll be
+> willing to test a proposed fix for the issue if needed.
+> 
+> [1] https://github.com/home-assistant/operating-system/issues/5019
+> [2] https://lore.kernel.org/regressions/353419280.954808.1790290283530@mail.yahoo.com/
+> [3] https://github.com/home-assistant/supervisor/issues/7248
+> 
+> #regzbot introduced: 1517d1996b5236fe69eccd9d253f725e06996eb1
+> #regzbot link: https://github.com/home-assistant/operating-system/issues/5019
+> 
+> Cheers,
+> Jan
+
