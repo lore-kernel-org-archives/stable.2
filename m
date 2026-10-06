@@ -1,128 +1,141 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7AED44682E
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 13:22:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791292962; cv=pass; b=SMZlOE0BqYuU5WiFdsrC0QWVlLhFWSVmtrNU5YSyGFiGoTp/Aaek6+Y5xsJZ4VNfyZmtVo1eggNlZSEWYe0OknNE+erAyKVa6IpR18JpNe/L1SXmL9L9Q5as3jfZvD80MVzVKeL/BcntfUUgGLQhjZGTgWq2coK9G6CIWhBnW2I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791292962; c=relaxed/simple;
-	bh=2/kY6gI5Yk1xMI1SVYXumnXuSjxWIMRSCwqdkzoU3Bw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LO34CgLmffrdWtMCUobhVp/BOL/IIbpNbzmA7xliUiXrg3e5MWKzlzN+2HPEkBZkb0DuHIW06ghupKSjkSp5lLaM+sq85mn8swJ/MbJ2xHkXhWyiSIbb6eo/r1C+pevFl1Aorcr6x4Lr6V7i3x0mhkeWV4Wa2cvH5G46z5vlj/s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sairon.cz; spf=pass smtp.mailfrom=sairon.cz; dkim=pass (2048-bit key) header.d=sairon.cz header.i=@sairon.cz header.b=C3bDStSH; arc=pass smtp.client-ip=209.85.216.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sairon.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sairon.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68E2541D626
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 13:24:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.70
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791293055; cv=none; b=iIyokGZeg5RvyImIMjL0pAZTJ8ExuM6vYzt6OxrYs8QEHX7GBAOsO8NNe12VRM/Yg7paM7Dapv6WspHotpxAlostZZhgrOqNWPCnJIZwAD0gqALqg7fLZmcBJ6A1PIE9syiNlKxBodC0phW3tIqjJlIdGksWn/BbeI3FRpl0Th8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791293055; c=relaxed/simple;
+	bh=aEeIe6xwHZnJuP/k7ohX1qqWEYxgOPlybbfJLOcjLgU=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=mLNY170jy0SFALLXCjJkjRFi57NzRGx4RL6X8oT+YcWVT7IlQZJ7fKpwBKOrOEXpNy9o22DhztGXh3YFkDnUzp7zwXj+6sClCchUHFAQ5HXiop79WevvlRBzumDgUhsCsUbO+WmVc4DxHKIlHq+XXUFrWXHxJ0VN/s6F0x+mDyQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--smostafa.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=bqt0LufN; arc=none smtp.client-ip=209.85.128.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--smostafa.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sairon.cz header.i=@sairon.cz header.b="C3bDStSH"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-383b4a3755fso2039852a91.3
-        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 06:22:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791292960; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LZk+031CCKd2KzJUPWF8TOZDQlqgA2Nh1hcyJkQRbK0/MbqCtlJr1jigsTKveKKRQB
-         2WCTmAH7Bt2N7UCdZZaWxkGik3VooRMT/kDZLry5eYMRobD+k7uq3iurXie9TQeM7HGo
-         F9Mh3LA21d5HFUm+oYZxKSOCQU3u4L4AAtkXmjDkiIa0i4Q9nYu3XXKkE5y7soJ/EN/f
-         SwXHAPtkb8EYKzU44YoizsWqw+wY03USSHuVK9E7nZhbEPhPIGl3MKp2qtHDM8PpKmrn
-         Kswh7VgmaJaI/49gC1aQByygdgyvpPnW1tcLtTsklQOgkezi9FG2gI3qC7LYiUySP2kP
-         7SUQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=2/kY6gI5Yk1xMI1SVYXumnXuSjxWIMRSCwqdkzoU3Bw=;
-        fh=QpPNEh1YHD7okwsc9qfdeLxG3gboQK6EzlzXDeOCMOM=;
-        b=Xywobvlr/j3L5PkKY9MrMpMBHMsOfRNgw7t7P2njd9KwQIaLjH7DbcKtsa7sTEmw+b
-         hkath1OdyAP3zlo+WOcfH7W4h5Dk9rTM1wB5sTvKRm6rE0z8qsvvlsXU88HusJttWagI
-         J7ryVVHeeCHdab2uhitPWxH7b+YxDa0oO7HQxd4ZlephBgOl3jaoBO02QrIyaf1XCbHs
-         /XcZpjQdGdB8SWolnFEDFAd0S6jKxWo+H+fo8MT8HgTSYULnEJJeSKeO3UHQbpHW3XJH
-         ygQe6YcFnFxfF/5xdGXRRl1UVWjq8jFNeX/cDxyRB+3j6t6STl5i9fQXwzg6BgzaX5xK
-         3mkw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="bqt0LufN"
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a17741243eso7961325e9.0
+        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 06:24:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sairon.cz; s=google; t=1791292960; x=1791897760; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1791293052; x=1791897852; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2/kY6gI5Yk1xMI1SVYXumnXuSjxWIMRSCwqdkzoU3Bw=;
-        b=C3bDStSHSi2Y6QN93laDi+Neb114peOI4Gf37k/3xVquAGQWUuu1LITVaWeZZz5epA
-         1KFsY2ZW22wvgUBcj0Di8WlDviGLUZiS69CMxJyrenYLkpGm9EkV9UX6u3XnmQWzdbi+
-         uNmAXurX0Qk2Vkz4vashdlrNduQHM9qUROVC+6yvHK4ZlqccQAnThuW8JgzvnGnprgG6
-         /q8xnRtoXvGPshdrceNsVp0whdSd23n64p+h7bD4eXSnt6AiGScl7yZkCQbAjIe4wt2L
-         UEDecubxger8g9RoI+/qMxsB4VGUguI161bSL//FzmdtesNL/ZpKYYzv/vWjYjHvbSGK
-         ytTA==
+        bh=Wez9zYzNuiA9QpGccXjAY60dpruYMZcIXFkwi+sXZRQ=;
+        b=bqt0LufN5kVlq3Vu9fNEHcLKR6+ebmO752CrYiDkIS+nGbe1caIo9f/omCGqTc5kJO
+         +atNe2D08RwNR3s6UHKjbNfyasIS5oVjZgaI7bz4cFJ4eurGABi42wOzZqW0eUpulw/R
+         9FfaFs1VGYx5DBlRDbq/k5fa4xV3A8lngDbptBnWGUq1m6xq7NYVIWWkE/ClabiiexIL
+         B7i0IWPRXtKiufKfXSogmzAOvjuG7uu6YxoqtntKkNVu83MRZlKtbXfipe4ubH9VYYQ5
+         8UXWw5SEZIxBjv676qCfayBTqC7qGDeGEIzxsE9V6FUHPltwq+ZNmcQ06eHNC2dAnfJE
+         dmdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791292960; x=1791897760;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=2/kY6gI5Yk1xMI1SVYXumnXuSjxWIMRSCwqdkzoU3Bw=;
-        b=tIUEL6+UWXQ7Ewe9/yIm46KwOCyeqk9e/sXMGMDIT3hSrTA2ux1yjMbjGAVYtULfON
-         7JjRKoNknZShYueUhbiNe4SzyG3UysnVhVmf5sWlUbLYpWbJuuTgoNY7hhzzmOsuTEKd
-         5comXuVYwgDLzAHEwIWnRrWbjRvBpXqf5aAdmC+RUyzWtvnS3wGBI24Xz46V0/k6DhJO
-         vN2B6H8WARsr2cU05WXiNgmo9uZfRBqE7XgK6YF8YbTuLA0IrUVzWFlvSlVmnWsGPzAI
-         nZ4JmfLWi9q8qovW9dg08ldqU25FCs6KdHjZED8lejV0L9zFEwWYkSKtMtXikiGOnIEU
-         kUJA==
-X-Forwarded-Encrypted: i=1; AKwUvBwFpl7IrosNv1/loR0PDA5UYlHNWt4fMSaf/8wir1UNG0Dc29x5ZFw7/q4Fuy5S9rY/oiIyVi8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIahQg7EAt8vXiB4BJzsFgi2l5pUxIqtAm2AD8F5z5tkKXTXOF3
-	CQOPpiLjpvTZDI1xJO9ggeLiUWrbQbQQwkpJJ6Y8YpX1Nzo5WX5XY7JeOHyGwDID3Hs6ls5ayYC
-	k/TmXld20tnOFgYZkVpWPl6xm8u0HBQ6CDD99V7F9NA==
-X-Gm-Gg: AYBFou3rQjk8SAJjHp4n90BwS4OqaPVPPv8VkMT5TB6EY1+3lQXXXj6EseFBOZWoV/n
-	VN+pUAB3n3OynlaLnUt106bj9xDr6BsnB1V4DGBFePN/tu5ctI3/rnBIATbAazjzB/6I3iIUSKk
-	khOESdHi1fzC6kXDIftDZRBQOjPGLCRfY+YbNPKHeqXlv4oY0RKNCHpmOcNuAb/X9X0beLMoGp/
-	K66wVtTy7YIgzs2XU6CzoJIV7uhOrp8sYYoIkRHvcdvTdCtxhfqGLEnSRlkw4gk0idnMZpiuenq
-	lbkPWPm1qPzpYZqRGcz4kra7Zi7i/8jO5D65Np9Zrx7uGHytvARvvWCMhxekWsHYHRQPGfh4AIs
-	QQSifd0VujoL1vjS6wM/uM3HpR32nNR6XWv2jgWV4u2iWQEWf592JGacQfLEtg3fmqAn6MQhgrE
-	I=
-X-Received: by 2002:a17:90b:3ccd:b0:3a8:878:ebab with SMTP id
- 98e67ed59e1d1-3a80879621cmr5255577a91.35.1791292960306; Tue, 06 Oct 2026
- 06:22:40 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791293052; x=1791897852;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Wez9zYzNuiA9QpGccXjAY60dpruYMZcIXFkwi+sXZRQ=;
+        b=Fh23ndy9DNyUUP25TDxWJramaSKgO22KfUBmC1oypB6mGhAkVgORbIo6p4hOzPpl+7
+         A/lNYwVxh2Skbt+v0c155k/dNjruYdjN1ZyMLzJynREO1Pe+3JwHQ8L66cQ3vHmU72Bd
+         XljQYizpE6bwKrQ758w37fUNClLmvfFe+ki0JjMsitRvLVjqW00KaNIrZNBtPoj+GxY+
+         Ek5CDZ87MCbwSPYO5OQwnMfajphL1XCOgtyF+kE1BDy8OyQDpkV8lfTMO4T64Vhbf2hH
+         sLow3oN+59dsjBy7No+r2ufZ/fy8npWZQPEZqkVAnGdOaF+IYbPYoqKBnNelBatXdhne
+         JVBg==
+X-Gm-Message-State: AFuF++kYTvjxI3LXs96mxqwkn5SOUiTQ+0dFMAZuQadcSd6AI1U9ORhE
+	sRnW7qKDrIH7VsInc6puXuPKdA2571sDp87Z2eLSVLcu0LiTXRM6p1r8TsEulOzGqF5jOTV0PED
+	rAFNHXEDBn8WTEOGf2A7IN5g7ZKkKsu/4ls7eqBETfFy6VNfFnAgdk/sH8H/kiRyq6VUSDIVqNF
+	kaZgCzNmAD6v8cIe9hANyOVJ4MGLYYgeFs8d0eibcWeotKm5Y=
+X-Received: from wmol7.prod.google.com ([2002:a05:600c:47c7:b0:4a0:12d8:d3ee])
+ (user=smostafa job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:c44c:10b0:49c:fc6e:a3d7 with SMTP id 5b1f17b1804b1-4a1680f7b15mr126834325e9.22.1791293052418;
+ Tue, 06 Oct 2026 06:24:12 -0700 (PDT)
+Date: Tue,  6 Oct 2026 13:23:58 +0000
+In-Reply-To: <2026100531-budget-lyrics-f08e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <CAPa5EdCj3v17tB-SF2JNecq5Q8s1Pranr-XzAFWNpNTBPgPG7w@mail.gmail.com>
- <f73ca71a-8a22-495c-91a9-12d89968ac2c@leemhuis.info>
-In-Reply-To: <f73ca71a-8a22-495c-91a9-12d89968ac2c@leemhuis.info>
-From: =?UTF-8?B?SmFuIMSMZXJtw6Fr?= <sairon@sairon.cz>
-Date: Tue, 6 Oct 2026 15:22:13 +0200
-X-Gm-Features: AclHuK-K9pG_NO9KBdAk3iESUwUuT_Z21z8xG2zR0qRYXTeutTuoi2M9aya7o-A
-Message-ID: <CAPa5EdAxXiHKrdrUk2nrbxJzgh_B3jwkTP00+rV0-xk=2vmiiw@mail.gmail.com>
-Subject: Re: [REGRESSION][BISECTED] r8169: TX stall with checksum offload on
- VLAN frames with inline tag (REORDER_HDR off) since 1517d1996b52
-To: Thorsten Leemhuis <regressions@leemhuis.info>
-Cc: Eric Dumazet <edumazet@google.com>, Heiner Kallweit <hkallweit1@gmail.com>, netdev@vger.kernel.org, 
-	regressions@lists.linux.dev, stable@vger.kernel.org, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, nic_swsd@realtek.com, 
-	Sasha Levin <sashal@kernel.org>
+Mime-Version: 1.0
+References: <2026100531-budget-lyrics-f08e@gregkh>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20261006132358.3040035-1-smostafa@google.com>
+Subject: [PATCH] KVM: arm64: Don't use the VMA to size stage-2 block mappings
+ for VM_PFNMAP
+From: Mostafa Saleh <smostafa@google.com>
+To: stable@vger.kernel.org
+Cc: Mostafa Saleh <smostafa@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Thorsten,
+[ Upstream commit 71cc2c67fb8f8d5aa8154eb482e9846d2214f11b ]
 
-On Tue, 6 Oct 2026 at 15:10, Thorsten Leemhuis
-<regressions@leemhuis.info> wrote:
-> Not my area of expertise, so take the following carefully, as it might
-> send you in the wrong direction:
->
-> There is another issue known for 447cbe95ebb9:
-> Commit 447cbe95ebb9 causes IOMMU DMA faults on macvlan/vlan with bnxt_en
-> https://lore.kernel.org/all/20261004122616.56714cbd@nargothrond/
->
-> A fix for it is under review:
-> bnxt_en: fix DMA mapping length for padded small packets
-> https://lore.kernel.org/all/20261006042153.199444-1-edumazet@kernel.org/
->
-> Is that maybe related?
+get_vma_page_shift() derives the stage-2 block size for VM_PFNMAP VMAs
+from the VMA layout alone, which does not necessarily match what
+stage-1 maps for that VMA.
 
-I hesitate to tell it's completely unrelated, as I don't fully
-understand what breaks in our case, however, I'm quite sure that the
-fix under review won't help in case of this regression, as it's a
-breakage in a completely different ethernet driver from a different
-vendor - bnxt_en doesn't play any role on the affected systems from my
-report. But _maybe_ there will be some clues what should be fixed in
-r8169 in the discussion for the other regression.
+Upstream commit 71cc2c67fb8f ("KVM: arm64: Use stage-1 leaf size for
+VM_PFNMAP") drops that calculation and lets transparent_hugepage_adjust()
+derive the mapping size from the stage-1 leaf instead. The second part
+is not applicable here: in this kernel transparent_hugepage_adjust()
+takes a reference on the backing struct page, which is not safe for
+MMIO, and stage-1 has no huge PFNMAP before v6.12 anyway. Only drop the
+VMA-based calculation, so VM_PFNMAP VMAs are mapped at PAGE_SIZE.
 
-Thanks,
-Jan
+Fixes: 2aa53d68cee6 ("KVM: arm64: Try stage2 block mapping for host device MMIO")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mostafa Saleh <smostafa@google.com>
+---
+ arch/arm64/kvm/mmu.c | 25 ++-----------------------
+ 1 file changed, 2 insertions(+), 23 deletions(-)
+
+diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+index 7d04f9670644..c5697cbbfabe 100644
+--- a/arch/arm64/kvm/mmu.c
++++ b/arch/arm64/kvm/mmu.c
+@@ -904,32 +904,11 @@ transparent_hugepage_adjust(struct kvm *kvm, struct kvm_memory_slot *memslot,
+ 	return PAGE_SIZE;
+ }
+ 
+-static int get_vma_page_shift(struct vm_area_struct *vma, unsigned long hva)
++static int get_vma_page_shift(struct vm_area_struct *vma)
+ {
+-	unsigned long pa;
+-
+ 	if (is_vm_hugetlb_page(vma) && !(vma->vm_flags & VM_PFNMAP))
+ 		return huge_page_shift(hstate_vma(vma));
+ 
+-	if (!(vma->vm_flags & VM_PFNMAP))
+-		return PAGE_SHIFT;
+-
+-	VM_BUG_ON(is_vm_hugetlb_page(vma));
+-
+-	pa = (vma->vm_pgoff << PAGE_SHIFT) + (hva - vma->vm_start);
+-
+-#ifndef __PAGETABLE_PMD_FOLDED
+-	if ((hva & (PUD_SIZE - 1)) == (pa & (PUD_SIZE - 1)) &&
+-	    ALIGN_DOWN(hva, PUD_SIZE) >= vma->vm_start &&
+-	    ALIGN(hva, PUD_SIZE) <= vma->vm_end)
+-		return PUD_SHIFT;
+-#endif
+-
+-	if ((hva & (PMD_SIZE - 1)) == (pa & (PMD_SIZE - 1)) &&
+-	    ALIGN_DOWN(hva, PMD_SIZE) >= vma->vm_start &&
+-	    ALIGN(hva, PMD_SIZE) <= vma->vm_end)
+-		return PMD_SHIFT;
+-
+ 	return PAGE_SHIFT;
+ }
+ 
+@@ -1038,7 +1017,7 @@ static int user_mem_abort(struct kvm_vcpu *vcpu, phys_addr_t fault_ipa,
+ 		force_pte = true;
+ 		vma_shift = PAGE_SHIFT;
+ 	} else {
+-		vma_shift = get_vma_page_shift(vma, hva);
++		vma_shift = get_vma_page_shift(vma);
+ 	}
+ 
+ 	shared = (vma->vm_flags & VM_SHARED);
+-- 
+2.56.0.rc1.315.gc6ed9934b7-goog
+
