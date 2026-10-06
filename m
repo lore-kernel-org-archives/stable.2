@@ -1,53 +1,45 @@
-Received: from cvsmtppost05.nm.naver.com (cvsmtppost05.nm.naver.com [114.111.35.27])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-19.mta1.migadu.com [95.215.58.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF3854A4990
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 18:39:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.111.35.27
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5DF437EFFD
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 19:06:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791311980; cv=none; b=Pr6nRNnetlTM7N9YIlcm/+LaMKV4GHqtUgJ7V19YtGRtd9YHMZfrYGL8PRXuhavajvbCUTrcQ5wEhZzE6JeAmWlsDaBqUYvWrC149nSOe7hoz319wZqmgbfE6fe2gEXTizLn3JNLzV28ClUYKP1QgcZMzKWl5KfXdi7D0cfLY3Q=
+	t=1791313586; cv=none; b=Nf7Iomx+zg5DeR4zIVjYKqcBIST8NMtppPb/YOhO8xWUhbz6kz3MuFuc3ITsyhVs2pYAprkx/L1u34b4EbVKpXlzTd2MIAu4PGHbT+u7ldOpiZ5WheENpr2ISO/WwMKAq596G6KUsYBoGb76yV2vxQtPDWSIPetr5gfM/bCXVWQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791311980; c=relaxed/simple;
-	bh=CJi3s/0v6JU4A6iTZVVHnEv5OWBNiUuN4DmFKtXQuMA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dwiGld1qael8UwtNTkFHL7TmLW7OulTlQTIGQUwIUan6bawLTsjRSRosKw8vxYUKM7wNY275qRlNWPQdnMdkgI9fvRaPoxwhgI0QdcXqAPNmv1CfnoaV9alfF1DZzfL0EnlZfLneX9b+/0GMlykeaW85ELul4n0yKEle3oppyoU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com; spf=pass smtp.mailfrom=naver.com; dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b=fDBr9mCP; arc=none smtp.client-ip=114.111.35.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
+	s=arc-20240116; t=1791313586; c=relaxed/simple;
+	bh=9BixdBj1TQzOiLu0N7/HmWsSO2laP/29Q7rZKczxOO4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ayY/wXPRah32URSjDiuYHW2CDEHytFGCdeJjQAWIwqizE7qK9nzNbizGBJ5hdYcVKjtg4roPFDvbsRBOBCT8P5IK/elAv35Qzu66AGNrCRyfEkSTpsNDThPrXXETps4TUcN0D3EqWjw2HZt1qW29i+481qfLfblPqhjxj/jZYAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=justthetip.ca; spf=pass smtp.mailfrom=justthetip.ca; dkim=pass (2048-bit key) header.d=justthetip.ca header.i=@justthetip.ca header.b=EPsepY1v; arc=none smtp.client-ip=95.215.58.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=justthetip.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=justthetip.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b="fDBr9mCP"
-Received: from cvsendbo019.nm ([10.112.22.34])
-  by cvsmtppost05.nm.naver.com with ESMTP id sM-iipirREy52iOTQ-a36Q
-  for <stable@vger.kernel.org>;
-  Tue, 06 Oct 2026 18:39:30 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
-	t=1791311970; bh=CJi3s/0v6JU4A6iTZVVHnEv5OWBNiUuN4DmFKtXQuMA=;
-	h=From:To:Subject:Date:Message-ID:From:Subject:Feedback-ID:
-	 X-Works-Security;
-	b=fDBr9mCP0PzE6YpIx54R+cybDPyd5ognJ1ZcxaM6ozE2KieNQQLLfdVyPbnfVGKJY
-	 7UMAmIN2WQim5oOyYbpyRowerwV/IRH4zxT6+hTHcqfsvT50z2hKXwHgBLmkhjaZdV
-	 rtPJ6HJZ/ay1IYCN014CO1utXJp56Nj1hhF0Fw0iN1KpD+3PdakDTc+RVTNk3OW3b3
-	 +GsUc8g8Bm2jlBKh5Jco7d+7Az3hLW5N9S9bWO8Lq1CTd79qG6kbzX6ZGH3R1adE1Q
-	 BdHBHxRE9nbvBV0gDs2eoEnftrngQ+Sr+yreJffc4oJuwKZxYFVXVOIjXaIcJbFT/2
-	 JNjvim/2YFc9A==
-X-Session-ID: zJjiOR3iRcuLxonRdmXMKQ
-X-Works-Send-Opt: OPRwpzGdjHmdKHFOMr39Ko3YKHmrjAudFqM9KqMqFxIYkEljxBmwjAg=
-X-Works-Smtp-Source: sdbXKoulFqJZ+HmmFqEl+6E=
-Received: from localhost.localdomain ([115.136.205.4])
-  by cvnsmtp007.nm.naver.com with ESMTP id zJjiOR3iRcuLxonRdmXMKQ
-  for <multiple recipients>
-  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-  Tue, 06 Oct 2026 18:39:30 -0000
-From: sungbyeongchan <tjdqudcks0424@naver.com>
-To: Zhu Yanjun <zyjzyj2000@gmail.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>
-Cc: linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=justthetip.ca header.i=@justthetip.ca header.b="EPsepY1v"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=9BixdBj1TQzOiLu0N7/HmWsSO2laP/29Q7rZKczxOO4=;
+ c=simple/simple; d=justthetip.ca;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791313581; v=1; x=1791918381;
+ b=EPsepY1vMPfdsG4U+141M0yGXQ4Hpvi3TR7xsCkHehK3Mwn1yGBeJ73Ysd7d+Yh5aJRXJkjD
+ 1iPEbwC3jT3G0gXYVBA8uwXCZdhj9sktgLfXGCyvuzY7hjpcOCgIQf3KcheUdCTkQXCfQho85Nq
+ AIMQkAjf3aDlzP5+YfhiVL8mH2L7JxKA2cYV/82Lq8kP/6mfLoINBYNZVlPydNKcAix+5wabsaU
+ lg8yN0idrD0DVBKe5SHkna4JqWAo0D4YV2OfpnK3u1WcjdD3IWj7/makz3miBzD/laMR/8HVjJa
+ u51yUjrx9oOsjKAwnIhvknm5d22P0jAZCsJtlSer5NOsg==
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6d0fc2d441671710;
+	Tue, 06 Oct 2026 19:06:21 +0000
+X-Mizu-Trace-ID: 6d0fc2d441671710
+X-Migadu-Flow: FLOW_OUT
+From: Devin Wittmayer <lucid_duck@justthetip.ca>
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: linux-wireless@vger.kernel.org,
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
+	Nick Morrow <morrownr@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] RDMA/rxe: enforce memory window ranges
-Date: Wed,  7 Oct 2026 03:39:18 +0900
-Message-ID: <20261006183919.1304642-1-tjdqudcks0424@naver.com>
-X-Mailer: git-send-email 2.43.0
+Subject: [PATCH rtw-next] wifi: rtw89: usb: shorten the RX aggregation hold on RTL8922AU
+Date: Tue,  6 Oct 2026 12:06:18 -0700
+Message-ID: <20261006190618.258037-1-lucid_duck@justthetip.ca>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -56,65 +48,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-RXE records the address and length authorized by an MW bind, but the
-responder does not compare a remote request with that interval. After
-validating the MW key, PD, QP, access, and state, check_rkey() selects the
-backing MR and applies only the broader MR range check.
+The RTL8922AU holds received frames for up to a millisecond before
+handing them to the host, a value carried over from the RTL8852CU.
+That adds up to a millisecond of round trip, and under load at 160 MHz
+the access point drops to lower rates and download suffers.
 
-A peer with a valid rkey for a 64-byte type-2 MW could consequently READ
-and WRITE another address in the same 4096-byte backing MR. In two runs,
-an eight-byte READ returned the exact nondelegated sentinel and an
-eight-byte WRITE replaced it with the peer's chosen bytes. In-window
-operations succeeded and a request crossing the backing-MR end was
-rejected.
+Shorten the hold on this chip. Upload is unchanged, and so is download
+on a USB 2 port, where the bus is the limit. The cost is some extra CPU
+at the same load.
 
-Check the complete request extent against the MW interval before selecting
-the backing MR. Use subtraction-form comparisons to avoid addition overflow
-and handle zero-based MWs relative to address zero.
+RTL8922AU on USB 3 at 160 MHz, power save off for the round trip:
 
-The fixed kernel rejects outside-window READ and WRITE with remote-access
-errors while preserving normal in-window READ and WRITE.
+                         x86, 6 GHz    x86, 5 GHz    Pi 5, 6 GHz
+                        before after  before after  before after
+  TCP down, 1 flow        613  1002     579   948     586   999  Mbps
+  TCP down, 8 flows       656  1187     629  1080     605  1108  Mbps
+  round trip             2.33  1.29    2.25  1.18    1.44  0.88  ms
+  busiest core, UDP 200M  8.4  12.8     8.3  12.9     2.3   2.8  %
 
-The demonstrated impact is access to registered userspace memory outside
-the delegated MW. Kernel memory access, code execution, and privilege
-escalation were not demonstrated.
-
-Fixes: cdd0b85675ae ("RDMA/rxe: Implement memory access through MWs")
+Fixes: 32cee8a9bb66 ("wifi: rtw89: usb: Enable RX aggregation for RTL8922AU")
+Reported-by: Nick Morrow <morrownr@gmail.com>
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: sungbyeongchan <tjdqudcks0424@naver.com>
+Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
 ---
- drivers/infiniband/sw/rxe/rxe_resp.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+Ping-Ke, Bitterblue pointed me to you, since the 32 came from Realtek.
+Realtek's 8852CU driver uses it as the default and also has a
+small-packet mode that sets the hold to 1, the value this patch uses.
+If the longer default is there for a reason these tests would miss,
+please let me know, thank you.
 
-diff --git a/drivers/infiniband/sw/rxe/rxe_resp.c b/drivers/infiniband/sw/rxe/rxe_resp.c
-index 02b16e2b49b8f..01eb111f81ca6 100644
---- a/drivers/infiniband/sw/rxe/rxe_resp.c
-+++ b/drivers/infiniband/sw/rxe/rxe_resp.c
-@@ -520,6 +520,8 @@ static enum resp_states check_rkey(struct rxe_qp *qp,
- 	pktlen	= payload_size(pkt);
+ drivers/net/wireless/realtek/rtw89/usb.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/net/wireless/realtek/rtw89/usb.c b/drivers/net/wireless/realtek/rtw89/usb.c
+index dbad42c17761..3dc4c97bba50 100644
+--- a/drivers/net/wireless/realtek/rtw89/usb.c
++++ b/drivers/net/wireless/realtek/rtw89/usb.c
+@@ -821,7 +821,7 @@ static void rtw89_usb_rx_agg_cfg_v3(struct rtw89_dev *rtwdev)
+ {
+ 	const u32 rxagg_0 = FIELD_PREP_CONST(B_BE_RXAGG_0_EN, 1) |
+ 			    FIELD_PREP_CONST(B_BE_RXAGG_0_NUM_TH, 255) |
+-			    FIELD_PREP_CONST(B_BE_RXAGG_0_TIME_32US_TH, 32) |
++			    FIELD_PREP_CONST(B_BE_RXAGG_0_TIME_32US_TH, 1) |
+ 			    FIELD_PREP_CONST(B_BE_RXAGG_0_BUF_SZ_1K, 20);
  
- 	if (rkey_is_mw(rkey)) {
-+		u64 mw_start;
-+
- 		mw = rxe_lookup_mw(qp, access, rkey);
- 		if (!mw) {
- 			rxe_dbg_qp(qp, "no MW matches rkey %#x\n", rkey);
-@@ -527,6 +529,14 @@ static enum resp_states check_rkey(struct rxe_qp *qp,
- 			goto err;
- 		}
- 
-+		mw_start = (mw->access & IB_ZERO_BASED) ? 0 : mw->addr;
-+		if (unlikely(va < mw_start || resid > mw->length ||
-+			     va - mw_start > mw->length - resid)) {
-+			rxe_dbg_qp(qp, "request outside MW range\n");
-+			state = get_rkey_violation_state(pkt);
-+			goto err;
-+		}
-+
- 		mr = mw->mr;
- 		if (!mr) {
- 			rxe_dbg_qp(qp, "MW doesn't have an MR\n");
+ 	rtw89_write32(rtwdev, R_BE_RXAGG_0_V1, rxagg_0);
 -- 
-2.43.0
+2.55.0
 
