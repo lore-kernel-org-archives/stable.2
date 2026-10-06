@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43C42282F1C
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 07:42:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3775638E5C5
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 07:43:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791272571; cv=none; b=kJ9E4IBWsfeY74jz0+nvzmXYh17V84X9rdiGnpypfk+yXhswGe2UAqdDYbVL1Gzy+FLiJPNHKGtUkgLjJ832UymkN7AoXqwI6f/ieK7tXjD4jwqNXE+lIlPXJEWthfyKVFNrpUVGcetqfXBEKOAX1j6mmnqjGL1qXAvbxap5bRE=
+	t=1791272591; cv=none; b=TkJoSoMFnOuKpmxKRy/4uIlZ27yd3wOxPlcwOyyNEHP/+z80p8MhFjZmDRJa7Uq3J0zq27b3Ht1l0AXwsmVg3K8qFj1M0d8SK3f2pzGw1t9oKvMPjPT78wQso6etkr87704hfzBg8nZjgMe1gEcWhBrU0UVoJdmPyMVp9d2Z4ZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791272571; c=relaxed/simple;
-	bh=3T1BHylXpDUcP0ReHvhEiQm59Eh3hJv1IcDjWEU43mo=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=VGphADbwh0jMfe+Mrishm52jSzgVAeU01Xr0SpOkx64LVhrr3ftJ2f4LSmqLjeSdalxK6MtgR3p8yx/hPcnUNkWrjQ4DdHe8zkA+CEngrMVVOPEFb0ViF8F5hHBY8pJ7pHvCfEOSaWU6rUdM4R0aWLTN9jljJlyxqxjvCV9H3kQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=S/u+X//b; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791272591; c=relaxed/simple;
+	bh=Mynqf854UW0KyB1DgzkOrS9dsHmla0GHZ0b391JucZY=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=f7+Zbjgn2/8ByVbqVfEv6jSkxnzm/TBaEpGM4026AiihON3FaPhHoFPCqmJyaMqA5uoeFGjieYS/+VaqFwPWnniLa/bIwFClpCa0uXwEcqEBYrNaP8rUR9OviV5NS5NqoOhT27vsbngwdwnvIjDG7HRqzrz8v8W2l8MoiUdDUNU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=B5ir00uL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="S/u+X//b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FACF1F000FF;
-	Tue,  6 Oct 2026 07:42:49 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="B5ir00uL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 971181F000FF;
+	Tue,  6 Oct 2026 07:43:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791272569;
-	bh=PGhodk25StXm0lYaQH+vbArDY36nA1Ce19TGrJvNfds=;
+	s=korg; t=1791272590;
+	bh=CHjIwxSl9++LuetOFkR2NSg2f1R97bmwIu68dlZWOBg=;
 	h=Subject:To:Cc:From:Date;
-	b=S/u+X//bMV8iM6x3DyKyJxq8lWzz/YZ66JuvCCbcohv7ysTN0VioGuMdKJeg9U+f6
-	 L396Eo0bUeThhZ5tZ1T+UElqIF2eAfKaPfg+2bS91csUI9p2JC40bpc+HKte4EYy0W
-	 io8t+9CnlAG3bGdp8FiMrvmQTO146jFCI5ZN0ZeU=
-Subject: FAILED: patch "[PATCH] iio: accel: kionix-kx022a: Prevent memory leak and fix state" failed to apply to 6.12-stable tree
-To: mazziesaccount@gmail.com,jonathan.cameron@oss.qualcomm.com,mehdi.djait@linux.intel.com
+	b=B5ir00uLaAebpqk7+ckUrdkMX7kB46mErDNp7x7FUKpqnoMKdj6aQqlrzA1VwyFmu
+	 iO/TK8zXu4JW0Ez+rWwqA59lh7wHdoOAsQU5ND7YKEqvpUbdvYDrRfoAJybAlZs1SC
+	 AlSpdzSByTQTLAa+AFfm/2CQaCkeE/JmHHNx/bFk=
+Subject: FAILED: patch "[PATCH] iio: adc: ad4030: fix invalid oversampling_ratio validation" failed to apply to 6.18-stable tree
+To: salah.triki@gmail.com,andriy.shevchenko@intel.com,jonathan.cameron@oss.qualcomm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 06 Oct 2026 09:42:42 +0200
-Message-ID: <2026100642-onslaught-extruding-e802@gregkh>
+Date: Tue, 06 Oct 2026 09:43:06 +0200
+Message-ID: <2026100606-wolf-obsessed-e5c2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x e65e128b51a37dd1a9056ac3d1705d805a5c8bb0
+git cherry-pick -x d615210564205993e8f0e7ccb57cc2e66b7d5706
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100642-onslaught-extruding-e802@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100606-wolf-obsessed-e5c2@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,78 +62,51 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From e65e128b51a37dd1a9056ac3d1705d805a5c8bb0 Mon Sep 17 00:00:00 2001
-From: Matti Vaittinen <mazziesaccount@gmail.com>
-Date: Wed, 2 Sep 2026 11:49:05 +0300
-Subject: [PATCH] iio: accel: kionix-kx022a: Prevent memory leak and fix state
+From d615210564205993e8f0e7ccb57cc2e66b7d5706 Mon Sep 17 00:00:00 2001
+From: Salah Triki <salah.triki@gmail.com>
+Date: Thu, 3 Sep 2026 12:43:09 +0100
+Subject: [PATCH] iio: adc: ad4030: fix invalid oversampling_ratio validation
 
-The driver allocates memory for samples at buffer enable path. If regmap
-operation fails in the kx022a_fifo_enable() at the buffer enable path, the
-allocated memory is never freed. Furthermore, the state information and
-previous hardware configuration(s) aren't undone, potentially leaving
-WMI interrupts and buffers enabled, or driver state flags wrong.
+In ad4030_set_avg_frame_len(), the logarithm is calculated before input
+validation. Passing zero or negative values leads to an undefined result
+from ilog2().
 
-Free the memory and revert the hardware configuration and state flags on
-error path.
+Validate that the input is strictly positive prior to computing its
+logarithm.
 
-Fixes: e7123a4dfcd7 ("iio: accel: kionix-kx022a: Refactor driver and add chip_info structure")
-Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
-Reviewed-by: Mehdi Djait <mehdi.djait@linux.intel.com>
+Fixes: 949abd1ca5a4 ("iio: adc: ad4030: add averaging support")
+Assisted-by: LLM
+Signed-off-by: Salah Triki <salah.triki@gmail.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 Cc: stable@vger.kernel.org
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 
-diff --git a/drivers/iio/accel/kionix-kx022a.c b/drivers/iio/accel/kionix-kx022a.c
-index f671fab3dc31..9ff70a373141 100644
---- a/drivers/iio/accel/kionix-kx022a.c
-+++ b/drivers/iio/accel/kionix-kx022a.c
-@@ -980,26 +980,44 @@ static int kx022a_fifo_enable(struct kx022a_data *data)
- 	guard(mutex)(&data->mutex);
- 	ret = __kx022a_turn_on_off(data, false);
- 	if (ret)
--		return ret;
-+		goto err_free_out;
+diff --git a/drivers/iio/adc/ad4030.c b/drivers/iio/adc/ad4030.c
+index e97400a1aa48..877b06007396 100644
+--- a/drivers/iio/adc/ad4030.c
++++ b/drivers/iio/adc/ad4030.c
+@@ -746,14 +746,21 @@ static int ad4030_set_chan_calibbias(struct iio_dev *indio_dev,
+ static int ad4030_set_avg_frame_len(struct iio_dev *dev, int avg_val)
+ {
+ 	struct ad4030_state *st = iio_priv(dev);
+-	unsigned int avg_log2 = ilog2(avg_val);
+ 	unsigned int last_avg_idx = ARRAY_SIZE(ad4030_average_modes) - 1;
++	unsigned int avg_log2;
+ 	int freq_hz;
+ 	int ret;
  
- 	/* Update watermark to HW */
- 	ret = kx022a_fifo_set_wmi(data);
- 	if (ret)
--		return ret;
-+		goto err_turn_on_out;
+-	if (avg_val < 0 || avg_val > ad4030_average_modes[last_avg_idx])
++	/* Reject unsupported modes */
++	if (avg_val > ad4030_average_modes[last_avg_idx])
+ 		return -EINVAL;
  
- 	/* Enable buffer */
- 	ret = regmap_set_bits(data->regmap, data->chip_info->buf_cntl2,
- 			      KX022A_MASK_BUF_EN);
- 	if (ret)
--		return ret;
-+		goto err_turn_on_out;
- 
- 	data->state |= KX022A_STATE_FIFO;
- 	ret = regmap_set_bits(data->regmap, data->ien_reg,
- 			      KX022A_MASK_WMI);
- 	if (ret)
--		return ret;
-+		goto err_buf_disable_out;
- 
--	return __kx022a_turn_on_off(data, true);
-+	ret = __kx022a_turn_on_off(data, true);
-+	if (ret)
-+		goto err_wmi_clear_out;
++	/* Avoid invalid values for logarithm since it's undefined */
++	if (avg_val < 1)
++		return -EINVAL;
 +
-+	return ret;
++	avg_log2 = ilog2(avg_val);
 +
-+err_wmi_clear_out:
-+	regmap_clear_bits(data->regmap, data->ien_reg,
-+			  KX022A_MASK_WMI);
-+err_buf_disable_out:
-+	regmap_clear_bits(data->regmap, data->chip_info->buf_cntl2,
-+			  KX022A_MASK_BUF_EN);
-+	data->state &= ~KX022A_STATE_FIFO;
-+err_turn_on_out:
-+	__kx022a_turn_on_off(data, true);
-+err_free_out:
-+	kfree(data->fifo_buffer);
-+
-+	return ret;
- }
- 
- static int kx022a_buffer_postenable(struct iio_dev *idev)
+ 	if (st->offload_trigger) {
+ 		/*
+ 		 * The sample averaging and sampling frequency configurations
 
