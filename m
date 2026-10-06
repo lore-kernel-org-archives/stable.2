@@ -1,127 +1,173 @@
-Received: from mx01.omp.ru (mx01.omp.ru [90.154.21.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D21D3E40EF;
-	Tue,  6 Oct 2026 16:08:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.154.21.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 118393E40EF
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 16:09:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791302940; cv=none; b=na9kzQio63jF8HJ5kt0XDllfYm17BcKcWZQZVCbt8shceUVRGuPdVlUXE8TToJrF19T4Ez9aujJbAWjlFhRbbCZRJc+bGvAZcUrou9PbFfDC48mzD8bCsP5+xipCE9UFt7uhik+BwNYmKRiVLKVe3nU4n6nWNH1+LLa+yPXv8ZM=
+	t=1791302951; cv=none; b=d2DLI4lubw7evJD6noFzEBcpQfx+V91HWnOV7sBrq0XZ/6HATpwP49JWnFmIo29i8zXsA2FXR14hxlV+pzdwjgtA4DaPCjcHbjCOarAaUX8UIrpOJfL+0yUCmAEoruF+vQnrwH69eEFuoKl65WX4yFSHCe52++Syli2fa/4ydkA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791302940; c=relaxed/simple;
-	bh=a+jfnn4EpxUTdTpHVi2Jp0n2tIf21E2mpQIDZSU7dVk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=lFgSNy3ZcIydZb4UHuCKLdB4jPYyiderNvlB2Q9Funfm5G6g42oI0q2WehQzUFkdt4Dsq/dm/HpCh0heZqvHLE65lnV/qBzj0CsF0juZhWP2VEpbwCIIBhai6G7iKIlwnBM1iMGBqnESympWMrlZWAAqiM35vIwGZR76hJAO55g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=omp.ru; spf=pass smtp.mailfrom=omp.ru; arc=none smtp.client-ip=90.154.21.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=omp.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=omp.ru
-Received: from [192.168.2.104] (91.79.33.31) by msexch01.omp.ru (10.188.4.12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.1258.12; Tue, 6 Oct
- 2026 19:08:34 +0300
-Message-ID: <01c2f59d-8e22-434a-9f5b-b69608c3eae2@omp.ru>
-Date: Tue, 6 Oct 2026 19:08:33 +0300
+	s=arc-20240116; t=1791302951; c=relaxed/simple;
+	bh=436J2VeczdXRn6xBDJNx8Y0BX5xKwnwxhi3qG7gjOJQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=tIT2sFPP5VXoUMRmyrNe8/ghjfhNagGDc/0G2DGog4sksE1kZhzSo8Bf5hzGM7GfAkgr72+RujhbxKrQXqlQa247yND0iDpxV+O6lAR4a9FcqH0BnNvbbZMmKb4i/+fEbh545gVj5/IoKJdKdx5iMl1gzc1DtF3+qqqSMeYAOW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jy6Hza5+; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jy6Hza5+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 563221F0089B;
+	Tue,  6 Oct 2026 16:09:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791302949;
+	bh=L/cOhERCRDCIQKGzfsZegmQ43nVHGg1nEZa28Kq2vAw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Jy6Hza5+nK/vtiodrgQUwcFD+U+/2vb5RCebSzekunY98gU3jGkGOfjNRMFO2d98S
+	 gV4kNSL2qGIAfS3H487UNl/B0lbS5jWoq5LcITQN8xTq2QoGYweGpdimpi2NQncLuZ
+	 6XNBWQic/1tBtrmPWuxKWn0WC4Z5ivIIAptTPwFLLaf0GfWWuLvUqBVWu2Tx83tXhy
+	 EbmN4lxYpZEav7V21srzg7gS3FAD0CEJvVnUcUrJyODPUJ0jR+/TE6fgkTJCjJJl70
+	 j7xF4Nz+MX1eOrXn1nPELnzHpIfBNIlhkZwE/nwtcadihYrfp8t4oRU2b8q1QtFbPz
+	 k4649RWz0JuCA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Mostafa Saleh <smostafa@google.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] KVM: arm64: Use stage-1 leaf size for VM_PFNMAP
+Date: Tue,  6 Oct 2026 12:09:05 -0400
+Message-ID: <20261006160846.858646-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026100530-impulse-jiffy-87f1@gregkh>
+References: <2026100530-impulse-jiffy-87f1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 6/7] net: ravb: fix resource teardown ordering
-To: jiale yao <19888972804@163.com>
-CC: =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, Paul
- Barker <paul@pbarker.dev>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
- Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Mitsuhiro Kimura
-	<mitsuhiro.kimura.kc@renesas.com>, Claudiu Beznea
-	<claudiu.beznea.uj@bp.renesas.com>, <netdev@vger.kernel.org>,
-	<linux-renesas-soc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>
-References: <20260927144741.1320558-1-yaojiale02@163.com>
- <20260927144741.1320558-7-yaojiale02@163.com>
- <3b43b4fb-8479-4eb2-be58-1df6f0f747b9@omp.ru>
- <12190bf2.18c1.1a0f004c539.Coremail.19888972804@163.com>
- <b85d8dc9-b787-40e0-bbaf-027df2c3bf49@omp.ru>
- <222db01f.1264.1a101087434.Coremail.19888972804@163.com>
-Content-Language: en-US
-From: Sergey Shtylyov <s.shtylyov@omp.ru>
-Organization: Open Mobile Platform
-In-Reply-To: <222db01f.1264.1a101087434.Coremail.19888972804@163.com>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: msexch01.omp.ru (10.188.4.12) To msexch01.omp.ru
- (10.188.4.12)
-X-KSE-ServerInfo: msexch01.omp.ru, 9
-X-KSE-AntiSpam-Interceptor-Info: scan successful
-X-KSE-AntiSpam-Version: 6.1.1, Database issued on: 10/06/2026 15:56:59
-X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
-X-KSE-AntiSpam-Method: none
-X-KSE-AntiSpam-Rate: 19
-X-KSE-AntiSpam-Info: Lua profiles 206480 [Oct 06 2026]
-X-KSE-AntiSpam-Info: Version: 6.1.1.27
-X-KSE-AntiSpam-Info: Envelope from: s.shtylyov@omp.ru
-X-KSE-AntiSpam-Info: LuaCore: 127 0.3.127
- 0884f7b061fa529b810563f359267cd65d2ec05c
-X-KSE-AntiSpam-Info: {rep_avail}
-X-KSE-AntiSpam-Info: {diag_burst_silent}
-X-KSE-AntiSpam-Info: {Tracking_uf_ne_domains}
-X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
-X-KSE-AntiSpam-Info: {SMTP from is not routable}
-X-KSE-AntiSpam-Info: {Found in DNSBL: 91.79.33.31 in (user)
- b.barracudacentral.org}
-X-KSE-AntiSpam-Info:
-	d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;lore.kernel.org:7.1.1;127.0.0.199:7.1.2;omp.ru:7.1.1
-X-KSE-AntiSpam-Info: {Tracking_ip_hunter}
-X-KSE-AntiSpam-Info: FromAlignment: s
-X-KSE-AntiSpam-Info: ApMailHostAddress: 91.79.33.31
-X-KSE-AntiSpam-Info: {DNS response errors}
-X-KSE-AntiSpam-Info: Rate: 19
-X-KSE-AntiSpam-Info: Status: not_detected
-X-KSE-AntiSpam-Info: Method: none
-X-KSE-AntiSpam-Info: Auth:dmarc=temperror header.from=omp.ru;spf=temperror
- smtp.mailfrom=omp.ru;dkim=none
-X-KSE-Antiphishing-Info: Clean
-X-KSE-Antiphishing-ScanningType: Heuristic
-X-KSE-Antiphishing-Method: None
-X-KSE-Antiphishing-Bases: 10/06/2026 15:58:00
-X-KSE-Antivirus-Interceptor-Info: scan successful
-X-KSE-Antivirus-Info: Clean, bases: 10/6/2026 3:38:00 PM
-X-KSE-Attachment-Filter-Triggered-Rules: Clean
-X-KSE-Attachment-Filter-Triggered-Filters: Clean
-X-KSE-BulkMessagesFiltering-Scan-Result: InTheLimit
 
-On 10/3/26 12:11 PM, jiale yao wrote:
+From: Mostafa Saleh <smostafa@google.com>
 
-[...]
+[ Upstream commit 71cc2c67fb8f8d5aa8154eb482e9846d2214f11b ]
 
->> On 9/30/26 4:53 AM, jiale yao wrote:
->>
->> [...]
->>
->>> Thanks for your review.
->>
->>   Top-posting on the kernel MLs is a bad idea... :-)
->>
->>> You're right — I'll split this into two patches:
->>> One patch for the IRQ/netdev ordering issue.
->>> One patch for the runtime PM resume failure handling.
->>> I'll use --no-git-fallback next time, sorry for this.
-> 
-> v3 in https://lore.kernel.org/all/20261003085940.493951-7-yaojiale02@163.com/
-> It only addresses the IRQ/netdev teardown ordering issue. The runtime
-> PM resume failure handling has been left unchanged.
+When commit 2aa53d68cee6 ("KVM: arm64: Try stage2 block mapping for
+host device MMIO") added VM_PFNMAP support to get_vma_page_shift(),
+stage-1 page tables did not support huge PFNMAP (as in VFIO-PCI
+vfio_pci_mmap_huge_fault()) and transparent_hugepage_adjust() was
+unsafe for MMIO as it dereferenced struct page.
 
-   Too bad you forgot to address Niklas' comment this time... :-)
+Since commit 6011cf68c885 ("KVM: arm64: Walk userspace page tables to
+compute the THP mapping size"), transparent_hugepage_adjust() instead
+walks the host stage-1 page tables via get_user_mapping_size() without
+touching struct page. Meanwhile, commit 3e509c9b03f9 ("mm/arm64:
+support large pfn mappings") enabled stage-1 huge PFNMAP.
 
-> I plan to submit the runtime PM fix separately after the patch above
-> has been applied, to avoid conflicts between the two changes, or any
-> other suggestion?
+So. we can drop the VMA-based VM_PFNMAP size calculation in
+get_vma_page_shift() and let transparent_hugepage_adjust() derive
+the stage-2 mapping size directly from the populated stage-1 leaf
+for non-cacheable mappings as well.
 
-   Yeah, it seems a good idea to address the broken commits in the
-chronological order... However, the fixes seem pretty much orthogonal
-to each other?
+Assisted-by: LLM
+Cc: stable@vger.kernel.org
+Fixes: 2aa53d68cee6 ("KVM: arm64: Try stage2 block mapping for host device MMIO")
+Reviewed-by: Marc Zyngier <maz@kernel.org>
+Signed-off-by: Mostafa Saleh <smostafa@google.com>
+Signed-off-by: Oliver Upton <oupton@kernel.org>
+[ sashal: Adapted upstream helper changes to the monolithic user_mem_abort() implementation. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ arch/arm64/kvm/mmu.c | 46 ++++++--------------------------------------
+ 1 file changed, 6 insertions(+), 40 deletions(-)
 
-[...]
-
-MBR, Sergey
+diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+index 2dae3fcb7a7f7..af50fed5b5975 100644
+--- a/arch/arm64/kvm/mmu.c
++++ b/arch/arm64/kvm/mmu.c
+@@ -1406,32 +1406,11 @@ transparent_hugepage_adjust(struct kvm *kvm, struct kvm_memory_slot *memslot,
+ 	return PAGE_SIZE;
+ }
+ 
+-static int get_vma_page_shift(struct vm_area_struct *vma, unsigned long hva)
++static int get_vma_page_shift(struct vm_area_struct *vma)
+ {
+-	unsigned long pa;
+-
+-	if (is_vm_hugetlb_page(vma) && !(vma->vm_flags & VM_PFNMAP))
++	if (is_vm_hugetlb_page(vma))
+ 		return huge_page_shift(hstate_vma(vma));
+ 
+-	if (!(vma->vm_flags & VM_PFNMAP))
+-		return PAGE_SHIFT;
+-
+-	VM_BUG_ON(is_vm_hugetlb_page(vma));
+-
+-	pa = (vma->vm_pgoff << PAGE_SHIFT) + (hva - vma->vm_start);
+-
+-#ifndef __PAGETABLE_PMD_FOLDED
+-	if ((hva & (PUD_SIZE - 1)) == (pa & (PUD_SIZE - 1)) &&
+-	    ALIGN_DOWN(hva, PUD_SIZE) >= vma->vm_start &&
+-	    ALIGN(hva, PUD_SIZE) <= vma->vm_end)
+-		return PUD_SHIFT;
+-#endif
+-
+-	if ((hva & (PMD_SIZE - 1)) == (pa & (PMD_SIZE - 1)) &&
+-	    ALIGN_DOWN(hva, PMD_SIZE) >= vma->vm_start &&
+-	    ALIGN(hva, PMD_SIZE) <= vma->vm_end)
+-		return PMD_SHIFT;
+-
+ 	return PAGE_SHIFT;
+ }
+ 
+@@ -1655,10 +1634,6 @@ static int user_mem_abort(struct kvm_vcpu *vcpu, phys_addr_t fault_ipa,
+ 	if (ret)
+ 		return ret;
+ 
+-	/*
+-	 * Let's check if we will get back a huge page backed by hugetlbfs, or
+-	 * get block mapping for device MMIO region.
+-	 */
+ 	mmap_read_lock(current->mm);
+ 	vma = vma_lookup(current->mm, hva);
+ 	if (unlikely(!vma)) {
+@@ -1670,7 +1645,7 @@ static int user_mem_abort(struct kvm_vcpu *vcpu, phys_addr_t fault_ipa,
+ 	if (force_pte)
+ 		vma_shift = PAGE_SHIFT;
+ 	else
+-		vma_shift = get_vma_page_shift(vma, hva);
++		vma_shift = get_vma_page_shift(vma);
+ 
+ 	switch (vma_shift) {
+ #ifndef __PAGETABLE_PMD_FOLDED
+@@ -1786,16 +1761,6 @@ static int user_mem_abort(struct kvm_vcpu *vcpu, phys_addr_t fault_ipa,
+ 			if (!kvm_supports_cacheable_pfnmap())
+ 				ret = -EFAULT;
+ 		} else {
+-			/*
+-			 * If the page was identified as device early by looking at
+-			 * the VMA flags, vma_pagesize is already representing the
+-			 * largest quantity we can map.  If instead it was mapped
+-			 * via __kvm_faultin_pfn(), vma_pagesize is set to PAGE_SIZE
+-			 * and must not be upgraded.
+-			 *
+-			 * In both cases, we don't let transparent_hugepage_adjust()
+-			 * change things at the last minute.
+-			 */
+ 			s2_force_noncacheable = true;
+ 		}
+ 	} else if (logging_active && !write_fault) {
+@@ -1826,9 +1791,10 @@ static int user_mem_abort(struct kvm_vcpu *vcpu, phys_addr_t fault_ipa,
+ 
+ 	/*
+ 	 * If we are not forced to use page mapping, check if we are
+-	 * backed by a THP and thus use block mapping if possible.
++	 * backed by a huge stage-1 mapping and thus use block mapping if
++	 * possible.
+ 	 */
+-	if (vma_pagesize == PAGE_SIZE && !(force_pte || s2_force_noncacheable)) {
++	if (vma_pagesize == PAGE_SIZE && !force_pte) {
+ 		if (fault_is_perm && fault_granule > PAGE_SIZE)
+ 			vma_pagesize = fault_granule;
+ 		else
+-- 
+2.53.0
 
