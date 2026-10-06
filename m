@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA70E3909AB
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 17:56:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77F3045D90B
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 17:56:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791309370; cv=none; b=JMAmaMGqX9xtwoXMsv82PZ3vG9bCTBwIQutp6hKoc2h+NI4V7O2ZTXGJ8MIn4a4J4ADJXvffp5rTdiXqz1R6IUw9EHrrVZ9ST9GFGH0ZuDalPxUktkhxPXpVzBZ715B87IxeWMaemaSOU3IEZijLttLUdZUQlWxEsV0P+frWJZI=
+	t=1791309381; cv=none; b=gBJSH5R4cTP8M4jVZg8P+QCgqu5/A/5w4JUAykDdF4Hero30EL4VE09AMMyEJGMGWcGvDlYiwi6ZXnf6AzCUwvNcTWvfb3u5zYilhgcs5fCAiCNgk31byJB8cYNZgjA/EttOgEU4aIzsDwwfYEgUdnxOt8rlaUOVcgDIIuqjAx4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791309370; c=relaxed/simple;
-	bh=BSCMTVPQ6a6tRzPxRXGGg+7ybrqOfOgvd89qPYHe2iA=;
+	s=arc-20240116; t=1791309381; c=relaxed/simple;
+	bh=pOYItHSYZNyiYuR8MNj++qEsyc67iCUDUcoXKcSpZws=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=FmLbMEUej68SUmkLzHAsaKgsbFyp+su7h+wOLf4lz0TrRZJ48HcSGP5Cr+JRLrSDwFhZctxzL23sKsCNeM77L2fkhn8icHNyiIc9UBnC4ZPc+ajKHpSYY2ypp+RJDCpk8KQv2j1dPcmCdToYuhFQO5G8NxSMDgOm3mMpovajgvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=La4nSko2; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=tUPDuAU8yDCi6ZoNhn2ty6/AND80tNaTv/AGz7ClLD6CFG7oHTk9K1j1zjGIwDWavEModZuQYAqsv+wmmQDsw3vGYb/ZnOHTluE5InRHVLKtQ9r11gyrysBMGPB4mHJSJZ1wzAzH5Hl5d+ar04va6Rb5xzh4E4kh44/o98B5FIc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bD+D3qwP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="La4nSko2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 372701F0089B;
-	Tue,  6 Oct 2026 17:56:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bD+D3qwP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDEB61F0089B;
+	Tue,  6 Oct 2026 17:56:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791309369;
-	bh=WVwxlsJJHYaj422WVq0nQKlrZp6E3cKYb4X46c9WUgU=;
+	s=k20260515; t=1791309380;
+	bh=6KKwVvOW/qLdyCKfqBLC5sQBRnsPRNGvtsWE/n+3UT0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=La4nSko2hMe5N53NtjpTaPlN2opKqWRoxOLtIWamrOAdeFLCCqroDImK70kjSQjGC
-	 w2+v47hJjivbK12TYbdpRQrv/E+izyWXFZkxLXX8Lo6GHNZAKyX3DzxeDnnI67Tm4Q
-	 u7NH1perQdQRpOAJRomnPeJ9iDlN36kry6sGApTejxHdGRuUTXTSRGGQDQm7xhFuuz
-	 r1GXAP+p09vLeTUFXkxWWEgDl3n0BhR6mR0oIYsWFTHkGHB01IgBBwrGNPG6zOmumL
-	 q7kel8urAVXEbRuRAeq4ryEXDswxbvtCNu3NeHd2wYEKhRBb8MXVa8m9tL7znQU0R/
-	 L4LWe0ucf7mPw==
+	b=bD+D3qwPBXkwDCmbOzOQqkibEtaf+pvxh0WvpzpJgOHvdmHQdEl0nOYjbaS5dmmHB
+	 KK7SiaMrrmNcFlEHI5fDgTVAjKHpw0xZqT1qesXR8jJN9sX7qr04rlCSSBC1+gfn5H
+	 qvZ+5cZbuMCvlA5JqGnldD2tlHDuvR1AaMr3Q0OpjWTajQ0iGdQ8Zkr0ckfi/3qHSO
+	 w40ENXaFFqAkUAPRUmyfejZmG/xuKpYhUK4tXtcFrNZtsQFsksmdi0lGYm19ia3eV8
+	 3qFD/GCFy9DUbJ6xVNXT1PUGZPcJYC3X0xywq3JnXy+I3of7bkCUsOzAti7U8rmqtI
+	 1jWDDMPpro8BA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
+Cc: Mostafa Saleh <smostafa@google.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] mtd: spinand: fix NULL pointer dereference with no ECC engine
-Date: Tue,  6 Oct 2026 13:56:05 -0400
-Message-ID: <20261006175526.928344-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] KVM: arm64: Use stage-1 leaf size for VM_PFNMAP
+Date: Tue,  6 Oct 2026 13:56:16 -0400
+Message-ID: <20261006175530.906113-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100521-bargraph-feminize-2166@gregkh>
-References: <2026100521-bargraph-feminize-2166@gregkh>
+In-Reply-To: <2026100530-handbrake-overheat-6e64@gregkh>
+References: <2026100530-handbrake-overheat-6e64@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,45 +47,128 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Nuno Sá <nuno.sa@analog.com>
+From: Mostafa Saleh <smostafa@google.com>
 
-[ Upstream commit b890e6163761ddb580cc74f43e15f8bbde15647e ]
+[ Upstream commit 71cc2c67fb8f8d5aa8154eb482e9846d2214f11b ]
 
-When "nand-no-ecc-engine" is set in DT, nanddev_get_ecc_engine() takes
-the NAND_ECC_ENGINE_TYPE_NONE path and returns success while leaving
-nand->ecc.engine NULL. The SPI-NAND code nevertheless dereferences it
-unconditionally to test for a pipelined engine, so probing such a
-device oopses immediately.
+When commit 2aa53d68cee6 ("KVM: arm64: Try stage2 block mapping for
+host device MMIO") added VM_PFNMAP support to get_vma_page_shift(),
+stage-1 page tables did not support huge PFNMAP (as in VFIO-PCI
+vfio_pci_mmap_huge_fault()) and transparent_hugepage_adjust() was
+unsafe for MMIO as it dereferenced struct page.
 
-Rather than open-coding the test three times, add a
-nand_ecc_is_pipelined() helper to the NAND core that folds the NULL
-check into the integration comparison, and use it everywhere. Future
-callers then cannot reintroduce the problem.
+Since commit 6011cf68c885 ("KVM: arm64: Walk userspace page tables to
+compute the THP mapping size"), transparent_hugepage_adjust() instead
+walks the host stage-1 page tables via get_user_mapping_size() without
+touching struct page. Meanwhile, commit 3e509c9b03f9 ("mm/arm64:
+support large pfn mappings") enabled stage-1 huge PFNMAP.
 
-Fixes: f9d7c7265bcf ("mtd: spinand: Create direct mapping descriptors for ECC operations")
+So. we can drop the VMA-based VM_PFNMAP size calculation in
+get_vma_page_shift() and let transparent_hugepage_adjust() derive
+the stage-2 mapping size directly from the populated stage-1 leaf
+for non-cacheable mappings as well.
+
+Assisted-by: LLM
 Cc: stable@vger.kernel.org
-Signed-off-by: Nuno Sá <nuno.sa@analog.com>
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
-[ sashal: replaced the new nand_ecc_is_pipelined() helper with an inline NULL check in spinand_create_dirmap() ]
+Fixes: 2aa53d68cee6 ("KVM: arm64: Try stage2 block mapping for host device MMIO")
+Reviewed-by: Marc Zyngier <maz@kernel.org>
+Signed-off-by: Mostafa Saleh <smostafa@google.com>
+Signed-off-by: Oliver Upton <oupton@kernel.org>
+[ sashal: Adapted upstream’s split fault-helper changes to the existing user_mem_abort() implementation. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/mtd/nand/spi/core.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ arch/arm64/kvm/mmu.c | 46 ++++++--------------------------------------
+ 1 file changed, 6 insertions(+), 40 deletions(-)
 
-diff --git a/drivers/mtd/nand/spi/core.c b/drivers/mtd/nand/spi/core.c
-index 04965f21c995f..9143553bc5704 100644
---- a/drivers/mtd/nand/spi/core.c
-+++ b/drivers/mtd/nand/spi/core.c
-@@ -884,7 +884,8 @@ static int spinand_create_dirmap(struct spinand_device *spinand,
+diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+index 6586008dc4df5..6655ffbf20656 100644
+--- a/arch/arm64/kvm/mmu.c
++++ b/arch/arm64/kvm/mmu.c
+@@ -1366,32 +1366,11 @@ transparent_hugepage_adjust(struct kvm *kvm, struct kvm_memory_slot *memslot,
+ 	return PAGE_SIZE;
+ }
  
- 	spinand->dirmaps[plane].rdesc = desc;
+-static int get_vma_page_shift(struct vm_area_struct *vma, unsigned long hva)
++static int get_vma_page_shift(struct vm_area_struct *vma)
+ {
+-	unsigned long pa;
+-
+-	if (is_vm_hugetlb_page(vma) && !(vma->vm_flags & VM_PFNMAP))
++	if (is_vm_hugetlb_page(vma))
+ 		return huge_page_shift(hstate_vma(vma));
  
--	if (nand->ecc.engine->integration != NAND_ECC_ENGINE_INTEGRATION_PIPELINED) {
-+	if (!nand->ecc.engine ||
-+	    nand->ecc.engine->integration != NAND_ECC_ENGINE_INTEGRATION_PIPELINED) {
- 		spinand->dirmaps[plane].wdesc_ecc = spinand->dirmaps[plane].wdesc;
- 		spinand->dirmaps[plane].rdesc_ecc = spinand->dirmaps[plane].rdesc;
+-	if (!(vma->vm_flags & VM_PFNMAP))
+-		return PAGE_SHIFT;
+-
+-	VM_BUG_ON(is_vm_hugetlb_page(vma));
+-
+-	pa = (vma->vm_pgoff << PAGE_SHIFT) + (hva - vma->vm_start);
+-
+-#ifndef __PAGETABLE_PMD_FOLDED
+-	if ((hva & (PUD_SIZE - 1)) == (pa & (PUD_SIZE - 1)) &&
+-	    ALIGN_DOWN(hva, PUD_SIZE) >= vma->vm_start &&
+-	    ALIGN(hva, PUD_SIZE) <= vma->vm_end)
+-		return PUD_SHIFT;
+-#endif
+-
+-	if ((hva & (PMD_SIZE - 1)) == (pa & (PMD_SIZE - 1)) &&
+-	    ALIGN_DOWN(hva, PMD_SIZE) >= vma->vm_start &&
+-	    ALIGN(hva, PMD_SIZE) <= vma->vm_end)
+-		return PMD_SHIFT;
+-
+ 	return PAGE_SHIFT;
+ }
  
+@@ -1474,10 +1453,6 @@ static int user_mem_abort(struct kvm_vcpu *vcpu, phys_addr_t fault_ipa,
+ 			return ret;
+ 	}
+ 
+-	/*
+-	 * Let's check if we will get back a huge page backed by hugetlbfs, or
+-	 * get block mapping for device MMIO region.
+-	 */
+ 	mmap_read_lock(current->mm);
+ 	vma = vma_lookup(current->mm, hva);
+ 	if (unlikely(!vma)) {
+@@ -1494,7 +1469,7 @@ static int user_mem_abort(struct kvm_vcpu *vcpu, phys_addr_t fault_ipa,
+ 		force_pte = true;
+ 		vma_shift = PAGE_SHIFT;
+ 	} else {
+-		vma_shift = get_vma_page_shift(vma, hva);
++		vma_shift = get_vma_page_shift(vma);
+ 	}
+ 
+ 	switch (vma_shift) {
+@@ -1589,16 +1564,6 @@ static int user_mem_abort(struct kvm_vcpu *vcpu, phys_addr_t fault_ipa,
+ 		return -EFAULT;
+ 
+ 	if (kvm_is_device_pfn(pfn)) {
+-		/*
+-		 * If the page was identified as device early by looking at
+-		 * the VMA flags, vma_pagesize is already representing the
+-		 * largest quantity we can map.  If instead it was mapped
+-		 * via gfn_to_pfn_prot(), vma_pagesize is set to PAGE_SIZE
+-		 * and must not be upgraded.
+-		 *
+-		 * In both cases, we don't let transparent_hugepage_adjust()
+-		 * change things at the last minute.
+-		 */
+ 		device = true;
+ 	} else if (logging_active && !write_fault) {
+ 		/*
+@@ -1639,9 +1604,10 @@ static int user_mem_abort(struct kvm_vcpu *vcpu, phys_addr_t fault_ipa,
+ 
+ 	/*
+ 	 * If we are not forced to use page mapping, check if we are
+-	 * backed by a THP and thus use block mapping if possible.
++	 * backed by a huge stage-1 mapping and thus use block mapping if
++	 * possible.
+ 	 */
+-	if (vma_pagesize == PAGE_SIZE && !(force_pte || device)) {
++	if (vma_pagesize == PAGE_SIZE && !force_pte) {
+ 		if (fault_is_perm && fault_granule > PAGE_SIZE)
+ 			vma_pagesize = fault_granule;
+ 		else
 -- 
 2.53.0
 
