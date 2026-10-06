@@ -1,76 +1,71 @@
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC02E43DA2C
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 12:59:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5E35349CE2
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 13:11:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791291548; cv=none; b=pcglvzJou8k3ZXBwSRZ8eQXr6I4wiqK4ZwxCa41KEyww5jb3yZWUS1/S7U1KNRk90CxAU7mag7tQlUARPk46U1qwlq5mJplA92dhOBaJ9WSjWdDdL4PvOFRVn+arbjP0CDVru8Qh68h8CcZuewE70q3IkL0o/JurLicTm2t6/lI=
+	t=1791292264; cv=none; b=pIfCzbceOPMcBO94W/2RVMcN0kX7iot8ssBA+Qe5J6dfL9U5NQFKIXU2ZeOaabB3u219oDeempBhIcT1R9xrPR+GBSX2SCs9dI1w55kiDeOHcFibVWI6cOoCZtflHoqZl020W6bd/enwzgo5qnv6b3QunvRk/Y4gIobjSggq4B8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791291548; c=relaxed/simple;
-	bh=MgWAwea1MBQjQ6iZeCZdEffwq4LQ4ofw/92P0MY8PNY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gw2fAATHGcaAIxdinJS3/xHyLm6wObcXrqA471J1x/SkNlQ46PahyAQhLzlzZT29Dz1K/8m1RWojLXyyZod862u6L2trwjTcIRU9n+y/kpJxBOIOZyJ5700Mg2FD1gM+EPQ/p/wF1TsE9aLitWmLad0HdeK21MJPbw4Z7YAGqnk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LwsW6yY0; arc=none smtp.client-ip=209.85.215.182
+	s=arc-20240116; t=1791292264; c=relaxed/simple;
+	bh=pKG+G/gx2NfFQHOz7fygi4Bq33B7vmC6kn9GiCKo7Hw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MMUMYy6KWfZb7N1Bgzq6OdxDLDOiFNCjeKFnCpxSkMKr57oMu/ULyBn+cLSQZjm3O2yTBGP/3dr05T9OtmC1kfEhxNnzO4Xd6trZzijwBleua0ihtRN4B+mlTOtuDgOvvoEQLXhCz1FfiIqC9TK3stqsmcdGTgm2c2fR/UPlbBw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kvjasvtW; arc=none smtp.client-ip=209.85.128.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LwsW6yY0"
-Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cc4c02ddd62so1150365a12.0
-        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 05:59:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kvjasvtW"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a1698ea378so5832035e9.2
+        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 06:11:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791291546; x=1791896346; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791292261; x=1791897061; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=C2xk8Z03Jvlehme5HkwczAWmfFVokFO0rBq6AUapVGQ=;
-        b=LwsW6yY0Q+cRi1IoJuWWyymVTmHup7hn02Q37Aa8feaogXhwcPK4muPu1sOaKbfGMH
-         dHS3dFK4LBjWPnFctVRvPkab1Lv1ePGLsg9gLIcDoXBrGEJ2Hz+2XujnANdhrkmeO9L1
-         vRRhNz+6XjLuzkgINbf5IW4Loqc/84zByNrqFNhwQ93WNYXORkRFMCuczuVVuR+PsI2L
-         7Q+hJ6xbSROqwAZk4Qst3kEu2jRQNUZUJv60NcKl7/FI/oPiSPVC4VEqwaNZSytu7ckd
-         1vgnsTj6q4JN1bj7omz7Qg5XWKe0SW8eWBOOc1VdBpYM7vh/863LVqS7cAv80pleBMTO
-         Fgfg==
+        bh=kR+aK5Y7Uqk9JqfaD3k6LXtSgo3UHIu2EWnIjGCHhl0=;
+        b=kvjasvtWxkO5vBO9ACsqFZET2OCVWP+17FoPBbMGctvGYC/9ROOWav95C4L1QXeGF2
+         3PvBcnjmUcZZxrY1qJKjWODJjZzQdeZAhd9mT/bM2qNQyLGoq+xOxg1i3USTJoCuPMEQ
+         XrbP0IsLINvx7pBQrFWzNUTLSTKDS9DCwyjuXoPfW5/p3o73VFpGgaY6237jANgm6AlJ
+         cJtd96q680j534JRR82Ums3G8EzSsvUjeAcFqU9vV0xwertTwzmGPCL2cGju94cCwQuy
+         eYasl3vqcSE1L49S8H/c4Wy41virN/jhqLIMbYHmKfS+X7Ob5UriqYahCc/7iY5lZngA
+         zpUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791291546; x=1791896346;
+        d=1e100.net; s=20260707; t=1791292261; x=1791897061;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=C2xk8Z03Jvlehme5HkwczAWmfFVokFO0rBq6AUapVGQ=;
-        b=GROT4Ei7sPP0Ogp1mP6y7XbJ4WXTdrA6jmplAv/wk4aaMzpUKjBxkYXmf1KggdPq6u
-         9W4sSxXqg8iwKbslf33DhcEtLJ/FgBwgCnNkA3FbXMDT6QAhXPY7gtuFVGzwZEcGGzMP
-         ug6+28KTYhXb7zvDzGtEVnEOv5ITse9DU84AAWqUXjdB+JZFqz9GxUFTjIZ1fykvUmdM
-         q+BHliiq9zx/ppsq8u9lbMYSZP/vveeJ2evh7ZpwSQXrX+d2xc+BiFR/MO7T5SMFJJ74
-         Ok+z0/2ErzCV72HpMKdaSI7/hr3XDPgTGUcl9L9E3ecKJXGE0NYfxozyzx11inP3O2CG
-         G8IA==
-X-Forwarded-Encrypted: i=1; AKwUvByLYXgSM+znW8NXVubd2y7kMt6fW8srKB3Aa/y57R6LaiICiAdlzaGL/9UBtS/lOZ/weF+IHjk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lIjxBc8ivX9DyxnBqx07gsYCqza73GXSWOv1GG4MxOu9ra20z1
-	eGazuXfZ7yNTSbrkUwA/lQ3YXnPCVQxn04T/2wdHD7CSxTGfA2pSVU36
-X-Gm-Gg: AYBFou2QTX06FRwsXzdMWq7fXeaIRMYQdN59OxAP0rDp2W3hb9rZ93fCyRnpNlWCm04
-	+D84u2jYRUcrqkn1Y+triY9yABD12/FLBOB4ayLPHlc2KPiMJRfBFUnY6rdRomJOezcSm6/aLgV
-	5mbECOTcLVqxUJ/MJS7s/XOshSW7RtPi9cfaWHofNGM1Di8moMmKpOKpfe4kZFbA6VGkUTXssre
-	0GKaQgxgjXd5ft7GpOmyY/cSbcstMJc13/5qCe5Jf2GppSuiNv0r7cBAELrcQoomwio7OBsPOxA
-	2arPjxC5AAWd8E/sNYZ4Cko6fFt9PaEjMheRUR57q1MYBJPbild0Vxepz/jSi0LcVsul4Db1qWL
-	lPqPRbLwzgZLJ3tLI7ho8cZTloDlrr6TvEpIs2p5x0oexpfbkO+s9h0VX2tLeC9ch7ICMjLKi7g
-	OXYwyi4J0UxnUaw8UbGnw09eEutgJcy6virs3fPcaYe1pFOOutFtDkcluUgLx8EIgVZ31Pvplzd
-	RguBEFl7Hnx+TtH
-X-Received: by 2002:a05:6a21:d8c:b0:3e0:c3f8:4821 with SMTP id adf61e73a8af0-3e124890dbamr1163921637.41.1791291546091;
-        Tue, 06 Oct 2026 05:59:06 -0700 (PDT)
-Received: from LAPTOP-450UDG4J ([2401:4900:900c:ec20:d139:f8fd:7043:7eb2])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cce6d334de5sm2415225a12.11.2026.10.06.05.58.59
+        bh=kR+aK5Y7Uqk9JqfaD3k6LXtSgo3UHIu2EWnIjGCHhl0=;
+        b=Fkso7lpahWgo3SivIJ5UJ75RSrKnvwKa8P3VopEdMa4bj1Up3acRPwNEHo40Jp8exW
+         JTwYlrBFLQrj+SqKMgjX4UbiWv6RqOIJHV4OMWQKSZFyTZmdQGvYQKPcnJOji5dudUaU
+         stEsxcJchfQO2cbJzYLAu9sEUUGPlEU2EQDE/Lb0b743iw2E30IoW0FjwTL2gmx0whzZ
+         gDvGe4vVTL4M19QyX+kBBlstwEYkYI65mBtyMoFLpi8TbJFyoLflTHrAy95wTBB6eSWH
+         7p+q9u3O4o6OTSg/zQklxeKd8+qDEAC+XyZBtzEezzxoba6bcfalnwQpjUFu0VxqXiX3
+         MXJg==
+X-Forwarded-Encrypted: i=1; AKwUvBxdC5wKJAJn9wqb52PZNn+2Hoj0Qo1BTPUCI7OommdKPVBTGcDrKphVT+e7C5/cVhA/ikD//Zg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lToa3yrbaaMWPswVQqECKyekFU32ASQwCI2OF84qvhJXR9i0hb
+	mIEiCEq4oheJSWg/XzUN+Dz9g50PEny/9R18rZlj0Rtt8zzGRMBAiIsG
+X-Gm-Gg: AYBFou2dV/GtB3JMSVb8c08iv+eQU5uso8+W7CiaUj7R9aPPuJLRkTlQuy8Uej+4E3W
+	JQPnTuCVodnHhMdLX5d2aJYCvWduDtAOmSDIetwwE2VjSjunXYzycGThux6RDbBAjviWVMHwhtU
+	kN91wI80uU3C2OoeZMr8IibEBgLQxfbV+cTPF7VKVsSITB0DkoLIEFKym8WugJtpNvkcj+qQVw5
+	mAP2fCk/VAJim7zdM38LnmdH0GM9naCC87J/OtryzH/G+sFxXvQ5rwxKapoGiapEUJWRjKyLFjo
+	+h+XK9GMEK8tpZJ7h7gOGeRdz8omwUNDzy8L+4G3JRg2U1jVBCzUSm+bGMhmYIO65CZjOVljSEJ
+	pvaTr7MLXO7P/aOeoaexaubtZYUgjqBajzNj7JDsnRXrbAysu2Mn3yKZWxdUDXH6J+gyi6r7oY9
+	06UZY7ZPjz6DxPjKKD3tAk41iedmhzFVMP2r8181fPHU7lAInDj/NfHWjvjzf23ErVyg==
+X-Received: by 2002:a05:600c:4f91:b0:4a1:6f78:8419 with SMTP id 5b1f17b1804b1-4a17b4b8591mr25357415e9.0.1791292261003;
+        Tue, 06 Oct 2026 06:11:01 -0700 (PDT)
+Received: from dev1.kernelcare.com ([2a01:4f8:172:1c85::2])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1776cfe45sm74047955e9.1.2026.10.06.06.11.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 05:59:05 -0700 (PDT)
-From: Yogesh Gaur <yogeshgaur.83@gmail.com>
-To: "Rafael J . Wysocki" <rafael@kernel.org>
-Cc: Pavel Machek <pavel@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	linux-pm@vger.kernel.org,
+        Tue, 06 Oct 2026 06:11:00 -0700 (PDT)
+From: Andrey Misiurov <andrey.misyrov@gmail.com>
+To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Cc: ntfs3@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Yogesh Gaur <yogeshgaur.83@gmail.com>,
-	syzbot+609c80047e3e808b465c@syzkaller.appspotmail.com,
+	Andrey Misiurov <andrey.misyrov@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] PM: hibernate: skip offline memory in mark_free_pages()
-Date: Tue,  6 Oct 2026 18:28:49 +0530
-Message-ID: <20261006125849.1998-1-yogeshgaur.83@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
+Subject: [PATCH] ntfs3: check split point bounds before copying the split entry
+Date: Tue,  6 Oct 2026 15:10:29 +0200
+Message-ID: <20261006131029.2503576-1-andrey.misyrov@gmail.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -79,62 +74,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mark_free_pages() walks every valid PFN of a zone and calls page_zone()
-on its struct page.  A PFN in an offlined memory block is still valid,
-but its memmap is no longer initialised: offlining poisons it.  With
-CONFIG_DEBUG_VM that is caught on the first such page:
+indx_insert_into_buffer() copies the split entry before checking that
+its on-disk size fits in the index buffer. A crafted image makes the
+copy read past the end of the buffer:
 
-  page:ffffea0005400000 is uninitialized and poisoned
-  page dumped because: VM_BUG_ON_PAGE(PagePoisoned(page))
-  kernel BUG at ./include/linux/mm.h:2402!
-  RIP: 0010:mark_free_pages+0x49a/0x4b0 kernel/power/snapshot.c:1266
-   count_data_pages kernel/power/snapshot.c:1417 [inline]
-   hibernate_preallocate_memory+0x14f/0x750 kernel/power/snapshot.c:1859
-   hibernation_snapshot+0xd5/0x3d0 kernel/power/hibernate.c:416
-   hibernate+0x28f/0x680 kernel/power/hibernate.c:813
+  BUG: KASAN: slab-out-of-bounds in indx_insert_into_buffer+0x49c/0x1310 [ntfs3]
+  Read of size 4352 at addr ffff888172fcc760 by task touch/970
+  CPU: 0 UID: 0 PID: 970 Comm: touch Not tainted 6.12.88+deb13-amd64 #1
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x110/0x1a0
+   print_report+0x237/0x77f
+   kasan_report+0xdc/0x140
+   kasan_check_range+0x30f/0x350
+   __asan_memcpy+0x33/0xb0
+   indx_insert_into_buffer+0x49c/0x1310 [ntfs3]
+   indx_insert_entry+0x14b/0x480 [ntfs3]
+   ntfs_create_inode+0x2016/0x4b20 [ntfs3]
+   </TASK>
 
-syzbot's reproducer offlines memory42 and then writes "disk" to
-/sys/power/state; that page is the first one of memory42.  Without
-CONFIG_DEBUG_VM the walk reads stale page flags instead.
+  Allocated by task 970:
+   __kmalloc_noprof+0x349/0x6c0
+   indx_read+0x75c/0xc20 [ntfs3]
 
-saveable_page() and saveable_highmem_page() already use
-pfn_to_online_page() for this since commit 5b56db37218e ("PM/Hibernate:
-use pfn_to_online_page()").  Do the same here.  Offline pages are never
-on a free list, so the second loop in this function does not need it.
+  The buggy address belongs to the cache kmalloc-4k of size 4096
+  The buggy address is located 1888 bytes inside of that object
 
-Fixes: d33695b16a9f ("mm/memory_hotplug: poison memmap in remove_pfn_range_from_zone()")
-Reported-by: syzbot+609c80047e3e808b465c@syzkaller.appspotmail.com
+Do the check before the allocation and the copy.
+
+Fixes: 82cae269cfa9 ("fs/ntfs3: Add initialization of super block")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
+Signed-off-by: Andrey Misiurov <andrey.misyrov@gmail.com>
 ---
-Built with W=1 only; not runtime-tested.
+ fs/ntfs3/index.c | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
- kernel/power/snapshot.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/kernel/power/snapshot.c b/kernel/power/snapshot.c
-index b209712cb2c3..0cd8f05c1395 100644
---- a/kernel/power/snapshot.c
-+++ b/kernel/power/snapshot.c
-@@ -1256,14 +1256,14 @@ static void mark_free_pages(struct zone *zone)
+diff --git a/fs/ntfs3/index.c b/fs/ntfs3/index.c
+--- a/fs/ntfs3/index.c
++++ b/fs/ntfs3/index.c
+@@ -1899,12 +1899,6 @@
+ 		return -EINVAL;
  
- 	max_zone_pfn = zone_end_pfn(zone);
- 	for_each_valid_pfn(pfn, zone->zone_start_pfn, max_zone_pfn) {
--		page = pfn_to_page(pfn);
+ 	sp_size = le16_to_cpu(sp->size);
+-	up_e = kmalloc(sp_size + sizeof(u64), GFP_NOFS);
+-	if (!up_e)
+-		return -ENOMEM;
+-	memcpy(up_e, sp, sp_size);
 -
- 		if (!--page_count) {
- 			touch_nmi_watchdog();
- 			page_count = WD_PAGE_COUNT;
- 		}
+-	/* Make a copy for undo. */
+ 	used1 = le32_to_cpu(hdr1->used);
  
--		if (page_zone(page) != zone)
-+		/* the memmap of offline memory is not initialised */
-+		page = pfn_to_online_page(pfn);
-+		if (!page || page_zone(page) != zone)
- 			continue;
+ 	/*
+@@ -1913,13 +1907,19 @@
+ 	 * that (PtrOffset(hdr1, sp) + sp_size) exceeds used1. Without this
+ 	 * guard the u32 'used = used1 - to_copy - sp_size' underflows and
+ 	 * the subsequent memmove count becomes a near-4-GiB value,
+-	 * triggering an out-of-bounds kernel write.
++	 * triggering an out-of-bounds kernel write. The memcpy below also
++	 * reads sp_size bytes starting at sp, so the check has to happen
++	 * before it.
+ 	 */
+-	if (PtrOffset(hdr1, sp) + sp_size > used1) {
+-		err = -EINVAL;
+-		goto out;
+-	}
++	if (PtrOffset(hdr1, sp) + sp_size > used1)
++		return -EINVAL;
  
- 		if (!swsusp_page_is_forbidden(page))
--- 
-2.55.0.windows.5
-
++	up_e = kmalloc(sp_size + sizeof(u64), GFP_NOFS);
++	if (!up_e)
++		return -ENOMEM;
++	memcpy(up_e, sp, sp_size);
++
++	/* Make a copy for undo. */
+ 	hdr1_saved = kmemdup(hdr1, used1, GFP_NOFS);
+ 	if (!hdr1_saved) {
+ 		err = -ENOMEM;
