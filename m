@@ -1,80 +1,84 @@
-Received: from mail.xenproject.org (mail.xenproject.org [104.130.215.37])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26AD1280309;
-	Tue,  6 Oct 2026 16:53:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.130.215.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A9EA49E5FC;
+	Tue,  6 Oct 2026 16:56:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791305612; cv=none; b=m9lJPeb4xlYlkCMpMsBYDw04qdWJ0cqQ9kumjanInnjuRNjay+uhP+UihTs3OZDtyj2IvTFtWJ4j9t9ltdzbfkgDANA3GMisGXnlly3DLoalQTOF6RZAxJNybJ73tFUVOCkbfARo9II2BFjZh7bRJWK8LKAB9uDe6qLhM/kENOU=
+	t=1791305763; cv=none; b=b3v4lZfUra2AZnNoIokBg54Dv64nyoO1ELcpscGCBO+ZbfCZmgD9aWywEYB4yQK24ip+l9/P+6YpLknCu+KasTHD+BfnLWHn0TMxs3MkCzieqU4S1VOpJJlU6jdJtaT1veJzGQ1Ft7dZ6tfUFKZ6nCkgUctkFtJU4QY8RXAvYJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791305612; c=relaxed/simple;
-	bh=bq/nac74ebDqycZQ4KMhwjumBYKYIHREL/q7FV1UlN4=;
+	s=arc-20240116; t=1791305763; c=relaxed/simple;
+	bh=WUCP/4/zGityBsWzSoht4YsUy3nzQK0grZI9LxwM5Nk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ihccUAw54hBCy5K2rXH67RtpXMCJjC0ilvQiBPunqXhX+IGzANbFEO6V3Qd7Z/Qo+Zde1NaII2MWa1KRmuMswK4phNG1ljPmAQD//PxGXu4K2GNniswfD8RwlCHPyqVGji5tq6y87y8EI5HLfVbAO9uimbWFwUJgApoFV4ZqtD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xenproject.org; spf=pass smtp.mailfrom=xenproject.org; dkim=pass (1024-bit key) header.d=xenproject.org header.i=@xenproject.org header.b=GpXwiAbt; arc=none smtp.client-ip=104.130.215.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xenproject.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xenproject.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=HrLuZGJaXvAsSb+IsWo4S+OwUQloeFBBDXNi400WWk4pENkyDrkoM6MjSmsqJ2Bs+KtHcCxFst4+vYfRLC146x15vKjkt1NvHTjgu2pgXH/FStU8Z0SljeJrOghvEUUb567N5jBvAXuLsPXLE47HO20g9yr0wZlvdykFKUoTpXI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AFXmK0Tt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xenproject.org header.i=@xenproject.org header.b="GpXwiAbt"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date;
-	bh=kOlS+lL1hkPrA+M+rforELABkTt5NUaGOO8i1B5fYL8=; b=GpXwiAbtFyf1k/eR8dnrCFI3Nn
-	W2cx9MDoU6bHdFiUSJxufc4F+qJB0+P5hJ+xkZ7Xx0OQGcf7noud9pUdrcLINKGBf9mbkfmPihhpS
-	SkO6gm9ve4wDfIkRj4z2bshFvSw58sIowSp/JTz51tdBhkjugiMS/1yX+y+NasuYWBFA=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
-	by mail.xenproject.org with esmtp (Exim 4.96)
-	(envelope-from <roger@xenproject.org>)
-	id 1xE8Pu-0007qv-21;
-	Tue, 06 Oct 2026 16:53:26 +0000
-Received: from 224.pool85-54-217.dynamic.orange.es ([85.54.217.224] helo=localhost)
-	by xenbits.xenproject.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <roger@xenproject.org>)
-	id 1xE8Pu-00EIBy-0t;
-	Tue, 06 Oct 2026 16:53:26 +0000
-Date: Tue, 6 Oct 2026 18:53:23 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger@xenproject.org>
-To: Ross Lagerwall <ross.lagerwall@citrix.com>
-Cc: xen-devel@lists.xenproject.org, linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Jens Axboe <axboe@kernel.dk>, stable@vger.kernel.org
-Subject: Re: [PATCH v2] xen-blkfront: Fix IO race during unplug
-Message-ID: <asUng9P2n1duQLrO@Mac.lan>
-References: <20261006163411.2583538-1-ross.lagerwall@citrix.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AFXmK0Tt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA0801F0089B;
+	Tue,  6 Oct 2026 16:55:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791305762;
+	bh=L+Xx6TwJDUdsJnZhVKorFUpEpCyoXOB2nqXNRP53LHg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AFXmK0TtTCMU7MS7ygHr1+fo2M7iyPr5USAb1NS2aV/FSlwN0hMRa1cds3fe5qYGS
+	 qwvhPywOpPD/SCQ7+Ra0w6vj3P1LhePOdE86xDWSlj9HUKVbe0RzfJ8a44PQjtXi0G
+	 7bn96EiQf4BMsonyHNlz0N3zVNruLKTfb5miqmGQMISnTEcL8TfvinMDK/8rl4LLOO
+	 zapbb1csB/n2Fd18Z7uwTfefbPBJ9yjN42l/pboJtV/3PMDn1Bjkq5JMgdecx84XC+
+	 nliNIfpoQd/35pAoB3Osxt4Qi3y7BQt+Rr6v9ANhL79uv4d0uPScUPa5zq2GYnyqaf
+	 W0YVIrqDNjfHg==
+Date: Tue, 6 Oct 2026 17:55:57 +0100
+From: Simon Horman <horms@kernel.org>
+To: netdev-bot+sinfo@kernel.org
+Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Sukhdeep Singh <sukhdeeps@marvell.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Richard Cochran <richardcochran@gmail.com>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: Re: [PATCH] net: atlantic: only free the PTP IRQ after a successful
+ request
+Message-ID: <20261006165557.GO83879@horms.kernel.org>
+References: <20260930074023.2943213-1-runyu.xiao@seu.edu.cn>
+ <179075425701.31693.17457011245131119734@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261006163411.2583538-1-ross.lagerwall@citrix.com>
+In-Reply-To: <179075425701.31693.17457011245131119734@kernel.org>
 
-On Tue, Oct 06, 2026 at 05:34:07PM +0100, Ross Lagerwall wrote:
-> During unplug, blkfront stops the hw queues and marks the disk as dead,
-> then later during removal calls del_gendisk(). However, IO issued after
-> the hw queues are stopped but before the call to del_gendisk() will be
-> queued but never handled. This causes del_gendisk() to hang forever
-> waiting for the queue refcount to drop to zero.
+On Wed, Sep 30, 2026 at 07:44:17AM +0000, netdev-bot+sinfo@kernel.org wrote:
+> Hi!
 > 
-> This can be reproduced by issuing IO during an artificial delay after
-> stopping the hw queues.
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
 > 
-> Fix this by simply not stopping the hw queues directly. Marking the disk
-> as dead already freezes the queue which prevents new requests being
-> added and it synchronously runs the hw queues to clear anything pending.
-> If the hw queues are stopped when calling blk_mark_disk_dead(), running
-> the hw queues is a no-op and can leave queued requests unprocessed.
+>  - Whether the issue was actually triggered, or is only theoretical
+>    (e.g. found by code inspection). If it was triggered please include
+>    the symptoms, like the stack trace or error messages.
 > 
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+>  - What hardware the change was tested on. For driver fixes please
+>    mention the device (and if relevant firmware version) used for
+>    testing, or say that the change was not tested on real hardware.
+> 
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
+> 
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
 
-Acked-by: Roger Pau Monné <roger@xenproject.org>
+Hi Runyu,
 
-Thanks, Roger.
+I would appreciate it if you could provide the information suggested
+by the bot above.
+
+Thanks!
