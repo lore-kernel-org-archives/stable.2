@@ -1,314 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from nick.sneptech.io (nick.sneptech.io [178.62.38.78])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E08733CB8FF;
-	Tue,  6 Oct 2026 23:42:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 749D94E3229;
+	Tue,  6 Oct 2026 23:42:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.62.38.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791330126; cv=none; b=PTnQ8j8PZB26Agq+bwmrplCKlI4d8LEov+mpd9YOoyYmr+67jn6tcFZ5XQrHihjRLLYkW1VfcN6n0Sr5DUQd57CzPeACzS4aPZeGRGJmOXgptoUXoiVmtf2aNnGgDCZe1tp8TTLWi26HpYXhlMqSjo4uDJdqlWmz34GMoy/VRiY=
+	t=1791330129; cv=none; b=Q/ThnGJuwTbF/ZWNe8C0XfKhzWCNhBTBFgUjLixRlzKxcF3Oi2Wwvt/rRHvVGTwe37trwUyo/CYyaByUHmd615oPb0VSMTCFWhEFoNQXycm4n5WPRM5Nhyz1ReYBcPi8lGVWzMF8nt9Lo43Q/yOb/Qnv82MgV9wC1eCNzWh3tII=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791330126; c=relaxed/simple;
-	bh=bchZaUH23YbXt6vSxoZoAMxW8mFQiY5oWCBQM6SUOJ4=;
-	h=Date:To:From:Subject:Message-Id; b=UxptLNn136D/dHwUfPxTVQ65cc8raCIcuBR3W0zt3Y9hrtSdAJjk/QehGvfgU1ivaHpOYAJ0Q/nA7kBxWVtFMVsVlEgst/+n8jeho3dqbjVxSvMyWKhuFmXXo6XnTVgPdB+x/opernyC+dEh4wVxqpo/Bu6IFOpu6UhkfKNShN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=UZORLTTE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791330129; c=relaxed/simple;
+	bh=9r+TMbKLM84NykY/tQPO43ydHWQ+ptnWPsGpcr5D7b0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=BdQie+umCHvecchX2yLB/wv3L9S5XIKyeaLZBFWewi8LrzqFtHmC1fW/oRquTIyJghQj+R5Lb45B29OjuZHxuXah5igErzhJItRtfvwViT8lv+jVBmcPugEis5VCkZuSAnST2xgjFg2tGMrdO0zf4cm/kpQmC5BVvgg0eBAu5aU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=philpem.me.uk; spf=pass smtp.mailfrom=philpem.me.uk; dkim=pass (1024-bit key) header.d=philpem.me.uk header.i=@philpem.me.uk header.b=C4qU0hGl; arc=none smtp.client-ip=178.62.38.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=philpem.me.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=philpem.me.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="UZORLTTE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 443221F0089C;
-	Tue,  6 Oct 2026 23:42:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791330124;
-	bh=gMguNJhKKDhm2mQBiWurk4+nEfPESptDr2bKR4+Baa0=;
-	h=Date:To:From:Subject;
-	b=UZORLTTEn261Lj4mH0lZuW9psOSIY3pFTIlO9bZlwPRClYoXRweaYFCntsmY1nOzx
-	 3k1Zz8GB5dyswxvmXaw6bXFBtqAPtYgxrk6efzBPFLiyOX/iMv5lw7ZJhQT169ivzA
-	 Uf24Xe/y9cxsVBDfBiHzcbMup4x+LmG2xGz/DUZg=
-Date: Tue, 06 Oct 2026 16:42:03 -0700
-To: mm-commits@vger.kernel.org,ziy@nvidia.com,vbabka@kernel.org,usama.arif@linux.dev,surenb@google.com,stable@vger.kernel.org,shakeel.butt@linux.dev,mhocko@suse.com,harry@kernel.org,hannes@cmpxchg.org,david@kernel.org,brendan.jackman@linux.dev,kas@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [to-be-updated] mm-page_alloc-make-defrag_mode-retries-follow-the-promoted-order.patch removed from -mm tree
-Message-Id: <20261006234204.443221F0089C@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=philpem.me.uk header.i=@philpem.me.uk header.b="C4qU0hGl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=philpem.me.uk;
+	s=mail; t=1791330125;
+	bh=9r+TMbKLM84NykY/tQPO43ydHWQ+ptnWPsGpcr5D7b0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=C4qU0hGlKm8Aqe8Z46+e36yrVczHxhVr2MGNDKfI+uaKXBnQfwH72Gub7ZI5AcVPH
+	 vFpoddWZMwbZ+e49q25zzhQREfmZ7CpokTmoJ2HiQpCiezR4fOzRNXKndc21a54VSQ
+	 tMCuuuTWnX+VY6oVMrmHcmidQupQ6+qjCmo8bxcU=
+Received: from wolf.philpem.me.uk (81-187-163-148.ip4.reverse-dns.uk [81.187.163.148])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	(Authenticated sender: mailrelay_wolf@philpem.me.uk)
+	by nick.sneptech.io (Postfix) with ESMTPSA id 89429BD748;
+	Tue,  6 Oct 2026 23:42:05 +0000 (UTC)
+Received: from cheetah.homenet.philpem.me.uk (cheetah.homenet.philpem.me.uk [10.0.0.32])
+	by wolf.philpem.me.uk (Postfix) with ESMTPSA id 2AA605FC4F;
+	Wed,  7 Oct 2026 00:42:05 +0100 (BST)
+From: Phil Pemberton <philpem@philpem.me.uk>
+To: linux-ide@vger.kernel.org,
+	linux-scsi@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K . Petersen" <mkp@kernel.org>,
+	Hannes Reinecke <hare@kernel.org>,
+	Phil Pemberton <philpem@philpem.me.uk>,
+	stable@vger.kernel.org
+Subject: [PATCH v9 03/11] scsi: scsi_devinfo: preserve full-width quirk identifiers
+Date: Wed,  7 Oct 2026 00:41:53 +0100
+Message-ID: <20261006234202.1139018-4-philpem@philpem.me.uk>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261006234202.1139018-1-philpem@philpem.me.uk>
+References: <20261006234202.1139018-1-philpem@philpem.me.uk>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+strscpy_pad() reserves a byte for NUL termination, truncating quirk
+identifiers that fill their fields. An eight-character vendor such as
+MATSHITA loses its final character and fails to match. A sixteen-character
+model loses its final character too; prefix matching then allows the
+quirk to match other models with the same first fifteen characters.
 
-The quilt patch titled
-     Subject: mm: page_alloc: make defrag_mode retries follow the promoted order
-has been removed from the -mm tree.  Its filename was
-     mm-page_alloc-make-defrag_mode-retries-follow-the-promoted-order.patch
+Copy the full vendor and model fields. Pad shorter strings with NUL for
+compatible entries and spaces for dynamic entries. Lookup uses bounded
+strnlen() and memcmp(), so full-width identifiers need no terminator.
+Shorter model names continue to match prefixes.
 
-This patch was dropped because an updated version will be issued
-
-------------------------------------------------------
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Subject: mm: page_alloc: make defrag_mode retries follow the promoted order
-Date: Tue, 29 Sep 2026 18:45:51 +0100
-
-Since commit 7e8756d7ad22 ("mm: page_alloc: fix non-movable reclaim storm
-in defrag_mode"), direct reclaim and compaction for non-movable requests
-under defrag_mode run at pageblock_order, to produce the whole blocks that
-ALLOC_NOFRAGMENT needs.  The retry decisions that follow still use the
-request order.  An order-0 request can therefore retry indefinitely
-without ever reaching the ALLOC_NOFRAGMENT fallback:
-
-- Reclaim at pageblock_order gives up after one pass as soon as a zone
-  looks compaction_ready(), and do_try_to_free_pages() then returns 1
-  even though nothing was reclaimed. It returns before the retry that
-  would reclaim memory.low-protected cgroups, so when most memory is
-  protected, the pass that did run finds next to nothing.
-
-- Compaction at pageblock_order fails or is deferred.
-
-- should_reclaim_retry() takes the reported progress as progress for
-  the order-0 request and resets no_progress_loops. The request
-  retries.
-
-Order 1-3 requests loop the same way, and should_compact_retry() also
-checks their pageblock_order compaction result against the request order.
-
-On a production host (64G, defrag_mode, memory.low covering most of the
-workload), 95% of direct reclaim runs were order-9 runs that returned 1
-with nothing reclaimed, at up to 60k runs per second.  Across ~200M
-should_reclaim_retry() calls in a day, no_progress_loops never left 0. 
-The spinning allocations were SLUB slab refills for inode and dentry
-caches.  The time spent registers as memory pressure, and pressure-based
-OOM killing takes down both workloads and system services.
-
-Treat promoted requests like costly orders:
-
-- Reclaim progress does not reset no_progress_loops for them.
-
-- should_compact_retry() checks the compaction result at the promoted
-  order. It does not retry COMPACT_SKIPPED, since the request can fall
-  back, and it does not escalate compaction to COMPACT_PRIO_SYNC_FULL.
-
-When the fallback is taken, reset the retry counters, so that the fallback
-attempt gets a full retry budget before the OOM killer is considered.
-
-In a VM reproducer (32G, defrag_mode, inode churn under memory.low):
-
-                                        before    after
-    should_reclaim_retry() calls           63M     293k
-    peak memory pressure (PSI some avg10)  99%      12%
-
-File creation runs 5.7x faster.
-
-Link: https://lore.kernel.org/20260929174553.175333-1-kirill@shutemov.name
-Fixes: 7e8756d7ad22 ("mm: page_alloc: fix non-movable reclaim storm in defrag_mode")
-Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Fixes: 1b60c86dd992 ("scsi: devinfo: Replace strncpy() and manual pad")
+Link: https://lore.kernel.org/linux-ide/20260611025249.D23191F00893@smtp.kernel.org/
+Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Brendan Jackman <brendan.jackman@linux.dev>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Usama Arif <usama.arif@linux.dev>
-Cc: Harry Yoo <harry@kernel.org>
-Cc: <stable@vger.kernel.org>
+Signed-off-by: Phil Pemberton <philpem@philpem.me.uk>
 ---
+ drivers/scsi/scsi_devinfo.c | 11 +++--------
+ 1 file changed, 3 insertions(+), 8 deletions(-)
 
- mm/page_alloc.c |   85 ++++++++++++++++++++++++++++++----------------
- 1 file changed, 56 insertions(+), 29 deletions(-)
-
---- a/mm/page_alloc.c~mm-page_alloc-make-defrag_mode-retries-follow-the-promoted-order
-+++ a/mm/page_alloc.c
-@@ -4128,6 +4128,31 @@ out:
- }
+diff --git a/drivers/scsi/scsi_devinfo.c b/drivers/scsi/scsi_devinfo.c
+index 88a911b35c94..5e37461e61e8 100644
+--- a/drivers/scsi/scsi_devinfo.c
++++ b/drivers/scsi/scsi_devinfo.c
+@@ -289,14 +289,9 @@ static void scsi_strcpy_devinfo(char *name, char *to, size_t to_length,
  
- /*
-+ * If fallbacks are not permitted (defrag_mode), we either need to
-+ * reclaim space in a block of matching type, or clear out an entire
-+ * block to allow __rmqueue_claim() to convert.
-+ *
-+ * Reclaim by itself is primarily freeing space in movable blocks,
-+ * since that's where the LRU pages live. So this works for movable
-+ * requests, but not for others.
-+ *
-+ * For those, promote the order of reclaim and compaction to help make
-+ * blocks, instead of spinning in reclaim alone unproductively. Retry
-+ * decisions based on the outcome of that work - reclaim progress and
-+ * compaction results - must account for the promotion as well, see
-+ * should_reclaim_retry() and should_compact_retry().
-+ */
-+static inline unsigned int nofrag_promote_order(unsigned int order,
-+						unsigned int alloc_flags,
-+						const struct alloc_context *ac)
-+{
-+	if ((alloc_flags & ALLOC_NOFRAGMENT) && ac->migratetype != MIGRATE_MOVABLE)
-+		return max(order, pageblock_order);
-+
-+	return order;
-+}
-+
-+/*
-  * Maximum number of compaction retries with a progress before OOM
-  * killer is consider as the only way to move forward.
-  */
-@@ -4149,22 +4174,7 @@ __alloc_pages_direct_compact(gfp_t gfp_m
- 		.order = order,
- 		.page = NULL,
- 	};
--	int compact_order = order;
--
+ 	from_length = strlen(from);
+ 
 -	/*
--	 * If fallbacks are not permitted (defrag_mode), we either
--	 * need to reclaim space in a block of matching type, or clear
--	 * out an entire block to allow __rmqueue_claim() to convert.
--	 *
--	 * Reclaim by itself is primarily freeing space in movable
--	 * blocks, since that's where the LRU pages live. So this
--	 * works for movable requests, but not for others.
--	 *
--	 * For those, promote the order to help make blocks, instead
--	 * of spinning in reclaim alone unproductively.
+-	 * null pad and null terminate if compatible
+-	 * otherwise space pad
 -	 */
--	if ((alloc_flags & ALLOC_NOFRAGMENT) && ac->migratetype != MIGRATE_MOVABLE)
--		compact_order = max(order, pageblock_order);
-+	unsigned int compact_order = nofrag_promote_order(order, alloc_flags, ac);
+-	if (compatible)
+-		strscpy_pad(to, from, to_length);
+-	else
+-		memcpy_and_pad(to, to_length, from, from_length, ' ');
++	/* Full-width identifiers need all bytes; shorter ones are padded. */
++	memcpy_and_pad(to, to_length, from, from_length,
++		       compatible ? '\0' : ' ');
  
- 	if (!compact_order)
- 		return NULL;
-@@ -4256,8 +4266,11 @@ should_compact_retry(gfp_t gfp_mask, str
- 	bool ret = false;
- 	int retries = *compaction_retries;
- 	enum compact_priority priority = *compact_priority;
-+	unsigned int compact_order;
- 
--	if (!order)
-+	/* Check the compaction result at the order compaction ran at */
-+	compact_order = nofrag_promote_order(order, alloc_flags, ac);
-+	if (!compact_order)
- 		return false;
- 
- 	if (fatal_signal_pending(current))
-@@ -4266,10 +4279,14 @@ should_compact_retry(gfp_t gfp_mask, str
- 	/*
- 	 * Compaction was skipped due to a lack of free order-0
- 	 * migration targets. Continue if reclaim can help.
-+	 *
-+	 * Promoted requests have exhausted their reclaim retries at
-+	 * this point, and they can fall back instead.
- 	 */
- 	if (compact_result == COMPACT_SKIPPED) {
--		ret = compaction_zonelist_suitable(ac, order, alloc_flags,
--						   gfp_mask);
-+		if (compact_order == order)
-+			ret = compaction_zonelist_suitable(ac, order, alloc_flags,
-+							   gfp_mask);
- 		goto out;
- 	}
- 
-@@ -4287,7 +4304,7 @@ should_compact_retry(gfp_t gfp_mask, str
- 		 * need much more detailed feedback from compaction to
- 		 * make a better decision.
- 		 */
--		if (order > PAGE_ALLOC_COSTLY_ORDER)
-+		if (compact_order > PAGE_ALLOC_COSTLY_ORDER)
- 			max_retries /= 4;
- 
- 		if (++(*compaction_retries) <= max_retries) {
-@@ -4299,7 +4316,7 @@ should_compact_retry(gfp_t gfp_mask, str
- 	/*
- 	 * Compaction failed. Retry with increasing priority.
- 	 */
--	min_priority = (order > PAGE_ALLOC_COSTLY_ORDER) ?
-+	min_priority = (compact_order > PAGE_ALLOC_COSTLY_ORDER) ?
- 			MIN_COMPACT_COSTLY_PRIORITY : MIN_COMPACT_PRIORITY;
- 
- 	if (*compact_priority > min_priority) {
-@@ -4468,11 +4485,7 @@ __alloc_pages_direct_reclaim(gfp_t gfp_m
- 	struct page *page = NULL;
- 	unsigned long pflags;
- 	bool drained = false;
--	int reclaim_order = order;
--
--	/* Match the slowpath compaction promotion in __alloc_pages_direct_compact */
--	if ((alloc_flags & ALLOC_NOFRAGMENT) && ac->migratetype != MIGRATE_MOVABLE)
--		reclaim_order = max(order, pageblock_order);
-+	unsigned int reclaim_order = nofrag_promote_order(order, alloc_flags, ac);
- 
- 	psi_memstall_enter(&pflags);
- 	*did_some_progress = __perform_reclaim(gfp_mask, reclaim_order, ac);
-@@ -4648,9 +4661,17 @@ should_reclaim_retry(gfp_t gfp_mask, uns
- 	/*
- 	 * Costly allocations might have made a progress but this doesn't mean
- 	 * their order will become available due to high fragmentation so
--	 * always increment the no progress counter for them
-+	 * always increment the no progress counter for them.
-+	 *
-+	 * The same goes for requests whose reclaim is promoted to make whole
-+	 * blocks. At that order, reclaim also reports progress when it backs
-+	 * off for compaction without freeing anything.
-+	 *
-+	 * The watermark check below stays at the request order: it asks
-+	 * whether the request itself could succeed after reclaim.
- 	 */
--	if (did_some_progress && order <= PAGE_ALLOC_COSTLY_ORDER)
-+	if (did_some_progress && order <= PAGE_ALLOC_COSTLY_ORDER &&
-+	    nofrag_promote_order(order, alloc_flags, ac) == order)
- 		*no_progress_loops = 0;
- 	else
- 		(*no_progress_loops)++;
-@@ -5012,9 +5033,15 @@ retry:
- 				 &compaction_retries))
- 		goto retry;
- 
--	/* Reclaim/compaction failed to prevent the fallback */
-+	/*
-+	 * Reclaim/compaction failed to prevent the fallback. The retry
-+	 * budget was spent on making blocks, not on the request itself;
-+	 * give the fallback a fresh one before considering OOM.
-+	 */
- 	if (defrag_mode && (alloc_flags & ALLOC_NOFRAGMENT)) {
- 		alloc_flags &= ~ALLOC_NOFRAGMENT;
-+		no_progress_loops = 0;
-+		compaction_retries = 0;
- 		goto retry;
- 	}
- 
-_
-
-Patches currently in -mm which might be from kas@kernel.org are
-
-mm-huge_memory-do-not-touch-frozen-folios-in-deferred_split_isolate.patch
-mm-huge_memory-dequeue-the-deferred-split-after-the-split-freeze.patch
-mm-huge_memory-add-folio_reset_partially_mapped.patch
-mm-khugepaged-drop-redundant-mm_struct-pin-in-madvise_collapse.patch
-mm-khugepaged-count-collapses-where-khugepaged-makes-them.patch
-mm-khugepaged-rename-mthp_present_ptes-bitmap-to-eligible_ptes.patch
-mm-collapse-add-collapseh-for-the-collapse-interface.patch
-mm-collapse-state-what-a-collapse-may-do-in-the-policy.patch
-mm-collapse-drop-the-collapse_possible-wrapper.patch
-mm-collapse-name-the-per-table-scan-reset-for-what-it-resets.patch
-mm-collapse-call-collapse_file-from-collapse_single_pmd.patch
-mm-collapse-separate-scanning-a-pte-table-from-collapsing-it.patch
-mm-collapse-open-code-collapse_single_pmd-in-its-two-callers.patch
-mm-collapse-work-out-the-orders-a-vma-allows-once-per-vma.patch
-mm-collapse-declare-the-collapse-interface-in-collapseh.patch
-mm-collapse-implement-madv_collapse-in-madvisec.patch
-selftests-mm-raise-the-khugepaged-test-case-cap.patch
-selftests-mm-skip-collapse_compound_extreme-where-the-pmd-is-too-large.patch
-selftests-mm-scale-khugepageds-collapse-wait-with-the-pmd-size.patch
-selftests-mm-skip-khugepaged-page-cache-cases-without-a-pmd-folio.patch
-selftests-mm-make-the-swap-cases-swapout-reliable.patch
-selftests-mm-stop-khugepaged-during-the-madv_collapse-cases.patch
-selftests-mm-move-is_backed_by_folio-into-vm_util.patch
-selftests-mm-add-folio-order-check-for-address-ranges.patch
-selftests-mm-add-folio-order-detection-self-check.patch
-selftests-mm-add-khugepaged-completion-barrier-helper.patch
-selftests-mm-add-order-parameterized-khugepaged-collapse-cases.patch
-selftests-mm-parameterize-the-mixed-source-collapse-case-by-source-order.patch
-selftests-mm-cover-a-shared-source-collapse-write-race.patch
-selftests-mm-run-every-supported-collapse-order-by-default.patch
-selftests-mm-check-that-one-khugepaged-pass-collapses-one-window.patch
-selftests-mm-add-khugepaged-race-harness.patch
-selftests-mm-race-the-collapse-of-windows-with-holes.patch
-selftests-mm-add-memory-pressure-threads-to-the-khugepaged-race-harness.patch
-selftests-mm-zap-whole-pte-tables-in-the-khugepaged-race-harness.patch
+ 	if (from_length > to_length)
+ 		 printk(KERN_WARNING "%s: %s string '%s' is too long\n",
+-- 
+2.43.0
 
