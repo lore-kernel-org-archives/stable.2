@@ -1,174 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B0823AD503
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 09:45:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FF5F3B6C00;
+	Tue,  6 Oct 2026 09:55:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791279943; cv=none; b=Aj9bNTPwhmUFljtR5qo0wVJBF8SDcVjmfmeHgqIM+n4UWOR5z4zVSAz2z1kH0sMaw2ElsfeyZ3tRgIT123oFUY5BaxOAPUl/oTULbQYqyQ0qAU3NdWejhUlDBsCn20hzqjA3scfWKYqQsDqyuBfNmilNf9hzi1Mb64yRiroYZnQ=
+	t=1791280521; cv=none; b=ou7CuMtqBM781alJ2EDsrEb8OxTXp0xS8WGanBVYhCPg8+jKxyilDzUTX2iObZj/ZNHMYE/vCA52fgnriXW4b87FfaFzcHmYHUDHG7mhsDz36VEZ4yqGkHMkvWtbFkZaFKBZxfXOQImqtFxYj5/E8sFRVWKJr7wqR0/Nsd02BGw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791279943; c=relaxed/simple;
-	bh=eoimn89aaacKHhc4tEhjTbjs4F4+56CnTVITd356BhA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VGnO22Hvcj1NBbXniXlOwUshbA9YsW+MG3EisaxV3BJI7s5Qw6Qd2YfmqbrbRx+1s7VMlei9SVMGWpl8YpqsiPofbCD+QP/r8VGnARVxZegsrkzLFyLXYOAXmHuEJWsKzPWt/lfCJVSDneQDvCrTPov53eETqLUba2QvLHhaVAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MaqpPCM3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791280521; c=relaxed/simple;
+	bh=r7dTzWnyb9LYxI9yO4JQVaNh1xZD+lxxhzUUxXuRi+U=;
+	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=jMG+RgBgGQrilKKcoaTSkQ2hoyhTEsV+GBekxU54vgfnAWaUDYRGyYjn9XXTU/wNMdEdlWvb/9QLCHB1SFGEcb7Wiyxamw8FAsf8QVAZbMufMU8Rk9ysxgqKZVuRf4M6rRqVsfQjGeubVFfguh2v0V+c8VYDmgs8HOGTJ72demQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=m9c9hcc0; arc=none smtp.client-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MaqpPCM3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 870501F000FF;
-	Tue,  6 Oct 2026 09:45:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791279942;
-	bh=7t0nsNe+6id6F0RlLQgPJslburppib/vU3q4FZCbsZA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MaqpPCM3WrtJgufL0lJJ0v0zucaP0UHdE4npZ09+gLypKvprJNC6ynq22opAvACWA
-	 XDxhzdzzlB9G9meMGGRduiLDU8mUMahDR3UKr1RzpH/xEriSjAFMfnV3vDPz8jLvEP
-	 Cg7ZnnOPTUyZ56+X2YTSOznNOpM5XRoEnZfX2TfH7j+ahNQsqSFbK69yIVlWc7REGZ
-	 0TFWCOen0YyUoO3mc5deZZeDTiHCHel33YTIOkFwnmwW5s3FSbcboMSAv5bgavT0bp
-	 e7QHvs1naiySnboPAlVOghfXzABV8YnggRL49xQU1+cZvXsd9cLhrQt2YSNH/ang2o
-	 6flAr5yaWYaTQ==
-Message-ID: <905f6658-ac80-4d3e-b66b-d14ff0d4bf25@kernel.org>
-Date: Tue, 6 Oct 2026 11:45:39 +0200
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="m9c9hcc0"
+X-UUID: 01818932c16c11f18dc8c9802ae25ab1-20261006
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID; bh=tloYHaVbYNU0rRAf4/HuoJhNrp+JOWU7kTTUF5xT1v0=;
+	b=m9c9hcc0s17okh7Ck/7RJruZyLI/v/3fxQZ8Bti9xWMalm7xQl0BWWA+brCXSdmv27vCHdZbvxGb19bUhkcCPRKfPCfCipvkIW6QzGOZlcg0kNYqmsk1v5GCXt29VNLV1PeQNX/i+c7DNretKj1d7yLGVWZVPLiRpSCAiAB7yus=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.20,REQID:725242db-c0c9-4cd5-81bb-bf7183273503,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:291e20b,CLOUDID:8e630795-3103-4fdb-b79c-08de0e281a5d,B
+	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|836|865|888|898,TC:-5,Content:
+	0|15|50|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,
+	OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 01818932c16c11f18dc8c9802ae25ab1-20261006
+Received: from mtkmbs13n1.mediatek.inc [(172.21.101.193)] by mailgw02.mediatek.com
+	(envelope-from <alice.chao@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 537123793; Tue, 06 Oct 2026 17:55:05 +0800
+Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
+ MTKMBS09N1.mediatek.inc (172.21.101.35) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Tue, 6 Oct 2026 17:55:03 +0800
+Received: from [10.233.130.16] (10.233.130.16) by mtkmbs11n1.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
+ Transport; Tue, 6 Oct 2026 17:55:03 +0800
+Message-ID: <ac1b17147198b189e606083e181db8802b72fac1.camel@mediatek.com>
+Subject: Re: [PATCH 6.18.y] scsi: ufs: core: Re-arm the device command
+ completion before submitting
+From: Alice Chao <alice.chao@mediatek.com>
+To: Bean Huo <beanhuo@iokpp.de>, <stable@vger.kernel.org>
+CC: <linux-scsi@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<martin.petersen@oracle.com>, <James.Bottomley@HansenPartnership.com>,
+	<bvanassche@acm.org>, <avri.altman@sandisk.com>, <alim.akhtar@samsung.com>,
+	<wsd_upstream@mediatek.com>, <linux-mediatek@lists.infradead.org>,
+	<peter.wang@mediatek.com>, <chun-hung.wu@mediatek.com>,
+	<cc.chou@mediatek.com>, <chaotian.jing@mediatek.com>,
+	<tun-yu.yu@mediatek.com>, <naomi.chu@mediatek.com>, <ed.tsai@mediatek.com>
+Date: Tue, 6 Oct 2026 17:55:03 +0800
+In-Reply-To: <1912caf84d99bc2388960c907184f06689806ee6.camel@iokpp.de>
+References: <20260915052638.459390-1-alice.chao@mediatek.com>
+	 <1912caf84d99bc2388960c907184f06689806ee6.camel@iokpp.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: stable: queue/* branches no longer updated
-Content-Language: fr
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org
-References: <e6ea1805-3e82-476c-86a8-096b80bde74a@kernel.org>
- <aImjNPvGPMqFu3RD@lappy> <9989cd82-d126-4dd3-96e5-37dad7f733fb@kernel.org>
- <c9ca13cc-a7ce-48ac-a7b2-a8bdc823aed3@kernel.org>
- <08bac413-ad6c-4e3d-a879-554ab0f195db@kernel.org> <anNf2xwwXDfinNQs@laps>
- <9b7ad8ef-a10a-4a94-9244-0ff983ad480b@kernel.org> <asS7KK444n7U01u0@laps>
-From: Matthieu Baerts <matttbe@kernel.org>
-Autocrypt: addr=matttbe@kernel.org; keydata=
- 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
- lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
-Organization: NGI0 Core
-In-Reply-To: <asS7KK444n7U01u0@laps>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MTK: N
 
-On 06/10/2026 11:11, Sasha Levin wrote:
-> On Mon, Oct 05, 2026 at 07:40:33PM +0200, Matthieu Baerts wrote:
->> Hi Sasha,
->>
->> On 05/08/2026 18:07, Sasha Levin wrote:
->>> On Wed, Aug 05, 2026 at 05:16:10PM +0200, Matthieu Baerts wrote:
->>>> Hi Sasha,
->>>>
->>>> On 11/02/2026 11:10, Matthieu Baerts wrote:
->>>>> Hi Sasha,
->>>>>
->>>>> On 19/09/2025 23:30, Matthieu Baerts wrote:
->>>>>> Hi Sasha,
->>>>>>
->>>>>> On 30/07/2025 06:44, Sasha Levin wrote:
->>>>>>> On Mon, Jul 28, 2025 at 11:06:17AM +0200, Matthieu Baerts wrote:
->>>>>>>> Hi Sasha,
->>>>>>>>
->>>>>>>> Thank you for maintaining the stable versions with Greg!
->>>>>>>>
->>>>>>>> If I remember well, you run some scripts on your side to
->>>>>>>> maintain the
->>>>>>>> queue/* branches in the linux-stable-rc Git tree [1], is that
->>>>>>>> correct?
->>>>>>>>
->>>>>>>> These branches have not been updated for a bit more than 3 weeks.
->>>>>>>> Is it
->>>>>>>> normal?
->>>>>>>>
->>>>>>>> Personally, I find them useful. But if it is just me, I can work
->>>>>>>> without
->>>>>>>> them.
->>>>>>>
->>>>>>> Nope, it's a bug!
->>>>>>>
->>>>>>> Looks like git was throwing:
->>>>>>>
->>>>>>> fatal: Unable to create '/home/sasha/data/stable-queue-builder/
->>>>>>> linux-
->>>>>>> stable/.git/index.lock': File exists.
->>>>>>>
->>>>>>> Another git process seems to be running in this repository, e.g.
->>>>>>> an editor opened by 'git commit'. Please make sure all processes
->>>>>>> are terminated then try again. If it still fails, a git process
->>>>>>> may have crashed in this repository earlier:
->>>>>>> remove the file manually to continue.
->>>>>>>
->>>>>>>
->>>>>>> Which my script was promptly ignoring...
->>>>>>>
->>>>>>> Fixed now, thanks for the heads up!
->>>>>>
->>>>>> It looks like these branches are no longer updated. Do you mind
->>>>>> checking
->>>>>> on your side please? :)
->>>>>
->>>>> These stable queue/* branches have not been updated for more than two
->>>>> weeks. Do you mind checking if there is something stuck on your side,
->>>>> please? :)
->>>> It looks like the last update was from 2 months ago. When you have a
->>>> chance, do you mind fixing your script please? (no urgency on my side)
->>>> Cheers,
->>>> Matt
->>>
->>> Sorry, should be fixed now
->> Sorry, do you mind checking again, please? :)
->>
->> (Maybe I shouldn't rely on them to send patches depending on others from
->> the queue.)
-> 
-> One day I'll figure this out :) It should be back up.
+On Mon, 2026-10-05 at 13:54 +0200, Bean Huo wrote:
+> The late CQE can come after the re-arm:
+>=20
+> timeout -> cleanup -> retry B -> re-arm -> send B -> A's CQE arrives,
+> and then B
+> is woken up early and fails, if B's own CQE in turn comes after C's
+> re-arm, C
+> fails the same way, and C may even read B's response as its own.
+>=20
+> Whether this stops depends on device latency against our retry path,
+> not on the
+> patch.
+>=20
 
-:) It is, thank you!
+You are right. Re-arming only covers a late CQE that arrives while no
+device command is in flight. The query retry wrappers resubmit right
+away, so the next re-arm will usually happen before the previous CQE
+lands, and the skew can cascade exactly as you describe. It is also
+worse than an early wakeup: every device command shares the reserved
+slot's response UPIU, so C can parse B's response as its own and
+return a wrong value rather than an error.
 
-Cheers,
-Matt
--- 
-Sponsored by the NGI0 Core fund.
+> The root cause is that all device commands share hba->reserved_slot
+> and the CQE
+> carries only the tag. Since a successful SQ cleanup must post an
+> ABORTED CQE,
+> could the MCQ timeout path wait for and consume that CQE before
+> returning -
+> EAGAIN?
+>=20
+
+Agreed, that closes the window instead of narrowing it. In v2 the MCQ
+timeout path will:
+
+ - after the SQ cleanup, wait (bounded) for the reserved slot's CQE -
+   the ABORTED one, or the regular one if the command completed
+   anyway - before returning;
+ - if no CQE shows up in time (e.g. cleanup failed, or
+   UFSHCD_QUIRK_MCQ_BROKEN_RTC), force a host reset and refuse device
+   commands outside the error handler until it has happened, so the
+   slot is not reused while that CQE can still arrive;
+ - keep reinit_completion() at submission time as a safety net.
+
+> does this patch only covers a late CQE arriving while no device
+> command is in
+> flight. Did you test it with injected timeouts to see whether it
+> recovers?
+>=20
+
+Yes, v1 only covers that case. And no, I have not tested it with
+injected timeouts yet.
+
+Before posting v2 I will run it with injected device command timeouts
+in MCQ mode: periodic fake timeouts under a descriptor/attribute read
+loop, with the values checked against known-good ones, and the case
+where the CQE never arrives, to check that the host gets reset and
+device commands recover. This will also show whether our controller
+actually posts the ABORTED CQE after the SQ cleanup. I will run the
+same injection on v1 and on the unpatched kernel for comparison and
+put the results in the v2 changelog.
+
+Thanks for the careful review.
+
+Alice
 
