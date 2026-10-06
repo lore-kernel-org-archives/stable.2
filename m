@@ -1,84 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A9EA49E5FC;
-	Tue,  6 Oct 2026 16:56:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0EE028E0F;
+	Tue,  6 Oct 2026 17:04:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791305763; cv=none; b=b3v4lZfUra2AZnNoIokBg54Dv64nyoO1ELcpscGCBO+ZbfCZmgD9aWywEYB4yQK24ip+l9/P+6YpLknCu+KasTHD+BfnLWHn0TMxs3MkCzieqU4S1VOpJJlU6jdJtaT1veJzGQ1Ft7dZ6tfUFKZ6nCkgUctkFtJU4QY8RXAvYJc=
+	t=1791306297; cv=none; b=ryNDO0gujM8WZS6Sa+OWSJ+jwHnwgj+SBYx/9nRwL0PiGMjZUNe+poN1wSMomBxDMP7Ho666nQtZR3Bf+To/3wh3yoMzLy1Dfw1ASQoRiL+H1NTkmj9xThC3axYQS1DdB4KLobSL1JLWA/ClitA3ZAwEoW0Jg+73/icIKGJSpfw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791305763; c=relaxed/simple;
-	bh=WUCP/4/zGityBsWzSoht4YsUy3nzQK0grZI9LxwM5Nk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HrLuZGJaXvAsSb+IsWo4S+OwUQloeFBBDXNi400WWk4pENkyDrkoM6MjSmsqJ2Bs+KtHcCxFst4+vYfRLC146x15vKjkt1NvHTjgu2pgXH/FStU8Z0SljeJrOghvEUUb567N5jBvAXuLsPXLE47HO20g9yr0wZlvdykFKUoTpXI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AFXmK0Tt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791306297; c=relaxed/simple;
+	bh=oNasH9LIHj1JSuBGvoFHsanx1eHLO7A5KIuVy5ezA7Y=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=tdIti4SWL2OML5zlzRWkBkhe3bq5FLcx9xVV6jbuiAzar5ZCvZ6WiOn89rffEz/+cMh/7EAXVpMo1Cjt/IIMBLeBONObSJpOMVWE60xbdBg/y0e4xNJoG6b7bef++PcH7h/Cy1q90ZreqN+akRPlBrsGkkQ48aY3nqCC4V3KSAU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Aro3d/Ku; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AFXmK0Tt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA0801F0089B;
-	Tue,  6 Oct 2026 16:55:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791305762;
-	bh=L+Xx6TwJDUdsJnZhVKorFUpEpCyoXOB2nqXNRP53LHg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AFXmK0TtTCMU7MS7ygHr1+fo2M7iyPr5USAb1NS2aV/FSlwN0hMRa1cds3fe5qYGS
-	 qwvhPywOpPD/SCQ7+Ra0w6vj3P1LhePOdE86xDWSlj9HUKVbe0RzfJ8a44PQjtXi0G
-	 7bn96EiQf4BMsonyHNlz0N3zVNruLKTfb5miqmGQMISnTEcL8TfvinMDK/8rl4LLOO
-	 zapbb1csB/n2Fd18Z7uwTfefbPBJ9yjN42l/pboJtV/3PMDn1Bjkq5JMgdecx84XC+
-	 nliNIfpoQd/35pAoB3Osxt4Qi3y7BQt+Rr6v9ANhL79uv4d0uPScUPa5zq2GYnyqaf
-	 W0YVIrqDNjfHg==
-Date: Tue, 6 Oct 2026 17:55:57 +0100
-From: Simon Horman <horms@kernel.org>
-To: netdev-bot+sinfo@kernel.org
-Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Sukhdeep Singh <sukhdeeps@marvell.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Richard Cochran <richardcochran@gmail.com>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: Re: [PATCH] net: atlantic: only free the PTP IRQ after a successful
- request
-Message-ID: <20261006165557.GO83879@horms.kernel.org>
-References: <20260930074023.2943213-1-runyu.xiao@seu.edu.cn>
- <179075425701.31693.17457011245131119734@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Aro3d/Ku"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791306294; x=1822842294;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=oNasH9LIHj1JSuBGvoFHsanx1eHLO7A5KIuVy5ezA7Y=;
+  b=Aro3d/KunO6XJqLKbmSIqZOFDzVxi3t3Z90C7wzV7NANJsNnldmClKvA
+   m0L7hh5+HwR6iyLikazVINV5HvBvCo05HrEwOfi52ZJmXHhXMVAi/9R42
+   olrNLNOomn3y4FDFTAuEuFsbeONsCp4bY8mn3q9QSEOSbIuxZ1b0PfWk7
+   91c/dcOlrGRnEaNp0Kph/i3JdP68tOTprXxeO64c3AylW68MVVhxaFw9x
+   P/FNGOJ5ADfiNtieiNW5vwHnJzrWwwZUHYIrtZycqHzOoZf0ZusuHqvz8
+   4TrivfJnTkDxiBwCwkLYPfeL5b6iQDKpBdO2Zt4nX5qYcBQfvHtVqM/LJ
+   w==;
+X-CSE-ConnectionGUID: xyXNYwSbSw6Q+G6lEbemQw==
+X-CSE-MsgGUID: uOWj1zsETZWq++iXna3bnA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11927"; a="113792505"
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
+   d="scan'208";a="113792505"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 10:04:53 -0700
+X-CSE-ConnectionGUID: VFCrjuO2TrCLXbVqlqKEVA==
+X-CSE-MsgGUID: CY27euWQQ96YX58MfHprLw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
+   d="scan'208";a="280484058"
+Received: from unknown (HELO [10.241.243.185]) ([10.241.243.185])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 10:04:53 -0700
+Message-ID: <0f6b866947600528f84771227ef2b6c3f4adfbd7.camel@linux.intel.com>
+Subject: Re: [PATCH v2] sched/cache: Honor asym packing over cache aware
+ scheduling on hybrid systems
+From: Tim Chen <tim.c.chen@linux.intel.com>
+To: Kayra Cizmeci <kayracizmeci@gmail.com>
+Cc: KPrateek.Nayak@amd.com, Vishal.Badole@amd.com, juri.lelli@redhat.com, 
+	klaus.kusche@computerix.info, linux-kernel@vger.kernel.org, 
+	mario.limonciello@amd.com, mingo@redhat.com, peterz@infradead.org, 
+	platform-driver-x86@vger.kernel.org, ricardo.neri@intel.com, 
+	stable@vger.kernel.org, vincent.guittot@linaro.org, x86@kernel.org, 
+	yu.c.chen@intel.com
+Date: Tue, 06 Oct 2026 10:04:53 -0700
+In-Reply-To: <20261006135959.5709-1-kayracizmeci@gmail.com>
+References: 
+	<77ceef1e51b895760dc5f6c9cde985a1679545b5.1791224900.git.tim.c.chen@linux.intel.com>
+	 <20261006135959.5709-1-kayracizmeci@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179075425701.31693.17457011245131119734@kernel.org>
 
-On Wed, Sep 30, 2026 at 07:44:17AM +0000, netdev-bot+sinfo@kernel.org wrote:
-> Hi!
-> 
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
-> 
->  - Whether the issue was actually triggered, or is only theoretical
->    (e.g. found by code inspection). If it was triggered please include
->    the symptoms, like the stack trace or error messages.
-> 
->  - What hardware the change was tested on. For driver fixes please
->    mention the device (and if relevant firmware version) used for
->    testing, or say that the change was not tested on real hardware.
-> 
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account. If the series needs another revision for
-> other reasons, please include the information in the commit messages
-> then.
-> 
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
+On Tue, 2026-10-06 at 16:59 +0300, Kayra Cizmeci wrote:
+> Hi Tim,
+>=20
+> > +	/*
+> > +	 * On asym packing domains, if the destination CPU
+> > +	 * has higher priority than all CPUs in the source group,
+> > +	 * prioritize asym packing.
+> > +	 */
+> > +	if ((env->sd->flags & SD_ASYM_PACKING) &&
+> > +	    sgs->group_asym_packing)
+> > +		return false;
+> > +
+>=20
+> I think that check is redundant. group_asym_packing is set by sched_group=
+_asym() and bunch of other stuff,
+> but sched_group_asym() calls sched_asym() and sched_asym() calls sched_us=
+e_asym_prio() that has SD_ASYM_PACKING check
+> inside of it.
 
-Hi Runyu,
 
-I would appreciate it if you could provide the information suggested
-by the bot above.
+Thanks.  Yes, we can remove the SD_ASYM_PACKING check as the check was done=
+ when group_asym_packing was set.
 
-Thanks!
+Tim
+
+>=20
+> Ah.. Hope I'm not missing something...
+>=20
+> Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
+>=20
+> Now, I'm going to grab a cup of tea. And sleep.
+>=20
+>=20
