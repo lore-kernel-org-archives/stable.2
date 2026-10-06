@@ -1,130 +1,167 @@
-Received: from mail-qk1-f225.google.com (mail-qk1-f225.google.com [209.85.222.225])
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F03F73AB28F
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 08:27:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.225
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E45326ED3C;
+	Tue,  6 Oct 2026 08:29:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791275254; cv=none; b=d6hd8qUsqJR1no5ojzS5J0rn8KmLNKsmeKB3KG6mLy5SvNWgzBrXdLAnCHPsmdEUw7FJQNtlhhGlk561cHbstkw/jM0zJTXOZQ8Sp3yF+BqC0bbXLpcWtKoT4YaLcpIxOaSkPFAjMj5AGDkB2KEC22J/JAH0jOSxzW/piXZXAYE=
+	t=1791275348; cv=none; b=GXnIrmkT/8Fy/oHmjjIn5sbMSrM5LYWOt/zP1H+hpHktC4GPtjlDOa3Etyw9HtY2vaHTRWfGuciIKS9wRRVSIp7DQHkD3FD67XlfE0B3xa0e9NFM+BUvi/RU5IjWF2IWQxPnWnriJb7K1xPE6ASjT9WWP8ij/V0/5IwPsCsZL0M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791275254; c=relaxed/simple;
-	bh=AhTSB+hX8DW5/UqPj/kPlDv4TilOhsZezix19Q9Y0hU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rBum2dushufF/GsoS8FmTTI4aqToSKMJBqUmmqzcAIVGmC1tj3QsM2NVNdASxkTLVNNWDUN0RtPLxG2H1oQV78P47yucOl+CY0gUCyrQ86wp95HYl2w2A6oBaZ4BXJS0Ni51b2esmZrOW5hpfAPILoSHU/OqVkUnk8Q1OsJSKeE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=YWnPD1cK; arc=none smtp.client-ip=209.85.222.225
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1791275348; c=relaxed/simple;
+	bh=4E90XbME5YYrCHUynb8Gq04uOMIs5TinNGnJqDgIEo0=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=VWGXi5gyJFxVdbzx09oWRga0uOrNGXeRDZoL0TEvn+usH1MemIssxlQ4c9Ys85xqcgJRVQhQ9WT/je+4OcSJrGxpNiKVbK65ZL2zPD9TmTcP5PWutHEoICAVGIubQyg5DBb7gh2dyw9wmfdMu2G7SMt2ZCAKKgbmzuaKoYHI3dk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=WrTuxpWN; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="YWnPD1cK"
-Received: by mail-qk1-f225.google.com with SMTP id af79cd13be357-93e4e37788cso23553185a.2
-        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 01:27:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791275252; x=1791880052;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=aO7ZMNOXH20rZFoB1a96CWPC5jLhbhIpE9Whu53E080=;
-        b=PEenGqLCOPGfeImH87COk9hVzlHSBfyiz77Dm22f1xD9dBJQ58IwXoEOmDUNXteHoS
-         0hBTZjDJ0VGM7SfhIxr1w5ZyUrYsZZreWVD+8fgSbHYH9R1qlvL46NNI7nXrOG032azy
-         PCMQCo4g0BYi1OtVuoPX2dJmH+S5K5hOWTV08uF4WokY/+O08rBOK70L/M2EYPG240P8
-         VGLzHzwui2FAmvWfibWmPo4ZVCFlVwccmj+UNaUaPe2xkw2cmUFsM/NzwLEu1yBl0NaR
-         lKiPh8vnHWGowM2rSP7x2pOzKLLMBDWUjv1vno/vNwnk2nmIdX5ZWskurJzpwCcFkRwE
-         GUZw==
-X-Forwarded-Encrypted: i=1; AKwUvBy+XJhILCVS2XVL3+zbqmnFN0qxKajfLusVZdSExigUdkV7hfvb4EdUv45tkRpsQMr62cuo5fU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mG3nv9T8LSkYg/Jb2NACLELj+ROLhtbKdDwbXuh0mswI3MhrA7
-	Kz9iWZQ6+rlJ/MTxClV7w0MksnNSa1Qp1GbObxibt9mZLMz4yheGGlN1cF/w5HK562Ienu0aEZW
-	ArTl7GEKmg/Yiv2HCWlCe3CIw/G48A3fXZ67JQiedTxYw6wxhor60bdXjMXhAgaPyzo/3xwszu3
-	tAasfwCmzFA58uJ1s9qAzhks/CaEIAWf9Ta4ABsNsWRW/rMOKxLSAA2LVXjz2bjv0qGOOYAsSnq
-	GZhvjSVxoMY//dTtQ==
-X-Gm-Gg: AYBFou38KXkAr993FpNukxI2KdGpkwQCclOOOZCGVstTwggGdgzkcgSvW13wmp+4Ml9
-	aNUeYODHYeR6Bi15L/EDSbypSBCNIedXmMwtqPnZ9FJacc5SlQCMqKbjc39DMsQ+SBlcSs4dGfA
-	qcoUXGspaHA2ymAWhxO9u99r2HfZMbR74irEGPR9Cs4bX7hZeC6/9wQdRN3exznLZwuS+H0JuBe
-	V/JC7Or6x14szG2INsUxMk6ONDFGVx6fZUsOmjcvWLRPihl8Fkr2jhbJTHfbxIpMeIlkAPqJqqm
-	1cLkRcCBb7iiI2BbqINE+HCoEfq/KPeHLl41K5X5a4Rmf+z1GATBDdPhxsVfGl8JE5OhtuWZM03
-	JcAvrZH5zi/Pjok/lr38yZABwgWBBUyG2oRxGNV30V45dq4CuiEhUGQY3esKhPS5BxtxYTRGaWH
-	JZb6Hgvy+i3ykbVTscIkiPWs3B0xkKtEACyfZv7Uuu+g==
-X-Received: by 2002:a05:620a:46a0:b0:93e:5060:f929 with SMTP id af79cd13be357-93e8f31c384mr134455985a.19.1791275251861;
-        Tue, 06 Oct 2026 01:27:31 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
-        by smtp-relay.gmail.com with ESMTPS id af79cd13be357-93cca03cdd2sm494531685a.1.2026.10.06.01.27.31
-        for <stable@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 06 Oct 2026 01:27:31 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-3510562ef98so3410752eec.0
-        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 01:27:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1791275250; x=1791880050; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aO7ZMNOXH20rZFoB1a96CWPC5jLhbhIpE9Whu53E080=;
-        b=YWnPD1cKKv+BA9qxVUDRvhJ12vc39zoc3nN2jC2KGqTtbX3crNdvFDVFXuJuHyaZ+O
-         CQtpD0ZDauOFIfP/CwEKHoxGLdMEgvN7n7qi6SZ3n+lMTIkHjF0vgiREXyPi320/R+OH
-         xiuqZ/rh8pyH1DGqoQapZvMzn2kBEix92aqlE=
-X-Forwarded-Encrypted: i=1; AKwUvBy+cjY90jra26bTHQg5J/AguqjQoaSgg/eL4JFjT+sN+CTnJxYfWGnGqFVlD6XqA4OnuxK5Cbo=@vger.kernel.org
-X-Received: by 2002:a05:7022:288:b0:143:4d12:396d with SMTP id a92af1059eb24-15ec7b02b1dmr978949c88.26.1791275250345;
-        Tue, 06 Oct 2026 01:27:30 -0700 (PDT)
-X-Received: by 2002:a05:7022:288:b0:143:4d12:396d with SMTP id a92af1059eb24-15ec7b02b1dmr978913c88.26.1791275249521;
-        Tue, 06 Oct 2026 01:27:29 -0700 (PDT)
-Received: from [10.176.3.41] ([192.19.176.250])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-15d83d6af11sm5335442c88.10.2026.10.06.01.27.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 06 Oct 2026 01:27:28 -0700 (PDT)
-Message-ID: <802a092a-314a-4f77-aa1d-134b3d020069@broadcom.com>
-Date: Tue, 6 Oct 2026 10:27:27 +0200
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="WrTuxpWN"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6968SRylC2756064, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1791275308; bh=YTvTHDWQ0MPVFXdmQKE3U9s9hkDXT5kOh2ihQfR5+pc=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=WrTuxpWN3KxPc7nwUDcwojj1fJkMhfbBAWUaLKrXmrWN7MUHX4XLozxILBBzO7FDv
+	 kobnoxH6cj6qzJENJh9djb0FNTmTSVdXFQ00kmXu4szYSL+quSDwGcmHBbX9bNOlNP
+	 rCcpy8f+gbJYL/4dOiE51T+xHf36/tLX6DSy+LdAS+erhVqJ7j++EBJ14jqOhDo0ek
+	 Wf4TbgQtbbqIzNzJeUqJFIbytVDbWQNiQDa436I5XyONGvfRYA+yCipJBIjrRMNDgr
+	 Qhc0BoIAi8suGpgqdHUrLLwjV7k1d5daGz7zAhRs+CD+UrbT9lpTESraE9qdJWi/PC
+	 /XEWRU4YorAEg==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6968SRylC2756064
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 6 Oct 2026 16:28:28 +0800
+Received: from RTKEXHMBS03.realtek.com.tw (10.21.1.53) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 6 Oct 2026 16:28:21 +0800
+Received: from RTKEXHMBS03.realtek.com.tw ([::1]) by
+ RTKEXHMBS03.realtek.com.tw ([fe80::f36f:a844:4916:93f2%9]) with mapi id
+ 15.02.2562.049; Tue, 6 Oct 2026 16:28:21 +0800
+From: Hayes Wang <hayeswang@realtek.com>
+To: Linmao Li <lilinmao@kylinos.cn>, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+CC: Chih Kai Hsu <hsu.chih.kai@realtek.com>, nic_swsd <nic_swsd@realtek.com>,
+	Birger Koblitz <mail@birger-koblitz.de>, Xiangqian Zhang
+	<zhangxiangqian@kylinos.cn>, "linux-usb@vger.kernel.org"
+	<linux-usb@vger.kernel.org>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>
+Subject: RE: [PATCH net v2] r8152: Use BMSR to detect the link state
+Thread-Topic: [PATCH net v2] r8152: Use BMSR to detect the link state
+Thread-Index: AQHdVLexra3FlE5swkqMdmzmTHCGJ7bwLnWg
+Date: Tue, 6 Oct 2026 08:28:21 +0000
+Message-ID: <fd3bff0e63304681b9e5f35f2f57e50e@realtek.com>
+References: <20261005105249.1281648-1-lilinmao@kylinos.cn>
+In-Reply-To: <20261005105249.1281648-1-lilinmao@kylinos.cn>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] wifi: brcmfmac: avoid sleeping tx locks in netpoll
- context
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: linux-wireless@vger.kernel.org,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, brcm80211@lists.linux.dev,
- brcm80211-dev-list.pdl@broadcom.com, linux-kernel@vger.kernel.org,
- linux-rt-devel@lists.linux.dev, stable@vger.kernel.org
-References: <20260930185417.61865-1-kmehltretter@gmail.com>
- <20261004122910.1392318-1-arend.vanspriel@broadcom.com>
- <asR1TaKQJlPFqEvR@gmail.com>
-Content-Language: en-US
-From: Arend van Spriel <arend.vanspriel@broadcom.com>
-In-Reply-To: <asR1TaKQJlPFqEvR@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On 06/10/2026 06:18, Karl Mehltretter wrote:
-> On Sun, Oct 04, 2026 at 05:29:10AM +0100, Arend van Spriel wrote:
->> Is there an opportunity to reuse/refactor brcmf_sdio_prec_enq() rather than
->> adding a separate brcmf_sdio_prec_enq_irqoff() helper? For example, passing
->> a can_evict parameter:
->>
-> 
-> Thanks for the review!
-> 
-> Sharing the helper with a can_evict argument is cleaner.
-> 
-> One queue user does not hold txq_lock: brcmf_fws_bus_txq_cleanup()
-> dequeues through brcmu_pktq_pdeq_match().
-> 
-> Lockdep instrumentation in fcmode=1 and 2 confirmed that cleanup enters
-> without txq_lock.
+Linmao Li <lilinmao@kylinos.cn>
+> Sent: Monday, October 5, 2026 6:53 PM
+[...]
+> r8152 detects carrier from PLA_PHYSTATUS without reading BMSR, so
+> BMSR_LSTATUS can still be latched low when the carrier comes up.
+> Since commit f6f2e946aa4d ("net: mii: Fix the Speed display when the netw=
+ork
+> cable is not connected"), the first speed query after link up can then re=
+port
+> SPEED_UNKNOWN, leaving NetworkManager at 0 Mb/s until the next carrier
+> change.
+>=20
+> Use BMSR_LSTATUS in set_carrier() and rtl8152_runtime_resume(), so the
+> driver consumes the latched link down itself. If the first read still rep=
+orts link
+> down, the next link-up notification triggers another read and brings the =
+carrier
+> up.
+>=20
+> Tested on an RTL8153B with a 6.6-based kernel. In 5 rebinds and 6 cable
+> replugs, the first read returned LSTATUS=3D0, a second link-up notificati=
+on came
+> about 32 ms later, the second read returned
+> LSTATUS=3D1 and the carrier went up; NetworkManager reported 1000 Mb/s.
+> Runtime suspend/resume with the link up did not change the carrier.
 
-This is an observation unrelated to the patch, right? You mentioned in 
-the patch it only covers fcmode=0, right?
+I think this patch may introduce a new issue.
 
-> I combined the helpers, but kept brcmu_pktq_penq() for normal calls.
-Sure.
+Our newer ICs do not generate periodic link-status notifications. They gene=
+rate a
+notification only when the link status changes. Therefore, with your patch,=
+ BMSR
+will not be read a second time until the next link-status change.
 
-Regards,
-Arend
+Best Regards,
+Hayes
+
+> Fixes: f6f2e946aa4d ("net: mii: Fix the Speed display when the network ca=
+ble is
+> not connected")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
+> ---
+> v2:
+> - Fix it in r8152 instead of mii.c, detecting the link from BMSR as
+>   suggested by Andrew Lunn.
+> - Also use BMSR in rtl8152_runtime_resume().
+> v1:
+> https://lore.kernel.org/netdev/20260930113842.2640928-1-lilinmao@kylinos.=
+c
+> n/
+>=20
+> Only tested on an RTL8153B, with a 6.6-based kernel; the changed lines ar=
+e the
+> same in net/main. I could not check whether BMSR_LSTATUS is reliable on t=
+he
+> 2.5G/5G/10G chips handled by this driver.
+> I could not reproduce a link drop that recovers while the device is runti=
+me
+> suspended, so that case is only covered by code inspection.
+>=20
+> r8152_mdio_read() cannot fail today. The pending RTL8157/RTL8159 series
+> makes it return errors, so these two callers will need error handling onc=
+e that
+> is merged.
+>=20
+>  drivers/net/usb/r8152.c | 7 ++-----
+>  1 file changed, 2 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/drivers/net/usb/r8152.c b/drivers/net/usb/r8152.c index
+> f61686433031..e3947eb796c5 100644
+> --- a/drivers/net/usb/r8152.c
+> +++ b/drivers/net/usb/r8152.c
+> @@ -6979,11 +6979,8 @@ static void set_carrier(struct r8152 *tp)  {
+>         struct net_device *netdev =3D tp->netdev;
+>         struct napi_struct *napi =3D &tp->napi;
+> -       u16 speed;
+> -
+> -       speed =3D rtl8152_get_speed(tp);
+>=20
+> -       if (speed & LINK_STATUS) {
+> +       if (r8152_mdio_read(tp, MII_BMSR) & BMSR_LSTATUS) {
+>                 if (!netif_carrier_ok(netdev)) {
+>                         tp->rtl_ops.enable(tp);
+>                         netif_stop_queue(netdev); @@ -8653,7 +8650,7
+> @@ static int rtl8152_runtime_resume(struct r8152 *tp)
+>                 set_bit(WORK_ENABLE, &tp->flags);
+>=20
+>                 if (netif_carrier_ok(netdev)) {
+> -                       if (rtl8152_get_speed(tp) & LINK_STATUS) {
+> +                       if (r8152_mdio_read(tp, MII_BMSR) &
+> + BMSR_LSTATUS) {
+>                                 rtl_start_rx(tp);
+>                         } else {
+>                                 netif_carrier_off(netdev);
+> --
+> 2.25.1
+
