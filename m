@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8470C22425B
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 07:43:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD8C22425B
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 07:44:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791272618; cv=none; b=KIs6GhxfHSZeyeNPreZ9V+P2OnI1jG3XSl4hcgLebqoDtXvaucphKtq+M/ycKGmcbgMSD4yzeNfRqRWIAbaFljEwo8SU1kev60MQcORVX5KHcYi2O0l/Co6LtTpseyt5Ix2MBQBS7LEnlUCWL3+dbduHX+jigtqQL4XYGSHDXxw=
+	t=1791272644; cv=none; b=TFaq8kQzwFRWiYQLIEdRBb/R27YkIx437f3d4y9YebSS79VdYJw6BLdmn578Jg6WBX9E3vEDK2MmrZmjlx/yDXMVlPqHqgca/IGmsiieSq2gdSc6lrCFQNZPdtlby70mDbEVIyL9VaiNG1V+O/1dsOx4O3HpAx4b0fyszlL5ddk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791272618; c=relaxed/simple;
-	bh=CqEJ7DmzpOIFbkjaDC4n6WDcWj2uvRoptstNPwC64g8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=VinPJX4GIC1l5l2S+wD/9HglIjSECFtZorq5ttfKEHTRHpWweocHTNKGMt+R0tWM0tDJY7rPcKJZ/3FNxG0qSCitr7hVzuU0X6WH2AOBH/3mEqZyLTMhl174RgUa10V6RcfpIjH5TdlHjywiJ3+eZc6FS6uofwWKjdBH50v7n5Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=S4BDaUSR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791272644; c=relaxed/simple;
+	bh=Vq4CRCn43RpHoBtWQG2ebgBev08JP0xNbCkkjrZedXk=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=SO6KLtoDcITUM9lXTgcMaLNQxzD8qeF8mv/SBcUeMVzLxikGtsaH6Har+BvHn3UPrTA4XgopcQUODClo+ZuCybCI7DnmQGbzzZVRKaXkaSUbNx+x9XnyByknf1zD8/4k05FHi5Ibwy627uov6IGAHbVD2T5kK9oROEJdTQ8h+3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=mCzjfNTe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="S4BDaUSR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E6971F000FF;
-	Tue,  6 Oct 2026 07:43:35 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mCzjfNTe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EAFB1F000FF;
+	Tue,  6 Oct 2026 07:44:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791272616;
-	bh=fRcg25/t81ZzHkmwjmfzqDux0ImmIVHUcgDguEhjp7w=;
+	s=korg; t=1791272642;
+	bh=xd+pQLtkSeRmXVc7+99t82WGWsJjJs+TZDBz3G9Krag=;
 	h=Subject:To:Cc:From:Date;
-	b=S4BDaUSR0W1S47Tk4chF1RBeAV9bD9d5X7NEDdKBJP8yQdTvRalZt3wQXQMbz1v1J
-	 YlblXwzVh69iI7MqsLhPAZdaaWysyjJdK9YhZIaOdGbkUE1f9L3QhSsoBBEac6iW8F
-	 2ODBO705dHixDpqD3rA4Mm8eY3W7ESo52wJ8bvU0=
-Subject: FAILED: patch "[PATCH] iio: adc: ad_sigma_delta: fix use-after-free on unbind" failed to apply to 6.6-stable tree
-To: fanwu01@zju.edu.cn,jonathan.cameron@oss.qualcomm.com,nuno.sa@analog.com,songl@zju.edu.cn
+	b=mCzjfNTe6xYs/VhZu6/hyG9YJqv9LxPUQru53IXBLAISt43g4m2nD2dZudHJlUY+v
+	 lnN7s6i/QhP1VIfsJUFpXo65R9905tyMCIWEs9xhpX8vbVf6wwUeFd0wl8PWNUaVH2
+	 lrQrYSPS6lkPBBzxSIt1436R9ouvqVnIeRzEGeIY=
+Subject: FAILED: patch "[PATCH] iio: adc: aspeed: propagate reset deassert errors" failed to apply to 6.18-stable tree
+To: pengpeng@iscas.ac.cn,jonathan.cameron@oss.qualcomm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 06 Oct 2026 09:43:21 +0200
-Message-ID: <2026100621-scoured-monitor-69e9@gregkh>
+Date: Tue, 06 Oct 2026 09:44:00 +0200
+Message-ID: <2026100600-blimp-motivator-875e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 9ee8306121495d2a25aa5d1bfd519f2748786b83
+git cherry-pick -x 95e4eb426b4bd666fa2f37886c0ddf74a0cc6167
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100621-scoured-monitor-69e9@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100600-blimp-motivator-875e@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,101 +62,35 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 9ee8306121495d2a25aa5d1bfd519f2748786b83 Mon Sep 17 00:00:00 2001
-From: Fan Wu <fanwu01@zju.edu.cn>
-Date: Wed, 23 Sep 2026 09:48:07 +0000
-Subject: [PATCH] iio: adc: ad_sigma_delta: fix use-after-free on unbind
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 95e4eb426b4bd666fa2f37886c0ddf74a0cc6167 Mon Sep 17 00:00:00 2001
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Date: Sun, 30 Aug 2026 21:42:27 +0800
+Subject: [PATCH] iio: adc: aspeed: propagate reset deassert errors
 
-ad_sd_buffer_postenable() allocates sigma_delta->samples_buf with
-devm_krealloc() at runtime, so its devres entry sits after all
-probe-time entries of the driver. devm resources are released in
-reverse allocation order, which means unbind frees samples_buf before
-iio_device_unregister() disables the buffers and detaches the trigger
-pollfunc. The data ready IRQ is still enabled at that point, so
-ad_sd_trigger_handler() can still run and memcpy() incoming samples
-into the freed samples_buf.
+aspeed_adc_probe() continues to register ADC resources after deasserting
+the shared reset, even if the reset controller reports a failure.
 
-Fix this by preallocating the buffer in
-devm_ad_sd_setup_buffer_and_trigger(), before the triggered buffer and
-the IRQ are set up, so it is freed only after iio_device_unregister()
-has drained the trigger handler via free_irq(). Size it for the worst
-case of all sequencer slots being active; ad_sd_validate_scan_mask()
-already caps the number of active channels at num_slots.
+A failed deassertion leaves the hardware unavailable, so stop probing
+before installing the cleanup action and enabling the ADC.
 
-This issue was found by an in-house static analysis tool.
-
-Fixes: 8bea9af887de ("iio: adc: ad_sigma_delta: Add sequencer support")
+Fixes: edf7550a1f93 ("iio: adc: aspeed: Deassert reset in probe")
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 Cc: stable@vger.kernel.org
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Reviewed-by: Nuno Sá <nuno.sa@analog.com>
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 
-diff --git a/drivers/iio/adc/ad_sigma_delta.c b/drivers/iio/adc/ad_sigma_delta.c
-index 1b410291da53..119ddc5a13e2 100644
---- a/drivers/iio/adc/ad_sigma_delta.c
-+++ b/drivers/iio/adc/ad_sigma_delta.c
-@@ -498,7 +498,6 @@ static int ad_sd_buffer_postenable(struct iio_dev *indio_dev)
- 	const struct iio_scan_type *scan_type = &indio_dev->channels[0].scan_type;
- 	struct spi_transfer *xfer = sigma_delta->sample_xfer;
- 	unsigned int i, slot, channel;
--	u8 *samples_buf;
- 	int ret;
+diff --git a/drivers/iio/adc/aspeed_adc.c b/drivers/iio/adc/aspeed_adc.c
+index 6169ce28261e..452c30cf04f2 100644
+--- a/drivers/iio/adc/aspeed_adc.c
++++ b/drivers/iio/adc/aspeed_adc.c
+@@ -585,7 +585,9 @@ static int aspeed_adc_probe(struct platform_device *pdev)
+ 		return dev_err_probe(dev, PTR_ERR(data->rst),
+ 				     "invalid or missing reset controller device tree entry");
  
- 	if (sigma_delta->num_slots == 1) {
-@@ -530,7 +529,7 @@ static int ad_sd_buffer_postenable(struct iio_dev *indio_dev)
- 		xfer[1].bits_per_word = scan_type->realbits;
- 		xfer[1].len = spi_bpw_to_bytes(scan_type->realbits);
- 	} else {
--		unsigned int samples_buf_size, scan_size;
-+		unsigned int scan_size;
+-	reset_control_deassert(data->rst);
++	ret = reset_control_deassert(data->rst);
++	if (ret)
++		return ret;
  
- 		if (sigma_delta->active_slots > 1) {
- 			ret = ad_sigma_delta_append_status(sigma_delta, true);
-@@ -538,17 +537,6 @@ static int ad_sd_buffer_postenable(struct iio_dev *indio_dev)
- 				return ret;
- 		}
- 
--		samples_buf_size =
--			ALIGN(slot * BITS_TO_BYTES(scan_type->storagebits),
--			      sizeof(s64));
--		samples_buf_size += sizeof(s64);
--		samples_buf = devm_krealloc(&sigma_delta->spi->dev,
--					    sigma_delta->samples_buf,
--					    samples_buf_size, GFP_KERNEL);
--		if (!samples_buf)
--			return -ENOMEM;
--
--		sigma_delta->samples_buf = samples_buf;
- 		scan_size = BITS_TO_BYTES(scan_type->realbits + scan_type->shift);
- 		/* For 24-bit data, there is an extra byte of padding. */
- 		xfer[1].rx_buf = &sigma_delta->rx_buf[scan_size == 3 ? 1 : 0];
-@@ -855,6 +843,23 @@ int devm_ad_sd_setup_buffer_and_trigger(struct device *dev, struct iio_dev *indi
- 
- 		indio_dev->setup_ops = &ad_sd_buffer_setup_ops;
- 	} else {
-+		const struct iio_scan_type *scan_type =
-+			&indio_dev->channels[0].scan_type;
-+		unsigned int samples_buf_size;
-+
-+		/*
-+		 * Worst-case size: all sequencer slots can be active, capped
-+		 * at num_slots by ad_sd_validate_scan_mask().
-+		 */
-+		samples_buf_size =
-+			ALIGN(sigma_delta->num_slots *
-+			      BITS_TO_BYTES(scan_type->storagebits),
-+			      sizeof(s64));
-+		samples_buf_size += sizeof(s64);
-+		sigma_delta->samples_buf = devm_kzalloc(dev, samples_buf_size, GFP_KERNEL);
-+		if (!sigma_delta->samples_buf)
-+			return -ENOMEM;
-+
- 		ret = devm_iio_triggered_buffer_setup(dev, indio_dev,
- 						      &iio_pollfunc_store_time,
- 						      &ad_sd_trigger_handler,
+ 	ret = devm_add_action_or_reset(dev, aspeed_adc_reset_assert, data->rst);
+ 	if (ret)
 
