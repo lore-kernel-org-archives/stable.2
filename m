@@ -1,212 +1,252 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7C2933AB288
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 13:50:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 643D939EF1C
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 13:56:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791294612; cv=none; b=FUon8hhj0udyLzVjNCSBY3kkQ+ghQNEeDov982vQQWyFyLUNgTCQSolldN0riXE9Wr29mIBPlOH51UMwsTJThO7JvYzm3OMTAOcgkxcFSknaAvoFDdeQlLnq3iSWk5+YH0clcH1AK3AaBCbp1n1KdRQiNRiq5Q8QGCjdHj0MAbY=
+	t=1791294971; cv=none; b=FoCI30fN6mKDOcwjWDbyxZYRYPnrZBkLtyLS0GGbiPMQPWvyymTjAjSnC3CvkPRC6iIVxhmnAMSv/qQt92wVXxbmYLIgq626UQxzeHgT5J7bUwwd8YuJgoaIZ0Tp+0xXeXhjWMi24zRI6L/uPDSiuo8UllKxXKuqD14Wch8jrVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791294612; c=relaxed/simple;
-	bh=ncWkEg5xSkIhQz2Z016lFzxVyp41vxyNjMV408OdiPY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iXSQoZxtYrgiZaKWj9wtjPpf25TEDiGOM/MQoxSpGqY346T2fAi7xW9qZaEY9cU+sfWfZ2nEJXjQHoD+Naq0bICPPv5kAIg6bAelNN1WSttqcQedt6Kvx0EpBQJuSKuvG703y1d7dUt4Uwp4tHLxSpwgqFJsBkSaZFgWoQTkQqE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=TZposKuL; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791294971; c=relaxed/simple;
+	bh=/Dhuh/wtI0yX/Les8bDjamHrz/rhROiQMQkvk8Zx65o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=N1tzgaDAHDSD6wROyOvy2tpHnX6FjT4LqyRtEXffHjFlobz3JCUrSG2i6nlmK5nqeS5HtEZU0HpcrYHfRr0zXTLx4BKOf20NU7UDCqSLaWXAfd34Ivv30Mt0ClG/h9MtnxtGgRuDOvZw5o/YkqiaU14j2cq2/7dR9sZ+VFMWb/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=gDOgNTbV; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="TZposKuL"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 762141516;
-	Tue,  6 Oct 2026 06:50:06 -0700 (PDT)
-Received: from arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B1A723F763;
-	Tue,  6 Oct 2026 06:50:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791294609; bh=ncWkEg5xSkIhQz2Z016lFzxVyp41vxyNjMV408OdiPY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=TZposKuL4TErv8OGFjGExZUhJquj/ybgVnVbdG8FMhHfjmt8H0qefjvK4g9uXe5BH
-	 XonRbANk+RQY1dm+paoQnoUdD904ahZp4OmjKvQ3EHkM2SZ+PDpqErdoZ+1aOK0vaX
-	 i29en8iDQRRsApgdiMWWoJ8oU9qRxbp4VOo3xsts=
-Date: Tue, 6 Oct 2026 15:50:05 +0200
-From: Beata Michalska <beata.michalska@arm.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, Vladimir Murzin <vladimir.murzin@arm.com>,
-	Will Deacon <will@kernel.org>
-Subject: Re: [PATCH 6.6.y] arm64: errata: Add Cortex-A725 erratum 3821522
- workaround
-Message-ID: <asT8jRt_zAH_jKGf@arm.com>
-References: <2026100501-bulginess-bullfight-da31@gregkh>
- <20261006080810.3667859-1-sashal@kernel.org>
- <asS2JVf26_1CD5Wi@arm.com>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="gDOgNTbV"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a018792ab3so8155375e9.0
+        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 06:56:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1791294967; x=1791899767; darn=vger.kernel.org;
+        h=content-type:in-reply-to:autocrypt:from:content-language:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/Dhuh/wtI0yX/Les8bDjamHrz/rhROiQMQkvk8Zx65o=;
+        b=gDOgNTbVxzxJR0Asl3ay6a5Kf8rfl9ha0LABhQZaEHgid/0Hjp/mt911TErgMnV7MW
+         Y45hd+3g9/ziRwZC2X2PadKiFj7iJY1rxtn8IjUAR7Bah25lf55s1tOuNl1SfbJmayB5
+         YgkTwdHrYCpWrRrBBByG29qiAptb6HpDE3NvxoctqwRtmSHIHhdqdwRsH78oKejodLm6
+         6binDxw0QJpvhwS7BdQeHfO5EppkUMp3msx3kSYf+a0yJOEoMEBFZdChFZLZZ4gPvwLE
+         4+MToniGd6HF/BPTv+SolJ5cpYM9L9x4jJZQpNu5H1r3jsJ+8vT0eVqGsUIUh9MCZcal
+         t9wQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791294967; x=1791899767;
+        h=content-type:in-reply-to:autocrypt:from:content-language:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/Dhuh/wtI0yX/Les8bDjamHrz/rhROiQMQkvk8Zx65o=;
+        b=gytF7PBx9fg9I1yiiIEiVnvcL4O7pMG022iRWdr9f2C4UO18OmAY0tH1DydkncirWx
+         5ZIATG2uPAb5gpRRAzIvHnWs+Igr/36ouyxlH5UfEIK9BaiYjiDpnUzMnMg1Niy1wZ9V
+         7k1A3uPifono2nImShkZ90wSWDgyVwXXECjdjwA/P7neYETspKX2tKqfn/FelnYKLaRX
+         NQ5umr1Ad/5PsazIElm5ED/6SclivteEeeBndk2dIHf4HOoqD+AuwIKsHdCPUkPzDKra
+         /1yuCazJQOvFDeDCHsLDXQ+/hGPx4XE/+DKR6sSDCfr1XK+Jy8Ar+dBXx3Q2B6k7u0in
+         FK6A==
+X-Gm-Message-State: AFuF++k7Mm+Wf2X7t8UJA1RRFSdgIQmCq/t5vDWjsJW7BDzakULoE7ia
+	fyZ9elIICfV/rXNgiFevggHrLqWRTER2RJarRXW80PaaIixvBngvevn1kOH2+ldjkkc=
+X-Gm-Gg: AYBFou2Zbit9lcXekdEAMIfaS/6O8x0T2wDVHGzlllGeKQobNOdmpULJFPT9irNI+ZI
+	dEVxu9TQiqawkuZDq+Uitk+2LngxZlT2Qqw+v0Yw5Ny1DmeNcUNt4vRxshXxrUBknB8YQPS8SiC
+	93US6w0/YnZLiybOOzkcEMREoi5QbyD34KiAjLyeH5P7blpdXTDN0dMmIf43siP9h9r+8e7wadM
+	DVE1z3/8xgscFAP4rtbYDFl6VvIL+G9S9j8ePZsZB0VlfghBXYUv7QMEXXTxLhnUz8O8iQ8ixaO
+	aLy+2RhuZrPaBWI+MZYDYsyH4bfJZNSjSB8rdWRNMBEO8XySttqqPTdCLxWqil/TIZmXqbyqr9p
+	2z21XJvrSyRxKjdN9nj5/6TfGeB7XoQ2uf7pDvu8rRMpUdh0/P1b1n//LKdpFD/YU0OunQTm7vY
+	6ySHKMh1v66mndVQgYDyNaZ7/Hti+vGh6r3CsJ58PbBurndW8IcEXupXbp4mtq3bi4UHwvIjcUI
+	xIj2csrkdLRz5w6vMfx5pX9Y3fmBT7ErDZGwUb5OTYtizE5YNp9yRQoQ3RAT7T4H6tH3pVfh3aN
+	qRT/e5HCeEhYTUwVdzKzZ4gP
+X-Received: by 2002:a05:600c:5492:b0:4a1:6d35:779a with SMTP id 5b1f17b1804b1-4a17b4f297bmr27971755e9.3.1791294967343;
+        Tue, 06 Oct 2026 06:56:07 -0700 (PDT)
+Received: from ?IPV6:2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112? (2a00-12d0-af5d-ad01-5d3f-14e6-9bcb-5112.ip.tng.de. [2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17a0fc2e4sm68582055e9.3.2026.10.06.06.56.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 06 Oct 2026 06:56:07 -0700 (PDT)
+Message-ID: <f073f438-7335-4d9f-9bba-c6df5ee1fa40@suse.com>
+Date: Tue, 6 Oct 2026 15:56:06 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <asS2JVf26_1CD5Wi@arm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/scsifront: check for a NULL shadow entry on a backend
+ response
+To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ xen-devel@lists.xenproject.org, linux-scsi@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+References: <20261005123555.253995-1-yhlee@isslab.korea.ac.kr>
+Content-Language: en-US
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <20261005123555.253995-1-yhlee@isslab.korea.ac.kr>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------nnH7S5YuLqUH0yIqtmqXntAT"
 
-On Tue, Oct 06, 2026 at 10:49:46AM +0200, Beata Michalska wrote:
-> This one seems to be mixing relevant commits and is missing some changes.
-> Should I post the backport for this one ?
-> 
-Posted as a reply to:
-https://lore.kernel.org/stable/2026100501-bulginess-bullfight-da31@gregkh/
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------nnH7S5YuLqUH0yIqtmqXntAT
+Content-Type: multipart/mixed; boundary="------------0I6v6BijZSEvEjvGrfeccWKG";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ xen-devel@lists.xenproject.org, linux-scsi@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Message-ID: <f073f438-7335-4d9f-9bba-c6df5ee1fa40@suse.com>
+Subject: Re: [PATCH] xen/scsifront: check for a NULL shadow entry on a backend
+ response
+References: <20261005123555.253995-1-yhlee@isslab.korea.ac.kr>
+In-Reply-To: <20261005123555.253995-1-yhlee@isslab.korea.ac.kr>
 
----
-BR
-Beata
-> ---
-> BR
-> Beata
-> On Tue, Oct 06, 2026 at 04:09:22AM -0400, Sasha Levin wrote:
-> > From: Beata Michalska <beata.michalska@arm.com>
-> > 
-> > [ Upstream commit 45f7304679875eb000d67e194090ee7abd05c89c ]
-> > 
-> > Cortex-A725 erratum 3821522 affects the CNT_CYCLES event, which can
-> > incur a significant increment error when a CPU enters and subsequently
-> > exits WFE or WFI, and may no longer track the system counter
-> > frequency.
-> > 
-> > The AMEVCNTR01_EL0 counter is used as the AMU constant counter for
-> > frequency invariance and CPPC FFH feedback counters. Wire the affected
-> > Cortex-A725 range into the shared broken AMU constant-counter capability
-> > so the affected counter is treated as unavailable by returning zero in
-> > the AMU counter paths. This prevents the broken counter from being used
-> > as a reference source.
-> > 
-> > The erratum can also affect PMUv3 users of the CNT_CYCLES event,
-> > but this workaround intentionally does not change PMU event handling.
-> > Hiding or rejecting the PMU event from the erratum code would change
-> > the perf-visible PMU event interface, including raw event selection,
-> > and would need a separate PMU-specific approach rather than being
-> > folded into the AMU reference-counter workaround.
-> > 
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Beata Michalska <beata.michalska@arm.com>
-> > Reviewed-by: Vladimir Murzin <vladimir.murzin@arm.com>
-> > Signed-off-by: Will Deacon <will@kernel.org>
-> > [ sashal: Reused ARM64_WORKAROUND_2457168 instead of the unavailable ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT capability. ]
-> > Signed-off-by: Sasha Levin <sashal@kernel.org>
-> > ---
-> >  Documentation/arch/arm64/silicon-errata.rst |  2 ++
-> >  arch/arm64/Kconfig                          | 21 ++++++++++++++++++
-> >  arch/arm64/kernel/cpu_errata.c              | 24 ++++++++++++++++-----
-> >  arch/arm64/kernel/topology.c                |  9 ++++----
-> >  4 files changed, 47 insertions(+), 9 deletions(-)
-> > 
-> > diff --git a/Documentation/arch/arm64/silicon-errata.rst b/Documentation/arch/arm64/silicon-errata.rst
-> > index b5b46b6ab2778..c40e6271072f6 100644
-> > --- a/Documentation/arch/arm64/silicon-errata.rst
-> > +++ b/Documentation/arch/arm64/silicon-errata.rst
-> > @@ -161,6 +161,8 @@ stable kernels.
-> >  +----------------+-----------------+-----------------+-----------------------------+
-> >  | ARM            | Cortex-A725     | #3456106        | ARM64_ERRATUM_3194386       |
-> >  +----------------+-----------------+-----------------+-----------------------------+
-> > +| ARM            | Cortex-A725     | #3821522        | ARM64_ERRATUM_3821522       |
-> > ++----------------+-----------------+-----------------+-----------------------------+
-> >  | ARM            | Cortex-X1       | #3324344        | ARM64_ERRATUM_3194386       |
-> >  +----------------+-----------------+-----------------+-----------------------------+
-> >  | ARM            | Cortex-X1       | #4193791        | ARM64_ERRATUM_4118414       |
-> > diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-> > index 723e73042c1a2..3233ba5ac495a 100644
-> > --- a/arch/arm64/Kconfig
-> > +++ b/arch/arm64/Kconfig
-> > @@ -1037,6 +1037,27 @@ config ARM64_ERRATUM_2645198
-> >  
-> >  	  If unsure, say Y.
-> >  
-> > +config ARM64_ERRATUM_3821522
-> > +	bool "Cortex-A725: 3821522: workaround for possible CNT_CYCLES increment error due to WFE/WFI"
-> > +	depends on ARM64_AMU_EXTN
-> > +	default y
-> > +	help
-> > +	  This option adds the workaround for ARM Cortex-A725 erratum 3821522.
-> > +
-> > +	  On affected A725 cores, the CNT_CYCLES event may incur a significant
-> > +	  increment error when entering and subsequently exiting WFx.
-> > +	  As a result, the CNT_CYCLES may diverge from the system counter
-> > +	  frequency at which it is expected to increment.
-> > +	  This renders the AMU counter AMEVCNTR01, that implements CNT_CYCLES,
-> > +	  being unreliable and unsuitable for use.
-> > +
-> > +	  Since there is no hardware workaround, reads of the affected CNT_CYCLES
-> > +	  counter return 0 in the relevant paths. This causes users of the counter
-> > +	  to treat it as unavailable and is functionally equivalent to firmware
-> > +	  disabling the affected counter.
-> > +
-> > +	  If unsure, say Y.
-> > +
-> >  config ARM64_WORKAROUND_SPECULATIVE_UNPRIV_LOAD
-> >  	bool
-> >  
-> > diff --git a/arch/arm64/kernel/cpu_errata.c b/arch/arm64/kernel/cpu_errata.c
-> > index 03a4382799091..ab5fead3e6f87 100644
-> > --- a/arch/arm64/kernel/cpu_errata.c
-> > +++ b/arch/arm64/kernel/cpu_errata.c
-> > @@ -275,6 +275,21 @@ static const struct arm64_cpu_capabilities arm64_repeat_tlbi_list[] = {
-> >  };
-> >  #endif
-> >  
-> > +#if defined(CONFIG_ARM64_ERRATUM_2457168) || \
-> > +	defined(CONFIG_ARM64_ERRATUM_3821522)
-> > +static const struct midr_range workaround_amu_constcnt_list[] = {
-> > +#ifdef CONFIG_ARM64_ERRATUM_2457168
-> > +	/* Cortex-A510 r0p0-r1p1 */
-> > +	MIDR_RANGE(MIDR_CORTEX_A510, 0, 0, 1, 1),
-> > +#endif
-> > +#ifdef CONFIG_ARM64_ERRATUM_3821522
-> > +	/* Cortex-A725 r0p0 - r0p2 */
-> > +	MIDR_RANGE(MIDR_CORTEX_A725, 0, 0, 0, 2),
-> > +#endif
-> > +	{}
-> > +};
-> > +#endif
-> > +
-> >  #ifdef CONFIG_CAVIUM_ERRATUM_23154
-> >  static const struct midr_range cavium_erratum_23154_cpus[] = {
-> >  	MIDR_ALL_VERSIONS(MIDR_THUNDERX),
-> > @@ -766,14 +781,13 @@ const struct arm64_cpu_capabilities arm64_errata[] = {
-> >  		ERRATA_MIDR_REV_RANGE(MIDR_CORTEX_A510, 0, 0, 2)
-> >  	},
-> >  #endif
-> > -#ifdef CONFIG_ARM64_ERRATUM_2457168
-> > +#if defined(CONFIG_ARM64_ERRATUM_2457168) || \
-> > +	defined(CONFIG_ARM64_ERRATUM_3821522)
-> >  	{
-> > -		.desc = "ARM erratum 2457168",
-> > +		.desc = "Broken AMU AMEVCNTR01 (const counter)",
-> >  		.capability = ARM64_WORKAROUND_2457168,
-> >  		.type = ARM64_CPUCAP_WEAK_LOCAL_CPU_FEATURE,
-> > -
-> > -		/* Cortex-A510 r0p0-r1p1 */
-> > -		CAP_MIDR_RANGE(MIDR_CORTEX_A510, 0, 0, 1, 1)
-> > +		CAP_MIDR_RANGE_LIST(workaround_amu_constcnt_list)
-> >  	},
-> >  #endif
-> >  #ifdef CONFIG_ARM64_ERRATUM_2038923
-> > diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
-> > index 1a2c72f3e7f80..59bff1f860a65 100644
-> > --- a/arch/arm64/kernel/topology.c
-> > +++ b/arch/arm64/kernel/topology.c
-> > @@ -268,10 +268,11 @@ static void cpu_read_corecnt(void *val)
-> >  static void cpu_read_constcnt(void *val)
-> >  {
-> >  	/*
-> > -	 * Return 0 if the current CPU is affected by erratum 2457168. A value
-> > -	 * of 0 is also returned if the current CPU does not support AMUs or if
-> > -	 * the counter is disabled. A return value of 0 at counter read is
-> > -	 * properly handled as an error case by the users of the counter.
-> > +	 * Return 0 if the current CPU is affected by a HW erratum.
-> > +	 * A value of 0 is also returned if the current CPU does not
-> > +	 * support AMUs or if the counter is disabled. A return
-> > +	 * value of 0 at counter read is properly handled as an error
-> > +	 * case by the users of the counter.
-> >  	 */
-> >  	*(u64 *)val = this_cpu_has_cap(ARM64_WORKAROUND_2457168) ?
-> >  		      0UL : read_constcnt();
-> > -- 
-> > 2.53.0
-> > 
+--------------0I6v6BijZSEvEjvGrfeccWKG
+Content-Type: multipart/mixed; boundary="------------HscB0pQhO6alWtKX55NS0MMB"
+
+--------------HscB0pQhO6alWtKX55NS0MMB
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
+
+T24gMDUuMTAuMjYgMTQ6MzUsIFllaHllb25nIExlZSB3cm90ZToNCj4gc2NzaWZyb250X2Rv
+X3Jlc3BvbnNlKCkgdmFsaWRhdGVzIHRoZSBycWlkIGluIGEgYmFja2VuZCByZXNwb25zZSBh
+Z2FpbnN0DQo+IFZTQ1NJSUZfTUFYX1JFUVMgYmVmb3JlIHVzaW5nIGl0IHRvIGluZGV4IGlu
+Zm8tPnNoYWRvd1tdLCBidXQgdGhlbg0KPiBkZXJlZmVyZW5jZXMgdGhlIGVudHJ5IHRvIHRl
+c3QgLT5pbmZsaWdodCB3aXRob3V0IGNoZWNraW5nIHRoYXQgdGhlIHNsb3QNCj4gaXMgcG9w
+dWxhdGVkLiAgU2hhZG93IHNsb3RzIGFyZSBOVUxMIGJlZm9yZSBhIGNvbW1hbmQgaXMgc3Vi
+bWl0dGVkICh0aGUNCj4gaG9zdCBwcml2YXRlIGFyZWEgaXMgemVyb2VkIGF0IGFsbG9jYXRp
+b24pIGFuZCBhcmUgcmVzZXQgdG8gTlVMTCBpbg0KPiBfc2NzaWZyb250X3B1dF9ycWlkKCkg
+b25jZSBhIHJlcXVlc3QgY29tcGxldGVzLCBzbyBhbiBpbi1yYW5nZSBycWlkIHRoYXQNCj4g
+ZG9lcyBub3QgY29ycmVzcG9uZCB0byBhbiBvdXRzdGFuZGluZyByZXF1ZXN0IG1ha2VzIHRo
+ZSBmcm9udGVuZA0KPiBkZXJlZmVyZW5jZSBhIE5VTEwgcG9pbnRlci4NCj4gDQo+IEEgbWFs
+aWNpb3VzIG9yIGJ1Z2d5IGJhY2tlbmQgY2FuIHRodXMgY3Jhc2ggdGhlIGd1ZXN0IGJ5IHJl
+dHVybmluZyBhDQo+IHJlc3BvbnNlIHdob3NlIHJxaWQgaXMgaW4gcmFuZ2UgYnV0IG5vdCBp
+biBmbGlnaHQgLS0gZm9yIGV4YW1wbGUgYQ0KPiBzcHVyaW91cyByZXNwb25zZSBiZWZvcmUg
+YW55IGNvbW1hbmQgaGFzIGJlZW4gaXNzdWVkLCBvciBhIGR1cGxpY2F0ZSBvZg0KPiBvbmUg
+YWxyZWFkeSBjb21wbGV0ZWQuICBUaGUgcmluZyBoYXMgb25seSBWU0NTSUlGX01BWF9SRVFT
+ICgxNikgc2xvdHMsIHNvDQo+IGJlZm9yZSB0aGUgZmlyc3QgY29tbWFuZCBldmVyeSBpbi1y
+YW5nZSBycWlkIHNlbGVjdHMgYSBOVUxMIHNsb3QuDQo+IA0KPiBSZWplY3QgYSByZXNwb25z
+ZSB3aG9zZSBzaGFkb3cgc2xvdCBpcyBub3QgcG9wdWxhdGVkLg0KPiANCj4gRml4ZXM6IDZk
+MWMyZjQ4ZjNmYyAoInhlbi9zY3NpZnJvbnQ6IGhhcmRlbiBkcml2ZXIgYWdhaW5zdCBtYWxp
+Y2lvdXMgYmFja2VuZCIpDQo+IENjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnDQo+IFNpZ25l
+ZC1vZmYtYnk6IFllaHllb25nIExlZSA8eWhsZWVAaXNzbGFiLmtvcmVhLmFjLmtyPg0KDQpS
+ZXZpZXdlZC1ieTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPg0KDQoNCkp1ZXJn
+ZW4NCg==
+--------------HscB0pQhO6alWtKX55NS0MMB
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+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
+kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
+=3DeeAB
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------HscB0pQhO6alWtKX55NS0MMB--
+
+--------------0I6v6BijZSEvEjvGrfeccWKG--
+
+--------------nnH7S5YuLqUH0yIqtmqXntAT
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmrE/fYFAwAAAAAACgkQsN6d1ii/Ey8M
+DQgAn67Our2fo1bMCOV5O+3w37AmRu4L3TTxvToURAAHydJz7TJ3hqBD5FlZhLmX6LdxqaLWYwMO
+MS3mwgAUtulFRhkwVDuMs63dXLlRNgw0m9426pAPQ3lMva/tjoFsdST2KP0LXwIFspRvsX4dCVHy
+DlCGLpEeC40ybm7reCHJJBQshsVra+9Jxyer73TGy0vJgVs6qnrjQ1VnzbufezWmAK3Ovzy3Tj3v
+egMCT2rqTVWsBqXH+2GdbtR+XttYuxwnsYTnDSw5XMMAKECUC9ULqx+K3/Gexxl0lZFNCp9gG8vu
+xUl/Xqi6SXmtsnr03S4XoWbeHAnhlFgFiBiPkKcNlg==
+=UJPI
+-----END PGP SIGNATURE-----
+
+--------------nnH7S5YuLqUH0yIqtmqXntAT--
