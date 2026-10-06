@@ -1,167 +1,298 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E45326ED3C;
-	Tue,  6 Oct 2026 08:29:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E617334A76F
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 08:31:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791275348; cv=none; b=GXnIrmkT/8Fy/oHmjjIn5sbMSrM5LYWOt/zP1H+hpHktC4GPtjlDOa3Etyw9HtY2vaHTRWfGuciIKS9wRRVSIp7DQHkD3FD67XlfE0B3xa0e9NFM+BUvi/RU5IjWF2IWQxPnWnriJb7K1xPE6ASjT9WWP8ij/V0/5IwPsCsZL0M=
+	t=1791275492; cv=none; b=AmRQzK1p/B2xFthib6tR8X4Z8bY3Ev6fCMuSL9XwTjFdZ3AymGQZfzxrfhBPDtJt1hne9FjobNmRNpTEqoWgdXpi5PgYWmsOfSsngiumSgcVXXVeh2X8SdYQOXqvJ8hZYkU17/4HqMEMk+pTmhu+J8DPdaEt8p/tfS56S4Qzebc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791275348; c=relaxed/simple;
-	bh=4E90XbME5YYrCHUynb8Gq04uOMIs5TinNGnJqDgIEo0=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=VWGXi5gyJFxVdbzx09oWRga0uOrNGXeRDZoL0TEvn+usH1MemIssxlQ4c9Ys85xqcgJRVQhQ9WT/je+4OcSJrGxpNiKVbK65ZL2zPD9TmTcP5PWutHEoICAVGIubQyg5DBb7gh2dyw9wmfdMu2G7SMt2ZCAKKgbmzuaKoYHI3dk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=WrTuxpWN; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1791275492; c=relaxed/simple;
+	bh=uPBvhV9B1Ngg44ZnlNzhrv+2p7NO90U5d5xqEHJ1wOE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Z9qOd3YhJnR9PEd/5E6AyTGuvjAz9tdT30WAXCNqCmTZNZKBjnbU2VMQwauEOaPTfOD+JV9Fasw3w9m9VuN2LM6cbojDBZKZrqwSIAFA7IQdatAw7myvGgpu16GPLybsfoCiMLfwoL4EiFTRl9hLUXemnxzPswtu0ObfuAdHFoU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=alRU4abT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="WrTuxpWN"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6968SRylC2756064, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1791275308; bh=YTvTHDWQ0MPVFXdmQKE3U9s9hkDXT5kOh2ihQfR5+pc=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=WrTuxpWN3KxPc7nwUDcwojj1fJkMhfbBAWUaLKrXmrWN7MUHX4XLozxILBBzO7FDv
-	 kobnoxH6cj6qzJENJh9djb0FNTmTSVdXFQ00kmXu4szYSL+quSDwGcmHBbX9bNOlNP
-	 rCcpy8f+gbJYL/4dOiE51T+xHf36/tLX6DSy+LdAS+erhVqJ7j++EBJ14jqOhDo0ek
-	 Wf4TbgQtbbqIzNzJeUqJFIbytVDbWQNiQDa436I5XyONGvfRYA+yCipJBIjrRMNDgr
-	 Qhc0BoIAi8suGpgqdHUrLLwjV7k1d5daGz7zAhRs+CD+UrbT9lpTESraE9qdJWi/PC
-	 /XEWRU4YorAEg==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6968SRylC2756064
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 6 Oct 2026 16:28:28 +0800
-Received: from RTKEXHMBS03.realtek.com.tw (10.21.1.53) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 6 Oct 2026 16:28:21 +0800
-Received: from RTKEXHMBS03.realtek.com.tw ([::1]) by
- RTKEXHMBS03.realtek.com.tw ([fe80::f36f:a844:4916:93f2%9]) with mapi id
- 15.02.2562.049; Tue, 6 Oct 2026 16:28:21 +0800
-From: Hayes Wang <hayeswang@realtek.com>
-To: Linmao Li <lilinmao@kylinos.cn>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-CC: Chih Kai Hsu <hsu.chih.kai@realtek.com>, nic_swsd <nic_swsd@realtek.com>,
-	Birger Koblitz <mail@birger-koblitz.de>, Xiangqian Zhang
-	<zhangxiangqian@kylinos.cn>, "linux-usb@vger.kernel.org"
-	<linux-usb@vger.kernel.org>, "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>
-Subject: RE: [PATCH net v2] r8152: Use BMSR to detect the link state
-Thread-Topic: [PATCH net v2] r8152: Use BMSR to detect the link state
-Thread-Index: AQHdVLexra3FlE5swkqMdmzmTHCGJ7bwLnWg
-Date: Tue, 6 Oct 2026 08:28:21 +0000
-Message-ID: <fd3bff0e63304681b9e5f35f2f57e50e@realtek.com>
-References: <20261005105249.1281648-1-lilinmao@kylinos.cn>
-In-Reply-To: <20261005105249.1281648-1-lilinmao@kylinos.cn>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="alRU4abT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 843E91F000FF;
+	Tue,  6 Oct 2026 08:31:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791275490;
+	bh=7xYeCfiADYpdkm/LBogBwRx4v8wrdLqWs1ZKbKw1GNI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=alRU4abT3IeRlTLqwbBIBYi7zFlPRlkZK5XAPiSfKA4dq6ImdKcD/xtHrArKWSpcx
+	 0wRAJi+ZHN1Q4ub5mll+UIyFEbnyOq2DC6A4Bj+dJqzesO7m6H5oIKrMvKhrDqlwx1
+	 rnU0eJwKNzW1NGEJkii15aAGUdfoU4qIuR5a34CV8Z5L5DRSL1Bb6bYNVJ17s+xC3u
+	 yXgsVIIT9O5gDdxKCkZ5r/FANnPESeVZBEOpSxmjOtz5seZo/zfFN40mHjRU9XaWTm
+	 +A/oRMdpah+h57gtZ0BoJjPuyq7vcO2PreY10lVmMFUEaROt7T6nAMC3ICqKa5R/Nj
+	 LZ2hh0X3XZ3BA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: =?UTF-8?q?Jonas=20Dre=C3=9Fler?= <verdre@v0yd.nl>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] Bluetooth: hci_conn: Only do ACL connections sequentially
+Date: Tue,  6 Oct 2026 04:31:23 -0400
+Message-ID: <20261006082552.3871603-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026100541-valid-olive-13c3@gregkh>
+References: <2026100541-valid-olive-13c3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Linmao Li <lilinmao@kylinos.cn>
-> Sent: Monday, October 5, 2026 6:53 PM
-[...]
-> r8152 detects carrier from PLA_PHYSTATUS without reading BMSR, so
-> BMSR_LSTATUS can still be latched low when the carrier comes up.
-> Since commit f6f2e946aa4d ("net: mii: Fix the Speed display when the netw=
-ork
-> cable is not connected"), the first speed query after link up can then re=
-port
-> SPEED_UNKNOWN, leaving NetworkManager at 0 Mb/s until the next carrier
-> change.
->=20
-> Use BMSR_LSTATUS in set_carrier() and rtl8152_runtime_resume(), so the
-> driver consumes the latched link down itself. If the first read still rep=
-orts link
-> down, the next link-up notification triggers another read and brings the =
-carrier
-> up.
->=20
-> Tested on an RTL8153B with a 6.6-based kernel. In 5 rebinds and 6 cable
-> replugs, the first read returned LSTATUS=3D0, a second link-up notificati=
-on came
-> about 32 ms later, the second read returned
-> LSTATUS=3D1 and the carrier went up; NetworkManager reported 1000 Mb/s.
-> Runtime suspend/resume with the link up did not change the carrier.
+From: Jonas Dreßler <verdre@v0yd.nl>
 
-I think this patch may introduce a new issue.
+[ Upstream commit 45340097ce6ea7e875674a5a7d24c95ecbc93ef9 ]
 
-Our newer ICs do not generate periodic link-status notifications. They gene=
-rate a
-notification only when the link status changes. Therefore, with your patch,=
- BMSR
-will not be read a second time until the next link-status change.
+Pretty much all bluetooth chipsets only support paging a single device at
+a time, and if they don't reject a secondary "Create Connection" request
+while another is still ongoing, they'll most likely serialize those
+requests in the firware.
 
-Best Regards,
-Hayes
+With commit 4c67bc74f016 ("[Bluetooth] Support concurrent connect
+requests") we started adding some serialization of our own in case the
+adapter returns "Command Disallowed" HCI error.
 
-> Fixes: f6f2e946aa4d ("net: mii: Fix the Speed display when the network ca=
-ble is
-> not connected")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
-> ---
-> v2:
-> - Fix it in r8152 instead of mii.c, detecting the link from BMSR as
->   suggested by Andrew Lunn.
-> - Also use BMSR in rtl8152_runtime_resume().
-> v1:
-> https://lore.kernel.org/netdev/20260930113842.2640928-1-lilinmao@kylinos.=
-c
-> n/
->=20
-> Only tested on an RTL8153B, with a 6.6-based kernel; the changed lines ar=
-e the
-> same in net/main. I could not check whether BMSR_LSTATUS is reliable on t=
-he
-> 2.5G/5G/10G chips handled by this driver.
-> I could not reproduce a link drop that recovers while the device is runti=
-me
-> suspended, so that case is only covered by code inspection.
->=20
-> r8152_mdio_read() cannot fail today. The pending RTL8157/RTL8159 series
-> makes it return errors, so these two callers will need error handling onc=
-e that
-> is merged.
->=20
->  drivers/net/usb/r8152.c | 7 ++-----
->  1 file changed, 2 insertions(+), 5 deletions(-)
->=20
-> diff --git a/drivers/net/usb/r8152.c b/drivers/net/usb/r8152.c index
-> f61686433031..e3947eb796c5 100644
-> --- a/drivers/net/usb/r8152.c
-> +++ b/drivers/net/usb/r8152.c
-> @@ -6979,11 +6979,8 @@ static void set_carrier(struct r8152 *tp)  {
->         struct net_device *netdev =3D tp->netdev;
->         struct napi_struct *napi =3D &tp->napi;
-> -       u16 speed;
-> -
-> -       speed =3D rtl8152_get_speed(tp);
->=20
-> -       if (speed & LINK_STATUS) {
-> +       if (r8152_mdio_read(tp, MII_BMSR) & BMSR_LSTATUS) {
->                 if (!netif_carrier_ok(netdev)) {
->                         tp->rtl_ops.enable(tp);
->                         netif_stop_queue(netdev); @@ -8653,7 +8650,7
-> @@ static int rtl8152_runtime_resume(struct r8152 *tp)
->                 set_bit(WORK_ENABLE, &tp->flags);
->=20
->                 if (netif_carrier_ok(netdev)) {
-> -                       if (rtl8152_get_speed(tp) & LINK_STATUS) {
-> +                       if (r8152_mdio_read(tp, MII_BMSR) &
-> + BMSR_LSTATUS) {
->                                 rtl_start_rx(tp);
->                         } else {
->                                 netif_carrier_off(netdev);
-> --
-> 2.25.1
+This commit was using the BT_CONNECT2 state for the serialization, this
+state is also used for a few more things (most notably to indicate we're
+waiting for an inquiry to cancel) and therefore a bit unreliable. Also
+not all BT firwares would respond with "Command Disallowed" on too many
+connection requests, some will also respond with "Hardware Failure"
+(BCM4378), and others will error out later and send a "Connect Complete"
+event with error "Rejected Limited Resources" (Marvell 88W8897).
+
+We can clean things up a bit and also make the serialization more reliable
+by using our hci_sync machinery to always do "Create Connection" requests
+in a sequential manner.
+
+This is very similar to what we're already doing for establishing LE
+connections, and it works well there.
+
+Note that this causes a test failure in mgmt-tester (test "Pair Device
+- Power off 1") because the hci_abort_conn_sync() changes the error we
+return on timeout of the "Create Connection". We'll fix this on the
+mgmt-tester side by adjusting the expected error for the test.
+
+Signed-off-by: Jonas Dreßler <verdre@v0yd.nl>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+
+Retain the existing LE scan cleanup helpers when removing the old ACL
+connection implementation. They remain in use for deferred connection
+cleanup and are unrelated to ACL request serialization.
+
+Stable-dep-of: 8ed67535fdff ("Bluetooth: hci_sync: Fix inquiry cache use-after-free")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ include/net/bluetooth/hci.h      |  1 +
+ include/net/bluetooth/hci_sync.h |  3 ++
+ net/bluetooth/hci_conn.c         | 69 ++++---------------------------
+ net/bluetooth/hci_sync.c         | 70 ++++++++++++++++++++++++++++++++
+ 4 files changed, 83 insertions(+), 60 deletions(-)
+
+diff --git a/include/net/bluetooth/hci.h b/include/net/bluetooth/hci.h
+index fcab978894b12..847e7d3de5913 100644
+--- a/include/net/bluetooth/hci.h
++++ b/include/net/bluetooth/hci.h
+@@ -410,6 +410,7 @@ enum {
+ #define HCI_NCMD_TIMEOUT	msecs_to_jiffies(4000)	/* 4 seconds */
+ #define HCI_ACL_TX_TIMEOUT	msecs_to_jiffies(45000)	/* 45 seconds */
+ #define HCI_AUTO_OFF_TIMEOUT	msecs_to_jiffies(2000)	/* 2 seconds */
++#define HCI_ACL_CONN_TIMEOUT	msecs_to_jiffies(20000)	/* 20 seconds */
+ #define HCI_LE_CONN_TIMEOUT	msecs_to_jiffies(20000)	/* 20 seconds */
+ #define HCI_LE_AUTOCONN_TIMEOUT	msecs_to_jiffies(4000)	/* 4 seconds */
+ 
+diff --git a/include/net/bluetooth/hci_sync.h b/include/net/bluetooth/hci_sync.h
+index 012ac6db29fd7..0b44c4f70a075 100644
+--- a/include/net/bluetooth/hci_sync.h
++++ b/include/net/bluetooth/hci_sync.h
+@@ -166,3 +166,6 @@ int hci_le_terminate_big_sync(struct hci_dev *hdev, u8 handle, u8 reason);
+ int hci_le_big_terminate_sync(struct hci_dev *hdev, u8 handle);
+ 
+ int hci_le_pa_terminate_sync(struct hci_dev *hdev, u16 handle);
++
++int hci_acl_create_connection_sync(struct hci_dev *hdev,
++				   struct hci_conn *conn);
+diff --git a/net/bluetooth/hci_conn.c b/net/bluetooth/hci_conn.c
+index 55b9f3e713f72..5fa2a66d4a8d4 100644
+--- a/net/bluetooth/hci_conn.c
++++ b/net/bluetooth/hci_conn.c
+@@ -227,64 +227,6 @@ static void hci_connect_le_scan_remove(struct hci_conn *conn)
+ 	schedule_work(&conn->le_scan_cleanup);
+ }
+ 
+-static void hci_acl_create_connection(struct hci_conn *conn)
+-{
+-	struct hci_dev *hdev = conn->hdev;
+-	struct inquiry_entry *ie;
+-	struct hci_cp_create_conn cp;
+-
+-	BT_DBG("hcon %p", conn);
+-
+-	/* Many controllers disallow HCI Create Connection while it is doing
+-	 * HCI Inquiry. So we cancel the Inquiry first before issuing HCI Create
+-	 * Connection. This may cause the MGMT discovering state to become false
+-	 * without user space's request but it is okay since the MGMT Discovery
+-	 * APIs do not promise that discovery should be done forever. Instead,
+-	 * the user space monitors the status of MGMT discovering and it may
+-	 * request for discovery again when this flag becomes false.
+-	 */
+-	if (test_bit(HCI_INQUIRY, &hdev->flags)) {
+-		/* Put this connection to "pending" state so that it will be
+-		 * executed after the inquiry cancel command complete event.
+-		 */
+-		conn->state = BT_CONNECT2;
+-		hci_send_cmd(hdev, HCI_OP_INQUIRY_CANCEL, 0, NULL);
+-		return;
+-	}
+-
+-	conn->state = BT_CONNECT;
+-	conn->out = true;
+-	conn->role = HCI_ROLE_MASTER;
+-
+-	conn->attempt++;
+-
+-	conn->link_policy = hdev->link_policy;
+-
+-	memset(&cp, 0, sizeof(cp));
+-	bacpy(&cp.bdaddr, &conn->dst);
+-	cp.pscan_rep_mode = 0x02;
+-
+-	ie = hci_inquiry_cache_lookup(hdev, &conn->dst);
+-	if (ie) {
+-		if (inquiry_entry_age(ie) <= INQUIRY_ENTRY_AGE_MAX) {
+-			cp.pscan_rep_mode = ie->data.pscan_rep_mode;
+-			cp.pscan_mode     = ie->data.pscan_mode;
+-			cp.clock_offset   = ie->data.clock_offset |
+-					    cpu_to_le16(0x8000);
+-		}
+-
+-		memcpy(conn->dev_class, ie->data.dev_class, 3);
+-	}
+-
+-	cp.pkt_type = cpu_to_le16(conn->pkt_type);
+-	if (lmp_rswitch_capable(hdev) && !(hdev->link_mode & HCI_LM_MASTER))
+-		cp.role_switch = 0x01;
+-	else
+-		cp.role_switch = 0x00;
+-
+-	hci_send_cmd(hdev, HCI_OP_CREATE_CONN, sizeof(cp), &cp);
+-}
+-
+ int hci_disconnect(struct hci_conn *conn, __u8 reason)
+ {
+ 	BT_DBG("hcon %p", conn);
+@@ -1654,10 +1596,17 @@ struct hci_conn *hci_connect_acl(struct hci_dev *hdev, bdaddr_t *dst,
+ 
+ 	acl->conn_reason = conn_reason;
+ 	if (acl->state == BT_OPEN || acl->state == BT_CLOSED) {
++		int err;
++
+ 		acl->sec_level = BT_SECURITY_LOW;
+ 		acl->pending_sec_level = sec_level;
+ 		acl->auth_type = auth_type;
+-		hci_acl_create_connection(acl);
++
++		err = hci_acl_create_connection_sync(hdev, acl);
++		if (err) {
++			hci_conn_del(acl);
++			return ERR_PTR(err);
++		}
+ 	}
+ 
+ 	return acl;
+@@ -2590,7 +2539,7 @@ void hci_conn_check_pending(struct hci_dev *hdev)
+ 
+ 	conn = hci_conn_hash_lookup_state(hdev, ACL_LINK, BT_CONNECT2);
+ 	if (conn)
+-		hci_acl_create_connection(conn);
++		hci_acl_create_connection_sync(hdev, conn);
+ 
+ 	hci_dev_unlock(hdev);
+ }
+diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+index 4e4eae12ee3fb..afa38e093479a 100644
+--- a/net/bluetooth/hci_sync.c
++++ b/net/bluetooth/hci_sync.c
+@@ -6706,3 +6706,73 @@ int hci_update_adv_data(struct hci_dev *hdev, u8 instance)
+ 	return hci_cmd_sync_queue(hdev, _update_adv_data_sync,
+ 				  ERR_PTR(instance), NULL);
+ }
++
++static int __hci_acl_create_connection_sync(struct hci_dev *hdev, void *data)
++{
++	struct hci_conn *conn = data;
++	struct inquiry_entry *ie;
++	struct hci_cp_create_conn cp;
++	int err;
++
++	/* Many controllers disallow HCI Create Connection while it is doing
++	 * HCI Inquiry. So we cancel the Inquiry first before issuing HCI Create
++	 * Connection. This may cause the MGMT discovering state to become false
++	 * without user space's request but it is okay since the MGMT Discovery
++	 * APIs do not promise that discovery should be done forever. Instead,
++	 * the user space monitors the status of MGMT discovering and it may
++	 * request for discovery again when this flag becomes false.
++	 */
++	if (test_bit(HCI_INQUIRY, &hdev->flags)) {
++		err = __hci_cmd_sync_status(hdev, HCI_OP_INQUIRY_CANCEL, 0,
++					    NULL, HCI_CMD_TIMEOUT);
++		if (err)
++			bt_dev_warn(hdev, "Failed to cancel inquiry %d", err);
++	}
++
++	conn->state = BT_CONNECT;
++	conn->out = true;
++	conn->role = HCI_ROLE_MASTER;
++
++	conn->attempt++;
++
++	conn->link_policy = hdev->link_policy;
++
++	memset(&cp, 0, sizeof(cp));
++	bacpy(&cp.bdaddr, &conn->dst);
++	cp.pscan_rep_mode = 0x02;
++
++	ie = hci_inquiry_cache_lookup(hdev, &conn->dst);
++	if (ie) {
++		if (inquiry_entry_age(ie) <= INQUIRY_ENTRY_AGE_MAX) {
++			cp.pscan_rep_mode = ie->data.pscan_rep_mode;
++			cp.pscan_mode     = ie->data.pscan_mode;
++			cp.clock_offset   = ie->data.clock_offset |
++					    cpu_to_le16(0x8000);
++		}
++
++		memcpy(conn->dev_class, ie->data.dev_class, 3);
++	}
++
++	cp.pkt_type = cpu_to_le16(conn->pkt_type);
++	if (lmp_rswitch_capable(hdev) && !(hdev->link_mode & HCI_LM_MASTER))
++		cp.role_switch = 0x01;
++	else
++		cp.role_switch = 0x00;
++
++	err = __hci_cmd_sync_status_sk(hdev, HCI_OP_CREATE_CONN,
++				       sizeof(cp), &cp,
++				       HCI_EV_CONN_COMPLETE,
++				       HCI_ACL_CONN_TIMEOUT, NULL);
++
++	if (err == -ETIMEDOUT)
++		hci_abort_conn_sync(hdev, conn, HCI_ERROR_LOCAL_HOST_TERM);
++
++	return err;
++}
++
++int hci_acl_create_connection_sync(struct hci_dev *hdev,
++				   struct hci_conn *conn)
++{
++	return hci_cmd_sync_queue(hdev, __hci_acl_create_connection_sync,
++				  conn, NULL);
++}
+-- 
+2.53.0
 
