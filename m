@@ -1,41 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97C1E3DC4BC;
-	Tue,  6 Oct 2026 21:36:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 604753DC4BC;
+	Tue,  6 Oct 2026 21:36:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791322609; cv=none; b=MT55EQ3kTqQJ8tOsPZHauDZdCw1/lId6AjFD7RcWWL3vvJecJPIHJE2uKm0NQ579D/0RxmCZIIaM6rVRDU5Dal9RH1SWrrG8lfsUABEpBMN1IuEkUwJzelZknm8jKCSof3Z7smLQlEglNbfEzTUG6zpKmonmVAWNtY1g7NrP+50=
+	t=1791322611; cv=none; b=QcB5prbNOy+CSxc2n3ZjenKTcc+BbTpEXLQH+vXafa5xR4yQaRr1XBdBN5eZwg0hFmeZ1kAmWQ1yE5N8TLk0QACsnZfRieMdZkNzzEb/eVfDOOeCuO09CMADzGD65/5sJFFJiXwQwtZc6vYzWzZhaPMkI4b2UWZEDfSgcP6mjL4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791322609; c=relaxed/simple;
-	bh=wsiwDFtrbESdWeZHiEFXMq7YLTyLn5Xt5GEzN03Vu/I=;
+	s=arc-20240116; t=1791322611; c=relaxed/simple;
+	bh=fUHw+GjqmjKXDL/ibxZDMMtUSVhvipuRCloZPdPSNIQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hHBimFRyFeFQTuWhyyyGh39uZawNCha6xEMm0kGky4lEoQWRwTzWn87mE6+CQdOVs48+nyKokxLNoPFBki9DXbwZDM3PBgMlhRW1Y2oKv5pHWCJV9tuLPO/L56uasWjFQc7eEY5CmUQMcETqoNnW5eWk6dnL4oeLBpLWQvIAqV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bOI6oxB/; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=nyfgXAb78CWX65yP9QDJWulp4CdvbHmtGbXy6GJ3tZtQpn8Me68VmKX+hhIA+nZWvDMkdEBSfCaef/mMebLdJODvHntwN4TVdEX+qxJou/ZmhJ2NLLqhDVsrcMcFNHDV3PV7s4wrhGbp0O+cd+ZZbTBOUFV50C6wq6ATsoIHgvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RFF8g3x2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bOI6oxB/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8F601F0089C;
-	Tue,  6 Oct 2026 21:36:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RFF8g3x2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E23071F0089B;
+	Tue,  6 Oct 2026 21:36:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791322608;
-	bh=R4GuV1awq/IsTl16JWMXSAyA633xWjm+gBzQ4wiR914=;
+	s=k20260515; t=1791322610;
+	bh=gdRzWkvfH1v3OyUmUUWTFq86SgXfWNzN+syAmu9zArk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bOI6oxB/6X0uIzgZwjYYfhaq33xQfIS59Pw1rE/Vta/aZ7WO8oP2aPPSbV43C/cB+
-	 SX2rd+2iIuguvDV7rJ0kW7jm2BoPdfh2Y4ns1RGGHHicTbUEyChW1lRrJ/1TcdVoJR
-	 47dr1opTUT9YuheekFIeNGWyr8eOQW9M5tUcjQIatagadrB01N1yOy+Uq8uVczdHmh
-	 EfSR8F2giiRo5mlTWh5WahUEroQmu9iBF/HvsLegQcc5dLmx41xHpZfraVm1eZl6o1
-	 nS201qKxEiRahtKqmh5CBmoOkiOPN84G3ffHDj9IqMJF1hGm6eAOWouQD1JMd95iiQ
-	 gnqDyM819h7BA==
+	b=RFF8g3x2URq/JSxfmzPEzYNygUhFhkYuezSjAaDrUgNTvoz7FCx4hbUICa2ijeHQi
+	 4XQHLOs6GzqNJcjEJT/Zc4hrF9fUi7xL2PlEWEkLRE6IRHZAedYRnwQaSrwoUP/OCo
+	 AYRTPrASaVLN6UPgwgVqa1DWKl6AqQa8A1T7CKQ+LqHxgWucN5ekZkmBIGV/75DjD7
+	 +IYi8AN5SVIr38ScRD88XN8I2lKl8XL8n5LS2qCDWcIulVKt9/Xr1uyHQ3iOI8sfcp
+	 JEf35hGUXmJ4R8r+jKCSUF1gbgk76lzf74ZG9RY1oA8tKMALE4BkQbMGJ2uiWgccYG
+	 C/OuCcsJYF0aA==
 From: Eric Biggers <ebiggers@kernel.org>
 To: stable@vger.kernel.org
 Cc: fsverity@lists.linux.dev,
+	Andrey Albershteyn <aalbersh@kernel.org>,
 	Christoph Hellwig <hch@lst.de>,
-	Jan Kara <jack@suse.cz>,
-	"Darrick J. Wong" <djwong@kernel.org>,
 	Eric Biggers <ebiggers@kernel.org>
-Subject: [PATCH 6.18 1/2] fs,fsverity: reject size changes on fsverity files in setattr_prepare
-Date: Tue,  6 Oct 2026 23:36:04 +0200
-Message-ID: <20261006213605.46946-2-ebiggers@kernel.org>
+Subject: [PATCH 6.18 2/2] fs,fsverity: remove check for fsverity being enabled in setattr_prepare()
+Date: Tue,  6 Oct 2026 23:36:05 +0200
+Message-ID: <20261006213605.46946-3-ebiggers@kernel.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261006213605.46946-1-ebiggers@kernel.org>
 References: <20261006213605.46946-1-ebiggers@kernel.org>
@@ -47,149 +46,38 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Christoph Hellwig <hch@lst.de>
+From: Andrey Albershteyn <aalbersh@kernel.org>
 
-commit e9734653c523c744f03333ece6ae7a315187f05c upstream.
+commit d2f96bcb89d36d488a10e3bcf819b98536968286 upstream.
 
-Add the check to reject truncates of fsverity files directly to
-setattr_prepare instead of requiring the file system to handle it.
-Besides removing boilerplate code, this also fixes the complete lack of
-such check in btrfs.
+The check that fs-verity is available in the kernel is not necessary
+here. Filesystems could have fsverity files even without fs-verity
+enabled. In that case, truncate on fsverity file will succeed, what this
+check is trying to prevent.
 
-Fixes: 146054090b08 ("btrfs: initial fsverity support")
-Signed-off-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
-Link: https://lore.kernel.org/r/20260128152630.627409-2-hch@lst.de
+Fixes: e9734653c523 ("fs,fsverity: reject size changes on fsverity files in setattr_prepare")
+Cc: stable@vger.kernel.org
+Signed-off-by: Andrey Albershteyn <aalbersh@kernel.org>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Link: https://patch.msgid.link/20260727094352.1734826-1-aalbersh@kernel.org
 Signed-off-by: Eric Biggers <ebiggers@kernel.org>
 ---
- fs/attr.c                | 12 +++++++++++-
- fs/ext4/inode.c          |  4 ----
- fs/f2fs/file.c           |  4 ----
- fs/verity/open.c         |  8 --------
- include/linux/fsverity.h | 25 -------------------------
- 5 files changed, 11 insertions(+), 42 deletions(-)
+ fs/attr.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/fs/attr.c b/fs/attr.c
-index 795f231d00e8..2c94af08be18 100644
+index 2c94af08be18..3f2cce4e4ad1 100644
 --- a/fs/attr.c
 +++ b/fs/attr.c
-@@ -169,7 +169,17 @@ int setattr_prepare(struct mnt_idmap *idmap, struct dentry *dentry,
- 	 * ATTR_FORCE.
- 	 */
- 	if (ia_valid & ATTR_SIZE) {
--		int error = inode_newsize_ok(inode, attr->ia_size);
-+		int error;
-+
-+		/*
-+		 * Verity files are immutable, so deny truncates.  This isn't
-+		 * covered by the open-time check because sys_truncate() takes a
-+		 * path, not an open file.
-+		 */
-+		if (IS_ENABLED(CONFIG_FS_VERITY) && IS_VERITY(inode))
-+			return -EPERM;
-+
-+		error = inode_newsize_ok(inode, attr->ia_size);
- 		if (error)
- 			return error;
- 	}
-diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-index 3b2891f18540..d2977c560c96 100644
---- a/fs/ext4/inode.c
-+++ b/fs/ext4/inode.c
-@@ -5898,10 +5898,6 @@ int ext4_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
- 	if (error)
- 		return error;
+@@ -176,7 +176,7 @@ int setattr_prepare(struct mnt_idmap *idmap, struct dentry *dentry,
+ 		 * covered by the open-time check because sys_truncate() takes a
+ 		 * path, not an open file.
+ 		 */
+-		if (IS_ENABLED(CONFIG_FS_VERITY) && IS_VERITY(inode))
++		if (IS_VERITY(inode))
+ 			return -EPERM;
  
--	error = fsverity_prepare_setattr(dentry, attr);
--	if (error)
--		return error;
--
- 	if (is_quota_modification(idmap, inode, attr)) {
- 		error = dquot_initialize(inode);
- 		if (error)
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index 222b2a8bbc94..791f1cf198c1 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -1123,10 +1123,6 @@ int f2fs_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
- 	if (err)
- 		return err;
- 
--	err = fsverity_prepare_setattr(dentry, attr);
--	if (err)
--		return err;
--
- 	if (unlikely(IS_IMMUTABLE(inode)))
- 		return -EPERM;
- 
-diff --git a/fs/verity/open.c b/fs/verity/open.c
-index 77b1c977af02..2aa5eae5a540 100644
---- a/fs/verity/open.c
-+++ b/fs/verity/open.c
-@@ -384,14 +384,6 @@ int __fsverity_file_open(struct inode *inode, struct file *filp)
- }
- EXPORT_SYMBOL_GPL(__fsverity_file_open);
- 
--int __fsverity_prepare_setattr(struct dentry *dentry, struct iattr *attr)
--{
--	if (attr->ia_valid & ATTR_SIZE)
--		return -EPERM;
--	return 0;
--}
--EXPORT_SYMBOL_GPL(__fsverity_prepare_setattr);
--
- void __fsverity_cleanup_inode(struct inode *inode)
- {
- 	struct fsverity_info **vi_addr = fsverity_info_addr(inode);
-diff --git a/include/linux/fsverity.h b/include/linux/fsverity.h
-index 5bc7280425a7..86fb1708676b 100644
---- a/include/linux/fsverity.h
-+++ b/include/linux/fsverity.h
-@@ -179,7 +179,6 @@ int fsverity_get_digest(struct inode *inode,
- /* open.c */
- 
- int __fsverity_file_open(struct inode *inode, struct file *filp);
--int __fsverity_prepare_setattr(struct dentry *dentry, struct iattr *attr);
- void __fsverity_cleanup_inode(struct inode *inode);
- 
- /**
-@@ -251,12 +250,6 @@ static inline int __fsverity_file_open(struct inode *inode, struct file *filp)
- 	return -EOPNOTSUPP;
- }
- 
--static inline int __fsverity_prepare_setattr(struct dentry *dentry,
--					     struct iattr *attr)
--{
--	return -EOPNOTSUPP;
--}
--
- static inline void fsverity_cleanup_inode(struct inode *inode)
- {
- }
-@@ -338,22 +331,4 @@ static inline int fsverity_file_open(struct inode *inode, struct file *filp)
- 	return 0;
- }
- 
--/**
-- * fsverity_prepare_setattr() - prepare to change a verity inode's attributes
-- * @dentry: dentry through which the inode is being changed
-- * @attr: attributes to change
-- *
-- * Verity files are immutable, so deny truncates.  This isn't covered by the
-- * open-time check because sys_truncate() takes a path, not a file descriptor.
-- *
-- * Return: 0 on success, -errno on failure
-- */
--static inline int fsverity_prepare_setattr(struct dentry *dentry,
--					   struct iattr *attr)
--{
--	if (IS_VERITY(d_inode(dentry)))
--		return __fsverity_prepare_setattr(dentry, attr);
--	return 0;
--}
--
- #endif	/* _LINUX_FSVERITY_H */
+ 		error = inode_newsize_ok(inode, attr->ia_size);
 -- 
 2.56.0
 
