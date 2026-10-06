@@ -1,58 +1,79 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com [209.85.219.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F238375AC4
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 11:07:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6B693DD871
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 11:16:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791284875; cv=none; b=cSpwvsTU45b9S7/v6V3uB29xVmpWhSnDHQliF5XVgJZK4ohtzWQLTQ2KydQcTDwma5GEkKw/qdNIbRUgCuV52qi07/+N0rxIKKr2SYxFYYXS41015kbHJDJunGgpt4DPTLG1BFQPjvz5dNYbQmFK/eRIRNkGU78ASNiEY7F3X2c=
+	t=1791285379; cv=none; b=djt7VHovz3YfqwzqbCr7vh9ueHs2auQBhun/Y9XYWt1lDzzo8zZ5ARMdxUGQQsDYlKGneKXACEJ8RCkIEa30qtNdIJtnJDbvccq+y2aiamqBiOm1iUz5QvDq+poZ7Ojg4KkGnK5EtvkSZfj8rueThau7v9fZAB5n4kurqOlyNHo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791284875; c=relaxed/simple;
-	bh=bXb1SeEeu3JPvryt9a24XFMIMldKqAekjGxkpo0iRL4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sJzQype+77OwTNo5oOCJSxShLxjeMJcV28kEfq4qcfBQZGNFTqSCuZOEkWNF4vqizX5XsxTJyHFbnhrlZUJ9q0YsXrk5ur4PlBrC1om1ZR5GYRpjUf/7qOjlH+FIpYA4VI3zeTS6k8auWBMc2pZD7ej3m9DNCgsYORH8ALj9EIw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aoYAVIWy; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791285379; c=relaxed/simple;
+	bh=G//01b+pdGQuVaSGbli0NMHPAXwyyLVeWMUub/nIK48=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=o7Sz2kNWJBwj78L9AFCkRy/mh5XMDG+GKfUWIzjaFdGs578YV7T/tK0JS3pioCAiWiPr21cURj8o6hQxoLHxhT//Q4HcTLCvJwnndr9wll2wr+LN+oXzLdVX3fO+R2DWT7b5hmNq41aIlCZ4S6p4xaUt2AJmfTW0DvGIaTghBzE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu; spf=pass smtp.mailfrom=cs.unc.edu; dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b=BHZI6j2r; arc=none smtp.client-ip=209.85.219.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aoYAVIWy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791284873; x=1822820873;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=bXb1SeEeu3JPvryt9a24XFMIMldKqAekjGxkpo0iRL4=;
-  b=aoYAVIWyLFW7331FPdPEFwGYVz8iJevRHHHuhX/bR75RKixNYDA9/wuM
-   YZcEfT3EGa7dzNs0INZ6U8LXSszBIHAZSrWZIiemYmw5I5fBtCkKxYbhZ
-   Mu2FJztddBOHOC0GZWpC2QDzQ+wyFU2EYEt4Vz7VtcfnmZnpx19Z2ZJpe
-   QHxsGrMevq/7wMqjE3+iKao20ZwVg6r0swe8VMs8o7nBVSZaVfjCWIklR
-   DBh77G9dvK27GoMlU9DeUeC20/IrJx/G0KJPk9dIS96IoLlG3I7I1HUJA
-   JTPBM6m5PdvlbF4ff7Rme6FNl5GEcXl8eKDN06syDw9Lt1en6U4QKsupl
-   A==;
-X-CSE-ConnectionGUID: gbeC2mOXT5GNQt2aoOLaKQ==
-X-CSE-MsgGUID: yAsFt9pnQ2Gow0+kk/qsTQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="120244"
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="120244"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 04:07:53 -0700
-X-CSE-ConnectionGUID: 8g0ERyDAS7OPYPeVVawlYg==
-X-CSE-MsgGUID: LzBYpXU0RN+umuPiuWOTSw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="275778612"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO mwauld-desk.intel.com) ([10.245.244.81])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 04:07:51 -0700
-From: Matthew Auld <matthew.auld@intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
-	Shashiko <sashiko-bot@kernel.org>,
-	Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
+	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b="BHZI6j2r"
+Received: by mail-qv1-f44.google.com with SMTP id 6a1803df08f44-917a04338c1so9264746d6.0
+        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 04:16:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cs.unc.edu; s=google; t=1791285375; x=1791890175; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=devy6bzsaYlsguV5/NED3lG3N5sUd9XCvEtiVBo2paU=;
+        b=BHZI6j2rSvskVWgGY7hwZm8s8c+Zw0wWRlv1w8bhSPxlbYUJ47MFt7QsSIhBOlvihS
+         9QlDINHe6ooqDVpZVszp+rkM7eQrS/7gYj2ywtK9znd82kcfvr334XzTcDk+396GN0MK
+         z1LNSCsWI225RDY/7H+TdHgX/1uaavZ5hQ/QQ70ldR9tz3Pi1xQxAKa+7YHVKBaUyCdY
+         wnIamR3P4BpYN+SyidZRWpRjcUPybn7Q2Kogfj+dUFukW90ZsYHJlkxr2wmYKovwyT2Y
+         Kw5HG5uVBjJsYV1diNkymtxMu/TObYQcB4Hh+DhyCbXhAzJIIZceLFu+C2bXyRD+UCEW
+         xV+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791285375; x=1791890175;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=devy6bzsaYlsguV5/NED3lG3N5sUd9XCvEtiVBo2paU=;
+        b=FDqGFp/MakdOgmslh+T9tYS4GowE+pJJ4jSF8Ph1hv5FBYXiXyWAy0IWOg4IU1ocvf
+         WzJRYto3VtBdZRpPkpcAtHtt7E60zLNWnu9Y7tWaDTVcoJZPI+f4LAVAZh2g1Re/77dH
+         oFQmQcYTSEWJqchW8f1gZxVhhOgkYiE3dtaMA+aaPidRyz+of3ZZiqe6pxWv6b1fytNl
+         9kUlJ+h/bRJA2dLLW7N3dNtdnBRZW7nN0Rj3Bptt/0Tw/chKuJ3/oq/jgs8F8RiB9jgh
+         CtIMaZtMaqJ0ncsMYbq28DShG3RTYU/c0O7MARXMq6E8kVEXLbdTX+j3XgljClP+w9Rp
+         pJ7w==
+X-Forwarded-Encrypted: i=1; AKwUvBwVLMtG+v425KllTLHAaCjtXIlcUimUum6DeH4qjDiT+qK+DUYgiXauNFCTHQIKbrl/TBGG7S0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKVFjOw8orEK617pSL7V4G6HG1Km5gNtCSHB1u9FvndlMehdnL+
+	xSO65oTciCTlPbiwayA3yYtBA74VCUimW1AHjAPBvAS+vWXIHqUeQbxNHCeABBmmz/4HrTL8ild
+	4f1PtHQ==
+X-Gm-Gg: AYBFou2g31twMjImOm/UjBuByHYxGycQtngR46a8bmGWsg5pINb10IVH08cL2Qh4tZz
+	XTiHCGiXOAM4rVlxWruUt21umW3gJbjHgwpUMTMioZ3yV/cO/CuS/6Xy9+X59hDtJYoJCM9ZIpL
+	AvgO8sUooeCcBGmsfeeiIJ4dRYt0zWqpX4eHkMtDjcHXukSQHhhHkvO667XG614NouBq5/+fAo2
+	chRd0W8f4Xd9Gd8tS9gk7M+gAyWXVBMDX8UqfcMj8usWHC5FUHIIEzLXXCgVldxpkc4WliyQZtf
+	XV5OojuZt+XrEI6RgE5QJm3477zRb4mx/bPvNOobGmhMN4VUsVN0QqSwqikXe6uxk2N5sksivvb
+	A29XQrfEpr3wYEUsNlAZvYTf7KTKkIVHoxf5TTF3g+ZVtiyue3X45AsMxokcOnUYgRS9qSAWio3
+	HwEHbZordhjm8GzkPA530NoHfRMuGbL7rfZ3eryvFvQpUV9Z/6AM7AsEXoXxc2bhhLNFsYzsxrt
+	4j7BhTLwpvaxoV1HaN0vrs=
+X-Received: by 2002:a05:6214:21ad:b0:917:882c:5754 with SMTP id 6a1803df08f44-9198b76f7dcmr19763346d6.17.1791285374599;
+        Tue, 06 Oct 2026 04:16:14 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917e0b690f3sm110033886d6.24.2026.10.06.04.16.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 04:16:13 -0700 (PDT)
+From: hengyul@cs.unc.edu
+To: tytso@mit.edu,
+	linux-ext4@vger.kernel.org
+Cc: adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com,
+	jack@suse.cz,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	yi.zhang@huawei.com,
+	linux-kernel@vger.kernel.org,
+	Hengyu Liang <hengyul@cs.unc.edu>,
 	stable@vger.kernel.org
-Subject: [PATCH] gpu/buddy: do not pass caller list to __alloc_contig_try_harder()
-Date: Tue,  6 Oct 2026 12:07:07 +0100
-Message-ID: <20261006110706.1636971-2-matthew.auld@intel.com>
-X-Mailer: git-send-email 2.55.0
+Subject: [PATCH] ext4: do not accept rec_len 0 for block sizes below 64k
+Date: Tue,  6 Oct 2026 07:15:46 -0400
+Message-ID: <20261006111546.3252481-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -61,84 +82,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-If the caller passes a non-empty blocks list, __alloc_contig_try_harder()
-unconditionally frees it on failure or during retry.
+From: Hengyu Liang <hengyul@cs.unc.edu>
 
-Pass the local allocated list instead and only splice it onto the caller's
-list upon success.
+Commit afa6d5a16bf2 ("ext4: remove PAGE_SIZE checks for rec_len
+conversion") made ext4_rec_len_from_disk() read a rec_len of 0 as "this
+entry covers the whole block" for every block size.
 
-Assisted-by: LLM
-Reported-by: Shashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-fa721daf-7333-48b5-a26b-624c7f5791d7
-Fixes: 0a1844bf0b53 ("drm/buddy: Improve contiguous memory allocation")
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Cc: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-Cc: Joel Fernandes <joelagnelf@nvidia.com>
-Cc: <stable@vger.kernel.org>
+However, this special value only exists for block sizes of 64k and
+more. With smaller blocks, a rec_len of 0 means that the directory
+block is corrupted. As of now, a directory block that has been
+overwritten with zeroes is treated as an empty block. The kernel no
+longer reports the corruption and can store new entries in that block,
+while e2fsck still reports the block as corrupted.
+
+The issue can be reproduced on a file system without metadata_csum:
+
+    mke2fs -q -t ext4 -b 1024 -O ^metadata_csum,^dir_index img 8M
+    mount -o loop img /mnt
+    mkdir /mnt/d
+    for i in $(seq 100); do touch /mnt/d/file_with_a_long_name_$i; done
+    umount /mnt
+    dd if=/dev/zero of=img bs=1024 count=1 conv=notrunc \
+        seek=$(debugfs -R "bmap d 1" img)
+    mount -o loop img /mnt
+    touch /mnt/d/new
+
+Before commit afa6d5a16bf2 ("ext4: remove PAGE_SIZE checks for rec_len
+conversion"), the last command fails with "Structure needs cleaning".
+After that commit, it succeeds.
+
+This patch makes ext4_rec_len_from_disk() return the on-disk value
+unchanged when the block size is below 64k, as e2fsprogs does.
+
+Fixes: afa6d5a16bf2 ("ext4: remove PAGE_SIZE checks for rec_len conversion")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
 ---
- drivers/gpu/buddy.c                | 20 ++++++++++++++------
- drivers/gpu/tests/gpu_buddy_test.c |  9 +++++++++
- 2 files changed, 23 insertions(+), 6 deletions(-)
+ fs/ext4/ext4.h | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
-index 2f2aaadafe35..a86f454fbb40 100644
---- a/drivers/gpu/buddy.c
-+++ b/drivers/gpu/buddy.c
-@@ -2022,10 +2022,16 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
- 
- 	if (order > mm->max_order || size > mm->size) {
- 		if ((flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION) &&
--		    !(flags & GPU_BUDDY_RANGE_ALLOCATION))
--			return __alloc_contig_try_harder(mm, original_size,
--							 original_min_size,
--							 flags, blocks);
-+		    !(flags & GPU_BUDDY_RANGE_ALLOCATION)) {
-+			err = __alloc_contig_try_harder(mm, original_size,
-+							original_min_size,
-+							flags, &allocated);
-+			if (err)
-+				return err;
-+
-+			list_splice_tail(&allocated, blocks);
-+			return 0;
-+		}
- 
- 		return -EINVAL;
- 	}
-@@ -2064,9 +2070,11 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
- 								original_size,
- 								original_min_size,
- 								flags,
--								blocks);
--				if (!err)
-+								&allocated);
-+				if (!err) {
-+					list_splice_tail(&allocated, blocks);
- 					return 0;
-+				}
- 				if (err != -ENOSPC)
- 					return err;
- 				goto err_free;
-diff --git a/drivers/gpu/tests/gpu_buddy_test.c b/drivers/gpu/tests/gpu_buddy_test.c
-index b75d32ca6ca0..2c6f1da1a6d1 100644
---- a/drivers/gpu/tests/gpu_buddy_test.c
-+++ b/drivers/gpu/tests/gpu_buddy_test.c
-@@ -1235,6 +1235,15 @@ static void gpu_test_buddy_alloc_contiguous(struct kunit *test)
- 							    GPU_BUDDY_CONTIGUOUS_ALLOCATION),
- 			       "buddy_alloc hit an error size=%lu\n", 2 * ps);
+diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
+index 724a27e8be61..ab716a5ad6da 100644
+--- a/fs/ext4/ext4.h
++++ b/fs/ext4/ext4.h
+@@ -2611,6 +2611,13 @@ ext4_rec_len_from_disk(__le16 dlen, unsigned blocksize)
+ {
+ 	unsigned len = le16_to_cpu(dlen);
  
 +	/*
-+	 * A failed contiguous allocation with a non-empty blocks list
-+	 * must NOT corrupt or free pre-existing blocks.
++	 * Only blocks of 64k and more need the special encoding of rec_len.
++	 * For smaller blocks 0 and EXT4_MAX_REC_LEN are not valid lengths
++	 * and must not be taken for an entry that spans the whole block.
 +	 */
-+	KUNIT_EXPECT_TRUE(test, gpu_buddy_alloc_blocks(&mm, 0, mm_size,
-+						       3 * ps, ps, &allocated,
-+						       GPU_BUDDY_CONTIGUOUS_ALLOCATION));
-+	KUNIT_EXPECT_FALSE(test, list_empty(&allocated));
-+
- 	gpu_buddy_free_list(&mm, &left, 0);
- 	KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_alloc_blocks(&mm, 0, mm_size,
- 							    3 * ps, ps, &allocated,
++	if (blocksize < 65536)
++		return len;
+ 	if (len == EXT4_MAX_REC_LEN || len == 0)
+ 		return blocksize;
+ 	return (len & 65532) | ((len & 3) << 16);
 -- 
-2.55.0
+2.53.0
 
