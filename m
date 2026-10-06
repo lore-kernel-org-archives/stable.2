@@ -1,71 +1,42 @@
-Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com [209.85.167.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59656387364
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 22:56:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22FFE4E3EE1
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 22:57:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791327410; cv=none; b=YcsMsdxkK884eGrlLXdIL5Havn5Nn9p7nfTe6pCF3DoxBXqkWAC7Ugux8mvsQx1MApf03wfmKBMhZNDDmVopLxa4jpYUa1sG8P5hJ+1Oua5g42yu8hIGabCtnMZj4NbvbMHCNEhvEnNqNTYiTDk99yBLtcgbIZCZGTk1jX9B/jc=
+	t=1791327445; cv=none; b=gAxLbX+bH5NNvqUNhXh5m51OY7hYRwgehEK3kMxhumqjvc8frg8mwIqh/kOD0tJ/gpNo38ZYgr5l8sWMhmEUVpRfkY89F2WjlYPh3ox4sp6HAhwIrnlaWGdTgdR9Sf0Uipv2iLRGeZ6LPg1AXTM8UaW4R5soSEY2VhYh1/pnFhY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791327410; c=relaxed/simple;
-	bh=MzJid57T7kvVDqpjL+7+fiHFXPk+H9FgHow2luDCwDU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ISIzrpMVDzGNP7S1hRGUkILMCJoyuqz77bNttJ8O+f8PXhTXGu9zzOE1ElFQRmovbsuf5b6gCL7qeYgp091D2JVfcLHzm4Vvrrtw1GtxYfsnINC3YXq4FLoQSUVm0Ie9CaH/p+zcMKdvf7pb1yhdIIgLbwOq+QJXgJnRiXSGBY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=Ncjx6BPp; arc=none smtp.client-ip=209.85.167.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
+	s=arc-20240116; t=1791327445; c=relaxed/simple;
+	bh=JAkiNU1KhLsV7P416pTYTY5Il9c71FC45PaSvITseZU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=M7lkN9Ilwa/WgRCFeJr5SXu5R+JUah2+/hZsXaJOAcMyGsnZEX45PAEoefmDVdSZsgOdiIMxNA/g4EFYIMfaMJ5i1Xi6Ijgb5KuV5MLNepizRUf6/1rwXO1qEYvzKxRYrV7wJfwkak/PiBFGIEug224jVXvn+wjHLX7bz1JPOwU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ff2OEizr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="Ncjx6BPp"
-Received: by mail-oi1-f170.google.com with SMTP id 5614622812f47-4f512029e45so2534265b6e.1
-        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 15:56:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1791327409; x=1791932209; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9OqI0lB2VAAehqC+cvR7VBFVsvBHKaFqIk6BYnoJbq0=;
-        b=Ncjx6BPpcFCsCiN4HUaHVN9lrDTLmA9v7Fdv466s+ugJ6hVKNU8pOEFYCaE5CD2JDZ
-         fZLujPXZIVRWemw9LaAw00iKSb3MyqTqcMacLNV+PkpCqWiugd3pCsRfVw2o0DX7sf7a
-         92OY8mW9fFo3gKuL3gw5e9o//4e4hyyPclOtA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791327409; x=1791932209;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9OqI0lB2VAAehqC+cvR7VBFVsvBHKaFqIk6BYnoJbq0=;
-        b=alMRjdixsG6nwRD3EhwoNRobv304I+jw4pxHPVhd3NAad0E6emPc2G2TZB/gZ8Hzj+
-         EFgIzVa+rYI4GTzj1u0KNA6Pa7ZEA6EdryP1gpoZA/S4xVGErv52wigFfRYBY6gVLDbD
-         70pY4gJ+knsZFdKx5TO4szK1cEcTYdoytqMpatdzNIxAdBmt0i+sx8n8GLxxCndVoIRT
-         5WWUjb7vuPz8OxY+hnNX+oYBzWbk+/ElseOJrxY91wIf7Fu1fGSKvWxKpAO4HnbJno8V
-         6CBbNGeTnLLG3Uv2sOG3Lxjn83h9BdJqsc9X8ZYpLANAYm8cksdeRmP1Ju5kU+ZPt6gD
-         1GRA==
-X-Forwarded-Encrypted: i=1; AKwUvBzvV0C/CiEFCIfg+ZAVYjpfBhug4+ua+wl7euvLX04/7aVE11lH3/bKWQdIy2nButWmlOnUu/8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kawl5j+PRN23ICnITbluVAzNKkoYvRSP6+qk0n6IMmD8ZqmGDM
-	qsaOHLnaqFQBJ446Zr7BRFDAqnZrGmK5xxhyEIzKZkLeDfBDMvz+IGUyAf6JixAj99Q=
-X-Gm-Gg: AYBFou3HQjL6OTk541irXCsoBuZ672C3UCv2AQUmpYx7I8vVExQ5d2qVT84wAc4j2TZ
-	zKJDLsrhIisxxsKV1H+reFjUvqLfRCDvglZ7L/QKCA8/G53oBxZpgfZezLkRXVaUrqwclf8SxLZ
-	L6Zs98NBzDFVqsHyPgh81fpQwiSYU7DdhKhp6AxNhHTGeCA9ca7c0IBcqQ4aF0qR9vu0Fr4VMVh
-	AGdQXZbpZhJ6XpzwZojFeXZObfdXIDxf16BoYM6J1c3BqofJFF86qkTrcphC4CHItWQkvLkjkta
-	kOKatjhodnkJ8qBdxlKrvgYocqAqu2/QVaVRGF2EZmM62WIT/cZj8NrHc2hDDE9hLtKFyL2b/gY
-	8wB+1NHUL5ZtVVJphZPabIgemxGLiC5vEZfvtm0DuAJi6uR2/cH8MVUjEgXWryQkby2ApoVDdGa
-	qLeT2W97ypslBRHMWcIvPgpL/snlWgonM9x68KN/6R3SWAhTy0gRUVklh++hShTS+LdzEPX+E3q
-	8gGr+c1/FI9MQ9kjCg73/OaaE5oSR4fT14l8N5SmXOqCU6SWH7nu4mIQ7yEApsmo5cmPEnvMoc=
-X-Received: by 2002:a05:6808:5094:b0:4fb:90ae:2b02 with SMTP id 5614622812f47-4fc4626c663mr837917b6e.52.1791327409290;
-        Tue, 06 Oct 2026 15:56:49 -0700 (PDT)
-Received: from com-75606.corp.openai.org ([199.47.143.7])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4fc48b0cb3csm671474b6e.7.2026.10.06.15.56.48
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 06 Oct 2026 15:56:48 -0700 (PDT)
-From: Kyle Zeng <kylebot@openai.com>
-To: linux-trace-kernel@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	rostedt@goodmis.org,
-	mhiramat@kernel.org,
-	outbounddisclosures@openai.com,
-	Kyle Zeng <kylebot@openai.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] tracing/filters: Treat zero-length dynamic strings as empty
-Date: Tue,  6 Oct 2026 15:56:42 -0700
-Message-ID: <20261006225642.58778-1-kylebot@openai.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ff2OEizr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8581B1F0089C;
+	Tue,  6 Oct 2026 22:57:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791327444;
+	bh=t7Xd9QARQsjFmcnSdGzT4tzrRNy3ZviHP5darNnkta8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Ff2OEizr8LYcpNwMFBhrmKqp86OP0WMCKQM9YY3WDg9DN30JYw4Mh8/81WRznDOku
+	 9NS4ciWKWBIS9G1gKNaw9XSaMmIQHJRZDCETnp8EzPDvHx+wuaoJ8sVYoqd+6eeK77
+	 YPdIhSoqXVKGwGb0KfCuRbGo9osk+S44AHsqx05r13nZWn1iTfjyJ0ursaegKy2HaO
+	 nYPdGWpuLDf1556xgrXWQz2xLVOhr5ixPyThHM8MrmyI9qUaz/Euxnij7sVt91mKYf
+	 3NzCaFRGpg+gINpVJEXb+M1yY1RueBLTU/YPi3PBxB5D+iKdrx9I29bzf8hDiOkXLF
+	 zWNdZuYm62+vw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Johan Hovold <johan@kernel.org>,
+	Corey Minyard <cminyard@mvista.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/3] USB: serial: return errors from break handling
+Date: Tue,  6 Oct 2026 18:57:19 -0400
+Message-ID: <20261006225449.1126693-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026100507-couch-zit-6026@gregkh>
+References: <2026100507-couch-zit-6026@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -74,109 +45,828 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The regex callbacks use a length of zero for NUL-terminated strings of
-unknown size, such as the trailing buffer in a trace_marker record.
-However, filter_pred_strloc() and filter_pred_strrelloc() pass the length
-from a data locator directly to those callbacks. A zero-length locator
-has no data and need not point at a NUL byte.
+From: Johan Hovold <johan@kernel.org>
 
-In particular, syscall entry events can contain an empty captured array
-or a failed user-string copy. Matching such a field with an equality,
-prefix, or substring filter can read beyond the record. The per-CPU perf
-trace buffer is reused, so an unprivileged counting syscall event can
-disclose bytes left by a previous kernel tracepoint even when raw
-sampling is denied and exclude_kernel prevents counting that tracepoint.
+[ Upstream commit 6ff58ae17fd9523246a260434133ed9ab7f56df2 ]
 
-Handle both locator formats through a common helper. For a zero-length
-field, pass an empty string and its actual size to the regex callback.
-This gives all matching modes the empty-string semantics without reading
-the locator's target. Keep nonzero fields and the legacy trace_marker
-unknown-length convention unchanged.
+Start propagating errors to user space when setting the break state
+fails.
 
-Fixes: 10f20e9f9da9 ("tracing: Have zero size length in filter logic be full string")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-6-astra
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
+This will be used by follow-on changes to also report when a driver or
+device does not support break control.
+
+Tested-by: Corey Minyard <cminyard@mvista.com>
+Signed-off-by: Johan Hovold <johan@kernel.org>
+Stable-dep-of: ae0e61d95677 ("USB: serial: fix ioctl hangup race")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/trace/trace_events_filter.c | 38 +++++++++++++++++++-----------
- 1 file changed, 24 insertions(+), 14 deletions(-)
+ drivers/usb/serial/ark3116.c          |  7 +++--
+ drivers/usb/serial/belkin_sa.c        | 12 ++++++---
+ drivers/usb/serial/ch341.c            | 37 +++++++++++++++++----------
+ drivers/usb/serial/cp210x.c           |  8 +++---
+ drivers/usb/serial/digi_acceleport.c  |  7 ++---
+ drivers/usb/serial/f81232.c           |  4 ++-
+ drivers/usb/serial/f81534.c           |  4 ++-
+ drivers/usb/serial/ftdi_sio.c         | 10 +++++---
+ drivers/usb/serial/io_edgeport.c      |  6 +++--
+ drivers/usb/serial/io_ti.c            |  9 +++++--
+ drivers/usb/serial/keyspan.c          |  5 +++-
+ drivers/usb/serial/keyspan_pda.c      |  8 ++++--
+ drivers/usb/serial/mct_u232.c         |  6 ++---
+ drivers/usb/serial/mos7720.c          |  9 ++++---
+ drivers/usb/serial/mos7840.c          |  7 ++---
+ drivers/usb/serial/mxuport.c          |  6 ++---
+ drivers/usb/serial/pl2303.c           | 14 ++++++----
+ drivers/usb/serial/quatech2.c         |  8 ++++--
+ drivers/usb/serial/ti_usb_3410_5052.c | 10 +++++---
+ drivers/usb/serial/upd78f0730.c       |  7 +++--
+ drivers/usb/serial/usb-serial.c       |  2 +-
+ drivers/usb/serial/usb_debug.c        | 13 +++++++---
+ drivers/usb/serial/whiteheat.c        |  7 ++---
+ drivers/usb/serial/xr_serial.c        |  4 +--
+ include/linux/usb/serial.h            |  2 +-
+ 25 files changed, 140 insertions(+), 72 deletions(-)
 
-diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
-index 2b46ca536045..02aaa92e0361 100644
---- a/kernel/trace/trace_events_filter.c
-+++ b/kernel/trace/trace_events_filter.c
-@@ -884,6 +884,25 @@ static int filter_pred_pchar_user(struct filter_pred *pred, void *event)
- 	return filter_pchar(pred, str);
+diff --git a/drivers/usb/serial/ark3116.c b/drivers/usb/serial/ark3116.c
+index 9452291f17033..67a07cc007f09 100644
+--- a/drivers/usb/serial/ark3116.c
++++ b/drivers/usb/serial/ark3116.c
+@@ -433,10 +433,11 @@ static int ark3116_tiocmset(struct tty_struct *tty,
+ 	return 0;
  }
  
-+static __always_inline int filter_dyn_string(struct filter_pred *pred,
-+					     char *str, int len)
-+{
-+	int cmp;
+-static void ark3116_break_ctl(struct tty_struct *tty, int break_state)
++static int ark3116_break_ctl(struct tty_struct *tty, int break_state)
+ {
+ 	struct usb_serial_port *port = tty->driver_data;
+ 	struct ark3116_private *priv = usb_get_serial_port_data(port);
++	int ret;
+ 
+ 	/* LCR is also used for other things: protect access */
+ 	mutex_lock(&priv->hw_lock);
+@@ -446,9 +447,11 @@ static void ark3116_break_ctl(struct tty_struct *tty, int break_state)
+ 	else
+ 		priv->lcr &= ~UART_LCR_SBC;
+ 
+-	ark3116_write_reg(port->serial, UART_LCR, priv->lcr);
++	ret = ark3116_write_reg(port->serial, UART_LCR, priv->lcr);
+ 
+ 	mutex_unlock(&priv->hw_lock);
 +
-+	/*
-+	 * The regex callbacks use zero for an unknown-length, NUL-terminated
-+	 * string. A zero-length data_loc or rel_loc field has no bytes at all.
-+	 * Match an empty string instead of reading past the end of the field.
-+	 */
-+	if (!len) {
-+		str = "";
-+		len = 1;
++	return ret;
+ }
+ 
+ static void ark3116_update_msr(struct usb_serial_port *port, __u8 msr)
+diff --git a/drivers/usb/serial/belkin_sa.c b/drivers/usb/serial/belkin_sa.c
+index 0c7f7d090483c..cda3295d68cf1 100644
+--- a/drivers/usb/serial/belkin_sa.c
++++ b/drivers/usb/serial/belkin_sa.c
+@@ -46,7 +46,7 @@ static void belkin_sa_process_read_urb(struct urb *urb);
+ static void belkin_sa_set_termios(struct tty_struct *tty,
+ 				  struct usb_serial_port *port,
+ 				  const struct ktermios *old_termios);
+-static void belkin_sa_break_ctl(struct tty_struct *tty, int break_state);
++static int belkin_sa_break_ctl(struct tty_struct *tty, int break_state);
+ static int  belkin_sa_tiocmget(struct tty_struct *tty);
+ static int  belkin_sa_tiocmset(struct tty_struct *tty,
+ 					unsigned int set, unsigned int clear);
+@@ -402,13 +402,19 @@ static void belkin_sa_set_termios(struct tty_struct *tty,
+ 	spin_unlock_irqrestore(&priv->lock, flags);
+ }
+ 
+-static void belkin_sa_break_ctl(struct tty_struct *tty, int break_state)
++static int belkin_sa_break_ctl(struct tty_struct *tty, int break_state)
+ {
+ 	struct usb_serial_port *port = tty->driver_data;
+ 	struct usb_serial *serial = port->serial;
++	int ret;
+ 
+-	if (BSA_USB_CMD(BELKIN_SA_SET_BREAK_REQUEST, break_state ? 1 : 0) < 0)
++	ret = BSA_USB_CMD(BELKIN_SA_SET_BREAK_REQUEST, break_state ? 1 : 0);
++	if (ret < 0) {
+ 		dev_err(&port->dev, "Set break_ctl %d\n", break_state);
++		return ret;
 +	}
 +
-+	cmp = pred->regex->match(str, pred->regex, len);
-+	return cmp ^ pred->not;
-+}
-+
- /*
-  * Filter predicate for dynamic sized arrays of characters.
-  * These are implemented through a list of strings at the end
-@@ -900,13 +919,8 @@ static int filter_pred_strloc(struct filter_pred *pred, void *event)
- 	int str_loc = str_item & 0xffff;
- 	int str_len = str_item >> 16;
- 	char *addr = (char *)(event + str_loc);
--	int cmp, match;
--
--	cmp = pred->regex->match(addr, pred->regex, str_len);
- 
--	match = cmp ^ pred->not;
--
--	return match;
-+	return filter_dyn_string(pred, addr, str_len);
++	return 0;
  }
  
- /*
-@@ -923,13 +937,8 @@ static int filter_pred_strrelloc(struct filter_pred *pred, void *event)
- 	int str_loc = str_item & 0xffff;
- 	int str_len = str_item >> 16;
- 	char *addr = (char *)(&item[1]) + str_loc;
--	int cmp, match;
--
--	cmp = pred->regex->match(addr, pred->regex, str_len);
- 
--	match = cmp ^ pred->not;
--
--	return match;
-+	return filter_dyn_string(pred, addr, str_len);
- }
- 
- /* Filter predicate for CPUs. */
-@@ -1014,7 +1023,8 @@ static int filter_pred_function(struct filter_pred *pred, void *event)
-  *
-  * @str: the string to be searched
-  * @r:   the regex structure containing the pattern string
-- * @len: the length of the string to be searched (including '\0')
-+ * @len: the length of the string to be searched (including '\0'), or zero
-+ *       for a NUL-terminated string of unknown length
-  *
-  * Note:
-  * - @str might not be NULL-terminated if it's of type DYN_STRING
-@@ -1023,7 +1033,7 @@ static int filter_pred_function(struct filter_pred *pred, void *event)
- 
- static int regex_match_full(char *str, struct regex *r, int len)
+ static int belkin_sa_tiocmget(struct tty_struct *tty)
+diff --git a/drivers/usb/serial/ch341.c b/drivers/usb/serial/ch341.c
+index 6e1b87e673046..612bea504d7a8 100644
+--- a/drivers/usb/serial/ch341.c
++++ b/drivers/usb/serial/ch341.c
+@@ -562,12 +562,12 @@ static void ch341_set_termios(struct tty_struct *tty,
+  * TCSBRKP. Due to how the simulation is implemented the duration can't be
+  * controlled. The duration is always about (1s / 46bd * 9bit) = 196ms.
+  */
+-static void ch341_simulate_break(struct tty_struct *tty, int break_state)
++static int ch341_simulate_break(struct tty_struct *tty, int break_state)
  {
--	/* len of zero means str is dynamic and ends with '\0' */
-+	/* Zero is reserved for a NUL-terminated string of unknown length. */
- 	if (!len)
- 		return strcmp(str, r->pattern) == 0;
+ 	struct usb_serial_port *port = tty->driver_data;
+ 	struct ch341_private *priv = usb_get_serial_port_data(port);
+ 	unsigned long now, delay;
+-	int r;
++	int r, r2;
  
+ 	if (break_state != 0) {
+ 		dev_dbg(&port->dev, "enter break state requested\n");
+@@ -599,7 +599,7 @@ static void ch341_simulate_break(struct tty_struct *tty, int break_state)
+ 		 */
+ 		priv->break_end = jiffies + (11 * HZ / CH341_MIN_BPS);
+ 
+-		return;
++		return 0;
+ 	}
+ 
+ 	dev_dbg(&port->dev, "leave break state requested\n");
+@@ -615,17 +615,22 @@ static void ch341_simulate_break(struct tty_struct *tty, int break_state)
+ 		schedule_timeout_interruptible(delay);
+ 	}
+ 
++	r = 0;
+ restore:
+ 	/* Restore original baud rate */
+-	r = ch341_set_baudrate_lcr(port->serial->dev, priv, priv->baud_rate,
+-				   priv->lcr);
+-	if (r < 0)
++	r2 = ch341_set_baudrate_lcr(port->serial->dev, priv, priv->baud_rate,
++			priv->lcr);
++	if (r2 < 0) {
+ 		dev_err(&port->dev,
+ 			"restoring original baud rate of %u failed: %d\n",
+-			priv->baud_rate, r);
++			priv->baud_rate, r2);
++		return r2;
++	}
++
++	return r;
+ }
+ 
+-static void ch341_break_ctl(struct tty_struct *tty, int break_state)
++static int ch341_break_ctl(struct tty_struct *tty, int break_state)
+ {
+ 	const uint16_t ch341_break_reg =
+ 			((uint16_t) CH341_REG_LCR << 8) | CH341_REG_BREAK;
+@@ -635,17 +640,17 @@ static void ch341_break_ctl(struct tty_struct *tty, int break_state)
+ 	uint16_t reg_contents;
+ 	uint8_t break_reg[2];
+ 
+-	if (priv->quirks & CH341_QUIRK_SIMULATE_BREAK) {
+-		ch341_simulate_break(tty, break_state);
+-		return;
+-	}
++	if (priv->quirks & CH341_QUIRK_SIMULATE_BREAK)
++		return ch341_simulate_break(tty, break_state);
+ 
+ 	r = ch341_control_in(port->serial->dev, CH341_REQ_READ_REG,
+ 			ch341_break_reg, 0, break_reg, 2);
+ 	if (r) {
+ 		dev_err(&port->dev, "%s - USB control read error (%d)\n",
+ 				__func__, r);
+-		return;
++		if (r > 0)
++			r = -EIO;
++		return r;
+ 	}
+ 	dev_dbg(&port->dev, "%s - initial ch341 break register contents - reg1: %x, reg2: %x\n",
+ 		__func__, break_reg[0], break_reg[1]);
+@@ -663,9 +668,13 @@ static void ch341_break_ctl(struct tty_struct *tty, int break_state)
+ 	reg_contents = get_unaligned_le16(break_reg);
+ 	r = ch341_control_out(port->serial->dev, CH341_REQ_WRITE_REG,
+ 			ch341_break_reg, reg_contents);
+-	if (r < 0)
++	if (r < 0) {
+ 		dev_err(&port->dev, "%s - USB control write error (%d)\n",
+ 				__func__, r);
++		return r;
++	}
++
++	return 0;
+ }
+ 
+ static int ch341_tiocmset(struct tty_struct *tty,
+diff --git a/drivers/usb/serial/cp210x.c b/drivers/usb/serial/cp210x.c
+index d3e92c0faf41c..233c25af0204e 100644
+--- a/drivers/usb/serial/cp210x.c
++++ b/drivers/usb/serial/cp210x.c
+@@ -39,7 +39,7 @@ static int cp210x_tiocmget(struct tty_struct *);
+ static int cp210x_tiocmset(struct tty_struct *, unsigned int, unsigned int);
+ static int cp210x_tiocmset_port(struct usb_serial_port *port,
+ 		unsigned int, unsigned int);
+-static void cp210x_break_ctl(struct tty_struct *, int);
++static int cp210x_break_ctl(struct tty_struct *, int);
+ static int cp210x_attach(struct usb_serial *);
+ static void cp210x_disconnect(struct usb_serial *);
+ static void cp210x_release(struct usb_serial *);
+@@ -1430,7 +1430,7 @@ static int cp210x_tiocmget(struct tty_struct *tty)
+ 	return result;
+ }
+ 
+-static void cp210x_break_ctl(struct tty_struct *tty, int break_state)
++static int cp210x_break_ctl(struct tty_struct *tty, int break_state)
+ {
+ 	struct usb_serial_port *port = tty->driver_data;
+ 	u16 state;
+@@ -1439,9 +1439,11 @@ static void cp210x_break_ctl(struct tty_struct *tty, int break_state)
+ 		state = BREAK_OFF;
+ 	else
+ 		state = BREAK_ON;
++
+ 	dev_dbg(&port->dev, "%s - turning break %s\n", __func__,
+ 		state == BREAK_OFF ? "off" : "on");
+-	cp210x_write_u16_reg(port, CP210X_SET_BREAK, state);
++
++	return cp210x_write_u16_reg(port, CP210X_SET_BREAK, state);
+ }
+ 
+ #ifdef CONFIG_GPIOLIB
+diff --git a/drivers/usb/serial/digi_acceleport.c b/drivers/usb/serial/digi_acceleport.c
+index 1bfd64425b259..62a75be78dfc6 100644
+--- a/drivers/usb/serial/digi_acceleport.c
++++ b/drivers/usb/serial/digi_acceleport.c
+@@ -217,7 +217,7 @@ static void digi_rx_unthrottle(struct tty_struct *tty);
+ static void digi_set_termios(struct tty_struct *tty,
+ 			     struct usb_serial_port *port,
+ 			     const struct ktermios *old_termios);
+-static void digi_break_ctl(struct tty_struct *tty, int break_state);
++static int digi_break_ctl(struct tty_struct *tty, int break_state);
+ static int digi_tiocmget(struct tty_struct *tty);
+ static int digi_tiocmset(struct tty_struct *tty, unsigned int set,
+ 		unsigned int clear);
+@@ -846,7 +846,7 @@ static void digi_set_termios(struct tty_struct *tty,
+ }
+ 
+ 
+-static void digi_break_ctl(struct tty_struct *tty, int break_state)
++static int digi_break_ctl(struct tty_struct *tty, int break_state)
+ {
+ 	struct usb_serial_port *port = tty->driver_data;
+ 	unsigned char buf[4];
+@@ -855,7 +855,8 @@ static void digi_break_ctl(struct tty_struct *tty, int break_state)
+ 	buf[1] = 2;				/* length */
+ 	buf[2] = break_state ? 1 : 0;
+ 	buf[3] = 0;				/* pad */
+-	digi_write_inb_command(port, buf, 4, 0);
++
++	return digi_write_inb_command(port, buf, 4, 0);
+ }
+ 
+ 
+diff --git a/drivers/usb/serial/f81232.c b/drivers/usb/serial/f81232.c
+index 5e689fb2b7aaa..f397a68bdb53c 100644
+--- a/drivers/usb/serial/f81232.c
++++ b/drivers/usb/serial/f81232.c
+@@ -447,7 +447,7 @@ static void f81534a_process_read_urb(struct urb *urb)
+ 	tty_flip_buffer_push(&port->port);
+ }
+ 
+-static void f81232_break_ctl(struct tty_struct *tty, int break_state)
++static int f81232_break_ctl(struct tty_struct *tty, int break_state)
+ {
+ 	struct usb_serial_port *port = tty->driver_data;
+ 	struct f81232_private *priv = usb_get_serial_port_data(port);
+@@ -466,6 +466,8 @@ static void f81232_break_ctl(struct tty_struct *tty, int break_state)
+ 		dev_err(&port->dev, "set break failed: %d\n", status);
+ 
+ 	mutex_unlock(&priv->lock);
++
++	return status;
+ }
+ 
+ static int f81232_find_clk(speed_t baudrate)
+diff --git a/drivers/usb/serial/f81534.c b/drivers/usb/serial/f81534.c
+index 4083ae961be43..ef126cd3d94fb 100644
+--- a/drivers/usb/serial/f81534.c
++++ b/drivers/usb/serial/f81534.c
+@@ -656,7 +656,7 @@ static int f81534_set_port_config(struct usb_serial_port *port,
+ 	return status;
+ }
+ 
+-static void f81534_break_ctl(struct tty_struct *tty, int break_state)
++static int f81534_break_ctl(struct tty_struct *tty, int break_state)
+ {
+ 	struct usb_serial_port *port = tty->driver_data;
+ 	struct f81534_port_private *port_priv = usb_get_serial_port_data(port);
+@@ -675,6 +675,8 @@ static void f81534_break_ctl(struct tty_struct *tty, int break_state)
+ 		dev_err(&port->dev, "set break failed: %d\n", status);
+ 
+ 	mutex_unlock(&port_priv->lcr_mutex);
++
++	return status;
+ }
+ 
+ static int f81534_update_mctrl(struct usb_serial_port *port, unsigned int set,
+diff --git a/drivers/usb/serial/ftdi_sio.c b/drivers/usb/serial/ftdi_sio.c
+index 8c54dcc746a98..0b54f64e27fdd 100644
+--- a/drivers/usb/serial/ftdi_sio.c
++++ b/drivers/usb/serial/ftdi_sio.c
+@@ -2550,11 +2550,12 @@ static void ftdi_process_read_urb(struct urb *urb)
+ 		tty_flip_buffer_push(&port->port);
+ }
+ 
+-static void ftdi_break_ctl(struct tty_struct *tty, int break_state)
++static int ftdi_break_ctl(struct tty_struct *tty, int break_state)
+ {
+ 	struct usb_serial_port *port = tty->driver_data;
+ 	struct ftdi_private *priv = usb_get_serial_port_data(port);
+ 	u16 value;
++	int ret;
+ 
+ 	/* break_state = -1 to turn on break, and 0 to turn off break */
+ 	/* see drivers/char/tty_io.c to see it used */
+@@ -2565,19 +2566,22 @@ static void ftdi_break_ctl(struct tty_struct *tty, int break_state)
+ 	else
+ 		value = priv->last_set_data_value;
+ 
+-	if (usb_control_msg(port->serial->dev,
++	ret = usb_control_msg(port->serial->dev,
+ 			usb_sndctrlpipe(port->serial->dev, 0),
+ 			FTDI_SIO_SET_DATA_REQUEST,
+ 			FTDI_SIO_SET_DATA_REQUEST_TYPE,
+ 			value, priv->channel,
+-			NULL, 0, WDR_TIMEOUT) < 0) {
++			NULL, 0, WDR_TIMEOUT);
++	if (ret < 0) {
+ 		dev_err(&port->dev, "%s FAILED to enable/disable break state (state was %d)\n",
+ 			__func__, break_state);
++		return ret;
+ 	}
+ 
+ 	dev_dbg(&port->dev, "%s break state is %d - urb is %d\n", __func__,
+ 		break_state, value);
+ 
++	return 0;
+ }
+ 
+ static bool ftdi_tx_empty(struct usb_serial_port *port)
+diff --git a/drivers/usb/serial/io_edgeport.c b/drivers/usb/serial/io_edgeport.c
+index c5ada8debfd61..ab29c867956bb 100644
+--- a/drivers/usb/serial/io_edgeport.c
++++ b/drivers/usb/serial/io_edgeport.c
+@@ -1564,12 +1564,12 @@ static int edge_ioctl(struct tty_struct *tty,
+  * SerialBreak
+  *	this function sends a break to the port
+  *****************************************************************************/
+-static void edge_break(struct tty_struct *tty, int break_state)
++static int edge_break(struct tty_struct *tty, int break_state)
+ {
+ 	struct usb_serial_port *port = tty->driver_data;
+ 	struct edgeport_port *edge_port = usb_get_serial_port_data(port);
+ 	struct edgeport_serial *edge_serial = usb_get_serial_data(port->serial);
+-	int status;
++	int status = 0;
+ 
+ 	if (!edge_serial->is_epic ||
+ 	    edge_serial->epic_descriptor.Supports.IOSPChase) {
+@@ -1601,6 +1601,8 @@ static void edge_break(struct tty_struct *tty, int break_state)
+ 			dev_dbg(&port->dev, "%s - error sending break set/clear command.\n",
+ 				__func__);
+ 	}
++
++	return status;
+ }
+ 
+ 
+diff --git a/drivers/usb/serial/io_ti.c b/drivers/usb/serial/io_ti.c
+index 69f7240568470..45184faf02bce 100644
+--- a/drivers/usb/serial/io_ti.c
++++ b/drivers/usb/serial/io_ti.c
+@@ -2432,7 +2432,7 @@ static int edge_tiocmget(struct tty_struct *tty)
+ 	return result;
+ }
+ 
+-static void edge_break(struct tty_struct *tty, int break_state)
++static int edge_break(struct tty_struct *tty, int break_state)
+ {
+ 	struct usb_serial_port *port = tty->driver_data;
+ 	struct edgeport_port *edge_port = usb_get_serial_port_data(port);
+@@ -2441,10 +2441,15 @@ static void edge_break(struct tty_struct *tty, int break_state)
+ 
+ 	if (break_state == -1)
+ 		bv = 1;	/* On */
++
+ 	status = ti_do_config(edge_port, UMPC_SET_CLR_BREAK, bv);
+-	if (status)
++	if (status) {
+ 		dev_dbg(&port->dev, "%s - error %d sending break set/clear command.\n",
+ 			__func__, status);
++		return status;
++	}
++
++	return 0;
+ }
+ 
+ static void edge_heartbeat_schedule(struct edgeport_serial *edge_serial)
+diff --git a/drivers/usb/serial/keyspan.c b/drivers/usb/serial/keyspan.c
+index 26c2cc372ed31..bb4f047381ff4 100644
+--- a/drivers/usb/serial/keyspan.c
++++ b/drivers/usb/serial/keyspan.c
+@@ -599,7 +599,7 @@ struct keyspan_port_private {
+ #include "keyspan_usa67msg.h"
+ 
+ 
+-static void keyspan_break_ctl(struct tty_struct *tty, int break_state)
++static int keyspan_break_ctl(struct tty_struct *tty, int break_state)
+ {
+ 	struct usb_serial_port *port = tty->driver_data;
+ 	struct keyspan_port_private 	*p_priv;
+@@ -611,7 +611,10 @@ static void keyspan_break_ctl(struct tty_struct *tty, int break_state)
+ 	else
+ 		p_priv->break_on = 0;
+ 
++	/* FIXME: return errors */
+ 	keyspan_send_setup(port, 0);
++
++	return 0;
+ }
+ 
+ 
+diff --git a/drivers/usb/serial/keyspan_pda.c b/drivers/usb/serial/keyspan_pda.c
+index 264efa6ce8e49..b3964f20b2547 100644
+--- a/drivers/usb/serial/keyspan_pda.c
++++ b/drivers/usb/serial/keyspan_pda.c
+@@ -323,7 +323,7 @@ static speed_t keyspan_pda_setbaud(struct usb_serial *serial, speed_t baud)
+ 	return baud;
+ }
+ 
+-static void keyspan_pda_break_ctl(struct tty_struct *tty, int break_state)
++static int keyspan_pda_break_ctl(struct tty_struct *tty, int break_state)
+ {
+ 	struct usb_serial_port *port = tty->driver_data;
+ 	struct usb_serial *serial = port->serial;
+@@ -339,9 +339,13 @@ static void keyspan_pda_break_ctl(struct tty_struct *tty, int break_state)
+ 			4, /* set break */
+ 			USB_TYPE_VENDOR | USB_RECIP_INTERFACE | USB_DIR_OUT,
+ 			value, 0, NULL, 0, 2000);
+-	if (result < 0)
++	if (result < 0) {
+ 		dev_dbg(&port->dev, "%s - error %d from usb_control_msg\n",
+ 			__func__, result);
++		return result;
++	}
++
++	return 0;
+ }
+ 
+ static void keyspan_pda_set_termios(struct tty_struct *tty,
+diff --git a/drivers/usb/serial/mct_u232.c b/drivers/usb/serial/mct_u232.c
+index 3c1351bb7ca3d..be63f5f374047 100644
+--- a/drivers/usb/serial/mct_u232.c
++++ b/drivers/usb/serial/mct_u232.c
+@@ -47,7 +47,7 @@ static void mct_u232_read_int_callback(struct urb *urb);
+ static void mct_u232_set_termios(struct tty_struct *tty,
+ 				 struct usb_serial_port *port,
+ 				 const struct ktermios *old_termios);
+-static void mct_u232_break_ctl(struct tty_struct *tty, int break_state);
++static int  mct_u232_break_ctl(struct tty_struct *tty, int break_state);
+ static int  mct_u232_tiocmget(struct tty_struct *tty);
+ static int  mct_u232_tiocmset(struct tty_struct *tty,
+ 			unsigned int set, unsigned int clear);
+@@ -683,7 +683,7 @@ static void mct_u232_set_termios(struct tty_struct *tty,
+ 	spin_unlock_irqrestore(&priv->lock, flags);
+ } /* mct_u232_set_termios */
+ 
+-static void mct_u232_break_ctl(struct tty_struct *tty, int break_state)
++static int mct_u232_break_ctl(struct tty_struct *tty, int break_state)
+ {
+ 	struct usb_serial_port *port = tty->driver_data;
+ 	struct mct_u232_private *priv = usb_get_serial_port_data(port);
+@@ -697,7 +697,7 @@ static void mct_u232_break_ctl(struct tty_struct *tty, int break_state)
+ 		lcr |= MCT_U232_SET_BREAK;
+ 	spin_unlock_irqrestore(&priv->lock, flags);
+ 
+-	mct_u232_set_line_ctrl(port, lcr);
++	return mct_u232_set_line_ctrl(port, lcr);
+ } /* mct_u232_break_ctl */
+ 
+ 
+diff --git a/drivers/usb/serial/mos7720.c b/drivers/usb/serial/mos7720.c
+index 1d1f85fabc284..23544074eb1c3 100644
+--- a/drivers/usb/serial/mos7720.c
++++ b/drivers/usb/serial/mos7720.c
+@@ -996,7 +996,7 @@ static void mos7720_close(struct usb_serial_port *port)
+ 	mos7720_port->open = 0;
+ }
+ 
+-static void mos7720_break(struct tty_struct *tty, int break_state)
++static int mos7720_break(struct tty_struct *tty, int break_state)
+ {
+ 	struct usb_serial_port *port = tty->driver_data;
+ 	unsigned char data;
+@@ -1007,7 +1007,7 @@ static void mos7720_break(struct tty_struct *tty, int break_state)
+ 
+ 	mos7720_port = usb_get_serial_port_data(port);
+ 	if (mos7720_port == NULL)
+-		return;
++		return -ENODEV;
+ 
+ 	if (break_state == -1)
+ 		data = mos7720_port->shadowLCR | UART_LCR_SBC;
+@@ -1015,8 +1015,9 @@ static void mos7720_break(struct tty_struct *tty, int break_state)
+ 		data = mos7720_port->shadowLCR & ~UART_LCR_SBC;
+ 
+ 	mos7720_port->shadowLCR  = data;
+-	write_mos_reg(serial, port->port_number, MOS7720_LCR,
+-		      mos7720_port->shadowLCR);
++
++	return write_mos_reg(serial, port->port_number, MOS7720_LCR,
++			     mos7720_port->shadowLCR);
+ }
+ 
+ /*
+diff --git a/drivers/usb/serial/mos7840.c b/drivers/usb/serial/mos7840.c
+index 26f287180f8ab..f90b427e4c3f9 100644
+--- a/drivers/usb/serial/mos7840.c
++++ b/drivers/usb/serial/mos7840.c
+@@ -787,7 +787,7 @@ static void mos7840_close(struct usb_serial_port *port)
+  * mos7840_break
+  *	this function sends a break to the port
+  *****************************************************************************/
+-static void mos7840_break(struct tty_struct *tty, int break_state)
++static int mos7840_break(struct tty_struct *tty, int break_state)
+ {
+ 	struct usb_serial_port *port = tty->driver_data;
+ 	struct moschip_port *mos7840_port = usb_get_serial_port_data(port);
+@@ -801,8 +801,9 @@ static void mos7840_break(struct tty_struct *tty, int break_state)
+ 	/* FIXME: no locking on shadowLCR anywhere in driver */
+ 	mos7840_port->shadowLCR = data;
+ 	dev_dbg(&port->dev, "%s mos7840_port->shadowLCR is %x\n", __func__, mos7840_port->shadowLCR);
+-	mos7840_set_uart_reg(port, LINE_CONTROL_REGISTER,
+-			     mos7840_port->shadowLCR);
++
++	return mos7840_set_uart_reg(port, LINE_CONTROL_REGISTER,
++				    mos7840_port->shadowLCR);
+ }
+ 
+ /*****************************************************************************
+diff --git a/drivers/usb/serial/mxuport.c b/drivers/usb/serial/mxuport.c
+index 3030d53e8b1fe..8d20928ce54c9 100644
+--- a/drivers/usb/serial/mxuport.c
++++ b/drivers/usb/serial/mxuport.c
+@@ -1238,7 +1238,7 @@ static void mxuport_close(struct usb_serial_port *port)
+ }
+ 
+ /* Send a break to the port. */
+-static void mxuport_break_ctl(struct tty_struct *tty, int break_state)
++static int mxuport_break_ctl(struct tty_struct *tty, int break_state)
+ {
+ 	struct usb_serial_port *port = tty->driver_data;
+ 	struct usb_serial *serial = port->serial;
+@@ -1252,8 +1252,8 @@ static void mxuport_break_ctl(struct tty_struct *tty, int break_state)
+ 		dev_dbg(&port->dev, "%s - clearing break\n", __func__);
+ 	}
+ 
+-	mxuport_send_ctrl_urb(serial, RQ_VENDOR_SET_BREAK,
+-			      enable, port->port_number);
++	return mxuport_send_ctrl_urb(serial, RQ_VENDOR_SET_BREAK,
++				     enable, port->port_number);
+ }
+ 
+ static int mxuport_resume(struct usb_serial *serial)
+diff --git a/drivers/usb/serial/pl2303.c b/drivers/usb/serial/pl2303.c
+index 103994af4bff3..1ba2287d4d456 100644
+--- a/drivers/usb/serial/pl2303.c
++++ b/drivers/usb/serial/pl2303.c
+@@ -174,7 +174,7 @@ MODULE_DEVICE_TABLE(usb, id_table);
+ #define PL2303_HXN_FLOWCTRL_RTS_CTS	0x18
+ #define PL2303_HXN_FLOWCTRL_XON_XOFF	0x0c
+ 
+-static void pl2303_set_break(struct usb_serial_port *port, bool enable);
++static int pl2303_set_break(struct usb_serial_port *port, bool enable);
+ 
+ enum pl2303_type {
+ 	TYPE_H,
+@@ -1063,7 +1063,7 @@ static int pl2303_carrier_raised(struct usb_serial_port *port)
+ 	return 0;
+ }
+ 
+-static void pl2303_set_break(struct usb_serial_port *port, bool enable)
++static int pl2303_set_break(struct usb_serial_port *port, bool enable)
+ {
+ 	struct usb_serial *serial = port->serial;
+ 	u16 state;
+@@ -1080,15 +1080,19 @@ static void pl2303_set_break(struct usb_serial_port *port, bool enable)
+ 	result = usb_control_msg(serial->dev, usb_sndctrlpipe(serial->dev, 0),
+ 				 BREAK_REQUEST, BREAK_REQUEST_TYPE, state,
+ 				 0, NULL, 0, 100);
+-	if (result)
++	if (result) {
+ 		dev_err(&port->dev, "error sending break = %d\n", result);
++		return result;
++	}
++
++	return 0;
+ }
+ 
+-static void pl2303_break_ctl(struct tty_struct *tty, int state)
++static int pl2303_break_ctl(struct tty_struct *tty, int state)
+ {
+ 	struct usb_serial_port *port = tty->driver_data;
+ 
+-	pl2303_set_break(port, state);
++	return pl2303_set_break(port, state);
+ }
+ 
+ static void pl2303_update_line_status(struct usb_serial_port *port,
+diff --git a/drivers/usb/serial/quatech2.c b/drivers/usb/serial/quatech2.c
+index dcd2938095bbb..cf2ab7cb80f0e 100644
+--- a/drivers/usb/serial/quatech2.c
++++ b/drivers/usb/serial/quatech2.c
+@@ -762,7 +762,7 @@ static int qt2_tiocmset(struct tty_struct *tty,
+ 	return update_mctrl(port_priv, set, clear);
+ }
+ 
+-static void qt2_break_ctl(struct tty_struct *tty, int break_state)
++static int qt2_break_ctl(struct tty_struct *tty, int break_state)
+ {
+ 	struct usb_serial_port *port = tty->driver_data;
+ 	struct qt2_port_private *port_priv;
+@@ -775,10 +775,14 @@ static void qt2_break_ctl(struct tty_struct *tty, int break_state)
+ 
+ 	status = qt2_control_msg(port->serial->dev, QT2_BREAK_CONTROL,
+ 				 val, port_priv->device_port);
+-	if (status < 0)
++	if (status < 0) {
+ 		dev_warn(&port->dev,
+ 			 "%s - failed to send control message: %i\n", __func__,
+ 			 status);
++		return status;
++	}
++
++	return 0;
+ }
+ 
+ 
+diff --git a/drivers/usb/serial/ti_usb_3410_5052.c b/drivers/usb/serial/ti_usb_3410_5052.c
+index b99f78224846d..0fba25abf671c 100644
+--- a/drivers/usb/serial/ti_usb_3410_5052.c
++++ b/drivers/usb/serial/ti_usb_3410_5052.c
+@@ -319,7 +319,7 @@ static void ti_set_termios(struct tty_struct *tty,
+ static int ti_tiocmget(struct tty_struct *tty);
+ static int ti_tiocmset(struct tty_struct *tty,
+ 		unsigned int set, unsigned int clear);
+-static void ti_break(struct tty_struct *tty, int break_state);
++static int ti_break(struct tty_struct *tty, int break_state);
+ static void ti_interrupt_callback(struct urb *urb);
+ static void ti_bulk_in_callback(struct urb *urb);
+ static void ti_bulk_out_callback(struct urb *urb);
+@@ -1071,7 +1071,7 @@ static int ti_tiocmset(struct tty_struct *tty,
+ }
+ 
+ 
+-static void ti_break(struct tty_struct *tty, int break_state)
++static int ti_break(struct tty_struct *tty, int break_state)
+ {
+ 	struct usb_serial_port *port = tty->driver_data;
+ 	struct ti_port *tport = usb_get_serial_port_data(port);
+@@ -1083,8 +1083,12 @@ static void ti_break(struct tty_struct *tty, int break_state)
+ 		tport->tp_uart_base_addr + TI_UART_OFFSET_LCR,
+ 		TI_LCR_BREAK, break_state == -1 ? TI_LCR_BREAK : 0);
+ 
+-	if (status)
++	if (status) {
+ 		dev_dbg(&port->dev, "%s - error setting break, %d\n", __func__, status);
++		return status;
++	}
++
++	return 0;
+ }
+ 
+ static int ti_get_port_from_code(unsigned char code)
+diff --git a/drivers/usb/serial/upd78f0730.c b/drivers/usb/serial/upd78f0730.c
+index c47439bd90fa6..46952182e04f7 100644
+--- a/drivers/usb/serial/upd78f0730.c
++++ b/drivers/usb/serial/upd78f0730.c
+@@ -238,12 +238,13 @@ static int upd78f0730_tiocmset(struct tty_struct *tty,
+ 	return res;
+ }
+ 
+-static void upd78f0730_break_ctl(struct tty_struct *tty, int break_state)
++static int upd78f0730_break_ctl(struct tty_struct *tty, int break_state)
+ {
+ 	struct upd78f0730_port_private *private;
+ 	struct usb_serial_port *port = tty->driver_data;
+ 	struct upd78f0730_set_dtr_rts request;
+ 	struct device *dev = &port->dev;
++	int res;
+ 
+ 	private = usb_get_serial_port_data(port);
+ 
+@@ -258,8 +259,10 @@ static void upd78f0730_break_ctl(struct tty_struct *tty, int break_state)
+ 	request.opcode = UPD78F0730_CMD_SET_DTR_RTS;
+ 	request.params = private->line_signals;
+ 
+-	upd78f0730_send_ctl(port, &request, sizeof(request));
++	res = upd78f0730_send_ctl(port, &request, sizeof(request));
+ 	mutex_unlock(&private->lock);
++
++	return res;
+ }
+ 
+ static void upd78f0730_dtr_rts(struct usb_serial_port *port, int on)
+diff --git a/drivers/usb/serial/usb-serial.c b/drivers/usb/serial/usb-serial.c
+index 2b3b7b10f7382..291053a74a8b7 100644
+--- a/drivers/usb/serial/usb-serial.c
++++ b/drivers/usb/serial/usb-serial.c
+@@ -538,7 +538,7 @@ static int serial_break(struct tty_struct *tty, int break_state)
+ 	dev_dbg(&port->dev, "%s\n", __func__);
+ 
+ 	if (port->serial->type->break_ctl)
+-		port->serial->type->break_ctl(tty, break_state);
++		return port->serial->type->break_ctl(tty, break_state);
+ 
+ 	return 0;
+ }
+diff --git a/drivers/usb/serial/usb_debug.c b/drivers/usb/serial/usb_debug.c
+index 406cb326e8124..5a8869cd95d52 100644
+--- a/drivers/usb/serial/usb_debug.c
++++ b/drivers/usb/serial/usb_debug.c
+@@ -47,12 +47,19 @@ MODULE_DEVICE_TABLE(usb, id_table_combined);
+ /* This HW really does not support a serial break, so one will be
+  * emulated when ever the break state is set to true.
+  */
+-static void usb_debug_break_ctl(struct tty_struct *tty, int break_state)
++static int usb_debug_break_ctl(struct tty_struct *tty, int break_state)
+ {
+ 	struct usb_serial_port *port = tty->driver_data;
++	int ret;
++
+ 	if (!break_state)
+-		return;
+-	usb_serial_generic_write(tty, port, USB_DEBUG_BRK, USB_DEBUG_BRK_SIZE);
++		return 0;
++
++	ret = usb_serial_generic_write(tty, port, USB_DEBUG_BRK, USB_DEBUG_BRK_SIZE);
++	if (ret < 0)
++		return ret;
++
++	return 0;
+ }
+ 
+ static void usb_debug_process_read_urb(struct urb *urb)
+diff --git a/drivers/usb/serial/whiteheat.c b/drivers/usb/serial/whiteheat.c
+index 7f82d40753ee0..ca48e90a8e81f 100644
+--- a/drivers/usb/serial/whiteheat.c
++++ b/drivers/usb/serial/whiteheat.c
+@@ -87,7 +87,7 @@ static void whiteheat_set_termios(struct tty_struct *tty,
+ static int  whiteheat_tiocmget(struct tty_struct *tty);
+ static int  whiteheat_tiocmset(struct tty_struct *tty,
+ 			unsigned int set, unsigned int clear);
+-static void whiteheat_break_ctl(struct tty_struct *tty, int break_state);
++static int whiteheat_break_ctl(struct tty_struct *tty, int break_state);
+ 
+ static struct usb_serial_driver whiteheat_fake_device = {
+ 	.driver = {
+@@ -449,10 +449,11 @@ static void whiteheat_set_termios(struct tty_struct *tty,
+ 	firm_setup_port(tty);
+ }
+ 
+-static void whiteheat_break_ctl(struct tty_struct *tty, int break_state)
++static int whiteheat_break_ctl(struct tty_struct *tty, int break_state)
+ {
+ 	struct usb_serial_port *port = tty->driver_data;
+-	firm_set_break(port, break_state);
++
++	return firm_set_break(port, break_state);
+ }
+ 
+ 
+diff --git a/drivers/usb/serial/xr_serial.c b/drivers/usb/serial/xr_serial.c
+index f3811e060a441..60fae9d012a61 100644
+--- a/drivers/usb/serial/xr_serial.c
++++ b/drivers/usb/serial/xr_serial.c
+@@ -503,7 +503,7 @@ static void xr_dtr_rts(struct usb_serial_port *port, int on)
+ 		xr_tiocmset_port(port, 0, TIOCM_DTR | TIOCM_RTS);
+ }
+ 
+-static void xr_break_ctl(struct tty_struct *tty, int break_state)
++static int xr_break_ctl(struct tty_struct *tty, int break_state)
+ {
+ 	struct usb_serial_port *port = tty->driver_data;
+ 	struct xr_data *data = usb_get_serial_port_data(port);
+@@ -517,7 +517,7 @@ static void xr_break_ctl(struct tty_struct *tty, int break_state)
+ 
+ 	dev_dbg(&port->dev, "Turning break %s\n", state == 0 ? "off" : "on");
+ 
+-	xr_set_reg_uart(port, type->tx_break, state);
++	return xr_set_reg_uart(port, type->tx_break, state);
+ }
+ 
+ /* Tx and Rx clock mask values obtained from section 3.3.4 of datasheet */
+diff --git a/include/linux/usb/serial.h b/include/linux/usb/serial.h
+index 9c5550c4c4275..0950aa3166773 100644
+--- a/include/linux/usb/serial.h
++++ b/include/linux/usb/serial.h
+@@ -278,7 +278,7 @@ struct usb_serial_driver {
+ 	int  (*set_serial)(struct tty_struct *tty, struct serial_struct *ss);
+ 	void (*set_termios)(struct tty_struct *tty, struct usb_serial_port *port,
+ 			    const struct ktermios *old);
+-	void (*break_ctl)(struct tty_struct *tty, int break_state);
++	int (*break_ctl)(struct tty_struct *tty, int break_state);
+ 	unsigned int (*chars_in_buffer)(struct tty_struct *tty);
+ 	void (*wait_until_sent)(struct tty_struct *tty, long timeout);
+ 	bool (*tx_empty)(struct usb_serial_port *port);
+-- 
+2.53.0
+
