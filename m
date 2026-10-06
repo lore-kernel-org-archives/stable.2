@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 445383D4138;
-	Tue,  6 Oct 2026 21:36:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7DD54A8FE6;
+	Tue,  6 Oct 2026 21:36:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791322581; cv=none; b=souDiw0SDcbt5TKfesanHHgqVsxecaaleXfzajIXLUlqC8ZDnbkhUiI/inDJoauxAQKhYTidVEqkeyaafA+OBNlo3hA4EQXkzVOVEaq9vwyfY8SFj7v2t/cp8Y6+qF/Og54LJxpecxMecrDMxplu2PDQtBpxNPTGupUFx6cgQWw=
+	t=1791322582; cv=none; b=VtSVTDvUiWV1Gptfx8wjjTJeANZywr0z/JfzSgMLhLswB+oYDZ0IHszmDhFNluH/7YXkg2QSB8VOrs+jyBBZz8A0VGxCMZDUaWSuIbsB8QAviHpolN79fMkZAjWh2sjcMcf1OsRfgmuuifVG838LviiMdfG5nyTs8iHOtgmaV/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791322581; c=relaxed/simple;
-	bh=X/u9/zQouyMql90kHUrJbahLtW+juletInkJKAapzVY=;
+	s=arc-20240116; t=1791322582; c=relaxed/simple;
+	bh=J66CZR59vNMRlIt5uvApaY2MiJjDelauvSY4Wm0/1po=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Tnvz1Z3bcLDLWSmqMFBQKMkeKQ9zZDkVM0wiMHyzArcguoJ3SvKCSuhrKvSvZSEO+rAMHBQ/gl2pav5hxV+XkyQxH31sC7sMXeocIdnYm/OIB70I09L3Ftqw/1iukFI9PGE6PdI/sbqjvoMXpSI39ppxLxDE27MkG0/O5K52IYA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YuCiQJ5g; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=XIqlFH8Xca+ORJSbEp/dpc4eJnQKftqyz3qofRErN+FtWSmHmQXBYJb47w4+3jT7M+9SrwfjVetKUzfGSWIiqoB9vndAL8yQ1jl5+9HynpRKEjolVSBhzSaLUQ5sPs+nfMJpgYUJhm7yRTHM4TyKqI+tKPJwiBdtQH1bAttanl4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G9CebVIK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YuCiQJ5g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 234A61F0089B;
-	Tue,  6 Oct 2026 21:36:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G9CebVIK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C98B1F0089C;
+	Tue,  6 Oct 2026 21:36:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791322579;
-	bh=9chzaMnrqzwZ9cpwqYC3aGHe9/nrZ3RT/cFttQHPTcw=;
+	s=k20260515; t=1791322581;
+	bh=MraFjd5/uuf+kH2m1dbbbSfkb+xOzImpsJKrWy/tKIg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YuCiQJ5gQI0F/xMKPNviCEOiMLu1Zq0bYOh3dDSXpdeSHVKGQypknrOPDaKeFulDR
-	 dSDyejOsi0MYzSqj1cEVwxTs+CKzsptmEHbimBpRMiq/JtFP/WraYVlRtvaLSW6qHY
-	 YXBAm7HepRVB4Hxv065eVYrZQVX/EuLR13TerUYRlkZXyr9Knu+/iD+T469YgcoJRY
-	 DWGUFAiCNxdKX2iEQ/janOdzGoWab12BdgTiL2zzPnbR+Oh9540ztI6PsvI/WcQSAU
-	 sRK08Sd7kAKjKs7f7LrzMYjl4iljNZ5ddPvZrLRnicTNbOsz8qIF2NZ5Zepv4DYVsa
-	 zeKsTTZb1ffjA==
+	b=G9CebVIK/m4kV0xM1rwKXxQCuKvDMmISSdRXs+ghRUQX5x1RlvH8F3Uy41gLhBF28
+	 At/sz771s971gKdj8x4c0k0x3uPVRLY9Tt8pavRbsffiFELFAfp0+bInf/a0NBA3Zg
+	 rcJZwKOsMY3cdlNzuMfFEYdVcCVBAua/BQ11PUnzr9eZGwqK9kjnWQBZBHrU27zj3y
+	 wrBJ1NzGHJNigzZQgKvVpdiKzirZ8vhAp2ys288ZnarQqtbqcBYuiHj6expsHec9zW
+	 hvFzH/+qGlGNI6me/qntXPQjFwkL0E8Poejxx/C996UBD5tqSfjF+BFvJcu2r+m06m
+	 7e2A6SCX6pRoA==
 From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	"James E.J. Bottomley" <jejb@linux.ibm.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	linux-scsi@vger.kernel.org
+To: stable@vger.kernel.org,
+	gregkh@linuxfoundation.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Simon Liebold <simonlie@amazon.de>
-Subject: Re: [PATCH 5.15.y] Revert "scsi: sd: sd_zbc: Use logical blocks as unit when querying zones"
-Date: Tue,  6 Oct 2026 17:35:39 -0400
-Message-ID: <2026-10-06-1-daily-reply-0007-sd-zbc-revert-5.15@kernel.org>
+	MPTCP Upstream <mptcp@lists.linux.dev>,
+	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>
+Subject: Re: [PATCH 6.18.y] mptcp: fix msk->timer_ival reset
+Date: Tue,  6 Oct 2026 17:35:40 -0400
+Message-ID: <2026-10-06-1-daily-reply-0008-mptcp-timer-ival-6.18@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261005150713.3919586-1-simonlie@amazon.de>
-References: <20261005150713.3919586-1-simonlie@amazon.de>
+In-Reply-To: <20261005174116.3521187-2-matttbe@kernel.org>
+References: <20261005174116.3521187-2-matttbe@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,14 +46,10 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> This reverts commit 9c78f3cf7785f3de5afb3d632f0d81c2cb0e9020, the 5.15.y
-> backport of upstream 43af5da09efb.
+> Reset it to TCP_RTO_MIN, which is how msk->timer_ival is also reset in
+> __mptcp_init_sock() in this version.
 
-Thanks for the analysis. Queued for 5.15 with the reverted commit
-corrected to 9c78f3cf7785 ("scsi: sd: sd_zbc: Use logical blocks as unit
-when querying zones"). 5.10 has the same problem, so we also queued the
-matching revert of cab3909d1be5 ("scsi: sd: sd_zbc: Use logical blocks as
-unit when querying zones") there.
+Queued for 6.18, thanks.
 
 -- 
 Thanks,
