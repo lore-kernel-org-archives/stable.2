@@ -1,79 +1,42 @@
-Received: from mail-lr2-f1.google.com (mail-lr2-f1.google.com [74.125.230.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E9913033DE
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 08:19:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC1563BD22F
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 08:26:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791274748; cv=none; b=I1lH5WUrWZ3kwl5el9aOS+1CQPO7o8jFxTkjvEseeADU4MS+PGABKu9n30bSrcAeOPGYi7gy7nsq5RfZAIEjJ0dIj7kE3Oj3xdlCLSq4GPyClKw0m3J+tmWaZszgekGDeV+l6pAnYgQc74PeDuFcz7JbFu+mL9rUFzPv/sgEZU8=
+	t=1791275196; cv=none; b=ZeQ5uts/pcSQV/Dt9vkwZOZZH7ugDQqDnjJZbliceHJJy4Jt+Tf2Pi2uivq86KOW+FTYvmj/G9w7WKIUiuJPBR8vTkNTvonnvxpw6v11Z1cDAiL1fTm0fO13xGeWY+9YoVWVDFfxj5mFZPSFdib63uQPrcm1dG+D4eHsEdGQi0I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791274748; c=relaxed/simple;
-	bh=qhZNAfD7z34kkB/8KUmaUTADLEQDzTgyQRnKEcSpYa0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EVeI2NF7m4ro1Zr0EmMEViwy0pd3WyQ2tF9gBoaKML+TyLF931O58XYcFVjtmGdafgdM2uKEmjWQ8DOOF8a4FMLzHnAj9//A92FhvwC0BCKwsnik8rfkE81VFVPUNAsKHGdCUOUm3lOIzlm5rkChsWGefCFTzCsvgrGhSSLsqi4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r5/xl51e; arc=none smtp.client-ip=74.125.230.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791275196; c=relaxed/simple;
+	bh=dhChC+/C+eWge+IJDjyffi0w9nnJZepxgmimKCKvb6U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YZ3YHWiI2DlWFq8g4JYVQBN7N6i1lSNaVinYMGPHJ0kb71OKVAr9eWoXbGQ8GZ4BWryoQvuX6ERVs1ewGp35zNI8yGd2MhZDz+7qwDbMBF7ZGGwuP1vDD4OlUaTD0reD1rWsCIg0VTAaCfP1JO+7pbuD9u/F0PB18G6wc8OGJRU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VNI91ZX8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r5/xl51e"
-Received: by mail-lr2-f1.google.com with SMTP id 38308e7fff4ca-3a772511049so17676201fa.0
-        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 01:19:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791274744; x=1791879544; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5xmegwaObSlaaJYAf2hwhY81EYio3LkX0sVedAPdVEI=;
-        b=r5/xl51eLU2SAs9UuoSfn54iCb8V3FKtaZo99LV1KyeUELer3P1LRuqwLK7fmPyI3i
-         yWUWJ4ebnoazg4f3ByZFtCJP2qLehraH8eHTHNjVxzQ7pYtfpcvuJv/jmoJr5Tz8Lij4
-         6IKM8UUL/VBum9VjEBTm+Xct/wMF/+BwpIQ9RQiu4gAqLG0u+w03T8ZaxHcMy7h78Ffm
-         Cv/jNzN4mDHeRMoogRlOiqksyW05ejCfb5TTnQ6pvLFYZljM2nvw72HOMbsMkriwf33a
-         gK0NEkzA/wFEFwe6VUht0eCfeTJiSkRjcRnyelV1pGB+h++4pwurYBcTMUYev+tUIi9m
-         guzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791274744; x=1791879544;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5xmegwaObSlaaJYAf2hwhY81EYio3LkX0sVedAPdVEI=;
-        b=AZYifgLyAeTGxKQeuL8PwGIl/oWDuAdJDj8IlLRLusyh7ADhyiFsqxcput4wInG2sy
-         ix30aDiPDlDDV2CTb7jkVxnSOtTf1Y47fnwLDT63257jIwevUglKnG7VgY6kMteDKUEu
-         5jY8mcmrwTKh4E5ZP7zboWfksIwI+TlnFYBKHrmj/0hYGc09bkXiWoUcj73JnL+8tQZB
-         SiI2QKdhq5zEzRiINKmN7Qg+e3i5zYsGrkYFwMVgKt59LR1ig/lCpLPehQYPcfuw2+u8
-         d87jjxgCnruFfeLk0aEIVX+icLPScP1ke8IetlLtCtLl782ohMhf41VsXPUbCxhvQpmS
-         HSBQ==
-X-Gm-Message-State: AFq9FYJHAxSDkeaVfvRoSrkjlLW703coPNAuAjRxmp9wMLQcOpsDoFbF
-	hY4L1sEmtfxgTNlEqadjElf/5qZRYv8561t2JSjV56gkVaxGeUdknqZouQWrRXew
-X-Gm-Gg: AYBFou3MHqEwDF6fg26T/4EsHC1Bot6/nXAqCTxMhBZe+v602d9S4tBr4zghTssTf57
-	a+iWJ7UbvPXoHs6k9XI2i361ge9Ai7uEUQbtD5bWzfz3PN24SvLuOETDdNzuQbvKZruUDqn7RGw
-	p1HEwIe0HPblL1EG71InqbHzj9wWFptGAvPoI8nC0LBvPXFtDWZApQ8YeR92Vh2xAtSc4KTK9Ra
-	/UhA+IVetuRy0bUhJIvdUprIqDNNUQo6VMGdnElDpDAVulYXT7XHbb+zvthZK+Oe7GO8XTj+bGo
-	SjeIopPyDUKBGh2BKFaHfdroVrzjF9YNvgVGNt6RzUnpnAaUdd+e+oOSOxhP8f+Ecd7N73152r6
-	q2zA5k+n1z0Pz5OoHCghRHVer+5kCFdreuVSoS5x58/5w3/m4ojqb3sglcSb7CEpNXyfcy60toY
-	O9VngdAI4mlCxSiEKCyBibywEmmRO/RmEr7HjZzdMVjYIZcry0yVd88G+9JiSVMiQb/uvzL3fS0
-	IuTTUKxxaCAO3te
-X-Received: by 2002:a05:651c:4cb:b0:3a9:9a0c:6a75 with SMTP id 38308e7fff4ca-3a99af74c30mr1654821fa.28.1791274743808;
-        Tue, 06 Oct 2026 01:19:03 -0700 (PDT)
-Received: from localhost.localdomain ([78.40.184.2])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a87e303889sm46849861fa.20.2026.10.06.01.19.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 01:19:03 -0700 (PDT)
-From: Roman Demidov <roman.demidov.nn@gmail.com>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
-	Chengchang Tang <tangchengchang@huawei.com>,
-	Junxian Huang <huangjunxian6@hisilicon.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>,
-	Yixian Liu <liuyixian@huawei.com>,
-	Salil Mehta <salil.mehta@huawei.com>,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VNI91ZX8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55F181F000FF;
+	Tue,  6 Oct 2026 08:26:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791275194;
+	bh=/LkuW3cQgg7D/JrsyLdB0e6fVSDuxKq6Tfah5+nOcQs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=VNI91ZX8ERMFc8jNH2WLL8Dq6wP/oQBayDVwYmOfbW/poXvpPGLWteBs2sjPZvzi0
+	 pj727KUTSmQUAx9bas6Jat4yw1q79AexNFUjjRXs2wp7VMTDc0xuT0PJ29EUFfenHO
+	 ZfWqoTsvLWxLlLatrAabTw090yGsJUfBZGrqG4IRHmPgpjQxuWA2XgtZK16uAQIssm
+	 Wl6I/WtwNwBH8E/QExx+zIhN+owUZD14lZfje0KCBE5i+1g7CSCL9zuY+G/vNmRbeV
+	 ZZPgC+LIjp338gzFAygDZYru9Nd34iLw/hsowt2tNHPHj9fGcKX2wgwNAdHzQWK78B
+	 Jx8JS29bC1a7w==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Chengfeng Ye <nicoyip.dev@gmail.com>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15] RDMA/hns: Fix WQ_MEM_RECLAIM warning
-Date: Tue,  6 Oct 2026 11:18:56 +0300
-Message-ID: <20261006081857.125617-1-roman.demidov.nn@gmail.com>
+Subject: [PATCH 6.6.y] Bluetooth: Serialize SMP remote OOB data access
+Date: Tue,  6 Oct 2026 04:26:27 -0400
+Message-ID: <20261006082549.3863943-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026100542-breezy-handwrite-680e@gregkh>
+References: <2026100542-breezy-handwrite-680e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -82,63 +45,155 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chengchang Tang <tangchengchang@huawei.com>
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
 
-commit c0a26bbd3f99b7b03f072e3409aff4e6ec8af6f6 upstream.
+[ Upstream commit 81a2345f1984f0b36d3226571bc196316a01b648 ]
 
-When sunrpc is used, if a reset triggered, our wq may lead the
-following trace:
+build_pairing_cmd() looks up remote OOB data and copies its contents
+without holding hdev->lock, which serializes the list's writers. After
+SMP finds an entry, a concurrent management Remove Remote OOB Data
+command can unlink and free it before SMP reads its present flag or
+copies its random and confirmation values. Removal can also invalidate
+an entry while the lookup is still traversing the list.
 
-workqueue: WQ_MEM_RECLAIM xprtiod:xprt_rdma_connect_worker [rpcrdma]
-is flushing !WQ_MEM_RECLAIM hns_roce_irq_workq:flush_work_handle
-[hns_roce_hw_v2]
-WARNING: CPU: 0 PID: 8250 at kernel/workqueue.c:2644 check_flush_dependency+0xe0/0x144
-Call trace:
-  check_flush_dependency+0xe0/0x144
-  start_flush_work.constprop.0+0x1d0/0x2f0
-  __flush_work.isra.0+0x40/0xb0
-  flush_work+0x14/0x30
-  hns_roce_v2_destroy_qp+0xac/0x1e0 [hns_roce_hw_v2]
-  ib_destroy_qp_user+0x9c/0x2b4
-  rdma_destroy_qp+0x34/0xb0
-  rpcrdma_ep_destroy+0x28/0xcc [rpcrdma]
-  rpcrdma_ep_put+0x74/0xb4 [rpcrdma]
-  rpcrdma_xprt_disconnect+0x1d8/0x260 [rpcrdma]
-  xprt_rdma_connect_worker+0xc0/0x120 [rpcrdma]
-  process_one_work+0x1cc/0x4d0
-  worker_thread+0x154/0x414
-  kthread+0x104/0x144
-  ret_from_fork+0x10/0x18
+KASAN reported:
 
-Since QP destruction frees memory, this wq should have the WQ_MEM_RECLAIM.
+  BUG: KASAN: slab-use-after-free in build_pairing_cmd+0x948/0x9b0
+  Call Trace:
+   build_pairing_cmd+0x948/0x9b0
+   smp_recv_cb+0x459f/0x8110
+   l2cap_recv_frame+0xf14/0x9190
+   l2cap_recv_acldata+0xa64/0xd40
+   hci_rx_work+0x4ca/0x730
 
-Fixes: ffd541d45726 ("RDMA/hns: Add the workqueue framework for flush cqe handler")
-Signed-off-by: Chengchang Tang <tangchengchang@huawei.com>
-Signed-off-by: Junxian Huang <huangjunxian6@hisilicon.com>
-Link: https://patch.msgid.link/20260104064057.1582216-2-huangjunxian6@hisilicon.com
-Signed-off-by: Leon Romanovsky <leon@kernel.org>
+  Allocated by task 87:
+   hci_add_remote_oob_data+0x11d/0x530
+   add_remote_oob_data+0x282/0x400
+   hci_sock_sendmsg+0x1033/0x1ea0
+
+  Freed by task 93:
+   hci_remote_oob_data_clear+0x108/0x1c0
+   remove_remote_oob_data+0x198/0x220
+   hci_sock_sendmsg+0x1033/0x1ea0
+
+Taking hdev->lock in build_pairing_cmd() would recurse for callers that
+already hold it and invert the device-to-L2CAP lock order on the receive
+path. Add a per-device remote_oob_lock instead, held across the SMP
+lookup and copies and by the add, remove and clear helpers. Cover
+initialization and in-place updates as well, so SMP cannot read partially
+initialized or updated OOB values. Release the mutex on allocation
+failure, preserving the existing error return.
+
+The new critical sections acquire no device, connection or channel locks.
+Writers retain their existing hdev->lock protection, which continues to
+serialize the other readers without changing their locking or behavior.
+
+Link: https://lore.kernel.org/r/00660cd3-7d71-13a4-f617-229e6defb701@gmail.com
+Fixes: 02b05bd8b0a6 ("Bluetooth: Set SMP OOB flag if OOB data is available")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+[ sashal: Replaced kmalloc_obj(*data) with kmalloc(sizeof(*data), GFP_KERNEL). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
 ---
-Backport fix for CVE-2026-46265
+ include/net/bluetooth/hci_core.h |  1 +
+ net/bluetooth/hci_core.c         | 12 +++++++++++-
+ net/bluetooth/smp.c              |  2 ++
+ 3 files changed, 14 insertions(+), 1 deletion(-)
 
- drivers/infiniband/hw/hns/hns_roce_hw_v2.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/infiniband/hw/hns/hns_roce_hw_v2.c b/drivers/infiniband/hw/hns/hns_roce_hw_v2.c
-index 43b661f97188..32d8a4eb385b 100644
---- a/drivers/infiniband/hw/hns/hns_roce_hw_v2.c
-+++ b/drivers/infiniband/hw/hns/hns_roce_hw_v2.c
-@@ -6209,7 +6209,8 @@ static int hns_roce_v2_init_eq_table(struct hns_roce_dev *hr_dev)
- 		}
- 	}
+diff --git a/include/net/bluetooth/hci_core.h b/include/net/bluetooth/hci_core.h
+index 84711eef45967..35249d2550ee9 100644
+--- a/include/net/bluetooth/hci_core.h
++++ b/include/net/bluetooth/hci_core.h
+@@ -555,6 +555,7 @@ struct hci_dev {
+ 	struct list_head	link_keys;
+ 	struct list_head	long_term_keys;
+ 	struct list_head	identity_resolving_keys;
++	struct mutex		remote_oob_lock;
+ 	struct list_head	remote_oob_data;
+ 	struct list_head	le_accept_list;
+ 	struct list_head	le_resolv_list;
+diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
+index 2e523ffd1a42f..b73be421a6566 100644
+--- a/net/bluetooth/hci_core.c
++++ b/net/bluetooth/hci_core.c
+@@ -1521,8 +1521,10 @@ int hci_remove_remote_oob_data(struct hci_dev *hdev, bdaddr_t *bdaddr,
  
--	hr_dev->irq_workq = alloc_ordered_workqueue("hns_roce_irq_workq", 0);
-+	hr_dev->irq_workq = alloc_ordered_workqueue("hns_roce_irq_workq",
-+						    WQ_MEM_RECLAIM);
- 	if (!hr_dev->irq_workq) {
- 		dev_err(dev, "failed to create irq workqueue.\n");
- 		ret = -ENOMEM;
+ 	BT_DBG("%s removing %pMR (%u)", hdev->name, bdaddr, bdaddr_type);
+ 
++	mutex_lock(&hdev->remote_oob_lock);
+ 	list_del(&data->list);
+ 	kfree(data);
++	mutex_unlock(&hdev->remote_oob_lock);
+ 
+ 	return 0;
+ }
+@@ -1531,10 +1533,12 @@ void hci_remote_oob_data_clear(struct hci_dev *hdev)
+ {
+ 	struct oob_data *data, *n;
+ 
++	mutex_lock(&hdev->remote_oob_lock);
+ 	list_for_each_entry_safe(data, n, &hdev->remote_oob_data, list) {
+ 		list_del(&data->list);
+ 		kfree(data);
+ 	}
++	mutex_unlock(&hdev->remote_oob_lock);
+ }
+ 
+ int hci_add_remote_oob_data(struct hci_dev *hdev, bdaddr_t *bdaddr,
+@@ -1543,11 +1547,14 @@ int hci_add_remote_oob_data(struct hci_dev *hdev, bdaddr_t *bdaddr,
+ {
+ 	struct oob_data *data;
+ 
++	mutex_lock(&hdev->remote_oob_lock);
+ 	data = hci_find_remote_oob_data(hdev, bdaddr, bdaddr_type);
+ 	if (!data) {
+ 		data = kmalloc(sizeof(*data), GFP_KERNEL);
+-		if (!data)
++		if (!data) {
++			mutex_unlock(&hdev->remote_oob_lock);
+ 			return -ENOMEM;
++		}
+ 
+ 		bacpy(&data->bdaddr, bdaddr);
+ 		data->bdaddr_type = bdaddr_type;
+@@ -1580,6 +1587,8 @@ int hci_add_remote_oob_data(struct hci_dev *hdev, bdaddr_t *bdaddr,
+ 
+ 	BT_DBG("%s for %pMR", hdev->name, bdaddr);
+ 
++	mutex_unlock(&hdev->remote_oob_lock);
++
+ 	return 0;
+ }
+ 
+@@ -2514,6 +2523,7 @@ struct hci_dev *hci_alloc_dev_priv(int sizeof_priv)
+ 	mutex_init(&hdev->lock);
+ 	mutex_init(&hdev->req_lock);
+ 	mutex_init(&hdev->mgmt_pending_lock);
++	mutex_init(&hdev->remote_oob_lock);
+ 
+ 	ida_init(&hdev->unset_handle_ida);
+ 
+diff --git a/net/bluetooth/smp.c b/net/bluetooth/smp.c
+index c87b39380de29..83eef7a02e0db 100644
+--- a/net/bluetooth/smp.c
++++ b/net/bluetooth/smp.c
+@@ -684,6 +684,7 @@ static void build_pairing_cmd(struct l2cap_conn *conn,
+ 		else
+ 			bdaddr_type = BDADDR_LE_RANDOM;
+ 
++		mutex_lock(&hdev->remote_oob_lock);
+ 		oob_data = hci_find_remote_oob_data(hdev, &hcon->dst,
+ 						    bdaddr_type);
+ 		if (oob_data && oob_data->present) {
+@@ -694,6 +695,7 @@ static void build_pairing_cmd(struct l2cap_conn *conn,
+ 			SMP_DBG("OOB Remote Confirmation: %16phN", smp->pcnf);
+ 			SMP_DBG("OOB Remote Random: %16phN", smp->rr);
+ 		}
++		mutex_unlock(&hdev->remote_oob_lock);
+ 
+ 	} else {
+ 		authreq &= ~SMP_AUTH_SC;
 -- 
 2.53.0
 
