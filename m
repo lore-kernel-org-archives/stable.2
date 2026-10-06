@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB58F3C061C
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 07:46:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84E183B71A2
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 07:46:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791272801; cv=none; b=Hezy2d9t2TI14bIRIwyMfNjZvaCRpsWlDnjshIUvSSxLv0dCfjiqesIHmRbqu9Be1/R/Atv6KkZD6h/WD840kh8pE3qylmC/+FiwaoCk1RluQ5BwSPb6Nj2sTDGrHDIRLiBhGzqDQN0jEwCPBXhf/fzU+c2cNgLrGFaN29xUoBE=
+	t=1791272801; cv=none; b=UKpCYUwd1L+Ds1AzUO4GQxQVnOALAKum3R3flraCPkslIoRi4Lm1SLjHZ8p6vThvdZN2O2ZKflZMBrL8DJIm5gS0b19O5oW4BJUUsp4c2+SXu12Sv3hH2IyqE7FMx8sn1lm7WSpv+W+YYjFDq+JRVCbY3Blo5bebJBnlENawEwM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791272801; c=relaxed/simple;
-	bh=l569gPzyrDI3zzXJnKw7biaCokR01PECNQDChvbXi04=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=fVaZCQUAwn0DClLBshwS2jJJBd0vBFOXcFle+l3sHWheZ78HrK8GsnVLuyBBUHAatP3eM09flbznwMbAc3ZqyQrWbpd399ddvTfJcN4ClFeUmOM7UV56r8Md2vRRUZ8hIEs4f7drrGKXnl+Etwkb48wRZD/CnEvZFx8K49HM+RA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=F+fsZMPB; arc=none smtp.client-ip=100.103.45.18
+	bh=STRgP2V7UQ9pHslVf80vr8Ti2mP+s8aAVWbJoUwH4Z4=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=UZmBdFHCsguJMojhWv8TK1wKUVf5Kloe8MKZPElskLufZffVLruyJyudjZH4XQIdOIpXzaU5ktUlN4m2T20r6CBPyOOvV4hhzdppzmT1/5GBz2drFI7wCty1SrL9TWbEuXDiHQicfoNePaxod0EcFG3wnKcrqyC/R4moCumbyck=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=tX04B4Zp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="F+fsZMPB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E0A91F000FF;
-	Tue,  6 Oct 2026 07:46:34 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tX04B4Zp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D967F1F00893;
+	Tue,  6 Oct 2026 07:46:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791272794;
-	bh=5MnOY/twSMQfbkWdghuGGJJfeWFO98fpcs+atUpqQFU=;
+	s=korg; t=1791272800;
+	bh=Afhx7hCpQWbeu+GlqamGw1fvizrryO1K3ds3PTK3Z3s=;
 	h=Subject:To:Cc:From:Date;
-	b=F+fsZMPBnBDNWrqrXZJ4/Y5DpKLUD/Tf8yB4z1eF1UidqFhiJgm1ny+Q/AE/hkdIA
-	 ChyhVx/bPLNlC9KaQvgNkYJX22FvucJ9Cu3CMujVMMOcrh9ZG54l6I/x4QvnIF2y4z
-	 6bE5WkDsL/crBS4oxNWmksLi4O7l6NXsRvf40YIg=
-Subject: FAILED: patch "[PATCH] iio: buffer-dmaengine: fix sg entry iteration when building" failed to apply to 6.18-stable tree
-To: michael.hennerich@analog.com,jonathan.cameron@oss.qualcomm.com,nuno.sa@analog.com
+	b=tX04B4ZphLW3SEaWRwg80OQEVY91cae6Gv1623rakscO2W9wu47/NMVZ9G6N5fNfz
+	 nh8eBYLa8APfzQuYVwrKKx2E9aDprm3buL/Woo/QqQixhFhH9+6Skxo92HQq7i7A5z
+	 +TkB9+gu+bHFPkhdm2/kjdqtpxtzfKbK4M8E7wTM=
+Subject: FAILED: patch "[PATCH] iio: cdc: ad7150: fix OF matching and publish module aliases" failed to apply to 6.6-stable tree
+To: hppiscas@163.com,jonathan.cameron@oss.qualcomm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 06 Oct 2026 09:46:21 +0200
-Message-ID: <2026100621-tanning-oxidizing-ed84@gregkh>
+Date: Tue, 06 Oct 2026 09:46:33 +0200
+Message-ID: <2026100633-nursing-grandma-6ae9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 0d0ffbcc92e30a8d656ad76a6e278fa3400fed85
+git cherry-pick -x 52da294027f53e7084c18dd4b4f73354a40382f3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100621-tanning-oxidizing-ed84@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100633-nursing-grandma-6ae9@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,95 +62,46 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 0d0ffbcc92e30a8d656ad76a6e278fa3400fed85 Mon Sep 17 00:00:00 2001
-From: Michael Hennerich <michael.hennerich@analog.com>
-Date: Fri, 28 Aug 2026 11:46:55 +0100
-Subject: [PATCH] iio: buffer-dmaengine: fix sg entry iteration when building
- dma_vecs
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 52da294027f53e7084c18dd4b4f73354a40382f3 Mon Sep 17 00:00:00 2001
+From: Pengpeng Hou <hppiscas@163.com>
+Date: Sun, 20 Sep 2026 11:33:03 +0800
+Subject: [PATCH] iio: cdc: ad7150: fix OF matching and publish module aliases
 
-iio_dmaengine_buffer_submit_block() counts scatterlist entries with
-sg_nents_for_len(), which walks the CPU-side lengths (sg->length), but
-then consumes the DMA-side fields (sg_dma_address()/sg_dma_len()).
-After dma_map_sgtable() the two views may differ: an IOMMU can coalesce
-the mapping so that only the first sgt->nents entries carry valid DMA
-addresses, with nents < orig_nents.
+The OF match entries use positional initializers, which initialize the
+name field rather than compatible. Consequently the advertised AD7150,
+AD7151 and AD7156 compatible strings do not describe OF compatible
+matches. The table is also not exported for module alias generation.
 
-On x86 with an IOMMU enabled, a DMABUF block backed by two 1 MiB
-system-heap chunks maps to a single 2 MiB IOVA range. The CPU-side
-count is 2, so the loop reads one entry past the mapped set and emits a
-garbage vec ({addr = ~0, len = 0}). The DMA engine driver rejects the
-vec array (prep returns NULL), the fence is signalled with -ENOMEM,
-which a userspace poller cannot observe, and the block is left in
-ACTIVE state so every further enqueue of it fails with -EBUSY. The
-visible symptom is a stream of zero-filled blocks followed by a wedged
-buffer.
+Use designated compatible initializers and publish the OF table. Keep
+the existing I2C ID table and its device-variant selection unchanged.
 
-Platforms without an IOMMU never hit this because nents == orig_nents.
+The issue was found by our static-analysis tool.
 
-Size the vec array with sgt->nents, i.e. the DMA-mapped view, and stop
-the fill loop once bytes_used is covered - which is allowed to be
-smaller than the block size - passing the number of vecs actually
-filled to dmaengine_prep_peripheral_dma_vec().
-
-One vec per mapped entry is enough since coalescing can only ever
-reduce the number of entries. A single mapped entry longer than the
-device's maximum segment size would need more than one, but the DMA API
-already assumes no single segment exceeds it [1], and splitting a vec
-down to the hardware descriptor size is the DMA engine driver's job -
-which both current .device_prep_peripheral_dma_vec() implementations
-do.
-
-[1]: commit ab2cbeb0ed30 ("iommu/dma: Handle SG length overflow better")
-
-Assisted-by: Claude:claude-fable-5
-Fixes: 7a86d469983a ("iio: buffer-dmaengine: Support new DMABUF based userspace API")
-Signed-off-by: Michael Hennerich <michael.hennerich@analog.com>
-Signed-off-by: Nuno Sá <nuno.sa@analog.com>
+Fixes: 89f2d5b080bc ("staging:iio:cdc:ad7150: Add of_match_table")
+Assisted-by: LLM
 Cc: stable@vger.kernel.org
+Signed-off-by: Pengpeng Hou <hppiscas@163.com>
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 
-diff --git a/drivers/iio/buffer/industrialio-buffer-dmaengine.c b/drivers/iio/buffer/industrialio-buffer-dmaengine.c
-index ecc02a427b92..376486be3f55 100644
---- a/drivers/iio/buffer/industrialio-buffer-dmaengine.c
-+++ b/drivers/iio/buffer/industrialio-buffer-dmaengine.c
-@@ -104,10 +104,13 @@ static int iio_dmaengine_buffer_submit_block(struct iio_dma_buffer_queue *queue,
- 	if (block->sg_table) {
- 		unsigned long flags;
+diff --git a/drivers/iio/cdc/ad7150.c b/drivers/iio/cdc/ad7150.c
+index 2f35c6d2f9ce..b36ac4e2dae8 100644
+--- a/drivers/iio/cdc/ad7150.c
++++ b/drivers/iio/cdc/ad7150.c
+@@ -636,11 +636,13 @@ static const struct i2c_device_id ad7150_id[] = {
+ MODULE_DEVICE_TABLE(i2c, ad7150_id);
  
--		sgl = block->sg_table->sgl;
--		nents = sg_nents_for_len(sgl, block->bytes_used);
--		if (nents < 0)
--			return nents;
-+		/*
-+		 * Only the first sgt->nents entries carry a valid
-+		 * sg_dma_address()/sg_dma_len() pair as mapping the table may
-+		 * have coalesced entries, in which case nents is smaller than
-+		 * orig_nents.
-+		 */
-+		nents = block->sg_table->nents;
- 
- 		vecs = kmalloc_array(nents, sizeof(*vecs), GFP_ATOMIC);
- 		if (!vecs)
-@@ -115,7 +118,8 @@ static int iio_dmaengine_buffer_submit_block(struct iio_dma_buffer_queue *queue,
- 
- 		len_total = block->bytes_used;
- 
--		for (i = 0; i < nents; i++) {
-+		sgl = block->sg_table->sgl;
-+		for (i = 0; i < nents && len_total; i++) {
- 			vecs[i].addr = sg_dma_address(sgl);
- 			vecs[i].len = min(sg_dma_len(sgl), len_total);
- 			len_total -= vecs[i].len;
-@@ -123,6 +127,8 @@ static int iio_dmaengine_buffer_submit_block(struct iio_dma_buffer_queue *queue,
- 			sgl = sg_next(sgl);
- 		}
- 
-+		nents = i;
+ static const struct of_device_id ad7150_of_match[] = {
+-	{ "adi,ad7150" },
+-	{ "adi,ad7151" },
+-	{ "adi,ad7156" },
++	{ .compatible = "adi,ad7150" },
++	{ .compatible = "adi,ad7151" },
++	{ .compatible = "adi,ad7156" },
+ 	{ }
+ };
++MODULE_DEVICE_TABLE(of, ad7150_of_match);
 +
- 		if (block->cyclic)
- 			flags = DMA_PREP_REPEAT;
- 		else
+ static struct i2c_driver ad7150_driver = {
+ 	.driver = {
+ 		.name = "ad7150",
 
