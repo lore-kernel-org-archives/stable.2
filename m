@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D028F463B7C
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 15:55:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F1E549BD8A
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 15:55:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791302146; cv=none; b=npDIyQiuxCB9xkTJvlYFrAn2GLh91coREC4eTaABzzT+pjWN+9D01yQe1TxbD4VYzthR1ttYgWflCj8y6gjpbhLi2pNAD7aPBt61A1Puc9xpRkieHcKWzhxWtgLZ5va8zbG2XepKgIApb3V87B/+8UdDt0omxOs+9zHk5kFnu/s=
+	t=1791302147; cv=none; b=XEATTf7SIXLoHAc5vJJbk6hBniwxYtCDfYQBcH5DV5qRRiKXLmu4zKIgdTDTnfyTzUSZFwytPr/2BIqB0DO2oUjvqpZhG0o3U52xm/YEW7et7/lRJMnp9/68Dm+ZeShY/JeBpRPO+TTohUUCd6wiGt8GiTa0m60PyYlHkFuUAio=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791302146; c=relaxed/simple;
-	bh=6p0BhHyn4I31U2S7KD6Dft1ou+UXu+nmMIFLtVTgau0=;
+	s=arc-20240116; t=1791302147; c=relaxed/simple;
+	bh=jyW0i0B1wwAry98MozCecac0X/xfx6q3Aohs1E0Lf9M=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YYst0+uQRL3Qm0QwdoLsfg5l9+1Hy2IpRK8jXuIR+mXqB9jTL3jyluEnuAH78wvBidnFTvLN3+TQ2lfxt3DmNR52ftv7YmsAxbgsMN2eaFYYD8qznYSb9+vuHFq1CBj+mKbGDTNA7lMi79x3kHShQXcfRoVmnZ/4KZcu26dBoHg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Och1ih6M; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=KC7fxG1ekMRe3tNKmujGE3zrUFR8AGE3OgeLp6/4XpryHzDLy8GMGSzz13AvVnhcQwxHn7u6jsKqeLZ6tV8V7hQccjn732lJdj74nlT3two1ABR/2gwMKMYLdT3wXQnhB+dhk6pEcVVkqsCV9DMz1sCsH3c+TTwEAKlhpsxlPgs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C7gaIRuz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Och1ih6M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B2EA1F0089B;
-	Tue,  6 Oct 2026 15:55:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C7gaIRuz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0D521F0089C;
+	Tue,  6 Oct 2026 15:55:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791302144;
-	bh=LPj1pN1epljv7/4OMxJttMQsnP/W6KrNj+Kdd5hT9ho=;
+	s=k20260515; t=1791302146;
+	bh=uJbhChIjM5rwE8+yelSj7nCmvTT9TZ18yUOyKcj9yfE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Och1ih6MZbQi6mbJGfRVnITcTCx4AvDO/KcHE2gR2zgOZ7NUSRJOyDLcvl1hNgw7X
-	 iOzmotHdSgN33kxdlYV2Z9ARW7w/VadOOe4qV03J/cMSL+zmSAdkBIOZplv58F35nM
-	 7i4XcBH/fIaRc+Ho2WyWepJUezmNlNM2NrebuWsRKLFrCjOkYRi3aV1D3Ve0Mo7DcS
-	 Ss0gifF35tE7WlTlQgRcKJPH5rP6+Ia7U6XSSjHtpwgJ3Qj/K4hEkuftfAiYMhJ/ih
-	 FA7ByKL64un6LQwFoy3YqhNBbX2IVb6sKGTkHV784Vc5UtveN1iQ4Ai2Fe2BcSEyXx
-	 Q9f9GjoXeg9gw==
+	b=C7gaIRuzRAtHpphXHUSDUiwQxDcL2a9xHimHxXeRjMrKFqS+8vcCGpMJwW2qwhTwF
+	 Q6jKo5NwWImnisc5PI2z2oJJyGOXf8Hasxc+YxtunRqWMWATCBeXsebdstwNXb4FwE
+	 C9vqJUOROm6Ik483EKAJWXI5KwXIuqMZy8XznUsLhBfAueowf6k6YGCdUMqya4Kc8M
+	 Cyb7GMqh1z73homUkeZVpMcOAu8SH7yR0EzgJKEeFRCbK1TPkrz32bkuropgPhV0BR
+	 o0GCQNHQEpH4tnu+kBVRhnTOza/rVmmeX7c+p+PBB0TjT+m/xu8VbCovGEiIgCBQuD
+	 O8c3KnFA7BHmA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Marc Zyngier <maz@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
+Cc: Fuad Tabba <fuad.tabba@linux.dev>,
+	Wei-Lin Chang <weilin.chang@arm.com>,
+	Oliver Upton <oupton@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] KVM: arm64: Always populate FGT masks at boot time
-Date: Tue,  6 Oct 2026 11:55:39 -0400
-Message-ID: <20261006155528.856144-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] KVM: arm64: Apply the fine-grained UNDEFs without FEAT_FGT
+Date: Tue,  6 Oct 2026 11:55:40 -0400
+Message-ID: <20261006155528.856144-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100548-subsidy-prepay-7444@gregkh>
+In-Reply-To: <20261006155528.856144-1-sashal@kernel.org>
 References: <2026100548-subsidy-prepay-7444@gregkh>
+ <20261006155528.856144-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,85 +47,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Marc Zyngier <maz@kernel.org>
+From: Fuad Tabba <fuad.tabba@linux.dev>
 
-[ Upstream commit 54adbfe40e3b6d238293cc36ef071ed9f35c8af7 ]
+[ Upstream commit 4bdd2b3a708c1feb701cb8b62feb8ad2fd77bb07 ]
 
-We currently only populate the FGT masks if the underlying HW does
-support FEAT_FGT. However, with the addition of the RES1 support for
-system registers, this results in a lot of noise at boot time, as
-reported by Nathan.
+FGUs don't actually require hardware support, so don't gate fgt trap
+config insertion on FGT. This is the only action required to allow FGUs
+always, as kvm_calculate_traps() already computes the FGU bits with or
+without FEAT_FGT.
 
-That's because even if FGT isn't supported, we still check for the
-attribution of the bits to particular features, and not keeping the
-masks up-to-date leads to (fairly harmess) warnings.
+This also fixes a spurious WARN when a TLBI OS is run on a guest in vEL1
+without FEAT_TLBIOS on non FEAT_FGT hardware. In this configuration the
+course-grained HCR_EL2.TTLBOS trap reaches the handler handle_tlbi_el1(),
+which expects an EL1 TLBI only from vEL2. With FGUs enabled the UNDEF
+will be injected without needing the specific handler.
 
-Given that we want these checks to be enforced even if the HW doesn't
-support FGT, enable the generation of FGT masks unconditionally (this
-is rather cheap anyway). Only the storage of the FGT configuration is
-avoided, which will save a tiny bit of memory on these machines.
-
-Reported-by: Nathan Chancellor <nathan@kernel.org>
-Tested-by: Nathan Chancellor <nathan@kernel.org>
-Fixes: c259d763e6b09 ("KVM: arm64: Account for RES1 bits in DECLARE_FEAT_MAP() and co")
-Link: https://lore.kernel.org/r/20260120211558.GA834868@ax162
-Link: https://patch.msgid.link/20260122085153.535538-1-maz@kernel.org
-Signed-off-by: Marc Zyngier <maz@kernel.org>
-Stable-dep-of: 4bdd2b3a708c ("KVM: arm64: Apply the fine-grained UNDEFs without FEAT_FGT")
+Fixes: f5a5a406b4b8b ("KVM: arm64: Propagate and handle Fine-Grained UNDEF bits")
+Cc: stable@vger.kernel.org
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+Reviewed-by: Wei-Lin Chang <weilin.chang@arm.com>
+Link: https://patch.msgid.link/20260929090031.3829185-2-fuad.tabba@linux.dev
+[oliver: Take Wei-Lin's suggested changelog]
+Signed-off-by: Oliver Upton <oupton@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/kvm/emulate-nested.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+ arch/arm64/kvm/emulate-nested.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
 diff --git a/arch/arm64/kvm/emulate-nested.c b/arch/arm64/kvm/emulate-nested.c
-index fbb37edfbabae..5fffa51ec1736 100644
+index 5fffa51ec1736..60812caaa080a 100644
 --- a/arch/arm64/kvm/emulate-nested.c
 +++ b/arch/arm64/kvm/emulate-nested.c
-@@ -2269,9 +2269,6 @@ int __init populate_nv_trap_config(void)
- 	kvm_info("nv: %ld coarse grained trap handlers\n",
- 		 ARRAY_SIZE(encoding_to_cgt));
- 
--	if (!cpus_have_final_cap(ARM64_HAS_FGT))
--		goto check_mcb;
--
- 	for (int i = 0; i < ARRAY_SIZE(encoding_to_fgt); i++) {
- 		const struct encoding_to_trap_config *fgt = &encoding_to_fgt[i];
- 		union trap_config tc;
-@@ -2291,6 +2288,15 @@ int __init populate_nv_trap_config(void)
+@@ -2294,9 +2294,6 @@ int __init populate_nv_trap_config(void)
+ 				print_nv_trap_error(fgt, "FGT bit is reserved", ret);
  			}
  
- 			tc.val |= fgt->tc.val;
-+
-+			if (!aggregate_fgt(tc)) {
-+				ret = -EINVAL;
-+				print_nv_trap_error(fgt, "FGT bit is reserved", ret);
-+			}
-+
-+			if (!cpus_have_final_cap(ARM64_HAS_FGT))
-+				continue;
-+
+-			if (!cpus_have_final_cap(ARM64_HAS_FGT))
+-				continue;
+-
  			prev = xa_store(&sr_forward_xa, enc,
  					xa_mk_value(tc.val), GFP_KERNEL);
- 
-@@ -2298,11 +2304,6 @@ int __init populate_nv_trap_config(void)
- 				ret = xa_err(prev);
- 				print_nv_trap_error(fgt, "Failed FGT insertion", ret);
- 			}
--
--			if (!aggregate_fgt(tc)) {
--				ret = -EINVAL;
--				print_nv_trap_error(fgt, "FGT bit is reserved", ret);
--			}
- 		}
- 	}
- 
-@@ -2318,7 +2319,6 @@ int __init populate_nv_trap_config(void)
- 	kvm_info("nv: %ld fine grained trap handlers\n",
- 		 ARRAY_SIZE(encoding_to_fgt));
- 
--check_mcb:
- 	for (int id = __MULTIPLE_CONTROL_BITS__; id < __COMPLEX_CONDITIONS__; id++) {
- 		const enum cgt_group_id *cgids;
  
 -- 
 2.53.0
