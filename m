@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A77D22425B
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 07:44:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 809A433C1B7
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 07:44:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791272679; cv=none; b=VLK+dwmXkWW2Nl3Dz4pO8r9TiIiPfuIBBdPfksYm7vZ/sinpouyYf4eH0J3zd/f2U/acRVdM0y/qHPJduH8o2/deA+0RtTf0DbmEa/ChzSqmzXal91LpbeGOKEMYOWht/sLCxSYMmZ5ZOM6VicKmR5Houe8UuXkOmVb4GweQIv0=
+	t=1791272682; cv=none; b=lXRd+dmW3QMnk6THo2E6kMCHwEbWrdiVgXN1/1Zf3NVISeonr/We+TcM5RUV7d2spvZcG+6PSbdAwoQjXXur7DViSoSyYCB9IGljCNrvQMv1T2gOQVBn8VEjheBYELYSBZkm04noQthtjIGmx15tlmQtsbYdHXjo8LL4rJJ1NNA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791272679; c=relaxed/simple;
-	bh=Uz8vMitTyYFFfPbNBIF3ko6RkFs0k4tblWV0Fbha9vk=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=LWTUQbwB4qv9bbYcZXT9Su8Kpb0Ygg+H0PypHUe2/Etvl6YWFRzLWRo3yEztyupncBLONYsEIF6QKlR4hgOBqDxZVI8emxqLAJzsO13CJvsZZo08NULiKOUg0rsMxIQeOt6gJY3HFzJow1zL2PIU6zF5Df7Kpp3YLAcWAV9HSug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=smxFVVgJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791272682; c=relaxed/simple;
+	bh=eb8AQt8jgFaoXi2nmWqlABh4+ONJOuCHjM5fNsPeQiw=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=iXj3SbJ6yrQa1ck0MPG470vc8ORpm3yLUmq7kIx2bslLFh5UqS3Q6U3DKzKPRjLPP1jvyiDu/bwXDADhRsm9aEA9fp4FP8pVo6V9hI98Aaf6GhggE3mFjKqC88SypATkmk52c81PdGkH2TgPjqgqMiO671F8wRpoC2zsxdezCOs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jr3c3bOx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="smxFVVgJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2CEA1F000FF;
-	Tue,  6 Oct 2026 07:44:37 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jr3c3bOx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9584E1F000FF;
+	Tue,  6 Oct 2026 07:44:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791272678;
-	bh=zIw9p2LjZ1axKp/IL/Ol7iI1iIIT7Im2vdHcsXLIe+Q=;
+	s=korg; t=1791272681;
+	bh=wV1ugUOuna6kSgPHjnyZvDCttX5v59j3lni7WNBEKDM=;
 	h=Subject:To:Cc:From:Date;
-	b=smxFVVgJ6TDIvXLt0/r7qQ8vzEs5hyrrOQbHNE0rqfwa7E5f5n97AMLpWM3ROEjeH
-	 C2FxH5W0SGsz+hayxFLft9UewMSK+Hng9QQSfQR1+Lz7QQZ9ShFD1jNI6BY0JA3osk
-	 IDTFhYASXZrzMYCK07jNfgmwv0/vX0BN5mlNezA0=
-Subject: FAILED: patch "[PATCH] iio: adc: axp288: Add TS bias override for Haier HV103H" failed to apply to 5.15-stable tree
-To: cactucatu4eckuu@gmail.com,johannes.goede@oss.qualcomm.com,jonathan.cameron@oss.qualcomm.com
+	b=jr3c3bOx8O5cPjNm+kf+UfsoslpfI6MaWu82lhwbNiKdgYIh9TjijSzEUF9q2u7Bj
+	 63yqNW5BAZMMcqz+BdKyzytORlqkpdTGpgBBBkZjapdl+jn+SKqa0XsaWo3YAYyA0k
+	 aSE4wVmvFFNHZo8g1HxriMd/W9+xWYEM5nr/+LC8=
+Subject: FAILED: patch "[PATCH] iio: adc: max1363: sign-extend bipolar differential channel" failed to apply to 6.12-stable tree
+To: congnt264@gmail.com,andriy.shevchenko@intel.com,jonathan.cameron@oss.qualcomm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 06 Oct 2026 09:44:13 +0200
-Message-ID: <2026100613-smolder-outshine-756c@gregkh>
+Date: Tue, 06 Oct 2026 09:44:24 +0200
+Message-ID: <2026100624-simplify-bouncy-3264@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 0f300db7b7315b2c7ea0e2d4437b88de162d191f
+git cherry-pick -x 91908c0a78baddc8572aa3ab69e62ee2eb496ba4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100613-smolder-outshine-756c@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100624-simplify-bouncy-3264@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,46 +62,44 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 0f300db7b7315b2c7ea0e2d4437b88de162d191f Mon Sep 17 00:00:00 2001
-From: Vladyslav Ivashchenko <cactucatu4eckuu@gmail.com>
-Date: Fri, 4 Sep 2026 15:31:55 +0200
-Subject: [PATCH] iio: adc: axp288: Add TS bias override for Haier HV103H
+From 91908c0a78baddc8572aa3ab69e62ee2eb496ba4 Mon Sep 17 00:00:00 2001
+From: Cong Nguyen <congnt264@gmail.com>
+Date: Mon, 10 Aug 2026 23:44:46 +0700
+Subject: [PATCH] iio: adc: max1363: sign-extend bipolar differential channel
+ reads
 
-The Haier HV103H firmware configures the AXP288 TS pin bias
-current to 60 uA. This causes the battery temperature reading to
-cross the charging temperature threshold under load, incorrectly
-stopping battery charging.
+MAX1363 differential channels are bipolar, but max1363_read_single_chan()
+masks the raw value to the ADC resolution without sign-extending it.
+Negative differential readings are therefore reported to userspace as
+large positive values (e.g. -1 as 4095 on a 12-bit part).
 
-Setting the TS bias current to 80 uA fixes the temperature
-measurement and prevents charging from being incorrectly disabled.
+Sign-extend the masked value from the resolution bit for differential
+channels. Single-ended channels are unipolar and are left unchanged.
 
-Add a DMI quirk to use the 80 uA TS bias current on the Haier
-HV103H.
-
-Fixes: 9bcf15f75cac ("iio: adc: axp288: Fix TS-pin handling")
-Fixes: 048058399f19 ("iio: adc: axp288: Override TS pin bias current for some models") # Add necessary infrastructure
-Signed-off-by: Vladyslav Ivashchenko <cactucatu4eckuu@gmail.com>
-Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Fixes: d1325cf45077 ("Staging: IIO: max1363 ADC driver")
 Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-4
+Signed-off-by: Cong Nguyen <congnt264@gmail.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 
-diff --git a/drivers/iio/adc/axp288_adc.c b/drivers/iio/adc/axp288_adc.c
-index c8283279c477..c98863d612ad 100644
---- a/drivers/iio/adc/axp288_adc.c
-+++ b/drivers/iio/adc/axp288_adc.c
-@@ -207,6 +207,14 @@ static const struct dmi_system_id axp288_adc_ts_bias_override[] = {
- 		},
- 		.driver_data = (void *)(uintptr_t)AXP288_ADC_TS_BIAS_80UA,
- 	},
-+	{
-+		/* Haier HV103H */
-+		.matches = {
-+		  DMI_MATCH(DMI_SYS_VENDOR, "Haier"),
-+		  DMI_MATCH(DMI_PRODUCT_NAME, "HV103H"),
-+		},
-+		.driver_data = (void *)(uintptr_t)AXP288_ADC_TS_BIAS_80UA,
-+	},
- 	{ }
- };
+diff --git a/drivers/iio/adc/max1363.c b/drivers/iio/adc/max1363.c
+index 65a2d92bb112..629c53af6472 100644
+--- a/drivers/iio/adc/max1363.c
++++ b/drivers/iio/adc/max1363.c
+@@ -404,6 +404,14 @@ static int max1363_read_single_chan(struct iio_dev *indio_dev,
  
+ 		data = rxbuf[0];
+ 	}
++
++	/*
++	 * Differential channels are bipolar and the device returns the sample
++	 * in two's complement, so sign-extend it from the resolution bit.
++	 */
++	if (chan->differential)
++		data = sign_extend32(data, st->chip_info->bits - 1);
++
+ 	*val = data;
+ 
+ 	return 0;
 
