@@ -1,109 +1,127 @@
-Received: from smtp05-ext.udag.de (smtp05-ext.udag.de [62.146.106.75])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx01.omp.ru (mx01.omp.ru [90.154.21.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E85AC49EC43
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 16:00:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.146.106.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D21D3E40EF;
+	Tue,  6 Oct 2026 16:08:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.154.21.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791302460; cv=none; b=L31Y+rbWmBuwaX3ulvA7034jJqdTLRbc+G70MfrYr9Nftx6FQG2l8Pm2y6GhURF/kySN7SMw7taalGEUDBtjRRr7ms5EDx66Ks3THXfAxrPdO0wXhAAxc6izbPN2xscS7b4kUmLGJNLB8mFHtK4R/qB4dw4O95fHV4jax7Ef/JQ=
+	t=1791302940; cv=none; b=na9kzQio63jF8HJ5kt0XDllfYm17BcKcWZQZVCbt8shceUVRGuPdVlUXE8TToJrF19T4Ez9aujJbAWjlFhRbbCZRJc+bGvAZcUrou9PbFfDC48mzD8bCsP5+xipCE9UFt7uhik+BwNYmKRiVLKVe3nU4n6nWNH1+LLa+yPXv8ZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791302460; c=relaxed/simple;
-	bh=CwtCgc7GmHfPCHrSkhc+aX8cJgCS9OW2ZiU43jG8zec=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NtBfxKgRSGMrxbsE2mYlOqCICrdKul5PHI9k6PRIxN+CqTCj/Q0If8RsvABTdRRH9t3WKVfTiLL2Q4QnGkkT/iY6yKi1jZ7yobhF00KE0FhnDy5X13Rw9Syi1R1s+vY4GeAJCivfB7vmn+uAVYa0Wy5LhPmF42qAFWOo3f4tycM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=birthelmer.de; spf=pass smtp.mailfrom=birthelmer.de; arc=none smtp.client-ip=62.146.106.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=birthelmer.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=birthelmer.de
-Received: from localhost (043-134-067-156.ip-addr.inexio.net [156.67.134.43])
-	by smtp05-ext.udag.de (Postfix) with ESMTPA id 39C59E01A6;
-	Tue,  6 Oct 2026 17:55:31 +0200 (CEST)
-Authentication-Results: smtp05-ext.udag.de;
-	auth=pass smtp.auth=birthelmercom-0001 smtp.mailfrom=horst@birthelmer.de
-Date: Tue, 6 Oct 2026 17:55:30 +0200
-From: Horst Birthelmer <horst@birthelmer.de>
-To: Joanne Koong <joannelkoong@gmail.com>
-Cc: miklos@szeredi.hu, fuse-devel@lists.linux.dev, 
-	syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com, stable@vger.kernel.org
-Subject: Re: [PATCH v1] fuse: don't launder folios of a bad inode
-Message-ID: <asUZLV-0YeC5BTvz@fedora.fritz.box>
-References: <20261006105136.3751196-1-joannelkoong@gmail.com>
+	s=arc-20240116; t=1791302940; c=relaxed/simple;
+	bh=a+jfnn4EpxUTdTpHVi2Jp0n2tIf21E2mpQIDZSU7dVk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=lFgSNy3ZcIydZb4UHuCKLdB4jPYyiderNvlB2Q9Funfm5G6g42oI0q2WehQzUFkdt4Dsq/dm/HpCh0heZqvHLE65lnV/qBzj0CsF0juZhWP2VEpbwCIIBhai6G7iKIlwnBM1iMGBqnESympWMrlZWAAqiM35vIwGZR76hJAO55g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=omp.ru; spf=pass smtp.mailfrom=omp.ru; arc=none smtp.client-ip=90.154.21.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=omp.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=omp.ru
+Received: from [192.168.2.104] (91.79.33.31) by msexch01.omp.ru (10.188.4.12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.1258.12; Tue, 6 Oct
+ 2026 19:08:34 +0300
+Message-ID: <01c2f59d-8e22-434a-9f5b-b69608c3eae2@omp.ru>
+Date: Tue, 6 Oct 2026 19:08:33 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261006105136.3751196-1-joannelkoong@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 6/7] net: ravb: fix resource teardown ordering
+To: jiale yao <19888972804@163.com>
+CC: =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, Paul
+ Barker <paul@pbarker.dev>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
+ Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Mitsuhiro Kimura
+	<mitsuhiro.kimura.kc@renesas.com>, Claudiu Beznea
+	<claudiu.beznea.uj@bp.renesas.com>, <netdev@vger.kernel.org>,
+	<linux-renesas-soc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+References: <20260927144741.1320558-1-yaojiale02@163.com>
+ <20260927144741.1320558-7-yaojiale02@163.com>
+ <3b43b4fb-8479-4eb2-be58-1df6f0f747b9@omp.ru>
+ <12190bf2.18c1.1a0f004c539.Coremail.19888972804@163.com>
+ <b85d8dc9-b787-40e0-bbaf-027df2c3bf49@omp.ru>
+ <222db01f.1264.1a101087434.Coremail.19888972804@163.com>
+Content-Language: en-US
+From: Sergey Shtylyov <s.shtylyov@omp.ru>
+Organization: Open Mobile Platform
+In-Reply-To: <222db01f.1264.1a101087434.Coremail.19888972804@163.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: msexch01.omp.ru (10.188.4.12) To msexch01.omp.ru
+ (10.188.4.12)
+X-KSE-ServerInfo: msexch01.omp.ru, 9
+X-KSE-AntiSpam-Interceptor-Info: scan successful
+X-KSE-AntiSpam-Version: 6.1.1, Database issued on: 10/06/2026 15:56:59
+X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
+X-KSE-AntiSpam-Method: none
+X-KSE-AntiSpam-Rate: 19
+X-KSE-AntiSpam-Info: Lua profiles 206480 [Oct 06 2026]
+X-KSE-AntiSpam-Info: Version: 6.1.1.27
+X-KSE-AntiSpam-Info: Envelope from: s.shtylyov@omp.ru
+X-KSE-AntiSpam-Info: LuaCore: 127 0.3.127
+ 0884f7b061fa529b810563f359267cd65d2ec05c
+X-KSE-AntiSpam-Info: {rep_avail}
+X-KSE-AntiSpam-Info: {diag_burst_silent}
+X-KSE-AntiSpam-Info: {Tracking_uf_ne_domains}
+X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
+X-KSE-AntiSpam-Info: {SMTP from is not routable}
+X-KSE-AntiSpam-Info: {Found in DNSBL: 91.79.33.31 in (user)
+ b.barracudacentral.org}
+X-KSE-AntiSpam-Info:
+	d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;lore.kernel.org:7.1.1;127.0.0.199:7.1.2;omp.ru:7.1.1
+X-KSE-AntiSpam-Info: {Tracking_ip_hunter}
+X-KSE-AntiSpam-Info: FromAlignment: s
+X-KSE-AntiSpam-Info: ApMailHostAddress: 91.79.33.31
+X-KSE-AntiSpam-Info: {DNS response errors}
+X-KSE-AntiSpam-Info: Rate: 19
+X-KSE-AntiSpam-Info: Status: not_detected
+X-KSE-AntiSpam-Info: Method: none
+X-KSE-AntiSpam-Info: Auth:dmarc=temperror header.from=omp.ru;spf=temperror
+ smtp.mailfrom=omp.ru;dkim=none
+X-KSE-Antiphishing-Info: Clean
+X-KSE-Antiphishing-ScanningType: Heuristic
+X-KSE-Antiphishing-Method: None
+X-KSE-Antiphishing-Bases: 10/06/2026 15:58:00
+X-KSE-Antivirus-Interceptor-Info: scan successful
+X-KSE-Antivirus-Info: Clean, bases: 10/6/2026 3:38:00 PM
+X-KSE-Attachment-Filter-Triggered-Rules: Clean
+X-KSE-Attachment-Filter-Triggered-Filters: Clean
+X-KSE-BulkMessagesFiltering-Scan-Result: InTheLimit
 
-On Tue, Oct 06, 2026 at 03:51:36AM -0700, Joanne Koong wrote:
-> fuse_flush() and fuse_writepages() reject writing back dirty data for
-> any inode that has been marked bad, but fuse_launder_folio() doesn't.
-> 
-> This can cause the following warning in fuse_write_file_get() to
-> trigger, as reported by syzbot:
-> 
-> WARNING: fs/fuse/file.c:2043 at fuse_write_file_get fs/fuse/file.c:2043 [inline]
-> WARNING: fs/fuse/file.c:2043 at fuse_iomap_writeback_range+0x7c8/0x18f0 fs/fuse/file.c:2227
-> Call Trace:
->     iomap_writeback_folio+0x1526/0x2490 fs/iomap/buffered-io.c:2022
->     fuse_launder_folio+0x17b/0x240 fs/fuse/file.c:2331
->     folio_unmap_invalidate+0x4cd/0x830 mm/truncate.c:634
->     invalidate_inode_pages2_range+0x629/0xb30 mm/truncate.c:726
->     fuse_open+0x5a6/0x770 fs/fuse/file.c:297
-> 
-> This can be hit on a writeback cache mount:
-> 1) a writeable file is open and a buffered write dirties some pages
-> 2) another thread opens the same file read-only. fuse_open() passes the
->    bad inode check and sends OPEN to the server.
-> 3) a SETATTR reply with the wrong file type marks the inode bad
-> 4) the writeable file is closed. Flush and release skip writeback
->    because the inode is bad. The pages stay dirty but the file gets
->    removed from write_files.
-> 5) server replies to the OPEN. The reply has no FOPEN_KEEP_CACHE, so
->    fuse_open() calls invalidate_inode_pages2().
-> 6) the invalidation finds the dirty pages and calls
->    fuse_launder_folio(), which finds no wriable file and hits the
->    WARN_ON in fuse_write_file_get().
-> 
-> Instead of trying to write back dirty data for the bad inode,
-> fuse_launder_folio() should return -EIO.
-> 
-> Fixes: 5d069dbe8aaf ("fuse: fix bad inode")
-> Reported-by: syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=e8200299b0556976e13c
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
-> ---
->  fs/fuse/file.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/fs/fuse/file.c b/fs/fuse/file.c
-> index 6d707f2b3bff..0ef46f6e0267 100644
-> --- a/fs/fuse/file.c
-> +++ b/fs/fuse/file.c
-> @@ -2351,6 +2351,9 @@ static int fuse_launder_folio(struct folio *folio)
->  		.wb_ctx	= &data,
->  	};
->  
-> +	if (fuse_is_bad(wpc.inode))
-> +		return -EIO;
-> +
->  	if (folio_clear_dirty_for_io(folio)) {
->  		err = iomap_writeback_folio(&wpc, folio);
->  		err = fuse_iomap_writeback_submit(&wpc, err);
-> -- 
-> 2.52.0
-> 
-> 
+On 10/3/26 12:11 PM, jiale yao wrote:
 
-Hi Joanne,
+[...]
 
-I have tested a lot of notification invalidation lately.
-Did not hit this one yet.
+>> On 9/30/26 4:53 AM, jiale yao wrote:
+>>
+>> [...]
+>>
+>>> Thanks for your review.
+>>
+>>   Top-posting on the kernel MLs is a bad idea... :-)
+>>
+>>> You're right — I'll split this into two patches:
+>>> One patch for the IRQ/netdev ordering issue.
+>>> One patch for the runtime PM resume failure handling.
+>>> I'll use --no-git-fallback next time, sorry for this.
+> 
+> v3 in https://lore.kernel.org/all/20261003085940.493951-7-yaojiale02@163.com/
+> It only addresses the IRQ/netdev teardown ordering issue. The runtime
+> PM resume failure handling has been left unchanged.
 
-LGTM!
+   Too bad you forgot to address Niklas' comment this time... :-)
 
-Feel free to add
-Reviewed-by: Horst Birthelmer <hbirthelmer@ddn.com>
+> I plan to submit the runtime PM fix separately after the patch above
+> has been applied, to avoid conflicts between the two changes, or any
+> other suggestion?
+
+   Yeah, it seems a good idea to address the broken commits in the
+chronological order... However, the fixes seem pretty much orthogonal
+to each other?
+
+[...]
+
+MBR, Sergey
+
