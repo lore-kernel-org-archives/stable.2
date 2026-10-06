@@ -1,136 +1,139 @@
-Received: from mta0.migadu.com (out-26.mta0.migadu.com [91.218.175.26])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.hugovil.com (mail.hugovil.com [162.243.120.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E053149C4A1
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 15:30:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.26
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 173AF2FDC20;
+	Tue,  6 Oct 2026 15:36:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.120.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791300626; cv=none; b=Xh0a+EUE10Q3snvHPerlngJxDMRFYnu1UxjucvGqJXSw0iOCqO8xPksoPj58tzB8VEDsLrYiDR+2JKyOm9/BwgCcWHSlxaOu1Lc3EwLtENpyjaxQcKgeqk9ces4hjS0C/mUaa4jOGGlY0hC8usXcIJclauiiHgdNPea2npJTIro=
+	t=1791300999; cv=none; b=R2FJMA9NPbLr7BYTm0AazD2wzViIPIyPBoP+k/2nwLMoqJS+pria3o1a0u1h65kVVSZzMvK2Ayr0M9JKkSPx2IUnPTbLsHXVL//4zS7we5up2CvB5vZ64hGp6MEclZdwNbc1075fnYizgMa+1CqAxRHBZjlHCySgSmF7Hrs3tvk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791300626; c=relaxed/simple;
-	bh=C84pxLYYf1AcdF5SVJ71El9O7jnOkiH92N9DdKK6uEQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m4ey8lLxvvgEZauPqFC/PBJGFFWf5qpb+JyVuBNeC+As/eEjwSs8Q70+cCRsGeux4igmhnKK/LuusEvKMZsP0yDJvjWzhumK+LDywld5mWj1RXiJ/1UGDvd0CgfZ66wzrH1LaMd3cc2kWzoBZPbXkX9y345f8kbxMjoEuITirho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tYEDJmUW; arc=none smtp.client-ip=91.218.175.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791300999; c=relaxed/simple;
+	bh=4Wx6FlxLELJH4KUGi3iAA9os2hDmzpV95j74p16rwA8=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=ui/b3JL52tmnZfqfzxGwREesE5mHNTsfsDPBhNyHkHTiZuSV+AxBSLzBx67bxLGpMnTNrJ4ITdk3S+gCO46OdDjJUxrhGk/w0sEW/quZE7bAEbFyEHB0/8TyCO2a9Sfg56zzWDTJwQv/hi1/0Z7ZMx58cdS8VWWwuNQpxvo8yjI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com; spf=pass smtp.mailfrom=hugovil.com; dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b=XK1u3Slw; arc=none smtp.client-ip=162.243.120.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hugovil.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tYEDJmUW"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=C84pxLYYf1AcdF5SVJ71El9O7jnOkiH92N9DdKK6uEQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791300620; v=1; x=1791905420;
- b=tYEDJmUWW2H3V2VommmBpD/oDQ5cUdkXrzEmKjc3ntmhybjS2CF36Sry0te5eRJUMA6UnF6I
- 8FNsUvhFjF5I13Sf2L+v5vNw4pstj73P1O4XX4VyL3uZg3Wo+g8XHrqXpqLfa40D+3zp80SgEYZ
- ZOyCp+XvGvadGxB4iMcDt9ys=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 06047bbc7ae74eb4;
-	Tue, 06 Oct 2026 15:30:15 +0000
-X-Mizu-Trace-ID: 06047bbc7ae74eb4
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 6 Oct 2026 23:30:37 +0800
-From: Chen Yu <chen.yu@linux.dev>
-To: Tim Chen <tim.c.chen@linux.intel.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Chen Yu <yu.c.chen@intel.com>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Vishal Badole <Vishal.Badole@amd.com>, linux-kernel@vger.kernel.org,
-	x86@kernel.org, platform-driver-x86@vger.kernel.org,
-	K Prateek Nayak <KPrateek.Nayak@amd.com>,
-	Ricardo Neri <ricardo.neri@intel.com>,
-	Kayra Cizmeci <kayracizmeci@gmail.com>, stable@vger.kernel.org,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Klaus Kusche <klaus.kusche@computerix.info>
-Subject: Re: [PATCH v2] sched/cache: Honor asym packing over cache aware
- scheduling on hybrid systems
-Message-ID: <asUT-eR9yteRmB_v@three-body>
-References: <77ceef1e51b895760dc5f6c9cde985a1679545b5.1791224900.git.tim.c.chen@linux.intel.com>
+	dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b="XK1u3Slw"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hugovil.com
+	; s=default; h=Content-Transfer-Encoding:Mime-Version:Message-Id:Subject:Cc:
+	To:From:Date:subject:date:message-id:reply-to;
+	bh=+8CSBT2OQAOa7nJB3rRl2U1wh9CwAZDl+AQNBGfWpBE=; b=XK1u3Slw/qXMmriQFbFmg1ehMb
+	srmBpIViseRWCKIRL2StJpRLyv0VEY3k5SVbGEGN4Q2CPyoznmyN+F74TyZiCt7SvdVaOtDRPGPMZ
+	9AaWcoHkXC/Lrl65iob7y8g4NlOJaSK4VhXCuzr6IstSovPgE7RvjqbxhYRTVCxIhO5k=;
+Received: from modemcable168.174-80-70.mc.videotron.ca ([70.80.174.168] helo=pettiford.lan)
+	by mail.hugovil.com with esmtpa (Exim 4.98.2)
+	(envelope-from <hugo@hugovil.com>)
+	id 1xE7DV-000000007NO-1cs1;
+	Tue, 06 Oct 2026 11:36:35 -0400
+Date: Tue, 6 Oct 2026 11:36:34 -0400
+From: Hugo Villeneuve <hugo@hugovil.com>
+To: Hui Peng <benquike@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
+ <jirislaby@kernel.org>, John Ogness <john.ogness@linutronix.de>, Ilpo
+ =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>, Andy
+ Shevchenko <andriy.shevchenko@linux.intel.com>,
+ linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v7 2/2] serial: core: reject baud_base values that
+ overflow port->uartclk in uart_set_info()
+Message-Id: <20261006113634.67dcefd86c007e115a5fa150@hugovil.com>
+In-Reply-To: <20260930125901.778868-3-benquike@gmail.com>
+References: <20260930125901.778868-1-benquike@gmail.com>
+	<20260930125901.778868-3-benquike@gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <77ceef1e51b895760dc5f6c9cde985a1679545b5.1791224900.git.tim.c.chen@linux.intel.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+X-Spam_score: -2.0
+X-Spam_bar: --
 
-On Mon, Oct 05, 2026 at 11:29:53AM -0700, Tim Chen wrote:
-> Date: Mon,  5 Oct 2026 11:29:53 -0700
-> From: Tim Chen <tim.c.chen@linux.intel.com>
-> To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>
-> Cc: Tim Chen <tim.c.chen@linux.intel.com>, Chen Yu <yu.c.chen@intel.com>,
->  Mario Limonciello <mario.limonciello@amd.com>, Vishal Badole
->  <Vishal.Badole@amd.com>, linux-kernel@vger.kernel.org, x86@kernel.org,
->  platform-driver-x86@vger.kernel.org, K Prateek Nayak
->  <KPrateek.Nayak@amd.com>, Ricardo Neri <ricardo.neri@intel.com>, Kayra
->  Cizmeci <kayracizmeci@gmail.com>, stable@vger.kernel.org, Vincent Guittot
->  <vincent.guittot@linaro.org>, Juri Lelli <juri.lelli@redhat.com>, Klaus
->  Kusche <klaus.kusche@computerix.info>
-> Subject: [PATCH v2] sched/cache: Honor asym packing over cache aware
->  scheduling on hybrid systems
-> X-Mailer: git-send-email 2.32.0
-> 
-> A regression was reported on an AMD Ryzen AI HX 370 running a cache
-> intensive Clang full-LTO link. The little cores run at a much lower
-> frequency (3.3 GHz vs 5.1 GHz) and have only half of the L3 cache
-> (8 MB vs 16 MB), so pinning such a task to the little-core LLC
-> hurts twice, and full-LTO builds slow down dramatically compared to
-> pre-cache-aware-scheduling kernels.
-> 
-> Asym packing and cache aware scheduling express conflicting placement
-> strategies. Asym packing wants a task to run on the highest priority CPU,
-> whereas cache aware scheduling wants to co-locate the tasks of a process
-> on one LLC regardless of the priority of CPUs in that LLC.
-> 
-> When asym packing tries to migrate task to an idle core that has higher
-> priority than source cpu, let asym packing win.  Moving tasks to a higher
-> performing idle core will buy more performance than cache co-location.
-> 
-> Prioritize asym packing over LLC balancing for regular and active load
-> balancing.
-> 
-> Fixes: 23b2b5ccc45c ("sched/cache: Introduce helper functions to enforce LLC migration policy")
-> Reported-by: Klaus Kusche <klaus.kusche@computerix.info>
-> Closes: https://lore.kernel.org/lkml/2180ea5a-eb28-4152-8d4d-cd00b0c24b2e@computerix.info/
-> Suggested-by: Kayra Cizmeci <kayracizmeci@gmail.com>
-> Tested-by: Klaus Kusche <klaus.kusche@computerix.info>
-> Tested-by: Ricardo Neri <ricardo.neri@intel.com>
-> Cc: stable@vger.kernel.org # 7.2.x
-> Signed-off-by: Tim Chen <tim.c.chen@linux.intel.com>
+Hi Hui,
+
+On Wed, 30 Sep 2026 12:59:01 +0000
+Hui Peng <benquike@gmail.com> wrote:
+
+> In uart_set_info(), new_info->baud_base is multiplied by 16 and stored in
+> uport->uartclk (an unsigned int):
+>=20
+>   uport->uartclk =3D new_info->baud_base * 16;
+>=20
+> While uart_set_info() checks if (uartclk =3D=3D 0) and
+> if (new_info->baud_base < 9600), when new_info->baud_base exceeds
+> UINT_MAX / 16 with low bits set (for example, 0x10000001), multiplying
+> by 16 wraps around in 32-bit unsigned arithmetic to a small non-zero value
+> (16), bypassing both uartclk =3D=3D 0 and new_info->baud_base < 9600 and
+> setting uport->uartclk =3D 16 (baud_base =3D 1, well below the required
+> minimum of 9600 * 16).
+>=20
+> Use check_mul_overflow(new_info->baud_base, 16, &uartclk) in
+> uart_set_info() to reject overflowing baud_base values with -EINVAL.
+>=20
+> Tested in QEMU against Linux 7.3.0-rc3 by calling ioctl(fd, TIOCSSERIAL,
+> &ss) with ss.baud_base =3D 0x10000001 on /dev/ttyS1: on the unfixed kernel
+> TIOCSSERIAL succeeds (ret =3D 0) and wraps uport->uartclk to 16
+> (TIOCGSERIAL reports baud_base =3D 1), whereas with the fix applied
+> TIOCSSERIAL returns -EINVAL and preserves the existing uport->uartclk.
+>=20
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Fixes: 6eabce6608d6 ("serial: core: check uartclk for zero to avoid divid=
+e by zero")
+
+The final statement that returns zero baud rate was already present
+before 6eabce6608d6. My commit added the warning, so I am not
+sure if this additional Fixes tag is justified?
+
+
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Ilpo J=E4rvinen <ilpo.jarvinen@linux.intel.com>
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
 > ---
->
+> Changes in v7:
+> - Use check_mul_overflow() instead of raw UINT_MAX / 16 comparison as
+>   suggested by Jiri Slaby.
+>=20
+>  drivers/tty/serial/serial_core.c | 9 ++++++---
+>  1 file changed, 6 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial=
+_core.c
+> index 6ed0195e6912..9a8f4c2e1180 100644
+> --- a/drivers/tty/serial/serial_core.c
+> +++ b/drivers/tty/serial/serial_core.c
+> @@ -14,6 +14,7 @@
+>  #include <linux/tty_flip.h>
+>  #include <linux/serial_core.h>
+>  #include <linux/console.h>
+> +#include <linux/overflow.h>
+>  #include <linux/gpio/consumer.h>
+>  #include <linux/kernel.h>
+>  #include <linux/of.h>
+> @@ -931,9 +932,11 @@ static int uart_set_info(struct tty_struct *tty, str=
+uct tty_port *port,
+>  	old_custom_divisor =3D uport->custom_divisor;
+>=20
+>  	if (!(uport->flags & UPF_FIXED_PORT)) {
+> -		unsigned int uartclk =3D new_info->baud_base * 16;
+>=20
+>  		/* check needs to be done here before other settings made */
+> -		if (uartclk =3D=3D 0)
+> +		unsigned int uartclk;
+> +
+> +		if (check_mul_overflow(new_info->baud_base, 16, &uartclk) ||
+> +		    uartclk =3D=3D 0)
+>  			return -EINVAL;
+>  	}
+> --=20
+> 2.47.3
+>=20
 
-I leveraged AI to test it on top of 7.3.0-rc2 using an emulated hybrid setup on a symmetric
-AMD Ryzen 9 8945HX (Zen 4, 16C/32T, two 32 MB L3):
 
-By hacking the AMD pstate driver and QOS to limit the L3 cache ways:
-
-  - LLC0 "big/fast":   CPUs 0-7,16-23, max freq 5.46 GHz, 16 L3 ways (32 MB),
-                       ITMT prefcore ranking 236
-  - LLC1 "little/slow": CPUs 8-15,24-31, max freq 3.29 GHz, 8 L3 ways (16 MB),
-                       ITMT prefcore ranking 100
-
-Workload: an 8-thread pointer-chase ring (24 MB working set).
-
-This patch works as expected:
-Before the patch:
-                 cache-aware ON       cache-aware OFF
-  throughput     ~230 M/s             ~530 M/s           (-56.6%)
-  placement      6 of 8 threads       8 threads LLC0
-                 stuck on LLC1
-
-
-After the patch:
-                 cache-aware ON       cache-aware OFF
-  throughput     520.7 +- 18.3 M/s    512.9 +- 16.6 M/s   (+1.5%, noise)
-  placement      8 threads LLC0       8 threads LLC0
-
-
-Tested-by: Chen Yu <yu.c.chen@intel.com>
-
-thanks,
-Chenyu 
+--=20
+Hugo Villeneuve
