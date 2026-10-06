@@ -1,180 +1,169 @@
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012057.outbound.protection.outlook.com [40.107.200.57])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74AD0421257
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 13:56:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 947CE3B4EA4;
+	Tue,  6 Oct 2026 13:58:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.57
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791294985; cv=pass; b=k66PImb1f0kkHe+BMfdUNMB+moLXXKqD2P8rTxHKj0kOVaM2JbI/erhZP1PUgj+0uoO3gbft8WIwgppnXXMuOyNWAos7+B5kIu2YOSPF9rcnTgDApWwpJLZKsMnKWch+HAr5hfK5Sp7s4sHepHHbcKP/xCGiVo3YzAeASUb1GH0=
+	t=1791295107; cv=fail; b=rJhiuxrWe8eVE9RvSm27dCnUys5rceVkDqWqIGGSTjtZcBN0PVg519Q96MPfiO6yoHQRl3LH3GQJsA1j3EqhUOvObTV0fMCRIZiDi3zTJ35D8vEt3xtCyF5dsrSO2dn13WTcjVXEFG5L9AknD/f2RlgIY2/MwGSzZNfxCLrkNSw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791294985; c=relaxed/simple;
-	bh=vbRT6nGrsubTAfIz8i+mXocImBW/c25hWjByl3J0uow=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UWCfaGmM+lfTv31e+nRNzH6ityEJJGkXw1eG6w+BYoBHgR381RUVGr0nx70DbmvkGruv1gV5R+67id3gyIuP2dY2tOReRFuGd0vRp6ia9RhNvJnRTsfhKV9BZXnMQXGmnqHeSQwjA6qthL3nEYte07Um+6woZi6MDyLeRI5txxc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cWgLPtGB; arc=pass smtp.client-ip=209.85.128.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791295107; c=relaxed/simple;
+	bh=Ogkut6Z7juqQ81S53PiIpBkPKMLqHqw9NcrItjfkUUc=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=dnhLuGhwnT1vM0ZUkpOVaQJFgLCFld9p19XsntcxWAd9qqDZeSqHsnosh+NVfY4b6YCirthp41Z6bgQ2rO5LHqYvxJuZApOqKxIqFESNBpCFUy2uZtQNLEyzkaSX66XPAOUcQnWq3uyff+sc5Od3SwuQRLGQjWrKqeUEmqSG5pc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=citrix.com; spf=pass smtp.mailfrom=citrix.com; dkim=pass (1024-bit key) header.d=citrix.com header.i=@citrix.com header.b=sAc03lnt; arc=fail smtp.client-ip=40.107.200.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=citrix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=citrix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cWgLPtGB"
-Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-8ab395abf79so6550627b3.0
-        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 06:56:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791294983; cv=none;
-        d=google.com; s=arc-20260327;
-        b=T/RAwifAiznMfOkKR/HwKyGyVYDSsdiR1uMJlVVWvKmHLKjbNh07xYsVZeBAVyvaXC
-         gjQP9wJmXrjxrh4JcBQeLKgapPYirgwIcIS+ITsSDKJBBodhTu6FN2CEpXwtFEF5TKQK
-         PpSHo7Ut+d7vEa7KiSch/IzJQre6TKucU7wJvBApYhOYGy0BCEIZ8cD+ryzdPSJCRuLD
-         5i4OhdQhcrdfuq0dMMsDkjz4uZ0wH6v18j4RMoVt9pycYX1zIDS0oxZEHk+Vrh12fxG5
-         obsY0+f72I1QDZNcy8vx9UObNnSUGsrId6mnfXct9J8ua150SQcJTwLCgvn5Qa+AwNcy
-         Mtlg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ydu+elXchGUSJ74vhM8S5kQyLVRWEBSg2Ux9RtIawfA=;
-        fh=A8wOE0UN1F1m18Q/esF1EucgrmuubuRYwqcQvkIl92c=;
-        b=r9PMezHh3EW5cXXQz4qZ2TKp9nJmvt1+MhjK3+KhtpgpjK48t2U4fTIDAq4anZnRRy
-         aBh2SegvjIjcu2XCcQKuz8ATPP5DoZfWv/hlGMreZTR814PUx5spVkB5pvyNKn0A+nbV
-         ABZqidYY/TyUBNn8DyVVIaDiIoH89lcUvCN0LehFaQw6gM6J9qfLyq36dpjjQ3yXutH6
-         coZWm1kd8SVc86y/krmzjKWW0Q1P84AyXPcasJ1LIM1qBd2d8p2+8ei8yflQm4qcUiON
-         dpBY8mkUFrM+ApReFjUc4wnRW0n/uPjv/aWb8II/gJvMRz92s4S0HQAW1qn+Gc6phLMf
-         LP9Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791294983; x=1791899783; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ydu+elXchGUSJ74vhM8S5kQyLVRWEBSg2Ux9RtIawfA=;
-        b=cWgLPtGBzwiMGY7rSfq1+75nRh7jC1WaWBuDb3BmTWJ7TOy4fooiVn/lUKmS/jjYwk
-         6xu7C98s1Hj5wx1BLMMcFdyyj24nFSfrg2FO/A6X8jHJYE9jjryIUalWec9aLjx1TtLa
-         BINRcixxzps2M5S82NcOnt1xrfHunRXh+VmOBaK0VcUGWFDT5T17Mu7V0CN2R/C4hHyF
-         l/s9Vi86QZewK2K/NunDGkCv9h4J9N8wXV6u7JaqgT6Ay6qoLMlm2/ul14D/y3Qr67Qm
-         tDHcdgJGHTxpyrNa1OtWu6HkPd9a8+2hVWRrO+Uv9wbrXQpZ48rXQjL4Sb+CmeXINIFT
-         EKeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791294983; x=1791899783;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ydu+elXchGUSJ74vhM8S5kQyLVRWEBSg2Ux9RtIawfA=;
-        b=v5YqGAxHfxbd3otPZMe3Vz71UE2fUmTFi38q+sdF7bn5nUOXgj6u98WHeGCR9KRHY4
-         stvpImp8q+lI2D4kaaNDBDZv2mG0d5iNHgtabuwk1CvS4yUuyIimQFuDh6F8hsQOfKVy
-         jm996OmcVIZBALn25+bFVQjXpscYFndLDyE+Yr56PCA/hv2D30ZmOwSnvRqf3ul7qVwN
-         RVVQ1xeblgxN9wJnvB9VCd4GYGuNuVHjFYIsF93VJyxQ/z5a3pDC+mbg+3oKw5i65y9N
-         I9vQnRXKXaWHpwaoulAnRlyvW6sKjTbNKcKytfNKiEJ2Jos8JZp5UUnm+L2lHCq1d4qw
-         aWFA==
-X-Forwarded-Encrypted: i=1; AKwUvBz9zTOyLBnEi8w6dFBNYn6CtOUEVUCvBHG1PtWASCa2Aq1tESfjRwELpPAiYRXWqWmw9PtTkJg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lwCK+pOcKb2Z1YDIbS9NA6CtoJnDFPTeXEtqh5T3psGtjnKOQY
-	6wM8UMXHgk1U/yL5B809EQ3nHV5LB8Mp/kiapY/+N7vGSTckJ37DPAxePwa2kuUhaOgd0wn0TnB
-	+tUtbiD5sc7qK2Yr1rnY3dU64aX/upcM=
-X-Gm-Gg: AYBFou2kWsp5PkygqfaokeCI98ztradejZyBj7gBW7yQowE4wuFHUl2Juv2OE8bh/+x
-	EQw01eoeOo1mh9+0L4PBP+MbQ3ec8d/b3sDEK7wdYDQyTN7ftehSrevEWQhvTFdGfo0n9ANuspZ
-	tT72INfNeG5sDyQ4R/SlLcONohntxR1YgwEmzy6ioCoguOGRpRGY3JskXn4qurFk5cgHWt0QBC/
-	4oKgSWLbOtEC9I/I3Kr9ebZiMJKYXuGeUacRU5oBo5h9BqFUJP74mp37HX/1AtS2yC6lDpIgJNN
-	7f1UWtdMzW2nU3+8rJT9/yc5WsZBCNakhTGXba6Jhngn5bKO6r9ztz5+/AJmYeDwiFJgDq6Ef6A
-	RDcp4jfkVUDRo4bL5ik4XVUdaWli3T9GCnSC+8XI=
-X-Received: by 2002:a05:690c:c50f:b0:8ae:7fb9:8cc4 with SMTP id
- 00721157ae682-8b04f4d8cefmr7480477b3.33.1791294982904; Tue, 06 Oct 2026
- 06:56:22 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=citrix.com header.i=@citrix.com header.b="sAc03lnt"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=POMZoS6ntfaMquniUF6vy+olWi2ODdhTz779ZYjbPIRdgi8Ijh3lybfkgVJM6C9WkIA7EBKdWhDC/9r7enRluW9WsisZuiflxujBMXY+3SfBSM8VmDXbctgBvOhvPSmYKzvStPSoRDh9gCT/iSnNYdJ20bDvEIs28DrbB9AChnApHadzhJDBxuCSvzyYCnRNeAZhhwscubfnyOgOy1zEY7OMF1Sx+cJPRitErvXdf5t7FRxzSdhU7ynEsulzANf6YqJaTt9Pu7pI4Pw+ggXbIvD+ticMtDwPflj24ygSGBYDbSbXE4ILPJvc1JzDDybgRjPXWXe2ZuLELMQV9W08Xw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lX8X2R1DDq8edidJA8juOKqxFOJ2vapFzb/jiC8u58U=;
+ b=g6FyaB3lP2g52vrnKmDj/67AqfuotkRAnD6714EETNEbUd+eGz01DCoZcufwJ6E5Je8XmoCNAHK2qZpHAlc6VtlK0tktiS/ce0EQkjTGxNHVERprT+g2MWMg/YfEGBAlAgUqJ/nTAhX4tqfy6rdUrnNAQ6cVrdDVTVPoePFtcpzrNG72uaTmyaE2MMglCIUhhGHLsl/WheAI6SywYQFTcQ4fEbXGyd0Mc2x2HM4oOfdmqmRKoMm37ulgqgWxZ2mHGqfZEzuOoCMpON4/kyXNfvgOwlGAN9h11fzS8gglkRYPK9+WCXuSEnlfZfAnrvn1Kbtrfbg9g+54XsdVzYMqEA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lX8X2R1DDq8edidJA8juOKqxFOJ2vapFzb/jiC8u58U=;
+ b=sAc03lntszfRbSsCOosByqVmvmao5apYqUzIlVgvdKCp0jGGlJKSi7xklft0ZUVmQfUrltGC1cpzZLqmWBWf4+Orwg5YkEMp6JH/nW23aup0GFk9t2sQYAkA7dBThwb58rm83ai0TCQbjV+fb4fNts3D6OuKS+7PDI1QW7UHd3A=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Received: from CH8PR03MB8274.namprd03.prod.outlook.com (2603:10b6:610:2ba::5)
+ by BL1PR03MB6086.namprd03.prod.outlook.com (2603:10b6:208:31c::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Tue, 6 Oct
+ 2026 13:58:22 +0000
+Received: from CH8PR03MB8274.namprd03.prod.outlook.com
+ ([fe80::ebe2:32c1:d2be:a096]) by CH8PR03MB8274.namprd03.prod.outlook.com
+ ([fe80::ebe2:32c1:d2be:a096%4]) with mapi id 15.21.0496.010; Tue, 6 Oct 2026
+ 13:58:22 +0000
+From: Ross Lagerwall <ross.lagerwall@citrix.com>
+To: xen-devel@lists.xenproject.org,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger@xenproject.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	stable@vger.kernel.org
+Subject: [PATCH] xen-blkfront: Fix IO race during unplug
+Date: Tue,  6 Oct 2026 14:58:06 +0100
+Message-ID: <20261006135807.2571779-1-ross.lagerwall@citrix.com>
+X-Mailer: git-send-email 2.55.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: LO4P302CA0004.GBRP302.PROD.OUTLOOK.COM
+ (2603:10a6:600:2c2::9) To CH8PR03MB8274.namprd03.prod.outlook.com
+ (2603:10b6:610:2ba::5)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261005041457.3021139-1-ravindra@intel.com> <20261006095628.384343-1-runyu.xiao@seu.edu.cn>
-In-Reply-To: <20261006095628.384343-1-runyu.xiao@seu.edu.cn>
-From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Date: Tue, 6 Oct 2026 09:56:10 -0400
-X-Gm-Features: AclHuK-jEawYK6Z4T-kBMGawZzjTV2I3SyCTjKA6Wuad8-SZxYRE9_EtvKz7ESg
-Message-ID: <CABBYNZJsiNbgRsknuxYHJG-bX3s5mim6tiP-29LdzuaO_PS=CQ@mail.gmail.com>
-Subject: Re: [PATCH v2] Bluetooth: btintel_pcie: use managed IRQ teardown
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: Marcel Holtmann <marcel@holtmann.org>, Tedd Ho-Jeong An <tedd.an@intel.com>, Kiran K <kiran.k@intel.com>, 
-	linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Ravindra <ravindra@intel.com>, 
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8274:EE_|BL1PR03MB6086:EE_
+X-MS-Office365-Filtering-Correlation-Id: 829da2cb-2c0d-427c-b64e-08df23b1e262
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|10067099003|56012099006|18002099003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	L3M/Qb2JU21SdjhNLTGBgTacUclL0m/4MCmOPLo3LhwXu00OOFn2EP7mGimKtYdE+SwgFc8m2mO5ZWHlSn8qOtlTZqmyVP8dekWVv+kSqeOtpD5FOJIc7eO0dISNR5ICVzWhGAeqBbzY3MDzR75sN9E5B8caYDgU2GdT28G/SCjkL5II+m1sxnqKFIDs3DODR10XkHZhnI7KV1MZwC0Gmb/dKjYtjKrh5S/zjy0VjjiGFdsT6gvYN6vgL5k9gDegRr/A88BSXmo5UfAyG0QCAhhCEtBUGz0axyyveo7PBkJ4iUmD8kssyy4D+upqu5HNT0OLu9dg8O3bl+sxPd1hOhRtXrmXH3lHX0JtrqHGH+NQQM6uIXZhwmEPIX6Z4WXn6oKRc55utVau0bUE4aIeph0Xzpk3gNsyCi9UAQim/j90Tx8INajK886g61xai3phuylhjg185oLK9vRRPt55AMDpHnQv/QJF3U5OLE5thgf42ftE+NSri8nZdwSgmBMnKOOBnwlkaKftU040mKxEsxq7C9CbpeYQTZ/VsVVfIPr6gzXMCK4MS+crNNhWGLOdgsSVgsyt01GK/QcPgLvQ6fjfcRDqiqdwyFks/qRKxDtx/fyKpDcb26ICF7HeBshxQsBpSbn/yrzEvlE0CCwUGwkSr9HJNsec7o1rNTrOKns=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8274.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(10067099003)(56012099006)(18002099003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?l5MZ5bTFcUntVBoYYTGCZYOuO8iZ1FqmTddfi5dpm1+G9RvmXFu5UHT0Dsz0?=
+ =?us-ascii?Q?Uygghsa09PFz2yXuuOv/ddyEJGeI/vChlg7D/htlIVoC6N3YGmnVjHN+YgsD?=
+ =?us-ascii?Q?Y6F2APlKk0UpBEZVumCCTOsS65gDVN7Wetgze9WNjefAgzDMnocIiBt8NNZf?=
+ =?us-ascii?Q?xekL+ey5ttFPZj+WZ70hwQibFDRJMuPMdFK1/CvIbSiNcT1BLmJa1WKAnFkf?=
+ =?us-ascii?Q?2jPDqq7lIGEnNIHyELiLHDfDOZHx8WWgYTWmfD/P6MFPCoJZnxMgDFFhh9I+?=
+ =?us-ascii?Q?f44WbCrD/YGzeGvOD24lBqlqozg4WjMuKPBCsvUpRheGA+mfrMi9Kes8TB+V?=
+ =?us-ascii?Q?YQIF88Gf8nC7tyEYRhqCrVW1gKuFmm4tqaARSOyz10w6yN2/TA9+BF1JiKqC?=
+ =?us-ascii?Q?4XWx5Z9K6QTBM2s2+yAhRtBU7qRx+itIfJu+wgjjfaUMb40lHc0Fp68bngfR?=
+ =?us-ascii?Q?dO/HTwD++r4BjKt62U1BgIdW49xa6nH0QJeBcdmZT5bfaCTFXIMp3Q/bPydJ?=
+ =?us-ascii?Q?vA6D7izEgVZ9zq72UKyKmUZyrk+rZSrmSCazkBCIGTVetHfh0PjZ4sdaSfmk?=
+ =?us-ascii?Q?y/YM5pLm8rdIuhklbtyozje5GyD5hfNSR8popccBFcFHeoI8SvjoyKx4UrBj?=
+ =?us-ascii?Q?hOa/ZXYcELkdW9rDR99/5ZNloLZCelHmhCj6x/bXrDhz62NEMMXdjiHGoEUF?=
+ =?us-ascii?Q?c5a3WNdpGKfMIdkSfVlGmStr/G3t5eSlQshBf3poO2U/SJxTTrvKq59PxTCg?=
+ =?us-ascii?Q?IAE59yHbPNppIzEw1nw+JvOkixEo+oxgwi15k5wUzzGc5U2BixcmXcXgLgu7?=
+ =?us-ascii?Q?8b49WmMUc8KJ6iQoN5pexxYMoGPMc5/c+Z+IElkM6pItX4VASd9SkOi/H2VX?=
+ =?us-ascii?Q?SqxRYCu02E+dGO8tXEhtSfZhyAFws9HIIgF1mlMy5XVn7H6Iv9BguYNFbDt6?=
+ =?us-ascii?Q?S/Kqv1DOMYDR8pOLKSC/53VIz8w8NjZAngmRL0VcrlRRW09zh26lYE3wq5WT?=
+ =?us-ascii?Q?i61lvgNK/K6Z4PODaCmg1o+KBl/ggVFk4NDoBJGDVi3fuOffRMvSKyY6EiXF?=
+ =?us-ascii?Q?cPh95DddsZgkaLcolYaqhVZ5J8oSxG/7bR9VqJMcnaTXKfs7GXofB8tyb4/u?=
+ =?us-ascii?Q?QIX4YZhq8o7knu88sksRVoOXv5pMX+GSTs1tCOJuVhGu65NVxr0L0dJmVJrt?=
+ =?us-ascii?Q?2HmMwHX1tgeYANDlDOrvvXp3A71aCgoKZHH6Yo4FO8G3W4E5+5woK11iw4CO?=
+ =?us-ascii?Q?ofYL/lzoLC/bUAOeIyR33JWV2bd8JRHY9DOam3ORD9pMNMDpZPspqb6Sjuu+?=
+ =?us-ascii?Q?ClGVzQWtDdq4o13FDZkmWPFF9ie4CbiEqUS/CcPjUXjKb9OrSfMH6tK+CxP+?=
+ =?us-ascii?Q?Rk+GOsNXAiUGkszsBxSvZkK1NyhXOtDQnZ/DI0tZpZoouQCdvKNB6rGOnw3s?=
+ =?us-ascii?Q?8BlrzzPAyDVk88Un6KM4SiIPo54/ZlCJpA7ESYyI+QPFUboUW3SEfc/kJbc1?=
+ =?us-ascii?Q?45OOUQU4yaE6Mdzxu/gjTapSMtmL2KuGa7cZNyp5i/0HRBtANNGk7LGe07H+?=
+ =?us-ascii?Q?lsFFGVgxHO6CKFMRQs5lakB5spgcEwbnKdw7DKTcimqfKxPVIO4QD5t3y5/F?=
+ =?us-ascii?Q?A9Bvr8dHRHzq2qECiWIT96iw8vH0x5v73KsMAyuey7aoDMXc+21XVQxDmUTB?=
+ =?us-ascii?Q?NEpXlJCY5xEMtjmFoqsEpyh0yDZLkTsN0u9yXrPkrdGbGWxODSefdhiNM2KB?=
+ =?us-ascii?Q?43sjE864174CriJgfRR9kOBcQ/uD8dM=3D?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 829da2cb-2c0d-427c-b64e-08df23b1e262
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8274.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 13:58:22.4995
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Re4Fg4Jp14KLzr5fnXUK6HX8M18IRnUs0rKX/As7+q2sre9AiKvOkT3kuvcsufFDGjoQUgncXVPkn38Kuj1w/QPgv9hXtb3pdz/7kM0iumo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR03MB6086
 
-Hi Runyu,
+During unplug, blkfront stops the hw queues and marks the disk as dead,
+then later during removal calls del_gendisk(). However, IO issued after
+the hw queues are stopped but before the call to del_gendisk() will be
+queued but never handled. This causes del_gendisk() to hang forever
+waiting for the queue refcount to drop to zero.
 
-On Tue, Oct 6, 2026 at 5:56=E2=80=AFAM Runyu Xiao <runyu.xiao@seu.edu.cn> w=
-rote:
->
-> The PCIe driver registers its MSI-X handlers with
-> devm_request_threaded_irq(), but remove() uses free_irq() directly. The
-> devres actions then retain registrations and attempt to release them agai=
-n
-> during device cleanup.
->
-> Use devm_free_irq() for the remove path and for already registered vector=
-s
-> when a later setup request fails. This removes the managed resource at th=
-e
-> same time as the IRQ is released and keeps MSI-X vector teardown ordered
-> after IRQ ownership is gone.
->
-> Fixes: c2b636b3f788 ("Bluetooth: btintel_pcie: Add support for PCIe trans=
-port")
-> Cc: stable@vger.kernel.org
-> Tested-by: Ravindra <ravindra@intel.com>
-> Assisted-by: LLM
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-> ---
-> Changes in v2:
-> - Add Ravindra's Tested-by tag.
+This can be reproduced by issuing IO during an artificial delay after
+stopping the hw queues.
 
-v1 has already been applied.
+Fix this by simply not stopping the hw queues directly. Marking the disk
+as dead also freezes the queue which prevents new requests being added
+and it synchronously runs the hw queues to clear anything pending.
 
->
->  drivers/bluetooth/btintel_pcie.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/bluetooth/btintel_pcie.c b/drivers/bluetooth/btintel=
-_pcie.c
-> index 005c77a4f..f8901df7c 100644
-> --- a/drivers/bluetooth/btintel_pcie.c
-> +++ b/drivers/bluetooth/btintel_pcie.c
-> @@ -1750,7 +1750,7 @@ static irqreturn_t btintel_pcie_irq_msix_handler(in=
-t irq, void *dev_id)
->  static int btintel_pcie_setup_irq(struct btintel_pcie_data *data)
->  {
->         int err;
-> -       int num_irqs, i;
-> +       int num_irqs, i, j;
->
->         for (i =3D 0; i < BTINTEL_PCIE_MSIX_VEC_MAX; i++)
->                 data->msix_entries[i].entry =3D i;
-> @@ -1779,6 +1779,10 @@ static int btintel_pcie_setup_irq(struct btintel_p=
-cie_data *data)
->                                                 KBUILD_MODNAME,
->                                                 msix_entry);
->                 if (err) {
-> +                       for (j =3D 0; j < i; j++)
-> +                               devm_free_irq(&data->pdev->dev,
-> +                                             data->msix_entries[j].vecto=
-r,
-> +                                             &data->msix_entries[j]);
->                         pci_free_irq_vectors(data->pdev);
->                         data->alloc_vecs =3D 0;
->                         return err;
-> @@ -3101,7 +3105,7 @@ static void btintel_pcie_remove(struct pci_dev *pde=
-v)
->                 struct msix_entry *msix_entry;
->
->                 msix_entry =3D &data->msix_entries[i];
-> -               free_irq(msix_entry->vector, msix_entry);
-> +               devm_free_irq(&pdev->dev, msix_entry->vector, msix_entry)=
-;
->         }
->
->         pci_free_irq_vectors(pdev);
-> --
-> 2.34.1
+Fixes: 8e141f9eb803 ("block: drain file system I/O on del_gendisk")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+---
 
+I'm not sure about the Fixes tag. It's the most likely looking candidate
+to me but I didn't confirm whether it actually introduced the
+regression.
 
+ drivers/block/xen-blkfront.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
---=20
-Luiz Augusto von Dentz
+diff --git a/drivers/block/xen-blkfront.c b/drivers/block/xen-blkfront.c
+index 8dad7bf5f664..69a2315a1b20 100644
+--- a/drivers/block/xen-blkfront.c
++++ b/drivers/block/xen-blkfront.c
+@@ -2138,10 +2138,8 @@ static void blkfront_closing(struct blkfront_info *info)
+ 		return;
+ 
+ 	/* No more blkif_request(). */
+-	if (info->rq && info->gd) {
+-		blk_mq_stop_hw_queues(info->rq);
++	if (info->gd)
+ 		blk_mark_disk_dead(info->gd);
+-	}
+ 
+ 	for_each_rinfo(info, rinfo, i) {
+ 		/* No more gnttab callback work. */
+-- 
+2.55.0
+
