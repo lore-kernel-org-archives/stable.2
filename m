@@ -1,213 +1,141 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 029724570F9
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 13:26:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7B1B547073
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 13:27:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791293198; cv=none; b=fDciJGlnRpUrBMJyDdsmYIyYbzAvnVfyQzUnGbVM1DAtd0arWklF2oYOMuBi+cSfjrU9dPigvF+LScZT30I9npI6zhbEot4OQxg/F+iIgunyslb9bNbcNT9kVUla9vp95CDs6lC7yrE8qdWFdtbnRtHh18qMa6NdRFEJeQZ2tqo=
+	t=1791293246; cv=none; b=APpiVIaNiHankgbl64yy7oG5gYmDoao2C0NxpNlA4IdtGehAQ6C+t1Hgl51qCZB3GBUCKo4pKEnov20hf7MT1fHW3dZRW7VRQdybKgsZ/rIbyUvO1esSfUK5g89ofrF14KBBKpCbr38ie9gCqdSmZG+K+WzH1SsHTxV5UV0afa0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791293198; c=relaxed/simple;
-	bh=cE0YDYInFJ0tZ4pWsoDFiUB0WSj9yVXs1KXHRUAcczQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FBeSZn3ZiScmxWeX/3UwBBw7/nT7XXvBnAU1251b4QwSv/mA76cm4FZVzT/FpaAfW8rfdTe8xhjthGHwnp2viAXU3IW9qwfohdL6AFtQFeAIRF4rmbtbBVLNG5T4g0tEat78j8N3v0O3em25Y56HcA64Wy7m0NMuxgQj05/TVfA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=hf6ufZkL; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1791293246; c=relaxed/simple;
+	bh=15FLHXliOlxihS/gxX0kVI4hU3RB0dfUcmcFmLnB6Ms=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=HS6dyEzgSPA/zJK69USW6tRPNZDOiJwxb6sz9DZtyzdHT7Bdjju2nhP6P5tKMDTHntWc5gGRsY87xbgXBqdNtR4+CsnFs1LN/6bAxyXBdf5C7NbjQoE/5+5IukaWMxW+DIu3Ot3sZ9WZvTuMNfhXZiG/NsmQbf9IRz8Vg5xzTc8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--smostafa.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=dj0Fm4d7; arc=none smtp.client-ip=209.85.128.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--smostafa.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="hf6ufZkL"
-Received: by linux.microsoft.com (Postfix, from userid 1216)
-	id 47B1620B7166; Tue,  6 Oct 2026 06:25:41 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 47B1620B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1791293141;
-	bh=SNxU3TmEMwV+ORpjb0N5Y6SR0ZR9UUekqU/kVjY30Ek=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=hf6ufZkL3kusNiyEfzbVshPkqF/oBduQGAvZWhYjgT66xuJXA1f6NKLG0bXliedfh
-	 Ib78Z9e0VrNs5JRAgINi/v265W66LQWs9XEsUemTqJmwYnzB/Kv4u6OmN4YzlO7Mml
-	 EYI109HPrmRRcvGbG90k2g1ramnm+9B7FIoTBcPM=
-From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Dexuan Cui <decui@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-Subject: [PATCH 6.18.y 2/2] net: mana: Sync page pool RX frags for CPU
-Date: Tue,  6 Oct 2026 09:25:23 -0400
-Message-ID: <20261006132523.2742871-2-hamzamahfooz@linux.microsoft.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20261006132523.2742871-1-hamzamahfooz@linux.microsoft.com>
-References: <20261006132523.2742871-1-hamzamahfooz@linux.microsoft.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="dj0Fm4d7"
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a028616bebso24794485e9.1
+        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 06:27:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791293243; x=1791898043; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=u5LlAn+OzJ4Pq8PYQrF+yZPQxxxGrWFRptAPUqDZMqs=;
+        b=dj0Fm4d7S4LaBmNkljCzGy5TJTsnMibK3rUO+qt4bV7n72NzyzqVzUYCFdX2MV4n7s
+         Yfi+eY6tA3JaTKND6z10LkLRfbWsg0mSzkooTqpCBG5lgqCYZnujwajRHj8xbQW1jpYs
+         nwvOuLZcIpS/VYKT4gFoMYLb+vq4G36f7+CAW0uDdU4JzV+u+/4x17266z7WgASO+5Ho
+         bRSZ/jILakQzhI/whIl+QX8Cg82dApNyY+onCTE6Z+zLYgPJ2CFBDmLyfYPy6+FCdTc4
+         dJKZdRsv13dkTbktoPSy6G5WUFjtYRYCIXjSL7hAZA1xAQaQhTywa/g+0k/F97V7So/t
+         eFUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791293243; x=1791898043;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=u5LlAn+OzJ4Pq8PYQrF+yZPQxxxGrWFRptAPUqDZMqs=;
+        b=UXKSHA0nWyRHc+dVAMwHxwfp+OyAqzULrmeJ9DqLGClAww+ipzjt9+5fuwv4KsAud8
+         p6YBhMJmuH8CZ3FT+E8Dpq6AtG80c7VkBRr0bZCknYvyXI5Jyhiu98Ad32pYWqFGvX8K
+         eDqcRm/4ks+szBbdylFVJsVLBAAUiC2rju9O/6tmJgZrWM5s9qaKF/LAzGKjaZGsBDVE
+         7ENmPl3vKVJYMiAd3DOPcvRBaK5bVGdtr7Jcm/D2mAa2a3glSZaOb9NRz1jhfM0kmbty
+         vCcYKrm3NsohAXT3hcDp+lfk8535ZGIcL4Z3jcou3YSropo6nJX7ffScWK1PiMEyR8qP
+         kXlg==
+X-Gm-Message-State: AFuF++nUbmLCkDuWQDwTrnj6d5XOvqXlZ7bzPX6AD726Si16KbnvLH3K
+	m6cEAZGkUKPeMYUMnGkGiyfKj/If0SqOZcBUu0uM7EXgvyQEr2W4tKiPepnyEAgCzHTOo3/pKoP
+	zox8y1fAcyUahUwFxEP6wGvYEGL5B2JMnSsVpUipDFM+27wmGQK1gk3UqQ2G8Mcj1pXkwIFudNk
+	9kEW1zDbK1hOeqJrhsYOkd3PqkuoLRRwHM1iqIYRk+UssW9jc=
+X-Received: from wmv11.prod.google.com ([2002:a05:600c:26cb:b0:4a1:7b05:58e1])
+ (user=smostafa job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:548f:b0:49e:6683:d23c with SMTP id 5b1f17b1804b1-4a17b4b6bfbmr25344015e9.0.1791293242321;
+ Tue, 06 Oct 2026 06:27:22 -0700 (PDT)
+Date: Tue,  6 Oct 2026 13:27:19 +0000
+In-Reply-To: <2026100531-dragonfly-hypnotism-5010@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <2026100531-dragonfly-hypnotism-5010@gregkh>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20261006132719.3043573-1-smostafa@google.com>
+Subject: [PATCH 6.1.y] KVM: arm64: Don't use the VMA to size stage-2 block
+ mappings for VM_PFNMAP
+From: Mostafa Saleh <smostafa@google.com>
+To: stable@vger.kernel.org
+Cc: Mostafa Saleh <smostafa@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-From: Dexuan Cui <decui@microsoft.com>
+[ Upstream commit 71cc2c67fb8f8d5aa8154eb482e9846d2214f11b ]
 
-[ Upstream commit c72a0f09c57f92113df69f9b902d11c9e4b132f5 ]
+get_vma_page_shift() derives the stage-2 block size for VM_PFNMAP VMAs
+from the VMA layout alone, which does not necessarily match what
+stage-1 maps for that VMA.
 
-MANA allocates RX buffers from page pool fragments when frag_count is
-greater than 1. In that case the buffers remain DMA mapped by page pool
-and the RX completion path does not call dma_unmap_single(). As a result,
-the implicit sync-for-CPU normally performed by dma_unmap_single() is
-missing before the packet data is passed to the networking stack.
+Upstream commit 71cc2c67fb8f ("KVM: arm64: Use stage-1 leaf size for
+VM_PFNMAP") drops that calculation and lets transparent_hugepage_adjust()
+derive the mapping size from the stage-1 leaf instead. The second part
+is not applicable here: in this kernel transparent_hugepage_adjust()
+takes a reference on the backing struct page, which is not safe for
+MMIO, and stage-1 has no huge PFNMAP before v6.12 anyway. Only drop the
+VMA-based calculation, so VM_PFNMAP VMAs are mapped at PAGE_SIZE.
 
-This breaks RX on configurations which require explicit DMA syncing, for
-example when booted with swiotlb=force.
-
-Fix this by recording the page pool page and DMA sync offset when the RX
-buffer is allocated, and syncing the received packet range for CPU access
-before handing the RX buffer to the stack.
-
-Fixes: 730ff06d3f5c ("net: mana: Use page pool fragments for RX buffers instead of full pages to improve memory efficiency.")
+Fixes: 2aa53d68cee6 ("KVM: arm64: Try stage2 block mapping for host device MMIO")
 Cc: stable@vger.kernel.org
-Reviewed-by: Haiyang Zhang <haiyangz@microsoft.com>
-Signed-off-by: Dexuan Cui <decui@microsoft.com>
-Link: https://patch.msgid.link/20260702041237.617719-3-decui@microsoft.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ hmahfooz: resolve conflict with the earlier backport of 55d20f50a221
-  by passing pktlen to mana_refill_rx_oob() from
-  mana_process_one_rx_pkt() ]
-Signed-off-by: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+Signed-off-by: Mostafa Saleh <smostafa@google.com>
 ---
- drivers/net/ethernet/microsoft/mana/mana_en.c | 40 +++++++++++++++----
- include/net/mana/mana.h                       |  8 ++++
- 2 files changed, 41 insertions(+), 7 deletions(-)
+ arch/arm64/kvm/mmu.c | 25 ++-----------------------
+ 1 file changed, 2 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
-index 089bbe38feb9..be41e970b5ef 100644
---- a/drivers/net/ethernet/microsoft/mana/mana_en.c
-+++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
-@@ -2072,12 +2072,16 @@ static void mana_rx_skb(void *buf_va, bool from_pool,
+diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+index 54ccdcc2dbdf..2ccc62379642 100644
+--- a/arch/arm64/kvm/mmu.c
++++ b/arch/arm64/kvm/mmu.c
+@@ -1077,32 +1077,11 @@ transparent_hugepage_adjust(struct kvm *kvm, struct kvm_memory_slot *memslot,
+ 	return PAGE_SIZE;
  }
  
- static void *mana_get_rxfrag(struct mana_rxq *rxq, struct device *dev,
--			     dma_addr_t *da, bool *from_pool)
-+			     dma_addr_t *da, bool *from_pool,
-+			     struct page **pp_page, u32 *dma_sync_offset)
+-static int get_vma_page_shift(struct vm_area_struct *vma, unsigned long hva)
++static int get_vma_page_shift(struct vm_area_struct *vma)
  {
- 	struct page *page;
- 	u32 offset;
- 	void *va;
-+
- 	*from_pool = false;
-+	*pp_page = NULL;
-+	*dma_sync_offset = 0;
+-	unsigned long pa;
+-
+ 	if (is_vm_hugetlb_page(vma) && !(vma->vm_flags & VM_PFNMAP))
+ 		return huge_page_shift(hstate_vma(vma));
  
- 	/* Don't use fragments for jumbo frames or XDP where it's 1 fragment
- 	 * per page.
-@@ -2115,31 +2119,47 @@ static void *mana_get_rxfrag(struct mana_rxq *rxq, struct device *dev,
- 	va  = page_to_virt(page) + offset;
- 	*da = page_pool_get_dma_addr(page) + offset + rxq->headroom;
- 	*from_pool = true;
-+	*pp_page = page;
-+	*dma_sync_offset = offset + rxq->headroom;
- 
- 	return va;
+-	if (!(vma->vm_flags & VM_PFNMAP))
+-		return PAGE_SHIFT;
+-
+-	VM_BUG_ON(is_vm_hugetlb_page(vma));
+-
+-	pa = (vma->vm_pgoff << PAGE_SHIFT) + (hva - vma->vm_start);
+-
+-#ifndef __PAGETABLE_PMD_FOLDED
+-	if ((hva & (PUD_SIZE - 1)) == (pa & (PUD_SIZE - 1)) &&
+-	    ALIGN_DOWN(hva, PUD_SIZE) >= vma->vm_start &&
+-	    ALIGN(hva, PUD_SIZE) <= vma->vm_end)
+-		return PUD_SHIFT;
+-#endif
+-
+-	if ((hva & (PMD_SIZE - 1)) == (pa & (PMD_SIZE - 1)) &&
+-	    ALIGN_DOWN(hva, PMD_SIZE) >= vma->vm_start &&
+-	    ALIGN(hva, PMD_SIZE) <= vma->vm_end)
+-		return PMD_SHIFT;
+-
+ 	return PAGE_SHIFT;
  }
  
- /* Allocate frag for rx buffer, and save the old buf */
- static void mana_refill_rx_oob(struct device *dev, struct mana_rxq *rxq,
--			       struct mana_recv_buf_oob *rxoob, void **old_buf,
--			       bool *old_fp)
-+			       struct mana_recv_buf_oob *rxoob, u32 pktlen,
-+			       void **old_buf, bool *old_fp)
- {
-+	struct page *pp_page;
-+	u32 dma_sync_offset;
- 	bool from_pool;
- 	dma_addr_t da;
- 	void *va;
- 
--	va = mana_get_rxfrag(rxq, dev, &da, &from_pool);
-+	va = mana_get_rxfrag(rxq, dev, &da, &from_pool, &pp_page,
-+			     &dma_sync_offset);
- 	if (!va)
- 		return;
--	if (!rxoob->from_pool || rxq->frag_count == 1)
-+	if (!rxoob->from_pool || rxq->frag_count == 1) {
- 		dma_unmap_single(dev, rxoob->sgl[0].address, rxq->datasize,
- 				 DMA_FROM_DEVICE);
-+	} else {
-+		/* The page pool maps the whole page and only syncs for device
-+		 * automatically (PP_FLAG_DMA_SYNC_DEV). Sync the received bytes
-+		 * for the CPU before they are read: this is required if DMA
-+		 * is incoherent or bounce buffers are used.
-+		 */
-+		page_pool_dma_sync_for_cpu(rxq->page_pool, rxoob->pp_page,
-+					   rxoob->dma_sync_offset, pktlen);
-+	}
- 	*old_buf = rxoob->buf_va;
- 	*old_fp = rxoob->from_pool;
- 
- 	rxoob->buf_va = va;
- 	rxoob->sgl[0].address = da;
- 	rxoob->from_pool = from_pool;
-+	rxoob->pp_page = pp_page;
-+	rxoob->dma_sync_offset = dma_sync_offset;
- }
- 
- static void mana_process_one_rx_pkt(struct device *dev, struct mana_rxq *rxq,
-@@ -2165,7 +2185,8 @@ static void mana_process_one_rx_pkt(struct device *dev, struct mana_rxq *rxq,
- 
- 		/* Reuse the RX buffer since rxbuf_oob is unchanged. */
+@@ -1214,7 +1193,7 @@ static int user_mem_abort(struct kvm_vcpu *vcpu, phys_addr_t fault_ipa,
+ 		use_read_lock = (fault_status == FSC_PERM && write_fault &&
+ 				 fault_granule == PAGE_SIZE);
  	} else {
--		mana_refill_rx_oob(dev, rxq, rxbuf_oob, &old_buf, &old_fp);
-+		mana_refill_rx_oob(dev, rxq, rxbuf_oob, pktlen,
-+				   &old_buf, &old_fp);
+-		vma_shift = get_vma_page_shift(vma, hva);
++		vma_shift = get_vma_page_shift(vma);
+ 	}
  
- 		/* Unsuccessful refill will have old_buf == NULL.
- 		 * In this case, mana_rx_skb() will drop the packet.
-@@ -2777,6 +2798,8 @@ static int mana_fill_rx_oob(struct mana_recv_buf_oob *rx_oob, u32 mem_key,
- 			    struct mana_rxq *rxq, struct device *dev)
- {
- 	struct mana_port_context *mpc = netdev_priv(rxq->ndev);
-+	struct page *pp_page = NULL;
-+	u32 dma_sync_offset = 0;
- 	bool from_pool = false;
- 	dma_addr_t da;
- 	void *va;
-@@ -2784,13 +2807,16 @@ static int mana_fill_rx_oob(struct mana_recv_buf_oob *rx_oob, u32 mem_key,
- 	if (mpc->rxbufs_pre)
- 		va = mana_get_rxbuf_pre(rxq, &da);
- 	else
--		va = mana_get_rxfrag(rxq, dev, &da, &from_pool);
-+		va = mana_get_rxfrag(rxq, dev, &da, &from_pool, &pp_page,
-+				     &dma_sync_offset);
- 
- 	if (!va)
- 		return -ENOMEM;
- 
- 	rx_oob->buf_va = va;
- 	rx_oob->from_pool = from_pool;
-+	rx_oob->pp_page = pp_page;
-+	rx_oob->dma_sync_offset = dma_sync_offset;
- 
- 	rx_oob->sgl[0].address = da;
- 	rx_oob->sgl[0].size = rxq->datasize;
-diff --git a/include/net/mana/mana.h b/include/net/mana/mana.h
-index 7663bcd7ec19..f8120ae6d037 100644
---- a/include/net/mana/mana.h
-+++ b/include/net/mana/mana.h
-@@ -348,6 +348,14 @@ struct mana_recv_buf_oob {
- 
- 	void *buf_va;
- 	bool from_pool; /* allocated from a page pool */
-+	/* head page of the page_pool fragment; valid only when
-+	 * from_pool && frag_count > 1.
-+	 */
-+	struct page *pp_page;
-+	/* Fragment offset plus rxq->headroom, passed to
-+	 * page_pool_dma_sync_for_cpu().
-+	 */
-+	u32 dma_sync_offset;
- 
- 	/* SGL of the buffer going to be sent as part of the work request. */
- 	u32 num_sge;
+ 	shared = (vma->vm_flags & VM_SHARED);
 -- 
-2.56.0
+2.56.0.rc1.315.gc6ed9934b7-goog
 
