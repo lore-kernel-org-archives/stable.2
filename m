@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C0E61A6822
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 21:36:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADFD81A6822
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 21:36:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791322596; cv=none; b=Oar51Hf5pUN5Bq9Z130dYU/dbZfBePl5lfcSRne2haZfgS5tSzecQWHt7BIbcn8cbumbedIKhXOOQ94Ea7qMXwgrvHfYQ9294AtJfIJdiE549kBU/DAWoA0OCQ9GptQQcMIdRtSNCADEFFvoT4rqtCgIYyAotwWMCyjK5nSv81Y=
+	t=1791322597; cv=none; b=CIAkmxliUkgkpX8moRbIS253XRS+AEBBtQ0zLs4RZJyfXo0nZAbIxIfoevheIpr4Wrst5WZ6hVPnUhpp0KvTdPYbNDMraKWer6oLD5VtLYYY1dprUmC4JX1hZd8L/P7KR2gcSqrWzXx2XOSOGNn1HTyroyZSmASN3INfRghOn5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791322596; c=relaxed/simple;
-	bh=VjZa68pVAQzBOPfDuLOjORyn5fYQAu7PyyzyesV+xfc=;
+	s=arc-20240116; t=1791322597; c=relaxed/simple;
+	bh=AqgrYaB6m5VSkAaPMVvVsS4lAgagQKAm+FIGA6+wPsc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WqQ6n1IS+ORRHB8qRylJame7ffCWQeGMUMCG2qXoujjyXoFqzSnNijBRMEFI3ghNtBsEERhByfbaM2PIg8yAMPdZ6JfDQmQuZuSuFDQh/nMQoocuG0Lzjwlzpoe2Tz2lkQO1pbi55/CWndyVmMIS1S+CHUTKwriUyDzKq4bGUUw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KM1sOWHK; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=iyXnanBHakLhRdX/x8lLJKo3yD/vt8/2V+LISKr8QIpl9ADC/+TYT2pfXPJIhtyWpQelEDjCS8/CyoAkCvQijZn6jgSxWmQnOCyPkLOgOr9daHF2+9UsQ1itVsei+h6vgDpOk/MooCNKEQ12efj7fIcbApJUtv7gQDQ7SRebhf8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ONW0JBoa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KM1sOWHK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D0871F0089B;
-	Tue,  6 Oct 2026 21:36:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ONW0JBoa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EF0F1F0089C;
+	Tue,  6 Oct 2026 21:36:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791322595;
-	bh=EoycPgbfs3bw8fAPUczUDn9DV+LOQUYiFoHumeN5TJ8=;
+	s=k20260515; t=1791322596;
+	bh=xO9WpeoxIYcOMftXh+NMVHlQo0USYy+IvCo9TVJzD+M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KM1sOWHKowQTpScbu4FEyVIbI2DPF39/d/ZFqxmJhZnOZmQfEf04sRiH03ZibrJLK
-	 CtQvotHePjk1me/wi5MtRZyRiBblQofTZxO503m468jEnqKqFlOWSEMq+Gk7UeoYBt
-	 V+5qlrtrYaPmoxEu7Hwh+/PS37RDV3t6ltqNxhdYJlxo0im0w9IvKiJ6u4nE2tSreC
-	 r/EUTeAOP4VAKj+QzQ+0pDqvCw8NyNXuJDD9yIFYBtEgy/+HW/T+s1o9q3kDLhozvl
-	 lVhhcqFdxI1nGJRoFg/UTqRwk8qFksEBfSog4pIvyXAu+mSvbDPlF/wXpuB6mZHMUE
-	 c0b6A3WMiBn7w==
+	b=ONW0JBoauQVp46hHge/35OdIXre4vpT2a/QP4JlzsavBRfdPm3Sqx+0bKbzgBewN5
+	 nDb9dIzU5Wb9B7dlvrt+TAFIskrwpzTLt4eBdYQkI0GUBGfh6RNyGBTk9obdJF9Htm
+	 GUiBz2vIKI0GXr/Y6/QALN1+6xV1O6IWE27MsoTyFOzXpGfdLh/nrbVCiVV4wYsoE6
+	 BGWl2Ak+x5f6oDjgyczgk8nKdvZpQvxZJWWRzMGS/I5/7ldKyPgw3CgKx2wob338ib
+	 XBm0Zszbf6OO+NqoA0gV1xVlHXcv5uQpfXCprQDLgntAIfnMqlgghU2tc0JeXhPhl8
+	 jP8YUjT+7Pj4w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Matthieu Baerts <matttbe@kernel.org>
-Subject: Re: [PATCH 6.1.y 2/2] mptcp: prevent race between disconnect() and rtx
-Date: Tue,  6 Oct 2026 17:35:47 -0400
-Message-ID: <2026-10-06-1-daily-reply-0015-mptcp-disconnect-rtx-6.1@kernel.org>
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Frank Sorenson <sorenson@redhat.com>
+Subject: Re: [PATCH 6.1.y] smb: client: split cifsFileInfo bitfields to avoid shared-byte RMW races
+Date: Tue,  6 Oct 2026 17:35:48 -0400
+Message-ID: <2026-10-06-1-daily-reply-0016-smb-cifsfileinfo-6.1@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <25ffce03-e064-497a-9cbf-8bcbeccf14b7@kernel.org>
-References: <25ffce03-e064-497a-9cbf-8bcbeccf14b7@kernel.org>
+In-Reply-To: <20261005173638.3905008-1-sorenson@redhat.com>
+References: <20261005173638.3905008-1-sorenson@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,13 +45,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Same here in this version, and also because commit ea4eb2adb0d3 ("mptcp:
-> honour configured min/max RTO in retransmit paths") is not in this
-> version, this line should be adapted to:
->
->   msk->timer_ival = TCP_RTO_MIN;
+> [ Upstream commit 19465a9aeb664f1d710d0d22c07c31bfb7c85446 ]
 
-Queued the series for 6.1 with msk->timer_ival = TCP_RTO_MIN, thanks.
+Queued for 6.1, thanks.
 
 -- 
 Thanks,
