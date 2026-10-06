@@ -1,165 +1,171 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6E1B3DB320
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 22:55:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8119C4AFE2B;
+	Tue,  6 Oct 2026 22:55:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791327312; cv=none; b=k9vJ0Lu+gVqge0M6SAvSPbBGlTV6GElxPXJUYgZow8Es7FswslA95ZFk4woA3Jt0bqN0ypOeTKc/FLAaZ9rCQ9AAHt05iAB0endN6YBhMiYagiFISgh+tcFtIkmW3IwgHtMpCaz+UVBqsnobfMMqW4p3ip5ZBFcfpDWBMM1WVNQ=
+	t=1791327334; cv=none; b=OeB4H6b+1qA4RE7/zHH2adTDC1Pkc4ymK/1X8FIHwiVpc7j4cdo/+YdhX58c183efC5jsfbHfOiMHG5IIbIcpKFbWPsBdIGbiL2lvixkPhSTDNYJyTFLj1JXXk9Qerep6qM3NyaP5rHVL0N39qBAqKZ6+b9DivPQ5vhHmLLvqNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791327312; c=relaxed/simple;
-	bh=AgjFQwTN4ZDbXVDSzax3ai8dUiOO+ePObs/3jmWGR2k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ckddi4ir8Acu/WOpYG+QMiQM7aV6KrTHPEw2PcLzlbAiroX2pdRL9wapNaDhC35EKD2qp0y+fAtQJ5ptgPO6Mssh8eMx+rIekQ5t3R+kzUn9MMY98AUYYUwoWXW4x/zPoqYRybA08kRgXkr9Ajveu1bT6Tdyy6ITWK2CyrHZVn4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jls2nB0V; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791327334; c=relaxed/simple;
+	bh=1O9e7gKVNNEaPlw3w95PgTZHHC1J70j00txRnfNRtHE=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=GLYdNjvkbkyv7JtC+IoJTspJiUEr0PJkUpVjpnwiFJD1zp9mbdIIOr4hCtU6urtHrdtS3+6bk+842oaXaUVj2/c8Dk+TVGLlF/7MHtlSvR9tbCBU3F7KJlxG5O+jxMsyCKcbmBDajE2KC1d8/7DGEINA/0CN2i1jUHBisuBtrEA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Th3p+inv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jls2nB0V"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D31DA1F0089B;
-	Tue,  6 Oct 2026 22:55:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Th3p+inv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EF7C1F0089B;
+	Tue,  6 Oct 2026 22:55:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791327312;
-	bh=KkwHt8HSj2LPnjCuUAj1GOxUK6Ghfg0GBYIQzKZcQBk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Jls2nB0V3aVT+onTmeX8Ab2AfRr2Gfz6ZUoVseKcv0z5T47DwD/Ax8SYDce976ESm
-	 OXrG9Mwpl7YU/blJYGPXpG1dV8NVo+MBRC+Khr6tD+Z5MKTs4WnHJmWWYBS5SCSvQ6
-	 ZCqXzvPl52ciJ/ZwlcL4NzvnoWDUC2pAo0gWdEkS1z8nPaEzoounTLYxTVOWqpzWIo
-	 r1HaiO6IjGazfeYgHEPUM4JdR1bPCSfsyxyKyAUmimF5+JpSC8+Xo7KcrBYQDzNW8U
-	 lJyKPaj/NcVVJ2noXrhqPjlLOZO2Tx4mUFkmtyeCTVePIH9OJzI72A54etyUlfo19c
-	 cWWLoQvaZBkMw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Zhiling Zou <zhilinz@nebusec.ai>,
-	Vega <vega@nebusec.ai>,
-	Johannes Berg <johannes.berg@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] wifi: mac80211: count only matching reservations in reserved switch
-Date: Tue,  6 Oct 2026 18:55:07 -0400
-Message-ID: <20261006225446.1132406-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100535-edition-smith-a0aa@gregkh>
-References: <2026100535-edition-smith-a0aa@gregkh>
+	s=k20260515; t=1791327334;
+	bh=nC3YZn+XWotlzSFcIl75lhFWfV5zUFiAW7wfrP3jwVw=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Th3p+invhp8EMMvScJFURMTFYLn01r5Y6Z3+iDeqrMfRfUg9o56kvy/A9Bw5ES4gU
+	 1er1BwjL0VogpklNmPXJUDK9ZsPBpkdUmICPE78Z+YzjyMkMxk+98rb8PHjJE71d1K
+	 8IXrHzkEYKvs6H0aCLbcB+HMQD4DZrY04eXNeOhU8hVxCCx4l9FNQbreMjH9qfYkZm
+	 gXcQDDw5W2zEUdbGChJXpV09kNxxcKiXF7qfbPvsK3zNXso3S7UczFH7z3vPfDSmNg
+	 BTikaXi3YKuKLJwRujbo8qZ0slKMQFdrJlCP+mmLVH8cLFYB41EXVkjwSTi3otPshx
+	 W8u8wT8brhWWg==
+Subject: Re: [PATCH net v2] r8152: Use BMSR to detect the link state
+From: netdev-bot+sashiko@kernel.org
+To: lilinmao@kylinos.cn
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, hsu.chih.kai@realtek.com,
+ nic_swsd@realtek.com, mail@birger-koblitz.de, zhangxiangqian@kylinos.cn,
+ linux-usb@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Tue, 06 Oct 2026 22:55:32 +0000
+Message-ID: <179132733298.434549.4329766325512827151@kernel.org>
+In-Reply-To: <20261005105249.1281648-1-lilinmao@kylinos.cn>
+References: <20261005105249.1281648-1-lilinmao@kylinos.cn>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Zhiling Zou <zhilinz@nebusec.ai>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-[ Upstream commit 437f3727b4fd715266c296435c116288f82666fd ]
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-ieee80211_vif_use_reserved_switch() validates a replacement by counting
-assigned links on ctx->replace_ctx and treating reservations too
-broadly. A link can still be assigned to the old channel context while
-holding a reservation that belongs to a different replacement
-operation.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-That can make the current replacement appear complete too early. If
-another link finalizes first, the function can free the
-WILL_BE_REPLACED chanctx while the unmatched link and driver still use
-it, leading to a use-after-free in later beacon generation.
+- [Medium] set_carrier() in drivers/net/usb/r8152.c (line 6983) now
+  decides carrier-up from a single read of MII_BMSR.
 
-Require an in-place reservation to point at the current replacement
-context, and require the reserved and assigned contexts to be the
-matching replacement pair, before counting or moving the link.
+--
 
-Fixes: 5bcae31d9cb1 ("mac80211: implement multi-vif in-place reservations")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
-Link: https://patch.msgid.link/4b6c4b8648ab1920c38a40be32c0b1a2797b4ac6.1785726007.git.zhilinz@nebusec.ai
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
-[ sashal: Adapted iter.link accesses to direct link pointers in list-based loops. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/mac80211/chan.c | 23 +++++++++++++++++------
- 1 file changed, 17 insertions(+), 6 deletions(-)
+r8152: Use BMSR to detect the link state
 
-diff --git a/net/mac80211/chan.c b/net/mac80211/chan.c
-index 26e692a853d9b..d3cd31844c1f4 100644
---- a/net/mac80211/chan.c
-+++ b/net/mac80211/chan.c
-@@ -1381,7 +1381,8 @@ ieee80211_link_use_reserved_assign(struct ieee80211_link_data *link)
- }
- 
- static bool
--ieee80211_link_has_in_place_reservation(struct ieee80211_link_data *link)
-+ieee80211_link_has_in_place_reservation(struct ieee80211_link_data *link,
-+					struct ieee80211_chanctx *ctx)
- {
- 	struct ieee80211_sub_if_data *sdata = link->sdata;
- 	struct ieee80211_chanctx *old_ctx, *new_ctx;
-@@ -1391,6 +1392,9 @@ ieee80211_link_has_in_place_reservation(struct ieee80211_link_data *link)
- 	new_ctx = link->reserved_chanctx;
- 	old_ctx = ieee80211_link_get_chanctx(link);
- 
-+	if (new_ctx != ctx)
-+		return false;
-+
- 	if (!old_ctx)
- 		return false;
- 
-@@ -1403,6 +1407,12 @@ ieee80211_link_has_in_place_reservation(struct ieee80211_link_data *link)
- 	if (new_ctx->replace_state != IEEE80211_CHANCTX_REPLACES_OTHER)
- 		return false;
- 
-+	if (new_ctx->replace_ctx != old_ctx)
-+		return false;
-+
-+	if (old_ctx->replace_ctx != new_ctx)
-+		return false;
-+
- 	return true;
- }
- 
-@@ -1452,7 +1462,7 @@ static int ieee80211_chsw_switch_vifs(struct ieee80211_local *local,
- 
- 		list_for_each_entry(link, &ctx->reserved_links,
- 				    reserved_chanctx_list) {
--			if (!ieee80211_link_has_in_place_reservation(link))
-+			if (!ieee80211_link_has_in_place_reservation(link, ctx))
- 				continue;
- 
- 			old_ctx = ieee80211_link_get_chanctx(link);
-@@ -1561,7 +1571,7 @@ static int ieee80211_vif_use_reserved_switch(struct ieee80211_local *local)
- 		list_for_each_entry(link, &ctx->replace_ctx->assigned_links,
- 				    assigned_chanctx_list) {
- 			n_assigned++;
--			if (link->reserved_chanctx) {
-+			if (ieee80211_link_has_in_place_reservation(link, ctx)) {
- 				n_reserved++;
- 				if (link->reserved_ready)
- 					n_ready++;
-@@ -1582,7 +1592,7 @@ static int ieee80211_vif_use_reserved_switch(struct ieee80211_local *local)
- 		ctx->conf.radar_enabled = false;
- 		list_for_each_entry(link, &ctx->reserved_links,
- 				    reserved_chanctx_list) {
--			if (ieee80211_link_has_in_place_reservation(link) &&
-+			if (ieee80211_link_has_in_place_reservation(link, ctx) &&
- 			    !link->reserved_ready)
- 				return -EAGAIN;
- 
-@@ -1656,7 +1666,7 @@ static int ieee80211_vif_use_reserved_switch(struct ieee80211_local *local)
- 			struct ieee80211_bss_conf *link_conf = link->conf;
- 			u32 changed = 0;
- 
--			if (!ieee80211_link_has_in_place_reservation(link))
-+			if (!ieee80211_link_has_in_place_reservation(link, ctx))
- 				continue;
- 
- 			rcu_assign_pointer(link_conf->chanctx_conf,
-@@ -1709,7 +1719,8 @@ static int ieee80211_vif_use_reserved_switch(struct ieee80211_local *local)
- 		 */
- 		list_for_each_entry_safe(link, link_tmp, &ctx->reserved_links,
- 					 reserved_chanctx_list) {
--			if (WARN_ON(ieee80211_link_has_in_place_reservation(link)))
-+			if (WARN_ON(ieee80211_link_has_in_place_reservation(link,
-+									    ctx)))
- 				continue;
- 
- 			if (WARN_ON(link->reserved_chanctx != ctx))
+This patch changes how set_carrier() and rtl8152_runtime_resume() check
+the link state. They used PLA_PHYSTATUS (rtl8152_get_speed() &
+LINK_STATUS) and now use MII_BMSR & BMSR_LSTATUS. The goal is for the
+driver to consume the latched link-down bit itself, so the first speed
+query after link up no longer reports SPEED_UNKNOWN.
+
+> diff --git a/drivers/net/usb/r8152.c b/drivers/net/usb/r8152.c
+> index f61686433031c..e3947eb796c5d 100644
+> --- a/drivers/net/usb/r8152.c
+> +++ b/drivers/net/usb/r8152.c
+> @@ -6979,11 +6979,8 @@ static void set_carrier(struct r8152 *tp)
+>  {
+>  	struct net_device *netdev = tp->netdev;
+>  	struct napi_struct *napi = &tp->napi;
+> -	u16 speed;
+> -
+> -	speed = rtl8152_get_speed(tp);
+>  
+> -	if (speed & LINK_STATUS) {
+> +	if (r8152_mdio_read(tp, MII_BMSR) & BMSR_LSTATUS) {
+>  		if (!netif_carrier_ok(netdev)) {
+>  			tp->rtl_ops.enable(tp);
+>  			netif_stop_queue(netdev);
+
+[Severity: Medium]
+
+Can a single read of BMSR here leave the carrier stuck off after the link
+comes back up?
+
+BMSR_LSTATUS is latched low. After any link-down period, the first read
+returns 0 even if the link is already up again. The commit message says
+the first read returned LSTATUS=0 in all 5 rebinds and 6 cable replugs.
+
+set_carrier() only runs from rtl_work_func_t() when RTL8152_LINK_CHG is
+set, and that flag is cleared before the BMSR read:
+
+drivers/net/usb/r8152.c:rtl_work_func_t() {
+    ...
+	if (test_and_clear_bit(RTL8152_LINK_CHG, &tp->flags))
+		set_carrier(tp);
+    ...
+}
+
+The only place that sets the flag is intr_callback():
+
+	if (INTR_LINK & __le16_to_cpu(d[0])) {
+		if (!netif_carrier_ok(tp->netdev)) {
+			set_bit(RTL8152_LINK_CHG, &tp->flags);
+			schedule_delayed_work(&tp->schedule, 0);
+		}
+	}
+
+So on a down->up transition:
+
+1. The event is consumed.
+2. The stale BMSR read returns 0.
+3. The else branch does nothing because the carrier is already off.
+4. Nothing schedules another check.
+
+The commit message says:
+
+  If the first read still reports link down, the next link-up
+  notification triggers another read and brings the carrier up.
+
+Can the driver rely on that second notification? On RTL8153B it happened
+to arrive about 32 ms later, but this path was not tested on the other
+chips this driver handles. If one of them only sends an interrupt report
+when the link changes, the carrier would stay off until ifdown/ifup or a
+replug.
+
+The second report can also be lost. If usb_submit_urb() fails in
+intr_callback() after the work was scheduled, the error is only logged:
+
+	res = usb_submit_urb(urb, GFP_ATOMIC);
+	...
+	} else if (res) {
+		netif_err(tp, intr, tp->netdev,
+			  "can't resubmit intr, status %d\n", res);
+	}
+
+delay_autosuspend() still reads PLA_PHYSTATUS:
+
+	bool hw_linking = !!(rtl8152_get_speed(tp) & LINK_STATUS);
+
+In the stuck state it would see carrier off and hardware link up, so it
+blocks autosuspend. It never calls set_carrier() again, though.
+
+Before this patch, the check read PLA_PHYSTATUS, which is the same live
+source as INTR_LINK, so one notification was enough.
+
+Would it work better to do a dummy read when the carrier is off, the way
+mii_link_ok() does in drivers/net/mii.c:
+
+	/* first, a dummy read, needed to latch some MII phys */
+	mii->mdio_read(mii->dev, mii->phy_id, MII_BMSR);
+
+Another option is to read twice when the link was previously down, as
+genphy_update_link() does.
+
+[ ... ]
+
 -- 
-2.53.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261005105249.1281648-1-lilinmao%40kylinos.cn
