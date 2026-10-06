@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A944E43B3E6
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 21:32:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C05D3B1008
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 21:32:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791322336; cv=none; b=RWE2Oohtsoz0yCMVhc/aNvI3I+6pWdWPFpdAdFdVMPFgsc+2PulNai590gv0N7CEHm/OkziPm1lK4/cJ9G+fPdJ8VoCvU1sSlVaStm2uLetCM+YLUbZURrNtgeK2AQf1iXZN4cBeuNGqvxPEvxjevAjAeJ0esJvGLquflotF6yc=
+	t=1791322341; cv=none; b=MzpYBtNMHD7S6/oDmdU4uf9q93/Ff7MRk6Lugns2eE9lq1pxYFdpOEZg1hMCRurW23q66B0HrM0eCXVyddSw52JeYJEQd2th/HEn2YlAyeUKwh35fVnPyZ3RPklHPLz1hFPvz97QFm46iAPc3ovrFXOWB6vn3IfUwe/roplp8Jk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791322336; c=relaxed/simple;
-	bh=yjq7QxYiQtN6mPSqCIQa7mtgHXHk4ulg7utp3pBrBsU=;
+	s=arc-20240116; t=1791322341; c=relaxed/simple;
+	bh=+QwZhTUbLn+/MENCPNrbV/iBvRYczFitPWG+JCFY2oY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=M85kYmWlNrzNGTVFlb2f5zlPWNHpIvNDgysup1CrHV5hNYVyKd28p3VYkYpibtApmet0VS3kxI6rKdjReNZGZ01r7kOTWPauCV+maZxfeSb5ArKys/AhE6/UfxOFi4MhBqlGtmQwjeiOJtJBjcfF66Z8h+NutneQ8gC758m4N/0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ArjQ0sHh; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=M/hMd3tuPMBRKrYGgmPjNeUX46gkg20J+jfUZJZlD+mVJ5K8owdEEaPr8W/MJvnM2a2qOQDCo8yftpLoUd6zTkj2nXBpDe6V+APH4qDRZIi5ddr/4xP5x9+Ub9TU6sSqeuIOyhyUWQ5H/9JaJoRrVixOotbpr+VZhahuWOuOeBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E6d1h+5C; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ArjQ0sHh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A84B81F0089F;
-	Tue,  6 Oct 2026 21:32:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E6d1h+5C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B47061F0089B;
+	Tue,  6 Oct 2026 21:32:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791322332;
-	bh=Rhy2JNEi96OLR5E81Ctz/shG5N/pnyR5Ueydhv1JE9Y=;
+	s=k20260515; t=1791322340;
+	bh=ZDIqOYIuux5ZePdQPk6YwYEXrLbxspwJ8AhXfg+tR/g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ArjQ0sHhiTYr2NmyOZ32FDQt889SPQ9mjLqPvmHJFvhoYenEYyedP4VUild+Rin21
-	 HU7CfZOwJ7l3YhbfUmL4PNQgqhhl4pBSfIS0ZvgPhVDjJ71Vi78KWUR7Fj/MuY28eK
-	 wq+afeoFBZMzLfkWfseRJILywL0GzIFpsQUDCM96My3XneMiUI0lIKIsanS8r5ibF6
-	 fEYmLbVjrEm3lak+VCZ5Eng8atGh+PsJcV5u+lVws6duTNodI2LxVGWxsnsj0XAw6U
-	 qZwadQr5enGmiqn2q9BlvYEPKfQcQo6vOkF/PA2CqS/3QUnBuYfGIb23N+tfr7zHhL
-	 mFtmcuAJFPnwg==
+	b=E6d1h+5Cv1gom5dLLjJSjHpzBFvxeoGYXMr8K08wUvHu3JS8oJ3qoeLEyrfr3yn0G
+	 ftnDUGSL5YM8VKSfzxyrdlH1z02/LF763n1ishIZnvCayzRITnaHwFZsiqQH+zZ0Z0
+	 65W9Cfbudrl+TIxi17iy+Az/hJC58G29dkKlfGHPKaombnTFtAMYpJwCYAxEfGIQf0
+	 LUf5JszcqZPfUHzKyxmtRGZE8skFq11qKWA8zdTWvNN9y4zzF7l23pX0yEUlxLBGpP
+	 YUtG+B+49skhIVsFolWRuAnVV2+cdSSETCYUvXMutsBX88c7hvUYUDS5JUSET0YeXN
+	 bxruQwfVk1gqw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zhiling Zou <zhilinz@nebusec.ai>,
-	Vega <vega@nebusec.ai>,
+Cc: Zhao Li <enderaoelyther@gmail.com>,
+	stable@kernel.org,
 	Johannes Berg <johannes.berg@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] wifi: mac80211: keep paired old chanctx alive
-Date: Tue,  6 Oct 2026 17:32:08 -0400
-Message-ID: <20261006213140.981533-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] wifi: mac80211: keep fallback association elements alive
+Date: Tue,  6 Oct 2026 17:32:14 -0400
+Message-ID: <20261006213145.985540-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100550-greasily-paper-321a@gregkh>
-References: <2026100550-greasily-paper-321a@gregkh>
+In-Reply-To: <2026100555-esquire-script-5c3b@gregkh>
+References: <2026100555-esquire-script-5c3b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,92 +46,72 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhiling Zou <zhilinz@nebusec.ai>
+From: Zhao Li <enderaoelyther@gmail.com>
 
-[ Upstream commit 3412e9a800786d1dec4a58367db1cba275e7ef11 ]
+[ Upstream commit a10a2f80476d166fd81c361ec0319493671b694e ]
 
-An in-place replacement keeps reciprocal replace_ctx pointers between
-the old WILL_BE_REPLACED chanctx and the new REPLACES_OTHER chanctx.
-However, the early free paths only consider assigned and reserved link
-users when deciding whether to free the old chanctx.
+Associating to a non-transmitted MBSSID profile reads freed memory while
+determining the operating channel and applying HT capabilities.
 
-That lets the old chanctx be freed too early while the replacement
-partner still points back to it, either when the last assigned link is
-released or when that link successfully reassigns to another existing
-context. Later unreserve and switch-finalization paths can then follow a
-stale replace_ctx pointer.
+When an association response omits WMM, HT, or VHT information,
+ieee80211_assoc_config_link() parses the cached BSS IEs and copies the
+missing element pointers out of that fallback parse. For a
+non-transmitted MBSSID profile those pointers refer to merged-profile
+storage owned by the parse object, and the fallback block frees that
+object at its end. The copied pointers are used afterwards to determine
+the operating channel, configure bandwidth, and apply HT capabilities.
 
-Keep a paired old chanctx alive until the replacement pair has been torn
-down. Apply the same check to both __ieee80211_link_release_channel()
-and ieee80211_link_use_reserved_reassign(). If the replacement is later
-abandoned, ieee80211_link_unreserve_chanctx() already tears down the
-pairing before freeing the old chanctx once no users remain.
+Keep the fallback parse result alive until association setup finishes.
 
-Fixes: 5bcae31d9cb1 ("mac80211: implement multi-vif in-place reservations")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
-Link: https://patch.msgid.link/b9b582b0db3814f641648b8886bb50f9d68f93ac.1785730815.git.zhilinz@nebusec.ai
+Fixes: 5023b14cf4df ("mac80211: support profile split between elements")
+Cc: stable@kernel.org
+Assisted-by: LLM sparse kasan
+[reorder variable declaration]
+Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
 Signed-off-by: Johannes Berg <johannes.berg@intel.com>
-[ sashal: replaced ieee80211_chanctx_has_replace_partner() calls with inline checks ]
+[ sashal: Adjusted context for existing conn_flags-based HT/VHT conditionals. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/mac80211/chan.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
+ net/mac80211/mlme.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/net/mac80211/chan.c b/net/mac80211/chan.c
-index 26e692a853d9b..81a6852cfb264 100644
---- a/net/mac80211/chan.c
-+++ b/net/mac80211/chan.c
-@@ -1062,6 +1062,7 @@ int ieee80211_link_unreserve_chanctx(struct ieee80211_link_data *link)
- {
- 	struct ieee80211_sub_if_data *sdata = link->sdata;
- 	struct ieee80211_chanctx *ctx = link->reserved_chanctx;
-+	struct ieee80211_chanctx *old_ctx = NULL;
+diff --git a/net/mac80211/mlme.c b/net/mac80211/mlme.c
+index ac3c2c3334fdf..9f67290e7fe58 100644
+--- a/net/mac80211/mlme.c
++++ b/net/mac80211/mlme.c
+@@ -4026,6 +4026,7 @@ static bool ieee80211_assoc_config_link(struct ieee80211_link_data *link,
+ 	bool is_6ghz = cbss->channel->band == NL80211_BAND_6GHZ;
+ 	bool is_s1g = cbss->channel->band == NL80211_BAND_S1GHZ;
+ 	const struct cfg80211_bss_ies *bss_ies = NULL;
++	struct ieee802_11_elems *bss_elems = NULL;
+ 	struct ieee80211_supported_band *sband;
+ 	struct ieee802_11_elems *elems;
+ 	const __le16 prof_bss_param_ch_present =
+@@ -4103,7 +4104,6 @@ static bool ieee80211_assoc_config_link(struct ieee80211_link_data *link,
+ 	     (!(link->u.mgd.conn_flags & IEEE80211_CONN_DISABLE_VHT) &&
+ 	      (!elems->vht_cap_elem || !elems->vht_operation)))) {
+ 		const struct cfg80211_bss_ies *ies;
+-		struct ieee802_11_elems *bss_elems;
  
- 	lockdep_assert_held(&sdata->local->chanctx_mtx);
- 
-@@ -1076,6 +1077,7 @@ int ieee80211_link_unreserve_chanctx(struct ieee80211_link_data *link)
- 			if (WARN_ON(!ctx->replace_ctx))
- 				return -EINVAL;
- 
-+			old_ctx = ctx->replace_ctx;
- 			WARN_ON(ctx->replace_ctx->replace_state !=
- 			        IEEE80211_CHANCTX_WILL_BE_REPLACED);
- 			WARN_ON(ctx->replace_ctx->replace_ctx != ctx);
-@@ -1086,6 +1088,10 @@ int ieee80211_link_unreserve_chanctx(struct ieee80211_link_data *link)
- 
- 			list_del_rcu(&ctx->list);
- 			kfree_rcu(ctx, rcu_head);
-+
-+			if (ieee80211_chanctx_refcount(sdata->local,
-+						       old_ctx) == 0)
-+				ieee80211_free_chanctx(sdata->local, old_ctx);
- 		} else {
- 			ieee80211_free_chanctx(sdata->local, ctx);
+ 		rcu_read_lock();
+ 		ies = rcu_dereference(cbss->ies);
+@@ -4160,8 +4160,6 @@ static bool ieee80211_assoc_config_link(struct ieee80211_link_data *link,
+ 			sdata_info(sdata,
+ 				   "AP bug: VHT operation missing from AssocResp\n");
  		}
-@@ -1317,7 +1323,9 @@ ieee80211_link_use_reserved_reassign(struct ieee80211_link_data *link)
- 
- 	ieee80211_check_fast_xmit_iface(sdata);
- 
--	if (ieee80211_chanctx_refcount(local, old_ctx) == 0)
-+	if (ieee80211_chanctx_refcount(local, old_ctx) == 0 &&
-+	    !(old_ctx->replace_state == IEEE80211_CHANCTX_WILL_BE_REPLACED &&
-+	      old_ctx->replace_ctx))
- 		ieee80211_free_chanctx(local, old_ctx);
- 
- 	ieee80211_recalc_chanctx_min_def(local, new_ctx, NULL);
-@@ -1797,7 +1805,9 @@ static void __ieee80211_link_release_channel(struct ieee80211_link_data *link)
+-
+-		kfree(bss_elems);
  	}
  
- 	ieee80211_assign_link_chanctx(link, NULL);
--	if (ieee80211_chanctx_refcount(local, ctx) == 0)
-+	if (ieee80211_chanctx_refcount(local, ctx) == 0 &&
-+	    !(ctx->replace_state == IEEE80211_CHANCTX_WILL_BE_REPLACED &&
-+	      ctx->replace_ctx))
- 		ieee80211_free_chanctx(local, ctx);
- 
- 	link->radar_required = false;
+ 	/*
+@@ -4389,6 +4387,7 @@ static bool ieee80211_assoc_config_link(struct ieee80211_link_data *link,
+ 	ret = true;
+ out:
+ 	kfree(elems);
++	kfree(bss_elems);
+ 	kfree(bss_ies);
+ 	return ret;
+ }
 -- 
 2.53.0
 
