@@ -1,81 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx4.wp.pl (mx4.wp.pl [212.77.101.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF3F93C871E;
-	Tue,  6 Oct 2026 08:35:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68B083B71DC
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 08:40:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.77.101.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791275740; cv=none; b=riNoijefbVWfKiTUNad7Dx4zC4MIKB+IeC4SQ86xWVBVDGqAyLoRzJULjoHJIyvOflPiOaFi7Psp0k9q10dyCjEzBNFxAWwpR1h/ZlV2B3VThm7ZCmdmW6EfqrCqVlz/8aDSnAodP9+kjaKFHDKox5B8Js0ICjMEWzPhvwfUIY0=
+	t=1791276034; cv=none; b=J9ua+FW/wbPveFv4SNC2Wvixfo9T2mlD4cVLWJz4Prb3+2ou7jkl/XDidMSRWYTvD4GspMmAvzl0w3u2s0o09QKY+DkWZK6AWzE9Qp71cEtGVhXSoVTvDVK0rywSvbXQx+AA6CuXsdOF6hv/rrFGIxarwoKaEzFO23+m2crxUDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791275740; c=relaxed/simple;
-	bh=9eJD3A/h+7Xu1zNmMcrerWDoMWr/yNipexMr60RpsZ8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mhNPSC+BJFmmTqqpHn0Mn58XGQYQDmyN8VeIDaf0PT45ZTVc5bM/ncsAOB82qg/kHes5o+8umCY9jReM8idnZJHtz7w8IUD1qY4vxWWzkQYSWMjT0ENzSf2QxxWLDjhBNnhcvv5lwN4zSBdKRz/CQjvgefJvmj9jVMgciDFpY10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h3UkQGmZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791276034; c=relaxed/simple;
+	bh=xxSTO/xdQBco7iQpYIT0E3BtjsQC7FGn/b+5e6zl/4M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uOqo2mzAfP9tvG55TGqpVsVAQo6OTrugZltJ6rjoriORwt6HcM1t5knnArxpgwEm8hZI7OW9pyCm1SMdD9f0+PbAK6hnGkoszFFTHuWjOWRVjytLkENAIMqc7vg6PiocGGy0ZDUh3oCikB4/nS7YRVw/wC2ODgvRZzpj6XHGerY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl; spf=pass smtp.mailfrom=wp.pl; dkim=pass (2048-bit key) header.d=wp.pl header.i=@wp.pl header.b=YsdyO5nA; arc=none smtp.client-ip=212.77.101.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wp.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h3UkQGmZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 584FD1F000FF;
-	Tue,  6 Oct 2026 08:35:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791275739;
-	bh=9kAGnm6WKEBB8Q/yVVpPtBraDvfpu6wEiPKRs9xavOU=;
-	h=From:To:Cc:Subject:Date;
-	b=h3UkQGmZMi9LhJhd3Vcmc8yg5IyU5m/YUeX4+GVjGWy/aevGNACB4/BVyZhytCDoK
-	 paRjJfiWGMWaKTII+sS1oTQG3fSlpdpM8Z/g4EH76MrACQxI/1DE0M9jNTr9HqPRBJ
-	 4eCkwW6PKiFg4Uc5aAT8pDRvjD6xJRZ90cy0Q8zhH1TZbnEnXpfU+eSSFTBp/eX1Qa
-	 dG5IK6Qr1L11RBI42MQdo5OJPN31q7YIo22dHTKiIBszuqEfkGtOJjlOsj0kENl8+V
-	 vf1yurfGNwD+YgxM3+CRL68eorfTlt6w5xlPzkVXo3ml3kqX7mMf928b3kRYg0NPk9
-	 bHUhLzCbujVqw==
-From: Eric Biggers <ebiggers@kernel.org>
-To: linux-crypto@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Ard Biesheuvel <ardb@kernel.org>,
-	"Jason A . Donenfeld" <Jason@zx2c4.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Eric Biggers <ebiggers@kernel.org>,
-	stable@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH] lib/crypto: poly1305: Use memzero_explicit() in poly1305_final()
-Date: Tue,  6 Oct 2026 10:34:32 +0200
-Message-ID: <20261006083432.16328-1-ebiggers@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=wp.pl header.i=@wp.pl header.b="YsdyO5nA"
+Received: (wp-smtpd smtp.wp.pl 27085 invoked from network); 6 Oct 2026 10:40:24 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wp.pl; s=s20261001;
+          t=1791276024; bh=u32rIA+ebJvRNAzsi0CEVF/UH8RYqLgEbKPGOr3aUIA=;
+          h=From:To:Cc:Subject;
+          b=YsdyO5nAov4/rdsWF5G6OERvOS5oBxNUv4HQLw5pPM+TuxDbNLJU+4FS0r3IyvQEh
+           WnQsQHDmWLgNKAMJHiNeS617RV8CgnHYtREnVSPUo0r6mNIl6YV50zeprfm6RDqqN8
+           vhFaPy3btGJZbAPtq8XnHtpTZnZcA/iFPUf5MvROobjE+EKMK+Qsucnzx1bFX+AfFC
+           tANjK4QXVqFvyupXs4OqJU5q8qd2FiqCqKmasNtqA+uKLh+ahNqhzDFhjq26Je7tsV
+           dd0EfQyWK8PrzBDjJxC4HKTyXXhuivRZ2d9IGMJDldRUV1swMlxS+Su9M0CJkAdmwi
+           vN7sDP426ZtcQ==
+Received: from localhost (77-236-6-58.static.play.pl [77.236.6.58])
+          (envelope-sender <stf_xl@wp.pl>)
+          by smtp.wp.pl (WP-SMTPD) with TLS_AES_256_GCM_SHA384 encrypted SMTP
+          for <runyu.xiao@seu.edu.cn>; 6 Oct 2026 10:40:24 +0200
+Date: Tue, 6 Oct 2026 10:40:23 +0200
+From: Stanislaw Gruszka <stf_xl@wp.pl>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: Julia Lawall <Julia.Lawall@lip6.fr>, Kalle Valo <kvalo@kernel.org>,
+	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: Re: [PATCH] wifi: iwlegacy: serialize watchdog updates with device
+ teardown
+Message-ID: <20261006084023.GA28327@wp.pl>
+References: <20261004114519.1233305-1-runyu.xiao@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261004114519.1233305-1-runyu.xiao@seu.edu.cn>
+X-WP-MailID: daa2ea11ae5572eb5b65c94f5f4eaa40
+X-WP-AV: skaner antywirusowy Poczty Wirtualnej Polski
+X-WP-SPAM: NO 0000000 [8eNh]                               
 
-Use memzero_explicit() instead of a plain struct assignment to guarantee
-zeroization of the 'struct poly1305_desc_ctx'.
+On Sun, Oct 04, 2026 at 07:45:19PM +0800, Runyu Xiao wrote:
+> The writable wd_timeout debugfs file changes il->cfg->wd_timeout, but the
+> iwl3945 configuration is shared and const. The handler also rearms the
+The cfg in il_priv is not const. What would possibly make sense is
+take _all_ modified fields out, and make it const then.
 
-Note that dead store elimination was only theoretically possible with
-link-time optimization here.  But it's still worth fixing.
+> watchdog without taking il->mutex. The down paths hold this mutex, delete
+> the timer, and then free the TX queues, so an unlocked debugfs write can
+> rearm the timer after deletion. The callback can then access the queues
+> after they have been freed.
+> 
+> Store wd_timeout in per-device state. Serialize the debugfs update with
+> the down paths and only arm the watchdog while TX queues exist. Use
+> READ_ONCE() and WRITE_ONCE() for accesses that do not hold il->mutex.
+> 
+> Fixes: 1dc80798a8ca ("iwlegacy: constify local structures")
+This is wrong tag. At least for watchdog stop races.
 
-Fixes: a1d93064094c ("crypto: poly1305 - expose init/update/final library interface")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-c3a6bd76-f6ab-4203-892a-cd06f7aa0c34
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
----
- lib/crypto/poly1305.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> --- a/drivers/net/wireless/intel/iwlegacy/debug.c
+> +++ b/drivers/net/wireless/intel/iwlegacy/debug.c
+> @@ -1284,8 +1284,12 @@ il_dbgfs_wd_timeout_write(struct file *file, const char __user *user_buf,
+>  	if (timeout < 0 || timeout > IL_MAX_WD_TIMEOUT)
+>  		timeout = IL_DEF_WD_TIMEOUT;
+>  
+> -	il->cfg->wd_timeout = timeout;
+> -	il_setup_watchdog(il);
+> +	mutex_lock(&il->mutex);
+> +	WRITE_ONCE(il->wd_timeout, timeout);
+> +	if (il->txq)
+> +		il_setup_watchdog(il);
+This will not work for 4965. Possibly il->is_open could be used as
+check. But maybe we should just remove possibility of setting
+wd_timeout, I need to think about it.
 
-diff --git a/lib/crypto/poly1305.c b/lib/crypto/poly1305.c
-index f313ccc4b4dd2..048c7afe86138 100644
---- a/lib/crypto/poly1305.c
-+++ b/lib/crypto/poly1305.c
-@@ -78,7 +78,7 @@ void poly1305_final(struct poly1305_desc_ctx *desc, u8 *dst)
- 	}
- 
- 	poly1305_emit(&desc->state.h, dst, desc->s);
--	*desc = (struct poly1305_desc_ctx){};
-+	memzero_explicit(desc, sizeof(*desc));
- }
- EXPORT_SYMBOL(poly1305_final);
- 
-
-base-commit: 6a50ce0af5c91fd665d65d357af8ae55db1df7d0
--- 
-2.56.0
-
+Regards
+Stanislaw
+> +	mutex_unlock(&il->mutex);
+> +
+>  	return count;
+>  }
+>  
+> -- 
+> 2.34.1
