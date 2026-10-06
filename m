@@ -1,97 +1,104 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E710A49E5CF;
-	Tue,  6 Oct 2026 16:10:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24E7545C70A
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 16:11:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791303044; cv=none; b=hvxXnnyzNWw4mbY5hWuzMz+8KGo9xeOvRKUcm7lMBfkvxZr7LGroSN7sYwl8PMaVHew6dVynIfH606iqtBgfDQx8/igZaLFoDJoCWEL0v2++Qn9xCyK73Y19jUBl5D85j7oFsopJU7wKm1O4FBxdcb2cxT7lmayNKJbn9jFlhfw=
+	t=1791303094; cv=none; b=rwzOaQ2ddaz76LBBTO4H8isB9PSKzFr56pydgk3LUuXyMGDxZV9eZjKwpcDLfvQPdWl2e1iNIJ0l8dfJW/+ZDJIhJcNn9GIQRRh5noPA3EUj9Hucba6nCq53QvwZA1qbts4ndTZWavVb0DTmFwgK5Y+501zhzODDOJjhmb1vaBA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791303044; c=relaxed/simple;
-	bh=aNbsDvFZRK/+AHPuUdCwt746G0BRQlKOX+mNN+HHJ/Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CZhWKBrImiF570AEk4bwdSxHJkTC8Ixi+vdNabrYJKrbf4Rhf2UNFalVnFy4s0vordu/X3Fxp98UcAGE7qGKEZTmk6wrwrwHdr11oHjQjZaHphI+wK4CuMafSUEe2Nm3X/MHMC3yla5MDbN2Xk9bjsWG5/ed0daMueTE9aJtGAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=hq5dKJJS; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1791303094; c=relaxed/simple;
+	bh=japs/fcAQ4/BfZecpPI1Gs2j3JS3M4ehmU1F8+0pbHQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=lyB+fDAYPFmqvog+LmW9Qdlv3bYMs4QAD12CG33bfUG6WILpaeKiFW9mThARqncExu7/1Jn+n/EYrjSlAvfnZGEIR3XvFNyP6vQlHSLW/lfZIzv5XokPNMNwDi5c+FHrYvZTp5REE3RrS3mPYLCPzCmQjqRUMpS1FmwVH2No3YU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZyBC2EVL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="hq5dKJJS"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=qgSV4GBVU0LvkZzpXKbXapalbfhpM7Y/2Dcz6KnjfDY=; b=hq5dKJJSTWfsJZPMZaSK26cWO/
-	yfadGeI9oklQ6q7+pvHMzZaPf836s9BHy65lTR59H9gL2A30ygoxo0M6EndUZ209nXpMG/5zM/4zf
-	lWxaAPa55KpGyIdTTkR7WLG+AjXWAa8vPjbDmdDzg9gCPsqh/JGHuwXsl0pn9VolQ0q4=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xE7k1-009IFD-Kc; Tue, 06 Oct 2026 18:10:09 +0200
-Date: Tue, 6 Oct 2026 18:10:09 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Hayes Wang <hayeswang@realtek.com>
-Cc: Linmao Li <lilinmao@kylinos.cn>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Chih Kai Hsu <hsu.chih.kai@realtek.com>,
-	nic_swsd <nic_swsd@realtek.com>,
-	Birger Koblitz <mail@birger-koblitz.de>,
-	Xiangqian Zhang <zhangxiangqian@kylinos.cn>,
-	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: Re: [PATCH net v2] r8152: Use BMSR to detect the link state
-Message-ID: <7a8d21bd-3484-4120-abd6-f7290f919b7d@lunn.ch>
-References: <20261005105249.1281648-1-lilinmao@kylinos.cn>
- <fd3bff0e63304681b9e5f35f2f57e50e@realtek.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZyBC2EVL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 593561F0089B;
+	Tue,  6 Oct 2026 16:11:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791303092;
+	bh=5/F+4wSotr1+g4fNSRdrhonIN2jm6a3jmBZDanLcRpU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ZyBC2EVL5RiNENw7BBu6mM3xhmaz5OX9qiUxKx1HvaqgPFKAx4yp/J0MlQjZk0sDS
+	 oTBXynhiMvm23J86WA+R+yeko0+9cOxHKQ5DTgZ1qAqMnbeepYLD7ai6GriXHx2MqJ
+	 FU07/hg7VsuNGh+6gEZJlyvVB2LQBMlCHMjC+azjWQzVsbU69L/rsxAOYvZA2EMpLg
+	 qQBLtiJSjCSyzMkMGHXWK6/GrAJ6VIobhybS5ySNt0V4T2Sxj8BbO+ihSFy6KWFqpD
+	 NMsiAXFz7xiJca6Juh58P1Xb0p+RTvUiXfu/FsPKffcL9s5FxlbybqkgmjJDHv4F7u
+	 kpHMekYN51nyQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Pei Xiao <xiaopei01@kylinos.cn>,
+	syzbot+b320a4d5f65a61dbbf89@syzkaller.appspotmail.com,
+	=?UTF-8?q?J=C3=B6rn=20Engel?= <joern@barelysecure.org>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] mtd: block2mtd: Fix divide error when erase_size is zero
+Date: Tue,  6 Oct 2026 12:11:29 -0400
+Message-ID: <20261006161106.855855-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026100520-mothball-imaging-d7cd@gregkh>
+References: <2026100520-mothball-imaging-d7cd@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <fd3bff0e63304681b9e5f35f2f57e50e@realtek.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 06, 2026 at 08:28:21AM +0000, Hayes Wang wrote:
-> Linmao Li <lilinmao@kylinos.cn>
-> > Sent: Monday, October 5, 2026 6:53 PM
-> [...]
-> > r8152 detects carrier from PLA_PHYSTATUS without reading BMSR, so
-> > BMSR_LSTATUS can still be latched low when the carrier comes up.
-> > Since commit f6f2e946aa4d ("net: mii: Fix the Speed display when the network
-> > cable is not connected"), the first speed query after link up can then report
-> > SPEED_UNKNOWN, leaving NetworkManager at 0 Mb/s until the next carrier
-> > change.
-> > 
-> > Use BMSR_LSTATUS in set_carrier() and rtl8152_runtime_resume(), so the
-> > driver consumes the latched link down itself. If the first read still reports link
-> > down, the next link-up notification triggers another read and brings the carrier
-> > up.
-> > 
-> > Tested on an RTL8153B with a 6.6-based kernel. In 5 rebinds and 6 cable
-> > replugs, the first read returned LSTATUS=0, a second link-up notification came
-> > about 32 ms later, the second read returned
-> > LSTATUS=1 and the carrier went up; NetworkManager reported 1000 Mb/s.
-> > Runtime suspend/resume with the link up did not change the carrier.
-> 
-> I think this patch may introduce a new issue.
-> 
-> Our newer ICs do not generate periodic link-status notifications. They generate a
-> notification only when the link status changes. Therefore, with your patch, BMSR
-> will not be read a second time until the next link-status change.
+From: Pei Xiao <xiaopei01@kylinos.cn>
 
-But the link status in BMSR does change.
+[ Upstream commit b5965c4221165045e19736794ca5f48ae3d67142 ]
 
-You read it once and get the latched value. That clears the latch, so
-the link status changes to the current version.
+The erase size is parsed from the "block2mtd" module parameter and can
+be set to zero. add_device() then evaluates
 
-Now, 802.3 C22 has no support for interrupts, that is a vendor
-extension. But if you are not generating an interrupt when BMSR
-changes, i would say that is broken.
+        if (size % erase_size)
 
-	 Andrew
+with a zero divisor, which triggers a divide error:
+
+divide error: 0000 [#1] PREEMPT SMP PTI
+RIP: 0010:add_device drivers/mtd/devices/block2mtd.c:296 [inline]
+RIP: 0010:block2mtd_setup2+0x592/0xda0 drivers/mtd/devices/block2mtd.c:459
+Call Trace:
+block2mtd_setup+0x27/0xe0 drivers/mtd/devices/block2mtd.c:476
+param_attr_store+0x214/0x310 kernel/params.c:589
+module_attr_store+0x65/0x90 kernel/params.c:904
+kernfs_fop_write_iter+0x3a4/0x540 fs/kernfs/file.c:345
+...
+
+Reject a zero erase size before performing the modulo operation so the
+existing "erasesize must be a divisor of device size" error path
+reports the invalid argument and frees the device.
+
+Fixes: ea6d833a3fdd ("mtd: block2mtd: check device size")
+Reported-by: syzbot+b320a4d5f65a61dbbf89@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/lkml/6a7b58ba.ac361c09.22ff0a.0045.GAE@google.com/
+Suggested-by: Jörn Engel <joern@barelysecure.org>
+Cc: stable@vger.kernel.org
+Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+[ sashal: Replaced the upstream local size variable with the existing direct dev->blkdev->bd_inode->i_size expression. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/mtd/devices/block2mtd.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/mtd/devices/block2mtd.c b/drivers/mtd/devices/block2mtd.c
+index 4cd37ec45762b..9175196110c6d 100644
+--- a/drivers/mtd/devices/block2mtd.c
++++ b/drivers/mtd/devices/block2mtd.c
+@@ -272,7 +272,7 @@ static struct block2mtd_dev *add_device(char *devname, int erase_size,
+ 		goto err_free_block2mtd;
+ 	}
+ 
+-	if ((long)dev->blkdev->bd_inode->i_size % erase_size) {
++	if (!erase_size || (long)dev->blkdev->bd_inode->i_size % erase_size) {
+ 		pr_err("erasesize must be a divisor of device size\n");
+ 		goto err_free_block2mtd;
+ 	}
+-- 
+2.53.0
 
