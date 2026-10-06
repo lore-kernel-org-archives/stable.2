@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B373C871E
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 08:09:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27B503C7E19
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 08:09:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791274156; cv=none; b=jCVbF1HNpr1bUnfDdCdHhzSt+6jntXL2kI0DOKVMW4pJ7MmS3L2dbdjtrGtMJ1EylsxxhVU8jtyveaUhv14yi6JDhpSNVljSVlTuWky+2kQ7Vwuljc+5AEtw2sCmnSSOIyZeCorTZQmf/FOr6wQ3PMBKlVZDUFAHFJy2zWG/u0s=
+	t=1791274179; cv=none; b=Sbu4MAKUWRPmZJRsi/T5wiBAh1yEFf8sef10i8LQFJ7Llq7w+H1U/Wmc0FS9Ac8ATZ1dJJ9kTwzC6+Z0NnOIv4aioMD0yAarVKHn5ohjp6u08xUP6pzu/ioCpnboL0OjGq7UdBiJJsuGQ8B/D9qVT0tF3Z+2JK49+aVZc7wQe3Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791274156; c=relaxed/simple;
-	bh=LAXe2VhRhg5zl+quOcreRArbksEql4YyWxpAstMiyN8=;
+	s=arc-20240116; t=1791274179; c=relaxed/simple;
+	bh=S2vPkqmoCcI+otRxwTW2/vJbwa1Xdw61FzNeDdZSKE4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CAbJP5cZtiOlituDxgsT91AHMrR3ogLhJ9wRKqwRNu54pMTf0x8E7SI5yBGG2EJZm3DbHhQ85r4rjczrW3G/SoQ+rFudVOFVSxyIPoOv1/194Y4oice2ok9xC6DHEDbCd2PJgHm0oHTrgn7lkIKqTVt3RE0+Yc4JwllCH2GT5q4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PrqvACDr; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=WD+gPhCqPwI3pHIBBpbRIOC/1iLto+63srCA39L+noIuQSJkSmgONkpEXRygtILLnlOEdG9cfwuPshtcw4q8hgCqyPI4NuIlk5ntJXZjV0vonjVIJQk3TyYnV2TmhiUk5ECrnxhzIEiVVYjBf3APJRI98NATXgXzs9bZ87SGE6Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QdP0m2Dk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PrqvACDr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BA211F00893;
-	Tue,  6 Oct 2026 08:09:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QdP0m2Dk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0F871F000FF;
+	Tue,  6 Oct 2026 08:09:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791274154;
-	bh=52aUhErFEb/Ics1iZHICleP+osLEC8raDLtAWukD95I=;
+	s=k20260515; t=1791274168;
+	bh=4PO8tE7EyJS1lOt8b+UvhG0HmqU0LP08hAZntHcM8vU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PrqvACDrhL9IRru/HZGwCzcahVSfquuM4ZGxMdSNuSxHQRUQnAVO0KKFyWxP0NibC
-	 eIzIcOktPUQTnGF3z1taXsVuXo2E1/C6vMDzJEKwQkBT0hLCGFXOBoGy7VGGPLdsUP
-	 mpQPxeYMNiU5evE/aKSKrEUhmz2x5P0NFkJnKcJRDzTzTA4ylYleKmb8yzVT0uXeJA
-	 uq1vWS8aS2NE6gQJqGlW5I8ESU8K4iVb3LDttQ2FPuBfu7aRvswZfy1baqMlQyGmhY
-	 wY5BbaU/kdrEoKrhgfGQy2/ny/jQLKBE0pBypAuKIV2I0AiYqUIPx3R4nbVaroJEJ4
-	 3E1W80TL8GhUg==
+	b=QdP0m2DkNXqqvaa0YPQlTvrdXvt0AFAIjqf+vSMbp8tLYVoo42jDhqQOTMK8U5f6l
+	 nuJlZS9EHx/ohE+PZiPKXkJwNhP0Iu5OJz0ktam9an+gQXHLz+Mq38DER31ngG8+cN
+	 xEGCsgOwoww49ZV1M0d79nzIXZTnNtuQPwqtCtvP8xOYh/BUvO7mX/Xd4jtA9RA2E5
+	 wLMw8XXRxzDsHwk5GVB60qkRtKzcJ7zo4ULMLs5ZRpzrvv37xslxgRE8TUARB7S33o
+	 uv3L9M2rPMb0CNcKD5jsky9/VFIU3MhK06lSG2IkIPKqxcpdPk7CcxwbQmoKFY3VFg
+	 HVTA/7PLLTZkA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chengfeng Ye <nicoyip.dev@gmail.com>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+Cc: Beata Michalska <beata.michalska@arm.com>,
+	Vladimir Murzin <vladimir.murzin@arm.com>,
+	Will Deacon <will@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] Bluetooth: Serialize SMP remote OOB data access
-Date: Tue,  6 Oct 2026 04:09:08 -0400
-Message-ID: <20261006080814.3620049-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] arm64: errata: Add Cortex-A725 erratum 3821522 workaround
+Date: Tue,  6 Oct 2026 04:09:22 -0400
+Message-ID: <20261006080810.3667859-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100541-shawl-daringly-4149@gregkh>
-References: <2026100541-shawl-daringly-4149@gregkh>
+In-Reply-To: <2026100501-bulginess-bullfight-da31@gregkh>
+References: <2026100501-bulginess-bullfight-da31@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,155 +46,152 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
+From: Beata Michalska <beata.michalska@arm.com>
 
-[ Upstream commit 81a2345f1984f0b36d3226571bc196316a01b648 ]
+[ Upstream commit 45f7304679875eb000d67e194090ee7abd05c89c ]
 
-build_pairing_cmd() looks up remote OOB data and copies its contents
-without holding hdev->lock, which serializes the list's writers. After
-SMP finds an entry, a concurrent management Remove Remote OOB Data
-command can unlink and free it before SMP reads its present flag or
-copies its random and confirmation values. Removal can also invalidate
-an entry while the lookup is still traversing the list.
+Cortex-A725 erratum 3821522 affects the CNT_CYCLES event, which can
+incur a significant increment error when a CPU enters and subsequently
+exits WFE or WFI, and may no longer track the system counter
+frequency.
 
-KASAN reported:
+The AMEVCNTR01_EL0 counter is used as the AMU constant counter for
+frequency invariance and CPPC FFH feedback counters. Wire the affected
+Cortex-A725 range into the shared broken AMU constant-counter capability
+so the affected counter is treated as unavailable by returning zero in
+the AMU counter paths. This prevents the broken counter from being used
+as a reference source.
 
-  BUG: KASAN: slab-use-after-free in build_pairing_cmd+0x948/0x9b0
-  Call Trace:
-   build_pairing_cmd+0x948/0x9b0
-   smp_recv_cb+0x459f/0x8110
-   l2cap_recv_frame+0xf14/0x9190
-   l2cap_recv_acldata+0xa64/0xd40
-   hci_rx_work+0x4ca/0x730
+The erratum can also affect PMUv3 users of the CNT_CYCLES event,
+but this workaround intentionally does not change PMU event handling.
+Hiding or rejecting the PMU event from the erratum code would change
+the perf-visible PMU event interface, including raw event selection,
+and would need a separate PMU-specific approach rather than being
+folded into the AMU reference-counter workaround.
 
-  Allocated by task 87:
-   hci_add_remote_oob_data+0x11d/0x530
-   add_remote_oob_data+0x282/0x400
-   hci_sock_sendmsg+0x1033/0x1ea0
-
-  Freed by task 93:
-   hci_remote_oob_data_clear+0x108/0x1c0
-   remove_remote_oob_data+0x198/0x220
-   hci_sock_sendmsg+0x1033/0x1ea0
-
-Taking hdev->lock in build_pairing_cmd() would recurse for callers that
-already hold it and invert the device-to-L2CAP lock order on the receive
-path. Add a per-device remote_oob_lock instead, held across the SMP
-lookup and copies and by the add, remove and clear helpers. Cover
-initialization and in-place updates as well, so SMP cannot read partially
-initialized or updated OOB values. Release the mutex on allocation
-failure, preserving the existing error return.
-
-The new critical sections acquire no device, connection or channel locks.
-Writers retain their existing hdev->lock protection, which continues to
-serialize the other readers without changing their locking or behavior.
-
-Link: https://lore.kernel.org/r/00660cd3-7d71-13a4-f617-229e6defb701@gmail.com
-Fixes: 02b05bd8b0a6 ("Bluetooth: Set SMP OOB flag if OOB data is available")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-[ sashal: adjusted context for kmalloc() instead of kmalloc_obj() ]
+Signed-off-by: Beata Michalska <beata.michalska@arm.com>
+Reviewed-by: Vladimir Murzin <vladimir.murzin@arm.com>
+Signed-off-by: Will Deacon <will@kernel.org>
+[ sashal: Reused ARM64_WORKAROUND_2457168 instead of the unavailable ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT capability. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/net/bluetooth/hci_core.h |  1 +
- net/bluetooth/hci_core.c         | 12 +++++++++++-
- net/bluetooth/smp.c              |  2 ++
- 3 files changed, 14 insertions(+), 1 deletion(-)
+ Documentation/arch/arm64/silicon-errata.rst |  2 ++
+ arch/arm64/Kconfig                          | 21 ++++++++++++++++++
+ arch/arm64/kernel/cpu_errata.c              | 24 ++++++++++++++++-----
+ arch/arm64/kernel/topology.c                |  9 ++++----
+ 4 files changed, 47 insertions(+), 9 deletions(-)
 
-diff --git a/include/net/bluetooth/hci_core.h b/include/net/bluetooth/hci_core.h
-index 9465633f438fb..763f003ac29e3 100644
---- a/include/net/bluetooth/hci_core.h
-+++ b/include/net/bluetooth/hci_core.h
-@@ -554,6 +554,7 @@ struct hci_dev {
- 	struct list_head	link_keys;
- 	struct list_head	long_term_keys;
- 	struct list_head	identity_resolving_keys;
-+	struct mutex		remote_oob_lock;
- 	struct list_head	remote_oob_data;
- 	struct list_head	le_accept_list;
- 	struct list_head	le_resolv_list;
-diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
-index 4f973e22ce86e..0ac74fe7f2a9f 100644
---- a/net/bluetooth/hci_core.c
-+++ b/net/bluetooth/hci_core.c
-@@ -1527,8 +1527,10 @@ int hci_remove_remote_oob_data(struct hci_dev *hdev, bdaddr_t *bdaddr,
+diff --git a/Documentation/arch/arm64/silicon-errata.rst b/Documentation/arch/arm64/silicon-errata.rst
+index b5b46b6ab2778..c40e6271072f6 100644
+--- a/Documentation/arch/arm64/silicon-errata.rst
++++ b/Documentation/arch/arm64/silicon-errata.rst
+@@ -161,6 +161,8 @@ stable kernels.
+ +----------------+-----------------+-----------------+-----------------------------+
+ | ARM            | Cortex-A725     | #3456106        | ARM64_ERRATUM_3194386       |
+ +----------------+-----------------+-----------------+-----------------------------+
++| ARM            | Cortex-A725     | #3821522        | ARM64_ERRATUM_3821522       |
+++----------------+-----------------+-----------------+-----------------------------+
+ | ARM            | Cortex-X1       | #3324344        | ARM64_ERRATUM_3194386       |
+ +----------------+-----------------+-----------------+-----------------------------+
+ | ARM            | Cortex-X1       | #4193791        | ARM64_ERRATUM_4118414       |
+diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+index 723e73042c1a2..3233ba5ac495a 100644
+--- a/arch/arm64/Kconfig
++++ b/arch/arm64/Kconfig
+@@ -1037,6 +1037,27 @@ config ARM64_ERRATUM_2645198
  
- 	BT_DBG("%s removing %pMR (%u)", hdev->name, bdaddr, bdaddr_type);
+ 	  If unsure, say Y.
  
-+	mutex_lock(&hdev->remote_oob_lock);
- 	list_del(&data->list);
- 	kfree(data);
-+	mutex_unlock(&hdev->remote_oob_lock);
- 
- 	return 0;
- }
-@@ -1537,10 +1539,12 @@ void hci_remote_oob_data_clear(struct hci_dev *hdev)
- {
- 	struct oob_data *data, *n;
- 
-+	mutex_lock(&hdev->remote_oob_lock);
- 	list_for_each_entry_safe(data, n, &hdev->remote_oob_data, list) {
- 		list_del(&data->list);
- 		kfree(data);
- 	}
-+	mutex_unlock(&hdev->remote_oob_lock);
- }
- 
- int hci_add_remote_oob_data(struct hci_dev *hdev, bdaddr_t *bdaddr,
-@@ -1549,11 +1553,14 @@ int hci_add_remote_oob_data(struct hci_dev *hdev, bdaddr_t *bdaddr,
- {
- 	struct oob_data *data;
- 
-+	mutex_lock(&hdev->remote_oob_lock);
- 	data = hci_find_remote_oob_data(hdev, bdaddr, bdaddr_type);
- 	if (!data) {
- 		data = kmalloc(sizeof(*data), GFP_KERNEL);
--		if (!data)
-+		if (!data) {
-+			mutex_unlock(&hdev->remote_oob_lock);
- 			return -ENOMEM;
-+		}
- 
- 		bacpy(&data->bdaddr, bdaddr);
- 		data->bdaddr_type = bdaddr_type;
-@@ -1586,6 +1593,8 @@ int hci_add_remote_oob_data(struct hci_dev *hdev, bdaddr_t *bdaddr,
- 
- 	BT_DBG("%s for %pMR", hdev->name, bdaddr);
- 
-+	mutex_unlock(&hdev->remote_oob_lock);
++config ARM64_ERRATUM_3821522
++	bool "Cortex-A725: 3821522: workaround for possible CNT_CYCLES increment error due to WFE/WFI"
++	depends on ARM64_AMU_EXTN
++	default y
++	help
++	  This option adds the workaround for ARM Cortex-A725 erratum 3821522.
 +
- 	return 0;
- }
++	  On affected A725 cores, the CNT_CYCLES event may incur a significant
++	  increment error when entering and subsequently exiting WFx.
++	  As a result, the CNT_CYCLES may diverge from the system counter
++	  frequency at which it is expected to increment.
++	  This renders the AMU counter AMEVCNTR01, that implements CNT_CYCLES,
++	  being unreliable and unsuitable for use.
++
++	  Since there is no hardware workaround, reads of the affected CNT_CYCLES
++	  counter return 0 in the relevant paths. This causes users of the counter
++	  to treat it as unavailable and is functionally equivalent to firmware
++	  disabling the affected counter.
++
++	  If unsure, say Y.
++
+ config ARM64_WORKAROUND_SPECULATIVE_UNPRIV_LOAD
+ 	bool
  
-@@ -2543,6 +2552,7 @@ struct hci_dev *hci_alloc_dev_priv(int sizeof_priv)
- 	mutex_init(&hdev->lock);
- 	mutex_init(&hdev->req_lock);
- 	mutex_init(&hdev->mgmt_pending_lock);
-+	mutex_init(&hdev->remote_oob_lock);
+diff --git a/arch/arm64/kernel/cpu_errata.c b/arch/arm64/kernel/cpu_errata.c
+index 03a4382799091..ab5fead3e6f87 100644
+--- a/arch/arm64/kernel/cpu_errata.c
++++ b/arch/arm64/kernel/cpu_errata.c
+@@ -275,6 +275,21 @@ static const struct arm64_cpu_capabilities arm64_repeat_tlbi_list[] = {
+ };
+ #endif
  
- 	ida_init(&hdev->unset_handle_ida);
- 
-diff --git a/net/bluetooth/smp.c b/net/bluetooth/smp.c
-index 078d5a19a846e..c093797962266 100644
---- a/net/bluetooth/smp.c
-+++ b/net/bluetooth/smp.c
-@@ -683,6 +683,7 @@ static void build_pairing_cmd(struct l2cap_conn *conn,
- 		else
- 			bdaddr_type = BDADDR_LE_RANDOM;
- 
-+		mutex_lock(&hdev->remote_oob_lock);
- 		oob_data = hci_find_remote_oob_data(hdev, &hcon->dst,
- 						    bdaddr_type);
- 		if (oob_data && oob_data->present) {
-@@ -693,6 +694,7 @@ static void build_pairing_cmd(struct l2cap_conn *conn,
- 			SMP_DBG("OOB Remote Confirmation: %16phN", smp->pcnf);
- 			SMP_DBG("OOB Remote Random: %16phN", smp->rr);
- 		}
-+		mutex_unlock(&hdev->remote_oob_lock);
- 
- 	} else {
- 		authreq &= ~SMP_AUTH_SC;
++#if defined(CONFIG_ARM64_ERRATUM_2457168) || \
++	defined(CONFIG_ARM64_ERRATUM_3821522)
++static const struct midr_range workaround_amu_constcnt_list[] = {
++#ifdef CONFIG_ARM64_ERRATUM_2457168
++	/* Cortex-A510 r0p0-r1p1 */
++	MIDR_RANGE(MIDR_CORTEX_A510, 0, 0, 1, 1),
++#endif
++#ifdef CONFIG_ARM64_ERRATUM_3821522
++	/* Cortex-A725 r0p0 - r0p2 */
++	MIDR_RANGE(MIDR_CORTEX_A725, 0, 0, 0, 2),
++#endif
++	{}
++};
++#endif
++
+ #ifdef CONFIG_CAVIUM_ERRATUM_23154
+ static const struct midr_range cavium_erratum_23154_cpus[] = {
+ 	MIDR_ALL_VERSIONS(MIDR_THUNDERX),
+@@ -766,14 +781,13 @@ const struct arm64_cpu_capabilities arm64_errata[] = {
+ 		ERRATA_MIDR_REV_RANGE(MIDR_CORTEX_A510, 0, 0, 2)
+ 	},
+ #endif
+-#ifdef CONFIG_ARM64_ERRATUM_2457168
++#if defined(CONFIG_ARM64_ERRATUM_2457168) || \
++	defined(CONFIG_ARM64_ERRATUM_3821522)
+ 	{
+-		.desc = "ARM erratum 2457168",
++		.desc = "Broken AMU AMEVCNTR01 (const counter)",
+ 		.capability = ARM64_WORKAROUND_2457168,
+ 		.type = ARM64_CPUCAP_WEAK_LOCAL_CPU_FEATURE,
+-
+-		/* Cortex-A510 r0p0-r1p1 */
+-		CAP_MIDR_RANGE(MIDR_CORTEX_A510, 0, 0, 1, 1)
++		CAP_MIDR_RANGE_LIST(workaround_amu_constcnt_list)
+ 	},
+ #endif
+ #ifdef CONFIG_ARM64_ERRATUM_2038923
+diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
+index 1a2c72f3e7f80..59bff1f860a65 100644
+--- a/arch/arm64/kernel/topology.c
++++ b/arch/arm64/kernel/topology.c
+@@ -268,10 +268,11 @@ static void cpu_read_corecnt(void *val)
+ static void cpu_read_constcnt(void *val)
+ {
+ 	/*
+-	 * Return 0 if the current CPU is affected by erratum 2457168. A value
+-	 * of 0 is also returned if the current CPU does not support AMUs or if
+-	 * the counter is disabled. A return value of 0 at counter read is
+-	 * properly handled as an error case by the users of the counter.
++	 * Return 0 if the current CPU is affected by a HW erratum.
++	 * A value of 0 is also returned if the current CPU does not
++	 * support AMUs or if the counter is disabled. A return
++	 * value of 0 at counter read is properly handled as an error
++	 * case by the users of the counter.
+ 	 */
+ 	*(u64 *)val = this_cpu_has_cap(ARM64_WORKAROUND_2457168) ?
+ 		      0UL : read_constcnt();
 -- 
 2.53.0
 
