@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E1123CEBB7
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 08:09:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B373C871E
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 08:09:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791274153; cv=none; b=ZyhwSiY17PdiVAHgRb/6p40HZJ6YiNJTc5/X0oBYZWfuW0kSa+jufWRDSYEzK4OBWy2QeYocbWlaoSgF/QVusZPVr10bi2FagsonNYtElhQp59nLjYqhB1Fq0ToU5zeTsTTaA8h4XOLbr7aTn+mKKPUYvj5hd0ZoQbJLf2yotHw=
+	t=1791274156; cv=none; b=jCVbF1HNpr1bUnfDdCdHhzSt+6jntXL2kI0DOKVMW4pJ7MmS3L2dbdjtrGtMJ1EylsxxhVU8jtyveaUhv14yi6JDhpSNVljSVlTuWky+2kQ7Vwuljc+5AEtw2sCmnSSOIyZeCorTZQmf/FOr6wQ3PMBKlVZDUFAHFJy2zWG/u0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791274153; c=relaxed/simple;
-	bh=UXIUZGXDxpU9p35NU4Ygc0QdhCkmVkMiOs0jr83mSig=;
+	s=arc-20240116; t=1791274156; c=relaxed/simple;
+	bh=LAXe2VhRhg5zl+quOcreRArbksEql4YyWxpAstMiyN8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tYXKfkB11o30YAMc1f3qAvCiIK0TiQMQlZ63qU7Bq8DvHuB3sQyKDiHtHxLpFDYN0fMqjpUZGO8j0DhbFltTgIiQEray2aSAiVtbmrEGVgGhvLFGDKPZ8QwigDJI96phQaMA1YnM5Up2HUwkg+PGzinGuri4w94sW/KLMsIRCSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UXLEZOX/; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=CAbJP5cZtiOlituDxgsT91AHMrR3ogLhJ9wRKqwRNu54pMTf0x8E7SI5yBGG2EJZm3DbHhQ85r4rjczrW3G/SoQ+rFudVOFVSxyIPoOv1/194Y4oice2ok9xC6DHEDbCd2PJgHm0oHTrgn7lkIKqTVt3RE0+Yc4JwllCH2GT5q4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PrqvACDr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UXLEZOX/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 165061F000FF;
-	Tue,  6 Oct 2026 08:09:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PrqvACDr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BA211F00893;
+	Tue,  6 Oct 2026 08:09:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791274152;
-	bh=Va99LV2q9hcYc4MPnUqxreznQK3nOMoirCf1D/rm6SI=;
+	s=k20260515; t=1791274154;
+	bh=52aUhErFEb/Ics1iZHICleP+osLEC8raDLtAWukD95I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UXLEZOX/96Wgxf5bNMVbbWMVRrH3pFxnvAPeSrHYmgEtFBI26gfmNr+DxuxRfDxtm
-	 xVa6I7cpePXNhvA9HfrBzbQFW3+pOs61H4GS0VyGldl492tUyfuvhjEZqMSPJPygic
-	 j2DyJt5lXxx7POFR2d7EVM9T7dfjAF1ZYpZolZ9VaU0VWrJ4AmtOM0ymM+BZXP7phT
-	 AeSCQqZTdX6vUfvtfJNTCxDczPOp2jvwrZfhtw7c/jUdgUuw0/13FcG9TZoX9l94jS
-	 xtd+TyccPAu8/EN/NhNAXm4TApiyWXrkrgJdSasIepu1ynp1MiD+OYwRwogU/U14T4
-	 bemWClcK5h9TA==
+	b=PrqvACDrhL9IRru/HZGwCzcahVSfquuM4ZGxMdSNuSxHQRUQnAVO0KKFyWxP0NibC
+	 eIzIcOktPUQTnGF3z1taXsVuXo2E1/C6vMDzJEKwQkBT0hLCGFXOBoGy7VGGPLdsUP
+	 mpQPxeYMNiU5evE/aKSKrEUhmz2x5P0NFkJnKcJRDzTzTA4ylYleKmb8yzVT0uXeJA
+	 uq1vWS8aS2NE6gQJqGlW5I8ESU8K4iVb3LDttQ2FPuBfu7aRvswZfy1baqMlQyGmhY
+	 wY5BbaU/kdrEoKrhgfGQy2/ny/jQLKBE0pBypAuKIV2I0AiYqUIPx3R4nbVaroJEJ4
+	 3E1W80TL8GhUg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zhengchuan Liang <zcliangcn@gmail.com>,
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
+Cc: Chengfeng Ye <nicoyip.dev@gmail.com>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] perf: Require kernel access for text poke events
-Date: Tue,  6 Oct 2026 04:09:06 -0400
-Message-ID: <20261006080814.3620722-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] Bluetooth: Serialize SMP remote OOB data access
+Date: Tue,  6 Oct 2026 04:09:08 -0400
+Message-ID: <20261006080814.3620049-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100518-pronto-overplant-dd1b@gregkh>
-References: <2026100518-pronto-overplant-dd1b@gregkh>
+In-Reply-To: <2026100541-shawl-daringly-4149@gregkh>
+References: <2026100541-shawl-daringly-4149@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,51 +45,155 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhengchuan Liang <zcliangcn@gmail.com>
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
 
-[ Upstream commit 357e8a77a501d96c9517f01f4a211eed5e9c9184 ]
+[ Upstream commit 81a2345f1984f0b36d3226571bc196316a01b648 ]
 
-Perf events with exclude_kernel=1 can be opened without kernel perf
-access. However, exclude_kernel does not suppress text-poke sideband
-records. Every PERF_RECORD_TEXT_POKE is marked PERF_RECORD_MISC_KERNEL
-and contains a raw kernel instruction address.
+build_pairing_cmd() looks up remote OOB data and copies its contents
+without holding hdev->lock, which serializes the list's writers. After
+SMP finds an entry, a concurrent management Remove Remote OOB Data
+command can unlink and free it before SMP reads its present flag or
+copies its random and confirmation values. Removal can also invalidate
+an entry while the lookup is still traversing the list.
 
-An unprivileged task can therefore open and mmap a task-local software
-event with text_poke=1. Both opening a count-only tracepoint event and
-configuring UDP GRO for ESP-in-UDP cause updates to inline static calls;
-the observer receives the relocated addresses of the modified instructions.
-For a known kernel image, any such address reveals the runtime kernel
-text base despite KASLR.
+KASAN reported:
 
-Call perf_allow_kernel() whenever attr.text_poke is set, regardless of
-exclude_kernel. Events that neither monitor kernel execution nor request
-text-poke records retain their existing permissions.
+  BUG: KASAN: slab-use-after-free in build_pairing_cmd+0x948/0x9b0
+  Call Trace:
+   build_pairing_cmd+0x948/0x9b0
+   smp_recv_cb+0x459f/0x8110
+   l2cap_recv_frame+0xf14/0x9190
+   l2cap_recv_acldata+0xa64/0xd40
+   hci_rx_work+0x4ca/0x730
 
-Fixes: e17d43b93e54 ("perf: Add perf text poke event")
-Assisted-by: LLM
-Signed-off-by: Zhengchuan Liang <zcliangcn@gmail.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+  Allocated by task 87:
+   hci_add_remote_oob_data+0x11d/0x530
+   add_remote_oob_data+0x282/0x400
+   hci_sock_sendmsg+0x1033/0x1ea0
+
+  Freed by task 93:
+   hci_remote_oob_data_clear+0x108/0x1c0
+   remove_remote_oob_data+0x198/0x220
+   hci_sock_sendmsg+0x1033/0x1ea0
+
+Taking hdev->lock in build_pairing_cmd() would recurse for callers that
+already hold it and invert the device-to-L2CAP lock order on the receive
+path. Add a per-device remote_oob_lock instead, held across the SMP
+lookup and copies and by the add, remove and clear helpers. Cover
+initialization and in-place updates as well, so SMP cannot read partially
+initialized or updated OOB values. Release the mutex on allocation
+failure, preserving the existing error return.
+
+The new critical sections acquire no device, connection or channel locks.
+Writers retain their existing hdev->lock protection, which continues to
+serialize the other readers without changing their locking or behavior.
+
+Link: https://lore.kernel.org/r/00660cd3-7d71-13a4-f617-229e6defb701@gmail.com
+Fixes: 02b05bd8b0a6 ("Bluetooth: Set SMP OOB flag if OOB data is available")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/99131354c41e23188f778b92f90363775b482395.1790573390.git.zcliangcn@gmail.com
-[ sashal: Adjusted context because the existing exclude_kernel check lacks the callchain condition. ]
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+[ sashal: adjusted context for kmalloc() instead of kmalloc_obj() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/events/core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ include/net/bluetooth/hci_core.h |  1 +
+ net/bluetooth/hci_core.c         | 12 +++++++++++-
+ net/bluetooth/smp.c              |  2 ++
+ 3 files changed, 14 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index e350e8d1fb188..fc2d2f2734459 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -12427,7 +12427,7 @@ SYSCALL_DEFINE5(perf_event_open,
- 	if (err)
- 		return err;
+diff --git a/include/net/bluetooth/hci_core.h b/include/net/bluetooth/hci_core.h
+index 9465633f438fb..763f003ac29e3 100644
+--- a/include/net/bluetooth/hci_core.h
++++ b/include/net/bluetooth/hci_core.h
+@@ -554,6 +554,7 @@ struct hci_dev {
+ 	struct list_head	link_keys;
+ 	struct list_head	long_term_keys;
+ 	struct list_head	identity_resolving_keys;
++	struct mutex		remote_oob_lock;
+ 	struct list_head	remote_oob_data;
+ 	struct list_head	le_accept_list;
+ 	struct list_head	le_resolv_list;
+diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
+index 4f973e22ce86e..0ac74fe7f2a9f 100644
+--- a/net/bluetooth/hci_core.c
++++ b/net/bluetooth/hci_core.c
+@@ -1527,8 +1527,10 @@ int hci_remove_remote_oob_data(struct hci_dev *hdev, bdaddr_t *bdaddr,
  
--	if (!attr.exclude_kernel) {
-+	if (!attr.exclude_kernel || attr.text_poke) {
- 		err = perf_allow_kernel(&attr);
- 		if (err)
- 			return err;
+ 	BT_DBG("%s removing %pMR (%u)", hdev->name, bdaddr, bdaddr_type);
+ 
++	mutex_lock(&hdev->remote_oob_lock);
+ 	list_del(&data->list);
+ 	kfree(data);
++	mutex_unlock(&hdev->remote_oob_lock);
+ 
+ 	return 0;
+ }
+@@ -1537,10 +1539,12 @@ void hci_remote_oob_data_clear(struct hci_dev *hdev)
+ {
+ 	struct oob_data *data, *n;
+ 
++	mutex_lock(&hdev->remote_oob_lock);
+ 	list_for_each_entry_safe(data, n, &hdev->remote_oob_data, list) {
+ 		list_del(&data->list);
+ 		kfree(data);
+ 	}
++	mutex_unlock(&hdev->remote_oob_lock);
+ }
+ 
+ int hci_add_remote_oob_data(struct hci_dev *hdev, bdaddr_t *bdaddr,
+@@ -1549,11 +1553,14 @@ int hci_add_remote_oob_data(struct hci_dev *hdev, bdaddr_t *bdaddr,
+ {
+ 	struct oob_data *data;
+ 
++	mutex_lock(&hdev->remote_oob_lock);
+ 	data = hci_find_remote_oob_data(hdev, bdaddr, bdaddr_type);
+ 	if (!data) {
+ 		data = kmalloc(sizeof(*data), GFP_KERNEL);
+-		if (!data)
++		if (!data) {
++			mutex_unlock(&hdev->remote_oob_lock);
+ 			return -ENOMEM;
++		}
+ 
+ 		bacpy(&data->bdaddr, bdaddr);
+ 		data->bdaddr_type = bdaddr_type;
+@@ -1586,6 +1593,8 @@ int hci_add_remote_oob_data(struct hci_dev *hdev, bdaddr_t *bdaddr,
+ 
+ 	BT_DBG("%s for %pMR", hdev->name, bdaddr);
+ 
++	mutex_unlock(&hdev->remote_oob_lock);
++
+ 	return 0;
+ }
+ 
+@@ -2543,6 +2552,7 @@ struct hci_dev *hci_alloc_dev_priv(int sizeof_priv)
+ 	mutex_init(&hdev->lock);
+ 	mutex_init(&hdev->req_lock);
+ 	mutex_init(&hdev->mgmt_pending_lock);
++	mutex_init(&hdev->remote_oob_lock);
+ 
+ 	ida_init(&hdev->unset_handle_ida);
+ 
+diff --git a/net/bluetooth/smp.c b/net/bluetooth/smp.c
+index 078d5a19a846e..c093797962266 100644
+--- a/net/bluetooth/smp.c
++++ b/net/bluetooth/smp.c
+@@ -683,6 +683,7 @@ static void build_pairing_cmd(struct l2cap_conn *conn,
+ 		else
+ 			bdaddr_type = BDADDR_LE_RANDOM;
+ 
++		mutex_lock(&hdev->remote_oob_lock);
+ 		oob_data = hci_find_remote_oob_data(hdev, &hcon->dst,
+ 						    bdaddr_type);
+ 		if (oob_data && oob_data->present) {
+@@ -693,6 +694,7 @@ static void build_pairing_cmd(struct l2cap_conn *conn,
+ 			SMP_DBG("OOB Remote Confirmation: %16phN", smp->pcnf);
+ 			SMP_DBG("OOB Remote Random: %16phN", smp->rr);
+ 		}
++		mutex_unlock(&hdev->remote_oob_lock);
+ 
+ 	} else {
+ 		authreq &= ~SMP_AUTH_SC;
 -- 
 2.53.0
 
