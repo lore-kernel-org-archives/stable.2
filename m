@@ -1,65 +1,65 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38D76379C57
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26CD537C0F5
 	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 04:53:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791262381; cv=none; b=LGtLoesD7w4qn8dIrceNqwvrD1Dzq58znqXZP3avVIM+1BooB2kLtxgdtGhC0ux9wob0FhZp3JL6fhb2kEBa8ChW3vFHD6u8ugZeGJ1ilDqSUhQysz6F06+S/GEsfti+eODgHgTp8dH66GN7O89q7fum+PVFsoIpZpwLXuMI68I=
+	t=1791262382; cv=none; b=a3Wb2cKrrlVjYN0SDs6/7fuLo+UPS3fSCLiz7erolCD64n8AkOrEWoc9a1UkEPwANirIdlGuB6z9FLRf1V/44wR0I8/9u5O/utcDd66qTAi+YxfCfF151c60AMVi2Zl4SPFztXMTNFl6kndYjESr3iqxTqoay6EeqeT8rldFtLE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791262381; c=relaxed/simple;
-	bh=tWsplIKQlCrKEI3znVxfP3UflojL0jxV8E4AkeIkcUI=;
+	s=arc-20240116; t=1791262382; c=relaxed/simple;
+	bh=74GCVFBEaYoLkoDkeStCwsJ3MD5Xlz4Emhhsn4lIGSU=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=t5tFyeBGbygQdEnLs9G5afJG+LmEwFf4KBNEyYty/J2F8Q+buTCcf1CXrKjTrCdNUNjGnL6YjwvC8jtvEDwn+EWaH+n002WQBFZKU9dxd8l8A9Ce6Bn3Y/KmdtRmlhgCjR4gnmEaGT1o8bVs3qXbXNGGq1YdqhSCAi8xwtsI5F8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gENbE+Wq; arc=none smtp.client-ip=209.85.128.48
+	 MIME-Version; b=MW1rn9uSP4/t0u0kEZyEYEkh23okFLk5C6vYUra23d8rc8Q3JjJ5txDWuR8oSo3hF2b5LQ9DI4rGOjkhYYoXp3ta1f2dMpgoARkG2C15/7S+SasKGbtgwfwBqjL1Pbs4bNsxhQPsl1bgpjImYRyxhWdEGqZD6IC4gGla59BGmTg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IiiEfowE; arc=none smtp.client-ip=209.85.128.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gENbE+Wq"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4980fe6b3beso1336775e9.0
-        for <stable@vger.kernel.org>; Mon, 05 Oct 2026 21:52:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IiiEfowE"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a168355946so3035645e9.0
+        for <stable@vger.kernel.org>; Mon, 05 Oct 2026 21:53:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791262378; x=1791867178; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791262379; x=1791867179; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=FNnyigt47m4RvfnCZkqOS4nkufUVHYq8Muto1Qo9rTo=;
-        b=gENbE+WqfFn1PxWR6MM0w3E12/ymiq7M0igc0V+w8avrYZilcHxelR64/DtYh3W9eN
-         SxkqojHaWZxeWWc7jB0V+JfhmzDQt+TXqhDnMr08MikSt1tpjW8Wt+HXaMBKxQhY94CL
-         ELQ1PxyBgb1PgWFf8twHB6oXFeaaqNyq7aZNOzkx/gGn43rz4KqdLK8fpB4YuEVN67vw
-         ogPnJHjBxMtnf5njOyTj8nMX0KZ1KGfiTPfaKxAQt5xjuMtG+ylPWpI67KLb863iGHyK
-         1cQXIzZJGkCcoYwqfi4z0xb9Dl2ECT8yv+ajBvXH/WD3aqLjnDFpzRVQ13uJ/xNwoaTJ
-         TH7Q==
+        bh=6HCOU2yJch70xiRkaLkSG3uKGxSg+aF17fZmWG9Aov0=;
+        b=IiiEfowEeTTgP/y/kqj1w46wkdNDKvTCyz2R6v1ix4OKMS7WXnDLjffAJEaEBwtH9C
+         t4RIDw0ZUFGxbLMwcDFI9xtRCPlqoMVgurbAiSckryWDiGp2biqNk/H81ZD/GqUkaU/i
+         xZWLb8RTCMTbWuqsf5c4s/PyDlFMx+ph3alZch4PwUcu9II8U9pa3uaSv6/jIStrhnrk
+         9/qbQhHOVOFe6erOK7VkwWWxddIxfuVd3LFBrHVFNPbjx/auOUC1FkevhGLxtlFruxIs
+         6i7maErDuR0ieu32vuiQeLlz1SZG7wq2IFNClj37sQORSE10/lE/+wSB2ucC2JnmaWO5
+         23cw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791262378; x=1791867178;
+        d=1e100.net; s=20260707; t=1791262379; x=1791867179;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FNnyigt47m4RvfnCZkqOS4nkufUVHYq8Muto1Qo9rTo=;
-        b=bFvLhnAwRy5+y+nR5RdQizWoSQ0fPs4e2W0sfrxfzruLUDSmSZA1ailTumwhwnAwR5
-         6AP0kBOPLDn7T9JIHaanfsjS+yhxI9ZoMC6xapEK94h3wjOEtk3RR+wA8At48lamE8eG
-         Bc7LEcbbS0lOt6m3p5oya6hHx2xzsRd0YyHb86IKQ1yOx7qngTY9hrmx163ak9KFqmwC
-         +So5DTFv6gERHUyQ3EVTP65XeY/OX++Gv/Kygn9JVlaJO5uQNAiEwaC+8fAtjxpw8G2v
-         HO/pyrTaISVJZagbA/mftvbPvt1txzWXj8tcQku8u321CbQMaia7/Gy6EycMupDk6ZEm
-         Ck3g==
-X-Forwarded-Encrypted: i=1; AKwUvBwicBc/uX88iOCUAI5aDWbn+9EU41DSqLOioqkaHAZpt9f9kBcD0YwkCpJK07n4XdRjwNxNTzc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mMhcTJd64PoJweUO8v+t/mAy74WdZ33pZxKZRFXrqSCPH9uQQW
-	8yGIn9JDHfuqf3GlystF9Oasq8zakqGVyg92tftnRMdKrTskaf8YW65q
-X-Gm-Gg: AYBFou2FfHG9mQe9+yO0wLI23oiEA5tJyHDxmeUKy2VlANGSji67F4mFK2vU6G27oc6
-	Ym54ZPH+BxceQuIIePemYyKDOqMidV8xsmxUUqnp5bd+HlapJKpYfQXG+piRX8StJ4QuesayV7t
-	3tV1+EGRRuG8l6ZOh57DXpRkMPtfhPHacjKxH0mOl9U7+q9YmhpTArALpV5oBdO8d8zpkIPWNLJ
-	avLYTeLbuo9NwYE6e3NIXvC8ELU0ZdG8Og52CT0djxTe443eL55pUuWTMuWL6LUrKrZO/9WbZW2
-	5RBQOa762NJduAQ9Ta5Z6xyBdeo5e3ulit/ONP2a0MBWysVaAgVXVnwjque4/FteelU1ZrGobEu
-	oJQ0xXmOUzG564pP3g/E2UkvN4hRLmDFQ0USKv8wUELk6Ni94btaAsOnAK3uD0gDZWhkyZmJ8BH
-	1GHrHgc8vqBG+RTyiOcsEMA9u/YLw3WKrKi2Ynpeoov6xraTdfIgU6V6AVxfTvgh9GTXsmdq1Qb
-	9n6YGruPhQO5ow16EHzviJBPj6mNnsu5C/aE0ZeT3gbi5nCMq+GhnFS/o4yY865NczIHupwg8L9
-	8in9MrCGUFpOCNJ9HvXd63USwHn1etFxrMU=
-X-Received: by 2002:a05:600c:4e8a:b0:4a0:ec5:46d9 with SMTP id 5b1f17b1804b1-4a17b4b99a7mr4513795e9.0.1791262378092;
-        Mon, 05 Oct 2026 21:52:58 -0700 (PDT)
+        bh=6HCOU2yJch70xiRkaLkSG3uKGxSg+aF17fZmWG9Aov0=;
+        b=jceomXv34+GNk9v8oPLriCRxZ5r0klQtusb9GHx0C98P8xdvBjpP+0OpF1hl2pZayw
+         I8Uo55R8tmGarB/iDtf5Mf/BW1DA6dJLpD6JMQqzjgBvSdYn89gyxWUbJuZ6LjJNEeBa
+         Vrkbz3sGVODAGwqIaJKUPg1bC2iEnIc5Av4VhuUowDZ3b4/xU/zqQgovMXsAJw93+HCQ
+         5w4CAlDt2Wucfov4LAYD7BfDOJOoObspGuiJPK6ZbXQSBsAMmJ4Z+E6EOsrSLnUM3QE0
+         raPEm45jZx2Aw2D9JcDRNLHgpPOppaXpwTzh/h5X0sT0d3fOEn5zhXNmI8v3eAMP15YZ
+         dmdQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxQ6Mg3uXHJ4wEve0Wkb242IuBI9nuM14359UztDthtBt7SIRCPe1/sVKfQYXVvllygPP9j19k=@vger.kernel.org
+X-Gm-Message-State: AFuF++nVU1n2Uj3ExZB2U4mF+Olh1fISd4SGLzUvtbVdfeINp2YPVrgF
+	E8NOmm8+J3kuUQ3rzYi/3QgkN8B+5PbrqMhGfr8bXoqafax8A2mPPtft
+X-Gm-Gg: AYBFou1ejL0s+VeFLyv1gdDyVrx4N0D7ci+v/bBYyMnwCvkvHP6df8pOtVFE6Uqf/SY
+	4uh9O+gZjhWmfKddjPoefZ4ipmL+iR9OkfKvBP969ymo8ep4+/yVvJwYhI9yJbff2sKwF4SKbn4
+	Z7wB2BpQPJwGr2Hm4rx8cCGy/bf5XaQUAqszDn74MwbggUY6GAo0Xk1E6afaquFWowRk6XZInmp
+	eI1/Wcv7P5lVe9ao+/PgnIgmsL8VRM13KZ8ur0ux55Efhj5GldjP6gjLPBwG3HF2u8RIuLNkpKk
+	6doOHwi3mRxkClGdsBsZqy0FepUQfH61tK9R8MCkYiidYiyW+ntgB6zDHgxE6alryvlUqcEKezv
+	B50yLIr7hEkpobhf+bNt9d6IZWjGvpj7XC0+Nayc/CDu0lPsrinkeHsdBm1siw5s4dx79ueQkQq
+	fbxxZ4c+60VV9unvy8glIreQB0mlky1jl/+Gg9Kw4NgdOtE8w3PvF3U2RyPxgmDjbp29zl9ebkb
+	KVbm8q8aGoFq/56GoTNBDTl83tOuUXOvwxU6n6nxFgk04H9oiyYMAb3rVM+wI7cdFxxPG9KGyzN
+	Zo/p25Iptx+X4i2HyVS2NgrgnW31QtrXPLs=
+X-Received: by 2002:a05:600c:4e43:b0:4a0:c4:a1e0 with SMTP id 5b1f17b1804b1-4a17b53bec8mr3771995e9.9.1791262379239;
+        Mon, 05 Oct 2026 21:52:59 -0700 (PDT)
 Received: from localhost.localdomain (dynamic-095-117-040-097.95.117.pool.telefonica.de. [95.117.40.97])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178c53299sm72322225e9.11.2026.10.05.21.52.57
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178c53299sm72322225e9.11.2026.10.05.21.52.58
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 05 Oct 2026 21:52:57 -0700 (PDT)
+        Mon, 05 Oct 2026 21:52:58 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
 To: Namjae Jeon <linkinjeon@kernel.org>
 Cc: Karl Mehltretter <kmehltretter@gmail.com>,
@@ -67,9 +67,9 @@ Cc: Karl Mehltretter <kmehltretter@gmail.com>,
 	ntfs@lists.linux.dev,
 	stable@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/2] ntfs: fix kunmap_local() of advanced pointers in check_mft_mirror()
-Date: Tue,  6 Oct 2026 06:51:35 +0200
-Message-Id: <20261006045136.5911-2-kmehltretter@gmail.com>
+Subject: [PATCH v2 2/2] ntfs: fix kmap_local leak in ntfs_check_logfile()
+Date: Tue,  6 Oct 2026 06:51:36 +0200
+Message-Id: <20261006045136.5911-3-kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 In-Reply-To: <20261006045136.5911-1-kmehltretter@gmail.com>
 References: <20261006045136.5911-1-kmehltretter@gmail.com>
@@ -81,143 +81,104 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-check_mft_mirror() compares the mft records of a page with the mirror
-records by advancing kmft and kmirr by the record size for every record.
-It then passes the advanced pointers to kunmap_local(). After the last
-record of a page they point one page past the mapping.
+ntfs_check_logfile() calls kmap_local_folio() on every iteration of its
+search loop but kunmap_local() only once per folio. The loop visits
+positions 0, 512, 1024, 2048, 4096 and so on. With 4 KiB pages the first
+four are in one page, so a mount whose first LogFile folio is in highmem
+leaves three entries on the kmap_local stack of the mounting task.
+Kernels without HIGHMEM are not affected.
 
-With HIGHMEM kunmap_local() warns that the address does not match the
-top of the kmap_local stack. What it does next depends on how the
-architecture finds the page table entry:
+The leaked entries keep migration disabled. nr_pinned of the runqueue
+the mount ran on stays raised after the task exits, so taking that CPU
+offline blocks forever in balance_hotplug_wait().
 
-- 32-bit ARM looks the entry up by that address. It clears the entry of
-  the neighbouring fixmap slot and leaves the real mapping in place.
-  The next kmap_local() on that CPU that reaches the slot hits the
-  BUG_ON(!pte_none()) in __kmap_local_pfn_prot().
-- x86-32 takes the entry from the stack index, so the wrong address
-  does not select a wrong entry. In QEMU the mount carried on after the
-  warning.
+The fifth mount in one task reaches KM_MAX_IDX (12 leaked entries plus
+4 in the loop) and hits the BUG_ON() in kmap_local_idx_push():
 
-With 4 KiB pages and 1 KiB mft records the four mirror records fill
-exactly one page, so every mount whose $MFT and $MFTMirr folios are in
-highmem hits it. A fresh mkntfs volume on 32-bit ARM
-(multi_v7_defconfig, 256 MiB of highmem) fails on the first mount:
+  kernel BUG at mm/highmem.c:480!
 
-  WARNING: mm/highmem.c:623 at kunmap_local_indexed+0x254/0x26c, CPU#1: mount/85
-   kunmap_local_indexed from ntfs_fill_super+0x224c/0x35a0
-   ntfs_fill_super from get_tree_bdev_flags+0x1d8/0x2a4
-  ntfs: volume version 3.1, dev loop0, cluster size 4096
-  kernel BUG at mm/highmem.c:565!
-  PC is at __kmap_local_pfn_prot+0x210/0x214
-   __kmap_local_page_prot from ntfs_check_logfile+0x1fc/0x1210
+On x86-32 the generic entry code also warns on return to user space:
 
-Found with syzkaller. Kernels without HIGHMEM do not show it.
-kmap_local_folio() returns the direct map address there and
-kunmap_local() has no mapping to remove.
+  DEBUG_LOCKS_WARN_ON(current->kmap_ctrl.idx)
+  WARNING: include/linux/highmem-internal.h:17 at __do_fast_syscall_32+0x21e/0x550
 
-Keep the addresses returned by kmap_local_folio() and unmap with those.
+Map each page once, when it is read, and unmap that address.
 
-Fixes: 6251f0b0de7d ("ntfs: update super block operations")
+Fixes: 5218cd102aec ("ntfs: update misc operations")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
-Tested in QEMU on mainline 551c722f4080 with a fresh mkntfs volume and
-with the syzkaller program that found the bug.
+Tested in QEMU on top of patch 1 with a fresh mkntfs volume, on the ARM
+and x86-32 kernels described there. ARM and x86-32 behave the same in
+all three tests.
 
-  ARM     multi_v7_defconfig plus KCOV, virt, cortex-a15, 2 CPUs,
-          1 GiB RAM, 256 MiB highmem
-  x86-32  i386_defconfig plus HIGHMEM4G and NTFS_FS, q35, 2 CPUs,
-          2 GiB RAM, 1.1 GiB highmem
+- One mount on CPU 1 with taskset, then writing 0 to
+  /sys/devices/system/cpu/cpu1/online: without this patch the write
+  was still blocked after 60 seconds and new ssh logins hung. With it
+  CPU 1 goes offline. The same write before the mount works on both
+  kernels.
+- A program that calls mount(2) and umount(2) eight times in one
+  process: without this patch mounts one to four succeed and the fifth
+  hits the BUG_ON() in kmap_local_idx_push(). With it all eight
+  complete.
+- Three mounts in a row with mount(8) are clean. x86-32 no longer warns
+  when mount(2) returns.
 
-In the table, warning is the WARNING at mm/highmem.c:623 and BUG is
-the one at mm/highmem.c:565.
+ fs/ntfs/logfile.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-                          mainline            with this patch
-  ARM, mount              warning, then BUG   3 mounts clean
-  ARM, syzkaller program  warning, then BUG   3 runs clean
-  x86-32, mount           warning, no BUG     warning gone
-
-x86-32 still warns when mount(2) returns. That is the bug fixed by
-patch 2.
-
-The other kmap_local users in fs/ntfs unmap an address inside the
-mapped page. Only check_mft_mirror() advances the pointer it later
-unmaps.
-
- fs/ntfs/super.c | 20 +++++++++++---------
- 1 file changed, 11 insertions(+), 9 deletions(-)
-
-diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-index 4066bacabe37..a53f9997c152 100644
---- a/fs/ntfs/super.c
-+++ b/fs/ntfs/super.c
-@@ -959,7 +959,7 @@ static bool check_mft_mirror(struct ntfs_volume *vol)
- 	struct super_block *sb = vol->sb;
- 	struct ntfs_inode *mirr_ni;
- 	struct folio *mft_folio = NULL, *mirr_folio = NULL;
--	u8 *kmft = NULL, *kmirr = NULL;
-+	u8 *kmft = NULL, *kmirr = NULL, *kmft_base = NULL, *kmirr_base = NULL;
- 	struct runlist_element *rl, rl2[2];
- 	pgoff_t index;
- 	int mrecs_per_page, i;
-@@ -974,9 +974,9 @@ static bool check_mft_mirror(struct ntfs_volume *vol)
- 		/* Switch pages if necessary. */
- 		if (!(i % mrecs_per_page)) {
- 			if (index) {
--				kunmap_local(kmirr);
-+				kunmap_local(kmirr_base);
- 				folio_put(mirr_folio);
--				kunmap_local(kmft);
-+				kunmap_local(kmft_base);
- 				folio_put(mft_folio);
+diff --git a/fs/ntfs/logfile.c b/fs/ntfs/logfile.c
+index 1404664dacc0..ce38ce87f8fc 100644
+--- a/fs/ntfs/logfile.c
++++ b/fs/ntfs/logfile.c
+@@ -457,7 +457,7 @@ bool ntfs_check_logfile(struct inode *log_vi, struct restart_page_header **rp)
+ 	struct ntfs_volume *vol = NTFS_SB(log_vi->i_sb);
+ 	struct address_space *mapping = log_vi->i_mapping;
+ 	struct folio *folio = NULL;
+-	u8 *kaddr = NULL;
++	u8 *kaddr = NULL, *kbase = NULL;
+ 	struct restart_page_header *rstr1_ph = NULL;
+ 	struct restart_page_header *rstr2_ph = NULL;
+ 	int log_page_size, err;
+@@ -511,7 +511,7 @@ bool ntfs_check_logfile(struct inode *log_vi, struct restart_page_header **rp)
+ 
+ 		if (!folio || folio->index != idx) {
+ 			if (folio) {
+-				kunmap_local(kaddr);
++				kunmap_local(kbase);
+ 				folio_put(folio);
  			}
- 			/* Get the $MFT page. */
-@@ -986,7 +986,8 @@ static bool check_mft_mirror(struct ntfs_volume *vol)
- 				ntfs_error(sb, "Failed to read $MFT.");
- 				return false;
+ 			folio = read_mapping_folio(mapping, idx, NULL);
+@@ -520,8 +520,9 @@ bool ntfs_check_logfile(struct inode *log_vi, struct restart_page_header **rp)
+ 						idx);
+ 				goto err_out;
  			}
--			kmft = kmap_local_folio(mft_folio, 0);
-+			kmft_base = kmap_local_folio(mft_folio, 0);
-+			kmft = kmft_base;
- 			/* Get the $MFTMirr page. */
- 			mirr_folio = read_mapping_folio(vol->mftmirr_ino->i_mapping,
- 					index, NULL);
-@@ -994,7 +995,8 @@ static bool check_mft_mirror(struct ntfs_volume *vol)
- 				ntfs_error(sb, "Failed to read $MFTMirr.");
- 				goto mft_unmap_out;
- 			}
--			kmirr = kmap_local_folio(mirr_folio, 0);
-+			kmirr_base = kmap_local_folio(mirr_folio, 0);
-+			kmirr = kmirr_base;
- 			++index;
++			kbase = kmap_local_folio(folio, 0);
  		}
- 
-@@ -1006,10 +1008,10 @@ static bool check_mft_mirror(struct ntfs_volume *vol)
- 					"Incomplete multi sector transfer detected in mft record %i.",
- 					i);
- mm_unmap_out:
--				kunmap_local(kmirr);
-+				kunmap_local(kmirr_base);
- 				folio_put(mirr_folio);
- mft_unmap_out:
--				kunmap_local(kmft);
-+				kunmap_local(kmft_base);
- 				folio_put(mft_folio);
- 				return false;
- 			}
-@@ -1045,9 +1047,9 @@ static bool check_mft_mirror(struct ntfs_volume *vol)
- 		kmirr += vol->mft_record_size;
- 	} while (++i < vol->mftmirr_size);
- 	/* Release the last folios. */
--	kunmap_local(kmirr);
-+	kunmap_local(kmirr_base);
- 	folio_put(mirr_folio);
--	kunmap_local(kmft);
-+	kunmap_local(kmft_base);
- 	folio_put(mft_folio);
- 
- 	/* Construct the mft mirror runlist by hand. */
+-		kaddr = (u8 *)kmap_local_folio(folio, 0) + (pos & ~PAGE_MASK);
++		kaddr = kbase + (pos & ~PAGE_MASK);
+ 		/*
+ 		 * A non-empty block means the logfile is not empty while an
+ 		 * empty block after a non-empty block has been encountered
+@@ -574,7 +575,7 @@ bool ntfs_check_logfile(struct inode *log_vi, struct restart_page_header **rp)
+ 		 * find a valid one further in the file.
+ 		 */
+ 		if (err != -EINVAL) {
+-			kunmap_local(kaddr);
++			kunmap_local(kbase);
+ 			folio_put(folio);
+ 			goto err_out;
+ 		}
+@@ -583,7 +584,7 @@ bool ntfs_check_logfile(struct inode *log_vi, struct restart_page_header **rp)
+ 			pos = NTFS_BLOCK_SIZE >> 1;
+ 	}
+ 	if (folio) {
+-		kunmap_local(kaddr);
++		kunmap_local(kbase);
+ 		folio_put(folio);
+ 	}
+ 	if (logfile_is_empty) {
 -- 
 2.53.0
 
