@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A9B93B1EEE
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C102F3C942C
 	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 21:33:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791322383; cv=none; b=OvkeG0pgP78zRF7gBEJhzl56zDDueoWdCGZxOxnU7FhVq1NzAIS52IybFmjLfKsot1QS6V7AQel1HHZM6G6dmlMP6tgxjm32dNZi8MW08RKTEz/NhngulpkSxPPRt9LkYF2Omldlsz+eIaDtuenKCTlc+XRNfLqO0R0cRtBPSvg=
+	t=1791322384; cv=none; b=lm4r53hBILi0JSpM9eUTNSFHzkYfD34oDn6dzmA7FSjulSDQ80aTSI41PtKGMlaK/pxZ/oayZaCc3ijBKgi0qNFg/FVTZm3MRcz0ONqZP9grm8xLZmTogNf00+dxDzJf3yiDxKGSC2jLKaetdr/mD4duUWSjDHG2PrZoAvuUzHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791322383; c=relaxed/simple;
-	bh=5797H9OVgdNkLSu+x3DNV+fksyasmeuC1qdo64TJ79E=;
+	s=arc-20240116; t=1791322384; c=relaxed/simple;
+	bh=NbcifbSmGA5MTz0N/Tkg42pBPNstLS2l8pPAQ2iDry8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FBiX0ncHnNLyW2Ttn855/LIYzS6IMcKHroddft4H4xLkmbKtAxNyZ9jiIs9gRyL/srw2ZLz4zBFE4y2m/x95guXhlFlRlnbYhgoBDK5pJnLmJu13OwU/fu7yUs6IBCQUnkhKGRLXe2/sFMKDyIphGCdBeIgOhYEntb8B0DE0ghw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F1CcNB6a; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=nSRdJS5S8e+/a0eaVGj8VLP+/v/bdWGTy6U76DhDnwRbthXAUJ3AF1Ng+N+xwhtRqamh9ouWtMBJNfkWUO7JwKxH181TxdnTpItr+Y0LhhBNxU55e9AlxXvFll+3brWC+BJxJS9EmO51c2URnUELzMzqLSwc663MpaIbF0Cn1Ig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LJpt2+/R; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F1CcNB6a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2D521F0089B;
-	Tue,  6 Oct 2026 21:33:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LJpt2+/R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DE9F1F0089C;
+	Tue,  6 Oct 2026 21:33:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1791322382;
-	bh=Je7lygkhUJs4DPa6qvBSf01Vp6hp/3gFUFE5x0RBy94=;
+	bh=dKKO99K+lUdOUM2cWuE1Yu5LfXDMdRiZi09VJfAQJPQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=F1CcNB6atFakPmgqLWx2I410WLUdihar0ofgE5hz/5koBS5ug14+fH2fuyG62HtOj
-	 u9LHUSt9nZouc6kwoHiqpjjLu7WNpCeT+tHrGpv2muZ3tMkfEyhteqiH6aQpdFuBpw
-	 u4gkAkF3MILutMIf75NnQgLZSchBohU21k1ACSvUvzxMeGMdgqfJx7WCqpI8RE1Vwn
-	 RULsXhg5/whN7ILf+ZBq9baI1OeXxzLrXye7Vfedajen4ghbkZqQKPQFP57Qiet31a
-	 Lz5wEFPiuISXRpNtj5fhhT2kgxvUrFQChCOmYYgxkonoAIju0+DYAJB/sBg5sED+Uz
-	 52UxjSVDgqvnA==
+	b=LJpt2+/R3DTA9113oyf43J3nrLglkhSjQJICljcloFJtrxWDm1XQqxiI0udPjxt22
+	 nGtZT2ccxCXbbCmbRIEHAIusCL8seOwTwchhUI3a241nanQd7cN869Gx8LPZ4OeKQn
+	 sGY1oFspzH48JuXD+jbH2mV53dFUhScHwb1MdaFKPFdsv/Tw4ejCn8lOHoFNES0Qx4
+	 imrDEDTnkhxWnn+p1j0XlQIMxbuejiqjvSiKLRGqNnkXHaQxaEe3Y52IGXERABPXaE
+	 yj5TzdQ+n4ek8hmRlGt9XChnh7PV01E1YoKCP+Chh2L1lukU9RRrAZFCHil0eE9Rfj
+	 Rev0RdzrUIyyg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>,
-	Stefan Teodorescu <fane@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
+Cc: Zhao Li <enderaoelyther@gmail.com>,
+	Johannes Berg <johannes.berg@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] KVM: SVM: Use the active VMCB's MSR bitmap when checking if MSR is intercepted
-Date: Tue,  6 Oct 2026 17:32:58 -0400
-Message-ID: <20261006213143.984880-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] wifi: mac80211: account proxy paths against the mesh path limit
+Date: Tue,  6 Oct 2026 17:32:59 -0400
+Message-ID: <20261006213144.980874-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100545-amaze-riverbank-da9c@gregkh>
-References: <2026100545-amaze-riverbank-da9c@gregkh>
+In-Reply-To: <2026100531-preformed-tinfoil-ff4b@gregkh>
+References: <2026100531-preformed-tinfoil-ff4b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,54 +45,70 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sean Christopherson <seanjc@google.com>
+From: Zhao Li <enderaoelyther@gmail.com>
 
-[ Upstream commit 9e06bbb9ade7cdf28d4a3b5b14e5812881c8df85 ]
+[ Upstream commit a5f35d4b112af1415ff06bd501c8cc26cc08aa8b ]
 
-Use the MSR permission bitmap of the active VMCB instead of assuming that
-KVM is always using vmcb02's bitmap when L2 is active, as KVM uses msrpm02
-if and only if L1 wants to intercept MSR accesses, i.e. if and only if KVM
-needs to merge msprm01 with msrpm12.
+Proxy-path churn can drive the interface path counter negative and let
+later mesh path additions exceed MESH_MAX_MPATHS.
 
-Don't bother tracking the virtual address of the bitmap that's being used,
-as __va() is cheap on x86, and caching the virtual address would introduce
-yet another source of potentially stale information.
+mesh_path_free_rcu() decrements the interface mpaths counter for entries
+from both the mesh and proxy path tables, but mpp_path_add() never
+reserves a slot in that counter. Removing or expiring a proxy path
+therefore returns a slot that was never charged.
 
-Fixes: b2ac58f90540 ("KVM/SVM: Allow direct access to MSR_IA32_SPEC_CTRL")
+mesh_path_add() uses the same counter to enforce MESH_MAX_MPATHS, so once
+it falls below the number of installed paths the limit no longer holds.
+
+Reserve the shared quota before allocating a proxy path and release it on
+every unsuccessful addition. Mesh and proxy paths now share one
+1024-entry budget, so mpp_path_add() can return -ENOSPC at that limit.
+
+Fixes: ece1a2e7e860 ("mac80211: Remove mesh paths when an interface is removed")
 Cc: stable@vger.kernel.org
-Reported-by: Stefan Teodorescu <fane@google.com>
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Message-ID: <20260826195833.844526-1-seanjc@google.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-[ sashal: Adapted direct svm access to to_svm(vcpu) for the existing kvm_vcpu interface. ]
+Assisted-by: LLM sparse kasan
+Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+Link: https://patch.msgid.link/20260916113649.28315-3-enderaoelyther@gmail.com
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+[ sashal: Omitted the mesh_fast_tx_flush_addr() else branch because the helper is unavailable. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/kvm/svm/svm.c | 12 +-----------
- 1 file changed, 1 insertion(+), 11 deletions(-)
+ net/mac80211/mesh_pathtbl.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index 62c7e57530216..961ac6b55e4f8 100644
---- a/arch/x86/kvm/svm/svm.c
-+++ b/arch/x86/kvm/svm/svm.c
-@@ -825,17 +825,7 @@ static bool msr_write_intercepted(struct kvm_vcpu *vcpu, u32 msr)
- 	u32 offset;
- 	u32 *msrpm;
+diff --git a/net/mac80211/mesh_pathtbl.c b/net/mac80211/mesh_pathtbl.c
+index a0ef296e3e4f3..f2970f33f96c5 100644
+--- a/net/mac80211/mesh_pathtbl.c
++++ b/net/mac80211/mesh_pathtbl.c
+@@ -449,10 +449,15 @@ int mpp_path_add(struct ieee80211_sub_if_data *sdata,
+ 	if (is_multicast_ether_addr(dst))
+ 		return -ENOTSUPP;
  
--	/*
--	 * For non-nested case:
--	 * If the L01 MSR bitmap does not intercept the MSR, then we need to
--	 * save it.
--	 *
--	 * For nested case:
--	 * If the L02 MSR bitmap does not intercept the MSR, then we need to
--	 * save it.
--	 */
--	msrpm = is_guest_mode(vcpu) ? to_svm(vcpu)->nested.msrpm:
--				      to_svm(vcpu)->msrpm;
-+	msrpm = __va(__sme_clr(to_svm(vcpu)->vmcb->control.msrpm_base_pa));
++	if (!atomic_add_unless(&sdata->u.mesh.mpaths, 1, MESH_MAX_MPATHS))
++		return -ENOSPC;
++
+ 	new_mpath = mesh_path_new(sdata, dst, GFP_ATOMIC);
  
- 	offset    = svm_msrpm_offset(msr);
- 	bit_write = 2 * (msr & 0x0f) + 1;
+-	if (!new_mpath)
++	if (!new_mpath) {
++		atomic_dec(&sdata->u.mesh.mpaths);
+ 		return -ENOMEM;
++	}
+ 
+ 	memcpy(new_mpath->mpp, mpp, ETH_ALEN);
+ 	tbl = &sdata->u.mesh.mpp_paths;
+@@ -465,8 +470,10 @@ int mpp_path_add(struct ieee80211_sub_if_data *sdata,
+ 		hlist_add_head_rcu(&new_mpath->walk_list, &tbl->walk_head);
+ 	spin_unlock_bh(&tbl->walk_lock);
+ 
+-	if (ret)
++	if (ret) {
+ 		kfree(new_mpath);
++		atomic_dec(&sdata->u.mesh.mpaths);
++	}
+ 
+ 	sdata->u.mesh.mpp_paths_generation++;
+ 	return ret;
 -- 
 2.53.0
 
