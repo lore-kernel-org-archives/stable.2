@@ -1,44 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E02751A6822
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 21:36:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCED71A6822;
+	Tue,  6 Oct 2026 21:36:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791322602; cv=none; b=AYpLzMb3LfvBfdPGHSplAUrwR0AjdQ3K3fxITPmfaMpE10I4hGp+Mbg5qS7Y0WRibvleKECK/1MhdRfkBa03/3mc24sRTXhpjoT7SXSU/vV9DedgaW5fLLMNUjnONf8lulgcMXQBDyxM+0H/wvSj4ESGVJ9SzYHs60FeyGo73xM=
+	t=1791322605; cv=none; b=H48C6Dm1UgsU5j0H7dc0e0mEHdWm5B+1mZxd5ycYy6v2DbaTUJqYCeaJpsq1/XJBv/S8yPZ/YDwz76pZzn48aAij31v+fRr13QjM6IpdXRnfKjrnqF4PG898gIP93bdgdqJ1mu6hCGUsd7g5lmWHIzjK6vbcUgql7lh20k4L4xk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791322602; c=relaxed/simple;
-	bh=3I7yJ9T/CHkqZ1TIaVNi36IwynWs6PsJfCZv3+9zsKw=;
+	s=arc-20240116; t=1791322605; c=relaxed/simple;
+	bh=sdS5EMotLbBFut5HidI6DaxqgnT0fZqEyOmzsGz62T0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=s/hGDhCROqAur2Hgs5mna8//u1u0PT6pM1mQ1mGcU2CUnl3mF4EP4WmqRP3KY7voIxgxU+56qfY6eqycKBMFdQU+c0ojCpK+rdmv8ZhBtlZbAYpxcgRxfs1qAB1FMv3tcyhKZrHtenO2RimJ8KqjRZspT+Gp3OZv3sl8+6zkaUA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bETaQVSj; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Lp1kl1Q5jNJrenHLOYHd1ZFKd/2G2LmOV+r+8O4xfGIhdSqjr9ItkHwMr54B6L2O/CojJ6ARha4A/dTyq5SDEoswPMx8yiPsMDJ28X8g4B6irl2Do37PyA3oSres+pGKPEbkFYF2q9SE1Wzm7AVniBoEud60KIvbX3MB8KFU+eQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z+oPLv+x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bETaQVSj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BE241F0089B;
-	Tue,  6 Oct 2026 21:36:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z+oPLv+x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 460791F0089C;
+	Tue,  6 Oct 2026 21:36:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791322601;
-	bh=yMOJpoio2NiP24Hc1tXOwhQOI68TKExY6JF5u4W5FKQ=;
+	s=k20260515; t=1791322604;
+	bh=H00qTEtUiM2ixmGGSKOBHZyblRAnzgYmrRT3CM/7lHg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bETaQVSjX0gAkDe4Iv2Kw9+TbcYIL4bINdK153suAcpATgBjn0gMQAL6B20LxiH8J
-	 rqWboxbTwO15LgsH7S1Y0KIBOG55xKmaKEcEvXF9ia7sq2lEWzjfDbny9JHpdyN0qk
-	 33xpV81o+9q/5JvhsZPxTeoaNq5aWKECJ3Tss0x3bBFQyx4MWht3iyokaTUpggd4K2
-	 LSkPNhFgDQrPgxcuQ/zX/aVtp5Jnijke3sx0OIQjUuFUIHu1/qonfjUG+HdDmq5N1v
-	 Ec8DUcPf1fUq/Y0lQTn9hQQ2b6pGTaw+WnUovxey59rSMdHcTRy1pUgFVnDBdNd+VZ
-	 xLSfuVfztph9Q==
+	b=Z+oPLv+x6i+AHS8e9w1HbgrAxZbSM7irn3ek7UE+wnQoYNqGqiLtWR4gyLqiBiBMs
+	 TP3pwzvT5a8EGyYHyvUMa8ytZ2OFDb508K4kS4dQMxtxKWVWu/aYflAaFofxzqEdCO
+	 1HKxmRdVKHOMoHJX3C/c5CNmH12ZPefFmbVhul4jIgMfo3xYVtsLknUMmxUrvkSlje
+	 e7z0S2fp/illBAKo8TOVoLKYuY1Pv7BoQ3FZK9hf9lgqfPgIn/9uZVRRMRv0sGam3s
+	 lEiEJ2WB5XhWcedV03Hxj8rXee64g4NtJc2S8GkTBNObNtFc+20XxMyFsYi787ZpMk
+	 XXk1K6rQF2tiQ==
 From: Sasha Levin <sashal@kernel.org>
-To: Bjoern Doebel <doebel@amazon.de>
+To: Eric Dumazet <edumazet@kernel.org>,
+	=?UTF-8?q?Fabian=20Gr=C3=BCnbichler?= <f.gruenbichler@proxmox.com>
 Cc: Sasha Levin <sashal@kernel.org>,
+	Michael Chan <michael.chan@broadcom.com>,
+	Joe Damato <joe@dama.to>,
+	netdev@vger.kernel.org,
+	Pavan Chebbi <pavan.chebbi@broadcom.com>,
+	regressions@lists.linux.dev,
 	stable@vger.kernel.org,
-	Jiangshan Yi <yijiangshan@kylinos.cn>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Paulo Alcantara <pc@manguebit.org>
-Subject: Re: [PATCH 6.1] smb: client: clear setuid/setgid bit on write with cifsacl/modefromsid/posix extensions
-Date: Tue,  6 Oct 2026 17:35:51 -0400
-Message-ID: <2026-10-06-1-daily-reply-0019-smb-kill-suid-tooling-6.1@kernel.org>
+	Stefan Fleischmann <sfle@kth.se>
+Subject: Re: [REGRESSION] Commit 447cbe95ebb9 causes IOMMU DMA faults on macvlan/vlan with bnxt_en
+Date: Tue,  6 Oct 2026 17:35:52 -0400
+Message-ID: <2026-10-06-1-daily-reply-0020-bnxt-en-vlan-447cbe95@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <asStCruK73iccnIs@amazon.de>
-References: <asStCruK73iccnIs@amazon.de>
+In-Reply-To: <20261005145430.12777c2c@nargothrond>
+References: <20261005145430.12777c2c@nargothrond>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,14 +51,15 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> I'm guessing you found that via some kind of tooling - would you mind
-> sharing so that I can make sure of such things ahead of submission next
-> time?
+> I'm testing the patch on v6.18.55, and it looks good so far. 5 hours and
+> counting without any issues.
 
-No special tooling - I used AI review for this, but there's no harness to
-share.
-
-Looking forward to the v2.
+Thanks for the bisect. The root cause is the bnxt_en small-packet padding
+and DMA length bug Eric Dumazet identified, not 447cbe95ebb9 ("vlan: fix
+skb_under_panic and races when toggling HW VLAN offload") itself, so we
+will not revert the vlan fix. Once Eric's "bnxt_en: fix DMA mapping length
+for padded small packets" lands in mainline, we will backport it to all
+affected stable trees.
 
 -- 
 Thanks,
