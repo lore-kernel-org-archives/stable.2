@@ -1,46 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13AFB4AA57C
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 21:36:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 445383D4138;
+	Tue,  6 Oct 2026 21:36:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791322579; cv=none; b=DIS88Dkr9OStz89xTXdXPMUP5e5lRPRZ6ua3NlBxzYVOz3QL0e4gUIERfeLvvGA/ThAeWbtxLjRYmGb+5ZfMPvy5ZCSHbAhiz6jhzXmwv0u2eBFDKXYjkiL2To6u8BgKQFuTOXE9JWxr42vChuh0L5HBklfYcgEz+MfQwbRF50k=
+	t=1791322581; cv=none; b=souDiw0SDcbt5TKfesanHHgqVsxecaaleXfzajIXLUlqC8ZDnbkhUiI/inDJoauxAQKhYTidVEqkeyaafA+OBNlo3hA4EQXkzVOVEaq9vwyfY8SFj7v2t/cp8Y6+qF/Og54LJxpecxMecrDMxplu2PDQtBpxNPTGupUFx6cgQWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791322579; c=relaxed/simple;
-	bh=+oIOcj8VQKn8rzBNXnGEbEI1dDgL2TrzpG6uUFSmaIQ=;
+	s=arc-20240116; t=1791322581; c=relaxed/simple;
+	bh=X/u9/zQouyMql90kHUrJbahLtW+juletInkJKAapzVY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Wh8OYx0gVs7LiywsbHtIU2vWazUpXncLv3Su7OfARSlYUxi5p5gOJ2ZIkx6b/Uxahhg+8y/74KRzUskCTNtpUggnyQafwapY7kNT/p92k5bNyfJSSqey0m2KuI/H7ceTsYJsgyb7sGRgrr7jkVOWP752UJ+8VeN2y1irXaeb3rU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IaRAjPjy; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Tnvz1Z3bcLDLWSmqMFBQKMkeKQ9zZDkVM0wiMHyzArcguoJ3SvKCSuhrKvSvZSEO+rAMHBQ/gl2pav5hxV+XkyQxH31sC7sMXeocIdnYm/OIB70I09L3Ftqw/1iukFI9PGE6PdI/sbqjvoMXpSI39ppxLxDE27MkG0/O5K52IYA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YuCiQJ5g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IaRAjPjy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE1D11F0089C;
-	Tue,  6 Oct 2026 21:36:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YuCiQJ5g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 234A61F0089B;
+	Tue,  6 Oct 2026 21:36:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791322577;
-	bh=VfDGpSx+5kTu/BBw6xoWODccHJOIX+rnJJVW9O4sKZ4=;
+	s=k20260515; t=1791322579;
+	bh=9chzaMnrqzwZ9cpwqYC3aGHe9/nrZ3RT/cFttQHPTcw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IaRAjPjyzBKgVPjB2mUm1OlinfaAqoSV7NGEtMs7i4EyVT9omFqSZULyoRO/07bSA
-	 ch9ZSRBGpWiVoNf5nIjlQSyiM8kZgfK+RjSjzT61cFCo1G54CzhS7Bdyejc37xbJFM
-	 mRK/EScoJn/EWRP1Hlrp5foRVE+CoCl6nh4rR14/uaadMhYC7T1mGlIxY5bG14zsGO
-	 9DIQxQKsUGxx1Sih1AkfOVntzPyYdTO1er4qvh/3Pi54vkyLSL1D7n4Ew07F0m+wvl
-	 4ZZIMlxCvnnAVm2mB/A6j6iql2ZVyqdKoyQRxJ8PBJc18D3NeNzjjUBW+uFHQCRqyZ
-	 sNU3yFJo8HQFw==
+	b=YuCiQJ5gQI0F/xMKPNviCEOiMLu1Zq0bYOh3dDSXpdeSHVKGQypknrOPDaKeFulDR
+	 dSDyejOsi0MYzSqj1cEVwxTs+CKzsptmEHbimBpRMiq/JtFP/WraYVlRtvaLSW6qHY
+	 YXBAm7HepRVB4Hxv065eVYrZQVX/EuLR13TerUYRlkZXyr9Knu+/iD+T469YgcoJRY
+	 DWGUFAiCNxdKX2iEQ/janOdzGoWab12BdgTiL2zzPnbR+Oh9540ztI6PsvI/WcQSAU
+	 sRK08Sd7kAKjKs7f7LrzMYjl4iljNZ5ddPvZrLRnicTNbOsz8qIF2NZ5Zepv4DYVsa
+	 zeKsTTZb1ffjA==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	"James E.J. Bottomley" <jejb@linux.ibm.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	linux-scsi@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Benjamin Robin <benjamin.robin@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Eric Dumazet <edumazet@google.com>,
-	David Ahern <dsahern@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	"Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Subject: Re: [PATCH] ipv6: use RCU in ip6_output()
-Date: Tue,  6 Oct 2026 17:35:38 -0400
-Message-ID: <2026-10-06-1-daily-reply-0006-ipv6-rcu-ip6-output-6.12@kernel.org>
+	Simon Liebold <simonlie@amazon.de>
+Subject: Re: [PATCH 5.15.y] Revert "scsi: sd: sd_zbc: Use logical blocks as unit when querying zones"
+Date: Tue,  6 Oct 2026 17:35:39 -0400
+Message-ID: <2026-10-06-1-daily-reply-0007-sd-zbc-revert-5.15@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261005-cve-2026-40158-v1-1-98505c5ee970@bootlin.com>
-References: <20261005-cve-2026-40158-v1-1-98505c5ee970@bootlin.com>
+In-Reply-To: <20261005150713.3919586-1-simonlie@amazon.de>
+References: <20261005150713.3919586-1-simonlie@amazon.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,12 +48,14 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> [ Upstream commit 11709573cc4e48dc34c80fc7ab9ce5b159e29695 ]
->
-> Use RCU in ip6_output() in order to use dst_dev_rcu() to prevent
-> possible UAF.
+> This reverts commit 9c78f3cf7785f3de5afb3d632f0d81c2cb0e9020, the 5.15.y
+> backport of upstream 43af5da09efb.
 
-Queued for 6.12, thanks.
+Thanks for the analysis. Queued for 5.15 with the reverted commit
+corrected to 9c78f3cf7785 ("scsi: sd: sd_zbc: Use logical blocks as unit
+when querying zones"). 5.10 has the same problem, so we also queued the
+matching revert of cab3909d1be5 ("scsi: sd: sd_zbc: Use logical blocks as
+unit when querying zones") there.
 
 -- 
 Thanks,
