@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D54EB39CCE3
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 22:55:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E1774AF678
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 22:56:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791327335; cv=none; b=qaWsGkrnEdNzppj6NOlWmOuD/QPF0wiLu2vzYRF8LR9HNXG7gyv7Vvw/k868JRJUtFHWD1aSXVeE0wCx2Q/EcpWb6Eg5Kdx8gHr2a84rNe8rpDG+qvxUzfeGOyXaED75nDFGYxBtmqNgB3sT4h7Gh1PMMdfQqA3mfi36RdQqLfM=
+	t=1791327367; cv=none; b=a/uC8f2P5XocOIeieeEv8qK2P1gGfv8/KPRS68cmbLH3INKmZJ3Dof/bCTtBd7/GmdAqn1rUh6IzbJHtAl4cVbHiSA5OPTlY3yU8ET4ln8/Pbxn57O+uSoBx3Z5+wg6mHPMSY+XRI3LVNcj8NH6Q5QoNtsQJXJUPruztMnSj+X8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791327335; c=relaxed/simple;
-	bh=r0oBpPJhIztKbhOXlaCL7xFsiY6BXswKk3OHdzhreM4=;
+	s=arc-20240116; t=1791327367; c=relaxed/simple;
+	bh=qVu2peO8dW8wJ98nngjwnufMcbkVC4y1/uO1UrMswHc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nXIopAkXbIeQQhGKLiw8XdYMgADvgaTrBLdehCAZi4YdnjMYxlYCD/I33EQS82z5HnwXFWQTT8xyDYdo2gwDdzDqILErkEjtYKzi8m98n3HYR07Nj5mnEFkPTaMimTXWUzkCteicFAxQ9/4NRnilo5Wq0qBjYDGmwV2KSadruh8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fWFz46RQ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=MqSPiQmTzD4nFsPbau0KCOhpIcAhtaLaJH6QfnjNDbkBdln43rpco4Uoo9nvskY8fU0EGEAbwFIp04S38JNNQG+GMB6KldYB/cOYW3kzFI5pDpVlgVzKQA0s8tDdWUYELfFMA/MS+N4ok/vI30AaqH4b1FW8CycmtqA6uQE5Wj0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KH2uQ0Ls; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fWFz46RQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 589861F0089C;
-	Tue,  6 Oct 2026 22:55:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KH2uQ0Ls"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5BF01F0089B;
+	Tue,  6 Oct 2026 22:56:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791327335;
-	bh=8nQ2h1e0mla8xE+ByjyDow+DFiBLsR4U1qKzqDnUnyQ=;
+	s=k20260515; t=1791327366;
+	bh=urAd1hvdh4eXnWxA9X5t72XO1lJ/Rna2DPPJPqUxvsg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fWFz46RQWP3KWSRLLP/RS0Qt78d8VBOiEDYLKgAT8Y5JC+vlj3Cd6c6/+fBCMYlCr
-	 2L8SU0qy9/QLkyfAeE5ITq8u6e5m+lBXu/C9n3xZ+Xy+jwvhRcHutM8yoFj04lPBWD
-	 GU7RJXUPTR2jG1wh+WFDQHkQzlir1YQvL8IJn8lQyQ0RV3rwZxdWwa0qPurKP8sPf+
-	 G4YTL99QhxjgWUUhvvTJjB/+lUNm/M8p2+Py1T+7NPLYX2xksk+lg1GSr88i1ij/Yz
-	 KgPXeVDRtY76OPnBzWd7w4DeEYzc7ImHBIEo3ISbJKxygYaUT2eyAIJbeMdOtaYIQn
-	 0DWDorkJmFCPg==
+	b=KH2uQ0LsZVkegXn6NgWMjFg/ueKZGQbGST8rgyzw1oLVgJQ6YTfTa2QqFH1Uar6V6
+	 dnG2bVGL+jm/UgBIEPvZtcsvqVkEfzBAs2rEY3IzHRdEfyG9g+QDXEL2dJ8Zb0wZW4
+	 mVGAIIFskmnzbzKokvDi82xpn684eqls5sIJxFN40DFK/EcG0sKy1ni+umxEbvxQdW
+	 0L6FrZQV/ZL474wLWq4DZWb+ELh4lExchJgelOH58dNn4rR1IJeblRx6ZO/J6WJmL/
+	 JOupo2BOXGORuJVbuqVI/p3wC+97ioKZ4S0RfSU0XdmDYel1QRx53emN+wls6yKKNb
+	 GY+gBJiwpVW/g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zhiling Zou <zhilinz@nebusec.ai>,
-	Vega <vega@nebusec.ai>,
-	Johannes Berg <johannes.berg@intel.com>,
+Cc: Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] wifi: mac80211: keep paired old chanctx alive
-Date: Tue,  6 Oct 2026 18:55:31 -0400
-Message-ID: <20261006225443.1043321-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] thunderbolt: Fix KASAN reported use-after-free when request is canceled
+Date: Tue,  6 Oct 2026 18:56:03 -0400
+Message-ID: <20261006225448.1129500-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100551-filtrate-backlands-1f8b@gregkh>
-References: <2026100551-filtrate-backlands-1f8b@gregkh>
+In-Reply-To: <2026100521-substance-schilling-0095@gregkh>
+References: <2026100521-substance-schilling-0095@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,92 +45,236 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhiling Zou <zhilinz@nebusec.ai>
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
 
-[ Upstream commit 3412e9a800786d1dec4a58367db1cba275e7ef11 ]
+[ Upstream commit a02188ddc24b7872f0c5e0c5873f827318717803 ]
 
-An in-place replacement keeps reciprocal replace_ctx pointers between
-the old WILL_BE_REPLACED chanctx and the new REPLACES_OTHER chanctx.
-However, the early free paths only consider assigned and reserved link
-users when deciding whether to free the old chanctx.
+Alan reported that when doing stress testing sometimes KASAN notices
+use-after-free during control channel operation (stripped down keeping
+the relevant parts):
 
-That lets the old chanctx be freed too early while the replacement
-partner still points back to it, either when the last assigned link is
-released or when that link successfully reassigns to another existing
-context. Later unreserve and switch-finalization paths can then follow a
-stale replace_ctx pointer.
+ BUG: KASAN: slab-use-after-free in tb_cfg_request_sync+0x240/0x250 [thunderbolt]
+ Read of size 24 at addr ffff88811067f290 by task kworker/u40:2/1760
+  <TASK>
+  tb_cfg_request_sync+0x240/0x250 [thunderbolt]
+  tb_cfg_read_raw+0x367/0x510 [thunderbolt]
+  tb_cfg_read+0xec/0x240 [thunderbolt]
+  tb_port_get_link_generation+0x258/0x420 [thunderbolt]
+  tb_usb3_consumed_bandwidth+0x1c1/0x2c0 [thunderbolt]
+  tb_tunnel_consumed_bandwidth+0xfd/0x910 [thunderbolt]
+  tb_available_bandwidth+0x5f2/0xeb0 [thunderbolt]
+  tb_recalc_estimated_bandwidth+0x2a0/0x1bc0 [thunderbolt]
+  tb_handle_dp_bandwidth_request+0x1897/0x5e20 [thunderbolt]
+  process_one_work+0x675/0x1230
+  worker_thread+0x5e6/0xf70
+  kthread+0x365/0x470
+  ret_from_fork+0x54d/0x710
+  ret_from_fork_asm+0x1a/0x30
+  </TASK>
 
-Keep a paired old chanctx alive until the replacement pair has been torn
-down. Apply the same check to both __ieee80211_link_release_channel()
-and ieee80211_link_use_reserved_reassign(). If the replacement is later
-abandoned, ieee80211_link_unreserve_chanctx() already tears down the
-pairing before freeing the old chanctx once no users remain.
+ Allocated by task 1760:
+  __kmalloc_cache_noprof+0x1ee/0x550
+  tb_cfg_read_raw+0x1d3/0x510 [thunderbolt]
+  tb_cfg_read+0xec/0x240 [thunderbolt]
+  tb_port_get_link_generation+0x258/0x420 [thunderbolt]
+  tb_usb3_consumed_bandwidth+0x1c1/0x2c0 [thunderbolt]
+  tb_tunnel_consumed_bandwidth+0xfd/0x910 [thunderbolt]
+  tb_available_bandwidth+0x5f2/0xeb0 [thunderbolt]
+  tb_recalc_estimated_bandwidth+0x2a0/0x1bc0 [thunderbolt]
+  tb_handle_dp_bandwidth_request+0x1897/0x5e20 [thunderbolt]
+  process_one_work+0x675/0x1230
+  worker_thread+0x5e6/0xf70
+  kthread+0x365/0x470
+  ret_from_fork+0x54d/0x710
+  ret_from_fork_asm+0x1a/0x30
 
-Fixes: 5bcae31d9cb1 ("mac80211: implement multi-vif in-place reservations")
+ Freed by task 926:
+  kfree+0x18f/0x4a0
+  tb_cfg_request_put+0xb7/0xe0 [thunderbolt]
+  tb_cfg_request_work+0x82/0x120 [thunderbolt]
+  process_one_work+0x675/0x1230
+  worker_thread+0x5e6/0xf70
+  kthread+0x365/0x470
+  ret_from_fork+0x54d/0x710
+  ret_from_fork_asm+0x1a/0x30
+
+ Second to last potentially related work creation:
+  __queue_work+0x575/0xd00
+  queue_work_on+0x77/0x80
+  tb_cfg_request_cancel+0xc7/0x260 [thunderbolt]
+  tb_cfg_request_sync+0x1f6/0x250 [thunderbolt]
+  tb_cfg_read_raw+0x367/0x510 [thunderbolt]
+  tb_cfg_read+0xec/0x240 [thunderbolt]
+  tb_port_get_link_generation+0x258/0x420 [thunderbolt]
+  tb_usb3_consumed_bandwidth+0x1c1/0x2c0 [thunderbolt]
+  tb_tunnel_consumed_bandwidth+0xfd/0x910 [thunderbolt]
+  tb_available_bandwidth+0x5f2/0xeb0 [thunderbolt]
+  tb_recalc_estimated_bandwidth+0x2a0/0x1bc0 [thunderbolt]
+  tb_handle_dp_bandwidth_request+0x1897/0x5e20 [thunderbolt]
+  process_one_work+0x675/0x1230
+  worker_thread+0x5e6/0xf70
+  kthread+0x365/0x470
+  ret_from_fork+0x54d/0x710
+  ret_from_fork_asm+0x1a/0x30
+
+The last stack trace is helpful because it shows that we are cancelling
+a request and looking at tb_cfg_request_cancel() what might happen is
+that tb_cfg_request_work() completes right before tb_cfg_request_cancel()
+starts and because of this it will call schedule_work() queueing the
+same work to run again. However, it is already removed from the
+request_queue and reference count is dropped so when
+tb_cfg_request_work() triggers again it will access memory that is
+already released.
+
+Fix this so that we first make sure a cancelled request is not handed
+away from tb_cfg_request_find() or scheduled to run. Then instead of
+relying on the worker to clean up the request we will do it in
+tb_cfg_request_cancel() after the work is canceled from running. Make
+tb_cfg_request_dequeue() release the request only if it was actually
+removed from the queue.
+
+Reported-by: Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>
+Fixes: d7f781bfdbf4 ("thunderbolt: Rework control channel to be more reliable")
 Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
-Link: https://patch.msgid.link/b9b582b0db3814f641648b8886bb50f9d68f93ac.1785730815.git.zhilinz@nebusec.ai
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
-[ sashal: adapted link-based channel handling to VIF-based functions and fields. ]
+Signed-off-by: Mika Westerberg <mika.westerberg@linux.intel.com>
+[ sashal: Replaced guard()/scoped_guard() with explicit mutex locking for GNU89 compatibility. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/mac80211/chan.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
+ drivers/thunderbolt/ctl.c | 47 +++++++++++++++++++--------------------
+ 1 file changed, 23 insertions(+), 24 deletions(-)
 
-diff --git a/net/mac80211/chan.c b/net/mac80211/chan.c
-index f32d8d07d6a30..84be216fcb7c2 100644
---- a/net/mac80211/chan.c
-+++ b/net/mac80211/chan.c
-@@ -940,6 +940,7 @@ void ieee80211_vif_copy_chanctx_to_vlans(struct ieee80211_sub_if_data *sdata,
- int ieee80211_vif_unreserve_chanctx(struct ieee80211_sub_if_data *sdata)
+diff --git a/drivers/thunderbolt/ctl.c b/drivers/thunderbolt/ctl.c
+index 7c070a58f4b95..36c64ed467d55 100644
+--- a/drivers/thunderbolt/ctl.c
++++ b/drivers/thunderbolt/ctl.c
+@@ -65,7 +65,6 @@ struct tb_ctl {
+ #define tb_ctl_dbg(ctl, format, arg...) \
+ 	dev_dbg(&(ctl)->nhi->pdev->dev, format, ## arg)
+ 
+-static DECLARE_WAIT_QUEUE_HEAD(tb_cfg_request_cancel_queue);
+ /* Serializes access to request kref_get/put */
+ static DEFINE_MUTEX(tb_cfg_request_lock);
+ 
+@@ -123,11 +122,14 @@ void tb_cfg_request_put(struct tb_cfg_request *req)
+ static int tb_cfg_request_enqueue(struct tb_ctl *ctl,
+ 				  struct tb_cfg_request *req)
  {
- 	struct ieee80211_chanctx *ctx = sdata->reserved_chanctx;
-+	struct ieee80211_chanctx *old_ctx = NULL;
- 
- 	lockdep_assert_held(&sdata->local->chanctx_mtx);
- 
-@@ -954,6 +955,7 @@ int ieee80211_vif_unreserve_chanctx(struct ieee80211_sub_if_data *sdata)
- 			if (WARN_ON(!ctx->replace_ctx))
- 				return -EINVAL;
- 
-+			old_ctx = ctx->replace_ctx;
- 			WARN_ON(ctx->replace_ctx->replace_state !=
- 			        IEEE80211_CHANCTX_WILL_BE_REPLACED);
- 			WARN_ON(ctx->replace_ctx->replace_ctx != ctx);
-@@ -964,6 +966,10 @@ int ieee80211_vif_unreserve_chanctx(struct ieee80211_sub_if_data *sdata)
- 
- 			list_del_rcu(&ctx->list);
- 			kfree_rcu(ctx, rcu_head);
++	tb_cfg_request_get(req);
 +
-+			if (ieee80211_chanctx_refcount(sdata->local,
-+						       old_ctx) == 0)
-+				ieee80211_free_chanctx(sdata->local, old_ctx);
- 		} else {
- 			ieee80211_free_chanctx(sdata->local, ctx);
+ 	WARN_ON(test_bit(TB_CFG_REQUEST_ACTIVE, &req->flags));
+ 	WARN_ON(req->ctl);
+ 
+ 	mutex_lock(&ctl->request_queue_lock);
+ 	if (!ctl->running) {
++		tb_cfg_request_put(req);
+ 		mutex_unlock(&ctl->request_queue_lock);
+ 		return -ENOTCONN;
+ 	}
+@@ -138,28 +140,24 @@ static int tb_cfg_request_enqueue(struct tb_ctl *ctl,
+ 	return 0;
+ }
+ 
++static bool tb_cfg_request_is_active(struct tb_cfg_request *req)
++{
++	return test_bit(TB_CFG_REQUEST_ACTIVE, &req->flags);
++}
++
+ static void tb_cfg_request_dequeue(struct tb_cfg_request *req)
+ {
+ 	struct tb_ctl *ctl = req->ctl;
+ 
+ 	mutex_lock(&ctl->request_queue_lock);
+-	if (!test_bit(TB_CFG_REQUEST_ACTIVE, &req->flags)) {
+-		mutex_unlock(&ctl->request_queue_lock);
+-		return;
++	if (tb_cfg_request_is_active(req)) {
++		list_del(&req->list);
++		clear_bit(TB_CFG_REQUEST_ACTIVE, &req->flags);
++		tb_cfg_request_put(req);
+ 	}
+-
+-	list_del(&req->list);
+-	clear_bit(TB_CFG_REQUEST_ACTIVE, &req->flags);
+-	if (test_bit(TB_CFG_REQUEST_CANCELED, &req->flags))
+-		wake_up(&tb_cfg_request_cancel_queue);
+ 	mutex_unlock(&ctl->request_queue_lock);
+ }
+ 
+-static bool tb_cfg_request_is_active(struct tb_cfg_request *req)
+-{
+-	return test_bit(TB_CFG_REQUEST_ACTIVE, &req->flags);
+-}
+-
+ static struct tb_cfg_request *
+ tb_cfg_request_find(struct tb_ctl *ctl, struct ctl_pkg *pkg)
+ {
+@@ -169,7 +167,8 @@ tb_cfg_request_find(struct tb_ctl *ctl, struct ctl_pkg *pkg)
+ 	mutex_lock(&pkg->ctl->request_queue_lock);
+ 	list_for_each_entry(req, &pkg->ctl->request_queue, list) {
+ 		tb_cfg_request_get(req);
+-		if (req->match(req, pkg)) {
++		if (!test_bit(TB_CFG_REQUEST_CANCELED, &req->flags) &&
++		    req->match(req, pkg)) {
+ 			found = true;
+ 			break;
  		}
-@@ -1177,7 +1183,9 @@ ieee80211_vif_use_reserved_reassign(struct ieee80211_sub_if_data *sdata)
- 
- 	ieee80211_check_fast_xmit_iface(sdata);
- 
--	if (ieee80211_chanctx_refcount(local, old_ctx) == 0)
-+	if (ieee80211_chanctx_refcount(local, old_ctx) == 0 &&
-+	    !(old_ctx->replace_state == IEEE80211_CHANCTX_WILL_BE_REPLACED &&
-+	      old_ctx->replace_ctx))
- 		ieee80211_free_chanctx(local, old_ctx);
- 
- 	ieee80211_recalc_chanctx_min_def(local, new_ctx);
-@@ -1649,7 +1657,9 @@ static void __ieee80211_vif_release_channel(struct ieee80211_sub_if_data *sdata)
+@@ -496,8 +495,11 @@ static void tb_ctl_rx_callback(struct tb_ring *ring, struct ring_frame *frame,
+ 	 */
+ 	req = tb_cfg_request_find(pkg->ctl, pkg);
+ 	if (req) {
+-		if (req->copy(req, pkg))
++		mutex_lock(&pkg->ctl->request_queue_lock);
++		if (!test_bit(TB_CFG_REQUEST_CANCELED, &req->flags) &&
++		    req->copy(req, pkg))
+ 			schedule_work(&req->work);
++		mutex_unlock(&pkg->ctl->request_queue_lock);
+ 		tb_cfg_request_put(req);
  	}
  
- 	ieee80211_assign_vif_chanctx(sdata, NULL);
--	if (ieee80211_chanctx_refcount(local, ctx) == 0)
-+	if (ieee80211_chanctx_refcount(local, ctx) == 0 &&
-+	    !(ctx->replace_state == IEEE80211_CHANCTX_WILL_BE_REPLACED &&
-+	      ctx->replace_ctx))
- 		ieee80211_free_chanctx(local, ctx);
+@@ -513,7 +515,6 @@ static void tb_cfg_request_work(struct work_struct *work)
+ 		req->callback(req->callback_data);
  
- 	sdata->radar_required = false;
+ 	tb_cfg_request_dequeue(req);
+-	tb_cfg_request_put(req);
+ }
+ 
+ /**
+@@ -537,10 +538,9 @@ int tb_cfg_request(struct tb_ctl *ctl, struct tb_cfg_request *req,
+ 	INIT_WORK(&req->work, tb_cfg_request_work);
+ 	INIT_LIST_HEAD(&req->list);
+ 
+-	tb_cfg_request_get(req);
+ 	ret = tb_cfg_request_enqueue(ctl, req);
+ 	if (ret)
+-		goto err_put;
++		return ret;
+ 
+ 	ret = tb_ctl_tx(ctl, req->request, req->request_size,
+ 			req->request_type);
+@@ -554,9 +554,6 @@ int tb_cfg_request(struct tb_ctl *ctl, struct tb_cfg_request *req,
+ 
+ err_dequeue:
+ 	tb_cfg_request_dequeue(req);
+-err_put:
+-	tb_cfg_request_put(req);
+-
+ 	return ret;
+ }
+ 
+@@ -570,9 +567,11 @@ int tb_cfg_request(struct tb_ctl *ctl, struct tb_cfg_request *req,
+  */
+ void tb_cfg_request_cancel(struct tb_cfg_request *req, int err)
+ {
++	mutex_lock(&req->ctl->request_queue_lock);
+ 	set_bit(TB_CFG_REQUEST_CANCELED, &req->flags);
+-	schedule_work(&req->work);
+-	wait_event(tb_cfg_request_cancel_queue, !tb_cfg_request_is_active(req));
++	mutex_unlock(&req->ctl->request_queue_lock);
++	cancel_work_sync(&req->work);
++	tb_cfg_request_dequeue(req);
+ 	req->result.err = err;
+ }
+ 
 -- 
 2.53.0
 
