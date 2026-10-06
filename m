@@ -1,116 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp05-ext.udag.de (smtp05-ext.udag.de [62.146.106.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13A6D49C4A0
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 15:56:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E85AC49EC43
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 16:00:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.146.106.75
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791302174; cv=none; b=XMXahU7o7KZOcosI+3KQNDLhH/v06KoqxI4DTc2jeeNVKye0dU9DU6Zk15ad5pYZ92/I07ehUaSLr21Cvr0FiUb9QXHWyvPncXiolqsrVBgJpE1SYMU6k+BqSwrFBzf5sGm5K8h0AhexG0jhE63DE2RfPSZ00HYnM5KRQx0hDAk=
+	t=1791302460; cv=none; b=L31Y+rbWmBuwaX3ulvA7034jJqdTLRbc+G70MfrYr9Nftx6FQG2l8Pm2y6GhURF/kySN7SMw7taalGEUDBtjRRr7ms5EDx66Ks3THXfAxrPdO0wXhAAxc6izbPN2xscS7b4kUmLGJNLB8mFHtK4R/qB4dw4O95fHV4jax7Ef/JQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791302174; c=relaxed/simple;
-	bh=wipU4ZcgSuajV5Ai0jrviL2iYL5UCABpeWXCQ4EqM0g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Umkbffsf85pM0CHRPLkHZ2e2geXQsYwsaTLN1N7Qcwbnhmyx5QtRd4M+uyYtxfGnUpj45ogIvp3AbRi/mh1pcKffay0Cxapp8mdBJUFV6cPj2FenrqhU98kpyMmOsyoJ3lRv6h8zbIHMdcn+iDSC0e2Qnd4i8wO0hpbIbTE87HY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gg/EJnas; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gg/EJnas"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A51FB1F0089B;
-	Tue,  6 Oct 2026 15:56:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791302172;
-	bh=pRMnk2OwhFHx/X2wjBkoURknfRV8xg6IpVCkL7gAUwU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Gg/EJnasPlq8wJaxd8COdImI+d9Nhh0dUHDyBbHy0A8HFuwdmbfuRcvixtEOmI13u
-	 A4g/lmjBtYW5m7SoLtbAIwjHtiJMSdfod8yrhJWCpPwhKfZc92L/XaoKxJEBNKUs8/
-	 DJGo9GJA6SHs7SCvC4GEIPPxs+47By2pOiEVc30KM26ASeFi4zXuzELpSdWlGahIfE
-	 EQ6oeq9m1opmi//J+QyZduOSsZWcEQJw9bPmEkomXPWBF+m/qzqkd54/Kr3wscgweD
-	 7t7SPLB+94UJc2RoKR43V63pXmNOtmEvtkRffv81r2FkGuaBU6EFYGNctjZzPKYdTm
-	 UMSmiq6FRCV3Q==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Han Xu <han.xu@nxp.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] mtd: spinand: Enable QE on all dies
-Date: Tue,  6 Oct 2026 11:56:09 -0400
-Message-ID: <20261006155527.762373-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100506-frenzied-eliminate-613a@gregkh>
-References: <2026100506-frenzied-eliminate-613a@gregkh>
+	s=arc-20240116; t=1791302460; c=relaxed/simple;
+	bh=CwtCgc7GmHfPCHrSkhc+aX8cJgCS9OW2ZiU43jG8zec=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NtBfxKgRSGMrxbsE2mYlOqCICrdKul5PHI9k6PRIxN+CqTCj/Q0If8RsvABTdRRH9t3WKVfTiLL2Q4QnGkkT/iY6yKi1jZ7yobhF00KE0FhnDy5X13Rw9Syi1R1s+vY4GeAJCivfB7vmn+uAVYa0Wy5LhPmF42qAFWOo3f4tycM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=birthelmer.de; spf=pass smtp.mailfrom=birthelmer.de; arc=none smtp.client-ip=62.146.106.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=birthelmer.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=birthelmer.de
+Received: from localhost (043-134-067-156.ip-addr.inexio.net [156.67.134.43])
+	by smtp05-ext.udag.de (Postfix) with ESMTPA id 39C59E01A6;
+	Tue,  6 Oct 2026 17:55:31 +0200 (CEST)
+Authentication-Results: smtp05-ext.udag.de;
+	auth=pass smtp.auth=birthelmercom-0001 smtp.mailfrom=horst@birthelmer.de
+Date: Tue, 6 Oct 2026 17:55:30 +0200
+From: Horst Birthelmer <horst@birthelmer.de>
+To: Joanne Koong <joannelkoong@gmail.com>
+Cc: miklos@szeredi.hu, fuse-devel@lists.linux.dev, 
+	syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com, stable@vger.kernel.org
+Subject: Re: [PATCH v1] fuse: don't launder folios of a bad inode
+Message-ID: <asUZLV-0YeC5BTvz@fedora.fritz.box>
+References: <20261006105136.3751196-1-joannelkoong@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261006105136.3751196-1-joannelkoong@gmail.com>
 
-From: Han Xu <han.xu@nxp.com>
+On Tue, Oct 06, 2026 at 03:51:36AM -0700, Joanne Koong wrote:
+> fuse_flush() and fuse_writepages() reject writing back dirty data for
+> any inode that has been marked bad, but fuse_launder_folio() doesn't.
+> 
+> This can cause the following warning in fuse_write_file_get() to
+> trigger, as reported by syzbot:
+> 
+> WARNING: fs/fuse/file.c:2043 at fuse_write_file_get fs/fuse/file.c:2043 [inline]
+> WARNING: fs/fuse/file.c:2043 at fuse_iomap_writeback_range+0x7c8/0x18f0 fs/fuse/file.c:2227
+> Call Trace:
+>     iomap_writeback_folio+0x1526/0x2490 fs/iomap/buffered-io.c:2022
+>     fuse_launder_folio+0x17b/0x240 fs/fuse/file.c:2331
+>     folio_unmap_invalidate+0x4cd/0x830 mm/truncate.c:634
+>     invalidate_inode_pages2_range+0x629/0xb30 mm/truncate.c:726
+>     fuse_open+0x5a6/0x770 fs/fuse/file.c:297
+> 
+> This can be hit on a writeback cache mount:
+> 1) a writeable file is open and a buffered write dirties some pages
+> 2) another thread opens the same file read-only. fuse_open() passes the
+>    bad inode check and sends OPEN to the server.
+> 3) a SETATTR reply with the wrong file type marks the inode bad
+> 4) the writeable file is closed. Flush and release skip writeback
+>    because the inode is bad. The pages stay dirty but the file gets
+>    removed from write_files.
+> 5) server replies to the OPEN. The reply has no FOPEN_KEEP_CACHE, so
+>    fuse_open() calls invalidate_inode_pages2().
+> 6) the invalidation finds the dirty pages and calls
+>    fuse_launder_folio(), which finds no wriable file and hits the
+>    WARN_ON in fuse_write_file_get().
+> 
+> Instead of trying to write back dirty data for the bad inode,
+> fuse_launder_folio() should return -EIO.
+> 
+> Fixes: 5d069dbe8aaf ("fuse: fix bad inode")
+> Reported-by: syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=e8200299b0556976e13c
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
+> ---
+>  fs/fuse/file.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/fs/fuse/file.c b/fs/fuse/file.c
+> index 6d707f2b3bff..0ef46f6e0267 100644
+> --- a/fs/fuse/file.c
+> +++ b/fs/fuse/file.c
+> @@ -2351,6 +2351,9 @@ static int fuse_launder_folio(struct folio *folio)
+>  		.wb_ctx	= &data,
+>  	};
+>  
+> +	if (fuse_is_bad(wpc.inode))
+> +		return -EIO;
+> +
+>  	if (folio_clear_dirty_for_io(folio)) {
+>  		err = iomap_writeback_folio(&wpc, folio);
+>  		err = fuse_iomap_writeback_submit(&wpc, err);
+> -- 
+> 2.52.0
+> 
+> 
 
-[ Upstream commit 63d6cace2c4a7f36c1cb44f1bb5e0f3ef19e5c7f ]
+Hi Joanne,
 
-The QUAD ENABLE (QE) bit is stored in a per-die configuration
-register on some SPI-NAND devices. When a device contains multiple
-dies, updating the QE bit only on the currently selected die can
-leave the remaining dies operating in non-quad mode.
- 
-Iterate over all targets and update the QE setting on each die
-during initialization to ensure consistent quad I/O operation
-across the entire device.
+I have tested a lot of notification invalidation lately.
+Did not hit this one yet.
 
-Tested on ISSI IS38SMW04G8B.
+LGTM!
 
-Fixes: 7529df465248 ("mtd: nand: Add core infrastructure to support SPI NANDs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Han Xu <han.xu@nxp.com>
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
-[ sashal: Retained spinand_init_quad_enable()’s internal QE decision instead of using the upstream enable parameter. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/mtd/nand/spi/core.c | 21 +++++++++++++++++++--
- 1 file changed, 19 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/mtd/nand/spi/core.c b/drivers/mtd/nand/spi/core.c
-index a41f2fd47379c..ae9019659ba6a 100644
---- a/drivers/mtd/nand/spi/core.c
-+++ b/drivers/mtd/nand/spi/core.c
-@@ -179,7 +179,10 @@ static int spinand_init_cfg_cache(struct spinand_device *spinand)
- 
- static int spinand_init_quad_enable(struct spinand_device *spinand)
- {
-+	struct nand_device *nand = spinand_to_nand(spinand);
-+	unsigned int target;
- 	bool enable = false;
-+	int ret;
- 
- 	if (!(spinand->flags & SPINAND_HAS_QE_BIT))
- 		return 0;
-@@ -189,8 +192,22 @@ static int spinand_init_quad_enable(struct spinand_device *spinand)
- 	    spinand->op_templates.update_cache->data.buswidth == 4)
- 		enable = true;
- 
--	return spinand_upd_cfg(spinand, CFG_QUAD_ENABLE,
--			       enable ? CFG_QUAD_ENABLE : 0);
-+	/*
-+	 * QE is a per-die setting on some devices. Program each target
-+	 * individually when enabling or disabling quad I/O mode.
-+	 */
-+	for (target = 0; target < nand->memorg.ntargets; target++) {
-+		ret = spinand_select_target(spinand, target);
-+		if (ret)
-+			return ret;
-+
-+		ret = spinand_upd_cfg(spinand, CFG_QUAD_ENABLE,
-+				      enable ? CFG_QUAD_ENABLE : 0);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
- }
- 
- static int spinand_ecc_enable(struct spinand_device *spinand,
--- 
-2.53.0
-
+Feel free to add
+Reviewed-by: Horst Birthelmer <hbirthelmer@ddn.com>
