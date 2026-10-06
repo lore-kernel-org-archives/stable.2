@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86D793B777C
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 08:31:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28DDE26ED3C
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 08:31:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791275493; cv=none; b=Ue9FZVXAh/yjK9r9iOPDVy65/OD658miz57fX1wVFDiL1+tbg0WvrhzpwYRJEEn9os4SK6l2hOYGuLC/Qd2qSbOImaWQNpNMNcJZ6G5WwlTPRvIqfxqRAIjUQ/CZW8jJ7qWePILRduypGY7MsSIExWKDFFjt6O0OkyK1er10R2M=
+	t=1791275515; cv=none; b=nC9oRiwpZEm/x6x998u+gLj9R+oFAyNTnP2xykRgi2CbwQW7ev4t0xryRhkrFdZ8GrjB9bvqZLtUZbkfoZpQMG0UiZRUNCgnubma1EDi2pT8QXVA+TtA4e6mBP+y6vLsDmQK1dn7M37MNNOGDhtfDMxk9VJpqJwTcxAXfYvQqi0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791275493; c=relaxed/simple;
-	bh=1UGTcHUZByNhvauGXEKZFn9Oo9YY93XUiTr+KdGHMMs=;
+	s=arc-20240116; t=1791275515; c=relaxed/simple;
+	bh=L99TUcZu1dgVwV3OFeuplcnatuEFV6Gq37Rv4raPX5I=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nmfX8bFBvaV0nDU8w/7T9TqQ9bRu1V+xLDaPvuxdW72aMOhDZsrtqil5jhRqfP7KLns6JCDqfFDbADDIoYzppbwnFQxUpjmF/woISImZttxe8v5bbeQ8qaDsiUzqDElYOObfvprnsb8GWQ5z414/8PfWjzRodRiOMMnucUptwM8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XpUqw0I9; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=oDQ+RPdu0MgZ/9rBQ9CzUUp8ulCLzNeJ3xlUOt5XeSn/2Miv0dav6Kl36AYv5M/pRBZqS4uNeZPopfozqCuBxEt4EmFRvGgbhkg1xB7OwsHe6fTppBEAT00buS8mgLfnNMZ8RCESxTB52uximqC5koMw77HNye80wi4gdaRn4y0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o0VQ1YV2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XpUqw0I9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1077D1F00893;
-	Tue,  6 Oct 2026 08:31:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o0VQ1YV2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 711181F000FF;
+	Tue,  6 Oct 2026 08:31:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791275492;
-	bh=xp5hChYYPZSvKeY3MDjwTHQsOso69qx936EsEuoushQ=;
+	s=k20260515; t=1791275513;
+	bh=HZjq5svZYDHeCVhDCV/0qI1kesFDkhDp0tqZBPKGTvY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XpUqw0I9mVulifKqGi5m2wj1yAfCEC2ncBmb8QGOswSCh40Nl+uxBoSR6qmKBSIO/
-	 b/rVfV9IDCFviOBoD4nr0gISnu5HYBb+uuWM7ovZr0csI4PiR5bfXbeK3DSkvXpCXD
-	 /KneXHuU4htRJmPv1RuS0VBiLxLCIvnKWJ8q+GQActtEYfvUQxG36ndJA4FZlO2+oR
-	 Qv6yAORJDs7n3GLx7t3uG9xKaRwgjvS4Z4f/dLVMqNkCH/b2V/gdEV94ZzjBOhQQXK
-	 IzLXF0ip42TUjoImkbAcH+w+5xILwyk8NOZ+wJZMLVYyrQO7ViUM702bBlRACoD/d7
-	 hLJHkgI9Di54Q==
+	b=o0VQ1YV2nvnUxYE/NqyVq49h99A3GhlkPC998XqSo9DwNQnaW2HfnSQKOatmOUjDs
+	 KkWoqW95oPwBMLbiyKwzvOwUZZULT8D/G0yY2ygwrNt6DhCVQ/lR3iuur9pYf+PF7t
+	 bL2p5WnxaOYzNgPPFOC2ne9qJDQaSVBDLwgUOBkY3Z8KNgDq6he1N9o9fSO1KJ3pl5
+	 D5nG/PZG5YGRs9Idut1xkJGu9z12t8fI4rehGAjZvyhkF603tMpytIA6ldGjgPYE5r
+	 HcL383CL8bZuivNE5BXM82lx2fU61wdzNy450T5wUd5ExtGhAfNsB/O7YoJMpnnQZr
+	 s9hC37qGKSKjw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chengfeng Ye <nicoyip.dev@gmail.com>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+Cc: Beata Michalska <beata.michalska@arm.com>,
+	Vladimir Murzin <vladimir.murzin@arm.com>,
+	Will Deacon <will@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] Bluetooth: hci_sync: Fix inquiry cache use-after-free
-Date: Tue,  6 Oct 2026 04:31:24 -0400
-Message-ID: <20261006082552.3871603-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y] arm64: errata: Add Cortex-A725 erratum 3821522 workaround
+Date: Tue,  6 Oct 2026 04:31:46 -0400
+Message-ID: <20261006083052.3865406-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261006082552.3871603-1-sashal@kernel.org>
-References: <2026100541-valid-olive-13c3@gregkh>
- <20261006082552.3871603-1-sashal@kernel.org>
+In-Reply-To: <2026100502-outtakes-dragonfly-ead9@gregkh>
+References: <2026100502-outtakes-dragonfly-ead9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,119 +46,152 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
+From: Beata Michalska <beata.michalska@arm.com>
 
-[ Upstream commit 8ed67535fdff40ca652bcd4ac7da68d11d01bd34 ]
+[ Upstream commit 45f7304679875eb000d67e194090ee7abd05c89c ]
 
-The sync command worker holds hdev->req_lock, but inquiry-cache updates
-and flushes use hdev->lock. Both hci_acl_create_conn_sync() and
-hci_stop_discovery_sync() look up entries and read their fields without
-taking hdev->lock.
+Cortex-A725 erratum 3821522 affects the CNT_CYCLES event, which can
+incur a significant increment error when a CPU enters and subsequently
+exits WFE or WFI, and may no longer track the system counter
+frequency.
 
-After either lookup returns, a concurrent HCIINQUIRY ioctl can acquire
-hdev->lock and flush the cache, freeing the entry. The worker then reads
-the freed entry while preparing a create-connection or remote-name-cancel
-command. The list traversal also races with cache updates and removal.
+The AMEVCNTR01_EL0 counter is used as the AMU constant counter for
+frequency invariance and CPPC FFH feedback counters. Wire the affected
+Cortex-A725 range into the shared broken AMU constant-counter capability
+so the affected counter is treated as unavailable by returning zero in
+the AMU counter paths. This prevents the broken counter from being used
+as a reference source.
 
-KASAN reported these accesses:
+The erratum can also affect PMUv3 users of the CNT_CYCLES event,
+but this workaround intentionally does not change PMU event handling.
+Hiding or rejecting the PMU event from the erratum code would change
+the perf-visible PMU event interface, including raw event selection,
+and would need a separate PMU-specific approach rather than being
+folded into the AMU reference-counter workaround.
 
-  BUG: KASAN: slab-use-after-free in hci_acl_create_conn_sync+0x5f1/0x650
-  Workqueue: hci0 hci_cmd_sync_work
-  Call Trace:
-   hci_acl_create_conn_sync+0x5f1/0x650
-   hci_cmd_sync_work+0x13c/0x290
-
-  Allocated by task 90:
-   hci_inquiry_cache_update+0x3e6/0x7d0
-   hci_inquiry_result_evt+0x3cb/0x560
-
-  Freed by task 93:
-   hci_inquiry_cache_flush+0x111/0x2b0
-   hci_inquiry+0x2f2/0x780
-   hci_sock_ioctl+0x269/0x5f0
-
-  BUG: KASAN: slab-use-after-free in hci_stop_discovery_sync+0x3b1/0x3c0
-  Workqueue: hci0 hci_cmd_sync_work
-  Call Trace:
-   hci_stop_discovery_sync+0x3b1/0x3c0
-   hci_cmd_sync_work+0x173/0x300
-
-  Allocated by task 86:
-   hci_inquiry_cache_update+0x483/0x940
-   hci_inquiry_result_evt+0x3cb/0x560
-
-  Freed by task 91:
-   hci_inquiry_cache_flush+0x13e/0x2f0
-   hci_inquiry+0x2f2/0x780
-   hci_sock_ioctl+0x269/0x5f0
-
-Hold hdev->lock across each lookup and all reads from its result. Copy the
-remote address before unlocking so discovery cancellation does not retain
-a cache entry pointer. Release the lock before sending synchronous HCI
-commands, since their completion handlers may need the same lock.
-
-Fixes: cf75ad8b41d2 ("Bluetooth: hci_sync: Convert MGMT_SET_POWERED")
-Fixes: 45340097ce6e ("Bluetooth: hci_conn: Only do ACL connections sequentially")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Signed-off-by: Beata Michalska <beata.michalska@arm.com>
+Reviewed-by: Vladimir Murzin <vladimir.murzin@arm.com>
+Signed-off-by: Will Deacon <will@kernel.org>
+[ sashal: Reused ARM64_WORKAROUND_2457168 in place of the unavailable generic AMU capability. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/bluetooth/hci_sync.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+ Documentation/arm64/silicon-errata.rst |  2 ++
+ arch/arm64/Kconfig                     | 21 +++++++++++++++++++++
+ arch/arm64/kernel/cpu_errata.c         | 24 +++++++++++++++++++-----
+ arch/arm64/kernel/topology.c           |  9 +++++----
+ 4 files changed, 47 insertions(+), 9 deletions(-)
 
-diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-index afa38e093479a..5ea2443e3e18c 100644
---- a/net/bluetooth/hci_sync.c
-+++ b/net/bluetooth/hci_sync.c
-@@ -5459,6 +5459,7 @@ int hci_stop_discovery_sync(struct hci_dev *hdev)
- {
- 	struct discovery_state *d = &hdev->discovery;
- 	struct inquiry_entry *e;
-+	bdaddr_t addr;
- 	int err;
+diff --git a/Documentation/arm64/silicon-errata.rst b/Documentation/arm64/silicon-errata.rst
+index fe7b90ac52d7b..74ae9e4f637a7 100644
+--- a/Documentation/arm64/silicon-errata.rst
++++ b/Documentation/arm64/silicon-errata.rst
+@@ -155,6 +155,8 @@ stable kernels.
+ +----------------+-----------------+-----------------+-----------------------------+
+ | ARM            | Cortex-A725     | #3456106        | ARM64_ERRATUM_3194386       |
+ +----------------+-----------------+-----------------+-----------------------------+
++| ARM            | Cortex-A725     | #3821522        | ARM64_ERRATUM_3821522       |
+++----------------+-----------------+-----------------+-----------------------------+
+ | ARM            | Cortex-X1       | #3324344        | ARM64_ERRATUM_3194386       |
+ +----------------+-----------------+-----------------+-----------------------------+
+ | ARM            | Cortex-X1       | #4193791        | ARM64_ERRATUM_4118414       |
+diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+index 9cb8867eb1205..314a9ac22be54 100644
+--- a/arch/arm64/Kconfig
++++ b/arch/arm64/Kconfig
+@@ -983,6 +983,27 @@ config ARM64_ERRATUM_2457168
  
- 	bt_dev_dbg(hdev, "state %u", hdev->discovery.state);
-@@ -5495,15 +5496,21 @@ int hci_stop_discovery_sync(struct hci_dev *hdev)
- 		return 0;
+ 	  If unsure, say Y.
  
- 	if (d->state == DISCOVERY_RESOLVING || d->state == DISCOVERY_STOPPING) {
-+		hci_dev_lock(hdev);
- 		e = hci_inquiry_cache_lookup_resolve(hdev, BDADDR_ANY,
- 						     NAME_PENDING);
--		if (!e)
-+		if (!e) {
-+			hci_dev_unlock(hdev);
- 			return 0;
-+		}
++config ARM64_ERRATUM_3821522
++	bool "Cortex-A725: 3821522: workaround for possible CNT_CYCLES increment error due to WFE/WFI"
++	depends on ARM64_AMU_EXTN
++	default y
++	help
++	  This option adds the workaround for ARM Cortex-A725 erratum 3821522.
 +
-+		bacpy(&addr, &e->data.bdaddr);
-+		hci_dev_unlock(hdev);
++	  On affected A725 cores, the CNT_CYCLES event may incur a significant
++	  increment error when entering and subsequently exiting WFx.
++	  As a result, the CNT_CYCLES may diverge from the system counter
++	  frequency at which it is expected to increment.
++	  This renders the AMU counter AMEVCNTR01, that implements CNT_CYCLES,
++	  being unreliable and unsuitable for use.
++
++	  Since there is no hardware workaround, reads of the affected CNT_CYCLES
++	  counter return 0 in the relevant paths. This causes users of the counter
++	  to treat it as unavailable and is functionally equivalent to firmware
++	  disabling the affected counter.
++
++	  If unsure, say Y.
++
+ config ARM64_WORKAROUND_SPECULATIVE_UNPRIV_LOAD
+ 	bool
  
- 		/* Ignore cancel errors since it should interfere with stopping
- 		 * of the discovery.
- 		 */
--		hci_remote_name_cancel_sync(hdev, &e->data.bdaddr);
-+		hci_remote_name_cancel_sync(hdev, &addr);
- 	}
+diff --git a/arch/arm64/kernel/cpu_errata.c b/arch/arm64/kernel/cpu_errata.c
+index cff85a371c353..fbc80f64f3eeb 100644
+--- a/arch/arm64/kernel/cpu_errata.c
++++ b/arch/arm64/kernel/cpu_errata.c
+@@ -275,6 +275,21 @@ static const struct arm64_cpu_capabilities arm64_repeat_tlbi_list[] = {
+ };
+ #endif
  
- 	return 0;
-@@ -6741,6 +6748,7 @@ static int __hci_acl_create_connection_sync(struct hci_dev *hdev, void *data)
- 	bacpy(&cp.bdaddr, &conn->dst);
- 	cp.pscan_rep_mode = 0x02;
- 
-+	hci_dev_lock(hdev);
- 	ie = hci_inquiry_cache_lookup(hdev, &conn->dst);
- 	if (ie) {
- 		if (inquiry_entry_age(ie) <= INQUIRY_ENTRY_AGE_MAX) {
-@@ -6752,6 +6760,7 @@ static int __hci_acl_create_connection_sync(struct hci_dev *hdev, void *data)
- 
- 		memcpy(conn->dev_class, ie->data.dev_class, 3);
- 	}
-+	hci_dev_unlock(hdev);
- 
- 	cp.pkt_type = cpu_to_le16(conn->pkt_type);
- 	if (lmp_rswitch_capable(hdev) && !(hdev->link_mode & HCI_LM_MASTER))
++#if defined(CONFIG_ARM64_ERRATUM_2457168) || \
++	defined(CONFIG_ARM64_ERRATUM_3821522)
++static const struct midr_range workaround_amu_constcnt_list[] = {
++#ifdef CONFIG_ARM64_ERRATUM_2457168
++	/* Cortex-A510 r0p0-r1p1 */
++	MIDR_RANGE(MIDR_CORTEX_A510, 0, 0, 1, 1),
++#endif
++#ifdef CONFIG_ARM64_ERRATUM_3821522
++	/* Cortex-A725 r0p0 - r0p2 */
++	MIDR_RANGE(MIDR_CORTEX_A725, 0, 0, 0, 2),
++#endif
++	{}
++};
++#endif
++
+ #ifdef CONFIG_CAVIUM_ERRATUM_23154
+ static const struct midr_range cavium_erratum_23154_cpus[] = {
+ 	MIDR_ALL_VERSIONS(MIDR_THUNDERX),
+@@ -737,14 +752,13 @@ const struct arm64_cpu_capabilities arm64_errata[] = {
+ 		ERRATA_MIDR_REV_RANGE(MIDR_CORTEX_A510, 0, 0, 2)
+ 	},
+ #endif
+-#ifdef CONFIG_ARM64_ERRATUM_2457168
++#if defined(CONFIG_ARM64_ERRATUM_2457168) || \
++	defined(CONFIG_ARM64_ERRATUM_3821522)
+ 	{
+-		.desc = "ARM erratum 2457168",
++		.desc = "Broken AMU AMEVCNTR01 (const counter)",
+ 		.capability = ARM64_WORKAROUND_2457168,
+ 		.type = ARM64_CPUCAP_WEAK_LOCAL_CPU_FEATURE,
+-
+-		/* Cortex-A510 r0p0-r1p1 */
+-		CAP_MIDR_RANGE(MIDR_CORTEX_A510, 0, 0, 1, 1)
++		CAP_MIDR_RANGE_LIST(workaround_amu_constcnt_list)
+ 	},
+ #endif
+ #ifdef CONFIG_ARM64_ERRATUM_2038923
+diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
+index 817d788cd8666..575d0f9a76870 100644
+--- a/arch/arm64/kernel/topology.c
++++ b/arch/arm64/kernel/topology.c
+@@ -268,10 +268,11 @@ static void cpu_read_corecnt(void *val)
+ static void cpu_read_constcnt(void *val)
+ {
+ 	/*
+-	 * Return 0 if the current CPU is affected by erratum 2457168. A value
+-	 * of 0 is also returned if the current CPU does not support AMUs or if
+-	 * the counter is disabled. A return value of 0 at counter read is
+-	 * properly handled as an error case by the users of the counter.
++	 * Return 0 if the current CPU is affected by a HW erratum.
++	 * A value of 0 is also returned if the current CPU does not
++	 * support AMUs or if the counter is disabled. A return
++	 * value of 0 at counter read is properly handled as an error
++	 * case by the users of the counter.
+ 	 */
+ 	*(u64 *)val = this_cpu_has_cap(ARM64_WORKAROUND_2457168) ?
+ 		      0UL : read_constcnt();
 -- 
 2.53.0
 
