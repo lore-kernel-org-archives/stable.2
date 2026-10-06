@@ -1,254 +1,151 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8AC141F346;
-	Tue,  6 Oct 2026 12:40:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFA4841DEE7
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 12:41:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791290455; cv=none; b=Y0DMEYYMAtnlwbf67ODKAkJl6++HIyLicqA104KIyh1bpmy3JBtntMWpL5vFXLBlfalxFnSHXXB1xhsSxpIpUXQGRCDVQ1xyf00jsyGBA2F5TW4hTt+WafCd3+IJ6UTFMwSvX9Tf9AGGpTSlIgSLpH/RVoCKNY5M8sjs8EJSOFU=
+	t=1791290506; cv=none; b=X8T+X0s5BNBies3c7C09F287PBsMpQ9/MlVQGBwX/4Mil//S/6G3pSawfVerOrq84z/8VGMZkc3gYtWBrMnAL29uaDsvcwX03UIoFHjGApDCKikMVQBe+qDeDj174FH5vmqZGVTRexuCaKwfFCrKKkc+0+PtUZxJqZaEyjx4H3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791290455; c=relaxed/simple;
-	bh=qT8rW/O876G+4Yt+1zDgBgjsJlnol/SEJDrkSKSrFiA=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=e6LaeV+csCetJYVwTqqlY9mdL25szoP/bizQvmGWNUeXRia7tjcAxidfgrJDwHRtCLeOfDdenTJj/g+kvtMI1KpyRUQFAQJyqirvgguRxOBx+0KZF5HVB+mQbXSAtoiu6QDKo4mFf2x+yjMLF+Ji8wIjSEcQaPOK49zOpBTV9IQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=ofLKih+g; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1791290506; c=relaxed/simple;
+	bh=wEI+4IdRoiUkNy0DoaQdDHjN5i4HToizYZEOsF0bWzY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D0twsv+8/rTiWknrEJs/FwxAtc7VWO3xHniRIOrJ/SUleBZZc8t+qjQywuiXS1sQEsQe7r4YtxF07AraGoYwkZwqGEGOxbwWWoTfPMQ6HNHmF7H8mJmKSZ55Ds/rfCU1SqgKgZ7g8fZYotsb0UQ86L0S3+/5KUNc4DKzUdKHToQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eSYdkStq; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="ofLKih+g"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
-	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=RMKvOm3tpQtiWc6NdWQkSiodihlG2BC4aWDKz3Ya8dk=; b=ofLKih+gutjQjU5/KhvwKfnewt
-	jumS/SiNOYjtwvY0jswadaA4FWbHB/bdRcT6/iWaws/ndkmmNLEg00DiROFGJNRf7mjNXjC9MGuXa
-	+DVp0JIrXMRV/4TVCHz8CTn014YM/eyMrjDmw+0x+fBIfeL1BGt1iRCbvRHeBehr1UMjowkiVAD64
-	UH0koIHlOqGM4Qd+1dMLhlBdwwVzH6jjQ3ZBGfakgXEZj60ZL0ESWxMtVV3VPmerJN8roeKjoKPiY
-	hX0N3gKEcBLZWTv3Dd62ptlbOaJJ3nQ8gRXcBJOZFmcEGUCoUwSkAQeUQ0iZqL1l5Rxb4BjrH1ODZ
-	B0vmFkAg==;
-Received: from [::1] (port=34840 helo=pf-012.whm.fr-par.scw.cloud)
-	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
-	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
-	id 1xE4TH-0000000FFL6-39cm;
-	Tue, 06 Oct 2026 14:40:38 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eSYdkStq"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3a4c80d3d5aso1018725a91.0
+        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 05:41:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791290488; x=1791895288; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9Vk3+2cGga50xeWMdbFK+urEdPBF53lIfPHsg3pEZLA=;
+        b=eSYdkStqB0q+7mlmVE9cQZU6cyViqmnK+wCu1c2nx/MGUTRhjhW1F0l2cTy1tNbLTB
+         1NS00wUpIpBbumt7xCFMjrilYc3SSJTO6p3Vwn1elJIz8LNabQ9B6+VtdBCNH4p8IvQD
+         kQuU7oMjKbBwjrT3y2BtybZ+5hSa+I0QOt2eT/mIHZYCVLt+CLlkyoIhU2REjPa0+IqA
+         nAWfxtkDvHPeTlchtUxy6tC2JPuPqROH6iVXImxEb6Hqv+TWLyocr95Q/M4vaOJgliSH
+         BJpxYOXTVfuMDlkwbVgrsMvYCsXUjIHjgJHOif4WEm/+4arV1uyqg3Q40qEdliN8e3Xq
+         knVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791290488; x=1791895288;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9Vk3+2cGga50xeWMdbFK+urEdPBF53lIfPHsg3pEZLA=;
+        b=l5yvW1QkmLxkkbz90Dza2KF3OnnR+Qa5hM1nF+MUHMDKakihUg1sXeiWY2qrZw83aW
+         AhwKwkxe3+glY6pfWArOwhHOTiMlm0pasZFN1lGqPro608Dr1wtJW+oZVzCdbrn+2Aq9
+         K/TSX/crtCGhQQIfvkVm217el00HGAN+fEzLMej5nzNOjix/ZGr8mXnET67oaMitcrjP
+         gXCemY02WD08HYIFAwPGxbFuT5x3w9NQAmzepy96ps7cLJqAj0UyJNTwv6j/JQhRIb+i
+         kXTP3rtc//ZfzDAvLjQEtLOLEoqPKr/tNadOrIHaFIUjGRywYqhvsm/hBqES/KPVBnGi
+         j7dA==
+X-Forwarded-Encrypted: i=1; AKwUvBwyRmZiEiz6pdO1ijRqORgB42hZqg3PTPjQJ6nYekYvNW98bJoVF1C45abUlduh1wuoudmVeJ0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYItntV3FB764MPPgz9IEe3spQWJuOeAEK6R7Z59UdSlMvSFyCza
+	+rGmirBqdQZ8k857HU2cHxsTzbBGQXj8qajYw+SsB8zD14fjMmClkCRF
+X-Gm-Gg: AYBFou2uV6uTWqQdkXBdcc0ihVFuKlehI2XfsAOmc2MG6RLuN5oMZayzlfil928Hygp
+	ncjmPz9u0z6lH06LLlJfS9CBx70Gszc7kb5jWehOuWLCwAP5GgHOetmjPxBSEc9wi4thbuDcUCq
+	+U9fOPkKwluKnUIEJ1KX17XrxrqXYXFZvB0yd+eUkGlsNk0jnlF1FptOxKWinHICFnT+7yHvdrx
+	vao9aZStwfWtJ1mTqLLgC4Bfpn4MYTFc3A08cF0VXrSXn0hdnDqE9tkve3y7MXwNgcldcYeyM6c
+	kvMy9gt9rh0X/xJIGjA5kzyM1Ps8S60gvHnsMXk5fXxZcOvJ1Ho7tBDcd307rizfrHCZxiGi7Ib
+	cz5HneJAM432L5/n/+Xgf6xaShalz85BqgoHRaTvmNSlaMk/cpesmNuC9jDO+cYmxdFXbt1fKdi
+	LT0rAOrtIqrm3wEvtphy6V3spqN7FTWH6M8mL2OtX4GlwaNZyEMj0pODkk1ZnNuZBj4SHWd2L1E
+	8rTVsC2rLs5HvEY
+X-Received: by 2002:a17:90b:4d02:b0:39d:f247:bab with SMTP id 98e67ed59e1d1-3a87267ea23mr1122519a91.6.1791290487966;
+        Tue, 06 Oct 2026 05:41:27 -0700 (PDT)
+Received: from LAPTOP-450UDG4J ([2401:4900:900c:ec20:d139:f8fd:7043:7eb2])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a854257d18sm5246668a91.7.2026.10.06.05.41.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 05:41:27 -0700 (PDT)
+From: Yogesh Gaur <yogeshgaur.83@gmail.com>
+To: Dave Kleikamp <shaggy@kernel.org>
+Cc: jfs-discussion@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	Yogesh Gaur <yogeshgaur.83@gmail.com>,
+	syzbot+a2748ba908c108e7e525@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH] jfs: account for the dirent header and charset expansion in jfs_readdir()
+Date: Tue,  6 Oct 2026 18:11:12 +0530
+Message-ID: <20261006124112.1703-1-yogeshgaur.83@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 06 Oct 2026 14:40:36 +0200
-From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
-To: "Jason A. Donenfeld" <Jason@zx2c4.com>
-Cc: wireguard@lists.zx2c4.com, netdev@vger.kernel.org, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net] wireguard: noise: reject responses for replaced
- initiations
-In-Reply-To: <asSo7kefA3IQFpQp@zx2c4.com>
-References: <20261005203555.3552816-2-Jeremy.Jean@oss.cyber.gouv.fr>
- <asQUKTOiEn6GB5sy@zx2c4.com> <asSo7kefA3IQFpQp@zx2c4.com>
-User-Agent: Roundcube Webmail/1.6.19
-Message-ID: <fbeae2e157e335504157b6a6683fb505@oss.cyber.gouv.fr>
-X-Sender: jeremy.jean@oss.cyber.gouv.fr
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
 
-On 2026-10-06 09:53, Jason A. Donenfeld wrote:
-> On Mon, Oct 05, 2026 at 11:18:33PM +0200, Jason A. Donenfeld wrote:
->> Hi,
->> 
->> On Mon, Oct 05, 2026 at 08:35:55PM +0000, Jérémy Jean wrote:
->> > WireGuard can accept an old handshake response after starting a new
->> > handshake. This reinstalls old keys and resets transport counters and
->> > replay state, enabling nonce reuse, replay and packet forgery. This
->> > breaks confidentiality and integrity guarantees.
->> >
->> > Compare ephemeral secrets under the write lock to reject responses for
->> > replaced initiations.
->> >
->> > Fixes: e7096c131e51 ("net: WireGuard secure network tunnel")
->> > Cc: stable@vger.kernel.org
->> > Assisted-by: LLM
->> > Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
->> > ---
->> >  drivers/net/wireguard/noise.c | 8 +++++---
->> >  1 file changed, 5 insertions(+), 3 deletions(-)
->> >
->> > diff --git a/drivers/net/wireguard/noise.c b/drivers/net/wireguard/noise.c
->> > index 9c0a09bf6c95..88cc9acc7dc7 100644
->> > --- a/drivers/net/wireguard/noise.c
->> > +++ b/drivers/net/wireguard/noise.c
->> > @@ -784,10 +784,12 @@ wg_noise_handshake_consume_response(struct message_handshake_response *src,
->> >
->> >  	/* Success! Copy everything to peer */
->> >  	down_write(&handshake->lock);
->> > -	/* It's important to check that the state is still the same, while we
->> > -	 * have an exclusive lock.
->> > +	/* Check that this is still the initiation we authenticated against,
->> > +	 * while we have an exclusive lock.
->> >  	 */
->> > -	if (handshake->state != state) {
->> > +	if (handshake->state != state ||
->> > +	    crypto_memneq(handshake->ephemeral_private, ephemeral_private,
->> > +			  NOISE_PUBLIC_KEY_LEN)) {
->> >  		up_write(&handshake->lock);
->> >  		goto fail;
->> >  	}
->> 
->> Could you describe the flow that you think causes a bug? Trying
->> to recreate your mental model. Something like this?
->> 
->> == thread 1 ==
->> 
->> 	down_read(&handshake->lock);
->> 	state = handshake->state;
->> 	memcpy(hash, handshake->hash, NOISE_HASH_LEN);
->> 	memcpy(chaining_key, handshake->chaining_key, NOISE_HASH_LEN);
->> 	memcpy(ephemeral_private, handshake->ephemeral_private,
->> 	       NOISE_PUBLIC_KEY_LEN);
->> 	memcpy(preshared_key, handshake->preshared_key,
->> 	       NOISE_SYMMETRIC_KEY_LEN);
->> 	up_read(&handshake->lock);
->> 
->> 	if (state != HANDSHAKE_CREATED_INITIATION)
->> 		goto fail;
->> 
->> 	/* e */
->> 	message_ephemeral(e, src->unencrypted_ephemeral, chaining_key, hash);
->> 
->> 	/* ee */
->> 	if (!mix_dh(chaining_key, NULL, ephemeral_private, e))
->> 		goto fail;
->> 
->> 	/* se */
->> 	if (!mix_dh(chaining_key, NULL, wg->static_identity.static_private, 
->> e))
->> 		goto fail;
->> 
->> 	/* psk */
->> 	mix_psk(chaining_key, hash, key, preshared_key);
->> 
->> 	/* {} */
->> 	if (!message_decrypt(NULL, src->encrypted_nothing,
->> 			     sizeof(src->encrypted_nothing), key, hash))
->> 		goto fail;
->> 
->> == thread 2 ==
->> 
->> 	down_read(&handshake->static_identity->lock);
->> 	down_write(&handshake->lock);
->> 
->> 	if (unlikely(!handshake->static_identity->has_identity))
->> 		goto out;
->> 
->> 	dst->header.type = cpu_to_le32(MESSAGE_HANDSHAKE_INITIATION);
->> 
->> 	handshake_init(handshake->chaining_key, handshake->hash,
->> 		       handshake->remote_static);
->> 
->> 	/* e */
->> 	curve25519_generate_secret(handshake->ephemeral_private);
->> 	if (!curve25519_generate_public(dst->unencrypted_ephemeral,
->> 					handshake->ephemeral_private))
->> 		goto out;
->> 	message_ephemeral(dst->unencrypted_ephemeral,
->> 			  dst->unencrypted_ephemeral, handshake->chaining_key,
->> 			  handshake->hash);
->> 
->> 	/* es */
->> 	if (!mix_dh(handshake->chaining_key, key, 
->> handshake->ephemeral_private,
->> 		    handshake->remote_static))
->> 		goto out;
->> 
->> 	/* s */
->> 	message_encrypt(dst->encrypted_static,
->> 			handshake->static_identity->static_public,
->> 			NOISE_PUBLIC_KEY_LEN, key, handshake->hash);
->> 
->> 	/* ss */
->> 	if (!mix_precomputed_dh(handshake->chaining_key, key,
->> 				handshake->precomputed_static_static))
->> 		goto out;
->> 
->> 	/* {t} */
->> 	tai64n_now(timestamp);
->> 	message_encrypt(dst->encrypted_timestamp, timestamp,
->> 			NOISE_TIMESTAMP_LEN, key, handshake->hash);
->> 
->> 	dst->sender_index = wg_index_hashtable_insert(
->> 		handshake->entry.peer->device->index_hashtable,
->> 		&handshake->entry);
->> 
->> 	handshake->state = HANDSHAKE_CREATED_INITIATION;
->> 	ret = true;
->> 
->> out:
->> 	up_write(&handshake->lock);
->> 	up_read(&handshake->static_identity->lock);
->> 
->> == thread 1 ==
->> 
->> 	down_write(&handshake->lock);
->> 	/* It's important to check that the state is still the same, while we
->> 	 * have an exclusive lock.
->> 	 */
->> 	if (handshake->state != state) {
->> 		up_write(&handshake->lock);
->> 		goto fail;
->> 	}
->> 	memcpy(handshake->remote_ephemeral, e, NOISE_PUBLIC_KEY_LEN);
->> 	memcpy(handshake->hash, hash, NOISE_HASH_LEN);
->> 	memcpy(handshake->chaining_key, chaining_key, NOISE_HASH_LEN);
->> 	handshake->remote_index = src->sender_index;
->> 	handshake->state = HANDSHAKE_CONSUMED_RESPONSE;
->> 	up_write(&handshake->lock);
->> 	ret_peer = peer;
->> 	goto out;
->> 
->> And now begin_session is called on the older completed handshake 
->> rather
->> than the half-completed newer handshake?
->> 
->> Or did you see some other flow?
-> 
-> Okay I think I worked something plausible out:
-> 
-> - two threads begin processing the same response
-> - the first succeeds. the second gets halfway, when it blocks on taking
->   a lock that a queued initiation has taken
-> - the queued initiation does its thing and resets the state
-> - the second thread resumes and completes the old handshake and
->   reinstalls keys
-> 
-> I'll continue analyzing real world feasibility, but in all cases, thank
-> you for the patch.
-> 
-> Jason
+jfs_readdir() converts each on-disk name into a struct jfs_dirent in a
+PAGE_SIZE buffer, and stops filling the buffer when the next entry
+might not fit:
 
-Hello Jason,
+	if (((long) jfs_dirent + d->namlen + 1) >
+	    ((long)dirent_buf + PAGE_SIZE)) {
 
-Thanks for your quick reply. Sorry that I could not answer in time.
-Your analysis is indeed the scenario that I had in mind, yet, the
-second thread does not really have to block, I'd say it can just
-be slow?
+That check undercounts twice.  The name is written at jfs_dirent->name,
+after the 14-byte header, not at jfs_dirent.  And d->namlen counts
+UCS-2 characters, while jfs_strfromUCS_le() lets the codepage's
+uni2char() write up to NLS_MAX_CHARSET_SIZE bytes for each one; with
+iocharset=utf8 most non-ASCII characters take two or three bytes.  So
+an entry that passes the check can still be written past the end of
+the buffer.  Since commit de9f4f0b2c0f ("jfs: replace __get_free_page()
+with kmalloc()") the buffer comes from kmalloc-4k and KASAN reports it:
 
-As for real world feasibility and impacts, I must admit that
-I have no idea.
+  BUG: KASAN: slab-out-of-bounds in utf32_to_utf8+0x24d/0x3d0 fs/nls/nls_base.c:111
+  Write of size 1 at addr ffff888039ad7000 by task syz-executor304/5946
+   utf32_to_utf8+0x24d/0x3d0 fs/nls/nls_base.c:111
+   uni2char+0x35/0xa0 fs/nls/nls_utf8.c:21
+   jfs_strfromUCS_le+0xd2/0x3d0 fs/jfs/jfs_unicode.c:31
+   jfs_readdir+0x16fd/0x33f0 fs/jfs/jfs_dtree.c:2984
+  The buggy address is located 0 bytes to the right of
+   allocated 4096-byte region [ffff888039ad6000, ffff888039ad7000)
 
-Regards,
-Jérémy
+Before that commit the same write went into whatever page followed.
+
+Check against the worst case instead: the name starts at
+jfs_dirent->name and each character can take NLS_MAX_CHARSET_SIZE
+bytes, or one byte when no codepage is set.  The largest entry is
+then 255 * 6 + 15 bytes, so an empty buffer still always takes at
+least one entry and readdir keeps making progress.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: syzbot+a2748ba908c108e7e525@syzkaller.appspotmail.com
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
+---
+Built with W=1 only; not runtime-tested.
+
+ fs/jfs/jfs_dtree.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/fs/jfs/jfs_dtree.c b/fs/jfs/jfs_dtree.c
+index 8ce6e4458cc2..d930e577a496 100644
+--- a/fs/jfs/jfs_dtree.c
++++ b/fs/jfs/jfs_dtree.c
+@@ -2712,6 +2712,8 @@ int jfs_readdir(struct file *file, struct dir_context *ctx)
+ {
+ 	struct inode *ip = file_inode(file);
+ 	struct nls_table *codepage = JFS_SBI(ip->i_sb)->nls_tab;
++	/* most bytes one on-disk character can turn into in jfs_dirent */
++	int max_charlen = codepage ? NLS_MAX_CHARSET_SIZE : 1;
+ 	int rc = 0;
+ 	loff_t dtpos;	/* legacy OS/2 style position */
+ 	struct dtoffset {
+@@ -2910,9 +2912,10 @@ int jfs_readdir(struct file *file, struct dir_context *ctx)
+ 
+ 			d = (struct ldtentry *) & p->slot[stbl[i]];
+ 
+-			if (((long) jfs_dirent + d->namlen + 1) >
++			if (((long)jfs_dirent->name +
++			     d->namlen * max_charlen + 1) >
+ 			    ((long)dirent_buf + PAGE_SIZE)) {
+-				/* DBCS codepages could overrun dirent_buf */
++				/* the converted name might not fit */
+ 				index = i;
+ 				overflow = 1;
+ 				break;
+-- 
+2.55.0.windows.5
+
