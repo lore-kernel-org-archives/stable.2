@@ -1,145 +1,116 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFCC34AFE27
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 23:24:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC0B34AB1CA
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 23:25:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791329101; cv=none; b=uWxFxg6gOe6+M+hxoRQkr6SBrvumc3ATp8e+m7lhnC3X8Tig++G3XdDasAABeGppw7/ZJnucuLYju7SGcrMqnZQwnGaYie/IWTPaMHYwz4XZE5pEC72W1ttDauN0FY34NYKiXTZ2aiXeHgLeruubDYfOzhdWw3CbHkj0oIi4aO0=
+	t=1791329126; cv=none; b=Y/LZQqg0zZUgrultE3/q8/nWlOvsShIZz/ftFcdLvNSIepC9hZ0zsBrW5Zxsl5HGdsvvS3GAz+V6xkKEsZa5d6+98LrZPTZqdLv8Ebna+Mp8GYNsrQkduuw2cMtSnM+8T4ojeXfRUyXNhzA3rqMtg7ypOc5a4i+UrftxzRcikK8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791329101; c=relaxed/simple;
-	bh=VNYfm0j9bnJxuw/HfcOLuSuh09V3UvN/XmiJ71Dp1rk=;
+	s=arc-20240116; t=1791329126; c=relaxed/simple;
+	bh=q1OOoBieW7MKgdrLF8inLCJYdL1Av+E1K+SSenFM1SA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OzIYvL5d7Tnxa8DCQBrIPKc7x7oRrQ7p7i0iFxaeTGWIcN4VjdNGEakGicNPf2DkGtalj71GwaQOrH92hJ8xp9sYkXOyiA3P8QNtPUrXSsLlOEJQ5/Mp5JfGTO80cx1GtTEC4T4sIft9aVTaiQpKlezP2swtqYDLLsp+s2oNXlU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DuDmBU1T; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=AgogWg9is4Ov8SnOcxtJznM2OBaL/rEmazr4jJYpKnwBNgBBMXjxTe9tAqu7COQc5dCe+yL5oMj2cR7levHcfx7BJX3OX+e4P8jYCfFPcaPRIlgxLdJd/cCkBpzcu0S4Ss7UgClUyoP5fgydy/PuMAskbt5OZKArIhDKTdaw7oQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cl+WvrOk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DuDmBU1T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B42F1F0089B;
-	Tue,  6 Oct 2026 23:24:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cl+WvrOk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 268621F0089B;
+	Tue,  6 Oct 2026 23:25:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791329092;
-	bh=5X/7CUF/Qa+XMW7wPiBW0aMCYmsEbmBWPrAG5DMHXUE=;
+	s=k20260515; t=1791329119;
+	bh=t5u4JgBqcc2NhD593/K5HqfHITy4NONOBxdg2N2YqYU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DuDmBU1Tj1hizfgYeE3Unhblj+8CC0IG9SD9w3LE6m6VUV16BWXPHaDiIrW828bVN
-	 lbdsM+RjapywRMQ1ichmMciC2qPHbp2CrCRg+u6TJ1Up4SmWp8wVV3vMPu5KJPDNHU
-	 Yf0wc73k8iszdH9Q97Qks0fQj+LQim46t6j870ISZHxWmzrbWOl9CCMc+WM1mBe0q0
-	 jDcdkDilD38FI8YS3dD4YR8pwK4/FxXu8FLsKx7XwHY0UbPWm/4dOrh9ep7rE3/Wlb
-	 b7BTyS6VzXQzHZAhw30Ip6I7TnYJpRpt52orsrJdMrEUupwjYJw5ok8G0AZbcH44GQ
-	 tk4JVlbc0PI8Q==
+	b=cl+WvrOkBmT5hFxnwVOcXdmj6hBnkhpJJozbAwocOwnkXkGVRStB4JguLEh7wlPQ5
+	 BJAzH/IMwhh4cjVUekcpyIUQZ+aeI4nwcXEzmIYtHnMjU+o1HSzCj7qR0XXxguPpMu
+	 nKtOwlcjpymYScvs3Z2URtJtcIr7TztM6+duT7sI1KbtR2teNYpphkmwQNu+eJcugu
+	 BO0FLJT86E/1eHY29prLQZmcNnAr4k0nMEXL6iVLxmTl6wPowlshMsfWVkCCxexcq2
+	 /14ygCdu70KpigJo2NdTFKY0r0jCALePhHRLl2w/dTtNCD4C0FzuAaU3x86qVdgYQf
+	 Kf30Ye2bOcoTg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sven Peter <sven@kernel.org>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
+Cc: Han Xu <han.xu@nxp.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] thunderbolt: Don't access a DP tunnel after its DPRX read was canceled
-Date: Tue,  6 Oct 2026 19:24:49 -0400
-Message-ID: <20261006232426.1193916-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] mtd: spinand: Enable QE on all dies
+Date: Tue,  6 Oct 2026 19:25:16 -0400
+Message-ID: <20261006232452.1126912-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100526-spree-unquote-9a23@gregkh>
-References: <2026100526-spree-unquote-9a23@gregkh>
+In-Reply-To: <2026100507-that-landed-061a@gregkh>
+References: <2026100507-that-landed-061a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Sven Peter <sven@kernel.org>
+From: Han Xu <han.xu@nxp.com>
 
-[ Upstream commit 419fa32fa5bc2d7fb9d0d15d5630b1c1090808b3 ]
+[ Upstream commit 63d6cace2c4a7f36c1cb44f1bb5e0f3ef19e5c7f ]
 
-tb_dp_dprx_work() checks ->dprx_canceled before it takes tb->lock so it
-misses a tb_dp_dprx_stop() that could not cancel the already running
-work. It then polls the DPRX capabilities and runs the callback for a
-tunnel that has already been torn down while the domain is suspending or
-going away.
+The QUAD ENABLE (QE) bit is stored in a per-die configuration
+register on some SPI-NAND devices. When a device contains multiple
+dies, updating the QE bit only on the currently selected die can
+leave the remaining dies operating in non-quad mode.
+ 
+Iterate over all targets and update the QE setting on each die
+during initialization to ensure consistent quad I/O operation
+across the entire device.
 
-This can be hit by cancelling the DPRX read from outside the ordered
-tb->wq: During suspend tb_disconnect_and_release_dp() does just this and
-with a later patch tb_stop() will do it as well. The latter in combination
-with the Apple NHI where the DPRX read never completed is how I hit
-this.
+Tested on ISSI IS38SMW04G8B.
 
-Check the flag with tb->lock held instead and check it again in
-tb_dp_tunnel_active() because the callback runs after the lock has been
-dropped again.
-
-Also clear the flag in tb_dp_dprx_start() so that it only ever describes
-the work that is currently in flight.
-
-Fixes: d6d458d42e1e ("thunderbolt: Handle DisplayPort tunnel activation asynchronously")
+Fixes: 7529df465248 ("mtd: nand: Add core infrastructure to support SPI NANDs")
 Cc: stable@vger.kernel.org
-Signed-off-by: Sven Peter <sven@kernel.org>
-Signed-off-by: Mika Westerberg <mika.westerberg@linux.intel.com>
-[ sashal: Adjusted tb_dp_dprx_start() context to retain optional callbacks and synchronous reads. ]
+Signed-off-by: Han Xu <han.xu@nxp.com>
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+[ sashal: retained local enable detection in spinand_init_quad_enable() instead of using an enable parameter. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/thunderbolt/tb.c     | 12 ++++++++++++
- drivers/thunderbolt/tunnel.c | 11 +++++++++--
- 2 files changed, 21 insertions(+), 2 deletions(-)
+ drivers/mtd/nand/spi/core.c | 21 +++++++++++++++++++--
+ 1 file changed, 19 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/thunderbolt/tb.c b/drivers/thunderbolt/tb.c
-index 0625da3066842..51b56a304ae8e 100644
---- a/drivers/thunderbolt/tb.c
-+++ b/drivers/thunderbolt/tb.c
-@@ -1910,6 +1910,18 @@ static void tb_dp_tunnel_active(struct tb_tunnel *tunnel, void *data)
- 	struct tb *tb = data;
+diff --git a/drivers/mtd/nand/spi/core.c b/drivers/mtd/nand/spi/core.c
+index 8794a1f6eacd9..953202e711da4 100644
+--- a/drivers/mtd/nand/spi/core.c
++++ b/drivers/mtd/nand/spi/core.c
+@@ -172,7 +172,10 @@ static int spinand_init_cfg_cache(struct spinand_device *spinand)
  
- 	mutex_lock(&tb->lock);
-+
+ static int spinand_init_quad_enable(struct spinand_device *spinand)
+ {
++	struct nand_device *nand = spinand_to_nand(spinand);
++	unsigned int target;
+ 	bool enable = false;
++	int ret;
+ 
+ 	if (!(spinand->flags & SPINAND_HAS_QE_BIT))
+ 		return 0;
+@@ -182,8 +185,22 @@ static int spinand_init_quad_enable(struct spinand_device *spinand)
+ 	    spinand->op_templates.update_cache->data.buswidth == 4)
+ 		enable = true;
+ 
+-	return spinand_upd_cfg(spinand, CFG_QUAD_ENABLE,
+-			       enable ? CFG_QUAD_ENABLE : 0);
 +	/*
-+	 * If the DPRX read was canceled the tunnel is already being torn
-+	 * down by whoever canceled it. Do not touch the adapters here
-+	 * because the routers may be gone by now.
++	 * QE is a per-die setting on some devices. Program each target
++	 * individually when enabling or disabling quad I/O mode.
 +	 */
-+	if (tunnel->dprx_canceled) {
-+		tb_tunnel_dbg(tunnel, "DPRX read canceled, not activating\n");
-+		mutex_unlock(&tb->lock);
-+		return;
++	for (target = 0; target < nand->memorg.ntargets; target++) {
++		ret = spinand_select_target(spinand, target);
++		if (ret)
++			return ret;
++
++		ret = spinand_upd_cfg(spinand, CFG_QUAD_ENABLE,
++				      enable ? CFG_QUAD_ENABLE : 0);
++		if (ret)
++			return ret;
 +	}
 +
- 	if (tb_tunnel_is_active(tunnel)) {
- 		int consumed_up, consumed_down, ret;
++	return 0;
+ }
  
-diff --git a/drivers/thunderbolt/tunnel.c b/drivers/thunderbolt/tunnel.c
-index 7bc5516f1e2d2..466e9da029356 100644
---- a/drivers/thunderbolt/tunnel.c
-+++ b/drivers/thunderbolt/tunnel.c
-@@ -1097,8 +1097,14 @@ static void tb_dp_dprx_work(struct work_struct *work)
- 	struct tb_tunnel *tunnel = container_of(work, typeof(*tunnel), dprx_work.work);
- 	struct tb *tb = tunnel->tb;
- 
-+	/*
-+	 * The DPRX read can be canceled while this work is waiting for
-+	 * tb->lock. Check the flag only once it is held: while the lock is
-+	 * held the tunnel cannot be torn down under us and the adapters are
-+	 * safe to access.
-+	 */
-+	mutex_lock(&tb->lock);
- 	if (!tunnel->dprx_canceled) {
--		mutex_lock(&tb->lock);
- 		if (tb_dp_is_usb4(tunnel->src_port->sw) &&
- 		    tb_dp_wait_dprx(tunnel, TB_DPRX_WAIT_TIMEOUT)) {
- 			if (ktime_before(ktime_get(), tunnel->dprx_timeout)) {
-@@ -1110,8 +1116,8 @@ static void tb_dp_dprx_work(struct work_struct *work)
- 		} else {
- 			tb_tunnel_set_active(tunnel, true);
- 		}
--		mutex_unlock(&tb->lock);
- 	}
-+	mutex_unlock(&tb->lock);
- 
- 	if (tunnel->callback)
- 		tunnel->callback(tunnel, tunnel->callback_data);
-@@ -1129,6 +1135,7 @@ static int tb_dp_dprx_start(struct tb_tunnel *tunnel)
- 	tb_domain_get(tunnel->tb);
- 
- 	tunnel->dprx_started = true;
-+	tunnel->dprx_canceled = false;
- 
- 	if (tunnel->callback) {
- 		tunnel->dprx_timeout = dprx_timeout_to_ktime(dprx_timeout);
+ static int spinand_ecc_enable(struct spinand_device *spinand,
 -- 
 2.53.0
 
