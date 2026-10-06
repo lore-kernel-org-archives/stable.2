@@ -1,141 +1,173 @@
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8434455628
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 13:34:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.69
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5B3C93EE1D8
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 13:48:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791293647; cv=none; b=QrQPQX6JiWY7iFWlyTCiGHrzeNGu4sBwOthGlSN8hQ5EMZ4DI7EZR2SR5xp5uiNTZxKrw8GvL2/IohdYdePHs7Gcr2XkSksfsRHjfzNjGAGcFhJ1UBTDapEA78IN57f2SI47Y12KznHPdiJoWPERxpJGP6JfUF5gAFlj5fUAOfo=
+	t=1791294510; cv=none; b=qINXM+T/6Vt4RtYVymMctUA2FSSjGpiGgCk7GIJ0JR43yBpGHfNg+vyPZqoAFMxBM+EAHvS2PWveaRxSpvYfQPt1ZRGKmVx+ask+cPsYpEpCPL47L7NLC+fJ8IBfOVdxg9WA1mE44zrBC3fAehvX2ZiV3nZHdz35HX1Y5YmEreg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791293647; c=relaxed/simple;
-	bh=akDDsrlz5LUiN+oGGtRhppEbN7v3PHSJ09mAkb8qS5M=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=M4E4WtP30hkucv7RslLJL+cJExGNfjQ5OsJSmlSB/5D9mqd2lP1I4eCO5OxHLlA9SAQI3r6lrdpTOdrsMAIvOyKm8bQSXzUt6ZKsxFtb0txnszvpTzUjgY07N48A4pB3OVoGlZIsJ7KtdhYusQBmtRGGMAn+VX9bJChow6N9AlA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--smostafa.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ePD+2pch; arc=none smtp.client-ip=209.85.128.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--smostafa.bounces.google.com
+	s=arc-20240116; t=1791294510; c=relaxed/simple;
+	bh=/Vlv4E7o9UtT2l0QxSeohgQEgXC1C5uFgJVJrzk2U6E=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=WxLs95ERqTiygbKWoH8GG2Q85maslmemlirXwnrtV5lxD5efY7kkP1pRgM+nCMVm7pC5MgD4JU9To7eqTpbbyirWVjlHKZHuWk2QojAGqW/DFBpikGPpD3EOeaAXbfcJ5C1doR9MQ6Ysx4r0pZXu2hEfTgGyj16hmVNv/tFfk4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=N2ceVzBt; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ePD+2pch"
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a022fee32fso24595625e9.0
-        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 06:34:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791293644; x=1791898444; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rFUs2O53h6lFQjQpssONV4CNZjAqmwmcBofDZBTNjWM=;
-        b=ePD+2pchMMwE24VTslbY1D5FtRD5AG+ZuNzf5eCrCFEhy3ponZtySv76dOarZ2YP2/
-         fEdyZV7dpl6Egx1BuPCAM6630szhRww7wH8ztklM61Ps98OeHgs/Zn8H9jSTyAa6UdAn
-         +HIPY8Y7F5X+mydmAoE2aRzokzEVxnEo2hgcouG4ylZ1SRiWAEDZUmSAgobF0vZwC4fS
-         PVoNQ5zrglcmjI79JegvXgOMy7g0lOSy7hUkpxM1iH8z51DIq9ndXJdBmfz6GKvZCJza
-         82coeaK/rEBi7JX5JbafK2O0uflDQbTaB5AIPk2C4XbIoBpeGsWJ7/1PYGKdQ4icIFkP
-         Q0zw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791293644; x=1791898444;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rFUs2O53h6lFQjQpssONV4CNZjAqmwmcBofDZBTNjWM=;
-        b=wMIPz2VDB25SMAzr+q1r7kdl2i7A1yqH7eBZYtwtW2Lhj2YQ75i3P9TtZr4+Sgqx2H
-         KdC+AbwMOX1CdgQ7Uio82DnsLS1HT/8Zo/a2jk2NHz6MWpPCVAFP7f+X+HwNyV1arAKn
-         YhNzRakOKPsVkLKZQdkGWvcfBH6WtgX03kQisLqqu1DmL+2aYR2cNNX5p/5rwLaCbuc9
-         rCP/6u09G/No6AbVNDTcpsSbmjNvcdsLCIbiRMe26ZrXHbvzq4HM44zLOtEbtpjnb4yh
-         BfR0RhgR9kVNW4fT8o5z96cUNx1M9DIiN1mcDSwRmqUMESmxpdw7LItSa0PQCQMi56uX
-         /gCQ==
-X-Gm-Message-State: AFuF++kKYi24xlrz2cUXMXMBzMcL9mPWZAaRhKRbfBYYSsB+S8pCc/6O
-	eiYevK6K2cjG0y8+G/ffZg0J5T2RyaA7wcUZBQgFQvt48DB44mprosiiBWQdW0Se0aQ6hwivbup
-	uEIScj2vbtnm63wI1Ask+WigmErJa2L5FDnc3gu2jyzYZJtp2s2JyZa2ljw090b8rdoTASeBV/F
-	yREX8hL7TnlMzGa8wqocq+7MPff/Irju1RJUJMLXcWxjMwNp8=
-X-Received: from wmpj20.prod.google.com ([2002:a05:600c:4894:b0:4a1:76c7:7e63])
- (user=smostafa job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:4e45:b0:4a1:687b:8f3d with SMTP id 5b1f17b1804b1-4a17b55ad69mr21462695e9.31.1791293643560;
- Tue, 06 Oct 2026 06:34:03 -0700 (PDT)
-Date: Tue,  6 Oct 2026 13:33:59 +0000
-In-Reply-To: <2026100530-unscathed-basket-3d69@gregkh>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="N2ceVzBt"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 448E81516
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 06:48:24 -0700 (PDT)
+Received: from e143943.arm.com (unknown [10.57.11.52])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 274AE3F763
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 06:48:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791294507; bh=/Vlv4E7o9UtT2l0QxSeohgQEgXC1C5uFgJVJrzk2U6E=;
+	h=From:To:Subject:Date:In-Reply-To:References:From;
+	b=N2ceVzBtUAyEFWZ58zAC30Xmsf30nupB4cw1a4bZ6P2o+HULS6c6cRrlOJ54cMTmJ
+	 BOPqsXbmtA4F842jy+X2Ey7xD3aIQxcEWdYlIMReiSyf+ACnxlc9MVKxk3IdyzJmTp
+	 +2LfNayGRlYZsaNsDIBmd29GzIcw7hRqZZlutGk0=
+From: Beata Michalska <beata.michalska@arm.com>
+To: stable@vger.kernel.org
+Subject: [PATCH 6.6.y 1/2] arm64: errata: Factor out broken AMU const counter cap
+Date: Tue,  6 Oct 2026 15:48:06 +0200
+Message-ID: <20261006134820.2627481-1-beata.michalska@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <2026100501-bulginess-bullfight-da31@gregkh>
+References: <2026100501-bulginess-bullfight-da31@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <2026100530-unscathed-basket-3d69@gregkh>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20261006133359.3163466-1-smostafa@google.com>
-Subject: [PATCH 6.6.y] KVM: arm64: Don't use the VMA to size stage-2 block
- mappings for VM_PFNMAP
-From: Mostafa Saleh <smostafa@google.com>
-To: stable@vger.kernel.org
-Cc: Mostafa Saleh <smostafa@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-[ Upstream commit 71cc2c67fb8f8d5aa8154eb482e9846d2214f11b ]
+Move the workaround from the erratum 2457168-specific cpucap to a generic
+broken AMU constant-counter one. This keeps the existing Cortex-A510
+handling unchanged while allowing other errata with similar AMU constant
+counter issue to share the capability bit and call sites.
 
-get_vma_page_shift() derives the stage-2 block size for VM_PFNMAP VMAs
-from the VMA layout alone, which does not necessarily match what
-stage-1 maps for that VMA.
+Signed-off-by: Beata Michalska <beata.michalska@arm.com>
+Reviewed-by: Vladimir Murzin <vladimir.murzin@arm.com>
+Signed-off-by: Will Deacon <will@kernel.org>
+(cherry picked from commit 573371caf7aea8582212da81dcead2c3f48fac4b)
 
-Upstream commit 71cc2c67fb8f ("KVM: arm64: Use stage-1 leaf size for
-VM_PFNMAP") drops that calculation and lets transparent_hugepage_adjust()
-derive the mapping size from the stage-1 leaf instead. The second part
-is not applicable here: in this kernel transparent_hugepage_adjust()
-takes a reference on the backing struct page, which is not safe for
-MMIO, and stage-1 has no huge PFNMAP before v6.12 anyway. Only drop the
-VMA-based calculation, so VM_PFNMAP VMAs are mapped at PAGE_SIZE.
-
-Fixes: 2aa53d68cee6 ("KVM: arm64: Try stage2 block mapping for host device MMIO")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mostafa Saleh <smostafa@google.com>
+Skipped comment updated on amu_read_core_const_ctrs, as that
+functionality is not available here. Otherwise unmodified.
+Signed-off-by: Beata Michalska <beata.michalska@arm.com>
 ---
- arch/arm64/kvm/mmu.c | 25 ++-----------------------
- 1 file changed, 2 insertions(+), 23 deletions(-)
+ arch/arm64/Kconfig             |  8 ++++++++
+ arch/arm64/kernel/cpu_errata.c | 20 ++++++++++++++------
+ arch/arm64/kernel/cpufeature.c |  2 +-
+ arch/arm64/kernel/topology.c   |  2 +-
+ arch/arm64/tools/cpucaps       |  2 +-
+ 5 files changed, 25 insertions(+), 9 deletions(-)
 
-diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-index 482280fe22d7..47f76a78ba1f 100644
---- a/arch/arm64/kvm/mmu.c
-+++ b/arch/arm64/kvm/mmu.c
-@@ -1329,32 +1329,11 @@ transparent_hugepage_adjust(struct kvm *kvm, struct kvm_memory_slot *memslot,
- 	return PAGE_SIZE;
- }
+diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+index 723e73042c1a..27fe95b9aac7 100644
+--- a/arch/arm64/Kconfig
++++ b/arch/arm64/Kconfig
+@@ -1004,9 +1004,17 @@ config ARM64_ERRATUM_1902691
  
--static int get_vma_page_shift(struct vm_area_struct *vma, unsigned long hva)
-+static int get_vma_page_shift(struct vm_area_struct *vma)
- {
--	unsigned long pa;
--
- 	if (is_vm_hugetlb_page(vma) && !(vma->vm_flags & VM_PFNMAP))
- 		return huge_page_shift(hstate_vma(vma));
+ 	  If unsure, say Y.
  
--	if (!(vma->vm_flags & VM_PFNMAP))
--		return PAGE_SHIFT;
--
--	VM_BUG_ON(is_vm_hugetlb_page(vma));
--
--	pa = (vma->vm_pgoff << PAGE_SHIFT) + (hva - vma->vm_start);
--
--#ifndef __PAGETABLE_PMD_FOLDED
--	if ((hva & (PUD_SIZE - 1)) == (pa & (PUD_SIZE - 1)) &&
--	    ALIGN_DOWN(hva, PUD_SIZE) >= vma->vm_start &&
--	    ALIGN(hva, PUD_SIZE) <= vma->vm_end)
--		return PUD_SHIFT;
--#endif
--
--	if ((hva & (PMD_SIZE - 1)) == (pa & (PMD_SIZE - 1)) &&
--	    ALIGN_DOWN(hva, PMD_SIZE) >= vma->vm_start &&
--	    ALIGN(hva, PMD_SIZE) <= vma->vm_end)
--		return PMD_SHIFT;
--
- 	return PAGE_SHIFT;
- }
++config ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
++	bool
++	# Targeting errata affecting AMEVCNTR01, the AMU constant counter.
++	# On affected CPUs the counter may not increment at the expected rate,
++	# making it unreliable. As a result, AMU users should treat it as
++	# unavailable rather than relying on misleading counter values.
++
+ config ARM64_ERRATUM_2457168
+ 	bool "Cortex-A510: 2457168: workaround for AMEVCNTR01 incrementing incorrectly"
+ 	depends on ARM64_AMU_EXTN
++	select ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
+ 	default y
+ 	help
+ 	  This option adds the workaround for ARM Cortex-A510 erratum 2457168.
+diff --git a/arch/arm64/kernel/cpu_errata.c b/arch/arm64/kernel/cpu_errata.c
+index 03a438279909..699eb5a820a8 100644
+--- a/arch/arm64/kernel/cpu_errata.c
++++ b/arch/arm64/kernel/cpu_errata.c
+@@ -275,6 +275,16 @@ static const struct arm64_cpu_capabilities arm64_repeat_tlbi_list[] = {
+ };
+ #endif
  
-@@ -1456,7 +1435,7 @@ static int user_mem_abort(struct kvm_vcpu *vcpu, phys_addr_t fault_ipa,
- 		force_pte = true;
- 		vma_shift = PAGE_SHIFT;
- 	} else {
--		vma_shift = get_vma_page_shift(vma, hva);
-+		vma_shift = get_vma_page_shift(vma);
++#ifdef CONFIG_ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
++static const struct midr_range workaround_amu_constcnt_list[] = {
++#ifdef CONFIG_ARM64_ERRATUM_2457168
++	/* Cortex-A510 r0p0-r1p1 */
++	MIDR_RANGE(MIDR_CORTEX_A510, 0, 0, 1, 1),
++#endif
++	{}
++};
++#endif /* CONFIG_ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT */
++
+ #ifdef CONFIG_CAVIUM_ERRATUM_23154
+ static const struct midr_range cavium_erratum_23154_cpus[] = {
+ 	MIDR_ALL_VERSIONS(MIDR_THUNDERX),
+@@ -766,14 +776,12 @@ const struct arm64_cpu_capabilities arm64_errata[] = {
+ 		ERRATA_MIDR_REV_RANGE(MIDR_CORTEX_A510, 0, 0, 2)
+ 	},
+ #endif
+-#ifdef CONFIG_ARM64_ERRATUM_2457168
++#ifdef CONFIG_ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
+ 	{
+-		.desc = "ARM erratum 2457168",
+-		.capability = ARM64_WORKAROUND_2457168,
++		.desc = "Broken AMU AMEVCNTR01 (const counter)",
++		.capability = ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT,
+ 		.type = ARM64_CPUCAP_WEAK_LOCAL_CPU_FEATURE,
+-
+-		/* Cortex-A510 r0p0-r1p1 */
+-		CAP_MIDR_RANGE(MIDR_CORTEX_A510, 0, 0, 1, 1)
++		CAP_MIDR_RANGE_LIST(workaround_amu_constcnt_list)
+ 	},
+ #endif
+ #ifdef CONFIG_ARM64_ERRATUM_2038923
+diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
+index 5db25bfb854f..b85d6058a347 100644
+--- a/arch/arm64/kernel/cpufeature.c
++++ b/arch/arm64/kernel/cpufeature.c
+@@ -1950,7 +1950,7 @@ static void cpu_amu_enable(struct arm64_cpu_capabilities const *cap)
+ 		cpumask_set_cpu(smp_processor_id(), &amu_cpus);
+ 
+ 		/* 0 reference values signal broken/disabled counters */
+-		if (!this_cpu_has_cap(ARM64_WORKAROUND_2457168))
++		if (!this_cpu_has_cap(ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT))
+ 			update_freq_counters_refs();
  	}
+ }
+diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
+index 1a2c72f3e7f8..33a834e8aeeb 100644
+--- a/arch/arm64/kernel/topology.c
++++ b/arch/arm64/kernel/topology.c
+@@ -273,7 +273,7 @@ static void cpu_read_constcnt(void *val)
+ 	 * the counter is disabled. A return value of 0 at counter read is
+ 	 * properly handled as an error case by the users of the counter.
+ 	 */
+-	*(u64 *)val = this_cpu_has_cap(ARM64_WORKAROUND_2457168) ?
++	*(u64 *)val = this_cpu_has_cap(ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT) ?
+ 		      0UL : read_constcnt();
+ }
  
- 	switch (vma_shift) {
+diff --git a/arch/arm64/tools/cpucaps b/arch/arm64/tools/cpucaps
+index c251ef3caae5..1d3e0e178514 100644
+--- a/arch/arm64/tools/cpucaps
++++ b/arch/arm64/tools/cpucaps
+@@ -81,7 +81,6 @@ WORKAROUND_1902691
+ WORKAROUND_2038923
+ WORKAROUND_2064142
+ WORKAROUND_2077057
+-WORKAROUND_2457168
+ WORKAROUND_2645198
+ WORKAROUND_2658417
+ WORKAROUND_AMPERE_AC03_CPU_38
+@@ -101,3 +100,4 @@ WORKAROUND_REPEAT_TLBI
+ WORKAROUND_SPECULATIVE_AT
+ WORKAROUND_SPECULATIVE_SSBS
+ WORKAROUND_SPECULATIVE_UNPRIV_LOAD
++WORKAROUND_BROKEN_AMU_CONSTCNT
 -- 
-2.56.0.rc1.315.gc6ed9934b7-goog
+2.43.0
 
