@@ -1,252 +1,180 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 643D939EF1C
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 13:56:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791294971; cv=none; b=FoCI30fN6mKDOcwjWDbyxZYRYPnrZBkLtyLS0GGbiPMQPWvyymTjAjSnC3CvkPRC6iIVxhmnAMSv/qQt92wVXxbmYLIgq626UQxzeHgT5J7bUwwd8YuJgoaIZ0Tp+0xXeXhjWMi24zRI6L/uPDSiuo8UllKxXKuqD14Wch8jrVY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791294971; c=relaxed/simple;
-	bh=/Dhuh/wtI0yX/Les8bDjamHrz/rhROiQMQkvk8Zx65o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=N1tzgaDAHDSD6wROyOvy2tpHnX6FjT4LqyRtEXffHjFlobz3JCUrSG2i6nlmK5nqeS5HtEZU0HpcrYHfRr0zXTLx4BKOf20NU7UDCqSLaWXAfd34Ivv30Mt0ClG/h9MtnxtGgRuDOvZw5o/YkqiaU14j2cq2/7dR9sZ+VFMWb/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=gDOgNTbV; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74AD0421257
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 13:56:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.172
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791294985; cv=pass; b=k66PImb1f0kkHe+BMfdUNMB+moLXXKqD2P8rTxHKj0kOVaM2JbI/erhZP1PUgj+0uoO3gbft8WIwgppnXXMuOyNWAos7+B5kIu2YOSPF9rcnTgDApWwpJLZKsMnKWch+HAr5hfK5Sp7s4sHepHHbcKP/xCGiVo3YzAeASUb1GH0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791294985; c=relaxed/simple;
+	bh=vbRT6nGrsubTAfIz8i+mXocImBW/c25hWjByl3J0uow=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UWCfaGmM+lfTv31e+nRNzH6ityEJJGkXw1eG6w+BYoBHgR381RUVGr0nx70DbmvkGruv1gV5R+67id3gyIuP2dY2tOReRFuGd0vRp6ia9RhNvJnRTsfhKV9BZXnMQXGmnqHeSQwjA6qthL3nEYte07Um+6woZi6MDyLeRI5txxc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cWgLPtGB; arc=pass smtp.client-ip=209.85.128.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="gDOgNTbV"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a018792ab3so8155375e9.0
-        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 06:56:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cWgLPtGB"
+Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-8ab395abf79so6550627b3.0
+        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 06:56:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791294983; cv=none;
+        d=google.com; s=arc-20260327;
+        b=T/RAwifAiznMfOkKR/HwKyGyVYDSsdiR1uMJlVVWvKmHLKjbNh07xYsVZeBAVyvaXC
+         gjQP9wJmXrjxrh4JcBQeLKgapPYirgwIcIS+ITsSDKJBBodhTu6FN2CEpXwtFEF5TKQK
+         PpSHo7Ut+d7vEa7KiSch/IzJQre6TKucU7wJvBApYhOYGy0BCEIZ8cD+ryzdPSJCRuLD
+         5i4OhdQhcrdfuq0dMMsDkjz4uZ0wH6v18j4RMoVt9pycYX1zIDS0oxZEHk+Vrh12fxG5
+         obsY0+f72I1QDZNcy8vx9UObNnSUGsrId6mnfXct9J8ua150SQcJTwLCgvn5Qa+AwNcy
+         Mtlg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ydu+elXchGUSJ74vhM8S5kQyLVRWEBSg2Ux9RtIawfA=;
+        fh=A8wOE0UN1F1m18Q/esF1EucgrmuubuRYwqcQvkIl92c=;
+        b=r9PMezHh3EW5cXXQz4qZ2TKp9nJmvt1+MhjK3+KhtpgpjK48t2U4fTIDAq4anZnRRy
+         aBh2SegvjIjcu2XCcQKuz8ATPP5DoZfWv/hlGMreZTR814PUx5spVkB5pvyNKn0A+nbV
+         ABZqidYY/TyUBNn8DyVVIaDiIoH89lcUvCN0LehFaQw6gM6J9qfLyq36dpjjQ3yXutH6
+         coZWm1kd8SVc86y/krmzjKWW0Q1P84AyXPcasJ1LIM1qBd2d8p2+8ei8yflQm4qcUiON
+         dpBY8mkUFrM+ApReFjUc4wnRW0n/uPjv/aWb8II/gJvMRz92s4S0HQAW1qn+Gc6phLMf
+         LP9Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1791294967; x=1791899767; darn=vger.kernel.org;
-        h=content-type:in-reply-to:autocrypt:from:content-language:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/Dhuh/wtI0yX/Les8bDjamHrz/rhROiQMQkvk8Zx65o=;
-        b=gDOgNTbVxzxJR0Asl3ay6a5Kf8rfl9ha0LABhQZaEHgid/0Hjp/mt911TErgMnV7MW
-         Y45hd+3g9/ziRwZC2X2PadKiFj7iJY1rxtn8IjUAR7Bah25lf55s1tOuNl1SfbJmayB5
-         YgkTwdHrYCpWrRrBBByG29qiAptb6HpDE3NvxoctqwRtmSHIHhdqdwRsH78oKejodLm6
-         6binDxw0QJpvhwS7BdQeHfO5EppkUMp3msx3kSYf+a0yJOEoMEBFZdChFZLZZ4gPvwLE
-         4+MToniGd6HF/BPTv+SolJ5cpYM9L9x4jJZQpNu5H1r3jsJ+8vT0eVqGsUIUh9MCZcal
-         t9wQ==
+        d=gmail.com; s=20251104; t=1791294983; x=1791899783; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ydu+elXchGUSJ74vhM8S5kQyLVRWEBSg2Ux9RtIawfA=;
+        b=cWgLPtGBzwiMGY7rSfq1+75nRh7jC1WaWBuDb3BmTWJ7TOy4fooiVn/lUKmS/jjYwk
+         6xu7C98s1Hj5wx1BLMMcFdyyj24nFSfrg2FO/A6X8jHJYE9jjryIUalWec9aLjx1TtLa
+         BINRcixxzps2M5S82NcOnt1xrfHunRXh+VmOBaK0VcUGWFDT5T17Mu7V0CN2R/C4hHyF
+         l/s9Vi86QZewK2K/NunDGkCv9h4J9N8wXV6u7JaqgT6Ay6qoLMlm2/ul14D/y3Qr67Qm
+         tDHcdgJGHTxpyrNa1OtWu6HkPd9a8+2hVWRrO+Uv9wbrXQpZ48rXQjL4Sb+CmeXINIFT
+         EKeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791294967; x=1791899767;
-        h=content-type:in-reply-to:autocrypt:from:content-language:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+        d=1e100.net; s=20260707; t=1791294983; x=1791899783;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/Dhuh/wtI0yX/Les8bDjamHrz/rhROiQMQkvk8Zx65o=;
-        b=gytF7PBx9fg9I1yiiIEiVnvcL4O7pMG022iRWdr9f2C4UO18OmAY0tH1DydkncirWx
-         5ZIATG2uPAb5gpRRAzIvHnWs+Igr/36ouyxlH5UfEIK9BaiYjiDpnUzMnMg1Niy1wZ9V
-         7k1A3uPifono2nImShkZ90wSWDgyVwXXECjdjwA/P7neYETspKX2tKqfn/FelnYKLaRX
-         NQ5umr1Ad/5PsazIElm5ED/6SclivteEeeBndk2dIHf4HOoqD+AuwIKsHdCPUkPzDKra
-         /1yuCazJQOvFDeDCHsLDXQ+/hGPx4XE/+DKR6sSDCfr1XK+Jy8Ar+dBXx3Q2B6k7u0in
-         FK6A==
-X-Gm-Message-State: AFuF++k7Mm+Wf2X7t8UJA1RRFSdgIQmCq/t5vDWjsJW7BDzakULoE7ia
-	fyZ9elIICfV/rXNgiFevggHrLqWRTER2RJarRXW80PaaIixvBngvevn1kOH2+ldjkkc=
-X-Gm-Gg: AYBFou2Zbit9lcXekdEAMIfaS/6O8x0T2wDVHGzlllGeKQobNOdmpULJFPT9irNI+ZI
-	dEVxu9TQiqawkuZDq+Uitk+2LngxZlT2Qqw+v0Yw5Ny1DmeNcUNt4vRxshXxrUBknB8YQPS8SiC
-	93US6w0/YnZLiybOOzkcEMREoi5QbyD34KiAjLyeH5P7blpdXTDN0dMmIf43siP9h9r+8e7wadM
-	DVE1z3/8xgscFAP4rtbYDFl6VvIL+G9S9j8ePZsZB0VlfghBXYUv7QMEXXTxLhnUz8O8iQ8ixaO
-	aLy+2RhuZrPaBWI+MZYDYsyH4bfJZNSjSB8rdWRNMBEO8XySttqqPTdCLxWqil/TIZmXqbyqr9p
-	2z21XJvrSyRxKjdN9nj5/6TfGeB7XoQ2uf7pDvu8rRMpUdh0/P1b1n//LKdpFD/YU0OunQTm7vY
-	6ySHKMh1v66mndVQgYDyNaZ7/Hti+vGh6r3CsJ58PbBurndW8IcEXupXbp4mtq3bi4UHwvIjcUI
-	xIj2csrkdLRz5w6vMfx5pX9Y3fmBT7ErDZGwUb5OTYtizE5YNp9yRQoQ3RAT7T4H6tH3pVfh3aN
-	qRT/e5HCeEhYTUwVdzKzZ4gP
-X-Received: by 2002:a05:600c:5492:b0:4a1:6d35:779a with SMTP id 5b1f17b1804b1-4a17b4f297bmr27971755e9.3.1791294967343;
-        Tue, 06 Oct 2026 06:56:07 -0700 (PDT)
-Received: from ?IPV6:2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112? (2a00-12d0-af5d-ad01-5d3f-14e6-9bcb-5112.ip.tng.de. [2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17a0fc2e4sm68582055e9.3.2026.10.06.06.56.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 06 Oct 2026 06:56:07 -0700 (PDT)
-Message-ID: <f073f438-7335-4d9f-9bba-c6df5ee1fa40@suse.com>
-Date: Tue, 6 Oct 2026 15:56:06 +0200
+        bh=ydu+elXchGUSJ74vhM8S5kQyLVRWEBSg2Ux9RtIawfA=;
+        b=v5YqGAxHfxbd3otPZMe3Vz71UE2fUmTFi38q+sdF7bn5nUOXgj6u98WHeGCR9KRHY4
+         stvpImp8q+lI2D4kaaNDBDZv2mG0d5iNHgtabuwk1CvS4yUuyIimQFuDh6F8hsQOfKVy
+         jm996OmcVIZBALn25+bFVQjXpscYFndLDyE+Yr56PCA/hv2D30ZmOwSnvRqf3ul7qVwN
+         RVVQ1xeblgxN9wJnvB9VCd4GYGuNuVHjFYIsF93VJyxQ/z5a3pDC+mbg+3oKw5i65y9N
+         I9vQnRXKXaWHpwaoulAnRlyvW6sKjTbNKcKytfNKiEJ2Jos8JZp5UUnm+L2lHCq1d4qw
+         aWFA==
+X-Forwarded-Encrypted: i=1; AKwUvBz9zTOyLBnEi8w6dFBNYn6CtOUEVUCvBHG1PtWASCa2Aq1tESfjRwELpPAiYRXWqWmw9PtTkJg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lwCK+pOcKb2Z1YDIbS9NA6CtoJnDFPTeXEtqh5T3psGtjnKOQY
+	6wM8UMXHgk1U/yL5B809EQ3nHV5LB8Mp/kiapY/+N7vGSTckJ37DPAxePwa2kuUhaOgd0wn0TnB
+	+tUtbiD5sc7qK2Yr1rnY3dU64aX/upcM=
+X-Gm-Gg: AYBFou2kWsp5PkygqfaokeCI98ztradejZyBj7gBW7yQowE4wuFHUl2Juv2OE8bh/+x
+	EQw01eoeOo1mh9+0L4PBP+MbQ3ec8d/b3sDEK7wdYDQyTN7ftehSrevEWQhvTFdGfo0n9ANuspZ
+	tT72INfNeG5sDyQ4R/SlLcONohntxR1YgwEmzy6ioCoguOGRpRGY3JskXn4qurFk5cgHWt0QBC/
+	4oKgSWLbOtEC9I/I3Kr9ebZiMJKYXuGeUacRU5oBo5h9BqFUJP74mp37HX/1AtS2yC6lDpIgJNN
+	7f1UWtdMzW2nU3+8rJT9/yc5WsZBCNakhTGXba6Jhngn5bKO6r9ztz5+/AJmYeDwiFJgDq6Ef6A
+	RDcp4jfkVUDRo4bL5ik4XVUdaWli3T9GCnSC+8XI=
+X-Received: by 2002:a05:690c:c50f:b0:8ae:7fb9:8cc4 with SMTP id
+ 00721157ae682-8b04f4d8cefmr7480477b3.33.1791294982904; Tue, 06 Oct 2026
+ 06:56:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/scsifront: check for a NULL shadow entry on a backend
- response
-To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- xen-devel@lists.xenproject.org, linux-scsi@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-References: <20261005123555.253995-1-yhlee@isslab.korea.ac.kr>
-Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <20261005123555.253995-1-yhlee@isslab.korea.ac.kr>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------nnH7S5YuLqUH0yIqtmqXntAT"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------nnH7S5YuLqUH0yIqtmqXntAT
-Content-Type: multipart/mixed; boundary="------------0I6v6BijZSEvEjvGrfeccWKG";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- xen-devel@lists.xenproject.org, linux-scsi@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Message-ID: <f073f438-7335-4d9f-9bba-c6df5ee1fa40@suse.com>
-Subject: Re: [PATCH] xen/scsifront: check for a NULL shadow entry on a backend
- response
-References: <20261005123555.253995-1-yhlee@isslab.korea.ac.kr>
-In-Reply-To: <20261005123555.253995-1-yhlee@isslab.korea.ac.kr>
-
---------------0I6v6BijZSEvEjvGrfeccWKG
-Content-Type: multipart/mixed; boundary="------------HscB0pQhO6alWtKX55NS0MMB"
-
---------------HscB0pQhO6alWtKX55NS0MMB
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-T24gMDUuMTAuMjYgMTQ6MzUsIFllaHllb25nIExlZSB3cm90ZToNCj4gc2NzaWZyb250X2Rv
-X3Jlc3BvbnNlKCkgdmFsaWRhdGVzIHRoZSBycWlkIGluIGEgYmFja2VuZCByZXNwb25zZSBh
-Z2FpbnN0DQo+IFZTQ1NJSUZfTUFYX1JFUVMgYmVmb3JlIHVzaW5nIGl0IHRvIGluZGV4IGlu
-Zm8tPnNoYWRvd1tdLCBidXQgdGhlbg0KPiBkZXJlZmVyZW5jZXMgdGhlIGVudHJ5IHRvIHRl
-c3QgLT5pbmZsaWdodCB3aXRob3V0IGNoZWNraW5nIHRoYXQgdGhlIHNsb3QNCj4gaXMgcG9w
-dWxhdGVkLiAgU2hhZG93IHNsb3RzIGFyZSBOVUxMIGJlZm9yZSBhIGNvbW1hbmQgaXMgc3Vi
-bWl0dGVkICh0aGUNCj4gaG9zdCBwcml2YXRlIGFyZWEgaXMgemVyb2VkIGF0IGFsbG9jYXRp
-b24pIGFuZCBhcmUgcmVzZXQgdG8gTlVMTCBpbg0KPiBfc2NzaWZyb250X3B1dF9ycWlkKCkg
-b25jZSBhIHJlcXVlc3QgY29tcGxldGVzLCBzbyBhbiBpbi1yYW5nZSBycWlkIHRoYXQNCj4g
-ZG9lcyBub3QgY29ycmVzcG9uZCB0byBhbiBvdXRzdGFuZGluZyByZXF1ZXN0IG1ha2VzIHRo
-ZSBmcm9udGVuZA0KPiBkZXJlZmVyZW5jZSBhIE5VTEwgcG9pbnRlci4NCj4gDQo+IEEgbWFs
-aWNpb3VzIG9yIGJ1Z2d5IGJhY2tlbmQgY2FuIHRodXMgY3Jhc2ggdGhlIGd1ZXN0IGJ5IHJl
-dHVybmluZyBhDQo+IHJlc3BvbnNlIHdob3NlIHJxaWQgaXMgaW4gcmFuZ2UgYnV0IG5vdCBp
-biBmbGlnaHQgLS0gZm9yIGV4YW1wbGUgYQ0KPiBzcHVyaW91cyByZXNwb25zZSBiZWZvcmUg
-YW55IGNvbW1hbmQgaGFzIGJlZW4gaXNzdWVkLCBvciBhIGR1cGxpY2F0ZSBvZg0KPiBvbmUg
-YWxyZWFkeSBjb21wbGV0ZWQuICBUaGUgcmluZyBoYXMgb25seSBWU0NTSUlGX01BWF9SRVFT
-ICgxNikgc2xvdHMsIHNvDQo+IGJlZm9yZSB0aGUgZmlyc3QgY29tbWFuZCBldmVyeSBpbi1y
-YW5nZSBycWlkIHNlbGVjdHMgYSBOVUxMIHNsb3QuDQo+IA0KPiBSZWplY3QgYSByZXNwb25z
-ZSB3aG9zZSBzaGFkb3cgc2xvdCBpcyBub3QgcG9wdWxhdGVkLg0KPiANCj4gRml4ZXM6IDZk
-MWMyZjQ4ZjNmYyAoInhlbi9zY3NpZnJvbnQ6IGhhcmRlbiBkcml2ZXIgYWdhaW5zdCBtYWxp
-Y2lvdXMgYmFja2VuZCIpDQo+IENjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnDQo+IFNpZ25l
-ZC1vZmYtYnk6IFllaHllb25nIExlZSA8eWhsZWVAaXNzbGFiLmtvcmVhLmFjLmtyPg0KDQpS
-ZXZpZXdlZC1ieTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPg0KDQoNCkp1ZXJn
-ZW4NCg==
---------------HscB0pQhO6alWtKX55NS0MMB
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
+References: <20261005041457.3021139-1-ravindra@intel.com> <20261006095628.384343-1-runyu.xiao@seu.edu.cn>
+In-Reply-To: <20261006095628.384343-1-runyu.xiao@seu.edu.cn>
+From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Date: Tue, 6 Oct 2026 09:56:10 -0400
+X-Gm-Features: AclHuK-jEawYK6Z4T-kBMGawZzjTV2I3SyCTjKA6Wuad8-SZxYRE9_EtvKz7ESg
+Message-ID: <CABBYNZJsiNbgRsknuxYHJG-bX3s5mim6tiP-29LdzuaO_PS=CQ@mail.gmail.com>
+Subject: Re: [PATCH v2] Bluetooth: btintel_pcie: use managed IRQ teardown
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: Marcel Holtmann <marcel@holtmann.org>, Tedd Ho-Jeong An <tedd.an@intel.com>, Kiran K <kiran.k@intel.com>, 
+	linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Ravindra <ravindra@intel.com>, 
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Hi Runyu,
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+On Tue, Oct 6, 2026 at 5:56=E2=80=AFAM Runyu Xiao <runyu.xiao@seu.edu.cn> w=
+rote:
+>
+> The PCIe driver registers its MSI-X handlers with
+> devm_request_threaded_irq(), but remove() uses free_irq() directly. The
+> devres actions then retain registrations and attempt to release them agai=
+n
+> during device cleanup.
+>
+> Use devm_free_irq() for the remove path and for already registered vector=
+s
+> when a later setup request fails. This removes the managed resource at th=
+e
+> same time as the IRQ is released and keeps MSI-X vector teardown ordered
+> after IRQ ownership is gone.
+>
+> Fixes: c2b636b3f788 ("Bluetooth: btintel_pcie: Add support for PCIe trans=
+port")
+> Cc: stable@vger.kernel.org
+> Tested-by: Ravindra <ravindra@intel.com>
+> Assisted-by: LLM
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+> ---
+> Changes in v2:
+> - Add Ravindra's Tested-by tag.
 
---------------HscB0pQhO6alWtKX55NS0MMB--
+v1 has already been applied.
 
---------------0I6v6BijZSEvEjvGrfeccWKG--
+>
+>  drivers/bluetooth/btintel_pcie.c | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/bluetooth/btintel_pcie.c b/drivers/bluetooth/btintel=
+_pcie.c
+> index 005c77a4f..f8901df7c 100644
+> --- a/drivers/bluetooth/btintel_pcie.c
+> +++ b/drivers/bluetooth/btintel_pcie.c
+> @@ -1750,7 +1750,7 @@ static irqreturn_t btintel_pcie_irq_msix_handler(in=
+t irq, void *dev_id)
+>  static int btintel_pcie_setup_irq(struct btintel_pcie_data *data)
+>  {
+>         int err;
+> -       int num_irqs, i;
+> +       int num_irqs, i, j;
+>
+>         for (i =3D 0; i < BTINTEL_PCIE_MSIX_VEC_MAX; i++)
+>                 data->msix_entries[i].entry =3D i;
+> @@ -1779,6 +1779,10 @@ static int btintel_pcie_setup_irq(struct btintel_p=
+cie_data *data)
+>                                                 KBUILD_MODNAME,
+>                                                 msix_entry);
+>                 if (err) {
+> +                       for (j =3D 0; j < i; j++)
+> +                               devm_free_irq(&data->pdev->dev,
+> +                                             data->msix_entries[j].vecto=
+r,
+> +                                             &data->msix_entries[j]);
+>                         pci_free_irq_vectors(data->pdev);
+>                         data->alloc_vecs =3D 0;
+>                         return err;
+> @@ -3101,7 +3105,7 @@ static void btintel_pcie_remove(struct pci_dev *pde=
+v)
+>                 struct msix_entry *msix_entry;
+>
+>                 msix_entry =3D &data->msix_entries[i];
+> -               free_irq(msix_entry->vector, msix_entry);
+> +               devm_free_irq(&pdev->dev, msix_entry->vector, msix_entry)=
+;
+>         }
+>
+>         pci_free_irq_vectors(pdev);
+> --
+> 2.34.1
 
---------------nnH7S5YuLqUH0yIqtmqXntAT
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
------BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmrE/fYFAwAAAAAACgkQsN6d1ii/Ey8M
-DQgAn67Our2fo1bMCOV5O+3w37AmRu4L3TTxvToURAAHydJz7TJ3hqBD5FlZhLmX6LdxqaLWYwMO
-MS3mwgAUtulFRhkwVDuMs63dXLlRNgw0m9426pAPQ3lMva/tjoFsdST2KP0LXwIFspRvsX4dCVHy
-DlCGLpEeC40ybm7reCHJJBQshsVra+9Jxyer73TGy0vJgVs6qnrjQ1VnzbufezWmAK3Ovzy3Tj3v
-egMCT2rqTVWsBqXH+2GdbtR+XttYuxwnsYTnDSw5XMMAKECUC9ULqx+K3/Gexxl0lZFNCp9gG8vu
-xUl/Xqi6SXmtsnr03S4XoWbeHAnhlFgFiBiPkKcNlg==
-=UJPI
------END PGP SIGNATURE-----
-
---------------nnH7S5YuLqUH0yIqtmqXntAT--
+--=20
+Luiz Augusto von Dentz
