@@ -1,86 +1,112 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 747D438B133;
-	Tue,  6 Oct 2026 22:25:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 823A437F739
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 22:33:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791325510; cv=none; b=u8R9qzmw38KMyQl6PnBk8xF4oQlgKKcQKCIWRgQhdfC76ZL+GlY5e+8nFH1XOkjw2W0+mdMXNqI4V7POAq8SJRP3LLI396PG31R3M8Lgp1+tG6OJtHmzf5p+BUSN3hhsP22Uo36RKCmELfT+8Ry20ABdt4bMOhk2nt/EDWOKvck=
+	t=1791326022; cv=none; b=jl1WCUuog4Lj97nwLi2nT926vy1rc+g89+onVYMACvobnwvws0uF+R7wTJ0msPXCn4dSx3HiPjrElitsAem7bgaEsH6vCX2FO83EkOU7NNRVJBOrhiyWhVOQxydtDRjGMg32Jc7wmYfxk1w7MDvRFIP5usMWFc0nurHdfApBijo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791325510; c=relaxed/simple;
-	bh=b7iWX7b8ZjSGe2dGw8tye9ATb81SP+mmfnV7tOyaSwQ=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=UoijdIgS9VP4Ojv14LnPgtBcJkvXs5sVi2nqcNmetjQLRalgnhhy2aG2kkqN9M1YTUpG2jslPCxFfid+pmUCIzaJSYtJRH2wMzEDt4F4hQhCZbGDp1zN+b+2cTRLwg9gKvIEOf475wP8uvCutpwB9OdezNbG+ZoYcNyw5Wh6vL0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=2j/Z6j05; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791326022; c=relaxed/simple;
+	bh=90dDTRV7Ska3t/xQ8smSobw26ayW4Sprvl2nVFZAonw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=e4CURVOvFYZpnIrNl0hnwCgJ+uV79WwoaPwQjE7oDFdSsvy+UkLnOzmAR0tyLVFHUbQSeEFiNBgLEO0IncfOjfn7rRo9ZflxuDH5+hty8dgfTXfbmEzr6IYh/ncH6+ZtAxv6IUTNITF0llH8OiAqNrlaon3cVbPJYLFHTvxZDLo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BVdXuU4K; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="2j/Z6j05"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA75C1F0089B;
-	Tue,  6 Oct 2026 22:25:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791325508;
-	bh=7Jk7PLs4H0c6txoot5IcBFv812i6Hp1MuAA5BEaXSLs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=2j/Z6j05P5TpKNA0tiEvdKOrWERNLzOVj8gMp+a91yu/vEy79GW9LlVJwfEykZkor
-	 Q7+x2TrdV51p3YlkUMFOaAMGK+sn1AHvMN1BCyCor9QUt22RQVi7WxKF+KTQQ4jiMP
-	 4Eb2F8m+9rDKDl5wmnM51EnnnCWctsjEsi5NxDrQ=
-Date: Tue, 6 Oct 2026 15:25:08 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Kyle Zeng <kylebot@openai.com>
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, David Howells
- <dhowells@redhat.com>
-Subject: Re: [PATCH] assoc_array: Preserve full words when splitting
- shortcuts
-Message-Id: <20261006152508.ba7f3c7a6661daed4767a18a@linux-foundation.org>
-In-Reply-To: <20261006220638.32195-1-kylebot@openai.com>
-References: <20261006220638.32195-1-kylebot@openai.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BVdXuU4K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DB311F0089B;
+	Tue,  6 Oct 2026 22:33:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791326021;
+	bh=z9gipDBhXpv6eNQIAppafxf9iNTy/wYjKeNMY5qp3Bg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=BVdXuU4KhK5g5HUXEyQpkLd4QNi366M3OVwESP1bukPk5SVCDQN4WRBvU7B4lp4/D
+	 RCeUveQ/zjJor8tid0JW6xX556d7oAjFoT6sR0Uhw/78+/D44osiBREQbzbakoy06B
+	 GXP5EZREtXqW0TpbiSZCeCqGeDHVQvTkLyFzJLUGlU2BOJ80ZHxLnz386AkGr5nmQ+
+	 /+fiDQX4AqFh5PYOy3Sl+K/f1sQ677mlLWcZ67pvnHKG+8YauU7G2JEOrlsAg2RBtf
+	 zxTKBvEZx5+nOxWO0jsWeWLLQf5auAlbiTNlpedW8qCKYYOtBNNZr8Eo02TfCCRi5Q
+	 D5GDs+joj79Yw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Tamizh Chelvam Raja <tamizh.raja@oss.qualcomm.com>,
+	Johannes Berg <johannes.berg@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] wifi: mac80211: Add sta pointer sanity check in ieee80211_8023_xmit()
+Date: Tue,  6 Oct 2026 18:33:37 -0400
+Message-ID: <20261006222557.1120161-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026100532-train-unsecured-ec6f@gregkh>
+References: <2026100532-train-unsecured-ec6f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue,  6 Oct 2026 15:06:38 -0700 Kyle Zeng <kylebot@openai.com> wrote:
+From: Tamizh Chelvam Raja <tamizh.raja@oss.qualcomm.com>
 
-> assoc_array_insert_mid_shortcut() copies enough index-key words for the
-> new pre-shortcut, then masks off the unused bits in its last word.  If
-> diff is word-aligned, the shift is zero and the mask clears that entire
-> word, even though all of it belongs to the required prefix.  The new
-> shortcut no longer matches the objects behind it, so lookups can fail
-> for both the existing objects and the new one.
-> 
-> For example, inserting a user key with a different description length
-> into a keyring containing enough full-hash collisions can split a
-> shortcut at bit 64 and erase its hash word.  The resulting search
-> failure can also expose the pointer-dependent keyring hash as a KASLR
-> oracle.
-> 
-> Only trim the last word when diff ends inside it.  This mirrors
-> commit bb2ba2d75a2d ("assoc_array: Fix shortcut creation"), which fixed
-> the terminal-node case, and leaves non-word-aligned splits unchanged.
+[ Upstream commit 303f11fda2fa4c6f7aa86b8fa54aaee5e1ef181b ]
 
-Thanks.
+Currently ieee80211_8023_xmit() accesses the sta pointer without any
+sanity check, assuming that only unicast packets for an authorized
+station are processed. But the sta pointer could become NULL when
+a framework to support 802.3 offload for the multicast packets is
+added in the follow-up patches. Add the valid sta pointer sanity
+check to avoid the invalid pointer access.
 
-When fixing a bug please clearly describe the userspace-visible runtime
-effects of that bug.  Including how-to-hit-it, reproducer, user reports, etc.
+This aligns with some of the subordinate functions called by
+ieee80211_8023_xmit() that already NULL-check 'sta' such as
+ieee80211_select_queue() and ieee80211_aggr_check().
 
-> Fixes: 3cb989501c26 ("Add a generic associative array implementation.")
-> Cc: stable@vger.kernel.org
+Signed-off-by: Tamizh Chelvam Raja <tamizh.raja@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260604162403.1563729-2-tamizh.raja@oss.qualcomm.com
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+Stable-dep-of: 4febc02cd02f ("wifi: mac80211: set info->band for 802.3 encap offload frames")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/mac80211/tx.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-Especially when proposing a backport. 
-Documentation/process/stable-kernel-rules.rst provides guidelines.
+diff --git a/net/mac80211/tx.c b/net/mac80211/tx.c
+index e07bf5ba9b7a7..8ea17ac862451 100644
+--- a/net/mac80211/tx.c
++++ b/net/mac80211/tx.c
+@@ -4657,7 +4657,7 @@ static void ieee80211_8023_xmit(struct ieee80211_sub_if_data *sdata,
+ {
+ 	struct ieee80211_tx_info *info;
+ 	struct ieee80211_local *local = sdata->local;
+-	struct tid_ampdu_tx *tid_tx;
++	struct tid_ampdu_tx *tid_tx = NULL;
+ 	struct sk_buff *seg, *next;
+ 	unsigned int skbs = 0, len = 0;
+ 	u16 queue;
+@@ -4677,7 +4677,9 @@ static void ieee80211_8023_xmit(struct ieee80211_sub_if_data *sdata,
+ 	ieee80211_aggr_check(sdata, sta, skb);
+ 
+ 	tid = skb->priority & IEEE80211_QOS_CTL_TAG1D_MASK;
+-	tid_tx = rcu_dereference(sta->ampdu_mlme.tid_tx[tid]);
++
++	if (sta)
++		tid_tx = rcu_dereference(sta->ampdu_mlme.tid_tx[tid]);
+ 	if (tid_tx) {
+ 		if (!test_bit(HT_AGG_STATE_OPERATIONAL, &tid_tx->state)) {
+ 			/* fall back to non-offload slow path */
+@@ -4726,8 +4728,11 @@ static void ieee80211_8023_xmit(struct ieee80211_sub_if_data *sdata,
+ 	}
+ 
+ 	dev_sw_netstats_tx_add(dev, skbs, len);
+-	sta->deflink.tx_stats.packets[queue] += skbs;
+-	sta->deflink.tx_stats.bytes[queue] += len;
++
++	if (sta) {
++		sta->deflink.tx_stats.packets[queue] += skbs;
++		sta->deflink.tx_stats.bytes[queue] += len;
++	}
+ 
+ 	ieee80211_tpt_led_trig_tx(local, len);
+ 
+-- 
+2.53.0
 
-> Assisted-by: Codex:gpt-6-astra
-> Signed-off-by: Kyle Zeng <kylebot@openai.com>
-> ---
->  lib/assoc_array.c | 8 +++++---
-
-get_maintainer coverage is poor.  Please use git-show also:
-hp2:/usr/src/mm> git show -s --format="%an <%ae> - %s" 3cb989501c26
-David Howells <dhowells@redhat.com> - Add a generic associative array implementation.
-
-Also, as this affects keyrings, grep -i keyrings MAINTAINERS shows the
-mailing list.
