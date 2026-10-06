@@ -1,145 +1,211 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29E1A332621
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 03:43:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791258195; cv=none; b=eFmvRxAtD+fTfiGqzxDuWpWXW6cN5e7dN+PmEQCVyoya4UGxrH5hDG0PdHkQOyx2naGrdcqwakpOIKGfP3DMbP06MaQKbw0Mj1/a8tjViMXXx3RsE0ZkNKxeRI5D4WNOFnwDCyTasQoIZwlvJPQ5s2C8gbdrJj8bGCTgHFsq/3Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791258195; c=relaxed/simple;
-	bh=/DEx2L2Q4OAtXo9RI0PfN3L8+9G2YV8tvNAqt24DU8U=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iCi6oTWQhDtdruMPYBuwBNLxZDsU9QFU7/AD3N3u9WACGpRmJdc0a2SrvZVl/Id3Ti5ZXXAULB0iDw226mxVQMfwirsN8MVJf4DWa3b6+sBFOFnHFxjTusIVoydzzMIGuzU11z6edfi3OaI3gUwpSaJdWzzX63NPpHe7FT3vW2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fccsQiWT; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CD0E33F8AD
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 03:43:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791258196; cv=pass; b=BslUDAom1t22e5WLocvLEM7y8SIxXA2AvooeTbcxCTFi4OPeHprHoEGx+Temdxoi2Z/GmC8wWuWeiQrbt7jXA3Bn+L4eFyNRfqgfVBnN7NFkchVr6qBL33WzefyQiSUUYv9Bp076J5eLVG/wocsra3hqwW/W4N6DCS3DMSlX5pk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791258196; c=relaxed/simple;
+	bh=TE1M8Xp9r8nWKhc0pgoLmT0J1KG+EsmuYHdJ9qwlb4k=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZHc7ZsIX3Osq+jxgBCAEG5ILM/LRHPuzGqjoZREpyrv22Twgm0mkgsXB6cO3N3T6PbmpusINay9l2V1dWRlGt2e+6Pz8B5ZkroaeGunobS4IyCT70Q29H8dw8Ndp3FBs9zOabaJ1jFMU1AbNK8HYqgZ/sS+fSz0NWtTT+ZYHYLU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PDDHg3a2; arc=pass smtp.client-ip=74.125.224.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fccsQiWT"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48b03f23305so2085275f8f.1
-        for <stable@vger.kernel.org>; Mon, 05 Oct 2026 20:43:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PDDHg3a2"
+Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-6774639a8a4so2154411d50.0
+        for <stable@vger.kernel.org>; Mon, 05 Oct 2026 20:43:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791258194; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RwqI0r/afZsDW5YGK3MStdoidjdgQCHO7iMrliFnaVW8ZctLPwTv5u/DcK+VI2EhyT
+         jk8Mw1hd7k9jLeKhqw4M9FaNeiwE8nsOJkA3yYTP7nD+ur4Qh9Q9SjydOItCakwvtX4h
+         PbthjfU5SfMiGkEDgl/vHjGZMT94rnq/cJnGdqkQKIDyocyZ8riY5NCVtiohfZh8jW+c
+         D9Gq34+YGczpM7JqbX1hnuy1lYP4qnDtLuULKFojKeNDWDQ3V+bM0BbkvPuE535YLNRz
+         i57LnPiMObOEnqabeE9InvUWO9+lROWu1Fil7ykuR8NKuTF5/aO1GbMpGtVNCFFKGX8j
+         E1XQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=BEXTeQGLzgEVv8xuPTN36lgrQGwcruNuHdFhXGEDQxE=;
+        fh=rb/TC9nbyrxoEWudF8Jk7IAg2fZA82IyKo6uLE/HDGY=;
+        b=jUSVf0pEUuHCVtSW35RyLRvbSH7wUeNSkPWAMFBpcldIj3WvgLLzD8+FEHswruoQ1S
+         EyK8GpFwH5OyHI8K5bbRclEUhkIwB2Kj2ld5vm2gluxH5N2Z7cD/UwXDXcgHIRiMe2/D
+         qRA37A1UaGwGAiTyaYLo0fU7gscwNX9ZAu7J1EhByDHM65MES7AqZGSjPSjxPWSH+NW4
+         MRZpEZcoyO8MoTJbj5YpATdRYpjeSHZQB8UJAg3w8RGI264yVelNYf8p0PDlfANsFCO/
+         KttFmntagCUaAQek8Q5fqcD/ECae9aRSlulTmXTGo+EqTPHamHtgM1ZJgzkC+0xywUFs
+         wV1A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791258192; x=1791862992; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=w/8UFuYlqsJ3dGViD78Fjh+k40ZO86xrNe819xNRZ6c=;
-        b=fccsQiWToUhBpa11fM2xTC0kbFLlfzqkiDenYtjmm+PsNyAmzJ/ZHMxDCjf3RxrH5G
-         fsldWxzIG18PvpyeteATxGTQws2aMN/CcsbwcyC/ssbG/EZ58DnnjZXswWNiFYarO5dt
-         2BUjla/Bs6vY5TeIWD7d9r+S60LbZ7yeWo76wABJnGJMV3iI84uUqCgLsRmJ0oAinjwh
-         QsRFs1pUIc/85JbsLP02H2OJh5hTNAIwjA3shMMTgdFVyd1bMPnviXh+ZeMzitVLI7ze
-         +0QmQJGZr8HNOuayIQ6E12UUG/ei9qXOiIxr/6E9WjFdVsRAqu+JVEHHqgr/6JyIt8zZ
-         VmFg==
+        d=gmail.com; s=20251104; t=1791258194; x=1791862994; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BEXTeQGLzgEVv8xuPTN36lgrQGwcruNuHdFhXGEDQxE=;
+        b=PDDHg3a2LCqs+3XiRwyQt0AVuCeWE893FNKT0ilCYLizGNoF0Ro72mkC4XZ7pZiRGY
+         fJUrVp50i0p6gdpkFdWfuutcSlbokOt4n+OoPdfXMr/1jKQB3iIDQz4gotpKFoeyLBJC
+         f1wZCI1S6ch9Q0qU0LGW7r8Z589g7lh5Pam02mEIdrEHKdKURfYupRCAP9gWyuU+bDkD
+         0+Kj/582bszSJRZMz32uOfB3p37sk/FHyXl71OBivn/+XJaYCtOF/5Up5Ss/qOyvglRq
+         zr/ZJRrVMp/CcrlWGaBbwAoKhUPZaCkvuwOgFZSZE4cm4jpJ5nTC8x7ytU0pTATQuwcy
+         V1CQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791258192; x=1791862992;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=w/8UFuYlqsJ3dGViD78Fjh+k40ZO86xrNe819xNRZ6c=;
-        b=hDSY1rdKzW+D380KZxRdRkCgkNmJ6H3C+ggXTyRAxKbyb6P73s8/a89gnZ39pKHW/m
-         6Ka3O+1P4emYW9W+xpj5qIHs/S9Pau88WVrSG1bs+ioDqAG3Fg43LgdKQ6y+6mDtTQ6O
-         HNsaauFAgRZaGuaKjW2GVbzmpWPicNjWvN+oK3jLxqzY5JmW6IUEtK0ERLkQD/fhPyPJ
-         4DSM3wDy8Vpy8JTuM3xEZB8vwTXH0nFaZl9nRSphbU+xRuF+yLVhn3ORU0Otur52BFsH
-         /x0xvCKR6FNQTbW920YPr92ze4yRjWzMpElmrrwdCw7DD1CngKr/JQtJ4ZrNHrOhq8DF
-         fiAg==
-X-Forwarded-Encrypted: i=1; AKwUvBwwXf3uD4OiPToFb6jVugZXex058+lm625/QuNaiF2ZEL+vDrMy8ERVSolZ8cS/yJTEqAbeVqg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI5Zi/DhXY3H0HmLF06IWxYb4LQ/K2kQdnncAkxGEtrE81uLJn3
-	SjttWAFpEEgmaWJTRrDmY9BgujcUhmUePipv8OqfjYhRCqF5IzAZYQ9T
-X-Gm-Gg: AYBFou2cBg92vUY5CJxMF1QT/cUXZyzTH+kwqTMK7I/K+/z4I6xyMNG6ZjUFnHnfkFU
-	W07qJgCy/fOStMfzWz+ImUwo75KRVBusfYd4Qh31yu1iPMxkMhlRgqf7xiICFDYAAvMaiEOLz/J
-	0C2l7DUzYLIGxsSX0F9HQqtFM34KhCxigJOjG8CDy/jO+oUc2r6zxuewBHBX1AIyUPqrpJ6DOa/
-	Orhwz+hwVtJxWvSSRr+isvdBZBMOiqKQlbvP5YB62ukNfxg7EnGeg8HqMYZooaRWpvLtWskO+rq
-	YSY72Avk25YfY1uPqTRd5M0h0N/AxzX/TaZE5KA61h6mZ5JI5HPaZSpyxbtfUn6I7MO6VDe9dFl
-	gL7u7yAG2QAz7tBQELTRf8E8H06bc1ODTlAUdkZruPDbPueXJWcnlfYpPW/UrkndF6R7C8mrLwD
-	zWugcBxLGeoq7EXKbsBjwvxXcJPUb7bIAmcx+tjbLfn+mFVzaZkht+gy0ZQMM8UP+DBLdtNOIhZ
-	CGSY1J/po1W3foXzJVE3PjcUM9XKGRP3isKR3Urs5yVxapQ6U6P4cUiOlwxtXUX5uov41l2rAkD
-	GjTXiCiNe0nFQ0/Naq8zSnIhBxcO31W4Uls=
-X-Received: by 2002:a05:600c:c10f:b0:4a0:1fe2:d4c8 with SMTP id 5b1f17b1804b1-4a1680dd3f4mr101835215e9.5.1791258192149;
-        Mon, 05 Oct 2026 20:43:12 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-095-117-040-097.95.117.pool.telefonica.de. [95.117.40.97])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178c5d8dfsm38419705e9.14.2026.10.05.20.43.10
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 05 Oct 2026 20:43:11 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Leonard Crestez <cdleonard@gmail.com>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] iio: trigger: Return an error when the trigger has no free irq
-Date: Tue,  6 Oct 2026 05:41:47 +0200
-Message-Id: <20261006034147.2370-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+        d=1e100.net; s=20260707; t=1791258194; x=1791862994;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BEXTeQGLzgEVv8xuPTN36lgrQGwcruNuHdFhXGEDQxE=;
+        b=itvZHZirCG7KE2Blf8ycZ1UCjd0iZ50G2pX1hbhir2MerExVvwpD3Nx4z8nXqpi301
+         94Ej64vcGYLXPfk/l0iRuaZtNQQ1TpQ+lVyyRgItDqpB2P93Z/kC0v7da7fb0GltLafo
+         k5BxB+Ld8XF+HLCizaGyVT5sauP1YGzoHmr3KUH8ZceCfzxyM7knEFRKGzwIwwnhjoLu
+         2bouiWe4W7KXTBMnDeBqOztcaYWp+5Ofh1hGd0pKDIt+ndHIS9xNuSxQqnBs5VyfWIxS
+         31U9036KaOqeY2Kv7mgWIQQb4bar/hdPUTlNO+B6FSD+iJECRLwSR14j1tUYnidrNY5j
+         A7yQ==
+X-Forwarded-Encrypted: i=1; AKwUvByzQQyoftUK9BY33nNzAAijTqj/Y/Q4YZGYVMfDGBP+s5ahQuR48/49Zt+fdbj94RzSQff7NIk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIM9Dl2d6owJEjk6CU6sAL/0UeCiT/DgDsmlnI3kyojrfhi/dS3
+	L4+3sxfT2NeW/AWFkHWUDChZEcfRsNr0AgAEN4Z3PzMGSwojHy8Fp4fwtna1t9LPoiA8DI/zO3m
+	RgJxdvyQiILH9xo8f882Z4n9pdx4Hpts=
+X-Gm-Gg: AYBFou0915F9Sj+a7AuqP3kly0ei8agmgATu8RX/N8qWdWa7e24MYmi74KToJYMEdpe
+	1Rr5zlQ894lnM3X1T0uJnl7ocgAvjOeSqGg2ysVzSG/xaHAYS0FJFuCKqgjADkB/uKGEKnzz4B7
+	aQkwHLWkxoDflRvM1kYipKYK/WF4fecxb88OiPLPiDv/mKqVcC0JgEEV0feIc4iwQrds5x/TFyC
+	vYLjeh4TJpHg0K4LoQbjfngN10dIxkWDTsbjtmMaP+vBjao6MdjVidtmhloh4qgOw4VLRv02gra
+	xPCW1ANWK/G4L6kx2dAl4qC65d2Pn+IVm7zI7xbnwHPqSoVTQcy0giDrgMHU754ytYeG
+X-Received: by 2002:a05:690e:4145:b0:674:1336:7d5b with SMTP id
+ 956f58d0204a3-677bd380447mr3369449d50.52.1791258193959; Mon, 05 Oct 2026
+ 20:43:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261004055712.1293-1-yogeshgaur.83@gmail.com> <32152011-b196-4dc0-ba7e-495f2132ad15@fygo.io>
+In-Reply-To: <32152011-b196-4dc0-ba7e-495f2132ad15@fygo.io>
+From: Yogesh Gaur <yogeshgaur.83@gmail.com>
+Date: Tue, 6 Oct 2026 09:13:03 +0530
+X-Gm-Features: AclHuK-etZgMZhRThOtRlbtdP2ce2Ph0ESLyjNgIBlEnFN-xlVATRsrCZ1wzbZg
+Message-ID: <CAG6enPwFpBK=VyEPEnw9a26Yg+Gzt0enieHpYvnJz-v7L5ALyw@mail.gmail.com>
+Subject: Re: [PATCH] md: don't hand out the array before md_alloc() has added mddev->kobj
+To: yukuai@fygo.io
+Cc: Song Liu <song@kernel.org>, linux-raid@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Li Nan <magiclinan@didiglobal.com>, 
+	Xiao Ni <xiao@kernel.org>, Christoph Hellwig <hch@lst.de>, Hannes Reinecke <hare@suse.de>, 
+	Logan Gunthorpe <logang@deltatee.com>, syzbot+95eeb4ada2349a2170ea@syzkaller.appspotmail.com, 
+	stable@vger.kernel.org, "xiaobai050@gmail.com" <xiaobai050@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-iio_trigger_attach_poll_func() prints an error when all
-CONFIG_IIO_CONSUMERS_PER_TRIGGER irqs of the trigger are in use, but
-returns 0. The buffer of the extra consumer is enabled without a poll
-function.
+On Mon, Oct 5, 2026 at 10:35=E2=80=AFPM yu kuai <yukuai@fygo.io> wrote:
+>
+> Hi,
+>
+> =E5=9C=A8 2026/10/4 13:57, Yogesh Gaur =E5=86=99=E9=81=93:
+> > md_alloc() publishes the gendisk before it is done setting the mddev up=
+:
+> >
+> >       disk->private_data =3D mddev;
+> >       ...
+> >       error =3D add_disk(disk);
+> >       if (error)
+> >               goto out_put_disk;
+> >
+> >       kobject_init(&mddev->kobj, &md_ktype);
+> >       error =3D kobject_add(&mddev->kobj, &disk_to_dev(disk)->kobj, "%s=
+", "md");
+> >
+> > add_disk() makes /dev/mdN openable, and md_open() only refuses the open
+> > when MD_CLOSING is set.  mddev comes from mddev_alloc() and is zeroed,
+> > so anything that gets in between add_disk() and kobject_add() sees an
+> > mddev->kobj that has never been through kobject_init() - no ktype, no
+> > kref, state_initialized clear.
+> >
+> > syzbot opens the array in that window and issues ADD_NEW_DISK:
+> >
+> >    kobject: '(null)' (ffff8880120640f0): is not initialized, yet kobjec=
+t_get() is being called.
+> >    WARNING: lib/kobject.c:642 at kobject_add_internal+0xea/0xcd0 lib/ko=
+bject.c:225
+> >     kobject_add_varg lib/kobject.c:374 [inline]
+> >     kobject_add+0x163/0x240 lib/kobject.c:426
+> >     bind_rdev_to_array+0x80c/0xdd0 drivers/md/md.c:2621
+> >     md_add_new_disk+0xe3b/0x1850 drivers/md/md.c:7684
+> >     md_ioctl+0x200a/0x2610 drivers/md/md.c:8499
+> >
+> > bind_rdev_to_array() is not the only way in.  md_run() calls
+> > sysfs_create_group(&mddev->kobj, &md_redundancy_group), and
+> > internal_create_group() has its own WARN_ON(!kobj->sd), so RUN_ARRAY in
+> > the same window warns too.  Guarding the individual callers would mean
+> > finding all of them; the window itself is what should not be reachable.
+> >
+> > Refuse the open until md_alloc() has added the kobject.  mddev->kobj.sd
+> > is NULL until kobject_add() creates the directory, and stays set for th=
+e
+> > rest of the mddev's life: commit ca39f7502425 ("md: fix mddev->kobj
+> > lifetime") dropped the explicit kobject_del() and lets the final put do
+> > the removal.  md.c already tests mddev->kobj.sd for "is this array
+> > published yet" in mddev_unlock() and md_run().
+> >
+> > This cannot deadlock against add_disk() itself: device_add_disk() only
+> > opens the disk to scan partitions when get_capacity(disk) is non-zero,
+> > and md_alloc() does not set the capacity - md_run() does, long after.
+> >
+> > Fixes: ca39f7502425 ("md: fix mddev->kobj lifetime")
+> > Reported-by: syzbot+95eeb4ada2349a2170ea@syzkaller.appspotmail.com
+> > Closes: https://syzkaller.appspot.com/bug?extid=3D95eeb4ada2349a2170ea
+> > Cc: stable@vger.kernel.org
+> > Assisted-by: LLM
+> > ---
+> >   drivers/md/md.c | 9 +++++++++
+> >   1 file changed, 9 insertions(+)
+> >
+> > diff --git a/drivers/md/md.c b/drivers/md/md.c
+> > index 680b34a63cb3..e3326b78aef7 100644
+> > --- a/drivers/md/md.c
+> > +++ b/drivers/md/md.c
+> > @@ -8610,6 +8610,15 @@ static int md_open(struct gendisk *disk, blk_mod=
+e_t mode)
+> >       if (test_bit(MD_CLOSING, &mddev->flags))
+> >               goto out_unlock;
+> >
+> > +     /*
+> > +      * md_alloc() publishes the gendisk with add_disk() before it has
+> > +      * initialised and added mddev->kobj, so an array opened in that =
+window
+> > +      * would let ioctls reach a kobject that is still all zeroes.  Wa=
+it for
+> > +      * md_alloc() to finish rather than handing out the device early.
+> > +      */
+> > +     if (!mddev->kobj.sd)
+> > +             goto out_unlock;
+> > +
+> >       atomic_inc(&mddev->openers);
+> >       mutex_unlock(&mddev->open_mutex);
+>
+> This is the same problem that I already replied in another thread, the sa=
+me solution
+> with different code.
+>
+> Re: [PATCH] md: prevent opening an array before its sysfs kobject is
+> ready - yu kuai <https://lore.kernel.org/all/a19e3020-272b-4f93-8535-00fa=
+07002d91@fygo.io/#t>
+>
 
-Disabling that buffer calls clear_bit() with a negative bit number and
-drops a module reference for the second time. On arm and arm64 the
-clear_bit() goes about 512 MB past the pool bitmap. That is an oops if
-the address is not mapped, and a bit cleared in unrelated memory if it
-is.
+Thanks Kuai. Yes just refusing the open would be going to move the
+race condition. I had missed earlier patch from xiaobai050, sorry for
+the duplicate.
 
-Return the error from iio_trigger_get_irq().
+I would send a v2 that holds reconfig_mutex from add_disk() through
+kobject_add() in md_alloc(), so an ioctl issued in that window waits
+instead of failing the open. RUN_ARRAY is covered as well, since
+md_run() also uses mddev->kobj and runs under same lock.
 
-Fixes: 995438233579 ("iio: Fix error handling in iio_trigger_attach_poll_func")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-Found with an experimental clang warning for a function that returns 0
-right after it reports a failure.
-
-Tested in QEMU with three consumers on one hrtimer trigger and
-CONFIG_IIO_CONSUMERS_PER_TRIGGER=2. Without the patch the third write to
-buffer/enable returns 0. With it the write fails with -ENOMEM and the
-buffers are disabled without a message.
-
-Disabling the buffers without the patch:
-
-arm, vexpress-a9, st_magn on three emulated LSM303DLHC:
-
-  Unable to handle kernel paging request at virtual address a1a2e690 when read
-  PC is at _clear_bit+0x20/0x38
-  LR is at iio_trigger_detach_poll_func+0x88/0xdc
-
-arm64, virt with 256 MB, iio dummy devices:
-
-  Unable to handle kernel paging request at virtual address ffff000020b94348
-  pc : iio_trigger_put_irq+0x4c/0x74
-  iio_trigger_detach_poll_func+0x4c/0x90
-
-arm64 with 2 GB and x86_64 show no message. On x86_64 the reference
-count of the dummy driver module drops by one per round.
-
- drivers/iio/industrialio-trigger.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/iio/industrialio-trigger.c b/drivers/iio/industrialio-trigger.c
-index 17781c12bc85..09d3dfc9d812 100644
---- a/drivers/iio/industrialio-trigger.c
-+++ b/drivers/iio/industrialio-trigger.c
-@@ -293,6 +293,7 @@ int iio_trigger_attach_poll_func(struct iio_trigger *trig,
- 	if (pf->irq < 0) {
- 		pr_err("Could not find an available irq for trigger %s, CONFIG_IIO_CONSUMERS_PER_TRIGGER=%d limit might be exceeded\n",
- 			trig->name, CONFIG_IIO_CONSUMERS_PER_TRIGGER);
-+		ret = pf->irq;
- 		goto out_put_module;
- 	}
- 
-
-base-commit: e767a4ea70a3992c37ed604157d32f0dfbf9b1e3
--- 
-2.53.0
-
+Thanks
+Yogesh
+> >
+>
+> --
+> Thanks,
+> Kuai
