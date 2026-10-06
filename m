@@ -1,76 +1,86 @@
-Received: from sonic309-24.consmr.mail.ir2.yahoo.com (sonic309-24.consmr.mail.ir2.yahoo.com [77.238.179.82])
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E7BA3E6DE8
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 11:29:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.238.179.82
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BD2C3B5850
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 11:32:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791286188; cv=none; b=kHwbz0GtgIBn1hGpWO7uuV9J+jaI+xR4Xn6BS+7IH2kq0fEDUjVgnv3irMNZRSY71onl6t/Ban8CpojlgNnENbJsUgB5PKF74a4T9opMygm+6Bnj8fGfRbT4FiCf/7w+QdAM/OwD+CLyNRQ7pbAD5h6B5qV0esfJI6BeZ0y4MC0=
+	t=1791286375; cv=none; b=ppOofYoro+8MOVvLByU0nC/sQR5EKXyPo/+8mOgkTrSmg4iq7npStthHLqckQ6nECJrfUAFe0EZNj02+PqbwRZDe1XarcmT1dgYORGwOOTbmgaQdv0GIwFhUV9osdofWHuoFb7D8G2IziNejHWgu4Pz04kB4p09lmwPsPukhRkg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791286188; c=relaxed/simple;
-	bh=wkm3SWGC9/4bBpG8ZcWuwHfvayB7mVGlCBRNoLHww10=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=UqMs0B++WFkPDWJm6cR6WCP01HDc65lHGgn2iA4nXeNbUQhLaRGz1JJJVgMuLrcFot8Vyhma+BvXwq7pOpph5wp+FCoGSTurv//uqRW5ahPYQrBD08iOWii46BFQeoweUxNSq0fs3Uvnuqi2OM2kjYpCMVLeRPY0DxR28MkDXjc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ymail.com; spf=pass smtp.mailfrom=ymail.com; dkim=pass (2048-bit key) header.d=ymail.com header.i=@ymail.com header.b=qq3NPCfQ; arc=none smtp.client-ip=77.238.179.82
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ymail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ymail.com
+	s=arc-20240116; t=1791286375; c=relaxed/simple;
+	bh=rJVQWVlBRPTsSgWg/9d5PnkDp77p5gzV4IdCIE71rko=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=DDyWDiWoWfLRRnOyzx9+HRxKnxOCgAqmE25yKOjA0kYP8oeESPvCwELsOyFnpUdwT7D3cghSOqAPX7ENXS7qANkFmd4nmAS5ur8kQ9+I18MSMAjXxLLUH3XlEbP2HKifytxmcxPOnxgpROKNxCFWhVq6NB6IzlYdSsPEJWZodR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UnmMhD3c; arc=none smtp.client-ip=74.125.82.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ymail.com header.i=@ymail.com header.b="qq3NPCfQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ymail.com; s=s2048; t=1791286184; bh=HIlrYJk6Xp4PvfFizQJ+RZO9Wa0gJ9XH2BbBIPwGi9o=; h=Date:From:To:Cc:In-Reply-To:References:Subject:From:Subject:Reply-To; b=qq3NPCfQzJoyDECoLXN1ZVggetccaGRjeVAYll82/f6Wr8jUcJBqJmtwNo/RXODpflI4J6RnbQeW9n8sYA8Tlna2BEQrMUW4EKFuu1dqHkVJTUA+5JOD9kaDFmVKmmuGTcLwkmY3NRN8VyhzlFoAHJs6QlHGqfttcjGL9Jez3WksATSbE1IndCZ4Bh1oOQjTr6yV0FRIybhEMz1xp5tFu8WfCf1S/XQ9WFQkgHGv/Mt2HFz+sGAwe0YjdkRxjjcSzwZUQB1ye5FcD7AwlKwFynVN/vAII8uzCQs4+TcYPDbg5Yqg12BpfWP7z4YN04+KIvtG12man9sULDrZ93xm+g==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791286184; bh=Coyh7qCZm1JWxgqrgl/IohaPTJIzUzwmEmStrmdxcBa=; h=X-Sonic-MF:Date:From:To:Subject:From:Subject; b=PzJ4S8q3L0egupRjav0QW3Y3dN7GIwco6toyPD6uCNmBCmTLQEvzncXttTuPHom993OIIDYc8hnri+w4bINpotiWzsx2giHKHGbqypET/pFsSTJaKa/HvlSbNs9woRynZ/V0KBf0lGrWX7n4SY+sodVsg5NwTWc1H+EfHLIlQ34kzMkK6fEQab97kXP9TQD3NHh84NO6Ajn9khNtPp6uRgZep2TOc/dkoRRSB/Zj0aSjLtoETiyY4XIbVJu6wOuGLOjHY23n/MRKz1Y49bX0xbGDU+IKPi/UxQ7LyHpFIvU8h24b9BSacCKL97kU8fAO9QURZz7sbZOisKBa6uddXw==
-X-YMail-OSG: aGha6zIVM1lFnu.YNireiwrQgAIe4qw_HRCeK4GMDb3Zb.Po2fBbAxu7K9CQbgb
- zRNNZDpwVXIQWZ.eZnTQI1qjwfq.koBVDYtSyAc7rqt2xoGdT.V9GQJiH.tBCaWOvyc9Fp14N6VP
- g89Ob3isUj5wMeu.45Ld3n4mwCLaftzaDSLj28veTw_F2zlTavjHMLmz0gIWmcXIbsx34ZY8CymO
- 6l5NXCDduT0dmMRgjyYX013MnDmZt27iowO2dMt719JoMC_UfIjMTW8fnoUz6oTnHAacO8XoE.Dj
- NG0IMgtEIxhxRrXOKCwTWvuTa09Q6cycsTgoMzhU4eNB3YxHar80nlc7oia21vOJPNuR4rHC6E6y
- yRok13sx3.u.fCp74t4mxQ9JviYjJSduyu6Y5rANF9ngJMo3M9SKmVERN.fzwb9gr8DjdBXcLnvM
- cLtC6ioxQdl.sQ.gpeCkFM.b9yG03bYjXzh.Tqu8Hu2ANRhpNg.B8iMPvNqhXMcyXonS5WmyP53M
- pZusxAy_aKmdqhHcjfjqMitw0T7MSXsRSqL441ntv97rT1Qv0tke_A1tvlH2VfYzh5AQDG1IrDsR
- azm4IJjrHUT.Ffd5P7DIIsv_5p45CWuengwa9uQ2sY0QqzQw6OJJ7X2M48vc65BRod6U6dnfTEmk
- JJJ763qfwjGiRbF5RFH6MIMRixSX4YEtnHoG7OxL7QDPxo5OH_5YI4WY_SIHl0KjFveSbkuN3VzZ
- uyjzsBh29vA5_A2Ege5.3ng10DVXPRnjAAgkFjcXBOGZshQwZwjbhYmAuQIkKEsCgo8ssE8z4QbB
- rnFKsGAgyYJkzshj5PpERxP6T1POKanwOWOWlRX3qSftSIzWnCQrRnUvsDy9ZauIeXnZw4Hjei8U
- Jq6M7g7tO6lSOsxw1t23BoCoUzb5yL7.jDj9HL7ME7Lj5CgaL3miGNpcBSBcRnzUNXbutVtH.dSK
- NO5oPMoYgiENTitycvQLFniZe.YvHvtFVMw9kRqAWlaXEyE_Gt_1WslqKW6CxizIh39nCN5_KPVA
- M8cDFAe162rWyEm60BomfVXPIhy381lsfVU65G14kV_ThOOs00VJFIg1GOqd0WmAjK2rB.x9kNwn
- 7yA1AAaB2sMXb09NuF_b3ZKe7vdT04NqPlXjSW7OI7imXpBXoi37.oGuKjD6PZlzWcS18s475XUn
- jyThA8BcMltEs4aASPL0.KthOGu0CBFSOmGmUXVlKu1EKEOYj0..9ItlIKmR66XMUJ_tfjQKQM5Q
- oO8rshc6SQczBAJ4.sOLpvOx0d8AH7ub4FMq7cW755UIw5_jASu8oaQ128SYmvP84ouJQkW3NgkB
- 8o0EkD.6Z1tI2.igRLYKHgjEBAFxv8jAkAvpZlIwLbspjHnUUExOZ4HzhdmLuImOr8C_bXhXZHyN
- Sou3TLURbE0xJOY629fmMzpzo3LibiHph4nN5lngWlXE7huE0kaLFuTkAEbdfdHy4i43mQhvW5HY
- wjvRWb8bZCZ2Ar2il5trHEEORH.2qTLgmIYwQXibr69BbzLyVfELyjy7tuQqYWPVm7i1sUdTcreW
- NfyxvJ0yylwDRQWZQj.PvXZIX0S3lCmAf8eu11l0OpkoNlPCeuzjUMBFdZ.OzDc7hEuLp9oA26cB
- ZAwZ5kN7onGX1TOyonSZJCf0ACL1bDbi54MMoBjICs09lRvvjaTHL3QbyvaTHqAyYTFSP6p920cM
- dlCSdHhPERrLWUKOXC2sY.KT9UkoBu85mo.uCgP1tALEfRn37j9MkbB9uv_hLdnDk7JtEpWooNue
- o4YOBjbK5wdG11RUxwuzmRo60V._tqdKj1jMPunyPTrcJzLqIaoGnPR9YopbCQUjVIu.4cJKu8F9
- q_zO4O8qBm98GBdr0GPTIRLwpgUPLC1Yl_LBrfwwd9fDxY4XMYfm4PgoyR2LZHLOF9wiObFelR1I
- csidfailCFFswHaupLjsLRHD3qenRW7OGEsnoGoxTQ73WJoYRDMSVT0fu3t2d0YO4dYqE0h3jjeA
- nJNu.9YKJgiEPvfaJ0uJjRn5ImTeaH.1ln8.N0npT07Bm0xpJdgIrIkwi8xOIGqw.Tf41ElMO0gk
- nrEfUcU2hX3jQCA.DaylH5NpWF9OUo9gdJ5NCZJHklVcd.vCZ1E89NMfNUncIfTyiQj9a9qvJJDs
- qF4p.9.jcSvx7PEcdl8sUVlG1QyMqwIbxoy57ZJ7.VCFJrpDbkjUXr6.ZrFyL96NZTOQZTdFi.b7
- EUBQsoRnn_ps08AAHgBlzEmsD3DfaQOB2sqU_VIUfLVJ.rqP.v8nMChdgmtQ1HWyd
-X-Sonic-MF: <d.piecha@ymail.com>
-X-Sonic-ID: 54d1463b-1d8c-43d7-befc-3c2ef5a899dd
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic309.consmr.mail.ir2.yahoo.com with HTTP; Tue, 6 Oct 2026 11:29:44 +0000
-Date: Tue, 6 Oct 2026 11:19:25 +0000 (UTC)
-From: Dennis Piecha <d.piecha@ymail.com>
-To: Oleksij Rempel <o.rempel@pengutronix.de>, 
-	"patchwork-bot+netdevbpf@kernel.org" <patchwork-bot+netdevbpf@kernel.org>
-Cc: "andrew@lunn.ch" <andrew@lunn.ch>, 
-	"nic_swsd@realtek.com" <nic_swsd@realtek.com>, 
-	"hkallweit1@gmail.com" <hkallweit1@gmail.com>, 
-	"davem@davemloft.net" <davem@davemloft.net>, 
-	"edumazet@kernel.org" <edumazet@kernel.org>, 
-	"kuba@kernel.org" <kuba@kernel.org>, 
-	"pabeni@redhat.com" <pabeni@redhat.com>, 
-	"stable@vger.kernel.org" <stable@vger.kernel.org>, 
-	"kernel@pengutronix.de" <kernel@pengutronix.de>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>
-Message-ID: <503211732.1051249.1791285565321@mail.yahoo.com>
-In-Reply-To: <179081461327.2189941.5041238879527277665.git-patchwork-notify@kernel.org>
-References: <20260925071040.2137178-1-o.rempel@pengutronix.de> <179081461327.2189941.5041238879527277665.git-patchwork-notify@kernel.org>
-Subject: Re: [PATCH net v1 1/1] r8169: disable EEE on RTL8168h/8111h
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UnmMhD3c"
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-14129667240so276894c88.1
+        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 04:32:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791286373; x=1791891173; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rJVQWVlBRPTsSgWg/9d5PnkDp77p5gzV4IdCIE71rko=;
+        b=UnmMhD3c/DemDsW1kzUmTLCcHAhjLksBfrH49KWFTJRNAZV+0RmfqE7UDK3BYdKyPi
+         TC30z8PS2AUSkcTV2FSnuFL0TRJa+Rl691xmJtEeAAjZMFhfKS9s9nNpUrwATIr5NIaF
+         2edlrETUFRb1hb7iTkttTjS0xClllwb1GYCvt3kKWZawfGg7fptZ+/bnUCuX9BIE0/7l
+         N6fImMW0Jf5gsAm7gSx4gaxTVCK9hL/bNTCF+oxcLTL4b8vLmdwcK3HC9pWZl9+1tR84
+         137hB0uLjtFewk0LCubpHfbfkAPK4wJG4TwRr5/7MKi9e5tRfC7V1aXGsJ5XoXwNJKtP
+         vCBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791286373; x=1791891173;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rJVQWVlBRPTsSgWg/9d5PnkDp77p5gzV4IdCIE71rko=;
+        b=LGrF7bOmLOMQasiKv3y3K3nq2xnbXntBF+CybftJ8ZkiYSibWf/vVtbTWlN+C9Aq53
+         gsFn9Ib+pg+8zfyM9bKIc9gI+MkWeMLV0/MyoRrc5Wqzr7ujANNgzAigP//Tjn6Yn8+Y
+         2JXSTBoVi/N9ZcYotPJyUzILBpVyp0ZiTz0I+eg2KPFKdCRaK9bptfM9PUDHLbK63wqi
+         VT9Gs6wSR3XUwzdfA0cVe/H+nhFSnRzKudMVC6bKYm+YQxYacW6RJdIMbIJ2IOybT1Du
+         nP8Yal+qOEXFRyjCjhrzHyjBjtokWri0BN1XD/ZVgW8JRYBafDNLnXL/N1un2k5c+D1J
+         8glQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxlXlIb3FGhJBm0niwGtrluloi4n1IwgJ3Yp0b2RNgqnROqruuaWZD3A3lKuPkxx5bnzT8i/lM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nj/wQSJzRRpHER7YjpO9Qzeg5+sgXqlcdF3aE+6quOeBGlCo/n
+	d+xYxWnWS96/Etn0wrEctxGBLPg88Q+DgJpj6H10CAKax0mwIsDDYKmW
+X-Gm-Gg: AYBFou3NTMWqFVtczKfhylU6Q3D06qWmYX3bQF/2aEQBxKjE9KKn+QOojtlj6dZCDzl
+	xKWr74g0uqxEiFvxcvwtJPG2rpCXellQptQK0OAEgiMeSOJsolFMpNi3rCI/Cocv+F+/GMkBPGP
+	dyk5RflQlNLdoT9rofuX2mgZUsicAAED/saxLz+gzX1RG7ms48fhlY71IuOobOyTt7j8xkjCbHg
+	HXd5hgof8hH1ilGAXq8RuEmAeHvUzLfcpD7qpTcHpg4CjB7fWsf+A6c4Z99AB3/sxBhuKDAjB+I
+	f+bdykAajKKeQgU+igTd16eEcm7Z6cEGZb4eb9DRlocOgH1NsnXMfspEP8XeWdbmQ20PJ8hS1lE
+	/JuS7MMmghioe4IoztPT9z5pnkO096+DumoqBwZ6g1Xzv4tRsvcv8kPmVlLXtCCWMlKiYWQZe/f
+	ENkYkizCIuBwDdslLi6W2VA/K/hE1obRmST2OsxnQjJe0ThMv17+CdGROGzdPcKblyqvWqKjpht
+	9ghDwjqeHsYaTAza7aTvAw2OQCskuCsV/8f9BbGw66rYWcdb6OxtecDCqtfC6MlTbMgRr99buKH
+	LuqSrGuDuUi1V05W
+X-Received: by 2002:a05:7022:eb47:10b0:151:2e62:fe4b with SMTP id a92af1059eb24-15eca269596mr1503491c88.23.1791286373021;
+        Tue, 06 Oct 2026 04:32:53 -0700 (PDT)
+Received: from MaquinaLab.. ([179.179.237.181])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-160677a08fcsm241105c88.3.2026.10.06.04.32.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 04:32:52 -0700 (PDT)
+From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+To: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: linux-serial@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-sunxi@lists.linux.dev,
+	Enzo Adriano <enzo.adriano.code@gmail.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/3] serial: 8250_dw: Keep the BUSY-safe divisor hook when DLF is present
+Date: Tue,  6 Oct 2026 08:32:35 -0300
+Message-ID: <20261006113235.86144-1-vinicius.eduardo.pedrosa@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <e9538164-3565-a702-c26b-bdc0b8cb1c6c@linux.intel.com>
+References: <20261005172538.398522-1-vinicius.eduardo.pedrosa@gmail.com> <20261005172538.398522-2-vinicius.eduardo.pedrosa@gmail.com> <e9538164-3565-a702-c26b-bdc0b8cb1c6c@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,66 +88,21 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26668 YMailNovation
+Content-Transfer-Encoding: 8bit
 
-Hi Oleksij,
+Hi Ilpo,
 
-I tested this on the affected machine with a Home Assistant OS test
-build that includes the patch (kernel 6.18.54-haos).
+On Tue, 6 Oct 2026, Ilpo Järvinen wrote:
+> It might be better to add __dw8250_set_divisor() to dwlib to keep the DLF
+> setting code in one place.
 
-Hardware: Intel NUC11ATKPE, RTL8168h/8111h (XID 541), FRITZ!Box 6690
-as link partner, no VLANs.
+[...]
 
-With the patch the NIC reports EEE as not supported and the RX stall
-is gone: more than 4 hours without a single drop, everything on
-defaults, no workaround. Before, on 6.18.52 without the patch, it
-stalled every 7-20 minutes.
+> It might be safer approach to NULL check .set_divisor in dwlib before
+> setting it as ordering requirements like this are easy to miss.
 
-Since 6.18.y stable is affected (that's where the PHY EEE fix was
-backported), it would be great to see this there too.
+Agreed on both, I'll do it that way in v2. I reran patch 1 on its own
+after the change and the console still survives the termios stress loop.
 
-Tested-by: Dennis Piecha <d.piecha@ymail.com>
-
-Thanks for the fix!
-Dennis
-
-
-
-
-
-
-Am Donnerstag, 1. Oktober 2026 um 02:30:16 MESZ hat <patchwork-bot+netdevbpf@kernel.org> Folgendes geschrieben: 
-
-
-
-
-
-Hello:
-
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Fri, 25 Sep 2026 09:10:40 +0200 you wrote:
-> Force EEE off on the RTL8168h/8111h (RTL_GIGA_MAC_VER_46) at PHY connect
-> with phy_disable_eee().
-> 
-> Commit 202fef9bbbf5 ("net: phy: realtek: fix EEE advertisement write on
-> the internal PHY MMD path") made EEE actually advertise on the generic
-> Realtek PHY; the write had been a no-op before. On the RTL8168h that
-> un-masks a latent defect: once EEE negotiates, RX silently stalls after
-> ~7-20 minutes. The carrier stays up, no counter or dmesg moves, and only
-> "ip link set down/up" recovers it; disabling EEE keeps the link stable.
-> 
-> [...]
-
-Here is the summary with links:
-- [net,v1,1/1] r8169: disable EEE on RTL8168h/8111h
-https://git.kernel.org/netdev/net/c/3cdeaef1754a
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Thanks,
+Vinicius
