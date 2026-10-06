@@ -1,145 +1,168 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013059.outbound.protection.outlook.com [40.93.196.59])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A32CF499F35;
-	Tue,  6 Oct 2026 16:27:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791304078; cv=none; b=h1EO509AeMq4d3iB1XC5jEii9PWHTa5rhp5hQa2WKDdd8qlPYiI+fc3jc3638ih0vwVQHvPLg1BRbxB52GQXxIx2SczrFQb0pw/ydXjlJnGs5favzdI0FkndV1fY6jgO93Jbg3TnIxS1Bxq6Kk9w0uggYiSiazvWbw34r9joV4w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791304078; c=relaxed/simple;
-	bh=einZpVySWHR7THz/woUWSFbPbcaKQ1JxeslA9nIItWU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CtS+zQL6bU08d14QasjbxBQPFHseDMUSjm5+gfruQaygXZDrmqHeS41qjcCGUSNezNNjy6yTUrbcLwoI18SkKGDQ/cssviYDzXEyr4hw+M117jBZ36xjrRCO84kxfnJe3+CrMHiaQ9Hh+zeixMyIYoIg44RLRlQ330fjWlVTaMw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JH4Cr+MS; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F39E04A0F01;
+	Tue,  6 Oct 2026 16:34:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.59
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791304475; cv=fail; b=V2uwFv4KToVK44s/TKcdWJaatQNs47vivWNt7XaHHXQRDyxKeXUZMLxKP0v7hQyGTx5S5LyX9o9MNqeiIQdLlLc98wmBO+4FaZlNI8ZbPFszguvnTy6DKgfNqje17j9h0Clhj7fvhC8EVbtSaMQ3F01Zq2qYPOzJa5gHy677IA0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791304475; c=relaxed/simple;
+	bh=S6gys1W6l98XfGNfHKzkNX5uPNYXgCcTbmjBhMRwIA8=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=h28VQwUGvwCGVmjYI6TMGi3xxvX4XSFls0GuSy4SA8++ogkmg27q+FVWmkOPNJkEdvwo7/5xo/9n2SqAKoqtSRNbBpSyPpN3P4qFHr/I6jjBks9gbTw6rNfC5qFv/kQ+ncoIWSTfuyynqiCwO9B0/ZWxD2L7tMQjqW6kHXMfpiI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=citrix.com; spf=pass smtp.mailfrom=citrix.com; dkim=pass (1024-bit key) header.d=citrix.com header.i=@citrix.com header.b=eyzWJUI2; arc=fail smtp.client-ip=40.93.196.59
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=citrix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=citrix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JH4Cr+MS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A49D91F0089B;
-	Tue,  6 Oct 2026 16:27:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791304077;
-	bh=oAdk92A+HQ3nvb4p8Km296vmXq5e9pwl0DRvbbfWM8Y=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=JH4Cr+MSu9bsoMSxpDlIA4FxF1DlalnJhCgyNtBA1IvTi09NIrKW1CJipKUuFvfWV
-	 yP8Qg7CFPZm1tiHH/IaUi84lTtdKwY/iu1uJIyowqpGUmgpkG/2vkGM25CEsgNKuK8
-	 xYo262SsdCC9bSeJCJbhD1vrkdUObQdkOHTbvPMa5/LLWeDDZk9DJYSFtPh2wYHi2p
-	 xLIAlm5eig2muBn2rP/l3QnRCegK1IjzQ/P9CHtZLdQeyc5Smb/q7SzFmsYuvnXXIg
-	 7FIzjBOdhh6e6+5/WdqETQthQHYt2KIgJ29PF+haMES6OYUPi7/L03PmJOS8rq+Jo+
-	 90ljtzIiXaXIA==
-Message-ID: <a6193df2-98f3-409f-b73f-5b91835a0107@kernel.org>
-Date: Tue, 6 Oct 2026 18:27:47 +0200
+	dkim=pass (1024-bit key) header.d=citrix.com header.i=@citrix.com header.b="eyzWJUI2"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nwmMaH2wEDHsEMdt8YR2lgSM5/MYhTj+dyc6ZPY0ypfbfcS/intpwqM/teETiicQwYzdAJ9b3OLoM9Dn5MgZ8KHc6br+Y/PkWFchLSfb3xZKLyi1bmljhQljJJzqUm1rugRyswV0R223shPNP6NR14hpwabGfQSIEScMHXII9YCFIl0CD/+H9m6FV9XUQkSvrJwvr9pSbOjHCuZuQ/yrOW9gJDgeeSnF8mqfnieaBioY4ILVQVCnYa/6o+1jhIu22NkMkomOHZwd65J65UFg8LHocxlWOWVICA6ferYvOp0G9PUj3srXltwldTCpGcqttq0/zWWL02NrJas5GXjrWg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1OxaphSh9OHqUGgjs4IJ7W2uOKFI7yP7g6SNyO+K1N8=;
+ b=IlLhTRhFx6IIdcWsGr1K6l6PRMvyZ2ZGTmMBHMp5XXQEESH2PEaTPHBF/P0xBleooSOyyPbsYefYuqPJU7FEMhtH6PyPBB1yuGFubS84rY3g9WY02Lp7uLbSU2zxoz6p0Mv//+oCUTa3IcbT2ECD/mXryefD3CHqO8IJGDDRiKsUhfvKJpr50L2spWJTK+XxpNbk8WSfcdc9zx+WsQnWF26VAGCkfxplpN+RcZ4X2HVPH9Szf17JwcPS0/loCZG+WbLq0r7QqAx5/Kb3UgC6qTVSyxdtqJZ65/JI0tFQzCxum+sRUj1Z3XUD8BflXP7hYAoAFyOyRsvAHuQns4ttmw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1OxaphSh9OHqUGgjs4IJ7W2uOKFI7yP7g6SNyO+K1N8=;
+ b=eyzWJUI2avQEM3L3HVwKCSxDWQNE/1KFj3z5YxAwUBhK3h7kzEs5TudOpGnPwB2zA7kTFFO6M0D40I12ZI4hTRf2zKs5G6a8Pb+BQ7yYhPqZN9mkLDpwaZ3lxVkThmBYYINnjOGg6XPM2Ixx1AMTQOz9QkyXCgvBHsnaV2+/+0M=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Received: from CH8PR03MB8274.namprd03.prod.outlook.com (2603:10b6:610:2ba::5)
+ by PH0PR03MB6461.namprd03.prod.outlook.com (2603:10b6:510:b4::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Tue, 6 Oct
+ 2026 16:34:30 +0000
+Received: from CH8PR03MB8274.namprd03.prod.outlook.com
+ ([fe80::ebe2:32c1:d2be:a096]) by CH8PR03MB8274.namprd03.prod.outlook.com
+ ([fe80::ebe2:32c1:d2be:a096%4]) with mapi id 15.21.0496.010; Tue, 6 Oct 2026
+ 16:34:30 +0000
+From: Ross Lagerwall <ross.lagerwall@citrix.com>
+To: xen-devel@lists.xenproject.org,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger@xenproject.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] xen-blkfront: Fix IO race during unplug
+Date: Tue,  6 Oct 2026 17:34:07 +0100
+Message-ID: <20261006163411.2583538-1-ross.lagerwall@citrix.com>
+X-Mailer: git-send-email 2.55.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: LO6P123CA0016.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:313::6) To CH8PR03MB8274.namprd03.prod.outlook.com
+ (2603:10b6:610:2ba::5)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION][BISECTED] r8169: TX stall with checksum offload on
- VLAN frames with inline tag (REORDER_HDR off) since 1517d1996b52
-To: =?UTF-8?B?SmFuIMSMZXJtw6Fr?= <sairon@sairon.cz>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Cc: netdev@vger.kernel.org, regressions@lists.linux.dev,
- stable@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, nic_swsd@realtek.com,
- Sasha Levin <sashal@kernel.org>, edumazet@kernel.org
-References: <CAPa5EdCj3v17tB-SF2JNecq5Q8s1Pranr-XzAFWNpNTBPgPG7w@mail.gmail.com>
-Content-Language: en-US
-From: Eric Dumazet <edumazet@kernel.org>
-In-Reply-To: <CAPa5EdCj3v17tB-SF2JNecq5Q8s1Pranr-XzAFWNpNTBPgPG7w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8274:EE_|PH0PR03MB6461:EE_
+X-MS-Office365-Filtering-Correlation-Id: 66d022da-a89a-4495-4086-08df23c7b212
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|18002099003|10067099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	CYBLiXY2ZTp37FuWMqKMQH8K/bYjwZ/8Xzxw1a/L8zdg3jBSTUaPD89wEfW99bUl/5nlFfhZrf4zN8FJ/Ka5BlIAC6kGD4/AQqDQcZGFfbSwYhPW1infCJbvX1q9kJiHM005dLM+PJBPg+6yq2tdsTO6f5gEz4RXOSl2JsDagF88cOG9aWP1Kc0pdv1dNb5o9E8+8LzJtbk47pP5jU2wRSO6Rw5zYXsvQuHD9uQjY5uU7P5c/LENCEBVSBpgTMUwfMlhESv7K3wsxjUCQeBcJpXOjzFEQhievn3db3VOx8gridMjSHU2q7AkP8B5PQCZlL0cdAxM9qgtb7UsWO5DkGScp6WMioinZYXrJkGqs7kb5+rNiWnf6P0STmJvl2GHabvKQH9M0dZrlExll3reJuHjF15pfZnDqE19yFUJg1L4SoLDWq9ePEeURickTsi5vOTXWrS5tyemmFn1VayjH0l28NCkHi6j2cBAhqQhEYzKZjanPfRrbLpwGBBeGwufHtOA6M3U9RtNPnb/0gYE41zQdiZrhbQQCit7AquLaAsFlZyTODN6UEp2FV4mnbOlL5nLzLKlRvAzBi5DfgF15u2VrJvctr50DZ+tsE6ra0DRFZONVZXr8kVe3aZxihfsCERaaSV7ZOQVragcVxPFDdywf/Cmki5Ct7cq+LRr0QM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8274.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(18002099003)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?ixtIcJTG883rvOudMTOFFdnNFQlXMw1kevo3evFoKhS2BsBzClIKKI/2zKwr?=
+ =?us-ascii?Q?rb5Q9rxe69leSHtlpAeeGgeCxeqx2IdgIntuq4Oo9x9tPU/yeoUhggcxG8/w?=
+ =?us-ascii?Q?t0DyOG0co5yUWXPIcvTaEZLo28n4CHvWKtONms8Qw7yawytk4uTgG+ZIMgfa?=
+ =?us-ascii?Q?PkJYqVddpYVYNTqSBQqESS0GnlsKeUKTojWaldyEYZL2MJFRnHIafIYoer0p?=
+ =?us-ascii?Q?T7Na7f+33LOwfjyrXvRdpDWftUGaFRShbIfrogtNza5Y38VvX5kY0yLplwpt?=
+ =?us-ascii?Q?rAGMI4JM2+hmmqOBCO97Y/QztaBWMkj1/ShUUVGnRZ5wnavvxsYepkzwtkjG?=
+ =?us-ascii?Q?XoO630PGu5HQGLDMsQzVQe7mf63FaI6rA8IYxZfkAxfsNMPHSlqyjRsO9UZj?=
+ =?us-ascii?Q?ClNYnFULMTcxvV3XtP2iv6RRm1gAYywjivVuOiEBj5l5djmzmBX+Cv6Syhk4?=
+ =?us-ascii?Q?3MfZvqDDIhnXRLmJ+l+xub6cQX5tiHs5eh3WtlhcT/7N7vmsvBUx1F6+E6gs?=
+ =?us-ascii?Q?D6/3qHGQ2A/19hVzTHF0jZd8OKhw0b7Q7Lfb6uHtX0WEjSItagf3l1hjVEqO?=
+ =?us-ascii?Q?GH1UXGfvz7cJW6BC8vpgS8TWvsgZ80klzQECzSgCtXUMC9jeuNz6+hyatGLw?=
+ =?us-ascii?Q?28nqIzYdrkYOQF2LyJZg+dcLfxU2POsHOm0mFG2RXoRhAvhfDtGy2jS4g3Lq?=
+ =?us-ascii?Q?wEZKdivObVwUp+c4A+K4t+NPTDfUJbj4UgQqBZ6MvvgikaPm27ICOv3BobAj?=
+ =?us-ascii?Q?bFBhV7jn7wiF/TaakrphaCDYVzUTp58awJDozfZiCxKnosejDBwsqlidBJXx?=
+ =?us-ascii?Q?xHWITp+bwjIwJZiODEhFbssZlH4FGY25uX/wilRF9TD8vNmuun+B0O1sQQJJ?=
+ =?us-ascii?Q?d2tYgb9n2gpHWHRxn20kFXdZ+JYFYb9paLCPfXUrFH/X4Zt4XJCD/DK2NfH9?=
+ =?us-ascii?Q?aYjXp96774q/ye7TOjxUVy71yDIqHngiNVBDfv3gXXa9+l5DnlQEQaM+hQyu?=
+ =?us-ascii?Q?HR7gAxB7zTNjzYWrsT2CzUR/H3XaXA/T1Ux1/4ZWsrgPb0h5YQI73UnYIZuo?=
+ =?us-ascii?Q?VHcMUGN3J2xzoRE+qyxmm9EOsL5FlT1er/mjxT/xdqguZy+AgsnZnc2vR38/?=
+ =?us-ascii?Q?6g+EKamjIl6QN1ZRSQvNB5RTXjraK/gx7qPmcrPoDKoxG9aSGS9Z3NNVjtb1?=
+ =?us-ascii?Q?vyhdWcuUxZoZ1Ec7yFAslAwOEZPP0kF3D5NqitvtuoDLAfVoYUeg5Urmwij6?=
+ =?us-ascii?Q?QM5BcDHcaM7ApTcsDsOGPkVcSAMfuQ1RpThrnqW10ZgtbMlXNIReTEYSmB+G?=
+ =?us-ascii?Q?nnigMbodfpZAHrw4QZox2Y8sOxk8rUgZ4TQL/6wqeYfPf8mGMbfF40GgjYqh?=
+ =?us-ascii?Q?RNAKGlXcJaXwXJ3sRXLK7esbBDXY1Faetf1LUnDs4hPQ6KXL1GAS9EbDwVmb?=
+ =?us-ascii?Q?aLLdNBV7W1nY/RI/UEB8BzXp1+wfvTul8p9l0vDE1eisC+52rk42xS2NsBam?=
+ =?us-ascii?Q?jx2tXJRJELp1CS7DVkcdEzPH1kAPh2W/lljFRvNXzo1iNhUi2SAD/ApSRo0h?=
+ =?us-ascii?Q?zsyOs0WOo/sPMzQnwSzrvT3Bq95vctJ96/rcC9wBUVlhV+87V0wPJl4gP1TX?=
+ =?us-ascii?Q?7G8Kqo/ZaWIg2NqyA+t5tbPrsbzaE47WzDCfpPyRbCNnKS9AKrMI1n+NuHMM?=
+ =?us-ascii?Q?GTYBuIFQrnorkC5z5ow1TrutBN01p6YyE2SxjZUQod/sW3HMWmMZTtxJ1/CC?=
+ =?us-ascii?Q?jIWnBpPrOd9jBEzE4F9mch+jxyy2CsI=3D?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 66d022da-a89a-4495-4086-08df23c7b212
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8274.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 16:34:30.3724
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: sdCKtycDjb7tvKwOElaymsNzWH3PBs5zzNgU/SZ/lRUQRg+Vrpm1jz9SsA3Tst+GIq+UrWb0aWjgh2NQpI4IfTQrphqtqKXFZwuW5yjHJtY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR03MB6461
 
+During unplug, blkfront stops the hw queues and marks the disk as dead,
+then later during removal calls del_gendisk(). However, IO issued after
+the hw queues are stopped but before the call to del_gendisk() will be
+queued but never handled. This causes del_gendisk() to hang forever
+waiting for the queue refcount to drop to zero.
 
+This can be reproduced by issuing IO during an artificial delay after
+stopping the hw queues.
 
-On 10/6/26 13:45, Jan Čermák wrote:
-> Hi,
-> 
-> the Home Assistant OS recently shipped kernel update from 6.18.39 to
-> 6.18.52 which was followed by a bunch of community reports about fatal
-> network breakages [1] which had one thing in common - r8169 driver and
-> configured VLANs. This manifested as network stall early in the setup
-> of the system with dmesg events like this:
-> 
->> r8169 0000:03:00.0 enp3s0: NETDEV WATCHDOG: CPU: 7: transmit queue 0 timed out 6125 ms
->> r8169 0000:03:00.0 enp3s0: rtl_rxtx_empty_cond == 0 (loop: 42, delay: 100).
-> 
-> As there was no change in the r8169 driver itself, I focused on the
-> vlan subsystem, where AI pointed me shortly to this suspect commit in
-> the range: 1517d1996b5236fe69eccd9d253f725e06996eb1 ("vlan: fix
-> skb_under_panic and races when toggling HW VLAN offload"), added in
-> 6.18.51. I'm not referring to the mainline counterpart below for
-> regzbot (447cbe95ebb9) as I can't confirm whether it triggers the bug
-> there as well. FWIW there was another issue [2] with a similar
-> combination recently in the regressions ML but that one seems
-> unrelated, as disabling EEE fixed that issue, and it doesn't fix it
-> here.
-> 
-> I don't have the hardware myself, I asked for testing with this commit
-> reverted, which confirmed that this change indeed started to cause
-> trouble. However, it's obvious that the change itself is not bad, as
-> it fixes another issue and the regression is scoped to very specific
-> hardware/setup combo.
-> 
-> Besides the revert, following workarounds were reported to fix the
-> issue as well:
-> - Disabling TX checksum offload with `ethtool.feature-tx off` in
-> NetworkManager for the connection (HAOS doesn't have ethtool binary,
-> hence this option instead of direct ethtool command)
-> - Enabling REORDER_HDR with `ip link set enp1s0.100 type vlan reorder_hdr on`
-> 
-> Clearly, this needs rather esoteric setup to trigger the bug - I guess
-> most systems set the REORDER_HDR flag by default, however, due to some
-> legacy in the DBus interface that HAOS stack uses to configure the
-> network [3], it was disabled. Anyway, I think that disabling it should
-> not lead to driver breakage as we're seeing.
-> 
-> So far it appears that this only affects RTL8168h/8111h, XID 541 -
-> there isn't any report of another chip/XID combination yet.
-> Unfortunately, as I said above, I don't have the hardware available
-> for testing but I believe I'll find some community members who'll be
-> willing to test a proposed fix for the issue if needed.
-> 
-> [1] https://github.com/home-assistant/operating-system/issues/5019
-> [2] https://lore.kernel.org/regressions/353419280.954808.1790290283530@mail.yahoo.com/
-> [3] https://github.com/home-assistant/supervisor/issues/7248
-> 
-> #regzbot introduced: 1517d1996b5236fe69eccd9d253f725e06996eb1
-> #regzbot link: https://github.com/home-assistant/operating-system/issues/5019
-> 
-> Cheers,
-> Jan
+Fix this by simply not stopping the hw queues directly. Marking the disk
+as dead already freezes the queue which prevents new requests being
+added and it synchronously runs the hw queues to clear anything pending.
+If the hw queues are stopped when calling blk_mark_disk_dead(), running
+the hw queues is a no-op and can leave queued requests unprocessed.
 
-Ok this NIC can not perform tx csum offloads with vlans.
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+---
 
-opts[1] only takes TD1_IPv4_CS and TCPHO (Transport Header Offset).
+In v2: Drop fixes tag, expand commit message.
 
-There is no IP header offset field in the descriptor. The MAC assumes 
-the IP header starts immediately at byte 14.
+ drivers/block/xen-blkfront.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-So we need to change vlan_dev_hard_header() to take into account
-vlan_hw_offload_capable(real_dev->features, vlan->vlan_proto)
-
-Can you test the following patch?
-
-Thanks!
-
-diff --git a/net/8021q/vlan_dev.c b/net/8021q/vlan_dev.c
-index 
-cb8f3cdbf1f732c55a8a3d69ab5445988c953205..3a518ff064465e8ab978c66a28bf7df579931256 
-100644
---- a/net/8021q/vlan_dev.c
-+++ b/net/8021q/vlan_dev.c
-@@ -54,7 +54,9 @@ static int vlan_dev_hard_header(struct sk_buff *skb, 
-struct net_device *dev,
-         u16 vlan_tci = 0;
-         int rc;
-
--       if (!(READ_ONCE(vlan->flags) & VLAN_FLAG_REORDER_HDR)) {
-+       if (!(READ_ONCE(vlan->flags) & VLAN_FLAG_REORDER_HDR) &&
-+           !vlan_hw_offload_capable(READ_ONCE(vlan->real_dev->features),
-+                                    vlan->vlan_proto)) {
-                 unsigned int hlen = READ_ONCE(dev->hard_header_len) +
-                                     READ_ONCE(dev->needed_headroom);
-
+diff --git a/drivers/block/xen-blkfront.c b/drivers/block/xen-blkfront.c
+index 8dad7bf5f664..69a2315a1b20 100644
+--- a/drivers/block/xen-blkfront.c
++++ b/drivers/block/xen-blkfront.c
+@@ -2138,10 +2138,8 @@ static void blkfront_closing(struct blkfront_info *info)
+ 		return;
+ 
+ 	/* No more blkif_request(). */
+-	if (info->rq && info->gd) {
+-		blk_mq_stop_hw_queues(info->rq);
++	if (info->gd)
+ 		blk_mark_disk_dead(info->gd);
+-	}
+ 
+ 	for_each_rinfo(info, rinfo, i) {
+ 		/* No more gnttab callback work. */
+-- 
+2.55.0
 
