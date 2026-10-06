@@ -1,212 +1,141 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5053946C4B3
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 13:31:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8434455628
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 13:34:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791293505; cv=none; b=LKw5iuMSC79w49qpoU4GxTgWN0zCQH7WqDf6alHfrzPKdQTxFJPBK+qKu5fsRLA7DueFCoVyW3xFTBCYMZhcx/jPKKT9eqr2FeSIr1gSORqC1cLY9iCV3TLFIoR9KHO/EJdeo/HtC4oQSVncAW+ZRLt0FENFM9xdbNEp+3fGyXQ=
+	t=1791293647; cv=none; b=QrQPQX6JiWY7iFWlyTCiGHrzeNGu4sBwOthGlSN8hQ5EMZ4DI7EZR2SR5xp5uiNTZxKrw8GvL2/IohdYdePHs7Gcr2XkSksfsRHjfzNjGAGcFhJ1UBTDapEA78IN57f2SI47Y12KznHPdiJoWPERxpJGP6JfUF5gAFlj5fUAOfo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791293505; c=relaxed/simple;
-	bh=2Fqvr0jUyVNc4AAmcr3IA39YGbjWXfo4uT7JBJHoRBI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RTZrAjT/j/56umw28HH/Szw0HApfidkDEYrZHjXM8a7w8usjQ4IIHiUeUiJwYmzezF1ydnU1Y3CT+PKtm1OG42+bsVbUWgGorhVVk7H0ZKkwMK6O+5ajqDkKWMYtabyJhht4DkIuvDy7IEDshm+VaKeo4E0P2JrRtXf4faN5hVY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qAcHSkEt; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791293647; c=relaxed/simple;
+	bh=akDDsrlz5LUiN+oGGtRhppEbN7v3PHSJ09mAkb8qS5M=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=M4E4WtP30hkucv7RslLJL+cJExGNfjQ5OsJSmlSB/5D9mqd2lP1I4eCO5OxHLlA9SAQI3r6lrdpTOdrsMAIvOyKm8bQSXzUt6ZKsxFtb0txnszvpTzUjgY07N48A4pB3OVoGlZIsJ7KtdhYusQBmtRGGMAn+VX9bJChow6N9AlA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--smostafa.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ePD+2pch; arc=none smtp.client-ip=209.85.128.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--smostafa.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qAcHSkEt"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0EF0C1516;
-	Tue,  6 Oct 2026 06:31:39 -0700 (PDT)
-Received: from arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 461103F763;
-	Tue,  6 Oct 2026 06:31:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791293502; bh=2Fqvr0jUyVNc4AAmcr3IA39YGbjWXfo4uT7JBJHoRBI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=qAcHSkEtTae+CRA3b2mETm1ZDYS877FD3AJmRFbuiUiSihzQEYIEKEIuokjXuuQKw
-	 i3a/SztOv8T1W1LFfx7aBiNOopTT9JVRfTsbH0ZUZz4qPMDbwKLIlZcKHqlqhgF1pZ
-	 g+MQSgh1saO18VlgBe9fDCT03jt6j6dDVnkgqcuE=
-Date: Tue, 6 Oct 2026 15:31:30 +0200
-From: Beata Michalska <beata.michalska@arm.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, Vladimir Murzin <vladimir.murzin@arm.com>,
-	Will Deacon <will@kernel.org>
-Subject: Re: [PATCH 6.1.y] arm64: errata: Add Cortex-A725 erratum 3821522
- workaround
-Message-ID: <asT4MsCZ22C_Ekum@arm.com>
-References: <2026100502-outtakes-dragonfly-ead9@gregkh>
- <20261006083052.3865406-1-sashal@kernel.org>
- <asS3CH95DxuaLbsA@arm.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ePD+2pch"
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a022fee32fso24595625e9.0
+        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 06:34:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791293644; x=1791898444; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rFUs2O53h6lFQjQpssONV4CNZjAqmwmcBofDZBTNjWM=;
+        b=ePD+2pchMMwE24VTslbY1D5FtRD5AG+ZuNzf5eCrCFEhy3ponZtySv76dOarZ2YP2/
+         fEdyZV7dpl6Egx1BuPCAM6630szhRww7wH8ztklM61Ps98OeHgs/Zn8H9jSTyAa6UdAn
+         +HIPY8Y7F5X+mydmAoE2aRzokzEVxnEo2hgcouG4ylZ1SRiWAEDZUmSAgobF0vZwC4fS
+         PVoNQ5zrglcmjI79JegvXgOMy7g0lOSy7hUkpxM1iH8z51DIq9ndXJdBmfz6GKvZCJza
+         82coeaK/rEBi7JX5JbafK2O0uflDQbTaB5AIPk2C4XbIoBpeGsWJ7/1PYGKdQ4icIFkP
+         Q0zw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791293644; x=1791898444;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rFUs2O53h6lFQjQpssONV4CNZjAqmwmcBofDZBTNjWM=;
+        b=wMIPz2VDB25SMAzr+q1r7kdl2i7A1yqH7eBZYtwtW2Lhj2YQ75i3P9TtZr4+Sgqx2H
+         KdC+AbwMOX1CdgQ7Uio82DnsLS1HT/8Zo/a2jk2NHz6MWpPCVAFP7f+X+HwNyV1arAKn
+         YhNzRakOKPsVkLKZQdkGWvcfBH6WtgX03kQisLqqu1DmL+2aYR2cNNX5p/5rwLaCbuc9
+         rCP/6u09G/No6AbVNDTcpsSbmjNvcdsLCIbiRMe26ZrXHbvzq4HM44zLOtEbtpjnb4yh
+         BfR0RhgR9kVNW4fT8o5z96cUNx1M9DIiN1mcDSwRmqUMESmxpdw7LItSa0PQCQMi56uX
+         /gCQ==
+X-Gm-Message-State: AFuF++kKYi24xlrz2cUXMXMBzMcL9mPWZAaRhKRbfBYYSsB+S8pCc/6O
+	eiYevK6K2cjG0y8+G/ffZg0J5T2RyaA7wcUZBQgFQvt48DB44mprosiiBWQdW0Se0aQ6hwivbup
+	uEIScj2vbtnm63wI1Ask+WigmErJa2L5FDnc3gu2jyzYZJtp2s2JyZa2ljw090b8rdoTASeBV/F
+	yREX8hL7TnlMzGa8wqocq+7MPff/Irju1RJUJMLXcWxjMwNp8=
+X-Received: from wmpj20.prod.google.com ([2002:a05:600c:4894:b0:4a1:76c7:7e63])
+ (user=smostafa job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:4e45:b0:4a1:687b:8f3d with SMTP id 5b1f17b1804b1-4a17b55ad69mr21462695e9.31.1791293643560;
+ Tue, 06 Oct 2026 06:34:03 -0700 (PDT)
+Date: Tue,  6 Oct 2026 13:33:59 +0000
+In-Reply-To: <2026100530-unscathed-basket-3d69@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <asS3CH95DxuaLbsA@arm.com>
+Mime-Version: 1.0
+References: <2026100530-unscathed-basket-3d69@gregkh>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20261006133359.3163466-1-smostafa@google.com>
+Subject: [PATCH 6.6.y] KVM: arm64: Don't use the VMA to size stage-2 block
+ mappings for VM_PFNMAP
+From: Mostafa Saleh <smostafa@google.com>
+To: stable@vger.kernel.org
+Cc: Mostafa Saleh <smostafa@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Oct 06, 2026 at 10:53:32AM +0200, Beata Michalska wrote:
-> This one is also missing/mixing things.
-> Do let me know if you want me to make the backport.
-> 
-Posted as a reply to:
-https://lore.kernel.org/stable/2026100502-outtakes-dragonfly-ead9@gregkh/T/#t
+[ Upstream commit 71cc2c67fb8f8d5aa8154eb482e9846d2214f11b ]
 
+get_vma_page_shift() derives the stage-2 block size for VM_PFNMAP VMAs
+from the VMA layout alone, which does not necessarily match what
+stage-1 maps for that VMA.
+
+Upstream commit 71cc2c67fb8f ("KVM: arm64: Use stage-1 leaf size for
+VM_PFNMAP") drops that calculation and lets transparent_hugepage_adjust()
+derive the mapping size from the stage-1 leaf instead. The second part
+is not applicable here: in this kernel transparent_hugepage_adjust()
+takes a reference on the backing struct page, which is not safe for
+MMIO, and stage-1 has no huge PFNMAP before v6.12 anyway. Only drop the
+VMA-based calculation, so VM_PFNMAP VMAs are mapped at PAGE_SIZE.
+
+Fixes: 2aa53d68cee6 ("KVM: arm64: Try stage2 block mapping for host device MMIO")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mostafa Saleh <smostafa@google.com>
 ---
-BR
-Beata
-> ---
-> BR
-> Beata
-> On Tue, Oct 06, 2026 at 04:31:46AM -0400, Sasha Levin wrote:
-> > From: Beata Michalska <beata.michalska@arm.com>
-> > 
-> > [ Upstream commit 45f7304679875eb000d67e194090ee7abd05c89c ]
-> > 
-> > Cortex-A725 erratum 3821522 affects the CNT_CYCLES event, which can
-> > incur a significant increment error when a CPU enters and subsequently
-> > exits WFE or WFI, and may no longer track the system counter
-> > frequency.
-> > 
-> > The AMEVCNTR01_EL0 counter is used as the AMU constant counter for
-> > frequency invariance and CPPC FFH feedback counters. Wire the affected
-> > Cortex-A725 range into the shared broken AMU constant-counter capability
-> > so the affected counter is treated as unavailable by returning zero in
-> > the AMU counter paths. This prevents the broken counter from being used
-> > as a reference source.
-> > 
-> > The erratum can also affect PMUv3 users of the CNT_CYCLES event,
-> > but this workaround intentionally does not change PMU event handling.
-> > Hiding or rejecting the PMU event from the erratum code would change
-> > the perf-visible PMU event interface, including raw event selection,
-> > and would need a separate PMU-specific approach rather than being
-> > folded into the AMU reference-counter workaround.
-> > 
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Beata Michalska <beata.michalska@arm.com>
-> > Reviewed-by: Vladimir Murzin <vladimir.murzin@arm.com>
-> > Signed-off-by: Will Deacon <will@kernel.org>
-> > [ sashal: Reused ARM64_WORKAROUND_2457168 in place of the unavailable generic AMU capability. ]
-> > Signed-off-by: Sasha Levin <sashal@kernel.org>
-> > ---
-> >  Documentation/arm64/silicon-errata.rst |  2 ++
-> >  arch/arm64/Kconfig                     | 21 +++++++++++++++++++++
-> >  arch/arm64/kernel/cpu_errata.c         | 24 +++++++++++++++++++-----
-> >  arch/arm64/kernel/topology.c           |  9 +++++----
-> >  4 files changed, 47 insertions(+), 9 deletions(-)
-> > 
-> > diff --git a/Documentation/arm64/silicon-errata.rst b/Documentation/arm64/silicon-errata.rst
-> > index fe7b90ac52d7b..74ae9e4f637a7 100644
-> > --- a/Documentation/arm64/silicon-errata.rst
-> > +++ b/Documentation/arm64/silicon-errata.rst
-> > @@ -155,6 +155,8 @@ stable kernels.
-> >  +----------------+-----------------+-----------------+-----------------------------+
-> >  | ARM            | Cortex-A725     | #3456106        | ARM64_ERRATUM_3194386       |
-> >  +----------------+-----------------+-----------------+-----------------------------+
-> > +| ARM            | Cortex-A725     | #3821522        | ARM64_ERRATUM_3821522       |
-> > ++----------------+-----------------+-----------------+-----------------------------+
-> >  | ARM            | Cortex-X1       | #3324344        | ARM64_ERRATUM_3194386       |
-> >  +----------------+-----------------+-----------------+-----------------------------+
-> >  | ARM            | Cortex-X1       | #4193791        | ARM64_ERRATUM_4118414       |
-> > diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-> > index 9cb8867eb1205..314a9ac22be54 100644
-> > --- a/arch/arm64/Kconfig
-> > +++ b/arch/arm64/Kconfig
-> > @@ -983,6 +983,27 @@ config ARM64_ERRATUM_2457168
-> >  
-> >  	  If unsure, say Y.
-> >  
-> > +config ARM64_ERRATUM_3821522
-> > +	bool "Cortex-A725: 3821522: workaround for possible CNT_CYCLES increment error due to WFE/WFI"
-> > +	depends on ARM64_AMU_EXTN
-> > +	default y
-> > +	help
-> > +	  This option adds the workaround for ARM Cortex-A725 erratum 3821522.
-> > +
-> > +	  On affected A725 cores, the CNT_CYCLES event may incur a significant
-> > +	  increment error when entering and subsequently exiting WFx.
-> > +	  As a result, the CNT_CYCLES may diverge from the system counter
-> > +	  frequency at which it is expected to increment.
-> > +	  This renders the AMU counter AMEVCNTR01, that implements CNT_CYCLES,
-> > +	  being unreliable and unsuitable for use.
-> > +
-> > +	  Since there is no hardware workaround, reads of the affected CNT_CYCLES
-> > +	  counter return 0 in the relevant paths. This causes users of the counter
-> > +	  to treat it as unavailable and is functionally equivalent to firmware
-> > +	  disabling the affected counter.
-> > +
-> > +	  If unsure, say Y.
-> > +
-> >  config ARM64_WORKAROUND_SPECULATIVE_UNPRIV_LOAD
-> >  	bool
-> >  
-> > diff --git a/arch/arm64/kernel/cpu_errata.c b/arch/arm64/kernel/cpu_errata.c
-> > index cff85a371c353..fbc80f64f3eeb 100644
-> > --- a/arch/arm64/kernel/cpu_errata.c
-> > +++ b/arch/arm64/kernel/cpu_errata.c
-> > @@ -275,6 +275,21 @@ static const struct arm64_cpu_capabilities arm64_repeat_tlbi_list[] = {
-> >  };
-> >  #endif
-> >  
-> > +#if defined(CONFIG_ARM64_ERRATUM_2457168) || \
-> > +	defined(CONFIG_ARM64_ERRATUM_3821522)
-> > +static const struct midr_range workaround_amu_constcnt_list[] = {
-> > +#ifdef CONFIG_ARM64_ERRATUM_2457168
-> > +	/* Cortex-A510 r0p0-r1p1 */
-> > +	MIDR_RANGE(MIDR_CORTEX_A510, 0, 0, 1, 1),
-> > +#endif
-> > +#ifdef CONFIG_ARM64_ERRATUM_3821522
-> > +	/* Cortex-A725 r0p0 - r0p2 */
-> > +	MIDR_RANGE(MIDR_CORTEX_A725, 0, 0, 0, 2),
-> > +#endif
-> > +	{}
-> > +};
-> > +#endif
-> > +
-> >  #ifdef CONFIG_CAVIUM_ERRATUM_23154
-> >  static const struct midr_range cavium_erratum_23154_cpus[] = {
-> >  	MIDR_ALL_VERSIONS(MIDR_THUNDERX),
-> > @@ -737,14 +752,13 @@ const struct arm64_cpu_capabilities arm64_errata[] = {
-> >  		ERRATA_MIDR_REV_RANGE(MIDR_CORTEX_A510, 0, 0, 2)
-> >  	},
-> >  #endif
-> > -#ifdef CONFIG_ARM64_ERRATUM_2457168
-> > +#if defined(CONFIG_ARM64_ERRATUM_2457168) || \
-> > +	defined(CONFIG_ARM64_ERRATUM_3821522)
-> >  	{
-> > -		.desc = "ARM erratum 2457168",
-> > +		.desc = "Broken AMU AMEVCNTR01 (const counter)",
-> >  		.capability = ARM64_WORKAROUND_2457168,
-> >  		.type = ARM64_CPUCAP_WEAK_LOCAL_CPU_FEATURE,
-> > -
-> > -		/* Cortex-A510 r0p0-r1p1 */
-> > -		CAP_MIDR_RANGE(MIDR_CORTEX_A510, 0, 0, 1, 1)
-> > +		CAP_MIDR_RANGE_LIST(workaround_amu_constcnt_list)
-> >  	},
-> >  #endif
-> >  #ifdef CONFIG_ARM64_ERRATUM_2038923
-> > diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
-> > index 817d788cd8666..575d0f9a76870 100644
-> > --- a/arch/arm64/kernel/topology.c
-> > +++ b/arch/arm64/kernel/topology.c
-> > @@ -268,10 +268,11 @@ static void cpu_read_corecnt(void *val)
-> >  static void cpu_read_constcnt(void *val)
-> >  {
-> >  	/*
-> > -	 * Return 0 if the current CPU is affected by erratum 2457168. A value
-> > -	 * of 0 is also returned if the current CPU does not support AMUs or if
-> > -	 * the counter is disabled. A return value of 0 at counter read is
-> > -	 * properly handled as an error case by the users of the counter.
-> > +	 * Return 0 if the current CPU is affected by a HW erratum.
-> > +	 * A value of 0 is also returned if the current CPU does not
-> > +	 * support AMUs or if the counter is disabled. A return
-> > +	 * value of 0 at counter read is properly handled as an error
-> > +	 * case by the users of the counter.
-> >  	 */
-> >  	*(u64 *)val = this_cpu_has_cap(ARM64_WORKAROUND_2457168) ?
-> >  		      0UL : read_constcnt();
-> > -- 
-> > 2.53.0
-> > 
+ arch/arm64/kvm/mmu.c | 25 ++-----------------------
+ 1 file changed, 2 insertions(+), 23 deletions(-)
+
+diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+index 482280fe22d7..47f76a78ba1f 100644
+--- a/arch/arm64/kvm/mmu.c
++++ b/arch/arm64/kvm/mmu.c
+@@ -1329,32 +1329,11 @@ transparent_hugepage_adjust(struct kvm *kvm, struct kvm_memory_slot *memslot,
+ 	return PAGE_SIZE;
+ }
+ 
+-static int get_vma_page_shift(struct vm_area_struct *vma, unsigned long hva)
++static int get_vma_page_shift(struct vm_area_struct *vma)
+ {
+-	unsigned long pa;
+-
+ 	if (is_vm_hugetlb_page(vma) && !(vma->vm_flags & VM_PFNMAP))
+ 		return huge_page_shift(hstate_vma(vma));
+ 
+-	if (!(vma->vm_flags & VM_PFNMAP))
+-		return PAGE_SHIFT;
+-
+-	VM_BUG_ON(is_vm_hugetlb_page(vma));
+-
+-	pa = (vma->vm_pgoff << PAGE_SHIFT) + (hva - vma->vm_start);
+-
+-#ifndef __PAGETABLE_PMD_FOLDED
+-	if ((hva & (PUD_SIZE - 1)) == (pa & (PUD_SIZE - 1)) &&
+-	    ALIGN_DOWN(hva, PUD_SIZE) >= vma->vm_start &&
+-	    ALIGN(hva, PUD_SIZE) <= vma->vm_end)
+-		return PUD_SHIFT;
+-#endif
+-
+-	if ((hva & (PMD_SIZE - 1)) == (pa & (PMD_SIZE - 1)) &&
+-	    ALIGN_DOWN(hva, PMD_SIZE) >= vma->vm_start &&
+-	    ALIGN(hva, PMD_SIZE) <= vma->vm_end)
+-		return PMD_SHIFT;
+-
+ 	return PAGE_SHIFT;
+ }
+ 
+@@ -1456,7 +1435,7 @@ static int user_mem_abort(struct kvm_vcpu *vcpu, phys_addr_t fault_ipa,
+ 		force_pte = true;
+ 		vma_shift = PAGE_SHIFT;
+ 	} else {
+-		vma_shift = get_vma_page_shift(vma, hva);
++		vma_shift = get_vma_page_shift(vma);
+ 	}
+ 
+ 	switch (vma_shift) {
+-- 
+2.56.0.rc1.315.gc6ed9934b7-goog
+
