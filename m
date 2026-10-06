@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 419BE3B4EB3
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 07:47:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3FB62F39B5
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 07:48:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791272857; cv=none; b=f80zRRYuvPAnAaF9WK62uWuXdnLZTxzn4Wlj9byXSaNVyQE1GXkD42gOYACcBvgKoqD8R2KdPkccUCHAZVdVVhboKb/7WSViiKVHHp7Q8fHFCdeB6oQ+F4jiCyjOqjOY3Bb2DfIjWAN2WBIJ+i1fArzWuXxqCtjD45zr/rizxKE=
+	t=1791272883; cv=none; b=BxtE4xUh7m66JpLLtBiQuNj4FwxGH7+8+Gyp+zBGXhWhJSTH7ZRSprRq9CRNbSJZcN/4l7cax8qa/G9k4JLmfI5svA7HdrcXA/P5ZRL5hB60DYDNsLrTo68vRiy9/f2I2ViQPs9UxgvaaMDAI1zmmDgE/gnCNube35J6Kd40fvE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791272857; c=relaxed/simple;
-	bh=IuuW4eAJL2NdOR5X72H/mf5np4LGyqBiN5RP2yA9Lwg=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=rzgUF4uDb3IkB9hNr7wSJH8mtnFHTLTBJjBbV5QThQpwaQ0dKKQlEub3BR27zgSxIjCDk/FvPsekUJfQstP51qhofmKco8gKcAzvtA8j7BjskdQLFvdO21WqjhiADQBt7fD2Ww6Ea/7KVRMx32wHQI3d4oM85mjoG1c2YZipGGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=01IAgRE0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791272883; c=relaxed/simple;
+	bh=puDBq0C7GM2SNlTMamjtQwKfnlVCg2ZNSnOmdL4v3VU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=WPG+0zAOe3hylB+hCVmcTGatBEy0mlSTQ3b+Cjnjrn4Gidx5DVvC7M97Kk2aOYMuoavpNRIHnKt2ug/eNeWykb+nccOsshvIyNaYkgAjByC/oR5Pk2pGhf+CsgIwFE6v/zlWNQPt+ZiA4fUXauMwAfy4YTPL722veKKrkHrbPWM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Aq55igoC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="01IAgRE0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A0931F000FF;
-	Tue,  6 Oct 2026 07:47:35 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Aq55igoC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D59AF1F000FF;
+	Tue,  6 Oct 2026 07:48:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791272855;
-	bh=JCiqve51MVlsZJfjSha10rTDTWyaY320+OMFowxMKoM=;
+	s=korg; t=1791272881;
+	bh=pi9WlfwiK0qfDKnopuCNGXD2x+xDmS+A4waLBkptO4I=;
 	h=Subject:To:Cc:From:Date;
-	b=01IAgRE0ip/4NzG0AzWZ1WqmCDYOfXEAq78sImUJ9y7ZZq6p2yHQZ5HaA48us7j12
-	 BiRVxX+bbK5oPAa+gC5PaIw2JVycmyZtfDyeSp00JXIdzWRNRB2W3odxWnNOahzagT
-	 Zc4cOoYD+9cj9cTbpDVuCcVRMTfrXPL8qToxEGB0=
-Subject: FAILED: patch "[PATCH] iio: health: max30102: fix NULL dereference in interrupt" failed to apply to 5.15-stable tree
-To: marcochen.dev@gmail.com,jic23@kernel.org,jonathan.cameron@oss.qualcomm.com,stable@vger.kernel.org
+	b=Aq55igoCXNmvoNW76rL2M28D+OUce/HNwowhBdhg9M4KAc96qb+BPdIeoYWa535tn
+	 mkWCjUJcN+9GGcNrUn7DOeoibJtOCdgpV9wmSSTLSh3aOyL0FHiFEUjOfH20fVYLbU
+	 MaBIS9Wb0P+l1Rk6yr6Ho3LyKLkXlRPnhURJWX90=
+Subject: FAILED: patch "[PATCH] iio: light: rohm-bu27034: Fix infinite delay on error" failed to apply to 6.12-stable tree
+To: mazziesaccount@gmail.com,jic23@kernel.org,jonathan.cameron@oss.qualcomm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 06 Oct 2026 09:47:19 +0200
-Message-ID: <2026100619-ranked-untoasted-71d5@gregkh>
+Date: Tue, 06 Oct 2026 09:47:58 +0200
+Message-ID: <2026100658-implosion-refrain-3bbd@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x f0ea4824deebf21dacfbe397c4b0a5fd3e745a8d
+git cherry-pick -x 8065a6c02f629187131f3136bedb26f9080e3cca
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100619-ranked-untoasted-71d5@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100658-implosion-refrain-3bbd@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,57 +62,169 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From f0ea4824deebf21dacfbe397c4b0a5fd3e745a8d Mon Sep 17 00:00:00 2001
-From: Marco Chen <marcochen.dev@gmail.com>
-Date: Sat, 8 Aug 2026 15:54:50 -0400
-Subject: [PATCH] iio: health: max30102: fix NULL dereference in interrupt
- handler
+From 8065a6c02f629187131f3136bedb26f9080e3cca Mon Sep 17 00:00:00 2001
+From: Matti Vaittinen <mazziesaccount@gmail.com>
+Date: Wed, 2 Sep 2026 11:48:46 +0300
+Subject: [PATCH] iio: light: rohm-bu27034: Fix infinite delay on error
 
-The interrupt is requested in max30102_probe() and stays enabled
-for the lifetime of the device, but indio_dev->active_scan_mask is only
-valid while a buffer is enabled. When an interrupt arrives while no
-buffer is enabled, the handler dereferences the NULL active_scan_mask:
+When reading an integration-time fails, the code will use error code to
+compute the sleep time.
 
-  Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
-  Call trace:
-   __bitmap_weight+0x64/0x98 (P)
-   max30102_interrupt_handler+0x48/0x160 [max30102]
+Fix this by using the smallest integration time as a default if
+reading fails.
 
-Call max30102_fifo_count() at the top of the handler and return early
-unless it reports a FIFO sample is ready. Because FIFO_RDY is the only
-interrupt source enabled in max30102_chip_init(), an invocation of
-max30102_interrupt_handler() without the FIFO_RDY interrupt status bit
-set carries no data to read and can return before touching
-active_scan_mask. A negative return from max30102_fifo_count()
-indicates a failed interrupt status read and is treated the same way.
-
-Fixes: 90579b69e94b ("iio: health: max30102: Add MAX30105 support")
+Fixes: e52afbd61039 ("iio: light: ROHM BU27034 Ambient Light Sensor")
 Suggested-by: Jonathan Cameron <jic23@kernel.org>
-Signed-off-by: Marco Chen <marcochen.dev@gmail.com>
-Cc: <stable@vger.kernel.org>
+Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
+Cc: stable@vger.kernel.org
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 
-diff --git a/drivers/iio/health/max30102.c b/drivers/iio/health/max30102.c
-index c37316c86f14..aee96167f01e 100644
---- a/drivers/iio/health/max30102.c
-+++ b/drivers/iio/health/max30102.c
-@@ -290,9 +290,15 @@ static irqreturn_t max30102_interrupt_handler(int irq, void *private)
+diff --git a/drivers/iio/light/rohm-bu27034.c b/drivers/iio/light/rohm-bu27034.c
+index f9a421618406..92fca33387bb 100644
+--- a/drivers/iio/light/rohm-bu27034.c
++++ b/drivers/iio/light/rohm-bu27034.c
+@@ -137,6 +137,7 @@ static const struct iio_gain_sel_pair bu27034_gains[] = {
+ #define BU27034_MEAS_MODE_200MS		2
+ #define BU27034_MEAS_MODE_400MS		4
+ 
++#define BU27034_INT_TIME_US_MIN (55 * USEC_PER_MSEC)
+ static const struct iio_itime_sel_mul bu27034_itimes[] = {
+ 	GAIN_SCALE_ITIME_US(400000, BU27034_MEAS_MODE_400MS, 8),
+ 	GAIN_SCALE_ITIME_US(200000, BU27034_MEAS_MODE_200MS, 4),
+@@ -296,7 +297,7 @@ static int bu27034_get_gain(struct bu27034_data *data, int chan, int *gain)
+ 	return 0;
+ }
+ 
+-static int bu27034_get_int_time(struct bu27034_data *data)
++static int bu27034_get_int_time(struct bu27034_data *data, int *itime)
  {
- 	struct iio_dev *indio_dev = private;
- 	struct max30102_data *data = iio_priv(indio_dev);
--	unsigned int measurements = bitmap_weight(indio_dev->active_scan_mask,
--						  iio_get_masklength(indio_dev));
--	int ret, cnt = 0;
-+	unsigned int measurements;
-+	int ret, cnt;
-+
-+	cnt = max30102_fifo_count(data);
-+	if (cnt <= 0)
-+		return IRQ_HANDLED;
-+
-+	measurements = bitmap_weight(indio_dev->active_scan_mask,
-+				     iio_get_masklength(indio_dev));
+ 	int ret, sel;
  
- 	mutex_lock(&data->lock);
+@@ -304,24 +305,30 @@ static int bu27034_get_int_time(struct bu27034_data *data)
+ 	if (ret)
+ 		return ret;
  
+-	return iio_gts_find_int_time_by_sel(&data->gts,
+-					    sel & BU27034_MASK_MEAS_MODE);
++	ret = iio_gts_find_int_time_by_sel(&data->gts,
++					   sel & BU27034_MASK_MEAS_MODE);
++	if (ret < 0)
++		return ret;
++
++	*itime = ret;
++
++	return 0;
+ }
+ 
+ static int _bu27034_get_scale(struct bu27034_data *data, int channel, int *val,
+ 			      int *val2)
+ {
+-	int gain, ret;
++	int gain, itime, ret;
+ 
+ 	ret = bu27034_get_gain(data, channel, &gain);
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = bu27034_get_int_time(data);
+-	if (ret < 0)
++	ret = bu27034_get_int_time(data, &itime);
++	if (ret)
+ 		return ret;
+ 
+-	return iio_gts_get_scale(&data->gts, gain, ret, val, val2);
++	return iio_gts_get_scale(&data->gts, gain, itime, val, val2);
+ }
+ 
+ static int bu27034_get_scale(struct bu27034_data *data, int channel, int *val,
+@@ -397,12 +404,10 @@ static int bu27034_try_set_int_time(struct bu27034_data *data, int time_us)
+ 	int ret, int_time_old, i;
+ 
+ 	guard(mutex)(&data->mutex);
+-	ret = bu27034_get_int_time(data);
+-	if (ret < 0)
++	ret = bu27034_get_int_time(data, &int_time_old);
++	if (ret)
+ 		return ret;
+ 
+-	int_time_old = ret;
+-
+ 	if (!iio_gts_valid_time(&data->gts, time_us)) {
+ 		dev_err(data->dev, "Unsupported integration time %u\n",
+ 			time_us);
+@@ -841,7 +846,7 @@ static int bu27034_meas_set(struct bu27034_data *data, bool en)
+ static int bu27034_get_single_result(struct bu27034_data *data, int chan,
+ 				     int *val)
+ {
+-	int ret;
++	int ret, itime;
+ 
+ 	if (chan < BU27034_CHAN_DATA0 || chan > BU27034_CHAN_DATA1)
+ 		return -EINVAL;
+@@ -850,11 +855,11 @@ static int bu27034_get_single_result(struct bu27034_data *data, int chan,
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = bu27034_get_int_time(data);
+-	if (ret < 0)
++	ret = bu27034_get_int_time(data, &itime);
++	if (ret)
+ 		return ret;
+ 
+-	msleep(ret / 1000);
++	msleep(itime / 1000);
+ 
+ 	return bu27034_read_result(data, chan, val);
+ }
+@@ -904,12 +909,10 @@ static int bu27034_calc_mlux(struct bu27034_data *data, __le16 *res, int *val)
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = bu27034_get_int_time(data);
+-	if (ret < 0)
++	ret = bu27034_get_int_time(data, &meastime);
++	if (ret)
+ 		return ret;
+ 
+-	meastime = ret;
+-
+ 	d1_d0_ratio_scaled = (unsigned int)ch1 * (unsigned int)gain0 * 100;
+ 	helper64 = (u64)ch1 * (u64)gain0 * 100LLU;
+ 
+@@ -970,9 +973,9 @@ static int bu27034_read_raw(struct iio_dev *idev,
+ 	switch (mask) {
+ 	case IIO_CHAN_INFO_INT_TIME:
+ 		*val = 0;
+-		*val2 = bu27034_get_int_time(data);
+-		if (*val2 < 0)
+-			return *val2;
++		ret = bu27034_get_int_time(data, val2);
++		if (ret)
++			return ret;
+ 
+ 		return IIO_VAL_INT_PLUS_MICRO;
+ 
+@@ -1157,11 +1160,20 @@ static int bu27034_buffer_thread(void *arg)
+ {
+ 	struct iio_dev *idev = arg;
+ 	struct bu27034_data *data;
+-	int wait_ms;
++	int wait_ms, ret;
+ 
+ 	data = iio_priv(idev);
+ 
+-	wait_ms = bu27034_get_int_time(data);
++	/*
++	 * If reading the integration time fails, default to the minimum so we
++	 * don't lose samples. This may waste CPU cycles, but as a hardening
++	 * against theoretical, once-in-a-blue-moon error, this should be Ok.
++	 */
++	wait_ms = BU27034_INT_TIME_US_MIN;
++	ret = bu27034_get_int_time(data, &wait_ms);
++	if (ret)
++		dev_warn(data->dev, "Failed to get integration time\n");
++
+ 	wait_ms /= 1000;
+ 
+ 	wait_ms -= BU27034_MEAS_WAIT_PREMATURE_MS;
 
