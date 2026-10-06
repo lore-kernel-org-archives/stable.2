@@ -1,95 +1,86 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77DA638656C
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 22:18:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 747D438B133;
+	Tue,  6 Oct 2026 22:25:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791325133; cv=none; b=OaE+T07uep2oqR/eHdPdxIax6l5SBeDc1ni74b6gAv4Vsg94wo+yxm+Tk5vg0rEAOpACZOB8x875bFnKQIIqliT2n0xtHBFU9hbCfhjfHonjDAINcV0XV8vLW6SeqV3M3IA+9TS1QVr6pmWY/J0l0UgSLBOjPMHAQhWDkJXdlAA=
+	t=1791325510; cv=none; b=u8R9qzmw38KMyQl6PnBk8xF4oQlgKKcQKCIWRgQhdfC76ZL+GlY5e+8nFH1XOkjw2W0+mdMXNqI4V7POAq8SJRP3LLI396PG31R3M8Lgp1+tG6OJtHmzf5p+BUSN3hhsP22Uo36RKCmELfT+8Ry20ABdt4bMOhk2nt/EDWOKvck=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791325133; c=relaxed/simple;
-	bh=Sp6m257yGC+8S01wlID39ZENPdjCweCcG5UAd0e7Vck=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gSbRD2lRCdWcLkhtwjEMtbGQqxiRSuKX39z/q3YghhsBjtkOxD+A3S/pS3J6wEqhRmSpE6TY92OFO6Xy4reWbi0/NkzQxSbmkZARJOgEupl/gnXKzyAGpTWC0U6zzVnFlTzywg/FRt5LSzE1PH4QWeTN5+lmc78tjNuKLrWI5mY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nSzyRA1u; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791325510; c=relaxed/simple;
+	bh=b7iWX7b8ZjSGe2dGw8tye9ATb81SP+mmfnV7tOyaSwQ=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=UoijdIgS9VP4Ojv14LnPgtBcJkvXs5sVi2nqcNmetjQLRalgnhhy2aG2kkqN9M1YTUpG2jslPCxFfid+pmUCIzaJSYtJRH2wMzEDt4F4hQhCZbGDp1zN+b+2cTRLwg9gKvIEOf475wP8uvCutpwB9OdezNbG+ZoYcNyw5Wh6vL0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=2j/Z6j05; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nSzyRA1u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA3481F0089B;
-	Tue,  6 Oct 2026 22:18:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791325132;
-	bh=EbySyw4pl993u9RgZbRXMhoVvmy8eMOKmlgusOfIlZ0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nSzyRA1uj9L6jhC0U+ww/k1jEt+4xa8yXtp7WwsNdCxn6ruzYH2NDyMjQYmsICeGU
-	 QapYGMKKm5Riqlxa2Y8vIr6tnQvKa7H5GAp51vG5JHxa3NAZCO4OJY9mUNCKMmwQI6
-	 PhWgNLYSQtX5qhLqXHJMc1kJURbD9evwY8D5pkoRgtqIOIiC4iNPEKhhKaEmHsyIOy
-	 4fPBxR3uWTa0KjoZuuKZ6wxTUky03Gv+maomnvqXrv0m6u7+u+IL9N+JC6++FWGvYm
-	 L2OaVmNUmtgv+7Z+jukyUX47l1DSTmdGpppmBbmOt3B0DpbUuRHUk+G0NNFQwDIurZ
-	 rpWGF0iRgV7SQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Zhao Li <enderaoelyther@gmail.com>,
-	stable@kernel.org,
-	Johannes Berg <johannes.berg@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] wifi: mac80211: shut down RX BA session timer on teardown
-Date: Tue,  6 Oct 2026 18:18:48 -0400
-Message-ID: <20261006221827.1100415-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100505-decompose-decaf-fb38@gregkh>
-References: <2026100505-decompose-decaf-fb38@gregkh>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="2j/Z6j05"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA75C1F0089B;
+	Tue,  6 Oct 2026 22:25:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1791325508;
+	bh=7Jk7PLs4H0c6txoot5IcBFv812i6Hp1MuAA5BEaXSLs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=2j/Z6j05P5TpKNA0tiEvdKOrWERNLzOVj8gMp+a91yu/vEy79GW9LlVJwfEykZkor
+	 Q7+x2TrdV51p3YlkUMFOaAMGK+sn1AHvMN1BCyCor9QUt22RQVi7WxKF+KTQQ4jiMP
+	 4Eb2F8m+9rDKDl5wmnM51EnnnCWctsjEsi5NxDrQ=
+Date: Tue, 6 Oct 2026 15:25:08 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Kyle Zeng <kylebot@openai.com>
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, David Howells
+ <dhowells@redhat.com>
+Subject: Re: [PATCH] assoc_array: Preserve full words when splitting
+ shortcuts
+Message-Id: <20261006152508.ba7f3c7a6661daed4767a18a@linux-foundation.org>
+In-Reply-To: <20261006220638.32195-1-kylebot@openai.com>
+References: <20261006220638.32195-1-kylebot@openai.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Zhao Li <enderaoelyther@gmail.com>
+On Tue,  6 Oct 2026 15:06:38 -0700 Kyle Zeng <kylebot@openai.com> wrote:
 
-[ Upstream commit e588e83e5c7a0f6d7a77dbbb58927c8c8cfd598e ]
+> assoc_array_insert_mid_shortcut() copies enough index-key words for the
+> new pre-shortcut, then masks off the unused bits in its last word.  If
+> diff is word-aligned, the shift is zero and the mask clears that entire
+> word, even though all of it belongs to the required prefix.  The new
+> shortcut no longer matches the objects behind it, so lookups can fail
+> for both the existing objects and the new one.
+> 
+> For example, inserting a user key with a different description length
+> into a keyring containing enough full-hash collisions can split a
+> shortcut at bit 64 and erase its hash word.  The resulting search
+> failure can also expose the pointer-dependent keyring hash as a KASLR
+> oracle.
+> 
+> Only trim the last word when diff ends inside it.  This mirrors
+> commit bb2ba2d75a2d ("assoc_array: Fix shortcut creation"), which fixed
+> the terminal-node case, and leaves non-word-aligned splits unchanged.
 
-Tearing down an RX BA session can leave the session timer queued on a
-freed tid_rx. Later timer-wheel processing and the timer callback itself
-then run against freed memory.
+Thanks.
 
-An RX BAR handler can dereference tid_rx under RCU before teardown
-unpublishes it and stay in its read-side critical section while teardown
-deletes the session timer. The stale handler can then rearm the timer
-after timer_delete_sync() returns and before the RCU callback frees
-tid_rx.
+When fixing a bug please clearly describe the userspace-visible runtime
+effects of that bug.  Including how-to-hit-it, reproducer, user reports, etc.
 
-Use timer_shutdown_sync() so rearm attempts become ineffective once
-teardown starts. Keep reorder_timer unchanged: teardown marks the session
-removed under reorder_lock and its release path checks that state before
-rearming. session_timer has no equivalent guard because
-ieee80211_rx_h_ctrl() rearms it before taking reorder_lock.
+> Fixes: 3cb989501c26 ("Add a generic associative array implementation.")
+> Cc: stable@vger.kernel.org
 
-Fixes: a87f736d942c ("mac80211: use RCU for RX aggregation")
-Cc: stable@kernel.org # 5.15+
-Assisted-by: LLM sparse kasan
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
-[ sashal: adapted the timer replacement to the existing del_timer_sync() call ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/mac80211/agg-rx.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Especially when proposing a backport. 
+Documentation/process/stable-kernel-rules.rst provides guidelines.
 
-diff --git a/net/mac80211/agg-rx.c b/net/mac80211/agg-rx.c
-index 0d2bab9d351c6..f6a7eb7181c8c 100644
---- a/net/mac80211/agg-rx.c
-+++ b/net/mac80211/agg-rx.c
-@@ -103,7 +103,7 @@ void ___ieee80211_stop_rx_ba_session(struct sta_info *sta, u16 tid,
- 	if (!tid_rx)
- 		return;
- 
--	del_timer_sync(&tid_rx->session_timer);
-+	timer_shutdown_sync(&tid_rx->session_timer);
- 
- 	/* make sure ieee80211_sta_reorder_release() doesn't re-arm the timer */
- 	spin_lock_bh(&tid_rx->reorder_lock);
--- 
-2.53.0
+> Assisted-by: Codex:gpt-6-astra
+> Signed-off-by: Kyle Zeng <kylebot@openai.com>
+> ---
+>  lib/assoc_array.c | 8 +++++---
 
+get_maintainer coverage is poor.  Please use git-show also:
+hp2:/usr/src/mm> git show -s --format="%an <%ae> - %s" 3cb989501c26
+David Howells <dhowells@redhat.com> - Add a generic associative array implementation.
+
+Also, as this affects keyrings, grep -i keyrings MAINTAINERS shows the
+mailing list.
