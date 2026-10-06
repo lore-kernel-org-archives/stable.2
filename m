@@ -1,95 +1,116 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E73A63B1EEE
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 21:32:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 290591A6822
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 21:32:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791322372; cv=none; b=OUEAvIDVkD++Eg5PhkLOMVmgEe0embjdd+PYzD1sKTXbgDPwL6oHeuab2H8OaHA77W9eSoMM+YjgVr0baUGK/MlmRi1PzZUGDk1gWm5UFVb4Mndj+2QivwybQYC3t8BO34DMoRuw038zmXOKjESPYshv8ojKRrcQqPCDGDvN2nI=
+	t=1791322377; cv=none; b=Zk3XMKqrnX3c6hiAN8WGgw+lJQNnxXqp+HO5Es8JSEtCBpLCvtk/eNz5Aj615rT9VWL5fHeCef3KTSBahYrI7lE0TU+henau93Gd/9nMzGYTnkPDkLGQ/OyMsMI7NIqPJxoFKXZCkVsLGspv8id1PV6S47342grt80oml67aV7g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791322372; c=relaxed/simple;
-	bh=JLQV/W+cC/ILS7nESt1HgaByjmB1yGRPMkcGASeB6bM=;
+	s=arc-20240116; t=1791322377; c=relaxed/simple;
+	bh=4hK9BYF+rDGGlvYD1tKlTmcb+ddrWwWtee0j1sBoYGA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=k/Hf8m6UVshb3b1T073tmo8wzOfQmcE9oINRd737dptCZ94XR3I+rgmbgk9cNBaNvVRrwzkpL5XjNOQEmBEGGG5PWNKwwSY+3z534HWKC3GU7bx8ILxVJi4hFSl6rMsP/Salb8FtbTFv3Ie8+9PGZK0Ow4wYwCz0EN2ls5CpWHw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bnp5IpLW; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=eruHw2d7DVO1+q/RBICdiqbrqGveX+HWAbL81GZ3PnaR9YyqScGaHmb4wnS+qiKMCggtrjuwV+XdKRrpNX8xv/fDpYDlmhL5bPrYKet7KYDtTeBP+OiyjXwFNdBw5JI2xzF5SikqdO6GDpTAKrtcLE9FlfmtlU2Tm5WOZewcRkw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lAfF65ON; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bnp5IpLW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F1ED1F0089B;
-	Tue,  6 Oct 2026 21:32:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lAfF65ON"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A44D01F0089B;
+	Tue,  6 Oct 2026 21:32:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791322370;
-	bh=pZNBm5IIzofmGI6+mqVCCmrTWY5Y13zMLHTR4vKIOIE=;
+	s=k20260515; t=1791322375;
+	bh=X/IGwTo/p6gHeH5vwynBZ8t+SE+EX12OoH0pJ53BKII=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Bnp5IpLWlEXietHg/vBDjKsZ7SpHhh6CNCi9N9TqPR/NbrSjjssDWj+TnMNaI49p+
-	 bsBE6rPIMRyfQvPahWn9xNmPLflgmuvdqNeQ1eMFqYSCkCk5drMeCjfUQgou6Qr8Of
-	 R+XOt/dGEBiigW3MvekHC7q43xLFUN9PkQ8bR+OM9La6xtY35F6ifMiGiJO725VDyM
-	 ZXTdQrx2E7kHUT+o9KJ2QlI937P9UjBwRFPKObEysfwmedNmGytpHng1sBUC0+vu5V
-	 Ksv9kjCUepEz9TkrrgRBaZj9fb4hgEALw6zzeBlO+yFatJYwHCGW9Sf2josEhbC2l7
-	 qheQKIGl/Oe8A==
+	b=lAfF65ONWdAtEaXDZnXSgd2HSWKVNKpYTibNQhz6cgVCxaBT5+ej7Z2/roezZYKWL
+	 PCY3uZEIb+1EHRmOOiiiVIgyPcEItpeaIFEQgWMlT7+gEm3aSSX4af+rSlq1Y/5Ja8
+	 65GkFkZcIv46ovW4InSWbWjT2YSEG6jxppbCwV7eceYZ6k4Srr7cQ6A5o2TCZN064c
+	 EIFyHwYYa7weryJ1xyEdRITjKSqtf1wwv5W9r+SZu0Kaa98Lzgy/dJZ1Ya5/xO5aO2
+	 JAHfxflKI+EP40QseI7sIV+Lzu42+Z/RRVApRiMvP6ZzD6mD+mca/qVmFWwF7lbhjs
+	 PeXVovKFBxWuQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zhao Li <enderaoelyther@gmail.com>,
-	stable@kernel.org,
-	Johannes Berg <johannes.berg@intel.com>,
+Cc: Han Xu <han.xu@nxp.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] wifi: mac80211: shut down RX BA session timer on teardown
-Date: Tue,  6 Oct 2026 17:32:47 -0400
-Message-ID: <20261006213146.983687-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] mtd: spinand: Enable QE on all dies
+Date: Tue,  6 Oct 2026 17:32:51 -0400
+Message-ID: <20261006213142.983906-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100505-submitter-smartness-6f6a@gregkh>
-References: <2026100505-submitter-smartness-6f6a@gregkh>
+In-Reply-To: <2026100506-sliver-crafty-6b50@gregkh>
+References: <2026100506-sliver-crafty-6b50@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Zhao Li <enderaoelyther@gmail.com>
+From: Han Xu <han.xu@nxp.com>
 
-[ Upstream commit e588e83e5c7a0f6d7a77dbbb58927c8c8cfd598e ]
+[ Upstream commit 63d6cace2c4a7f36c1cb44f1bb5e0f3ef19e5c7f ]
 
-Tearing down an RX BA session can leave the session timer queued on a
-freed tid_rx. Later timer-wheel processing and the timer callback itself
-then run against freed memory.
+The QUAD ENABLE (QE) bit is stored in a per-die configuration
+register on some SPI-NAND devices. When a device contains multiple
+dies, updating the QE bit only on the currently selected die can
+leave the remaining dies operating in non-quad mode.
+ 
+Iterate over all targets and update the QE setting on each die
+during initialization to ensure consistent quad I/O operation
+across the entire device.
 
-An RX BAR handler can dereference tid_rx under RCU before teardown
-unpublishes it and stay in its read-side critical section while teardown
-deletes the session timer. The stale handler can then rearm the timer
-after timer_delete_sync() returns and before the RCU callback frees
-tid_rx.
+Tested on ISSI IS38SMW04G8B.
 
-Use timer_shutdown_sync() so rearm attempts become ineffective once
-teardown starts. Keep reorder_timer unchanged: teardown marks the session
-removed under reorder_lock and its release path checks that state before
-rearming. session_timer has no equivalent guard because
-ieee80211_rx_h_ctrl() rearms it before taking reorder_lock.
-
-Fixes: a87f736d942c ("mac80211: use RCU for RX aggregation")
-Cc: stable@kernel.org # 5.15+
-Assisted-by: LLM sparse kasan
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
-[ sashal: adapted the timer replacement to target del_timer_sync() instead of timer_delete_sync() ]
+Fixes: 7529df465248 ("mtd: nand: Add core infrastructure to support SPI NANDs")
+Cc: stable@vger.kernel.org
+Signed-off-by: Han Xu <han.xu@nxp.com>
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+[ sashal: adapted spinand_init_quad_enable() to use its internally computed enable flag instead of a parameter ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/mac80211/agg-rx.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/mtd/nand/spi/core.c | 21 +++++++++++++++++++--
+ 1 file changed, 19 insertions(+), 2 deletions(-)
 
-diff --git a/net/mac80211/agg-rx.c b/net/mac80211/agg-rx.c
-index c6fa532304500..32c1be3096b3d 100644
---- a/net/mac80211/agg-rx.c
-+++ b/net/mac80211/agg-rx.c
-@@ -103,7 +103,7 @@ void ___ieee80211_stop_rx_ba_session(struct sta_info *sta, u16 tid,
- 	if (!tid_rx)
- 		return;
+diff --git a/drivers/mtd/nand/spi/core.c b/drivers/mtd/nand/spi/core.c
+index 39f9826342966..2ee90663b5e9b 100644
+--- a/drivers/mtd/nand/spi/core.c
++++ b/drivers/mtd/nand/spi/core.c
+@@ -179,7 +179,10 @@ static int spinand_init_cfg_cache(struct spinand_device *spinand)
  
--	del_timer_sync(&tid_rx->session_timer);
-+	timer_shutdown_sync(&tid_rx->session_timer);
+ static int spinand_init_quad_enable(struct spinand_device *spinand)
+ {
++	struct nand_device *nand = spinand_to_nand(spinand);
++	unsigned int target;
+ 	bool enable = false;
++	int ret;
  
- 	/* make sure ieee80211_sta_reorder_release() doesn't re-arm the timer */
- 	spin_lock_bh(&tid_rx->reorder_lock);
+ 	if (!(spinand->flags & SPINAND_HAS_QE_BIT))
+ 		return 0;
+@@ -189,8 +192,22 @@ static int spinand_init_quad_enable(struct spinand_device *spinand)
+ 	    spinand->op_templates.update_cache->data.buswidth == 4)
+ 		enable = true;
+ 
+-	return spinand_upd_cfg(spinand, CFG_QUAD_ENABLE,
+-			       enable ? CFG_QUAD_ENABLE : 0);
++	/*
++	 * QE is a per-die setting on some devices. Program each target
++	 * individually when enabling or disabling quad I/O mode.
++	 */
++	for (target = 0; target < nand->memorg.ntargets; target++) {
++		ret = spinand_select_target(spinand, target);
++		if (ret)
++			return ret;
++
++		ret = spinand_upd_cfg(spinand, CFG_QUAD_ENABLE,
++				      enable ? CFG_QUAD_ENABLE : 0);
++		if (ret)
++			return ret;
++	}
++
++	return 0;
+ }
+ 
+ static int spinand_ecc_enable(struct spinand_device *spinand,
 -- 
 2.53.0
 
