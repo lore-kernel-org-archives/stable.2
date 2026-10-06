@@ -1,212 +1,264 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013009.outbound.protection.outlook.com [40.93.201.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com [209.85.160.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 627273F1ACE;
-	Tue,  6 Oct 2026 14:43:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.9
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791297836; cv=fail; b=MuFYOVdS1XU+E7+MilgK7cKzzHxJvYGgh/tsYMXjvXA/gz6E3fMFKGMlArKxz5139JE8ESurc0lGGm8oFZGAMlF385q9jNb/K5xluuQQdoAmn6/7fwgQXLS0pt1F5F7wzKnOYbSSx6IduK0wYiCNCxO/QVOvrPglYVSWG8hi5rA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791297836; c=relaxed/simple;
-	bh=5gs9U6pw1XqPjU9mlTybd1sw2zyW0pqpGD2Wu7nhyRg=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=eA4tNkI4CushcyOtS0JhjTezTYktSSk2rcu4D6ySfSKcqUIM0hRvYNV/O8X7UwJxA2/pL+gNeRJhD2tyi8wf+B1V7uoDXLyDdkBF00RJSXLZBUTnYiK4OPLf1uxW5S69citMQHvSM8kN2Dmw9ToGr0Ei7dW3nFYt+CpwfwABaE0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=citrix.com; spf=pass smtp.mailfrom=citrix.com; dkim=pass (1024-bit key) header.d=citrix.com header.i=@citrix.com header.b=mwcbv/1u; arc=fail smtp.client-ip=40.93.201.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=citrix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=citrix.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1114048BD26
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 14:59:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.41
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791298777; cv=none; b=iTYOlqz8rLmE0ggCvQhL6CpHPbBXmFiJ7H8ZXrlYhdTsYl7X3xMMY13Y2u3hITe1yr1ESJrGwYrmCRo2vaQHp6PdJ3saH63B9Esym2RK6hbS07nJMsNOoZGXKTyJRrUHQ6XKl6pFyr6lgZcFA1x7TZ02qroJfVvRpPxAPQfd4tc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791298777; c=relaxed/simple;
+	bh=a2pGJgyenrOQBcUgU4+aMvSHZwkv/cIvXJyf0CX0F6c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=c6taAbgogEq2JeHaE9Jc8ODkNSlP/XtvGkFfedYc5hCQQ87JZad5eLAERJUObpUDdAooFkbuCIopwl8aAk7bBtC+PM7MZOBIFxAE0QtLMCU8Jji1gkSfCG4kGRbEqWCW+EQAxsyTo8r+dALnHYTfKWSCvJc/AuJ7U+bi56U9mQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=VVZUX6Bx; arc=none smtp.client-ip=209.85.160.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=citrix.com header.i=@citrix.com header.b="mwcbv/1u"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RSZG6PIOrWZ6sqwU6NOv8mVzS8R/kN/9FPpUj374XZUh3g6e5qCABFNXaLSDAiY6Bcy1r5DVfKBy2H6sxCpapDv0kSyv8nI5lA82W0mi1AaQdo/Vvrzmq6H1aeTi5avk7AWmRpG25Ar7z6BOYXLHU0KHAb+SKWcYEezR6gUit/gVxG0GFyIKmVooDuRX56M3W9eG8DDyIzKPB23E68Agr+ygFj3cRmdqpktpvp2fjld65SadIPI0dyEqoHcKmE+djf2xjhmZIMt0tkXrJQzggduKYFA8fz5nw67u/zK0bEELX6pgOJbrgk5T8WjanSGr1NzMfdg//wY0j7Gj7B0gIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lhQaN5T1hU1rRx42cQYMLNsDzKy6RS7+ImA5ST0O1uA=;
- b=aKuV98wh4TuBGAktz9vBSRkpPCDMUxtMVIKqefc8C13NL/LHS8fqHAYSr9B/i1nzoo1tzCNcwqip44w9U4aL/QOBEuEDOjU43r21AtOFs6oOcnuKYcdrXYC29zDoXXjJ2VNmxX1GWiboXHuVcUECMXJ0Lt7T+Eeoexo5/e6Ap7+dyx3GxOeEIirur6EaFgfsrvAvEhjzFrTFkNSsxWi4VdtBSyhnJuFEDYwvqw7DC2w/y/DrJwhcGTGFQxXwN+u+5ekKZZRALNgZBdrbQa4Qw6yQbrH5Qw+bMZNzMtEFT0pJCCzAWH0WMN45mxgfmCYa5ugXdQRwhDXTz1Xcv0i1Vg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lhQaN5T1hU1rRx42cQYMLNsDzKy6RS7+ImA5ST0O1uA=;
- b=mwcbv/1uNSrsKccut0rXlY1w/NlNWw5x+/ZZjhrkvjuh1LgZhQ5jm7x92fbc/MNcls6PPsto9kSJ0gy4r4aXQU5LcO8Dh8S4HRnvUvyU1EIzNMwu7d1CQpklBPkuO+Bog/ERqhnZwRxcXdvoE6h68FrJFw2olqtC9SGvDgujTAg=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Received: from CH8PR03MB8274.namprd03.prod.outlook.com (2603:10b6:610:2ba::5)
- by CH3PR03MB7459.namprd03.prod.outlook.com (2603:10b6:610:1a0::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Tue, 6 Oct
- 2026 14:43:50 +0000
-Received: from CH8PR03MB8274.namprd03.prod.outlook.com
- ([fe80::ebe2:32c1:d2be:a096]) by CH8PR03MB8274.namprd03.prod.outlook.com
- ([fe80::ebe2:32c1:d2be:a096%4]) with mapi id 15.21.0496.010; Tue, 6 Oct 2026
- 14:43:50 +0000
-Message-ID: <cf503bba-9f46-4cf6-9c42-710d0ffe4120@citrix.com>
-Date: Tue, 6 Oct 2026 15:43:44 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen-blkfront: Fix IO race during unplug
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger@xenproject.org>
-Cc: xen-devel@lists.xenproject.org, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Jens Axboe <axboe@kernel.dk>, stable@vger.kernel.org
-References: <20261006135807.2571779-1-ross.lagerwall@citrix.com>
- <asUCYtIJkFchdbNH@Mac.lan>
-Content-Language: en-US
-From: Ross Lagerwall <ross.lagerwall@citrix.com>
-In-Reply-To: <asUCYtIJkFchdbNH@Mac.lan>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P302CA0009.GBRP302.PROD.OUTLOOK.COM
- (2603:10a6:600:2c2::17) To CH8PR03MB8274.namprd03.prod.outlook.com
- (2603:10b6:610:2ba::5)
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="VVZUX6Bx"
+Received: by mail-oa1-f41.google.com with SMTP id 586e51a60fabf-49e1dbfe15eso341209fac.2
+        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 07:59:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1791298773; x=1791903573; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4tI0LY/5mH9k6I/X/x+R0S0p1KLDmL/lVZOe8khheaM=;
+        b=VVZUX6BxrOH5ap4dVh95/WwdcKxlHK4sNY/3R9hnWFh37bX7WVPtrnoq6WFJDL8iHH
+         fa0S56URHS+G1ucb62rrjPE6RPKkKnzDIRPPsbF8DfFzsJUy6p03MZuzCX2eRBOzO0hO
+         DmyrZEIFohvvKxz9/caN8mTIpVFZKtxs0/FH6ed8uVn/sHEhlBiEwvcH3g4XOH+df3nY
+         4owhplpdcdwy0ISvrsyHXJ4dPn50FCzFwz9KeBI5054dhr0YaLs5ajsgR70jaFxVhFzJ
+         NQgHJ7eSXOj3xupfMQLUcGCFoIRlPufWX47YQUkzfJfmwoX9xQaWwjUX9ASNAP8dnbq1
+         Q9Tg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791298773; x=1791903573;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4tI0LY/5mH9k6I/X/x+R0S0p1KLDmL/lVZOe8khheaM=;
+        b=BZH42i/iAxVmZ8Av+rCPyizI5dYKt4rKMY2EhVSfBd1jOq034XLYy4DiS2/FrWuv2W
+         HzHu8nuyb5xtGATegNHh0xwd96NT3NgeEJ65Bi922P/aqMXX5sJ11p5WCKirTSc9333O
+         bf22d+mIOYatwsJ3c20DhNKEg54c8PQ0iiUOp+SQKLIKjURjLKJ02mMH5evRd6ayD1kQ
+         21ZNty6tQO3RAs7Gg1hV4FgFtf9etL+FHSxN5+sI/b3EEq+4MIirCsmKHCYATpJdFsB4
+         nWM4/Gaj+O/TOIZa7S4PA9KrgM088EyozfoX9EzFLY3mLQGocJpUWU4sFOWvGhT+i08h
+         pGEg==
+X-Forwarded-Encrypted: i=1; AKwUvByevK3lp9KPiyjy2rFugVnwBUc/vDpf5IYe1g23n+DDmX2SFaiTcQXu9b+6IFkNn9l+pabF6X8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mdBUqlrstQyI9DW+GcGPZzc6zjpRIvH06ez0AjJCJUspFSjF5f
+	27y8E4BMZUBhWAmfIehQyk8CSFWFt6EY0vS8E2H+snfHx2rat6NvUjkeXufqzSF/Rsc=
+X-Gm-Gg: AYBFou1aaMgKCE41o8s7DmbPmzC5TZkFORhwSM8g4CsyStel6QbQAEaSwGTp3QjIbEC
+	WSMPidivMh1bsLprYdWjh8WWCDYurG98Njjy9F2WKEl2d7f+uDMCQY/mvTigAQJqYJBvOmTq3n8
+	kO1i0uGr2HceLmWixIs047cPo9Fg5UegZ3Y2JpNBpFPxxOB/Bej0ODke2x68RGetL78Okk0gu9z
+	+uz3pHH23xJkkGdYgDCxOT0JB5tojM3PO3qM/sPUdwEwmtBydftex6OmbMpM9yRIgDB/Lh+IG80
+	2LGL+Ak14DTHaGaCByV0WOth5Tmur4F4qvwyd4CoaWxjpEFfXKZ3KMCgSjBtVgJH5//iAaRP+4J
+	2jUYZSxtxWAeIMk1u56b8qY3T1hLA+uZnwg3FidEincl3XXugs1HrPFLFIX+kgEIN2iVnUtmVdq
+	Ta7oOnTREkCgiK2nfcNGjGSW0ZThXm2MdxcOdSKGiqDfZ43JqLcgYBeaqmZXCqO7gBIZiDb2av+
+	f1YEtALriWjAXBhR8+/z+jytqeZ7a0WdbNptThvdy1L9sBirWg4uD64S86aHMa5XnAl0gGa37jQ
+	wB6jwuzhuLoMBdtDcj0RPD5E
+X-Received: by 2002:a05:6871:110:b0:498:f70a:b54e with SMTP id 586e51a60fabf-4a240515209mr1399607fac.43.1791298773492;
+        Tue, 06 Oct 2026 07:59:33 -0700 (PDT)
+Received: from [10.0.0.192] ([72.170.223.115])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-49e16f00b5asm13145180fac.14.2026.10.06.07.59.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 06 Oct 2026 07:59:32 -0700 (PDT)
+Message-ID: <01d75013-9eae-4ec6-93b5-cc1b2b83b791@kernel.dk>
+Date: Tue, 6 Oct 2026 08:59:22 -0600
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH8PR03MB8274:EE_|CH3PR03MB7459:EE_
-X-MS-Office365-Filtering-Correlation-Id: 34faecf3-9617-41e7-1ceb-08df23b83c40
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|11063799006|4143699003|6133799003|10067099003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	NGHT28ITpfGjij1ElAPudr0jFeJDXg3D+tCudvNj72BEksabQ09ChWik+/Tb3jtYD9Fgnnu3afPnFkFECkEswb55IiCGdFhSnAkGCshvwxo5W3AQPum6zeECgoTPVg3FQT6HIllzgCbDUiSrXvQkmOYqw6lCTnD+blS3WkE+1oILYH65Z4LEyT6WhD8yNqodZrV/XSOJFCA89WVg1NJKtg2N9A1sBich6iJVuasd/tDccfwF1Twm3ogijNcFJHtWlKZH/zhuaDzsIf1hSfhIX+PoOPhrzJcL++V/zlL9TyXP1U+yA0/ofGgymctNoqWguu3AEbPEVrpuzluirjqjxmSsLQVHj3S84zs7rnW0BTFKq3FonbUNYyNOD21Ld0vXfi9RBSswByrOE30t2+FGklr8648qDveZ0GtXJIe0miwL+Ax9erxLXRkrJI5G59R0is+bfQltks2r3ugBWa/t+2ebcATaylhzVPbFAPn9K6XlumrG/MJEmpGEmrU0CCV4F2WQtNkrjmJXUubPX0tamC5MTIQ9AG4qJS5nXCaxX2icyj3rCcLL7t4TWbj22oWrbdYD6oWt+qnaioiaQTO7v+UIiu22f5PuX9JxQtQU5PoXHzcsPwOEHNjkVN9PKbvquPxY8utF0blBIt5EQXbtRLOc3jvMg69sbtArLJP6y+8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8274.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(11063799006)(4143699003)(6133799003)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QWxtdURMWXk1TzQrcHhwNkFDeDE1WUJ4RlN5YVVaeXdBbVMyZlFJYTdFRUhH?=
- =?utf-8?B?Rkc5bTdITlVrY1IycmVYcTFIMWxVWkhRSGtHWkt5SXg1bWl6MklIZ2o3MzJD?=
- =?utf-8?B?RDhEcll6TFVwZ2NCMjlEWm4yRGVCejVJWFg1VW8yays2V2RsOFYxVkdQbWV2?=
- =?utf-8?B?TFY3ZFB5NHlXOTJXUXlCQk93K3ZFL1BNaWpLdUpyWFZScG5hN01UMjRxSzZW?=
- =?utf-8?B?S3lXdkRXYm15aEYrRUo0R09zYVU3MHNzNlhTVkNXRk5xb2dUZlFHWXN4elZU?=
- =?utf-8?B?bUkveUJ0N1d3U2k4MXJCUVZwdWZWaDZUU1dBRjZGR1RhQjJwTmE3d1dPWXg2?=
- =?utf-8?B?UlViRm1rVisrdEsrbWFXazM0RFdYMVBkbndXeFVHTjl3d1RNOUdxMllhcW01?=
- =?utf-8?B?a05PNjk3MUo1RUlsNmJPM1RmbUZXTmpmMTdXY2R5cjBOZ0s0ZzV3Q2p6Y3FI?=
- =?utf-8?B?V2l4Y1JjTVI2NFVjRVVqQ0RUaEIrckFneFN5eGU2M0dDSVpmNDRtRERQU2Ni?=
- =?utf-8?B?QnhLbVh4WmJqOG04SmRlVXh6S2NGZTA2SnhxMGFzQ0RKZkdxelZKRnEzSGE1?=
- =?utf-8?B?MWpZUkUwYlRwdHVkU1RBazhhSXZTQzY5dm5yM0FnekpBdS9kU3VZOUFFVnBF?=
- =?utf-8?B?dmJudVN0eENHSzI0VHhxdFZPczllWEltUm5mWmFNc0VtNHJISGdIYm5ERXN4?=
- =?utf-8?B?RFU3Q1pLbDB4NVZacDhlcXFXRkdmOFA5cEJ0RGMyQWNMTmorL2NpK0FkWWcx?=
- =?utf-8?B?TWpoOVFWeWtwSHhSanBZd1FXeFdHTlVLaWFpUkxFR3E3T1I1RzBxTEZlaFRs?=
- =?utf-8?B?MUk2MEVEYzdQUXY4dzQ5TFlOMWpoWGpzRjlTSS83Qld4ZjkxakR6K1QzaWhN?=
- =?utf-8?B?ZlhpV21hSm12bG5ZR2lSaS95SDBCREZ2SndPMnhNYTlQMThjRk1RdVRhNVAx?=
- =?utf-8?B?WmlvRm1uY1F0Z2Q3UUJ4bkJORWgwZmI0aVN2bytFbWNUV3VWdzVhbnM0UXFP?=
- =?utf-8?B?Y1NFUzV3Skx3QWl3SXlqbll4SGYxOUNzc2FmcnA4YkpKRXppM2p0VGdDb2ZF?=
- =?utf-8?B?c293N2lhQ3JteFNaWUgzS2wxOURmMzhtVk9nL3NVb1ZoR09YQi9jL1ZLZ0tT?=
- =?utf-8?B?akU4L0RzM1BxdXl2VXBqTFltTnBoUEFNdmFzMDNpK05qQnh0QWl6clB1dW5T?=
- =?utf-8?B?cFYwRjJmUmpMdVBwUWYwcHQyVUhTWTV3VHZYWHMyUUZqaUc0TFF0UUROdElY?=
- =?utf-8?B?MVhOeDlDSHdoSjk3TVhZVVVUWVpWemlGZ2tPZlROS1N3NW9Hb1lZV2dLYkpN?=
- =?utf-8?B?T25jUE9sUzRNRFZxZ3lQSlM2VUpmMVFtM3BBUm1temFmdkxENEJuU29lMmxH?=
- =?utf-8?B?Rm1ZSkkyK0dnblYzVjF6YzlSNFJVRGFMcy9GazdnK3dxRXJXZGZqNDJlaThP?=
- =?utf-8?B?UlI5cEkwakxOTTB1T1p3OW5CUGZsQnJvbWpQMFFyYXErMzlwcVUxSmYxZzJI?=
- =?utf-8?B?cW5wU2tRSGJTQ25wWnhJaE1MQjR4c21lSkR4QkFtTlppVWowK3JCR3ZCa2wr?=
- =?utf-8?B?d2JHUjJNSU8wRDhhY29Rd3dndktjUmhKVEJqMjVDNmlxUDEvS3ZLUGgyd1Z6?=
- =?utf-8?B?WVZIRWJyeDZTS2NqeEpnZTYyY0d1NzhRSW9OQXI4YXQvVEdnbUM5bFkzc1dB?=
- =?utf-8?B?NkRrTTJNZGJJbnI2dGZrZk1kZTMzUXZhMTdjbHlVUlZ6cVJaampVK0Q0R3Zp?=
- =?utf-8?B?dG9VU0tzWTk3OVR4UlMvWWpjVENORjFaTjhWQ2MyL2VyNHZaWEZNM2tCcXZw?=
- =?utf-8?B?TUhwYjlUZ1E1REJoNlE3c3ZpQnNQMVMxdSt1U3NVdGF3amZZN0VSMUxBOG9S?=
- =?utf-8?B?MkE1Sm5LL0UrMUpXYUJKM2ZnSXozTno2U2dyNjZVMkxvUDhyakJtMU0xblIz?=
- =?utf-8?B?dThkNXJTdWRTYUVOOHBsbVBmOGVldzN5aWN6RDBGZVZweGVBY1FvNGF0VFFZ?=
- =?utf-8?B?QXlNQXVYLzVLaVpWZkhWYzlwQTlZM1E1K0JPQ0tGdHhXQVNzU01Ja2wxdjRE?=
- =?utf-8?B?THFTTHJzZlRnQ3RGYnNSZE1DZ2VEbHI3TFNFR1VJd2l0KzFiWWlWM0ZRNnBo?=
- =?utf-8?B?T2M3ODJ1dVluc1BtRFhkS0JVbGJkNFRMcjZpcjJnNWVGNWxGKzJVd0xKYUIz?=
- =?utf-8?B?ZEFnL3FxakRJWUJ5OVBkWXAyM0dQYXBNbHRlbFJsZHE3cm5aZi9ZMlc5eGlL?=
- =?utf-8?B?eGpoeTY1LytES0l1NG5HL1UxbG5vTUV6WXAwVGs3Qkx6Z3dZanJLcnZkamMw?=
- =?utf-8?B?dmN2b3ByRFZDVXFtdER2SVcyWGZTc2p4aVh4S1pRVXpELzNra0RTTmk3Tzkx?=
- =?utf-8?Q?pLnpNMHBB20ERKUA=3D?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 34faecf3-9617-41e7-1ceb-08df23b83c40
-X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8274.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 14:43:50.3521
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dLpIFAqkka1k3aQVyaT1YBkuCrRDKSm2Bra01Vd77TFkTSdxiVmz3QKEgGuf9G4ZIOTiLSRfO3wvTUHLGtYLgsPoWmvSdtLJri5nqyEdfWc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR03MB7459
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] io_uring: do not charge the SQ/CQ rings to RLIMIT_MEMLOCK
+To: hengyul@cs.unc.edu, Pavel Begunkov <asml.silence@gmail.com>,
+ io-uring@vger.kernel.org
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261006125732.3425762-1-hengyul@cs.unc.edu>
+Content-Language: en-US
+From: Jens Axboe <axboe@kernel.dk>
+In-Reply-To: <20261006125732.3425762-1-hengyul@cs.unc.edu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 10/6/26 3:14 PM, Roger Pau Monné wrote:
-> On Tue, Oct 06, 2026 at 02:58:06PM +0100, Ross Lagerwall wrote:
->> During unplug, blkfront stops the hw queues and marks the disk as dead,
->> then later during removal calls del_gendisk(). However, IO issued after
->> the hw queues are stopped but before the call to del_gendisk() will be
->> queued but never handled. This causes del_gendisk() to hang forever
->> waiting for the queue refcount to drop to zero.
->>
->> This can be reproduced by issuing IO during an artificial delay after
->> stopping the hw queues.
+On 10/6/26 6:57 AM, hengyul@cs.unc.edu wrote:
+> From: Hengyu Liang <hengyul@cs.unc.edu>
 > 
-> So the window is between the blk_mq_stop_hw_queues() and
-> blk_mark_disk_dead() calls where requests would be queued and never
-> processed?
-
-Yes.
-
+> Commit 8078486e1d53 ("io_uring: use region api for SQ") and commit
+> 81a4058e0cd0 ("io_uring: use region api for CQ") made io_uring_setup()
+> allocate the rings with io_create_region().
 > 
->> Fix this by simply not stopping the hw queues directly. Marking the disk
->> as dead also freezes the queue which prevents new requests being added
->> and it synchronously runs the hw queues to clear anything pending.
+> However, io_create_region() charges the memory to RLIMIT_MEMLOCK, and
+> the rings had been exempt from that limit since commit 26bfa89e25f4
+> ("io_uring: place ring SQ/CQ arrays under memcg memory limits"). As of
+> now, a user without CAP_IPC_LOCK gets ENOMEM from io_uring_setup() when
+> their rings exceed the limit, which is 8 MiB by default. PostgreSQL
+> developers have already hit this in their io_uring tests [1].
 > 
-> I think this likely needs expanding a bit: the disk is already marked
-> as dead with the current logic, and in the same place in the code.
+> The issue can be reproduced with a simple liburing program, run as an
+> unprivileged user:
 > 
->> Fixes: 8e141f9eb803 ("block: drain file system I/O on del_gendisk")
->> Cc: stable@vger.kernel.org
->> Assisted-by: LLM
->> Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
->> ---
->>
->> I'm not sure about the Fixes tag. It's the most likely looking candidate
->> to me but I didn't confirm whether it actually introduced the
->> regression.
+>     #include <liburing.h>
+>     #include <stdio.h>
 > 
-> I was wondering the same, and even then someone might argue this was a
-> latent bug in blkfront itself, and the reference commit just exposed
-> it.  I don't have a strong opinion.
-
-Good point, I might be inclined to drop it then.
-
+>     int main(void)
+>     {
+>             static struct io_uring ring[64];
+>             int i;
 > 
->>
->>   drivers/block/xen-blkfront.c | 4 +---
->>   1 file changed, 1 insertion(+), 3 deletions(-)
->>
->> diff --git a/drivers/block/xen-blkfront.c b/drivers/block/xen-blkfront.c
->> index 8dad7bf5f664..69a2315a1b20 100644
->> --- a/drivers/block/xen-blkfront.c
->> +++ b/drivers/block/xen-blkfront.c
->> @@ -2138,10 +2138,8 @@ static void blkfront_closing(struct blkfront_info *info)
->>   		return;
->>   
->>   	/* No more blkif_request(). */
->> -	if (info->rq && info->gd) {
->> -		blk_mq_stop_hw_queues(info->rq);
->> +	if (info->gd)
->>   		blk_mark_disk_dead(info->gd);
+>             for (i = 0; i < 64; i++)
+>                     if (io_uring_queue_init(4096, &ring[i], 0) < 0)
+>                             break;
+>             printf("%d rings\n", i);
+>             return 0;
+>     }
 > 
-> So blk_mark_disk_dead() behaves differently when called with the
-> queues still active?
+> Before those commits (v6.13), it prints "64 rings". After those commits
+> (v6.14), it prints "21 rings".
+> 
+> This patch makes io_create_region() take the user to charge, and passes
+> no user for the SQ/CQ rings.
 
-Yes. In both cases, the queues are frozen and the hw queues synchronously run,
-but the latter is a no-op when the hw queues are in the stopped state,
-therefore it could leave requests unprocessed.
+Agree that this is a bug, stricter accounting may break use cases.
+However, I think we can solve this simpler, and actually kill more code.
+How about something like the below instead? Only apply accounting to
+user backed memory, which is how it used to work too. Would be great if
+you could take a look and also run your test case against it.
 
-How about this for the final paragraph of the commit message?
-
-"""
-Fix this by simply not stopping the hw queues directly. Marking the disk
-as dead already freezes the queue which prevents new requests being added
-and it synchronously runs the hw queues to clear anything pending. If the hw
-queues are stopped when calling blk_mark_disk_dead(), running the hw queues
-is a no-op and can leave queued requests unprocessed.
-"""
-
-Ross
+diff --git a/io_uring/memmap.c b/io_uring/memmap.c
+index 48c0eb012412..da2328b52b38 100644
+--- a/io_uring/memmap.c
++++ b/io_uring/memmap.c
+@@ -16,10 +16,8 @@
+ #include "zcrx.h"
+ 
+ static bool io_mem_alloc_compound(struct page **pages, int nr_pages,
+-				  size_t size, gfp_t gfp,
+-				  struct user_struct *user)
++				  size_t size, gfp_t gfp)
+ {
+-	unsigned long nr_compound, extra;
+ 	struct page *page;
+ 	int i, order;
+ 
+@@ -29,22 +27,9 @@ static bool io_mem_alloc_compound(struct page **pages, int nr_pages,
+ 	else if (order)
+ 		gfp |= __GFP_COMP;
+ 
+-	/*
+-	 * get_order() rounds a non power of two size up, so the allocation
+-	 * can hold more pages than the region exposes. Account those too,
+-	 * and leave the compound allocation alone if they do not fit.
+-	 */
+-	nr_compound = 1UL << order;
+-	extra = nr_compound - nr_pages;
+-	if (extra && user && __io_account_mem(user, extra))
+-		return false;
+-
+ 	page = alloc_pages(gfp, order);
+-	if (!page) {
+-		if (extra && user)
+-			__io_unaccount_mem(user, extra);
++	if (!page)
+ 		return false;
+-	}
+ 
+ 	for (i = 0; i < nr_pages; i++)
+ 		pages[i] = page + i;
+@@ -120,15 +105,8 @@ void io_free_region(struct user_struct *user, struct io_mapped_region *mr)
+ 	}
+ 	if ((mr->flags & IO_REGION_F_VMAP) && mr->ptr)
+ 		vunmap(mr->ptr);
+-	if (mr->nr_pages && user) {
+-		unsigned long nr_accounted = mr->nr_pages;
+-
+-		/* a compound region was accounted for the whole allocation */
+-		if (mr->flags & IO_REGION_F_SINGLE_REF)
+-			nr_accounted = 1UL << get_order(io_region_size(mr));
+-
+-		__io_unaccount_mem(user, nr_accounted);
+-	}
++	if ((mr->flags & IO_REGION_F_USER_PROVIDED) && user)
++		__io_unaccount_mem(user, mr->nr_pages);
+ 
+ 	memset(mr, 0, sizeof(*mr));
+ }
+@@ -154,11 +132,12 @@ static int io_region_init_ptr(struct io_mapped_region *mr)
+ }
+ 
+ static int io_region_pin_pages(struct io_mapped_region *mr,
+-			       struct io_uring_region_desc *reg)
++			       struct io_uring_region_desc *reg,
++			       struct user_struct *user)
+ {
+ 	size_t size = io_region_size(mr);
+ 	struct page **pages;
+-	int nr_pages;
++	int nr_pages, ret;
+ 
+ 	pages = io_pin_pages(reg->user_addr, size, &nr_pages);
+ 	if (IS_ERR(pages))
+@@ -166,6 +145,16 @@ static int io_region_pin_pages(struct io_mapped_region *mr,
+ 	if (WARN_ON_ONCE(nr_pages != mr->nr_pages))
+ 		return -EFAULT;
+ 
++	/* pinned user memory is what RLIMIT_MEMLOCK is for */
++	if (user) {
++		ret = __io_account_mem(user, nr_pages);
++		if (ret) {
++			unpin_user_pages(pages, nr_pages);
++			kvfree(pages);
++			return ret;
++		}
++	}
++
+ 	mr->pages = pages;
+ 	mr->flags |= IO_REGION_F_USER_PROVIDED;
+ 	return 0;
+@@ -173,8 +162,7 @@ static int io_region_pin_pages(struct io_mapped_region *mr,
+ 
+ static int io_region_allocate_pages(struct io_mapped_region *mr,
+ 				    struct io_uring_region_desc *reg,
+-				    unsigned long mmap_offset,
+-				    struct user_struct *user)
++				    unsigned long mmap_offset)
+ {
+ 	gfp_t gfp = GFP_KERNEL_ACCOUNT | __GFP_ZERO | __GFP_NOWARN;
+ 	size_t size = io_region_size(mr);
+@@ -185,7 +173,7 @@ static int io_region_allocate_pages(struct io_mapped_region *mr,
+ 	if (!pages)
+ 		return -ENOMEM;
+ 
+-	if (io_mem_alloc_compound(pages, mr->nr_pages, size, gfp, user)) {
++	if (io_mem_alloc_compound(pages, mr->nr_pages, size, gfp)) {
+ 		mr->flags |= IO_REGION_F_SINGLE_REF;
+ 		goto done;
+ 	}
+@@ -230,17 +218,16 @@ int io_create_region(struct io_ring_ctx *ctx, struct io_mapped_region *mr,
+ 		return -EOVERFLOW;
+ 
+ 	nr_pages = reg->size >> PAGE_SHIFT;
+-	if (ctx->user) {
+-		ret = __io_account_mem(ctx->user, nr_pages);
+-		if (ret)
+-			return ret;
+-	}
+ 	mr->nr_pages = nr_pages;
+ 
++	/*
++	 * Only pinned user memory counts against RLIMIT_MEMLOCK, kernel
++	 * allocated regions are memcg accounted through GFP_KERNEL_ACCOUNT.
++	 */
+ 	if (reg->flags & IORING_MEM_REGION_TYPE_USER)
+-		ret = io_region_pin_pages(mr, reg);
++		ret = io_region_pin_pages(mr, reg, ctx->user);
+ 	else
+-		ret = io_region_allocate_pages(mr, reg, mmap_offset, ctx->user);
++		ret = io_region_allocate_pages(mr, reg, mmap_offset);
+ 	if (ret)
+ 		goto out_free;
+ 
+-- 
+Jens Axboe
