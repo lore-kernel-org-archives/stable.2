@@ -1,32 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 344B43B05BC;
-	Tue,  6 Oct 2026 14:31:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 939CF472796;
+	Tue,  6 Oct 2026 14:31:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791297087; cv=none; b=AGCZmgNquh5X90X68gn6bPLSQNygTqoLhKMjxJEAcuUb5SXn+ckbpHqS1xZJbkodlUW8E8GSZ63FsoGKq4kvpm43eoyOs/PG7w1A0Z1Moj8mFbipFnTdvmvMHytE52AO4flHlNlOLly1WmS/tNnm2CtGgRgMmKJL7KHu9c308P0=
+	t=1791297088; cv=none; b=LWVY/imziceWUmQInQhhpQc8w4c/JrdEWM3Ot/9FTnUHJg1pImLKectvE1WcGUh/h/AZC17ix//HqWacCFUD0WmbPx8XNkTvOeK4+qOhdiZfRV/tuNWD0DE+bC0YZ+TbBmj/EJvnwprfS++o0H0aFz0OL//VeOobOhaqpc8ccMo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791297087; c=relaxed/simple;
-	bh=WfJ7kz05EDIBDaBQd0N7Ncg/gPRB1u08o28EOUXOxAI=;
+	s=arc-20240116; t=1791297088; c=relaxed/simple;
+	bh=ABsrCd4xsUiI1dIvQDDn75xRj4S9jxkBwXb5vUKxTmQ=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=PrHCar2ynE8rW/m3H1JiwOf+Mz4u0ZRW9FkZPMoZ+iPPt6J9XWxex3D6Oye05rw7trpZk+3+DJNlMDG1KzLyiRv8aIX7+ffLrVhKLe05sztOaLJqS+nBOpXv+/K/uFzMZ4EzyDWYWjFKgx0aKuZ3wuB1LbxBF3ONOpRv4gw1nio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m2bMvvRc; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=f3l1jmiF3dHgs30Z2fdHAMfHQPhWbAPTowE8L4XR0Fh+Zl0wcia8qw2+rUtIZisNgjE2RkW4jt/7BAl6VnOfLU81OQrvRdIDj3gP8LRSqjeM/g6o0Y30547cuRQngxtN03uYJgRGIG23sRlV5APLiB2O5aVQ6ct7f0D/phfkF50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WDoM1SPn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m2bMvvRc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C25E1F0089B;
-	Tue,  6 Oct 2026 14:31:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WDoM1SPn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72A551F0089D;
+	Tue,  6 Oct 2026 14:31:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791297085;
-	bh=yMsEyngPMPyZXzcMfBrh10xq7UCPt/b6y7zWUlNjCU8=;
+	s=k20260515; t=1791297087;
+	bh=zyhGUE+a4xlake265GIXRz9IKBNZHkIQPeRgPB19Rig=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=m2bMvvRcakyFBBgEE578cwJq44y+StCczll43nUnAaFMrl78coFiEKFzJp5SnMUYF
-	 Rrna/YExWnuv5jp32tMxnoFzbOnOJMat0xK3oHm7lQlRVzk/Vhk4L5wGQoA9db2mAY
-	 RdrD0S//fCRSTFfv1eIlkmf9qrLbdieh5bQp2Jh0OG3wyydyNGjxMegu69BlCH0H+L
-	 wBkmxx9ZdLwzwqZlGa5j2EzdXQNKVq6qXaJo6phwzuQI6PtrY8P82PzdM87iWM290x
-	 newn2QBk+Oa+6MmpQ3UWX/hVkoTpc4B+KaXUoQVIToKYFpEc49uoVLbeSdZmFfj5s/
-	 4mxT6q13qSLmQ==
-Subject: Re: [PATCH net v2 1/3] net: fealnx: fix teardown order in remove
+	b=WDoM1SPnbQh5e9DeadcHW4kzjY2Hr63OudVM8wZkhS4t9fGiEX/+mWV8v0McRA31s
+	 wySGFLk3nC5e3kIg7gPmS8BF3ep+ZiPiPLDE+9RR7Dk9+oe4qJHrBwVvZgxBNdVQab
+	 RcDAQdHzHHycPwdoVvZsL0ieLH93vkmkAL9E1hiKvJZRCi7/c7eV2w+hktB8P8Snd2
+	 biR2g+HrNYi6+nHq1iosBlN4rV1orkIBoA+u9wUCoaqVxtvlMohGngpcv4vsUi4tk+
+	 d9rSI+uYTEYl8AqgOwEnC/5IdfvPxW79vUeRim7IVsij7+rTGzT7Z4WyA7twWU+OYQ
+	 KxkZbHzQD/bAA==
+Subject:
+ Re: [PATCH net v2 3/3] net: fealnx: allocate the card index from an IDA
 From: netdev-bot+sashiko@kernel.org
 To: r.zhambakiev@prosoftsystems.ru
 Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
@@ -35,11 +36,11 @@ Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  u.kleine-koenig@baylibre.com, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org,
  stable@vger.kernel.org
-Date: Tue, 06 Oct 2026 14:31:24 +0000
-Message-ID: <179129708468.434549.1549616598649604184@kernel.org>
-In-Reply-To: <20261002140954.261779-2-r.zhambakiev@prosoftsystems.ru>
-References: <20261002140954.261779-2-r.zhambakiev@prosoftsystems.ru>
-X-sashiko-severity: High
+Date: Tue, 06 Oct 2026 14:31:26 +0000
+Message-ID: <179129708601.434549.13207509601281200322@kernel.org>
+In-Reply-To: <20261002140954.261779-4-r.zhambakiev@prosoftsystems.ru>
+References: <20261002140954.261779-4-r.zhambakiev@prosoftsystems.ru>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -49,10 +50,10 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 1 potential
 issue(s) to consider.
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 0
+Critical: 0 · High: 0 (1) · Medium: 1 (1) · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -60,136 +61,140 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] The patch makes fealnx_remove_one() free both DMA rings, unmap
-  np->mem and free the netdev right after unregister_netdev().
-- [Medium] The patch's safety argument is that dev_close() stops the
-  Tx/Rx engines before fealnx_remove_one() frees the descriptor rings.
+- [Medium] The commit message says the IDA "reuses ids on re-add,
+  preserving the options[] and full_duplex[] mapping by probe order".
+
+Pre-existing issues:
+- [High] fealnx_init_one() (drivers/net/ethernet/fealnx.c:482-518) builds
+  the PCI resource name in the stack array `char boardname[18]` and…
+- [Medium] Other legacy Ethernet drivers have the same static per-probe
+  card counter used to index fixed-size module-parameter arrays.
 
 --
 
-net: fealnx: fix teardown order in remove
+net: fealnx: allocate the card index from an IDA
 
-This commit moves unregister_netdev() ahead of the dma_free_coherent()
-calls in fealnx_remove_one(). The goal is for dev_close() to stop the
-Tx/Rx engines, delete the timers and free the IRQ before the DMA rings
-are freed.
+fealnx_init_one() used a static card_idx counter that went up on every
+probe. This patch replaces it with an id taken from an IDA, which is
+freed when the probe fails and in fealnx_remove_one(). The id is kept in
+netdev_private, and boardname[] grows to 18 bytes so it can hold a full
+32-bit id.
 
 > diff --git a/drivers/net/ethernet/fealnx.c b/drivers/net/ethernet/fealnx.c
-> index bdc38aac58509..68194c9ef3326 100644
+> index b5e96c7037f37..627e570fd399d 100644
 > --- a/drivers/net/ethernet/fealnx.c
 > +++ b/drivers/net/ethernet/fealnx.c
-> @@ -682,11 +682,11 @@ static void fealnx_remove_one(struct pci_dev *pdev)
->  	if (dev) {
->  		struct netdev_private *np = netdev_priv(dev);
->  
-> +		unregister_netdev(dev);
 
-[Severity: High]
+[ ... ]
 
-Does netdev_close() in drivers/net/ethernet/fealnx.c really guarantee
-what the commit message relies on? It runs this sequence without taking
-np->lock:
-
-drivers/net/ethernet/fealnx.c:netdev_close() {
-    ...
-	iowrite32(0x0000, ioaddr + IMR);
-    ...
-	stop_nic_rxtx(ioaddr, 0);
-
-	timer_delete_sync(&np->timer);
-	timer_delete_sync(&np->reset_timer);
-
-	free_irq(np->pci_dev->irq, dev);
-    ...
-}
-
-intr_handler() is registered with IRQF_SHARED. It can already be running
-on another CPU while holding np->lock. Its loop checks the software
-np->imrvalue, so the IMR=0 write above does not stop it.
-
-Suppose the handler reaches the too-much-work path after
-timer_delete_sync(&np->reset_timer) has returned:
-
-intr_handler() {
-    ...
-		if (--boguscnt < 0) {
-			...
-			if (!np->reset_timer_armed) {
-				np->reset_timer_armed = 1;
-				np->reset_timer.expires = RUN_AT(HZ/2);
-				add_timer(&np->reset_timer);
-    ...
-}
-
-free_irq() waits for the handler to finish, but it does not cancel the
-timer the handler armed. Can reset_timer still be pending when
-unregister_netdev() returns?
-
-If it can, fealnx_remove_one() then frees the rings, unmaps np->mem and
-calls free_netdev(). That frees the timer_list embedded in np while it
-is still queued.
-
-When reset_timer() later fires, it takes np->lock in freed memory and
-calls enable_rxtx(). enable_rxtx() touches rx_ring through
-reset_rx_descriptors(). It then writes the freed tx_ring_dma and
-rx_ring_dma into TXLBA/RXLBA through the unmapped np->mem.
-
-Three other paths write np->crvalue, with RXEN/TXEN still set, back to
-TCRRCR after close's stop_nic_rxtx():
-
-- the RBU branch in intr_handler()
-- the rx error branch in netdev_rx()
-- the media change branch in netdev_timer(), which can run before
-  timer_delete_sync(&np->timer)
-
-The handler also restores IMR on exit:
-
-	iowrite32(np->imrvalue, ioaddr + IMR);
-
-Could any of these turn the engines and interrupts back on before the
-rings are freed? Remove does no BCR soft reset and does not clear bus
-mastering before dma_free_coherent(), so a re-enabled chip could DMA
-into the freed ring pages.
-
-Later patches in the series leave netdev_close() unchanged. They add
-pci_disable_device() only after the rings are freed.
-
-Would netdev_close() need to clear the enable bits under np->lock, and
-sync the IRQ before a final timer_shutdown_sync()? Would the chip also
-need a reset before the rings are freed?
-
->  		dma_free_coherent(&pdev->dev, TX_TOTAL_SIZE, np->tx_ring,
->  				  np->tx_ring_dma);
->  		dma_free_coherent(&pdev->dev, RX_TOTAL_SIZE, np->rx_ring,
->  				  np->rx_ring_dma);
+> @@ -473,9 +478,8 @@ static int fealnx_init_one(struct pci_dev *pdev,
+>  			   const struct pci_device_id *ent)
+>  {
+>  	struct netdev_private *np;
+> -	int i, option, err, irq;
+> -	static int card_idx = -1;
 
 [Severity: Medium]
+This is a pre-existing issue in other drivers and was not introduced by
+this patch, but the same static counter pattern shows up elsewhere.
 
-Are the engines guaranteed to have stopped before these rings are freed?
-The only hardware quiesce step in netdev_close() is stop_nic_rxtx(), and
-it does not report failure:
+amd8111e_probe_one() in drivers/net/ethernet/amd/amd8111e.c indexes
+module parameter arrays with MAX_UNITS (8) entries and does no bounds
+check at all:
 
-drivers/net/ethernet/fealnx.c:stop_nic_rxtx() {
-	int delay = 0x1000;
-	iowrite32(crvalue & ~(CR_W_RXEN+CR_W_TXEN), ioaddr + TCRRCR);
-	while (--delay) {
-		if ( (ioread32(ioaddr + TCRRCR) & (CR_R_RXSTOP+CR_R_TXSTOP))
-					    == (CR_R_RXSTOP+CR_R_TXSTOP) )
-			break;
-	}
-}
+	lp->ext_phy_option = speed_duplex[card_idx];
+	if (coalesce[card_idx])
+		lp->options |= OPTION_INTR_COAL_ENABLE;
+	if (dynamic_ipg[card_idx++])
 
-The poll has no delay between reads. To netdev_close(), running out of
-the budget looks the same as a successful stop.
+Here card_idx is declared as "static int card_idx;" in amd8111e.h. Does
+the 9th probe read past the end of speed_duplex[], coalesce[] and
+dynamic_ipg[]? Repeated sysfs unbind/bind would be enough to get there.
 
-A Tx frame might still be in collision backoff on a 10 Mb/s half-duplex
-link, or the chip might be wedged, for example after tx_timeout. In
-either case, could the chip still write descriptor status into tx_ring
-or rx_ring after dma_free_coherent()?
+rio_probe1() in drivers/net/ethernet/dlink/dl2k.c and sundance_probe1()
+in drivers/net/ethernet/dlink/sundance.c only check
+"card_idx < MAX_UNITS" on a signed static counter. That is the same
+wraparound case this patch fixes for fealnx. Should these get a
+follow-up?
 
-The driver already has reset_and_disable_rxtx(), which does the stop,
-IMR=0 and a BCR soft reset. Neither close nor remove uses it, and bus
-mastering is not cleared before the rings are freed.
+> -	char boardname[12];
+> +	int option, err, irq, i;
+> +	char boardname[18];
+
+[Severity: High]
+This isn't a bug introduced by this patch, but since boardname[] is being
+resized here: is it safe to keep it on the stack at all?
+
+Later in fealnx_init_one() the buffer is passed to the resource core:
+
+	err = pci_request_regions(pdev, boardname);
+
+__request_region_locked() in kernel/resource.c stores the pointer and
+does not copy the string:
+
+	res->name = name;
+
+The regions are only released in fealnx_remove_one(). So once
+fealnx_init_one() returns, the names of the BAR resources point into a
+dead stack frame for as long as the device stays bound.
+
+r_show() prints r->name with %s for /proc/iomem and /proc/ioports. Both
+files are world-readable, and for readers without CAP_SYS_ADMIN only the
+addresses are masked, not the name.
+
+Can an unprivileged reader see stale kernel stack contents here? And
+could the read fault if the probing task has exited and its vmapped
+stack has been freed?
+
+Passing DRV_NAME or pci_name(pdev), or keeping the name in
+netdev_private, would avoid this. It would also make the 12 to 18 byte
+resize unnecessary.
+
+>  	void __iomem *ioaddr;
+>  	unsigned long len;
+>  	unsigned int chip_id = ent->driver_data;
+> @@ -483,19 +487,24 @@ static int fealnx_init_one(struct pci_dev *pdev,
+
+[ ... ]
+
+> -	card_idx++;
+> +	card_idx = ida_alloc(&fealnx_ida, GFP_KERNEL);
+> +	if (card_idx < 0)
+> +		return card_idx;
+> +
+>  	sprintf(boardname, "fealnx%d", card_idx);
+>  
+>  	option = card_idx < MAX_UNITS ? options[card_idx] : 0;
+
+[Severity: Medium]
+The commit message says:
+
+  The IDA reuses ids on re-add, preserving the options[] and
+  full_duplex[] mapping by probe order.
+
+Does this still hold when an earlier probe fails?
+
+With the old static counter, every probe attempt used up an index. The
+Nth fealnx device probed always got options[N-1] and full_duplex[N-1],
+even if an earlier probe had failed.
+
+With this patch, the error path gives the id back:
+
+err_out_ida:
+	ida_free(&fealnx_ida, card_idx);
+
+The next ida_alloc() then returns the lowest free id. Say card 0 fails
+in pci_enable_device(), or at any later error label, and card 1 probes
+next. Card 1 then gets index 0 and applies options[0] and
+full_duplex[0], which were meant for card 0. That can force the wrong
+media type or duplex setting on card 1's link.
+
+The same happens on unbind/bind. The mapping follows the order in which
+devices are re-probed, not the device itself. If both cards are unbound
+and the second one is rebound first, it gets id 0.
+
+Could the commit message describe this change in behaviour? Or should a
+failed probe keep its slot, as it did before?
 
 [ ... ]
 
