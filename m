@@ -1,46 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C392472F83
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 15:38:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B9F848D89A
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 15:38:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791301122; cv=none; b=pM5yhCKLhE9G4SQUqTlem66pJqPnzmcnk2YXatrLvwNpg7kWu4PAPkzCv41Afv6WuUHe5kikAif+sHAjBp4fM6xN6xXqNNM9UnWbIjOA85YOMJgijolR1uwIKn2g245jKVeJdT0CgOhyPn9YKlv+nkoDnSbDY9pwD79JWVZHjGI=
+	t=1791301130; cv=none; b=Z6T7kh6dztDgiCwnuFxGvLS2LwjKwaW+oKifFb56aXabx9FY1uO7FxDbreEK94Fxb3ran1aoYfBl/+BMj3aPwp0FgxWpOKlhoPKDZWucnr/ZV7zECb9dsYNyHOt7DI3p8RWeaal8S9Gv5KithZyCdIJpXQodDI5TVxvSf2/HTCE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791301122; c=relaxed/simple;
-	bh=nQ6iwiIaVZAjx/obYfz2wwv9CXlBaaK5bX7ELBxS4/M=;
+	s=arc-20240116; t=1791301130; c=relaxed/simple;
+	bh=6Nq1q7LaiCZpsOp9br2r1L/MpxF9waCD0glP2a0A810=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IPzGTyo+sQu7pEkMZFEV1a3EFpJbJOGOeloN3wXags22sjgJCLbRSrIBtvLldzMjHuOkDV3jEI5rUQ8p5StElYTEaSbrk+5s7Km6ehGvRAQ8s+p8kGtdIA9RhcLwLJYFbfyKs4thEXYCmGSbql4IY3QcRCUv+FZggq6TmgNANiw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TATOl41w; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=FmCFuyKY2cF51GduJ9yDionGohp1yueSjTQ7LGUY4ncSTgenX5KuE0fXJpaCkOdBMMfKSAKwPDZMG78CmDMnrvQxoixWmCBM69eD/WbJEvo1n9kp46xvTAU1gef2+851kgwDftF12jVoqTLwvSu24VGBo/Ggomvs4BJDKHwvB1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PJrD1Pkc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TATOl41w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87F7B1F0089E;
-	Tue,  6 Oct 2026 15:38:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PJrD1Pkc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8FD51F0089B;
+	Tue,  6 Oct 2026 15:38:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791301121;
-	bh=lE7ClQvIZ9u2ojYAVt7M0kxf5MFVEFncKosaUxm+Kcs=;
+	s=k20260515; t=1791301128;
+	bh=YaytfLnkP5AuoRzBNtPoUu05ZyzTCAn6dBLelVG1Jbk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TATOl41wIBUAm01r3QKeu/MDZGy5nJ5VmyuDxstx3kCqwpxve4OIrp2wRGVyHbG/1
-	 7Par7vDYv3b4uAQNuSOefgTxSf+rBCYc1DHB3tbBjk+Np2DiSfhQGWsRO6pyC1XRiu
-	 gt7lJtPX0L0wD52o1UfttHLchr1TDo5m9+jCUA+9j+6cZ8/pwB5Je6xxnbAkuN0TwQ
-	 ZMU7IBkjjkV0v1CVYt9s0PyPCYl8Y7Yb9G59uCFgvXi5qaLFTPw531uvFP8kxJ2Rzw
-	 BxhuaLy+F+8KRl+J1nkPQq4exYniFaZaCfTINxVsEi8MtcLZJfCHlSWP6C506NmbA5
-	 sNsm7v9hvh8Jw==
+	b=PJrD1Pkcz2YbaWAPIEOSy0X2VCWET2gjC46XROJh2i5lmewY8nwoIeO6arPaHlEal
+	 v1MPcbsav+xaB1ehx+my/lxz6AlxwnxeoppKV5YUk1nZbr/nJ+3GWkBJ2LBvp+Bga+
+	 fQ9dAlWxCtafpEU3l+eS3awWmUeH6I5CEVVPWSuTaFKQdIzeXODVi9u5jYfjMr5TLU
+	 yFtz+B5RlHUKaKtoxlU98Zx+uP797dQgwvd2IzDHIxD5vkn3j2sUI/Jb31pB6Dl0Hn
+	 ss29WMaqrfN1gHVudwtL52Pf40RZA4trxgtcElKxTaZoX2fE20QzM74zxPhEXD7mjC
+	 JhKeO5no498gA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Guixin Liu <kanie@linux.alibaba.com>,
-	Nilay Shroff <nilay@linux.ibm.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Hannes Reinecke <hare@suse.de>,
 	Keith Busch <kbusch@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] nvmet: copy the hostid into the ctrl before creating PR pc_refs
-Date: Tue,  6 Oct 2026 11:38:35 -0400
-Message-ID: <20261006153821.760255-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y] nvme-multipath: set BLK_FEAT_ZONED only after the zone info is known
+Date: Tue,  6 Oct 2026 11:38:45 -0400
+Message-ID: <20261006153822.759729-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261006153821.760255-1-sashal@kernel.org>
-References: <2026100502-portal-companion-f7cd@gregkh>
- <20261006153821.760255-1-sashal@kernel.org>
+In-Reply-To: <2026100505-trimester-quilt-e671@gregkh>
+References: <2026100505-trimester-quilt-e671@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,68 +47,41 @@ Content-Transfer-Encoding: 8bit
 
 From: Guixin Liu <kanie@linux.alibaba.com>
 
-[ Upstream commit 5211fed41d7ec90e9ab7239dc4bffffe4d0b2b62 ]
+[ Upstream commit 4a5e49ba0abb8b4328d6318c9aef0c0121f95507 ]
 
-Commit 6202783184bf ("nvmet: Improve nvmet_alloc_ctrl() interface and
-implementation") added a second uuid_copy() of args->hostid near the end
-of nvmet_alloc_ctrl(), and commit 7b658153f1b8 ("nvmet: Remove duplicate
-uuid_copy") removed the original copy that sat before
-nvmet_ctrl_init_pr() instead of the new one.
+The namespace head is marked zoned at allocation time based only on the
+command set identifier.  If the zone info query reports a zero zone size,
+the path namespace is registered without zoned limits while the head
+still advertises the zoned capability with a zone size of zero, and
+reporting zones or writing to the head then shifts by ilog2(0).
 
-Since then nvmet_ctrl_init_pr() snapshots ctrl->hostid into the
-per-controller per-namespace reservation refs while the uuid_copy()
-from the connect data runs later, after the controller is published.
-The ctrl is allocated with kzalloc(), so every pc_ref created on this
-path stores the nil UUID.
+Drop the zoned feature from the head allocation and let the head limits
+refresh stack it in from the path namespace instead.
 
-pc_ref->hostid has a single consumer: nvmet_pr_set_ctrl_to_abort()
-matches it against the preempted registrant's hostid to kill and drain
-the victim's in-flight I/O for Preempt and Abort.  The match can never
-hit with the nil UUID, so whenever a namespace with reservations
-enabled exists before a host connects, which includes every reconnect,
-Preempt and Abort silently degrades into a plain Preempt: the
-preempting host sees success while the victim's in-flight I/O is still
-in the air.
-
-Copy the hostid where the rest of the connect data is consumed, before
-the controller is published and before nvmet_ctrl_init_pr() takes its
-snapshot.
-
-Fixes: 7b658153f1b8 ("nvmet: Remove duplicate uuid_copy")
+Fixes: 28982ad73d6a ("nvme: set BLK_FEAT_ZONED for ZNS multipath disks")
+Fixes: 3838e80fcfb3 ("nvme: skip the zoned limits update if the zone info query failed")
 Cc: stable@vger.kernel.org
-Reviewed-by: Nilay Shroff <nilay@linux.ibm.com>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Hannes Reinecke <hare@suse.de>
 Signed-off-by: Guixin Liu <kanie@linux.alibaba.com>
 Signed-off-by: Keith Busch <kbusch@kernel.org>
+[ sashal: Adjusted context for the feature list lacking BLK_FEAT_PCI_P2PDMA. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/nvme/target/core.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/nvme/host/multipath.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
-index 1b18523cddb6a..3310d0b44ccff 100644
---- a/drivers/nvme/target/core.c
-+++ b/drivers/nvme/target/core.c
-@@ -1633,6 +1633,8 @@ struct nvmet_ctrl *nvmet_alloc_ctrl(struct nvmet_alloc_ctrl_args *args)
+diff --git a/drivers/nvme/host/multipath.c b/drivers/nvme/host/multipath.c
+index b1104798c7887..c2ab518e4470c 100644
+--- a/drivers/nvme/host/multipath.c
++++ b/drivers/nvme/host/multipath.c
+@@ -754,8 +754,6 @@ int nvme_mpath_alloc_disk(struct nvme_ctrl *ctrl, struct nvme_ns_head *head)
+ 	lim.dma_alignment = 3;
+ 	lim.features |= BLK_FEAT_IO_STAT | BLK_FEAT_NOWAIT |
+ 		BLK_FEAT_POLL | BLK_FEAT_ATOMIC_WRITES;
+-	if (head->ids.csi == NVME_CSI_ZNS)
+-		lim.features |= BLK_FEAT_ZONED;
  
- 	memcpy(ctrl->subsysnqn, args->subsysnqn, NVMF_NQN_SIZE);
- 	memcpy(ctrl->hostnqn, args->hostnqn, NVMF_NQN_SIZE);
-+	if (args->hostid)
-+		uuid_copy(&ctrl->hostid, args->hostid);
- 
- 	kref_init(&ctrl->ref);
- 	ctrl->subsys = subsys;
-@@ -1689,9 +1691,6 @@ struct nvmet_ctrl *nvmet_alloc_ctrl(struct nvmet_alloc_ctrl_args *args)
- 	nvmet_debugfs_ctrl_setup(ctrl);
- 	mutex_unlock(&subsys->lock);
- 
--	if (args->hostid)
--		uuid_copy(&ctrl->hostid, args->hostid);
--
- 	dhchap_status = nvmet_setup_auth(ctrl, args->sq, false);
- 	if (dhchap_status) {
- 		pr_err("Failed to setup authentication, dhchap status %u\n",
+ 	head->disk = blk_alloc_disk(&lim, ctrl->numa_node);
+ 	if (IS_ERR(head->disk))
 -- 
 2.53.0
 
