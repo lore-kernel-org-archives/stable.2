@@ -1,48 +1,71 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 208D32853FD;
-	Tue,  6 Oct 2026 04:22:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEB81356747
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 04:24:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791260523; cv=none; b=j8yeExkBfDJlBiHsdHZFqFC4xJN/CbhqWtz6w/J8GJmV5hO3ey+7Jnlb9zz5FKYOW51uEZ4Vps8vYB3SpK1NdXCU4f+4LdzXYIrNeJhdPYWjG+yqaWvi+eciXOBDihKX4PpwcT8UQklVhpeCff3n8k0YvnYVbIptRF9C2ect1j8=
+	t=1791260697; cv=none; b=eiC4oHo2NW/1kGoN2XOrt/klrd5Cu8g3Fjt51g2TFQI0HdSsBG3KXUlqknES6YO0CW0rWuHARooA+fMpuN6ep5bQRlB1SdIEVIzIGqmfQDOspJQwUKVF9VR1Yi+Cp5TORrwU7rId+G/Myd72lJzGpVzN9cGtHoJsqfIpB7IqGaI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791260523; c=relaxed/simple;
-	bh=fENWsDJ6WRpg4eUcP6QYKpb3Fdveii+Aay+uG0oHlhc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SJyBDFxBq0CnkRHQeWLGt0FTg27wj/jb4X+hnnDOCFLoEoHmw9o5MZuIEcWzfD/kjdpnzrlpcP2yW2x1+Oh4G+ccOc+pwDE89DWKL3c5PNUSB+U8ewh7hjcBa0sfmL0v2cfg0yLrSwzOJl+39pKd+AIHSedRYByoU8llgTcea7g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gOK/ajbl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791260697; c=relaxed/simple;
+	bh=XQVxNylR2P8v/oTLjosm+EQuzSiRHFCXGk6+dBAYkTM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e+AcC0ks5/Tc5ryLFytg5dBa2Pu86kySHxlw0A8pnOyMVXHYPBY1FG3Whvh4HE4mm+njRd5kThuf6Vuxcuo7tScnBbnTLGMjFijiu4PmwgNHSnTB4JBziYgFcpoe6aAYKiBZY2Hu/q+Vpx4YtI9lTh/uj6mzYcu3UxWKJx6gKw0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=iOf6KPYY; arc=none smtp.client-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gOK/ajbl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D7B41F000FF;
-	Tue,  6 Oct 2026 04:21:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791260521;
-	bh=FK1eOVwkQE5rZEWtjthVHY4ty0LJ8v64tvLefhkXcSo=;
-	h=From:To:Cc:Subject:Date;
-	b=gOK/ajbl5ahTxmWx+5zyHhf5ID7jbdIg/ubw1dTqhdlFSNT8PZnVWYCeEf4+Gotis
-	 WaAmNDKDI28s1hQHvBnnYVhsSGGgCUBRMJRGeoQiREKy6MF9AIdaY/yPQHs419rr1x
-	 SiUTqp/bKLRByTvzH7CI1XQRkUtWkuAacvuQuKdZUoLDCAU9h1R9Ld4VMKj0FjVKKl
-	 44x6Cn7cDMAWHxUCP66Xl5c2GyRTIbPXLxFgGlynnknJisykROJ5ifUzSbp0oQYhzL
-	 COwYV41gPP67TNe01RPa9Ni0QdRGS1HUP78qXSKf4KIwqZDLzKyszciCyZ1Tiz5Ju5
-	 lUeL8+s6x1npQ==
-From: Eric Dumazet <edumazet@kernel.org>
-To: "David S . Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	Eric Dumazet <edumazet@kernel.org>,
-	stable@vger.kernel.org,
-	Stefan Fleischmann <sfle@kth.se>,
-	Eric Dumazet <edumazet@google.com>,
-	Michael Chan <michael.chan@broadcom.com>,
-	Pavan Chebbi <pavan.chebbi@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Bernhard Schmidt <berni@debian.org>
-Subject: [PATCH v2 net] bnxt_en: fix DMA mapping length for padded small packets
-Date: Tue,  6 Oct 2026 06:21:53 +0200
-Message-ID: <20261006042153.199444-1-edumazet@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="iOf6KPYY"
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-35127e848feso154126eec.0
+        for <stable@vger.kernel.org>; Mon, 05 Oct 2026 21:24:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1791260695; x=1791865495; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uo37arCimajCV353Vnyw49uN/c9H2oi5GOWiIgl7tSY=;
+        b=iOf6KPYYF7myY2F/Il2tbmyoS5IRwcM+O6qP5QsjKNe6gLCi83iYH7shMW2OPgn0J3
+         LWV2kooNBqM++DY1AeSCps3BOk37mdp+46Az9Fk+74C+HJd7d9ouP8Jfzyhm9N0G6M3c
+         /7LrGtXCKHrsQADfNL0M3tppcln1QmW9h/P2/Q6iXZ5QgppWteb51FbhnnBI9Ig4oJiA
+         ESrkn8U6eI538OdsOmxJyDrw03yHq5makV2xxZTGxEJSatJaw/OVLtFVYw1w2rKLBHcd
+         eChjD+p31S8H0YFz4q4kTZKr5Wn5+SJeCxfHQDCAvXj8WIarPl9yXefB5XgTaz6hf4F2
+         U5OA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791260695; x=1791865495;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uo37arCimajCV353Vnyw49uN/c9H2oi5GOWiIgl7tSY=;
+        b=EjuMiZCFxUmR0j6GlKTldZO1pSEpGxlpMMyNjp1APRKprM5uuAfgfEx/sT6Gd3m4vv
+         j/V4431r270ljAUPEDmHwp0SVetyRb8vJ0+POK1j5aNVGkR7zxsJ3srrmDd//1pdRLVW
+         UeGXEc5F/z9hoLvMSBJKwooOmV2mia9Lt/OGE+5vhdlgfAiuVsz/aEvh2aIjDRGo8e6V
+         uhcCWxeIPWXzmOkRKeDibMDR0SHMaxG3MQWBXKUewXVR7VhBsDP/kvAjepAJhbk+V/Cj
+         /pc0vfCKSFtPqx1I/WsFWVU1n0vOtKFQ301GSamIVaY5zCfe9dXXBGqlv8xuhmLgj3Q1
+         J5kg==
+X-Gm-Message-State: AFq9FYKa805wrA8cSs7NJSMlQSniGWhDGzTnfkYYOennvQ6e4mIEvK95
+	VqmQb8cFVlOCrOxrMsyl3x5BZieVCJrN7ZXmWJxVmlKd1VvT6Ea0ozkfwHgmSgwWwpjgvD1dc67
+	CZ8dUISA=
+X-Gm-Gg: AYBFou2Rwx/SCl76Xn3iaIt4R2YGyqzxTKx/GyCDNIds8OszONsDJV4DWyyrU6tms5z
+	zPq8f/V3lF3aKHJROoJERxEO477Ln2z9FcFyQxnBSnQk9mZo0d0cXJTtW7DHHVLykfAP0X3okNP
+	A2bwx1/jBSc+4qGcOrTuvBcYcO9X3TRx1RLK17A2qv7BN+R8M2uLPKP9sD67syQHTZc0TYlNIW8
+	9ZFUbtt+yTj6iTfRWXrJgk+vQ20PS9+sNmu38apjQCJdv0xjZRRKB1JBdUe7v+9b745NtV8wAj1
+	7kvgsBN9d6wWMHm6OK6fDjhcdoLpew9x0qIlkVvMv/EDht3DF3YSac9wnsZYiDTuFVck3gBnrqc
+	hiy13Bo4UU4JA8Lzb0NRYpqzF/PyNBkXOCY5g48mcSgJ7Myf4pU7ZqplBjCeR/dZjDG6XxAAlUB
+	uZmjnJh2C8p2efeuNnhwvkLoNOmWkm2veuxTEx1yRrXuGy6HkB9IWs8ob4LuP2Jm2MXMKuq1Tqf
+	jhwByECIzC8f8HFe0e+XjXmvH0K4yUNY+T5flfNldYC9R/V4il7IfSaL8AQ+MrdrxFNk7A=
+X-Received: by 2002:a05:693c:83c3:10b0:34c:e77c:f92f with SMTP id 5a478bee46e88-3514e2fbed1mr117620eec.37.1791260694520;
+        Mon, 05 Oct 2026 21:24:54 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:74a7:81aa:2e95:53c8])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-351468b2cfasm4361830eec.2.2026.10.05.21.24.53
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 05 Oct 2026 21:24:53 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: Artem Dinaburg <artem@trailofbits.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: Please consider these upstream CVE fixes for 5.10.y through 6.18.y
+Date: Tue,  6 Oct 2026 00:24:47 -0400
+Message-ID: <20261006042448.93194-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,128 +74,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Stefan Fleischmann reported Intel IOMMU DMA Read faults on BCM57412
-NetXtreme-E NICs when transmitting packets on VLAN/macvlan interfaces:
+Hi Greg and Sasha,
 
-  DMAR: [DMA Read NO_PASID] Request device [18:00.0] fault addr 0xfc499000
-        [fault reason 0x06] PTE Read access is not set
-  bnxt_en 0000:18:00.0 eno1np0: Abandoning msg {0xb4 0x41a} len: 0 due to firmware status: 0x2000001
-  ...
-  NETDEV WATCHDOG: eno1np0 (bnxt_en): transmit queue 0 timed out
+These eight fixes are in mainline but remain absent from stable trees. 
 
-The fault address (0xfc499000) is on an exact 4KB page boundary,
-pointing to a DMA read buffer overrun.
+Released Linux 7.2.9 contains all eight fixes. This request also covers
+every gap in the newer supported stable series between each requested
+target and 7.2.y.
 
-In bnxt_start_xmit(), packets smaller than BNXT_MIN_PKT_SIZE (52 bytes),
-such as 42-byte untagged ARP frames, are padded:
+Could you please queue each commit for the stable series shown?
 
-    if (length < BNXT_MIN_PKT_SIZE) {
-        pad = BNXT_MIN_PKT_SIZE - length;
-        if (skb_pad(skb, pad))
-            goto tx_kick_pending;
-        length = BNXT_MIN_PKT_SIZE;
-    }
+  79c81d137d36f9635bbcbc3916c0cccb418a61dd (CVE-2023-53651)
+    Input: exc3000 - properly stop timer on shutdown
+    Target: 5.15.y
 
-    mapping = dma_map_single(&pdev->dev, skb->data, len, DMA_TO_DEVICE);
-    ...
-    dma_unmap_len_set(tx_buf, len, len);
+  110e70fccce4f22b53986ae797d665ffb1950aa6 (CVE-2023-52561)
+    arm64: dts: qcom: sdm845-db845c: Mark cont splash memory region as reserved
+    Targets: 5.10.y, 5.15.y
 
-However, 'len' was initialized earlier to skb_headlen(skb) (e.g. 42 bytes)
-and is left unadjusted after padding. Consequently, dma_map_single() and
-dma_unmap_len_set() map and track only 42 bytes.
+  2e4ce62385c1b8a887c5370af058ac7b52a8eaf9 (CVE-2026-89539)
+    SUNRPC: reject duplicate CREDS_VALUE options
+    Targets: 5.10.y, 5.15.y, 6.1.y, 6.6.y
 
-Later, the hardware TX buffer descriptor is programmed with the padded length:
+  5dff41a86377563f7a2b968aae00d25b4ceb37c9 (CVE-2025-38204)
+    jfs: fix array-index-out-of-bounds read in add_missing_indices
+    Targets: 6.1.y, 6.6.y, 6.12.y
 
-    txbd->tx_bd_len_flags_type =
-        cpu_to_le32(((len + pad) << TX_BD_LEN_SHIFT) | flags |
-                    TX_BD_FLAGS_PACKET_END);
+  c6c156d931c33b92362383cf76f6d6e1291dcbfe (CVE-2026-89912)
+    KVM: arm64: vgic-its: Don't dereference a NULL collection on ITT save
+    Targets: 6.6.y, 6.12.y
 
-The NIC DMA engine is thus instructed to read 52 bytes from a region where
-only 42 bytes were DMA-mapped. If skb->data ends near the boundary of a 4KB
-page (within 'pad' bytes of the next page), the hardware DMA read overruns
-into the unmapped adjacent page, triggering an IOMMU fault.
+  11709573cc4e48dc34c80fc7ab9ce5b159e29695 (CVE-2025-40158)
+    ipv6: use RCU in ip6_output()
+    Target: 6.12.y
 
-This issue was exposed after commit 447cbe95ebb9 ("vlan: fix skb_under_panic
-and races when toggling HW VLAN offload") because reserving extra VLAN
-headroom rounded LL_RESERVED_SPACE from 48 up to 64 bytes, shifting skb->data
-offsets and potentially causing small frames to land right against page
-boundaries.
+  e346ef7bcb137f50c49f969330ab7dcf64ea1654 (CVE-2026-89527)
+    svcrdma: Use svc_xprt_put to free listener on create failure
+    Targets: 6.12.y, 6.18.y
 
-Fix this by using skb_put_padto(skb, BNXT_MIN_PKT_SIZE) earlier in
-bnxt_start_xmit().
-This ensures skb->len and skb_headlen(skb) reflect the padded size so
-that dma_map_single() maps the full buffer and the descriptor length is
-consistent. This also removes the temporary 'pad' variable and masking logic.
+  5d3cc8e388464f485d0944b87b8f9426e637d082 (CVE-2026-93179)
+    drm/amd/powerplay: fix VoltageObjectInfo zero-stride loop and OOB read
+    Targets: 5.10.y, 5.15.y, 6.1.y, 6.6.y, 6.12.y, 6.18.y
 
-Fixes: c0c050c58d84 ("bnxt_en: New Broadcom ethernet driver.")
-Cc: stable@vger.kernel.org
-Reported-by: Stefan Fleischmann <sfle@kth.se>
-Closes: https://lore.kernel.org/netdev/20261004122616.56714cbd@nargothrond/
-Signed-off-by: Eric Dumazet <edumazet@google.com>
----
-Cc: Michael Chan <michael.chan@broadcom.com>
-Cc: Pavan Chebbi <pavan.chebbi@broadcom.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>
-Cc: Bernhard Schmidt <berni@debian.org>
----
-v2: Move skb_put_padto() earlier (Sashiko)
-v1: https://lore.kernel.org/netdev/20261005023812.130639-1-edumazet@kernel.org/
+I used AI assistance to compare the histories, inspect fixes, and run the
+application and build checks. I also checked the final list against the
+Linux CNA records, released stable histories, stable-queue, and prior
+submission tracking.
 
- drivers/net/ethernet/broadcom/bnxt/bnxt.c | 20 +++++++-------------
- 1 file changed, 7 insertions(+), 13 deletions(-)
+Assisted-by: LLM
 
-diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-index d7728d0c5b6e63ee72de9dea54426bb4c8b7a9fc..7f379f21fe46543a7067462588522d4ab6ef4603 100644
---- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-+++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-@@ -486,7 +486,7 @@ static netdev_tx_t bnxt_start_xmit(struct sk_buff *skb, struct net_device *dev)
- 	struct netdev_queue *txq;
- 	int i;
- 	dma_addr_t mapping;
--	unsigned int length, pad = 0;
-+	unsigned int length;
- 	u32 len, free_size, vlan_tag_flags, cfa_action, flags;
- 	struct bnxt_ptp_cfg *ptp = bp->ptp_cfg;
- 	struct pci_dev *pdev = bp->pdev;
-@@ -507,6 +507,11 @@ static netdev_tx_t bnxt_start_xmit(struct sk_buff *skb, struct net_device *dev)
- 	txr = &bp->tx_ring[bp->tx_ring_map[i]];
- 	prod = txr->tx_prod;
- 
-+	if (skb_put_padto(skb, BNXT_MIN_PKT_SIZE)) {
-+		/* SKB already freed. */
-+		goto tx_kick_pending;
-+	}
-+
- #if (MAX_SKB_FRAGS > TX_MAX_FRAGS)
- 	if (skb_shinfo(skb)->nr_frags > TX_MAX_FRAGS) {
- 		netdev_warn_once(dev, "SKB has too many (%d) fragments, max supported is %d.  SKB will be linearized.\n",
-@@ -672,14 +677,6 @@ static netdev_tx_t bnxt_start_xmit(struct sk_buff *skb, struct net_device *dev)
- 	}
- 
- normal_tx:
--	if (length < BNXT_MIN_PKT_SIZE) {
--		pad = BNXT_MIN_PKT_SIZE - length;
--		if (skb_pad(skb, pad))
--			/* SKB already freed. */
--			goto tx_kick_pending;
--		length = BNXT_MIN_PKT_SIZE;
--	}
--
- 	mapping = dma_map_single(&pdev->dev, skb->data, len, DMA_TO_DEVICE);
- 
- 	if (unlikely(dma_mapping_error(&pdev->dev, mapping)))
-@@ -759,10 +756,7 @@ static netdev_tx_t bnxt_start_xmit(struct sk_buff *skb, struct net_device *dev)
- 		txbd->tx_bd_len_flags_type = cpu_to_le32(flags);
- 	}
- 
--	flags &= ~TX_BD_LEN;
--	txbd->tx_bd_len_flags_type =
--		cpu_to_le32(((len + pad) << TX_BD_LEN_SHIFT) | flags |
--			    TX_BD_FLAGS_PACKET_END);
-+	txbd->tx_bd_len_flags_type |= cpu_to_le32(TX_BD_FLAGS_PACKET_END);
- 
- 	netdev_tx_sent_queue(txq, skb->len);
- 
--- 
-2.53.0
-
+Thanks,
+Artem Dinaburg
