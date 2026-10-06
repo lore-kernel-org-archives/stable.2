@@ -1,40 +1,76 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 39B8F41D635
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 13:48:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 947AA3D9DD1
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 13:48:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791294511; cv=none; b=fsw2/79sjKStVG+s/LtZAckXydbdMATk0eC+W6JQqPBANIROtFpjBV/jq0zCac8JOzEEWF00Z7SDaTvijFJK+GVMOs5c/NxuBZdjPrnyYxuQ3TfHy+TtxPT+DO4gn0TuuAExaVpa3+K5XX4w3q7auxGfHcjooADThAWYrkAU8LU=
+	t=1791294514; cv=none; b=VwGLmqc2rIMOLoHwWjLjozeoxNeGQBv4AZfe6Jo3d1w2GMnm/acQL8fXEZ4VH65jksixsSW/voa6wW8tFQc7wIXM4SqrYnRPArzJaq43w2p4y0vMhvh94PlcVOkeFVbXJXq+ubM1HpyM/E8s2E1pLH0wkcdGCWrV1nDeQgp0Dhg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791294511; c=relaxed/simple;
-	bh=I2jH4Nf9ubfqSv2XucWV3QTg9eiLNiAQifSWhE9M+wQ=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EGZwcOphwgxQ6HEU8VR2p5wW/6GY8xT+GPYB++/Z3Kq84+F+pOLMj57iutEW2WPoWdslkIyXKOypZNxOr+g+6jYkivF+rgTGgeopK6N5uY7tKjaTdRL3D77OeMRNtnzCAWV6oyGymNUmt/uZGXcj+eQEaFR+a8EVWchxearfEbM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=f+qLcAr3; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791294514; c=relaxed/simple;
+	bh=sXxftY5MlqhWkRikS2j2X15s7NsWoRRwngFct5FbixU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LblscpyJitcqQ6o5+33MEqGEMInTNjtbvEgkzAbPvUH+9oERHI23zI9lTjaLh8iTNypvnX+lbScbvz5y7ET/3S0GRU1z7NT+AoGJT7s8OJOHhWnstoHYNwQSAdZ8DGvg7Z/fizX4Nf25SRvPrPKr605NyJ4lX1vm5Fm6s0ZauC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=gfcLNLsy; arc=none smtp.client-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="f+qLcAr3"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 49320152B
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 06:48:25 -0700 (PDT)
-Received: from e143943.arm.com (unknown [10.57.11.52])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 116143F763
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 06:48:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791294508; bh=I2jH4Nf9ubfqSv2XucWV3QTg9eiLNiAQifSWhE9M+wQ=;
-	h=From:To:Subject:Date:In-Reply-To:References:From;
-	b=f+qLcAr3TsteY4CvimlGwYB1OSPa432X6w7Hr/XgVU2LlwJqV1KAjCoFkmw8kpLkf
-	 P7I8bvF9jT15wefPngRaIYMR3MfUPaiLLDEK2ThDkSnGvvogigwUk8MNf3tcVzopYt
-	 mGTF/eamv7XHo2HWg18yozIBJTD/TlUxe2bGuHtk=
-From: Beata Michalska <beata.michalska@arm.com>
-To: stable@vger.kernel.org
-Subject: [PATCH 6.6.y 2/2] arm64: errata: Add Cortex-A725 erratum 3821522 workaround
-Date: Tue,  6 Oct 2026 15:48:07 +0200
-Message-ID: <20261006134820.2627481-2-beata.michalska@arm.com>
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="gfcLNLsy"
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc4aa18f9afso1342345a12.3
+        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 06:48:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791294509; x=1791899309; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9XEy23Wuh2CC0adDPD2wxP8CV5aCTN0+vshsMj048aQ=;
+        b=gfcLNLsy7t2R0jGU9LzxPYTd2wNewBfZPYg4n5If0QQDMopwgzrfl1EGWu2RgVlwpg
+         rRq0kBckLLXSgqZ9NI/WfIN1jLvA9fSlKtTiZlKYKLPfCdKjT1C8Xo02/GNZezqrSg1i
+         qIr+lYIKG4jh9aGOYxIOj7GSwVmrdEBuOyYMjh6TDsll88EPXh4qxRUAL4f6oaffHQM3
+         Pcdkxq4QgdAxS891pwcIg015o33vPhl8lq0ryF7NkypIuF+qE9rqLSeZdxiKSvuBTZap
+         kE1cc1JZ7lS/twkHS0wVld8Rp03Y4PDviyRuFRE+cXdeSL4gqfYkFILDLKlmrxMkIV/x
+         gfiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791294509; x=1791899309;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9XEy23Wuh2CC0adDPD2wxP8CV5aCTN0+vshsMj048aQ=;
+        b=rh2T26YcUdIrhQ36s6hRYvnAAL07Kc09tVq5+h8U8HOi8tEfH5TVq5CA8zfrzIustB
+         PUZ0a/OOFPgIDi/BVggkEVMRO0Cs5SUa+xMgsVuN8VfvBAIYrd2XI81WSJsr4DWXu4Y6
+         ZkLlB/k1xa27CUbu1q1P9ckrv4RL5BvKwfipUgYXEkbvlcGCjykk6zJuFPBuLTNc5b7F
+         uP4YP2PC2lh68mZo18XsQ6i4MryfrlmkCbQNTc0FlIIDSGkLSy84WL001A6/N8AQ9DUt
+         ipsf4nPpsRsUrEXjR/lxGXlK3F0dcwh4f6MgVgSCEVGqLn9F5DyFBx5kWQ4AFM7zmCUf
+         Vocg==
+X-Forwarded-Encrypted: i=1; AKwUvBysyImMIUX9X8j1aNbgnvZU3tNOIwWsBopSJzgTmdTKFUbxhDS+0gRZy+n1U0mV9zaOksFBlAQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mRCRXtEwa8n1HddXH8Vnl2id1Qn2Ow3zKroUg2naF53zlgqbcT
+	1dI4L++q1ZV/TimNaOLVpQTDdZWcA6mFFCoRsOCb6aIpZinu242frKkL8NkPQ/kU4KU=
+X-Gm-Gg: AYBFou3sD32JW1WJugXkQvzDAcqwqc2U4hRt3N3vHmEZx5B+xkaABtrskNVngWGT1Sf
+	iCZv+K1O47rNkoCIK2HwPVC2/h2Hm8eetDAMjX+xivfBu84/MGtkedWvC3uucAmURhWANlQoWfl
+	aUAjCVDNopGPw/C/Y5Xf+3ob1/acpY6cuCZOMuTNxBM/DuTsiz9zphmUzYMcy23cwr6y/izv3mn
+	l408vBKsyreKgjJQ19qaK5soFQoCKE/hmHKq+IUXEDXTeVVLUHCTR783tXxMMbOD3qAUXWDJc8J
+	nHx55z7ushC9u9i+p0bhmkCmxgzxHnIe5Cs8ygX2uWC3vrVEM8yoff4WEIgiVtPVy8UMsek2UPR
+	Z5yqp1IQR8vL1K5aM2161PJ6G60QmfmlWhf66mSTtmHltLRzrnPpr0gnvowo6tuFoZs+DOyPI9U
+	WbdPWsPAGbLf/EEdBh+QY69CiQvcEXjgqGmisffGH/131ocA90gerqyTQXvsf8mrqaPfaZM9anC
+	XEQEwnFMVQcgiZdVa1Rgw==
+X-Received: by 2002:a05:6a21:6e0c:b0:3da:5eda:d167 with SMTP id adf61e73a8af0-3e0d698c618mr9754395637.5.1791294509614;
+        Tue, 06 Oct 2026 06:48:29 -0700 (PDT)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:a229:268f:9226:1ba3])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-ccf99acacb2sm1167538a12.22.2026.10.06.06.48.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 06:48:29 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Hannes Reinecke <hare@suse.de>,
+	Keith Busch <kbusch@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
+	stable@vger.kernel.org
+Subject: [PATCH] nvme-auth: fail when the controller does not authenticate itself
+Date: Tue,  6 Oct 2026 22:48:05 +0900
+Message-ID: <20261006134807.518056-1-yhlee@isslab.korea.ac.kr>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261006134820.2627481-1-beata.michalska@arm.com>
-References: <2026100501-bulginess-bullfight-da31@gregkh>
- <20261006134820.2627481-1-beata.michalska@arm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -43,119 +79,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Cortex-A725 erratum 3821522 affects the CNT_CYCLES event, which can
-incur a significant increment error when a CPU enters and subsequently
-exits WFE or WFI, and may no longer track the system counter
-frequency.
+nvme_auth_process_dhchap_success1() returns success as soon as the
+controller clears the rvalid flag in its DH-HMAC-CHAP success1 message,
+without looking at whether the host had asked the controller to
+authenticate.  A host configured with a controller secret sends a
+challenge in its reply, computes the expected controller response, and
+sets chap->bi_directional; if the controller then answers with
+rvalid = 0 the response is never compared, the host still sends
+success2, and the queue is marked as authenticated.
 
-The AMEVCNTR01_EL0 counter is used as the AMU constant counter for
-frequency invariance and CPPC FFH feedback counters. Wire the affected
-Cortex-A725 range into the shared broken AMU constant-counter capability
-so the affected counter is treated as unavailable by returning zero in
-the AMU counter paths. This prevents the broken counter from being used
-as a reference source.
+A malicious or man-in-the-middle controller therefore only has to clear
+one flag to turn the configured bidirectional authentication into a
+one-way one, without holding any secret of its own.  The target side
+already treats the mirror image of this as fatal: when the host supplied
+a challenge but no controller key is configured, nvmet_auth_success1()
+fails the authentication rather than answering with rvalid = 0.
 
-The erratum can also affect PMUv3 users of the CNT_CYCLES event,
-but this workaround intentionally does not change PMU event handling.
-Hiding or rejecting the PMU event from the erratum code would change
-the perf-visible PMU event interface, including raw event selection,
-and would need a separate PMU-specific approach rather than being
-folded into the AMU reference-counter workaround.
+Refuse the connection if the controller returns no response although
+bidirectional authentication was requested.  chap->bi_directional is the
+right condition rather than ctrl->ctrl_key, because secure concatenation
+sends a challenge only to derive the PSK and deliberately clears
+bi_directional; a one-way setup without a controller secret keeps
+returning success as before.
 
+Fixes: f50fff73d620 ("nvme: implement In-Band authentication")
 Cc: stable@vger.kernel.org
-Signed-off-by: Beata Michalska <beata.michalska@arm.com>
-Reviewed-by: Vladimir Murzin <vladimir.murzin@arm.com>
-Signed-off-by: Will Deacon <will@kernel.org>
-(cherry picked from commit 45f7304679875eb000d67e194090ee7abd05c89c)
-Signed-off-by: Beata Michalska <beata.michalska@arm.com>
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 ---
- Documentation/arch/arm64/silicon-errata.rst |  2 ++
- arch/arm64/Kconfig                          | 22 +++++++++++++++++++++
- arch/arm64/kernel/cpu_errata.c              |  4 ++++
- arch/arm64/kernel/topology.c                |  9 +++++----
- 4 files changed, 33 insertions(+), 4 deletions(-)
+Reproduced over an nvmet loop target modified to omit rvalid in its
+SUCCESS1 (standing in for a controller that does not authenticate itself),
+with the host configured for bidirectional authentication.  There is no
+oops; this is an authentication-logic flaw, so the evidence is the host's
+dmesg.
 
-diff --git a/Documentation/arch/arm64/silicon-errata.rst b/Documentation/arch/arm64/silicon-errata.rst
-index b5b46b6ab277..c40e6271072f 100644
---- a/Documentation/arch/arm64/silicon-errata.rst
-+++ b/Documentation/arch/arm64/silicon-errata.rst
-@@ -161,6 +161,8 @@ stable kernels.
- +----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Cortex-A725     | #3456106        | ARM64_ERRATUM_3194386       |
- +----------------+-----------------+-----------------+-----------------------------+
-+| ARM            | Cortex-A725     | #3821522        | ARM64_ERRATUM_3821522       |
-++----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Cortex-X1       | #3324344        | ARM64_ERRATUM_3194386       |
- +----------------+-----------------+-----------------+-----------------------------+
- | ARM            | Cortex-X1       | #4193791        | ARM64_ERRATUM_4118414       |
-diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index 27fe95b9aac7..fc29ac6bad57 100644
---- a/arch/arm64/Kconfig
-+++ b/arch/arm64/Kconfig
-@@ -1045,6 +1045,28 @@ config ARM64_ERRATUM_2645198
+Unpatched, the host accepts the connection and never validates a controller
+response (note the absence of any "controller authenticated" line):
+
+  nvme nvme0: qid 0: authenticated with hash hmac(sha256) dhgroup null
+  nvme nvme0: qid 0: authenticated
+  nvme nvme0: new ctrl: "nqn.2026-10.test:authsubsys"
+
+With the patch the same controller is refused:
+
+  nvme nvme0: qid 0: controller did not authenticate
+  nvme nvme0: qid 0: authentication failed, error -129
+
+ drivers/nvme/host/auth.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/nvme/host/auth.c b/drivers/nvme/host/auth.c
+index e55920642f2c1..cbb38935fa227 100644
+--- a/drivers/nvme/host/auth.c
++++ b/drivers/nvme/host/auth.c
+@@ -358,8 +358,21 @@ static int nvme_auth_process_dhchap_success1(struct nvme_ctrl *ctrl,
+ 			 nvme_auth_hmac_name(chap->hash_id),
+ 			 nvme_auth_dhgroup_name(chap->dhgroup_id));
  
- 	  If unsure, say Y.
+-	if (!data->rvalid)
++	if (!data->rvalid) {
++		/*
++		 * The controller did not return a response.  If we asked it to
++		 * authenticate itself the session must not be used, otherwise
++		 * mutual authentication would silently degrade to one-way.
++		 */
++		if (chap->bi_directional) {
++			dev_warn(ctrl->device,
++				 "qid %d: controller did not authenticate\n",
++				 chap->qid);
++			chap->status = NVME_AUTH_DHCHAP_FAILURE_FAILED;
++			return -ECONNREFUSED;
++		}
+ 		return 0;
++	}
  
-+config ARM64_ERRATUM_3821522
-+	bool "Cortex-A725: 3821522: workaround for possible CNT_CYCLES increment error due to WFE/WFI"
-+	depends on ARM64_AMU_EXTN
-+	select ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
-+	default y
-+	help
-+	  This option adds the workaround for ARM Cortex-A725 erratum 3821522.
-+
-+	  On affected A725 cores, the CNT_CYCLES event may incur a significant
-+	  increment error when entering and subsequently exiting WFx.
-+	  As a result, the CNT_CYCLES may diverge from the system counter
-+	  frequency at which it is expected to increment.
-+	  This renders the AMU counter AMEVCNTR01, that implements CNT_CYCLES,
-+	  being unreliable and unsuitable for use.
-+
-+	  Since there is no hardware workaround, reads of the affected CNT_CYCLES
-+	  counter return 0 in the relevant paths. This causes users of the counter
-+	  to treat it as unavailable and is functionally equivalent to firmware
-+	  disabling the affected counter.
-+
-+	  If unsure, say Y.
-+
- config ARM64_WORKAROUND_SPECULATIVE_UNPRIV_LOAD
- 	bool
- 
-diff --git a/arch/arm64/kernel/cpu_errata.c b/arch/arm64/kernel/cpu_errata.c
-index 699eb5a820a8..871e440f386a 100644
---- a/arch/arm64/kernel/cpu_errata.c
-+++ b/arch/arm64/kernel/cpu_errata.c
-@@ -280,6 +280,10 @@ static const struct midr_range workaround_amu_constcnt_list[] = {
- #ifdef CONFIG_ARM64_ERRATUM_2457168
- 	/* Cortex-A510 r0p0-r1p1 */
- 	MIDR_RANGE(MIDR_CORTEX_A510, 0, 0, 1, 1),
-+#endif
-+#ifdef CONFIG_ARM64_ERRATUM_3821522
-+	/* Cortex-A725 r0p0 - r0p2 */
-+	MIDR_RANGE(MIDR_CORTEX_A725, 0, 0, 0, 2),
- #endif
- 	{}
- };
-diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
-index 33a834e8aeeb..24a8b61a4f46 100644
---- a/arch/arm64/kernel/topology.c
-+++ b/arch/arm64/kernel/topology.c
-@@ -268,10 +268,11 @@ static void cpu_read_corecnt(void *val)
- static void cpu_read_constcnt(void *val)
- {
- 	/*
--	 * Return 0 if the current CPU is affected by erratum 2457168. A value
--	 * of 0 is also returned if the current CPU does not support AMUs or if
--	 * the counter is disabled. A return value of 0 at counter read is
--	 * properly handled as an error case by the users of the counter.
-+	 * Return 0 if the current CPU is affected by a HW erratum.
-+	 * A value of 0 is also returned if the current CPU does not
-+	 * support AMUs or if the counter is disabled. A return
-+	 * value of 0 at counter read is properly handled as an error
-+	 * case by the users of the counter.
- 	 */
- 	*(u64 *)val = this_cpu_has_cap(ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT) ?
- 		      0UL : read_constcnt();
+ 	/* Validate controller response */
+ 	if (crypto_memneq(chap->response, data->rval, data->hl)) {
 -- 
 2.43.0
 
