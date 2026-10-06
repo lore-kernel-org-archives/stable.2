@@ -1,72 +1,74 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFA4841DEE7
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 12:41:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E371F421257
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 12:46:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791290506; cv=none; b=X8T+X0s5BNBies3c7C09F287PBsMpQ9/MlVQGBwX/4Mil//S/6G3pSawfVerOrq84z/8VGMZkc3gYtWBrMnAL29uaDsvcwX03UIoFHjGApDCKikMVQBe+qDeDj174FH5vmqZGVTRexuCaKwfFCrKKkc+0+PtUZxJqZaEyjx4H3I=
+	t=1791290774; cv=none; b=jiqULVvNf2IgBZMl6CwD6c3O+i/k+iveQ+rKGiavksNYWpb2hkvrMHOwLIzp0WKoDJs0nGsRCXk/WTDfZWO1FF0HKIxVxWYGASPDLCEtZiwSY5VRk585Nfp2Y2f0Oa9ouemAyEEr25EIKPGLbE4PWK4MRqQoZglqLb/ftobgu6Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791290506; c=relaxed/simple;
-	bh=wEI+4IdRoiUkNy0DoaQdDHjN5i4HToizYZEOsF0bWzY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D0twsv+8/rTiWknrEJs/FwxAtc7VWO3xHniRIOrJ/SUleBZZc8t+qjQywuiXS1sQEsQe7r4YtxF07AraGoYwkZwqGEGOxbwWWoTfPMQ6HNHmF7H8mJmKSZ55Ds/rfCU1SqgKgZ7g8fZYotsb0UQ86L0S3+/5KUNc4DKzUdKHToQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eSYdkStq; arc=none smtp.client-ip=209.85.216.53
+	s=arc-20240116; t=1791290774; c=relaxed/simple;
+	bh=4EwkUTqxC5Uts/rcG3ZaV8UEts32S3lMvIUHgcMGsRk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MpaqPLoPl2xzV4XTc9LI1Z9EVHwyDNVvFrLv5NU1/7G4atYPZK0dp6Ej7rLMtTKbfRFnSgy6Nq6KppNMpF1N1cH0oc11GsZnfhdYiyu7/FRN5sY5qkgtw5IIpqvkB+GkC/hDpbPCtz/GvU4cgKlFqLvYMqkZr4Jzb45ghyNOsBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q0MCuzNd; arc=none smtp.client-ip=209.85.215.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eSYdkStq"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3a4c80d3d5aso1018725a91.0
-        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 05:41:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q0MCuzNd"
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cc4b5bdd578so260224a12.2
+        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 05:46:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791290488; x=1791895288; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791290762; x=1791895562; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9Vk3+2cGga50xeWMdbFK+urEdPBF53lIfPHsg3pEZLA=;
-        b=eSYdkStqB0q+7mlmVE9cQZU6cyViqmnK+wCu1c2nx/MGUTRhjhW1F0l2cTy1tNbLTB
-         1NS00wUpIpBbumt7xCFMjrilYc3SSJTO6p3Vwn1elJIz8LNabQ9B6+VtdBCNH4p8IvQD
-         kQuU7oMjKbBwjrT3y2BtybZ+5hSa+I0QOt2eT/mIHZYCVLt+CLlkyoIhU2REjPa0+IqA
-         nAWfxtkDvHPeTlchtUxy6tC2JPuPqROH6iVXImxEb6Hqv+TWLyocr95Q/M4vaOJgliSH
-         BJpxYOXTVfuMDlkwbVgrsMvYCsXUjIHjgJHOif4WEm/+4arV1uyqg3Q40qEdliN8e3Xq
-         knVg==
+        bh=YaXlr/yPmfkUIqnSLYGFyg6IcacgTfFI6Bnanq/Mm1U=;
+        b=Q0MCuzNdwYp3hH66haF9SfMjiB+5XKf7v9VvTL6GFlfuk0qZQJEf9ifXKJjAu2LCbj
+         fa/BxavgqAduaKSmo0EQD4owIcVcC2oWWmEty+A20akcjTGE7xh/6IC9pcMhvu+orhV+
+         D5XBhldpnnWwPvMfhB/8xWniQNR+cM6fWGRtzNqx/T4pbzQAWMWEBC3jHAS8BYQ/oaEg
+         /zZP3clHqs9EFicrnNptE4xyFiczWadSeulEUfgChmb1CceL6NEIObU5TfBA+m3FGRR1
+         axP6smYeXleDhFGxrXdsJ1CkVMGEfDZskjDM3SjnIVbniQx/zUF+KfkAUvSKBYNvhNBV
+         gn9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791290488; x=1791895288;
+        d=1e100.net; s=20260707; t=1791290762; x=1791895562;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9Vk3+2cGga50xeWMdbFK+urEdPBF53lIfPHsg3pEZLA=;
-        b=l5yvW1QkmLxkkbz90Dza2KF3OnnR+Qa5hM1nF+MUHMDKakihUg1sXeiWY2qrZw83aW
-         AhwKwkxe3+glY6pfWArOwhHOTiMlm0pasZFN1lGqPro608Dr1wtJW+oZVzCdbrn+2Aq9
-         K/TSX/crtCGhQQIfvkVm217el00HGAN+fEzLMej5nzNOjix/ZGr8mXnET67oaMitcrjP
-         gXCemY02WD08HYIFAwPGxbFuT5x3w9NQAmzepy96ps7cLJqAj0UyJNTwv6j/JQhRIb+i
-         kXTP3rtc//ZfzDAvLjQEtLOLEoqPKr/tNadOrIHaFIUjGRywYqhvsm/hBqES/KPVBnGi
-         j7dA==
-X-Forwarded-Encrypted: i=1; AKwUvBwyRmZiEiz6pdO1ijRqORgB42hZqg3PTPjQJ6nYekYvNW98bJoVF1C45abUlduh1wuoudmVeJ0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYItntV3FB764MPPgz9IEe3spQWJuOeAEK6R7Z59UdSlMvSFyCza
-	+rGmirBqdQZ8k857HU2cHxsTzbBGQXj8qajYw+SsB8zD14fjMmClkCRF
-X-Gm-Gg: AYBFou2uV6uTWqQdkXBdcc0ihVFuKlehI2XfsAOmc2MG6RLuN5oMZayzlfil928Hygp
-	ncjmPz9u0z6lH06LLlJfS9CBx70Gszc7kb5jWehOuWLCwAP5GgHOetmjPxBSEc9wi4thbuDcUCq
-	+U9fOPkKwluKnUIEJ1KX17XrxrqXYXFZvB0yd+eUkGlsNk0jnlF1FptOxKWinHICFnT+7yHvdrx
-	vao9aZStwfWtJ1mTqLLgC4Bfpn4MYTFc3A08cF0VXrSXn0hdnDqE9tkve3y7MXwNgcldcYeyM6c
-	kvMy9gt9rh0X/xJIGjA5kzyM1Ps8S60gvHnsMXk5fXxZcOvJ1Ho7tBDcd307rizfrHCZxiGi7Ib
-	cz5HneJAM432L5/n/+Xgf6xaShalz85BqgoHRaTvmNSlaMk/cpesmNuC9jDO+cYmxdFXbt1fKdi
-	LT0rAOrtIqrm3wEvtphy6V3spqN7FTWH6M8mL2OtX4GlwaNZyEMj0pODkk1ZnNuZBj4SHWd2L1E
-	8rTVsC2rLs5HvEY
-X-Received: by 2002:a17:90b:4d02:b0:39d:f247:bab with SMTP id 98e67ed59e1d1-3a87267ea23mr1122519a91.6.1791290487966;
-        Tue, 06 Oct 2026 05:41:27 -0700 (PDT)
+        bh=YaXlr/yPmfkUIqnSLYGFyg6IcacgTfFI6Bnanq/Mm1U=;
+        b=yVomixCCwU1nmmReHHRqTBbRQr7v7iZEwEQcv5iqiNX7yhaX16F03TE2gNLfgp5/Q2
+         HuZyg36UBzWxwArkrGLEW64K4Elm/c8MK+McuEPzIaSVr9BANo+QfiRKVvMpKx2k4U7v
+         Y8RCByUl4icZPBUk1a3N+6JmgjMCdlWVSpOSnk+6iwnrFMeqvHxGjrY6I6ICCDKEZmZf
+         wOUFGUdJZEHST5R3+Xcb5tRmzedfLuBVbIt20GMOouOTA875/zbTEq9jVM1LNl6w9OZ5
+         cVMgL20rIQiHfHBDhhbNrE6BPBOuDL32kVedvNA+plwvVeTYjvGlVnOQe/3cU7gWWxy9
+         SwNQ==
+X-Forwarded-Encrypted: i=1; AKwUvByg1gB0D6RSt20sO2r7ckACnLDxW8QZ9v4XvtU4rSjjYF7MuAgdZrBL5cipug/aRoIeyTq+87U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKel9rJgDUzCISYl4BCrc50i8Aypt+RCYfhVM0L7EvE/5/OTrXT
+	Y0pum2alQMZ/miqtldcI8OVEMv4yehrwI+A7IN6OtHnHJ7O29Fv4vaSw
+X-Gm-Gg: AYBFou0J20vNnrdY0eNPO7qzojEQkw0R23BKNiP1kCZ2AVIFXEtCyhbExyCrhRFDqu8
+	fcOAU04UFlTbsYDssgwInVKyQReWqzClqKYbmrC3ix+O/XlRDAp66uIlk0E3mY4e4BvqCBnbJ1Y
+	t1Z+Ng1oxh0KORLSknptvstLAtaa6Kv3Z+dDTh/lsfdYhBPNuqNZKiCyRFB/IuZR6lIgDQ1QVdm
+	PyEg5siRjnv6ldPCuaqzsprgGOjzSOC9zXoD7IqbIYDpR1qTV4q8T/QsllaPVNT6H81YiYjBNxw
+	uAC0fNrvI6PjszsPyX5uuoi0kcnSN/H/lsehhed/FEArj12tBHAlYE/O2Gf+LJ8imoZ742O3+Zp
+	sBpNyV2/UEecdof0L/Xy0P3XbPugm0IILMJp67xIIizOC228IdZneNfVhajgPd/q7gTl7Cz4ymk
+	fB7h9GlDXl4hJNiVIZT2paF1A2+2EUNBzMD4mdi0gw7W4yvP3GdfbBCvT12C60l0+IVYHnPIm8A
+	RcxaR9eE1RJiaue7Q==
+X-Received: by 2002:a17:903:4685:b0:2df:5967:8eb4 with SMTP id d9443c01a7336-2e5dcda69ccmr12590655ad.41.1791290761607;
+        Tue, 06 Oct 2026 05:46:01 -0700 (PDT)
 Received: from LAPTOP-450UDG4J ([2401:4900:900c:ec20:d139:f8fd:7043:7eb2])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a854257d18sm5246668a91.7.2026.10.06.05.41.23
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e5a5eb9254sm21240175ad.36.2026.10.06.05.45.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 05:41:27 -0700 (PDT)
+        Tue, 06 Oct 2026 05:46:01 -0700 (PDT)
 From: Yogesh Gaur <yogeshgaur.83@gmail.com>
-To: Dave Kleikamp <shaggy@kernel.org>
-Cc: jfs-discussion@lists.sourceforge.net,
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>
+Cc: Duoming Zhou <duoming@zju.edu.cn>,
+	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Yogesh Gaur <yogeshgaur.83@gmail.com>,
-	syzbot+a2748ba908c108e7e525@syzkaller.appspotmail.com,
+	syzbot+d627b1495de0e851be32@syzkaller.appspotmail.com,
 	stable@vger.kernel.org
-Subject: [PATCH] jfs: account for the dirent header and charset expansion in jfs_readdir()
-Date: Tue,  6 Oct 2026 18:11:12 +0530
-Message-ID: <20261006124112.1703-1-yogeshgaur.83@gmail.com>
+Subject: [PATCH] media: siano: initialise the urb work once, not on every completion
+Date: Tue,  6 Oct 2026 18:15:44 +0530
+Message-ID: <20261006124545.1778-1-yogeshgaur.83@gmail.com>
 X-Mailer: git-send-email 2.55.0.windows.5
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -76,76 +78,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-jfs_readdir() converts each on-disk name into a struct jfs_dirent in a
-PAGE_SIZE buffer, and stops filling the buffer when the next entry
-might not fit:
+smsusb_onresponse() re-runs INIT_WORK() on surb->wq every time an URB
+completes, right before scheduling it.  INIT_WORK() resets work->data,
+which is where the workqueue keeps the work's state, including the
+"being cancelled" mark that cancel_work_sync() sets while it waits.
 
-	if (((long) jfs_dirent + d->namlen + 1) >
-	    ((long)dirent_buf + PAGE_SIZE)) {
+smsusb_stop_streaming() kills the URB and then cancels the work.  If
+do_submit_urb() is running at that point it can resubmit the URB, and
+if that URB completes during the cancel, smsusb_onresponse()
+re-initialises the work, wiping the cancel mark, and queues it again.
+__flush_work() then finds a queued work where it expects an idle one:
 
-That check undercounts twice.  The name is written at jfs_dirent->name,
-after the 14-byte header, not at jfs_dirent.  And d->namlen counts
-UCS-2 characters, while jfs_strfromUCS_le() lets the codepage's
-uni2char() write up to NLS_MAX_CHARSET_SIZE bytes for each one; with
-iocharset=utf8 most non-ASCII characters take two or three bytes.  So
-an entry that passes the check can still be written past the end of
-the buffer.  Since commit de9f4f0b2c0f ("jfs: replace __get_free_page()
-with kmalloc()") the buffer comes from kmalloc-4k and KASAN reports it:
+  smsusb:smsusb_init_device: smscore_start_device(...) failed
+  data & WORK_STRUCT_PWQ
+  WARNING: kernel/workqueue.c:4425 at __flush_work+0xc8f/0xd70 kernel/workqueue.c:4425
+   __cancel_work_sync+0xbf/0x110 kernel/workqueue.c:4568
+   smsusb_stop_streaming drivers/media/usb/siano/smsusb.c:183 [inline]
+   smsusb_term_device+0xdd/0x3d0 drivers/media/usb/siano/smsusb.c:345
+   smsusb_init_device drivers/media/usb/siano/smsusb.c:497 [inline]
+   smsusb_probe+0x1aba/0x2280 drivers/media/usb/siano/smsusb.c:575
 
-  BUG: KASAN: slab-out-of-bounds in utf32_to_utf8+0x24d/0x3d0 fs/nls/nls_base.c:111
-  Write of size 1 at addr ffff888039ad7000 by task syz-executor304/5946
-   utf32_to_utf8+0x24d/0x3d0 fs/nls/nls_base.c:111
-   uni2char+0x35/0xa0 fs/nls/nls_utf8.c:21
-   jfs_strfromUCS_le+0xd2/0x3d0 fs/jfs/jfs_unicode.c:31
-   jfs_readdir+0x16fd/0x33f0 fs/jfs/jfs_dtree.c:2984
-  The buggy address is located 0 bytes to the right of
-   allocated 4096-byte region [ffff888039ad6000, ffff888039ad7000)
+Initialise each work item once, next to the URB it resubmits, and only
+schedule it from the completion handler.  smsusb_stop_streaming() keeps
+its wq.func check, which still skips the URBs that were never set up
+when smsusb_init_device() fails early.
 
-Before that commit the same write went into whatever page followed.
-
-Check against the worst case instead: the name starts at
-jfs_dirent->name and each character can take NLS_MAX_CHARSET_SIZE
-bytes, or one byte when no codepage is set.  The largest entry is
-then 255 * 6 + 15 bytes, so an empty buffer still always takes at
-least one entry and readdir keeps making progress.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: syzbot+a2748ba908c108e7e525@syzkaller.appspotmail.com
+Fixes: ebad8e731c1c ("media: usb: siano: Fix use after free bugs caused by do_submit_urb")
+Reported-by: syzbot+d627b1495de0e851be32@syzkaller.appspotmail.com
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
 ---
 Built with W=1 only; not runtime-tested.
 
- fs/jfs/jfs_dtree.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/media/usb/siano/smsusb.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/jfs/jfs_dtree.c b/fs/jfs/jfs_dtree.c
-index 8ce6e4458cc2..d930e577a496 100644
---- a/fs/jfs/jfs_dtree.c
-+++ b/fs/jfs/jfs_dtree.c
-@@ -2712,6 +2712,8 @@ int jfs_readdir(struct file *file, struct dir_context *ctx)
- {
- 	struct inode *ip = file_inode(file);
- 	struct nls_table *codepage = JFS_SBI(ip->i_sb)->nls_tab;
-+	/* most bytes one on-disk character can turn into in jfs_dirent */
-+	int max_charlen = codepage ? NLS_MAX_CHARSET_SIZE : 1;
- 	int rc = 0;
- 	loff_t dtpos;	/* legacy OS/2 style position */
- 	struct dtoffset {
-@@ -2910,9 +2912,10 @@ int jfs_readdir(struct file *file, struct dir_context *ctx)
+diff --git a/drivers/media/usb/siano/smsusb.c b/drivers/media/usb/siano/smsusb.c
+index 0fdc2e0950b7..210c323c8232 100644
+--- a/drivers/media/usb/siano/smsusb.c
++++ b/drivers/media/usb/siano/smsusb.c
+@@ -143,7 +143,6 @@ static void smsusb_onresponse(struct urb *urb)
  
- 			d = (struct ldtentry *) & p->slot[stbl[i]];
  
--			if (((long) jfs_dirent + d->namlen + 1) >
-+			if (((long)jfs_dirent->name +
-+			     d->namlen * max_charlen + 1) >
- 			    ((long)dirent_buf + PAGE_SIZE)) {
--				/* DBCS codepages could overrun dirent_buf */
-+				/* the converted name might not fit */
- 				index = i;
- 				overflow = 1;
- 				break;
+ exit_and_resubmit:
+-	INIT_WORK(&surb->wq, do_submit_urb);
+ 	schedule_work(&surb->wq);
+ }
+ 
+@@ -468,6 +467,7 @@ static int smsusb_init_device(struct usb_interface *intf, int board_id)
+ 	/* initialize urbs */
+ 	for (i = 0; i < MAX_URBS; i++) {
+ 		dev->surbs[i].dev = dev;
++		INIT_WORK(&dev->surbs[i].wq, do_submit_urb);
+ 		dev->surbs[i].urb = usb_alloc_urb(0, GFP_KERNEL);
+ 		if (!dev->surbs[i].urb)
+ 			goto err_unregister_device;
 -- 
 2.55.0.windows.5
 
