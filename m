@@ -1,48 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52684325701;
-	Tue,  6 Oct 2026 02:44:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D26BC2E738B;
+	Tue,  6 Oct 2026 02:44:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791254644; cv=none; b=Cd8Lr0SL0NLXyIRwD+g9sXBJlKoeUkd2n1j+t72kLc2cJGye3RwP8tSiyEKwiO8/X7Y/rnIQRv/bcGusSJTaAvCY5AAosl8mPs9rVISL93pFOMiby1SF011P86Qz3JvAEOVO/BvdDd3CJfeHsBrOf5f/6SpNNx+EBuD3dQgRfWQ=
+	t=1791254684; cv=none; b=b6EMaSOMvxZomhrxX3PNjvBuHrsRQGauAbT0IonyCIREPZonZmkk9noI9kG+lcOKQ+NQixLcaLicdJyLxYhFuU1fZ8G4GXxNwcwUD8jjipYxs5bAAFHLBEq455Oo10fIDC524CfHYUBxL/v0fOnRuq6tOarwhgPy1kbJxXFwlyc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791254644; c=relaxed/simple;
-	bh=xfUorRESUVdLXo/p1V2ZH5t7T2dM+PyNtczHARbKOE0=;
+	s=arc-20240116; t=1791254684; c=relaxed/simple;
+	bh=bEXmDZMK/oS14WYfbRyqYg2z+D69YwITy3ckG7ic9gQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JyC8lKIfRW5MLKLZkO6QKKPEpAbjfrxdRpMsOg6onevjOv9HO/SZh8pPNP9EAYZrOF5ga/tnPTITWTYoShmuaGGgaagfereKWZ+xn8gkStYFzoChF4/Io+aInuZ7lN5z9cSQsetiCDP/5PMotpDhFJBAHlSAwRQnaKQh1u/OAoQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hzJWEbhm; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=BbBE19gJQEHryjQ58Ig24o8XfLrOklF51ALLzHHkMnWc2m1511mubXKowFfY+FbhrosZQx96HxPyoznfpGyLGQHfY4tp1xpIXjb+uaitM8RHQ8gPBGGIn0Z7dtODQqzvr1gi8fN0UDJw8z+2XmncOiKHS2+PwzcS3HVm9tl17xk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FJXuEUcf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hzJWEbhm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71A6B1F000FF;
-	Tue,  6 Oct 2026 02:44:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FJXuEUcf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 593EA1F000FF;
+	Tue,  6 Oct 2026 02:44:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791254642;
-	bh=MwukY5BBBFb9QnB0ZWWDlgkctU+6sRsAhDNo+GjaFVU=;
+	s=k20260515; t=1791254683;
+	bh=RKjbqufc5djRheEJf1fwVOMblBRNUPLqDwO4cRJjC/4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hzJWEbhmlQBtB7IusngodC08WXl7MrQzvmPVthFTKMD+NLwSjPOd+vP8csyBeMKN+
-	 j+viNQ2ULU+Ayp9zrhSjPuCU8v1VUaMyZS4uRJ/qlDTz6HGB1OxXQZo13nOEnCM3jG
-	 YARMLKworNqE67y1bxeuX29vJVkHe0dlWJ8wvw7r+tQTiPWGtaXkEONQ5Ce6zkDHck
-	 97ZgPODpxETSDOYJypriFZcykZuPKJm4FCZhj8k2G5HOczOp3rzdrtvIKpqsPf2A/E
-	 sMsqzF0udOWx9ouMJnrYtXa66p45qiVhs0sJQSit6B13ehKaVM/OQJO5oF2zGB+c1S
-	 OjDwVnkxXz5TQ==
+	b=FJXuEUcfEcrDbxggK8JpIw1KLpS+/2c0+moS4fZXsUfk1T9EPj1OJPfnmwjAKxpl8
+	 jfvM0CXpsgP9NzMy0e31r6xJYU8YS+RCIZ8/RW1meX01chxshrOHRvVAa2idAq3EfR
+	 CZwdPXW9FIF3g8eZF/pw9lpQOm77vHVFzdSpB0YsQNRMexcSpHz3fyC3MlOi1GciZq
+	 GZSPhJf9Hpd/Vt/2yzRsxN+R743biJgbh1gubnQxsHeQv/W/er74ZE2SvCTguakdQe
+	 PC0Py1oZsaJpsVFn4A/o3nODfHhId4AWRH/nIeXHxduJdG2SEwc+Z2EmlGiVyz0XYi
+	 sIlyXNq/tomww==
 From: "Martin K. Petersen (Oracle)" <mkp@kernel.org>
-To: Nilesh Javali <njavali@marvell.com>,
-	Manish Rangankar <mrangankar@marvell.com>,
-	GR-QLogic-Storage-Upstream@marvell.com,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K. Petersen" <mkp@kernel.org>,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: linux-scsi@vger.kernel.org,
+To: oliver@neukum.org,
+	aliakc@web.de,
+	lenehan@twibble.org,
+	Fan Wu <fanwu01@zju.edu.cn>
+Cc: "Martin K . Petersen" <mkp@kernel.org>,
+	James.Bottomley@HansenPartnership.com,
+	linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] scsi: qedi: Initialize callback state before registration
-Date: Mon,  5 Oct 2026 22:43:53 -0400
-Message-ID: <179125457802.2089616.2646253319409561790.b4-ty@b4>
+Subject: Re: [PATCH v2] scsi: dc395x: sync the waiting_timer before freeing the host
+Date: Mon,  5 Oct 2026 22:44:35 -0400
+Message-ID: <179103513126.923653.2100454327544429280.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260910092405.1300129-1-runyu.xiao@seu.edu.cn>
-References: <20260910092405.1300129-1-runyu.xiao@seu.edu.cn>
+In-Reply-To: <20260911020544.42966-1-fanwu01@zju.edu.cn>
+References: <20260911020544.42966-1-fanwu01@zju.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,23 +51,22 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-On Thu, 10 Sep 2026 17:24:05 +0800, Runyu Xiao wrote:
+On Fri, 11 Sep 2026 02:05:44 +0000, Fan Wu wrote:
 
-> qedi_get_protocol_tlv_data() can be called asynchronously by QED after
-> qedi_ops->register_ops(). It takes stats_lock and reads ll2_mtu, but
-> __qedi_probe() currently registers the callback before initializing the
-> mutex and assigning the default MTU on the normal probe path.
-> 
-> Initialize the callback-visible state before registering qedi_cb_ops. Keep
-> the recovery path from reinitializing state because it reuses the existing
-> qedi context.
+> The waiting_timer callback re-arms itself and takes the host lock.
+> adapter_uninit() currently stops it with timer_delete(), which does not
+> wait for a callback already running on another CPU. The final
+> scsi_host_put() that frees the host (and the host lock the callback
+> dereferences) runs right after adapter_uninit(), so a concurrent or just
+> re-armed callback can fire after the free, leaving a potential
+> use-after-free window.
 > 
 > [...]
 
-Applied to 7.3/scsi-fixes, thanks!
+Applied to 7.4/scsi-queue, thanks!
 
-[1/1] scsi: qedi: Initialize callback state before registration
-      https://git.kernel.org/mkp/scsi/c/85de8b3a5eaa
+[1/1] scsi: dc395x: sync the waiting_timer before freeing the host
+      https://git.kernel.org/mkp/scsi/c/0b1a79f2791a
 
 -- 
 Martin K. Petersen
