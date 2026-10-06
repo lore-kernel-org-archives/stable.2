@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E20684DAFA1
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 23:02:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69D313A6412
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 23:12:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791327727; cv=none; b=AXInt4gUvEwiC1o8N45AauOg9tI0JQLc0zeAhUTC3yLN1CpWDni5KXHQEnLeWZZIjPHP7plEfhXzzTXZml11cpGkJrfNNuAdIbdvctdMAHDvOOHijmTdUmQuPQrYb3ZeqRSSgBfb8Da80nGi19ggN74sm6xgDnTvVW7J6iH/gSc=
+	t=1791328364; cv=none; b=MDf21iKd22WV/kutqLcNGybKoe9YsfRTqpKiqxX201y2xdias59Xl3F67KMmnA7fptdA44KpJQSUcnaq2+3CLAaI8piMfq1zYl/HFznG4DTnqD3TnvUupjM+0pR0hwrLhBQjdFXq+psu3IsdH2bH6P/0Bq+IQxWaM3TR3mCTRvQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791327727; c=relaxed/simple;
-	bh=iJYURnkEB+UEyikgkAmIq5Ut9weqsDwJzqPiL9eRe5Y=;
+	s=arc-20240116; t=1791328364; c=relaxed/simple;
+	bh=BHcroXaNR3d2gYl4EUAf5bpApnsEPTCrwifPI5zs1pw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rT5Gp8bKbHWOkr7XdREiTUGTD7GFRLDVCv2+CCameEMDSptoxfged+EZfZFYV2x11k2nas9hkEtrOjDVmW7dgmOiy0CgfiGoo7GvxQe55dpU220DOqxH9LsOh43x5cNU/jpn1R4y7DaykG3obK6dYOPdyVlutCiJHRdt8X7PZSU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QNfgWrMS; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=SaRjUak/+43y6wXfNYoAc4lhZadoQ3Dy4SRNhITDDstP9cCZfd4nF/g9XgY4qTaTH1nTt9wB1xgeWNPCdsVK+PgzceaWtDovhNMMAQUOOykbn5Y7HBJVTG+4tEuUhoZh+nhDVG6XgmnQn3SPsicAUM3hskGmO8OawN1eQmHqNO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E0FSEoPG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QNfgWrMS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91D421F0089C;
-	Tue,  6 Oct 2026 23:02:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E0FSEoPG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FB671F0089B;
+	Tue,  6 Oct 2026 23:12:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791327726;
-	bh=+obfekS1L4W+6IjeRfagK5lwf1hGFNaMBZyqrlqIKXs=;
+	s=k20260515; t=1791328361;
+	bh=ZbuUVNuxulPL254R4I7wt5bps0sQFfoLcZapkM1YAEU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QNfgWrMSBRbUK2/nQZlgwq8mKsSh9rs0XbzQeM63FOSiinD2PXyVsemH9pDLIcXQy
-	 uLiLSfAyi0DoHfSuV+z8f+bJOBbk9IJOmAQ7cOB4xVAR+Kopu/ad1WRoZPMe2eLmIe
-	 cD4RafEVNyQC1aGhiRcqzQLkEVd2ZcZInKFy/Ih/lG9kXTm+Kp2xnGTb8Ph9gChBe+
-	 H8LXuf5C4Syz7RrfrTMM8kSfFtZiusDVoi8hZg1OYM238yu7q3izasSJ2g/yH9MkeA
-	 xbBsVWOxj3Si4ASx2vIFl4GLpam2OcMekduSArug3YTGqGYThLR9e+ZNRGIiU9nGf8
-	 i2j4dUXkYBMBQ==
+	b=E0FSEoPGuWpyMQ5w8J3jzZpXH+QByX47Sokxy4no+D513/KE7QXHYLcDwJXj3hMdE
+	 BBs+zcZpG4EDCkqgOyRrAXHVJ+4Xn1SOmMno3wcPgmCEPyo6zCPPZufm1gxq61wNYF
+	 uXKu2pRYD9Z8hOLOXvV/gs8h96rcQzxnPyFjO3fz1eJFFkVUwnNYwvyN/S0qEyKUES
+	 ZhnOdzILb1Ezwb7kfpLuA2VlyCU4zL7Bje+DE4JgA/h3t+akvZ0ZrWz9PUbzafX64r
+	 7RNjpl7DL9OIPTd1r020EUHhXjAVFKibl1O5mNGzr0txE7grHC+I7Il2jBZlyTahnW
+	 UCJBghK0qXw5g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Felix Fietkau <nbd@nbd.name>,
-	Andrea Pesaresi <andreapesaresi82@gmail.com>,
-	Johannes Berg <johannes.berg@intel.com>,
+Cc: Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] wifi: mac80211: set info->band for 802.3 encap offload frames
-Date: Tue,  6 Oct 2026 19:02:02 -0400
-Message-ID: <20261006225444.1158984-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y] thunderbolt: Fix KASAN reported use-after-free when request is canceled
+Date: Tue,  6 Oct 2026 19:12:38 -0400
+Message-ID: <20261006231221.1187983-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261006225444.1158984-1-sashal@kernel.org>
-References: <2026100533-lethargy-enroll-444a@gregkh>
- <20261006225444.1158984-1-sashal@kernel.org>
+In-Reply-To: <2026100521-impale-unsettled-8d6f@gregkh>
+References: <2026100521-impale-unsettled-8d6f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,56 +45,235 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Felix Fietkau <nbd@nbd.name>
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
 
-[ Upstream commit 4febc02cd02f021f2b6d0768332be643ef14a12d ]
+[ Upstream commit a02188ddc24b7872f0c5e0c5873f827318717803 ]
 
-Unlike the 802.11 TX paths, ieee80211_8023_xmit() does not set
-info->band from the channel context on non-MLD interfaces. It stays at
-0, so ieee80211_get_tx_rates() uses the wrong band for these frames.
+Alan reported that when doing stress testing sometimes KASAN notices
+use-after-free during control channel operation (stripped down keeping
+the relevant parts):
 
-Set it the same way as ieee80211_build_hdr(): drop the frame if there is
-no channel context, and leave the band at 0 on MLD interfaces.
+ BUG: KASAN: slab-use-after-free in tb_cfg_request_sync+0x240/0x250 [thunderbolt]
+ Read of size 24 at addr ffff88811067f290 by task kworker/u40:2/1760
+  <TASK>
+  tb_cfg_request_sync+0x240/0x250 [thunderbolt]
+  tb_cfg_read_raw+0x367/0x510 [thunderbolt]
+  tb_cfg_read+0xec/0x240 [thunderbolt]
+  tb_port_get_link_generation+0x258/0x420 [thunderbolt]
+  tb_usb3_consumed_bandwidth+0x1c1/0x2c0 [thunderbolt]
+  tb_tunnel_consumed_bandwidth+0xfd/0x910 [thunderbolt]
+  tb_available_bandwidth+0x5f2/0xeb0 [thunderbolt]
+  tb_recalc_estimated_bandwidth+0x2a0/0x1bc0 [thunderbolt]
+  tb_handle_dp_bandwidth_request+0x1897/0x5e20 [thunderbolt]
+  process_one_work+0x675/0x1230
+  worker_thread+0x5e6/0xf70
+  kthread+0x365/0x470
+  ret_from_fork+0x54d/0x710
+  ret_from_fork_asm+0x1a/0x30
+  </TASK>
 
-Reported-by: Andrea Pesaresi <andreapesaresi82@gmail.com>
-Fixes: 50ff477a8639 ("mac80211: add 802.11 encapsulation offloading support")
+ Allocated by task 1760:
+  __kmalloc_cache_noprof+0x1ee/0x550
+  tb_cfg_read_raw+0x1d3/0x510 [thunderbolt]
+  tb_cfg_read+0xec/0x240 [thunderbolt]
+  tb_port_get_link_generation+0x258/0x420 [thunderbolt]
+  tb_usb3_consumed_bandwidth+0x1c1/0x2c0 [thunderbolt]
+  tb_tunnel_consumed_bandwidth+0xfd/0x910 [thunderbolt]
+  tb_available_bandwidth+0x5f2/0xeb0 [thunderbolt]
+  tb_recalc_estimated_bandwidth+0x2a0/0x1bc0 [thunderbolt]
+  tb_handle_dp_bandwidth_request+0x1897/0x5e20 [thunderbolt]
+  process_one_work+0x675/0x1230
+  worker_thread+0x5e6/0xf70
+  kthread+0x365/0x470
+  ret_from_fork+0x54d/0x710
+  ret_from_fork_asm+0x1a/0x30
+
+ Freed by task 926:
+  kfree+0x18f/0x4a0
+  tb_cfg_request_put+0xb7/0xe0 [thunderbolt]
+  tb_cfg_request_work+0x82/0x120 [thunderbolt]
+  process_one_work+0x675/0x1230
+  worker_thread+0x5e6/0xf70
+  kthread+0x365/0x470
+  ret_from_fork+0x54d/0x710
+  ret_from_fork_asm+0x1a/0x30
+
+ Second to last potentially related work creation:
+  __queue_work+0x575/0xd00
+  queue_work_on+0x77/0x80
+  tb_cfg_request_cancel+0xc7/0x260 [thunderbolt]
+  tb_cfg_request_sync+0x1f6/0x250 [thunderbolt]
+  tb_cfg_read_raw+0x367/0x510 [thunderbolt]
+  tb_cfg_read+0xec/0x240 [thunderbolt]
+  tb_port_get_link_generation+0x258/0x420 [thunderbolt]
+  tb_usb3_consumed_bandwidth+0x1c1/0x2c0 [thunderbolt]
+  tb_tunnel_consumed_bandwidth+0xfd/0x910 [thunderbolt]
+  tb_available_bandwidth+0x5f2/0xeb0 [thunderbolt]
+  tb_recalc_estimated_bandwidth+0x2a0/0x1bc0 [thunderbolt]
+  tb_handle_dp_bandwidth_request+0x1897/0x5e20 [thunderbolt]
+  process_one_work+0x675/0x1230
+  worker_thread+0x5e6/0xf70
+  kthread+0x365/0x470
+  ret_from_fork+0x54d/0x710
+  ret_from_fork_asm+0x1a/0x30
+
+The last stack trace is helpful because it shows that we are cancelling
+a request and looking at tb_cfg_request_cancel() what might happen is
+that tb_cfg_request_work() completes right before tb_cfg_request_cancel()
+starts and because of this it will call schedule_work() queueing the
+same work to run again. However, it is already removed from the
+request_queue and reference count is dropped so when
+tb_cfg_request_work() triggers again it will access memory that is
+already released.
+
+Fix this so that we first make sure a cancelled request is not handed
+away from tb_cfg_request_find() or scheduled to run. Then instead of
+relying on the worker to clean up the request we will do it in
+tb_cfg_request_cancel() after the work is canceled from running. Make
+tb_cfg_request_dequeue() release the request only if it was actually
+removed from the queue.
+
+Reported-by: Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>
+Fixes: d7f781bfdbf4 ("thunderbolt: Rework control channel to be more reliable")
 Cc: stable@vger.kernel.org
-Signed-off-by: Felix Fietkau <nbd@nbd.name>
-Link: https://patch.msgid.link/20260926120216.4054712-1-nbd@nbd.name
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+Signed-off-by: Mika Westerberg <mika.westerberg@linux.intel.com>
+[ sashal: replaced scoped mutex guards with explicit mutex_lock()/mutex_unlock() calls ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/mac80211/tx.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ drivers/thunderbolt/ctl.c | 47 +++++++++++++++++++--------------------
+ 1 file changed, 23 insertions(+), 24 deletions(-)
 
-diff --git a/net/mac80211/tx.c b/net/mac80211/tx.c
-index 931acf3bb6da1..cc7507ffaf001 100644
---- a/net/mac80211/tx.c
-+++ b/net/mac80211/tx.c
-@@ -4623,6 +4623,7 @@ static void ieee80211_8023_xmit(struct ieee80211_sub_if_data *sdata,
- {
- 	struct ieee80211_tx_info *info;
- 	struct ieee80211_local *local = sdata->local;
-+	struct ieee80211_chanctx_conf *chanctx_conf;
- 	struct tid_ampdu_tx *tid_tx = NULL;
- 	struct sk_buff *seg, *next;
- 	unsigned int skbs = 0, len = 0;
-@@ -4672,6 +4673,16 @@ static void ieee80211_8023_xmit(struct ieee80211_sub_if_data *sdata,
- 		sdata = container_of(sdata->bss,
- 				     struct ieee80211_sub_if_data, u.ap);
+diff --git a/drivers/thunderbolt/ctl.c b/drivers/thunderbolt/ctl.c
+index 85a6b093a097e..4318a0c8c01a0 100644
+--- a/drivers/thunderbolt/ctl.c
++++ b/drivers/thunderbolt/ctl.c
+@@ -53,7 +53,6 @@ struct tb_ctl {
+ #define tb_ctl_dbg(ctl, format, arg...) \
+ 	dev_dbg(&(ctl)->nhi->pdev->dev, format, ## arg)
  
-+	/* MLD transmissions must not rely on the band */
-+	if (!ieee80211_vif_is_mld(&sdata->vif)) {
-+		chanctx_conf = rcu_dereference(sdata->vif.bss_conf.chanctx_conf);
-+		if (unlikely(!chanctx_conf)) {
-+			kfree_skb_list(skb);
-+			return;
-+		}
-+		info->band = chanctx_conf->def.chan->band;
-+	}
+-static DECLARE_WAIT_QUEUE_HEAD(tb_cfg_request_cancel_queue);
+ /* Serializes access to request kref_get/put */
+ static DEFINE_MUTEX(tb_cfg_request_lock);
+ 
+@@ -111,11 +110,14 @@ void tb_cfg_request_put(struct tb_cfg_request *req)
+ static int tb_cfg_request_enqueue(struct tb_ctl *ctl,
+ 				  struct tb_cfg_request *req)
+ {
++	tb_cfg_request_get(req);
 +
- 	info->flags |= IEEE80211_TX_CTL_HW_80211_ENCAP;
- 	info->control.vif = &sdata->vif;
+ 	WARN_ON(test_bit(TB_CFG_REQUEST_ACTIVE, &req->flags));
+ 	WARN_ON(req->ctl);
+ 
+ 	mutex_lock(&ctl->request_queue_lock);
+ 	if (!ctl->running) {
++		tb_cfg_request_put(req);
+ 		mutex_unlock(&ctl->request_queue_lock);
+ 		return -ENOTCONN;
+ 	}
+@@ -126,28 +128,24 @@ static int tb_cfg_request_enqueue(struct tb_ctl *ctl,
+ 	return 0;
+ }
+ 
++static bool tb_cfg_request_is_active(struct tb_cfg_request *req)
++{
++	return test_bit(TB_CFG_REQUEST_ACTIVE, &req->flags);
++}
++
+ static void tb_cfg_request_dequeue(struct tb_cfg_request *req)
+ {
+ 	struct tb_ctl *ctl = req->ctl;
+ 
+ 	mutex_lock(&ctl->request_queue_lock);
+-	if (!test_bit(TB_CFG_REQUEST_ACTIVE, &req->flags)) {
+-		mutex_unlock(&ctl->request_queue_lock);
+-		return;
++	if (tb_cfg_request_is_active(req)) {
++		list_del(&req->list);
++		clear_bit(TB_CFG_REQUEST_ACTIVE, &req->flags);
++		tb_cfg_request_put(req);
+ 	}
+-
+-	list_del(&req->list);
+-	clear_bit(TB_CFG_REQUEST_ACTIVE, &req->flags);
+-	if (test_bit(TB_CFG_REQUEST_CANCELED, &req->flags))
+-		wake_up(&tb_cfg_request_cancel_queue);
+ 	mutex_unlock(&ctl->request_queue_lock);
+ }
+ 
+-static bool tb_cfg_request_is_active(struct tb_cfg_request *req)
+-{
+-	return test_bit(TB_CFG_REQUEST_ACTIVE, &req->flags);
+-}
+-
+ static struct tb_cfg_request *
+ tb_cfg_request_find(struct tb_ctl *ctl, struct ctl_pkg *pkg)
+ {
+@@ -157,7 +155,8 @@ tb_cfg_request_find(struct tb_ctl *ctl, struct ctl_pkg *pkg)
+ 	mutex_lock(&pkg->ctl->request_queue_lock);
+ 	list_for_each_entry(req, &pkg->ctl->request_queue, list) {
+ 		tb_cfg_request_get(req);
+-		if (req->match(req, pkg)) {
++		if (!test_bit(TB_CFG_REQUEST_CANCELED, &req->flags) &&
++		    req->match(req, pkg)) {
+ 			found = true;
+ 			break;
+ 		}
+@@ -484,8 +483,11 @@ static void tb_ctl_rx_callback(struct tb_ring *ring, struct ring_frame *frame,
+ 	 */
+ 	req = tb_cfg_request_find(pkg->ctl, pkg);
+ 	if (req) {
+-		if (req->copy(req, pkg))
++		mutex_lock(&pkg->ctl->request_queue_lock);
++		if (!test_bit(TB_CFG_REQUEST_CANCELED, &req->flags) &&
++		    req->copy(req, pkg))
+ 			schedule_work(&req->work);
++		mutex_unlock(&pkg->ctl->request_queue_lock);
+ 		tb_cfg_request_put(req);
+ 	}
+ 
+@@ -501,7 +503,6 @@ static void tb_cfg_request_work(struct work_struct *work)
+ 		req->callback(req->callback_data);
+ 
+ 	tb_cfg_request_dequeue(req);
+-	tb_cfg_request_put(req);
+ }
+ 
+ /**
+@@ -525,10 +526,9 @@ int tb_cfg_request(struct tb_ctl *ctl, struct tb_cfg_request *req,
+ 	INIT_WORK(&req->work, tb_cfg_request_work);
+ 	INIT_LIST_HEAD(&req->list);
+ 
+-	tb_cfg_request_get(req);
+ 	ret = tb_cfg_request_enqueue(ctl, req);
+ 	if (ret)
+-		goto err_put;
++		return ret;
+ 
+ 	ret = tb_ctl_tx(ctl, req->request, req->request_size,
+ 			req->request_type);
+@@ -542,9 +542,6 @@ int tb_cfg_request(struct tb_ctl *ctl, struct tb_cfg_request *req,
+ 
+ err_dequeue:
+ 	tb_cfg_request_dequeue(req);
+-err_put:
+-	tb_cfg_request_put(req);
+-
+ 	return ret;
+ }
+ 
+@@ -558,9 +555,11 @@ int tb_cfg_request(struct tb_ctl *ctl, struct tb_cfg_request *req,
+  */
+ void tb_cfg_request_cancel(struct tb_cfg_request *req, int err)
+ {
++	mutex_lock(&req->ctl->request_queue_lock);
+ 	set_bit(TB_CFG_REQUEST_CANCELED, &req->flags);
+-	schedule_work(&req->work);
+-	wait_event(tb_cfg_request_cancel_queue, !tb_cfg_request_is_active(req));
++	mutex_unlock(&req->ctl->request_queue_lock);
++	cancel_work_sync(&req->work);
++	tb_cfg_request_dequeue(req);
+ 	req->result.err = err;
+ }
  
 -- 
 2.53.0
