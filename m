@@ -1,179 +1,187 @@
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62DE23A7848
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 12:29:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2429B3EEAF8
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 12:32:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791289764; cv=none; b=uqkdE+iyqpAKIQVNbj+5w4hwfBSduRA/e2s77Jv/KYR1MSzePvsrgoIhcaHMx7/MW7gjCer9mZvTAhzYX3h6LlycUHQqOzqrBvh9jsf3dky7EL9h07pYgAjy2oqcPB04crX+5ViJvXHBvUiSG+qVKqGM0wyvHA7mdWVjdHXxDC8=
+	t=1791289950; cv=none; b=Nhi/GGE1MhnKxOGG0ZZSOsWrC8mya61nkt11xEV+GpY9Pljj2L265+tkE9v1y6S56xDlHSmoqk1lRRf1wk7MzXmSTtJUxRNFlXS8Kysa8LnTfOtkVC1n6tpQTMhKAr+jNuvtRWB2o3/o13KojW7Dvktr1co7txiWQvm2IM0MCVw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791289764; c=relaxed/simple;
-	bh=lthPC1Aid3RzMwkXHABVJupMtn6Oz9nfXWocpfXLG6E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MPE14NmqfQlEvjgqTfzLZ72Yzoc0ijPrdQ0OEzw4HX5ZzQYSXyvHO71xeozNno+zSr7/VH8ZNHAMHTgCSodd58HAeAu86youSbtynImayo3QLlRZAEa6xv/Csg6jD9RkFKCBNr/F3+Zg+W2b+EjKdRlGgs8qqsTlIZDdpIcR33k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dLmfm469; arc=none smtp.client-ip=209.85.210.173
+	s=arc-20240116; t=1791289950; c=relaxed/simple;
+	bh=nXOfDn4KEb0ZRHsBf8D5SWwj6+kjfcLqNo0zqeCTz64=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TzW74eX+NmcOn66QXjH7Y84HRoM0jTa98Fp7qwoQbr/c5Mwl88m4OROTPmJPqHa+228aGlBc5YXsZypZS8yH8Rt9OLo+vFWIPjTXkijlTwF207pfWutoEg/1xRB4LZDiHtyJjvsd5EjEi2YiNAQmFDWMsrowHmFMDp6RF6Wt/Ag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mGNycR/D; arc=none smtp.client-ip=209.85.216.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dLmfm469"
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-88bda150550so362868b3a.2
-        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 05:29:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mGNycR/D"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3a865731ee4so494135a91.2
+        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 05:32:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791289763; x=1791894563; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UBXDjxHdeZnn0EE9oAZG0kH7xmYbT9bOqu8043JSOZo=;
-        b=dLmfm469wfkY2FSQWsUOZQhiEeKazJlefm23rKBSNdpucKHj+mL8yieV/v1s8tbFOX
-         O0baBUY1QjIEi9LhWYZY7YWjty4rBjuxL+buE30zmdcUf8R9hB1QH4lTWkQeomnRPmMD
-         Vjz6Ax0Nd8j7OE7Z4l60nYKXC1sxG5crZ8pyuQsgtV8XlBgFMnGlC+5nMORgfkXzbo7h
-         vNEHw3sizjmxQ2BWc09viMSKxVRfLEUNpH7e0Hqky5BVn90E9K0UV9EbppgPyffDfmpT
-         vLfFS4gQA7ZuDW1fXkjr/zGLzfbSHk454IljA2lUcwHaSDjFJJcBDwwzgVx9sEI1uRJb
-         mJew==
+        d=gmail.com; s=20251104; t=1791289948; x=1791894748; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1HKRIiBlfoiGul+mMoQpEEjIcPaSF4T8zm8QS66XhNQ=;
+        b=mGNycR/Dec+13DVA93FlxBFT5y3i4PtT2b7ypWY0DMmieZXOE28/Z1e6B5zEEilGBP
+         FTHHdpioSBROSJqGmerzgess8opa9wgH9PQwlboEyTk9mmHV3/mfDqPw0CLTJf1koHKL
+         evqxTOf/8qFbtAjB/ODZYamjOhD+zma8W06spoCiYXD/opfSykriUB1gejcJ/uEJnO4v
+         4NnHb14cDS1xwrkcoawIaywHjJ6Rz+RktHb7HqcCzRVtFyELlJQLYl8iLP0HDccSJ0z3
+         Wo9pQsaGN5oIT7BOWMk9hssBwAObpf0s9L5ubUpHmh1brqpUwU/KB1TOeSxjD8lBi2Od
+         fV6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791289763; x=1791894563;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UBXDjxHdeZnn0EE9oAZG0kH7xmYbT9bOqu8043JSOZo=;
-        b=N1hBVxp8AzWeReEH/2ax30HEVU2rziW/YscxZFnQOPoo48/4PxwOPIC5f0BdGvkZzA
-         ZPxK0+dPZbFAhex1gPyvVlWPmuKyoRHi26P0aS6llLC/MvmCa5KG2Y8KX6Da/XJUQNi8
-         6XQNkn8spy3Tx6YYet894zDq4/9gwfqRVe/XtZt8dBUbwDGBjoxhfScmCu0wBwjBTsjK
-         599xNLk732IGjvXPVLusCj5U+jz3GWPTA9aP8GXv3i3/oIvjBx8fR+4Q1yXrTQoHYOCZ
-         gT7+MaBEXJEKxav+/yhYFx/I8b3JA6gjT4m+L3YwZkMSMa27qU+SAPk/IvoB5bd3fVKR
-         VCKA==
-X-Forwarded-Encrypted: i=1; AKwUvBxrfyq5QJDO9CNjlIYjxEVpCXUJKmrAFiUcJOQqgX/D+JXOaDS/IuYMCPEFM2OBwQU8Jf7qDu4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nm3CFg9pi97V6SHc7kw7Q5T/JeXSSnyLzCXM8fI1ik7qVE9jCm
-	jd7EVquUeD8usIslJOQkLNTagNmzN/DfL26Oxdfgs7qfsvhzHDdYwQ7c795eQRko5Ys=
-X-Gm-Gg: AYBFou3KDHg5yTPTCw+B8PKW6COdfARVaWKzz53nHcFPkDH0/Y8BNQ4mn4dMXaqxj+M
-	C8JFt2VbBLdhzQD0DCpgGlxCiwn9QZ6efyuFrpagw72qSwr0B74zIo2H/1LL26BseiZdLVROzQE
-	kPTxj1R83AOa0IlKw1zSNiqB/6W+9ZEdZZOTn0V2eT6gpiulhK49p1Z05pzjdJ5ggNtJj05nIe3
-	4YEXSx7Eq2EYFju5jusQ6RRctRlINtGBaNRLsFwGwmOro8tjBUGU+8Dbw4yqd3MxMgBdmtkvnjv
-	0qNln7VqO4tkWrNIRJBnPdrtoze6jIsHeuHwjKSj6DttN05P2pHH4WY7s/7a7CDedzrrs4whQfg
-	hbnCjspt9ZaS0AHF3DGRTTHxJkm2Pl4jEO4Bu+fLabL9AwWwPPl9ipvX8B40IptIkCD6ngvUFW1
-	vOXFOKSzpbGG5WN8xx/t9ENZWxCESvyfKDXCclKncmr8IYl2ehnmPR6IOokr+HCLxhKkTZ/OL34
-	s5TdZEluHtmohPO
-X-Received: by 2002:a05:6a00:1792:b0:869:9298:ba59 with SMTP id d2e1a72fcca58-890d8a4ec77mr1125260b3a.0.1791289762603;
-        Tue, 06 Oct 2026 05:29:22 -0700 (PDT)
-Received: from LAPTOP-450UDG4J ([2401:4900:6310:b8da:d139:f8fd:7043:7eb2])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88b0c88a815sm4679332b3a.42.2026.10.06.05.29.15
+        d=1e100.net; s=20260707; t=1791289948; x=1791894748;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=1HKRIiBlfoiGul+mMoQpEEjIcPaSF4T8zm8QS66XhNQ=;
+        b=qyiYESbIRB8ahnRETVhp/9prx768rBBJMBIxVVFjLK8ZR6HuZRK79mvjSo5Nb3rQPn
+         DOmMlJr96puwqOjfehiNk1XcwQh654SM+rtqIsPbK9H+nAoxHHaQojZ0z4WBxXskvFjI
+         70LacjP7jvHimf7iaqyvtnnSpasRDLDnFPotaBJmZUDtFD0Oj7pJ3pRXlGftQ7KNV0T0
+         yYEVZ1AnvMtQAqDhkYkXUzxYYggMVxBc/eT/k6OeMCS3eFNWvJm4y9g7ZzOQv6aE1SQZ
+         EWHqFPmoQfB+Jiuor90JVNcPx6O+yO0ouTe173wQfpE4D8QRDBgg0VzrcVrwUD5ccJ+y
+         vA+g==
+X-Forwarded-Encrypted: i=1; AKwUvBw39OPhJ4nKeW3Yra0xmDVFD1l826s0UWVzIGxdaCtqnH7IAWznBNsdsFfJF3R9Rpr+9zYn9rA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL7zxgizxC6M7kAukPCFW3E4mMOiPWL7ExULOsm5EOKgvwkLTap
+	oqne1B/8DsAsQy6J/ZLvqveqQjUBv/M/h2tsHgt3mjyiXn48ZCv/WvnF
+X-Gm-Gg: AYBFou0eTsPfPW1YvPfTMddpr749Q2SPHUrOwiA6qFZ0GZnsg/ET8b+HcmjMtDwDMQM
+	rzEDJjnBC34XGxflHXLYQh6GCzRbJdISVQJ8Ew/KfTIO33kXsk5wPTHGw0zZbS4oC2OUhV3uMyg
+	CbGUILqOVrz8BV73VT58JXWfhOoj7iBrHdwiGAGiFFS+Fp8LR66EX8jFXNDzy3xysaraQAPRc12
+	Pm18SJaepdYvUPc+hp1h1FiHU9I6bBSJeyrm9eaO+zU5Cbr39bK+OmOo3JqdhIjL1bTuO3CLZxd
+	pHGC6kbos75ipFFGitC3252t8PK3DKALHw12LpctkBIOicEDMdv3tTYMMLDxQqsSnxk+R5of4Sw
+	I7EGVvsnUeEHVUlFvrDHoK+MH5frqN/0L8OWIDFwnDmX8A6e7PwjaZ8Z4Q92KVWVa5BV1IIOMg5
+	GSjHDsvcmxZl+kZFgXNqwoULrlrLrU87Dkvb13LzBjCQsFAhrGnLpW8vSfarYTUtWdTH1K1RIEp
+	Nk6vCedhHKo+A==
+X-Received: by 2002:a17:90b:17ca:b0:3a8:748e:c422 with SMTP id 98e67ed59e1d1-3a8748efef9mr1039769a91.8.1791289948330;
+        Tue, 06 Oct 2026 05:32:28 -0700 (PDT)
+Received: from localhost.localdomain ([240e:b8f:1df9:a600:c693:b19f:ada0:748])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a853d00fc5sm4898516a91.16.2026.10.06.05.32.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 05:29:21 -0700 (PDT)
-From: Yogesh Gaur <yogeshgaur.83@gmail.com>
-To: Song Liu <song@kernel.org>,
-	Yu Kuai <yukuai@fygo.io>
-Cc: linux-raid@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Li Nan <magiclinan@didiglobal.com>,
-	Xiao Ni <xiao@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Hannes Reinecke <hare@suse.de>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Yogesh Gaur <yogeshgaur.83@gmail.com>,
-	syzbot+95eeb4ada2349a2170ea@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH v2] md: don't hand out the array before md_alloc() has added mddev->kobj
-Date: Tue,  6 Oct 2026 17:59:04 +0530
-Message-ID: <20261006122904.1538-1-yogeshgaur.83@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <20261004055712.1293-1-yogeshgaur.83@gmail.com/>
-References: <20261004055712.1293-1-yogeshgaur.83@gmail.com/>
+        Tue, 06 Oct 2026 05:32:27 -0700 (PDT)
+Date: Tue, 6 Oct 2026 20:32:13 +0800
+From: Vernon Yang <vernon2gm@gmail.com>
+To: Barry Song <baohua@kernel.org>
+Cc: akpm@linux-foundation.org, david@kernel.org, kasong@tencent.com, 
+	qi.zheng@linux.dev, shakeel.butt@linux.dev, axelrasmussen@google.com, 
+	yuanchu@google.com, weixugc@google.com, baoquan.he@linux.dev, hannes@cmpxchg.org, 
+	mhocko@kernel.org, ljs@kernel.org, roman.gushchin@linux.dev, dave@stgolabs.net, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Vernon Yang <yanglincheng@kylinos.cn>, stable@vger.kernel.org
+Subject: Re: [PATCH] mm: vmscan: don't count per-node proactive reclaim as
+ memory pressure
+Message-ID: <87a35a80-07fd-4915-82f4-447c61d1b6bd@gmail.com>
+References: <20261005062236.564210-1-vernon2gm@gmail.com>
+ <CAGsJ_4yKSoCwcEDhtd=biKoUjUX9eTJJhFJGFAZWc=WsAyXycg@mail.gmail.com>
+ <4cdb95f5-4140-4116-8247-c04f4b2a5c4c@gmail.com>
+ <CAGsJ_4x3n1g1tqxFnnLj8mS46fyYNWQq6goqop+_2QoKO09eeA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAGsJ_4x3n1g1tqxFnnLj8mS46fyYNWQq6goqop+_2QoKO09eeA@mail.gmail.com>
 
-md_alloc() publishes the gendisk before it is done setting the mddev up:
+On Tue, Oct 06, 2026 at 06:17:02PM +0800, Barry Song wrote:
+> On Mon, Oct 5, 2026 at 6:21 PM Vernon Yang <vernon2gm@gmail.com> wrote:
+> >
+> > On Mon, Oct 05, 2026 at 02:30:36PM +0800, Barry Song wrote:
+> > > On Mon, Oct 5, 2026 at 2:23 PM Vernon Yang <vernon2gm@gmail.com> wrote:
+> > > >
+> > > > From: Vernon Yang <yanglincheng@kylinos.cn>
+> > > >
+> > > > When the cgroup has no memory pressure at all, writing to
+> > > > /sys/devices/system/nodeX/reclaim triggers proactive reclaim on
+> > > > NUMA node, causing increase in the writer cgroup's memory PSI.
+> > > >
+> > > > Due to this reclaim is performed in the context of the write(),
+> > > > accounted as memory pressure on the writer, like
+> > > > commit e22c6ed90aa9 ("mm: memcontrol: don't count limit-setting reclaim
+> > > > as memory pressure"). This is unexpected, the phenomenon resembling
+> > > > senpai will appear again.
+> > > >
+> > > > The Documentation/ABI/stable/sysfs-devices-node documentation also
+> > > > notes that "This interface is equivalent to the memcg variant."
+> > > >
+> > > > This patch unifies the semantics of the memcg and node interfaces:
+> > > > per-node proactive reclaim is no longer counted as memory pressure,
+> > > > and the per-node proactive reclaim interface no longer produces
+> > > > phantom pressure.
+> > > >
+> > > > I ran demo[1] that performs per-node proactive reclaim 10000 times
+> > > > in qemu, writer cgroup memory.pressure as follows:
+> > > >
+> > > > without patch:
+> > > >
+> > > > some avg10=31.53 avg60=13.42 avg300=3.31 total=10602985
+> > > > full avg10=31.53 avg60=13.42 avg300=3.31 total=10602985
+> > > >
+> > > > with patch:
+> > > >
+> > > > some avg10=9.59 avg60=3.41 avg300=0.81 total=2686221
+> > > > full avg10=9.59 avg60=3.41 avg300=0.81 total=2686221
+> > > >
+> > > > [1] https://github.com/vernon2gh/app_and_module/tree/main/reclaim_node_psi
+> > > >
+> > > > Fixes: b980077899ea ("mm: introduce per-node proactive reclaim interface")
+> > > > Cc: stable@vger.kernel.org
+> > > > Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
+> > > > ---
+> > >
+> > > This seems to be a valid concern. Personally, I don't like
+> > > having the code depend on whether `__node_reclaim()` and
+> > > `node_reclaim()` are called from proactive reclaim or page
+> > > allocation.
+> > >
+> > > Can't we check whether `sc->proactive` is true? Am I missing
+> > > something?
+> >
+> > It is also fine to directly check `sc->proactive` in __node_reclaim().
+> >
+> > I chose the current coding because a previous similar fix commit
+> > e22c6ed90aa9 was written this way, and it is also very clear.
+> >
+> > Of course, it depends on everyone's preference. If everyone prefers to
+> > directly check `sc->proactive`, please let me know clearly. Thanks!
+>
+> I personally think the following is much more explicit than the
+> current implicit code based on path dependency. no?
 
-	disk->private_data = mddev;
-	...
-	error = add_disk(disk);
-	if (error)
-		goto out_put_disk;
+Yes, both implementations are fine with me.
 
-	kobject_init(&mddev->kobj, &md_ktype);
-	error = kobject_add(&mddev->kobj, &disk_to_dev(disk)->kobj, "%s", "md");
+I usually wait 1~2 weeks to give all maintainer/reviewer to review.
+As long as no one raises objections during that period, all suggestions
+will be accepted in the next version, don't worry. Thanks for your
+suggestions!
 
-add_disk() makes /dev/mdN openable.  mddev comes from mddev_alloc() and
-is zeroed, so anything that gets in between add_disk() and kobject_add()
-sees an mddev->kobj that has never been through kobject_init() - no
-ktype, no kref, state_initialized clear.
-
-syzbot opens the array in that window and issues ADD_NEW_DISK:
-
-  kobject: '(null)' (ffff8880120640f0): is not initialized, yet kobject_get() is being called.
-  WARNING: lib/kobject.c:642 at kobject_add_internal+0xea/0xcd0 lib/kobject.c:225
-   kobject_add_varg lib/kobject.c:374 [inline]
-   kobject_add+0x163/0x240 lib/kobject.c:426
-   bind_rdev_to_array+0x80c/0xdd0 drivers/md/md.c:2621
-   md_add_new_disk+0xe3b/0x1850 drivers/md/md.c:7684
-   md_ioctl+0x200a/0x2610 drivers/md/md.c:8499
-
-bind_rdev_to_array() is not the only way in.  md_run() calls
-sysfs_create_group(&mddev->kobj, &md_redundancy_group), and
-internal_create_group() has its own WARN_ON(!kobj->sd), so RUN_ARRAY in
-the same window warns too.
-
-Every ioctl that can reach mddev->kobj runs under reconfig_mutex, so
-hold it across add_disk() and kobject_add().  An ioctl issued in the
-window now waits for md_alloc() to finish instead of seeing a
-half-built mddev, and opening the array still succeeds.  The ioctls
-md_ioctl() serves without the mutex only read array state and return
--ENODEV on an array with no disks.
-
-Hoisting kobject_init() above add_disk() is not an option: commit
-ca39f7502425 ("md: fix mddev->kobj lifetime") moved it below add_disk()
-so that md_alloc()'s error paths, which free the mddev directly, never
-see an initialised kobject.
-
-Fixes: ca39f7502425 ("md: fix mddev->kobj lifetime")
-Reported-by: syzbot+95eeb4ada2349a2170ea@syzkaller.appspotmail.com
-Suggested-by: Yu Kuai <yukuai@fygo.io>
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
----
-v2: Hold reconfig_mutex across add_disk() and kobject_add() instead of
-    refusing the open in md_open(), per Yu Kuai's review: v1 made an
-    open that raced with md_alloc() fail.
-v1: https://lore.kernel.org/all/20261004055712.1293-1-yogeshgaur.83@gmail.com/
-
-Built with W=1 only, fix has not been runtime-tested.
-
- drivers/md/md.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/md/md.c b/drivers/md/md.c
-index 67108c397c5a..85439f27d943 100644
---- a/drivers/md/md.c
-+++ b/drivers/md/md.c
-@@ -5906,12 +5906,22 @@ struct mddev *md_alloc(dev_t dev, char *name)
- 
- 	disk->events |= DISK_EVENT_MEDIA_CHANGE;
- 	mddev->gendisk = disk;
-+
-+	/*
-+	 * add_disk() makes the array openable before mddev->kobj exists.
-+	 * Hold reconfig_mutex until kobject_add() is done so that ioctls
-+	 * issued in between wait instead of using an uninitialised kobj.
-+	 */
-+	mddev_lock_nointr(mddev);
- 	error = add_disk(disk);
--	if (error)
-+	if (error) {
-+		mddev_unlock(mddev);
- 		goto out_put_disk;
-+	}
- 
- 	kobject_init(&mddev->kobj, &md_ktype);
- 	error = kobject_add(&mddev->kobj, &disk_to_dev(disk)->kobj, "%s", "md");
-+	mddev_unlock(mddev);
- 	if (error) {
- 		/*
- 		 * The disk is already live at this point.  Clear the hold flag
--- 
-2.55.0.windows.5
-
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index 6a931b576b7d..048ba11852fe 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -7997,7 +7997,8 @@ static unsigned long __node_reclaim(struct
+> pglist_data *pgdat,
+>                                            sc->gfp_mask);
+>
+>         cond_resched();
+> -       psi_memstall_enter(&pflags);
+> +       if (!sc->proactive)
+> +               psi_memstall_enter(&pflags);
+>         delayacct_freepages_start();
+>         fs_reclaim_acquire(sc->gfp_mask);
+>         /*
+> @@ -8014,7 +8015,8 @@ static unsigned long __node_reclaim(struct
+> pglist_data *pgdat,
+>         memalloc_noreclaim_restore(noreclaim_flag);
+>         fs_reclaim_release(sc->gfp_mask);
+>         delayacct_freepages_end();
+> -       psi_memstall_leave(&pflags);
+> +       if (!sc->proactive)
+> +               psi_memstall_leave(&pflags);
+>
+>         trace_mm_vmscan_node_reclaim_end(sc->nr_reclaimed, NULL);
+>
