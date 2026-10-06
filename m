@@ -1,65 +1,65 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84323370AFD
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 04:39:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DDE4376BF1
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 04:39:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791261583; cv=none; b=Sk80F7YWQqhCmSGKJXLUshb4nWrhHuca9p8nMMfgqPSmExVO1N7G5wQitQvdRC4jtcXPQnnZjL7sFey7IOkXRHOcLAMMWkD5FQoIoDvcXKUUICk1aoquiRjr2voWG9mk78v9SoqZiBwCAXIuTKqBqxH4UyJ7n9YbXfZWqzcV68U=
+	t=1791261587; cv=none; b=EFMc0XgryuvHZOg2oDG9QqcU+IPiAPI/5Za7yJWSpBowEburzhfHuDRQZ+T45O0GUywF38XjNDt3YIBGHDy01J5Y5KMsmGBHC0pXrqG0f9DvsN2mKvd5kJf3Nvv1VJgVysPrp9IiP/I6r+vMAosGsr7mZkW2TmckK3I70gtFrb0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791261583; c=relaxed/simple;
-	bh=74GCVFBEaYoLkoDkeStCwsJ3MD5Xlz4Emhhsn4lIGSU=;
+	s=arc-20240116; t=1791261587; c=relaxed/simple;
+	bh=RCnWkqLEl9N57ql9V/Xk7Pcb/7984IZaCMasgW9VyEw=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=QrPNWWzSYlvCHJxv0btMWYzSh6Vh9J44wKJoDHUKCzCmFiJm1FmsikLkrYhfg8B3w8ZROerpaR8Id8uzD/ECd+vDslPeHJ308K+uiinMF+ApSNsi/66bVh+pLzatpYOAh1u0Tu3CIEVlVxphk1xGvp4a0TPNUghkOXRQfzotLuc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AgM+KtFc; arc=none smtp.client-ip=209.85.128.43
+	 MIME-Version; b=G+g4Mr7kHyo1MsNTY4x122Y0XXdQgQzlHgSJglVGHrxmoAGlPU8w73cqrNTqTxlhKjjxe1xR8XAYcmnb46LrHoIxd9Z0sSkC6ls8HKeyTgB1dLKiM4emm6B7JkkQsy6ATsANgAFCQK38RrS1iVgL2R6iNiBQ9duOP3fAy3iwbQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Cr1ERm19; arc=none smtp.client-ip=209.85.128.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AgM+KtFc"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a022fee0caso3567325e9.1
-        for <stable@vger.kernel.org>; Mon, 05 Oct 2026 21:39:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cr1ERm19"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a172eb31f0so1760675e9.1
+        for <stable@vger.kernel.org>; Mon, 05 Oct 2026 21:39:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791261580; x=1791866380; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791261581; x=1791866381; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6HCOU2yJch70xiRkaLkSG3uKGxSg+aF17fZmWG9Aov0=;
-        b=AgM+KtFcUBVR1NiAU7kPfqLU3NN5JY5YIJ1iwztz8ef0p4qsGx3shOFqnKRFxJTZtM
-         P82KwRMhF+KK51HdByUw3AScqBEg+31jSqn8Tf+5pCg7xhzrccVyJhPJwooSpQLebF/t
-         l+p7GKekIwAKKa1CsMjdxIAvsbCLysPySBIuhVw73jcO5BgOKBOaH9wZJjST1duatCR8
-         NcpQTPqk74H/rO/z+NWgOLmM+T1IkUwy9XvGOJ+LSxp8lvKhPhUAVpiTQSm1q+/wZMOV
-         OmmCYYg4h1ndTDYnyVPQQoB52t+v3n+Ekd+MblRUftke2s87bXA7j8M6K0cQ/BU1j+Xn
-         8SFQ==
+        bh=YQFJVOeQWH/dUEdqrozbevZ9AdUQ52aXCjTZt8hK/iI=;
+        b=Cr1ERm19TyysU/3QJBL+8syvzAzytI6jIYwILz2+NnHI8/XXqsLd4EOJPMN0kR3gct
+         B949AgPgumD63zZGQBXqMtE03ESfoxO8aQuSxhaEyoZC0mXoO5A7UyYax8d3dbE3101N
+         OkhdkGlK0gkmwhog+V567bvvcQOvkbhY4xBzwGvaBBXQ84UbAjdpqejD3aVREcKdO7WD
+         yISA1ioPWuNhpnIbnTRkHB4hlVlQOWxoBgas1H7jhKrPELwTn04o8DEB0gF0A9UnDmYT
+         fKB+HoHAZTUyQshH1HkNymtXZ/ShzjEd6sEIlNlwVB1NmzabOztAFzcyDUvlSwv4GqLI
+         hFSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791261580; x=1791866380;
+        d=1e100.net; s=20260707; t=1791261581; x=1791866381;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6HCOU2yJch70xiRkaLkSG3uKGxSg+aF17fZmWG9Aov0=;
-        b=Sf+YsJTLEOi2/xTIQubvcSmkyNesUt0i3EP3OawLH8juPSPrgWsRCYao3U6paKqA1D
-         yA0hyqR4RLLks9pzd4f2yayTGAsddCKEaK0ExoBKOwV17O6VSmroXe2bn/fiEwDGTpcX
-         EQokxJbranlyoRpG+qNW2MW6ELwnz5zkUVTauaPTuLGVzR9pSD3jE9uZHb3PWx0E/ol4
-         1cvXmRKC+gG3cKY0/mdqG7vGu9gaXCA1AvaJx74s5HsWkmImg22qLC1+BITc+6fle4Q7
-         ihxwlv3gJkqymbJKryItTnD8I0RXnaFL+qdgPaizJXRQVvgBh2Xyx6pk6V6wD082Kfxo
-         jVAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy90ctFiUu+3glXdG8DSr6qUzu6SDvPEkzAFHCMHkJtgWv5FZf7KN0FnwCaXpelJfmQcHADIA0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nEdmqXLm/IPUUBCWhDi1sZ2HEmslWFoKPpQCXweFWxiS6HonCy
-	wcQBGrhGiWcT41b9EqGysb4OfEjxYQDIoxnlKcJygHHRdtpvgGsi0Ssp
-X-Gm-Gg: AYBFou1fpi16LFbgmYQUB5glNvrly3uvIU3Agav0LLhJEa4qFrJHwfaDVFS6GPrRJst
-	JRBGme3pltjSQBlYLGSMLyv662tWjbV3f7iz0rcbUmv6GQtctrRCw66I3YNxY+nZTsjBxrRNNc4
-	n8BH8/ZserqahoAVfEvrHcqCmm3grG2yNvLPOGgBgFRc5rlnGrrKrSeYTVZaFy0FstGiHnFXndC
-	vaXQ6me1qTlluQRh76fM5pojLjs78KaJfVUzMOh/KYZDfbxSWQkcAuS9/uORTRFKR+rXQZKxMph
-	hL1ywerF8wenQrrbVBD+ZxMxNMDZn8zmxkvlCmXqRoJwTMP/Ty2ZgyRyasvOZP4GPCNClfVH7bI
-	Zzs5+MhFiw3vzW9dW/dflkjdVS+uZqhayrTCBxlDUugetNXe6MbmMCyMHUQC9uuAGBHFvdhURLR
-	jDhMyadY9VkdXeYF0HJyIOvy5OB4KsjfwVug/jJ4oBltWfVs/T9Ld6aFu7dGi8r/2deSm/bf2R8
-	qi8NZZUXFEjxIGRtSZ1vfksMOGroivPozDY7jiZK1bwQgO8mXKT6ADiiBInIgZnxI6+nEfbqu+q
-	oXuj7vnm6YYQgJTda7xtUpPrwCHVKNwqzzc=
-X-Received: by 2002:a05:600c:1552:b0:4a0:1e37:ae41 with SMTP id 5b1f17b1804b1-4a17b559685mr3252685e9.24.1791261579681;
-        Mon, 05 Oct 2026 21:39:39 -0700 (PDT)
+        bh=YQFJVOeQWH/dUEdqrozbevZ9AdUQ52aXCjTZt8hK/iI=;
+        b=FqdaEK5jGAK4qMo8sF9eiNuqhwQJ9O92djmCfMb7DxoeNu70VLkDWvwgfj34kPvhXy
+         75w6dgyp2lMV37Y+y5VFQwh8mDw7oJ5Ji5SPWSguWkzw397FDO7wLDZadG/euVh3vB+1
+         zGGzgt/W0RPK6XsJdA7HfRqT/P5psO3zsZarW7zK8cEDOvNi4ZgbOpxR46teEnsO3NPZ
+         HOArZB2EtXQ0sXT+EXdZ4fmtLsIDfmtfxqQqSKrZA384IzS5sy7U7VYPrZ3XclnkGL15
+         +tXU4I+S6wuqJbINQLT+gBfD61u36Ss4zi+zlgsd8Z0GHllsbJ6gsqB8Z5T+edpFHlDg
+         17ew==
+X-Forwarded-Encrypted: i=1; AKwUvBx50k7+CLDsmiN+Wpg9FgI1haYnjz3VLvMDA4k2r75TDmV1fbt1XV3cCGm8QfPOtRVkVtKQxL4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nZtkhgqcm0m+sg1twWeVwW+HskPhStRX50gHqqbwZhydnngmXm
+	tAmt0wuHJmtpB2hHiiJ9qtwRF4wtYmTM8fXe9G98u3CQaXOFrrZh4HAoBkGDhAPg
+X-Gm-Gg: AYBFou0WfjdUjRfgIcSIjqMuRM/CZ82+zZp827XUjUJHWONpQJDhrQ2E0KCc0Dvj7Fs
+	Lg1KrLm/FJfULWHn3j0CBXyBiIpF7kiIAiqnG1CrQJSV08CdstTL6bqzVSwkGRAjQBX8qwQ658O
+	BMU5VRJ0n+qmVX1co2ACFEZufoQomijj7nz9dhHa/amNRPXFkTUJdeSkRg9uWA5ggMXMkmaH1Wz
+	YZatyWgT//qv+itGawN0maWQ5dINwuHDDkVsOmyam8nBF0ZzwJOJdJnbjRpiBf4Pwn+4Wyysca9
+	FfUGpjKJWKSVPoN8DtNneA9llZnsVf3U2pSg6nWEMNWZ4QRv+qX7Sex068QM4POUk9Pn43KlGKQ
+	80qIYiNpg+C4fRNLUyB//d9y4I5Iqe9VJ2nx91lUk4TnVv/HXppGPal7NUP8JxEgCf9zduxN0Oo
+	dRDhrUdf74sWrijHcI9/ZibukzF25poyN6DbHjpZ+/VGAI2On2UF56boynD4Klu09RO1cGrg8ho
+	391FDmMDEICJDLu9GC7znSsxXIwE5zMaEyUT2tzsqlICq1tciHaZ+8iJyD7Y5w62l18ttxJWHAY
+	vR8Usep/Eb9cXuW0P+UKQlLD3neN3omCzzg=
+X-Received: by 2002:a05:600c:1c08:b0:4a1:70ed:882b with SMTP id 5b1f17b1804b1-4a17b536678mr3932625e9.8.1791261580590;
+        Mon, 05 Oct 2026 21:39:40 -0700 (PDT)
 Received: from localhost.localdomain (dynamic-095-117-040-097.95.117.pool.telefonica.de. [95.117.40.97])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178db8c6dsm62744995e9.14.2026.10.05.21.39.38
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178db8c6dsm62744995e9.14.2026.10.05.21.39.39
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 05 Oct 2026 21:39:39 -0700 (PDT)
+        Mon, 05 Oct 2026 21:39:40 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
 To: Namjae Jeon <linkinjeon@kernel.org>
 Cc: Karl Mehltretter <kmehltretter@gmail.com>,
@@ -67,9 +67,9 @@ Cc: Karl Mehltretter <kmehltretter@gmail.com>,
 	ntfs@lists.linux.dev,
 	stable@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] ntfs: fix kmap_local leak in ntfs_check_logfile()
-Date: Tue,  6 Oct 2026 06:38:09 +0200
-Message-Id: <20261006043810.5393-3-kmehltretter@gmail.com>
+Subject: [PATCH 2/2] ntfs: map each LogFile page once in ntfs_check_logfile()
+Date: Tue,  6 Oct 2026 06:38:10 +0200
+Message-Id: <20261006043810.5393-4-kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 In-Reply-To: <20261006043810.5393-1-kmehltretter@gmail.com>
 References: <20261006043810.5393-1-kmehltretter@gmail.com>
@@ -82,25 +82,23 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 ntfs_check_logfile() calls kmap_local_folio() on every iteration of its
-search loop but kunmap_local() only once per folio. The loop visits
-positions 0, 512, 1024, 2048, 4096 and so on. With 4 KiB pages the first
-four are in one page, so a mount whose first LogFile folio is in highmem
-leaves three entries on the kmap_local stack of the mounting task.
-Kernels without HIGHMEM are not affected.
+search loop but calls kunmap_local() only when it moves on to the next
+folio. With 4 KiB pages the positions 0, 512, 1024 and 2048 are all in
+the first page, so every mount leaves three entries on the kmap_local
+stack of the mounting task.
 
-The leaked entries keep migration disabled. nr_pinned of the runqueue
-the mount ran on stays raised after the task exits, so taking that CPU
-offline blocks forever in balance_hotplug_wait().
-
-The fifth mount in one task reaches KM_MAX_IDX (12 leaked entries plus
-4 in the loop) and hits the BUG_ON() in kmap_local_idx_push():
-
-  kernel BUG at mm/highmem.c:480!
-
-On x86-32 the generic entry code also warns on return to user space:
+64-bit kernels do not notice, kmap_local_folio() does not touch the
+stack there. 32-bit kernels with HIGHMEM return from mount(2) with the
+mappings in place. With the generic entry code that is a warning:
 
   DEBUG_LOCKS_WARN_ON(current->kmap_ctrl.idx)
   WARNING: include/linux/highmem-internal.h:17 at __do_fast_syscall_32+0x21e/0x550
+
+The stack has 16 slots, so a process that mounts ntfs volumes five
+times hits the BUG_ON() in kmap_local_idx_push() during the fifth
+mount:
+
+  kernel BUG at mm/highmem.c:480!
 
 Map each page once, when it is read, and unmap that address.
 
@@ -109,21 +107,16 @@ Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
-Tested in QEMU on top of patch 1 with a fresh mkntfs volume, on the ARM
-and x86-32 kernels described there. ARM and x86-32 behave the same in
-all three tests.
-
-- One mount on CPU 1 with taskset, then writing 0 to
-  /sys/devices/system/cpu/cpu1/online: without this patch the write
-  was still blocked after 60 seconds and new ssh logins hung. With it
-  CPU 1 goes offline. The same write before the mount works on both
-  kernels.
-- A program that calls mount(2) and umount(2) eight times in one
-  process: without this patch mounts one to four succeed and the fifth
-  hits the BUG_ON() in kmap_local_idx_push(). With it all eight
-  complete.
-- Three mounts in a row with mount(8) are clean. x86-32 no longer warns
-  when mount(2) returns.
+Tested on top of patch 1 in QEMU with a fresh mkntfs volume and a small
+program that calls mount(2) and umount(2) eight times in one process:
+- 32-bit ARM (multi_v7_defconfig plus KCOV, virt, 1 GiB RAM, 256 MiB
+  highmem) and x86-32 (i386_defconfig plus HIGHMEM4G, 2 GiB RAM): without
+  this patch mounts one to four succeed and the fifth hits the BUG_ON()
+  in kmap_local_idx_push() on both. With it all eight complete.
+- x86-32 no longer warns when mount(2) returns. Three mounts in a row
+  with mount(8) are clean on both.
+The other kmap_local_folio() loops in fs/ntfs (lcnalloc.c, mft.c,
+bitmap.c, compress.c) unmap on every path before they map again.
 
  fs/ntfs/logfile.c | 11 ++++++-----
  1 file changed, 6 insertions(+), 5 deletions(-)
