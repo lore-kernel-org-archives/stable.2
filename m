@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B42CC3F0A9E
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 15:55:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13A6D49C4A0
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 15:56:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791302154; cv=none; b=KYaHRFj8qXrBIXqkc725DA/nH5/imxvfItFJuJSRbQMhLa1Tn517G4t4loIiDW4tAAyKjMw7g8HEgatmIoSBmjv9fvwuTBJPNEPllvdiLuwxnvOvKSYFEVR9stccTNlM9g93K50nWkreQSYHSHoJFV+ltLMpFeY/Yjp2hnFmnfU=
+	t=1791302174; cv=none; b=XMXahU7o7KZOcosI+3KQNDLhH/v06KoqxI4DTc2jeeNVKye0dU9DU6Zk15ad5pYZ92/I07ehUaSLr21Cvr0FiUb9QXHWyvPncXiolqsrVBgJpE1SYMU6k+BqSwrFBzf5sGm5K8h0AhexG0jhE63DE2RfPSZ00HYnM5KRQx0hDAk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791302154; c=relaxed/simple;
-	bh=v+vDzYwO3BlCWZM8HtHIwUjVTK77LvKEORR85MRnYk0=;
+	s=arc-20240116; t=1791302174; c=relaxed/simple;
+	bh=wipU4ZcgSuajV5Ai0jrviL2iYL5UCABpeWXCQ4EqM0g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=T3aVBVW/ZaEAzlX3u6vXt91bHFFlq4IXfpwtp8CijZqw3AXGElBIPI70BPfVz5n0QiEUMwo3CtfWso9AEI80Gfl6nrwGyuL4X0GnKiM0yxJg0N5JCA5dFGo1GQ1Qixw0ZmitHPsoZGqT+e/Z8BKYuHZSrXdKY4U0UH3F5BxoPvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RpsqFOxo; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Umkbffsf85pM0CHRPLkHZ2e2geXQsYwsaTLN1N7Qcwbnhmyx5QtRd4M+uyYtxfGnUpj45ogIvp3AbRi/mh1pcKffay0Cxapp8mdBJUFV6cPj2FenrqhU98kpyMmOsyoJ3lRv6h8zbIHMdcn+iDSC0e2Qnd4i8wO0hpbIbTE87HY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gg/EJnas; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RpsqFOxo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E73F1F0089B;
-	Tue,  6 Oct 2026 15:55:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gg/EJnas"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A51FB1F0089B;
+	Tue,  6 Oct 2026 15:56:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791302153;
-	bh=9T/EOmssgJSnUpud0jg8z2j9FhGyr2Rd1L7WXvwZCSo=;
+	s=k20260515; t=1791302172;
+	bh=pRMnk2OwhFHx/X2wjBkoURknfRV8xg6IpVCkL7gAUwU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RpsqFOxo/cEyjPlvN5ganeft2ngUlMw1xOvAE7XM09k1qlZJZs8oJgG0PBTtciVXv
-	 fuze2uVgxIkTEvyYAMnD8YSZJzOW+S8wNsT0p3DuRpbO4KaFIL4ZkMhzVC0DuOP0bX
-	 /lj/6765GgOx3Jpe8/2OQ6X2Rp4WpHDu3Avjsf0Bx3koWVpg5hPt2Dvp1in8oB0o9J
-	 KtD3Yc6wZ7ZfN/emrJCr63BecFo28Fw9jo4J+Uc4cEo++f5eEA9A2AhyOoilc78Upc
-	 drVXWJMa11mTCFzZE1XeLwSDBPwo+gCKQWShJjmdlUTX6MSCOAKzZpFHneiWq1/9q5
-	 BIRo6AVaK/xew==
+	b=Gg/EJnasPlq8wJaxd8COdImI+d9Nhh0dUHDyBbHy0A8HFuwdmbfuRcvixtEOmI13u
+	 A4g/lmjBtYW5m7SoLtbAIwjHtiJMSdfod8yrhJWCpPwhKfZc92L/XaoKxJEBNKUs8/
+	 DJGo9GJA6SHs7SCvC4GEIPPxs+47By2pOiEVc30KM26ASeFi4zXuzELpSdWlGahIfE
+	 EQ6oeq9m1opmi//J+QyZduOSsZWcEQJw9bPmEkomXPWBF+m/qzqkd54/Kr3wscgweD
+	 7t7SPLB+94UJc2RoKR43V63pXmNOtmEvtkRffv81r2FkGuaBU6EFYGNctjZzPKYdTm
+	 UMSmiq6FRCV3Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+Cc: Han Xu <han.xu@nxp.com>,
 	Miquel Raynal <miquel.raynal@bootlin.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] mtd: spinand: fix NULL pointer dereference with no ECC engine
-Date: Tue,  6 Oct 2026 11:55:50 -0400
-Message-ID: <20261006155527.763392-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] mtd: spinand: Enable QE on all dies
+Date: Tue,  6 Oct 2026 11:56:09 -0400
+Message-ID: <20261006155527.762373-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100520-premiere-chaps-49ab@gregkh>
-References: <2026100520-premiere-chaps-49ab@gregkh>
+In-Reply-To: <2026100506-frenzied-eliminate-613a@gregkh>
+References: <2026100506-frenzied-eliminate-613a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,45 +46,71 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Nuno Sá <nuno.sa@analog.com>
+From: Han Xu <han.xu@nxp.com>
 
-[ Upstream commit b890e6163761ddb580cc74f43e15f8bbde15647e ]
+[ Upstream commit 63d6cace2c4a7f36c1cb44f1bb5e0f3ef19e5c7f ]
 
-When "nand-no-ecc-engine" is set in DT, nanddev_get_ecc_engine() takes
-the NAND_ECC_ENGINE_TYPE_NONE path and returns success while leaving
-nand->ecc.engine NULL. The SPI-NAND code nevertheless dereferences it
-unconditionally to test for a pipelined engine, so probing such a
-device oopses immediately.
+The QUAD ENABLE (QE) bit is stored in a per-die configuration
+register on some SPI-NAND devices. When a device contains multiple
+dies, updating the QE bit only on the currently selected die can
+leave the remaining dies operating in non-quad mode.
+ 
+Iterate over all targets and update the QE setting on each die
+during initialization to ensure consistent quad I/O operation
+across the entire device.
 
-Rather than open-coding the test three times, add a
-nand_ecc_is_pipelined() helper to the NAND core that folds the NULL
-check into the integration comparison, and use it everywhere. Future
-callers then cannot reintroduce the problem.
+Tested on ISSI IS38SMW04G8B.
 
-Fixes: f9d7c7265bcf ("mtd: spinand: Create direct mapping descriptors for ECC operations")
+Fixes: 7529df465248 ("mtd: nand: Add core infrastructure to support SPI NANDs")
 Cc: stable@vger.kernel.org
-Signed-off-by: Nuno Sá <nuno.sa@analog.com>
+Signed-off-by: Han Xu <han.xu@nxp.com>
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
-[ sashal: Replaced upstream helper-based checks with a single inline check in spinand_create_dirmap() for the prebuilt descriptor design. ]
+[ sashal: Retained spinand_init_quad_enable()’s internal QE decision instead of using the upstream enable parameter. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/mtd/nand/spi/core.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/mtd/nand/spi/core.c | 21 +++++++++++++++++++--
+ 1 file changed, 19 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/mtd/nand/spi/core.c b/drivers/mtd/nand/spi/core.c
-index e80e8c747bb29..d320f6a28bccc 100644
+index a41f2fd47379c..ae9019659ba6a 100644
 --- a/drivers/mtd/nand/spi/core.c
 +++ b/drivers/mtd/nand/spi/core.c
-@@ -1186,7 +1186,8 @@ static int spinand_create_dirmap(struct spinand_device *spinand,
+@@ -179,7 +179,10 @@ static int spinand_init_cfg_cache(struct spinand_device *spinand)
  
- 	spinand->dirmaps[plane].rdesc = desc;
+ static int spinand_init_quad_enable(struct spinand_device *spinand)
+ {
++	struct nand_device *nand = spinand_to_nand(spinand);
++	unsigned int target;
+ 	bool enable = false;
++	int ret;
  
--	if (nand->ecc.engine->integration != NAND_ECC_ENGINE_INTEGRATION_PIPELINED) {
-+	if (!nand->ecc.engine ||
-+	    nand->ecc.engine->integration != NAND_ECC_ENGINE_INTEGRATION_PIPELINED) {
- 		spinand->dirmaps[plane].wdesc_ecc = spinand->dirmaps[plane].wdesc;
- 		spinand->dirmaps[plane].rdesc_ecc = spinand->dirmaps[plane].rdesc;
+ 	if (!(spinand->flags & SPINAND_HAS_QE_BIT))
+ 		return 0;
+@@ -189,8 +192,22 @@ static int spinand_init_quad_enable(struct spinand_device *spinand)
+ 	    spinand->op_templates.update_cache->data.buswidth == 4)
+ 		enable = true;
  
+-	return spinand_upd_cfg(spinand, CFG_QUAD_ENABLE,
+-			       enable ? CFG_QUAD_ENABLE : 0);
++	/*
++	 * QE is a per-die setting on some devices. Program each target
++	 * individually when enabling or disabling quad I/O mode.
++	 */
++	for (target = 0; target < nand->memorg.ntargets; target++) {
++		ret = spinand_select_target(spinand, target);
++		if (ret)
++			return ret;
++
++		ret = spinand_upd_cfg(spinand, CFG_QUAD_ENABLE,
++				      enable ? CFG_QUAD_ENABLE : 0);
++		if (ret)
++			return ret;
++	}
++
++	return 0;
+ }
+ 
+ static int spinand_ecc_enable(struct spinand_device *spinand,
 -- 
 2.53.0
 
