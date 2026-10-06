@@ -1,230 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16E252F39B5
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 07:48:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791272891; cv=none; b=AP3JlgxdbP0IzrxTVd2NiiTe2fTMOBsOi37E0J5t2dJNYh5w7dAuLuT2tysxuTjvMcltUOCg7UYGmEf9F54lID1lcdXGYXbuN3oDQttJXRiP4CiokQ0Aglw/rqgkDedCObMNLOebbDrXnDL5FEuPPguSR/A2TgdQhthPgHBYaN4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791272891; c=relaxed/simple;
-	bh=E5dEaHv3YEBEvSU5k7QkARiPZvu1yyc9h820xiNk0sI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=bZnvFfPciSf2hVJrlaJJzTqz2UipkKFTwem3aCCh1Ocv5trk5i0pFStU2gc9o75gXCqM+7o9xELyAp1JwrzG+XDepPb60czICuA61fQYQhSNYrTXe8XRDMzyZbXrcqp3+ZjJpinrpH4EMvadf7SiU9xkT4fIKrAPIi0EzWw2NuE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=s/Hvh6Kn; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C5F83B83E1
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 07:49:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791272944; cv=pass; b=AQQiMPCrz+gSPjXF6h95lCYeybwchjWpwhdCFMxxbWi+VZElvK5veF0daViaKum/a0MxnNMQGTk3o3hNvyPajulNNPxwNKWA7tg2E5W9EaD56dlB2ycm5y6mGhZ74+XH+5PxrijR6czsinScxMKm0wS8o9slIrD0fO0SV792Lsg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791272944; c=relaxed/simple;
+	bh=EjxOLQXTiEKUjAkVwjaXXFmEhgPUo75BO536t5uUPtI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pyz8vvWNsARSwVgx1ok0C+jZlDQUGStENkQVC4qBQtLqiXi+Skee9F16FMkEotxPQuwlFHxadgc2BLVp1uBLBBdaSN9CALkoetVU9Ids1CkU4r44XVO5lIkvFE+Goy7u+LD8OMQBijxJpvR6I/BoTqt3lWJ9QFfN8D6yQrRYVRA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linbit.com; spf=pass smtp.mailfrom=linbit.com; dkim=pass (2048-bit key) header.d=linbit.com header.i=@linbit.com header.b=0h1G0AaA; arc=pass smtp.client-ip=209.85.218.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linbit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linbit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="s/Hvh6Kn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C1DC1F000FF;
-	Tue,  6 Oct 2026 07:48:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791272889;
-	bh=OZAH7kPsuhSCQm3dykHRTKlyUdCSzKfVDxg+QpYoqhI=;
-	h=Subject:To:Cc:From:Date;
-	b=s/Hvh6KnB3kpD+3l/fDumD3Lb+ZvRX02ST5TDgsWy6DhUJaf12yH7zHDRPgkK41/Q
-	 bG7CFLd5hLw3dPlVljLF0rkczaFLAo+71jGUE3/L5vb2l2nCfJCGsYuZolHv5ViNeM
-	 GsVAKfJo+G+Bffns1HHCC2gKsy7wge/adQPDGWv8=
-Subject: FAILED: patch "[PATCH] iio: light: rohm-bu27034: Fix infinite delay on error" failed to apply to 6.6-stable tree
-To: mazziesaccount@gmail.com,jic23@kernel.org,jonathan.cameron@oss.qualcomm.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 06 Oct 2026 09:47:59 +0200
-Message-ID: <2026100659-encircle-snout-9f76@gregkh>
+	dkim=pass (2048-bit key) header.d=linbit.com header.i=@linbit.com header.b="0h1G0AaA"
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c315a445752so29304466b.3
+        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 00:49:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791272940; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Rv1C47A0mIFGzxehrFhDUjajTViRFqEmnauYWUSjlBK2FCLbV9/gpp2TArbcMDPb47
+         RVpuesf1q8jmaG9Q1a5CWm6GdpzxR1yuUIno/2piUT6HZSarqe+Uwpgrpfct0Ro+Dqgz
+         H8UaKB6Vs/rSnO810q7cewR0VqVCx0JR3KAsLPwhMl9xq469k9OU0Qml9U/3QMdO//qU
+         jDtH+tdolvbjR20pGB8NMqqBgk+yZ66Q3jRTBqILkWU4ZQCjN5dwj1iIlctl5DMv9HxN
+         4E5eAslyY2AFtnrAACAqcnA6mzVu43amaFp8L3AnrZZ1lUO1w7hLwdsTyTA2AVPEGya5
+         DBQQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=EjxOLQXTiEKUjAkVwjaXXFmEhgPUo75BO536t5uUPtI=;
+        fh=ATu3cwR1npPLt3LYg89mnbwyeBQYd6L9QB9f2GVk1qY=;
+        b=CKG8mLVtjxF539urjIp6fpHb5dsISeC5nT2aKDZWutpwn2MiEaSV1yb70q/UQvuR35
+         ThIcCQCy7rAc4V27IoE6gLLsYtlyto+LhFkh4M+IwhfmPWsBseWWF9wxdpPVzElRbY91
+         X2NUVw3xO5mrtOU+2UWm7wqKVOqzbpk+39OfmDC4wCL3aNIp19ZJEZwtswpilHpNhtf2
+         47I63xQ9UlW7R6A796EFVy2WroWjGulIVWQZhD+aWcNZj04qQ9ku7sQoRRcntPhlPb/r
+         AidPmXas9YuNcxhuMOerabECp8/PM+m3pAb8Kq2DgPrvHzUIb8huDYwAy954Inp3abwf
+         t40g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linbit.com; s=google; t=1791272940; x=1791877740; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EjxOLQXTiEKUjAkVwjaXXFmEhgPUo75BO536t5uUPtI=;
+        b=0h1G0AaAq7RVxRVXfAbwaro/2HDV3FBWvJwzCLiCJTkXK+nX0hpeF1kv54Zkee2J70
+         jzyNBFUoDFtbk3WY3Ef3nv9Ah1O3Lv6b8MV3jN/IJIzjY5D45Lan/BusKUJTr5an527K
+         Czaeoz8jeAZrj/av5D/iSi1bghFPAK+7ccFCPizsaLbZYEcCmEXTIbPIv1xekJikSofN
+         sPt8HqYgBpe6mwo5h8F5FIB5f96PKijy1IsnHdq8QGjj1nEYePbw0RcgJA7E8MKp3nXs
+         Gkp/iy4l172Wwu43y3W56heqGWtSBKTyFFAZ3r+XTjdclWsDfWWdIaoedJqpHNYfIcDi
+         i9PQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791272940; x=1791877740;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=EjxOLQXTiEKUjAkVwjaXXFmEhgPUo75BO536t5uUPtI=;
+        b=J5BVooIQKG/7Bav0GblVIYxwdUA3345uRB3U4BsvRd1VdPxqQFKdg9kgXDeFoGsuyo
+         zKdQvkZrQwXnGNjIEz6rFfuowbe9NoSscU1smB30XnfN1b4r7Dxv3grJ6qJLzDu5blvo
+         o+6aZBDGfUUf2rL9b8wgfg8GwbihoXm2eqrkleBuSTrYONR2N/90jUXBLgCDhD2Yr8hK
+         P0G3mcrcmaBfNuQPWIhOdFrHufsvwXg1wrAByCUXpp7LKCnnHD4QRyuU4l9uCnXlQQwh
+         hr6qswUXy80OgNPC8ib1r+FAllVwkBCmiLw1Ydd0vtFJ3e/sifjAMEBTs+OsoxaAmAen
+         TA1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwilnvzYtZEY3w9llmrMBuFrECPQHsGnmelngqZdB55zWKP9Wdg2Sb6MCgpvsqBbLlNH+SWAbg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJIjOqMuYMntZAbtavAQoUtGkhPIKn4lQLS6rJVJs+QGroNk2PW
+	gl+8TqQ6FtnYZF+8MEOPqhHfl0btENA0eegtPSCAoKxnMMwxnrSynUpuy3nqlaIvfRtgtdUvQEO
+	MvENsB+g9FtDZTzR+075DG+M5cMkaFLuEsabykSgevg==
+X-Gm-Gg: AYBFou25gpQnYjy0oc3FBGz+YE4Xy/f0IwqJllChVOZuwpq0TNKZJaEJFdq8VdWzsOx
+	sVlr6CI5jQtfn4D9t6cZiPXXdYAwvyhyh0FMEvuUVpY2hUpehibBuf3rjHGNCRhHFmcTGgU8ccq
+	t8ExZpCE/UtpC3Ktxys5PxybAK9p7TbfGMhC6TPmmCcHiV74doQ1ooCS+Tb0UDOP8Z8IMOrSxZN
+	1ULf2xOzF+pOPfL8XRzP0y4UVnRnXfRNjn/LWue2ZAPp2Qg/z9+YXKtCmwKPBGlmNEe4vBcX0Tr
+	NylTyUBrCyY52gjBkRxzN86OIRLruUXamrqC0Y7MbvOgPGq00K+bq1Pn5WU=
+X-Received: by 2002:a05:6402:1907:b0:6ac:bd53:d29a with SMTP id
+ 4fb4d7f45d1cf-6afe290339fmr597357a12.3.1791272940042; Tue, 06 Oct 2026
+ 00:49:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+References: <20261006035715.354417-1-yhlee@isslab.korea.ac.kr>
+In-Reply-To: <20261006035715.354417-1-yhlee@isslab.korea.ac.kr>
+From: Philipp Reisner <philipp.reisner@linbit.com>
+Date: Tue, 6 Oct 2026 09:48:48 +0200
+X-Gm-Features: AclHuK93qFWTt0rPdrolX-1FvRtK-xCdn7iYpv4S1vx0jkfxOiNyhJFdse2ACcs
+Message-ID: <CADGDV=V5NJViqSKS0JpFrm1U_2pGRBf1iE30hn+yuR7NmN9iXQ@mail.gmail.com>
+Subject: Re: [PATCH] drbd: reject an out-of-range offset when decoding a
+ compressed bitmap
+To: yhlee@isslab.korea.ac.kr
+Cc: lars.ellenberg@linbit.com, christoph.boehmwalder@linbit.com, 
+	axboe@kernel.dk, drbd-dev@lists.linux.dev, linux-block@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+On Tue, Oct 06, 2026 at 03:57 UTC, Yehyeong Lee wrote:
+> recv_bm_rle_bits() decodes a run-length-encoded bitmap from the peer and
+> accumulates the bit position s across the runs. The upper bound
+> (e >= c->bm_bits) is only checked in the branch taken for a set-bits
+> (toggle) run, so a clear run advances s with no check at all.
 
-The patch below does not apply to the 6.6-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Thanks for the report and the analysis, this is correct.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+> + if (s > c->bm_bits) {
+> + drbd_err(peer_device, "bitmap overflow (s:%lu) while decoding bm RLE packet\n", s);
+> + return -EIO;
+> + }
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
-git checkout FETCH_HEAD
-git cherry-pick -x 8065a6c02f629187131f3136bedb26f9080e3cca
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026100659-encircle-snout-9f76@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+Checking only after the loop is not sufficient, though. A single VLI
+code decodes to a run length of up to 2^56 + some, and one compressed
+bitmap packet can carry a few hundred such codes.
 
-Possible dependencies:
+Please check every run right after decoding it, before s is advanced:
 
+if (rl > c->bm_bits - s) {
+drbd_err(...);
+return -EIO;
+}
 
+That keeps s <= c->bm_bits throughout, so neither s nor e can wrap,
+and since rl >= 1 it also implies e < c->bm_bits for set runs.
 
-thanks,
+Could you send a v2 along those lines?
 
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 8065a6c02f629187131f3136bedb26f9080e3cca Mon Sep 17 00:00:00 2001
-From: Matti Vaittinen <mazziesaccount@gmail.com>
-Date: Wed, 2 Sep 2026 11:48:46 +0300
-Subject: [PATCH] iio: light: rohm-bu27034: Fix infinite delay on error
-
-When reading an integration-time fails, the code will use error code to
-compute the sleep time.
-
-Fix this by using the smallest integration time as a default if
-reading fails.
-
-Fixes: e52afbd61039 ("iio: light: ROHM BU27034 Ambient Light Sensor")
-Suggested-by: Jonathan Cameron <jic23@kernel.org>
-Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-
-diff --git a/drivers/iio/light/rohm-bu27034.c b/drivers/iio/light/rohm-bu27034.c
-index f9a421618406..92fca33387bb 100644
---- a/drivers/iio/light/rohm-bu27034.c
-+++ b/drivers/iio/light/rohm-bu27034.c
-@@ -137,6 +137,7 @@ static const struct iio_gain_sel_pair bu27034_gains[] = {
- #define BU27034_MEAS_MODE_200MS		2
- #define BU27034_MEAS_MODE_400MS		4
- 
-+#define BU27034_INT_TIME_US_MIN (55 * USEC_PER_MSEC)
- static const struct iio_itime_sel_mul bu27034_itimes[] = {
- 	GAIN_SCALE_ITIME_US(400000, BU27034_MEAS_MODE_400MS, 8),
- 	GAIN_SCALE_ITIME_US(200000, BU27034_MEAS_MODE_200MS, 4),
-@@ -296,7 +297,7 @@ static int bu27034_get_gain(struct bu27034_data *data, int chan, int *gain)
- 	return 0;
- }
- 
--static int bu27034_get_int_time(struct bu27034_data *data)
-+static int bu27034_get_int_time(struct bu27034_data *data, int *itime)
- {
- 	int ret, sel;
- 
-@@ -304,24 +305,30 @@ static int bu27034_get_int_time(struct bu27034_data *data)
- 	if (ret)
- 		return ret;
- 
--	return iio_gts_find_int_time_by_sel(&data->gts,
--					    sel & BU27034_MASK_MEAS_MODE);
-+	ret = iio_gts_find_int_time_by_sel(&data->gts,
-+					   sel & BU27034_MASK_MEAS_MODE);
-+	if (ret < 0)
-+		return ret;
-+
-+	*itime = ret;
-+
-+	return 0;
- }
- 
- static int _bu27034_get_scale(struct bu27034_data *data, int channel, int *val,
- 			      int *val2)
- {
--	int gain, ret;
-+	int gain, itime, ret;
- 
- 	ret = bu27034_get_gain(data, channel, &gain);
- 	if (ret)
- 		return ret;
- 
--	ret = bu27034_get_int_time(data);
--	if (ret < 0)
-+	ret = bu27034_get_int_time(data, &itime);
-+	if (ret)
- 		return ret;
- 
--	return iio_gts_get_scale(&data->gts, gain, ret, val, val2);
-+	return iio_gts_get_scale(&data->gts, gain, itime, val, val2);
- }
- 
- static int bu27034_get_scale(struct bu27034_data *data, int channel, int *val,
-@@ -397,12 +404,10 @@ static int bu27034_try_set_int_time(struct bu27034_data *data, int time_us)
- 	int ret, int_time_old, i;
- 
- 	guard(mutex)(&data->mutex);
--	ret = bu27034_get_int_time(data);
--	if (ret < 0)
-+	ret = bu27034_get_int_time(data, &int_time_old);
-+	if (ret)
- 		return ret;
- 
--	int_time_old = ret;
--
- 	if (!iio_gts_valid_time(&data->gts, time_us)) {
- 		dev_err(data->dev, "Unsupported integration time %u\n",
- 			time_us);
-@@ -841,7 +846,7 @@ static int bu27034_meas_set(struct bu27034_data *data, bool en)
- static int bu27034_get_single_result(struct bu27034_data *data, int chan,
- 				     int *val)
- {
--	int ret;
-+	int ret, itime;
- 
- 	if (chan < BU27034_CHAN_DATA0 || chan > BU27034_CHAN_DATA1)
- 		return -EINVAL;
-@@ -850,11 +855,11 @@ static int bu27034_get_single_result(struct bu27034_data *data, int chan,
- 	if (ret)
- 		return ret;
- 
--	ret = bu27034_get_int_time(data);
--	if (ret < 0)
-+	ret = bu27034_get_int_time(data, &itime);
-+	if (ret)
- 		return ret;
- 
--	msleep(ret / 1000);
-+	msleep(itime / 1000);
- 
- 	return bu27034_read_result(data, chan, val);
- }
-@@ -904,12 +909,10 @@ static int bu27034_calc_mlux(struct bu27034_data *data, __le16 *res, int *val)
- 	if (ret)
- 		return ret;
- 
--	ret = bu27034_get_int_time(data);
--	if (ret < 0)
-+	ret = bu27034_get_int_time(data, &meastime);
-+	if (ret)
- 		return ret;
- 
--	meastime = ret;
--
- 	d1_d0_ratio_scaled = (unsigned int)ch1 * (unsigned int)gain0 * 100;
- 	helper64 = (u64)ch1 * (u64)gain0 * 100LLU;
- 
-@@ -970,9 +973,9 @@ static int bu27034_read_raw(struct iio_dev *idev,
- 	switch (mask) {
- 	case IIO_CHAN_INFO_INT_TIME:
- 		*val = 0;
--		*val2 = bu27034_get_int_time(data);
--		if (*val2 < 0)
--			return *val2;
-+		ret = bu27034_get_int_time(data, val2);
-+		if (ret)
-+			return ret;
- 
- 		return IIO_VAL_INT_PLUS_MICRO;
- 
-@@ -1157,11 +1160,20 @@ static int bu27034_buffer_thread(void *arg)
- {
- 	struct iio_dev *idev = arg;
- 	struct bu27034_data *data;
--	int wait_ms;
-+	int wait_ms, ret;
- 
- 	data = iio_priv(idev);
- 
--	wait_ms = bu27034_get_int_time(data);
-+	/*
-+	 * If reading the integration time fails, default to the minimum so we
-+	 * don't lose samples. This may waste CPU cycles, but as a hardening
-+	 * against theoretical, once-in-a-blue-moon error, this should be Ok.
-+	 */
-+	wait_ms = BU27034_INT_TIME_US_MIN;
-+	ret = bu27034_get_int_time(data, &wait_ms);
-+	if (ret)
-+		dev_warn(data->dev, "Failed to get integration time\n");
-+
- 	wait_ms /= 1000;
- 
- 	wait_ms -= BU27034_MEAS_WAIT_PREMATURE_MS;
-
+Best regards,
+Philipp
