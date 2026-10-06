@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77F3045D90B
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 17:56:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 104C23769FD
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 17:56:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791309381; cv=none; b=gBJSH5R4cTP8M4jVZg8P+QCgqu5/A/5w4JUAykDdF4Hero30EL4VE09AMMyEJGMGWcGvDlYiwi6ZXnf6AzCUwvNcTWvfb3u5zYilhgcs5fCAiCNgk31byJB8cYNZgjA/EttOgEU4aIzsDwwfYEgUdnxOt8rlaUOVcgDIIuqjAx4=
+	t=1791309387; cv=none; b=WyjZlEhjjqkpPxUBtXBCjbNMHLoKZP9IU/mVswBu3uBc7RWrNbz/iFCfc5TPWgfr4H7lMloNpnNircwjAq7tA0Y6GPJMpbrKW5usXybyOB3Rsx0pXcAKtDLo/YH2gppssJHiITQcz6rZgWnQQhCDsADfETjlBZ0TC2Ko+zAtMzA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791309381; c=relaxed/simple;
-	bh=pOYItHSYZNyiYuR8MNj++qEsyc67iCUDUcoXKcSpZws=;
+	s=arc-20240116; t=1791309387; c=relaxed/simple;
+	bh=7OqlaBVOFGq5BVe00QnCCDTcIdbpiE5GbyP1aAX2fWw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tUPDuAU8yDCi6ZoNhn2ty6/AND80tNaTv/AGz7ClLD6CFG7oHTk9K1j1zjGIwDWavEModZuQYAqsv+wmmQDsw3vGYb/ZnOHTluE5InRHVLKtQ9r11gyrysBMGPB4mHJSJZ1wzAzH5Hl5d+ar04va6Rb5xzh4E4kh44/o98B5FIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bD+D3qwP; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=QiPp5YA3wRlJsE+Xzrx3HlEUPQuiKyVzjnF3fo9GxBynPPsD8VFXSI1OMNAb/BAK7/6YJ6qPFu3Grn9BWlW6vO5yDu0osAXWQLt/sJU4Yvlll3ZYBqL1f+DN0oOPi2DsxTZCWd6EE4E8DrMxFtK1pixsAoSp2HZQqPav6R8pccI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k9a+jfRo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bD+D3qwP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDEB61F0089B;
-	Tue,  6 Oct 2026 17:56:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k9a+jfRo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3281E1F0089B;
+	Tue,  6 Oct 2026 17:56:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791309380;
-	bh=6KKwVvOW/qLdyCKfqBLC5sQBRnsPRNGvtsWE/n+3UT0=;
+	s=k20260515; t=1791309385;
+	bh=oAYC1rMqrPLjHdbCHVTvypx9wj+1i8qPGdo6FQNpwzM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bD+D3qwPBXkwDCmbOzOQqkibEtaf+pvxh0WvpzpJgOHvdmHQdEl0nOYjbaS5dmmHB
-	 KK7SiaMrrmNcFlEHI5fDgTVAjKHpw0xZqT1qesXR8jJN9sX7qr04rlCSSBC1+gfn5H
-	 qvZ+5cZbuMCvlA5JqGnldD2tlHDuvR1AaMr3Q0OpjWTajQ0iGdQ8Zkr0ckfi/3qHSO
-	 w40ENXaFFqAkUAPRUmyfejZmG/xuKpYhUK4tXtcFrNZtsQFsksmdi0lGYm19ia3eV8
-	 3qFD/GCFy9DUbJ6xVNXT1PUGZPcJYC3X0xywq3JnXy+I3of7bkCUsOzAti7U8rmqtI
-	 1jWDDMPpro8BA==
+	b=k9a+jfRoI/NSnxlbZoe8G0CXugkN4lfL/3fgR/KOqvv0pfiKbn7ZkFQyYt+ua554g
+	 /rkULw87BNINHkyvIY70MN41no5+EimoWc4v7cDb5lu6aHGMmNI0GVfz0TjskRodzo
+	 uUbqJid9mu6k+Ow9gN7MWB9o11302DvciMaaO3JoCTidRMAsfW8Fof6fCeL+eZ/BtK
+	 Qa1RbUXL0iBw7+cNlYpzVDYEkvKUL+V36oGaMeULYV8wqBeY0lIJD+0KAioR+85puz
+	 Lrbqcs7L7Z4iPOqEHllosCvAH/s5jYPqPiq+yUt3aJRdmLyG1ls/aYEMfdJ+hojdjH
+	 u4vi6Fb10ZB7Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Mostafa Saleh <smostafa@google.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
+Cc: Pei Xiao <xiaopei01@kylinos.cn>,
+	syzbot+b320a4d5f65a61dbbf89@syzkaller.appspotmail.com,
+	=?UTF-8?q?J=C3=B6rn=20Engel?= <joern@barelysecure.org>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] KVM: arm64: Use stage-1 leaf size for VM_PFNMAP
-Date: Tue,  6 Oct 2026 13:56:16 -0400
-Message-ID: <20261006175530.906113-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] mtd: block2mtd: Fix divide error when erase_size is zero
+Date: Tue,  6 Oct 2026 13:56:21 -0400
+Message-ID: <20261006175531.911606-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100530-handbrake-overheat-6e64@gregkh>
-References: <2026100530-handbrake-overheat-6e64@gregkh>
+In-Reply-To: <2026100520-cartridge-uptight-2ae4@gregkh>
+References: <2026100520-cartridge-uptight-2ae4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,128 +48,57 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Mostafa Saleh <smostafa@google.com>
+From: Pei Xiao <xiaopei01@kylinos.cn>
 
-[ Upstream commit 71cc2c67fb8f8d5aa8154eb482e9846d2214f11b ]
+[ Upstream commit b5965c4221165045e19736794ca5f48ae3d67142 ]
 
-When commit 2aa53d68cee6 ("KVM: arm64: Try stage2 block mapping for
-host device MMIO") added VM_PFNMAP support to get_vma_page_shift(),
-stage-1 page tables did not support huge PFNMAP (as in VFIO-PCI
-vfio_pci_mmap_huge_fault()) and transparent_hugepage_adjust() was
-unsafe for MMIO as it dereferenced struct page.
+The erase size is parsed from the "block2mtd" module parameter and can
+be set to zero. add_device() then evaluates
 
-Since commit 6011cf68c885 ("KVM: arm64: Walk userspace page tables to
-compute the THP mapping size"), transparent_hugepage_adjust() instead
-walks the host stage-1 page tables via get_user_mapping_size() without
-touching struct page. Meanwhile, commit 3e509c9b03f9 ("mm/arm64:
-support large pfn mappings") enabled stage-1 huge PFNMAP.
+        if (size % erase_size)
 
-So. we can drop the VMA-based VM_PFNMAP size calculation in
-get_vma_page_shift() and let transparent_hugepage_adjust() derive
-the stage-2 mapping size directly from the populated stage-1 leaf
-for non-cacheable mappings as well.
+with a zero divisor, which triggers a divide error:
 
-Assisted-by: LLM
+divide error: 0000 [#1] PREEMPT SMP PTI
+RIP: 0010:add_device drivers/mtd/devices/block2mtd.c:296 [inline]
+RIP: 0010:block2mtd_setup2+0x592/0xda0 drivers/mtd/devices/block2mtd.c:459
+Call Trace:
+block2mtd_setup+0x27/0xe0 drivers/mtd/devices/block2mtd.c:476
+param_attr_store+0x214/0x310 kernel/params.c:589
+module_attr_store+0x65/0x90 kernel/params.c:904
+kernfs_fop_write_iter+0x3a4/0x540 fs/kernfs/file.c:345
+...
+
+Reject a zero erase size before performing the modulo operation so the
+existing "erasesize must be a divisor of device size" error path
+reports the invalid argument and frees the device.
+
+Fixes: ea6d833a3fdd ("mtd: block2mtd: check device size")
+Reported-by: syzbot+b320a4d5f65a61dbbf89@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/lkml/6a7b58ba.ac361c09.22ff0a.0045.GAE@google.com/
+Suggested-by: Jörn Engel <joern@barelysecure.org>
 Cc: stable@vger.kernel.org
-Fixes: 2aa53d68cee6 ("KVM: arm64: Try stage2 block mapping for host device MMIO")
-Reviewed-by: Marc Zyngier <maz@kernel.org>
-Signed-off-by: Mostafa Saleh <smostafa@google.com>
-Signed-off-by: Oliver Upton <oupton@kernel.org>
-[ sashal: Adapted upstream’s split fault-helper changes to the existing user_mem_abort() implementation. ]
+Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+[ sashal: adapted the size variable check to direct dev->blkdev->bd_inode->i_size access ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/kvm/mmu.c | 46 ++++++--------------------------------------
- 1 file changed, 6 insertions(+), 40 deletions(-)
+ drivers/mtd/devices/block2mtd.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-index 6586008dc4df5..6655ffbf20656 100644
---- a/arch/arm64/kvm/mmu.c
-+++ b/arch/arm64/kvm/mmu.c
-@@ -1366,32 +1366,11 @@ transparent_hugepage_adjust(struct kvm *kvm, struct kvm_memory_slot *memslot,
- 	return PAGE_SIZE;
- }
- 
--static int get_vma_page_shift(struct vm_area_struct *vma, unsigned long hva)
-+static int get_vma_page_shift(struct vm_area_struct *vma)
- {
--	unsigned long pa;
--
--	if (is_vm_hugetlb_page(vma) && !(vma->vm_flags & VM_PFNMAP))
-+	if (is_vm_hugetlb_page(vma))
- 		return huge_page_shift(hstate_vma(vma));
- 
--	if (!(vma->vm_flags & VM_PFNMAP))
--		return PAGE_SHIFT;
--
--	VM_BUG_ON(is_vm_hugetlb_page(vma));
--
--	pa = (vma->vm_pgoff << PAGE_SHIFT) + (hva - vma->vm_start);
--
--#ifndef __PAGETABLE_PMD_FOLDED
--	if ((hva & (PUD_SIZE - 1)) == (pa & (PUD_SIZE - 1)) &&
--	    ALIGN_DOWN(hva, PUD_SIZE) >= vma->vm_start &&
--	    ALIGN(hva, PUD_SIZE) <= vma->vm_end)
--		return PUD_SHIFT;
--#endif
--
--	if ((hva & (PMD_SIZE - 1)) == (pa & (PMD_SIZE - 1)) &&
--	    ALIGN_DOWN(hva, PMD_SIZE) >= vma->vm_start &&
--	    ALIGN(hva, PMD_SIZE) <= vma->vm_end)
--		return PMD_SHIFT;
--
- 	return PAGE_SHIFT;
- }
- 
-@@ -1474,10 +1453,6 @@ static int user_mem_abort(struct kvm_vcpu *vcpu, phys_addr_t fault_ipa,
- 			return ret;
+diff --git a/drivers/mtd/devices/block2mtd.c b/drivers/mtd/devices/block2mtd.c
+index c08721b11642b..58ec5d0525ec2 100644
+--- a/drivers/mtd/devices/block2mtd.c
++++ b/drivers/mtd/devices/block2mtd.c
+@@ -269,7 +269,7 @@ static struct block2mtd_dev *add_device(char *devname, int erase_size,
+ 		goto err_free_block2mtd;
  	}
  
--	/*
--	 * Let's check if we will get back a huge page backed by hugetlbfs, or
--	 * get block mapping for device MMIO region.
--	 */
- 	mmap_read_lock(current->mm);
- 	vma = vma_lookup(current->mm, hva);
- 	if (unlikely(!vma)) {
-@@ -1494,7 +1469,7 @@ static int user_mem_abort(struct kvm_vcpu *vcpu, phys_addr_t fault_ipa,
- 		force_pte = true;
- 		vma_shift = PAGE_SHIFT;
- 	} else {
--		vma_shift = get_vma_page_shift(vma, hva);
-+		vma_shift = get_vma_page_shift(vma);
+-	if ((long)dev->blkdev->bd_inode->i_size % erase_size) {
++	if (!erase_size || (long)dev->blkdev->bd_inode->i_size % erase_size) {
+ 		pr_err("erasesize must be a divisor of device size\n");
+ 		goto err_free_block2mtd;
  	}
- 
- 	switch (vma_shift) {
-@@ -1589,16 +1564,6 @@ static int user_mem_abort(struct kvm_vcpu *vcpu, phys_addr_t fault_ipa,
- 		return -EFAULT;
- 
- 	if (kvm_is_device_pfn(pfn)) {
--		/*
--		 * If the page was identified as device early by looking at
--		 * the VMA flags, vma_pagesize is already representing the
--		 * largest quantity we can map.  If instead it was mapped
--		 * via gfn_to_pfn_prot(), vma_pagesize is set to PAGE_SIZE
--		 * and must not be upgraded.
--		 *
--		 * In both cases, we don't let transparent_hugepage_adjust()
--		 * change things at the last minute.
--		 */
- 		device = true;
- 	} else if (logging_active && !write_fault) {
- 		/*
-@@ -1639,9 +1604,10 @@ static int user_mem_abort(struct kvm_vcpu *vcpu, phys_addr_t fault_ipa,
- 
- 	/*
- 	 * If we are not forced to use page mapping, check if we are
--	 * backed by a THP and thus use block mapping if possible.
-+	 * backed by a huge stage-1 mapping and thus use block mapping if
-+	 * possible.
- 	 */
--	if (vma_pagesize == PAGE_SIZE && !(force_pte || device)) {
-+	if (vma_pagesize == PAGE_SIZE && !force_pte) {
- 		if (fault_is_perm && fault_granule > PAGE_SIZE)
- 			vma_pagesize = fault_granule;
- 		else
 -- 
 2.53.0
 
