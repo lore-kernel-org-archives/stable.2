@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6998B224AF2
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 00:10:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62CAD1E505
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 00:29:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791245431; cv=none; b=WuXj76hp2kZoXxkLby9FlbhBWZCRbKsr84Laql0DUmXHo3zgHLU+SIhInEGtDLjCifM+u35WQY2f7JqMmVRMFASGngzrnrRK25Y9IYTkApdkMjaHnJD8jYlJjy0HlCj8SizU0LaPHUVE7ZnRcMsziQgChpEVbUxfh/HBTQ/yZaM=
+	t=1791246593; cv=none; b=mY2ecER6lSl55OOS6ZTkF0RUxjL0OwdVfNHxmJyaWp6Mic1kHwvaW5Up2rDfv1Wo7jabVF0Xa7ARUhuJP18IUlLfYiaN8c5Mt7zpG9katcz7/GpKjkR5nkDnePRn6oEmB3P8mzBtrSIX28zLNT/ZVh87O1X1Trs71KBawt8C7jg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791245431; c=relaxed/simple;
-	bh=vVssjYS7TdGSKsEgbCZVXOfUzfobmuBxWkJwfu8snGI=;
+	s=arc-20240116; t=1791246593; c=relaxed/simple;
+	bh=DmDf4dSo10nOdOfFeV0/kB/2xK5Cry23NJRCLnoDYhY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XfH7jIvOEH/LflY3oxdAgD3WKiyGbwQzeH9pNV3RZYNXJx2uzOBz3/j18Lpou2p2zTyLgjcciFyr9ZSSyQ54/0l0omdHDV+aHdTi0PpcRDJSyW3h3FFGi8emND/Wlj4WbXdCap0Nv6VF73hgnqrQ4CiHbVnvw2tgzA5L3kgbxNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HWDDhgGf; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=i6dcCWg7ttrpfXt+kVFmEowbX1gIQn4trKO+F1kgfkLkOeReceZPtbrtH3615JYmqyunij0jLb83fjbnfKmdaoxChBQmiCbRNMp5uZjsDU9j2gfTELfC0fOqhdAmfjsoPRK2skbyjk70Oj5u/BuBkIc3e5TASvhS85ijfvwS2gc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y+CydilR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HWDDhgGf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05E301F00893;
-	Tue,  6 Oct 2026 00:10:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y+CydilR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C26051F000FF;
+	Tue,  6 Oct 2026 00:29:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791245430;
-	bh=TUvJBBBcDGqRb+WTSQx0TN83wV6+zd82zLZT8zYTc4o=;
+	s=k20260515; t=1791246592;
+	bh=VDEkQD8/yu34I+KVu1aiwrSw8BwSTbpCY54xP5QQvkY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HWDDhgGfKciwjj8wlKC2inP3n2xu2TuGfQh8m4yFbDUoA2sAlLma4MmH/+TrGf6co
-	 crCRgppWbZbRAAKLxRZAm7w0+ctGdmYkrb8SLPiz6zfYWLWkP0qvQl8Rb0mHkxRsfX
-	 RBfXbSUcI61m/bQHGRypglzDqmG5asI4Kx1d32egOwMrA7dAIHTIx64nukg0js1urj
-	 kDV/GQvFNoP6dyrEiBUY2t9AHykX3PbUPWuzmRmvx2gQf+1DqQrpULUrFwE67GKX6H
-	 XruwdJPIRWgzemjE7OBgx+Lrc2M4TbjzFx1qSt9eBhvBJxcnQU/TicfXCjGv7A8yjS
-	 y1foP6KGnHaHQ==
+	b=Y+CydilRhOBrj+JTnshRYcniK+1i7NhIDEe21GeMGC3V1p7CGpaK70/eF5Ijo9JHi
+	 F4xjdNxq+vHudF2acQ8Njr3aKovAcoLmjHvnZI1VtMlvjoDSsXaDBxeGg2IeHIcPBT
+	 3k0ZNQoDyz2CbT5ncSRnmr237Shu1i2f/tDPoSYUs0l/P4GsFVoIOBAtzpDl+DIezg
+	 c7OxBCJK05pt1jpheD/xiLP50KdD715iQb/tWTjWQYfuQL7PQgwYDG12+uPoQBpEZO
+	 bmqMKshm+j7ICGzezZCK1xMHiBV42bmuZ2+sywbI6yxaEir2F0Ut/eklB450mm4+wz
+	 K7UN+S7oIRlhQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Abdurrahman Hussain <abdurrahman@nexthop.ai>,
-	Michal Simek <michal.simek@amd.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
+Cc: Beata Michalska <beata.michalska@arm.com>,
+	Vladimir Murzin <vladimir.murzin@arm.com>,
+	Will Deacon <will@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] i2c: xiic: preserve PEC byte length in SMBus block read setup
-Date: Mon,  5 Oct 2026 20:10:24 -0400
-Message-ID: <20261006000904.3545638-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] arm64: errata: Factor out broken AMU const counter cap
+Date: Mon,  5 Oct 2026 20:29:47 -0400
+Message-ID: <20261006002934.3618253-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261006000904.3545638-1-sashal@kernel.org>
-References: <2026100514-prewashed-vexingly-363b@gregkh>
- <20261006000904.3545638-1-sashal@kernel.org>
+In-Reply-To: <2026100501-unsubtle-blank-50b6@gregkh>
+References: <2026100501-unsubtle-blank-50b6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,168 +46,138 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+From: Beata Michalska <beata.michalska@arm.com>
 
-[ Upstream commit b7e6df2f52ed5c02838832f53c171a5645f9b376 ]
+[ Upstream commit 573371caf7aea8582212da81dcead2c3f48fac4b ]
 
-xiic_smbus_block_read_setup() recalculates i2c->rx_msg->len based on the
-length byte returned by the device, but historically clobbered the PEC
-byte expectation the SMBus core had baked into msg->len. That dropped
-the PEC byte from the caller's buffer on the normal and chunked
-receive-fifo branches.
+Move the workaround from the erratum 2457168-specific cpucap to a generic
+broken AMU constant-counter one. This keeps the existing Cortex-A510
+handling unchanged while allowing other errata with similar AMU constant
+counter issue to share the capability bit and call sites.
 
-Compute pec_len up-front as (i2c->rx_msg->len - 1) -- the trailing bytes
-the caller has already accounted for beyond the length byte, 1 when the
-SMBus core enabled PEC, and possibly more for an I2C_M_RECV_LEN request
-coming from i2c-dev -- and add it to the new length in every branch:
+Signed-off-by: Beata Michalska <beata.michalska@arm.com>
+Reviewed-by: Vladimir Murzin <vladimir.murzin@arm.com>
+Signed-off-by: Will Deacon <will@kernel.org>
 
-  - chunked: the trailing bytes do not fit in the Rx FIFO, so drain in
-    chunks. The guard becomes (rxmsg_len + pec_len > IIC_RX_FIFO_DEPTH)
-    rather than rxmsg_len alone, both because pec_len bytes also have to
-    fit and because it is what bounds rfd_set in the else branch below
-    to the 4 bits of XIIC_RFD_REG_OFFSET.
+Omit the comment-only update to the paired AMU counter reader, which
+is absent here. Retain the shared capability, CPU matching list, and
+the checks in the existing counter-read and frequency-invariance paths.
 
-  - padded (1 + rxmsg_len + pec_len < SMBUS_BLOCK_READ_MIN_LEN): the
-    hardware needs at least 3 bytes on the bus to exit the read cleanly
-    (the second byte is already being clocked in by the time the ISR
-    reads the length byte and is too late to NACK), so we still pad
-    rx_msg->len up to SMBUS_BLOCK_READ_MIN_LEN. The dummy trailing byte
-    that gets drained must then be trimmed off before handing the
-    message back to the SMBus core; otherwise i2c_smbus_check_pec()
-    reads buf[len-1] (= dummy) instead of the real PEC byte at buf[1]
-    and rejects every clean zero-length block read with -EBADMSG.
-
-    Record the true valid byte count in a new field
-    i2c->smbus_actual_len and trim rx_msg->len down to it in
-    xiic_smbus_trim_len(), called from both completion sites that clear
-    rx_msg: xiic_process()'s RX_FULL branch and xiic_recv_atomic(),
-    which drains the FIFO with interrupts off.
-
-    smbus_actual_len is per-receive state, so xiic_start_recv() clears
-    it before every receive. Only the padded branch ever sets it, and a
-    block read aborted by arbitration loss or a TX error never reaches
-    the completion site, so without that clear a stale value would trim
-    the length of an unrelated later read.
-
-    The condition is expressed in total bytes rather than the old
-    "(rxmsg_len == 1) || (rxmsg_len == 0)" so that a request carrying
-    more than one trailing byte does not get padded: padding records a
-    length the drain never reaches, which would hand the caller a byte
-    that was never received.
-
-  - normal: all trailing bytes fit in one FIFO fill. rfd_set gains
-    pec_len for the same reason the length does. Because the padded
-    branch above has already taken every case with fewer than
-    SMBUS_BLOCK_READ_MIN_LEN total bytes, rxmsg_len + pec_len is at
-    least 2 here and the subtraction cannot underflow the u8.
-
-Fixes: e4c1ff772e1a ("i2c: xiic: Add smbus_block_read functionality")
-Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Cc: <stable@vger.kernel.org> # v6.3+
-Acked-by: Michal Simek <michal.simek@amd.com>
-Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
-Link: https://patch.msgid.link/20260924-i2c-xiic-v7-1-df7e752332ef@nexthop.ai
-[ sashal: Inlined xiic_smbus_trim_len() in xiic_process() because the atomic receive path is absent. ]
+Stable-dep-of: 45f730467987 ("arm64: errata: Add Cortex-A725 erratum 3821522 workaround")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/i2c/busses/i2c-xiic.c | 45 +++++++++++++++++++++++++----------
- 1 file changed, 32 insertions(+), 13 deletions(-)
+ arch/arm64/Kconfig             |  8 ++++++++
+ arch/arm64/kernel/cpu_errata.c | 20 ++++++++++++++------
+ arch/arm64/kernel/cpufeature.c |  2 +-
+ arch/arm64/kernel/topology.c   |  2 +-
+ arch/arm64/tools/cpucaps       |  2 +-
+ 5 files changed, 25 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/i2c/busses/i2c-xiic.c b/drivers/i2c/busses/i2c-xiic.c
-index 1cef404a33971..5e8521f86dd9e 100644
---- a/drivers/i2c/busses/i2c-xiic.c
-+++ b/drivers/i2c/busses/i2c-xiic.c
-@@ -72,6 +72,9 @@ enum i2c_scl_freq {
-  * @prev_msg_tx: Previous message is Tx
-  * @quirks: To hold platform specific bug info
-  * @smbus_block_read: Flag to handle block read
-+ * @smbus_actual_len: Valid byte count (length + payload + optional PEC) of a
-+ *	padded SMBus block read. msg->len is trimmed to this on completion.
-+ *	Zero when no trimming is needed.
-  * @input_clk: Input clock to I2C controller
-  * @i2c_clk: I2C SCL frequency
-  */
-@@ -94,6 +97,7 @@ struct xiic_i2c {
- 	bool prev_msg_tx;
- 	u32 quirks;
- 	bool smbus_block_read;
-+	unsigned int smbus_actual_len;
- 	unsigned long input_clk;
- 	unsigned int i2c_clk;
+diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+index 938bf2f96b1a8..d2901607b4f9e 100644
+--- a/arch/arm64/Kconfig
++++ b/arch/arm64/Kconfig
+@@ -1023,9 +1023,17 @@ config ARM64_ERRATUM_1902691
+ 
+ 	  If unsure, say Y.
+ 
++config ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
++	bool
++	# Targeting errata affecting AMEVCNTR01, the AMU constant counter.
++	# On affected CPUs the counter may not increment at the expected rate,
++	# making it unreliable. As a result, AMU users should treat it as
++	# unavailable rather than relying on misleading counter values.
++
+ config ARM64_ERRATUM_2457168
+ 	bool "Cortex-A510: 2457168: workaround for AMEVCNTR01 incrementing incorrectly"
+ 	depends on ARM64_AMU_EXTN
++	select ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
+ 	default y
+ 	help
+ 	  This option adds the workaround for ARM Cortex-A510 erratum 2457168.
+diff --git a/arch/arm64/kernel/cpu_errata.c b/arch/arm64/kernel/cpu_errata.c
+index 80e47d3e86af4..1dc2373fc1b9c 100644
+--- a/arch/arm64/kernel/cpu_errata.c
++++ b/arch/arm64/kernel/cpu_errata.c
+@@ -259,6 +259,16 @@ static const struct arm64_cpu_capabilities arm64_repeat_tlbi_list[] = {
  };
-@@ -528,30 +532,38 @@ static void xiic_smbus_block_read_setup(struct xiic_i2c *i2c)
+ #endif
  
- 	/* Check if received length is valid */
- 	if (rxmsg_len <= I2C_SMBUS_BLOCK_MAX) {
-+		unsigned int pec_len = i2c->rx_msg->len - 1;
++#ifdef CONFIG_ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
++static const struct midr_range workaround_amu_constcnt_list[] = {
++#ifdef CONFIG_ARM64_ERRATUM_2457168
++	/* Cortex-A510 r0p0-r1p1 */
++	MIDR_RANGE(MIDR_CORTEX_A510, 0, 0, 1, 1),
++#endif
++	{}
++};
++#endif /* CONFIG_ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT */
 +
- 		/* Set Receive fifo depth */
--		if (rxmsg_len > IIC_RX_FIFO_DEPTH) {
-+		if (rxmsg_len + pec_len > IIC_RX_FIFO_DEPTH) {
- 			/*
--			 * When Rx msg len greater than or equal to Rx fifo capacity
--			 * Receive fifo depth should set to Rx fifo capacity minus 1
-+			 * Trailing bytes (payload plus any PEC) exceed Rx FIFO
-+			 * capacity, so drain in chunks. This also keeps the
-+			 * else branch below from pushing rfd_set past the
-+			 * 4-bit XIIC_RFD_REG_OFFSET field.
- 			 */
- 			rfd_set = IIC_RX_FIFO_DEPTH - 1;
--			i2c->rx_msg->len = rxmsg_len + 1;
--		} else if ((rxmsg_len == 1) ||
--			(rxmsg_len == 0)) {
-+			i2c->rx_msg->len = rxmsg_len + 1 + pec_len;
-+		} else if (1 + rxmsg_len + pec_len < SMBUS_BLOCK_READ_MIN_LEN) {
- 			/*
--			 * Minimum of 3 bytes required to exit cleanly. 1 byte
--			 * already received, Second byte is being received. Have
--			 * to set NACK in read_rx before receiving the last byte
-+			 * The HW needs SMBUS_BLOCK_READ_MIN_LEN bytes on the
-+			 * bus to exit cleanly: by the time the ISR reads the
-+			 * length byte the second byte is already being clocked
-+			 * in, too late to NACK. Pad the drain target and record
-+			 * the real length, trimmed back on completion so the
-+			 * PEC check sees the right byte.
- 			 */
- 			rfd_set = 0;
- 			i2c->rx_msg->len = SMBUS_BLOCK_READ_MIN_LEN;
-+			i2c->smbus_actual_len = 1 + rxmsg_len + pec_len;
- 		} else {
- 			/*
--			 * When Rx msg len less than Rx fifo capacity
--			 * Receive fifo depth should set to Rx msg len minus 2
-+			 * All trailing bytes fit in the Rx FIFO. The widened
-+			 * condition above guarantees rxmsg_len + pec_len >= 2,
-+			 * so this cannot underflow.
- 			 */
--			rfd_set = rxmsg_len - 2;
--			i2c->rx_msg->len = rxmsg_len + 1;
-+			rfd_set = rxmsg_len + pec_len - 2;
-+			i2c->rx_msg->len = rxmsg_len + 1 + pec_len;
- 		}
- 		xiic_setreg8(i2c, XIIC_RFD_REG_OFFSET, rfd_set);
+ #ifdef CONFIG_CAVIUM_ERRATUM_23154
+ static const struct midr_range cavium_erratum_23154_cpus[] = {
+ 	MIDR_ALL_VERSIONS(MIDR_THUNDERX),
+@@ -750,14 +760,12 @@ const struct arm64_cpu_capabilities arm64_errata[] = {
+ 		ERRATA_MIDR_REV_RANGE(MIDR_CORTEX_A510, 0, 0, 2)
+ 	},
+ #endif
+-#ifdef CONFIG_ARM64_ERRATUM_2457168
++#ifdef CONFIG_ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
+ 	{
+-		.desc = "ARM erratum 2457168",
+-		.capability = ARM64_WORKAROUND_2457168,
++		.desc = "Broken AMU AMEVCNTR01 (const counter)",
++		.capability = ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT,
+ 		.type = ARM64_CPUCAP_WEAK_LOCAL_CPU_FEATURE,
+-
+-		/* Cortex-A510 r0p0-r1p1 */
+-		CAP_MIDR_RANGE(MIDR_CORTEX_A510, 0, 0, 1, 1)
++		CAP_MIDR_RANGE_LIST(workaround_amu_constcnt_list)
+ 	},
+ #endif
+ #ifdef CONFIG_ARM64_ERRATUM_2038923
+diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
+index 8246015fd2d73..ae4782ce523a6 100644
+--- a/arch/arm64/kernel/cpufeature.c
++++ b/arch/arm64/kernel/cpufeature.c
+@@ -2070,7 +2070,7 @@ static void cpu_amu_enable(struct arm64_cpu_capabilities const *cap)
+ 		cpumask_set_cpu(smp_processor_id(), &amu_cpus);
  
-@@ -760,6 +772,10 @@ static irqreturn_t xiic_process(int irq, void *dev_id)
+ 		/* 0 reference values signal broken/disabled counters */
+-		if (!this_cpu_has_cap(ARM64_WORKAROUND_2457168))
++		if (!this_cpu_has_cap(ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT))
+ 			update_freq_counters_refs();
+ 	}
+ }
+diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
+index cb180684d10d5..d21b4e963f6b7 100644
+--- a/arch/arm64/kernel/topology.c
++++ b/arch/arm64/kernel/topology.c
+@@ -271,7 +271,7 @@ static void cpu_read_constcnt(void *val)
+ 	 * the counter is disabled. A return value of 0 at counter read is
+ 	 * properly handled as an error case by the users of the counter.
+ 	 */
+-	*(u64 *)val = this_cpu_has_cap(ARM64_WORKAROUND_2457168) ?
++	*(u64 *)val = this_cpu_has_cap(ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT) ?
+ 		      0UL : read_constcnt();
+ }
  
- 		xiic_read_rx(i2c);
- 		if (xiic_rx_space(i2c) == 0) {
-+			/* Undo padding so the PEC check sees the right byte. */
-+			if (i2c->smbus_actual_len)
-+				i2c->rx_msg->len = i2c->smbus_actual_len;
-+
- 			/* this is the last part of the message */
- 			i2c->rx_msg = NULL;
- 
-@@ -893,6 +909,9 @@ static void xiic_start_recv(struct xiic_i2c *i2c)
- 	u8 cr = 0, rfd_set = 0;
- 	struct i2c_msg *msg = i2c->rx_msg = i2c->tx_msg;
- 
-+	/* A stale value from an aborted block read would truncate this msg. */
-+	i2c->smbus_actual_len = 0;
-+
- 	dev_dbg(i2c->adap.dev.parent, "%s entry, ISR: 0x%x, CR: 0x%x\n",
- 		__func__, xiic_getreg32(i2c, XIIC_IISR_OFFSET),
- 		xiic_getreg8(i2c, XIIC_CR_REG_OFFSET));
+diff --git a/arch/arm64/tools/cpucaps b/arch/arm64/tools/cpucaps
+index eedb5acc21ed9..edb2e35e5e7ee 100644
+--- a/arch/arm64/tools/cpucaps
++++ b/arch/arm64/tools/cpucaps
+@@ -85,7 +85,6 @@ WORKAROUND_1902691
+ WORKAROUND_2038923
+ WORKAROUND_2064142
+ WORKAROUND_2077057
+-WORKAROUND_2457168
+ WORKAROUND_2645198
+ WORKAROUND_2658417
+ WORKAROUND_AMPERE_AC03_CPU_38
+@@ -105,3 +104,4 @@ WORKAROUND_REPEAT_TLBI
+ WORKAROUND_SPECULATIVE_AT
+ WORKAROUND_SPECULATIVE_SSBS
+ WORKAROUND_SPECULATIVE_UNPRIV_LOAD
++WORKAROUND_BROKEN_AMU_CONSTCNT
 -- 
 2.53.0
 
