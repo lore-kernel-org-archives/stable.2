@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4870E22425B;
-	Tue,  6 Oct 2026 21:58:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 086DA1DFFB;
+	Tue,  6 Oct 2026 21:59:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791323898; cv=none; b=dMMgwBWQOIEkutjDQOGKq+wJv41pPExyESXRdazKPQ/QB4IgupdycNm4SZwI5QIBTx1WUj7wt97FoZjzbF/4fchrwAXYr1b+roosnMahkpMi/1foDQYxeSD8NZGSbfSApsMnjPFolL5tReJOwgIfsIh4Qy9GoRNrf98HxbAq00I=
+	t=1791323969; cv=none; b=lyfSRZSWYBO2WNkN4j9x+94ldcN7SBCV2S1IjrbUpXD+oRf1Mv+io2I1rq3ppluIJ+iezpbJniYZYapT3gHYxrHGR54RtwNmhV4Ke+4kHHW23JSz580I/f7Oa07Yco5lSA49PD0RiVyJ8nrCZur4DFBlZjEO5Td9oPy/xMVhRNA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791323898; c=relaxed/simple;
-	bh=T6fT7iO2qvlFpUjlNQco7mZthDU5p5wz+mGHYmPBmJo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=puxWbau5gZLuS9GOYCUp+XDWg+5CXGeWxZefy5rm8kYsAwYPzXCbkeKEDa0Md4BIlCRNMafwvnAarb/TE0QmAQoYSjJSffd3SaKI8HNvOsmCj2lsCNo5MlIxyjUzeFFm1jwM7VdcmO5c1hTWu2oed1QNozjlvOge++PzxHEmaHk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TdUSx5mp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791323969; c=relaxed/simple;
+	bh=AnMPpF+BexaTJOMlJ43O8Q5ckMVU90MjdwijVyhvCFo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RtVtKsU8gwac4/+c54ILnIZqg2TBePs+oYfme5weKggWaaWa34ctAv4X1CnECnDsH/w8PIoCut+YSc5UL5fPYdh4b40u04rSk1dqHpFa7VaXnpFOpmMgmbxv3oqddrI0xI4alUae+T4q2fXLWvRVOFbWXJ87wt9eGdpdt0LD0Ls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SVmOT+6J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TdUSx5mp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F2EC1F0089B;
-	Tue,  6 Oct 2026 21:58:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SVmOT+6J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D59DD1F0089B;
+	Tue,  6 Oct 2026 21:59:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791323896;
-	bh=iEAO9Rza1pEXqjnySCAgbWRqwcbiH5GPpoBCdXnKO1I=;
+	s=k20260515; t=1791323967;
+	bh=ib+wpLvfj53sDjhtinQLJ/CACApnmdWdC+TTYk5qMkY=;
 	h=From:To:Cc:Subject:Date;
-	b=TdUSx5mpGRxkqKBk8qk6qTbHtFw2WkksFJfm+fx8sFXHomPgmtFIyGti/UY0ypnQj
-	 3OsiPFcQPDpd/GJ+DDyxeJ0MGjH6TIpmYbMhiu1ajG4SfSLXz96xbZeNxjLN+PUI4I
-	 D2aeamPdF/Qlqx4bi7YZWTv86k5O/F00kGamMyPCv3ZdhPCtaDknDbB7klUb06EHmI
-	 AVRQ1zp2LsqMXywsvmIsJYw6CQnBRVM2hXNG9He0rQu8wdxpdihN7ExPG/5Zh+hOY8
-	 WUeNFAt2VEvrFW+bb8oLU+3y3NEv4vv+t7p31Q90kCPvQnBZ+L4VmkEyS1YZDQ+6X6
-	 5JlrLdWbZyvJQ==
+	b=SVmOT+6J/Gg2PtoMPxOkd229rZfzuRIMSG5TUS67bW+jM6mDgu596dMjTnTNVuHw3
+	 YZ0kF4sJwurm90qT4A5Bho5IZj9L9lZpqHmy297Ri8Pa1iIgpPYXAguww5Gqr/bpgs
+	 aPqj3S7KDIjiX5E0DqDGWbk5zo04Vj+3idQaK4aLptNzeQNKAICKwm/zUvabsBYlK3
+	 2Y0awydN38PiHo5iDzRTEHVeiytMNg+Gemq66/r85yj4DM6WQMT35OInNA0WpxkfHZ
+	 n3EgvdAHCG7DDRKzIflg9dV8fDYIULsLpowTluYhDC+6lrSXRiV4Piy4qWqeuxaCKa
+	 VBdwspQGqPOkg==
 From: Eric Biggers <ebiggers@kernel.org>
 To: stable@vger.kernel.org
 Cc: fsverity@lists.linux.dev,
 	Eric Biggers <ebiggers@kernel.org>,
 	Christoph Hellwig <hch@lst.de>,
 	Theodore Ts'o <tytso@mit.edu>
-Subject: [PATCH 5.15] fsverity: add dependency on 64K or smaller pages
-Date: Tue,  6 Oct 2026 23:58:01 +0200
-Message-ID: <20261006215801.58604-1-ebiggers@kernel.org>
+Subject: [PATCH 5.10] fsverity: add dependency on 64K or smaller pages
+Date: Tue,  6 Oct 2026 23:58:53 +0200
+Message-ID: <20261006215853.59771-1-ebiggers@kernel.org>
 X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -68,7 +68,7 @@ Signed-off-by: Eric Biggers <ebiggers@kernel.org>
  1 file changed, 3 insertions(+)
 
 diff --git a/fs/verity/Kconfig b/fs/verity/Kconfig
-index 24d1b54de807..4e3327ce2756 100644
+index 88fb25119899..e74030597aa9 100644
 --- a/fs/verity/Kconfig
 +++ b/fs/verity/Kconfig
 @@ -2,6 +2,9 @@
@@ -79,10 +79,10 @@ index 24d1b54de807..4e3327ce2756 100644
 +	# pagecache.  That approach assumes the page size is at most 64K.
 +	depends on !PAGE_SIZE_256KB && !PPC_256K_PAGES
  	select CRYPTO
- 	# SHA-256 is implied as it's intended to be the default hash algorithm.
+ 	# SHA-256 is selected as it's intended to be the default hash algorithm.
  	# To avoid bloat, other wanted algorithms must be selected explicitly.
 
-base-commit: a051a4bf909f76f470ccb3761ee0cf6e2395616e
+base-commit: 587461ddf5d522bfcb50ebd55078c0dac37be496
 -- 
 2.56.0
 
