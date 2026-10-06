@@ -1,115 +1,130 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27C5E49C4DF;
-	Tue,  6 Oct 2026 15:54:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D028F463B7C
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 15:55:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791302089; cv=none; b=VKwDAUZ6l27V1yXuwjQ/g3zdySXILyU8bUCVdi3lRvzRH0SpaNesAxfsftgZ0L60jLTklOOqlal9Ud26T7D6LGQ28NyrxTUateysQOAF7IvC9pePJNNGPNugHGeQdS9tUMAelKVYLL7J4YC6xHQSotdchz8jGHPpGBwhp0Ux5Hk=
+	t=1791302146; cv=none; b=npDIyQiuxCB9xkTJvlYFrAn2GLh91coREC4eTaABzzT+pjWN+9D01yQe1TxbD4VYzthR1ttYgWflCj8y6gjpbhLi2pNAD7aPBt61A1Puc9xpRkieHcKWzhxWtgLZ5va8zbG2XepKgIApb3V87B/+8UdDt0omxOs+9zHk5kFnu/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791302089; c=relaxed/simple;
-	bh=vYDzEwXZ1IV+3fpCFqnbA405TlaexK4ROIl/0m07UgM=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=fGAuwgqS3Y2gbQm4zYVjEB4JDQ4iKfx39ycxmZDE6nHvrf7d6XCzZvDzpSphYSem1kNfj30zl3/H6dbt42bWUhb6P7StuHEgqptoT6OLp5W1sfD3EnH3OFsjh+6m+YGalxSTd+ZFMK5A4cU3P1NgmYu7fKGFRvMhCPiHB3aJcvQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kmnqSnp8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791302146; c=relaxed/simple;
+	bh=6p0BhHyn4I31U2S7KD6Dft1ou+UXu+nmMIFLtVTgau0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YYst0+uQRL3Qm0QwdoLsfg5l9+1Hy2IpRK8jXuIR+mXqB9jTL3jyluEnuAH78wvBidnFTvLN3+TQ2lfxt3DmNR52ftv7YmsAxbgsMN2eaFYYD8qznYSb9+vuHFq1CBj+mKbGDTNA7lMi79x3kHShQXcfRoVmnZ/4KZcu26dBoHg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Och1ih6M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kmnqSnp8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 832FE1F0089B;
-	Tue,  6 Oct 2026 15:54:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Och1ih6M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B2EA1F0089B;
+	Tue,  6 Oct 2026 15:55:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791302087;
-	bh=clRq7rLolI7UK6CY7Y84Un2wUkXIEjH+9LwAXBd+654=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=kmnqSnp8AQWKgKdWrXoR3wDP+wjZUfn0pa14Qbsbq0r/YRFOUxfueCxsdsEknVCXS
-	 t7PP0lZ60nZVeVas9F+t2Vfv5o2EPyNvh2FhdIqQilg6Zh2lHGXbDkPTowRhjGmder
-	 z8oDV+mQ8xqoyLn7+5SUpvn6xTr/npXpvaWIPXEJeOMumGmQV4CNCbJWcj74piLf2t
-	 iKdg4RCQQPts16smNQbEtxsGsVa0akn/c0KWEkXDHjMetIynK0hp6K/npScVIlNyKo
-	 mwc97d3hDfTvfazgVZx+atdqMV2MlxNiB1/Xf4caiVOm7ghajAcl3q/Y4e3VJD+Ct8
-	 ClVrQlwJl7IhQ==
-Date: Tue, 6 Oct 2026 10:54:46 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Cc: jgross@suse.com, sstabellini@kernel.org, oleksandr_tyshchenko@epam.com,
-	bhelgaas@google.com, jbeulich@suse.com, konrad.wilk@oracle.com,
-	xen-devel@lists.xenproject.org, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] xen/pcifront: check that an AER callback exists
- before calling it
-Message-ID: <20261006155446.GA684274@bhelgaas>
+	s=k20260515; t=1791302144;
+	bh=LPj1pN1epljv7/4OMxJttMQsnP/W6KrNj+Kdd5hT9ho=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Och1ih6MZbQi6mbJGfRVnITcTCx4AvDO/KcHE2gR2zgOZ7NUSRJOyDLcvl1hNgw7X
+	 iOzmotHdSgN33kxdlYV2Z9ARW7w/VadOOe4qV03J/cMSL+zmSAdkBIOZplv58F35nM
+	 7i4XcBH/fIaRc+Ho2WyWepJUezmNlNM2NrebuWsRKLFrCjOkYRi3aV1D3Ve0Mo7DcS
+	 Ss0gifF35tE7WlTlQgRcKJPH5rP6+Ia7U6XSSjHtpwgJ3Qj/K4hEkuftfAiYMhJ/ih
+	 FA7ByKL64un6LQwFoy3YqhNBbX2IVb6sKGTkHV784Vc5UtveN1iQ4Ai2Fe2BcSEyXx
+	 Q9f9GjoXeg9gw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Marc Zyngier <maz@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] KVM: arm64: Always populate FGT masks at boot time
+Date: Tue,  6 Oct 2026 11:55:39 -0400
+Message-ID: <20261006155528.856144-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026100548-subsidy-prepay-7444@gregkh>
+References: <2026100548-subsidy-prepay-7444@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261006023443.338194-1-yhlee@isslab.korea.ac.kr>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 06, 2026 at 11:34:43AM +0900, Yehyeong Lee wrote:
-> pcifront_common_process() handles an AER request from the backend by
-> dispatching on aer_op.cmd to the bound driver's PCI error handler.  It
-> only checks that err_handler and err_handler->error_detected are present,
-> then for the mmio_enabled, slot_reset and resume commands it calls the
-> corresponding callback unconditionally.  Those three callbacks are
-> optional -- the PCI core NULL-checks each of them individually before
-> use -- and many drivers (for example igb, igc, ice and ixgbevf) install
-> error_detected without all of them.
-> 
-> aer_op.cmd comes from the shared ring, so a malicious or buggy backend
-> can send XEN_PCI_OP_aer_mmio (or _slotreset/_resume) for a device whose
-> driver leaves that callback NULL and make the frontend call through a
-> NULL pointer, crashing the guest.
-> 
-> Check each callback before calling it.  When mmio_enabled or slot_reset is
-> absent, return PCI_ERS_RESULT_RECOVERED so recovery proceeds, as the PCI
-> core does for a missing callback; returning PCI_ERS_RESULT_NONE would
-> instead make xen-pciback tear the guest domain down.
-> 
-> Fixes: 956a9202cd12 ("xen-pcifront: Xen PCI frontend driver.")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+From: Marc Zyngier <maz@kernel.org>
 
-Acked-by: Bjorn Helgaas <bhelgaas@google.com>
+[ Upstream commit 54adbfe40e3b6d238293cc36ef071ed9f35c8af7 ]
 
-> ---
-> v2: return PCI_ERS_RESULT_RECOVERED for an absent mmio_enabled/slot_reset
->     instead of PCI_ERS_RESULT_NONE, which xen-pciback treats as fatal and
->     uses to tear the domain down.  (Bjorn acked v1; the ack is dropped here
->     because v2 changes the value returned for an absent callback.)
-> v1: https://lore.kernel.org/all/20261005133019.284053-1-yhlee@isslab.korea.ac.kr/
-> 
-> There is an in-flight fix for a refcount leak in this same function
-> ("xen/pcifront: Fix PCI device reference leak in AER handling"); this
-> change is orthogonal and applies in either order.
-> 
->  drivers/pci/xen-pcifront.c | 11 ++++++++---
->  1 file changed, 8 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/pci/xen-pcifront.c b/drivers/pci/xen-pcifront.c
-> index cffc32d660327..5c6f7796d204a 100644
-> --- a/drivers/pci/xen-pcifront.c
-> +++ b/drivers/pci/xen-pcifront.c
-> @@ -599,11 +599,16 @@ static pci_ers_result_t pcifront_common_process(int cmd,
->  		case XEN_PCI_OP_aer_detected:
->  			return pdrv->err_handler->error_detected(pcidev, state);
->  		case XEN_PCI_OP_aer_mmio:
-> -			return pdrv->err_handler->mmio_enabled(pcidev);
-> +			if (pdrv->err_handler->mmio_enabled)
-> +				return pdrv->err_handler->mmio_enabled(pcidev);
-> +			return PCI_ERS_RESULT_RECOVERED;
->  		case XEN_PCI_OP_aer_slotreset:
-> -			return pdrv->err_handler->slot_reset(pcidev);
-> +			if (pdrv->err_handler->slot_reset)
-> +				return pdrv->err_handler->slot_reset(pcidev);
-> +			return PCI_ERS_RESULT_RECOVERED;
->  		case XEN_PCI_OP_aer_resume:
-> -			pdrv->err_handler->resume(pcidev);
-> +			if (pdrv->err_handler->resume)
-> +				pdrv->err_handler->resume(pcidev);
->  			return PCI_ERS_RESULT_NONE;
->  		default:
->  			dev_err(&pdev->xdev->dev,
-> -- 
-> 2.43.0
-> 
+We currently only populate the FGT masks if the underlying HW does
+support FEAT_FGT. However, with the addition of the RES1 support for
+system registers, this results in a lot of noise at boot time, as
+reported by Nathan.
+
+That's because even if FGT isn't supported, we still check for the
+attribution of the bits to particular features, and not keeping the
+masks up-to-date leads to (fairly harmess) warnings.
+
+Given that we want these checks to be enforced even if the HW doesn't
+support FGT, enable the generation of FGT masks unconditionally (this
+is rather cheap anyway). Only the storage of the FGT configuration is
+avoided, which will save a tiny bit of memory on these machines.
+
+Reported-by: Nathan Chancellor <nathan@kernel.org>
+Tested-by: Nathan Chancellor <nathan@kernel.org>
+Fixes: c259d763e6b09 ("KVM: arm64: Account for RES1 bits in DECLARE_FEAT_MAP() and co")
+Link: https://lore.kernel.org/r/20260120211558.GA834868@ax162
+Link: https://patch.msgid.link/20260122085153.535538-1-maz@kernel.org
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+Stable-dep-of: 4bdd2b3a708c ("KVM: arm64: Apply the fine-grained UNDEFs without FEAT_FGT")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ arch/arm64/kvm/emulate-nested.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/arch/arm64/kvm/emulate-nested.c b/arch/arm64/kvm/emulate-nested.c
+index fbb37edfbabae..5fffa51ec1736 100644
+--- a/arch/arm64/kvm/emulate-nested.c
++++ b/arch/arm64/kvm/emulate-nested.c
+@@ -2269,9 +2269,6 @@ int __init populate_nv_trap_config(void)
+ 	kvm_info("nv: %ld coarse grained trap handlers\n",
+ 		 ARRAY_SIZE(encoding_to_cgt));
+ 
+-	if (!cpus_have_final_cap(ARM64_HAS_FGT))
+-		goto check_mcb;
+-
+ 	for (int i = 0; i < ARRAY_SIZE(encoding_to_fgt); i++) {
+ 		const struct encoding_to_trap_config *fgt = &encoding_to_fgt[i];
+ 		union trap_config tc;
+@@ -2291,6 +2288,15 @@ int __init populate_nv_trap_config(void)
+ 			}
+ 
+ 			tc.val |= fgt->tc.val;
++
++			if (!aggregate_fgt(tc)) {
++				ret = -EINVAL;
++				print_nv_trap_error(fgt, "FGT bit is reserved", ret);
++			}
++
++			if (!cpus_have_final_cap(ARM64_HAS_FGT))
++				continue;
++
+ 			prev = xa_store(&sr_forward_xa, enc,
+ 					xa_mk_value(tc.val), GFP_KERNEL);
+ 
+@@ -2298,11 +2304,6 @@ int __init populate_nv_trap_config(void)
+ 				ret = xa_err(prev);
+ 				print_nv_trap_error(fgt, "Failed FGT insertion", ret);
+ 			}
+-
+-			if (!aggregate_fgt(tc)) {
+-				ret = -EINVAL;
+-				print_nv_trap_error(fgt, "FGT bit is reserved", ret);
+-			}
+ 		}
+ 	}
+ 
+@@ -2318,7 +2319,6 @@ int __init populate_nv_trap_config(void)
+ 	kvm_info("nv: %ld fine grained trap handlers\n",
+ 		 ARRAY_SIZE(encoding_to_fgt));
+ 
+-check_mcb:
+ 	for (int id = __MULTIPLE_CONTROL_BITS__; id < __COMPLEX_CONDITIONS__; id++) {
+ 		const enum cgt_group_id *cgids;
+ 
+-- 
+2.53.0
+
