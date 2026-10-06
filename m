@@ -1,306 +1,189 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74EB43BBFDB;
-	Tue,  6 Oct 2026 08:51:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3A19F3B9D9E
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 08:51:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791276682; cv=none; b=WHxqQqGcvuSHt8FHKtfIQ2b0XU/JW1gcGPdEZ+B3sKhkhDwxmgpV8QgOy9wzCeKEkMrX70iil0gUYgz1dDiRizHN8Q7q1ZGsgMeX/JDRp5i5TSDi/72GPkVVs4CTJVB/EzvnW4omaugeEtxu9OSrq1GLMH4wqD3Dp+3THD8WmaA=
+	t=1791276683; cv=none; b=HrfohWjMUxYyN5bOO/nNLzfx+JouBfhjFBYkF0TVGUcbF0YxOadg7B56VG8wDHNR49G+nfKovHk8GbwygzWqUtidyXNRkarMjXBkruY1I0f1R2B9x9932vKHYmGcUwA9ahvUIcUu0X5Id0fYrSJ/RGc+lvJ7TblydJES5lypjH0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791276682; c=relaxed/simple;
-	bh=lfHs3WMCyfBI72XKxfzOT8l5Sfu6YM4Cjdl36t7iCLA=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=lMTctArOU84PpoWCK2/xZGOgdh1VlwGSv277DO71tEtClzi8PDIKmMRoNrfFtwQFnnNTM72WV4TOh0mKiqF0WasMRickDEQHve+sbYTuJ9ekl+nyocqejQSB2BLpGItJDKxLN0hLzNOFWZZGPNIl4BnSr5hyipTr/mTcKrLKrbk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=BAyq03/t; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1791276683; c=relaxed/simple;
+	bh=esKVpiK8T5DHRr86gE+NWx03wG+K05UVkNwP7QblqGo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ixUg6glv1pwVVBqsoThinNSP4Kax71omIiqgM++FvoSDR1l3kGJ9CmPj73/R9j5mgf5tgtMttYwayjWzqWiwJqv2oupS9ILYn3XMvAH1Sl4fOgJ9kk6QLNCR9++XQldJ+S3WTuq8vkW03gHe2Rh62wd2WbkvKESY47FwAO6gcBo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=WSSubnG+; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="BAyq03/t"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
-	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=9LrG8ftmhdRLs4AbrToBr7oo7Wnt+ieCpJ8s6nQlpDA=; b=BAyq03/tM7eIA+nyNuvWkrNsU5
-	+ETEVL5WY2y8uQpI3w2Wh9u5p/lbXZ3Xr8FoqO7gSRutHgcbINzKY4VWvn0r2xmg39h0fzHV3YYtE
-	G4BklvJJM0YSl+0a/K7YY/ektSTp/SPgj8nMqcebCDn2vgJDHs1uTcL3KW1oIOgx7ZumMIgT/SsrH
-	epmJhKcC7ZbeyRv81ujA08zFaCOEfrTI0bkEti1TdkjINMjQF3RNRaeUDxGWDf9dYiV/zlh7zCBo9
-	YuWxhGft5FUD1MGFXwAEl0HgvDibC/6S84hQHZGvi1sBs++xtoMwJi79/YcqxWd4KBd5LWRkvXsSD
-	OwM9NJtQ==;
-Received: from [::1] (port=45174 helo=pf-012.whm.fr-par.scw.cloud)
-	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
-	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
-	id 1xE0tJ-0000000AvYP-37Sx;
-	Tue, 06 Oct 2026 10:51:16 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="WSSubnG+"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1D060152B;
+	Tue,  6 Oct 2026 01:51:17 -0700 (PDT)
+Received: from arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4B8693F86F;
+	Tue,  6 Oct 2026 01:51:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791276680; bh=esKVpiK8T5DHRr86gE+NWx03wG+K05UVkNwP7QblqGo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=WSSubnG+HqMxG7YcQZA2IXl+oJqLdYkwtK1H6FnWYksTIWCuhXosjpXKCYmVgrPAK
+	 AyMajpmk8FwfAkAJjVehORYfsPC1FlICPOXm/Grpo7PGo+RVjHW7E4wSt0pVaRFUOn
+	 pyhaZOGjYSzMAkpJIKSjXjgO+OrByrxFhcqfECkk=
+Date: Tue, 6 Oct 2026 10:51:16 +0200
+From: Beata Michalska <beata.michalska@arm.com>
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org, Vladimir Murzin <vladimir.murzin@arm.com>,
+	Will Deacon <will@kernel.org>
+Subject: Re: [PATCH 6.12.y 1/2] arm64: errata: Factor out broken AMU const
+ counter cap
+Message-ID: <asS2hPO-vNg8juGW@arm.com>
+References: <2026100501-unsubtle-blank-50b6@gregkh>
+ <20261006002934.3618253-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 06 Oct 2026 10:51:13 +0200
-From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
-To: Tariq Toukan <tariqt@nvidia.com>
-Cc: Steffen Klassert <steffen.klassert@secunet.com>, Herbert Xu
- <herbert@gondor.apana.org.au>, "David S . Miller" <davem@davemloft.net>,
- Sabrina Dubroca <sd@queasysnail.net>, Saeed Mahameed <saeedm@nvidia.com>,
- Leon Romanovsky <leon@kernel.org>, Mark Bloch <mbloch@nvidia.com>, Boris
- Pismenny <borisp@nvidia.com>, netdev@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH ipsec 5/7] net/mlx5e: Use the packet sequence number for
- the IPsec IV
-In-Reply-To: <76e305ba-47c0-4028-afdf-294dcfea11de@nvidia.com>
-References: <20260930144523.435271-2-Jeremy.Jean@oss.cyber.gouv.fr>
- <20260930144523.435271-7-Jeremy.Jean@oss.cyber.gouv.fr>
- <f50caced-1810-4f33-99bf-cc69a0851c08@nvidia.com>
- <af8f1e51975cb74188f645a8fd20a6cd@oss.cyber.gouv.fr>
- <e65b8b035eadcb1a776278b0887a57d7@oss.cyber.gouv.fr>
- <76e305ba-47c0-4028-afdf-294dcfea11de@nvidia.com>
-User-Agent: Roundcube Webmail/1.6.19
-Message-ID: <0148c4045a29e1fa2f1760ff858961ef@oss.cyber.gouv.fr>
-X-Sender: jeremy.jean@oss.cyber.gouv.fr
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261006002934.3618253-1-sashal@kernel.org>
 
-On 2026-10-06 08:49, Tariq Toukan wrote:
-> On 05/10/2026 21:28, Jérémy Jean wrote:
->> On 2026-10-05 15:50, Jérémy Jean wrote:
->>> Hello Tariq,
->>> 
->>> On 2026-10-05 15:06, Tariq Toukan wrote:
->>>> On 30/09/2026 17:45, Jérémy Jean wrote:
->>>>> mlx5e_ipsec_set_iv_esn() may decrement xo->seq.hi for a GSO skb 
->>>>> based
->>>>> on the SA's current output counter. The metadata already contains 
->>>>> the
->>>>> high word for the first packet, so this can produce the wrong IV.
->>>>> 
->>>>> For a three-segment GSO skb starting at (H, 0), oseq is 2 and
->>>>> oseq - gso_segs wraps to 0xffffffff. The helper then uses (H-1, 0)
->>>>> for the IV instead of (H, 0). This can create a situation where GCM
->>>>> reuses a nonce.
->>>>> 
->>>>> Remove the high-word adjustment and use xo->seq directly to 
->>>>> generate
->>>>> the IV.
->>>>> 
->>>>> Fixes: cb01008390bb ("net/mlx5: IPSec, Add support for ESN")
->>>>> Cc: stable@vger.kernel.org
->>>>> Assisted-by: LLM
->>>>> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
->>>>> ---
->>>>>   .../mellanox/mlx5/core/en_accel/ipsec_rxtx.c         | 12 
->>>>> +-----------
->>>>>   1 file changed, 1 insertion(+), 11 deletions(-)
->>>>> 
->>>>> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ 
->>>>> ipsec_rxtx.c b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ 
->>>>> ipsec_rxtx.c
->>>>> index 6056106edcc6..4aa9f9c52f57 100644
->>>>> --- a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec_rxtx.c
->>>>> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec_rxtx.c
->>>>> @@ -153,21 +153,11 @@ static void mlx5e_ipsec_set_swp(struct 
->>>>> sk_buff *skb,
->>>>>   void mlx5e_ipsec_set_iv_esn(struct sk_buff *skb, struct 
->>>>> xfrm_state *x,
->>>>>                   struct xfrm_offload *xo)
->>>>>   {
->>>>> -    struct xfrm_replay_state_esn *replay_esn = x->replay_esn;
->>>>> -    __u32 oseq = replay_esn->oseq;
->>>>>       int iv_offset;
->>>>>       __be64 seqno;
->>>>> -    u32 seq_hi;
->>>>> -
->>>>> -    if (unlikely(skb_is_gso(skb) && oseq < 
->>>>> MLX5E_IPSEC_ESN_SCOPE_MID &&
->>>>> -             MLX5E_IPSEC_ESN_SCOPE_MID < (oseq - skb_shinfo(skb)- 
->>>>> >gso_segs))) {
->>>>> -        seq_hi = xo->seq.hi - 1;
->>>>> -    } else {
->>>>> -        seq_hi = xo->seq.hi;
->>>>> -    }
->>>>>         /* Place the SN in the IV field */
->>>>> -    seqno = cpu_to_be64(xo->seq.low + ((u64)seq_hi << 32));
->>>>> +    seqno = cpu_to_be64(xo->seq.low + ((u64)xo->seq.hi << 32));
->>>>>       iv_offset = skb_transport_offset(skb) + sizeof(struct 
->>>>> ip_esp_hdr);
->>>>>       skb_store_bits(skb, iv_offset, &seqno, 8);
->>>>>   }
->>>> 
->>>> Thanks for your patch.
->>>> 
->>>> Doesn't this make mlx5e_ipsec_set_iv_esn() identical to 
->>>> mlx5e_ipsec_set_iv()?
->>>> 
->>>> I wouldn't keep both copies then..
->>> 
->>> Good point: after a quick check, indeed you are probably right.
->>> I will look to simplify this in a new version of the patch series.
->>> 
->>> Jérémy
->> 
->> It seems to me that a delete only patch would be okay then? (see
->> patch below).
->> The removal of the check in mlx5e_ipsec_set_esn_ops() makes
->> mlx5e_ipsec_set_iv() the only callable function. Then it seems
->> one can simply remove lines. Do you confirm?
->> 
->> 
+LGTM. Thank you.
+
+---
+BR
+Beata
+On Mon, Oct 05, 2026 at 08:29:47PM -0400, Sasha Levin wrote:
+> From: Beata Michalska <beata.michalska@arm.com>
 > 
-> From a quick look, it seems we can do even more by totally removing the 
-> set_iv_op function pointer.
-
-Indeed, thanks for the suggestion.
-Below is a diff to do this.
-Does that you look right to you?
-
-  .../mellanox/mlx5/core/en_accel/ipsec.c       | 18 -----------
-  .../mellanox/mlx5/core/en_accel/ipsec.h       |  2 --
-  .../mellanox/mlx5/core/en_accel/ipsec_rxtx.c  | 31 +++----------------
-  .../mellanox/mlx5/core/en_accel/ipsec_rxtx.h  |  4 ---
-  4 files changed, 4 insertions(+), 51 deletions(-)
-
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec.c 
-b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec.c
-index db260e3..de2e740 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec.c
-@@ -651,22 +651,6 @@ static void mlx5e_ipsec_modify_state(struct 
-work_struct *_work)
-  	mlx5_accel_esp_modify_xfrm(sa_entry, attrs);
-  }
-
--static void mlx5e_ipsec_set_esn_ops(struct mlx5e_ipsec_sa_entry 
-*sa_entry)
--{
--	struct xfrm_state *x = sa_entry->x;
--
--	if (x->xso.type != XFRM_DEV_OFFLOAD_CRYPTO ||
--	    x->xso.dir != XFRM_DEV_OFFLOAD_OUT)
--		return;
--
--	if (x->props.flags & XFRM_STATE_ESN) {
--		sa_entry->set_iv_op = mlx5e_ipsec_set_iv_esn;
--		return;
--	}
--
--	sa_entry->set_iv_op = mlx5e_ipsec_set_iv;
--}
--
-  static void mlx5e_ipsec_handle_netdev_event(struct work_struct *_work)
-  {
-  	struct mlx5e_ipsec_work *work =
-@@ -859,8 +843,6 @@ static int mlx5e_xfrm_add_state(struct net_device 
-*dev,
-  	if (err)
-  		goto err_add_rule;
-
--	mlx5e_ipsec_set_esn_ops(sa_entry);
--
-  	if (sa_entry->dwork)
-  		queue_delayed_work(ipsec->wq, &sa_entry->dwork->dwork,
-  				   MLX5_IPSEC_RESCHED);
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec.h 
-b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec.h
-index abcbd38..172fce9 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec.h
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec.h
-@@ -278,8 +278,6 @@ struct mlx5e_ipsec_sa_entry {
-  	struct net_device *dev;
-  	struct mlx5e_ipsec *ipsec;
-  	struct mlx5_accel_esp_xfrm_attrs attrs;
--	void (*set_iv_op)(struct sk_buff *skb, struct xfrm_state *x,
--			  struct xfrm_offload *xo);
-  	u32 ipsec_obj_id;
-  	u32 enc_key_id;
-  	struct mlx5e_ipsec_rule ipsec_rule;
-diff --git 
-a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec_rxtx.c 
-b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec_rxtx.c
-index 6056106..4a9c334 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec_rxtx.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec_rxtx.c
-@@ -150,30 +150,7 @@ static void mlx5e_ipsec_set_swp(struct sk_buff 
-*skb,
-
-  }
-
--void mlx5e_ipsec_set_iv_esn(struct sk_buff *skb, struct xfrm_state *x,
--			    struct xfrm_offload *xo)
--{
--	struct xfrm_replay_state_esn *replay_esn = x->replay_esn;
--	__u32 oseq = replay_esn->oseq;
--	int iv_offset;
--	__be64 seqno;
--	u32 seq_hi;
--
--	if (unlikely(skb_is_gso(skb) && oseq < MLX5E_IPSEC_ESN_SCOPE_MID &&
--		     MLX5E_IPSEC_ESN_SCOPE_MID < (oseq - skb_shinfo(skb)->gso_segs))) 
-{
--		seq_hi = xo->seq.hi - 1;
--	} else {
--		seq_hi = xo->seq.hi;
--	}
--
--	/* Place the SN in the IV field */
--	seqno = cpu_to_be64(xo->seq.low + ((u64)seq_hi << 32));
--	iv_offset = skb_transport_offset(skb) + sizeof(struct ip_esp_hdr);
--	skb_store_bits(skb, iv_offset, &seqno, 8);
--}
--
--void mlx5e_ipsec_set_iv(struct sk_buff *skb, struct xfrm_state *x,
--			struct xfrm_offload *xo)
-+static void mlx5e_ipsec_set_iv(struct sk_buff *skb, struct xfrm_offload 
-*xo)
-  {
-  	int iv_offset;
-  	__be64 seqno;
-@@ -264,7 +241,6 @@ bool mlx5e_ipsec_handle_tx_skb(struct net_device 
-*netdev,
-  {
-  	struct mlx5e_priv *priv = netdev_priv(netdev);
-  	struct xfrm_offload *xo = xfrm_offload(skb);
--	struct mlx5e_ipsec_sa_entry *sa_entry;
-  	struct xfrm_state *x;
-  	struct sec_path *sp;
-
-@@ -293,8 +269,9 @@ bool mlx5e_ipsec_handle_tx_skb(struct net_device 
-*netdev,
-  			goto drop;
-  		}
-
--	sa_entry = (struct mlx5e_ipsec_sa_entry *)x->xso.offload_handle;
--	sa_entry->set_iv_op(skb, x, xo);
-+	if (x->xso.type == XFRM_DEV_OFFLOAD_CRYPTO &&
-+	    x->xso.dir == XFRM_DEV_OFFLOAD_OUT)
-+		mlx5e_ipsec_set_iv(skb, xo);
-  	mlx5e_ipsec_set_state(priv, skb, x, xo, ipsec_st);
-
-  	return true;
-diff --git 
-a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec_rxtx.h 
-b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec_rxtx.h
-index 45b0d19..9a7e032 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec_rxtx.h
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec_rxtx.h
-@@ -53,10 +53,6 @@ struct mlx5e_accel_tx_ipsec_state {
-
-  #ifdef CONFIG_MLX5_EN_IPSEC
-
--void mlx5e_ipsec_set_iv_esn(struct sk_buff *skb, struct xfrm_state *x,
--			    struct xfrm_offload *xo);
--void mlx5e_ipsec_set_iv(struct sk_buff *skb, struct xfrm_state *x,
--			struct xfrm_offload *xo);
-  bool mlx5e_ipsec_handle_tx_skb(struct net_device *netdev,
-  			       struct sk_buff *skb,
-  			       struct mlx5e_accel_tx_ipsec_state *ipsec_st);
+> [ Upstream commit 573371caf7aea8582212da81dcead2c3f48fac4b ]
+> 
+> Move the workaround from the erratum 2457168-specific cpucap to a generic
+> broken AMU constant-counter one. This keeps the existing Cortex-A510
+> handling unchanged while allowing other errata with similar AMU constant
+> counter issue to share the capability bit and call sites.
+> 
+> Signed-off-by: Beata Michalska <beata.michalska@arm.com>
+> Reviewed-by: Vladimir Murzin <vladimir.murzin@arm.com>
+> Signed-off-by: Will Deacon <will@kernel.org>
+> 
+> Omit the comment-only update to the paired AMU counter reader, which
+> is absent here. Retain the shared capability, CPU matching list, and
+> the checks in the existing counter-read and frequency-invariance paths.
+> 
+> Stable-dep-of: 45f730467987 ("arm64: errata: Add Cortex-A725 erratum 3821522 workaround")
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>  arch/arm64/Kconfig             |  8 ++++++++
+>  arch/arm64/kernel/cpu_errata.c | 20 ++++++++++++++------
+>  arch/arm64/kernel/cpufeature.c |  2 +-
+>  arch/arm64/kernel/topology.c   |  2 +-
+>  arch/arm64/tools/cpucaps       |  2 +-
+>  5 files changed, 25 insertions(+), 9 deletions(-)
+> 
+> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+> index 938bf2f96b1a8..d2901607b4f9e 100644
+> --- a/arch/arm64/Kconfig
+> +++ b/arch/arm64/Kconfig
+> @@ -1023,9 +1023,17 @@ config ARM64_ERRATUM_1902691
+>  
+>  	  If unsure, say Y.
+>  
+> +config ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
+> +	bool
+> +	# Targeting errata affecting AMEVCNTR01, the AMU constant counter.
+> +	# On affected CPUs the counter may not increment at the expected rate,
+> +	# making it unreliable. As a result, AMU users should treat it as
+> +	# unavailable rather than relying on misleading counter values.
+> +
+>  config ARM64_ERRATUM_2457168
+>  	bool "Cortex-A510: 2457168: workaround for AMEVCNTR01 incrementing incorrectly"
+>  	depends on ARM64_AMU_EXTN
+> +	select ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
+>  	default y
+>  	help
+>  	  This option adds the workaround for ARM Cortex-A510 erratum 2457168.
+> diff --git a/arch/arm64/kernel/cpu_errata.c b/arch/arm64/kernel/cpu_errata.c
+> index 80e47d3e86af4..1dc2373fc1b9c 100644
+> --- a/arch/arm64/kernel/cpu_errata.c
+> +++ b/arch/arm64/kernel/cpu_errata.c
+> @@ -259,6 +259,16 @@ static const struct arm64_cpu_capabilities arm64_repeat_tlbi_list[] = {
+>  };
+>  #endif
+>  
+> +#ifdef CONFIG_ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
+> +static const struct midr_range workaround_amu_constcnt_list[] = {
+> +#ifdef CONFIG_ARM64_ERRATUM_2457168
+> +	/* Cortex-A510 r0p0-r1p1 */
+> +	MIDR_RANGE(MIDR_CORTEX_A510, 0, 0, 1, 1),
+> +#endif
+> +	{}
+> +};
+> +#endif /* CONFIG_ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT */
+> +
+>  #ifdef CONFIG_CAVIUM_ERRATUM_23154
+>  static const struct midr_range cavium_erratum_23154_cpus[] = {
+>  	MIDR_ALL_VERSIONS(MIDR_THUNDERX),
+> @@ -750,14 +760,12 @@ const struct arm64_cpu_capabilities arm64_errata[] = {
+>  		ERRATA_MIDR_REV_RANGE(MIDR_CORTEX_A510, 0, 0, 2)
+>  	},
+>  #endif
+> -#ifdef CONFIG_ARM64_ERRATUM_2457168
+> +#ifdef CONFIG_ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
+>  	{
+> -		.desc = "ARM erratum 2457168",
+> -		.capability = ARM64_WORKAROUND_2457168,
+> +		.desc = "Broken AMU AMEVCNTR01 (const counter)",
+> +		.capability = ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT,
+>  		.type = ARM64_CPUCAP_WEAK_LOCAL_CPU_FEATURE,
+> -
+> -		/* Cortex-A510 r0p0-r1p1 */
+> -		CAP_MIDR_RANGE(MIDR_CORTEX_A510, 0, 0, 1, 1)
+> +		CAP_MIDR_RANGE_LIST(workaround_amu_constcnt_list)
+>  	},
+>  #endif
+>  #ifdef CONFIG_ARM64_ERRATUM_2038923
+> diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
+> index 8246015fd2d73..ae4782ce523a6 100644
+> --- a/arch/arm64/kernel/cpufeature.c
+> +++ b/arch/arm64/kernel/cpufeature.c
+> @@ -2070,7 +2070,7 @@ static void cpu_amu_enable(struct arm64_cpu_capabilities const *cap)
+>  		cpumask_set_cpu(smp_processor_id(), &amu_cpus);
+>  
+>  		/* 0 reference values signal broken/disabled counters */
+> -		if (!this_cpu_has_cap(ARM64_WORKAROUND_2457168))
+> +		if (!this_cpu_has_cap(ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT))
+>  			update_freq_counters_refs();
+>  	}
+>  }
+> diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
+> index cb180684d10d5..d21b4e963f6b7 100644
+> --- a/arch/arm64/kernel/topology.c
+> +++ b/arch/arm64/kernel/topology.c
+> @@ -271,7 +271,7 @@ static void cpu_read_constcnt(void *val)
+>  	 * the counter is disabled. A return value of 0 at counter read is
+>  	 * properly handled as an error case by the users of the counter.
+>  	 */
+> -	*(u64 *)val = this_cpu_has_cap(ARM64_WORKAROUND_2457168) ?
+> +	*(u64 *)val = this_cpu_has_cap(ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT) ?
+>  		      0UL : read_constcnt();
+>  }
+>  
+> diff --git a/arch/arm64/tools/cpucaps b/arch/arm64/tools/cpucaps
+> index eedb5acc21ed9..edb2e35e5e7ee 100644
+> --- a/arch/arm64/tools/cpucaps
+> +++ b/arch/arm64/tools/cpucaps
+> @@ -85,7 +85,6 @@ WORKAROUND_1902691
+>  WORKAROUND_2038923
+>  WORKAROUND_2064142
+>  WORKAROUND_2077057
+> -WORKAROUND_2457168
+>  WORKAROUND_2645198
+>  WORKAROUND_2658417
+>  WORKAROUND_AMPERE_AC03_CPU_38
+> @@ -105,3 +104,4 @@ WORKAROUND_REPEAT_TLBI
+>  WORKAROUND_SPECULATIVE_AT
+>  WORKAROUND_SPECULATIVE_SSBS
+>  WORKAROUND_SPECULATIVE_UNPRIV_LOAD
+> +WORKAROUND_BROKEN_AMU_CONSTCNT
+> -- 
+> 2.53.0
+> 
