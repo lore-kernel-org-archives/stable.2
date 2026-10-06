@@ -1,123 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fhigh-a1-smtp.messagingengine.com (fhigh-a1-smtp.messagingengine.com [103.168.172.152])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0155381E95
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 09:11:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74CD23B058C
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 09:13:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791277867; cv=none; b=ZzcMdQzwbxB5lrDixexIKghjxjRce/WDrTK3kBJA5VYoehMj73ObYcVAhgsjwAqkbkoi1dyRcha3wEUjMMd9JkzfhOxnaml/xClAfH5R/fNyJta/Y3xkZt25CExGujyyRgp9vlbIXT6Wd/T0cMjEGvYmYIR1SgF1E9PMD8Weyf8=
+	t=1791278032; cv=none; b=VhN4v2ahCiMPdIwS2zVovv8Fy06lG2cuu7oL0UqS+2OB8IfIcoWT8PC0s9pUM+ZoHICoFFA+QXrx5UhcM4fOhSem58lvnEqiyIiHXgdn25STH0aM2qbZhe8vENSOrv4Uuyikk1EIQSkbu6sfcnsgbO1/M4sTw384i2Ju4ovcHUA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791277867; c=relaxed/simple;
-	bh=fwI8ax7WBOiBr6eHBaZkPJWztTiSL5fwvD0lI2ge35k=;
+	s=arc-20240116; t=1791278032; c=relaxed/simple;
+	bh=Uzht/gnnalOdKMOxMXIuqX3WZTTWDv2ShAnEFEPyhKE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TWOBeRP31RKWEGXYP4sdjP7RSbmnILeMJ9gOYXOD9ThWae/QcLORBxnOOip7CUA3HtoarwUKI/dDjTDQ5T8CLfnfTX/S9q7ACRQSOWEazF1QFumLAeRwi9Lw+n6A8jDrXNv1aXiPDuTnyHDufH6Kx7/33o7eAMHPaLHnj5cqF8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kN6AOoBu; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=UdDnKDJGQ6tCRIC1t2sCKA8MfzPrgAL35HQoFZp3MfUbOUOzXhUWYVIVoYU0PopfNYDfjd+QVrqA9wwEnCjUyEj6fvc0AKh95vCkfHTv/H1rGb22Wq4GJ0k2YGYKzv/r/uO+3I5HzFhE2pXTV8Vojj4smFEKQnV7YwasB6cxaEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=MYzNnMS7; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=e0MmQS2y; arc=none smtp.client-ip=103.168.172.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kN6AOoBu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DD661F000FF;
-	Tue,  6 Oct 2026 09:11:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791277866;
-	bh=WwQ5kCe5EbBW66BKtSZrPIAp9L9+BnVQt6GmKfiH6Vw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kN6AOoBuvEQWf4Y8Vq0rAQ4NRdxjKrYhITb/TukE2tM4hzByOC04tsyU35WCXP6tR
-	 zIHOqDHTJGGl+pmq1Am0RFZPJtiGD/bcJVwA0yXrToNxzVymcncoxdLqx/LzmjJx7I
-	 E6O3AZvnbm5/DmvNG6PicjdL4gcjcVWbviV4+595FY+ytWawIvVoxfysj1RbKQzfL9
-	 IyjpYI/sTBDNTobFLhU1REAVnP4W0/cKQeS9zNso18qfgl78LNLdAosy7MAHZyOw+y
-	 7kV9CnWuWSmY7TK0J4egxXsBpZJ4FrdLlklE5NkFRcKPIAf5rAyolpQl65nQrr/Kc4
-	 z/lLEr2zyZHHA==
-Date: Tue, 6 Oct 2026 05:11:04 -0400
-From: Sasha Levin <sashal@kernel.org>
-To: Matthieu Baerts <matttbe@kernel.org>
-Cc: stable@vger.kernel.org
-Subject: Re: stable: queue/* branches no longer updated
-Message-ID: <asS7KK444n7U01u0@laps>
-References: <e6ea1805-3e82-476c-86a8-096b80bde74a@kernel.org>
- <aImjNPvGPMqFu3RD@lappy>
- <9989cd82-d126-4dd3-96e5-37dad7f733fb@kernel.org>
- <c9ca13cc-a7ce-48ac-a7b2-a8bdc823aed3@kernel.org>
- <08bac413-ad6c-4e3d-a879-554ab0f195db@kernel.org>
- <anNf2xwwXDfinNQs@laps>
- <9b7ad8ef-a10a-4a94-9244-0ff983ad480b@kernel.org>
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="MYzNnMS7";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="e0MmQS2y"
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 8B34514000DA
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 05:13:49 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Tue, 06 Oct 2026 05:13:49 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm3; t=1791278028; x=
+	1791364428; bh=MbQD73+crd7vZ9QKN8oet3vSF/p7ePpJtz6mLHHA2fo=; b=M
+	YzNnMS7ZN3wVSn2vEjszZQBWv/gqXaybvo1BuDsA24Dv1uYKul3eMDqRHrZ59TYg
+	NtM50AO+2d+0tzTVAU8OZGJhydpPVoNghkJc6ctrvMtP9EcrTenBLFhsNRfnOg67
+	RqkkUsqnJdYW8sHuIzL7LEnGDIoc2B1w6eHmwBTOuGI8Yrtx+KV8Ft3Inr3t2qFa
+	cmQ0UPhjVoM9AtN09FGMYD/bskoWSGztPDBUg7ez1AI6PJ+n+vgaUitsJZ20jDnw
+	Pe/caucJEeirWsGMsWpFyxJ8Pqluw2Sfqcnri6h6Ub3W+QEklscvlFznQdE+6CNJ
+	vu9LN2nfJAerHb7zCSJSw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1791278028; x=1791364428; bh=MbQD73+crd7vZ9QKN8oet3vSF/p7ePpJtz6
+	mLHHA2fo=; b=e0MmQS2yZZ9YatnShEldHczseY8u/Cl142cD7PJEap/5ee30t18
+	cCTSQo64oi7NTKBxMWcwM/uwx6zKhYqpjpRQCbL+DS9qTZO8p++CpZm3pFdqy7z1
+	m7kGmofudCFATpHNN69DDVYLq0DwBrc+S/Ie7OEPnHE8/LVSZEeFOcmcRUrHyU4V
+	Ql2v7l4P5Xr/uAZoJizz0kUFpRNcHPnTQcb36QMhJJDFRnBKolVvdqNbUkQJ5oJF
+	6oCn7XckLLuZovW8XclyLNFekxUGgiKqvb75kr1iavPEcP+HZAHk11IKxIALmO+L
+	1cPbtmpZr+zsoHTgt6n1yYYbteAZ1PWanrw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=shutemov.name a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791278028; d=shutemov.name;
+	mf=PGtpcmlsbEBzaHV0ZW1vdi5uYW1lPg==;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:c+cXtAfd1wjM9/gvlD3O5qKk3rQ3pR75yzrb9DvAqbWXhp/
+	m7it7EXZd8NiTUOI5aTLO49OVtaPs7vLzyHPc/TyVppfTRk79No4S7XSXNNcRfRr
+	sdB5rD/ZTNXRp6wtXfRRvkC5iBCbjENolqT4qv3zQKICgwlcZYiC3arwHg4QcpzJ
+	gvkammcM5uWDvteVL8B903YQQRRxSl6gBcaR2VOxA6CVmLAHXSFTCc/GQvJlVNfq
+	LxUsj87pQV7zh38HBNCntDIZR4E8t3Po81WCXaipF9b7yUyqMFeTzyslBsJETqYR
+	G1CSYBMkx5cfUSVXt6XLjh07kF/BX6/b3ixVKlw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:3q1TEc8G3uI4UoP5ag6eEF2ixUYiG8Gk1JdkBHKwrdA=:Uzht/gnnalOdKMOxMXIuqX3WZTTWDv2ShAnEFEPyhKE=;
+X-ME-Sender: <xms:zLvEaqVNCUxN4ccW14K2KFK0QXb49TzWtFKDF2X0Q3dK_3wtar0Awg>
+    <xme:zLvEao9zRkn-NMYh0yjfoAD29xzWXLWX5GSiXabJIt3o3C8UJEVvHM9Qg9LDpmAwo
+    l3ibLGfyyBYHdjVTJNh3BlHf_naNTGXJX18e7MHyrO6S291WwAYPac>
+X-ME-Received: <xmr:zLvEanqvOAI6cptylGAfXrbHpne4ZOfMbXDqHxPDhrfTykLquREzv-kMKB4>
+X-ME-Proxy-Cause: dmFkZTGj5C67xIbzcGLTgoQok/07Sc/orEjUInqIagiNX5tzfNrUnfY1jc1lLJwh2gzo3d
+    GB698lLckGkQyvrNDBFvobDZ3AKW7HlEJvdeuEuAlIxo1NdMYrrrtakWUQIQiEjBN1B6ri
+    wKi6qEUiJkKlNVegjOAgd0kUGjoPwR2IgA2mVnAWW8VbDla5+6eFmaorfJUN0WOYRndIYz
+    ROX+4JJqCmnVpPn32jhHBxpZJszOIgw5BxKJ/vniHlQHUTPspDkZn8zhQw0awtlwixI2g3
+    ZQGvwVpHDDhkkyRNR5r0tSVt1oN1XUrc8PaZB0foWj2F5PK6JJDPxdNR/3G99Mnb2qvrMU
+    c56mQJWj6ObswPBB90YvyTCtHf3ox7HVMuKz78cItUQKSFqXMvsOUzU1YutPwP6Vp0EtNg
+    zvaHKJI42l7V9TJ0PtV+gPEm3VW6l5/XgGbg2LEQIqoNJRWGFRPjO6mVeUFvHnf0OZ+Y/f
+    4U0nHEL2QJASnnhk7mRiDdptzT/IKVcoui7jBiKWondtSYcFEB2DTr9KCNiVa0Et8B7VNL
+    CCwc12rO2qO9rgrLt9TDix40u9rQecSgc6cc+ZDifD2hr4+OZ8aP4oavNuhISU7/obNUNe
+    ypS3e2WxOARZDzI/ev8A/xhnLBLFoVPsYk/rnhA+zd8K2PQGzyCNC4G75z+A
+X-ME-Proxy: <xmx:zLvEakf-Avx6HemUgYgNU-z-6nJ1Dj7h71J20c7xNyFzfY5K1YmJmQ>
+    <xmx:zLvEam8XoTo7jDk2JIPuEvKlekuwb2Wra6wbYoGndj0ziiLHy6V3Jw>
+    <xmx:zLvEaubjvbvOevENtcRI8NnnvuQGwAnSNAYoy3j7xxCeaAi3M-bfsA>
+    <xmx:zLvEah1DQVwbKNt_l8_s6Ds1zH6SXTER3iNUcEET-o_Lok2Q9bTT9w>
+    <xmx:zLvEaphCg6igknTLamJgXfAoRArks9hx9dtkfEUFwPqBRd26TKKctBxG>
+Feedback-ID: ie3994620:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 6 Oct 2026 05:13:47 -0400 (EDT)
+Date: Tue, 6 Oct 2026 10:13:46 +0100
+From: Kiryl Shutsemau <kirill@shutemov.name>
+To: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Harry Yoo <harry@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH] mm: page_alloc: make defrag_mode retries follow the
+ promoted order
+Message-ID: <asS6uQPZY_9r2uUG@thinkstation>
+References: <20260929174553.175333-1-kirill@shutemov.name>
+ <arv8J7ysrdazJmfY@thinkstation>
+ <ar0NRMxps8UErXaQ@thinkstation>
+ <ar0Xbs9mEu-vUHvc@cmpxchg.org>
+ <ar5rOHWwc_iPJF6C@thinkstation>
+ <20261006081050.GA234057@cmpxchg.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <9b7ad8ef-a10a-4a94-9244-0ff983ad480b@kernel.org>
+In-Reply-To: <20261006081050.GA234057@cmpxchg.org>
 
-On Mon, Oct 05, 2026 at 07:40:33PM +0200, Matthieu Baerts wrote:
->Hi Sasha,
->
->On 05/08/2026 18:07, Sasha Levin wrote:
->> On Wed, Aug 05, 2026 at 05:16:10PM +0200, Matthieu Baerts wrote:
->>> Hi Sasha,
->>>
->>> On 11/02/2026 11:10, Matthieu Baerts wrote:
->>>> Hi Sasha,
->>>>
->>>> On 19/09/2025 23:30, Matthieu Baerts wrote:
->>>>> Hi Sasha,
->>>>>
->>>>> On 30/07/2025 06:44, Sasha Levin wrote:
->>>>>> On Mon, Jul 28, 2025 at 11:06:17AM +0200, Matthieu Baerts wrote:
->>>>>>> Hi Sasha,
->>>>>>>
->>>>>>> Thank you for maintaining the stable versions with Greg!
->>>>>>>
->>>>>>> If I remember well, you run some scripts on your side to maintain the
->>>>>>> queue/* branches in the linux-stable-rc Git tree [1], is that
->>>>>>> correct?
->>>>>>>
->>>>>>> These branches have not been updated for a bit more than 3 weeks.
->>>>>>> Is it
->>>>>>> normal?
->>>>>>>
->>>>>>> Personally, I find them useful. But if it is just me, I can work
->>>>>>> without
->>>>>>> them.
->>>>>>
->>>>>> Nope, it's a bug!
->>>>>>
->>>>>> Looks like git was throwing:
->>>>>>
->>>>>> fatal: Unable to create '/home/sasha/data/stable-queue-builder/linux-
->>>>>> stable/.git/index.lock': File exists.
->>>>>>
->>>>>> Another git process seems to be running in this repository, e.g.
->>>>>> an editor opened by 'git commit'. Please make sure all processes
->>>>>> are terminated then try again. If it still fails, a git process
->>>>>> may have crashed in this repository earlier:
->>>>>> remove the file manually to continue.
->>>>>>
->>>>>>
->>>>>> Which my script was promptly ignoring...
->>>>>>
->>>>>> Fixed now, thanks for the heads up!
->>>>>
->>>>> It looks like these branches are no longer updated. Do you mind
->>>>> checking
->>>>> on your side please? :)
->>>>
->>>> These stable queue/* branches have not been updated for more than two
->>>> weeks. Do you mind checking if there is something stuck on your side,
->>>> please? :)
->>> It looks like the last update was from 2 months ago. When you have a
->>> chance, do you mind fixing your script please? (no urgency on my side)
->>> Cheers,
->>> Matt
->>
->> Sorry, should be fixed now
->Sorry, do you mind checking again, please? :)
->
->(Maybe I shouldn't rely on them to send patches depending on others from
->the queue.)
+On Tue, Oct 06, 2026 at 10:10:50AM +0200, Johannes Weiner wrote:
+> Without counter indication, I would prefer to keep the tighter
+> guarantees. ISTR this mattered on some of my ext4 tests in the past
+> with the buffer locking.
 
-One day I'll figure this out :) It should be back up.
+OK, v2 takes the priority floor and the COMPACT_SUCCESS retry limit
+from the requested order, with the explicit promoted order folded in.
+
+> >     Should defrag_mode treat MIGRATE_MOVABLE like ZONE_MOVABLE there and
+> >     move the page out at pin time? Ideally we might want to move it back
+> >     on unpin, but it can be done by compaction too.
+> 
+> Should it even be specific to defrag_mode? I suppose without it, the
+> poisoning from fallbacks would dominate by a landslide under
+> pressure. But these pins can mess with compactability long before
+> becoming capacity-bound.
+
+Agreed, a pinned page in a movable block hurts compaction regardless of
+defrag_mode.
+
+It can make longterm pinning more expensive, but it is the right place
+to pay the cost.
 
 -- 
-Thanks,
-Sasha
+  Kiryl Shutsemau / Kirill A. Shutemov
