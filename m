@@ -1,136 +1,143 @@
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+Received: from sonic309-24.consmr.mail.ir2.yahoo.com (sonic309-24.consmr.mail.ir2.yahoo.com [77.238.179.82])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10A043542D4
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 11:25:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E7BA3E6DE8
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 11:29:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.238.179.82
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791285946; cv=none; b=Duf612kORwzU/C9lJXGFbMIHPwI97xjPZmxqPJYgRD2nf3T0h/S1oKLxHOt7zi0qdvjsPFsNVKhmiazbSICsFmlwBZZ/qSkBknEqlTi1SVbWoYjTy1Dp4iCRPI0EkkpdVE9do33gRGmRmAA/1lEykt+5NS7tk29UrU/XqO52STw=
+	t=1791286188; cv=none; b=kHwbz0GtgIBn1hGpWO7uuV9J+jaI+xR4Xn6BS+7IH2kq0fEDUjVgnv3irMNZRSY71onl6t/Ban8CpojlgNnENbJsUgB5PKF74a4T9opMygm+6Bnj8fGfRbT4FiCf/7w+QdAM/OwD+CLyNRQ7pbAD5h6B5qV0esfJI6BeZ0y4MC0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791285946; c=relaxed/simple;
-	bh=yMUYGKxKuzdqt2vSqxN3X7fxNGC1DXLVo466TPmKpd4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZplMSboVqLk9L1qY58SO2VH5SQ2FvuHfaAyeKV/4IIhtUgrwhIrzbMq33yUEFd/Hc5jTHMkYS5lwKAY4x7IxKKXdE/pQjfQEoHcyBS3qGjpRLIFSWsX2IqapGRNyiiTwHdb0INahZ4uHBHILUDVCkyFNAk8FQ+jRVouyv37UYJM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MTKXgimo; arc=none smtp.client-ip=209.85.210.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791286188; c=relaxed/simple;
+	bh=wkm3SWGC9/4bBpG8ZcWuwHfvayB7mVGlCBRNoLHww10=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=UqMs0B++WFkPDWJm6cR6WCP01HDc65lHGgn2iA4nXeNbUQhLaRGz1JJJVgMuLrcFot8Vyhma+BvXwq7pOpph5wp+FCoGSTurv//uqRW5ahPYQrBD08iOWii46BFQeoweUxNSq0fs3Uvnuqi2OM2kjYpCMVLeRPY0DxR28MkDXjc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ymail.com; spf=pass smtp.mailfrom=ymail.com; dkim=pass (2048-bit key) header.d=ymail.com header.i=@ymail.com header.b=qq3NPCfQ; arc=none smtp.client-ip=77.238.179.82
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ymail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ymail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MTKXgimo"
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8899a204034so298463b3a.2
-        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 04:25:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791285944; x=1791890744; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CjcMla2/FYvjpfqQRk49JvWHnA7u7cWllcGDFw7MAUo=;
-        b=MTKXgimocW/5S74YGxJtJ+71LtI8TeMgR12ftqgzD3mT9Cq5W2wvGZDfLGdInlBjEo
-         XcIc2YnoOhxhZPiDtgT68ncGJtp2aZv1nXmY6WVGYeGZjEXKMywCW3n0LzrPn3nVtEnN
-         u3eD2JfD9D6JFmGLVWg9soVNcOndiuQ6EiSWvhpTfqA7/DxIhzJvvH1mde7sJla/9n16
-         fAD6asVE5o3flN+CtWkQNWTY13L4Oi3jIIBG93y4RFlqjtq5sg2hrBD9RQXV0G48IrGv
-         NCQLl3su8qG4hXxbWeRt9/iEFvOmJhDNOulHuTWRw4werUqMs7NU4PoFQgBpRN0kiIVK
-         +ZOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791285944; x=1791890744;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CjcMla2/FYvjpfqQRk49JvWHnA7u7cWllcGDFw7MAUo=;
-        b=B2wWfAk3Yp30zZMwD1aCoLRkAK4qEOiCMnY656N3D0lYDxVO6Icdd08vS6OCzOajq1
-         pDZVtph0vLegeCM5+NNAWfp+6fV6YSga9R5IVBCI6hj7ZHyQgl8+RdNQljL/66njJYE1
-         mgknDDiPSCw3z/sSfvWLEHe53ultykjvX6RJzKYqaETKm+NJ+Rszfri2TKNOhRkkyHXs
-         NlwAySfSMx2Yf1FmqMv1X4s0Y+7aJgJLhZxTm0EZwLJzXStKWBZ6JkM976EjRypzzv+z
-         pua10T4DPgMxE8zPgrolynO6D5EeLYWIO5+OHGWwsYRgCMC29TmGliK8MTg8ndJMDt3T
-         z5TA==
-X-Forwarded-Encrypted: i=1; AKwUvBwR9lHTBI/BYnG85RnrXYmXOfR3HhtBji1J+ZFxNkzPnui3OfS/J4ELGeSG4eb54VAyJCEVJ2E=@vger.kernel.org
-X-Gm-Message-State: AFuF++nsEXPQBKGSEoz+ZoJ9m4VhkF+0vSmPOTDxDAodO3AVS/uYnC5u
-	wZa1HJCO0n25eBNiwvaENzQDsfPe7c+6qmL9sD8QOYRPyKgoEl8b/Hhc
-X-Gm-Gg: AYBFou24+7pLYKDz7VDQe1RuaG0BkRa/TB9PTVd4hHeAxqz/uepZc9KPeK0UsJrK+0k
-	NYndXWpyohtfmgEzISeiGmlBp/PCFPZiZpa28TY+TmMXCXl7h3BAjPGX4EhpmP44DVEMAaMisWC
-	1txW0yaLSWrrAsD8uNN/OOi++zE6mqPwGWSSOt2V2wIaKxFmtzsHJ02W3oUGYl3Q+o3y2YJS+H2
-	nE9uL5SxBizcAEfs0pAbAhp9CkLoMRsKlN3xuRFxxu2VdfsXDyRgist7bPboq1iqTfP+inj6NT0
-	6j+92o5MGfOAd8JLUiJU2a0oTp2XjUQ6yvskkktgvKeW39X9rFl+3annBgGEK4DuwSV3G1NmKmy
-	RPBs4oJAklJwXAeLxAUaOAbKZskDYAxViVZ8YN3wQ3LUlpip4lp+ca12zSHwX9SO3KVlLJFp9d6
-	K7GmY5rJ3OBOFpBJQs2tdg+UG/u2vBpFza0YV5Y9oXzd/ME7KQicIvJdewZfO5LBWfqiNJrvLiD
-	+XrGmApMjW8AKM/3GZImqrZKYM11d0szxcgK4dw6N4kGjQ=
-X-Received: by 2002:aa7:88ca:0:b0:874:705d:f63d with SMTP id d2e1a72fcca58-890de4e7847mr888030b3a.31.1791285944290;
-        Tue, 06 Oct 2026 04:25:44 -0700 (PDT)
-Received: from DESKTOP-M211L3D.tail-lite.iloventr.top ([2409:8a00:1832:c00:803:42a3:368d:de3e])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88b0968d43fsm4663369b3a.3.2026.10.06.04.25.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 04:25:43 -0700 (PDT)
-From: pwhMass <a203865235@gmail.com>
-To: x86@kernel.org
-Cc: pwhMass <a203865235@gmail.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] x86/apic: Use the physical address for the LAPIC resource
-Date: Tue,  6 Oct 2026 19:25:25 +0800
-Message-ID: <20261006112527.26409-1-a203865235@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=ymail.com header.i=@ymail.com header.b="qq3NPCfQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ymail.com; s=s2048; t=1791286184; bh=HIlrYJk6Xp4PvfFizQJ+RZO9Wa0gJ9XH2BbBIPwGi9o=; h=Date:From:To:Cc:In-Reply-To:References:Subject:From:Subject:Reply-To; b=qq3NPCfQzJoyDECoLXN1ZVggetccaGRjeVAYll82/f6Wr8jUcJBqJmtwNo/RXODpflI4J6RnbQeW9n8sYA8Tlna2BEQrMUW4EKFuu1dqHkVJTUA+5JOD9kaDFmVKmmuGTcLwkmY3NRN8VyhzlFoAHJs6QlHGqfttcjGL9Jez3WksATSbE1IndCZ4Bh1oOQjTr6yV0FRIybhEMz1xp5tFu8WfCf1S/XQ9WFQkgHGv/Mt2HFz+sGAwe0YjdkRxjjcSzwZUQB1ye5FcD7AwlKwFynVN/vAII8uzCQs4+TcYPDbg5Yqg12BpfWP7z4YN04+KIvtG12man9sULDrZ93xm+g==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791286184; bh=Coyh7qCZm1JWxgqrgl/IohaPTJIzUzwmEmStrmdxcBa=; h=X-Sonic-MF:Date:From:To:Subject:From:Subject; b=PzJ4S8q3L0egupRjav0QW3Y3dN7GIwco6toyPD6uCNmBCmTLQEvzncXttTuPHom993OIIDYc8hnri+w4bINpotiWzsx2giHKHGbqypET/pFsSTJaKa/HvlSbNs9woRynZ/V0KBf0lGrWX7n4SY+sodVsg5NwTWc1H+EfHLIlQ34kzMkK6fEQab97kXP9TQD3NHh84NO6Ajn9khNtPp6uRgZep2TOc/dkoRRSB/Zj0aSjLtoETiyY4XIbVJu6wOuGLOjHY23n/MRKz1Y49bX0xbGDU+IKPi/UxQ7LyHpFIvU8h24b9BSacCKL97kU8fAO9QURZz7sbZOisKBa6uddXw==
+X-YMail-OSG: aGha6zIVM1lFnu.YNireiwrQgAIe4qw_HRCeK4GMDb3Zb.Po2fBbAxu7K9CQbgb
+ zRNNZDpwVXIQWZ.eZnTQI1qjwfq.koBVDYtSyAc7rqt2xoGdT.V9GQJiH.tBCaWOvyc9Fp14N6VP
+ g89Ob3isUj5wMeu.45Ld3n4mwCLaftzaDSLj28veTw_F2zlTavjHMLmz0gIWmcXIbsx34ZY8CymO
+ 6l5NXCDduT0dmMRgjyYX013MnDmZt27iowO2dMt719JoMC_UfIjMTW8fnoUz6oTnHAacO8XoE.Dj
+ NG0IMgtEIxhxRrXOKCwTWvuTa09Q6cycsTgoMzhU4eNB3YxHar80nlc7oia21vOJPNuR4rHC6E6y
+ yRok13sx3.u.fCp74t4mxQ9JviYjJSduyu6Y5rANF9ngJMo3M9SKmVERN.fzwb9gr8DjdBXcLnvM
+ cLtC6ioxQdl.sQ.gpeCkFM.b9yG03bYjXzh.Tqu8Hu2ANRhpNg.B8iMPvNqhXMcyXonS5WmyP53M
+ pZusxAy_aKmdqhHcjfjqMitw0T7MSXsRSqL441ntv97rT1Qv0tke_A1tvlH2VfYzh5AQDG1IrDsR
+ azm4IJjrHUT.Ffd5P7DIIsv_5p45CWuengwa9uQ2sY0QqzQw6OJJ7X2M48vc65BRod6U6dnfTEmk
+ JJJ763qfwjGiRbF5RFH6MIMRixSX4YEtnHoG7OxL7QDPxo5OH_5YI4WY_SIHl0KjFveSbkuN3VzZ
+ uyjzsBh29vA5_A2Ege5.3ng10DVXPRnjAAgkFjcXBOGZshQwZwjbhYmAuQIkKEsCgo8ssE8z4QbB
+ rnFKsGAgyYJkzshj5PpERxP6T1POKanwOWOWlRX3qSftSIzWnCQrRnUvsDy9ZauIeXnZw4Hjei8U
+ Jq6M7g7tO6lSOsxw1t23BoCoUzb5yL7.jDj9HL7ME7Lj5CgaL3miGNpcBSBcRnzUNXbutVtH.dSK
+ NO5oPMoYgiENTitycvQLFniZe.YvHvtFVMw9kRqAWlaXEyE_Gt_1WslqKW6CxizIh39nCN5_KPVA
+ M8cDFAe162rWyEm60BomfVXPIhy381lsfVU65G14kV_ThOOs00VJFIg1GOqd0WmAjK2rB.x9kNwn
+ 7yA1AAaB2sMXb09NuF_b3ZKe7vdT04NqPlXjSW7OI7imXpBXoi37.oGuKjD6PZlzWcS18s475XUn
+ jyThA8BcMltEs4aASPL0.KthOGu0CBFSOmGmUXVlKu1EKEOYj0..9ItlIKmR66XMUJ_tfjQKQM5Q
+ oO8rshc6SQczBAJ4.sOLpvOx0d8AH7ub4FMq7cW755UIw5_jASu8oaQ128SYmvP84ouJQkW3NgkB
+ 8o0EkD.6Z1tI2.igRLYKHgjEBAFxv8jAkAvpZlIwLbspjHnUUExOZ4HzhdmLuImOr8C_bXhXZHyN
+ Sou3TLURbE0xJOY629fmMzpzo3LibiHph4nN5lngWlXE7huE0kaLFuTkAEbdfdHy4i43mQhvW5HY
+ wjvRWb8bZCZ2Ar2il5trHEEORH.2qTLgmIYwQXibr69BbzLyVfELyjy7tuQqYWPVm7i1sUdTcreW
+ NfyxvJ0yylwDRQWZQj.PvXZIX0S3lCmAf8eu11l0OpkoNlPCeuzjUMBFdZ.OzDc7hEuLp9oA26cB
+ ZAwZ5kN7onGX1TOyonSZJCf0ACL1bDbi54MMoBjICs09lRvvjaTHL3QbyvaTHqAyYTFSP6p920cM
+ dlCSdHhPERrLWUKOXC2sY.KT9UkoBu85mo.uCgP1tALEfRn37j9MkbB9uv_hLdnDk7JtEpWooNue
+ o4YOBjbK5wdG11RUxwuzmRo60V._tqdKj1jMPunyPTrcJzLqIaoGnPR9YopbCQUjVIu.4cJKu8F9
+ q_zO4O8qBm98GBdr0GPTIRLwpgUPLC1Yl_LBrfwwd9fDxY4XMYfm4PgoyR2LZHLOF9wiObFelR1I
+ csidfailCFFswHaupLjsLRHD3qenRW7OGEsnoGoxTQ73WJoYRDMSVT0fu3t2d0YO4dYqE0h3jjeA
+ nJNu.9YKJgiEPvfaJ0uJjRn5ImTeaH.1ln8.N0npT07Bm0xpJdgIrIkwi8xOIGqw.Tf41ElMO0gk
+ nrEfUcU2hX3jQCA.DaylH5NpWF9OUo9gdJ5NCZJHklVcd.vCZ1E89NMfNUncIfTyiQj9a9qvJJDs
+ qF4p.9.jcSvx7PEcdl8sUVlG1QyMqwIbxoy57ZJ7.VCFJrpDbkjUXr6.ZrFyL96NZTOQZTdFi.b7
+ EUBQsoRnn_ps08AAHgBlzEmsD3DfaQOB2sqU_VIUfLVJ.rqP.v8nMChdgmtQ1HWyd
+X-Sonic-MF: <d.piecha@ymail.com>
+X-Sonic-ID: 54d1463b-1d8c-43d7-befc-3c2ef5a899dd
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic309.consmr.mail.ir2.yahoo.com with HTTP; Tue, 6 Oct 2026 11:29:44 +0000
+Date: Tue, 6 Oct 2026 11:19:25 +0000 (UTC)
+From: Dennis Piecha <d.piecha@ymail.com>
+To: Oleksij Rempel <o.rempel@pengutronix.de>, 
+	"patchwork-bot+netdevbpf@kernel.org" <patchwork-bot+netdevbpf@kernel.org>
+Cc: "andrew@lunn.ch" <andrew@lunn.ch>, 
+	"nic_swsd@realtek.com" <nic_swsd@realtek.com>, 
+	"hkallweit1@gmail.com" <hkallweit1@gmail.com>, 
+	"davem@davemloft.net" <davem@davemloft.net>, 
+	"edumazet@kernel.org" <edumazet@kernel.org>, 
+	"kuba@kernel.org" <kuba@kernel.org>, 
+	"pabeni@redhat.com" <pabeni@redhat.com>, 
+	"stable@vger.kernel.org" <stable@vger.kernel.org>, 
+	"kernel@pengutronix.de" <kernel@pengutronix.de>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>
+Message-ID: <503211732.1051249.1791285565321@mail.yahoo.com>
+In-Reply-To: <179081461327.2189941.5041238879527277665.git-patchwork-notify@kernel.org>
+References: <20260925071040.2137178-1-o.rempel@pengutronix.de> <179081461327.2189941.5041238879527277665.git-patchwork-notify@kernel.org>
+Subject: Re: [PATCH net v1 1/1] r8169: disable EEE on RTL8168h/8111h
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailer: WebService/1.1.26668 YMailNovation
 
-apic_mmio_base holds the fixmap virtual address used to access the local
-APIC. Using it as lapic_resource.start passes a virtual address to the
-physical iomem resource tree. On x86-64, the resulting range exceeds the
-physical address limit of iomem_resource, so insert_resource() fails and
-the Local APIC entry is missing from /proc/iomem.
+Hi Oleksij,
 
-Commit 81287ad65da5 ("x86/apic: Sanitize APIC address setup") replaced the
-assignment of mp_lapic_addr to apic_phys with the fixmap virtual address.
-The later removal of apic_phys retained that virtual address for the
-resource.
+I tested this on the affected machine with a Home Assistant OS test
+build that includes the patch (kernel 6.18.54-haos).
 
-Use mp_lapic_addr, which is the physical address passed to
-set_fixmap_nocache(), as the resource start. Keep the apic_mmio_base guard
-so that the resource is only registered when the MMIO mapping exists.
+Hardware: Intel NUC11ATKPE, RTL8168h/8111h (XID 541), FRITZ!Box 6690
+as link partner, no VLANs.
 
-On an unmodified v7.3-rc2 x86-64 kernel under QEMU/KVM with nox2apic,
-/proc/iomem has no Local APIC entry. With this change and the same kernel
-configuration and VM parameters, it contains:
+With the patch the NIC reports EEE as not supported and the RX stall
+is gone: more than 4 hours without a single drop, everything on
+defaults, no workaround. Before, on 6.18.52 without the patch, it
+stalled every 7-20 minutes.
 
-  fee00000-fee00fff : Local APIC
+Since 6.18.y stable is affected (that's where the PHY EEE fix was
+backported), it would be great to see this there too.
 
-Fixes: 81287ad65da5 ("x86/apic: Sanitize APIC address setup")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: pwhMass <a203865235@gmail.com>
----
-AI assistance was used to trace the missing /proc/iomem entry, prepare
-this one-line fix and description, and execute the comparison tests.
+Tested-by: Dennis Piecha <d.piecha@ymail.com>
 
-Tested with clang/LLD 18.1.3, a virtme-ng generated configuration,
-Q35/KVM, 1 GiB RAM, two vCPUs and nox2apic nokaslr. Both kernels built
-and booted successfully. No HyperEnclave patches or modules were used
-for this upstream reproduction.
+Thanks for the fix!
+Dennis
 
-Reproducer (run as root in the guest):
-  grep -F 'Local APIC' /proc/iomem
 
-Before: no match (exit 1).
-After:  fee00000-fee00fff : Local APIC (exit 0).
 
- arch/x86/kernel/apic/apic.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/x86/kernel/apic/apic.c b/arch/x86/kernel/apic/apic.c
---- a/arch/x86/kernel/apic/apic.c
-+++ b/arch/x86/kernel/apic/apic.c
-@@ -2667,7 +2667,7 @@
- 		return -1;
- 
- 	/* Put local APIC into the resource map. */
--	lapic_resource.start = apic_mmio_base;
-+	lapic_resource.start = mp_lapic_addr;
- 	lapic_resource.end = lapic_resource.start + PAGE_SIZE - 1;
- 	insert_resource(&iomem_resource, &lapic_resource);
- 
+
+
+Am Donnerstag, 1. Oktober 2026 um 02:30:16 MESZ hat <patchwork-bot+netdevbpf@kernel.org> Folgendes geschrieben: 
+
+
+
+
+
+Hello:
+
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Fri, 25 Sep 2026 09:10:40 +0200 you wrote:
+> Force EEE off on the RTL8168h/8111h (RTL_GIGA_MAC_VER_46) at PHY connect
+> with phy_disable_eee().
+> 
+> Commit 202fef9bbbf5 ("net: phy: realtek: fix EEE advertisement write on
+> the internal PHY MMD path") made EEE actually advertise on the generic
+> Realtek PHY; the write had been a no-op before. On the RTL8168h that
+> un-masks a latent defect: once EEE negotiates, RX silently stalls after
+> ~7-20 minutes. The carrier stays up, no counter or dmesg moves, and only
+> "ip link set down/up" recovers it; disabling EEE keeps the link stable.
+> 
+> [...]
+
+Here is the summary with links:
+- [net,v1,1/1] r8169: disable EEE on RTL8168h/8111h
+https://git.kernel.org/netdev/net/c/3cdeaef1754a
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
