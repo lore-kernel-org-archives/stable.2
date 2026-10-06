@@ -1,37 +1,37 @@
 Received: from nick.sneptech.io (nick.sneptech.io [178.62.38.78])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74B434F7980;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74C074F7985;
 	Tue,  6 Oct 2026 23:42:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.62.38.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791330131; cv=none; b=Tw9QhM888G1FPF+mJfEV18gvhk9yI2HmAL080p4MXbCs9rcwDxX1yJF9A+dTWiHZXO++B14ybGXPEsgl71CyLJAhZIZhcgn9EmOBuWhqzGJjuMDL+sgbXVp1M4CX4X62S1WMxHT5q6Rs6vFnotmdli+grvfI6uI6xMG7xQWeSeY=
+	t=1791330132; cv=none; b=mGcL5njNK/CNr7hKNpCk4h2xAKGENIwQPXmZ9Pe8tRFXk2602aDz0V0wCU/0C+2LmZpPBU+Hn4p9ObXGhvMfTerkwlgFfM/AR6c+8WJHX2LqkhqwHpVoUtbAKcsIsQsYgMqP4AdWc2wOE/uRGXGXWs4nopTVIShpcQRMUhMS9eo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791330131; c=relaxed/simple;
-	bh=AyN3YEu+suJowLh3kH/BloeQP0AHQY2LAWoCqPNjCRo=;
+	s=arc-20240116; t=1791330132; c=relaxed/simple;
+	bh=yC5GID06Zq/vOzDspY8ywGngMQGZ9stBYo9gNhNJnpI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PCqkzq16hduWg18F5IqFc/iqV4IvkUdstiAE0qLyeT1jAFajdQ24yR6qSRW5KXVFhop2qtZ7RTB8otr10Ci8RYGy/CFgMUYMtlYIv8nw536jrwnnyd+/2AZdzSHO9125dAm4KKJSzg1W3FkX53iqBoN7lHMFP++YbBIb1fyz/o8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=philpem.me.uk; spf=pass smtp.mailfrom=philpem.me.uk; dkim=pass (1024-bit key) header.d=philpem.me.uk header.i=@philpem.me.uk header.b=lvP77bQb; arc=none smtp.client-ip=178.62.38.78
+	 MIME-Version; b=nUcBFm3tK8Ceghtq495PBojKFUIGkulV11EEss6oB3FALiKVS0RrWFCb4kSAgwDwcrukJzPj7hIjF6qdZw1pclkmxMRgsUXV4IbFFY4rv0iwgENvVL8GjptWIdcXKSQHRFSaEGyMgzI+kMAzRBPHoBQGhogq2UQtpz5c3qE1vO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=philpem.me.uk; spf=pass smtp.mailfrom=philpem.me.uk; dkim=pass (1024-bit key) header.d=philpem.me.uk header.i=@philpem.me.uk header.b=UfNJwKfE; arc=none smtp.client-ip=178.62.38.78
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=philpem.me.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=philpem.me.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=philpem.me.uk header.i=@philpem.me.uk header.b="lvP77bQb"
+	dkim=pass (1024-bit key) header.d=philpem.me.uk header.i=@philpem.me.uk header.b="UfNJwKfE"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=philpem.me.uk;
 	s=mail; t=1791330125;
-	bh=AyN3YEu+suJowLh3kH/BloeQP0AHQY2LAWoCqPNjCRo=;
+	bh=yC5GID06Zq/vOzDspY8ywGngMQGZ9stBYo9gNhNJnpI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=lvP77bQbcLcnJhycaKcK6cPIpNkvZISW5JgX4xS2VmN/XkiCathZAc/tOiCivVyu7
-	 1cpRZYKEOlLIKO8rTahAgQL2KvCxBxDTZ0n8lmJ4LfjfKMNfmqCnbEqC3bzd85MIHK
-	 XOI/hdqvcms99FKfpzm01O+Eo+Ohw2NydE9JLB48=
+	b=UfNJwKfEcXGMo0+qE85rrIBB6XcQ10afyh/PghxPOthj0Q8xBCF20kEV+91VXz3mW
+	 XlcmdZ7k5rmBkS0hzpQWbb1ySzExaw3jueFd/RWBX4B1yh7X16fZpEkM3PmV3LsBDd
+	 oWtzR1sv4r1SS79nY4MK/kA+iJR+3Q4PrbvE0S5g=
 Received: from wolf.philpem.me.uk (81-187-163-148.ip4.reverse-dns.uk [81.187.163.148])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
 	(Authenticated sender: mailrelay_wolf@philpem.me.uk)
-	by nick.sneptech.io (Postfix) with ESMTPSA id 725CFBD05A;
+	by nick.sneptech.io (Postfix) with ESMTPSA id 84D28BD626;
 	Tue,  6 Oct 2026 23:42:05 +0000 (UTC)
 Received: from cheetah.homenet.philpem.me.uk (cheetah.homenet.philpem.me.uk [10.0.0.32])
-	by wolf.philpem.me.uk (Postfix) with ESMTPSA id 253DF5FC3F;
+	by wolf.philpem.me.uk (Postfix) with ESMTPSA id 123D55FC05;
 	Wed,  7 Oct 2026 00:42:05 +0100 (BST)
 From: Phil Pemberton <philpem@philpem.me.uk>
 To: linux-ide@vger.kernel.org,
@@ -44,9 +44,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Hannes Reinecke <hare@kernel.org>,
 	Phil Pemberton <philpem@philpem.me.uk>,
 	stable@vger.kernel.org
-Subject: [PATCH v9 02/11] ata: libata-zpodd: reference SCSI devices in PM callbacks
-Date: Wed,  7 Oct 2026 00:41:52 +0100
-Message-ID: <20261006234202.1139018-3-philpem@philpem.me.uk>
+Subject: [PATCH v9 01/11] ata: libata-core: pin SCSI devices during port detach
+Date: Wed,  7 Oct 2026 00:41:51 +0100
+Message-ID: <20261006234202.1139018-2-philpem@philpem.me.uk>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261006234202.1139018-1-philpem@philpem.me.uk>
 References: <20261006234202.1139018-1-philpem@philpem.me.uk>
@@ -58,107 +58,56 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The ZPODD wake callback accesses dev->sdev without locking or taking a
-reference. Concurrent sysfs deletion can release the device before the
-callback accesses its runtime PM state. The disk-event enable and disable
-paths have the same problem.
+ata_port_detach() drops ap->lock before removing dev->sdev. Concurrent
+sysfs deletion can release the device before scsi_remove_device() uses it.
 
-Take a SCSI device reference under ap->lock, skipping missing or deleting
-devices. Drop the lock before accessing PM or disk-event state and before
-releasing the reference.
+Take a device reference and clear the slot under ap->lock, then remove
+the saved device. Release the reference outside the lock because device
+release can sleep.
 
-Fixes: f064a20dded8 ("libata: move acpi notification code to zpodd")
-Link: https://lore.kernel.org/linux-ide/20260611030131.5285D1F00893@smtp.kernel.org/
+Use get_device() to hold the reference during host-driver unload, when
+scsi_device_get() can fail its module reference check. The SCSI core
+uses the same approach for target removal.
+
+Fixes: 84d76529c650 ("ata: libata-core: Fix port and device removal")
+Link: https://lore.kernel.org/linux-ide/20260731220740.7E14E1F00ACF@smtp.kernel.org/
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Phil Pemberton <philpem@philpem.me.uk>
 ---
- drivers/ata/libata-zpodd.c | 41 +++++++++++++++++++++++++++++++++-----
- 1 file changed, 36 insertions(+), 5 deletions(-)
+ drivers/ata/libata-core.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/ata/libata-zpodd.c b/drivers/ata/libata-zpodd.c
-index 414e7c63bd85..581eb41ea0f3 100644
---- a/drivers/ata/libata-zpodd.c
-+++ b/drivers/ata/libata-zpodd.c
-@@ -173,6 +173,22 @@ bool zpodd_zpready(struct ata_device *dev)
- 	return zpodd->zp_ready;
- }
+diff --git a/drivers/ata/libata-core.c b/drivers/ata/libata-core.c
+index 92233fb25051..5518525357ce 100644
+--- a/drivers/ata/libata-core.c
++++ b/drivers/ata/libata-core.c
+@@ -26,6 +26,7 @@
+  */
  
-+/* Return a referenced SCSI device; the caller must drop it outside ap->lock. */
-+static struct scsi_device *zpodd_get_sdev(struct ata_device *dev)
-+{
-+	struct ata_port *ap = dev->link->ap;
-+	struct scsi_device *sdev;
-+	unsigned long flags;
+ #include <linux/kernel.h>
++#include <linux/device.h>
+ #include <linux/module.h>
+ #include <linux/pci.h>
+ #include <linux/init.h>
+@@ -6388,10 +6389,15 @@ static void ata_port_detach(struct ata_port *ap)
+ 	ata_for_each_link(link, ap, HOST_FIRST) {
+ 		ata_for_each_dev(dev, link, ALL) {
+ 			if (dev->sdev) {
++				struct scsi_device *sdev = dev->sdev;
 +
-+	spin_lock_irqsave(ap->lock, flags);
-+	sdev = dev->sdev;
-+	if (sdev && scsi_device_get(sdev))
-+		sdev = NULL;
-+	spin_unlock_irqrestore(ap->lock, flags);
-+
-+	return sdev;
-+}
-+
- /*
-  * Enable runtime wake capability through ACPI and set the powered_off flag,
-  * this flag will be used during resume to decide what operations are needed
-@@ -184,8 +200,12 @@ bool zpodd_zpready(struct ata_device *dev)
- void zpodd_enable_run_wake(struct ata_device *dev)
- {
- 	struct zpodd *zpodd = dev->zpodd;
-+	struct scsi_device *sdev = zpodd_get_sdev(dev);
- 
--	sdev_disable_disk_events(dev->sdev);
-+	if (sdev) {
-+		sdev_disable_disk_events(sdev);
-+		scsi_device_put(sdev);
-+	}
- 
- 	zpodd->powered_off = true;
- 	acpi_pm_set_device_wakeup(&dev->tdev, true);
-@@ -218,6 +238,7 @@ void zpodd_disable_run_wake(struct ata_device *dev)
- void zpodd_post_poweron(struct ata_device *dev)
- {
- 	struct zpodd *zpodd = dev->zpodd;
-+	struct scsi_device *sdev;
- 
- 	if (!zpodd->powered_off)
- 		return;
-@@ -233,19 +254,29 @@ void zpodd_post_poweron(struct ata_device *dev)
- 	zpodd->zp_sampled = false;
- 	zpodd->zp_ready = false;
- 
--	sdev_enable_disk_events(dev->sdev);
-+	sdev = zpodd_get_sdev(dev);
-+	if (sdev) {
-+		sdev_enable_disk_events(sdev);
-+		scsi_device_put(sdev);
-+	}
- }
- 
- static void zpodd_wake_dev(acpi_handle handle, u32 event, void *context)
- {
- 	struct ata_device *ata_dev = context;
- 	struct zpodd *zpodd = ata_dev->zpodd;
--	struct device *dev = &ata_dev->sdev->sdev_gendev;
-+	struct scsi_device *sdev;
- 
--	if (event == ACPI_NOTIFY_DEVICE_WAKE && pm_runtime_suspended(dev)) {
-+	if (event != ACPI_NOTIFY_DEVICE_WAKE)
-+		return;
-+	sdev = zpodd_get_sdev(ata_dev);
-+	if (!sdev)
-+		return;
-+	if (pm_runtime_suspended(&sdev->sdev_gendev)) {
- 		zpodd->from_notify = true;
--		pm_runtime_resume(dev);
-+		pm_runtime_resume(&sdev->sdev_gendev);
++				/* The host driver may already be unloading. */
++				get_device(&sdev->sdev_gendev);
++				dev->sdev = NULL;
+ 				spin_unlock_irqrestore(ap->lock, flags);
+-				scsi_remove_device(dev->sdev);
++				scsi_remove_device(sdev);
++				put_device(&sdev->sdev_gendev);
+ 				spin_lock_irqsave(ap->lock, flags);
+-				dev->sdev = NULL;
+ 			}
+ 		}
  	}
-+	scsi_device_put(sdev);
- }
- 
- static void ata_acpi_add_pm_notifier(struct ata_device *dev)
 -- 
 2.43.0
 
