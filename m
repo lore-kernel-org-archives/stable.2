@@ -1,173 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 118393E40EF
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 16:09:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E710A49E5CF;
+	Tue,  6 Oct 2026 16:10:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791302951; cv=none; b=d2DLI4lubw7evJD6noFzEBcpQfx+V91HWnOV7sBrq0XZ/6HATpwP49JWnFmIo29i8zXsA2FXR14hxlV+pzdwjgtA4DaPCjcHbjCOarAaUX8UIrpOJfL+0yUCmAEoruF+vQnrwH69eEFuoKl65WX4yFSHCe52++Syli2fa/4ydkA=
+	t=1791303044; cv=none; b=hvxXnnyzNWw4mbY5hWuzMz+8KGo9xeOvRKUcm7lMBfkvxZr7LGroSN7sYwl8PMaVHew6dVynIfH606iqtBgfDQx8/igZaLFoDJoCWEL0v2++Qn9xCyK73Y19jUBl5D85j7oFsopJU7wKm1O4FBxdcb2cxT7lmayNKJbn9jFlhfw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791302951; c=relaxed/simple;
-	bh=436J2VeczdXRn6xBDJNx8Y0BX5xKwnwxhi3qG7gjOJQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tIT2sFPP5VXoUMRmyrNe8/ghjfhNagGDc/0G2DGog4sksE1kZhzSo8Bf5hzGM7GfAkgr72+RujhbxKrQXqlQa247yND0iDpxV+O6lAR4a9FcqH0BnNvbbZMmKb4i/+fEbh545gVj5/IoKJdKdx5iMl1gzc1DtF3+qqqSMeYAOW8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jy6Hza5+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791303044; c=relaxed/simple;
+	bh=aNbsDvFZRK/+AHPuUdCwt746G0BRQlKOX+mNN+HHJ/Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CZhWKBrImiF570AEk4bwdSxHJkTC8Ixi+vdNabrYJKrbf4Rhf2UNFalVnFy4s0vordu/X3Fxp98UcAGE7qGKEZTmk6wrwrwHdr11oHjQjZaHphI+wK4CuMafSUEe2Nm3X/MHMC3yla5MDbN2Xk9bjsWG5/ed0daMueTE9aJtGAY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=hq5dKJJS; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jy6Hza5+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 563221F0089B;
-	Tue,  6 Oct 2026 16:09:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791302949;
-	bh=L/cOhERCRDCIQKGzfsZegmQ43nVHGg1nEZa28Kq2vAw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Jy6Hza5+nK/vtiodrgQUwcFD+U+/2vb5RCebSzekunY98gU3jGkGOfjNRMFO2d98S
-	 gV4kNSL2qGIAfS3H487UNl/B0lbS5jWoq5LcITQN8xTq2QoGYweGpdimpi2NQncLuZ
-	 6XNBWQic/1tBtrmPWuxKWn0WC4Z5ivIIAptTPwFLLaf0GfWWuLvUqBVWu2Tx83tXhy
-	 EbmN4lxYpZEav7V21srzg7gS3FAD0CEJvVnUcUrJyODPUJ0jR+/TE6fgkTJCjJJl70
-	 j7xF4Nz+MX1eOrXn1nPELnzHpIfBNIlhkZwE/nwtcadihYrfp8t4oRU2b8q1QtFbPz
-	 k4649RWz0JuCA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Mostafa Saleh <smostafa@google.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] KVM: arm64: Use stage-1 leaf size for VM_PFNMAP
-Date: Tue,  6 Oct 2026 12:09:05 -0400
-Message-ID: <20261006160846.858646-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100530-impulse-jiffy-87f1@gregkh>
-References: <2026100530-impulse-jiffy-87f1@gregkh>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="hq5dKJJS"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=qgSV4GBVU0LvkZzpXKbXapalbfhpM7Y/2Dcz6KnjfDY=; b=hq5dKJJSTWfsJZPMZaSK26cWO/
+	yfadGeI9oklQ6q7+pvHMzZaPf836s9BHy65lTR59H9gL2A30ygoxo0M6EndUZ209nXpMG/5zM/4zf
+	lWxaAPa55KpGyIdTTkR7WLG+AjXWAa8vPjbDmdDzg9gCPsqh/JGHuwXsl0pn9VolQ0q4=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xE7k1-009IFD-Kc; Tue, 06 Oct 2026 18:10:09 +0200
+Date: Tue, 6 Oct 2026 18:10:09 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Hayes Wang <hayeswang@realtek.com>
+Cc: Linmao Li <lilinmao@kylinos.cn>, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Chih Kai Hsu <hsu.chih.kai@realtek.com>,
+	nic_swsd <nic_swsd@realtek.com>,
+	Birger Koblitz <mail@birger-koblitz.de>,
+	Xiangqian Zhang <zhangxiangqian@kylinos.cn>,
+	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [PATCH net v2] r8152: Use BMSR to detect the link state
+Message-ID: <7a8d21bd-3484-4120-abd6-f7290f919b7d@lunn.ch>
+References: <20261005105249.1281648-1-lilinmao@kylinos.cn>
+ <fd3bff0e63304681b9e5f35f2f57e50e@realtek.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <fd3bff0e63304681b9e5f35f2f57e50e@realtek.com>
 
-From: Mostafa Saleh <smostafa@google.com>
+On Tue, Oct 06, 2026 at 08:28:21AM +0000, Hayes Wang wrote:
+> Linmao Li <lilinmao@kylinos.cn>
+> > Sent: Monday, October 5, 2026 6:53 PM
+> [...]
+> > r8152 detects carrier from PLA_PHYSTATUS without reading BMSR, so
+> > BMSR_LSTATUS can still be latched low when the carrier comes up.
+> > Since commit f6f2e946aa4d ("net: mii: Fix the Speed display when the network
+> > cable is not connected"), the first speed query after link up can then report
+> > SPEED_UNKNOWN, leaving NetworkManager at 0 Mb/s until the next carrier
+> > change.
+> > 
+> > Use BMSR_LSTATUS in set_carrier() and rtl8152_runtime_resume(), so the
+> > driver consumes the latched link down itself. If the first read still reports link
+> > down, the next link-up notification triggers another read and brings the carrier
+> > up.
+> > 
+> > Tested on an RTL8153B with a 6.6-based kernel. In 5 rebinds and 6 cable
+> > replugs, the first read returned LSTATUS=0, a second link-up notification came
+> > about 32 ms later, the second read returned
+> > LSTATUS=1 and the carrier went up; NetworkManager reported 1000 Mb/s.
+> > Runtime suspend/resume with the link up did not change the carrier.
+> 
+> I think this patch may introduce a new issue.
+> 
+> Our newer ICs do not generate periodic link-status notifications. They generate a
+> notification only when the link status changes. Therefore, with your patch, BMSR
+> will not be read a second time until the next link-status change.
 
-[ Upstream commit 71cc2c67fb8f8d5aa8154eb482e9846d2214f11b ]
+But the link status in BMSR does change.
 
-When commit 2aa53d68cee6 ("KVM: arm64: Try stage2 block mapping for
-host device MMIO") added VM_PFNMAP support to get_vma_page_shift(),
-stage-1 page tables did not support huge PFNMAP (as in VFIO-PCI
-vfio_pci_mmap_huge_fault()) and transparent_hugepage_adjust() was
-unsafe for MMIO as it dereferenced struct page.
+You read it once and get the latched value. That clears the latch, so
+the link status changes to the current version.
 
-Since commit 6011cf68c885 ("KVM: arm64: Walk userspace page tables to
-compute the THP mapping size"), transparent_hugepage_adjust() instead
-walks the host stage-1 page tables via get_user_mapping_size() without
-touching struct page. Meanwhile, commit 3e509c9b03f9 ("mm/arm64:
-support large pfn mappings") enabled stage-1 huge PFNMAP.
+Now, 802.3 C22 has no support for interrupts, that is a vendor
+extension. But if you are not generating an interrupt when BMSR
+changes, i would say that is broken.
 
-So. we can drop the VMA-based VM_PFNMAP size calculation in
-get_vma_page_shift() and let transparent_hugepage_adjust() derive
-the stage-2 mapping size directly from the populated stage-1 leaf
-for non-cacheable mappings as well.
-
-Assisted-by: LLM
-Cc: stable@vger.kernel.org
-Fixes: 2aa53d68cee6 ("KVM: arm64: Try stage2 block mapping for host device MMIO")
-Reviewed-by: Marc Zyngier <maz@kernel.org>
-Signed-off-by: Mostafa Saleh <smostafa@google.com>
-Signed-off-by: Oliver Upton <oupton@kernel.org>
-[ sashal: Adapted upstream helper changes to the monolithic user_mem_abort() implementation. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- arch/arm64/kvm/mmu.c | 46 ++++++--------------------------------------
- 1 file changed, 6 insertions(+), 40 deletions(-)
-
-diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-index 2dae3fcb7a7f7..af50fed5b5975 100644
---- a/arch/arm64/kvm/mmu.c
-+++ b/arch/arm64/kvm/mmu.c
-@@ -1406,32 +1406,11 @@ transparent_hugepage_adjust(struct kvm *kvm, struct kvm_memory_slot *memslot,
- 	return PAGE_SIZE;
- }
- 
--static int get_vma_page_shift(struct vm_area_struct *vma, unsigned long hva)
-+static int get_vma_page_shift(struct vm_area_struct *vma)
- {
--	unsigned long pa;
--
--	if (is_vm_hugetlb_page(vma) && !(vma->vm_flags & VM_PFNMAP))
-+	if (is_vm_hugetlb_page(vma))
- 		return huge_page_shift(hstate_vma(vma));
- 
--	if (!(vma->vm_flags & VM_PFNMAP))
--		return PAGE_SHIFT;
--
--	VM_BUG_ON(is_vm_hugetlb_page(vma));
--
--	pa = (vma->vm_pgoff << PAGE_SHIFT) + (hva - vma->vm_start);
--
--#ifndef __PAGETABLE_PMD_FOLDED
--	if ((hva & (PUD_SIZE - 1)) == (pa & (PUD_SIZE - 1)) &&
--	    ALIGN_DOWN(hva, PUD_SIZE) >= vma->vm_start &&
--	    ALIGN(hva, PUD_SIZE) <= vma->vm_end)
--		return PUD_SHIFT;
--#endif
--
--	if ((hva & (PMD_SIZE - 1)) == (pa & (PMD_SIZE - 1)) &&
--	    ALIGN_DOWN(hva, PMD_SIZE) >= vma->vm_start &&
--	    ALIGN(hva, PMD_SIZE) <= vma->vm_end)
--		return PMD_SHIFT;
--
- 	return PAGE_SHIFT;
- }
- 
-@@ -1655,10 +1634,6 @@ static int user_mem_abort(struct kvm_vcpu *vcpu, phys_addr_t fault_ipa,
- 	if (ret)
- 		return ret;
- 
--	/*
--	 * Let's check if we will get back a huge page backed by hugetlbfs, or
--	 * get block mapping for device MMIO region.
--	 */
- 	mmap_read_lock(current->mm);
- 	vma = vma_lookup(current->mm, hva);
- 	if (unlikely(!vma)) {
-@@ -1670,7 +1645,7 @@ static int user_mem_abort(struct kvm_vcpu *vcpu, phys_addr_t fault_ipa,
- 	if (force_pte)
- 		vma_shift = PAGE_SHIFT;
- 	else
--		vma_shift = get_vma_page_shift(vma, hva);
-+		vma_shift = get_vma_page_shift(vma);
- 
- 	switch (vma_shift) {
- #ifndef __PAGETABLE_PMD_FOLDED
-@@ -1786,16 +1761,6 @@ static int user_mem_abort(struct kvm_vcpu *vcpu, phys_addr_t fault_ipa,
- 			if (!kvm_supports_cacheable_pfnmap())
- 				ret = -EFAULT;
- 		} else {
--			/*
--			 * If the page was identified as device early by looking at
--			 * the VMA flags, vma_pagesize is already representing the
--			 * largest quantity we can map.  If instead it was mapped
--			 * via __kvm_faultin_pfn(), vma_pagesize is set to PAGE_SIZE
--			 * and must not be upgraded.
--			 *
--			 * In both cases, we don't let transparent_hugepage_adjust()
--			 * change things at the last minute.
--			 */
- 			s2_force_noncacheable = true;
- 		}
- 	} else if (logging_active && !write_fault) {
-@@ -1826,9 +1791,10 @@ static int user_mem_abort(struct kvm_vcpu *vcpu, phys_addr_t fault_ipa,
- 
- 	/*
- 	 * If we are not forced to use page mapping, check if we are
--	 * backed by a THP and thus use block mapping if possible.
-+	 * backed by a huge stage-1 mapping and thus use block mapping if
-+	 * possible.
- 	 */
--	if (vma_pagesize == PAGE_SIZE && !(force_pte || s2_force_noncacheable)) {
-+	if (vma_pagesize == PAGE_SIZE && !force_pte) {
- 		if (fault_is_perm && fault_granule > PAGE_SIZE)
- 			vma_pagesize = fault_granule;
- 		else
--- 
-2.53.0
+	 Andrew
 
