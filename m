@@ -1,43 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5602337F739
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 21:54:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4870E22425B;
+	Tue,  6 Oct 2026 21:58:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791323667; cv=none; b=VMjvtwDl/OA6KZy77+mmAdCcEQxNd+bgMSZf/0UbQKQCdYqJRiD0RPQAPIZXERp4TO7rdj4VLlM2I3EHvcFqm0QocV62PkfwCbjDCE1hezcRJVZidJ2AV1MnphkYvcz89z/ZN7BxbJfUOxiUGbTMayNepINNwKp1EZehenwOFf4=
+	t=1791323898; cv=none; b=dMMgwBWQOIEkutjDQOGKq+wJv41pPExyESXRdazKPQ/QB4IgupdycNm4SZwI5QIBTx1WUj7wt97FoZjzbF/4fchrwAXYr1b+roosnMahkpMi/1foDQYxeSD8NZGSbfSApsMnjPFolL5tReJOwgIfsIh4Qy9GoRNrf98HxbAq00I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791323667; c=relaxed/simple;
-	bh=HMiB1rNxM/BzNBhFMns6seQSxGJVghwsxnIKw50aeRI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=koaXPQQoxq1ND1cZXAL0DFoB7PwLcyExq3E0BQWQnqrVZzeFNJL9hhfdg3We4jRXirb3FYQ8qBw+SV85y42SB5DXwEKLRYDn/gMyt3uPEzCYLgtqXuJNEex9TarQnDkgoB294eC2pxlFV+bv0orJW54FKjCZrrx9MoQzDp+s52c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c3hnjqc9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791323898; c=relaxed/simple;
+	bh=T6fT7iO2qvlFpUjlNQco7mZthDU5p5wz+mGHYmPBmJo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=puxWbau5gZLuS9GOYCUp+XDWg+5CXGeWxZefy5rm8kYsAwYPzXCbkeKEDa0Md4BIlCRNMafwvnAarb/TE0QmAQoYSjJSffd3SaKI8HNvOsmCj2lsCNo5MlIxyjUzeFFm1jwM7VdcmO5c1hTWu2oed1QNozjlvOge++PzxHEmaHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TdUSx5mp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c3hnjqc9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF0D01F0089C;
-	Tue,  6 Oct 2026 21:54:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TdUSx5mp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F2EC1F0089B;
+	Tue,  6 Oct 2026 21:58:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791323666;
-	bh=vmMx2IQVPwL1kmtR/ZbLHNk1uD+wQpWvq1E+GTs05oU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=c3hnjqc9B1OTESveoIcHz873H0Jipcx9wXU90YKW6WWPGqmU8nG+oIxMeFXJs5w5E
-	 jrICENpJXTl3ZeaB8Xy+JiYPLnG66tTI9W6p3ko45TJY95jzTjvOG3fOG1dcgiyrAE
-	 uUgQOXsazGks6u2T+9I8JM8sfzklX9cl8Wwpy/ig9MSa+bImrkXLtyZldt9DYR+SC6
-	 GaevGW6pFadvRppauQ/b6o60DidNzaxpnT3uvgdogIr6OehWI6gTNf6kpUxX8q6wBg
-	 nSnV+jO119S0Z7s2LjCmfmmUIIKq5fBr1yeJr6mBzKTbXKWP4iSzbO85RokXUlPxDw
-	 EgZQCKkOozgeg==
-From: Sasha Levin <sashal@kernel.org>
+	s=k20260515; t=1791323896;
+	bh=iEAO9Rza1pEXqjnySCAgbWRqwcbiH5GPpoBCdXnKO1I=;
+	h=From:To:Cc:Subject:Date;
+	b=TdUSx5mpGRxkqKBk8qk6qTbHtFw2WkksFJfm+fx8sFXHomPgmtFIyGti/UY0ypnQj
+	 3OsiPFcQPDpd/GJ+DDyxeJ0MGjH6TIpmYbMhiu1ajG4SfSLXz96xbZeNxjLN+PUI4I
+	 D2aeamPdF/Qlqx4bi7YZWTv86k5O/F00kGamMyPCv3ZdhPCtaDknDbB7klUb06EHmI
+	 AVRQ1zp2LsqMXywsvmIsJYw6CQnBRVM2hXNG9He0rQu8wdxpdihN7ExPG/5Zh+hOY8
+	 WUeNFAt2VEvrFW+bb8oLU+3y3NEv4vv+t7p31Q90kCPvQnBZ+L4VmkEyS1YZDQ+6X6
+	 5JlrLdWbZyvJQ==
+From: Eric Biggers <ebiggers@kernel.org>
 To: stable@vger.kernel.org
-Cc: Johan Hovold <johan@kernel.org>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] USB: serial: fix driver deregistration order
-Date: Tue,  6 Oct 2026 17:54:20 -0400
-Message-ID: <20261006215410.1049394-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261006215410.1049394-1-sashal@kernel.org>
-References: <2026100554-headlamp-saffron-1e8c@gregkh>
- <20261006215410.1049394-1-sashal@kernel.org>
+Cc: fsverity@lists.linux.dev,
+	Eric Biggers <ebiggers@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Theodore Ts'o <tytso@mit.edu>
+Subject: [PATCH 5.15] fsverity: add dependency on 64K or smaller pages
+Date: Tue,  6 Oct 2026 23:58:01 +0200
+Message-ID: <20261006215801.58604-1-ebiggers@kernel.org>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,108 +43,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Johan Hovold <johan@kernel.org>
+commit a300000233a9ff842e2fb450fb9a79f7827a586d upstream.
 
-[ Upstream commit 646e5b28b4fdbc1b828a2398d6ced2c1dd308a46 ]
+Currently, all filesystems that support fsverity (ext4, f2fs, and btrfs)
+cache the Merkle tree in the pagecache at a 64K aligned offset after the
+end of the file data.  This offset needs to be a multiple of the page
+size, which is guaranteed only when the page size is 64K or smaller.
 
-USB serial driver modules register one driver for the USB bus and one or
-more drivers for the ports on the USB serial bus.
+64K was chosen to be the "largest reasonable page size".  But it isn't
+the largest *possible* page size: the hexagon and powerpc ports of Linux
+support 256K pages, though that configuration is rarely used.
 
-When unloading a driver module, the USB driver must be deregistered
-before the USB serial bus drivers so that I/O is stopped before
-unbinding the ports to avoid use-after-free in completion handlers
-accessing port data.
+For now, just disable support for FS_VERITY in these odd configurations
+to ensure it isn't used in cases where it would have incorrect behavior.
 
-Note that the "new_id" attributes must first be removed to prevent new
-ids from being added and triggering a probe of the USB driver after it
-has been deregistered.
-
-Fixes: 765e0ba62613 ("usb-serial: new API for driver registration")
-Cc: stable@vger.kernel.org	# 3.4
-Cc: Alan Stern <stern@rowland.harvard.edu>
-Signed-off-by: Johan Hovold <johan@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 671e67b47e9f ("fs-verity: add Kconfig and the helper functions for hashing")
+Reported-by: Christoph Hellwig <hch@lst.de>
+Closes: https://lore.kernel.org/r/20260119063349.GA643@lst.de
+Reviewed-by: Theodore Ts'o <tytso@mit.edu>
+Link: https://lore.kernel.org/r/20260221204525.30426-1-ebiggers@kernel.org
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
 ---
- drivers/usb/serial/bus.c        |  4 ++++
- drivers/usb/serial/usb-serial.c | 21 ++++++++++++++++++---
- include/linux/usb/serial.h      |  1 +
- 3 files changed, 23 insertions(+), 3 deletions(-)
+ fs/verity/Kconfig | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/usb/serial/bus.c b/drivers/usb/serial/bus.c
-index fb87e39f8c16e..545849f8e41e1 100644
---- a/drivers/usb/serial/bus.c
-+++ b/drivers/usb/serial/bus.c
-@@ -171,3 +171,7 @@ void usb_serial_bus_deregister(struct usb_serial_driver *driver)
- 	free_dynids(driver);
- }
+diff --git a/fs/verity/Kconfig b/fs/verity/Kconfig
+index 24d1b54de807..4e3327ce2756 100644
+--- a/fs/verity/Kconfig
++++ b/fs/verity/Kconfig
+@@ -2,6 +2,9 @@
  
-+void usb_serial_bus_remove_new_id(struct usb_serial_driver *driver)
-+{
-+	driver_remove_file(&driver->driver, &driver_attr_new_id);
-+}
-diff --git a/drivers/usb/serial/usb-serial.c b/drivers/usb/serial/usb-serial.c
-index 0e80df03df216..9aafc7ed7c545 100644
---- a/drivers/usb/serial/usb-serial.c
-+++ b/drivers/usb/serial/usb-serial.c
-@@ -1475,7 +1475,7 @@ int usb_serial_register_drivers(struct usb_serial_driver *const serial_drivers[]
- {
- 	int rc;
- 	struct usb_driver *udriver;
--	struct usb_serial_driver * const *sd;
-+	struct usb_serial_driver * const *sd, * const *s;
- 
- 	/*
- 	 * udriver must be registered before any of the serial drivers,
-@@ -1527,9 +1527,11 @@ int usb_serial_register_drivers(struct usb_serial_driver *const serial_drivers[]
- 	return 0;
- 
- err_deregister_drivers:
-+	for (s = serial_drivers; s < sd; ++s)
-+		usb_serial_bus_remove_new_id(*s);
-+	usb_deregister(udriver);
- 	while (sd-- > serial_drivers)
- 		usb_serial_deregister(*sd);
--	usb_deregister(udriver);
- err_free_driver:
- 	kfree(udriver);
- 	return rc;
-@@ -1547,10 +1549,23 @@ EXPORT_SYMBOL_GPL(usb_serial_register_drivers);
- void usb_serial_deregister_drivers(struct usb_serial_driver *const serial_drivers[])
- {
- 	struct usb_driver *udriver = (*serial_drivers)->usb_driver;
-+	struct usb_serial_driver * const *sd;
-+
-+	/*
-+	 * udriver must be deregistered before the serial drivers so that
-+	 * I/O is stopped before unbinding the ports.
-+	 *
-+	 * Remove the new_id attributes to prevent ids from being added and
-+	 * triggering a probe of udriver after it has been deregistered.
-+	 */
-+	for (sd = serial_drivers; *sd; ++sd)
-+		usb_serial_bus_remove_new_id(*sd);
-+
-+	usb_deregister(udriver);
- 
- 	for (; *serial_drivers; ++serial_drivers)
- 		usb_serial_deregister(*serial_drivers);
--	usb_deregister(udriver);
-+
- 	kfree(udriver);
- }
- EXPORT_SYMBOL_GPL(usb_serial_deregister_drivers);
-diff --git a/include/linux/usb/serial.h b/include/linux/usb/serial.h
-index 16ea5a4cc586c..72b183bf34f72 100644
---- a/include/linux/usb/serial.h
-+++ b/include/linux/usb/serial.h
-@@ -382,6 +382,7 @@ void usb_serial_handle_dcd_change(struct usb_serial_port *usb_port,
- 
- int usb_serial_bus_register(struct usb_serial_driver *device);
- void usb_serial_bus_deregister(struct usb_serial_driver *device);
-+void usb_serial_bus_remove_new_id(struct usb_serial_driver *driver);
- 
- extern struct bus_type usb_serial_bus_type;
- extern struct tty_driver *usb_serial_tty_driver;
+ config FS_VERITY
+ 	bool "FS Verity (read-only file-based authenticity protection)"
++	# Filesystems cache the Merkle tree at a 64K aligned offset in the
++	# pagecache.  That approach assumes the page size is at most 64K.
++	depends on !PAGE_SIZE_256KB && !PPC_256K_PAGES
+ 	select CRYPTO
+ 	# SHA-256 is implied as it's intended to be the default hash algorithm.
+ 	# To avoid bloat, other wanted algorithms must be selected explicitly.
+
+base-commit: a051a4bf909f76f470ccb3761ee0cf6e2395616e
 -- 
-2.53.0
+2.56.0
 
