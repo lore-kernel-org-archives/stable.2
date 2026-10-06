@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25AA52AE68;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B28024DCF6;
 	Tue,  6 Oct 2026 00:36:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791246961; cv=none; b=ErljmKvMr7PfmEQXvYb7RUvHdSJbVSbfS/cl2Q5Ve2uve7aYtICUEMIBki+llteeY36V0NCaWvCwSnfiCelJS1OZ/jDzb2296JLpUBvIY2D8Nv7vsftE1mdvWhgJ+g5AB0PHuzzolYkDBvjY2aQtPMZeHm40AMTkR4ZOoSz969k=
+	t=1791246961; cv=none; b=kh1/LmazqJOq6YNjsxAZqBcjnQ7jGMia31HcJbZDiKLU85yyCWX08vHCGe5ElSOgai4MlQHHo6Ht/gu8/NRt1dqadyKYiTfDEzCD3ftMkAvFjEYSWlOwOUwXWBxd8mmEDXHJU9fPfjTrp2vnpZbbTUURUTE5SICHCFSZgfaPBTk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791246961; c=relaxed/simple;
-	bh=PuIzazG1WDn6+b7O+FsK76ydRCstCMtz6LHyTRHphmU=;
+	bh=BMbO745xygl9ggB8O2ERB9kFSsHTnyHqyyPpSoSdJd0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=s30yz3NRcVlzVkKrYI36YNnPlmaQh7kEPk98UokCSrDB8DHHLTlFvzyrLbzP6gV3URrvFipyOTKGuysQvfDqG/c7iMO1R83ZjhfN2zjfyxkfd4UKAS4Di3UmZmjSee8gOtIxTstrNC+DfWhWBpHekAOsscgmEirq9Ed+Ft120cI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sE8mG7hu; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=JITDTZUZt+jZTyuwHyQsDHngdePcFDOjI/6TvJA8B6RyrRy3kxMn4yc2gIsUxTQemkvr2FDWFs2nE9vo3DEJjQ980vvGoeWkiWz9PpykiYk9gf/HPSQvI8yinR8bzhGpbLfAlbW9PTwx0mTkjSLeVlNeYjKbDkBf2RQ2JPoWRXM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YBXpVnmP; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sE8mG7hu"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id DF663C4AF63;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YBXpVnmP"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id F2F80C4AF64;
 	Tue,  6 Oct 2026 00:36:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791246960;
-	bh=PuIzazG1WDn6+b7O+FsK76ydRCstCMtz6LHyTRHphmU=;
+	s=k20201202; t=1791246961;
+	bh=BMbO745xygl9ggB8O2ERB9kFSsHTnyHqyyPpSoSdJd0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=sE8mG7huEoa+ve6wYUuZsYm1TkfvqxL0Wv6NUg9YwuFyiIDKz5lfgLd0swx4mObXj
-	 hjcbhW/+8peE4JuDvI4ULLO3vyZoIhx6Bk+6pDyioZ6UxdMug/UzseDKlRdWKpn4UW
-	 Iu6xxQ4CPBVVxWWwryttrKGm/YJLdoO1r8VGSkEKOTlGnErWxphblRD4de2W2rpryD
-	 dJj1YzsCUZXXGf/3+mzPg5g9+wVvniLv8bzieiuWL6RKkfLIi6GUFc8zACXWIjLy4O
-	 /BC63xkyglkFsPDoINtPvd8nT2BS3o+VmiLCtQdwRPGuPkIn/dy/8g5ftdut6gSisc
-	 XZyhbBJ0l1NvQ==
+	b=YBXpVnmPhLROSKDwNLzmvtqCxw3g7Y1nfKx1mvyx+cRN+3Dlyo2OQJpVss6Qkc4v9
+	 bgtU/eSXV5H7X882BevM1YNFN7Mw1YPbpt72sfJ4REYgdcxXUINMdjw1Nc2f6wEena
+	 mpsHHld5drhqaMQLtaCXT2+XYC0SVHG87ngBqlZDcjsvlJPt4Ejd8EyMwM/doA/sJR
+	 Gl4DDrbCyC5sK+UU907mHl5p38OT/8jYBZW8cZO3OEKQmOpNCr405iu0F+4axHjjYG
+	 23jk5QEZKBkwSmDoYVLK4IlA5Q9qmJJoKrnQEqDlptKTY6gsII2CaXVm1R9JqzBXgL
+	 v7kO4x6cpNHkg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CC614CA5FFF;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E30F9CA6001;
 	Tue,  6 Oct 2026 00:36:00 +0000 (UTC)
 From: Gleb Pesin via B4 Relay <devnull+dormancygrace.gmail.com@kernel.org>
-Date: Tue, 06 Oct 2026 03:35:55 +0300
-Subject: [PATCH 2/3] riscv: Make the vendor extension headers usable from
- assembly
+Date: Tue, 06 Oct 2026 03:35:56 +0300
+Subject: [PATCH 3/3] riscv: Disable the xtheadvector unit on kernel entry
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -41,7 +40,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261006-riscv-xtheadvector-vs-v1-2-b00e5abc9f7a@gmail.com>
+Message-Id: <20261006-riscv-xtheadvector-vs-v1-3-b00e5abc9f7a@gmail.com>
 References: <20261006-riscv-xtheadvector-vs-v1-0-b00e5abc9f7a@gmail.com>
 In-Reply-To: <20261006-riscv-xtheadvector-vs-v1-0-b00e5abc9f7a@gmail.com>
 To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
@@ -51,11 +50,11 @@ Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
  Charlie Jenkins <thecharlesjenkins@gmail.com>, stable@vger.kernel.org, 
  Gleb Pesin <dormancygrace@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791246959; l=3518;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791246959; l=2161;
  i=dormancygrace@gmail.com; s=20261006; h=from:subject:message-id;
- bh=uS9Af9tVoEa4c8sQkOgjv/oYrhckO8osB2DVAqKiDJQ=;
- b=I76PHL05C45eefzwCne75zKJetUcvKyxASA+9GHQHReQHPfJWy9KtwPAkZqJGQjsO5B+WPb/r
- G5jFL7LEXOhDaleql+jNFOTSav9N5LXlgtjDTjSYQZxQz+8FKUp6Y0b
+ bh=QQB545Y5GthJc3aps7t7217QNuC1lzUjs760uVslRWU=;
+ b=pBklWC8ABOaDr3+tT9E9nKkIEvVnsrT62W428b1i7o5ARYAGv/Qe9xtflZQYjkx7ZnqLgS6kj
+ feKzM8Be0AkBfMmsEnLSuVlAt0QHg1W7ulhLorjvdn86iEBSThdjL2B
 X-Developer-Key: i=dormancygrace@gmail.com; a=ed25519;
  pk=Ha8pk6XE0bhPh/mNtu1MKWgYqiX+CxZdhLyDR1rgD/M=
 X-Endpoint-Received: by B4 Relay for dormancygrace@gmail.com/20261006 with
@@ -65,113 +64,57 @@ Reply-To: dormancygrace@gmail.com
 
 From: Gleb Pesin <dormancygrace@gmail.com>
 
-<asm/vendor_extensions.h> and <asm/vendor_extensions/thead.h> provide
-the constants that ALTERNATIVE() needs for a vendor extension
-(RISCV_VENDOR_EXT_ALTERNATIVES_BASE and RISCV_ISA_VENDOR_EXT_*), but
-they also pull in C headers and declarations, so assembly files cannot
-include them.
+handle_exception clears SR_FS_VS on entry so that stray floating-point
+or vector instructions in the kernel raise an illegal-instruction
+exception. xtheadvector keeps its vector status in SR_VS_THEAD
+(sstatus bits 24:23), which that mask does not cover. On 64-bit kernels
+bit 23 happens to be cleared as SR_SPELP, so the T-Head field is only
+partly reset: DIRTY becomes CLEAN, and the vector unit stays enabled in
+the kernel after a trap from a context that used it.
 
-Keep the constants visible to assembly and guard the rest with
-__ASSEMBLY__. No functional change.
+Clear the whole SR_VS_THEAD field on cores with xtheadvector. The status
+saved in pt_regs still holds the interrupted value, so the vector state
+is restored on return exactly as before. Other cores keep the current
+mask, because bit 24 is not part of the vector status there.
 
-This is needed by the next patch, which uses the xtheadvector
-alternative in entry.S.
-
-Cc: stable@vger.kernel.org # 6.14+: needed by the next patch
+Fixes: d863910eabaf ("riscv: vector: Support xtheadvector save/restore")
+Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Gleb Pesin <dormancygrace@gmail.com>
 ---
- arch/riscv/include/asm/vendor_extensions.h       | 28 ++++++++++++++----------
- arch/riscv/include/asm/vendor_extensions/thead.h |  8 +++++--
- 2 files changed, 22 insertions(+), 14 deletions(-)
+ arch/riscv/kernel/entry.S | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/arch/riscv/include/asm/vendor_extensions.h b/arch/riscv/include/asm/vendor_extensions.h
-index 7437304a7..c9fca8591 100644
---- a/arch/riscv/include/asm/vendor_extensions.h
-+++ b/arch/riscv/include/asm/vendor_extensions.h
-@@ -6,16 +6,25 @@
- #ifndef _ASM_VENDOR_EXTENSIONS_H
- #define _ASM_VENDOR_EXTENSIONS_H
+diff --git a/arch/riscv/kernel/entry.S b/arch/riscv/kernel/entry.S
+index d799c4e56..aeb99c20b 100644
+--- a/arch/riscv/kernel/entry.S
++++ b/arch/riscv/kernel/entry.S
+@@ -16,6 +16,8 @@
+ #include <asm/thread_info.h>
+ #include <asm/asm-offsets.h>
+ #include <asm/errata_list.h>
++#include <asm/vendor_extensions.h>
++#include <asm/vendor_extensions/thead.h>
+ #include <linux/sizes.h>
  
--#include <asm/cpufeature.h>
--
--#include <linux/array_size.h>
--#include <linux/types.h>
--
- /*
-  * The extension keys of each vendor must be strictly less than this value.
-  */
- #define RISCV_ISA_VENDOR_EXT_MAX 32
- 
-+/*
-+ * The alternatives need some way of distinguishing between vendor extensions
-+ * and errata. Incrementing all of the vendor extension keys so they are at
-+ * least 0x8000 accomplishes that.
-+ */
-+#define RISCV_VENDOR_EXT_ALTERNATIVES_BASE	0x8000
-+
-+#ifndef __ASSEMBLY__
-+
-+#include <asm/cpufeature.h>
-+
-+#include <linux/array_size.h>
-+#include <linux/types.h>
-+
- struct riscv_isavendorinfo {
- 	DECLARE_BITMAP(isa, RISCV_ISA_VENDOR_EXT_MAX);
- };
-@@ -32,13 +41,6 @@ extern struct riscv_isa_vendor_ext_data_list *riscv_isa_vendor_ext_list[];
- 
- extern const size_t riscv_isa_vendor_ext_list_size;
- 
--/*
-- * The alternatives need some way of distinguishing between vendor extensions
-- * and errata. Incrementing all of the vendor extension keys so they are at
-- * least 0x8000 accomplishes that.
-- */
--#define RISCV_VENDOR_EXT_ALTERNATIVES_BASE	0x8000
--
- #define VENDOR_EXT_ALL_CPUS			-1
- 
- bool __riscv_isa_vendor_extension_available(int cpu, unsigned long vendor, unsigned int bit);
-@@ -101,4 +103,6 @@ static __always_inline bool riscv_cpu_has_vendor_extension_unlikely(const unsign
- 	return __riscv_isa_vendor_extension_available(cpu, vendor, ext);
- }
- 
-+#endif /* __ASSEMBLY__ */
-+
- #endif /* _ASM_VENDOR_EXTENSIONS_H */
-diff --git a/arch/riscv/include/asm/vendor_extensions/thead.h b/arch/riscv/include/asm/vendor_extensions/thead.h
-index e85c75b3b..625f44175 100644
---- a/arch/riscv/include/asm/vendor_extensions/thead.h
-+++ b/arch/riscv/include/asm/vendor_extensions/thead.h
-@@ -4,13 +4,15 @@
- 
- #include <asm/vendor_extensions.h>
- 
--#include <linux/types.h>
--
- /*
-  * Extension keys must be strictly less than RISCV_ISA_VENDOR_EXT_MAX.
-  */
- #define RISCV_ISA_VENDOR_EXT_XTHEADVECTOR		0
- 
-+#ifndef __ASSEMBLY__
-+
-+#include <linux/types.h>
-+
- extern struct riscv_isa_vendor_ext_data_list riscv_isa_vendor_ext_list_thead;
- 
- #ifdef CONFIG_RISCV_ISA_VENDOR_EXT_THEAD
-@@ -19,6 +21,8 @@ void disable_xtheadvector(void);
- static inline void disable_xtheadvector(void) { }
- #endif
- 
-+#endif /* __ASSEMBLY__ */
-+
- /* Extension specific helpers */
- 
- /*
+ 	.section .irqentry.text, "ax"
+@@ -176,9 +178,14 @@ SYM_CODE_START(handle_exception)
+ 	 * actual user copy routines.
+ 	 *
+ 	 * Disable the FPU/Vector to detect illegal usage of floating point
+-	 * or vector in kernel space.
++	 * or vector in kernel space. xtheadvector keeps its vector status in
++	 * a different sstatus field; those bits are reserved elsewhere.
+ 	 */
+-	li t0, SR_SUM | SR_FS_VS
++	ALTERNATIVE(__stringify(li t0, SR_SUM | SR_FS_VS),
++		    __stringify(li t0, SR_SUM | SR_FS_VS | SR_VS_THEAD),
++		    THEAD_VENDOR_ID,
++		    RISCV_VENDOR_EXT_ALTERNATIVES_BASE + RISCV_ISA_VENDOR_EXT_XTHEADVECTOR,
++		    CONFIG_RISCV_ISA_XTHEADVECTOR)
+ #ifdef CONFIG_64BIT
+ 	li t1, SR_ELP
+ 	or t0, t0, t1
 
 -- 
 2.53.0
