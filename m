@@ -1,63 +1,42 @@
-Received: from pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.12.53.23])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB3E745C700
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 16:14:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.12.53.23
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3E313B47D2
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 16:16:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791303284; cv=none; b=ZcwFp7fNgg9nkW0nZXF30Ws6ZY2L+HWIm/lTglmOAnH2AxH1mZ3d18+H2wcAb4O7GppBYMKviWYIfqo9LthppdtU0BwMBFvJnUcr3G1dL3XdW0VpkndILYIIBc61vIjB21Fx9stpU/t1gkf/ztKfFq4hbADk6vjg7USUKhONlbU=
+	t=1791303369; cv=none; b=cnWPNv/CQfc+cmOOJij4jZyw7Iu/2Luerttxqao/4TkoTObm5UJiMfXSW/lU8hnBUgtNlKGpM3htt8xveQa40tExVvEMP7vgK4IOx2UTPLov5Hc1LFE+4ZitJ4R9WyQyxOHufppXrTTrBJTgAVcW5flNGlRR9COEmqdUnpKsFX0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791303284; c=relaxed/simple;
-	bh=e2oB1Z1Vyr6Gr2Rm9VvpOSXZzPcjtMVL9kgVSYVl+eM=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=UHXeIip0K4htQLWB62C0PA8KRLT3iEb3QEZyCt1sPny/cYu9hCcEYUOsyGYDeKDaBJYy9guTSQPRYhz0Sd2HBQYxqSu3gyRbVzh/6E679YsNScYMmE6I2wDOVuABjwJVx8mJ/usH0niLEZPf1Im0nJgMHal/fypIjt2ngheWCeQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=N8vcv+KL; arc=none smtp.client-ip=52.12.53.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	s=arc-20240116; t=1791303369; c=relaxed/simple;
+	bh=jsBNgo7yP10EvBvWG8ShvFHEqp1/RXves5PbBc/u93g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RbmdHqoc1YPYxhX0BMHRAV/Zzebimpkdsl7almgRSRqtTAmxFsFPSV8jphZnqUoTbb/C7d8sy8cEelpvMcSfNcGy71hYpuulbjQkL+pNBCdOOR6r+kRj1BuNVSkMXxuif/LY40cm+ldySHlNxqIiRQe0Us/rt7UInucmjjvxeDs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lKt2Dcqu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="N8vcv+KL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1791303282; x=1822839282;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=3/FHb9nAa9+Vxb9VxkkdP0WJb6VAwlHScTEzmlJ0T4M=;
-  b=N8vcv+KLi/j6tj8t7O7e9wEu0Xz/viX2Ylyu0yU3ZkRXwHGR+0f4rp+o
-   WS0jUuMvPwwepo5ZRUL3cp7c30Y6z6eoPRfd03IMllmQ5y9ysXfqjbmI5
-   /wpniRMusacyT43BgnVC0COXOMFw38/ljnvTPUB52Y58dwIVf/L/6YU4C
-   dv5xzHkhHO7wBABLwX4UQpOTYcGbe4epn9wBQCUgrMc1hr5b5gO/ws3fF
-   PSkChrcGKLFtypGcv6mlk96dh/pvrkw2uOwbUQk7/5a1XVwTgmz5Atcpy
-   ODiB8eeuerSDvYvJ7qy1YJPBLsfSWxDE4R++24NdhKqDSJowuj/WADwUO
-   w==;
-X-CSE-ConnectionGUID: TIegs2avSpuKOmjnYe4NZg==
-X-CSE-MsgGUID: TQfIntx+QHSUjG6vHQllUA==
-X-IronPort-AV: E=Sophos;i="6.27,143,1787011200"; 
-   d="scan'208";a="30416194"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 16:14:40 +0000
-Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:12696]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.44.113:2525] with esmtp (Farcaster)
- id 2eea44ba-9a5f-43a2-84ce-7d6546234e4b; Tue, 6 Oct 2026 16:14:39 +0000 (UTC)
-X-Farcaster-Flow-ID: 2eea44ba-9a5f-43a2-84ce-7d6546234e4b
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Tue, 6 Oct 2026 16:14:39 +0000
-Received: from dev-dsk-doebel-1a-7b355d76.us-east-1.amazon.com (10.169.119.5)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Tue, 6 Oct 2026 16:14:38 +0000
-From: Bjoern Doebel <doebel@amazon.de>
-To: <stable@vger.kernel.org>
-CC: Sasha Levin <sashal@kernel.org>, Jiangshan Yi <yijiangshan@kylinos.cn>,
-	Namjae Jeon <linkinjeon@kernel.org>, Paulo Alcantara <pc@manguebit.org>,
-	Bjoern Doebel <doebel@amazon.de>
-Subject: [PATCH v2 6.1] smb: client: clear setuid/setgid bit on write with cifsacl/modefromsid/posix extensions
-Date: Tue, 6 Oct 2026 16:14:21 +0000
-Message-ID: <20261006161421.1948193-3-doebel@amazon.de>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261002145450.3926570-1-doebel@amazon.de>
-References: <20261002145450.3926570-1-doebel@amazon.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lKt2Dcqu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE18F1F0089B;
+	Tue,  6 Oct 2026 16:16:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791303368;
+	bh=sPJXcRDYesi0IqYkA9xomN0e0WLL/01xeXS6kUROPxE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=lKt2DcquqKFU6nfrIaPVlF91X635GLeYbMFndnPe81Fb84MYt7SjvFR6CgRvYzwP8
+	 ++bqNGm3/PrHxK0JVqSmT7pdgdtyyWjAnG3QHovqB73abzgFyLoDI/cptXT/bIKM+F
+	 AjE2S4ZFejp8fQuA9i4bfHJdPpe8bygI3AC6BeTDBp/oMd1tY9OvbHbcjhf12eJgBH
+	 z6WFdB/vmc7zMDkSOAg8RkIIT8d596OvxNZJNYMgRrZ0/A908fWfVxYRjG6rAYRM/C
+	 XabYO7brfxROouqtapf+fDL8+Tzqmc+RU/HU+z8w+okTLyTo2FBQPfZeAuAJeUWmU1
+	 3UeqwdjSHT2ug==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Guixin Liu <kanie@linux.alibaba.com>,
+	Keith Busch <kbusch@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] nvme-multipath: set BLK_FEAT_ZONED only after the zone info is known
+Date: Tue,  6 Oct 2026 12:16:05 -0400
+Message-ID: <20261006161548.852163-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026100505-fretted-bungee-8826@gregkh>
+References: <2026100505-fretted-bungee-8826@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -65,122 +44,47 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D035UWA001.ant.amazon.com (10.13.139.101) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-From: Jiangshan Yi <yijiangshan@kylinos.cn>
+From: Guixin Liu <kanie@linux.alibaba.com>
 
-[ Upstream commit b8e5dc4f95e5484159b343903f302eb6d783f2e6 ]
+[ Upstream commit 4a5e49ba0abb8b4328d6318c9aef0c0121f95507 ]
 
-When a file has the setuid or setgid bit set and is written to, the VFS
-strips those bits and issues a setattr with ATTR_KILL_SUID/ATTR_KILL_SGID
-together with an ATTR_MODE carrying the already-cleared mode.
+The namespace head is marked zoned at allocation time based only on the
+command set identifier.  If the zone info query reports a zero zone size,
+the path namespace is registered without zoned limits while the head
+still advertises the zoned capability with a zone size of zero, and
+reporting zones or writing to the head then shifts by ilog2(0).
 
-Both cifs_setattr_unix() and cifs_setattr_nounix() unconditionally dropped
-ATTR_MODE in that case:
+Drop the zoned feature from the head allocation and let the head limits
+refresh stack it in from the path namespace instead.
 
-	/* skip mode change if it's just for clearing setuid/setgid */
-	if (attrs->ia_valid & (ATTR_KILL_SUID|ATTR_KILL_SGID))
-		attrs->ia_valid &= ~ATTR_MODE;
-
-This is fine for the default mount, where the mode is only emulated via
-the DOS read-only attribute and cannot represent the setuid/setgid bits
-anyway.  However, with the "cifsacl" or "modefromsid" mount options the
-mode is stored on the server through an ACL (id_mode_to_cifs_acl()), with
-the SMB3.1.1 POSIX extensions the mode is sent to the server directly,
-and with the SMB1 Unix extensions (cifs_setattr_unix) the mode is sent
-via CIFSSMBUnixSetPathInfo().  In all those cases dropping ATTR_MODE means
-the cleared mode is never pushed to the server, so the setuid/setgid bit
-survives the write.
-
-This is a security issue: on local filesystems the setuid bit is stripped
-when a file is written, but over these cifs.ko mounts the bit persists on
-the server, potentially allowing an unexpected privilege escalation on
-subsequent execution.
-
-Fix this in two places:
-
-  1. cifs_setattr_nounix(): only take the "skip mode change" shortcut
-     when the mode is emulated via the DOS read-only attribute (i.e.
-     neither cifsacl/modefromsid nor the SMB3.1.1 POSIX extensions are
-     in effect), so that the cleared mode is propagated to the server
-     in the ACL / POSIX cases.
-
-  2. cifs_setattr_unix(): this function is only called when Unix
-     extensions are in effect, so the mode is always stored on the
-     server.  Remove the shortcut entirely so that the cleared mode is
-     always pushed.
-
-Fixes: d32c4f2626ac ("CIFS: ignore mode change if it's just for clearing setuid/setgid bits")
+Fixes: 28982ad73d6a ("nvme: set BLK_FEAT_ZONED for ZNS multipath disks")
+Fixes: 3838e80fcfb3 ("nvme: skip the zoned limits update if the zone info query failed")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ Backport note for 6.1: no sbflags local exists here, so test
-  cifs_sb->mnt_cifs_flags directly (same flag bits).  Drop the upstream
-  posix_extensions clause: 6.1 lacks d413eabff18d ("fs/smb/client:
-  implement chmod() for SMB3 POSIX Extensions"), so cifs_setattr_nounix()
-  has no POSIX ATTR_MODE branch; match its CIFS_ACL/MODE_FROM_SID check. ]
-Signed-off-by: Bjoern Doebel <doebel@amazon.de>
-Assisted-by: opencode:kimi-k3
+Signed-off-by: Guixin Liu <kanie@linux.alibaba.com>
+Signed-off-by: Keith Busch <kbusch@kernel.org>
+[ sashal: Made the existing `max_zone_append_sectors = 0` assignment unconditional to satisfy queue-limit validation. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-v2:
-- Drop the posix_extensions clause from the cifs_setattr_nounix() check:
-  6.1 lacks d413eabff18d, so there is no POSIX ATTR_MODE branch and the
-  clause would route the kill-suid mode change into the DOS READONLY
-  emulation. Mention this in the backport note. (Sasha)
-- v1: https://lore.kernel.org/stable/20261002145450.3926570-1-doebel@amazon.de/
+ drivers/nvme/host/multipath.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
- fs/smb/client/inode.c | 28 +++++++++++++++++++++++-----
- 1 file changed, 23 insertions(+), 5 deletions(-)
-
-diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
-index 51d38449ca855..be8b2469f5c64 100644
---- a/fs/smb/client/inode.c
-+++ b/fs/smb/client/inode.c
-@@ -2826,9 +2826,13 @@ cifs_setattr_unix(struct dentry *direntry, struct iattr *attrs)
- 			goto out;
- 	}
+diff --git a/drivers/nvme/host/multipath.c b/drivers/nvme/host/multipath.c
+index 43f6991f964df..d2ab2413dbdc7 100644
+--- a/drivers/nvme/host/multipath.c
++++ b/drivers/nvme/host/multipath.c
+@@ -647,10 +647,7 @@ int nvme_mpath_alloc_disk(struct nvme_ctrl *ctrl, struct nvme_ns_head *head)
+ 	blk_set_stacking_limits(&lim);
+ 	lim.dma_alignment = 3;
+ 	lim.features |= BLK_FEAT_IO_STAT | BLK_FEAT_NOWAIT | BLK_FEAT_POLL;
+-	if (head->ids.csi == NVME_CSI_ZNS)
+-		lim.features |= BLK_FEAT_ZONED;
+-	else
+-		lim.max_zone_append_sectors = 0;
++	lim.max_zone_append_sectors = 0;
  
--	/* skip mode change if it's just for clearing setuid/setgid */
--	if (attrs->ia_valid & (ATTR_KILL_SUID|ATTR_KILL_SGID))
--		attrs->ia_valid &= ~ATTR_MODE;
-+	/*
-+	 * This function is only called when Unix extensions are in effect,
-+	 * so the mode is always sent to and stored on the server.  Do not
-+	 * skip the mode change when clearing setuid/setgid bits: dropping
-+	 * ATTR_MODE here would leave those bits set on the server after a
-+	 * write, which is a security issue.
-+	 */
- 
- 	args = kmalloc(sizeof(*args), GFP_KERNEL);
- 	if (args == NULL) {
-@@ -3014,8 +3018,22 @@ cifs_setattr_nounix(struct dentry *direntry, struct iattr *attrs)
- 	if (!(cifs_sb->mnt_cifs_flags & CIFS_MOUNT_SET_UID))
- 		attrs->ia_valid &= ~(ATTR_UID | ATTR_GID);
- 
--	/* skip mode change if it's just for clearing setuid/setgid */
--	if (attrs->ia_valid & (ATTR_KILL_SUID|ATTR_KILL_SGID))
-+	/*
-+	 * Skip the mode change if it is only being done to clear the
-+	 * setuid/setgid bits *and* the mode is emulated via the DOS
-+	 * read-only attribute (the default, non-ACL case), which cannot
-+	 * represent the setuid/setgid bits anyway.
-+	 *
-+	 * When the mode is instead stored on the server - i.e. with the
-+	 * cifsacl or modefromsid mount options (via an ACL) - the cleared
-+	 * mode must be pushed to the server.  Dropping ATTR_MODE here
-+	 * would leave the setuid/setgid bit set on the server after a
-+	 * write, which is a security issue (the bits are not stripped as
-+	 * they are on local filesystems).
-+	 */
-+	if ((attrs->ia_valid & (ATTR_KILL_SUID|ATTR_KILL_SGID)) &&
-+	    !(cifs_sb->mnt_cifs_flags &
-+	      (CIFS_MOUNT_CIFS_ACL | CIFS_MOUNT_MODE_FROM_SID)))
- 		attrs->ia_valid &= ~ATTR_MODE;
- 
- 	if (attrs->ia_valid & ATTR_MODE) {
+ 	head->disk = blk_alloc_disk(&lim, ctrl->numa_node);
+ 	if (IS_ERR(head->disk))
 -- 
-2.50.1
+2.53.0
 
