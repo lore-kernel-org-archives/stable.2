@@ -1,137 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A55BB3769FD
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 17:55:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA70E3909AB
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 17:56:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791309357; cv=none; b=RgD5IIAw7CR4v7dsjsHsMf1ee9lL9z/mfzRt+de4LLwYSE9XPRmWOcapGAqWOMdzQLSzwX8loJVXsP/BxPKW7Kcq3PSIymT3t7ysk5Ct+tXSc32mczsqYWTq+J9SWWazhrXhS72/PM1P8eMc5tYeyrLlAyUtsF6mwhIr8SjAUs4=
+	t=1791309370; cv=none; b=JMAmaMGqX9xtwoXMsv82PZ3vG9bCTBwIQutp6hKoc2h+NI4V7O2ZTXGJ8MIn4a4J4ADJXvffp5rTdiXqz1R6IUw9EHrrVZ9ST9GFGH0ZuDalPxUktkhxPXpVzBZ715B87IxeWMaemaSOU3IEZijLttLUdZUQlWxEsV0P+frWJZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791309357; c=relaxed/simple;
-	bh=A1LcrHQjDDbq+ly05A4dktfBz6kR0jj1MpgvgNBZPq4=;
+	s=arc-20240116; t=1791309370; c=relaxed/simple;
+	bh=BSCMTVPQ6a6tRzPxRXGGg+7ybrqOfOgvd89qPYHe2iA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KbEvN5XAxfcr7dAKXXdvqHNDAjRqTEM44TZo6HE/8ks7Qv6O3FnLadMPpgN0FVxIDXttoSte/Y5VohpOhkGvDCkYRA9q0ejVtnxmFWVmspiX6M+h4WLgiEG8QRupt/t8TsbCOzrfglWiGeP87Tcs4eKUTKi0Is0qb3JZv8qkJO4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tv79IiNI; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=FmLbMEUej68SUmkLzHAsaKgsbFyp+su7h+wOLf4lz0TrRZJ48HcSGP5Cr+JRLrSDwFhZctxzL23sKsCNeM77L2fkhn8icHNyiIc9UBnC4ZPc+ajKHpSYY2ypp+RJDCpk8KQv2j1dPcmCdToYuhFQO5G8NxSMDgOm3mMpovajgvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=La4nSko2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tv79IiNI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B46B1F0089B;
-	Tue,  6 Oct 2026 17:55:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="La4nSko2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 372701F0089B;
+	Tue,  6 Oct 2026 17:56:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791309356;
-	bh=MG1C6dzHyeExGTw7MySLTKOWETvpswigo1ZMKLW01a4=;
+	s=k20260515; t=1791309369;
+	bh=WVwxlsJJHYaj422WVq0nQKlrZp6E3cKYb4X46c9WUgU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Tv79IiNIyFKlS1uwKYJ3viXXmaxza/gPc9YIcxZpvI0c52hiC0U5OCvAPws8eYO0f
-	 szbEic8KOB7I1TZw+Hs35zCbV0OLSrqOcHRXUl7QE9wcsXs1bM2ufhcMoDxiI8jp7/
-	 fM1KMKEYRrZjgAwY6ZSPlyQmG1P4zigBFoQvKkr7Eh/6wMfTeueCDTBJwiUzrTFExH
-	 JasnRxJ4bQkw2XZvI4qWSXXZUHC1fUax67A3xcqr1aWsviQo+h4y19Ey8KsFYnTfB2
-	 csp7QVOXqMjAjf7tIRbFRqKomj67DZ6RmBqSnca0rMrgdwdBlymb5UJLyo/AlbUj2s
-	 vWkodKfYYL4VA==
+	b=La4nSko2hMe5N53NtjpTaPlN2opKqWRoxOLtIWamrOAdeFLCCqroDImK70kjSQjGC
+	 w2+v47hJjivbK12TYbdpRQrv/E+izyWXFZkxLXX8Lo6GHNZAKyX3DzxeDnnI67Tm4Q
+	 u7NH1perQdQRpOAJRomnPeJ9iDlN36kry6sGApTejxHdGRuUTXTSRGGQDQm7xhFuuz
+	 r1GXAP+p09vLeTUFXkxWWEgDl3n0BhR6mR0oIYsWFTHkGHB01IgBBwrGNPG6zOmumL
+	 q7kel8urAVXEbRuRAeq4ryEXDswxbvtCNu3NeHd2wYEKhRBb8MXVa8m9tL7znQU0R/
+	 L4LWe0ucf7mPw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zhiling Zou <zhilinz@nebusec.ai>,
-	Vega <vega@nebusec.ai>,
-	Johannes Berg <johannes.berg@intel.com>,
+Cc: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] wifi: mac80211: keep paired old chanctx alive
-Date: Tue,  6 Oct 2026 13:55:52 -0400
-Message-ID: <20261006175525.914502-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] mtd: spinand: fix NULL pointer dereference with no ECC engine
+Date: Tue,  6 Oct 2026 13:56:05 -0400
+Message-ID: <20261006175526.928344-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100550-agreeing-enamel-9da2@gregkh>
-References: <2026100550-agreeing-enamel-9da2@gregkh>
+In-Reply-To: <2026100521-bargraph-feminize-2166@gregkh>
+References: <2026100521-bargraph-feminize-2166@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Zhiling Zou <zhilinz@nebusec.ai>
+From: Nuno Sá <nuno.sa@analog.com>
 
-[ Upstream commit 3412e9a800786d1dec4a58367db1cba275e7ef11 ]
+[ Upstream commit b890e6163761ddb580cc74f43e15f8bbde15647e ]
 
-An in-place replacement keeps reciprocal replace_ctx pointers between
-the old WILL_BE_REPLACED chanctx and the new REPLACES_OTHER chanctx.
-However, the early free paths only consider assigned and reserved link
-users when deciding whether to free the old chanctx.
+When "nand-no-ecc-engine" is set in DT, nanddev_get_ecc_engine() takes
+the NAND_ECC_ENGINE_TYPE_NONE path and returns success while leaving
+nand->ecc.engine NULL. The SPI-NAND code nevertheless dereferences it
+unconditionally to test for a pipelined engine, so probing such a
+device oopses immediately.
 
-That lets the old chanctx be freed too early while the replacement
-partner still points back to it, either when the last assigned link is
-released or when that link successfully reassigns to another existing
-context. Later unreserve and switch-finalization paths can then follow a
-stale replace_ctx pointer.
+Rather than open-coding the test three times, add a
+nand_ecc_is_pipelined() helper to the NAND core that folds the NULL
+check into the integration comparison, and use it everywhere. Future
+callers then cannot reintroduce the problem.
 
-Keep a paired old chanctx alive until the replacement pair has been torn
-down. Apply the same check to both __ieee80211_link_release_channel()
-and ieee80211_link_use_reserved_reassign(). If the replacement is later
-abandoned, ieee80211_link_unreserve_chanctx() already tears down the
-pairing before freeing the old chanctx once no users remain.
-
-Fixes: 5bcae31d9cb1 ("mac80211: implement multi-vif in-place reservations")
+Fixes: f9d7c7265bcf ("mtd: spinand: Create direct mapping descriptors for ECC operations")
 Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
-Link: https://patch.msgid.link/b9b582b0db3814f641648b8886bb50f9d68f93ac.1785730815.git.zhilinz@nebusec.ai
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
-[ sashal: Inlined the replacement-partner helper at both call sites. ]
+Signed-off-by: Nuno Sá <nuno.sa@analog.com>
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+[ sashal: replaced the new nand_ecc_is_pipelined() helper with an inline NULL check in spinand_create_dirmap() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/mac80211/chan.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
+ drivers/mtd/nand/spi/core.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/net/mac80211/chan.c b/net/mac80211/chan.c
-index 4a21e53afa72e..85875ed7536f8 100644
---- a/net/mac80211/chan.c
-+++ b/net/mac80211/chan.c
-@@ -1067,6 +1067,7 @@ int ieee80211_link_unreserve_chanctx(struct ieee80211_link_data *link)
- {
- 	struct ieee80211_sub_if_data *sdata = link->sdata;
- 	struct ieee80211_chanctx *ctx = link->reserved_chanctx;
-+	struct ieee80211_chanctx *old_ctx = NULL;
+diff --git a/drivers/mtd/nand/spi/core.c b/drivers/mtd/nand/spi/core.c
+index 04965f21c995f..9143553bc5704 100644
+--- a/drivers/mtd/nand/spi/core.c
++++ b/drivers/mtd/nand/spi/core.c
+@@ -884,7 +884,8 @@ static int spinand_create_dirmap(struct spinand_device *spinand,
  
- 	lockdep_assert_held(&sdata->local->chanctx_mtx);
+ 	spinand->dirmaps[plane].rdesc = desc;
  
-@@ -1081,6 +1082,7 @@ int ieee80211_link_unreserve_chanctx(struct ieee80211_link_data *link)
- 			if (WARN_ON(!ctx->replace_ctx))
- 				return -EINVAL;
+-	if (nand->ecc.engine->integration != NAND_ECC_ENGINE_INTEGRATION_PIPELINED) {
++	if (!nand->ecc.engine ||
++	    nand->ecc.engine->integration != NAND_ECC_ENGINE_INTEGRATION_PIPELINED) {
+ 		spinand->dirmaps[plane].wdesc_ecc = spinand->dirmaps[plane].wdesc;
+ 		spinand->dirmaps[plane].rdesc_ecc = spinand->dirmaps[plane].rdesc;
  
-+			old_ctx = ctx->replace_ctx;
- 			WARN_ON(ctx->replace_ctx->replace_state !=
- 			        IEEE80211_CHANCTX_WILL_BE_REPLACED);
- 			WARN_ON(ctx->replace_ctx->replace_ctx != ctx);
-@@ -1091,6 +1093,10 @@ int ieee80211_link_unreserve_chanctx(struct ieee80211_link_data *link)
- 
- 			list_del_rcu(&ctx->list);
- 			kfree_rcu(ctx, rcu_head);
-+
-+			if (ieee80211_chanctx_refcount(sdata->local,
-+						       old_ctx) == 0)
-+				ieee80211_free_chanctx(sdata->local, old_ctx);
- 		} else {
- 			ieee80211_free_chanctx(sdata->local, ctx);
- 		}
-@@ -1322,7 +1328,9 @@ ieee80211_link_use_reserved_reassign(struct ieee80211_link_data *link)
- 
- 	ieee80211_check_fast_xmit_iface(sdata);
- 
--	if (ieee80211_chanctx_refcount(local, old_ctx) == 0)
-+	if (ieee80211_chanctx_refcount(local, old_ctx) == 0 &&
-+	    !(old_ctx->replace_state == IEEE80211_CHANCTX_WILL_BE_REPLACED &&
-+	      old_ctx->replace_ctx))
- 		ieee80211_free_chanctx(local, old_ctx);
- 
- 	ieee80211_recalc_chanctx_min_def(local, new_ctx, NULL);
-@@ -1802,7 +1810,9 @@ static void __ieee80211_link_release_channel(struct ieee80211_link_data *link)
- 	}
- 
- 	ieee80211_assign_link_chanctx(link, NULL);
--	if (ieee80211_chanctx_refcount(local, ctx) == 0)
-+	if (ieee80211_chanctx_refcount(local, ctx) == 0 &&
-+	    !(ctx->replace_state == IEEE80211_CHANCTX_WILL_BE_REPLACED &&
-+	      ctx->replace_ctx))
- 		ieee80211_free_chanctx(local, ctx);
- 
- 	link->radar_required = false;
 -- 
 2.53.0
 
