@@ -1,123 +1,174 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53CA53D88E0
-	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 09:34:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B0823AD503
+	for <stable@vger.kernel.org>; Tue,  6 Oct 2026 09:45:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791279262; cv=none; b=SbQdSjsPe8wl6MHgdZDd1Uva8hn+aZydzsL2aAjCePOywl0jYEqpCodc6D/ZBD5RqNjiAuyAQCGMFvGz9Hl+RkNJ78RYGUjZLcDvmF2gEh0fLa/WX7bevQUwJKzdK4nMGkP1pSzRkUPInw4DvZDXvFyVOFHFEkMZhc0pdG1QTKg=
+	t=1791279943; cv=none; b=Aj9bNTPwhmUFljtR5qo0wVJBF8SDcVjmfmeHgqIM+n4UWOR5z4zVSAz2z1kH0sMaw2ElsfeyZ3tRgIT123oFUY5BaxOAPUl/oTULbQYqyQ0qAU3NdWejhUlDBsCn20hzqjA3scfWKYqQsDqyuBfNmilNf9hzi1Mb64yRiroYZnQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791279262; c=relaxed/simple;
-	bh=+V8uFO8KjUBEZ10FiDGjD6LAJ9EH5zGBb8kX+VfCtOk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Mg09Hyuw8Pm3izvVV8fplQ4s0uUWMSc+PqaFY4Q5hhC01s86ASMfvNyqxoQXck3rr4g2+WEkKkfeJDDFDgl82se3jcVgOg8aDEJzZkP3rBUT/Ei1InDukfTj34HdpeBqmyM94o4O2pZm++++WrFHgA0Vc7ZADCRGaKOx/ngT4Ug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=LDNmFn+v; arc=none smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	s=arc-20240116; t=1791279943; c=relaxed/simple;
+	bh=eoimn89aaacKHhc4tEhjTbjs4F4+56CnTVITd356BhA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VGnO22Hvcj1NBbXniXlOwUshbA9YsW+MG3EisaxV3BJI7s5Qw6Qd2YfmqbrbRx+1s7VMlei9SVMGWpl8YpqsiPofbCD+QP/r8VGnARVxZegsrkzLFyLXYOAXmHuEJWsKzPWt/lfCJVSDneQDvCrTPov53eETqLUba2QvLHhaVAA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MaqpPCM3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="LDNmFn+v"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48c4be28b82so347874f8f.2
-        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 02:34:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1791279257; x=1791884057; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Jq4MvvelPJmLJTP64CCeQVSZLu/IREWVL/wvvlYXR5M=;
-        b=LDNmFn+vPCgLAHGVEJ5RFSZOerw0K5YsVdDhGYeEEMnDdVbUHEoWvjiDevsA9m+kXY
-         2Smgk0XLv2lLOEgn//z8ypMN5f4k+uEPK+6+oABKIuQ7LaWN0k6zKb9id5PsupUxeBBF
-         EVc5jri1vpOfSJFAXf0Zear4Y/8gKQFeFa6ZmCJoH6pS5waZGuFzE1jH13QLRHBxN/Gb
-         UF9hMpSijvL/dxWTXTb/Zf98ztlelOVbOEozgZU7PxykEwHNxDduRrrxxNHxJd8sJqty
-         THmnl5q1FzkLG71LxZJXFH+BodhXeDXynEo3sDJ1xyaqlnLBPPUyvxYHx3/9hH3+ofaD
-         l53w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791279257; x=1791884057;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Jq4MvvelPJmLJTP64CCeQVSZLu/IREWVL/wvvlYXR5M=;
-        b=24/RpmQ6oN4sxAxWwYlGxMWgW6aRyob9uEVemw8rewWBAIIz8Lw8ZK34hwoW7xQ/bW
-         ZzDV/KxGPPtwgQD6GIj7piun5XBHiNuOQMNeqRtYPcH5NryRQ1g2jyNmePuHwbIK77kR
-         405znP/+2oLzjtVE8oc/BG73bsUhLB43efLn6TGwpSziiKFIP07/aalOZLf1Ft5m86PE
-         u3XyGDpFN7P0vTXiOpWeeaO+XOv/AIV58upyUwGuz9Azi+YschYdKB8JV697OUrOyux3
-         Q8lX5x/hfma9nLL5aDBT61Yh93eU3SSmANKGx1L42MKaYLb4PCJLSOVLaftBSuA6on4O
-         CQLw==
-X-Forwarded-Encrypted: i=1; AKwUvBxy6x0NEnRWcNRp8ejIG0+06EVf/eDqZtiSyrZ9tUKSnGj4yFU3lKB8wOxrDfYi3ricPh577mY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJLQ89F0c1I79aTFj+cpQ3bFnchoRfFkwCXjUCTy+X2csdZ3f77
-	stIwNRSzNSNX/uEpsWgU0A5B9HkP2D3sFm4DU5T0154IanLG/4Zurcgh9jZlf0dTHRs=
-X-Gm-Gg: AYBFou1uLB2ylsguBhjd7AhL/KQTvIVW4B0jYkCzZJe6HBm4TbBeDkLBRYNL9UgQdka
-	1UD65c/e2RNDnL9mSwuCRi6rcUok4LEf4Ojo9X1zJoBL/EXYZw2LSoatWgvJon/bDiZvUwpp2bF
-	80kL/EA9ns6FOHvl58rBRmFvfpX0WeSlAxZsymof3d115pX6Eg3B62i25wLDZDjgAoMFCJK4psv
-	N+89JxSeetSkLJT9EF95c1EBEDoJJM4mQ+qQpJhtuPnxuKs4CiZO8++LD3QFhG9ApStLzk1kjEI
-	JwHwmRsbse9Dm3fYn5/Z/y3UWb5wO15YDb4etalIOT+v1TNtyPAS0hHtnFGBiBr3Ixhey0S4QcZ
-	lyfHtbCDe3jyZEy2HB3Dhnx+kFJV5kOoO2vWPqLfh6XCNSX9NOpnpKpCUETVWnt4btiAtIZXNlJ
-	v7kQwvnWgeFb0FL4Jb4B15c4MYtXoA7O8JThzYVeq26Laqke5FVT4kD5DAtnVcIyX8xsJZEoLAR
-	djQaTSkXA==
-X-Received: by 2002:a05:6000:2210:b0:487:27f9:82c with SMTP id ffacd0b85a97d-48c6d19ba25mr1256715f8f.33.1791279256305;
-        Tue, 06 Oct 2026 02:34:16 -0700 (PDT)
-Received: from localhost ([2a02:168:9d56:1:9c5b:8aff:fed1:19b4])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48c622b4685sm8853347f8f.41.2026.10.06.02.34.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 06 Oct 2026 02:34:15 -0700 (PDT)
-From: Bruno Produit <bruno.produit@trailofbits.com>
-To: Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	x86@kernel.org
-Cc: kvm@vger.kernel.org,
-	Kyle Zeng <kylebot@openai.com>,
-	linux-kernel@vger.kernel.org,
-	Dominik Czarnota <dominik.czarnota@trailofbits.com>,
-	Bruno Produit <bruno.produit@trailofbits.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] KVM: x86: Cancel PIT timer on failed creation
-Date: Tue,  6 Oct 2026 11:33:54 +0200
-Message-ID: <20261006093354.590415-1-bruno.produit@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MaqpPCM3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 870501F000FF;
+	Tue,  6 Oct 2026 09:45:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791279942;
+	bh=7t0nsNe+6id6F0RlLQgPJslburppib/vU3q4FZCbsZA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=MaqpPCM3WrtJgufL0lJJ0v0zucaP0UHdE4npZ09+gLypKvprJNC6ynq22opAvACWA
+	 XDxhzdzzlB9G9meMGGRduiLDU8mUMahDR3UKr1RzpH/xEriSjAFMfnV3vDPz8jLvEP
+	 Cg7ZnnOPTUyZ56+X2YTSOznNOpM5XRoEnZfX2TfH7j+ahNQsqSFbK69yIVlWc7REGZ
+	 0TFWCOen0YyUoO3mc5deZZeDTiHCHel33YTIOkFwnmwW5s3FSbcboMSAv5bgavT0bp
+	 e7QHvs1naiySnboPAlVOghfXzABV8YnggRL49xQU1+cZvXsd9cLhrQt2YSNH/ang2o
+	 6flAr5yaWYaTQ==
+Message-ID: <905f6658-ac80-4d3e-b66b-d14ff0d4bf25@kernel.org>
+Date: Tue, 6 Oct 2026 11:45:39 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-
-Cancel the PIT hrtimer if PIT creation fails after registering the PIO
-device.  This matches normal teardown and ensures the timer no longer
-uses the PIT before its memory is freed.
-
-KVM registers the PIT's PIO device before registering the optional dummy
-speaker device.  If speaker registration fails, a vCPU can have already
-programmed channel 0 and armed pit_state.timer through the published PIT
-device.  When I/O bus registration became fallible, its cleanup did not
-cancel the timer before freeing the PIT.
-
-Fixes: 090b7aff2712 ("KVM: make io_bus interface more robust")
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: stable: queue/* branches no longer updated
+Content-Language: fr
+To: Sasha Levin <sashal@kernel.org>
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6-sol
-Reported-by: Kyle Zeng <kylebot@openai.com>
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
-Signed-off-by: Bruno Produit <bruno.produit@trailofbits.com>
----
-Sean's proposal, feel free to change the FROM upstream
-see https://lore.kernel.org/all/ar_PNEIvsQMQPMLg@google.com/
- 
- arch/x86/kvm/i8254.c | 1 +
- 1 file changed, 1 insertion(+)
+References: <e6ea1805-3e82-476c-86a8-096b80bde74a@kernel.org>
+ <aImjNPvGPMqFu3RD@lappy> <9989cd82-d126-4dd3-96e5-37dad7f733fb@kernel.org>
+ <c9ca13cc-a7ce-48ac-a7b2-a8bdc823aed3@kernel.org>
+ <08bac413-ad6c-4e3d-a879-554ab0f195db@kernel.org> <anNf2xwwXDfinNQs@laps>
+ <9b7ad8ef-a10a-4a94-9244-0ff983ad480b@kernel.org> <asS7KK444n7U01u0@laps>
+From: Matthieu Baerts <matttbe@kernel.org>
+Autocrypt: addr=matttbe@kernel.org; keydata=
+ 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
+ lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
+Organization: NGI0 Core
+In-Reply-To: <asS7KK444n7U01u0@laps>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-diff --git a/arch/x86/kvm/i8254.c b/arch/x86/kvm/i8254.c
-index 1982b0077ddd..33d772c7160b 100644
---- a/arch/x86/kvm/i8254.c
-+++ b/arch/x86/kvm/i8254.c
-@@ -790,6 +790,7 @@ struct kvm_pit *kvm_create_pit(struct kvm *kvm, u32 flags)
- 
- fail_register_speaker:
- 	kvm_io_bus_unregister_dev(kvm, KVM_PIO_BUS, &pit->dev);
-+	hrtimer_cancel(&pit->pit_state.timer);
- fail_register_pit:
- 	mutex_unlock(&kvm->slots_lock);
- 	kvm_pit_set_reinject(pit, false);
+On 06/10/2026 11:11, Sasha Levin wrote:
+> On Mon, Oct 05, 2026 at 07:40:33PM +0200, Matthieu Baerts wrote:
+>> Hi Sasha,
+>>
+>> On 05/08/2026 18:07, Sasha Levin wrote:
+>>> On Wed, Aug 05, 2026 at 05:16:10PM +0200, Matthieu Baerts wrote:
+>>>> Hi Sasha,
+>>>>
+>>>> On 11/02/2026 11:10, Matthieu Baerts wrote:
+>>>>> Hi Sasha,
+>>>>>
+>>>>> On 19/09/2025 23:30, Matthieu Baerts wrote:
+>>>>>> Hi Sasha,
+>>>>>>
+>>>>>> On 30/07/2025 06:44, Sasha Levin wrote:
+>>>>>>> On Mon, Jul 28, 2025 at 11:06:17AM +0200, Matthieu Baerts wrote:
+>>>>>>>> Hi Sasha,
+>>>>>>>>
+>>>>>>>> Thank you for maintaining the stable versions with Greg!
+>>>>>>>>
+>>>>>>>> If I remember well, you run some scripts on your side to
+>>>>>>>> maintain the
+>>>>>>>> queue/* branches in the linux-stable-rc Git tree [1], is that
+>>>>>>>> correct?
+>>>>>>>>
+>>>>>>>> These branches have not been updated for a bit more than 3 weeks.
+>>>>>>>> Is it
+>>>>>>>> normal?
+>>>>>>>>
+>>>>>>>> Personally, I find them useful. But if it is just me, I can work
+>>>>>>>> without
+>>>>>>>> them.
+>>>>>>>
+>>>>>>> Nope, it's a bug!
+>>>>>>>
+>>>>>>> Looks like git was throwing:
+>>>>>>>
+>>>>>>> fatal: Unable to create '/home/sasha/data/stable-queue-builder/
+>>>>>>> linux-
+>>>>>>> stable/.git/index.lock': File exists.
+>>>>>>>
+>>>>>>> Another git process seems to be running in this repository, e.g.
+>>>>>>> an editor opened by 'git commit'. Please make sure all processes
+>>>>>>> are terminated then try again. If it still fails, a git process
+>>>>>>> may have crashed in this repository earlier:
+>>>>>>> remove the file manually to continue.
+>>>>>>>
+>>>>>>>
+>>>>>>> Which my script was promptly ignoring...
+>>>>>>>
+>>>>>>> Fixed now, thanks for the heads up!
+>>>>>>
+>>>>>> It looks like these branches are no longer updated. Do you mind
+>>>>>> checking
+>>>>>> on your side please? :)
+>>>>>
+>>>>> These stable queue/* branches have not been updated for more than two
+>>>>> weeks. Do you mind checking if there is something stuck on your side,
+>>>>> please? :)
+>>>> It looks like the last update was from 2 months ago. When you have a
+>>>> chance, do you mind fixing your script please? (no urgency on my side)
+>>>> Cheers,
+>>>> Matt
+>>>
+>>> Sorry, should be fixed now
+>> Sorry, do you mind checking again, please? :)
+>>
+>> (Maybe I shouldn't rely on them to send patches depending on others from
+>> the queue.)
+> 
+> One day I'll figure this out :) It should be back up.
+
+:) It is, thank you!
+
+Cheers,
+Matt
 -- 
-2.53.0
+Sponsored by the NGI0 Core fund.
+
