@@ -1,48 +1,48 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 425A349E13F;
-	Wed,  7 Oct 2026 13:24:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA1D64AD7D7;
+	Wed,  7 Oct 2026 13:25:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791379514; cv=none; b=O3PDvhQD8U0uEaQPYYV/IhqHYGBtKb/JkBKwTCDIonaUdo1hzr8atqjqjD2bWv2p+wsmmfsb2BFiOTWuw0H6ZbyRDclrFhPk0LceAiEhImpfE6ZWBERLZoSi9bxN2F1nN2odkHMPy8E3Mh5/Z4+/A8PmjplPaPPAmCa5ek/s9MA=
+	t=1791379528; cv=none; b=nbOKUXkMwvoubsj0epcyFBhFcBXOf32/V+XSq5BBACwxSCqhSp/ayyDxOd21XvyiavUhDDL7DUx9ffnR/sjlEOFdk0eyp2DnqSEZUlQOMHO9TY3O3GTPqv40hiPl5awlqDWiuwmaot8It6YEi120WLJNtiuWwe/8pEZJP0vBLYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791379514; c=relaxed/simple;
-	bh=jXd+IEAvGCU9SMSGy7tA538pFHRZoiWT3vrex8H5hgY=;
+	s=arc-20240116; t=1791379528; c=relaxed/simple;
+	bh=xWcdt8diMLLFQASgGdaQaBl1Mi+wRxG1/Wqa8R7gD8E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HkVwkUlPbC2RPqQU6SFgCCq6122BKM1+n+h9pwT4jZ2w9EM4ZdEgOQCYwVC5HAbbu66qRqbVkXdRqqeo3pSy7qZhUvFu2fVoF90PHBpnKS3eCX0WXcXYamN4SziDSMFIuIRYvHnl/d6d6EiHJZjKzOuhbfqn6bZZHpFXqqQnITw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bJg7YIqn; arc=none smtp.client-ip=192.198.163.10
+	 MIME-Version; b=T/xcENIMPPI5Es0iz+lKLgV0qo5ER6zxLRoKYVtsUqmRHLdmo2bJOkX3G9Z/ySPwtIUdKOIw2im8xk4m9D6/4zQIyBsKu8Z6XfdOhkvxEJOZ3g2Ldx9MSuX/18JtDADYcI2Z1fYBRzv5NDp2VYfRCcSXBj7Sh3cK5ZQSxCTmNUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=It+J+9kH; arc=none smtp.client-ip=192.198.163.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bJg7YIqn"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="It+J+9kH"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791379493; x=1822915493;
+  t=1791379512; x=1822915512;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=jXd+IEAvGCU9SMSGy7tA538pFHRZoiWT3vrex8H5hgY=;
-  b=bJg7YIqnwRwBNQ9fc40SDpWwxJfpFhqOiBDVHFdI0VEJlOvtLhmsxllz
-   7gZEmiFMMtnaXt/FDsQieaZKPtmQgoXYOHEZhLbXllfVjo/b8/JGo2ZcL
-   LtVXnemQB7zYwlOy1MX+JB8SX6CsjMQizUN4yC6RtwD6NPa/+esYlHzAh
-   djFiFU4fY4dykDzZp0VoroPFo/LpG7OJbULw/JIKlJcVCVD7kdAjKDhdy
-   MdNYyF4X0myhsK6J4QmA4oWMiLlSFcm36UyPgh2YX7dW3mmYOGnoGDGVs
-   DbuiEA813n+IoDAcwQ4xUWIE6Jh/xnFHlzmmWt8O9TffGHWxUv0F5366K
-   A==;
-X-CSE-ConnectionGUID: rNE4gTTkTTC0l5C+nfBYkA==
-X-CSE-MsgGUID: mjK7DqukRDeaK7zFHxXxEw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="39761"
+  bh=xWcdt8diMLLFQASgGdaQaBl1Mi+wRxG1/Wqa8R7gD8E=;
+  b=It+J+9kHueGhJVKmbhVCvjMfsUsU/rfCHg1LSPsn2nOh6MMvZpGln3HC
+   vazXmHucMNNwLwYANbU4y8vyTFlJBAOv2oXV3MQGh+BpnQxcG+kG2GPWT
+   yHUH4ajxG9wzsR2any9Vwr9rN6ulZ8D3eLVJvt8aNbZ27TOXgJxf994Oe
+   KWFnCOa/AaSAHyNVte2XWHVOxkwyIR3FVTHdNOjlOlTCMvSG/rhgXrV3x
+   O9ITXjN8Kv5YF6V9QQrrh/Qzhh6MIIuj6tLwBiAv+TJCIgkctY85+zk20
+   rof+hvOPMOomg1K2ctXjymjtkDFyP9b3eCw0TnbKX74fVAAb9mXxTEetx
+   Q==;
+X-CSE-ConnectionGUID: NBdjce+sSy269vrp0jM9kA==
+X-CSE-MsgGUID: t0KCEJrxSMCcE2PwABOWLw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="39780"
 X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="39761"
+   d="scan'208";a="39780"
 Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 06:24:52 -0700
-X-CSE-ConnectionGUID: X2fm5dRyRBu1KTkI9fgnIQ==
-X-CSE-MsgGUID: ENocGjFqS66eKd2VyPue5Q==
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 06:24:56 -0700
+X-CSE-ConnectionGUID: uMCjlJdQTd+c0be5Qd5YSQ==
+X-CSE-MsgGUID: JRD8W3pfSxydvt6VlNol+g==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="305434448"
+   d="scan'208";a="305434451"
 Received: from conormcd-mobl2.ger.corp.intel.com (HELO pujfalus-desk.intel.com) ([10.245.244.188])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 06:24:51 -0700
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 06:24:54 -0700
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: vkoul@kernel.org,
 	perex@perex.cz,
@@ -50,9 +50,9 @@ To: vkoul@kernel.org,
 Cc: pierre-louis.bossart@linux.dev,
 	linux-sound@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 1/4] ALSA: compress: fix buffer leak on repeated SET_PARAMS
-Date: Wed,  7 Oct 2026 16:25:06 +0300
-Message-ID: <20261007132509.18237-2-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 3/4] ALSA: compress: add missing OPEN-state gate to SET_METADATA
+Date: Wed,  7 Oct 2026 16:25:08 +0300
+Message-ID: <20261007132509.18237-4-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261007132509.18237-1-peter.ujfalusi@linux.intel.com>
 References: <20261007132509.18237-1-peter.ujfalusi@linux.intel.com>
@@ -64,38 +64,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-snd_compr_allocate_buffer() unconditionally overwrites
-stream->runtime->buffer with a freshly kmalloc'd buffer whenever the
-driver has no ops->copy and no preallocated dma_buffer_p. SET_PARAMS
-is permitted repeatedly while the stream is in the OPEN state, so a
-local process can loop SNDRV_COMPRESS_SET_PARAMS and leak the
-previous buffer on every call, exhausting kernel memory.
+snd_compr_set_metadata() calls stream->ops->set_metadata() straight
+after copy_from_user(), without ever checking runtime->state, even
+though the function's own comment says a parameter change should only
+be allowed once the stream has left the OPEN state. Every other
+metadata/param entry point in this file (SET_PARAMS, WRITE, ...)
+enforces that gate.
 
-Free any framework-owned buffer before replacing it, mirroring the
-ownership check already used in snd_compr_free().
+A codec driver's set_metadata callback can assume SET_PARAMS has
+already run and initialised its private state; calling it while the
+stream is still OPEN can operate on that uninitialised state.
 
-Fixes: b21c60a4edd2 ("ALSA: core: add support for compress_offload")
+Add the OPEN-state check the existing comment already documents.
+
+Fixes: 9727b490e543 ("ALSA: compress: add support for gapless playback")
 Cc: stable@vger.kernel.org
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 ---
- sound/core/compress_offload.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ sound/core/compress_offload.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
-index 7c397b1c9231..c0ed76e1c844 100644
+index e1cc34ba2c2c..bf13fa0877dd 100644
 --- a/sound/core/compress_offload.c
 +++ b/sound/core/compress_offload.c
-@@ -613,6 +613,10 @@ static int snd_compr_allocate_buffer(struct snd_compr_stream *stream,
- 			return -ENOMEM;
- 	}
- 
-+	/* a prior SET_PARAMS may have left a framework-owned buffer behind */
-+	if (!stream->runtime->dma_buffer_p)
-+		kfree(stream->runtime->buffer);
+@@ -759,6 +759,9 @@ snd_compr_set_metadata(struct snd_compr_stream *stream, unsigned long arg)
+ 	* we should allow parameter change only when stream has been
+ 	* opened not in other cases
+ 	*/
++	if (stream->runtime->state == SNDRV_PCM_STATE_OPEN)
++		return -EBADFD;
 +
- 	stream->runtime->buffer = buffer;
- 	stream->runtime->buffer_size = buffer_size;
- params:
+ 	if (copy_from_user(&metadata, (void __user *)arg, sizeof(metadata)))
+ 		return -EFAULT;
+ 
 -- 
 2.56.0
 
