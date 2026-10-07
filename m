@@ -1,41 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9479C2F616A
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 06:10:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A2862F616A
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 06:10:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791353450; cv=none; b=ljIxW3HOVFYBxUt6eXcuHZKGsmJ0BmohOznNnEIDKTTPsY557ckLhdA4sAZAh1xUrMtDoMqoTVEXpi67xCgwGgMn+rnPJZ6UQ8GWOMdqw1saLA3EB+AR/okR67mZ8KKtQcW4VQoVA4OsnQutMEYRLHqJw8merCo0rV0WvM5SCxw=
+	t=1791353452; cv=none; b=CfX+VRorhLAp22HMmiZW/6phVY4P/eVku/b4LBcY/2oIsX7mVYucaPlPpVdNSFrTx6qR6Ivk3i4LzNy8/G/6hZC4eDR7Zz2F7g5RVe9bJG7e0/WswES8iXIGwZzxk2O2R6+b6pAm5gOisyv43NVfeYD8pagwnKJ2EhwSpWijnYM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791353450; c=relaxed/simple;
-	bh=4ZzM6IQBPSWL3ZwcnS6E3uR2cUjtf4qvrWa3Zwbz/nk=;
+	s=arc-20240116; t=1791353452; c=relaxed/simple;
+	bh=04hX1Q7p2fntvode+nLx3RiF2tI0ToUCUYtx8VK+JDs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=eOrPtwrjFxGfeR+xFwRdROXTbIcS2ehApSnylcu6s5JY8ofmyaAGSXaR9P4X5xJC4EBMmuAojqPU6uw/CzC2OYdotMHeMolW92LI214O+jrV1/hnKcG10uz0MmOadrNqSTKczsIg/3oRU2VEzlgRWolOFp1ZJck1PQ5rsaaDMAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l3wR640+; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Xm6qPo44SRmKLNIooqKmHZVUCyxtptkvG+2Todj8r8uzlQvUMtWH19rHh3xUjPlNAVFHjhieDC6EtNKF9IQwjAmLepexI7Rc3RWUKIakDiLst23wlhtcxSOJHg80DhsaZFjyJ9xTXpktgYQ0EP3RPFA5G0ISxyEwhiJfV/UlfsI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VjfIUnkI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l3wR640+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD09B1F0089C;
-	Wed,  7 Oct 2026 06:10:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VjfIUnkI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DBE11F0089B;
+	Wed,  7 Oct 2026 06:10:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791353449;
-	bh=j91zJtbzPHGgVzwyF5LKgbsiwNQQetjfNLlc5pBJDJM=;
+	s=k20260515; t=1791353450;
+	bh=TPI/HCYvO5aoJ0icaQooT45bymAM0NM/DziPwge3Pvk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=l3wR640+lXIaxTDZDqnm5Y7zNmUmlq6gO56daZtLGOC97Q4IJxfe/MhhQP0WjxsMC
-	 xNqV/Aqu4nYq8vDz1w5IZjDxouXRzIuZ/jpDgEa5z6Kekh/9t9kBKwxISHRGaMu/cz
-	 V0uycHMmtze9TqhNzc1Ag6zBrAloRWd9WcI4sFyx5rus9D8wrxFqgpT3ECL0HW5gOf
-	 vR63rtmJeVBP6/781jnaQB1kS8D28ScVdsGRaTXExHSylfbNvNaSOXhJFSOzwd6hBS
-	 Btf5zCUesQSNLJrtIi3zMuTHAhjpVzl9E9AEr4qb+tdweE4NCno/u3Q/fmyjK7ozf0
-	 lg15VMBtGgB0g==
+	b=VjfIUnkIkcSFoPwPLYBTYlGFA6WMR1NrNA0d1BBJ+hNJOVO04ML3nvlmCSL9vYs0M
+	 kfiw0KRw1fri+ufx+WG0IG6idAFkbeM0Rg1HC6XiEkVdCh/LU9MdRjyoJf3KI1403s
+	 NQhtuYzoDvXS9EnfgwG24yhaxvCkn0NennZB9FDqhEgqYtn27QoeLZ2dPs8ZEcLYa0
+	 Hp6g7smC6o6sQuwNzn3fjZfwp5d48l68sYe1DwB8IDmI98dDj3w7vm49BpdCGNuvbY
+	 wSZmWlFphlh82cedTsBwTSqXo9Yzc9gw/calm3JaHCcx7YwcpCOVLMh0ywVx9n9ynl
+	 HHgv5g5qT04jw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>,
-	Andy Shevchenko <andy.shevchenko@gmail.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+Cc: Salah Triki <salah.triki@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/3] iio: adc: ad4030: Use BIT macro to improve code readability
-Date: Wed,  7 Oct 2026 02:10:42 -0400
-Message-ID: <20261007060913.1488382-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 3/3] iio: adc: ad4030: fix invalid oversampling_ratio validation
+Date: Wed,  7 Oct 2026 02:10:43 -0400
+Message-ID: <20261007060913.1488382-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261007060913.1488382-1-sashal@kernel.org>
 References: <2026100606-wolf-obsessed-e5c2@gregkh>
@@ -46,50 +45,58 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Marcelo Schmitt <marcelo.schmitt@analog.com>
+From: Salah Triki <salah.triki@gmail.com>
 
-[ Upstream commit a10f6dd4eef2e64fe1f366613bed45aa308494de ]
+[ Upstream commit d615210564205993e8f0e7ccb57cc2e66b7d5706 ]
 
-Use BIT macro to make the list of average modes more readable.
+In ad4030_set_avg_frame_len(), the logarithm is calculated before input
+validation. Passing zero or negative values leads to an undefined result
+from ilog2().
 
-Suggested-by: Andy Shevchenko <andy.shevchenko@gmail.com>
-Reviewed-by: Nuno Sá <nuno.sa@analog.com>
-Acked-by: Andy Shevchenko <andy.shevchenko@gmail.com>
-Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
-Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
-Stable-dep-of: d61521056420 ("iio: adc: ad4030: fix invalid oversampling_ratio validation")
+Validate that the input is strictly positive prior to computing its
+logarithm.
+
+Fixes: 949abd1ca5a4 ("iio: adc: ad4030: add averaging support")
+Assisted-by: LLM
+Signed-off-by: Salah Triki <salah.triki@gmail.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+[ sashal: Adjusted context for the missing SPI offload code. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/adc/ad4030.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+ drivers/iio/adc/ad4030.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/iio/adc/ad4030.c b/drivers/iio/adc/ad4030.c
-index d8bee6a4215a3..aec95aceb81fa 100644
+index aec95aceb81fa..b7cb589168c3b 100644
 --- a/drivers/iio/adc/ad4030.c
 +++ b/drivers/iio/adc/ad4030.c
-@@ -232,10 +232,16 @@ struct ad4030_state {
- 	.num_ext_scan_type = ARRAY_SIZE(_scan_type),			\
- }
+@@ -514,13 +514,20 @@ static int ad4030_set_chan_calibbias(struct iio_dev *indio_dev,
+ static int ad4030_set_avg_frame_len(struct iio_dev *dev, int avg_val)
+ {
+ 	struct ad4030_state *st = iio_priv(dev);
+-	unsigned int avg_log2 = ilog2(avg_val);
+ 	unsigned int last_avg_idx = ARRAY_SIZE(ad4030_average_modes) - 1;
++	unsigned int avg_log2;
+ 	int ret;
  
-+/*
-+ * AD4030 can average over 2^N samples, where N = 1, 2, 3, ..., 16.
-+ * We use N = 0 to mean no sample averaging.
-+ */
- static const int ad4030_average_modes[] = {
--	1, 2, 4, 8, 16, 32, 64, 128,
--	256, 512, 1024, 2048, 4096, 8192, 16384, 32768,
--	65536,
-+	BIT(0),					/* No sampling average */
-+	BIT(1), BIT(2), BIT(3), BIT(4),
-+	BIT(5), BIT(6), BIT(7), BIT(8),
-+	BIT(9), BIT(10), BIT(11), BIT(12),
-+	BIT(13), BIT(14), BIT(15), BIT(16),
- };
+-	if (avg_val < 0 || avg_val > ad4030_average_modes[last_avg_idx])
++	/* Reject unsupported modes */
++	if (avg_val > ad4030_average_modes[last_avg_idx])
++		return -EINVAL;
++
++	/* Avoid invalid values for logarithm since it's undefined */
++	if (avg_val < 1)
+ 		return -EINVAL;
  
- static int ad4030_enter_config_mode(struct ad4030_state *st)
++	avg_log2 = ilog2(avg_val);
++
+ 	ret = regmap_write(st->regmap, AD4030_REG_AVG,
+ 			   AD4030_REG_AVG_MASK_AVG_SYNC |
+ 			   FIELD_PREP(AD4030_REG_AVG_MASK_AVG_VAL, avg_log2));
 -- 
 2.53.0
 
