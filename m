@@ -1,77 +1,76 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C590D448B89
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 16:17:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA534423EA4
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 16:28:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791389848; cv=none; b=W3AXb1rmGe7jRfDjqjN5aX2bTuXyl5xrc4nx6KqYl6nBbtVwC4CShgK3gTP5FFtZ+S4IrEfBWh4Oi0QkUQ/zkIAT5wlDueciu9HSRoAweQN6qGldxy1hQ2YLL+gO7O9F4tgu322TLkYrqzr+NxgDYx/EGFRuTLILpJtH19+mgmg=
+	t=1791390494; cv=none; b=hPOCN6GuyvkrL/JOVV7nXoPxa7NS1+fDn8u3ZGZUzRne9CK3W5DwOJIvPhfZW3F7zKs8HRHvMdLo6CfyHKI/4OcE4ChyqxAs450REFVAVYJQUxZ3ghf3UZymMA5P6F+O+dJdqUbgHV309yYtt1Z4EO/XIIBj7npcsVDoEBTgG4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791389848; c=relaxed/simple;
-	bh=a89fgaBK7g9X0Q9p3i7HU0eZuNNDuBA7NFi5fgWdtzE=;
+	s=arc-20240116; t=1791390494; c=relaxed/simple;
+	bh=g24tLA/3dhshJtjhfImC89zVIL2/mIHY6gHdvT9uvno=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=biGMlidwxM15tT9IkCI5JZtdd+1BVi+rIJkwEl2QT/mhJNsRwgMQ+jg/lzsQWK/M4uomhb0b+bAilC7ORKJYSXiBXCTe5lniLSMDyMw5C8Wx2aJXi1RbshOTLzuNJMWqU46bqF2rlpBXVF4aGRGTRi7tj8Nw53Rwv3+l5rPIv5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MnewXcSr; arc=none smtp.client-ip=209.85.128.41
+	 MIME-Version; b=fuQRIHS9hWIlXkVZklbCNUAXnjd3s/WsdQ5BcycmFdOQ0JT/vub1Dwj1lvMyOc/uJOgBgwLitd1flTOjHjv1ZCCJ76uzvW72zi3awk/wwpVL+jbKzRB1ZbsqDS/bt9QqOK+YxCWJgwR2pnHyREWdizG09D+MAug3KJCMRrTK/EM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aXIf6UE7; arc=none smtp.client-ip=209.85.221.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MnewXcSr"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49fbb2acc90so18565835e9.2
-        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 09:17:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aXIf6UE7"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48c411d6615so1459962f8f.3
+        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 09:28:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791389845; x=1791994645; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791390491; x=1791995291; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=m8p7v3GmFSxW6TAqCAy75L7noVc64c91U1hmvayd/Cc=;
-        b=MnewXcSrkmX/H8djIkSszfqYGhZkwfV8o25HAavqwjEV6cunuqj0e2FgnEPDVNcHoQ
-         rmQ4Dfzs0Jy42cvMmqHwTLgaQRZBYxvv/TfkbdegO3k41ml2FbQhxhh+kDDOVtuHCur3
-         FXS962Z870PeiAjjfXHOyB96rz2CNBCmo24XCXd6D0cGk/f91vj9IbJmz90cVs+JB5cR
-         +q5gXtXRQTDN/Jmf9a+aOJtBE2PxB6p6yMdxOJ+/l7V+77FwfETDJ1wSlP9llEjP/N1Y
-         QOdtOBmODz1Icm6FTiOtezvEsICqqEnshXi9NsDExc+QYBC6WI/yX4f7KkgubRoTFnBG
-         K93A==
+        bh=wITKzh5wW1j9YD2B+DIVbeYkbAtDPNXFE+j076Iz2Dc=;
+        b=aXIf6UE7BhCgHZ1CEe9HcqHdhvgW5ungWcr7UBRY+VvRh643aiNNl8BGbexkX/2YtT
+         Iowx1V6a9EnPqR5/9LyNXDdOI/C7SVlJeZKEyBkABL04x+DihAOkzmRLXQ/1eKmraLo2
+         G6qPchi10aa99XqRP2xmC0mOmodVcOmEXGdUFCpLnTh3luq2ZcNcSILfkhI1VkhFsjD4
+         wLkoJHFQ/vMlVOFkqsDnJlrWo0CrmgmX5HAwRMheLQKe0LagV83Hw2LzaJqgtu+KdrK4
+         KBf4KqSRseQObI9NQRshibiKqSfXzaTMSINbGUH3v1Ifb3m/848GJbnGOHr2N2OBG7Gk
+         SDYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791389845; x=1791994645;
+        d=1e100.net; s=20260707; t=1791390491; x=1791995291;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=m8p7v3GmFSxW6TAqCAy75L7noVc64c91U1hmvayd/Cc=;
-        b=zUGtdfZ65w9koVyjG2b/FkENp3OMYQTmi4JvbikX1WL0/hHgAuUR926Wrjj4G3/y7L
-         O89BC00nvLyE2DAd2CR3IHQeNSHLItG4Kiqnn2a3+JK3x6NbbEd3opqkM8fYrnmraCIn
-         YdfNlEDsW99GuWA4FCTyoaiYavoKf2nbIXiJj+6jFHa4RS6uWT9HHcSKVuCro2VCiuhZ
-         8Qw3f3hd1iViv1ubsK7rWCLVkSby75qn84pvpJe1FKSPRiLAetG38wwURcZ47IjUiS8n
-         8aWbGfOP2Ui48OE4iUdHkdNzz0SB/9CPgCB2nElmzXPP7ZaIZ6L65oLyWHCm5KTHgxLs
-         CUAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBypJRCDxRYJUFvL/EAGH/UkDS+47Bsi887UllPVkBNnXMETr/TFidPTWhGaQ1pCmWOxVLt8SfI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nY32S8k+PRFDORJfEvHyfmICHlaAt5tP+WY0ciY4BQN8aPKd/s
-	WdlY2dyKWf5VOwUpOciC/eUKWJ3qi0yP5Fay6HyD9JqXsWI5dIfxX7Q=
-X-Gm-Gg: AYBFou3Y9Pxw7v2vrXqnzF1FaiuweZAdQ7fYJgSwWHt6CjAFlsrgg+ueU7KMqnjZKqj
-	G2Ip37j6qNZ+FM+WjI0/ZApaBeNWL2LBSz8HnQNPFJWD0j8VUHejEv1uVd9Vu8Wr929ZtyDV9fZ
-	EnfvRUA6kxyMWO3MXUsvKSCz3x/Pyt3HlIB9uN4K0NKjONBid8MEaUFQ+YzeAsvI7s7nrTjvvCp
-	Xq2NN8Fa5msf01Bk0QDU9EgdJcnUEdKuojo56IBRotAWntws+ekvTfQ7/Hh6mQa+zcgo4Hz7V/i
-	2mVqAeZYhRpgkGaLLbjQyu2zy8cnwH0wtfsASdcZeBacNB3cUpes2b9mHk+ht3/xUC+Qci4ADZ6
-	hOBws42u99bvic2KVfZ7C09ossl5KP0qJWrBF2VflC4oZeXuNE8bbHPYfiY0jigDJGsDSZoOgPZ
-	3jN7Q41LlYVKzMjvUXTQyz3AyBNxFIID+oc/Q2d0s=
-X-Received: by 2002:a05:600c:8b6e:b0:4a1:78da:d271 with SMTP id 5b1f17b1804b1-4a18064be59mr47434215e9.30.1791389845063;
-        Wed, 07 Oct 2026 09:17:25 -0700 (PDT)
+        bh=wITKzh5wW1j9YD2B+DIVbeYkbAtDPNXFE+j076Iz2Dc=;
+        b=rwFsvJHxSSt20hzPc2gPjtb7EbVMuz2B4Oq16pg94B81RLYh3oAkPYXacxBJAT05MZ
+         7ICMycZcuKQ9X1q9RYbQbjGrrl0RarEDUiTomfGZmsu5gwQBndcwfmObsQkEY97Jzk7V
+         uMIkOSAfeO5CwAiMdhvvSBSBEW5VPIZnLtn2vPx/T4S+sO+Qc9eqqOXtDY5FAXrtinZn
+         pLuit1H+gXGayQasBTRa6W34S4wYKDd55B978Bxh2o54dPoPnzaSzjyvkhdkkwSpecXQ
+         kkkmCNF8wFs9rs5PWT562qzypFd0fkTvRfifEQLOdVDzyLkKcB7NEHbhqiIUVZd+Y/aq
+         2FKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwZQf9HKjJJtwbLHM0aNZSWgIsV/0H9fE/V9iVq4UDAFjqeYH/SaBSyQaI2pUma5vasiodvR4U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYImViPyFjb0WQHOIX0icWsiZRV3eidW67L28CnQDp4EP975TFju
+	DgAk0WVnUcrX/d8uv4dSgY/5IszgDI3j15O7/z4c8wGWbbdBxBW8tRU=
+X-Gm-Gg: AYBFou27dzYDFxOhb1CcpqWodhErFE2t6UdDK1D609B3Gwg1eua9TYG8+6/xaRUNby1
+	LAnd5ufwych4QNLu1DPHHU50T0suHiiJxt/0G66ST/86MX6GaOOPa5MsG34gUzSByAG7n38+Av+
+	sW1JqWiLfAOopFcH3LeAICg+OZuKAK+TzrBPvCaq/tPruheE3lpeIsRciVWLfmoyY7okM4mu5sg
+	GP/AnAjWsmKLgTM4tR9j+A9fI49Lw0Om6blTpkJMH7CHCJrcYtAzEKIwRi8L4vJfdh36I/YMros
+	xYwS9KbB0OJUqC/8bba17lzl+LwgI8Hgg00pRKK5ZV6kzmkT0MKSXq4YmHbTepHRkp89hioYlVP
+	atE8SnPpIdSc3thwynFlkI+ML3f2b5/9M+BeDCn2aHzlqmLn3zzIQVkjQtDRlaUgcdVf7FwiYNn
+	CKC4xMIKg6HWlxey6YPI1yXCKUKPWU4/7YtXK9xYQ=
+X-Received: by 2002:a5d:5284:0:b0:48a:ef5c:fc2c with SMTP id ffacd0b85a97d-48c7278da82mr4164015f8f.48.1791390490777;
+        Wed, 07 Oct 2026 09:28:10 -0700 (PDT)
 Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1843aac98sm2685295e9.9.2026.10.07.09.17.24
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d13a01sm6697451f8f.29.2026.10.07.09.28.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 09:17:24 -0700 (PDT)
+        Wed, 07 Oct 2026 09:28:09 -0700 (PDT)
 From: Tristan Madani <tristmd@gmail.com>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: Kalle Valo <kvalo@kernel.org>,
-	Po-Hao Huang <phhuang@realtek.com>,
-	Chin-Yen Lee <timlee@realtek.com>,
-	linux-wireless@vger.kernel.org,
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org,
+	bpf@vger.kernel.org,
 	stable@vger.kernel.org,
 	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH wireless v2 2/2] wifi: rtw89: fix IE length passed to cfg80211_find_ie() in WoW AKM
-Date: Wed,  7 Oct 2026 16:17:21 +0000
-Message-ID: <20261007161721.261452-3-tristmd@gmail.com>
+Subject: [PATCH v2] HID: core: fix device cleanup on allocation failure
+Date: Wed,  7 Oct 2026 16:28:08 +0000
+Message-ID: <20261007162808.373024-1-tristmd@gmail.com>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261007161721.261452-1-tristmd@gmail.com>
-References: <20261007161721.261452-1-tristmd@gmail.com>
+In-Reply-To: <20260904080524.3872926-1-tristmd@gmail.com>
+References: <20260904080524.3872926-1-tristmd@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -82,46 +81,48 @@ Content-Transfer-Encoding: 8bit
 
 From: Tristan Madani <tristan@talencesecurity.com>
 
-__rtw89_wow_parse_akm() computes a pointer to the IE area from an
-association request frame:
+hid_allocate_device() calls hid_destroy_device() in its error path when
+hid_bpf_device_init() fails.  hid_destroy_device() invokes
+hid_bpf_destroy_device(), which calls synchronize_srcu() and
+cleanup_srcu_struct() on the SRCU structure.  However,
+hid_bpf_device_init() returns the result of init_srcu_struct(), so
+when it fails, init_srcu_struct() was called but did not succeed and
+its failure path rolled the SRCU internal pointers back to NULL.
+Dereferencing them causes a general protection fault.
 
-    ies = mgmt->u.assoc_req.variable;
+Use put_device() directly in the error path to release the device
+without invoking SRCU cleanup on the failed state.
 
-but then passes skb->len as the IE data length to cfg80211_find_ie().
-Since skb->len covers the entire frame including the 28-byte management
-header and fixed fields, cfg80211_find_ie() may read past the end of the
-actual IE data.
-
-Fix by computing the correct IE data length as skb->len minus the
-header offset, and validating the minimum frame length before parsing.
-
-Fixes: 480dd4dddfc5 ("wifi: rtw89: enter power save mode aggressively")
+Fixes: 6cd735f0e57a ("HID: bpf: protect HID-BPF prog_list access by a SRCU")
 Cc: stable@vger.kernel.org
 Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 ---
- drivers/net/wireless/realtek/rtw89/wow.c | 6 +++++-
+
+Changes since v1:
+  - Updated commit message to clarify that init_srcu_struct() was called
+    but failed (rolled pointers back to NULL), not that it was never called.
+  - Updated code comment to match.
+  Per bpf-ci bot review feedback.
+ drivers/hid/hid-core.c | 6 +++++-
  1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/wireless/realtek/rtw89/wow.c b/drivers/net/wireless/realtek/rtw89/wow.c
-index 2dfa24c54e7d7..178c59692b13f 100644
---- a/drivers/net/wireless/realtek/rtw89/wow.c
-+++ b/drivers/net/wireless/realtek/rtw89/wow.c
-@@ -16,10 +16,14 @@ void __rtw89_wow_parse_akm(struct rtw89_dev *rtwdev, struct sk_buff *skb)
- {
- 	struct ieee80211_mgmt *mgmt = (struct ieee80211_mgmt *)skb->data;
- 	struct rtw89_wow_param *rtw_wow = &rtwdev->wow;
-+	size_t hdr_len = offsetof(struct ieee80211_mgmt, u.assoc_req.variable);
- 	const u8 *rsn, *ies = mgmt->u.assoc_req.variable;
- 	struct rtw89_rsn_ie *rsn_ie;
+diff --git a/drivers/hid/hid-core.c b/drivers/hid/hid-core.c
+index a3ff0514f9cdf..7d1b781c6debf 100644
+--- a/drivers/hid/hid-core.c
++++ b/drivers/hid/hid-core.c
+@@ -3115,7 +3115,11 @@ struct hid_device *hid_allocate_device(void)
+ 	return hdev;
  
--	rsn = cfg80211_find_ie(WLAN_EID_RSN, ies, skb->len);
-+	if (skb->len < hdr_len)
-+		return;
-+
-+	rsn = cfg80211_find_ie(WLAN_EID_RSN, ies, skb->len - hdr_len);
- 	if (!rsn)
- 		return;
- 
+ out_err:
+-	hid_destroy_device(hdev);
++	/* init_srcu_struct() was called but failed; the SRCU struct
++	 * is not usable.  Skip hid_destroy_device() which would call
++	 * cleanup_srcu_struct() on the failed state.
++	 */
++	put_device(&hdev->dev);
+ 	return ERR_PTR(ret);
+ }
+ EXPORT_SYMBOL_GPL(hid_allocate_device);
 -- 
 2.47.3
 
