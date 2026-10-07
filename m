@@ -1,120 +1,260 @@
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A11134503E4
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 08:59:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 986224772B9
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 09:02:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791363549; cv=none; b=NIJSE6NUe81NPsgGNK07+U8W6bnUCZYkQT45S7i8co42bzG/lQf+0Pbo8JJlkRVbDh774aPA/arfuKh0tHXO0qjTRbkX/8xEdtNBRb0ZphtBljbsI+vwHEWfg1jmXfvTmGkrdDptLAq35MmumG3INkPHFGFWZ+IlNhu7bV68gCM=
+	t=1791363777; cv=none; b=a1QEHDfoYBgYtMH/5YX9d71HKcK2QCSSzk99n1KEYQIrEERpjF2Ks517F4oYh8rtNjg9ujBy6OEAY1ClHUmiNoG9CoM82E01m4Km96dDgyaSWNsIWWiU4LoeClAch1+ANglvsgptW5KR6IItX/P/X/3MexRtV2EO4PfCq9zxYxg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791363549; c=relaxed/simple;
-	bh=/dIqfKjVf67jH+pSP4lDZBcRp+ejLM9kPuu5c5t4xug=;
-	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=TKJ4g+e51/Cqu6CQmKwTJ2LpiPr0Qz9o0EH4t1U1KkKNajxZyecMfVek0CXWGMYtJk+ppczL5FjTf9O54NzIxe9Ipi9+FoQrNXubvpxDkJlca8Ie0Nu8Y2JZnb5CzgDOZLImN84BEQlL5exBA9pFET9fHvbvg9wRyyvt5Z7V/AE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=BJEHFs0e; arc=none smtp.client-ip=74.125.82.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
+	s=arc-20240116; t=1791363777; c=relaxed/simple;
+	bh=J1i0aONphVmt/VcCexLdyxzKuXgtUn3+lDHwKMOcNyY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HmscQj2lFEX0cpYmKi+Mfmwy8VmyDQVyXvAfKtx0B8YdfBLeKSiU6xBw/gGpmniwH7Nl6Qk6EnYUzchBgw9xCVMFfLyM0rAZ3yxacGM2h7HaAO0bjSrB5bJgp43xkNRfRzOvm/7a8GYtm7DGurugXYzBHCnN7IITuZP3TCZtHVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=adWa429Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="BJEHFs0e"
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-15ea896ddc8so2390479c88.0
-        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 01:59:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1791363546; x=1791968346; darn=vger.kernel.org;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=g4he5a4AkqAY/ivQE77EMilGNT+cbv05TAN9AGeGBbI=;
-        b=BJEHFs0ebgGhr0lTMUIHvbuz84YJ8o/ixbelRsZws8/5QaKY5ibiXAoIlMkvVChUK0
-         5DnpYYUt1rhJJOZdS420NlMtwCmMnkP9c94FHmoW9uMe2obONc6u9W7WlNxIhQGUZKdj
-         Y9AV2DWhpgZ5cXKIjSTNOLGOPtH5snIRWOIIYWR2/zUOO66u+qixlqn3v0JnmeNWSx0R
-         Tu6Np5KU5ZZ4Uabe0cMsyxOQgHsa54uj0XyhY8bHTN+sB17ybGDjzZ4W1QlcvOXZFycy
-         bgubQ+jdGpM1HOam7lXR2ZJsj76QUq5v5dKmy1tTB5Gz1gmcte0Vj+QFVfOeTonbxWrP
-         STRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791363546; x=1791968346;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=g4he5a4AkqAY/ivQE77EMilGNT+cbv05TAN9AGeGBbI=;
-        b=wdpG42wMJF2KSe/mDxNaRRvMiznBlr4AzSOFwn3T6sI1ecAb7RkV0v/vhSVhn1QEOD
-         p4v74LOJ4JGZCnwMq/8SUHAIsF7Q6hvZbSP3WdIL86S5o3qv+iZ5qTRmHp1KcTBcuC2m
-         XorsMVYhBWy0t2/4fxUYqPHPoEmmfnHSyZosmeHIhtm/pQJpmww05qlp//hNrWKv620L
-         eHIaWus2MEDA116DqV9JJZFA0jey/fQCY4lXQNr7DEMQRCBT7mBqI+uMMjj/LnVA1K35
-         C4g21dxW1dSuQaLmFSMuY0Uxa77amEEQ44MLxdXBvlQshl6UKp4j6codTEB5NHYfW3Bt
-         qDgw==
-X-Gm-Message-State: AFuF++mFEBYSiCNSK7TQGl84wXnosyTsR1QApJm6S1jQvnhdsdi6i0Om
-	vvD3yj80UEu3FF3zONswdOaboo8uCGjx0PFGhpudjQB5dDCimUlfDDRzURHsX5z9BN5L72ZOfpS
-	Xwez7
-X-Gm-Gg: AYBFou2VWARr2PheY2AcnlQ98Q7b1+7YJ2WOVJckj+6H1WI1FAq1edDSEsvv7Iq2d6k
-	d8KAbsQb/SrgBoY2LYCCIbxDtR2As1DE4BliQBKIHzFyFkJrOoMJHUCg2f8ofP6Ge/djbhcshkF
-	g4Mf/2ov4OHFEahH+FHtiguAQ04Jmc8ZH8FWeS3BGaUecPPaWcmoK0ms2k8/PAMh3W8tn1VXz83
-	Zq723SyUz6EcGCxJ+Pa2b85BhnqFljKZXchHOjetexm8ARPSJXFnHPUxN1+AyssU52JPbs/1eZk
-	OLBcNCWL31k6COAoalSeH08G78KId7TMdJEmYZRzVSn9FqEkRic4U6RYfIqFAn+VTV9ka9mKty9
-	glfq6O8m/OKpskf51hdWmIr0Kfc0Ja+Q+EQUlCVhv310vHfiGhBcjUo/KVedQsh5La/oPvyHY+x
-	Hw+1oN06bZHL1embU1EatHH5PdPczK9W6bLVp6dFpDKAqBhNak3Ya2eCAws/ocAQqK77LPT1d2T
-	w==
-X-Received: by 2002:a05:7022:2524:b0:136:b50c:c0e9 with SMTP id a92af1059eb24-1620665f5ebmr2101209c88.21.1791363546286;
-        Wed, 07 Oct 2026 01:59:06 -0700 (PDT)
-Received: from 5a6d9a2c18a2 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1616b01c2b4sm4845777c88.20.2026.10.07.01.59.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 01:59:05 -0700 (PDT)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="adWa429Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 495571F00A38;
+	Wed,  7 Oct 2026 09:02:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791363748;
+	bh=HzbfCxMHAcnT8gL4hygPNUlGdZBqmev67/G/055k/eg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=adWa429Qtu1HuiihPrjlxht1yjdvQBOjNgXSxgz9jrI496IhxXrgh4wZoRI4FxpTH
+	 pbN1heFqYBIiDqOAADCUPYB8ozUsjsig6iFvqAEGCUjav58OZaoTLIP9OWSvo56C0m
+	 vrjLGBpNuSk+U5RRc+GpiB9SqFV8xUt5PbrD2hlWosTug+F+HQ26LtPZDZOguriYeq
+	 C4HyaNJMCYsGyAY1BYqEDLTxVSOn/yh3LfmZEtaXSQKDkwMaknsHmLxDc8Z2Vty2h5
+	 DvBTDdeOUfYdc+gcA3+/F8kfhKiv/HsHrBNGKNa2KNAn7CLOomWZ7b3GEt6OyIuB2p
+	 WBsmpbsK1gLtg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Matti Vaittinen <mazziesaccount@gmail.com>,
+	Javier Carrasco <javier.carrasco.cruz@gmail.com>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] iio: bu27034: simplify using guard(mutex)
+Date: Wed,  7 Oct 2026 05:02:24 -0400
+Message-ID: <20261007090119.2020770-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026100658-implosion-refrain-3bbd@gregkh>
+References: <2026100658-implosion-refrain-3bbd@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: [REGRESSION] stable-rc/linux-5.15.y:
- (build)./arch/arc/include/asm/cmpxchg.h:11:10: fatal error: linux/cmpxchg-...
-From: KernelCI bot <bot@kernelci.org>
-To: kernelci-results@groups.io
-Cc: stable@vger.kernel.org
-Reply-To: kernelci@lists.linux.dev
-Date: Wed, 07 Oct 2026 08:59:05 -0000
-Message-ID: <179136354500.28057.4657619027829945990@kernelci.org>
+Content-Transfer-Encoding: 8bit
 
-New build issue found on stable-rc/linux-5.15.y:
+From: Matti Vaittinen <mazziesaccount@gmail.com>
 
+[ Upstream commit 439c2cef8157bd3856200effdf4bb4ce3ff8e774 ]
+
+The BU27034 uses mutex for protecting the gain / time / scale changes.
+The clean-up for a few of the functions can be slightly simplified by
+removing the goto-based error handling/unlocking and by utilizing the
+guard(mutex) scoped mutex handling instead.
+
+Simplify driver by using the scoped mutexes.
+
+Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
+Reviewed-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+Link: https://patch.msgid.link/4e65a4725c211b166906f70fdb5ba90f2af0f570.1732193263.git.mazziesaccount@gmail.com
+Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Stable-dep-of: 8065a6c02f62 ("iio: light: rohm-bu27034: Fix infinite delay on error")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-./arch/arc/include/asm/cmpxchg.h:11:10: fatal error: linux/cmpxchg-emu.h: No such file or directory in kernel/bounds.s (kernel/bounds.c) [logspec:kbuild,kbuild.compiler.error]
----
+ drivers/iio/light/rohm-bu27034.c | 73 +++++++++++---------------------
+ 1 file changed, 25 insertions(+), 48 deletions(-)
 
-Log excerpt:
-=====================================================
-                 from kernel/bounds.c:13:
-./arch/arc/include/asm/cmpxchg.h:11:10: fatal error: linux/cmpxchg-emu.h: No such file or directory
-   11 | #include <linux/cmpxchg-emu.h>
-      |          ^~~~~~~~~~~~~~~~~~~~~
-compilation terminated.
+diff --git a/drivers/iio/light/rohm-bu27034.c b/drivers/iio/light/rohm-bu27034.c
+index 29da3313addbd..be3895a9da70c 100644
+--- a/drivers/iio/light/rohm-bu27034.c
++++ b/drivers/iio/light/rohm-bu27034.c
+@@ -7,6 +7,7 @@
+ 
+ #include <linux/bitfield.h>
+ #include <linux/bits.h>
++#include <linux/cleanup.h>
+ #include <linux/device.h>
+ #include <linux/i2c.h>
+ #include <linux/module.h>
+@@ -395,30 +396,26 @@ static int bu27034_try_set_int_time(struct bu27034_data *data, int time_us)
+ 	int numg = ARRAY_SIZE(gains);
+ 	int ret, int_time_old, i;
+ 
+-	mutex_lock(&data->mutex);
++	guard(mutex)(&data->mutex);
+ 	ret = bu27034_get_int_time(data);
+ 	if (ret < 0)
+-		goto unlock_out;
++		return ret;
+ 
+ 	int_time_old = ret;
+ 
+ 	if (!iio_gts_valid_time(&data->gts, time_us)) {
+ 		dev_err(data->dev, "Unsupported integration time %u\n",
+ 			time_us);
+-		ret = -EINVAL;
+-
+-		goto unlock_out;
++		return -EINVAL;
+ 	}
+ 
+-	if (time_us == int_time_old) {
+-		ret = 0;
+-		goto unlock_out;
+-	}
++	if (time_us == int_time_old)
++		return 0;
+ 
+ 	for (i = 0; i < numg; i++) {
+ 		ret = bu27034_get_gain(data, gains[i].chan, &gains[i].old_gain);
+ 		if (ret)
+-			goto unlock_out;
++			return 0;
+ 
+ 		ret = iio_gts_find_new_gain_by_old_gain_time(&data->gts,
+ 							     gains[i].old_gain,
+@@ -434,7 +431,7 @@ static int bu27034_try_set_int_time(struct bu27034_data *data, int time_us)
+ 				gains[i].chan, time_us, scale1, scale2);
+ 
+ 			if (gains[i].new_gain < 0)
+-				goto unlock_out;
++				return ret;
+ 
+ 			/*
+ 			 * If caller requests for integration time change and we
+@@ -455,7 +452,7 @@ static int bu27034_try_set_int_time(struct bu27034_data *data, int time_us)
+ 					 "Total gain increase. Risk of saturation");
+ 				ret = iio_gts_get_min_gain(&data->gts);
+ 				if (ret < 0)
+-					goto unlock_out;
++					return ret;
+ 			}
+ 			dev_dbg(data->dev, "chan %u scale changed\n",
+ 				 gains[i].chan);
+@@ -468,15 +465,10 @@ static int bu27034_try_set_int_time(struct bu27034_data *data, int time_us)
+ 	for (i = 0; i < numg; i++) {
+ 		ret = bu27034_set_gain(data, gains[i].chan, gains[i].new_gain);
+ 		if (ret)
+-			goto unlock_out;
++			return ret;
+ 	}
+ 
+-	ret = bu27034_set_int_time(data, time_us);
+-
+-unlock_out:
+-	mutex_unlock(&data->mutex);
+-
+-	return ret;
++	return bu27034_set_int_time(data, time_us);
+ }
+ 
+ static int bu27034_set_scale(struct bu27034_data *data, int chan,
+@@ -492,10 +484,10 @@ static int bu27034_set_scale(struct bu27034_data *data, int chan,
+ 		return -EINVAL;
+ 	}
+ 
+-	mutex_lock(&data->mutex);
++	guard(mutex)(&data->mutex);
+ 	ret = regmap_read(data->regmap, BU27034_REG_MODE_CONTROL1, &time_sel);
+ 	if (ret)
+-		goto unlock_out;
++		return ret;
+ 
+ 	ret = iio_gts_find_gain_sel_for_scale_using_time(&data->gts, time_sel,
+ 						val, val2, &gain_sel);
+@@ -518,7 +510,7 @@ static int bu27034_set_scale(struct bu27034_data *data, int chan,
+ 
+ 		ret = bu27034_get_gain(data, gain.chan, &gain.old_gain);
+ 		if (ret)
+-			goto unlock_out;
++			return ret;
+ 
+ 		/*
+ 		 * Iterate through all the times to see if we find one which
+@@ -551,26 +543,20 @@ static int bu27034_set_scale(struct bu27034_data *data, int chan,
+ 		if (!found) {
+ 			dev_dbg(data->dev,
+ 				"Can't set scale maintaining other channel\n");
+-			ret = -EINVAL;
+-
+-			goto unlock_out;
++			return -EINVAL;
+ 		}
+ 
+ 		ret = bu27034_set_gain(data, gain.chan, gain.new_gain);
+ 		if (ret)
+-			goto unlock_out;
++			return ret;
+ 
+ 		ret = regmap_update_bits(data->regmap, BU27034_REG_MODE_CONTROL1,
+ 				  BU27034_MASK_MEAS_MODE, new_time_sel);
+ 		if (ret)
+-			goto unlock_out;
++			return ret;
+ 	}
+ 
+-	ret = bu27034_write_gain_sel(data, chan, gain_sel);
+-unlock_out:
+-	mutex_unlock(&data->mutex);
+-
+-	return ret;
++	return bu27034_write_gain_sel(data, chan, gain_sel);
+ }
+ 
+ /*
+@@ -1221,42 +1207,33 @@ static int bu27034_buffer_enable(struct iio_dev *idev)
+ 	struct task_struct *task;
+ 	int ret;
+ 
+-	mutex_lock(&data->mutex);
++	guard(mutex)(&data->mutex);
+ 	ret = bu27034_meas_set(data, true);
+ 	if (ret)
+-		goto unlock_out;
++		return ret;
+ 
+ 	task = kthread_run(bu27034_buffer_thread, idev,
+ 				 "bu27034-buffering-%u",
+ 				 iio_device_id(idev));
+-	if (IS_ERR(task)) {
+-		ret = PTR_ERR(task);
+-		goto unlock_out;
+-	}
++	if (IS_ERR(task))
++		return PTR_ERR(task);
+ 
+ 	data->task = task;
+ 
+-unlock_out:
+-	mutex_unlock(&data->mutex);
+-
+-	return ret;
++	return 0;
+ }
+ 
+ static int bu27034_buffer_disable(struct iio_dev *idev)
+ {
+ 	struct bu27034_data *data = iio_priv(idev);
+-	int ret;
+ 
+-	mutex_lock(&data->mutex);
++	guard(mutex)(&data->mutex);
+ 	if (data->task) {
+ 		kthread_stop(data->task);
+ 		data->task = NULL;
+ 	}
+ 
+-	ret = bu27034_meas_set(data, false);
+-	mutex_unlock(&data->mutex);
+-
+-	return ret;
++	return bu27034_meas_set(data, false);
+ }
+ 
+ static const struct iio_buffer_setup_ops bu27034_buffer_ops = {
+-- 
+2.53.0
 
-=====================================================
-
-When fixing this issue, please attribute this report according to the
-patch submission rules:
-
-Reported-by: kernelci.org bot <bot@kernelci.org>
-
-For complete logs and details about the environment used, see the issue
-on the KernelCI dashboard:
-
-- dashboard: https://d.kernelci.org/i/maestro:8e01ee42bc22174ddb2fc5cb395e5cf49ccc07e9
-- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-- commit HEAD:  5a64cd2b9ae82e07560b5079921ad6c564e1c09c
-
-# Builds where the incident occurred:
-
-## haps_hs_smp_defconfig on (arc):
-- compiler: gcc-14
-- config: https://files.kernelci.org/kbuild-gcc-14-arc-haps_hs_smp_defconfig-6ac5fc29a3f195e1aa472256/.config
-- dashboard: https://d.kernelci.org/build/maestro:6ac5fc29a3f195e1aa472256
-
-#kernelci issue maestro:8e01ee42bc22174ddb2fc5cb395e5cf49ccc07e9
-
---
-This is an experimental report format. Please send feedback in!
-Talk to us at kernelci@lists.linux.dev
-
-Made with love by the KernelCI team - https://kernelci.org
