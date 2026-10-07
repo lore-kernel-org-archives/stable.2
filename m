@@ -1,78 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2A8139EF1C;
-	Wed,  7 Oct 2026 14:31:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 077254AE12C;
+	Wed,  7 Oct 2026 14:34:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791383508; cv=none; b=LOJMk9deUBtan6YTGfygbuD6ypJPL+VdA4ThrA7Pr+GHFouAXLZEIPJx1w1H7j/WpCjuCRaOWEJY6384io5giTZK0NEmLs7vJnzeE+Y8/YACNzBfjLfXRwLvsGaNAzdlWwfwmePF3r+FcKab9cEbqXOwRgS0TbzuXO0mPZRCOts=
+	t=1791383657; cv=none; b=Krs7U7hDQBcdxx5L1WOJi0+/7UOc2LtNLIzEv/Bv5LTFkYWICgsKjZCDv+lpPl66arZebfYlyKAGXBSDeeclxnxNf2Xt8PQsGyOMEN3Jt7keh5ddvqPdJ/PciEm8vNaZmqqL+QbkRRax83ipek/BarrTntrmXvj8XXQDGucnuKo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791383508; c=relaxed/simple;
-	bh=EWOXX0pSdVpVw0OMH8V6abkv3BIwXFK0qW0lRd/OYK4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e9+xVZGMaE42DzrjY9NeNsIGfxEnnLnrRgo2HNvexzzsr+cTFg217MuL92v1Dhzm/Iu/6iRDhE98WEwmhEFN+hBCLmRU/B6USMqPG9ysFizrseqEDDTKEMlUMUIg/DzUQFP/Le/1r+tdKv12Dg2G7+rrtXCRzIYyd1/Zv6LLMrI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fvkQA9AR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791383657; c=relaxed/simple;
+	bh=aaBl7jM0AvoHi5hBj4hHL6VWxSJ8btl9O2iC5ZxmqWY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=oYC2NgSSTlpr2MlsFRpuPcZKY/IA7CCR3058/oGyCFmiuUTD+WGj44G1m8Pa10/c90MmhADGhAbbv9hvXDKOy6B63qsOMNSBlM57vOWJWenYy5GVG3zFefUIQ+5kHD9ErF2wWdN/wi2N9LfoS2mVnOJAgGSD8B4Bb4wPOFtqrL4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C7ale+5m; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fvkQA9AR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42D1D1F0089C;
-	Wed,  7 Oct 2026 14:31:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791383503;
-	bh=mVdNjo/aJq7ORJIk7eTcpj5IV+csgIa9+cL62v3XkAU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fvkQA9ARbrEG6VR4KEwjSRrfOi0xyixaPV0x+kDwWYZW8tFswTwcusfBL4ubBaLSr
-	 q3gzEu7CB1dZJDHsMms4vA7Els7Iz+ZaJLDpT1C4lA+y/DKg+pznLTwZGUfNw7VedH
-	 Ccd+YUrArLgz094DZKHyqEfzncOzmJBFfx9r97lkfaJf9vSx5ZTK4XqJmYTixv+waz
-	 VU/+MkzOKsNDSt3M0Mf5seAOTwsZg3FSAULjFcme7cXczflXB5PJaf3D2/KGXWIyZE
-	 pl0fIck59YPsS0hsu2W0QUZw7bP5njy/3ftBJLG5yRwiFLbhM1JAATQwXQnewXD5zo
-	 TJgEYa0gSDlHw==
-Date: Wed, 7 Oct 2026 15:31:37 +0100
-From: Simon Horman <horms@kernel.org>
-To: fredrik.nyberg@volvocars.com
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	linux-usb@vger.kernel.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Jose Alonso <joalonsof@gmail.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net] net: usb: ax88179_178a: fix rx frame length for
- non-last packets
-Message-ID: <20261007143137.GQ83879@horms.kernel.org>
-References: <20261002-ax88179-rx-len-v1-1-f01a2a295079@volvocars.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C7ale+5m"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 47F6EC2BCF5;
+	Wed,  7 Oct 2026 14:34:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791383656;
+	bh=aaBl7jM0AvoHi5hBj4hHL6VWxSJ8btl9O2iC5ZxmqWY=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=C7ale+5mCeNekkQlyW3jrTYVSkHHrKji2+WnlZhJUpxv6KdOZRnq8ifzsgr4lt6Jl
+	 RpuHlOr2lZCAp7qLEb1DjndgkFJM+v07aYLZW8A0Tdlr2QpTXymonXcNgxuRyC0k10
+	 GqvQPADSW6vJMp9mi9wyuK5pQkr3J3/fCn+g3k2kz2oFzZ4nSh/LHNX2LQ6JpxcC/a
+	 DWVJOCT8ErZCYKJdbKb3P6vUL5+6wkYcwhicfk4M1F4KA0w3QzunAHo883bPb1mRkZ
+	 gEeom7UV+yrD1sUeM9UgWxwtBybY5fOX7LWRSK34myVIpd4yFOoNSQncNaGz9nN+Cb
+	 SPyi5zO90oT9g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1C4CECA6007;
+	Wed,  7 Oct 2026 14:34:16 +0000 (UTC)
+From: Alexis Bouzigues via B4 Relay <devnull+BouziguesAlexis.JohnDeere.com@kernel.org>
+Date: Wed, 07 Oct 2026 09:34:16 -0500
+Subject: [PATCH] iio: accel: adxl345: select IIO_BUFFER and IIO_KFIFO_BUF
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261002-ax88179-rx-len-v1-1-f01a2a295079@volvocars.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261007-fix-adxl345-buffer-deps-review-v1-1-0c94c8d0443a@JohnDeere.com>
+X-B4-Tracking: v=1; b=H4sIAGdYxmoC/x2Nyw6CMBAAf4Xs2Y1tBYz+ivGwbbewiRay9UFC+
+ HeLxznMzAqFVbjAtVlB+SNFplzBHhoII+WBUWJlcMb11pgzJlmQ4vI4tR36d0qsGHkuuMv8xf5
+ CzrZsuhgIamRWrsZ/cLtX9lQYvVIO456dVAbJxyeVFyts2w8mY0JckAAAAA==
+To: Jonathan Cameron <jic23@kernel.org>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Michael Hennerich <Michael.Hennerich@analog.com>
+Cc: David Lechner <dlechner@baylibre.com>, 
+ Andy Shevchenko <andy@kernel.org>, Lothar Rubusch <l.rubusch@gmail.com>, 
+ linux@analog.com, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Alexis Bouzigues <BouziguesAlexis@JohnDeere.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791383655; l=1713;
+ i=BouziguesAlexis@JohnDeere.com; s=20260527; h=from:subject:message-id;
+ bh=s/yXKM6ln4x9Rm+hNY2FnXFaP1MQgX8qNBneutc4oYU=;
+ b=aKlLVve0fWP0+XrcqwgW4kxbyVmfM7iWxiONstwX/yYmAoM9Vnsb6im4zKzYpqzsY7/1IodZR
+ ew04scKnQPeBoJlKi9+E3W8zZHbppfifc9IefWhq9uJNUqbYHG4ePB5
+X-Developer-Key: i=BouziguesAlexis@JohnDeere.com; a=ed25519;
+ pk=5KJ7ArL00x5flpPhi9zRLC2p88V1rZXDQ5SXhpRvTDk=
+X-Endpoint-Received: by B4 Relay for BouziguesAlexis@JohnDeere.com/20260527
+ with auth_id=797
+X-Original-From: Alexis Bouzigues <BouziguesAlexis@JohnDeere.com>
+Reply-To: BouziguesAlexis@JohnDeere.com
 
-On Fri, Oct 02, 2026 at 02:28:57PM +0200, Fredrik Nyberg via B4 Relay wrote:
-> From: Fredrik Nyberg <fredrik.nyberg@volvocars.com>
-> 
-> Commit 4ce62d5b2f7a ("net: usb: ax88179_178a: stop lying about
-> skb->truesize") replaced skb_clone() with a copy into a new skb for
-> every packet of a bulk-in transfer except the last one. The copy skips
-> the 2-byte IP alignment pseudo header but still copies pkt_len bytes,
-> and pkt_len includes that header. Each of these frames is therefore
-> delivered with two extra trailing bytes: the 0xeeee pseudo header of
-> the next slot when the frame ends on an 8-byte boundary, or slot
-> padding otherwise. The last packet is still trimmed to pkt_len - 2.
-> 
-> IPv4 and IPv6 trim the extra bytes, so most traffic is unaffected.
-> Anything that relies on the frame length is not. MACsec takes the ICV
-> from the last 16 bytes and drops every such frame as InPktsNotValid. In
-> our setup that was 0.2-1.2% of received MACsec frames, depending on how
-> many frames shared a transfer, including service discovery multicast.
-> 
-> Allocate and copy pkt_len - 2 bytes, like the last-packet path.
-> 
-> Fixes: 4ce62d5b2f7a ("net: usb: ax88179_178a: stop lying about skb->truesize")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Fredrik Nyberg <fredrik.nyberg@volvocars.com>
+From: Alexis Bouzigues <BouziguesAlexis@JohnDeere.com>
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+Since the addition of FIFO watermark support, adxl345_core.c calls
+devm_iio_kfifo_buffer_setup() and iio_push_to_buffers(), but the
+ADXL345 Kconfig entry does not select IIO_BUFFER and IIO_KFIFO_BUF.
+Building with CONFIG_ADXL345_I2C=y and CONFIG_IIO_BUFFER=n fails to
+link:
+
+  ld: drivers/iio/accel/adxl345_core.o: in function `adxl345_irq_handler':
+  adxl345_core.c:(.text+0x145c): undefined reference to `iio_push_to_buffers'
+  ld: drivers/iio/accel/adxl345_core.o: in function `adxl345_core_probe':
+  adxl345_core.c:(.text+0x1db6): undefined reference to `devm_iio_kfifo_buffer_setup_ext'
+
+Add the missing selects on the hidden ADXL345 core symbol, as done for
+ADXL367, ADXL372 and ADXL380, so both the I2C and SPI front-ends are
+covered.
+
+Fixes: cf04212d1fe7 ("iio: accel: adxl345: add FIFO with watermark events")
+Assisted-by: LLM
+Signed-off-by: Alexis Bouzigues <BouziguesAlexis@JohnDeere.com>
+---
+Add the buffer selections required by the ADXL345 FIFO support.
+The shared core symbol covers both I2C and SPI frontends.
+---
+ drivers/iio/accel/Kconfig | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/iio/accel/Kconfig b/drivers/iio/accel/Kconfig
+index 4094299e2ed8..fc130854af71 100644
+--- a/drivers/iio/accel/Kconfig
++++ b/drivers/iio/accel/Kconfig
+@@ -61,6 +61,8 @@ config ADXL313_SPI
+ 
+ config ADXL345
+ 	tristate
++	select IIO_BUFFER
++	select IIO_KFIFO_BUF
+ 
+ config ADXL345_I2C
+ 	tristate "Analog Devices ADXL345 3-Axis Digital Accelerometer I2C Driver"
+
+---
+base-commit: 7b63ef2d55f24519e7e9e5f4d15dbea03f126e40
+change-id: 20261007-fix-adxl345-buffer-deps-review-69a214e05dca
+
+Best regards,
+-- 
+Alexis Bouzigues <BouziguesAlexis@JohnDeere.com>
+
 
