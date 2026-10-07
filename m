@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A2862F616A
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 06:10:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A62B2F616A
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 06:11:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791353452; cv=none; b=CfX+VRorhLAp22HMmiZW/6phVY4P/eVku/b4LBcY/2oIsX7mVYucaPlPpVdNSFrTx6qR6Ivk3i4LzNy8/G/6hZC4eDR7Zz2F7g5RVe9bJG7e0/WswES8iXIGwZzxk2O2R6+b6pAm5gOisyv43NVfeYD8pagwnKJ2EhwSpWijnYM=
+	t=1791353513; cv=none; b=IGjqz52r4Bc+Nf80Wi4mupzYvCflpuTv9AwBKFMQuyJyfxL2c3VTVt8Jr1ktJylgiaeX+6JVM1x57tqMFw2XPNRenJSv+T7ifdfxONGceVsZhMC8orSqjiCGPWCOwDxdFXW63kizz/1V5kT43noXjA9t92Il6AgHICNtMM7LOG4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791353452; c=relaxed/simple;
-	bh=04hX1Q7p2fntvode+nLx3RiF2tI0ToUCUYtx8VK+JDs=;
+	s=arc-20240116; t=1791353513; c=relaxed/simple;
+	bh=ygi8rZPnU/27Isf9aJxI1MNhrm+xvHj42T472cG8K1U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Xm6qPo44SRmKLNIooqKmHZVUCyxtptkvG+2Todj8r8uzlQvUMtWH19rHh3xUjPlNAVFHjhieDC6EtNKF9IQwjAmLepexI7Rc3RWUKIakDiLst23wlhtcxSOJHg80DhsaZFjyJ9xTXpktgYQ0EP3RPFA5G0ISxyEwhiJfV/UlfsI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VjfIUnkI; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=q81fYfPM8ub8wK6mjSoYbanYJ2e04QUoAvet6z6r/ctS410pqdmNjDz8JTcOgFqxIPUjVujxLqq/+DdoJIXtMMEO49HgCZwfXUmhQQybqicQ7YC4AYKp+TJFQeaY1nArEjBrtcXOCbhYYnsd1y7SQWbeqdNyap04EKhPGSUiUUc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TYbqiqS2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VjfIUnkI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DBE11F0089B;
-	Wed,  7 Oct 2026 06:10:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TYbqiqS2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E415A1F0089B;
+	Wed,  7 Oct 2026 06:11:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791353450;
-	bh=TPI/HCYvO5aoJ0icaQooT45bymAM0NM/DziPwge3Pvk=;
+	s=k20260515; t=1791353512;
+	bh=fSrYGvzNvS6+qamV3LE47IX/OVt8m/PE36uq4FmlSwc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VjfIUnkIkcSFoPwPLYBTYlGFA6WMR1NrNA0d1BBJ+hNJOVO04ML3nvlmCSL9vYs0M
-	 kfiw0KRw1fri+ufx+WG0IG6idAFkbeM0Rg1HC6XiEkVdCh/LU9MdRjyoJf3KI1403s
-	 NQhtuYzoDvXS9EnfgwG24yhaxvCkn0NennZB9FDqhEgqYtn27QoeLZ2dPs8ZEcLYa0
-	 Hp6g7smC6o6sQuwNzn3fjZfwp5d48l68sYe1DwB8IDmI98dDj3w7vm49BpdCGNuvbY
-	 wSZmWlFphlh82cedTsBwTSqXo9Yzc9gw/calm3JaHCcx7YwcpCOVLMh0ywVx9n9ynl
-	 HHgv5g5qT04jw==
+	b=TYbqiqS2mfTNAs7w9578yhNfTmpeaTv0tAZH5YdXFE37GfZtic3xM9iIVNYePGHFY
+	 iUhuI47m0TcSTug9zO9aqAhXXR1nf/XsyqDiMFrzWWBZ6wYs42UoEIrt5fwT70Pf3T
+	 i31BGVxCrUoQBeYV7OKylAtVl7SeiZVlWvdlM+6jIJWMWZ6ak1aGihg9IeLXWZzXwn
+	 sqrG231zGJpio5opQU68STXt1sqhZktMf9EcAG/e2LJhDw802/LV+a7mCYeOe1Ad3M
+	 d7uo8j0fCoiM089btDIdQL7vAGJfrGzWYN6Sm96yytdSMEH17FDLabTLaesQphPhwP
+	 89wnLwkwq5A0Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Salah Triki <salah.triki@gmail.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+Cc: Felix Fietkau <nbd@nbd.name>,
+	Andrea Pesaresi <andreapesaresi82@gmail.com>,
+	Johannes Berg <johannes.berg@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 3/3] iio: adc: ad4030: fix invalid oversampling_ratio validation
-Date: Wed,  7 Oct 2026 02:10:43 -0400
-Message-ID: <20261007060913.1488382-3-sashal@kernel.org>
+Subject: [PATCH 5.15.y] wifi: mac80211: set info->band for 802.3 encap offload frames
+Date: Wed,  7 Oct 2026 02:11:48 -0400
+Message-ID: <20261007060910.1495101-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261007060913.1488382-1-sashal@kernel.org>
-References: <2026100606-wolf-obsessed-e5c2@gregkh>
- <20261007060913.1488382-1-sashal@kernel.org>
+In-Reply-To: <2026100533-rarity-deafening-ae05@gregkh>
+References: <2026100533-rarity-deafening-ae05@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,56 +46,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Salah Triki <salah.triki@gmail.com>
+From: Felix Fietkau <nbd@nbd.name>
 
-[ Upstream commit d615210564205993e8f0e7ccb57cc2e66b7d5706 ]
+[ Upstream commit 4febc02cd02f021f2b6d0768332be643ef14a12d ]
 
-In ad4030_set_avg_frame_len(), the logarithm is calculated before input
-validation. Passing zero or negative values leads to an undefined result
-from ilog2().
+Unlike the 802.11 TX paths, ieee80211_8023_xmit() does not set
+info->band from the channel context on non-MLD interfaces. It stays at
+0, so ieee80211_get_tx_rates() uses the wrong band for these frames.
 
-Validate that the input is strictly positive prior to computing its
-logarithm.
+Set it the same way as ieee80211_build_hdr(): drop the frame if there is
+no channel context, and leave the band at 0 on MLD interfaces.
 
-Fixes: 949abd1ca5a4 ("iio: adc: ad4030: add averaging support")
-Assisted-by: LLM
-Signed-off-by: Salah Triki <salah.triki@gmail.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Reported-by: Andrea Pesaresi <andreapesaresi82@gmail.com>
+Fixes: 50ff477a8639 ("mac80211: add 802.11 encapsulation offloading support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-[ sashal: Adjusted context for the missing SPI offload code. ]
+Signed-off-by: Felix Fietkau <nbd@nbd.name>
+Link: https://patch.msgid.link/20260926120216.4054712-1-nbd@nbd.name
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+[ sashal: Changed vif.bss_conf.chanctx_conf access to vif.chanctx_conf. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/adc/ad4030.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ net/mac80211/tx.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/iio/adc/ad4030.c b/drivers/iio/adc/ad4030.c
-index aec95aceb81fa..b7cb589168c3b 100644
---- a/drivers/iio/adc/ad4030.c
-+++ b/drivers/iio/adc/ad4030.c
-@@ -514,13 +514,20 @@ static int ad4030_set_chan_calibbias(struct iio_dev *indio_dev,
- static int ad4030_set_avg_frame_len(struct iio_dev *dev, int avg_val)
+diff --git a/net/mac80211/tx.c b/net/mac80211/tx.c
+index b7865f3b97879..a919d585b6b1b 100644
+--- a/net/mac80211/tx.c
++++ b/net/mac80211/tx.c
+@@ -4467,6 +4467,7 @@ static void ieee80211_8023_xmit(struct ieee80211_sub_if_data *sdata,
  {
- 	struct ad4030_state *st = iio_priv(dev);
--	unsigned int avg_log2 = ilog2(avg_val);
- 	unsigned int last_avg_idx = ARRAY_SIZE(ad4030_average_modes) - 1;
-+	unsigned int avg_log2;
- 	int ret;
+ 	struct ieee80211_tx_info *info = IEEE80211_SKB_CB(skb);
+ 	struct ieee80211_local *local = sdata->local;
++	struct ieee80211_chanctx_conf *chanctx_conf;
+ 	struct tid_ampdu_tx *tid_tx;
+ 	u8 tid;
  
--	if (avg_val < 0 || avg_val > ad4030_average_modes[last_avg_idx])
-+	/* Reject unsupported modes */
-+	if (avg_val > ad4030_average_modes[last_avg_idx])
-+		return -EINVAL;
-+
-+	/* Avoid invalid values for logarithm since it's undefined */
-+	if (avg_val < 1)
- 		return -EINVAL;
+@@ -4514,6 +4515,11 @@ static void ieee80211_8023_xmit(struct ieee80211_sub_if_data *sdata,
+ 		sdata = container_of(sdata->bss,
+ 				     struct ieee80211_sub_if_data, u.ap);
  
-+	avg_log2 = ilog2(avg_val);
++	chanctx_conf = rcu_dereference(sdata->vif.chanctx_conf);
++	if (unlikely(!chanctx_conf))
++		goto out_free;
++	info->band = chanctx_conf->def.chan->band;
 +
- 	ret = regmap_write(st->regmap, AD4030_REG_AVG,
- 			   AD4030_REG_AVG_MASK_AVG_SYNC |
- 			   FIELD_PREP(AD4030_REG_AVG_MASK_AVG_VAL, avg_log2));
+ 	info->flags |= IEEE80211_TX_CTL_HW_80211_ENCAP;
+ 	info->control.vif = &sdata->vif;
+ 
 -- 
 2.53.0
 
