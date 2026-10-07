@@ -1,143 +1,70 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from Chamillionaire.breakpoint.cc (Chamillionaire.breakpoint.cc [91.216.245.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FF7B3CAE7F
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 08:46:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20C8244A406;
+	Wed,  7 Oct 2026 08:48:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.216.245.30
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791362790; cv=none; b=V5xmfLy0lLJXb1rFsApOhdEIAnYMP/Rr4sL0jJRBlr2QsccODPZ8Prrm2lO8/Y09BN7GhZZ6EhKlVRmwZtT3ZKjuWAHusdBz/mpGLxe038+HJq8hJkeApsqSIaBlWVqNDxxohFaKs2uQ74CD9zaNJ2tfIXdrZ/keKH79J/0twOY=
+	t=1791362935; cv=none; b=gb/pqePRTF/+jORqlf309enzrj04q/6KwBkd4xkiUphntF4laYXiSluIk9XU0Dx+ZK3SAh109+qUiwAcmquH81ZmzuoXC+Ky8wOHeUYohZSOc341+24gS//+FYZjCAoINssCSD7+dmc3RgzHpAG4JvrlUCuj3uZkGkwzIQQUPyg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791362790; c=relaxed/simple;
-	bh=WfQBl7j3Rj0zaLvu0kCOcQphMZXxa4aM3ttrm0KjkYw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BfYYtOmqiBMTF8uPK5h83OSpXuo3I0viPqqae1L1F9cczSO80z+FnGsHfOzJWkPg1Ptaj1L0ob4XVzKQpnbMM13/tw0CI5H3vQ5Da26ChiNPSxHq/WX1a/Cs2h9ClUkn3/50Nr3T/nAbJSvDckWnBSUu/COpwUuFz6wrGjxnUOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QXBLrMb8; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QXBLrMb8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAB1A1F0089C;
-	Wed,  7 Oct 2026 08:46:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791362789;
-	bh=ba6Mb3NGbCJZ1yuL2nZGjoxoiS7KLWLMhnswHdxnAqk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QXBLrMb8mpsYryonQsxS5G4Ur0dljulstKL2p5Dd+xTxhIc0wcpO4d8EAdwegX0BQ
-	 WCe4Xg9JFyCvNz39Ya8TVBihY9q9yEQhAlNNqUpz+sL0RftvrbU1goU25nDcsq3POs
-	 zczFRGFy2jyx24RcPGNBgXVLeFKMfW7ZCF0FWqhcOuYgUqdpWowcuY8gP7Zi0RIgem
-	 F6R/qGDgQXLQT/vfPvzG1VNUui7rTUy29AYVBJLraCAHFcjuaN9zW80MPcpGhNsl0q
-	 kgQMqjEEDb27IrkK6wYRSHs7TyIvSSKLUE9jiOMjBMsBkYp5cDymjLL+LAbbEkJolD
-	 cWbu8xndAnyvA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Michael Hennerich <michael.hennerich@analog.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] iio: buffer-dmaengine: fix sg entry iteration when building dma_vecs
-Date: Wed,  7 Oct 2026 04:46:25 -0400
-Message-ID: <20261007084523.2002300-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100621-baritone-yapping-1e8d@gregkh>
-References: <2026100621-baritone-yapping-1e8d@gregkh>
+	s=arc-20240116; t=1791362935; c=relaxed/simple;
+	bh=v5DhNq5+rQFKLrFNihG9VAM61iFoZKuf9uJy8//4nKs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=auxywIQ9ps0px7s2ML8j5R6duV59+Yn8/mSB1/0+QWjreWt/stXsNuxIh5w7YGqkskKF1Ok0VZI7gPITjAHerMoqsrVXEBywXENEMfQ+LRx0/aYNU0VMGxvpSN4X6Rd5ez8BGOP/Tmqu4URXkss8iOj5oIlo2vc33f+wni2v/s8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de; spf=pass smtp.mailfrom=strlen.de; arc=none smtp.client-ip=91.216.245.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=strlen.de
+Received: by Chamillionaire.breakpoint.cc (Postfix, from userid 1003)
+	id 422746038C; Wed, 07 Oct 2026 10:48:49 +0200 (CEST)
+Date: Wed, 7 Oct 2026 10:48:48 +0200
+From: Florian Westphal <fw@strlen.de>
+To: Daehyeon Ko <4ncienth@gmail.com>
+Cc: pablo@netfilter.org, phil@nwl.cc, netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org, netdev@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v3] netfilter: conntrack: avoid recursive master
+ destruction
+Message-ID: <asYHaUFdxo0flpAe@strlen.de>
+References: <20261007014802.2615503-1-4ncienth@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261007014802.2615503-1-4ncienth@gmail.com>
 
-From: Michael Hennerich <michael.hennerich@analog.com>
+Daehyeon Ko <4ncienth@gmail.com> wrote:
+> A conntrack holds a reference to its master. Userspace can build an
+> unbounded acyclic chain through ctnetlink. Expectation producers can do the
+> same: an nft ct expectation can attach its helper to an unconfirmed
+> expected child and arm the next expectation with that child as master. The
+> H.323 Q.931 helper can also propagate itself through call-forwarding
+> expectations.
+> 
+> When only child-held references remain, destroying the leaf calls
+> nf_ct_put() on its master. If that was the final reference, nf_ct_put()
+> recurses into nf_ct_destroy(). Repeating this at each level exhausts the
+> task stack and panics.
+> 
+> Nested expectations are existing helper semantics, and CTA_TUPLE_MASTER
+> was introduced for conntrackd state replication. Avoid per-producer
+> restrictions. Decrement the master's refcount directly, then free the
+> current conntrack. If the refcount reached zero, continue destroying the
+> master in the same invocation. This preserves existing constructors while
+> bounding stack use.
+> 
+> Fixes: 5faa1f4cb5a1 ("[NETFILTER]: nf_conntrack_netlink: add support to related connections")
+> Cc: stable@vger.kernel.org
+> Link: https://patch.msgid.link/179127347858.434549.11821822167265441355@kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
 
-[ Upstream commit 0d0ffbcc92e30a8d656ad76a6e278fa3400fed85 ]
+Acked-by: Florian Westphal <fw@strlen.de>
 
-iio_dmaengine_buffer_submit_block() counts scatterlist entries with
-sg_nents_for_len(), which walks the CPU-side lengths (sg->length), but
-then consumes the DMA-side fields (sg_dma_address()/sg_dma_len()).
-After dma_map_sgtable() the two views may differ: an IOMMU can coalesce
-the mapping so that only the first sgt->nents entries carry valid DMA
-addresses, with nents < orig_nents.
+That said, ignoring the source of the problem is not good.
 
-On x86 with an IOMMU enabled, a DMABUF block backed by two 1 MiB
-system-heap chunks maps to a single 2 MiB IOVA range. The CPU-side
-count is 2, so the loop reads one entry past the mapped set and emits a
-garbage vec ({addr = ~0, len = 0}). The DMA engine driver rejects the
-vec array (prep returns NULL), the fence is signalled with -ENOMEM,
-which a userspace poller cannot observe, and the block is left in
-ACTIVE state so every further enqueue of it fails with -EBUSY. The
-visible symptom is a stream of zero-filled blocks followed by a wedged
-buffer.
-
-Platforms without an IOMMU never hit this because nents == orig_nents.
-
-Size the vec array with sgt->nents, i.e. the DMA-mapped view, and stop
-the fill loop once bytes_used is covered - which is allowed to be
-smaller than the block size - passing the number of vecs actually
-filled to dmaengine_prep_peripheral_dma_vec().
-
-One vec per mapped entry is enough since coalescing can only ever
-reduce the number of entries. A single mapped entry longer than the
-device's maximum segment size would need more than one, but the DMA API
-already assumes no single segment exceeds it [1], and splitting a vec
-down to the hardware descriptor size is the DMA engine driver's job -
-which both current .device_prep_peripheral_dma_vec() implementations
-do.
-
-[1]: commit ab2cbeb0ed30 ("iommu/dma: Handle SG length overflow better")
-
-Assisted-by: Claude:claude-fable-5
-Fixes: 7a86d469983a ("iio: buffer-dmaengine: Support new DMABUF based userspace API")
-Signed-off-by: Michael Hennerich <michael.hennerich@analog.com>
-Signed-off-by: Nuno Sá <nuno.sa@analog.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-[ sashal: adjusted context due to missing cyclic DMA flag handling ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- .../iio/buffer/industrialio-buffer-dmaengine.c   | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/iio/buffer/industrialio-buffer-dmaengine.c b/drivers/iio/buffer/industrialio-buffer-dmaengine.c
-index 95222f00e5ff4..0de2784ace22f 100644
---- a/drivers/iio/buffer/industrialio-buffer-dmaengine.c
-+++ b/drivers/iio/buffer/industrialio-buffer-dmaengine.c
-@@ -82,10 +82,13 @@ static int iio_dmaengine_buffer_submit_block(struct iio_dma_buffer_queue *queue,
- 		dma_dir = DMA_MEM_TO_DEV;
- 
- 	if (block->sg_table) {
--		sgl = block->sg_table->sgl;
--		nents = sg_nents_for_len(sgl, block->bytes_used);
--		if (nents < 0)
--			return nents;
-+		/*
-+		 * Only the first sgt->nents entries carry a valid
-+		 * sg_dma_address()/sg_dma_len() pair as mapping the table may
-+		 * have coalesced entries, in which case nents is smaller than
-+		 * orig_nents.
-+		 */
-+		nents = block->sg_table->nents;
- 
- 		vecs = kmalloc_array(nents, sizeof(*vecs), GFP_ATOMIC);
- 		if (!vecs)
-@@ -93,7 +96,8 @@ static int iio_dmaengine_buffer_submit_block(struct iio_dma_buffer_queue *queue,
- 
- 		len_total = block->bytes_used;
- 
--		for (i = 0; i < nents; i++) {
-+		sgl = block->sg_table->sgl;
-+		for (i = 0; i < nents && len_total; i++) {
- 			vecs[i].addr = sg_dma_address(sgl);
- 			vecs[i].len = min(sg_dma_len(sgl), len_total);
- 			len_total -= vecs[i].len;
-@@ -101,6 +105,8 @@ static int iio_dmaengine_buffer_submit_block(struct iio_dma_buffer_queue *queue,
- 			sgl = sg_next(sgl);
- 		}
- 
-+		nents = i;
-+
- 		desc = dmaengine_prep_peripheral_dma_vec(dmaengine_buffer->chan,
- 							 vecs, nents, dma_dir,
- 							 DMA_PREP_INTERRUPT);
--- 
-2.53.0
-
+I see no point whatsoever for a expected connection to have a
+non-control connection as its master.
