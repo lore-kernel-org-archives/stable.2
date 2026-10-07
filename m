@@ -1,181 +1,254 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 651243C1D62;
-	Wed,  7 Oct 2026 04:22:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86FBD3B4E80
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 04:42:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791346961; cv=none; b=BhbnVXoeST8o+g8yw2pyH3FBUw2W1WBl0Vq6ofAwzmdLQOsfwjA+EHGE79EiAkBTNo5AEFMyiS6qKRfs5mGH2Cn6lnu59sAV9bc4e+Kn9/7AZa5FUBllW2y2VUZ6WO6p6GBeJIBlgTg6L9SpeOUj1UuzIBTD+9XCC+K7ao1Adhs=
+	t=1791348144; cv=none; b=jnYmjM0hTKHH/oQKAlfzMmCHYid+9pejwXtaQ4tgg5ZXwr1P0T+GLhma3iYWpmkjqAYmSfNzS4+rB15I5hAiAD1DgjUSKajcY9BVZwNLMbHO6cY/CiLMQkGiWuQuohWKW1qPqE0JiZv88roIS8Xzq/VesRAoLehbE/Xt6Gt6zRo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791346961; c=relaxed/simple;
-	bh=Byx5e0MZF3e+6UdiiYp/Wzz+q5hiDT6L1Ft++XEQ0PQ=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=o7zILfemFAAptsk0oUpfir56T2BRM/sNX/QwuWX7SzOyvZe4d4fsc2h9lwYeoY7RAle63vpnWYOPdFJulkbz7D3aNF/lu+tUj8lOZK7VmjLp7MoFqK8aa5g8V34JXA9T97U5BrSPgftoQtgicms1OR13mxZMvfnvAYYupZnMsMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qx+YJLYi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791348144; c=relaxed/simple;
+	bh=YGhxAADcEotoTVfYKaoxcxYHU3GyFBpSUeFejD+MY1g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jA4L8W3AixkB3fphf+WbufmdN3mGLAOaoR+NWp/CXJhnSO2+Pq8Nf7sS0MwEECyGYvX46cEAvNusxPFc02tqJB/I/D/FrraMeYHLBRzFZXqL/zLp+YJNoaPDuqOPSH9Ks3x6vFg+VXzQZZq7oRF9a1m8jHn5J4i+FtV5l26LYU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=sY6boH9I; arc=none smtp.client-ip=209.85.215.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qx+YJLYi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E3E71F0089B;
-	Wed,  7 Oct 2026 04:22:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791346959;
-	bh=/nAdc4Y9g0Ft3unXJ2Op8GBWhN8QQGcJL7acZdLT7vA=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Qx+YJLYicNQwfEoBSnafgZxvFitXFnG0h9QIQIUt2M1ID2cZApojMl51DURBo75tv
-	 hoxFaqJfOjkGniQrLi/DfZUGlKWQ/UOzSC5Umtay5MKbrewV42tVJma8ViROfLa9+R
-	 Hi57rLJ+FdSgD1qkbeyS20ZANCv6lKGm72zBCNcORIJ1pGNe0hYvvk/XKibbp6s7LG
-	 gvWQ45bxLMFgU6Nxm+1eXIZ6C4dCLxgerGwBhvUCFy9tAOZbDuaMX/qta+OArv77CM
-	 hE4XQgFhnomXOxIxSODOMFTJeDYIwK0mHZbKdTIiL+0RPeL1XSHX94uFvWZHupqOQx
-	 tNQEu6yDy7UPw==
-Subject:
- Re: [PATCH v2 net] bnxt_en: fix DMA mapping length for padded small packets
-From: netdev-bot+sashiko@kernel.org
-To: edumazet@kernel.org
-Cc: davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- netdev@vger.kernel.org, stable@vger.kernel.org, sfle@kth.se,
- edumazet@google.com, michael.chan@broadcom.com, pavan.chebbi@broadcom.com,
- andrew+netdev@lunn.ch, berni@debian.org
-Date: Wed, 07 Oct 2026 04:22:37 +0000
-Message-ID: <179134695789.434549.53526916334276884@kernel.org>
-In-Reply-To: <20261006042153.199444-1-edumazet@kernel.org>
-References: <20261006042153.199444-1-edumazet@kernel.org>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="sY6boH9I"
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cc73a80ede5so1567185a12.1
+        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 21:42:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791348140; x=1791952940; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nSDczV66AQ+p5p0pwY8AkyYRnXsj/iwZmPrpvck8VaU=;
+        b=sY6boH9I3IHRDhUbbgZ9kJWhHlqC9oU/Z95lJmAt8LxA6jP57TSkvQqIb0d6xROxRy
+         K+wFx6N8Erx5/QqAbKVI3qQc2i4w+9ATDoPcQOpTD0WHJHkJPHnutE3okr4AdkpvM4/P
+         9ZW31PcZl5fQ3oY46WzpK6B2+vDv6Gfejb1wlI8c2eF45/qQgKGCyGbI16EZ+aX7HhAV
+         VnLQo8nKjrhVunzLB6oCJVZ+l3XamkfMYP4S05y66U27ck9I4tass7kAbbAIqv6b+7WN
+         M7sdhQt1VZi4bLvBcYdh/mpqHo4UFzSp3A88hZWliQXOkj4Vbyjphavqn9UOcJXNEON3
+         JgKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791348140; x=1791952940;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nSDczV66AQ+p5p0pwY8AkyYRnXsj/iwZmPrpvck8VaU=;
+        b=kFJDIMTBSyX9/K7ZRG0Vt5JbnHhG+m1WzRABdA+5E3g1OtJSObE7d1QN8nYIGPer8g
+         3A1LYYkWI9tWzF6UypDGJDjOak9+qLltUDV+vEPmCQqAH6OEO2F58Zx6m9vpiR811oi8
+         7/nLfAMm+7Tkm4zL6BAWh1fh61ANsmST5EWdqEDWuNX2v5fcuiEb1Ys2nQjqUnPoYeCB
+         wmxGSqoCT5Obq67Vul9+YdPV6LUCF5ocm024emK9KySq/6QKbexUp5Vgldl/CAcSIfPz
+         NNcXuEWARaW8SmQSNlYWvmHGMgPGaJB60UPdMotmZv7ZbjhRwYbEDBlKAWaCiklxwKa4
+         pVqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwvJoQSXQhYZt5B6R8+OacPzkoCP3+WnqF8UvOZgI8vc3Ml3flwTyypoVXyvJLh6G0Jd58RpDA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIC/njU7spPZwwUr56t+7CpeoSaYep40ZzgSLmaeDby0Kvzc7qG
+	7agNUXMNtYtD0XcFzwDSIy5WbUgf3ULax5s4dvddZFpKXoZVJgrykxfWQ6unBmK+G8E=
+X-Gm-Gg: AYBFou2muYDPZ4hldtqqDsHPvxPWJo/ZO4yw3RIssw0uIzqs0JzDKZ8tg8EyGHrFCRG
+	MD7hs/3xH9HWZOWgrI9ewcJ1JGtQYkQeeIg7eqt/vSy7is/ObZpj6lGlt7RfLiqVCD82aUHu65R
+	SJJqYbjtwnQ3tlXXzmBmkOeHoR3gT/2X3n7iCuB9yu5lkNxL7EyJ6DXnVFZB2sH4N/vW27TF63T
+	WJAsaQ5LbE6MeNUAaexYy5ehsZNkTrAuyGLR8Tm/5jVV3IwAaOQpyFZua6NFyxMNuna0fO5go4f
+	Qi2/+Fvr3IuSYcYbraWJiZSc48pF+B52Kc4zPsHNRq26NpILbkIAmGkRIXP2VJRNyPbs7Thxt44
+	eoZQeOJcHnTzPtF/JPPQ3EKFIKQsWiEs+tjqrwwqvgmwYEO9GNTm3onFT4LxS3RXhAp274pyQN9
+	B0P6YEnTEA0rilE7V4xTVIaENUwDzXVnASUsG+iJ+r7rQ32UR+LcXjEE1CQ0SjRGJKxprQmSP+u
+	uLBZxBsXAh9kiHH
+X-Received: by 2002:a17:90b:2f83:b0:3a0:97ba:cc05 with SMTP id 98e67ed59e1d1-3a8a1b5d36cmr889506a91.22.1791348139576;
+        Tue, 06 Oct 2026 21:42:19 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a8533aba95sm9213898a91.2.2026.10.06.21.42.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 21:42:19 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: michael.christie@oracle.com,
+	martin.petersen@oracle.com,
+	lduncan@suse.com,
+	cleech@redhat.com,
+	James.Bottomley@HansenPartnership.com
+Cc: linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH v3] scsi: libiscsi_tcp: check that a read got the data the target claimed
+Date: Wed,  7 Oct 2026 13:42:04 +0900
+Message-ID: <20261007044204.650687-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+A target can finish a read without sending the data.  iscsi_tcp_data_in()
+bounds each Data-In PDU against the command buffer but never adds them up,
+so a completion that declares no underflow is believed and the command
+ends with DID_OK.  The pages keep whatever they held.
 
-Critical: 0 · High: 0 (1) · Medium: 1 · Low: 0
+Over a 1 MiB pread of a file that had never been read, 999424 bytes came
+back as the contents of an unrelated file the same process had written
+earlier.  pread() returned 1048576 and errno was 0.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Count the payload per task.  Require each Data-In to continue where the
+last one ended, and at completion compare the total with the buffer
+length, less the residual when an underflow is declared.  A read can end
+on a Data-In or on a SCSI Response, so check both.  Writes are untouched.
 
-- [Medium] Regression in the software UDP GSO path.
+Fixes: a081c13e39b5 ("[SCSI] iscsi_tcp: split module into lib and lld")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+v3: only validate coverage for SAM_STAT_GOOD completions; a non-GOOD reply
+    such as CHECK_CONDITION that omits the underflow flag must not be
+    treated as a short read (noted by Sashiko AI review).
+v2: take back_lock once on the SCSI Response path and make the counter
+    uint32_t, both per Mike Christie's review.
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the sister
-  bnge driver has the same stale-fragment ordering bug that the bnxt v2…
+On "was it built over another patch?" - no, v1 was generated against
+v7.2-rc5 directly.  It stopped applying because c1dea15f819cd ("scsi:
+libiscsi_tcp: Bound SCSI Response data segment to the connection
+buffer") folded ISCSI_OP_SCSI_CMD_RSP into the shared response case,
+which is the block v1's last hunk patched.  This version leaves that
+fold alone and applies the check inside the shared case, so the data
+segment bound stays in one place.
 
---
+v1: https://lore.kernel.org/all/20260814121428.359541-1-yhlee@isslab.korea.ac.kr/
+ drivers/scsi/libiscsi_tcp.c | 79 ++++++++++++++++++++++++++++++++++++-
+ include/scsi/libiscsi_tcp.h |  1 +
+ 2 files changed, 79 insertions(+), 1 deletion(-)
 
-bnxt_en: fix DMA mapping length for padded small packets
+diff --git a/drivers/scsi/libiscsi_tcp.c b/drivers/scsi/libiscsi_tcp.c
+index d35f93451ee9b..d4ab9c65fa297 100644
+--- a/drivers/scsi/libiscsi_tcp.c
++++ b/drivers/scsi/libiscsi_tcp.c
+@@ -467,6 +467,45 @@ void iscsi_tcp_cleanup_task(struct iscsi_task *task)
+ }
+ EXPORT_SYMBOL_GPL(iscsi_tcp_cleanup_task);
+ 
++/**
++ * iscsi_tcp_check_data_in - verify a read received the data the target claimed
++ * @task: scsi command task
++ * @status: SCSI status of the PDU carrying the status
++ * @flags: flags of the PDU carrying the status
++ * @residual: residual count of that PDU
++ *
++ * ISCSI_FLAG_CMD_UNDERFLOW and ISCSI_FLAG_DATA_UNDERFLOW share a value, so the
++ * Data-In and SCSI Response paths both use this.
++ */
++static int iscsi_tcp_check_data_in(struct iscsi_task *task, u8 status,
++				   u32 flags, u32 residual)
++{
++	struct iscsi_tcp_task *tcp_task = task->dd_data;
++	struct scsi_cmnd *sc = task->sc;
++	unsigned int expected;
++
++	if (!sc || sc->sc_data_direction == DMA_TO_DEVICE)
++		return 0;
++
++	/*
++	 * Only a successful completion promises the whole buffer.  Any other
++	 * status is handled by the normal status and sense path.
++	 */
++	if (status != SAM_STAT_GOOD)
++		return 0;
++
++	expected = sc->sdb.length;
++	if (flags & ISCSI_FLAG_DATA_UNDERFLOW) {
++		if (residual > expected)
++			return 0;
++		expected -= residual;
++	}
++	if (tcp_task->data_in_bytes == expected)
++		return 0;
++
++	return ISCSI_ERR_DATALEN;
++}
++
+ /**
+  * iscsi_tcp_data_in - SCSI Data-In Response processing
+  * @conn: iscsi connection
+@@ -491,7 +530,7 @@ static int iscsi_tcp_data_in(struct iscsi_conn *conn, struct iscsi_task *task)
+ 		iscsi_update_cmdsn(conn->session, (struct iscsi_nopin*)rhdr);
+ 
+ 	if (tcp_conn->in.datalen == 0)
+-		return 0;
++		goto status;
+ 
+ 	if (tcp_task->exp_datasn != datasn) {
+ 		ISCSI_DBG_TCP(conn, "task->exp_datasn(%d) != rhdr->datasn(%d)"
+@@ -509,7 +548,18 @@ static int iscsi_tcp_data_in(struct iscsi_conn *conn, struct iscsi_task *task)
+ 		return ISCSI_ERR_DATA_OFFSET;
+ 	}
+ 
++	if (tcp_task->data_offset != tcp_task->data_in_bytes)
++		return ISCSI_ERR_DATA_OFFSET;
++
++	tcp_task->data_in_bytes += tcp_conn->in.datalen;
++
+ 	conn->datain_pdus_cnt++;
++
++status:
++	if (rhdr->flags & ISCSI_FLAG_DATA_STATUS)
++		return iscsi_tcp_check_data_in(task, rhdr->cmd_status,
++					       rhdr->flags,
++					       be32_to_cpu(rhdr->residual_count));
+ 	return 0;
+ }
+ 
+@@ -783,6 +833,32 @@ iscsi_tcp_hdr_dissect(struct iscsi_conn *conn, struct iscsi_hdr *hdr)
+ 			break;
+ 		}
+ 
++		if (opcode == ISCSI_OP_SCSI_CMD_RSP) {
++			struct iscsi_scsi_rsp *rsp = (struct iscsi_scsi_rsp *)hdr;
++
++			spin_lock(&conn->session->back_lock);
++			task = iscsi_itt_to_ctask(conn, hdr->itt);
++			if (!task) {
++				spin_unlock(&conn->session->back_lock);
++				return ISCSI_ERR_BAD_ITT;
++			}
++			rc = iscsi_tcp_check_data_in(task, rsp->cmd_status,
++						     rsp->flags,
++						     be32_to_cpu(rsp->residual_count));
++			if (rc) {
++				spin_unlock(&conn->session->back_lock);
++				return rc;
++			}
++			if (tcp_conn->in.datalen) {
++				spin_unlock(&conn->session->back_lock);
++				iscsi_tcp_data_recv_prep(tcp_conn);
++				return 0;
++			}
++			rc = __iscsi_complete_pdu(conn, hdr, NULL, 0);
++			spin_unlock(&conn->session->back_lock);
++			break;
++		}
++
+ 		/* If there's data coming in with the response,
+ 		 * receive it to the connection's buffer.
+ 		 */
+@@ -995,6 +1071,7 @@ int iscsi_tcp_task_init(struct iscsi_task *task)
+ 
+ 	BUG_ON(kfifo_len(&tcp_task->r2tqueue));
+ 	tcp_task->exp_datasn = 0;
++	tcp_task->data_in_bytes = 0;
+ 
+ 	/* Prepare PDU, optionally w/ immediate data */
+ 	ISCSI_DBG_TCP(conn, "task deq [itt 0x%x imm %d unsol %d]\n",
+diff --git a/include/scsi/libiscsi_tcp.h b/include/scsi/libiscsi_tcp.h
+index ef53d4bea28a0..a6e63db75d674 100644
+--- a/include/scsi/libiscsi_tcp.h
++++ b/include/scsi/libiscsi_tcp.h
+@@ -66,6 +66,7 @@ struct iscsi_tcp_conn {
+ 
+ struct iscsi_tcp_task {
+ 	uint32_t		exp_datasn;	/* expected target's R2TSN/DataSN */
++	uint32_t		data_in_bytes;	/* Data-In payload received */
+ 	int			data_offset;
+ 	struct iscsi_r2t_info	*r2t;		/* in progress solict R2T */
+ 	struct iscsi_pool	r2tpool;
 
-This patch moves short-frame padding in bnxt_start_xmit() to the top of
-the function and uses skb_put_padto(). As a result, skb_headlen() now
-includes the pad when the linear head is DMA-mapped. This fixes the IOMMU
-read faults that happened when the TX BD length was larger than the
-mapped length.
-
-Closes: https://lore.kernel.org/netdev/20261004122616.56714cbd@nargothrond/
-
-> diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-> index d7728d0c5b6e6..7f379f21fe465 100644
-> --- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-> +++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-
-[ ... ]
-
-> @@ -507,6 +507,11 @@ static netdev_tx_t bnxt_start_xmit(struct sk_buff *skb, struct net_device *dev)
->  	txr = &bp->tx_ring[bp->tx_ring_map[i]];
->  	prod = txr->tx_prod;
->  
-> +	if (skb_put_padto(skb, BNXT_MIN_PKT_SIZE)) {
-> +		/* SKB already freed. */
-> +		goto tx_kick_pending;
-> +	}
-> +
-
-[Severity: Medium]
-Does moving the pad ahead of the SW USO branch change what
-bnxt_sw_udp_gso_xmit() puts on the wire?
-
-Before this patch, padding only ran at normal_tx:, after the SW USO branch
-had already returned. So bnxt_sw_udp_gso_xmit() always got the unpadded
-skb.
-
-Now a UDP GSO skb shorter than 52 bytes is padded first. On devices
-without BNXT_FLAG_UDP_GSO_CAP it then goes here:
-
-	if (skb_is_gso(skb) &&
-	    (skb_shinfo(skb)->gso_type & SKB_GSO_UDP_L4) &&
-	    !(bp->flags & BNXT_FLAG_UDP_GSO_CAP)) {
-		int rc = bnxt_sw_udp_gso_xmit(bp, txr, txq, skb);
-
-bnxt_sw_udp_gso_xmit() in bnxt_gso.c then computes:
-
-	total_payload = skb->len - hdr_len;
-	num_segs = DIV_ROUND_UP(total_payload, mss);
-
-This counts the zero pad as UDP payload. tso_build_hdr() builds
-iph->tot_len and the UDP length from the segment payload, and the NIC
-fills in valid checksums. Would the receiver then accept the pad bytes as
-real UDP data?
-
-For example, Ethernet 14 + IPv4 20 + UDP 8 + 2 bytes of data is 44 bytes.
-With gso_size=1 that is padded to 52. total_payload goes from 2 to 10, so
-10 datagrams are sent instead of 2, and eight of them carry only zeros.
-
-An unprivileged UDP socket can trigger this by setting UDP_SEGMENT to a
-small gso_size and sending a few bytes over IPv4.
-
-Also, BNXT_MIN_PKT_SIZE is a per-frame minimum. Padding the super-packet
-still leaves the individual SW USO segments (for example 43 bytes)
-shorter than that.
-
-Should the pad be skipped for skb_is_gso() skbs, or applied after the SW
-USO branch?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but the sister bnge driver
-seems to have the ordering problem that this v2 placement avoids for
-bnxt. In bnge_start_xmit() in drivers/net/ethernet/broadcom/bnge/bnge_txrx.c,
-the frag count is read before padding:
-
-	last_frag = skb_shinfo(skb)->nr_frags;
-	...
-	tx_buf->nr_frags = last_frag;
-	...
-	if (eth_skb_pad(skb))
-		goto tx_kick_pending;
-
-A nonlinear skb shorter than ETH_ZLEN has skb_tailroom() of 0. In that
-case __skb_pad() goes through pskb_expand_head() and skb_linearize().
-That pulls the frag data into the head, drops the frag page references
-and sets nr_frags to 0.
-
-bnge_start_xmit() then keeps using the stale last_frag:
-
-	flags = (len << TX_BD_LEN_SHIFT) | TX_BD_TYPE_LONG_TX_BD |
-		TX_BD_CNT(last_frag + 2);
-	...
-	for (i = 0; i < last_frag; i++) {
-		frag = &skb_shinfo(skb)->frags[i];
-		...
-		mapping = skb_frag_dma_map(bd->dev, frag, 0, len,
-					   DMA_TO_DEVICE);
-
-Can this DMA-map frag pages that the skb no longer holds a reference to?
-If so, the NIC would send the frag data twice and read pages that may
-already be freed or recycled, such as page_pool pages.
-
-Two ways to get such skbs are AF_PACKET TX_RING SOCK_RAW frames and
-forwarded small packets whose payload stayed in a frag after
-pskb_trim_rcsum().
-
-As a separate fix, would it make sense to call eth_skb_pad() before
-nr_frags is read in bnge_start_xmit(), the same way this patch does for
-bnxt?
-
-[ ... ]
-
+base-commit: 2c3418fffa9d037b2038a6db48be63f9e2291806
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261006042153.199444-1-edumazet%40kernel.org
+2.43.0
+
