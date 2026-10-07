@@ -1,93 +1,68 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D3961F09AD
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 07:46:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0931A42A14C;
+	Wed,  7 Oct 2026 08:01:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.126.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791359192; cv=none; b=M6ABamLSsmlQ9gm7NtfL/ZMD1ieqcZOc72VSfsW9cPjj8df0wqx68c6Pmzb3J2YFxkc6lQ8pQx2Fekv/4fIsuL5cFIrecYWWDPjXmE2h9CA2wj6igd5XtTAnSjqdd6Q9btWN+Tsf2aNePyj6xCb7EG4pEDkP8IykxD3/K6+8N1I=
+	t=1791360097; cv=none; b=RqQkPnL/pEAbOh2PtYvtWUmqnbJgdrLlfD211U1hVuqZbS2vd/KLu8A7t/L3M9cvTwgSCBsS9t21oO9nHv1XZLf05D++NO0uXDRQJJRUWe/WkvA0WgYmpFbnZ3+4TnE6VTSoght4o9OOfiok5G5L8IodwIqPfTe0xwi3qAMukJQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791359192; c=relaxed/simple;
-	bh=qPSsm/ypXd4m8X4vGxVJSRYFWKtBNcsAOeJPt2P4MyM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=by8Xo5G5RWWjH1Q47Iww+l9kVuQNNjuFysdZqXEKvKJ5YyyBEzYEwR1BNYyZMvhgQsqrOsSntrqZOgrmEzlrmAEzf/xbjZim356/eiG9Jeo2OCmhPU48Vh5J3oSwzOCe3X+nzAsO5wNTO84kqgL31tmdgmMYnEz2YDsToEPHsag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PC9eJVQX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791360097; c=relaxed/simple;
+	bh=+EyMe0hHKlcHVM3iar8QUgOM0lw1C/O0j3clnza0WB0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tvsTgytlAobaJTDN21ZzOKRae1T4p/xI7JBkY6k7WNZqkYE+G5xK2x4v9qlutBQ1sk5miximQ2ALZ06Q9MUfxKmu04MEJZitZdapqz96Da6u4DP4h/aTT4Bi123LXHjVQ5S5FdaRgJdWiTez1ie719MSoSw8qLZWVyEHW/3kCBI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net; spf=pass smtp.mailfrom=weissschuh.net; dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b=ccOV8byq; arc=none smtp.client-ip=159.69.126.157
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=weissschuh.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PC9eJVQX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2F3C1F0089B;
-	Wed,  7 Oct 2026 07:46:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791359190;
-	bh=drgWJxIFU6jVjy+EcxN9kandeNGcy1T0AsUWtnjQJfE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PC9eJVQXiKcS/yzHQABGeXdtL5mII+NeZlMstrIY1AdIvgCwinN4EDlPb283vch/w
-	 y+JhrlpjNijy3mT4h7H7gLUKopYVRF83N+qX9RpkYvYh4YAC8ucTWkiITtDP09W792
-	 kd6Ks6nFvrqFmSLYHsYyFd0RVsVnKQJ5ZXwyHpO3dRLe1TqBpEz63NFE8xs/Vdd6P0
-	 YP7Ml5jjK7DkorbfCktNKj1zdMHTBjjmDLRJY9yrDliqZbPmwHeoaGULJJy7OhcAvO
-	 PTVbw8wW7MAiDaHIEqLYjBrSoDMdJu/GFSUPzw3nXI/72BPEbcLdTkRdCD6xi7iTK6
-	 f4LdYTuGzsCdg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Cong Nguyen <congnt264@gmail.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] iio: adc: max1363: sign-extend bipolar differential channel reads
-Date: Wed,  7 Oct 2026 03:46:27 -0400
-Message-ID: <20261007073730.1743032-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100625-acuteness-caloric-811f@gregkh>
-References: <2026100625-acuteness-caloric-811f@gregkh>
+	dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b="ccOV8byq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+	s=mail; t=1791360067;
+	bh=+EyMe0hHKlcHVM3iar8QUgOM0lw1C/O0j3clnza0WB0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ccOV8byq9rSXaUH2DWX0Vz/UoA08Vcu6JjPxFP3ChneXlZ+HjNZSsTI9Zt9lrQSwu
+	 DezT0nIFvWaeB3yCeP35mUihRXDUOXEl1QRNTgKOQgCLZc7KJHJ2pYm1Hbm2VKdg4c
+	 R5Ghnq3mmtktc+LdHn1nW+9a9jsCr22Ff0p76Mo8=
+Date: Wed, 7 Oct 2026 10:01:05 +0200
+From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>
+To: Andrew Pam <andrew@fastmailteam.com>
+Cc: Tzung-Bi Shih <tzungbi@kernel.org>, Sebastian Reichel <sre@kernel.org>, 
+	Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>, 
+	Matt DeVillier <matt.devillier@gmail.com>, chrome-platform@lists.linux.dev, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] power: supply: cros_charge-control: restore EC state
+ on resume
+Message-ID: <0d30381b-c39b-463c-bb25-d8701afdb4cc@t-8ch.de>
+References: <20261004225606.30577-1-andrew@fastmailteam.com>
+ <20261005043418.243937-1-andrew@fastmailteam.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261005043418.243937-1-andrew@fastmailteam.com>
 
-From: Cong Nguyen <congnt264@gmail.com>
+On 2026-10-05 15:34:18+1100, Andrew Pam wrote:
+> The EC resets its charge control configuration when the AP powers off,
+> so configured sustainer thresholds and charge behaviour are lost across
+> hibernation.
 
-[ Upstream commit 91908c0a78baddc8572aa3ab69e62ee2eb496ba4 ]
+(...)
 
-MAX1363 differential channels are bipolar, but max1363_read_single_chan()
-masks the raw value to the ADC resolution without sign-extending it.
-Negative differential readings are therefore reported to userspace as
-large positive values (e.g. -1 as 4095 on a 12-bit part).
+> Fixes: c6ed48ef5259 ("power: supply: add ChromeOS EC based charge control driver")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Andrew Pam <andrew@fastmailteam.com>
 
-Sign-extend the masked value from the resolution bit for differential
-channels. Single-ended channels are unipolar and are left unchanged.
+Acked-by: Thomas Weißschuh <linux@weissschuh.net>
 
-Fixes: d1325cf45077 ("Staging: IIO: max1363 ADC driver")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4
-Signed-off-by: Cong Nguyen <congnt264@gmail.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/iio/adc/max1363.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+(...)
 
-diff --git a/drivers/iio/adc/max1363.c b/drivers/iio/adc/max1363.c
-index 875f5ff202082..bbb2336006a98 100644
---- a/drivers/iio/adc/max1363.c
-+++ b/drivers/iio/adc/max1363.c
-@@ -408,6 +408,14 @@ static int max1363_read_single_chan(struct iio_dev *indio_dev,
- 		}
- 		data = rxbuf[0];
- 	}
-+
-+	/*
-+	 * Differential channels are bipolar and the device returns the sample
-+	 * in two's complement, so sign-extend it from the resolution bit.
-+	 */
-+	if (chan->differential)
-+		data = sign_extend32(data, st->chip_info->bits - 1);
-+
- 	*val = data;
- 
- error_ret:
--- 
-2.53.0
+>  drivers/power/supply/cros_charge-control.c | 29 +++++++++++++++++++++-
+>  1 file changed, 28 insertions(+), 1 deletion(-)
 
+(...)
