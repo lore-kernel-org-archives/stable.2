@@ -1,49 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 076273F106B;
-	Wed,  7 Oct 2026 05:17:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08FFB72602
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 05:26:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791350277; cv=none; b=CuallLui1Aoivw26VJj5v6kbsx5QxF/JviZ5rgmmp6REBQLEVZ6U3SZ2WDB6EkLSkfWIrH0BJJ4B2/ROgw9v5RcYO7c2pzRCLn1Kto4K+CnImPsxV3U2V9HU2ppzf9srPgBxeXuIlPrGFl1Pf0SigKVCwwXVQ9o2gjbhDHhyK5M=
+	t=1791350799; cv=none; b=Fu0yOvIrCHyxrcz/qTvNh0WUbb9rllRRlAGQbTCXoRmTxG+3jluApjcDPLilcrXQGos5k6ke7fc/MnA8oBs1if4AwOoPM36HM1HyfFt6TClSTvIPak7QXBlteaCBl6okITvWmh/tSJT2TOjioqNbd9XZAZYJzTmDhZm3gJzQoRE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791350277; c=relaxed/simple;
-	bh=17kHsZVFDJaDgq4ZoesnTXclcE6KyY3pqgFwnXY9K1g=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Prf1h0UIE9kM6yMlKH7AlIBocXd7UZhUen/Rb1IKkb9tWLK2QKogg+Z1Cvzq60xtGSGLux6+sEm7CN1iWArLfUOVj3nUDaACeCMcW8OMEjCTHJGM0hDoXYWHvXmk2YWp6uXAUYRzhIVoN7DEs/kNQNHRD4kKQ7C3IbL7t3zL+yI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BPU/A5o6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791350799; c=relaxed/simple;
+	bh=Jb5UDsBJcMDy5Pr8T5RI5dN7TiwGBG76HJ74oudtg7k=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=U9enbjCMmawuMlMLV1vU6SXg8kfKICLh3XQ/x1r41HmhQqWpsKWI3/B0sNF0bOnTmu9L4fiiTvWUx63OFJ7SO4+lv0/Jq4/2Wj4QkzhJP516NWNJSSVlstglcDWgG1o3Ss96TYXnz4KdBQmzjm4DPSDMSO3IugkhIZ4BiL4ktnI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SXdawBiL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BPU/A5o6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10F9D1F0089B;
-	Wed,  7 Oct 2026 05:17:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SXdawBiL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 278841F0089B;
+	Wed,  7 Oct 2026 05:26:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791350275;
-	bh=qGlE0Dn055LtZkP2Rtvhwa3S6kVWWIlyJ/2Lm3KPA+k=;
-	h=From:To:Cc:Subject:Date;
-	b=BPU/A5o6V0g1snSniqH9SEIE2hKSBpjFE/dpT6qnu/qEROfZEWtfiXZUndfk/LlLi
-	 hsSLdtKQvq9VPpTpFF0jrUKl7vPyeaH2HnMWyObuEceCojrrRPLxs6f5WOxPndiyiW
-	 3kwV/ALsm/bBpNIhaCJZ+WlQ3wEqIrUGsKQjXtUN9tdLPQoW/sHLxOHaTsHU+w1zTf
-	 Ok22uMrEO7GmjqzsbC0J9jDke8cAwz3mgzXytlAd2oGI0y4tm1ABTPa0FC1IVHaJV1
-	 9xCGX442wBJQPXRk0KckpXKcbn/ynYV2M/U3883ZSO8Jnpa3dEm8NS1986JiFZj8fs
-	 tWKDyrKuu+2NQ==
-From: Eric Dumazet <edumazet@kernel.org>
-To: "David S . Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	Eric Dumazet <edumazet@kernel.org>,
-	stable@vger.kernel.org,
-	Stefan Fleischmann <sfle@kth.se>,
-	Eric Dumazet <edumazet@google.com>,
-	Michael Chan <michael.chan@broadcom.com>,
-	Pavan Chebbi <pavan.chebbi@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Bernhard Schmidt <berni@debian.org>,
-	Joe Damato <joe@dama.to>
-Subject: [PATCH v3 net] bnxt_en: fix DMA mapping length for padded small packets
-Date: Wed,  7 Oct 2026 07:17:47 +0200
-Message-ID: <20261007051747.455273-1-edumazet@kernel.org>
+	s=k20260515; t=1791350797;
+	bh=pqm0qsnrdvbRSf+HXBt/1WDyLAFSa+ZnBXyteoaulq8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=SXdawBiL2OoqW2lG7baLvUzbxgRKZd7ocKaURaQHHjEKKLMmXQ8s7CljWURFOHyNL
+	 SYe1OctmnHZSNiHUUvoGkVKwTrJluO7u80PYf3yQRFPJO2BXtPmHxt2aIkjyY4I+Pl
+	 H5zDJ6/MC+TXbVK4NUIqpIrqsin9azDjTXVDOaPwjJmEeI4yrfcLWvcV05Tvif8IAy
+	 R+qIkk8rkohTPTZ0+2rB5q8zecGLEdcP4T5U7GuXVNCeUGupYm6e49zKlPrf5Fffa2
+	 CWl9jWZQB8BuAHcukjPeeHuvcCiYwIp/JP7CmUJtTEvpE30bw0B6nXeCAPpNilfE3W
+	 xQfDz/QDVt5Dw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Paulo Alcantara <pc@manguebit.org>,
+	David Howells <dhowells@redhat.com>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] smb: client: flush dirty data before zeroing a range
+Date: Wed,  7 Oct 2026 01:26:32 -0400
+Message-ID: <20261007052616.1250540-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026100511-numbness-stinky-677d@gregkh>
+References: <2026100511-numbness-stinky-677d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,147 +52,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Stefan Fleischmann reported Intel IOMMU DMA Read faults on BCM57412
-NetXtreme-E NICs when transmitting packets on VLAN/macvlan interfaces:
+From: Paulo Alcantara <pc@manguebit.org>
 
-  DMAR: [DMA Read NO_PASID] Request device [18:00.0] fault addr 0xfc499000
-        [fault reason 0x06] PTE Read access is not set
-  bnxt_en 0000:18:00.0 eno1np0: Abandoning msg {0xb4 0x41a} len: 0 due to firmware status: 0x2000001
-  ...
-  NETDEV WATCHDOG: eno1np0 (bnxt_en): transmit queue 0 timed out
+[ Upstream commit 8f8d32c1044f70e46e87550e039a15ff20a4b21c ]
 
-The fault address (0xfc499000) is on an exact 4KB page boundary,
-pointing to a DMA read buffer overrun.
+smb3_zero_range() emulates FALLOC_FL_ZERO_RANGE by invalidating the
+page cache over the target range with truncate_pagecache_range() and
+then issuing FSCTL_SET_ZERO_DATA to the server.
 
-In bnxt_start_xmit(), packets smaller than BNXT_MIN_PKT_SIZE (52 bytes),
-such as 42-byte untagged ARP frames, are padded:
+Dirty data was only flushed conditionally, when the range reached or
+extended EOF.  For a purely interior zero range that does not reach
+EOF, no flush happened, so a dirty folio overlapping the range could
+be written back to the server after the FSCTL and refill the range
+that was just zeroed with stale data.
 
-    if (length < BNXT_MIN_PKT_SIZE) {
-        pad = BNXT_MIN_PKT_SIZE - length;
-        if (skb_pad(skb, pad))
-            goto tx_kick_pending;
-        length = BNXT_MIN_PKT_SIZE;
-    }
+Fix this by unconditionally flushing and waiting for dirty data in the
+range before invalidating the page cache and issuing
+FSCTL_SET_ZERO_DATA, exactly as was done for smb3_punch_hole() in
+commit d7d2adcd022b ("smb/client: flush dirty data before punching a
+hole"); the two paths are structurally identical here.
 
-    mapping = dma_map_single(&pdev->dev, skb->data, len, DMA_TO_DEVICE);
-    ...
-    dma_unmap_len_set(tx_buf, len, len);
+This is observed as generic/363 randomly reading stale data where a
+zeroed range is expected against Windows Server.
 
-However, 'len' was initialized earlier to skb_headlen(skb) (e.g. 42 bytes)
-and is left unadjusted after padding. Consequently, dma_map_single() and
-dma_unmap_len_set() map and track only 42 bytes.
-
-Later, the hardware TX buffer descriptor is programmed with the padded length:
-
-    txbd->tx_bd_len_flags_type =
-        cpu_to_le32(((len + pad) << TX_BD_LEN_SHIFT) | flags |
-                    TX_BD_FLAGS_PACKET_END);
-
-The NIC DMA engine is thus instructed to read 52 bytes from a region where
-only 42 bytes were DMA-mapped. If skb->data ends near the boundary of a 4KB
-page (within 'pad' bytes of the next page), the hardware DMA read overruns
-into the unmapped adjacent page, triggering an IOMMU fault.
-
-This issue was exposed after commit 447cbe95ebb9 ("vlan: fix skb_under_panic
-and races when toggling HW VLAN offload") because reserving extra VLAN
-headroom rounded LL_RESERVED_SPACE from 48 up to 64 bytes, shifting skb->data
-offsets and potentially causing small frames to land right against page
-boundaries.
-
-Fix this by using skb_put_padto(skb, BNXT_MIN_PKT_SIZE) in
-bnxt_start_xmit(), before skb_shinfo(skb)->nr_frags is sampled,
-because padding might linearize the skb.
-This ensures skb->len and skb_headlen(skb) reflect the padded size so
-that dma_map_single() maps the full buffer and the descriptor length is
-consistent. This also removes the temporary 'pad' variable and masking logic.
-
-The padding is done after the SW USO branch, otherwise
-bnxt_sw_udp_gso_xmit() would account the padding as UDP payload
-and send it in extra segments.
-
-Note that SW USO segments are still not padded: with IPv4, a segment
-carrying less than 10 bytes of UDP payload (small gso_size, or a short
-last segment) is sent as a frame shorter than BNXT_MIN_PKT_SIZE.
-This is a separate issue, left for a followup patch.
-
-Fixes: c0c050c58d84 ("bnxt_en: New Broadcom ethernet driver.")
+Fixes: 91d1dfae4649 ("cifs: Fix FALLOC_FL_ZERO_RANGE to preflush buffered part of target region")
+Reviewed-by: David Howells <dhowells@redhat.com>
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: Matthew Wilcox <willy@infradead.org>
+Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
+Cc: Shyam Prasad N <sprasad@microsoft.com>
+Cc: Tom Talpey <tom@talpey.com>
+Cc: Bharath SM <bharathsm@microsoft.com>
 Cc: stable@vger.kernel.org
-Reported-by: Stefan Fleischmann <sfle@kth.se>
-Closes: https://lore.kernel.org/netdev/20261004122616.56714cbd@nargothrond/
-Assisted-by: LLM
-Signed-off-by: Eric Dumazet <edumazet@google.com>
+[ sashal: Retained i_size_read() instead of netfs_read_sizes(). ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Cc: Michael Chan <michael.chan@broadcom.com>
-Cc: Pavan Chebbi <pavan.chebbi@broadcom.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>
-Cc: Bernhard Schmidt <berni@debian.org>
-Cc: Joe Damato <joe@dama.to>
----
-v3: Pad after the SW USO branch (Sashiko)
-v2: Move skb_put_padto() earlier (Sashiko)
-    https://lore.kernel.org/netdev/20261006042153.199444-1-edumazet@kernel.org/
-v1: https://lore.kernel.org/netdev/20261005023812.130639-1-edumazet@kernel.org/
----
- drivers/net/ethernet/broadcom/bnxt/bnxt.c | 25 +++++++++++------------
- 1 file changed, 12 insertions(+), 13 deletions(-)
+ fs/smb/client/smb2ops.c | 14 +++++---------
+ 1 file changed, 5 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-index d7728d0c5b6e63ee72de9dea54426bb4c8b7a9fc..631c759b3752b29c1a649eedb08f8bbc9f37a607 100644
---- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-+++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-@@ -486,7 +486,7 @@ static netdev_tx_t bnxt_start_xmit(struct sk_buff *skb, struct net_device *dev)
- 	struct netdev_queue *txq;
- 	int i;
- 	dma_addr_t mapping;
--	unsigned int length, pad = 0;
-+	unsigned int length;
- 	u32 len, free_size, vlan_tag_flags, cfa_action, flags;
- 	struct bnxt_ptp_cfg *ptp = bp->ptp_cfg;
- 	struct pci_dev *pdev = bp->pdev;
-@@ -536,6 +536,16 @@ static netdev_tx_t bnxt_start_xmit(struct sk_buff *skb, struct net_device *dev)
- 		return rc < 0 ? NETDEV_TX_BUSY : NETDEV_TX_OK;
- 	}
+diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
+index 91e1e7b52bfc7..83fb7e7fa67e0 100644
+--- a/fs/smb/client/smb2ops.c
++++ b/fs/smb/client/smb2ops.c
+@@ -3485,8 +3485,7 @@ static long smb3_zero_range(struct file *file, struct cifs_tcon *tcon,
+ 	struct inode *inode = file_inode(file);
+ 	struct cifsInodeInfo *cifsi = CIFS_I(inode);
+ 	struct cifsFileInfo *cfile = file->private_data;
+-	struct netfs_inode *ictx = netfs_inode(inode);
+-	unsigned long long i_size, new_size, remote_size;
++	unsigned long long i_size, new_size;
+ 	long rc;
+ 	unsigned int xid;
  
-+	/* Pad after the SW USO branch: bnxt_sw_udp_gso_xmit() would
-+	 * otherwise account the padding as UDP payload.
-+	 * Must be done before skb_shinfo(skb)->nr_frags is sampled,
-+	 * because skb_put_padto() might linearize the skb.
-+	 */
-+	if (skb_put_padto(skb, BNXT_MIN_PKT_SIZE)) {
-+		/* SKB already freed. */
-+		goto tx_kick_pending;
-+	}
-+
- 	free_size = bnxt_tx_avail(bp, txr);
- 	if (unlikely(free_size < skb_shinfo(skb)->nr_frags + 2)) {
- 		/* We must have raced with NAPI cleanup */
-@@ -672,14 +682,6 @@ static netdev_tx_t bnxt_start_xmit(struct sk_buff *skb, struct net_device *dev)
- 	}
+@@ -3505,14 +3504,11 @@ static long smb3_zero_range(struct file *file, struct cifs_tcon *tcon,
+ 	filemap_invalidate_lock(inode->i_mapping);
  
- normal_tx:
--	if (length < BNXT_MIN_PKT_SIZE) {
--		pad = BNXT_MIN_PKT_SIZE - length;
--		if (skb_pad(skb, pad))
--			/* SKB already freed. */
--			goto tx_kick_pending;
--		length = BNXT_MIN_PKT_SIZE;
+ 	i_size = i_size_read(inode);
+-	remote_size = ictx->remote_i_size;
+-	if (offset + len >= remote_size && offset < i_size) {
+-		unsigned long long top = umin(offset + len, i_size);
+ 
+-		rc = filemap_write_and_wait_range(inode->i_mapping, offset, top - 1);
+-		if (rc < 0)
+-			goto zero_range_exit;
 -	}
--
- 	mapping = dma_map_single(&pdev->dev, skb->data, len, DMA_TO_DEVICE);
++	rc = filemap_write_and_wait_range(inode->i_mapping, offset,
++					  offset + len - 1);
++	if (rc < 0)
++		goto zero_range_exit;
  
- 	if (unlikely(dma_mapping_error(&pdev->dev, mapping)))
-@@ -759,10 +761,7 @@ static netdev_tx_t bnxt_start_xmit(struct sk_buff *skb, struct net_device *dev)
- 		txbd->tx_bd_len_flags_type = cpu_to_le32(flags);
- 	}
- 
--	flags &= ~TX_BD_LEN;
--	txbd->tx_bd_len_flags_type =
--		cpu_to_le32(((len + pad) << TX_BD_LEN_SHIFT) | flags |
--			    TX_BD_FLAGS_PACKET_END);
-+	txbd->tx_bd_len_flags_type |= cpu_to_le32(TX_BD_FLAGS_PACKET_END);
- 
- 	netdev_tx_sent_queue(txq, skb->len);
- 
+ 	/*
+ 	 * We zero the range through ioctl, so we need remove the page caches
 -- 
 2.53.0
 
