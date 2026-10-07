@@ -1,103 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B8B472602
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 06:25:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5B993F5BFA;
+	Wed,  7 Oct 2026 06:25:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791354312; cv=none; b=IXBrfaE7xKNhaMRbC4Mae0ZzaAVOg4ZImLllmIzyQrlbDvueegSzhiWahls7LTVA8FV1wzq7mrCy0eaFI3WW2aXEkGRVfLWjaE0TtqgCQ33icLoMdXMW7sQix0To36rjH2NYXcVhDDSlLT23QdfZLmvQPoXIUili6ISGShb+fkg=
+	t=1791354357; cv=none; b=HVlMYa8pNsHyB1P1ouMF8qM7t0mKHSHOVOBvV294YNK1IgaxZrH1iHZ8uYqwoZ/cqSiPlQxrSSXQgTqPWSC3FoJQIaRWsJh+sTVU1rIvxF279RAGTdRzD/1PlEn+RmEm5eBLpMFdgD4O9gNW7bwSw5jSy5cO4HMZ1PylM0BT+cQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791354312; c=relaxed/simple;
-	bh=/h8HWGREyjOGQQpB+VDq8NFE5vDcjzccgjjTxjAmA8w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pFUYGeZy6mrhZvb9bNYhSY3o5s8HaaPi05Pyyq9aNrtOo13EpH4MkrJGGkwvRyCxw41OoM2ZmkaNiaG5YPVMakdC13lzUHqAb6c+jkwmkl0aHkCaD1Ft3CEeMHQNGuB2FawrGyAmmkxinsPJ0Mq76sP9+8VkH5BhxAci12V2VPg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TSEvoqvF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791354357; c=relaxed/simple;
+	bh=IHX18+Z8DCxWdJ/mJd1fhwAHjvsQaKKztpdPLqxruYo=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=XdTxFC5/KFMHbldjIZl0VyS1txXDj6mj8jp4lbU/5Q3gsvGxjuNRAotP2YKs8xHHkQC/MFIRhn/NuFVcdWIQ8xLuyBD29S5tAUURqaX4+0Vq0Ud8Vao4As+epwSwzSLt57Vi8CgO2tznnkhTQgZkb6yUl3CHIihFxUW+QGtDGWs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=QFWTUzwg; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TSEvoqvF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A69C1F0089B;
-	Wed,  7 Oct 2026 06:25:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791354311;
-	bh=V8uwDU+mvAxXgpBF8vbNu1lMVx/UauJlzpbVUZNxim0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TSEvoqvFHsTP5+UemJ6S+nBb3BcOYfVN2ES+9MDwh0sYcpxF+Tq33u3DKn2WOjU/9
-	 87kbvn9FtUR/J+2TbDZnU38iLA42bdST1eYFM7gGNQLNzhJ/qyzwbVHa+DeDwp8INN
-	 XHhb8plFrmXmG+0Opu1wsbs3It0tLmhoUd6lhX/4/qWqgiAQEkic9NY1KTH6+d+1Dg
-	 /1OCgwDCnbLT69XtDYNKedEjQbtAfMJsR9R12bvnD4R0YRFuV0rvSEoJsq2BebzXtI
-	 Kd3Kv0DH1nu50z86QEbibN7ndPulMNTyjpQ+sRBzpGwOZWC+ZsWhayvAVRVQ1bcc+i
-	 PWJeZiOmZPyoA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Paulo Alcantara <pc@manguebit.org>,
-	David Howells <dhowells@redhat.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] smb: client: discard post-EOF pagecache when extending a file via zero range
-Date: Wed,  7 Oct 2026 02:25:06 -0400
-Message-ID: <20261007062438.1498433-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100530-arousal-gigahertz-46ff@gregkh>
-References: <2026100530-arousal-gigahertz-46ff@gregkh>
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="QFWTUzwg"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:from:
+	content-type:references:reply-to;
+	bh=ONxxEHM8gGb9JpDSIAVzRshPOv6r6+W1oSBPlfvg+Gc=; b=QFWTUzwgblCuBwXDRCe3VfXeBw
+	mUYPUYH5UCS1O3L/hTIYHpLnRKhGC0tYjhNz2uwPhUJqrb11wj4jh8b55b+IcyfIk3iVLBv3hHSGQ
+	IEtPIPvfpDNTKz5vENtOWJCU0WA+kyMDgRSiQdaJ2/vvtMzSzxRQW4ZL6WKbz0QTNNz6NsSTgOVn3
+	HoACIuVYA1L57C4TyBZGBfYFCC2YZpjfXKtVU/H0T1CJNgC9zEjdEJILUFv/VzSfNy/whzFlmHQGj
+	lEu3fx/stuZ1c0lSlCPwDiThS2CB288nH6M6O2MBqeLjDooxU96hyYoO6rtskBAqaog+zFMLm2icv
+	+zqA+pDQ==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xEL63-00000001T2D-1ZpX;
+	Wed, 07 Oct 2026 14:25:48 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 07 Oct 2026 17:25:47 +1100
+Date: Wed, 7 Oct 2026 17:25:47 +1100
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: ansuelsmth@gmail.com, atenart@kernel.org, davem@davemloft.net,
+	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, runyu.xiao@seu.edu.cn,
+	jianhao.xu@seu.edu.cn
+Subject: Re: [PATCH] crypto: inside-secure: initialize EIP93 state before
+ requesting IRQ
+Message-ID: <asXl69ABi0_1ZKIJ@gondor.apana.org.au>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930092551.2976763-1-runyu.xiao@seu.edu.cn>
+X-Newsgroups: apana.lists.os.linux.cryptoapi,apana.lists.os.linux.kernel
 
-From: Paulo Alcantara <pc@manguebit.org>
+Runyu Xiao <runyu.xiao@seu.edu.cn> wrote:
+> devm_request_threaded_irq() can invoke the handler as soon as
+> registration starts.  The EIP93 probe currently requests the IRQ
+> before allocating the descriptor rings and initializing the tasklet,
+> locks, and IDR used by the handler.
+> 
+> Initialize the software and hardware state, and disable the device
+> interrupts, before requesting the IRQ.  The existing interrupt enable
+> remains after successful IRQ registration.
+> 
+> Fixes: 9739f5f93b78 ("crypto: eip93 - Add Inside Secure SafeXcel EIP-93 crypto engine support")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+> ---
+> drivers/crypto/inside-secure/eip93/eip93-main.c | 12 ++++++------
+> 1 file changed, 6 insertions(+), 6 deletions(-)
 
-[ Upstream commit da4fe97fb6c730d9c94a115c7bfa6f98e0d578d0 ]
+Please check
 
-smb3_zero_range() removed the pagecache only for the range being zeroed,
-so when it extends the file the folio straddling the old EOF - which may
-hold data dirtied past EOF through an mmap - was never dropped and became
-visible as file content once the file was extended.
+https://sashiko.dev/#/patchset/20260930092551.2976763-1-runyu.xiao%40seu.edu.cn
 
-Lower the discard boundary to the smaller of the zero-range offset and the
-old EOF.
-
-Fixes: 72c419d9b073 ("cifs: fix smb3_zero_range so it can expand the file-size when required")
-Reviewed-by: David Howells <dhowells@redhat.com>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Matthew Wilcox <willy@infradead.org>
-Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
-Cc: Shyam Prasad N <sprasad@microsoft.com>
-Cc: Tom Talpey <tom@talpey.com>
-Cc: Bharath SM <bharathsm@microsoft.com>
-Cc: stable@vger.kernel.org
-[ sashal: Adjusted context because smb3_zero_range() lacks netfs_wait_for_outstanding_io(). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/smb/client/smb2ops.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
-index 973a46daa37b3..3278591b3647b 100644
---- a/fs/smb/client/smb2ops.c
-+++ b/fs/smb/client/smb2ops.c
-@@ -3542,8 +3542,11 @@ static long smb3_zero_range(struct file *file, struct cifs_tcon *tcon,
- 	/*
- 	 * We zero the range through ioctl, so we need remove the page caches
- 	 * first, otherwise the data may be inconsistent with the server.
-+	 *
-+	 * Start at the old EOF when extending so the folio straddling it, which
-+	 * may hold data written past EOF through an mmap, is dropped too.
- 	 */
--	truncate_pagecache_range(inode, offset, offset + len - 1);
-+	truncate_pagecache_range(inode, min(offset, i_size), offset + len - 1);
- 
- 	/* if file not oplocked can't be sure whether asking to extend size */
- 	rc = -EOPNOTSUPP;
+Thanks,
 -- 
-2.53.0
-
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
