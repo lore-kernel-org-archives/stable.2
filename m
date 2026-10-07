@@ -1,119 +1,106 @@
-Received: from d.mail.sonic.net (d.mail.sonic.net [64.142.111.50])
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 071243921DB;
-	Wed,  7 Oct 2026 18:55:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=64.142.111.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B84274DD3BF
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 19:23:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791399331; cv=none; b=HFw7Qg0ySayNnRyVCvTc6z/nn7WQ0HGUTV8Xgls5CzN/QfmPahRS+rn01SbZNDYAm7j0jhsxHiRlbmeab0R7m6KJOA01MDouhihuTwA/FOWgf4rErKblUuTwRhiAMx/tF3uCucn3GNN8PAkEBxjfDK+/8+UOKdwNFofuh9PUfrg=
+	t=1791401030; cv=none; b=Bqk+ntyJZD33qi6VmM23m1je8D3Q4eyVIPDZt0TCXGBtRxE2pxlNy06CCjah3ogSm+daMDpLeEHkUz6/Bg0NaseMATAIAJwp/BuaDh+EXqZjZUTvSaICpGeE/QurP5CpgfgdsARCQ4GVFMgyUoKR9a0cx8S+w8WvyEEDrvaa2xs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791399331; c=relaxed/simple;
-	bh=KFWCdC7F+yqj2Ovw/sONna8iCtQg6kTLqqcuDAhdyjg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=H1l2SnY18tPS+HmGlqFl7X8tiR8TO10nBfIVAQFK69hT+guu7qsNRv5P0Iq8ybYhfA52DEpOqSCoxb+MsDzfuVmOIdhpqnjNkNHq3/c2HMHZN5YEc+ki8ZMnBDWmdbGVAl2rvjHmy5Pb9PD1HCwK6WZlO6LW048f9Iq5l8U7/Uo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=murgatroid.com; spf=pass smtp.mailfrom=murgatroid.com; arc=none smtp.client-ip=64.142.111.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=murgatroid.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=murgatroid.com
-Received: from fred.murgatroid.com ([70.134.61.105])
-	(authenticated bits=0)
-	by d.mail.sonic.net (8.16.1/8.16.1) with ESMTPSA id 697IiSJo011993
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
-	Wed, 7 Oct 2026 11:44:28 -0700
-Received: from murgatroid.com (shack.murgatroid.com [10.0.0.31])
-	by fred.murgatroid.com (Postfix) with SMTP id C5ACE2A6038E;
-	Wed,  7 Oct 2026 11:44:28 -0700 (PDT)
-Received: (nullmailer pid 622530 invoked by uid 1000);
-	Wed, 07 Oct 2026 18:44:28 -0000
-From: Christopher Hoover <ch@murgatroid.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
-        Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-        David Lechner <dlechner@baylibre.com>, nuno.sa@analog.com,
-        Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-        linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Christopher Hoover <ch@murgatroid.com>, stable@vger.kernel.org
-Subject: [PATCH v2 2/3] iio: temperature: hid-sensor-temperature: Use per-instance callbacks
-Date: Wed,  7 Oct 2026 11:44:22 -0700
-Message-ID: <20261007184423.622445-3-ch@murgatroid.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261007184423.622445-1-ch@murgatroid.com>
-References: <20261007072329.27806-1-ch@murgatroid.com>
- <20261007184423.622445-1-ch@murgatroid.com>
+	s=arc-20240116; t=1791401030; c=relaxed/simple;
+	bh=Y/YJ2pZCGx9u/s+xQBYfaDP04NWZxbzJF9hiZPjchc4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=DEqPAl1uW0HJfbPBsxV9qbLQ6ZEaM84oRKV6jdddTCyZ91P9AoXgt3mvI5cBMobp/kFhaUCUB73gT83vgicaXN+eTAS/ZF//Fi3km5iCwS5gqCmO0D7KdZV/SOXGeuM++HxEn4TPz5fbZCLCsYrYKzdsF1i8/S6cF/9jfBi+i9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=sFHJXTiN; arc=none smtp.client-ip=74.125.82.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="sFHJXTiN"
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-144f79153f5so1792230c88.0
+        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 12:23:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1791401028; x=1792005828; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RE39zueeiSHdMCMyMQenTlKwDLdMoj4zEmgv0Dvbh88=;
+        b=sFHJXTiN2AxdD7md4ijrOGhq3aVkniAryea3gnvinLTq52Gb0XQzTcABk3VWNxRBZF
+         BuXAuqt9Yv5NCbqjV8ERLvnXdCoukRtp4IFllksygayTw7YljuFjb9VUyQCrLbwf2X8H
+         rwh1PRurhuyxIHoxnfuCCb5CJI8nsN+9rhpo4xXDUpUK83FS9VM2M+TagbXf5+cdbU6x
+         eYOhZbneo8Jt09ufNfEhV94WHlmWQzV6SzdtglwuqoQiSqvvKLdQyAUOLXcVHZ73aGRI
+         USbfmcJdpoq46E+wGLiO2YRnSbfBsGJleqkf7lsO39TPwNloXqy4DIsjN3CXJkr7oklN
+         excA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791401028; x=1792005828;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RE39zueeiSHdMCMyMQenTlKwDLdMoj4zEmgv0Dvbh88=;
+        b=BcVN9HMvnLVV3eV1ue5OYL2t8HwMJl7T5Ssa/svNlWaEn1hdUSM/LvyCqPn2azo9fD
+         KQP/vmhRVd+8NfJhLRPZXh2tOEieRS5DNnU55IQUJ6XCQ6wyaIxKeha+YZL9t8e0Zv1z
+         eiOGMOdY5sjOeA2mC94Jwd8KnRrnpqFV3P8KA0d/L8TduMhc8LPumUoXc1XKGom2tsC3
+         IIN21xB2kJvDZF93+idyoE+SdNA/z1MtOo42p3LVx9lVJ/Mr66h2EarTmz4/5LyRL70U
+         HAoSy+56EDkYYTyOlXNYNmf+1UGOE+dvWythwJh9qz20IcdomoL1BRMEJuy50LCeY+n4
+         IOnw==
+X-Forwarded-Encrypted: i=1; AKwUvBy/VxzAz4LFY8KWACkEgvqGuJAPIfYaoedWLgjqmg8EX3xZ1kNoqMFYzVUXMyLnhPncIs4cixk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nZUWtUZWQhZp6VewIHxH2s9sTxLCzbZKpoPTEbVw1lfxoW/Gi6
+	E/rQgciCcQoe1OT9vhTmaJ9I8v+aczEkCyeZHIkMel6kb8Vuomfto6ckgmLqrocD1E0=
+X-Gm-Gg: AYBFou3eDmr9AdiufGlRItc+lVtsJrea5cN8gAE3t2NcFxljXpqtJbwTEdK2B51vSEB
+	7q26zIOwVyx40aIqplXcHRGFT53iD8G5XrjWiXK3sbiQwiP05B5jZTkBfZJq/3U6E1xY2pbKCXO
+	xpFcZfS8et9Mk5+4oYSAYNnyh6M6yCkN21L7w7nXbWS4C7zRYMS6jilKZUqCC50KDe3K0kq4Vuu
+	Yq0+6daURyfM+CaQhS51N1FnuYJ01KXgPhavKKL+O3ngtsCi90HRhg22NAu4mxRWblWby56Csai
+	IjzV7kdw23f3s1P11xSfq/VuraciQVrr+OSd8t9EU/7sG6uqsrio3p4D9lo5C7QD0u09teMzWNX
+	IwR0+irFL63Wk3/BTLocmZ/HRMNKSVv3bxj5kcH7nGbwoVAGPvZI03FLOtAxCmVPv+SZwnvUYG2
+	Z/4aK/E1/t/qCNicNREAxR8zPf3x7xX1K7hR6FY2P7beXgJqXXLh5eK8XAe4fi0DpHi5JF+ICKE
+	s6tYFhFQhWmM4fn4G44iw7IdA4gK3F7Byoof7kTGBcStPydth2kEva5RA==
+X-Received: by 2002:a05:7022:150b:b0:151:7831:e403 with SMTP id a92af1059eb24-165a107a5e2mr204600c88.13.1791401027516;
+        Wed, 07 Oct 2026 12:23:47 -0700 (PDT)
+Received: from [192.168.1.106] ([198.8.77.135])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-16166216f39sm10538896c88.6.2026.10.07.12.23.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 12:23:46 -0700 (PDT)
+From: Jens Axboe <axboe@kernel.dk>
+To: Justin Sanders <justin@coraid.com>, Josef Bacik <josef@toxicpanda.com>
+Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20261007-b4-aoe-short-packets-v1-1-db5155f7bb9c@toxicpanda.com>
+References: <20261007-b4-aoe-short-packets-v1-1-db5155f7bb9c@toxicpanda.com>
+Subject: Re: [PATCH] aoe: pull in the headers each received packet type
+ reads
+Message-Id: <179140102638.379040.10375002764067840013.b4-ty@b4>
+Date: Wed, 07 Oct 2026 13:23:46 -0600
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Sonic-CAuth: UmFuZG9tSVY6GaOTSycqD4J8b1kPMALoPokGwAkNZbJFoAzhcR8AhKATBoqx/2t3e7qT4bpWHVpjTglg6lktAxHSNeHvGL3lRr5hVQp3DzU=
-X-Sonic-ID: C;Gl6WIH/C8RGin5cllaD8vQ== M;LKWmIH/C8RGin5cllaD8vQ==
-X-Spam-Flag: Unknown
-X-Sonic-Spam-Details: not scanned (too big) by cerberusd
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-hid-sensor-temperature keeps a single static struct
-hid_sensor_hub_callbacks for all instances and overwrites its pdev in
-every probe.  With two temperature sensors, input reports for one are
-delivered with the other's platform device; once that device is
-removed, platform_get_drvdata() returns NULL and
-temperature_capture_sample() dereferences it:
 
-  BUG: kernel NULL pointer dereference, address: 00000000000003a8
-  RIP: 0010:temperature_capture_sample+0xd/0x50 [hid_sensor_temperature]
+On Wed, 07 Oct 2026 17:52:29 +0000, Josef Bacik wrote:
+> aoenet_rcv() only pulls the AoE and ATA headers into the skb head when
+> the packet is long enough to hold both.  A shorter packet goes through
+> unpulled, and aoenet_rcv() reads the AoE header from it anyway.  CFG
+> responses go on to aoecmd_cfg_rsp(), which reads the config header
+> after it, and ATA responses get queued for ktiocomplete(), which
+> skb_pull()s both headers.  Ethernet pads frames to 60 bytes, so this
+> mostly takes a virtual link, but nothing stops a short frame from
+> getting here.
+> 
+> [...]
 
-The oops happens in sensor_hub_raw_event() with the hub's spinlock
-held, so the hub's removal then hangs.  It reproduces with two uhid
-devices that each declare a temperature sensor, one destroyed while
-the other still sends input reports.
+Applied, thanks!
 
-Keep the callbacks in struct temperature_state, as the other HID
-sensor drivers (accel, gyro, als, ...) do.
+[1/1] aoe: pull in the headers each received packet type reads
+      commit: e1274a6bc40a4618f6fbaebbdc51cca865d51bed
 
-Fixes: 59d0f2da3569 ("iio: hid: Add temperature sensor support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christopher Hoover <ch@murgatroid.com>
----
- drivers/iio/temperature/hid-sensor-temperature.c | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/iio/temperature/hid-sensor-temperature.c b/drivers/iio/temperature/hid-sensor-temperature.c
-index 5e3262e461f4..35b8643305b9 100644
---- a/drivers/iio/temperature/hid-sensor-temperature.c
-+++ b/drivers/iio/temperature/hid-sensor-temperature.c
-@@ -14,6 +14,7 @@
- 
- struct temperature_state {
- 	struct hid_sensor_common common_attributes;
-+	struct hid_sensor_hub_callbacks callbacks;
- 	struct hid_sensor_hub_attribute_info temperature_attr;
- 	struct {
- 		s32 temperature_data;
-@@ -181,11 +182,6 @@ static int temperature_parse_report(struct platform_device *pdev,
- 	return ret;
- }
- 
--static struct hid_sensor_hub_callbacks temperature_callbacks = {
--	.send_event = &temperature_proc_event,
--	.capture_sample = &temperature_capture_sample,
--};
--
- /* Function to initialize the processing for usage id */
- static int hid_temperature_probe(struct platform_device *pdev)
- {
-@@ -237,9 +233,11 @@ static int hid_temperature_probe(struct platform_device *pdev)
- 
- 	platform_set_drvdata(pdev, indio_dev);
- 
--	temperature_callbacks.pdev = pdev;
-+	temp_st->callbacks.send_event = temperature_proc_event;
-+	temp_st->callbacks.capture_sample = temperature_capture_sample;
-+	temp_st->callbacks.pdev = pdev;
- 	ret = sensor_hub_register_callback(hsdev, HID_USAGE_SENSOR_TEMPERATURE,
--					   &temperature_callbacks);
-+					   &temp_st->callbacks);
- 	if (ret)
- 		goto error_remove_trigger;
- 
+Best regards,
 -- 
-2.43.0
+Jens Axboe
+
+
 
