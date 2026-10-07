@@ -1,78 +1,72 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66CC33B774D
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 03:57:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A49FC331EDF
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 04:10:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791345468; cv=none; b=ApaAet3vYYDKcmqMXokb0b57Kuin7OJqeoJ8teyZ3BIbId29GTybGmpJ/vSBxbPHM4RAEzi7BTOq1+eCqdlTAj92lYnDsFeC2KR0nnHMcFaCM8ONRu2UdCjve7ePbHiVsC9HtDNLOJ6Famm9uwUnVBDw6N4575dKnT1BUxv8s6U=
+	t=1791346238; cv=none; b=L+bdk51p4bwxIpRKwFcV5rUN/GtYb2NzZ6osIHJU63ohRwU/n7z3qanzuXVsJztwYo3Pb/b+G2fvvWiTg1gLoEFNv0EqGTMyoRgwKet0cCXkVJnK803o0a+/BYxjB4oRMxufpOdr4Wci3AD6GUSoETguuqEBU9azp3k29vKBbiY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791345468; c=relaxed/simple;
-	bh=yNeF2VfrlVcw4qcdr9g71l1ukl3FUd+CWTZt6ay+YbU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CSQ10rN4OtTP+bVMfmyIALxiRQwVDxwxClHFFEl4cJhx3kxTfl+dKvQ6hw9Q+gIVNNC+tV1qWSey9EPlZUoJTE2KtvUt93XjYYFs9g+pWWZKoKuwkm3UX8B6a5jvIpQ3tvvH/dYHUjvoQAD7UAazHRlpQWbqKqY9Orp+3lZhFig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bECzfwFO; arc=none smtp.client-ip=209.85.216.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791346238; c=relaxed/simple;
+	bh=Dehgm5K17KIypaeoxVLrFfQbIbVwDYhVkmn2kILdwV0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mrEfkP3bgU8nrn6ZlprUk1lAlcmWUO1noTFVzG5FhoAhJ9Gh0N5Q1nb5sl3nsPl2DgOF3UittX1Vw4Qfkkm38P/EtyL1yf4hAZR2Rp9fiaw700SaLPm3dauttGmA2hKv8yQLYKFwUIA+ovlJXQegx1sjBFo438LaFpP7SGxci6k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=TyUpRJ0f; arc=none smtp.client-ip=209.85.210.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bECzfwFO"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3a865731ee4so1189176a91.2
-        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 20:57:46 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="TyUpRJ0f"
+Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-81c5aac8478so787793a34.0
+        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 21:10:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791345466; x=1791950266; darn=vger.kernel.org;
+        d=openai.com; s=google; t=1791346236; x=1791951036; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3hjMMWqILo+RQ+ZlMN41DDpi4TQ1W3WpbzPCHm6Qne8=;
-        b=bECzfwFOD9YX/RclfM3IOCeMkbrFevDI8Z07dCtIpfGSMs+6k4RKmfIoHCZo2aPe2K
-         kCVaoPMtRkzxOe4G3hIfC3wzvIz2si4T2JUJ957yXDtuH0VBrGrqBWbr2K1Wil1kCZOk
-         QvIgv91bkTXaEguO1E9jWacEvy0DYXcYdwuMeHIufblKBlZuWDMGjgbdL43y3EYClN0j
-         8KSbsGGrSTDt2dpvjYqKY+PspurDOxDdp53u8S12ZtWq7idfNZGMdXqTs4WHa3FItj+Q
-         V+lGFmilcAbCOpoDtvbCbjAI/CQYeVDqGunAqLAGIUcCp4CrSxe5N0xBmZedpwZxiMf8
-         Ui/A==
+        bh=MBRXZKUt5w8de+h8RL2geRZW1pbP7GywRMbabudOQ+U=;
+        b=TyUpRJ0fkdV7w7jhnkamoD2M5Np6Sj0eylTDuC8ZZ5I1yuide3B2q69m7EKm9IGsB+
+         W5TgQSdzZxFsNTm/vURpVBsRwlNSc4qpNvJvTduUdNaXLrtbLO7DnqERnfoHqtwI/+4m
+         KgmDEIhD1yZyk7SrGEz/DWqbpAWgV12+c2zTI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791345466; x=1791950266;
+        d=1e100.net; s=20260707; t=1791346236; x=1791951036;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=3hjMMWqILo+RQ+ZlMN41DDpi4TQ1W3WpbzPCHm6Qne8=;
-        b=baB07r0vS8m6PgRs3JzsgCVUuCCMqsJJqKXRBj7lQilWnmWIoau4sReqxLBnz9mZs0
-         IbSaC3lppufEd986BVB9EA4TPNO+vHTa6pMhq75MuouTqJNAkVelWEXUGcyGZok4Xho8
-         RvcK+nbyLmLf1ZjC1RWRGodJ7JcrYFDB4kKNknbM/GjlcYZ++SO3r+EuiJ+IPWx3qqtM
-         1RTmdWwYuUY+r4MpLkeEDG4ADT20qQ+hY3Pa+LvfbgRSI8EeW/gCloURneqyX7AqB0W3
-         XsKouMrTdnL7ZM2pC3V6fzlMBHuuaskq0RCAx5nviYzXJmIqkbFhDea6dlHWssEHMu4X
-         FeaQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwjJPYOWGU+RmZhEdUCHDdRxrarz0qqXUbBXnz/aYs354Gl1UpEKJfdZOMZ4yChPAASbn5pIsg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKf1tsb0EsANH4k1Z2OTTscPx8gwQC+jsqWi3cZjSY5Mhl90TIE
-	QUAbVxamiXrvd5ZRUFfm9vaKqXY4C/pyuV3B1aBe2jsMrQSxFANZs+iY
-X-Gm-Gg: AYBFou37AWhMYtDEczJn9YlILtgCHeSf+jOB1Sd2kKTC3yj3tuYPMCFbgvYNMqmujDt
-	2b0EMxd5d5P5rxX29K5JYi3BhjwUYQrDawqfZGFl1LLVsthFjP3Ks00eVdgbGbtZ5S7jpbt49hG
-	/1bnub+XhtOA4nkClwIV2EMJ7n28Roxl00leN4HeOaOOkynUZfTZqy+MOj5sPVGNSLk0zb/emgh
-	oq0/MmxmwO+gtv4HZ19X+mucUUJmVmD5ZkewZJKWNUn/WcO6/UripsCINXb4BTX965pxYAJgmZM
-	QZmyi6Fai1iuiCMTKHcsHa0aUukAufBUYqJs1o2ZsS+KO2BGmAhGjYwfBIRKKptiLNp5zQQYbTQ
-	1OAVlDRoRnnaQYwUSOk7AwUh5tP1mpy6+3tIILuEYXUZo6E74j6sFmyUyP9ocdZzyX3yDJu9Llt
-	bvYsQnomjjfwYeOm4zJcn8/10j1q4W8BWN2JETRaBaXX1JbF/bryMUSIvLRkXWxhh1mdf9tEjWf
-	PrhC8795IGtB9xChfTmUg==
-X-Received: by 2002:a17:90b:1344:b0:3a8:7bbc:3f3e with SMTP id 98e67ed59e1d1-3a8a1b0071cmr986825a91.41.1791345465698;
-        Tue, 06 Oct 2026 20:57:45 -0700 (PDT)
-Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a89b625d01sm2397749a91.14.2026.10.06.20.57.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 20:57:45 -0700 (PDT)
-From: Daehyeon Ko <4ncienth@gmail.com>
-To: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
-	Xin Long <lucien.xin@gmail.com>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-sctp@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Daehyeon Ko <4ncienth@gmail.com>,
+        bh=MBRXZKUt5w8de+h8RL2geRZW1pbP7GywRMbabudOQ+U=;
+        b=aRd9lnY76WvpqZM55V27NPGj0es8Ep7qRcUvirureVYj+Hm8zjEHaht5xoVsY6Sn2X
+         HZgFU0qHEntBU0U6eR1AlH3l+seuBaExQ7d+ndhivDZOoNqH+oMTWT56aqyaO8y27Ayw
+         wwgOpVOLVNbWv5LshN2uFJt9Gj/bbKnSsBcwN0eoS1DNTw9tkPcCzmK0adY3uRUXeO3N
+         oX98HLi9P9sy7a5fWyuj+ebn5Y4/+SH0unPWguCgL97BsEuzs2MkH1l/+bv+DyHbkwPo
+         7lSTMwxPTdt1KVsve0HvndZjRjblImlOJ+ti3r/OKBZqOhn+5F1V+X7EZqDcniyiWQy8
+         ll5A==
+X-Forwarded-Encrypted: i=1; AKwUvBypW3wZeYSKi+hcLjSGxLhwlfk7kFSLAvtS2qGRJvHOAmzl6ISQHdxgzI1isdNR4sOQwgFu7To=@vger.kernel.org
+X-Gm-Message-State: AFuF++n++Qqxb9vdYon1o8359Uu4zagyzDAYMumSzYuQPD2sVLL8e3+6
+	mTjy/iYNPd0xwJmN9ZpAsp25QIRXQYM/3di+Ic8vtcKEwL9rjcszoOrb3T+++b1gPR8=
+X-Gm-Gg: AYBFou0Da3btZwgH3PlnEewtncTsbwZ5K57Aid+pRe1/Gs7W5amWjvfi/gE9Utw/dYk
+	XU1zFGLLEoyvaurgDTONsbFPV2wsr8THffOPIjUo5pX16/ub8ybZJAjPxZxlx+DXWTFDLT4K6h1
+	ux592YeSvpgWOVZwwVJF4XBz6w5cMBz/9T8lpN3oD6/NCpO25f3AXm1grWNipMt/YBqiGP4ASlN
+	23LWHdx+/BggckFL44kUX/XBqXazLZn8crVaC0ira24i3vZL9Y2+JpNcCuKEzO7o12jz2mxpA1f
+	nJiglcU1IShKrag1n44yOLsSpnuEI3z393mcR13fKDim5yPBzMQm8BgoimXYd1ZtPiV3RwDWmMx
+	g5lmwZjD85fyWaRWIhGChMzLO+WgMhmjDY1ouw4ddHofDu+N0u/d5pxwWoAn59fb5tiEckkPYr6
+	B2CY9U7M2KdxxoNlZqgXwxVKIKDl6EU9T1Znc4BuziBWQCk9kXnbeFDTwOG4ICzKAZZ3yU+8WCU
+	y8YMj5qzSxQcleWI4lc8ionz7EjIZduUd2CAjB5mwaBIcRUrHsRuIPM2ozNVDfoBG5Yy94LAkM=
+X-Received: by 2002:a05:6830:6485:b0:81c:e3de:d194 with SMTP id 46e09a7af769-82acefa6e00mr2083117a34.10.1791346236482;
+        Tue, 06 Oct 2026 21:10:36 -0700 (PDT)
+Received: from com-75606.corp.openai.org ([199.47.143.7])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-82adcb187c8sm1864670a34.22.2026.10.06.21.10.35
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 06 Oct 2026 21:10:36 -0700 (PDT)
+From: Kyle Zeng <kylebot@openai.com>
+To: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	outbounddisclosures@openai.com,
+	Kyle Zeng <kylebot@openai.com>,
 	stable@vger.kernel.org
-Subject: [PATCH net v2] sctp: revalidate output stream after association connect wait
-Date: Wed,  7 Oct 2026 12:57:39 +0900
-Message-ID: <20261007035739.3472432-1-4ncienth@gmail.com>
+Subject: [PATCH v2] mm/khugepaged: flush deferred unmaps before dropping a failed folio
+Date: Tue,  6 Oct 2026 21:10:01 -0700
+Message-ID: <20261007041001.43181-1-kylebot@openai.com>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -82,119 +76,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When message interleaving is enabled, the first send waits for association
-establishment before building its data chunks.  The wait drops the socket
-lock, and handshake processing can reduce the output stream count to the
-peer-advertised inbound stream count.  sctp_stream_init() then frees the
-extension of every removed stream.
+collapse_file() can fail its reference-count or dirty-folio check after
+unmapping with TTU_BATCH_FLUSH.  Both paths put back the isolated folio,
+then unlock it and drop the lookup reference before reaching the common
+try_to_unmap_flush().
 
-The sender resumes with the stream that it checked before the wait.  If the
-peer removed that stream, sctp_outq_tail() later dereferences its NULL
-extension.  Fatal-oops policies then panic the host.
+The page-cache reference does not keep the folio stable once the lock is
+released.  Another collapse can replace and free it.  With its PTEs
+already gone, that collapse cannot flush the first task's per-task TLB
+batch, and retract_page_tables() skips short or unaligned VMAs.  A CPU
+can therefore retain a user translation to the freed folio.  This has
+been reproduced with unprivileged MADV_COLLAPSE on a memfd.
 
-KASAN: null-ptr-deref in range [0x38-0x3f]
-RIP: sctp_outq_tail+0x49e/0xaa0
-Call Trace:
- sctp_primitive_SEND
- sctp_sendmsg_to_asoc
- sctp_sendmsg
+Flush at out_unlock while the lookup reference and folio lock are still
+held.  The common flush continues to cover the accumulated pagelist on
+both success and rollback, preserving batching on successful collapses.
 
-A range check alone is insufficient.  Stream reconfiguration can grow the
-output count again while the lock is released without recreating extensions
-freed by the earlier shrink.  The stream can then be in range while its
-extension remains NULL.  The send-buffer wait has the same issue.
-
-Factor the range and extension checks into a helper and repeat both after
-each send-path wait that drops the socket lock.  Once the lock is
-reacquired, the validation remains stable through data creation and
-queueing.
-
-If validation fails after the connect wait, the auto-created association is
-already established.  Return ESRCH so the existing caller path keeps it
-under state-machine ownership instead of freeing it directly, which would
-leave protocol, counter and socket state inconsistent.
-
-Fixes: 668c9beb9020 ("sctp: implement assign_number for sctp_stream_interleave")
+Fixes: 6d9df8a5889c ("mm/thp: collapse_file() do try_to_unmap(TTU_BATCH_FLUSH)")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
 ---
 Changes in v2:
-- Repeat full stream validation after both send-path waits.
-- Recreate a missing stream extension after shrink followed by growth.
-- Return ESRCH after the connect wait to retain the live association.
+- Use Assisted-by: LLM.
+- Explain that the common flush is a no-op after out_unlock flushes.
 
-v1: https://lore.kernel.org/r/20261002010449.3689454-1-4ncienth@gmail.com
+ mm/khugepaged.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
- net/sctp/socket.c | 33 +++++++++++++++++++++------------
- 1 file changed, 21 insertions(+), 12 deletions(-)
-
-diff --git a/net/sctp/socket.c b/net/sctp/socket.c
-index 4652fd90d9a6c4..aaeb58ce055771 100644
---- a/net/sctp/socket.c
-+++ b/net/sctp/socket.c
-@@ -1786,6 +1786,18 @@ static int sctp_sendmsg_check_sflags(struct sctp_association *asoc,
- 	return 1;
- }
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index 75639298efc2..e1a5890818ad 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -2478,6 +2478,11 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+ 		index += folio_nr_pages(folio);
+ 		continue;
+ out_unlock:
++		/*
++		 * The folio may have been unmapped with TTU_BATCH_FLUSH.
++		 * Flush before releasing the lock and our last reference.
++		 */
++		try_to_unmap_flush();
+ 		folio_unlock(folio);
+ 		folio_put(folio);
+ 		goto xa_unlocked;
+@@ -2488,9 +2493,8 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+ xa_unlocked:
  
-+static int sctp_sendmsg_check_stream(struct sctp_association *asoc,
-+				     struct sctp_sndrcvinfo *sinfo)
-+{
-+	if (unlikely(sinfo->sinfo_stream >= asoc->stream.outcnt))
-+		return -EINVAL;
-+
-+	if (unlikely(!SCTP_SO(&asoc->stream, sinfo->sinfo_stream)->ext))
-+		return sctp_stream_init_ext(&asoc->stream, sinfo->sinfo_stream);
-+
-+	return 0;
-+}
-+
- static int sctp_sendmsg_to_asoc(struct sctp_association *asoc,
- 				struct msghdr *msg, size_t msg_len,
- 				struct sctp_transport *transport,
-@@ -1800,16 +1812,9 @@ static int sctp_sendmsg_to_asoc(struct sctp_association *asoc,
- 	long timeo;
- 	int err;
+ 	/*
+-	 * If collapse is successful, flush must be done now before copying.
+-	 * If collapse is unsuccessful, does flush actually need to be done?
+-	 * Do it anyway, to clear the state.
++	 * Flush before copying the folios, or releasing them in rollback.
++	 * This is a no-op if out_unlock already flushed the batch.
+ 	 */
+ 	try_to_unmap_flush();
  
--	if (sinfo->sinfo_stream >= asoc->stream.outcnt) {
--		err = -EINVAL;
-+	err = sctp_sendmsg_check_stream(asoc, sinfo);
-+	if (err)
- 		goto err;
--	}
--
--	if (unlikely(!SCTP_SO(&asoc->stream, sinfo->sinfo_stream)->ext)) {
--		err = sctp_stream_init_ext(&asoc->stream, sinfo->sinfo_stream);
--		if (err)
--			goto err;
--	}
- 
- 	if (sp->disable_fragments && msg_len > asoc->frag_point) {
- 		err = -EMSGSIZE;
-@@ -1830,10 +1835,9 @@ static int sctp_sendmsg_to_asoc(struct sctp_association *asoc,
- 		err = sctp_wait_for_sndbuf(asoc, transport, &timeo, msg_len);
- 		if (err)
- 			goto err;
--		if (unlikely(sinfo->sinfo_stream >= asoc->stream.outcnt)) {
--			err = -EINVAL;
-+		err = sctp_sendmsg_check_stream(asoc, sinfo);
-+		if (err)
- 			goto err;
--		}
- 	}
- 
- 	if (sctp_state(asoc, CLOSED)) {
-@@ -1848,6 +1852,11 @@ static int sctp_sendmsg_to_asoc(struct sctp_association *asoc,
- 				err = -ESRCH;
- 				goto err;
- 			}
-+			err = sctp_sendmsg_check_stream(asoc, sinfo);
-+			if (err) {
-+				err = -ESRCH;
-+				goto err;
-+			}
- 		} else {
- 			wait_connect = true;
- 		}
--- 
-2.55.0
