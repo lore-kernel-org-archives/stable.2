@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79D843F12E3
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 05:44:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9F0124886E
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 05:44:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791351859; cv=none; b=ekXfSHqVPB+olABeZulB2Q3axFi1kZ5cEF5fFxeMm7v4mgr4fShKqugr97SlV6M7FwFgrMWhU+0ZEOP6T511DZubVN2NsKjgLAjrcvsfW8/cvxdW0IN/o5TImx+R0Xad/GW8GLoobmDT8/eq1tkZfGRDtmGYU8O/j/4sTO9TOJc=
+	t=1791351861; cv=none; b=SVMc20IvK3B9rzJKV0Lr9cLZo/VrgNsBRANOpZslACDlC7b2DfnrTUVYp8rN42TqOS5TnlA0CG9qC/X8EsIVVHBq75+OvEWgl/NN7+o6k9xSLfbykQRV2olvZr31ll1H44Qcb5bFDPYfPS43dExrPPCfhaA0Qj6o368LZuN4PoY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791351859; c=relaxed/simple;
-	bh=Zd83TWjv+DWIpBJAXlVMzEqNdptLlRuDFeXtZqpFqYc=;
+	s=arc-20240116; t=1791351861; c=relaxed/simple;
+	bh=u6fIWQ2iFqOiQi2wSDorOcqPrDIjDHKKPddK0ARTJSo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=P0b9W0/RxPf0aP6T4J+G4UHflfZvLSx5vYqA10de3DFK9FB06Pn//kwQlEv83r1c+CqxO6XE2U+9/jDlEc6AMm5FcadqCqRlHxBoxqRZgEXHUprqShswo1dPjKoS07Wsb1I9uQmdPmPVbZCOBzkV5fqNG6BHk/ihtN6Rg1ya0pc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ioz16tjg; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=TV+AYOH6g3LTArG8ymIbwUHnMFYpcFbt/wVl5Lf6G+I7XlCp/q6Hwhyjmaa22gktWqhOHmBtcGYhkcwjta4WWKFrFpDyx46BInFXczH+BvdFLkNbmEG0ckdHtqA0la9Hafryol/INbUwRjoeO2zcGfwBiCZkTYo+e2ZIVmfoPYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iU7PE7Ck; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ioz16tjg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36DDF1F0089B;
-	Wed,  7 Oct 2026 05:44:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iU7PE7Ck"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2E061F0089C;
+	Wed,  7 Oct 2026 05:44:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791351858;
-	bh=9VtGm6PYdcxNt0Zc+vBZzeeeOJZsn7iLsuvOtcIETts=;
+	s=k20260515; t=1791351860;
+	bh=Yum6OdXDzhPiveMw7wl+Jq2kSFTS55U2f5zNQ4kkHkM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ioz16tjgbLXsL3MA3as1JSuXKhMNsnnfVatwG39tC9MOFUU2rDEfezcYcdbDQGk8V
-	 uUwUbXOvv3aUiJjDCyG/AyEmmg3WZDLmn6OaqRe+kYVqBH1wtsJRfLlEgOV4/e/QNk
-	 owKkQB0aXAKFEiYzX9kVeIBmFG3dRXq5p/tmXby61QBm7+ATekFxnMc7XUffTxXiha
-	 wz1xPVfR7RVp2ZbaI4sf27VfHPOijUgs9fEK3gvs7nMl2OOGrJhRQZn2QS6jiDzzpL
-	 1cI35DeQjJizK4/UebFi/iFkAEai/6Xw7sO9OUlxUt+yPWMNY10EeOr9O4NEnQYbcb
-	 bj8ucai/2hnrA==
+	b=iU7PE7CkFjqduOXDveRfkCKg93FriS9tWhlW7Ed0eqcObaK92vPqUSlz2w62flESN
+	 3UYzEirQyzpmPVl57x/ewuTTJ2Z3MCWz6Z/1bxewJBNVYJ8l3GopZ8XAfUQgAo4A05
+	 JgrnP2tf9aQibyEcD/bDkUgEraHFcmI/i44zLUZis/8gUCmhC+Wh0WAWG2To0h/Vig
+	 23O2/rnUrHDpDrKlFUbW7sGMW2tGScBf/2IK1Zh8r6TutiqX/wf1e66zG1v+vESSDy
+	 UDnkBaeGIeqcjer9MR0qyKg15L3Kvc/DJ3lR10sbrvb76on8I0pWsUcczmRwKp19Qc
+	 vsdW5u6qqCcHw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Matti Vaittinen <mazziesaccount@gmail.com>,
-	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] iio: accel: kx022a: Use cleanup.h helpers
-Date: Wed,  7 Oct 2026 01:44:14 -0400
-Message-ID: <20261007054404.1487956-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] iio: accel: kionix-kx022a: Prevent memory leak and fix state
+Date: Wed,  7 Oct 2026 01:44:15 -0400
+Message-ID: <20261007054404.1487956-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100642-onslaught-extruding-e802@gregkh>
+In-Reply-To: <20261007054404.1487956-1-sashal@kernel.org>
 References: <2026100642-onslaught-extruding-e802@gregkh>
+ <20261007054404.1487956-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,199 +49,81 @@ Content-Transfer-Encoding: 8bit
 
 From: Matti Vaittinen <mazziesaccount@gmail.com>
 
-[ Upstream commit 725521e1f485d4687790f2e459271f1ad6af64d5 ]
+[ Upstream commit e65e128b51a37dd1a9056ac3d1705d805a5c8bb0 ]
 
-A few functions in KX022A need to use mutex for protecting the
-enabling/disabling of the measurement while configurations are being
-made. Some of the functions can be slightly simplified by using the
-__cleanup based scoped mutexes, which allows dropping the goto based
-unlocking at error path.
+The driver allocates memory for samples at buffer enable path. If regmap
+operation fails in the kx022a_fifo_enable() at the buffer enable path, the
+allocated memory is never freed. Furthermore, the state information and
+previous hardware configuration(s) aren't undone, potentially leaving
+WMI interrupts and buffers enabled, or driver state flags wrong.
 
-Simplify error paths using guard(mutex).
+Free the memory and revert the hardware configuration and state flags on
+error path.
 
+Fixes: e7123a4dfcd7 ("iio: accel: kionix-kx022a: Refactor driver and add chip_info structure")
 Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
-Link: https://patch.msgid.link/4785f841ad5f131356ba78b4f3c76f676d86a2e8.1732783834.git.mazziesaccount@gmail.com
-Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
-Stable-dep-of: e65e128b51a3 ("iio: accel: kionix-kx022a: Prevent memory leak and fix state")
+Reviewed-by: Mehdi Djait <mehdi.djait@linux.intel.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/accel/kionix-kx022a.c | 61 ++++++++++++-------------------
- 1 file changed, 23 insertions(+), 38 deletions(-)
+ drivers/iio/accel/kionix-kx022a.c | 28 +++++++++++++++++++++++-----
+ 1 file changed, 23 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/iio/accel/kionix-kx022a.c b/drivers/iio/accel/kionix-kx022a.c
-index db78a1945956d..1e4ba5602dbf4 100644
+index 1e4ba5602dbf4..b1d48369fa216 100644
 --- a/drivers/iio/accel/kionix-kx022a.c
 +++ b/drivers/iio/accel/kionix-kx022a.c
-@@ -5,6 +5,7 @@
-  * ROHM/KIONIX accelerometer driver
-  */
- 
-+#include <linux/cleanup.h>
- #include <linux/delay.h>
- #include <linux/device.h>
- #include <linux/interrupt.h>
-@@ -447,7 +448,7 @@ static void kx022a_reg2scale(unsigned int val, unsigned int *val1,
- 	*val2 = kx022a_scale_table[val][1];
- }
- 
--static int kx022a_turn_on_off_unlocked(struct kx022a_data *data, bool on)
-+static int __kx022a_turn_on_off(struct kx022a_data *data, bool on)
- {
- 	int ret;
- 
-@@ -468,7 +469,7 @@ static int kx022a_turn_off_lock(struct kx022a_data *data)
- 	int ret;
- 
- 	mutex_lock(&data->mutex);
--	ret = kx022a_turn_on_off_unlocked(data, false);
-+	ret = __kx022a_turn_on_off(data, false);
+@@ -958,26 +958,44 @@ static int kx022a_fifo_enable(struct kx022a_data *data)
+ 	guard(mutex)(&data->mutex);
+ 	ret = __kx022a_turn_on_off(data, false);
  	if (ret)
- 		mutex_unlock(&data->mutex);
- 
-@@ -479,7 +480,7 @@ static int kx022a_turn_on_unlock(struct kx022a_data *data)
- {
- 	int ret;
- 
--	ret = kx022a_turn_on_off_unlocked(data, true);
-+	ret = __kx022a_turn_on_off(data, true);
- 	mutex_unlock(&data->mutex);
- 
- 	return ret;
-@@ -911,18 +912,19 @@ static int kx022a_fifo_disable(struct kx022a_data *data)
- {
- 	int ret = 0;
- 
--	ret = kx022a_turn_off_lock(data);
-+	guard(mutex)(&data->mutex);
-+	ret = __kx022a_turn_on_off(data, false);
- 	if (ret)
- 		return ret;
- 
- 	ret = regmap_clear_bits(data->regmap, data->ien_reg, KX022A_MASK_WMI);
- 	if (ret)
--		goto unlock_out;
-+		return ret;
- 
- 	ret = regmap_clear_bits(data->regmap, data->chip_info->buf_cntl2,
- 				KX022A_MASK_BUF_EN);
- 	if (ret)
--		goto unlock_out;
-+		return ret;
- 
- 	data->state &= ~KX022A_STATE_FIFO;
- 
-@@ -930,12 +932,7 @@ static int kx022a_fifo_disable(struct kx022a_data *data)
- 
- 	kfree(data->fifo_buffer);
- 
--	return kx022a_turn_on_unlock(data);
--
--unlock_out:
--	mutex_unlock(&data->mutex);
--
--	return ret;
-+	return __kx022a_turn_on_off(data, true);
- }
- 
- static int kx022a_buffer_predisable(struct iio_dev *idev)
-@@ -958,33 +955,29 @@ static int kx022a_fifo_enable(struct kx022a_data *data)
- 	if (!data->fifo_buffer)
- 		return -ENOMEM;
- 
--	ret = kx022a_turn_off_lock(data);
-+	guard(mutex)(&data->mutex);
-+	ret = __kx022a_turn_on_off(data, false);
- 	if (ret)
- 		return ret;
+-		return ret;
++		goto err_free_out;
  
  	/* Update watermark to HW */
  	ret = kx022a_fifo_set_wmi(data);
  	if (ret)
--		goto unlock_out;
-+		return ret;
+-		return ret;
++		goto err_turn_on_out;
  
  	/* Enable buffer */
  	ret = regmap_set_bits(data->regmap, data->chip_info->buf_cntl2,
  			      KX022A_MASK_BUF_EN);
  	if (ret)
--		goto unlock_out;
-+		return ret;
+-		return ret;
++		goto err_turn_on_out;
  
  	data->state |= KX022A_STATE_FIFO;
  	ret = regmap_set_bits(data->regmap, data->ien_reg,
  			      KX022A_MASK_WMI);
  	if (ret)
--		goto unlock_out;
--
--	return kx022a_turn_on_unlock(data);
--
--unlock_out:
--	mutex_unlock(&data->mutex);
-+		return ret;
+-		return ret;
++		goto err_buf_disable_out;
  
--	return ret;
-+	return __kx022a_turn_on_off(data, true);
+-	return __kx022a_turn_on_off(data, true);
++	ret = __kx022a_turn_on_off(data, true);
++	if (ret)
++		goto err_wmi_clear_out;
++
++	return ret;
++
++err_wmi_clear_out:
++	regmap_clear_bits(data->regmap, data->ien_reg,
++			  KX022A_MASK_WMI);
++err_buf_disable_out:
++	regmap_clear_bits(data->regmap, data->chip_info->buf_cntl2,
++			  KX022A_MASK_BUF_EN);
++	data->state &= ~KX022A_STATE_FIFO;
++err_turn_on_out:
++	__kx022a_turn_on_off(data, true);
++err_free_out:
++	kfree(data->fifo_buffer);
++
++	return ret;
  }
  
  static int kx022a_buffer_postenable(struct iio_dev *idev)
-@@ -1052,7 +1045,7 @@ static irqreturn_t kx022a_irq_thread_handler(int irq, void *private)
- 	struct kx022a_data *data = iio_priv(idev);
- 	irqreturn_t ret = IRQ_NONE;
- 
--	mutex_lock(&data->mutex);
-+	guard(mutex)(&data->mutex);
- 
- 	if (data->trigger_enabled) {
- 		iio_trigger_poll_nested(data->trig);
-@@ -1067,8 +1060,6 @@ static irqreturn_t kx022a_irq_thread_handler(int irq, void *private)
- 			ret = IRQ_HANDLED;
- 	}
- 
--	mutex_unlock(&data->mutex);
--
- 	return ret;
- }
- 
-@@ -1078,32 +1069,26 @@ static int kx022a_trigger_set_state(struct iio_trigger *trig,
- 	struct kx022a_data *data = iio_trigger_get_drvdata(trig);
- 	int ret = 0;
- 
--	mutex_lock(&data->mutex);
-+	guard(mutex)(&data->mutex);
- 
- 	if (data->trigger_enabled == state)
--		goto unlock_out;
-+		return 0;
- 
- 	if (data->state & KX022A_STATE_FIFO) {
- 		dev_warn(data->dev, "Can't set trigger when FIFO enabled\n");
--		ret = -EBUSY;
--		goto unlock_out;
-+		return -EBUSY;
- 	}
- 
--	ret = kx022a_turn_on_off_unlocked(data, false);
-+	ret = __kx022a_turn_on_off(data, false);
- 	if (ret)
--		goto unlock_out;
-+		return ret;
- 
- 	data->trigger_enabled = state;
- 	ret = kx022a_set_drdy_irq(data, state);
- 	if (ret)
--		goto unlock_out;
--
--	ret = kx022a_turn_on_off_unlocked(data, true);
--
--unlock_out:
--	mutex_unlock(&data->mutex);
-+		return ret;
- 
--	return ret;
-+	return __kx022a_turn_on_off(data, true);
- }
- 
- static const struct iio_trigger_ops kx022a_trigger_ops = {
 -- 
 2.53.0
 
