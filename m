@@ -1,87 +1,121 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9475E2AD32;
-	Wed,  7 Oct 2026 00:46:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C1B51D5146;
+	Wed,  7 Oct 2026 00:48:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791333990; cv=none; b=Btn8hpVD2AaYiCBnLElaiobZz1dzC48Rj6UR4cGT3leWkfjO9WUGn2e9W1wV5lb5nV+e3hLpSuz9v957AXJG+l/htdIN2T3xo5VFp3UgvB1BLv9hdnHrFOJ1VBBTQoaruMW7l2qqhsqA2LK+U3q+3cCgtkBp0XarEnqbvnTBpSk=
+	t=1791334130; cv=none; b=DNtDc0SMXUw+Wxk/g6ktYnpGap/g8q+OHNpj0gyWPYoyONjsqvhsgJwZ0/JvpUYFfTaDG6AJ3JSvrEtWQhfTgtmTK9/mSS1Bakb2ibDUw1www+p9GwDpTB25zqluCQIYEsgK97ShIRbxrEN/QTXmHl1hBDjavLjwY8s7aTfQ16I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791333990; c=relaxed/simple;
-	bh=DWkd33monIfLrk8hXdr6qmQ91ALR2N8OUPmwH+/KDGw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IoQEb8iO4KbFyfNSVW2LVhYZAXyhsudSztwkCoko5VNkAV6SdY7PZ0pGyVEzrGmMr6OiN7de+kdf2OgvfTxxQpgLmloLlRGSB0v+ifzPikwUk2MhF89B7AuVErmhJeNRb7HdH/NshZyjKAQqC1rQz8q4mWmBcXGu6wAoMvH5K0c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=RjBg8YnQ; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1791334130; c=relaxed/simple;
+	bh=CQgWVPgmIIYWKTt3eWyToU/aqRN/0tbtBqwSKQ7i01Q=;
+	h=Date:To:From:Subject:Message-Id; b=MCztN66mYeyKj3Crhgt+CjTT4HMy8agZb5jX1AwzE9UI+IAzE9EIIycnvYGC7JLLB1eLVMmEOOYmIL4EUs9MqbgvPO0Q0p93/TuMGlJkCxUE2x1br566OPZP966QVZkW9K8DH9QriGqyE+g+03y7uQBcJNoAwS44EgVncZYPISY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=TUIxyh9r; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="RjBg8YnQ"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 20AEB40E02A8;
-	Wed,  7 Oct 2026 00:46:19 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id dlnvTP_8Zdjw; Wed,  7 Oct 2026 00:46:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1791333969; bh=MpDg4jsfmyhPM2TgyK4940GnDik1JkqLDLHNrmYEoyI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=RjBg8YnQ7RsoKOUndGPXxVODu/r+M/LGJD2w/lfJK+VqHrfDj/g98DhUTG3IlMDif
-	 9kRRgpFb8m9A8pOgz71LczqvI7KHNvwcFD3psgHbam0WDjpN+B5Im8srEfNT8W1Vxh
-	 6rUOJZgqlMVtzJnMKkPIXFIuoVhoxeGRBwZ3IsPwMkCiUZVPFFp+RNMpKHsXlDTJAv
-	 ic9VCfnwNpWb/201V12S4xnXAzG/s+uPFQUsNwQqzjrXLHoFqc5Y28s/vvrghhhkXQ
-	 YeYbywSYtxgxXkspU+/hTwB/MSaZGE41Dz2Pf8gKQYGgcpI++o/UIYzdOcfeL24lQM
-	 p13v06g+GdlJit8+L9hy2AhwJwOAQvYX61mY19SojWZYYl1Zvai93R7/ytDEp6pCf8
-	 F3YySqFfJvHWs/NtS3wAxpPiF61UDilTYcckg4eY5NtK4QUKPrASw4uG85KDgVNmLl
-	 eMw2Q2U9PJON2yqI8cyyHd/vqB4RGa1w3iCNxFFDoRueySpn7jH6J4+4xfU+Qyf9r0
-	 1wVkSw17hzkm/w/IaWOqCeUNvSJMyQ+6oAG/lBEe84uWHDl+ybh8kInY7KwxH/HDFC
-	 5Y0BTjmBPwE7EHQRh6Znleod91ZovG3R8yDJDuCwkAxK+gZG6GdEq4Pyx0MJBv1j8i
-	 /kB5kdyZ3Z+kUIKdFkqyBDgI=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::2b])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id A8DF040E00E5;
-	Wed,  7 Oct 2026 00:46:00 +0000 (UTC)
-Date: Tue, 6 Oct 2026 17:45:57 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Kyle Zeng <kylebot@openai.com>
-Cc: linux-kernel@vger.kernel.org, tglx@kernel.org, mingo@redhat.com,
-	dave.hansen@linux.intel.com, x86@kernel.org,
-	outbounddisclosures@openai.com, stable@vger.kernel.org
-Subject: Re: [PATCH] x86/fpu: Avoid kernel-address leaks in the FXSAVE
- workaround
-Message-ID: <20261007004557.GAasWWRcOTfDzcZZw3@fat_crate.local>
-References: <20261006221541.35963-1-kylebot@openai.com>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="TUIxyh9r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63D811F0089B;
+	Wed,  7 Oct 2026 00:48:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1791334129;
+	bh=mF1ad3wntuI4KyyvX6I1BAvitwc65wOh6vhzZHcEqD0=;
+	h=Date:To:From:Subject;
+	b=TUIxyh9r22zaudLtZymlypspgz13nt02K+TTCE50l21TkYYaf7u0xkBNninaWThGj
+	 oe3BlugVoefK2E2qyc3H5Ov3DSni+dyQzFhdTBW7bx4xNlp3IrnD7vD6S7CAtJ8yKh
+	 YOsCmLk0tCyY9LjFUg0zJuqDdNeNnjCTtM+CytGU=
+Date: Tue, 06 Oct 2026 17:48:49 -0700
+To: mm-commits@vger.kernel.org,xu.xin16@zte.com.cn,stable@vger.kernel.org,hughd@google.com,david@kernel.org,nicoyip.dev@gmail.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: [merged mm-stable] mm-ksm-mark-migration-stores-with-write_once.patch removed from -mm tree
+Message-Id: <20261007004849.63D811F0089B@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261006221541.35963-1-kylebot@openai.com>
 
-On Tue, Oct 06, 2026 at 03:15:41PM -0700, Kyle Zeng wrote:
-> On AMD CPUs without XSaveErPtr, restoring x87 state without a pending
-> exception can leave FDP/FIP/FOP unchanged.  The existing workaround
-> replaces the previous context's pointers by executing FILD on a kernel
-> fpstate.  This exposes the kernel instruction and operand addresses
-> instead.  On TCG qemu64, an unprivileged task can recover the kernel
-> text slide with FNSTENV at ELF entry, even though FXSAVE64 reports zero
-> error pointers.
 
-Is this where you basically prompt the LLM to find you any bug in the kernel,
-no matter the relevance, as long as there is something?
+The quilt patch titled
+     Subject: mm/ksm: mark migration stores with WRITE_ONCE()
+has been removed from the -mm tree.  Its filename was
+     mm-ksm-mark-migration-stores-with-write_once.patch
 
-Or do you also ask it to consider the practical relevance of the fix and
-whether it is even worth doing it?
+This patch was dropped because it was merged into the mm-stable branch
+of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
--- 
-Regards/Gruss,
-    Boris.
+------------------------------------------------------
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+Subject: mm/ksm: mark migration stores with WRITE_ONCE()
+Date: Mon, 24 Aug 2026 19:24:33 +0800
 
-https://people.kernel.org/tglx/notes-about-netiquette
+ksm_get_folio() deliberately samples stable_node->kpfn and folio->mapping
+without taking the folio lock because the KSM folio may be migrated
+concurrently.  folio_migrate_ksm() updates the same state using plain
+assignments.
+
+The reader can load the old kpfn, then the migrator can store the new
+kpfn, execute smp_wmb(), and clear the old folio's mapping before the
+reader checks that mapping.  Thus the initial kpfn load can overlap its
+update and the subsequent mapping load can overlap the clear, with no
+common lock.  This leaves marked READ_ONCE() accesses racing with plain
+stores.
+
+The kernel reported:
+
+  BUG: KCSAN: data-race in folio_migrate_ksm / ksm_get_folio
+
+  read (marked) to 0xffff8ce401421330 of 8 bytes by task 48 on cpu 3:
+   ksm_get_folio+0x7f/0x2a0
+   ksm_scan_thread+0x1635/0x3330
+   kthread+0x1af/0x1f0
+
+  write to 0xffff8ce401421330 of 8 bytes by task 102 on cpu 1:
+   folio_migrate_ksm+0x6a/0xd0
+   folio_migrate_flags+0x193/0x420
+   __migrate_folio.isra.0+0x162/0x1a0
+   migrate_folio+0x4c/0x70
+   move_to_new_folio+0xd6/0x170
+
+Use WRITE_ONCE() for both stores to pair them with the existing lockless
+reads.  This preserves the existing smp_wmb()/smp_rmb() migration protocol
+and control flow while preventing compiler transformations of the shared
+accesses.
+
+Link: https://lore.kernel.org/20260824112433.191301-1-nicoyip.dev@gmail.com
+Fixes: c8d6553b9580 ("ksm: make KSM page migration possible")
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Acked-by: Xu Xin <xu.xin16@zte.com.cn>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: <stable@vger.kernel.org>
+---
+
+ mm/ksm.c |    5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+--- a/mm/ksm.c~mm-ksm-mark-migration-stores-with-write_once
++++ a/mm/ksm.c
+@@ -1115,7 +1115,8 @@ static inline void folio_set_stable_node
+ 					 struct ksm_stable_node *stable_node)
+ {
+ 	VM_WARN_ON_FOLIO(folio_test_anon(folio) && PageAnonExclusive(&folio->page), folio);
+-	folio->mapping = (void *)((unsigned long)stable_node | FOLIO_MAPPING_KSM);
++	WRITE_ONCE(folio->mapping,
++		   (void *)((unsigned long)stable_node | FOLIO_MAPPING_KSM));
+ }
+ 
+ #ifdef CONFIG_SYSFS
+@@ -3316,7 +3317,7 @@ void folio_migrate_ksm(struct folio *new
+ 	stable_node = folio_stable_node(folio);
+ 	if (stable_node) {
+ 		VM_BUG_ON_FOLIO(stable_node->kpfn != folio_pfn(folio), folio);
+-		stable_node->kpfn = folio_pfn(newfolio);
++		WRITE_ONCE(stable_node->kpfn, folio_pfn(newfolio));
+ 		/*
+ 		 * newfolio->mapping was set in advance; now we need smp_wmb()
+ 		 * to make sure that the new stable_node->kpfn is visible
+_
+
+Patches currently in -mm which might be from nicoyip.dev@gmail.com are
+
+
