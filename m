@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E00172931E9;
-	Wed,  7 Oct 2026 02:05:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B21E35C197;
+	Wed,  7 Oct 2026 02:05:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791338714; cv=none; b=fTJsU/eSjws/G6538+rtbh8wVV13UupmHkBPS1MITECeFT/50YT4koxEuMGHL3+wba6v8TfGGKLMbuE0eowhTXK7s+x3EYtyPoqF0aq9DoYL3lr+v92bCikqBGclFpkOKh4Orgqwj6kX284bwhPamF2DGclijuAFIiHQR7PdRCw=
+	t=1791338717; cv=none; b=Wu+Df69rttkWqFbyVxt//0KBv7U8lNaQahKIY5XGcWu2Vahs0xZdVhmwhaJIn+yICwvftQZBasOxpzqySKzszyr6hKGhd7Ta3UR0lFQBrN5T5rC3BLaB9PYzPBYQ81ZH89YPv31w+Mr4S5HarxUOxku1PFvq1/DEvrIaY+gPeac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791338714; c=relaxed/simple;
-	bh=YDMGHpHhJ0m6/XFmfIsjhZcd+wrnhpLzayLLJ5fU08o=;
-	h=Date:To:From:Subject:Message-Id; b=XqVe1ARYYUcGPbctxYjyTS1gopCICZy0vnhbjRE46mILQmAzGBtVZcUdITJ51NG7NvZ42CJj9JWGSxPO9VmA/6qPE2zqhJFlhpxpCKKaMSnw0ln4A4EQxYtgX/k1cAHmhX92Gaw81UkcJr6agSlH1WnDYKpsLMXM7fT0SbnMFEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=K7d8MK/S; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791338717; c=relaxed/simple;
+	bh=5XpZ4X4pa3rEssQz50lYlq0lnNGzoCfhjwlGc6oS9BA=;
+	h=Date:To:From:Subject:Message-Id; b=b46wC7UV7HcS6/K47Wl46IYVMMgE572EGz93nQZomIxYYVwqmNP4btMxTyf1Jgmqt0b1aU+gHbe2IqNds73hGb3d+T9IxJRougXKjLLinrKHkeUMTTkXOe8lNMbSc0dJ2meRtjGsx3NDAphUDgUQfsYSv7Uiu1b3d/R5tcKlsJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=mjScxCbL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="K7d8MK/S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 742411F0089B;
-	Wed,  7 Oct 2026 02:05:12 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="mjScxCbL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1F881F0089C;
+	Wed,  7 Oct 2026 02:05:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791338712;
-	bh=7tkVZjhCmJhwEz653oINyCw1T2JrfPscHzyA8L7FLMA=;
+	d=linux-foundation.org; s=korg; t=1791338716;
+	bh=SQdF4yK0O4yBomTqIj3aZLrn1AvTpfxweylCS2heRbE=;
 	h=Date:To:From:Subject;
-	b=K7d8MK/SPh1gkPe9lkYad5uaqcZ52cnvNUbB6fcBQR48bqgrS3UyEh/EetRZ+gPIH
-	 XV07QmMFf9NrE4IzjCn6TSX/EhBjoYZjU8fiHd8+rCwDVpM6Ml3JmHlVybtUFV10+m
-	 TcETL2x0Ex7+2yoCI4VRxSAAOjL2RyMctCWbTlLw=
-Date: Tue, 06 Oct 2026 19:05:12 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,piaojun@huawei.com,mark@fasheh.com,junxiao.bi@oracle.com,joseph.qi@linux.alibaba.com,jlbec@evilplan.org,heming.zhao@suse.com,gechangwei@live.cn,r772577952@gmail.com,akpm@linux-foundation.org
+	b=mjScxCbLEQsbgVp3ZtrH5nU9dSMSCidINSSicqi8o1gpYRzPjQJnhHVORbG4JLv7R
+	 mbcOUkJMiAlyxmhuOpHrQgKfDhKTexPrAarfHB50mMgftnWqQiNRn/Miorp/cb9U3L
+	 FM7zE66SqrOnIZGZrQAI6Zdybe1ZLPL4aldvTwRc=
+Date: Tue, 06 Oct 2026 19:05:15 -0700
+To: mm-commits@vger.kernel.org,wim@linux-watchdog.org,wangjinchao600@gmail.com,stable@vger.kernel.org,sashiko-bot@kernel.org,pmladek@suse.com,linux@roeck-us.net,brads@mainlining.org,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-nonmm-stable] ocfs2-fix-chunk-number-of-the-first-chunk-in-a-local-quota-file.patch removed from -mm tree
-Message-Id: <20261007020512.742411F0089B@smtp.kernel.org>
+Subject: [merged mm-nonmm-stable] panic-fix-redirect-cpu-race-in-panic_try_force_cpu.patch removed from -mm tree
+Message-Id: <20261007020515.E1F881F0089C@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,128 +35,147 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: ocfs2: fix chunk number of the first chunk in a local quota file
+     Subject: panic: fix redirect CPU race in panic_try_force_cpu()
 has been removed from the -mm tree.  Its filename was
-     ocfs2-fix-chunk-number-of-the-first-chunk-in-a-local-quota-file.patch
+     panic-fix-redirect-cpu-race-in-panic_try_force_cpu.patch
 
 This patch was dropped because it was merged into the mm-nonmm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Jiaming Zhang <r772577952@gmail.com>
-Subject: ocfs2: fix chunk number of the first chunk in a local quota file
-Date: Mon, 14 Sep 2026 11:49:40 +0800
+From: Bradley Morgan <brads@mainlining.org>
+Subject: panic: fix redirect CPU race in panic_try_force_cpu()
+Date: Wed, 16 Sep 2026 18:29:52 +0000
 
-Mounting a crafted OCFS2 image can corrupt kernel memory.  When the
-local quota file header of such an image claims zero chunks, the first
-quota entry allocated during the mount gets a chunk number taken from a
-kernel pointer, and releasing that entry clears a bit far outside the
-chunk bitmap.
+Patch series "panic: fix panic_force_cpu= redirect races and NMI bypass",
+v7.
 
-The write will corrupt the data stored at that address, and the
-corruption may lead to a system crash or damage unrelated data. 
-Mounting requires CAP_SYS_ADMIN, so it takes an untrusted image, such
-as removable media or a loop mount of a file from elsewhere.
+The panic_force_cpu= parameter redirects a panic to a specific CPU so the
+crash kernel runs there.  The redirect code in panic_try_force_cpu() had
+two races and an NMI bypass, all found by Sashiko.  This series closes
+them and kills one more hack that the rework turned up.
 
-Since the chunk number comes from a kernel pointer, the address of the
-bit that gets cleared differs from boot to boot, and the issue has been
-reported under several titles:
+Panic from NMI still goes through the redirect path first, so the crash
+kernel ends up on the CPU the admin asked for.  The redirect buffer is a
+static 1KB now, no initcall, no fallback message.
 
-- BUG: unable to handle kernel paging request in ocfs2_local_release_dquot
-- KASAN: use-after-free Write in ocfs2_local_release_dquot
-- KASAN: slab-out-of-bounds Write in ocfs2_local_release_dquot
-- KASAN: slab-use-after-free Write in ocfs2_local_release_dquot
-- KFENCE: use-after-free write in ocfs2_local_release_dquot
 
-Note that none of these is a use-after-free in the quota code: the
-chunk and its buffer head are alive.  The bit that gets cleared lies
-far outside the bitmap.  KASAN and KFENCE name each report based on the
-object occupying that address, which explains why the same issue is
-reported under so many different titles.  In the report I sent, the
-address fell in a free page, which KASAN labels use-after-free.
+This patch (of 6):
 
-There are known reproducers.  Both a syzkaller and a C reproducer are
-available from the Google Drive link [1] in my report thread.  The
-issue was found by our modified syzkaller, not a theoretical thing
-found by an LLM.  I have not seen it outside fuzzing, so it is not
-affecting me in the real world.
+The cmpxchg() in panic_try_force_cpu() makes sure that only one CPU tries
+to redirect panic() to the requested CPU.  It is similar to the cmpxchg()
+in panic_try_start() which makes sure that only one CPU does the panic(). 
+In both situations, only the winner of cmpxchg() should proceed further. 
+Other CPUs should go offline.
 
-The local quota file in OCFS2 is divided into chunks, and each chunk
-begins with a header block holding a bitmap of the quota entries that
-chunk has handed out.  Chunks are numbered from zero, and that number is
-used to convert the file offset of an entry back into a bit position in
-the bitmap.  ocfs2_local_quota_add_chunk() appends a new chunk to the
-in-memory list and numbers it one past the chunk that was last:
+There is a bug because the cmpxchg loser returns false and falls through
+into vpanic().  Two non-target CPUs A and B panic, the requested CPU is C:
 
-	list_add_tail(&chunk->qc_chunk, &oinfo->dqi_chunk);
-	chunk->qc_num = list_entry(chunk->qc_chunk.prev,
-				   struct ocfs2_quota_chunk,
-				   qc_chunk)->qc_num + 1;
+             cpu A                          cpu B
+          ----------                     ----------
+    panic()                              panic()
+    vpanic()                             vpanic()
+    panic_try_force_cpu()                panic_try_force_cpu()
+        cmpxchg wins                        cmpxchg fails
+        redirect = A                        old_cpu = A
+        IPI -> C                            return false      <- BUG
+        return true                     panic_try_start() wins
+    panic_smp_self_stop()                __crash_kexec() on B
+    (A stops)                            (target C bypassed)
 
-The predecessor is looked up after the new chunk is added to the list, so
-if the list was empty, the prev pointer is the list head itself.  The head
-is the dqi_chunk member of struct ocfs2_mem_dqinfo and is not a chunk, so
-reading qc_num through it lands 16 bytes past the start of the head, on
-the dqi_gqinode pointer that follows it.  The first chunk of the file is
-then numbered with the lower half of a kernel pointer instead of 0.
+The loser must stop, not fall through.  It cannot just return true,
+though.  A CPU that already won the redirect cmpxchg can reenter
+panic_try_force_cpu() on the same CPU, for example a nested NMI during the
+message formatting, before the IPI is sent:
 
-The list is empty when the local quota file header claims the file has no
-chunks.  ocfs2_local_read_info() takes dqi_chunks from that header without
-validating it, so an image with dqi_chunks == 0 takes this path when the
-first quota entry is allocated.
+             cpu A (1st)                  cpu A (nested)
+          ----------                     ----------
+    panic()
+    vpanic()
+    panic_try_force_cpu()
+        cmpxchg wins (redirect = A)
+        vsnprintf(msg) ...
+            <-- NMI, nested panic -->
+                                     panic()
+                                     vpanic()
+                                     panic_try_force_cpu()
+                                         cmpxchg fails
+                                         old_cpu == A (this CPU)
+                                         return true   <- would halt
+                                     panic_smp_self_stop()
+                                     (IPI never sent, panic abandoned)
 
-ocfs2_create_local_dquot() turns the bad number into a file offset with
-ol_dqblk_off(), which shifts a 32-bit block number left by the block size
-bits, so the top bits of such a large block number are lost. 
-ocfs2_local_release_dquot() turns the offset back into a bit index with
-ol_dqblk_chunk_off(), using the full chunk number, so the lost bits push
-that index far outside the bitmap, and clearing it corrupts unrelated
-memory.
+Check old_cpu against this_cpu so a second call from the same CPU returns
+false and falls through to panic_try_start() instead.
 
-Compute the chunk number before putting the chunk on the list, and use 0
-when the list is empty.
+Also fix the panic_in_progress() check.  We must not redirect when
+panic_cpu is already assigned.  Return true to stop when the panic is on
+another CPU, false to proceed when it is this one.
 
-Link: https://lore.kernel.org/20260914034940.4070970-1-r772577952@gmail.com
-Link: https://drive.google.com/drive/folders/1-LzPTgOALEc3eOjmgM6oOfRKkYXJ-bnO?usp=drive_link [1]
-Fixes: 9e33d69f553a ("ocfs2: Implementation of local and global quota file handling")
-Signed-off-by: Jiaming Zhang <r772577952@gmail.com>
+Update the panic_try_force_cpu() doc comment for the new return value
+semantics.
+
+Link: https://lore.kernel.org/20260916182957.7788-1-brads@mainlining.org
+Link: https://lore.kernel.org/20260916182957.7788-2-brads@mainlining.org
+Fixes: 2e171ab29f91 ("panic: add panic_force_cpu= parameter to redirect panic to a specific CPU")
+Signed-off-by: Bradley Morgan <brads@mainlining.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Closes: https://lore.kernel.org/lkml/CANypQFZ05tpth0Xc33gmP6jgPnkY4VuezyHcsajV-SqCsmN_gg@mail.gmail.com/
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Assisted-by: Claude Code:claude-opus-5
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Junxiao Bi <junxiao.bi@oracle.com>
-Cc: Changwei Ge <gechangwei@live.cn>
-Cc: Jun Piao <piaojun@huawei.com>
-Cc: Heming Zhao <heming.zhao@suse.com>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260705164123.18746-1-include@grrlz.net
+Closes: https://sashiko.dev/#/patchset/20260707172252.4842-1-include@grrlz.net
+Reviewed-by: Petr Mladek <pmladek@suse.com>
+Cc: Guenetr Roeck <linux@roeck-us.net>
+Cc: Wang Jinchao <wangjinchao600@gmail.com>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>
 Cc: <stable@vger.kernel.org>
 ---
 
- fs/ocfs2/quota_local.c |    9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ kernel/panic.c |   19 ++++++++++++-------
+ 1 file changed, 12 insertions(+), 7 deletions(-)
 
---- a/fs/ocfs2/quota_local.c~ocfs2-fix-chunk-number-of-the-first-chunk-in-a-local-quota-file
-+++ a/fs/ocfs2/quota_local.c
-@@ -1071,10 +1071,13 @@ static struct ocfs2_quota_chunk *ocfs2_l
- 		goto out;
+--- a/kernel/panic.c~panic-fix-redirect-cpu-race-in-panic_try_force_cpu
++++ a/kernel/panic.c
+@@ -371,8 +371,9 @@ int __weak panic_smp_redirect_cpu(int ta
+  * for the crash kernel to function correctly. This function redirects
+  * panic handling to the CPU specified via the panic_force_cpu= boot parameter.
+  *
+- * Returns false if panic should proceed on current CPU.
+- * Returns true if panic was redirected.
++ * Returns true when this CPU must stop: the panic was redirected or is
++ * already running on another CPU.
++ * Returns false when panic() should proceed on this CPU.
+  */
+ __printf(1, 0)
+ static bool panic_try_force_cpu(const char *fmt, va_list args)
+@@ -396,16 +397,20 @@ static bool panic_try_force_cpu(const ch
+ 		return false;
  	}
  
-+	if (list_empty(&oinfo->dqi_chunk))
-+		chunk->qc_num = 0;
-+	else
-+		chunk->qc_num = list_entry(oinfo->dqi_chunk.prev,
-+					   struct ocfs2_quota_chunk,
-+					   qc_chunk)->qc_num + 1;
- 	list_add_tail(&chunk->qc_chunk, &oinfo->dqi_chunk);
--	chunk->qc_num = list_entry(chunk->qc_chunk.prev,
--				   struct ocfs2_quota_chunk,
--				   qc_chunk)->qc_num + 1;
- 	chunk->qc_headerbh = bh;
- 	*offset = 0;
- 	return chunk;
+-	/* Another panic already in progress */
++	/*
++	 * Don't redirect when a panic is already in progress. Stop this
++	 * CPU when it's another one, proceed when it's this one.
++	 */
+ 	if (panic_in_progress())
+-		return false;
++		return panic_on_other_cpu();
+ 
+ 	/*
+-	 * Only one CPU can do the redirect. Use atomic cmpxchg to ensure
+-	 * we don't race with another CPU also trying to redirect.
++	 * Only one CPU can do the redirection. Others should go offline.
++	 * Continue with panic() when we already tried the redirection
++	 * from this CPU before, for example via nmi_panic().
+ 	 */
+ 	if (!atomic_try_cmpxchg(&panic_redirect_cpu, &old_cpu, this_cpu))
+-		return false;
++		return old_cpu != this_cpu;
+ 
+ 	/*
+ 	 * Use dynamically allocated buffer if available, otherwise
 _
 
-Patches currently in -mm which might be from r772577952@gmail.com are
+Patches currently in -mm which might be from brads@mainlining.org are
 
+watchdog-perf-one-digit-too-short-in-the-raw-event-config-copy.patch
 
