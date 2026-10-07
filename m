@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EACA92DEA7B;
-	Wed,  7 Oct 2026 00:50:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AECC3033EB;
+	Wed,  7 Oct 2026 00:51:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791334253; cv=none; b=q8Y2FlluL9l1BQ3g1RWfZZwX3I1O/057wgbILtEkby5CzyDo4N3LolZObCMswTM1IYuzR44s003yOZp6lM0hqbaGkTZfo70LC/BHgrWDyEQIHhratLfAfOuFRm1/I2Yv6lfzUKVTTi4XqcCWWKB70u+YqqO0vTn4dFSbQVu7Ans=
+	t=1791334273; cv=none; b=d954rfCBkdjsU+Hsw5SCZHHVKuyHk6439zMAzqUMIAUnO3dc7I79W14KnJ89o78D7syIaGkN09Rxf93bAKJZPhSXTy0SSCcKcXWZDfU6bUgAqALwL/9cmzokRtXoMqz8oLagMrxrRxQRQ7aTRIAqsglLZoXj0D9oPwj1Dhz867s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791334253; c=relaxed/simple;
-	bh=fCRU6JP/I25ZWafqbv3lw9P88cVHVEKhoU1PsRUwS0I=;
-	h=Date:To:From:Subject:Message-Id; b=DiIMe8WA8K3VZvG1fC1djlhMac7EBC2fcM27Svs/8v/MCoEOFHNZ6Dy3V3sUQyS5N/I1HhjO2qI2BEQheGVzM/mxqfSoVl6Rl1N2iN2iwJ3VZzB+dQyP+sMQGgcdaJ7kOTdQ2fuBvgZ3QhqmtpiHWifcGSk9P5m5MqkhvLyeBWY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=xcqT7hi5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791334273; c=relaxed/simple;
+	bh=nRebXaQGjXgbMxl3PAnfIIP/xjygcSSt0oedEithBGs=;
+	h=Date:To:From:Subject:Message-Id; b=pTuO1umiBRi6ng/imV/rT7cr0IMunt9j70Tcn5QcMmIoDWrxs/3OV5jkUEi4LHXV4oJQMf0LIA8eznH0FWwcVbNVb4FFVjYa4bhN+KBov8OIRXqcWA4+sliBktfkAC577bA19oW9abcL36g8CdzCKHSd/Wf65Dn+9+1cn2Ij9iY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=iO2cXwz7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="xcqT7hi5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5B791F0089C;
-	Wed,  7 Oct 2026 00:50:51 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="iO2cXwz7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F6111F0089C;
+	Wed,  7 Oct 2026 00:51:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791334251;
-	bh=mGMMN/PsER/9xIWmXKsNdjhK94fak7WLw3mGjhe/m8k=;
+	d=linux-foundation.org; s=korg; t=1791334272;
+	bh=XFpOPKLXCCm6Ib5+aPbEyd3OlC4TjA7W6JKSt2QEngE=;
 	h=Date:To:From:Subject;
-	b=xcqT7hi5nlVDwUmAbbUMWP83euqM9aFOTedIvBBPnV7Fq6LRiKAln8KvDAz+gjGKf
-	 a5DTs81yNSz9xpnrxDyMiev/uMJyJ9Sa8FBVi6w3jvJYftyLVjlnTi/p4PuaEojQCn
-	 mKNMOLtXyShrXFSowkSBO0HYgwIpmjpCa6MrcLtc=
-Date: Tue, 06 Oct 2026 17:50:51 -0700
-To: mm-commits@vger.kernel.org,ziy@nvidia.com,ying.huang@linux.alibaba.com,vbabka@kernel.org,stable@vger.kernel.org,ryan.roberts@arm.com,rakie.kim@sk.com,matthew.brost@intel.com,ljs@kernel.org,liam@infradead.org,lance.yang@linux.dev,joshua.hahnjy@gmail.com,jannh@google.com,dev.jain@arm.com,david@kernel.org,byungchul@sk.com,baolin.wang@linux.alibaba.com,baohua@kernel.org,balbirs@nvidia.com,apopple@nvidia.com,gourry@gourry.net,akpm@linux-foundation.org
+	b=iO2cXwz77hIQjt2LAYTj4w6J2adZJF2ivzyFjEi/bPLcapGf87mn3wapHUHHkGA/P
+	 O7vDVVrW7FGKRkxLN2SYTRCF2fIXtJBbWUVFNs7VTjStGa+1qICIoI6yCT36shM/2G
+	 +bcpmf0hjJLTenREuNSQ94jTK9Q4VTtmbdFQi/xE=
+Date: Tue, 06 Oct 2026 17:51:11 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,shakeel.butt@linux.dev,roman.gushchin@linux.dev,muchun.song@linux.dev,mhocko@kernel.org,hannes@cmpxchg.org,joe@dama.to,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] mm-mempolicy-skip-zone-device-folios-when-queueing-folios.patch removed from -mm tree
-Message-Id: <20261007005051.C5B791F0089C@smtp.kernel.org>
+Subject: [merged mm-stable] mm-memcontrol-raise-memcg_max-for-charges-that-fail-without-reclaiming.patch removed from -mm tree
+Message-Id: <20261007005112.4F6111F0089C@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,89 +35,129 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: mm/mempolicy: skip zone device folios when queueing folios
+     Subject: mm: memcontrol: raise MEMCG_MAX for charges that fail without reclaiming
 has been removed from the -mm tree.  Its filename was
-     mm-mempolicy-skip-zone-device-folios-when-queueing-folios.patch
+     mm-memcontrol-raise-memcg_max-for-charges-that-fail-without-reclaiming.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Gregory Price <gourry@gourry.net>
-Subject: mm/mempolicy: skip zone device folios when queueing folios
-Date: Mon, 17 Aug 2026 18:08:10 -0400
+From: Joe Damato <joe@dama.to>
+Subject: mm: memcontrol: raise MEMCG_MAX for charges that fail without reclaiming
+Date: Mon, 31 Aug 2026 10:48:35 -0700
 
-queue_folios_pte_range() already pairs vm_normal_folio() with an explicit
-folio_is_zone_device() check before adding folios to the migration
-pagelist.
+Charges that exceed memory.max and return through the nomem label can
+raise no event and simply return -ENOMEM.
 
-vm_normal_folio() alone does not reject zone device memory (a present
-device-coherent page in a normal VMA is returned as "normal").
+A non-blocking charge can hit the limit, get rejected, but is not visible
+in memory.events.
 
-Mirror the explicit check in queue_folios_pmd() as well.
+This was noticed in a production setting where bpf_mem_alloc() attempted
+to refill its per-cpu freelists, which triggered a non-blocking charge
+while at the limit.
 
-queue_folios_pmd() uses pmd_folio() directly and can encounter a present
-zone device PMD - e.g. a device-coherent THP.
+Commit d6e103a757fa ("mm: memcontrol: do not miss MEMCG_MAX events for
+enforced allocations") added raised_max_event to cover charges that are
+force charged without ever reaching reclaim, but charges that are rejected
+outright were left out.  Getting an allocation failure without the
+corresponding MEMCG_MAX event is unexpected and makes debugging and
+monitoring harder.
 
-This is not filtered by existing checks:
-  !pmd_present()   - only rejects non-present device-private and
-                     migration entries
+Raise the event on the way out for rejected charges as well, by routing
+the -ENOMEM return through the same exit path that already covers forced
+charges.  The existing behavior of raising a MEMCG_MAX event on every
+charge/reclaim/retry iteration is left unchanged.
 
-  vma_migratable() - excludes DAX and VM_PFNMAP.
+Tested with a module that performs accounted GFP_NOWAIT page allocations
+from a task in a cgroup at its memory.max, and measures the resulting
+memory.events:max delta.  Without this patch the rejected charges raise no
+event at all; with it the delta matches the number of rejected charges
+exactly.  A GFP_KERNEL|__GFP_NORETRY control, which reaches reclaim,
+raises the same two events per failed charge before and after, confirming
+the existing charge/reclaim/retry accounting is unchanged.
 
-The early return also means such a folio is no longer counted in
-qp->nr_failed under MPOL_MF_STRICT.  This is the same pattern used by
-queue_folios_pte_range() (skipping zone device without failing).
-
-Link: https://lore.kernel.org/20260817220810.1175596-4-gourry@gourry.net
-Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Link: https://lore.kernel.org/20260831174836.3102406-1-joe@dama.to
+Fixes: d6e103a757fa ("mm: memcontrol: do not miss MEMCG_MAX events for enforced allocations")
+Signed-off-by: Joe Damato <joe@dama.to>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Balbir Singh <balbirs@nvidia.com>
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Tested-by: Lance Yang <lance.yang@linux.dev>
-Cc: Alistair Popple <apopple@nvidia.com>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Barry Song <baohua@kernel.org>
-Cc: Byungchul Park <byungchul@sk.com>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>
-Cc: Jann Horn <jannh@google.com>
-Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Rakie Kim <rakie.kim@sk.com>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>
+Suggested-by: Shakeel Butt <shakeel.butt@linux.dev>
+Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Michal Hocko <mhocko@kernel.org>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>
 Cc: <stable@vger.kernel.org>
 ---
 
- mm/mempolicy.c |    2 ++
- 1 file changed, 2 insertions(+)
+ mm/memcontrol.c |   28 ++++++++++++++++------------
+ 1 file changed, 16 insertions(+), 12 deletions(-)
 
---- a/mm/mempolicy.c~mm-mempolicy-skip-zone-device-folios-when-queueing-folios
-+++ a/mm/mempolicy.c
-@@ -679,6 +679,8 @@ static void queue_folios_pmd(pmd_t *pmd,
- 		return;
- 	}
- 	folio = pmd_folio(pmdval);
-+	if (folio_is_zone_device(folio))
-+		return;
- 	if (is_huge_zero_folio(folio)) {
- 		walk->action = ACTION_CONTINUE;
- 		return;
+--- a/mm/memcontrol.c~mm-memcontrol-raise-memcg_max-for-charges-that-fail-without-reclaiming
++++ a/mm/memcontrol.c
+@@ -2685,10 +2685,11 @@ static int try_charge_memcg(struct mem_c
+ 	bool raised_max_event = false;
+ 	unsigned long pflags;
+ 	bool allow_spinning = gfpflags_allow_spinning(gfp_mask);
++	int ret = 0;
+ 
+ retry:
+ 	if (consume_stock(memcg, nr_pages))
+-		return 0;
++		return ret;
+ 
+ 	if (!allow_spinning)
+ 		/* Avoid the refill and flush of the older stock */
+@@ -2799,17 +2800,12 @@ nomem:
+ 	 * put the burden of reclaim on regular allocation requests
+ 	 * and let these go through as privileged allocations.
+ 	 */
+-	if (!(gfp_mask & (__GFP_NOFAIL | __GFP_HIGH)))
+-		return -ENOMEM;
++	if (!(gfp_mask & (__GFP_NOFAIL | __GFP_HIGH))) {
++		ret = -ENOMEM;
++		goto out;
++	}
+ force:
+ 	/*
+-	 * If the allocation has to be enforced, don't forget to raise
+-	 * a MEMCG_MAX event.
+-	 */
+-	if (!raised_max_event)
+-		__memcg_memory_event(mem_over_limit, MEMCG_MAX, allow_spinning);
+-
+-	/*
+ 	 * The allocation either can't fail or will lead to more memory
+ 	 * being freed very soon.  Allow memory usage go over the limit
+ 	 * temporarily by force charging it.
+@@ -2818,7 +2814,15 @@ force:
+ 	if (do_memsw_account())
+ 		page_counter_charge(&memcg->memsw, nr_pages);
+ 
+-	return 0;
++out:
++	/*
++	 * Don't forget to raise a MEMCG_MAX event for forced or rejected
++	 * requests.
++	 */
++	if (!raised_max_event)
++		__memcg_memory_event(mem_over_limit, MEMCG_MAX, allow_spinning);
++
++	return ret;
+ 
+ done_restock:
+ 	if (batch > nr_pages)
+@@ -2877,7 +2881,7 @@ done_restock:
+ 	    !(current->flags & PF_MEMALLOC) &&
+ 	    gfpflags_allow_blocking(gfp_mask))
+ 		__mem_cgroup_handle_over_high(gfp_mask);
+-	return 0;
++	return ret;
+ }
+ 
+ static inline int try_charge(struct mem_cgroup *memcg, gfp_t gfp_mask,
 _
 
-Patches currently in -mm which might be from gourry@gourry.net are
+Patches currently in -mm which might be from joe@dama.to are
 
-mm-memory_hotplug-factor-out-node_is_memoryless.patch
-mm-mempolicy-use-vm_normal_folio_pmd-in-queue_folios_pmd.patch
-mm-madvise-use-vm_normal_folio_pmd-in-cold-pageout-pmd-range.patch
-mm-refactor-find_next_best_node-to-find_next_best_node_in.patch
-mm-page_alloc-refactor-build_node_zonelist-out-of-build_zonelists.patch
-proc-task_mmu-handle-special-pmds-in-clear_refs-and-pagemap.patch
-mm-madvise-reclaim-isolated-folios-if-pte-restart-fails.patch
-mm-madvise-use-folio_trylock-in-the-cold-pageout-pmd-split.patch
 
