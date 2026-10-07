@@ -1,138 +1,65 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3737836920C;
-	Wed,  7 Oct 2026 14:04:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BFFA3CFF44;
+	Wed,  7 Oct 2026 14:08:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791381902; cv=none; b=q0N8U4WYFC7wZkTi7kz+Xbc1uVIbhDFW3GqoaI69tmhOs8xFIVkDIGkRWThHB/EpurrQqdShjxXDClwE7+YFDedf2ECZpODsq8h3jGoZrk1Ws5skPkLTd6eg5MdEE0gKvQq3mbFFpOuaEOrL8fTSOlk1UVw71Vq0GIkZEehpIeM=
+	t=1791382118; cv=none; b=sQsG0q7sunmwY0xNp+RO4BHvA08nl0mrtiNP55eb/+S3p1+vZECzxcGijler+dXkYU3SgKKg4F5k9pwmmx4v4GVn+tc2Ql8n/LRo+SjyM/p1+x9Ci1QtZFrmqnYbQ5JZwvNm4e5dKAsolGiE3eh7dcs9jGZriLw4Qv2QCGcq5tQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791381902; c=relaxed/simple;
-	bh=PbwuoTc+gBHz0AcD+4yhyq/HboT0WdObEUu9FDg0ckc=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gDb4doDPwzD/14ZTHg32zMrS802ofUYK57eBN5MYKx+YEJ08OgvYT2O51/ItHvsyaN5a3oC6dZa4fkWUkQnGqbYLiuVh02JXaSgKLx/xnY97DPS0Dnalt19g6Ba0cOjdRIqBm11OJzhQa/ORuePzz84ODEET8wnq5mdAZ1oQgdI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=pVFQR6PD; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=8l4/5QZk; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=uH5ZSvSv; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=tG86S2IA; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1791382118; c=relaxed/simple;
+	bh=ly9XlIWO7SNAZRIqp2lxz5hQox0nAIyJA1JKW7wN+7k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=URekgn0g0wWhEmToNOxVOhkAti3qHL7TR5bkAUnNrOMlmf4tqf38O8wTNIcQpn8Dc0CbvsZDoceIk/YepYKDakNAL+XQHrEHEeLe7dxGutIG0ohv+qLQM/ayDtX6YhJEwJUWse3/v2KTqMV//0G2sFldsFQ8B0nMVT2/Xoze9JI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HmxEu2so; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="pVFQR6PD";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="8l4/5QZk";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="uH5ZSvSv";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="tG86S2IA"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id D0DE61F443;
-	Wed,  7 Oct 2026 14:04:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791381891; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9zdSmLzev2n3sftdz+1rh2aD0yt5DHgo8KO/DZ7WqPM=;
-	b=pVFQR6PD8lNaHL/0KYc5KYdPq9+yOHjwggs5VgtVHK6xrNXAjLDriy6FSjUMYcbjSOFioO
-	6RvtdfzuR/uh29srQFe0RlPS00aVzIo38m53ECy9M9g4C+vHfPYsuwLQ6TRIdqW/obBlWo
-	lz0h0EAFHam7czpGqaAGRT1aDlEdvY8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791381891;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9zdSmLzev2n3sftdz+1rh2aD0yt5DHgo8KO/DZ7WqPM=;
-	b=8l4/5QZkkwbiYqUiIGEtPhk3wILvZB0Rg3/xervcZh8YBpnt1qub1szL/UNPsK+KKV3hlL
-	EIGB8/LyE7KdErCw==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=uH5ZSvSv;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=tG86S2IA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791381889; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9zdSmLzev2n3sftdz+1rh2aD0yt5DHgo8KO/DZ7WqPM=;
-	b=uH5ZSvSvNjndg2wCfvM4yIMhECoJ/8uzWTXlSTOYvleRPVhTG3/Ih7c/ZAdCcyep9PpUnu
-	ttJEacYiE8w/hTMRMlRm3BL21sJumM+7soZjY+TPx174XK4n/DLLJTmVNcWh18aFAHBEhi
-	P/P//i2Ae+Vko4PSTwPGn7rqUzzLgvk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791381889;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9zdSmLzev2n3sftdz+1rh2aD0yt5DHgo8KO/DZ7WqPM=;
-	b=tG86S2IAgR8I9Dfc2DhsSZrRJaaDaGtCvUdiT9J+i6RSzorxbL7yNfrBbmp+PYguw/P8W5
-	KrzzZM4EnSnj80DA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8DDC113312;
-	Wed,  7 Oct 2026 14:04:49 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id SBGiGYFRxmq3MgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 07 Oct 2026 14:04:49 +0000
-Date: Wed, 07 Oct 2026 16:04:49 +0200
-Message-ID: <878q49obcu.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HmxEu2so"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56CBF1F0089C;
+	Wed,  7 Oct 2026 14:08:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791382112;
+	bh=wdGBnmJo0G8e6Ec+59NfLbmqPYZR7HHVL+Briols/fQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HmxEu2soBRSJ08Q2ySLT0QTkrtQCPKkAiKoQy9sS3JRyJSD8sVb3Dh5V3BUloprh9
+	 AMpNmoWnlIOUzZ3mwneM9/mp4EVdQMPOGyDaf1cyAcbBa9aLy6+717zOnW2YQEnVw3
+	 1QQCBAgqrJKxpEVVHGIzSbWy4XxDIFzYcam99AIBfYdHFA6h3UwJJ739/LGk+EDlY7
+	 rlHEoWnRxqXtDMvT3GyLEVUX6dGQMbGBLq10656toec4OO/J4fae/jLOyzUnzIyQbl
+	 PkEdMoVC3FZjXOGIBWD7Tu8xY+Di2WYX2KeFDOnfqbEa5SQ137RKCuUrDBXiQfHOwp
+	 tMj7wMUNki3TA==
+Date: Wed, 7 Oct 2026 16:08:29 +0200
+From: Vinod Koul <vkoul@kernel.org>
 To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Cc: vkoul@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	pierre-louis.bossart@linux.dev,
-	linux-sound@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/4] ALSA: compress: fix buffer leak on repeated SET_PARAMS
-In-Reply-To: <20261007132509.18237-2-peter.ujfalusi@linux.intel.com>
+Cc: perex@perex.cz, tiwai@suse.com, pierre-louis.bossart@linux.dev,
+	linux-sound@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/4] ALSA: compress: fix buffer leak on repeated
+ SET_PARAMS
+Message-ID: <asZSXcCLvucipgWs@parshuram>
 References: <20261007132509.18237-1-peter.ujfalusi@linux.intel.com>
-	<20261007132509.18237-2-peter.ujfalusi@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+ <20261007132509.18237-2-peter.ujfalusi@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Flag: NO
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-4.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	DWL_DNSWL_LOW(-1.00)[suse.de:dkim];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-0.998];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_TLS_ALL(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:email,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Action: no action
-X-Spam-Score: -4.51
-X-Spam-Level: 
-X-Rspamd-Queue-Id: D0DE61F443
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261007132509.18237-2-peter.ujfalusi@linux.intel.com>
 
-On Wed, 07 Oct 2026 15:25:06 +0200,
-Peter Ujfalusi wrote:
-> 
+On 07-10-26, 16:25, Peter Ujfalusi wrote:
 > snd_compr_allocate_buffer() unconditionally overwrites
 > stream->runtime->buffer with a freshly kmalloc'd buffer whenever the
 > driver has no ops->copy and no preallocated dma_buffer_p. SET_PARAMS
 > is permitted repeatedly while the stream is in the OPEN state, so a
 > local process can loop SNDRV_COMPRESS_SET_PARAMS and leak the
 > previous buffer on every call, exhausting kernel memory.
+
+
+Logically this looks right but then I dont think we have or we would
+want a case where we are allowing buffer changes on the fly. Set params
+on the fly would set some params like code properties etc and not code
+type or buffer ones...
+
 > 
 > Free any framework-owned buffer before replacing it, mirroring the
 > ownership check already used in snd_compr_free().
@@ -156,13 +83,11 @@ Peter Ujfalusi wrote:
 > +	if (!stream->runtime->dma_buffer_p)
 > +		kfree(stream->runtime->buffer);
 > +
+>  	stream->runtime->buffer = buffer;
+>  	stream->runtime->buffer_size = buffer_size;
+>  params:
+> -- 
+> 2.56.0
 
-I'd rather put to the else block above (or even better, if
-(stream->runtime->dma_buffer_p) block above that point).
-
-The code is specific to that condition, after all.
-
-
-thanks,
-
-Takashi
+-- 
+~Vinod
