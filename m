@@ -1,129 +1,200 @@
-Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 630F8363C6F
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 03:47:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66CC33B774D
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 03:57:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791344843; cv=none; b=INM7mgg2OP4Fc08OWesvV4xjSjbg3kcnu7TSy/ZV80RYV9p5nKLq8VU+a/EsVOGtZOwmp/yfxHbppyJhjHul00vyZ1ljiY+kJ/QH/uSGgY77IOE3xDUrryzU/5UGMBB5yk8LFO2wEL6Ymv7+uN/y2fj7PrUjd4GcAUo20uLyE/Q=
+	t=1791345468; cv=none; b=ApaAet3vYYDKcmqMXokb0b57Kuin7OJqeoJ8teyZ3BIbId29GTybGmpJ/vSBxbPHM4RAEzi7BTOq1+eCqdlTAj92lYnDsFeC2KR0nnHMcFaCM8ONRu2UdCjve7ePbHiVsC9HtDNLOJ6Famm9uwUnVBDw6N4575dKnT1BUxv8s6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791344843; c=relaxed/simple;
-	bh=P7R8JZjiBrTHiAAONEx9yZI6Ih9pbShIqDH/cZv1PHY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hp2MnYhgUBzqcMjLo8nESPEAgeLqQAnwgQ4p9AUX412c83fWHehNcg19asbpJIUxLOxz+xmMN+yiRr8jB6zy5dEAxYfETJ0JeJjHKWCtRaxf/6JrpSCmtle3mmolXTze97pSTeTOHt6WK0ckSrldYOHA1qfuOitoEHI09+Dwu7s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=dSSXB0I/; arc=none smtp.client-ip=209.85.161.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
+	s=arc-20240116; t=1791345468; c=relaxed/simple;
+	bh=yNeF2VfrlVcw4qcdr9g71l1ukl3FUd+CWTZt6ay+YbU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CSQ10rN4OtTP+bVMfmyIALxiRQwVDxwxClHFFEl4cJhx3kxTfl+dKvQ6hw9Q+gIVNNC+tV1qWSey9EPlZUoJTE2KtvUt93XjYYFs9g+pWWZKoKuwkm3UX8B6a5jvIpQ3tvvH/dYHUjvoQAD7UAazHRlpQWbqKqY9Orp+3lZhFig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bECzfwFO; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="dSSXB0I/"
-Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-6de1fd5f572so596791eaf.3
-        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 20:47:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bECzfwFO"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3a865731ee4so1189176a91.2
+        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 20:57:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1791344841; x=1791949641; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Lt1iwnmKZ6euKsofomnQEm4d0oQu1LOx3t5oA2yJCYg=;
-        b=dSSXB0I/kORu84IXeIDftaUPD1HSbMiBA4UnM9MSpFHJbxFBygr1DFXL3cDVmonAwo
-         aKbLB3RwWhslvpbJf4SDZ4zDoQDPVdQ0CM4Z9zirL9yG+V+nPcj5GKS+WGUUCQA6Fp3Z
-         m/tCNQJsEsGAA3syZ4w0RSS3V4sE2+5IZF0Y4=
+        d=gmail.com; s=20251104; t=1791345466; x=1791950266; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3hjMMWqILo+RQ+ZlMN41DDpi4TQ1W3WpbzPCHm6Qne8=;
+        b=bECzfwFOD9YX/RclfM3IOCeMkbrFevDI8Z07dCtIpfGSMs+6k4RKmfIoHCZo2aPe2K
+         kCVaoPMtRkzxOe4G3hIfC3wzvIz2si4T2JUJ957yXDtuH0VBrGrqBWbr2K1Wil1kCZOk
+         QvIgv91bkTXaEguO1E9jWacEvy0DYXcYdwuMeHIufblKBlZuWDMGjgbdL43y3EYClN0j
+         8KSbsGGrSTDt2dpvjYqKY+PspurDOxDdp53u8S12ZtWq7idfNZGMdXqTs4WHa3FItj+Q
+         V+lGFmilcAbCOpoDtvbCbjAI/CQYeVDqGunAqLAGIUcCp4CrSxe5N0xBmZedpwZxiMf8
+         Ui/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791344841; x=1791949641;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Lt1iwnmKZ6euKsofomnQEm4d0oQu1LOx3t5oA2yJCYg=;
-        b=Zt3+0EiF9QmUVrc7V7O2ULKSl4gIcpk+SxD6oQxNEkoA0Irv8yvaINqboviVWfAslw
-         pAui6NKghbSl3i7slRUNExTIBTexn6oMhwAwKnj9UcfH0s7ApeLe8Zk0YUrEWhmPFoFB
-         fBgiGNbYWfd+lXMZq8gxH51Zg72G+MtjAKg9Sle3md6ovWkIVWRsePd6XNi/xxJkARLK
-         9B7k63ur1RCexYAGfhtLM2wGH62s+YjYA977T9ayK5vj5zw+Qc5iNZoyvOnJ7sxSPknW
-         maiJvURtA4U+N5Oqpmi4dDa+ZdywECh28FKBr4hHbsKbtBn0aItCMnC8cFoO87KkTbAO
-         wbkw==
-X-Forwarded-Encrypted: i=1; AKwUvByPVQJcfJ3WhGCtLRaXtAWTDXTI3kH+BwineVYjKEjijpVILGA/8kxY0Sq9TZBuJwSUKAAcv+w=@vger.kernel.org
-X-Gm-Message-State: AFuF++mxA26O9HZZUqBkkhUBIaQ5tHUnVcZkEOOlu5/Y2qhkRcBBme2W
-	02su6J3gCwtfiedybzaAzC7tsFDvwV+hpWvPieqvsl5iWcjfBftWPEk49+bPOg4CJ8M=
-X-Gm-Gg: AYBFou1znoXA9hAxEBPlJg3hZ0cBMrb8XLKq/MTHfVdbOBHp+ChyejTA+6gKgrGXFI/
-	jRBWunXjc6TzzrOq2RpEulsxXTb9n0GiTbaTzVBTPiiRhgyX+/wR2jDKm52NAFpiaq3gl3FjkBg
-	tTRdibuIFb2jaoxKA6KTw+d0LqajWUouC5o4MTT7RgGxiZ9GF+1cE3pLGcnQovIvUaFYJ5WqYYq
-	9DL+iX6G8W2kbvUpR25Y+RNxPe0uWlZf94bdmpS6IgCMX/vuXn8VtZ0gStMNWavSYjzttiQnDlr
-	c6yJoiU4Ye5LI+Sp7Mc3Q1bg5Hse/3L3MFBWPPNFzgc5FEp4p6YSrjSE/9hu5HW05iXf3aebqGB
-	9Sja0hNZMSkkbHc8etxVgvDzU0qdRrrvxqj4hkv9M5AHMZxV8dlBPEzeHUTfHS2MpMRNIw0had4
-	8tcDvYeuuoX+Eqzoh83XV2obLpWoDI6iMwLWc3K176l4INUVENFB67XEDrOSvOhq1mpJ+ndr6Rs
-	nU1igx0JC+5yNG5EK7zdbHRWn0YvPQ2x4WbGa4asjgGGfF7DoTztg==
-X-Received: by 2002:a05:6820:80c5:b0:6d7:7979:bbb4 with SMTP id 006d021491bc7-6e7a58815abmr1344307eaf.7.1791344841160;
-        Tue, 06 Oct 2026 20:47:21 -0700 (PDT)
-Received: from com-75606 ([199.47.143.7])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6e79447d888sm1152148eaf.12.2026.10.06.20.47.20
+        d=1e100.net; s=20260707; t=1791345466; x=1791950266;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3hjMMWqILo+RQ+ZlMN41DDpi4TQ1W3WpbzPCHm6Qne8=;
+        b=baB07r0vS8m6PgRs3JzsgCVUuCCMqsJJqKXRBj7lQilWnmWIoau4sReqxLBnz9mZs0
+         IbSaC3lppufEd986BVB9EA4TPNO+vHTa6pMhq75MuouTqJNAkVelWEXUGcyGZok4Xho8
+         RvcK+nbyLmLf1ZjC1RWRGodJ7JcrYFDB4kKNknbM/GjlcYZ++SO3r+EuiJ+IPWx3qqtM
+         1RTmdWwYuUY+r4MpLkeEDG4ADT20qQ+hY3Pa+LvfbgRSI8EeW/gCloURneqyX7AqB0W3
+         XsKouMrTdnL7ZM2pC3V6fzlMBHuuaskq0RCAx5nviYzXJmIqkbFhDea6dlHWssEHMu4X
+         FeaQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwjJPYOWGU+RmZhEdUCHDdRxrarz0qqXUbBXnz/aYs354Gl1UpEKJfdZOMZ4yChPAASbn5pIsg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKf1tsb0EsANH4k1Z2OTTscPx8gwQC+jsqWi3cZjSY5Mhl90TIE
+	QUAbVxamiXrvd5ZRUFfm9vaKqXY4C/pyuV3B1aBe2jsMrQSxFANZs+iY
+X-Gm-Gg: AYBFou37AWhMYtDEczJn9YlILtgCHeSf+jOB1Sd2kKTC3yj3tuYPMCFbgvYNMqmujDt
+	2b0EMxd5d5P5rxX29K5JYi3BhjwUYQrDawqfZGFl1LLVsthFjP3Ks00eVdgbGbtZ5S7jpbt49hG
+	/1bnub+XhtOA4nkClwIV2EMJ7n28Roxl00leN4HeOaOOkynUZfTZqy+MOj5sPVGNSLk0zb/emgh
+	oq0/MmxmwO+gtv4HZ19X+mucUUJmVmD5ZkewZJKWNUn/WcO6/UripsCINXb4BTX965pxYAJgmZM
+	QZmyi6Fai1iuiCMTKHcsHa0aUukAufBUYqJs1o2ZsS+KO2BGmAhGjYwfBIRKKptiLNp5zQQYbTQ
+	1OAVlDRoRnnaQYwUSOk7AwUh5tP1mpy6+3tIILuEYXUZo6E74j6sFmyUyP9ocdZzyX3yDJu9Llt
+	bvYsQnomjjfwYeOm4zJcn8/10j1q4W8BWN2JETRaBaXX1JbF/bryMUSIvLRkXWxhh1mdf9tEjWf
+	PrhC8795IGtB9xChfTmUg==
+X-Received: by 2002:a17:90b:1344:b0:3a8:7bbc:3f3e with SMTP id 98e67ed59e1d1-3a8a1b0071cmr986825a91.41.1791345465698;
+        Tue, 06 Oct 2026 20:57:45 -0700 (PDT)
+Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a89b625d01sm2397749a91.14.2026.10.06.20.57.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 20:47:20 -0700 (PDT)
-Date: Tue, 6 Oct 2026 20:47:17 -0700
-From: Kyle Zeng <kylebot@openai.com>
-To: Masami Hiramatsu <mhiramat@kernel.org>
-Cc: linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	rostedt@goodmis.org, outbounddisclosures@openai.com,
+        Tue, 06 Oct 2026 20:57:45 -0700 (PDT)
+From: Daehyeon Ko <4ncienth@gmail.com>
+To: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+	Xin Long <lucien.xin@gmail.com>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-sctp@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Daehyeon Ko <4ncienth@gmail.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] tracing/filters: Check perf permissions before resolving
- .function
-Message-ID: <asXAxf0edslJI-Ge@com-75606>
-References: <20261006225112.53503-1-kylebot@openai.com>
- <20261007034423.310311F0089B@smtp.kernel.org>
+Subject: [PATCH net v2] sctp: revalidate output stream after association connect wait
+Date: Wed,  7 Oct 2026 12:57:39 +0900
+Message-ID: <20261007035739.3472432-1-4ncienth@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261007034423.310311F0089B@smtp.kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 07, 2026 at 03:44:20AM +0000, Masami Hiramatsu wrote:
-> On Tue, 06 Oct 2026 15:51:12 -0700, Kyle Zeng <kylebot@openai.com> wrote:
-> > perf_trace_event_perm() allows tracepoint counters that do not request
-> > PERF_SAMPLE_RAW without raw tracepoint permissions. A self-targeted,
-> > disabled event with exclude_kernel=1 can therefore reach the filter
-> > compiler even at perf_event_paranoid=2.
-> >
-> > The .function suffix accepts any field of sizeof(long) and resolves its
-> > operand through kallsyms_lookup_name() and kallsyms_lookup_size_offset().
-> > The success or failure of a numeric filter discloses whether an address
-> > belongs to a known kernel symbol range. On x86-64 this can be used to
-> > recover the randomized kernel image base. A named filter also exposes
-> > the resolved symbol range through the counter when the tracepoint field
-> > is controlled by the caller, as with a syscall argument.
-> >
-> > Pass the filter's perf origin to the predicate parser and require
-> > perf_allow_tracepoint() before resolving a .function operand. This uses
-> > the same sysctl, initial-namespace capability and LSM policy as raw
-> > tracepoint access, and closes both the numeric and named-symbol oracles.
-> > Do not change ordinary perf counting filters or filters created through
-> > the separately controlled tracefs interfaces.
-> 
-> Good catch!
-> 
-> >
-> > Fixes: e6745a4da964 ("tracing: Add a way to filter function addresses to function names")
-> > Cc: stable@vger.kernel.org
-> > Assisted-by: Codex:gpt-6-astra
-> 
-> nit: This should be 
-> 
-> Assisted-by: LLM
+When message interleaving is enabled, the first send waits for association
+establishment before building its data chunks.  The wait drops the socket
+lock, and handshake processing can reduce the output stream count to the
+peer-advertised inbound stream count.  sctp_stream_init() then frees the
+extension of every removed stream.
 
-Didn't know there was a change of convention. Should I send in a v2 or
-it will be picked up automatically?
+The sender resumes with the stream that it checked before the wait.  If the
+peer removed that stream, sctp_outq_tail() later dereferences its NULL
+extension.  Fatal-oops policies then panic the host.
 
-Thanks,
-Kyle
+KASAN: null-ptr-deref in range [0x38-0x3f]
+RIP: sctp_outq_tail+0x49e/0xaa0
+Call Trace:
+ sctp_primitive_SEND
+ sctp_sendmsg_to_asoc
+ sctp_sendmsg
 
-> 
-> > Signed-off-by: Kyle Zeng <kylebot@openai.com>
-> 
-> Reviewed-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> 
-> Thanks!
-> 
-> 
-> -- 
-> Masami Hiramatsu (Google) <mhiramat@kernel.org>
+A range check alone is insufficient.  Stream reconfiguration can grow the
+output count again while the lock is released without recreating extensions
+freed by the earlier shrink.  The stream can then be in range while its
+extension remains NULL.  The send-buffer wait has the same issue.
+
+Factor the range and extension checks into a helper and repeat both after
+each send-path wait that drops the socket lock.  Once the lock is
+reacquired, the validation remains stable through data creation and
+queueing.
+
+If validation fails after the connect wait, the auto-created association is
+already established.  Return ESRCH so the existing caller path keeps it
+under state-machine ownership instead of freeing it directly, which would
+leave protocol, counter and socket state inconsistent.
+
+Fixes: 668c9beb9020 ("sctp: implement assign_number for sctp_stream_interleave")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+---
+Changes in v2:
+- Repeat full stream validation after both send-path waits.
+- Recreate a missing stream extension after shrink followed by growth.
+- Return ESRCH after the connect wait to retain the live association.
+
+v1: https://lore.kernel.org/r/20261002010449.3689454-1-4ncienth@gmail.com
+
+ net/sctp/socket.c | 33 +++++++++++++++++++++------------
+ 1 file changed, 21 insertions(+), 12 deletions(-)
+
+diff --git a/net/sctp/socket.c b/net/sctp/socket.c
+index 4652fd90d9a6c4..aaeb58ce055771 100644
+--- a/net/sctp/socket.c
++++ b/net/sctp/socket.c
+@@ -1786,6 +1786,18 @@ static int sctp_sendmsg_check_sflags(struct sctp_association *asoc,
+ 	return 1;
+ }
+ 
++static int sctp_sendmsg_check_stream(struct sctp_association *asoc,
++				     struct sctp_sndrcvinfo *sinfo)
++{
++	if (unlikely(sinfo->sinfo_stream >= asoc->stream.outcnt))
++		return -EINVAL;
++
++	if (unlikely(!SCTP_SO(&asoc->stream, sinfo->sinfo_stream)->ext))
++		return sctp_stream_init_ext(&asoc->stream, sinfo->sinfo_stream);
++
++	return 0;
++}
++
+ static int sctp_sendmsg_to_asoc(struct sctp_association *asoc,
+ 				struct msghdr *msg, size_t msg_len,
+ 				struct sctp_transport *transport,
+@@ -1800,16 +1812,9 @@ static int sctp_sendmsg_to_asoc(struct sctp_association *asoc,
+ 	long timeo;
+ 	int err;
+ 
+-	if (sinfo->sinfo_stream >= asoc->stream.outcnt) {
+-		err = -EINVAL;
++	err = sctp_sendmsg_check_stream(asoc, sinfo);
++	if (err)
+ 		goto err;
+-	}
+-
+-	if (unlikely(!SCTP_SO(&asoc->stream, sinfo->sinfo_stream)->ext)) {
+-		err = sctp_stream_init_ext(&asoc->stream, sinfo->sinfo_stream);
+-		if (err)
+-			goto err;
+-	}
+ 
+ 	if (sp->disable_fragments && msg_len > asoc->frag_point) {
+ 		err = -EMSGSIZE;
+@@ -1830,10 +1835,9 @@ static int sctp_sendmsg_to_asoc(struct sctp_association *asoc,
+ 		err = sctp_wait_for_sndbuf(asoc, transport, &timeo, msg_len);
+ 		if (err)
+ 			goto err;
+-		if (unlikely(sinfo->sinfo_stream >= asoc->stream.outcnt)) {
+-			err = -EINVAL;
++		err = sctp_sendmsg_check_stream(asoc, sinfo);
++		if (err)
+ 			goto err;
+-		}
+ 	}
+ 
+ 	if (sctp_state(asoc, CLOSED)) {
+@@ -1848,6 +1852,11 @@ static int sctp_sendmsg_to_asoc(struct sctp_association *asoc,
+ 				err = -ESRCH;
+ 				goto err;
+ 			}
++			err = sctp_sendmsg_check_stream(asoc, sinfo);
++			if (err) {
++				err = -ESRCH;
++				goto err;
++			}
+ 		} else {
+ 			wait_connect = true;
+ 		}
+-- 
+2.55.0
