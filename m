@@ -1,43 +1,76 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A62B2F616A
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 06:11:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D13663546FC
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 06:21:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791353513; cv=none; b=IGjqz52r4Bc+Nf80Wi4mupzYvCflpuTv9AwBKFMQuyJyfxL2c3VTVt8Jr1ktJylgiaeX+6JVM1x57tqMFw2XPNRenJSv+T7ifdfxONGceVsZhMC8orSqjiCGPWCOwDxdFXW63kizz/1V5kT43noXjA9t92Il6AgHICNtMM7LOG4=
+	t=1791354114; cv=none; b=TN7LEBLDOsi9kwZvWE+EPPVt+xv0f4Gxel+j1GZV6GiZTPk5M643TvW+lOY1w2kf5PZT2HkNa8cBFPqKIHCAtOhNp8UQEYrxRMwz+9KWaDBKiTFN+a496ucky5m3JTqM+U+XVvlpO5dumxN4HI+dy7aVj3isyP7lIfWOY8yooN0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791353513; c=relaxed/simple;
-	bh=ygi8rZPnU/27Isf9aJxI1MNhrm+xvHj42T472cG8K1U=;
+	s=arc-20240116; t=1791354114; c=relaxed/simple;
+	bh=1IpiDcXZO6cmR758XcfRBABk089RXsqbT8ncmzLrEmk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=q81fYfPM8ub8wK6mjSoYbanYJ2e04QUoAvet6z6r/ctS410pqdmNjDz8JTcOgFqxIPUjVujxLqq/+DdoJIXtMMEO49HgCZwfXUmhQQybqicQ7YC4AYKp+TJFQeaY1nArEjBrtcXOCbhYYnsd1y7SQWbeqdNyap04EKhPGSUiUUc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TYbqiqS2; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=PR7/8UwclV43mydG5DhghARyqE7MssVcc9QS79n/KWc+xAIlQ1yasqN35vamKWXU0RcTekYUcg/1F5Sc9wnr4/oYxA6DAPpqND3zzzMsIYK8ceXlKFgUeppCZpgJfkE4Tpsx8lV8GlBw2Ly98Pk+jTMKStb5whelH0DJLswWnVI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BEu4/1z/; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TYbqiqS2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E415A1F0089B;
-	Wed,  7 Oct 2026 06:11:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791353512;
-	bh=fSrYGvzNvS6+qamV3LE47IX/OVt8m/PE36uq4FmlSwc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TYbqiqS2mfTNAs7w9578yhNfTmpeaTv0tAZH5YdXFE37GfZtic3xM9iIVNYePGHFY
-	 iUhuI47m0TcSTug9zO9aqAhXXR1nf/XsyqDiMFrzWWBZ6wYs42UoEIrt5fwT70Pf3T
-	 i31BGVxCrUoQBeYV7OKylAtVl7SeiZVlWvdlM+6jIJWMWZ6ak1aGihg9IeLXWZzXwn
-	 sqrG231zGJpio5opQU68STXt1sqhZktMf9EcAG/e2LJhDw802/LV+a7mCYeOe1Ad3M
-	 d7uo8j0fCoiM089btDIdQL7vAGJfrGzWYN6Sm96yytdSMEH17FDLabTLaesQphPhwP
-	 89wnLwkwq5A0Q==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Felix Fietkau <nbd@nbd.name>,
-	Andrea Pesaresi <andreapesaresi82@gmail.com>,
-	Johannes Berg <johannes.berg@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] wifi: mac80211: set info->band for 802.3 encap offload frames
-Date: Wed,  7 Oct 2026 02:11:48 -0400
-Message-ID: <20261007060910.1495101-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100533-rarity-deafening-ae05@gregkh>
-References: <2026100533-rarity-deafening-ae05@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BEu4/1z/"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4995b0343c1so23771965e9.3
+        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 23:21:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791354111; x=1791958911; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1IpiDcXZO6cmR758XcfRBABk089RXsqbT8ncmzLrEmk=;
+        b=BEu4/1z/NCGqgGz0z1Zaca0lOyYHOQsGsBeu9SAh4exFmlQGGo0hJ1O+ZdgREqh8Zr
+         6P0Df1Or5DsopF7X7WehU8lhGwvEDgnFA9ZdTrPgPf3zHLvo/+7YcCbI/MX8b6Oc6XAq
+         ax22oG7MrQjwfu1OARv9M4B+6rR3cGNHA+GPwbletEZZPZCTsSLyuJeO0ysR57M1No3g
+         CERiayGJH1Z5U+D6UMJR0fuHNPHyGvzI7of0g/PylYEtTwjduhxP0F90Lvd4Ms9uA6KF
+         rheX0ziOY7vMohEMrTPj1x3OXG1IT2NywPex0701UYEENfo+CL0MG1S3Of959an6+AOp
+         LjGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791354111; x=1791958911;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1IpiDcXZO6cmR758XcfRBABk089RXsqbT8ncmzLrEmk=;
+        b=GWjOFVxBu2ZNhHB+7wdiLz9Cp8AEDCWj3ovrwfKWDckB1oc7uPedyR6Mm83DUdn8Gz
+         wj+2mgtAmUPHSlWJqyW+aOGbdmqiw5WOBD62PcUVxUMUDampt24g4BWShgqJHwsiVCa/
+         4hLRQB3zJQ/ifZkULhC4uhkQtuYs3TKBXYuTdEagoKIsyxjMxwQv35+MNXdVme0A2j7Y
+         44MtHuW+0zasp4F6aDNjAJW0ELWhe9kCounvjD+T9/RZYj7ANrEJ6cN9BOpJeZWe0fpn
+         8ehJyeYl1HxJA2fTIm3/xTgtRGaD7sG0Hyx/PtOEFPyY/iNNIVRnU4w7i8C+hSmnKb+c
+         CiFg==
+X-Gm-Message-State: AFuF++k56nPlSgQ7zyQDxQVQ0JMxFlYVmWYIdgNfYvDWVzw3QMsXFPBI
+	T7HzhYGQsddzHb/h9msHqnnr5UEiacanx9vMPDJke4G1/b2VmX0iDOSL
+X-Gm-Gg: AYBFou1Kq7LCADZquEFn0JBfnPkSDRWH218kVSqxjMAOeNCKLdNFyUTWmsL7dpUyEtg
+	tAk7fnWeXw2J4lWZ0FdUpJRWCMExnjeWKKXIsRvbTvJyMXkTryjE3P084DpyAhr3QE4SDKXFISb
+	qNZGaboenDYCyq3XO3qM5k0Of7LHdAGDcRpG0vncesraBxk+iPQ58ZsIkv+DkGRu79lq8JP45lY
+	kHaKoaIGfIUGfy8gaNkcW7Mo3FyIEiid2hYNetnc2HVRVUpubu2b1EDrnEmMKzAwwLHQX07q+4z
+	flRBlSN6it7dkdmwfNovDUjP7ngiQrueM3OHtz/pALdvQrWpKUOfqdtSF7qnexWJhTN1dIDsPxe
+	52WeaYzMjLqG10KPi9pr8leNvX8mXwnw4Np8ZKP/bJxMrB1jTFTQSFHxoZHKyjVTX8d7+6FvlfK
+	82eNCD1HHl0Uceab3c77LlaRYBS3kHwwHR797Twe3jPpTKTybcUACN8qGQGej7TA96Cz8ZLwAsZ
+	8ARuWbdCVdfcOc=
+X-Received: by 2002:a05:600c:530e:b0:49f:ffd0:4039 with SMTP id 5b1f17b1804b1-4a1806504fdmr14110665e9.32.1791354110998;
+        Tue, 06 Oct 2026 23:21:50 -0700 (PDT)
+Received: from deb05.proceq.com ([213.160.61.66])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17f795f29sm37438205e9.11.2026.10.06.23.21.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 23:21:50 -0700 (PDT)
+From: Mehmet Fide <mehmet.fide@gmail.com>
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org,
+	Ping-Ke Shih <pkshih@realtek.com>,
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
+	linux-wireless@vger.kernel.org,
+	mehmet.fide@screeningeagle.com
+Subject: Re: Please apply 13221be72034 ("wifi: rtw88: Handle C2H_ADAPTIVITY in rtw_fw_c2h_cmd_handle()") to 6.6.y and 6.12.y
+Date: Wed,  7 Oct 2026 08:21:49 +0200
+Message-ID: <20261007062149.2086871-1-mehmet.fide@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <2026-10-06-1-daily-reply-0002-rtw88-c2h-adaptivity@kernel.org>
+References: 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,53 +79,18 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Felix Fietkau <nbd@nbd.name>
+Hi Sasha,
 
-[ Upstream commit 4febc02cd02f021f2b6d0768332be643ef14a12d ]
+On 2026-10-06 Sasha Levin wrote:
+> Could you send the full trace, and say whether your kernel carries that
+> conversion or other local rtw88 changes? We will take the patch if it
+> reproduces on unmodified stable.
 
-Unlike the 802.11 TX paths, ieee80211_8023_xmit() does not set
-info->band from the channel context on non-MLD interfaces. It stays at
-0, so ieee80211_get_tx_rates() uses the wrong band for these frames.
+You are right, and sorry for the noise: our 6.12 tree carries a backport
+of 3e3aa566dd18 ("wifi: rtw88: usb: Preallocate and reuse the RX skbs"),
+so the RX work runs on a BH workqueue there. The splat is the missing
+follow-up to our own backport, not a problem of stock 6.12.y or 6.6.y.
+Please drop the request.
 
-Set it the same way as ieee80211_build_hdr(): drop the frame if there is
-no channel context, and leave the band at 0 on MLD interfaces.
-
-Reported-by: Andrea Pesaresi <andreapesaresi82@gmail.com>
-Fixes: 50ff477a8639 ("mac80211: add 802.11 encapsulation offloading support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Felix Fietkau <nbd@nbd.name>
-Link: https://patch.msgid.link/20260926120216.4054712-1-nbd@nbd.name
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
-[ sashal: Changed vif.bss_conf.chanctx_conf access to vif.chanctx_conf. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/mac80211/tx.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/net/mac80211/tx.c b/net/mac80211/tx.c
-index b7865f3b97879..a919d585b6b1b 100644
---- a/net/mac80211/tx.c
-+++ b/net/mac80211/tx.c
-@@ -4467,6 +4467,7 @@ static void ieee80211_8023_xmit(struct ieee80211_sub_if_data *sdata,
- {
- 	struct ieee80211_tx_info *info = IEEE80211_SKB_CB(skb);
- 	struct ieee80211_local *local = sdata->local;
-+	struct ieee80211_chanctx_conf *chanctx_conf;
- 	struct tid_ampdu_tx *tid_tx;
- 	u8 tid;
- 
-@@ -4514,6 +4515,11 @@ static void ieee80211_8023_xmit(struct ieee80211_sub_if_data *sdata,
- 		sdata = container_of(sdata->bss,
- 				     struct ieee80211_sub_if_data, u.ap);
- 
-+	chanctx_conf = rcu_dereference(sdata->vif.chanctx_conf);
-+	if (unlikely(!chanctx_conf))
-+		goto out_free;
-+	info->band = chanctx_conf->def.chan->band;
-+
- 	info->flags |= IEEE80211_TX_CTL_HW_80211_ENCAP;
- 	info->control.vif = &sdata->vif;
- 
--- 
-2.53.0
-
+Thanks,
+Mehmet
