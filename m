@@ -1,214 +1,254 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD3453C3F45
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 04:53:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F39C93D45F4
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 05:03:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791348784; cv=none; b=ff8tJnzfkcb5884vaVcTEbXJD3YHg7vsAYPizwafOAOn6irpgt+PKnexCYMqDn10lOh9AMvaQvapS9HgdN3qkN/gI1v9PrWv7fDRL7TqdFHRQOqHnJzFHIokSxcT3z8PB0SPRA6nVRfjA2OvyE6xT7fyjn84Z8A20kHxYuizDzU=
+	t=1791349406; cv=none; b=Rza8tee4bTo82oybYeuPylXQlZB5bzLvh87DX59OKhwfNcM4a+/mWNYqWaKUnMgAms2w7ZEqusp1Qb4seDPGBqea0tRFxz923K8JOpehmDs7yGX2dIiPlgpXYldZMOUNqtATgvTcHH9bm1sxIdMFLJUWIOAR6Ko1xQluRYuh8WA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791348784; c=relaxed/simple;
-	bh=crUw4FZcmyDM6WQW1xXi18AAldcRLt3eFNCFN/oF5Mk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lggyC9Hat38DYuz6CTJgBQM73mfjidzmH486A8zCG8qoiRfEYsMLFux4J45kV5NtF1yJz8fIFHKrrZZiWAvimzjZuchbCJiUVeWyv570znVvFynQLcQzEsgLvV1TypTIQ1WGjwFgKwbBYGPXT/dP5FzJ7UkFqkFRi+2dyEweLoA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XAYNCpgv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791349406; c=relaxed/simple;
+	bh=2xFrY7BGe4dGVsrgnRpdoh/SZXPw4g2jRk6yGOXKQrI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UR969Wer5q41CIrR3xbOXm8yFaSqSevnM1yxro26QcH2JoEUmLqPTGlcvHPqBa+o4EqSioRyHFmKgCAa7leWe2l0OSLpI+Pf7SBGlKE7xjJwEGACs+p0vDOT5ClDzdpc1FUdwl6cKqaSwmVRYFzObdi+zedchMNPI9t3cLO3gEw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=X0ogNrCD; arc=none smtp.client-ip=209.85.210.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XAYNCpgv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85B6B1F0089E
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 04:53:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791348783;
-	bh=4XL1u9c2TANbieKXIBxIWnTPffWE6ngH5dVK2wPVARQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=XAYNCpgv2cqthkyDiMfXSFAftuTXye9OhtMefcqQwnTVcg14XNKpyWFTzsi5VFP5Z
-	 TDkghFNOYmBAgIfyN+/WO4/TReto9icR9ljrcrTpRgaP5bLyXzM2pw4SkqAziDlj6C
-	 DRbvblptZsHVeR3vpihRnRASOsfFqHs2ezXxiBLI7nND9CgOM/43jt+BsBPBN4EtiZ
-	 m9sEcXYujKZDG+uHHbPA+hHBJJTNLNhNX2j10LIQ/Yx903nCoHT2zPoXavro3Hn/lZ
-	 PrI7QQy1njsRiZbuESqF06zxs7HrYc88qYUYEbCe8FdtntInXqKL0ASZSf+ASkTali
-	 5X/gZuPYSAU7A==
-Received: by mail-oa1-f41.google.com with SMTP id 586e51a60fabf-49dfaa16190so1074482fac.1
-        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 21:53:03 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx3lJTy/1muiTZSs3u/I2Jnpkul+ds4ISC8BahwLhYU/ffhYvIjyZPjfhMdVfOR/ODJWLmoE38=@vger.kernel.org
-X-Gm-Message-State: AFuF++m1IOaPdUvdYlVORxP+SzSYq6r2FyZD9YxPv3eMR1v/EiG4us47
-	BR6XRIYi3x0HvbNQaLcrMcygjKRybgZIBMgtfkAbf5GSdqWdkOASPbopkASOISVAnR7S7xz/ed5
-	fk94ZF7g+ZWimqcJ8DNrdLzO+3Wq5n2Y=
-X-Received: by 2002:a05:6870:1491:b0:49e:241:600e with SMTP id
- 586e51a60fabf-49f4f0b9f1dmr4328195fac.36.1791348782689; Tue, 06 Oct 2026
- 21:53:02 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="X0ogNrCD"
+Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-82503732024so595204a34.3
+        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 22:03:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=openai.com; s=google; t=1791349403; x=1791954203; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=amWm7rhDqpybZwDdXjCeI1rmEdf0wmiwfyrZDawQrxU=;
+        b=X0ogNrCDYQLG4uIXJBNpr+fdxSxz5YVic6Fs99W+roRjZwjMVfYEfGAoZwxnyk4T3v
+         k8uS93zm5izlitbvdrfLnpZo3NAzowLdjbEZAesgHg1KuO62Nu/w2ca9dSj5r2LFNiXY
+         7GBgECUhY5jPpuQAGTgmWaYy634SmtrOSXNp0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791349403; x=1791954203;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=amWm7rhDqpybZwDdXjCeI1rmEdf0wmiwfyrZDawQrxU=;
+        b=lHBtBjI0L46iwhEH9mYL0rlqwNa+OilGuiX0wf8nEoNzdbmRLT+gDaC6yTy4nN/yra
+         dB52Tt/JlPThLR2dhDqKy3/mfdx6NFvG3edUDkyvDMbYfjNB5gLwJUHmizo1aZL3rtKM
+         4stAnUiA/SdOfZHyUshSM/UoJXavD3mhCcipp52UQxvC4rUfQykQzIsJLz28Px9L691j
+         THvWZ+U3cQLxUHSUr0iHCS2SiTTr8e/nQdcVmjMY55M4ITUC2DvYOn336orCRiJFC8eI
+         YXvvjmgs5eCM8/SYkVEqWnMvpCukmISihvaUP01TukmnABGzbiONRVrMLleyOLZjvl5x
+         3WIQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzbXb0iEnoaEtgYccqaCYM9Vdve5lkOlBSqxaiOJifLUCMvHNwUWj3iLXiTiBUYs4zFrCb7T30=@vger.kernel.org
+X-Gm-Message-State: AFuF++kNK8Ropvgy/VNgC1g9jwhyTVjKePXPPo7YVZxvwdYQ590FO6F1
+	lmyYxPbyuoaLQuUZ5jeKmy109KMEtM4qWSLp1cq2EiCybiGDTQCqWv1x/DcJNuo768g=
+X-Gm-Gg: AYBFou0bZuw8qyb+5fFMQomEmJh9H7tBtbvqEARRdJeCodSKgsMQfXYNFM4La0itwLe
+	Hf6YNYZN79/uixAQIyKWn2edYQMBnMEBebCGEN/yClNHZn6dp4BgQcQqyL81LmN446pT1nJuYpJ
+	DzOpEmyT+8B+lTZ/H6rvZe/X3nEpxy9b9CVLhXj0rsvXP5PBtWoCuuYPO3YLbn4s1HDUhkUM87+
+	ZuCImwr9h9F8UBsBshhkRwR5cgSPjTfgAcHNyYzZ8h1ZES6aFreuapYfUrDttosTlkQGU7gTgCC
+	IXrvqbnn4ZBWx0xHQx8c0xotR+KyMwlEz4MbUDlRA0zIrsz/Ya/0UFOyDOpqiJdWXQOo7MvNKoz
+	wC+WfFmZELMD0wK3YKGrespqfu72nEEOYdLDaOW0qQZRrA9SxTgTJ7hNTMIrQif2b1RBphkFjG5
+	AFNgZtSIGnivEydMU9KDGGi7k/JP4HOQOKUDHxnCMUyYokAvjWF8S7drTRw1w752Ys0nEnQ1urv
+	8L8IGYDBBbTzrlY7bIrJM/IXGq4n//VZt8thWOGpku7E5bI3v1VjLeKtXFXi5C61BZE1rawiGw=
+X-Received: by 2002:a05:6830:4906:b0:823:e626:2765 with SMTP id 46e09a7af769-82ad0acd461mr2158934a34.31.1791349402837;
+        Tue, 06 Oct 2026 22:03:22 -0700 (PDT)
+Received: from com-75606.corp.openai.org ([199.47.143.7])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-82adc3f12f0sm1578270a34.13.2026.10.06.22.03.20
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 06 Oct 2026 22:03:21 -0700 (PDT)
+From: Kyle Zeng <kylebot@openai.com>
+To: linux-trace-kernel@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	rostedt@goodmis.org,
+	mhiramat@kernel.org,
+	outbounddisclosures@openai.com,
+	Kyle Zeng <kylebot@openai.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] tracing/filters: Check perf permissions before accessing kernel data
+Date: Tue,  6 Oct 2026 22:03:15 -0700
+Message-ID: <20261007050315.65139-1-kylebot@openai.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261006042153.199444-1-edumazet@kernel.org> <179134695789.434549.53526916334276884@kernel.org>
-In-Reply-To: <179134695789.434549.53526916334276884@kernel.org>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Wed, 7 Oct 2026 06:52:51 +0200
-X-Gmail-Original-Message-ID: <CAL4Wiiqp2qmAbgu8Etb+ptoPiEoW1Q0iTCK5ZgWbQ36o=-8=ow@mail.gmail.com>
-X-Gm-Features: AclHuK_pbisgIDYA0RvghCwtOjDIXsoHeC-nG8BPEIdo-7jH51YS4sZIGBQ2hWo
-Message-ID: <CAL4Wiiqp2qmAbgu8Etb+ptoPiEoW1Q0iTCK5ZgWbQ36o=-8=ow@mail.gmail.com>
-Subject: Re: [PATCH v2 net] bnxt_en: fix DMA mapping length for padded small packets
-To: netdev-bot+sashiko@kernel.org, Joe Damato <joe@dama.to>
-Cc: davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	netdev@vger.kernel.org, stable@vger.kernel.org, sfle@kth.se, 
-	edumazet@google.com, michael.chan@broadcom.com, pavan.chebbi@broadcom.com, 
-	andrew+netdev@lunn.ch, berni@debian.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Le mer. 7 oct. 2026 =C3=A0 06:22, <netdev-bot+sashiko@kernel.org> a =C3=A9c=
-rit :
->
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 0 (1) =C2=B7 Medium: 1 =C2=B7 Low: 0
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [Medium] Regression in the software UDP GSO path.
+perf_trace_event_perm() allows tracepoint counters that do not request
+PERF_SAMPLE_RAW without raw tracepoint permissions. A self-targeted
+event with exclude_kernel=1 can therefore reach the filter compiler even
+at perf_event_paranoid=2.
 
-Ack, I CC Joe, because UDP GSO is not padding yet short UDP packets
-(eg IPv4 and gso_size =3D=3D 1)
+The .function suffix resolves its operand through kallsyms. The result
+of a numeric filter discloses whether an address belongs to a known
+kernel symbol range, allowing the randomized kernel image base to be
+recovered. A named filter also exposes the resolved range through the
+counter when the tracepoint field is controlled by the caller.
 
-I will send a V3, hopefully this will be the final one.
+Pointer-string filters expose kernel memory in the same way. A caller
+can supply a kernel address as the filename argument to openat() and
+install a string filter on sys_enter_openat. Without .ustring, the
+filter uses strncpy_from_kernel_nofault() on that address. Whether the
+counter increments reveals whether the kernel bytes match the pattern.
+The nofault copy prevents faults but does not authorize disclosure.
 
-pw-bot: cr
+Pass the filter's perf origin to the predicate parser and require
+perf_allow_tracepoint() before resolving a .function operand or creating
+a kernel-pointer string predicate. This uses the existing sysctl,
+initial-namespace capability and LSM policy for raw tracepoint access.
+Keep ordinary counting filters, explicit user-string predicates and
+filters created through the separately controlled tracefs interfaces
+unchanged.
 
->
-> Pre-existing issues:
-> - [High] This problem wasn't introduced by this patch, but the sister
->   bnge driver has the same stale-fragment ordering bug that the bnxt v2=
-=E2=80=A6
+Fixes: e6745a4da964 ("tracing: Add a way to filter function addresses to function names")
+Fixes: 5967bd5c4239 ("tracing: Let filter_assign_type() detect FILTER_PTR_STRING")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+---
+Changes in v2:
+- Require raw-tracepoint permission for kernel-pointer string filters
+  as well as .function predicates, preserving explicit .ustring filters.
+- Add the pointer-string Fixes tag and describe the confirmed
+  sys_enter_openat counter oracle.
 
-bnge driver will be fixed separately, once bnxt has shown the way.
+ kernel/trace/trace_events_filter.c | 41 ++++++++++++++++++++++--------
+ 1 file changed, 31 insertions(+), 10 deletions(-)
 
->
-> --
->
-> bnxt_en: fix DMA mapping length for padded small packets
->
-> This patch moves short-frame padding in bnxt_start_xmit() to the top of
-> the function and uses skb_put_padto(). As a result, skb_headlen() now
-> includes the pad when the linear head is DMA-mapped. This fixes the IOMMU
-> read faults that happened when the TX BD length was larger than the
-> mapped length.
->
-> Closes: https://lore.kernel.org/netdev/20261004122616.56714cbd@nargothron=
-d/
->
-> > diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/et=
-hernet/broadcom/bnxt/bnxt.c
-> > index d7728d0c5b6e6..7f379f21fe465 100644
-> > --- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-> > +++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
->
-> [ ... ]
->
-> > @@ -507,6 +507,11 @@ static netdev_tx_t bnxt_start_xmit(struct sk_buff =
-*skb, struct net_device *dev)
-> >       txr =3D &bp->tx_ring[bp->tx_ring_map[i]];
-> >       prod =3D txr->tx_prod;
-> >
-> > +     if (skb_put_padto(skb, BNXT_MIN_PKT_SIZE)) {
-> > +             /* SKB already freed. */
-> > +             goto tx_kick_pending;
-> > +     }
-> > +
->
-> [Severity: Medium]
-> Does moving the pad ahead of the SW USO branch change what
-> bnxt_sw_udp_gso_xmit() puts on the wire?
->
-> Before this patch, padding only ran at normal_tx:, after the SW USO branc=
-h
-> had already returned. So bnxt_sw_udp_gso_xmit() always got the unpadded
-> skb.
->
-> Now a UDP GSO skb shorter than 52 bytes is padded first. On devices
-> without BNXT_FLAG_UDP_GSO_CAP it then goes here:
->
->         if (skb_is_gso(skb) &&
->             (skb_shinfo(skb)->gso_type & SKB_GSO_UDP_L4) &&
->             !(bp->flags & BNXT_FLAG_UDP_GSO_CAP)) {
->                 int rc =3D bnxt_sw_udp_gso_xmit(bp, txr, txq, skb);
->
-> bnxt_sw_udp_gso_xmit() in bnxt_gso.c then computes:
->
->         total_payload =3D skb->len - hdr_len;
->         num_segs =3D DIV_ROUND_UP(total_payload, mss);
->
-> This counts the zero pad as UDP payload. tso_build_hdr() builds
-> iph->tot_len and the UDP length from the segment payload, and the NIC
-> fills in valid checksums. Would the receiver then accept the pad bytes as
-> real UDP data?
->
-> For example, Ethernet 14 + IPv4 20 + UDP 8 + 2 bytes of data is 44 bytes.
-> With gso_size=3D1 that is padded to 52. total_payload goes from 2 to 10, =
-so
-> 10 datagrams are sent instead of 2, and eight of them carry only zeros.
->
-> An unprivileged UDP socket can trigger this by setting UDP_SEGMENT to a
-> small gso_size and sending a few bytes over IPv4.
->
-> Also, BNXT_MIN_PKT_SIZE is a per-frame minimum. Padding the super-packet
-> still leaves the individual SW USO segments (for example 43 bytes)
-> shorter than that.
->
-> Should the pad be skipped for skb_is_gso() skbs, or applied after the SW
-> USO branch?
->
-> [Severity: High]
-> This isn't a bug introduced by this patch, but the sister bnge driver
-> seems to have the ordering problem that this v2 placement avoids for
-> bnxt. In bnge_start_xmit() in drivers/net/ethernet/broadcom/bnge/bnge_txr=
-x.c,
-> the frag count is read before padding:
->
->         last_frag =3D skb_shinfo(skb)->nr_frags;
->         ...
->         tx_buf->nr_frags =3D last_frag;
->         ...
->         if (eth_skb_pad(skb))
->                 goto tx_kick_pending;
->
-> A nonlinear skb shorter than ETH_ZLEN has skb_tailroom() of 0. In that
-> case __skb_pad() goes through pskb_expand_head() and skb_linearize().
-> That pulls the frag data into the head, drops the frag page references
-> and sets nr_frags to 0.
->
-> bnge_start_xmit() then keeps using the stale last_frag:
->
->         flags =3D (len << TX_BD_LEN_SHIFT) | TX_BD_TYPE_LONG_TX_BD |
->                 TX_BD_CNT(last_frag + 2);
->         ...
->         for (i =3D 0; i < last_frag; i++) {
->                 frag =3D &skb_shinfo(skb)->frags[i];
->                 ...
->                 mapping =3D skb_frag_dma_map(bd->dev, frag, 0, len,
->                                            DMA_TO_DEVICE);
->
-> Can this DMA-map frag pages that the skb no longer holds a reference to?
-> If so, the NIC would send the frag data twice and read pages that may
-> already be freed or recycled, such as page_pool pages.
->
-> Two ways to get such skbs are AF_PACKET TX_RING SOCK_RAW frames and
-> forwarded small packets whose payload stayed in a frag after
-> pskb_trim_rcsum().
->
-> As a separate fix, would it make sense to call eth_skb_pad() before
-> nr_frags is read in bnge_start_xmit(), the same way this patch does for
-> bnxt?
->
-> [ ... ]
->
-> --
-> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
-set/20261006042153.199444-1-edumazet%40kernel.org
+diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
+index 2b46ca536045..84d4a4fe56ad 100644
+--- a/kernel/trace/trace_events_filter.c
++++ b/kernel/trace/trace_events_filter.c
+@@ -1625,12 +1625,18 @@ static int filter_pred_fn_call(struct filter_pred *pred, void *event)
+ 	}
+ }
+ 
++struct filter_parse_data {
++	struct trace_event_call *call;
++	bool is_perf;
++};
++
+ /* Called when a predicate is encountered by predicate_parse() */
+ static int parse_pred(const char *str, void *data,
+ 		      int pos, struct filter_parse_error *pe,
+ 		      struct filter_pred **pred_ptr)
+ {
+-	struct trace_event_call *call = data;
++	struct filter_parse_data *pdata = data;
++	struct trace_event_call *call = pdata->call;
+ 	struct ftrace_event_field *field;
+ 	struct filter_pred *pred = NULL;
+ 	unsigned long offset;
+@@ -1687,6 +1693,16 @@ static int parse_pred(const char *str, void *data,
+ 		i += len;
+ 	}
+ 
++	/* Even counting filters can disclose kernel addresses and data. */
++	if (pdata->is_perf &&
++	    (function || (!ustring && field->filter_type == FILTER_PTR_STRING))) {
++		ret = perf_allow_tracepoint();
++		if (ret) {
++			parse_error(pe, ret, pos + i);
++			return ret;
++		}
++	}
++
+ 	while (isspace(str[i]))
+ 		i++;
+ 
+@@ -2205,8 +2221,12 @@ static int calc_stack(const char *str, int *parens, int *preds, int *err)
+ static int process_preds(struct trace_event_call *call,
+ 			 const char *filter_string,
+ 			 struct event_filter *filter,
+-			 struct filter_parse_error *pe)
++			 struct filter_parse_error *pe, bool is_perf)
+ {
++	struct filter_parse_data data = {
++		.call = call,
++		.is_perf = is_perf,
++	};
+ 	struct prog_entry *prog;
+ 	int nr_parens;
+ 	int nr_preds;
+@@ -2232,7 +2252,7 @@ static int process_preds(struct trace_event_call *call,
+ 		return -EINVAL;
+ 
+ 	prog = predicate_parse(filter_string, nr_parens, nr_preds,
+-			       parse_pred, call, pe);
++			       parse_pred, &data, pe);
+ 	if (IS_ERR(prog))
+ 		return PTR_ERR(prog);
+ 
+@@ -2281,7 +2301,7 @@ static int process_system_preds(struct trace_subsystem_dir *dir,
+ 		if (!filter->filter_string)
+ 			goto fail_mem;
+ 
+-		err = process_preds(file->event_call, filter_string, filter, pe);
++		err = process_preds(file->event_call, filter_string, filter, pe, false);
+ 		if (err) {
+ 			filter_disable(file);
+ 			parse_error(pe, FILT_ERR_BAD_SUBSYS_FILTER, 0);
+@@ -2377,6 +2397,7 @@ static void create_filter_finish(struct filter_parse_error *pe)
+  * @call: trace_event_call to create a filter for
+  * @filter_string: filter string
+  * @set_str: remember @filter_str and enable detailed error in filter
++ * @is_perf: filter is being created for a perf event
+  * @filterp: out param for created filter (always updated on return)
+  *           Must be a pointer that references a NULL pointer.
+  *
+@@ -2391,7 +2412,7 @@ static void create_filter_finish(struct filter_parse_error *pe)
+  */
+ static int create_filter(struct trace_array *tr,
+ 			 struct trace_event_call *call,
+-			 char *filter_string, bool set_str,
++			 char *filter_string, bool set_str, bool is_perf,
+ 			 struct event_filter **filterp)
+ {
+ 	struct filter_parse_error *pe = NULL;
+@@ -2405,7 +2426,7 @@ static int create_filter(struct trace_array *tr,
+ 	if (err)
+ 		return err;
+ 
+-	err = process_preds(call, filter_string, *filterp, pe);
++	err = process_preds(call, filter_string, *filterp, pe, is_perf);
+ 	if (err && set_str)
+ 		append_filter_err(tr, pe, *filterp);
+ 	create_filter_finish(pe);
+@@ -2418,7 +2439,7 @@ int create_event_filter(struct trace_array *tr,
+ 			char *filter_str, bool set_str,
+ 			struct event_filter **filterp)
+ {
+-	return create_filter(tr, call, filter_str, set_str, filterp);
++	return create_filter(tr, call, filter_str, set_str, false, filterp);
+ }
+ 
+ /**
+@@ -2476,7 +2497,7 @@ int apply_event_filter(struct trace_event_file *file, char *filter_string)
+ 		return 0;
+ 	}
+ 
+-	err = create_filter(file->tr, call, filter_string, true, &filter);
++	err = create_filter(file->tr, call, filter_string, true, false, &filter);
+ 
+ 	/*
+ 	 * Always swap the call filter with the new filter
+@@ -2721,7 +2742,7 @@ int ftrace_profile_set_filter(struct perf_event *event, int event_id,
+ 	if (event->filter)
+ 		return -EEXIST;
+ 
+-	err = create_filter(NULL, call, filter_str, false, &filter);
++	err = create_filter(NULL, call, filter_str, false, true, &filter);
+ 	if (err)
+ 		goto free_filter;
+ 
+@@ -2868,7 +2889,7 @@ static __init int ftrace_test_event_filter(void)
+ 		int err;
+ 
+ 		err = create_filter(NULL, &event_ftrace_test_filter,
+-				    d->filter, false, &filter);
++				    d->filter, false, false, &filter);
+ 		if (err) {
+ 			printk(KERN_INFO
+ 			       "Failed to get filter for '%s', err %d\n",
+
+base-commit: 602042bf29f6efde39cfb5fdd9289bf4854bc0c5
