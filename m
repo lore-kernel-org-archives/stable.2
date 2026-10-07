@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBED938F929
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 08:38:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BA54392823
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 08:39:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791362339; cv=none; b=OMflgl3hB4nNHFvD6W53VkpZeyQO2NiRPIhNIoepy1GC6xSwX+KPorAXTqDVsbIqjwiZPWQ+WwFEwJIK9jBNzgfMhFtMuw8K/H7Yv+ltDSlpkkprgwJFfLb59Fpm17kzcJBNm6TlgYNIA7kfz+OArAWuUpZPgsH0DesgZFZi3Uo=
+	t=1791362371; cv=none; b=Fi7s5vg9SkzLbD3a3mTLWEuaU5eTgNkOa+OKEssI41qYfeHWwc81z+cDE7uO5F2Y2GnzZeRwN3mrecI2TOmJOpDjfdixFX15RWICcXX79uU+AVLQpSuhFgDkzsJSQaDCFZU/bA8sxTx83DFam9ZKgUJ2T7huJN59mxAXven4enk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791362339; c=relaxed/simple;
-	bh=L/sYfwbZ6KCl3YeYakaG94mBMsJ3X7S0aICqvITqzxs=;
+	s=arc-20240116; t=1791362371; c=relaxed/simple;
+	bh=J78Livoq57GJznvlVhJ6buA8sr+ExYnbzwoQ+v1WUJw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LDWiODYahRVL6VG/pRd2SMH4VijbVSBhlse8y45T+NxJX9WJEtx9TmCeb+vOmFwn34VgQbQgVJDchVMguGG5Gx5Z8X6b9NJb1T1Neth8aM1wqgJBmpz1olemIxM8j9cCBshFoScpsfqa6KWbOOed2jnzUniTjyGAdoi8i/k+6aU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IIm3KFAg; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=IzCbff24i1ddn4TtuTZJjKTnePbMEtMbriWLaltClJVzCCc2fIWVHyL/AL0MV7lN/8ecn3i2LPm38eTtEvOdZUCkuUnIOAN5dXJngCkRl9iXf087HoNfx2+cyMN2XEL8n1DdmlTFcBn3GK2+DSdb1NGwvgGaMEIbjhOH/SfMoDs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wgfr8DKv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IIm3KFAg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 303441F0089C;
-	Wed,  7 Oct 2026 08:38:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wgfr8DKv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BE421F0089B;
+	Wed,  7 Oct 2026 08:39:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791362337;
-	bh=9cFv+gupaevm8qz9rg2BaHQT7KCgwNOCbyTGG3D0cOM=;
+	s=k20260515; t=1791362368;
+	bh=gvsd6ddXs0jsldeBP71+VfaHcemL8EzvwcmdFAESn6A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IIm3KFAgytDZVOHKJGqqGzdcofWHaa9XwzQcLRjypBSIVv1NqGvNl842fkOuoSwxF
-	 cH2Cyv7+5bjrb93vNIPkTtqscBDhFDQwnRHPHN8Hk5z8RzYomh7NDgCJHayuv2TS4x
-	 de2co5hwP3Dc0Unt272NUzBlGM4DootkTPu7xAnfxSAhBid1MrFQ1e5bzP3+scqXxW
-	 5/VLMNElRphVmX3vsT4oIRQEvlnfus7ymxz3hSCb9lE2XVOzKrO0qcuCo4C3WPxDYa
-	 A7Y/yhiEilWDhsm6sHZUYd7vmTqJt2w6ud/S3aUaEojm1FS2xMS5miYFSlCj0SbWCy
-	 L2AojUWIU4+jA==
+	b=Wgfr8DKveNQPfg0PIRfuoDS2Of8yF8q4ewy3mzqD1gdPRXi8kqbNTGd3ctyr2Onn4
+	 QIbE5ZCvKi4r+qThoIuzBn42ReXcQmF2huOz7y1zFfYBrqXlq8WB+Cblc+8MO7gETq
+	 vk61SL9YnrQZXDcL9nE+PNXaiB/hZWSXBOP59cuCHVMGm+u4hWqT8T1LSraXinYH/7
+	 RUEAGux32/sdLQpkSG6e67sxRoQ8KZg6PZroi7OCgAtp6Mc4lt/Q1FBYNOwZ+5nLSj
+	 9KwWCaoU+ED3P2R6GyfZlpXqobQkAQu7u89mUwWdr8W1RzKfb7fWWy9d0APM1pqHn4
+	 b0eXsJnZStNfA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Cong Nguyen <congnt264@gmail.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
+Cc: Vladyslav Ivashchenko <cactucatu4eckuu@gmail.com>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
 	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] iio: adc: max1363: sign-extend bipolar differential channel reads
-Date: Wed,  7 Oct 2026 04:38:53 -0400
-Message-ID: <20261007083720.1954946-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] iio: adc: axp288: Add TS bias override for Haier HV103H
+Date: Wed,  7 Oct 2026 04:39:25 -0400
+Message-ID: <20261007083727.1943692-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100625-specimen-axis-124d@gregkh>
-References: <2026100625-specimen-axis-124d@gregkh>
+In-Reply-To: <2026100612-suitably-cruelly-83ee@gregkh>
+References: <2026100612-suitably-cruelly-83ee@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,48 +46,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Cong Nguyen <congnt264@gmail.com>
+From: Vladyslav Ivashchenko <cactucatu4eckuu@gmail.com>
 
-[ Upstream commit 91908c0a78baddc8572aa3ab69e62ee2eb496ba4 ]
+[ Upstream commit 0f300db7b7315b2c7ea0e2d4437b88de162d191f ]
 
-MAX1363 differential channels are bipolar, but max1363_read_single_chan()
-masks the raw value to the ADC resolution without sign-extending it.
-Negative differential readings are therefore reported to userspace as
-large positive values (e.g. -1 as 4095 on a 12-bit part).
+The Haier HV103H firmware configures the AXP288 TS pin bias
+current to 60 uA. This causes the battery temperature reading to
+cross the charging temperature threshold under load, incorrectly
+stopping battery charging.
 
-Sign-extend the masked value from the resolution bit for differential
-channels. Single-ended channels are unipolar and are left unchanged.
+Setting the TS bias current to 80 uA fixes the temperature
+measurement and prevents charging from being incorrectly disabled.
 
-Fixes: d1325cf45077 ("Staging: IIO: max1363 ADC driver")
+Add a DMI quirk to use the 80 uA TS bias current on the Haier
+HV103H.
+
+Fixes: 9bcf15f75cac ("iio: adc: axp288: Fix TS-pin handling")
+Fixes: 048058399f19 ("iio: adc: axp288: Override TS pin bias current for some models") # Add necessary infrastructure
+Signed-off-by: Vladyslav Ivashchenko <cactucatu4eckuu@gmail.com>
+Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4
-Signed-off-by: Cong Nguyen <congnt264@gmail.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+[ sashal: Adjusted context to match the existing {} table terminator. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/adc/max1363.c | 8 ++++++++
+ drivers/iio/adc/axp288_adc.c | 8 ++++++++
  1 file changed, 8 insertions(+)
 
-diff --git a/drivers/iio/adc/max1363.c b/drivers/iio/adc/max1363.c
-index 29c1824162cd0..c427fdf93dcbd 100644
---- a/drivers/iio/adc/max1363.c
-+++ b/drivers/iio/adc/max1363.c
-@@ -409,6 +409,14 @@ static int max1363_read_single_chan(struct iio_dev *indio_dev,
- 		}
- 		data = rxbuf[0];
- 	}
-+
-+	/*
-+	 * Differential channels are bipolar and the device returns the sample
-+	 * in two's complement, so sign-extend it from the resolution bit.
-+	 */
-+	if (chan->differential)
-+		data = sign_extend32(data, st->chip_info->bits - 1);
-+
- 	*val = data;
+diff --git a/drivers/iio/adc/axp288_adc.c b/drivers/iio/adc/axp288_adc.c
+index 580361bd98492..3ccdfe9dea3f5 100644
+--- a/drivers/iio/adc/axp288_adc.c
++++ b/drivers/iio/adc/axp288_adc.c
+@@ -204,6 +204,14 @@ static const struct dmi_system_id axp288_adc_ts_bias_override[] = {
+ 		},
+ 		.driver_data = (void *)(uintptr_t)AXP288_ADC_TS_BIAS_80UA,
+ 	},
++	{
++		/* Haier HV103H */
++		.matches = {
++		  DMI_MATCH(DMI_SYS_VENDOR, "Haier"),
++		  DMI_MATCH(DMI_PRODUCT_NAME, "HV103H"),
++		},
++		.driver_data = (void *)(uintptr_t)AXP288_ADC_TS_BIAS_80UA,
++	},
+ 	{}
+ };
  
- error_ret:
 -- 
 2.53.0
 
