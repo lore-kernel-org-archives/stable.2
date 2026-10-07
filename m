@@ -1,169 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 893C73845A9;
-	Wed,  7 Oct 2026 22:00:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75CAA3806D7
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 22:00:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791410409; cv=none; b=rSFOPmpeRHo/KLvN59p31a1Lvt3kwvFT4TN8ZJoCOv0UEYlmfUwwcZx/ONqhol2guhY/SYb5XGczyS4re+i9s0tIM5+SSP0LSRQ5UmAV6eDnB0rW4MJvIx8htR2LS/Hf7M04qz9YQaK0+yqv8e0ehXtBcEtJLqHPrdloqQDwb8s=
+	t=1791410434; cv=none; b=UbsWfwjBHi/ff25WWb/KfYO8XOJ5leTCZYE6gOsBaO5ZcrrxeK7QUrAY/1ZuS1EsFNfmJM2rhQL1iKwKLr7Zz5I0jNT64/WR4IQl2jrBUKtls/9QN9/3lYNWQs56WvxsElUSJ/lXbywVlRUKIr1cCismpoO2USIhgopPP7Cd6B0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791410409; c=relaxed/simple;
-	bh=YD/W6exh0vaVkcMG7NX3aU2BBDY0x89/ll4+tWiN3gg=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=T5ZFE6v2kklakhO6M7DQSMay4990lAtagkHAO+iBP4xb/pf3KpBGPFVqZth5NFf2KzuGyjDxO265sjHYf27RgNxYGxQljU8bOrmihf5FDdwl1d7qbSHTpFPLuq0nonQ3f9aTRZQr441LQgHDradgOcXtAunNllACA8BMT6ipXzM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=FRGuoVCN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791410434; c=relaxed/simple;
+	bh=Ct68b+rCLNKPhle3WjAX2nOyAsy3vaqQllFLahN6aWI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hTXVZNbW3S/ou3wa7fHJwA9MJMyQHDV4QedJeD1vTHc52oWAmgZMjL6QtfEhEMPhSa5TOlRX7fcy9AbNh1PxhE9pG95iqJMz/K9A3sC3TydRzywesviYWU4wKicoROgK2VBcuOgwr0xxGkmte0YFALu/tKsIHHv4gQMR6ywpABs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LgKbGZHP; arc=none smtp.client-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="FRGuoVCN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE0751F00893;
-	Wed,  7 Oct 2026 22:00:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LgKbGZHP"
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc1bc88a20eso3136604a12.3
+        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 15:00:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791410408;
-	bh=WVLhQGPSFdOEw9eZATSNwWpkoWmnuQn/J8kRhpK/kts=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=FRGuoVCNMJ+wGLAMJK2SAOlkhUF6wuQ0igJPhMxC3WCmjgnwcNVi3JeWSdOxY4rjm
-	 z1x6s8oivqlTGapFwRGY9PgH/PUnp/FyMovTaOcVPIl52FC+mYGEMhQGkVwml8YfhM
-	 QQzP51AItX6d7m4e7uHNgxMBEq6ECAQzCvcQxAg4=
-Date: Wed, 7 Oct 2026 15:00:07 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Armaan Sandhu <armaan.sandhu0504@gmail.com>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, lzhan011
- <lzsx618@gmail.com>
-Subject: Re: [PATCH] lib/cmdline: fix get_options() count and overflow with
- large ranges
-Message-Id: <20261007150007.c7c6f2a4e41fd9f950c8427c@linux-foundation.org>
-In-Reply-To: <20261005213945.359905-1-armaan.sandhu0504@gmail.com>
-References: <20261005213945.359905-1-armaan.sandhu0504@gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=gmail.com; s=20251104; t=1791410433; x=1792015233; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=r9w+vTKEC67XaJ90lkJm0RhINu8lEfisoCkmy2OaUF0=;
+        b=LgKbGZHP3N3kBb0Vry8HCwWJLCaPf5cKMlCsqXEBBLulGdDEMlNh06+YWFle9EgKNL
+         JZzMOC8pxjhfwuQPmRhiS9XO83jgp/fVXCfSpjswnRoJ1k7fkWhw8cLv8yRSTemuBLUE
+         15bCnrmRpfANjwoezUK58NqYuG+mExxYuF/bMf9tFZEJ0dIv0pjkcsEoQlLBl2TQdLwc
+         pl5N1SFBMEq67X/xc92De8i8bAfH9gI8l3jvjRHVqMEW7TWzDN5Y9oFunqKZhU/6mwVy
+         nLH01Y3BB9y3ruaMoVrPRe4D+hWQ5h08SwzrPVFJXCZIlFJrZfyWHUA5b1seiKQTE7OE
+         z0NQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791410433; x=1792015233;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=r9w+vTKEC67XaJ90lkJm0RhINu8lEfisoCkmy2OaUF0=;
+        b=X37XB5Y/6+C3WEUm+GwsO2nbg69uXKoymUmnbpahwX9iLR7KLIjtNgzqA3Zbq553sJ
+         kMqac1NTcoa6IxWxGu4MQBQDagugIhmm0/LSCmGxM8tNCIw+4v+hkedd0RQEFNuURPq4
+         L1cyKiczS/pBjJ36+yMmcnYjTDxHD6zqiyuRxQCbjNBzwT368LugoH3PlCUkjOm7i9Ae
+         piJV20whIBGPfnhFOfj8XLlrZvfcSZbqx9QUNYQQdAtFpm3wxlJZoGAQpZRNqFd17j3H
+         vk7Xy0kaqht/hMq1gFRv7pgmrVvCsk8a2LnvBZwyz86njKHcuYHJ4bRF6eRenoWvFDOb
+         jFSA==
+X-Gm-Message-State: AFq9FYISAk8yA3BHaRkbIApjbrcdtvkzcHo9SRS+JqW3x9jjZfrxJq9I
+	zs1Dq76QYtRMJ99s6GAT+6yjzjKYP5nYiYpX7kHrPmXbqRehQEUbz323
+X-Gm-Gg: AYBFou1/nzTovtyng6bHPPKASXUxAijy70ZeH9PMoD7hFzxTMNdnogbKEBK5rSAo/9e
+	IjY9mvo17eIXbyTnS0S44LsEjGyZ7loLBFYtZMNHwZp4uwo3GMp2TrtoEtxSjYjNwnHC14JRd1J
+	S+rA7wXx7MGuckaX+6H6LrwisRn45aL203GUO4+x/8AMS2dy+sEZyAAONjxbaNG/9Ev+iPYd279
+	+aWjmkMCpuQXDxOLrUhYPnw9P/9ezviNkzbNxgsj1XuqT9z9/se/hC9ryYR9sEjh4MxeePpilPK
+	3t4JF1FOb+IYK1UrYfEWlYrvVeTipKyJFKkiMpJo0RdYbbC81cap/4Auou6uhN2fao5vv1/xliN
+	ueDt0JMSzz45b3qcHyrakak2JjvDHN4VPlnrEfgSk4sSquPcVwd7PJgpzh5XcsCiQtJxJeN5tcv
+	vSH+5y1Xw+5uES61ZLUPIstrbLWFSdz5IA2M7devN6HKfsUR8gAdJmHDwq6Gvv03NsuGxm
+X-Received: by 2002:a17:90b:1c0a:b0:3a8:7fa3:fd6e with SMTP id 98e67ed59e1d1-3a8a1b40063mr3443846a91.47.1791410432505;
+        Wed, 07 Oct 2026 15:00:32 -0700 (PDT)
+Received: from fedora ([2607:fb92:3080:b51c:3c6f:fd76:69b:10ff])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3aa0cc1fbb2sm1151256a91.17.2026.10.07.15.00.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 15:00:31 -0700 (PDT)
+From: Ping Cheng <pinglinux@gmail.com>
+X-Google-Original-From: Ping Cheng <ping.cheng@wacom.com>
+To: lee@kernel.org,
+	jikos@kernel.org,
+	bentiss@kernel.org,
+	linux-input@vger.kernel.org
+Cc: stable@vger.kernel.org,
+	Ping Cheng <ping.cheng@wacom.com>
+Subject: [PATCH 1/2 RESEND] HID: wacom: Write shared touch initial status only once
+Date: Wed,  7 Oct 2026 15:00:27 -0700
+Message-ID: <20261007220027.6449-1-ping.cheng@wacom.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon,  5 Oct 2026 17:39:45 -0400 Armaan Sandhu <armaan.sandhu0504@gmail.com> wrote:
+From: Ping Cheng <ping.cheng@wacom.com>
 
-> get_range() stops writing once the array is full, but get_options()
-> still advances its index by the whole range. So "1-100" parsed into
-> four ints reports 99 numbers, and a range like "0-2147483647" wraps
-> the index negative and writes outside the array.
-> 
-> Stop once a range fills the array, bail out in validation mode before
-> the count overflows, and saturate the range length in get_range().
-> Add KUnit cases; without the fix "0-2147483647" panics the test kernel.
-> 
-> Only root can supply this input, so this is a robustness fix.
-> 
-> Fixes: 22f2e2801799 ("[PATCH] get_options to allow a hypenated range for isolcpus")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Armaan Sandhu <armaan.sandhu0504@gmail.com>
+For consistency with how the shared has_mute_touch_switch is handled
+during registration, let's apply WRITE_ONCE to is_touch_on too.
 
-I've received two fixes for the same 20 year old bug with an hour
-(https://lore.kernel.org/20261005202412.3460441-1-lzsx618@gmail.com). 
-How did that happen?
+Cc: stable@vger.kernel.org
+Fixes: ba16e5ffbaa1 ("HID: wacom: Advertise SW_MUTE_DEVICE capability prior to registration")
+Reviewed-by: Lee Jones <lee@kernel.org>
+Signed-off-by: Ping Cheng <ping.cheng@wacom.com>
+---
+Note: no code change. Just commit comments and code comments change to the existing patchset
 
->  lib/cmdline.c             | 13 ++++++++++++-
->  lib/tests/cmdline_kunit.c | 38 ++++++++++++++++++++++++++++++++++++++
->  2 files changed, 50 insertions(+), 1 deletion(-)
+ drivers/hid/wacom_sys.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-The kunit changes appear to be identical.  Which fix is best?
+diff --git a/drivers/hid/wacom_sys.c b/drivers/hid/wacom_sys.c
+index 8dc7aa1c0a26..33fa491fba92 100644
+--- a/drivers/hid/wacom_sys.c
++++ b/drivers/hid/wacom_sys.c
+@@ -2386,7 +2386,7 @@ static void wacom_set_shared_values(struct wacom_wac *wacom_wac)
+ 		 * match historic default.
+ 		 */
+ 		if (wacom_wac->is_soft_touch_switch)
+-			wacom_wac->shared->is_touch_on = true;
++			WRITE_ONCE(wacom_wac->shared->is_touch_on, true);
+ 	}
+ 
+ 	if (wacom_wac->features.device_type & WACOM_DEVICETYPE_TOUCH) {
+-- 
+2.55.0
 
-> diff --git a/lib/cmdline.c b/lib/cmdline.c
-> index 16cce6621cec..40b98d943a9a 100644
-> --- a/lib/cmdline.c
-> +++ b/lib/cmdline.c
-> @@ -11,6 +11,7 @@
->  
->  #include <linux/export.h>
->  #include <linux/kernel.h>
-> +#include <linux/overflow.h>
->  #include <linux/string.h>
->  #include <linux/ctype.h>
->  
-> @@ -26,7 +27,9 @@ static int get_range(char **str, int *pint, int n)
->  
->  	(*str)++;
->  	upper_range = simple_strtol((*str), NULL, 0);
-> -	inc_counter = upper_range - *pint;
-> +	/* Keep the sign of the result when the difference doesn't fit */
-> +	if (check_sub_overflow(upper_range, *pint, &inc_counter))
-> +		inc_counter = upper_range < *pint ? -1 : INT_MAX;
->  	for (x = *pint; n && x < upper_range; x++, n--)
->  		*pint++ = x;
->  	return inc_counter;
-> @@ -122,6 +125,14 @@ char *get_options(const char *str, int nints, int *ints)
->  			range_nums = get_range((char **)&str, pint, n);
->  			if (range_nums < 0)
->  				break;
-> +			/* The range didn't fit, so the array is full */
-> +			if (!validate && range_nums > n) {
-> +				i = nints;
-> +				break;
-> +			}
-> +			/* Leave room for the upper number of the range */
-> +			if (range_nums >= INT_MAX - i)
-> +				break;
->  			/*
->  			 * Decrement the result by one to leave out the
->  			 * last number in the range.  The next iteration
-> diff --git a/lib/tests/cmdline_kunit.c b/lib/tests/cmdline_kunit.c
-> index 3f61ff8d3178..584fcb2c0e44 100644
-> --- a/lib/tests/cmdline_kunit.c
-> +++ b/lib/tests/cmdline_kunit.c
-> @@ -140,6 +140,43 @@ static void cmdline_test_range(struct kunit *test)
->  	} while (++i < ARRAY_SIZE(cmdline_test_range_strings));
->  }
->  
-> +static const struct {
-> +	const char *in;
-> +	int parsed[4];
-> +	int validated;
-> +} cmdline_test_range_overflow_cases[] = {
-> +	{ "1-100",         { 3, 1, 2, 3, },    100,        },
-> +	{ "1,5-100,7",     { 3, 1, 5, 6, },    98,         },
-> +	{ "1-2147483646",  { 3, 1, 2, 3, },    2147483646, },
-> +	{ "0-2147483647",  { 3, 0, 1, 2, },    0,          },
-> +	{ "-5-2147483647", { 3, -5, -4, -3, }, 0,          },
-> +	{ "2147483647--5", { 0, 2147483647, }, 0,          },
-> +};
-> +
-> +static void cmdline_test_range_overflow(struct kunit *test)
-> +{
-> +	unsigned int i, j;
-> +
-> +	for (i = 0; i < ARRAY_SIZE(cmdline_test_range_overflow_cases); i++) {
-> +		const char *in = cmdline_test_range_overflow_cases[i].in;
-> +		const int *e = cmdline_test_range_overflow_cases[i].parsed;
-> +		/* Two guard elements past the array handed to get_options() */
-> +		int r[ARRAY_SIZE(cmdline_test_range_overflow_cases[0].parsed) + 2];
-> +		int n;
-> +
-> +		memset(r, 0, sizeof(r));
-> +		get_options(in, ARRAY_SIZE(r) - 2, r);
-> +		for (j = 0; j < ARRAY_SIZE(r) - 2; j++)
-> +			KUNIT_EXPECT_EQ_MSG(test, r[j], e[j], "Pattern: %s at %u", in, j);
-> +		for (; j < ARRAY_SIZE(r); j++)
-> +			KUNIT_EXPECT_EQ_MSG(test, r[j], 0, "Pattern: %s out of bound at %u", in, j);
-> +
-> +		get_options(in, 0, &n);
-> +		KUNIT_EXPECT_EQ_MSG(test, n, cmdline_test_range_overflow_cases[i].validated,
-> +				    "Pattern: %s (validated)", in);
-> +	}
-> +}
-> +
->  static void cmdline_test_next_arg_quoted_value(struct kunit *test)
->  {
->  	char in[] = "foo=\"bar baz\" qux=1";
-> @@ -258,6 +295,7 @@ static struct kunit_case cmdline_test_cases[] = {
->  	KUNIT_CASE(cmdline_test_lead_int),
->  	KUNIT_CASE(cmdline_test_tail_int),
->  	KUNIT_CASE(cmdline_test_range),
-> +	KUNIT_CASE(cmdline_test_range_overflow),
->  	KUNIT_CASE(cmdline_test_next_arg_quoted_value),
->  	KUNIT_CASE(cmdline_test_next_arg_bare_quote_regression),
->  	KUNIT_CASE(cmdline_test_next_arg_mixed_tokens),
-> -- 
-> 2.55.0
