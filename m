@@ -1,47 +1,47 @@
-Received: from SLXP216CU001.outbound.protection.outlook.com (mail-koreacentralazon11021107.outbound.protection.outlook.com [40.107.42.107])
+Received: from PUWP216CU001.outbound.protection.outlook.com (mail-koreasouthazon11020125.outbound.protection.outlook.com [52.101.156.125])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07FBF367B96;
-	Wed,  7 Oct 2026 02:00:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.42.107
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BA5B370D79;
+	Wed,  7 Oct 2026 02:00:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.156.125
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791338415; cv=fail; b=GQTCSwP9ysm5nFb3DTkyn8awUADd8SrLdOKYxUw+XXruU//pV5w28oDLg0WBgIFBypUUoLsA3YKnLKTtP3/YBlVAAejZspRMRUiJVX1NOwvZXRs+Uk/QcPH9J69HrycZTa5F5oFx5RaIJFECPYLFr0FIfZny664DRX1ZWh0trWk=
+	t=1791338416; cv=fail; b=PJBfNuuW8FWZYGWMRfgHdZtO7Vl7vDO7ZxYVz/QKh3ZNW1QVBtVwBHaNDg1xWcaNwT+XaxXKrVC7Mkbv7KmmFFaow3nhHIiH1akSku8JbECo3tplQqA0cui02e3PKcYARk++LQXn3AMMDYDEsGnvScPn5mZ8OdeIkQClvcEe954=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791338415; c=relaxed/simple;
-	bh=N05j4SRdht59Z073zoz50iBXW1zMJ5RmrPlATz/L5HY=;
+	s=arc-20240116; t=1791338416; c=relaxed/simple;
+	bh=aBtH/KV6wepHfW0hHEBQsya+DJFBNuM5HmhmjrPxafE=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=PXvJ/SqpzI90KfgKaK4KI7Sce45l4zPWV8AvmTT0jFXwMB4TZhi040ETdymd3EL3zL7izyHt16dQjEomBof9d7SaWtXzXDHDGBWDkrRpXkLx+O63cOnyN4WbjFickS0qJZT/SMO9M052UH0EHsaIIDaaLIrz94hpjdrgqpUO0To=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chipsnmedia.com; spf=fail smtp.mailfrom=chipsnmedia.com; dkim=pass (2048-bit key) header.d=chipsnmedia.com header.i=@chipsnmedia.com header.b=qdi4AlEg; arc=fail smtp.client-ip=40.107.42.107
+	 Content-Type:MIME-Version; b=dm5N8LAwDC0toIV6Tb5vj+5YqCmtDOa8wYomUigQGUhNzVI0pZnmSbdrKzWQy/xbKm3+5I6BK2dFjPRfcvR3/dJfwhkRoW5eSsYpqE82ypm9jHAO5EzEvPebZfwTo5cnG+2+O+N8G6VdxkY0wPmZaDF/9FegaoiLVjXlJ2Mw+t4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chipsnmedia.com; spf=fail smtp.mailfrom=chipsnmedia.com; dkim=pass (2048-bit key) header.d=chipsnmedia.com header.i=@chipsnmedia.com header.b=UHRvf95K; arc=fail smtp.client-ip=52.101.156.125
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chipsnmedia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=chipsnmedia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=chipsnmedia.com header.i=@chipsnmedia.com header.b="qdi4AlEg"
+	dkim=pass (2048-bit key) header.d=chipsnmedia.com header.i=@chipsnmedia.com header.b="UHRvf95K"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aXk0WtPqKi3HYRYb+uZthMV6GiwW8NKEdQo8RJJRJOwTlM66SEl7jQcZKnhoYTwPI2Lzz8jQ9k8DrmDEjsJBq/TBH+uMBMsR4Gp6RkUT7X9jbEBaoJ557Qaceg43sCS+a6Uh/TT/JVBCKxvftNq290R618pazV6icaE8BEC0vJ7FjzIqHvTb5FYjQCef+DIM+NFQsMletsMQ2XHtSzfXYLVFKbGLGwmNHAh6P5yzg9aJVaGuIGbNMk1dYCDndd+RXu2YA6rqsE4bWZETBehRu4F+sbVNIcePczmpHV5jghxF2CV/kXc82qh/Zm+YMwuy5C7L4sTrBmrd7hALqyN5rQ==
+ b=taAUjTDyXDVV5cdRETO9e/MXTebrMBbjGtEh1B8hIHuR5pTqDMPJVjNNJiGJh3Ud+5egOytZFEfstJ8APu1/f/D6yZNg9woTC9aYFdvUZojBAbFoFGCzfZzNqZHNr5NrXtU0ZygRNEn8DuydYnSGqMB2O+5k1PolDXdvHONPA8E63rnfblrf9CKpBNHOFs/qhd53RM/T6dMoy5Cs1043sT1NN1VLQUCgIPG2P2fAMDBZ/Qhug744hEdKZg5K9cU2m+zIoAnsL/66S3dmhhWZcLFrntRGiBtJdNbhYL+SbDXSERSWSt8fbQY8HgSbDsl0uJKi/MEhXnHRCuga8WU5kg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AhXGJV7dqzFB3VHKRFNxIENIzuBxGvuseAlM1s2Mh2c=;
- b=b6vq3MvWrbE53cAN4p9S9EJfu5+48eO5cPy0m9WSci4AgI0XAB5b9yzlkyM9J/+eYvzz2eIReX6XaT1xlqBFXHsiwFHr0DBGeB31C6B2lHCpC/KvFIh/YwXYBczMfKq58l07RaUavjmgNUeGfbx3804z29ckLIiCdoM+DpQHL6nzZrTfXbvFfVRmY7j9CZB3dS7d93rwYSx9v41IgOdU/CSHayMkjsKyfTMYMM/BDEPtWRZPPKyN0m6yk9pKUFYdbE5Fo+CSQHQ4FAHgT3V2cn73k1mLQxbGR5JTN2Jtf46qfg4QWOvE8mc3RMJKo3cl/uoNe4Hw3oVUuLHUMwZ3FQ==
+ bh=gfHUVsaS74Q32GyeV8yna557mBdX3sZj1MXxTDzC/dU=;
+ b=nPZKtr0Yl0Sbysme2lLWG7wvmloCBEjF6NjCmbjJ39Va7OvybOfEAiMts8rwczMJwWDpCiJUOleJbzfYXjrhw1j0Ie2uQUgioSjVdj/0sEVWkpkIXi7nHUtffiH4ROEKSyzCCV4ew13wOjjX35hg6/8/H4Oxo0ZzokU905C03a+l64zO4h5djkhj+Y8cONyiWT/SWzTL2GbE3G/cXCmzVAErkHllCmOsXEYIUAyLw6sZq4wAp8i/NjfP9MvAp2gqAhj2Toa82SLXm1bBt+9LPBqvtS1VkgVnQt/+nGFYthsl/dr4sP9Qi0HmrSEWdZhRTIt+64la1MBpKv4dr4dqiw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=chipsnmedia.com; dmarc=pass action=none
  header.from=chipsnmedia.com; dkim=pass header.d=chipsnmedia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chipsnmedia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AhXGJV7dqzFB3VHKRFNxIENIzuBxGvuseAlM1s2Mh2c=;
- b=qdi4AlEgCrKrsIyQ7eaTJPUkoMMwevyOQp3yeXlGSgbAocsqHRm9mdRyQ2jesewsifrKPU7TKjNxJSzLoaEKhuVnxK+sQZt1eAfqhEt1NeiXyA6IGm7618gfbYX68XcU4Cntth8GFR21+LTY388OGxj0oSqk1oCB6D7RUnGppyFtiVHhIVhHMZmeFzEN23/lG0pJt4MxatnpG0QvkSbqXjc+nNq4PeayMANi+VXS0bzBlzWeYbhfARoZW+QQ4CX0nuBOdbvL5xihqxmOWhv1ovoUYt02cI6QV5K+VpuHAW+uV50CUyfzVXViCj8lgTb2tr//PP4S+INt/n8WB9fPcw==
+ bh=gfHUVsaS74Q32GyeV8yna557mBdX3sZj1MXxTDzC/dU=;
+ b=UHRvf95KcGtor5AfpyPIin5ntS2S0KB6QXRcAfEXS6mMSh3Ci9xy0pTLtq9cvKDwBPU74KLMvDC2rccVt6EvbKdU7vJtzj1OC6CNkgvu6cNV+C38NJN8uh0NrMcEqH+QNsJfHVBBG7U1PAQZtVcBtWrF1FvZbJa7a/mTA1l6PGT0l5CugLxV4tA77LiTBl9JQBSTJIusLMsn/Z0qgtz3IpeBLcrdIa+zoyfoI3efKK/NAPO8nRWeq3Ib+UCbixneSA7oBbs8QcCR5YCVRYjDB/Cl2yw7ObtpamHYLwhLSl2BQXFqMvzIdSmOPuDqd2qUTRuTglGk1/tDyWXMZA3CPA==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=chipsnmedia.com;
 Received: from PU4P216MB1149.KORP216.PROD.OUTLOOK.COM (2603:1096:301:72::14)
  by SE5P216MB118462.KORP216.PROD.OUTLOOK.COM (2603:1096:101:310::21) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Wed, 7 Oct
- 2026 02:00:02 +0000
+ 2026 02:00:03 +0000
 Received: from PU4P216MB1149.KORP216.PROD.OUTLOOK.COM
  ([fe80::31e3:e5:b0a4:2f2f]) by PU4P216MB1149.KORP216.PROD.OUTLOOK.COM
  ([fe80::31e3:e5:b0a4:2f2f%6]) with mapi id 15.21.0496.010; Wed, 7 Oct 2026
- 02:00:02 +0000
+ 02:00:03 +0000
 From: "Jackson.lee" <jackson.lee@chipsnmedia.com>
 To: mchehab@kernel.org,
 	hverkuil-cisco@xs4all.nl,
@@ -55,9 +55,9 @@ Cc: linux-media@vger.kernel.org,
 	hverkuil@xs4all.nl,
 	nas.chung@chipsnmedia.com,
 	stable@vger.kernel.org
-Subject: [PATCH v1 7/9] media: chips-media: wave5: stamp decoded pictures from a decode-order queue
-Date: Wed,  7 Oct 2026 10:59:44 +0900
-Message-Id: <20261007015946.53-8-jackson.lee@chipsnmedia.com>
+Subject: [PATCH v1 8/9] media: chips-media: wave5: restore the display flags after a flush
+Date: Wed,  7 Oct 2026 10:59:45 +0900
+Message-Id: <20261007015946.53-9-jackson.lee@chipsnmedia.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261007015946.53-1-jackson.lee@chipsnmedia.com>
 References: <20261007015946.53-1-jackson.lee@chipsnmedia.com>
@@ -73,212 +73,225 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PU4P216MB1149:EE_|SE5P216MB118462:EE_
-X-MS-Office365-Filtering-Correlation-Id: b2775db6-ab2e-4ab1-95b2-08df2416b2d8
+X-MS-Office365-Filtering-Correlation-Id: d98cf7eb-3baa-4423-f874-08df2416b37e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|52116014|366016|376014|23010399003|10067099003|56012099006|5023799004|3023799007|18002099003|22082099003|38350700014;
+	BCL:0;ARA:13230040|1800799024|52116014|366016|376014|23010399003|10067099003|56012099006|3023799007|18002099003|22082099003|38350700014;
 X-Microsoft-Antispam-Message-Info:
-	fOqCHVEPmpFGXs5Iiajrsin/hY1fll95pCBBqDVAolSmAfGjM9fhJLvszhgYDRNn+6Vw4DwlEBWYPGXQnW/SoLdHPaLk30GBUH+pjvz+nWOOOpBECOeULJUxR9aQktqF7dT8dhTnWF1PoYQ8kp8vPlC6UTmemSVLH5DZ7L5C38ODDFdj+OjsP0eNq+g5jw4arBvdaxfl3csT13xfSegJi+oBOGKpu7WGyw/0lsVR6wCTP+ttzRQgzBTqKqCDq0sqcLsN3Gy8qk5AUbvV6kPxkGqTFMLDZH0d4FTaBZLNmyn161McxHRdvOdufZVn3oj4xKuWqaRBCHY6rBA92/asS/STux5myRbnP9pV+dV1lpqGAuJDQSDBXiaq6leA7z3h71/nStvBlOBnANFu8Q1nBmk5DSHpwO8M+eDSmBtQy8DhEaDCkGkzQ8M78RlugMI/aejuYetyccpjxlZtzpcxtJvnoqII0Oiwd1DO9tsGdNHncw33vqdr879ig9hT34dMocMeLwWU12PhMgSOQD8cLpWcS4fpUqXRxRWT3NkFzijXsN/vokouW2hD1BrRKGDzbJgSResvufE7QnKnqk0I92f+AbAhQzuAUYxsjiNk2oBrfZ5LySGgeRPYHjsV6816lZWA6Oop8wzKMkvyFpTNHyDtJ3IYBtdO1oRwyvZCdnhwI5s7cxV1Newv2aKt3krN6SNfLxbZS3KnykeSTyTxZcM8NCmWBnLybcRwh3zfn0A=
+	o7+BjtKvZHtHHBFy4w/cL4RhSzpamI888CeUsOf6LsLETmZkAN10Cl2LSnJSFm+IGswTno385QY7j7EDEx/naLTHAb3iodpSMx3pjCi7UAq5NjMSjG89xPx4tokN6p5Rr9yuHNcVtTDL2h+yz6PaaskiJsJQpJCBuwLet77Z1pzJHMWuihW+JkcwdBQc81iatKH/9hpYsvJyKUiJABSZVCALylgj5B+RJkv+ALXqqKc2fHOFv3f2Sw1o08SMP+WKjTlhGLtWpDXedLdGvxZnR4fhQsJJWSqGcGjA7Wo6QoL/O+X7pn1BQFJmdfdnFALxNEVaLtDOGAWX2hR5mSTBN4mRZWqjdaNXrx1w0lf+QpKK3l9dgKUo0//l+AD92f4jOg/tYLVVIP1KX5xdlDRNNhf1+TnzxXwqqCSmzfE/KifishYU4FJtZsaddNuOQZJhgyq0+dJrHz7/eSZYrIqHVe70aPYvs9slImTymAej06pJerCD1xyh6PoDv1+wxZfprScZyEDEQ6QgO44ENQr5Tpa0Mc4JcHYO/e9fAwccqalp/fraVy1Dc9cYrO5H+A9zGC0BkUz0/pbY0f4Q1n0GYi3ymCp6zgc0F80CcjDleRGVwPmtHCr/gh+PIZgS37j3vRnrGUNJnQLFt4r14Q6rnwmDEapFzradrYl0W7YonjXpKaKp/f4ZpaMEE1yQ41b25JKOaWe0kn/rOMmQ912Gpw==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PU4P216MB1149.KORP216.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(52116014)(366016)(376014)(23010399003)(10067099003)(56012099006)(5023799004)(3023799007)(18002099003)(22082099003)(38350700014);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PU4P216MB1149.KORP216.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(52116014)(366016)(376014)(23010399003)(10067099003)(56012099006)(3023799007)(18002099003)(22082099003)(38350700014);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Xwe/n86kTgBScyBihLGtw4ab+FdJOi59pj7nB4BWEHn5sihvnrABmNimkfKl?=
- =?us-ascii?Q?+RD2MDZUK2ed1yYYCEuiNH5mEmA7rUOeetMpz+xoPnNcAmml7umHIJfj3G5U?=
- =?us-ascii?Q?bC6Rv9crEb4yMjnfNj3/5Cc2UgDrT9cC3elEKkmBt6vSKmg8DVYk4liJTFNZ?=
- =?us-ascii?Q?wtlhuJF9/U7fGql9FFu4CiCEEh41Bl5x7/DfaBOhMIqQWiGq7T9y9cKfrpw+?=
- =?us-ascii?Q?0cdvS/ix0Lh+/zTzLlrQia8lDE/Pmw+cTzIh7Cv3pCfTer60Kzlt6kWfUFqP?=
- =?us-ascii?Q?KyQ2s7ik3lQKbotNqpYXOoRaID53a5i9MQRnNExB51SHhnj5LTCyII+fAWMF?=
- =?us-ascii?Q?bestmrKcqd3d/9r6h6Cayj32fZdQ3EH8g75MQ0czlma2B6OubDwYRvvYuj4v?=
- =?us-ascii?Q?10yIVThZbKx5BglURhUz0Ozgltc603VRmb0beEWHHrSPxT2faeCo1MXDeCvQ?=
- =?us-ascii?Q?o3pOf69bfu8PzFfOgOoggHumZuoNLvonYZ82f/q+LV1zXqscJX4djhf6Q678?=
- =?us-ascii?Q?X/l5Vs65oOGEq3QT+ULy1nlD37+96zu7ScwMu9r/Cy88DTGoiZZPsaDtaIMO?=
- =?us-ascii?Q?nEIXZSAjzyE+rm7Ba+yy8Jz7F+kyOle8xHjH/PUKp7HVq6y7yaoSam1LtMuh?=
- =?us-ascii?Q?Uk4/TXIP/LQ6iaO06Ib49a4rqIxsnaFSohbGxRs1/LOugUW9l4C9IpbDW7aj?=
- =?us-ascii?Q?ah/IRG2zl77bW2xI3a8TgmhR3XWRC3FXynAjGkNHgATnIRX/Xgbs628YChq8?=
- =?us-ascii?Q?6Q5hF18LNfNoKmy7QSN0Pjt5qoVRI91SJEpzc+qCumxMG37pcAgYyz8VRT+T?=
- =?us-ascii?Q?xddp5v7Z78SusWg3xRJ2MakOlEKteIcfCm8x53DNIm0KDbOrhyNniwPhfcbm?=
- =?us-ascii?Q?DYO6/HuFfwdW3G7FwVz676k7D0aDlYGXIBJG1Dufo3xvf2GrZXz9gngyyG+P?=
- =?us-ascii?Q?z2RXaCOKDLdxBIMTCVFHv1/nW7PvlFF0Lqvw6RrBEU/b80shZyFBhQlhi6ee?=
- =?us-ascii?Q?fxGyeUcKeZEfQFo+OUSGg1lYDFWeqqjV30z1i/ShygzWr91e+oBw4I9YbqaQ?=
- =?us-ascii?Q?1euKR5ALR18ZfrxBzjiyDwTPVf3/p+6mwhxU1DhtF/WxwgxOMRvCf1g4rd90?=
- =?us-ascii?Q?lkZIlV7YDNtVFnk107PfTaNM1pSt0tqFtFrZyk3FURCjEez33DmbzyRh66oU?=
- =?us-ascii?Q?l6nNL2a/omStHiNTsSnbaf7qTBwo1Mxp7T8yH++vAtFqjJYwNLsyvm3hn/k6?=
- =?us-ascii?Q?YDwXYteR3CcPNiM9TGxfx2Huof4Zhje+vbTMnrahTuTSn4GNYUx8YSqb6JUV?=
- =?us-ascii?Q?6iYx1METlev4bqUzSGttClkCWK4H79rpzAs7TjV2jJtAXdsB7CRKzBpc8IA+?=
- =?us-ascii?Q?bJw3ECLp9KEhfOcjHzefBBfSVNMyUdSFGquGXYpdYHB9iAmKScY3bO4f8u1V?=
- =?us-ascii?Q?YTAM19TDuIWfbqBqSpLDgnJtPZFqpg9N8FFpXMeyVZrotg44OKaG+pmI4A/f?=
- =?us-ascii?Q?17sUKP6DcwfKjm9WtmbSEcjATmOxp2T8p03ijUEDMSF7OKYHef3UfnlV3Qbq?=
- =?us-ascii?Q?LSi9eUko8DArgY5QJOE3lVsW8lDgPQkINgCXjBlKQRf7pHEtIMW1n9T1nIrK?=
- =?us-ascii?Q?V3O7Zggl+R9dTOJ6giUzCD6uTB7i1jqZbmdy19jSgJw09OETdwnlg07xeQYW?=
- =?us-ascii?Q?fBE6od9zXbC9BSnzwKfKQlA8erzeqpUUD2hUsIuDZjYFP6Gy6QWxBoDGMeVE?=
- =?us-ascii?Q?fWvitgFbc/Z7NFiJUXGzYVOlR3XF8BM=3D?=
+	=?us-ascii?Q?5B0zs8/iIckar+iCGQnc9hENYvIftEe1NuEf5c/4pY/BmjsiduJ8Zh+iZTAP?=
+ =?us-ascii?Q?mShVYsMl1N5jgNuaRGvhQTeyvk7frq1uzZv5T7dl0BRZYvrDTm6ctyLtJsa1?=
+ =?us-ascii?Q?Or9SiAJ0EAJkAYqTCuWvhpUFA5uuTSk0Y1Ygm4dgQNa4jm5dyjICpnbN1vdT?=
+ =?us-ascii?Q?LBtnHxfZ+vWzxyJfZgGj+hx09arsxBOIN/R2TZc/eimKTqlji68MUfa5x7LL?=
+ =?us-ascii?Q?qfxdULPG+zuntdYYgB3cTi8qKnomBhLvglLtJU/gQRix9lByOs4lU24Gk/Jg?=
+ =?us-ascii?Q?rE6fstdLzeCGDE7ih9ldGHjb5K36v+FL8kBeiqho8+cUDLwqOM4QTQimM/t/?=
+ =?us-ascii?Q?ZGUfv2FcFZwm3G3cGcDiI1Cxv2pZWb4OJfCGEjOZ61s3ob85v1Kih32PPozX?=
+ =?us-ascii?Q?7RKWQUNc5PzVbtpKJF9Q7EC2W4NTNs/r/Obo0laRzZN6aVkjNqklB4t+6D68?=
+ =?us-ascii?Q?zXfpPfC46Jrpg++VEP5oZLDIZyv+qmcmcvBTL9a+Y+ATUN0zpuYsPNZWu+1a?=
+ =?us-ascii?Q?gYBpUDiya2HSr/RZEBEgKmSD1k7hvdo+iNbFMqQGV5pOsf13ub8Bn8GuM05o?=
+ =?us-ascii?Q?+m0GuiO1GkQTsih4vui1SurVLRWoQ2RErRNuS6+ZMCPZcHwc8M7ieei32Ed1?=
+ =?us-ascii?Q?3RCK5F1gaOjgMNbSSWz94ViHS0oTOzZCDkiAR/RmDJGJM0KpHL/my6xR496j?=
+ =?us-ascii?Q?64cg3pe7JdIB8dkFyJFnSQ1i3m+vkA9gUsiGO94ga5TM4hLdq6V9QOsqQc+v?=
+ =?us-ascii?Q?RBoorSIH16bPBot+zgDeCpAlZDA9X4Ug7hYYpsFdz29vZbkQsxMfzPLga6J2?=
+ =?us-ascii?Q?Q6e6KbPT9Q2Uq321jK2NrENfiExKztg+3RND+fYPj3n7iFxVda3+MAgRpoVN?=
+ =?us-ascii?Q?VjLr6W5mTd6lPUuQUBAGNwpkg6hu6m4o0Yh/XYWr9doAWQwk4ILkBg3pz9s1?=
+ =?us-ascii?Q?k515fWl1E2VLjMcCgWnij7EJZPHjd3EkIazLpuSTXpfsyvB2qy6/umgQIt5I?=
+ =?us-ascii?Q?TOYrCdZzdRsDp2S3iaIJIYD22jCqYZwvJPbJRlPvafTqrny669i6Y2y+LGFz?=
+ =?us-ascii?Q?g08Zt3TJpgQsAGRDEItdXMkVreL0tHcM9ubuurY0qPaSbBorKsMDr1ktxmJe?=
+ =?us-ascii?Q?5BL35DMxgSFZCOtpd9rb65Bo0TX9hA8tqEpK3Bv4ux8WFpjRivtamykbuZXf?=
+ =?us-ascii?Q?49QFbESHZC/zCG0Lf7nq+nmSW9USpzGtxdtcpIXi1/K9hYu7ISdgkM61ZyMz?=
+ =?us-ascii?Q?PrTRfKoJAVXEypxhzOsb7JG9b/ZX+MYlx5sMOuyGvuBkve/A/GBYqASSN45i?=
+ =?us-ascii?Q?gACCcYcedTHGSVffQI8aCGI/s8tkEylZUAOG59LZRTlTm4M3bCES0gyQLzx5?=
+ =?us-ascii?Q?n0mapjEY4Gkj1wq6CuyCa5VnbktJtTlR/sK74madhPiH5e+MKH3kouUgXHWa?=
+ =?us-ascii?Q?6ifvPF4nXoqyejUTNOMc9jtPycoqsqfeQreuDaMDa/B3aKi1LdNhSz82ZTk9?=
+ =?us-ascii?Q?o80SnScMPwHKTYjWYWaUlVW2Ybc91uElAOCoiH5t0mo1yYRL+F+bYQuPiy/E?=
+ =?us-ascii?Q?mib2epFR5tx//wBBqr+Us08gX5B2s/jKylWwUyUCxYzvRJcVW+LTdE/PaH7e?=
+ =?us-ascii?Q?ULMyM1MNGYqijEOqKghv4nHorKtCWQTW9YhH4slDuN/kXwlcVf2zQRfjIlB1?=
+ =?us-ascii?Q?YrAhxXMrsrRvLOe/ZCvEq9z8ZM8nbRE2VUs5UZLtGRn+G40tSElvK4rJMV4R?=
+ =?us-ascii?Q?DGAa/rCgbjI6ykDZK/HLy3Y1NJt77fs=3D?=
 X-OriginatorOrg: chipsnmedia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b2775db6-ab2e-4ab1-95b2-08df2416b2d8
+X-MS-Exchange-CrossTenant-Network-Message-Id: d98cf7eb-3baa-4423-f874-08df2416b37e
 X-MS-Exchange-CrossTenant-AuthSource: PU4P216MB1149.KORP216.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 02:00:02.2694
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 02:00:03.0311
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 4d70c8e9-142b-4389-b7f2-fa8a3c68c467
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rY8kukZOKmddozL9HGKtFy/jBAXY+P0m2Enqepi0XlMaBsQL62M5Frf3nFrseCeYYNCzdTD9Jx7dbRoEG9i/9VOr65ycrlL6WDMTQ2WNgEc=
+X-MS-Exchange-CrossTenant-UserPrincipalName: zB3zIxR38xJyaEsrAVNYz4OAYfu1qQcWa1qtr4cI11USk/ZzuHPyoCbOvN/YrYa5VDbZqj2Ojk/Jhs5BncqVP+23hLOKTf7KAsHpzjzeAf0=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SE5P216MB118462
 
 From: Jackson Lee <jackson.lee@chipsnmedia.com>
 
-The VPU takes more than one picture command at a time, so one completion
-can report a read pointer that has already passed several access units.
-wave5_handle_src_buffer() then completes several source buffers in a
-single call, and inst->timestamp keeps only the last of them, so every
-earlier timestamp is overwritten before any picture is stamped with it.
+Flushing an instance clears the display flags, so every frame buffer looks
+free again -- including the ones userspace is still holding.
+streamoff_output() marks only the buffers that happen to be queued when it
+runs, and userspace clears those as it re-queues them, so the buffers it
+kept end up unmarked.
 
-Userspace carries its frame number in that timestamp. A number that
-never comes back leaves its frame pending forever; GStreamer reports it
-as "Too old frames, bug in decoder" once a hundred have accumulated.
+The next pictures are then decoded straight into buffers the application
+owns. finish_decode() cannot find them in the queue and warns:
 
-Queue the timestamps in decode order and take one per decoded picture.
+  wave5_vpu_dec_finish_decode: invalid display frame index N
+
+A trace of the flags across a seek shows it plainly: at streamoff the flags
+are 0x73, only the two queued buffers are marked again, userspace re-queues
+five of seven buffers and the flags reach 0 -- and the two it kept are
+decoded into 8 and 12 ms later.
+
+Re-establish the flags once the flush is done, from the buffers' own
+states: mark everything the driver does not own, hand back only what it
+does.
+
+Derive that from the vb2 buffers rather than from the m2m ready queue. The
+earlier per-buffer loops walked that list with v4l2_m2m_for_each_dst_buf(),
+which takes no lock, while the interrupt thread unlinks entries from it in
+v4l2_m2m_dst_buf_remove_by_idx(); walking it here oopsed on a poisoned list
+pointer:
+
+  Unable to handle kernel paging request at virtual address deacfffffffffcd8
+  pc : streamoff_output+0xe4/0x294 [wave5]
+  Call trace:
+   streamoff_output+0xe4/0x294 [wave5]
+   wave5_vpu_dec_stop_streaming+0x244/0x2b4 [wave5]
+   __vb2_queue_cancel+0x30/0x278 [videobuf2_common]
+
+Indexing the vb2 queue directly avoids the list entirely.
+
+With a flushing seek every 2 s for 180 s through glimagesink, three runs
+each: 4, 4, 4 of those warnings before and 0, 0, 0 after, with no oops.
 
 Fixes: 9707a6254a8a ("media: chips-media: wave5: Add the v4l2 layer")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jackson Lee <jackson.lee@chipsnmedia.com>
 Signed-off-by: Nas Chung <nas.chung@chipsnmedia.com>
 ---
- .../chips-media/wave5/wave5-vpu-dec.c         | 69 ++++++++++++++++++-
- .../platform/chips-media/wave5/wave5-vpuapi.h | 10 +++
- 2 files changed, 78 insertions(+), 1 deletion(-)
+ .../chips-media/wave5/wave5-vpu-dec.c         | 77 +++++++++++++++----
+ 1 file changed, 60 insertions(+), 17 deletions(-)
 
 diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c b/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
-index 0c92b6c9a913..eae738df270e 100644
+index eae738df270e..e52853e89931 100644
 --- a/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
 +++ b/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
-@@ -199,6 +199,59 @@ static bool wave5_last_src_buffer_consumed(struct v4l2_m2m_ctx *m2m_ctx)
- 	return vpu_buf->consumed;
+@@ -1088,6 +1088,45 @@ static int wave5_vpu_dec_queue_setup(struct vb2_queue *q, unsigned int *num_buff
+ 	return 0;
  }
  
 +/*
-+ * The decode-order timestamp queue.
++ * Re-establish the display flags from the buffers' own states: the VPU may only
++ * write into a frame buffer the driver owns. Everything else -- above all the
++ * buffers userspace is holding -- has to stay marked.
 + *
-+ * GStreamer carries its frame number in tv_sec of the OUTPUT timestamp and
-+ * reads it back off the CAPTURE buffer, so every source buffer's timestamp has
-+ * to reach exactly one decoded picture.
-+ *
-+ * A scalar cannot do that. The VPU accepts more than one picture command at a
-+ * time, so a single completion can report a read pointer that has already
-+ * passed several access units; wave5_handle_src_buffer() then completes
-+ * several source buffers in one call, and all but the last timestamp is
-+ * overwritten before any picture is stamped with it. That number never comes
-+ * back, and the frame it belongs to is left pending in userspace forever --
-+ * observed as GStreamer's "Too old frames, bug in decoder" warning once a
-+ * hundred of them have piled up.
-+ *
-+ * Queue them instead. Picture completions arrive in decode order, which is the
-+ * order the source buffers were consumed in.
++ * Walk the vb2 buffers rather than the m2m ready queue. That list is modified
++ * from the interrupt thread (v4l2_m2m_dst_buf_remove_by_idx() in
++ * finish_decode()) and v4l2_m2m_for_each_dst_buf() takes no lock, so iterating
++ * it here can land on an entry that was just unlinked.
 + */
-+static void wave5_ts_reset(struct vpu_instance *inst)
++static void wave5_dec_sync_disp_flags(struct vpu_instance *inst, bool mark_all)
 +{
-+	inst->time_stamp.head = 0;
-+	inst->time_stamp.tail = 0;
++	struct v4l2_m2m_ctx *m2m_ctx = inst->v4l2_fh.m2m_ctx;
++	struct vb2_queue *dst_vq = v4l2_m2m_get_dst_vq(m2m_ctx);
++	unsigned int i;
++
++	for (i = 0; i < vb2_get_num_buffers(dst_vq); i++) {
++		struct vb2_buffer *vb = vb2_get_buffer(dst_vq, i);
++		bool driver_owns;
++		int ret;
++
++		if (!vb)
++			continue;
++
++		driver_owns = !mark_all &&
++			      (vb->state == VB2_BUF_STATE_QUEUED ||
++			       vb->state == VB2_BUF_STATE_ACTIVE);
++
++		if (driver_owns)
++			ret = wave5_vpu_dec_clr_disp_flag(inst, vb->index);
++		else
++			ret = wave5_vpu_dec_set_disp_flag(inst, vb->index);
++		if (ret)
++			dev_dbg(inst->dev->dev,
++				"%s: %s display flag of buf index: %u, fail: %d\n",
++				__func__, driver_owns ? "Clearing" : "Setting", i, ret);
++	}
 +}
 +
-+static void wave5_ts_push(struct vpu_instance *inst, u64 ts)
-+{
-+	int next = (inst->time_stamp.head + 1) % MAX_TIMESTAMP_CIR_BUF;
-+
-+	/*
-+	 * Full means pictures are not being reported for the data we feed, so
-+	 * the oldest entry has nothing left to claim it. Drop it rather than
-+	 * refuse the new one, which would shift every timestamp from here on.
-+	 */
-+	if (next == inst->time_stamp.tail)
-+		inst->time_stamp.tail = (inst->time_stamp.tail + 1) %
-+					MAX_TIMESTAMP_CIR_BUF;
-+
-+	inst->time_stamp.buf[inst->time_stamp.head] = ts;
-+	inst->time_stamp.head = next;
-+}
-+
-+static bool wave5_ts_pop(struct vpu_instance *inst, u64 *ts)
-+{
-+	if (inst->time_stamp.head == inst->time_stamp.tail)
-+		return false;
-+
-+	*ts = inst->time_stamp.buf[inst->time_stamp.tail];
-+	inst->time_stamp.tail = (inst->time_stamp.tail + 1) %
-+				MAX_TIMESTAMP_CIR_BUF;
-+	return true;
-+}
-+
- static void wave5_handle_src_buffer(struct vpu_instance *inst, dma_addr_t rd_ptr)
+ static int wave5_prepare_fb(struct vpu_instance *inst)
  {
+ 	int linear_num;
+@@ -1542,7 +1581,6 @@ static int streamoff_output(struct vb2_queue *q)
+ 	int ret;
+ 	dma_addr_t new_rd_ptr;
+ 	struct dec_output_info dec_info;
+-	unsigned int i;
+ 	struct vpu_src_buffer *vpu_buf, *tmp;
+ 
+ 	inst->retry = false;
+@@ -1551,14 +1589,6 @@ static int streamoff_output(struct vb2_queue *q)
+ 	list_for_each_entry_safe(vpu_buf, tmp, &inst->avail_src_bufs, list)
+ 		list_del_init(&vpu_buf->list);
+ 
+-	for (i = 0; i < v4l2_m2m_num_dst_bufs_ready(m2m_ctx); i++) {
+-		ret = wave5_vpu_dec_set_disp_flag(inst, i);
+-		if (ret)
+-			dev_dbg(inst->dev->dev,
+-				"%s: Setting display flag of buf index: %u, fail: %d\n",
+-				__func__, i, ret);
+-	}
+-
+ 	while ((buf = v4l2_m2m_src_buf_remove(m2m_ctx))) {
+ 		dev_dbg(inst->dev->dev, "%s: (Multiplanar) buf type %4u | index %4u\n",
+ 			__func__, buf->vb2_buf.type, buf->vb2_buf.index);
+@@ -1575,6 +1605,20 @@ static int streamoff_output(struct vb2_queue *q)
+ 	if (ret)
+ 		return ret;
+ 
++	/*
++	 * The flush clears the display flags, so every frame buffer now looks
++	 * free -- including the ones userspace is still holding. Only the
++	 * buffers that happened to be queued when the flush ran were marked
++	 * again, and userspace clears those as it re-queues them, which leaves
++	 * the ones it kept unmarked: the next pictures are decoded straight
++	 * into buffers the application owns and finish_decode() cannot find
++	 * them in the queue any more.
++	 *
++	 * Mark everything, then hand back just what is queued, the same way
++	 * wave5_prepare_fb() establishes the flags in the first place.
++	 */
++	wave5_dec_sync_disp_flags(inst, false);
++
+ 	/* Reset the ring buffer information */
+ 	new_rd_ptr = wave5_vpu_dec_get_rd_ptr(inst);
+ 	inst->last_rd_ptr = new_rd_ptr;
+@@ -1615,16 +1659,15 @@ static int streamoff_capture(struct vb2_queue *q)
+ 	struct vpu_instance *inst = vb2_get_drv_priv(q);
  	struct v4l2_m2m_ctx *m2m_ctx = inst->v4l2_fh.m2m_ctx;
-@@ -232,6 +285,7 @@ static void wave5_handle_src_buffer(struct vpu_instance *inst, dma_addr_t rd_ptr
- 			__func__, src_buf->vb2_buf.index);
- 		src_buf = v4l2_m2m_src_buf_remove(m2m_ctx);
- 		inst->timestamp = src_buf->vb2_buf.timestamp;
-+		wave5_ts_push(inst, src_buf->vb2_buf.timestamp);
- 		v4l2_m2m_buf_done(src_buf, VB2_BUF_STATE_DONE);
- 		consumed_bytes -= src_size;
+ 	struct vb2_v4l2_buffer *buf;
+-	unsigned int i;
+ 	int ret = 0;
  
-@@ -422,8 +476,18 @@ static void wave5_vpu_dec_finish_decode(struct vpu_instance *inst)
- 		struct vb2_buffer *vb = vb2_get_buffer(dst_vq,
- 						       dec_info.index_frame_decoded);
- 		if (vb) {
-+			u64 ts;
-+
- 			dec_buf = to_vb2_v4l2_buffer(vb);
--			dec_buf->vb2_buf.timestamp = inst->timestamp;
-+			/*
-+			 * Empty means this picture came out of data that was
-+			 * already accounted for. Fall back to the last timestamp
-+			 * seen rather than leave the buffer unstamped.
-+			 */
-+			if (!wave5_ts_pop(inst, &ts))
-+				ts = inst->timestamp;
-+
-+			dec_buf->vb2_buf.timestamp = ts;
- 		} else {
- 			dev_warn(inst->dev->dev, "%s: invalid decoded frame index %i",
- 				 __func__, dec_info.index_frame_decoded);
-@@ -1529,6 +1593,9 @@ static int streamoff_output(struct vb2_queue *q)
- 	 */
- 	inst->remaining_consumed_bytes = 0;
+-	for (i = 0; i < v4l2_m2m_num_dst_bufs_ready(m2m_ctx); i++) {
+-		ret = wave5_vpu_dec_set_disp_flag(inst, i);
+-		if (ret)
+-			dev_dbg(inst->dev->dev,
+-				"%s: Setting display flag of buf index: %u, fail: %d\n",
+-				__func__, i, ret);
+-	}
++	/*
++	 * Every CAPTURE buffer is about to go back to userspace, so none of them
++	 * may be decoded into until it is queued again. wave5_prepare_fb() only
++	 * re-establishes the flags on the INIT_SEQ -> PIC_RUN transition, which a
++	 * plain streamoff/streamon of this queue does not go through.
++	 */
++	wave5_dec_sync_disp_flags(inst, true);
  
-+	/* The queued timestamps belong to those buffers as well. */
-+	wave5_ts_reset(inst);
-+
- 	if (v4l2_m2m_has_stopped(m2m_ctx)) {
- 		unsigned long flags;
- 
-diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpuapi.h b/drivers/media/platform/chips-media/wave5/wave5-vpuapi.h
-index abfe94fa18e7..f2c6efae4aa0 100644
---- a/drivers/media/platform/chips-media/wave5/wave5-vpuapi.h
-+++ b/drivers/media/platform/chips-media/wave5/wave5-vpuapi.h
-@@ -781,6 +781,15 @@ struct vpu_instance_ops {
- 	void (*finish_process)(struct vpu_instance *inst);
- };
- 
-+#define MAX_TIMESTAMP_CIR_BUF	30
-+
-+/* OUTPUT timestamps in decode order, one per consumed source buffer */
-+struct timestamp_circ_buf {
-+	u64 buf[MAX_TIMESTAMP_CIR_BUF];
-+	int head;
-+	int tail;
-+};
-+
- struct vpu_instance {
- 	struct list_head list;
- 	struct v4l2_fh v4l2_fh;
-@@ -817,6 +826,7 @@ struct vpu_instance {
- 	struct list_head avail_dst_bufs;
- 	struct v4l2_rect conf_win;
- 	u64 timestamp;
-+	struct timestamp_circ_buf time_stamp;
- 	enum frame_buffer_format output_format;
- 	bool cbcr_interleave;
- 	bool nv21;
+ 	while ((buf = v4l2_m2m_dst_buf_remove(m2m_ctx))) {
+ 		u32 plane;
 -- 
 2.43.0
 
