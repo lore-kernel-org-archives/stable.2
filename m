@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68F873B9608
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 05:27:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF0F43CEBB8
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 05:27:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791350824; cv=none; b=qOIkTkQvKQLvrBHzFKw2bdwwz100qYdZbHw8YU0UueVfrEJ25wgNVGolINuBZMJWqtMvOh/rqu4WsFwmJQ5Ftm2blDF1OUr/uJGBhUa4eSiKFR2biLAvUxm/ILsOBa4/r2atYN9GXQDbHq/E+ngSP5H1TOprITXEo1DQEE9PtVc=
+	t=1791350830; cv=none; b=WsTdOOqk7tFTRsXHC4deue7aGJeVKg8hqT45BeexweCYexAObu6u8e1JGcf1pPJxRMJbLI3hdkg5y4wxNR3/r6j3JIGlOWjc5tZYa4PZK0TsdsN6Zfw/LuoihD+Dx2NpkW8bUM4pjFq7ysim5ii7MnE81/xmLsiWuCsjObsoixA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791350824; c=relaxed/simple;
-	bh=W/ZYXApaBy/RIGVkFF3DODnnI+Z6h7FTYUpVKsaR5R4=;
+	s=arc-20240116; t=1791350830; c=relaxed/simple;
+	bh=AJzSdV+zMwPJtuJFO7OyVO5bpEbne52qkaVT9LD93D4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QPl14jE4cjbNZYPAfricUfIWSPbNFxzg5ptLHdjbyBELsFIBPOygp0dXsCc7P4hyO4904TXXJ8jGQUTyUNmj5SNucQy5FdQpu3VpqMrD0IByS+OHBGM5KxdmCsSwBbQdOg/gsSRlKEphzDWC282L4e4Dze7nzLRMVjCm64b7YWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lrgkSFuF; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=W4GL2aXhKy5Y4WATgJyVszxNAXMSg8p1VsH4hKiOrwFWbltQZhQU5qBHbXv25/yRLzlCyfvtO1qDNEeUbRls3IzuNX6XPg5FxCKhMaKGt8+JXc3ldJ4R550VuSlZJCNuT9Yh+w9/vqB5N3oTrNhCOwAJaSBh//qmdEVHzfARoc8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AWIUaQ+g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lrgkSFuF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE8241F0089B;
-	Wed,  7 Oct 2026 05:27:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AWIUaQ+g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C40181F0089B;
+	Wed,  7 Oct 2026 05:27:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791350823;
-	bh=U4+zHseZMtxRQ4HUU4C/L1GVfLdYE3HT+PkYylE+wyg=;
+	s=k20260515; t=1791350829;
+	bh=50YmRM72LZ5JqlSGPax6/s4Q5PDWyjCt9/DfIqtVNYk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lrgkSFuF513fZMb1PmoxpNUDQbQrC/z5OITkHhhVYg6X28Yo/GZ3VrECYkpmADEVQ
-	 kWvFcF7MeNOUj69f2NeVFlv0hdrCQGvDYYOBiyL+yEM+dNfY5jXXiAldDYMw1NsAyN
-	 tX4EU2sffkQ54kA7sLcn6iWHwTq9KGcjseX0dPQZadrkBeKxV0Z8WP7t3G/aoirdBf
-	 NmOC1Rsv02zfjI5rOyBanZuKuV9EwpmP6Dbutqv9xWXbus9EnlkC5Y7vr2lYP0NMGZ
-	 qgLb7rCFUBEPtwqL8r5jTw6IPh295ypAn3ei/nbPhPyBCk5e022CFjJOJ15mi8cFUO
-	 EEAvxQ7k/5kiA==
+	b=AWIUaQ+gp1BITFScbl4xRse6yttvowB29ZFlwIXvZF9Y7NbGJhu5YQg710gffQPwa
+	 pyTdoxn5VlCs8nqF0RJJIunwU6k3JsZKja7uE33s0sfxYZW3I0t9w1908dFGSASc99
+	 EFMfzIDDU5vVGVKH4Zn4GNm5uGDxZXoxdQ+csICm0TEIgkareJu0n3gOo1xyEdGgnC
+	 JQLF3DtnjHfRPT4ybbF+YOHBHp/VRmXom62kHnd0jORdUZEz1SO9icj7Bt/KSmmlCi
+	 RZKn/iHkLKS6UJRQUeJRTNMus4c/5dZ+lgyQ0JOUH7g95erbgCKzCvNwTh3mAyJmZb
+	 BLJR1KHXh0XsQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Zhiling Zou <zhilinz@nebusec.ai>,
 	Vega <vega@nebusec.ai>,
 	Johannes Berg <johannes.berg@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] wifi: mac80211: count only matching reservations in reserved switch
-Date: Wed,  7 Oct 2026 01:26:59 -0400
-Message-ID: <20261007052612.1186231-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] wifi: mac80211: keep paired old chanctx alive
+Date: Wed,  7 Oct 2026 01:27:05 -0400
+Message-ID: <20261007052609.1186753-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100535-entrench-prowling-0faf@gregkh>
-References: <2026100535-entrench-prowling-0faf@gregkh>
+In-Reply-To: <2026100551-shampoo-endocrine-c1ec@gregkh>
+References: <2026100551-shampoo-endocrine-c1ec@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,117 +48,90 @@ Content-Transfer-Encoding: 8bit
 
 From: Zhiling Zou <zhilinz@nebusec.ai>
 
-[ Upstream commit 437f3727b4fd715266c296435c116288f82666fd ]
+[ Upstream commit 3412e9a800786d1dec4a58367db1cba275e7ef11 ]
 
-ieee80211_vif_use_reserved_switch() validates a replacement by counting
-assigned links on ctx->replace_ctx and treating reservations too
-broadly. A link can still be assigned to the old channel context while
-holding a reservation that belongs to a different replacement
-operation.
+An in-place replacement keeps reciprocal replace_ctx pointers between
+the old WILL_BE_REPLACED chanctx and the new REPLACES_OTHER chanctx.
+However, the early free paths only consider assigned and reserved link
+users when deciding whether to free the old chanctx.
 
-That can make the current replacement appear complete too early. If
-another link finalizes first, the function can free the
-WILL_BE_REPLACED chanctx while the unmatched link and driver still use
-it, leading to a use-after-free in later beacon generation.
+That lets the old chanctx be freed too early while the replacement
+partner still points back to it, either when the last assigned link is
+released or when that link successfully reassigns to another existing
+context. Later unreserve and switch-finalization paths can then follow a
+stale replace_ctx pointer.
 
-Require an in-place reservation to point at the current replacement
-context, and require the reserved and assigned contexts to be the
-matching replacement pair, before counting or moving the link.
+Keep a paired old chanctx alive until the replacement pair has been torn
+down. Apply the same check to both __ieee80211_link_release_channel()
+and ieee80211_link_use_reserved_reassign(). If the replacement is later
+abandoned, ieee80211_link_unreserve_chanctx() already tears down the
+pairing before freeing the old chanctx once no users remain.
 
 Fixes: 5bcae31d9cb1 ("mac80211: implement multi-vif in-place reservations")
 Cc: stable@vger.kernel.org
 Reported-by: Vega <vega@nebusec.ai>
 Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
-Link: https://patch.msgid.link/4b6c4b8648ab1920c38a40be32c0b1a2797b4ac6.1785726007.git.zhilinz@nebusec.ai
+Link: https://patch.msgid.link/b9b582b0db3814f641648b8886bb50f9d68f93ac.1785730815.git.zhilinz@nebusec.ai
 Signed-off-by: Johannes Berg <johannes.berg@intel.com>
-[ sashal: Adapted per-link reservation handling to the existing per-interface helpers and list traversal. ]
+[ sashal: adapted link-based chanctx handling to the older vif-based API ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/mac80211/chan.c | 22 ++++++++++++++++------
- 1 file changed, 16 insertions(+), 6 deletions(-)
+ net/mac80211/chan.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
 diff --git a/net/mac80211/chan.c b/net/mac80211/chan.c
-index f32d8d07d6a30..563649257c195 100644
+index 5639a71257e41..0d0bb18a77e79 100644
 --- a/net/mac80211/chan.c
 +++ b/net/mac80211/chan.c
-@@ -1240,7 +1240,8 @@ ieee80211_vif_use_reserved_assign(struct ieee80211_sub_if_data *sdata)
- }
- 
- static bool
--ieee80211_vif_has_in_place_reservation(struct ieee80211_sub_if_data *sdata)
-+ieee80211_vif_has_in_place_reservation(struct ieee80211_sub_if_data *sdata,
-+				       struct ieee80211_chanctx *ctx)
+@@ -846,6 +846,7 @@ void ieee80211_vif_copy_chanctx_to_vlans(struct ieee80211_sub_if_data *sdata,
+ int ieee80211_vif_unreserve_chanctx(struct ieee80211_sub_if_data *sdata)
  {
- 	struct ieee80211_chanctx *old_ctx, *new_ctx;
+ 	struct ieee80211_chanctx *ctx = sdata->reserved_chanctx;
++	struct ieee80211_chanctx *old_ctx = NULL;
  
-@@ -1249,6 +1250,9 @@ ieee80211_vif_has_in_place_reservation(struct ieee80211_sub_if_data *sdata)
- 	new_ctx = sdata->reserved_chanctx;
- 	old_ctx = ieee80211_vif_get_chanctx(sdata);
+ 	lockdep_assert_held(&sdata->local->chanctx_mtx);
  
-+	if (new_ctx != ctx)
-+		return false;
+@@ -860,6 +861,7 @@ int ieee80211_vif_unreserve_chanctx(struct ieee80211_sub_if_data *sdata)
+ 			if (WARN_ON(!ctx->replace_ctx))
+ 				return -EINVAL;
+ 
++			old_ctx = ctx->replace_ctx;
+ 			WARN_ON(ctx->replace_ctx->replace_state !=
+ 			        IEEE80211_CHANCTX_WILL_BE_REPLACED);
+ 			WARN_ON(ctx->replace_ctx->replace_ctx != ctx);
+@@ -870,6 +872,10 @@ int ieee80211_vif_unreserve_chanctx(struct ieee80211_sub_if_data *sdata)
+ 
+ 			list_del_rcu(&ctx->list);
+ 			kfree_rcu(ctx, rcu_head);
 +
- 	if (!old_ctx)
- 		return false;
++			if (ieee80211_chanctx_refcount(sdata->local,
++						       old_ctx) == 0)
++				ieee80211_free_chanctx(sdata->local, old_ctx);
+ 		} else {
+ 			ieee80211_free_chanctx(sdata->local, ctx);
+ 		}
+@@ -1078,7 +1084,9 @@ ieee80211_vif_use_reserved_reassign(struct ieee80211_sub_if_data *sdata)
  
-@@ -1261,6 +1265,12 @@ ieee80211_vif_has_in_place_reservation(struct ieee80211_sub_if_data *sdata)
- 	if (new_ctx->replace_state != IEEE80211_CHANCTX_REPLACES_OTHER)
- 		return false;
+ 	ieee80211_check_fast_xmit_iface(sdata);
  
-+	if (new_ctx->replace_ctx != old_ctx)
-+		return false;
-+
-+	if (old_ctx->replace_ctx != new_ctx)
-+		return false;
-+
- 	return true;
- }
+-	if (ieee80211_chanctx_refcount(local, old_ctx) == 0)
++	if (ieee80211_chanctx_refcount(local, old_ctx) == 0 &&
++	    !(old_ctx->replace_state == IEEE80211_CHANCTX_WILL_BE_REPLACED &&
++	      old_ctx->replace_ctx))
+ 		ieee80211_free_chanctx(local, old_ctx);
  
-@@ -1311,7 +1321,7 @@ static int ieee80211_chsw_switch_vifs(struct ieee80211_local *local,
- 		list_for_each_entry(sdata, &ctx->reserved_vifs,
- 				    reserved_chanctx_list) {
- 			if (!ieee80211_vif_has_in_place_reservation(
--					sdata))
-+					sdata, ctx))
- 				continue;
+ 	if (sdata->vif.bss_conf.chandef.width != sdata->reserved_chandef.width)
+@@ -1555,7 +1563,9 @@ static void __ieee80211_vif_release_channel(struct ieee80211_sub_if_data *sdata)
+ 	}
  
- 			old_ctx = ieee80211_vif_get_chanctx(sdata);
-@@ -1418,7 +1428,7 @@ static int ieee80211_vif_use_reserved_switch(struct ieee80211_local *local)
- 		list_for_each_entry(sdata, &ctx->replace_ctx->assigned_vifs,
- 				    assigned_chanctx_list) {
- 			n_assigned++;
--			if (sdata->reserved_chanctx) {
-+			if (ieee80211_vif_has_in_place_reservation(sdata, ctx)) {
- 				n_reserved++;
- 				if (sdata->reserved_ready)
- 					n_ready++;
-@@ -1439,7 +1449,7 @@ static int ieee80211_vif_use_reserved_switch(struct ieee80211_local *local)
- 		ctx->conf.radar_enabled = false;
- 		list_for_each_entry(sdata, &ctx->reserved_vifs,
- 				    reserved_chanctx_list) {
--			if (ieee80211_vif_has_in_place_reservation(sdata) &&
-+			if (ieee80211_vif_has_in_place_reservation(sdata, ctx) &&
- 			    !sdata->reserved_ready)
- 				return -EAGAIN;
+ 	ieee80211_assign_vif_chanctx(sdata, NULL);
+-	if (ieee80211_chanctx_refcount(local, ctx) == 0)
++	if (ieee80211_chanctx_refcount(local, ctx) == 0 &&
++	    !(ctx->replace_state == IEEE80211_CHANCTX_WILL_BE_REPLACED &&
++	      ctx->replace_ctx))
+ 		ieee80211_free_chanctx(local, ctx);
  
-@@ -1509,7 +1519,7 @@ static int ieee80211_vif_use_reserved_switch(struct ieee80211_local *local)
- 				    reserved_chanctx_list) {
- 			u32 changed = 0;
- 
--			if (!ieee80211_vif_has_in_place_reservation(sdata))
-+			if (!ieee80211_vif_has_in_place_reservation(sdata, ctx))
- 				continue;
- 
- 			rcu_assign_pointer(sdata->vif.chanctx_conf, &ctx->conf);
-@@ -1562,7 +1572,7 @@ static int ieee80211_vif_use_reserved_switch(struct ieee80211_local *local)
- 		list_for_each_entry_safe(sdata, sdata_tmp, &ctx->reserved_vifs,
- 					 reserved_chanctx_list) {
- 			if (WARN_ON(ieee80211_vif_has_in_place_reservation(
--					sdata)))
-+					sdata, ctx)))
- 				continue;
- 
- 			if (WARN_ON(sdata->reserved_chanctx != ctx))
+ 	sdata->radar_required = false;
 -- 
 2.53.0
 
