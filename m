@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E32B52D2495;
-	Wed,  7 Oct 2026 00:50:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCB9A2EFD95;
+	Wed,  7 Oct 2026 00:50:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791334202; cv=none; b=rkzd2EsU8WyCYXiJX0EMlwO8GXzlVsyz7WplDQglJSrexZr38jJ9wuXPGh5pkgHtyVOxupJct2Zn7ZAXppMRCbjtWkNoPXlycLKVjhVbCFkytE7Kq6nQiR3LzhfS+V2rmgNeANjClHi5NicLwIm3p568bYs46SUt/VxkmxM53EQ=
+	t=1791334210; cv=none; b=nRkPn6oHJMBHAb9/feBHPNKLqFchbuK8mop7WWn8ScWGbsxpRCUYWgYKSEihEipJuYJUSr0NrxA/yug0b2m3bXUYQKT8rAeN4jtAoF5IARY4m1Z4UGLDDuGwwXR18HdNPX+fSeI3OC1kWg0WypzfFKhi+R3jVTobyiExHY11dII=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791334202; c=relaxed/simple;
-	bh=uA2pwhcKYLqQCbhUmtS6Eu+pt1zUBrrnVR7hnoxQrwI=;
-	h=Date:To:From:Subject:Message-Id; b=i+5aaFgFUAn1QAfHAtMePabsKPgqpXGhnTK8E4DMuDlfojcUhcs6cMqpThyThmQ+ACjXnXPVieOyR+EU/tdm3hQ5rSyNg4YgjRJfhB27m7PkC1OyX9z45FGjpqGQp6PuDKcsXkJ4/0HDa1B2Mf5BcPXpZ3AE0zDFV3ffWyhx0OI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=FlqKM9WT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791334210; c=relaxed/simple;
+	bh=oNN6TP4BltXHQcOndG3cmc8pUI9jBb9PoMzfRz9SjfU=;
+	h=Date:To:From:Subject:Message-Id; b=s/bhQ2uDANFGOJDcXTyYEY7/eHftHB2Boji1Mfzp1MMRToSJek8tau4lzX6BaKwzEWrAgt7Wp1EZT/Y3T64nghC2OrXR9OgeFdTFv988PzRtD9sTGO3lbrYzeTsC9eYHNlf6f9BN9OEx2Dlx1QROgUKGD6DRg6ozvSIMiU1l0Uk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=cRud9dUR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="FlqKM9WT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7B921F0089E;
-	Wed,  7 Oct 2026 00:50:00 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="cRud9dUR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A46471F0089B;
+	Wed,  7 Oct 2026 00:50:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791334200;
-	bh=2h04ca7eJosoZhTP/Zi8aey9EnF0bbunoshTK1A994Q=;
+	d=linux-foundation.org; s=korg; t=1791334208;
+	bh=BrYdgWURON3os/gkhSCHSN8P7mYOxLBs6vbZbT0H9is=;
 	h=Date:To:From:Subject;
-	b=FlqKM9WTXU2yOD7IMQDbplFc5Q00ccIoJ0ktTs3szwIkjmeT1dLtkRGFiieVOPmY1
-	 xNQfz9+U8LGdNeKMrST/x/s2r5dtf17i61Ncl0UZj4ZS6ovtI0K0aSxehltw1R/6Ro
-	 Tf9sNsUwVrqSsliPkiCAgm4cJITHo71x4SIJ+6sQ=
-Date: Tue, 06 Oct 2026 17:50:00 -0700
-To: mm-commits@vger.kernel.org,zokeefe@google.com,stable@vger.kernel.org,ryan.roberts@arm.com,ljs@kernel.org,lance.yang@linux.dev,dev.jain@arm.com,david@kernel.org,baohua@kernel.org,yanglincheng@kylinos.cn,akpm@linux-foundation.org
+	b=cRud9dURAwTWcS2+nfpq2J6M5xFXADc7xHAgPVT14aiLUdqAz9F26cj9yh9IsJIN9
+	 W/xqChDwTt0y+eW0PDPdyk+FOazrum+UJiYxXMrOSwmoKdHDiNYb+WNjc5NkyYqEmJ
+	 1wkUfUqe3a9Rl1lKDVH3VYmtJ0HFTCU4C/95pv2E=
+Date: Tue, 06 Oct 2026 17:50:08 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,shakeel.butt@linux.dev,roman.gushchin@linux.dev,muchun.song@linux.dev,mhocko@suse.com,hannes@cmpxchg.org,riel@surriel.com,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] mm-khugepaged-fix-folio-is-used-after-folio_put-unlock.patch removed from -mm tree
-Message-Id: <20261007005000.B7B921F0089E@smtp.kernel.org>
+Subject: [merged mm-stable] mm-memcontrol-fix-stuck-flushing_cached_charge-bit-on-isolated-cpus.patch removed from -mm tree
+Message-Id: <20261007005008.A46471F0089B@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,97 +35,98 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: mm: khugepaged: fix folio is used after folio_put/unlock()
+     Subject: mm/memcontrol: fix stuck FLUSHING_CACHED_CHARGE bit on isolated cpus
 has been removed from the -mm tree.  Its filename was
-     mm-khugepaged-fix-folio-is-used-after-folio_put-unlock.patch
+     mm-memcontrol-fix-stuck-flushing_cached_charge-bit-on-isolated-cpus.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Vernon Yang <yanglincheng@kylinos.cn>
-Subject: mm: khugepaged: fix folio is used after folio_put/unlock()
-Date: Wed, 9 Sep 2026 10:58:03 +0800
+From: Rik van Riel <riel@surriel.com>
+Subject: mm/memcontrol: fix stuck FLUSHING_CACHED_CHARGE bit on isolated cpus
+Date: Fri, 28 Aug 2026 13:50:36 -0400
 
-On the rollback path, folio_put() has already dropped the last reference
-of new_folio.  On the success path, new_folio is already unlocked and can
-be freed concurrently.  The trace_mm_khugepaged_collapse_file() is left
-with a dangling folio pointer.
+When drain_all_stock() sets FLUSHING_CACHED_CHARGE before checking
+isolation, schedule_drain_work() can drop the work in a separate RCU
+critical section, and housekeeping_update()'s synchronize_rcu() can race
+that second check, leaving the flag set.
 
-So using the folio_pfn() before dropping the reference, closing
-use-after-free window.
+drain_local_stock() only clears the bit for work that ran, so the flag
+remains set and the stock is never drained again.
 
-Link: https://lore.kernel.org/20260909025804.3233645-4-vernon2gm@gmail.com
-Fixes: 4c9473e87e75 ("mm/khugepaged: add tracepoint to collapse_file()")
-Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
+Have schedule_drain_work() return whether the work was queued, and clear
+FLUSHING_CACHED_CHARGE in drain_all_stock() when the remote CPU is
+isolated, so future drains can retry.
+
+Link: https://lore.kernel.org/20260828135036.7d44361f@fangorn
+Fixes: 6a792697a53a ("memcg: do not drain charge pcp caches on remote isolated cpus")
+Suggested-by: Michal Hocko <mhocko@suse.com>
+Suggested-by: Shakeel Butt <shakeel.butt@linux.dev>
+Signed-off-by: Rik van Riel <riel@surriel.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Cc: Barry Song <baohua@kernel.org>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Zach O'Keefe <zokeefe@google.com>
+Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
+Acked-by: Michal Hocko <mhocko@suse.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>
 Cc: <stable@vger.kernel.org>
 ---
 
- include/trace/events/huge_memory.h |    6 +++---
- mm/khugepaged.c                    |    4 +++-
- 2 files changed, 6 insertions(+), 4 deletions(-)
+ mm/memcontrol.c |   19 ++++++++++++-------
+ 1 file changed, 12 insertions(+), 7 deletions(-)
 
---- a/include/trace/events/huge_memory.h~mm-khugepaged-fix-folio-is-used-after-folio_put-unlock
-+++ a/include/trace/events/huge_memory.h
-@@ -211,10 +211,10 @@ TRACE_EVENT(mm_khugepaged_scan_file,
- );
- 
- TRACE_EVENT(mm_khugepaged_collapse_file,
--	TP_PROTO(struct mm_struct *mm, struct folio *new_folio, pgoff_t index,
-+	TP_PROTO(struct mm_struct *mm, unsigned long new_pfn, pgoff_t index,
- 			unsigned long addr, bool is_shmem, struct file *file,
- 			int nr, int result),
--	TP_ARGS(mm, new_folio, index, addr, is_shmem, file, nr, result),
-+	TP_ARGS(mm, new_pfn, index, addr, is_shmem, file, nr, result),
- 	TP_STRUCT__entry(
- 		__field(struct mm_struct *, mm)
- 		__field(unsigned long, hpfn)
-@@ -228,7 +228,7 @@ TRACE_EVENT(mm_khugepaged_collapse_file,
- 
- 	TP_fast_assign(
- 		__entry->mm = mm;
--		__entry->hpfn = new_folio ? folio_pfn(new_folio) : -1;
-+		__entry->hpfn = new_pfn;
- 		__entry->index = index;
- 		__entry->addr = addr;
- 		__entry->is_shmem = is_shmem;
---- a/mm/khugepaged.c~mm-khugepaged-fix-folio-is-used-after-folio_put-unlock
-+++ a/mm/khugepaged.c
-@@ -2253,6 +2253,7 @@ static enum scan_result collapse_file(st
- 	struct address_space *mapping = file->f_mapping;
- 	struct page *dst;
- 	struct folio *folio, *tmp, *new_folio;
-+	unsigned long new_pfn = -1;
- 	pgoff_t index = 0, end = start + HPAGE_PMD_NR;
- 	LIST_HEAD(pagelist);
- 	XA_STATE_ORDER(xas, &mapping->i_pages, start, HPAGE_PMD_ORDER);
-@@ -2272,6 +2273,7 @@ static enum scan_result collapse_file(st
- 	result = alloc_charge_folio(&new_folio, mm, cc, HPAGE_PMD_ORDER);
- 	if (result != SCAN_SUCCEED)
- 		goto out;
-+	new_pfn = folio_pfn(new_folio);
- 
- 	mapping_set_update(&xas, mapping);
- 
-@@ -2675,7 +2677,7 @@ rollback:
- 	folio_put(new_folio);
- out:
- 	VM_BUG_ON(!list_empty(&pagelist));
--	trace_mm_khugepaged_collapse_file(mm, new_folio, index, addr, is_shmem, file, HPAGE_PMD_NR, result);
-+	trace_mm_khugepaged_collapse_file(mm, new_pfn, index, addr, is_shmem, file, HPAGE_PMD_NR, result);
- 	return result;
+--- a/mm/memcontrol.c~mm-memcontrol-fix-stuck-flushing_cached_charge-bit-on-isolated-cpus
++++ a/mm/memcontrol.c
+@@ -2306,7 +2306,7 @@ static bool is_memcg_drain_needed(struct
+ 	return flush;
  }
  
+-static void schedule_drain_work(int cpu, struct work_struct *work)
++static bool schedule_drain_work(int cpu, struct work_struct *work)
+ {
+ 	/*
+ 	 * Protect housekeeping cpumask read and work enqueue together
+@@ -2315,8 +2315,11 @@ static void schedule_drain_work(int cpu,
+ 	 * pending work on newly isolated CPUs.
+ 	 */
+ 	guard(rcu)();
+-	if (!cpu_is_isolated(cpu))
+-		queue_work_on(cpu, memcg_wq, work);
++	if (cpu_is_isolated(cpu))
++		return false;
++
++	queue_work_on(cpu, memcg_wq, work);
++	return true;
+ }
+ 
+ /*
+@@ -2348,8 +2351,9 @@ void drain_all_stock(struct mem_cgroup *
+ 				      &memcg_st->flags)) {
+ 			if (cpu == curcpu)
+ 				drain_local_memcg_stock(&memcg_st->work);
+-			else
+-				schedule_drain_work(cpu, &memcg_st->work);
++			else if (!schedule_drain_work(cpu, &memcg_st->work))
++				clear_bit(FLUSHING_CACHED_CHARGE,
++					  &memcg_st->flags);
+ 		}
+ 
+ 		if (!test_bit(FLUSHING_CACHED_CHARGE, &obj_st->flags) &&
+@@ -2358,8 +2362,9 @@ void drain_all_stock(struct mem_cgroup *
+ 				      &obj_st->flags)) {
+ 			if (cpu == curcpu)
+ 				drain_local_obj_stock(&obj_st->work);
+-			else
+-				schedule_drain_work(cpu, &obj_st->work);
++			else if (!schedule_drain_work(cpu, &obj_st->work))
++				clear_bit(FLUSHING_CACHED_CHARGE,
++					  &obj_st->flags);
+ 		}
+ 	}
+ 	migrate_enable();
 _
 
-Patches currently in -mm which might be from yanglincheng@kylinos.cn are
+Patches currently in -mm which might be from riel@surriel.com are
 
 
