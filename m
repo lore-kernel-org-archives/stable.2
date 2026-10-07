@@ -1,62 +1,64 @@
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 209764334B9
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 08:59:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A11134503E4
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 08:59:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791363548; cv=none; b=TDRG/BAh3+btIAB2NZqVWHjX2Ko4ynQOZCYARXX5wKpXYXHrBSxUzDQyRsuCtPKeJxj1Kmq1jsGgYNpMuf87sJpbeo0bsTu6rxKSkVa5MIAzc/Ct8O5lyE9mfejUwsEBz3k5ye1fq97Y3qDIqIm9ZeOHxhDX0JccqEirmL2Ea6k=
+	t=1791363549; cv=none; b=NIJSE6NUe81NPsgGNK07+U8W6bnUCZYkQT45S7i8co42bzG/lQf+0Pbo8JJlkRVbDh774aPA/arfuKh0tHXO0qjTRbkX/8xEdtNBRb0ZphtBljbsI+vwHEWfg1jmXfvTmGkrdDptLAq35MmumG3INkPHFGFWZ+IlNhu7bV68gCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791363548; c=relaxed/simple;
-	bh=uPsf4oJY/SzTMLcVvjKGhsITHTgG3dSBO80iE6hzCck=;
-	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=rpJ/xhhDr0KI/Xti2t241iJx2HlzUd9XTQ1Dow/DYJkyFxJo3pYQQPZmrb23OH7LloxsIO4cU0KQSBCMfaxtMR4trXAjksHv/fEqF7GNM7qG7/0jmOadRIzZgvyTkl9ibgx7UcERK7xcPbFMgzaBsy+H3A1yR4o5DTKvjyVmMOo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=Wojzp6mQ; arc=none smtp.client-ip=74.125.82.181
+	s=arc-20240116; t=1791363549; c=relaxed/simple;
+	bh=/dIqfKjVf67jH+pSP4lDZBcRp+ejLM9kPuu5c5t4xug=;
+	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=TKJ4g+e51/Cqu6CQmKwTJ2LpiPr0Qz9o0EH4t1U1KkKNajxZyecMfVek0CXWGMYtJk+ppczL5FjTf9O54NzIxe9Ipi9+FoQrNXubvpxDkJlca8Ie0Nu8Y2JZnb5CzgDOZLImN84BEQlL5exBA9pFET9fHvbvg9wRyyvt5Z7V/AE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=BJEHFs0e; arc=none smtp.client-ip=74.125.82.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="Wojzp6mQ"
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-35127e848feso3090091eec.0
-        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 01:59:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="BJEHFs0e"
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-15ea896ddc8so2390479c88.0
+        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 01:59:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1791363545; x=1791968345; darn=vger.kernel.org;
+        d=kernelci.org; s=google; t=1791363546; x=1791968346; darn=vger.kernel.org;
         h=message-id:date:reply-to:cc:to:from:subject
          :content-transfer-encoding:mime-version:content-type:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=FJ7OmcWf/5pCT8D1BWCXf9V7vzys5BebKTgyVz5b1qs=;
-        b=Wojzp6mQ5lrJiWBR/0EQleTxK9+xy/aeeIOHIn37o66ZP7BUUkGcURicj5W+lYo+FQ
-         EXIdR7Hi2GZg1V7ofy098MG3CPYcMqcHm/r420X4dWAHSbcH1+FDMehTo6hcqwdONRro
-         A07nMOQABQBGHt9SUs/3eLgRSQBShaa5c6q4NY6hR8R6X3E6yeWGY15F7Ld+RHRYbsX7
-         iuEmaHFfSk7W1O4jaO2ZYWXX3XpSAp6+JWyBf5xew0pipV9sgTUXZwAPyxNv9GGcswBG
-         Oqs7ETWjy/oirZMGvzKIw5NfZIDN353P0ZDpXdMfb+alAXLosmG2C2gkXPw3ymkBtgDS
-         hXhQ==
+        bh=g4he5a4AkqAY/ivQE77EMilGNT+cbv05TAN9AGeGBbI=;
+        b=BJEHFs0ebgGhr0lTMUIHvbuz84YJ8o/ixbelRsZws8/5QaKY5ibiXAoIlMkvVChUK0
+         5DnpYYUt1rhJJOZdS420NlMtwCmMnkP9c94FHmoW9uMe2obONc6u9W7WlNxIhQGUZKdj
+         Y9AV2DWhpgZ5cXKIjSTNOLGOPtH5snIRWOIIYWR2/zUOO66u+qixlqn3v0JnmeNWSx0R
+         Tu6Np5KU5ZZ4Uabe0cMsyxOQgHsa54uj0XyhY8bHTN+sB17ybGDjzZ4W1QlcvOXZFycy
+         bgubQ+jdGpM1HOam7lXR2ZJsj76QUq5v5dKmy1tTB5Gz1gmcte0Vj+QFVfOeTonbxWrP
+         STRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791363545; x=1791968345;
+        d=1e100.net; s=20260707; t=1791363546; x=1791968346;
         h=message-id:date:reply-to:cc:to:from:subject
          :content-transfer-encoding:mime-version:content-type:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=FJ7OmcWf/5pCT8D1BWCXf9V7vzys5BebKTgyVz5b1qs=;
-        b=gbGra4f2kosd0RdY2qnvo3RQAT5Pbp6XJYWubJkb+4h2t0AMK5AsSUR7+13hGCauoA
-         hBWxY9OZAM2O5Gp+Lf8bOmVZC3vn/5bIFEwbZ81o/vbJ7SwiAFTukElbYxrdIlEuNeqs
-         GaZ7on/OQGoce4WVc49yEucTaFfN0QuAywKcDh4xzl+aNKnJRksBbu16fQ5eXC1MuHph
-         saO8dh0pVMRG1nQJdKjlyO7BotpCyJbtZMwYFR/E7DXCBvBZSLX/rPgD5MIyPsQ1tEz8
-         nJhQvlMSVXFmEy9BYQk5MhvvZ4M9CKMgTxkk9NMMtlQMaO7Mpm7DaXCXw/0XNahkO5vd
-         MwEw==
-X-Gm-Message-State: AFq9FYLNJ+5gRUHlltTRgkTLuChgFwV66h4B6S73w14QgdV9Y86u4dlX
-	oqvVuT+B/SPrVJMYteAxyB7D9fsy/KZmNqa18p21YlkKGrXzhv76zEnuvAZIr/hfDKA=
-X-Gm-Gg: AYBFou3MbsiANKPoUNVQ1ewxPiFamfaZnObI1cq4egsdRaX/m4W4m3RlR4F8+SjuCaQ
-	oxi80Sw7XKXWYK2/fboKqH7wiOQXZVCiXmIC2kRxFJbtSftr02KMToSJTA4rL8kykg9fO1k+7QN
-	R5SuUdtZvs5xlvPaRd788vdwsdlkrt9Aj+1iDOcL5OB5EK3db5hYuHmpnHisNQwlhEy7LmAqaPZ
-	cBsbV4CWLhIXmXwin4vYn57m6Cdt8/9NUVmwOhcDomFF0uwPAqqY2QzKzSwT2c5ym2PpFW/TUJO
-	+THgnFrFdVQX8KDZIB2LL2w8XI9FzDjauE8JvczC0vHC53Wk/li7HcwRhDUQJfkhaTlSDeD4zBR
-	zh+mXSWIz7Vs/mDRjd0yJSZYEA/LR5/taPDyMxc4k6ZiChRO21YykryzreEqZDYmdwVrelyoMWF
-	1D9p8hXRgUuoGE/aznNamK+zSMCILl1FyDxBGng1daBr6iW4H5Hb6ehOf4iT3r45c=
-X-Received: by 2002:a05:693c:65d5:b0:33b:5b1b:134c with SMTP id 5a478bee46e88-3515de899a6mr1687335eec.38.1791363544828;
-        Wed, 07 Oct 2026 01:59:04 -0700 (PDT)
+        bh=g4he5a4AkqAY/ivQE77EMilGNT+cbv05TAN9AGeGBbI=;
+        b=wdpG42wMJF2KSe/mDxNaRRvMiznBlr4AzSOFwn3T6sI1ecAb7RkV0v/vhSVhn1QEOD
+         p4v74LOJ4JGZCnwMq/8SUHAIsF7Q6hvZbSP3WdIL86S5o3qv+iZ5qTRmHp1KcTBcuC2m
+         XorsMVYhBWy0t2/4fxUYqPHPoEmmfnHSyZosmeHIhtm/pQJpmww05qlp//hNrWKv620L
+         eHIaWus2MEDA116DqV9JJZFA0jey/fQCY4lXQNr7DEMQRCBT7mBqI+uMMjj/LnVA1K35
+         C4g21dxW1dSuQaLmFSMuY0Uxa77amEEQ44MLxdXBvlQshl6UKp4j6codTEB5NHYfW3Bt
+         qDgw==
+X-Gm-Message-State: AFuF++mFEBYSiCNSK7TQGl84wXnosyTsR1QApJm6S1jQvnhdsdi6i0Om
+	vvD3yj80UEu3FF3zONswdOaboo8uCGjx0PFGhpudjQB5dDCimUlfDDRzURHsX5z9BN5L72ZOfpS
+	Xwez7
+X-Gm-Gg: AYBFou2VWARr2PheY2AcnlQ98Q7b1+7YJ2WOVJckj+6H1WI1FAq1edDSEsvv7Iq2d6k
+	d8KAbsQb/SrgBoY2LYCCIbxDtR2As1DE4BliQBKIHzFyFkJrOoMJHUCg2f8ofP6Ge/djbhcshkF
+	g4Mf/2ov4OHFEahH+FHtiguAQ04Jmc8ZH8FWeS3BGaUecPPaWcmoK0ms2k8/PAMh3W8tn1VXz83
+	Zq723SyUz6EcGCxJ+Pa2b85BhnqFljKZXchHOjetexm8ARPSJXFnHPUxN1+AyssU52JPbs/1eZk
+	OLBcNCWL31k6COAoalSeH08G78KId7TMdJEmYZRzVSn9FqEkRic4U6RYfIqFAn+VTV9ka9mKty9
+	glfq6O8m/OKpskf51hdWmIr0Kfc0Ja+Q+EQUlCVhv310vHfiGhBcjUo/KVedQsh5La/oPvyHY+x
+	Hw+1oN06bZHL1embU1EatHH5PdPczK9W6bLVp6dFpDKAqBhNak3Ya2eCAws/ocAQqK77LPT1d2T
+	w==
+X-Received: by 2002:a05:7022:2524:b0:136:b50c:c0e9 with SMTP id a92af1059eb24-1620665f5ebmr2101209c88.21.1791363546286;
+        Wed, 07 Oct 2026 01:59:06 -0700 (PDT)
 Received: from 5a6d9a2c18a2 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3515b04b185sm6012905eec.31.2026.10.07.01.59.04
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1616b01c2b4sm4845777c88.20.2026.10.07.01.59.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 01:59:04 -0700 (PDT)
+        Wed, 07 Oct 2026 01:59:05 -0700 (PDT)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -65,30 +67,28 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: [REGRESSION] stable-rc/linux-6.12.y:
- (build)./arch/arc/include/asm/atomic64-arcv2.h:166:16: error: implicit dec...
+Subject: [REGRESSION] stable-rc/linux-5.15.y:
+ (build)./arch/arc/include/asm/cmpxchg.h:11:10: fatal error: linux/cmpxchg-...
 From: KernelCI bot <bot@kernelci.org>
 To: kernelci-results@groups.io
 Cc: stable@vger.kernel.org
 Reply-To: kernelci@lists.linux.dev
-Date: Wed, 07 Oct 2026 08:59:04 -0000
-Message-ID: <179136354338.28057.9498051362957290811@kernelci.org>
+Date: Wed, 07 Oct 2026 08:59:05 -0000
+Message-ID: <179136354500.28057.4657619027829945990@kernelci.org>
 
-New build issue found on stable-rc/linux-6.12.y:
+New build issue found on stable-rc/linux-5.15.y:
 
 ---
-./arch/arc/include/asm/atomic64-arcv2.h:166:16: error: implicit declaration of function 'arch_cmpxchg64_relaxed'; did you mean 'arch_cmpxchg_relaxed'? [-Werror=implicit-function-declaration] in kernel/bounds.s (kernel/bounds.c) [logspec:kbuild,kbuild.compiler.error]
+./arch/arc/include/asm/cmpxchg.h:11:10: fatal error: linux/cmpxchg-emu.h: No such file or directory in kernel/bounds.s (kernel/bounds.c) [logspec:kbuild,kbuild.compiler.error]
 ---
 
 Log excerpt:
 =====================================================
                  from kernel/bounds.c:13:
-./arch/arc/include/asm/atomic64-arcv2.h: In function 'arch_atomic64_cmpxchg_relaxed':
-./arch/arc/include/asm/atomic64-arcv2.h:166:16: error: implicit declaration of function 'arch_cmpxchg64_relaxed'; did you mean 'arch_cmpxchg_relaxed'? [-Werror=implicit-function-declaration]
-  166 |         return arch_cmpxchg64_relaxed(&v->counter, old, new);
-      |                ^~~~~~~~~~~~~~~~~~~~~~
-      |                arch_cmpxchg_relaxed
-cc1: some warnings being treated as errors
+./arch/arc/include/asm/cmpxchg.h:11:10: fatal error: linux/cmpxchg-emu.h: No such file or directory
+   11 | #include <linux/cmpxchg-emu.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
 
 =====================================================
 
@@ -100,18 +100,18 @@ Reported-by: kernelci.org bot <bot@kernelci.org>
 For complete logs and details about the environment used, see the issue
 on the KernelCI dashboard:
 
-- dashboard: https://d.kernelci.org/i/maestro:fed7fd58d6e948a617e91504d95f27709c91009a
+- dashboard: https://d.kernelci.org/i/maestro:8e01ee42bc22174ddb2fc5cb395e5cf49ccc07e9
 - giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-- commit HEAD:  e8d1764e8b54306cc3502262d5e5ad8b8e899be2
+- commit HEAD:  5a64cd2b9ae82e07560b5079921ad6c564e1c09c
 
 # Builds where the incident occurred:
 
 ## haps_hs_smp_defconfig on (arc):
 - compiler: gcc-14
-- config: https://files.kernelci.org/kbuild-gcc-14-arc-haps_hs_smp_defconfig-6ac5fceaa3f195e1aa47256c/.config
-- dashboard: https://d.kernelci.org/build/maestro:6ac5fceaa3f195e1aa47256c
+- config: https://files.kernelci.org/kbuild-gcc-14-arc-haps_hs_smp_defconfig-6ac5fc29a3f195e1aa472256/.config
+- dashboard: https://d.kernelci.org/build/maestro:6ac5fc29a3f195e1aa472256
 
-#kernelci issue maestro:fed7fd58d6e948a617e91504d95f27709c91009a
+#kernelci issue maestro:8e01ee42bc22174ddb2fc5cb395e5cf49ccc07e9
 
 --
 This is an experimental report format. Please send feedback in!
