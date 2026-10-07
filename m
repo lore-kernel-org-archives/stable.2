@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 796213C1D62
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 08:38:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBED938F929
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 08:38:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791362334; cv=none; b=GATl/d9iIjID8zYIf4pBjDtzlt0uZk4X1UGrnoGDtqBj6UmKFhfYgEAcID9+6Fqi1VS3HsR4JVdHG5uetLf0EJPis9xJIXLjvNv0Lbq2Bdh9pTiVUJMY0wyTmab5s6GQtZkYUUCtouyLU7lqFrwDg0enFWb098SxtJuW4+KPcR4=
+	t=1791362339; cv=none; b=OMflgl3hB4nNHFvD6W53VkpZeyQO2NiRPIhNIoepy1GC6xSwX+KPorAXTqDVsbIqjwiZPWQ+WwFEwJIK9jBNzgfMhFtMuw8K/H7Yv+ltDSlpkkprgwJFfLb59Fpm17kzcJBNm6TlgYNIA7kfz+OArAWuUpZPgsH0DesgZFZi3Uo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791362334; c=relaxed/simple;
-	bh=Lr9vcYwkNUrCAHbDEL6/H4UYL6nkVVf4skXto01Lhq8=;
+	s=arc-20240116; t=1791362339; c=relaxed/simple;
+	bh=L/sYfwbZ6KCl3YeYakaG94mBMsJ3X7S0aICqvITqzxs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=R99ZiaXjNTiFadmqaeQ99SfHmvLf+kyrgP9tsuwJyqL+AbKatkhnlkJNLTLBxjuiQcQspq1L9ycZ5xorbpwF5XTRKEFNevGbCgRJXB9uw+WFIDJA3fFgpwWyG4G/RkBT+jt4dMmSKLtimOhmv3UOV2kqPtdYImM7Io42Or6eCAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K0Zypk4a; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=LDWiODYahRVL6VG/pRd2SMH4VijbVSBhlse8y45T+NxJX9WJEtx9TmCeb+vOmFwn34VgQbQgVJDchVMguGG5Gx5Z8X6b9NJb1T1Neth8aM1wqgJBmpz1olemIxM8j9cCBshFoScpsfqa6KWbOOed2jnzUniTjyGAdoi8i/k+6aU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IIm3KFAg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K0Zypk4a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D006C1F0089B;
-	Wed,  7 Oct 2026 08:38:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IIm3KFAg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 303441F0089C;
+	Wed,  7 Oct 2026 08:38:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791362331;
-	bh=djdlY4i50mOgUmrlq80twj8A5uliu42VZnlKf5ysf6I=;
+	s=k20260515; t=1791362337;
+	bh=9cFv+gupaevm8qz9rg2BaHQT7KCgwNOCbyTGG3D0cOM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=K0Zypk4a92uOajxW8gQcsYQEoUtSqlB4SxC1NYNBNJxRST4lPTMxq2k+bIJvk0NY8
-	 nOtBouBUEmNiI1yxeeHD1u+lIpXByzNOdD9i5a7y0X29xF+xeIo6SrW9JepvMHhYi6
-	 cwMtndmup+5tFHSh9v4GckDG2nCrLy00+zH/g2D7DcEHPWe92/cX0a2Mr/Q9igy1GF
-	 i5Kb88CVoxafE5d8Rl4z/U/Mwx/xo+4RHWOi318r4UDIavgyZnvXzGMblmxht1BC/X
-	 0+gXAbWRGjUtGQgko/Ph1feihS+MkalCBW8n4NraUSUP8zCNPaEnysKxKXli0URMJk
-	 Sps90jrXZu05g==
+	b=IIm3KFAgytDZVOHKJGqqGzdcofWHaa9XwzQcLRjypBSIVv1NqGvNl842fkOuoSwxF
+	 cH2Cyv7+5bjrb93vNIPkTtqscBDhFDQwnRHPHN8Hk5z8RzYomh7NDgCJHayuv2TS4x
+	 de2co5hwP3Dc0Unt272NUzBlGM4DootkTPu7xAnfxSAhBid1MrFQ1e5bzP3+scqXxW
+	 5/VLMNElRphVmX3vsT4oIRQEvlnfus7ymxz3hSCb9lE2XVOzKrO0qcuCo4C3WPxDYa
+	 A7Y/yhiEilWDhsm6sHZUYd7vmTqJt2w6ud/S3aUaEojm1FS2xMS5miYFSlCj0SbWCy
+	 L2AojUWIU4+jA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+Cc: Cong Nguyen <congnt264@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
 	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] iio: adc: aspeed: propagate reset deassert errors
-Date: Wed,  7 Oct 2026 04:38:48 -0400
-Message-ID: <20261007083727.1934265-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] iio: adc: max1363: sign-extend bipolar differential channel reads
+Date: Wed,  7 Oct 2026 04:38:53 -0400
+Message-ID: <20261007083720.1954946-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100601-tartly-curing-0008@gregkh>
-References: <2026100601-tartly-curing-0008@gregkh>
+In-Reply-To: <2026100625-specimen-axis-124d@gregkh>
+References: <2026100625-specimen-axis-124d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,41 +46,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+From: Cong Nguyen <congnt264@gmail.com>
 
-[ Upstream commit 95e4eb426b4bd666fa2f37886c0ddf74a0cc6167 ]
+[ Upstream commit 91908c0a78baddc8572aa3ab69e62ee2eb496ba4 ]
 
-aspeed_adc_probe() continues to register ADC resources after deasserting
-the shared reset, even if the reset controller reports a failure.
+MAX1363 differential channels are bipolar, but max1363_read_single_chan()
+masks the raw value to the ADC resolution without sign-extending it.
+Negative differential readings are therefore reported to userspace as
+large positive values (e.g. -1 as 4095 on a 12-bit part).
 
-A failed deassertion leaves the hardware unavailable, so stop probing
-before installing the cleanup action and enabling the ADC.
+Sign-extend the masked value from the resolution bit for differential
+channels. Single-ended channels are unipolar and are left unchanged.
 
-Fixes: edf7550a1f93 ("iio: adc: aspeed: Deassert reset in probe")
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Fixes: d1325cf45077 ("Staging: IIO: max1363 ADC driver")
 Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-4
+Signed-off-by: Cong Nguyen <congnt264@gmail.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-[ sashal: Changed the direct error return to a jump to the existing reset_error label. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/adc/aspeed_adc.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/iio/adc/max1363.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/iio/adc/aspeed_adc.c b/drivers/iio/adc/aspeed_adc.c
-index 34ec0c28b2dff..012cc9291bef3 100644
---- a/drivers/iio/adc/aspeed_adc.c
-+++ b/drivers/iio/adc/aspeed_adc.c
-@@ -221,7 +221,9 @@ static int aspeed_adc_probe(struct platform_device *pdev)
- 		ret = PTR_ERR(data->rst);
- 		goto reset_error;
+diff --git a/drivers/iio/adc/max1363.c b/drivers/iio/adc/max1363.c
+index 29c1824162cd0..c427fdf93dcbd 100644
+--- a/drivers/iio/adc/max1363.c
++++ b/drivers/iio/adc/max1363.c
+@@ -409,6 +409,14 @@ static int max1363_read_single_chan(struct iio_dev *indio_dev,
+ 		}
+ 		data = rxbuf[0];
  	}
--	reset_control_deassert(data->rst);
-+	ret = reset_control_deassert(data->rst);
-+	if (ret)
-+		goto reset_error;
++
++	/*
++	 * Differential channels are bipolar and the device returns the sample
++	 * in two's complement, so sign-extend it from the resolution bit.
++	 */
++	if (chan->differential)
++		data = sign_extend32(data, st->chip_info->bits - 1);
++
+ 	*val = data;
  
- 	model_data = of_device_get_match_data(&pdev->dev);
- 
+ error_ret:
 -- 
 2.53.0
 
