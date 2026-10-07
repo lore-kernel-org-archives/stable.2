@@ -1,92 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1029A43BDA0;
-	Wed,  7 Oct 2026 22:37:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791412654; cv=none; b=hTW5BH4YRW2C6AbhEjC7W0rL9DIvtSmpnLNhMrY8tJLXs7Y1vCQdeKIQWSzFX9d/WuwX+vwJJNGdRdrtIfVbJw1r4YngfTElbpo+20LMncvwr9TI7Ppx7u9wedE+8E7tseQSEh2T8RTZlijwAHQhFY4ExB2rmMgzj9tKD/3Dsn8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791412654; c=relaxed/simple;
-	bh=G9xv3wDpg5Ngwcp/X0keDDatoMA/PUwJxG3No0lZ0uU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=t4XgMnH8mxtjZ0j5BP+pZG9rypkhYrsZ8WwEL9a3p561mOERNQIul6YbGAcp/3mF4oPFtaw7CQxlTpHGscTCsppHmTem7nzqCIkUwSrYDRSZt8jecaak4lzWTfKIn5atALa8eEUp0uMu110QjVS8LijCsBhY0R4yMhCWUnfdxPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l4VK5rRQ; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E663446073
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 22:49:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791413380; cv=pass; b=a3PrXgxF0Tf/Xdf6QL6tDeY1IsDyp4LTNETXZ4EOtGNNsuK+m4EQbO9NyaBLwyjoR+oUFJ3jhZTCwcchhCXxUbBcVNZPvQC59hIbsn3tb7X20VnxD1wcLJcIHXnQGWVkYUCTAjFUngS9b1Qz5vL5bKp7VVUiR2ksusiNc8X3rhU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791413380; c=relaxed/simple;
+	bh=ueCAdNXKfuApdpHhwX8s1J3H4MHF9wnTt+I0E6rVefA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZNK08XK2EvXvaqsCWfp1KeZKTcgqHUo6qPJCUPtHLcW+B3bNEKQY0wJXhcuafah1sm3JLPIEVo6QXvfBv6/4z0adYritFOA3HtWeskbpoXOiJnwmSHgLbw2RaVELC+2SCEih7sWxLsjoCQgaCJjmrhPLnIVO02GmE6j49L0KE90=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TJwb2LLC; arc=pass smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l4VK5rRQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40E691F000FF;
-	Wed,  7 Oct 2026 22:37:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791412652;
-	bh=y5Eb6wDN3K+IXIlDEkTMmRQzs1wHV9zCpiZ2/PHKpJg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=l4VK5rRQYJL0qcq9g0tv7vE/oUgY/q4t4pSyAeKEletXiqDAKhczjPFxKBL+irrg9
-	 9/OENVKxvsc2NI91WpHOMCU9U6A1wm27SvtKdF0aBV9xfSUp6iJ541Q1fEVmLp+1dF
-	 5wYxyZon1RG2lLKJd8pj/Z7mnvpQJY/k8pfJ3Qw3j0LmzRjcRYpWsYfYmmENOZ5icS
-	 lvX//ZWhNhxYPilne4kiF4C32k+e6NGmKv1vTWZW4JirPzWRSG7b2y2VG17fxLl7jO
-	 bmkh0QqAIFOu5ht/m2nTpM1d98oqta62PvphTUinQusm67jeJoDvO0sUDukCe9OkzH
-	 pESc++MeIaXJg==
-Date: Thu, 8 Oct 2026 00:37:26 +0200
-From: Eric Biggers <ebiggers@kernel.org>
-To: =?iso-8859-1?B?Suly6W15?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Cc: "Jason A. Donenfeld" <Jason@zx2c4.com>,
-	Ard Biesheuvel <ardb@kernel.org>, linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] lib/crypto: arm64: Fix lost Poly1305 carry when resuming
- NEON state
-Message-ID: <20261007223726.GA24521@quark>
-References: <20261007220235.200818-2-Jeremy.Jean@oss.cyber.gouv.fr>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TJwb2LLC"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a018493d57so24305e9.0
+        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 15:49:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791413377; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gM8h/5iYCm0tDelfFQ4VoNR73EkZ0D9GUG3PsixZjJBKughx/in9HsLOTHf43+3rVm
+         WWa2m25YdSgM95gs34yVGezqMVMRI82+vJl1FKqdPHvRnWM2O8UMpSA5WJ3qkW4QWGd3
+         DbFZTGq5fSqJNgSE1lxrre+1f/cPrBBTja513/jDJtGUSXpDibutlJcr5tkv4W0B3Pue
+         4cvwXRg3N25SSyXTCXg/JSNtEa58E+q2fttX5Cp637kCaxKUBFGeJCjdE519Nn4og6Nj
+         EKKCiTzLOdcVH+JF1E4bgADlzj5SgzQp3aqMhWixOAZxI7W3VmmO8aERANJ++6PRMSIa
+         F0fA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=U16op2Ui0JYvgEISwYX/iyuFKgIG9pLc1vhaX2SV2us=;
+        fh=No3+lawRzJHMxVPXeVokDCHQACVK9/FT8hPBBB7N1O0=;
+        b=CmSn86Ys3nJ+o85g7LgNhxwzvhLR8RkPZlwsv8F1zPyxj/pFpGRU1YrzGG1FL2yXMb
+         L5184XAlOIJdjoNvnkby6IyrN4osAf5aZU95Z4cXBOTFvfKSjsOdZXV6tfmPPJMf2lOb
+         ZpUcNxsf57+c9cWP5PN9Ws3W5HPbnfkTqBD8ls3uGj3w09dR7e6Nc7dyFHQUjUCSEkel
+         QjD7CUveUOPL3vrYB9uw7bTBeJ7A4DtvsPhQbUON8B+EFRPHdCD1tm19m7ou69ltpTP2
+         8Es/QnEhqVSA1SnPdB3eD4dLQKxng7QULcMlSY540VA/IfSZ9l5TWDC/UKXGz2GuUodM
+         8aCw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791413377; x=1792018177; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=U16op2Ui0JYvgEISwYX/iyuFKgIG9pLc1vhaX2SV2us=;
+        b=TJwb2LLCpCpayGPJIWk69Jbnt6FTIdrcTTjq1SVBhAefZ05nq7NU6FIclCHxoWt0XG
+         TTPoV5di/HXCOme+XWgC6+FbwptRbT9uLwNssyOzVyXiEZ3bmFwahdxl/hLITqiS6sBr
+         KdfMMTuitA6GO1eCyq3kxqX8Z3vAYg0eyAZ0VHVcJc/xh+v9KOYoipYeFNi+If+7Pqyl
+         Wfp1h9+RCkdBDnWKUsQJGLXsnmN3mTSWNuhjW1YQI+yeDeX/Eb8xqNQdhB0TJrD5dPGW
+         YHQZk1TBLSBxaxbMUSvA6vLJ5MRXiMAdsHuq1Vk0JZ3Is2VSYCYeIVepg+lRoAqz4bfC
+         4pjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791413377; x=1792018177;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=U16op2Ui0JYvgEISwYX/iyuFKgIG9pLc1vhaX2SV2us=;
+        b=O8kCrmNlalB7OzCSmVZ6vcvX+mR+058YIktponNoNGw73Dcwo943pM/NhWicdAjzyk
+         6wo3S+snvaC6lqWMW+1b9sQvWEXWN9piUX/pY97flvQrZd/bUWM+nvyll89G8TVG7NGF
+         kWifIsMN7ZNLvdHgdvHRceyvA3AjVoklDLGDNmVls6pSkvcYuBxy0VIoy2GTscRxbV6e
+         W2b9Dy8vIaIZgGauq6ZG0Kb9iqqKT7Zj1tnKInF2cXq6bXoSs+v8Cdmt29vtf4HNEFc7
+         lKqOu/zm3vgp2yyPrQJ+9jSv/g6g1wBJbQhHZV1p6WfcnD5DGpE0v1zCnYb+0Bv0ATAr
+         gEgg==
+X-Forwarded-Encrypted: i=1; AKwUvByHl0V/oxDCVE8TJj2osLuAE1MdQb2J12ba0TwJTmxF5cUjCdHPz4bCejDQUrgeUPO3/giIjzU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nQu3fwyGJLJfSLIrqctO+UINM9FtBtGHf5M/8zUodlOB2Fx9oS
+	CK4XTulKXaK2VSB7suf9MjGrComNZdcFzq2pvBT0gteYEm+tSFfEIe4GFC7E+6sZM77Xv81tDQh
+	S3FdaAs99iuyCm/YSvcU4Rdh8s+qznuBqggefu2yv
+X-Gm-Gg: AYBFou0QENWjx+qyolPwJYp44xYn62EGBlA6M8HjaeBruzKVewDFY5lyfVe1BZbh8RB
+	gFJEpYmktTUj+DFJKBtmkc/qg37FyrzIZlXO6KtmPH422+adOFgv6Vm997qSYtrL+A+mCZyqWJ3
+	0ALgo0ZCTHstl9f8JQ1Lei5KHhHpJwg7EwAcVDoSw4Wdu3xX0Sx1iMfjmZWGCjxX9Vb+RqkEnpU
+	C9VSVcFYeupGf4I0oCfSOBSthWi4rxZsT9yTY82n/8E2nqvEBjslCLYD7auiCujUGyMow9Sz77O
+	PFgWayciIzcL9R/8I5g1LJTijkdLNZLNHmHBmmhQ4mYoFdfts2wT
+X-Received: by 2002:a05:600c:2154:b0:49c:ff18:79bd with SMTP id
+ 5b1f17b1804b1-4a18591a665mr105865e9.9.1791413376953; Wed, 07 Oct 2026
+ 15:49:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261007220235.200818-2-Jeremy.Jean@oss.cyber.gouv.fr>
+References: <20261001135711.934152-1-guoziyi114@gmail.com>
+In-Reply-To: <20261001135711.934152-1-guoziyi114@gmail.com>
+From: Sami Tolvanen <samitolvanen@google.com>
+Date: Wed, 7 Oct 2026 15:48:59 -0700
+X-Gm-Features: AclHuK-OHjmAc40mDjPz8eYhHrh9Q8RxrfmmtdzMZsmdMbZL56s7kGmmUzZWIM8
+Message-ID: <CABCJKuf=ExB_=Qwowtx-jtiKG_ZXyqPkxK09maGjReUZs6EP_w@mail.gmail.com>
+Subject: Re: [PATCH] riscv: entry: gate shadow call stack reload on
+ sstatus.SPP, not tp
+To: Ziyi Guo <guoziyi114@gmail.com>
+Cc: palmer@dabbelt.com, pjw@kernel.org, aou@eecs.berkeley.edu, alex@ghiti.fr, 
+	wangruikang@iscas.ac.cn, debug@rivosinc.com, conor.dooley@microchip.com, 
+	namcao@linutronix.de, zong.li@sifive.com, linux-riscv@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 07, 2026 at 10:02:36PM +0000, Jérémy Jean wrote:
-> When poly1305_blocks_neon() resumes from a radix-2^26 state with an odd
-> number of input blocks, it converts the accumulator back to radix-2^64
-> before consuming the first block. The final ADC stores the carry into d2,
-> but the following accumulation and poly1305_mult() use h2.  If the
-> conversion overflows across bit 128, the carry is dropped and the emitted
-> tag is wrong.
-> 
-> Store the carry back into h2. This matches the other conversion paths and
-> preserves the represented accumulator.
-> 
-> Fixes: f569ca164751 ("crypto: arm64/poly1305 - incorporate OpenSSL/CRYPTOGAMS NEON implementation")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-> ---
->  lib/crypto/arm64/poly1305-armv8.pl | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/lib/crypto/arm64/poly1305-armv8.pl b/lib/crypto/arm64/poly1305-armv8.pl
-> index f1930c6..234398f 100644
-> --- a/lib/crypto/arm64/poly1305-armv8.pl
-> +++ b/lib/crypto/arm64/poly1305-armv8.pl
-> @@ -375,7 +375,7 @@ poly1305_blocks_neon:
->  	adc	$h1,$h1,xzr
->  	lsr	$h2,x14,#24
->  	adds	$h1,$h1,x14,lsl#40
-> -	adc	$d2,$h2,xzr		// can be partially reduced...
-> +	adc	$h2,$h2,xzr		// preserve carry into top limb
+On Thu, Oct 1, 2026 at 6:57=E2=80=AFAM Ziyi Guo <guoziyi114@gmail.com> wrot=
+e:
+>
+> Under CONFIG_SHADOW_CALL_STACK, handle_exception() reloads the kernel
+> shadow call stack pointer (gp) only when the trap came from userspace.
+> It made that decision with scs_load_current_if_task_changed, which
+> compares the trap-time tp (read back from sscratch into s5) against the
+> current tp:
+>
+>         beq     \prev, tp, _skip_scs
+>         scs_load_current
+> _skip_scs:
+>
+> tp is a user-writable register.  A user task that sets tp to the
+> linear-map address of its own task_struct (&current) before trapping
+> makes the comparison succeed (can achieve by brute force with KASLR
+> enable under our test), so the kernel skips scs_load_current and
+> keeps running with the gp that userspace left in place.  Under
+> CONFIG_SHADOW_CALL_STACK gp is the shadow call stack pointer and
+> load_global_pointer is a no-op, so the compiler-emitted
+> "sd ra, -8(gp)" / "ld ra, -8(gp)" in every non-leaf function then write
+> to, and return through, an attacker-controlled address -- an
+> unprivileged kernel arbitrary-write and control-flow-hijack primitive.
+> The poisoned gp is saved to task_struct.scs_sp on return, so the reload
+> is skipped on every subsequent entry as well.
+>
+> Decide "came from userspace" from the hardware sstatus.SPP bit (already
+> in s1 at this point) instead of from tp, mirroring the check that
+> ret_from_exception already uses a few instructions later.  SPP is
+> written by hardware on trap entry and cannot be forged from U-mode.
+> Legitimate behaviour is unchanged: user entries (SPP=3D0) reload the task
+> shadow call stack, nested kernel entries (SPP=3D1) skip it.
+>
+> Fixes: d1584d791a29 ("riscv: Implement Shadow Call Stack")
+> Signed-off-by: Ziyi Guo <guoziyi114@gmail.com>
 
-This needs a regression test in lib/crypto/tests/poly1305_kunit.c.
+Reviewed-by: Sami Tolvanen <samitolvanen@google.com>
 
-Please include more details in the commit message about under what
-circumstances that carry bit could be nonzero.
-
-It seems this was introduced by commit 03dc4adf91c8bc of
-https://github.com/dot-asm/cryptogams just before the kernel imported
-the code.  The bug never reached the copy of this file in OpenSSL.  Do
-you agree?  If so, please mention this information in the commit message
-too, and also open an issue at https://github.com/dot-asm/cryptogams so
-that it can be fixed there as well.
-
-- Eric
+Sami
