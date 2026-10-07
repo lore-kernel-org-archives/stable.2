@@ -1,225 +1,173 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D3943C3432;
-	Wed,  7 Oct 2026 13:41:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 873214AF172
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 13:47:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791380490; cv=none; b=VimLP/NoJF1KimF6GvtqPsRd5w1IYBSxSlOk7y7xqhCJFLV3PFML6OL/OMQi+b2wIfrzeV3tdnwZSif4VOHFGP8ysFfpaO8CgFgpHG9dNheWDQHCcq8E0oFN2UH88KG5EhrXkwhpt5I4fz+00Y3COupSyMxRk5Jl+e343VTg8oY=
+	t=1791380871; cv=none; b=oIicluaZFk0tGva0wdOsfSESdYHYj3OfWJkH8dbikpsrwzSDFzJ8guR65p85qP6c6n/JE1Yr9JNXRDr5WBgnkBjhIXf9kdIyYqpFwe1dlxyLk6eGv5sWXPxEw4Yzdo9k1wQlIOVRk+G/ED61OS6kOJoj3igZVL7Qv1xlN3+iAbI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791380490; c=relaxed/simple;
-	bh=G6Cn4aWGu960jqpFJJDNbTLjUqGVyex7ECOOJUskyM8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aqIMorBuMDsxQNeybecvJrQ8mcvpOyo/8O5ZhyQRl6so//elVwQyJj6/nstenFu/OjX4yOHufXVDq/AQA23ymeommVAWDQMzTr0kbY8xdjSqYfLAvtAy9llLPNXRSm7EWA+fNT3pJGRt5ioLDjNUbsnlHI5zZSl0TVFR1ClI3XM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=YCTu/eUA; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=CeCl9I8u; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=YCTu/eUA; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=CeCl9I8u; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1791380871; c=relaxed/simple;
+	bh=/hNINl3FIbHsl5JH9CJ3m955ftL4CUUjPcvdPYjMC6k=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=t8txcvsOrj3YA7WSCgJhi54owHVZ1irlKsqgYFfCfjaoKtVzs+pAzaFW8av0v4n6uFmdcjwlzXt5wJRMtLiAHqCBK3YxBOnwF0L7QiT22eTnebw2/JFwedobjK6x0in9arncAkhU9Fq2AT9SCHCYXvKuZtKSQ+EoGupoaeYXXNo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HhRxCnSr; arc=none smtp.client-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="YCTu/eUA";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="CeCl9I8u";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="YCTu/eUA";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="CeCl9I8u"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id AFA5821BFC;
-	Wed,  7 Oct 2026 13:41:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791380478; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DN7h6EuSYm/tY0wAea1jrs+jdc5RroYMh9Q4rQrswQM=;
-	b=YCTu/eUAAMuh03aun/r4HjJsU4q3/Dd5gp40ZDdKYF5Jq9VnPmJETnCi5wG4adTchga5y1
-	wgyQQOFHcIY+/CGwbdrYRfxghkursfqb8p4HgkVBpB8o+NgTc6+5l9tax5baSyyb/BLJg/
-	Q/r+WHJv4AZrMQnAWDTRmWYWico1jqc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791380478;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DN7h6EuSYm/tY0wAea1jrs+jdc5RroYMh9Q4rQrswQM=;
-	b=CeCl9I8uuiE8AzdNjBWkV5a1NKOxpiRw4lka9ucnME5xe2tndC+KlCzXo2fgN5cPe7v9r9
-	tNlgncLMVxl+mcDg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b="YCTu/eUA";
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=CeCl9I8u
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791380478; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DN7h6EuSYm/tY0wAea1jrs+jdc5RroYMh9Q4rQrswQM=;
-	b=YCTu/eUAAMuh03aun/r4HjJsU4q3/Dd5gp40ZDdKYF5Jq9VnPmJETnCi5wG4adTchga5y1
-	wgyQQOFHcIY+/CGwbdrYRfxghkursfqb8p4HgkVBpB8o+NgTc6+5l9tax5baSyyb/BLJg/
-	Q/r+WHJv4AZrMQnAWDTRmWYWico1jqc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791380478;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DN7h6EuSYm/tY0wAea1jrs+jdc5RroYMh9Q4rQrswQM=;
-	b=CeCl9I8uuiE8AzdNjBWkV5a1NKOxpiRw4lka9ucnME5xe2tndC+KlCzXo2fgN5cPe7v9r9
-	tNlgncLMVxl+mcDg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7215C13312;
-	Wed,  7 Oct 2026 13:41:18 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id gJT3E/5LxmrKGAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 07 Oct 2026 13:41:18 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id AE494A13FE; Wed, 07 Oct 2026 15:41:17 +0200 (CEST)
-Date: Wed, 7 Oct 2026 15:41:17 +0200
-From: Jan Kara <jack@suse.cz>
-To: daejun7.park@samsung.com
-Cc: Theodore Ts'o <tytso@mit.edu>, linux-ext4@vger.kernel.org, 
-	Jan Kara <jack@suse.cz>, Andreas Dilger <adilger.kernel@dilger.ca>, 
-	Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>, 
-	Zhang Yi <yi.zhang@huaweicloud.com>, Harshad Shirwadkar <harshadshirwadkar@gmail.com>, 
-	Li Chen <me@linux.beauty>, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] ext4: track zeroed out blocks of unwritten extents
- for fast commit
-Message-ID: <vxase3lkctmatpkj3p4vvhgyrvauqyilkfd5dcz47jjtgfdipx@imb4onyzk3bw>
-References: <20261007-ext4-fc-zeroout-v1-0-b86de6439431@samsung.com>
- <20261007-ext4-fc-zeroout-v1-2-b86de6439431@samsung.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HhRxCnSr"
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-35115b52125so2229272eec.1
+        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 06:47:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791380858; x=1791985658; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=t/Kk1Bq0E2CjOKHj+zxqOvhyPWu5Ka2XDmh6oVm4A5Y=;
+        b=HhRxCnSrXE3iJ0IaLlZOzZKqKutBvdBvv/jZw8WZp/w2A7tepMX31rjooyuv+Nrvtv
+         ShFeKYT3L5wLdvVnkvuA6Fyu8QGsluxB7q+14oqS0BExWHiCbe7QJzJTejYC9OaifJBr
+         HCiYu69uqzs3VsuJYEP3wGptzgL1mAKNw+FGny81Uh8BJrCZv2wz/K169ICMtPfw7g2F
+         J3OaVjH9RUekaLfS84LTPboT1aTDODnagtWeBfDxlSIKKTllQDIiTevUWNkbcarTXbmp
+         SHxyn6qvhLJNXOR6bzuWo4seoMKNxRkpOCL7QR0MZGu4+phpsrBdKr7GP3lwjhVfnEp6
+         NR1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791380858; x=1791985658;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=t/Kk1Bq0E2CjOKHj+zxqOvhyPWu5Ka2XDmh6oVm4A5Y=;
+        b=j5KQaDIbBZXUzZvCAVCSmrEoTK7Qt9QnAxBbHb/MqIa31kzsx0t6mMyD/UrxBiuC/o
+         eV9c1Cuq3JjKYnFKNNr5fNxSENqAEeih5+FGnXetOSDQQMdElHeacYj7+kmY609CVr0F
+         y4zibat6VkWsWZiM89Kuw8CM/lD6QXy1IYKQc6uc22jNJrVFlh2WtDakh4G6kgwX7t1/
+         ofXqj3djhUwF8pBdwRl5rKmuwNuURwgtL9LPFiskWvGO76zNdJVJsevWTlHZ1sB5l1fz
+         8T7wvDgwpcxO5HIn5zv8XI9OeaWngqM3cL+wncEcBcAc4NP4AI9GMLSy2i7Wb9/tZMw1
+         CjPw==
+X-Forwarded-Encrypted: i=1; AKwUvByAFRLOFjp6RarxBo4BZY93G/c/jujov4D1yQhsGaK+2xXREYq9oq6jPWPn2o6PMfQSoR9unxk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIzyICJ8ja05cgwo8SWetHUsO5PFaN/b22PHq5arlnsFZKfFQF4
+	rt0BsSmLz/J/T4iX9lhO+Tnm01fL8XAR1sniuZbCknp2v62qy9uzNmxL
+X-Gm-Gg: AYBFou0umBloMDu4Rx/3qnI1laYQIWen7PdssisXCTYuCwcm05AFAJyMtzWEAEu0qbY
+	nt3fII6bkmJB1W73ajY8miNNFUJ6Wb1w1KXB67LEGwzc5fY2m9D2sUpOP4moRRC7TiHDNwwYg2L
+	I8HAtIBbqXwIQFXlpL2l6mv7eE7jX9l7BEsi1GHd0iJJbVBlvJHI6XMSgf0JW6e4UEcXXLmEePB
+	gNqXWnkBUHTib+kyVGpCjgBQGxeTfgFosIqR/lcyn53rgJd4YatPBHwmFHxwt537KUGqjYJKNwr
+	WWyZH3K24SfCdLWM8Ffw31tmtPzuWMwAlVFR3Op5bonSScnL+mbcoFGzFqwYmLfSIEczK5fTsNw
+	QVkY7Ox9l34n3ApDqCi0JxuyCNOB+w4yAMzBSscA28lt6hDxw1OFTmxyxAfSeaR+beqO4yRJI06
+	TzW8dOEZi34euiChssxOIAoqzKBHwFKPNrYwrHu4RHyaFVUBuDq8shJztpiPoaEyHtT5tngHzLR
+	JS59qC0fYzx4p4zvzcctukTy12X12mXwPshoJNnx63GXmk=
+X-Received: by 2002:a05:7301:6186:10b0:351:27f0:e411 with SMTP id 5a478bee46e88-3515de5a17fmr2272799eec.20.1791380858348;
+        Wed, 07 Oct 2026 06:47:38 -0700 (PDT)
+Received: from fedora ([2a02:6ea0:c803:3091::12])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3515aeb5c2esm7304472eec.10.2026.10.07.06.47.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 06:47:37 -0700 (PDT)
+From: Muhammad Bilal <meatuni001@gmail.com>
+To: Jorge Lopez <jorge.lopez2@hp.com>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Muhammad Bilal <meatuni001@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v5 1/9] platform/x86: hp-bioscfg: fix OOB reads in hp_get_string_from_buffer()
+Date: Wed,  7 Oct 2026 18:47:03 +0500
+Message-ID: <20261007134711.473857-2-meatuni001@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261007134711.473857-1-meatuni001@gmail.com>
+References: <20261007134711.473857-1-meatuni001@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261007-ext4-fc-zeroout-v1-2-b86de6439431@samsung.com>
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: AFA5821BFC
-X-Spam-Level: 
-X-Spam-Flag: NO
-X-Spam-Score: -2.51
-X-Spamd-Result: default: False [-2.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_CC(0.00)[mit.edu,vger.kernel.org,suse.cz,dilger.ca,linux.alibaba.com,linux.ibm.com,gmail.com,huawei.com,huaweicloud.com,linux.beauty];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,samsung.com:email,suse.com:email]
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed 07-10-26 09:41:21, Daejun Park via B4 Relay wrote:
-> From: Daejun Park <daejun7.park@samsung.com>
-> 
-> When ext4_ext_convert_to_initialized() converts part of an unwritten
-> extent, it may zero out the blocks before and after that range (a side
-> only if it fits together with the range in s_extent_max_zeroout_kb,
-> 32 KiB by default, and the extent lies within i_size) and convert them
-> to written together with it, instead of splitting them off.
-> ext4_split_extent() zeroes out and converts the whole extent when a
-> split fails with -ENOSPC, -EDQUOT or -ENOMEM. In both cases
-> ext4_map_blocks() reports only the mapped range to fast commit, so the
-> other converted blocks are not tracked.
-> 
-> A later write to one of those blocks overwrites a written block in
-> place. That changes no mapping and is not tracked either, so the next
-> fsync is a fast commit that logs the inode but no range for the block.
-> After a crash, replay starts from the last full commit, where the block
-> is still part of an unwritten extent, and the fsynced data reads back
-> as zeroes. Fast commit tracks one [min, max] range per inode, so this
-> shows only when no other block beyond the zeroed ones was tracked in
-> the same commit, which makes it easy to miss.
-> 
-> The first conversion runs when writes allocate through ext4_map_blocks()
-> with EXT4_GET_BLOCKS_CREATE, for example with -o nodelalloc,
-> -o dioread_lock or DAX. On a 4 KiB block file system made with
-> -O fast_commit and mounted with -o nodelalloc,commit=60:
-> 
->   fallocate -l 32k f; sync      # blocks 0-7 unwritten
->   write block 0; fsync f        # zeroes out 1-7, tracks only 0
->   write block 2; fsync f        # in place, nothing tracked
->   crash (kill the VM), mount    # fast commit replay
->   block 2 reads back as zeroes
-> 
-> Track the zeroed out blocks in ext4_zeroout_es(), and the whole extent
-> in ext4_split_extent_zeroout() when it converts one to written. Both run
-> under i_data_sem, as fast commit tracking already does when
-> ext4_ext_dirty() changes an extent kept in the inode (through
-> ext4_mark_inode_dirty()).
-> 
-> Fixes: aa75f4d3daae ("ext4: main fast-commit commit path")
-> Cc: stable@vger.kernel.org # 7.0.x
-> Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+The escape prescan loop uses 'size' as both its bound and its
+accumulator, so each escape character found extends the loop and
+reads past the end of src[].
 
-Thanks for catching this. Some comments below.
+Use the original u16 count as the loop bound. Also include the 2-byte
+length prefix in the bounds check, pass the u16 count instead of the
+byte count to utf16s_to_utf8s(), and advance the buffer by the bytes
+actually consumed instead of the escape-inflated count.
 
-> -static void ext4_zeroout_es(struct inode *inode, struct ext4_extent *ex)
-> +static void ext4_zeroout_es(handle_t *handle, struct inode *inode,
-> +			    struct ext4_extent *ex)
->  {
->  	ext4_lblk_t  ee_block;
->  	ext4_fsblk_t ee_pblock;
-> @@ -3164,6 +3165,12 @@ static void ext4_zeroout_es(struct inode *inode, struct ext4_extent *ex)
->  
->  	ext4_es_insert_extent(inode, ee_block, ee_len, ee_pblock,
->  			      EXTENT_STATUS_WRITTEN, false);
-> +	/*
-> +	 * The zeroed out blocks became written together with the mapped
-> +	 * range, but ext4_map_blocks() reports only the mapped range to fast
-> +	 * commit.
-> +	 */
-> +	ext4_fc_track_range(handle, inode, ee_block, ee_block + ee_len - 1);
->  }
+Tested on HP EliteBook 840 G2 (Fedora 44, Linux 7.2.7).
 
-It looks a bit odd to hide ext4_fc_track_range() inside a function for
-extent status tree tracking. Also see below.
+Fixes: a34fc329b189 ("platform/x86: hp-bioscfg: bioscfg")
+Cc: stable@vger.kernel.org
+Suggested-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+---
+Changes in v5:
+ drivers/platform/x86/hp/hp-bioscfg/bioscfg.c | 26 +++++++++++---------
+ 1 file changed, 15 insertions(+), 11 deletions(-)
 
-> @@ -3400,6 +3407,14 @@ static int ext4_split_extent_zeroout(handle_t *handle, struct inode *inode,
->  	if (err)
->  		return err;
->  
-> +	/*
-> +	 * The whole extent is written now, not only the range in @map that
-> +	 * ext4_map_blocks() reports to fast commit.
-> +	 */
-> +	if (flags & EXT4_GET_BLOCKS_CONVERT)
-> +		ext4_fc_track_range(handle, inode, ee_block,
-> +				    ee_block + ee_len - 1);
-> +
->  	return 0;
->  }
-
-Also putting this into ext4_split_extent_zeroout() looks a bit too easy to
-miss. In fact I think placing ext4_fc_track_range() into
-ext4_issue_zeroout() would make sense because that is where the writing of
-"data" really happens. This will fix the use in
-ext4_split_extent_zeroout() as well as ext4_ext_convert_to_initialized().
-And it will also fix the same class of problem which I think we have in
-ext4_alloc_file_blocks()...
-
-								Honza
+diff --git a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
+index 32b99a862082..919735ddba25 100644
+--- a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
++++ b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
+@@ -58,8 +58,8 @@ int hp_get_integer_from_buffer(u8 **buffer, u32 *buffer_size, u32 *integer)
+ int hp_get_string_from_buffer(u8 **buffer, u32 *buffer_size, char *dst, u32 dst_size)
+ {
+ 	u16 *src = (u16 *)*buffer;
++	u16 orig_size;
+ 	u16 src_size;
+-
+ 	u16 size;
+ 	int i;
+ 	int conv_dst_size;
+@@ -67,17 +67,21 @@ int hp_get_string_from_buffer(u8 **buffer, u32 *buffer_size, char *dst, u32 dst_
+ 	if (*buffer_size < sizeof(u16))
+ 		return -EINVAL;
+ 
+-	src_size = *(src++);
+-	/* size value in u16 chars */
+-	size = src_size / sizeof(u16);
++	src_size = *src;
+ 
+-	/* Ensure there is enough space remaining to read and convert
+-	 * the string
++	/*
++	 * Ensure there is enough space remaining for the length prefix
++	 * just read plus the string data it describes.
+ 	 */
+-	if (*buffer_size < src_size)
++	if (*buffer_size < sizeof(u16) + src_size)
+ 		return -EINVAL;
+ 
+-	for (i = 0; i < size; i++)
++	src++;
++	/* size value in u16 chars */
++	orig_size = src_size / sizeof(u16);
++	size = orig_size;
++
++	for (i = 0; i < orig_size; i++)
+ 		if (src[i] == '\\' ||
+ 		    src[i] == '\r' ||
+ 		    src[i] == '\n' ||
+@@ -95,7 +99,7 @@ int hp_get_string_from_buffer(u8 **buffer, u32 *buffer_size, char *dst, u32 dst_
+ 	/*
+ 	 * convert from UTF-16 unicode to ASCII
+ 	 */
+-	utf16s_to_utf8s(src, src_size, UTF16_HOST_ENDIAN, dst, conv_dst_size);
++	utf16s_to_utf8s(src, orig_size, UTF16_HOST_ENDIAN, dst, conv_dst_size);
+ 	dst[conv_dst_size] = 0;
+ 
+ 	for (i = 0; i < conv_dst_size; i++) {
+@@ -121,8 +125,8 @@ int hp_get_string_from_buffer(u8 **buffer, u32 *buffer_size, char *dst, u32 dst_
+ 		src++;
+ 	}
+ 
+-	*buffer = (u8 *)src;
+-	*buffer_size -= size * sizeof(u16);
++	*buffer += sizeof(u16) + src_size;
++	*buffer_size -= sizeof(u16) + src_size;
+ 
+ 	return size;
+ }
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.55.0
+
