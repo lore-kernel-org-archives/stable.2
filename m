@@ -1,76 +1,42 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D13663546FC
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 06:21:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 437D11E32D6
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 06:22:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791354114; cv=none; b=TN7LEBLDOsi9kwZvWE+EPPVt+xv0f4Gxel+j1GZV6GiZTPk5M643TvW+lOY1w2kf5PZT2HkNa8cBFPqKIHCAtOhNp8UQEYrxRMwz+9KWaDBKiTFN+a496ucky5m3JTqM+U+XVvlpO5dumxN4HI+dy7aVj3isyP7lIfWOY8yooN0=
+	t=1791354171; cv=none; b=qmKWy5bj+fvaZTdm4VeymoVFE/PmsiwR+m1u72DtvatYrQJW0TvsVyBD34+AdkNlNfesXx4CbXx2hMlsr4htH41seRqd75t6ffRAjfT/Fo+iqNqntjFRoYM9P3OZCjwPrko8Rw7xdtQLLYL2Flmc9HtSczyrjFgY82ohpmHhzys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791354114; c=relaxed/simple;
-	bh=1IpiDcXZO6cmR758XcfRBABk089RXsqbT8ncmzLrEmk=;
+	s=arc-20240116; t=1791354171; c=relaxed/simple;
+	bh=d3z4Da05mAtgSu9MYxk8fGZoHz3WwKVgm1BT4/dlKoo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PR7/8UwclV43mydG5DhghARyqE7MssVcc9QS79n/KWc+xAIlQ1yasqN35vamKWXU0RcTekYUcg/1F5Sc9wnr4/oYxA6DAPpqND3zzzMsIYK8ceXlKFgUeppCZpgJfkE4Tpsx8lV8GlBw2Ly98Pk+jTMKStb5whelH0DJLswWnVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BEu4/1z/; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=j1OsWrwaxIaGyvf57bZSp0o/Qdfznu6wvAIYNfjZ/RSItTTsOdIDlJ7NBINjGE47p6j5h213M/uuBU7wquvVJPZm2hi6LcBhiN2m/ujGORxU/Mvng4CBpUbkFEAKPLPKoEOMcxCOi5/CrfSLh4oYn+0XVQyYyJcj4UmaFnzMmW0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RlKzysRX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BEu4/1z/"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4995b0343c1so23771965e9.3
-        for <stable@vger.kernel.org>; Tue, 06 Oct 2026 23:21:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791354111; x=1791958911; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1IpiDcXZO6cmR758XcfRBABk089RXsqbT8ncmzLrEmk=;
-        b=BEu4/1z/NCGqgGz0z1Zaca0lOyYHOQsGsBeu9SAh4exFmlQGGo0hJ1O+ZdgREqh8Zr
-         6P0Df1Or5DsopF7X7WehU8lhGwvEDgnFA9ZdTrPgPf3zHLvo/+7YcCbI/MX8b6Oc6XAq
-         ax22oG7MrQjwfu1OARv9M4B+6rR3cGNHA+GPwbletEZZPZCTsSLyuJeO0ysR57M1No3g
-         CERiayGJH1Z5U+D6UMJR0fuHNPHyGvzI7of0g/PylYEtTwjduhxP0F90Lvd4Ms9uA6KF
-         rheX0ziOY7vMohEMrTPj1x3OXG1IT2NywPex0701UYEENfo+CL0MG1S3Of959an6+AOp
-         LjGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791354111; x=1791958911;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1IpiDcXZO6cmR758XcfRBABk089RXsqbT8ncmzLrEmk=;
-        b=GWjOFVxBu2ZNhHB+7wdiLz9Cp8AEDCWj3ovrwfKWDckB1oc7uPedyR6Mm83DUdn8Gz
-         wj+2mgtAmUPHSlWJqyW+aOGbdmqiw5WOBD62PcUVxUMUDampt24g4BWShgqJHwsiVCa/
-         4hLRQB3zJQ/ifZkULhC4uhkQtuYs3TKBXYuTdEagoKIsyxjMxwQv35+MNXdVme0A2j7Y
-         44MtHuW+0zasp4F6aDNjAJW0ELWhe9kCounvjD+T9/RZYj7ANrEJ6cN9BOpJeZWe0fpn
-         8ehJyeYl1HxJA2fTIm3/xTgtRGaD7sG0Hyx/PtOEFPyY/iNNIVRnU4w7i8C+hSmnKb+c
-         CiFg==
-X-Gm-Message-State: AFuF++k56nPlSgQ7zyQDxQVQ0JMxFlYVmWYIdgNfYvDWVzw3QMsXFPBI
-	T7HzhYGQsddzHb/h9msHqnnr5UEiacanx9vMPDJke4G1/b2VmX0iDOSL
-X-Gm-Gg: AYBFou1Kq7LCADZquEFn0JBfnPkSDRWH218kVSqxjMAOeNCKLdNFyUTWmsL7dpUyEtg
-	tAk7fnWeXw2J4lWZ0FdUpJRWCMExnjeWKKXIsRvbTvJyMXkTryjE3P084DpyAhr3QE4SDKXFISb
-	qNZGaboenDYCyq3XO3qM5k0Of7LHdAGDcRpG0vncesraBxk+iPQ58ZsIkv+DkGRu79lq8JP45lY
-	kHaKoaIGfIUGfy8gaNkcW7Mo3FyIEiid2hYNetnc2HVRVUpubu2b1EDrnEmMKzAwwLHQX07q+4z
-	flRBlSN6it7dkdmwfNovDUjP7ngiQrueM3OHtz/pALdvQrWpKUOfqdtSF7qnexWJhTN1dIDsPxe
-	52WeaYzMjLqG10KPi9pr8leNvX8mXwnw4Np8ZKP/bJxMrB1jTFTQSFHxoZHKyjVTX8d7+6FvlfK
-	82eNCD1HHl0Uceab3c77LlaRYBS3kHwwHR797Twe3jPpTKTybcUACN8qGQGej7TA96Cz8ZLwAsZ
-	8ARuWbdCVdfcOc=
-X-Received: by 2002:a05:600c:530e:b0:49f:ffd0:4039 with SMTP id 5b1f17b1804b1-4a1806504fdmr14110665e9.32.1791354110998;
-        Tue, 06 Oct 2026 23:21:50 -0700 (PDT)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17f795f29sm37438205e9.11.2026.10.06.23.21.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 23:21:50 -0700 (PDT)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org,
-	Ping-Ke Shih <pkshih@realtek.com>,
-	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
-	linux-wireless@vger.kernel.org,
-	mehmet.fide@screeningeagle.com
-Subject: Re: Please apply 13221be72034 ("wifi: rtw88: Handle C2H_ADAPTIVITY in rtw_fw_c2h_cmd_handle()") to 6.6.y and 6.12.y
-Date: Wed,  7 Oct 2026 08:21:49 +0200
-Message-ID: <20261007062149.2086871-1-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <2026-10-06-1-daily-reply-0002-rtw88-c2h-adaptivity@kernel.org>
-References: 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RlKzysRX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83B131F0089B;
+	Wed,  7 Oct 2026 06:22:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791354169;
+	bh=sjXhqL7FyLhXnQVZlBXTZhUm0uX7iqgzu4baONry4Zo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=RlKzysRXCml7T/y4GFGrPXOdx66+FUteoReX9V4BV1vmkDJtyp2gbzQinHHlQO4dg
+	 bbEQ22QFh6qdBJQX/EMUszdivcDsllFDiaIcEgigRS3tyxONqlQbUHyzkHg1oJcJLr
+	 HrdffAyS/yyo5XPQKniy7FrnmRao96DXMXyc5u4ZcIuXP3nyRLUROt1+jKIa5JuNBM
+	 hZBvWMI2ThdY31XPlJpCQVQpLnMGEMvk4QSoy4zuyiTNaEQ7LMHrg6+LszfurqSoMM
+	 1o/aIhKO5BdhTok4Yj/BG69yPtpo8tYbjQfQvcTSUFjYMO6t6l0tfrQGvzsCNDSFil
+	 TslnoSLRNDXqw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] iio: adc: aspeed: Simplify with dev_err_probe
+Date: Wed,  7 Oct 2026 02:22:44 -0400
+Message-ID: <20261007062238.1618294-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026100600-stage-saturday-572e@gregkh>
+References: <2026100600-stage-saturday-572e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -79,18 +45,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Sasha,
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-On 2026-10-06 Sasha Levin wrote:
-> Could you send the full trace, and say whether your kernel carries that
-> conversion or other local rtw88 changes? We will take the patch if it
-> reproduces on unmodified stable.
+[ Upstream commit dcc3ac29f46fff6775c0a945afc68fd9dece6d34 ]
 
-You are right, and sorry for the noise: our 6.12 tree carries a backport
-of 3e3aa566dd18 ("wifi: rtw88: usb: Preallocate and reuse the RX skbs"),
-so the RX work runs on a BH workqueue there. The splat is the missing
-follow-up to our own backport, not a problem of stock 6.12.y or 6.6.y.
-Please drop the request.
+Use dev_err_probe() to make error code handling simpler and handle
+deferred probe nicely (avoid spamming logs).
 
-Thanks,
-Mehmet
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Stable-dep-of: 95e4eb426b4b ("iio: adc: aspeed: propagate reset deassert errors")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/iio/adc/aspeed_adc.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/iio/adc/aspeed_adc.c b/drivers/iio/adc/aspeed_adc.c
+index 8ab29948214a5..1cf9df6a14a54 100644
+--- a/drivers/iio/adc/aspeed_adc.c
++++ b/drivers/iio/adc/aspeed_adc.c
+@@ -536,11 +536,10 @@ static int aspeed_adc_probe(struct platform_device *pdev)
+ 		return PTR_ERR(data->clk_scaler);
+ 
+ 	data->rst = devm_reset_control_get_shared(&pdev->dev, NULL);
+-	if (IS_ERR(data->rst)) {
+-		dev_err(&pdev->dev,
+-			"invalid or missing reset controller device tree entry");
+-		return PTR_ERR(data->rst);
+-	}
++	if (IS_ERR(data->rst))
++		return dev_err_probe(&pdev->dev, PTR_ERR(data->rst),
++				     "invalid or missing reset controller device tree entry");
++
+ 	reset_control_deassert(data->rst);
+ 
+ 	ret = devm_add_action_or_reset(data->dev, aspeed_adc_reset_assert,
+-- 
+2.53.0
+
