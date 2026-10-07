@@ -1,222 +1,111 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56F983C1D7A
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 05:50:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2593A2222AC;
+	Wed,  7 Oct 2026 05:52:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791352209; cv=none; b=hwyCEXuzFhPqY0fwwfIr9PcQPVfTZVw0FJUS1bgoiERR/i3M87Ak2aFlrWCCuK28k8+RmPROxLa7pjePgG3Ew9D87FzbI+gnH3ITnXttYxHcjlXlXWJWTDdxblDk+agOffIA1bRto/l55MtZ9hyKrlQVwAj9pfC/TFhb7hwep5M=
+	t=1791352348; cv=none; b=jOQR2F91EZs1+BLEqBn5HG3PlNIlZjvPa2PT+uDppx4AB3saCwLBiSzV5na4zD2aq/J4N8lBqie9iSOZXXfjBp84mE4F9Pb4ugPXgohBhuaYyc1E5wxMoVW8U0H/AfT+38qjUJ1kwD+pv9v9ZxQ/q9Y615P/oEF5lJhIHbngtZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791352209; c=relaxed/simple;
-	bh=NPUhHPiJuu7KRMZHxUG4cQvrnhhEu3Ouebv8BQe1QRk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oqGTE7IcfkXJz5s83f6hXBZl7gu5bwR6t8ehTzXIGyIkgrU+QxE/mqxjlWYGIe9QemMQOvybRjzxqcInvzuXob/8LAReo7gEGV4NR+rkQPpxQQpDuO01YHxyTwFb58uahaHxFNVmqhVwbxADrkuKgUEWf/d+oPSGzZ7MwrNYRr4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nfv7fQAS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791352348; c=relaxed/simple;
+	bh=eNXwv+3bE7EFysSqOx3zsqS83s03c53nR6/ozfz8bS4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-Id; b=gJkglBpr7LP0XTy3ruRTCLW6gDey57JmLsvpsW4tDD0lbsUT0c3qj9uc9uUFlpwx7kAhZgySN/PIiBTXQqNnZsEmd9+tBxeYi0XEl4E9QUqAT0mxiQRbopw6iicypijwzWfATDVjZKbkE0RthQwCQ/bgym6nZkNr625kjYuhlB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fx4KgWOu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nfv7fQAS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 617911F0089B;
-	Wed,  7 Oct 2026 05:50:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fx4KgWOu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32DDA1F0089B;
+	Wed,  7 Oct 2026 05:52:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791352207;
-	bh=clD8fL6X+Zdme1dtUIhkBfPD/s1w3grfL0ttL84WEQY=;
+	s=k20260515; t=1791352346;
+	bh=GdjMU9k4F7x6/rjAjbdSug09OfCl1IVYHFb5BuvL2WQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nfv7fQAS1H4Keaiw61kMNIlp0BSQDDYHbDfTBwr1oBcTQeiEBubCxJR3SxXJPQaqZ
-	 HCo6a0OMq/fIcNn9L3g/enUhWWKktrewBhB5f0Olew8BQolJ4b8sqSsvvt9dhVpf62
-	 KiwyB9NRvTakhLWgW0wdXP5MZIvFjPKaNmEuA25pFzdbwPLQ3Amkeoy9iNEYsEy3gK
-	 n6cw+DW4KuoHCT+EbwXETPKH/deOwlB2UUfnBRQhvxGnxlbeaHBlEsUbeyUCyWLgRe
-	 JAXCf/dKNKHk/IzGJ7ndGZqGtE7xEjbmjHce50pey46BIB6rMTu5DwggTy8QJOZcTF
-	 6Lb35/PHwyHXA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Paulo Alcantara <pc@manguebit.org>,
-	David Howells <dhowells@redhat.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y] smb: client: only require read lease for size-extending preallocate
-Date: Wed,  7 Oct 2026 01:50:03 -0400
-Message-ID: <20261007054941.1487440-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100621-pecan-tartness-6f95@gregkh>
-References: <2026100621-pecan-tartness-6f95@gregkh>
+	b=fx4KgWOu7/o+l1XmH6yfTVogKylmJu6db7QQUpA8y9thPFEJNkDfzA/5bVgD0RSPL
+	 m2opzykxD8LL6O2vQZDv9cPTWLcF7foaTNGAZiEB+J5Yie01Exd4gQpaxHZeP4p4kO
+	 GFXmMkqOvj6eO2edw0KCN9dicFTa9/7aqi9UQECfaCUx9VXxLSRb251iMiddQZZwAi
+	 fcgzWcPkFlZRw55eJZlRmkRn3zNhIaYq3pf1W2GCh9wHpMFQG1tJ7U2o1wWDPfKaI5
+	 GV6xALy2szBWDZhAUgDdOCVq06W8BfJEGjcXqhKOFNijyZJ7pBITPbFzfUHBHS8t+f
+	 qljgZzsZle6JA==
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+To: kylebot@openai.com
+Cc: Masami Hiramatsu <mhiramat@kernel.org>, linux-trace-kernel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, rostedt@goodmis.org,
+ outbounddisclosures@openai.com, stable@vger.kernel.org
+Subject: Re: [PATCH] tracing/filters: Check perf permissions before resolving
+ .function
+Date: Wed, 07 Oct 2026 05:52:22 +0000
+In-Reply-To: <asXAxf0edslJI-Ge@com-75606>
+References: 20261006225112.53503-1-kylebot@openai.com
+ 20261007034423.310311F0089B@smtp.kernel.org asXAxf0edslJI-Ge@com-75606
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-Id: <20261007055225.32DDA1F0089B@smtp.kernel.org>
 
-From: Paulo Alcantara <pc@manguebit.org>
+On Tue, 06 Oct 2026 20:47:17 -0700, Kyle Zeng <kylebot@openai.com> wrote:
+> On Wed, Oct 07, 2026 at 03:44:20AM +0000, Masami Hiramatsu wrote:
+> > On Tue, 06 Oct 2026 15:51:12 -0700, Kyle Zeng <kylebot@openai.com> wrote:
+> > > perf_trace_event_perm() allows tracepoint counters that do not request
+> > > PERF_SAMPLE_RAW without raw tracepoint permissions. A self-targeted,
+> > > disabled event with exclude_kernel=1 can therefore reach the filter
+> > > compiler even at perf_event_paranoid=2.
+> > >
+> > > The .function suffix accepts any field of sizeof(long) and resolves its
+> > > operand through kallsyms_lookup_name() and kallsyms_lookup_size_offset().
+> > > The success or failure of a numeric filter discloses whether an address
+> > > belongs to a known kernel symbol range. On x86-64 this can be used to
+> > > recover the randomized kernel image base. A named filter also exposes
+> > > the resolved symbol range through the counter when the tracepoint field
+> > > is controlled by the caller, as with a syscall argument.
+> > >
+> > > Pass the filter's perf origin to the predicate parser and require
+> > > perf_allow_tracepoint() before resolving a .function operand. This uses
+> > > the same sysctl, initial-namespace capability and LSM policy as raw
+> > > tracepoint access, and closes both the numeric and named-symbol oracles.
+> > > Do not change ordinary perf counting filters or filters created through
+> > > the separately controlled tracefs interfaces.
+> > 
+> > Good catch!
+> > 
+> > >
+> > > Fixes: e6745a4da964 ("tracing: Add a way to filter function addresses to function names")
+> > > Cc: stable@vger.kernel.org
+> > > Assisted-by: Codex:gpt-6-astra
+> > 
+> > nit: This should be 
+> > 
+> > Assisted-by: LLM
+>
+> Didn't know there was a change of convention. Should I send in a v2 or
+> it will be picked up automatically?
 
-[ Upstream commit b5d59e7270d078ab28a9c4b4d11dc3eb24671988 ]
+We can change the tag when picking up, so you don't need to resend it only
+for tag update. But for this patch, please update according to Sashiko's
+comment.
 
-smb3_simple_falloc() refuses any fallocate that clears FALLOC_FL_KEEP_SIZE
-with -EOPNOTSUPP whenever the inode is not read caching:
+ https://lore.kernel.org/all/sashiko-outbox-162502@kernel.org/
 
-	/* if file not oplocked can't be sure whether asking to extend size */
-	if (!CIFS_CACHE_READ(cifsi))
-		if (!keep_size) {
-			...
-			return rc;
-		}
+Thanks,
 
-As with smb3_zero_range(), the read lease is only needed to trust the
-cached size when deciding whether the request extends the file. When it
-is not held, the size can instead be fetched from the server, which is
-authoritative, rather than refusing the request outright: after
-flushing, query the server's end of file and take the larger of it and
-the cached size for the interior-vs-extend decision. The larger of the
-two is used because the server's end of file reflects another client's
-growth while the cached size reflects this client's own writes that may
-not have reached the server yet; using the server size alone would
-wrongly treat an interior request as extending when a range flush left
-an extending write unwritten.
+>
+> Thanks,
+> Kyle
+>
+> > 
+> > > Signed-off-by: Kyle Zeng <kylebot@openai.com>
+> > 
+> > Reviewed-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+> > 
+> > Thanks!
+> > 
+> > 
+> > -- 
+> > Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
-smb3_simple_fallocate_range(), which performs the actual interior
-emulation, decided whether the range already lies past EOF from its own
-i_size_read(inode) rather than the old_eof computed above. In the
-leaseless case, that is exactly the stale, undershooting size this
-patch works around: a genuinely interior range can read as past EOF by
-that stale count, which skips the FSCTL_QUERY_ALLOCATED_RANGES check
-entirely and overwrites already-allocated server data with zeroes
-instead of only filling the holes. Pass old_eof into
-smb3_simple_fallocate_range() and use it for that comparison instead of
-re-deriving a second, inconsistent one.
-
-Rejecting interior requests is observed as generic/363 randomly failing
-against Windows Server with
-
-	do_preallocate: fallocate: Operation not supported
-
-fsx issues an interior, non-KEEP_SIZE preallocate while the inode is
-transiently not read caching: the server had just downgraded the file's
-lease from RWH to RH after breaking the write caching, and the ensuing
-handle reopen/revalidation left CIFS_CACHE_READ momentarily clear. The
-range sat within the server's end of file, so no extend was needed, yet
-it was refused and fsx aborted. This keeps the emulation correct even
-when a genuine lease break from another client leaves the inode
-without read caching -- the case the -EOPNOTSUPP guard turned into a
-hard failure. The extra flush and round trip only happen when both
-keep_size is false and no read lease is held; every other case is
-unchanged.
-
-Fixes: 9ccf3216238c ("Add support for original fallocate")
-Reviewed-by: David Howells <dhowells@redhat.com>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Matthew Wilcox <willy@infradead.org>
-Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
-Cc: Shyam Prasad N <sprasad@microsoft.com>
-Cc: Tom Talpey <tom@talpey.com>
-Cc: Bharath SM <bharathsm@microsoft.com>
-Cc: stable@vger.kernel.org
-[ sashal: Adapted cifs_resize_file_locked() calls to the two-argument helper. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/smb/client/smb2ops.c | 36 +++++++++++++++++++++++++++---------
- 1 file changed, 27 insertions(+), 9 deletions(-)
-
-diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
-index 7c804e6e0fa42..9f02dfe86b3ae 100644
---- a/fs/smb/client/smb2ops.c
-+++ b/fs/smb/client/smb2ops.c
-@@ -3742,7 +3742,8 @@ static int smb3_simple_fallocate_write_range(unsigned int xid,
- static int smb3_simple_fallocate_range(unsigned int xid,
- 				       struct cifs_tcon *tcon,
- 				       struct cifsFileInfo *cfile,
--				       loff_t off, loff_t len)
-+				       loff_t off, loff_t len,
-+				       loff_t old_eof)
- {
- 	struct file_allocated_range_buffer in_data, *out_data = NULL, *tmp_data;
- 	struct inode *inode = d_inode(cfile->dentry);
-@@ -3758,7 +3759,7 @@ static int smb3_simple_fallocate_range(unsigned int xid,
- 		goto out;
- 	}
- 
--	if (off >= i_size_read(inode)) {
-+	if (off >= old_eof) {
- 		rc = smb3_simple_fallocate_write_range(xid, tcon, cfile,
- 						       off, len, buf);
- 		goto out;
-@@ -3882,14 +3883,31 @@ static long smb3_simple_falloc(struct file *file, struct cifs_tcon *tcon,
- 
- 	trace_smb3_falloc_enter(xid, cfile->fid.persistent_fid, tcon->tid,
- 				tcon->ses->Suid, off, len);
--	/* if file not oplocked can't be sure whether asking to extend size */
--	if (!CIFS_CACHE_READ(cifsi))
--		if (!keep_size) {
-+
-+	if (!keep_size && !CIFS_CACHE_READ(cifsi)) {
-+		unsigned long long server_eof;
-+
-+		rc = filemap_write_and_wait(inode->i_mapping);
-+		if (rc) {
- 			trace_smb3_falloc_err(xid, cfile->fid.persistent_fid,
- 				tcon->tid, tcon->ses->Suid, off, len, rc);
- 			free_xid(xid);
- 			return rc;
- 		}
-+		netfs_wait_for_outstanding_io(inode);
-+
-+		rc = query_server_eof(xid, tcon, cfile, &server_eof);
-+		if (rc) {
-+			trace_smb3_falloc_err(xid, cfile->fid.persistent_fid,
-+				tcon->tid, tcon->ses->Suid, off, len, rc);
-+			free_xid(xid);
-+			return rc;
-+		}
-+		/*
-+		 * Only use the larger EOF to decide whether we're extending.
-+		 */
-+		old_eof = max_t(loff_t, old_eof, server_eof);
-+	}
- 
- 	/*
- 	 * Extending the file
-@@ -3913,7 +3931,7 @@ static long smb3_simple_falloc(struct file *file, struct cifs_tcon *tcon,
- 			}
- 
- 			rc = smb3_simple_fallocate_range(xid, tcon, cfile,
--							 off, len);
-+							 off, len, old_eof);
- 			if (rc) {
- 				spin_lock(&inode->i_lock);
- 				cifsi->time = 0;
-@@ -4015,7 +4033,7 @@ static long smb3_simple_falloc(struct file *file, struct cifs_tcon *tcon,
- 		}
- 	}
- 
--	if ((keep_size == true) || (i_size_read(inode) >= off + len)) {
-+	if (keep_size || old_eof >= off + len) {
- 		/*
- 		 * At this point, we are trying to fallocate an internal
- 		 * regions of a sparse file. Since smb2 does not have a
-@@ -4032,7 +4050,7 @@ static long smb3_simple_falloc(struct file *file, struct cifs_tcon *tcon,
- 		 */
- 		if (len <= 1024 * 1024) {
- 			rc = smb3_simple_fallocate_range(xid, tcon, cfile,
--							 off, len);
-+							 off, len, old_eof);
- 			goto out;
- 		}
- 
-@@ -4044,7 +4062,7 @@ static long smb3_simple_falloc(struct file *file, struct cifs_tcon *tcon,
- 		 * ie potentially making a few extra pages at the beginning
- 		 * or end of the file non-sparse via set_sparse is harmless.
- 		 */
--		if ((off > 8192) || (off + len + 8192 < i_size_read(inode))) {
-+		if (off > 8192 || off + len + 8192 < old_eof) {
- 			rc = -EOPNOTSUPP;
- 			goto out;
- 		}
 -- 
-2.53.0
-
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
