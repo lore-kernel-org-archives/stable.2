@@ -1,146 +1,174 @@
-Received: from relayaws-01.paragon-software.com (relayaws-01.paragon-software.com [35.157.23.187])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 627F53CE4B1;
-	Wed,  7 Oct 2026 21:38:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.157.23.187
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2616641D10D
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 21:39:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791409134; cv=none; b=RtCwR9kcawg5WmFr4pk4ZxrHkaaWoChrXk0FImoiFdjsSWYvwfVcX/9ZccfAT9btXd7Sxyz9sAte1QJyVgdKDqnGGqzgcu0+2jKs5I+UT+U3/eoFlCkIojDE2BIJIZa16NkOj/+BEprYAkdjn7jz4yWKNQah1ipeVjaLW5FcIVo=
+	t=1791409151; cv=none; b=oMppkQdDPaP53KY70j1tW6HodYf2kER1bacpuu3hkw564NR60LFFKax/gScnTnkfP2GiDy9O01tKvqW8cp0GUfUVo8cV+dfwb2xy0FW0zIuvfMIVu75Tc2zszLvGHRCCTGXnm/p8MjKMHFqnVno2icdYnslYkJU10y0uZPZZiUg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791409134; c=relaxed/simple;
-	bh=GkUIrRr1ppBry+WpUtDYU+DIKizszRyQMXBou7OYEvw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=Anm6vAQIVUzyj/UBQ51+zIy7b6kk3w7bWbWo4piw5qXFsxjQ7Zaf2uekBBdNABFhrWrA7hWHaPDhm9CTgvvWff/591C3ACr4vCyxNcCZIKcdTlMaYH6vgn9hy1LSrzzE1HpBFjTFD/Qf3D4aBRcAa5XBKEwlF20VDAWrhWw4NHA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com; spf=pass smtp.mailfrom=paragon-software.com; dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b=QcLFVHu1; arc=none smtp.client-ip=35.157.23.187
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paragon-software.com
+	s=arc-20240116; t=1791409151; c=relaxed/simple;
+	bh=bHNxYkdJPMV0c3mCbJm/KxAgtbUiUhtBx/89itrM5O8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=R7kTBCyrZKQt5Ztpe7NAf/CFWdkVXEQy+4SuqLbSMs5WekOjP2PVKO7Oen8KRODvsJmARNoa93XDscd/i93kXaCBr6gFmEDQcVDjt7M/sj0ldoY9feiMztfUFS9tVT6dalzCQyNNp1e2J1p0I26AXZBDc1fiUdFhL4K6JqJnXJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=VN6al5ag; arc=none smtp.client-ip=74.125.82.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b="QcLFVHu1"
-Received: from relayfre-01.paragon-software.com (relayfre-01.paragon-software.com [176.12.100.13])
-	by relayaws-01.paragon-software.com (Postfix) with ESMTPS id 93ABE32C;
-	Wed,  7 Oct 2026 21:33:10 +0000 (UTC)
-Authentication-Results: relayaws-01.paragon-software.com;
-	dkim=pass (1024-bit key; unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.b=QcLFVHu1;
-	dkim-atps=neutral
-Received: from dlg2.mail.paragon-software.com (vdlg-exch-02.paragon-software.com [172.30.1.105])
-	by relayfre-01.paragon-software.com (Postfix) with ESMTPS id E6F7621D9;
-	Wed,  7 Oct 2026 21:32:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="VN6al5ag"
+Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1438d9363fbso1664961c88.0
+        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 14:39:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=paragon-software.com; s=mail; t=1791408738;
-	bh=QwUzb8TDVEWRLuySkAhiKAopW46J6Jzx0gohNV2JJ7A=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To;
-	b=QcLFVHu1To/MD+JaRxrK61im3FaIw67Kg8JATNoiZ5davwIhQy9sHe75gZLSkWi1T
-	 uH/4tVqdrap/I+QgT+hJEgmdKS2C/QxVTOK2DquyM4f3qcJlPG+TfEoRou7soFTjP0
-	 a9Q1xMOjfZh1xmqR+wL1OYiBTXBsMspII1DXWCs4=
-Received: from [192.168.95.128] (172.30.20.178) by
- vdlg-exch-02.paragon-software.com (172.30.1.105) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.7; Thu, 8 Oct 2026 00:32:17 +0300
-Message-ID: <33847e79-7ac8-4e96-95d2-4b8a3cda14b6@paragon-software.com>
-Date: Wed, 7 Oct 2026 23:32:16 +0200
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1791409149; x=1792013949; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1Nns8aiPTfaF/h+f4iU4OgWV4cRfzK2BO0PwfYSOV3A=;
+        b=VN6al5agIh8nUeBPBCSenhQGXlu6drM6Dn17hp2oz3Ldy5FANsdNIuL+hWtlx/qZiZ
+         zmbosS0MDCsVNNSW3I9F3H/gt/lbpZOU9iX8DF9YQ3fMIjCy8v+kT0XWgHsgFYvi5B+d
+         BRtxfjLuXwKCuvS32AARerxSy2J+gWAaC1575C6K0j4BX3ZUXN/l5NdJHjzCd3d5iH8/
+         u6GtKjNL4ADWUnbgAeA8pMneEUR1Lx5172hpKDHVNAGnTvsghK/zLv/oCVnJQKhnZgAG
+         bJiC6d+h6V0K2VTwW7au/B7KsF8yK0v2+QfP9HYDrYpFbK/4qnHstfRc6iXfcpHWrIhT
+         FZrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791409149; x=1792013949;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1Nns8aiPTfaF/h+f4iU4OgWV4cRfzK2BO0PwfYSOV3A=;
+        b=Onj1eDVHx+oW7D4hiNQRrzLu24U2BNVYK8ves7gEABgEm0LANy5hcYJPY9StQJCJqx
+         jkmuB6KblQcSfJCTjOOQEy30CtIZAWuUWLOaLSdCjjjSMsD87bssabS/e3dlJApSWsMH
+         sJJE+NG8khlsto5RCbxFJwGUJ5BcOFHIm32mEpx9Nydn5NuSEVJtZW3DhCsiMtkcd71A
+         1wBlNUaXqFrNQKXi2ZpuV51C7w4c4tq+dO2M+NA6JZ6N4W1z5GK3DEfLz+1UippdxR0T
+         +gnfsa6f7fAmVJFoN/E1L/gwz0oSEteBOBQ22hkw0JVK+6sHFaDLA5FCQEXzHaYZJGvU
+         sqjQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxQ8MBDk+MHphNJKNijhVukFUhdpCBWmolSsRDIMlw9nLypVsmdgFHQ2JUVeHNmOeKaK0kZOTo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nNvriAKFOkQ/kEiHeilKQd7FmcaUKTcIDfC0R3fv0JxeupkFG8
+	ic7HkWkUqVQCptB2sy77T1rX2B/XeNyrMjL3gkxzQBMC0RwDCUvqa0LUT6vtk+LB2+doIsSzhSu
+	jC+ESzQ4=
+X-Gm-Gg: AYBFou1HhFnzqTBracWv4MPhxoGXPUCACjqsi/tj6ujtBo56WsgGBeVQRATQ5C0dBu/
+	w2AYCGaw2WSx51p9ccgUheAMAh4POQPbUIHbX1NOveNVULBK8uyku8ndj7L1h3W5QUXiZ52qhpW
+	FlmyfBEsj3ahrqODqU3Jv+qw4NZVlwTDy0owc8s2lWB8A0e61xCnhS7M3yO/Eerbnau/7q0iRB4
+	tEcmK49tcPoVT8J2prHZR2bxfIZNx/FVX+dhV8+SfkcWE6haW1/yaQFh1EqZenWJiZhi1ggkU4S
+	zcL5CH1iv0DZ2Enuz/Do2jhzFeoJxDKcoDQ+7WUzeA/gCvSLdzkADa7oPyqVSU0jSjwAnKuwZZC
+	9acegvt2xG+zwCiIHx+zQiKNov6ydnH8qhHROOpGGCcljljv1QQTWJRmkJ8AjLNhpUwNkzbxgJJ
+	oKoncjMTV1xkYXPgCETM3S4A4YQ4kMWqEPmtfvVc6ajZaWINhB+oSSlbtBjiqcXdeVacObugJTx
+	OhbFp+x5PdqKmLGvNWxg5XQqmW0fxZaAZos0OATMq56KEutI/qzwiI=
+X-Received: by 2002:a05:7022:522:b0:143:1bb1:3305 with SMTP id a92af1059eb24-165a887c9cfmr785296c88.22.1791409148978;
+        Wed, 07 Oct 2026 14:39:08 -0700 (PDT)
+Received: from xps16 ([198.8.77.135])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1616602b33asm8788217c88.3.2026.10.07.14.39.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 14:39:07 -0700 (PDT)
+From: Jens Axboe <axboe@kernel.dk>
+To: io-uring@vger.kernel.org
+Cc: dw@davidwei.uk,
+	hengyul@cs.unc.edu,
+	Jens Axboe <axboe@kernel.dk>,
+	stable@vger.kernel.org
+Subject: [PATCH 2/2] io_uring/memmap: only charge pinned user memory to RLIMIT_MEMLOCK
+Date: Wed,  7 Oct 2026 15:38:57 -0600
+Message-ID: <20261007213903.445430-3-axboe@kernel.dk>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261007213903.445430-1-axboe@kernel.dk>
+References: <20261007213903.445430-1-axboe@kernel.dk>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fs/ntfs3: validate that EA entry size covers its name and
- value
-To: Your Name <qwe.aldo@gmail.com>, <ntfs3@lists.linux.dev>
-CC: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-References: <20260723221045.529665-1-you@example.com>
-Content-Language: en-US
-From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-In-Reply-To: <20260723221045.529665-1-you@example.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: vobn-exch-01.paragon-software.com (172.30.72.13) To
- vdlg-exch-02.paragon-software.com (172.30.1.105)
+Content-Transfer-Encoding: 8bit
 
-On 7/24/26 00:10, Your Name wrote:
+io_create_region() charges every region to RLIMIT_MEMLOCK. This was
+correct when the only region type was the user provided parameter region, but the SQ/CQ
+rings and provided buffer rings have since been converted to regions as
+well. Those we have tradionally excluded from that. Kernel allocated
+ring memory is memcg accounted, and never counted against the memlock
+limit. Since 6.14 an unprivileged user runs out of the 8MB default after
+a couple of dozen rings.
 
-> From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
->
-> ntfs_read_ea() walks the on-disk $EA attribute and checks each EA_FULL
-> entry for consistency.  For an entry with a non-zero ef->size (the
-> offset to the next entry) the loop only verifies that this stride fits
-> in the remaining buffer, and then continues:
->
->          if (ef->size) {
->                  ea_size = le32_to_cpu(ef->size);
->                  if (ea_size > bytes)
->                          goto out1;
->                  continue;
->          }
->
-> It never verifies that the entry's own name (ef->name_len) and value
-> (ef->elength) actually fit inside ef->size.  A later reader trusts
-> ef->elength unconditionally; ntfs_get_ea() does:
->
->          len = le16_to_cpu(ea->elength);         /* up to 0xffff */
->          ...
->          if (len > size)                         /* size is the user buffer */
->                  return -ERANGE;
->          memcpy(buffer, ea->name + ea->name_len + 1, len);
->
-> A crafted image with a small but valid ef->size (e.g. 24) and
-> ef->elength == 0xffff therefore passes validation, and a getxattr()
-> with a large enough user buffer copies up to 64 KiB starting just past
-> the short entry -- an out-of-bounds read of the ea_all allocation that
-> leaks adjacent kernel heap memory to userspace.
->
->    BUG: KASAN: slab-out-of-bounds in ntfs_get_ea+0x2b8/0x3f0
->    Read of size 65535 ...
->     ntfs_get_ea -> ntfs_getxattr -> vfs_getxattr -> do_getxattr
->
-> The zero-ef->size branch already computes the same struct_size() to
-> derive the stride; mirror that in the non-zero branch and reject the
-> entry when its declared size cannot hold the name and value.
->
-> Fixes: 0e8235d28f3a ("fs/ntfs3: Check fields while reading")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-> ---
->   fs/ntfs3/xattr.c | 18 ++++++++++++++++++
->   1 file changed, 18 insertions(+)
->
-> diff --git a/fs/ntfs3/xattr.c b/fs/ntfs3/xattr.c
-> index 04814dd29375..57114fb726f7 100644
-> --- a/fs/ntfs3/xattr.c
-> +++ b/fs/ntfs3/xattr.c
-> @@ -155,6 +155,24 @@ static int ntfs_read_ea(struct ntfs_inode *ni, struct EA_FULL **ea,
->                          ea_size = le32_to_cpu(ef->size);
->                          if (ea_size > bytes)
->                                  goto out1;
-> +
-> +                       /* Check if we can use fields ef->name_len and ef->elength. */
-> +                       if (bytes < offsetof(struct EA_FULL, name))
-> +                               goto out1;
-> +
-> +                       /*
-> +                        * The declared entry size (ef->size) must be large
-> +                        * enough to hold the name and value.  Otherwise a later
-> +                        * reader such as ntfs_get_ea() copies ef->elength bytes
-> +                        * starting past the entry, reading out of bounds of the
-> +                        * ea buffer and leaking adjacent heap memory to
-> +                        * userspace via getxattr().
-> +                        */
-> +                       if (struct_size(ef, name,
-> +                                       1 + ef->name_len +
-> +                                               le16_to_cpu(ef->elength)) >
-> +                           ea_size)
-> +                               goto out1;
->                          continue;
->                  }
->
-> --
-> 2.43.0
+Charge RLIMIT_MEMLOCK only for regions backed by pinned user memory, which
+is what the limit is for, and leave kernel allocations to memcg. User
+provided ring memory keeps being charged, it is pinned.
 
-Hello,
+Reported-by: Hengyu Liang <hengyul@cs.unc.edu>
+Link: https://lore.kernel.org/io-uring/20261006125732.3425762-1-hengyul@cs.unc.edu/
+Fixes: 8078486e1d53 ("io_uring: use region api for SQ")
+Fixes: 81a4058e0cd0 ("io_uring: use region api for CQ")
+Fixes: ef62de3c4ad5 ("io_uring/kbuf: use region api for pbuf rings")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+---
+ io_uring/memmap.c | 28 +++++++++++++++++++---------
+ 1 file changed, 19 insertions(+), 9 deletions(-)
 
-Your patch was applied, thank you.
-
-Regards,
-Konstantin
+diff --git a/io_uring/memmap.c b/io_uring/memmap.c
+index 23e8a85111bc..da2328b52b38 100644
+--- a/io_uring/memmap.c
++++ b/io_uring/memmap.c
+@@ -105,7 +105,7 @@ void io_free_region(struct user_struct *user, struct io_mapped_region *mr)
+ 	}
+ 	if ((mr->flags & IO_REGION_F_VMAP) && mr->ptr)
+ 		vunmap(mr->ptr);
+-	if (mr->nr_pages && user)
++	if ((mr->flags & IO_REGION_F_USER_PROVIDED) && user)
+ 		__io_unaccount_mem(user, mr->nr_pages);
+ 
+ 	memset(mr, 0, sizeof(*mr));
+@@ -132,11 +132,12 @@ static int io_region_init_ptr(struct io_mapped_region *mr)
+ }
+ 
+ static int io_region_pin_pages(struct io_mapped_region *mr,
+-			       struct io_uring_region_desc *reg)
++			       struct io_uring_region_desc *reg,
++			       struct user_struct *user)
+ {
+ 	size_t size = io_region_size(mr);
+ 	struct page **pages;
+-	int nr_pages;
++	int nr_pages, ret;
+ 
+ 	pages = io_pin_pages(reg->user_addr, size, &nr_pages);
+ 	if (IS_ERR(pages))
+@@ -144,6 +145,16 @@ static int io_region_pin_pages(struct io_mapped_region *mr,
+ 	if (WARN_ON_ONCE(nr_pages != mr->nr_pages))
+ 		return -EFAULT;
+ 
++	/* pinned user memory is what RLIMIT_MEMLOCK is for */
++	if (user) {
++		ret = __io_account_mem(user, nr_pages);
++		if (ret) {
++			unpin_user_pages(pages, nr_pages);
++			kvfree(pages);
++			return ret;
++		}
++	}
++
+ 	mr->pages = pages;
+ 	mr->flags |= IO_REGION_F_USER_PROVIDED;
+ 	return 0;
+@@ -207,15 +218,14 @@ int io_create_region(struct io_ring_ctx *ctx, struct io_mapped_region *mr,
+ 		return -EOVERFLOW;
+ 
+ 	nr_pages = reg->size >> PAGE_SHIFT;
+-	if (ctx->user) {
+-		ret = __io_account_mem(ctx->user, nr_pages);
+-		if (ret)
+-			return ret;
+-	}
+ 	mr->nr_pages = nr_pages;
+ 
++	/*
++	 * Only pinned user memory counts against RLIMIT_MEMLOCK, kernel
++	 * allocated regions are memcg accounted through GFP_KERNEL_ACCOUNT.
++	 */
+ 	if (reg->flags & IORING_MEM_REGION_TYPE_USER)
+-		ret = io_region_pin_pages(mr, reg);
++		ret = io_region_pin_pages(mr, reg, ctx->user);
+ 	else
+ 		ret = io_region_allocate_pages(mr, reg, mmap_offset);
+ 	if (ret)
+-- 
+2.55.0
 
