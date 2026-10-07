@@ -1,227 +1,231 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 581002D2381
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 20:08:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.20
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791403693; cv=fail; b=rw+ugQA5z29dbY2+zYxiOKLq896sIWS0GG3xLIui588rsWLuw4lap0ADod6mxZZcMxjly8UqSY1f8fngbtcj9FSLxuBy828QwejhXJjP11Ird7jgSpi7iwiY1+0I3KC1HMDtdGjGrYO4ddX6rOAtINLLBPA6xAJkTlhB9XJNls4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791403693; c=relaxed/simple;
-	bh=UytSSC7WqjZa7z5mAe2gyaUgaRWwAHQ8mctH6rDRh68=;
-	h=From:To:CC:Subject:In-Reply-To:References:Date:Message-ID:
-	 Content-Type:MIME-Version; b=o10u1fiavZocGynj2fUVYb6ZIXJdj044o5g2asEeuQz/806vzmCBTR+8qO0MWw3P9CzLzzhlKExyabs7VSE46EP6m4sagYCJxLV8kxiRU8KCUcGQ3a62hrjBW/W+6aqfhcfVLO1ktcfMJvuNNHXxTjvu8X0zipO+SjemTPyI5Nw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=msAk7Vlp; arc=fail smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 135752D2381;
+	Wed,  7 Oct 2026 20:09:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791403777; cv=none; b=KWjLuLFRbk3yDgGH6r6B12t/VHWzz0keZXAd3jGi/pgp8qveqc5DmymXFNRaYEi/WuRaFPjML3rTB63EW7FZXg2CfFE9zaPQ53uD/Lu/PIWYOg4VJlgGRxG7bYT0T7IJY1BS3+6cKXqJZwbCGvCSwBhoJHNEBGLOPmjQeBzSxWQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791403777; c=relaxed/simple;
+	bh=fYLJEJcwKgGPopEORbNrWszT2SB69WTLxu0Bze7Nzx0=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=RSh5EIZDy1FqWxFaq7z5Vh5R+C1DZS67TF2Kq/+Z4fUspTqVVnXVmYDqpmJRFPhG5fS/kAxW47eYaleAkzlnq99yWS8BJVt5Zd/GXpN4TGAoPiAtpgchL9oqrNCsgEQ9EoPPtXQ0Zy6B4I6+OzCLT9uQd89vOQoVE5mUP5To8KQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YAmaYRPY; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="msAk7Vlp"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YAmaYRPY"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791403691; x=1822939691;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version;
-  bh=UytSSC7WqjZa7z5mAe2gyaUgaRWwAHQ8mctH6rDRh68=;
-  b=msAk7Vlpitc0+YLUE4OtUBzB7Twi0nRNF69Y+EAKMv3Bc2IPi3Lde6HA
-   ZaxwE6SHoZCef+kKn9V3Zjd7BYvU/7kD96rPLDHQQQnAv2Jx18AjNhthF
-   ZbZFeuekywUu8OD2+tstFqVozkLhiIzmXiXOTi0KBR+FtRkO7tIhtuppZ
-   B+ICeETG1bC0YxGR62o6pJu4EC8a1pBJXBaQa9Jvdc5WPB7IO0iV/Hh2T
-   QLM8l++e9eClaEzAXY0fYA9166ni5jfoh+MKWrwqb1TH7UHLk2tegNcjO
-   K1ydl4oYgiSnbTuIcq74kMGRlDDTOLX5MTfYwnUKWCU5tNNMEbGnBSCJ/
-   Q==;
-X-CSE-ConnectionGUID: vzlN7bWwRm+BSpK/0ZjVvQ==
-X-CSE-MsgGUID: 2IqqsSs6S4m0VL4qoqka8Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="183650"
+  t=1791403777; x=1822939777;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=fYLJEJcwKgGPopEORbNrWszT2SB69WTLxu0Bze7Nzx0=;
+  b=YAmaYRPYVzzUTt8nYmj2JFXDKRnli+zt86x26hjx1ZzntTbWz0gf5s5e
+   KaAv9iTVAskPL6up89L4ATmJrvO4gx8HenAbyGU2etM9qz0Ooticnvm6q
+   e00dJjtHVv6KsNr9XH7VO4YIJ6dJrxfVYAxTcqzxzDJWb4I7w46Mg45FV
+   02M7BpvAzd6rfMVXSU8Cj0ykN2wvItBLDSAnru/H+kXshrrs37vnoXIJh
+   WUnNjceMfv312myulJ0u5JuQTJGVNxKEUuvVmse+0Y50cRujXVfbel2c3
+   gcqu5+I+of6lJlFKlNrK8uTrktdi0d06QqZ7NYv097xYg+CYkJvzMmwjF
+   A==;
+X-CSE-ConnectionGUID: FVEboG13QGircgeVl0x2XA==
+X-CSE-MsgGUID: Jg9Yg/wsR/y5cYk7LQDsnw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="186101"
 X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="183650"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 13:08:11 -0700
-X-CSE-ConnectionGUID: 41+tnA5QRCid3Coxjuhlhg==
-X-CSE-MsgGUID: /rEl//4rQRqBtA9GwTgJZQ==
+   d="scan'208";a="186101"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 13:09:36 -0700
+X-CSE-ConnectionGUID: larUDTC7TPaF2b55KORFcA==
+X-CSE-MsgGUID: lYhiMT9zSOerODLRwzqi+Q==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="285623495"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
-  by fmviesa005.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 13:08:10 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 7 Oct 2026 13:08:10 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Wed, 7 Oct 2026 13:08:10 -0700
-Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.45) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 7 Oct 2026 13:08:09 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LTp+3v5m0D2gE3iNd8rwzjNfIWUkm19TSIxxp6yYX9yrgMwv9e+wvLKcDhHCUiStUaVgwdhnkZQ0wP2eUTA6t9ySvcOwUujaECSgprgjYW6sCpAU3qo6jbuUaNC/FIcRftAOKM7uFcGqQz5niXvqeUE6NgOQSOe96ZL/AookIlQW3/2GJxuui68IdEDs4aFrKot+w3AhWwvwsELVlki3GusSBZyM+5rgURLRjc64xDTKuC8X27o4GbJFLdqZw7OzTSLSwvvmNC4Ol7714cDQaWnSUVIILA4ZwGJg/bVWaqtLqf7SzcM7UhRMrcECLBGIrcRsaNyP1m6U9unBDid2Jw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=22ykL1TuZN2a90ac6/djkkVdkMlDhovYkTOytN22Ew8=;
- b=TJkigdYJKoCjVsuClGA5Q6HBJaT75+xY15kt7p8d3OJEYVm3g33cl7+ZWOG8iCrb0FZM1GcYZAudE1AlYWWTly3xYAjhK9n5NbCNy14XlsDoGyBtLqESBfCd5X3GoNe4SVwlc+km6tcDzsZPsY3pdmwpPiRkuf8wsrU5pfXeQEQorQuK1pBiv+JKwbqqXtUJDeZRY0ebw656vern4z5GvNHLlqDrme7m1KQl5mmN0hHjHCUZUteuwOvLejLCXRhoqbxCnfWdHYVMmHjEqQW+QWzA69qUev3X/7uQyJ+cTocOHd0efAh2LfDhVkmPk06S6Q28/Ft4MfX8+lB7jsmwQA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS8SPR01MB75130.namprd11.prod.outlook.com (2603:10b6:8:447::6)
- by SJ2PR11MB7646.namprd11.prod.outlook.com (2603:10b6:a03:4c3::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Wed, 7 Oct
- 2026 20:08:06 +0000
-Received: from DS8SPR01MB75130.namprd11.prod.outlook.com
- ([fe80::20cf:2704:5868:5a54]) by DS8SPR01MB75130.namprd11.prod.outlook.com
- ([fe80::20cf:2704:5868:5a54%4]) with mapi id 15.21.0496.010; Wed, 7 Oct 2026
- 20:08:04 +0000
-From: Gustavo Sousa <gustavo.sousa@intel.com>
-To: "Kandpal, Suraj" <suraj.kandpal@intel.com>,
-	"intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
-	"intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-CC: "stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: RE: [PATCH] drm/i915/xe3p_lpd: Reduce lowest CDCLK PLL ratio to 18
-In-Reply-To: <DS4PPFE901A304FDA0B1EDB07E8603ECD24E3942@DS4PPFE901A304F.namprd11.prod.outlook.com>
-References: <20261005-xe3p-cdclk-pll-18-v1-1-6f1652c224b4@intel.com>
- <DS4PPFE901A304FDA0B1EDB07E8603ECD24E3942@DS4PPFE901A304F.namprd11.prod.outlook.com>
-Date: Wed, 7 Oct 2026 17:08:00 -0300
-Message-ID: <87cxtl9sv3.fsf@intel.com>
-Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR03CA0300.namprd03.prod.outlook.com
- (2603:10b6:a03:39e::35) To DS8SPR01MB75130.namprd11.prod.outlook.com
- (2603:10b6:8:447::6)
+   d="scan'208";a="254929"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.38])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 13:09:33 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Wed, 7 Oct 2026 23:09:26 +0300 (EEST)
+To: Hugo Villeneuve <hugo@hugovil.com>
+cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+    Hui Peng <benquike@gmail.com>, Jiri Slaby <jirislaby@kernel.org>, 
+    John Ogness <john.ogness@linutronix.de>, 
+    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+    linux-serial <linux-serial@vger.kernel.org>, 
+    LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v7 1/2] serial: core: fix baud rate fallback in
+ uart_get_baud_rate()
+In-Reply-To: <20261007130637.49588f6112bf892604dc4e2d@hugovil.com>
+Message-ID: <a846724d-0080-1df4-e78d-179e589c3aa2@linux.intel.com>
+References: <20260930125901.778868-1-benquike@gmail.com> <20260930125901.778868-2-benquike@gmail.com> <2026100156-watch-balsamic-32db@gregkh> <5085df04-f813-8b3f-1d05-87d5bbf00499@linux.intel.com> <20261006112932.3b9c8acd3bc2bfcf1d17b264@hugovil.com>
+ <8fc5361a-199d-3bab-da86-f967906aa39d@linux.intel.com> <20261007130637.49588f6112bf892604dc4e2d@hugovil.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS8SPR01MB75130:EE_|SJ2PR11MB7646:EE_
-X-MS-Office365-Filtering-Correlation-Id: e32c6857-0f72-4b7e-c540-08df24aeb252
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|18002099003|22082099003|10067099003|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: 9UFoZa7cYhxXXw+NYHRTCjTkzAazPJxS3O4qOizFs1Ep/QBlfkuA0eH0vsens/UvWSN/p5lS1K2JAP78LtEV8p+EmzvBUMjIjEfUzDx7W3aHp+J/nw9mVxRd4yjC4KkRjUrlnXryTem50ujLErLar+XbdnhZnxv3r+ffjVnf+gwjRBfAvjhntFLmRBSAVMATSEBxp1JrN1MgWAF3HgINtNsVk4hZtZ9oMPnD25DLgQJd9kQr0EEePDi+lnC0LqnfCy9GCckBbXct9mGVIr9ZscoymN5Jde3k37OxBiUJvaaczstqGFC/9Z/A8YCN8jUFqzQOxDCHDml9sYNKMY3/hO6sqgqaKsacrYxFz+fpGhsDVBy1eA4VZ728u3otIGC0OIvNEwS8qdxvmLZ4rFIbnpBFvTRKmhGmA/RIDSfMs8Oas+G3UItnxDOJBOzjko3pQZPVlrv4TVwVWvV/VKl5mtLF/+shSzE3Yb9MFcpo5HbWs25h53V648LznAOsWzmxpQg/2LcmTrRLtCzDexsHTJOP2B9zMc6/lsKuqk4XfoLYlMnJThh/jLrcEcrKvR6XIRaVxsyVsenlrhSJtWuqpvuEeWI/qDLwE59CQNp0+Vde4X3yPi5aMmwNZ9d6oPMxW88QyC51WnwvNeZxv9UwKAYeCvLMc5wIN+IBzGKvJpk=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS8SPR01MB75130.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(18002099003)(22082099003)(10067099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?1/LIEgAyElNLUUE4LnSC18deXUOFwvwXyZUjypxdc5NcBHy/QsYiOOxxtMq/?=
- =?us-ascii?Q?u/w7NqeuerddfDU1wqu2TEt3/rkhiFoEpDsvfShv3+iPkLTNPUznc5mREIgT?=
- =?us-ascii?Q?eRYiw4lHUI9ZsnUWKulk8rAiTFqcyoSaHpqXJD9TdrXc59rCbxWumlbCeb8c?=
- =?us-ascii?Q?3fzOpopsHIU7xssEMmyBJ6E3a6QcYQw+pXR0JDa0JoNk7tMvwjsDoqDHuglc?=
- =?us-ascii?Q?KQ8VzuaPipBhE49AHXeyQPeS8AaaKesXLx+DMoQ3HXrJNLNTlEu6Ln3IrZ2N?=
- =?us-ascii?Q?wL7aR8JE4G8lnL54oKkeBH/yuA2hJXC1pcupNSYiAZI/PC8UwCww0SJRG3/G?=
- =?us-ascii?Q?WqQPnBwui53omemCwL2xCEaaaSDcAhtAvJ041foOpvDnbJiipU3ZGTLBpNSU?=
- =?us-ascii?Q?OYQCoYuOn/TrtTZI19ptD64cOFt6cUiP/tDbML6elN3Kiug16+aD30MTLyOf?=
- =?us-ascii?Q?RWe/ScC9mnAL9B5K79e4opmLyYFczXHiUg4wyP6mcHVkhQDfTLs5kEurF4Es?=
- =?us-ascii?Q?ckoJxgqhzcDef220iWDrtHw36F0jYwfH/7XGir9MNBxY0zbpeUDvkHxmz6At?=
- =?us-ascii?Q?XdFrBDczbZoZaAag03vNavLq4zFDTpvcj4O8Pe9Xm7XgUw/IDe1PSSnTgILM?=
- =?us-ascii?Q?77oeJyt4MqQEPdC4WHcD82kGj2Zl+xLL/3EWZ2/jsNe//SkGzLknmVDDPPsN?=
- =?us-ascii?Q?h58dX4gfh5YcaWrWEWWn+8JSRB93K0SUWnx3JItwR9Dy/KbsCK5g8miunXaw?=
- =?us-ascii?Q?xQO/fUfgycNZkz1nSiBwKds6xC5C34+MjoFVsWLZJoXPp9DPubbFqhKgfjn6?=
- =?us-ascii?Q?PlGtaYS+xGuFRuPzh3Zu92blmioEj7+14pdFjI9JtWA9uXxmLYjmqHFFdhy5?=
- =?us-ascii?Q?ip0m9IIaYD4qRKmcwU/obGW89jS9EzycHevY7OAw91Dx4bJlyr4XNlcpzg70?=
- =?us-ascii?Q?r6mqstukATix9VWkK0Vrym+7THjfTC5U5QHr5zoJc3mYGkfU17GcWa7FxLpB?=
- =?us-ascii?Q?LrP2qkEKNGk8baPDBnFSqBkRITpIfnJ5B8jktaEeUKzU+GWUgqLATyWi1M9g?=
- =?us-ascii?Q?+gILlfk5L+whvDmNSdkdAbrt9UJYARjc2/kv9WNHsCNfX7e9kdMFaZc0Nt/K?=
- =?us-ascii?Q?1BMqq5BxAjwRVyEhRgiI7VpK8ecQXuLciCCV+lLDG1faPqqCC0Az4Uaj5l3T?=
- =?us-ascii?Q?qtQ3y0goaRZvHWxom86z8WIiVFehhLHGrTOtfbDyuy5GV5Tqfl0cFvx1oEmM?=
- =?us-ascii?Q?VtysomhwwfXTDNss+54fb08BmvqXu7f3UzZqWg1AXFfa3tzP6DmnVhlWeWYH?=
- =?us-ascii?Q?RU0KM6QlIgBBdTVcdlqRQwvTIJ78LRa1r/29qvKSxT9rU8/37/zeWPqvUF5f?=
- =?us-ascii?Q?8xmCEbqLkb51UtR3toWsr7ih6B1vk+W5W/ar6hcSKWV89oJoqcL5L8Xx8/UK?=
- =?us-ascii?Q?dZFQ5A8hbn+2gz/uVpu+lsOnRFvyHX2eNXx4LNFP2yHHG2QtbdVMzuBkApj6?=
- =?us-ascii?Q?evVCzW6oHrT/yZoxrjfVDZ3CFcVs33FJmXwrDPIiVqmqQ7102xUtU7W/HdqZ?=
- =?us-ascii?Q?qIKLZ2Ekgdj9YaQjbHQewjBb/BJZKu390+eIRYXOVb1JC/xvHK3DNdRnPvaD?=
- =?us-ascii?Q?IB6XaFrDm7CWd80Hk9rmjln199504hBSAGP9YzA6pwh3p13LVyhTKhnU/4f1?=
- =?us-ascii?Q?5v+TkC4/2X4xKgH+0HLJOt78xMH9JCJ/O0LIYxuZ/inmadByztX1fw6m6W/K?=
- =?us-ascii?Q?9F57POomwQ=3D=3D?=
-X-Exchange-RoutingPolicyChecked: xmQEFB7sRUCFYDVzdMvGEz5+Nh4cTnXtYdd3c8gFA9WCCHoJAoOPv8lTZ8k/XFHSABvq9/26EFxumBUPa8CYLVRjVSqrK82QbvQqJYQkfR66pdbJpr4MoNFAjLt7+N2id5GvtuG1uVc2DFshMp2nSErSGqexpqYGK1v9RMNnTUMd7IV5ucJuiQWS0+iIpqGh1ZZIQIhRo8HHiMGang3djpPRijLETrOWXGVVRGF5esMQDGBKxqWBnNSUHzFP0f2LTfgYCNEw06XbnCwVe7mhuokwSxzZ/m88viwxvc1yc9AP11df3KZOMBc+5kopwXs3E/lq9qGR4FWg0VStZ8qfnQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: e32c6857-0f72-4b7e-c540-08df24aeb252
-X-MS-Exchange-CrossTenant-AuthSource: DS8SPR01MB75130.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 20:08:04.5464
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Nxavtlje1OVXkc64Ek7kNTKZCiZ/b5C26wtiGEMEF1IvwiT4GzLj0tKokerfBokLd7yRrZ8fgoFGbE3AkbWxOg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR11MB7646
-X-OriginatorOrg: intel.com
+Content-Type: multipart/mixed; boundary="8323328-1296411136-1791403766=:1171"
 
-"Kandpal, Suraj" <suraj.kandpal@intel.com> writes:
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
->> Subject: [PATCH] drm/i915/xe3p_lpd: Reduce lowest CDCLK PLL ratio to 18
->> 
->> The CDCLK table has been updated on Bspec to reduce the lowest PLL ratio to
->> 18 and improve voltage selection in some SKUs.  Update the driver to match
->> the new table.
->> 
->> Bspec: 68861
->> Fixes: af28e607fc75 ("drm/i915/xe3p_lpd: Add CDCLK table")
->> Cc: stable@vger.kernel.org # v6.19+
->> Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
->
-> LGTM,
-> Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
+--8323328-1296411136-1791403766=:1171
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-Thanks for the review, Suraj!
+On Wed, 7 Oct 2026, Hugo Villeneuve wrote:
 
-I saw a FIFO underrun on a NVL-P machine with this change, so I'm
-holding off applying this for now.
+> Hi Ilpo,
+>=20
+> On Wed, 7 Oct 2026 13:38:55 +0300 (EEST)
+> Ilpo J=E4rvinen <ilpo.jarvinen@linux.intel.com> wrote:
+>=20
+> > On Tue, 6 Oct 2026, Hugo Villeneuve wrote:
+> >=20
+> > > On Thu, 1 Oct 2026 12:46:05 +0300 (EEST)
+> > > Ilpo J=E4rvinen <ilpo.jarvinen@linux.intel.com> wrote:
+> > >=20
+> > > > On Thu, 1 Oct 2026, Greg Kroah-Hartman wrote:
+> > > >=20
+> > > > > On Wed, Sep 30, 2026 at 12:59:00PM +0000, Hui Peng wrote:
+> > > > > > When uart_get_baud_rate() is called with a baud rate exceeding =
+the port's
+> > > > > > maximum supported speed (port->uartclk / 16), it clips baud to =
+[min,
+> > > > > > max - 1] and encodes it into termios via tty_termios_encode_bau=
+d_rate().
+> > > > > >=20
+> > > > > > However, because the loop bound is for (try =3D 0; try < 2; try=
+++), the
+> > > > > > loop terminates immediately after try =3D=3D 1 without re-evalu=
+ating
+> > > > >=20
+> > > > > But try =3D=3D 1 should keep the loop going as it is < 2, right? =
+ What am I
+> > > > > missing here?  Do I need more coffee?
+> > > > >
+> > > > > > baud =3D tty_termios_baud_rate(termios) for the clipped rate, h=
+itting
+> > > > > > WARN_ON(1) and returning 0, which then triggers a fatal divide-=
+by-zero
+> > > > > > (Oops: divide error) in uart_get_divisor():
+> > > > > >=20
+> > > > > >   WARNING: drivers/tty/serial/serial_core.c:548 at uart_get_bau=
+d_rate+0x136/0x260
+> > > > > >   [ ... ]
+> > > > > >   divide error: 0000 [#1] PREEMPT SMP KASAN
+> > > > > >=20
+> > > > > > Increase the retry count in uart_get_baud_rate() from 2 to 3 it=
+erations so
+> > > > > > that clipped baud rates are re-evaluated in the third iteration=
+=2E
+> > > > >=20
+> > > > > What is the magic 2 here, and why turning it into a magic 3 someh=
+ow fix
+> > > > > things?
+> > > >=20
+> > > > Hi Greg & Hui,
+> > > >=20
+> > > > First of all, I'm withdrawing my Reviewed-by from this!!!
+> > > >=20
+> > > > Lets hope the submitter can finally get his/her act together and no=
+t make=20
+> > > > unlisted changes between versions or send non-sense.
+> > > >=20
+> > > > While the code change is still fine, it seems the submitter (or mor=
+e=20
+> > > > likely AI) has changed the changelog from what I read when I review=
+ed=20
+> > > > this. And the new one is way worse than it used to be so not being =
+able=20
+> > > > to follow what's going on is very understandable given the lacklust=
+er=20
+> > > > explanation that remains.
+> > > >=20
+> > > >=20
+> > > > What you're missing is that the baud returns happens within the loo=
+p, so:
+> > > >=20
+> > > > try =3D=3D 0: use new, if baud is out of bound and old is available=
+, switch to=20
+> > > >           old
+> > > > try =3D=3D 1: if old is also out of bounds, there's the last resort=
+ rule=20
+> > > >           towards the end of the loop which is applied forcing baud=
+ to the=20
+> > > >           accetable range.
+> > >=20
+> > > Hi all,
+> > > is it at all possible that old is out of bounds in the first place?
+> >=20
+> > Apparently it is, given the WARNING above (unless that too is fabricate=
+=20
+> > by LLM which seems well within possiblities given the track record of t=
+his=20
+> > particular submitter).
+> >=20
+> > > If yes, is it something that should be fixed?
+> >=20
+> > I agree.
+> >=20
+> > I think the scenario here is (but take it with grain of salt, as the=20
+> > information seems to be constantly changing thanks to LLM/submitter=20
+> > failing to keep one's act to together) [1]:
+> >=20
+> > Tested in QEMU against Linux 7.3.0-rc3 by setting /dev/ttyS1 to B115200=
+,
+> > lowering baud_base to 9600 (max =3D 9600) via TIOCSSERIAL, and calling
+> > tcsetattr() with B57600 (old =3D B115200), reproducing the WARNING and
+> > Oops: divide error in uart_get_divisor() on the unfixed kernel and
+> > verifying clean execution with 0 warnings/faults with the fix applied.
+> >=20
+> > So when rate gets lowered, it should alter the termios to prevent what =
+is=20
+> > here seem as "old" having an invalid value.
+>=20
+> That makes sense...
+>=20
+> >=20
+> > [1] https://lore.kernel.org/linux-serial/20260930041216.155911-3-benqui=
+ke@gmail.com/
+> >=20
+> > > > try =3D=3D 2: loop exits =3D> WARN_ON(1) triggers.
+> > > >=20
+> > > > What we'd want to happen with try =3D=3D 2, is for it to use the re=
+turn baud=20
+> > > > which is within the loop body.
+> > >=20
+> > > Then should the "return 0" statement be modified to "return baud", an=
+d
+> > > possibly the WARN_ON() removed? Then you wouldn't need to increase
+> > > max try?
+> >=20
+> > IMO, the entire loop constructs feels somewhat artificial in this case =
+so=20
+> > I'd prefer to kill the loop entirely. But such refactoring is not going=
+ to=20
+> > be a minimal fix to the issue.
+>=20
+> Yes, when I updated uart_get_baud_rate() a few months ago, the loop
+> also felt a little bit weird, but I did not remove it because I assumed
+> it was working ok if we assumed, like I did, that the old baud rate was
+> always valid.
+>=20
+> I tried in the past to simplify it, make it more logical and
+> understandable by normal humans :) But I always end up with
+> something not so simple and obvious because of all the special cases
+> (B0, spd_* flags, etc).
 
-The reduction of the PLL ratio implies in reduction of the MDCLK ratio,
-which impacts DBUF fill times. So the FIFO underrun could be related here.
+Trying to all that in the same function surely gets problematic and=20
+repetivive. But how about adding another function/helper that is just=20
+called multiple times to avoid duplicating them?
 
-I'll check with the HW team.
+> I am still trying though, maybe I will have better luck this time :)
+>=20
+>=20
+>=20
 
---
-Gustavo Sousa
+--=20
+ i.
 
->
->> ---
->>  drivers/gpu/drm/i915/display/intel_cdclk.c | 22 ++++++++++++----------
->>  1 file changed, 12 insertions(+), 10 deletions(-)
->> 
->> diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c
->> b/drivers/gpu/drm/i915/display/intel_cdclk.c
->> index 92e6fca861f6..dad5fbeaa1bd 100644
->> --- a/drivers/gpu/drm/i915/display/intel_cdclk.c
->> +++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
->> @@ -1593,16 +1593,18 @@ static const struct intel_cdclk_vals
->> xe3lpd_cdclk_table[] = {  };
->> 
->>  static const struct intel_cdclk_vals xe3p_lpd_cdclk_table[] = {
->> -	{ .refclk = 38400, .cdclk = 151200, .ratio = 21, .waveform = 0xa4a4 },
->> -	{ .refclk = 38400, .cdclk = 176400, .ratio = 21, .waveform = 0xaa54 },
->> -	{ .refclk = 38400, .cdclk = 201600, .ratio = 21, .waveform = 0xaaaa },
->> -	{ .refclk = 38400, .cdclk = 226800, .ratio = 21, .waveform = 0xad5a },
->> -	{ .refclk = 38400, .cdclk = 252000, .ratio = 21, .waveform = 0xb6b6 },
->> -	{ .refclk = 38400, .cdclk = 277200, .ratio = 21, .waveform = 0xdbb6 },
->> -	{ .refclk = 38400, .cdclk = 302400, .ratio = 21, .waveform = 0xeeee },
->> -	{ .refclk = 38400, .cdclk = 327600, .ratio = 21, .waveform = 0xf7de },
->> -	{ .refclk = 38400, .cdclk = 352800, .ratio = 21, .waveform = 0xfefe },
->> -	{ .refclk = 38400, .cdclk = 378000, .ratio = 21, .waveform = 0xfffe },
->> +	{ .refclk = 38400, .cdclk = 151200, .ratio = 18, .waveform = 0xa54a },
->> +	{ .refclk = 38400, .cdclk = 172800, .ratio = 18, .waveform = 0xaaaa },
->> +	{ .refclk = 38400, .cdclk = 194400, .ratio = 18, .waveform = 0xad5a },
->> +	{ .refclk = 38400, .cdclk = 216000, .ratio = 18, .waveform = 0xb6b6 },
->> +	{ .refclk = 38400, .cdclk = 237600, .ratio = 18, .waveform = 0xdbb6 },
->> +	{ .refclk = 38400, .cdclk = 259200, .ratio = 18, .waveform = 0xeeee },
->> +	{ .refclk = 38400, .cdclk = 280800, .ratio = 18, .waveform = 0xf7de },
->> +	{ .refclk = 38400, .cdclk = 302400, .ratio = 18, .waveform = 0xfefe },
->> +	{ .refclk = 38400, .cdclk = 324000, .ratio = 18, .waveform = 0xfffe },
->> +	{ .refclk = 38400, .cdclk = 345600, .ratio = 18, .waveform = 0xffff },
->> +	{ .refclk = 38400, .cdclk = 364800, .ratio = 19, .waveform = 0xffff },
->> +	{ .refclk = 38400, .cdclk = 384000, .ratio = 20, .waveform = 0xffff },
->>  	{ .refclk = 38400, .cdclk = 403200, .ratio = 21, .waveform = 0xffff },
->>  	{ .refclk = 38400, .cdclk = 422400, .ratio = 22, .waveform = 0xffff },
->>  	{ .refclk = 38400, .cdclk = 441600, .ratio = 23, .waveform = 0xffff },
->> 
->> ---
->> base-commit: 28a2edb89a25a41d2a45e27d74dfd946872d0faf
->> change-id: 20261002-xe3p-cdclk-pll-18-59bd79cb5b4b
->> 
->> Best regards,
->> --
->> Gustavo Sousa <gustavo.sousa@intel.com>
+--8323328-1296411136-1791403766=:1171--
