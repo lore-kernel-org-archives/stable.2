@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EEC93515F9;
-	Wed,  7 Oct 2026 02:04:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6476033F36D;
+	Wed,  7 Oct 2026 02:04:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791338680; cv=none; b=Sw7L2Ek6D7zoM9gAosFiefQNSVFmjxPAmIvlmIKR60yMezypmTLy3yM/P4gV7//DJCamakMZkwAMR2voQxGoG5kUoUs1PBWKuET2JQVhwvaSP9ysl0M21xQyeC/d4mCnm89Z4t6mnccSSHsBG/ad42jvd2RWi6KtOTni1dPY15M=
+	t=1791338690; cv=none; b=FqIF/G8DV+I/IMaV9nMS+ZxvFrvkcH6TK8OLa44JM9HkTm+0vZbkS5u4BYbdTF8aoEX4EI5Sv2afRGfBbrzr8jy2DWBD289LBaU9fRLuivMTIGv7Vid8QyLDRJlFhCG4ZFRCI8wFqA+Z08+XZ53RKg/Vgcy3Ca2XWk/X2E3OYXM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791338680; c=relaxed/simple;
-	bh=jv/Jz4ZHaMriIpuTiCCMEawzurHPh6GUv5pBt9fH1Qg=;
-	h=Date:To:From:Subject:Message-Id; b=WThed3yuKbe3RmVDApoy+c6/imrgcbfQiFFx/H407K3Qzm2cN0h7NR+F8imyOmmRhWtxUFxeivDk28yVBFABDVlSMBfTXoF79bVpVyGaowCdhIg/HUZXEQxPR4igYB3/+vR8+VOzmihpmZPmIpkXeU00KKkZ4z6HJdsNd7liPOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=Lsn/p9t5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791338690; c=relaxed/simple;
+	bh=knLzUsjpfq6PBzDzcOIU4qNbXdB02Hxt29bRt23EJfo=;
+	h=Date:To:From:Subject:Message-Id; b=GbwD96PwKzXRDb91LokjMr9KixP/Nu0G6vKdUvC7/M6UJTBZX5I736lnV7p+yG642HCROuFwwDXC7ohuPUQFgKxVJtRY7h7nL1H2AOoH8xbWH50KxbhnOaw1+10kTW1cRVsfSAu/JBY1s/1d3gleOyOWT/ZGPb9jWHUmp3ZE8Qg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=KBZ+fquI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Lsn/p9t5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAC431F0089C;
-	Wed,  7 Oct 2026 02:04:38 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="KBZ+fquI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A8241F0089B;
+	Wed,  7 Oct 2026 02:04:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791338678;
-	bh=kTWnp5W28WEl08bV0lER4TKF4EIFYIN4PxvRt78v+2k=;
+	d=linux-foundation.org; s=korg; t=1791338689;
+	bh=Xz2543Re/MvMVoyaytolaIDHeo1yY7vhMyfS/R5+Tkc=;
 	h=Date:To:From:Subject;
-	b=Lsn/p9t5bAGHkgr9Ri9CMYFCqJznjfDlAGqqzB7xig+VMA428LHfvxJFjIYfXR3K8
-	 MLSeGeM/dfvUO1DoupmB1ZEy7A7/SvtMcU6rFKMt9dI2HIhbLSE2S6nV62x8kO93zc
-	 Mxcvob4rWb/eP7YZQMFOiv+chwyKWifQVtOK9FuM=
-Date: Tue, 06 Oct 2026 19:04:38 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,piaojun@huawei.com,mark@fasheh.com,junxiao.bi@oracle.com,jlbec@evilplan.org,heming.zhao@suse.com,gechangwei@live.cn,joseph.qi@linux.alibaba.com,akpm@linux-foundation.org
+	b=KBZ+fquILUuR2+nS7yYadHKL3UDeOIuA2TokbdG04aOyqhaF/EULzUwMF8i7t6d5H
+	 F1wrAYRZ4pGusTuEzcXm8TcrnoUUXIDUkHbr2yG4+RttCCHTgsJuSlS38xrstXPUN3
+	 VRUb4bk81bz/Kx3KlGqE1GrNUUUUTT0HtzPTPfWE=
+Date: Tue, 06 Oct 2026 19:04:48 -0700
+To: mm-commits@vger.kernel.org,tangzw515@gmail.com,stable@vger.kernel.org,piaojun@huawei.com,mark@fasheh.com,junxiao.bi@oracle.com,jlbec@evilplan.org,heming.zhao@suse.com,gechangwei@live.cn,joseph.qi@linux.alibaba.com,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-nonmm-stable] ocfs2-restrict-ocfs2_invalid_slot-suballoc-slot-to-system-inodes.patch removed from -mm tree
-Message-Id: <20261007020438.CAC431F0089C@smtp.kernel.org>
+Subject: [merged mm-nonmm-stable] ocfs2-skip-uninitialized-lockres-in-ocfs2_mark_lockres_freeing.patch removed from -mm tree
+Message-Id: <20261007020449.3A8241F0089B@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,149 +35,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: ocfs2: restrict OCFS2_INVALID_SLOT suballoc slot to system inodes
+     Subject: ocfs2: skip uninitialized lockres in ocfs2_mark_lockres_freeing()
 has been removed from the -mm tree.  Its filename was
-     ocfs2-restrict-ocfs2_invalid_slot-suballoc-slot-to-system-inodes.patch
+     ocfs2-skip-uninitialized-lockres-in-ocfs2_mark_lockres_freeing.patch
 
 This patch was dropped because it was merged into the mm-nonmm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
 From: Joseph Qi <joseph.qi@linux.alibaba.com>
-Subject: ocfs2: restrict OCFS2_INVALID_SLOT suballoc slot to system inodes
-Date: Tue, 1 Sep 2026 20:52:18 +0800
+Subject: ocfs2: skip uninitialized lockres in ocfs2_mark_lockres_freeing()
+Date: Thu, 3 Sep 2026 18:47:44 +0800
 
-Patch series "ocfs2: validate suballoc slot and bit of metadata blocks", v3.
+A hard readonly mount skips ocfs2_dlm_init(), so the per-osb lock
+resources are never initialized and osb->cconn stays NULL.  Before commit
+550842cc60987 ("ocfs2: fix freeing uninitialized resource on
+ocfs2_dlm_shutdown") ocfs2_dismount_volume() only called
+ocfs2_dlm_shutdown() when osb->cconn was set.  It now calls it
+unconditionally, so unmounting a hard readonly mount drops the osb locks
+and takes the never initialized l_lock in ocfs2_mark_lockres_freeing(). 
+With lockdep enabled this triggers:
 
-The ocfs2 metadata validators trust the on-disk suballoc slot and bit
-without checking them against the slot range of the mounted filesystem and
-the capacity of the block group bitmap.  A corrupted image can carry
-OCFS2_INVALID_SLOT or another out-of-range slot, or a suballoc bit beyond
-the bitmap, and once the corresponding inode, extent block, xattr block,
-dir index root or refcount block gets freed, the bad value goes straight
-into ocfs2_get_system_file_inode() or _ocfs2_free_suballoc_bits() and hits
-a BUG_ON() or runs off the end of local_system_inodes[].
+INFO: trying to register non-static key.  The code is fine but needs
+lockdep annotation, or maybe you didn't initialize this object before use?
+turning off the locking correctness validator.
 
-This series rejects such values at read time, in the existing validators,
-so corrupted objects fail with -EROFS (and a read-only remount) instead of
-crashing:
+ocfs2_drop_lock() and ocfs2_lock_res_free() already skip lock resources
+without OCFS2_LOCK_INITIALIZED.  Add the same check to
+ocfs2_mark_lockres_freeing(), which is reachable before them through
+ocfs2_simple_drop_lockres(), so an uninitialized lockres is never touched.
 
-  patch 1 restricts OCFS2_INVALID_SLOT dinodes to system inodes,
-        completing fe7a283b3916 ("ocfs2: add suballoc slot check in
-        ocfs2_validate_inode_block()"), and turns the "system file
-        state is ambiguous" BUG_ON() in ocfs2_read_locked_inode() into
-        an ocfs2_error();
-  patch 2 rejects oversized dinode suballoc bits;
-  patch 3 validates the suballoc slot and bit of xattr and dir index
-        blocks;
-  patch 4 validates the suballoc slot and bit of extent and refcount
-        blocks.
-
-The checks only enforce what the kernel and mkfs.ocfs2 already write: a
-valid slot from meta_ac->ac_alloc_slot and a bit within the block group
-bitmap, with system inodes carrying OCFS2_INVALID_SLOT plus
-OCFS2_SYSTEM_FL and extent blocks using slot 0.  Nothing changes for
-healthy filesystems.
-
-Each new check was exercised under QEMU by corrupting the field in
-question with an out-of-range value; with the series applied the access
-fails with -EROFS and the filesystem remounts read-only instead of hitting
-the BUG_ON().
-
-
-This patch (of 4):
-
-ocfs2_validate_inode_block() currently permits i_suballoc_slot to be
-OCFS2_INVALID_SLOT for any dinode.  Only system inodes created by
-mkfs.ocfs2 are allocated from the global allocator and thus legitimately
-carry this value; regular inodes are always allocated from a per-slot
-suballocator and hence must have a valid slot.
-
-If a corrupted regular inode with OCFS2_INVALID_SLOT is accepted,
-ocfs2_remove_inode() will pass the slot to ocfs2_get_system_file_inode()
-and get_local_system_inode() will hit BUG_ON(slot == OCFS2_INVALID_SLOT)
-when the inode is deleted.  This can be triggered by an unprivileged user
-unlinking such a corrupted file.
-
-Reject OCFS2_INVALID_SLOT for non-system dinodes during validation, while
-still accepting it for system inodes.  Note that a crafted dinode carrying
-OCFS2_SYSTEM_FL passes the check above, yet a plain lookup of it still
-used to BUG() in ocfs2_read_locked_inode() ("system file state is
-ambiguous").  Since i_flags comes from disk, handle that mismatch with
-ocfs2_error() instead of BUG_ON() as well.
-
-Link: https://lore.kernel.org/20260901125221.1634686-1-joseph.qi@linux.alibaba.com
-Link: https://lore.kernel.org/20260901125221.1634686-2-joseph.qi@linux.alibaba.com
-Fixes: fe7a283b3916 ("ocfs2: add suballoc slot check in ocfs2_validate_inode_block()")
+Link: https://lore.kernel.org/20260903104744.2164235-1-joseph.qi@linux.alibaba.com
+Fixes: 550842cc6098 ("ocfs2: fix freeing uninitialized resource on ocfs2_dlm_shutdown")
 Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Changwei Ge <gechangwei@live.cn>
-Cc: Heming Zhao <heming.zhao@suse.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Jun Piao <piaojun@huawei.com>
-Cc: Junxiao Bi <junxiao.bi@oracle.com>
+Reported-by: ZW Tang <tangzw515@gmail.com>
 Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Junxiao Bi <junxiao.bi@oracle.com>
+Cc: Changwei Ge <gechangwei@live.cn>
+Cc: Jun Piao <piaojun@huawei.com>
+Cc: Heming Zhao <heming.zhao@suse.com>
 Cc: <stable@vger.kernel.org>
 ---
 
- fs/ocfs2/inode.c |   39 +++++++++++++++++++++++++++++----------
- 1 file changed, 29 insertions(+), 10 deletions(-)
+ fs/ocfs2/dlmglue.c |    4 ++++
+ 1 file changed, 4 insertions(+)
 
---- a/fs/ocfs2/inode.c~ocfs2-restrict-ocfs2_invalid_slot-suballoc-slot-to-system-inodes
-+++ a/fs/ocfs2/inode.c
-@@ -638,14 +638,18 @@ static int ocfs2_read_locked_inode(struc
- 	fe = (struct ocfs2_dinode *) bh->b_data;
+--- a/fs/ocfs2/dlmglue.c~ocfs2-skip-uninitialized-lockres-in-ocfs2_mark_lockres_freeing
++++ a/fs/ocfs2/dlmglue.c
+@@ -3525,6 +3525,10 @@ void ocfs2_mark_lockres_freeing(struct o
+ 	struct ocfs2_mask_waiter mw;
+ 	unsigned long flags, flags2;
  
- 	/*
--	 * This is a code bug. Right now the caller needs to
--	 * understand whether it is asking for a system file inode or
--	 * not so the proper lock names can be built.
--	 */
--	mlog_bug_on_msg(!!(fe->i_flags & cpu_to_le32(OCFS2_SYSTEM_FL)) !=
--			!!(args->fi_flags & OCFS2_FI_FLAG_SYSFILE),
--			"Inode %llu: system file state is ambiguous\n",
--			(unsigned long long)args->fi_blkno);
-+	 * The caller must know whether it is asking for a system file inode
-+	 * or not so the proper lock names can be built.  Since i_flags comes
-+	 * from disk, a mismatch is filesystem corruption instead of a code
-+	 * bug, so handle it with ocfs2_error() rather than BUG_ON().
-+	 */
-+	if (!!(fe->i_flags & cpu_to_le32(OCFS2_SYSTEM_FL)) !=
-+	    !!(args->fi_flags & OCFS2_FI_FLAG_SYSFILE)) {
-+		status = ocfs2_error(osb->sb,
-+				     "Inode %llu: system file state is ambiguous\n",
-+				     (unsigned long long)args->fi_blkno);
-+		goto bail;
-+	}
++	/* We didn't get anywhere near actually using this lockres. */
++	if (!(lockres->l_flags & OCFS2_LOCK_INITIALIZED))
++		return;
++
+ 	ocfs2_init_mask_waiter(&mw);
  
- 	if (S_ISCHR(le16_to_cpu(fe->i_mode)) ||
- 	    S_ISBLK(le16_to_cpu(fe->i_mode)))
-@@ -1520,8 +1524,23 @@ int ocfs2_validate_inode_block(struct su
- 		goto bail;
- 	}
- 
--	if (le16_to_cpu(di->i_suballoc_slot) != (u16)OCFS2_INVALID_SLOT &&
--	    (u32)le16_to_cpu(di->i_suballoc_slot) > OCFS2_SB(sb)->max_slots - 1) {
-+	/*
-+	 * Only system inodes created by mkfs.ocfs2 are allocated from the
-+	 * global allocator and thus legitimately carry OCFS2_INVALID_SLOT.
-+	 * Regular inodes are always allocated from a per-slot suballocator.
-+	 * If a regular inode with OCFS2_INVALID_SLOT was accepted here,
-+	 * deleting it would pass the slot to get_local_system_inode() via
-+	 * ocfs2_remove_inode() and trigger BUG_ON(slot == OCFS2_INVALID_SLOT).
-+	 */
-+	if (le16_to_cpu(di->i_suballoc_slot) == (u16)OCFS2_INVALID_SLOT) {
-+		if (!(le32_to_cpu(di->i_flags) & OCFS2_SYSTEM_FL)) {
-+			rc = ocfs2_error(sb,
-+					 "Invalid dinode %llu: suballoc slot %u for non-system inode\n",
-+					 (unsigned long long)bh->b_blocknr,
-+					 le16_to_cpu(di->i_suballoc_slot));
-+			goto bail;
-+		}
-+	} else if ((u32)le16_to_cpu(di->i_suballoc_slot) > OCFS2_SB(sb)->max_slots - 1) {
- 		rc = ocfs2_error(sb, "Invalid dinode %llu: suballoc slot %u\n",
- 				 (unsigned long long)bh->b_blocknr,
- 				 le16_to_cpu(di->i_suballoc_slot));
+ 	spin_lock_irqsave(&lockres->l_lock, flags);
 _
 
 Patches currently in -mm which might be from joseph.qi@linux.alibaba.com are
