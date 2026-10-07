@@ -1,42 +1,51 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37216347BD4
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 05:36:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67FF9347BD4;
+	Wed,  7 Oct 2026 05:37:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791351405; cv=none; b=aDTTrVUhZlyCI7Xp4nfHcqE2k/y6Aiu85mBxxjLv+9oyYVoR7+p2zFSnNb537XFo5ihOuF9AqpvddDSuDNleWCOZB80TAJOqAoAn1yiZyN++qyW2yinMO+RsRQ1VbEU1fTC5t5lJNHIGTpSHtyPQeMDWi9NbDF0v6dCB8iNMaNI=
+	t=1791351433; cv=none; b=gxsCCiPs3HIzi6W0QOFXzIECrsyQ6J6okdO7GLz4XXoOPw2e/OFZIqtTsN4uoFuZp2DvfeRLPHT7fSXDfEkCdFGJcHBZAotSeucMU32Rtzihk0MbPR1MaA81sGA04CGfw2KW8vi8Ww9d7PJqmYIdv7sehbXF/mGT8bWqfn7mGXo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791351405; c=relaxed/simple;
-	bh=quP2B3H0YMI+eU4qAWnsMNP9r9vvyE/ztfpJ85S4wFY=;
+	s=arc-20240116; t=1791351433; c=relaxed/simple;
+	bh=Kmkb+aGqCPGC8qJ1rhGReqEnF0AdacuppymY66OUWCo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HgA5wyK5my3o5JUUUIBvs0KSLl8dYn/KiajUIi9JLuNmLe62nEq2HY9Dx5Ibc1qd+BbWJoy7nDty4w29TerXUXc5i02VaVa/uM2umTbMIiRmyEsq1TSZ+S0kpT/CbH1GFPJgGygtvkLAYVH+gjyHm55G8SVAl2XgWCqfkQcApIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J3tmneIT; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=UiOBzv87zu6WwCSqiYcASfCRZSchaoIOzmELqdtvID4IUoBjRF6lKIC0zLtOxjobPm8VEwXLdDK2QRKBMMDz9puUDT+smMGAjJUlKI5k61lynQOtO6FvHRTC/VaU3DWYx4NR1/XDjz5yqr5WiHTXHG5Hdr38Sz1B48MQfnrgD0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jeeufNJk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J3tmneIT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB47C1F0089B;
-	Wed,  7 Oct 2026 05:36:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jeeufNJk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22CD71F0089C;
+	Wed,  7 Oct 2026 05:37:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791351403;
-	bh=3KRcnRXxHZFKanoj4vOWSwhKRVnnS3ZRuM+uZF1qEkU=;
+	s=k20260515; t=1791351431;
+	bh=+tbyXHsSeVB3VRGOCm3Ehf1Q2I+MCBWmZuYT6TytWfs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J3tmneIT73l/9aaLHKM//9DhzGo/VaKH8VYXW+nrkJM+hJdyfwVl1Hre+bdE9DL/x
-	 vGnkamOcvAXHHDMlG2P44sZXXNDqMKhqzgnYwfy1ksSDfskooWkapBIvietCSHLjwC
-	 jEbiavN+8Xy89VNsr4AfNPD3bh5Mh0Hzis/SDSZO5yZuCBh6TIxroTd9XGGKaXREIQ
-	 fQFwgTRPrRTQcTOhZv8szIaCwMVfOvmPAyGxAw+v2ZTbiDLf1G2oq2lgW5Q6dgxNwX
-	 c/YFYnsNSDfusnAIko4eMkmqfydgCN2wPTeHmwQmIS6/mYonheNUDbtyp1GTWEGP+W
-	 XyKeUvdCei5Bg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Fedor Pchelkin <pchelkin@ispras.ru>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] thunderbolt: Fix NULL dereference in tb_remove_work()
-Date: Wed,  7 Oct 2026 01:36:40 -0400
-Message-ID: <20261007053627.1475486-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100543-stitch-ocelot-f71a@gregkh>
-References: <2026100543-stitch-ocelot-f71a@gregkh>
+	b=jeeufNJkWgf1T3WJPgY7VVVRjH7zfzAgV3vblfyRUQH+jbFi9bhvqc2AvR01aXbXt
+	 8G9EIeSYUXO76ZeKWDn2b/per+uzCKr++vCHRGiLXJuUB2hS6hKcw+PSxlSgk/kUm+
+	 YdkRx93kBl+Bu8ZZ4V9Wbe98bJR5uGfduUdf6HAjAHT3dcGfjzcsSIlCIeQbRs6m2i
+	 ISSk7CwOWp7q1KomKoToF/7byFq87ay8cFepPqOA+vne30t5KHJQSNPMJmWoxhydCI
+	 l/lrTqg0fMUbTf3C1/Y/bYkjTD3WEGyp/cwkb9opUOVnnmfFQ4S6uz+0yAKHNJhD6h
+	 j9rLs0eGp6q0w==
+From: Claudiu Beznea <claudiu.beznea@kernel.org>
+To: lpieralisi@kernel.org,
+	kwilczynski@kernel.org,
+	mani@kernel.org,
+	robh@kernel.org,
+	bhelgaas@google.com,
+	p.zabel@pengutronix.de
+Cc: claudiu.beznea@tuxon.dev,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
+	stable@vger.kernel.org,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v6 1/9] PCI: rzg3s-host: Follow hardware manual clock/reset initialization order
+Date: Wed,  7 Oct 2026 08:36:37 +0300
+Message-ID: <20261007053645.1391545-2-claudiu.beznea@kernel.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261007053645.1391545-1-claudiu.beznea@kernel.org>
+References: <20261007053645.1391545-1-claudiu.beznea@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,76 +54,162 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Fedor Pchelkin <pchelkin@ispras.ru>
+From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 
-[ Upstream commit 4310c6b8e75d6a47f7548e5948fbe6318aa4440a ]
+The RZ/G3S PCIe hardware manual specifies that the clocks must be enabled
+before the reset signals are deasserted during initialization.
 
-There is a slight race between tb_remove_work() and tb_domain_remove()
-which leads to dereferencing a NULL tb->root_switch pointer inside
-tb_free_unplugged_xdomains():
+Follow this sequence in the probe(), suspend(), and resume() paths to
+match the hardware requirements and avoid potential issues.
 
-        Thread A                            Thread B
-
-  tb_remove_work()
-                                    tb_domain_remove()
-                                      mutex_lock(&tb->lock)
-                                      tb_stop()
-                                        /* doesn't cancel a running callback */
-                                        cancel_delayed_work(&tcm->remove_work)
-                                        ...
-                                        tb_switch_remove(tb->root_switch)
-                                        tb->root_switch = NULL
-                                      mutex_unlock(&tb->lock)
-    mutex_lock(&tb->lock)
-    ...
-    /* without checking ->root_switch */
-    tb_free_unplugged_xdomains(tb->root_switch)
-    mutex_unlock(&tb->lock)
-
-Commit a8937f35cf39 ("thunderbolt: Remove XDomain from the bus without
-holding tb->lock") doesn't seem right to move tb_free_unplugged_xdomains()
-out of the &tb->lock section and the check for tb->root_switch, in
-particular.  It states:
-
-  For this reason separate removing the XDomain from the topology data
-  structures (where we need the lock) from unregistering the device from
-  the bus (where remove callbacks of the drivers are being called).
-
-tb_free_unplugged_xdomains() belongs to the former group of functions
-requiring the lock.  And it also calls tb_xdomain_remove() which should
-only be called with &tb->lock held.
-
-Found by Linux Verification Center (linuxtesting.org) with Svace static
-analysis tool.
-
-Fixes: a8937f35cf39 ("thunderbolt: Remove XDomain from the bus without holding tb->lock")
+Fixes: 7ef502fb35b2 ("PCI: Add Renesas RZ/G3S host controller driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Fedor Pchelkin <pchelkin@ispras.ru>
-Signed-off-by: Mika Westerberg <mika.westerberg@linux.intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Tested-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 ---
- drivers/thunderbolt/tb.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/thunderbolt/tb.c b/drivers/thunderbolt/tb.c
-index 2584e05d06b42..658b34bb743ff 100644
---- a/drivers/thunderbolt/tb.c
-+++ b/drivers/thunderbolt/tb.c
-@@ -1479,11 +1479,11 @@ static void tb_remove_work(struct work_struct *work)
- 	struct tb *tb = tcm_to_tb(tcm);
+Changes in v6:
+- none
+
+Changes in v5:
+- collected tags
+
+Changes in v4:
+- none
+
+Changes in v3:
+- none, this patch is new
+
+ drivers/pci/controller/pcie-rzg3s-host.c | 40 +++++++++++++-----------
+ 1 file changed, 21 insertions(+), 19 deletions(-)
+
+diff --git a/drivers/pci/controller/pcie-rzg3s-host.c b/drivers/pci/controller/pcie-rzg3s-host.c
+index 077cfb0834b3..e1105b1f2652 100644
+--- a/drivers/pci/controller/pcie-rzg3s-host.c
++++ b/drivers/pci/controller/pcie-rzg3s-host.c
+@@ -1888,10 +1888,6 @@ static int rzg3s_pcie_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		goto sysc_signal_restore;
  
- 	mutex_lock(&tb->lock);
--	if (tb->root_switch)
-+	if (tb->root_switch) {
- 		tb_free_unplugged_children(tb->root_switch);
-+		tb_free_unplugged_xdomains(tb->root_switch);
-+	}
- 	mutex_unlock(&tb->lock);
+-	ret = rzg3s_pcie_power_resets_deassert(host);
+-	if (ret)
+-		goto sysc_signal_restore;
 -
--	tb_free_unplugged_xdomains(tb->root_switch);
+ 	pm_runtime_enable(dev);
+ 
+ 	/*
+@@ -1902,12 +1898,16 @@ static int rzg3s_pcie_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		goto rpm_disable;
+ 
++	ret = rzg3s_pcie_power_resets_deassert(host);
++	if (ret)
++		goto rpm_put;
++
+ 	raw_spin_lock_init(&host->hw_lock);
+ 
+ 	ret = rzg3s_pcie_host_setup(host, rzg3s_pcie_init_irqdomain,
+ 				    rzg3s_pcie_teardown_irqdomain);
+ 	if (ret)
+-		goto rpm_put;
++		goto power_resets_assert;
+ 
+ 	bridge->sysdata = host;
+ 	bridge->ops = &rzg3s_pcie_root_ops;
+@@ -1922,12 +1922,13 @@ static int rzg3s_pcie_probe(struct platform_device *pdev)
+ 	clk_disable_unprepare(host->port.refclk);
+ 	rzg3s_pcie_teardown_irqdomain(host);
+ 	host->data->config_deinit(host);
++power_resets_assert:
++	reset_control_bulk_assert(host->data->num_power_resets,
++				  host->power_resets);
+ rpm_put:
+ 	pm_runtime_put_sync(dev);
+ rpm_disable:
+ 	pm_runtime_disable(dev);
+-	reset_control_bulk_assert(host->data->num_power_resets,
+-				  host->power_resets);
+ sysc_signal_restore:
+ 	/*
+ 	 * SYSC RST_RSM_B signal need to be asserted before turning off the
+@@ -1948,10 +1949,6 @@ static int rzg3s_pcie_suspend_noirq(struct device *dev)
+ 	struct rzg3s_sysc *sysc = host->sysc;
+ 	int ret;
+ 
+-	ret = pm_runtime_put_sync(dev);
+-	if (ret)
+-		return ret;
+-
+ 	clk_disable_unprepare(port->refclk);
+ 
+ 	/* SoC-specific de-initialization */
+@@ -1964,13 +1961,19 @@ static int rzg3s_pcie_suspend_noirq(struct device *dev)
+ 	if (ret)
+ 		goto config_reinit;
+ 
+-	ret = rzg3s_sysc_config_func(sysc, RZG3S_SYSC_FUNC_ID_RST_RSM_B, 0);
++	ret = pm_runtime_put_sync(dev);
+ 	if (ret)
+ 		goto power_resets_restore;
+ 
++	ret = rzg3s_sysc_config_func(sysc, RZG3S_SYSC_FUNC_ID_RST_RSM_B, 0);
++	if (ret)
++		goto rpm_resume;
++
+ 	return 0;
+ 
+ 	/* Restore the previous state if any error happens */
++rpm_resume:
++	pm_runtime_resume_and_get(dev);
+ power_resets_restore:
+ 	reset_control_bulk_deassert(data->num_power_resets,
+ 				    host->power_resets);
+@@ -1980,7 +1983,6 @@ static int rzg3s_pcie_suspend_noirq(struct device *dev)
+ 	data->config_post_init(host);
+ refclk_restore:
+ 	clk_prepare_enable(port->refclk);
+-	pm_runtime_resume_and_get(dev);
+ 	return ret;
  }
  
- static int tb_runtime_resume(struct tb *tb)
+@@ -2009,18 +2011,18 @@ static int rzg3s_pcie_resume_noirq(struct device *dev)
+ 			goto assert_rst_rsm_b;
+ 	}
+ 
+-	ret = rzg3s_pcie_power_resets_deassert(host);
++	ret = pm_runtime_resume_and_get(dev);
+ 	if (ret)
+ 		goto assert_rst_rsm_b;
+ 
+-	ret = pm_runtime_resume_and_get(dev);
++	ret = rzg3s_pcie_power_resets_deassert(host);
+ 	if (ret)
+-		goto assert_power_resets;
++		goto rpm_put;
+ 
+ 	ret = rzg3s_pcie_host_setup(host, rzg3s_pcie_msi_hw_setup,
+ 				    rzg3s_pcie_msi_hw_teardown);
+ 	if (ret)
+-		goto rpm_put;
++		goto assert_power_resets;
+ 
+ 	return 0;
+ 
+@@ -2028,11 +2030,11 @@ static int rzg3s_pcie_resume_noirq(struct device *dev)
+ 	 * If any error happens there is no way to recover the IP. Put it in the
+ 	 * lowest possible power state.
+ 	 */
+-rpm_put:
+-	pm_runtime_put_sync(dev);
+ assert_power_resets:
+ 	reset_control_bulk_assert(data->num_power_resets,
+ 				  host->power_resets);
++rpm_put:
++	pm_runtime_put_sync(dev);
+ assert_rst_rsm_b:
+ 	rzg3s_sysc_config_func(sysc, RZG3S_SYSC_FUNC_ID_RST_RSM_B, 0);
+ 	return ret;
 -- 
-2.53.0
+2.43.0
 
