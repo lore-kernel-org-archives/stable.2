@@ -1,123 +1,118 @@
-Received: from mail-lr2-f4.google.com (mail-lr2-f4.google.com [74.125.230.68])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D5DC4AA3E0
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 13:20:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.68
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDC424A0F1B;
+	Wed,  7 Oct 2026 13:24:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791379227; cv=none; b=WnDCgJ2jUJiN7cyMoBFotKT2nvtUS96+ft5fVKUN1azZ0HyJruWMUg+7sYM127n6tde92+SX+VJ6ass0wPpzNbbmuOrTisAxBxALM6ShYvuBK+d0EYAarSDYF9mfi6twGwLCUjkIXEozHMwjQu+3XV7PyLDYpMIeZ9A6j2s41sc=
+	t=1791379511; cv=none; b=ksg0SFXSAOwAJAlPrAN7bWRumk+VIQaPmi7IQgKKO/+umNhDeDgGE9wjGqxg9bM5Q1u/AUrOojYkbAozruq9DRHTQhrOCpLOvqTvdFkRjiG/zAmSWonuaJLP+UbhSssYxFURa4/rw6ejcd0Y5Inef+g8EiWOTLZuTkacxCWry90=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791379227; c=relaxed/simple;
-	bh=dt+iyPLWpcF360xLAM30G1ETFTnzVRW86LsgH6o0f5o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=nyAQFiJWq+avr3PG28rrEyfbT8VBbzTFIUBDLXPWfakYe/aFjSsIbqn1cNbhLp9id5UlmtDQX92uEREsw81e0UKmNhMQirxub+Y2CuMLhpWBDZ/u44zWGB6xGjCefLaxvRU22jDHYCA2B6HWV4Big4XXcsozcEX2qvwc1v0xh4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EIvKpJpb; arc=none smtp.client-ip=74.125.230.68
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791379511; c=relaxed/simple;
+	bh=Ebbi0htb8yIB1ZzQdzmh8eB+vZipNKO7Y+vqzpAuYGw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=b6unqfgObU86r3A1+cI/RpO/+GpccOaAxpvsnAqcglVl4M54pP9cEnQUJa10W9CtiouLabjKQuPYB+Uzpr8Zpm7c7TpSmuCmszTerRFgqdipAV3rBzANXtdXM+zLlPoIsoNz4YsAHj99vtE/ml4nyGnuzwIIuGMhYXafIUp+3pw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=A2HeEkSf; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EIvKpJpb"
-Received: by mail-lr2-f4.google.com with SMTP id 38308e7fff4ca-3a777133146so24683521fa.0
-        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 06:20:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791379214; x=1791984014; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FPdX/wtfrIoJuU3T/PjxExDIh/LQdp4FgVNwlqulZuM=;
-        b=EIvKpJpbbLYq6BqGe9TlyJ+taarNEtMHAdIMHLWtjhNe1uh5WzqQKMGSt/x3aknKY7
-         aXWaKwaCtQb797mDCgfg1pMiGpf+C2+qPN5c5zpr4clHJ0gthIAqNBnIPQIbzU5fQkWx
-         GjCf/dJWHJwi4Xn/mu6t8ldQvwSMNv5hTAohsD0Eoz5SR+JqYfXVWS5bp2FDrwBBEd4V
-         Koi+uvwei7YTABYL0sXUE8u7uGiR0wHyvwAzqj/wDaDTMWpa2fJhZwE3P3Ftw4XjTnCA
-         g1NUCCWRwyn7AZwEleKhKTkobM+oZVv+JlK861ZjiFsifL94d8RO3CbBOm2xm6VySSWz
-         52rw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791379214; x=1791984014;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FPdX/wtfrIoJuU3T/PjxExDIh/LQdp4FgVNwlqulZuM=;
-        b=bhETSFsYOPdkImunGVFOyTTm0BxJ6GEdBIdtVYbJuwwIBApskAkbs5xOEhbMul/D+Z
-         N6EABLEq+Hn7apecNFmDKFPUmHO3J3GwHQOzaw5UMP2XFFoSqEvNJHaCGNEIbzXfSMDL
-         eKO3kipx82G6Zj+dxOoBBLMHgderyIVQMhWkdIju70gGE7HQpYDqivffWAGoCUCYT7RK
-         rXTXhFhIp+dq9kOBDHfc6vJ5/jJ/FZjojisy3yGdF4uNqcf8T6iKuBXjaudle0Ad0a0C
-         93G9JVcD0J5cX9b+LbYLS+e6OISzN+kFQS0/CyN/mpALh+FjzOWKDMJEDXIyMH3t66+k
-         og4g==
-X-Gm-Message-State: AFq9FYJYDu6O1OR9MaOz4EHcnzGyx8fNwetXOxM+YeLGXqzgrn3zunrO
-	g7qU2Nw5bVpy1xOYdjvC8g6SDm0EV3TiL3gvlP2oy/ehM4+7zu+lvSXIX7roM4ge
-X-Gm-Gg: AYBFou1LQt7Gb8WMDU+FHjbJuVuA+wmYcguXiN/57uyJIy/Wfvhq72queZGnSwKgzfW
-	gMUvu9vqba+2RwnXvX51yau5sQCdJXueVubusKlQnZOJ/jls0YVLABkojeRumXpd5fAk1Qu1s6e
-	KQCatJSBJ1A+qiSlTMt7Ey0756cmmvgpS8jcUbK06gYguN34BICtY1PfNEKBdGAF94NM/AbtV51
-	vRKo2fqwbikGqfKHh5fP7+n68qfqRi2PjXlvVaFkkIyZRMW1PCXbK0WYc62nk9ZYYYrrS9cqMvH
-	kvEKa0wE9gKuP2wjvFOMbCz64SYv4g/eEe/mk+chtZjDJ9N5CJJ061ZYgpmImb01edL/Kob47WM
-	5ThSe8QGIhWCjtcrquk4hWdumbBfz48q14lnTKg569SH5ZS0/JHoVt7/P8Fk3+p5urCy/EPM9gz
-	u2TixG+RnwY6OholqM6Mc/5g0GzP+ak4vvkMIyvoXGW9SP+2cXcmLn8FozPZhJAf/bIbNwi/l2G
-	s863tsKlrMThPdDog==
-X-Received: by 2002:a05:651c:553:b0:3a2:f233:5c6e with SMTP id 38308e7fff4ca-3a9a2c65959mr5044541fa.6.1791379213808;
-        Wed, 07 Oct 2026 06:20:13 -0700 (PDT)
-Received: from localhost.localdomain ([78.40.184.2])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a9a1a9c423sm6097951fa.0.2026.10.07.06.20.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 06:20:06 -0700 (PDT)
-From: Roman Demidov <roman.demidov.nn@gmail.com>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	David Airlie <airlied@linux.ie>,
-	Daniel Vetter <daniel@ffwll.ch>,
-	Leo Liu <leo.liu@amd.com>,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	Yinjie Yao <yinjie.yao@amd.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10/5.15/6.1] drm/amdgpu/jpeg: set no_user_fence for JPEG v2.0 ring
-Date: Wed,  7 Oct 2026 16:19:36 +0300
-Message-ID: <20261007131939.120898-1-roman.demidov.nn@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="A2HeEkSf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791379495; x=1822915495;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=Ebbi0htb8yIB1ZzQdzmh8eB+vZipNKO7Y+vqzpAuYGw=;
+  b=A2HeEkSfNbw+uRfnzAEcY/EMmvrZVC5+5bdmWMppuMmyM3UCS0AdiUvc
+   FZh2pvt9tCheeA6bJZb+9/n1kFdooS7Molv3E5WHmRH2xHvhLnXGmovNA
+   VnzZtepMQNDbwXhSnpq3XqZ2nuxjIiJU7Nv2xH2sKjdkSbkV3Di0icSBK
+   /9e5mR3p+CktdAiaMk6W43nokXD2EqHcc8tzBE7bEPVNuRqkQCAlhvwq4
+   h41NZyJDOvoMpdcDfnpocHwI7Yy7FsfBACGHAik8K2jwkDGcbpKrSER0z
+   ajonoc4l2l5DRaiVmOyAd1tVCyLTwPt9Fv2RpML0UufAUqabGJ5TtcLvW
+   A==;
+X-CSE-ConnectionGUID: T895SEjdQMKNJHiYTWhpPg==
+X-CSE-MsgGUID: lklnrKf3REK7stpZur281A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="39769"
+X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
+   d="scan'208";a="39769"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 06:24:54 -0700
+X-CSE-ConnectionGUID: AnmYwgGERGKf6Uqh38P61w==
+X-CSE-MsgGUID: M0sdPxqPQ368zNgireixVw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
+   d="scan'208";a="305434450"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO pujfalus-desk.intel.com) ([10.245.244.188])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 06:24:52 -0700
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: vkoul@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com
+Cc: pierre-louis.bossart@linux.dev,
+	linux-sound@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 2/4] ALSA: compress: reject buffer geometry change on gapless next_track
+Date: Wed,  7 Oct 2026 16:25:07 +0300
+Message-ID: <20261007132509.18237-3-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261007132509.18237-1-peter.ujfalusi@linux.intel.com>
+References: <20261007132509.18237-1-peter.ujfalusi@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Yinjie Yao <yinjie.yao@amd.com>
+snd_compr_set_params() is invoked from the gapless next_track
+re-entry path, which calls snd_compr_allocate_buffer() again and lets
+buffer_size change while total_bytes_available and
+total_bytes_transferred still hold values computed for the previous
+buffer. snd_compr_calc_avail() then derives an avail/count value from
+those stale counters against the new buffer_size, and
+snd_compr_write_data() copy_from_user()s that many bytes into the
+new, potentially smaller buffer, overflowing it with user-controlled
+length and content.
 
-commit e5f612dc91650561fe2b5b76dd6d2898ec9ad480 upstream.
+Reject a next_track SET_PARAMS that changes the buffer geometry
+instead of reallocating, since total_bytes_available/transferred are
+only valid for the buffer sized during the initial SET_PARAMS.
 
-JPEG rings do not support 64-bit user fence writes, reject CS
-submissions with user fences.
-
-Fixes: 6ac27241106b ("drm/amdgpu: add JPEG v2.0 function supports")
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Yinjie Yao <yinjie.yao@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 96179da0c6b059eb31706a0abe8dd6381c533143)
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
+Fixes: 9727b490e543 ("ALSA: compress: add support for gapless playback")
+Cc: stable@vger.kernel.org
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 ---
-Backport fix for CVE-2026-63848
+ sound/core/compress_offload.c | 17 ++++++++++++++---
+ 1 file changed, 14 insertions(+), 3 deletions(-)
 
- drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
-index 3301ad980f28..af8f244e9c94 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
-@@ -762,6 +762,7 @@ static const struct amd_ip_funcs jpeg_v2_0_ip_funcs = {
- static const struct amdgpu_ring_funcs jpeg_v2_0_dec_ring_vm_funcs = {
- 	.type = AMDGPU_RING_TYPE_VCN_JPEG,
- 	.align_mask = 0xf,
-+	.no_user_fence = true,
- 	.vmhub = AMDGPU_MMHUB_0,
- 	.get_rptr = jpeg_v2_0_dec_ring_get_rptr,
- 	.get_wptr = jpeg_v2_0_dec_ring_get_wptr,
+diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
+index c0ed76e1c844..e1cc34ba2c2c 100644
+--- a/sound/core/compress_offload.c
++++ b/sound/core/compress_offload.c
+@@ -673,9 +673,20 @@ snd_compr_set_params(struct snd_compr_stream *stream, unsigned long arg)
+ 		if (retval)
+ 			return retval;
+ 
+-		retval = snd_compr_allocate_buffer(stream, params);
+-		if (retval)
+-			return -ENOMEM;
++		if (stream->next_track) {
++			/*
++			 * total_bytes_available/transferred still refer to the
++			 * buffer allocated for the current track; the geometry
++			 * must not change underneath them.
++			 */
++			if (params->buffer.fragment_size != stream->runtime->fragment_size ||
++			    params->buffer.fragments != stream->runtime->fragments)
++				return -EINVAL;
++		} else {
++			retval = snd_compr_allocate_buffer(stream, params);
++			if (retval)
++				return -ENOMEM;
++		}
+ 
+ 		retval = stream->ops->set_params(stream, params);
+ 		if (retval)
 -- 
-2.53.0
+2.56.0
 
