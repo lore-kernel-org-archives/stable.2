@@ -1,162 +1,214 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAC27441605
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 08:41:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6E833EC81D
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 08:42:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791362521; cv=none; b=bdx8h+mDD6ykYhE6BHqOHKQcyJ0pCeoB7DvI6zvQA1hLGGMKFGbfuEhnYNt9TjlCHL3JABxPya9dmmt5iL7WbE+iP9UItREnxls6VoEW8cZpoe1r11+B5vJ8rkgf670OTtQXpivi/D+YuXmkQ+GCRIwKPIRzOHmWBzDTT92jYVo=
+	t=1791362526; cv=none; b=QzfX29vZDE1pxbV/+rYAExyDPKDXDUkwNzUCRYwj1HzhUqRr790uzUt/rm8Rd5RcXqcPfxxb7wi7h6B40E8lJq+fmtw7cJi2X8MgAKaJ1oK9VwnI160pHNg6jPRVrb5oMrfptPN6zBMu23yWbwcod51ZgMZDS6oD0HX9kVv5G+M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791362521; c=relaxed/simple;
-	bh=nB00yi4T4+G9ZRRjyVug38Wjj4fDZvALe1KbRqQkIAk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e0TImeXM8ZiIRYZUDnfUYRiI+3S6TO7YlKlPVmkYms/7GDJN6v5UnJ5sJsY/MG5ex9ltBsF1EqRdPCGcTj7fm8fxqdHyRWYksBvqxEcp0K7TvjYaWGFC0Ym9cK91gWyjxRz07uPh7TMnr9c7Zdu4n/uP7aXYIdzJCa04xepkM2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yyp8FPTY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791362526; c=relaxed/simple;
+	bh=UJYV9jKzD6fq79j0FhXaUcFAQuMr/lNw+Sn7eMQ1VGA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=rh0c5U21DIYNlAdpAViBaqkphdQjhJzTs3tf3eYM3bdehuXp3IlfWIjN4LwUFvTAJNtjTowCO6DZkMRBIFl6yTjIaaSNfBjXqgkp2aI1ukjPWRXz+pdpjn81bl2TcGXUXJ1SmgdyOGqyEMMZ0s51GXmTor50RR4+ccv4AuRxu5M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CdoWUcLH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yyp8FPTY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 725731F0089B;
-	Wed,  7 Oct 2026 08:41:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791362518;
-	bh=Y2+RZwe8G+OFFZmVk8a7cSMATCA4x4oAoJcKiIZaaEA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=yyp8FPTYt/KjBptJjkPVWkwByhOOlTXf/A+wpSr8sTO7dk2i9D2jkWxHLPY3XmkDh
-	 1arVoaetS7wnjkQAaT/bKiThOR9mnINlFGTaCEeUR7VcQZZ5vxUn3l6W/LYV483vV6
-	 Mn5HhyMR22L89HkoJ7rZQpKWmAbfNvvvmHqksNnA=
-Date: Wed, 7 Oct 2026 10:27:47 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-Cc: stable@vger.kernel.org, Sasha Levin <sashal@kernel.org>,
-	Dipayaan Roy <dipayanroy@linux.microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Simon Horman <horms@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Subject: Re: [PATCH 6.6.y 1/3] net: mana: check xdp_rxq registration before
- unreg in mana_destroy_rxq()
-Message-ID: <2026100718-handful-other-11d0@gregkh>
-References: <20261006171204.2777439-1-hamzamahfooz@linux.microsoft.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CdoWUcLH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D398C1F0089E;
+	Wed,  7 Oct 2026 08:42:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791362522;
+	bh=d26+SX7ebLdLlTbo/ba7C/ExaO14Pkjnx4HMD94zuEU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=CdoWUcLH3VPaVCOUAvVT5OzSeQLix5XE+fgWgwZdsXlyy+lCksjRyPRc1hgbMzXl+
+	 8lGkH3h1ReThBuTFup0lQS2/Jv9ErRf5GbkHNK2XNJZcwVi1VO5/5mY+2c3/lVEQYa
+	 m9Zyw/uChYV8uHavQ/c+k0eyIUuZZnF5n/MumFz+zrd4nYvalLzxCMP/09T/YlEasU
+	 58J2UDAkg33h+DwmYO8VW4EcWhiKO3IJH7hbF6e+C2ZVZtrrGJgJiM57pvza+dBlIs
+	 u64njxHvIW91x4Zc3K5kh+Qh1CyEdya1P2K+8cTt77JdwAYSq7qVcUm4/BfUg+cWv9
+	 6ofeE81y0sa7Q==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Hans de Goede <hdegoede@redhat.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/5] iio: core: Add iio_read_acpi_mount_matrix() helper function
+Date: Wed,  7 Oct 2026 04:41:54 -0400
+Message-ID: <20261007083721.1749559-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026100618-wooing-curve-b2f5@gregkh>
+References: <2026100618-wooing-curve-b2f5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261006171204.2777439-1-hamzamahfooz@linux.microsoft.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 06, 2026 at 01:12:02PM -0400, Hamza Mahfooz wrote:
-> From: Dipayaan Roy <dipayanroy@linux.microsoft.com>
-> 
-> [ Upstream commit e9e334f8063a991b4f648b8dbb8dac44cf810540 ]
-> 
-> When mana_create_rxq() fails at mana_create_wq_obj() or any step before
-> xdp_rxq_info_reg() is called, the error path jumps to `out:` which calls
-> mana_destroy_rxq(). mana_destroy_rxq() unconditionally calls
-> xdp_rxq_info_unreg() on xilinx xdp_rxq that was never registered,
-> triggering a WARN_ON in net/core/xdp.c:
-> 
-> mana 7870:00:00.0: HWC: Failed hw_channel req: 0xc000009a
-> mana 7870:00:00.0 eth7: Failed to create RXQ: err = -71
-> Driver BUG
-> WARNING: CPU: 442 PID: 491615 at ../net/core/xdp.c:150 xdp_rxq_info_unreg+0x44/0x70
-> Modules linked in: tcp_bbr xsk_diag udp_diag raw_diag unix_diag af_packet_diag netlink_diag nf_tables nfnetlink tcp_diag inet_diag binfmt_misc rpcsec_gss_krb5 nfsv3 nfs_acl auth_rpcgss nfsv4 dns_resolver nfs lockd ext4 grace crc16 iscsi_tcp mbcache fscache libiscsi_tcp jbd2 netfs rpcrdma af_packet sunrpc rdma_ucm ib_iser rdma_cm iw_cm iscsi_ibft ib_cm iscsi_boot_sysfs libiscsi rfkill scsi_transport_iscsi mana_ib ib_uverbs ib_core mana hyperv_drm(X) drm_shmem_helper intel_rapl_msr drm_kms_helper intel_rapl_common syscopyarea nls_iso8859_1 sysfillrect intel_uncore_frequency_common nls_cp437 vfat fat nfit sysimgblt libnvdimm hv_netvsc(X) hv_utils(X) fb_sys_fops hv_balloon(X) joydev fuse drm dm_mod configfs ip_tables x_tables xfs libcrc32c sd_mod nvme nvme_core nvme_common t10_pi crc64_rocksoft_generic crc64_rocksoft crc64 hid_generic serio_raw pci_hyperv(X) hv_storvsc(X) scsi_transport_fc hyperv_keyboard(X) hid_hyperv(X) pci_hyperv_intf(X) crc32_pclmul
->  crc32c_intel ghash_clmulni_intel aesni_intel crypto_simd cryptd hv_vmbus(X) softdog sg scsi_mod efivarfs
-> Supported: Yes, External
-> CPU: 442 PID: 491615 Comm: ethtool Kdump: loaded Tainted: G               X    5.14.21-150500.55.136-default #1 SLE15-SP5 a627be1b53abbfd64ad16b2685e4308c52847f42
-> Hardware name: Microsoft Corporation Virtual Machine/Virtual Machine, BIOS Hyper-V UEFI Release v4.1 07/25/2025
-> RIP: 0010:xdp_rxq_info_unreg+0x44/0x70
-> Code: e8 91 fe ff ff c7 43 0c 02 00 00 00 48 c7 03 00 00 00 00 5b c3 cc cc cc cc e9 58 3a 1c 00 48 c7 c7 f6 5f 19 97 e8 5c a4 7e ff <0f> 0b 83 7b 0c 01 74 ca 48 c7 c7 d9 5f 19 97 e8 48 a4 7e ff 0f 0b
-> RSP: 0018:ff3df6c8f7207818 EFLAGS: 00010286
-> RAX: 0000000000000000 RBX: ff30d89f94808a80 RCX: 0000000000000027
-> RDX: 0000000000000000 RSI: 0000000000000002 RDI: ff30d94bdcca2908
-> RBP: 0000000000080000 R08: ffffffff98ed11a0 R09: ff3df6c8f72077a0
-> R10: dead000000000100 R11: 000000000000000a R12: 0000000000000000
-> R13: 0000000000002000 R14: 0000000000040000 R15: ff30d89f94800000
-> FS:  00007fe6d8432b80(0000) GS:ff30d94bdcc80000(0000) knlGS:0000000000000000
-> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> CR2: 00007fe6d81a89b1 CR3: 00000b3b6d578001 CR4: 0000000000371ee0
-> DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-> DR3: 0000000000000000 DR6: 00000000fffe07f0 DR7: 0000000000000400
-> Call Trace:
->  <TASK>
->  mana_destroy_rxq+0x5b/0x2f0 [mana 267acf7006bcb696095bba4d810643d1db3b9e94]
->  mana_create_rxq.isra.55+0x3db/0x720 [mana 267acf7006bcb696095bba4d810643d1db3b9e94]
->  ? simple_lookup+0x36/0x50
->  ? current_time+0x42/0x80
->  ? __d_free_external+0x30/0x30
->  mana_alloc_queues+0x32a/0x470 [mana 267acf7006bcb696095bba4d810643d1db3b9e94]
->  ? _raw_spin_unlock+0xa/0x30
->  ? d_instantiate.part.29+0x2e/0x40
->  ? _raw_spin_unlock+0xa/0x30
->  ? debugfs_create_dir+0xe4/0x140
->  mana_attach+0x5c/0xf0 [mana 267acf7006bcb696095bba4d810643d1db3b9e94]
->  mana_set_ringparam+0xd5/0x1a0 [mana 267acf7006bcb696095bba4d810643d1db3b9e94]
->  ethnl_set_rings+0x292/0x320
->  genl_family_rcv_msg_doit.isra.15+0x11b/0x150
->  genl_rcv_msg+0xe3/0x1e0
->  ? rings_prepare_data+0x80/0x80
->  ? genl_family_rcv_msg_doit.isra.15+0x150/0x150
->  netlink_rcv_skb+0x50/0x100
->  genl_rcv+0x24/0x40
->  netlink_unicast+0x1b6/0x280
->  netlink_sendmsg+0x365/0x4d0
->  sock_sendmsg+0x5f/0x70
->  __sys_sendto+0x112/0x140
->  __x64_sys_sendto+0x24/0x30
->  do_syscall_64+0x5b/0x80
->  ? handle_mm_fault+0xd7/0x290
->  ? do_user_addr_fault+0x2d8/0x740
->  ? exc_page_fault+0x67/0x150
->  entry_SYSCALL_64_after_hwframe+0x6b/0xd5
-> RIP: 0033:0x7fe6d8122f06
-> Code: 00 00 00 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 41 89 ca 64 8b 04 25 18 00 00 00 85 c0 75 11 b8 2c 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 72 f3 c3 41 57 41 56 4d 89 c7 41 55 41 54 41
-> RSP: 002b:00007fff2b66b068 EFLAGS: 00000246 ORIG_RAX: 000000000000002c
-> RAX: ffffffffffffffda RBX: 000055771123d2a0 RCX: 00007fe6d8122f06
-> RDX: 0000000000000034 RSI: 000055771123d3b0 RDI: 0000000000000003
-> RBP: 00007fff2b66b100 R08: 00007fe6d8203360 R09: 000000000000000c
-> R10: 0000000000000000 R11: 0000000000000246 R12: 000055771123d350
-> R13: 000055771123d340 R14: 0000000000000000 R15: 00007fff2b66b2b0
->  </TASK>
-> 
-> Guard the xdp_rxq_info_unreg() call with xdp_rxq_info_is_reg() so that
-> mana_destroy_rxq() is safe to call regardless of how far initialization
-> progressed.
-> 
-> Fixes: ed5356b53f07 ("net: mana: Add XDP support")
-> Reviewed-by: Haiyang Zhang <haiyangz@microsoft.com>
-> Signed-off-by: Dipayaan Roy <dipayanroy@linux.microsoft.com>
-> Link: https://patch.msgid.link/20260430035935.1859220-2-dipayanroy@linux.microsoft.com
-> Reviewed-by: Simon Horman <horms@kernel.org>
-> Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-> Signed-off-by: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-> ---
->  drivers/net/ethernet/microsoft/mana/mana_en.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
-> index 932764f032a7..9091caa4ee9e 100644
-> --- a/drivers/net/ethernet/microsoft/mana/mana_en.c
-> +++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
-> @@ -2183,7 +2183,9 @@ static void mana_destroy_rxq(struct mana_port_context *apc,
->  
->  		netif_napi_del(napi);
->  	}
-> -	xdp_rxq_info_unreg(&rxq->xdp_rxq);
-> +
-> +	if (xdp_rxq_info_is_reg(&rxq->xdp_rxq))
-> +		xdp_rxq_info_unreg(&rxq->xdp_rxq);
->  
->  	mana_destroy_wq_obj(apc, GDMA_RQ, rxq->rxobj);
->  
-> -- 
-> 2.56.0
-> 
-> 
+From: Hans de Goede <hdegoede@redhat.com>
 
-This series needs to go to 6.12.y and 6.18.y first, right?
+[ Upstream commit 02eae0bb9538dc7dcb5a6bc2c3066bd6ca682969 ]
 
-Please provide those backports first.
+The ACPI "ROTM" rotation matrix parsing code atm is already duplicated
+between bmc150-accel-core.c and kxcjk-1013.c and a third user of this
+is coming.
 
-thanks,
+Add an iio_read_acpi_mount_matrix() helper function for this.
+The 2 existing copies of the code are identical, except that
+the kxcjk-1013.c has slightly better error logging.
 
-greg k-h
+To new helper is a 1:1 copy of the kxcjk-1013.c version, the only change
+is the addition of a "char *acpi_method" parameter since some bmc150
+dual-accel setups (360° hinges with 1 accel in kbd/base + 1 in display)
+declare both accels in a single ACPI device with 2 different method names
+for the 2 matrices. This new acpi_method parameter is not "const char *"
+because the pathname parameter to acpi_evaluate_object() is not const.
+
+The 2 existing copies of this function will be removed in further patches
+in this series.
+
+Acked-by: Rafael J. Wysocki <rafael@kernel.org>
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+Link: https://lore.kernel.org/r/20240425125754.76010-2-hdegoede@redhat.com
+Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Stable-dep-of: f0ea4824deeb ("iio: health: max30102: fix NULL dereference in interrupt handler")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/iio/Makefile            |  1 +
+ drivers/iio/industrialio-acpi.c | 85 +++++++++++++++++++++++++++++++++
+ include/linux/iio/iio.h         | 13 +++++
+ 3 files changed, 99 insertions(+)
+ create mode 100644 drivers/iio/industrialio-acpi.c
+
+diff --git a/drivers/iio/Makefile b/drivers/iio/Makefile
+index 0ba0e1521ba4f..cb80ef837e84f 100644
+--- a/drivers/iio/Makefile
++++ b/drivers/iio/Makefile
+@@ -7,6 +7,7 @@ obj-$(CONFIG_IIO) += industrialio.o
+ industrialio-y := industrialio-core.o industrialio-event.o inkern.o
+ industrialio-$(CONFIG_IIO_BUFFER) += industrialio-buffer.o
+ industrialio-$(CONFIG_IIO_TRIGGER) += industrialio-trigger.o
++industrialio-$(CONFIG_ACPI) += industrialio-acpi.o
+ 
+ obj-$(CONFIG_IIO_CONFIGFS) += industrialio-configfs.o
+ obj-$(CONFIG_IIO_GTS_HELPER) += industrialio-gts-helper.o
+diff --git a/drivers/iio/industrialio-acpi.c b/drivers/iio/industrialio-acpi.c
+new file mode 100644
+index 0000000000000..981b75d407802
+--- /dev/null
++++ b/drivers/iio/industrialio-acpi.c
+@@ -0,0 +1,85 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/* IIO ACPI helper functions */
++
++#include <linux/acpi.h>
++#include <linux/dev_printk.h>
++#include <linux/iio/iio.h>
++#include <linux/sprintf.h>
++
++/**
++ * iio_read_acpi_mount_matrix() - Read accelerometer mount matrix info from ACPI
++ * @dev:		Device structure
++ * @orientation:	iio_mount_matrix struct to fill
++ * @acpi_method:	ACPI method name to read the matrix from, usually "ROTM"
++ *
++ * Try to read the mount-matrix by calling the specified method on the device's
++ * ACPI firmware-node. If the device has no ACPI firmware-node; or the method
++ * does not exist then this will fail silently. This expects the method to
++ * return data in the ACPI "ROTM" format defined by Microsoft:
++ * https://learn.microsoft.com/en-us/windows-hardware/drivers/sensors/sensors-acpi-entries
++ * This is a Microsoft extension and not part of the official ACPI spec.
++ * The method name is configurable because some dual-accel setups define 2 mount
++ * matrices in a single ACPI device using separate "ROMK" and "ROMS" methods.
++ *
++ * Returns: true if the matrix was successfully, false otherwise.
++ */
++bool iio_read_acpi_mount_matrix(struct device *dev,
++				struct iio_mount_matrix *orientation,
++				char *acpi_method)
++{
++	struct acpi_buffer buffer = { ACPI_ALLOCATE_BUFFER, NULL };
++	struct acpi_device *adev = ACPI_COMPANION(dev);
++	char *str;
++	union acpi_object *obj, *elements;
++	acpi_status status;
++	int i, j, val[3];
++	bool ret = false;
++
++	if (!adev || !acpi_has_method(adev->handle, acpi_method))
++		return false;
++
++	status = acpi_evaluate_object(adev->handle, acpi_method, NULL, &buffer);
++	if (ACPI_FAILURE(status)) {
++		dev_err(dev, "Failed to get ACPI mount matrix: %d\n", status);
++		return false;
++	}
++
++	obj = buffer.pointer;
++	if (obj->type != ACPI_TYPE_PACKAGE || obj->package.count != 3) {
++		dev_err(dev, "Unknown ACPI mount matrix package format\n");
++		goto out_free_buffer;
++	}
++
++	elements = obj->package.elements;
++	for (i = 0; i < 3; i++) {
++		if (elements[i].type != ACPI_TYPE_STRING) {
++			dev_err(dev, "Unknown ACPI mount matrix element format\n");
++			goto out_free_buffer;
++		}
++
++		str = elements[i].string.pointer;
++		if (sscanf(str, "%d %d %d", &val[0], &val[1], &val[2]) != 3) {
++			dev_err(dev, "Incorrect ACPI mount matrix string format\n");
++			goto out_free_buffer;
++		}
++
++		for (j = 0; j < 3; j++) {
++			switch (val[j]) {
++			case -1: str = "-1"; break;
++			case 0:  str = "0";  break;
++			case 1:  str = "1";  break;
++			default:
++				dev_err(dev, "Invalid value in ACPI mount matrix: %d\n", val[j]);
++				goto out_free_buffer;
++			}
++			orientation->rotation[i * 3 + j] = str;
++		}
++	}
++
++	ret = true;
++
++out_free_buffer:
++	kfree(buffer.pointer);
++	return ret;
++}
++EXPORT_SYMBOL_GPL(iio_read_acpi_mount_matrix);
+diff --git a/include/linux/iio/iio.h b/include/linux/iio/iio.h
+index 202e55b0a28b2..2241a87c990ad 100644
+--- a/include/linux/iio/iio.h
++++ b/include/linux/iio/iio.h
+@@ -756,6 +756,19 @@ static inline struct dentry *iio_get_debugfs_dentry(struct iio_dev *indio_dev)
+ }
+ #endif
+ 
++#ifdef CONFIG_ACPI
++bool iio_read_acpi_mount_matrix(struct device *dev,
++				struct iio_mount_matrix *orientation,
++				char *acpi_method);
++#else
++static inline bool iio_read_acpi_mount_matrix(struct device *dev,
++					      struct iio_mount_matrix *orientation,
++					      char *acpi_method)
++{
++	return false;
++}
++#endif
++
+ ssize_t iio_format_value(char *buf, unsigned int type, int size, int *vals);
+ 
+ int iio_str_to_fixpoint(const char *str, int fract_mult, int *integer,
+-- 
+2.53.0
+
