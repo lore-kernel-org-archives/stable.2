@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E55B3175A86;
-	Wed,  7 Oct 2026 02:03:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E23EE2931EF;
+	Wed,  7 Oct 2026 02:04:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791338640; cv=none; b=athHWAg+933CMrfXluMmkKD0lILpoVvM/6CYlDmlAqW+0BRn5K3UQtmUQJ++HEgteorR3NuTFKsZ60Y84viHPcPq/R1qNQX/QaYZwLB3Pi+355l9Y//0L07m8UKs7XocfBwBgmwM8mKBID4iUPhg234kiXtn0VfZYAmplihvNxk=
+	t=1791338646; cv=none; b=TT/uYVbnW6ADqcHnDhCCCPHIu+9JAN7tPPatjEwCxWsDew4T3V3ODwoP5ERDkbGcXzUo9p4ejeWukKOljUhaxrm9gWLDge/tMPdw+gzar1ASVA/GV2KuXcpQ0k473kd22fpxExg8Op+6xLwbiY6FEsX6bCpJXaltIndMJY7iubQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791338640; c=relaxed/simple;
-	bh=T5IyHeWvnaJaC/Tr75Bt3ps6+nA4+6bsKotE9l4kvOQ=;
-	h=Date:To:From:Subject:Message-Id; b=hrz7vuZvz8lx2A9OZ4KLTy4a3nQp/a3kGOZsqBfWLFeNj+21dksyKuT5jKsp1dyuMeJJukaiDhiDKmlXUGVBWhPeahAIy+js7Efma2eIMM/HYoPF4AMyH2wcaXwz1Svw1Mz8h9Cb/lbHR2J2zeoAOGSaSJyJAbqrcBSPj+WiHZk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=huhjbCPK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791338646; c=relaxed/simple;
+	bh=R1HkqTkcVYeG3xZEgukXca333Rwbar7s8qp52jIH7zo=;
+	h=Date:To:From:Subject:Message-Id; b=H80PmdJ33/T0KXpJCAhqkSujumytG/NrcERSj4EwvB5nEEFS9w+GVlgNyMrdTGCjPt8mVYug9s9vbHrGkBPq6EXLwbzq/wy5XqlaLqIf7jyvSUgx0hz84zS2Sxd40WnamaNRHLM0PmfLwePCTITGkibvq4I4JziYlR9XEV85G5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=FCj8Zw15; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="huhjbCPK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC5BB1F0089C;
-	Wed,  7 Oct 2026 02:03:59 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="FCj8Zw15"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ABE61F0089B;
+	Wed,  7 Oct 2026 02:04:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791338639;
-	bh=K+OjDyOck+R0rm8mOxChG+C+/tDLvI1BvcAb5NtZ1+o=;
+	d=linux-foundation.org; s=korg; t=1791338644;
+	bh=lqf6p774oMOY4A/J4F7XEHue4SMb/RdPV2sAnKLY8WY=;
 	h=Date:To:From:Subject;
-	b=huhjbCPKYbGKbu58ltcqpmUN1R3djCY5I2vaJDqIvTATlObI4OzBq6A03cfUgc4Kx
-	 brykyGuuMlV2oCPaVWbPkh8g0nY7lezaYaFj+EL2rDv3nGQsRf7D6oedUuoH0Sz0uH
-	 3KbK5cEQ6oAiG+dYJSeZCMKX+H2LiTCG6FnPZGFE=
-Date: Tue, 06 Oct 2026 19:03:59 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,dmoulding@me.com,blum@kernel.org,akpm@linux-foundation.org
+	b=FCj8Zw15MbtfyRZLxt8Lf7V+BGcb2FgV5NoATsnN3S2MkkJ4Ide67BOU4hYPr7732
+	 oI9x3QmDO9M7s4l9zMrZVXcbtFxNB9cFKjpw6RzLE4kENMYAS2Z+Aw1zWcsdZWvRU2
+	 drktslIG2G0gKfIZrckBh3M6xrCX6ae2Ft8PzUus=
+Date: Tue, 06 Oct 2026 19:04:04 -0700
+To: mm-commits@vger.kernel.org,viro@zeniv.linux.org.uk,stable@vger.kernel.org,neil@brown.name,manfred@colorfullife.com,jack@suse.cz,dave@stgolabs.net,brauner@kernel.org,4ncienth@gmail.com,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-nonmm-stable] init-fix-early-boot-crash-with-bare-hostname-parameter.patch removed from -mm tree
-Message-Id: <20261007020359.BC5BB1F0089C@smtp.kernel.org>
+Subject: [merged mm-nonmm-stable] ipc-mqueue-release-notification-resources-during-inode-eviction.patch removed from -mm tree
+Message-Id: <20261007020404.6ABE61F0089B@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,50 +35,76 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: init: fix early boot crash with bare hostname parameter
+     Subject: ipc/mqueue: release notification resources during inode eviction
 has been removed from the -mm tree.  Its filename was
-     init-fix-early-boot-crash-with-bare-hostname-parameter.patch
+     ipc-mqueue-release-notification-resources-during-inode-eviction.patch
 
 This patch was dropped because it was merged into the mm-nonmm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Thorsten Blum <blum@kernel.org>
-Subject: init: fix early boot crash with bare hostname parameter
-Date: Wed, 26 Aug 2026 12:09:03 +0200
+From: Daehyeon Ko <4ncienth@gmail.com>
+Subject: ipc/mqueue: release notification resources during inode eviction
+Date: Mon, 24 Aug 2026 13:23:59 +0900
 
-When a bare hostname parameter is specified on the kernel command line
-without the '=' separator, early parameter parsing passes NULL to
-early_hostname(), which dereferences it in strscpy() and can crash the
-system during early boot.
+mqueue_flush_file() removes an mq_notify() registration only when the
+closing task belongs to the thread group stored in notify_owner.
 
-Reject NULL values in early_hostname() and return -EINVAL instead.
+A task in a separate thread group created with CLONE_FILES can register
+SIGEV_THREAD notification and exit without closing the shared file table. 
+If another thread group then unlinks and last-closes the queue, ->flush()
+skips the registration and inode eviction loses the only pointers to its
+resources.
 
-Link: https://lore.kernel.org/20260826100904.296151-2-blum@kernel.org
-Fixes: 5a704629f2c1 ("init: add "hostname" kernel parameter")
-Signed-off-by: Thorsten Blum <blum@kernel.org>
+The orphaned registration permanently retains the notification skb, its
+netlink socket, a pid reference and a user namespace reference.  An
+unprivileged process can repeat the sequence with new queues and sockets.
+
+No inode users remain during eviction.  Remove any stale registration
+there after dropping info->lock, since netlink_sendskb() may release the
+final socket reference.
+
+This bug creates an unkillable kernel resource leak by failing to free
+netlink socket, PID, and user namespace references when a POSIX message
+queue is evicted.  An unprivileged process can exploit this leak
+repeatedly to cause kernel memory exhaustion and lead to a DoS.
+
+Link: https://lore.kernel.org/20260824042359.925145-1-4ncienth@gmail.com
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Dan Moulding <dmoulding@me.com>
+Assisted-by: LLM
+Cc: Davidlohr Bueso <dave@stgolabs.net>
+Cc: Al Viro <viro@zeniv.linux.org.uk>
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: Jan Kara <jack@suse.cz>
+Cc: Manfred Spraul <manfred@colorfullife.com>
+Cc: NeilBrown <neil@brown.name>
 Cc: <stable@vger.kernel.org>
 ---
 
- init/version.c |    3 +++
- 1 file changed, 3 insertions(+)
+ ipc/mqueue.c |    7 +++++++
+ 1 file changed, 7 insertions(+)
 
---- a/init/version.c~init-fix-early-boot-crash-with-bare-hostname-parameter
-+++ a/init/version.c
-@@ -23,6 +23,9 @@ static int __init early_hostname(char *a
- 	size_t maxlen  = bufsize - 1;
- 	ssize_t arglen;
+--- a/ipc/mqueue.c~ipc-mqueue-release-notification-resources-during-inode-eviction
++++ a/ipc/mqueue.c
+@@ -528,6 +528,13 @@ static void mqueue_evict_inode(struct in
+ 		list_add_tail(&msg->m_list, &tmp_msg);
+ 	kfree(info->node_cache);
+ 	spin_unlock(&info->lock);
++	/*
++	 * A shared file table can let the notification owner exit without
++	 * running ->flush(). No users of the inode remain during eviction, so
++	 * tear down any stale notification after dropping info->lock because
++	 * netlink_sendskb() may release the final socket reference.
++	 */
++	remove_notification(info);
  
-+	if (!arg)
-+		return -EINVAL;
-+
- 	arglen = strscpy(init_uts_ns.name.nodename, arg, bufsize);
- 	if (arglen < 0) {
- 		pr_warn("hostname parameter exceeds %zd characters and will be truncated",
+ 	list_for_each_entry_safe(msg, nmsg, &tmp_msg, m_list) {
+ 		list_del(&msg->m_list);
 _
 
-Patches currently in -mm which might be from blum@kernel.org are
+Patches currently in -mm which might be from 4ncienth@gmail.com are
 
+assoc_array-discard-shortcut-when-collapsing-a-leaf-only-node.patch
 
