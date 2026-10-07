@@ -1,93 +1,149 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50C2C3C3F75
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 16:33:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F8F548F82C
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 16:34:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791390840; cv=none; b=SeVZ/2iq9/zslLnVABFGOCpFYuI950sMztHlIQ8DzsNuLGnSZ7B7BOczwHMy1FxOy7YdThiHEgokqEZ8MwOsQ389NQHm5PuN0tklRHw9wJmzI3Ga4wqEN2YfEuA6JXPZX+yOmL3l5IqztvqQk9N0hRU4+Az8dca05YSaj6w5ZUg=
+	t=1791390883; cv=none; b=FYaNENMyHPBQhHxAUsxPs6iZrp0QQSkbKdwniXSpj64qpATxew7cirrQiH8Abcqi/DqfWj5/1hp4d33Sr0pR0Q4vH6wDlik9vIm1b+TETQiLjygbJ1GC0getcHaPcIA8bE+4Me+wcOxiEQS6nLJA737+n3N6NwTuXrKrFb1DDlU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791390840; c=relaxed/simple;
-	bh=7evDrsn33ZOZyzUJ4PxA3QjtwQoT19qOjju1qVoOdc0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bUDemi0f+3ZFrUfzVdi6YuRBpivJoUX3zlD25pHjuBd/pgC3tQa0hIk/p7ak+G7bheb+5v8QBwl+IhghUeqdY63VrLOlfIoeD1ee5YCt1URZvLaGOtg/KIHo1oUbdG/4JV/RtvLNapAUp769qKC/sAI0C5SoJyNh8J+1xnVB6Mk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Oga+ACWQ; arc=none smtp.client-ip=209.85.128.53
+	s=arc-20240116; t=1791390883; c=relaxed/simple;
+	bh=jwTo89W5uEjz98yetsnbjGk2QXmB9By/eGq94DpODU0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GDKNHqB96zdYO9LDTMskSojjVmhbjymnVXDsBxyXRucRD0LnDQeaSfHM+X8FeFomAYdbW+wdbGj7vPS8RC5dK0rQFUjwxUfHo9VtqnolVCbb8c+p/J8GEWbIvLCiHbDKYhWSNYEvAlXvKkdCOFLefbeSg7GLrCoC7bueIHObQWw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ptQkqO2M; arc=none smtp.client-ip=209.85.216.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Oga+ACWQ"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a1688d7769so27346455e9.0
-        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 09:33:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ptQkqO2M"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-39647aa9d52so1933000a91.0
+        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 09:34:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791390837; x=1791995637; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7evDrsn33ZOZyzUJ4PxA3QjtwQoT19qOjju1qVoOdc0=;
-        b=Oga+ACWQ80glITGJf9Syxbn629N1NR8aWMjJTZz67vau6xa7Dwi6W+8Sepz4G59NLh
-         02kMBmhByo9EIIBpNGwxzSZ5OxGq+nxCwZ81dtNC5+4f47+6pMvjpKMFkeeAtjir+Jb+
-         Qpg/bLANel154jR3mIkcCZeaZkppiE3/7m+EpQspgi9E5+aNO1Ct/sU9zmbUrpETNkvm
-         5QIKxGzDdR8hLTTY7IIoNec6JF7JIe9qWyOFmzbWRbqfz75OwU2W5L/NCWyiSZcymRoV
-         KlbdXF6yUfa7hbExAVC0chlXI+GW5kzLDcmACVk44Di7DJEkbKWE77DODevJlPWwVFSF
-         fVKw==
+        d=gmail.com; s=20251104; t=1791390882; x=1791995682; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8J1GOhzcY9UVBGRcW/Cw+AY4dE8xBdwM0W7qy7H4udM=;
+        b=ptQkqO2MrA+nWusamvqBZlvKEunhSUXrDIWpeBEsD7p+sJ6EQujPVJxQsyye6gDbsL
+         VrTUP5hNqvZb+LkEwbYHmGZVV30mtjuwfyOWFgPCJxxQtCn4xEqskKHbm/KNS6hgU9d/
+         tkBZUrrUdaZ9dN4JblN27oWqqbVEkX2d4dQ5taP8noYdJOtG+UXsf7oR3wH68aPCwd72
+         pnr8F5K9u/g1iuuYmHxQF8G9ezGLlkS+l+QShPl3WLzlBIyOY/2fcFEu7PjmJPxoyqTa
+         lc5xEEHrXqQH+t3Ju8+yBfL2d07HFBXu77ZuMQKIT17Cpl5Jo9LDxKd6r1ZS+of6rM+6
+         IYDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791390837; x=1791995637;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7evDrsn33ZOZyzUJ4PxA3QjtwQoT19qOjju1qVoOdc0=;
-        b=et9lUTYPVix5h119VLsBVOTpOq0XP/sCAa6hN6seF+ij3iUdIMqPTxw+T2mHCOgL0l
-         k6Miz6LFkIDBXIGbMql38l/TB5yRc8Rb6t7NgK6n/Z89fRV/7ZEbFKpqd2ybHj1vIqFz
-         43ORxunqQHmg5Wabp0+FhNY5B4zm8n8ueF2TPVgzs8d2oSueoN9jpv7lCz8DHXfHhXsK
-         2PhV+8DHjmeaLH/yCquzlOkCc8mQpxd6iDNjVLz/7UYsAegKs+GGvwMm4sONNeGeKTTf
-         N84CFq4BOhN0xvZVfeFz2sUIGhi83rtu4gBAcNAeF2Vo4IdVzEL96FP39X10iSqcm00P
-         CBXA==
-X-Forwarded-Encrypted: i=1; AKwUvBx79oEkYZjzis7Dk1tXaG/67iPosTmFaJpjm/uj4pmsTqsnas0hNDTKgTuZ0IGqkrFR0Ihpd8M=@vger.kernel.org
-X-Gm-Message-State: AFuF++lchQc5gN1WStUWzzM9DbBYEupqm9nFa5r7EeteUwRD8nkepEPU
-	6fYJ4GUpEl8siwlx7Tv3jdfjJfmn6OuQj6AarOr7QOJd7Ik5xEvix0U=
-X-Gm-Gg: AYBFou33MTplDVUlcCUf92UOk5cob8qUFXbWF7c/n28ncKalW5ynbnCU9sPiqkXWSkq
-	syP96LTUa1ayFY2JQ5Yl6JSmdw2l0NH8rt+vqHUGISHTssr9VJZnVRLLnZgCYuZwKAVOXnCmcgH
-	1ft2sUW8HueOfzZcuhWmFqwM8KAWusRNaWh8HzlnG1M89aOblm0U8VO1P4Pci+J7doP+tUxCzID
-	T2wbxQ1XiNwpZJ0PXlywBOXNX0qtkAD/k7iy8ThsPAakvexyazxBH/K0jvZKS5XxvnuZ9YEP0f1
-	jud3cH1n1/uJ0A9MVXlYCssOJaPFPAr2OigMyTpGlU9jsExAgmjQvkrLW+Pqd+chekTSq9imF2l
-	E2IArvUEJMUwiFfF7ejB/EwpZnOZJCC8CpNrOY/BjKFr5h2g0oYgjYG8Z13iLRWkb5Xw9Fg6IHI
-	Gw/6ncdxRdeeKbm2oCpqoaFb8A/yw7TOFiDwDvn+i0i0qGU5yBkg==
-X-Received: by 2002:a05:600c:1551:b0:4a1:7733:5102 with SMTP id 5b1f17b1804b1-4a180443559mr44304695e9.15.1791390837363;
-        Wed, 07 Oct 2026 09:33:57 -0700 (PDT)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71c0b860sm5647218f8f.11.2026.10.07.09.33.56
+        d=1e100.net; s=20260707; t=1791390882; x=1791995682;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8J1GOhzcY9UVBGRcW/Cw+AY4dE8xBdwM0W7qy7H4udM=;
+        b=aWDeT2PGhI2BZc0B9yc+8maySjELCs686uIZrMD0NHhGqS0jRHsP8Y4agfAhx1CAP5
+         QD4CpOT/cFoWfpbMLR2boi+uob8h0W/t5YlTA2MPBRpIsdanOaF3Xf9B2Lk+OQSgPeGa
+         QH5GTdlU8Rgfwv1I7DeGjRwr9Wcruy6AyLjj/XnjRx+dI+jiwfU4K3ANtNUAm0aAlf/g
+         hno7mjSCq9Cr9tTsqiQx0vrudocpYTXsnT9n+aUKJd/BbRE3iPeDRHShid1AaTknev+N
+         ZYR3opYgJVt24TsPsO1SxinG+7nMaim1VX0aH1hL9pK+SJEaLnQ1Jmavv95eVkvF6WT5
+         FIAw==
+X-Forwarded-Encrypted: i=1; AKwUvBzWkk7ZxI030usL827oEUHZ/qb4asIe2gZuWDBIv+hQ9IunuMADW7bTs4v/fIT7HvEzRfAiO/Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKk5zdL0hrBZ6R6ZA/yDUI3paPymwLcahwOxO242vMYa0dg1n5d
+	5ZnLaIa3FpNf8PdYJZNlLXzAtHo7i5ZIeJUwJSenCBfH0RuCRJ3xo/F2
+X-Gm-Gg: AYBFou2nsXIaSqeOJqlA7z7tOIp1u7RYv+kXsFzWVnjcw91Pamg4zLeKYcR921ijdoI
+	5XYO2DD7yVxk7hivr63p4dA3eCbrA/qAhTDxkqu2Hfzlsa0nRvc6f++1PY1vpA6+xWJ/RV4f9AY
+	XTlGcUdyy768a0S4HIKiTb3nS5osYKNNDB28CMO3/ssywKaCtJv+qBLIVjkeVabrxCQIDFKG4cW
+	lmTSFRpH1oV5AzEjx9mc/TFZurRGREBNVmzkT3oO3JeEVL8hrTF/dC5mAHRjKa5RCymHs1SqwCv
+	RdeCUm1/UZdeMbaBVQGoPRaWgmWMZwniSIZfITCeOPcN8y72qk8YZtYeKhJtf2+J3qaIJjbNfNN
+	xGu1gxavagU+4XCjh3oDDpAuMXaz+/HiXvTYxO149wyflw2r3fzQe/Braba6zUoIelNDHzNm/TV
+	sn+HSMnpUnfMxrdPUfeIU47uYyff/7EB05Fcu9J5M4644xfM8zvils6PfQjG77ajjWL1sFGLW7V
+	MrBHKJlI9ilqozcdfvceuOS
+X-Received: by 2002:a17:90b:48c7:b0:3a0:eec6:b065 with SMTP id 98e67ed59e1d1-3a8a0ba1c96mr1499640a91.13.1791390881599;
+        Wed, 07 Oct 2026 09:34:41 -0700 (PDT)
+Received: from ubuntu.. ([110.9.142.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a89dbc9297sm2713600a91.1.2026.10.07.09.34.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 09:33:56 -0700 (PDT)
-From: Tristan Madani <tristmd@gmail.com>
-To: Zhu Yanjun <yanjun.zhu@linux.dev>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>,
-	linux-rdma@vger.kernel.org,
+        Wed, 07 Oct 2026 09:34:41 -0700 (PDT)
+From: Sang-Heon Jeon <ekffu200098@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Harry Yoo <harry@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>
+Cc: Christoph Lameter <cl@gentwo.org>,
+	David Rientjes <rientjes@google.com>,
+	Hao Li <hao.li@linux.dev>,
+	linux-mm@kvack.org,
+	Roman Gushchin <roman.gushchin@linux.dev>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] RDMA/rxe: copy completer WQE to kernel buffer before processing
-Date: Wed,  7 Oct 2026 16:33:55 +0000
-Message-ID: <20261007163356.407937-1-tristmd@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260830191344.2026524-1-tristmd@gmail.com>
-References: <20260830191344.2026524-1-tristmd@gmail.com>
+Subject: [PATCH] mm/slub: clamp slab_min_order to MAX_PAGE_ORDER
+Date: Thu,  8 Oct 2026 01:34:02 +0900
+Message-ID: <20261007163403.1643768-1-ekffu200098@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Zhu Yanjun,
+setup_slub_max_order() clamps slab_max_order to MAX_PAGE_ORDER, but
+setup_slub_min_order() has no such clamp.
 
-Gentle ping on this v2 series. The v2 addresses your review feedback
-from v1 — bulk memcpy() writebacks were replaced with targeted
-WRITE_ONCE() for individual fields and smp_store_release() for state
-transitions.
+The buddy allocator cannot allocate more than 2^MAX_PAGE_ORDER pages
+at once, so slab_min_order above it makes no sense.
 
-Would you have a chance to take another look?
+If slab_min_order is set above MAX_PAGE_ORDER, it can even panic at
+boot or invoke undefined behavior in order_objects().
 
-Thanks,
-Tristan
+So clamp slab_min_order to MAX_PAGE_ORDER as well.
+
+Fixes: 818cf5909701 ("slub: enforce MAX_ORDER")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+---
+QEMU-based test results
+
+- Booted with "slab_min_order=20"
+
+1) AS-IS (before fix)
+[    0.094926] mem auto-init: stack:all(zero), heap alloc:off, heap free:off
+[    0.097776] Kernel panic - not syncing: Creation of kmalloc slab kmem_cache_node size=64 failed. Reason -22
+[    0.099542] CPU: 0 UID: 0 PID: 0 Comm: swapper Not tainted 7.2.0 #1 PREEMPT(undef) 
+[    0.100903] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[    0.102607] Call Trace:
+[    0.103040]  <TASK>
+[    0.103417]  vpanic+0x32a/0x4b0
+[    0.103976]  panic+0x5e/0x60
+[    0.104491]  create_boot_cache+0xe3/0xf0
+[    0.105194]  kmem_cache_init+0x12d/0x410
+[    0.105890]  ? mem_init+0x1fc/0x210
+[    0.106521]  mm_core_init+0xba/0x140
+[    0.107153]  start_kernel+0x441/0x8b0
+[    0.107814]  x86_64_start_reservations+0x18/0x30
+[    0.108638]  x86_64_start_kernel+0x10c/0x120
+[    0.109401]  common_startup_64+0x13e/0x158
+[    0.110145]  </TASK>
+[    0.110584] ---[ end Kernel panic - not syncing: Creation of kmalloc slab kmem_cache_node size=64 failed. Reason -22 ]---
+
+2) TO-BE (after fix)
+[    0.008976] mem auto-init: stack:all(zero), heap alloc:off, heap free:off
+[    0.011366] SLUB: HWalign=64, Order=10-10, MinObjects=0, CPUs=4, Nodes=1
+
+Also, I'm not sure about the Fixes commit. Please change it if you know
+a better one.
+
+---
+ mm/slub.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/mm/slub.c b/mm/slub.c
+index 1559cbace469..8400df7c222e 100644
+--- a/mm/slub.c
++++ b/mm/slub.c
+@@ -8354,6 +8354,8 @@ static int __init setup_slub_min_order(const char *str, const struct kernel_para
+ 	if (ret)
+ 		return ret;
+ 
++	slub_min_order = min_t(unsigned int, slub_min_order, MAX_PAGE_ORDER);
++
+ 	if (slub_min_order > slub_max_order)
+ 		slub_max_order = slub_min_order;
+ 
+
+base-commit: d755441b7672c74f29d1241ffdd2b067ecab1ca0
+-- 
+2.43.0
+
