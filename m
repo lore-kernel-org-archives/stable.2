@@ -1,206 +1,168 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6370F4A5C30;
-	Wed,  7 Oct 2026 12:51:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791377505; cv=none; b=gf2cfWvMCp361JvUiNhny9hZhyehjk8BIgE8tyGMg42SslU2ylB7dLO0Iu1Oqc1+Eb/jnT3qwngUEgEWGZv+Tw2bG5KKhf8aPkTh9qCzFD1E8aNPDE5sohiDxZaaYTvuDnj50mkIbBPkIFzt8xdcyvdPKphbmojx7NMUtygW5bc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791377505; c=relaxed/simple;
-	bh=q3lSLRJs+E52nTVedTXEt+2A0lsIwNzJPeN8b+lUDTM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iANbB/SHEKObgxpVi/sPrz5hETJ5u40acn1FfKPuBbLtVKPJkvaShcY7hU3RXMNNv/TsSO3Or3sc4sKX6NqjsdyhIgCus7R8ku/q+tp4j8NMhASdodt4NgIRZIPMOpJGXrQ3ROKoWhRuv09X+rFY1P9cfsq53rL/AULh92jaUlQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=bX7t546R; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=l+6wS696; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=FL8XE92M; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=OQFqw/g6; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6E5D4973A7
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 12:53:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791377615; cv=pass; b=pugi37Sl+KnLj1GumizUfKs5yxMDVeiIBIu1HPfh4iYEZexGF2mR6BJFUhnZAo39x4rBEN+W4jfVFa+FZdIchj5mkUKOxSedcuKrSUL2uf60NAMeLaqpEs+RQ7KDuuBYi6tJ6SkD3GK+OEIcZWUJedloS2qRCQC85UZ+BEHDa0Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791377615; c=relaxed/simple;
+	bh=7o8IHTHMGS/voyHQzhmgvEE338B91PLKSiRWBKqVlo4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MZIuEsPghOgXNh23ipfpZBaXan85KtWzs4P4O2xDeO15mFkmHO65/Yhl0YwnDRC+vlZmvCMA8JilC03QI430a2Se6d84+na9KZfuXk6x887M+bR0uMDibj6kYl4F2EwBCQzKS7JnwuwillV2Hl7r7IwDoNvdhzfPvYU59ZCcii4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PIxG2N49; arc=pass smtp.client-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="bX7t546R";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="l+6wS696";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="FL8XE92M";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="OQFqw/g6"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id E001321BDC;
-	Wed,  7 Oct 2026 12:51:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791377493; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=O1xDxqZSMFD+YczUQdJtNul/b6irsruiZxlmJvGzZuI=;
-	b=bX7t546RDCNU8h9sT+3g6pMGKtt4GYDGw7FMU6vjxs7SAQFirBIrat1Eval1EWqy81bx09
-	UhUQQIs1Hl51ftXAPTMv1rIUevaQrXmrdzYpxklFiKF9tbfUv5grpDnwW7DrBpLu1a2aZh
-	/A7kcXSG02llXWXeqCrpY3pvviXEiTU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791377493;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=O1xDxqZSMFD+YczUQdJtNul/b6irsruiZxlmJvGzZuI=;
-	b=l+6wS696P/If8n02xyLKIbMZWUSfsf0b73X9BSt4+FxUx32YipoNUt9GK+3IZscVippuz6
-	m26bebmCtKId9hDQ==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=FL8XE92M;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b="OQFqw/g6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791377492; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=O1xDxqZSMFD+YczUQdJtNul/b6irsruiZxlmJvGzZuI=;
-	b=FL8XE92MY8zzeT9DMKt9JM+IK0xPcgKIfE7Yve1j2TzZeWosnIpDycsVl+FetnRc1ZUIAE
-	pd6Va59DCdsG2Sxju/53zlZq5C6+/VY5PIQb66J5GCTIKoxeRywD5jJhl3QK0bh2Q2qLYc
-	uUvGbZp6YVeDtCCqcvqnK1zyM0qvi7U=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791377492;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=O1xDxqZSMFD+YczUQdJtNul/b6irsruiZxlmJvGzZuI=;
-	b=OQFqw/g6eEaKCcdT96AOSxNH/+3XFEq3Z/r26Gr/RLMMrPIPkn4gLZZ89TzB3at3yy7OMO
-	JUCsBNyd1nAwBoCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AB0A013354;
-	Wed,  7 Oct 2026 12:51:32 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id qY54IVRAxmr3YQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 07 Oct 2026 12:51:32 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id EF254A13FE; Wed, 07 Oct 2026 14:51:31 +0200 (CEST)
-Date: Wed, 7 Oct 2026 14:51:31 +0200
-From: Jan Kara <jack@suse.cz>
-To: daejun7.park@samsung.com
-Cc: Theodore Ts'o <tytso@mit.edu>, linux-ext4@vger.kernel.org, 
-	Jan Kara <jack@suse.cz>, Andreas Dilger <adilger.kernel@dilger.ca>, 
-	Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>, 
-	Zhang Yi <yi.zhang@huaweicloud.com>, Harshad Shirwadkar <harshadshirwadkar@gmail.com>, 
-	Li Chen <me@linux.beauty>, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] ext4: don't cache unzeroed blocks as written after a
- failed zeroout
-Message-ID: <acwwxbc3qzyiwc6djmzemig2eutiia4zsi4kjeyd3tquhcmrpn@kuntjv2owek7>
-References: <20261007-ext4-fc-zeroout-v1-0-b86de6439431@samsung.com>
- <20261007-ext4-fc-zeroout-v1-1-b86de6439431@samsung.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PIxG2N49"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cc4aa0246b7so933741a12.3
+        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 05:53:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791377608; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ZM1rTZPAjwZI3CMDJqaTxc6+EIh3smjXdm5wnCOQK4ZvV7Pda1iRoi16EpOR6LOTBv
+         zFOXpY232YtnXY2dbScm10GOxZ+i5e2x6j4euH4mK/uqIYW58cRJR5f4mzEemxibJlr2
+         QMCy9TgTvblMb1rM4XzJTl1pyhrBaCvXw3CX3xd9uPqQr8nOxDJbKYa7kJdR8i04fCxW
+         sgBkWZY1+nMrOTkCgZIax6IoiZA+fU03ghPz8hEAIAwoZXn0JZkuSV2yzkTyKRH8FrVh
+         HTMkwvtplnxgteYNY844hUKen7yMAFyr7luwA323GByZ3ujJB1poKd3cNNdzZxP7QdBW
+         EqCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=bvmAYJ9uVcHWwdsdUVnTxzhHRQGok8mw2i6i7B3HO9M=;
+        fh=sF9rU6wxYNblM+Pw/0Pe8aNM8ViE/W3VJA8D8x26jg0=;
+        b=hh3tkllY2SIalykSUdbZYCD0QPkLdpYP+1fTEmgAg4Q23dAlVrN17Fm5e+Ogj0kFR2
+         f/zUh0GWl815j9hoc1r2MeKpSYfNTjs3Ly/yDZzYqMSXq0CC1AZIjJB4Wzhtp53zjBNC
+         qIcPuwzran4Df0afQ/aqCZ2q0VKzaedSxNtem9bXYYUCHwqhXpX+bqBd3CVCUB0Fa86K
+         K8nj4kOHM6mTg4UikBskRQfmFOO+cDrQchoN9jCwDej4xDS+DVS5t4WBSRAyYToF9/xY
+         mbKv7vR2lkCDpVqdBRKtMvTQgzMJVYeSuSiLtVoRZ9AMTdQ6ZNgWCOD+yMgPAfv6ArvN
+         qEng==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791377608; x=1791982408; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bvmAYJ9uVcHWwdsdUVnTxzhHRQGok8mw2i6i7B3HO9M=;
+        b=PIxG2N49285eXSYCZn2gLCqbp8bjI59uxYeCx2TPVnB5M0DbL482ZZcECgaviONelM
+         eEEhQLo0LzSIvpd40MbL6Jq774G3ddQ5daIuSeyaEpVYvxNWS79+jgzJuP3Yzz7ZRcy0
+         gjYMa9CKknD99XA6mq5iOskjJ5jdMtDrd+OffKAvyWhWtX0yetE3KOIPYWs9hHJrqdTm
+         QHqUFyxtwgGT1J985bMrIsoyps/R08+1Jv4QJg17QJWFMrwWhc8IN68dGUIKCaQ8MDPy
+         47zjW2m1Ftde0iIMMJu2UyOdbFtZF4gza3fBOcFbFJlniC8WsAD9yqO1lDRyTdDqzpdb
+         4o3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791377608; x=1791982408;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bvmAYJ9uVcHWwdsdUVnTxzhHRQGok8mw2i6i7B3HO9M=;
+        b=U0w5cNuWLQ/YaYWXozeXOq40eOzuMJGbDsq3gb8P/fJ+IciukLq4C+VQ4Ku8YEuWZ4
+         VzjneaJSqWqTe4lekn2q3tQ/lkRZxH0Ep+lFDTD40IWTQU/ALL4jPXumHeytqNxoV0Zc
+         OhzTu8iT5Xrx/B5lRz9zYZPNxxswTeVUlNRInL5F+ylTPq35y3gvUQ/3vRQ67arY8eFf
+         32uJh65V2uh4Y+OVuar+KOSWIu5m+VOPz6dLA05ELOGXFkNks5AuggBSMl4pVklqQAoI
+         RdTYRzg/6+23Zh2j5/0efO+CzNIPF8RAirhpZm4xlzsQEntLfwQxmrYiN0sCMujzweYv
+         PJ1w==
+X-Forwarded-Encrypted: i=1; AKwUvByuetS4uJobhPHGL7urD8RU6Cyl4I/rn3c6eXnU+M3aswDEGK5t63WVcvnr7oxo3rwlbPaTSeQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++n8jRdkget6PGqT0/Dbvh7ZYbimQIIQ0aGW0w0eLAY7CDtD8X91
+	YaURZpt4z57pojuJJiIZ6kH0HarZ59GINXkeRLNAWXwEO0FYgRl3xK4vnHnwaE/mM5H7vyFHzA2
+	7mndWSVdhOlWX/3ma+jRAgI11/rTZIRQ=
+X-Gm-Gg: AYBFou24aGM3EaUjppglqhA4cUGqVfrrhBt4p9aGyI6gq6Zda/kRcDhYu2S47kADvrO
+	s1M57fn/E50RDhMoFzdzx4MBLH8gJeAVFwRx3Ny0KxDd1zqUEuhuN5oUZ9UYC8zSF4a2ebC1Rvq
+	qfh3UKL0AWLVvM3Dc5DGX8wH5nrQMAJdPMU6O78XpQ/ayK6vUzbJqddc7hWizqZImB6vgcx0ntQ
+	rpKkM/zQeonn8IEUUmrK25iBk2FZG3jb9sgE2eHixTSCEDqQbas+CF/mYEeAc2RF3BD1TlNY9xP
+	yg5WyJsrhxR3GmJ18nsA+Ik8r+lKwYJl6WxJhlYwRZ4lBp2eXRyMH8KPdD5TRhB2h8SYnkMvzUn
+	vKwFepWVdByGsaXrfZrgikZX03V0jGRAQRLcANrmhQPbz6j2RXaA1D/RXZCKd5BBo
+X-Received: by 2002:a05:6a21:394b:b0:3de:b0cc:b0ed with SMTP id
+ adf61e73a8af0-3e134043d29mr1761808637.18.1791377608192; Wed, 07 Oct 2026
+ 05:53:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261007-ext4-fc-zeroout-v1-1-b86de6439431@samsung.com>
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: E001321BDC
-X-Spam-Level: 
-X-Spam-Flag: NO
-X-Spam-Score: -2.51
-X-Spamd-Result: default: False [-2.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	RCVD_TLS_LAST(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	ARC_NA(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	FREEMAIL_CC(0.00)[mit.edu,vger.kernel.org,suse.cz,dilger.ca,linux.alibaba.com,linux.ibm.com,gmail.com,huawei.com,huaweicloud.com,linux.beauty];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[samsung.com:email,suse.cz:dkim,suse.cz:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email]
+References: <20261007095128.1370109-1-benquike@gmail.com>
+In-Reply-To: <20261007095128.1370109-1-benquike@gmail.com>
+From: Xin Long <lucien.xin@gmail.com>
+Date: Wed, 7 Oct 2026 08:53:16 -0400
+X-Gm-Features: AclHuK_HAnf8AxibDk4DcYXebRklfeO2nu44MIRw5S2vZVI5Uo2hAuf7krbvADw
+Message-ID: <CADvbK_dOXrS+3JnqmRyssAJQ0v+WLig-i8Nk-M65Qg51AtskvA@mail.gmail.com>
+Subject: Re: [PATCH net v3] sctp: copy zeroed stats to user in
+ sctp_getsockopt_pr_streamstatus() when !streamoute
+To: Hui Peng <benquike@gmail.com>
+Cc: "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Vlad Yasevich <vyasevich@gmail.com>, 
+	Neil Horman <nhorman@tuxdriver.com>, Simon Horman <horms@kernel.org>, linux-sctp@vger.kernel.org, 
+	netdev@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed 07-10-26 09:41:20, Daejun Park via B4 Relay wrote:
-> From: Daejun Park <daejun7.park@samsung.com>
-> 
-> ext4_ext_convert_to_initialized() may zero out the blocks before and
-> after the range being written and convert them to written together with
-> it, instead of splitting them off the unwritten extent. If
-> ext4_ext_zeroout() fails for one side, it falls back to splitting the
-> extent, so the blocks on that side stay unwritten in the extent tree.
-> But zero_ex1 or zero_ex2 keeps its length, and ext4_zeroout_es() still
-> inserts those blocks into the extent status tree as written.
-> 
-> Until that entry goes away, a read of those blocks returns whatever was
-> on the disk before the extent was allocated. A write to them is mapped
-> from the cache and goes in place without converting the extent, so its
-> data would read back as zeroes once the entry is dropped. To reproduce
-> on 4 KiB blocks with -o nodelalloc: fallocate 32 KiB, map the last seven
-> blocks of that extent to dm-error, write the first block, restore the
-> mapping and read the second block. It returns the old disk contents
-> instead of zeroes.
-> 
-> Clear the length of an extent that could not be zeroed out, so that
-> ext4_zeroout_es() skips it, as the comment at the out label intends.
-> 
-> Fixes: 308c57ccf431 ("ext4: if zeroout fails fall back to splitting the extent node")
+On Wed, Oct 7, 2026 at 5:51=E2=80=AFAM Hui Peng <benquike@gmail.com> wrote:
+>
+> When an SCTP stream output extension structure (streamoute) has not yet
+> been allocated, sctp_getsockopt_pr_streamstatus() sets the local stack
+> variables params.sprstat_abandoned_unsent =3D 0 and
+> params.sprstat_abandoned_sent =3D 0, but then immediately jumps to 'out:'=
+,
+> bypassing copy_to_user(). As a result, when an uninitialized user buffer
+> is passed to getsockopt(SCTP_PR_STREAM_STATUS), the kernel returns
+> success (0) without copying the zeroed stats back to user space, leaving
+> uninitialized data in the user buffer.
+>
+> Refactor the !streamoute check into an if-else chain so that when
+> streamoute is NULL, params is zeroed and falls through to copy_to_user(),
+> copying the zeroed stats to user space and setting retval =3D 0 once befo=
+re
+> returning.
+>
+> Tested in QEMU against Linux 7.3.0-rc3 using an uninitialized
+> sctp_prstatus user struct passed to getsockopt(SCTP_PR_STREAM_STATUS) on =
+a
+> freshly created stream: on the unfixed kernel the user struct contains
+> uninitialized stack garbage; whereas with this fix applied, getsockopt()
+> copies zeroed stats into user space and returns 0.
+>
+> Fixes: f952be79cebd ("sctp: introduce struct sctp_stream_out_ext")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Daejun Park <daejun7.park@samsung.com>
-
-Looks good. Feel free to add:
-
-Reviewed-by: Jan Kara <jack@suse.cz>
-
-								Honza
-
+> Reviewed-by: Xin Long <lucien.xin@gmail.com>
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
 > ---
->  fs/ext4/extents.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
-> 
-> diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
-> index 836396ea79..d65e30f3c1 100644
-> --- a/fs/ext4/extents.c
-> +++ b/fs/ext4/extents.c
-> @@ -3755,8 +3755,10 @@ ext4_ext_convert_to_initialized(handle_t *handle, struct inode *inode,
->  				ext4_ext_pblock(ex) + split_map.m_lblk +
->  				split_map.m_len - ee_block);
->  			err = ext4_ext_zeroout(inode, &zero_ex1);
-> -			if (err)
-> +			if (err) {
-> +				zero_ex1.ee_len = 0;
->  				goto fallback;
-> +			}
->  			split_map.m_len = *allocated;
->  		}
->  		if (split_map.m_lblk - ee_block + split_map.m_len <
-> @@ -3769,8 +3771,10 @@ ext4_ext_convert_to_initialized(handle_t *handle, struct inode *inode,
->  				ext4_ext_store_pblock(&zero_ex2,
->  						      ext4_ext_pblock(ex));
->  				err = ext4_ext_zeroout(inode, &zero_ex2);
-> -				if (err)
-> +				if (err) {
-> +					zero_ex2.ee_len = 0;
->  					goto fallback;
-> +				}
->  			}
->  
->  			split_map.m_len += split_map.m_lblk - ee_block;
-> 
-> -- 
-> 2.43.0
-> 
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+> Changes in v3:
+> - Re-target subject tag from [PATCH net-next v2] to [PATCH net v3].
+> - Fix Fixes: tag SHA to f952be79cebd ("sctp: introduce struct sctp_stream=
+_out_ext")
+>   as suggested by Simon Horman and Xin Long.
+>
+> Changes in v2:
+> - Re-target subject tag to [PATCH net-next v2].
+> - Remove redundant retval =3D 0 assignment in !streamoute block and fall
+>   through to copy_to_user() as suggested by Paolo Abeni and Xin Long.
+>
+>  net/sctp/socket.c | 6 +-----
+>  1 file changed, 1 insertion(+), 5 deletions(-)
+>
+> diff --git a/net/sctp/socket.c b/net/sctp/socket.c
+> index a2235905d2ee..bc5b78ab589a 100644
+> --- a/net/sctp/socket.c
+> +++ b/net/sctp/socket.c
+> @@ -7568,9 +7568,5 @@ static int sctp_getsockopt_pr_streamstatus(struct s=
+ock *sk, int len,
+>         if (!streamoute) {
+>                 params.sprstat_abandoned_unsent =3D 0;
+>                 params.sprstat_abandoned_sent =3D 0;
+> -               retval =3D 0;
+> -               goto out;
+> -       } else if (policy =3D=3D SCTP_PR_SCTP_ALL) {
+> +       } else if (policy =3D=3D SCTP_PR_SCTP_ALL) {
+>                 params.sprstat_abandoned_unsent =3D 0;
+>                 params.sprstat_abandoned_sent =3D 0;
+> --
+> 2.47.3
+V2 is already applied by netdev maintainer with the Fixes tag fixed.
+
+We can drop this one now.
+
+Thanks.
