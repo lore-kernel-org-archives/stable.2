@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E4BB289E13
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 07:12:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59C873B6364
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 07:13:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791357175; cv=none; b=dAu53DlSRycvsBpYtvyVmTGIadFIsyqq1D32+/fjNcYVRtdNtsVdK4LpvKTyW4vzIUeN25qtqxKJNMlbHlN0CljiCkyaetVnbDEf8B2lObJmwJoBN9IOCW4yk3+rgTcJKq3C/lPQ7bElMD9np5M9olD2mQtlJpFLpIy3KuC1kNI=
+	t=1791357214; cv=none; b=SXTb1ZdIDsgaamt20eYWPvUl1MTZwZKZRoMhwtLm3g4RiTgtJw3HzfMsDi3/mEYgF1b+jfEfo09vM9NdkoSC0Nx++4/kyljKtFhvKKpR/3E/RqCB1IxvvYpXjNqmKWcPqgFeikVO6qXdZ1riAPEntDJcYjBKasZsj0Ek37wXaek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791357175; c=relaxed/simple;
-	bh=ODh+tDAQNkgnGt1YRFOS8+RSiz2UWNVIyuo2p051M1w=;
+	s=arc-20240116; t=1791357214; c=relaxed/simple;
+	bh=oQ5ymwj6ZitPJ4/1OkBhNz9oKrecirznI/pOG1YIslM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QTg5jDPodJGn6Qz9ThmZ9IyqO1S8+mxMpjxV9g0qdIzUWTVtXoHDywRJXhSIrQhXGJYKfis4fyshq+psoZIkKo0y5VdSKAF+2+BIt5imQvh+XOlkEYMW6D9Xd5n+3HpjCh6trPcVrnl9sR3oX0jYNKHIbN1uZNELak+TQ+1PR4k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LpfTPRg3; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=DPEZMJniL2WLuBQW3WQlsuYwYyh990zKd1bADmdZ3LHS/2SJpnB23QW9qtPmYfPIzavZLmVCW+li1QQdjNWGndqKRgqTyfpZxy0KYVSNIYVldQK/KjXVPd7Qz7Bpz4O3fn6GrDEQsRFo8f0pw2XMbtv387PqqPaNLybi4YWMZdc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jXyoj2En; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LpfTPRg3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBFBB1F0089B;
-	Wed,  7 Oct 2026 07:12:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jXyoj2En"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE8351F0089B;
+	Wed,  7 Oct 2026 07:13:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791357174;
-	bh=cQYnOH2booZfSM2cULuG0ynXQBhFTVa4mlyZjobod7U=;
+	s=k20260515; t=1791357213;
+	bh=2Y0RZszvT36WBwy64ERWz29bJfIc8XgIhvMkowIWruA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LpfTPRg3cu22H5/98GhSnAi0lPp4yKXsp0WhrH7qpMzBnpbKqmjMOUKdK4zVRPAlH
-	 2Z4JbT0Aph9rVv8uj3dnxOUvGmRyOEk/vmMpRyTpy4q8qNe30XwllWz6NvBFRarqOn
-	 vQpk/BaVwu9ItHq5ufh4QgMtoWm3NjdhZaUFp1gdOP1J0RIFJNmgb4Qec8nchLS7B+
-	 JPR75WWieRML+x9SbZAIq17X4LAvio0YtldoJuhq1U3aEI/qGfnmcvQESnweciyKYZ
-	 wolt1t2JJa3eSgELmuLeRAGYRfWxTECY+2AW9fW+kSl7LchmfKpX3BI00IB7Ny0wqg
-	 VeHNB7mNIXc5g==
+	b=jXyoj2Enf4FnAzH05XJkbl4NVHh6evoTDG3LtpwGgw4kx4Ngn3rhrdE41TqvoUIoU
+	 A/Cwl5VIjioaBsAtUP2XOlSPLbKRRGZsNCquzPuKKQHkPprm2TLtTY4ZMb+GZ4m5ui
+	 1XhxEYlO5V9DbM4UOci+P2w+SLkSt6jFVRKK1x8/5xBVg17xawfSmS1l4zGCnEvDaD
+	 XS5oxPrbbvhyt5qPNHbRyzFfe41g6QyxY3RqBLm+OWggqnaC1qoPsgyTj4F8Fsx2aK
+	 Q/DhE9r/gKCquBFURuZoGI1+xZhgnMDhOojlD4Yy8jFqL2/aihAIaEbfjijfz/TOxg
+	 bwDHCpIwzA5JA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zhiling Zou <zhilinz@nebusec.ai>,
-	Vega <vega@nebusec.ai>,
-	Johannes Berg <johannes.berg@intel.com>,
+Cc: Vladyslav Ivashchenko <cactucatu4eckuu@gmail.com>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] wifi: mac80211: count only matching reservations in reserved switch
-Date: Wed,  7 Oct 2026 03:12:49 -0400
-Message-ID: <20261007071151.1477281-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] iio: adc: axp288: Add TS bias override for Haier HV103H
+Date: Wed,  7 Oct 2026 03:13:29 -0400
+Message-ID: <20261007071240.1633399-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100536-swivel-blinker-8991@gregkh>
-References: <2026100536-swivel-blinker-8991@gregkh>
+In-Reply-To: <2026100612-reminder-crewless-509f@gregkh>
+References: <2026100612-reminder-crewless-509f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,119 +46,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhiling Zou <zhilinz@nebusec.ai>
+From: Vladyslav Ivashchenko <cactucatu4eckuu@gmail.com>
 
-[ Upstream commit 437f3727b4fd715266c296435c116288f82666fd ]
+[ Upstream commit 0f300db7b7315b2c7ea0e2d4437b88de162d191f ]
 
-ieee80211_vif_use_reserved_switch() validates a replacement by counting
-assigned links on ctx->replace_ctx and treating reservations too
-broadly. A link can still be assigned to the old channel context while
-holding a reservation that belongs to a different replacement
-operation.
+The Haier HV103H firmware configures the AXP288 TS pin bias
+current to 60 uA. This causes the battery temperature reading to
+cross the charging temperature threshold under load, incorrectly
+stopping battery charging.
 
-That can make the current replacement appear complete too early. If
-another link finalizes first, the function can free the
-WILL_BE_REPLACED chanctx while the unmatched link and driver still use
-it, leading to a use-after-free in later beacon generation.
+Setting the TS bias current to 80 uA fixes the temperature
+measurement and prevents charging from being incorrectly disabled.
 
-Require an in-place reservation to point at the current replacement
-context, and require the reserved and assigned contexts to be the
-matching replacement pair, before counting or moving the link.
+Add a DMI quirk to use the 80 uA TS bias current on the Haier
+HV103H.
 
-Fixes: 5bcae31d9cb1 ("mac80211: implement multi-vif in-place reservations")
+Fixes: 9bcf15f75cac ("iio: adc: axp288: Fix TS-pin handling")
+Fixes: 048058399f19 ("iio: adc: axp288: Override TS pin bias current for some models") # Add necessary infrastructure
+Signed-off-by: Vladyslav Ivashchenko <cactucatu4eckuu@gmail.com>
+Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
 Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
-Link: https://patch.msgid.link/4b6c4b8648ab1920c38a40be32c0b1a2797b4ac6.1785726007.git.zhilinz@nebusec.ai
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
-[ sashal: Adapted per-link reservation handling to per-vif sdata helpers and list iteration. ]
+Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+[ sashal: Adjusted context to preserve the existing `{}` DMI table terminator instead of `{ }`. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/mac80211/chan.c | 22 ++++++++++++++++------
- 1 file changed, 16 insertions(+), 6 deletions(-)
+ drivers/iio/adc/axp288_adc.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/net/mac80211/chan.c b/net/mac80211/chan.c
-index 5639a71257e41..db8b9d39d6ede 100644
---- a/net/mac80211/chan.c
-+++ b/net/mac80211/chan.c
-@@ -1146,7 +1146,8 @@ ieee80211_vif_use_reserved_assign(struct ieee80211_sub_if_data *sdata)
- }
+diff --git a/drivers/iio/adc/axp288_adc.c b/drivers/iio/adc/axp288_adc.c
+index 8c3acc0cd7e99..9cfe2e8c8484a 100644
+--- a/drivers/iio/adc/axp288_adc.c
++++ b/drivers/iio/adc/axp288_adc.c
+@@ -207,6 +207,14 @@ static const struct dmi_system_id axp288_adc_ts_bias_override[] = {
+ 		},
+ 		.driver_data = (void *)(uintptr_t)AXP288_ADC_TS_BIAS_80UA,
+ 	},
++	{
++		/* Haier HV103H */
++		.matches = {
++		  DMI_MATCH(DMI_SYS_VENDOR, "Haier"),
++		  DMI_MATCH(DMI_PRODUCT_NAME, "HV103H"),
++		},
++		.driver_data = (void *)(uintptr_t)AXP288_ADC_TS_BIAS_80UA,
++	},
+ 	{}
+ };
  
- static bool
--ieee80211_vif_has_in_place_reservation(struct ieee80211_sub_if_data *sdata)
-+ieee80211_vif_has_in_place_reservation(struct ieee80211_sub_if_data *sdata,
-+				       struct ieee80211_chanctx *ctx)
- {
- 	struct ieee80211_chanctx *old_ctx, *new_ctx;
- 
-@@ -1155,6 +1156,9 @@ ieee80211_vif_has_in_place_reservation(struct ieee80211_sub_if_data *sdata)
- 	new_ctx = sdata->reserved_chanctx;
- 	old_ctx = ieee80211_vif_get_chanctx(sdata);
- 
-+	if (new_ctx != ctx)
-+		return false;
-+
- 	if (!old_ctx)
- 		return false;
- 
-@@ -1167,6 +1171,12 @@ ieee80211_vif_has_in_place_reservation(struct ieee80211_sub_if_data *sdata)
- 	if (new_ctx->replace_state != IEEE80211_CHANCTX_REPLACES_OTHER)
- 		return false;
- 
-+	if (new_ctx->replace_ctx != old_ctx)
-+		return false;
-+
-+	if (old_ctx->replace_ctx != new_ctx)
-+		return false;
-+
- 	return true;
- }
- 
-@@ -1217,7 +1227,7 @@ static int ieee80211_chsw_switch_vifs(struct ieee80211_local *local,
- 		list_for_each_entry(sdata, &ctx->reserved_vifs,
- 				    reserved_chanctx_list) {
- 			if (!ieee80211_vif_has_in_place_reservation(
--					sdata))
-+					sdata, ctx))
- 				continue;
- 
- 			old_ctx = ieee80211_vif_get_chanctx(sdata);
-@@ -1324,7 +1334,7 @@ static int ieee80211_vif_use_reserved_switch(struct ieee80211_local *local)
- 		list_for_each_entry(sdata, &ctx->replace_ctx->assigned_vifs,
- 				    assigned_chanctx_list) {
- 			n_assigned++;
--			if (sdata->reserved_chanctx) {
-+			if (ieee80211_vif_has_in_place_reservation(sdata, ctx)) {
- 				n_reserved++;
- 				if (sdata->reserved_ready)
- 					n_ready++;
-@@ -1345,7 +1355,7 @@ static int ieee80211_vif_use_reserved_switch(struct ieee80211_local *local)
- 		ctx->conf.radar_enabled = false;
- 		list_for_each_entry(sdata, &ctx->reserved_vifs,
- 				    reserved_chanctx_list) {
--			if (ieee80211_vif_has_in_place_reservation(sdata) &&
-+			if (ieee80211_vif_has_in_place_reservation(sdata, ctx) &&
- 			    !sdata->reserved_ready)
- 				return -EAGAIN;
- 
-@@ -1415,7 +1425,7 @@ static int ieee80211_vif_use_reserved_switch(struct ieee80211_local *local)
- 				    reserved_chanctx_list) {
- 			u32 changed = 0;
- 
--			if (!ieee80211_vif_has_in_place_reservation(sdata))
-+			if (!ieee80211_vif_has_in_place_reservation(sdata, ctx))
- 				continue;
- 
- 			rcu_assign_pointer(sdata->vif.chanctx_conf, &ctx->conf);
-@@ -1468,7 +1478,7 @@ static int ieee80211_vif_use_reserved_switch(struct ieee80211_local *local)
- 		list_for_each_entry_safe(sdata, sdata_tmp, &ctx->reserved_vifs,
- 					 reserved_chanctx_list) {
- 			if (WARN_ON(ieee80211_vif_has_in_place_reservation(
--					sdata)))
-+					sdata, ctx)))
- 				continue;
- 
- 			if (WARN_ON(sdata->reserved_chanctx != ctx))
 -- 
 2.53.0
 
