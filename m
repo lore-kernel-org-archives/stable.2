@@ -1,138 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D57525A2A2;
-	Wed,  7 Oct 2026 00:41:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9475E2AD32;
+	Wed,  7 Oct 2026 00:46:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791333691; cv=none; b=rsD++ALQcn/VmyYZttG7y1+Och99kFVwO132gCX21pEiA9SVU5CuG2lehvgF9qgsAKJC9Sf+2LQ4ysXe2qsXd1Tlx7evbBi6bS+ufLSCcHhLfqgtq48WmcwOGmMtbVrHvWtpA22EODUDLJLaie48txmc570W/Od3teMRjQNQTyM=
+	t=1791333990; cv=none; b=Btn8hpVD2AaYiCBnLElaiobZz1dzC48Rj6UR4cGT3leWkfjO9WUGn2e9W1wV5lb5nV+e3hLpSuz9v957AXJG+l/htdIN2T3xo5VFp3UgvB1BLv9hdnHrFOJ1VBBTQoaruMW7l2qqhsqA2LK+U3q+3cCgtkBp0XarEnqbvnTBpSk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791333691; c=relaxed/simple;
-	bh=7D7cc1cEIF7G7OPcCezM18yaqPY5ebfOkWK4UlBTIZ0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=V2RG1OCofUDZ0LRebJqJv3gXqLtH9Fjov8ZkwX4SS0+9hSvbWByyzWeH4yWDWFHxzD3n3cqINyOMhDgY4tc0bZNf2vvfSd4Oas2NymRx+YqcAeFBaOHsExXthah/pqN0w5Pd0D+tLlvOjh/XA95IDEI9ZNpoipM6c1/n3zAxfew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KAzlfiZB; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791333990; c=relaxed/simple;
+	bh=DWkd33monIfLrk8hXdr6qmQ91ALR2N8OUPmwH+/KDGw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IoQEb8iO4KbFyfNSVW2LVhYZAXyhsudSztwkCoko5VNkAV6SdY7PZ0pGyVEzrGmMr6OiN7de+kdf2OgvfTxxQpgLmloLlRGSB0v+ifzPikwUk2MhF89B7AuVErmhJeNRb7HdH/NshZyjKAQqC1rQz8q4mWmBcXGu6wAoMvH5K0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=RjBg8YnQ; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KAzlfiZB"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 19352C4AF60;
-	Wed,  7 Oct 2026 00:41:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791333691;
-	bh=7D7cc1cEIF7G7OPcCezM18yaqPY5ebfOkWK4UlBTIZ0=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=KAzlfiZBvnRrQuD1N4ks+8k3yp9bkcEqUvqbFFImCgNaRDzi2R3S4bmP73llytS3A
-	 yIb7uiXOdwvqb28ZC1mwiqXeJphbRQBMtTw+i2zYZECiZA8OjVqQ4cbmVddQG6z9Hq
-	 ZP7bxTD4QstHFFjKPP+cNox3CM6MrYvzA+L8HYiQ630MrfxCB0EumcDVrOH6mXeccs
-	 2+b1TWT9JoyIMvM29/d4BhtuyGM3V6PxPwFyZs3FLPA3fGt8KgPTuTtajnMm7ek2Pu
-	 kmI4ieD2d73Hs6kDNwPCaKhlxQHnLXTtCOTFzApra4BAour8ZIrvXvFS6d/+aaQlMV
-	 LXvy5g5tpEACQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0782CCA5FED;
-	Wed,  7 Oct 2026 00:41:31 +0000 (UTC)
-From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
-Date: Wed, 07 Oct 2026 09:41:31 +0900
-Subject: [PATCH] ext4: skip holes when shrinking the extent tree in fast
- commit replay
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="RjBg8YnQ"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 20AEB40E02A8;
+	Wed,  7 Oct 2026 00:46:19 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id dlnvTP_8Zdjw; Wed,  7 Oct 2026 00:46:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1791333969; bh=MpDg4jsfmyhPM2TgyK4940GnDik1JkqLDLHNrmYEoyI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=RjBg8YnQ7RsoKOUndGPXxVODu/r+M/LGJD2w/lfJK+VqHrfDj/g98DhUTG3IlMDif
+	 9kRRgpFb8m9A8pOgz71LczqvI7KHNvwcFD3psgHbam0WDjpN+B5Im8srEfNT8W1Vxh
+	 6rUOJZgqlMVtzJnMKkPIXFIuoVhoxeGRBwZ3IsPwMkCiUZVPFFp+RNMpKHsXlDTJAv
+	 ic9VCfnwNpWb/201V12S4xnXAzG/s+uPFQUsNwQqzjrXLHoFqc5Y28s/vvrghhhkXQ
+	 YeYbywSYtxgxXkspU+/hTwB/MSaZGE41Dz2Pf8gKQYGgcpI++o/UIYzdOcfeL24lQM
+	 p13v06g+GdlJit8+L9hy2AhwJwOAQvYX61mY19SojWZYYl1Zvai93R7/ytDEp6pCf8
+	 F3YySqFfJvHWs/NtS3wAxpPiF61UDilTYcckg4eY5NtK4QUKPrASw4uG85KDgVNmLl
+	 eMw2Q2U9PJON2yqI8cyyHd/vqB4RGa1w3iCNxFFDoRueySpn7jH6J4+4xfU+Qyf9r0
+	 1wVkSw17hzkm/w/IaWOqCeUNvSJMyQ+6oAG/lBEe84uWHDl+ybh8kInY7KwxH/HDFC
+	 5Y0BTjmBPwE7EHQRh6Znleod91ZovG3R8yDJDuCwkAxK+gZG6GdEq4Pyx0MJBv1j8i
+	 /kB5kdyZ3Z+kUIKdFkqyBDgI=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::2b])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id A8DF040E00E5;
+	Wed,  7 Oct 2026 00:46:00 +0000 (UTC)
+Date: Tue, 6 Oct 2026 17:45:57 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Kyle Zeng <kylebot@openai.com>
+Cc: linux-kernel@vger.kernel.org, tglx@kernel.org, mingo@redhat.com,
+	dave.hansen@linux.intel.com, x86@kernel.org,
+	outbounddisclosures@openai.com, stable@vger.kernel.org
+Subject: Re: [PATCH] x86/fpu: Avoid kernel-address leaks in the FXSAVE
+ workaround
+Message-ID: <20261007004557.GAasWWRcOTfDzcZZw3@fat_crate.local>
+References: <20261006221541.35963-1-kylebot@openai.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261007-ext4-fc-replay-shrink-v1-1-0e45fc03030d@samsung.com>
-X-B4-Tracking: v=1; b=H4sIADqVxWoC/x3MQQqEMAxA0atI1hNog5bqVWQW0kltmKFKKqKId
- 7fM8i3+v6CwChcYmguUdymy5Ar7aiCkKc+M8qkGMuSsMQ752FqMAZXX33RiSSr5i6Gl3ntPZDs
- HtV2Voxz/7/i+7wftP2+UZwAAAA==
-To: Theodore Ts'o <tytso@mit.edu>, linux-ext4@vger.kernel.org
-Cc: Jan Kara <jack@suse.cz>, Andreas Dilger <adilger.kernel@dilger.ca>, 
- Baokun Li <libaokun@linux.alibaba.com>, 
- Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
- Zhang Yi <yi.zhang@huawei.com>, Zhang Yi <yi.zhang@huaweicloud.com>, 
- Harshad Shirwadkar <harshadshirwadkar@gmail.com>, Li Chen <me@linux.beauty>, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Daejun Park <daejun7.park@samsung.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791333690; l=3028;
- i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
- bh=9d0ePU+Z2uVyA8ZMCH2z+JohIkqRKRBLCKpFRrYMEkk=;
- b=uWk7CtWrwT45KwH64V76BnKJKrIrm5YwsyJfQn+gDU9NDiYld9yipQob6eDY+B1Tr4smMo4N2
- VG9HSFKxMWtCYvcLzIVVIyQKowYdqmp8vTjWYPxFQvUDDXQcgDurOkj
-X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
- pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
-X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
- auth_id=1122
-X-Original-From: Daejun Park <daejun7.park@samsung.com>
-Reply-To: daejun7.park@samsung.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261006221541.35963-1-kylebot@openai.com>
 
-From: Daejun Park <daejun7.park@samsung.com>
+On Tue, Oct 06, 2026 at 03:15:41PM -0700, Kyle Zeng wrote:
+> On AMD CPUs without XSaveErPtr, restoring x87 state without a pending
+> exception can leave FDP/FIP/FOP unchanged.  The existing workaround
+> replaces the previous context's pointers by executing FILD on a kernel
+> fpstate.  This exposes the kernel instruction and operand addresses
+> instead.  On TCG qemu64, an unprivileged task can recover the kernel
+> text slide with FNSTENV at ELF entry, even though FXSAVE64 reports zero
+> error pointers.
 
-ext4_ext_replay_shrink_inode() walks the extents of an inode from block
-0 up to the given end and tries to merge each one with its neighbours.
-When the walk is in a hole that follows an extent, ext4_find_extent()
-returns that extent, and the walk moves on by a single block. Replay
-calls it up to i_size after every ADD_RANGE and DEL_RANGE tag, so the
-time recovery takes is proportional to the number of tags times the
-number of hole blocks below i_size.
+Is this where you basically prompt the LLM to find you any bug in the kernel,
+no matter the relevance, as long as there is something?
 
-After a crash, mount can be busy for minutes. Replaying a single
-ADD_RANGE tag, for one block written and fsynced in a sparse file with
-a 1 TiB i_size, kept mount busy for 157 seconds. Replaying four fast
-commits of a sparse file with 512 written regions (2048 ADD_RANGE tags,
-and 2044 DEL_RANGE tags for the gaps between them) took 44 seconds when
-the file was 64 MiB and 177 seconds when it was 256 MiB. With this
-change the 1 TiB case takes less than 0.1 seconds, and the other two 3
-seconds each.
+Or do you also ask it to consider the practical relevance of the fix and
+whether it is even worth doing it?
 
-When the walk is in such a hole, continue at the next extent, as
-returned by ext4_ext_next_allocated_block(), or stop if there is none.
-For each block skipped this way, the old walk found the same extent
-again and retried the same merges, so the resulting tree is the same.
-
-Fixes: 8016e29f4362 ("ext4: fast commit recovery path")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daejun Park <daejun7.park@samsung.com>
----
-Tested in QEMU on ext4 dev 9091c97be340 with a 2 GiB file-backed virtio
-disk and 4 KiB blocks, crashing by killing QEMU and timing mount(8).
-Every fsynced block was verified and e2fsck -fn was clean in each run.
-A 1 GiB file with 40 such fast commits (20480 ADD_RANGE and 20440
-DEL_RANGE tags) took 31.5 seconds with this change. xfstests ext4/044
-ext4/045 generic/455 generic/456 generic/482 with -O fast_commit give
-the same results as without it (generic/455 fails on both, at different
-marks).
-
-The walk still visits every extent from block 0 for each tag. Bounding
-it to the extents around the tag's range, or shrinking once per inode at
-the end of replay, could be a follow-up.
----
- fs/ext4/extents.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
-index 836396ea79..df7e1ccb94 100644
---- a/fs/ext4/extents.c
-+++ b/fs/ext4/extents.c
-@@ -6217,8 +6217,10 @@ void ext4_ext_replay_shrink_inode(struct inode *inode, ext4_lblk_t end)
- 		}
- 		old_cur = cur;
- 		cur = le32_to_cpu(ex->ee_block) + ext4_ext_get_actual_len(ex);
-+		/* ex ends before old_cur, which is in a hole: skip the hole */
- 		if (cur <= old_cur)
--			cur = old_cur + 1;
-+			cur = max(old_cur + 1,
-+				  ext4_ext_next_allocated_block(path));
- 		ext4_ext_try_to_merge(NULL, inode, path, ex);
- 		down_write(&EXT4_I(inode)->i_data_sem);
- 		ext4_ext_dirty(NULL, inode, &path[path->p_depth]);
-
----
-base-commit: 9091c97be34083587a75db174aab51551d8e8543
-change-id: 20261006-ext4-fc-replay-shrink-c42988822156
-
-Best regards,
 -- 
-Daejun Park <daejun7.park@samsung.com>
+Regards/Gruss,
+    Boris.
 
-
+https://people.kernel.org/tglx/notes-about-netiquette
