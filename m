@@ -1,153 +1,170 @@
-Received: from mta1.migadu.com (out-187.mta1.migadu.com [95.215.58.187])
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F9113F9F25
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 06:56:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.187
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87B8433FE05
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 07:01:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791356196; cv=none; b=L6NeKLFer4VnrBYz6dMVwBrUm7FWvYPzai9DKmGC6LuUMGEh3pXDpDpu4u3a5EBfwEi0cmpDgzGY0VvFG6u5e7pXkZ3ioBewGtZyvY3mYChin0DzxYiKdMB8Ei8bIBpafMwE20gMZMY6bByoe8sDKINqRY56a9bwkTM6AtPh0h0=
+	t=1791356487; cv=none; b=stfOAL7iHYFEPr+J0LOuEy8h9KRN31a1IWZhQ4Ja+tsA61dB0U3WpZWjbT6KkCDXl4LvWbFza5rqBesXzJvNGnHgdeCPRSI2MPEmU3jU3ej2/GbGVPm32y1Vf53Luam7fcnmlJq6OMBBbyopKykxDUTHWGpYBoIHFVyEKkiZe1A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791356196; c=relaxed/simple;
-	bh=mPOvJG+Ziey8rOnXrm2JZksycs/MgRXkSM6LzT8+SRs=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=SfuWdSwbeYBM1x2kWlLUs28dmZx5W+vUEAXdayGqKAyug8aOfXfSVPClv+p6kXTfmrzX430q6giALe/Iifbd+1STCn/lh9xnMectGhptDzXANm0Wop8i62hzHbFwsEcV94xSIbxeyX7WNJF0aFfV91WpeOltHyWSlZj9+paY+As=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=e0SEt2RM; arc=none smtp.client-ip=95.215.58.187
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791356487; c=relaxed/simple;
+	bh=BT7supmi8j9/4xEhUciiGtS2UwrxU0jcs8ZSppgVUFA=;
+	h=From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References; b=QvNpqOla/jO02+E4qitw0KdGZizAUqCaYoxJrZ0Juc8UjkHST8ayLy7LKKYGJKTopsKfW0w8U87HL4XfWeCguzEjN8AR1+At/0yVWnVdlCBzmLaloIGzCKiQaACg4Bej31ysA/+cr1jdtkO3AyZdglpONHiESmZQtBnF40LJ49I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pwM8A/dw; arc=none smtp.client-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="e0SEt2RM"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=mPOvJG+Ziey8rOnXrm2JZksycs/MgRXkSM6LzT8+SRs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791356193; v=1; x=1791960993;
- b=e0SEt2RMWH6D58TQ0LJMR0qeW7fVlOH1UsXG0u+n+rATOf8nPNC8cdFF6F5Cs31M9CGosokW
- wVdWvtwCDl6SiMVFld/6aB2IC5vpRro72g55AIYyk+7xmVwn5OANjXr4HgicW0M57RS/ybGMv50
- ecGuoGRAhJlVGK1kMEIm8N3s=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 81c8206f9f617cbb;
-	Wed, 07 Oct 2026 05:21:24 +0000
-X-Mizu-Trace-ID: 81c8206f9f617cbb
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pwM8A/dw"
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-3282db206d3so10597137eec.0
+        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 00:01:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791356486; x=1791961286; darn=vger.kernel.org;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=oLpEQSu57uD4VcTdj38WGaIEWGG6OR3d21k199k1TPg=;
+        b=pwM8A/dwgJhMm4QxF7YIeQ6cl8RDllW475VeJonwTjGNEpDmZDVw1JWServ6jdFFgZ
+         ijnZ/cXrNeo22OygLf7we/eMqGfpYPSu35gx6p3qt9OyUVpjTC6QnVUKWjsNm9fJSbEh
+         XCDzUUx6FGSjaSJ7jIruoO9BPDh6CIoVS7UqNnjsQX4zgMZ5mVU4VE0Ji+OST55IFQZC
+         yoBprxG+OkQJzBtyneBwmdLuyTnFTnKhOgWgzfLMgd9+6J4V1l1RhkQ71QSCjdyE6cQW
+         YnWDYimfAFu9II1UzPcbOJ+1ff/gs0CBf0M6TQ/3BGIdMH5ig0j00PqROV2kTgvSnRHR
+         jzAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791356486; x=1791961286;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oLpEQSu57uD4VcTdj38WGaIEWGG6OR3d21k199k1TPg=;
+        b=UnshjSqmepnEzRntHmnDRswnWRCpvqO98FVffvP9uMoVLK30sBEPw91iE+p/3lRbCa
+         Re0hO+++c7tt+fhTT9pShtWUu2Kri2gFDodjbMD3eq9LrlaZAuuG9tWvluzNLaOlU/nj
+         vEQ+tG3kzb0wjmFXvh8exLDEj8pvdlF8btcp8pVZatZ8ydJaoBKQh082jRYY+3VA0L+Z
+         HecbJtpFQfcMIvtxRlVMDwTDW0JyoJ3p/RSsJTNlq92ffBRZKEB4aTp66UWJL6vXDOGb
+         cyOlRHiN1ZbNx0ir26KRCz5egSScrK1pyQbwIA9LH2gPnh2JWrA+PNuc96BYZBvovsTB
+         YhFg==
+X-Forwarded-Encrypted: i=1; AKwUvBw+DD1E6CcLyQk+qwHgK0o/4iYJMJ7wb7MNYPu9In28FqBt+sT3EeFrVPf45UTT/u1pdcKfKyo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLGNapC7d3lGqX2kDS9esCiLyAdrQHIFWk9DboPBTTvyBhSmoSp
+	FBgXOhKgakyPT+tSlC7j0BLeTH7DDEGjX5v1D3iYzGTWWP+uaWudRSbi
+X-Gm-Gg: AYBFou1GdoPVN5xBQMBxinsDnS6Uvqoqc0mEFJxxUqccomrOL/PqyLAYq/Mgu8WWYuJ
+	lxsW3cK0aNdRXTfRBVnh/wll07oJ+aFnlTHyZhU7aTJ5RYCPU+iM0w37+0v+ynCx/4OS1uWCgGt
+	1FLXZQYo/YWhTfzIHCF1Ga6fH4OFF7JbrK2MrY2M3JyUTJOwgxnhAkyB14cbFc3pN3rGdj8e+Gb
+	BgKJU2cwVnJM6wPHIBjGjNp27E9iCyUeYGMO1N7bXrRCDXdEN59DD/NueGeQ4NDq6dCgirRHH95
+	Oxp8/T1rMu5EPtLf9YXn4iUWZxcQULT51J9SbSYraAwlUJ5/EGURYZsLLrha0PqmwZEW5v/m/Ja
+	B86rLAFJIY8k9G7dZMC649XwyPE0pmDdes4u+GrABoiU4LQ2EKY0QG/n82TBq0OdKVRoC8P4qGg
+	eFiWcQ4+ct3iWFYj4CsvtfAJXMQRwWRlk1CE2Fqz+Jv4CGKUOVdah3yWU+PnMu65c+dQpCDHCDR
+	Atrf3/c9vKF/0CbO/es3lBEZgoqDaBzhzALXf2JXwq+8sdBtZNcHg==
+X-Received: by 2002:a05:7301:6907:b0:34c:85c:da56 with SMTP id 5a478bee46e88-3515dde8fa4mr1393173eec.17.1791356485497;
+        Wed, 07 Oct 2026 00:01:25 -0700 (PDT)
+Received: from pve-server ([49.205.216.49])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3515af26f10sm5850369eec.13.2026.10.07.00.01.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 00:01:24 -0700 (PDT)
+From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+To: Amit Machhiwal <amachhiw@linux.ibm.com>, Madhavan Srinivasan <maddy@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org
+Cc: Amit Machhiwal <amachhiw@linux.ibm.com>, Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, Shrikanth Hegde <sshegde@linux.ibm.com>, kvm-ppc@vger.kernel.org, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, Gautam Menghani <gautam@linux.ibm.com>, Harsh Prateek Bora <harshpb@linux.ibm.com>, R Nageswara Sastry <rnsastry@linux.ibm.com>, Alexander Graf <agraf@suse.de>, linux-hardening@vger.kernel.org, stable@vger.kernel.org, Avi Kivity <avi@redhat.com>
+Subject: Re: [PATCH v3 2/3] KVM: PPC: Book3S HV: Add preempt_disable() around virtual-mode HPTE bit-lock users
+In-Reply-To: <20261006122404.99358-3-amachhiw@linux.ibm.com>
+Date: Wed, 07 Oct 2026 11:48:24 +0530
+Message-ID: <33uirq33.ritesh.list@gmail.com>
+References: <20261006122404.99358-1-amachhiw@linux.ibm.com> <20261006122404.99358-3-amachhiw@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Date: Wed, 07 Oct 2026 05:21:23 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Luka Gejak" <luka.gejak@linux.dev>
-Message-ID: <9f5d3b374ac9793b745e96121fcfc875083dc873@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH rtw-next v4 2/4] wifi: rtw88: sdio: Track running state
- and cancel TX worker on stop
-To: "Ping-Ke Shih" <pkshih@realtek.com>, "Alastair D'Silva"
- <alastair@d-silva.org>, linux-wireless@vger.kernel.org, "Kalle Valo"
- <kvalo@kernel.org>
-Cc: "Martin Blumenstingl" <martin.blumenstingl@googlemail.com>, "Jernej
- Skrabec" <jernej.skrabec@gmail.com>, "Ulf Hansson" <ulfh@kernel.org>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- luka.gejak@linux.dev
-In-Reply-To: <1b8a86e84c474693bfa71f39e946e7e6@realtek.com>
-References: <20261005084849.3109337-1-alastair@d-silva.org>
- <20261005084849.3109337-3-alastair@d-silva.org>
- <6665409e1d374c1face4936b827a6a9d@realtek.com>
- <ccc69689fe2a2cccc39d40221056722e24263f2f@linux.dev>
- <1b8a86e84c474693bfa71f39e946e7e6@realtek.com>
 
-October 7, 2026 at 03:26, "Ping-Ke Shih" <pkshih@realtek.com mailto:pkshi=
-=3D
-h@realtek.com?to=3D3D%22Ping-Ke%20Shih%22%20%3Cpkshih%40realtek.com%3E > =
-wr=3D
-ote:
+Amit Machhiwal <amachhiw@linux.ibm.com> writes:
+
+> kvmppc_hv_find_lock_hpte() requires virtual-mode callers to run with
+> preemption disabled, because it can return with HPTE_V_HVLOCK still held
+> until the caller later unlocks the HPTE.  Existing virtual-mode callers
+> in book3s_64_mmu_hv.c already follow that rule, but several paths do
+> not.
+>
+> kvmppc_handle_exit_hv() calls kvmppc_hpte_hv_fault() for hash-mode
+> data-side and instruction-side faults after guest exit with preemption
+> enabled.  kvmppc_pseries_do_hcall() executes virtual-mode HPT hcall
+> handlers via kvmppc_pseries_do_hpt_hcall() with preemption enabled; the
+> handlers for H_ENTER, H_REMOVE, H_READ, H_CLEAR_MOD, H_CLEAR_REF,
+> H_PROTECT, and H_BULK_REMOVE all spin on try_lock_hpte() or lock_rmap().
+> H_ENTER also reaches kvmppc_do_h_enter(), which uses arch_spin_lock() on
+> kvm->mmu_lock.  That raw lock choice is intentional because
+> kvmppc_do_h_enter() is also called from real-mode paths, so the correct
+> fix is to establish the proper preemption context at the virtual-mode
+> caller boundary.
+>
+> On the host side, kvm_unmap_rmapp(), kvm_age_rmapp(),
+> kvm_test_clear_dirty_npages(), and resize_hpt_rehash_hpte() also acquire
+> HPTE_V_HVLOCK via try_lock_hpte() in process context with preemption
+> enabled, serving MMU notifier callbacks, dirty-log harvesting, and HPT
+> resize respectively.
+>
+
+I was going over all the callers of lock_rmap() and try_lock_hpte() on,
+and I see that we might have missed kvm_htab_write() path...
+
+... after spending sometime looks like we need this diff for
+kvm_htab_write() path as well, since it calls kvmppc_do_h_remove() which
+calls try_lock_hpte() and lock_rmap(), although the race window is much
+narrower and maybe very hard to hit.
+
+But still, could you kindly look into this and if needed please take it
+forward too. Please note that this is not tested, so hoping that you
+could take care of that too.
 
 
->=20
->=20Luka Gejak <luka.gejak@linux.dev> wrote:
->=20
->=20>=20
->=20> > @@ -1703,6 +1712,9 @@ static void rtw_sdio_tx_handler(struct work=
-=3D
-_struct *work)
-> >  > rtwdev =3D3D work_data->rtwdev;
-> >  > rtwsdio =3D3D (struct rtw_sdio *)rtwdev->priv;
-> >  >
-> >  > + if (!rtwsdio->running)
-> >  > + return;
-> >  > +
-> >  >
-> >  I don't think we need this, since you added cancel_delayed_work_sync=
-=3D
-() in
-> >  rtw_sdio_stop().
-> >=20
->=20>  I think we should keep the check. The tx work arms the SDIO work a=
-=3D
-t the end,
-> >  and stop does not cancel it:
-> >=20
->=20>  rtw_hci_tx_kick_off(rtwdev);
-> >=20
->=20>  cancel_work_sync(&rtwdev->c2h_work);
-> >  cancel_work_sync(&rtwdev->update_beacon_work);
-> >  cancel_delayed_work_sync(&rtwdev->watch_dog_work);
-> >  cancel_delayed_work_sync(&coex->bt_relink_work);
-> >  cancel_delayed_work_sync(&coex->bt_reenable_work);
-> >  cancel_delayed_work_sync(&coex->defreeze_work);
-> >  cancel_delayed_work_sync(&coex->wl_remain_work);
-> >  cancel_delayed_work_sync(&coex->bt_remain_work);
-> >  cancel_delayed_work_sync(&coex->wl_connecting_work);
-> >  cancel_delayed_work_sync(&coex->bt_multi_link_remain_work);
-> >  cancel_delayed_work_sync(&coex->wl_ccklock_work);
-> >=20
->=20In rtw_sdio_stop(), it does cancel_delayed_work_sync(&rtwsdio->tx_han=
-=3D
-dler_data->work);
-> Is it not enough?
->=20
+Thanks!
+-ritesh
 
-That=20is enough for a work item that is already armed. It does not cover=
-=3D
- an
-arm that lands after the call, and that can happen:
 
-[...]
->  1. rtwsdio->running =3D3D false;
->  // prevent to schedule rtwsdio->tx_handler_data->work again
+diff --git a/arch/powerpc/kvm/book3s_64_mmu_hv.c b/arch/powerpc/kvm/book3s_64_mmu_hv.c
+index 908495f2b001b..916db7ceb51a9 100644
+--- a/arch/powerpc/kvm/book3s_64_mmu_hv.c
++++ b/arch/powerpc/kvm/book3s_64_mmu_hv.c
+@@ -47,6 +47,8 @@
+ static long kvmppc_virtmode_do_h_enter(struct kvm *kvm, unsigned long flags,
+                                long pte_index, unsigned long pteh,
+                                unsigned long ptel, unsigned long *pte_idx_ret);
++static void kvmppc_virtmode_do_h_remove(struct kvm *kvm,
++                               unsigned long pte_index, unsigned long *hpret);
 
-Nothing reads rtwsdio->running on the arming path. wake_tx_queue() tests
-the flag at the top and queues the work at the bottom:
+ struct kvm_resize_hpt {
+        /* These fields read-only after init */
+@@ -308,6 +310,19 @@ static long kvmppc_virtmode_do_h_enter(struct kvm *kvm, unsigned long flags,
 
-	if (!test_bit(RTW_FLAG_RUNNING, rtwdev->flags))
-		return;
+ }
 
-	if (txq->ac =3D3D=3D3D IEEE80211_AC_VO)
-		__rtw_tx_work(rtwdev);
-	else
-		queue_work(rtwdev->tx_wq, &rtwdev->tx_work);
++/*
++ * Virtual-mode H_REMOVE.  kvmppc_do_h_remove() is also called from real
++ * mode, where preempt_disable() is not usable, so the guard stays here.
++ * The helper takes HPTE_V_HVLOCK and the rmap bit and does not sleep.
++ */
++static void kvmppc_virtmode_do_h_remove(struct kvm *kvm,
++                               unsigned long pte_index, unsigned long *hpret)
++{
++       preempt_disable();
++       kvmppc_do_h_remove(kvm, 0, pte_index, 0, hpret);
++       preempt_enable();
++}
++
+ static struct kvmppc_slb *kvmppc_mmu_book3s_hv_find_slbe(struct kvm_vcpu *vcpu,
+                                                         gva_t eaddr)
+ {
+@@ -1878,7 +1893,7 @@ static ssize_t kvm_htab_write(struct file *file, const char __user *buf,
+                        nb += HPTE_SIZE;
 
-then __rtw_tx_work() kicks the SDIO work at the end:
+                        if (be64_to_cpu(hptp[0]) & (HPTE_V_VALID | HPTE_V_ABSENT))
+-                               kvmppc_do_h_remove(kvm, 0, i, 0, tmp);
++                               kvmppc_virtmode_do_h_remove(kvm, i, tmp);
+                        err = -EIO;
+                        ret = kvmppc_virtmode_do_h_enter(kvm, H_EXACT, i, v, r,
+                                                         tmp);
+@@ -1907,7 +1922,7 @@ static ssize_t kvm_htab_write(struct file *file, const char __user *buf,
 
-	rtw_hci_tx_kick_off(rtwdev);
+                for (j = 0; j < hdr.n_invalid; ++j) {
+                        if (be64_to_cpu(hptp[0]) & (HPTE_V_VALID | HPTE_V_ABSENT))
+-                               kvmppc_do_h_remove(kvm, 0, i, 0, tmp);
++                               kvmppc_virtmode_do_h_remove(kvm, i, tmp);
+                        ++i;
+                        hptp += 2;
+                }
 
-The sequence:
 
-1. wake_tx_queue() reads the flag while it is still set and queues
-   rtwdev->tx_work.
-2. rtw_core_stop() clears the flag and cancels its list of works.
-3. rtw_sdio_stop() sets running to false and disables the interrupts. The
-   cancel_delayed_work_sync() finds nothing armed and returns at once.
-4. rtw_tx_work() runs now, nothing cancelled it, and it ends in
-   rtw_sdio_tx_kick_off(), which arms the delayed work again with
-   mod_delayed_work().
-5. rtw_sdio_tx_handler() runs, and without the check it calls
-   rtw_sdio_deep_ps_leave() and then walks the queues on a MAC that is
-   being powered off.
-
-So the cancel only orders against a kick that came before it, and the
-check covers the other order.
-
-Best regards,
-Luka Gejak
