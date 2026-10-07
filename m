@@ -1,33 +1,33 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EA2938E5E9;
-	Wed,  7 Oct 2026 10:21:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BC7B48383C;
+	Wed,  7 Oct 2026 10:29:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791368480; cv=none; b=kDYxWZ90JBZ9N73YzXQvtABL+ESlcKsghCmk+dFqc4ZmU/BN71uEZkkOEEvp92GCPmcnbHRx9v5n9ywCYA6UpxMmnElI2vxwZIfTg5kKF88zKfOoveUnehwDF0Kz7A896JxNuevgTLpvCweNoWZvbBGYaHQDHHgZhozW4xGd3Og=
+	t=1791369006; cv=none; b=ehcxOEiEmBsUvEJqWZbvXpBaqZGj4Ls3dY3OeTS6JnM/jDpTE29/ZxXthGnLA3UER9RbmajxjlYii0tyAD6YqHl9ZFZXujbn0zChy27nVmZ2/KubtEtJrphW5ImGjCaMPQP3RjjY4UQQHFYINokuYRv/5AfETRlAe5dtMkW/S8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791368480; c=relaxed/simple;
-	bh=skfK6MkSAObp9QLDJEjDojAuBMjgC9wVjlyL5GbCO3Q=;
+	s=arc-20240116; t=1791369006; c=relaxed/simple;
+	bh=YLAMddstn1TdC6dj6d62pz8vG6y5Ko1Mdg4jA91wFoM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=k7dUIPGiJvXysf/uVgDRiaCnMf8T2fQAM7PQfYiKJcexVnAY4LfWnntZPjj+/IYMFehvbPZqJ0W/tnInvGj78TP8Ak3rO5lEydCCMzT4YA/c7Ygb9MO35ExBxUUN5YyNJBGdJ8+KdLNs5rBPbB8gPK1ZeIkJV75SVado6JmBbx0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eZzP/FiX; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=egiSuN4I9tXmsMckhLR064BOw402h0QO/5IoYkAQxLOAfsLhzM0hF/as4A9OC32SHhurrLE5C1ggTJsnTPD4Bs0hu8ntAEzswF0D1Wl+3Z+4T+0LocK/gBjHuT1+l+W/0yB8U9vGk0GdhbIAF1UEyHtphPE/nkwXEj181jKwv6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=t04kAcBz; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eZzP/FiX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A50351F0089B;
-	Wed,  7 Oct 2026 10:21:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791368472;
-	bh=TrfCVMmocMCDoVFt/WhSovNj4qLHgB/L5kDcrdtONbI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=eZzP/FiXpy188K8IQ2+WkQkpDUrAXFrBdIPhBTbbAGJwGwd9olZnyzdNkyUTgLWmh
-	 ek0iEnqgREe+LIp+akXe0NuCFYrp2PO47S5j9UmLAp0qYMnLrfuPOyMtkBpDhw2c0y
-	 6U2EFSncINVVbDn3uLs6Wq8ExtSAJuA8BuQj/FBMOBYEuTdiLv0/hzQdERWOhijuEA
-	 NA79RbKR7u4PMZDkzIEbx6GJtQ1zADuLJ91DivfZ1k3AxxFnqOqF/tsKWOi+Pwfq4R
-	 mViyYNN2eCzTZ7maQmFciak7nJrz9p/WVydmyz+WfAzIbqyCES6HusgG2gs1SMDODs
-	 +OFceyZ926JqQ==
-Message-ID: <042c2846-c70b-415e-a3a5-0e69485d5c0b@kernel.org>
-Date: Wed, 7 Oct 2026 12:21:08 +0200
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="t04kAcBz"
+Received: from [192.168.0.43] (chfd-03-b2-v4wan-176392-cust229.vm15.cable.virginm.net [82.19.20.230])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C5CAE1494;
+	Wed,  7 Oct 2026 12:27:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1791368875;
+	bh=YLAMddstn1TdC6dj6d62pz8vG6y5Ko1Mdg4jA91wFoM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=t04kAcBzACKzy1qQVQE84iYj/deeMsQjAAszWheD38x/xRSICsri6ov3jcCqx93w/
+	 tOBgzX0870WeUj+OXh/pi7Gn+7Oxp2AYBzaA0O6yeAtlaXgasAtdHAkVNiwwCmJ/tl
+	 tMr6QWl36hrHxykQdDlXtfc+xamMqeU3ZL4qEPtk=
+Message-ID: <d458c817-85d8-435d-9da5-2aee7b09fc34@ideasonboard.com>
+Date: Wed, 7 Oct 2026 11:29:48 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,91 +35,159 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm/khugepaged: flush deferred unmaps before dropping a
- failed folio
-To: Kyle Zeng <kylebot@openai.com>, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- outbounddisclosures@openai.com, stable@vger.kernel.org
-References: <20261007041001.43181-1-kylebot@openai.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH v2] media: mali-c55: Fix frame sequence numbers on
+ dual-pipe hardware
+To: David Carlier <devnexen@gmail.com>,
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Nayden Kanchev <nayden.kanchev@arm.com>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260930174621.791831-1-devnexen@gmail.com>
 Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261007041001.43181-1-kylebot@openai.com>
-Content-Type: text/plain; charset=UTF-8
+From: Dan Scally <dan.scally@ideasonboard.com>
+In-Reply-To: <20260930174621.791831-1-devnexen@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 10/7/26 06:10, Kyle Zeng wrote:
-> collapse_file() can fail its reference-count or dirty-folio check after
-> unmapping with TTU_BATCH_FLUSH.  Both paths put back the isolated folio,
-> then unlock it and drop the lookup reference before reaching the common
-> try_to_unmap_flush().
+Hi David
+
+On 30/09/2026 18:46, David Carlier wrote:
+> The single frame_sequence counter in struct mali_c55_isp is incremented
+> in mali_c55_set_plane_done(), which runs once per completed buffer per
+> capture device rather than once per frame. Hardware fitted with the
+> downscale pipe always hits this: mali_c55_pipeline_ready() refuses to
+> start the ISP unless both the full-resolution and the downscale queues
+> are streaming, so the counter advances twice per frame.
 > 
-> The page-cache reference does not keep the folio stable once the lock is
-> released.  Another collapse can replace and free it.  With its PTEs
-> already gone, that collapse cannot flush the first task's per-task TLB
-> batch, and retract_page_tables() skips short or unaligned VMAs.  A CPU
-> can therefore retain a user translation to the freed folio.  This has
-> been reproduced with unprivileged MADV_COLLAPSE on a memfd.
+> Each video node then reports sequence numbers 0, 2, 4, ..., which
+> userspace reads as a dropped frame between every pair of frames, and the
+> two pipes never number the same frame alike, contrary to
+> Documentation/admin-guide/media/mali-c55.rst. The V4L2_EVENT_FRAME_SYNC
+> event and the statistics and parameters buffers only read the counter,
+> so their sequence numbers stop identifying a frame too.
 > 
-> Flush at out_unlock while the lookup reference and folio lock are still
-> held.  The common flush continues to cover the accumulated pagelist on
-> both success and rollback, preserving batching on successful collapses.
+> Increment the counter once per frame, when the ISP start interrupt is
+> handled, and stamp each capture buffer when mali_c55_set_next_buffer()
+> programs it, as it is written out during the following frame. Stamping
+> at completion would be off by one whenever DONE(n) and START(n+1) are
+> handled in the same interrupt, since ISP_START is processed first. Hold
+> the counter at UINT_MAX while the ISP is stopped, as the first buffers
+> are programmed before it starts, so the first frame gets sequence zero.
 > 
-> Fixes: 6d9df8a5889c ("mm/thp: collapse_file() do try_to_unmap(TTU_BATCH_FLUSH)")
+> Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
 > Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Kyle Zeng <kylebot@openai.com>
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: David Carlier <devnexen@gmail.com>
 > ---
 
-LGTM
+I think this approach is fine. In v1 Jacopo said that he'd rather handle it with per-output counters 
+though; @Jacopo, do you mean there that you'd rather an independent sequence counter for the FR and 
+DS outputs?
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Thanks
+Dan
 
--- 
-Cheers,
+> v2:
+>   - Stamp the buffer sequence in mali_c55_set_next_buffer() instead of
+>     at completion, which broke when START(n+1) and DONE(n) are handled
+>     together (Jacopo)
+>   - Reset the counter when the ISP stops instead of when it starts
+> 
+> v1: https://lore.kernel.org/r/20260801205311.386692-1-devnexen@gmail.com
+> ---
+>   drivers/media/platform/arm/mali-c55/mali-c55-capture.c | 5 +++--
+>   drivers/media/platform/arm/mali-c55/mali-c55-common.h  | 4 ++++
+>   drivers/media/platform/arm/mali-c55/mali-c55-core.c    | 1 +
+>   drivers/media/platform/arm/mali-c55/mali-c55-isp.c     | 3 ++-
+>   4 files changed, 10 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-capture.c b/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
+> index ff01553026fb..fa073ce4b2bd 100644
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
+> @@ -413,6 +413,9 @@ void mali_c55_set_next_buffer(struct mali_c55_cap_dev *cap_dev)
+>   		return;
+>   	}
+>   
+> +	/* The buffer is written out during the frame following this one. */
+> +	buf->vb.sequence = cap_dev->mali_c55->isp.frame_sequence + 1;
+> +
+>   	pix_mp = &cap_dev->format.format;
+>   
+>   	mali_c55_cap_dev_update_bits(cap_dev, MALI_C55_REG_Y_WRITER_MODE,
+> @@ -457,7 +460,6 @@ void mali_c55_set_next_buffer(struct mali_c55_cap_dev *cap_dev)
+>   void mali_c55_set_plane_done(struct mali_c55_cap_dev *cap_dev,
+>   			     enum mali_c55_planes plane)
+>   {
+> -	struct mali_c55_isp *isp = &cap_dev->mali_c55->isp;
+>   	struct mali_c55_buffer *buf;
+>   
+>   	scoped_guard(spinlock, &cap_dev->buffers.processing_lock) {
+> @@ -476,7 +478,6 @@ void mali_c55_set_plane_done(struct mali_c55_cap_dev *cap_dev,
+>   
+>   	/* If the other plane is also done... */
+>   	buf->vb.vb2_buf.timestamp = ktime_get_boottime_ns();
+> -	buf->vb.sequence = isp->frame_sequence++;
+>   	vb2_buffer_done(&buf->vb.vb2_buf, VB2_BUF_STATE_DONE);
+>   }
+>   
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-common.h b/drivers/media/platform/arm/mali-c55/mali-c55-common.h
+> index 13a3e9dc4243..50f2b7a85f62 100644
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-common.h
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-common.h
+> @@ -76,6 +76,10 @@ struct mali_c55_isp {
+>   	struct media_pad *remote_src;
+>   	/* Mutex to guard vb2 start/stop streaming */
+>   	struct mutex capture_lock;
+> +	/*
+> +	 * Sequence of the frame being processed, incremented at SOF. Held at
+> +	 * UINT_MAX while stopped so the first frame gets sequence 0.
+> +	 */
+>   	unsigned int frame_sequence;
+>   };
+>   
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> index fb81141d1653..be562156b295 100644
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> @@ -573,6 +573,7 @@ static irqreturn_t mali_c55_isr(int irq, void *context)
+>   	for_each_set_bit(i, &interrupt_status, MALI_C55_NUM_IRQ_BITS) {
+>   		switch (i) {
+>   		case MALI_C55_IRQ_ISP_START:
+> +			mali_c55->isp.frame_sequence++;
+>   			mali_c55_isp_queue_event_sof(mali_c55);
+>   
+>   			mali_c55_set_next_buffer(&mali_c55->cap_devs[MALI_C55_CAP_DEV_FR]);
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-isp.c b/drivers/media/platform/arm/mali-c55/mali-c55-isp.c
+> index e128adf6ee37..dd3bce287a3d 100644
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-isp.c
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-isp.c
+> @@ -342,7 +342,6 @@ static int mali_c55_isp_enable_streams(struct v4l2_subdev *sd,
+>   
+>   	src_sd = media_entity_to_v4l2_subdev(isp->remote_src->entity);
+>   
+> -	isp->frame_sequence = 0;
+>   	ret = mali_c55_isp_start(mali_c55, state);
+>   	if (ret) {
+>   		dev_err(mali_c55->dev, "Failed to start ISP\n");
+> @@ -380,6 +379,7 @@ static int mali_c55_isp_disable_streams(struct v4l2_subdev *sd,
+>   	isp->remote_src = NULL;
+>   
+>   	mali_c55_isp_stop(mali_c55);
+> +	isp->frame_sequence = UINT_MAX;
+>   
+>   	return 0;
+>   }
+> @@ -584,6 +584,7 @@ int mali_c55_register_isp(struct mali_c55 *mali_c55)
+>   	int ret;
+>   
+>   	isp->mali_c55 = mali_c55;
+> +	isp->frame_sequence = UINT_MAX;
+>   
+>   	v4l2_subdev_init(sd, &mali_c55_isp_ops);
+>   	sd->flags |= V4L2_SUBDEV_FL_HAS_DEVNODE | V4L2_SUBDEV_FL_HAS_EVENTS;
+> 
+> base-commit: 95f76f51937fdfb0fc1e14cae606b1ef574a56f3
 
-David
