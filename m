@@ -1,44 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9F0124886E
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 05:44:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56F983C1D7A
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 05:50:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791351861; cv=none; b=SVMc20IvK3B9rzJKV0Lr9cLZo/VrgNsBRANOpZslACDlC7b2DfnrTUVYp8rN42TqOS5TnlA0CG9qC/X8EsIVVHBq75+OvEWgl/NN7+o6k9xSLfbykQRV2olvZr31ll1H44Qcb5bFDPYfPS43dExrPPCfhaA0Qj6o368LZuN4PoY=
+	t=1791352209; cv=none; b=hwyCEXuzFhPqY0fwwfIr9PcQPVfTZVw0FJUS1bgoiERR/i3M87Ak2aFlrWCCuK28k8+RmPROxLa7pjePgG3Ew9D87FzbI+gnH3ITnXttYxHcjlXlXWJWTDdxblDk+agOffIA1bRto/l55MtZ9hyKrlQVwAj9pfC/TFhb7hwep5M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791351861; c=relaxed/simple;
-	bh=u6fIWQ2iFqOiQi2wSDorOcqPrDIjDHKKPddK0ARTJSo=;
+	s=arc-20240116; t=1791352209; c=relaxed/simple;
+	bh=NPUhHPiJuu7KRMZHxUG4cQvrnhhEu3Ouebv8BQe1QRk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TV+AYOH6g3LTArG8ymIbwUHnMFYpcFbt/wVl5Lf6G+I7XlCp/q6Hwhyjmaa22gktWqhOHmBtcGYhkcwjta4WWKFrFpDyx46BInFXczH+BvdFLkNbmEG0ckdHtqA0la9Hafryol/INbUwRjoeO2zcGfwBiCZkTYo+e2ZIVmfoPYc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iU7PE7Ck; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=oqGTE7IcfkXJz5s83f6hXBZl7gu5bwR6t8ehTzXIGyIkgrU+QxE/mqxjlWYGIe9QemMQOvybRjzxqcInvzuXob/8LAReo7gEGV4NR+rkQPpxQQpDuO01YHxyTwFb58uahaHxFNVmqhVwbxADrkuKgUEWf/d+oPSGzZ7MwrNYRr4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nfv7fQAS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iU7PE7Ck"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2E061F0089C;
-	Wed,  7 Oct 2026 05:44:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nfv7fQAS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 617911F0089B;
+	Wed,  7 Oct 2026 05:50:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791351860;
-	bh=Yum6OdXDzhPiveMw7wl+Jq2kSFTS55U2f5zNQ4kkHkM=;
+	s=k20260515; t=1791352207;
+	bh=clD8fL6X+Zdme1dtUIhkBfPD/s1w3grfL0ttL84WEQY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iU7PE7CkFjqduOXDveRfkCKg93FriS9tWhlW7Ed0eqcObaK92vPqUSlz2w62flESN
-	 3UYzEirQyzpmPVl57x/ewuTTJ2Z3MCWz6Z/1bxewJBNVYJ8l3GopZ8XAfUQgAo4A05
-	 JgrnP2tf9aQibyEcD/bDkUgEraHFcmI/i44zLUZis/8gUCmhC+Wh0WAWG2To0h/Vig
-	 23O2/rnUrHDpDrKlFUbW7sGMW2tGScBf/2IK1Zh8r6TutiqX/wf1e66zG1v+vESSDy
-	 UDnkBaeGIeqcjer9MR0qyKg15L3Kvc/DJ3lR10sbrvb76on8I0pWsUcczmRwKp19Qc
-	 vsdW5u6qqCcHw==
+	b=nfv7fQAS1H4Keaiw61kMNIlp0BSQDDYHbDfTBwr1oBcTQeiEBubCxJR3SxXJPQaqZ
+	 HCo6a0OMq/fIcNn9L3g/enUhWWKktrewBhB5f0Olew8BQolJ4b8sqSsvvt9dhVpf62
+	 KiwyB9NRvTakhLWgW0wdXP5MZIvFjPKaNmEuA25pFzdbwPLQ3Amkeoy9iNEYsEy3gK
+	 n6cw+DW4KuoHCT+EbwXETPKH/deOwlB2UUfnBRQhvxGnxlbeaHBlEsUbeyUCyWLgRe
+	 JAXCf/dKNKHk/IzGJ7ndGZqGtE7xEjbmjHce50pey46BIB6rMTu5DwggTy8QJOZcTF
+	 6Lb35/PHwyHXA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Matti Vaittinen <mazziesaccount@gmail.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+Cc: Paulo Alcantara <pc@manguebit.org>,
+	David Howells <dhowells@redhat.com>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] iio: accel: kionix-kx022a: Prevent memory leak and fix state
-Date: Wed,  7 Oct 2026 01:44:15 -0400
-Message-ID: <20261007054404.1487956-2-sashal@kernel.org>
+Subject: [PATCH 7.2.y] smb: client: only require read lease for size-extending preallocate
+Date: Wed,  7 Oct 2026 01:50:03 -0400
+Message-ID: <20261007054941.1487440-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261007054404.1487956-1-sashal@kernel.org>
-References: <2026100642-onslaught-extruding-e802@gregkh>
- <20261007054404.1487956-1-sashal@kernel.org>
+In-Reply-To: <2026100621-pecan-tartness-6f95@gregkh>
+References: <2026100621-pecan-tartness-6f95@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,83 +52,171 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Matti Vaittinen <mazziesaccount@gmail.com>
+From: Paulo Alcantara <pc@manguebit.org>
 
-[ Upstream commit e65e128b51a37dd1a9056ac3d1705d805a5c8bb0 ]
+[ Upstream commit b5d59e7270d078ab28a9c4b4d11dc3eb24671988 ]
 
-The driver allocates memory for samples at buffer enable path. If regmap
-operation fails in the kx022a_fifo_enable() at the buffer enable path, the
-allocated memory is never freed. Furthermore, the state information and
-previous hardware configuration(s) aren't undone, potentially leaving
-WMI interrupts and buffers enabled, or driver state flags wrong.
+smb3_simple_falloc() refuses any fallocate that clears FALLOC_FL_KEEP_SIZE
+with -EOPNOTSUPP whenever the inode is not read caching:
 
-Free the memory and revert the hardware configuration and state flags on
-error path.
+	/* if file not oplocked can't be sure whether asking to extend size */
+	if (!CIFS_CACHE_READ(cifsi))
+		if (!keep_size) {
+			...
+			return rc;
+		}
 
-Fixes: e7123a4dfcd7 ("iio: accel: kionix-kx022a: Refactor driver and add chip_info structure")
-Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
-Reviewed-by: Mehdi Djait <mehdi.djait@linux.intel.com>
+As with smb3_zero_range(), the read lease is only needed to trust the
+cached size when deciding whether the request extends the file. When it
+is not held, the size can instead be fetched from the server, which is
+authoritative, rather than refusing the request outright: after
+flushing, query the server's end of file and take the larger of it and
+the cached size for the interior-vs-extend decision. The larger of the
+two is used because the server's end of file reflects another client's
+growth while the cached size reflects this client's own writes that may
+not have reached the server yet; using the server size alone would
+wrongly treat an interior request as extending when a range flush left
+an extending write unwritten.
+
+smb3_simple_fallocate_range(), which performs the actual interior
+emulation, decided whether the range already lies past EOF from its own
+i_size_read(inode) rather than the old_eof computed above. In the
+leaseless case, that is exactly the stale, undershooting size this
+patch works around: a genuinely interior range can read as past EOF by
+that stale count, which skips the FSCTL_QUERY_ALLOCATED_RANGES check
+entirely and overwrites already-allocated server data with zeroes
+instead of only filling the holes. Pass old_eof into
+smb3_simple_fallocate_range() and use it for that comparison instead of
+re-deriving a second, inconsistent one.
+
+Rejecting interior requests is observed as generic/363 randomly failing
+against Windows Server with
+
+	do_preallocate: fallocate: Operation not supported
+
+fsx issues an interior, non-KEEP_SIZE preallocate while the inode is
+transiently not read caching: the server had just downgraded the file's
+lease from RWH to RH after breaking the write caching, and the ensuing
+handle reopen/revalidation left CIFS_CACHE_READ momentarily clear. The
+range sat within the server's end of file, so no extend was needed, yet
+it was refused and fsx aborted. This keeps the emulation correct even
+when a genuine lease break from another client leaves the inode
+without read caching -- the case the -EOPNOTSUPP guard turned into a
+hard failure. The extra flush and round trip only happen when both
+keep_size is false and no read lease is held; every other case is
+unchanged.
+
+Fixes: 9ccf3216238c ("Add support for original fallocate")
+Reviewed-by: David Howells <dhowells@redhat.com>
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: Matthew Wilcox <willy@infradead.org>
+Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
+Cc: Shyam Prasad N <sprasad@microsoft.com>
+Cc: Tom Talpey <tom@talpey.com>
+Cc: Bharath SM <bharathsm@microsoft.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+[ sashal: Adapted cifs_resize_file_locked() calls to the two-argument helper. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/accel/kionix-kx022a.c | 28 +++++++++++++++++++++++-----
- 1 file changed, 23 insertions(+), 5 deletions(-)
+ fs/smb/client/smb2ops.c | 36 +++++++++++++++++++++++++++---------
+ 1 file changed, 27 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/iio/accel/kionix-kx022a.c b/drivers/iio/accel/kionix-kx022a.c
-index 1e4ba5602dbf4..b1d48369fa216 100644
---- a/drivers/iio/accel/kionix-kx022a.c
-+++ b/drivers/iio/accel/kionix-kx022a.c
-@@ -958,26 +958,44 @@ static int kx022a_fifo_enable(struct kx022a_data *data)
- 	guard(mutex)(&data->mutex);
- 	ret = __kx022a_turn_on_off(data, false);
- 	if (ret)
--		return ret;
-+		goto err_free_out;
+diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
+index 7c804e6e0fa42..9f02dfe86b3ae 100644
+--- a/fs/smb/client/smb2ops.c
++++ b/fs/smb/client/smb2ops.c
+@@ -3742,7 +3742,8 @@ static int smb3_simple_fallocate_write_range(unsigned int xid,
+ static int smb3_simple_fallocate_range(unsigned int xid,
+ 				       struct cifs_tcon *tcon,
+ 				       struct cifsFileInfo *cfile,
+-				       loff_t off, loff_t len)
++				       loff_t off, loff_t len,
++				       loff_t old_eof)
+ {
+ 	struct file_allocated_range_buffer in_data, *out_data = NULL, *tmp_data;
+ 	struct inode *inode = d_inode(cfile->dentry);
+@@ -3758,7 +3759,7 @@ static int smb3_simple_fallocate_range(unsigned int xid,
+ 		goto out;
+ 	}
  
- 	/* Update watermark to HW */
- 	ret = kx022a_fifo_set_wmi(data);
- 	if (ret)
--		return ret;
-+		goto err_turn_on_out;
+-	if (off >= i_size_read(inode)) {
++	if (off >= old_eof) {
+ 		rc = smb3_simple_fallocate_write_range(xid, tcon, cfile,
+ 						       off, len, buf);
+ 		goto out;
+@@ -3882,14 +3883,31 @@ static long smb3_simple_falloc(struct file *file, struct cifs_tcon *tcon,
  
- 	/* Enable buffer */
- 	ret = regmap_set_bits(data->regmap, data->chip_info->buf_cntl2,
- 			      KX022A_MASK_BUF_EN);
- 	if (ret)
--		return ret;
-+		goto err_turn_on_out;
- 
- 	data->state |= KX022A_STATE_FIFO;
- 	ret = regmap_set_bits(data->regmap, data->ien_reg,
- 			      KX022A_MASK_WMI);
- 	if (ret)
--		return ret;
-+		goto err_buf_disable_out;
- 
--	return __kx022a_turn_on_off(data, true);
-+	ret = __kx022a_turn_on_off(data, true);
-+	if (ret)
-+		goto err_wmi_clear_out;
+ 	trace_smb3_falloc_enter(xid, cfile->fid.persistent_fid, tcon->tid,
+ 				tcon->ses->Suid, off, len);
+-	/* if file not oplocked can't be sure whether asking to extend size */
+-	if (!CIFS_CACHE_READ(cifsi))
+-		if (!keep_size) {
 +
-+	return ret;
++	if (!keep_size && !CIFS_CACHE_READ(cifsi)) {
++		unsigned long long server_eof;
 +
-+err_wmi_clear_out:
-+	regmap_clear_bits(data->regmap, data->ien_reg,
-+			  KX022A_MASK_WMI);
-+err_buf_disable_out:
-+	regmap_clear_bits(data->regmap, data->chip_info->buf_cntl2,
-+			  KX022A_MASK_BUF_EN);
-+	data->state &= ~KX022A_STATE_FIFO;
-+err_turn_on_out:
-+	__kx022a_turn_on_off(data, true);
-+err_free_out:
-+	kfree(data->fifo_buffer);
++		rc = filemap_write_and_wait(inode->i_mapping);
++		if (rc) {
+ 			trace_smb3_falloc_err(xid, cfile->fid.persistent_fid,
+ 				tcon->tid, tcon->ses->Suid, off, len, rc);
+ 			free_xid(xid);
+ 			return rc;
+ 		}
++		netfs_wait_for_outstanding_io(inode);
 +
-+	return ret;
- }
++		rc = query_server_eof(xid, tcon, cfile, &server_eof);
++		if (rc) {
++			trace_smb3_falloc_err(xid, cfile->fid.persistent_fid,
++				tcon->tid, tcon->ses->Suid, off, len, rc);
++			free_xid(xid);
++			return rc;
++		}
++		/*
++		 * Only use the larger EOF to decide whether we're extending.
++		 */
++		old_eof = max_t(loff_t, old_eof, server_eof);
++	}
  
- static int kx022a_buffer_postenable(struct iio_dev *idev)
+ 	/*
+ 	 * Extending the file
+@@ -3913,7 +3931,7 @@ static long smb3_simple_falloc(struct file *file, struct cifs_tcon *tcon,
+ 			}
+ 
+ 			rc = smb3_simple_fallocate_range(xid, tcon, cfile,
+-							 off, len);
++							 off, len, old_eof);
+ 			if (rc) {
+ 				spin_lock(&inode->i_lock);
+ 				cifsi->time = 0;
+@@ -4015,7 +4033,7 @@ static long smb3_simple_falloc(struct file *file, struct cifs_tcon *tcon,
+ 		}
+ 	}
+ 
+-	if ((keep_size == true) || (i_size_read(inode) >= off + len)) {
++	if (keep_size || old_eof >= off + len) {
+ 		/*
+ 		 * At this point, we are trying to fallocate an internal
+ 		 * regions of a sparse file. Since smb2 does not have a
+@@ -4032,7 +4050,7 @@ static long smb3_simple_falloc(struct file *file, struct cifs_tcon *tcon,
+ 		 */
+ 		if (len <= 1024 * 1024) {
+ 			rc = smb3_simple_fallocate_range(xid, tcon, cfile,
+-							 off, len);
++							 off, len, old_eof);
+ 			goto out;
+ 		}
+ 
+@@ -4044,7 +4062,7 @@ static long smb3_simple_falloc(struct file *file, struct cifs_tcon *tcon,
+ 		 * ie potentially making a few extra pages at the beginning
+ 		 * or end of the file non-sparse via set_sparse is harmless.
+ 		 */
+-		if ((off > 8192) || (off + len + 8192 < i_size_read(inode))) {
++		if (off > 8192 || off + len + 8192 < old_eof) {
+ 			rc = -EOPNOTSUPP;
+ 			goto out;
+ 		}
 -- 
 2.53.0
 
