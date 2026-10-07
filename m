@@ -1,152 +1,99 @@
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C206D3AFAED
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 22:03:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76108392C46;
+	Wed,  7 Oct 2026 22:07:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791410620; cv=none; b=AfSp7NSZO1YrC4CEQL1RIL3TKFONTmgsP8IEPUqIIThES+hD85YNt8iDcWilbFB4mbKnkN9PykPD1JZ6EBKlkDjQon3Ne/fR8rdfHJ6Zepe7fz91VsHaPHdNiD65+Y807SEJQmx9HsYf+Zo0pqi4ghBlzkrqABwCAC3h8IlUo4U=
+	t=1791410871; cv=none; b=rMhyn1LJW2BLp4e2QMBwa4n8yXQxHHNzJeG/oAbqbip35KBXQpeJ9rjnrFGlLL7Dxx+kABsfAgyB7ZZs3FAhqhEZG/dtiWiEX8uuedC5jWpgqpHhEC0NiL3nDNQPkfUve2bM2iAXfZ3bipKND1t12Z+BmjT3kfbUpr60ovp+uv0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791410620; c=relaxed/simple;
-	bh=pnSOfrmzHXwlWNbFIrL3h4Otp3NZjkJxlv13l4SR1uU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZU0p0MgLO6zVSHETMCjsG6mBkuAp1Pv18wO3txNcIrYkbA4tnptw78Ih2XJ3bqSf1bJWfxByOoP42VU7vNHTpkTVZWvJvdevpa2o8tWbGWHkFIJRprlk726M8xngFFdh7FRDG+7abF5PRbm9PrrhAEHMNcg9OF9sE22+newFGnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m3xQNdKf; arc=none smtp.client-ip=209.85.210.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791410871; c=relaxed/simple;
+	bh=Yz91O8hGC8SKXGWCJAsfrEdUHmyCU3N27q11SmIGAgk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Su2oBBMY51CoOKBEfr1eTjUOHGKaKSmRrj1NGVsHxUK5YwTMWKGYDNmUXLmRjDDYSp3t0LHV2Gjc02uv9ZfN8wRHd1eOy9wZ3Z0o3iDDr3d+QY5CeoSslIQiL6d/O+mgF7hyb6/MzSXm5RwJah/b2P7OOYbk4TxUF1QrbzpNANk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=UrxfGzJx; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m3xQNdKf"
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-884062f3296so1454581b3a.0
-        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 15:03:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791410619; x=1792015419; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=C1Wd3hcBZC1XpwvwN/vmfOrH1iAejKOYrsAXw8rqSj4=;
-        b=m3xQNdKfv/ThGRSlQj/7UsLJMm6MKT6wimLfezXqRfMxf3Xlfz9S3PYd+tKw060+Cd
-         N5us17gs/GjoUw1HxOForV3kGFLj4nW2CfAV6QHypp1rY88edWqDFmmGw78L1MkACOLo
-         vfQmUXV3EeeWqdGApJUgiNWmf+4LkwRF1fjVyZgoBkkai4B6T4QNlvI/2tHjyqmcoHhQ
-         oy3LLJ9Irzbv43ZqHx/WO4t4O4hU36B44D6WVy+X8MDkA5H7ejiCX9A7dhyKHEW8Vlnd
-         mo4dYzx7rFw7r62bdNrJR7H8aCyFlYC5Pvb12gVOVoRQBp6n1zoZGw/sh7HwPYKYBYAz
-         dnnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791410619; x=1792015419;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=C1Wd3hcBZC1XpwvwN/vmfOrH1iAejKOYrsAXw8rqSj4=;
-        b=kmzay1i6bpKq6STk7QzlvicvD9DvP9iMyTmk5DVAhNUTVHQlpPOgVbyOo9dceLi9A5
-         HmPX5k2DlA9Wun7WPHeBzmbRzzq+eGVpt22ch7/Ucf/STLRj4xUdF4DWLih1iHl7j/wV
-         yUcU6fk6WtdsxC7wV7pYz8maWJroJtVZyzgJoXOvYKuNIWo2xfEh17MCcJgHzsmoV1P2
-         IhRoqM9ZuJ9orOTi00ZOpQxC5osVDerUAgCnx1Hj+nOIlDvKu97MZIRuZbtIk1eOlU1f
-         g5Bi95PSxTJtjVkFDk7MBkFPEE+FZWVpZyElFi0hG0UGkXWUlDttZfpCUNmGCuk3WDoG
-         WDYg==
-X-Gm-Message-State: AFuF++ni/ieMwNWIRvc4W5GHZR6c2LYSgu4w7JF/R0fECeAaKOG6ihTd
-	QtFGIGGLlQHNvZz9Y2X0TIZumhWPtEnxZgDq8LI/fEly67890m1UpPt5
-X-Gm-Gg: AYBFou2oEGepWNdWmxQMBALZuCZoQJCQzKV2upzFrKd2U9oIsAW7qX1Z4nBoTuWTdu2
-	vk4DhN4L0JUSWCG6W6kvZdiVuLOzACGsz/0DjTXMfmoy79NRZNhhcFmuRTa9b3o9mGIHn/n4MRm
-	82gkr0fnuGE+o7LbqmTgjX3jKqLHthR2N2lWEqM6qRGeZdndu41xeyXFfxFFfan4DyVvxfBVR1g
-	0LwaVatGOeWu3+XgqvMPL/82XIHaoeIgYt3rZq9NVB+8ft3J3KScFSJIAOi38xOBTQSYR4cQKkr
-	OhJbcRbLyTbDFX7bjUFGDbpSbEPe4B0QTvCJaDEWMoXrpLyBbFO0E0fZBGschvGQlFWbCvT0Ver
-	KWVECeVrT6SI2OGgwgfV2YkGr/a5ZV370vnGM+ulxTnvIoHdqjTCN8wXDQ8zSHUVVpE4PSKZZjO
-	OrxGboOIeHodvBdd7d1AdCkyRc0pBOhrw2Fd7yAnZojMxmx6OP0+cYBbBk+v2v89OtNZTRsQoeV
-	ubzu+U=
-X-Received: by 2002:a05:6a00:32c9:b0:891:3e34:e06f with SMTP id d2e1a72fcca58-891b54d1bf1mr2794094b3a.44.1791410618939;
-        Wed, 07 Oct 2026 15:03:38 -0700 (PDT)
-Received: from fedora ([2607:fb92:3080:b51c:3c6f:fd76:69b:10ff])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-892bbf7fb6esm832980b3a.55.2026.10.07.15.03.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 15:03:38 -0700 (PDT)
-From: Ping Cheng <pinglinux@gmail.com>
-X-Google-Original-From: Ping Cheng <ping.cheng@wacom.com>
-To: lee@kernel.org,
-	jikos@kernel.org,
-	bentiss@kernel.org,
-	linux-input@vger.kernel.org
-Cc: stable@vger.kernel.org,
-	Ping Cheng <ping.cheng@wacom.com>
-Subject: [PATCH 2/2 RESEND] HID: wacom: Setup SW_MUTE_DEVICE according to the order of input registration
-Date: Wed,  7 Oct 2026 15:03:35 -0700
-Message-ID: <20261007220335.6661-1-ping.cheng@wacom.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="UrxfGzJx"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=k1FsZeqVOwtqbCaRxGcfIEnljfC6GJbQZ2/ERsudhWY=; b=UrxfGzJxFKNQEdeX4vRD5Dv4WR
+	+hjXDX6TWc9UZOl/0SlTSsPibXE/9qL2Tk6HStqk5MuGeBlJX0c5K4Er/Joggqn95p2DoVBtyIkgJ
+	REoJ7yHP/oXWVOUOtJgAXZ9S/S0qHjc7NRJRQSg3hAydxPdSmUtTx12gaGVnsVJtuWWmVtktUtLlN
+	wbxyBoKF+pqho6eSplfgZ6EBoSIW7bD1bp0KbSLSJcLJCjFt1IQ4dhJ4XuRXfM4ItQPjLLn8th6P1
+	hv1AyffMFCzBcPGC+gCmKMDCI88LAFPuYscNBCM4Z8w31IE8PiFlDvBbRlnnk9RS7O960TJJ42ghd
+	fdGPLQPA==;
+Received: from [151.115.150.205] (port=58268 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1xEZnh-00000002ncT-1pnJ;
+	Thu, 08 Oct 2026 00:07:47 +0200
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Eric Biggers <ebiggers@kernel.org>,
+	"Jason A. Donenfeld" <Jason@zx2c4.com>,
+	Ard Biesheuvel <ardb@kernel.org>
+Cc: linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	stable@vger.kernel.org
+Subject: [PATCH] lib/crypto: arm64: Fix lost Poly1305 carry when resuming NEON state
+Date: Wed,  7 Oct 2026 22:02:36 +0000
+Message-ID: <20261007220235.200818-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-From: Ping Cheng <ping.cheng@wacom.com>
+When poly1305_blocks_neon() resumes from a radix-2^26 state with an odd
+number of input blocks, it converts the accumulator back to radix-2^64
+before consuming the first block. The final ADC stores the carry into d2,
+but the following accumulation and poly1305_mult() use h2.  If the
+conversion overflows across bit 128, the carry is dropped and the emitted
+tag is wrong.
 
-The refactored SW_MUTE_DEVICE code assumed that stylus will be
-the first regiestered input. In reality, touch can be registered
-before stylus, such as the Wacom Cintiq Pro 13 and 16.
+Store the carry back into h2. This matches the other conversion paths and
+preserves the represented accumulator.
 
-This patch covers both touch-first and stylus-first cases.
-
+Fixes: f569ca164751 ("crypto: arm64/poly1305 - incorporate OpenSSL/CRYPTOGAMS NEON implementation")
 Cc: stable@vger.kernel.org
-Fixes: ba16e5ffbaa1 ("HID: wacom: Advertise SW_MUTE_DEVICE capability prior to registration")
-Reviewed-by: Lee Jones <lee@kernel.org>
-Signed-off-by: Ping Cheng <ping.cheng@wacom.com>
+Assisted-by: LLM
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
 ---
-Note: no code change. Just commit comments and code comments change to the existing patchset
----
- drivers/hid/wacom_wac.c | 33 ++++++++++++++++++++++++++++++---
- 1 file changed, 30 insertions(+), 3 deletions(-)
+ lib/crypto/arm64/poly1305-armv8.pl | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
-index c4cd87b781c4..f109dc74e55a 100644
---- a/drivers/hid/wacom_wac.c
-+++ b/drivers/hid/wacom_wac.c
-@@ -3977,10 +3977,18 @@ int wacom_setup_touch_input_capabilities(struct input_dev *input_dev,
+diff --git a/lib/crypto/arm64/poly1305-armv8.pl b/lib/crypto/arm64/poly1305-armv8.pl
+index f1930c6..234398f 100644
+--- a/lib/crypto/arm64/poly1305-armv8.pl
++++ b/lib/crypto/arm64/poly1305-armv8.pl
+@@ -375,7 +375,7 @@ poly1305_blocks_neon:
+ 	adc	$h1,$h1,xzr
+ 	lsr	$h2,x14,#24
+ 	adds	$h1,$h1,x14,lsl#40
+-	adc	$d2,$h2,xzr		// can be partially reduced...
++	adc	$h2,$h2,xzr		// preserve carry into top limb
  
- 	if (features->type == HID_GENERIC) {
- 		hid_dbg(hdev, "generic touch setup\n");
--		if (wacom_wac->has_mute_touch_switch ||
--		    (wacom_wac->shared && READ_ONCE(wacom_wac->shared->has_mute_touch_switch))) {
-+
-+		/*
-+		 * This is to setup the touch switch for those devices that report
-+		 * pen interface first. The setup can only be done here since this
-+		 * routine is only called once. When we are here, the shared
-+		 * has_mute_touch_switch has been set by the pad.
-+
-+		 * There are two ways of reporting inputs from firmware: stylus first
-+		 * or touch first. This path covers the stylus input first case.
-+		 */
-+		if (wacom_wac->shared && READ_ONCE(wacom_wac->shared->has_mute_touch_switch)) {
- 			input_set_capability(input_dev, EV_SW, SW_MUTE_DEVICE);
--			wacom_wac->has_mute_touch_switch = true;
- 		}
- 		/* setup has already been done */
- 		return 0;
-@@ -4403,7 +4411,26 @@ int wacom_setup_pad_input_capabilities(struct input_dev *input_dev,
- 		break;
- 
- 	case INTUOSHT3_BT:
-+		break;
-+
- 	case HID_GENERIC:
-+		if (wacom_wac->shared) {
-+			/*
-+			 * The setup of touch switch capability can only be done
-+			 * here for those devices, such as Cintiq Pro 13 and 16,
-+			 * that have touch input registered before stylus and pad
-+			 * inputs.
-+			 *
-+			 * There are two ways of reporting inputs from firmware:
-+			 * stylus first or touch first. This path covers the touch
-+			 * input first case.
-+			 */
-+			if (wacom_wac->has_mute_touch_switch &&
-+			    wacom_wac->shared->touch_input) {
-+				input_set_capability(wacom_wac->shared->touch_input,
-+				    EV_SW, SW_MUTE_DEVICE);
-+			}
-+		}
- 		break;
- 
- 	default:
+ 	ldp	$d0,$d1,[$inp],#16	// load input
+ 	sub	$len,$len,#16
 -- 
-2.55.0
+2.47.3
 
