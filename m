@@ -1,202 +1,143 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F3973C8719
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 08:46:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FF7B3CAE7F
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 08:46:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791362761; cv=none; b=bMAjkg5IUzfSaBOspLxMiusYIFtOQ5ks/gO4e1PvI4MSIf7+N8EAnr/TZxXUqXhsEkDnmcmUne9KqCV/RTajCAjBjbJ2oH6l0C7BpTT58PPtKqLKt/4JXYeHaSwJ7MuVYGZ8iSB6VpLjn53WerNyZLtc9DvFcSBOd/Ln/D0uId0=
+	t=1791362790; cv=none; b=V5xmfLy0lLJXb1rFsApOhdEIAnYMP/Rr4sL0jJRBlr2QsccODPZ8Prrm2lO8/Y09BN7GhZZ6EhKlVRmwZtT3ZKjuWAHusdBz/mpGLxe038+HJq8hJkeApsqSIaBlWVqNDxxohFaKs2uQ74CD9zaNJ2tfIXdrZ/keKH79J/0twOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791362761; c=relaxed/simple;
-	bh=bVsJXuvmyV5vu7Y2unC7jCESYbV2RjL3XvNbNnA2axM=;
+	s=arc-20240116; t=1791362790; c=relaxed/simple;
+	bh=WfQBl7j3Rj0zaLvu0kCOcQphMZXxa4aM3ttrm0KjkYw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=K5LtoRjMFf/TnxuPlZFX/pM1B7LvOiF/jzTH2iXdtWEGKC6JMyFwJI3JJKzFTuBsEXEXaM3f1hbt9H+Ak7BSXRv2H/zwNJrjn4FQTU8UKh7yQzS/Nc0v5xJwPO24x5piWC8cM6jzVvufYc4Nd0Fi5vCrlmofa6goQ/DtKGgubqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MvnrpQDe; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=BfYYtOmqiBMTF8uPK5h83OSpXuo3I0viPqqae1L1F9cczSO80z+FnGsHfOzJWkPg1Ptaj1L0ob4XVzKQpnbMM13/tw0CI5H3vQ5Da26ChiNPSxHq/WX1a/Cs2h9ClUkn3/50Nr3T/nAbJSvDckWnBSUu/COpwUuFz6wrGjxnUOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QXBLrMb8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MvnrpQDe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1A261F0089B;
-	Wed,  7 Oct 2026 08:45:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QXBLrMb8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAB1A1F0089C;
+	Wed,  7 Oct 2026 08:46:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791362759;
-	bh=5kUDB48eD8+CKCzhFlfZ10Tztlyoz2KlATn/URuZhlM=;
+	s=k20260515; t=1791362789;
+	bh=ba6Mb3NGbCJZ1yuL2nZGjoxoiS7KLWLMhnswHdxnAqk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MvnrpQDelRp7U6x9uIxS5Xy+XbxakkorthJzQv5fQxJJUER8dl79wQASB5/yr5g33
-	 z0NjwMN4CbvHJSy7+fG4wK1IMO1iXEpFth8iEeKOL3rv06yd5tQmQtL2wxf2Gwf0Vr
-	 FNeNQ7Tzp/CILFjCqMWxw0LqW0dBoe6G79ffllPdF9Vabn42ydnQZCYUc4OtjT5sYj
-	 atTZaB4cNDloOY6GT6k8RHoBfR3Ex/hVHQmZv+Qcq7JY1MP8IvpKuO5t/EvmulU1nR
-	 F9TR1jrr67BcffxXkuflX2stbOcp6e9PJL4gf/QZjh5Ae8MvRo77Jys3d3ifl2p7P6
-	 kJox5xSzsVkNg==
+	b=QXBLrMb8mpsYryonQsxS5G4Ur0dljulstKL2p5Dd+xTxhIc0wcpO4d8EAdwegX0BQ
+	 WCe4Xg9JFyCvNz39Ya8TVBihY9q9yEQhAlNNqUpz+sL0RftvrbU1goU25nDcsq3POs
+	 zczFRGFy2jyx24RcPGNBgXVLeFKMfW7ZCF0FWqhcOuYgUqdpWowcuY8gP7Zi0RIgem
+	 F6R/qGDgQXLQT/vfPvzG1VNUui7rTUy29AYVBJLraCAHFcjuaN9zW80MPcpGhNsl0q
+	 kgQMqjEEDb27IrkK6wYRSHs7TyIvSSKLUE9jiOMjBMsBkYp5cDymjLL+LAbbEkJolD
+	 cWbu8xndAnyvA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Paulo Alcantara <pc@manguebit.org>,
-	David Howells <dhowells@redhat.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
+Cc: Michael Hennerich <michael.hennerich@analog.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] smb: client: only require read lease for size-extending preallocate
-Date: Wed,  7 Oct 2026 04:45:55 -0400
-Message-ID: <20261007083718.1750244-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] iio: buffer-dmaengine: fix sg entry iteration when building dma_vecs
+Date: Wed,  7 Oct 2026 04:46:25 -0400
+Message-ID: <20261007084523.2002300-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100623-excavate-prune-c97d@gregkh>
-References: <2026100623-excavate-prune-c97d@gregkh>
+In-Reply-To: <2026100621-baritone-yapping-1e8d@gregkh>
+References: <2026100621-baritone-yapping-1e8d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Paulo Alcantara <pc@manguebit.org>
+From: Michael Hennerich <michael.hennerich@analog.com>
 
-[ Upstream commit b5d59e7270d078ab28a9c4b4d11dc3eb24671988 ]
+[ Upstream commit 0d0ffbcc92e30a8d656ad76a6e278fa3400fed85 ]
 
-smb3_simple_falloc() refuses any fallocate that clears FALLOC_FL_KEEP_SIZE
-with -EOPNOTSUPP whenever the inode is not read caching:
+iio_dmaengine_buffer_submit_block() counts scatterlist entries with
+sg_nents_for_len(), which walks the CPU-side lengths (sg->length), but
+then consumes the DMA-side fields (sg_dma_address()/sg_dma_len()).
+After dma_map_sgtable() the two views may differ: an IOMMU can coalesce
+the mapping so that only the first sgt->nents entries carry valid DMA
+addresses, with nents < orig_nents.
 
-	/* if file not oplocked can't be sure whether asking to extend size */
-	if (!CIFS_CACHE_READ(cifsi))
-		if (!keep_size) {
-			...
-			return rc;
-		}
+On x86 with an IOMMU enabled, a DMABUF block backed by two 1 MiB
+system-heap chunks maps to a single 2 MiB IOVA range. The CPU-side
+count is 2, so the loop reads one entry past the mapped set and emits a
+garbage vec ({addr = ~0, len = 0}). The DMA engine driver rejects the
+vec array (prep returns NULL), the fence is signalled with -ENOMEM,
+which a userspace poller cannot observe, and the block is left in
+ACTIVE state so every further enqueue of it fails with -EBUSY. The
+visible symptom is a stream of zero-filled blocks followed by a wedged
+buffer.
 
-As with smb3_zero_range(), the read lease is only needed to trust the
-cached size when deciding whether the request extends the file. When it
-is not held, the size can instead be fetched from the server, which is
-authoritative, rather than refusing the request outright: after
-flushing, query the server's end of file and take the larger of it and
-the cached size for the interior-vs-extend decision. The larger of the
-two is used because the server's end of file reflects another client's
-growth while the cached size reflects this client's own writes that may
-not have reached the server yet; using the server size alone would
-wrongly treat an interior request as extending when a range flush left
-an extending write unwritten.
+Platforms without an IOMMU never hit this because nents == orig_nents.
 
-smb3_simple_fallocate_range(), which performs the actual interior
-emulation, decided whether the range already lies past EOF from its own
-i_size_read(inode) rather than the old_eof computed above. In the
-leaseless case, that is exactly the stale, undershooting size this
-patch works around: a genuinely interior range can read as past EOF by
-that stale count, which skips the FSCTL_QUERY_ALLOCATED_RANGES check
-entirely and overwrites already-allocated server data with zeroes
-instead of only filling the holes. Pass old_eof into
-smb3_simple_fallocate_range() and use it for that comparison instead of
-re-deriving a second, inconsistent one.
+Size the vec array with sgt->nents, i.e. the DMA-mapped view, and stop
+the fill loop once bytes_used is covered - which is allowed to be
+smaller than the block size - passing the number of vecs actually
+filled to dmaengine_prep_peripheral_dma_vec().
 
-Rejecting interior requests is observed as generic/363 randomly failing
-against Windows Server with
+One vec per mapped entry is enough since coalescing can only ever
+reduce the number of entries. A single mapped entry longer than the
+device's maximum segment size would need more than one, but the DMA API
+already assumes no single segment exceeds it [1], and splitting a vec
+down to the hardware descriptor size is the DMA engine driver's job -
+which both current .device_prep_peripheral_dma_vec() implementations
+do.
 
-	do_preallocate: fallocate: Operation not supported
+[1]: commit ab2cbeb0ed30 ("iommu/dma: Handle SG length overflow better")
 
-fsx issues an interior, non-KEEP_SIZE preallocate while the inode is
-transiently not read caching: the server had just downgraded the file's
-lease from RWH to RH after breaking the write caching, and the ensuing
-handle reopen/revalidation left CIFS_CACHE_READ momentarily clear. The
-range sat within the server's end of file, so no extend was needed, yet
-it was refused and fsx aborted. This keeps the emulation correct even
-when a genuine lease break from another client leaves the inode
-without read caching -- the case the -EOPNOTSUPP guard turned into a
-hard failure. The extra flush and round trip only happen when both
-keep_size is false and no read lease is held; every other case is
-unchanged.
-
-Fixes: 9ccf3216238c ("Add support for original fallocate")
-Reviewed-by: David Howells <dhowells@redhat.com>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Matthew Wilcox <willy@infradead.org>
-Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
-Cc: Shyam Prasad N <sprasad@microsoft.com>
-Cc: Tom Talpey <tom@talpey.com>
-Cc: Bharath SM <bharathsm@microsoft.com>
+Assisted-by: Claude:claude-fable-5
+Fixes: 7a86d469983a ("iio: buffer-dmaengine: Support new DMABUF based userspace API")
+Signed-off-by: Michael Hennerich <michael.hennerich@analog.com>
+Signed-off-by: Nuno Sá <nuno.sa@analog.com>
 Cc: stable@vger.kernel.org
-[ sashal: Replaced query_server_eof() with an inline SMB2_query_info() call. ]
+Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+[ sashal: adjusted context due to missing cyclic DMA flag handling ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/smb2ops.c | 32 +++++++++++++++++++++++++-------
- 1 file changed, 25 insertions(+), 7 deletions(-)
+ .../iio/buffer/industrialio-buffer-dmaengine.c   | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
 
-diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
-index 887ffa77aa183..4aadebec00143 100644
---- a/fs/smb/client/smb2ops.c
-+++ b/fs/smb/client/smb2ops.c
-@@ -3536,28 +3536,46 @@ static long smb3_simple_falloc(struct file *file, struct cifs_tcon *tcon,
- 	struct cifsFileInfo *cfile = file->private_data;
- 	long rc = -EOPNOTSUPP;
- 	unsigned int xid;
--	loff_t new_eof;
-+	loff_t old_eof, new_eof;
+diff --git a/drivers/iio/buffer/industrialio-buffer-dmaengine.c b/drivers/iio/buffer/industrialio-buffer-dmaengine.c
+index 95222f00e5ff4..0de2784ace22f 100644
+--- a/drivers/iio/buffer/industrialio-buffer-dmaengine.c
++++ b/drivers/iio/buffer/industrialio-buffer-dmaengine.c
+@@ -82,10 +82,13 @@ static int iio_dmaengine_buffer_submit_block(struct iio_dma_buffer_queue *queue,
+ 		dma_dir = DMA_MEM_TO_DEV;
  
- 	xid = get_xid();
+ 	if (block->sg_table) {
+-		sgl = block->sg_table->sgl;
+-		nents = sg_nents_for_len(sgl, block->bytes_used);
+-		if (nents < 0)
+-			return nents;
++		/*
++		 * Only the first sgt->nents entries carry a valid
++		 * sg_dma_address()/sg_dma_len() pair as mapping the table may
++		 * have coalesced entries, in which case nents is smaller than
++		 * orig_nents.
++		 */
++		nents = block->sg_table->nents;
  
- 	inode = d_inode(cfile->dentry);
- 	cifsi = CIFS_I(inode);
-+	old_eof = i_size_read(inode);
+ 		vecs = kmalloc_array(nents, sizeof(*vecs), GFP_ATOMIC);
+ 		if (!vecs)
+@@ -93,7 +96,8 @@ static int iio_dmaengine_buffer_submit_block(struct iio_dma_buffer_queue *queue,
  
- 	trace_smb3_falloc_enter(xid, cfile->fid.persistent_fid, tcon->tid,
- 				tcon->ses->Suid, off, len);
--	/* if file not oplocked can't be sure whether asking to extend size */
--	if (!CIFS_CACHE_READ(cifsi))
--		if (keep_size == false) {
-+
-+	if (!keep_size && !CIFS_CACHE_READ(cifsi)) {
-+		struct smb2_file_all_info file_inf = {};
-+		unsigned long long server_eof;
-+
-+		rc = filemap_write_and_wait(inode->i_mapping);
-+		if (rc) {
-+			trace_smb3_falloc_err(xid, cfile->fid.persistent_fid,
-+				tcon->tid, tcon->ses->Suid, off, len, rc);
-+			free_xid(xid);
-+			return rc;
-+		}
-+
-+		rc = SMB2_query_info(xid, tcon, cfile->fid.persistent_fid,
-+				     cfile->fid.volatile_fid, &file_inf);
-+		if (rc) {
- 			trace_smb3_falloc_err(xid, cfile->fid.persistent_fid,
- 				tcon->tid, tcon->ses->Suid, off, len, rc);
- 			free_xid(xid);
- 			return rc;
+ 		len_total = block->bytes_used;
+ 
+-		for (i = 0; i < nents; i++) {
++		sgl = block->sg_table->sgl;
++		for (i = 0; i < nents && len_total; i++) {
+ 			vecs[i].addr = sg_dma_address(sgl);
+ 			vecs[i].len = min(sg_dma_len(sgl), len_total);
+ 			len_total -= vecs[i].len;
+@@ -101,6 +105,8 @@ static int iio_dmaengine_buffer_submit_block(struct iio_dma_buffer_queue *queue,
+ 			sgl = sg_next(sgl);
  		}
-+		server_eof = le64_to_cpu(file_inf.EndOfFile);
-+		/* Only use the larger EOF to decide whether we're extending. */
-+		old_eof = max_t(loff_t, old_eof, server_eof);
-+	}
  
- 	/*
- 	 * Extending the file
- 	 */
--	if ((keep_size == false) && i_size_read(inode) < off + len) {
-+	if (!keep_size && old_eof < off + len) {
- 		rc = inode_newsize_ok(inode, off + len);
- 		if (rc)
- 			goto out;
-@@ -3605,7 +3623,7 @@ static long smb3_simple_falloc(struct file *file, struct cifs_tcon *tcon,
- 		}
- 	}
- 
--	if ((keep_size == true) || (i_size_read(inode) >= off + len)) {
-+	if (keep_size || old_eof >= off + len) {
- 		/*
- 		 * At this point, we are trying to fallocate an internal
- 		 * regions of a sparse file. Since smb2 does not have a
-@@ -3634,7 +3652,7 @@ static long smb3_simple_falloc(struct file *file, struct cifs_tcon *tcon,
- 		 * ie potentially making a few extra pages at the beginning
- 		 * or end of the file non-sparse via set_sparse is harmless.
- 		 */
--		if ((off > 8192) || (off + len + 8192 < i_size_read(inode))) {
-+		if (off > 8192 || off + len + 8192 < old_eof) {
- 			rc = -EOPNOTSUPP;
- 			goto out;
- 		}
++		nents = i;
++
+ 		desc = dmaengine_prep_peripheral_dma_vec(dmaengine_buffer->chan,
+ 							 vecs, nents, dma_dir,
+ 							 DMA_PREP_INTERRUPT);
 -- 
 2.53.0
 
