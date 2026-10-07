@@ -1,134 +1,66 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-00617f01.pphosted.com (mx0b-00617f01.pphosted.com [205.220.177.167])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C573D39EF01;
-	Wed,  7 Oct 2026 15:09:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70F1B4BEE37
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 15:30:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.177.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791385763; cv=none; b=FqGcw53WQncDsqa7v+Tgw1igZZ0w4XP3qDPz0WqTxVmEypIgOXAL4SJZeey+T/p7qNbKrW2XiT054mbYPy8j8/+exFQ8uifecZIum+2LwHgbVR73hGFK3jrpp//Qr5Buq1jimg+AKK16pYtcHG/Qy2Bam69ZdVya25vRO7qxPYQ=
+	t=1791387055; cv=none; b=k1y47wLc1OacqD12wzdjx0cpmIaPGpj36PvU82mLReSzcjlGXRKN5wCnkjNysNV4COIHh3E0WPmE+vrOo0hQKeFt56EIJhmctDkgJCDBbe4eOyraOhT5l1fGaYMd7dIlzgkOqe0mOB4gSu4CA6ifHSnWQrmxBC5DOCvnCTLXXTo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791385763; c=relaxed/simple;
-	bh=n1PlzXgKPPWXn4xBrMXursX6M7s4AJx/3w1A7rIncZY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Kq7/NBIFUDDrw5wyaGEZzYnrYldJcdrk+YkqGzjh59kXsXqrYTAAwVHYMK3gEEPSDvCEuDGhNeO2jxT9LhBzQecHHsp0P3265zh86LgeK1EEl1S6miiXTjClMXSGt4Gqv9CW/+WqBtJBGMqnvvI6VtNu23G2vtXd4tBDiPSXmcw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dzRhiDBv; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dzRhiDBv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC3451F000FF;
-	Wed,  7 Oct 2026 15:09:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791385759;
-	bh=WnK/pW8OTBOt0Pd2o1F+d7eEU1h//o2tR25a99I73TE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dzRhiDBv72YcUM1r11uYi3PAQO/Ueytd0lm0ymmfJdcVsUeI3DxWOwxpGRU5t1jAG
-	 qU5PWSqWLhbSQeJ6s9PzwABy7evJ8KIipPs7+2aTsylKglnpr1hWD7QFSjkFqRYmZ7
-	 OnfskU211WH0B/4iyaCE/9JM4pVprgKQjzGEKkJqN3wtUD45151KH0RMHYbn9x0dc6
-	 z8IuEALhK4/sa+MPtC1xBC9O2WwKVy7EnSmfcAbRhDos3SH1Z650oEgZjV9bfhMXov
-	 182ys4RrmdMyDyb6YQKbXRHPcm7XzxfmEvs3fBYyL1PBCCaqcEJhkuzyD8YgepOZfk
-	 frOqgkL1hdMig==
-Date: Wed, 7 Oct 2026 16:09:11 +0100
-From: Simon Horman <horms@kernel.org>
-To: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-Cc: netdev@vger.kernel.org, Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Konstantin Taranov <kotaranov@microsoft.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Erni Sri Satya Vennela <ernis@linux.microsoft.com>,
-	Aditya Garg <gargaditya@linux.microsoft.com>,
-	Dipayaan Roy <dipayanroy@linux.microsoft.com>,
-	Breno Leitao <leitao@debian.org>,
-	Jacob Keller <jacob.e.keller@intel.com>,
-	Saurabh Sengar <ssengar@linux.microsoft.com>,
-	linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-rdma@vger.kernel.org, bpf@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net v2] net: mana: reserve RX buffer headroom to fix
- forwarding performance
-Message-ID: <20261007150911.GT83879@horms.kernel.org>
-References: <20261003013647.2051416-1-hamzamahfooz@linux.microsoft.com>
+	s=arc-20240116; t=1791387055; c=relaxed/simple;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=oyLIKkYfPgkzK9LeydOEZpeqTGValf8p7VIJKFml2MtALgGe1TOIP5uz9utM0FGaNhNA0s73siWC3bnkBRPrx0uoX+AJubZ9ulmftOcLHa4ck36I44V76h8xoqCTuSBzqilm3eDKQrY+2m2EvbEOiQx1ewMdVntA9GMZJ+O3kgo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=psmicorp.com; spf=pass smtp.mailfrom=psmicorp.com; arc=none smtp.client-ip=205.220.177.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=psmicorp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=psmicorp.com
+Received: from pps.filterd (m0247528.ppops.net [127.0.0.1])
+	by mx0a-00617f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 697EwXAF1235183
+	for <stable@vger.kernel.org>; Wed, 7 Oct 2026 11:30:46 -0400
+Received: from egc-exch2.psmicorp.com (webmail.psmicorp.com [38.142.134.66] (may be forged))
+	by mx0a-00617f01.pphosted.com (PPS) with ESMTPS id 4h5pxngdbx-7
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Wed, 07 Oct 2026 11:30:45 -0400 (EDT)
+Received: from EGC-EXCH2.psmicorp.com (10.1.1.111) by EGC-EXCH2.psmicorp.com
+ (10.1.1.111) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.61; Wed, 7 Oct
+ 2026 09:48:48 -0400
+Received: from psmicorp.com (10.1.1.107) by EGC-EXCH2.psmicorp.com
+ (10.1.1.111) with Microsoft SMTP Server (version=TLS1_0,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.1.2507.61 via Frontend
+ Transport; Wed, 7 Oct 2026 09:48:44 -0400
+Reply-To: <greg@gospelmusicuniversity.com>
+From: Evans Thomas <_us@psmicorp.com>
+To: <stable@vger.kernel.org>
+Subject: fund transfer opportunity,Reply)
+Date: Wed, 7 Oct 2026 15:48:40 +0200
+Message-ID: <20261007154840.D556B67F65DA146E@psmicorp.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261003013647.2051416-1-hamzamahfooz@linux.microsoft.com>
-
-On Fri, Oct 02, 2026 at 09:36:47PM -0400, Hamza Mahfooz wrote:
-> Commit 730ff06d3f5c ("net: mana: Use page pool fragments for RX buffers
-> instead of full pages to improve memory efficiency.") started handing
-> out RX buffers with zero headroom so that two buffers fit into one page
-> at the default MTU.
-> 
-> The MANA TX path, however, stores the per scatter-gather entry DMA
-> mappings in `struct mana_skb_head` at skb->head, and mana_start_xmit()
-> therefore calls skb_cow_head(skb, MANA_HEADROOM). The port advertises
-> this requirement as ndev->needed_headroom = MANA_HEADROOM.
-> 
-> As a result every packet that is received and then forwarded out of a
-> MANA port fails the skb_cow() in ip_forward() and gets reallocated and
-> copied by pskb_expand_head(). This is invisible to a plain RX or TX
-> workload, but it puts a full skb reallocation plus memcpy on the hot
-> path of every single forwarded packet, which is exactly what a
-> router/NVA workload does.
-> 
-> Restore the headroom. Note that reserving MANA_HEADROOM (232) is not
-> enough: ip_forward() asks for LL_RESERVED_SPACE(dev), which rounds
-> hard_header_len + needed_headroom up to HH_DATA_MOD and is 256 bytes on
-> ethernet. Use LL_RESERVED_SPACE() directly so the value keeps tracking
-> both constants. Also, since LL_RESERVED_SPACE() tracks MANA_HEADROOM,
-> it grows with MAX_SKB_FRAGS and for MAX_SKB_FRAGS >= 19 it is greater
-> than 256, so we have to account for that by using the headroom the RX
-> queue actually uses (instead of assuming XDP_PACKET_HEADROOM) and
-> turning MANA_XDP_MTU_MAX into MANA_XDP_MTU_MAX(ndev) (note that at the
-> default CONFIG_MAX_SKB_FRAGS=17 they are equivalent).
-> 
-> At the default MTU on a 4K page this means a buffer no longer fits twice
-> into a page (SKB_DATA_ALIGN(1500 + MANA_RXBUF_PAD + 256) = 2112), so the
-> frag-vs-single decision is now made by computing the real buffer size
-> instead of comparing the MTU against PAGE_SIZE / 2. The page_pool
-> fragment path is still used wherever at least two buffers genuinely fit,
-> e.g. on 16K and 64K page sizes.
-> 
-> Measured on an Azure VM with a MANA NIC acting as a forwarding NVA (UDP,
-> 1400 byte payload, 4 streams, 8 Gbps offered, only the forwarding
-> node's kernel differs), 8 runs each, median:
-> 
->                   forwarded pps    throughput
->   before              272,830       3.06 Gbps
->   after               390,560       4.37 Gbps   (+43%)
-> 
-> perf on the forwarding node, same workload:
-> 
->                   memset_orig   __pi_memcpy   pskb_expand_head
->   before             10.07%         3.96%         present
->   after               0.94%         0.64%         gone
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 730ff06d3f5c ("net: mana: Use page pool fragments for RX buffers instead of full pages to improve memory efficiency.")
-> Signed-off-by: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-> ---
-> v2:
-> - Fix the XDP headroom mismatch with CONFIG_MAX_SKB_FRAGS >= 19,
->   by passing rxq->headroom to xdp_prepare_buff().
->   mana_build_skb() then picks up the correct offset via
->   xdp->data - xdp->data_hard_start. Also, turn MANA_XDP_MTU_MAX
->   into MANA_XDP_MTU_MAX(ndev) to account for the headroom,
->   since it is no longer a constant. (Narcisa, Sashiko)
-> - Use the new mana_single_rxbuf_per_page_forced() helper in
->   mana_set_priv_flags(). (Sashiko)
-> - Trim the comment above mana_get_rxbuf_headroom() and drop the stale
->   "XDP headroom" wording from the comment above mana_get_rxbuf_cfg().
->   (Narcisa, Sashiko)
-
-Reviewed-by: Simon Horman <horms@kernel.org>
+Content-Type: text/plain
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDA2MSBTYWx0ZWRfXz5B8/Dn1X1TK
+ YhVwB3iBi3GaC8dMyziiKhpgWdwMZbcxVpjoTKvfv1zXwEJzTb/Psc5Su4hLsYpLfGnup2ynyx3
+ tO103TLfpIMJE6DwPYZ/RyD0MN6hY4pO0DFf1GG8JcHEJesCMERtwpmN7joAUsRlf0ybQ6/cZYi
+ RPzCp79fe3RzUK6be+6ugFs2ThBMV5OwVtsxSnXzrt7CpP1k1J0WWhFfdLfZePsoyv+yGvajbsd
+ aK3oI2x000Pqyu39nuDYoaPu636qIN0ydH5tRVqrsIO0rB6xCmKCskvHcFQpTqO92cmhoy5Eh/Z
+ iRTWlaZAQR/g/wbbLKb1sqzNR4KIQ1X2k8933k8lcT3gQ1jY2NJZ6uXnevcJ9eDaehvK8g7NmXH
+ QyvBkO+71U4Xtr6AgIOoAJ4hFK0C1JxqmADjvSxQbQaz2VxYlq5mR76AySivCDzwWY2kl+ZKXA9
+ wtbRgPhaJmWXSlEeWYA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDA2MSBTYWx0ZWRfX/Vv4mhaXe0ns
+ 9OJvtA+hum6VMh0UzRfPyNE2qqpCD0Viam8+gn43xB+nG4R7bMcft2frjsRXASbZ2PHtmIjuGz1
+ Miuzdl98CD8Yy9lzRXXgQ251WcebO3z7Iz62OiN6qAoHyb5iWRmf
+X-Proofpoint-GUID: LlIxEfeYtjgVbOhn4PJslx4hGu3zNEhP
+X-Proofpoint-ORIG-GUID: LlIxEfeYtjgVbOhn4PJslx4hGu3zNEhP
+X-Authority-Analysis: v=2.4 cv=Vf1ir1p9 c=1 sm=1 tr=0 ts=6ac665a5 cx=c_pps
+ a=sNj4pI0fii9qGHoVqNzRVg==:117 a=sNj4pI0fii9qGHoVqNzRVg==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=ZHGAjPH774soz-f4Le74:22
+ a=FHnH0SYMNjvGwZk24hmG:22 a=tclcd6dtLQvEqt9_mmAA:9
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0 suspectscore=0
+ malwarescore=0 bulkscore=0 spamscore=0 phishscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610070061
 
