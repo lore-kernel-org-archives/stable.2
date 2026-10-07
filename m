@@ -1,122 +1,222 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD2374A2A59
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 12:27:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B64F44973A2;
+	Wed,  7 Oct 2026 12:44:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791376074; cv=none; b=qZ5pOv2SERBhMaDjOjo6xU/yU3mFVWbYE5JwMvhG23COLqfenCrPnqx/jLO5N+BdN1IngXllXHdTk0ccAF2gc2sCiJonAgmqzekZ5J62joCsZJ0cH68ESQgMdgt7gFni6SwSTX5BiA5L1FJCJ7qnOcNRvJ5GZA+cO6fWvdcqRpM=
+	t=1791377060; cv=none; b=N/sTnwtyj/5JNp6E0UHJTgsgZx9TCGpPTc9651GlqzjBb7086atEe8BHn5FPokymRgU1yU8HLdZkvZTIzqlTREG1x2JNyOVc/Txde26LHcrsz3FV2mjwfChm1+59HcsdG3fIubproYu6JvU+7FMQMpqf29c65ssSs/Zq6uuDTmk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791376074; c=relaxed/simple;
-	bh=mrYDL8Jc5kHOxo/uk1bef7rw5P9jwUrrYQcpUUCM5R8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WXpVSX0D1LrXG+GERUrcKJAp06cMOwaWg+mV8jLQjhq2OIIxMBbRAkY4FNiUghWPo06WYwbxk/Ypbkk5dwWkc/C1gHITbYIpbyu7g9d0KX2NBdH0raA6lCkVOqKFyHYsH8P9odoOPxHJvHAWT5tVUXWmfHtv/lFv0otxSBFbpKc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BP0pbMui; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791377060; c=relaxed/simple;
+	bh=4rZ1YrUR53Ww2fXvW5mSKt2hnfigChYTV1LZHZbGtBk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tJ69Fq0wqo0yOS1J7aTJpnSu7/a53yLEHhUqQwlRzxicF31hHV9a36AznhhYE3x2fluX9YaKM9wtRVz08qjPUQec2I7lnIDxEDuirPxh9oExuDDPChvI++Fsy+CepqnFVJcxM7nfDjY75Kh3jahADVIGDWYY7DUkZUgPqP/itX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=CmSTxDjk; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=hAA19RFU; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=EQYLwAxC; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=oNpD3aU1; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BP0pbMui"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3a4c80d3d5aso2072676a91.0
-        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 05:27:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791376062; x=1791980862; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BhdLoXtc9kkNzHYF4QrrqBcMnO9w0fLSquEWS/rnbxY=;
-        b=BP0pbMui3jhElTXQYCUBTYnSKzfUDgvophxTlHJaVR8OoxUZmgv9iRGW65Z5YmaR8V
-         CBitjewxxi9zRnXJ6vjMo6wlBleCVDJA4XBb8jiUyImVGj720iHtox3vYGufseei35xe
-         S04u/TNrLygaad0S2y93/kMiTmdjr1BEnvf3WMG+gLSJfnd4rKXksmedeONwHDF4Ypsh
-         6yCu1KKM8RuRwN09P2e1Rvmy2wDgXGEFkRopDR9QsYAdjjrI0k72w40aItEtNKfKgpnS
-         8JQHYGXlcBDtaexYdjRvZACQhgDxbLMFN9rHmNDnIdqFuzQ061AOJRhn0DpURJEjAdzC
-         q1Lw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791376062; x=1791980862;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BhdLoXtc9kkNzHYF4QrrqBcMnO9w0fLSquEWS/rnbxY=;
-        b=SL3X9evogHw3sERnTe/huxe9KbFcerqrLFH5BpwjToYByhEAJFBbcMWyM6sE2G1pCL
-         CgnfBACjIU6EeFvTZnxPr5jp6bkC5GnLz3MF7JAT5d9/pN5AQO5HaitWfSYumTD51mD4
-         gAzCLCrfelSctGOtCvICC+xpGfQe1/+6DtWvnYqNXjhba0uPbCy0bGo/znZnQ0ASo3Im
-         WqniJqlrjP7REd7b6i9dN6aMHNTZ4NurTYLSVKTHo8ZfUhb/pP6914Dq5uVjPXsEPEES
-         L9/ImnYAj2ZTpbTGjpctMNIDg2B6vUTAHBmO7pMrPhMZFQAhLeHqI3Oi86qxTsakTyjc
-         AzZA==
-X-Forwarded-Encrypted: i=1; AKwUvBxWjfbja2jnWLCR368Zym+T4gPwJfp4fH+GRsIcafibzCCaQzs6peLgrNRsmaNWjtowrbjjGKk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJW0jfotjEmSDz0rQxbhSS8CFd4FR7Id5FNdW/0/zvABhleBDup
-	Gv9/BW8wCJUMmf6436ChAuixCmn15YcgnoelNWCdI2dSpCkOMuwVZjor
-X-Gm-Gg: AYBFou2uvrwTaRYrKNysnps3PXpFx8LFQDEEwFi1bVsVQL4v+g0RrZ4VK32OOgHM93f
-	g6GVv+AzZmmVSmdU1dShHkhBfkaN+aE86fQ4OhK92iAaqvqao56lfm9/87nV0bzJAJdiNlQw4Mw
-	2HhPb/j+t3OkhA/87HSnPShjrlh5hrb0XYwrfhmvzPYFPseGiBY94Kc5ZEvli9IUb74+BMMYsci
-	jz1qOcUxeC1yq1tX/Tflh1k7kvLT3RNid6WvM1LI4TLYgZycqeQ9GiNcOljaIHPrbwARqj1CBms
-	OPd/uG8Lel3p+vw186zOg+j297vBuj1yXq5hTLS4CV+i4x0a+WKeSJKSlEF+Wva/WelBhcTxA4I
-	OkR7itaoFhGLCqfdg9mHu1uaqntzBGX+yoXXiIDqQPmaV4PDO7tFEEIZe/fNFEYu8e7ywV/PMjO
-	bS8j2i0x+Skz+FwFOmSZw1cUiE71GXq6TQo4yKbVXYuewpYwWgudtmZGk=
-X-Received: by 2002:a17:90b:2884:b0:3a5:364:dfd with SMTP id 98e67ed59e1d1-3a8a0cd1a2dmr1992504a91.31.1791376061688;
-        Wed, 07 Oct 2026 05:27:41 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1000::8534])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a88eff2146sm6384956a91.10.2026.10.07.05.27.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 05:27:41 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Sinan Kaya <okaya@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	Andy Shevchenko <andy.shevchenko@gmail.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-arm-msm@vger.kernel.org,
-	dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="CmSTxDjk";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="hAA19RFU";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="EQYLwAxC";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="oNpD3aU1"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 44FCE1F391;
+	Wed,  7 Oct 2026 12:44:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1791377050; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=W8YmGbG2QVXUCosoSguT8Yoo2PP6BTDi63ecnP8k3G0=;
+	b=CmSTxDjkgIFyVHegcX43tHPfw5JVNiwywQfk9SEBg8vzBdvTNupD0aPAuTvYnwTEGyfKQ2
+	uM+bJE4bmvsscd6ojs5nUtYEQV/gefBbfKJBU/BqmJT6nn4dUk3cDGcn1ILuS4UQL1vHMQ
+	FJvEvLPGkTWBvpFGVQ/5/UDOzND11Sk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1791377050;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=W8YmGbG2QVXUCosoSguT8Yoo2PP6BTDi63ecnP8k3G0=;
+	b=hAA19RFUFz+9mMGtQa2okeWhIb2HVFn9YFKlsYOsh5AgCO9OLeEKyBXMcyN/vQKPFSduPx
+	ll3dejAUr7FQljDw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1791377049; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=W8YmGbG2QVXUCosoSguT8Yoo2PP6BTDi63ecnP8k3G0=;
+	b=EQYLwAxC6gaYjMoZSOWCxS1W+vRaKShHp49P6g4qzo0stm2g0ITYSt43qZeX4lp/+GSSaj
+	KOBqIEeHA5ONQX9jZ7Tg0xE0Ty/OiLbCeMR4818V3KDPMTPxhsJOmmQY/YM3FHhcykj8W+
+	JUPUpegw3Fg2GbmRyKlgZPscRw8uEHs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1791377049;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=W8YmGbG2QVXUCosoSguT8Yoo2PP6BTDi63ecnP8k3G0=;
+	b=oNpD3aU1kQqKiVwq7O7SA/u8oVOVixf62TuGUi7uZeTyS0i5xYX9YRi8gNsYv4ZW8NbktC
+	0PT/ovSrFjUL0IDg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EC4DB13354;
+	Wed,  7 Oct 2026 12:44:08 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id vYPhMZg+xmpdWgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 07 Oct 2026 12:44:08 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 4EEE2A13FE; Wed, 07 Oct 2026 14:44:04 +0200 (CEST)
+Date: Wed, 7 Oct 2026 14:44:04 +0200
+From: Jan Kara <jack@suse.cz>
+To: daejun7.park@samsung.com
+Cc: Theodore Ts'o <tytso@mit.edu>, Jan Kara <jack@suse.com>, 
+	Jan Kara <jack@suse.cz>, linux-ext4@vger.kernel.org, 
+	Andreas Dilger <adilger.kernel@dilger.ca>, Baokun Li <libaokun@linux.alibaba.com>, 
+	Ojaswin Mujoo <ojaswin@linux.ibm.com>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+	Zhang Yi <yi.zhang@huawei.com>, Zhang Yi <yi.zhang@huaweicloud.com>, 
+	Harshad Shirwadkar <harshadshirwadkar@gmail.com>, Li Chen <me@linux.beauty>, linux-kernel@vger.kernel.org, 
 	stable@vger.kernel.org
-Subject: [PATCH v3] dmaengine: qcom: hidma_mgmt: fix autosuspend cleanup on probe failure
-Date: Wed,  7 Oct 2026 20:25:34 +0800
-Message-ID: <20261007122534.194286-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Subject: Re: [PATCH] jbd2: don't start a fast commit while the journal is
+ marked empty
+Message-ID: <coe3to72lu7bpma674x2z5yy6ng3ixia5xkqcx3halyijbmcnr@j5fierqu2stw>
+References: <20261007-jbd2-fc-after-flush-v1-1-548bd91cd959@samsung.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261007-jbd2-fc-after-flush-v1-1-548bd91cd959@samsung.com>
+X-Spam-Score: -2.30
+X-Spam-Level: 
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-2.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	TAGGED_RCPT(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[mit.edu,suse.com,suse.cz,vger.kernel.org,dilger.ca,linux.alibaba.com,linux.ibm.com,gmail.com,huawei.com,huaweicloud.com,linux.beauty];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,imap1.dmz-prg2.suse.org:helo,suse.com:email,samsung.com:email]
 
-hidma_mgmt_probe() calls pm_runtime_use_autosuspend() during probe, but
-the probe failure path does not call the matching
-pm_runtime_dont_use_autosuspend() before disabling runtime PM.
+On Wed 07-10-26 09:41:09, Daejun Park via B4 Relay wrote:
+> From: Daejun Park <daejun7.park@samsung.com>
+> 
+> jbd2_journal_flush() checkpoints everything, and
+> jbd2_mark_journal_empty() then writes the journal superblock with
+> s_start == 0 and the fast commit feature cleared. It sets JBD2_FLUSHED
+> so that the next commit writes the log tail and the feature back, but
+> only jbd2_journal_commit_transaction() looks at that flag. A fast commit
+> started before the next full commit writes its blocks while the
+> superblock on disk still says the log is empty: jbd2_journal_recover()
+> returns at once and the fast commit is never replayed.
+> 
+> On ext4 with -O fast_commit this happens after ext4_freeze(), and after
+> a remount to read-only, which flushes the journal in
+> ext4_mark_recovery_complete(), once the file system is read-write again.
+> EXT4_IOC_CHECKPOINT and online resize flush it as well. An fsync that a
+> fast commit handles after one of them is lost if the system crashes
+> before the next full commit, which can be up to the commit interval
+> later:
+> 
+>   mount -o commit=60 (-O fast_commit file system)
+>   echo first > a; sync
+>   fsfreeze -f; fsfreeze -u      # or: remount ro, then rw
+>   write b; fsync b              # one fast commit, s_start still 0
+>   crash (kill the VM), mount
+>   b is missing
+> 
+> Refuse to start a fast commit while JBD2_FLUSHED is set, as is already
+> done before the first full commit. ext4 then falls back to a full
+> commit, which writes the log tail, and the fast commits after it are
+> recovered again. fc_info counts the refused fast commit as ineligible,
+> as it does for the existing check.
+> 
+> Fixes: ff780b91efe9 ("jbd2: add fast commit machinery")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Daejun Park <daejun7.park@samsung.com>
 
-Add the missing pm_runtime_dont_use_autosuspend() call to the probe
-failure path before pm_runtime_disable() so that the autosuspend
-setting is properly undone during cleanup.
+Yeah, good catch! Feel free to add:
 
-This issue was found by manual code inspection.
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-Fixes: 7f8f209fd6e0 ("dmaengine: add Qualcomm Technologies HIDMA management driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
-v3:
-  - Add the missing changelog.
+								Honza
 
-v2:
-  - Keep pm_runtime_enable() and explicitly add the missing
-    pm_runtime_dont_use_autosuspend() call in the probe failure path
-    instead of switching to devm_pm_runtime_enable().
-  - Update the commit message to match the actual change.
-
- drivers/dma/qcom/hidma_mgmt.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/dma/qcom/hidma_mgmt.c b/drivers/dma/qcom/hidma_mgmt.c
-index 4805ce390ffa..d8c56af5882d 100644
---- a/drivers/dma/qcom/hidma_mgmt.c
-+++ b/drivers/dma/qcom/hidma_mgmt.c
-@@ -310,6 +310,7 @@ static int hidma_mgmt_probe(struct platform_device *pdev)
- 	return 0;
- out:
- 	pm_runtime_put_sync_suspend(&pdev->dev);
-+	pm_runtime_dont_use_autosuspend(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
- 	return rc;
- }
+> ---
+> Tested in QEMU on ext4 dev 9091c97be340, crashing by killing QEMU: the
+> sequence above loses b without this change and keeps it with it, both
+> after fsfreeze and after a remount ro then rw. A second fsync after the
+> fallback is a fast commit again and is recovered. xfstests ext4/044
+> ext4/045 generic/455 generic/456 generic/482 with -O fast_commit, and
+> generic/068 generic/085 generic/390, give the same results as without
+> the change (generic/455 fails on both).
+> ---
+>  fs/jbd2/journal.c | 13 ++++++++++++-
+>  1 file changed, 12 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/jbd2/journal.c b/fs/jbd2/journal.c
+> index 00f5a98f3d..22576af8c8 100644
+> --- a/fs/jbd2/journal.c
+> +++ b/fs/jbd2/journal.c
+> @@ -695,7 +695,8 @@ int jbd2_log_wait_commit(journal_t *journal, tid_t tid)
+>   * it to complete. Returns 0 if a new fast commit was started. Returns -EALREADY
+>   * if a fast commit is not needed, either because there's an already a commit
+>   * going on or this tid has already been committed. Returns -EINVAL if no jbd2
+> - * commit has yet been performed.
+> + * commit has yet been performed, or none since the journal was last marked
+> + * empty.
+>   */
+>  int jbd2_fc_begin_commit(journal_t *journal, tid_t tid)
+>  {
+> @@ -714,6 +715,16 @@ int jbd2_fc_begin_commit(journal_t *journal, tid_t tid)
+>  		return -EALREADY;
+>  	}
+>  
+> +	/*
+> +	 * The log was emptied and the superblock on disk says so, which makes
+> +	 * recovery skip the fast commit area as well. Only a full commit
+> +	 * records the log tail again.
+> +	 */
+> +	if (journal->j_flags & JBD2_FLUSHED) {
+> +		write_unlock(&journal->j_state_lock);
+> +		return -EINVAL;
+> +	}
+> +
+>  	if (journal->j_flags & JBD2_FULL_COMMIT_ONGOING ||
+>  	    (journal->j_flags & JBD2_FAST_COMMIT_ONGOING)) {
+>  		DEFINE_WAIT(wait);
+> 
+> ---
+> base-commit: 9091c97be34083587a75db174aab51551d8e8543
+> change-id: 20261006-jbd2-fc-after-flush-2ef9bbc32cea
+> 
+> Best regards,
+> -- 
+> Daejun Park <daejun7.park@samsung.com>
+> 
+> 
 -- 
-2.43.0
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
