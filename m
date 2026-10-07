@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31EE33932DC
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 08:38:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D44D2411FB2
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 08:38:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791362293; cv=none; b=BuYBRoGSvg0VnPN+AQtKaht4LW24w3IEgCoEl0HBskjZh1G4d7TfWfb03V2d9VR9x8r7xFiCrQsPUUvcM/5qVICg3OLJZAgRvul8vCJzvC3kzUwUGvwBVCwOVnxfVkAvOXeQln8mRXd4/rGtQHQwGav0AN9cVmgsjMaus3kbWEo=
+	t=1791362312; cv=none; b=dv04URKQalHjtb1FqQOXtsEjpX/wDchrHhN19GjHVUoiNj+/94TeLenyFPIHXKub4+gxs88NKn7ZISOp39on2Fj2gixjtAawwfscLUnV2nQ3BHgIT+N1Ac2jd88JGeGFkjvmshXflbiuZpo+x1mX4PIsdKSSuz3DZKDzy8mZmoI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791362293; c=relaxed/simple;
-	bh=UE2SfNeXmzfE2YXHe3i2Fih7cxlmOsQTqDNV/C83RqY=;
+	s=arc-20240116; t=1791362312; c=relaxed/simple;
+	bh=1V7E0jNJbPRyMvDfds6pcAeWStPALQfEqfO+1aJcjZs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nsUXeV3QAyxcGkcbF2jGpnGSFQPQxSBD5+hoCHDSyYgMwEuVHBSXQiXOE7INq2N0GUrGX9qBhvcL0ufA0mKjBrSwDbZ6qpvnPDUmHKmB9cMsIUzzPeCDwidZjfUaoVt25hg6Ejcwk7wVUCHG2pATTeyWRVmD1/2cLg907RCD+sk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dkbN0z0C; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=U7Lf67ZNtehrTad8pR8cTHuEP3DJTsU3QMyjkQNn0ZrBSDQf/URLB0nzCe6zYUINVKhnlCOpX5mHHBSU1EnR8smcif4BvGN+C9SrIl3Eof3ePaS0V5iy26tglokmPkuFQOHUNZ5rvp3m6cuIENnZi6NO241fbHnpezbEr1r+ni4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R0xGg6/A; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dkbN0z0C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 204D11F0089B;
-	Wed,  7 Oct 2026 08:38:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R0xGg6/A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 211C91F0089B;
+	Wed,  7 Oct 2026 08:38:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791362288;
-	bh=AIHfkAF99mPxj1wML++zsMFVopWNHmxyF7Uk0fyW1hs=;
+	s=k20260515; t=1791362309;
+	bh=i2jySMwM3jCdCLIJZHFWBu8O1dCHtPLaNdLtIsI90oY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dkbN0z0CMlnU0DOgJOFT9dipcwNyPtITF3SOouKPqc7A8oZBrFqt+evN32gVrn38L
-	 z3o5EuiHPJc1wY0kwgatR9c6tJtR+RcHbhplIwWnPgD0JXdl9qIhUUJ43JKObZ3/KU
-	 YHP7J6gFRguG0VRnRuumJaH89foV65bfjwQ7ztviQDV4zMm5iamptR3K4YXkkxF4Hb
-	 KocOZVi72MznYHVEFKfhqkhOIU+2AHRD2RFOqNnFzc8y4/Mfpt9BVKVuL1J7kJjYqc
-	 I20g2D6wZuQy+LrpQUbHgeX4pY2q96JzbAqSYK+mx+TnILfnXblTBZDnnBQAerjPAE
-	 2754+NaWt+VGg==
+	b=R0xGg6/ATYub/52ezOyclmZ5XVAG295LT2PhI+FgUcjRIuOwb4GAC3EsGQB0Xj4y9
+	 /hLjGrEPPvzCzl5h6Gpe+RMQ2eE11eBSXdoFpv1KOeG+k+8p34YUo1vjDvoFUDfEkc
+	 0IKcEVwTuOkZ3Il4d62C6LhdlAJCSJhIzn25hcJffnjX+TmNce8xHfJRuwoS6SVEhz
+	 YNCOkvsAmp7cN4L8qRgz4b6apD/Y6mV3KVfDJ3KxU3UMg8XLHSqHwizjl1J+xMi04J
+	 wSMTkks+6anhauy77w9Zij+oeT0qsmla3X9qzkxEAkTGtmMEu/ZVbnltZsTMCyigDv
+	 VSl6/CtbVCOSg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
+Cc: Pengpeng Hou <hppiscas@163.com>,
 	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] iio: adc: stm32-adc: fix possible division by zero in processed channel
-Date: Wed,  7 Oct 2026 04:38:04 -0400
-Message-ID: <20261007083719.1930677-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] iio: cdc: ad7150: fix OF matching and publish module aliases
+Date: Wed,  7 Oct 2026 04:38:25 -0400
+Message-ID: <20261007083726.1954153-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100606-manual-botany-e7cb@gregkh>
-References: <2026100606-manual-botany-e7cb@gregkh>
+In-Reply-To: <2026100633-nursing-grandma-6ae9@gregkh>
+References: <2026100633-nursing-grandma-6ae9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,52 +45,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+From: Pengpeng Hou <hppiscas@163.com>
 
-[ Upstream commit c5de6a6f855fdcf1e0ea549fb227a316db51c405 ]
+[ Upstream commit 52da294027f53e7084c18dd4b4f73354a40382f3 ]
 
-In case the conversion has failed or returned zero, processing *val
-can lead to a division by zero. Need to check for errors, or converted
-value is zero, before processing the data. In case the converted value
-is zero, e.g. the Vrefint channel, this should be considered as invalid
-in all cases.
+The OF match entries use positional initializers, which initialize the
+name field rather than compatible. Consequently the advertised AD7150,
+AD7151 and AD7156 compatible strings do not describe OF compatible
+matches. The table is also not exported for module alias generation.
 
-Fixes: 0e346b2cfa85 ("iio: adc: stm32-adc: add vrefint calibration support")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260911161555.244F31F000FF@smtp.kernel.org/
+Use designated compatible initializers and publish the OF table. Keep
+the existing I2C ID table and its device-variant selection unchanged.
+
+The issue was found by our static-analysis tool.
+
+Fixes: 89f2d5b080bc ("staging:iio:cdc:ad7150: Add of_match_table")
+Assisted-by: LLM
 Cc: stable@vger.kernel.org
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Signed-off-by: Pengpeng Hou <hppiscas@163.com>
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-[ sashal: Changed iio_device_release_direct() to iio_device_release_direct_mode(). ]
+[ sashal: Adjusted context to match the existing {} sentinel formatting. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/adc/stm32-adc.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ drivers/iio/cdc/ad7150.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-index 6fede34091cc2..6a666d14a609d 100644
---- a/drivers/iio/adc/stm32-adc.c
-+++ b/drivers/iio/adc/stm32-adc.c
-@@ -1372,11 +1372,16 @@ static int stm32_adc_read_raw(struct iio_dev *indio_dev,
- 			ret = stm32_adc_single_conv(indio_dev, chan, val);
- 		else
- 			ret = -EINVAL;
-+		iio_device_release_direct_mode(indio_dev);
-+		if (ret < 0)
-+			return ret;
+diff --git a/drivers/iio/cdc/ad7150.c b/drivers/iio/cdc/ad7150.c
+index 4c03b9e834b88..0417dffd350a2 100644
+--- a/drivers/iio/cdc/ad7150.c
++++ b/drivers/iio/cdc/ad7150.c
+@@ -637,11 +637,13 @@ static const struct i2c_device_id ad7150_id[] = {
+ MODULE_DEVICE_TABLE(i2c, ad7150_id);
  
--		if (mask == IIO_CHAN_INFO_PROCESSED)
-+		if (mask == IIO_CHAN_INFO_PROCESSED) {
-+			if (*val == 0)
-+				return -EINVAL;
- 			*val = STM32_ADC_VREFINT_VOLTAGE * adc->vrefint.vrefint_cal / *val;
-+		}
- 
--		iio_device_release_direct_mode(indio_dev);
- 		return ret;
- 
- 	case IIO_CHAN_INFO_SCALE:
+ static const struct of_device_id ad7150_of_match[] = {
+-	{ "adi,ad7150" },
+-	{ "adi,ad7151" },
+-	{ "adi,ad7156" },
++	{ .compatible = "adi,ad7150" },
++	{ .compatible = "adi,ad7151" },
++	{ .compatible = "adi,ad7156" },
+ 	{}
+ };
++MODULE_DEVICE_TABLE(of, ad7150_of_match);
++
+ static struct i2c_driver ad7150_driver = {
+ 	.driver = {
+ 		.name = "ad7150",
 -- 
 2.53.0
 
