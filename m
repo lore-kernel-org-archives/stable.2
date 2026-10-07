@@ -1,123 +1,152 @@
-Received: from mail-oi2-f10.google.com (mail-oi2-f10.google.com [74.125.231.202])
+Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B9D370ADF
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 17:29:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.202
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791394189; cv=pass; b=eHEXoNAk9ehFwuHvMc0deiZoINX+f9AweG9B8eWLXw4pp5k9zAC+XxwJvIh/DX8Lp6d+01kyBZeTiwg6iAYN3qsIUE018TpniuI9tA2ofOsBkqh31jBOrKB9ChYo7gwDXs5ERV1e6VhL/HF5CkWmnyFOOcVlCs46ezoB2KLEegU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791394189; c=relaxed/simple;
-	bh=zTRKIT0s2tS4ywlRW4Caixv+Mc/Gnk/vX5KSCXqaq5I=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SOpG9a+te0bjnQmjngbTPExP1N+TrZimWCjpiyYgplaLb/F+OvjQLlD9W9fozforyPY737Ot5+SE0+6jIjFpb32mtAL5bIdAjwlbSYNMcQ3eQuXzZCqSdeWMLh1eCs8SKpw/1xsnpnntOpJ+gL3FkIaoH8QfSnV4iZ2bzoRXro0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PGaUx81Q; arc=pass smtp.client-ip=74.125.231.202
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A54637CD39
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 17:29:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791394200; cv=none; b=epFgTklELek0rqcn8FpLdoImD3gE9PAm9abN0M50a3qflCEqAM3Hcg5gD99qgWSwlSbla9vrq/fzkeBSu+OgMil7TDkqMtWe+W++80y7l4+jNsX0bj5FTyYUcCOunWJGPKl8qBGcXa9KJ1j2OUdB0UQQS7cm4VZQ3TNrXs1t3cM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791394200; c=relaxed/simple;
+	bh=nxcEIJsP5P568+JqspaC5riVmJMyvmOUZ8MmoVK6k4E=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=pH92Mlc/q4m19AolRavYPFbyibIpphuN5wuEM4sllcqoa945AGbDMJXW+kgyz4LqEHV6v4D9UO7lGpb/C4xcBAi652Rxe2kz1CdYrBJHY3wwJSRty4LAZddwgxjcd5M56ahC1fesa4+XcJ5uggxy5qYsLKh+pu0u0yYPl+hmhkI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=jELXcHWU; arc=none smtp.client-ip=209.85.219.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PGaUx81Q"
-Received: by mail-oi2-f10.google.com with SMTP id 5614622812f47-4b94bb43008so618220b6e.0
-        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 10:29:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791394186; cv=none;
-        d=google.com; s=arc-20260327;
-        b=DSItFZormDk7ldgOgEuz9/ESgXX4GFy9qWbmBINSehv1wBls5tE1KLD6WfsODmd3GP
-         RGc1SxQiYpBY/+eFKLO5g5LaYRt3IUog9t/GfTo6Cn88Dmg0eSM1eOcXP6adPEF10l8Y
-         Qi0C348rQE2l5oRwVa97ADCrx9JWWPpHnmYriQlWhjDVbRnXw+e5/Ka1ax16FygiLDPN
-         FdDaS/LRtKedhOwq2VVRHoRIJhTYZCnwXL4L/zrtC1y/KAu/bNtAKFD2rouK0YazyMRU
-         oyPm0yWdD7d1N8ckrnTpf4Rj8x2F5t3bCXxU00tM4c7NoXT7rP+9WysbOjq94oxuB8Ku
-         s8yg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=YnViTh6p04B6V5Rf/libt8dMfoBMvVqz2GPx2ijVnM0=;
-        fh=+upvEx/OOxhRd2wxrJGjUVh6Ogu/xYnokCfXo1nVKhw=;
-        b=eKKDiEL1CBULg/DZRpvCTiw7iixLVBUg8wY/P0j5nELMdJylVuFKAsIHzC2eeJ6Emo
-         dLyNvKTd4rhgvkgNOg0Ee7j4LxNytSio061lYAAoIHR7snG1jw7vIjrxC2PeOYhJ7w93
-         926F128X9TWa3OhgxfsJ665Lw9/PKK/9GROuqaPq9tq/OkIVl7R3xoYPK/r2YbrhC4T8
-         DWXoM5iS2FYHuibKBQmFv/RmCgV1NJr9yvvJbeC8Gtl0HD5kSIVA8pkyhSYL5V9qi0fJ
-         scZzxZ7tSbBH0emqprSTl/HBtyA7RyoaZYY7hcrL1ZW/QGIHXc8nBVF9f+b2TK3Lv36b
-         +ePQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="jELXcHWU"
+Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-918df0c71e3so21759476d6.0
+        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 10:29:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791394186; x=1791998986; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YnViTh6p04B6V5Rf/libt8dMfoBMvVqz2GPx2ijVnM0=;
-        b=PGaUx81QKnvLqC7bDwSMY/z8Nqbmf6a+1L5WRxFb1rx2cSujFAT/MEQJMI/RJL3y07
-         gvUq4QLJn72zWMVgplmXC/SPFxlPh907Oz7qJrTimqwdp6Zxj2fPwpi7kq8vH7WuMPw0
-         r8tmDJ5o5pFgd9+E3AsxKHZ+Xulw4mkDKh5YoiL2geX4CdCL7Un8D5AXDM57+gRU/nSx
-         B/fIoHCxu35V2tXPPG6N4suOCYAOqmI/fZSjkyVrEcFIL4doJgxXJbi/xFrlMOwiXkW3
-         N/RokhItCo7NiV3XPbeFqO1Jfzz83A1bxBiO8783IXO1GI522ttLAjnPycIXu8AmIwx7
-         kjIA==
+        d=toxicpanda.com; s=google; t=1791394197; x=1791998997; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Ulf4knBkH5u1TnqCidkxaqLV4+gGgnRz6zb0SQK2E4w=;
+        b=jELXcHWUKU643dyRwTkXtJw+kClt4BKIxhjIEuFqqg3pqoXH9TBv0+9Y6Gke98T9vT
+         UsEAxkvAmlJ46I6ywBuf8vU8Hbl/zlFTz9d0MKL6869grSzYxIxEtZR/wXPuL0CLhHeu
+         j64hhAUjDVP3iqGpzv3BtMlIkE9RUhqQPMZxavMfP7ZEZS/e101snUYzfL9npTktOhkt
+         5nw7IGUUcZ9+W4dGcM8QXtksaWsNUDCb1ZlWlb0i+FGMU6V/w8B28Leqv0zqUHMpBcAs
+         zNhDhidDtwmfYrAxfI1+5i43sMZb3msLnWyT1ezsZxA5E3oL03ssttzL7E4ybFKByBYw
+         77RQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791394186; x=1791998986;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=YnViTh6p04B6V5Rf/libt8dMfoBMvVqz2GPx2ijVnM0=;
-        b=mHs0x6sEOE1N7ULVOtk/TlgdjgXp0igrzkyl5kppFCWwwTFvBFwhVqZ2WE0gMXe2B5
-         6pFztGZWajF9G17YWLF3YfWXfcO5BatESkxPRgKvh1+qz5KQJ9HNEi1mnlPFi8ip2ogr
-         vzkkNh5ggr8Rg7zHkyA6d7vWvc/IsYc13GtCUyYN551ZAQHqnkVJhX0KBDHnpF/nCtiR
-         9PN9SXyoOySzvFI8ZBOHRxO8beTSxA1/ftOtZxaRYYj3eXWv7AOld5BLZ5C0+qIIm7lN
-         lNWo+srBQPTOKC9dQK3NbdJ0aS7lZ/tPjjHh7TpyQihNXLutzre9bMCRdmD1mpXu7I2p
-         aJiA==
-X-Forwarded-Encrypted: i=1; AKwUvBxDQcZVoAvmeOuaomwIyXl2Z/4gJIJFIjXPtKSWJZXOujGhMJWS5Ud3t//bK752dnRTdId3O6I=@vger.kernel.org
-X-Gm-Message-State: AFuF++kwnR0Rzn/QFcGlg6RtFGdvMoRI5zP4lgulGiGmkE40U5FOc6Gl
-	9FqB9fVm2un85h1F8lYj7DXlO99vgwbmcpgL/XjV/jGyKEhpHzcG+nLan/Us32xhxOfiyJOo4dI
-	ZjnyC73st1EOin/cdDMGdLWjW8xHmm/U=
-X-Gm-Gg: AYBFou2F/wOVEPhiGAu9fsikMJK620kVfgVHT4j6HFev6vARW62qE2KBVDKl5DUs8I2
-	dfUydVd55T/7hI+oH7CJZOhmUOeOPw1TwSTWg3Y8qDqpxqUgdFLXxw982uT6QcaQgzQnqpbrd0d
-	xB3IyjfZKClPkWHm/A3mQqoDRXuq7Z7S3pQh5K1hvLMVDkjuoB13hHbhzeD7EY6CWAneehGHQxq
-	8sNsxK/b09obpoMYr/7sleppS/IvS/i0FFwNhxT0/BooCo08u8pnVyrjQTi2p+n3nzO18g3hSUT
-	bIMfLxzzQiy3iNbi+CVnkrLrFQOaFPk/qtTxUlsXXpNVyprW3kn+B1JxvOoWGb7Vr+QBOZe0bUz
-	uWgDj/dQ+i5Y2og==
-X-Received: by 2002:a05:6808:4f69:b0:4ec:ba7c:1dbe with SMTP id
- 5614622812f47-4fc4729811bmr3186518b6e.66.1791394186597; Wed, 07 Oct 2026
- 10:29:46 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791394197; x=1791998997;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=Ulf4knBkH5u1TnqCidkxaqLV4+gGgnRz6zb0SQK2E4w=;
+        b=Fof2TuZ8L0n8OOfJZe/NrYXcJfJ/XFRw5WZXC7loR3R9+jsw2zIuA7DJ0fbGIgsZ+B
+         4F61MHq5Vw8/2mRklEwZ5nj3jBymd6KawqetXki+7J4SfOO+DJ+xofV9iu93loC3dO0G
+         U8GOihC9dwPeHy99JKz3i8+e17e4xKuXdG7eYEHsiBEiUV+xlAcghC+IxZSegYO0Irq3
+         cvpYus8meUqoOlhRBIOJnYcr84+ynMgUjezNHydQ5MUr6CMzEpWeLnjGEm9aAxbf7R5A
+         RNpaFARW0vtnbXUeRvRcMa+y5OF2yhKWjwNqsOIglundqh7b0tV89q2VD4owl/YnmdL4
+         8Waw==
+X-Forwarded-Encrypted: i=1; AKwUvBzvVW81+YZ47BlwCT4znSGZrUztwRAdplHn+Xl63/o81CfrSWkHMUSuJy9k6b5kL/gQly0oaB4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLDdWe6ErVtUK7rwn0RnAS8WTVr+NwsxBwGsHyF2AAZXPXllnfR
+	ZRcOAlHnnysFx/8QZjmkOdLhbfTCPbNEXydiOSSitCYMQ+78UKH81Fxk8su9XC+/6vDw/41FwZ1
+	Ni5t9UYI=
+X-Gm-Gg: AYBFou2tfqIInagTUUcf/nJet6gXfsJmjSDEodTizPpfusa0weE/RbejvYVNNc8E80d
+	Pe9rveXKrltitrnMsQeLeH9ulWSLz80RPJ7fE5mQPL2cYMRkJM9jqCVBecEr2d0fNMTY6Mk1YpM
+	yNwMD1j16GfszwI2eHtJRHbMri1MG4YCuo8BP0hJcfpY25mMvD+HnOQ6DE90IvbCbEwEMrcHuG/
+	BCx25UG9/8T9arX6OvMNuwL7zJ0NADATci4WSZ4e4rN/Vr1VXHJzlqv72fKUEern1OyxYdhQGrw
+	RU4AGdvxqqFH4c00JIPHV7+k8f+eRPyqCDspc1DDrm2bhTjAClvxXlChQ5MrF5/VPs50UY9bGBZ
+	iOc6A/QbIwisjHqBu1zztycyAiPHNBRgiT/V0vtPxSbFsBERKTK6f0OjZez2xHcwhwo/xEcGFdX
+	5uA6jGdBmlJyL82RT8XHjGvo5Ub2sAKgwZ5iFKNYJCwAXrKFWsy4AgXso9HPlWgjfsqJAdzSOtt
+	79VTYORRVPM8Ac=
+X-Received: by 2002:a05:6214:451d:b0:914:4129:92de with SMTP id 6a1803df08f44-919976b94acmr54775506d6.1.1791394196971;
+        Wed, 07 Oct 2026 10:29:56 -0700 (PDT)
+Received: from toxicpanda.com ([153.61.196.240])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91996d0556fsm25727146d6.22.2026.10.07.10.29.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 10:29:55 -0700 (PDT)
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Wed, 07 Oct 2026 17:29:34 +0000
+Subject: [PATCH net] net: skbuff: don't leave stale bytes in
+ skb_copy_and_csum_bits()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261007-fix-disable-irq-safely-v1-0-45746f9a92de@oss.qualcomm.com>
- <20261007-fix-disable-irq-safely-v1-2-45746f9a92de@oss.qualcomm.com>
-In-Reply-To: <20261007-fix-disable-irq-safely-v1-2-45746f9a92de@oss.qualcomm.com>
-From: Hungyu Lin <dennylin0707@gmail.com>
-Date: Wed, 7 Oct 2026 10:29:35 -0700
-X-Gm-Features: AclHuK9vHOpqv4f2YdIvTFbohefG3iRaIeqgIeMjJY_8igy6Stps8jGud7-4xKQ
-Message-ID: <CAGEkeHd_KRRUZ8Kqvmf2BWF8stVg=_FSbx701ibS=KdoAy4FZw@mail.gmail.com>
-Subject: Re: [PATCH 2/2] media: qcom: iris: Wait for threaded IRQ completion
- during power-off
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
-	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
-	"Bryan O'Donoghue" <bod@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Stefan Schmidt <stefan.schmidt@linaro.org>, Hans Verkuil <hverkuil@kernel.org>, 
-	"Bryan O'Donoghue" <bryan.odonoghue@linaro.org>, linux-media@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261007-b4-skb-copy-csum-stale-bytes-v1-1-adbbde033fb3@toxicpanda.com>
+X-B4-Tracking: v=1; b=H4sIAH2BxmoC/3WNyw6CMBBFf4XM2gkPqzX+inHRqYNUsTSdYiSEf
+ 7fg2uU5uTl3BuHoWOBczBD57cQNPkO9K8B2xt8Z3S0zNFVzrKtKIymUJ6EdwoRWxhdKMj0jTYk
+ FFbWadL1vDicLOREit+6z5S/gOcH1J2WkB9u0htcZGcmFaLztVtWHklS5yb9XsCxf9OZ47bwAA
+ AA=
+X-Change-ID: 20261007-b4-skb-copy-csum-stale-bytes-4bf7b713258c
+To: "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+ Willem de Bruijn <willemb@google.com>, Kaiyuan Zhang <kaiyuanz@google.com>, 
+ Mina Almasry <almasrymina@google.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1791394194; l=2000;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=nxcEIJsP5P568+JqspaC5riVmJMyvmOUZ8MmoVK6k4E=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QMRBnjw/ta2UpP2RDQp1kaRlRViFZAVb3ZvXE4JKuE81FPw9Fm+YTe89rAnJKPUv4QeMME4FEqF
+ +mbfSHILnggE=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-> +       if (!iris_vpu_watchdog(core, core->intr_status))
-> +               iris_vpu_disable_irq(core);
+When skb_copy_and_csum_bits() reaches unreadable frags it returns 0
+after copying only the linear part, and the rest of the caller's buffer
+is left as it was.  The callers copy into a buffer that is about to go
+out on the wire: an ICMP error quoting the offending packet, or a
+driver's TX bounce buffer in skb_copy_and_csum_dev().  Neither buffer
+is zeroed beforehand, so whatever was in memory there gets sent.
 
-If the IRQ thread records a watchdog after this check, while
-disable_irq() is waiting, it skips enable_irq(). The hard handler and
-helper would then have disabled the IRQ twice, but the next power-on
-only enables it once.
+Zero the part of the buffer we didn't fill.  The checksum usually
+won't match the data any more, so the receiver will usually drop the
+packet, but either way it no longer carries anything it shouldn't.
+Only zero for a positive @len, a negative one from a broken caller must
+not turn into a huge memset().
 
-Could the helper recheck the watchdog after disable_irq() returns and
-core->lock is reacquired, then call enable_irq() once to balance its
-extra disable in that case?
+Fixes: 65249feb6b3d ("net: add support for skbs with unreadable frags")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+---
+This was patch 1 of the skbuff BUG_ON() series; Willem asked for it to go
+to net on its own:
+https://lore.kernel.org/r/willemdebruijn.kernel.235bf1cecf85f@gmail.com
 
-If you use this approach for the watchdog fix, could you also add:
-
-Suggested-by: Hungyu Lin <dennylin0707@gmail.com>
+Tested on net with a module that marks a nonlinear skb unreadable: the
+part of the buffer past the linear data is zeroed, and a negative @len
+leaves the buffer alone.
 
 Thanks,
-Hungyu
+Josef
+---
+ net/core/skbuff.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+index 4aea06d5167d..41beaf625421 100644
+--- a/net/core/skbuff.c
++++ b/net/core/skbuff.c
+@@ -3633,8 +3633,12 @@ __wsum skb_copy_and_csum_bits(const struct sk_buff *skb, int offset,
+ 		pos	= copy;
+ 	}
+ 
+-	if (!skb_frags_readable(skb))
++	if (!skb_frags_readable(skb)) {
++		/* Don't hand the caller a buffer with stale bytes in it. */
++		if (len > 0)
++			memset(to, 0, len);
+ 		return 0;
++	}
+ 
+ 	for (i = 0; i < skb_shinfo(skb)->nr_frags; i++) {
+ 		int end;
+
+---
+base-commit: 23609bce9e1de525d1d0e73fc68c6e7971d0b49e
+change-id: 20261007-b4-skb-copy-csum-stale-bytes-4bf7b713258c
+
