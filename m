@@ -1,185 +1,147 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010058.outbound.protection.outlook.com [52.101.61.58])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 833A9360EFA;
-	Wed,  7 Oct 2026 07:03:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.58
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791356611; cv=fail; b=F1EaI2OigJSnDysrwtNyo0cT9KgJTBynMd62mmpl2D5Zx9RKmMRcnkBk7Qp8GRFOgf91xj30wgxlMv8jFpHNde4jYcP21viw9S8yK20Vug2WnvXyJ41L0W14QB8d+W3Z6Vs/n9FGE5w5Ww9+OiANmlclXY2hZXuNgNZ3Jruui4I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791356611; c=relaxed/simple;
-	bh=rgJ4QiBPEUYKKSBxlXOkbdt5q/l76Mke3AB/fMdnyng=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=XL9RKl78nAPDb+FTyyAPBp3g6sCv17n0a1UjrfcRi+k9Tw6ELHuPjcqDgTNa8ImbioaPbti4fi++vvoSmY3p57w35fvAO60OW9qs5C4+4nGSM902G+U2YezAd1oxRyKDMbxd87ynNqcuWV5RvLKoA3vCNUWz6JqEsHHdaXJdBgE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gehealthcare.com; spf=pass smtp.mailfrom=gehealthcare.com; dkim=pass (2048-bit key) header.d=gehealthcare.com header.i=@gehealthcare.com header.b=T55Z3AzW; arc=fail smtp.client-ip=52.101.61.58
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gehealthcare.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gehealthcare.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8318D37E5D8
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 07:03:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791356633; cv=none; b=ZEWSZY9gejfW5I/fumkLOtf7e3D5ZRihxn7RTiJqRrce/iEg9qOdz7JZFd1RUlv9VD9R4HoUm9W98paUMERx2C0X1dAVWAlxlvfdmVdE0dFM5fxszfTKNaxrSOLGP9FaD/DIvRxZ2fEjL9CrUAShORf/LW+5CqksxT3PJ3ulPck=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791356633; c=relaxed/simple;
+	bh=VaL+p3B0C/yDpkBhYgAo7MWjcHrwEEIvcGZBJSzgbeI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=rZLvXUOsXYdi+wOs5EUfLE9xvygBT419Vz3dHfKzCKLkk255Jwua/t7RqNdh4DTLV34c2kN2g9lH3/Rkz3e2jsTnD/eBXx1e00HC34+I3Kaugflfq5f85nIKb+OWxB1iM14vFYMfAafzH547RHwasOn4VCuSnYdZUhRlrItSA8o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aHVmoR7v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gehealthcare.com header.i=@gehealthcare.com header.b="T55Z3AzW"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KCd/M9ZVZuC/Z2q2I2OFyMnNzNnq+YjlDIuuBrbmIDKY2+WWnJp+A09nyijBbLDWnek8TC08lpRUxE+saqxQWWvi8QJhBOA2/T1VVbakhqMQRvkxQgEsdlCA2av5fiMSsKhvxfbinUGXXRWNsHTZV1YR0RGSpx6orzucGwqTBoxjaeDf63yY5nUVKUT83cJVtKnj8fALEas9tsRe15cMyMOZR5wNT8OOi8xwwRLYeGy4HX7Z6uGl1X9ApiCbbAqvBBzGDJVy+GC6STg8U0kj75DUHAkrkG05PwfoMrwIoH7X3MOYNKPZ+CgGPAKTioAT3a1o4EcHJGOPcUeXjbQdlg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=txmoDk/ds2V4BjTKqJdf0tNY0fBbXynWMop4yiCdJ5U=;
- b=GpFG0qP4imARbT15nJYJ/60UmnTciLJRHkFLfKAtkemLWfQntit8W7Y6535e5+9QquVQLfjfThDJX3WL40M3a0IGs8h9LhUVTTe2+fTHbpAOL4WXaz/qGeyGwj1LhvraMTeog6kiZscLUYYIdGzwzM4/TiVYrTWy58mDtmTpj9RUcjLP8333EXEHxBLwN9R5Bzc9vTKd43rk5AvAFIw8tjIXtqBf7Iyexwvz6fJzAUDBGL1gTPvhEz8OyUcYHgwMkn75p2t9QXZAuRk4raxLis5AlaXh/fUCeQLIPzfKri84Hr6MzvFD8jvtMrYkMsdZ/x+cqc7/hiOE5sHev6qWtg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 165.85.157.49) smtp.rcpttodomain=vger.kernel.org
- smtp.mailfrom=gehealthcare.com; dmarc=fail (p=quarantine sp=quarantine
- pct=100) action=quarantine header.from=gehealthcare.com; dkim=none (message
- not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gehealthcare.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=txmoDk/ds2V4BjTKqJdf0tNY0fBbXynWMop4yiCdJ5U=;
- b=T55Z3AzW8yOTfiyHR3lUiObU+qaSZfEdEDuoBGylWREqHSV2EZafMAl2u+CHszy2fDI+paUZzWb18P/tutmm5miWEUpjbXhJHL0rVrrQqUMa3oNSaMT1jeM+9dtE9Vcb8dA2vBTqUVwXhsfHHJov+OY4oW3BRAB2GF3dptag1VCh98X7jZHQ2rr/f5QABmZIN0+LBfWxNd0y55U+c4D24z1nzecdzYZOyXVTtkwGZvvAxH6aIr6Kwmn2U4ZZ0t2R1Le/Rt5fghPdPpZ3ZV8I852Iv1ozT6EGG4yCd207ux8m1I3CXvjhdEfqP7MEGAjLYyO5tsYoAF5MESh/xBAybA==
-Received: from DS1P223CA0005.NAMP223.PROD.OUTLOOK.COM (2603:10b6:8:453::13) by
- CH9PR22MB454451.namprd22.prod.outlook.com (2603:10b6:610:33b::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Wed, 7 Oct
- 2026 07:03:19 +0000
-Received: from CY7PEPF000000F3.namprd05.prod.outlook.com
- (2603:10b6:8:453:cafe::2f) by DS1P223CA0005.outlook.office365.com
- (2603:10b6:8:453::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.21 via Frontend Transport; Wed, 7
- Oct 2026 07:03:19 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 165.85.157.49) smtp.mailfrom=gehealthcare.com; dkim=none (message not
- signed) header.d=none;dmarc=fail action=quarantine
- header.from=gehealthcare.com;
-Received-SPF: Fail (protection.outlook.com: domain of gehealthcare.com does
- not designate 165.85.157.49 as permitted sender)
- receiver=protection.outlook.com; client-ip=165.85.157.49;
- helo=atlrelay1.compute.ge-healthcare.net;
-Received: from atlrelay1.compute.ge-healthcare.net (165.85.157.49) by
- CY7PEPF000000F3.mail.protection.outlook.com (10.167.247.151) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Wed, 7 Oct 2026 07:03:19 +0000
-Received: from zeus.fihel.lab.ge-healthcare.net (zoo13.fihel.lab.ge-healthcare.net [10.168.174.111])
-	by builder1.fihel.lab.ge-healthcare.net (Postfix) with ESMTP id EDC311A2D0;
-	Wed,  7 Oct 2026 10:03:15 +0300 (EEST)
-From: Ian Ray <ian.ray@gehealthcare.com>
-To: Adrian Hunter <adrian.hunter@intel.com>,
-	Haibo Chen <haibo.chen@nxp.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	Kamal Dasu <kamal.dasu@broadcom.com>
-Cc: Ian Ray <ian.ray@gehealthcare.com>,
-	stable@vger.kernel.org,
-	linux-mmc@vger.kernel.org,
-	imx@lists.linux.dev,
-	s32@nxp.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3] mmc: sdhci-esdhc-imx: map unsupported driver type to Type B
-Date: Wed,  7 Oct 2026 10:03:12 +0300
-Message-ID: <20261007070313.863-1-ian.ray@gehealthcare.com>
-X-Mailer: git-send-email 2.49.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aHVmoR7v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE5911F0089B;
+	Wed,  7 Oct 2026 07:03:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791356631;
+	bh=Q/EcMixGnGvllxbzNe/GNI5RJWlE6PLTKjym5V/9/dQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=aHVmoR7vHAwRjS5uruzhiJT11nXF7y4K2I6VEP9QmMWrpB5stixMPgTpnWnC18xsf
+	 fXgRAR4NhlXuELw5kLv/rywauP/6BjDaQwFPSgEwuSidGmV6lgpLTpILOzuSHQF7k/
+	 FfsTMFqxWOpbsLeav3ySWTVNijW3Zryr5FkUphT+V7+akr6TsobWrW71P+0sz2/qvC
+	 FPetzWokK9WCBWFu9qvN6hHFUOXBIPh1GB0FDBGmil1GfRdnp3TS5kXtSPWU1p9MEe
+	 lAe3Px50Fz3QJorYyjoPiJyee/B3818pPjtNVAwwv7sTQj5K9csSRucpLVtx7yfXDi
+	 saADD7RUxEsxw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Fan Wu <fanwu01@zju.edu.cn>,
+	Song Li <songl@zju.edu.cn>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] iio: adc: ad_sigma_delta: fix use-after-free on unbind
+Date: Wed,  7 Oct 2026 03:03:46 -0400
+Message-ID: <20261007070257.1633458-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026100621-relay-pacifist-2dc5@gregkh>
+References: <2026100621-relay-pacifist-2dc5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY7PEPF000000F3:EE_|CH9PR22MB454451:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 9fad16c6-e719-4c84-ff43-08df24411196
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|376014|82310400026|23010399003|18002099003|13003099007|11063799006|6133799003|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	Ej0xbdRhY7DQAK+mTNkBr8R6C+3nyv9f5ru6zX98Ot5sHIwszfKdYpeo3DTV3x9SCFfVSS0LKIo2RN6Gn/JuVNlIvQGHRK9F0mFWr4NV6qwahv+fDoTY/6bwsPRm8Zhy0wnZOmrkxB8661b1qClWccsClsUULBsOBuIIqcfjecUc0cgvsbV349ofJt1g+wPO4OK56tYv2/2ouzRtDWtnRYOH/DNKRjvVW3P3/TDmzUOBFLSPWOiT+KFIsBAFgGtY4jDmWgNtbnRDQWJelL3FmHbYANbV/EcqxyYy13CBInyy8tQIQwqqFhsGDQFcOmYkMxcEHzfwEW87PtVT7NdticeZuzwKdHxAjScXHsCpsidGllz8hvCGLLka2kvy+5Xw7P5LE2LwyaVbl+otlRSpHNqVkw14nF6wP2SQARob7xvfuytb6AkMBfoO/JwMHW4DNw/cQTsCRNyeUVSQGm4e0GFeuIMAjl/YzYw548tqZjWm5tkAlLuv5iVc1W3QdVKC9NTnCFxzKQrdd1JKnVJ1331W+g6cwt63DQbOnAh5m472erJMvQmiakodDb6/SAXlnyTZPYi8+6vgomBBpzFbpAKYovB6EW2UBXFX7yF+4XUovgPSH8fmuQYBo99CsGrMrfP2V5+Voc5OzAgfXNHQ2kyBCstGgwvi2iN9L1Rj3TotqbBEj5cM+0ul8uWTxXhq1CJJ5bzk7Hn/eOX30agy/Q==
-X-Forefront-Antispam-Report:
-	CIP:165.85.157.49;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:atlrelay1.compute.ge-healthcare.net;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(376014)(82310400026)(23010399003)(18002099003)(13003099007)(11063799006)(6133799003)(10067099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	twt2k50VTCy+6rpG2LhyGn9MYyZ5Wi/nNLJZ3dhWcsqN1uuks0OiRtZyd8b+1TeeGqCMoZ8mkkv9gbNF79kZSY0NpNTBx5E6671fU6YBe43hjTFo6WrEgNxd5GjWtoOTSrIaSzoCaviIaF6Ykby0S0Pl6D/dC1W7EYtxx8WA9KIJAnu2BFu6nblXFyNovAmZWjG8hji69wjAq4HEJNnBj3w3bEWVbB7XzzlKHEooKDuhOceLaPWOF5y1P5Xt+hVaICndqwevjCb4HMImmVek6eZ06b9SIGTtat4u0+1Fxoq8NG1Tl5mI8deu7FYhu7ju/6WRXq4GaAkf1GyKVvFysMcDcYXNp5RV2b6wFFx2MZ+vDBsm95Al5d2wqP4e8Dcn6YmOGS82Ss38sfLLZB2eFJI7NKNnFPx1qxulUFYB7I6uZW19khJtTpqRQDqT2VxM
-X-OriginatorOrg: gehealthcare.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 07:03:19.2940
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9fad16c6-e719-4c84-ff43-08df24411196
-X-MS-Exchange-CrossTenant-Id: 9a309606-d6ec-4188-a28a-298812b4bbbf
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=9a309606-d6ec-4188-a28a-298812b4bbbf;Ip=[165.85.157.49];Helo=[atlrelay1.compute.ge-healthcare.net]
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-CY7PEPF000000F3.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH9PR22MB454451
 
-Since commit 5a52c5701a67 ("mmc: core: Fix host controller programming
-for fixed driver type"), the eMMC driver strength is passed directly to
-mmc_set_driver_type(), which propagates the value through ios.drv_type
-all the way to sdhci_set_ios().  For value 4, SDHCI correctly warns:
+From: Fan Wu <fanwu01@zju.edu.cn>
 
-  mmc2: invalid driver type, default to driver type B
+[ Upstream commit 9ee8306121495d2a25aa5d1bfd519f2748786b83 ]
 
-The host driver type has no effect on this controller: esdhc_writew_le()
-never programs the driver-type field of SDHCI_HOST_CONTROL2.  Hook
-set_ios() and force drv_type to the always-valid Type B, so that SDHCI
-never sees an unsupported value.
+ad_sd_buffer_postenable() allocates sigma_delta->samples_buf with
+devm_krealloc() at runtime, so its devres entry sits after all
+probe-time entries of the driver. devm resources are released in
+reverse allocation order, which means unbind frees samples_buf before
+iio_device_unregister() disables the buffers and detaches the trigger
+pollfunc. The data ready IRQ is still enabled at that point, so
+ad_sd_trigger_handler() can still run and memcpy() incoming samples
+into the freed samples_buf.
 
-Tested on i.MX8MP (usdhc3, eMMC in HS400) with
-`fixed-emmc-driver-type = <4>`: the warning is gone and the HS_TIMING
-register contains 0x43 as expected.
+Fix this by preallocating the buffer in
+devm_ad_sd_setup_buffer_and_trigger(), before the triggered buffer and
+the IRQ are set up, so it is freed only after iio_device_unregister()
+has drained the trigger handler via free_irq(). Size it for the worst
+case of all sequencer slots being active; ad_sd_validate_scan_mask()
+already caps the number of active channels at num_slots.
 
-Fixes: 5a52c5701a67 ("mmc: core: Fix host controller programming for fixed driver type")
-Link: https://lore.kernel.org/all/20260926122908.866-1-ian.ray@gehealthcare.com/
+This issue was found by an in-house static analysis tool.
+
+Fixes: 8bea9af887de ("iio: adc: ad_sigma_delta: Add sequencer support")
 Cc: stable@vger.kernel.org
-Suggested-by: Adrian Hunter <adrian.hunter@intel.com>
-Signed-off-by: Ian Ray <ian.ray@gehealthcare.com>
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Reviewed-by: Nuno Sá <nuno.sa@analog.com>
+Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+[ sashal: adapted buffer allocation to the unconditional buffer setup code. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-v2 -> v3: Force drv_type to Type B unconditionally;
-          hook set_ios() for all esdhc variants, not only usdhc (since
-          the driver-type field is ignored in all variants);
-          reword comments.
+ drivers/iio/adc/ad_sigma_delta.c | 26 +++++++++++++++-----------
+ 1 file changed, 15 insertions(+), 11 deletions(-)
 
-v1 -> v2: Move fix from mmc core to sdhci-esdhc-imx driver per review
-          (see "Link:" above); always provide a valid host driver type.
-
- drivers/mmc/host/sdhci-esdhc-imx.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
-
-diff --git a/drivers/mmc/host/sdhci-esdhc-imx.c b/drivers/mmc/host/sdhci-esdhc-imx.c
-index 6ab59d3e346f..931e383748a9 100644
---- a/drivers/mmc/host/sdhci-esdhc-imx.c
-+++ b/drivers/mmc/host/sdhci-esdhc-imx.c
-@@ -1142,6 +1142,20 @@ static void esdhc_reset_tuning(struct sdhci_host *host)
- 	}
- }
- 
-+static void sdhci_esdhc_imx_set_ios(struct mmc_host *mmc, struct mmc_ios *ios)
-+{
-+	/*
-+	 * This controller has no driver-type control: esdhc_writew_le()
-+	 * discards the driver-type field when writing SDHCI_HOST_CONTROL2.
-+	 * The programmed value is therefore irrelevant, but SDHCI rejects
-+	 * non-SD values such as 4 (eMMC 40 ohm, from fixed-emmc-driver-type).
-+	 * Force an always-valid Type B.
-+	 */
-+	ios->drv_type = MMC_SET_DRIVER_TYPE_B;
-+
-+	sdhci_set_ios(mmc, ios);
-+}
-+
- static void usdhc_init_card(struct mmc_host *mmc, struct mmc_card *card)
+diff --git a/drivers/iio/adc/ad_sigma_delta.c b/drivers/iio/adc/ad_sigma_delta.c
+index 914274ed899ec..45e0f638c0ed1 100644
+--- a/drivers/iio/adc/ad_sigma_delta.c
++++ b/drivers/iio/adc/ad_sigma_delta.c
+@@ -343,9 +343,8 @@ EXPORT_SYMBOL_NS_GPL(ad_sigma_delta_single_conversion, IIO_AD_SIGMA_DELTA);
+ static int ad_sd_buffer_postenable(struct iio_dev *indio_dev)
  {
- 	struct sdhci_host *host = mmc_priv(mmc);
-@@ -1952,6 +1966,9 @@ static int sdhci_esdhc_imx_probe(struct platform_device *pdev)
- 		host->max_timeout_count = 0xF;
+ 	struct ad_sigma_delta *sigma_delta = iio_device_get_drvdata(indio_dev);
+-	unsigned int i, slot, samples_buf_size;
++	unsigned int i, slot;
+ 	unsigned int channel;
+-	uint8_t *samples_buf;
+ 	int ret;
+ 
+ 	if (sigma_delta->num_slots == 1) {
+@@ -378,15 +377,6 @@ static int ad_sd_buffer_postenable(struct iio_dev *indio_dev)
+ 			return ret;
  	}
  
-+	/* No SDHCI driver type control */
-+	host->mmc_host_ops.set_ios = sdhci_esdhc_imx_set_ios;
+-	samples_buf_size = ALIGN(slot * indio_dev->channels[0].scan_type.storagebits / 8, 8);
+-	samples_buf_size += sizeof(int64_t);
+-	samples_buf = devm_krealloc(&sigma_delta->spi->dev, sigma_delta->samples_buf,
+-				    samples_buf_size, GFP_KERNEL);
+-	if (!samples_buf)
+-		return -ENOMEM;
+-
+-	sigma_delta->samples_buf = samples_buf;
+-
+ 	spi_bus_lock(sigma_delta->spi->master);
+ 	sigma_delta->bus_locked = true;
+ 	sigma_delta->keep_cs_asserted = true;
+@@ -620,6 +610,7 @@ static int devm_ad_sd_probe_trigger(struct device *dev, struct iio_dev *indio_de
+ int devm_ad_sd_setup_buffer_and_trigger(struct device *dev, struct iio_dev *indio_dev)
+ {
+ 	struct ad_sigma_delta *sigma_delta = iio_device_get_drvdata(indio_dev);
++	unsigned int samples_buf_size;
+ 	int ret;
+ 
+ 	sigma_delta->slots = devm_kcalloc(dev, sigma_delta->num_slots,
+@@ -627,6 +618,19 @@ int devm_ad_sd_setup_buffer_and_trigger(struct device *dev, struct iio_dev *indi
+ 	if (!sigma_delta->slots)
+ 		return -ENOMEM;
+ 
++	/*
++	 * Worst-case size: all sequencer slots can be active, capped
++	 * at num_slots by ad_sd_validate_scan_mask().
++	 */
++	samples_buf_size =
++		ALIGN(sigma_delta->num_slots *
++		      BITS_TO_BYTES(indio_dev->channels[0].scan_type.storagebits),
++		      sizeof(s64));
++	samples_buf_size += sizeof(s64);
++	sigma_delta->samples_buf = devm_kzalloc(dev, samples_buf_size, GFP_KERNEL);
++	if (!sigma_delta->samples_buf)
++		return -ENOMEM;
 +
- 	if (imx_data->socdata->flags & ESDHC_FLAG_MAN_TUNING)
- 		sdhci_esdhc_ops.platform_execute_tuning =
- 					esdhc_executing_tuning;
+ 	ret = devm_iio_triggered_buffer_setup(dev, indio_dev,
+ 					      &iio_pollfunc_store_time,
+ 					      &ad_sd_trigger_handler,
 -- 
-2.47.3
+2.53.0
 
