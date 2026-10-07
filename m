@@ -1,124 +1,175 @@
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+Received: from mta0.migadu.com (out-163.mta0.migadu.com [91.218.175.163])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AD2B4B95BA
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 13:48:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C2AE3DB300
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 13:50:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791380906; cv=none; b=fausvhha2iW7OYPqrBWtjYJz8KKh5S4JuPnwOPP494hEInT42nrFF72K3CK/gt8JrVgyA7zafMTGwOiqVy9rYwRu9Hyf/OxTc0p5+Ray88lkVOW5JDUnz/P1YNKhhmEpFYe1X1PX5JBA5nsHjA6XYmOJLD11x4iqC8728FRhTF8=
+	t=1791381042; cv=none; b=bSIvH1Xw560rhODe1RBlLXZZ/MRd6/F59tJql2LjK30FpkCYiLGu3c3VXhMxEh4qo3yEVy5h2lI5ClJT6tuqA/PRvf6R3bPTl2d4i2LCElL5a0XnNqdablEbBslED0Eu28qYodREy+vnEuzBVj5C7ysJM6oCDU28IOBRyvfqOcw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791380906; c=relaxed/simple;
-	bh=MDiBfIjRAD/9liNRNIW9RrRIxbtM+EmI8HGLCuM5yLo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=a0yFKzKkIiFm5gGm+KdqXovOVb1rrq43T5g+CuF5IAt3fzau/AZwTTXBzxGYIXdeI7o48U+/uKVbxVN6wKfZv+3zk8MA5ikgir7RM8fHWTKqObPhRXjNU+5GjaSNPI02j58V88/zaDu24e7uTI0NNPDb4mHsoInkfa5dGSd/4CE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GtQ73ozE; arc=none smtp.client-ip=74.125.82.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791381042; c=relaxed/simple;
+	bh=9uh3YtH2vzcWNChlP5JxXc/8qcNZiQgtmlGLwUVnUpM=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=t9LlqLsUoe0usyvsdLm+7JnBPSi8O7EJcdqssFJsW+fwx7M9UArpPIKLdI1VWf5A3nAojOwLz/EfNzL8IAnbXnYcEgf+3rugyG1/FKophqByIcql+0ZRDevBHz1YrRWSZriipPi58vibgqM3TVgdcXdyNzyvVmZlVcQzzr6iKQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=GpdLbIts; arc=none smtp.client-ip=91.218.175.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GtQ73ozE"
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3514b90bb89so2731609eec.1
-        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 06:48:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791380895; x=1791985695; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZuCUOmx4tSjkz7kbuZkfJEsfg10SOd8hDd0kjVq88FI=;
-        b=GtQ73ozEdwNN2qLErJB2zygpZIWls27dGyLIzlSZ8LL3+Fslahh8RzZhogtNqdQSzR
-         FDpXfoOvlh7BMpwlyAHRYglsyvvZvqhRKUCEcG/gubgjJXZhEtm8EwrybGzlYqVCyNQ2
-         kzNwWKCADAsL5dVnOwyyUbm4UbCTNwbg5DFmSq4YpLMSMyxwSeihYQd9aT0Iw3+bwWiQ
-         0+yhklaPvXe8gp7sgJtMiL8CQB7dbCX9OnvV4fMj+9OadKTh/5rANogRglOA/wv4OUlP
-         Qnjt+N0zc8yOfJNxUUJhd26SS63VAM1UDQjyEVmy7433Vl8s5+3ttn03RxW6IXcyGJS7
-         vNMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791380895; x=1791985695;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZuCUOmx4tSjkz7kbuZkfJEsfg10SOd8hDd0kjVq88FI=;
-        b=dBPqfExhwjflTCBEqj6lPVxP2a4aBS+D+WBPt779M00VfKmyvi2dmLT+cZEIh6PAKW
-         7uT7n5tLkCCO4/1k4SJda816oietJH5jQB9d0yPGVNmYfLMtgiJy7RJ+myksMOZqWKLu
-         sFwOlLsda89r1VjOaxTwnFQSLY46eGLq6guv6Xpy6fgE7P4Mb6IToJwDq8gnxp59LpL7
-         D20n99FQ6WsS/AhYk+S6aCZIH3fQmddoQzoe2q/XpVibp+RYTNEnmMe8CjIif9BVqsPA
-         6ZXcpwYxoYX76Hqfulp1F+ZEP6qnLISZHW2AexB2KZ5RphAKV9dDw5T9imu8kSFrZ91L
-         Kh8Q==
-X-Forwarded-Encrypted: i=1; AKwUvByd4ol/DZXxb++D+r1zZM6IfQ4wjeQp1cjLRm4j7INCjEI3y/RrgZNIDmpN8RHd7YTIHZqDchs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIuw5lrwSSIeKJDEu3ERwKqrAKBvMGhguAvnB7Qq0F/2Z323lnN
-	ewko7zTYk5nMCQM0cf9WCHUUYXo4VL514EZgLYitZNwKCJKpVWnsHJOc
-X-Gm-Gg: AYBFou3x6CycAJv8GNNQaqpj3xIwg6XLP8YI0auUgMdw7khXriD/dzcNYnn06gAteDv
-	aim67zGiExoeY1GB7SY+zKdB9sUkovTSs58zuKc7WB+lIsyxkgv23qR7+S0Mhlf6ED9vKxkfAvz
-	elq9fJUc88LORvqrJLbvsRt6sYPw7RKBneatANYEY4G5gCnNGhonfZgSe4IG4M0f3I8W6qgRLlc
-	UfYKeDkIJ/zziM7gISSyzQj6hcdAuBNTJJYRpA16qi+zvgDi/n3kE8kUGkEoQ0cQBBc0Z5Bwyps
-	2yGIds+SmTO9pxwZHdQG7x/iotUHruvnKpMRrHWZK7lXqlZS7jzybbWU/fN38I74cg8f7I/orDg
-	oniN5lNhMNWbpouKmx4xQkce2/GxFNR8HYYvNomwTHvp0l9DVp+q2M4juxGfFOjU0twL015aWg6
-	lgVA+xuEdEYyv0BJAf0y/xExBPaRWLZezHTGmPXCu+i/0BoSN1T/FEUPEVMeevJhuDDxAuof1lA
-	C+CkCgEdegbqhOm4ZdSDw9BeIvub7UB6ouW
-X-Received: by 2002:a05:7301:618e:10b0:33e:c164:b5d7 with SMTP id 5a478bee46e88-3515da27012mr2459342eec.3.1791380895299;
-        Wed, 07 Oct 2026 06:48:15 -0700 (PDT)
-Received: from fedora ([2a02:6ea0:c803:3091::12])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3515aeb5c2esm7304472eec.10.2026.10.07.06.48.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 06:48:14 -0700 (PDT)
-From: Muhammad Bilal <meatuni001@gmail.com>
-To: Jorge Lopez <jorge.lopez2@hp.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Muhammad Bilal <meatuni001@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v5 9/9] platform/x86: hp-bioscfg: fix oops on short integer attribute buffer
-Date: Wed,  7 Oct 2026 18:47:11 +0500
-Message-ID: <20261007134711.473857-10-meatuni001@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261007134711.473857-1-meatuni001@gmail.com>
-References: <20261007134711.473857-1-meatuni001@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="GpdLbIts"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=9uh3YtH2vzcWNChlP5JxXc/8qcNZiQgtmlGLwUVnUpM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791381029; v=1; x=1791985829;
+ b=GpdLbItsKLa8HQwn4difBoTylqS8JCO0f/07aFwUILXRuv4xiCBVjQ/7etqJoGKodfbhcdQm
+ tMTNrao/ojP0F3i3fyB2bY1WvK8A7zq5mC0enSEm2NxIe7/gaPc1KQGjCPEjYjWwDOVvncUGK1e
+ I5DLlPZlZ/fdKwHDx7b9hVf0=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2f3032bb5f9bba28;
+	Wed, 07 Oct 2026 13:50:27 +0000
+X-Mizu-Trace-ID: 2f3032bb5f9bba28
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH v3] mm/hugetlb: fix max-only subpool accounting on
+ alloc_hugetlb_folio failure
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20260428113037.88766-2-enderaoelyther@gmail.com>
+Date: Wed, 7 Oct 2026 15:50:12 +0200
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ mawupeng1@huawei.com,
+ Oscar Salvador <osalvador@suse.de>,
+ David Hildenbrand <david@kernel.org>,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <B83FA5F4-740F-4CEF-B9C2-6ED51C893A92@linux.dev>
+References: <20260427145247.84157-2-enderaoelyther@gmail.com>
+ <20260428030712.66256-2-enderaoelyther@gmail.com>
+ <20260428113037.88766-2-enderaoelyther@gmail.com>
+To: Zhao Li <enderaoelyther@gmail.com>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-hp_populate_integer_elements_from_buffer() ignores the return value of
-hp_get_string_from_buffer(). When fewer than 2 bytes are left in the
-buffer, dst_size is 0, kcalloc() returns ZERO_SIZE_PTR and
-hp_get_string_from_buffer() fails without writing to it, so
-kstrtoint() faults on address 0x10.
 
-Return the error instead.
 
-Compile tested only.
+> On Apr 28, 2026, at 13:30, Zhao Li <enderaoelyther@gmail.com> wrote:
+>=20
+> alloc_hugetlb_folio() calls hugepage_subpool_get_pages() when map_chg
+> is set.  For a subpool with max_hpages !=3D -1, that bumps used_hpages
+> regardless of whether it returns gbl_chg =3D 0 (rsv slot consumed) or
+> gbl_chg > 0 (used_hpages slot only).  If the allocation later fails
+> before a folio is returned, the unwind must undo the used_hpages
+> bump.  The old cleanup only ran for !gbl_chg, leaking used_hpages on
+> the gbl_chg > 0 path.
+>=20
+> For gbl_chg > 0 on max-only subpools (max_hpages !=3D -1, min_hpages
+> =3D=3D -1), hugepage_subpool_get_pages() took only a speculative
+> used_hpages slot.  Drop that slot directly under spool->lock.  In
+> that configuration hugepage_subpool_put_pages() cannot restore
+> rsv_hpages, so the direct decrement is the exact inverse and is
+> race-free against concurrent puts.  This matches the used_hpages-only
+> part of hugetlb_reserve_pages()'s out_put_pages cleanup, but
+> restricts it to the max-only case where no rsv_hpages restoration is
+> possible.
+>=20
+> Mounts with min_hpages !=3D -1 are left unchanged for now.  v2's
+> approach (hugepage_subpool_put_pages() + h->resv_huge_pages++ to
+> back a restored rsv_hpages slot) double-counts global backing under
+> concurrent free_huge_folio() and creates phantom reservations under
+> concurrent hugetlb_unreserve_pages().  Safe cleanup of that quadrant
+> needs a coordinated fix across multiple call sites.
+>=20
+> Reproduced on size=3D20M hugetlbfs with the faulting task in a hugetlb
+> cgroup whose limit is exceeded.  Vanilla leaks 6/8 hugepages of
+> subpool quota; this patch leaks 0/8.  Verified under QEMU.
+>=20
+> Fixes: a833a693a490 ("mm: hugetlb: fix incorrect fallback for =
+subpool")
+> Cc: stable@vger.kernel.org # v6.15+
+> Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+> ---
+> Changes in v3:
+> - Replace v2's hugepage_subpool_put_pages() + h->resv_huge_pages++ on
+>  the gbl_chg > 0 branch with a direct used_hpages-- under spool->lock.
+> - Restrict the cleanup to (max_hpages !=3D -1, min_hpages =3D=3D -1) =
+where
+>  the direct decrement is the exact inverse of the speculative bump.
+>=20
+> Changes in v2:
+> - Skip the gbl_chg > 0 cleanup when max_hpages is unset.
+> - Add hugepage_subpool_put_pages() + h->resv_huge_pages++ on the
+>  gbl_chg > 0 branch.
+>=20
+> mm/hugetlb.c | 25 ++++++++++++++++++-------
+> 1 file changed, 18 insertions(+), 7 deletions(-)
+>=20
+> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+> index f24bf49be047e..cfdeaf6394c5b 100644
+> --- a/mm/hugetlb.c
+> +++ b/mm/hugetlb.c
+> @@ -3025,13 +3025,24 @@ struct folio *alloc_hugetlb_folio(struct =
+vm_area_struct *vma,
+> hugetlb_cgroup_uncharge_cgroup_rsvd(idx, pages_per_huge_page(h),
+>    h_cg);
+> out_subpool_put:
+> - 	/*
+> -	 * put page to subpool iff the quota of subpool's rsv_hpages is =
+used
+> -	 * during hugepage_subpool_get_pages.
+> -	 */
+> - 	if (map_chg && !gbl_chg) {
+> - 		gbl_reserve =3D hugepage_subpool_put_pages(spool, 1);
+> - 		hugetlb_acct_memory(h, -gbl_reserve);
+> + 	if (map_chg) {
+> + 		if (!gbl_chg) {
+> + 			/* Full inverse when subpool_get_pages() =
+consumed rsv_hpages. */
+> + 			gbl_reserve =3D =
+hugepage_subpool_put_pages(spool, 1);
+> +			hugetlb_acct_memory(h, -gbl_reserve);
+> + 		} else if (gbl_chg > 0 && spool && spool->min_hpages =3D=3D=
+ -1 &&
 
-Fixes: 6f2c06d5a467 ("platform/x86: hp-bioscfg: int-attributes")
-Cc: stable@vger.kernel.org
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
----
-Changes in v4:
- drivers/platform/x86/hp/hp-bioscfg/int-attributes.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+The gbl_chg > 0 check can be dropped: negative values jump directly to
+out_end_reservation, while zero is handled by the preceding if =
+(!gbl_chg).
 
-diff --git a/drivers/platform/x86/hp/hp-bioscfg/int-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/int-attributes.c
-index 5373af71549a..41287e08c7bb 100644
---- a/drivers/platform/x86/hp/hp-bioscfg/int-attributes.c
-+++ b/drivers/platform/x86/hp/hp-bioscfg/int-attributes.c
-@@ -329,7 +329,12 @@ static int hp_populate_integer_elements_from_buffer(u8 *buffer_ptr, u32 *buffer_
- 	// VALUE:
- 	integer_data->current_value = 0;
- 
--	hp_get_string_from_buffer(&buffer_ptr, buffer_size, dst, dst_size);
-+	ret = hp_get_string_from_buffer(&buffer_ptr, buffer_size, dst, dst_size);
-+	if (ret < 0) {
-+		kfree(dst);
-+		return ret;
-+	}
-+
- 	ret = kstrtoint(dst, 10, &integer_data->current_value);
- 	if (ret)
- 		pr_warn("Unable to convert string to integer: %s\n", dst);
--- 
-2.55.0
+> +   			spool->max_hpages !=3D -1) {
+> + 			unsigned long flags;
+> +
+> + 			/*
+> +			 * For max-only subpools, subpool_get_pages() =
+took only a
+> +			 * speculative used_hpages slot. Drop that slot =
+directly.
+> +			 */
+> + 			spin_lock_irqsave(&spool->lock, flags);
+> + 			if (spool->used_hpages > 0)
+> + 				spool->used_hpages--;
+> + 			unlock_or_release_subpool(spool, flags);
+
+Could we use hugepage_subpool_put_pages(spool, 1) here?
+
+With the max-only check in place, the helper cannot restore rsv_hpages, =
+so it already
+performs the required used_hpages decrement and subpool lifetime =
+handling under the
+appropriate lock.
+
+Thanks,
+Muchun
+
+> + 		}
+> }
+>=20
+>=20
+> --
+> 2.50.1 (Apple Git-155)
 
