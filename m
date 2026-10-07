@@ -1,165 +1,168 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98F3E345ED2;
-	Wed,  7 Oct 2026 13:59:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3737836920C;
+	Wed,  7 Oct 2026 14:04:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791381592; cv=none; b=tAgxP0djmeJbAtYFQ1LvgyUMHfynMqoDwtMw5wtxw4/wZaIdNYyIIMXr1KNRAdIGe/CvY8ws7K4VeDwft7wlz50/qo9Ve6movEqOFPxsbOYkda79oZT9r2qOIXyXfnG2+RLSWW+HnY1VOKS8tA/9jijEk2g51gXSkXDjuQm/u+E=
+	t=1791381902; cv=none; b=q0N8U4WYFC7wZkTi7kz+Xbc1uVIbhDFW3GqoaI69tmhOs8xFIVkDIGkRWThHB/EpurrQqdShjxXDClwE7+YFDedf2ECZpODsq8h3jGoZrk1Ws5skPkLTd6eg5MdEE0gKvQq3mbFFpOuaEOrL8fTSOlk1UVw71Vq0GIkZEehpIeM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791381592; c=relaxed/simple;
-	bh=rwZ+Lm5Tiad0gHsdDiPGtrmBxgP9Yj3MxexhXGckhWw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AimLj0l1/XNCm/hHB57I/q0paV68d2Ikk07CD4is743ULCPYs1c+T8748hq+t5oOh6aRXXngtKxf6mRv++7sNQ2BQFhH4okuPFCNpdC2aWeaOi81GL37oAoimlYglZcmhlFzM7d1cpRPPZjMIG6UpOOXgwmgrsonxvn1I0i58gw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Jh9lyIaP; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1791381902; c=relaxed/simple;
+	bh=PbwuoTc+gBHz0AcD+4yhyq/HboT0WdObEUu9FDg0ckc=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=gDb4doDPwzD/14ZTHg32zMrS802ofUYK57eBN5MYKx+YEJ08OgvYT2O51/ItHvsyaN5a3oC6dZa4fkWUkQnGqbYLiuVh02JXaSgKLx/xnY97DPS0Dnalt19g6Ba0cOjdRIqBm11OJzhQa/ORuePzz84ODEET8wnq5mdAZ1oQgdI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=pVFQR6PD; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=8l4/5QZk; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=uH5ZSvSv; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=tG86S2IA; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Jh9lyIaP"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 697BZv7T2463474;
-	Wed, 7 Oct 2026 13:59:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=Ugy1MPPX4rX1hKJ3I
-	u+kcccg2ZINH127EjdwX5suMt0=; b=Jh9lyIaPBguspkPrRReZ8FRTQfFa24TIo
-	nuaKDiAgwl8bRPlVzRG2tnAYUfZkikoUcYgpqOgCeG2ud88O57UavbJ+CZj2zcrZ
-	BHD6Ke9M+rW84yrWNj7CXQ1SXFAd4jmgoMxRGLdVQwCXC4TzLk0sh/nnrexAjoFt
-	K1Kb1Z9LmxE+WUj9GuWGg4fHptT7U+ZeQHzyvxEedh1N14TftI9LZ3mUolSqoQVD
-	3tEqEGLLNUqFhOOFpugFQZvY5SHc/rXgy4sil9yJGMgkgWraHP20EIqXxEbbl3aC
-	bhgysa+utUVQOK0vMqdZ4K0ZTIOpA2to59y4LgHs7d8hfXVtRMLAQ==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2s74wuqs-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 07 Oct 2026 13:59:41 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 697BX7xg1852611;
-	Wed, 7 Oct 2026 13:59:40 GMT
-Received: from smtprelay07.wdc07v.mail.ibm.com ([172.16.1.74])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h3dhgxsr5-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 07 Oct 2026 13:59:40 +0000 (GMT)
-Received: from smtpav06.wdc07v.mail.ibm.com (smtpav06.wdc07v.mail.ibm.com [10.39.53.233])
-	by smtprelay07.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 697DxcxR13632176
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 7 Oct 2026 13:59:38 GMT
-Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 96A7058056;
-	Wed,  7 Oct 2026 13:59:38 +0000 (GMT)
-Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A342D58054;
-	Wed,  7 Oct 2026 13:59:36 +0000 (GMT)
-Received: from Mac.ibm.com (unknown [9.61.253.231])
-	by smtpav06.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Wed,  7 Oct 2026 13:59:36 +0000 (GMT)
-From: Omar Elghoul <oelghoul@linux.ibm.com>
-To: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
-        kvm@vger.kernel.org
-Cc: oelghoul@linux.ibm.com, hca@linux.ibm.com, gor@linux.ibm.com,
-        agordeev@linux.ibm.com, borntraeger@linux.ibm.com, svens@linux.ibm.com,
-        schnelle@linux.ibm.com, mjrosato@linux.ibm.com, alifm@linux.ibm.com,
-        farman@linux.ibm.com, gbayer@linux.ibm.com, pasic@linux.ibm.com,
-        alex@shazbot.org, frankja@linux.ibm.com, imbrenda@linux.ibm.com,
-        stable@vger.kernel.org
-Subject: [PATCH v9 1/4] s390/pci: Hold fmb_lock when enabling or disabling PCI devices
-Date: Wed,  7 Oct 2026 09:59:23 -0400
-Message-ID: <20261007135926.82935-2-oelghoul@linux.ibm.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261007135926.82935-1-oelghoul@linux.ibm.com>
-References: <20261007135926.82935-1-oelghoul@linux.ibm.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="pVFQR6PD";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="8l4/5QZk";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="uH5ZSvSv";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="tG86S2IA"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id D0DE61F443;
+	Wed,  7 Oct 2026 14:04:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791381891; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9zdSmLzev2n3sftdz+1rh2aD0yt5DHgo8KO/DZ7WqPM=;
+	b=pVFQR6PD8lNaHL/0KYc5KYdPq9+yOHjwggs5VgtVHK6xrNXAjLDriy6FSjUMYcbjSOFioO
+	6RvtdfzuR/uh29srQFe0RlPS00aVzIo38m53ECy9M9g4C+vHfPYsuwLQ6TRIdqW/obBlWo
+	lz0h0EAFHam7czpGqaAGRT1aDlEdvY8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791381891;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9zdSmLzev2n3sftdz+1rh2aD0yt5DHgo8KO/DZ7WqPM=;
+	b=8l4/5QZkkwbiYqUiIGEtPhk3wILvZB0Rg3/xervcZh8YBpnt1qub1szL/UNPsK+KKV3hlL
+	EIGB8/LyE7KdErCw==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=uH5ZSvSv;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=tG86S2IA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791381889; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9zdSmLzev2n3sftdz+1rh2aD0yt5DHgo8KO/DZ7WqPM=;
+	b=uH5ZSvSvNjndg2wCfvM4yIMhECoJ/8uzWTXlSTOYvleRPVhTG3/Ih7c/ZAdCcyep9PpUnu
+	ttJEacYiE8w/hTMRMlRm3BL21sJumM+7soZjY+TPx174XK4n/DLLJTmVNcWh18aFAHBEhi
+	P/P//i2Ae+Vko4PSTwPGn7rqUzzLgvk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791381889;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9zdSmLzev2n3sftdz+1rh2aD0yt5DHgo8KO/DZ7WqPM=;
+	b=tG86S2IAgR8I9Dfc2DhsSZrRJaaDaGtCvUdiT9J+i6RSzorxbL7yNfrBbmp+PYguw/P8W5
+	KrzzZM4EnSnj80DA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8DDC113312;
+	Wed,  7 Oct 2026 14:04:49 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id SBGiGYFRxmq3MgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 07 Oct 2026 14:04:49 +0000
+Date: Wed, 07 Oct 2026 16:04:49 +0200
+Message-ID: <878q49obcu.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Cc: vkoul@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	pierre-louis.bossart@linux.dev,
+	linux-sound@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/4] ALSA: compress: fix buffer leak on repeated SET_PARAMS
+In-Reply-To: <20261007132509.18237-2-peter.ujfalusi@linux.intel.com>
+References: <20261007132509.18237-1-peter.ujfalusi@linux.intel.com>
+	<20261007132509.18237-2-peter.ujfalusi@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: H942ptXNuFKGO2NcGL_mLpdTd4-7SC43
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDA1NCBTYWx0ZWRfX1IfWCzf6PL9I
- 0JXxTuSibUHAPuKmDYm91OngNZ7sJN0fuR0lZOVB7e/Jzoxl8vRkHETObV+JtUXMqk6G86ZX1qu
- t7lAAm0CltS6aZuA/ArL8yPJ6FaXGbU=
-X-Proofpoint-GUID: H942ptXNuFKGO2NcGL_mLpdTd4-7SC43
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDA1NCBTYWx0ZWRfX0DLQMKad9qoR
- pJp8YhwFXzAb4YWeo5oVJkIjljQnm9mzCIPCdklZjrtN5wFtxUNC0oWXMrNBuxOPInerFprj3KT
- UbrdssKkvWHrPTC2vJNqwmSsLiOwekPWds9BaVF3tDGwz/OrMEeeGis4CP8e8aMJtmAuPaPegRT
- p5GlkLetYHi+9QepAkokWfFA6Xrns/gDOQhWbLDNv+MzDPfOHjmmX+edoRn2P29Q9Pap6TuywY0
- tY8ujE5s20M0qxXs2GACAO9UgKR+oFjumUUKguSdCnneV12BaR17c2FD089NSal5zXcuieBq3uF
- 5fvy9yc8VEdQQT3OsnxGmdDKJ3I0IGD6RD3jPIsuMhZXKVrl0Ekb/VtlHbWR2QgBVIscYDg/3mG
- M7ujH2KqOvs2DwJpeUaSv5wVlx83XAoYH3nbVcfI8WlvXdaDj8stplvgClYC1sYP+AVwY+RYxS2
- hVPSvEjPHkQH/BAwDOg==
-X-Authority-Analysis: v=2.4 cv=fM2sTpae c=1 sm=1 tr=0 ts=6ac6504d cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=5NbLduwtq9nBFWGw9KEA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-07_04,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 priorityscore=1501 spamscore=0 lowpriorityscore=0
- phishscore=0 adultscore=0 malwarescore=0 clxscore=1015 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070054
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Flag: NO
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	DWL_DNSWL_LOW(-1.00)[suse.de:dkim];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-0.998];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_TLS_ALL(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:email,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Action: no action
+X-Spam-Score: -4.51
+X-Spam-Level: 
+X-Rspamd-Queue-Id: D0DE61F443
 
-Ensure that fmb_lock is held by pcibios_enable_device() and
-pcibios_disable_device() when calling zpci_fmb_enable_device() or
-zpci_fmb_disable_device(), respectively. Additionally, assert that the
-fmb_lock is held within the latter two functions to prevent future race
-conditions regarding new callers.
+On Wed, 07 Oct 2026 15:25:06 +0200,
+Peter Ujfalusi wrote:
+> 
+> snd_compr_allocate_buffer() unconditionally overwrites
+> stream->runtime->buffer with a freshly kmalloc'd buffer whenever the
+> driver has no ops->copy and no preallocated dma_buffer_p. SET_PARAMS
+> is permitted repeatedly while the stream is in the OPEN state, so a
+> local process can loop SNDRV_COMPRESS_SET_PARAMS and leak the
+> previous buffer on every call, exhausting kernel memory.
+> 
+> Free any framework-owned buffer before replacing it, mirroring the
+> ownership check already used in snd_compr_free().
+> 
+> Fixes: b21c60a4edd2 ("ALSA: core: add support for compress_offload")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+> ---
+>  sound/core/compress_offload.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
+> index 7c397b1c9231..c0ed76e1c844 100644
+> --- a/sound/core/compress_offload.c
+> +++ b/sound/core/compress_offload.c
+> @@ -613,6 +613,10 @@ static int snd_compr_allocate_buffer(struct snd_compr_stream *stream,
+>  			return -ENOMEM;
+>  	}
+>  
+> +	/* a prior SET_PARAMS may have left a framework-owned buffer behind */
+> +	if (!stream->runtime->dma_buffer_p)
+> +		kfree(stream->runtime->buffer);
+> +
 
-Fixes: af0a8a8453f7 ("s390/pci: implement pcibios_add_device")
-Fixes: 944239c59e93 ("s390/pci: implement pcibios_release_device")
-Cc: stable@vger.kernel.org
-Signed-off-by: Omar Elghoul <oelghoul@linux.ibm.com>
-Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
-Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
----
- arch/s390/pci/pci.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+I'd rather put to the else block above (or even better, if
+(stream->runtime->dma_buffer_p) block above that point).
 
-diff --git a/arch/s390/pci/pci.c b/arch/s390/pci/pci.c
-index d64c544b32b0..c055a9ad0972 100644
---- a/arch/s390/pci/pci.c
-+++ b/arch/s390/pci/pci.c
-@@ -173,6 +173,8 @@ int zpci_fmb_enable_device(struct zpci_dev *zdev)
- 	unsigned long flags;
- 	u8 cc, status;
- 
-+	lockdep_assert_held(&zdev->fmb_lock);
-+
- 	if (zdev->fmb || sizeof(*zdev->fmb) < zdev->fmb_length)
- 		return -EINVAL;
- 
-@@ -211,6 +213,8 @@ int zpci_fmb_disable_device(struct zpci_dev *zdev)
- 	struct zpci_fib fib = {0};
- 	u8 cc, status;
- 
-+	lockdep_assert_held(&zdev->fmb_lock);
-+
- 	if (!zdev->fmb)
- 		return -EINVAL;
- 
-@@ -639,7 +643,9 @@ int pcibios_enable_device(struct pci_dev *pdev, int mask)
- 	struct zpci_dev *zdev = to_zpci(pdev);
- 
- 	zpci_debug_init_device(zdev, dev_name(&pdev->dev));
-+	mutex_lock(&zdev->fmb_lock);
- 	zpci_fmb_enable_device(zdev);
-+	mutex_unlock(&zdev->fmb_lock);
- 
- 	return pci_enable_resources(pdev, mask);
- }
-@@ -648,7 +654,9 @@ void pcibios_disable_device(struct pci_dev *pdev)
- {
- 	struct zpci_dev *zdev = to_zpci(pdev);
- 
-+	mutex_lock(&zdev->fmb_lock);
- 	zpci_fmb_disable_device(zdev);
-+	mutex_unlock(&zdev->fmb_lock);
- 	zpci_debug_exit_device(zdev);
- }
- 
--- 
-2.56.0
+The code is specific to that condition, after all.
 
+
+thanks,
+
+Takashi
