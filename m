@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0727356A38;
-	Wed,  7 Oct 2026 02:04:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7164356A38;
+	Wed,  7 Oct 2026 02:05:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791338691; cv=none; b=W7GV9vozx0E784tHnw0yuvUfeT8WjpG/kTe7+FOGS/DJXDbdhlg/+xLvGU31ku/EMXEcB0omfAuIOyR3FZH+NobyzMODigUAjhLAaBrMJIWm8wDgHCgtlyzGHV+Cq2jE7H0kYm/8Ax5aJ3iTpJShC7S/NzSfW8PHJhxt33uAD4M=
+	t=1791338708; cv=none; b=LJciA6G7mrDhboflPEcefXJVizM03/4IyG13VtATkEF3Gqz9Dnt9z4QRIt75sPwjsFyzs8hI9gKEwbyZmjFFe16D4PtA41V/LzLSLrlbB6731vRh7v40qc4Je66TQuuTsXnrSrVICqcCqwY/FUobAlQVON+TiaxG2QOtf3zGDWI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791338691; c=relaxed/simple;
-	bh=z7DymRIAzepgxBKMSbeAjkdZQDsXnzIJXeiPO5x+H9Q=;
-	h=Date:To:From:Subject:Message-Id; b=kPuS2Q+Whl/zmBYejK8rubWwHIKLDlLqbvSelhl7eidr0hKQB3rY2OgxwdSK165UXFo33DHV78jBGLeKgvJ1qi5lFuCrMhHK2s/eL9y7E5datuKqpe6dWd0ho8Ox424aIHElPv99T0XPYJWogBk6CuN3t2QvY5nZrkSdqRj1lEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=OIBkGFR8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791338708; c=relaxed/simple;
+	bh=EFt3zlY6v1Gmy32QHRSxHi1wDP8ovnI1oW3EdF5zRDQ=;
+	h=Date:To:From:Subject:Message-Id; b=USlMbLU85emMYrwbWwEL2pkGOblmbjvDi2/dbL4wMCItiQyLNcnlsf59F5ppf+3kJLvE0YM99B8chBFTt/e1XOaoa3H5ph6Wa8QhZZ6VO7DRhvL70BoIndL6FX1ybJY8z3HBCWbkUwFfwHejsWFukKcP2qO5bn3I4XuN8NxoRmk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=HpKorAoj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="OIBkGFR8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D1761F0089C;
-	Wed,  7 Oct 2026 02:04:50 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="HpKorAoj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB8031F0089C;
+	Wed,  7 Oct 2026 02:05:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791338690;
-	bh=dIblRx55xfVh/ae/uhnH8tbE7cCWQ32taKkXA4sBx0c=;
+	d=linux-foundation.org; s=korg; t=1791338706;
+	bh=Zh7WkOAFIxpteijsSCYXy8ynTWihg20T2z23l23DXrA=;
 	h=Date:To:From:Subject;
-	b=OIBkGFR8IR1khCjZbArdZvyPWsZ9UXQhjaX3FPuL/xyDmHzkE7f9lV+W0j6/XAx1h
-	 Xm68Z2LmEJHtsCp85RndfbRxSPO9qcmjJ9vBDwpOTdJcaasJjSDNFvcsnyAX7ytAdN
-	 f4io0tQd6u3SyQ0oteom3XCgXlF8gIhmiLiUzDnQ=
-Date: Tue, 06 Oct 2026 19:04:49 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,richard120310@gmail.com,handyhandyman.adam@gmail.com,akpm@linux-foundation.org
+	b=HpKorAojC9lU4Tm1mVa0jifula92x0HKEGNXCFkS7BqPpmNeO3Gf7JUOS/Se+Ry1v
+	 O+iXUn1CYto8HnG1wXMV2n8d5Lt/VGf19/ZalPOl5d4xxeyKW5NWMm7t8DeNh+T9Ec
+	 7g0TQYlQORFlHOOtVHsfW9tOymgw2/JXtnYoJaF4=
+Date: Tue, 06 Oct 2026 19:05:06 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,hpa@zytor.com,alain@knaff.lu,mattst88@gmail.com,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-nonmm-stable] lib-plist-fix-plist_requeue-corrupting-order-in-the-last-bucket.patch removed from -mm tree
-Message-Id: <20261007020450.5D1761F0089C@smtp.kernel.org>
+Subject: [merged mm-nonmm-stable] lib-decompress_bunzip2-fix-off-by-one-in-run-length-bounds-check.patch removed from -mm tree
+Message-Id: <20261007020506.AB8031F0089C@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,100 +35,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: lib/plist: fix plist_requeue() corrupting order in the last bucket
+     Subject: lib/decompress_bunzip2: fix off-by-one in run-length bounds check
 has been removed from the -mm tree.  Its filename was
-     lib-plist-fix-plist_requeue-corrupting-order-in-the-last-bucket.patch
+     lib-decompress_bunzip2-fix-off-by-one-in-run-length-bounds-check.patch
 
 This patch was dropped because it was merged into the mm-nonmm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Adam Harshbarger <handyhandyman.adam@gmail.com>
-Subject: lib/plist: fix plist_requeue() corrupting order in the last bucket
-Date: Thu, 3 Sep 2026 17:24:56 -0500
+From: Matt Turner <mattst88@gmail.com>
+Subject: lib/decompress_bunzip2: fix off-by-one in run-length bounds check
+Date: Sat, 12 Sep 2026 14:17:35 -0400
 
-plist_requeue() is meant to move a node to the end of its own priority
-run.  When the node heads the *last* priority bucket it is instead placed
-at the head of the whole list, leaving the plist unsorted:
+The run-length path rejects a block when dbufCount+t equals dbufSize, but
+the loop that follows writes exactly t bytes starting at dbufCount, so a
+block that fills the buffer exactly is legal.  bzip2 allows it too: its
+decompressor bounds a block at 100000 * blockSize100k and checks that
+limit per byte appended.  Use > instead of >=.
 
-  built:      A(prio 0) B(prio 1) C(prio 1)
-  requeue(B): B(prio 1) A(prio 0) C(prio 1)
-  expected:   A(prio 0) C(prio 1) B(prio 1)
+bzip2's encoder stops filling a block 19 bytes early, so nothing it
+produces ever reaches the limit and the bug stays hidden.  Compressors
+that use the full block size do reach it: an lbzip2 -9 image whose block
+ends on a run fails to decode, and a self-extracting kernel built that way
+does not boot.
 
-prio_list is a *headless* circular ring of the nodes that lead each
-priority bucket.  The shortcut added by commit 95d4b3450ebe ("lib/plist.c:
-add shortcut for plist_requeue()") takes
+This code came from busybox, which fixed the same line in 2013 in commit
+932e233a491b ("bunzip2: fix off-by-one check").
 
-	iter = list_entry(iter->prio_list.next, struct plist_node,
-			  prio_list);
-	node_next = &iter->node_list;
+I ran into this because my system uses lbzip2 as /bin/bzip2 -- a common
+thing on Gentoo I believe.  As far as I can tell, anyone using lbzip2
+as their system bzip2 would run into this and it's only because it's
+very uncommon these days to compress a kernel with bzip2 that no one
+has noticed.  I only noticed because I was adding support for various
+compression formats on alpha.
 
-which from the last bucket wraps round to the *first* bucket, so node_next
-ends up pointing at the head of the list rather than at its end.  The
-plist_for_each_continue() loop immediately below it computes the correct
-answer (&head->node_list) for that case.
-
-With any bucket after it the shortcut is correct, which is why this went
-unnoticed: the benchmark in that commit measured elapsed time and never
-checked the resulting order.
-
-Keep the shortcut -- it is a real win -- but exclude the case where iter's
-bucket is the last one, which is exactly when its ring successor is the
-first bucket again.
-
-Reachable from mm/swapfile.c, which rotates swap_avail_heads[] with
-plist_requeue().  It takes three or more swap devices: at least two
-distinct priorities, so that a later bucket exists for the ring to wrap
-round from, and two or more devices sharing the lowest priority, so that
-plist_requeue() does not return early.  One device per priority returns
-early at the node->prio != iter->prio test.  A single priority is also
-safe, but for a different reason worth stating: with one bucket no node is
-ever linked onto prio_list at all -- plist_add() skips it for the first
-node and for every node whose predecessor shares its priority -- so
-list_empty(&iter->prio_list) holds and the shortcut is never entered.
-
-Tested by driving three implementations -- the pre-95d4b3450ebe code,
-current mainline, and this patch -- through 1,084,492 identical random
-add/del/requeue operations over 24 nodes and 1..5 distinct priorities,
-comparing the resulting node_list node for node after every operation:
-
-  variant             differs from pre-95d4b3450ebe  left list unsorted
-  pre-95d4b3450ebe    -- (reference)                                  0
-  mainline                                  289,297             276,660
-  this patch                                      0                   0
-
-Link: https://lore.kernel.org/20260903222456.1881786-1-handyhandyman.adam@gmail.com
-Fixes: 95d4b3450ebe ("lib/plist.c: add shortcut for plist_requeue()")
-Signed-off-by: Adam Harshbarger <handyhandyman.adam@gmail.com>
+Link: https://lore.kernel.org/20260912-b4-bunzip2-blocksize-fix-v1-1-c7384bbfc954@gmail.com
+Fixes: bc22c17e12c1 ("bzip2/lzma: library support for gzip, bzip2 and lzma decompression")
+Signed-off-by: Matt Turner <mattst88@gmail.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Assisted-by: Claude:claude-opus-5
-Cc: I Hsin Cheng <richard120310@gmail.com>
-Cc: <stable@vger.kernel.org> # v6.15+
+Cc: Alain Knaff <alain@knaff.lu>
+Cc: "H. Peter Anvin" <hpa@zytor.com>
+Cc: <stable@vger.kernel.org>
 ---
 
- lib/plist.c |    7 +++++++
- 1 file changed, 7 insertions(+)
+ lib/decompress_bunzip2.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---- a/lib/plist.c~lib-plist-fix-plist_requeue-corrupting-order-in-the-last-bucket
-+++ a/lib/plist.c
-@@ -174,8 +174,15 @@ void plist_requeue(struct plist_node *no
- 	/*
- 	 * After plist_del(), iter is the replacement of the node.  If the node
- 	 * was on prio_list, take shortcut to find node_next instead of looping.
-+	 *
-+	 * prio_list is a headless ring, so from the LAST bucket ->next wraps
-+	 * round to the first one; in that case node_next is the list head.
- 	 */
- 	if (!list_empty(&iter->prio_list)) {
-+		struct plist_node *first = plist_first(head);
-+
-+		if (iter->prio_list.next == &first->prio_list)
-+			goto queue;
- 		iter = list_entry(iter->prio_list.next, struct plist_node,
- 				  prio_list);
- 		node_next = &iter->node_list;
+--- a/lib/decompress_bunzip2.c~lib-decompress_bunzip2-fix-off-by-one-in-run-length-bounds-check
++++ a/lib/decompress_bunzip2.c
+@@ -439,7 +439,7 @@ got_huff_bits:
+ 		   array.) */
+ 		if (runPos) {
+ 			runPos = 0;
+-			if (dbufCount+t >= dbufSize)
++			if (dbufCount+t > dbufSize)
+ 				return RETVAL_DATA_ERROR;
+ 
+ 			uc = symToByte[mtfSymbol[0]];
 _
 
-Patches currently in -mm which might be from handyhandyman.adam@gmail.com are
+Patches currently in -mm which might be from mattst88@gmail.com are
 
 
