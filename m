@@ -1,115 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 077254AE12C;
-	Wed,  7 Oct 2026 14:34:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03CEF455619;
+	Wed,  7 Oct 2026 14:37:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791383657; cv=none; b=Krs7U7hDQBcdxx5L1WOJi0+/7UOc2LtNLIzEv/Bv5LTFkYWICgsKjZCDv+lpPl66arZebfYlyKAGXBSDeeclxnxNf2Xt8PQsGyOMEN3Jt7keh5ddvqPdJ/PciEm8vNaZmqqL+QbkRRax83ipek/BarrTntrmXvj8XXQDGucnuKo=
+	t=1791383855; cv=none; b=ng3GD6UwHiMBP5/KUtjNcmJISpjkXmqv+JfdhDJKroFVciISTLaEmFZyVKP/lPH8D8LvWNNvf/xCpIDWmNaNsKJR8digMUpHjBWiISETAFAlUSFiLVXuhxe8ImDtg3rAyUE6NZUhMPnW3pD+yI6d9d7XP70Yz/FAJdOG9n30qVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791383657; c=relaxed/simple;
-	bh=aaBl7jM0AvoHi5hBj4hHL6VWxSJ8btl9O2iC5ZxmqWY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=oYC2NgSSTlpr2MlsFRpuPcZKY/IA7CCR3058/oGyCFmiuUTD+WGj44G1m8Pa10/c90MmhADGhAbbv9hvXDKOy6B63qsOMNSBlM57vOWJWenYy5GVG3zFefUIQ+5kHD9ErF2wWdN/wi2N9LfoS2mVnOJAgGSD8B4Bb4wPOFtqrL4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C7ale+5m; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791383855; c=relaxed/simple;
+	bh=xRzZceDIr9iEVTLoBeJ/kzV6A4SoSe+JdhozoxZ2xd0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=H/cir9v2/4/7qeguQnVfdFJkSWhKILXg9sU8dgTKPDK8QOgZjzXCEwfNtvDAcYktByICKxX5O0qc1qtnnNoxEDIsTZqpCT803zUNCclydSr5bg45XpHK1L+1fPHxZz96G4rCkQi2BfjnEnXuAL3cB1lSCYugW5g9jJJzsdYEcJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cl/IxSa9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C7ale+5m"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 47F6EC2BCF5;
-	Wed,  7 Oct 2026 14:34:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791383656;
-	bh=aaBl7jM0AvoHi5hBj4hHL6VWxSJ8btl9O2iC5ZxmqWY=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=C7ale+5mCeNekkQlyW3jrTYVSkHHrKji2+WnlZhJUpxv6KdOZRnq8ifzsgr4lt6Jl
-	 RpuHlOr2lZCAp7qLEb1DjndgkFJM+v07aYLZW8A0Tdlr2QpTXymonXcNgxuRyC0k10
-	 GqvQPADSW6vJMp9mi9wyuK5pQkr3J3/fCn+g3k2kz2oFzZ4nSh/LHNX2LQ6JpxcC/a
-	 DWVJOCT8ErZCYKJdbKb3P6vUL5+6wkYcwhicfk4M1F4KA0w3QzunAHo883bPb1mRkZ
-	 gEeom7UV+yrD1sUeM9UgWxwtBybY5fOX7LWRSK34myVIpd4yFOoNSQncNaGz9nN+Cb
-	 SPyi5zO90oT9g==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1C4CECA6007;
-	Wed,  7 Oct 2026 14:34:16 +0000 (UTC)
-From: Alexis Bouzigues via B4 Relay <devnull+BouziguesAlexis.JohnDeere.com@kernel.org>
-Date: Wed, 07 Oct 2026 09:34:16 -0500
-Subject: [PATCH] iio: accel: adxl345: select IIO_BUFFER and IIO_KFIFO_BUF
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cl/IxSa9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E49D31F0089B;
+	Wed,  7 Oct 2026 14:37:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791383850;
+	bh=UaLNkRVJ7NjxsJUHYXTswR8hqNFuX8vUbeKs9V1Jff4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Cl/IxSa9JbJp9WjViEPSEQSr8xS3ht20rypI6mdkYx7MG/LygIM6Pke1pxNk8L2Zy
+	 RjT6TWLeI2BaHdftokk29G+WLVp6FMlu938ApHu6jLA0KB4EYnLGuTxekztA37V86D
+	 ufQ+zivuD0YEBJzI0FGgzSmIuT3VauTSCkGKh1KwQXqN1hrc+FezL+gTeEA9ymE+QQ
+	 O25STdJSrCyaLkKZGwPIQhijZoA7bzMdP8SHppUw6yCLRzBi9Z0IyFAkZbV8zuXuR4
+	 ukbo/L2QHe3AoScmXE1wJcSq+9hPux+k9HHX02D5GIsBvXRB96evQlknqpdEygRaJ0
+	 Ub0YyejnpFUdA==
+Date: Wed, 7 Oct 2026 16:37:27 +0200
+From: Vinod Koul <vkoul@kernel.org>
+To: =?iso-8859-1?Q?P=E9ter?= Ujfalusi <peter.ujfalusi@linux.intel.com>
+Cc: Takashi Iwai <tiwai@suse.de>, perex@perex.cz, tiwai@suse.com,
+	pierre-louis.bossart@linux.dev, linux-sound@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/4] ALSA: compress: fix buffer leak on repeated
+ SET_PARAMS
+Message-ID: <asZZJ--dC9M7jx4A@parshuram>
+References: <20261007132509.18237-1-peter.ujfalusi@linux.intel.com>
+ <20261007132509.18237-2-peter.ujfalusi@linux.intel.com>
+ <878q49obcu.wl-tiwai@suse.de>
+ <asZSywHEbx-u6uBs@parshuram>
+ <6e27af41-1ba4-4d3e-a128-c2d1402a8f6e@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261007-fix-adxl345-buffer-deps-review-v1-1-0c94c8d0443a@JohnDeere.com>
-X-B4-Tracking: v=1; b=H4sIAGdYxmoC/x2Nyw6CMBAAf4Xs2Y1tBYz+ivGwbbewiRay9UFC+
- HeLxznMzAqFVbjAtVlB+SNFplzBHhoII+WBUWJlcMb11pgzJlmQ4vI4tR36d0qsGHkuuMv8xf5
- CzrZsuhgIamRWrsZ/cLtX9lQYvVIO456dVAbJxyeVFyts2w8mY0JckAAAAA==
-To: Jonathan Cameron <jic23@kernel.org>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Michael Hennerich <Michael.Hennerich@analog.com>
-Cc: David Lechner <dlechner@baylibre.com>, 
- Andy Shevchenko <andy@kernel.org>, Lothar Rubusch <l.rubusch@gmail.com>, 
- linux@analog.com, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Alexis Bouzigues <BouziguesAlexis@JohnDeere.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791383655; l=1713;
- i=BouziguesAlexis@JohnDeere.com; s=20260527; h=from:subject:message-id;
- bh=s/yXKM6ln4x9Rm+hNY2FnXFaP1MQgX8qNBneutc4oYU=;
- b=aKlLVve0fWP0+XrcqwgW4kxbyVmfM7iWxiONstwX/yYmAoM9Vnsb6im4zKzYpqzsY7/1IodZR
- ew04scKnQPeBoJlKi9+E3W8zZHbppfifc9IefWhq9uJNUqbYHG4ePB5
-X-Developer-Key: i=BouziguesAlexis@JohnDeere.com; a=ed25519;
- pk=5KJ7ArL00x5flpPhi9zRLC2p88V1rZXDQ5SXhpRvTDk=
-X-Endpoint-Received: by B4 Relay for BouziguesAlexis@JohnDeere.com/20260527
- with auth_id=797
-X-Original-From: Alexis Bouzigues <BouziguesAlexis@JohnDeere.com>
-Reply-To: BouziguesAlexis@JohnDeere.com
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <6e27af41-1ba4-4d3e-a128-c2d1402a8f6e@linux.intel.com>
 
-From: Alexis Bouzigues <BouziguesAlexis@JohnDeere.com>
+On 07-10-26, 17:25, Péter Ujfalusi wrote:
+> 
+> 
+> On 07/10/2026 17:10, Vinod Koul wrote:
+> > On 07-10-26, 16:04, Takashi Iwai wrote:
+> >> On Wed, 07 Oct 2026 15:25:06 +0200,
+> >> Peter Ujfalusi wrote:
+> >>>
+> >>> snd_compr_allocate_buffer() unconditionally overwrites
+> >>> stream->runtime->buffer with a freshly kmalloc'd buffer whenever the
+> >>> driver has no ops->copy and no preallocated dma_buffer_p. SET_PARAMS
+> >>> is permitted repeatedly while the stream is in the OPEN state, so a
+> >>> local process can loop SNDRV_COMPRESS_SET_PARAMS and leak the
+> >>> previous buffer on every call, exhausting kernel memory.
+> >>>
+> >>> Free any framework-owned buffer before replacing it, mirroring the
+> >>> ownership check already used in snd_compr_free().
+> >>>
+> >>> Fixes: b21c60a4edd2 ("ALSA: core: add support for compress_offload")
+> >>> Cc: stable@vger.kernel.org
+> >>> Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+> >>> ---
+> >>>  sound/core/compress_offload.c | 4 ++++
+> >>>  1 file changed, 4 insertions(+)
+> >>>
+> >>> diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
+> >>> index 7c397b1c9231..c0ed76e1c844 100644
+> >>> --- a/sound/core/compress_offload.c
+> >>> +++ b/sound/core/compress_offload.c
+> >>> @@ -613,6 +613,10 @@ static int snd_compr_allocate_buffer(struct snd_compr_stream *stream,
+> >>>  			return -ENOMEM;
+> >>>  	}
+> >>>  
+> >>> +	/* a prior SET_PARAMS may have left a framework-owned buffer behind */
+> >>> +	if (!stream->runtime->dma_buffer_p)
+> >>> +		kfree(stream->runtime->buffer);
+> >>> +
+> >>
+> >> I'd rather put to the else block above (or even better, if
+> >> (stream->runtime->dma_buffer_p) block above that point).
+> >>
+> >> The code is specific to that condition, after all.
+> > 
+> > I would block calling snd_compr_allocate_buffer() for subsequent
+> > set_params, it should not be allowed.
+> 
+> OK, let me see how it should be done. I'm not sure of changing other
+> params are permitted either, but imagine:
 
-Since the addition of FIFO watermark support, adxl345_core.c calls
-devm_iio_kfifo_buffer_setup() and iio_push_to_buffers(), but the
-ADXL345 Kconfig entry does not select IIO_BUFFER and IIO_KFIFO_BUF.
-Building with CONFIG_ADXL345_I2C=y and CONFIG_IIO_BUFFER=n fails to
-link:
+I would split it up for next_track and open, so that we have clear
+flows.
 
-  ld: drivers/iio/accel/adxl345_core.o: in function `adxl345_irq_handler':
-  adxl345_core.c:(.text+0x145c): undefined reference to `iio_push_to_buffers'
-  ld: drivers/iio/accel/adxl345_core.o: in function `adxl345_core_probe':
-  adxl345_core.c:(.text+0x1db6): undefined reference to `devm_iio_kfifo_buffer_setup_ext'
+> the application calls set_params first then after some deliberation and
+> before starting it reconsiders and wants to have bigger/smaller buffer.
+> I know, they rarely do, but if such application assumes that the second
+> buffer setup is valid, while we kept the initial one, things might break?
 
-Add the missing selects on the hidden ADXL345 core symbol, as done for
-ADXL367, ADXL372 and ADXL380, so both the I2C and SPI front-ends are
-covered.
+Hmmm, do we really want that. they can tear down and reopen in that
+case?
 
-Fixes: cf04212d1fe7 ("iio: accel: adxl345: add FIFO with watermark events")
-Assisted-by: LLM
-Signed-off-by: Alexis Bouzigues <BouziguesAlexis@JohnDeere.com>
----
-Add the buffer selections required by the ADXL345 FIFO support.
-The shared core symbol covers both I2C and SPI frontends.
----
- drivers/iio/accel/Kconfig | 2 ++
- 1 file changed, 2 insertions(+)
+If we split as above, in next_track case we can apply codec params while
+ignoring buffer.. wdyt
 
-diff --git a/drivers/iio/accel/Kconfig b/drivers/iio/accel/Kconfig
-index 4094299e2ed8..fc130854af71 100644
---- a/drivers/iio/accel/Kconfig
-+++ b/drivers/iio/accel/Kconfig
-@@ -61,6 +61,8 @@ config ADXL313_SPI
- 
- config ADXL345
- 	tristate
-+	select IIO_BUFFER
-+	select IIO_KFIFO_BUF
- 
- config ADXL345_I2C
- 	tristate "Analog Devices ADXL345 3-Axis Digital Accelerometer I2C Driver"
-
----
-base-commit: 7b63ef2d55f24519e7e9e5f4d15dbea03f126e40
-change-id: 20261007-fix-adxl345-buffer-deps-review-69a214e05dca
-
-Best regards,
 -- 
-Alexis Bouzigues <BouziguesAlexis@JohnDeere.com>
-
-
+~Vinod
