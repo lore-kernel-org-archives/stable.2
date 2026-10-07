@@ -1,93 +1,95 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84DCB2F616A
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 06:10:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9479C2F616A
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 06:10:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791353448; cv=none; b=fDx5wq4unAvAktMPqA0xmxTetwtucdIitlIrPp9W16BFDu9Uc+/XLwrZp9Lgzetvh4k27g1RwmxCOwMt95abolehPfmhAbLO4J849t5l4pNaOyvQ5CmxWWv1qEnv15FQVmBW/vX/Z9lWCxAJJak+tN0sKlX9Bc6DSIcmIM84zf8=
+	t=1791353450; cv=none; b=ljIxW3HOVFYBxUt6eXcuHZKGsmJ0BmohOznNnEIDKTTPsY557ckLhdA4sAZAh1xUrMtDoMqoTVEXpi67xCgwGgMn+rnPJZ6UQ8GWOMdqw1saLA3EB+AR/okR67mZ8KKtQcW4VQoVA4OsnQutMEYRLHqJw8merCo0rV0WvM5SCxw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791353448; c=relaxed/simple;
-	bh=qvgqGqBABNSIxmKh5CJXwp58Sk7ikYMFrfhKLj9fgdw=;
+	s=arc-20240116; t=1791353450; c=relaxed/simple;
+	bh=4ZzM6IQBPSWL3ZwcnS6E3uR2cUjtf4qvrWa3Zwbz/nk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CB/ieLPi79JXOAor5e/6WPxQrud+KvGk+XvvdA3L4NbcPND1/P2FPJgfIdo+CxvvjMMUONJ75dV7AnQEM5Cuvf5rsXW/wdpHHMPra/ktq5O+6aG2xfo3h/Wq6FhQVNEX3t9C3P1MhFE6G9IUN7YA6IygCmVDi+eJZOv3wxLv9gg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WGRCxxQ2; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=eOrPtwrjFxGfeR+xFwRdROXTbIcS2ehApSnylcu6s5JY8ofmyaAGSXaR9P4X5xJC4EBMmuAojqPU6uw/CzC2OYdotMHeMolW92LI214O+jrV1/hnKcG10uz0MmOadrNqSTKczsIg/3oRU2VEzlgRWolOFp1ZJck1PQ5rsaaDMAQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l3wR640+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WGRCxxQ2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E2E11F0089B;
-	Wed,  7 Oct 2026 06:10:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l3wR640+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD09B1F0089C;
+	Wed,  7 Oct 2026 06:10:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791353447;
-	bh=m3yMEQCLBZJMbJ3sUZ8qvC2biuheCyU5b1GzOIWmrbw=;
+	s=k20260515; t=1791353449;
+	bh=j91zJtbzPHGgVzwyF5LKgbsiwNQQetjfNLlc5pBJDJM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WGRCxxQ2To1KdmdMqPiCSDvvfuXBINPhwVtCmp9l6uaVLc0SIAyZEY7GpmuIYLNMC
-	 NPaGlr4+Ha3ofYTVjDyxQ6CKbD3Rkscu/lA0MsYvalXyCpnMhCvEsP+MMoLiwnJzYQ
-	 JpisSB4aTe0YHhEKlLQXfXckaVtgPFd+kaO1+PqD59Cd9DHD9vVzVtr454qMwSKH8I
-	 uZDSConpGqfQwU42hPcQxbcGKDxIwTW3CvSR0iIDIoNsRsBD5xRi5oKb6VRefMzSGo
-	 RkZPtvvj+a/9O5xdlwqVPsTAggVbBzJvOpm8yz/AuTFoI6cR/RGlADKN4hccpCULFP
-	 48N+2SoNzeK8w==
+	b=l3wR640+lXIaxTDZDqnm5Y7zNmUmlq6gO56daZtLGOC97Q4IJxfe/MhhQP0WjxsMC
+	 xNqV/Aqu4nYq8vDz1w5IZjDxouXRzIuZ/jpDgEa5z6Kekh/9t9kBKwxISHRGaMu/cz
+	 V0uycHMmtze9TqhNzc1Ag6zBrAloRWd9WcI4sFyx5rus9D8wrxFqgpT3ECL0HW5gOf
+	 vR63rtmJeVBP6/781jnaQB1kS8D28ScVdsGRaTXExHSylfbNvNaSOXhJFSOzwd6hBS
+	 Btf5zCUesQSNLJrtIi3zMuTHAhjpVzl9E9AEr4qb+tdweE4NCno/u3Q/fmyjK7ozf0
+	 lg15VMBtGgB0g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>,
+	Andy Shevchenko <andy.shevchenko@gmail.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/3] units: Add HZ_PER_GHZ
-Date: Wed,  7 Oct 2026 02:10:41 -0400
-Message-ID: <20261007060913.1488382-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/3] iio: adc: ad4030: Use BIT macro to improve code readability
+Date: Wed,  7 Oct 2026 02:10:42 -0400
+Message-ID: <20261007060913.1488382-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100606-wolf-obsessed-e5c2@gregkh>
+In-Reply-To: <20261007060913.1488382-1-sashal@kernel.org>
 References: <2026100606-wolf-obsessed-e5c2@gregkh>
+ <20261007060913.1488382-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+From: Marcelo Schmitt <marcelo.schmitt@analog.com>
 
-[ Upstream commit 5083dba0fde5446c00ee1a82a3911c8f88a2c72e ]
+[ Upstream commit a10f6dd4eef2e64fe1f366613bed45aa308494de ]
 
-The is going to be a new user of the HZ_PER_GHZ definition besides
-possibly existing ones. Add that one to the header.
+Use BIT macro to make the list of average modes more readable.
 
-While at it, split Hz and kHz groups of the multipliers for better
-maintenance and readability.
-
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Reviewed-by: Andi Shyti <andi.shyti@kernel.org>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
-Link: https://lore.kernel.org/r/20260112134900.4142954-2-andriy.shevchenko@linux.intel.com
+Suggested-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+Reviewed-by: Nuno Sá <nuno.sa@analog.com>
+Acked-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
+Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
 Stable-dep-of: d61521056420 ("iio: adc: ad4030: fix invalid oversampling_ratio validation")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/units.h | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/iio/adc/ad4030.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/units.h b/include/linux/units.h
-index 00e15de33eca2..0c296a004e897 100644
---- a/include/linux/units.h
-+++ b/include/linux/units.h
-@@ -25,9 +25,12 @@
- #define MICROHZ_PER_HZ		1000000UL
- #define MILLIHZ_PER_HZ		1000UL
+diff --git a/drivers/iio/adc/ad4030.c b/drivers/iio/adc/ad4030.c
+index d8bee6a4215a3..aec95aceb81fa 100644
+--- a/drivers/iio/adc/ad4030.c
++++ b/drivers/iio/adc/ad4030.c
+@@ -232,10 +232,16 @@ struct ad4030_state {
+ 	.num_ext_scan_type = ARRAY_SIZE(_scan_type),			\
+ }
  
-+/* Hz based multipliers */
- #define HZ_PER_KHZ		1000UL
- #define HZ_PER_MHZ		1000000UL
-+#define HZ_PER_GHZ		1000000000UL
++/*
++ * AD4030 can average over 2^N samples, where N = 1, 2, 3, ..., 16.
++ * We use N = 0 to mean no sample averaging.
++ */
+ static const int ad4030_average_modes[] = {
+-	1, 2, 4, 8, 16, 32, 64, 128,
+-	256, 512, 1024, 2048, 4096, 8192, 16384, 32768,
+-	65536,
++	BIT(0),					/* No sampling average */
++	BIT(1), BIT(2), BIT(3), BIT(4),
++	BIT(5), BIT(6), BIT(7), BIT(8),
++	BIT(9), BIT(10), BIT(11), BIT(12),
++	BIT(13), BIT(14), BIT(15), BIT(16),
+ };
  
-+/* kHz based multipliers */
- #define KHZ_PER_MHZ		1000UL
- #define KHZ_PER_GHZ		1000000UL
- 
+ static int ad4030_enter_config_mode(struct ad4030_state *st)
 -- 
 2.53.0
 
