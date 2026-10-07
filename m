@@ -1,104 +1,143 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B4F64499B5
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 08:37:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5988D43990A
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 08:37:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791362261; cv=none; b=Lylqr5TRIDswwqKW19eJStRGMfA7CyJAlvE4PwFbkOPm+LDdox0lB0N8V2/Dzm8XeEW7mmYgj33NiB/9cY1pUKP3DQVfG1o1L42bkXubp08qaxAjh8jSM1j1k1CPUbXPlbHHzGjuac3fruHNoi3zlovblA8dsRrIJowFxGAw0UY=
+	t=1791362268; cv=none; b=CcD9yczYuYHp5Hm1QQAMKAGKJgh38fbV4BHQrLK5OLh1UZTxfZa3bkC6n4B0uMicK1fNBIp6gJKba21FbjhH8WsMqMQzqRvv4QSvD7Fd+V1tkW0E25Vd7VeeRFxcKXhSI67EnffBVLshhbxGFRWqVSfrNceoG9505HHKnB606bw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791362261; c=relaxed/simple;
-	bh=GlAdPoJUsskYf+qU5IqCHgB2nMPpUQWO8aJaZmQqqL8=;
+	s=arc-20240116; t=1791362268; c=relaxed/simple;
+	bh=TSWphP1s26zcsAKPf1XEQBXdnsBsI8uITyNsuPo927U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dxJ699njeL5GSo2XIKIB2xrqJL0cx8SAet8Ayp51EqEqQONlSOy68SpBuIjxsNVVckWyJ+/UJeixIir8C6rE5wSZ55u+fWlPakOLjBf88eLYGvi/2jf1D97V/U1TLsnoEdqwOHyF6XWQysr5WVWjPun2zoTPGxyZlc7o+zRTi9g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KKC2IwiI; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=QESBrwzIGQ+s74ce88d5xZSJMnWIL+8oxD4PdNyH3/zlLm9tQWynWJfosFfJraj5HQ+8VoKLqZOyxvSy/c+mtFL3EFziTOMlhJ+Gb8Jn/SDzmXBD0qIILCSLWGJR5Voe3dISvAt/TfWQuzxBHBHoGlP/It6tXvlKwBDZO/XnY2M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g0UR0YUt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KKC2IwiI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BB001F0089B;
-	Wed,  7 Oct 2026 08:37:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g0UR0YUt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3D581F0089B;
+	Wed,  7 Oct 2026 08:37:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791362258;
-	bh=2B5CvdFnSmcSL8fcmS5vCLIU01Heo4VGlA34Ax8Akhc=;
+	s=k20260515; t=1791362266;
+	bh=GAITyfneXxr6yQKdLfAEhoxz87X58VmyT8LSqqTP7tI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KKC2IwiIFvUpmem22lrC5gP7q9SZK8/DPGKvU09kKvaUewybrFemfGYhjLR9Bw7bS
-	 q2qdbfrdorhMOuC7KUL4iYIQU7utiD0Nqsx5p4sIYjTL+ZPA402vJ9xYQBlTc9AxXB
-	 MQIL4gEz2loMrNtmIn2nmjCx8OgWlyC6QU7S8YctS5WvHMRoyGgadjGMKRSWG7MpZg
-	 QKVdJEnzy0NNCZVZaetKrlfXGXl0+ERWsDMCgaS103TLnIAuPTj3ys7PzP0g+tgF97
-	 d0LSPVOpbsnaOPgMfmFLJCLAMgMmv7+D8Ax4cgyZ5ko3wowP1S1iUwLBYzCxj/Ljik
-	 QLOfkfJuEE1rw==
+	b=g0UR0YUtnIbyGXAeHb5NZh/J2XuXyDmaQ7b2/bKcbcKbJZwMUEEVJkIwbWs6OWu26
+	 m9m7xqfljkcjyOquQ1JSRy9YIL+FMf6Q+1Xc/zgMiQ0sjM/FTsA/5MDymyzRZKJxyv
+	 uHhEWONJXNhMXW3TwA/GAlvGQ8G2W+ER0PAfEWTt2RcJf92WUAD5euWoLErt+Zgw1h
+	 l7ARgdPtDLftTaNv5c6Vc40+VeMt5ZeR4XU2qLTXO0AZFDzwhQpBmZ51zL85dmwDRY
+	 ka5AqywFEe2SdoeaGHflkaCMOPxnLvbWsVc2NLY4KwPUdQWDYZuCK2wagWEJ2lEoWO
+	 0RksuH8s8+EAg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Paulo Alcantara <pc@manguebit.org>,
-	David Howells <dhowells@redhat.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
+Cc: Michael Hennerich <michael.hennerich@analog.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] smb: client: discard post-EOF pagecache when extending a file via zero range
-Date: Wed,  7 Oct 2026 04:37:33 -0400
-Message-ID: <20261007074419.1640908-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] iio: buffer-dmaengine: fix sg entry iteration when building dma_vecs
+Date: Wed,  7 Oct 2026 04:37:42 -0400
+Message-ID: <20261007083721.1953324-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100530-bankroll-devouring-733e@gregkh>
-References: <2026100530-bankroll-devouring-733e@gregkh>
+In-Reply-To: <2026100621-tanning-oxidizing-ed84@gregkh>
+References: <2026100621-tanning-oxidizing-ed84@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Paulo Alcantara <pc@manguebit.org>
+From: Michael Hennerich <michael.hennerich@analog.com>
 
-[ Upstream commit da4fe97fb6c730d9c94a115c7bfa6f98e0d578d0 ]
+[ Upstream commit 0d0ffbcc92e30a8d656ad76a6e278fa3400fed85 ]
 
-smb3_zero_range() removed the pagecache only for the range being zeroed,
-so when it extends the file the folio straddling the old EOF - which may
-hold data dirtied past EOF through an mmap - was never dropped and became
-visible as file content once the file was extended.
+iio_dmaengine_buffer_submit_block() counts scatterlist entries with
+sg_nents_for_len(), which walks the CPU-side lengths (sg->length), but
+then consumes the DMA-side fields (sg_dma_address()/sg_dma_len()).
+After dma_map_sgtable() the two views may differ: an IOMMU can coalesce
+the mapping so that only the first sgt->nents entries carry valid DMA
+addresses, with nents < orig_nents.
 
-Lower the discard boundary to the smaller of the zero-range offset and the
-old EOF.
+On x86 with an IOMMU enabled, a DMABUF block backed by two 1 MiB
+system-heap chunks maps to a single 2 MiB IOVA range. The CPU-side
+count is 2, so the loop reads one entry past the mapped set and emits a
+garbage vec ({addr = ~0, len = 0}). The DMA engine driver rejects the
+vec array (prep returns NULL), the fence is signalled with -ENOMEM,
+which a userspace poller cannot observe, and the block is left in
+ACTIVE state so every further enqueue of it fails with -EBUSY. The
+visible symptom is a stream of zero-filled blocks followed by a wedged
+buffer.
 
-Fixes: 72c419d9b073 ("cifs: fix smb3_zero_range so it can expand the file-size when required")
-Reviewed-by: David Howells <dhowells@redhat.com>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Matthew Wilcox <willy@infradead.org>
-Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
-Cc: Shyam Prasad N <sprasad@microsoft.com>
-Cc: Tom Talpey <tom@talpey.com>
-Cc: Bharath SM <bharathsm@microsoft.com>
+Platforms without an IOMMU never hit this because nents == orig_nents.
+
+Size the vec array with sgt->nents, i.e. the DMA-mapped view, and stop
+the fill loop once bytes_used is covered - which is allowed to be
+smaller than the block size - passing the number of vecs actually
+filled to dmaengine_prep_peripheral_dma_vec().
+
+One vec per mapped entry is enough since coalescing can only ever
+reduce the number of entries. A single mapped entry longer than the
+device's maximum segment size would need more than one, but the DMA API
+already assumes no single segment exceeds it [1], and splitting a vec
+down to the hardware descriptor size is the DMA engine driver's job -
+which both current .device_prep_peripheral_dma_vec() implementations
+do.
+
+[1]: commit ab2cbeb0ed30 ("iommu/dma: Handle SG length overflow better")
+
+Assisted-by: Claude:claude-fable-5
+Fixes: 7a86d469983a ("iio: buffer-dmaengine: Support new DMABUF based userspace API")
+Signed-off-by: Michael Hennerich <michael.hennerich@analog.com>
+Signed-off-by: Nuno Sá <nuno.sa@analog.com>
 Cc: stable@vger.kernel.org
-[ sashal: Replaced the unavailable local i_size variable with i_size_read(inode). ]
+Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+[ sashal: Adjusted context for DMA preparation using DMA_PREP_INTERRUPT directly instead of cyclic transfer flags. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/cifs/smb2ops.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ .../iio/buffer/industrialio-buffer-dmaengine.c   | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
 
-diff --git a/fs/cifs/smb2ops.c b/fs/cifs/smb2ops.c
-index deed3b5e78065..2f5c446de223c 100644
---- a/fs/cifs/smb2ops.c
-+++ b/fs/cifs/smb2ops.c
-@@ -3601,8 +3601,12 @@ static long smb3_zero_range(struct file *file, struct cifs_tcon *tcon,
- 	/*
- 	 * We zero the range through ioctl, so we need remove the page caches
- 	 * first, otherwise the data may be inconsistent with the server.
-+	 *
-+	 * Start at the old EOF when extending so the folio straddling it, which
-+	 * may hold data written past EOF through an mmap, is dropped too.
- 	 */
--	truncate_pagecache_range(inode, offset, offset + len - 1);
-+	truncate_pagecache_range(inode, min(offset, i_size_read(inode)),
-+				 offset + len - 1);
+diff --git a/drivers/iio/buffer/industrialio-buffer-dmaengine.c b/drivers/iio/buffer/industrialio-buffer-dmaengine.c
+index 27dd563343451..9af6171a96fb7 100644
+--- a/drivers/iio/buffer/industrialio-buffer-dmaengine.c
++++ b/drivers/iio/buffer/industrialio-buffer-dmaengine.c
+@@ -82,10 +82,13 @@ static int iio_dmaengine_buffer_submit_block(struct iio_dma_buffer_queue *queue,
+ 		dma_dir = DMA_MEM_TO_DEV;
  
- 	/* if file not oplocked can't be sure whether asking to extend size */
- 	if (!CIFS_CACHE_READ(cifsi))
+ 	if (block->sg_table) {
+-		sgl = block->sg_table->sgl;
+-		nents = sg_nents_for_len(sgl, block->bytes_used);
+-		if (nents < 0)
+-			return nents;
++		/*
++		 * Only the first sgt->nents entries carry a valid
++		 * sg_dma_address()/sg_dma_len() pair as mapping the table may
++		 * have coalesced entries, in which case nents is smaller than
++		 * orig_nents.
++		 */
++		nents = block->sg_table->nents;
+ 
+ 		vecs = kmalloc_array(nents, sizeof(*vecs), GFP_ATOMIC);
+ 		if (!vecs)
+@@ -93,7 +96,8 @@ static int iio_dmaengine_buffer_submit_block(struct iio_dma_buffer_queue *queue,
+ 
+ 		len_total = block->bytes_used;
+ 
+-		for (i = 0; i < nents; i++) {
++		sgl = block->sg_table->sgl;
++		for (i = 0; i < nents && len_total; i++) {
+ 			vecs[i].addr = sg_dma_address(sgl);
+ 			vecs[i].len = min(sg_dma_len(sgl), len_total);
+ 			len_total -= vecs[i].len;
+@@ -101,6 +105,8 @@ static int iio_dmaengine_buffer_submit_block(struct iio_dma_buffer_queue *queue,
+ 			sgl = sg_next(sgl);
+ 		}
+ 
++		nents = i;
++
+ 		desc = dmaengine_prep_peripheral_dma_vec(dmaengine_buffer->chan,
+ 							 vecs, nents, dma_dir,
+ 							 DMA_PREP_INTERRUPT);
 -- 
 2.53.0
 
