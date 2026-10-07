@@ -1,152 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04C923CDBB1;
-	Wed,  7 Oct 2026 10:18:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EA2938E5E9;
+	Wed,  7 Oct 2026 10:21:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791368307; cv=none; b=JHqVBkHSFMxFLZQZtQ8klEWGHDOolfx8zaxadV6wK/S7bz+lVlQ3jpSEagYbCD+JyGs1et1PV2GHUt7CrX343wQzTg9owqwMkuX1nI6p1tH0GjpGMRgE4Uf0IkJxtA/SiSIGJkWOHACaMkB8nNpTLmg15QfayrLTHorDkulfGq8=
+	t=1791368480; cv=none; b=kDYxWZ90JBZ9N73YzXQvtABL+ESlcKsghCmk+dFqc4ZmU/BN71uEZkkOEEvp92GCPmcnbHRx9v5n9ywCYA6UpxMmnElI2vxwZIfTg5kKF88zKfOoveUnehwDF0Kz7A896JxNuevgTLpvCweNoWZvbBGYaHQDHHgZhozW4xGd3Og=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791368307; c=relaxed/simple;
-	bh=fmWtLviZNIW+qMbJn6rdp4dXagZ9rYsEjMtPSmHTyyc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FBRCsVxqRstjRDrhLmR5iDH/CmJqv0/5AjySzWXLmrQGoj/WkIGaty+EWsbKLrRfa6MI24TOGxhBC+kAbi3Qb2y2v8ElR8M30lsxOc98tqpdzwAE1r448nB/lF7KUDXOVqPWQrJd2I1fN+iNbAQdKUKE9cWCLdTi5PUr7iwN5Fo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lD3zrkMu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791368480; c=relaxed/simple;
+	bh=skfK6MkSAObp9QLDJEjDojAuBMjgC9wVjlyL5GbCO3Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=k7dUIPGiJvXysf/uVgDRiaCnMf8T2fQAM7PQfYiKJcexVnAY4LfWnntZPjj+/IYMFehvbPZqJ0W/tnInvGj78TP8Ak3rO5lEydCCMzT4YA/c7Ygb9MO35ExBxUUN5YyNJBGdJ8+KdLNs5rBPbB8gPK1ZeIkJV75SVado6JmBbx0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eZzP/FiX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lD3zrkMu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E6861F0089B;
-	Wed,  7 Oct 2026 10:18:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eZzP/FiX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A50351F0089B;
+	Wed,  7 Oct 2026 10:21:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791368296;
-	bh=8j7tiOc7jQFSptVfi+4uGv4apzCx288nGLyqEctpiJ0=;
-	h=From:To:Cc:Subject:Date;
-	b=lD3zrkMulro5KNP8c655lTxTYZRFMXsiVv4Lz1lwj9qaudCHhtM6XzHjgIjMjOBFl
-	 a8LS3Nrekr652Vq0UxPDYgSNQjZCALCN0behnWNG6bQgrmgY8PhVBrdnvNMPwNTgUl
-	 VVvnkZcTM3MWvr2KOrvaL1WzPXoZU6cqIdBImKDyR8jG0L/UZ5Kmz8fEXX5s/xxCDO
-	 56v0S4+jjXBZNogvbdpfkxORvv3/2rOL53lSNbaswEePo+82NFwmrSzEtQraG4UbQg
-	 X//0R7JAoKylGEEQejPTBXejhT+Qn5/mJTiNjkZy66lfdtRDJK3vNORhCzFYYsCytD
-	 xp+7ICxFknmLA==
-From: Chao Yu <chao@kernel.org>
-To: jaegeuk@kernel.org
-Cc: linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	Chao Yu <chao@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH] f2fs: zone: fix to avoid bio split on sequential zone
-Date: Wed,  7 Oct 2026 10:18:12 +0000
-Message-ID: <20261007101812.2348510-1-chao@kernel.org>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+	s=k20260515; t=1791368472;
+	bh=TrfCVMmocMCDoVFt/WhSovNj4qLHgB/L5kDcrdtONbI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=eZzP/FiXpy188K8IQ2+WkQkpDUrAXFrBdIPhBTbbAGJwGwd9olZnyzdNkyUTgLWmh
+	 ek0iEnqgREe+LIp+akXe0NuCFYrp2PO47S5j9UmLAp0qYMnLrfuPOyMtkBpDhw2c0y
+	 6U2EFSncINVVbDn3uLs6Wq8ExtSAJuA8BuQj/FBMOBYEuTdiLv0/hzQdERWOhijuEA
+	 NA79RbKR7u4PMZDkzIEbx6GJtQ1zADuLJ91DivfZ1k3AxxFnqOqF/tsKWOi+Pwfq4R
+	 mViyYNN2eCzTZ7maQmFciak7nJrz9p/WVydmyz+WfAzIbqyCES6HusgG2gs1SMDODs
+	 +OFceyZ926JqQ==
+Message-ID: <042c2846-c70b-415e-a3a5-0e69485d5c0b@kernel.org>
+Date: Wed, 7 Oct 2026 12:21:08 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] mm/khugepaged: flush deferred unmaps before dropping a
+ failed folio
+To: Kyle Zeng <kylebot@openai.com>, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ outbounddisclosures@openai.com, stable@vger.kernel.org
+References: <20261007041001.43181-1-kylebot@openai.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261007041001.43181-1-kylebot@openai.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Chao Yu <chao@kernel.org>
+On 10/7/26 06:10, Kyle Zeng wrote:
+> collapse_file() can fail its reference-count or dirty-folio check after
+> unmapping with TTU_BATCH_FLUSH.  Both paths put back the isolated folio,
+> then unlock it and drop the lookup reference before reaching the common
+> try_to_unmap_flush().
+> 
+> The page-cache reference does not keep the folio stable once the lock is
+> released.  Another collapse can replace and free it.  With its PTEs
+> already gone, that collapse cannot flush the first task's per-task TLB
+> batch, and retract_page_tables() skips short or unaligned VMAs.  A CPU
+> can therefore retain a user translation to the freed folio.  This has
+> been reproduced with unprivileged MADV_COLLAPSE on a memfd.
+> 
+> Flush at out_unlock while the lookup reference and folio lock are still
+> held.  The common flush continues to cover the accumulated pagelist on
+> both success and rollback, preserving batching on successful collapses.
+> 
+> Fixes: 6d9df8a5889c ("mm/thp: collapse_file() do try_to_unmap(TTU_BATCH_FLUSH)")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Kyle Zeng <kylebot@openai.com>
+> ---
 
-In the block layer, bio_split_to_limits() splits a bio if it exceeds
-any underlying queue limits:
-1. queue_max_sectors: Splits bios larger than the transfer limit. This
-   limit is set by the device driver/DMA controller (max_hw_sectors) and
-   device-mapper targets. When flushing dirty pages (governed by VFS
-   writeback_chunk_size() and f2fs nr_pages_to_skip()), f2fs merges
-   contiguous pages into bios up to 512KB (1024 sectors) or more without
-   checking queue_max_sectors, which will be split if the device or DM
-   target enforces a smaller limit.
-2. queue_max_segments: Splits bios exceeding scatter-gather segment
-   limits. f2fs allocates bios with up to 256 pages, exceeding the
-   128-segment limit of DM targets (dm-default-key/dm-crypt) if pages
-   are discontiguous.
-3. chunk_sectors: Splits bios crossing chunk/zone boundaries. In f2fs,
-   section_size strictly matches zone_size, and block allocation never
-   spans across section boundaries, so bios never cross chunk_sectors.
+LGTM
 
-Crucially, when bio_split_to_limits() splits a bio, bio_submit_split()
-submits the tail half via submit_bio_noacct() before returning the head
-half to the caller. On a sequential zoned device, this causes the tail
-bio to arrive at the zone write plug before the head:
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-  dm-3: zone 7: prepare_bio wp mismatch: bio sector 30720 offset 2048
-  != wp_offset 248, len 248
-
-The write plug rejects the out-of-order tail with BLK_STS_IOERR, causing
-f2fs_stop_checkpoint() and remounting the filesystem read-only:
-
-2026-09-30T22:09:23.725678+08:00 localhost kernel: CPU: 9 UID: 0 PID: 243 Comm: kworker/9:1H Not tainted 6.12.81-gb3ef518fb26d #5
-2026-09-30T22:09:23.725750+08:00 localhost kernel: Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
-2026-09-30T22:09:23.725753+08:00 localhost kernel: Workqueue: dm-3_zwplugs blk_zone_wplug_bio_work
-2026-09-30T22:09:23.725756+08:00 localhost kernel: Call Trace:
-2026-09-30T22:09:23.725758+08:00 localhost kernel:  <TASK>
-2026-09-30T22:09:23.725758+08:00 localhost kernel:  dump_stack_lvl+0x4d/0x70
-2026-09-30T22:09:23.725759+08:00 localhost kernel:  f2fs_stop_checkpoint+0x1df/0x5d0
-2026-09-30T22:09:23.725759+08:00 localhost kernel:  ? blk_zone_wplug_bio_work+0x4eb/0x740
-2026-09-30T22:09:23.725760+08:00 localhost kernel:  f2fs_cache_write_end_io+0x545/0x6e0
-2026-09-30T22:09:23.725761+08:00 localhost kernel:  blk_zone_wplug_bio_work+0x4eb/0x740
-2026-09-30T22:09:23.725762+08:00 localhost kernel:  process_one_work+0x5c6/0xde0
-2026-09-30T22:09:23.725764+08:00 localhost kernel:  ? assign_work+0x124/0x4e0
-2026-09-30T22:09:23.725765+08:00 localhost kernel:  worker_thread+0x403/0xb70
-2026-09-30T22:09:23.725765+08:00 localhost kernel:  ? __kthread_parkme+0x82/0x140
-2026-09-30T22:09:23.725766+08:00 localhost kernel:  ? __pfx_worker_thread+0x10/0x10
-2026-09-30T22:09:23.725766+08:00 localhost kernel:  kthread+0x235/0x2e0
-2026-09-30T22:09:23.725767+08:00 localhost kernel:  ? recalc_sigpending+0x128/0x1d0
-2026-09-30T22:09:23.725767+08:00 localhost kernel:  ? __pfx_kthread+0x10/0x10
-2026-09-30T22:09:23.725769+08:00 localhost kernel:  ret_from_fork+0x2f/0x70
-2026-09-30T22:09:23.725769+08:00 localhost kernel:  ? __pfx_kthread+0x10/0x10
-2026-09-30T22:09:23.725770+08:00 localhost kernel:  ret_from_fork_asm+0x1a/0x30
-2026-09-30T22:09:23.725771+08:00 localhost kernel:  </TASK>
-2026-09-30T22:09:23.725771+08:00 localhost kernel: F2FS-fs (dm-0): Stopped filesystem due to reason: 3
-
-To prevent write bios destined for sequential zones from being split:
-1. In __bio_alloc(), bound npages to bdev_max_segments(bdev) for writes to
-   sequential zone areas.
-2. In page_is_mergeable(), check queue_max_segments() and queue_max_sectors()
-   for sequential zone areas, so f2fs will not merge beyond the queue limits.
-
-Fixes: 52763a4b7a21 ("f2fs: detect host-managed SMR by feature flag")
-Fixes: 664ba972df9b ("f2fs: use BIO_MAX_PAGES for bio allocation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chao Yu <chao@kernel.org>
----
- fs/f2fs/data.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
-
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 4bfa301a5df6..15c6af8515f3 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -536,6 +536,10 @@ static struct bio *__bio_alloc(struct f2fs_io_info *fio, int npages)
- 	struct bio *bio;
- 
- 	bdev = f2fs_target_device(sbi, fio->new_blkaddr, &sector);
-+	/* avoid reversed IO if bio is split due to exceeding max_segments */
-+	if (npages > 1 && !is_read_io(fio->op) &&
-+	    f2fs_is_sequential_zone_area(sbi, fio->new_blkaddr))
-+		npages = min_t(int, npages, bdev_max_segments(bdev));
- 	bio = bio_alloc_bioset(bdev, npages,
- 				fio->op | fio->op_flags | f2fs_io_flags(fio),
- 				GFP_NOIO, &f2fs_bioset);
-@@ -892,7 +896,19 @@ static bool page_is_mergeable(struct f2fs_sb_info *sbi, struct bio *bio,
- 		return false;
- 	if (last_blkaddr + 1 != cur_blkaddr)
- 		return false;
--	return bio->bi_bdev == f2fs_target_device(sbi, cur_blkaddr, NULL);
-+	if (bio->bi_bdev != f2fs_target_device(sbi, cur_blkaddr, NULL))
-+		return false;
-+	/* avoid reversed IO if bio is split due to exceeding max_segments/sectors */
-+	if (f2fs_is_sequential_zone_area(sbi, cur_blkaddr)) {
-+		struct request_queue *q = bdev_get_queue(bio->bi_bdev);
-+
-+		if (bio->bi_vcnt >= queue_max_segments(q))
-+			return false;
-+		if (bio_sectors(bio) + (F2FS_BLKSIZE(sbi) >> SECTOR_SHIFT) >
-+				queue_max_sectors(q))
-+			return false;
-+	}
-+	return true;
- }
- 
- static bool io_type_is_mergeable(struct f2fs_bio_info *io,
 -- 
-2.49.0
+Cheers,
 
+David
