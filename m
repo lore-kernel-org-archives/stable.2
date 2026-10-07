@@ -1,167 +1,103 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65B5035C6BA;
-	Wed,  7 Oct 2026 05:34:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE002347BD4
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 05:35:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791351264; cv=none; b=FtaKWkLnSBfYouFkb3qsC7Zbsta6sn+zfmZeL3Gp+q14unYMNUCYTMlqyWnh4t8BPzOJ7nWA/AYb9vixQz3aY08O1rPBLLgsMnf9aaEm1mRSTKMjvi396sCQE+i0dK1xo3KQSqsevv1XpsibFy3JDHKLQAOUJpnjDWEg7sauFL0=
+	t=1791351355; cv=none; b=rdny+XDElbzgPwMtmV7qXqOr9b9EqDBnAAwAm9T9qpR+iJ4RkUscWq2LdkeLB5lVHILyZKms891bMhekdCYJ/mID/d3ByfAOZn1auUn6qwQppOAoJgvzRa4nnEAl+pEMOteqik6ItdmHQVuFcPemH8m3BFvn6PVPgKs3U8J9zLw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791351264; c=relaxed/simple;
-	bh=xyjZnBApJh1Pg/RZkDZQCAwfYmoEf1X5Cjwmtu80k8A=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=AW/KP/2HF3pGgoc18ZV/b/WsgigQk6rohsZ3R8rWXaYFFPiu8hmUFK6e0bHvlokMaa887C6ENLYhPpYogTUYF82Cch096qC3aZeXo1NhEAdsA+h9NdELpYgjUNepXxW7wJzwJHo5drQ+8PAdHkakuKKe1KCS3rRjNlRWwUmRhdI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=jG+OzBpU; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791351355; c=relaxed/simple;
+	bh=X+E0zVX8lRb97dsjzQvYwTZ8g0ryRG1f+PXDestYUMA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fW+yF5ZE4TUNQwhJaOsW9DS6rjRly2W/l6u0H6yujurr/R6Qs+PwGSElmPwwJTS/2qjj62Bfb/NK/OfkW1GT4FMFJqxpJTmqeMRM32Xfm8zI8Q6bqIoWe3MH9S/x4vbj/57FCrK5XbO1jAr0teNjPAg/hUioZidkrAJEibwzLKE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LEQUuGQP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="jG+OzBpU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version:
-	Content-Type; bh=MQx9JXZA88cBn8283aVngoS/qRY5gYd6ZRe8OYcIRqk=;
-	b=jG+OzBpUB8rPVauyQjjSGIYzhWjLKampbH21p3auWoWTFpMUKV/0IrL+JdTbzh
-	u9GWTsZw3W1QVf9jFIO5SBO/WWHBluh6Z4023Z/X0My0UitHmqRSlDP3mh6Noqws
-	Bp/s9Jg4AbkEAk4U9TJLSrV1Zg5S0jqIUoMjx4+HGEWso=
-Received: from u2.. (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3xxp_2cVqlGm3Cw--.16818S2;
-	Wed, 07 Oct 2026 13:32:48 +0800 (CST)
-From: taozj888@163.com
-To: theo.lebrun@bootlin.com
-Cc: taozijin <taozj888@163.com>,
-	stable@vger.kernel.org,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Jeff Garzik <jeff@garzik.org>,
-	Haavard Skinnemoen <hskinnemoen@atmel.com>,
-	netdev@vger.kernel.org (open list:NETWORKING DRIVERS),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH net v4] net: macb: rate limit netdev error info print in the data path
-Date: Wed,  7 Oct 2026 05:32:11 +0000
-Message-Id: <20261007053211.572073-1-taozj888@163.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LEQUuGQP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFB4F1F0089B;
+	Wed,  7 Oct 2026 05:35:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791351354;
+	bh=KYQlwVv8qQDX+MF6D6wElBFRtFagrcHbqBzpBuSLw9Y=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=LEQUuGQPoB/RJS1vX/ASVBr/Sdx6pI5cdSiUYWffIE2u10fPhOuKD98WfzDqEn2hr
+	 R5R5o0/BopWrAf+O0tJEYDBcp1otI8wmGnw9xz8bcjijfSfFOHp//tTJcovnzcUicj
+	 qVlhVJdE+fgded/4ghCKSFuX3ajPA2n84t6hDpIpef+xCMKlwT6HIjbpjwA5L+zCA4
+	 XODelgeDvy7aq4ljJXuqCKtb/BNOyHlaoYFBUNC2oZj56qZ1xAaSFV29JD7AaloKD6
+	 TRjjFoSFwjFkA0PcSnj5hm1DM5ABuKEcUbUc0azVJZtyBb+mHz4Wt00zMmQmxmYkWD
+	 pFYckGzuyDVhA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Felix Fietkau <nbd@nbd.name>,
+	Andrea Pesaresi <andreapesaresi82@gmail.com>,
+	Johannes Berg <johannes.berg@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] wifi: mac80211: set info->band for 802.3 encap offload frames
+Date: Wed,  7 Oct 2026 01:35:50 -0400
+Message-ID: <20261007052610.1195278-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026100533-tastiness-nuzzle-0ee0@gregkh>
+References: <2026100533-tastiness-nuzzle-0ee0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3xxp_2cVqlGm3Cw--.16818S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXFWrAry3tw18ZF1rGr1xXwb_yoWrJr1xpa
-	yUA3s8Ww4kJr47Aas7tr10yF1rZr98tryUWrWkKw1Yqw15Zr90gFWagryY9FW8Gas3A3WF
-	yF1UZFZFka1kZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0ziFoGJUUUUU=
-X-CM-SenderInfo: hwdr6yqyyyqiywtou0bp/xtbC3gCiamrF2YBOBgAA3o
 
-From: taozijin <taozj888@163.com>
+From: Felix Fietkau <nbd@nbd.name>
 
-Now the MACB ethernet driver print the netdev error information
-directly by netdev_err(), which would lead to a large number of
-error information print if there was a significant number of
-error or just jumbo packets exceeding the MTU received when booting.
-For example, it would print a large number of:
+[ Upstream commit 4febc02cd02f021f2b6d0768332be643ef14a12d ]
 
-macb PHYT0036:00 eth0: not whole frame pointed by descriptor
-macb PHYT0036:00 eth0: not whole frame pointed by descriptor
-...
+Unlike the 802.11 TX paths, ieee80211_8023_xmit() does not set
+info->band from the channel context on non-MLD interfaces. It stays at
+0, so ieee80211_get_tx_rates() uses the wrong band for these frames.
 
-in gem_rx() by received a large number of packets without
-RX_EOF flag set, especially with unknown packet
-type that would penetrate the hardware offload for the IP packets.
+Set it the same way as ieee80211_build_hdr(): drop the frame if there is
+no channel context, and leave the band at 0 on MLD interfaces.
 
-The unlimited prints here would greatly bother and delay
-the system booting process unless the source stop sending
-packets since they occupy the console output bandwidth and
-other processes have to wait for the completion of printing those
-messages.
-
-So rate limit the netdev error information print in the receive
-and transmit data path.
-
-Fixes: 89e5785fc8a6 ("[PATCH] Atmel MACB ethernet driver")
+Reported-by: Andrea Pesaresi <andreapesaresi82@gmail.com>
+Fixes: 50ff477a8639 ("mac80211: add 802.11 encapsulation offloading support")
 Cc: stable@vger.kernel.org
-
-Signed-off-by: Zijin Tao <taozj888@163.com>
+Signed-off-by: Felix Fietkau <nbd@nbd.name>
+Link: https://patch.msgid.link/20260926120216.4054712-1-nbd@nbd.name
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+[ sashal: Adapted helper usage to direct valid_links checks and single-packet kfree_skb() cleanup. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Changes since v1:
+ net/mac80211/tx.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-v4:
-
-- Update the commit message for the target fix id to 89e5785fc8a6
-as suggested by Nicolai Buchwitz<nb@tipi-net.de>
-- Update the patch with the changelog added in the patch itself
-
-v3:
-
-- add this change log since v2 missing it
-- drop the blank line between the assignment sentence and the commit
-  info
-
-v2:
-
-- update the commit message with the reason why the unlimit prints would
-  bother/delay booting process
-- update the commit message with the Fix commit id provided which is
-  suggested by Théo Lebrun<theo.lebrun@bootlin.com>
-- update the commit message with what packet type would trigger the
-  error printings more easily.
-
-v1:
-
-- initial commit
-
- drivers/net/ethernet/cadence/macb_main.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index 8e5c034dc3a4..ca60960bec36 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -1617,16 +1617,16 @@ static int gem_rx(struct macb_queue *queue, struct napi_struct *napi,
- 		count++;
+diff --git a/net/mac80211/tx.c b/net/mac80211/tx.c
+index 00e8eda67f130..51cf8c4e0e90a 100644
+--- a/net/mac80211/tx.c
++++ b/net/mac80211/tx.c
+@@ -4545,6 +4545,7 @@ static void ieee80211_8023_xmit(struct ieee80211_sub_if_data *sdata,
+ {
+ 	struct ieee80211_tx_info *info;
+ 	struct ieee80211_local *local = sdata->local;
++	struct ieee80211_chanctx_conf *chanctx_conf;
+ 	struct tid_ampdu_tx *tid_tx;
+ 	u8 tid;
  
- 		if (!(ctrl & MACB_BIT(RX_SOF) && ctrl & MACB_BIT(RX_EOF))) {
--			netdev_err(bp->netdev,
--				   "not whole frame pointed by descriptor\n");
-+			if (net_ratelimit())
-+				netdev_err(bp->netdev, "not whole frame pointed by descriptor\n");
- 			bp->netdev->stats.rx_dropped++;
- 			queue->stats.rx_dropped++;
- 			break;
- 		}
- 		skb = queue->rx_skbuff[entry];
- 		if (unlikely(!skb)) {
--			netdev_err(bp->netdev,
--				   "inconsistent Rx descriptor chain\n");
-+			if (net_ratelimit())
-+				netdev_err(bp->netdev, "inconsistent Rx descriptor chain\n");
- 			bp->netdev->stats.rx_dropped++;
- 			queue->stats.rx_dropped++;
- 			break;
-@@ -1829,7 +1829,8 @@ static int macb_rx(struct macb_queue *queue, struct napi_struct *napi,
- 		unsigned long flags;
- 		u32 ctrl;
+@@ -4602,6 +4603,16 @@ static void ieee80211_8023_xmit(struct ieee80211_sub_if_data *sdata,
+ 		sdata = container_of(sdata->bss,
+ 				     struct ieee80211_sub_if_data, u.ap);
  
--		netdev_err(bp->netdev, "RX queue corruption: reset it\n");
-+		if (net_ratelimit())
-+			netdev_err(bp->netdev, "RX queue corruption: reset it\n");
- 
- 		spin_lock_irqsave(&bp->lock, flags);
- 
-@@ -2102,7 +2103,8 @@ static int macb_interrupt_misc(struct macb_queue *queue, u32 status)
- 
- 	if (status & MACB_BIT(HRESP)) {
- 		queue_work(system_bh_wq, &bp->hresp_err_bh_work);
--		netdev_err(netdev, "DMA bus error: HRESP not OK\n");
-+		if (net_ratelimit())
-+			netdev_err(netdev, "DMA bus error: HRESP not OK\n");
- 		macb_queue_isr_clear(bp, queue, MACB_BIT(HRESP));
- 	}
++	/* MLD transmissions must not rely on the band */
++	if (!sdata->vif.valid_links) {
++		chanctx_conf = rcu_dereference(sdata->vif.bss_conf.chanctx_conf);
++		if (unlikely(!chanctx_conf)) {
++			kfree_skb(skb);
++			return;
++		}
++		info->band = chanctx_conf->def.chan->band;
++	}
++
+ 	info->flags |= IEEE80211_TX_CTL_HW_80211_ENCAP;
+ 	info->control.vif = &sdata->vif;
  
 -- 
-2.34.1
+2.53.0
 
