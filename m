@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12E7440681D
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 08:42:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B0A940EB8D
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 08:42:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791362526; cv=none; b=UzKMJ+KQezGAkQDGrIH/O5T0NBrkrqIC8InqBaB62BziQgi7y8fESnR7LAfHQ5R0QYkdseLGy1v+yX//Z1o5QPlHAKy+eWCZBN6McWIjb0Ds2jHzOmepTGS34F/qqLkFKHrrdQwKEuVQwsdi5zKuBZMpEg8vLVzSczkfkvQ2/Ak=
+	t=1791362527; cv=none; b=Ke2ZC9c9s/LCeiRo6hS0JllaTvcDNMRw+xPGvUr4z11WX3YGSZcwIH5BDCwOJaBUDDDG0VkNGQd8zs24vaSh0sWrSVyphGM1tTEsibEk5z9r6p9g9Upyt6ebqI8oWn8a4TGP3zBsni3xoqZXAd26WwD3IAoejiQSwWt3KJ35csg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791362526; c=relaxed/simple;
-	bh=gt46uSUIeUb47CY6SPMSsV8kbZhsRhtLMpYIoJKO/FQ=;
+	s=arc-20240116; t=1791362527; c=relaxed/simple;
+	bh=6P2S2uWgl0lDCpyT0FItESVgyinvAn+CEU6hYqWr5KA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=I1F0uXtO3bjUau4iUpI/fluLLa9BbZYsVCqCGwY23jjES4cIec86yNnRN0x0ZN+lAs5EYhBSARPQMZej+A2ts8F4lm7HLpG859wyRGezJE+EI3TiEY27mJpgya059NAH1aORnXE2bN0bFk9vHiiX0hPu8jRq/a1mX5tRAKRYgQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XVKy5VO0; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=DajuO2TwgaAUvWyk12bDs6WGa/fePEX0Y1bVOtklaqMkBp2uYVNYiHNga0z4tqYGR9zvF0u3ozukciBow/J3ADRQYTCBwYWRU+4wNJbT/4Ks29tsU9x0xW94pv5aIJaVBbaIuQZa8TITWepsGPngKwj80N1wGrJQpkPFsyVkBYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B808F2Dl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XVKy5VO0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 914061F0089B;
-	Wed,  7 Oct 2026 08:42:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B808F2Dl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3514E1F0089F;
+	Wed,  7 Oct 2026 08:42:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791362523;
-	bh=N5vNeTZ62Cu/FkV7acQrNLmz3JEN1Djd4kHEA3UhuZo=;
+	s=k20260515; t=1791362525;
+	bh=4XQqtc1/pfaOzH0ihOmAhSIVvsDeaY/hPQN0zcmfJXU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XVKy5VO0T24b62i46Be6qz3VljCCJNH3el98nXJUhYrDHx2CY3j8yB9/Rs+TU/6Nj
-	 LG/m9k79YZ1xpAuH5UnOKJSoLjcOfgOyglULGNG/37amGztWwEg7ZWYWEAhpO1kT0S
-	 6OgRdHf084OZUb1heQO7RuBk2rdUmsEhWBVJAUR0ksvpcEmDvMibzcoiqzXpkejGX0
-	 8dZQur1E+8OskUULPyi6EHfPNlE9HpClesPcNrm9r62w3UfhUmpsI03Fg6YJI+L0w9
-	 ch8vXwCZ8rDYgFdpHz8eV+HGJlQtYW9lMueFyT/jlTH6BE0MQZ/uC29nXeQORvYkZW
-	 YsuVFottTBxeg==
+	b=B808F2Dl3gHwj2y1Ulk/oSlTF0JV2j6MtaidLqUxax0k+XlV8cyntET74YNDT7WWO
+	 btSDyJkWPZ7xkLUAhT7RDfo8Ldwk2eLSxinJKkSTZIz26Vp2bmCz7bPlVKrEwOPH6H
+	 TMGDe7szUwPCAcY7TBd8vq/2M+WFrCU6LOys0WR5ssrwq/1zY/LcgNXIG8Kd/1vTyL
+	 oov+0cA481zmiAfRh61BjC60bCjTprBvrPmhFko+FOJ6ZETU3RGK1Wi4MhTSiGnqGC
+	 IKOITBnTLMjUYDCzLM/TDHsSWqcFiU+zJ+TW6FGkhcbw1uSIhw423oIlcZTbxZ0p/X
+	 NBKqfHwOZfSaw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: David Lechner <dlechner@baylibre.com>,
 	Nuno Sa <nuno.sa@analog.com>,
 	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/5] iio: introduce struct iio_scan_type
-Date: Wed,  7 Oct 2026 04:41:55 -0400
-Message-ID: <20261007083721.1749559-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y 3/5] iio: buffer: use struct iio_scan_type to simplify code
+Date: Wed,  7 Oct 2026 04:41:56 -0400
+Message-ID: <20261007083721.1749559-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261007083721.1749559-1-sashal@kernel.org>
 References: <2026100618-wooing-curve-b2f5@gregkh>
@@ -49,87 +49,119 @@ Content-Transfer-Encoding: 8bit
 
 From: David Lechner <dlechner@baylibre.com>
 
-[ Upstream commit fd7179ece035417f44f7ecff086d6df674d8a5bd ]
+[ Upstream commit 7758562898033a3bd98a24d2a541c930b0fc98e6 ]
 
-This gives the channel scan_type a named type so that it can be used
-to simplify code in later commits.
+By using struct iio_scan_type, we can simplify the code by removing
+lots of duplicate pointer dereferences. This make the code a bit easier
+to read.
+
+This also prepares for a future where channels may have more than one
+scan_type.
 
 Signed-off-by: David Lechner <dlechner@baylibre.com>
 Reviewed-by: Nuno Sa <nuno.sa@analog.com>
-Link: https://lore.kernel.org/r/20240530-iio-add-support-for-multiple-scan-types-v3-1-cbc4acea2cfa@baylibre.com
+Link: https://lore.kernel.org/r/20240530-iio-add-support-for-multiple-scan-types-v3-2-cbc4acea2cfa@baylibre.com
 Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
 Stable-dep-of: f0ea4824deeb ("iio: health: max30102: fix NULL dereference in interrupt handler")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/iio/iio.h | 41 ++++++++++++++++++++++-------------------
- 1 file changed, 22 insertions(+), 19 deletions(-)
+ drivers/iio/industrialio-buffer.c | 48 ++++++++++++++++++-------------
+ 1 file changed, 28 insertions(+), 20 deletions(-)
 
-diff --git a/include/linux/iio/iio.h b/include/linux/iio/iio.h
-index 2241a87c990ad..b0c5d53dc16a6 100644
---- a/include/linux/iio/iio.h
-+++ b/include/linux/iio/iio.h
-@@ -172,6 +172,27 @@ struct iio_event_spec {
- 	unsigned long mask_shared_by_all;
- };
+diff --git a/drivers/iio/industrialio-buffer.c b/drivers/iio/industrialio-buffer.c
+index 29b073698636e..c21ced54b7297 100644
+--- a/drivers/iio/industrialio-buffer.c
++++ b/drivers/iio/industrialio-buffer.c
+@@ -367,7 +367,8 @@ static ssize_t iio_show_fixed_type(struct device *dev,
+ 				   char *buf)
+ {
+ 	struct iio_dev_attr *this_attr = to_iio_dev_attr(attr);
+-	u8 type = this_attr->c->scan_type.endianness;
++	const struct iio_scan_type *scan_type = &this_attr->c->scan_type;
++	u8 type = scan_type->endianness;
  
-+/**
-+ * struct iio_scan_type - specification for channel data format in buffer
-+ * @sign:		's' or 'u' to specify signed or unsigned
-+ * @realbits:		Number of valid bits of data
-+ * @storagebits:	Realbits + padding
-+ * @shift:		Shift right by this before masking out realbits.
-+ * @repeat:		Number of times real/storage bits repeats. When the
-+ *			repeat element is more than 1, then the type element in
-+ *			sysfs will show a repeat value. Otherwise, the number
-+ *			of repetitions is omitted.
-+ * @endianness:		little or big endian
-+ */
-+struct iio_scan_type {
-+	char	sign;
-+	u8	realbits;
-+	u8	storagebits;
-+	u8	shift;
-+	u8	repeat;
-+	enum iio_endian endianness;
-+};
+ 	if (type == IIO_CPU) {
+ #ifdef __LITTLE_ENDIAN
+@@ -376,21 +377,21 @@ static ssize_t iio_show_fixed_type(struct device *dev,
+ 		type = IIO_BE;
+ #endif
+ 	}
+-	if (this_attr->c->scan_type.repeat > 1)
++	if (scan_type->repeat > 1)
+ 		return sysfs_emit(buf, "%s:%c%d/%dX%d>>%u\n",
+ 		       iio_endian_prefix[type],
+-		       this_attr->c->scan_type.sign,
+-		       this_attr->c->scan_type.realbits,
+-		       this_attr->c->scan_type.storagebits,
+-		       this_attr->c->scan_type.repeat,
+-		       this_attr->c->scan_type.shift);
++		       scan_type->sign,
++		       scan_type->realbits,
++		       scan_type->storagebits,
++		       scan_type->repeat,
++		       scan_type->shift);
+ 	else
+ 		return sysfs_emit(buf, "%s:%c%d/%d>>%u\n",
+ 		       iio_endian_prefix[type],
+-		       this_attr->c->scan_type.sign,
+-		       this_attr->c->scan_type.realbits,
+-		       this_attr->c->scan_type.storagebits,
+-		       this_attr->c->scan_type.shift);
++		       scan_type->sign,
++		       scan_type->realbits,
++		       scan_type->storagebits,
++		       scan_type->shift);
+ }
+ 
+ static ssize_t iio_scan_el_show(struct device *dev,
+@@ -689,12 +690,16 @@ static unsigned int iio_storage_bytes_for_si(struct iio_dev *indio_dev,
+ 					     unsigned int scan_index)
+ {
+ 	const struct iio_chan_spec *ch;
++	const struct iio_scan_type *scan_type;
+ 	unsigned int bytes;
+ 
+ 	ch = iio_find_channel_from_si(indio_dev, scan_index);
+-	bytes = ch->scan_type.storagebits / 8;
+-	if (ch->scan_type.repeat > 1)
+-		bytes *= ch->scan_type.repeat;
++	scan_type = &ch->scan_type;
++	bytes = scan_type->storagebits / 8;
 +
- /**
-  * struct iio_chan_spec - specification of a single channel
-  * @type:		What type of measurement is the channel making.
-@@ -183,17 +204,6 @@ struct iio_event_spec {
-  * @scan_index:		Monotonic index to give ordering in scans when read
-  *			from a buffer.
-  * @scan_type:		struct describing the scan type
-- * @scan_type.sign:		's' or 'u' to specify signed or unsigned
-- * @scan_type.realbits:		Number of valid bits of data
-- * @scan_type.storagebits:	Realbits + padding
-- * @scan_type.shift:		Shift right by this before masking out
-- *				realbits.
-- * @scan_type.repeat:		Number of times real/storage bits repeats.
-- *				When the repeat element is more than 1, then
-- *				the type element in sysfs will show a repeat
-- *				value. Otherwise, the number of repetitions
-- *				is omitted.
-- * @scan_type.endianness:	little or big endian
-  * @info_mask_separate: What information is to be exported that is specific to
-  *			this channel.
-  * @info_mask_separate_available: What availability information is to be
-@@ -244,14 +254,7 @@ struct iio_chan_spec {
- 	int			channel2;
- 	unsigned long		address;
- 	int			scan_index;
--	struct {
--		char	sign;
--		u8	realbits;
--		u8	storagebits;
--		u8	shift;
--		u8	repeat;
--		enum iio_endian endianness;
--	} scan_type;
-+	struct iio_scan_type scan_type;
- 	long			info_mask_separate;
- 	long			info_mask_separate_available;
- 	long			info_mask_shared_by_type;
++	if (scan_type->repeat > 1)
++		bytes *= scan_type->repeat;
++
+ 	return bytes;
+ }
+ 
+@@ -1632,18 +1637,21 @@ static int __iio_buffer_alloc_sysfs_and_mask(struct iio_buffer *buffer,
+ 	if (channels) {
+ 		/* new magic */
+ 		for (i = 0; i < indio_dev->num_channels; i++) {
++			const struct iio_scan_type *scan_type;
++
+ 			if (channels[i].scan_index < 0)
+ 				continue;
+ 
++			scan_type = &channels[i].scan_type;
++
+ 			/* Verify that sample bits fit into storage */
+-			if (channels[i].scan_type.storagebits <
+-			    channels[i].scan_type.realbits +
+-			    channels[i].scan_type.shift) {
++			if (scan_type->storagebits <
++			    scan_type->realbits + scan_type->shift) {
+ 				dev_err(&indio_dev->dev,
+ 					"Channel %d storagebits (%d) < shifted realbits (%d + %d)\n",
+-					i, channels[i].scan_type.storagebits,
+-					channels[i].scan_type.realbits,
+-					channels[i].scan_type.shift);
++					i, scan_type->storagebits,
++					scan_type->realbits,
++					scan_type->shift);
+ 				ret = -EINVAL;
+ 				goto error_cleanup_dynamic;
+ 			}
 -- 
 2.53.0
 
