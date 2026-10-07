@@ -1,118 +1,172 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sonic.asd.mail.yahoo.com (sonic-euwe9-0017.asd.mail.yahoo.com [34.2.88.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03CEF455619;
-	Wed,  7 Oct 2026 14:37:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8D564AFE17
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 14:42:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.2.88.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791383855; cv=none; b=ng3GD6UwHiMBP5/KUtjNcmJISpjkXmqv+JfdhDJKroFVciISTLaEmFZyVKP/lPH8D8LvWNNvf/xCpIDWmNaNsKJR8digMUpHjBWiISETAFAlUSFiLVXuhxe8ImDtg3rAyUE6NZUhMPnW3pD+yI6d9d7XP70Yz/FAJdOG9n30qVI=
+	t=1791384188; cv=none; b=uqbqspAxTN0Mq8CrXYsxz8cVqqQUo2jf5eclrq6rj+KRFvgrdadoyBYXYr6/WlpGHVCmXWVdcEPlQTpl3cvDrdjr+DDwnqOWWuspxDP6dCZu/M1OexUHRNDPpDdATJl43vUZ/Jx3lLUsmtwoDQdXucxd2dCr8zVe+06iVa0Ip3w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791383855; c=relaxed/simple;
-	bh=xRzZceDIr9iEVTLoBeJ/kzV6A4SoSe+JdhozoxZ2xd0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H/cir9v2/4/7qeguQnVfdFJkSWhKILXg9sU8dgTKPDK8QOgZjzXCEwfNtvDAcYktByICKxX5O0qc1qtnnNoxEDIsTZqpCT803zUNCclydSr5bg45XpHK1L+1fPHxZz96G4rCkQi2BfjnEnXuAL3cB1lSCYugW5g9jJJzsdYEcJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cl/IxSa9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791384188; c=relaxed/simple;
+	bh=SxIIgw0ydlG0i4+/48viYe5sGJmgGy76UbNEZEdnvUM=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:Content-Type:
+	 References; b=a1ClYfOLnS8FDMv6ihHIU7sk+ILkIvKwO5ux3IJ5Qr7OS17ol74WSkw2XDAsw7BCKU554BwSZAF2QuUG8c83ByHex5Hc67ecUX6xCm8sSNjAgV7+sxilgxxL4CHIpBP8/O9BC1DwsZSj4Dgiwn2wNZlc5pnDh02ATbSb20l8hrY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.fr; spf=pass smtp.mailfrom=yahoo.fr; dkim=pass (2048-bit key) header.d=yahoo.fr header.i=@yahoo.fr header.b=MYz+BQ3N; arc=none smtp.client-ip=34.2.88.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cl/IxSa9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E49D31F0089B;
-	Wed,  7 Oct 2026 14:37:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791383850;
-	bh=UaLNkRVJ7NjxsJUHYXTswR8hqNFuX8vUbeKs9V1Jff4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Cl/IxSa9JbJp9WjViEPSEQSr8xS3ht20rypI6mdkYx7MG/LygIM6Pke1pxNk8L2Zy
-	 RjT6TWLeI2BaHdftokk29G+WLVp6FMlu938ApHu6jLA0KB4EYnLGuTxekztA37V86D
-	 ufQ+zivuD0YEBJzI0FGgzSmIuT3VauTSCkGKh1KwQXqN1hrc+FezL+gTeEA9ymE+QQ
-	 O25STdJSrCyaLkKZGwPIQhijZoA7bzMdP8SHppUw6yCLRzBi9Z0IyFAkZbV8zuXuR4
-	 ukbo/L2QHe3AoScmXE1wJcSq+9hPux+k9HHX02D5GIsBvXRB96evQlknqpdEygRaJ0
-	 Ub0YyejnpFUdA==
-Date: Wed, 7 Oct 2026 16:37:27 +0200
-From: Vinod Koul <vkoul@kernel.org>
-To: =?iso-8859-1?Q?P=E9ter?= Ujfalusi <peter.ujfalusi@linux.intel.com>
-Cc: Takashi Iwai <tiwai@suse.de>, perex@perex.cz, tiwai@suse.com,
-	pierre-louis.bossart@linux.dev, linux-sound@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/4] ALSA: compress: fix buffer leak on repeated
- SET_PARAMS
-Message-ID: <asZZJ--dC9M7jx4A@parshuram>
-References: <20261007132509.18237-1-peter.ujfalusi@linux.intel.com>
- <20261007132509.18237-2-peter.ujfalusi@linux.intel.com>
- <878q49obcu.wl-tiwai@suse.de>
- <asZSywHEbx-u6uBs@parshuram>
- <6e27af41-1ba4-4d3e-a128-c2d1402a8f6e@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=yahoo.fr header.i=@yahoo.fr header.b="MYz+BQ3N"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.fr; s=s2048; t=1791384178; bh=P4Gq/l5PMpm7kLvXzCF1M+XYf0wCg8LsIG1lD/qNzLA=; h=Date:From:Subject:To:Cc:References:From:Subject:Reply-To; b=MYz+BQ3NYMzxjyptq9CVxyrS3Hr1iIxbNM52iz+okkQqXRJI//8c13Y/CJGfhNuh5cvpi5RJqiBhlh+9gKx1qy9bOzpiHVhynH52x2VGVCEgnEntzs7CsgrLH2ZId6P2lauKnmB5Mz+ulm5MWJLVTkxtR/lDr+FwnefrolziIHr/TQ1ioLBUHFkUSO09x+7yXUvcdFH0/GwdBLBTz9CmpfgV6iEdZmXNb3MJkYCn3Y5KjspUZLHD89x+pSY7k7huEifTaPBfMPE8DIQ0M9zLfFRw14TVn6o9ZWB5/aZT5kcik4nLTUZz48zImdCspZNCvzV8X8NrT7UKqYCuyrF/VA==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791384178; bh=B3mBrPsL0PtpX+nxS6w/jFLPzXARIeFpajclZ5A80x2=; h=X-Sonic-MF:Date:From:Subject:To:From:Subject; b=JdweuBsooOMLDC3ThEbTuq1IsOBEk0JrH/sFFdyUxaLDKMlQZklDE9bmhSNHHZiHeUk7WJg4orZ3rCznz6IiHkVtCd0F2ctoPl85uXSK63fdODrUVdk6hWYGotbXcifezWvZlkPXaLSrkkzAgWiEhUQ1LT4G0UpgN4XpCx/VgBwFPQjhVhl0oV05hfbwnkMv9J9fU5DK8yTVmTk/r0WiJEtIK6elQMdoKTQrsbIlP1RMoSQLFjbAvBkN83u6Op9BxwbF48zIIXfHP/C76S5MhYXJWcooSdD9GJn9fJEFpnLzp6Qy1UEgoCm0G06GspGc+53iByZrhgZEQL0nfb/m4g==
+X-YMail-OSG: nJVZRk0VM1mHJLR.iWzkrdZ9U235AYbPZXzOGyAvr5zU72F63lw5uFlrGQ3kNz0
+ r4RlaZG4sHMUwoJGnFJjrgHvWkMcG6cdj7vSQfDfICReVRtiU1EXZrTYhDjsKc8yMn74wSxAZ7gF
+ nmfP0UR8uAYZtdCSHkW469NTiaEO96Po0Dmd.NhZAmf.spVj7snLpMxqvcHpzQ2y3zqHCx_ac9de
+ Gqkki19Rg7GMH6v3.SflVQNM8uqEouQ6IKsGw2K1oh57SufXNhuv69p_j3X9noesQvFmqc53ntGN
+ epgSA1zQX_9Pkj9AL394naf3MMSuuGX3AEObnYuYiB6xhRT5agLuBay0Xi26yvF36f6WDs9jOwNY
+ MADHfOJq0z5VQAGKZrk4eIM68fwoKKKc_elRNFoacNu7v8AY60mlSeyXJ9uByBc1QzhrAEE96KNp
+ rA7iHbg2aRrEE78rvvwPAVU2Wwd0GU6kwxqJcsfp.SGgMLEJPeXJx2mNpgNVsA.3CwpLUm5Elcns
+ cFX671jH.Bi0a6YIgoYJj7ANWIoOmTgvWyUTF6jNNpgX4YkCgH9Eiakb_465.3FXp3vvEgAcaKSy
+ ZdNzfCMsRqX0UZ4M3c6StEoYejUzVlonBgHzAhn_r8j_k.0iIMIi1KkHIW9fC04ixi1yhDKxhgOS
+ D8r8nn_LK_WT91zdLuRK0yuwVhO3ymS8JoLfaHkH33P1bPhFJHnX3Ngh7aTWbTxQDMD8s7BRlR_w
+ 7tFic6F0LbK3ZN7TMvrQU55LSmoqSgfOjcjv8bxV4DpjEEyRvTaSFVg99NI9jvJoUQAbsbt92mVc
+ jTAnQjg8WyijxGz2caMqYK_H8z3gCYuYgenwxsY9C9NhWFjdSDb.oUQn93C6amStVKp3_QtMvkiG
+ T0Azq.GNvYUhJ61TVHGX7Hr2x.UyFk3nDFbtR2oTmVbzJxRmi7FnUNRUQBLCDjvoh2D26zNjXcs9
+ TNQ2nvg3NeoCZKJaiIidQPRvAryr5mc8QuL0YIzzWqiz52f0TW4KmdpjUqoFgZEskps47F5yH8w7
+ tm.V0G8DPqXShjgfF.3leovnJimILUBVdndF1wzhnLXOjoWsFRmYhMuCeUehwcWNQy6rD7uDDmZt
+ fNseDjUZWBE1wIKdj886ah4mkQyZSw284.t55jtRcRrqESZBUnzlBuW4ZzSzL8VBUZfpwDJCEOkv
+ YgVMU.CaVyawem8ZgDNv_no6XuJoHD5bcDpmOhDiluqOjOJM.86v.7wJE3bD_N9LbJfUyFZ7XktQ
+ UxPDZFeLhE.jPsl30neQGV9Kn5FTYxAnIU_.QWmVo3mXun24gqzmW1KQcoyTRXey1BN9mgrN23pt
+ d06wb.nFkuoZ3mp5Q8X3UsA3MivdeUyDf_ZfodGnuGux04VEgwNIRPNc5_FGNBOrnQzkxU2Xb3Kx
+ pAf.o8uz6l6ZHadznZmfl8yy1ohxt3LHVZffqk83zJd_eswcmi1I9Y64BTMzPBj0YBd.TESCGkAx
+ ExAJB2o7pD2iih24BvjOEjL2tr_Ozy1iMFudHoqVKTvHBDDqbQfFjxmlNUYySl5TaPhIkL5gK8et
+ DUAC4M3xTfmY2lXKTZ8l8Jx1G6saX_gPrp.FNSZZf016cNtUiO4OROfwm0b7g_1Cg0uiWbIPMEAk
+ wyoueSFJ3Gxlz6_LMf0sEzHyZv5CbJDGw48VwKt83F0Nk5nhGkYXxBImATskYHfa0SYFxLh_NyK4
+ lqVK99Qphn5k8FYqyUGm8cgK4ueAeq8TbkEak_kzpN_XBH9byqWCJHe1CpyPBgk6TeYORW9z5j8j
+ aTiVeAEZ.XqPQtuqy_tPTtpuM9EzHxFaq1KzepXulidKSfPiuGn5AC_CtlkJ_xz0c64P0zCL.45L
+ MENObelVqPg3YSN_a3BAaO1CwR9JQgybEAt5hBKUJ8VS7yDueXrZuX6N9U9qOGgfGQE.Ig6EI2cO
+ 9Qbx7IBxZcytZNClF.rrLklQK4PD6KBR.uHOORdIwsgrtRjRbD74hZJ2aGjZ3LsA6s4zfnXKhjGl
+ uKXuR
+X-Sonic-MF: <vincentcazard@yahoo.fr>
+X-Sonic-ID: 05e14f36-2498-4aca-a18a-02d59f6f8f9c
+Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-euwe9-prod-sonicconsumer-svc-102 with HTTP; Wed, 7 Oct 2026 14:42:58 +0000
+Received: from dip111.lsn.ir2.yahoo.com ([87.248.99.120])
+          by hello (SMTP) with SMTP ID 595b8e4b9664dbc7ee9cd2133ad7bb1c;
+          Wed, 07 Oct 2026 14:42:53 +0000 (UTC)
+Message-ID: <c0f8246b-5062-4499-955f-374bf6ba91c0@yahoo.fr>
+Date: Wed, 7 Oct 2026 16:42:51 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <6e27af41-1ba4-4d3e-a128-c2d1402a8f6e@linux.intel.com>
+User-Agent: Mozilla Thunderbird
+From: Vincent CAZARD <vincentcazard@yahoo.fr>
+Subject: [PATCH] media: em28xx: don't unlink a dual-TS dev_next that was never
+ listed
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, stable@vger.kernel.org,
+ regressions@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Hans Verkuil <hverkuil+cisco@kernel.org>,
+ Jiangong Han <jiangong.han@windriver.com>
+Content-Language: fr
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+References: <c0f8246b-5062-4499-955f-374bf6ba91c0.ref@yahoo.fr>
+X-Mailer: WebService/1.1.26668 mail.core.serving.mcws.prd.acl:role.token.mcws.jsmtp.yahoo
 
-On 07-10-26, 17:25, Péter Ujfalusi wrote:
-> 
-> 
-> On 07/10/2026 17:10, Vinod Koul wrote:
-> > On 07-10-26, 16:04, Takashi Iwai wrote:
-> >> On Wed, 07 Oct 2026 15:25:06 +0200,
-> >> Peter Ujfalusi wrote:
-> >>>
-> >>> snd_compr_allocate_buffer() unconditionally overwrites
-> >>> stream->runtime->buffer with a freshly kmalloc'd buffer whenever the
-> >>> driver has no ops->copy and no preallocated dma_buffer_p. SET_PARAMS
-> >>> is permitted repeatedly while the stream is in the OPEN state, so a
-> >>> local process can loop SNDRV_COMPRESS_SET_PARAMS and leak the
-> >>> previous buffer on every call, exhausting kernel memory.
-> >>>
-> >>> Free any framework-owned buffer before replacing it, mirroring the
-> >>> ownership check already used in snd_compr_free().
-> >>>
-> >>> Fixes: b21c60a4edd2 ("ALSA: core: add support for compress_offload")
-> >>> Cc: stable@vger.kernel.org
-> >>> Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-> >>> ---
-> >>>  sound/core/compress_offload.c | 4 ++++
-> >>>  1 file changed, 4 insertions(+)
-> >>>
-> >>> diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
-> >>> index 7c397b1c9231..c0ed76e1c844 100644
-> >>> --- a/sound/core/compress_offload.c
-> >>> +++ b/sound/core/compress_offload.c
-> >>> @@ -613,6 +613,10 @@ static int snd_compr_allocate_buffer(struct snd_compr_stream *stream,
-> >>>  			return -ENOMEM;
-> >>>  	}
-> >>>  
-> >>> +	/* a prior SET_PARAMS may have left a framework-owned buffer behind */
-> >>> +	if (!stream->runtime->dma_buffer_p)
-> >>> +		kfree(stream->runtime->buffer);
-> >>> +
-> >>
-> >> I'd rather put to the else block above (or even better, if
-> >> (stream->runtime->dma_buffer_p) block above that point).
-> >>
-> >> The code is specific to that condition, after all.
-> > 
-> > I would block calling snd_compr_allocate_buffer() for subsequent
-> > set_params, it should not be allowed.
-> 
-> OK, let me see how it should be done. I'm not sure of changing other
-> params are permitted either, but imagine:
+Commit 826915b6b65e ("media: em28xx: fix use-after-free of
+dev_next->devlist on disconnect") made em28xx_close_extension()
+unconditionally unlink dev->dev_next from em28xx_devlist.
 
-I would split it up for next_track and open, so that we have clear
-flows.
+However, on regular dual-TS boards dev->dev_next is never added to that
+list: em28xx_duplicate_dev() creates it with kmemdup() at probe time,
+before the primary device is linked, and em28xx_init_extension() only
+calls list_add_tail() for the primary device. dev_next->devlist is
+therefore a copy of an unlinked, zeroed list_head, and the new
+list_del() hits a NULL ->next.
 
-> the application calls set_params first then after some deliberation and
-> before starting it reconsiders and wants to have bigger/smaller buffer.
-> I know, they rarely do, but if such application assumes that the second
-> buffer setup is valid, while we kept the initial one, things might break?
+With CONFIG_DEBUG_LIST this triggers a BUG on every USB disconnect of
+such a board, e.g. a Hauppauge WinTV-dualHD (2040:8265), and with
+panic_on_oops=1 the whole machine reboots:
 
-Hmmm, do we really want that. they can tear down and reopen in that
-case?
+  list_del corruption, ffff88b642e141e8->next is NULL
+  kernel BUG at lib/list_debug.c:52!
+  Oops: invalid opcode: 0000 [#1] PREEMPT SMP PTI
+  Workqueue: usb_hub_wq hub_event [usbcore]
+  RIP: 0010:__list_del_entry_valid_or_report.cold+0xf/0x6f
+  Call Trace:
+   em28xx_close_extension+0x74/0x130 [em28xx]
+   em28xx_usb_disconnect.cold+0x71/0xbc [em28xx]
+   usb_unbind_interface+0x93/0x290 [usbcore]
+   device_release_driver_internal+0x19c/0x200
+   bus_remove_device+0xe9/0x1b0
+   device_del+0x161/0x3e0
+   usb_disable_device+0xd4/0x1f0 [usbcore]
+   usb_disconnect+0xe2/0x300 [usbcore]
+   hub_event+0xe30/0x1980 [usbcore]
 
-If we split as above, in next_track case we can apply codec params while
-ignoring buffer.. wdyt
+Initialise dev_next->devlist in em28xx_duplicate_dev() so it is a valid
+empty list head, and only unlink it in em28xx_close_extension() when it
+was actually added to em28xx_devlist. This keeps the use-after-free fix
+for configurations where dev_next does get listed.
 
+Fixes: 826915b6b65e ("media: em28xx: fix use-after-free of dev_next->devlist on disconnect")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Vincent CAZARD <vincentcazard@yahoo.fr>
+---
+The offending commit has been backported to stable; this was hit on
+Debian's 6.12.111 (linux-image-6.12.111+deb13-amd64), which reboots on
+every disconnect of the board above (here the board is attached over
+USB/IP, so a disconnect happens whenever the remote side is re-bound).
+
+Tested on 6.12.111 with an equivalent change built out of tree: two
+forced disconnects/reconnects of the WinTV-dualHD, both tuners come back,
+no list_del splat and no reboot. The tested variant additionally checked
+dev_next->devlist.next for NULL before list_empty(); that check is
+redundant once em28xx_duplicate_dev() initialises the list head, so it is
+dropped here. Not yet tested on mainline.
+
+AI assistance details (per Documentation/process/generated-content.rst):
+the assistant was Claude (Anthropic) running in the Hermes agent with
+shell access to the affected machine. It was asked to find why the node
+rebooted when the tuner was used; it read the pstore oops, compared the
+Debian 6.12.111 em28xx sources with mainline, identified 826915b6b65e,
+wrote the patch and this changelog, built the out-of-tree module and ran
+the disconnect test. All of the patch and changelog text is
+AI-generated.
+
+ drivers/media/usb/em28xx/em28xx-cards.c | 1 +
+ drivers/media/usb/em28xx/em28xx-core.c  | 4 ++--
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/media/usb/em28xx/em28xx-cards.c b/drivers/media/usb/em28xx/em28xx-cards.c
+index b7c534f..5f0f862 100644
+--- a/drivers/media/usb/em28xx/em28xx-cards.c
++++ b/drivers/media/usb/em28xx/em28xx-cards.c
+@@ -3985,6 +3985,7 @@ static int em28xx_duplicate_dev(struct em28xx *dev)
+ 	} while (test_and_set_bit(nr, em28xx_devused));
+ 	sec_dev->devno = nr;
+ 	snprintf(sec_dev->name, 28, "em28xx #%d", nr);
++	INIT_LIST_HEAD(&sec_dev->devlist);
+ 	sec_dev->dev_next = NULL;
+ 	dev->dev_next = sec_dev;
+ 	return 0;
+diff --git a/drivers/media/usb/em28xx/em28xx-core.c b/drivers/media/usb/em28xx/em28xx-core.c
+index 0b998e7..5eb1705 100644
+--- a/drivers/media/usb/em28xx/em28xx-core.c
++++ b/drivers/media/usb/em28xx/em28xx-core.c
+@@ -1265,8 +1265,8 @@ void em28xx_close_extension(struct em28xx *dev)
+ 			ops->fini(dev);
+ 		}
+ 	}
+-	if (dev->dev_next)
+-		list_del(&dev->dev_next->devlist);
++	if (dev->dev_next && !list_empty(&dev->dev_next->devlist))
++		list_del_init(&dev->dev_next->devlist);
+ 	list_del(&dev->devlist);
+ 	mutex_unlock(&em28xx_devlist_mutex);
+ }
 -- 
-~Vinod
+2.39.5
