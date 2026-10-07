@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3711E40681D
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 08:42:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17492423780
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 08:42:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791362528; cv=none; b=ENh2gCa4/ig+ozWyuXa+gZkp4UIzjv/bGQqa5xFBV8xjnM+xNiWCL3qV29faaLNS9ISd5s1sWwMBugHX74Quv3Q2bxZFB3m2wGgphEnRWola499Jbj3FEIT/aKvKRI9gFFLFj72v49iWVGguL68RyFIUabpCY4z3dk6i9sqFrxM=
+	t=1791362531; cv=none; b=jv1f5qe+D7GIAC2A3mUksQ6rbDS59wg8uQeAtGHYwWBzyoahc8cPnL4cCP3rZIzNEgUFddVzqRdyYnsacUQ9bhG6sDX44RhMS9bksAjrjzntAVvp3cPJre7gUtzqVTHmdD9L2sOL2/eL7rC+WdBkEfwBcYE99U6sPk4cp0/9qEA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791362528; c=relaxed/simple;
-	bh=WtOvlcSqrfS905+X+HtepAF2mj1MdTuXNxZ93GFbYAg=;
+	s=arc-20240116; t=1791362531; c=relaxed/simple;
+	bh=nwstXmDioTnX2BujZyq0PGnZacFPgM2I9eTo4HRETMM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SBBwPRPavGJUjV0OZ7K5eBt257UBEcpg9lgO99wR0KFaT1cfeOmbdrnmMHbgbUlVc5OHEaaCjOEJYTU9Wz19O8bkXmIvLRrqsduEr1Y+u1hleloEYHbuPXls6bHOLFogl7uZBOhoYz3dblPAtZL7EXEPNIUyZtjT7JIa70S7jro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RPsOpZxW; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=O5ElVOjfJzY2B6JHiiXV75OCi54XDVHbiNAI06KIvd3aFdY4g6jbV8JzXj3kE2AM31vIC3zJj7h5HHFk/F/Q8r3fXX4I2p4c/sIbFn5mn3E92mUqmRyj+UpOX5qiPWXaULPeRWaaAUJYrFVK4cFRMI2lYL9ucjX+KwQTCyblYkc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y/AV8+Ya; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RPsOpZxW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9FEA1F008A0;
-	Wed,  7 Oct 2026 08:42:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y/AV8+Ya"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87EA91F0089B;
+	Wed,  7 Oct 2026 08:42:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791362527;
-	bh=pX1HI61d9hlM6zJrNKup9fLz3wzSnNU7Hyh7qesE1OM=;
+	s=k20260515; t=1791362528;
+	bh=TisuI44+ScKZ867y4KQ3IZCmoIIagB7Aw5EQoQNZ6zI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RPsOpZxWTNq/ugmWoJJzzuI1DI7iq0iFQVA1Qp6yS6YT3bqruFCupsw/3yW9qS5Nh
-	 /JcfLnec8axr3IvRWKuCUK2WVunW0dE6RFKeG04FL/1RPiHcOXRuTK3/QSj6IAnc+Z
-	 8syW4bL8/4tS12NvGQ1TZtmavf7/C1oyTefk8TwxH6XYFo8TJj/KxAhL2yv0N3/4MT
-	 V5JQQ336YvjZtvcGiCIZYNY+9WU9YPu6REmZvzHATndp2+cQavXI+rOkKBmm3Xwdq0
-	 CRpMI/d1RM61QRxkSfOV93E7G+svQGOGNeWDPTOy4yqySA4iUidvMNxQb5y7MLTp+a
-	 tf98c5BMNgN0Q==
+	b=Y/AV8+YaoZJ12As8QZ6xPI8Lu5KwH7ZMrAcT55Grw8fRqhhKRkw3HHIlu2aXQAV/x
+	 nzvfysXAgFgHNnKzN4XbDAS0PLR4bl3B41eY8dbGQmwz6F1wMHLCHasOY+DlFuuYla
+	 vAfGgH5CfXo4YpH+f0LJ7xjE4LZLsFbOY6rCaJjIEdIrbnmvIQoqE09EXhyWvDkDUy
+	 AWXZAn2tnSu2veoErj1qvPkqZ4NG0Rf9Z/J9QlwxxDfMntKFC9eeuttaQCMj7VXjbQ
+	 TP9bn0WYpDmNNGzNqVnfi5a3dUSlMB+gtepAaKqDqLHgxAJJeyPH3Z6YXblSOOEkzC
+	 stxdBvXkSpRgg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Nuno Sa <nuno.sa@analog.com>,
-	Alexandru Ardelean <aardelean@baylibre.com>,
-	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+Cc: Marco Chen <marcochen.dev@gmail.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 4/5] iio: core: add accessors 'masklength'
-Date: Wed,  7 Oct 2026 04:41:57 -0400
-Message-ID: <20261007083721.1749559-4-sashal@kernel.org>
+Subject: [PATCH 6.6.y 5/5] iio: health: max30102: fix NULL dereference in interrupt handler
+Date: Wed,  7 Oct 2026 04:41:58 -0400
+Message-ID: <20261007083721.1749559-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261007083721.1749559-1-sashal@kernel.org>
 References: <2026100618-wooing-curve-b2f5@gregkh>
@@ -47,79 +47,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Nuno Sa <nuno.sa@analog.com>
+From: Marco Chen <marcochen.dev@gmail.com>
 
-[ Upstream commit de79583ffe794663c53b77f97be814522d4edc4f ]
+[ Upstream commit f0ea4824deebf21dacfbe397c4b0a5fd3e745a8d ]
 
-'masklength' is supposed to be an IIO private member. However, drivers
-(often in trigger handlers) need to access it to iterate over the
-enabled channels for example (there are other reasons). Hence, a couple
-of new accessors are being added:
+The interrupt is requested in max30102_probe() and stays enabled
+for the lifetime of the device, but indio_dev->active_scan_mask is only
+valid while a buffer is enabled. When an interrupt arrives while no
+buffer is enabled, the handler dereferences the NULL active_scan_mask:
 
- * iio_for_each_active_channel() - Iterates over the active channels;
- * iio_get_masklength() - Get length of the channels mask.
+  Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
+  Call trace:
+   __bitmap_weight+0x64/0x98 (P)
+   max30102_interrupt_handler+0x48/0x160 [max30102]
 
-The goal of these new accessors is to annotate 'masklength' as private
-as soon as all drivers accessing it are converted to use the new
-helpers.
+Call max30102_fifo_count() at the top of the handler and return early
+unless it reports a FIFO sample is ready. Because FIFO_RDY is the only
+interrupt source enabled in max30102_chip_init(), an invocation of
+max30102_interrupt_handler() without the FIFO_RDY interrupt status bit
+set carries no data to read and can return before touching
+active_scan_mask. A negative return from max30102_fifo_count()
+indicates a failed interrupt status read and is treated the same way.
 
-Signed-off-by: Nuno Sa <nuno.sa@analog.com>
-Reviewed-by: Alexandru Ardelean <aardelean@baylibre.com>
-Link: https://patch.msgid.link/20240702-dev-iio-masklength-private-v1-1-98193bf536a6@analog.com
-Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
-
-Implement the masklength getter as a single-evaluation macro with an
-unsigned result so that no new functions are introduced. Retain the
-active-channel iterator and convert the MAX30102 interrupt handler to the
-getter, providing the context required by the subsequent interrupt fix.
-Omit the unrelated scan-type helper from the surrounding upstream context.
-
-Stable-dep-of: f0ea4824deeb ("iio: health: max30102: fix NULL dereference in interrupt handler")
+Fixes: 90579b69e94b ("iio: health: max30102: Add MAX30105 support")
+Suggested-by: Jonathan Cameron <jic23@kernel.org>
+Signed-off-by: Marco Chen <marcochen.dev@gmail.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/health/max30102.c |  2 +-
- include/linux/iio/iio.h       | 15 +++++++++++++++
- 2 files changed, 16 insertions(+), 1 deletion(-)
+ drivers/iio/health/max30102.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/iio/health/max30102.c b/drivers/iio/health/max30102.c
-index 37e619827e8a1..43c16fcdeae19 100644
+index 43c16fcdeae19..9419cc62a2a4d 100644
 --- a/drivers/iio/health/max30102.c
 +++ b/drivers/iio/health/max30102.c
-@@ -293,7 +293,7 @@ static irqreturn_t max30102_interrupt_handler(int irq, void *private)
+@@ -292,9 +292,15 @@ static irqreturn_t max30102_interrupt_handler(int irq, void *private)
+ {
  	struct iio_dev *indio_dev = private;
  	struct max30102_data *data = iio_priv(indio_dev);
- 	unsigned int measurements = bitmap_weight(indio_dev->active_scan_mask,
--						  indio_dev->masklength);
-+						  iio_get_masklength(indio_dev));
- 	int ret, cnt = 0;
+-	unsigned int measurements = bitmap_weight(indio_dev->active_scan_mask,
+-						  iio_get_masklength(indio_dev));
+-	int ret, cnt = 0;
++	unsigned int measurements;
++	int ret, cnt;
++
++	cnt = max30102_fifo_count(data);
++	if (cnt <= 0)
++		return IRQ_HANDLED;
++
++	measurements = bitmap_weight(indio_dev->active_scan_mask,
++				     iio_get_masklength(indio_dev));
  
  	mutex_lock(&data->lock);
-diff --git a/include/linux/iio/iio.h b/include/linux/iio/iio.h
-index b0c5d53dc16a6..d04df1c8061b1 100644
---- a/include/linux/iio/iio.h
-+++ b/include/linux/iio/iio.h
-@@ -772,6 +772,21 @@ static inline bool iio_read_acpi_mount_matrix(struct device *dev,
- }
- #endif
  
-+/**
-+ * iio_get_masklength - Get length of the channels mask
-+ * @indio_dev: the IIO device to get the masklength for
-+ */
-+#define iio_get_masklength(indio_dev) ((unsigned int)(indio_dev)->masklength)
-+
-+/**
-+ * iio_for_each_active_channel - Iterated over active channels
-+ * @indio_dev: the IIO device
-+ * @chan: Holds the index of the enabled channel
-+ */
-+#define iio_for_each_active_channel(indio_dev, chan) \
-+	for_each_set_bit((chan), (indio_dev)->active_scan_mask, \
-+			 iio_get_masklength(indio_dev))
-+
- ssize_t iio_format_value(char *buf, unsigned int type, int size, int *vals);
- 
- int iio_str_to_fixpoint(const char *str, int fract_mult, int *integer,
 -- 
 2.53.0
 
