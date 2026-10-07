@@ -1,70 +1,93 @@
-Received: from Chamillionaire.breakpoint.cc (Chamillionaire.breakpoint.cc [91.216.245.30])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20C8244A406;
-	Wed,  7 Oct 2026 08:48:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.216.245.30
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17DF245D188
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 08:53:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791362935; cv=none; b=gb/pqePRTF/+jORqlf309enzrj04q/6KwBkd4xkiUphntF4laYXiSluIk9XU0Dx+ZK3SAh109+qUiwAcmquH81ZmzuoXC+Ky8wOHeUYohZSOc341+24gS//+FYZjCAoINssCSD7+dmc3RgzHpAG4JvrlUCuj3uZkGkwzIQQUPyg=
+	t=1791363225; cv=none; b=b7HH5o6iZS3ePZ9zNljf6Nd3B52Rf5X/uz70tIXQBJci+2+CouvZhtOJTnBg4J7tmU0EL95QfgAosGAQJ+25rpykHcyvdJodBU710+cai4PxF6Ya3hXlocKAimJWU4XBGPzKNt4WRXOFfbyO54AJBpBJIU/filjpIZjTM5chXeI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791362935; c=relaxed/simple;
-	bh=v5DhNq5+rQFKLrFNihG9VAM61iFoZKuf9uJy8//4nKs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=auxywIQ9ps0px7s2ML8j5R6duV59+Yn8/mSB1/0+QWjreWt/stXsNuxIh5w7YGqkskKF1Ok0VZI7gPITjAHerMoqsrVXEBywXENEMfQ+LRx0/aYNU0VMGxvpSN4X6Rd5ez8BGOP/Tmqu4URXkss8iOj5oIlo2vc33f+wni2v/s8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de; spf=pass smtp.mailfrom=strlen.de; arc=none smtp.client-ip=91.216.245.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=strlen.de
-Received: by Chamillionaire.breakpoint.cc (Postfix, from userid 1003)
-	id 422746038C; Wed, 07 Oct 2026 10:48:49 +0200 (CEST)
-Date: Wed, 7 Oct 2026 10:48:48 +0200
-From: Florian Westphal <fw@strlen.de>
-To: Daehyeon Ko <4ncienth@gmail.com>
-Cc: pablo@netfilter.org, phil@nwl.cc, netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org, netdev@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net v3] netfilter: conntrack: avoid recursive master
- destruction
-Message-ID: <asYHaUFdxo0flpAe@strlen.de>
-References: <20261007014802.2615503-1-4ncienth@gmail.com>
+	s=arc-20240116; t=1791363225; c=relaxed/simple;
+	bh=L/sYfwbZ6KCl3YeYakaG94mBMsJ3X7S0aICqvITqzxs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oiTzucz2t0FHCTztwmQ1nmq42jMkKMLnVvd1HTDbZLtidwmMGLxtfDHq60YrdIZZezMDnCg5C6w+YzAsZeEBhZPxp97NE3my9Acr1pid1vE4zGIgVZsJCSKvQWpx7I5E0WUhM4Qr1iD9wcmUM47C0TU1lgOOas2slt7gdaegltM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XiApaI8K; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XiApaI8K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB17D1F0089F;
+	Wed,  7 Oct 2026 08:53:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791363222;
+	bh=9cFv+gupaevm8qz9rg2BaHQT7KCgwNOCbyTGG3D0cOM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=XiApaI8KbWmznrfZ7MRydakHBhtSDyMT7836EsIrD5/Mmf6JtPSitPrX/qV/ipS+m
+	 f1plPU0lOxblKotcki6uOJpf6PBDUUXd0GVO7ygNvwlsB/9/owXsfQXJutfvvXTJvA
+	 BGPC1lf0eUXNCXTdOe22uJ/kwhx6F1WsGXqMuxWhPzFb1UQKvvX26laWpx+7z0GNUS
+	 hZJRtwbk2ysP/+Ur42utH5uRDhBRXeHTCv+d93AzgZeHWzIhK/DkipDLMGKOI/6KJZ
+	 Hj3rJgdgSB3TptJ5b3gFzrvnJTZv+2A1z3YC0Q1dh+5xxDiETnMrQHaXdo3hT1pa32
+	 Nf/S+gq47iRFw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Cong Nguyen <congnt264@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] iio: adc: max1363: sign-extend bipolar differential channel reads
+Date: Wed,  7 Oct 2026 04:53:39 -0400
+Message-ID: <20261007085223.2005137-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026100625-reverse-alabaster-6736@gregkh>
+References: <2026100625-reverse-alabaster-6736@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261007014802.2615503-1-4ncienth@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Daehyeon Ko <4ncienth@gmail.com> wrote:
-> A conntrack holds a reference to its master. Userspace can build an
-> unbounded acyclic chain through ctnetlink. Expectation producers can do the
-> same: an nft ct expectation can attach its helper to an unconfirmed
-> expected child and arm the next expectation with that child as master. The
-> H.323 Q.931 helper can also propagate itself through call-forwarding
-> expectations.
-> 
-> When only child-held references remain, destroying the leaf calls
-> nf_ct_put() on its master. If that was the final reference, nf_ct_put()
-> recurses into nf_ct_destroy(). Repeating this at each level exhausts the
-> task stack and panics.
-> 
-> Nested expectations are existing helper semantics, and CTA_TUPLE_MASTER
-> was introduced for conntrackd state replication. Avoid per-producer
-> restrictions. Decrement the master's refcount directly, then free the
-> current conntrack. If the refcount reached zero, continue destroying the
-> master in the same invocation. This preserves existing constructors while
-> bounding stack use.
-> 
-> Fixes: 5faa1f4cb5a1 ("[NETFILTER]: nf_conntrack_netlink: add support to related connections")
-> Cc: stable@vger.kernel.org
-> Link: https://patch.msgid.link/179127347858.434549.11821822167265441355@kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+From: Cong Nguyen <congnt264@gmail.com>
 
-Acked-by: Florian Westphal <fw@strlen.de>
+[ Upstream commit 91908c0a78baddc8572aa3ab69e62ee2eb496ba4 ]
 
-That said, ignoring the source of the problem is not good.
+MAX1363 differential channels are bipolar, but max1363_read_single_chan()
+masks the raw value to the ADC resolution without sign-extending it.
+Negative differential readings are therefore reported to userspace as
+large positive values (e.g. -1 as 4095 on a 12-bit part).
 
-I see no point whatsoever for a expected connection to have a
-non-control connection as its master.
+Sign-extend the masked value from the resolution bit for differential
+channels. Single-ended channels are unipolar and are left unchanged.
+
+Fixes: d1325cf45077 ("Staging: IIO: max1363 ADC driver")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-4
+Signed-off-by: Cong Nguyen <congnt264@gmail.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/iio/adc/max1363.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/iio/adc/max1363.c b/drivers/iio/adc/max1363.c
+index 29c1824162cd0..c427fdf93dcbd 100644
+--- a/drivers/iio/adc/max1363.c
++++ b/drivers/iio/adc/max1363.c
+@@ -409,6 +409,14 @@ static int max1363_read_single_chan(struct iio_dev *indio_dev,
+ 		}
+ 		data = rxbuf[0];
+ 	}
++
++	/*
++	 * Differential channels are bipolar and the device returns the sample
++	 * in two's complement, so sign-extend it from the resolution bit.
++	 */
++	if (chan->differential)
++		data = sign_extend32(data, st->chip_info->bits - 1);
++
+ 	*val = data;
+ 
+ error_ret:
+-- 
+2.53.0
+
