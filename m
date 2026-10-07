@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08DC6145B27;
-	Wed,  7 Oct 2026 01:30:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52CA4339365;
+	Wed,  7 Oct 2026 01:30:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791336607; cv=none; b=unct04fcJirv94isCot6yCB/s+zJtSvF6CeLqaX3fsUC/rfUpx3Nh/rCCLcBFJlDkD5f+ORkJUP1raESmfDQYDi2bfcP5jgc/o4W67EvIVL279aoBU4OvXfTtZgGTf8O2rspaTnbkplkZI12D5qO0yaaOBab/nm+bRGUq4cG1/M=
+	t=1791336609; cv=none; b=KXGBoXMgIcpeHkVzPmmpUIXs64E58EVFEPaOBk9HmwRwrEeIYbz6vzAcdFpXTpCnwc3SzEFbhia8kpd6akJpiHVBtLEtMmSMwPUH7xK1gKueJ8T45NERSmiWND4smccTz1sBRXjaf4YQVc8BQsuiU7Js32rhOZ0ELtFZ544wgGM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791336607; c=relaxed/simple;
-	bh=ahygckC5FaOdVaE44k1lagRoxk0oCnwx30CF8Dl6BUc=;
+	s=arc-20240116; t=1791336609; c=relaxed/simple;
+	bh=YXwP2o8+49HU53RVpfm8A2P5h8faqhs2rUDkEh4xF5A=;
 	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=UIzNxjJHIOPhsoCI8qoqJ32Hc81mS1Iqy6blAaUduZ5nL5B+d2DVebn3t+UlgpEdL3D73VLAREUCoudXEJtfj2ZKK5anIG2WzFJ4l4ApeXJz6UA+SoBV80Kjks+qo09xH1g5WzALM5sivGCQWuf5YP62r9ZdRcnGYu7ybColqoo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cf4morXZ; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=svaEmwpyKbM/Qbtqsn0ci9kympOSO+C/lRZSfRuWZ9SvejayqTR7COvfF/0GXMeJne8ApEspZMEhSykJAt9yt9srxhvq+37f8boaR1AFlp6HKODJu148SVYSN5eyzPr5CmQJTwl3FwyKvSqG/VMUVAjd4Kvv0qobRp/3iG4bi7o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EMbYX1es; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cf4morXZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FB341F0089B;
-	Wed,  7 Oct 2026 01:30:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EMbYX1es"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 062151F0089B;
+	Wed,  7 Oct 2026 01:30:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791336606;
-	bh=awJeGQram6SRjFfk8HbLvQpyIqW2EVj8fUl9tSRvlQk=;
+	s=k20260515; t=1791336608;
+	bh=3/h0gGJVE/g2n0Ey6QOrFNqMGQlhbzlPioWY2FNK9Dw=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=Cf4morXZbdu6uTiKbzOmOzyQemZK6XG0SnYkqqh8u3HHzvzaiUSnN+6DyubaTePfc
-	 uXVsEEwXneia2Ggm/DMLNnQ3uJ3EJAnLTf5rdYi7uzSdO9gGnK5K+uj7KWqP44O1Ll
-	 aedwKXH67xNfJeZWccaNrmTkmo3FTdDSt7gohMXnQcD9Ern3wvU/QqhZkmJaIHjaU3
-	 3WsyNR7wTSKEZVki04CYCCD/6jbGAUEvS4Ja5HEwWCvPjYnY9tpEi1GDL7UTM7LWlK
-	 HwT1mQqbG2Iahc7fYlPaFSLiaPi/yqPaiYVoLb3qe3/iFoYzTgRxPC6ZPd7jCgXX5L
-	 Qa9lBeb/8ihAQ==
+	b=EMbYX1esnN3nI6pP2LzPgB6pTbd2IE6ZLjekV+A5gQehfWtm9REAnIfNnMozbdo/a
+	 k9uC8cAiSZKRA1v0GnOAlPGHsMpz9WapGwdPRnxUUOdvWcrRMOjrFUGlzQYxJVGmp5
+	 6EJSRFsOin1rrbqtuJHMkRC1KDJIii/IIakf1BiI5gXL0p3csgAUeFnhSo/tOgoVhQ
+	 cdrm3duUk1o8QkSQlfz1yFUqSe++x9khIMdLZUmzSNF6S9jVquUKliHVFMLrgEhDuB
+	 IOdtUe4Ln8knkPE/ZGOBcxa6yQQ4v0Y/ykJNsvpJKwKzc9i6+igsdpu+jlSz5L6lXb
+	 pC54CpXc625jQ==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 773413806541;
-	Wed,  7 Oct 2026 01:30:06 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F15A23806541;
+	Wed,  7 Oct 2026 01:30:07 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -37,42 +37,40 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v3] strparser: make sure __strp_recv isn't running
- before
- tearing down the parser
+Subject: Re: [PATCH net-next v2] sctp: copy zeroed stats to user in
+ sctp_getsockopt_pr_streamstatus() when !streamoute
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <179133660529.2858290.6732628309915462102.git-patchwork-notify@kernel.org>
-Date: Wed, 07 Oct 2026 01:30:05 +0000
-References: 
- <425d9d926709b542ed5331110c19fee4aee1f28d.1791206940.git.sd@queasysnail.net>
-In-Reply-To: 
- <425d9d926709b542ed5331110c19fee4aee1f28d.1791206940.git.sd@queasysnail.net>
-To: Sabrina Dubroca <sd@queasysnail.net>
-Cc: netdev@vger.kernel.org, imv4bel@gmail.com, stable@vger.kernel.org
+ <179133660652.2858290.14740048670060140108.git-patchwork-notify@kernel.org>
+Date: Wed, 07 Oct 2026 01:30:06 +0000
+References: <20260930044611.204739-1-benquike@gmail.com>
+In-Reply-To: <20260930044611.204739-1-benquike@gmail.com>
+To: Hui Peng <benquike@gmail.com>
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, lucien.xin@gmail.com, vyasevich@gmail.com,
+ nhorman@tuxdriver.com, linux-sctp@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
 Hello:
 
 This patch was applied to netdev/net.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Mon,  5 Oct 2026 15:50:02 +0200 you wrote:
-> The comment above strp_done() claims that if strp is stopped,
-> strp_recv will no longer be called. That's only true if the caller has
-> a mechanism (eg locking) to guarantee that strp_recv() calls that
-> started before strp_stop() have completed by the time we call
-> strp_done().
-> 
-> This adds a dummy lock_sock/release_sock pair to guarantee that any
-> in-flight strp_recv() (which runs under either bh_lock_sock or
-> lock_sock, depending if it's called from ->sk_data_ready or strp_work)
-> has completed.
+On Wed, 30 Sep 2026 04:46:11 +0000 you wrote:
+> When an SCTP stream output extension structure (streamoute) has not yet
+> been allocated, sctp_getsockopt_pr_streamstatus() sets the local stack
+> variables params.sprstat_abandoned_unsent = 0 and
+> params.sprstat_abandoned_sent = 0, but then immediately jumps to 'out:',
+> bypassing copy_to_user(). As a result, when an uninitialized user buffer
+> is passed to getsockopt(SCTP_PR_STREAM_STATUS), the kernel returns
+> success (0) without copying the zeroed stats back to user space, leaving
+> uninitialized data in the user buffer.
 > 
 > [...]
 
 Here is the summary with links:
-  - [net,v3] strparser: make sure __strp_recv isn't running before tearing down the parser
-    https://git.kernel.org/netdev/net/c/0984ebc63179
+  - [net-next,v2] sctp: copy zeroed stats to user in sctp_getsockopt_pr_streamstatus() when !streamoute
+    https://git.kernel.org/netdev/net/c/538b529509c7
 
 You are awesome, thank you!
 -- 
