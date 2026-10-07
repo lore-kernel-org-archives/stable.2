@@ -1,111 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2593A2222AC;
-	Wed,  7 Oct 2026 05:52:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B70422157B;
+	Wed,  7 Oct 2026 05:54:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791352348; cv=none; b=jOQR2F91EZs1+BLEqBn5HG3PlNIlZjvPa2PT+uDppx4AB3saCwLBiSzV5na4zD2aq/J4N8lBqie9iSOZXXfjBp84mE4F9Pb4ugPXgohBhuaYyc1E5wxMoVW8U0H/AfT+38qjUJ1kwD+pv9v9ZxQ/q9Y615P/oEF5lJhIHbngtZc=
+	t=1791352489; cv=none; b=iXiL7Xn2CtLcEByGGMNRCYFSFzqBc3W4d9ACpbIE1FCTj8oVYZyo1WDqFfl7rzNzv3kLXkob0KUWr9DC1RMu41dOsh371LUM+u7Zz9bQAxtZ75+bILR18bbFCMf3wW6V/EnhxnYWlYoLh1/kYsxtEMUB5XCHbPZJHUHY8+pSgFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791352348; c=relaxed/simple;
-	bh=eNXwv+3bE7EFysSqOx3zsqS83s03c53nR6/ozfz8bS4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-Id; b=gJkglBpr7LP0XTy3ruRTCLW6gDey57JmLsvpsW4tDD0lbsUT0c3qj9uc9uUFlpwx7kAhZgySN/PIiBTXQqNnZsEmd9+tBxeYi0XEl4E9QUqAT0mxiQRbopw6iicypijwzWfATDVjZKbkE0RthQwCQ/bgym6nZkNr625kjYuhlB8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fx4KgWOu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791352489; c=relaxed/simple;
+	bh=B33ht6alxBilQwM8rUkbU7t3KLIDYEmRoKcvEHu8Kgg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=eKzeUcnvDaCxaoyPegZcH+hQtY0/pQfG4RSn/BgO+FI8cGT/+QawO5q84HorQfj2bnaokzUu4VQwa6AyQ0PDMDY/CkEUTtQHhImQK9KgxPc7OoApuYzD1yqu4zRlC33BzYah+8VBgq19uN4X1Vf8zOxYeMkIph4pkwkDhLnmK9E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=HijKCa+o; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fx4KgWOu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32DDA1F0089B;
-	Wed,  7 Oct 2026 05:52:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791352346;
-	bh=GdjMU9k4F7x6/rjAjbdSug09OfCl1IVYHFb5BuvL2WQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fx4KgWOu7/o+l1XmH6yfTVogKylmJu6db7QQUpA8y9thPFEJNkDfzA/5bVgD0RSPL
-	 m2opzykxD8LL6O2vQZDv9cPTWLcF7foaTNGAZiEB+J5Yie01Exd4gQpaxHZeP4p4kO
-	 GFXmMkqOvj6eO2edw0KCN9dicFTa9/7aqi9UQECfaCUx9VXxLSRb251iMiddQZZwAi
-	 fcgzWcPkFlZRw55eJZlRmkRn3zNhIaYq3pf1W2GCh9wHpMFQG1tJ7U2o1wWDPfKaI5
-	 GV6xALy2szBWDZhAUgDdOCVq06W8BfJEGjcXqhKOFNijyZJ7pBITPbFzfUHBHS8t+f
-	 qljgZzsZle6JA==
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: kylebot@openai.com
-Cc: Masami Hiramatsu <mhiramat@kernel.org>, linux-trace-kernel@vger.kernel.org,
- linux-kernel@vger.kernel.org, rostedt@goodmis.org,
- outbounddisclosures@openai.com, stable@vger.kernel.org
-Subject: Re: [PATCH] tracing/filters: Check perf permissions before resolving
- .function
-Date: Wed, 07 Oct 2026 05:52:22 +0000
-In-Reply-To: <asXAxf0edslJI-Ge@com-75606>
-References: 20261006225112.53503-1-kylebot@openai.com
- 20261007034423.310311F0089B@smtp.kernel.org asXAxf0edslJI-Ge@com-75606
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="HijKCa+o"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=B33ht6alxBilQwM8rUkbU7t3KLIDYEmRoKcvEHu8Kgg=; b=H
+	ijKCa+ouDIhIelL9OmlFtUWsm7dPHrYvslXbuVhtZ7YHY3UbD3iHHjghGVVb7kH3
+	jNuhfZ8KdpOTEmfyjcQgZzWyZpfJ35UBNMSL4XSHgaDgjd88Yh6YP99kz8KXYkiL
+	+9UOCuQjlzetXbFGGBISraMsWypHkNfYag2OF3X9Cg=
+Received: from taozj888$163.com ( [2409:8a20:22c4:8eb0:343f:2daa:6f8d:39d4]
+ ) by ajax-webmail-wmsvr-40-135 (Coremail) ; Wed, 7 Oct 2026 13:52:23 +0800
+ (CST)
+Date: Wed, 7 Oct 2026 13:52:23 +0800 (CST)
+From: taozj888  <taozj888@163.com>
+To: "Nicolai Buchwitz" <nb@tipi-net.de>
+Cc: =?GBK?Q?Th=A8=A6o_Lebrun?= <theo.lebrun@bootlin.com>,
+	stable@vger.kernel.org, "Conor Dooley" <conor.dooley@microchip.com>,
+	"Andrew Lunn" <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	"Eric Dumazet" <edumazet@google.com>,
+	"Jakub Kicinski" <kuba@kernel.org>,
+	"Paolo Abeni" <pabeni@redhat.com>,
+	"Haavard Skinnemoen" <hskinnemoen@atmel.com>,
+	"Jeff Garzik" <jeff@garzik.org>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re:Re: [PATCH net v2] net: macb: rate limit netdev error info print
+ in the data path
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <3e1515e162d084e2200eeaa6074bfbaf@tipi-net.de>
+References: <20260930113520.392025-1-taozj888@163.com>
+ <b06cb02d9b26ceff272d7e34927a7eac@tipi-net.de>
+ <DLUC9MKOACM3.OPW5RYHOYZV1@bootlin.com>
+ <7cd93a53.199d.1a10724a8ae.Coremail.taozj888@163.com>
+ <3e1515e162d084e2200eeaa6074bfbaf@tipi-net.de>
+X-NTES-SC: AL_Qu2SA/+evUsv5SaRbOkfm04bju07UMu2v/4l2Y9SOp9wjB7o6gYwQ19jPl3k/tKrLyeSrye4aDhI+M53XaxnWb8MQCejPyjqwlsP9F6pf6uEEw==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <20261007055225.32DDA1F0089B@smtp.kernel.org>
+Message-ID: <37f9ba8b.1682.1a114eb8ca0.Coremail.taozj888@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:hygvCgD3n54X3sVq0REcAA--.14518W
+X-CM-SenderInfo: hwdr6yqyyyqiywtou0bp/xtbC3RfIkGrF3heKZwAA3Z
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-On Tue, 06 Oct 2026 20:47:17 -0700, Kyle Zeng <kylebot@openai.com> wrote:
-> On Wed, Oct 07, 2026 at 03:44:20AM +0000, Masami Hiramatsu wrote:
-> > On Tue, 06 Oct 2026 15:51:12 -0700, Kyle Zeng <kylebot@openai.com> wrote:
-> > > perf_trace_event_perm() allows tracepoint counters that do not request
-> > > PERF_SAMPLE_RAW without raw tracepoint permissions. A self-targeted,
-> > > disabled event with exclude_kernel=1 can therefore reach the filter
-> > > compiler even at perf_event_paranoid=2.
-> > >
-> > > The .function suffix accepts any field of sizeof(long) and resolves its
-> > > operand through kallsyms_lookup_name() and kallsyms_lookup_size_offset().
-> > > The success or failure of a numeric filter discloses whether an address
-> > > belongs to a known kernel symbol range. On x86-64 this can be used to
-> > > recover the randomized kernel image base. A named filter also exposes
-> > > the resolved symbol range through the counter when the tracepoint field
-> > > is controlled by the caller, as with a syscall argument.
-> > >
-> > > Pass the filter's perf origin to the predicate parser and require
-> > > perf_allow_tracepoint() before resolving a .function operand. This uses
-> > > the same sysctl, initial-namespace capability and LSM policy as raw
-> > > tracepoint access, and closes both the numeric and named-symbol oracles.
-> > > Do not change ordinary perf counting filters or filters created through
-> > > the separately controlled tracefs interfaces.
-> > 
-> > Good catch!
-> > 
-> > >
-> > > Fixes: e6745a4da964 ("tracing: Add a way to filter function addresses to function names")
-> > > Cc: stable@vger.kernel.org
-> > > Assisted-by: Codex:gpt-6-astra
-> > 
-> > nit: This should be 
-> > 
-> > Assisted-by: LLM
->
-> Didn't know there was a change of convention. Should I send in a v2 or
-> it will be picked up automatically?
-
-We can change the tag when picking up, so you don't need to resend it only
-for tag update. But for this patch, please update according to Sashiko's
-comment.
-
- https://lore.kernel.org/all/sashiko-outbox-162502@kernel.org/
-
-Thanks,
-
->
-> Thanks,
-> Kyle
->
-> > 
-> > > Signed-off-by: Kyle Zeng <kylebot@openai.com>
-> > 
-> > Reviewed-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> > 
-> > Thanks!
-> > 
-> > 
-> > -- 
-> > Masami Hiramatsu (Google) <mhiramat@kernel.org>
-
--- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+CgoKCgoKCgoKCgoKCgpIaSBOaWNvbGFpOgoKClBsZWFzZSBzZWUgbXkgYW5zd2VyIGlubGluZS4K
+CgpUaGFuayB5b3UsClppamluIFRhbwoKQXQgMjAyNi0xMC0wNCAyMjowNjoyNCwgIk5pY29sYWkg
+QnVjaHdpdHoiIDxuYkB0aXBpLW5ldC5kZT4gd3JvdGU6Cj5IaQo+Cj5PbiA0LjEwLjIwMjYgMTU6
+NDAsIHRhb3pqODg4IHdyb3RlOgo+PiBIZWxsbyBUaGVvLCBOaWNvbGFpOgo+PiAKPj4gUGxlYXNl
+IHNlZSBhbnN3ZXIgaW5saW5lLgo+Cj4+IFsuLi5dCj4KPj4+Pj4gRml4ZXM6IDg5ZTU3ODVmYzhh
+NiAoIltQQVRDSF0gQXRtZWwgTUFDQiBldGhlcm5ldCBkcml2ZXIiKQo+Pj4+IAo+Pj4+IElNSE8g
+dGhlIGNvcnJlY3QgdGFnIGlzIDRkZjk1MTMxZWE4MCAoIm5ldC9tYWNiOiBjaGFuZ2UgUlggcGF0
+aCBmb3IKPj4+PiBHRU0iKT8KPj4+PiBBdCBsZWFzdCB0aGUgZ2VtX3J4KCkgbWVzc2FnZXMgd2Vy
+ZSBpbnRyb2R1Y2VkIGhlcmUuCj4+PiAKPj4+IFRoZSBwYXRjaCB1c2VkIHRvIHRvdWNoIG1hY2Jf
+c3RhcnRfeG1pdCgpLCB3aGljaCBleHBsYWlucyB3aHkgSSB0b2xkCj4+PiBaaWppbiB0byB0YXJn
+ZXQgdGhlIGluaXRpYWwgY29tbWl0IG9uIHByZXZpb3VzIHJldmlzaW9uLgo+Pj4gCj4+IE9LLCBJ
+IHdpbGwgc3RpbGwgdXNlIHRoZSBpbml0aWFsIGNvbW1pdCBpbmRpY2F0ZWQgYnkgVGhlby4KPgo+
+UGxlYXNlIHJlLXJlYWQgVGiopm8ncyByZXBseTogaGUgb25seSBzdWdnZXN0ZWQgdGhlIGluaXRp
+YWwKPmJlY2F1c2UgdjEgYWxzbyB0b3VjaGVkIG1hY2Jfc3RhcnRfeG1pdCgpLiB2MiBkb2Vzbid0
+IGFueW1vcmUsCj44OWU1Nzg1ZmM4YTYgaXMgbm8gbG9uZ2VyIHRoZSByaWdodCB0YXJnZXQuIFBs
+ZWFzZSB1c2U6Cj4KPkZpeGVzOiA0ZGY5NTEzMWVhODAgKCJuZXQvbWFjYjogY2hhbmdlIFJYIHBh
+dGggZm9yIEdFTSIpCgo+CgoKT0ssIEkgd2lsbCB1c2UgdGhlIGNvbW1pdCBpZCA0ZGY5NTEzMWVh
+ODAgaW5zdGVhZCBpbiBteSBuZXh0IHBhdGNoLiAKCj4+IFsuLi5dCj4KPj4+PiBUaGlzIHdpbGwg
+anVzdCBoaWRlIHRoZSBlcnJvciBtZXNzYWdlLCBidXQgdGhlIHNwbGl0L2Ryb3AgaXMgc3RpbGwK
+Pj4+PiBwcmVzZW50Lgo+Pj4+IEhvdyBhYm91dCBsaW1pdGluZyBKTUwgaW4gbWFjYl9pbml0X2h3
+KCkgcHJvcGVybHk/Cj4+Pj4gCj4+Pj4gICAgICAgICAgaWYgKChicC0+Y2FwcyAmIE1BQ0JfQ0FQ
+U19KVU1CTykgJiYgYnAtPmp1bWJvX21heF9sZW4pIHsKPj4+PiAgICAgICAgICAgICAgICAgIHUz
+MiBqbWwgPSBicC0+cnhfYnVmZmVyX3NpemUgLSBORVRfSVBfQUxJR04gKwo+Pj4+IEVUSF9GQ1Nf
+TEVOOwo+Pj4+ICAgICAgICAgICAgICAgICAgZ2VtX3dyaXRlbChicCwgSk1MLCBtaW4oam1sLCBi
+cC0+anVtYm9fbWF4X2xlbikpOwo+Pj4+ICAgICAgICAgIH0KPj4+PiAKPj4+PiBUaGUgY29kZSBh
+Ym92ZSBpcyB1bnRlc3RlZCwgc28gcHJvYmFibHkgbmVlZHMgZnVydGhlciB0d2Vha2luZy4gQW4K
+Pj4+PiBhbHRlcm5hdGl2ZSBjb3VsZAo+Pj4+IGJlIHRvIGhhbmRsZSB0aGUgc3BsaXQgZnJhbWVz
+IGluIGdlbV9yeCgpIGNvcnJlY3RseS4KPj4+IAo+Pj4gSSBhZ3JlZSB3aXRoIHlvdSBidXQgdG8g
+Y2xhcmlmeSBmb3IgWmlqaW46IGlmIHlvdSBkbyB0aGlzIHRoZW4gaXQgCj4+PiBzaG91bGQKPj4+
+IGJlIGEgc2VwYXJhdGUgcGF0Y2ggYXMgY2hhbmdlcyBhcmUgcHJldHR5IHVucmVsYXRlZC4KPj4g
+Cj4+IFllcywgd2l0aCB5b3VyIGV4cGVyaWVuY2UgaW4gdGhpcyBhcmVhLCBtYXliZSBhIHNlcGFy
+YXRlIHBhdGNoIGZvciBpdCAKPj4gaXMgcHJlZmVycmVkLgo+PiBJIHRoaW5rIHRoZSBlcnJvciBy
+ZXBvcnRlZCBpcyBub3QganVzdCByZWxhdGVkIHRoZSBKdW1ibyBmcmFtZSwgYnV0IHRoZSAKPj4g
+anVtYm8gZnJhbWUKPj4gd291bGQgdHJpZ2dlciB0aGUgZXJyb3IuIFNvIHJhdGUgbGltaXQgcHJp
+bnRpbmcgdGhpcyBraW5kIG9mIG1zZyBpcyAKPj4gbmVlZGVkIGJ1dCBub3QKPj4gdG90YWxseSBo
+aWRlIHRob3NlIG1zZ3MuCj4KPldoaWNoIG90aGVyIGNhc2VzIGRvIHlvdSBoYXZlIGluIG1pbmQ/
+Cj4KPlJhdGUgbGltaXRpbmcgdGhlIG1lc3NhZ2UgaW4gdGhpcyBwYXRjaCBpcyBmaW5lIHdpdGgg
+bWUuIEkgY2FuIGxvb2sKPmludG8gdGhlIEpNTCBwYXRjaCBzZXBhcmF0ZWx5LCBvciB5b3UgY2Fu
+IGdpdmUgaXQgYSB0cnkuCj4KCj4+IFsuLi5dCgoKQ3VycmVudGx5IEkgaGF2ZSBub3QgZGlyZWN0
+IGNhc2VzIGhlcmUsIGJ1dCBmb3Igc29tZSB0b3VnaCBuZXR3b3JrIGVudmlyb25tZXRzLAp0aGVy
+ZSBtYXkgYmUgc29tZSBlcnJvciBwa3RzIHJlY2VpdmVkLCBlc3BlY2lhbGx5IGZvciBvdXIgY3Vz
+dG9tZWQgSFcvU1cgbmV0d29yayByZXF1aXJlbWVudAp3aGljaCBtYXkgdHJpZ2dlciB0aGlzIGtp
+bmQgb2YgbWVzc2FnZS4gCkJ1dCBsaW1pdGluZyB0aGUgSk1MIHJlY2VpdmUgdXBwZXIgbGltaXQg
+ZnJvbSBIVyBpcyBzdGlsbCB2YWx1YWJsZSwgcGVyaGFwcyBpdCBzdGlsbCBuZWVkIG1vcmUKdGVz
+dHMuCgoKVGhhbmtzIGZvciB5b3VyID4KPlRoYW5rcywKCj5OaWNvbGFpCgoKCgoKCgo=
