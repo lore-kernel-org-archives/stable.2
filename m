@@ -1,147 +1,98 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1779340D90
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 06:23:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02691340D90
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 06:24:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791354189; cv=none; b=L6RxtLDe8B5nrJgJGM86gRoIsp6bYzUYifsCGFPlxjCygvMAq1/Z46dCCRTM5Jy3cUTl+VTQre7xJ0IzAv8LhVRLrAPfuxZcbnOI0uBRo0VYh90F1UuiC6vp7mJqF7AOSX20b5aJWBzmG3OKeFFwZp/XnsPdsz1Jg6UwZUlfDSQ=
+	t=1791354283; cv=none; b=YVpDufbdtJu8YdXDDDMS1/yDdEI7gqshI1bc0O7zZtNCs3wYoPROEHVNq9b2UUsojq2BCv2IVdkYj6qp73vjGcAGivyZt3eveEdVBCFqAnttpzgESEmgjnsRvkkkkmkMMoLTGRTO8L+2ar2580wJ82FMjOkkv9qrf3NMP6Nv+Ec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791354189; c=relaxed/simple;
-	bh=KuDhmC+n+J9SNCOXO/gZR18GGFC3KrqtKqU3woaOlcI=;
+	s=arc-20240116; t=1791354283; c=relaxed/simple;
+	bh=p2Y9SgsuYhWhOwsEhvUISERdjIpYFI1CmvQ1P0nj4gE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=k7a124ZpHls54x9M7+BHINr3+MXvFR2f0xXeVkAHdbFpeYDeu2qS7mINZBWsMexg70jYfHuxF0GBKBAcNNB0MctQKoK3R/xxBk1K7LrhJ3NJRv857GImIxw5+g6SoQ7m5cAhxwl/WsSyLLZ1DdZGWOlYhGB3QpXHDvQJoKwtDis=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ca1vrbKe; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=qL3tzFCQs4fy5P3rxGcDS3/2YgRqaVS9tlZgMtHo3n25Ha++yJ9hoWu0hRBkjvv56ZcWCBCHZ4uai9Zvj5dINWQdLL+4StB/9p0DsPEgJJJ+BSbYVdYfa+KvLVsQMnzwgyELXUoLDMSYuN5iAzIMfBYMNeartzHLeaPe4P09GS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QEo+5sYL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ca1vrbKe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98E001F0089B;
-	Wed,  7 Oct 2026 06:23:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QEo+5sYL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FC8B1F0089B;
+	Wed,  7 Oct 2026 06:24:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791354187;
-	bh=9E05GAh+CQWpgY0BaPmJUzf1ElQEdsFMALjel9fIFcI=;
+	s=k20260515; t=1791354282;
+	bh=Nh/KwnVw4hXFM6K89RSqkiQwuucvENon9r8mJRnCgDo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ca1vrbKeQrgl8fLZdGvGtNqThzfcIKA/eNdlsC6KEZURdt0B1zAVfmtyzvt5umqBh
-	 ufZkL0YyBUUWiJkXfaxqVAZA66/GEZV2tHkQ6lfSOh+SnQDDQikNZMy+ymRF2Zspqe
-	 GIHGT1mwm/qQNJ0Woc0YXm1NVlnRnDWxlj1Wa+Q8thMATNnLgOdS6JLEKDo59mc3Vj
-	 A15pi2lypUEPIvmejG/U/o4cxhh/Yq5VyVSuz3Hbc+juExJvwgiuT+DkV5Ch7Kyyaw
-	 FaJ7AOoQPkAg52Pt72u+H12ZxWAHmV5SXNBa/lGfqL5nUfeB1GnuJBkdswpmc5gjCX
-	 BTeWNlFZ/X6kA==
+	b=QEo+5sYLzxc7qxrwlOTPfN1yieo+HZyuGbfUP0YenEMNuLh8CjkgrdqsOHK/DKN7Q
+	 ZHsRId/eD3bNI41lF4Hj84fsQIkjcyv9W2kl+xY5AbXXqrweACQy14Ao5n4N5z/HV9
+	 5vyPFzszHfjD5jCZLrrTv5YV3hjIHEpUAfc5sGkRaOn/xI0+MoOL87ULyjKfLQdset
+	 UMfSo2sDjoWeU6z74v9/qdoNp+tZHsYs0RvaqyHFsMmMBAybqhwLEadJwVOhLMM4ww
+	 b6wYHSM9QFt0tnc0W8+EPGAb+ZL8lN7fxjpn/zgt+sENPM6QWXnM+O++cGjp4sfxre
+	 g2O01RTNCY8cg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
-	Song Li <songl@zju.edu.cn>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+Cc: Felix Fietkau <nbd@nbd.name>,
+	Andrea Pesaresi <andreapesaresi82@gmail.com>,
+	Johannes Berg <johannes.berg@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] iio: adc: ad_sigma_delta: fix use-after-free on unbind
-Date: Wed,  7 Oct 2026 02:23:03 -0400
-Message-ID: <20261007062239.1618854-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] wifi: mac80211: set info->band for 802.3 encap offload frames
+Date: Wed,  7 Oct 2026 02:24:39 -0400
+Message-ID: <20261007062236.1622424-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100621-scoured-monitor-69e9@gregkh>
-References: <2026100621-scoured-monitor-69e9@gregkh>
+In-Reply-To: <2026100534-stonewall-borax-0afd@gregkh>
+References: <2026100534-stonewall-borax-0afd@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+From: Felix Fietkau <nbd@nbd.name>
 
-[ Upstream commit 9ee8306121495d2a25aa5d1bfd519f2748786b83 ]
+[ Upstream commit 4febc02cd02f021f2b6d0768332be643ef14a12d ]
 
-ad_sd_buffer_postenable() allocates sigma_delta->samples_buf with
-devm_krealloc() at runtime, so its devres entry sits after all
-probe-time entries of the driver. devm resources are released in
-reverse allocation order, which means unbind frees samples_buf before
-iio_device_unregister() disables the buffers and detaches the trigger
-pollfunc. The data ready IRQ is still enabled at that point, so
-ad_sd_trigger_handler() can still run and memcpy() incoming samples
-into the freed samples_buf.
+Unlike the 802.11 TX paths, ieee80211_8023_xmit() does not set
+info->band from the channel context on non-MLD interfaces. It stays at
+0, so ieee80211_get_tx_rates() uses the wrong band for these frames.
 
-Fix this by preallocating the buffer in
-devm_ad_sd_setup_buffer_and_trigger(), before the triggered buffer and
-the IRQ are set up, so it is freed only after iio_device_unregister()
-has drained the trigger handler via free_irq(). Size it for the worst
-case of all sequencer slots being active; ad_sd_validate_scan_mask()
-already caps the number of active channels at num_slots.
+Set it the same way as ieee80211_build_hdr(): drop the frame if there is
+no channel context, and leave the band at 0 on MLD interfaces.
 
-This issue was found by an in-house static analysis tool.
-
-Fixes: 8bea9af887de ("iio: adc: ad_sigma_delta: Add sequencer support")
+Reported-by: Andrea Pesaresi <andreapesaresi82@gmail.com>
+Fixes: 50ff477a8639 ("mac80211: add 802.11 encapsulation offloading support")
 Cc: stable@vger.kernel.org
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Reviewed-by: Nuno Sá <nuno.sa@analog.com>
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-[ sashal: Adapted allocation to setup without SPI offload using direct channel scan_type.storagebits access. ]
+Signed-off-by: Felix Fietkau <nbd@nbd.name>
+Link: https://patch.msgid.link/20260926120216.4054712-1-nbd@nbd.name
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+[ sashal: adapted MLD-aware channel-context handling to unconditional vif.chanctx_conf access with out_free cleanup. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/adc/ad_sigma_delta.c | 26 +++++++++++++++-----------
- 1 file changed, 15 insertions(+), 11 deletions(-)
+ net/mac80211/tx.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/iio/adc/ad_sigma_delta.c b/drivers/iio/adc/ad_sigma_delta.c
-index 914274ed899ec..45e0f638c0ed1 100644
---- a/drivers/iio/adc/ad_sigma_delta.c
-+++ b/drivers/iio/adc/ad_sigma_delta.c
-@@ -343,9 +343,8 @@ EXPORT_SYMBOL_NS_GPL(ad_sigma_delta_single_conversion, IIO_AD_SIGMA_DELTA);
- static int ad_sd_buffer_postenable(struct iio_dev *indio_dev)
+diff --git a/net/mac80211/tx.c b/net/mac80211/tx.c
+index 87fc109595959..73b79a9611011 100644
+--- a/net/mac80211/tx.c
++++ b/net/mac80211/tx.c
+@@ -4272,6 +4272,7 @@ static void ieee80211_8023_xmit(struct ieee80211_sub_if_data *sdata,
  {
- 	struct ad_sigma_delta *sigma_delta = iio_device_get_drvdata(indio_dev);
--	unsigned int i, slot, samples_buf_size;
-+	unsigned int i, slot;
- 	unsigned int channel;
--	uint8_t *samples_buf;
- 	int ret;
+ 	struct ieee80211_tx_info *info = IEEE80211_SKB_CB(skb);
+ 	struct ieee80211_local *local = sdata->local;
++	struct ieee80211_chanctx_conf *chanctx_conf;
+ 	struct tid_ampdu_tx *tid_tx;
+ 	u8 tid;
  
- 	if (sigma_delta->num_slots == 1) {
-@@ -378,15 +377,6 @@ static int ad_sd_buffer_postenable(struct iio_dev *indio_dev)
- 			return ret;
- 	}
+@@ -4317,6 +4318,11 @@ static void ieee80211_8023_xmit(struct ieee80211_sub_if_data *sdata,
+ 		sdata = container_of(sdata->bss,
+ 				     struct ieee80211_sub_if_data, u.ap);
  
--	samples_buf_size = ALIGN(slot * indio_dev->channels[0].scan_type.storagebits / 8, 8);
--	samples_buf_size += sizeof(int64_t);
--	samples_buf = devm_krealloc(&sigma_delta->spi->dev, sigma_delta->samples_buf,
--				    samples_buf_size, GFP_KERNEL);
--	if (!samples_buf)
--		return -ENOMEM;
--
--	sigma_delta->samples_buf = samples_buf;
--
- 	spi_bus_lock(sigma_delta->spi->master);
- 	sigma_delta->bus_locked = true;
- 	sigma_delta->keep_cs_asserted = true;
-@@ -620,6 +610,7 @@ static int devm_ad_sd_probe_trigger(struct device *dev, struct iio_dev *indio_de
- int devm_ad_sd_setup_buffer_and_trigger(struct device *dev, struct iio_dev *indio_dev)
- {
- 	struct ad_sigma_delta *sigma_delta = iio_device_get_drvdata(indio_dev);
-+	unsigned int samples_buf_size;
- 	int ret;
- 
- 	sigma_delta->slots = devm_kcalloc(dev, sigma_delta->num_slots,
-@@ -627,6 +618,19 @@ int devm_ad_sd_setup_buffer_and_trigger(struct device *dev, struct iio_dev *indi
- 	if (!sigma_delta->slots)
- 		return -ENOMEM;
- 
-+	/*
-+	 * Worst-case size: all sequencer slots can be active, capped
-+	 * at num_slots by ad_sd_validate_scan_mask().
-+	 */
-+	samples_buf_size =
-+		ALIGN(sigma_delta->num_slots *
-+		      BITS_TO_BYTES(indio_dev->channels[0].scan_type.storagebits),
-+		      sizeof(s64));
-+	samples_buf_size += sizeof(s64);
-+	sigma_delta->samples_buf = devm_kzalloc(dev, samples_buf_size, GFP_KERNEL);
-+	if (!sigma_delta->samples_buf)
-+		return -ENOMEM;
++	chanctx_conf = rcu_dereference(sdata->vif.chanctx_conf);
++	if (unlikely(!chanctx_conf))
++		goto out_free;
++	info->band = chanctx_conf->def.chan->band;
 +
- 	ret = devm_iio_triggered_buffer_setup(dev, indio_dev,
- 					      &iio_pollfunc_store_time,
- 					      &ad_sd_trigger_handler,
+ 	info->flags |= IEEE80211_TX_CTL_HW_80211_ENCAP;
+ 	info->control.vif = &sdata->vif;
+ 
 -- 
 2.53.0
 
