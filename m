@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B0A940EB8D
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 08:42:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3711E40681D
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 08:42:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791362527; cv=none; b=Ke2ZC9c9s/LCeiRo6hS0JllaTvcDNMRw+xPGvUr4z11WX3YGSZcwIH5BDCwOJaBUDDDG0VkNGQd8zs24vaSh0sWrSVyphGM1tTEsibEk5z9r6p9g9Upyt6ebqI8oWn8a4TGP3zBsni3xoqZXAd26WwD3IAoejiQSwWt3KJ35csg=
+	t=1791362528; cv=none; b=ENh2gCa4/ig+ozWyuXa+gZkp4UIzjv/bGQqa5xFBV8xjnM+xNiWCL3qV29faaLNS9ISd5s1sWwMBugHX74Quv3Q2bxZFB3m2wGgphEnRWola499Jbj3FEIT/aKvKRI9gFFLFj72v49iWVGguL68RyFIUabpCY4z3dk6i9sqFrxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791362527; c=relaxed/simple;
-	bh=6P2S2uWgl0lDCpyT0FItESVgyinvAn+CEU6hYqWr5KA=;
+	s=arc-20240116; t=1791362528; c=relaxed/simple;
+	bh=WtOvlcSqrfS905+X+HtepAF2mj1MdTuXNxZ93GFbYAg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DajuO2TwgaAUvWyk12bDs6WGa/fePEX0Y1bVOtklaqMkBp2uYVNYiHNga0z4tqYGR9zvF0u3ozukciBow/J3ADRQYTCBwYWRU+4wNJbT/4Ks29tsU9x0xW94pv5aIJaVBbaIuQZa8TITWepsGPngKwj80N1wGrJQpkPFsyVkBYg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B808F2Dl; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=SBBwPRPavGJUjV0OZ7K5eBt257UBEcpg9lgO99wR0KFaT1cfeOmbdrnmMHbgbUlVc5OHEaaCjOEJYTU9Wz19O8bkXmIvLRrqsduEr1Y+u1hleloEYHbuPXls6bHOLFogl7uZBOhoYz3dblPAtZL7EXEPNIUyZtjT7JIa70S7jro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RPsOpZxW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B808F2Dl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3514E1F0089F;
-	Wed,  7 Oct 2026 08:42:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RPsOpZxW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9FEA1F008A0;
+	Wed,  7 Oct 2026 08:42:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791362525;
-	bh=4XQqtc1/pfaOzH0ihOmAhSIVvsDeaY/hPQN0zcmfJXU=;
+	s=k20260515; t=1791362527;
+	bh=pX1HI61d9hlM6zJrNKup9fLz3wzSnNU7Hyh7qesE1OM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=B808F2Dl3gHwj2y1Ulk/oSlTF0JV2j6MtaidLqUxax0k+XlV8cyntET74YNDT7WWO
-	 btSDyJkWPZ7xkLUAhT7RDfo8Ldwk2eLSxinJKkSTZIz26Vp2bmCz7bPlVKrEwOPH6H
-	 TMGDe7szUwPCAcY7TBd8vq/2M+WFrCU6LOys0WR5ssrwq/1zY/LcgNXIG8Kd/1vTyL
-	 oov+0cA481zmiAfRh61BjC60bCjTprBvrPmhFko+FOJ6ZETU3RGK1Wi4MhTSiGnqGC
-	 IKOITBnTLMjUYDCzLM/TDHsSWqcFiU+zJ+TW6FGkhcbw1uSIhw423oIlcZTbxZ0p/X
-	 NBKqfHwOZfSaw==
+	b=RPsOpZxWTNq/ugmWoJJzzuI1DI7iq0iFQVA1Qp6yS6YT3bqruFCupsw/3yW9qS5Nh
+	 /JcfLnec8axr3IvRWKuCUK2WVunW0dE6RFKeG04FL/1RPiHcOXRuTK3/QSj6IAnc+Z
+	 8syW4bL8/4tS12NvGQ1TZtmavf7/C1oyTefk8TwxH6XYFo8TJj/KxAhL2yv0N3/4MT
+	 V5JQQ336YvjZtvcGiCIZYNY+9WU9YPu6REmZvzHATndp2+cQavXI+rOkKBmm3Xwdq0
+	 CRpMI/d1RM61QRxkSfOV93E7G+svQGOGNeWDPTOy4yqySA4iUidvMNxQb5y7MLTp+a
+	 tf98c5BMNgN0Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: David Lechner <dlechner@baylibre.com>,
-	Nuno Sa <nuno.sa@analog.com>,
+Cc: Nuno Sa <nuno.sa@analog.com>,
+	Alexandru Ardelean <aardelean@baylibre.com>,
 	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/5] iio: buffer: use struct iio_scan_type to simplify code
-Date: Wed,  7 Oct 2026 04:41:56 -0400
-Message-ID: <20261007083721.1749559-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y 4/5] iio: core: add accessors 'masklength'
+Date: Wed,  7 Oct 2026 04:41:57 -0400
+Message-ID: <20261007083721.1749559-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261007083721.1749559-1-sashal@kernel.org>
 References: <2026100618-wooing-curve-b2f5@gregkh>
@@ -47,121 +47,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: David Lechner <dlechner@baylibre.com>
+From: Nuno Sa <nuno.sa@analog.com>
 
-[ Upstream commit 7758562898033a3bd98a24d2a541c930b0fc98e6 ]
+[ Upstream commit de79583ffe794663c53b77f97be814522d4edc4f ]
 
-By using struct iio_scan_type, we can simplify the code by removing
-lots of duplicate pointer dereferences. This make the code a bit easier
-to read.
+'masklength' is supposed to be an IIO private member. However, drivers
+(often in trigger handlers) need to access it to iterate over the
+enabled channels for example (there are other reasons). Hence, a couple
+of new accessors are being added:
 
-This also prepares for a future where channels may have more than one
-scan_type.
+ * iio_for_each_active_channel() - Iterates over the active channels;
+ * iio_get_masklength() - Get length of the channels mask.
 
-Signed-off-by: David Lechner <dlechner@baylibre.com>
-Reviewed-by: Nuno Sa <nuno.sa@analog.com>
-Link: https://lore.kernel.org/r/20240530-iio-add-support-for-multiple-scan-types-v3-2-cbc4acea2cfa@baylibre.com
+The goal of these new accessors is to annotate 'masklength' as private
+as soon as all drivers accessing it are converted to use the new
+helpers.
+
+Signed-off-by: Nuno Sa <nuno.sa@analog.com>
+Reviewed-by: Alexandru Ardelean <aardelean@baylibre.com>
+Link: https://patch.msgid.link/20240702-dev-iio-masklength-private-v1-1-98193bf536a6@analog.com
 Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+
+Implement the masklength getter as a single-evaluation macro with an
+unsigned result so that no new functions are introduced. Retain the
+active-channel iterator and convert the MAX30102 interrupt handler to the
+getter, providing the context required by the subsequent interrupt fix.
+Omit the unrelated scan-type helper from the surrounding upstream context.
+
 Stable-dep-of: f0ea4824deeb ("iio: health: max30102: fix NULL dereference in interrupt handler")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/industrialio-buffer.c | 48 ++++++++++++++++++-------------
- 1 file changed, 28 insertions(+), 20 deletions(-)
+ drivers/iio/health/max30102.c |  2 +-
+ include/linux/iio/iio.h       | 15 +++++++++++++++
+ 2 files changed, 16 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/iio/industrialio-buffer.c b/drivers/iio/industrialio-buffer.c
-index 29b073698636e..c21ced54b7297 100644
---- a/drivers/iio/industrialio-buffer.c
-+++ b/drivers/iio/industrialio-buffer.c
-@@ -367,7 +367,8 @@ static ssize_t iio_show_fixed_type(struct device *dev,
- 				   char *buf)
- {
- 	struct iio_dev_attr *this_attr = to_iio_dev_attr(attr);
--	u8 type = this_attr->c->scan_type.endianness;
-+	const struct iio_scan_type *scan_type = &this_attr->c->scan_type;
-+	u8 type = scan_type->endianness;
+diff --git a/drivers/iio/health/max30102.c b/drivers/iio/health/max30102.c
+index 37e619827e8a1..43c16fcdeae19 100644
+--- a/drivers/iio/health/max30102.c
++++ b/drivers/iio/health/max30102.c
+@@ -293,7 +293,7 @@ static irqreturn_t max30102_interrupt_handler(int irq, void *private)
+ 	struct iio_dev *indio_dev = private;
+ 	struct max30102_data *data = iio_priv(indio_dev);
+ 	unsigned int measurements = bitmap_weight(indio_dev->active_scan_mask,
+-						  indio_dev->masklength);
++						  iio_get_masklength(indio_dev));
+ 	int ret, cnt = 0;
  
- 	if (type == IIO_CPU) {
- #ifdef __LITTLE_ENDIAN
-@@ -376,21 +377,21 @@ static ssize_t iio_show_fixed_type(struct device *dev,
- 		type = IIO_BE;
+ 	mutex_lock(&data->lock);
+diff --git a/include/linux/iio/iio.h b/include/linux/iio/iio.h
+index b0c5d53dc16a6..d04df1c8061b1 100644
+--- a/include/linux/iio/iio.h
++++ b/include/linux/iio/iio.h
+@@ -772,6 +772,21 @@ static inline bool iio_read_acpi_mount_matrix(struct device *dev,
+ }
  #endif
- 	}
--	if (this_attr->c->scan_type.repeat > 1)
-+	if (scan_type->repeat > 1)
- 		return sysfs_emit(buf, "%s:%c%d/%dX%d>>%u\n",
- 		       iio_endian_prefix[type],
--		       this_attr->c->scan_type.sign,
--		       this_attr->c->scan_type.realbits,
--		       this_attr->c->scan_type.storagebits,
--		       this_attr->c->scan_type.repeat,
--		       this_attr->c->scan_type.shift);
-+		       scan_type->sign,
-+		       scan_type->realbits,
-+		       scan_type->storagebits,
-+		       scan_type->repeat,
-+		       scan_type->shift);
- 	else
- 		return sysfs_emit(buf, "%s:%c%d/%d>>%u\n",
- 		       iio_endian_prefix[type],
--		       this_attr->c->scan_type.sign,
--		       this_attr->c->scan_type.realbits,
--		       this_attr->c->scan_type.storagebits,
--		       this_attr->c->scan_type.shift);
-+		       scan_type->sign,
-+		       scan_type->realbits,
-+		       scan_type->storagebits,
-+		       scan_type->shift);
- }
  
- static ssize_t iio_scan_el_show(struct device *dev,
-@@ -689,12 +690,16 @@ static unsigned int iio_storage_bytes_for_si(struct iio_dev *indio_dev,
- 					     unsigned int scan_index)
- {
- 	const struct iio_chan_spec *ch;
-+	const struct iio_scan_type *scan_type;
- 	unsigned int bytes;
++/**
++ * iio_get_masklength - Get length of the channels mask
++ * @indio_dev: the IIO device to get the masklength for
++ */
++#define iio_get_masklength(indio_dev) ((unsigned int)(indio_dev)->masklength)
++
++/**
++ * iio_for_each_active_channel - Iterated over active channels
++ * @indio_dev: the IIO device
++ * @chan: Holds the index of the enabled channel
++ */
++#define iio_for_each_active_channel(indio_dev, chan) \
++	for_each_set_bit((chan), (indio_dev)->active_scan_mask, \
++			 iio_get_masklength(indio_dev))
++
+ ssize_t iio_format_value(char *buf, unsigned int type, int size, int *vals);
  
- 	ch = iio_find_channel_from_si(indio_dev, scan_index);
--	bytes = ch->scan_type.storagebits / 8;
--	if (ch->scan_type.repeat > 1)
--		bytes *= ch->scan_type.repeat;
-+	scan_type = &ch->scan_type;
-+	bytes = scan_type->storagebits / 8;
-+
-+	if (scan_type->repeat > 1)
-+		bytes *= scan_type->repeat;
-+
- 	return bytes;
- }
- 
-@@ -1632,18 +1637,21 @@ static int __iio_buffer_alloc_sysfs_and_mask(struct iio_buffer *buffer,
- 	if (channels) {
- 		/* new magic */
- 		for (i = 0; i < indio_dev->num_channels; i++) {
-+			const struct iio_scan_type *scan_type;
-+
- 			if (channels[i].scan_index < 0)
- 				continue;
- 
-+			scan_type = &channels[i].scan_type;
-+
- 			/* Verify that sample bits fit into storage */
--			if (channels[i].scan_type.storagebits <
--			    channels[i].scan_type.realbits +
--			    channels[i].scan_type.shift) {
-+			if (scan_type->storagebits <
-+			    scan_type->realbits + scan_type->shift) {
- 				dev_err(&indio_dev->dev,
- 					"Channel %d storagebits (%d) < shifted realbits (%d + %d)\n",
--					i, channels[i].scan_type.storagebits,
--					channels[i].scan_type.realbits,
--					channels[i].scan_type.shift);
-+					i, scan_type->storagebits,
-+					scan_type->realbits,
-+					scan_type->shift);
- 				ret = -EINVAL;
- 				goto error_cleanup_dynamic;
- 			}
+ int iio_str_to_fixpoint(const char *str, int fract_mult, int *integer,
 -- 
 2.53.0
 
