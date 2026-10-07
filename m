@@ -1,194 +1,215 @@
 Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAD785275A1
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 17:51:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FB39514769
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 17:53:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791913886; cv=none; b=hnobbpylzVolVOTGRfbPNKA/hFOYnZ8Ry8nsn/+Lrx5erpgk1Fbz/2jAJwxD1J/mUByvwjEhx2pt3ydLLPAFlVzPTTQlubPLS7aW23CE0vRNUYoF0wIYjjHsnlOaoAqBeYyknXEhjojHqlcnPUZICCjNgL6Y2zXu/zEPvW0lSmE=
+	t=1791913988; cv=none; b=GgNzDOZt9oLyNCjS4eV/NoE67m23T9bEj1fwoFodXUhZIXpJM3V8gVcsdPwy9KiQhDwZWPY/YIwG5INgLBrXfJXRKemwd4PQ6qyOj8RxUF+PSdFpim9IuN+VYS9o4SWWn5arwfxYcm1WisPQgoZgs9on8xOX0iVXVcJyuXJX82A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791913886; c=relaxed/simple;
-	bh=JyaYp74hyva8mz2RggMjk+t8RJI4RaB768yDtXt9oRA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lUcotupsKP7JJ138PcvxOsFEZ9Cg0t9W3JWUnLvDm1UuMVmCEpnmYTJ8H8YNr9iAn2cXKNSa2KznMR3zymbfHhvRnt1BBI2eky6JGWheAdkDycEBiPwRz2AED3eaNFCu4LyoxsA07nJ23k+aW77NOU0VGLFC2wCzvORnqSrH5NA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Kaoj2yN7; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=2P1uCRnC; arc=none smtp.client-ip=185.246.84.56
+	s=arc-20240116; t=1791913988; c=relaxed/simple;
+	bh=MF1HCO1uu1j6lxoCnZYJZ5VuSwxHd32R7hfkaz/yxVo=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=cOBx675CuTJqmDIUqlMjpkODJmjfYIKHbSqk6RKruSRxo+6Sd2FsUg8YNJ5gP/e3dYwJywEJndxEymfmpKZW8pgZSpGX0QMqWWurx55ML93X6sXvonXAVF5ko9hE25NYk82bo+2tQhUFvL9mvigRNaqW5U1NMA7Sp10We5rdvRA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=X8w2xhjv; arc=none smtp.client-ip=185.246.84.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Kaoj2yN7";
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="2P1uCRnC"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="X8w2xhjv"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 647941A1219
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 17:51:23 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 3FDDF1A1217
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 17:53:02 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 3822360362
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 17:51:23 +0000 (UTC)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 1330160362
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 17:53:02 +0000 (UTC)
 Received: by mail.galae.net (Postcow, from userid 0)
-	id CCC6211D7183E; Tue, 13 Oct 2026 19:48:24 +0200 (CEST)
+	id 67A4611D718A7; Tue, 13 Oct 2026 19:49:55 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791913882; h=from:subject:date:message-id:to:cc:mime-version:
+	t=1791913981; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=I1e0hByJo0lwlUNMu1e3zjHq/L3qiW6+OWE+PPvPOK4=;
-	b=Kaoj2yN7pM8dbGdNifNj6a649j/HhkyDPVXpGjFJBeOVGCypXefUmT1H0db+Izzw+thCt1
-	31E1jL9nCFzXYmzIJIDisDR1XN6KSJpOsgHtEgjwUKGGdzXfyHlvB8ot1UqjyoyKAvjZKA
-	alZyWNZ8ZQeuyW4nH5wyfVzJl1pj8grQOKTpp9SUepgSaS4gLEDCrETlT6agXTajnLe6nG
-	MSejHlqQ4YN4nBukTLRvxd4bg+7JDrP8bGp5a/Rvf2BLdWEF6ZkX3Fj9VHs8gj+gqP0chE
-	JzUXzQsrnJsebd13b4A9JG2NIiEIMcoGCOMa5k/JhtNG9ibTAp5JSJfzmP+IwQ==
+	bh=D5+69p2VzXOIAfYCm/Asn9KvzPJEf02teLbj6NDuP5M=;
+	b=X8w2xhjvGrVAbPzCaNqTFPaKuIdazVt59V44ns/k3CiOnyTVRikYfSW8A0qbVWUq1z5oZm
+	ve7U9ICFZdj861hk6zNauWTQ276d3AvWtagLIBC+2gUdsbsrIfKNISkGvuWFWIlQkWGz2l
+	VL0ufwUfn6/WtONn6/gdUgEREomCbZG83w6QgJudwDyKHF4q0c38G+Cs+7xZumLfEShLVV
+	vepN34Te9z7yxoGXELVTVkSBbQszQwOaiaAIjSTCQkga98uvE0VykeJVDAKC7TPweOvNfY
+	5Okvy4mW7lKeWWVpjZU3wvGoD0KjqoNkYfI7tsekkr0/0g2b7Ku/PSy20Tj7hw==
 Authentication-Results: mail.galae.net;
 	none
-Received: from mail.galae.net ([172.22.1.253])
-	by 9e7fea892943 with LMTP
-	id SNbrGOvuzGqxHxEAtaWaaQ
-	(envelope-from <herve.codina@bootlin.com>)
-	for <herve.codina@bootlin.com>; Mon, 12 Oct 2026 16:30:03 +0200
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AA4FF11D70508;
-	Mon, 12 Oct 2026 16:29:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791815396; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=I1e0hByJo0lwlUNMu1e3zjHq/L3qiW6+OWE+PPvPOK4=;
-	b=2P1uCRnCsO3Do3ZrcvAShPBPCxTJpHhZ6h65FLDvjj1LaicvmYuNq2DsrCcZeLr/iJvxs9
-	rR60DlGNvC0pwpodOUG3dbA6mzlPbGZR6EfumyT3dA3r3h6/xdkc/D3Y1Xvtak1aeMx0pz
-	22xk5i9RJaIXaJtP4uWeK1zgCSpfbpbBtPzazxD0CIyGWWNDoFlahteBaTnmzTUfIPVCd/
-	HeaWg+hEp4doOil+nv+xeHcy/w73W3pwFQtI2PlXa3dj1KwLlIug5yWVlC3MLkFdvnXjQP
-	vnixOKQkA6mfbQaB8NiN75dd1/62w+sp4hZ60v28xTwyUB2OXqEH5Ad+NR451A==
-From: Herve Codina <herve.codina@bootlin.com>
-To: Richard Cheng <icheng@nvidia.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	David Rhodes <david.rhodes@cirrus.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Dan Williams <djbw@kernel.org>,
-	Ira Weiny <iweiny@kernel.org>,
-	Li Ming <ming.li@zohomail.com>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Lizhi Hou <lizhi.hou@amd.com>
-Cc: driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	patches@opensource.cirrus.com,
-	linux-gpio@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-cxl@vger.kernel.org,
-	Allan Nielsen <allan.nielsen@microchip.com>,
-	Horatiu Vultur <horatiu.vultur@microchip.com>,
-	Daniel Machon <daniel.machon@microchip.com>,
-	Steen Hegelund <steen.hegelund@microchip.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v13 09/10] PCI: of: Remove fwnode_dev_initialized() call for a PCI root bridge node
-Date: Mon, 12 Oct 2026 16:28:23 +0200
-Message-ID: <20261012142826.159178-10-herve.codina@bootlin.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261012142826.159178-1-herve.codina@bootlin.com>
-References: <20261012142826.159178-1-herve.codina@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 07 Oct 2026 11:33:03 +0200
+Message-Id: <DLYI3O7PFN94.V7VH3HSLKEMD@bootlin.com>
+Subject: Re: [PATCH net v4] net: macb: rate limit netdev error info print in
+ the data path
+Cc: <stable@vger.kernel.org>, "Conor Dooley" <conor.dooley@microchip.com>,
+ "Andrew Lunn" <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, "Eric Dumazet" <edumazet@google.com>, "Jakub
+ Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, "Jeff
+ Garzik" <jeff@garzik.org>, "Haavard Skinnemoen" <hskinnemoen@atmel.com>,
+ "open list:NETWORKING DRIVERS" <netdev@vger.kernel.org>, "open list"
+ <linux-kernel@vger.kernel.org>
+To: <taozj888@163.com>
+From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261007053211.572073-1-taozj888@163.com>
+In-Reply-To: <20261007053211.572073-1-taozj888@163.com>
+X-TUID: 609Wtw/Oe2JT
 X-Last-TLS-Session-Version: None
-X-Rspamd-Queue-Id: CCC6211D7183E
-X-Spamd-Result: default: False [1.34 / 30.00];
-	BAYES_HAM(-1.16)[82.34%];
-	DATE_IN_PAST(1.00)[27];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
+X-Rspamd-Queue-Id: 67A4611D718A7
+X-Spamd-Result: default: False [-1.60 / 30.00];
+	BAYES_HAM(-4.50)[97.52%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	DATE_IN_PAST(1.00)[152];
+	MV_CASE(0.50)[];
 	MIME_GOOD(-0.10)[text/plain];
-	RCVD_NO_TLS_LAST(0.10)[];
-	URIBL_BLOCKED(0.00)[localhost:rdns,localhost:helo,nvidia.com:email,bootlin.com:mid,bootlin.com:email];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MAILCOW_DOMAIN_HEADER_FROM(0.00)[bootlin.com];
 	BCC(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
 	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[herve.codina@bootlin.com];
-	RCPT_COUNT_TWELVE(0.00)[43];
-	PREVIOUSLY_DELIVERED(0.00)[herve.codina@bootlin.com];
-	DKIM_SIGNED(0.00)[bootlin.com:s=dkim];
 	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[nvidia.com,lunn.ch,kernel.org,linuxfoundation.org,google.com,opensource.cirrus.com,cirrus.com,linux.intel.com,gmail.com,stgolabs.net,intel.com,zohomail.com,bootlin.com,amd.com];
-	FROM_EQ_ENVFROM(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TAGGED_RCPT(0.00)[netdev];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	RCVD_COUNT_ZERO(0.00)[0];
+	FREEMAIL_TO(0.00)[163.com];
 	TO_DN_SOME(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	MAILCOW_DOMAIN_HEADER_FROM(0.00)[bootlin.com]
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	URIBL_BLOCKED(0.00)[microchip.com:email,localhost:rdns,localhost:helo,garzik.org:email,atmel.com:email,bootlin.com:email,bootlin.com:mid,bootlin.com:url,lunn.ch:email,davemloft.net:email];
+	MID_RHS_MATCH_FROM(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	DKIM_SIGNED(0.00)[bootlin.com:s=dkim]
 
-During the instantiation of devices described by a device-tree overlay
-applied on a PCI device, devlink displays the following kind of debug
-messages instead of creating the expected links:
-   'Not linking xxxx - might never become dev'
+Hello taozj888,
 
-Without those expected links, the device removal order cannot be
-correct.
+I was reviewing your patch but you sent V4 at the same time!
 
-Those debug traces are printed by fw_devlink_create_devlink(). In our
-use case, they are all printed because the supplier of the link has at
-least one of its ancestor with its fwnode flag FWNODE_FLAG_INITIALIZED
-set.
+On Wed Oct 7, 2026 at 7:32 AM CEST,  wrote:
+> From: taozijin <taozj888@163.com>
 
-The culprit ancestor is the PCI root bridge.
+We need full names in kernel patches, you have that in your
+Signed-off-by.
 
-The fwnode related to the PCI root bridge is created dynamically by the
-of_pci_make_host_bridge_node() function. During this creation
-fwnode_dev_initialized() is called which set the FWNODE_FLAG_INITIALIZED
-flag.
+> Now the MACB ethernet driver print the netdev error information
+> directly by netdev_err(), which would lead to a large number of
+> error information print if there was a significant number of
+> error or just jumbo packets exceeding the MTU received when booting.
+> For example, it would print a large number of:
+>
+> macb PHYT0036:00 eth0: not whole frame pointed by descriptor
+> macb PHYT0036:00 eth0: not whole frame pointed by descriptor
+> ...
+>
+> in gem_rx() by received a large number of packets without
+> RX_EOF flag set, especially with unknown packet
+> type that would penetrate the hardware offload for the IP packets.
+>
+> The unlimited prints here would greatly bother and delay
+> the system booting process unless the source stop sending
+> packets since they occupy the console output bandwidth and
+> other processes have to wait for the completion of printing those
+> messages.
+>
+> So rate limit the netdev error information print in the receive
+> and transmit data path.
+>
+> Fixes: 89e5785fc8a6 ("[PATCH] Atmel MACB ethernet driver")
+> Cc: stable@vger.kernel.org
 
-Calling fwnode_dev_initialized() tells devlink that the device related
-to this node is handled out of the driver core. This is not correct in
-our case. Indeed the device related to this firmware node is handled
-using driver core mechanisms and is fully compliant devlink
-expectations.
+What happened? This doesn't match your discussion with Nicolai.
+https://lore.kernel.org/netdev/3e1515e162d084e2200eeaa6074bfbaf@tipi-net.de=
+/
 
-Simply remove the fwnode_dev_initialized() call. With that done, the
-devlink debug messages are no more displayed and links that were missing
-are correctly created.
+TLDR, because those threads are a mess:
+ - why drop start_xmit diff?
+ - fix your patch autorship
+ - check your changelog!
+ - check your fixes!
 
-Fixes: 1f340724419e ("PCI: of: Create device tree PCI host bridge node")
-Cc: stable@vger.kernel.org
-Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-Acked-by: Bjorn Helgaas <bhelgaas@google.com>
-Reviewed-by: Richard Cheng <icheng@nvidia.com>
----
- drivers/pci/of.c | 1 -
- 1 file changed, 1 deletion(-)
+Thanks,
 
-diff --git a/drivers/pci/of.c b/drivers/pci/of.c
-index 8914bfa25dc1..0a5797652e18 100644
---- a/drivers/pci/of.c
-+++ b/drivers/pci/of.c
-@@ -894,7 +894,6 @@ void of_pci_make_host_bridge_node(struct pci_host_bridge *bridge)
- 	 */
- 	of_node_set_flag(np, OF_POPULATED);
- 	fw_devlink_set_device(&np->fwnode, &bridge->dev);
--	fwnode_dev_initialized(&np->fwnode, true);
- 
- 	ret = of_changeset_apply(cset);
- 	if (ret)
--- 
-2.55.0
+--
+Th=C3=A9o Lebrun, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
+text:
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 07 Oct 2026 11:33:03 +0200
+Message-Id: <DLYI3O7PFN94.V7VH3HSLKEMD@bootlin.com>
+Subject: Re: [PATCH net v4] net: macb: rate limit netdev error info print in
+ the data path
+Cc: <stable@vger.kernel.org>, "Conor Dooley" <conor.dooley@microchip.com>,
+ "Andrew Lunn" <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, "Eric Dumazet" <edumazet@google.com>, "Jakub
+ Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, "Jeff
+ Garzik" <jeff@garzik.org>, "Haavard Skinnemoen" <hskinnemoen@atmel.com>,
+ "open list:NETWORKING DRIVERS" <netdev@vger.kernel.org>, "open list"
+ <linux-kernel@vger.kernel.org>
+To: <taozj888@163.com>
+From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261007053211.572073-1-taozj888@163.com>
+In-Reply-To: <20261007053211.572073-1-taozj888@163.com>
+X-TUID: MurW8kMqMYNV
+
+Hello taozj888,
+
+I was reviewing your patch but you sent V4 at the same time!
+
+On Wed Oct 7, 2026 at 7:32 AM CEST,  wrote:
+> From: taozijin <taozj888@163.com>
+
+We need full names in kernel patches, you have that in your
+Signed-off-by.
+
+> Now the MACB ethernet driver print the netdev error information
+> directly by netdev_err(), which would lead to a large number of
+> error information print if there was a significant number of
+> error or just jumbo packets exceeding the MTU received when booting.
+> For example, it would print a large number of:
+>
+> macb PHYT0036:00 eth0: not whole frame pointed by descriptor
+> macb PHYT0036:00 eth0: not whole frame pointed by descriptor
+> ...
+>
+> in gem_rx() by received a large number of packets without
+> RX_EOF flag set, especially with unknown packet
+> type that would penetrate the hardware offload for the IP packets.
+>
+> The unlimited prints here would greatly bother and delay
+> the system booting process unless the source stop sending
+> packets since they occupy the console output bandwidth and
+> other processes have to wait for the completion of printing those
+> messages.
+>
+> So rate limit the netdev error information print in the receive
+> and transmit data path.
+>
+> Fixes: 89e5785fc8a6 ("[PATCH] Atmel MACB ethernet driver")
+> Cc: stable@vger.kernel.org
+
+What happened? This doesn't match your discussion with Nicolai.
+https://lore.kernel.org/netdev/3e1515e162d084e2200eeaa6074bfbaf@tipi-net.de=
+/
+
+TLDR, because those threads are a mess:
+ - why drop start_xmit diff?
+ - fix your patch autorship
+ - check your changelog!
+ - check your fixes!
+
+Thanks,
+
+--
+Th=C3=A9o Lebrun, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
