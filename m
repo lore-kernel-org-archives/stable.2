@@ -1,85 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DACE723394D;
-	Wed,  7 Oct 2026 01:20:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D09A33B6EF;
+	Wed,  7 Oct 2026 01:27:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791336007; cv=none; b=uuJ1s8Bd/1t0bxy/3dRGCzexQJlMetRHVkvfHeSejN1q/2PGIxBLvL74yGhwEwA2TxsZyT2pDwrrxUzciQMdviKS8y6/qO8+kKICXVypOVVQUzeVH00FQEe1iTtuwbG+cp7R7UTzV86hr0bYmhKGhXBzB/RaHn6voXlAyofiUUA=
+	t=1791336448; cv=none; b=Bc9MmD6DvWkEFaHmHaQgmKWAnp2E7/vrWTEeRaAIP2uHfr0jTizJEvRCCmW78v+pHzadVsGVwZJsDhC8we1OEpsjGMVUc3MUr+vGuVbGBKkooIvA8x5jQwYJvSh/nFoRl5Acb/XqTDhDlWt815UXnqE4q9lVn7ed+JvociSJBNQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791336007; c=relaxed/simple;
-	bh=sPqKzW7EXdrhU2y/nZySIhOtDCR30MECad3/SnoPBdc=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=dSmeszsfd5emaNVAdFoVMQs/Z29wQbCvg6+hco1Mx2lXq2x3uSfSbAdQuhqo5K/w8weHDaODRkIp0qnpHLs4srMrU1w6ONUro+dQyGN9v7qfD3ooAuovTMCYEjhkkM6vGZkaUBUM9rc7nrRLGjqzGzESQ/KX7mgzCJnoVQSf1II=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JeIpuNzx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791336448; c=relaxed/simple;
+	bh=1SDnVWqu8JplbNjQCDGu4OsfoCACpWs1K3FKSVR9AhY=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=PcT/Q450BA0klPSXhLQUGqg8fwrYT3bHCrKIskkV2heMjs5aAWk+AYjiUkAn+7BUxj1gPsrIImKcpLdj+WSYxNnZZRq7c7ay+Gz90JnKK4tGr+9FP9dK6oNsUlGJYuNPLeAz6+B84nvth1tuZHzperbgda1xb2y610qSAHdsvUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=ejhSkZfl; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JeIpuNzx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F2511F0089B;
-	Wed,  7 Oct 2026 01:20:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791336006;
-	bh=3prIrymvBNTMW1sX2+jDJgpCgI4QCmk5VEQvUPtMe8g=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=JeIpuNzxFn2VkVZS3R8BEinooonKU5G+DX5LQiFSEaedYYuOhK1ZZtSJPXGO/pUkD
-	 th4i1/I8oocyuCo3q33pUlcGDOwC4zZVM5U+725IrrgUxSNxPZcN7hbmw4H0hRpjNa
-	 +RZUrgz82KRIFZxaOB0EpjdxQxQaLlkec0WGoHlvggKF5x1IhNVbbkV4auQk1+kRLx
-	 6P4g16R83olkklX70bElEA8/Z+Il6ueeyj9fCI8VQm6Tnx7TAqgV/ODI3E4/KEsDfx
-	 qjHdtGpa8zeJzPwwMePeItDHhE6HWTC4asGMNjAoDgCt3aNiWQeffTmnIG9v4oxIZD
-	 zS26RBhXG/79w==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 773653806541;
-	Wed,  7 Oct 2026 01:20:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="ejhSkZfl"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6971QtjcE3427983, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1791336415; bh=1SDnVWqu8JplbNjQCDGu4OsfoCACpWs1K3FKSVR9AhY=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=ejhSkZflc/ltUJjYnkGhaWt7j7/9vK8Swou+ZBmA9nxvI3VJTRCyBWov30espLyJq
+	 dRgOAnSl/9MSk5dSbQRgGPoCn08VFvvLJ4mGgE8PXDajsF0ElIDPDH8Vmecd5T9cma
+	 RIJsxEv61Ff1tBv4DdDZZiMJMptoU3Uzd5Z+iBJHPdH5ceoFrAYfKzqK1YA3TJMxDY
+	 vdsdD4SUB3rGmXxM1+BIF5/r397lg1g3qHxD4NqDmc5kvB0iinzNjUQhqh/OhMA1BT
+	 baqJZjwKfNwVs+gVKRB/x7dr28w6jSZUw6ORs8lOxRvJKWxnYrqCYvoBpQonswDGWk
+	 I/sghttnXGUEA==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6971QtjcE3427983
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 7 Oct 2026 09:26:55 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 7 Oct 2026 09:26:55 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 7 Oct 2026 09:26:54 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Wed, 7 Oct 2026 09:26:54 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Luka Gejak <luka.gejak@linux.dev>, Alastair D'Silva
+	<alastair@d-silva.org>, "linux-wireless@vger.kernel.org"
+	<linux-wireless@vger.kernel.org>, Kalle Valo <kvalo@kernel.org>
+CC: Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Jernej Skrabec
+	<jernej.skrabec@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: RE: [PATCH rtw-next v4 2/4] wifi: rtw88: sdio: Track running state
+ and cancel TX worker on stop
+Thread-Topic: [PATCH rtw-next v4 2/4] wifi: rtw88: sdio: Track running state
+ and cancel TX worker on stop
+Thread-Index: AQHdVKaABn3K541ouEKSWwSRfxdAa7bvvepAgABJhoCAAULt8A==
+Date: Wed, 7 Oct 2026 01:26:54 +0000
+Message-ID: <1b8a86e84c474693bfa71f39e946e7e6@realtek.com>
+References: <20261005084849.3109337-1-alastair@d-silva.org>
+ <20261005084849.3109337-3-alastair@d-silva.org>
+ <6665409e1d374c1face4936b827a6a9d@realtek.com>
+ <ccc69689fe2a2cccc39d40221056722e24263f2f@linux.dev>
+In-Reply-To: <ccc69689fe2a2cccc39d40221056722e24263f2f@linux.dev>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
 Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net 1/3] can: dev: init_can_skb(): restore skb header
- initialization
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179133600528.2856050.12084143172913855186.git-patchwork-notify@kernel.org>
-Date: Wed, 07 Oct 2026 01:20:05 +0000
-References: <20261001151905.1556270-2-mkl@pengutronix.de>
-In-Reply-To: <20261001151905.1556270-2-mkl@pengutronix.de>
-To: Marc Kleine-Budde <mkl@pengutronix.de>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org,
- linux-can@vger.kernel.org, kernel@pengutronix.de, ndaugoing@gmail.com,
- stable@vger.kernel.org, socketcan@hartkopp.net, quchaosheng000406@163.com,
- shaunakkdatar@gmail.com
 
-Hello:
-
-This series was applied to netdev/net.git (main)
-by Marc Kleine-Budde <mkl@pengutronix.de>:
-
-On Thu,  1 Oct 2026 17:14:23 +0200 you wrote:
-> From: zjamg <ndaugoing@gmail.com>
-> 
-> Commit 9f10374bb024 ("can: remove private CAN skb headroom infrastructure")
-> removed the skb_reset_mac_header()/skb_reset_network_header()/
-> skb_reset_transport_header() calls from init_can_skb(). As a result, RX
-> skbs from alloc_can_skb() and friends again carry mac_header = 0xFFFF.
-> When such an skb reaches packet_rcv_spkt() (SOCK_PACKET), the push length
-> calculation overflows and triggers skb_under_panic -> kernel BUG -> full
-> machine panic.
-> 
-> [...]
-
-Here is the summary with links:
-  - [net,1/3] can: dev: init_can_skb(): restore skb header initialization
-    https://git.kernel.org/netdev/net/c/0a04c0cb8606
-  - [net,2/3] can: fix unique skb identifier regression under RPS
-    https://git.kernel.org/netdev/net/c/7093c3b8314a
-  - [net,3/3] usb: f81604: fix struct f81604_int_data size mismatch
-    https://git.kernel.org/netdev/net/c/7f85d1170575
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+THVrYSBHZWphayA8bHVrYS5nZWpha0BsaW51eC5kZXY+IHdyb3RlOg0KPiA+ID4gIEBAIC0xNzAz
+LDYgKzE3MTIsOSBAQCBzdGF0aWMgdm9pZCBydHdfc2Rpb190eF9oYW5kbGVyKHN0cnVjdCB3b3Jr
+X3N0cnVjdCAqd29yaykNCj4gPiA+ICBydHdkZXYgPSB3b3JrX2RhdGEtPnJ0d2RldjsNCj4gPiA+
+ICBydHdzZGlvID0gKHN0cnVjdCBydHdfc2RpbyAqKXJ0d2Rldi0+cHJpdjsNCj4gPiA+DQo+ID4g
+PiAgKyBpZiAoIXJ0d3NkaW8tPnJ1bm5pbmcpDQo+ID4gPiAgKyByZXR1cm47DQo+ID4gPiAgKw0K
+PiA+ID4NCj4gPiBJIGRvbid0IHRoaW5rIHdlIG5lZWQgdGhpcywgc2luY2UgeW91IGFkZGVkIGNh
+bmNlbF9kZWxheWVkX3dvcmtfc3luYygpIGluDQo+ID4gcnR3X3NkaW9fc3RvcCgpLg0KPiANCj4g
+SSB0aGluayB3ZSBzaG91bGQga2VlcCB0aGUgY2hlY2suIFRoZSB0eCB3b3JrIGFybXMgdGhlIFNE
+SU8gd29yayBhdCB0aGUgZW5kLA0KPiBhbmQgc3RvcCBkb2VzIG5vdCBjYW5jZWwgaXQ6DQo+IA0K
+PiAgICAgICAgIHJ0d19oY2lfdHhfa2lja19vZmYocnR3ZGV2KTsNCj4gDQo+ICAgICAgICAgY2Fu
+Y2VsX3dvcmtfc3luYygmcnR3ZGV2LT5jMmhfd29yayk7DQo+ICAgICAgICAgY2FuY2VsX3dvcmtf
+c3luYygmcnR3ZGV2LT51cGRhdGVfYmVhY29uX3dvcmspOw0KPiAgICAgICAgIGNhbmNlbF9kZWxh
+eWVkX3dvcmtfc3luYygmcnR3ZGV2LT53YXRjaF9kb2dfd29yayk7DQo+ICAgICAgICAgY2FuY2Vs
+X2RlbGF5ZWRfd29ya19zeW5jKCZjb2V4LT5idF9yZWxpbmtfd29yayk7DQo+ICAgICAgICAgY2Fu
+Y2VsX2RlbGF5ZWRfd29ya19zeW5jKCZjb2V4LT5idF9yZWVuYWJsZV93b3JrKTsNCj4gICAgICAg
+ICBjYW5jZWxfZGVsYXllZF93b3JrX3N5bmMoJmNvZXgtPmRlZnJlZXplX3dvcmspOw0KPiAgICAg
+ICAgIGNhbmNlbF9kZWxheWVkX3dvcmtfc3luYygmY29leC0+d2xfcmVtYWluX3dvcmspOw0KPiAg
+ICAgICAgIGNhbmNlbF9kZWxheWVkX3dvcmtfc3luYygmY29leC0+YnRfcmVtYWluX3dvcmspOw0K
+PiAgICAgICAgIGNhbmNlbF9kZWxheWVkX3dvcmtfc3luYygmY29leC0+d2xfY29ubmVjdGluZ193
+b3JrKTsNCj4gICAgICAgICBjYW5jZWxfZGVsYXllZF93b3JrX3N5bmMoJmNvZXgtPmJ0X211bHRp
+X2xpbmtfcmVtYWluX3dvcmspOw0KPiAgICAgICAgIGNhbmNlbF9kZWxheWVkX3dvcmtfc3luYygm
+Y29leC0+d2xfY2NrbG9ja193b3JrKTsNCg0KSW4gcnR3X3NkaW9fc3RvcCgpLCBpdCBkb2VzIGNh
+bmNlbF9kZWxheWVkX3dvcmtfc3luYygmcnR3c2Rpby0+dHhfaGFuZGxlcl9kYXRhLT53b3JrKTsN
+CklzIGl0IG5vdCBlbm91Z2g/DQoNCj4gDQo+IHNvIGEga2ljayBjYW4gbGFuZCBhZnRlciB0aGUg
+Y2FuY2VsIGhhcyBydW4sIGFuZCBvbmx5IHRoaXMgZmxhZw0KPiBrZWVwcyB0aGUgaXRlbSBvZmYg
+dGhlIHBvd2VyZWQtZG93biBkZXZpY2UuDQo+IA0KPiBBbHNvIEkgYmVsaWV2ZSB0aGlzIHNlcmll
+cyBzaG91bGQgYmUgdGVzdGVkIG9uIGhhcmR3YXJlIHRvIGVuc3VyZQ0KPiBub3RoaW5nIGJyZWFr
+cy4NCg0KV2hlbiBjYWxsaW5nIHJ0d19zZGlvX3N0b3AoKSwgSSB0aGluayBtYWM4MDIxMSBkb2Vz
+bid0IFRYIGFueW1vcmUNCnRvIGRyaXZlciwgYW5kIHRoZW4gcnR3X3NkaW9fc3RvcCgpIGRvZXMN
+CiAxLiBydHdzZGlvLT5ydW5uaW5nID0gZmFsc2U7DQogICAgLy8gcHJldmVudCB0byBzY2hlZHVs
+ZSBydHdzZGlvLT50eF9oYW5kbGVyX2RhdGEtPndvcmsgYWdhaW4NCiAyLiBydHdfc2Rpb19kaXNh
+YmxlX2ludGVycnVwdChydHdkZXYpOw0KICAgIC8vIHByZXZlbnQgdG8gcnVuIHJ0d19zZGlvX2hh
+bmRsZV9pbnRlcnJ1cHQgYWdhaW4NCiAzLiBjYW5jZWxfZGVsYXllZF93b3JrX3N5bmMoJnJ0d3Nk
+aW8tPnR4X2hhbmRsZXJfZGF0YS0+d29yayk7DQogICAgLy8gZmx1c2gvd2FpdCB0aGUgcGVuZGlu
+ZyBydHdfc2Rpb190eF9oYW5kbGVyDQoNCkFueXRoaW5nIEkgbWlzcz8gQ291bGQgeW91IHBvaW50
+IG91dCBhIGNhc2UgdGhpcyBpcyBuZWVkZWQ/DQoNClBpbmctS2UNCg0K
