@@ -1,148 +1,222 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CDD92931D5
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 06:10:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF56E3033CB
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 06:10:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791353408; cv=none; b=oGpmPdY+QmK3OBikyzpFVJ36nL6DDmyzmxdQ0ABL8SOe8j9bO9T7RRoM2aMz7uMllR87yuMuLWnOkDqqAbr6z0L9FyKHR5J6twJ4VNiFqCTqcG69sEYRXmaUx5wwwe+f8phmKDwo9WqaB9IeeSZtBfP8QyLsO9mvcY+jnKRHJ/U=
+	t=1791353441; cv=none; b=q/ZZOeZ3kopQu6YLlEx+ECrD3cjfKVL0QJ7uiT2tavBmz7+nQ8g5X5fmniKgp0Ygg7VvVmyS5c0DLPo2KGpToUvI66LRHhVKRXTbJ0z5AYnD83H5dlM5zIOaK8Tt0BRnWydATY/0lJJhuhyBYex4Bs94X/5Amqx2ISi6/W42Pb0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791353408; c=relaxed/simple;
-	bh=4qff99gGUezC9oXBblcR5HUqJOPwymeiHHmMIq0E5NM=;
+	s=arc-20240116; t=1791353441; c=relaxed/simple;
+	bh=QwryMkouQlkSbiBi4uuimO1alTnnQF2AkNfjY6WEp4Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QgmDDEqyHIZZrtoZZMyplegCcvgO6jLCPMnuMu+dNKAfypkKRIcWf9bYyhoFwmKU9ELB4G7KzveiXKU8rMqwV3sR9OdGlqUwnlEkHRC+DftJqidM3xWqjv4f3Al+sLqmIU1vgZ4dfo1FNyUMmFKHUY40526Oobepyxxa9KVI3Qc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GHSS/+1Z; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=WE5ZbmpD5zjnmeeExyFr1xCd+Lgap5Er+KloQVnryVEZncJq3Z/WbbOTxoxUEThhr/D+nnTq51Wx/ukAql4QpfQCDU4y7PgGggEdGC/sBAymAd1ZSIERwv1JEtMcQxcMjOHorxK88lYudZq1zp8oHibyEV85Qf3tCIcnWWnjCyI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZFgIQhNk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GHSS/+1Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17F361F0089B;
-	Wed,  7 Oct 2026 06:10:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZFgIQhNk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DBBF1F0089B;
+	Wed,  7 Oct 2026 06:10:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791353405;
-	bh=6dbFY2567bXivwo9ZHKuUyI+3eMpKmbF/wFW+Odyyng=;
+	s=k20260515; t=1791353439;
+	bh=Px1xUzorvFd8u2HlLDlXWWDB0a/FRjn0JiKfgwU91+Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GHSS/+1ZI7L+qWwswJLBbHo8VMyv4EYZDwaG965RQvXXVoIrf8g5KY7YSmkHiiapc
-	 Ry+Rofp65EqD+wpXIATpuYhwv5iM6q8oiPTqdlmx8kb1z7yekf5G9jK1UUmJxIYnaf
-	 Yj2gJYtrnbceR/xlKaW95jfGlRguOi1RDd8z6CiGz3w9xlwA2NUTCc+ol2FYVAScac
-	 l5G9fAzuax0KoNe/D45b7JopGwapsHQP4TNnc923Rr5ni3hON++Z9OwOuxy/EKv5qy
-	 UxA8jreT64ZzjN+pNxY31ej/xQ7l64kOmu+yt9pIHTsP2k6OC+auBnqnFpmclbsXli
-	 5mhEPuIOZlypQ==
+	b=ZFgIQhNkV8y1L3sBJbDjQn7SMdxq3A5raIZd8Am0nCw9gS/k+xNnLwGht3hhvaHiZ
+	 nai8GqEjvZ/U6sMnCDyIijzFYBa7J2vMq2ztMlPTi5v0Nts9Kw62hSJcyX/Hf8y72T
+	 0z+c6CFreGRWlRpQ7lzyzPIhiabKpTkl/6jGF3H2ndbj3+CmY/PzysEFI4RNR9IRNP
+	 bddu/0NGM7Q6oq2ASB1faRRkdh0Mfj5mLVETvJTpuMNvGRMwTuaVKR2gWpGbreD4Yq
+	 kyp6HGo1Fm+5ZsDBioXlEn/sCIDpxtSRuduTjo/UvlAnAFd5oCnvUJQyh3abjU9cl9
+	 2El8bDjIwY1fQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
-	Song Li <songl@zju.edu.cn>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+Cc: Paulo Alcantara <pc@manguebit.org>,
+	David Howells <dhowells@redhat.com>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] iio: adc: ad_sigma_delta: fix use-after-free on unbind
-Date: Wed,  7 Oct 2026 02:10:01 -0400
-Message-ID: <20261007060914.1497746-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] smb: client: only require read lease for size-extending preallocate
+Date: Wed,  7 Oct 2026 02:10:34 -0400
+Message-ID: <20261007060907.1517870-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100620-buzz-swell-fdb1@gregkh>
-References: <2026100620-buzz-swell-fdb1@gregkh>
+In-Reply-To: <2026100621-celibate-caboose-640b@gregkh>
+References: <2026100621-celibate-caboose-640b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+From: Paulo Alcantara <pc@manguebit.org>
 
-[ Upstream commit 9ee8306121495d2a25aa5d1bfd519f2748786b83 ]
+[ Upstream commit b5d59e7270d078ab28a9c4b4d11dc3eb24671988 ]
 
-ad_sd_buffer_postenable() allocates sigma_delta->samples_buf with
-devm_krealloc() at runtime, so its devres entry sits after all
-probe-time entries of the driver. devm resources are released in
-reverse allocation order, which means unbind frees samples_buf before
-iio_device_unregister() disables the buffers and detaches the trigger
-pollfunc. The data ready IRQ is still enabled at that point, so
-ad_sd_trigger_handler() can still run and memcpy() incoming samples
-into the freed samples_buf.
+smb3_simple_falloc() refuses any fallocate that clears FALLOC_FL_KEEP_SIZE
+with -EOPNOTSUPP whenever the inode is not read caching:
 
-Fix this by preallocating the buffer in
-devm_ad_sd_setup_buffer_and_trigger(), before the triggered buffer and
-the IRQ are set up, so it is freed only after iio_device_unregister()
-has drained the trigger handler via free_irq(). Size it for the worst
-case of all sequencer slots being active; ad_sd_validate_scan_mask()
-already caps the number of active channels at num_slots.
+	/* if file not oplocked can't be sure whether asking to extend size */
+	if (!CIFS_CACHE_READ(cifsi))
+		if (!keep_size) {
+			...
+			return rc;
+		}
 
-This issue was found by an in-house static analysis tool.
+As with smb3_zero_range(), the read lease is only needed to trust the
+cached size when deciding whether the request extends the file. When it
+is not held, the size can instead be fetched from the server, which is
+authoritative, rather than refusing the request outright: after
+flushing, query the server's end of file and take the larger of it and
+the cached size for the interior-vs-extend decision. The larger of the
+two is used because the server's end of file reflects another client's
+growth while the cached size reflects this client's own writes that may
+not have reached the server yet; using the server size alone would
+wrongly treat an interior request as extending when a range flush left
+an extending write unwritten.
 
-Fixes: 8bea9af887de ("iio: adc: ad_sigma_delta: Add sequencer support")
+smb3_simple_fallocate_range(), which performs the actual interior
+emulation, decided whether the range already lies past EOF from its own
+i_size_read(inode) rather than the old_eof computed above. In the
+leaseless case, that is exactly the stale, undershooting size this
+patch works around: a genuinely interior range can read as past EOF by
+that stale count, which skips the FSCTL_QUERY_ALLOCATED_RANGES check
+entirely and overwrites already-allocated server data with zeroes
+instead of only filling the holes. Pass old_eof into
+smb3_simple_fallocate_range() and use it for that comparison instead of
+re-deriving a second, inconsistent one.
+
+Rejecting interior requests is observed as generic/363 randomly failing
+against Windows Server with
+
+	do_preallocate: fallocate: Operation not supported
+
+fsx issues an interior, non-KEEP_SIZE preallocate while the inode is
+transiently not read caching: the server had just downgraded the file's
+lease from RWH to RH after breaking the write caching, and the ensuing
+handle reopen/revalidation left CIFS_CACHE_READ momentarily clear. The
+range sat within the server's end of file, so no extend was needed, yet
+it was refused and fsx aborted. This keeps the emulation correct even
+when a genuine lease break from another client leaves the inode
+without read caching -- the case the -EOPNOTSUPP guard turned into a
+hard failure. The extra flush and round trip only happen when both
+keep_size is false and no read lease is held; every other case is
+unchanged.
+
+Fixes: 9ccf3216238c ("Add support for original fallocate")
+Reviewed-by: David Howells <dhowells@redhat.com>
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: Matthew Wilcox <willy@infradead.org>
+Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
+Cc: Shyam Prasad N <sprasad@microsoft.com>
+Cc: Tom Talpey <tom@talpey.com>
+Cc: Bharath SM <bharathsm@microsoft.com>
 Cc: stable@vger.kernel.org
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Reviewed-by: Nuno Sá <nuno.sa@analog.com>
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-[ sashal: Made the allocation unconditional because the offload conditional is absent. ]
+[ sashal: Adapted EOF handling to use SMB2_query_info() and the two-argument cifs_resize_file_locked() API. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/adc/ad_sigma_delta.c | 27 ++++++++++++++++-----------
- 1 file changed, 16 insertions(+), 11 deletions(-)
+ fs/smb/client/smb2ops.c | 36 +++++++++++++++++++++++++++---------
+ 1 file changed, 27 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/iio/adc/ad_sigma_delta.c b/drivers/iio/adc/ad_sigma_delta.c
-index 5d0bfabc69ea9..00be58118931f 100644
---- a/drivers/iio/adc/ad_sigma_delta.c
-+++ b/drivers/iio/adc/ad_sigma_delta.c
-@@ -344,9 +344,8 @@ EXPORT_SYMBOL_NS_GPL(ad_sigma_delta_single_conversion, IIO_AD_SIGMA_DELTA);
- static int ad_sd_buffer_postenable(struct iio_dev *indio_dev)
+diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
+index 91e1e7b52bfc7..52f8e430d88b0 100644
+--- a/fs/smb/client/smb2ops.c
++++ b/fs/smb/client/smb2ops.c
+@@ -3675,7 +3675,8 @@ static int smb3_simple_fallocate_write_range(unsigned int xid,
+ static int smb3_simple_fallocate_range(unsigned int xid,
+ 				       struct cifs_tcon *tcon,
+ 				       struct cifsFileInfo *cfile,
+-				       loff_t off, loff_t len)
++				       loff_t off, loff_t len,
++				       loff_t old_eof)
  {
- 	struct ad_sigma_delta *sigma_delta = iio_device_get_drvdata(indio_dev);
--	unsigned int i, slot, samples_buf_size;
-+	unsigned int i, slot;
- 	unsigned int channel;
--	uint8_t *samples_buf;
- 	int ret;
- 
- 	if (sigma_delta->num_slots == 1) {
-@@ -379,15 +378,6 @@ static int ad_sd_buffer_postenable(struct iio_dev *indio_dev)
- 			return ret;
+ 	struct file_allocated_range_buffer in_data, *out_data = NULL, *tmp_data;
+ 	struct inode *inode = d_inode(cfile->dentry);
+@@ -3691,7 +3692,7 @@ static int smb3_simple_fallocate_range(unsigned int xid,
+ 		goto out;
  	}
  
--	samples_buf_size = ALIGN(slot * indio_dev->channels[0].scan_type.storagebits / 8, 8);
--	samples_buf_size += sizeof(int64_t);
--	samples_buf = devm_krealloc(&sigma_delta->spi->dev, sigma_delta->samples_buf,
--				    samples_buf_size, GFP_KERNEL);
--	if (!samples_buf)
--		return -ENOMEM;
--
--	sigma_delta->samples_buf = samples_buf;
--
- 	spi_bus_lock(sigma_delta->spi->controller);
- 	sigma_delta->bus_locked = true;
- 	sigma_delta->keep_cs_asserted = true;
-@@ -626,6 +616,8 @@ static int devm_ad_sd_probe_trigger(struct device *dev, struct iio_dev *indio_de
- int devm_ad_sd_setup_buffer_and_trigger(struct device *dev, struct iio_dev *indio_dev)
- {
- 	struct ad_sigma_delta *sigma_delta = iio_device_get_drvdata(indio_dev);
-+	const struct iio_scan_type *scan_type = &indio_dev->channels[0].scan_type;
-+	unsigned int samples_buf_size;
- 	int ret;
+-	if (off >= i_size_read(inode)) {
++	if (off >= old_eof) {
+ 		rc = smb3_simple_fallocate_write_range(xid, tcon, cfile,
+ 						       off, len, buf);
+ 		goto out;
+@@ -3815,14 +3816,31 @@ static long smb3_simple_falloc(struct file *file, struct cifs_tcon *tcon,
  
- 	sigma_delta->slots = devm_kcalloc(dev, sigma_delta->num_slots,
-@@ -633,6 +625,19 @@ int devm_ad_sd_setup_buffer_and_trigger(struct device *dev, struct iio_dev *indi
- 	if (!sigma_delta->slots)
- 		return -ENOMEM;
- 
-+	/*
-+	 * Worst-case size: all sequencer slots can be active, capped
-+	 * at num_slots by ad_sd_validate_scan_mask().
-+	 */
-+	samples_buf_size =
-+		ALIGN(sigma_delta->num_slots *
-+		      BITS_TO_BYTES(scan_type->storagebits),
-+		      sizeof(s64));
-+	samples_buf_size += sizeof(s64);
-+	sigma_delta->samples_buf = devm_kzalloc(dev, samples_buf_size, GFP_KERNEL);
-+	if (!sigma_delta->samples_buf)
-+		return -ENOMEM;
+ 	trace_smb3_falloc_enter(xid, cfile->fid.persistent_fid, tcon->tid,
+ 				tcon->ses->Suid, off, len);
+-	/* if file not oplocked can't be sure whether asking to extend size */
+-	if (!CIFS_CACHE_READ(cifsi))
+-		if (!keep_size) {
 +
- 	ret = devm_iio_triggered_buffer_setup(dev, indio_dev,
- 					      &iio_pollfunc_store_time,
- 					      &ad_sd_trigger_handler,
++	if (!keep_size && !CIFS_CACHE_READ(cifsi)) {
++		unsigned long long server_eof;
++
++		rc = filemap_write_and_wait(inode->i_mapping);
++		if (rc) {
+ 			trace_smb3_falloc_err(xid, cfile->fid.persistent_fid,
+ 				tcon->tid, tcon->ses->Suid, off, len, rc);
+ 			free_xid(xid);
+ 			return rc;
+ 		}
++		netfs_wait_for_outstanding_io(inode);
++
++		rc = SMB2_query_info(xid, tcon, cfile->fid.persistent_fid,
++				     cfile->fid.volatile_fid, &file_inf);
++		if (rc) {
++			trace_smb3_falloc_err(xid, cfile->fid.persistent_fid,
++				tcon->tid, tcon->ses->Suid, off, len, rc);
++			free_xid(xid);
++			return rc;
++		}
++		server_eof = le64_to_cpu(file_inf.EndOfFile);
++		/* Only use the larger EOF to decide whether we're extending. */
++		old_eof = max_t(loff_t, old_eof, server_eof);
++	}
+ 
+ 	/*
+ 	 * Extending the file
+@@ -3846,7 +3864,7 @@ static long smb3_simple_falloc(struct file *file, struct cifs_tcon *tcon,
+ 			}
+ 
+ 			rc = smb3_simple_fallocate_range(xid, tcon, cfile,
+-							 off, len);
++							 off, len, old_eof);
+ 			if (rc) {
+ 				spin_lock(&inode->i_lock);
+ 				cifsi->time = 0;
+@@ -3925,7 +3943,7 @@ static long smb3_simple_falloc(struct file *file, struct cifs_tcon *tcon,
+ 		}
+ 	}
+ 
+-	if ((keep_size == true) || (i_size_read(inode) >= off + len)) {
++	if (keep_size || old_eof >= off + len) {
+ 		/*
+ 		 * At this point, we are trying to fallocate an internal
+ 		 * regions of a sparse file. Since smb2 does not have a
+@@ -3942,7 +3960,7 @@ static long smb3_simple_falloc(struct file *file, struct cifs_tcon *tcon,
+ 		 */
+ 		if (len <= 1024 * 1024) {
+ 			rc = smb3_simple_fallocate_range(xid, tcon, cfile,
+-							 off, len);
++							 off, len, old_eof);
+ 			goto out;
+ 		}
+ 
+@@ -3954,7 +3972,7 @@ static long smb3_simple_falloc(struct file *file, struct cifs_tcon *tcon,
+ 		 * ie potentially making a few extra pages at the beginning
+ 		 * or end of the file non-sparse via set_sparse is harmless.
+ 		 */
+-		if ((off > 8192) || (off + len + 8192 < i_size_read(inode))) {
++		if (off > 8192 || off + len + 8192 < old_eof) {
+ 			rc = -EOPNOTSUPP;
+ 			goto out;
+ 		}
 -- 
 2.53.0
 
