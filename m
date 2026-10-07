@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91B4B37E5D8
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 07:04:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89FFF3F3278
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 07:12:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791356646; cv=none; b=gyPvOvVZ5hLrS8QhD8uwERoMneiZ7r1SyCl3XaHF46YW0gVR14zs5s9/Ia72fOUBDV7PMnHl1TMU3/Q29zF/j2ooY3F3/a2508Np/nFjoPG9ayWng7BizWV9y7p1SDyRj2On9lrzUya8Kqx+QgOcWs+Y40sqRghNgM7+0PcUG2o=
+	t=1791357170; cv=none; b=pp0lud8wxvGhYdMrkZuOwRHxjxJWuv81bxfPqNUdQ6NnoKZ5N5rFCxVjfKUMQZlyTtrvlrZwKycjBI7bjb61HAoB7hR5SscVqjBwN0wj47AcgiEBCii1hB5T5VGFmixT/MvzKPrXRZ40MdNW+U1iz6jPCkaoKB7qoINQkwpN6ME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791356646; c=relaxed/simple;
-	bh=AJ/qZ5QziDAZX0FUutDcORxbcAPVg7ctUlI7AHASWa4=;
+	s=arc-20240116; t=1791357170; c=relaxed/simple;
+	bh=cTDYcmA10lt2XYgXfFsAmN92sdHx9AZp8Wdn9ASVH04=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LVsygrbPwXO+EY5bv/rhESPGiP+AO6BBrg/HbwjskJtA5D2jWWIiY43noErK+IfYa8mPYp9PSzedydbSvnQnXIjwj5BMJSB4uCp9E1AmlaCKDIHop9xKHg9qAfN/hOCbp8g3WO47u6EilO7r4kO7guX/neadFcpCExeMuwtYfwk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QRjvK7+Z; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=LIb9V4z1ZcfPWQErStq/TE4aK7modmlQ7XQABrbIIk7F2fv58EG2HN388E/Y1tZziIvliDI8Pe/+AHdtw6r5/vnpBB0tzicS4Dr9iTLwIxeT+mUBruQbfjauHGKYKkG+2X2ZOYgK7QiOkZ4HEBYm09WlFgckBy56rovzAoyW09w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FjNKshRU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QRjvK7+Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BCEF1F0089B;
-	Wed,  7 Oct 2026 07:04:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FjNKshRU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED99A1F0089B;
+	Wed,  7 Oct 2026 07:12:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791356645;
-	bh=ovbclQBOcMm3AL6zsZKaG/86G2Z2kM/1rZNP/jl17U0=;
+	s=k20260515; t=1791357169;
+	bh=LYkJC6wXFVtyUJJc1cEaXqaaPjxWHk+7v0BCmzQPqcw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QRjvK7+ZlUECL4B/lhwBssRBs3ugPpt6BWtxJ4ZVAB/0mK6/XqApr/KNu8OGJjZaq
-	 Dl3hWcG/wn3bSqB8L7oDXN5wVUlCjqcy4kTDpquGRwDlVD1QOAhgMM5SaX0dN5M7Ml
-	 fBjuWeo/YM+VNcIkaXEQfx07b1EllpD+3Tw1pn1k/1Uf8XD7EUk1RXH+sW6HTxAq36
-	 R0EbLRE2v61SVHhp83Z1vEBEjOAwpTViUFZktWbMQ3OhmDBlcML6qlBSBArONjO5La
-	 NRms8shpanCxgDxl1cK7vzCqq8tfHFdpsVjgntUgbHP+bY/5ZwAyPUJngxZGmLLzPF
-	 rBrFp7yLxKqKA==
+	b=FjNKshRUcuYBcnA5i/Id3gCq/2T3+fKPfZfuAcehaZcs+4MjRe+Fz/NgVNDiRIs/Y
+	 BG7rIOtnCbJaSZRdl7qByHQQ8dx67X5kGnVhHWHMkz+Brx3Vky03j/BfX0uiAQbRcV
+	 BptF5TCvoA4gesr8jCIz1yXmU5nSVgqxfj8qSu9RjnG7W1lqA5Vd5s2iF6uVOGSKrE
+	 NqXnk6S+lkDHn60MsF4O65CKKNneB+4bG+Uf3ajG3mAIwPcakGs2rXx6RFoGXXGyU1
+	 WxXNR0dYuvnthJ/BB/61UlPQiEYwmJdXPUIfS747Ac3V+OtPeG8aftsDT0JsJ/5GQj
+	 NPNkFqUgfIstg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>,
-	Stefan Teodorescu <fane@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
+Cc: Cong Nguyen <congnt264@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] KVM: SVM: Use the active VMCB's MSR bitmap when checking if MSR is intercepted
-Date: Wed,  7 Oct 2026 03:04:01 -0400
-Message-ID: <20261007070255.1483312-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] iio: adc: max1363: sign-extend bipolar differential channel reads
+Date: Wed,  7 Oct 2026 03:12:44 -0400
+Message-ID: <20261007071152.1694320-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100546-opt-ungraded-e3bc@gregkh>
-References: <2026100546-opt-ungraded-e3bc@gregkh>
+In-Reply-To: <2026100624-payback-oval-084c@gregkh>
+References: <2026100624-payback-oval-084c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,45 +46,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sean Christopherson <seanjc@google.com>
+From: Cong Nguyen <congnt264@gmail.com>
 
-[ Upstream commit 9e06bbb9ade7cdf28d4a3b5b14e5812881c8df85 ]
+[ Upstream commit 91908c0a78baddc8572aa3ab69e62ee2eb496ba4 ]
 
-Use the MSR permission bitmap of the active VMCB instead of assuming that
-KVM is always using vmcb02's bitmap when L2 is active, as KVM uses msrpm02
-if and only if L1 wants to intercept MSR accesses, i.e. if and only if KVM
-needs to merge msprm01 with msrpm12.
+MAX1363 differential channels are bipolar, but max1363_read_single_chan()
+masks the raw value to the ADC resolution without sign-extending it.
+Negative differential readings are therefore reported to userspace as
+large positive values (e.g. -1 as 4095 on a 12-bit part).
 
-Don't bother tracking the virtual address of the bitmap that's being used,
-as __va() is cheap on x86, and caching the virtual address would introduce
-yet another source of potentially stale information.
+Sign-extend the masked value from the resolution bit for differential
+channels. Single-ended channels are unipolar and are left unchanged.
 
-Fixes: b2ac58f90540 ("KVM/SVM: Allow direct access to MSR_IA32_SPEC_CTRL")
+Fixes: d1325cf45077 ("Staging: IIO: max1363 ADC driver")
 Cc: stable@vger.kernel.org
-Reported-by: Stefan Teodorescu <fane@google.com>
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Message-ID: <20260826195833.844526-1-seanjc@google.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-[ sashal: adapted direct svm access to to_svm(vcpu) for the existing helper signature. ]
+Assisted-by: Claude:claude-opus-4
+Signed-off-by: Cong Nguyen <congnt264@gmail.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/kvm/svm/svm.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/iio/adc/max1363.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index 97783bf50a3f3..41a4ee2aaa4c4 100644
---- a/arch/x86/kvm/svm/svm.c
-+++ b/arch/x86/kvm/svm/svm.c
-@@ -616,8 +616,7 @@ static bool msr_write_intercepted(struct kvm_vcpu *vcpu, u32 msr)
- 	u32 offset;
- 	u32 *msrpm;
+diff --git a/drivers/iio/adc/max1363.c b/drivers/iio/adc/max1363.c
+index 5304235d733f1..d5afb9440d1b5 100644
+--- a/drivers/iio/adc/max1363.c
++++ b/drivers/iio/adc/max1363.c
+@@ -406,6 +406,14 @@ static int max1363_read_single_chan(struct iio_dev *indio_dev,
+ 		}
+ 		data = rxbuf[0];
+ 	}
++
++	/*
++	 * Differential channels are bipolar and the device returns the sample
++	 * in two's complement, so sign-extend it from the resolution bit.
++	 */
++	if (chan->differential)
++		data = sign_extend32(data, st->chip_info->bits - 1);
++
+ 	*val = data;
  
--	msrpm = is_guest_mode(vcpu) ? to_svm(vcpu)->nested.msrpm:
--				      to_svm(vcpu)->msrpm;
-+	msrpm = __va(__sme_clr(to_svm(vcpu)->vmcb->control.msrpm_base_pa));
- 
- 	offset    = svm_msrpm_offset(msr);
- 	bit_write = 2 * (msr & 0x0f) + 1;
+ error_ret:
 -- 
 2.53.0
 
