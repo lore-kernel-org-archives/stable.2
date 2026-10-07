@@ -1,49 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38DDB347BD4
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 05:37:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79D843F12E3
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 05:44:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791351437; cv=none; b=eOtzuETu9WpuQt6CdAo4A07m2zRY0e0nQYf5bQ4+V9Hms/cIErZ1/omWB55J0iJf2APRNdU+8KYXkdkoqw8ZdzNIgQX1zURy4IcdCfzGQUG6S7lOq7Jt2SlW8Shs2ebJBahWTBNx+RLf6GDcPWdgM7v6JJG4/NUTrx9dJ7h0+8Y=
+	t=1791351859; cv=none; b=ekXfSHqVPB+olABeZulB2Q3axFi1kZ5cEF5fFxeMm7v4mgr4fShKqugr97SlV6M7FwFgrMWhU+0ZEOP6T511DZubVN2NsKjgLAjrcvsfW8/cvxdW0IN/o5TImx+R0Xad/GW8GLoobmDT8/eq1tkZfGRDtmGYU8O/j/4sTO9TOJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791351437; c=relaxed/simple;
-	bh=d9PCGZ0HZgzDcb2rdEIa+6kWUC3RLrei+iGP9os8Nls=;
+	s=arc-20240116; t=1791351859; c=relaxed/simple;
+	bh=Zd83TWjv+DWIpBJAXlVMzEqNdptLlRuDFeXtZqpFqYc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=p8WFsxdiq70/5fKsEziOCMuTbHkJ2BOrtfuxrSNgn96vbIJZEcbD7rtaRdzFPKGHy9rrpq9KFHkGFkyac1jxohkzTWlm4epuYJFXb9cZkH4KMglOe7OIGVmheqLxAaFRHsK/gZ7siumwUyCjcwHxnN7tweFdBZVsQZh1LLXuD+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZJCb9DwM; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=P0b9W0/RxPf0aP6T4J+G4UHflfZvLSx5vYqA10de3DFK9FB06Pn//kwQlEv83r1c+CqxO6XE2U+9/jDlEc6AMm5FcadqCqRlHxBoxqRZgEXHUprqShswo1dPjKoS07Wsb1I9uQmdPmPVbZCOBzkV5fqNG6BHk/ihtN6Rg1ya0pc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ioz16tjg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZJCb9DwM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EE6B1F0089D;
-	Wed,  7 Oct 2026 05:37:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ioz16tjg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36DDF1F0089B;
+	Wed,  7 Oct 2026 05:44:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791351435;
-	bh=n7fJM3rJUP+JT1Qa9H1s4y+DvyieCJY3Od4wMMXl8X0=;
+	s=k20260515; t=1791351858;
+	bh=9VtGm6PYdcxNt0Zc+vBZzeeeOJZsn7iLsuvOtcIETts=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZJCb9DwMV6mnjsaNlNZJs8GCmhGEbLX/a/0VPCFg9bR+sm1+Gb7WjdQmRMoZfDMhF
-	 8BMWLyyiBaX9t7gH7w02U9I2vrpPJgO6MvCHdAonfTpc+XlYlxftXV4eLI5Xeu4Sur
-	 XWjQSVUOm0ywELOiMcnfBoZrfpXcNtM2B8sRRE4XkojPCf3v6KG2oOlerioSPAD/8+
-	 J2l/mxIpebCHee/gmwyQMa8RVIH8yh5CisyM8ZlGTP6jqEkliOyl/FZ4Vg+r0jADUi
-	 6ZRBfnQA5rBfS3yLYtT1lddnOPsjqX0Ojrwf6xvOaIc5gr0Ug6gTuwmzJjEf9OLO1L
-	 MDJAOpQ9BBkdw==
+	b=ioz16tjgbLXsL3MA3as1JSuXKhMNsnnfVatwG39tC9MOFUU2rDEfezcYcdbDQGk8V
+	 uUwUbXOvv3aUiJjDCyG/AyEmmg3WZDLmn6OaqRe+kYVqBH1wtsJRfLlEgOV4/e/QNk
+	 owKkQB0aXAKFEiYzX9kVeIBmFG3dRXq5p/tmXby61QBm7+ATekFxnMc7XUffTxXiha
+	 wz1xPVfR7RVp2ZbaI4sf27VfHPOijUgs9fEK3gvs7nMl2OOGrJhRQZn2QS6jiDzzpL
+	 1cI35DeQjJizK4/UebFi/iFkAEai/6Xw7sO9OUlxUt+yPWMNY10EeOr9O4NEnQYbcb
+	 bj8ucai/2hnrA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Paulo Alcantara <pc@manguebit.org>,
-	David Howells <dhowells@redhat.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
+Cc: Matti Vaittinen <mazziesaccount@gmail.com>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] smb: client: discard post-EOF pagecache when extending a file via zero range
-Date: Wed,  7 Oct 2026 01:37:11 -0400
-Message-ID: <20261007052613.1248093-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] iio: accel: kx022a: Use cleanup.h helpers
+Date: Wed,  7 Oct 2026 01:44:14 -0400
+Message-ID: <20261007054404.1487956-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100529-sludge-wasting-0d0a@gregkh>
-References: <2026100529-sludge-wasting-0d0a@gregkh>
+In-Reply-To: <2026100642-onslaught-extruding-e802@gregkh>
+References: <2026100642-onslaught-extruding-e802@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,52 +45,201 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Paulo Alcantara <pc@manguebit.org>
+From: Matti Vaittinen <mazziesaccount@gmail.com>
 
-[ Upstream commit da4fe97fb6c730d9c94a115c7bfa6f98e0d578d0 ]
+[ Upstream commit 725521e1f485d4687790f2e459271f1ad6af64d5 ]
 
-smb3_zero_range() removed the pagecache only for the range being zeroed,
-so when it extends the file the folio straddling the old EOF - which may
-hold data dirtied past EOF through an mmap - was never dropped and became
-visible as file content once the file was extended.
+A few functions in KX022A need to use mutex for protecting the
+enabling/disabling of the measurement while configurations are being
+made. Some of the functions can be slightly simplified by using the
+__cleanup based scoped mutexes, which allows dropping the goto based
+unlocking at error path.
 
-Lower the discard boundary to the smaller of the zero-range offset and the
-old EOF.
+Simplify error paths using guard(mutex).
 
-Fixes: 72c419d9b073 ("cifs: fix smb3_zero_range so it can expand the file-size when required")
-Reviewed-by: David Howells <dhowells@redhat.com>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Matthew Wilcox <willy@infradead.org>
-Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
-Cc: Shyam Prasad N <sprasad@microsoft.com>
-Cc: Tom Talpey <tom@talpey.com>
-Cc: Bharath SM <bharathsm@microsoft.com>
-Cc: stable@vger.kernel.org
-[ sashal: Adjusted context due to the missing netfs_wait_for_outstanding_io() call. ]
+Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
+Link: https://patch.msgid.link/4785f841ad5f131356ba78b4f3c76f676d86a2e8.1732783834.git.mazziesaccount@gmail.com
+Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Stable-dep-of: e65e128b51a3 ("iio: accel: kionix-kx022a: Prevent memory leak and fix state")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/smb2ops.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/iio/accel/kionix-kx022a.c | 61 ++++++++++++-------------------
+ 1 file changed, 23 insertions(+), 38 deletions(-)
 
-diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
-index 887ffa77aa183..a82abe2e8ce14 100644
---- a/fs/smb/client/smb2ops.c
-+++ b/fs/smb/client/smb2ops.c
-@@ -3283,8 +3283,11 @@ static long smb3_zero_range(struct file *file, struct cifs_tcon *tcon,
- 	/*
- 	 * We zero the range through ioctl, so we need remove the page caches
- 	 * first, otherwise the data may be inconsistent with the server.
-+	 *
-+	 * Start at the old EOF when extending so the folio straddling it, which
-+	 * may hold data written past EOF through an mmap, is dropped too.
- 	 */
--	truncate_pagecache_range(inode, offset, offset + len - 1);
-+	truncate_pagecache_range(inode, min(offset, i_size), offset + len - 1);
+diff --git a/drivers/iio/accel/kionix-kx022a.c b/drivers/iio/accel/kionix-kx022a.c
+index db78a1945956d..1e4ba5602dbf4 100644
+--- a/drivers/iio/accel/kionix-kx022a.c
++++ b/drivers/iio/accel/kionix-kx022a.c
+@@ -5,6 +5,7 @@
+  * ROHM/KIONIX accelerometer driver
+  */
  
- 	/* if file not oplocked can't be sure whether asking to extend size */
- 	rc = -EOPNOTSUPP;
++#include <linux/cleanup.h>
+ #include <linux/delay.h>
+ #include <linux/device.h>
+ #include <linux/interrupt.h>
+@@ -447,7 +448,7 @@ static void kx022a_reg2scale(unsigned int val, unsigned int *val1,
+ 	*val2 = kx022a_scale_table[val][1];
+ }
+ 
+-static int kx022a_turn_on_off_unlocked(struct kx022a_data *data, bool on)
++static int __kx022a_turn_on_off(struct kx022a_data *data, bool on)
+ {
+ 	int ret;
+ 
+@@ -468,7 +469,7 @@ static int kx022a_turn_off_lock(struct kx022a_data *data)
+ 	int ret;
+ 
+ 	mutex_lock(&data->mutex);
+-	ret = kx022a_turn_on_off_unlocked(data, false);
++	ret = __kx022a_turn_on_off(data, false);
+ 	if (ret)
+ 		mutex_unlock(&data->mutex);
+ 
+@@ -479,7 +480,7 @@ static int kx022a_turn_on_unlock(struct kx022a_data *data)
+ {
+ 	int ret;
+ 
+-	ret = kx022a_turn_on_off_unlocked(data, true);
++	ret = __kx022a_turn_on_off(data, true);
+ 	mutex_unlock(&data->mutex);
+ 
+ 	return ret;
+@@ -911,18 +912,19 @@ static int kx022a_fifo_disable(struct kx022a_data *data)
+ {
+ 	int ret = 0;
+ 
+-	ret = kx022a_turn_off_lock(data);
++	guard(mutex)(&data->mutex);
++	ret = __kx022a_turn_on_off(data, false);
+ 	if (ret)
+ 		return ret;
+ 
+ 	ret = regmap_clear_bits(data->regmap, data->ien_reg, KX022A_MASK_WMI);
+ 	if (ret)
+-		goto unlock_out;
++		return ret;
+ 
+ 	ret = regmap_clear_bits(data->regmap, data->chip_info->buf_cntl2,
+ 				KX022A_MASK_BUF_EN);
+ 	if (ret)
+-		goto unlock_out;
++		return ret;
+ 
+ 	data->state &= ~KX022A_STATE_FIFO;
+ 
+@@ -930,12 +932,7 @@ static int kx022a_fifo_disable(struct kx022a_data *data)
+ 
+ 	kfree(data->fifo_buffer);
+ 
+-	return kx022a_turn_on_unlock(data);
+-
+-unlock_out:
+-	mutex_unlock(&data->mutex);
+-
+-	return ret;
++	return __kx022a_turn_on_off(data, true);
+ }
+ 
+ static int kx022a_buffer_predisable(struct iio_dev *idev)
+@@ -958,33 +955,29 @@ static int kx022a_fifo_enable(struct kx022a_data *data)
+ 	if (!data->fifo_buffer)
+ 		return -ENOMEM;
+ 
+-	ret = kx022a_turn_off_lock(data);
++	guard(mutex)(&data->mutex);
++	ret = __kx022a_turn_on_off(data, false);
+ 	if (ret)
+ 		return ret;
+ 
+ 	/* Update watermark to HW */
+ 	ret = kx022a_fifo_set_wmi(data);
+ 	if (ret)
+-		goto unlock_out;
++		return ret;
+ 
+ 	/* Enable buffer */
+ 	ret = regmap_set_bits(data->regmap, data->chip_info->buf_cntl2,
+ 			      KX022A_MASK_BUF_EN);
+ 	if (ret)
+-		goto unlock_out;
++		return ret;
+ 
+ 	data->state |= KX022A_STATE_FIFO;
+ 	ret = regmap_set_bits(data->regmap, data->ien_reg,
+ 			      KX022A_MASK_WMI);
+ 	if (ret)
+-		goto unlock_out;
+-
+-	return kx022a_turn_on_unlock(data);
+-
+-unlock_out:
+-	mutex_unlock(&data->mutex);
++		return ret;
+ 
+-	return ret;
++	return __kx022a_turn_on_off(data, true);
+ }
+ 
+ static int kx022a_buffer_postenable(struct iio_dev *idev)
+@@ -1052,7 +1045,7 @@ static irqreturn_t kx022a_irq_thread_handler(int irq, void *private)
+ 	struct kx022a_data *data = iio_priv(idev);
+ 	irqreturn_t ret = IRQ_NONE;
+ 
+-	mutex_lock(&data->mutex);
++	guard(mutex)(&data->mutex);
+ 
+ 	if (data->trigger_enabled) {
+ 		iio_trigger_poll_nested(data->trig);
+@@ -1067,8 +1060,6 @@ static irqreturn_t kx022a_irq_thread_handler(int irq, void *private)
+ 			ret = IRQ_HANDLED;
+ 	}
+ 
+-	mutex_unlock(&data->mutex);
+-
+ 	return ret;
+ }
+ 
+@@ -1078,32 +1069,26 @@ static int kx022a_trigger_set_state(struct iio_trigger *trig,
+ 	struct kx022a_data *data = iio_trigger_get_drvdata(trig);
+ 	int ret = 0;
+ 
+-	mutex_lock(&data->mutex);
++	guard(mutex)(&data->mutex);
+ 
+ 	if (data->trigger_enabled == state)
+-		goto unlock_out;
++		return 0;
+ 
+ 	if (data->state & KX022A_STATE_FIFO) {
+ 		dev_warn(data->dev, "Can't set trigger when FIFO enabled\n");
+-		ret = -EBUSY;
+-		goto unlock_out;
++		return -EBUSY;
+ 	}
+ 
+-	ret = kx022a_turn_on_off_unlocked(data, false);
++	ret = __kx022a_turn_on_off(data, false);
+ 	if (ret)
+-		goto unlock_out;
++		return ret;
+ 
+ 	data->trigger_enabled = state;
+ 	ret = kx022a_set_drdy_irq(data, state);
+ 	if (ret)
+-		goto unlock_out;
+-
+-	ret = kx022a_turn_on_off_unlocked(data, true);
+-
+-unlock_out:
+-	mutex_unlock(&data->mutex);
++		return ret;
+ 
+-	return ret;
++	return __kx022a_turn_on_off(data, true);
+ }
+ 
+ static const struct iio_trigger_ops kx022a_trigger_ops = {
 -- 
 2.53.0
 
