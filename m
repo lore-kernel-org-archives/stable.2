@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 986224772B9
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 09:02:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A6D948E0C4
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 09:02:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791363777; cv=none; b=a1QEHDfoYBgYtMH/5YX9d71HKcK2QCSSzk99n1KEYQIrEERpjF2Ks517F4oYh8rtNjg9ujBy6OEAY1ClHUmiNoG9CoM82E01m4Km96dDgyaSWNsIWWiU4LoeClAch1+ANglvsgptW5KR6IItX/P/X/3MexRtV2EO4PfCq9zxYxg=
+	t=1791363910; cv=none; b=qVW1gWlizBXYXv4kZ35rZ9az3AN+cFBhaxd2B+ilyjWTZqh7d6ydPcrbarpuxzoLMVbUpcugULDTpp8sCpWiZLXlUWjofinvelTUSoNr4HMV5n8NiZ4rnMAmareHdux4UcuzMabt1Y5R8dWlVuAXpeq71IwldH8oG06Z5PYWUjs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791363777; c=relaxed/simple;
-	bh=J1i0aONphVmt/VcCexLdyxzKuXgtUn3+lDHwKMOcNyY=;
+	s=arc-20240116; t=1791363910; c=relaxed/simple;
+	bh=q0skNT+OErA26u/79ObJitjXCkPakTlIC5QNb5O71Xc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HmscQj2lFEX0cpYmKi+Mfmwy8VmyDQVyXvAfKtx0B8YdfBLeKSiU6xBw/gGpmniwH7Nl6Qk6EnYUzchBgw9xCVMFfLyM0rAZ3yxacGM2h7HaAO0bjSrB5bJgp43xkNRfRzOvm/7a8GYtm7DGurugXYzBHCnN7IITuZP3TCZtHVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=adWa429Q; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Xs1sU20+151hf9xon8AL7nYtx4g5rDsdHdgzIPu6X2E+ZtcIUYUtED1dVk9s0Ni8CF7FAZ9JyfsyYraoZ+B2GQZ/Mo2qAT2+woEaFJnzu17mbBfRAc5ojmivHafMdd0sUeoLWZ5ftzQ047zFYBOD53vf36p6kESSG1u5/lIngJA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LVb5NyVo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="adWa429Q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 495571F00A38;
-	Wed,  7 Oct 2026 09:02:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LVb5NyVo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B7691F00922;
+	Wed,  7 Oct 2026 09:02:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791363748;
-	bh=HzbfCxMHAcnT8gL4hygPNUlGdZBqmev67/G/055k/eg=;
+	s=k20260515; t=1791363751;
+	bh=5QAI5JPwvRYAqtA90BgaEtmtg65daTnp+WvKyhSSUkI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=adWa429Qtu1HuiihPrjlxht1yjdvQBOjNgXSxgz9jrI496IhxXrgh4wZoRI4FxpTH
-	 pbN1heFqYBIiDqOAADCUPYB8ozUsjsig6iFvqAEGCUjav58OZaoTLIP9OWSvo56C0m
-	 vrjLGBpNuSk+U5RRc+GpiB9SqFV8xUt5PbrD2hlWosTug+F+HQ26LtPZDZOguriYeq
-	 C4HyaNJMCYsGyAY1BYqEDLTxVSOn/yh3LfmZEtaXSQKDkwMaknsHmLxDc8Z2Vty2h5
-	 DvBTDdeOUfYdc+gcA3+/F8kfhKiv/HsHrBNGKNa2KNAn7CLOomWZ7b3GEt6OyIuB2p
-	 WBsmpbsK1gLtg==
+	b=LVb5NyVoc/oWHmoBNr5/VuYElYcteculDmvq6sdVTA0k3ptBxOPtWm3e70ikDyR2Z
+	 LwIWpt3GO1mjdm7zRznOF4P/SUpweoZCZMfn3EIhqHkn+yCXrMqXKrXFu4U0ebWzoW
+	 dNQ43cfP33xbPwCQGue58AjdQg8g6z2MqCM1QrT4smCZ/O+nk6nt9cA4ZQ3/0UrCpy
+	 IKezZX8p6+bloactBF+c5YSH/XdgnHQSOcZbWbbpfJSD0hqmDtk74Lfm0IkIsu0LKk
+	 PAKhVDIt/qC+eaOOSI+dd7pYpxoVZNkFrTIOxzxxgq+EK9ItDSk8xrzbbPmWDn0gNx
+	 IW+UkczwzfGqg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Matti Vaittinen <mazziesaccount@gmail.com>,
-	Javier Carrasco <javier.carrasco.cruz@gmail.com>,
-	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] iio: bu27034: simplify using guard(mutex)
-Date: Wed,  7 Oct 2026 05:02:24 -0400
-Message-ID: <20261007090119.2020770-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] iio: light: rohm-bu27034: Fix infinite delay on error
+Date: Wed,  7 Oct 2026 05:02:25 -0400
+Message-ID: <20261007090119.2020770-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100658-implosion-refrain-3bbd@gregkh>
+In-Reply-To: <20261007090119.2020770-1-sashal@kernel.org>
 References: <2026100658-implosion-refrain-3bbd@gregkh>
+ <20261007090119.2020770-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,213 +49,172 @@ Content-Transfer-Encoding: 8bit
 
 From: Matti Vaittinen <mazziesaccount@gmail.com>
 
-[ Upstream commit 439c2cef8157bd3856200effdf4bb4ce3ff8e774 ]
+[ Upstream commit 8065a6c02f629187131f3136bedb26f9080e3cca ]
 
-The BU27034 uses mutex for protecting the gain / time / scale changes.
-The clean-up for a few of the functions can be slightly simplified by
-removing the goto-based error handling/unlocking and by utilizing the
-guard(mutex) scoped mutex handling instead.
+When reading an integration-time fails, the code will use error code to
+compute the sleep time.
 
-Simplify driver by using the scoped mutexes.
+Fix this by using the smallest integration time as a default if
+reading fails.
 
+Fixes: e52afbd61039 ("iio: light: ROHM BU27034 Ambient Light Sensor")
+Suggested-by: Jonathan Cameron <jic23@kernel.org>
 Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
-Reviewed-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
-Link: https://patch.msgid.link/4e65a4725c211b166906f70fdb5ba90f2af0f570.1732193263.git.mazziesaccount@gmail.com
-Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
-Stable-dep-of: 8065a6c02f62 ("iio: light: rohm-bu27034: Fix infinite delay on error")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/light/rohm-bu27034.c | 73 +++++++++++---------------------
- 1 file changed, 25 insertions(+), 48 deletions(-)
+ drivers/iio/light/rohm-bu27034.c | 60 +++++++++++++++++++-------------
+ 1 file changed, 36 insertions(+), 24 deletions(-)
 
 diff --git a/drivers/iio/light/rohm-bu27034.c b/drivers/iio/light/rohm-bu27034.c
-index 29da3313addbd..be3895a9da70c 100644
+index be3895a9da70c..439815c3c15dd 100644
 --- a/drivers/iio/light/rohm-bu27034.c
 +++ b/drivers/iio/light/rohm-bu27034.c
-@@ -7,6 +7,7 @@
+@@ -137,6 +137,7 @@ static const struct iio_gain_sel_pair bu27034_gains[] = {
+ #define BU27034_MEAS_MODE_200MS		2
+ #define BU27034_MEAS_MODE_400MS		4
  
- #include <linux/bitfield.h>
- #include <linux/bits.h>
-+#include <linux/cleanup.h>
- #include <linux/device.h>
- #include <linux/i2c.h>
- #include <linux/module.h>
-@@ -395,30 +396,26 @@ static int bu27034_try_set_int_time(struct bu27034_data *data, int time_us)
- 	int numg = ARRAY_SIZE(gains);
- 	int ret, int_time_old, i;
- 
--	mutex_lock(&data->mutex);
-+	guard(mutex)(&data->mutex);
- 	ret = bu27034_get_int_time(data);
- 	if (ret < 0)
--		goto unlock_out;
-+		return ret;
- 
- 	int_time_old = ret;
- 
- 	if (!iio_gts_valid_time(&data->gts, time_us)) {
- 		dev_err(data->dev, "Unsupported integration time %u\n",
- 			time_us);
--		ret = -EINVAL;
--
--		goto unlock_out;
-+		return -EINVAL;
- 	}
- 
--	if (time_us == int_time_old) {
--		ret = 0;
--		goto unlock_out;
--	}
-+	if (time_us == int_time_old)
-+		return 0;
- 
- 	for (i = 0; i < numg; i++) {
- 		ret = bu27034_get_gain(data, gains[i].chan, &gains[i].old_gain);
- 		if (ret)
--			goto unlock_out;
-+			return 0;
- 
- 		ret = iio_gts_find_new_gain_by_old_gain_time(&data->gts,
- 							     gains[i].old_gain,
-@@ -434,7 +431,7 @@ static int bu27034_try_set_int_time(struct bu27034_data *data, int time_us)
- 				gains[i].chan, time_us, scale1, scale2);
- 
- 			if (gains[i].new_gain < 0)
--				goto unlock_out;
-+				return ret;
- 
- 			/*
- 			 * If caller requests for integration time change and we
-@@ -455,7 +452,7 @@ static int bu27034_try_set_int_time(struct bu27034_data *data, int time_us)
- 					 "Total gain increase. Risk of saturation");
- 				ret = iio_gts_get_min_gain(&data->gts);
- 				if (ret < 0)
--					goto unlock_out;
-+					return ret;
- 			}
- 			dev_dbg(data->dev, "chan %u scale changed\n",
- 				 gains[i].chan);
-@@ -468,15 +465,10 @@ static int bu27034_try_set_int_time(struct bu27034_data *data, int time_us)
- 	for (i = 0; i < numg; i++) {
- 		ret = bu27034_set_gain(data, gains[i].chan, gains[i].new_gain);
- 		if (ret)
--			goto unlock_out;
-+			return ret;
- 	}
- 
--	ret = bu27034_set_int_time(data, time_us);
--
--unlock_out:
--	mutex_unlock(&data->mutex);
--
--	return ret;
-+	return bu27034_set_int_time(data, time_us);
++#define BU27034_INT_TIME_US_MIN (55 * USEC_PER_MSEC)
+ static const struct iio_itime_sel_mul bu27034_itimes[] = {
+ 	GAIN_SCALE_ITIME_US(400000, BU27034_MEAS_MODE_400MS, 8),
+ 	GAIN_SCALE_ITIME_US(200000, BU27034_MEAS_MODE_200MS, 4),
+@@ -296,7 +297,7 @@ static int bu27034_get_gain(struct bu27034_data *data, int chan, int *gain)
+ 	return 0;
  }
  
- static int bu27034_set_scale(struct bu27034_data *data, int chan,
-@@ -492,10 +484,10 @@ static int bu27034_set_scale(struct bu27034_data *data, int chan,
- 		return -EINVAL;
- 	}
+-static int bu27034_get_int_time(struct bu27034_data *data)
++static int bu27034_get_int_time(struct bu27034_data *data, int *itime)
+ {
+ 	int ret, sel;
  
--	mutex_lock(&data->mutex);
-+	guard(mutex)(&data->mutex);
- 	ret = regmap_read(data->regmap, BU27034_REG_MODE_CONTROL1, &time_sel);
+@@ -304,24 +305,30 @@ static int bu27034_get_int_time(struct bu27034_data *data)
  	if (ret)
--		goto unlock_out;
+ 		return ret;
+ 
+-	return iio_gts_find_int_time_by_sel(&data->gts,
+-					    sel & BU27034_MASK_MEAS_MODE);
++	ret = iio_gts_find_int_time_by_sel(&data->gts,
++					   sel & BU27034_MASK_MEAS_MODE);
++	if (ret < 0)
 +		return ret;
- 
- 	ret = iio_gts_find_gain_sel_for_scale_using_time(&data->gts, time_sel,
- 						val, val2, &gain_sel);
-@@ -518,7 +510,7 @@ static int bu27034_set_scale(struct bu27034_data *data, int chan,
- 
- 		ret = bu27034_get_gain(data, gain.chan, &gain.old_gain);
- 		if (ret)
--			goto unlock_out;
-+			return ret;
- 
- 		/*
- 		 * Iterate through all the times to see if we find one which
-@@ -551,26 +543,20 @@ static int bu27034_set_scale(struct bu27034_data *data, int chan,
- 		if (!found) {
- 			dev_dbg(data->dev,
- 				"Can't set scale maintaining other channel\n");
--			ret = -EINVAL;
--
--			goto unlock_out;
-+			return -EINVAL;
- 		}
- 
- 		ret = bu27034_set_gain(data, gain.chan, gain.new_gain);
- 		if (ret)
--			goto unlock_out;
-+			return ret;
- 
- 		ret = regmap_update_bits(data->regmap, BU27034_REG_MODE_CONTROL1,
- 				  BU27034_MASK_MEAS_MODE, new_time_sel);
- 		if (ret)
--			goto unlock_out;
-+			return ret;
- 	}
- 
--	ret = bu27034_write_gain_sel(data, chan, gain_sel);
--unlock_out:
--	mutex_unlock(&data->mutex);
--
--	return ret;
-+	return bu27034_write_gain_sel(data, chan, gain_sel);
- }
- 
- /*
-@@ -1221,42 +1207,33 @@ static int bu27034_buffer_enable(struct iio_dev *idev)
- 	struct task_struct *task;
- 	int ret;
- 
--	mutex_lock(&data->mutex);
-+	guard(mutex)(&data->mutex);
- 	ret = bu27034_meas_set(data, true);
- 	if (ret)
--		goto unlock_out;
-+		return ret;
- 
- 	task = kthread_run(bu27034_buffer_thread, idev,
- 				 "bu27034-buffering-%u",
- 				 iio_device_id(idev));
--	if (IS_ERR(task)) {
--		ret = PTR_ERR(task);
--		goto unlock_out;
--	}
-+	if (IS_ERR(task))
-+		return PTR_ERR(task);
- 
- 	data->task = task;
- 
--unlock_out:
--	mutex_unlock(&data->mutex);
--
--	return ret;
++
++	*itime = ret;
++
 +	return 0;
  }
  
- static int bu27034_buffer_disable(struct iio_dev *idev)
+ static int _bu27034_get_scale(struct bu27034_data *data, int channel, int *val,
+ 			      int *val2)
  {
- 	struct bu27034_data *data = iio_priv(idev);
--	int ret;
+-	int gain, ret;
++	int gain, itime, ret;
  
--	mutex_lock(&data->mutex);
-+	guard(mutex)(&data->mutex);
- 	if (data->task) {
- 		kthread_stop(data->task);
- 		data->task = NULL;
- 	}
+ 	ret = bu27034_get_gain(data, channel, &gain);
+ 	if (ret)
+ 		return ret;
  
--	ret = bu27034_meas_set(data, false);
--	mutex_unlock(&data->mutex);
--
--	return ret;
-+	return bu27034_meas_set(data, false);
+-	ret = bu27034_get_int_time(data);
+-	if (ret < 0)
++	ret = bu27034_get_int_time(data, &itime);
++	if (ret)
+ 		return ret;
+ 
+-	return iio_gts_get_scale(&data->gts, gain, ret, val, val2);
++	return iio_gts_get_scale(&data->gts, gain, itime, val, val2);
  }
  
- static const struct iio_buffer_setup_ops bu27034_buffer_ops = {
+ static int bu27034_get_scale(struct bu27034_data *data, int channel, int *val,
+@@ -397,12 +404,10 @@ static int bu27034_try_set_int_time(struct bu27034_data *data, int time_us)
+ 	int ret, int_time_old, i;
+ 
+ 	guard(mutex)(&data->mutex);
+-	ret = bu27034_get_int_time(data);
+-	if (ret < 0)
++	ret = bu27034_get_int_time(data, &int_time_old);
++	if (ret)
+ 		return ret;
+ 
+-	int_time_old = ret;
+-
+ 	if (!iio_gts_valid_time(&data->gts, time_us)) {
+ 		dev_err(data->dev, "Unsupported integration time %u\n",
+ 			time_us);
+@@ -841,7 +846,7 @@ static int bu27034_meas_set(struct bu27034_data *data, bool en)
+ static int bu27034_get_single_result(struct bu27034_data *data, int chan,
+ 				     int *val)
+ {
+-	int ret;
++	int ret, itime;
+ 
+ 	if (chan < BU27034_CHAN_DATA0 || chan > BU27034_CHAN_DATA1)
+ 		return -EINVAL;
+@@ -850,11 +855,11 @@ static int bu27034_get_single_result(struct bu27034_data *data, int chan,
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = bu27034_get_int_time(data);
+-	if (ret < 0)
++	ret = bu27034_get_int_time(data, &itime);
++	if (ret)
+ 		return ret;
+ 
+-	msleep(ret / 1000);
++	msleep(itime / 1000);
+ 
+ 	return bu27034_read_result(data, chan, val);
+ }
+@@ -904,12 +909,10 @@ static int bu27034_calc_mlux(struct bu27034_data *data, __le16 *res, int *val)
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = bu27034_get_int_time(data);
+-	if (ret < 0)
++	ret = bu27034_get_int_time(data, &meastime);
++	if (ret)
+ 		return ret;
+ 
+-	meastime = ret;
+-
+ 	d1_d0_ratio_scaled = (unsigned int)ch1 * (unsigned int)gain0 * 100;
+ 	helper64 = (u64)ch1 * (u64)gain0 * 100LLU;
+ 
+@@ -970,9 +973,9 @@ static int bu27034_read_raw(struct iio_dev *idev,
+ 	switch (mask) {
+ 	case IIO_CHAN_INFO_INT_TIME:
+ 		*val = 0;
+-		*val2 = bu27034_get_int_time(data);
+-		if (*val2 < 0)
+-			return *val2;
++		ret = bu27034_get_int_time(data, val2);
++		if (ret)
++			return ret;
+ 
+ 		return IIO_VAL_INT_PLUS_MICRO;
+ 
+@@ -1159,11 +1162,20 @@ static int bu27034_buffer_thread(void *arg)
+ {
+ 	struct iio_dev *idev = arg;
+ 	struct bu27034_data *data;
+-	int wait_ms;
++	int wait_ms, ret;
+ 
+ 	data = iio_priv(idev);
+ 
+-	wait_ms = bu27034_get_int_time(data);
++	/*
++	 * If reading the integration time fails, default to the minimum so we
++	 * don't lose samples. This may waste CPU cycles, but as a hardening
++	 * against theoretical, once-in-a-blue-moon error, this should be Ok.
++	 */
++	wait_ms = BU27034_INT_TIME_US_MIN;
++	ret = bu27034_get_int_time(data, &wait_ms);
++	if (ret)
++		dev_warn(data->dev, "Failed to get integration time\n");
++
+ 	wait_ms /= 1000;
+ 
+ 	wait_ms -= BU27034_MEAS_WAIT_PREMATURE_MS;
 -- 
 2.53.0
 
