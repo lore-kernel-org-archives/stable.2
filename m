@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC9C22D29C8;
-	Wed,  7 Oct 2026 00:50:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A10432EEE61;
+	Wed,  7 Oct 2026 00:50:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791334212; cv=none; b=cxgF/r2tJH265G9WIY70GWOyZWiR7KBXpRAQ3r7gVhYuHLODzEFm3QCHvudIz1DreA36eUrQT0iC7ej4OkCAe9Xt7NRwsDXrdOrZWURohfT+bUnziHDDFkR0/Z9ao7Uv3hJfiB0/oFwTzL+RKqCaqsBLrLnlDGQRRZM4NJ18PRc=
+	t=1791334250; cv=none; b=IVanvD34uC1JLuB798KNh1eWHviBuK0iB0TqIz40sqGU1/QC8qhmIWujSuoKiAQqzzUNpqgmmOCBN5lKd2MU8+tLzw/Ovm1QcqBHj+Ioy83h3j+S1TtUZ/FR4u87INrLeBmuCt2HO//848HnlkGTvbJgcC2hzZgNoX+XUuHf5QY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791334212; c=relaxed/simple;
-	bh=R7qWdxuWOIY0jw3WKCvunUD5Cwfhw2/36jnKJLylq8E=;
-	h=Date:To:From:Subject:Message-Id; b=IvWWEThlf6b+WlkNBVwgHxc8T+tTaOz9/OmnPkdgAO5Fq9pwv80OEe6OFx9gjRaTteFjBHEYPHle4PCW6inNw1+r1/BctY0yt4V0CsZJ5e9UcDQaDQptJvOXooq7YBN0d9njENaR2XojHWwB/fGcxhMiD0j6lboUYNH84j/C0P8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=nrEEN58x; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791334250; c=relaxed/simple;
+	bh=+KVGg2jLlwGhctb+89Cnyfpw63wUtSy+m1L1f3dPBwo=;
+	h=Date:To:From:Subject:Message-Id; b=hSH1s7wjfTUDArB/r+QNwL6KqDBnrBR7kbsn2JcIL6t9IMRiverd5fukeLfebDgBAks7jXxaeyiPQM9T2vgMJ4CV8zvfIxoaW4WTAdqiddHJvULf1w+HVbV26xo5Bt0YFsU/kLUIxjfiehW+w8pr32AnB3rGqKCL09zmquUeLjQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=u04FNaVD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="nrEEN58x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C40D51F0089D;
-	Wed,  7 Oct 2026 00:50:10 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="u04FNaVD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 719801F0089C;
+	Wed,  7 Oct 2026 00:50:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791334210;
-	bh=n7AEILXCXpkvgfiLBHTPGeUZgdxX0+/hmE0c4eYB8Ik=;
+	d=linux-foundation.org; s=korg; t=1791334249;
+	bh=NuIZN8gS4JKJu7WnMNADd68eBV9zKlDllpskDeJqo3U=;
 	h=Date:To:From:Subject;
-	b=nrEEN58xjXL0BZ1Ue8nCtiioIBK0iFfsn7wR6EyL0wkauqsxx6qu2Uir9iuVt8gqf
-	 yCsAqpclIWsTjSjvyYiIndu5aj00MU+K+0oESyuEnjpUT02gS+km9n2Db8AlNroDgL
-	 gOvpZFceiBonvP//GdcgduUn/nvten7y2U1uOguw=
-Date: Tue, 06 Oct 2026 17:50:10 -0700
-To: mm-commits@vger.kernel.org,ziy@nvidia.com,ying.huang@linux.alibaba.com,urezki@gmail.com,stable@vger.kernel.org,rakie.kim@sk.com,matthew.brost@intel.com,joshua.hahnjy@gmail.com,david@kernel.org,chenwandun@huawei.com,chelsyratnawat2001@gmail.com,byungchul@sk.com,apopple@nvidia.com,gourry@gourry.net,akpm@linux-foundation.org
+	b=u04FNaVDzbgtDqqNONbfIxwqNunxpqETItVtiMdEV7wvp3UHg/t0wesMyMiuBBNX4
+	 sfR+ryklKLek3W4YchauFIg6Pn5hV1Sjd0OchE2DQeLoluYvcBI070yCe3EiEl1mPR
+	 i7zDyodrRIL0jwn6m7S21Jakm5l5Gi8EUH8v+pTI=
+Date: Tue, 06 Oct 2026 17:50:49 -0700
+To: mm-commits@vger.kernel.org,ziy@nvidia.com,ying.huang@linux.alibaba.com,vbabka@kernel.org,stable@vger.kernel.org,ryan.roberts@arm.com,rakie.kim@sk.com,matthew.brost@intel.com,ljs@kernel.org,liam@infradead.org,lance.yang@linux.dev,joshua.hahnjy@gmail.com,jannh@google.com,dev.jain@arm.com,david@kernel.org,byungchul@sk.com,baolin.wang@linux.alibaba.com,baohua@kernel.org,balbirs@nvidia.com,apopple@nvidia.com,gourry@gourry.net,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] mm-mempolicy-take-a-cpuset-cookie-for-the-interleave-node-count.patch removed from -mm tree
-Message-Id: <20261007005010.C40D51F0089D@smtp.kernel.org>
+Subject: [merged mm-stable] mm-huge_memory-skip-zone-device-folios-in-madvise_free_huge_pmd.patch removed from -mm tree
+Message-Id: <20261007005049.719801F0089C@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,104 +35,101 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: mm/mempolicy: take a cpuset cookie for the interleave node count
+     Subject: mm/huge_memory: skip zone device folios in madvise_free_huge_pmd()
 has been removed from the -mm tree.  Its filename was
-     mm-mempolicy-take-a-cpuset-cookie-for-the-interleave-node-count.patch
+     mm-huge_memory-skip-zone-device-folios-in-madvise_free_huge_pmd.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
 From: Gregory Price <gourry@gourry.net>
-Subject: mm/mempolicy: take a cpuset cookie for the interleave node count
-Date: Fri, 28 Aug 2026 15:31:11 -0400
+Subject: mm/huge_memory: skip zone device folios in madvise_free_huge_pmd()
+Date: Mon, 17 Aug 2026 18:08:08 -0400
 
-alloc_pages_bulk_interleave() counts pol->nodes without a cpuset cookie:
+Patch series "mm: reject zone device folios in more folio walkers", v2.
 
-	nodes = nodes_weight(pol->nodes);
-	nr_pages_per_node = nr_pages / nodes;
+Several LRU-oriented mm walkers resolve the folio backing a PMD entry (or
+a physical pfn) and then reclaim, age, migrate, or lazyfree it without
+ever checking for ZONE_DEVICE memory.
 
-nodemask_t spans several words once MAX_NUMNODES exceeds BITS_PER_LONG, so
-a concurrent cpuset rebind can tear that read and yield an empty mask even
-though neither version of it was empty.  The call then allocates nothing
-and returns 0.
+This series adds missing folio_is_zone_device() rejections, matching the
+checks that comparable walkers already perform.
 
-Some compilers will hoist the loop entry test above the division,
-because nr_pages_per_node is dead when the loop does not run.
+- mm/huge_memory, mm/madvise: the !pmd_present branch above these sites
+  only filters device-private entries (which are non-present).
 
-	682e:	call	...		<- nodes_weight()
-	6838:	test	%eax,%eax
-	683a:	jle	692d		<- nodes <= 0 skips the loop
-	684a:	div	%rcx
+  A present zone device PMD (e.g. device-coherent) would still reach the
+  folio and be lazyfreed / aged / paged out. Add an explicit check.
 
-So in most deployments, this div/0 is unreachable - but nothing in the
-source guarantees that, it's just not easily exercised.
+- mm/mempolicy: queue_folios_pmd() can see a present zone device PMD
+  (e.g. device-coherent) and queue it for migration.
 
-Take the cookie around the count and bail if the mask really is empty. 
-Only the count needs it, interleave_nodes() takes the cookie itself so so
-a torn read there is already retried.
+No crash reproducer - this is a correctness/hardening cleanup found by
+inspection.  All checks are placed after the folio is resolved and before
+it is acted upon, on paths that already hold the relevant page-table lock,
+so no locking or refcount changes are involved.
 
-A rebind landing mid-loop can still leave the count disagreeing with the
-mask, so the loop may revisit a node or skip one - but a rebind where
-nodes change causes migration, so a handful of misplaced pages isn't
-catastrophic in any sense.
 
-Measured on a 72 node VM (NODES_SHIFT=10) with a cgroup v2 cpuset flipping
-cpuset.mems between a word 0 and a word 1 node set, and the two word read
-artificially widened: 330 zero counts in 130414 calls without the cookie,
-and 401 retries with it.
+This patch (of 3):
 
-Link: https://lore.kernel.org/20260828193111.1023497-1-gourry@gourry.net
-Fixes: c00b6b961099 ("mm/vmalloc: introduce alloc_pages_bulk_array_mempolicy to accelerate memory allocation")
+madvise_free_huge_pmd() resolves the folio backing a PMD via pmd_folio()
+and marks it lazyfree without checking for zone device memory.
+
+The surrounding guards do not cover every zone device case:
+
+ - MADV_FREE only operates on anonymous VMAs (DAX mappings are excluded)
+
+ - !pmd_present() branch rejects device-private and migration entries
+
+ - present zone device PMD (device coherent THP) is not filtered.
+   Unlike vm_normal_page_pmd(), it performs no special/pfnmap check,
+   and would be marked lazyfree here.
+
+Bail out when the folio is a zone device folio.
+
+Link: https://lore.kernel.org/20260817220810.1175596-1-gourry@gourry.net
+Link: https://lore.kernel.org/20260817220810.1175596-2-gourry@gourry.net
+Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
 Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Chelsy Ratnawat <chelsyratnawat2001@gmail.com>
-Closes: https://lore.kernel.org/all/20250907160829.91628-1-chelsyratnawat2001@gmail.com/
-Reviewed-by: Huang Ying <ying.huang@linux.alibaba.com>
-Assisted-by: Claude:claude-opus-5
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Tested-by: Lance Yang <lance.yang@linux.dev>
 Cc: Alistair Popple <apopple@nvidia.com>
+Cc: Balbir Singh <balbirs@nvidia.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Barry Song <baohua@kernel.org>
 Cc: Byungchul Park <byungchul@sk.com>
-Cc: Chenwandun <chenwandun@huawei.com>
-Cc: David Hildenbrand <david@kernel.org>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>
+Cc: Jann Horn <jannh@google.com>
 Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Liam R. Howlett <liam@infradead.org>
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Rakie Kim <rakie.kim@sk.com>
-Cc: "Uladzislau Rezki (Sony)" <urezki@gmail.com>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
 Cc: Zi Yan <ziy@nvidia.com>
 Cc: <stable@vger.kernel.org>
 ---
 
- mm/mempolicy.c |   12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+ mm/huge_memory.c |    4 ++++
+ 1 file changed, 4 insertions(+)
 
---- a/mm/mempolicy.c~mm-mempolicy-take-a-cpuset-cookie-for-the-interleave-node-count
-+++ a/mm/mempolicy.c
-@@ -2592,6 +2592,7 @@ static unsigned long alloc_pages_bulk_in
- 		struct mempolicy *pol, unsigned long nr_pages,
- 		struct page **page_array)
- {
-+	unsigned int cpuset_mems_cookie;
- 	int nodes;
- 	unsigned long nr_pages_per_node;
- 	int delta;
-@@ -2599,7 +2600,16 @@ static unsigned long alloc_pages_bulk_in
- 	unsigned long nr_allocated;
- 	unsigned long total_allocated = 0;
+--- a/mm/huge_memory.c~mm-huge_memory-skip-zone-device-folios-in-madvise_free_huge_pmd
++++ a/mm/huge_memory.c
+@@ -2423,6 +2423,10 @@ bool madvise_free_huge_pmd(struct mmu_ga
+ 	}
  
--	nodes = nodes_weight(pol->nodes);
-+	/* count the nodes, retry if a rebind happened during the read */
-+	do {
-+		cpuset_mems_cookie = read_mems_allowed_begin();
-+		nodes = nodes_weight(pol->nodes);
-+	} while (read_mems_allowed_retry(cpuset_mems_cookie));
+ 	folio = pmd_folio(orig_pmd);
 +
-+	/* if the nodemask has become invalid, we cannot do anything */
-+	if (!nodes)
-+		return 0;
++	if (folio_is_zone_device(folio))
++		goto out;
 +
- 	nr_pages_per_node = nr_pages / nodes;
- 	delta = nr_pages - nodes * nr_pages_per_node;
- 
+ 	/*
+ 	 * If other processes are mapping this folio, we couldn't discard
+ 	 * the folio unless they all do MADV_FREE so let's skip the folio.
 _
 
 Patches currently in -mm which might be from gourry@gourry.net are
