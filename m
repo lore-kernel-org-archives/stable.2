@@ -1,49 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDC6D3B9608
-	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 05:27:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ABCF3C1D7A
+	for <stable@vger.kernel.org>; Wed,  7 Oct 2026 05:27:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791350870; cv=none; b=nB1dRoTfcEo+M2fGhsmDYDWKubKUeALjpdlNuUnSf/foSenSMLPCyTtyOTr8w7hqfqqCY4K3Xkdz/2PXlWylFsyqXuBE4mknQrN84qQeaXdLoVskg5jOnRQricBTfkB7QRsoS0GJ45qJHa46DyTWaaHAo/jjaiDpAVtcBoBCyek=
+	t=1791350880; cv=none; b=clMU19TC6/dpCq9T73reobOMpUnwSrBynKNHohNcq6TZ61SwEoLmoQvkLf3w1/Tt70wcifPFckPHAYGCEWXgkIOVmfKwo6mC/OcM67AYbyPR/hd2csOABiOWb05FYwRsFB7aS4yZUFcKxDDszBImBTPGUHoDBPzHN8uqv5HJ480=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791350870; c=relaxed/simple;
-	bh=WfYj1faSa8V4+chVHz8GhCrM+rm6Ap0rIfbPZzlfVl0=;
+	s=arc-20240116; t=1791350880; c=relaxed/simple;
+	bh=XJe5ROtYJY8ex+Zxsx/W2nDghUGxO3B+BFDJ3zngA9Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MdFV/X1sgYpKSX0mw3DQh8byF6gzPmapzRD6v7266cVsnONE2tSC9OrryrPJk+2QDIvIiSSCa4Vxw1joaQ1qRWVUIxuv3DtUTq/fkRgialaR9P0oZp+ZY8f5113hlR/3aKrNuZVMojG5eIBh/t5gtYxYgsGIMAQ8azvVEeptYQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lE5hDJ5X; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=K6DX0BBQgT7pHi6AJQ2p8V+lMUrbpaN0Uz3A4CrEcXYvM0/XN4ACb8D3sepAZt+WC868ix5StuSRzKIIO/TLKq2nq0ikETaKtLJovFtDNnHjwVDv0bTvIAF+FkbM/3QDSr2A8FWI+/tklt5x9U2XAKJEUEYncdVIFDLgY/Skfh0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HDdDLaoy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lE5hDJ5X"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 028CD1F0089B;
-	Wed,  7 Oct 2026 05:27:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HDdDLaoy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5078E1F0089B;
+	Wed,  7 Oct 2026 05:27:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791350868;
-	bh=Np7Ief1GYOiX3dTRsLJ0nxx4bcIZ38VeZ0XcSUoSpVY=;
+	s=k20260515; t=1791350878;
+	bh=90HFP06vnVHsfMimxtClnkVd1ylBlgj/CY5B4QgAJYc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lE5hDJ5XeWMBaD+Cse78eLKBkrH4X/FT8/hUQfjFE5x4f9yG3J6I2g+oxMoVGAE6T
-	 yd3U+2vA9SQatEK9SWNqe+oP956WZ8oeGPwjDT7tfBCFdGG7z5uR3sbakV0KVcypyO
-	 oZzS8WVgFZFhyxEuNg3eOlfNp2OAyV2Re1Kj6rdWbJ9rYJ+dB8G+KsB7FvDCSRaC2+
-	 zkQefKGvD/KsejkVG3wa/gDGQrF5SAT2yIs4U/Emb7z43fZxNesm3K6G9KoFG06kFS
-	 oYuYLuR5RhZfNVPJis4N2zw/xEqkoEO6uJ8JBXGkl01tY7qDPfneM35DEdRJ6oq4GF
-	 bo/9mBKSxUjpw==
+	b=HDdDLaoy7w5MWW0gHYJuB/QRBrOXaKeO1uI3DmXumJHomBMZdD37aR+0he6Ckllt2
+	 dffwO4ZTloTCRtMcIAmSt+Cbthu2PJZp85TRQ098Hu0VEzsY5J1sl2BLyEpLH+3wfX
+	 l93E7VWi19z3+h22rdrA+6TF+DH9k3idsoqsF7PSiCbRSODxYqusLLpV8Xe57NdnAi
+	 1Zp3/8ak6HSJ8xvm9ayD6OY4q8gES0qLWPF0C1e2K2U+K7Z3Yc/jKw0S23xlrfq9hC
+	 F5J6C4KUzpUuOrq25Cz3OmWvQoGTWRDkBjD94dHeKkWtT1Aq6M27kCyO6DJPjYdYLP
+	 +hxyTjub0VwCA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Paulo Alcantara <pc@manguebit.org>,
-	David Howells <dhowells@redhat.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
+Cc: Sean Christopherson <seanjc@google.com>,
+	Stefan Teodorescu <fane@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] smb: client: distinguish real EOF from a stale remote_i_size on read
-Date: Wed,  7 Oct 2026 01:27:42 -0400
-Message-ID: <20261007052611.1252761-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] KVM: SVM: Use the active VMCB's MSR bitmap when checking if MSR is intercepted
+Date: Wed,  7 Oct 2026 01:27:54 -0400
+Message-ID: <20261007052612.1189003-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100541-badass-squint-41b0@gregkh>
-References: <2026100541-badass-squint-41b0@gregkh>
+In-Reply-To: <2026100545-drool-mullets-55c7@gregkh>
+References: <2026100545-drool-mullets-55c7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,71 +46,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Paulo Alcantara <pc@manguebit.org>
+From: Sean Christopherson <seanjc@google.com>
 
-[ Upstream commit 75aa4b4d557114276bb72e19a9bce5cb27b5e4b8 ]
+[ Upstream commit 9e06bbb9ade7cdf28d4a3b5b14e5812881c8df85 ]
 
-smb2_readv_callback() sets NETFS_SREQ_HIT_EOF whenever a short read
-lines up with netfs_read_remote_i_size(inode), the server's EOF as the
-client currently believes it. That belief can be stale: after a lease
-downgrade and handle reopen, the tracked remote_i_size can sit below
-the client's own i_size while an extending write hasn't reached the
-server yet. A read in that gap comes back short for a reason that has
-nothing to do with the file's real size, but was still marked HIT_EOF,
-and netfs reports a short read for it as-is.
+Use the MSR permission bitmap of the active VMCB instead of assuming that
+KVM is always using vmcb02's bitmap when L2 is active, as KVM uses msrpm02
+if and only if L1 wants to intercept MSR accesses, i.e. if and only if KVM
+needs to merge msprm01 with msrpm12.
 
-Only treat it as real EOF when the position is also at or past the
-client's own i_size; otherwise mark it NETFS_SREQ_CLEAR_TAIL instead,
-which tells netfs the shortfall is safe to zero-fill rather than
-report as a short read.
+Don't bother tracking the virtual address of the bitmap that's being used,
+as __va() is cheap on x86, and caching the virtual address would introduce
+yet another source of potentially stale information.
 
-This is what fsx (generic/363) sees as "short read: 0x0 bytes instead
-of 0x<n>" against a Windows server.
-
-Fixes: 1da29f2c39b6 ("netfs, cifs: Fix handling of short DIO read")
-Reviewed-by: David Howells <dhowells@redhat.com>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Matthew Wilcox <willy@infradead.org>
-Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
-Cc: Shyam Prasad N <sprasad@microsoft.com>
-Cc: Tom Talpey <tom@talpey.com>
-Cc: Bharath SM <bharathsm@microsoft.com>
+Fixes: b2ac58f90540 ("KVM/SVM: Allow direct access to MSR_IA32_SPEC_CTRL")
 Cc: stable@vger.kernel.org
-[ sashal: Changed i_size_read(inode) to i_size_read(&ictx->inode) because the local inode variable is absent. ]
+Reported-by: Stefan Teodorescu <fane@google.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Message-ID: <20260826195833.844526-1-seanjc@google.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+[ sashal: Adapted SVM access to use to_svm(vcpu) with the existing kvm_vcpu parameter. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/smb2pdu.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ arch/x86/kvm/svm/svm.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/fs/smb/client/smb2pdu.c b/fs/smb/client/smb2pdu.c
-index 14ee2ecdf362b..cb6db40c43589 100644
---- a/fs/smb/client/smb2pdu.c
-+++ b/fs/smb/client/smb2pdu.c
-@@ -4706,14 +4706,20 @@ smb2_readv_callback(struct mid_q_entry *mid)
- 				     rdata->got_bytes);
+diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+index 16d2b697dc631..f280155560a23 100644
+--- a/arch/x86/kvm/svm/svm.c
++++ b/arch/x86/kvm/svm/svm.c
+@@ -656,8 +656,7 @@ static bool msr_write_intercepted(struct kvm_vcpu *vcpu, u32 msr)
+ 	u32 offset;
+ 	u32 *msrpm;
  
- 	if (rdata->result == -ENODATA) {
--		__set_bit(NETFS_SREQ_HIT_EOF, &rdata->subreq.flags);
- 		rdata->result = 0;
-+		if (rdata->subreq.start + rdata->subreq.transferred >= i_size_read(&ictx->inode))
-+			__set_bit(NETFS_SREQ_HIT_EOF, &rdata->subreq.flags);
-+		else
-+			__set_bit(NETFS_SREQ_CLEAR_TAIL, &rdata->subreq.flags);
- 	} else {
- 		size_t trans = rdata->subreq.transferred + rdata->got_bytes;
- 		if (trans < rdata->subreq.len &&
- 		    rdata->subreq.start + trans >= ictx->remote_i_size) {
--			__set_bit(NETFS_SREQ_HIT_EOF, &rdata->subreq.flags);
- 			rdata->result = 0;
-+			if (rdata->subreq.start + trans >= i_size_read(&ictx->inode))
-+				__set_bit(NETFS_SREQ_HIT_EOF, &rdata->subreq.flags);
-+			else
-+				__set_bit(NETFS_SREQ_CLEAR_TAIL, &rdata->subreq.flags);
- 		}
- 		if (rdata->got_bytes)
- 			__set_bit(NETFS_SREQ_MADE_PROGRESS, &rdata->subreq.flags);
+-	msrpm = is_guest_mode(vcpu) ? to_svm(vcpu)->nested.msrpm:
+-				      to_svm(vcpu)->msrpm;
++	msrpm = __va(__sme_clr(to_svm(vcpu)->vmcb->control.msrpm_base_pa));
+ 
+ 	offset    = svm_msrpm_offset(msr);
+ 	bit_write = 2 * (msr & 0x0f) + 1;
 -- 
 2.53.0
 
