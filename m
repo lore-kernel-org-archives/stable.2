@@ -1,144 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E2303BE172;
-	Thu,  8 Oct 2026 11:09:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C6C9331EA6;
+	Thu,  8 Oct 2026 11:12:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791457775; cv=none; b=GwzY7GG9hrJ9dlajbnKF95kwomAFbxOVYbd+MCjN4lTWyA8PImBbuP7v/yhtYVoZx//bvIhNasMvgglgOB/1f+dpGDL/ndAx/11K+RNyaFl2ydsuH7Zl0qth4ekPgNQ7SnASXJRPif9r5EQGgCO9jBgf3L37xCpdYGEAL1XU5Uk=
+	t=1791457945; cv=none; b=fbrWwkEl8yU+TfvmZhDeF/QLlwqZgjQeg7FjxBrSbmCnAu6Gc+OYIP5S1xUK9LI4RwIB5VoD5IcDt+t2ov5Z+t1UWwCA9/PvgTXf3MF3nSmzsO/QsuaCBsX+4HGOF8Ru8wGXxMClJhhfmuiZmq8sOsTy4s33FS8bYNDWI30PruE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791457775; c=relaxed/simple;
-	bh=75s9Og1njdygxV8tnkbcGXlKjyNinTjM7/sgljM9zf4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=pgQns/BIOSxdCDyC+E7kXc5psWaTqbcPLAerEKh7qHMm92JybZRmC2kSS4sjizdfX4kKA3MjmNbYYN8BZpvD/T3ETt5j9ayUhAqC5zAE3rwVowOU/ck6sObEIfVdeMpzLL4UdRRrkjRoSqwrgCHcGWUhUrE3ZqnUrPARUyJKkWU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q1zI3Owf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791457945; c=relaxed/simple;
+	bh=DY/V5HQR17fWczR7oDtjkH+4sveqOzFE8Apc9GtJGbw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Kq1tuV9i5uAQgwbammFle0VCFZwm5XUZb/Gshj6YoYYKBRka0T5+0NXaL2SSA4DpPEUeKsaJC3uzqe23epR/g5rexzFyROwHHwC6HnDqmvFy9yQQ1aU3iIU5P2gd43saU6CXtKUEXoycWyjWjYJzhXYft+Ulmg/bSUX+Uz5vHW0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=bfvODNUJ; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=8u2npHDC; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q1zI3Owf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29C771F00893;
-	Thu,  8 Oct 2026 11:09:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791457774;
-	bh=K/E2/Jsizusc3aaYESoZpCk7qa83D/rUYpDEILEV9xI=;
-	h=From:Date:Subject:To:Cc;
-	b=Q1zI3OwfGZmNM89ul2wQM2L4yfb/lebm/OoxtpntYe66nvoZd84HSApmhPwydW0Iz
-	 jCuYBVo0r9xyPu+xGQKP8dMk248yAIhYUEOWUhuWhnF1T5hk/F3v2JID3C/qLVCcBv
-	 rZqYQ1HQXemdEw22nFBuyOiV/tQ6kphwcfIomDXyRZ2qZvUx8DQmUM4M9juC8oiY6g
-	 gJJhmbBvIaTTeJOr4emp2V7NVRE2lmhkqW3uYbMawwsPQaH5047sLWS4yfBr6Y+wst
-	 SC7ZrRJd5CbNWOJ7pYoNZBfurmYCSPtFVUlgLrHn29tk/RWZs9/QdvkaO4g5DxZjUu
-	 8Qh4kzhL5jzTA==
-From: Nathan Chancellor <nathan@kernel.org>
-Date: Thu, 08 Oct 2026 13:08:49 +0200
-Subject: [PATCH] lib/base64: Silence clang-24 -Wconstant-conversion with
- diag pragmas
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="bfvODNUJ";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="8u2npHDC"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 43AFC1F441;
+	Thu,  8 Oct 2026 11:12:22 +0000 (UTC)
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1791457942; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=y7gPk0+L//0Z5xz94SO/gdOgfT6tS6UdhupvOkepRzo=;
+	b=bfvODNUJzrSYs0vgrmcYBDETrj9D+ccojnB7OJ5Ffy/3dRKtmbaqzFvkBKAk/VuxV0fYyo
+	VbusN2rHF/Ex2mrVzQtwhlb+GEPmzRMGk1Lg2WYq97SnfjukZ+cCm8Bj9TjwB+tiJ52R8a
+	GeC9LIzDeVDMxfkKrj8LA8TRx77/hwc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1791457942;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=y7gPk0+L//0Z5xz94SO/gdOgfT6tS6UdhupvOkepRzo=;
+	b=8u2npHDCmZp/xsqqcpvHC++LK9gkAoPlyrIoKml2sMCMAjSdMeRr+JsYL90YM/LREr0Hga
+	x4QeSguGBLYr3ICA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1C42013354;
+	Thu,  8 Oct 2026 11:12:22 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id K4SSOpV6x2qSbwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Thu, 08 Oct 2026 11:12:22 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id B6E2DA13FC; Thu, 08 Oct 2026 13:12:13 +0200 (CEST)
+Date: Thu, 8 Oct 2026 13:12:13 +0200
+From: Jan Kara <jack@suse.cz>
+To: Daejun Park <daejun7.park@samsung.com>
+Cc: Jan Kara <jack@suse.cz>, Theodore Ts'o <tytso@mit.edu>, 
+	"linux-ext4@vger.kernel.org" <linux-ext4@vger.kernel.org>, Andreas Dilger <adilger.kernel@dilger.ca>, 
+	Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>, 
+	Zhang Yi <yi.zhang@huaweicloud.com>, Harshad Shirwadkar <harshadshirwadkar@gmail.com>, 
+	Li Chen <me@linux.beauty>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: (2) [PATCH v2 2/2] ext4: track zeroed out blocks of unwritten
+ extents for fast commit
+Message-ID: <mz3siqf62cyeetspllcm4bqbtp3djhtej2w53o4cnd6wcwobq5@f6u7zotee3cd>
+References: <2lgtlg7ydx4qeau2nvv5wkcuc2jkvwdcrav7gbxmxdieptkwl4@emgyfuxuskiu>
+ <20261008-ext4-fc-zeroout-v2-0-55cab1e24fa3@samsung.com>
+ <20261008-ext4-fc-zeroout-v2-2-55cab1e24fa3@samsung.com>
+ <CGME20261008095512epcas2p243a0deff110c0cc75da1ae049b4bbb8b@epcms2p2>
+ <20261008102615epcms2p2858ca95d96bd2b090f2e406aa1bad63c@epcms2p2>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261008-base64-silence-clang-24-constant-conversion-v1-1-0858b60b23c8@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWN0QrCMAxFf2Xk2UBXZxn+ivjQxkwjI5OmDmHs3
- 2317R64nLOBcRY2OHcbZF7FZNEK/aEDekS9M8qtMnjnQ+/ciCkahwFNZlZipLme0A9Ii1qJWtp
- YOTcPpjB6CilNp3CEanxlnuTzq12uf7Z3ejKVloB9/wLpj7x9jwAAAA==
-X-Change-ID: 20261008-base64-silence-clang-24-constant-conversion-b682c6bbf563
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- Kuan-Wei Chiu <visitorckw@gmail.com>, 
- Guan-Chun Wu <409411716@gms.tku.edu.tw>, linux-kernel@vger.kernel.org, 
- llvm@lists.linux.dev, stable@vger.kernel.org, 
- Nathan Chancellor <nathan@kernel.org>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3702; i=nathan@kernel.org;
- h=from:subject:message-id; bh=75s9Og1njdygxV8tnkbcGXlKjyNinTjM7/sgljM9zf4=;
- b=owGbwMvMwCUmm602sfCA1DTG02pJDFnHK196bOqL3Nbwcetyr2kbOxn+8dbMUzzk634+kG/ij
- /+TZZtjOkpZGMS4GGTFFFmqH6seNzScc5bxxqlJMHNYmUCGMHBxCsBE5rUwMtzanjU/LvPm8cmi
- aqK2tlJvXDe/NH3vt/PhJuPkhz3Nyg+AKvjcfu+ZJ7RF7N6ukwo1/PIXF32S2+N9qqAj/sb9O97
- XGAA=
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261008102615epcms2p2858ca95d96bd2b090f2e406aa1bad63c@epcms2p2>
+X-Spamd-Result: default: False [0.00 / 50.00];
+	TAGGED_RCPT(0.00)[]
+X-Spam-Score: 0.00
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Rspamd-Pre-Result: action=no action;
+	module=Unknown lua;
+	unknown reason
 
-After a recent change in clang to warn on signed char conversions within
-array initializers [1], there are several instances of this warning from
-base64_rev_maps in lib/base64.c, which can break the build with W=e or
-CONFIG_WERROR=y:
+On Thu 08-10-26 19:26:15, Daejun Park wrote:
+> On Thu, Oct 08, 2026 at 11:55:02 +0200, Jan Kara wrote:
+> > Just one note: I agree with you ext4_alloc_file_blocks() is actually handled
+> > correctly. But OTOH tracking a range twice isn't really an issue (only tiny
+> > performance overhead compared to the extent tree operations and zeroing
+> > itself). So I just wouldn't special-case ext4_alloc_file_blocks() and
+> > always pass a proper handle to ext4_issue_zeroout(). That keeps the logic
+> > slightly simpler: kernel zeroes out blocks => kernel tracks the range. But
+> > I don't really insist, it's just a suggestion.
+> 
+> Thanks for the review. I wasn't sure I should do that in
+> ext4_alloc_file_blocks(): f4265b8d32c4 ("ext4: add
+> FALLOC_FL_WRITE_ZEROES support") issues the zeroout outside of the
+> running transaction on purpose, and passing a handle there would put it
+> under the conversion handle, so I left it as it is.
 
-  lib/base64.c:58:18: error: implicit conversion from 'int' to 's8' (aka 'signed char') changes value from 131 to -125 [-Werror,-Wconstant-conversion]
-     58 |         [BASE64_IMAP] = BASE64_REV_INIT('+', ',')
-        |                         ^~~~~~~~~~~~~~~~~~~~~~~~~
-  lib/base64.c:52:2: note: expanded from macro 'BASE64_REV_INIT'
-     48 | #define BASE64_REV_INIT(ch_62, ch_63) { \
-        |                                       ~
-     49 |         [0 ... 0x1f] = -1, \
-     50 |         INIT_32(0x20, ch_62, ch_63), \
-     51 |         INIT_32(0x40, ch_62, ch_63), \
-     52 |         INIT_32(0x60, ch_62, ch_63), \
-        |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-  ...
-  lib/base64.c:34:42: note: expanded from macro 'INIT_1'
-     34 |                 : (v) >= '0' && (v) <= '9' ? (v) - '0' + 52 \
-        |                                              ~~~~~~~~~~^~~~
-  lib/base64.c:58:18: error: implicit conversion from 'int' to 's8' (aka 'signed char') changes value from 130 to -126 [-Werror,-Wconstant-conversion]
-     58 |         [BASE64_IMAP] = BASE64_REV_INIT('+', ',')
-        |                         ^~~~~~~~~~~~~~~~~~~~~~~~~
-  lib/base64.c:52:2: note: expanded from macro 'BASE64_REV_INIT'
-     48 | #define BASE64_REV_INIT(ch_62, ch_63) { \
-        |                                       ~
-     49 |         [0 ... 0x1f] = -1, \
-     50 |         INIT_32(0x20, ch_62, ch_63), \
-     51 |         INIT_32(0x40, ch_62, ch_63), \
-     52 |         INIT_32(0x60, ch_62, ch_63), \
-        |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-  ...
-  lib/base64.c:34:42: note: expanded from macro 'INIT_1'
-     34 |                 : (v) >= '0' && (v) <= '9' ? (v) - '0' + 52 \
-        |                                              ~~~~~~~~~~^~~~
-  ...
+Ah, I see. OK, makes sense. Thanks for having a look!
 
-These are false positives, as the branch where the wraparound could
-happen is unreachable with the values that clang reports. This is not
-considered a bug by some clang folks [2][3], so silence the warnings
-using the __diag macros the kernel has to workaround compiler warnings
-when necessary.
-
-Cc: stable@vger.kernel.org
-Fixes: c4eb7ad32eab ("lib/base64: optimize base64_decode() with reverse lookup tables")
-Closes: https://github.com/ClangBuiltLinux/linux/issues/2181
-Link: https://github.com/llvm/llvm-project/commit/a5ef934a8d295dc03be3960f2b3744ec2e53238e [1]
-Link: https://github.com/llvm/llvm-project/issues/223923#issuecomment-6056856245 [2]
-Link: https://github.com/llvm/llvm-project/pull/226775#pullrequestreview-5454407389 [3]
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
----
- lib/base64.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/lib/base64.c b/lib/base64.c
-index 325c7332b049..e46be3a55585 100644
---- a/lib/base64.c
-+++ b/lib/base64.c
-@@ -52,11 +52,14 @@ static const char base64_tables[][65] = {
- 	INIT_32(0x60, ch_62, ch_63), \
- 	[0x80 ... 0xff] = -1 }
- 
-+__diag_push();
-+__diag_ignore(clang, all, "-Wconstant-conversion", "https://github.com/llvm/llvm-project/issues/223923");
- static const s8 base64_rev_maps[][256] = {
- 	[BASE64_STD] = BASE64_REV_INIT('+', '/'),
- 	[BASE64_URLSAFE] = BASE64_REV_INIT('-', '_'),
- 	[BASE64_IMAP] = BASE64_REV_INIT('+', ',')
- };
-+__diag_pop();
- 
- #undef BASE64_REV_INIT
- #undef INIT_32
-
----
-base-commit: 0c2669a9f4a1d607e7591ae50ccf3c432a0aff08
-change-id: 20261008-base64-silence-clang-24-constant-conversion-b682c6bbf563
-
-Best regards,
---  
-Cheers,
-Nathan
-
+								Honza
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
