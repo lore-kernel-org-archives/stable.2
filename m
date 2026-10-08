@@ -1,201 +1,143 @@
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cvsmtppost03.nm.naver.com (cvsmtppost03.nm.naver.com [114.111.35.152])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42F4F547075
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 05:01:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C23E547075
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 05:02:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.111.35.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791435708; cv=none; b=Z5MVOgppV8gDN+/tAH3otcNi4xqm0Iocd7SYnblv/INlxhrKGrcYhomU3gHGydPHlTCSZ90vXGCYPARKSc9154jgbifNPKwUQfJIXiNbJhjVyrleo47MYIkvfNINTuxF+Vn/+ilKCP+16fS/lNUv6KqEhvnS/x6p3p/g7rWFyyU=
+	t=1791435765; cv=none; b=DPiU6Nk2A5vDvR85FnjfkOTvAU8dD+pf0vH/MCiuwLCPrLbvsA1FSK4JV0YkU9ivOsGGBsh0p0hornrDpaTpYGFJ2qxZ+LwT5v1sjgV0NgYlsY/eZcgU+oEGR7v8l6X1pEwl8JdsPocvFt7HhAM34Vgx9kpcKtik01rHQGqe/HY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791435708; c=relaxed/simple;
-	bh=Lr8R1biVw5Gr5KRv0ZFED/ZEj+95G+ohm4P7sF1PD50=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LzlhHGyItbcCL7fMqNZ1dmHsRQkHyf3DQDe3rscWdlFNaGrk+EHf8RcdMurLJJU8Kt42QFPtezYiBX6PoK+HzuJGyMVJlKas7jMlD75pa1oUxzR4oHUh2zZSFxiQdej28xNFK/jv0YixUARVVq2xRm+MF1VtPNP6kieccJ1zyto=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lsgduzHR; arc=none smtp.client-ip=209.85.210.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791435765; c=relaxed/simple;
+	bh=QjRwAH8htDnUqAgWGHR86PsqrL3WAOVeYSL+BLIOoOc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mKqUsv3nIv39wExTbtqthT5LMxFSWs+oa0PkTWU8DYhag6l4dCy7CT3cREhbbL4gLHu9+4ouOGGaqq0FUDDS36xsH9IQnkRdomt7SbyhSPIlCV1gxwDVf5ErsBeRqDfBUW3JnIOblSIgq1aox99rEE6h+5Uhth9m+JW0AnxviNs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com; spf=pass smtp.mailfrom=naver.com; dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b=jNxPkB1O; arc=none smtp.client-ip=114.111.35.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lsgduzHR"
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8819033dbadso1711693b3a.0
-        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 22:01:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791435705; x=1792040505; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ak5iTOIQGfouGHICnb+S+V/d3Pepokyc2hoELrEJXYU=;
-        b=lsgduzHRHcus9oGfRp8Bl8LlXDVe7JWhbHf+YY0WeIr4lp1BZWgu5bIcoYdO8fxD6f
-         Vt/1lE7lBHEeVO3naoKJf8zHdHLjF2FUNdRtWHG3CTnd37/yfnhQmmWgxwfrYIq8S/4/
-         VqEcyrKYTm/Ndmp6Y7WDcTlf+GD3IPPDfKR7OoniFTOOO9AEZHOtzbqVab2jUguCmEgu
-         KKooOgEhhgqRdd+jGXw0RpoEYM3gEoPYS/jJNri9fC2JIvhtKys0egcaB6RhVWdVWw0G
-         VozWjUQO0Ge1EYsdimy5a6eqbTmqrYbtM8Atna+L9X8ThNZuWuRcDG7tAWdkZ7gDYJdu
-         53cQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791435705; x=1792040505;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ak5iTOIQGfouGHICnb+S+V/d3Pepokyc2hoELrEJXYU=;
-        b=lKQ4VKh4Od8FsuXkPS04653uNuD1LCNAtXsjpnAm+5l7e1nuHOy4U7OV3X7EhnXS4z
-         W0wJe9nxEgErKSOs69Xf3IDD1n15rLg03qpl96JYsJpkyanu/wqnFCUVp1T65gjR76Sw
-         O+WjBuiHa23cazKBHq6lWNn1s4DDFdChDKxTL46p/oY95gpdGfUd0KozkP0h0XxzuGRC
-         ylBubYwkzSRY1cnnZq7DFTrFTuYWoD7NLNLhpbOUKibb520aS3uxS5t2kdJf+jQxUDGG
-         iNQs98v8kuEH0M3DdOA8uZl+3Tc3iiekzovNl+1x0oH/qd5o6/+g7J5n2u7UP4idz6of
-         N+Hg==
-X-Forwarded-Encrypted: i=1; AKwUvBzx1IAiWQacf3RUYyGeq0gv7sO/8QwCxwXViKPPA0ZIuRtisEyLN07acSIEXHGJvzesJEduJ0E=@vger.kernel.org
-X-Gm-Message-State: AFuF++n5zq07gnyVOlReNpSW0M+boaahqAPzbsTjfX2rjEK97NsGAcDc
-	bg91k/gjigu9w54v6lH30BSHMClHTfDj04kTuONVm6ktGydZYCqzkCfO
-X-Gm-Gg: AYBFou3QLB+sX+vVDr2Wmmp0/jkVSCth+sWkveqSJDGZ6TgbL+nPNpOsROMv0y43rux
-	TGYJAkbZHFz0tpzeKi3XcQArWMN6yVXOeJGGXvKQlzFckEvprgFjAU/LQb4/mHlUZ+9YnSg8byK
-	Vt/HQISrA63KHoMaT2z+aONYRQHRjt/l0lrbnWLEa8q0Q1S/U+abZBvjRi5iRlCFV4HXibF/jsP
-	CmQb1TkSpfBHg8GcCqtQrasajcBNmhEqkFVkzaFEmQ9cyWOkVhsw5gEvTK+3sEDsL21t3mFjD0j
-	Q13RRcekWI7aIrwyjl3ZtPcETD85FSqMPTIrO1Wn06CWWBknqcgkVlUvnRNLvOqoiAIHWW5TgCY
-	obwSnPuRFuxVgbxkK9TC0U1a7vWfbJi0/d+KZkqJ5cnyuPtGlZr+vC+HJbLMWNzx505sZIb0KPR
-	vDjIM/f6cxihpO+/bXipts9/HuoWA0V+DVEVwuQwdwcTY+FJ0UbRhGMGe6wQsdHa2Z/7I=
-X-Received: by 2002:a05:6a00:2183:b0:88b:7e32:d96 with SMTP id d2e1a72fcca58-891ae9e0ebamr3474162b3a.1.1791435705534;
-        Wed, 07 Oct 2026 22:01:45 -0700 (PDT)
-Received: from dungbv.. ([116.98.134.138])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-892bc07927csm1020989b3a.59.2026.10.07.22.01.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 22:01:44 -0700 (PDT)
-From: Bui Viet Dung <dungvn2345@gmail.com>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b="jNxPkB1O"
+Received: from cvsendbo023.nm ([10.112.22.35])
+  by cvsmtppost03.nm.naver.com with ESMTP id qBMFQaYpRkmlxGifyd1eBQ
+  for <stable@vger.kernel.org>;
+  Thu, 08 Oct 2026 05:02:35 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
+	t=1791435755; bh=QjRwAH8htDnUqAgWGHR86PsqrL3WAOVeYSL+BLIOoOc=;
+	h=From:To:Subject:Date:Message-ID:From:Subject:Feedback-ID:
+	 X-Works-Security;
+	b=jNxPkB1ObuQCTA17Tc9ydfOrsuFe/vStiuKY6cNH0GO6Q9SYKkm4sgHgnf0wHSYg9
+	 85uBRWsleVdinITuYJ9f7CTiGpQ0YFDZp0nfv6UVpn/fxKwiazgr/9C8C9nsw8lug+
+	 Kcjpa3lpM3BLh/75C/5JQ6/f/tyMscQZ4KcQSW2yOAaOLdjDA1+9n6sW15V/vQYcQE
+	 BclfKDof20yZghZTnzeDGirBh+EM2Tits711wqEYq9A4XFtqJTXnKtc3m/4t/Cjnbr
+	 6SUds+0pJlzbaJ0H0GHWUdKl7Z5pRpIAW4DqizrK4QF6C3Qmcvfez3z2MJsTFLp+ny
+	 wJS1LwLeP1CxA==
+X-Session-ID: Q-gMG+F9Royi47dWXuXcFw
+X-Works-Send-Opt: OsRwpzGdjHmdKHFOMr39Ko3YKBmljAudFqM9KqMqFxIYkEljxBmwjAg=
+X-Works-Smtp-Source: rZYmFAulFqJZ+HmdFxKq+6E=
+Received: from localhost.localdomain ([115.136.205.4])
+  by mvnsmtp06.nm.naver.com with ESMTP id Q-gMG+F9Royi47dWXuXcFw
+  for <multiple recipients>
+  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+  Thu, 08 Oct 2026 05:02:34 -0000
+From: sung byeongchan <tjdqudcks0424@naver.com>
+To: Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>
+Cc: netfilter-devel@vger.kernel.org,
+	netdev@vger.kernel.org,
 	stable@vger.kernel.org,
-	Bui Viet Dung <dungvn2345@gmail.com>
-Subject: [PATCH] Bluetooth: hci_debugfs: Pin module for debugfs file operations
-Date: Thu,  8 Oct 2026 12:01:40 +0700
-Message-ID: <20261008050140.483853-1-dungvn2345@gmail.com>
+	Jakub Kicinski <kuba@kernel.org>,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	Sashiko <netdev-bot+sashiko@kernel.org>,
+	=?UTF-8?q?=EC=84=B1=EB=B3=91=EC=B0=AC?= <tjdqudcks0424@naver.com>
+Subject: [PATCH net v2] netfilter: nf_conntrack_reasm: avoid truncating header offsets
+Date: Thu,  8 Oct 2026 14:02:25 +0900
+Message-ID: <20261008050225.29543-1-tjdqudcks0424@naver.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260929090027.200041-1-tjdqudcks0424@naver.com>
+References: <20260929090027.200041-1-tjdqudcks0424@naver.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-An open debugfs file retains its file_operations pointer in the
-debugfs proxy state. However, the file_operations defined in
-hci_debugfs.c (use_debug_keys_fops, sc_only_mode_fops,
-ssp_debug_mode_fops, force_bredr_smp_fops, force_static_address_fops,
-force_no_mitm_fops, dut_mode_fops, vendor_diag_fops, and the
-DEFINE_QUIRK_ATTRIBUTE macro) have no .owner set to THIS_MODULE.
+From: 성병찬 <tjdqudcks0424@naver.com>
 
-As a result, full_proxy_open_regular() calls fops_get() which succeeds
-without taking a reference to the bluetooth module. When a userspace
-process opens any of these debugfs files, a subsequent controller removal
-and module unload (rmmod bluetooth) can succeed while the file descriptor
-remains open.
+find_prev_fhdr() stores the offset of the previous Next Header field in
+an 8-bit variable. A valid IPv6 extension header chain can place that
+field at offset 256, causing the value to wrap to zero. Reassembly then
+writes the Fragment Header's next-header value to the wrong byte.
 
-When the userspace process subsequently closes the descriptor,
-full_proxy_release() accesses the already unmapped file_operations
-structure, triggering a kernel oops in full_proxy_release():
+Use int for prev_nhoff so the offset is preserved until it is checked by
+its consumer.
 
-  BUG: unable to handle page fault for address: fffffbfff8056f03
-  #PF: supervisor read access in kernel mode
-  Oops: 0000 [#1] SMP KASAN NOPTI
-  RIP: 0010:full_proxy_release+0x8e/0x140
-  Call Trace:
-   <TASK>
-   __fput+0x39f/0xa60
-   fput_close_sync+0xff/0x200
-   __x64_sys_close+0x8c/0xf0
-   do_syscall_64+0x115/0x6a0
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-   </TASK>
+The same path also passes an unchecked offset to two 16-bit consumers:
+frag_queue.nhoffset and skb->transport_header. On the LOCAL_OUT raw path,
+a 65536-byte IPv6 packet can place the Fragment Header at offset 65528.
+With 16 bytes of skb headroom, skb_set_transport_header() truncates 65544
+to 8. In the reproduced path, reassembly subsequently passes -8 as the
+unsigned skb_push() length and triggers skb_under_panic().
 
-The issue was discovered via manual code audit of
-net/bluetooth/hci_debugfs.c and verified on a Linux 7.3-rc6 test VM
-with CONFIG_BT=m.
+Reject a previous-header offset that cannot be represented by nhoffset,
+and use skb_set_transport_header_careful() to reject a Fragment Header
+offset that cannot be represented relative to skb->head.
 
-Set .owner = THIS_MODULE on all debugfs file_operations tables in
-hci_debugfs.c so that debugfs keeps the module loaded until close has
-finished.
+The prev_nhoff widening was previously posted by Jérémy Jean. This
+revision folds it together with the remaining 16-bit checks, as requested
+by Pablo Neira Ayuso.
 
-Fixes: 0886aea6acd2 ("Bluetooth: Expose debug keys usage setting via debugfs")
+The 16-bit transport-header failure reproduced on three independent
+boots, including one run from outer UID 65534 in new user and network
+namespaces. With the combined fix, the trigger was rejected safely in
+three runs. Short fragments, ordinary IPv6 TCP and UDP, and the earlier
+offset-248 and offset-256 cases continued to work.
+
+Fixes: 9fb9cbb1082d ("[NETFILTER]: Add nf_conntrack subsystem.")
+Reported-by: Sashiko <netdev-bot+sashiko@kernel.org>
+Link: https://lore.kernel.org/netfilter-devel/20260822214012.1028305-2-Jeremy.Jean@oss.cyber.gouv.fr/
+Link: https://lore.kernel.org/netfilter-devel/179089937913.434549.5874493628033954656@kernel.org/
+Cc: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
 Cc: stable@vger.kernel.org
-Signed-off-by: Bui Viet Dung <dungvn2345@gmail.com>
+Assisted-by: LLM
+Signed-off-by: 성병찬 <tjdqudcks0424@naver.com>
 ---
- net/bluetooth/hci_debugfs.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+Changes in v2:
+- Fold the remaining u16 nhoffset and transport-header checks into the
+  prev_nhoff fix, as requested by Pablo Neira Ayuso.
+- Add the three-run crash and fixed A/B results.
+- Credit Jérémy Jean's earlier posting of the prev_nhoff widening.
 
-diff --git a/net/bluetooth/hci_debugfs.c b/net/bluetooth/hci_debugfs.c
-index 2559fb6324d6..cd5ef398f238 100644
---- a/net/bluetooth/hci_debugfs.c
-+++ b/net/bluetooth/hci_debugfs.c
-@@ -65,6 +65,7 @@ static ssize_t __name ## _write(struct file *file,			      \
- }									      \
- 									      \
- static const struct file_operations __name ## _fops = {			      \
-+	.owner		= THIS_MODULE,					      \
- 	.open		= simple_open,					      \
- 	.read		= __name ## _read,				      \
- 	.write		= __name ## _write,				      \
-@@ -283,6 +284,7 @@ static ssize_t use_debug_keys_read(struct file *file, char __user *user_buf,
- }
+ net/ipv6/netfilter/nf_conntrack_reasm.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/net/ipv6/netfilter/nf_conntrack_reasm.c b/net/ipv6/netfilter/nf_conntrack_reasm.c
+index 599c49bf0a0a..ae25ebc873b0 100644
+--- a/net/ipv6/netfilter/nf_conntrack_reasm.c
++++ b/net/ipv6/netfilter/nf_conntrack_reasm.c
+@@ -398,7 +398,7 @@ find_prev_fhdr(struct sk_buff *skb, u8 *prevhdrp, int *prevhoff, int *fhoff)
+ {
+ 	u8 nexthdr = ipv6_hdr(skb)->nexthdr;
+ 	const int netoff = skb_network_offset(skb);
+-	u8 prev_nhoff = netoff + offsetof(struct ipv6hdr, nexthdr);
++	int prev_nhoff = netoff + offsetof(struct ipv6hdr, nexthdr);
+ 	int start = netoff + sizeof(struct ipv6hdr);
+ 	int len = skb->len - start;
+ 	u8 prevhdr = NEXTHDR_IPV6;
+@@ -474,7 +474,9 @@ int nf_ct_frag6_gather(struct net *net, struct sk_buff *skb, u32 user)
+ 	if (!pskb_may_pull(skb, fhoff + sizeof(*fhdr)))
+ 		return -ENOMEM;
  
- static const struct file_operations use_debug_keys_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= simple_open,
- 	.read		= use_debug_keys_read,
- 	.llseek		= default_llseek,
-@@ -301,6 +303,7 @@ static ssize_t sc_only_mode_read(struct file *file, char __user *user_buf,
- }
+-	skb_set_transport_header(skb, fhoff);
++	if (nhoff != (u16)nhoff ||
++	    !skb_set_transport_header_careful(skb, fhoff))
++		return -EINVAL;
+ 	hdr = ipv6_hdr(skb);
+ 	fhdr = (struct frag_hdr *)skb_transport_header(skb);
  
- static const struct file_operations sc_only_mode_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= simple_open,
- 	.read		= sc_only_mode_read,
- 	.llseek		= default_llseek,
-@@ -437,6 +440,7 @@ static ssize_t ssp_debug_mode_read(struct file *file, char __user *user_buf,
- }
- 
- static const struct file_operations ssp_debug_mode_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= simple_open,
- 	.read		= ssp_debug_mode_read,
- 	.llseek		= default_llseek,
-@@ -529,6 +533,7 @@ static ssize_t force_bredr_smp_write(struct file *file,
- }
- 
- static const struct file_operations force_bredr_smp_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= simple_open,
- 	.read		= force_bredr_smp_read,
- 	.write		= force_bredr_smp_write,
-@@ -778,6 +783,7 @@ static ssize_t force_static_address_write(struct file *file,
- }
- 
- static const struct file_operations force_static_address_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= simple_open,
- 	.read		= force_static_address_read,
- 	.write		= force_static_address_write,
-@@ -1177,6 +1183,7 @@ static ssize_t force_no_mitm_write(struct file *file,
- }
- 
- static const struct file_operations force_no_mitm_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= simple_open,
- 	.read		= force_no_mitm_read,
- 	.write		= force_no_mitm_write,
-@@ -1315,6 +1322,7 @@ static ssize_t dut_mode_write(struct file *file, const char __user *user_buf,
- }
- 
- static const struct file_operations dut_mode_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= simple_open,
- 	.read		= dut_mode_read,
- 	.write		= dut_mode_write,
-@@ -1371,6 +1379,7 @@ static ssize_t vendor_diag_write(struct file *file, const char __user *user_buf,
- }
- 
- static const struct file_operations vendor_diag_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= simple_open,
- 	.read		= vendor_diag_read,
- 	.write		= vendor_diag_write,
+base-commit: 6d25ffca055a77787c21a36b66c253f76239411b
 -- 
 2.43.0
 
