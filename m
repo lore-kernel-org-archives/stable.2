@@ -1,176 +1,165 @@
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 804BA35F164
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 04:37:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCB6C125AA
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 04:54:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791434276; cv=none; b=jgpYh6Jpw241mgRPZepi35xp7kiTP9MGjunQyzpsHvXsouwZO4YShX2NJh7j1u1w3SbYOOCuizuf6TsX1//9o3y9IBd4+p8VxFPvwUdnFYURcdndr/O4TanLoiEcSjF5DPjlSSPn3WJlz+joPXb6SNbm9DQJafBwRBxodnNoAx8=
+	t=1791435262; cv=none; b=Bm7QSrCFYx09oMKsjujn0/ck4neGn2tdIQJOcxIyIjo8bTTgzCyR6XHwVrCVyiP0eB1OUZAMaLkDNA4l2YAWEaUp7cnQk3nGZinzyTxpDS4wO4BgOlLK3X2mRXKe6HXcS70gZ8hyy9VnPqw2QI92N6ReNdXV6Pv8ZavTZ29CHS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791434276; c=relaxed/simple;
-	bh=weNrrQav3Omgfq0Qboj6ToKOI/kTX3MRt6OBS5VAWRo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=kNEaE5oL+/Os0fbhRqEcj99qiPJJz0M2Okw9Xt2mrPKS0XiyQgKA77WNncrGky5DI9ca1rch9adoqKdTMHkDpqhRmxnVT/rsAzGUKo/ZeJjLoFXoPOwVRIz+HF1YBh8bprrdokrZzsDVxeL3dWWQAKk1svlcE1FXyDCLagAbkZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=jjT/Y7Su; arc=none smtp.client-ip=203.254.224.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1791435262; c=relaxed/simple;
+	bh=svPYm/ErGNSTUaXVXCQZ7z4u10kek6ZBfJnn8TTMf1g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PIdvqQY5nn9+cI+Z/UdVQ5WhDMkp+9llNGfx5dlRwX+kk9OSli7mYpQldFcxkrbOKl+R26etnZXxtGzRRa8t3u/vuP8H8ewSIdy5qHTtMqyRGZ9zAAcICuVSA8owVWVkkzp9evlOqbADYfVo9AA5rypDXEBWj2ZNFgGu4g84fIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rKKRRhhO; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="jjT/Y7Su"
-Received: from epcas5p4.samsung.com (unknown [182.195.41.42])
-	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261008043751epoutp042f256ad8a04ce3dfae02821a3d3fa826~cc-qKjj3l1302013020epoutp04W
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 04:37:51 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261008043751epoutp042f256ad8a04ce3dfae02821a3d3fa826~cc-qKjj3l1302013020epoutp04W
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1791434271;
-	bh=CoRXBFa57LuN2z8UOryR16SfCaWjD5KTrh3/Tzeky90=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=jjT/Y7Su7BlLdX7e1El5ztQl7II6k2HID8ISJmeV+krSX1clksHyxwElkpR7oXTo6
-	 gzu58gPrg/y9C0hVY5ysFGY1I5ASbsAPW+Rmc0WGDMjuqNxDgbKRolARujiLgXtXWO
-	 hUs67Eqyu4RlkksfnItG/2dr4XwAJxIb4KSKy1Z0=
-Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
-	epcas5p2.samsung.com (KnoxPortal) with ESMTPS id
-	20261008043751epcas5p2ac16c92b0274860fa8bdf6566cd995f0~cc-pwhj5d3214432144epcas5p2V;
-	Thu,  8 Oct 2026 04:37:51 +0000 (GMT)
-Received: from epcas5p3.samsung.com (unknown [182.195.38.91]) by
-	epsnrtp01.localdomain (Postfix) with ESMTP id 4j0cg23T9Gz6B9mK; Thu,  8 Oct
-	2026 04:37:50 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
-	20261008043749epcas5p304a7d5351b9a8a2b9fa6baa4d2d2eb35~cc-ohn4Bg1330013300epcas5p3U;
-	Thu,  8 Oct 2026 04:37:49 +0000 (GMT)
-Received: from [107.122.5.126] (unknown [107.122.5.126]) by
-	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261008043747epsmtip2d3eee15d74435f4ec6dcf6daa8c0708f~cc-meeDs31553615536epsmtip2k;
-	Thu,  8 Oct 2026 04:37:47 +0000 (GMT)
-Message-ID: <bc43e3f5-ba0c-4f91-b765-ee35021bf089@samsung.com>
-Date: Thu, 8 Oct 2026 10:07:46 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rKKRRhhO"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3a865731ee4so2329496a91.2
+        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 21:54:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791435261; x=1792040061; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GmV84PAhQf1rP81PzhsTjjy7MoGjA1NeT69P9fECqzs=;
+        b=rKKRRhhO6fZVsHPrqUcBzKJXt4eHovRSHxyQ1JkecnmVda27ljUJJ1UZub6cvPO3q1
+         el7GYpIN1pswjbuoWomYXCxMThqY0/M+nFtYUVlGjWu/atg3aoKh6JOo82hzJXCNiYSn
+         yhOZ01/RRjEEAB13WUP/PlLsqiXGL4gK3b6gScXxXDy0KzsGot2SBPW308sZxJQfHMw1
+         pDj0YchjpfXTm8Fz6N9n7YFd/nbRE4p9wB2/3e887pcICVv8THoAgtE9kGsl86QHSPJ3
+         So2IktKxGW1Tnta9Dde94/ij0lpAGLn7ymJFkiWTCzvdd8ae09Xd3apXZfbsMSkq4izO
+         FYqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791435261; x=1792040061;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GmV84PAhQf1rP81PzhsTjjy7MoGjA1NeT69P9fECqzs=;
+        b=VBkPoZJjzmrxs+m5wwyMsrPvIzFtDrqJuQ2LVsqQRVrQdtDUmF6qaAZyYzNPHXcmEy
+         coA96IDLpOSJszPHeNWnEtT/B8+bKekQUWSM8CnvFjKuXalYMFgMv8KRoJWMBavhAWWZ
+         G7VC8b/miItS120oOZGaSekeI8ZFK7+OaFTJBPIJxFTMdHoYkmJS2T2r/JreTjN6M76L
+         mlXCoIl+XmS2ubvGf7cBpVQNSOXCQCcL+R5LH+zyS1+7urZg9t1quil5w2ZzIVtYxKpR
+         zeSytBIanoivbfKMDel04OJVE+wPed2x8BpEApMO4HkWxaHVI+XiTuUFmj+ivQyDHLn9
+         7O9w==
+X-Forwarded-Encrypted: i=1; AKwUvByceYJiZ9TTHJyPJXT8/9K/EajralotiJQxkDEN6iB2p5K51vWyigT6S0bMjxTUgKl2Xymbkfw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLbc3GLFa93dH0gh6yWDhNsX5GgSU/Yae9LLWlbTS72abZwC1yV
+	jiO6lxlcJx8+4hIMcBFJcSRpl19lD0BbCoeXF0/G0suuy50+jKQrkpvC
+X-Gm-Gg: AYBFou0H9VEEBoCXDE09hFisWLj4Nh7gc/0h5hx7oCrT6JXVtFwkwbQRJIpRgBUoxBG
+	hBZQqeEZsDUvtnWetXYxuwP4tJQ70zO/QFtQZcTWuHPGaKqg931f66XaJLXooyCdKBHCODRVz7T
+	d8PyS8N72PdbKjqOrDxN5KjAh9gqOX5+0IKa9iuQ/KDQf0NfBo+yAJ10LDCu2l9IbNhlBKHSPMK
+	ePQpVrpwoAntJGhatLkxWfijsQ/Sm4Y9xoffE9T6sXlOyUAiejPOJPG/4ZYO7hZs5D//YQcVb9N
+	hmtzqHq0jPToBNS8RAH01o1V0T9pIt2j1gWbrr2j2V+SkkFFnlmypBorEWUnchWmvIFh/dl+WQL
+	6kozfiU+x3oERCU6Kxyg7sqOI9IaHMjjkVmEfAAz7/N9+tavzl7tuaUglO0MfnJP10P1WIHWqrd
+	RSd0qEJQTnEuURTfeXAOZ76tVtTE6fhfMXmeeb2JDsg1xiz+tsXPR3mIbD7Xfi2NvShPoCtWe1L
+	wt9lw==
+X-Received: by 2002:a17:90b:5887:b0:3a7:cd7b:134 with SMTP id 98e67ed59e1d1-3a8a1974f13mr3974405a91.24.1791435261030;
+        Wed, 07 Oct 2026 21:54:21 -0700 (PDT)
+Received: from dungbv.. ([116.98.134.138])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3aa0cbea8d3sm2407809a91.16.2026.10.07.21.54.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 21:54:20 -0700 (PDT)
+From: Bui Viet Dung <dungvn2345@gmail.com>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: Ivan Pravdin <ipravdin.official@gmail.com>,
+	Paul Menzel <pmenzel@molgen.mpg.de>,
+	linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bui Viet Dung <dungvn2345@gmail.com>
+Subject: [PATCH] Bluetooth: hci_vhci: Pin module for debugfs file operations
+Date: Thu,  8 Oct 2026 11:54:13 +0700
+Message-ID: <20261008045413.465999-1-dungvn2345@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] usb: dwc3: gadget: Prevent EP resource conflicts
- during StartTransfer
-To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Cc: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
-	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"jh0801.jung@samsung.com" <jh0801.jung@samsung.com>, "dh10.jung@samsung.com"
-	<dh10.jung@samsung.com>, "akash.m5@samsung.com" <akash.m5@samsung.com>,
-	"hongpooh.kim@samsung.com" <hongpooh.kim@samsung.com>,
-	"eomji.oh@samsung.com" <eomji.oh@samsung.com>, "h10.kim@samsung.com"
-	<h10.kim@samsung.com>, "shijie.cai@samsung.com" <shijie.cai@samsung.com>,
-	"alim.akhtar@samsung.com" <alim.akhtar@samsung.com>,
-	"muhammed.ali@samsung.com" <muhammed.ali@samsung.com>,
-	"thiagu.r@samsung.com" <thiagu.r@samsung.com>, "pritam.sutar@samsung.com"
-	<pritam.sutar@samsung.com>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>
-Content-Language: en-US
-From: Selvarasu Ganesan <selvarasu.g@samsung.com>
-In-Reply-To: <asbJfaj5OIhHBunD@vbox>
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261008043749epcas5p304a7d5351b9a8a2b9fa6baa4d2d2eb35
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-542,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261007020654epcas5p1d6f8d2d6f5215abcec7d6c6f90b8b8c6
-References: <20260306214123.3jnlzd2tmtwggch2@synopsys.com>
-	<7f8a7341-3701-4ade-a198-cf86719da931@samsung.com> <arsnMM-GvuXwBKCX@vbox>
-	<5d7501ea-4579-44a5-9a7e-91ef1f10b2bb@samsung.com> <asBhDmy-3DymDKQH@vbox>
-	<3fdda532-8181-48e9-b58d-cad7289408e7@samsung.com>
-	<CGME20261007020654epcas5p1d6f8d2d6f5215abcec7d6c6f90b8b8c6@epcas5p1.samsung.com>
-	<asWmW1jmzedIV5SP@vbox> <ff5d6900-374b-44d8-967f-0af16ae53437@samsung.com>
-	<98f16da0-5e24-4dd1-8f9f-79a1a5e7656c@samsung.com> <asbJfaj5OIhHBunD@vbox>
 
+An open debugfs file retains its file_operations pointer in the
+debugfs proxy state. However, force_suspend_fops, force_wakeup_fops,
+aosp_capable_fops, and force_devcoredump_fops have no .owner set to
+THIS_MODULE. As a result, full_proxy_open_regular() calls fops_get()
+which succeeds without taking a reference to the hci_vhci module.
 
-On 10/8/2026 5:29 AM, Thinh Nguyen wrote:
-> On Wed, Oct 07, 2026, Selvarasu Ganesan wrote:
->> Sorry for the format issue. The updated answers as below,
->>
->> No, the endpoint completion event is not seen after the -ETIMEDOUT error.
->>
->> The proposed fix works well for the __dwc3_gadget_ep_set_halt sequence,
->> where DWC3_EP_END_TRANSFER_PENDING must be set to prevent dwc3_ep_queue
->> from starting a new transfer during a EP transfer timeout.
->>
->> But, this is unnecessary for __dwc3_gadget_ep_disable. Since there's no
->> way to clear the pending flag if the interrupt is missed and no
->> dwc3_ep_queue calls occur until the EP is re-enabled, preserving
->> DWC3_EP_END_TRANSFER_PENDING here provides no benefit.
->>
->> So, the below changes is not necessary in ep disable,
->>
-> We still need to keep DWC3_EP_END_TRANSFER_PENDING in ep_disable. That's
-> for the normal case where the End Transfer completes after ep_disable
-> returns, which is the original issue. If the command never completes,
-> the endpoint resource is stuck regardless. Clearing the flag only lead
-> to a NO_RESOURCE error later.
+When userspace opens any of these debugfs files and later closes
+the /dev/vhci file descriptor (triggering vhci_release() and
+debugfs file removal), the open debugfs file descriptor remains valid
+in userspace. Because the module refcount was not incremented,
+the hci_vhci module can be unloaded via delete_module (rmmod hci_vhci).
 
-Agreed.
+When the userspace process subsequently closes the debugfs file
+descriptor, full_proxy_release() accesses the already unmapped
+file_operations structure, resulting in a kernel page fault / oops:
 
->
-> As for the dwc3_gadget_ep_queue() race during giveback, keeping
-> DWC3_EP_TRANSFER_STARTED isn't right. We should reject the queue when
-> the endpoint is disabled. This should be a separate patch:
+  BUG: unable to handle page fault for address: fffffbfff846f18b
+  #PF: supervisor read access in kernel mode
+  #PF: error_code(0x0000) - not-present page
+  Oops: Oops: 0000 [#1] SMP KASAN NOPTI
+  RIP: 0010:full_proxy_release+0x8e/0x140
+  Call Trace:
+   <TASK>
+   __fput+0x39f/0xa60
+   fput_close_sync+0xff/0x200
+   __x64_sys_close+0x8c/0xf0
+   do_syscall_64+0xc3/0x590
+   entry_SYSCALL_64_after_hwframe+0x76/0x7e
+   </TASK>
+  Modules linked in: ... [last unloaded: hci_vhci(E)]
 
-Agreed.
+The issue was discovered via manual code audit of
+drivers/bluetooth/hci_vhci.c and verified on a Linux 7.3-rc6 test VM
+with CONFIG_BT_VHCI=m by keeping a debugfs file open across controller
+teardown and module unload.
 
->
-> diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c
-> index ee837235630a..eb6666b7bb98 100644
-> --- a/drivers/usb/dwc3/gadget.c
-> +++ b/drivers/usb/dwc3/gadget.c
-> @@ -1084,6 +1084,8 @@ static int __dwc3_gadget_ep_disable(struct dwc3_ep *dep)
->   	reg &= ~DWC3_DALEPENA_EP(dep->number);
->   	dwc3_writel(dwc, DWC3_DALEPENA, reg);
->   
-> +	dep->flags &= ~DWC3_EP_ENABLED;
-> +
->   	dwc3_remove_requests(dwc, dep, -ESHUTDOWN);
->   
->   	dep->stream_capable = false;
-> @@ -1990,7 +1992,8 @@ static int __dwc3_gadget_ep_queue(struct dwc3_ep *dep, struct dwc3_request *req)
->   {
->   	struct dwc3		*dwc = dep->dwc;
->   
-> -	if (!dep->endpoint.desc || !dwc->pullups_connected || !dwc->connected) {
-> +	if (!(dep->flags & DWC3_EP_ENABLED) || !dep->endpoint.desc ||
-> +	    !dwc->pullups_connected || !dwc->connected) {
->   		dev_dbg(dwc->dev, "%s: can't queue to disabled endpoint\n",
->   				dep->name);
->   		return -ESHUTDOWN;
->
-Thanks for suggestion. We will test this patch to confirm no resource 
-issue in race condition.
+Set .owner = THIS_MODULE on all four file_operations structures so that
+debugfs pins the module until all file descriptors are closed.
 
-> The End Transfer command not completing is also a separate issue. I
-> asked you to check whether the command would eventually complete with
-> the additional code, and it appears it doesn't.
-  We have confirmed that the completion event is never seen, once the 
-timeout occurs for end transfer. It appears the command is indeed 
-hanging in the hardware, as you suspected.
+Fixes: 28010791193a ("Bluetooth: vhci: Prevent use-after-free by removing debugfs files early")
+Cc: stable@vger.kernel.org
+Signed-off-by: Bui Viet Dung <dungvn2345@gmail.com>
+---
+ drivers/bluetooth/hci_vhci.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
->
-> Can you provide some more info on your setup:
->   * IP and version
->   * connected speed
->   * endpoint direction (is it always OUT?)
->   * Is there any active transfer
->   * tracepoints
-* IP and version : 0xc120:   0x33313130
-* connected speed : HS mode
-* endpoint direction (is it always OUT?) : Yes its always OUT
-* Is there any active transfer : No, There is evidences from the log to 
-say there is a active transfer.
-* tracepoints: There is no dwc3 traces for this issue as of now due to 
-its low reproduction rate in the customer's setup.
+diff --git a/drivers/bluetooth/hci_vhci.c b/drivers/bluetooth/hci_vhci.c
+index eddb32b30539..8f7db0102b25 100644
+--- a/drivers/bluetooth/hci_vhci.c
++++ b/drivers/bluetooth/hci_vhci.c
+@@ -155,6 +155,7 @@ static ssize_t force_suspend_write(struct file *file,
+ }
+ 
+ static const struct file_operations force_suspend_fops = {
++	.owner		= THIS_MODULE,
+ 	.open		= simple_open,
+ 	.read		= force_suspend_read,
+ 	.write		= force_suspend_write,
+@@ -194,6 +195,7 @@ static ssize_t force_wakeup_write(struct file *file,
+ }
+ 
+ static const struct file_operations force_wakeup_fops = {
++	.owner		= THIS_MODULE,
+ 	.open		= simple_open,
+ 	.read		= force_wakeup_read,
+ 	.write		= force_wakeup_write,
+@@ -263,6 +265,7 @@ static ssize_t aosp_capable_write(struct file *file,
+ }
+ 
+ static const struct file_operations aosp_capable_fops = {
++	.owner		= THIS_MODULE,
+ 	.open		= simple_open,
+ 	.read		= aosp_capable_read,
+ 	.write		= aosp_capable_write,
+@@ -386,6 +389,7 @@ static ssize_t force_devcd_write(struct file *file, const char __user *user_buf,
+ }
+ 
+ static const struct file_operations force_devcoredump_fops = {
++	.owner		= THIS_MODULE,
+ 	.open		= simple_open,
+ 	.write		= force_devcd_write,
+ };
+-- 
+2.43.0
 
-
-Thanks,
-Selva
-> Thanks,
-> Thinh
