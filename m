@@ -1,77 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43A60492E35
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 12:47:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D68D6495ADA;
+	Thu,  8 Oct 2026 12:47:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791463644; cv=none; b=tKbND5RZxnENG9pcxqEBxcW6Hu8ktuLXRxOF/6ZP8tPmg8ndcZe4nFiUF4WmlAOV6GVnwu3Wl/gHj7FQ+n6NiMWYSo6nQa4KFWBa6Fw2TFlnuOUxWeHxPMXljYgIlwKhvAgFL+Z2GcwepYzEUJVyXjaKWZvyoyu03iO23Po4gZE=
+	t=1791463655; cv=none; b=nYfsSMijWhv1A8ICd90IQ8xxgxFQ3BOIu6lGxST1AD0CUkO9LyG6MW0NdQO2cAAQCUmQXbI1V0TVwc8ZCrK/oa0WgKDctKskxOK5L7nHd9kzmnbG0ni2o+5XjsgupSTn58RJ1O+D5C6tvT0cBqag3bm0+k5K+JyE5iP8kbxXLHk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791463644; c=relaxed/simple;
-	bh=LlMO6iQODPUl//akDACh6iLTLYAzcsIkYiJxJNtBM6Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YAZGxrc+yVQzTiblFTme5fbciHmquia5tpGPG8aSrF7FjuXKgL10HuakE3HDqADa85mAz372PS68GDFVMa3CNdbqHXf5hIcDb/tZ9WbFPw4fpgR2Uya1eNa0qBGTY+sMygVhvH/sI5Z3dL0Lf5eQOBz4Ro3ZEijSgZBWWYXtEx0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b=KhzO33ny; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791463655; c=relaxed/simple;
+	bh=+Ql/jKxiPASbigPDyJUHCQjLeMhmIoydTQWDRiK+5b8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DNs5ua/KJuS8rWZs4CG0G5lKNKUw+sXU17JcFyjpp2hvrUH72DUVTGAdXZGHDw37cJMQa9viaVf992vbloym4jzV9LxMwYYi0/9gS9zO5IB4aYZhk4DEEQTP5JN+0VaLr1CfLM5GKs+77pQdCIKyDKl6lJcVpmCtv1GHn7ZDN1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qgpFa3v8; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b="KhzO33ny"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E65941F000FF
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 12:47:22 +0000 (UTC)
-Authentication-Results: smtp.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20210105 header.b=KhzO33ny
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105;
-	t=1791463638;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oxDOQiXRdTnPHTu6HRM1AHIJABx+3lat/A0hYbuPbLI=;
-	b=KhzO33nybonBlNRJLBIBENyzXSq++HOjT7obPD9vEDGQThqzbzUGjpGRvYNkkXR5DVmM0f
-	nys1Dfo6vMrUzBQJStS7drTEvh16xEXLR81plcmv3/uoHV2BKtwIkLFQnPtfprZm+sMfvQ
-	lNZmLxKUdmFOCgX3Phoz8sGUavIgGPU=
-Received: 
-	by mail.zx2c4.com (OpenSMTPD) with ESMTPSA id 72db2ecf (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO)
-	for <stable@vger.kernel.org>;
-	Thu, 8 Oct 2026 12:47:18 +0000 (UTC)
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6a601ba6870so8815267a12.0
-        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 05:47:18 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwyqONVTIiobVW2ixzLHlHYE5kECebi+P/d42YX0jhiEsU9x0xRUAqgJZHFurNO60m/nevFoP8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mHlosdzzgjHNvLAGi4hGNldRn+EOkqqh1Twj+akmOQlrifUizu
-	K5+ZeJ2QIjhcto7HVTN7mMAfSkssN7tpZjlssjEkkF/z79yYZe3r2FzKPZTGbd/lqa4CwUwscq8
-	mcRhOV6++Fk6OjHsQS7T/JV8hPLy5Ntw=
-X-Received: by 2002:a17:907:6ea8:b0:c2a:704c:8c8e with SMTP id
- a640c23a62f3a-c317bd901cdmr531801466b.11.1791463636243; Thu, 08 Oct 2026
- 05:47:16 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qgpFa3v8"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 956501477;
+	Thu,  8 Oct 2026 05:47:28 -0700 (PDT)
+Received: from [10.0.129.161] (e122027.cambridge.arm.com [10.0.129.161])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5BA123F66F;
+	Thu,  8 Oct 2026 05:47:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791463652; bh=+Ql/jKxiPASbigPDyJUHCQjLeMhmIoydTQWDRiK+5b8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=qgpFa3v8E5vOLFaYvMn2S9FDaytDS1I7QVDbKKxT/PQGrvADaMt2lFLnKcpKdZ1hL
+	 bsmqy7P5x6zSoRIpPY0snfqqDOJc2FKTBsARVp5kvCHGkzWFos9/V8qFxKk99PrwRI
+	 IyVGSA55m2Rm83cv/zmqwcVEFXXCHOIwdgVe9m1E=
+Message-ID: <376f1a96-151f-46e3-b368-de5bf4f1765f@arm.com>
+Date: Thu, 8 Oct 2026 13:47:28 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261008124106.665014-1-Jason@zx2c4.com> <179146356621.2527009.11001901701574636880@kernel.org>
-In-Reply-To: <179146356621.2527009.11001901701574636880@kernel.org>
-From: "Jason A. Donenfeld" <Jason@zx2c4.com>
-Date: Thu, 8 Oct 2026 14:47:04 +0200
-X-Gmail-Original-Message-ID: <CAHmME9rypRmL0tA-20vJumRBckpbzEaBXdE+xhMqi5M5OKPFhg@mail.gmail.com>
-X-Gm-Features: AclHuK96wsj5ZjuVQ3gcwk4j3i0Tl8rQf2A9V50RB91AIzVaSRqAPpdX4EdBA54
-Message-ID: <CAHmME9rypRmL0tA-20vJumRBckpbzEaBXdE+xhMqi5M5OKPFhg@mail.gmail.com>
-Subject: Re: [PATCH net] udp_tunnel: drop packets when hibernating
-To: netdev-bot+sinfo@kernel.org
-Cc: rafael@kernel.org, lenb@kernel.org, pavel@kernel.org, 
-	willemdebruijn.kernel@gmail.com, kuba@kernel.org, pabeni@redhat.com, 
-	linux-pm@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	=?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <jeremy.jean@oss.cyber.gouv.fr>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/panthor: Fix TOCTOU race between GROUP_REGISTERED
+ check and erase
+To: Osama Abdelkader <osama.abdelkader@gmail.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Chia-I Wu <olvaffe@gmail.com>, Akash Goel <akash.goel@arm.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+References: <20261008100935.3059587-1-osama.abdelkader@gmail.com>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20261008100935.3059587-1-osama.abdelkader@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 8, 2026 at 2:46=E2=80=AFPM <netdev-bot+sinfo@kernel.org> wrote:
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
->
->  - Whether the issue was actually triggered, or is only theoretical
->    (e.g. found by code inspection). If it was triggered please include
->    the symptoms, like the stack trace or error messages.
+On 08/10/2026 11:09, Osama Abdelkader wrote:
+> panthor_group_destroy() checks the GROUP_REGISTERED mark and then calls
+> xa_erase() without holding the xarray lock across both. If the handle is
+> destroyed by another thread in between, and a concurrent GROUP_CREATE
+> reuses the freed ID, the first destroy erases and releases the new,
+> still-initializing group, leading to a use-after-free in
+> panthor_group_create().
+> 
+> Do the mark check and erase atomically under xa_lock().
+> 
+> Fixes: eec7e23d848d ("drm/panthor: Prevent potential UAF in group creation")
+> Assisted-by: Claude:claude-opus-5.5
+> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+> Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
 
-Yea, I really have no idea. That's for J=C3=A9r=C3=A9my to elucidate.
+Reviewed-by: Steven Price <steven.price@arm.com>
 
-Jason
+> ---
+> v2:
+> - added Assisted-by tag, no code changes.
+> ---
+>  drivers/gpu/drm/panthor/panthor_sched.c | 14 ++++++++++----
+>  1 file changed, 10 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+> index 0493858e55d7..a343c5180e01 100644
+> --- a/drivers/gpu/drm/panthor/panthor_sched.c
+> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
+> @@ -3770,12 +3770,18 @@ int panthor_group_destroy(struct panthor_file *pfile, u32 group_handle)
+>  	struct panthor_group_pool *gpool = pfile->groups;
+>  	struct panthor_device *ptdev = pfile->ptdev;
+>  	struct panthor_scheduler *sched = ptdev->scheduler;
+> -	struct panthor_group *group;
+> +	struct panthor_group *group = NULL;
+>  
+> -	if (!xa_get_mark(&gpool->xa, group_handle, GROUP_REGISTERED))
+> -		return -EINVAL;
+> +	/*
+> +	 * Check the mark and erase the entry atomically, so a concurrent
+> +	 * destroy + create can't make us erase a group that's still being
+> +	 * initialized and happens to reuse the same handle.
+> +	 */
+> +	xa_lock(&gpool->xa);
+> +	if (xa_get_mark(&gpool->xa, group_handle, GROUP_REGISTERED))
+> +		group = __xa_erase(&gpool->xa, group_handle);
+> +	xa_unlock(&gpool->xa);
+>  
+> -	group = xa_erase(&gpool->xa, group_handle);
+>  	if (!group)
+>  		return -EINVAL;
+>  
+
