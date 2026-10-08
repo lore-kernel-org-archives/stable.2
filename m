@@ -1,204 +1,256 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CABE39CD0C;
-	Thu,  8 Oct 2026 16:49:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 218D43876A1;
+	Thu,  8 Oct 2026 17:08:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791478166; cv=none; b=i6rfIrWb5Mi9upiWosQmVBKw2x5wNoZWuEBO66CV0V0823WWOdJIqrSl+asIUJ5TyyGwelWHo7OSv9RLLXGKB6SRQXwxr8bjwtG8MfH1jMA4zYVV+FvdWynHTxTm8cOGgvybxs2E+1DmlZB40HUsAndVs2V99fkyx0Vfeq7l0LQ=
+	t=1791479336; cv=none; b=ISJuM9JAAY/fVYSMgnN7bvbf77iB0tkf2iUQeBnvbZU/3zJtHeEZ4BU+rRgQDK91//l9CSHi+ebFbewrBr02mC+UWi60hZUZ8Qqi/tgi6qk1FGsyzSaz7Y9MhUoWgOk0ihyzaJyyUfyWNpYfyV8Ky5Am0faQ3/4/7Qvk8Wziop0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791478166; c=relaxed/simple;
-	bh=b9Fky14f1LUU/huO2vwJ+DRQzKFNjFCeruk2GiJ3sg0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=SYg3Rm4JOzBwCYUM+VaydQqyKjJ+ZB90wojJ9P+4P6rcmh9TTs8fU9D5mCifCxJI8s0WFh48MF2PQA2BzHCngakk7MPa9sRgRe2af7ioSyMQWKiLUEN6Vu+1hnHQj8S1ypqq02MGLYAUiYqFf6VXqKddCslFltrlXyqgNv+V1EE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bohKO76j; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791479336; c=relaxed/simple;
+	bh=NHFwv42+B+/cjYazOJrkFEEPIOs+Qju+W6s1FuyqHQY=;
+	h=Date:To:From:Subject:Message-Id; b=pA6KbfNZQBYRgo7hLhDwHnuwfV7eGPFQOAgnELSD4JGWXop+snPUXyxcXp4aQ9XKp7PacIr1Bm+8DF+/0Wc8YX5Wd6G1FrE7zw5hMimGYqOZ+IsbpfCZnXi9aFxLD5ccvVAGV68366oWSWzJ9ACG+uZZOjgGQD+6iXYIcuyLQRQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=Jtp7s2be; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bohKO76j"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CE60AC2BCC7;
-	Thu,  8 Oct 2026 16:49:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791478165;
-	bh=b9Fky14f1LUU/huO2vwJ+DRQzKFNjFCeruk2GiJ3sg0=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=bohKO76jc5j78+6crUTFr99o+nJU5l+94kI2Du/3TcIKFYeSClQO6QbAuAN75KGer
-	 EIsq74hy3RGIhsWcNFyL57WB9ed+yX1jWLUk22o1U8ETHTOAimOgWGdPcJmPOYrrzE
-	 a6iB7A1PXahsf9yT7hWKayfrMTDdqRc8bcP5U9b83Ff68NGzVaBeTSYoRaarRrno/6
-	 TifV5TiqlS1pDZ+M0HL4JgPmokOM6YMxJu2YCSxYwzGF2+D0UZhySB5LBxUuDTx1ZZ
-	 9PB7IETvY4hSGdM8pc1ufks4UMrXNMg88eJcguS3rOWl8KCwbRpIzSDCNT/y40s0eE
-	 y0oy9X5PLwOLQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ABF79CA6011;
-	Thu,  8 Oct 2026 16:49:25 +0000 (UTC)
-From: Phil Rosenthal via B4 Relay <devnull+phil.phil.gs@kernel.org>
-Date: Thu, 08 Oct 2026 12:49:18 -0400
-Subject: [PATCH] serial: core: Shut down a running console port before
- removing it
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Jtp7s2be"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 982441F000FF;
+	Thu,  8 Oct 2026 17:08:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1791479334;
+	bh=u3YWsQaZwzLvgafyoht6k9TnGzS6l+DIGLZMFs+sXdU=;
+	h=Date:To:From:Subject;
+	b=Jtp7s2beg5rAars05xbxLgHDoK0OwwIurddGANg1v4bJ8EbAGflbFuh462qGACh1g
+	 oAUJt+SWjjHWHvQVsBcSK59V/l1Hs/7m4yIZ1DN6hru/7LyFtQ8IE1uzjJb/Zfl+dl
+	 cwcuEiSlf8sQRn0Sohag1NVK1/QYlxMg6l2ecZmA=
+Date: Thu, 08 Oct 2026 10:08:54 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,mark@fasheh.com,jlbec@evilplan.org,heming.zhao@suse.com,anderson.ferneda@braza.com.br,joseph.qi@linux.alibaba.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + ocfs2-deal-with-legacy-signed-dir-index-name-hash-values.patch added to mm-nonmm-unstable branch
+Message-Id: <20261008170854.982441F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261008-serial-console-remove-v1-1-288b9c315af7@phil.gs>
-X-B4-Tracking: v=1; b=H4sIAI3Jx2oC/x2MUQqAIBAFrxL73YJFhHWV6EP0VQumoRBBdPesz
- 4GZuSkjCTKN1U0Jp2SJoUBTV2Q3E1awuMLUqrZvlNL8+cazjSFHD07Y4wl2A5bOGd1DWSrtkbD
- I9X+n+Xle7AOU/GcAAAA=
-X-Change-ID: 20261008-serial-console-remove-d9ef4da86e0c
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Johan Hovold <johan@kernel.org>, linux-serial@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Phil Rosenthal <phil@phil.gs>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791478165; l=6057;
- i=phil@phil.gs; s=20260718; h=from:subject:message-id;
- bh=Q7XAF+419MTFMSgpiGVUWbeGwnkDqT3ay7oPEni5yyk=;
- b=VMm2ZLK6//JcFvT3yNXlruRDFVO+hFxzd3SFYblsu/3Uq7GDIufVz0C6bC5JoNNyCXEGtTfRG
- WMmDbw6tOqbActMGhReaDD03Rowlw+1u3X64XCH5pPKWXdwBi/vHvko
-X-Developer-Key: i=phil@phil.gs; a=ed25519;
- pk=08BMg1YPtTS5NnKn5I1Mq1ra3MdAg49Awe6OjrC59fs=
-X-Endpoint-Received: by B4 Relay for phil@phil.gs/20260718 with auth_id=881
-X-Original-From: Phil Rosenthal <phil@phil.gs>
-Reply-To: phil@phil.gs
 
-From: Phil Rosenthal <phil@phil.gs>
 
-A console port is not shut down when its last user closes it:
-tty_port_shutdown() returns early when tty_port::console is set, so the
-port stays initialized.  For an 8250 port this leaves its interrupt
-requested or, for a port without an interrupt, its poll timer armed.
+The patch titled
+     Subject: ocfs2: deal with legacy signed dir index name hash values
+has been added to the -mm mm-nonmm-unstable branch.  Its filename is
+     ocfs2-deal-with-legacy-signed-dir-index-name-hash-values.patch
 
-serial_core_remove_one_port() relies on tty_port_tty_vhangup() to shut
-the port down before releasing its resources, but the hangup reaches
-uart_hangup() -> uart_shutdown() only when a tty is attached.  For a
-console that was opened and closed, for example a serial console whose
-getty has been stopped, nothing shuts the port down.  The console is
-unregistered, ->release_port() releases the registers and the core frees
-uport->name while the port is still running.  On tty-next with 8250
-ports:
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-deal-with-legacy-signed-dir-index-name-hash-values.patch
 
- - A card bound to 8250_pci with an INTx interrupt and unbound through
-   sysfs keeps its interrupt requested after the driver is gone.  The
-   irqaction name points to the freed uport->name, so reading
-   /proc/interrupts is a slab-use-after-free in irq_seq_show().
+This patch will later appear in the mm-nonmm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
- - A polled (irq = 0) MMIO port with UPF_IOREMAP keeps running
-   serial8250_timeout() after serial8250_release_port() has cleared
-   membase, which dereferences NULL in timer softirq context about
-   10 ms after "console [ttyS5] disabled".
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-After unregistering the console and before releasing the resources, shut
-the port down if it is still initialized.  uart_shutdown() runs with
-port->mutex held, as for its other callers, and with no tty, so it also
-drops DTR and RTS.  A port that had a tty attached was already shut down
-by the hangup and is skipped.
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
 
-Fixes: 761ed4a94582 ("tty: serial_core: convert uart_close to use tty_port_close")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM sparse
-Signed-off-by: Phil Rosenthal <phil@phil.gs>
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+Subject: ocfs2: deal with legacy signed dir index name hash values
+Date: Thu,  8 Oct 2026 20:27:42 +0800
+
+Commit 3bc753c06dd0 ("kbuild: treat char as always unsigned") set
+-funsigned-char globally, which changed the result of the naked 'char'
+load in str2hashbuf():
+
+	val = msg[i] + (val << 8);
+
+A name byte >= 0x80 used to sign-extend and now zero-extends, so
+ocfs2_dx_dir_name_hash() computes a different hash pair for every name
+containing one.  The pair is written into the dx leaf when the entry is
+created, so an index built by an older kernel no longer matches and
+ocfs2_dx_dir_search() returns -ENOENT for a name that readdir still lists.
+
+Search with the current unsigned hash and, on a miss, retry with the
+legacy signed one, as ext4 does in commit f3bbac32475b2 ("ext4: deal with
+legacy signed xattr name hash values").  New entries are always indexed
+under the unsigned hash.  Skip the retry when the two hashes are equal, so
+that a miss on an ASCII name does not walk the index twice.
+
+The retry costs a second walk of the dx tree, so a negative lookup of a
+name containing a byte >= 0x80 does twice the work.  That is bounded and
+worth it, and directories whose dx root is still inline pay nothing extra,
+since there the retry only rescans the root block that is already loaded. 
+Nothing retires it at runtime: a legacy entry keeps its legacy hash,
+because neither deleting nor updating an entry rewrites the dx hash, and
+the only code that rehashes existing dirents is ocfs2_expand_inline_dir()
+on the inline to extent conversion.  Rebuilding the index offline is what
+removes the cost for good.
+
+Also spell out the signedness in str2hashbuf() instead of leaving the
+current hash to -funsigned-char, as commit 854f0912f813 ("ext4: make xattr
+char unsignedness in hash explicit") did, so that both variants stay
+correct if this is backported to a kernel without the flag.
+
+Link: https://lore.kernel.org/20261008122743.616779-1-joseph.qi@linux.alibaba.com
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Anderson Ferneda <anderson.ferneda@braza.com.br>
+Closes: https://lore.kernel.org/ocfs2-devel/CP5P284MB2780AC2C3C2AB2CF2B6CB7AFBE942@CP5P284MB2780.BRAP284.PROD.OUTLOOK.COM/
+Exposed-by: 3bc753c06dd0 ("kbuild: treat char as always unsigned")
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: <stable@vger.kernel.org> # 6.2+
 ---
-This bug was found and confirmed with AI assistance, so it is reported in
-the open.  It is not a security issue under
-Documentation/process/threat-model.rst ("Excess of initial privileges"):
-triggering it needs the privileges to unbind or remove the device.
 
-I hit it on real hardware.  My serial console is a polled ASPEED BMC VUART,
-then driven by an out-of-tree module.  After I stopped its getty,
-unloading the driver oopsed in mem32_serial_in() from serial8250_timeout().
+ fs/ocfs2/dir.c |   76 ++++++++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 65 insertions(+), 11 deletions(-)
 
-History: before 761ed4a94582, uart_close() called uart_shutdown() for
-every port, consoles included.  761ed4a94582 made console ports skip the
-shutdown on close.  be2c92b8f164 reverted that part and 4dda864d7307
-reinstated it, all within v4.9.  Keeping a console running after close is
-intended, but the removal path was never updated for it.
-
-Tested in a QEMU guest on tty-next 36844ea19656 with KASAN, using in-tree
-8250_pci and a "serial8250" platform port.  Reproducers are available on
-request.  Without this patch:
-
-  8250_pci with INTx, reading /proc/interrupts after unbind:
-    BUG: KASAN: slab-use-after-free in string+0x3b6/0x4c0
-     irq_seq_show+0x34d/0x810
-    Allocated by task 1244:
-     kasprintf+0xac/0x100
-     serial_core_register_port+0x55f/0x1720
-    Freed by task 1276:
-     kfree+0x1a0/0x4a0
-     serial_core_unregister_port+0x44d/0xa80
-     serial8250_unregister_port+0x10d/0x6c0
-     pciserial_detach_ports+0x92/0x160
-
-  Polled MMIO port (irq 0, UPF_IOREMAP) after removal:
-    printk: console [ttyS5] disabled
-    BUG: kernel NULL pointer dereference, address: 0000000000000008
-    RIP: 0010:mem32_serial_in+0x74/0xa0
-     serial8250_timeout+0x44/0x140
-     call_timer_fn+0x32/0x260
-
-With this patch both cases are clean: the IRQ is freed on unbind,
-rebinding restores the console, and the polled port is shut down on
-removal.  A port held open across removal and a console that was never
-opened did not fail before and still work.
-
-I used plain mutex_lock() rather than scoped_guard() so that the patch
-also builds on stable trees before 6.5.  It applies from v5.4 to current
-master, and serial_core.o builds on v6.1 and v6.6.  W=1, sparse and
-checkpatch --strict are clean.
-
-Also tested on real hardware: the ASPEED BMC VUART that hit the bug
-(polled MMIO, irq 0) as the console, now bound to 8250_pci with my
-pending ASPEED support patch [1], on a 7.0.14 distribution kernel with
-both patches.  After stopping the getty, opening and closing the port,
-and unbinding the PCI device, there is no oops.  Rebinding restores the
-console, the getty and in-band IPMI.
-
-Not tested: serial drivers other than 8250.
-
-[1] https://lore.kernel.org/r/20261008-aspeed-vuart-v1-1-d2be17c99cd7@phil.gs
-
-AI assistance: an LLM coding assistant (Claude, model claude-opus-5-5, in
-Claude Code) analysed the crash, wrote the reproducers and the patch, and
-built and ran the test kernels.  Two other LLMs reviewed the result
-(GPT-5.6 Sol via Codex, and Claude Fable 5.1 via Claude Code).  I reviewed
-it as well.
----
- drivers/tty/serial/serial_core.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
-index 319a4b427f3a3727d12cb58252bd8959f9be4cd6..104a2b2eec641bbbc23e67522a7812309442de23 100644
---- a/drivers/tty/serial/serial_core.c
-+++ b/drivers/tty/serial/serial_core.c
-@@ -3239,6 +3239,18 @@ static void serial_core_remove_one_port(struct uart_driver *drv,
- 	if (uart_console(uport))
- 		unregister_console(uport->cons);
+--- a/fs/ocfs2/dir.c~ocfs2-deal-with-legacy-signed-dir-index-name-hash-values
++++ a/fs/ocfs2/dir.c
+@@ -221,7 +221,8 @@ static void TEA_transform(__u32 buf[4],
+ 	buf[1] += b1;
+ }
  
-+	/*
-+	 * A console port is not shut down on last close (see
-+	 * tty_port_shutdown()), and the hangup above only shuts down a port
-+	 * that has a tty attached. A console that was opened and closed is
-+	 * therefore still running here; shut it down before its resources are
-+	 * released.
-+	 */
-+	mutex_lock(&port->mutex);
-+	if (tty_port_initialized(port))
-+		uart_shutdown(NULL, state);
-+	mutex_unlock(&port->mutex);
+-static void str2hashbuf(const char *msg, int len, __u32 *buf, int num)
++static void str2hashbuf(const char *msg, int len, __u32 *buf, int num,
++			bool legacy_signed)
+ {
+ 	__u32	pad, val;
+ 	int	i;
+@@ -235,7 +236,10 @@ static void str2hashbuf(const char *msg,
+ 	for (i = 0; i < len; i++) {
+ 		if ((i % 4) == 0)
+ 			val = pad;
+-		val = msg[i] + (val << 8);
++		if (legacy_signed)
++			val = (signed char)msg[i] + (val << 8);
++		else
++			val = (unsigned char)msg[i] + (val << 8);
+ 		if ((i % 4) == 3) {
+ 			*buf++ = val;
+ 			val = pad;
+@@ -248,8 +252,9 @@ static void str2hashbuf(const char *msg,
+ 		*buf++ = pad;
+ }
+ 
+-static void ocfs2_dx_dir_name_hash(struct inode *dir, const char *name, int len,
+-				   struct ocfs2_dx_hinfo *hinfo)
++static void __ocfs2_dx_dir_name_hash(struct inode *dir, const char *name,
++				     int len, struct ocfs2_dx_hinfo *hinfo,
++				     bool legacy_signed)
+ {
+ 	struct ocfs2_super *osb = OCFS2_SB(dir->i_sb);
+ 	const char	*p;
+@@ -279,7 +284,7 @@ static void ocfs2_dx_dir_name_hash(struc
+ 
+ 	p = name;
+ 	while (len > 0) {
+-		str2hashbuf(p, len, in, 4);
++		str2hashbuf(p, len, in, 4, legacy_signed);
+ 		TEA_transform(buf, in);
+ 		len -= 16;
+ 		p += 16;
+@@ -290,6 +295,19 @@ out:
+ 	hinfo->minor_hash = buf[1];
+ }
+ 
++static void ocfs2_dx_dir_name_hash(struct inode *dir, const char *name, int len,
++				   struct ocfs2_dx_hinfo *hinfo)
++{
++	__ocfs2_dx_dir_name_hash(dir, name, len, hinfo, false);
++}
 +
- 	/*
- 	 * Free the port IO and memory resources, if any.
- 	 */
++static void ocfs2_dx_dir_name_hash_signed(struct inode *dir, const char *name,
++					  int len,
++					  struct ocfs2_dx_hinfo *hinfo)
++{
++	__ocfs2_dx_dir_name_hash(dir, name, len, hinfo, true);
++}
++
+ /*
+  * bh passed here can be an inode block or a dir data block, depending
+  * on the inode inline data flag.
+@@ -1021,10 +1039,10 @@ out:
+ 	return ret;
+ }
+ 
+-static int ocfs2_dx_dir_search(const char *name, int namelen,
+-			       struct inode *dir,
+-			       struct ocfs2_dx_root_block *dx_root,
+-			       struct ocfs2_dir_lookup_result *res)
++static int __ocfs2_dx_dir_search(const char *name, int namelen,
++				 struct inode *dir,
++				 struct ocfs2_dx_root_block *dx_root,
++				 struct ocfs2_dir_lookup_result *res)
+ {
+ 	int ret, i, found;
+ 	u64 phys;
+@@ -1037,8 +1055,6 @@ static int ocfs2_dx_dir_search(const cha
+ 	struct ocfs2_extent_list *dr_el;
+ 	struct ocfs2_dx_entry_list *entry_list;
+ 
+-	ocfs2_dx_dir_name_hash(dir, name, namelen, &res->dl_hinfo);
+-
+ 	if (ocfs2_dx_root_inline(dx_root)) {
+ 		entry_list = &dx_root->dr_entries;
+ 		goto search;
+@@ -1135,6 +1151,44 @@ out:
+ 	return ret;
+ }
+ 
++static int ocfs2_dx_dir_search(const char *name, int namelen,
++			       struct inode *dir,
++			       struct ocfs2_dx_root_block *dx_root,
++			       struct ocfs2_dir_lookup_result *res)
++{
++	struct ocfs2_dx_hinfo legacy;
++	int ret;
++
++	ocfs2_dx_dir_name_hash(dir, name, namelen, &res->dl_hinfo);
++
++	ret = __ocfs2_dx_dir_search(name, namelen, dir, dx_root, res);
++	if (ret != -ENOENT)
++		return ret;
++
++	/*
++	 * Nothing under the current hash.  The entry may have been indexed by
++	 * an older kernel, which sign-extended the name bytes when hashing.
++	 * New entries are always indexed under the unsigned hash, so only fall
++	 * back to the legacy signed one when it can actually differ: an ASCII
++	 * name hashes the same either way, and a genuine miss on one should
++	 * not have to walk the index twice.
++	 */
++	ocfs2_dx_dir_name_hash_signed(dir, name, namelen, &legacy);
++	if (legacy.major_hash == res->dl_hinfo.major_hash &&
++	    legacy.minor_hash == res->dl_hinfo.minor_hash)
++		return ret;
++
++	res->dl_hinfo = legacy;
++
++	ret = __ocfs2_dx_dir_search(name, namelen, dir, dx_root, res);
++	if (ret)
++		return ret;
++
++	pr_warn_once("ocfs2: directory index with signed name hash\n");
++
++	return 0;
++}
++
+ static int ocfs2_find_entry_dx(const char *name, int namelen,
+ 			       struct inode *dir,
+ 			       struct ocfs2_dir_lookup_result *lookup)
+_
 
----
-base-commit: 36844ea19656fb41278799ef3d5cd52120d89149
-change-id: 20261008-serial-console-remove-d9ef4da86e0c
+Patches currently in -mm which might be from joseph.qi@linux.alibaba.com are
 
-Best regards,
--- 
-Phil Rosenthal <phil@phil.gs>
-
+ocfs2-retain-all-security-xattrs-during-inode-creation.patch
+ocfs2-restore-erange-check-in-ocfs2_xattr_tree_list_index_block.patch
+ocfs2-fix-possible-deadlock-between-nfs_sync_rwlock-and-fs_reclaim.patch
+ocfs2-deal-with-legacy-signed-dir-index-name-hash-values.patch
+ocfs2-deal-with-legacy-signed-xattr-name-hash-values.patch
 
