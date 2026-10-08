@@ -1,143 +1,130 @@
-Received: from cvsmtppost03.nm.naver.com (cvsmtppost03.nm.naver.com [114.111.35.152])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C23E547075
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 05:02:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.111.35.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FBA3358372
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 05:07:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791435765; cv=none; b=DPiU6Nk2A5vDvR85FnjfkOTvAU8dD+pf0vH/MCiuwLCPrLbvsA1FSK4JV0YkU9ivOsGGBsh0p0hornrDpaTpYGFJ2qxZ+LwT5v1sjgV0NgYlsY/eZcgU+oEGR7v8l6X1pEwl8JdsPocvFt7HhAM34Vgx9kpcKtik01rHQGqe/HY=
+	t=1791436074; cv=none; b=V/hG2n43AcVOiL7rKl7LncTaGuPDJZeVLyZiOyzs7ojzTMF04ujEcpzNaHfrPFyJvgj6OHCZo5hGW+GcQaOXByYITqT/2yRlK0Ll4NPDRQaQEeAFptdJFlgN+aECzdmJ66Ec+jhRVlDmK2vRfxzw8BZXoQGhdzG7+xSaF/ucKnY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791435765; c=relaxed/simple;
-	bh=QjRwAH8htDnUqAgWGHR86PsqrL3WAOVeYSL+BLIOoOc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mKqUsv3nIv39wExTbtqthT5LMxFSWs+oa0PkTWU8DYhag6l4dCy7CT3cREhbbL4gLHu9+4ouOGGaqq0FUDDS36xsH9IQnkRdomt7SbyhSPIlCV1gxwDVf5ErsBeRqDfBUW3JnIOblSIgq1aox99rEE6h+5Uhth9m+JW0AnxviNs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com; spf=pass smtp.mailfrom=naver.com; dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b=jNxPkB1O; arc=none smtp.client-ip=114.111.35.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
+	s=arc-20240116; t=1791436074; c=relaxed/simple;
+	bh=9/N2e9/MNH9Xfdq0a33d7UYMPJIEu7OufUPNTx5SHoI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Qd0RFeODTNDQzq/BwQ1p4hqKVQ1VnVQmRPkZbGX5yoOigEzZ9nNzS9Jj1aPbsjNy4nhcPDGDTFpGQPIr+tUdEfe7E6e8HrasQGnvd8/UKU6id/lDy+tVwCGNYER2BFrOgiVz/wIozfx1QmrYk6WHrPyv9SQJmBKQG2GcfbXgDvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OMolIhr4; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b="jNxPkB1O"
-Received: from cvsendbo023.nm ([10.112.22.35])
-  by cvsmtppost03.nm.naver.com with ESMTP id qBMFQaYpRkmlxGifyd1eBQ
-  for <stable@vger.kernel.org>;
-  Thu, 08 Oct 2026 05:02:35 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
-	t=1791435755; bh=QjRwAH8htDnUqAgWGHR86PsqrL3WAOVeYSL+BLIOoOc=;
-	h=From:To:Subject:Date:Message-ID:From:Subject:Feedback-ID:
-	 X-Works-Security;
-	b=jNxPkB1ObuQCTA17Tc9ydfOrsuFe/vStiuKY6cNH0GO6Q9SYKkm4sgHgnf0wHSYg9
-	 85uBRWsleVdinITuYJ9f7CTiGpQ0YFDZp0nfv6UVpn/fxKwiazgr/9C8C9nsw8lug+
-	 Kcjpa3lpM3BLh/75C/5JQ6/f/tyMscQZ4KcQSW2yOAaOLdjDA1+9n6sW15V/vQYcQE
-	 BclfKDof20yZghZTnzeDGirBh+EM2Tits711wqEYq9A4XFtqJTXnKtc3m/4t/Cjnbr
-	 6SUds+0pJlzbaJ0H0GHWUdKl7Z5pRpIAW4DqizrK4QF6C3Qmcvfez3z2MJsTFLp+ny
-	 wJS1LwLeP1CxA==
-X-Session-ID: Q-gMG+F9Royi47dWXuXcFw
-X-Works-Send-Opt: OsRwpzGdjHmdKHFOMr39Ko3YKBmljAudFqM9KqMqFxIYkEljxBmwjAg=
-X-Works-Smtp-Source: rZYmFAulFqJZ+HmdFxKq+6E=
-Received: from localhost.localdomain ([115.136.205.4])
-  by mvnsmtp06.nm.naver.com with ESMTP id Q-gMG+F9Royi47dWXuXcFw
-  for <multiple recipients>
-  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-  Thu, 08 Oct 2026 05:02:34 -0000
-From: sung byeongchan <tjdqudcks0424@naver.com>
-To: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>
-Cc: netfilter-devel@vger.kernel.org,
-	netdev@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OMolIhr4"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e5378b281aso15196235ad.2
+        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 22:07:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791436072; x=1792040872; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MUva+MYne+FCUQfWg4Yu/6cO+ExcFD5nfGYNE4CV13A=;
+        b=OMolIhr4vY0l/KcsAcM6t+9/mQk2MZFzq/UOigOTQXNHPqQxnJhGZ+mCMqmfGGxo2Z
+         Dwf48O+g4U5rJQh6fGUpWUhJ0jKAExwpMkzrZoRhZnseKF+IRtYpwmR2AdjbOER6f+fD
+         9hNY9jTjtqInUgAt6egr8FJFH9A5PK74xegqC7R4N5JKl1jbacAIqm4r/LXbLObySD8v
+         IogomoryK+ZoxMXQo9pVHKa2yX3fzxepuQzbciGfU5giefls8Cl04XqtsW2h54N8RrzB
+         Um2RYAV/ZwfMxqoGxyybJmMHWKXu1xscZHYPUi60J9CXWgJ4r1DQ75dOUSkRP+qPw9r4
+         D/CQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791436072; x=1792040872;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MUva+MYne+FCUQfWg4Yu/6cO+ExcFD5nfGYNE4CV13A=;
+        b=rHUaS828MNwppNvGycIZqQcOf67y/59TYiAHqvoHCiZQt1meujZtzPYJdbwV5FK/fr
+         MH7AuhfLv8m2/OEqS0W0TvmGgGf0YHlcPJGEu/Ln6SJoYwQEV8wCY1LlKrnFCl0T2YnV
+         X9Jp9ymY0GBEfmpzIbsfib5lItsJkDIrPlgQW6XLy4NUWEro0SNK2udxRkez9NLrI0kB
+         uSx7BcQeRAFqpwsZKPlVtaQESPnT2PPhIfsy+51wcrvxpCLp2vpQ409hvmZEiVMtJLpA
+         Cwys3OacdwCvSmcQGIr+fbJPBipYndBmYK6aMkilggowQK1WlhvZm5KnJIuuvxyCnVQs
+         Dt8A==
+X-Forwarded-Encrypted: i=1; AKwUvBwWrTKLGROxt1nbGytHJxoy2sP9keMJF2wADThrHze7e/Da8nNfFlejgyNjJTHK2LjJaw0shD0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJqZTqQPkfoMdNJtdlW4scw8ckHximFdP2+Cl54DgeTNYXB6CLC
+	UcCi3XMLE1MtxmzAV91xU3s3gta4VbytYs5wcPbpp7FeJ+lO+KXIX4Ay
+X-Gm-Gg: AYBFou1r/x8EoXsnMiXwyFaXG4fk4c+tpJ7Y5Dcb2/FvxCiNWwPsWSgbOb/NLIAIByM
+	JOPR5HH9PUU9EPZ7m+MddLwgu/CQ6eDsiDEupYgaJi4VNvlHlhk3PwEOQAvwCgWFizqsUBCAOHa
+	MFZWibatwFmWnUehMsw8rIbKf4BTP6J9rulpREnmKUMWKJYlKeIecwPcq+fq+zcju+18bFi5saF
+	2m2AgsfxPAtxjmKh/o/48lq6zbDWcwponbmbiqp8RUur3y+nIcCwaaj/x7bhFtRwaZq9XLMMaoD
+	ZvTAVZF5mMPnfmQjqFalp136uSo4gEWsWqbRrmNoY/4rfqY2rtCF+5YSLCQZzLnDVh+pkMcUMY0
+	BMIyZm6dr/+2Guzk8iKQkh29meo/vBfbqJgVz35P+OkYjHHZodInsiM51XlotWvelTP0Hr/kWVS
+	naE2r4G4VLGGkve3o+wIsd27P/+qR3ezaNYcqosVxkNo2Ti/v2sVzKrzcxEgIKYrxY4zkRSe69Z
+	e+2/A==
+X-Received: by 2002:a17:902:ecc6:b0:2e2:ffcb:87a8 with SMTP id d9443c01a7336-2e6003941c5mr40854035ad.10.1791436071908;
+        Wed, 07 Oct 2026 22:07:51 -0700 (PDT)
+Received: from dungbv.. ([116.98.134.138])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e604a5804fsm19541565ad.77.2026.10.07.22.07.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 22:07:51 -0700 (PDT)
+From: Bui Viet Dung <dungvn2345@gmail.com>
+To: Jens Axboe <axboe@kernel.dk>,
+	Pavel Begunkov <asml.silence@gmail.com>
+Cc: Willem de Bruijn <willemb@google.com>,
+	lollipopkit <a@lolli.tech>,
+	io-uring@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	Jakub Kicinski <kuba@kernel.org>,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	Sashiko <netdev-bot+sashiko@kernel.org>,
-	=?UTF-8?q?=EC=84=B1=EB=B3=91=EC=B0=AC?= <tjdqudcks0424@naver.com>
-Subject: [PATCH net v2] netfilter: nf_conntrack_reasm: avoid truncating header offsets
-Date: Thu,  8 Oct 2026 14:02:25 +0900
-Message-ID: <20261008050225.29543-1-tjdqudcks0424@naver.com>
+	Bui Viet Dung <dungvn2345@gmail.com>
+Subject: [PATCH] io_uring/cmd_net: prevent infinite retry loop on unextractable timestamp skb
+Date: Thu,  8 Oct 2026 12:07:45 +0700
+Message-ID: <20261008050745.498415-1-dungvn2345@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260929090027.200041-1-tjdqudcks0424@naver.com>
-References: <20260929090027.200041-1-tjdqudcks0424@naver.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: 성병찬 <tjdqudcks0424@naver.com>
+In io_uring_cmd_timestamp(), the skb processing loop terminates whenever
+io_process_timestamp_skb() returns a non-zero value. If the failure is
+due to a full CQ ring (-ENOBUFS), the loop stops and returns -ENOBUFS,
+ending the multishot command so userspace can drain the CQ.
 
-find_prev_fhdr() stores the offset of the previous Next Header field in
-an 8-bit variable. A valid IPv6 extension header chain can place that
-field at offset 256, causing the value to wrap to zero. Reassembly then
-writes the Fragment Header's next-header value to the wrong byte.
+However, if io_process_timestamp_skb() fails because
+skb_get_tx_timestamp() returns a negative error (such as -ENOENT when a
+timestamp cannot be extracted due to changed socket options or absent
+hardware timestamp data), ret is not -ENOBUFS. The unhandled skb is
+then spliced back onto the head of sk->sk_error_queue and the function
+returns -EAGAIN.
 
-Use int for prev_nhoff so the offset is preserved until it is checked by
-its consumer.
+Because -EAGAIN leaves the multishot apoll armed on EPOLLERR, and the
+unextractable skb remains in sk_error_queue asserting EPOLLERR,
+io_uring_cmd_timestamp() is immediately re-invoked on the same skb.
+This results in an infinite busy-loop consuming 100% CPU and completely
+blocking progress on any subsequent valid timestamp packets queued behind
+it.
 
-The same path also passes an unchecked offset to two 16-bit consumers:
-frag_queue.nhoffset and skb->transport_header. On the LOCAL_OUT raw path,
-a 65536-byte IPv6 packet can place the Fragment Header at offset 65528.
-With 16 bytes of skb headroom, skb_set_transport_header() truncates 65544
-to 8. In the reproduced path, reassembly subsequently passes -8 as the
-unsigned skb_push() length and triggers skb_under_panic().
+Only break out of the processing loop when CQ space is exhausted
+(ret == -ENOBUFS). For skbs where timestamp extraction fails, dequeue and
+consume the invalid skb matching the behavior of sock_recv_errqueue(),
+allowing the queue to make forward progress.
 
-Reject a previous-header offset that cannot be represented by nhoffset,
-and use skb_set_transport_header_careful() to reject a Fragment Header
-offset that cannot be represented relative to skb->head.
+The issue was discovered via manual code audit of io_uring/cmd_net.c
+and review of the error handling paths in TX_TIMESTAMP command.
 
-The prev_nhoff widening was previously posted by Jérémy Jean. This
-revision folds it together with the remaining 16-bit checks, as requested
-by Pablo Neira Ayuso.
-
-The 16-bit transport-header failure reproduced on three independent
-boots, including one run from outer UID 65534 in new user and network
-namespaces. With the combined fix, the trigger was rejected safely in
-three runs. Short fragments, ordinary IPv6 TCP and UDP, and the earlier
-offset-248 and offset-256 cases continued to work.
-
-Fixes: 9fb9cbb1082d ("[NETFILTER]: Add nf_conntrack subsystem.")
-Reported-by: Sashiko <netdev-bot+sashiko@kernel.org>
-Link: https://lore.kernel.org/netfilter-devel/20260822214012.1028305-2-Jeremy.Jean@oss.cyber.gouv.fr/
-Link: https://lore.kernel.org/netfilter-devel/179089937913.434549.5874493628033954656@kernel.org/
-Cc: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Fixes: 9e4ed359b8ef ("io_uring/netcmd: add tx timestamping cmd support")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: 성병찬 <tjdqudcks0424@naver.com>
+Signed-off-by: Bui Viet Dung <dungvn2345@gmail.com>
 ---
-Changes in v2:
-- Fold the remaining u16 nhoffset and transport-header checks into the
-  prev_nhoff fix, as requested by Pablo Neira Ayuso.
-- Add the three-run crash and fixed A/B results.
-- Credit Jérémy Jean's earlier posting of the prev_nhoff widening.
+ io_uring/cmd_net.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- net/ipv6/netfilter/nf_conntrack_reasm.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/net/ipv6/netfilter/nf_conntrack_reasm.c b/net/ipv6/netfilter/nf_conntrack_reasm.c
-index 599c49bf0a0a..ae25ebc873b0 100644
---- a/net/ipv6/netfilter/nf_conntrack_reasm.c
-+++ b/net/ipv6/netfilter/nf_conntrack_reasm.c
-@@ -398,7 +398,7 @@ find_prev_fhdr(struct sk_buff *skb, u8 *prevhdrp, int *prevhoff, int *fhoff)
- {
- 	u8 nexthdr = ipv6_hdr(skb)->nexthdr;
- 	const int netoff = skb_network_offset(skb);
--	u8 prev_nhoff = netoff + offsetof(struct ipv6hdr, nexthdr);
-+	int prev_nhoff = netoff + offsetof(struct ipv6hdr, nexthdr);
- 	int start = netoff + sizeof(struct ipv6hdr);
- 	int len = skb->len - start;
- 	u8 prevhdr = NEXTHDR_IPV6;
-@@ -474,7 +474,9 @@ int nf_ct_frag6_gather(struct net *net, struct sk_buff *skb, u32 user)
- 	if (!pskb_may_pull(skb, fhoff + sizeof(*fhdr)))
- 		return -ENOMEM;
- 
--	skb_set_transport_header(skb, fhoff);
-+	if (nhoff != (u16)nhoff ||
-+	    !skb_set_transport_header_careful(skb, fhoff))
-+		return -EINVAL;
- 	hdr = ipv6_hdr(skb);
- 	fhdr = (struct frag_hdr *)skb_transport_header(skb);
- 
-base-commit: 6d25ffca055a77787c21a36b66c253f76239411b
+diff --git a/io_uring/cmd_net.c b/io_uring/cmd_net.c
+index 90d4ec7cc761..a5a1b8b66b1f 100644
+--- a/io_uring/cmd_net.c
++++ b/io_uring/cmd_net.c
+@@ -138,7 +138,7 @@ static int io_uring_cmd_timestamp(struct socket *sock,
+ 		if (!skb)
+ 			break;
+ 		ret = io_process_timestamp_skb(cmd, sk, skb, issue_flags);
+-		if (ret)
++		if (ret == -ENOBUFS)
+ 			break;
+ 		__skb_dequeue(&list);
+ 		consume_skb(skb);
 -- 
 2.43.0
 
