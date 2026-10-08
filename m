@@ -1,76 +1,77 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18287367B63
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 04:01:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55DCC339714
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 04:07:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791432122; cv=none; b=OoKDzUf9cKNcV4Kr0n/Wb+CoqMZosOVPxUqQ9itf154XdKEtLngFxTIbvh5p6Qgr3wE7lPyyJ05jn60EqElSOZjcG76XTd0SzSzDKxFa0pOh94KkopBZAxBdkkupbWaBIoQTFiJ/qHajjn80YtHhrtqwuYjoocZoCpfbSLmerWk=
+	t=1791432478; cv=none; b=VA95Gv8XE+VGJqEPM+bjUy5/6vsQP6nhBDWFkjYMvflCxFKGXq4UvlI8+WShV8iRZO6Rka+n97Iz89VBQJdikNZbDPzq8zfY7fioAm2FFbGwoT7rZtvdGeXibMyELZkDSMqS9UoYkk78MkMYLGyVeOy92vZFkQuWCqeVCZ2t+i4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791432122; c=relaxed/simple;
-	bh=S2HX0NxKa03U27J+jIphYK1NDRJiLWnKVLa3qhkVVGI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VUSuBBNgQ8vgMxefeh5Q5FgMFtCvZQ3dDISuibYvu3C5aTnY2tWJcG6RMkKTH5d1evkFvBQe4zvVMtT6c/dO9JWsuIR/pguGt7gTuyqSwQlbcQzqrprTInMRAAAJ17n0XstG+CvJ2I+nZRIsxt/0shQfl2V630lawGBZdWVyBek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=LNRe18Kk; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1791432478; c=relaxed/simple;
+	bh=eN/CZ0g8dEhhAB4TCIZ6bYboNzAcetSZ5y4UbmprSTs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qVh2iL0AGUgCt6ZnKgOKAUiBc6FqpsgPWo+qmUPB/6SotR6Hw19IF3N5KR1SZQTQQMu2fSo3mo4T8+vffjppsLT5i7F11TAOcCG9qOOln0spfB9uoMdSDI+4tthp77RimsQUtNENUKb8/xqRzncIU2lFLiFfrhCLY2vPrcASQlw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dwt7N5aq; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="LNRe18Kk"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2db710396ffso1480535ad.1
-        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 21:01:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dwt7N5aq"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a1635f7c89so47957155e9.2
+        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 21:07:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791432118; x=1792036918; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791432475; x=1792037275; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eo0Mxm2U7pH93nJD67q7zSOE038zz8DvuAtE9yTrVy8=;
-        b=LNRe18KkAxka7eVkrty7ZugRh7Sk8Gl8khPeQHboYbDsx/p44rUYGlslW1IO2HFCer
-         x9HgwIm0X/9X5scMMamVYh8iQ52m1sGmJA93dJVUzXs/Kw30PvTi6h0yDz7+ZaKH7sM0
-         6Ql4KOUrJ2AdI5EjZ8uOs568ePhz43tKtIqqSGgGY3vl9woUYLPZWwX3QcTzR2m6Aqj/
-         H1MdZOdpn4513pg8nwnDl4ri51SjsKOrtSuTX474wLLkEvZVkyLzsL6iyP/OOTXkYPYD
-         T0PGH3a3MVEGnJNDbAS/q4tZPhAKLN82aYzTazejzDegDpR91Jvx44+/o/8UTQHpnOxR
-         llNg==
+        bh=8RXN0pRoDPRt/4/q4G7QWKtdi+MOFx+4+xgS3NP3upU=;
+        b=Dwt7N5aqm5cYyDc+huAxA+bLXtiDg6jeXvEFkMg+ckSARoR0cYQeAG5KUuatz6Whia
+         DviSzTI5DvX07Ci7/9M1oIBWOp5/+tvj5oKk/ghkCBwGZDMGlSVF0a2C0kgsxjJNUdO9
+         M3nXtMPY4Nb62XKtRO0ewmUKyA5167h5X+QBwye1Q39eGPnDG7xtiX7ULXKd0rUB2us6
+         OZ+3x8ckeZFfZzHDEF0xtEVHsyJKF2JOwN+QRZC1JQ1o+0E+j5LbZZUxB8kC93dJCHWI
+         gZncDi/V3Q3u6jmCzMO1po58UHwtvhhq68zNa5iAzukzs5ijvtq3rGSXTAsHPkthPEBH
+         M0oQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791432118; x=1792036918;
+        d=1e100.net; s=20260707; t=1791432475; x=1792037275;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=eo0Mxm2U7pH93nJD67q7zSOE038zz8DvuAtE9yTrVy8=;
-        b=Kjrzx1VM0XpApHKnvNeNFO5TFCuJ//WFW4r2azNreUXXcVNzyRUjT+q2MjPgrkcijT
-         +BfiW4UqHxvpGDMD9exsK8XW3K/IIDCadE7bvyShZPDNr8rNkPp4XATVuXJbFeSvCPs0
-         YF3VhF6TvyjdUF/hodLhYkAp1l3poQw3PceYrRrCd4ztEfGeOqHu6iW3N3trj8XcoRlX
-         BDPNrJ73T8TxSZXo1E6ZqG/0dyABbPL1Q1kq8UcORVi9LnzPPHXQhUSbUmjKJeFyeAMd
-         mSTRgheOb11SkLfVPdEByqfvTfkkzhzqGXIX1ya5t935rL67bvzgv+m5aErsRr15HFz2
-         dM9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBz1C69uOXN+SH2sdD2mOuUwQ7BxMbpqZ8T9xS3vQCK1J+jCQDzAZ6q+AG3/nf0J/isp+gB6BLY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIM5FJEe4lg3GzSyHUQD99Oqsmygq9ejYzS5wc5N17IKi97FlaA
-	YCtlmJYddLOUEuZp2oPm4TyP8Ary+QP9dA5dI9akrKA3yjvhs/4D2z4mHpYOwDncFGg=
-X-Gm-Gg: AYBFou3kr+vAOY3IMhDRrQZ2sJ29eqvMMfTSehYZXtyewpIIic/mlZRdIU920iAqDI4
-	HwKDT9ftwZPi7vz5NzK/LV0OYEu+xNuEKjBWZyxo/fa7kqFPUsqjMK0dD9QjIP9zf/euQwkaTOU
-	eMTt3YkEsWiREkWtgsj0Qkh08Hx873PRkdNY3PFy7NlhBsNV30aI1rCzCDXtMHfhqzA4R2K3H2T
-	oAaZ2RCwBYcGwfmQ2c6xh7yVDKbo6rJhqVojvEPZtZXDv5+i3cGMcO9+vzSnAZpfWSZnwodnfJL
-	AZC1l44JE2gO65B+9pidsAB+mCUj/TDQbqLUX8POX+lr8nKb35qAMQUgLTl9su9iSUS+yR9VxRw
-	ACkoJA9U56NXA7LU/yMQVMM6/QflPOOFBEdrYCJ61bAMMSjtkwiRrSXmUZd+2UG8GUd8Uy7J+Km
-	Kvdi200yO/AhwBwL1GFo9J8EJUo6iJUD7rPZMOnoHUCbYyNVhRtOxy90WLx78UmFFiXzLKIohbv
-	oMbFw==
-X-Received: by 2002:a17:90b:2d4c:b0:3a0:c31d:80c with SMTP id 98e67ed59e1d1-3aadff4891amr663631a91.9.1791432117993;
-        Wed, 07 Oct 2026 21:01:57 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9ff5cd5c3sm2505994a91.17.2026.10.07.21.01.54
+        bh=8RXN0pRoDPRt/4/q4G7QWKtdi+MOFx+4+xgS3NP3upU=;
+        b=FDCzeydu8CHP1Q0Gw59o7qok97F142j1tW1o+HyzTyTdh1PA93XVp3kQQp2bJCdCF0
+         XiCX/1WUctGIxFJfy3lsjxa59FmX268XQuOneYi6+rjxP67Scvj5ckZdI0meewPsU+ND
+         kHMI971g+mGI8Vl/lhf51WNYBnEHfhXEXdBTzxWiTLin3ZT0RCfVntGpco8+/DWxt3WC
+         FrP5VRc3G3/wap/LNAAOgVyp1jhoXRsXrOemxrFtujX6kKfD/AtHbyr9iRgYM9WhwnJj
+         QuNAbwToYqdeXXhSM17awzS6AObB48HgBKs3eWXd6wAFiyTiRWIkzdolhtjCLfERd/NP
+         DBXg==
+X-Forwarded-Encrypted: i=1; AKwUvBz3PpPs0xVCKzEKRGj7IQ08qpQLtQU8NhcMCuML0HkCOiPMRtASzHVk+YFzrr/vca7G0eE0NI4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lJijQ+6aY7k1jqcEPDZrJboPhqWp6Js449PFYlz91mFlo21dbj
+	V9J91Df0f9X5iWsj4p4V2IQ7VdrS7yHqxzFoW0neh+IiWqZR4mV8G1cZ
+X-Gm-Gg: AYBFou04DuBg9fvynBEVLm9eWHYxYFuhqpZeB8QzJcyoe90wIbF7oK41d1Da1gDzOb3
+	1klzOElq/ns9uUuK5Ub/PszlX/bhbt6xh442DtcSXXXHKsNsjP+6cwyunro6UdQPLP53vWoZMec
+	HfVif35/NoHR/B/tbN3Y0e+ztEZHjUxzaCDKHg+sNe0Wa4OfqteOo3P9GS9hlHFHGCcFj1tCXSQ
+	vej+W/75CPIC1Bd+zl2wfv2NN1FjL9hoWnNCPmvihcpX2J3LV4BrWxVNN9Jt0bKPpx1+yq02yBm
+	PsGer0wVTcIHCZXx4a8z2MrD/wDOeh5QSNXpm3fjfGIGx7JC1YyL6K/iKNd+nb/1FsDGmsHaDRc
+	qUC2iHLA4cHCbHH8EfE+hESzGW8Zj0TFRyUYjgvE7EcSDjrZ6o/iWdkLiBQI07S9gutirpJ/dBM
+	jkFlBT2zsj1TAdY/TgGc/9ZVUryW9eSF0X/uYkPpQuqNq7DhzhZBWEQw8t8KFE+z2ABUI=
+X-Received: by 2002:a05:600c:c165:b0:49c:ffab:551f with SMTP id 5b1f17b1804b1-4a181b33928mr74752385e9.22.1791432475504;
+        Wed, 07 Oct 2026 21:07:55 -0700 (PDT)
+Received: from arch.local ([105.110.78.96])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a180310c9fsm91191145e9.4.2026.10.07.21.07.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 21:01:57 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: michael.christie@oracle.com,
-	martin.petersen@oracle.com,
-	lduncan@suse.com,
-	cleech@redhat.com,
-	James.Bottomley@HansenPartnership.com
-Cc: linux-scsi@vger.kernel.org,
+        Wed, 07 Oct 2026 21:07:55 -0700 (PDT)
+From: Akram Boulahia <akram02st@gmail.com>
+To: Mario Limonciello <mario.limonciello@amd.com>,
+	Huang Rui <ray.huang@amd.com>,
+	linux-pm@vger.kernel.org
+Cc: Perry Yuan <perry.yuan@amd.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
 	linux-kernel@vger.kernel.org,
+	Akram Boulahia <akram02st@gmail.com>,
 	stable@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: [PATCH v6] scsi: libiscsi_tcp: zero the unsent part of a short read
-Date: Thu,  8 Oct 2026 13:01:29 +0900
-Message-ID: <20261008040129.747538-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
+	Marco Scardovi <scardracs@disroot.org>
+Subject: [PATCH] cpufreq/amd-pstate: Don't fail active mode init on read-only auto_sel
+Date: Thu,  8 Oct 2026 05:07:05 +0100
+Message-ID: <20261008040705.10600-1-akram02st@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -79,223 +80,84 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A target can finish a read without sending the data.  iscsi_tcp_data_in()
-bounds each Data-In PDU against the command buffer but never adds them up,
-so a completion that declares no underflow is believed and the command
-ends with DID_OK.  The pages keep whatever they held.
+Since commit 9dfd13f80c85 ("cpufreq/amd-pstate: Toggle auto_sel in active
+mode on shared memory systems"), shmem_init_perf() no longer returns
+early in active mode and always calls cppc_set_auto_sel(), which was
+needed for shared memory systems. However, on firmware where the
+Autonomous Selection Enable entry of _CPC is a constant integer rather
+than a register, that write fails with -EOPNOTSUPP. The error is
+returned, every CPU fails to initialize, cpufreq_register_driver() finds
+no policy and returns -ENODEV, and the kernel falls back to
+acpi-cpufreq:
 
-Over a 1 MiB pread of a file that had never been read, 999424 bytes came
-back as the contents of an unrelated file the same process had written
-earlier.  pread() returned 1048576 and errno was 0.
+  amd_pstate: failed to set auto_sel, ret: -95
+  amd_pstate: Failed to initialize CPU 0: -95
+  ...
+  amd_pstate: failed to register with return -19
 
-Count the Data-In payload per task and, when the command completes, zero
-the tail of the read buffer that was never received.  Whatever the
-midlayer reports as transferred the caller then sees zeroes instead of
-stale page contents, so no completion status has to be special-cased.
-Writes are untouched.
+This was seen on an ASUS ROG Zephyrus G14 (GA403UV, Ryzen 9 8945HS, BIOS
+308). Its _CPC tables are revision 3 with the entry fixed at 1, and
+cppc_get_auto_sel() reads back 1 on all CPUs.
 
-Fixes: a081c13e39b5 ("[SCSI] iscsi_tcp: split module into lib and lld")
+If the write returns -EOPNOTSUPP while active mode is requested and
+auto_sel already reads as enabled, which is what active mode needs, the
+refused write is harmless and initialization can continue. Any other
+failure, including a refusal where the current value does not match the
+requested mode, is still returned as before.
+
+With this change, amd-pstate-epp loads on all 16 CPUs of that machine
+without warnings. amd_pstate=passive behaves as before: it still falls
+back to acpi-cpufreq with the same -95 errors, because auto_sel stays at 1
+and cannot be changed.
+
+Tested on Linux 7.3.0-rc6-00037-g7b63ef2d55f2.
+
+Fixes: 9dfd13f80c85 ("cpufreq/amd-pstate: Toggle auto_sel in active mode on shared memory systems")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Cc: Marco Scardovi <scardracs@disroot.org>
+Signed-off-by: Akram Boulahia <akram02st@gmail.com>
 ---
-v6: change approach.  Instead of deciding from the status, the sense, the
-    service response and the residual whether the target promised the whole
-    buffer, zero the bytes that did not arrive.  The previous versions kept
-    growing because every completion shape that reports a full transfer has
-    to be enumerated - SAM_STAT_GOOD, CHECK_CONDITION with RECOVERED_ERROR,
-    and whatever a future upper-level driver decides - and missing one hands
-    the caller the previous contents of those pages.  Zeroing the tail is
-    independent of all of it: whatever the midlayer reports as transferred,
-    the caller sees zeroes.  That also removes the need to fail the command,
-    so a legitimate error reply no longer costs the connection.  The
-    predictor and its three call sites go away; the per-task counter, its
-    reset and the continuity check stay.
-v5: do not check a response that did not complete at the target
-    (ISCSI_STATUS_CMD_COMPLETED), since iscsi_scsi_cmd_rsp() already fails
-    it with DID_ERROR, and treat a residual larger than the command buffer
-    as a protocol error rather than a reason to skip the check (noted by
-    Sashiko AI review).  The remaining case it raised, CHECK_CONDITION with
-    a data segment shorter than two bytes, needs no change: libiscsi fails
-    that with DID_BAD_TARGET, so the data is never handed to the caller.
-v4: also validate coverage when the status is CHECK_CONDITION with a sense
-    key of RECOVERED_ERROR.  sd_done() counts RECOVERED_ERROR as the whole
-    buffer transferred, so v3's "skip every non-GOOD status" left a target
-    able to short a read and still have it reported as a full success
-    (noted by Sashiko AI review).
-    The Data-In continuity check requires in-order Data-In and so does not
-    interoperate with a target that negotiates DataPDUInOrder=No; that is
-    deliberate, as making a safety check conditional on a peer-negotiated
-    value would let the peer turn it off.
-v3: only validate coverage for SAM_STAT_GOOD completions; a non-GOOD reply
-    such as CHECK_CONDITION that omits the underflow flag must not be
-    treated as a short read (noted by Sashiko AI review).
-v2: take back_lock once on the SCSI Response path and make the counter
-    uint32_t, both per Mike Christie's review.
+ drivers/cpufreq/amd-pstate.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
-On "was it built over another patch?" - no, v1 was generated against
-v7.2-rc5 directly.  It stopped applying because c1dea15f819cd ("scsi:
-libiscsi_tcp: Bound SCSI Response data segment to the connection
-buffer") folded ISCSI_OP_SCSI_CMD_RSP into the shared response case,
-which is the block v1's last hunk patched.
-
-v1: https://lore.kernel.org/all/20260814121428.359541-1-yhlee@isslab.korea.ac.kr/
-
- drivers/scsi/libiscsi_tcp.c | 85 +++++++++++++++++++++++++++++++++++--
- include/scsi/libiscsi_tcp.h |  1 +
- 2 files changed, 83 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/scsi/libiscsi_tcp.c b/drivers/scsi/libiscsi_tcp.c
-index d35f93451ee9b..00bdbcc6e27e3 100644
---- a/drivers/scsi/libiscsi_tcp.c
-+++ b/drivers/scsi/libiscsi_tcp.c
-@@ -397,6 +397,61 @@ void iscsi_tcp_hdr_recv_prep(struct iscsi_tcp_conn *tcp_conn)
- }
- EXPORT_SYMBOL_GPL(iscsi_tcp_hdr_recv_prep);
+diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
+index 8bfd46d60843..05b496946d13 100644
+--- a/drivers/cpufreq/amd-pstate.c
++++ b/drivers/cpufreq/amd-pstate.c
+@@ -500,6 +500,7 @@ static int shmem_init_perf(struct amd_cpudata *cpudata)
+ 	union perf_cached perf = READ_ONCE(cpudata->perf);
+ 	u64 numerator;
+ 	bool auto_sel;
++	bool want;
  
-+/**
-+ * iscsi_tcp_zero_unread - zero the part of a read buffer the target never sent
-+ * @task: scsi command task
-+ *
-+ * A target can end a read without sending all of the data, in any of the ways
-+ * a completion can be reported.  Rather than predict from the status, the
-+ * sense and the residual whether the buffer was promised in full, zero the
-+ * bytes that did not arrive.  Whatever the midlayer then reports as
-+ * transferred, the caller sees zeroes and not the previous contents of those
-+ * pages.
-+ *
-+ * The continuity check in iscsi_tcp_data_in() means the bytes that did not
-+ * arrive are exactly the tail, so one range covers them.
-+ */
-+static void iscsi_tcp_zero_unread(struct iscsi_task *task)
-+{
-+	struct iscsi_tcp_task *tcp_task = task->dd_data;
-+	struct scsi_cmnd *sc = task->sc;
-+
-+	if (!sc || sc->sc_data_direction != DMA_FROM_DEVICE ||
-+	    tcp_task->data_in_bytes >= sc->sdb.length)
-+		return;
-+
-+	sg_zero_buffer(sc->sdb.table.sgl, sc->sdb.table.nents,
-+		       sc->sdb.length - tcp_task->data_in_bytes,
-+		       tcp_task->data_in_bytes);
-+}
-+
-+/**
-+ * iscsi_tcp_complete_cmd - zero any unread tail, then complete the command
-+ * @conn: iscsi connection
-+ * @hdr: the PDU carrying the status
-+ * @data: data segment of that PDU, if it has one
-+ * @datalen: length of @data
-+ *
-+ * back_lock is taken once for the lookup, the fill and the completion.
-+ */
-+static int iscsi_tcp_complete_cmd(struct iscsi_conn *conn, struct iscsi_hdr *hdr,
-+				  char *data, int datalen)
-+{
-+	struct iscsi_task *task;
-+	int rc;
-+
-+	spin_lock(&conn->session->back_lock);
-+	task = iscsi_itt_to_ctask(conn, hdr->itt);
-+	if (!task) {
-+		spin_unlock(&conn->session->back_lock);
-+		return ISCSI_ERR_BAD_ITT;
-+	}
-+	iscsi_tcp_zero_unread(task);
-+	rc = __iscsi_complete_pdu(conn, hdr, data, datalen);
-+	spin_unlock(&conn->session->back_lock);
-+	return rc;
-+}
-+
- /*
-  * Handle incoming reply to any other type of command
-  */
-@@ -410,8 +465,13 @@ iscsi_tcp_data_recv_done(struct iscsi_tcp_conn *tcp_conn,
- 	if (!iscsi_tcp_dgst_verify(tcp_conn, segment))
- 		return ISCSI_ERR_DATA_DGST;
+ 	int ret = cppc_get_perf_caps(cpudata->cpu, &cppc_perf);
+ 	if (ret)
+@@ -518,14 +519,23 @@ static int shmem_init_perf(struct amd_cpudata *cpudata)
+ 	WRITE_ONCE(cpudata->perf, perf);
+ 	WRITE_ONCE(cpudata->prefcore_ranking, cppc_perf.highest_perf);
  
--	rc = iscsi_complete_pdu(conn, tcp_conn->in.hdr,
--			conn->data, tcp_conn->in.datalen);
-+	if ((tcp_conn->in.hdr->opcode & ISCSI_OPCODE_MASK) ==
-+	    ISCSI_OP_SCSI_CMD_RSP)
-+		rc = iscsi_tcp_complete_cmd(conn, tcp_conn->in.hdr, conn->data,
-+					    tcp_conn->in.datalen);
-+	else
-+		rc = iscsi_complete_pdu(conn, tcp_conn->in.hdr, conn->data,
-+					tcp_conn->in.datalen);
- 	if (rc)
- 		return rc;
- 
-@@ -509,6 +569,11 @@ static int iscsi_tcp_data_in(struct iscsi_conn *conn, struct iscsi_task *task)
- 		return ISCSI_ERR_DATA_OFFSET;
++	want = (cppc_state != AMD_PSTATE_PASSIVE);
++
+ 	ret = cppc_get_auto_sel(cpudata->cpu, &auto_sel);
+ 	if (ret) {
+ 		pr_warn("failed to get auto_sel, ret: %d\n", ret);
+ 		return 0;
  	}
  
-+	if (tcp_task->data_offset != tcp_task->data_in_bytes)
-+		return ISCSI_ERR_DATA_OFFSET;
+-	ret = cppc_set_auto_sel(cpudata->cpu,
+-			(cppc_state == AMD_PSTATE_PASSIVE) ? 0 : 1);
++	ret = cppc_set_auto_sel(cpudata->cpu, want);
 +
-+	tcp_task->data_in_bytes += tcp_conn->in.datalen;
-+
- 	conn->datain_pdus_cnt++;
- 	return 0;
- }
-@@ -658,7 +723,7 @@ iscsi_tcp_process_data_in(struct iscsi_tcp_conn *tcp_conn,
++	/*
++	 * Firmware may expose Autonomous Selection Enable as a read-only
++	 * constant. If it already matches what active mode needs, the
++	 * failed write is harmless.
++	 */
++	if (ret == -EOPNOTSUPP && want && auto_sel)
++		return 0;
  
- 	/* check for non-exceptional status */
- 	if (hdr->flags & ISCSI_FLAG_DATA_STATUS) {
--		rc = iscsi_complete_pdu(conn, tcp_conn->in.hdr, NULL, 0);
-+		rc = iscsi_tcp_complete_cmd(conn, tcp_conn->in.hdr, NULL, 0);
- 		if (rc)
- 			return rc;
- 	}
-@@ -752,6 +817,14 @@ iscsi_tcp_hdr_dissect(struct iscsi_conn *conn, struct iscsi_hdr *hdr)
- 			spin_unlock(&conn->session->back_lock);
- 			return rc;
- 		}
-+		/*
-+		 * A Data-In with no data segment can still carry the status,
-+		 * and it completes the command here rather than from
-+		 * iscsi_tcp_process_data_in(), so fill the tail on this path
-+		 * too.
-+		 */
-+		if (hdr->flags & ISCSI_FLAG_DATA_STATUS)
-+			iscsi_tcp_zero_unread(task);
- 		rc = __iscsi_complete_pdu(conn, hdr, NULL, 0);
- 		spin_unlock(&conn->session->back_lock);
- 		break;
-@@ -783,6 +856,11 @@ iscsi_tcp_hdr_dissect(struct iscsi_conn *conn, struct iscsi_hdr *hdr)
- 			break;
- 		}
- 
-+		if (opcode == ISCSI_OP_SCSI_CMD_RSP && !tcp_conn->in.datalen) {
-+			rc = iscsi_tcp_complete_cmd(conn, hdr, NULL, 0);
-+			break;
-+		}
-+
- 		/* If there's data coming in with the response,
- 		 * receive it to the connection's buffer.
- 		 */
-@@ -995,6 +1073,7 @@ int iscsi_tcp_task_init(struct iscsi_task *task)
- 
- 	BUG_ON(kfifo_len(&tcp_task->r2tqueue));
- 	tcp_task->exp_datasn = 0;
-+	tcp_task->data_in_bytes = 0;
- 
- 	/* Prepare PDU, optionally w/ immediate data */
- 	ISCSI_DBG_TCP(conn, "task deq [itt 0x%x imm %d unsol %d]\n",
-diff --git a/include/scsi/libiscsi_tcp.h b/include/scsi/libiscsi_tcp.h
-index ef53d4bea28a0..a6e63db75d674 100644
---- a/include/scsi/libiscsi_tcp.h
-+++ b/include/scsi/libiscsi_tcp.h
-@@ -66,6 +66,7 @@ struct iscsi_tcp_conn {
- 
- struct iscsi_tcp_task {
- 	uint32_t		exp_datasn;	/* expected target's R2TSN/DataSN */
-+	uint32_t		data_in_bytes;	/* Data-In payload received */
- 	int			data_offset;
- 	struct iscsi_r2t_info	*r2t;		/* in progress solict R2T */
- 	struct iscsi_pool	r2tpool;
-
-base-commit: 2c3418fffa9d037b2038a6db48be63f9e2291806
+ 	if (ret)
+ 		pr_warn("failed to set auto_sel, ret: %d\n", ret);
 -- 
-2.43.0
+2.56.0
 
