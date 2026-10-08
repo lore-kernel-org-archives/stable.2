@@ -1,143 +1,122 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2562F446053
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 15:26:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FDB74D179A;
+	Thu,  8 Oct 2026 15:40:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791473176; cv=none; b=hnqtAKRrMpzcGEkNs5hFS+v17hMUVIiw/CKmzzz9rBXbE8dbpaaMDLzAB/UHcNi6Rau2NnxTjAYSLs+vTBtBpYcwiuZJG0t7lYeSuT22XuTJ9geW9wmVZo7/o/xvzm2xFvz7g0E6Al88lnu1BXRz0Z/TXgqEnnXWOBwD4X2PT4U=
+	t=1791474019; cv=none; b=VBmV8Qg313lY4vAaWr9cF96xk70xHeEgsPjDOtS1Afi2280YJXUY7yb97AvntmPOaRIRySJL5QM2VirDAMZr8EVTEaRgpURgIV171n+fA74WRjwh/lmJm1ry8O6MJmRtlEOrFLdkY/X7AImLbl0DGsntr38sDhAH8SfAmCYoVeI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791473176; c=relaxed/simple;
-	bh=BnX+tW917e2ep0AD06iDELoUpJb1f9PtjJfaF1/h/ME=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MzbTq+QUKJvAhw86K6N+afp9Jqggbl3bsi9aXWf0cTNpVMuNz1mZsK0o8yAZHtB3A7SFPmsTnEbojbPwiCa3UnKJ/FH7jpdYVMEy2SYCKvkQiTB5hJ1ZnUfXe1Y5/y1Ra2fK04zEkp9IwnQgpx7uJqYtyTda3XRwhDWwwpmlrrc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WqmY2+br; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791474019; c=relaxed/simple;
+	bh=hkt9CBC9EWy73tH6jGLMY7YmUbR8Ng6jrYXv8ljt2Mw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Sd+b7vscBpv9Wy+H7Ox+FXSiJ69f8h/71nlM9fTe8P5pY0WA92lipXTRmvV+ZeJNeWht/og5H2q+j08LipkalIoFhyKLQwlm4N9ropKvCQsOW5AwtvHkQASZIu25wJSTGrluKiXXhijGKRh2OYeXwvk2xaQvmPqxelN6fez2OdU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nn/oQKMu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WqmY2+br"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3a4c78ee4d6so151430a91.1
-        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 08:26:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791473165; x=1792077965; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=W6dQo+XOFZwjP4FilzjIvU+VBwZHW7Mw0WgQYDNHew8=;
-        b=WqmY2+brN1lef9DS/JSSUOt6jXjx8RW5+1hr/1QZODlEKHcPVCPyzsuKivEI+o9e/u
-         RHIBdDX96YSEhs0g6hrGaFAML8D5GJL2pCTWSjRngd0Qyps8PzF8LJmwEuen8TVVSAi8
-         xT1ER/BgN2Iy8iYiq0DvqckXMNzQBKySaSDnjsVNVQ8wVEPycUwrazZyCl6/XhEDWzMJ
-         uJboSsEpY6AoKlb1sZ4Y0RjwioOzv3FDy96KMj4dPjQiJTw+OKYN9CErcKuzKsJfVMaS
-         xY7YNgaZBI/jwHZfNBn+kI4BXWmCVW41RjcQoEZ8V8lqPJPdR4AHBBtiHKnm5Er8+n7F
-         X+vg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791473165; x=1792077965;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W6dQo+XOFZwjP4FilzjIvU+VBwZHW7Mw0WgQYDNHew8=;
-        b=vB8avX+pIdWyFaAcutislNNrUjMyAVv3NYQk4kMb1WDfcdSot1NKTogelD9Yj2Hje8
-         TFad1Rpx1ESruxLxpV8va0bXZEoO7Dde4fQ1FjhO76Zck9rz+d6T5ZRtcxkstFgamu3O
-         GiZaA2OqZQqLxL/S5E1Xews2MEYTeCWofaraR47wXOTYJPHXGfpEcjMLWVeKb39+xAoo
-         fT2eKwFcPvDQ+3Y2XXgHQlZqhWZIp5w4BqNqXVeZmmkFJtB258tvbEHSl+/J1caruRjD
-         rJiIzUDBqALu9RV+UKOU6+rJHDrbkbtdp5XqaXZtESqPv7mRCAM1dDvvCruARShw4Wyp
-         fM9w==
-X-Forwarded-Encrypted: i=1; AKwUvBxlKN2RdDQt7jGtjfDLxXj0zLDsoM4nCjBUbR9U7BrM0gvaqvQQOoqj0cQGXKTNuDCKSzSrg1I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI6jdBeRiJPcUblxOTaiomyLq0OtKRN+Bhkh036tGu4lhmh3VjN
-	e22IVswpEaWi7PZkycoUtAj38kfYx7jCwHrQaCXnw/GXslqhNZ4/CAnN
-X-Gm-Gg: AYBFou2+9MAzDJ4DHPA7xjCvl9lJnZW2eIR7OEBh2WoSAj1pcJrs7p8e917sQt6D4WF
-	vJRa6ZZuBf34GGO2+YciS05E+QopRp92dVbOe4ImBdvVR3dOrePfH7i4gX/7yqnRZlw0NSQCo2x
-	jdmoS2gBTA6+cH0Mf2yMTah/Y+88/La10xmK1mNfxyYFPFUNfyUWdqBKft4cwJ1NBjpt2/XBOfP
-	lFOHIssYqjOwVRbA9LETEySy/Tw7BIL5c2fAUVDGrQ+yZ0w7Y+gs+ILa4by/LmrjAoJCbGRIZQS
-	fOiWLSQ02DCkeKNn8BiQYmrLrrsjCtJRbRLrCGEajbwQyTOVmk036d3DivX+4EoonxGWwEu79s2
-	wu+EP74aOO0sdpG8c4gEj/gvf3r9sqZrBozu4kC1/k5A6ADcYQE8dtd/NW4vCzDhfwDaysHU52s
-	N3OU8LyDPdhto4SUBm6oImnjhKVWuD2VPzKlRc5YqZvSJFgTj9WQX4nl+p/o/tCMw=
-X-Received: by 2002:a17:90b:1809:b0:3a0:bcc8:1549 with SMTP id 98e67ed59e1d1-3aa9a437f1emr4109382a91.6.1791473165176;
-        Thu, 08 Oct 2026 08:26:05 -0700 (PDT)
-Received: from ser8.. ([221.156.231.192])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9f1c17b63sm5554792a91.12.2026.10.08.08.26.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 08:26:04 -0700 (PDT)
-From: DaeMyung Kang <charsyam@gmail.com>
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Tom Talpey <tom@talpey.com>,
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	DaeMyung Kang <charsyam@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 3/3] ksmbd: preserve unreadable named streams on open
-Date: Fri,  9 Oct 2026 00:25:37 +0900
-Message-ID: <20261008152537.4147299-4-charsyam@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261008152537.4147299-1-charsyam@gmail.com>
-References: <20261008152537.4147299-1-charsyam@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nn/oQKMu"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 073891F000FF;
+	Thu,  8 Oct 2026 15:40:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791474018;
+	bh=SDkASTJ9FRD3oHMgI63Gz2ZqFSLBdEZmuCHDDzkdsYg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nn/oQKMu5bUOZ/Old3XjjvmROumYUrDdjaQ46bkQ2+LEouNK6WGkQ8I+f4r+gCLMX
+	 1Ahor7wmXKBLZRs/Y5eEjwihZ/trrYkxHfoMMUucto5JdJs0NDbOIgnKKWjM5eJfBA
+	 Sm3HckTLxPgGA3kKSh6EO4kVE/o/UtDKmlvMSejnvFAnbzE5rsThSmV+EnPv1m6dof
+	 1tb1J7ErZw2dd3EonbAll9QCpq2orAz0B5a0WXdE4zkpDOpZg3LyBQLIcEolgmDg2h
+	 VYVuu9Kzq3gXYe3UfHAFyvErfHGDZiVa2BbaA3P5EAikF48TActZl4p7KvHsWJll5q
+	 bmVKzfrsmE3NA==
+Date: Thu, 8 Oct 2026 08:40:17 -0700
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: daejun7.park@samsung.com
+Cc: Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Olga Kornievskaia <okorniev@redhat.com>,
+	Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>,
+	Christoph Hellwig <hch@lst.de>, Carlos Maiolino <cem@kernel.org>,
+	Amir Goldstein <amir73il@gmail.com>, Dave Chinner <dgc@kernel.org>,
+	Sergey Bashirov <sergeybashirov@gmail.com>,
+	Christian Brauner <brauner@kernel.org>, linux-nfs@vger.kernel.org,
+	linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 2/8] xfs: refuse a direct allocation whose block
+ reservation would wrap
+Message-ID: <20261008154017.GO2705364@frogsfrogsfrogs>
+References: <20261008-xfs-nfsd-map-blocks-v1-0-560026cdccb6@samsung.com>
+ <20261008-xfs-nfsd-map-blocks-v1-2-560026cdccb6@samsung.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261008-xfs-nfsd-map-blocks-v1-2-560026cdccb6@samsung.com>
 
-A write-only client can open an existing named stream with FILE_OPEN_IF
-without permission to read the underlying file. The case-insensitive
-lookup finds the xattr name, but querying its value length then fails
-with -EACCES. smb2_set_stream_name_xattr() treats every negative result
-as a missing stream and replaces the existing xattr with an empty value.
+On Thu, Oct 08, 2026 at 10:39:31AM +0900, Daejun Park via B4 Relay wrote:
+> From: Daejun Park <daejun7.park@samsung.com>
+> 
+> xfs_iomap_write_direct() maps one extent, but it reserves blocks for the
+> whole count it is given, in an unsigned int. A count of about 2^32
+> blocks or more wraps the reservation. If it wraps to a few blocks, the
+> allocation uses more blocks than the transaction reserved, and
+> xfs_trans_mod_sb() shuts the filesystem down. If it wraps to nearly 2^32
+> blocks, the allocation fails with -ENOSPC.
+> 
+> Direct I/O, DAX and buffered writes with an extent size hint never ask
+> for that much, as xfs_direct_write_iomap_begin() limits them to
+> 1024 pages to keep the count below 32 bits. xfs_fs_map_blocks() has no
+> such limit: it asks for everything from the start of a hole to the end
+> of the range of a pNFS layout, which a client chooses, and an RW
+> LAYOUTGET at offset 0 of an empty file for 16 TiB does it.
+> 
+> Fail such a count with -ENOSPC before anything is reserved, also on a
+> filesystem with that much free space, as the transaction cannot take
+> it. A count that fits is reserved in full, as before, so a hole longer
+> than the free space still fails before it is allocated.
+> 
+> With pynfs as the client and a 32 GiB XFS, an RW LAYOUTGET at offset 0
+> of an empty file for 16 TiB shut the filesystem down: "Corruption of
+> in-memory data (0x8) detected at xfs_trans_mod_sb". With this patch it
+> gets NFS4ERR_NOSPC and nothing is allocated, as with 100 GiB, and one
+> for 16 GiB, which fits, is still granted, in three extents.
+> 
+> Fixes: 527851124d10 ("xfs: implement pNFS export operations")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+> ---
+>  fs/xfs/xfs_iomap.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/fs/xfs/xfs_iomap.c b/fs/xfs/xfs_iomap.c
+> index 7c6238fed6..1917e49166 100644
+> --- a/fs/xfs/xfs_iomap.c
+> +++ b/fs/xfs/xfs_iomap.c
+> @@ -287,6 +287,13 @@ xfs_iomap_write_direct(
+>  
+>  	resaligned = xfs_aligned_fsb_count(offset_fsb, count_fsb,
+>  					   xfs_get_extsz_hint(ip));
+> +	/*
+> +	 * The transaction takes the block reservation as an unsigned int.
+> +	 * Refuse a count that does not fit rather than reserve too little;
+> +	 * only a pNFS layout for a huge range asks for that much.
+> +	 */
+> +	if (resaligned > UINT_MAX - XFS_DIOSTRAT_SPACE_RES(mp, 0))
+> +		return -ENOSPC;
 
-A failed xattr list is not proof that the stream is absent either:
-for example, -ENOMEM can lead to the same empty replacement. Preserve
-listing errors and create a stream only for -ENOENT or -ENODATA. The
-latter can occur if the xattr is removed between listing its name and
-querying its value. Return other lookup errors without changing the
-stream.
+Uh... seeing as extent records can only map 2^21 blocks maximum and
+iomap/pnfs can handle xfs returning a mapping of whatever length we
+want, why don't we constrain count_fsb to XFS_BMBT_MAX_EXTLEN?
 
-A write-only FILE_OPEN now reports access denied instead of name not
-found. FILE_OVERWRITE_IF and FILE_SUPERSEDE on an unreadable stream
-also fail instead of appearing to replace it. Stream writes and EOF
-changes already need to read the old value, so such handles cannot
-update the stream after opening either.
+--D
 
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Cc: stable@vger.kernel.org
-Signed-off-by: DaeMyung Kang <charsyam@gmail.com>
----
- fs/smb/server/smb2pdu.c | 2 ++
- fs/smb/server/vfs.c     | 6 +++++-
- 2 files changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 4d43de74f..52a19871d 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -3420,6 +3420,8 @@ static noinline int smb2_set_stream_name_xattr(const struct path *path,
- 				     xattr_stream_size, xattr_stream_name);
- 	if (rc >= 0)
- 		return 0;
-+	if (rc != -ENOENT && rc != -ENODATA)
-+		return rc;
- 
- 	if (fp->cdoption == FILE_OPEN_LE) {
- 		if (!strcmp(stream_name, "AFP_AfpInfo") &&
-diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
-index 7020b7de3..3fa0e26e5 100644
---- a/fs/smb/server/vfs.c
-+++ b/fs/smb/server/vfs.c
-@@ -1952,7 +1952,11 @@ ssize_t ksmbd_vfs_casexattr_len(struct mnt_idmap *idmap,
- 	ssize_t value_len = -ENOENT, xattr_list_len;
- 
- 	xattr_list_len = ksmbd_vfs_listxattr(dentry, &xattr_list);
--	if (xattr_list_len <= 0)
-+	if (xattr_list_len < 0) {
-+		value_len = xattr_list_len;
-+		goto out;
-+	}
-+	if (!xattr_list_len)
- 		goto out;
- 
- 	for (name = xattr_list; name - xattr_list < xattr_list_len;
--- 
-2.43.0
-
+>  	if (unlikely(XFS_IS_REALTIME_INODE(ip))) {
+>  		dblocks = XFS_DIOSTRAT_SPACE_RES(mp, 0);
+>  		rblocks = resaligned;
+> 
+> -- 
+> 2.43.0
+> 
+> 
+> 
