@@ -1,73 +1,301 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED7CC3AE6F5;
-	Thu,  8 Oct 2026 03:59:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18287367B63
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 04:01:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791431957; cv=none; b=CV4OOZqCOwC2mDlIAwxb/MwoJIslz4GoGXJ4jV3tdKPIUmk+GBsrsuiO999ePr9zN9Oa8F/mqgBSl19MY4lo54d0UmydNiJQDJBrb7LyJO3V2ib+N+Q5yVhjEh4zVG/SRMJfp6phJwfr50KXfv80OM4QFWOUicsH5ShFcfIh95A=
+	t=1791432122; cv=none; b=OoKDzUf9cKNcV4Kr0n/Wb+CoqMZosOVPxUqQ9itf154XdKEtLngFxTIbvh5p6Qgr3wE7lPyyJ05jn60EqElSOZjcG76XTd0SzSzDKxFa0pOh94KkopBZAxBdkkupbWaBIoQTFiJ/qHajjn80YtHhrtqwuYjoocZoCpfbSLmerWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791431957; c=relaxed/simple;
-	bh=gp7PRv3WjAiMJrp0DvXpRvTv3mwC8R3NiezXzUE7FxE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=mWMnLFXJf5hC6mk5PsRXzvv35FxtjLMziMz/Faa0q65nD69e+bqqxOMN9OLpSawU8Tiep9WW1ocD9SfIzAFOSClXJuMywYoK+rnSWsaodvxj91gW/Yl3jkpfEKY3szHn5JhYLjRoA1EFjBzxbFkXxYMduyqz6nWMBnZTvZX6FYU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WfmmtHpS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791432122; c=relaxed/simple;
+	bh=S2HX0NxKa03U27J+jIphYK1NDRJiLWnKVLa3qhkVVGI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VUSuBBNgQ8vgMxefeh5Q5FgMFtCvZQ3dDISuibYvu3C5aTnY2tWJcG6RMkKTH5d1evkFvBQe4zvVMtT6c/dO9JWsuIR/pguGt7gTuyqSwQlbcQzqrprTInMRAAAJ17n0XstG+CvJ2I+nZRIsxt/0shQfl2V630lawGBZdWVyBek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=LNRe18Kk; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WfmmtHpS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E81331F000FF;
-	Thu,  8 Oct 2026 03:59:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791431956;
-	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WfmmtHpS/Myhydt/TVyMFReRPcy1QMHKlSXn/o/jQz0KRnRG9mwUSC2zyzNttD8tw
-	 snu/KwVceaOyNVT7W07YFFfMk1DijvxKGrt/dKLv+kse8hK40mSBYmYnRdK4GcIzwu
-	 IZTEzgINbj9OslJJSjhb0d5AZK/UB5PsGU/FGMft0r9RVCSpKpw1wk0QoRfyQ9nSLJ
-	 YocYbQtdrhTItOYe/800MrHAgOw4I7BPQiVGTke0JBV3nFr4xbafrrGLmjpv5d1LGD
-	 Woi3ijbasF+/gko3jAU3I3Bjn6zW6U/Sn8/Ow4MxNLO4UU+TjIi0QJEcarlTZTarI+
-	 hWiDcdIaPw6jg==
-From: netdev-bot+sinfo@kernel.org
-To: Bui Viet Dung <dungvn2345@gmail.com>
-Cc: Stephen Hemminger <stephen@networkplumber.org>,
- Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] net/sched: sch_netem: prevent packet length underflow
- with negative overhead
-Date: Thu, 08 Oct 2026 03:59:15 +0000
-Message-ID: <179143195544.2527009.14860370525417657852@kernel.org>
-In-Reply-To: <20261008035656.330667-1-dungvn2345@gmail.com>
-References: <20261008035656.330667-1-dungvn2345@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="LNRe18Kk"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2db710396ffso1480535ad.1
+        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 21:01:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791432118; x=1792036918; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=eo0Mxm2U7pH93nJD67q7zSOE038zz8DvuAtE9yTrVy8=;
+        b=LNRe18KkAxka7eVkrty7ZugRh7Sk8Gl8khPeQHboYbDsx/p44rUYGlslW1IO2HFCer
+         x9HgwIm0X/9X5scMMamVYh8iQ52m1sGmJA93dJVUzXs/Kw30PvTi6h0yDz7+ZaKH7sM0
+         6Ql4KOUrJ2AdI5EjZ8uOs568ePhz43tKtIqqSGgGY3vl9woUYLPZWwX3QcTzR2m6Aqj/
+         H1MdZOdpn4513pg8nwnDl4ri51SjsKOrtSuTX474wLLkEvZVkyLzsL6iyP/OOTXkYPYD
+         T0PGH3a3MVEGnJNDbAS/q4tZPhAKLN82aYzTazejzDegDpR91Jvx44+/o/8UTQHpnOxR
+         llNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791432118; x=1792036918;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eo0Mxm2U7pH93nJD67q7zSOE038zz8DvuAtE9yTrVy8=;
+        b=Kjrzx1VM0XpApHKnvNeNFO5TFCuJ//WFW4r2azNreUXXcVNzyRUjT+q2MjPgrkcijT
+         +BfiW4UqHxvpGDMD9exsK8XW3K/IIDCadE7bvyShZPDNr8rNkPp4XATVuXJbFeSvCPs0
+         YF3VhF6TvyjdUF/hodLhYkAp1l3poQw3PceYrRrCd4ztEfGeOqHu6iW3N3trj8XcoRlX
+         BDPNrJ73T8TxSZXo1E6ZqG/0dyABbPL1Q1kq8UcORVi9LnzPPHXQhUSbUmjKJeFyeAMd
+         mSTRgheOb11SkLfVPdEByqfvTfkkzhzqGXIX1ya5t935rL67bvzgv+m5aErsRr15HFz2
+         dM9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBz1C69uOXN+SH2sdD2mOuUwQ7BxMbpqZ8T9xS3vQCK1J+jCQDzAZ6q+AG3/nf0J/isp+gB6BLY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIM5FJEe4lg3GzSyHUQD99Oqsmygq9ejYzS5wc5N17IKi97FlaA
+	YCtlmJYddLOUEuZp2oPm4TyP8Ary+QP9dA5dI9akrKA3yjvhs/4D2z4mHpYOwDncFGg=
+X-Gm-Gg: AYBFou3kr+vAOY3IMhDRrQZ2sJ29eqvMMfTSehYZXtyewpIIic/mlZRdIU920iAqDI4
+	HwKDT9ftwZPi7vz5NzK/LV0OYEu+xNuEKjBWZyxo/fa7kqFPUsqjMK0dD9QjIP9zf/euQwkaTOU
+	eMTt3YkEsWiREkWtgsj0Qkh08Hx873PRkdNY3PFy7NlhBsNV30aI1rCzCDXtMHfhqzA4R2K3H2T
+	oAaZ2RCwBYcGwfmQ2c6xh7yVDKbo6rJhqVojvEPZtZXDv5+i3cGMcO9+vzSnAZpfWSZnwodnfJL
+	AZC1l44JE2gO65B+9pidsAB+mCUj/TDQbqLUX8POX+lr8nKb35qAMQUgLTl9su9iSUS+yR9VxRw
+	ACkoJA9U56NXA7LU/yMQVMM6/QflPOOFBEdrYCJ61bAMMSjtkwiRrSXmUZd+2UG8GUd8Uy7J+Km
+	Kvdi200yO/AhwBwL1GFo9J8EJUo6iJUD7rPZMOnoHUCbYyNVhRtOxy90WLx78UmFFiXzLKIohbv
+	oMbFw==
+X-Received: by 2002:a17:90b:2d4c:b0:3a0:c31d:80c with SMTP id 98e67ed59e1d1-3aadff4891amr663631a91.9.1791432117993;
+        Wed, 07 Oct 2026 21:01:57 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9ff5cd5c3sm2505994a91.17.2026.10.07.21.01.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 21:01:57 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: michael.christie@oracle.com,
+	martin.petersen@oracle.com,
+	lduncan@suse.com,
+	cleech@redhat.com,
+	James.Bottomley@HansenPartnership.com
+Cc: linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH v6] scsi: libiscsi_tcp: zero the unsent part of a short read
+Date: Thu,  8 Oct 2026 13:01:29 +0900
+Message-ID: <20261008040129.747538-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi!
+A target can finish a read without sending the data.  iscsi_tcp_data_in()
+bounds each Data-In PDU against the command buffer but never adds them up,
+so a completion that declares no underflow is believed and the command
+ends with DID_OK.  The pages keep whatever they held.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Over a 1 MiB pread of a file that had never been read, 999424 bytes came
+back as the contents of an unrelated file the same process had written
+earlier.  pread() returned 1048576 and errno was 0.
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+Count the Data-In payload per task and, when the command completes, zero
+the tail of the read buffer that was never received.  Whatever the
+midlayer reports as transferred the caller then sees zeroes instead of
+stale page contents, so no completion status has to be special-cased.
+Writes are untouched.
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+Fixes: a081c13e39b5 ("[SCSI] iscsi_tcp: split module into lib and lld")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+v6: change approach.  Instead of deciding from the status, the sense, the
+    service response and the residual whether the target promised the whole
+    buffer, zero the bytes that did not arrive.  The previous versions kept
+    growing because every completion shape that reports a full transfer has
+    to be enumerated - SAM_STAT_GOOD, CHECK_CONDITION with RECOVERED_ERROR,
+    and whatever a future upper-level driver decides - and missing one hands
+    the caller the previous contents of those pages.  Zeroing the tail is
+    independent of all of it: whatever the midlayer reports as transferred,
+    the caller sees zeroes.  That also removes the need to fail the command,
+    so a legitimate error reply no longer costs the connection.  The
+    predictor and its three call sites go away; the per-task counter, its
+    reset and the continuity check stay.
+v5: do not check a response that did not complete at the target
+    (ISCSI_STATUS_CMD_COMPLETED), since iscsi_scsi_cmd_rsp() already fails
+    it with DID_ERROR, and treat a residual larger than the command buffer
+    as a protocol error rather than a reason to skip the check (noted by
+    Sashiko AI review).  The remaining case it raised, CHECK_CONDITION with
+    a data segment shorter than two bytes, needs no change: libiscsi fails
+    that with DID_BAD_TARGET, so the data is never handed to the caller.
+v4: also validate coverage when the status is CHECK_CONDITION with a sense
+    key of RECOVERED_ERROR.  sd_done() counts RECOVERED_ERROR as the whole
+    buffer transferred, so v3's "skip every non-GOOD status" left a target
+    able to short a read and still have it reported as a full success
+    (noted by Sashiko AI review).
+    The Data-In continuity check requires in-order Data-In and so does not
+    interoperate with a target that negotiates DataPDUInOrder=No; that is
+    deliberate, as making a safety check conditional on a peer-negotiated
+    value would let the peer turn it off.
+v3: only validate coverage for SAM_STAT_GOOD completions; a non-GOOD reply
+    such as CHECK_CONDITION that omits the underflow flag must not be
+    treated as a short read (noted by Sashiko AI review).
+v2: take back_lock once on the SCSI Response path and make the counter
+    uint32_t, both per Mike Christie's review.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+On "was it built over another patch?" - no, v1 was generated against
+v7.2-rc5 directly.  It stopped applying because c1dea15f819cd ("scsi:
+libiscsi_tcp: Bound SCSI Response data segment to the connection
+buffer") folded ISCSI_OP_SCSI_CMD_RSP into the shared response case,
+which is the block v1's last hunk patched.
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+v1: https://lore.kernel.org/all/20260814121428.359541-1-yhlee@isslab.korea.ac.kr/
+
+ drivers/scsi/libiscsi_tcp.c | 85 +++++++++++++++++++++++++++++++++++--
+ include/scsi/libiscsi_tcp.h |  1 +
+ 2 files changed, 83 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/scsi/libiscsi_tcp.c b/drivers/scsi/libiscsi_tcp.c
+index d35f93451ee9b..00bdbcc6e27e3 100644
+--- a/drivers/scsi/libiscsi_tcp.c
++++ b/drivers/scsi/libiscsi_tcp.c
+@@ -397,6 +397,61 @@ void iscsi_tcp_hdr_recv_prep(struct iscsi_tcp_conn *tcp_conn)
+ }
+ EXPORT_SYMBOL_GPL(iscsi_tcp_hdr_recv_prep);
+ 
++/**
++ * iscsi_tcp_zero_unread - zero the part of a read buffer the target never sent
++ * @task: scsi command task
++ *
++ * A target can end a read without sending all of the data, in any of the ways
++ * a completion can be reported.  Rather than predict from the status, the
++ * sense and the residual whether the buffer was promised in full, zero the
++ * bytes that did not arrive.  Whatever the midlayer then reports as
++ * transferred, the caller sees zeroes and not the previous contents of those
++ * pages.
++ *
++ * The continuity check in iscsi_tcp_data_in() means the bytes that did not
++ * arrive are exactly the tail, so one range covers them.
++ */
++static void iscsi_tcp_zero_unread(struct iscsi_task *task)
++{
++	struct iscsi_tcp_task *tcp_task = task->dd_data;
++	struct scsi_cmnd *sc = task->sc;
++
++	if (!sc || sc->sc_data_direction != DMA_FROM_DEVICE ||
++	    tcp_task->data_in_bytes >= sc->sdb.length)
++		return;
++
++	sg_zero_buffer(sc->sdb.table.sgl, sc->sdb.table.nents,
++		       sc->sdb.length - tcp_task->data_in_bytes,
++		       tcp_task->data_in_bytes);
++}
++
++/**
++ * iscsi_tcp_complete_cmd - zero any unread tail, then complete the command
++ * @conn: iscsi connection
++ * @hdr: the PDU carrying the status
++ * @data: data segment of that PDU, if it has one
++ * @datalen: length of @data
++ *
++ * back_lock is taken once for the lookup, the fill and the completion.
++ */
++static int iscsi_tcp_complete_cmd(struct iscsi_conn *conn, struct iscsi_hdr *hdr,
++				  char *data, int datalen)
++{
++	struct iscsi_task *task;
++	int rc;
++
++	spin_lock(&conn->session->back_lock);
++	task = iscsi_itt_to_ctask(conn, hdr->itt);
++	if (!task) {
++		spin_unlock(&conn->session->back_lock);
++		return ISCSI_ERR_BAD_ITT;
++	}
++	iscsi_tcp_zero_unread(task);
++	rc = __iscsi_complete_pdu(conn, hdr, data, datalen);
++	spin_unlock(&conn->session->back_lock);
++	return rc;
++}
++
+ /*
+  * Handle incoming reply to any other type of command
+  */
+@@ -410,8 +465,13 @@ iscsi_tcp_data_recv_done(struct iscsi_tcp_conn *tcp_conn,
+ 	if (!iscsi_tcp_dgst_verify(tcp_conn, segment))
+ 		return ISCSI_ERR_DATA_DGST;
+ 
+-	rc = iscsi_complete_pdu(conn, tcp_conn->in.hdr,
+-			conn->data, tcp_conn->in.datalen);
++	if ((tcp_conn->in.hdr->opcode & ISCSI_OPCODE_MASK) ==
++	    ISCSI_OP_SCSI_CMD_RSP)
++		rc = iscsi_tcp_complete_cmd(conn, tcp_conn->in.hdr, conn->data,
++					    tcp_conn->in.datalen);
++	else
++		rc = iscsi_complete_pdu(conn, tcp_conn->in.hdr, conn->data,
++					tcp_conn->in.datalen);
+ 	if (rc)
+ 		return rc;
+ 
+@@ -509,6 +569,11 @@ static int iscsi_tcp_data_in(struct iscsi_conn *conn, struct iscsi_task *task)
+ 		return ISCSI_ERR_DATA_OFFSET;
+ 	}
+ 
++	if (tcp_task->data_offset != tcp_task->data_in_bytes)
++		return ISCSI_ERR_DATA_OFFSET;
++
++	tcp_task->data_in_bytes += tcp_conn->in.datalen;
++
+ 	conn->datain_pdus_cnt++;
+ 	return 0;
+ }
+@@ -658,7 +723,7 @@ iscsi_tcp_process_data_in(struct iscsi_tcp_conn *tcp_conn,
+ 
+ 	/* check for non-exceptional status */
+ 	if (hdr->flags & ISCSI_FLAG_DATA_STATUS) {
+-		rc = iscsi_complete_pdu(conn, tcp_conn->in.hdr, NULL, 0);
++		rc = iscsi_tcp_complete_cmd(conn, tcp_conn->in.hdr, NULL, 0);
+ 		if (rc)
+ 			return rc;
+ 	}
+@@ -752,6 +817,14 @@ iscsi_tcp_hdr_dissect(struct iscsi_conn *conn, struct iscsi_hdr *hdr)
+ 			spin_unlock(&conn->session->back_lock);
+ 			return rc;
+ 		}
++		/*
++		 * A Data-In with no data segment can still carry the status,
++		 * and it completes the command here rather than from
++		 * iscsi_tcp_process_data_in(), so fill the tail on this path
++		 * too.
++		 */
++		if (hdr->flags & ISCSI_FLAG_DATA_STATUS)
++			iscsi_tcp_zero_unread(task);
+ 		rc = __iscsi_complete_pdu(conn, hdr, NULL, 0);
+ 		spin_unlock(&conn->session->back_lock);
+ 		break;
+@@ -783,6 +856,11 @@ iscsi_tcp_hdr_dissect(struct iscsi_conn *conn, struct iscsi_hdr *hdr)
+ 			break;
+ 		}
+ 
++		if (opcode == ISCSI_OP_SCSI_CMD_RSP && !tcp_conn->in.datalen) {
++			rc = iscsi_tcp_complete_cmd(conn, hdr, NULL, 0);
++			break;
++		}
++
+ 		/* If there's data coming in with the response,
+ 		 * receive it to the connection's buffer.
+ 		 */
+@@ -995,6 +1073,7 @@ int iscsi_tcp_task_init(struct iscsi_task *task)
+ 
+ 	BUG_ON(kfifo_len(&tcp_task->r2tqueue));
+ 	tcp_task->exp_datasn = 0;
++	tcp_task->data_in_bytes = 0;
+ 
+ 	/* Prepare PDU, optionally w/ immediate data */
+ 	ISCSI_DBG_TCP(conn, "task deq [itt 0x%x imm %d unsol %d]\n",
+diff --git a/include/scsi/libiscsi_tcp.h b/include/scsi/libiscsi_tcp.h
+index ef53d4bea28a0..a6e63db75d674 100644
+--- a/include/scsi/libiscsi_tcp.h
++++ b/include/scsi/libiscsi_tcp.h
+@@ -66,6 +66,7 @@ struct iscsi_tcp_conn {
+ 
+ struct iscsi_tcp_task {
+ 	uint32_t		exp_datasn;	/* expected target's R2TSN/DataSN */
++	uint32_t		data_in_bytes;	/* Data-In payload received */
+ 	int			data_offset;
+ 	struct iscsi_r2t_info	*r2t;		/* in progress solict R2T */
+ 	struct iscsi_pool	r2tpool;
+
+base-commit: 2c3418fffa9d037b2038a6db48be63f9e2291806
+-- 
+2.43.0
+
