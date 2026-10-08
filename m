@@ -1,233 +1,128 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10C0D46D566;
-	Thu,  8 Oct 2026 09:37:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FCB43D9DDB
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 09:37:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791452272; cv=none; b=lZjIObFp6kU2E74umxG2w8lhYXj97SmkGJljIjW42lEDnSIRcAuGvlPE1mqMvX3Vsl0p1ZMrGmciAdK+PED/L1ec5pvZRzYZfnV4UKPKVAmXjFAWRD7i6Ze7qoiVLMJKnB+aiuEYb2CKfBWwQ98NMHOlp009aZQJfWMF2cl1SPo=
+	t=1791452276; cv=none; b=cALjNNYoSX1mdxzO1ZBNKNSwoY60/g+9NkPEIVGY9q9GgG6+FvnSfpQ3Tpa0iNH6g2w2OTE05M9AQ39zOVmQezT3r6+xZsB/YoErgNea+6EZ09MMVxv7U6Q7lbEXEBMRyukkpA1KkJJNCly+0efBG+6m2UzLBYygJgfjNJHuWyw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791452272; c=relaxed/simple;
-	bh=AjAAOUQj9N1paN7zl7TtPv0FyHFPBfP30Cnxo0jkVPs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=GFBoWsnNgshgsgYWjcCe04DjHZV29e2AA+bXGFUcmmUq44lnE4ewn1rqsYFF2vQMHFE7TpdcI9VZ6DF0x+Gq1SO4C9ObtmdqiEMX+3QogjZYio78qbS1zKIpl6Xo1vfeejfR3mcnEfw3Ox2p/Z3+Ew0Mk25JcKrXiaI+hdJ5cqU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=LFBYNypC; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1791452276; c=relaxed/simple;
+	bh=ABHrd/M354a4ArtA11rIE3Ji7DNnXn7w410eWOWDECk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bwfk//6OU3AVWhCnfULH+tHb1nwEeuUmJf9Q+hdlv7s/qF5XVJpqZZReiA7e1W/4YQVEuDaKgdi8q3DGtRE9MRvr2a4V5twrbyO9q3qXuPQ4qhElismyKKDeZv5mNiiP5nZ70wronPD42846zuWnZ2qPEPMhQtyTNyuOcW/JwFI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sEpmL3Cn; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="LFBYNypC"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=SuE5eAd2Tshc+m7VWhpD2sDdzPct06AYycVxaJleu5Q=; b=LFBYNypCghvW2g62aI7IudXHgs
-	TupT+wLQOE+x2NCUuYrs928aT1Ll8hxxDR79QA3O6TIDP4Vdsr3/mTQbI6MhSfPkzool/XcLzZkgR
-	a7dU8mO6dFqBYvGefr0Um5UE/0CJ/0DLOtXt1YBDtxR7aK3X2vUlSI8b2Znl8Cb6qqTP8xoUpROSL
-	6fsdezbHS/xNOQw+MsPWWLgPI/AukfrF7YxXxO45jHMz7i1ycArOtw+yDCvdyuYAsk3Nx8koroUZB
-	kuWPJkl/wHDTzVKvULCLkxhRA/DUDhlTHnGgzlMnVNuZxO6fBvJz6CANP4GfEPYj016LVIGSCc/ZO
-	dynQCNWA==;
-Received: from [151.115.150.205] (port=38376 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xEkZM-00000003Dz7-2oV2;
-	Thu, 08 Oct 2026 11:37:44 +0200
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: =?UTF-8?q?Horia=20Geant=C4=83?= <horia.geanta@nxp.com>,
-	Pankaj Gupta <pankaj.gupta@nxp.com>,
-	Sahil Malhotra <sahil.malhotra@nxp.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	stable@vger.kernel.org
-Subject: [REPOST PATCH] crypto: caam - reject overlong RSA CRT parameters
-Date: Thu,  8 Oct 2026 09:35:53 +0000
-Message-ID: <20261008093553.384608-2-Jeremy.Jean@oss.cyber.gouv.fr>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sEpmL3Cn"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48c14a06c95so2199392f8f.1
+        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 02:37:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791452262; x=1792057062; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wo1i32DV2TChJunGiO8ZGVGfgJd2TA+vlw3QeiBuT3o=;
+        b=sEpmL3Cn55e3XH51kO14gjsr3O0Ll2/lMXtbsKWog/n29kjs2447xJErsblo9WVLns
+         gaoX6y9qh5ZI5PnkM70mgS7S8pv4hps4e9wsF/oHJ19A7AdQDH3cEzwOtlnMk93eQzMi
+         +z5824F3rlmzm7HIFpMT6mSbcdNtSrPnXG3mVb3Y74MFTFrOp4Qo6IU5oPS+Zp2Opn0y
+         AcBlPkvM8Y5ybRB88F8dURJBDgcOpl3d9ppegxhAlwpn94RzspEhd6b6FwFK64OfQ8+Q
+         v0yVh1I+UB9e9BZ6OYfydnm6nKS90r3GoqwJn1twop21bYsJ75JoaUDDVu+LBG/vhX1W
+         qQ0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791452262; x=1792057062;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wo1i32DV2TChJunGiO8ZGVGfgJd2TA+vlw3QeiBuT3o=;
+        b=IUA4no0BOIjdubsWegWaRCzmhTfCF/o+kAz1Nll2sZLvFtgEIns0S3dFCDd/LI4P/6
+         i2T3/58Xy5+yxAgU5+GtXeJptdLG+cHvJ/3jWTjJaKxkMV3aK04ViC7pf2CNdHKgT/NU
+         5Tfo+wNkJE62kkJE41iy+4Rq5WVR5zv/IEkg/6rOJYXbO9oBEqJlnwZg6fxjYXiNsAIC
+         vE/SVMgt1jIE7k7Wx6FvxNscf2bN2r8/yRkNLVtGu1eo6c2C4F67fSCOmZChq5i4CN6d
+         0h/B1SUihmfXRIhGImX7fZOeWzcKlmbyTzSkeNhFkAMXlYRYeM6QdtdiVLmUBe6ZJciq
+         6lmg==
+X-Forwarded-Encrypted: i=1; AKwUvBxMZfbKYYvQ6lx+VW05pyc9Pp4mVJ2qf2tM5AI8EjZORjnO8H1RhrFG3nDpsZVMXWUzM4GYA/U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIqZL/I3rOcKZC2WB6ls0+6TrPFCOSf0qyQKE0vsgIMxQC/BdM3
+	/cVgtl1gHsQhy8T1lGwUqqCCkGoJnBB0id6oz/8TMmab1FTnVwvf7m0=
+X-Gm-Gg: AYBFou1tg8dCfYc/NeB+JD0jSih0g67c+k/RJZzSaGg3n61KqCSxJTEs30tLClWylhS
+	fuFZtTbJo8ShPDGSphWIfN3Kvu0aox/xmhxwxDLzY+ytCR8xdysURNSQKEaGEqhxinQo0/CEOxB
+	d8HeUUq/p3p2WIeNLQhOpU9j/+wWOApCBI0eaGKvuUsvmEMPsjv7qPqhxSqthINr4KUx5rBIUm2
+	RyCdVytcWtHEbzjvGFAO/ypv+NE4yf3cFsI3jUtbeWpw5hqQV5eiKjh8D3QaP5tH5l8gWufQvfV
+	7K10nI8tfA4LnYWWIO6QoswMqXp2cGtzEBwXis4J4cvx+cRWO+psk305gY/UFCOEwc5uRE1kt7i
+	Q1CbdKripzYRBaGKfz72jNi76lVMqfww0nxfEV8WG5WKehZevQxZzfU4t9hw16qNe/6EzDCVZSp
+	ynWwHJBzm6j8hCidw9zLj29sSj1V3N3/LclWk9Z3k=
+X-Received: by 2002:a05:6000:2489:b0:48b:60d:2b28 with SMTP id ffacd0b85a97d-48c7288f27emr9932033f8f.39.1791452262200;
+        Thu, 08 Oct 2026 02:37:42 -0700 (PDT)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c7af45d94sm3649370f8f.12.2026.10.08.02.37.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 02:37:41 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+To: Zhu Yanjun <zyjzyj2000@gmail.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>
+Cc: linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH v5 0/2] RDMA/rxe: fix send-path TOCTOU races on shared WQEs
+Date: Thu,  8 Oct 2026 09:37:38 +0000
+Message-ID: <20261008093740.3034881-1-tristmd@gmail.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261007223222.2342804-1-tristmd@gmail.com>
+References: <20261007223222.2342804-1-tristmd@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
 
-caam_read_rsa_crt() right-aligns dP, dQ, and qInv in buffers sized
-from the corresponding prime. rsa_parse_priv_key() only bounds these
-integers against n, so a malformed key can provide, for example, a
-two-byte dP with a one-byte p. dstlen - nbytes then underflows and
-memcpy() writes outside the allocation during set_priv_key(). KASAN
-reports a slab-out-of-bounds write in caam_read_rsa_crt().
+From: Tristan Madani <tristan@talencesecurity.com>
 
-Reject empty or overlong CRT parameters after stripping leading zeros.
-qInv is consumed by CAAM as a p-sized value, so size it from p rather
-than q to match the DMA mapping in set_rsa_priv_f3_pdb(). Let the
-top-level key cleanup handle partial form-3 allocations and return the
-specific error to the caller.
+The rxe driver maps send queues into userspace. Both the requester and
+completer read Work Queue Entries (WQEs) directly from this shared
+buffer. Userspace can modify WQE fields between kernel reads, causing
+inconsistent state in copy_data() and related paths.
 
-Also test nbytes before dereferencing it while stripping zeros, so an
-all-zero integer does not read one byte beyond its input.
+This series copies the send WQE to kernel-private buffers, mirroring
+the receive-path fixes (commits 22b8fbded65b8 and d6ab440240a04).
 
-Fixes: 4a651b122adb ("crypto: caam - add support for RSA key form 3")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
----
- drivers/crypto/caam/caampkc.c | 69 +++++++++++++++--------------------
- 1 file changed, 30 insertions(+), 39 deletions(-)
+Changes v4 -> v5:
+  - Use qp->sq.max_inline instead of qp->sq.max_sge * sizeof(rxe_sge)
+    for the copy size, avoiding integer division truncation when
+    max_inline_data is not a multiple of sizeof(struct ib_sge)
 
-diff --git a/drivers/crypto/caam/caampkc.c b/drivers/crypto/caam/caampkc.c
-index cb001aa1de66..2082adaae585 100644
---- a/drivers/crypto/caam/caampkc.c
-+++ b/drivers/crypto/caam/caampkc.c
-@@ -880,7 +880,7 @@ static void caam_rsa_free_key(struct caam_rsa_key *key)
- 
- static void caam_rsa_drop_leading_zeros(const u8 **ptr, size_t *nbytes)
- {
--	while (!**ptr && *nbytes) {
-+	while (*nbytes && !**ptr) {
- 		(*ptr)++;
- 		(*nbytes)--;
- 	}
-@@ -896,22 +896,22 @@ static void caam_rsa_drop_leading_zeros(const u8 **ptr, size_t *nbytes)
-  * @ptr   : pointer to {dP, dQ, qInv} CRT member
-  * @nbytes: length in bytes of {dP, dQ, qInv} CRT member
-  * @dstlen: length in bytes of corresponding p or q prime factor
-+ * @dst   : pointer to the zero-padded output buffer
-  */
--static u8 *caam_read_rsa_crt(const u8 *ptr, size_t nbytes, size_t dstlen)
-+static int caam_read_rsa_crt(const u8 *ptr, size_t nbytes, size_t dstlen,
-+			     u8 **dst)
- {
--	u8 *dst;
--
- 	caam_rsa_drop_leading_zeros(&ptr, &nbytes);
--	if (!nbytes)
--		return NULL;
-+	if (!nbytes || nbytes > dstlen)
-+		return -EINVAL;
- 
--	dst = kzalloc(dstlen, GFP_KERNEL);
--	if (!dst)
--		return NULL;
-+	*dst = kzalloc(dstlen, GFP_KERNEL);
-+	if (!*dst)
-+		return -ENOMEM;
- 
--	memcpy(dst + (dstlen - nbytes), ptr, nbytes);
-+	memcpy(*dst + (dstlen - nbytes), ptr, nbytes);
- 
--	return dst;
-+	return 0;
- }
- 
- /**
-@@ -991,6 +991,7 @@ static int caam_rsa_set_priv_key_form(struct caam_rsa_ctx *ctx,
- 	size_t p_sz = raw_key->p_sz;
- 	size_t q_sz = raw_key->q_sz;
- 	unsigned aligned_size;
-+	int ret;
- 
- 	rsa_key->p = caam_read_raw_data(raw_key->p, &p_sz);
- 	if (!rsa_key->p)
-@@ -999,51 +1000,39 @@ static int caam_rsa_set_priv_key_form(struct caam_rsa_ctx *ctx,
- 
- 	rsa_key->q = caam_read_raw_data(raw_key->q, &q_sz);
- 	if (!rsa_key->q)
--		goto free_p;
-+		return -ENOMEM;
- 	rsa_key->q_sz = q_sz;
- 
- 	aligned_size = ALIGN(raw_key->p_sz, dma_get_cache_alignment());
- 	rsa_key->tmp1 = kzalloc(aligned_size, GFP_KERNEL);
- 	if (!rsa_key->tmp1)
--		goto free_q;
-+		return -ENOMEM;
- 
- 	aligned_size = ALIGN(raw_key->q_sz, dma_get_cache_alignment());
- 	rsa_key->tmp2 = kzalloc(aligned_size, GFP_KERNEL);
- 	if (!rsa_key->tmp2)
--		goto free_tmp1;
-+		return -ENOMEM;
- 
- 	rsa_key->priv_form = FORM2;
- 
--	rsa_key->dp = caam_read_rsa_crt(raw_key->dp, raw_key->dp_sz, p_sz);
--	if (!rsa_key->dp)
--		goto free_tmp2;
-+	ret = caam_read_rsa_crt(raw_key->dp, raw_key->dp_sz, p_sz,
-+				&rsa_key->dp);
-+	if (ret)
-+		return ret;
- 
--	rsa_key->dq = caam_read_rsa_crt(raw_key->dq, raw_key->dq_sz, q_sz);
--	if (!rsa_key->dq)
--		goto free_dp;
-+	ret = caam_read_rsa_crt(raw_key->dq, raw_key->dq_sz, q_sz,
-+				&rsa_key->dq);
-+	if (ret)
-+		return ret;
- 
--	rsa_key->qinv = caam_read_rsa_crt(raw_key->qinv, raw_key->qinv_sz,
--					  q_sz);
--	if (!rsa_key->qinv)
--		goto free_dq;
-+	ret = caam_read_rsa_crt(raw_key->qinv, raw_key->qinv_sz, p_sz,
-+				&rsa_key->qinv);
-+	if (ret)
-+		return ret;
- 
- 	rsa_key->priv_form = FORM3;
- 
- 	return 0;
--
--free_dq:
--	kfree_sensitive(rsa_key->dq);
--free_dp:
--	kfree_sensitive(rsa_key->dp);
--free_tmp2:
--	kfree_sensitive(rsa_key->tmp2);
--free_tmp1:
--	kfree_sensitive(rsa_key->tmp1);
--free_q:
--	kfree_sensitive(rsa_key->q);
--free_p:
--	kfree_sensitive(rsa_key->p);
--	return -ENOMEM;
- }
- 
- static int caam_rsa_set_priv_key(struct crypto_akcipher *tfm, const void *key,
-@@ -1061,6 +1050,8 @@ static int caam_rsa_set_priv_key(struct crypto_akcipher *tfm, const void *key,
- 	if (ret)
- 		return ret;
- 
-+	ret = -ENOMEM;
-+
- 	/* Copy key in DMA zone */
- 	rsa_key->d = kmemdup(raw_key.d, raw_key.d_sz, GFP_KERNEL);
- 	if (!rsa_key->d)
-@@ -1097,7 +1088,7 @@ static int caam_rsa_set_priv_key(struct crypto_akcipher *tfm, const void *key,
- 
- err:
- 	caam_rsa_free_key(rsa_key);
--	return -ENOMEM;
-+	return ret;
- }
- 
- static unsigned int caam_rsa_max_size(struct crypto_akcipher *tfm)
+Changes v3 -> v4:
+  - Use full queue element size (max_sge SGEs) for the copy instead of
+    per-WQE num_sge. Eliminates inline data gap, sizeof mismatch, and
+    simplifies both patches
+  - Invalidate requester copy on ERR flush path before writing status
+    to shared memory (prevents writeback from clobbering error state)
+  - Invalidate both caches on QP reset (rxe_qp.c changes added)
+
+Changes v2 -> v3:
+  - Add completer-path copy (patch 2/2) to close the remaining TOCTOU
+    window. The completer was still reading directly from shared memory
+  - Add smp_load_acquire()/smp_store_release() for state transitions
+    between requester and completer
+
+Changes v1 -> v2:
+  - Added writeback mechanism using WRITE_ONCE() and smp_store_release()
+  - Reuse kernel copy across multi-packet sends to preserve DMA state
+  - Invalidate on retry, QP reset, and error paths
+
+Tristan Madani (2):
+  RDMA/rxe: copy send WQE to kernel buffer before processing
+  RDMA/rxe: copy send WQE to kernel buffer in completer path
+
+ drivers/infiniband/sw/rxe/rxe_comp.c  | 53 ++++++++++++++++++++++++++++--
+ drivers/infiniband/sw/rxe/rxe_qp.c    |  2 ++
+ drivers/infiniband/sw/rxe/rxe_req.c   | 55 ++++++++++++++++++++++++++++++---
+ drivers/infiniband/sw/rxe/rxe_verbs.h | 12 ++++++++
+ 4 files changed, 116 insertions(+), 6 deletions(-)
+
 -- 
-2.47.3
-
+2.39.5
