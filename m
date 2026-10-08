@@ -1,166 +1,219 @@
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C5E849EC71
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 13:08:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9271B49890E;
+	Thu,  8 Oct 2026 13:10:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791464883; cv=none; b=J9ylgmbr0XbZsWfWVTuWeBwH/ab/qk43Gx3LI2U8GDUopRgG26JzIspw6CAEDfGhWOAiyAGfTtRQAAVWEQRkhNQsmX1Y4eSvL6v3jqtKpllwRQo/r9QyLf4b1uuq7pGb0C9T2cCqNsZw+wWzV5fwwI7E5HCg6JrTqQSGDVgtnyc=
+	t=1791465019; cv=none; b=GZxq4OiDLzWcRZ1R/Ih8eX9Yf7Wp4O752SkFPpBOkof6oQd2rrCqARPv6KIxZckP5+0umNAnQUi53/ZbfltjQwypzXJcu2rBhWXbKAXW30X3OMTDXRmN/sudhCOhQBmFLGGo2lUIEpuDI0yWW7lWx6CUnWFM+0NDkzPAw0rfJm8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791464883; c=relaxed/simple;
-	bh=56WtSLmyXgOWqkE8uHq9stmyvAJgS6HKIATqylz3mXo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dDItiKoZUUelPp1ItfN7ioPOWYFeZ64VLD+j3MCN9y8l9OvkpojITv+9I3iXvmlA4osKkbQQ0Ey90r5Sf6HS0Bgo2e6WdCpawcMUtsP5QdXpfDgKCDOvXCzQh69ow8cdYrKmegM3I34umMpPPkgT0UQaFCuByrfRC9qp7cZZlco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IeGT9Uc8; arc=none smtp.client-ip=209.85.210.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791465019; c=relaxed/simple;
+	bh=/yelBe+Gw3EYSuPvZbBcAnet/gkuHxFavOHOKByvcnA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sNu2uirjdidbi0uO2B6KAKJ1rmMOYGCQ4vuywurPCrmTOFflCXLtOwFLSFPE0akAN5cYFL+aVRjgGDGUJpBTdpYYgNHsu5moDe4PqPO7NyoAigvcnq6/79nWTEo1/rS/Zi3KvUF7OkG/e15G6Y5g+GjeO1jrLoerUSVT7CuB1YE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=QxNspo7i; arc=none smtp.client-ip=220.197.31.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IeGT9Uc8"
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-873a4edb243so3698805b3a.0
-        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 06:08:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791464881; x=1792069681; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vl7sRwfmLB48VwhLwaxygRLXnDOF27+xyMS2vapngz4=;
-        b=IeGT9Uc8Pd0rDueuIkAoJzZ3cMIlW2YNGgwreiPZbYIDUCp0mSqUVnBj/1aIVe+LYJ
-         2FusEa27WvR3V/S/omD9qiJCSESQel0z4JNQ2sGcF+sxT+PWylNeQuwThKEsuk1cUGRC
-         BGeWXi8tgvhZQGf2T56kbgbdq2aaZvckZX1Muhp5KDOKYIaMWf+9qm8l1b3Ujeqaaupt
-         sbV6JPekmqPfSkQYDLI67bF+3rp01q0KAO/ojgyX2BkFhw8a7WtDwTOydPdP1LxhnvSD
-         jSZ0jnF3lSQEc0piWo4rYECuz7BELvVuSvQYDxDmJTQecs0/MUM3GrEKnmmH6ATaZOi4
-         RSfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791464881; x=1792069681;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vl7sRwfmLB48VwhLwaxygRLXnDOF27+xyMS2vapngz4=;
-        b=bxCGcyU6k+p3ebRWZUI7Jl+6/Evlwvzxb3M7qU53BipzNitAe4dsuPQpdjlfEHtjIZ
-         DqYVDyWZl+WE+FZH/a7ggK7hF4l77mDObV0OacGwCXZpFzTzw3FheOPicg2mVw58DYOA
-         C8ps8UPLrVQE8ZS4uE/l5H2IxVbFSGdt2aozpjIjpYWoibHX7MnrEwKjbnnQYLkgt+zc
-         Ds1ubcXAXEwqGqUZIMlCYx4X/maxA4k4DO6id+JFPTp8RXNL5UVOBB1Yq3dvzhwsZbuL
-         GsDb27RniYVkxvR0VDyPxjxzisCrdvUJ/FcvEgJ5lawM4UXpXjmxitVhr/89J2bVoveh
-         n1DA==
-X-Forwarded-Encrypted: i=1; AKwUvBwKp15aoRTOM52FX8Rbl/6jCm9BOiIfAx4BEGuj1ydxU04zoMyTBEh/vb078/QqSUqll8kkH5Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++nMaYkH0wBZ4lxQzhKd+s30/9YALLbxzH/jxtWXZlrWePs2EiOI
-	q/gFCsEI/LZnL9Gxyz58wIXcG9L7aeDfM5qUZb1NFDNDpljVEMwagGcr
-X-Gm-Gg: AYBFou1F7nGAXseo0XncbdlTQ60D47wBiJ0MuXNjUbiOXx5Gihab15HxMN9DmT7RA8Q
-	w8vJaH/BakdxFeoq++bjx9OUF2GdvouwEYjn/UH3ETWy9S2Sowk5cYntIwKQaY+pnFWKY8ItGx2
-	6/3HzczZIHFZ3Gd/bamly62909Ty0WNH7IrTMBf0sMr2weCYbpauqP9afhy7nQuK4HHx1d/8hkG
-	a94WwxvYy9kXPjQBW1CN2C9osF/Dx7o5TOYLrebuz+TTkXUPwtLQhy05YI7cbAx/msGAye3c6yB
-	DAVsZF5Q8BNuaRXZrGAk6adN272SM9lY3bNuuQ6xicx2Fg5YFuevtHzP5RFu1zkud80wdBNj6uu
-	YETD6W8cYvKdFGeUuqEp4JFnh2qqQczqTubeIzTP/qrxH6CClksyghJSv9tNNyN6TS9qviJzBmJ
-	P3O0qv8LnOP1UeTvD73vVk7x00b9CmlyiEGL/pJkV54MDTDLFT1RFueS/MYVixn/iVAZD5r8u1Q
-	mdP
-X-Received: by 2002:a05:6a21:7111:b0:3d3:ae50:97ce with SMTP id adf61e73a8af0-3e1340420bfmr4724948637.27.1791464881362;
-        Thu, 08 Oct 2026 06:08:01 -0700 (PDT)
-Received: from dungbv.. ([58.186.69.27])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd1640b6e67sm2201621a12.1.2026.10.08.06.07.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 06:08:00 -0700 (PDT)
-From: Bui Viet Dung <dungvn2345@gmail.com>
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Sergey Ryazanov <ryazanov.s.a@gmail.com>
-Cc: Johannes Berg <johannes@sipsolutions.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bui Viet Dung <dungvn2345@gmail.com>
-Subject: [PATCH] wwan: wwan_hwsim: Pin module for debugfs file operations
-Date: Thu,  8 Oct 2026 20:07:53 +0700
-Message-ID: <20261008130753.313875-1-dungvn2345@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="QxNspo7i"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=siovdpcdC1SrJwsnnM3h6lQURmWeA+zUKOaxw7qqDDs=;
+	b=QxNspo7ii5SwM2c0zCuTbguzqoOZpebpi8IZCFy5gNUOzYoHfg509P5MERdKkC
+	6dHYqd5s6W0dYfqwyGizp+g357Kv9uHyiDJiLKoMQH+C3b3mBTVngRAyA5tSya42
+	15XpPojvDia+Fms2pGqe8VNiILNdJoPi4BkeKeLrk/Csk=
+Message-ID: <b402a837-2223-4d72-978a-b2108df78334@126.com>
+Date: Thu, 8 Oct 2026 21:08:57 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH iwl-net v2 1/2] ice: detach the VF representor when
+ ice_start_vfs() fails
+To: Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ Tony Nguyen <anthony.l.nguyen@intel.com>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, netdev-bot+sinfo@kernel.org, pabeni@redhat.com,
+ intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Linkui Xiao <xiaolinkui@kylinos.cn>,
+ stable@vger.kernel.org
+References: <20260928065306.1514795-1-xiaolinkui@126.com>
+ <179057875290.31693.7249107578001642813@kernel.org>
+ <d3f4ae98-3340-414b-9bd0-9f4588810821@126.com>
+ <547ed917-77fc-4670-974c-4d4fd6fbf3e7@intel.com>
+ <0c464819-16ee-4bae-b15c-3337516ef3c9@intel.com>
+Content-Language: en-US
+From: Linkui Xiao <xiaolinkui@126.com>
+In-Reply-To: <0c464819-16ee-4bae-b15c-3337516ef3c9@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3_6XplcdqT3fmAg--.45387S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3GF1xWF18ZF48KFWDXryfXrb_yoW3ZFyDpa
+	yFq3Z5Kr4DXw1I9w42vw40q3409a1rKF1UWr1UKrWFkwn8Grn5XrWfK3yj9a4UC393Cw1Y
+	vr4qqw1kZFyDAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U4c_fUUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlQssA2rHletTMQAA3A
 
-An open debugfs file retains its file_operations pointer in the
-debugfs proxy state. However, wwan_hwsim_debugfs_portdestroy_fops,
-wwan_hwsim_debugfs_portcreate_fops, wwan_hwsim_debugfs_devdestroy_fops,
-and wwan_hwsim_debugfs_devcreate_fops in wwan_hwsim.c have no
-.owner set to THIS_MODULE.
 
-As a result, full_proxy_open_regular() calls fops_get() which succeeds
-without taking a reference to the wwan_hwsim module. When a userspace
-process opens any of these debugfs files, a subsequent module unload
-(rmmod wwan_hwsim) can succeed while the file descriptor remains open.
 
-When the userspace process subsequently closes the descriptor,
-full_proxy_release() accesses the already unmapped file_operations
-structure, triggering a kernel oops in full_proxy_release():
+On 2026/10/7 19:11, Przemek Kitszel wrote:
+> On 9/29/26 8:11 PM, Tony Nguyen wrote:
+>>
+>>
+>> On 9/28/2026 12:14 AM, Linkui Xiao wrote:
+>>> Hi,
+>>>
+>>> Thanks for the review. Please find the missing information below.
+>>>
+>>> - How the issue was discovered:
+>>>    Found during manual code inspection of the ice VF setup/teardown 
+>>> error paths. It was not reported by syzbot, a static analysis tool, 
+>>> or an LLM scan, and was not hit in production.
+>>>
+>>> - Whether the issue was actually triggered:
+>>>    Not actually triggered. It is a theoretical error-path cleanup 
+>>> issue found by inspection; no stack trace or error message was observed.
+>>>
+>>> - Hardware tested:
+>>>    Not tested on real hardware. The change was only compile-tested; 
+>>> no affected Intel NIC/firmware test was performed.
+>>>
+>>> The same applies to patch 2/2: it was also found by the same manual 
+>>> code inspection, was not triggered at runtime, and was only compile- 
+>>> tested, not tested on real hardware.
+>>>
+>>> If a v3 is needed for other review reasons, I will include this 
+>>> information in the commit messages.
+>>>
+>>> Thanks,
+>>> Linkui Xiao
+>>>
+>>> On 2026/9/28 14:59, netdev-bot+sinfo@kernel.org wrote:
+>>>> Hi!
+>>>>
+>>>> This is an automated message. This series looks like a fix, but its
+>>>> commit messages seem to be missing some information:
+>>>>
+>>>>   - How the issue was discovered, e.g. hit in production, hit during
+>>>>     development, syzbot report, manual code inspection, LLM or static
+>>>>     analysis tool scan.
+>>>>
+>>>>   - Whether the issue was actually triggered, or is only theoretical
+>>>>     (e.g. found by code inspection). If it was triggered please include
+>>>>     the symptoms, like the stack trace or error messages.
+>>>>
+>>>>   - What hardware the change was tested on. For driver fixes please
+>>>>     mention the device (and if relevant firmware version) used for
+>>>>     testing, or say that the change was not tested on real hardware.
+>>>>
+>>>> Please do not repost the series just to address the above. Instead,
+>>>> reply to this email with the missing information, so that reviewers
+>>>> can take it into account. If the series needs another revision for
+>>>> other reasons, please include the information in the commit messages
+>>>> then.
+>>
+>> Hi Jakub,
+>>
+>> For patches that go through iwl-net, how did you want this handled? It 
+>> says to not repost just to address the above, but since this will get 
+>> submitted later, did you want the commit updated to make the latter 
+>> check happy, did you want me to copy/paste the response to the commit, 
+>> or something else?
+> 
+> In general, I would say it's up to you Tony.
+> Perhaps we could decide based on the amount of additional changes.
+> 
+> For this particular patch sashiko already posted complains:
+> https://sashiko.dev/#/patchset/20260928065306.1514795-1-xiaolinkui%40126.com?part=1
+> 
+> I've encountered the same problem (although during my OOT encounters),
+> and the solution is to detach/attach VF representors outside of
+> vf->cfg_lock. More rationale by AI follows:
+> 
+> ice_reset_all_vfs() and ice_free_vfs() call ice_eswitch_detach() and
+> ice_eswitch_attach() with vf->cfg_lock held. Both take the devlink
+> instance lock and then register or unregister the representor netdev,
+> which takes RTNL. ndo_set_vf_mac(), ndo_set_vf_vlan() and the
+> representor's ethtool reset take vf->cfg_lock under RTNL, so the order
+> is inverted. The ice_check_vf_ready_for_cfg() check in those callers
+> runs before vf->cfg_lock is taken, so it doesn't keep them away from a
+> reset that is already in progress.
+> 
+> Detach before taking vf->cfg_lock and attach after releasing it.
+> Representors are added and removed only under pf->vfs.table_lock, and
+> ice_start_vfs() already attaches without vf->cfg_lock. Both functions
+> set ICE_VF_DIS first, so a concurrent ice_reset_vf() bails out before it
+> reaches ice_eswitch_update_repr().
+Thanks.  That is the AB-BA Sashiko flagged, and v3 does exactly that.  The
+series is three patches now, reposted as a new thread whose cover is
 
-  BUG: unable to handle page fault for address: fffffbfff84f90ef
-  Oops: 0000 [#2] SMP KASAN NOPTI
-  RIP: 0010:full_proxy_release+0x8e/0x140
-  Call Trace:
-   <TASK>
-   __fput+0x357/0xaa0
-   fput_close_sync+0xe6/0x1a0
-   file_close_fd_locked+0x17e/0x2f0
-   do_close+0x33/0x70
-   __x64_sys_close+0x44/0x80
-   do_syscall_64+0xc3/0x590
-   entry_SYSCALL_64_after_hwframe+0x76/0x7e
-   </TASK>
+   [PATCH iwl-net v3 0/3] ice: fix VF representor lock ordering and teardown
+   error paths
 
-The issue was discovered via manual code audit of wwan_hwsim.c and
-reproduced on a Linux 7.3-rc6 test VM with CONFIG_WWAN_HWSIM=m.
+with the per-patch changes under "Changes in v3:" in each patch:
 
-Set .owner = THIS_MODULE on all four debugfs file_operations structures
-in wwan_hwsim.c so that debugfs pins the module until close has
-completed.
+  1/3 ice: attach and detach VF representors outside of vf->cfg_lock   (new)
+  2/3 ice: detach the VF representor when ice_start_vfs() fails   (was 1/2)
+  3/3 ice: free the VF MSI-X vectors when VF start fails   (was 2/2)
 
-Fixes: 9ee23f48f670 ("wwan_hwsim: add debugfs management interface")
-Cc: stable@vger.kernel.org
-Signed-off-by: Bui Viet Dung <dungvn2345@gmail.com>
----
- drivers/net/wwan/wwan_hwsim.c | 4 ++++
- 1 file changed, 4 insertions(+)
+1/3 is new and is the "same problem" you describe.  ice_free_vfs() and
+ice_reset_all_vfs() are where the inversion was introduced: fff292b47ac1
+turned the single ice_eswitch_release() that ice_free_vfs() made before its
+loop into a per-VF detach under cfg_lock, and c9663f79cd82 did the same to
+the ice_eswitch_rebuild() call in ice_reset_all_vfs().  1/3 moves the detach
+ahead of cfg_lock in both loops, and in ice_reset_all_vfs() the attach back
+after the unlock.  It also takes cfg_lock once before the detach, so that a
+reset which is already inside the lock is waited out instead of being left
+with a window: ICE_VF_DIS, raised before both loops, keeps later resets out,
+but not one that got in ahead of it, and that one can reach
+ice_eswitch_update_repr() while ice_repr_destroy() is freeing the
+representor it looks up, which is free_netdev() + kfree() with no RCU grace
+period.  2/3 is the original ice_start_vfs() fix with the same reordering,
+plus the disabled marking described below.  3/3 is the MSI-X leak, the same
+three calls, with its Fixes: tag corrected.  Tony, if you would rather keep
+the -net series at two patches, say so and I will drop 1/3.
 
-diff --git a/drivers/net/wwan/wwan_hwsim.c b/drivers/net/wwan/wwan_hwsim.c
-index c3c2d2a68767..34eea3edc824 100644
---- a/drivers/net/wwan/wwan_hwsim.c
-+++ b/drivers/net/wwan/wwan_hwsim.c
-@@ -500,6 +500,7 @@ static ssize_t wwan_hwsim_debugfs_portdestroy_write(struct file *file,
- }
- 
- static const struct file_operations wwan_hwsim_debugfs_portdestroy_fops = {
-+	.owner = THIS_MODULE,
- 	.write = wwan_hwsim_debugfs_portdestroy_write,
- 	.open = simple_open,
- 	.llseek = noop_llseek,
-@@ -524,6 +525,7 @@ static ssize_t wwan_hwsim_debugfs_portcreate_write(struct file *file,
- }
- 
- static const struct file_operations wwan_hwsim_debugfs_portcreate_fops = {
-+	.owner = THIS_MODULE,
- 	.write = wwan_hwsim_debugfs_portcreate_write,
- 	.open = simple_open,
- 	.llseek = noop_llseek,
-@@ -545,6 +547,7 @@ static ssize_t wwan_hwsim_debugfs_devdestroy_write(struct file *file,
- }
- 
- static const struct file_operations wwan_hwsim_debugfs_devdestroy_fops = {
-+	.owner = THIS_MODULE,
- 	.write = wwan_hwsim_debugfs_devdestroy_write,
- 	.open = simple_open,
- 	.llseek = noop_llseek,
-@@ -568,6 +571,7 @@ static ssize_t wwan_hwsim_debugfs_devcreate_write(struct file *file,
- }
- 
- static const struct file_operations wwan_hwsim_debugfs_devcreate_fops = {
-+	.owner = THIS_MODULE,
- 	.write = wwan_hwsim_debugfs_devcreate_write,
- 	.open = simple_open,
- 	.llseek = noop_llseek,
--- 
-2.43.0
+The edge that had to go is cfg_lock -> RTNL.  ice_eswitch_detach_vf() takes
+devl_lock() and then RTNL through ice_repr_rem_vf() -> unregister_netdev(),
+while __ice_set_vf_mac(), ice_set_vf_port_vlan() and the representor's
+ethtool reset take cfg_lock with RTNL already held.  The representor itself
+does not need cfg_lock there: it is created and destroyed under
+pf->vfs.table_lock, and ice_free_vfs(), ice_reset_all_vfs() and
+ice_start_vfs() all run with that lock held.
+
+On the ice_start_vfs() path I kept cfg_lock around the rest of the teardown,
+because the ICE_VF_DIS half of the rationale does not hold there.
+ice_free_vfs() and ice_reset_all_vfs() raise ICE_VF_DIS before they 
+touch any
+VF, the SR-IOV enable path never does (the clear_bit() in ice_ena_vfs() has
+no matching set), and the VFs unwound by that loop already reached
+ICE_VF_STATE_INIT, so "ip link set dev <pf> vf N ..." still passes
+ice_check_vf_ready_for_cfg() and can run ice_reset_vf() against the VSI that
+ice_vf_vsi_release() is tearing down.
+
+That is why 2/3 marks the VF disabled under cfg_lock before the detach.  As
+you said, ice_check_vf_ready_for_cfg() runs before the lock is taken, so it
+does not keep a reset that is already in progress away; the check that does
+keep one out is the ice_is_vf_disabled() test ice_reset_vf() makes after
+taking cfg_lock.  Taking cfg_lock once before the detach waits that one out
+while its representor is still attached, and the bit keeps later ones from
+reaching ice_eswitch_update_repr().  Without it a reset already past its own
+check could xa_load() the representor while ice_repr_destroy() frees it, and
+that is free_netdev() + kfree(), with no RCU grace period in between.
+
+v3 also carries the origin and testing information netdev-bot asked for, in
+the commit messages, since the series is being reposted anyway.  2/3 changed
+code, and in 3/3 the call in the teardown loop moved inside cfg_lock, so I
+did not carry over the Reviewed-by tags from Tomasz Lichwala and Aleksandr
+Loktionov.  Tomasz's nit on the eswitch attach failure path is in: the IRQs
+are freed before the VSI is released there, and the teardown loop keeps that
+order too.  The release_vsi label of ice_init_vf_vsi_res() still 
+releases the
+VSI first, because the !vsi path has to skip that call.
+
+The v3 series was posted here:
+https://lore.kernel.org/netdev/20261008125754.3520773-2-xiaolinkui@126.com/
 
