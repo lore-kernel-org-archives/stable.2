@@ -1,96 +1,112 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC9AE20D4F0;
-	Thu,  8 Oct 2026 01:21:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F9174086A
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 01:24:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791422484; cv=none; b=HB/Jk4A7D8tNoXqzoQSH0C1/xFwSeCWjnPZk6ibiz+KeucAgj5+OfXFh5o3q1V9oOgqdOjzqg17s+twIJdiZPfvhuMF6RciTgbzJhzZp8QzvnTkOj365EEFnrGp7XxUg2YUrqbrv0z5WpywY1/HDIy5xAtT7yAyMbVrZ7Wntaf4=
+	t=1791422671; cv=none; b=otZ13zS9AJDICaIFm3KA8FUZBRbis2KFJHdRUZZOPvjeEZyyCu7x69GI2Kn0S+uklQeaLDmVZ9onI3Gf5A3T2gqLbeshVi4IdbJMFDSd/FEMvsHsoPQejaAhfMIhTer56y+PdefaTBlf8elSIb0glj8aypMK2TufweihlJpLKOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791422484; c=relaxed/simple;
-	bh=ly6BFI7Y+J+UWNSe2Ze/J2qy8AlYCVPTFhR0YgjJ794=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=JRncIh7PlBiZZMQLqXPY6Z06uva37JpGZblPosoJFYdDhMsuP3nMwzts69rsZpdO40ElE0siDbA8HoSgFSeLE6oqfSr7bAqR3XLCA8UPDlv6UYg0Um5c5Eu8eRKMIocBWfk8vnpNlW87U71oWB1/0RXKYGG/MtdZ3hkfVUPXJ6E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=jzb+QY4C; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1791422671; c=relaxed/simple;
+	bh=aOKZGZ5CSaNk8bAYpcBFQuWB0cJkwnqFmR9dJ1mHt5Y=;
+	h=Mime-Version:Subject:From:To:CC:In-Reply-To:Message-ID:Date:
+	 Content-Type:References; b=akW53CI5x9733kGvw8/tprTLpOUjXOu4BfaxjvU//9t5XHU/3AmFgtrr37D7ZoizmvhsAhGCMDZ03eEdMKz5dO54VNvdlAkkBbFifbfyFuLHALS2KT/2ffasJc2yfVqVrfsH4A/OsMgzfcibHqWqt4Ylo0aOyvJ0tndeZwKpjfE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=kmdZHcJv; arc=none smtp.client-ip=203.254.224.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="jzb+QY4C"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6981KwCM2071317, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1791422458; bh=LnLAAS5JBE/OAgA3IP6GATfRxde0M/zv1+1Adti8950=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=jzb+QY4CGDSpZIYeJnQL8tTnuP9qZsBg/udQdL4BsLMQHVAU8FCvR9D/a0UMXG7iN
-	 EYdTygJYEFGRv/+Ysd9aHgFhrmIjkaZZWbaw34AAlcB9a0sBuiJtigjtCJsR/bAh1L
-	 mJYCpTxeclqPA2v3MbhoF4XucPqknejG0wj9/vslsnJUVahtBtQBc9qS+ss3+yWVT0
-	 M/BBQuNYOWFM82XTT2KYrirkn2fjkx+O77eYpDpxesO0YhpOEUB9xO/zBpm//7aHjE
-	 mA0mWW/DgHLrXvkod6fbATFwNGqwYh/cI31PtdR9Psk6D+VxL8fsCSCJs1pFhu1EyJ
-	 UozJveSdpDoBA==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6981KwCM2071317
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 8 Oct 2026 09:20:58 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 8 Oct 2026 09:20:58 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Thu, 8 Oct 2026 09:20:58 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Tristan Madani <tristmd@gmail.com>
-CC: Kalle Valo <kvalo@kernel.org>, Bernie Huang <phhuang@realtek.com>, Timlee
-	<timlee@realtek.com>, "linux-wireless@vger.kernel.org"
-	<linux-wireless@vger.kernel.org>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>, Tristan Madani <tristan@talencesecurity.com>
-Subject: RE: [PATCH wireless v2 2/2] wifi: rtw89: fix IE length passed to
- cfg80211_find_ie() in WoW AKM
-Thread-Topic: [PATCH wireless v2 2/2] wifi: rtw89: fix IE length passed to
- cfg80211_find_ie() in WoW AKM
-Thread-Index: AQHdVnda/YlzD7My9U+OO5gAW1p6T7by0Kmg
-Date: Thu, 8 Oct 2026 01:20:57 +0000
-Message-ID: <bc87087595994f81a505385c871aab58@realtek.com>
-References: <20261007161721.261452-1-tristmd@gmail.com>
- <20261007161721.261452-3-tristmd@gmail.com>
-In-Reply-To: <20261007161721.261452-3-tristmd@gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="kmdZHcJv"
+Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261008012426epoutp0240cb76195213f1b43b408a102e8b3d15~caWyZSsYq3274032740epoutp02Y
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 01:24:26 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261008012426epoutp0240cb76195213f1b43b408a102e8b3d15~caWyZSsYq3274032740epoutp02Y
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1791422666;
+	bh=aOKZGZ5CSaNk8bAYpcBFQuWB0cJkwnqFmR9dJ1mHt5Y=;
+	h=Subject:Reply-To:From:To:CC:In-Reply-To:Date:References:From;
+	b=kmdZHcJvX9T8u73FD4mBDxCALiPdKnx9OUJUFP5cG/IJIs98vXJVqbL3g7JxAWZw2
+	 M7xozcm3wY+0NUJCi//SuhrSS1mq1ehQ/UNQpSc4l28AlVGudxwYO9KqecfFHg1e8U
+	 R8Un7KKrrR9OX3nDh/Mk7UuGbWJDcwP9RYuIUGRY=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas2p4.samsung.com (KnoxPortal) with ESMTPS id
+	20261008012426epcas2p48941fe3a08e2fd1e99adf9308f33b7b0~caWxz8zFH3076630766epcas2p4g;
+	Thu,  8 Oct 2026 01:24:26 +0000 (GMT)
+Received: from epcas2p4.samsung.com (unknown [182.195.38.201]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4j0XMs6pKLz6B9m5; Thu,  8 Oct
+	2026 01:24:25 +0000 (GMT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+Subject: RE:(2) [PATCH 2/2] ext4: track zeroed out blocks of unwritten
+ extents for fast commit
+Reply-To: daejun7.park@samsung.com
+Sender: Daejun Park <daejun7.park@samsung.com>
+From: Daejun Park <daejun7.park@samsung.com>
+To: Jan Kara <jack@suse.cz>
+CC: Theodore Ts'o <tytso@mit.edu>, "linux-ext4@vger.kernel.org"
+	<linux-ext4@vger.kernel.org>, Andreas Dilger <adilger.kernel@dilger.ca>,
+	Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo
+	<ojaswin@linux.ibm.com>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Zhang Yi <yi.zhang@huawei.com>, Zhang Yi <yi.zhang@huaweicloud.com>, Harshad
+	Shirwadkar <harshadshirwadkar@gmail.com>, Li Chen <me@linux.beauty>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>, Daejun Park
+	<daejun7.park@samsung.com>
+X-Priority: 3
+X-Content-Kind-Code: NORMAL
+In-Reply-To: <vxase3lkctmatpkj3p4vvhgyrvauqyilkfd5dcz47jjtgfdipx@imb4onyzk3bw>
+X-CPGS-Detection: blocking_info_exchange
+X-Drm-Type: N,general
+X-Msg-Generator: Mail
+X-Msg-Type: PERSONAL
+X-Reply-Demand: N
+Message-ID: <20261008012425epcms2p1c4ddc3f2cc72dd30b0f18ee4f2ec9178@epcms2p1>
+Date: Thu, 08 Oct 2026 10:24:25 +0900
+X-CMS-MailID: 20261008012425epcms2p1c4ddc3f2cc72dd30b0f18ee4f2ec9178
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-223,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261007134122epcas2p261c7ea484933b17c10e745ec844b0aff
+References: <vxase3lkctmatpkj3p4vvhgyrvauqyilkfd5dcz47jjtgfdipx@imb4onyzk3bw>
+	<20261007-ext4-fc-zeroout-v1-0-b86de6439431@samsung.com>
+	<20261007-ext4-fc-zeroout-v1-2-b86de6439431@samsung.com>
+	<CGME20261007134122epcas2p261c7ea484933b17c10e745ec844b0aff@epcms2p1>
 
-Tristan Madani <tristmd@gmail.com> wrote:
-> From: Tristan Madani <tristan@talencesecurity.com>
->=20
-> __rtw89_wow_parse_akm() computes a pointer to the IE area from an
-> association request frame:
->=20
->     ies =3D mgmt->u.assoc_req.variable;
->=20
-> but then passes skb->len as the IE data length to cfg80211_find_ie().
-> Since skb->len covers the entire frame including the 28-byte management
-> header and fixed fields, cfg80211_find_ie() may read past the end of the
-> actual IE data.
->=20
-> Fix by computing the correct IE data length as skb->len minus the
-> header offset, and validating the minimum frame length before parsing.
->=20
-> Fixes: 480dd4dddfc5 ("wifi: rtw89: enter power save mode aggressively")
+Hi Jan,
 
-it should be
+On Wed, Oct 07, 2026 at 15:41:17 +0200, Jan Kara wrote:
+> Also putting this into ext4_split_extent_zeroout() looks a bit too easy to
+> miss. In fact I think placing ext4_fc_track_range() into
+> ext4_issue_zeroout() would make sense because that is where the writing of
+> "data" really happens. This will fix the use in
+> ext4_split_extent_zeroout() as well as ext4_ext_convert_to_initialized().
+> And it will also fix the same class of problem which I think we have in
+> ext4_alloc_file_blocks()...
 
-Fixes: 92790c4e50d2 ("wifi: rtw89: wow: parsing Auth Key Management from as=
-sociate request")
+Thanks, that makes sense. In v2, ext4_issue_zeroout() and
+ext4_ext_zeroout() take the handle, and the range is tracked there once
+the zeroout has succeeded.
 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+ext4_alloc_file_blocks() zeroes out without a handle, so it passes NULL.
+As far as I can tell there is no gap there:
+ext4_convert_unwritten_extents() right after it tracks the blocks it
+converts through ext4_map_blocks(), and blocks that were already written
+keep their mapping. I also tried FALLOC_FL_WRITE_ZEROES on scsi_debug
+(lbpws=1 lbprz=1) over an unwritten extent, over one block in the middle
+of one, and over a hole, each followed by an in-place write, fsync and
+EXT4_IOC_SHUTDOWN. The written block survives replay on the base kernel
+as well, and the tracepoint shows the range tracked twice, at allocation
+and at conversion. If you had a different path in mind, please let me
+know.
 
-Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+I'll send v2 shortly.
 
-
+Daejun
