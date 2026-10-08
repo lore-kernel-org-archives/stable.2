@@ -1,151 +1,92 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB8CF38C2D0
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 05:29:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E36863630A7;
+	Thu,  8 Oct 2026 05:32:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791437383; cv=none; b=kYhcTjQLHlfZzO1FppynxapMBYAO25tH2Ln3fSTXA3D6SmLOyyJ+NukhWh4A/OPTqOR8fbcu/FKitsZPOm7Bj1pIWm77xIwr7sYPDqYZsQqti4GoYbOUUnbqhL6IM2rQj1rp98Kuy9MNvNfZLa/stF3LVnErSioC5JuEbYBT5x4=
+	t=1791437535; cv=none; b=q++Mr/aMF7jKcJ8SrBqeMtLOQ34fz/8DWwND6RFZ6DrHkppqLXVNWOCVyUANaPvEWv5VDDokNquP8OoyALHkvDqNDKUgGHUw0OByvCfXbzTcZ46mWINx7xI41vpph5qH/ojoWn6ucINn1UWdiIIoZ4KGLU2z4xILuMXY3KQZUzk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791437383; c=relaxed/simple;
-	bh=niVvTWNk3QWOalqFTP346D6I7kaju0YJcJoHhRrZRGo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XxA3FSm9Zfn8b6nLK4HQ9+C9MzI1c6oZ33veX7dsU6cLgw7PLNSMD4PERzn5UVftGhFcF88Y53EfCb4YSvI+6GFhqpTVj4ls2HnNb/hzxKDqEWlgqFgWGz3OG6LGE1zrr+HToPYH055IDDTF5bpOydmZ8zidYd06G3Swqu+/4Tk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WGashld6; arc=none smtp.client-ip=209.85.215.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791437535; c=relaxed/simple;
+	bh=OfPe7P4i0pucuqGPwBG5yxgT/sGDRljDRjmY10FNEzI=;
+	h=From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
+	 MIME-Version:Content-Type; b=lAH0e8AvsI+aGYrYAkb/hGaGiHcRHVFijiO+WiEWssGbJqv/EcWE0QizYw6TZygqTItfxXtGUntvwGGBums3Ja5X4Ch8/oyn9v0jpoZOnhBIUc4lNO1LYJCqavQ7j273Uj+TOsax5a/CVONfZfhcYJ3axjtWuVPUsqH7ae903OQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=BpptVyC3; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WGashld6"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc1d57602e8so1151431a12.3
-        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 22:29:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791437382; x=1792042182; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Eincc2xR/aQzEUZWBEcbooh1c8vCK29qIoSJ+5aX63E=;
-        b=WGashld6RPycFq2DvZkoaHoTT+6zkPDGfIqrj7dC9DsmxxABDEdejDf/17mHTK0Pth
-         hkbH5bRZ2ca1CTZFg9zh3dCnen3jWSo+qewrI4iqIqtuPC8M0DY+6GL2trCqm7bevyDg
-         HzJiJ0cjThCoRTmFA4tTv8QNcwenK4uj9rgk8xsvOS/XbzkpVus4ZF0i1bRAv5vXEqZn
-         TrTBPbNhct0xKoA79wn4jkxLKor0pp9BhRQTEd7h6X8EluX+Q7eNo7rcXL5BDHHQdvDy
-         BcPjYpiYikkQAkLIn1R57CBQolfectDdJ/cEZvGOfLBIKSBvga4ig4ESRYDItsqwdNft
-         S0Ag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791437382; x=1792042182;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Eincc2xR/aQzEUZWBEcbooh1c8vCK29qIoSJ+5aX63E=;
-        b=bEvS2rx7VAcr58GwAcw7Asq9yfrZXgN+uGKG0tDYeFtEMPr61HgETaUnZNHl+trQsU
-         zV1zJC7/LUvWV+4SKWHKJNiJcHxrzfPdRbaqY3ajhNBLFOs8EirYOtbbL0eRIreZei7a
-         g7AHIg9C0VrJVNtgJwH4yZmTWximIBYEdMJZliVTy9RDCkYF7lcKFqS6C7JZray+IgCF
-         2NYEHdR4ar6NenHXPq+0hAbphLnYkMLlLkqY/ip3d6QSkbbq5b0/S4ICQDxbPTwSkHcN
-         zhmpKFf3jdNBfj6fjRhFhqhQiM4UMufmePOOBifToTT3T9JQMTFMP/JRaRO3RSoikvJt
-         j51g==
-X-Forwarded-Encrypted: i=1; AKwUvBwvfJp6ZAxLfAQF4qoUKaWdwd225B4gZaKf71nc6PyFSv8lLx3AYr7Waw4kIPSdB4471I1RgTQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKLNEp94HRZGzJx3j6vR4C9mv8+7rPD0cvLjnzLbn/9jmxQj2ra
-	qF58/aaPmrNEy7dNeO2tFtpbMdXoC3Co5sT/qBv7S7TgSI2TNM5pgeUF
-X-Gm-Gg: AYBFou1KJ7JRDmp+bgSQp0lesVY0U2QuqRPTct6Y1jDUEZAr3q5KA7Wkf22SE/Gaosz
-	nINZZqiU+0zwCrU8N7iFNePjWC/QM2yzkpChdJdebiK4YIO3+OwqJLnc2I9u9nimFwlQFhxi1D8
-	HvH4QS2sYw2RO7nC75HEmItmj1mSeAEtRSG7zg+lpPNNgP3vE0v2I9lGdDlNQWJhkRqFYnpGDF/
-	DDbKTlFulZVqzEiZMVV/8G2pXQlcYG6fo6QgM24iPPJOGwbH472dQoMGGDQr04lPN9VG6gD3D7y
-	s1NvjWgSg+si0T7bfo+htfklzO5hNyYQvf1Am/k0ub7GjA994z5BLDfQ4xP97Vq2Aa0G1gxo3yt
-	FSJCdZpH+TZ8qKbKAUSoQy8iI8CXdz+AuPyOyPzfarORwYoqA9WgAA7o0MCEQIp3V8Aq87UCBiS
-	E/06Brm09Hh08JHSas2rTlTXg6othUt22UH3CJaulmYrIHTrzedBUvH9VSOoAREDltxw8=
-X-Received: by 2002:a17:90b:2584:b0:3a7:cffb:8b96 with SMTP id 98e67ed59e1d1-3a8a19926b3mr3521076a91.18.1791437382014;
-        Wed, 07 Oct 2026 22:29:42 -0700 (PDT)
-Received: from dungbv.. ([116.98.134.138])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9ff7a7445sm2484574a91.5.2026.10.07.22.29.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 22:29:41 -0700 (PDT)
-From: Bui Viet Dung <dungvn2345@gmail.com>
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bui Viet Dung <dungvn2345@gmail.com>
-Subject: [PATCH] wifi: cfg80211: Pin module for debugfs file operations
-Date: Thu,  8 Oct 2026 12:29:36 +0700
-Message-ID: <20261008052936.555554-1-dungvn2345@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="BpptVyC3"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6985VswM6224256, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1791437514; bh=8oK3AmSjQBk5Q1aVoMQlW4EuWsZphhqNlXBWecIoXcs=;
+	h=From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
+	 MIME-Version:Content-Type;
+	b=BpptVyC3F4ULz12Sfyrxxwca5c53zMaWBmx6A3uzQYOHwVUI9iSy0IoXNhxBK1I80
+	 5tHpeTIU5/842qo/k/EiKlY/QRjFkFUC0NN8QAi57DaU7HKOQzYNZkH3ckvD1Zg0uf
+	 T/G4qSlsxHhCLGjq59yVwhP5glf6PH4mNZnBAmnaa+BWJOnc4Nkw+H4qO3JFJDGCTj
+	 Jf0kFCwp2TLg2mmN5QYh2U/VJLFzSPSRZj0GD2noqwybnUI09cL2j2frFGExqEnp6R
+	 bByD3zqJw8xWsc/l4B2/37xY23G4ycrOukxGu20U2qhEiGpbh1KLPP1hp8y4qqiKX/
+	 p3deZW26zKHxg==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6985VswM6224256
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 8 Oct 2026 13:31:54 +0800
+Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 8 Oct 2026 13:31:54 +0800
+Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
+ RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 8 Oct 2026 13:31:53 +0800
+Received: from [127.0.1.1] (172.21.40.75) by RTKEXHMBS05.realtek.com.tw
+ (10.21.1.55) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
+ Transport; Thu, 8 Oct 2026 13:31:53 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Tristan Madani <tristmd@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>
+CC: Kalle Valo <kvalo@kernel.org>, Po-Hao Huang <phhuang@realtek.com>,
+	Chin-Yen Lee <timlee@realtek.com>, <linux-wireless@vger.kernel.org>,
+	<stable@vger.kernel.org>, Tristan Madani <tristan@talencesecurity.com>
+Subject: Re: [PATCH wireless v2 2/2] wifi: rtw89: fix IE length passed to cfg80211_find_ie() in WoW AKM
+In-Reply-To: <20261007161721.261452-3-tristmd@gmail.com>
+References: <20261007161721.261452-1-tristmd@gmail.com> <20261007161721.261452-3-tristmd@gmail.com>
+Message-ID: <c67176c8-24a6-40dc-a39a-09441ec017d2@RTKEXHMBS05.realtek.com.tw>
+Date: Thu, 8 Oct 2026 13:31:53 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-An open debugfs file retains its file_operations pointer in the
-debugfs proxy state. However, the file_operations defined by the
-DEBUGFS_READONLY_FILE and DEBUGFS_RADIO_READONLY_FILE macros, as well
-as ht40allow_map_ops in net/wireless/debugfs.c, have no .owner set to
-THIS_MODULE.
+Tristan Madani <tristmd@gmail.com> wrote:
 
-As a result, full_proxy_open_regular() calls fops_get() which succeeds
-without taking a reference to the cfg80211 module. When CONFIG_CFG80211=m
-and wireless debugfs is enabled, a userspace process can open any of these
-debugfs files (e.g. /sys/kernel/debug/ieee80211/phy0/rts_threshold or
-ht40allow_map) and keep the file descriptor open while the module is
-unloaded (rmmod cfg80211).
+> From: Tristan Madani <tristan@talencesecurity.com>
+> 
+> __rtw89_wow_parse_akm() computes a pointer to the IE area from an
+> association request frame:
+> 
+>     ies = mgmt->u.assoc_req.variable;
+> 
+> but then passes skb->len as the IE data length to cfg80211_find_ie().
+> Since skb->len covers the entire frame including the 28-byte management
+> header and fixed fields, cfg80211_find_ie() may read past the end of the
+> actual IE data.
+> 
+> Fix by computing the correct IE data length as skb->len minus the
+> header offset, and validating the minimum frame length before parsing.
+> 
+> Fixes: 480dd4dddfc5 ("wifi: rtw89: enter power save mode aggressively")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+> Acked-by: Ping-Ke Shih <pkshih@realtek.com>
 
-When the userspace process subsequently closes the descriptor,
-full_proxy_release() accesses the already unmapped file_operations
-structure, triggering a kernel oops in full_proxy_release():
+1 patch(es) applied to rtw-next branch of rtw.git, thanks.
 
-  BUG: unable to handle page fault for address: fffffbfff8056f03
-  #PF: supervisor read access in kernel mode
-  Oops: 0000 [#1] SMP KASAN NOPTI
-  RIP: 0010:full_proxy_release+0x8e/0x140
-  Call Trace:
-   <TASK>
-   __fput+0x39f/0xa60
-   fput_close_sync+0xff/0x200
-   __x64_sys_close+0x8c/0xf0
-   do_syscall_64+0x115/0x6a0
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-   </TASK>
+6c17c57d45ef wifi: rtw89: fix IE length passed to cfg80211_find_ie() in WoW AKM
 
-The issue was discovered via manual code audit of
-net/wireless/debugfs.c.
-
-Set .owner = THIS_MODULE on all debugfs file_operations tables in
-net/wireless/debugfs.c so that debugfs pins the module until all open
-file descriptors have been closed.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Bui Viet Dung <dungvn2345@gmail.com>
 ---
- net/wireless/debugfs.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/net/wireless/debugfs.c b/net/wireless/debugfs.c
-index f9e7fff1ef25..63503dbd8938 100644
---- a/net/wireless/debugfs.c
-+++ b/net/wireless/debugfs.c
-@@ -24,6 +24,7 @@ static ssize_t name## _read(struct file *file, char __user *userbuf,	\
- }									\
- 									\
- static const struct file_operations name## _ops = {			\
-+	.owner = THIS_MODULE,						\
- 	.read = name## _read,						\
- 	.open = simple_open,						\
- 	.llseek = generic_file_llseek,					\
-@@ -42,6 +43,7 @@ static ssize_t name## _read(struct file *file, char __user *userbuf,	\
- }									\
- 									\
- static const struct file_operations name## _ops = {			\
-+	.owner = THIS_MODULE,						\
- 	.read = name## _read,						\
- 	.open = simple_open,						\
- 	.llseek = generic_file_llseek,					\
-@@ -113,6 +115,7 @@ static ssize_t ht40allow_map_read(struct file *file,
- }
- 
- static const struct file_operations ht40allow_map_ops = {
-+	.owner = THIS_MODULE,
- 	.read = ht40allow_map_read,
- 	.open = simple_open,
- 	.llseek = default_llseek,
--- 
-2.43.0
+https://github.com/pkshih/rtw.git
 
