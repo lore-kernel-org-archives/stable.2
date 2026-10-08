@@ -1,51 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5F0337AA79;
-	Thu,  8 Oct 2026 01:57:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B39B13D886;
+	Thu,  8 Oct 2026 02:17:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791424650; cv=none; b=UE3lNM9wtAasSYHRuupE8tO1pC6chI6QjHQVVF2NCR5/dLOrWTF4FaZQ6zFFdGWLKRjU8qpnXMVNSiBzDQQy3n+0vZOLI5vArIEK6a0oV4jmor/1C6Uy2zsL8OMVXC0pu25E2GcxVfQfIsXrm6HzzdmP7+5o85Rv9zN4gHXvFGY=
+	t=1791425824; cv=none; b=FManvZEl2dk//OzgPTjM9Ydp1wExnLCrKu0ERjlJbAmMpogbrUJw6ApOc9AIsh87amdN0UWnMi1LMHIpYiQB/WugmFo5biiU5WHViZwEGx1w2mOXhiwXFRRqsZ5AW3cxymG8h/RjZyn4z2qaDrWzLlnqk11drCJhbbHmQ/q3Jhc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791424650; c=relaxed/simple;
-	bh=bwDRfHmL+0pbMnJR1GsK7JFfccS9jDbWsMhcIV6pmxs=;
+	s=arc-20240116; t=1791425824; c=relaxed/simple;
+	bh=5Igza3zbL8DsL8iZkd4iOPUqt5mfV9bwMscd7jEwYAs=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=IzWLK7BxJptBrE7eQ4ERl0LHQw3R0GXwVUmaz/FQ0DjezckqttDZJmOL2MBH5fSo0Kmnz4aQsQkyoX6kVk4YwB8v+/zBmIfaMrbTUJ0W+i8kUJ/Bx2XMVkwAufEdxpg7+Vjz7s67Zr0zdEDj4Aa1K8m0PVNBqqOoASWC0Gq4758=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NWFzYyQq; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=vCHDMAN4jr2lRkXXYf+VQqPCxxpfKcB3wCZhfTzx+QdktUdqfrHwDj+3T98U2roqRkXg0u7AVjgCaXCg+8ir1nZHXO9QqbwFWsqm2nd+g+TUAUKiCBVD+UyxE+dzavliDQi4bX2WzAm72TKVVhh3lOtT/Tnx1utrxd6iS5AZXTs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A/HC2Kpz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NWFzYyQq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 783F11F000FF;
-	Thu,  8 Oct 2026 01:57:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A/HC2Kpz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1219B1F000FF;
+	Thu,  8 Oct 2026 02:17:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791424649;
-	bh=cyaBNpcWG/sN/H/GV35qpL+l/NWPhdj0dPzl1NaiBHg=;
+	s=k20260515; t=1791425822;
+	bh=09TxWdiMFYWRVecDe6e1P2wuubcsPRofkfD/tSUrqmI=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=NWFzYyQq8o/+WvrLyKjRlVhFoRbgI+Tjgo2xAmC4AOFqO1Ij/QPHRJlShg0cPpeyZ
-	 B5bhOd4JOHQfv7j36CdlRIG1JZqABSJiety8It+M6BgRdZmbQv6J6tjjLfcO2xtrtX
-	 9d7te4Xw8qOfZJ43JC7eC0I7oDI/h3KKkYcFQDC3QLlGUqr5bTWp/I6KGOiXWZGoyh
-	 eiGZ1BtDKqB+CfBOQss+JTsaPIRFsF8/uOpaDiAdKjgszWUZ+bT4PdkysAcMpUeCpe
-	 uXzsDH/Rp23D3H65GoWfLveDSb+9kvpJQX0fFwlqLQjqFB78FSM3Xy5mXNdz5nUyfK
-	 8mqyyhzIebSUQ==
-Date: Wed, 7 Oct 2026 18:57:27 -0700
+	b=A/HC2KpzGBA5D2N0yCzmSAuzt5ZQdDMcx96SL6btyOfx+IZb7c516v5ZE1cJGC5wS
+	 ChUpUGmgxixRUGj81V5Spef75LvsUIpgoAsEOPAOZ7+c2XIzVnxLXdukGUbBIiEodh
+	 PUhqOQ0CZJnOOhZShCImDd2y5NqTZPfxoT3WAcbvgDP7JhLLDfGEPz/8fdP7n6yx4n
+	 L4qNqhvlRnbW3AOnrfEDDmmtT+MQn7++yb99DYUZnyQjH66bKcoI/aIoLPTAiOnmcX
+	 QoIIS39vDVU5t12COaa5ms2vcLGlNmCnW4iw26eVKMoi0l0wPwJlNx6om1aDn2EKhz
+	 tMPxQmpCmXxsA==
+Date: Wed, 7 Oct 2026 19:17:01 -0700
 From: Jakub Kicinski <kuba@kernel.org>
-To: Tony Nguyen <anthony.l.nguyen@intel.com>
-Cc: davem@davemloft.net, pabeni@redhat.com, edumazet@kernel.org,
- andrew+netdev@lunn.ch, netdev@vger.kernel.org, Ding Meng
- <meng.ding@siemens.com>, florian.bezdeka@siemens.com, p@1g4.org,
- tkusters@aweta.nl, jiayuan.chen@linux.dev, pulehui@huawei.com,
- vinicius.gomes@intel.com, maciej.fijalkowski@intel.com,
- magnus.karlsson@intel.com, ast@kernel.org, daniel@iogearbox.net,
- hawk@kernel.org, john.fastabend@gmail.com, sdf@fomichev.me,
- bpf@vger.kernel.org, richardcochran@gmail.com, dima.ruinskiy@intel.com,
- stable@vger.kernel.org, Aleksandr Loktionov
- <aleksandr.loktionov@intel.com>, Piotr Kwapulinski
- <piotr.kwapulinski@intel.com>
-Subject: Re: [PATCH net 1/6] igc: Fix RX HW timestamp reporting when
- NET_RX_BUSY_POLL is disabled
-Message-ID: <20261007185727.68180ce3@kernel.org>
-In-Reply-To: <20261001222443.3500206-2-anthony.l.nguyen@intel.com>
-References: <20261001222443.3500206-1-anthony.l.nguyen@intel.com>
-	<20261001222443.3500206-2-anthony.l.nguyen@intel.com>
+To: "D . Wythe" <alibuda@linux.alibaba.com>, Dust Li
+ <dust.li@linux.alibaba.com>, Sidraya Jayagond <sidraya@linux.ibm.com>,
+ Mahanta Jambigi <mjambigi@linux.ibm.com>, Tony Lu
+ <tonylu@linux.alibaba.com>, Wen Gu <guwen@linux.alibaba.com>
+Cc: Chengfeng Ye <nicoyip.dev@gmail.com>, "David S . Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH net v2] net/smc: serialize clcsock access with its
+ release
+Message-ID: <20261007191701.078bfbc1@kernel.org>
+In-Reply-To: <20261003183325.2289707-1-nicoyip.dev@gmail.com>
+References: <20261003183325.2289707-1-nicoyip.dev@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -55,25 +52,10 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Thu,  1 Oct 2026 15:24:34 -0700 Tony Nguyen wrote:
-> When CONFIG_NET_RX_BUSY_POLL is deactivated, fetching RX HW timestamps
-> from the NIC no longer works as expected, often resulting in incorrect
-> or negative values such as "HW raw -121948.050407424".
-> 
-> This occurs because disabling CONFIG_NET_RX_BUSY_POLL disables the
-> SKB NAPI mapping in __skb_mark_napi_id(). Consequently, get_timestamp()
-> fails to perform its driver lookup, and the igc driver's struct
-> net_device_ops::ndo_get_tstamp is never invoked.
-> 
-> Instead, get_timestamp() falls back to use shhwtstamps(skb)->hwtstamp,
-> a field that the driver has not populated. This results in incorrect
-> timestamps.
-> 
-> Fix this by populating the hwtstamp field with the correct timestamp
-> in the default timer when CONFIG_NET_RX_BUSY_POLL is disabled.
-> The "igc_adapter" is passed to igc_construct_skb() to enable
-> igc_ptp_rx_pktstamp() to access the necessary adapter details for
-> adjusting the timestamp.
+On Sun,  4 Oct 2026 02:33:25 +0800 Chengfeng Ye wrote:
+> Link-group termination can release the CLC socket through
+> smc_close_active_abort() while the SMC socket is still open, for example
+> after shutdown(SHUT_WR). A file reference keeps the SMC socket alive but
+> does not prevent this asynchronous release of its CLC socket.
 
-looks like a driver workaround for a generic problem
-a better fix is likely needed here
+SMC maintainers, please review
