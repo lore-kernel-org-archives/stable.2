@@ -1,120 +1,314 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-178.mta0.migadu.com [91.218.175.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 747A43D4101;
-	Thu,  8 Oct 2026 08:11:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE6634499A4
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 08:12:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791447100; cv=none; b=Q/cpFtCqob2Wq+9/0tIBQl8RSenwwR11hhBdwq/IIo+5uES7OsHQjaUuvJIPQDtta+5gvVApuhMeCJH65PBz3nKKepxRkDl0bwUsbpTfWiZJ0hg+GeqKoQjjNf0sni77xdDjJmYh37N6v+IBW2WiomRSn1cXpd3tdEUceI3FC4w=
+	t=1791447142; cv=none; b=ZI5W0ljfBxMHZPs2NnS9M3/3Dur6t1iUZocbRixfnqB3yhiEjpSyvQ/LxCon2dyf9aDvLIX6dRLZj3OvfYu+/e0H5AJSdfpOg4w0/wvvzq+rl0MZpozK2ZMYIFMI6IT56vQoC99/ePEPscUvkfqSFEfzsasrtLIVfhHdeZJbgWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791447100; c=relaxed/simple;
-	bh=9cX8V4/HXV4g8jNRub/J2mUZ2vhLNneDDk3kGUkdSZg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=MdCYX9NWppqE4Ic5kslgQpofsxpasIKkThHzvXXRBm3MN77jwg2XdEa3NPOppczWq4WDV6l/Y9XzXcGD8yZq1Swi+UR9txbm/XRAJ0bPZXFy3amdCb1nsJCkz8xOIol4J0X+MPicmYLpsFOtTC7OjEYfmke5GAEdHCw6anpXKqg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=HSOWJfSi; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1791447142; c=relaxed/simple;
+	bh=PLvbKK8F/Bm5bhh9c08LKLirJfE5QGxiNc7t1L+MVUA=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=Oa63OqJ5QdI58FWgNRLbcZn2lL42BCIt6E9brvhdf8az2klaoSpDFZBo1K/w8brLi6Tlgwz3dKqy0ZfM1P5hzDR3oDjsYn2G7WrMFpA+5eGz9gXcFa1wlu6u6fy2hVqqqkhqI/grp4xT/hVuhCJXITTH4Xr4wUBGYmGdjXyGW5k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=vWA+RxS2; arc=none smtp.client-ip=91.218.175.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="HSOWJfSi"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=jb2JR7y5CdkRWJZwKg3h/NOgtJIiaB2o8AFjQkRlIkA=; b=HSOWJfSiqG5Gkeu0pc0yGLAU2u
-	NnDjPd03rez4y2ymezZObakp5VCcEs39Pwc7KgCkjUI6Mv44I29RKvGaojq87TAxJr8/Ilb7iUNQc
-	I2zZ7H3MkuXyzh6m+vfVqv1SSIre2v5tjX6A6gfJ817I1P+lvMOpGmuOwegingha9bturNrn24LuR
-	ml5nM1B+mEniv0nDOBFOXm3PfOGSn8Hj+EVVUD0k9FLvhmiOZ8URQbeuATsT+B5wxxV+eguwK3etF
-	OvVxU5w+d+ej0dp0FlmX/BM+CL7YaO2GE7kCjP7R1PbS5N93X+QYM1/PiSb0MCYcS0LhEXq5iMj98
-	XjyqM/vg==;
-Received: from [151.115.150.205] (port=52976 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xEjE0-000000015MP-0bXz;
-	Thu, 08 Oct 2026 10:11:36 +0200
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: Sabrina Dubroca <sd@queasysnail.net>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] macsec: prevent AES-GCM nonce reuse after packet number wrap
-Date: Thu,  8 Oct 2026 08:06:26 +0000
-Message-ID: <20261008080625.360063-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="vWA+RxS2"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=PLvbKK8F/Bm5bhh9c08LKLirJfE5QGxiNc7t1L+MVUA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791447137; v=1; x=1792051937;
+ b=vWA+RxS2zeAYwJrl/QBJtmF6IaLB+kMyO61+dMRbeXGmiRTaJd0co5ibWcBsc7zvwWLdMCyc
+ VQQv9ruCRXvqzB7vA9RBmX/jLXnnI7E4a2VOBx5RHHVcWu5ONJdn61SoQ7WuIuqjYX92slY4apz
+ 2iLUPthszWYs1apmRNOKKMHw=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 226010a611eb6f78;
+	Thu, 08 Oct 2026 08:12:17 +0000
+X-Mizu-Trace-ID: 226010a611eb6f78
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <896c2dc7-4787-4c22-90dc-a3cd607be6fa@linux.dev>
+Date: Thu, 8 Oct 2026 16:13:18 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 2/7] mm/vmalloc: undo partial mappings inside the
+ mapping functions
+From: Hao Ge <hao.ge@linux.dev>
+To: Uladzislau Rezki <urezki@gmail.com>
+Cc: Suren Baghdasaryan <surenb@google.com>,
+ =Kent Overstreet <kent.overstreet@linux.dev>,
+ Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
+ Aaron Tomlin <atomlin@atomlin.com>, Andrew Morton
+ <akpm@linux-foundation.org>, Alexander Potapenko <glider@google.com>,
+ Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>,
+ Vlastimil Babka <vbabka@kernel.org>, Michal Hocko <mhocko@suse.com>,
+ Brendan Jackman <brendan.jackman@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-modules@vger.kernel.org, kasan-dev@googlegroups.com,
+ Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+References: <20260929082014.160587-1-hao.ge@linux.dev>
+ <20260929082014.160587-3-hao.ge@linux.dev> <arzgoe-bXAz1poAt@milan>
+ <a15de109-a88a-49f8-80cc-7bf216d6954d@linux.dev>
+Content-Language: en-US
+In-Reply-To: <a15de109-a88a-49f8-80cc-7bf216d6954d@linux.dev>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
 
-After allocating the last valid packet number, MACsec wraps next_pn to
-zero and deactivates the transmit SA. This happens for both 32- and
-64-bit types of packet numbers (at values 0xffffffff and
-0xffffffffffffffff, respectively).
 
-TX packets that were still getting processed during deactivation keep
-being processed and then receive packet numbers. The first gets 0 and
-is correctly dropped, but next_pn is incremented to 1, which makes the
-next packet take number 1. It then does not get dropped and may induce
-a reuse of the AES-GCM nonce corresponding to value 1.
 
-This race affects TX packets that have already passed the SA activity
-check: packets that observe the inactive SA are correctly dropped.
-Reactivating the SA after PN wrap without a packet number can also
-cause nonce reuse. Keep next_pn at 0 after wrap, even if the SA is
-reactivated, so further packet number allocations return 0 and the
-corresponding packets are dropped.
+On 2026/10/8 14:53, Hao Ge wrote:
+> Hi Uladzislau
+> 
+> 
+> On 2026/9/30 18:12, Uladzislau Rezki wrote:
+>> On Tue, Sep 29, 2026 at 04:20:09PM +0800, Hao Ge wrote:
+>>> __vmap_pages_range_noflush() and friends can install some PTEs before
+>>> failing and leave them mapped, and the kernel callers do not agree on
+>>> who cleans them up. For example, pcpu_map_pages() and
+>>> kmsan_ioremap_page_range() unmap the leftovers themselves, while
+>>> vm_module_tags_populate() and the __GFP_NOFAIL retry loop in
+>>> __vmalloc_area_node() relied on the mapping functions cleaning up and
+>>> did not call anything like vunmap_range() themselves. When the same
+>>> range is mapped again, the attempt hits the leftovers and fails, with
+>>> BUG() in vmap_pte_range() for huge mappings.
+>>>
+>>> After discussing with Suren and Ulad, we decided the cleanup belongs
+>>> to __vmap_pages_range_noflush() and friends, so the callers no longer
+>>> need to unmap the partial mappings themselves. Each function now
+>>> undoes the PTEs it installed itself.
+>>>
+>>> The rollback calls the low-level __vunmap_range_noflush(), it just
+>>> clears the PTEs of the range it is given, which is all a rollback
+>>> needs. It cannot use vunmap_range_noflush() because these mapping
+>>> functions also map the KMSAN shadow and origin, and for a metadata
+>>> range its hook would look up the metadata of the metadata, get 0
+>>> and BUG() on addr >= end. The failed mappings were never accessed,
+>>> no TLB flush needed.
+>>>
+>>> Fixes: 9376130c390a ("mm/vmalloc: add support for __GFP_NOFAIL")
+>>> Fixes: 0f9b685626da ("alloc_tag: populate memory for module tags as needed")
+>>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+>>> Cc: stable@vger.kernel.org
+>>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+>>> ---
+>>>  mm/kmsan/shadow.c |  4 ++++
+>>>  mm/vmalloc.c      | 31 +++++++++++++++++++++++++++++--
+>>>  2 files changed, 33 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/mm/kmsan/shadow.c b/mm/kmsan/shadow.c
+>>> index 0c88d89bf0d6..2166086d3dc3 100644
+>>> --- a/mm/kmsan/shadow.c
+>>> +++ b/mm/kmsan/shadow.c
+>>> @@ -258,6 +258,10 @@ int kmsan_vmap_pages_range_noflush(unsigned long start, unsigned long end,
+>>>  					    o_pages, page_shift);
+>>>  	kmsan_leave_runtime();
+>>>  	if (mapped) {
+>>> +		/* Undo the shadow mapping set up above. */
+>>> +		kmsan_enter_runtime();
+>>> +		__vunmap_range_noflush(shadow_start, shadow_end);
+>>> +		kmsan_leave_runtime();
+>>>  		err = mapped;
+>>>  		goto ret;
+>>>  	}
+>>>
+>> Can we just do that inside the vmalloc? For example in the
+>> __vmap_pages_range_noflush() as entry function for all(?) helpers?
+>> So we do not need do it manually?
+>>
+> The hunk was for the failure path in kmsan_vmap_pages_range_noflush().
+> Shadow and origin are mapped there as two separate calls, and when                                                                   
+> the origin one fails the shadow is already up. __vmap_pages_range_noflush()                                                          
+> cannot do that undo, it only sees its own range.
+> 
+> kmsan_vmap_pages_range_noflush() has a single caller, so if we were to move this
+> logic into vmalloc, it would require some modifications as follows:
+> 
+> @@ -712,9 +724,14 @@ int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
+>         int ret = kmsan_vmap_pages_range_noflush(addr, end, prot, pages,
+>                                                 page_shift, gfp_mask);
+>  
+> +       if (!ret)
+> +               ret = __vmap_pages_range_noflush(addr, end, prot, pages,
+> +                                                page_shift);
+> +       /* Undo whatever was mapped before the failure. */
+>         if (ret)
+> -               return ret;
+> -       return __vmap_pages_range_noflush(addr, end, prot, pages, page_shift);
+> +               kmsan_vunmap_range_noflush(addr, end);
+> +
+> +       return ret;
+>  }
+>
 
-Fixes: c09440f7dcb3 ("macsec: introduce IEEE 802.1AE driver")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
----
- drivers/net/macsec.c | 5 +++++
- 1 file changed, 5 insertions(+)
+I'd rather put this logic inside kmsan_vmap_pages_range_noflush.
+This function should clean things up on its own, not depend on
+the caller to do it, just like kmsan_ioremap_page_range.
 
-diff --git a/drivers/net/macsec.c b/drivers/net/macsec.c
-index 78a19b134632..233391acebb0 100644
---- a/drivers/net/macsec.c
-+++ b/drivers/net/macsec.c
-@@ -486,6 +486,9 @@ static pn_t tx_sa_update_pn(struct macsec_tx_sa *tx_sa,
- 	spin_lock_bh(&tx_sa->lock);
- 
- 	pn = tx_sa->next_pn_halves;
-+	if (unlikely(pn.full64 == 0))
-+		goto out;
-+
- 	if (secy->xpn)
- 		tx_sa->next_pn++;
- 	else
-@@ -493,6 +496,8 @@ static pn_t tx_sa_update_pn(struct macsec_tx_sa *tx_sa,
- 
- 	if (tx_sa->next_pn == 0)
- 		__macsec_pn_wrapped(secy, tx_sa);
-+
-+out:
- 	spin_unlock_bh(&tx_sa->lock);
- 
- 	return pn;
--- 
-2.47.3
+https://elixir.bootlin.com/linux/v7.3-rc5/source/mm/kmsan/hooks.c#L185
 
+Uladzislau, WDYT?
+
+Thanks
+Best Regards
+Hao
+
+>>> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+>>> index 859e6d2d57a3..9bbf75706627 100644
+>>> --- a/mm/vmalloc.c
+>>> +++ b/mm/vmalloc.c
+>>> @@ -349,6 +349,10 @@ static int vmap_range_noflush(unsigned long addr, unsigned long end,
+>>>  	if (mask & ARCH_PAGE_TABLE_SYNC_MASK)
+>>>  		arch_sync_kernel_mappings(start, end);
+>>>  
+>>> +	/* Undo the PTEs installed before the failure. */
+>>> +	if (err)
+>>> +		__vunmap_range_noflush(start, end);
+>>> +
+>>>  	return err;
+>>>  }
+>>>  
+>>> @@ -363,6 +367,9 @@ int vmap_page_range(unsigned long addr, unsigned long end,
+>>>  	if (!err)
+>>>  		err = kmsan_ioremap_page_range(addr, end, phys_addr, prot,
+>>>  					       ioremap_max_page_shift);
+>>> +	if (err)
+>>> +		__vunmap_range_noflush(addr, end);
+>>> +
+>>>  	return err;
+>>>  }
+>>>  
+>>> @@ -667,6 +674,10 @@ static int vmap_small_pages_range_noflush(unsigned long addr, unsigned long end,
+>>>  	if (mask & ARCH_PAGE_TABLE_SYNC_MASK)
+>>>  		arch_sync_kernel_mappings(start, end);
+>>>  
+>>> +	/* Undo the PTEs installed before the failure. */
+>>> +	if (err)
+>>> +		__vunmap_range_noflush(start, end);
+>>> +
+>>>  	return err;
+>>>  }
+>>>  
+>> The only one user of that function is __vmap_pages_range_noflush()
+>> so we can cover both cases there small and huge path.
+>>
+>> Is that enough just to do unroll in the below:
+>>
+>> __vmap_pages_range_noflush()
+>> vmap_page_range()
+>>
+>> functions? It will also fix NOFAIL case:
+>>
+> 
+> I see. right, __vmap_pages_range_noflush() is just above the
+> actual page‑table mapping, so it's low‑level enough.
+> Thanks a lot for your prototype.
+> 
+> I'm tidying up the code and will post a REF patch afterwards.
+> 
+> Thanks
+> Best Regards
+> Hao
+> 
+>> <snip>
+>> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+>> index 89c327a6ce7d..fa1f357ecf3f 100644
+>> --- a/mm/vmalloc.c
+>> +++ b/mm/vmalloc.c
+>> @@ -359,10 +359,19 @@ int vmap_page_range(unsigned long addr, unsigned long end,
+>>  
+>>  	err = vmap_range_noflush(addr, end, phys_addr, pgprot_nx(prot),
+>>  				 ioremap_max_page_shift);
+>> +	if (err)
+>> +		goto error_cleanup_range;
+>> +
+>>  	flush_cache_vmap(addr, end);
+>> -	if (!err)
+>> -		err = kmsan_ioremap_page_range(addr, end, phys_addr, prot,
+>> +	err = kmsan_ioremap_page_range(addr, end, phys_addr, prot,
+>>  					       ioremap_max_page_shift);
+>> +	if (err)
+>> +		goto error_cleanup_range;
+>> +
+>> +	return 0;
+>> +
+>> +error_cleanup_range:
+>> +	__vunmap_range_noflush(addr, end);
+>>  	return err;
+>>  }
+>>  
+>> @@ -683,26 +692,35 @@ int __vmap_pages_range_noflush(unsigned long addr, unsigned long end,
+>>  		pgprot_t prot, struct page **pages, unsigned int page_shift)
+>>  {
+>>  	unsigned int i, nr = (end - addr) >> PAGE_SHIFT;
+>> +	unsigned long start = addr;
+>> +	int err;
+>>  
+>> -	WARN_ON(page_shift < PAGE_SHIFT);
+>> -
+>> -	if (!IS_ENABLED(CONFIG_HAVE_ARCH_HUGE_VMALLOC) ||
+>> -			page_shift == PAGE_SHIFT)
+>> -		return vmap_small_pages_range_noflush(addr, end, prot, pages);
+>> +	if (WARN_ON(addr >= end))
+>> +		return -EINVAL;
+>>  
+>> -	for (i = 0; i < nr; i += 1U << (page_shift - PAGE_SHIFT)) {
+>> -		int err;
+>> +	if (WARN_ON(page_shift < PAGE_SHIFT))
+>> +		return -EINVAL;
+>>  
+>> -		err = vmap_range_noflush(addr, addr + (1UL << page_shift),
+>> +	if (!IS_ENABLED(CONFIG_HAVE_ARCH_HUGE_VMALLOC) ||
+>> +		page_shift == PAGE_SHIFT) {
+>> +		err = vmap_small_pages_range_noflush(addr, end, prot, pages);
+>> +	} else {
+>> +		for (i = 0; i < nr; i += 1U << (page_shift - PAGE_SHIFT)) {
+>> +			err = vmap_range_noflush(addr, addr + (1UL << page_shift),
+>>  					page_to_phys(pages[i]), prot,
+>>  					page_shift);
+>> -		if (err)
+>> -			return err;
+>> +			if (err)
+>> +				break;
+>>  
+>> -		addr += 1UL << page_shift;
+>> +			addr += 1UL << page_shift;
+>> +		}
+>>  	}
+>>  
+>> -	return 0;
+>> +	if (err)
+>> +		__vunmap_range_noflush(start, end);
+>> +
+>> +	/* 0 on success. */
+>> +	return err;
+>>  }
+>>  
+>>  int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
+>> @@ -714,7 +732,13 @@ int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
+>>  
+>>  	if (ret)
+>>  		return ret;
+>> -	return __vmap_pages_range_noflush(addr, end, prot, pages, page_shift);
+>> +
+>> +	ret = __vmap_pages_range_noflush(addr, end, prot, pages, page_shift);
+>> +	if (ret)
+>> +		/* Cleanup KMSAN metadata. */
+>> +		kmsan_vunmap_range_noflush(addr, end);
+>> +
+>> +	return ret;
+>>  }
+>>  
+>>  static int __vmap_pages_range(unsigned long addr, unsigned long end,
+>> <snip>
+>>
+>> --
+>> Uladzislau Rezki
