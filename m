@@ -1,297 +1,151 @@
-Received: from mta1.migadu.com (out-166.mta1.migadu.com [95.215.58.166])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04BC03CBE79
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 06:53:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD5723CF1ED
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 07:01:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791442423; cv=none; b=VRSCL0EnnpiQZvPW6fW51l7pE3mL1vcAn6+4CeWm06DiZOzP0vAM57euffNULCtI3tvT2xu567RlBlgr9xgGTLelIapo1Ww8+coTXBstCyXRazJ3sUwB/M6AA/ZX8uXexQtZ4egSXrGBLeCdPmrKC91eJKQjihBxvJZigCW84cg=
+	t=1791442898; cv=none; b=hkjTKds/XlE3SOpHiGSUweS4jZpIL+om/wATNup7lI7I8h/F05XsIjl4x80EAo2R2KH3rKMz6HIMEo9xD3W3AFkuTckSjFcBAE59jpeywFZxq7jxWRZstf3WfFKszGzEverBss7KQbnl3IQ5bXKZOld3Wg0xQ+nEut7HGapjYZk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791442423; c=relaxed/simple;
-	bh=z2ehbjfdNRtNjl3Xf1WKPjKRNxEhnPWPrzzFO6wlB48=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=A41nIjlnyK0GQvepavEUeuYY5e94gY7GVTbAHJ/W84NRJwRw845N/wTQOGKKPV6RtQHr7b4A+PXFBID3DEuqRsidTOvn389vvSTzOJUDHfTx9TIvUPlYIIk+Q3U86ceYDORnL8Go3HBsowSIOeaeByhfJra8u18GZjm29HxzHvM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=doZeMxEJ; arc=none smtp.client-ip=95.215.58.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791442898; c=relaxed/simple;
+	bh=z5WC5Oh8VXR9CcMI4p5XcyJpZLp7SF8z1n4K/iuDZkA=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=RGqhbiOZYz5VI4nWVQvx6X6U6lKmSr816qKwDLDIopgZ5qXk0u3oHrY5VI0SOu8sVKKLrjjySpLZG3ZkD3vf6YCe8aCOhNbj+hy3VV+4A2IK6+8gp8qGigHdExwQ+S7/aSQMJEV9eji9X9+EFMEAPPXPCKV89VR3cNrhzShEbsk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=KtHzrvNL; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=la++t47T; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=u6wYS2ur; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=FuQs3qHB; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="doZeMxEJ"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=z2ehbjfdNRtNjl3Xf1WKPjKRNxEhnPWPrzzFO6wlB48=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791442417; v=1; x=1792047217;
- b=doZeMxEJq3M+Ribv2UYlLjcTVwQgdFjMVCQzcDrgX3Dciuiw3O8QBBGF0nAo/LmK3tP/sqju
- 5k7nSQyOFcb80Vi9qYbxjUFwTZLdpXqOpB4+Yl/C/EVBu/VclVMWpxHmVUr7ui2zPjRS4+VM4OS
- 57orGijM8Pa/T8FwfbpKL5K8=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8493ebbdacfda9ac;
-	Thu, 08 Oct 2026 06:53:37 +0000
-X-Mizu-Trace-ID: 8493ebbdacfda9ac
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <a15de109-a88a-49f8-80cc-7bf216d6954d@linux.dev>
-Date: Thu, 8 Oct 2026 14:53:02 +0800
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="KtHzrvNL";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="la++t47T";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="u6wYS2ur";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="FuQs3qHB"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 338DD1F799;
+	Thu,  8 Oct 2026 07:01:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791442886; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UdUhKWglyOJlEjxltVwov626EhVkyCueNw5irqO7AGY=;
+	b=KtHzrvNLkHow6HafrhK+IzN6TS9PNRGF3ZiIKp+SfnWScat8tlOrc6RtdjcFHCqrO//q2P
+	DBHG6JBit3hUJ9MYMPrprBgrnpFimF7Wtj4djOKDkLDE+a14mtF8hSJJddpu4uFbyNOmzi
+	rBA5Ogp73RgI5j/zUUiJsv6t1iPOhFo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791442886;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UdUhKWglyOJlEjxltVwov626EhVkyCueNw5irqO7AGY=;
+	b=la++t47TG8FMUGChhk3gSVEK+hC13pjqjrQXlTMP91JPqX45RzZabikQW9qEr961tOw4Ku
+	MdbX+2cp9oSxBvAQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791442885; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UdUhKWglyOJlEjxltVwov626EhVkyCueNw5irqO7AGY=;
+	b=u6wYS2urMzX14qurIKP4K4muwPqsusP0y/vNDe3IATsurTKGqBzq9ziNyEdm8UatO17y64
+	ZGwco6TfTUb9fAa3HuW6lVleOiF/3HeJtFFwhZkX4TwQU+z2ZJlZ18LmEn3tuCDStcPuwE
+	HSfX0Y4Pg1JhfWnhgysnLPyEzuUEX/w=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791442885;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UdUhKWglyOJlEjxltVwov626EhVkyCueNw5irqO7AGY=;
+	b=FuQs3qHBNkIvL5B7spPvZd8PzA1j01JOonyq7dqA5H9tUWGFsaGy9BGjZY2nuu5/PnOCRf
+	j80OKhXOlxSS/0Dg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EB65F13354;
+	Thu,  8 Oct 2026 07:01:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id lB90MMQ/x2ozXgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Thu, 08 Oct 2026 07:01:24 +0000
+Date: Thu, 08 Oct 2026 09:01:24 +0200
+Message-ID: <87v77c65h7.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Matej Sochan <matej.sochan@gmail.com>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Eric Naim <dnaim@cachyos.org>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ALSA: hda/realtek: Fix silent speakers on Lenovo Legion S7 15IMH05
+In-Reply-To: <20261007-legion-s7-v1-1-8ea7fb7ee766@gmail.com>
+References: <20261007-legion-s7-v1-1-8ea7fb7ee766@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 2/7] mm/vmalloc: undo partial mappings inside the
- mapping functions
-To: Uladzislau Rezki <urezki@gmail.com>
-Cc: Suren Baghdasaryan <surenb@google.com>,
- =Kent Overstreet <kent.overstreet@linux.dev>,
- Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
- Aaron Tomlin <atomlin@atomlin.com>, Andrew Morton
- <akpm@linux-foundation.org>, Alexander Potapenko <glider@google.com>,
- Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>,
- Vlastimil Babka <vbabka@kernel.org>, Michal Hocko <mhocko@suse.com>,
- Brendan Jackman <brendan.jackman@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-modules@vger.kernel.org, kasan-dev@googlegroups.com,
- Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-References: <20260929082014.160587-1-hao.ge@linux.dev>
- <20260929082014.160587-3-hao.ge@linux.dev> <arzgoe-bXAz1poAt@milan>
-Content-Language: en-US
-From: Hao Ge <hao.ge@linux.dev>
-In-Reply-To: <arzgoe-bXAz1poAt@milan>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Flag: NO
+X-Spam-Score: -1.80
+X-Spam-Level: 
+X-Spamd-Result: default: False [-1.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
 
-Hi Uladzislau
-
-
-On 2026/9/30 18:12, Uladzislau Rezki wrote:
-> On Tue, Sep 29, 2026 at 04:20:09PM +0800, Hao Ge wrote:
->> __vmap_pages_range_noflush() and friends can install some PTEs before
->> failing and leave them mapped, and the kernel callers do not agree on
->> who cleans them up. For example, pcpu_map_pages() and
->> kmsan_ioremap_page_range() unmap the leftovers themselves, while
->> vm_module_tags_populate() and the __GFP_NOFAIL retry loop in
->> __vmalloc_area_node() relied on the mapping functions cleaning up and
->> did not call anything like vunmap_range() themselves. When the same
->> range is mapped again, the attempt hits the leftovers and fails, with
->> BUG() in vmap_pte_range() for huge mappings.
->>
->> After discussing with Suren and Ulad, we decided the cleanup belongs
->> to __vmap_pages_range_noflush() and friends, so the callers no longer
->> need to unmap the partial mappings themselves. Each function now
->> undoes the PTEs it installed itself.
->>
->> The rollback calls the low-level __vunmap_range_noflush(), it just
->> clears the PTEs of the range it is given, which is all a rollback
->> needs. It cannot use vunmap_range_noflush() because these mapping
->> functions also map the KMSAN shadow and origin, and for a metadata
->> range its hook would look up the metadata of the metadata, get 0
->> and BUG() on addr >= end. The failed mappings were never accessed,
->> no TLB flush needed.
->>
->> Fixes: 9376130c390a ("mm/vmalloc: add support for __GFP_NOFAIL")
->> Fixes: 0f9b685626da ("alloc_tag: populate memory for module tags as needed")
->> Reported-by: Sashiko <sashiko-bot@kernel.org>
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Hao Ge <hao.ge@linux.dev>
->> ---
->>  mm/kmsan/shadow.c |  4 ++++
->>  mm/vmalloc.c      | 31 +++++++++++++++++++++++++++++--
->>  2 files changed, 33 insertions(+), 2 deletions(-)
->>
->> diff --git a/mm/kmsan/shadow.c b/mm/kmsan/shadow.c
->> index 0c88d89bf0d6..2166086d3dc3 100644
->> --- a/mm/kmsan/shadow.c
->> +++ b/mm/kmsan/shadow.c
->> @@ -258,6 +258,10 @@ int kmsan_vmap_pages_range_noflush(unsigned long start, unsigned long end,
->>  					    o_pages, page_shift);
->>  	kmsan_leave_runtime();
->>  	if (mapped) {
->> +		/* Undo the shadow mapping set up above. */
->> +		kmsan_enter_runtime();
->> +		__vunmap_range_noflush(shadow_start, shadow_end);
->> +		kmsan_leave_runtime();
->>  		err = mapped;
->>  		goto ret;
->>  	}
->>
-> Can we just do that inside the vmalloc? For example in the
-> __vmap_pages_range_noflush() as entry function for all(?) helpers?
-> So we do not need do it manually?
->
-The hunk was for the failure path in kmsan_vmap_pages_range_noflush().
-Shadow and origin are mapped there as two separate calls, and when                                                                   
-the origin one fails the shadow is already up. __vmap_pages_range_noflush()                                                          
-cannot do that undo, it only sees its own range.
-
-kmsan_vmap_pages_range_noflush() has a single caller, so if we were to move this
-logic into vmalloc, it would require some modifications as follows:
-
-@@ -712,9 +724,14 @@ int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
-        int ret = kmsan_vmap_pages_range_noflush(addr, end, prot, pages,
-                                                page_shift, gfp_mask);
- 
-+       if (!ret)
-+               ret = __vmap_pages_range_noflush(addr, end, prot, pages,
-+                                                page_shift);
-+       /* Undo whatever was mapped before the failure. */
-        if (ret)
--               return ret;
--       return __vmap_pages_range_noflush(addr, end, prot, pages, page_shift);
-+               kmsan_vunmap_range_noflush(addr, end);
-+
-+       return ret;
- }
-
->> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
->> index 859e6d2d57a3..9bbf75706627 100644
->> --- a/mm/vmalloc.c
->> +++ b/mm/vmalloc.c
->> @@ -349,6 +349,10 @@ static int vmap_range_noflush(unsigned long addr, unsigned long end,
->>  	if (mask & ARCH_PAGE_TABLE_SYNC_MASK)
->>  		arch_sync_kernel_mappings(start, end);
->>  
->> +	/* Undo the PTEs installed before the failure. */
->> +	if (err)
->> +		__vunmap_range_noflush(start, end);
->> +
->>  	return err;
->>  }
->>  
->> @@ -363,6 +367,9 @@ int vmap_page_range(unsigned long addr, unsigned long end,
->>  	if (!err)
->>  		err = kmsan_ioremap_page_range(addr, end, phys_addr, prot,
->>  					       ioremap_max_page_shift);
->> +	if (err)
->> +		__vunmap_range_noflush(addr, end);
->> +
->>  	return err;
->>  }
->>  
->> @@ -667,6 +674,10 @@ static int vmap_small_pages_range_noflush(unsigned long addr, unsigned long end,
->>  	if (mask & ARCH_PAGE_TABLE_SYNC_MASK)
->>  		arch_sync_kernel_mappings(start, end);
->>  
->> +	/* Undo the PTEs installed before the failure. */
->> +	if (err)
->> +		__vunmap_range_noflush(start, end);
->> +
->>  	return err;
->>  }
->>  
-> The only one user of that function is __vmap_pages_range_noflush()
-> so we can cover both cases there small and huge path.
+On Wed, 07 Oct 2026 22:37:46 +0200,
+Matej Sochan wrote:
 > 
-> Is that enough just to do unroll in the below:
+> The speakers on the Legion S7 15IMH05 (PCI SSID 17aa:3811, ALC287) stay
+> silent after a cold boot with the current quirk, which applies
+> ALC287_FIXUP_LEGION_15IMHG05_SPEAKERS. They only start working after a
+> suspend/resume cycle.
 > 
-> __vmap_pages_range_noflush()
-> vmap_page_range()
+> The amplifier setup is sent through COEF 0x24/0x26 on NID 0x20. On this
+> machine the first pass of that sequence appears to only wake the
+> amplifiers. Sending the identical sequence a second time makes both
+> speakers work, provided the second write comes a few milliseconds after
+> the first: back-to-back writes leave the speakers silent, a 7 ms gap
+> makes only the right speaker work, and 8 ms or more is reliable. A dump
+> of all COEF registers of NID 0x20 taken before and after the second
+> write shows no difference.
 > 
-> functions? It will also fix NOFAIL case:
->
-
-I see. right, __vmap_pages_range_noflush() is just above the
-actual page‑table mapping, so it's low‑level enough.
-Thanks a lot for your prototype.
-
-I'm tidying up the code and will post a REF patch afterwards.
-
-Thanks
-Best Regards
-Hao
-
-> <snip>
-> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-> index 89c327a6ce7d..fa1f357ecf3f 100644
-> --- a/mm/vmalloc.c
-> +++ b/mm/vmalloc.c
-> @@ -359,10 +359,19 @@ int vmap_page_range(unsigned long addr, unsigned long end,
->  
->  	err = vmap_range_noflush(addr, end, phys_addr, pgprot_nx(prot),
->  				 ioremap_max_page_shift);
-> +	if (err)
-> +		goto error_cleanup_range;
-> +
->  	flush_cache_vmap(addr, end);
-> -	if (!err)
-> -		err = kmsan_ioremap_page_range(addr, end, phys_addr, prot,
-> +	err = kmsan_ioremap_page_range(addr, end, phys_addr, prot,
->  					       ioremap_max_page_shift);
-> +	if (err)
-> +		goto error_cleanup_range;
-> +
-> +	return 0;
-> +
-> +error_cleanup_range:
-> +	__vunmap_range_noflush(addr, end);
->  	return err;
->  }
->  
-> @@ -683,26 +692,35 @@ int __vmap_pages_range_noflush(unsigned long addr, unsigned long end,
->  		pgprot_t prot, struct page **pages, unsigned int page_shift)
->  {
->  	unsigned int i, nr = (end - addr) >> PAGE_SHIFT;
-> +	unsigned long start = addr;
-> +	int err;
->  
-> -	WARN_ON(page_shift < PAGE_SHIFT);
-> -
-> -	if (!IS_ENABLED(CONFIG_HAVE_ARCH_HUGE_VMALLOC) ||
-> -			page_shift == PAGE_SHIFT)
-> -		return vmap_small_pages_range_noflush(addr, end, prot, pages);
-> +	if (WARN_ON(addr >= end))
-> +		return -EINVAL;
->  
-> -	for (i = 0; i < nr; i += 1U << (page_shift - PAGE_SHIFT)) {
-> -		int err;
-> +	if (WARN_ON(page_shift < PAGE_SHIFT))
-> +		return -EINVAL;
->  
-> -		err = vmap_range_noflush(addr, addr + (1UL << page_shift),
-> +	if (!IS_ENABLED(CONFIG_HAVE_ARCH_HUGE_VMALLOC) ||
-> +		page_shift == PAGE_SHIFT) {
-> +		err = vmap_small_pages_range_noflush(addr, end, prot, pages);
-> +	} else {
-> +		for (i = 0; i < nr; i += 1U << (page_shift - PAGE_SHIFT)) {
-> +			err = vmap_range_noflush(addr, addr + (1UL << page_shift),
->  					page_to_phys(pages[i]), prot,
->  					page_shift);
-> -		if (err)
-> -			return err;
-> +			if (err)
-> +				break;
->  
-> -		addr += 1UL << page_shift;
-> +			addr += 1UL << page_shift;
-> +		}
->  	}
->  
-> -	return 0;
-> +	if (err)
-> +		__vunmap_range_noflush(start, end);
-> +
-> +	/* 0 on success. */
-> +	return err;
->  }
->  
->  int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
-> @@ -714,7 +732,13 @@ int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
->  
->  	if (ret)
->  		return ret;
-> -	return __vmap_pages_range_noflush(addr, end, prot, pages, page_shift);
-> +
-> +	ret = __vmap_pages_range_noflush(addr, end, prot, pages, page_shift);
-> +	if (ret)
-> +		/* Cleanup KMSAN metadata. */
-> +		kmsan_vunmap_range_noflush(addr, end);
-> +
-> +	return ret;
->  }
->  
->  static int __vmap_pages_range(unsigned long addr, unsigned long end,
-> <snip>
+> Add a dedicated fixup that writes the sequence, waits 20 ms to keep a
+> margin over the measured minimum, and writes it again on every codec
+> init. It chains to the same AUTOMUTE fixup as before. To share the
+> sequence, move the verbs of ALC287_FIXUP_LEGION_15IMHG05_SPEAKERS into a
+> named array; this has no functional change for the other users of that
+> fixup.
 > 
-> --
-> Uladzislau Rezki
+> Fixes: 67f4c61a73e9 ("ALSA: hda/realtek: Add quirk for Legion S7 15IMH")
+> Cc: stable@vger.kernel.org
+> Link: https://github.com/CachyOS/linux-cachyos/issues/792
+> Signed-off-by: Matej Sochan <matej.sochan@gmail.com>
+
+Applied to for-next branch now.  Thanks.
+
+
+Takashi
