@@ -1,143 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5E7145A288;
-	Thu,  8 Oct 2026 13:01:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C5E849EC71
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 13:08:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791464517; cv=none; b=l73ie2D0MfxXcr/y/vVR+5fYAr0JGCGKJEfIQoDvJJrrOFQIYSBUP4k13Em/nFMJJI15KhAIxjz4ZLcQyCUuba5LMFi8uvNcXq96IiK4gXfsvyymK7I1u84hdhWlpnK4bRpO1UAEBOYquFRyB1W20W6Lx4BZPNI4Ef0ZjHhVZyg=
+	t=1791464883; cv=none; b=J9ylgmbr0XbZsWfWVTuWeBwH/ab/qk43Gx3LI2U8GDUopRgG26JzIspw6CAEDfGhWOAiyAGfTtRQAAVWEQRkhNQsmX1Y4eSvL6v3jqtKpllwRQo/r9QyLf4b1uuq7pGb0C9T2cCqNsZw+wWzV5fwwI7E5HCg6JrTqQSGDVgtnyc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791464517; c=relaxed/simple;
-	bh=lkoBppS8cToPR8kV2KkbyVbZsLQdIqlbgullnc9FxoA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=uu9ctGS3/kTe55PtrhxzK7n8oD4xGuStJFRUR/TtccdSG3rO/UAfCQ6XNVcBdprZb/KLB1o8yxljQtBt4wvEQj+fsQoWn0by3bksA6VMyamFNDOx+3UjNFXJDNKAh6GI3iauy7YBIbFbC2hiBGbXPxVlG2427pjYBDmy6TPYtzw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b=ne+pHO0a; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791464883; c=relaxed/simple;
+	bh=56WtSLmyXgOWqkE8uHq9stmyvAJgS6HKIATqylz3mXo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dDItiKoZUUelPp1ItfN7ioPOWYFeZ64VLD+j3MCN9y8l9OvkpojITv+9I3iXvmlA4osKkbQQ0Ey90r5Sf6HS0Bgo2e6WdCpawcMUtsP5QdXpfDgKCDOvXCzQh69ow8cdYrKmegM3I34umMpPPkgT0UQaFCuByrfRC9qp7cZZlco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IeGT9Uc8; arc=none smtp.client-ip=209.85.210.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b="ne+pHO0a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 039C81F000FF;
-	Thu,  8 Oct 2026 13:01:55 +0000 (UTC)
-Authentication-Results: smtp.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20210105 header.b=ne+pHO0a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105;
-	t=1791464510;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ya7g+FtvxWjB2wIBLf4BgwaXCHnUk+WaaD/ERrzEiuI=;
-	b=ne+pHO0aleCCo7JNTFLDSWJb4gV8M+wfBh7tEZv8cThP33Qb1I5HBK+SMMG4yc/Su9pGKQ
-	SCLcpPs8MOR9A9Qb944D+589o4WgtFZhumVpLBPMjEPdMDScYaX6EzT2OwKHlVsY65XVIt
-	NDFfW6eKlya2feakd3BZXj3YpTq8oRs=
-Received: 
-	by mail.zx2c4.com (OpenSMTPD) with ESMTPSA id 68616c33 (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
-	Thu, 8 Oct 2026 13:01:50 +0000 (UTC)
-From: "Jason A. Donenfeld" <Jason@zx2c4.com>
-To: netdev@vger.kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: "Jason A. Donenfeld" <Jason@zx2c4.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net 3/3] wireguard: noise: reject response consumption after intermediate initiation
-Date: Thu,  8 Oct 2026 14:59:16 +0200
-Message-ID: <20261008130124.724119-4-Jason@zx2c4.com>
-In-Reply-To: <20261008130124.724119-1-Jason@zx2c4.com>
-References: <20261008130124.724119-1-Jason@zx2c4.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IeGT9Uc8"
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-873a4edb243so3698805b3a.0
+        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 06:08:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791464881; x=1792069681; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vl7sRwfmLB48VwhLwaxygRLXnDOF27+xyMS2vapngz4=;
+        b=IeGT9Uc8Pd0rDueuIkAoJzZ3cMIlW2YNGgwreiPZbYIDUCp0mSqUVnBj/1aIVe+LYJ
+         2FusEa27WvR3V/S/omD9qiJCSESQel0z4JNQ2sGcF+sxT+PWylNeQuwThKEsuk1cUGRC
+         BGeWXi8tgvhZQGf2T56kbgbdq2aaZvckZX1Muhp5KDOKYIaMWf+9qm8l1b3Ujeqaaupt
+         sbV6JPekmqPfSkQYDLI67bF+3rp01q0KAO/ojgyX2BkFhw8a7WtDwTOydPdP1LxhnvSD
+         jSZ0jnF3lSQEc0piWo4rYECuz7BELvVuSvQYDxDmJTQecs0/MUM3GrEKnmmH6ATaZOi4
+         RSfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791464881; x=1792069681;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vl7sRwfmLB48VwhLwaxygRLXnDOF27+xyMS2vapngz4=;
+        b=bxCGcyU6k+p3ebRWZUI7Jl+6/Evlwvzxb3M7qU53BipzNitAe4dsuPQpdjlfEHtjIZ
+         DqYVDyWZl+WE+FZH/a7ggK7hF4l77mDObV0OacGwCXZpFzTzw3FheOPicg2mVw58DYOA
+         C8ps8UPLrVQE8ZS4uE/l5H2IxVbFSGdt2aozpjIjpYWoibHX7MnrEwKjbnnQYLkgt+zc
+         Ds1ubcXAXEwqGqUZIMlCYx4X/maxA4k4DO6id+JFPTp8RXNL5UVOBB1Yq3dvzhwsZbuL
+         GsDb27RniYVkxvR0VDyPxjxzisCrdvUJ/FcvEgJ5lawM4UXpXjmxitVhr/89J2bVoveh
+         n1DA==
+X-Forwarded-Encrypted: i=1; AKwUvBwKp15aoRTOM52FX8Rbl/6jCm9BOiIfAx4BEGuj1ydxU04zoMyTBEh/vb078/QqSUqll8kkH5Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++nMaYkH0wBZ4lxQzhKd+s30/9YALLbxzH/jxtWXZlrWePs2EiOI
+	q/gFCsEI/LZnL9Gxyz58wIXcG9L7aeDfM5qUZb1NFDNDpljVEMwagGcr
+X-Gm-Gg: AYBFou1F7nGAXseo0XncbdlTQ60D47wBiJ0MuXNjUbiOXx5Gihab15HxMN9DmT7RA8Q
+	w8vJaH/BakdxFeoq++bjx9OUF2GdvouwEYjn/UH3ETWy9S2Sowk5cYntIwKQaY+pnFWKY8ItGx2
+	6/3HzczZIHFZ3Gd/bamly62909Ty0WNH7IrTMBf0sMr2weCYbpauqP9afhy7nQuK4HHx1d/8hkG
+	a94WwxvYy9kXPjQBW1CN2C9osF/Dx7o5TOYLrebuz+TTkXUPwtLQhy05YI7cbAx/msGAye3c6yB
+	DAVsZF5Q8BNuaRXZrGAk6adN272SM9lY3bNuuQ6xicx2Fg5YFuevtHzP5RFu1zkud80wdBNj6uu
+	YETD6W8cYvKdFGeUuqEp4JFnh2qqQczqTubeIzTP/qrxH6CClksyghJSv9tNNyN6TS9qviJzBmJ
+	P3O0qv8LnOP1UeTvD73vVk7x00b9CmlyiEGL/pJkV54MDTDLFT1RFueS/MYVixn/iVAZD5r8u1Q
+	mdP
+X-Received: by 2002:a05:6a21:7111:b0:3d3:ae50:97ce with SMTP id adf61e73a8af0-3e1340420bfmr4724948637.27.1791464881362;
+        Thu, 08 Oct 2026 06:08:01 -0700 (PDT)
+Received: from dungbv.. ([58.186.69.27])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd1640b6e67sm2201621a12.1.2026.10.08.06.07.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 06:08:00 -0700 (PDT)
+From: Bui Viet Dung <dungvn2345@gmail.com>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Sergey Ryazanov <ryazanov.s.a@gmail.com>
+Cc: Johannes Berg <johannes@sipsolutions.net>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bui Viet Dung <dungvn2345@gmail.com>
+Subject: [PATCH] wwan: wwan_hwsim: Pin module for debugfs file operations
+Date: Thu,  8 Oct 2026 20:07:53 +0700
+Message-ID: <20261008130753.313875-1-dungvn2345@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Two threads begin processing the identical response message, received
-twice. The first thread, A, runs. While it's running, the second one,
-B, gets partway through, and during that slow calculation, or even while
-blocking on down_write(), A completes and then also a handshake
-initiation that's already been queued up runs in thread C, which itself
-takes that same down_write(). The handshake initiation creation
-succeeds, and sets the state back to waiting-for-response, and calls
-up_write(), at which point thread B resumes, because either its finished
-its calculations or was finally allowed to acquire down_write(). Thread
-B then copies the state back to the peer, and begins a new session,
-using that state, which is the same session as the one made in thread A.
+An open debugfs file retains its file_operations pointer in the
+debugfs proxy state. However, wwan_hwsim_debugfs_portdestroy_fops,
+wwan_hwsim_debugfs_portcreate_fops, wwan_hwsim_debugfs_devdestroy_fops,
+and wwan_hwsim_debugfs_devcreate_fops in wwan_hwsim.c have no
+.owner set to THIS_MODULE.
 
-Thread A			Thread B			Thread C
+As a result, full_proxy_open_regular() calls fops_get() which succeeds
+without taking a reference to the wwan_hwsim module. When a userspace
+process opens any of these debugfs files, a subsequent module unload
+(rmmod wwan_hwsim) can succeed while the file descriptor remains open.
 
-down_read()
- sA = handshake->state
- memcpy(cA, handshake->crypto)
-up_read()
-if (sA != 1)
- goto fail
-slow_crypto(cA)
-				down_read()
-				 sB = handshake->state
-				 memcpy(cB, handshake->crypto)
-				up_read()
-				if (sB != 1)
-				 goto fail
-				slow_crypto(cB)
-down_write()
- if (sA != handshake->state)
-  goto fail
- memcpy(handshake->crypto, cA)
- handshake->state = 2
-up_write()
-down_write()
- if (handshake->state != 2)
-  goto fail
- derive_session(handshake->crypto)
-up_write()
-								down_write()
-								 slow_crypto(handshake->crypto)
-								 handshake->state = 1
-								up_write()
-				down_write()
-				 if (sB != handshake->state)
-				   goto fail
-				 memcpy(handshake->crypto, cB)
-				 handshake->state = 2
-				up_write()
-				down_write()
-				 if (handshake->state != 2)
-				  goto fail
-				 derive_session(handshake->crypto)
-				up_write()
+When the userspace process subsequently closes the descriptor,
+full_proxy_release() accesses the already unmapped file_operations
+structure, triggering a kernel oops in full_proxy_release():
 
-This seems basically impossible to hit in a meaningful way in practice,
-but ensure that it absolutely cannot happen by comparing the ephemeral
-private key that's on the stack with the latest one that the peer's
-handshake state has.
+  BUG: unable to handle page fault for address: fffffbfff84f90ef
+  Oops: 0000 [#2] SMP KASAN NOPTI
+  RIP: 0010:full_proxy_release+0x8e/0x140
+  Call Trace:
+   <TASK>
+   __fput+0x357/0xaa0
+   fput_close_sync+0xe6/0x1a0
+   file_close_fd_locked+0x17e/0x2f0
+   do_close+0x33/0x70
+   __x64_sys_close+0x44/0x80
+   do_syscall_64+0xc3/0x590
+   entry_SYSCALL_64_after_hwframe+0x76/0x7e
+   </TASK>
 
+The issue was discovered via manual code audit of wwan_hwsim.c and
+reproduced on a Linux 7.3-rc6 test VM with CONFIG_WWAN_HWSIM=m.
+
+Set .owner = THIS_MODULE on all four debugfs file_operations structures
+in wwan_hwsim.c so that debugfs pins the module until close has
+completed.
+
+Fixes: 9ee23f48f670 ("wwan_hwsim: add debugfs management interface")
 Cc: stable@vger.kernel.org
-Fixes: e7096c131e51 ("net: WireGuard secure network tunnel")
-Reported-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Signed-off-by: Jason A. Donenfeld <Jason@zx2c4.com>
+Signed-off-by: Bui Viet Dung <dungvn2345@gmail.com>
 ---
- drivers/net/wireguard/noise.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/net/wwan/wwan_hwsim.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/net/wireguard/noise.c b/drivers/net/wireguard/noise.c
-index 63f41836ebd5..428d3afe3ce4 100644
---- a/drivers/net/wireguard/noise.c
-+++ b/drivers/net/wireguard/noise.c
-@@ -783,10 +783,11 @@ wg_noise_handshake_consume_response(struct message_handshake_response *src,
+diff --git a/drivers/net/wwan/wwan_hwsim.c b/drivers/net/wwan/wwan_hwsim.c
+index c3c2d2a68767..34eea3edc824 100644
+--- a/drivers/net/wwan/wwan_hwsim.c
++++ b/drivers/net/wwan/wwan_hwsim.c
+@@ -500,6 +500,7 @@ static ssize_t wwan_hwsim_debugfs_portdestroy_write(struct file *file,
+ }
  
- 	/* Success! Copy everything to peer */
- 	down_write(&handshake->lock);
--	/* It's important to check that the state is still the same, while we
--	 * have an exclusive lock.
-+	/* Check that the state is the same and that this is still the
-+	 * initiation we started with, while we have an exclusive lock.
- 	 */
--	if (handshake->state != state) {
-+	if (handshake->state != state ||
-+	    crypto_memneq(handshake->ephemeral_private, ephemeral_private, NOISE_PUBLIC_KEY_LEN)) {
- 		up_write(&handshake->lock);
- 		goto fail;
- 	}
+ static const struct file_operations wwan_hwsim_debugfs_portdestroy_fops = {
++	.owner = THIS_MODULE,
+ 	.write = wwan_hwsim_debugfs_portdestroy_write,
+ 	.open = simple_open,
+ 	.llseek = noop_llseek,
+@@ -524,6 +525,7 @@ static ssize_t wwan_hwsim_debugfs_portcreate_write(struct file *file,
+ }
+ 
+ static const struct file_operations wwan_hwsim_debugfs_portcreate_fops = {
++	.owner = THIS_MODULE,
+ 	.write = wwan_hwsim_debugfs_portcreate_write,
+ 	.open = simple_open,
+ 	.llseek = noop_llseek,
+@@ -545,6 +547,7 @@ static ssize_t wwan_hwsim_debugfs_devdestroy_write(struct file *file,
+ }
+ 
+ static const struct file_operations wwan_hwsim_debugfs_devdestroy_fops = {
++	.owner = THIS_MODULE,
+ 	.write = wwan_hwsim_debugfs_devdestroy_write,
+ 	.open = simple_open,
+ 	.llseek = noop_llseek,
+@@ -568,6 +571,7 @@ static ssize_t wwan_hwsim_debugfs_devcreate_write(struct file *file,
+ }
+ 
+ static const struct file_operations wwan_hwsim_debugfs_devcreate_fops = {
++	.owner = THIS_MODULE,
+ 	.write = wwan_hwsim_debugfs_devcreate_write,
+ 	.open = simple_open,
+ 	.llseek = noop_llseek,
 -- 
-2.56.0
+2.43.0
 
