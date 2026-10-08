@@ -1,73 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9AD949C4B5;
-	Thu,  8 Oct 2026 12:43:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D788D49DBBA;
+	Thu,  8 Oct 2026 12:45:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791463425; cv=none; b=UbN59l+hWNBl0V3vYfdMcnW5sxwPRwsoeOYnqkN0yIEX8sA/VxU//lewGox660Snm5V3/MSkcXo71VWYoLTcJ0V3sY8SQr5+eJ5LjZulIIdReMNVj9wm+3KKfjXyDbzLIEFZhD+8EWIANRhuvx0dGNxC3KvuKzpOWq/lwFLuASo=
+	t=1791463525; cv=none; b=n5ssodkCQn96rz/hs1pa7cPKuZfdY1C+aWLILLvOIaJHxgqBFGGbQ/L/VKaLRWCOhQwKG6goMBVJYvQT1mQCdLYgERp5JRxs6QGo2Ys8Z9SDPh5+ftsroIn9J3JwBejQ8cQZT47+WHU1xwYV8D+7vYBJdqGY8ZIdnXciIVzQoic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791463425; c=relaxed/simple;
-	bh=CZEpxoj7osafW6sPXVlmd5gvfgm8mFy62rioat8DIPQ=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=FAU+MOSs1fcGKaBR7Y8MdJaOZu5KbBF7QQgzFIY6uXQHugcVJqByHMRac+u+e31WfG3KAQT44Rcqhr0tIHrc1Yg8cxFBqWSTMjvcHfk8QjkNeU1rWPy0mBkUwrUUsFD4HruUXFjCcinZcn+OfeH0v75zGkG0jmnKbvYjjxX5zyo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PnlNVr9d; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791463525; c=relaxed/simple;
+	bh=B2xwRmjaoQVg9wr0dMd5X+QH7+pRHtbhVjKfgTCyW5E=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=m92Dth6Niy9GMZourPx5erWCgnBuRKV26728rkBFmc613IPPnf4JqtUEFiX2J00s4g2xQeslV1/tI1wssclvhOtFEzddhhbZfSO+yQ+aw1/Bx3XQlK0dhXYz4thpYuN/zgOILE0lk+a1JO+d6ZFh1+BJ4LgYr+yQr3oa7qDuRh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=cpXwrTN4; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PnlNVr9d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 844401F00893;
-	Thu,  8 Oct 2026 12:43:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791463424;
-	bh=C1efxFgcw8yYebQG9Ico6xaJCUlgQA5pFB/ghCLxXfk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=PnlNVr9d3tqTv2NHzuDKm5ztyQreLONH3J5MpREJkoBXrDwp20ALS3EAzY5J7FkUh
-	 1SfKO5rO/AUjgU0IVsoqOwhihPR/TXOidSYTcqtcyvtC0vU26+1WlNcoFpAM291qkr
-	 er5UjWjoygxxLZLYSeNfghoLhjmKUswMM03yrj0l+a9NCrf4VQRDXQBTqKSXp333gB
-	 I+nTBkAu7cASWN9U7K1VsBj+e8w+2Oo1jIAL37Nzncyrkh81lOqdBG/CYpJoNR6eJF
-	 1O4E4gVWnw51iwzW/sjZi0busdq7DoaSqduoELPBp8V8FESysbSd2lu3KnGir6QkmF
-	 zWu3gBKoEtlMA==
-From: Vinod Koul <vkoul@kernel.org>
-To: Frank Li <Frank.Li@kernel.org>, Andy Gross <agross@codeaurora.org>, 
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org, 
- linux-kernel@vger.kernel.org, brgl@kernel.org, stable@vger.kernel.org, 
- Sashiko <sashiko-bot@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>
-In-Reply-To: <20261008-bam-dma-free-irq-v28-1-5e5b10de441e@oss.qualcomm.com>
-References: <20261008-bam-dma-free-irq-v28-1-5e5b10de441e@oss.qualcomm.com>
-Subject: Re: [PATCH v28] dmaengine: qcom: bam_dma: free interrupt before
- the clock in error path
-Message-Id: <179146342226.488308.5545075747929342879.b4-ty@kernel.org>
-Date: Thu, 08 Oct 2026 14:43:42 +0200
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="cpXwrTN4"
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 50507b984;
+	Thu, 8 Oct 2026 20:45:17 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Tariq Toukan <tariqt@nvidia.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: Re: [PATCH net] net/mlx4: shut down catas recovery timer during teardown
+Date: Thu,  8 Oct 2026 20:45:00 +0800
+Message-Id: <20261008124500.954229-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <bcc09996-e71c-43af-b3f2-0d072f6d402a@nvidia.com>
+References: <20261004121259.1245171-1-runyu.xiao@seu.edu.cn> <bcc09996-e71c-43af-b3f2-0d072f6d402a@nvidia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa11b8bed7503a1kunme36ce5dd40edcd
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQ09LVhhCSxhCGh1IThpOTVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUJCSU
+	5LVUpLS1VKQktCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=cpXwrTN4AECBeNgPdmkbJBq7kM2og9ySgTU+CMqsFy8hsa3a3Cxz4eVuPJAYdAS7klVZtFDhziJ5QwvKZJauPyyrUu1VjOBmiS1xjgbXYfEDSdQ3ufd9Uy5uiNZg1K1+qMk/YXI7LXmKyIuQCkrSOiKAPt7abF5c7Onz+BnSDUY=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=B2xwRmjaoQVg9wr0dMd5X+QH7+pRHtbhVjKfgTCyW5E=;
+	h=date:mime-version:subject:message-id:from;
 
+Hi,
 
-On Thu, 08 Oct 2026 11:54:35 +0200, Bartosz Golaszewski wrote:
-> The BAM interrupt is requested with a devres helper and so on error it's
-> freed after probe() returns. We disable the clock before freeing or
-> masking it so it may still fire and we may end up reading BAM registers
-> with clock disabled.
-> 
-> Stop using devres for interrupts as we free it in remove() manually
-> anyway. Add an appropriate label and free the interrupt before disabling
-> the clock in error path and in remove().
-> 
-> [...]
+> This is fixing a patch from 2007.
+>
+> Did you hit this issue in reality, or just claimed by an AI tool?
+>
+> We need to have a very good justification to touch this old piece of
+> code now, especially in stable.
 
-Applied, thanks!
+I did not reproduce this issue on mlx4 hardware. It came from an AI-assisted
+static audit, and I accepted the finding without establishing a failing
+execution.
 
-[1/1] dmaengine: qcom: bam_dma: free interrupt before the clock in error path
-      commit: 82eed160cfa7a296ae4eb5acb8dd8f493323eea7
+After rechecking the timer core, the interleaving in the commit message is
+not sufficient: timer_delete_sync() waits for a running callback and retries
+deletion, so poll_catas()'s own mod_timer() should be removed before
+timer_delete_sync() returns. I have not established a separate concurrent
+rearm path through mlx4_start_catas_poll() during this teardown, or observed
+the callback accessing the mapping after it is unmapped.
 
-Best regards,
--- 
-~Vinod
+I therefore cannot justify the reported bug or its Fixes: and Cc:
+stable@vger.kernel.org tags. I will withdraw this patch.
 
+Sorry for the noise.
 
+Thanks,
+Runyu
