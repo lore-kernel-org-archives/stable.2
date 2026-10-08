@@ -1,219 +1,156 @@
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.6])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9271B49890E;
-	Thu,  8 Oct 2026 13:10:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C868439327;
+	Thu,  8 Oct 2026 13:18:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791465019; cv=none; b=GZxq4OiDLzWcRZ1R/Ih8eX9Yf7Wp4O752SkFPpBOkof6oQd2rrCqARPv6KIxZckP5+0umNAnQUi53/ZbfltjQwypzXJcu2rBhWXbKAXW30X3OMTDXRmN/sudhCOhQBmFLGGo2lUIEpuDI0yWW7lWx6CUnWFM+0NDkzPAw0rfJm8=
+	t=1791465497; cv=none; b=lgzqeY4mxNDNS0Bw5ATpwxweKAXeud+5pzFxU/23zCJ2IhXm0PFKRTVpf5wg6kKyI57S/RLhD1AQ9scLolFu2+s/YsL9Q3dMJNX5hE0QoKsHWunsBeiePXh7uamqyy839abnhKw7lB+BwT+3QReVf3Wc/kqP/cAgTCyzTrrNLBA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791465019; c=relaxed/simple;
-	bh=/yelBe+Gw3EYSuPvZbBcAnet/gkuHxFavOHOKByvcnA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sNu2uirjdidbi0uO2B6KAKJ1rmMOYGCQ4vuywurPCrmTOFflCXLtOwFLSFPE0akAN5cYFL+aVRjgGDGUJpBTdpYYgNHsu5moDe4PqPO7NyoAigvcnq6/79nWTEo1/rS/Zi3KvUF7OkG/e15G6Y5g+GjeO1jrLoerUSVT7CuB1YE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=QxNspo7i; arc=none smtp.client-ip=220.197.31.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	s=arc-20240116; t=1791465497; c=relaxed/simple;
+	bh=XxXcCxb3yKC9aLaonrvNFG+wVy+rb3XVlzd1plvG7mc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JKMx8w87x7viz3OsvEWfcQTZyUhlS9R06E9ZX2BYqlSA1HdQBy/ofLPRVaeCpWRuhI5srFUBGukKewN7O0DAcmHpdksMa10gR1ok73u/McmmLt/cDVqPFsuQknRxi3oAlwPUQdYCuOCkn2GnM+nS+TQWc1B1YIjuZR/tgiZI7Qw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IlvErLBY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="QxNspo7i"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=siovdpcdC1SrJwsnnM3h6lQURmWeA+zUKOaxw7qqDDs=;
-	b=QxNspo7ii5SwM2c0zCuTbguzqoOZpebpi8IZCFy5gNUOzYoHfg509P5MERdKkC
-	6dHYqd5s6W0dYfqwyGizp+g357Kv9uHyiDJiLKoMQH+C3b3mBTVngRAyA5tSya42
-	15XpPojvDia+Fms2pGqe8VNiILNdJoPi4BkeKeLrk/Csk=
-Message-ID: <b402a837-2223-4d72-978a-b2108df78334@126.com>
-Date: Thu, 8 Oct 2026 21:08:57 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IlvErLBY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE2181F000FF;
+	Thu,  8 Oct 2026 13:18:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791465496;
+	bh=7rOEJqgCu8u8q1ufoOX3kQr2YjUA2Jk9T5x48X5tx5A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IlvErLBYtYGGYw2u19/JNhB8BzU61Q4Dh+++d6+4oJwhlh4mbaHWd84od8LrsUlrE
+	 rDYs9z9If5hgLP0OOV/wIHBJdkVEKE0yMkKrPjAvi1dOBEt2JufKmkOOv733mOHsKb
+	 Dz65F22hjdo5fH3joB7Jim9i+di8k/7MCIKk+8v+7Flk4qpLvKhwN6d5nChv+6uIHP
+	 2YtSTWdNHCOpTmHBrvkxAYr5bia4MFCAdWzorBJyj//8trmnTac2k7hLKhDS4z3Cdv
+	 wL8AfR3aezMwJAcxNiU9upLVtHBAMhzWBwya/vvZ7RGWS4Ev+5wz5vKInIBf3M0El1
+	 ziK9Kx7Tkk+3g==
+Date: Thu, 8 Oct 2026 14:18:11 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: conor.dooley@microchip.com, daire.mcnamara@microchip.com,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] soc: microchip: mpfs: Fix flash leak in
+ mpfs_sys_controller_probe()
+Message-ID: <20261008-47741881fb032091ea3d7f0c@squawk>
+References: <20260917153550.2160672-1-vulab@iscas.ac.cn>
+ <20261002-garnish-president-6e8abfdacf4c@spud>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH iwl-net v2 1/2] ice: detach the VF representor when
- ice_start_vfs() fails
-To: Przemek Kitszel <przemyslaw.kitszel@intel.com>,
- Tony Nguyen <anthony.l.nguyen@intel.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, netdev-bot+sinfo@kernel.org, pabeni@redhat.com,
- intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Linkui Xiao <xiaolinkui@kylinos.cn>,
- stable@vger.kernel.org
-References: <20260928065306.1514795-1-xiaolinkui@126.com>
- <179057875290.31693.7249107578001642813@kernel.org>
- <d3f4ae98-3340-414b-9bd0-9f4588810821@126.com>
- <547ed917-77fc-4670-974c-4d4fd6fbf3e7@intel.com>
- <0c464819-16ee-4bae-b15c-3337516ef3c9@intel.com>
-Content-Language: en-US
-From: Linkui Xiao <xiaolinkui@126.com>
-In-Reply-To: <0c464819-16ee-4bae-b15c-3337516ef3c9@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3_6XplcdqT3fmAg--.45387S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3GF1xWF18ZF48KFWDXryfXrb_yoW3ZFyDpa
-	yFq3Z5Kr4DXw1I9w42vw40q3409a1rKF1UWr1UKrWFkwn8Grn5XrWfK3yj9a4UC393Cw1Y
-	vr4qqw1kZFyDAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U4c_fUUUUU=
-X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlQssA2rHletTMQAA3A
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="oQXGhQV6zRD3QwyE"
+Content-Disposition: inline
+In-Reply-To: <20261002-garnish-president-6e8abfdacf4c@spud>
+
+--oQXGhQV6zRD3QwyE
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, Oct 02, 2026 at 06:48:28PM +0100, Conor Dooley wrote:
+> On Thu, Sep 17, 2026 at 03:35:50PM +0000, Wentao Liang wrote:
+> > of_get_mtd_device_by_node() returns an MTD device reference that the
+> > caller has to drop with put_mtd_device().  The probe error paths return
+> > without releasing it, and the reference stored in sys_controller->flash
+> > is never dropped when the controller is destroyed either.
+> >=20
+> > Release the flash on the probe error paths and in
+> > mpfs_sys_controller_delete(), so the reference is always put.
+>=20
+> Is this diff sufficient?
+> If probe passes, shouldn't the driver also call this during removal?
+>=20
+> Removal here just decrements the refcount, so the delete function is
+> where the call would have to go. Another patch for this driver pointed
+> out that the teardown code should actually call mpfs_sys_controller_put()
+> https://patchwork.kernel.org/project/lei-conor/patch/20260924110054.15538=
+80-1-lgs201920130244@gmail.com/
+> so the right thing to do here is probably a mix of what you've got here
+> and what was done in that patch?
+>=20
+> I note that the other user of this function, u-boot-env.c, doesn't call
+> this either.
+
+I've applied a v2 of that patch I mentioned, so I'll expect a new
+iteration here on top of that:
+https://patchwork.kernel.org/project/lei-conor/patch/20261007121743.192486-=
+1-lgs201920130244@gmail.com/
+
+Cheers,
+Conor.
+
+>=20
+> Cheers,
+> Conor.
+>=20
+> >=20
+> > Fixes: 742aa6c563d2 ("soc: microchip: mpfs: enable access to the system=
+ controller's flash")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> > ---
+> >  drivers/soc/microchip/mpfs-sys-controller.c | 9 ++++++++-
+> >  1 file changed, 8 insertions(+), 1 deletion(-)
+> >=20
+> > diff --git a/drivers/soc/microchip/mpfs-sys-controller.c b/drivers/soc/=
+microchip/mpfs-sys-controller.c
+> > index 92d1142a59e6..ad57b09e5807 100644
+> > --- a/drivers/soc/microchip/mpfs-sys-controller.c
+> > +++ b/drivers/soc/microchip/mpfs-sys-controller.c
+> > @@ -98,6 +98,8 @@ static void mpfs_sys_controller_delete(struct kref *k=
+ref)
+> >  	struct mpfs_sys_controller *sys_controller =3D
+> >  		container_of(kref, struct mpfs_sys_controller, consumers);
+> > =20
+> > +	if (sys_controller->flash)
+> > +		put_mtd_device(sys_controller->flash);
+> >  	mbox_free_channel(sys_controller->chan);
+> >  	kfree(sys_controller);
+> >  }
+> > @@ -159,7 +161,8 @@ static int mpfs_sys_controller_probe(struct platfor=
+m_device *pdev)
+> >  	of_data =3D (struct mpfs_syscon_config *) device_get_match_data(dev);
+> >  	if (!of_data) {
+> >  		dev_err(dev, "Error getting match data\n");
+> > -		return -EINVAL;
+> > +		ret =3D -EINVAL;
+> > +		goto out_free;
+> >  	}
+> > =20
+> >  	for (i =3D 0; i < of_data->nb_subdevs; i++) {
+> > @@ -174,6 +177,10 @@ static int mpfs_sys_controller_probe(struct platfo=
+rm_device *pdev)
+> >  	return 0;
+> > =20
+> >  out_free:
+> > +	if (!IS_ERR_OR_NULL(sys_controller->flash))
+> > +		put_mtd_device(sys_controller->flash);
+> > +	if (!IS_ERR_OR_NULL(sys_controller->chan))
+> > +		mbox_free_channel(sys_controller->chan);
+> >  	kfree(sys_controller);
+> >  	return ret;
+> >  }
+> > --=20
+> > 2.34.1
+> >=20
 
 
 
-On 2026/10/7 19:11, Przemek Kitszel wrote:
-> On 9/29/26 8:11 PM, Tony Nguyen wrote:
->>
->>
->> On 9/28/2026 12:14 AM, Linkui Xiao wrote:
->>> Hi,
->>>
->>> Thanks for the review. Please find the missing information below.
->>>
->>> - How the issue was discovered:
->>>    Found during manual code inspection of the ice VF setup/teardown 
->>> error paths. It was not reported by syzbot, a static analysis tool, 
->>> or an LLM scan, and was not hit in production.
->>>
->>> - Whether the issue was actually triggered:
->>>    Not actually triggered. It is a theoretical error-path cleanup 
->>> issue found by inspection; no stack trace or error message was observed.
->>>
->>> - Hardware tested:
->>>    Not tested on real hardware. The change was only compile-tested; 
->>> no affected Intel NIC/firmware test was performed.
->>>
->>> The same applies to patch 2/2: it was also found by the same manual 
->>> code inspection, was not triggered at runtime, and was only compile- 
->>> tested, not tested on real hardware.
->>>
->>> If a v3 is needed for other review reasons, I will include this 
->>> information in the commit messages.
->>>
->>> Thanks,
->>> Linkui Xiao
->>>
->>> On 2026/9/28 14:59, netdev-bot+sinfo@kernel.org wrote:
->>>> Hi!
->>>>
->>>> This is an automated message. This series looks like a fix, but its
->>>> commit messages seem to be missing some information:
->>>>
->>>>   - How the issue was discovered, e.g. hit in production, hit during
->>>>     development, syzbot report, manual code inspection, LLM or static
->>>>     analysis tool scan.
->>>>
->>>>   - Whether the issue was actually triggered, or is only theoretical
->>>>     (e.g. found by code inspection). If it was triggered please include
->>>>     the symptoms, like the stack trace or error messages.
->>>>
->>>>   - What hardware the change was tested on. For driver fixes please
->>>>     mention the device (and if relevant firmware version) used for
->>>>     testing, or say that the change was not tested on real hardware.
->>>>
->>>> Please do not repost the series just to address the above. Instead,
->>>> reply to this email with the missing information, so that reviewers
->>>> can take it into account. If the series needs another revision for
->>>> other reasons, please include the information in the commit messages
->>>> then.
->>
->> Hi Jakub,
->>
->> For patches that go through iwl-net, how did you want this handled? It 
->> says to not repost just to address the above, but since this will get 
->> submitted later, did you want the commit updated to make the latter 
->> check happy, did you want me to copy/paste the response to the commit, 
->> or something else?
-> 
-> In general, I would say it's up to you Tony.
-> Perhaps we could decide based on the amount of additional changes.
-> 
-> For this particular patch sashiko already posted complains:
-> https://sashiko.dev/#/patchset/20260928065306.1514795-1-xiaolinkui%40126.com?part=1
-> 
-> I've encountered the same problem (although during my OOT encounters),
-> and the solution is to detach/attach VF representors outside of
-> vf->cfg_lock. More rationale by AI follows:
-> 
-> ice_reset_all_vfs() and ice_free_vfs() call ice_eswitch_detach() and
-> ice_eswitch_attach() with vf->cfg_lock held. Both take the devlink
-> instance lock and then register or unregister the representor netdev,
-> which takes RTNL. ndo_set_vf_mac(), ndo_set_vf_vlan() and the
-> representor's ethtool reset take vf->cfg_lock under RTNL, so the order
-> is inverted. The ice_check_vf_ready_for_cfg() check in those callers
-> runs before vf->cfg_lock is taken, so it doesn't keep them away from a
-> reset that is already in progress.
-> 
-> Detach before taking vf->cfg_lock and attach after releasing it.
-> Representors are added and removed only under pf->vfs.table_lock, and
-> ice_start_vfs() already attaches without vf->cfg_lock. Both functions
-> set ICE_VF_DIS first, so a concurrent ice_reset_vf() bails out before it
-> reaches ice_eswitch_update_repr().
-Thanks.  That is the AB-BA Sashiko flagged, and v3 does exactly that.  The
-series is three patches now, reposted as a new thread whose cover is
+--oQXGhQV6zRD3QwyE
+Content-Type: application/pgp-signature; name=signature.asc
 
-   [PATCH iwl-net v3 0/3] ice: fix VF representor lock ordering and teardown
-   error paths
+-----BEGIN PGP SIGNATURE-----
 
-with the per-patch changes under "Changes in v3:" in each patch:
+iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaseYEwAKCRB4tDGHoIJi
+0ugrAP9s4Q3zWtLB9vcNttN8dZHPoPY88tZbWAPqWixtfPdzagEAz/wjphA9q6nd
+0QknAKH3kmmCouLDrH1D9NJ/NpE6aAM=
+=uLus
+-----END PGP SIGNATURE-----
 
-  1/3 ice: attach and detach VF representors outside of vf->cfg_lock   (new)
-  2/3 ice: detach the VF representor when ice_start_vfs() fails   (was 1/2)
-  3/3 ice: free the VF MSI-X vectors when VF start fails   (was 2/2)
-
-1/3 is new and is the "same problem" you describe.  ice_free_vfs() and
-ice_reset_all_vfs() are where the inversion was introduced: fff292b47ac1
-turned the single ice_eswitch_release() that ice_free_vfs() made before its
-loop into a per-VF detach under cfg_lock, and c9663f79cd82 did the same to
-the ice_eswitch_rebuild() call in ice_reset_all_vfs().  1/3 moves the detach
-ahead of cfg_lock in both loops, and in ice_reset_all_vfs() the attach back
-after the unlock.  It also takes cfg_lock once before the detach, so that a
-reset which is already inside the lock is waited out instead of being left
-with a window: ICE_VF_DIS, raised before both loops, keeps later resets out,
-but not one that got in ahead of it, and that one can reach
-ice_eswitch_update_repr() while ice_repr_destroy() is freeing the
-representor it looks up, which is free_netdev() + kfree() with no RCU grace
-period.  2/3 is the original ice_start_vfs() fix with the same reordering,
-plus the disabled marking described below.  3/3 is the MSI-X leak, the same
-three calls, with its Fixes: tag corrected.  Tony, if you would rather keep
-the -net series at two patches, say so and I will drop 1/3.
-
-The edge that had to go is cfg_lock -> RTNL.  ice_eswitch_detach_vf() takes
-devl_lock() and then RTNL through ice_repr_rem_vf() -> unregister_netdev(),
-while __ice_set_vf_mac(), ice_set_vf_port_vlan() and the representor's
-ethtool reset take cfg_lock with RTNL already held.  The representor itself
-does not need cfg_lock there: it is created and destroyed under
-pf->vfs.table_lock, and ice_free_vfs(), ice_reset_all_vfs() and
-ice_start_vfs() all run with that lock held.
-
-On the ice_start_vfs() path I kept cfg_lock around the rest of the teardown,
-because the ICE_VF_DIS half of the rationale does not hold there.
-ice_free_vfs() and ice_reset_all_vfs() raise ICE_VF_DIS before they 
-touch any
-VF, the SR-IOV enable path never does (the clear_bit() in ice_ena_vfs() has
-no matching set), and the VFs unwound by that loop already reached
-ICE_VF_STATE_INIT, so "ip link set dev <pf> vf N ..." still passes
-ice_check_vf_ready_for_cfg() and can run ice_reset_vf() against the VSI that
-ice_vf_vsi_release() is tearing down.
-
-That is why 2/3 marks the VF disabled under cfg_lock before the detach.  As
-you said, ice_check_vf_ready_for_cfg() runs before the lock is taken, so it
-does not keep a reset that is already in progress away; the check that does
-keep one out is the ice_is_vf_disabled() test ice_reset_vf() makes after
-taking cfg_lock.  Taking cfg_lock once before the detach waits that one out
-while its representor is still attached, and the bit keeps later ones from
-reaching ice_eswitch_update_repr().  Without it a reset already past its own
-check could xa_load() the representor while ice_repr_destroy() frees it, and
-that is free_netdev() + kfree(), with no RCU grace period in between.
-
-v3 also carries the origin and testing information netdev-bot asked for, in
-the commit messages, since the series is being reposted anyway.  2/3 changed
-code, and in 3/3 the call in the teardown loop moved inside cfg_lock, so I
-did not carry over the Reviewed-by tags from Tomasz Lichwala and Aleksandr
-Loktionov.  Tomasz's nit on the eswitch attach failure path is in: the IRQs
-are freed before the VSI is released there, and the teardown loop keeps that
-order too.  The release_vsi label of ice_init_vf_vsi_res() still 
-releases the
-VSI first, because the !vsi path has to skip that call.
-
-The v3 series was posted here:
-https://lore.kernel.org/netdev/20261008125754.3520773-2-xiaolinkui@126.com/
-
+--oQXGhQV6zRD3QwyE--
