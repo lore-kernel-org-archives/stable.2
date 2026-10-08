@@ -1,114 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 201693A6B65;
-	Thu,  8 Oct 2026 07:43:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B73C3A6B65
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 07:47:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791445417; cv=none; b=ll1B+HM+0EblQrAFNruCgOxm38e7mOEBof7l+zM3f1tN56kCJV0rxz2X6Pks0xOiyR7GHyaFaz6/plvwAW4R69DI7a3QrN6seWeTZa0wc8ILBW2GBdvJ1l9Vazg9Tzcq80BKYT6LDhm4DsHS6YCwBu3OagyCXXVb4sTnjYruxVI=
+	t=1791445641; cv=none; b=Mpb/lNgui4kj2UHeS5CKPjPJwKN8BnI8J0lByfwewHeDK2zLNoVNmF9bdFtr7pUWbYCmXNKQHwAquQ6z9oG9NTnDFTbAE06Wjz5cCvqwamhjrfjj8Wz4k3eTiA4utgwCHHx/6LhX0G5CD95rOSCddX6+YJHizt7g2M7huz/sDPU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791445417; c=relaxed/simple;
-	bh=tFlYv4JMhiBiXRe74NwyTdS2o6mK8dVXitbKSp5GvKA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BjwmR2ITeWp9E4WBP9tXrFe/qBCyqO3Wo5yZefj2U3ztzgHpqQ/sasmyz0BN5r2m/1UZgLD1dk7o9wnDj7vvxMXJ22C5dkLoIk7ON09IFm1vMud8XkdNtFuiangesV5RWl64YCC4hu96LGEtz+jRULUT1Lejjw+A6LNSILApeY8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kf2Ntg7l; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791445641; c=relaxed/simple;
+	bh=WmDgLymXivLEP/4zC8uAdcdGK0ICXX4CozZw27Upafc=;
+	h=Mime-Version:Subject:From:To:CC:In-Reply-To:Message-ID:Date:
+	 Content-Type:References; b=al4Q3x8obNT1lRSqbuywgSD/TPVE8o0/OyRgDTyb+CZtd9vX44tH3gwQcxD+i1Jm49ifs0UMdBOselqSaZnXP0lPdV+xum4nHl0Dwf+pOfrwAdoxzWUSRjJtIh4Hloxd33PfwtyhTp61cxlyfMr35ENCBkXaxbIMRSK/SAqbH/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=PKY6VrT/; arc=none smtp.client-ip=203.254.224.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kf2Ntg7l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 566191F000FF;
-	Thu,  8 Oct 2026 07:43:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791445415;
-	bh=Bn6AUcOP5hbUdto3bj+euk/8pOIRLJfWEEHgHcjnjok=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kf2Ntg7lArH7v9/K+Ebc6HkJL9k5fj/VBCLS4KkxVw/QCvI+QoFH2xXDEbCOW0dGx
-	 vI8VGY8/nmOVtgneRbKnBWt9V2EXXozftiVUNlQqKQuTOKQo2bkkqW+Uwr8ebeBCtB
-	 7KP3B9pc/VfhUVQ3nglFlXw7C312D+bziUoMv7GAViOR9AGgw9tqBpWyIKpNHmBJYv
-	 KqqNe/9Y6YxGiCYCznhSXP0qfIwfE32spK4GkROSmp9OkbCE97ZuhvOWviev2bKFNP
-	 BrMuXHMY6Wuas32cI1p6xoa2wtZi1Izw6EktcTq4YCar0AjMNq/75C58KnGD32UBrw
-	 eQSTbE7/wcYrg==
-Date: Thu, 8 Oct 2026 00:43:33 -0700
-From: Peter Chen <peter.chen@kernel.org>
-To: Liu Chao <liuc63@xiaopeng.com>
-Cc: pawell@cadence.com, rogerq@kernel.org, gregkh@linuxfoundation.org,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, liuwb@xiaopeng.com
-Subject: Re: [PATCH] usb: cdns3: validate endpoint index from setup packet
-Message-ID: <asdJpUlHT_BuQWof@hu-petche-lv.qualcomm.com>
-References: <20260917103145.3047850-1-liuc63@xiaopeng.com>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="PKY6VrT/"
+Received: from epcas2p4.samsung.com (unknown [182.195.41.56])
+	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261008074716epoutp0490190f5d76bd7ea6113b8bc8bb654d62~cflCAqyu41757717577epoutp04F
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 07:47:16 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261008074716epoutp0490190f5d76bd7ea6113b8bc8bb654d62~cflCAqyu41757717577epoutp04F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1791445636;
+	bh=WmDgLymXivLEP/4zC8uAdcdGK0ICXX4CozZw27Upafc=;
+	h=Subject:Reply-To:From:To:CC:In-Reply-To:Date:References:From;
+	b=PKY6VrT/MUoXRK6jh91qXN5bKGPkWL4lGPjrsvwHx/bJ9Ng9Kxpu2dIk2tuVdYHmf
+	 W2pSp4Cgl+kn5a5dbWsfH5in/622zTNM2ikiqUi7eP4qOqhnrEI8WIccljMpoL6QFp
+	 TjZeDWqZzeZ26hArRe9egnQ/ITgqcmX+jQcV0c00=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas2p3.samsung.com (KnoxPortal) with ESMTPS id
+	20261008074715epcas2p35351906e2bfbdb90b8a41e9d7328c806~cflBjax9Z1103111031epcas2p3_;
+	Thu,  8 Oct 2026 07:47:15 +0000 (GMT)
+Received: from epcas2p2.samsung.com (unknown [182.195.38.211]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4j0hsb0911z6B9mQ; Thu,  8 Oct
+	2026 07:47:15 +0000 (GMT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917103145.3047850-1-liuc63@xiaopeng.com>
+Mime-Version: 1.0
+Subject: RE:(2) [PATCH 1/2] ext4: don't cache unzeroed blocks as written
+ after a failed zeroout
+Reply-To: daejun7.park@samsung.com
+Sender: Daejun Park <daejun7.park@samsung.com>
+From: Daejun Park <daejun7.park@samsung.com>
+To: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+CC: Theodore Ts'o <tytso@mit.edu>, "linux-ext4@vger.kernel.org"
+	<linux-ext4@vger.kernel.org>, Jan Kara <jack@suse.cz>, Andreas Dilger
+	<adilger.kernel@dilger.ca>, Baokun Li <libaokun@linux.alibaba.com>, "Ritesh
+ Harjani (IBM)" <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>,
+	Zhang Yi <yi.zhang@huaweicloud.com>, Harshad Shirwadkar
+	<harshadshirwadkar@gmail.com>, Li Chen <me@linux.beauty>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>, Daejun Park
+	<daejun7.park@samsung.com>
+X-Priority: 3
+X-Content-Kind-Code: NORMAL
+In-Reply-To: <asc2BOOFgO8Nupw7@li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com>
+X-CPGS-Detection: blocking_info_exchange
+X-Drm-Type: N,general
+X-Msg-Generator: Mail
+X-Msg-Type: PERSONAL
+X-Reply-Demand: N
+Message-ID: <20261008074714epcms2p27e156e29471fdc7a8f50cc8a422989a1@epcms2p2>
+Date: Thu, 08 Oct 2026 16:47:14 +0900
+X-CMS-MailID: 20261008074714epcms2p27e156e29471fdc7a8f50cc8a422989a1
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-223,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261008062023epcas2p17ab2f934eeb6ba157103b01c9cb59f5b
+References: <asc2BOOFgO8Nupw7@li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com>
+	<20261007-ext4-fc-zeroout-v1-0-b86de6439431@samsung.com>
+	<20261007-ext4-fc-zeroout-v1-1-b86de6439431@samsung.com>
+	<CGME20261008062023epcas2p17ab2f934eeb6ba157103b01c9cb59f5b@epcms2p2>
 
-On 26-09-17 18:31:45, Liu Chao wrote:
-> cdns3_ep_addr_to_index() computes (ep_addr & 0x7F) + 16 for IN
-> endpoints.  wIndex is supplied by the USB host, so ep_addr & 0x7F can
-> be up to 127, giving an index up to 143.  The eps[] array has only
-> CDNS3_ENDPOINTS_MAX_COUNT (32) entries.
-> 
-> Both cdns3_ep0_handle_status() (GET_STATUS) and
-> cdns3_ep0_feature_handle_endpoint() (SET/CLEAR_FEATURE) pass the
-> unvalidated index straight into priv_dev->eps[index] and then
-> dereference the result.
-> 
-> This is the same class of vulnerability that was fixed in renesas_usb3
-> by commit ee0d382feb44 (CVE-2026-31615).
+Hi Ojaswin,
 
-Commit ee0d382feb44 is for aspeed_udc, but not renesas_usb3.
-Also, if citing commit, it is better using format: commit <sha> ("<title>"),
-do you run chechpatch.pl before submitting?
+On Thu, Oct 08, 2026 at 11:49:48 +0530, Ojaswin Mujoo wrote:
+> Feel free to add:
+>
+> Reviewed-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+>
+> btw, did you catch this with some fstests? If not I think it would be
+> good to add a test for this.
 
-Besides, where the user could find what is CVE-2026-31615?
+Thanks for the review.
 
-> 
-> Add a bounds check against CDNS3_ENDPOINTS_MAX_COUNT in both functions.
-> 
-> Fixes: 7733f6c32e36 ("usb: cdns3: Add Cadence USB3 DRD Driver")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Weibin Liu <liuwb@xiaopeng.com>
-> Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
-> ---
->  drivers/usb/cdns3/cdns3-ep0.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/usb/cdns3/cdns3-ep0.c b/drivers/usb/cdns3/cdns3-ep0.c
-> index e29989d57..76642eaaf 100644
-> --- a/drivers/usb/cdns3/cdns3-ep0.c
-> +++ b/drivers/usb/cdns3/cdns3-ep0.c
-> @@ -251,6 +251,8 @@ static int cdns3_req_ep0_get_status(struct cdns3_device *priv_dev,
->  		return cdns3_ep0_delegate_req(priv_dev, ctrl);
->  	case USB_RECIP_ENDPOINT:
->  		index = cdns3_ep_addr_to_index(le16_to_cpu(ctrl->wIndex));
-> +		if (index >= CDNS3_ENDPOINTS_MAX_COUNT)
-> +			return -EINVAL;
+No, it wasn't fstests. I ran into it while working on 2/2: when adding
+the fast commit tracking next to ext4_zeroout_es(), I checked what it
+caches when the zeroout fails, and saw that zero_ex1/zero_ex2 keep their
+length on that path. To confirm it, I put dm-error under the file system
+and failed only the zeroout.
 
-Good caught. And it also needs to add one more condition for !priv_dev->eps[index] since
-it may be NULL if endpoints are not enabled at usb_caps, see cdns3_init_eps() for detail.
+I turned that into an fstests case [2]. The existing dm-error tests
+don't reach this path: they write with direct I/O, which leaves the
+extent unwritten until the I/O completes, and so does a buffered write
+with the default dioread_nolock.
 
-Peter
+v2 [1] keeps this patch unchanged, so I'll carry your tag if there is a
+v3.
 
->  		priv_ep = priv_dev->eps[index];
->  
->  		/* check if endpoint is stalled or stall is pending */
-> @@ -368,6 +370,8 @@ static int cdns3_ep0_feature_handle_endpoint(struct cdns3_device *priv_dev,
->  		return 0;
->  
->  	index = cdns3_ep_addr_to_index(le16_to_cpu(ctrl->wIndex));
-> +	if (index >= CDNS3_ENDPOINTS_MAX_COUNT)
-> +		return -EINVAL;
->  	priv_ep = priv_dev->eps[index];
->  
->  	cdns3_select_ep(priv_dev, le16_to_cpu(ctrl->wIndex));
-> -- 
-> 2.50.1
-> 
+[1] https://lore.kernel.org/r/20261008-ext4-fc-zeroout-v2-0-55cab1e24fa3@samsung.com
+[2] https://lore.kernel.org/r/20261008-ext4-zeroout-eio-test-v1-1-9bb66deaf646@samsung.com
 
--- 
-
-Thanks,
-Peter Chen
+Daejun
