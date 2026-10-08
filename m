@@ -1,42 +1,79 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 90D26395243;
-	Thu,  8 Oct 2026 19:16:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B3D91CDFCA
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 19:16:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791486980; cv=none; b=ahjfE5SDELihtAntuueYNIPxxTqalJskb/Xr7EfX3Asi7S+S+6g7xWrP0tRq+qEzt5Asfta+h9CldDA/n/FIoi/mk57iVyAfSsGWJXLt/QvPsYHpoJizTU+C+F/RI6jNudiVEh744OoeMz4YxmBr/huk7MLvzj+nfbhrlnmoxtQ=
+	t=1791486994; cv=none; b=I/x9XvzFzFnykLhbxUj1fS/Xp8WRvSPni9OfGOk1GrsTr+92d7BdVgFbP/4Q9gZ3iR1PwlLnHTLkbVssEghA0MPUYiUjw3VRvt4/zIY+F4umXX03p4Ip0rR8UYzEMegEdrtze4QOonHrYmoFndecxRM9MgaaUY29pgxCfJmAfko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791486980; c=relaxed/simple;
-	bh=AE1EJmh/iQjqIWdsMtJQQMK0DqBYTnvBsHdaPuAdfxM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=C12ZoKP5J4ZiYmhMjGj1XOlfiRHzUgB9ID3nC74zgHQDCKo43vqQd1K43zhQvKS2pJJgOtOS7JITQUFhsrK3cGO2Mxy3IFE8nRVQ3OKIHXm+Y3GNzJX6oZHJIhwDLEYUA91c+N5o21s5hLCcZEWDkiniKP8o4nNMehjQGQWFcuY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=gy//8RkZ; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1791486994; c=relaxed/simple;
+	bh=Zduh2DU6SfY5so6BkNbBiVSWdbKi86BAIrpyrB+S01I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OWMKxA+DL/VS77S+iSh43lspsC2TSFbKOZExglLLeTq3f8IlBuBoMwSzVOnG74FfbAtDlbofYLzh8GLPAI4S0gaY32XBU5//BrQ/eb4e/I33b14Zy9LVgFeY9Yw/2uyFVZKVIRZKEL1dloybUFpufDs9uzTd0pTa5z1KsgiR6FA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=MzewuW+y; arc=none smtp.client-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="gy//8RkZ"
-Received: from mac.lan (unknown [4.194.122.144])
-	by linux.microsoft.com (Postfix) with ESMTPSA id EB8B120B7166;
-	Thu,  8 Oct 2026 12:15:14 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com EB8B120B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1791486920;
-	bh=gO7aKFhmwTvmBkYb+fgLFRiuUC2NVPYTrYp5wtxfFvY=;
-	h=From:To:Cc:Subject:Date:From;
-	b=gy//8RkZb3KBxlmSwEH1aO0P8o956uKWpGXmaG6KELOZhxxFNz+HFycglwOaSF/+Z
-	 nkE8kTfhdF6YiyAUX/rLa5L1S2NVmyB1Vvo5XDiiV1j6PIxiE8oIonXxDpzyS0WXUc
-	 c9DN44cH31VhAsGAXCCH8u3iQcoQdatufRZCI6WE=
-From: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: Pavel Begunkov <asml.silence@gmail.com>,
-	io-uring@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="MzewuW+y"
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso3149340eec.0
+        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 12:16:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1791486992; x=1792091792; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sJxEIraSPOLWNZvCZSoZUxwKzeKR9+5tZ/1A97aGpYs=;
+        b=MzewuW+yy0tntgC4TVkCNCgPrac0C+/RrxAqDvhDoT8j1V5scpP5T5ouvln9lblKK3
+         QH6+bWNHrvnwk1yXsAVtAww8AvQh4MInQJpuzLd3+T324yro++xwBAQGBCv65Mnnif2a
+         pzAVw//myKcVf62DtTJimWTUyPdMoPMjvynE2912Yz6ALLcgMJ1SCcp/tCffOCdoonjL
+         B0lCIOyJAnYR69gLTlxTylv/crXBcv3Zzr20ipcPdCsl3g1Cfa1QE1m49kVWVSgKxETn
+         qNuczwzpnuXUKsgahWEbYvBzL/MffmrZti9uTlRHzyd2gYCQuOcddHtM5o9Tn1BGSEA3
+         SKUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791486992; x=1792091792;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sJxEIraSPOLWNZvCZSoZUxwKzeKR9+5tZ/1A97aGpYs=;
+        b=aAeou0iWYFBPFpExlK1eXGcuTAUSVR4anJP7rkDZ5RKuL8/vechpv6rJ33QI/V0aEL
+         RMbUK+Hgd7gEgHG8mnKkU903pOHWC3o7xkAPmGyzmpVWFaEBylq2WkkzEVkp1g3AOty2
+         SUYexfBoEIyXejpZDMgPBOd2FN2YcGVeieEhKFfcO4uYTBXkNPmuyc2EBDQo0G14dxx3
+         mrw/SmjE3UaeqpSSL1W0KXVUIG5VqIv7dJfGQz+nPzLWwO34Zg8zNmWxKM5uP/XSS4GB
+         WT4U/sgROEvXJf635S/HdftZhNE4lsosmrRwdQdDibVBOiqwPHPGgfeOK2uDB3C9i0Gx
+         9CXQ==
+X-Gm-Message-State: AFq9FYJ1N7N73SGvi+/OnDWG6DHUIuvM2mHVAVI6RcaL4SLk5Aa1vTpv
+	5pak9+/aXUGHCfSk7u3nTOUD4VqUTz2ko90v4ejYUMqk/upzySAZx+G30e1wSgJsBQO+czv/iEv
+	zXqXL+/QqjA==
+X-Gm-Gg: AYBFou0lEoKedqdvN4xdQM5AXJoMQYM+YyX+TpREPRtKwKrvBBeSeCD6vl4SK2XL/A/
+	h/yhsrIWaY0o8lSXcphfZ1pJ1a0rNgud8kRYB2FGus1Mx5lAxvjCA7hyTlkLLboTnLvBAxoQ5kr
+	IjBpH3wiMkwRyoxpRsO3HySyPe9pIc8oMqxlhIiraY/rjnw8JxA3pcM48m8Ym0ejv4sgdJvq/Ar
+	laH3Io3msYpkAFwUQw/NZstf5/zYPoYItIqtoZPKDcafraqw57ly4c3GZUnijO2QcEi8VWrcjEN
+	IZrYTfkMSxD4TzIkqOCtg2mHSqNIU0vt13o4eKK0tb/jmhYiajqx05ZUxrQfbz8l6uqQQu72AEl
+	bOpoGPtIniXc+Q8mjLiIljk0z9U2fi7flyFXakgN8PFQ4+Z7hpUM+xGaBr0gyFmfRmPQvZ7XQ+1
+	ZSzZ08SYbqi9m+bmvnSa1Z1eWUpEGCXLaUeb7WXAA70c2IVm0iabf1EJ0mHo24c9QDJnWL5gzdE
+	IWDxbNYd6irB7AhjZZVWcb+TQ6XQojozJKZL2+P2htIsb1aoZ0WKl2xhLv5YrC3Cq3WjTn+NF1u
+	r40MkA==
+X-Received: by 2002:a05:7300:881b:b0:351:207d:bff4 with SMTP id 5a478bee46e88-3515db9c789mr8494154eec.4.1791486990854;
+        Thu, 08 Oct 2026 12:16:30 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:bc88:5ec1:4f8a:5b23])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cacb5e9sm54053eec.20.2026.10.08.12.16.29
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 08 Oct 2026 12:16:30 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: Artem Dinaburg <artem@trailofbits.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Sudeep Holla <sudeep.holla@arm.com>,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	AutonomousCodeSecurity@microsoft.com,
-	tgopinath@linux.microsoft.com,
-	kys@microsoft.com,
-	Cen Zhang <cenzhang@linux.microsoft.com>
-Subject: [PATCH] io_uring/cancel: don't spin on local work the task can't run
-Date: Thu,  8 Oct 2026 15:16:02 -0400
-Message-ID: <20261008191602.45101-1-cenzhang@linux.microsoft.com>
+	arm-scmi@vger.kernel.org,
+	viresh.kumar@linaro.org
+Subject: [PATCH 6.6.y 0/2] firmware: backport CVE-2026-93083, CVE-2026-93093
+Date: Thu,  8 Oct 2026 15:16:19 -0400
+Message-ID: <20261008191624.98532-1-artem@trailofbits.com>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -46,59 +83,25 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@linux.microsoft.com>
+Hi Greg, Sasha, and maintainers,
 
-io_uring_cancel_generic() refuses to sleep while any ring on the exiting
-task's tctx has local work pending. It assumes the task is that ring's
-submitter and that the next io_uring_try_cancel_requests() pass will run
-the work. This does not hold for a ring that was still
-IORING_SETUP_R_DISABLED when the task got its tctx node from
-io_uring_create() or io_ringfd_register(). The submitter is set later by
-IORING_REGISTER_ENABLE_RINGS, possibly from another task, and only the
-submitter may run local work on an IORING_SETUP_DEFER_TASKRUN ring. To
-the exiting task the work stays pending forever, the loop never reaches
-schedule(), and the task trips the WARN_ON_ONCE() once and then spins in
-do_exit().
+I'm working through the smaller CVE backports still missing from 6.6.y.
+These 2 upstream changes belong together for CVE-2026-93083,
+CVE-2026-93093. They must be applied in this order because the later change
+depends on or completes the earlier one.
 
-An unprivileged user can set this up at will by creating a disabled
-ring, having a child enable it and stop, posting to the ring with
-IORING_OP_MSG_RING and exiting with a request in flight that only the
-child can complete. The exiting thread burns a CPU until the child runs
-or dies, and with panic_on_warn set the WARN panics the kernel.
+The complete series is already present in 6.12.y, 6.18.y, and 7.2.y.
+Patch 1 also affects 6.1.y and will need a separate backport; this
+series contains only the 6.6.y patches.
 
-Fix by skipping the sleep only when io_allowed_defer_tw_run() allows
-the task to run the work. This is reasonable since work it cannot run
-cannot complete any of its requests either, so nothing is lost by
-sleeping. Drop the WARN_ON_ONCE() since handing a disabled ring to
-another thread is a supported scenario, not a bug state.
+Could you please consider this series for 6.6.y?
 
-Fixes: 360cd42c4e95 ("io_uring: optimise io_req_local_work_add")
-Reported-by: AutonomousCodeSecurity@microsoft.com
-Signed-off-by: Cen Zhang (Microsoft Security FORGE Labs) <cenzhang@linux.microsoft.com>
----
- io_uring/cancel.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+Thanks,
+Artem Dinaburg
 
-diff --git a/io_uring/cancel.c b/io_uring/cancel.c
-index 7d7820eab878..4f706aff14fc 100644
---- a/io_uring/cancel.c
-+++ b/io_uring/cancel.c
-@@ -634,12 +634,11 @@ __cold void io_uring_cancel_generic(bool cancel_all, struct io_sq_data *sqd)
- 		prepare_to_wait(&tctx->wait, &wait, TASK_INTERRUPTIBLE);
- 		io_run_task_work();
- 		io_uring_drop_tctx_refs(current);
-+		/* only skip the sleep for local work this task may run */
- 		xa_for_each(&tctx->xa, index, node) {
--			if (io_local_work_pending(node->ctx)) {
--				WARN_ON_ONCE(node->ctx->submitter_task &&
--					     node->ctx->submitter_task != current);
-+			if (io_local_work_pending(node->ctx) &&
-+			    io_allowed_defer_tw_run(node->ctx))
- 				goto end_wait;
--			}
- 		}
- 		/*
- 		 * If we've seen completions, retry without waiting. This
--- 
-2.55.0
+Series:
+  1. firmware: arm_scmi: Publish channel state before callbacks
+  2. firmware: arm_scmi: Unwind TX receiver mailbox setup failure
 
+base: v6.6.157 (79643295eba17affbd16ca97f3ef04c90266b28c) plus stable-queue
+revision 958ddf240a33ef26b1771be944f0ea6c3b597472
