@@ -1,170 +1,188 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4662388E76
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 16:12:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37EBF38AC99;
+	Thu,  8 Oct 2026 16:13:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791475980; cv=none; b=oN59WN7/tN/eW8Yp8SCA0QlPJgo1bUl6DzGWT6T0aSsHAtsDFi9hJQHPLbfd/Y9Q8HTYi39XjzWeyXQnbsr8VBM5ESxSV7AhJ0jpSL3Ew22voOUSlBEL1YdduexwhIxuCwNEbYMMifixRNw/ZsoRsMl+no3SQ0MGULIO3otA1Uc=
+	t=1791476001; cv=none; b=EuJil/DEBMOxwKIB8q1boVD6it3nfO5wGObpPvuVR5Adg1QI9fdpdzQg/XRW6+p/dxx73lsB7z+r4L3U8YVZh3aD8sWp1PZV5WiD9RAvDc4e7QlXoMtKVRsJ4rF1U59RaLrBdsZiboOVeoc27C/oD5NI9KKvfTpONzxlc87LCMY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791475980; c=relaxed/simple;
-	bh=BmN0rljmONbdz/PXm/OprH8FzTn9S1DwuWMcx7k7+c4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LNoHdjbfKJvGeWvPnMY8ttWryK6ZK3aLvmYTc8p9bR8TavlRJhDYULxVkYr9ptssj6aSFrqCe3QMGeXwYeRnc9V1xff6s9/hi/f5vj1/WHUOzrgkSlXgIcxhA6eJNRfRA3Zvo56VPkEP4cOJ5KddZ8hPoZE5DmhVISICsWz5yt8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qhp5Y83x; arc=none smtp.client-ip=209.85.216.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791476001; c=relaxed/simple;
+	bh=I+xC+WZE121bT0mroLJdu1L8ddUbslmzPDc4dujPHac=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Yf63hxSRR1EbLJ1Ge0NayoZPHJNiheNRI7iHKdzLLhfr58RQftA4CQ34JsN5vM1ilgm0cQg/ZLiqAsLHhYxCNrg2eT/UYzcEquHcjeJI2i+qp7GYR4EiFXX131kByl4sx6FDiiQlE4FIBnDd13jzyWGIl0SQ6YrYewzFJp2/ijs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m3MQrl45; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qhp5Y83x"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-398a4dcf289so2335295a91.2
-        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 09:12:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791475979; x=1792080779; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hDdHvibVLCCzB2QsTRiQrrzTd39n/2ojg5xJ6kjQ3YM=;
-        b=Qhp5Y83xrBNwJSC0bf1AnH29alk4CYhB9uumjrwHD16jkBJVcKapwHnnlkKa2L3sTc
-         AtydfL3JoBdzo4RSRBbtzHz8Zfb8tbzDG2UPnRCk7aD3Nc2Wq1Pmh6SCm3hnXAFkT8M1
-         50ArTK03WHNqCsG5PpMJ9gGg1px+8hNglmDgZDwEYRSgILHLZSB/elnkqzCz3SjNcpFB
-         qitiICIXD4Ry+yV+300BUcWj45036SBo3Bju+wYO6U4dVt2YOOewQPrPpAICiD3pJxjR
-         UTEZV3xtvCC6ZtgrnFIwuMBgb+FHjDaP/ooAPe1TNCJReD4Iz4ookmcvaD6TwpRUnFJu
-         nYWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791475979; x=1792080779;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hDdHvibVLCCzB2QsTRiQrrzTd39n/2ojg5xJ6kjQ3YM=;
-        b=UzuZAUAkHzKpPjNdbjR6q+EZ9OUlOkIs7kez19M4oHbMmGo0Wl8jjWwD6Qi8/0cjNk
-         fRyLKU8lamAWtMi+N/Vl6oS8m9qDRKWEbkv7DCDN7tzBq/xEuDEUrBw6b+40Dy3EVRJK
-         i3I0hmXVu+29X0z6im8IxF1UzTzNW82UMCpRg8DcWUDdrus02naLp4D1tN+oGM0ml6JH
-         GUtj/hX+ybnKN69tfE67HZUMmeTOadvxa+2/FMzsiMpWm2ZKDm2TP3fTN6MZL3kRt4lB
-         LFPyJJNzQONoryvUOpcXh3ujiXYIhnacM1IzSnVfDKQQu+HPbV56U4178/Zwmcuopm6z
-         sOqA==
-X-Forwarded-Encrypted: i=1; AKwUvBwigsikzGWYPlJz7tIHMt+u6H9ngwxlJTM3xQQ5bRol/x4URdlYAMa1L/aWATS3RA1NSj5IMzQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKxZwsBtHHmt21NRUdD7GV4jpPpVIgEDf/9TTxUqsj7p81EQVrr
-	bMUQNu73EdKbRlbv5bKVfNjYq1+xOmA6CznN+4rZrCLxis3NBInuuS9e
-X-Gm-Gg: AYBFou0OZrT/Rm1wCDQqTiPJpyHnxVysgvHYAbYXnTfV6EhakTj+FWCzREYWR1qd4qx
-	Szu6ZK06y+ykobYya7pbAJTQVw3E/4EN5enPVwRlWfkQ4VDe4j0w7yeewolzKouxY+lEwXUtB1i
-	pdFnYmxJ2KOrwLr0/JRBHQXRag/rAG3NQnFcB0pJn+XUlpYrhLe5B0DCD/KdTYLgb63U4iWxw1V
-	QMEcDJBJUHcf8ztrT+V7+2L5HmXiqdDcfEjmbO3k9+p/0AjjAkmO/P5cQVLCMNguhOLqf1MNBar
-	rFKee79lXTQVp0dF/0CY75GejqMwA3gt4M63NZRnxdUJ4KZit+zfGxRwo1u6Zu2j6SwnNZoNxi3
-	NKhth6wgHNVrl/+NyhbqT8+clvtt/6tlaXLUNxdBogshSSB84NzxWsc9w2dEHffDTcD8wiyHCPa
-	uzXPkTkyYsqKZT8Yi09cskviKPeO2oyqSh5RLL++U0hVJOtHP+yPTMS1iiBAqTxFGTLJ1M44ke
-X-Received: by 2002:a17:90b:5848:b0:39d:e54c:8658 with SMTP id 98e67ed59e1d1-3a89f687798mr4750893a91.5.1791475978758;
-        Thu, 08 Oct 2026 09:12:58 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2a09:bac5:d45b:16d2::246:b6])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9f1a7e9e4sm4834011a91.7.2026.10.08.09.12.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 09:12:58 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: gregkh@linuxfoundation.org,
-	rafael@kernel.org,
-	dakr@kernel.org
-Cc: driver-core@lists.linux.dev,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	syzbot+863936f50214e843ae0c@syzkaller.appspotmail.com,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Subject: [PATCH v3] driver core: bind a device with a preset driver even without autoprobe
-Date: Thu,  8 Oct 2026 23:12:53 +0700
-Message-ID: <20261008161253.138698-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261008144859.25548-1-ngocthang2710.1999@gmail.com>
-References: <20261008144859.25548-1-ngocthang2710.1999@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m3MQrl45"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E89A21F0089E;
+	Thu,  8 Oct 2026 16:13:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791475999;
+	bh=bR3lSv4dtTfWpHF6ntHioN9j/2JEJW6KkCIUr1O2GkU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=m3MQrl45/OFi0u+vQPtD9nCP88Q+TCS8U/vZG4QTBVfNYOFDYTfyyCwTRIFxJhJkX
+	 XM1bPBBkjDdfaAmMt6Nx7sfw7IZgEmBRQzJyFvPOi7jrW9dPTfIkQzyK0WpATL9CJ4
+	 g2xdPJMhRBph1nRsPZywG7BUjDRCZ2+zNq7CUiTLfcrfhJ+oig7QHveFp5S1NF3nCO
+	 hvtadbFAgj97fJbb1dgeDZkX1juX5n8ZSwvG4drtuC2KAYRTdM738hTyWLR1p9gGpN
+	 1IeX2LXld5Hy1UdzwjIqG+GV5uyVqXDK9gw3UJuZHKPEIy99H4tGtSi3CbecbC7GXq
+	 LhkrNLUEqgKBg==
+Subject: Re: [PATCH net v8] net/smc: fix lgr/lnk lifetime vs diag reader race
+From: netdev-bot+sashiko@kernel.org
+To: mjambigi@linux.ibm.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, alibuda@linux.alibaba.com,
+ dust.li@linux.alibaba.com, sidraya@linux.ibm.com, hidayath@linux.ibm.com,
+ pasic@linux.ibm.com, horms@kernel.org, tonylu@linux.alibaba.com,
+ guwen@linux.alibaba.com, stable@vger.kernel.org, netdev@vger.kernel.org,
+ linux-s390@vger.kernel.org, linux-rdma@vger.kernel.org
+Date: Thu, 08 Oct 2026 16:13:18 +0000
+Message-ID: <179147599850.434549.17282557208373125996@kernel.org>
+In-Reply-To: <20261005131241.1575131-1-mjambigi@linux.ibm.com>
+References: <20261005131241.1575131-1-mjambigi@linux.ibm.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-usb_driver_claim_interface() may claim an interface that is not yet
-registered, in which case it only sets dev->driver and relies on the
-later device_add() to bind it via __device_attach().  With the bus
-drivers_autoprobe disabled, device_initial_probe() skips the attach, so
-the device is registered with dev->driver set but never added to the
-driver's klist.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Releasing such a device (from usb_driver_release_interface() or from
-sysfs unbind) makes __device_release_driver() call klist_remove() on an
-unattached node and dereference a NULL klist:
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-  KASAN: null-ptr-deref in range [0x58-0x5f]
-  RIP: klist_put+0x4d/0x1d0
-   klist_remove+0x14c/0x2e0
-   device_release_driver_internal+0x4fb/0x620
-   usb_driver_release_interface+0x10e/0x190
-   cdc_ncm_unbind+0x2ac/0x350
-   usbnet_disconnect+0x1e2/0x300
-   usb_unbind_interface+0x1dd/0x9e0
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Autoprobe only governs matching drivers to devices; a device that
-already has a driver needs no matching, just the bind that was promised
-at claim time.  Do that bind under the device lock when autoprobe is
-off, so that a concurrently cleared dev->driver cannot fall through to
-probing every driver on the bus.
+- [Medium] The commit message says the conn/lgr/lnk blocks of
+  __smc_diag_dump() are guarded for SMC_INIT and SMC_CLOSED sockets.
+- [Low] In __smc_diag_dump() (net/smc/smc_diag.c:93-97) the new
+  `r->diag_state != SMC_INIT &&` check in the diag_mode selection sends…
 
-Reported-by: syzbot+863936f50214e843ae0c@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=863936f50214e843ae0c
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
----
-v3: Sashiko noted that the lockless dev->driver check in v2 could race
-with dev->driver being cleared, letting __device_attach() probe every
-driver despite autoprobe being off.  Do the preset bind in a helper that
-checks dev->driver under the device lock.
-v2: fix the unbound state itself rather than usb_driver_release_interface()
-(a sysfs unbind would still hit it).
+--
 
-Tested with the syzbot C reproducer in QEMU (KASAN, dummy_hcd).  The
-race that leaves the interface unbound is rare, so to make it
-deterministic I temporarily made device_initial_probe() behave as if
-autoprobe were off whenever dev->driver is set: the unpatched logic
-oopses 3/3, with this patch 0/4 (64 USB connects each).  The plain
-patched kernel shows no oops either.
+net/smc: fix lgr/lnk lifetime vs diag reader race
 
- drivers/base/dd.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+The patch closes races between the SMC diag dump and connection teardown.
+It skips the conn/lgr/lnk attribute blocks for SMC_INIT and SMC_CLOSED
+sockets, and pairs smp_load_acquire()/smp_store_release() on sk_state. It
+also unhashes the socket before smc_conn_free() or smcd_buf_detach() in
+several teardown paths, and copies the cached link->ibname.
 
-diff --git a/drivers/base/dd.c b/drivers/base/dd.c
-index 137bf1dea333..bb1e76bf6122 100644
---- a/drivers/base/dd.c
-+++ b/drivers/base/dd.c
-@@ -1142,6 +1142,16 @@ int device_attach(struct device *dev)
- }
- EXPORT_SYMBOL_GPL(device_attach);
- 
-+/* Bind a device whose driver was set before device_add(), no matching. */
-+static void device_bind_preset(struct device *dev)
-+{
-+	device_lock(dev);
-+	if (!dev->p->dead && dev->driver && !device_is_bound(dev) &&
-+	    device_bind_driver(dev))
-+		device_set_driver(dev, NULL);
-+	device_unlock(dev);
-+}
-+
- void device_initial_probe(struct device *dev)
- {
- 	struct subsys_private *sp = bus_to_subsys(dev->bus);
-@@ -1149,9 +1159,10 @@ void device_initial_probe(struct device *dev)
- 	if (!sp)
- 		return;
- 
--	/* a device with a preset driver must still be bound */
--	if (sp->drivers_autoprobe || dev->driver)
-+	if (sp->drivers_autoprobe)
- 		__device_attach(dev, true);
-+	else
-+		device_bind_preset(dev);
- 
- 	subsys_put(sp);
- }
+> diff --git a/net/smc/smc_diag.c b/net/smc/smc_diag.c
+> index bf0beaa23bdb6..36a3b8f31f28d 100644
+> --- a/net/smc/smc_diag.c
+> +++ b/net/smc/smc_diag.c
+> @@ -87,10 +87,11 @@ static int __smc_diag_dump(struct sock *sk, struct sk_buff *skb,
+>  
+>  	r = nlmsg_data(nlh);
+>  	smc_diag_msg_common_fill(r, sk);
+> -	r->diag_state = sk->sk_state;
+> +	r->diag_state = smp_load_acquire(&sk->sk_state);
+>  	if (smc->use_fallback)
+>  		r->diag_mode = SMC_DIAG_MODE_FALLBACK_TCP;
+> -	else if (smc_conn_lgr_valid(&smc->conn) && smc->conn.lgr->is_smcd)
+> +	else if (r->diag_state != SMC_INIT &&
+> +		 smc_conn_lgr_valid(&smc->conn) && smc->conn.lgr->is_smcd)
+>  		r->diag_mode = SMC_DIAG_MODE_SMCD;
+>  	else
+>  		r->diag_mode = SMC_DIAG_MODE_SMCR;
+
+[Severity: Low]
+Is this change to diag_mode intended? With the new r->diag_state !=
+SMC_INIT check, every non-fallback SMC_INIT socket falls into the else
+branch and is reported as SMC_DIAG_MODE_SMCR.
+
+Before this patch, an SMC_INIT socket with a registered SMC-D link group
+was reported as SMC_DIAG_MODE_SMCD.
+
+On the client side, this window runs from smc_conn_create() in
+smc_connect_ism() until the smp_store_release() to SMC_ACTIVE. On the
+server side it lasts until smc_listen_out_connected(), which includes
+waiting for the peer's CLC CONFIRM. During that time, sock_diag users see
+an SMC-D connection labelled as SMC-R. The "Mode of a connection" enum in
+include/uapi/linux/smc_diag.h has no "unknown" value for this case.
+
+The commit message says:
+
+  "Guard the conn/lgr/lnk blocks in __smc_diag_dump() for SMC_INIT and
+   SMC_CLOSED sockets; smcss already suppresses these attributes for
+   closed/unconnected sockets so there is no observability regression."
+
+It doesn't mention the diag_mode change, which only appears in the v6
+changelog below the --- line.
+
+Could the transport type be recorded in a field of struct smc_sock when
+the lgr is assigned? That would avoid both the lgr dereference and the
+wrong mode.
+
+[ ... ]
+
+> @@ -103,6 +104,9 @@ static int __smc_diag_dump(struct sock *sk, struct sk_buff *skb,
+>  	if (nla_put(skb, SMC_DIAG_FALLBACK, sizeof(fallback), &fallback) < 0)
+>  		goto errout;
+>  
+> +	if (r->diag_state == SMC_INIT || r->diag_state == SMC_CLOSED)
+> +		goto out;
+> +
+
+[Severity: Medium]
+The commit message says the conn/lgr/lnk blocks are guarded for both
+SMC_INIT and SMC_CLOSED. The diag_mode selection above excludes only
+SMC_INIT, and it runs before this early exit.
+
+For an SMC_CLOSED socket, can __smc_diag_dump() still call
+smc_conn_lgr_valid() and then dereference smc->conn.lgr->is_smcd?
+
+In the server handshake error path, a CLOSED socket stays hashed after
+its conn has been freed:
+
+smc_listen_decline()
+  smc_conn_abort()
+    smc_conn_free()
+      smc_lgr_unregister_conn()
+        write_lock_bh(&lgr->conns_lock);
+        __smc_lgr_unregister_conn()
+          conn->alert_token_local = 0;
+        write_unlock_bh(&lgr->conns_lock);
+      smcr_link_put(conn->lnk);
+      smc_lgr_put(lgr);          <-- conn->lgr is left set
+  smc_listen_out_err()
+    newsmcsk->sk_state = SMC_CLOSED;
+
+The SMC_CLOSED store in smc_listen_out_err() is a plain store, not the
+smp_store_release() this patch adds for SMC_ACTIVE.
+
+Between the alert_token_local reset and the CLOSED store, the only
+operations are release-ordered ones: write_unlock_bh(),
+refcount_dec_and_test() via smcr_link_put()/smc_lgr_put(), and
+sock_put(). None of them orders the later CLOSED store.
+
+On a weakly ordered CPU such as arm64, could the reader's
+smp_load_acquire() see SMC_CLOSED while alert_token_local still reads as
+non-zero? The reader would then dereference an lgr that the connection no
+longer holds a reference to. If link-group freeing runs concurrently,
+that read is a use-after-free.
+
+This needs a non-local-first lgr with a negative reason code, so that
+smc_lgr_cleanup_early() is not called. The window is narrow.
+
+Would it help to exclude SMC_CLOSED from the diag_mode condition as well,
+or to move this early exit ahead of the diag_mode selection? Publishing
+SMC_CLOSED in smc_listen_out_err() with smp_store_release() would also
+close the gap.
+
+>  	if ((req->diag_ext & (1 << (SMC_DIAG_CONNINFO - 1))) &&
+>  	    smc->conn.alert_token_local) {
+>  		struct smc_connection *conn = &smc->conn;
+
+[ ... ]
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261005131241.1575131-1-mjambigi%40linux.ibm.com
