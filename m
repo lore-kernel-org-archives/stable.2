@@ -1,139 +1,148 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 114F94B7A48
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 14:43:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A245E4D5969
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 14:49:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791470598; cv=none; b=Z3RWOfYgUxmYNPdWf18FRu7IWTdeidkGFpQHcq12t8Azo56kWyvBBGAb2+EZ6IsZ23D2pyv2IQ37OagZOcvutuOknPj+C5LPkGaM+eoL4Vqce/obMDF2xjw9semQAxBN3xDTOr68062Jpc0ORypKbgXys4ovZ+RC82QQ9wRdpow=
+	t=1791470961; cv=none; b=F9vABvTloLvG/1q5vPd6/tB+mLa6gTwsef6W4hno3BR4EaTSsv843nF/kEA2+o31JVxVFdIRJ1YvigHRJNLBa90RxSMJWNV7DRUHWPgRlUbRXQs7ZbuUGt94vczjpxEbsu2NjhbC4PuQNOKF10fLg4113HDNyDfxTupwwSYfEAE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791470598; c=relaxed/simple;
-	bh=bVSz5b56bkzLjbvZW0ZLHPuGtjffYa78eWvGcdS66xM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jXXq00dZccv19Fqed4Fr1bqeYeZtvOW2cq+oWbw29+dpPPqYQiVxhpsWolz0orxYBsRc5PQYlU8Es0nFoS6juuuLK04IhVbqoRJqP8SaRngmlU3Lkenamwz/6h6MWaCMmj7A8VHHWzHG3kKjVJcNASi3eO28NMMLTTJyVvjurM0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Fj9gfpeB; arc=none smtp.client-ip=209.85.221.48
+	s=arc-20240116; t=1791470961; c=relaxed/simple;
+	bh=Z4KM6it7J4sJFNp5ElHidaQWReJi6gu8FtZQWjz+lZA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=eTMLH1wSfok/ojMlwZSMddYaDtKL1A16TOdWBBi0sn7SWHjx129j1wg988hXViGzaIed+LrjYpJz9reeByGCKPscRUWL2qBkeExinexFyHbzn+si3LEl9NPn3ppLRCxSEkQZ9tBD1xjkkgyTm1DCC3CypgMvLm5farnj0HrAV7o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VUCkjUT3; arc=none smtp.client-ip=209.85.215.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Fj9gfpeB"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48b02a2359aso866126f8f.0
-        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 07:43:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VUCkjUT3"
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cc4b1f7e8f4so1475905a12.1
+        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 07:49:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791470595; x=1792075395; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=njenST8z+MlCZJXnP+cCIOtU5L3jm/Pu2Fkh+12SdlQ=;
-        b=Fj9gfpeBbMrhhd0fZvS6MBSCZAqK7a3Hg7/wEwYoa/XQr25FSdqUhn5v0t+9DDzSBM
-         gRGX2oqqqW+OTrtzobfz2Y6r/BD5cRsKoXNqzmu8rz+c7sJMZSP8UdRKVFU51rnIcRVF
-         A8zV9e/mOEqhY3t3EgxzQxmTTxQmhVDzavLUrRYHBdeeiouRU5rXLakCrRX0fSCQLyLx
-         a1AuSfLh2GFbUI6X8gQ17JKmbOBI4JZwLJwVCuBaER3Wqsp8nv6Yo8mJVzEENC7NcCa/
-         c/5gtN8y763uHwpGzyRMPt9l7j6joXAmWaVttLhGICK0DsHplSE6XBjLFeYNAsJx554Q
-         8i0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791470595; x=1792075395;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791470949; x=1792075749; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=njenST8z+MlCZJXnP+cCIOtU5L3jm/Pu2Fkh+12SdlQ=;
-        b=AewoKsPMvkie5vHNlZZfjWD+07JapeapiZI9dnplIAdPgfufgHpfjJqdN29oF8Q9bH
-         Q9ROHuHs1pSKlxBYuH2UOQG8+cp+gq5OWBLLYCLE25Ua+HWiV5i7HRYe5xqJxgLl82gB
-         nj/7IdM9JHr1QGpi4PdRsnR11v8Ec4jieXURbA1+pDMCFOyYQt/fHviyLa1k4S96W8MV
-         Km/KukaOSWow3mqVWCciFJKBk8VvWc5mOwhb01NIIS+y1E0jHemGkCIpx0/cZ9e21vQv
-         BIanFvUurGChgLGVWUAwVsYs40jdJlOoltOz033w5D1N7zejxhPRRHF9TFAnK3/lyDo+
-         O5qQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwlon6t3UBj6LZlUIevcUiPksKjAG6nZf5jl3P6fRtrCw2CyybqEw7N3zylmyH4ipBv/BA7Ltc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIfZm+tIKiuXgGDdsMsxpEtL+Adf4vkuex0IRGGk8ze8j5y+Iup
-	aAsVJlMf+84I4H7wnG2GnwyuPaxobC/cXnEBdMEr9M0NWkHrq5AGIyFD
-X-Gm-Gg: AYBFou3jF3B2tjG9xiWrOxQh+T9h0hpANF7FizPcNFH2iq5zc0O7thxTKzRa/y/DERu
-	a4GFcapPNG2yXdNGrYVgDZjpUam3wQKaHnpJ9UdebJSWyWW7ore+paWeXrBXhjbCVJrxTgqbNCl
-	Ah9VDuuUu2WXyYb8az6MmnWOhY9Y03flqwgVj3VMGQYtHSS9gIvZSvhsxs3vljkQ0qUk4pNtsO/
-	Mixk90zebBftSDSpcZiWegDCRYJz0g1pj/+FPe4zqXn5fQXInPMVZGbd4GYs9BdGyovqdZWdWsA
-	pM4XL6KUpNtoEITd4cRkz7v/MMHHdq+xd88z6k4d4QZg5YKq5mGR8+LcZMV80CVJzsDKScLiMil
-	wrqwcmkGZeApawLU2V/HgjfqC2DASujXgYDgFrOAEdJfeF3Bv0/wMvOz0nRmDFfSYc+4cWp8bIz
-	ZU6JgljMAVHtPonv0RXK5hK+vfQQAEkN3Xl6CCaBk1goozYe5IsGXrfWnOBnn9G/mx+geMxBgA9
-	VDkXZFaHJM/smPiP24c0Gz/hI8KEY0NTqRbN5F2cfC/QZcmTOrcajNVY6s96EDytONFKyzsGxKv
-	gQfD80GEpYtp3RhRVz7GOGSwGhmx
-X-Received: by 2002:a05:6000:46c7:b0:488:8347:a110 with SMTP id ffacd0b85a97d-48c7ee936a3mr3668082f8f.7.1791470595152;
-        Thu, 08 Oct 2026 07:43:15 -0700 (PDT)
-Received: from [10.54.182.141] (82-132-212-209.dab.02.net. [82.132.212.209])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d1ffd2sm11381000f8f.34.2026.10.08.07.43.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 08 Oct 2026 07:43:14 -0700 (PDT)
-Message-ID: <20b406ac-94ec-4b0f-a307-08082092ae08@gmail.com>
-Date: Thu, 8 Oct 2026 15:43:05 +0100
+        bh=OzeqoCgVrB5t7K0uEMyihnfZQe0JdhUNQX8JWUB88Jg=;
+        b=VUCkjUT3oaGoP1SaGhqG2aP99Aw6yh3nyHVmo5Nklr1DL8QkqoQbmtoP6EzGwi8iQG
+         39oYxHqorIu3GXodkH/QdeRT38O868BHLJLD/8owhWTk57tMLuJ/NMa38NIjfeosmZxU
+         +bviWoqV67XSkwMBjZV08BHShh4TZpfUWwfhjrPmugCKqGRjnNurtpFSiUp7NhX7GKVE
+         DOTLYAxnx9di+/5XvvnokTCfLgdwER7rhSqP63q0TpzeEyxIbvDFx2ZaUWD6OznD75mt
+         yayDGENS8UEM9gKXzUGO3VEhb9KXIaWsb+xNAUUEKIhynTqISThAsGttpno5czl7fGTx
+         VbBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791470949; x=1792075749;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OzeqoCgVrB5t7K0uEMyihnfZQe0JdhUNQX8JWUB88Jg=;
+        b=L+MJDqJFjvdkeI1dpq9FHP24RB9gvlxcpBK8hbTvF4yzhl/FjoclKYCsWrmRMcJVWy
+         FPBAAC6VP71s0rj9za6Roa/sNlmNtsU+oo/MC2CWcFgnA27ZO3Bzt/xh2kGyvDw5Uq/t
+         WU+/+0HGT1fDTCu8EpI3m0oYwANFNEff43Al6S5NoD+6pWOQeMUKk7QQDGy81cDTjlDM
+         CFwGwGqvi+DykrmNNUbuia4T09UQzl24KrvCxKd3oyAqPg6ET6CzjyjTIeO0JsHMlydk
+         7Y31xc6eu5G/0Ae837zMYhozIrtYSSeAL+obYKDuSCc81wPexn4Zho47r3vOSw2pFERS
+         YAvA==
+X-Forwarded-Encrypted: i=1; AKwUvBx0kp90eCmu48A2wItce1uK62olnMZyC8yS7mQa53XN31Uyw3WsCqtQmrw9gED11I66/ZKJOeo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKHvJwE9qHQS1apQhlIK8EZ+k3/hHS7iPL4yZklQ1W2KyFZAqN6
+	v2Wp4U3eFavnsWYZnxeWDjo+9Ft1QIHBQ86xLHC1SpllYfCfQXXCftA1
+X-Gm-Gg: AYBFou017CebpO7HKcRwYpX9zKn2kSyqgh/8YoFxJZLZcVlkWkqHg5K5OtOVFBfVy6w
+	Ex0KVBgBf6UBNfqMvo7TUwtEVA+ZRbfYZeYDVcQOq/r4Rs4hQV4AT5az54DOsdV5YkS9zMzulcn
+	6cx1vLncuU5h62hZiS9VUnFogoFw9E8sGEo2Ed4uZAK0SC04ElegaJ2FRDTa11//LOsOBWjaY0a
+	lMBZF0vtcNjeTbxmeX+pv7JEVEy+fn59tUtA7a2ZBOWTtRGlYIszPI+ImBYlT1KWMXgz+fD3WaR
+	rZEBXX/OYyvoTAlfv2EMxNeyP+cf9oTPlD3UMBnRfCqM6Tz0RTXsHl2HTcsznd3Lcr41593Io6R
+	fCyoJRumcjAc/aKbjSiehtTzmVsu5kSWLi9PJUX8986GD+jD3byc7eY0ENIGdLAOkmoJX8K9vqw
+	QhZibwMiJbpC53Q+8n7iwpJp0BCOV7/yGSbv3O6Z1rGPptiSXwIrvRegPlkg==
+X-Received: by 2002:a17:90b:5887:b0:3a0:c276:1ec2 with SMTP id 98e67ed59e1d1-3a8a0a90ac8mr3703287a91.19.1791470944853;
+        Thu, 08 Oct 2026 07:49:04 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2a09:bac5:d45b:16d2::246:b6])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab16a4db33sm660176a91.1.2026.10.08.07.49.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 07:49:04 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: gregkh@linuxfoundation.org,
+	rafael@kernel.org,
+	dakr@kernel.org
+Cc: driver-core@lists.linux.dev,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	syzbot+863936f50214e843ae0c@syzkaller.appspotmail.com,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Subject: [PATCH v2] driver core: bind a device with a preset driver even without autoprobe
+Date: Thu,  8 Oct 2026 21:48:59 +0700
+Message-ID: <20261008144859.25548-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261008003431.145352-1-ngocthang2710.1999@gmail.com>
+References: <20261008003431.145352-1-ngocthang2710.1999@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] io_uring/cmd_net: prevent infinite retry loop on
- unextractable timestamp skb
-To: Bui Viet Dung <dungvn2345@gmail.com>, Jens Axboe <axboe@kernel.dk>
-Cc: Willem de Bruijn <willemb@google.com>, lollipopkit <a@lolli.tech>,
- io-uring@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261008050745.498415-1-dungvn2345@gmail.com>
-Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <20261008050745.498415-1-dungvn2345@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/8/26 06:07, Bui Viet Dung wrote:
-> In io_uring_cmd_timestamp(), the skb processing loop terminates whenever
-> io_process_timestamp_skb() returns a non-zero value. If the failure is
-> due to a full CQ ring (-ENOBUFS), the loop stops and returns -ENOBUFS,
-> ending the multishot command so userspace can drain the CQ.
-> 
-> However, if io_process_timestamp_skb() fails because
-> skb_get_tx_timestamp() returns a negative error (such as -ENOENT when a
-> timestamp cannot be extracted due to changed socket options or absent
-> hardware timestamp data), ret is not -ENOBUFS. The unhandled skb is
-> then spliced back onto the head of sk->sk_error_queue and the function
-> returns -EAGAIN.
-> 
-> Because -EAGAIN leaves the multishot apoll armed on EPOLLERR, and the
-> unextractable skb remains in sk_error_queue asserting EPOLLERR,
-> io_uring_cmd_timestamp() is immediately re-invoked on the same skb.
-> This results in an infinite busy-loop consuming 100% CPU and completely
-> blocking progress on any subsequent valid timestamp packets queued behind
-> it.
-> 
-> Only break out of the processing loop when CQ space is exhausted
-> (ret == -ENOBUFS). For skbs where timestamp extraction fails, dequeue and
-> consume the invalid skb matching the behavior of sock_recv_errqueue(),
-> allowing the queue to make forward progress.
-> 
-> The issue was discovered via manual code audit of io_uring/cmd_net.c
-> and review of the error handling paths in TX_TIMESTAMP command.
-> 
-> Fixes: 9e4ed359b8ef ("io_uring/netcmd: add tx timestamping cmd support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Bui Viet Dung <dungvn2345@gmail.com>
-> ---
->   io_uring/cmd_net.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/io_uring/cmd_net.c b/io_uring/cmd_net.c
-> index 90d4ec7cc761..a5a1b8b66b1f 100644
-> --- a/io_uring/cmd_net.c
-> +++ b/io_uring/cmd_net.c
-> @@ -138,7 +138,7 @@ static int io_uring_cmd_timestamp(struct socket *sock,
->   		if (!skb)
->   			break;
->   		ret = io_process_timestamp_skb(cmd, sk, skb, issue_flags);
-> -		if (ret)
-> +		if (ret == -ENOBUFS)
->   			break;
+usb_driver_claim_interface() may claim an interface that is not yet
+registered, in which case it only sets dev->driver and relies on the
+later device_add() to bind it via __device_attach().  With the bus
+drivers_autoprobe disabled, device_initial_probe() skips the attach, so
+the device is registered with dev->driver set but never added to the
+driver's klist.
 
-Sounds fine since there are only timestamp skbs in this list, do
-you have a test case?
+Releasing such a device (from usb_driver_release_interface() or from
+sysfs unbind) makes __device_release_driver() call klist_remove() on an
+unattached node and dereference a NULL klist:
 
+  KASAN: null-ptr-deref in range [0x58-0x5f]
+  RIP: klist_put+0x4d/0x1d0
+   klist_remove+0x14c/0x2e0
+   device_release_driver_internal+0x4fb/0x620
+   usb_driver_release_interface+0x10e/0x190
+   cdc_ncm_unbind+0x2ac/0x350
+   usbnet_disconnect+0x1e2/0x300
+   usb_unbind_interface+0x1dd/0x9e0
+
+Autoprobe only governs matching drivers to devices; a device that
+already has a driver needs no matching, just the bind that was promised
+at claim time.  Do not skip that bind.
+
+Reported-by: syzbot+863936f50214e843ae0c@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=863936f50214e843ae0c
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+---
+v2: Sashiko pointed out that v1 only closed one entry point: a sysfs
+unbind of the claimed-but-unbound data interface would still reach
+klist_remove() on an unattached node.  Fix the state itself instead:
+bind the device when a driver was preset, as claim promised.  v1 was
+"USB: core: don't release an unbound claimed interface via the driver
+core" (device_is_bound() in usb_driver_release_interface()), dropped.
+
+Tested with the syzbot C reproducer in QEMU (KASAN, dummy_hcd).  The
+race that leaves the interface unbound is rare, so to make it
+deterministic I temporarily made device_initial_probe() behave as if
+autoprobe were off whenever dev->driver is set: the unpatched logic
+oopses 3/3, with this patch 0/4.  The plain patched kernel, without
+the hack, shows no oops either.
+
+ drivers/base/dd.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/base/dd.c b/drivers/base/dd.c
+index f6525a7ee8c5..137bf1dea333 100644
+--- a/drivers/base/dd.c
++++ b/drivers/base/dd.c
+@@ -1149,7 +1149,8 @@ void device_initial_probe(struct device *dev)
+ 	if (!sp)
+ 		return;
+ 
+-	if (sp->drivers_autoprobe)
++	/* a device with a preset driver must still be bound */
++	if (sp->drivers_autoprobe || dev->driver)
+ 		__device_attach(dev, true);
+ 
+ 	subsys_put(sp);
 -- 
-Pavel Begunkov
+2.43.0
 
