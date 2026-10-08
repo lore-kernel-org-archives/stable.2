@@ -1,168 +1,119 @@
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7235D3EC81F
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 08:01:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791446504; cv=pass; b=QHDqzi/x6aA93U05WhkpD5SIKOVgML4AKcn2ZxvdEdZv3B75bsrFfmWk0wWYVhN9XwQcmgqYk4rm08DdYPppUMSsfvyUW00OkZMZRErt+yiE8OK//bYE8UDSsbpL2w0N/I8+x8eHjt5rV1amWl/y7Qztclisen68AQCpyEgI8CQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791446504; c=relaxed/simple;
-	bh=R6nAreG5dHBsQuH2nuqKg9p2FY/GhdxubP7/yDE5muc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XYdMDWH+F1yVt+OCZ2q5YWjKvIk+kTcWqhMXdyZ7KH7PwzmlJkdY4nGG4quWNPyI8hIWicpi02QDpvPpRfDPSoHdEtlxuVe1FDVUFIFWe1SijBl5j1NxjY/suNuqngewgIze1nbMeK0NgVcpAIx6TK1plXPPuwXOdJzEGVsCZro=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M40mbaAU; arc=pass smtp.client-ip=209.85.218.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26FB73CEBA9;
+	Thu,  8 Oct 2026 08:04:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791446649; cv=none; b=LuplKvT3iRvltjXyUS5rOsTH2KOADqPaMYJt5ZL1Ccwua/WCa28pjcv13KWI2pRpWl78oMlhRqOug5OS/COY4w+pmFp7B91OfGaUQe6TVXhCHeiNsHJJpM2YVL0QcOTY9uqBAdbB+X1m+jgmVsXn4oZxId1un0zUjCBhS+rhyWE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791446649; c=relaxed/simple;
+	bh=oytHofmUsmOmYjWHOOvTsgnG1UiObfAk8X2HNycb7pY=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dAVMGOHSkJcAzmvcKanxLyoxV1MHOk3sr2BMYBbONgKbuif/BPqnuN4ugSCn/9Pqu+x6BB+twHz14bu0lFddwt2u54BeRmxQZQJnCa+DWCnb94e//6xKwxmlgpfKhkY0eE6rYsAwjHcd2KSbh5mCzn+vlttiwHDPFSmwKtUKOxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=fMr/M945; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M40mbaAU"
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c2937c43f31so9849066b.3
-        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 01:01:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791446502; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Nevq8TIFRAvuEpR5IODJAR76Je/3SrylcyC5ATRWGMJvYQhvTyb9UO9lgLsWG8zk9a
-         XdDr6KklFcJJlAgaYed2Vbr2CyR3T1A3g35v4DmKBpz6xfNNa37bpDFXo6Ii7+eu174H
-         qA07rA13b3mgTD9QyhfDpWOVPieT44H2Ueg2av41eVhp57GuFD4OB/enDm9Xf1LduTis
-         7GIVw8svx8SteZP1o4e6vByGDQkSFZcwNtIrq1YUwuMke+TOji+87jbiyOVHeD4lgpot
-         439ZKqVFFm/+GO6mYUszPG6RbyoZL/IqT5peVz1ac76f4ac+RVwxUdhRyityjC7zR4XA
-         GgrQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=VPO3NQmYgI3jpB+3gN4RVKiWcaKRTUg4yVkiuK0YsXU=;
-        fh=nN5zrHGeKqPj33GW0nass6t9NQ8qjlwI/xm/EPmztfs=;
-        b=btewW2GCcsblvGOZFW4+4YYzaJGGWyw8eSNNqqovhophBqcRqzQRBewQg6H4Qf9Sqi
-         M8Wn0O+Um+g/SlMH5HGsXbPRyBh3dC5yM4T09dBAZ62TnBoLIOgIh5hAailq1CKpp/+M
-         nLRKpeefRmVwfhXDKamFMaX6xquKnTmg25QQ3bsPV8jE7lskeDpAntRL1ur/AdcYr+Pf
-         lZ5EAibWPhyYp3GE+cfEI7rMXE+kwwBJ29gygWTj7f565NxLTrmbvYVNj+kKj5tVAT/x
-         i/5D+mQvV9WxoAW5KL7NtyNNQNaV/cZfhJO2n8wXjC9NDtc12VkR9mTIF1ux3iv58J/W
-         i9LA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791446501; x=1792051301; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VPO3NQmYgI3jpB+3gN4RVKiWcaKRTUg4yVkiuK0YsXU=;
-        b=M40mbaAU/Gn+59DUGIfGSOs6kK8wKryodWBOBOF/f8KPJhSaAjY09LNfziYU8I8qXh
-         NExf/vKRwtFjUvZjw5bDJBfrxMNrSNdTQbZQ4my2vw0XSwvZTnXGQ9qq/Ckn+/RGHkMz
-         KpRxdlh9mLyfjFCKlm7lj/9339N9oOt/reTLg5mfIz+puzdi7AgEDrluk4RB7ZRUlgK+
-         5ryEosYPUsM2Ix92GzLdo63Ivnm6BinHA1GGL/Hx5Ao+TmP6J41+Vb0EVAozzhTPGWXn
-         sidR26gpxGwwi5vJtq+4tLPL5JHy4ffg75dfEmOCueuODHg9t6uKytP6wDvjOU3CK28Z
-         aGeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791446501; x=1792051301;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VPO3NQmYgI3jpB+3gN4RVKiWcaKRTUg4yVkiuK0YsXU=;
-        b=F2vM/MYBUcYnjNV18HcA5d1Cky3H2NGndKjT2KSyIHYX4DDWPz1shg3ucGmeCxe2aI
-         meLhCVdDK54EgnpgffD5tY9VPTnoFzDfqsS5tjD/Topd+tRJcjAElaGoXYs/oOGkevyF
-         Dj01zLkiNnzwLhN7F1VuOcNdwJ5VmADciQJcVo3p7yPQClUbFtQDhsFo7MpPTLhQw4KZ
-         Qn7hn2ddImmszWVfe3dyCnlQPzJ8aU99XREF//Jqapf8/gQVSIGME+XOfoyfPXLA+Y41
-         zrKIJbxv5stlPAJ3RkRhl+Y9Y3+6aiUDmq0NpxkiHIRG5SS7zN1zBtbEt9UzuomsQWe7
-         OhaA==
-X-Forwarded-Encrypted: i=1; AKwUvBzsnDFULp2W8be8Lgd4Jq6CkpAlmdRfBy0fzE8KT9X7Sv42UpcQ84UpZBahPXJ1M+47zbGBfIo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kySZxLEVU9U+SidsHzUV9ZVF1SgAQXZVVPeOZ4AH6N0BXmhir9
-	mKD6sGqM/YApoonSy5xv79MV1j2W8uO1R+13nBLmfC8nYKbh91Hc0hE0e2whFgHS7hG0Ig4SHOV
-	f2TEc0K6LTufZSBG7MpMap0GUc1jKJLA=
-X-Gm-Gg: AYBFou1QlB+uXXYdapcDzhL+8odPIDglvDX9U7U/+qjLE7nH6VjugdaCm38m0kD2pK7
-	N0mxVakgFZzCF32Jf3Pk0m7uDmECrGpxeyPeKP5Rf7dboz6GmbnC2kFASU7ZlpdjGPoK91JSlvM
-	8k6JjTWOCZf/G6uHkPShr1UdaUqL6VJ32g1s1eKKnejeWJFga/kL0ZEcbDZ0ied+DPFxYQiTyoa
-	ajhvfbKGtnp/kKsYtbRxcYqIiZQFIHZmhoY7e/wIJsNZTZzHreErmiLA+4sYXAB8fmZYqeHriuH
-	BbP8ZztK/W1JJTid4o7H52W1z3DznPREUE/xq4rwCvoG95LSg08mIGBTrXU+yKt3cejLi54ExO/
-	KV47ckHNNWPPRVPGH0Y53Zw==
-X-Received: by 2002:a17:907:2da4:b0:c2a:f931:3fbb with SMTP id
- a640c23a62f3a-c3190c21de7mr152857966b.2.1791446501129; Thu, 08 Oct 2026
- 01:01:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="fMr/M945"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1791446158;
+	bh=oytHofmUsmOmYjWHOOvTsgnG1UiObfAk8X2HNycb7pY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=fMr/M945EQAvKNpaZfjiq3lkEcl9RypSRzLM+p+FZvRUD22i3eZ02dTGoZVszwQob
+	 n/mjGJ58RK0DddanS5RKROKbgHRExS4FQ6ULlVLJhst5kyQ+a5rwmRrKuiuHBBHsAO
+	 ZB7RYcg8i/CqgeRrDNkV3VbCpxoFOWubk6Jwrl3tcWX2Nu5fS3Tyo3zSdJUpxTyoxB
+	 FJqvhR27juW7ceJywgAi9/qpmLjIdj/w1lLldz9Rg1Z3IENQZG/nTVqUf65gNoIMUU
+	 dAT/ol25HXGhsqdQcGLvWEbdrWNfAFWkOJ/KxHK/ZVJNhEkGSQMJW1BmLWpJ7rQEX+
+	 /tfu0qwwrxkqQ==
+Received: from fedora-61.home (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7C0ED17E0371;
+	Thu, 08 Oct 2026 09:55:57 +0200 (CEST)
+Date: Thu, 8 Oct 2026 09:55:11 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Osama Abdelkader <osama.abdelkader@gmail.com>
+Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Akash Goel
+ <akash.goel@arm.com>, Chia-I Wu <olvaffe@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] drm/panthor: Fix TOCTOU race between GROUP_REGISTERED
+ check and erase
+Message-ID: <20261008095511.70710ea2@fedora-61.home>
+In-Reply-To: <20261007181220.2418060-1-osama.abdelkader@gmail.com>
+References: <20261007181220.2418060-1-osama.abdelkader@gmail.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260927064434.3692113-1-nicoyip.dev@gmail.com>
-In-Reply-To: <20260927064434.3692113-1-nicoyip.dev@gmail.com>
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-Date: Thu, 8 Oct 2026 16:01:29 +0800
-X-Gm-Features: AclHuK_Lktj7p5BchFdW-xuICfCC3cq_YAKfmoW2RSWguLyK9_uNfG9-zdSUFUk
-Message-ID: <CAAo+4rVktdBnFKfgJ5PjEQsXqHAJ=NuOXNyhJHQLkej+vGKVwg@mail.gmail.com>
-Subject: Re: [PATCH net] rxrpc: Prevent reusing service connections marked for reaping
-To: David Howells <dhowells@redhat.com>, Marc Dionne <marc.dionne@auristor.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>
-Cc: linux-afs@lists.infradead.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sun, Sep 27, 2026 at 2:45=E2=80=AFPM Chengfeng Ye <nicoyip.dev@gmail.com=
-> wrote:
->
-> The service connection reaper changes conn->active from 0 to -1 before
-> unpublishing an idle connection. The I/O thread can have already found
-> that connection and acquired an input reference. If it then allocates a
-> new call, rxrpc_alloc_incoming_call() unconditionally increments
-> conn->active, changing -1 back to 0. This violates the reaper's final
-> assertion and can panic the kernel:
->
->   I/O thread                           Reaper
->   Look up conn and take input ref
->                                        Set active from 0 to -1
->   Allocate an incoming call
->     Increment active from -1 to 0
->                                        Assert active =3D=3D -1
->
-> The kernel reported:
->
->   kernel BUG at net/rxrpc/conn_object.c:465!
->   Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
->   Workqueue: krxrpcd rxrpc_service_connection_reaper
->   RIP: 0010:rxrpc_service_connection_reaper+0x768/0xbc0
->   Call Trace:
->    process_one_work+0x5f2/0xf20
->    worker_thread+0x46e/0xda0
->    kthread+0x2b2/0x390
->    ret_from_fork+0x36e/0x5a0
->
-> Use atomic_inc_unless_negative() before taking the call's connection
-> reference. If reaping won the race, leave the activity count untouched
-> and return through the existing BUSY rejection path without consuming a
-> preallocated call. The caller's input reference keeps the connection
-> live during this check. If call allocation wins, the positive activity
-> count prevents the reaper from claiming the connection.
->
-> Fixes: 3cec055c5695 ("rxrpc: Don't hold a ref for connection workqueue")
+On Wed,  7 Oct 2026 20:12:19 +0200
+Osama Abdelkader <osama.abdelkader@gmail.com> wrote:
+
+> panthor_group_destroy() checks the GROUP_REGISTERED mark and then calls
+> xa_erase() without holding the xarray lock across both. If the handle is
+> destroyed by another thread in between, and a concurrent GROUP_CREATE
+> reuses the freed ID, the first destroy erases and releases the new,
+> still-initializing group, leading to a use-after-free in
+> panthor_group_create().
+> 
+> Do the mark check and erase atomically under xa_lock().
+> 
+> Fixes: eec7e23d848d ("drm/panthor: Prevent potential UAF in group creation")
+
+The fix looks legit, but I wonder how the bug was found. If this was
+found with the help of a tool (AI or static code analyzer), this should
+be reflected with an `Assisted-by` tag (see [1]).
+
+With the relevant Assisted-by tag, this is
+
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+
+[1]https://docs.kernel.org/process/coding-assistants.html
+
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+> Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
 > ---
->  net/rxrpc/call_accept.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/net/rxrpc/call_accept.c b/net/rxrpc/call_accept.c
-> index 47824120f1da..87bc3af2208b 100644
-> --- a/net/rxrpc/call_accept.c
-> +++ b/net/rxrpc/call_accept.c
-> @@ -299,8 +299,9 @@ static struct rxrpc_call *rxrpc_alloc_incoming_call(s=
-truct rxrpc_sock *rx,
->                 rxrpc_see_connection(conn, rxrpc_conn_see_new_service_con=
-n);
->                 rxrpc_new_incoming_connection(rx, conn, sec, skb);
->         } else {
-> +               if (!atomic_inc_unless_negative(&conn->active))
-> +                       return NULL;
->                 rxrpc_get_connection(conn, rxrpc_conn_get_service_conn);
-> -               atomic_inc(&conn->active);
->         }
->
->         /* And now we can allocate and set up a new call */
-> --
-> 2.43.0
->
+>  drivers/gpu/drm/panthor/panthor_sched.c | 14 ++++++++++----
+>  1 file changed, 10 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+> index 0493858e55d7..a343c5180e01 100644
+> --- a/drivers/gpu/drm/panthor/panthor_sched.c
+> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
+> @@ -3770,12 +3770,18 @@ int panthor_group_destroy(struct panthor_file *pfile, u32 group_handle)
+>  	struct panthor_group_pool *gpool = pfile->groups;
+>  	struct panthor_device *ptdev = pfile->ptdev;
+>  	struct panthor_scheduler *sched = ptdev->scheduler;
+> -	struct panthor_group *group;
+> +	struct panthor_group *group = NULL;
+>  
+> -	if (!xa_get_mark(&gpool->xa, group_handle, GROUP_REGISTERED))
+> -		return -EINVAL;
+> +	/*
+> +	 * Check the mark and erase the entry atomically, so a concurrent
+> +	 * destroy + create can't make us erase a group that's still being
+> +	 * initialized and happens to reuse the same handle.
+> +	 */
+> +	xa_lock(&gpool->xa);
+> +	if (xa_get_mark(&gpool->xa, group_handle, GROUP_REGISTERED))
+> +		group = __xa_erase(&gpool->xa, group_handle);
+> +	xa_unlock(&gpool->xa);
+>  
+> -	group = xa_erase(&gpool->xa, group_handle);
+>  	if (!group)
+>  		return -EINVAL;
+>  
 
-Gentle ping on this patch. Any feedback would be appreciated.
-
-Best regards,
-Chengfeng
