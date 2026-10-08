@@ -1,112 +1,118 @@
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B73C3A6B65
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 07:47:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 326123BAD9A;
+	Thu,  8 Oct 2026 07:53:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791445641; cv=none; b=Mpb/lNgui4kj2UHeS5CKPjPJwKN8BnI8J0lByfwewHeDK2zLNoVNmF9bdFtr7pUWbYCmXNKQHwAquQ6z9oG9NTnDFTbAE06Wjz5cCvqwamhjrfjj8Wz4k3eTiA4utgwCHHx/6LhX0G5CD95rOSCddX6+YJHizt7g2M7huz/sDPU=
+	t=1791446040; cv=none; b=YpDoIXB5Y3O5TZZUSMp9BNUDbfPoXoyvmZ+/mM4l9qgZfQHHolEC3PAWTZU7lzkSoblQ3gtT8VR/nDjLEeMtcTCni8RI477rqrcoT+HqhdObuenMqtPJX6anUf5dA3F6Uj1YoNpH1kgs0M8RmBfJrBN7+nqscWekCn6X1OReWDU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791445641; c=relaxed/simple;
-	bh=WmDgLymXivLEP/4zC8uAdcdGK0ICXX4CozZw27Upafc=;
-	h=Mime-Version:Subject:From:To:CC:In-Reply-To:Message-ID:Date:
-	 Content-Type:References; b=al4Q3x8obNT1lRSqbuywgSD/TPVE8o0/OyRgDTyb+CZtd9vX44tH3gwQcxD+i1Jm49ifs0UMdBOselqSaZnXP0lPdV+xum4nHl0Dwf+pOfrwAdoxzWUSRjJtIh4Hloxd33PfwtyhTp61cxlyfMr35ENCBkXaxbIMRSK/SAqbH/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=PKY6VrT/; arc=none smtp.client-ip=203.254.224.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1791446040; c=relaxed/simple;
+	bh=TQqiUxdiJk3lKT/9jhWHvX+7gNvaeJ/T7tMH7E1afqY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YKJ8RNCsp7xf9gqh5r2oOdUdP4S2jsIl9a/sFFJAmizxSYnzWzgVTKXdy1xFCHaL9zZ5fPGkt+egesbo4Baa7R4z9E4y9SQ4cS+eF/HK+Lum9GUNAxYSsEb4ZPTjbX3G3x5ATs9R6/qEc6tPXZiLexSlMmzbfENUz2OrPps40wo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BMx0XEDL; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="PKY6VrT/"
-Received: from epcas2p4.samsung.com (unknown [182.195.41.56])
-	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261008074716epoutp0490190f5d76bd7ea6113b8bc8bb654d62~cflCAqyu41757717577epoutp04F
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 07:47:16 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261008074716epoutp0490190f5d76bd7ea6113b8bc8bb654d62~cflCAqyu41757717577epoutp04F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1791445636;
-	bh=WmDgLymXivLEP/4zC8uAdcdGK0ICXX4CozZw27Upafc=;
-	h=Subject:Reply-To:From:To:CC:In-Reply-To:Date:References:From;
-	b=PKY6VrT/MUoXRK6jh91qXN5bKGPkWL4lGPjrsvwHx/bJ9Ng9Kxpu2dIk2tuVdYHmf
-	 W2pSp4Cgl+kn5a5dbWsfH5in/622zTNM2ikiqUi7eP4qOqhnrEI8WIccljMpoL6QFp
-	 TjZeDWqZzeZ26hArRe9egnQ/ITgqcmX+jQcV0c00=
-Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
-	epcas2p3.samsung.com (KnoxPortal) with ESMTPS id
-	20261008074715epcas2p35351906e2bfbdb90b8a41e9d7328c806~cflBjax9Z1103111031epcas2p3_;
-	Thu,  8 Oct 2026 07:47:15 +0000 (GMT)
-Received: from epcas2p2.samsung.com (unknown [182.195.38.211]) by
-	epsnrtp01.localdomain (Postfix) with ESMTP id 4j0hsb0911z6B9mQ; Thu,  8 Oct
-	2026 07:47:15 +0000 (GMT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BMx0XEDL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791446038; x=1822982038;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=TQqiUxdiJk3lKT/9jhWHvX+7gNvaeJ/T7tMH7E1afqY=;
+  b=BMx0XEDLBKGjHrm3ZksT5epq2zFyejsJnaGP+JgBvq+4U2yrawyHJLAb
+   WLL3HL2ulmSzJqKXZnNkGaTSpnd5s7fH3tJb3BVlQW5JHE5ES63a7m4Ib
+   oRpjd6O3Vrr5Rb3ltU3vSRH6v3HRvR2Iu//H3pyQPsdJRkMsEzwu1ADAI
+   fNtZDex23gd+Xiuie/dttHKhz3hX4mRS0X2TRRyaKMt1QsaK/kV8eRlRw
+   YnAIZQlYk9S21KG65eEK8VtGzTmS1RiCVD7O0Nw+kJK/6kooCr05DnLUT
+   qqO5sreAI8llksNgnCAIYBKk8lsg7cA/a70zJIyLP9aUbjkivFi5xv6aN
+   A==;
+X-CSE-ConnectionGUID: xsAWgJlcRISKCr8nHfqQcA==
+X-CSE-MsgGUID: y4Tx3WLbSK25Flh4oQmuYg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="229670"
+X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
+   d="scan'208";a="229670"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 00:53:53 -0700
+X-CSE-ConnectionGUID: pP7hUfakSheA9dcv1iutYQ==
+X-CSE-MsgGUID: 8p1CsQRdRpGA6BpA+NXL+g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
+   d="scan'208";a="1796356"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO [10.245.245.74]) ([10.245.245.74])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 00:53:51 -0700
+Message-ID: <4fb417d8-94c3-473f-95bc-8d15b7c98654@linux.intel.com>
+Date: Thu, 8 Oct 2026 10:54:13 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Subject: RE:(2) [PATCH 1/2] ext4: don't cache unzeroed blocks as written
- after a failed zeroout
-Reply-To: daejun7.park@samsung.com
-Sender: Daejun Park <daejun7.park@samsung.com>
-From: Daejun Park <daejun7.park@samsung.com>
-To: Ojaswin Mujoo <ojaswin@linux.ibm.com>
-CC: Theodore Ts'o <tytso@mit.edu>, "linux-ext4@vger.kernel.org"
-	<linux-ext4@vger.kernel.org>, Jan Kara <jack@suse.cz>, Andreas Dilger
-	<adilger.kernel@dilger.ca>, Baokun Li <libaokun@linux.alibaba.com>, "Ritesh
- Harjani (IBM)" <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>,
-	Zhang Yi <yi.zhang@huaweicloud.com>, Harshad Shirwadkar
-	<harshadshirwadkar@gmail.com>, Li Chen <me@linux.beauty>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>, Daejun Park
-	<daejun7.park@samsung.com>
-X-Priority: 3
-X-Content-Kind-Code: NORMAL
-In-Reply-To: <asc2BOOFgO8Nupw7@li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com>
-X-CPGS-Detection: blocking_info_exchange
-X-Drm-Type: N,general
-X-Msg-Generator: Mail
-X-Msg-Type: PERSONAL
-X-Reply-Demand: N
-Message-ID: <20261008074714epcms2p27e156e29471fdc7a8f50cc8a422989a1@epcms2p2>
-Date: Thu, 08 Oct 2026 16:47:14 +0900
-X-CMS-MailID: 20261008074714epcms2p27e156e29471fdc7a8f50cc8a422989a1
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-X-CPGSPASS: Y
-cpgsPolicy: CPGSC10-223,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261008062023epcas2p17ab2f934eeb6ba157103b01c9cb59f5b
-References: <asc2BOOFgO8Nupw7@li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com>
-	<20261007-ext4-fc-zeroout-v1-0-b86de6439431@samsung.com>
-	<20261007-ext4-fc-zeroout-v1-1-b86de6439431@samsung.com>
-	<CGME20261008062023epcas2p17ab2f934eeb6ba157103b01c9cb59f5b@epcms2p2>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] ALSA: compress: fix buffer leak on repeated
+ SET_PARAMS
+To: Takashi Iwai <tiwai@suse.de>
+Cc: vkoul@kernel.org, perex@perex.cz, tiwai@suse.com,
+ pierre-louis.bossart@linux.dev, linux-sound@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261007132509.18237-1-peter.ujfalusi@linux.intel.com>
+ <20261007132509.18237-2-peter.ujfalusi@linux.intel.com>
+ <878q49obcu.wl-tiwai@suse.de>
+Content-Language: en-US
+From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+In-Reply-To: <878q49obcu.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Ojaswin,
 
-On Thu, Oct 08, 2026 at 11:49:48 +0530, Ojaswin Mujoo wrote:
-> Feel free to add:
->
-> Reviewed-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
->
-> btw, did you catch this with some fstests? If not I think it would be
-> good to add a test for this.
 
-Thanks for the review.
+On 07/10/2026 17:04, Takashi Iwai wrote:
+> On Wed, 07 Oct 2026 15:25:06 +0200,
+> Peter Ujfalusi wrote:
+>>
+>> snd_compr_allocate_buffer() unconditionally overwrites
+>> stream->runtime->buffer with a freshly kmalloc'd buffer whenever the
+>> driver has no ops->copy and no preallocated dma_buffer_p. SET_PARAMS
+>> is permitted repeatedly while the stream is in the OPEN state, so a
+>> local process can loop SNDRV_COMPRESS_SET_PARAMS and leak the
+>> previous buffer on every call, exhausting kernel memory.
+>>
+>> Free any framework-owned buffer before replacing it, mirroring the
+>> ownership check already used in snd_compr_free().
+>>
+>> Fixes: b21c60a4edd2 ("ALSA: core: add support for compress_offload")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+>> ---
+>>  sound/core/compress_offload.c | 4 ++++
+>>  1 file changed, 4 insertions(+)
+>>
+>> diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
+>> index 7c397b1c9231..c0ed76e1c844 100644
+>> --- a/sound/core/compress_offload.c
+>> +++ b/sound/core/compress_offload.c
+>> @@ -613,6 +613,10 @@ static int snd_compr_allocate_buffer(struct snd_compr_stream *stream,
+>>  			return -ENOMEM;
+>>  	}
+>>  
+>> +	/* a prior SET_PARAMS may have left a framework-owned buffer behind */
+>> +	if (!stream->runtime->dma_buffer_p)
+>> +		kfree(stream->runtime->buffer);
+>> +
+> 
+> I'd rather put to the else block above (or even better, if
+> (stream->runtime->dma_buffer_p) block above that point).
+> 
+> The code is specific to that condition, after all.
 
-No, it wasn't fstests. I ran into it while working on 2/2: when adding
-the fast commit tracking next to ext4_zeroout_es(), I checked what it
-caches when the zeroout fails, and saw that zero_ex1/zero_ex2 keep their
-length on that path. To confirm it, I put dm-error under the file system
-and failed only the zeroout.
+Yes, that is true, but then we would also need to add additional check
+in there and free only if the allocation succeeded.
 
-I turned that into an fstests case [2]. The existing dm-error tests
-don't reach this path: they write with direct I/O, which leaves the
-extent unwritten until the I/O completes, and so does a buffered write
-with the default dioread_nolock.
+I think that would somehow be a bit more convoluted to grasp at once
 
-v2 [1] keeps this patch unchanged, so I'll carry your tag if there is a
-v3.
+-- 
+Péter
 
-[1] https://lore.kernel.org/r/20261008-ext4-fc-zeroout-v2-0-55cab1e24fa3@samsung.com
-[2] https://lore.kernel.org/r/20261008-ext4-zeroout-eio-test-v1-1-9bb66deaf646@samsung.com
-
-Daejun
