@@ -1,77 +1,72 @@
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C523E547066
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 04:58:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42F4F547075
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 05:01:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791435483; cv=none; b=lmZ6d5vWZJuNoXv++Yykmg8qanFXCfk8ES9a9AV6uEqnW5Yv4Ks5dhGwO8YmNL9XAR9YLkh4xH8609FbhTuyMPiLRTQjeUpK1BvLtXiZRITTohsJnRLeu/SSB5nqOMka7zoa5crmJplXehhe3dg9qyLSQibgXPq2gugfjjp11YM=
+	t=1791435708; cv=none; b=Z5MVOgppV8gDN+/tAH3otcNi4xqm0Iocd7SYnblv/INlxhrKGrcYhomU3gHGydPHlTCSZ90vXGCYPARKSc9154jgbifNPKwUQfJIXiNbJhjVyrleo47MYIkvfNINTuxF+Vn/+ilKCP+16fS/lNUv6KqEhvnS/x6p3p/g7rWFyyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791435483; c=relaxed/simple;
-	bh=ry7qcL+KTYlKF1LPNpZq7A6xD2fogGghfV5zWwdZN8k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SGLKov5ksrolpbIoK3v/VlIYVkG7YqJsC1JUSH5zRZoNOhriiJJQzPjh3yDGVU+bUGwnO/tAvGqrp+T2WIFVxzZA3AO4A8Yom3jqhAZ9S8gZL8D8roI9J8kSzFeeaVN1/Xovt20wkNKedSNxZGEgdZTBCmCKcUbhQKXazJ686x8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu; spf=pass smtp.mailfrom=cs.unc.edu; dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b=HYgaP9YW; arc=none smtp.client-ip=209.85.160.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+	s=arc-20240116; t=1791435708; c=relaxed/simple;
+	bh=Lr8R1biVw5Gr5KRv0ZFED/ZEj+95G+ohm4P7sF1PD50=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LzlhHGyItbcCL7fMqNZ1dmHsRQkHyf3DQDe3rscWdlFNaGrk+EHf8RcdMurLJJU8Kt42QFPtezYiBX6PoK+HzuJGyMVJlKas7jMlD75pa1oUxzR4oHUh2zZSFxiQdej28xNFK/jv0YixUARVVq2xRm+MF1VtPNP6kieccJ1zyto=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lsgduzHR; arc=none smtp.client-ip=209.85.210.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b="HYgaP9YW"
-Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-535179e995bso26185211cf.0
-        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 21:58:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lsgduzHR"
+Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8819033dbadso1711693b3a.0
+        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 22:01:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1791435481; x=1792040281; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PY3JPfz0mZiAP588/fUPy9pcwAQqSqz64bfxasIy4mQ=;
-        b=HYgaP9YWWNK1FVw7WE/Nxby1AnneOsngfBTfd9XnJpNa7/G3LinJonzw1zXChUatOP
-         ejg9IJhxnDQdVmLV3dV3ng8Eg00WkhNvRdNbwox6KON1MUGq0hDrbdcMZdmBphFsPX0m
-         0bl944oq+oZfJvKz3AVdHhAYEq3RzRfaB2d5+L+cm6Kc0O77dMTwUO4MvZKZMWdpzwyX
-         MgMuKnUju5yDXXwbseKE4VYuvuSQ5R1qJPDESBAwW7XK4vNfcfaOKoKGN7K9AKxL/QcJ
-         wphCDosfQoQTWtTgKB9Bls9bQGD+Wh/hH/RBvh7C41h5Zvs9VbTkQdAQ/vGMkUU2InvV
-         btAw==
+        d=gmail.com; s=20251104; t=1791435705; x=1792040505; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ak5iTOIQGfouGHICnb+S+V/d3Pepokyc2hoELrEJXYU=;
+        b=lsgduzHRHcus9oGfRp8Bl8LlXDVe7JWhbHf+YY0WeIr4lp1BZWgu5bIcoYdO8fxD6f
+         Vt/1lE7lBHEeVO3naoKJf8zHdHLjF2FUNdRtWHG3CTnd37/yfnhQmmWgxwfrYIq8S/4/
+         VqEcyrKYTm/Ndmp6Y7WDcTlf+GD3IPPDfKR7OoniFTOOO9AEZHOtzbqVab2jUguCmEgu
+         KKooOgEhhgqRdd+jGXw0RpoEYM3gEoPYS/jJNri9fC2JIvhtKys0egcaB6RhVWdVWw0G
+         VozWjUQO0Ge1EYsdimy5a6eqbTmqrYbtM8Atna+L9X8ThNZuWuRcDG7tAWdkZ7gDYJdu
+         53cQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791435481; x=1792040281;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PY3JPfz0mZiAP588/fUPy9pcwAQqSqz64bfxasIy4mQ=;
-        b=YkOOCRWKucI+bUZXo2+nTZgcznJaXboub5kLxJFOeQuG9066BsWIktkImztt6dMC7n
-         201aIT4Gaz6aEygEClTmY5P26Fy1JvropEuHIWsrhEVlW3ibrU2DPEfxCb/q0UcmU231
-         fwhC1qv1vajYcsBl7SMhKpnmmbSQro1GMfE5m9ebhXfVZPHMjgo6vqOlF58hXJVkUZt3
-         jcm74gprq+4n7AdSRDSAO49hlrb5E3u3uRkqMhlf5Yhj/dhkk9cBK3BOSmR0Ds+WMi6K
-         lDcNCebI4VidYlEBJlYnQ3d29awOwbUXSAMXOCB0qcbwYzI/5RTZ4Zz8v/9QXx/ZHZ5i
-         ad0w==
-X-Forwarded-Encrypted: i=1; AKwUvByRZtZFGIVAjKVp+5q3u90/1lIMgBX4qhUGCq0A/GQ8c+vrLoSrsSQdx8CJAfdgWhBqi6GDBV0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nDSbwEXJcDRplnpVrALI8RynelSrgw5aghV14/Jf9V2zg2owW4
-	jZ+eWINnjEstlUcQgHdO/BGLl3vwHbz3rlYbUMNwltjIoCjKZWiBj6NiYPryWsKnxnI/fK0Pg26
-	VV13shA==
-X-Gm-Gg: AYBFou2Q/Mxa2FPgXGVwL2sqF4AOUOA3DrY8cTj+ReCJD3C6YceEDHY7UpmmLsRChRE
-	tENHkG9Z8o/Ir7Cc6UwhGImVaarM16uV574gdarZFdhMfsSXxjhAWy88uJDubUllRlEk6VCC2B2
-	lXOwwuxk0eRSNrjElp+JSuVq3yYf+paAkwsuwptptWEk6f8SHoq+UiG2yr+96RKr9NrcVJej26u
-	XwQYMCrRAoDJVeXd9ZI9PuXvu90krsUMAMLU6SKXIqDR043rOd4BuXSoWz7RzbMfTC/4n9WXeHn
-	z7YRoFCooJCRp8PTuFH99iwPqx3a6DDYFSsiPP7b0YWiZNOCp0k06VUYW6W996wtNQg/bk7ogaJ
-	Xg/Yt/8w0reL6JDiR8NF+KUbSY/4qmGWOyW9dEa1G8lkNvKHkxDM2fKLjWd7B1vMF6q72O1Zg40
-	k+eRjDXPFawxv/ESU6dHPIbLlPvy4w51fKrUI7Ax8vp8P+xMsKkLuVirbSLmGQ+lIVf02ZNdH4b
-	+NEHPopXh92r80/aVlgDA==
-X-Received: by 2002:a05:622a:2592:b0:535:70b5:2387 with SMTP id d75a77b69052e-535756c1070mr78376951cf.71.1791435480618;
-        Wed, 07 Oct 2026 21:58:00 -0700 (PDT)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91996d82419sm37532046d6.40.2026.10.07.21.57.59
+        d=1e100.net; s=20260707; t=1791435705; x=1792040505;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ak5iTOIQGfouGHICnb+S+V/d3Pepokyc2hoELrEJXYU=;
+        b=lKQ4VKh4Od8FsuXkPS04653uNuD1LCNAtXsjpnAm+5l7e1nuHOy4U7OV3X7EhnXS4z
+         W0wJe9nxEgErKSOs69Xf3IDD1n15rLg03qpl96JYsJpkyanu/wqnFCUVp1T65gjR76Sw
+         O+WjBuiHa23cazKBHq6lWNn1s4DDFdChDKxTL46p/oY95gpdGfUd0KozkP0h0XxzuGRC
+         ylBubYwkzSRY1cnnZq7DFTrFTuYWoD7NLNLhpbOUKibb520aS3uxS5t2kdJf+jQxUDGG
+         iNQs98v8kuEH0M3DdOA8uZl+3Tc3iiekzovNl+1x0oH/qd5o6/+g7J5n2u7UP4idz6of
+         N+Hg==
+X-Forwarded-Encrypted: i=1; AKwUvBzx1IAiWQacf3RUYyGeq0gv7sO/8QwCxwXViKPPA0ZIuRtisEyLN07acSIEXHGJvzesJEduJ0E=@vger.kernel.org
+X-Gm-Message-State: AFuF++n5zq07gnyVOlReNpSW0M+boaahqAPzbsTjfX2rjEK97NsGAcDc
+	bg91k/gjigu9w54v6lH30BSHMClHTfDj04kTuONVm6ktGydZYCqzkCfO
+X-Gm-Gg: AYBFou3QLB+sX+vVDr2Wmmp0/jkVSCth+sWkveqSJDGZ6TgbL+nPNpOsROMv0y43rux
+	TGYJAkbZHFz0tpzeKi3XcQArWMN6yVXOeJGGXvKQlzFckEvprgFjAU/LQb4/mHlUZ+9YnSg8byK
+	Vt/HQISrA63KHoMaT2z+aONYRQHRjt/l0lrbnWLEa8q0Q1S/U+abZBvjRi5iRlCFV4HXibF/jsP
+	CmQb1TkSpfBHg8GcCqtQrasajcBNmhEqkFVkzaFEmQ9cyWOkVhsw5gEvTK+3sEDsL21t3mFjD0j
+	Q13RRcekWI7aIrwyjl3ZtPcETD85FSqMPTIrO1Wn06CWWBknqcgkVlUvnRNLvOqoiAIHWW5TgCY
+	obwSnPuRFuxVgbxkK9TC0U1a7vWfbJi0/d+KZkqJ5cnyuPtGlZr+vC+HJbLMWNzx505sZIb0KPR
+	vDjIM/f6cxihpO+/bXipts9/HuoWA0V+DVEVwuQwdwcTY+FJ0UbRhGMGe6wQsdHa2Z/7I=
+X-Received: by 2002:a05:6a00:2183:b0:88b:7e32:d96 with SMTP id d2e1a72fcca58-891ae9e0ebamr3474162b3a.1.1791435705534;
+        Wed, 07 Oct 2026 22:01:45 -0700 (PDT)
+Received: from dungbv.. ([116.98.134.138])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-892bc07927csm1020989b3a.59.2026.10.07.22.01.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 21:58:00 -0700 (PDT)
-From: Hengyu Liang <hengyul@cs.unc.edu>
-To: axboe@kernel.dk
-Cc: dw@davidwei.uk,
-	hengyul@cs.unc.edu,
-	io-uring@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] io_uring/memmap: only charge pinned user memory to RLIMIT_MEMLOCK
-Date: Thu,  8 Oct 2026 00:57:33 -0400
-Message-ID: <20261008045733.773725-1-hengyul@cs.unc.edu>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261007213903.445430-3-axboe@kernel.dk>
-References: <20261007213903.445430-3-axboe@kernel.dk>
+        Wed, 07 Oct 2026 22:01:44 -0700 (PDT)
+From: Bui Viet Dung <dungvn2345@gmail.com>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bui Viet Dung <dungvn2345@gmail.com>
+Subject: [PATCH] Bluetooth: hci_debugfs: Pin module for debugfs file operations
+Date: Thu,  8 Oct 2026 12:01:40 +0700
+Message-ID: <20261008050140.483853-1-dungvn2345@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,38 +75,127 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On 10/7/26 3:38 PM, Jens Axboe wrote:
-> Charge RLIMIT_MEMLOCK only for regions backed by pinned user memory, which
-> is what the limit is for, and leave kernel allocations to memcg. User
-> provided ring memory keeps being charged, it is pinned.
+An open debugfs file retains its file_operations pointer in the
+debugfs proxy state. However, the file_operations defined in
+hci_debugfs.c (use_debug_keys_fops, sc_only_mode_fops,
+ssp_debug_mode_fops, force_bredr_smp_fops, force_static_address_fops,
+force_no_mitm_fops, dut_mode_fops, vendor_diag_fops, and the
+DEFINE_QUIRK_ATTRIBUTE macro) have no .owner set to THIS_MODULE.
 
-Sorry for the late reply, and thanks for picking this up.
+As a result, full_proxy_open_regular() calls fops_get() which succeeds
+without taking a reference to the bluetooth module. When a userspace
+process opens any of these debugfs files, a subsequent controller removal
+and module unload (rmmod bluetooth) can succeed while the file descriptor
+remains open.
 
-I tested both patches on top of v7.3-rc4. The test case from my patch
-prints "64 rings" again, kernel allocated buffer rings are fixed as well,
-the per-user locked_vm count is balanced after ring create, close and
-resize, and the liburing tests give the same results as before, except
-that read-before-exit.t passes again with the default limit.
+When the userspace process subsequently closes the descriptor,
+full_proxy_release() accesses the already unmapped file_operations
+structure, triggering a kernel oops in full_proxy_release():
 
-Tested-by: Hengyu Liang <hengyul@cs.unc.edu>
+  BUG: unable to handle page fault for address: fffffbfff8056f03
+  #PF: supervisor read access in kernel mode
+  Oops: 0000 [#1] SMP KASAN NOPTI
+  RIP: 0010:full_proxy_release+0x8e/0x140
+  Call Trace:
+   <TASK>
+   __fput+0x39f/0xa60
+   fput_close_sync+0xff/0x200
+   __x64_sys_close+0x8c/0xf0
+   do_syscall_64+0x115/0x6a0
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+   </TASK>
 
-One case is not restored. v6.13 did not charge rings created with
-IORING_SETUP_NO_MMAP either. Number of rings created out of 64, as an
-unprivileged user with the default 8 MiB limit, 4096 entries each:
+The issue was discovered via manual code audit of
+net/bluetooth/hci_debugfs.c and verified on a Linux 7.3-rc6 test VM
+with CONFIG_BT=m.
 
-                                     v6.13  v7.3-rc4  this series
-  io_uring_queue_init()                 64        16           64
-  io_uring_queue_init_mem()             64        21           21
+Set .owner = THIS_MODULE on all debugfs file_operations tables in
+hci_debugfs.c so that debugfs keeps the module loaded until close has
+finished.
 
-PostgreSQL 18 is in the second row. It puts its rings into shared memory
-with io_uring_queue_init_mem() whenever liburing has it [1], so I expect
-the failure they reported to stay. I have not run PostgreSQL itself.
+Fixes: 0886aea6acd2 ("Bluetooth: Expose debug keys usage setting via debugfs")
+Cc: stable@vger.kernel.org
+Signed-off-by: Bui Viet Dung <dungvn2345@gmail.com>
+---
+ net/bluetooth/hci_debugfs.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-Would you take a patch on top that leaves the SQ/CQ rings uncharged for
-user memory too, as in v6.13? I can send one, or test whatever you prefer.
+diff --git a/net/bluetooth/hci_debugfs.c b/net/bluetooth/hci_debugfs.c
+index 2559fb6324d6..cd5ef398f238 100644
+--- a/net/bluetooth/hci_debugfs.c
++++ b/net/bluetooth/hci_debugfs.c
+@@ -65,6 +65,7 @@ static ssize_t __name ## _write(struct file *file,			      \
+ }									      \
+ 									      \
+ static const struct file_operations __name ## _fops = {			      \
++	.owner		= THIS_MODULE,					      \
+ 	.open		= simple_open,					      \
+ 	.read		= __name ## _read,				      \
+ 	.write		= __name ## _write,				      \
+@@ -283,6 +284,7 @@ static ssize_t use_debug_keys_read(struct file *file, char __user *user_buf,
+ }
+ 
+ static const struct file_operations use_debug_keys_fops = {
++	.owner		= THIS_MODULE,
+ 	.open		= simple_open,
+ 	.read		= use_debug_keys_read,
+ 	.llseek		= default_llseek,
+@@ -301,6 +303,7 @@ static ssize_t sc_only_mode_read(struct file *file, char __user *user_buf,
+ }
+ 
+ static const struct file_operations sc_only_mode_fops = {
++	.owner		= THIS_MODULE,
+ 	.open		= simple_open,
+ 	.read		= sc_only_mode_read,
+ 	.llseek		= default_llseek,
+@@ -437,6 +440,7 @@ static ssize_t ssp_debug_mode_read(struct file *file, char __user *user_buf,
+ }
+ 
+ static const struct file_operations ssp_debug_mode_fops = {
++	.owner		= THIS_MODULE,
+ 	.open		= simple_open,
+ 	.read		= ssp_debug_mode_read,
+ 	.llseek		= default_llseek,
+@@ -529,6 +533,7 @@ static ssize_t force_bredr_smp_write(struct file *file,
+ }
+ 
+ static const struct file_operations force_bredr_smp_fops = {
++	.owner		= THIS_MODULE,
+ 	.open		= simple_open,
+ 	.read		= force_bredr_smp_read,
+ 	.write		= force_bredr_smp_write,
+@@ -778,6 +783,7 @@ static ssize_t force_static_address_write(struct file *file,
+ }
+ 
+ static const struct file_operations force_static_address_fops = {
++	.owner		= THIS_MODULE,
+ 	.open		= simple_open,
+ 	.read		= force_static_address_read,
+ 	.write		= force_static_address_write,
+@@ -1177,6 +1183,7 @@ static ssize_t force_no_mitm_write(struct file *file,
+ }
+ 
+ static const struct file_operations force_no_mitm_fops = {
++	.owner		= THIS_MODULE,
+ 	.open		= simple_open,
+ 	.read		= force_no_mitm_read,
+ 	.write		= force_no_mitm_write,
+@@ -1315,6 +1322,7 @@ static ssize_t dut_mode_write(struct file *file, const char __user *user_buf,
+ }
+ 
+ static const struct file_operations dut_mode_fops = {
++	.owner		= THIS_MODULE,
+ 	.open		= simple_open,
+ 	.read		= dut_mode_read,
+ 	.write		= dut_mode_write,
+@@ -1371,6 +1379,7 @@ static ssize_t vendor_diag_write(struct file *file, const char __user *user_buf,
+ }
+ 
+ static const struct file_operations vendor_diag_fops = {
++	.owner		= THIS_MODULE,
+ 	.open		= simple_open,
+ 	.read		= vendor_diag_read,
+ 	.write		= vendor_diag_write,
+-- 
+2.43.0
 
-Also, kernel allocated IORING_REGISTER_MEM_REGION regions are no longer
-charged. They have been charged since they were added in v6.14. With the
-series a user with an 8 MiB limit can register a 512 MiB one.
-
-[1] https://github.com/postgres/postgres/blob/REL_18_STABLE/src/backend/storage/aio/method_io_uring.c
