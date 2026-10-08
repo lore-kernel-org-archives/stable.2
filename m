@@ -1,121 +1,209 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 128F8306768;
-	Thu,  8 Oct 2026 01:28:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 818564086A;
+	Thu,  8 Oct 2026 01:39:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791422895; cv=none; b=G7vTwUjB0MvUkk0nq4NmVbg/BA66Xq+c5QYBe1yHaM+dSMJpe8eLKDuH+WatEEV0mq9Y69rpCI1QWxyw/96+l3g2WMwg8slm8g/GjIQy+uUfAS1YVPRxBIvXhNTvQuIMJQ1L16tzKlNjcXLuUKCrxntqRWgUjd1A5V07Qf84t4E=
+	t=1791423571; cv=none; b=GKVgiliGFCo+zzU/oxhCNqugohB/oKhlBzJt/kSVhYr+FMHSgIGLRtAEVEBZdfKVRszSGqA4UTiwq3i4Cr5l1oz1bvWE67xW832ewwdxvLIlbQz+RFDM/18sZrasPAIV1A5smT8vwzF0Ur2c2fgn5yFmEe49D8C4+QE5SAkYhgw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791422895; c=relaxed/simple;
-	bh=0i/Q45BAHtk1SGbstgQ+fgF4wcI9oEQolU0fiiWOnsc=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=tcfaq/BVDKE1Y0q08S8N1shzh+pcfh78cplI/nx3IYyPbc2REMpYTUHkaaZfoQhElUb791WZPnTPpBBEztjWI8W7FSzfFvaDcljhbX4g2T+m1mS8EIOYasGdoNxnV+EtjRvQsMnWLiWy0h16dpKRV+XQUkcz6nCB1iklCE6myZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=L+pRrpfa; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1791423571; c=relaxed/simple;
+	bh=kP0JJQRwP0kNOX5s7X+UWUSB0zcc0qher0tSsqFRWKw=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=n6I/STKQKD4lGSK5oY4tg9w799W5ShRXTFF1ip+fO61/alhY1dQ3VC0iMj8p9A3D7c+rS3aEdGyclMSvTugFdOc0Aoa+Py7/E0w4fTnY24zZZh38vfRkvuprtKhrTUAoKJvmtAfZjCzZsnX1DWvlDw4u0JAfS23yTHpdtKmoT8U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jOH78Q+r; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="L+pRrpfa"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6981S1jvC074716, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1791422882; bh=zNWW0rZpoxZbcO0wO4Y0b53dr78WRP0MWi7x7lKBpFM=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=L+pRrpfaD8gLsieA4Z8uuTb2nc5C09BQ7dJRIJHsha0VE9lN8BtJi9iPMK9IZKF+q
-	 CMf+l3uRTGWOq0N9gfVlTbP5nQ58t6FMlb3HRuIFEALXh39uoH1Ot3USeDNt5oVimk
-	 phs6Gc9yNG8agdm/kQ1iVLTKTrb8UtCOJo23SrbN+9rSxSbJR9YVjDFY3f5MZ52e9X
-	 NgVGQccrIpk16tKZRsv0TDTAMMFgC0opNIDpmgHvY2j1GQ+NuiHU29G+AChB/jRkiw
-	 CgzDPgS52ZZL5bacZyYkMfRXEGbfPv3kJsOkiTdoJFtYRW0ISwtUl8pfT2eRgemgVW
-	 nziFDFUBJnNeA==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6981S1jvC074716
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 8 Oct 2026 09:28:02 +0800
-Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 8 Oct 2026 09:28:01 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 8 Oct 2026 09:28:01 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Thu, 8 Oct 2026 09:28:01 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Devin Wittmayer <lucid_duck@justthetip.ca>
-CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	Bitterblue Smith <rtl8821cerfe2@gmail.com>, Nick Morrow <morrownr@gmail.com>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: RE: [PATCH rtw-next v2] wifi: rtw89: usb: shorten the RX aggregation
- hold on RTL8922AU over USB 3
-Thread-Topic: [PATCH rtw-next v2] wifi: rtw89: usb: shorten the RX aggregation
- hold on RTL8922AU over USB 3
-Thread-Index: AQHdVqA7ValSLRsbmUeDytxruIYp87by2c7w
-Date: Thu, 8 Oct 2026 01:28:01 +0000
-Message-ID: <365ec643cfba4fa697bb4558a235d078@realtek.com>
-References: <20261007210958.56528-1-lucid_duck@justthetip.ca>
-In-Reply-To: <20261007210958.56528-1-lucid_duck@justthetip.ca>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jOH78Q+r"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 1B7F7C2BCB9;
+	Thu,  8 Oct 2026 01:39:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791423571;
+	bh=kP0JJQRwP0kNOX5s7X+UWUSB0zcc0qher0tSsqFRWKw=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=jOH78Q+rcjx7LrpduSg29lrWE6tRWt6kFGFCI5GPWiP7iwWX/QqiVUiYiXAnkE6rJ
+	 cdXhFJWUl47vbP5/HCMY+9inudu1T0Zl1+3A/uhxb40TnJ9uloMkm7GoAJuyq+OQDR
+	 J9HUYj74ofzIoLQ7aNtrekFfW1wAaSA+Cr7pjyvpiA3vdftnNWGzaqjGlTS1NF1NdE
+	 k9eOTCCk4hYkRUZUhf5VhSYA6EpypCK0aht7xyLu72POCJSFIlaWVQJlwElJEFENEO
+	 7RFznnErhTSBQiNgyo0+E6aCKTS60lX3IwBEcUorym8SAO2ZpoGCcbTGzmn1tSWrj2
+	 E3O7VXpDXXM9A==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E5EF1CA6002;
+	Thu,  8 Oct 2026 01:39:30 +0000 (UTC)
+From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
+Subject: [PATCH 0/8] xfs, nfsd: map a whole pNFS block layout in one
+ ->map_blocks call
+Date: Thu, 08 Oct 2026 10:39:29 +0900
+Message-Id: <20261008-xfs-nfsd-map-blocks-v1-0-560026cdccb6@samsung.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFH0xmoC/x3MTQqAIBBA4avErBtQsR+6SrSwHGuoLByIILp70
+ vJbvPeAUGIS6IoHEl0sfMQMXRYwLS7OhOyzwShTa6VavINgDOJxdyeO2zGtglY3vhpr58gayOW
+ ZKPD9X/vhfT8mSRkAZQAAAA==
+To: Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+ NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>, 
+ Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>, 
+ Christoph Hellwig <hch@lst.de>, Carlos Maiolino <cem@kernel.org>, 
+ Amir Goldstein <amir73il@gmail.com>
+Cc: "Darrick J. Wong" <djwong@kernel.org>, Dave Chinner <dgc@kernel.org>, 
+ Sergey Bashirov <sergeybashirov@gmail.com>, 
+ Christian Brauner <brauner@kernel.org>, linux-nfs@vger.kernel.org, 
+ linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Daejun Park <daejun7.park@samsung.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791423569; l=7438;
+ i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
+ bh=kP0JJQRwP0kNOX5s7X+UWUSB0zcc0qher0tSsqFRWKw=;
+ b=lrFrEp5QgOiMYXYb/d1JOtyxiu/wqdG0GoRLJODoSCxZGx7HOoaBjy9nT610jBvSfnZ2459rK
+ xx6ttYEwjQbBcOHKx8Ureevc8DCXHDLXWei5W7KXHOgjxDExfBquw4K
+X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
+ pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
+X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
+ auth_id=1122
+X-Original-From: Daejun Park <daejun7.park@samsung.com>
+Reply-To: daejun7.park@samsung.com
 
-Devin Wittmayer <lucid_duck@justthetip.ca> wrote:
-> The RTL8922AU holds received frames for up to a millisecond before
-> handing them to the host, a value carried over from the RTL8852CU.
-> On USB 3 that adds up to a millisecond of round trip, and under load
-> at 160 MHz the access point drops to lower rates and download suffers.
->=20
-> Shorten the hold on USB 3 only. On USB 2 the bus is the limit, and a
-> slow host needs the long hold to keep up.
->=20
-> RTL8922AU on USB 3 at 160 MHz, power save off for the round trip:
->=20
->                          x86, 6 GHz    x86, 5 GHz    Pi 5, 6 GHz
->                         before after  before after  before after
->   TCP down, 1 flow        613  1002     579   948     587  1010  Mbps
->   TCP down, 8 flows       656  1187     629  1080     605  1122  Mbps
->   round trip             2.33  1.29    2.25  1.18    1.42  0.84  ms
->   busiest core, UDP 200M  8.4  12.8     8.3  12.9     2.1   3.3  %
->=20
-> RTL8922AU on USB 2, Raspberry Pi 1 B+ at 5 GHz, 80 MHz:
->=20
->                         long hold  short hold
->   TCP up, 1 flow            102.3        87.7  Mbps
->   CPU, UDP 20M               50.5        77.4  %
->   loss, UDP 50M               3.8        85.7  %
->=20
-> Fixes: 32cee8a9bb66 ("wifi: rtw89: usb: Enable RX aggregation for RTL8922=
-AU")
-> Reported-by: Nick Morrow <morrownr@gmail.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
+nfsd calls ->map_blocks once per extent of a block layout. XFS takes
+the iolock, flushes and invalidates the page cache, maps one extent
+and, if it allocated blocks for a write layout, updates the inode and
+forces the log, all again for each extent, and the mapping of the file
+can change between the calls. Christoph asked for ->map_blocks to
+return several mappings instead [1], as Darrick had suggested [2].
 
-Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+Patch 1 is "xfs: map pNFS layouts to the end of the extent again" [3],
+posted on its own and reviewed by Darrick, but not in a tree yet. It
+changes the same function, so it is included here unchanged.
 
->=20
-> Small-packet mode is at the link below. It sets both the hold and the
-> size to 1, and nothing in that driver selects it.
->=20
-> https://github.com/morrownr/rtl8852cu-20251113/blob/fcb70aac55585a8e63c72=
-da4e6d24c39d7494307/phl/h
-> al_g6/hal_rx.c#L805-L808
+Patches 2 and 3 fix the ranges that xfs_fs_map_blocks() gets from a
+client. An RW LAYOUTGET at offset 0 of an empty file for 16 TiB shuts
+the filesystem down, because xfs_iomap_write_direct() keeps the block
+reservation in an unsigned int; patch 2 refuses a count that does not
+fit with -ENOSPC. A LAYOUTGET for NFS4_UINT64_MAX bytes, or at an offset
+of 2^63, makes the range check wrap and maps nothing; patch 3 fixes the
+check, which the rest of the series relies on. Both are fixes for stable
+kernels as well, and leave a range that fits the free space as it was.
+Patch 3 needs patch 2 there: alone, it turns the NFS4ERR_IO of an RW
+layout to the end of the file into a shutdown.
 
-Thanks for the info. I quickly check the internal commit log that people wa=
-nt
-dynamically select the modes depends on RX conditions. I think the actually
-selection might be only existing in special branches.=20
+Patch 4 lets ->map_blocks fill an array of mappings, without a change
+in behavior. Patches 5 to 7 make XFS map the whole range one extent
+after the other, under the iolock and, as Darrick also pointed out in
+[2], the invalidate lock, so that each mapping starts where the one
+before it ends, with one flush and at most one log force. Patch 8 makes
+nfsd ask for all extents at once and check that they fit together,
+instead of trimming them.
 
-Let's take this patch in advance. If you or other people can fine tune=20
-the threshold by certain conditions dynamically, we can apply the patch
-in the future.
+The series is on top of nfsd-testing 214e388464bf ("nfsd: do not return
+overlapping extents in a block layout"). Patches 4 and 8 depend on that
+commit, which added the comment that patch 4 changes and the trim that
+patch 8 replaces. Darrick's comment on that commit [5] came after it was
+applied: patch 4 documents that a mapping may end past the range, and
+patch 8 removes the comment he asked to fix. exportfs_block.h is
+maintained with nfsd, so I would suggest the nfsd tree, with acks from
+XFS for patches 1 to 3 and 5 to 7. Patches 1 to 3 could also go through
+XFS first; they apply to XFS for-next 197f678cccba as they are, and
+patches 5 to 7 do not apply without them.
 
-Ping-Ke
+Tests. QEMU VMs, the server exports a 32 GiB XFS on an NVMe/TCP
+namespace, pynfs or the Linux client, KASAN and lockdep unless noted.
+"before" is the base with patch 1, "after" the whole series.
+
+LAYOUTGETs for the first 256 KiB of a file in which 32 blocks of 4 KiB
+written with O_DIRECT are each followed by a 4 KiB hole, 64 extents,
+20 LAYOUTGETs each, KASAN and lockdep off, time from a kprobe on
+nfsd4_block_proc_layoutget():
+
+                                            before      after
+  READ: ->map_blocks calls                  64          1
+        median time                         26 us       9 us
+  RW, 32 holes allocated:
+        ->map_blocks calls                  64          1
+        log forces                          32          1
+        median time                         166 ms      2.2 ms
+
+RW LAYOUTGETs for large ranges, minimum length 4 KiB unless noted,
+each on its own boot:
+
+                            before       patches 2, 3   after
+  empty file, 16 TiB        shutdown     NOSPC          NOSPC
+  empty file, to the end    IO, WARN     NOSPC          NOSPC
+  64 KiB allocated, then
+  a hole, to the end        IO, WARN     NOSPC          NOSPC
+  empty file, 100 GiB       NOSPC        NOSPC          NOSPC
+  empty file, 16 GiB,
+  minimum length 16 GiB     16 GiB       16 GiB         16 GiB
+
+NOSPC is answered before anything is allocated. WARN is nfsd's warning
+about the non-standard errno -63.
+
+pynfs, with BLOCK5 from [6] and the empty lou_body of BLOCK3 passed as
+bytes (as shipped, BLOCK3 fails with a TypeError in pynfs before
+anything is sent): BLOCK1, BLOCK2, BLOCK4 and BLOCK5 pass before and
+after, five and three runs, and BLOCK3 fails in both with
+NFS4ERR_BADXDR, as a zero-length lou_body has no extent count.
+GETLAYOUT1, a READ LAYOUTGET for NFS4_UINT64_MAX bytes, gets NFS4ERR_IO
+before, NFS4ERR_INVAL with patches 2 and 3, and a layout to 2^63 after,
+also with XFS_DEBUG. LAYOUTRET1 and LAYOUTRET3 then run and fail as they
+would on any kernel (a TypeError in pynfs, and no current filehandle),
+as do CSID7 and GETDLIST1 before and after. On a test kernel whose XFS
+does not trim a mapping to the offset asked for, BLOCK5 gets
+NFS4ERR_LAYOUTUNAVAILABLE and nfsd warns, instead of handing out
+overlapping extents. With a process on the server that writes a shared
+mapping of another file in a loop, the pynfs run gives no lockdep
+report.
+
+fstests generic/075, 091 and 263 over the block and the SCSI layout
+give the same results before and after (075 fails with an fsx size
+error in both), and the client's bl_alloc_lseg() returns no error.
+With XFS_DEBUG, of generic/013, 075, 091, 112, 127 and 263 only 075,
+112 and 127 fail, which also fail without this series on nfsd-testing,
+and XFS logs no assertion.
+
+Clients writing new files through their layouts, four cases, read back
+on the server: no block is lost before or after. This test runs on top
+of the nfsd layout recall series [4] as revised for a v2 that is not
+posted yet; this series applies to it without conflicts. Without it,
+nfsd-testing loses blocks when a layout recall fails.
+
+Not in this series: Darrick's third point in [2], that the reflink and
+realtime checks are made before the locks are taken, and the window
+between ->map_blocks and nfsd4_insert_layout() that Christoph mentioned
+in the same thread, which this series narrows but does not close.
+
+[1] https://lore.kernel.org/r/20261007131133.GB30647@lst.de
+[2] https://lore.kernel.org/r/20260519145949.GH9555@frogsfrogsfrogs
+[3] https://lore.kernel.org/r/20261006003425epcms2p586728e55ff5f9bbabc506b672fc4a421@epcms2p5
+[4] https://lore.kernel.org/r/20261006-nfsd-layout-recall-v1-0-b59b31caf342@samsung.com
+[5] https://lore.kernel.org/r/20261007165101.GD2705364@frogsfrogsfrogs
+[6] https://lore.kernel.org/r/20261006002622epcms2p38e492aef17fdf79e48b05c9aada2918d@epcms2p3
+
+---
+Daejun Park (8):
+      xfs: map pNFS layouts to the end of the extent again
+      xfs: refuse a direct allocation whose block reservation would wrap
+      xfs: clamp the pNFS layout range to the maximum file size
+      exportfs: let ->map_blocks return more than one mapping
+      xfs: factor the mapping of one pNFS extent out of xfs_fs_map_blocks()
+      xfs: take the invalidate lock while mapping a pNFS layout
+      xfs: map the whole range of a pNFS layout in one ->map_blocks call
+      nfsd: get all extents of a block layout in one ->map_blocks call
+
+ fs/nfsd/blocklayout.c          | 134 +++++++++++++++++++++-------------------
+ fs/xfs/xfs_iomap.c             |   7 +++
+ fs/xfs/xfs_pnfs.c              | 136 +++++++++++++++++++++++++++++------------
+ include/linux/exportfs_block.h |  14 +++--
+ 4 files changed, 185 insertions(+), 106 deletions(-)
+---
+base-commit: 214e388464bf850fcdc5d656fd39909f0a1ee83d
+change-id: 20261008-xfs-nfsd-map-blocks-417d5b6aae42
+
+Best regards,
+-- 
+Daejun Park <daejun7.park@samsung.com>
+
 
