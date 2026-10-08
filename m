@@ -1,136 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B6604C9DE7;
-	Thu,  8 Oct 2026 15:09:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D93BB4CEE7E
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 15:25:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791472182; cv=none; b=QsL2ah4ITl6uLM1NKERUp7V9RvQ6SPkwe6O2oqo3dm9ZhhQQRgrsfihg9/l11FMaK6/GH9+uhlsjGZYjbpXtCWBJig3u+UjVyzkhw8PaSuk3X1jjxeJy3gy0PmD4vm/cngYe8Gew6/8EYTNJCC7bJ/hn2kFk3fiP5VWr7yeXr5s=
+	t=1791473165; cv=none; b=Vb1vGBOmGhrjiZNTfzS4QxkxJebKG5j/UifVjNji1uiGj0tUy9olxClIm6Q3BkPbHOlw32stkYbMKvLQZons8WnOVFKxAx6lh9+Edbkcw+dkbPzLR66FiaX+I4JJLcV6idkEev3Ok6SHUMc6rg2TNhGFlU6DPn+bIEPrNG6u+CE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791472182; c=relaxed/simple;
-	bh=tHtcz3IQH5dzIGfvFBX75bWxYr6B1a7IaiKSGWt7pIA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Z4gwJZVXuRt8IvHBpiK1VPeTiTMq1us0zo8mWJvbrfyhT8Nhj7jswB/BLDw3Nadz9jp9WB9TCkBOB670A24ksnX7tpS2S+jli7CQZh2gTfxLXe87cGyhrq41JpyoA/cafBC6HgMrLAJHFKiJ34kgBPRJakCC7qfnO5F24KIhZdI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FzuH0tZA; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791473165; c=relaxed/simple;
+	bh=TrVcGHbj2TtSqdQJyHLxeKivTSFUEkce/cKcVLryNGE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=I1qGg2RK3qiZW2lYYyuW6+lbcr3UVhbdoaMQlWF2sL6+ZttcOS15MYK/nAfEDO4lvS17LjVQ39Ag3oALkMnec9xYkalDHrw3ysRlTvbXmbDuGmd4wbfwzngO7O8KLSbKzNb454qONBHh6ty3P1wARf31NXkXLrlfBRhXbwkM+Qk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EelizpaG; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FzuH0tZA"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 25EEFC2BCF5;
-	Thu,  8 Oct 2026 15:09:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791472182;
-	bh=tHtcz3IQH5dzIGfvFBX75bWxYr6B1a7IaiKSGWt7pIA=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=FzuH0tZAURDkIp6BuYinYV5glWUitOfpdmW1MjQ9vbOtf9uug5xa7D/cZAJIPH1hG
-	 4bTI1TgtpuI0QpWUJx6c0rdTeSlpdF7xGoz9Uy2081fYOc3LY55hOWMlrQrB7TeYw8
-	 mo8f1WusU27BHoTOfz6kbWxRF8EoCM4NrUnJiedK0muEu70VXnUXD8kyNgqW71mQ3n
-	 PvnirgF/D23vkvpGG8Tds8xDF0CoPux+kDXpseTPHAgDgMqHZasxhvKqzvGCdHcewF
-	 Fc3FjcetP4ykPt5fJDXHGio+CyH0HrPTPt5jr8n8HZUWS7OOF3Xw1FKQlZEU/aU4az
-	 jgLAtNGmVZsbQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0FDB1CA600C;
-	Thu,  8 Oct 2026 15:09:42 +0000 (UTC)
-From: Praveen Puglia via B4 Relay <devnull+praveenpuglia.gmail.com@kernel.org>
-Date: Thu, 08 Oct 2026 20:39:37 +0530
-Subject: [PATCH] media: i2c: cvs: Leave the privacy LED to firmware on
- Synaptics SVP7xxx
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EelizpaG"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3a857ea7754so192000a91.1
+        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 08:25:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791473154; x=1792077954; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=n4w9bZBZ+hZ07uC6pPSV2O57YUginTevP0JitdrcPK8=;
+        b=EelizpaG98H/6ol4S6fWhXNCASN6Spw/+xv46ntz72aluG5qpEKTM8KUOCHTj6l+Yy
+         Y0dEEwHjgzIXrBOmwYuM/sv5q7rjpk+vDwTnlxG6XoDZXjfJEpsHzZXVbh1THh38X+I1
+         AHAlT6MSgNxEl+2mQjOhVMbVeARKaLEF/EUL7pUMA9jAbFnezzx0RHJLXvc9oJe5jgUM
+         64E/EY70jsnovJ8wSauteR6BUsT4QTaWkEeHN6VrrRl3iBBAuMAy342dzRrexn6vPGnu
+         kqhXfPpKPeeqWH0FmRt7QvqREGZba326f1rrjsZFukzXdWe2IN9XLvbOq9Vf1NKdxObm
+         r80A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791473154; x=1792077954;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=n4w9bZBZ+hZ07uC6pPSV2O57YUginTevP0JitdrcPK8=;
+        b=sGP/UOR9nh4t1xcYQft5f4ey9WerGu3DQzf9PZiaAkAepIMTYkH8xXbySqrPw57UUi
+         +z1gyvNmLl7CQMLY1H814APa1tn9wV0U2K05JUJUqkQgmvbeN1MID+GxOMT+DmIq+gU/
+         CyIpGPGS7ZruB9waZ6vyiXYmMxCMgTuDRkbzB4su1hqGkbsXlEtqzm1yO3+68mIgzO8/
+         Rsw/B8IbDQP46LnI5RtTLEiEjcE3tumxFdGZ+OJd+BzmiMPQq9PRrw8Mshj4CIa1h+JS
+         cnMebS/pxrV9xPllNfPlRdy+0bZ+F203hMVByLaVWyclfQBY1e8TmVJ6D9k2OUKTUTS2
+         LCQA==
+X-Forwarded-Encrypted: i=1; AKwUvBw1UPUsoMPaPl7iU2NzOQzut5e14cr7skqYRkmTeG6U1J6HJ7OQdJrIp8omHO2qdxjCB+SrdkU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKBPcN6j5UdHGhXISCtr1LHuBzdIARjjFMW/vzSJrwyAYdMDcCj
+	No4CKw8DJ5OPBlm+j+VHj+Fb0MktrbcTJgaKxn3Gq/46rgE94vxLKGF3
+X-Gm-Gg: AYBFou3HMjO0YWyaZ7H42hGiMk7H8693JuUqPWTSp6j+IUzrL3NQojdYCWa/37BGU42
+	sJurOLUNb9doO/Dop7l9R4Ej6M+5syOC/rlEXrHmRX/MYF0JcThuL50cZHGTMduuHit+4z69l2e
+	DylEVPHjFZj4Wk9NYuFA1gc5mWvjN3AgqadJ3k632mZ8isehAHuf8zFobskbCwIGGmuJozLzftG
+	sfmf3dSfrVgusNUNGIdFRxI6Mk5j9wtzgZfc1TD0ZoKpvCA62N1wxgkaUrDTFGp3QOCLfd4b80H
+	wWyeq/CDiBg9UrF3d43o6Rzy/79kedguKn3e3kCqR6D5B5drGddRABA+FDMIa2ZJPfWCQrFrgEE
+	SIy28WSKHnqf3gbW1dVb6kmyDAPi+e2DTVFTsbf6VJWJnaZbMV1njgrZHeqHvXqjvfYyldJjXrI
+	7dKsOB/hgQiir/kgNVJJ16FVN+mtQLoX8Qhg8y2omylxSrpcRz55bemulW542U8kPHjTEczCD2L
+	z0=
+X-Received: by 2002:a17:90b:3b46:b0:3a8:9db2:a59 with SMTP id 98e67ed59e1d1-3aa7c6c21f5mr4045344a91.0.1791473153896;
+        Thu, 08 Oct 2026 08:25:53 -0700 (PDT)
+Received: from ser8.. ([221.156.231.192])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9f1c17b63sm5554792a91.12.2026.10.08.08.25.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 08:25:53 -0700 (PDT)
+From: DaeMyung Kang <charsyam@gmail.com>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Tom Talpey <tom@talpey.com>,
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	DaeMyung Kang <charsyam@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/3] ksmbd: return end of file for reads past a named stream's data
+Date: Fri,  9 Oct 2026 00:25:35 +0900
+Message-ID: <20261008152537.4147299-2-charsyam@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261008152537.4147299-1-charsyam@gmail.com>
+References: <20261008152537.4147299-1-charsyam@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261008-cvs-privacy-led-v1-1-b78d5c512cba@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avErBtQg4yuEi1CxxoIkxGkkO6et
- HyL/ytkEqYMc1dBqHDmKzbovgN3bHEnZN8MRplRKzWhKxmTcNncgyd5tF4FMxjrBh2gVUko8P0
- fl/V9P+1l4LBhAAAA
-X-Change-ID: 20261008-cvs-privacy-led-7d0f2327c31f
-To: Miguel Vadillo <miguel.vadillo@intel.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Mehdi Djait <mehdi.djait@linux.intel.com>
-Cc: Marco Nenciarini <mnencia@kcore.it>, linux-media@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Praveen Puglia <praveenpuglia@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2309;
- i=praveenpuglia@gmail.com; h=from:subject:message-id;
- bh=HkOKW4kz9V77Mdvv3KELVLj5WUPOFOQXjEg6NNQFd4c=;
- b=owEBbQKS/ZANAwAKAY+nnsgxDLtBAcsmYgBqx7I0EjPpdtqo3fOlsDpQ/25VU/sHYrU9C62GA
- d9yuk5KIjyJAjMEAAEKAB0WIQQFOQz1fOStysPMknmPp57IMQy7QQUCaseyNAAKCRCPp57IMQy7
- QeZ7D/9A0UIBEfVNj5qNGFmEqbgQ3jjVB+0DkgqHFJ/mGb2ytLTE2vhZRdOcaKquBL8U3KzV3Sd
- pmst/g/+KIAWtPBJbQz40P7TsZtToOsZ9pwMJQtgI++BSBdhQ9dg6rCcEAevDxiqgHcmuB5JDst
- jsr6LMZCtcx9Vmzn4Wmj5bZIIRbXirGuK6yBx/bl6xoYSlBr8t5BAB9g9NTTqRmbTlAEBUZdmRZ
- tXZkUOIrBzfqQbjVVtXzsz3XGopcIXCeZ3efwsNH/KDboHONlhtgPCcvOuNnKXbfjXxdwo+cmcU
- DPWpP1KcuIOcrM/6bR+nZQQ/VwcF9g8KiC92Ae+YpI83jKSL8xRxWZGWHKC6zKcLJNVTLcNfUmq
- /2SO3Ip7bTDGaG8cYGvw5x+nWOSu2V8F/yIkwln002qwaUdBl8Q0FnCFmvEHmpcboG8nw8DcJw2
- XCBqHvc1AhxhgrHuqLhgPqiaNmoSww3F+HmSlPzsbNeuvs+pwKdS8TyZEVPsUYYhP4gjTK+mx1a
- iEOJM3UxAfFM9CzmsEl8/GxuiwrPZTUkU902VDWulWmQNxurlbA1UbTIFEURLQ6IiEApASVDZAv
- ZQgoDyWdsY8LT+aAez3PB86TZc3hXLRmt45ODdg005q0IfYZVokqzC4+C7RoEr6QlCbP8oRRXVb
- be9diTGXhgKLQKg==
-X-Developer-Key: i=praveenpuglia@gmail.com; a=openpgp;
- fpr=05390CF57CE4ADCAC3CC92798FA79EC8310CBB41
-X-Endpoint-Received: by B4 Relay for praveenpuglia@gmail.com/default with
- auth_id=1134
-X-Original-From: Praveen Puglia <praveenpuglia@gmail.com>
-Reply-To: praveenpuglia@gmail.com
+Content-Transfer-Encoding: 8bit
 
-From: Praveen Puglia <praveenpuglia@gmail.com>
+A READ on a non-empty named stream at or beyond its end fails with
+STATUS_INVALID_PARAMETER. ksmbd_vfs_stream_read() returns -EINVAL when
+the offset is not below the stream length, and smb2_read() maps -EINVAL
+to that status.
 
-The Synaptics SVP7xxx (06cb:0701) quirk sets ICVS_HOST_PRIV_CTRL, so
-SET_DEV_HOST_ID tells the CVS firmware that the host owns the privacy
-LED. Nothing in the driver drives it, though: V4L2_CID_PRIVACY is a
-read-only placeholder. The firmware then never turns the LED on and the
-camera streams with the LED off.
+smb2_read() already turns a zero-byte read into STATUS_END_OF_FILE, the
+status a regular file returns at its end, and an empty stream already
+takes that path. Return 0 instead of -EINVAL so that non-empty streams
+do the same. Clients that read a stream until end of file otherwise get
+an error once they have read all of its data.
 
-The host has no way to drive it on these machines either. On the Dell
-Pro Max 16 Premium (MA16250) the only camera LED that INT3472 exposes
-is the IR flood LED. The out-of-tree Intel vision driver sends
-privacy_led_host = 0 for this bridge, and the LED works there.
+The buffered copychunk path converts a zero-byte source read to -EIO,
+as it does for a regular file that shrinks during copying.
 
-Drop ICVS_HOST_PRIV_CTRL from the quirk (quirks 0x7a -> 0x3a). The LED
-now turns on while streaming and the stream is unaffected.
-
-Tested on a Dell Pro Max 16 Premium (MA16250) with v7.2.8.
-
-Fixes: 8e2b43d2c10b ("media: i2c: cvs: Add driver of Intel Computer Vision Sensing Controller(CVS)")
+Fixes: 2ae1a6cc4302 ("cifsd: fix potential read overflow in ksmbd_vfs_stream_read()")
 Cc: stable@vger.kernel.org
-Link: https://github.com/intel/ipu6-drivers/issues/417
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Praveen Puglia <praveenpuglia@gmail.com>
+Signed-off-by: DaeMyung Kang <charsyam@gmail.com>
 ---
-This is my first kernel patch. I found and debugged this with an AI
-assistant (Claude), then verified it myself on the laptop: quirks read
-0x3a, the LED turns on and off with streaming, and the stream is
-unchanged. Tested as a rebuilt module on Fedora's v7.2.8, not on
-v7.3-rc.
+ fs/smb/server/vfs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Marco Nenciarini reproduced this on the same laptop with Debian and
-v7.2.6, and found no host-controlled privacy LED pin in the DSDT/SSDTs:
-https://github.com/intel/ipu6-drivers/issues/417#issuecomment-5996738346
----
- drivers/media/i2c/cvs/core.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/media/i2c/cvs/core.c b/drivers/media/i2c/cvs/core.c
-index d4a3b9c3ba..3520325717 100644
---- a/drivers/media/i2c/cvs/core.c
-+++ b/drivers/media/i2c/cvs/core.c
-@@ -72,7 +72,6 @@ static const struct icvs_device_quirk cvs_quirk_table[] = {
- 	},	/* Lattice NX33 */
- 	{ 0x06CB, 0x0701, ICVS_SKIP_FW_RESET |
- 			  ICVS_HOST_SENSOR_PWR_CTRL |
--			  ICVS_HOST_PRIV_CTRL |
- 			  ICVS_FW_BUF_SIZE_256 |
- 			  ICVS_FW_HEADER_SIZE_256
- 	},	/* Synaptics SVP7xxx */
-
----
-base-commit: 47324d3a5b3abd781295044d01d92d09f184e872
-change-id: 20261008-cvs-privacy-led-7d0f2327c31f
-
-Best regards,
+diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
+index 74cd8007a..ae9f9a693 100644
+--- a/fs/smb/server/vfs.c
++++ b/fs/smb/server/vfs.c
+@@ -269,7 +269,7 @@ static int ksmbd_vfs_stream_read(struct ksmbd_file *fp, char *buf, loff_t *pos,
+ 		return (int)v_len;
+ 
+ 	if (v_len <= *pos) {
+-		count = -EINVAL;
++		count = 0;
+ 		goto free_buf;
+ 	}
+ 
 -- 
-Praveen Puglia <praveenpuglia@gmail.com>
-
+2.43.0
 
