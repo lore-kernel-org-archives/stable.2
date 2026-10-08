@@ -1,85 +1,36 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-166.mta1.migadu.com [95.215.58.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2B0031716D
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 06:49:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04BC03CBE79
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 06:53:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791442151; cv=none; b=Sqieghb5gekp9mM7xbPOhTQDvbyeoIFOnJcgn8Rl9EjOHqBPNL0Z67zVfKKBRG7pQW2mUpb+2Xc0qvbrVQzUXKAJw1M8wuWopQEUiKGpHEmmQXADXMb9SFwmLSWZJmu/tstwlywW4fk0hyNqqpp9khOsNestiN29KfCp6dsIFUw=
+	t=1791442423; cv=none; b=VRSCL0EnnpiQZvPW6fW51l7pE3mL1vcAn6+4CeWm06DiZOzP0vAM57euffNULCtI3tvT2xu567RlBlgr9xgGTLelIapo1Ww8+coTXBstCyXRazJ3sUwB/M6AA/ZX8uXexQtZ4egSXrGBLeCdPmrKC91eJKQjihBxvJZigCW84cg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791442151; c=relaxed/simple;
-	bh=icP0yGCzswj6mUyjJWo0McyYmwhFhCq9CCcJJ1QQl9k=;
+	s=arc-20240116; t=1791442423; c=relaxed/simple;
+	bh=z2ehbjfdNRtNjl3Xf1WKPjKRNxEhnPWPrzzFO6wlB48=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=k2lD8XsgLVqe1zrCHs1TXIWsWy9LREySzGh4pkZZnpcZsBg8/h5QH/IRL5pmgqxCAyzGKxj63xKFOv2om4tSw/LhZopkJ5NpKCh8Mgw0FjMTuoS3EeAq2fQjfT4qhPaV4IX4dzl8stygipG0dD3i95pmvI1fxjIj85oYSnd9coc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Kc6kdFcN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MOYB1G96; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=A41nIjlnyK0GQvepavEUeuYY5e94gY7GVTbAHJ/W84NRJwRw845N/wTQOGKKPV6RtQHr7b4A+PXFBID3DEuqRsidTOvn389vvSTzOJUDHfTx9TIvUPlYIIk+Q3U86ceYDORnL8Go3HBsowSIOeaeByhfJra8u18GZjm29HxzHvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=doZeMxEJ; arc=none smtp.client-ip=95.215.58.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Kc6kdFcN";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MOYB1G96"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6984BUBv1775342
-	for <stable@vger.kernel.org>; Thu, 8 Oct 2026 06:49:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	/thxqmSGXCGdxA0ka/F92mAeNv7Z/Yh5f4+3MKsC4Es=; b=Kc6kdFcN81smkTc5
-	skQNvg0P4jBmpKtFgj3UYdoG7PF8j4K9I0mNYgd9FDGK9SsaHCpTlX063CSLTcfY
-	rTsBJLTroHIUL+yvDjSK/BG1DF4bPMWUpiLo256r2FvBuLNxkg4M/uVZEO76GZOx
-	sNdNLiISe+cRJhFLWeBCUdQqeeHsjxah/7kpxa6bxta9bc071wNYE+ceboxqu5zS
-	XGMfYsMCswnzJd/4djH2ZZkwkqKRGRrOI2svWGTS2riZB0PnIc40sTuCefyakSUo
-	aNUNVpTDvAO5Wvho69fMa9LrzwHtD+i7lJfTgmNLyMx9niy07urjSrcCqGEPrp0A
-	cCnHmA==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe39g5d-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Thu, 08 Oct 2026 06:49:09 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3965ba1ba3eso6247407a91.2
-        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 23:49:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791442149; x=1792046949; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/thxqmSGXCGdxA0ka/F92mAeNv7Z/Yh5f4+3MKsC4Es=;
-        b=MOYB1G963K/BeM8ztziSTdjHTnovpgMtFv7I8Buk4SZrHpOs+I8IbfYd/JNon+CxWp
-         ToKSZYHM3HCJhO1cYSdxTKdgcJzKJ5JqWDQYw4+5ITeKv2t6bgGUQmacmjz3XrE7lIqR
-         zCPxO2UVd2vUn1VlNwJTXaefxdyLdyGEGP8LJ+tHu9PO+VFV8xVaEb4EQgZIr77FspuP
-         q5ZOxA7uipX/5hRhO/By3Jpakne2FRbBbJikNzqtlGOTzoYa1G+jExX8XHU8lRbn1Dyj
-         F323lVM16sw3W0flr5G2uQCXReFGBWI1cfIUAsYYXsKB8xg71HEk9NCgAzVf8NLi0S3A
-         5GeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791442149; x=1792046949;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/thxqmSGXCGdxA0ka/F92mAeNv7Z/Yh5f4+3MKsC4Es=;
-        b=A8QLevUvmx6PJZ9GY7Vt4tGs0ReO8n5VGeP1JQG8BZHssx5W1Cncu20pNpdOBIiRFN
-         4vW8YYwP6qLoeU+vxpvZzwH6qhx7AEEEKpLpXkMe9KUDG7Ddj1r15R7i75SdJpTYtui1
-         V9XMCafQFehmCvLI3FjA5X7l47a5OgYnjqSFPkg9hjVv8h9R/U9TwCq/bcJSTq2x0HCI
-         /8tYfd7tW1JNYKCqU0JPlWP/VxHngXv4YOEc5hZfrk21YEvCIEbDOrlfWaCMZgWkjXuQ
-         2hbJckXHG7uGjO0GvozF+eHKaRG7s/sSD41LB2CLZkYqN3py/Q0X8MPo2RKGnh46vZs0
-         VJuA==
-X-Gm-Message-State: AFq9FYKBh6pbGfH8m+lelUL/aerKVBueadk/TuT2EulfFwqDoHQvwkyt
-	mO+68vDxTIwvz941rKs6vt+2mTFT4s1fPOErCTRe2bRD9bG9R3oJuUDf9Cvdo34SpE96cggj5Io
-	t3rx+r88B7Yt0B8K9cTDKA74S/AoCZXGEKDmaYG/c9u9pGDQ6fLuotD63r1E=
-X-Gm-Gg: AYBFou1OSHtximBuQnBDxvCtt+8ikoVBCY+ncvRETdgu1gpjG8o//wpvNw6YiQ8wi1C
-	/pUzlH40zMCIjg4am4AkpFbDtuCh6Ub3BYossmReqdNBsdGKdK/LXWHMY/ZMLkhi2u9kXC892yo
-	9Q+E+XHOg/zNotQP54z0jb0rhyC6Mf75hoUxhWX0lLsm9+yQoAaxrQjG89rrTr78kiYJpJBrj8B
-	tuMzPt8hABuE1Hn7DSleSTSMaX+KVPpWXCjmYh9odQvRpfY56jV1/bZ0IO6rRVtqu+zWlqCxW1z
-	33pXAKW3+/bNhKn3iWPdnLOu6FuoawvV0Xr4VrVElxhTUPLezw0jsZHUQ2xSs0VcPOo2Swu6IpS
-	znNV0+gqVfDwVLXPRPAoOOdvvTVJULUD9nIkazwDCiGQS3el5Rmb1sMKflBXw7kk2tuTMFrM3
-X-Received: by 2002:a17:90b:3b4a:b0:3a4:adf9:5d38 with SMTP id 98e67ed59e1d1-3a89f674ce1mr3494811a91.4.1791442148493;
-        Wed, 07 Oct 2026 23:49:08 -0700 (PDT)
-X-Received: by 2002:a17:90b:3b4a:b0:3a4:adf9:5d38 with SMTP id 98e67ed59e1d1-3a89f674ce1mr3494804a91.4.1791442148021;
-        Wed, 07 Oct 2026 23:49:08 -0700 (PDT)
-Received: from [10.133.33.26] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9ff8d5896sm2860608a91.12.2026.10.07.23.49.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 07 Oct 2026 23:49:06 -0700 (PDT)
-Message-ID: <2689b288-05fa-4a51-be5d-c65fdee22ea6@oss.qualcomm.com>
-Date: Thu, 8 Oct 2026 14:49:03 +0800
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="doZeMxEJ"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=z2ehbjfdNRtNjl3Xf1WKPjKRNxEhnPWPrzzFO6wlB48=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791442417; v=1; x=1792047217;
+ b=doZeMxEJq3M+Ribv2UYlLjcTVwQgdFjMVCQzcDrgX3Dciuiw3O8QBBGF0nAo/LmK3tP/sqju
+ 5k7nSQyOFcb80Vi9qYbxjUFwTZLdpXqOpB4+Yl/C/EVBu/VclVMWpxHmVUr7ui2zPjRS4+VM4OS
+ 57orGijM8Pa/T8FwfbpKL5K8=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 8493ebbdacfda9ac;
+	Thu, 08 Oct 2026 06:53:37 +0000
+X-Mizu-Trace-ID: 8493ebbdacfda9ac
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <a15de109-a88a-49f8-80cc-7bf216d6954d@linux.dev>
+Date: Thu, 8 Oct 2026 14:53:02 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -87,69 +38,260 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] wifi: ath12k: validate MAC/PHY capability count before
- saving
-To: Jiale Yao <yaojiale02@163.com>, Jeff Johnson <jjohnson@kernel.org>,
-        Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>,
-        Baochen Qiang <quic_bqiang@quicinc.com>,
-        linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
-        linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-References: <20261003101944.596546-1-yaojiale02@163.com>
-From: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+Subject: Re: [PATCH v11 2/7] mm/vmalloc: undo partial mappings inside the
+ mapping functions
+To: Uladzislau Rezki <urezki@gmail.com>
+Cc: Suren Baghdasaryan <surenb@google.com>,
+ =Kent Overstreet <kent.overstreet@linux.dev>,
+ Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
+ Aaron Tomlin <atomlin@atomlin.com>, Andrew Morton
+ <akpm@linux-foundation.org>, Alexander Potapenko <glider@google.com>,
+ Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>,
+ Vlastimil Babka <vbabka@kernel.org>, Michal Hocko <mhocko@suse.com>,
+ Brendan Jackman <brendan.jackman@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-modules@vger.kernel.org, kasan-dev@googlegroups.com,
+ Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+References: <20260929082014.160587-1-hao.ge@linux.dev>
+ <20260929082014.160587-3-hao.ge@linux.dev> <arzgoe-bXAz1poAt@milan>
 Content-Language: en-US
-In-Reply-To: <20261003101944.596546-1-yaojiale02@163.com>
+From: Hao Ge <hao.ge@linux.dev>
+In-Reply-To: <arzgoe-bXAz1poAt@milan>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=J4s/fwnS c=1 sm=1 tr=0 ts=6ac73ce5 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=Byx-y9mGAAAA:8 a=EUspDBNiAAAA:8 a=CgAF95LDYrE-zO_MwBMA:9
- a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDAyNiBTYWx0ZWRfX/bCEfHQvoTWe
- IxJaeHS0GoRZHeT10oj23XxOrKU0plngvNDD0MB9YtKuk1+OrabszuX5chHwMRc+KDxaAJhmP1N
- +d429urKPw2njmkOtcoZRJ7L7cPwis4=
-X-Proofpoint-GUID: wKSPNMidTJYJSuCzID0xP6tTAc3-ZFa5
-X-Proofpoint-ORIG-GUID: wKSPNMidTJYJSuCzID0xP6tTAc3-ZFa5
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDAyNiBTYWx0ZWRfX+42t7eg+eD0j
- DI9JvSR2VM4rFW4L0ZE1kz1eyyxZmtTHGGGhJmYkrb6qKfN0zMcN05fREFTm3XlZZSXQ+s58CCM
- 6tFOhNFFDEmMKnghxsjoeCExZdp4VCpCUL2dFpy2M8Zuc2g4kKW5wJbfC7bRaqzTMHnr1yj1tNg
- BlsPUwmWkdRZSopWpNjiG+zbrHJm3EjtRU3sXrWISMgE1S4C9ErR125IasbQ9UoOZdyywPoetzD
- 4GLU2W1TYKl7jZUa+BXfBhcFNcqfRy40MbfnPdCNoh1quHxZNRao0PN9qVkofF4YoL/sE3p+JIh
- jWvqAPY2KB+Ue75UVYLCzpHIQpBXAMoTD7gdiFzOaQtfmRN3+Nk8qsnEKmOx3gpjYtQURrL5k3s
- mbUQr1pWbXG7d43/8WmbNAgSndSWd20zMAp/3F4EakN7UX+VV7i0R4IIqnVrGRddz3kwBOOxGD/
- VDa7L+BHY/lXvZJaz2Q==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-08_02,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 phishscore=0 clxscore=1015 lowpriorityscore=0
- adultscore=0 priorityscore=1501 suspectscore=0 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080026
+Content-Transfer-Encoding: 8bit
+
+Hi Uladzislau
 
 
+On 2026/9/30 18:12, Uladzislau Rezki wrote:
+> On Tue, Sep 29, 2026 at 04:20:09PM +0800, Hao Ge wrote:
+>> __vmap_pages_range_noflush() and friends can install some PTEs before
+>> failing and leave them mapped, and the kernel callers do not agree on
+>> who cleans them up. For example, pcpu_map_pages() and
+>> kmsan_ioremap_page_range() unmap the leftovers themselves, while
+>> vm_module_tags_populate() and the __GFP_NOFAIL retry loop in
+>> __vmalloc_area_node() relied on the mapping functions cleaning up and
+>> did not call anything like vunmap_range() themselves. When the same
+>> range is mapped again, the attempt hits the leftovers and fails, with
+>> BUG() in vmap_pte_range() for huge mappings.
+>>
+>> After discussing with Suren and Ulad, we decided the cleanup belongs
+>> to __vmap_pages_range_noflush() and friends, so the callers no longer
+>> need to unmap the partial mappings themselves. Each function now
+>> undoes the PTEs it installed itself.
+>>
+>> The rollback calls the low-level __vunmap_range_noflush(), it just
+>> clears the PTEs of the range it is given, which is all a rollback
+>> needs. It cannot use vunmap_range_noflush() because these mapping
+>> functions also map the KMSAN shadow and origin, and for a metadata
+>> range its hook would look up the metadata of the metadata, get 0
+>> and BUG() on addr >= end. The failed mappings were never accessed,
+>> no TLB flush needed.
+>>
+>> Fixes: 9376130c390a ("mm/vmalloc: add support for __GFP_NOFAIL")
+>> Fixes: 0f9b685626da ("alloc_tag: populate memory for module tags as needed")
+>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+>> ---
+>>  mm/kmsan/shadow.c |  4 ++++
+>>  mm/vmalloc.c      | 31 +++++++++++++++++++++++++++++--
+>>  2 files changed, 33 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/mm/kmsan/shadow.c b/mm/kmsan/shadow.c
+>> index 0c88d89bf0d6..2166086d3dc3 100644
+>> --- a/mm/kmsan/shadow.c
+>> +++ b/mm/kmsan/shadow.c
+>> @@ -258,6 +258,10 @@ int kmsan_vmap_pages_range_noflush(unsigned long start, unsigned long end,
+>>  					    o_pages, page_shift);
+>>  	kmsan_leave_runtime();
+>>  	if (mapped) {
+>> +		/* Undo the shadow mapping set up above. */
+>> +		kmsan_enter_runtime();
+>> +		__vunmap_range_noflush(shadow_start, shadow_end);
+>> +		kmsan_leave_runtime();
+>>  		err = mapped;
+>>  		goto ret;
+>>  	}
+>>
+> Can we just do that inside the vmalloc? For example in the
+> __vmap_pages_range_noflush() as entry function for all(?) helpers?
+> So we do not need do it manually?
+>
+The hunk was for the failure path in kmsan_vmap_pages_range_noflush().
+Shadow and origin are mapped there as two separate calls, and when                                                                   
+the origin one fails the shadow is already up. __vmap_pages_range_noflush()                                                          
+cannot do that undo, it only sees its own range.
 
-On 10/3/2026 6:19 PM, Jiale Yao wrote:
-> Firmware supplies the hardware mode count and the PHY bitmap for each
-> mode in the service-ready-ext event. ath12k_wmi_save_all_mac_phy_info()
-> uses those bitmaps to populate svc_ext_info->mac_phy_info, but the
-> destination is a fixed array of ATH12K_MAX_MAC_PHY_CAP elements.
+kmsan_vmap_pages_range_noflush() has a single caller, so if we were to move this
+logic into vmalloc, it would require some modifications as follows:
+
+@@ -712,9 +724,14 @@ int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
+        int ret = kmsan_vmap_pages_range_noflush(addr, end, prot, pages,
+                                                page_shift, gfp_mask);
+ 
++       if (!ret)
++               ret = __vmap_pages_range_noflush(addr, end, prot, pages,
++                                                page_shift);
++       /* Undo whatever was mapped before the failure. */
+        if (ret)
+-               return ret;
+-       return __vmap_pages_range_noflush(addr, end, prot, pages, page_shift);
++               kmsan_vunmap_range_noflush(addr, end);
++
++       return ret;
+ }
+
+>> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+>> index 859e6d2d57a3..9bbf75706627 100644
+>> --- a/mm/vmalloc.c
+>> +++ b/mm/vmalloc.c
+>> @@ -349,6 +349,10 @@ static int vmap_range_noflush(unsigned long addr, unsigned long end,
+>>  	if (mask & ARCH_PAGE_TABLE_SYNC_MASK)
+>>  		arch_sync_kernel_mappings(start, end);
+>>  
+>> +	/* Undo the PTEs installed before the failure. */
+>> +	if (err)
+>> +		__vunmap_range_noflush(start, end);
+>> +
+>>  	return err;
+>>  }
+>>  
+>> @@ -363,6 +367,9 @@ int vmap_page_range(unsigned long addr, unsigned long end,
+>>  	if (!err)
+>>  		err = kmsan_ioremap_page_range(addr, end, phys_addr, prot,
+>>  					       ioremap_max_page_shift);
+>> +	if (err)
+>> +		__vunmap_range_noflush(addr, end);
+>> +
+>>  	return err;
+>>  }
+>>  
+>> @@ -667,6 +674,10 @@ static int vmap_small_pages_range_noflush(unsigned long addr, unsigned long end,
+>>  	if (mask & ARCH_PAGE_TABLE_SYNC_MASK)
+>>  		arch_sync_kernel_mappings(start, end);
+>>  
+>> +	/* Undo the PTEs installed before the failure. */
+>> +	if (err)
+>> +		__vunmap_range_noflush(start, end);
+>> +
+>>  	return err;
+>>  }
+>>  
+> The only one user of that function is __vmap_pages_range_noflush()
+> so we can cover both cases there small and huge path.
 > 
-> If the total number of advertised PHY entries exceeds that limit, the
-> loop writes beyond mac_phy_info and corrupts adjacent memory.
+> Is that enough just to do unroll in the below:
 > 
-> ath12k_wmi_mac_phy_caps_parse() allocates the source array for
-> tot_phy_id entries and rejects excess capability TLVs. However, if the
-> event contains fewer capability TLVs than advertised, the remaining
-> allocated entries stay zeroed and are saved as invalid PHY information.
+> __vmap_pages_range_noflush()
+> vmap_page_range()
 > 
-> After parsing the MAC/PHY capability TLVs, validate the destination
-> capacity and reject an incomplete capability list before saving any
-> entries.
+> functions? It will also fix NOFAIL case:
+>
+
+I see. right, __vmap_pages_range_noflush() is just above the
+actual page‑table mapping, so it's low‑level enough.
+Thanks a lot for your prototype.
+
+I'm tidying up the code and will post a REF patch afterwards.
+
+Thanks
+Best Regards
+Hao
+
+> <snip>
+> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+> index 89c327a6ce7d..fa1f357ecf3f 100644
+> --- a/mm/vmalloc.c
+> +++ b/mm/vmalloc.c
+> @@ -359,10 +359,19 @@ int vmap_page_range(unsigned long addr, unsigned long end,
+>  
+>  	err = vmap_range_noflush(addr, end, phys_addr, pgprot_nx(prot),
+>  				 ioremap_max_page_shift);
+> +	if (err)
+> +		goto error_cleanup_range;
+> +
+>  	flush_cache_vmap(addr, end);
+> -	if (!err)
+> -		err = kmsan_ioremap_page_range(addr, end, phys_addr, prot,
+> +	err = kmsan_ioremap_page_range(addr, end, phys_addr, prot,
+>  					       ioremap_max_page_shift);
+> +	if (err)
+> +		goto error_cleanup_range;
+> +
+> +	return 0;
+> +
+> +error_cleanup_range:
+> +	__vunmap_range_noflush(addr, end);
+>  	return err;
+>  }
+>  
+> @@ -683,26 +692,35 @@ int __vmap_pages_range_noflush(unsigned long addr, unsigned long end,
+>  		pgprot_t prot, struct page **pages, unsigned int page_shift)
+>  {
+>  	unsigned int i, nr = (end - addr) >> PAGE_SHIFT;
+> +	unsigned long start = addr;
+> +	int err;
+>  
+> -	WARN_ON(page_shift < PAGE_SHIFT);
+> -
+> -	if (!IS_ENABLED(CONFIG_HAVE_ARCH_HUGE_VMALLOC) ||
+> -			page_shift == PAGE_SHIFT)
+> -		return vmap_small_pages_range_noflush(addr, end, prot, pages);
+> +	if (WARN_ON(addr >= end))
+> +		return -EINVAL;
+>  
+> -	for (i = 0; i < nr; i += 1U << (page_shift - PAGE_SHIFT)) {
+> -		int err;
+> +	if (WARN_ON(page_shift < PAGE_SHIFT))
+> +		return -EINVAL;
+>  
+> -		err = vmap_range_noflush(addr, addr + (1UL << page_shift),
+> +	if (!IS_ENABLED(CONFIG_HAVE_ARCH_HUGE_VMALLOC) ||
+> +		page_shift == PAGE_SHIFT) {
+> +		err = vmap_small_pages_range_noflush(addr, end, prot, pages);
+> +	} else {
+> +		for (i = 0; i < nr; i += 1U << (page_shift - PAGE_SHIFT)) {
+> +			err = vmap_range_noflush(addr, addr + (1UL << page_shift),
+>  					page_to_phys(pages[i]), prot,
+>  					page_shift);
+> -		if (err)
+> -			return err;
+> +			if (err)
+> +				break;
+>  
+> -		addr += 1UL << page_shift;
+> +			addr += 1UL << page_shift;
+> +		}
+>  	}
+>  
+> -	return 0;
+> +	if (err)
+> +		__vunmap_range_noflush(start, end);
+> +
+> +	/* 0 on success. */
+> +	return err;
+>  }
+>  
+>  int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
+> @@ -714,7 +732,13 @@ int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
+>  
+>  	if (ret)
+>  		return ret;
+> -	return __vmap_pages_range_noflush(addr, end, prot, pages, page_shift);
+> +
+> +	ret = __vmap_pages_range_noflush(addr, end, prot, pages, page_shift);
+> +	if (ret)
+> +		/* Cleanup KMSAN metadata. */
+> +		kmsan_vunmap_range_noflush(addr, end);
+> +
+> +	return ret;
+>  }
+>  
+>  static int __vmap_pages_range(unsigned long addr, unsigned long end,
+> <snip>
 > 
-> Fixes: 062ade23991e ("wifi: ath12k: parse and save hardware mode info from WMI_SERVICE_READY_EXT_EVENTID event for later use")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jiale Yao <yaojiale02@163.com>
-Reviewed-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+> --
+> Uladzislau Rezki
