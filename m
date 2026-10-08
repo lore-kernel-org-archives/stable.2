@@ -1,121 +1,146 @@
-Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com [209.85.210.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7B323E764C
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 22:29:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53B4744063B
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 22:30:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791498582; cv=none; b=hVPD3l0opBupOUHJzRrNMV7KwIvdscoL94tM+QwUXc1HPf/VvEsYb6ffh6Jyc1vNu6MEcVUgfHwpzNstsD6ha7etCU6pYiHB8O90Oz+AfKg4Dbr/msTrmnUHZFE/aoexuB0WYT01mfwfZpr6bnD+9N21HfABJQBu/phZWuG3yPA=
+	t=1791498630; cv=none; b=H/P3EIyvaSuFfaqwd5gp+KLJpCN3ywXkZBtlkJb2+cfOF0W6pXWq9WD/O1UtGy2UEHQIrGCPdhnQ46iHWim7NKyWo3F2iB0o7vX/HTDiTF+fuwX6hLicjr7lnbEENh6Ts/GS2d/B3g+OiKHPdI3NKMCH9ZSSX8HertRfMngUUFE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791498582; c=relaxed/simple;
-	bh=MMkFjdCVMG5VlmQMbxTqaxCN0UUVNziiQoEjmEPy7OU=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=nrgyxp0nxQkv2XU+Ok/yhigKFRV3WkC9UCNLwZhNrPJdLynLcrpyGFBlmP02PoFCQkazfvSF21CKRTZ3baUC+4g8TC7oKplQh01Kf6PSQNGRxQxBIAwYaYFuS+e3Tsh4dihpLqCnAa0+edyGvsL7zUOV3vET1TtZJFs/qGV0yYw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.b=r3ELd5KY; arc=none smtp.client-ip=209.85.210.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	s=arc-20240116; t=1791498630; c=relaxed/simple;
+	bh=DmpUgBe6WbGh4qoSebBnxDOEpRHy5UIKV6WDZGaQ/u4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gout72pUrCORNJn1euwv+xFSOt5UfuxuzCL+LCPU/djgzcz4QbqnfYHpoljupS/8TwGiHBDvSej/wD2QaaKKz2T15pmy6TlqbdtKoJOVwGxxM0fTpwwrozp3pu2qVzbQ/bL3oVPUosyk+7pDrFUI55dRJueUO9LdRETLmT5nRSc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A1l/dIx8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.b="r3ELd5KY"
-Received: by mail-ot1-f45.google.com with SMTP id 46e09a7af769-823e4047037so3407287a34.2
-        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 15:29:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=everpuredata.com; s=google; t=1791498579; x=1792103379; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fXHi3/KeYOzGlvHrMQmcR6EwJ6rahH5N/eWTDsqU4mE=;
-        b=r3ELd5KYh+ph7WvPnW3eDjqD+R83vkIzNIx9LMbwxhDI1xkpMXrL9OMr5aULjlEYfa
-         U+ML5WXLyWEzaVjQD3S9P3hZdfd72qBvWffJIZvdWhsQmBchRKU6EWOXhiPNQmhYadCS
-         UlBs0eY+ewls+RTLmtQbH5wCQIyP0v4r5vkO6U440d4TVR/56XBUF7cOhZfP1ebU2lG+
-         +uhom1xPYw2EecL9SyRRfnb6CtuJ1YLypjFHaSeNB/pMX7CFuJzsfiW4uE3bQ3soLA7x
-         n3xjApCKVwFPBJwRjYrMRgvvpb09iX2CWV3iFVCOfCWd5TCjD82U8CvSrQ6D0JMaaxty
-         mbjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791498579; x=1792103379;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fXHi3/KeYOzGlvHrMQmcR6EwJ6rahH5N/eWTDsqU4mE=;
-        b=PyY3swUMRUlwf0bPVv2EXy6F8yYsJRTkRLCmmRkxxBbv2x4cVauzRinK/bJs/tBcEr
-         DEtgAQFiyBWLJ8nR8+RusXAaRQnEAzgbCVLl2O3+afMXuTFlRdC/fdH7Q/04LShkC8kY
-         o6hxMa8dbY/x9w4tLq0UlOK1YCA5vGq7spptxNPaXXbmoqUX61hQn6yD7skewmgrNtn5
-         B0yE/e4ir3zDOzNONePfuQcy2iBWGYa28py02bGaqgrUXAQ6j9ycRd6OQsxa2ekU7kiT
-         YMl5XZ63GZQZUqwhlszFXrPi+maol18uO2ju9UXJsWsY3Vj2SefGPdiZNBL6FNZzRUXF
-         dL1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwdJMfeE7P1XLgnlWHYMpNBQgGsJiRysKemvn+nwfxBpV0e8PjEz/wAZrkBN1c4zwV0jXy4dpo=@vger.kernel.org
-X-Gm-Message-State: AFuF++klQayEB2oS5x8V4u2HysTqTOR2yUK84g+6lXHpQ7cM150hcOSl
-	DvFmpkAs4Tq5qtkowXxURHc86RtsSLpPDu/XLg1kv0UEGrpeQDozBp+KrJMp3VXI00AEimCgJyf
-	00r7ilJQ=
-X-Gm-Gg: AYBFou3jX+XftCfeExWyW+ooznqiYaPtvbaC4UaG2GKrljOK7WojM1RHv9Pri0fMY5F
-	vkdIbRB1tU4NIvZFHs4L48Oloei5lql4i18rGOBAM/XQjCayQWRv1bTVazSuFzf2aPMypJpwInV
-	4eYW9p9qNtkNQQf7kHCrxlrGsthJY4v2GuLHMLSureBIcVzhuplNgJwdc92vbzr1YN6O+Q75SuD
-	p15p2Y65R9JFabDglwiTdWxxFv0LJJunjW5eVVN7AU1SzUslYAvoqfRYc1islYj8maar9vOasvT
-	4nNnwDxYp3glxO9NNtaPvbnb7cZ8PjrnKngHPf1OS5u7m6DbWch47nBbapapOCraICcAuSticmx
-	e2WNm4U+V9xNmZ4ysWb5JH0ZKLrMxF9dM7muSokKbiXjidNt3MtqACOIDzNOT7bqQykEV09+ubQ
-	gjwWnBCUgurKF00xQch1pjtNcEAFSyS5KtLLtgJ2PjQ3+SHYz+EmYwSZWwSTKfp9DgaaLhY4uoT
-	nU+gDjLPQKF9+ipgrK8SkZhc7RHwnvLxlU/
-X-Received: by 2002:a05:6830:410f:b0:81b:c6da:c351 with SMTP id 46e09a7af769-8302ae8089dmr414913a34.17.1791498579523;
-        Thu, 08 Oct 2026 15:29:39 -0700 (PDT)
-Received: from irdv-lubao.dev.purestorage.com ([208.88.158.129])
-        by smtp.googlemail.com with ESMTPSA id 46e09a7af769-83038f82468sm278874a34.11.2026.10.08.15.29.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 15:29:38 -0700 (PDT)
-From: Lucheng Bao <lubao@everpuredata.com>
-To: linux-nfs@vger.kernel.org,
-	Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	tmenninger@everpuredata.com,
-	jcurley@everpuredata.com,
-	Lucheng Bao <lubao@everpuredata.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] NFSv4/pNFS: defer LAYOUTRETURN after an unsuccessful OLD_STATEID refresh
-Date: Thu,  8 Oct 2026 22:28:43 +0000
-Message-Id: <20261008222843.63319-3-lubao@everpuredata.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261008222843.63319-1-lubao@everpuredata.com>
-References: <20261008222843.63319-1-lubao@everpuredata.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A1l/dIx8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB7711F0089B
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 22:30:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791498629;
+	bh=YM3S3zdUrJPi9sjI7tUoLRuIpMCsX8cp9vpn2bmDzf4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=A1l/dIx8zFcIXWRF5v3DRHmgk7OSPEs9CJI/VMsawBTxqwnb4Foopj0DEcUne9dDl
+	 dW3Bi94IV3hNDeau9j/7Y92/sxBWzX3NE10jL9PsRPqZpHaJub4nZrS7HOe+S5nh/A
+	 KXtT8NgiQoNwRkF3TMt/cP5bsoqp6ZW8Q8wrRO1cIG24Cj0mp7Cz03omHywEAY7Du/
+	 XSWNKbul8Q9vnnhlX03B0hC0QzExETb7agMP5gkqfYTdZKegz1ttJ6FWUbV6JOJYvC
+	 2xWlbOqcYYwBoThZJxOJlbMMGnzhSDxGl1wRe0uuJ2/WI46XkVREByIrrNgu3uEjZL
+	 4yXK/HI/DzDig==
+Received: by mail-oo1-f43.google.com with SMTP id 006d021491bc7-6d290b10a35so1356766eaf.2
+        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 15:30:28 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwE5Wuw5cDd57hIsbtAP0ar7fblrtn0Dyx7x/UvdvxE3eWx+DhZpU/WZiw5lKUQjodVH0PJRI8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nDwSa8a0k+ipEhA1g0gfKQAh1XRqm876jKd1h0l7QrKvVpQSrR
+	GFdg4nS8Md2TLqWgUwZlB/md+d+A0ZxFcI9h7upM2iSZJaNWYR5ipH8QpFhsgtKgKhS+YsVGQ/I
+	VowVf2NWBi+KTNToQTBmjBSYSVvYFvzQ=
+X-Received: by 2002:a4a:e915:0:b0:6dd:696d:b21f with SMTP id
+ 006d021491bc7-6ef08e71c1emr165604eaf.2.1791498628179; Thu, 08 Oct 2026
+ 15:30:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CAPa5EdCj3v17tB-SF2JNecq5Q8s1Pranr-XzAFWNpNTBPgPG7w@mail.gmail.com>
+ <a6193df2-98f3-409f-b73f-5b91835a0107@kernel.org> <CAL4WiirwF6bZwocErCthJ+TUu7wipRfSibRBoKWjjkA2nVSrqQ@mail.gmail.com>
+ <CAL4WiiqSmW093PDngLrUNiNA5GVKeM3+tAO7KMDJeyjYZ7GRzg@mail.gmail.com>
+ <4c98eff5-c8c7-43ee-b59a-adb833978816@kernel.org> <CAPa5EdDk+HuVP0H1+iqOcHDHZnfdika5WOQcgSaMtfRFWzqZ+Q@mail.gmail.com>
+ <CAL4WiipSpufpdo-AWoNEJta-puLQ5hMyPn2xcjwg4vg67PNoyA@mail.gmail.com> <CAPa5EdC5+JiLCHdCt4m-sqM1pUs=fG8T7zsmVcheHCG8FFF8Fg@mail.gmail.com>
+In-Reply-To: <CAPa5EdC5+JiLCHdCt4m-sqM1pUs=fG8T7zsmVcheHCG8FFF8Fg@mail.gmail.com>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Fri, 9 Oct 2026 00:30:15 +0200
+X-Gmail-Original-Message-ID: <CAL4Wiirc10c4_NHznYYU9ODeEO0Fh8WJm72Kk8M6xZ5rXG489g@mail.gmail.com>
+X-Gm-Features: AclHuK83ylPpO1Omc3aUuPZqI6xRPqm0TMlzXP99sIQGhVnJEjvR3bpixOY5QaA
+Message-ID: <CAL4Wiirc10c4_NHznYYU9ODeEO0Fh8WJm72Kk8M6xZ5rXG489g@mail.gmail.com>
+Subject: Re: [REGRESSION][BISECTED] r8169: TX stall with checksum offload on
+ VLAN frames with inline tag (REORDER_HDR off) since 1517d1996b52
+To: =?UTF-8?B?SmFuIMSMZXJtw6Fr?= <sairon@sairon.cz>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>, netdev@vger.kernel.org, 
+	regressions@lists.linux.dev, stable@vger.kernel.org, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, nic_swsd@realtek.com, 
+	Sasha Levin <sashal@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Commit c16467dc03db ("pnfs: Fix handling of NFS4ERR_OLD_STATEID replies
-to layoutreturn") made stateid refresh fail while newer layout segments
-remain busy. The standalone LAYOUTRETURN handler still treats this as a
-completed return, potentially discarding a pending LAYOUTCOMMIT.
+Le jeu. 8 oct. 2026 =C3=A0 15:48, Jan =C4=8Cerm=C3=A1k <sairon@sairon.cz> a=
+ =C3=A9crit :
+>
+> On Thu, 8 Oct 2026 at 14:48, Eric Dumazet <edumazet@kernel.org> wrote:
+> > This is the current patch under review :
+> > https://lore.kernel.org/netdev/20261008123812.554729-1-edumazet@kernel.=
+org/T/#u
+> >
+> > Thanks.
+>
+> Oh, I missed that, as GitHub "protected my privacy" and I ended up in
+> CC with its noreply address (which really leads to /dev/null). I've
+> applied that patch to our tree and started the build, I'll ask in the
+> issue tracker for testing once the build finishes and reply in the
+> patch thread if I get any feedback.
+>
+> I've disabled the "privacy protection" on GitHub so I hope next time
+> it shouldn't happen - but just in case you'll be updating the patch,
+> please use my real address I use here.
 
-Set rpc_status to -EAGAIN before the existing completion handling so the
-release callback defers the return for a live inode. Leave successful
-refreshes and inode-teardown behavior unchanged.
+Sure!
 
-On 6.8.0, this change applies without commit bbbff6d5edd1 ("NFSv4/pNFS:
-Retry the layout return later in case of a timeout or reboot"), but that
-commit and its prerequisites are required for the deferred-release
-behavior.
+It seems a V3 will be needed, I will send it for review tomorrow after
+the 24 hour delay
 
-Fixes: c16467dc03db ("pnfs: Fix handling of NFS4ERR_OLD_STATEID replies to layoutreturn")
-Cc: stable@vger.kernel.org # See commit message for prerequisites
-Signed-off-by: Lucheng Bao <lubao@everpuredata.com>
----
- fs/nfs/nfs4proc.c | 1 +
- 1 file changed, 1 insertion(+)
+diff --git a/net/8021q/vlan_dev.c b/net/8021q/vlan_dev.c
+index c949c6a829456c2f75d6c514b35a85ff64c493d8..684820c772289f1b73aa01255cc=
+9ae5fadae95a9
+100644
+--- a/net/8021q/vlan_dev.c
++++ b/net/8021q/vlan_dev.c
+@@ -110,6 +110,8 @@ static netdev_tx_t vlan_dev_hard_start_xmit(struct
+sk_buff *skb,
+        unsigned int len;
+        int ret;
 
-diff --git a/fs/nfs/nfs4proc.c b/fs/nfs/nfs4proc.c
-index 1ae047a062b8..9993e4d29d72 100644
---- a/fs/nfs/nfs4proc.c
-+++ b/fs/nfs/nfs4proc.c
-@@ -9867,6 +9867,7 @@ static void nfs4_layoutreturn_done(struct rpc_task *task, void *calldata)
- 					&lrp->args.range,
- 					lrp->args.inode))
- 			goto out_restart;
-+		lrp->rpc_status = -EAGAIN;
- 		fallthrough;
- 	default:
- 		task->tk_status = 0;
--- 
-2.34.1
++       len =3D skb->len;
++
+        /* Handle non-VLAN frames if they are sent to us, for example by DH=
+CP.
+         *
+         * NOTE: THIS ASSUMES DIX ETHERNET, SPECIFICALLY NOT SUPPORTING
+@@ -121,10 +123,34 @@ static netdev_tx_t
+vlan_dev_hard_start_xmit(struct sk_buff *skb,
+                vlan_tci =3D vlan->vlan_id;
+                vlan_tci |=3D vlan_dev_get_egress_qos_mask(dev, skb->priori=
+ty);
+                __vlan_hwaccel_put_tag(skb, vlan->vlan_proto, vlan_tci);
++       } else if (skb->len >=3D VLAN_ETH_HLEN + sizeof(__be16) &&
++                  !skb_shared(skb) &&
++                  vlan_hw_offload_capable(READ_ONCE(vlan->real_dev->featur=
+es),
++                                          vlan->vlan_proto)) {
++               u16 vlan_tci;
++
++               /* The frame carries its outer tag in-band, either inserted
++                * by vlan_dev_hard_header() or provided by the sender.
++                * Let the real device insert it: some NICs can not offload
++                * checksum or TSO for frames carrying an in-band tag.
++                * Not all ndo_start_xmit() callers set the mac header.
++                * vlan_set_encap_proto() may read two bytes after the vlan
++                * header, so shorter frames are sent unchanged, as are
++                * shared skbs (e.g. from pktgen).
++                * On allocation failure, drop the frame rather than handin=
+g
++                * it to the real device with an in-band tag.
++                */
++               skb_reset_mac_header(skb);
++               if (unlikely(!pskb_may_pull(skb, VLAN_ETH_HLEN +
+sizeof(__be16)) ||
++                            __skb_vlan_pop(skb, &vlan_tci))) {
++                       kfree_skb(skb);
++                       this_cpu_inc(vlan->vlan_pcpu_stats->tx_dropped);
++                       return NETDEV_TX_OK;
++               }
++               __vlan_hwaccel_put_tag(skb, vlan->vlan_proto, vlan_tci);
+        }
 
+        skb->dev =3D vlan->real_dev;
+-       len =3D skb->len;
+        if (unlikely(netpoll_tx_running(dev)))
+                return vlan_netpoll_send_skb(vlan, skb);
