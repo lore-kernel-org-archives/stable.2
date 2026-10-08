@@ -1,216 +1,204 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0C883AB5CA;
-	Thu,  8 Oct 2026 16:44:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CABE39CD0C;
+	Thu,  8 Oct 2026 16:49:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791477850; cv=none; b=JOllmRSFnx1YVAixeIcOC1rrRVsgMxdCbjAXMbRMYUQpxMUeEP4ajE4+un7l7je7wkNXO1Vki0fqlS3edFKE8/++yKgsbUxCKIxzw1yVcE4g3KF9uND4ELuxzzhz9+bBoWbYHdoq9MMCudnUvSo0gsVCbmp/7PqnPiDXKo9NexQ=
+	t=1791478166; cv=none; b=i6rfIrWb5Mi9upiWosQmVBKw2x5wNoZWuEBO66CV0V0823WWOdJIqrSl+asIUJ5TyyGwelWHo7OSv9RLLXGKB6SRQXwxr8bjwtG8MfH1jMA4zYVV+FvdWynHTxTm8cOGgvybxs2E+1DmlZB40HUsAndVs2V99fkyx0Vfeq7l0LQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791477850; c=relaxed/simple;
-	bh=ESx8K4nMao66mXKghRpoR7K1c42GN0u+Ur3E4TYamVA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IiJu8P9uy+H+CumWZoimQT4HDvSV1OtF4LS1mcqTzTpdzQldMYRi57Up89gRRf3jJa/rZRBqKSbIv1Aw9JWh0Dl9hvxYzOMcxC/2W9G+62WIrtslg0l9jhowlpKsw8+V0OvQYnnd5+8QUUjKyNvebA4yM6sbyE0ExC3Kj1zeyI4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net; spf=pass smtp.mailfrom=gmx.net; dkim=pass (2048-bit key) header.d=gmx.net header.i=wahrenst@gmx.net header.b=LG06Xrap; arc=none smtp.client-ip=212.227.15.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.net
+	s=arc-20240116; t=1791478166; c=relaxed/simple;
+	bh=b9Fky14f1LUU/huO2vwJ+DRQzKFNjFCeruk2GiJ3sg0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=SYg3Rm4JOzBwCYUM+VaydQqyKjJ+ZB90wojJ9P+4P6rcmh9TTs8fU9D5mCifCxJI8s0WFh48MF2PQA2BzHCngakk7MPa9sRgRe2af7ioSyMQWKiLUEN6Vu+1hnHQj8S1ypqq02MGLYAUiYqFf6VXqKddCslFltrlXyqgNv+V1EE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bohKO76j; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.net header.i=wahrenst@gmx.net header.b="LG06Xrap"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.net;
-	s=s31663417; t=1791477842; x=1792082642; i=wahrenst@gmx.net;
-	bh=xyLvFSdbdC1sZATNCFcqQ2a+T87fF6S/GAPqr0ePeps=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=LG06Xrap7Qu5Bt6KXqd9U8tS+fKIvzmQDkd5jmfk0u7iMpwbIX5uik1Z68Dy43UL
-	 GL+41fF/IE0Wv9SaPbhctLg2uDCu9hEgiPY4UwJOPnU0Y68y9MBRrFQaczrvJieqd
-	 QmQH4C5jA6u86+ZxMB7tix567DyMyciVrA1MrxFJXZR0tanaQW2QHA8En8t3PZt3m
-	 q8WseViWwzcOzK++JpWyNa8odU1UtWU8TfWYJo2cZY4g2dNf8K8cABs7TdeIQvs8k
-	 uV4eMCuIw4pW2Q5DCPMVMptpBpg4v2iVO8HaNYa/6oeQlpBudbyxCS7+Q1BOKM9V7
-	 54YwfCB/N4k5vLIFig==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MrhQ6-1wrg5m1FlU-00g8Nl; Thu, 08
- Oct 2026 18:44:02 +0200
-Message-ID: <6f33d098-3224-431b-abd1-bd01f01ccfca@gmx.net>
-Date: Thu, 8 Oct 2026 18:43:59 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bohKO76j"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id CE60AC2BCC7;
+	Thu,  8 Oct 2026 16:49:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791478165;
+	bh=b9Fky14f1LUU/huO2vwJ+DRQzKFNjFCeruk2GiJ3sg0=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=bohKO76jc5j78+6crUTFr99o+nJU5l+94kI2Du/3TcIKFYeSClQO6QbAuAN75KGer
+	 EIsq74hy3RGIhsWcNFyL57WB9ed+yX1jWLUk22o1U8ETHTOAimOgWGdPcJmPOYrrzE
+	 a6iB7A1PXahsf9yT7hWKayfrMTDdqRc8bcP5U9b83Ff68NGzVaBeTSYoRaarRrno/6
+	 TifV5TiqlS1pDZ+M0HL4JgPmokOM6YMxJu2YCSxYwzGF2+D0UZhySB5LBxUuDTx1ZZ
+	 9PB7IETvY4hSGdM8pc1ufks4UMrXNMg88eJcguS3rOWl8KCwbRpIzSDCNT/y40s0eE
+	 y0oy9X5PLwOLQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ABF79CA6011;
+	Thu,  8 Oct 2026 16:49:25 +0000 (UTC)
+From: Phil Rosenthal via B4 Relay <devnull+phil.phil.gs@kernel.org>
+Date: Thu, 08 Oct 2026 12:49:18 -0400
+Subject: [PATCH] serial: core: Shut down a running console port before
+ removing it
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/5] usb: dwc2: fix low power issues found on stm32mp1
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
- Minas Harutyunyan <hminas@synopsys.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Douglas Anderson <dianders@chromium.org>,
- Artur Petrosyan <Arthur.Petrosyan@synopsys.com>,
- Amelie Delaunay <amelie.delaunay@st.com>,
- Fabrice Gasnier <fabrice.gasnier@st.com>,
- Felipe Balbi <felipe.balbi@linux.intel.com>,
- Jisheng Zhang <jszhang@kernel.org>, Felipe Balbi <balbi@kernel.org>,
- Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Minas Harutyunyan <Minas.Harutyunyan@synopsys.com>, stable@vger.kernel.org
-References: <20261008-dwc2-low-power-fixes-stm32-v1-0-5b303df762e6@foss.st.com>
-Content-Language: en-US
-From: Stefan Wahren <wahrenst@gmx.net>
-Autocrypt: addr=wahrenst@gmx.net; keydata=
- xjMEZ1dOJBYJKwYBBAHaRw8BAQdA7H2MMG3q8FV7kAPko5vOAeaa4UA1I0hMgga1j5iYTTvN
- IFN0ZWZhbiBXYWhyZW4gPHdhaHJlbnN0QGdteC5uZXQ+wo8EExYIADcWIQT3FXg+ApsOhPDN
- NNFuwvLLwiAwigUCZ1dOJAUJB4TOAAIbAwQLCQgHBRUICQoLBRYCAwEAAAoJEG7C8svCIDCK
- JQ4BAP4Y9uuHAxbAhHSQf6UZ+hl5BDznsZVBJvH8cZe2dSZ6AQCNgoc1Lxw1tvPscuC1Jd1C
- TZomrGfQI47OiiJ3vGktBc44BGdXTiQSCisGAQQBl1UBBQEBB0B5M0B2E2XxySUQhU6emMYx
- f5QR/BrEK0hs3bLT6Hb9WgMBCAfCfgQYFggAJhYhBPcVeD4Cmw6E8M000W7C8svCIDCKBQJn
- V04kBQkHhM4AAhsMAAoJEG7C8svCIDCKJxoA/i+kqD5bphZEucrJHw77ujnOQbiKY2rLb0pE
- aHMQoiECAQDVbj827W1Yai/0XEABIr8Ci6a+/qZ8Vz6MZzL5GJosAA==
-In-Reply-To: <20261008-dwc2-low-power-fixes-stm32-v1-0-5b303df762e6@foss.st.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:OjQYLJZbn8g4FudN67gENcLVXS+lm5ug+pu/9TORaABAyK/Rmpi
- uOnX8xjdJ54bPLLbupiqE9bO2fpDAWvGyQCFjYj0QgP4lnKrtJuPK+HZTPKfYh3b4ITfizU
- t7B9JYuCJ0X8xfN6Z797OynyREgBD93FiAgHz1IPhM1HfAITbblZRTiiBWc9byeqimlXdv4
- OOMIXbQqHZ5+zro/hlAgw==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:NtrJkWyAjhA=;yZ70fhCWiiknbDRPTGLxLGAfbFP
- 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
- =
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261008-serial-console-remove-v1-1-288b9c315af7@phil.gs>
+X-B4-Tracking: v=1; b=H4sIAI3Jx2oC/x2MUQqAIBAFrxL73YJFhHWV6EP0VQumoRBBdPesz
+ 4GZuSkjCTKN1U0Jp2SJoUBTV2Q3E1awuMLUqrZvlNL8+cazjSFHD07Y4wl2A5bOGd1DWSrtkbD
+ I9X+n+Xle7AOU/GcAAAA=
+X-Change-ID: 20261008-serial-console-remove-d9ef4da86e0c
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Johan Hovold <johan@kernel.org>, linux-serial@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Phil Rosenthal <phil@phil.gs>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791478165; l=6057;
+ i=phil@phil.gs; s=20260718; h=from:subject:message-id;
+ bh=Q7XAF+419MTFMSgpiGVUWbeGwnkDqT3ay7oPEni5yyk=;
+ b=VMm2ZLK6//JcFvT3yNXlruRDFVO+hFxzd3SFYblsu/3Uq7GDIufVz0C6bC5JoNNyCXEGtTfRG
+ WMmDbw6tOqbActMGhReaDD03Rowlw+1u3X64XCH5pPKWXdwBi/vHvko
+X-Developer-Key: i=phil@phil.gs; a=ed25519;
+ pk=08BMg1YPtTS5NnKn5I1Mq1ra3MdAg49Awe6OjrC59fs=
+X-Endpoint-Received: by B4 Relay for phil@phil.gs/20260718 with auth_id=881
+X-Original-From: Phil Rosenthal <phil@phil.gs>
+Reply-To: phil@phil.gs
 
-Hi Fabrice,
+From: Phil Rosenthal <phil@phil.gs>
 
-[add Thinh to CC]
+A console port is not shut down when its last user closes it:
+tty_port_shutdown() returns early when tty_port::console is set, so the
+port stays initialized.  For an 8250 port this leaves its interrupt
+requested or, for a port without an interrupt, its poll timer armed.
 
-Am 08.10.26 um 15:33 schrieb Fabrice Gasnier:
-> This series addresses several hang, bad_irq or re-initialisation issues
-> found on stm32mp1 when going to system low power (stop mode):
-> - First two fixes can be reproduced on stm32mp13 DK board, stm32mp15 DK
->    and EVAL boards.
-> - Subsequent fixes can be reproduced on stm32mp15 EVAL board that uses
->    an external Vbus regulator and stm32 dedicated detection logic.
->
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Minas isn't DWC2 maintainer anymore:
-https://lore.kernel.org/linux-usb/c2a97d0eafcbaa9509edce5b7b2648d6f9d80863=
-.1790993820.git.Thinh.Nguyen@synopsys.com/=20
+serial_core_remove_one_port() relies on tty_port_tty_vhangup() to shut
+the port down before releasing its resources, but the hangup reaches
+uart_hangup() -> uart_shutdown() only when a tty is attached.  For a
+console that was opened and closed, for example a serial console whose
+getty has been stopped, nothing shuts the port down.  The console is
+unregistered, ->release_port() releases the registers and the core frees
+uport->name while the port is still running.  On tty-next with 8250
+ports:
 
-> ---
-> Fabrice Gasnier (5):
->        usb: dwc2: fix recovery after PM domain off
->        usb: dwc2: fix a possible interrupt storm on stm32mp1
->        usb: dwc2: hcd: fix possible successive vbus supply enables
->        usb: dwc2: hcd: don't disable/enable external vbus by system susp=
-end/resume
->        usb: dwc2: platform: fix stm32mp15 detection logic power manageme=
-nt
->
->   drivers/usb/dwc2/core.c      |   1 -
->   drivers/usb/dwc2/core.h      |   2 -
->   drivers/usb/dwc2/core_intr.c |   6 +-
->   drivers/usb/dwc2/hcd.c       |  11 +--
->   drivers/usb/dwc2/platform.c  | 222 +++++++++++++++++++++--------------=
-=2D-------
->   5 files changed, 118 insertions(+), 124 deletions(-)
-> ---
-> base-commit: 1a5dad490a3f8533ae955be59ac5d26a3dfb6166
-> change-id: 20261007-dwc2-low-power-fixes-stm32-0c1e5e68b252
->
-> Best regards,
-> --
-> Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+ - A card bound to 8250_pci with an INTx interrupt and unbound through
+   sysfs keeps its interrupt requested after the driver is gone.  The
+   irqaction name points to the freed uport->name, so reading
+   /proc/interrupts is a slab-use-after-free in irq_seq_show().
+
+ - A polled (irq = 0) MMIO port with UPF_IOREMAP keeps running
+   serial8250_timeout() after serial8250_release_port() has cleared
+   membase, which dereferences NULL in timer softirq context about
+   10 ms after "console [ttyS5] disabled".
+
+After unregistering the console and before releasing the resources, shut
+the port down if it is still initialized.  uart_shutdown() runs with
+port->mutex held, as for its other callers, and with no tty, so it also
+drops DTR and RTS.  A port that had a tty attached was already shut down
+by the hangup and is skipped.
+
+Fixes: 761ed4a94582 ("tty: serial_core: convert uart_close to use tty_port_close")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM sparse
+Signed-off-by: Phil Rosenthal <phil@phil.gs>
+---
+This bug was found and confirmed with AI assistance, so it is reported in
+the open.  It is not a security issue under
+Documentation/process/threat-model.rst ("Excess of initial privileges"):
+triggering it needs the privileges to unbind or remove the device.
+
+I hit it on real hardware.  My serial console is a polled ASPEED BMC VUART,
+then driven by an out-of-tree module.  After I stopped its getty,
+unloading the driver oopsed in mem32_serial_in() from serial8250_timeout().
+
+History: before 761ed4a94582, uart_close() called uart_shutdown() for
+every port, consoles included.  761ed4a94582 made console ports skip the
+shutdown on close.  be2c92b8f164 reverted that part and 4dda864d7307
+reinstated it, all within v4.9.  Keeping a console running after close is
+intended, but the removal path was never updated for it.
+
+Tested in a QEMU guest on tty-next 36844ea19656 with KASAN, using in-tree
+8250_pci and a "serial8250" platform port.  Reproducers are available on
+request.  Without this patch:
+
+  8250_pci with INTx, reading /proc/interrupts after unbind:
+    BUG: KASAN: slab-use-after-free in string+0x3b6/0x4c0
+     irq_seq_show+0x34d/0x810
+    Allocated by task 1244:
+     kasprintf+0xac/0x100
+     serial_core_register_port+0x55f/0x1720
+    Freed by task 1276:
+     kfree+0x1a0/0x4a0
+     serial_core_unregister_port+0x44d/0xa80
+     serial8250_unregister_port+0x10d/0x6c0
+     pciserial_detach_ports+0x92/0x160
+
+  Polled MMIO port (irq 0, UPF_IOREMAP) after removal:
+    printk: console [ttyS5] disabled
+    BUG: kernel NULL pointer dereference, address: 0000000000000008
+    RIP: 0010:mem32_serial_in+0x74/0xa0
+     serial8250_timeout+0x44/0x140
+     call_timer_fn+0x32/0x260
+
+With this patch both cases are clean: the IRQ is freed on unbind,
+rebinding restores the console, and the polled port is shut down on
+removal.  A port held open across removal and a console that was never
+opened did not fail before and still work.
+
+I used plain mutex_lock() rather than scoped_guard() so that the patch
+also builds on stable trees before 6.5.  It applies from v5.4 to current
+master, and serial_core.o builds on v6.1 and v6.6.  W=1, sparse and
+checkpatch --strict are clean.
+
+Also tested on real hardware: the ASPEED BMC VUART that hit the bug
+(polled MMIO, irq 0) as the console, now bound to 8250_pci with my
+pending ASPEED support patch [1], on a 7.0.14 distribution kernel with
+both patches.  After stopping the getty, opening and closing the port,
+and unbinding the PCI device, there is no oops.  Rebinding restores the
+console, the getty and in-band IPMI.
+
+Not tested: serial drivers other than 8250.
+
+[1] https://lore.kernel.org/r/20261008-aspeed-vuart-v1-1-d2be17c99cd7@phil.gs
+
+AI assistance: an LLM coding assistant (Claude, model claude-opus-5-5, in
+Claude Code) analysed the crash, wrote the reproducers and the patch, and
+built and ran the test kernels.  Two other LLMs reviewed the result
+(GPT-5.6 Sol via Codex, and Claude Fable 5.1 via Claude Code).  I reviewed
+it as well.
+---
+ drivers/tty/serial/serial_core.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
+index 319a4b427f3a3727d12cb58252bd8959f9be4cd6..104a2b2eec641bbbc23e67522a7812309442de23 100644
+--- a/drivers/tty/serial/serial_core.c
++++ b/drivers/tty/serial/serial_core.c
+@@ -3239,6 +3239,18 @@ static void serial_core_remove_one_port(struct uart_driver *drv,
+ 	if (uart_console(uport))
+ 		unregister_console(uport->cons);
+ 
++	/*
++	 * A console port is not shut down on last close (see
++	 * tty_port_shutdown()), and the hangup above only shuts down a port
++	 * that has a tty attached. A console that was opened and closed is
++	 * therefore still running here; shut it down before its resources are
++	 * released.
++	 */
++	mutex_lock(&port->mutex);
++	if (tty_port_initialized(port))
++		uart_shutdown(NULL, state);
++	mutex_unlock(&port->mutex);
++
+ 	/*
+ 	 * Free the port IO and memory resources, if any.
+ 	 */
+
+---
+base-commit: 36844ea19656fb41278799ef3d5cd52120d89149
+change-id: 20261008-serial-console-remove-d9ef4da86e0c
+
+Best regards,
+-- 
+Phil Rosenthal <phil@phil.gs>
+
 
