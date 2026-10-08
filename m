@@ -1,109 +1,88 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D68D6495ADA;
-	Thu,  8 Oct 2026 12:47:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ECFC48032C
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 12:48:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791463655; cv=none; b=nYfsSMijWhv1A8ICd90IQ8xxgxFQ3BOIu6lGxST1AD0CUkO9LyG6MW0NdQO2cAAQCUmQXbI1V0TVwc8ZCrK/oa0WgKDctKskxOK5L7nHd9kzmnbG0ni2o+5XjsgupSTn58RJ1O+D5C6tvT0cBqag3bm0+k5K+JyE5iP8kbxXLHk=
+	t=1791463710; cv=none; b=iitSC34h5oAHFW65efl4+4UBAVrarzX+eMbYWS2VezBQblENYBiqcgv+4YilfIbgT41ygSR4hCVusXJfWQZSnRvQSyD06bTLSuu8h7zs2WPWteD1kDzz2wN3KP6Z5WUjQ6n6RVdMv2Fck0drD2ExusULfr/WnG3ZjL1hZSL6Fq8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791463655; c=relaxed/simple;
-	bh=+Ql/jKxiPASbigPDyJUHCQjLeMhmIoydTQWDRiK+5b8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DNs5ua/KJuS8rWZs4CG0G5lKNKUw+sXU17JcFyjpp2hvrUH72DUVTGAdXZGHDw37cJMQa9viaVf992vbloym4jzV9LxMwYYi0/9gS9zO5IB4aYZhk4DEEQTP5JN+0VaLr1CfLM5GKs+77pQdCIKyDKl6lJcVpmCtv1GHn7ZDN1M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qgpFa3v8; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791463710; c=relaxed/simple;
+	bh=0qVZtYkdvaSfqGduovy6JP1HIfFfoNJIptyO8s7H45w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hYrBGsq+/Fe0WZoK+HkdSrBRtSGNixKPMwkddoi406V/k+fTzocIWeRDZwboiUyhVQk05EQseG4HFV93Cur1DcX9vtG5R+T3kkH/lNa6KO4aaxhA63hAzzUlDsXFVeDopv0+srceqdYVBysas02oU0adhjm9ckDlVidoLmdVmYQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LpV1eMLI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qgpFa3v8"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 956501477;
-	Thu,  8 Oct 2026 05:47:28 -0700 (PDT)
-Received: from [10.0.129.161] (e122027.cambridge.arm.com [10.0.129.161])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5BA123F66F;
-	Thu,  8 Oct 2026 05:47:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791463652; bh=+Ql/jKxiPASbigPDyJUHCQjLeMhmIoydTQWDRiK+5b8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=qgpFa3v8E5vOLFaYvMn2S9FDaytDS1I7QVDbKKxT/PQGrvADaMt2lFLnKcpKdZ1hL
-	 bsmqy7P5x6zSoRIpPY0snfqqDOJc2FKTBsARVp5kvCHGkzWFos9/V8qFxKk99PrwRI
-	 IyVGSA55m2Rm83cv/zmqwcVEFXXCHOIwdgVe9m1E=
-Message-ID: <376f1a96-151f-46e3-b368-de5bf4f1765f@arm.com>
-Date: Thu, 8 Oct 2026 13:47:28 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LpV1eMLI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2B471F0089A
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 12:48:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791463708;
+	bh=0qVZtYkdvaSfqGduovy6JP1HIfFfoNJIptyO8s7H45w=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=LpV1eMLI0QnNGCXbQX9y50FCd+ZCJOzTO0NQioPZ/+pso267rsXVJF3x3LGehnYW/
+	 K7kdTwX/eTK24wodE81ZTLSeiZcv82V+BYt56Wl5g1OlZr+cTTCQU2/lO24CPBat2i
+	 YYPjV28cEbIq+mpkGjxOJ6AelcV1pZMspAxNEJm8SxcequbLBqa+qhyX+vS/TGO67B
+	 XkBNLCRVFxuo4RlxqXFH9bqtEcWoiOIUzTnyNb9yKBD8aaM3STk9/21F0ZoFtfvbO2
+	 MEccLa8o9NKsqS872XPuGLpIrFsBx2sIWrExRNxEBLGhP/5shAB6TTQV3+4xpissYK
+	 qVD28ouH0cp4A==
+Received: by mail-oa1-f53.google.com with SMTP id 586e51a60fabf-49e20441e45so450057fac.0
+        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 05:48:28 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwgVmnua4sZwPZxlMBdkr7wm8RktYXyzvS2dUJFENd5LDkoScPB8zO4cCyP3SmM677jm3bES7M=@vger.kernel.org
+X-Gm-Message-State: AFuF++kRwsFccF5Im5UGgTfoisNnyN4cFexhhbpYCGORc9kXpndHzGeS
+	5mS29LxqKgn82+iZHQHxM7REdFc9RVIDmS28binJhcro3ByG2LsJmsY8T4/E64vcR3rbK76dEyi
+	8XtNH59qLAJvFV7rzk+Drcrt0A3ySXIM=
+X-Received: by 2002:a05:6870:e997:b0:48f:a8b6:19d3 with SMTP id
+ 586e51a60fabf-4a28045b5bemr1459726fac.2.1791463708287; Thu, 08 Oct 2026
+ 05:48:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/panthor: Fix TOCTOU race between GROUP_REGISTERED
- check and erase
-To: Osama Abdelkader <osama.abdelkader@gmail.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Chia-I Wu <olvaffe@gmail.com>, Akash Goel <akash.goel@arm.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-References: <20261008100935.3059587-1-osama.abdelkader@gmail.com>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20261008100935.3059587-1-osama.abdelkader@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <CAPa5EdCj3v17tB-SF2JNecq5Q8s1Pranr-XzAFWNpNTBPgPG7w@mail.gmail.com>
+ <a6193df2-98f3-409f-b73f-5b91835a0107@kernel.org> <CAL4WiirwF6bZwocErCthJ+TUu7wipRfSibRBoKWjjkA2nVSrqQ@mail.gmail.com>
+ <CAL4WiiqSmW093PDngLrUNiNA5GVKeM3+tAO7KMDJeyjYZ7GRzg@mail.gmail.com>
+ <4c98eff5-c8c7-43ee-b59a-adb833978816@kernel.org> <CAPa5EdDk+HuVP0H1+iqOcHDHZnfdika5WOQcgSaMtfRFWzqZ+Q@mail.gmail.com>
+In-Reply-To: <CAPa5EdDk+HuVP0H1+iqOcHDHZnfdika5WOQcgSaMtfRFWzqZ+Q@mail.gmail.com>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Thu, 8 Oct 2026 14:48:16 +0200
+X-Gmail-Original-Message-ID: <CAL4WiipSpufpdo-AWoNEJta-puLQ5hMyPn2xcjwg4vg67PNoyA@mail.gmail.com>
+X-Gm-Features: AclHuK_D8yngICniNIB7imCy2NJMcxGSlGHrPp5HcoKJPk8-kK9ST_uLJsCbP9s
+Message-ID: <CAL4WiipSpufpdo-AWoNEJta-puLQ5hMyPn2xcjwg4vg67PNoyA@mail.gmail.com>
+Subject: Re: [REGRESSION][BISECTED] r8169: TX stall with checksum offload on
+ VLAN frames with inline tag (REORDER_HDR off) since 1517d1996b52
+To: =?UTF-8?B?SmFuIMSMZXJtw6Fr?= <sairon@sairon.cz>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>, netdev@vger.kernel.org, 
+	regressions@lists.linux.dev, stable@vger.kernel.org, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, nic_swsd@realtek.com, 
+	Sasha Levin <sashal@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 08/10/2026 11:09, Osama Abdelkader wrote:
-> panthor_group_destroy() checks the GROUP_REGISTERED mark and then calls
-> xa_erase() without holding the xarray lock across both. If the handle is
-> destroyed by another thread in between, and a concurrent GROUP_CREATE
-> reuses the freed ID, the first destroy erases and releases the new,
-> still-initializing group, leading to a use-after-free in
-> panthor_group_create().
-> 
-> Do the mark check and erase atomically under xa_lock().
-> 
-> Fixes: eec7e23d848d ("drm/panthor: Prevent potential UAF in group creation")
-> Assisted-by: Claude:claude-opus-5.5
-> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-> Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+Le jeu. 8 oct. 2026 =C3=A0 13:35, Jan =C4=8Cerm=C3=A1k <sairon@sairon.cz> a=
+ =C3=A9crit :
+>
+> Hi Eric,
+>
+> On Wed, 7 Oct 2026 at 00:00, Eric Dumazet <edumazet@kernel.org> wrote:
+> > Note to testers:
+> >
+> > My LLM agreed with the change in vlan_dev_hard_header() (above), but sa=
+id
+> > that no change was needed in vlan_dev_hard_start_xmit() (below)
+> >
+>
+> I'll need the patch applied to 6.18.y for testing, as I can't test it
+> personally and I want to provide testers with the same kernel/system
+> version as before just with minimal changes. So do I understand
+> correctly that the patch below is what you want to get tested, no
+> changes in vlan_dev_hard_start_xmit()?
+>
 
-Reviewed-by: Steven Price <steven.price@arm.com>
+This is the current patch under review :
+https://lore.kernel.org/netdev/20261008123812.554729-1-edumazet@kernel.org/=
+T/#u
 
-> ---
-> v2:
-> - added Assisted-by tag, no code changes.
-> ---
->  drivers/gpu/drm/panthor/panthor_sched.c | 14 ++++++++++----
->  1 file changed, 10 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-> index 0493858e55d7..a343c5180e01 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> @@ -3770,12 +3770,18 @@ int panthor_group_destroy(struct panthor_file *pfile, u32 group_handle)
->  	struct panthor_group_pool *gpool = pfile->groups;
->  	struct panthor_device *ptdev = pfile->ptdev;
->  	struct panthor_scheduler *sched = ptdev->scheduler;
-> -	struct panthor_group *group;
-> +	struct panthor_group *group = NULL;
->  
-> -	if (!xa_get_mark(&gpool->xa, group_handle, GROUP_REGISTERED))
-> -		return -EINVAL;
-> +	/*
-> +	 * Check the mark and erase the entry atomically, so a concurrent
-> +	 * destroy + create can't make us erase a group that's still being
-> +	 * initialized and happens to reuse the same handle.
-> +	 */
-> +	xa_lock(&gpool->xa);
-> +	if (xa_get_mark(&gpool->xa, group_handle, GROUP_REGISTERED))
-> +		group = __xa_erase(&gpool->xa, group_handle);
-> +	xa_unlock(&gpool->xa);
->  
-> -	group = xa_erase(&gpool->xa, group_handle);
->  	if (!group)
->  		return -EINVAL;
->  
-
+Thanks.
