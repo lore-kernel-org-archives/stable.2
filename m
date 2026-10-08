@@ -1,185 +1,84 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDD011C2AA;
-	Thu,  8 Oct 2026 00:08:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD04D4AEEF;
+	Thu,  8 Oct 2026 00:14:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791418133; cv=none; b=dycUKzA2lv0qtSwUGyKQ/qo/3CpHwRZQLWh17wiwLfwdWAfLR6fn/jq8gTLYP1VKuJZeG0XjTUEiAvCQ6aqWHr2txp9+l7ES9jYN6ES3TPSKDEnLUt1UQOCoW7/X8VonCDEXf4WmxhkNldg8Lk/29y2hV0ncpYLrNWmWGVKs7Dk=
+	t=1791418480; cv=none; b=rIkKpGlutC0+sVSQzRPSMixEkHJdDkiX+vucNirtEH9SR2Hd+wGar5zZEaKNhxiOzE38OKVIOU55QGOPANkn7Tw51YaL3SG7USONWkSgZXWatM59lwsoFN/zan91B+Mn0lFSwvenx9E/+oMh82U0Mn9tjsu8z6yIn/NkCIALOpI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791418133; c=relaxed/simple;
-	bh=R/dS0lqWq2OrEXP3DgphPGV79bFNL+NkWvrBs32GjxY=;
-	h=Date:To:From:Subject:Message-Id; b=U8ePhRn4nEkr7F9uYGrHUESbPXKRlpgkdDYHkDGmSlmxiFrL6EcIiY38skLqoPYlKBnpsE6A4avIEHKa3oarJA0qsmiriuGpa0G4DdhEaAcUUMw2+ZVm8nNCUQlPqznHFIO+axpX8huNKqSFZ+uZWGnosqaILVewH7CRVrPvSVA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=ISurjKsE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791418480; c=relaxed/simple;
+	bh=SrAkcpr8nDMo+MAxCVbdSGc8oXGNDCRH9uVeztGZxTY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cGrSmM6I1i+HTOUWRzpkCdPU20yPMzqiVkFW2YUtvO5xxgXWbxChTuUkIroMHkjGtnw+iLzjwGueA7KfsWpEuKk1iPfZ7KE3Olk2cJuXtc7wD0wdiiiQ735SosfxZW7BX6ri0hKyAOe/6I+9mX7K8In4futSw1kSsICK3GuOrQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=auVM5f69; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="ISurjKsE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E8EB1F000FF;
-	Thu,  8 Oct 2026 00:08:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791418131;
-	bh=KHVBkq8qA+muUIAzurKvzO3XxmkGWmC3OVgRJCv8rVc=;
-	h=Date:To:From:Subject;
-	b=ISurjKsE/q48k4ezxZsh/P+v0wZjku0y1Ioxp7oCQlQSUlfmN3eqB5WuEsO8KQwkY
-	 XwC+EtzLhwsYy81yTVDfePBOiLbxrU6hMwiMgcGakzhwMCdP5RQe3KBH0Heuh6L1FU
-	 yTVdos8SmZd+gWEyUlHB9zCqNcZHm571ovEjrrfg=
-Date: Wed, 07 Oct 2026 17:08:51 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,lzsx618@gmail.com,andriy.shevchenko@intel.com,armaan.sandhu0504@gmail.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + lib-cmdline-fix-get_options-count-and-overflow-with-large-ranges.patch added to mm-nonmm-unstable branch
-Message-Id: <20261008000851.7E8EB1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="auVM5f69"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 578C41F00898;
+	Thu,  8 Oct 2026 00:14:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791418479;
+	bh=N9Wy5SXekDZpoV1uFuHtYbSCoUjh2plzMeUMM/jL0aM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=auVM5f69CG2FeCAZ4u3q+OlrEi9pEVgiU5klkmGtX71CevBCF3A2lSx1uI96QLk/j
+	 QCYrpXQDg8QzY6J3TKzEkV2PUQCXZKet83b6WDz/4VK7IMq1q7vS5mDBWO4fiQp2Iz
+	 sM4adM13ZndqTD4yI6YjlZ5jLkM6ejVpekDoN9gOMV4T3q26EzNUSt3dDRnJ88fPg3
+	 zIJuPsDBY5SUHyGubFiYj27RhE/Wzp+nLK6xCtFk92yszBG7/cZRZGCik9gQzbZ+JM
+	 D8xOSxuxZwPVQxvdfcfa+PZtDWqQsD66eHdtbF/tgAi45eECbCTIQDmobnQd9x9IVf
+	 vAkbLC366Rc9Q==
+From: Yosry Ahmed <yosry@kernel.org>
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>,
+	Jim Mattson <jmattson@google.com>,
+	Maxim Levitsky <mlevitsk@redhat.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Tom Lendacky <thomas.lendacky@amd.com>,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yosry Ahmed <yosry@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 01/29] KVM: nSVM: Flush the TLB after forcefully leaving nested
+Date: Thu,  8 Oct 2026 00:13:57 +0000
+Message-ID: <20261008001425.2458927-2-yosry@kernel.org>
+X-Mailer: git-send-email 2.56.0.360.g66cac248cb-goog
+In-Reply-To: <20261008001425.2458927-1-yosry@kernel.org>
+References: <20261008001425.2458927-1-yosry@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+KVM flushes the TLB on nested VM-Enter and nested VM-Exit, but not when
+forcefully leaving nested. In this case, L2 TLB entries can leak into
+L1. Flush the TLB after forcefully exiting L2, similar to nested
+VM-Exits.
 
-The patch titled
-     Subject: lib/cmdline: fix get_options() count and overflow with large ranges
-has been added to the -mm mm-nonmm-unstable branch.  Its filename is
-     lib-cmdline-fix-get_options-count-and-overflow-with-large-ranges.patch
+Note that vmx_leave_nested() handles this correctly, as it reuses
+nested_vmx_vmexit(), which handles the necessary TLB flushes on an L2 ->
+L1 transition.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/lib-cmdline-fix-get_options-count-and-overflow-with-large-ranges.patch
-
-This patch will later appear in the mm-nonmm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Armaan Sandhu <armaan.sandhu0504@gmail.com>
-Subject: lib/cmdline: fix get_options() count and overflow with large ranges
-Date: Mon,  5 Oct 2026 17:39:45 -0400
-
-get_range() stops writing once the array is full, but get_options() still
-advances its index by the whole range.  So "1-100" parsed into four ints
-reports 99 numbers, and a range like "0-2147483647" wraps the index
-negative and writes outside the array.
-
-Stop once a range fills the array, bail out in validation mode before the
-count overflows, and saturate the range length in get_range().  Add KUnit
-cases; without the fix "0-2147483647" panics the test kernel.
-
-Only root can supply this input, so this is a robustness fix.
-
-Link: https://lore.kernel.org/20261005213945.359905-1-armaan.sandhu0504@gmail.com
-Fixes: 22f2e2801799 ("[PATCH] get_options to allow a hypenated range for isolcpus")
-Signed-off-by: Armaan Sandhu <armaan.sandhu0504@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Leizhen Zhang <lzsx618@gmail.com>
-Reviewed-by: Leizhen Zhang <lzsx618@gmail.com>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: <stable@vger.kernel.org>
+Cc: stable@vger.kernel.org
+Signed-off-by: Yosry Ahmed <yosry@kernel.org>
 ---
+ arch/x86/kvm/svm/nested.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
- lib/cmdline.c             |   13 +++++++++++-
- lib/tests/cmdline_kunit.c |   38 ++++++++++++++++++++++++++++++++++++
- 2 files changed, 50 insertions(+), 1 deletion(-)
-
---- a/lib/cmdline.c~lib-cmdline-fix-get_options-count-and-overflow-with-large-ranges
-+++ a/lib/cmdline.c
-@@ -11,6 +11,7 @@
+diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
+index af0ef678433d7..2bfc9d2c341b1 100644
+--- a/arch/x86/kvm/svm/nested.c
++++ b/arch/x86/kvm/svm/nested.c
+@@ -1558,6 +1558,8 @@ void svm_leave_nested(struct kvm_vcpu *vcpu)
  
- #include <linux/export.h>
- #include <linux/kernel.h>
-+#include <linux/overflow.h>
- #include <linux/string.h>
- #include <linux/ctype.h>
+ 		svm_switch_vmcb(svm, &svm->vmcb01);
  
-@@ -26,7 +27,9 @@ static int get_range(char **str, int *pi
++		nested_svm_transition_tlb_flush(vcpu);
++
+ 		nested_svm_uninit_mmu_context(vcpu);
+ 		vmcb_mark_all_dirty(svm->vmcb);
  
- 	(*str)++;
- 	upper_range = simple_strtol((*str), NULL, 0);
--	inc_counter = upper_range - *pint;
-+	/* Keep the sign of the result when the difference doesn't fit */
-+	if (check_sub_overflow(upper_range, *pint, &inc_counter))
-+		inc_counter = upper_range < *pint ? -1 : INT_MAX;
- 	for (x = *pint; n && x < upper_range; x++, n--)
- 		*pint++ = x;
- 	return inc_counter;
-@@ -122,6 +125,14 @@ char *get_options(const char *str, int n
- 			range_nums = get_range((char **)&str, pint, n);
- 			if (range_nums < 0)
- 				break;
-+			/* The range didn't fit, so the array is full */
-+			if (!validate && range_nums > n) {
-+				i = nints;
-+				break;
-+			}
-+			/* Leave room for the upper number of the range */
-+			if (range_nums >= INT_MAX - i)
-+				break;
- 			/*
- 			 * Decrement the result by one to leave out the
- 			 * last number in the range.  The next iteration
---- a/lib/tests/cmdline_kunit.c~lib-cmdline-fix-get_options-count-and-overflow-with-large-ranges
-+++ a/lib/tests/cmdline_kunit.c
-@@ -140,6 +140,43 @@ static void cmdline_test_range(struct ku
- 	} while (++i < ARRAY_SIZE(cmdline_test_range_strings));
- }
- 
-+static const struct {
-+	const char *in;
-+	int parsed[4];
-+	int validated;
-+} cmdline_test_range_overflow_cases[] = {
-+	{ "1-100",         { 3, 1, 2, 3, },    100,        },
-+	{ "1,5-100,7",     { 3, 1, 5, 6, },    98,         },
-+	{ "1-2147483646",  { 3, 1, 2, 3, },    2147483646, },
-+	{ "0-2147483647",  { 3, 0, 1, 2, },    0,          },
-+	{ "-5-2147483647", { 3, -5, -4, -3, }, 0,          },
-+	{ "2147483647--5", { 0, 2147483647, }, 0,          },
-+};
-+
-+static void cmdline_test_range_overflow(struct kunit *test)
-+{
-+	unsigned int i, j;
-+
-+	for (i = 0; i < ARRAY_SIZE(cmdline_test_range_overflow_cases); i++) {
-+		const char *in = cmdline_test_range_overflow_cases[i].in;
-+		const int *e = cmdline_test_range_overflow_cases[i].parsed;
-+		/* Two guard elements past the array handed to get_options() */
-+		int r[ARRAY_SIZE(cmdline_test_range_overflow_cases[0].parsed) + 2];
-+		int n;
-+
-+		memset(r, 0, sizeof(r));
-+		get_options(in, ARRAY_SIZE(r) - 2, r);
-+		for (j = 0; j < ARRAY_SIZE(r) - 2; j++)
-+			KUNIT_EXPECT_EQ_MSG(test, r[j], e[j], "Pattern: %s at %u", in, j);
-+		for (; j < ARRAY_SIZE(r); j++)
-+			KUNIT_EXPECT_EQ_MSG(test, r[j], 0, "Pattern: %s out of bound at %u", in, j);
-+
-+		get_options(in, 0, &n);
-+		KUNIT_EXPECT_EQ_MSG(test, n, cmdline_test_range_overflow_cases[i].validated,
-+				    "Pattern: %s (validated)", in);
-+	}
-+}
-+
- static void cmdline_test_next_arg_quoted_value(struct kunit *test)
- {
- 	char in[] = "foo=\"bar baz\" qux=1";
-@@ -258,6 +295,7 @@ static struct kunit_case cmdline_test_ca
- 	KUNIT_CASE(cmdline_test_lead_int),
- 	KUNIT_CASE(cmdline_test_tail_int),
- 	KUNIT_CASE(cmdline_test_range),
-+	KUNIT_CASE(cmdline_test_range_overflow),
- 	KUNIT_CASE(cmdline_test_next_arg_quoted_value),
- 	KUNIT_CASE(cmdline_test_next_arg_bare_quote_regression),
- 	KUNIT_CASE(cmdline_test_next_arg_mixed_tokens),
-_
-
-Patches currently in -mm which might be from armaan.sandhu0504@gmail.com are
-
-lib-cmdline-fix-get_options-count-and-overflow-with-large-ranges.patch
+-- 
+2.56.0.360.g66cac248cb-goog
 
