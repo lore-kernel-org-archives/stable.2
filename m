@@ -1,165 +1,174 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f225.google.com (mail-pg1-f225.google.com [209.85.215.225])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 100113DDB0D;
-	Thu,  8 Oct 2026 20:20:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C1734F6492
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 20:29:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.225
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791490811; cv=none; b=mn8pi78tq1w8H/UX1Ocw74pI3lb35y/xqp5vkWpTM5xQoxt0dqC2TZ6wF8ARkhfufVSdEBi8b/wT8od3/P65JVLrieUIE62kpFGBwhmPPM337l516H22tLEoVf/7LZYxmHU84rta9YF33IdOOvVbgoVsdysicbKhy4Guz5FC/ks=
+	t=1791491352; cv=none; b=jBe0zvkNqJ1IFYwAG/fUb5VzaYffkq15JzfqD+1qsJTr+WdK1DBPbg1M6c+7ku0RY7znxlNG0FGnXkzQiCSB4JeYcY7ynwpCQ6B9vdH0aEea/lqY7YnzeqqP7JXKOBk3LbFpSabUX8B7UrCqMXV94epyKOUyzkbG6rY3CTHTF/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791490811; c=relaxed/simple;
-	bh=T96s/fnsrHONgXeIXpGKt3YQJDuWHY9BMRyIWUEgkFI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=q2HQPyjeQsn0DUTGt15UvTWFzqmHqy9FQZkTSdyMz4Ia7hzax3F0zX0l1MtWGlyrpoevHZahOnoJx0h7xevOg1vU3bmHWi45jYrKKr2mLvRhUZJ6hNd/8t1Jn9A8rtVAhFH1SaTSWAbq8r/so5GyjEJfk/tWvDStTY2bXsnHP5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=PL1MCQ6d; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1791491352; c=relaxed/simple;
+	bh=GqNZFFS4eTIb708Eoy/tXQ66KdSn0Lvhue0RwL47s4A=;
+	h=From:To:Cc:Subject:Date:Message-ID; b=rk45XizV+iDTeXZ0z09HT9ikEOz/04+T3gOC3exyphOpfqmPJ8i1/2TLqbB1Y7KzXWr1T43VJ54YT6huLmHQMffdVnHaw7E4nvNAlBhFpo89NVkq5/Lr9DUJDJjZsYZG+tsXrz0JML2Qk1GUzLVO7wgVGrjyF1ui2ge7gm9bKE8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com; spf=pass smtp.mailfrom=arista.com; dkim=pass (2048-bit key) header.d=arista.com header.i=@arista.com header.b=ESbe4Ntt; arc=none smtp.client-ip=209.85.215.225
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arista.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="PL1MCQ6d"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
-	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=btQhSQmBe7ws4MECTxH8P0ozyn0FAhTOQxzSzXwLJdk=; b=PL1MCQ6doOKYlzalYCR4eDHw/f
-	karfXpp4uonEqvOYPFUF/lYsTunsJwwADcAsrfPMr+XIZbSUVvbtMHq/HgR0gIPXOA9V8z6QZoLWw
-	opLn1TbXU9GjzPIHbTp/xUgnw0WxF1hw0fXOERIdDEbbc4NCCV4b4O0rVmLzIWSNs/IO3n+vohwV8
-	z1dDyNYBGElvpT0x3bMgoefrfdKHmVjgWn4X8wjBrtCMIx5/TsIU0rfpi3FSyB02XW+KuQLSZm7LT
-	xVL06dEsuY+XK+YRxvwxZatM0MujdE/98/FK2JwGRuTZpzt9cwXGARfPRgDjPA+QchhJTSXfT2o3m
-	I4TUQf1g==;
-Received: from [151.115.150.205] (port=38102 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xEub1-00000002wY0-1516;
-	Thu, 08 Oct 2026 22:20:07 +0200
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: Eric Biggers <ebiggers@kernel.org>,
-	"Jason A. Donenfeld" <Jason@zx2c4.com>,
-	Ard Biesheuvel <ardb@kernel.org>
-Cc: linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 1/2] lib/crypto: arm64: Fix lost Poly1305 carry when resuming NEON state
-Date: Thu,  8 Oct 2026 20:19:50 +0000
-Message-ID: <20261008201949.561207-4-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261008201949.561207-2-Jeremy.Jean@oss.cyber.gouv.fr>
-References: <20261008201949.561207-2-Jeremy.Jean@oss.cyber.gouv.fr>
+	dkim=pass (2048-bit key) header.d=arista.com header.i=@arista.com header.b="ESbe4Ntt"
+Received: by mail-pg1-f225.google.com with SMTP id 41be03b00d2f7-cc758830601so3822428a12.2
+        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 13:29:09 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791491348; x=1792096148;
+        h=content-transfer-encoding:message-id:date:subject:cc:to:from
+         :dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=u0ZTgl3gzHMxU8rZBcoHFObnSv/9xICBYZH4gzmLfRc=;
+        b=M17HY4eyNi4OtGTXQWPbhalzV4e7Cj63ZwnmRC8BU1j8gzaxx1Z4Cs9t+PpI+hzz7Z
+         Oq4v+H4HcyevfOY0QiYaKMXVCWaw0e3TspeGM93lBL6mrwHy4ikx0Hwo2lF9FZCf4PwJ
+         mM+BGN1W1YuK/gupfzXiOFujGagI8yCdJqELPioWkbn07m75MtVdQNJ97crYDc3uRjsA
+         2DpCkpCrFajew50GOVM3C3+pczuDplw2X8l4Oi2wal+IpeWFCfLOG91/GDItEuZqrZdh
+         mNBh7pn7nF9ozZGV9yPCOzunAIe7aw34F1qoI1FTGqQpwG5Dv/0QZwclyCrrUrTeWGro
+         yKoQ==
+X-Forwarded-Encrypted: i=1; AKwUvByHQZmzCVe+9a9Qco/5TbyOADoxCmGzKKMVqm6CRVvPVHUtHS6XUsPQFsb3qRaUyJKg2V5u3Qw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLo8hfP2WuWWfQTgjmKQD2aciViEGh4/HaxRCfn7ozhwOzwRw1X
+	lDctJayQCxozhix/d0wx7450vB1gRpVBhad2aEYx4jYK3SHL5YsW3BgiELlwHKLR4MICdlE9OD/
+	QUgdaMmQ5+Td+OQS30at1FVYRd5oRaRcp7w==
+X-Gm-Gg: AYBFou10IhUNKzwsTaOB9Fc3E0J6CGrQo3C9OvHMM2EytJ/5GCGZ1fWC3hidVC//Hdh
+	t60QrixYkKzROzCjF81r0/csEUYHFBbzKLdCqtsvz6yJdfJZTnkE+wVS6UqUZGZwN49jyhd0T+w
+	wplcJQH/qQzAA3W+llykP3NYm8JslA0wxqJCwBLxkGo8l0oJIA4r22dSfdEE1ME/yn70BwDY3Wh
+	71PsVaRWUgmja95gYSSwOuTTQuO5l4b98FHfcaVhD490BbXx7VRkypWdY+Bmwq2PUBBapeReu0x
+	rqhiAdshoBJV5f5qTE2JCdnxIYfmNb/Qud7FkCNs2jJUMovjcCIpFOnm1CKe7h79Sbx/OZ8rmN4
+	UKGk3dRsHGrVmLBUy1DlPbLj1/7XnoNREud4QwjRRpTy9GdXVuhZE9cRCs7c=
+X-Received: by 2002:a17:90b:5483:b0:3a8:6424:b1b1 with SMTP id 98e67ed59e1d1-3a8a1ab7705mr5561957a91.33.1791491348558;
+        Thu, 08 Oct 2026 13:29:08 -0700 (PDT)
+Received: from smtp.aristanetworks.com (ec2-54-84-120-176.compute-1.amazonaws.com. [54.84.120.176])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ab36e34040sm101802a91.7.2026.10.08.13.29.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 13:29:08 -0700 (PDT)
+X-Relaying-Domain: arista.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arista.com;
+	s=Arista-A; t=1791491347;
+	bh=u0ZTgl3gzHMxU8rZBcoHFObnSv/9xICBYZH4gzmLfRc=;
+	h=From:To:Cc:Subject:Date:From;
+	b=ESbe4NttCxfd+SKabiUWx7Vhpj+uqDMw5OweWOHbqvc+Sfy0zTNfkCmrMF39g5xxp
+	 7dbDDMbZhV9cpyECp1X03fk/DimWsomsi54QolxKMZuk0wYS1M8QRVcTLbgfc1QuW1
+	 AxYQ0wA2VffZKLWtunS8kn+UbY1NYO6xkv9nZI6q5WJvyohmJqIC3YMqY4TPf4/j3l
+	 4/++rYGL+HVLTUZPkq5obVPGtXPf9iqTd8RVWgQMYajQBkzVcxdUpMdvAhaAIUBX09
+	 TFk1vo2TZ0/sgquwYniiYxGORbMp1ITjnQ/wMMnDtpSX9S9U5i1vpdnndUWKK681nx
+	 wR8EYL7s3uZVg==
+Received: from kevmitch-g-eos-trunk-kernel7-2026-09-06.sjc.aristanetworks.com (unknown [10.242.71.193])
+	by smtp.aristanetworks.com (Postfix) with ESMTP id D8BACC047B;
+	Thu,  8 Oct 2026 20:29:06 +0000 (UTC)
+X-SMTP-Authentication: Allow-List-permitted
+X-SMTP-Authentication: Allow-List-permitted
+From: Kevin Mitchell <kevmitch@arista.com>
+To: Vasant Hegde <vasant.hegde@amd.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Nicolin Chen <nicolinc@nvidia.com>
+Cc: Kevin Mitchell <kevmitch@arista.com>,
+	stable@vger.kernel.org,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Joerg Roedel <joerg.roedel@amd.com>,
+	iommu@lists.linux.dev (open list:AMD IOMMU (AMD-VI)),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] iommu/amd: allow identity domain during device release
+Date: Thu,  8 Oct 2026 13:25:27 -0700
+Message-ID: <20261008202530.14501-2-kevmitch@arista.com>
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
 
-When poly1305_blocks_neon() resumes from a lazily reduced NEON
-accumulator and the next update contains an odd number of full
-16-byte blocks, it processes one leading block through
-poly1305_mult() so that the remaining NEON work has an even block
-count. That requires converting the accumulator into the base 2^64
-form used by poly1305_mult(). The final ADC stores the carry into d2,
-but the following accumulation and poly1305_mult() use h2. If the
-conversion overflows across bit 128, the carry is dropped and the
-emitted tag is wrong.
+A warning is triggered in amd_iommu_release_device() on removal of a
+device with an IOMMU_RESV_DIRECT region. The warning is based on the
+false assumption that correct attachment to the release_domain will
+always result in a NULL dev_data->domain pointer. For devices with
+IOMMU_RESV_DIRECT (and consequently dev->iommu->require_direct), the
+release domain is the permanent identity_domain which sets
+itself to dev_data->domain on attach.
 
-This was introduced by Cryptogams 03dc4adf91c8
-("arm/poly1305-armv*.pl: optimize branches."), which removed the
-reduction that consumed d2 shortly before Linux imported the code.
-OpenSSL's copy did not take that change.
+This behaviour was added in commit e94160488e65 ("iommu: Generic support
+for RMRs during device release"). Commit c21b34762e2f ("iommu/amd: Set
+release_domain to blocked_domain") caused it to take effect for AMD
+IOMMU.
 
-That carry is possible because the NEON loop stores a lazily reduced,
-redundant base 2^26 representation. Consider the reachable state
-  [4,   2^26,   2^26 - 1,   2^26 - 1,   2^24 - 1].
-These limbs in base 2^26 represent the value
-      4 
-    + (2^26    ) * 2^26
-    + (2^26 - 1) * 2^52
-    + (2^26 - 1) * 2^78
-    + (2^24 - 1) * 2^104
-  = 2^128 + 4,
-so converting back to base 2^64 must produce
-  h0 = 4, h1 = 0, h2 = 1,
-so that h0 + h1 * 2^64 + h2 * 2^128 = 2^128 + 4.
+Explicitly allow the identity domain pointer to be set. Keep the warning
+for any other non-NULL domain.
 
-The third limb starts at bit 52, so its low 12 bits belong in h0 and
-its upper 14 bits belong in h1. The low-word ADDS starts from
-  4 + 2^26 * 2^26 = 2^52 + 4
-and adds the low 64 bits of
-  (2^26 - 1) << 52 = 2^78 - 2^52,
-namely 2^64 - 2^52. The sum is 2^64 + 4, so it leaves h0 = 4 and
-carry = 1.
+The warning was observed for a device with direct mapped region:
 
-The middle word contains the upper 14 bits of the third limb, all of
-the fourth limb, and the low 24 bits of the fifth limb. The next ADC
-adds the carry from h0 to
-  ((2^26 - 1) >> 12) + ((2^26 - 1) << 14),
-giving
-  (2^14 - 1) + (2^40 - 2^14) + 1 = 2^40.
-The following ADDS adds the low 64 bits of
-  (2^24 - 1) << 40 = 2^64 - 2^40,
-so the sum is 2^64, h1 wraps to 0, and carry = 1.
+/sys/bus/pci/devices/0000:04:00.0/iommu_group/reserved_regions:
 
-The top word starts from the remaining bits of the fifth limb,
-  (2^24 - 1) >> 24 = 0.
-The final ADC must add the carry from h1 and set h2 = 1. Writing the
-carry into d2 instead leaves h2 = 0, so the reconstructed value is 4
-instead of 2^128 + 4.
+  0x00000000fee00000 0x00000000feefffff msi
+  0x000000fd00000000 0x000000ffffffffff reserved
+  0x0000fffd00000000 0x0000ffffffffffff direct
 
-More generally, for [a0, a1, a2, a3, a4], this carry exists only when 
-  a1 >= 2^26,
-  a2 = a3 = 2^26 - 1,
-  a4 mod 2^24 = 2^24 - 1.
-This is about 2^36 tuples out of about 2^130, or about one in 2^94 for
-uniformly random tuples.
+Upon hotunplug:
 
-Store the carry back into h2. This matches the other conversion paths
-and preserves the represented accumulator. Under regular use,
-triggering this bug by chance is highly improbable; this fix addresses
-arithmetic correctness only.
+[   28.715475] pcieport 0000:00:03.1: pciehp: Slot(0-3): Link Down
+[   28.715482] pcieport 0000:00:03.1: pciehp: Slot(0-3): Card not present
+[   28.715601] ------------[ cut here ]------------
+[   28.715603] WARNING: drivers/iommu/amd/iommu.c:2521 at amd_iommu_release_device+0x5d/0x70, CPU#4: irq/29-pciehp/99
+[   28.715657] RIP: 0010:amd_iommu_release_device+0x5d/0x70
+[   28.715687] Call Trace:
+[   28.715689]  <TASK>
+[   28.715694]  iommu_deinit_device+0x84/0x110
+[   28.715699]  __iommu_group_remove_device+0xa8/0xd0
+[   28.715703]  iommu_bus_notifier+0x48/0x70
+[   28.715707]  notifier_call_chain+0x48/0xe0
+[   28.715712]  blocking_notifier_call_chain+0x45/0x60
+[   28.715716]  bus_notify+0x3b/0x60
+[   28.715720]  device_del+0x259/0x3b0
+[   28.715730]  pci_remove_bus_device+0x85/0x100
+[   28.715735]  pciehp_unconfigure_device+0x9d/0x180
+[   28.715743]  __pciehp_disable_slot+0x47/0xe0
+[   28.715747]  pciehp_handle_presence_or_link_change+0x80/0x5e0
+[   28.715753]  pciehp_ist+0x162/0x290
 
-Fixes: f569ca164751 ("crypto: arm64/poly1305 - incorporate OpenSSL/CRYPTOGAMS NEON implementation")
+Fixes: c21b34762e2f ("iommu/amd: Set release_domain to blocked_domain")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Signed-off-by: Kevin Mitchell <kevmitch@arista.com>
 ---
+ drivers/iommu/amd/iommu.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-Changes in v2:
- - Add an example of computations demonstrating the error.
- - Provide an estimate of the low probability it gets triggered.
- - Add a paragraph mentionning the introducing commit in Cryptogams
-   repo, and non-impact on OpenSSL.
-
-v1: https://lore.kernel.org/all/20261007220235.200818-2-Jeremy.Jean@oss.cyber.gouv.fr/
-
- lib/crypto/arm64/poly1305-armv8.pl | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/lib/crypto/arm64/poly1305-armv8.pl b/lib/crypto/arm64/poly1305-armv8.pl
-index f1930c6b55ce..234398ff6b60 100644
---- a/lib/crypto/arm64/poly1305-armv8.pl
-+++ b/lib/crypto/arm64/poly1305-armv8.pl
-@@ -375,7 +375,7 @@ poly1305_blocks_neon:
- 	adc	$h1,$h1,xzr
- 	lsr	$h2,x14,#24
- 	adds	$h1,$h1,x14,lsl#40
--	adc	$d2,$h2,xzr		// can be partially reduced...
-+	adc	$h2,$h2,xzr		// preserve carry into top limb
+diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
+index 56262f6b1f70..770717e36333 100644
+--- a/drivers/iommu/amd/iommu.c
++++ b/drivers/iommu/amd/iommu.c
+@@ -2548,11 +2548,17 @@ static struct iommu_device *amd_iommu_probe_device(struct device *dev)
+ 	return iommu_dev;
+ }
  
- 	ldp	$d0,$d1,[$inp],#16	// load input
- 	sub	$len,$len,#16
++static struct protection_domain identity_domain;
++
+ static void amd_iommu_release_device(struct device *dev)
+ {
+ 	struct iommu_dev_data *dev_data = dev_iommu_priv_get(dev);
+ 
+-	WARN_ON(dev_data->domain);
++	/*
++	 * Devices with direct mapped regions are attached to the
++	 * identity_domain as their release_domain.
++	 */
++	WARN_ON(dev_data->domain && dev_data->domain != &identity_domain);
+ 
+ 	/*
+ 	 * We keep dev_data around for unplugged devices and reuse it when the
+@@ -2953,8 +2959,6 @@ static struct iommu_domain blocked_domain = {
+ 	}
+ };
+ 
+-static struct protection_domain identity_domain;
+-
+ static int amd_iommu_identity_attach(struct iommu_domain *dom, struct device *dev,
+ 				     struct iommu_domain *old)
+ {
 -- 
-2.47.3
+2.51.0
+
