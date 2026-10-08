@@ -1,86 +1,67 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D788D49DBBA;
-	Thu,  8 Oct 2026 12:45:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D95416F288;
+	Thu,  8 Oct 2026 12:46:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791463525; cv=none; b=n5ssodkCQn96rz/hs1pa7cPKuZfdY1C+aWLILLvOIaJHxgqBFGGbQ/L/VKaLRWCOhQwKG6goMBVJYvQT1mQCdLYgERp5JRxs6QGo2Ys8Z9SDPh5+ftsroIn9J3JwBejQ8cQZT47+WHU1xwYV8D+7vYBJdqGY8ZIdnXciIVzQoic=
+	t=1791463568; cv=none; b=rofLYya5UBkeGfYxMgNaAxDATZIgJ7+YvO6VlYtcQVX6/3LcUocLrfK5TmK/Yll5wjRp3d84mQGoyOJCrn1fMHJowt1zpXd2P88yEIZTJysgKQrZkMC6Dx39uZcR9DurjxeZlug/ortNnIMph1uoiDMOTcuhO3dxOObMjFzszKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791463525; c=relaxed/simple;
-	bh=B2xwRmjaoQVg9wr0dMd5X+QH7+pRHtbhVjKfgTCyW5E=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=m92Dth6Niy9GMZourPx5erWCgnBuRKV26728rkBFmc613IPPnf4JqtUEFiX2J00s4g2xQeslV1/tI1wssclvhOtFEzddhhbZfSO+yQ+aw1/Bx3XQlK0dhXYz4thpYuN/zgOILE0lk+a1JO+d6ZFh1+BJ4LgYr+yQr3oa7qDuRh8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=cpXwrTN4; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1791463568; c=relaxed/simple;
+	bh=T80pmibn7aSi6N9hDzJvCBDoLXDCN4HDH9fhrQVJ60g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=M7hyG7v60VHimPpWdUXchxWKGb+gZoEko5QMoMfor1GDetTZTWD2Fj8T7+oE/UcP1UXYhygpamZyJ5I2R0ZKLxcTEnEU/vWAowAxXT2FjRvRNNB4R32pKhfb2sLjcaEvzS4Ojf4eQhceWLmyOcna+ao1L/1YDzyybZSit2BIbRQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dBqSq/Uf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="cpXwrTN4"
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 50507b984;
-	Thu, 8 Oct 2026 20:45:17 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Tariq Toukan <tariqt@nvidia.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: Re: [PATCH net] net/mlx4: shut down catas recovery timer during teardown
-Date: Thu,  8 Oct 2026 20:45:00 +0800
-Message-Id: <20261008124500.954229-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <bcc09996-e71c-43af-b3f2-0d072f6d402a@nvidia.com>
-References: <20261004121259.1245171-1-runyu.xiao@seu.edu.cn> <bcc09996-e71c-43af-b3f2-0d072f6d402a@nvidia.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dBqSq/Uf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AB531F00893;
+	Thu,  8 Oct 2026 12:46:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791463567;
+	bh=ZCAoLYZlSrLohEk+mBrzJi43HvKosm2TxiN/tMhp9/s=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=dBqSq/UfhNLMB/2xiNjrdCV8P6K5rMyyNAUapZyhEebtBml9v1PAZPDPbBfyXVX24
+	 OJ82GYjs7wzkxCZ4z0zVpMwrgTvWaRYMjKyLqqwzIv7MQ133AdZUtSUjX2ZJi/pz7V
+	 xfd4VcldWlVVcJaSIrcNGgI43lbG0aZ6xei7HcjkhIvtWokM3I8YbNgjdF3S+Qkzr+
+	 +Ij831Q+gK9q+mUlVXGfzwUSzFD/Q0oxz6QhhfCjux0jXL6+CBm9ZVip4zcsvH+e1r
+	 ozVkGc0w5RmG1MHNDDDahQzTelkJ79FaL26qrmKD4VFcF3TjG79TVzmlqUq865+ZSR
+	 4T/L8zJC8Ct3w==
+From: netdev-bot+sinfo@kernel.org
+To: "Jason A. Donenfeld" <Jason@zx2c4.com>
+Cc: rafael@kernel.org, lenb@kernel.org, pavel@kernel.org,
+ willemdebruijn.kernel@gmail.com, kuba@kernel.org, pabeni@redhat.com,
+ linux-pm@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ =?utf-8?q?J=C3=A9r=C3=A9my?= Jean <jeremy.jean@oss.cyber.gouv.fr>
+Subject: Re: [PATCH net] udp_tunnel: drop packets when hibernating
+Date: Thu, 08 Oct 2026 12:46:06 +0000
+Message-ID: <179146356621.2527009.11001901701574636880@kernel.org>
+In-Reply-To: <20261008124106.665014-1-Jason@zx2c4.com>
+References: <20261008124106.665014-1-Jason@zx2c4.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa11b8bed7503a1kunme36ce5dd40edcd
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQ09LVhhCSxhCGh1IThpOTVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUJCSU
-	5LVUpLS1VKQktCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=cpXwrTN4AECBeNgPdmkbJBq7kM2og9ySgTU+CMqsFy8hsa3a3Cxz4eVuPJAYdAS7klVZtFDhziJ5QwvKZJauPyyrUu1VjOBmiS1xjgbXYfEDSdQ3ufd9Uy5uiNZg1K1+qMk/YXI7LXmKyIuQCkrSOiKAPt7abF5c7Onz+BnSDUY=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=B2xwRmjaoQVg9wr0dMd5X+QH7+pRHtbhVjKfgTCyW5E=;
-	h=date:mime-version:subject:message-id:from;
 
-Hi,
+Hi!
 
-> This is fixing a patch from 2007.
->
-> Did you hit this issue in reality, or just claimed by an AI tool?
->
-> We need to have a very good justification to touch this old piece of
-> code now, especially in stable.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-I did not reproduce this issue on mlx4 hardware. It came from an AI-assisted
-static audit, and I accepted the finding without establishing a failing
-execution.
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
-After rechecking the timer core, the interleaving in the commit message is
-not sufficient: timer_delete_sync() waits for a running callback and retries
-deletion, so poll_catas()'s own mod_timer() should be removed before
-timer_delete_sync() returns. I have not established a separate concurrent
-rearm path through mlx4_start_catas_poll() during this teardown, or observed
-the callback accessing the mapping after it is unmapped.
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
-I therefore cannot justify the reported bug or its Fixes: and Cc:
-stable@vger.kernel.org tags. I will withdraw this patch.
-
-Sorry for the noise.
-
-Thanks,
-Runyu
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
