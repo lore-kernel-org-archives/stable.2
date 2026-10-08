@@ -1,193 +1,123 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F2B93BD64A
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 21:46:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43D7E43933F;
+	Thu,  8 Oct 2026 22:10:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791495963; cv=none; b=HpL3UnuD0uPbuO2nc3UBUblJ/zLqyyvCvRVUgthkHKB3Q+RIl/6XlVdb9goYG8R+x5W9q581iO1c3e182pUFPfsBi8OtruTRCx2KwTOhinvLTqEYOivSScaAsyhRrr6wQsjtfldrsGzVGxkukm69VE5CTKzXqRoVEPS5lI4D6RQ=
+	t=1791497450; cv=none; b=LUqLBDhMsEiL5+VCmSw9uJK5z4IwSBBXQbJ8QzfwgXdVL5Moy4XC6BqGV5szslwzpv6sMyuy6OKCcDlEpMPObsDRBgSBf1X4u1CibBpgXsPMvbue5WFpWNj3HtIyfFeOWadN7TJ1lyHQH+Zt5T1LNRlaIUxpVUFJFz2H1kBlXeI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791495963; c=relaxed/simple;
-	bh=4C6+wulytzT9gybkb7TNEm83oK7id/pFcB3QGIg+MP4=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=fNCeuMTQQF4Kh9bvJQGAHdnUTPAeYgX6QrpgEOsHcljSCSnKPpjwfUYCV3y9GY7dnti5zX2xj/c45r4FAqUBfnRhB/igqmTptwGx3bCOB0vC6zo4XSZx48ySRIZLX6np/DGbuMurA2Fuze0t+yBsS7MHjyEjCndKuVhFGCTAMLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=LgmdRK2K; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=gbNP6oGt; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791497450; c=relaxed/simple;
+	bh=2I+EmY3mbtv7VjjzqsO0KGbYkgiqcaiXpFxLJFltkLE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=TsMNK3X1bmB66b5tX4SdB8txYqubxLWxsgEh1nMIq3/DPzFR/EuXHEmS/GyRSMXdyle1NH7NkazF7G4jDgQHznQFalijB1Kqvbrk66YZuhhBOMKyN8vZvd8T2mbenHdJIT5d2gmGOC0uanmO0XF2lyB04fNQp+cmVZiEngIA2F8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uR9B8sQS; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="LgmdRK2K";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="gbNP6oGt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791495957;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JS+En9JyGsTr3AjbcaJ6blNY5U2s+JVwhjESLMBOqZQ=;
-	b=LgmdRK2KBLAq+34lFa4e4maBARK9NWH++6WBAfQqreWCk6QNXSVS+gBglz1sBmOv84Hwc4
-	ewYpcaVW8DDxe3Ivwq0MFaAqHWqzc3A4yJLQPZurjfkmV4BjfZJKFr7QcPFPqfiOjOk28p
-	UPs5+IQxsQdnznt1gqb5UwKJqTSEdgo=
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-122-ikdGqFpJOXi5GR5o_AA02Q-1; Thu, 8 Oct 2026 21:45:48 +0000
-X-MC-Unique: ikdGqFpJOXi5GR5o_AA02Q-1
-X-Mimecast-MFC-AGG-ID: ikdGqFpJOXi5GR5o_AA02Q_1791495946
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-917a109c937so75712846d6.2
-        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 14:45:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791495946; x=1792100746; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=JS+En9JyGsTr3AjbcaJ6blNY5U2s+JVwhjESLMBOqZQ=;
-        b=gbNP6oGtcXTKFFg5VPTYSgOafoosD+HoNdYvRdM03lOGg7SdyM/diznkEAolsNxWXL
-         4BO5N1NccfecYdUNRbAdagRq0lZgr5RBugdhaxLIRTQ+3aIuezBIramRcor8ScxVMqkM
-         QA6csvn8T9qUFt7euelc3z301Ao67RNyFeaM6ni8ZYLrGJXCNpTDI09dFZPCy4X6iKY3
-         gqRY/tZOElG2Y8UJXC73KLrkQDXFvmWQ8H0CY+3T5Jrqomr56tU+G2VNcQ+71BqXItX3
-         taGyVdGxElDtwqNV6WpECulHBuSjx5uk0/MJVMsUO4R4M42Gko9qZLIC3Z5XQwLnktYD
-         teQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791495946; x=1792100746;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JS+En9JyGsTr3AjbcaJ6blNY5U2s+JVwhjESLMBOqZQ=;
-        b=bvQIU3I8NTKhMtK8mW9VlhzICIi2vLREgGH/wIi8Gsae9W/m45/l2ukOX6VZX2oDAu
-         OyC1thsK50+9P3g5gvxWF9lio/ZhJLO6WzynPx6NVcMVQjR7FoQZSZzpJ+4AoOMb7i6J
-         whH5Px5QcpWlEMcmpP1CxhIecc2HeqDscqNv+uvm2z/X0fRMmui9RzK4vX32+SYd2p5Y
-         xaCsbGzit+6Voa4tlBOo4YQ82D0oGRicn+tYTz2iGjeiv7P+wbbZAB5PwKtHEGxXY90m
-         1hwLtYS5Y+eOX0Qh2gT0r5JkNV4vWm/Sde/4cFa73gnfwEN0CURejBdH4rinx8n6dvbX
-         uxzA==
-X-Forwarded-Encrypted: i=1; AKwUvBxdhM86+GOsmP1k34W0X6H3HdRQds32SyfGIJCIbO2CndU5/y4Gxz+bl8V/MPoZu8zNm2jSP28=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIj8YV00Z4vqTYzMF1CMxJtOc0BDW9tCDO1chnaa7Kz/xDWNo5t
-	VKBEVUqJOdaFewtgVnBCOIovmkImfmgoRAXaAWwl1D7fPmlaiKTMQnDOQ+UuzJJYXzqzM65vzNZ
-	VOvWwXuhH5o5k4Jxpfsc8MdMcJhHhetKsDqthaYxfVy5qIdF8zCS4NaRlCA==
-X-Gm-Gg: AYBFou0dVQrXBEO38qbvomVoCADL0GS50R+LvFBWq5QzanSQ0XVQrAEzD56dQemZ9uE
-	Nu4xh95ij+vHrh1djUmGSv2P5OxuOPAAi241et38YTSwypzmj88j3Jm4pse1ulfZGaEmNO+BvVF
-	0B/vg/Qbz6k0c4lXZBykkAhGmdYdc+hA2flufILCITZ4jNfkwgjlgmhM51xGpBj7PeLOaDdVJLS
-	sIdd3FvF4cG608gxsVkWCJVPBVMly9Cvv9ZAsIcvevOA4tVptTiIJ/mHxj//n3smIW/FdmHIPxK
-	p2DL8fM380Z2mCxWpSNRnsMtV9ehTscgJ3cVmp5Gz/sjOMeZXuVFV0yE7GIwR9WyTQfyFTE=
-X-Received: by 2002:a05:6214:1d0d:b0:918:d743:fd92 with SMTP id 6a1803df08f44-91b555354f7mr894226d6.24.1791495946432;
-        Thu, 08 Oct 2026 14:45:46 -0700 (PDT)
-X-Received: by 2002:a05:6214:1d0d:b0:918:d743:fd92 with SMTP id 6a1803df08f44-91b555354f7mr893776d6.24.1791495945817;
-        Thu, 08 Oct 2026 14:45:45 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b550ca9a7sm949466d6.38.2026.10.08.14.45.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 14:45:45 -0700 (PDT)
-Message-ID: <ea9a1d374cf3127e5047bc73807ce821022e026e.camel@redhat.com>
-Subject: Re: [PATCH v2] drm/nouveau: Fix memory leaks in debugfs and hwmon
- init error paths
-From: lyude@redhat.com
-To: liupeng <liupeng01@kylinos.cn>, dakr@kernel.org
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, 	airlied@gmail.com, simona@ffwll.ch,
- linux@roeck-us.net, nouveau@karolherbst.de, 	bskeggs@redhat.com,
- dri-devel@lists.freedesktop.org, 	nouveau@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, 	linux-hwmon@vger.kernel.org,
- stable@vger.kernel.org
-Date: Thu, 08 Oct 2026 17:45:44 -0400
-In-Reply-To: <20260922044044.21442-1-liupeng01@kylinos.cn>
-References: <ff3015a1c4b08088b0638b00670e86d612a27978.camel@redhat.com>
-	 <20260922044044.21442-1-liupeng01@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uR9B8sQS"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id BADC3C2BCF5;
+	Thu,  8 Oct 2026 22:10:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791497449;
+	bh=2I+EmY3mbtv7VjjzqsO0KGbYkgiqcaiXpFxLJFltkLE=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=uR9B8sQSVjcMexdckCbpwVObH+grZkrx9dCvBKNXOS6sV8Vn0gy9uQsuHkoKrfQy5
+	 31hYmZtMNeXNO79iMf4RVzjKkJH2c4QOIfQkO9yF6Mnqhhyb/wnsdPb7XcI0wVXsCs
+	 BTYKKDMX5q/46Yl3OMjls8uSCZGO6NKpKwVkTZvRqA6t2EiNu1lC54IWJDg9K/Lk9+
+	 HmfdjB0tg0RmdguhRTYG2Bc5pPdFckftfbUnUSE9lroOL3sYHxQakOALJh3Mhjrbsu
+	 hyDHQ3r8JkzkDaArOAXebXcqlceJX3/Luj9fqU6HgcSsxF7KUXOeJT22HUV9FpNjyf
+	 eVCXuksAe7uQw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A37FECA6016;
+	Thu,  8 Oct 2026 22:10:49 +0000 (UTC)
+From: =?utf-8?q?Dani=C3=ABl_Trujillo_via_B4_Relay?= <devnull+datrujillo.nvidia.com@kernel.org>
+Date: Thu, 08 Oct 2026 22:10:49 +0000
+Subject: [PATCH net] ipv4: fib_trie: prevent speculative out-of-bounds
+ child access
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261008-fib-trie-nospec-v1-1-fa18726d485e@nvidia.com>
+X-B4-Tracking: v=1; b=H4sIAOgUyGoC/yWMwQqDMBAFf0XeuQsxoIb+SvFQ17XdHqJkowjiv
+ ze2xxmYOWCSVAz36kCSTU3nWKC+VeD3M76EdCwM73xbOxdo0oFySSjOtghTw13rfOAgHaNUS5J
+ J99/xgSgZ/V/aOnyE8/XCeX4BztmtWHgAAAA=
+X-Change-ID: 20261008-fib-trie-nospec-5c76028c8e7c
+To: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, 
+ Alexander Duyck <alexander.h.duyck@redhat.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, 
+ =?utf-8?q?Dani=C3=ABl_Trujillo?= <datrujillo@nvidia.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791497449; l=1811;
+ i=datrujillo@nvidia.com; s=20261008; h=from:subject:message-id;
+ bh=xnFr+ktZBjHYJMb2dgrr672XmryMDvsweL3LbYJlrKI=;
+ b=QAIQxu04rBsFZ4Fxj+43aqwMG1AkLo/JzAr74GzYjH648cOjifagKJGv9Z2KIMVti4++R5V3l
+ /eM9rxWRIKUBvPsm4W0RllZ8H1X8B5SEr9fTvgVPZmfC0wq1gOJB7EE
+X-Developer-Key: i=datrujillo@nvidia.com; a=ed25519;
+ pk=AP24zUwENFy2geglpKJAA8oaT41tkteCL9hTWGd88rs=
+X-Endpoint-Received: by B4 Relay for datrujillo@nvidia.com/20261008 with
+ auth_id=1128
+X-Original-From: =?utf-8?q?Dani=C3=ABl_Trujillo?= <datrujillo@nvidia.com>
+Reply-To: datrujillo@nvidia.com
 
-One nit-pick below:
+From: Daniël Trujillo <datrujillo@nvidia.com>
 
-On Tue, 2026-09-22 at 12:40 +0800, liupeng wrote:
-> In nouveau_debugfs_init(), if nvif_object_ctor() fails, the
-> previously
-> allocated drm->debugfs is leaked because the function returns the
-> error code directly.
->=20
-> In nouveau_hwmon_init(), if hwmon_device_register_with_info() fails,
-> the allocated hwmon structure is leaked because the function returns
-> the error code directly.
->=20
-> Fix both by freeing the allocated memory and clearing the pointer on
-> the error paths.
->=20
-> Fixes: b126a200e9db ("drm/nouveau/debugfs: we need a ctrl object for
-> debugfs")
-> Fixes: b9ed919f1c8f ("drm/nouveau/drm/pm: remove everything except
-> the hwmon interfaces to THERM")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: liupeng <liupeng01@kylinos.cn>
-> ---
-> Changes in v2:
-> - Add Fixes: tags for the commits that introduced the leaks
-> - Add Cc: stable@vger.kernel.org=C2=A0for stable backporting
->=20
-> =C2=A0drivers/gpu/drm/nouveau/nouveau_debugfs.c | 15 ++++++++++++---
-> =C2=A0drivers/gpu/drm/nouveau/nouveau_hwmon.c=C2=A0=C2=A0 |=C2=A0 2 ++
-> =C2=A02 files changed, 14 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_debugfs.c
-> b/drivers/gpu/drm/nouveau/nouveau_debugfs.c
-> index 47d5579c568d..88223931f382 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_debugfs.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_debugfs.c
-> @@ -295,13 +295,22 @@ nouveau_drm_debugfs_init(struct drm_minor
-> *minor)
-> =C2=A0int
-> =C2=A0nouveau_debugfs_init(struct nouveau_drm *drm)
-> =C2=A0{
-> +	int ret;
-> +
-> =C2=A0	drm->debugfs =3D kzalloc_obj(*drm->debugfs);
-> =C2=A0	if (!drm->debugfs)
-> =C2=A0		return -ENOMEM;
-> =C2=A0
-> -	return nvif_object_ctor(&drm->client.device.object,
-> "debugfsCtrl", 0,
-> -				NVIF_CLASS_CONTROL, NULL, 0,
-> -				&drm->debugfs->ctrl);
-> +	ret =3D nvif_object_ctor(&drm->client.device.object,
-> "debugfsCtrl", 0,
-> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 NVIF_CLASS_CONTROL, NULL, 0,
-> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &drm->debugfs->ctrl);
-> +	if (ret) {
-> +		kfree(drm->debugfs);
-> +		drm->debugfs =3D NULL;
-> +		return ret;
+fib_table_lookup() checks the child index against the bounds before
+passing it to get_child_rcu().
 
-^ We could get rid of this extra return=E2=80=A6
+The index is derived from the lookup key, which in turn is derived from
+flp->daddr. A userspace process can therefore influence the index by
+triggering lookups for chosen destination IPv4 addresses.
 
-> +	}
-> +
-> +	return 0;
+If this bounds check is mispredicted as in-bounds, an out-of-bounds index
+can be transiently passed to get_child_rcu(). The value loaded beyond the
+child array is then treated as a node pointer. The next loop iteration
+dereferences that transient pointer through get_cindex(), causing a
+page-table walk whose cache footprint can leak (parts of) the pointer.
 
-=E2=80=A6and just return ret here
+Sanitize the index with array_index_nospec() before accessing the child
+array.
 
-With that fixed:
+Fixes: 9f9e636d4f89 ("fib_trie: Optimize fib_table_lookup to avoid wasting time on loops/variables")
+Cc: stable@vger.kernel.org
+Signed-off-by: Daniël Trujillo <datrujillo@nvidia.com>
+---
+ net/ipv4/fib_trie.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
-> =C2=A0}
-> =C2=A0
-> =C2=A0void
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_hwmon.c
-> b/drivers/gpu/drm/nouveau/nouveau_hwmon.c
-> index 726397ab035d..ffbe7f542ab0 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_hwmon.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_hwmon.c
-> @@ -697,6 +697,8 @@ nouveau_hwmon_init(struct drm_device *dev)
-> =C2=A0	if (IS_ERR(hwmon_dev)) {
-> =C2=A0		ret =3D PTR_ERR(hwmon_dev);
-> =C2=A0		NV_ERROR(drm, "Unable to register hwmon device:
-> %d\n", ret);
-> +		drm->hwmon =3D NULL;
-> +		kfree(hwmon);
-> =C2=A0		return ret;
-> =C2=A0	}
-> =C2=A0
+diff --git a/net/ipv4/fib_trie.c b/net/ipv4/fib_trie.c
+index 248514dce0cd..bd8a368c5502 100644
+--- a/net/ipv4/fib_trie.c
++++ b/net/ipv4/fib_trie.c
+@@ -61,6 +61,7 @@
+ #include <linux/export.h>
+ #include <linux/vmalloc.h>
+ #include <linux/notifier.h>
++#include <linux/nospec.h>
+ #include <net/net_namespace.h>
+ #include <net/inet_dscp.h>
+ #include <net/ip.h>
+@@ -1474,6 +1475,7 @@ int fib_table_lookup(struct fib_table *tb, const struct flowi4 *flp,
+ 			cindex = index;
+ 		}
+ 
++		index = array_index_nospec(index, 1ul << n->bits);
+ 		n = get_child_rcu(n, index);
+ 		if (unlikely(!n))
+ 			goto backtrace;
+
+---
+base-commit: 37f12441f557468a56c1e27790413aa78c82afa2
+change-id: 20261008-fib-trie-nospec-5c76028c8e7c
+
+Best regards,
+--  
+Daniël Trujillo <datrujillo@nvidia.com>
+
 
