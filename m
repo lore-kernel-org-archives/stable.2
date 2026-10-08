@@ -1,109 +1,105 @@
-Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.84])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AABC938C2D0;
-	Thu,  8 Oct 2026 19:20:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.149.199.84
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8494C3CAE9B
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 19:20:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791487212; cv=none; b=UjN6mxmgqQZTzgXDKHi4+o4mDaAqkQrcNJGCqmUafzNbPQFHgb0Yjzf03ilwANI92jS0SmE9u5yBgasM1met+bPlyuwa840xLl9XyVe/1BDNmcg49Zggrklc5Oy8+MBO4SAgbz6JK506g1R2hCz8bLFJl0a4hLTIeqqw6AeaPq0=
+	t=1791487253; cv=none; b=j9nS3zMkIktYIja5hKxf/R8WsW1K6I2zUcs+zUpcxkhQzFIlLQjqUg55NA6mleCtAer6DPmkiGepNvq9+6zYdKAlTHJrRMi62gL0iiabghZCHM1gvx7+34lQMfwBabCBweXN54Jc/g1vCq+bXAjB7whsOapnPTzOABL40KE0o00=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791487212; c=relaxed/simple;
-	bh=fqtvXx7SuhVACWim03ZBe3zS9HB8AvdJ4R5T5U8Eqqk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OV0HErO1r5owNQiWTjDCx/KEumWsLSOP650cmUj5TS6ozw39sT4zjVXPUAzoTshFqtnOZJHsIQdEq05Sx+ZFKu67WXe7t5Ft+IazkIYZvupoefywXpZfA9veLxRAU0WqIxIGuIVQgaQZE9K3wtKW/hZYK67Xk1SSlgrEZ3NyS5c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ispras.ru; spf=pass smtp.mailfrom=ispras.ru; dkim=pass (1024-bit key) header.d=ispras.ru header.i=@ispras.ru header.b=TOG+mGXE; arc=none smtp.client-ip=83.149.199.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ispras.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ispras.ru
+	s=arc-20240116; t=1791487253; c=relaxed/simple;
+	bh=IVuC9lIbYtCumDz9NXJI6wI15tp2jdUI7u+AEMRRHNY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mMKTA+9+PEV2xWzW33KkFmR7ti02DuGhYDVD77HEK0osYzSUagY0eUrxRexKvseg4EWt8q0oOZDuwwgukSfF9rL705MQJiw1G2qUvzm3wWD9qL7Soa82/+zjrR7j/b7y+8+qvtmzu0mwPflMa2xKHmEByUDla2cOwAZCoxoJZ5U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=LGRmq+YA; arc=none smtp.client-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ispras.ru header.i=@ispras.ru header.b="TOG+mGXE"
-Received: from localhost (unknown [10.10.165.5])
-	by mail.ispras.ru (Postfix) with ESMTPSA id 14A18407617A;
-	Thu,  8 Oct 2026 19:19:59 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.ispras.ru 14A18407617A
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ispras.ru;
-	s=default; t=1791487199;
-	bh=jcK7/LghoFd1/EJFysr6Y0kYIb8jr/AM86zczc6LWtk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=TOG+mGXEoimluZjHiP2F8uGFZyIQHI6WhXAMQD11cJiE+Rd5LQCywBeX1/Kzv/RSt
-	 23iiV9lBqoiJ/nD4A9KpWV+3G0Ii861XoeOQXQ7k4SvmeW4vwOSsSt0BjaEItPWMkS
-	 MjyGKx+vERZDO+gyl9bFAr+mKq4voGF0qlRUy4JU=
-Date: Thu, 8 Oct 2026 22:19:58 +0300
-From: Fedor Pchelkin <pchelkin@ispras.ru>
-To: Alexander Martyniuk <alexevgmart@gmail.com>
-Cc: stable@vger.kernel.org, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, lvc-project@linuxtesting.org, 
-	Johannes Berg <johannes.berg@intel.com>, Thomas Pedersen <thomas@cozybit.com>, 
-	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzbot+63a84ea9c0f57d6133fa@syzkaller.appspotmail.com, netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>, 
-	Johannes Berg <johannes@sipsolutions.net>, "David S. Miller" <davem@davemloft.net>
-Subject: Re: [PATCH 5.10/5.15] wifi: mac80211: mesh: release the channel if
- start fails
-Message-ID: <20261008220352-4a493878ce385d22bedcf4a4-pchelkin@ispras>
-References: <20261008115145.83101-1-alexevgmart@gmail.com>
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="LGRmq+YA"
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-351f7a0b13bso611669eec.1
+        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 12:20:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1791487252; x=1792092052; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dn0FkaOSqhp1JsE8t2flY8RphMMxPkCr1WEYWQMbOsE=;
+        b=LGRmq+YApwl2UXrqhLGOmR+OZs2818jbVdpm2qWKdLmY2PCBN/415+ynLD+aNLfxB8
+         vxY4h+ufC1saJ5LZUPZtUhUxcKxWm8PigdS1uMhjITIsTWTzU6b7XZhDfLZ0JIPmhwyO
+         dZFFhA5vozk9xMMgvOOzqBeQgCOpntXvrLmzv7NVp4hGGIAWY669bUWkHY2jGrj62EP4
+         7UKwz/wc8HzszvvsNsC+VbZe7Kzjci7h3thzQHl06eEm7fx8+Xe4/zBLtxnBYYyhVhro
+         +AzC+j7ibLb0JCETL0YA/42ekxWNz2FN3T+RSCHKps/+w8uHNk+/MuWaIUKa3yDd5If6
+         KEkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791487252; x=1792092052;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dn0FkaOSqhp1JsE8t2flY8RphMMxPkCr1WEYWQMbOsE=;
+        b=EfjYuu4lUPHxqeUMdB3Pzqurpq9Fl/6TTHI1PVy1rnLvWruEqBd/RAqnTN8OAu69M9
+         zy5B5CwIXg+SNTo0uuvSJTMK8hGOx2Kl5oiGQJIDCtP4kTf8GMLaaLw2+r5eYvtIHpBa
+         5uBCVrQxP5Pd/cSrVwRois9qvHxt3kNqlON+J6GmF5xl55Z18+AmgRvuikf6SJcwauQ3
+         NwLlRBYWzgzzWyKp8nZDlohs/Jcf3ibrloj+ErSzF9AOx6PcM7J6oW2fARWm1NscV4WZ
+         VVZI35vktXZsxFURqpMZbF8CzLCaLFE+7p++Jo6T+zKD0KA0PsCxCmDNFEXNBEC1kNE2
+         DR5A==
+X-Gm-Message-State: AFuF++nPtrp1jV1S/rYSZSTMaCbmZkj8Y3tQRkqF8CtC6Z7AxqcEyFp5
+	I1CdHzvxIx1Uj+deSFQx2LQSzX1th5UeTmzPZwFse6cfrBNhhXiVU2FkNCgjQE/ud2ZKO0TZOom
+	PW2/6x1wedw==
+X-Gm-Gg: AYBFou3dmHA75Gfl8EgKghUOIlWiGZfE8RHf7xyguz8AbNN9IGQv9yKADja51x39i49
+	3QkNUBZ1WxS2Top38/hSVdDveNsSUSiKLJg+HvFG/kRWsZyx9X9LqFMvJzhHMXH2ikHiFYKi9Zx
+	DMrVzoZWncpAcFFh2AUSGE7llPRM1+NErlshSZduwjbIqJvKgy74MHnufZNf7iZeplARbTK1L2W
+	Zm4wScrijoMiKk9gOWR38EO2FEMVrdPdO04wtAdlzY2toOB8La2bA/scgkfiwMUN9Ib3EhM1WFG
+	5ZbKZyORCyKM2gvxzUz1EDvUyjCPaJFFhB9gf+MhAhNPqwBToZ1jMf+MfQmbZ2NarKs8FyqdrGO
+	0HkHbAHGQy/CqV6v6KOaqAtY12FRtpmdQnKf9IsC7EAxXp0o7yTYLCpbmpg9BN9FHvfVTjuIGwg
+	3da82efb/g+TPo4ofmBEIv9IpAS5tsDmhryEN4EscD0O8gF7SHzPb6ozFhMsKGZp1zSeiz9b8U4
+	iLsWpGkJsrtUIgWfToWfmgwycoAZVZ0UFKZ7wAMKNZR3/YrmEhTyehihwtUxFvMWbbeIkY=
+X-Received: by 2002:a05:7300:ec8a:b0:351:2200:1cde with SMTP id 5a478bee46e88-3536c4bee0emr284571eec.8.1791487251418;
+        Thu, 08 Oct 2026 12:20:51 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:bc88:5ec1:4f8a:5b23])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca329d9sm104325eec.5.2026.10.08.12.20.50
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 08 Oct 2026 12:20:50 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: Artem Dinaburg <artem@trailofbits.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Max Kellermann <max.kellermann@ionos.com>,
+	Zhang Yi <yi.zhang@huawei.com>,
+	Jan Kara <jack@suse.cz>,
+	Theodore Ts'o <tytso@mit.edu>,
+	Jan Kara <jack@suse.com>,
+	linux-ext4@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 6.6.y 0/2] jbd2: backport CVE-2026-89566, CVE-2026-89567
+Date: Thu,  8 Oct 2026 15:20:44 -0400
+Message-ID: <20261008192048.98833-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261008115145.83101-1-alexevgmart@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, 08. Oct 14:51, Alexander Martyniuk wrote:
-> From: Johannes Berg <johannes.berg@intel.com>
-> 
-> commit ae97fff6495a8764bc0ef281cfe5444f701e527f upstream.
-> 
-> ieee80211_join_mesh() acquires a channel context and then calls
-> ieee80211_start_mesh(), which can fail. In that case, the chanctx
-> isn't released then interface removal will attempt to unassign it
-> after it's removed from the driver, hitting:
-> 
->   wlan0: Failed check-sdata-in-driver check, flags: 0x0
->   WARNING: net/mac80211/driver-ops.c:366 at drv_unassign_vif_chanctx
->    ieee80211_assign_link_chanctx
->    __ieee80211_link_release_channel
->    ieee80211_link_release_channel
->    ieee80211_teardown_sdata
->    unregister_netdevice_many_notify
->    _cfg80211_unregister_wdev
->    ieee80211_remove_interfaces
->    ieee80211_unregister_hw
->    mac80211_hwsim_del_radio
->    hwsim_exit_net
-> 
-> Correctly release the channel on start failures.
-> 
-> Assisted-by: LLM
-> Reported-by: syzbot+63a84ea9c0f57d6133fa@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=63a84ea9c0f57d6133fa
-> Fixes: 2b5e19677592 ("mac80211: cache mesh beacon")
-> Link: https://patch.msgid.link/20260908122838.201719-21-johannes@sipsolutions.net
-> Signed-off-by: Johannes Berg <johannes.berg@intel.com>
-> Signed-off-by: Alexander Martyniuk <alexevgmart@gmail.com>
-> ---
-> Backport fix for CVE-2026-98326
->  net/mac80211/cfg.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/net/mac80211/cfg.c b/net/mac80211/cfg.c
-> index afb1ad3e6ea1..bae9588ea913 100644
-> --- a/net/mac80211/cfg.c
-> +++ b/net/mac80211/cfg.c
-> @@ -2276,7 +2276,11 @@ static int ieee80211_join_mesh(struct wiphy *wiphy, struct net_device *dev,
->  	if (err)
->  		return err;
->  
-> -	return ieee80211_start_mesh(sdata);
-> +	err = ieee80211_start_mesh(sdata);
-> +	if (err)
-> +		ieee80211_vif_release_channel(sdata);
+Hi Greg, Sasha, and maintainers,
 
-In 5.10/5.15 ieee80211_vif_release_channel() requires &sdata->local->mtx
-to be held, it has the corresponding lockdep assertion.
+I'm working through the smaller CVE backports still missing from 6.6.y.
+These 2 upstream changes belong together for CVE-2026-89566,
+CVE-2026-89567. They must be applied in this order because the later change
+depends on or completes the earlier one.
 
-Besides, the backport uses a different release-function, relevant for old
-kernels.  I understand that's an adaptation but FWIW it's generally
-recommended to write a brief backporter's comment above one's SoB line if
-any non-trivial adaptation is done.
+The complete series is already present in 6.12.y, 6.18.y, and 7.2.y.
+These fixes also affect 6.1.y, which will need a separate backport; this
+series is only for 6.6.y.
+
+Could you please consider this series for 6.6.y?
+
+Thanks,
+Artem Dinaburg
+
+Series:
+  1. jbd2: check need_resched() when skipping busy checkpoint buffers
+  2. jbd2: bound shrinker scans by examined checkpoint buffers
+
+base: v6.6.157 (79643295eba17affbd16ca97f3ef04c90266b28c) plus stable-queue
+revision 958ddf240a33ef26b1771be944f0ea6c3b597472
