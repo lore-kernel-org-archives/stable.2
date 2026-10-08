@@ -1,30 +1,30 @@
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.9])
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A425149E5C7;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DFA049E15F;
 	Thu,  8 Oct 2026 12:58:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791464341; cv=none; b=R5sCOUfnVBg+B0JS5gLVjQSo5gEVSafphPWhAs944EpV6OBkpbz+9PenHHqPZhlp7UfMOexrT0I8Rxs7KSQ3DOdW6OYS6od9NB21/vn0yy8Ii8YCENlIRSccwMPVBE6S8aR+XX4t/Q1Rg7DIaM23ftmAiXQ/mvNrR771EyZLuoE=
+	t=1791464341; cv=none; b=oQtLrUP2Aq++0UMkxUVcwR+/QQ3G4ORudXH4z0XeFCJBSQ6c21iHCJzW63uwQxYZc+e/wZ0lQbyVb8Ibu1SnO2ZlPkmR88Ijz1vNoVlEgAAGbsSYbm+1Rr88NfcsVmYfN42XGKLlKfRxhLub2CewpzJ7aS5T0U6k0LpXj1KcLy0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791464341; c=relaxed/simple;
-	bh=DhEd5i5pKXd3AEBuOFthq56R7qyDiuJgPQI3ItLa7OM=;
+	bh=WEGyYYtVqaSgmldqzmrhn0+VY7E/dikvQBeW6WSpwVQ=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=DtFH9FpfMirFpG728D6QxI67Rw3lpNqqyxWP5DpvemKbsR+yHADazzmsB/47qImEAs8ZnPpT6NrDnx9mo9SE0ArVYiJApH8XAwiSBQeE7r48TdSL/AmZUJhaUHdW7xe+GD5s5zGyDVn7hc6adRTuFaSV7l/Wfb+ymIqfomCDEso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=LiH/tPoO; arc=none smtp.client-ip=220.197.31.9
+	 MIME-Version; b=cPolUInMFrmAVLxvperpf6m6Tu/O72NmLB/Ej1d2TeenlBXmqySMfcH3NJMvYe82W/XoLXQEJPtHJgZC0BtGR78hJLNc8sQqQfQ/XTK/p58MBuOkfMgrFLxrPKVOZHbjuz9op/CbiFbxhpNOGdft1/YwZOWabuJic/2UhxjACKA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=jO4yRh+f; arc=none smtp.client-ip=117.135.210.6
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="LiH/tPoO"
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="jO4yRh+f"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Mr
-	cCKlAt0s4Z5C37o82vZjoMrryZh2UceEpNbjZksCE=; b=LiH/tPoO5CDory7wIH
-	OY5k7QYbyo3/LrWXisAIPGx7y6V77Gl3y5wDTFY8NYk6aERtO3aZrcPheJ5tFWvd
-	pjFUYnDzz1iaO2h5bNGIfykj+t+1m1QTNHpYp7Wovk1ihQ9bump0b4haKSe6JuLi
-	Wemt2YCuGvljS8ZxnX/01A73Y=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Ah
+	VlIdyB2pGt2fs06BKIwmR0kp8M62CgCW63wZLTG2A=; b=jO4yRh+fjuK5C8rkAz
+	qpP0X7vUNu8tufZChwjsZz8adIQBSym68vNUi3sJvpgyDn15d6wzj8WKQyVhZax5
+	m0uK9CbmzbuKdx5WVyIWnTt4mnHphW/mfLzawDMPGFgJIuoChLDKHCgiUh82M9oL
+	oVr+Pjjsx867rPowaNpuD6vBk=
 Received: from localhost.localdomain (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PykvCgD3v8NWk8dqh6CpBA--.7046S5;
-	Thu, 08 Oct 2026 20:58:03 +0800 (CST)
+	by gzsmtp4 (Coremail) with SMTP id PykvCgD3v8NWk8dqh6CpBA--.7046S3;
+	Thu, 08 Oct 2026 20:58:00 +0800 (CST)
 From: Linkui Xiao <xiaolinkui@126.com>
 To: anthony.l.nguyen@intel.com,
 	przemyslaw.kitszel@intel.com,
@@ -38,9 +38,9 @@ Cc: intel-wired-lan@lists.osuosl.org,
 	linux-kernel@vger.kernel.org,
 	Linkui Xiao <xiaolinkui@kylinos.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH iwl-net v3 3/3] ice: free the VF MSI-X vectors when VF start fails
-Date: Thu,  8 Oct 2026 20:57:54 +0800
-Message-Id: <20261008125754.3520773-4-xiaolinkui@126.com>
+Subject: [PATCH iwl-net v3 1/3] ice: attach and detach VF representors outside of vf->cfg_lock
+Date: Thu,  8 Oct 2026 20:57:52 +0800
+Message-Id: <20261008125754.3520773-2-xiaolinkui@126.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20261008125754.3520773-1-xiaolinkui@126.com>
 References: <20261008125754.3520773-1-xiaolinkui@126.com>
@@ -51,107 +51,147 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PykvCgD3v8NWk8dqh6CpBA--.7046S5
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCF43Xw17GF47WrW5AFy7ZFb_yoWrXw4Upr
-	Z5Zr9xKr4kJF17W395Ww1UZas3CayftFWru340kw1Skws8GryaqF1UKryavFyxGa97Aaya
-	vw4Dur1ruw1DJaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UH5lnUUUUU=
-X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlBuHXmrHk1s3YwAA3n
+X-CM-TRANSID:PykvCgD3v8NWk8dqh6CpBA--.7046S3
+X-Coremail-Antispam: 1Uf129KBjvJXoW3AFW8Cr43Aw1fGw4DAr4fKrg_yoW7ZFWDpa
+	yvqFy5Krn5Xa1xW3y5uw48Zrn8uayrKFy5Gr1xGF4Fkan8Gr17Zry3Kay2qry8G397AFya
+	yF4Durn5uFZ8AaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j1JP_UUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBqRiHXmrHk1hkdgAA3c
 
 From: Linkui Xiao <xiaolinkui@kylinos.cn>
 
-ice_init_vf_vsi_res() reserves vf->num_msix vectors out of
-pf->virt_irq_tracker with ice_virt_get_irqs() as its very first step,
-but neither of the two error paths below it gives them back. A NULL
-from ice_vf_vsi_setup() returns -ENOMEM straight away, and the
-release_vsi label only releases the VSI.
+ice_free_vfs() and ice_reset_all_vfs() call ice_eswitch_detach_vf()
+and ice_eswitch_attach_vf() with vf->cfg_lock held. Both take the
+devlink instance lock and then register or unregister the representor
+netdev, which takes RTNL. That gives
 
-ice_start_vfs() leaks the same vectors. Its teardown loop undoes the
-queue mappings and the VF VSI of the VFs it already started, and the
-eswitch attach failure path releases the VSI of the VF it is working
-on, but neither calls ice_virt_free_irqs(). The caller then runs
-ice_free_vf_entries(), which drops the last reference on every VF, so
-nothing further down the error path can release the reservation
-either.
+	cfg_lock -> devlink instance lock -> RTNL
 
-The tracker bitmap is only freed in ice_deinit_virt_irq_tracker(), so
-the leaked vectors stay reserved for the whole lifetime of the driver
-instance. Every failed "echo N > sriov_numvfs" permanently shrinks the
-pool that ice_set_per_vf_res() divides up, and after enough retries
-ice_virt_get_irqs() fails with -ENOENT for good even though the
-hardware vectors are idle. ice_dis_vf_mappings() meanwhile re-points
-GLINT_VECT2FUNC of exactly those vectors back at the PF while the
-bitmap still books them to the VF.
+while three other paths take cfg_lock with RTNL already held:
 
-Release the vectors on all three paths, the way ice_free_vfs() does
-for a VF that is torn down normally.
+  - __ice_set_vf_mac(), from ndo_set_vf_mac()
+  - ice_set_vf_port_vlan(), from ndo_set_vf_vlan()
+  - ice_repr_ethtool_reset(), via ice_reset_vf() with
+    ICE_VF_RESET_LOCK
 
-Found by code inspection of the VF setup and teardown error paths. It
-was not triggered and no stack trace or error message was observed.
-Compile-tested only, not run on hardware.
+which is the opposite order, RTNL -> cfg_lock. An "ip link set ... vf
+N mac" on one CPU against "echo 0 > sriov_numvfs" or a PF reset on
+another can therefore deadlock.
 
-Fixes: 4d38cb44bd32 ("ice: manage VFs MSI-X using resource tracking")
+Move the detach and the attach outside of cfg_lock. Representors are
+created and removed under pf->vfs.table_lock only, which both callers
+already hold, and ice_start_vfs() attaches without cfg_lock too.
+Nothing that the detach reads is torn down by moving it: repr->src_vsi
+still points at the VF VSI, which is only released later, under
+cfg_lock.
+
+Both callers raise ICE_VF_DIS in pf->state before entering the loop,
+so a reset that starts after that leaves through ice_is_vf_disabled()
+before it reaches ice_eswitch_update_repr(), and
+ice_check_vf_ready_for_cfg() keeps the ndo handlers and the ethtool
+reset away as well. ICE_VF_DIS does not cover a reset that is already
+inside cfg_lock when the loop gets there, so take cfg_lock once before
+the detach to wait that one out while its representor is still
+attached. Without the wait it could xa_load() the representor that
+ice_repr_destroy() is freeing, and that is free_netdev() + kfree(),
+with no RCU grace period in between.
+
+In ice_reset_all_vfs() the attach moves after mutex_unlock(), so the
+"VSI rebuild failed" path still leaves the VF detached, exactly as it
+did before.
+
+Found by code inspection of the VF setup and teardown paths; the same
+inversion has also been hit out of tree. It was not triggered here
+and no stack trace was captured. Compile-tested only, not run on
+hardware.
+
+Fixes: fff292b47ac1 ("ice: add VF representors one by one")
+Fixes: c9663f79cd82 ("ice: adjust switchdev rebuild path")
 Cc: stable@vger.kernel.org
+Suggested-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
 Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
 ---
 Changes in v3:
-- Correct the Fixes: tag. The leak starts at 4d38cb44bd32, which replaced the
-  computed first vector index with a reservation from the bitmap and left the
-  error paths below it unchanged; a203163274a4 only renamed that helper and
-  moved the tracker, so it is not the commit that introduced the leak.
+- New patch. Move the ice_eswitch_detach_vf() and ice_eswitch_attach_vf() calls
+  in ice_free_vfs() and ice_reset_all_vfs() out of vf->cfg_lock, which is where
+  the inversion is: both take the devlink instance lock and then RTNL, while
+  ndo_set_vf_mac(), ndo_set_vf_vlan() and the representor ethtool reset take
+  vf->cfg_lock with RTNL already held.
+  (Przemek Kitszel)
+- Take cfg_lock once before the detach as well, so that a reset that is already
+  inside the lock is waited out instead of being left with a window between the
+  detach and the lock acquisition that follows it.
 - Include how the issue was found, that it has not been triggered, and that the
   change is compile tested only, as netdev-bot asked for.
-- Free the IRQs before the VSI is released on the eswitch attach failure
-  path, as Tomasz asked for, and keep the teardown loop in that same order.
-  The teardown loop hunk now sits inside vf->cfg_lock instead of next to
-  the detach, so the Reviewed-by tags from Tomasz Lichwala and Aleksandr
-  Loktionov are not carried over.
- drivers/net/ethernet/intel/ice/ice_sriov.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ drivers/net/ethernet/intel/ice/ice_sriov.c  | 12 ++++++++++++
+ drivers/net/ethernet/intel/ice/ice_vf_lib.c | 16 ++++++++++++++--
+ 2 files changed, 26 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/net/ethernet/intel/ice/ice_sriov.c b/drivers/net/ethernet/intel/ice/ice_sriov.c
-index 470aec8849b6..444d05a9bcb0 100644
+index e04de0215596..471c1e29a865 100644
 --- a/drivers/net/ethernet/intel/ice/ice_sriov.c
 +++ b/drivers/net/ethernet/intel/ice/ice_sriov.c
-@@ -458,8 +458,10 @@ static int ice_init_vf_vsi_res(struct ice_vf *vf)
- 		return -ENOMEM;
+@@ -154,9 +154,21 @@ void ice_free_vfs(struct ice_pf *pf)
+ 	mutex_lock(&vfs->table_lock);
  
- 	vsi = ice_vf_vsi_setup(vf);
--	if (!vsi)
--		return -ENOMEM;
-+	if (!vsi) {
-+		err = -ENOMEM;
-+		goto free_irqs;
-+	}
- 
- 	err = ice_vf_init_host_cfg(vf, vsi);
- 	if (err)
-@@ -469,6 +471,8 @@ static int ice_init_vf_vsi_res(struct ice_vf *vf)
- 
- release_vsi:
- 	ice_vf_vsi_release(vf);
-+free_irqs:
-+	ice_virt_free_irqs(pf, vf->first_vector_idx, vf->num_msix);
- 	return err;
- }
- 
-@@ -501,6 +505,8 @@ static int ice_start_vfs(struct ice_pf *pf)
- 			if (retval) {
- 				dev_err(ice_pf_to_dev(pf), "Failed to attach VF %d to eswitch, error %d",
- 					vf->vf_id, retval);
-+				ice_virt_free_irqs(pf, vf->first_vector_idx,
-+						   vf->num_msix);
- 				ice_vf_vsi_release(vf);
- 				goto teardown;
- 			}
-@@ -537,6 +543,7 @@ static int ice_start_vfs(struct ice_pf *pf)
- 		ice_eswitch_detach_vf(pf, vf);
- 
+ 	ice_for_each_vf(pf, bkt, vf) {
++		/* Detach the representor before cfg_lock: it takes the
++		 * devlink instance lock and then RTNL, while
++		 * __ice_set_vf_mac(), ice_set_vf_port_vlan() and the
++		 * representor ethtool reset take cfg_lock under RTNL.
++		 * Take cfg_lock once ahead of it to wait out a reset that
++		 * is already inside the lock; ICE_VF_DIS, raised above,
++		 * keeps later ones out.
++		 */
  		mutex_lock(&vf->cfg_lock);
-+		ice_virt_free_irqs(pf, vf->first_vector_idx, vf->num_msix);
- 		ice_dis_vf_mappings(vf);
- 		ice_vf_vsi_release(vf);
- 		mutex_unlock(&vf->cfg_lock);
++		mutex_unlock(&vf->cfg_lock);
+ 
+ 		ice_eswitch_detach_vf(pf, vf);
++
++		mutex_lock(&vf->cfg_lock);
++
+ 		ice_dis_vf_qs(vf);
+ 		ice_virt_free_irqs(pf, vf->first_vector_idx, vf->num_msix);
+ 
+diff --git a/drivers/net/ethernet/intel/ice/ice_vf_lib.c b/drivers/net/ethernet/intel/ice/ice_vf_lib.c
+index a54cb2b8d3c7..b91eec0adf51 100644
+--- a/drivers/net/ethernet/intel/ice/ice_vf_lib.c
++++ b/drivers/net/ethernet/intel/ice/ice_vf_lib.c
+@@ -789,9 +789,21 @@ void ice_reset_all_vfs(struct ice_pf *pf)
+ 
+ 	/* free VF resources to begin resetting the VSI state */
+ 	ice_for_each_vf(pf, bkt, vf) {
++		/* Detach the representor before cfg_lock and attach it after
++		 * releasing it again: both take the devlink instance lock and
++		 * then RTNL, while __ice_set_vf_mac(), ice_set_vf_port_vlan()
++		 * and the representor ethtool reset take cfg_lock under RTNL.
++		 * Take cfg_lock once ahead of the detach to wait out a reset
++		 * that is already inside the lock; ICE_VF_DIS, raised above,
++		 * keeps later ones out.
++		 */
+ 		mutex_lock(&vf->cfg_lock);
++		mutex_unlock(&vf->cfg_lock);
+ 
+ 		ice_eswitch_detach_vf(pf, vf);
++
++		mutex_lock(&vf->cfg_lock);
++
+ 		vf->driver_caps = 0;
+ 		ice_vc_set_default_allowlist(vf);
+ 
+@@ -812,10 +824,10 @@ void ice_reset_all_vfs(struct ice_pf *pf)
+ 		}
+ 		ice_vf_post_vsi_rebuild(vf);
+ 
++		mutex_unlock(&vf->cfg_lock);
++
+ 		if (ice_is_eswitch_mode_switchdev(pf))
+ 			ice_eswitch_attach_vf(pf, vf);
+-
+-		mutex_unlock(&vf->cfg_lock);
+ 	}
+ 
+ 	ice_flush(hw);
 -- 
 2.25.1
 
