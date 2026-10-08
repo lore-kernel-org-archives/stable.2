@@ -1,39 +1,39 @@
 Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAC103C76A6;
-	Thu,  8 Oct 2026 09:24:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72D6E1A6823;
+	Thu,  8 Oct 2026 09:24:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791451472; cv=none; b=sWtmPgBVQP2eq59IaGHtIsuKysi2SfvjLa0WPzjQxBRRxbe9yvToaKD3/NYKycZ8qHvP64x4pnQyLf5CUrDmhJTN1sq3JSLBLAeBhtvkZZjh6UueqaW1SX7rIWGUGGgzICYZTtBEs+aQ5kbN8mJ0PG8fLr2bm8K0XnefhoWJb/E=
+	t=1791451484; cv=none; b=dpGCdUmNYncs3yw+ByDbWvadP5RZIkzhRkfyaAC3adkj1k9I0myf+EyoU/SGAYNwaBAZ/4MRs29Tjph+eZMgITaPplaqcmEjz8Aq10k73GD8erwVuwWN30dHCvjvf4xWvYD9x5xs4atqN5SFE6WW9bww6pqJyyDtETZtbQ4Au00=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791451472; c=relaxed/simple;
-	bh=aw4MigMksMLf+GRLWNC3ifo3LsDUjeq27D4fKEpDdMs=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=MEnA/iDksBnEPOO/DHTuHg4fUgQ0Zl5MDwOkk64eKfvQVNWpQHx4NmurBLHHczwfJHswJKXfnS/in4WZ4AJSq5f6UW878cFtc8wjMUf6r23wu1R7BfTQlL8xDA1HCpswEMplTKQa9smHNimZCiI4wuAavTet42y2+aEbuWswvfE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=fcv17w/A; arc=none smtp.client-ip=212.27.42.6
+	s=arc-20240116; t=1791451484; c=relaxed/simple;
+	bh=GPGOdaWdplu01K3aIn+73Fq/nmgtxNm+riSMwWIit4k=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=D1OgZ3XmePIh9YuYPqUlBQUaF3fWM13zRrh4KlDhng1U8AJf79PxGkcN+Si8hyvA5R7Bdn9Z5fWvHkSbJGp+9pzmCKeuKMx370dZMiElBeO1vE3dWIXVSfMUdJPT24lv3U/KabQILf/ioZiDCs21xtqesyeTpicBNGL3N9SU12Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=AFqTecPA; arc=none smtp.client-ip=212.27.42.6
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="fcv17w/A"
+	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="AFqTecPA"
 Received: from localhost.localdomain (unknown [82.96.140.143])
 	(Authenticated sender: stephane.grosjean@free.fr)
-	by smtp6-g21.free.fr (Postfix) with ESMTPSA id B8D1A78051B;
-	Thu,  8 Oct 2026 11:24:17 +0200 (CEST)
+	by smtp6-g21.free.fr (Postfix) with ESMTPSA id B637D780331;
+	Thu,  8 Oct 2026 11:24:26 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1791451466;
-	bh=aw4MigMksMLf+GRLWNC3ifo3LsDUjeq27D4fKEpDdMs=;
-	h=From:Subject:Date:To:Cc:From;
-	b=fcv17w/A1rjfcUgG36/QpgsYZGcaxbMTLLr5tbqz+WYbRcC/xeTqdgSAUj/Glj0m7
-	 biJs7wM0x69mLXxmN+w5h6Zbu1nFsAZ9TybX2JduX43QZXrTiheUlRRD5q+lfIOBmX
-	 Vud+fGgydeOq5fmx2WQ1m82qJ+/mA41NgTkrfkh1bPqqANM7ulZS/zRDo8ftuVv22b
-	 a4apiSVxckwpzB2bBMC33q8Sbuo7mVgMhe4SSFZWIi2ab0OTo8BdqhRgz3RsMxObIB
-	 DZlU+hwt05RfgBp40Ttr40ahIe9XSFW+RxjFvjm2RF0PiAWLdvRCXu7QGtfsB201TV
-	 stbTuzgn4OEBw==
+	s=smtp-20201208; t=1791451476;
+	bh=GPGOdaWdplu01K3aIn+73Fq/nmgtxNm+riSMwWIit4k=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=AFqTecPADd9m+f0GaSCay4eDH9kXKAEZzoIgBsKxw1aDisiQxDnx52E1W2PpqqHBh
+	 kyWaR2n46tqmQE5Gz2f4kagWspOggSvgjLjBbq6coPjOjKg4YSX3+HKt9EQXZ5VU48
+	 R2ilFfUCh3WORhO6u9bAOskjV1BMR4OsnjtSh0PGeIn8QeXj6ZnXtOnUyCD3V6Xwm0
+	 54LpBUTK8zrZZH5yhjhqN1MPM8bjsYT+tgQG5d9Xv8FYxQe5BYvWJKiDwzJeRlnaaj
+	 F02/wImEp9aXyfARZ5ocIWLtnLGAXuoXo/E+Nc7k9C5zbP0oOZwvODUExf4twCCMY2
+	 F8eL3oB2W0nQQ==
 From: =?utf-8?q?St=C3=A9phane_Grosjean?= <stephane.grosjean@free.fr>
-Subject: [PATCH 0/5] can: peak_usb: fixes, cleanup and input validation
- hardening
-Date: Thu, 08 Oct 2026 11:14:54 +0200
-Message-Id: <20261008-canfd_check_channel_idx-v1-0-0a3bb82f4e09@peak-system.fr>
+Date: Thu, 08 Oct 2026 11:14:55 +0200
+Subject: [PATCH 1/5] can: peak_usb: fix missing CAN_ERR_FLAG when reporting
+ error counters
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -42,10 +42,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAA5fx2oC/yXMUQrCMBCE4auUfTaQFDHgVUTCuju1qxIlqVIov
- bupPn4w8y9UUQyVjt1CBR+r9swNYdeRjJyvcKbN1Pv+ELyPTjgPmmSE3NO2yHgk09nxXiMHDkB
- Uau9XwWDzr3w6/13flxtk2nK0rl96Ski6ewAAAA==
-X-Change-ID: 20261007-canfd_check_channel_idx-a4d7a1a1ee7d
+Message-Id: <20261008-canfd_check_channel_idx-v1-1-0a3bb82f4e09@peak-system.fr>
+References: <20261008-canfd_check_channel_idx-v1-0-0a3bb82f4e09@peak-system.fr>
+In-Reply-To: <20261008-canfd_check_channel_idx-v1-0-0a3bb82f4e09@peak-system.fr>
 To: Marc Kleine-Budde <mkl@pengutronix.de>, 
  Vincent Mailhol <mailhol@kernel.org>, Dan Carpenter <error27@gmail.com>, 
  Wolfgang Grandegger <wg@grandegger.com>
@@ -54,51 +53,37 @@ Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org,
  =?utf-8?q?Stefan_G=C3=BCnther?= <stefangun@pm.me>, stable@vger.kernel.org
 X-Mailer: b4 0.16.0
 
-This series contains a mix of bug fixes, cleanups, and hardening
-improvements for the PEAK-System USB CAN drivers.
+From: Stefan Günther <stefangun@pm.me>
 
-The first patch fixes a bug in CAN error frame generation where
-CAN_ERR_CNT accidentally overwrites previously recorded CAN error
-flags. As a result, information about previously detected error
-conditions may be lost when error counters are reported.
+When the device reports error counters, the driver incorrectly uses an
+assignment (=) instead of a bitwise OR (|=) for CAN_ERR_CNT. This wipes
+out the CAN_ERR_FLAG and CAN_ERR_CRTL flags, causing the error frame to
+be sent to userspace as a regular CAN frame with ID 0x200.
 
-The second and third patches are cleanup changes. One makes a public
-header self-contained by including all required dependencies, while
-the other reorders CAN_CTRLMODE_* flags in ctrlmode_supported for
-improved readability without changing driver behavior.
+Fix this by using a bitwise OR to preserve the flags.
 
-The remaining patches strengthen validation of data received from USB
-devices. They verify device-provided CAN channel numbers before they
-are used as array indexes and introduce additional bounds checking
-when parsing received message buffers.
-
-Malformed messages are now rejected consistently, preventing possible
-out-of-bounds memory accesses caused by corrupted or otherwise
-untrusted device input.
-
-Signed-off-by: Stéphane Grosjean <s.grosjean@peak-system.fr>
+Signed-off-by: Stefan Günther <stefangun@pm.me>
+Cc: stable@vger.kernel.org
+Fixes: 3e5c291c7942 ("can: add CAN_ERR_CNT flag to notify availability of error counter")
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
-Marc Kleine-Budde (1):
-      can: peak_usb: add missing includes
+ drivers/net/can/usb/peak_usb/pcan_usb.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Stefan Günther (1):
-      can: peak_usb: fix missing CAN_ERR_FLAG when reporting error counters
+diff --git a/drivers/net/can/usb/peak_usb/pcan_usb.c b/drivers/net/can/usb/peak_usb/pcan_usb.c
+index 8fd058c32856..785224e00c4e 100644
+--- a/drivers/net/can/usb/peak_usb/pcan_usb.c
++++ b/drivers/net/can/usb/peak_usb/pcan_usb.c
+@@ -526,7 +526,7 @@ static int pcan_usb_decode_error(struct pcan_usb_msg_context *mc, u8 n,
+ 			/* Supply TX/RX error counters in case of
+ 			 * controller error.
+ 			 */
+-			cf->can_id = CAN_ERR_CNT;
++			cf->can_id |= CAN_ERR_CNT;
+ 			cf->data[6] = mc->pdev->bec.txerr;
+ 			cf->data[7] = mc->pdev->bec.rxerr;
+ 		}
 
-Stéphane Grosjean (3):
-      can: peak_usb: sort ctrlmode_supported flags
-      can: peak_usb: validate channel numbers in PCAN-USB FD
-      can: peak_usb: harden PCAN-USB message validation
-
- drivers/net/can/usb/peak_usb/pcan_usb.c      | 29 ++++++++-----
- drivers/net/can/usb/peak_usb/pcan_usb_core.h |  6 +++
- drivers/net/can/usb/peak_usb/pcan_usb_fd.c   | 64 ++++++++++++++++++++--------
- drivers/net/can/usb/peak_usb/pcan_usb_pro.c  |  3 +-
- 4 files changed, 73 insertions(+), 29 deletions(-)
----
-base-commit: a7bfaba4823e3c165bb2004c74eff7c096672bc7
-change-id: 20261007-canfd_check_channel_idx-a4d7a1a1ee7d
-
-Best regards,
---  
-Stéphane Grosjean <s.grosjean@peak-system.fr>
+-- 
+2.43.0
 
