@@ -1,234 +1,209 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2592F3D333E;
-	Thu,  8 Oct 2026 07:15:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC14B3C552B;
+	Thu,  8 Oct 2026 07:15:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791443703; cv=none; b=lpOxQ+J1sxfUvY7rLxHGnfKmfrWo/f7sgFfvbhTWmMp9L1aiCBj97C3W+ipUKw/g5v5FL4vpVArRwLy0FNs7u/whvmbhVC/Ey7+ha0DX6xN9kLiywlugUEUdb8Sj5UH0OMQG9fvLlNzmPu/ESwWiwgaGLR2gCV5p+fksJZ/IQ+g=
+	t=1791443739; cv=none; b=YoKVaVkY4sQosah+P/4b9TYRdGaJB+U7dlZcgzDHo+JUyyJd5TTAXQBkmpbAh7WpPcFbGXx/9mfg7p13p+AkoHK9S7Lvs8McBWS9MYbksXYAm1fPbS+9Xn4H7KVfJ0+NF/etL/2cDI6ZocaJPBdMaJtvMOfLLaMiKhCd7uXWa+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791443703; c=relaxed/simple;
-	bh=sPxiaboHQchn4nvhFErblERPqLn7pzmsM5Fh+QOZZ48=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=h8eVEvxquBf/0hoCInbiNSGImiVtg1653HB6vu818ndTTDCZPJwIV3fm7JrWtn4rXuXaC4ExGyRMYAE5mbyX/ED4miys2sVHEeaT7UCzCCYdOWeLdmxkz69jTXWpZ4O3khOxUnxyaWCiaAqM0L+K9TkNHpkTW/J2EdtDpQyR2Hw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WQy6LKyA; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791443739; c=relaxed/simple;
+	bh=GtUajjQMVI6Gzh52cxiKjtvaqDkTFUAMGAXKnWZCC+Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TgMWbKOpVOsD1lSrMB+a+DSexI4N7ANUcFS9dVBRNa/fmIZp3RaTQo+JoS0P02S6fbGWRsc3cjzXqmYqMR/X2laeRhK6qHIQHmWO9MtIn2nsvYERld/uEHzLxED0/9I91zDSAeAniiqxqq2rasjAU5LV+iiwBspgfxBeyTuxb3E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=kYsvjPcR; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=QVhIVzsJ; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Cj6QWk3h; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=+GnklNsL; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WQy6LKyA"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 81FA8C2BCC7;
-	Thu,  8 Oct 2026 07:15:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791443702;
-	bh=sPxiaboHQchn4nvhFErblERPqLn7pzmsM5Fh+QOZZ48=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=WQy6LKyAtzrHgD/8lRGW+fB94uSwQ2BcIAeOzl11ikfmZDw6YJy/kj+3YiO2rL3ca
-	 t+i8EOBebD7omXlZrVY7DI2NVr6vqAMm07EY5EAP8cgWBRJ5jWNqNet+AgVAkhHGEg
-	 2xeEav7eJm+OfznXOdVy7x9OxzZMKJlpk1M2WxLFeemh4p/KA9gMXG4a7jkN/WzP+j
-	 cRqky6H5+JVB7/6oOLvrWGf6rb19Y8AJFnMdFJ+fwoFc+BI3G4m3kTVy8kNX9an+y1
-	 CLkz7WduclslN4ltNyoe646UEw8NlE1coeQ35J808Lc9gGjYDwH+QbNEGhccLzhMjH
-	 kwzoqRLtVywOA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5B4A1CA600E;
-	Thu,  8 Oct 2026 07:15:02 +0000 (UTC)
-From: Waqar Gulzar via B4 Relay <devnull+iamwaqargulzar.gmail.com@kernel.org>
-Date: Thu, 08 Oct 2026 12:15:01 +0500
-Subject: [PATCH v2] HID: i2c-hid-acpi: restore touchscreen IRQ routing on
- HP OmniBook Flip laptops
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="kYsvjPcR";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="QVhIVzsJ";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Cj6QWk3h";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="+GnklNsL"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 806D821B0C;
+	Thu,  8 Oct 2026 07:15:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791443735; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bz3qd4Jtwp/O2TtPdUCiXZoBrV0u85ch9xOglmgN+68=;
+	b=kYsvjPcRAOlv05hdLVp5Amlj1uqH6532fs9l9nYkLVyEOprolcDxLik8DydgGm/9IqGl+d
+	8F0Y0CL87++hhC4AZX6rPIWDB+wH2xWjlDkPeYbVDKOcvMjp7n4Ly0tiBmkeYy7OnRlyql
+	faBEkRTDlSXP6ItxPdQPG+coonWUHHw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791443735;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bz3qd4Jtwp/O2TtPdUCiXZoBrV0u85ch9xOglmgN+68=;
+	b=QVhIVzsJIzmJPbL8Ugk77i7IkxENG1qEEGYif6HDpgiwOJrBQNOqdqNi5WkkHNxmnmFyFK
+	x+ko7kdfxz52prAw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791443734; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bz3qd4Jtwp/O2TtPdUCiXZoBrV0u85ch9xOglmgN+68=;
+	b=Cj6QWk3h/Tf6MiIVeLWUxnhBIs+f/cpyCb0ATSRntVULxTMbB3wFphS2nIc3/E6vCDiJJ8
+	OgKI+Skag5LGp2nvyFwWCMcnGROQEH0GmkowlUAz0Qcs9XyX7PkvmKpaXcBT2Uy6KUcWFK
+	E9Gr1j0lrwOp5iledB5QbtjRxpK9Im8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791443734;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bz3qd4Jtwp/O2TtPdUCiXZoBrV0u85ch9xOglmgN+68=;
+	b=+GnklNsL6JtrMbBzDESVn+L46EZYHPPDSy/vumlpBsRxgIcEfjK0itYXZjnx3e5szmHtTh
+	TYszlMRkCsqLEhAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3CABB13354;
+	Thu,  8 Oct 2026 07:15:34 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id ozNKABZDx2oebQAAD6G6ig
+	(envelope-from <hare@suse.de>); Thu, 08 Oct 2026 07:15:34 +0000
+Message-ID: <44b45eb2-6fe9-44e8-bae0-e3df753b10c6@suse.de>
+Date: Thu, 8 Oct 2026 09:15:29 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261008-b4-elan2514-irq-route-v2-1-432d95eb7348@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAPRCx2oC/4WNTQ6CMBBGr0Jm7Zi2lh9deQ/DgpYpjEGqLRAN4
- e4CHsDlS973vhkiBaYIl2SGQBNH9v0K6pCAbau+IeR6ZVBCZeJ8Emg0Ulf1KpUaObww+HEgrAu
- Va2ddIVID6/YZyPF7797KH8fR3MkOW2wzWo6DD5/9eJKb9+9jkihR6yyXxglZi/TaPCrujtY/o
- FyW5QtMscxuzAAAAA==
-X-Change-ID: 20260930-b4-elan2514-irq-route-d8274fcf805b
-To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-acpi@vger.kernel.org, stable@vger.kernel.org, 
- Waqar Gulzar <iamwaqargulzar@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791443700; l=6715;
- i=iamwaqargulzar@gmail.com; s=20260930; h=from:subject:message-id;
- bh=7Fnwx/BOp4ha3EW9HMMdAzjRcB5AydGK0F0fLjOu1CU=;
- b=PM15xATBt61NyYOs5vyUNiNgedZHChppMgjYDCQc+2vuLIJjemu3nDFSjFXEem7kwPishGYp9
- eMSBF7lD8caBwo3dXJ1+EoEMrsc8lUyl0o/Z8X+5EU30AA5WQc7O8/9
-X-Developer-Key: i=iamwaqargulzar@gmail.com; a=ed25519;
- pk=SaQhB3EnN6qioo4wuu0rBv6REy1Nx9hz3QOh3Qp9xtk=
-X-Endpoint-Received: by B4 Relay for iamwaqargulzar@gmail.com/20260930 with
- auth_id=1083
-X-Original-From: Waqar Gulzar <iamwaqargulzar@gmail.com>
-Reply-To: iamwaqargulzar@gmail.com
-
-From: Waqar Gulzar <iamwaqargulzar@gmail.com>
-
-On the HP OmniBook X Flip 16, OmniBook 7 Flip 16 and OmniBook X Flip 14
-the ELAN2514 touchscreen interrupt is a GPIO pad (GPP_E_18) routed
-directly to the IO-APIC. The firmware's touchscreen power resource does
-
-    PTPL._ON:  \_SB.SGRA (TPI2, TPIP)        // TPIP = T0IP = 0
-    PTPL._OFF: \_SB.SGRA (TPI2, TPIP ^ 1)
-
-while the device's _INI enables routing with SGRA (GPLI, T0IP ^ 1).
-So _ON clears PADCFG0.GPIROUTIOXAPIC and disconnects the pad from the
-IO-APIC. Linux evaluates _ON at probe and on every D3->D0 transition
-(Windows apparently does not while _STA already reports the resource
-on), after which the level-triggered IRQ never deasserts:
-
-  - ~630 interrupts/s while idle, nearly every read returns 0xffff
-  - frames shifted by a leading 0xff, "incomplete report (67/7167)"
-  - stylus reports arrive at ~25 Hz instead of the native ~268 Hz
-  - touch stalls and false stylus proximity
-
-Re-enable the routing through the firmware's own \_SB.SGRA helper from
-the power_up hook, which runs at probe and on resume before the HID
-reset.
-
-Tested with this patch on the OmniBook X Flip 16 (board 8DA1, BIOS
-F.20): idle interrupts drop from ~630/s to 0 after boot and after
-s2idle resume, and pen and touch behave as on Windows.
-
-The same faulty _ON, the same pad and the same ~630/s storm were
-confirmed by other owners on the OmniBook 7 Flip 16 (board 8DA0, BIOS
-F.08) and the OmniBook X Flip 14 (board 8D9F, BIOS F.08). On both,
-correcting the _ON value through an ACPI table override stops the storm
-(routing bit set, 0 interrupts/s idle, also after s2idle), which is the
-same correction this patch applies at runtime.
-
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=220854
-Link: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2142384
-Link: https://github.com/testyfishy/hp-omnibook-flip16-touchscreen-fix
-Link: https://github.com/iamwaqargulzar/hp-omnibook-x-flip-16-linux-touchscreen-pen-fix
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] nvme-auth: fail when the controller does not authenticate
+ itself
+To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>, Keith Busch <kbusch@kernel.org>,
+ Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>,
+ Sagi Grimberg <sagi@grimberg.me>, linux-nvme@lists.infradead.org,
+ linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Signed-off-by: Waqar Gulzar <iamwaqargulzar@gmail.com>
----
-The firmware of the HP OmniBook X Flip 16, OmniBook 7 Flip 16 and
-OmniBook X Flip 14 disconnects the ELAN2514 touchscreen interrupt from
-the IO-APIC in its power resource _ON method, which Linux runs at probe
-and resume. This patch re-enables the routing through the firmware's own
-helper from i2c-hid-acpi's power_up hook.
+References: <20261006134807.518056-1-yhlee@isslab.korea.ac.kr>
+Content-Language: en-US
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20261006134807.518056-1-yhlee@isslab.korea.ac.kr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Spam-Score: -4.26
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.26 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-0.998];
+	NEURAL_HAM_SHORT(-0.17)[-0.837];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo,korea.ac.kr:email]
 
-Tested with the patch on board 8DA1 (BIOS F.20), Linux 7.2.8,
-including s2idle resume. Boards 8DA0 and 8D9F were confirmed by their
-owners to have the same faulty _ON and storm, and to be fixed by the
-equivalent ACPI table correction (kernel bugzilla 220854).
+On 10/6/26 3:48 PM, Yehyeong Lee wrote:
+> nvme_auth_process_dhchap_success1() returns success as soon as the
+> controller clears the rvalid flag in its DH-HMAC-CHAP success1 message,
+> without looking at whether the host had asked the controller to
+> authenticate.  A host configured with a controller secret sends a
+> challenge in its reply, computes the expected controller response, and
+> sets chap->bi_directional; if the controller then answers with
+> rvalid = 0 the response is never compared, the host still sends
+> success2, and the queue is marked as authenticated.
+> 
+> A malicious or man-in-the-middle controller therefore only has to clear
+> one flag to turn the configured bidirectional authentication into a
+> one-way one, without holding any secret of its own.  The target side
+> already treats the mirror image of this as fatal: when the host supplied
+> a challenge but no controller key is configured, nvmet_auth_success1()
+> fails the authentication rather than answering with rvalid = 0.
+> 
+> Refuse the connection if the controller returns no response although
+> bidirectional authentication was requested.  chap->bi_directional is the
+> right condition rather than ctrl->ctrl_key, because secure concatenation
+> sends a challenge only to derive the PSK and deliberately clears
+> bi_directional; a one-way setup without a controller secret keeps
+> returning success as before.
+> 
+> Fixes: f50fff73d620 ("nvme: implement In-Band authentication")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+> ---
+> Reproduced over an nvmet loop target modified to omit rvalid in its
+> SUCCESS1 (standing in for a controller that does not authenticate itself),
+> with the host configured for bidirectional authentication.  There is no
+> oops; this is an authentication-logic flaw, so the evidence is the host's
+> dmesg.
+> 
+> Unpatched, the host accepts the connection and never validates a controller
+> response (note the absence of any "controller authenticated" line):
+> 
+>    nvme nvme0: qid 0: authenticated with hash hmac(sha256) dhgroup null
+>    nvme nvme0: qid 0: authenticated
+>    nvme nvme0: new ctrl: "nqn.2026-10.test:authsubsys"
+> 
+> With the patch the same controller is refused:
+> 
+>    nvme nvme0: qid 0: controller did not authenticate
+>    nvme nvme0: qid 0: authentication failed, error -129
+> 
+>   drivers/nvme/host/auth.c | 15 ++++++++++++++-
+>   1 file changed, 14 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/nvme/host/auth.c b/drivers/nvme/host/auth.c
+> index e55920642f2c1..cbb38935fa227 100644
+> --- a/drivers/nvme/host/auth.c
+> +++ b/drivers/nvme/host/auth.c
+> @@ -358,8 +358,21 @@ static int nvme_auth_process_dhchap_success1(struct nvme_ctrl *ctrl,
+>   			 nvme_auth_hmac_name(chap->hash_id),
+>   			 nvme_auth_dhgroup_name(chap->dhgroup_id));
+>   
+> -	if (!data->rvalid)
+> +	if (!data->rvalid) {
+> +		/*
+> +		 * The controller did not return a response.  If we asked it to
+> +		 * authenticate itself the session must not be used, otherwise
+> +		 * mutual authentication would silently degrade to one-way.
+> +		 */
+> +		if (chap->bi_directional) {
+> +			dev_warn(ctrl->device,
+> +				 "qid %d: controller did not authenticate\n",
+> +				 chap->qid);
+> +			chap->status = NVME_AUTH_DHCHAP_FAILURE_FAILED;
+> +			return -ECONNREFUSED;
+> +		}
+>   		return 0;
+> +	}
+>   
+>   	/* Validate controller response */
+>   	if (crypto_memneq(chap->response, data->rval, data->hl)) {
 
-Full analysis, ACPI excerpts, and Windows/Linux traces:
-https://github.com/iamwaqargulzar/hp-omnibook-x-flip-16-linux-touchscreen-pen-fix
----
-Changes in v2:
-- Add board 8D9F (OmniBook X Flip 14): same faulty _ON, confirmed by
-  its owner in bugzilla 220854.
-- Fix the description of 8DA0: it is the OmniBook 7 Flip 16, a sibling
-  model, not another board ID of the X Flip 16; now confirmed by its
-  owner as well.
-- Subject and commit message now name all three models; add the
-  bugzilla link.
-- Link to v1: https://patch.msgid.link/20260930-b4-elan2514-irq-route-v1-1-44671bf01d05@gmail.com
----
- drivers/hid/i2c-hid/i2c-hid-acpi.c | 65 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 65 insertions(+)
+Correct.
 
-diff --git a/drivers/hid/i2c-hid/i2c-hid-acpi.c b/drivers/hid/i2c-hid/i2c-hid-acpi.c
-index 9371db200..b307d9a3d 100644
---- a/drivers/hid/i2c-hid/i2c-hid-acpi.c
-+++ b/drivers/hid/i2c-hid/i2c-hid-acpi.c
-@@ -21,6 +21,7 @@
- 
- #include <linux/acpi.h>
- #include <linux/device.h>
-+#include <linux/dmi.h>
- #include <linux/i2c.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
-@@ -55,6 +56,67 @@ static void i2c_hid_acpi_restore_sequence(struct i2chid_ops *ops)
- 	i2c_hid_acpi_get_descriptor(ihid_acpi->adev);
- }
- 
-+/*
-+ * HP OmniBook X Flip 14 (board 8D9F), OmniBook 7 Flip 16 (8DA0) and
-+ * OmniBook X Flip 16 (8DA1): the touchscreen power resource
-+ * \_SB.PC00.I2C4.PTPL._ON writes the wrong value to the GPIROUTIOXAPIC bit
-+ * of the touchscreen interrupt pad, disconnecting it from the IO-APIC. The
-+ * level-triggered interrupt then never deasserts, the controller is read
-+ * continuously (~630 reads/s while idle) and it cannot deliver pen reports
-+ * at its native rate. Windows does not run _ON while the resource already
-+ * reports on, so it is not affected. Linux runs _ON at probe and on every
-+ * resume, so re-enable the routing with the firmware's own helper before
-+ * the HID reset.
-+ */
-+static const struct dmi_system_id i2c_hid_acpi_irq_route_dmi[] = {
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "HP"),
-+			DMI_EXACT_MATCH(DMI_BOARD_NAME, "8D9F"),
-+		},
-+	},
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "HP"),
-+			DMI_EXACT_MATCH(DMI_BOARD_NAME, "8DA0"),
-+		},
-+	},
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "HP"),
-+			DMI_EXACT_MATCH(DMI_BOARD_NAME, "8DA1"),
-+		},
-+	},
-+	{ }
-+};
-+
-+static int i2c_hid_acpi_restore_irq_route(struct i2chid_ops *ops)
-+{
-+	struct i2c_hid_acpi *ihid_acpi = container_of(ops, struct i2c_hid_acpi, ops);
-+	union acpi_object args[2];
-+	struct acpi_object_list arg_list = { ARRAY_SIZE(args), args };
-+	unsigned long long pad;
-+	acpi_status status;
-+
-+	status = acpi_evaluate_integer(NULL, "\\GPLI", NULL, &pad);
-+	if (ACPI_FAILURE(status))
-+		return 0;
-+
-+	args[0].type = ACPI_TYPE_INTEGER;
-+	args[0].integer.value = pad;
-+	args[1].type = ACPI_TYPE_INTEGER;
-+	args[1].integer.value = 1;
-+
-+	status = acpi_evaluate_object(NULL, "\\_SB.SGRA", &arg_list, NULL);
-+	if (ACPI_FAILURE(status))
-+		acpi_handle_warn(acpi_device_handle(ihid_acpi->adev),
-+				 "failed to restore interrupt routing: %s\n",
-+				 acpi_format_exception(status));
-+
-+	/* Never fail probe or resume because of this workaround */
-+	return 0;
-+}
-+
- static void i2c_hid_acpi_shutdown_tail(struct i2chid_ops *ops)
- {
- 	struct i2c_hid_acpi *ihid_acpi = container_of(ops, struct i2c_hid_acpi, ops);
-@@ -85,6 +147,9 @@ static int i2c_hid_acpi_probe(struct i2c_client *client)
- 	ihid_acpi->adev = adev;
- 	ihid_acpi->ops.shutdown_tail = i2c_hid_acpi_shutdown_tail;
- 	ihid_acpi->ops.restore_sequence = i2c_hid_acpi_restore_sequence;
-+	if (acpi_dev_hid_uid_match(ihid_acpi->adev, "ELAN2514", NULL) &&
-+	    dmi_check_system(i2c_hid_acpi_irq_route_dmi))
-+		ihid_acpi->ops.power_up = i2c_hid_acpi_restore_irq_route;
- 
- 	acpi_device_fix_up_power(adev);
- 
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
 
----
-base-commit: 145c2b2e9a5c0f794fb4009bcb072ab19f8ccfcd
-change-id: 20260930-b4-elan2514-irq-route-d8274fcf805b
+Cheers,
 
-Best regards,
---  
-Waqar Gulzar <iamwaqargulzar@gmail.com>
-
-
+Hannes
+-- 
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.de                                +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
