@@ -1,122 +1,143 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A3CD494826
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 13:48:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.174
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791467312; cv=pass; b=jjpLVAmLev+8rZB+WOt3XhuDnL2ia235HY3vRJFq/40yaIUABlILXszb7a0NrkpNNPyvymSA7Mje/cOZlhnJEHDJWp+E95K0WU4hHMA7w8YoXlVHB39YxblC8GCw6teF/jbSqRi9a7YkxFuYG8CzO2RyWU8q8mf114ElYyB7nbA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791467312; c=relaxed/simple;
-	bh=GxYaZEmMSfj5cqopxpHkz12DEhpzIPayu+f2kBBrl7o=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cxAq/qOAf+p8ahItXP+jWQyqNdGTyL5EYrDRlSZweah3W9vTsRxSDgmD6iBY7UnFVNQaMtcbZO2YFcmZ2/tLNLo2NFyJ1A2HAtHjhtTgdbxaDzuUUwHilDCwF17esB4yTt1zfaU0tSD0/WvDSzS9B39LMNCQYoo7o3fz0tz7Lvc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sairon.cz; spf=pass smtp.mailfrom=sairon.cz; dkim=pass (2048-bit key) header.d=sairon.cz header.i=@sairon.cz header.b=LCs1mMyJ; arc=pass smtp.client-ip=209.85.215.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sairon.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sairon.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CF532EA15C
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 14:08:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791468485; cv=none; b=bwenV4e9lr50gosfSnfawrA6TUIEtFxjHejUqQGQWgSur9pb04gdSoWJP4/l4ix6UafjPZjSVD5KfDGKNvB1dy0/A7PpVcFDM2bZqK3volQO8GLtt1qP0vHc83ZhKW+sfqxDTvD1F2YQiXMgXeA0nXQ/wkGNd9arQGyZpzpm6D4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791468485; c=relaxed/simple;
+	bh=s2uVbRXLVOSm9D7G8EeEgzSFVqTdnwqXhdPcnUoc59Q=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=DFNUzWwHPOwZnjFi8zlfPz1LYThtvNsp9r1TYeJQV4M0V5tmCYVzTbN64YkST4HHa73C/TaM6gDSNOkvge3UrItDCBX7wyULdbnp1eOWzk3NzZ3Mh5kjInonJpMzvEt2TSa0I5c2RI1CvkhVTaAeiG7GFuwVQPDAr/+hECvzTrg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=R95+pOmj; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sairon.cz header.i=@sairon.cz header.b="LCs1mMyJ"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc4aa0246b7so1621187a12.3
-        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 06:48:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791467310; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Vi9BFIAY21czZKp1pIDeHKc7OQq4xuwd+KRWeVhDOxAWbwzSJHX/HlEzZG3UxZeBaC
-         bgw/WB3HWNyYPUVAynDGlSbP+AhsOBhEN2HxBYpOCt7tByZ7k8OnwrsO2C+ZtgsEiFiQ
-         f3H2M2E0gccT6PCAmJYrLyRn8Q4bDyh+ndMddtrNoFEFvNd5KTSKm6sN81JGqjpttjFn
-         P8ga0LiRa5DwPG9cjIRdT+b5a/4gPZ4LalfN20igG0a0g5CY7sDLMgnw32hRoaonPvWe
-         xLdhOQe/wdtE7ueZM5b7LVvXmiF4JpFZvaZolkzTLeC8x3xxAFOm2Ns6gXjHeNetaejp
-         5CwA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=GxYaZEmMSfj5cqopxpHkz12DEhpzIPayu+f2kBBrl7o=;
-        fh=+qB0Kbzn7WpKEPofvxP/N2ETQow8rF7wEFLWGIAvr6s=;
-        b=jDvn249tQaVjiXDodIYFeUabu8G/ILY258ktudG6pYI+mX0kapc4hNh7kUcZkv/tPn
-         EBQ63kxTCFdue3MAwrHzsRpU8RIE18O5zv0jddHeKKAV+nA6SAD6Dwco+dEzsptMkHJW
-         Dm7d6yzEePYwZzUaodm3k2vGkYgaMcq2YPy19sq55lmaeynQcyhcJin2YlSflr3KTW5d
-         Git9WIkg+Abori0mqJyfg6nbkqnwLkMuhuzJ3TlRqQNStEIwkmXA4H0KuSdqdK+40tc4
-         G4o3U64gd4MPsTjQotiJr2KmItFwsKdmUNJw8WgCiIkFImeKvvCVjBLYq3w+DFd6NDEB
-         LVqw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sairon.cz; s=google; t=1791467310; x=1792072110; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GxYaZEmMSfj5cqopxpHkz12DEhpzIPayu+f2kBBrl7o=;
-        b=LCs1mMyJon1k5JnMiOnisxp3qDbZXdZaUpxF/wwWHaod9t5KBkrIUwt2aVeM4UAEVE
-         xdPvv2qV3aZ8RmjdH8XBXCtHE9uhAVNjYyd8kDxaBTUy3ZEjs6yd9/o8k7sTr6JGm47H
-         /CMqen+dwS/xESpLLV0R9RGyUkdtEyGxS5sg3odyX4h46ugT5sZ84KyE0XqydZguHSeT
-         hfOef0IV3fZ5H2ANDt0rSNLzWd+0Lk3AQDKr3KJ4LrgApEhkUB4P+4odeEfV+8zDbvM6
-         VZEnd6MiXtd+/uvggp+eLZGDqPhO1nMoBez9bM1G0czyhTiY0DFz3rtiZ41U/v0JKU22
-         U/Vw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791467310; x=1792072110;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=GxYaZEmMSfj5cqopxpHkz12DEhpzIPayu+f2kBBrl7o=;
-        b=CuvqmkLiyBmeXo7JRrXwxAil76je/AR7rwz/ClWUGQBWhbdlGX08TtQO+zuZ9AD4RQ
-         eiWekbCFmhfSr2AAlKLpPdN6YkVdPW9XkPVy29/sxYoWH5OLfrZRRorrmnLDR/2D7jc+
-         6OO/Iy4+iLdyYjkp1U64HH3a1QFt/kshPwoGY/IewB8REzyTIV92wEZapGNL4R6ulhYf
-         wbbVn0+KXDuulbomA+rVPm4dS61+kd1LbY8VsaaDpNcy7BSocY6qdv8lwMmVp74bbT5C
-         AfqwF3N3WQFJOi9rD6oEW3S63B1JzUZUHKXCB+N0elEoV/BWBV4Rhrcy7N5BSrI2+tjH
-         h6pA==
-X-Forwarded-Encrypted: i=1; AKwUvBwG1lD15TTcNb0ZXIM8d0vwTZGOe2NU+OrOgcbmEFjWxvXvYbV+y4Xd6/7+klqHz+llnluNDtA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nuqG5hAVNPQbRlCAnckgmyawtocS4FYADvKSVHAJWQusEXXhHm
-	RY50A6KdE7+59X6cRGVM0fIToRD/lYlioYEa3S2Fx6ZOIBOuFy98OfA8bbFAkluuOvFIc4M3r5X
-	U6fPS3HvTRc1BPXwhh3fT8QuC/3Cqku3CB7Z2hhyt7A==
-X-Gm-Gg: AYBFou1+L0IC6YhbziHC9uVNtm4pbX9D4BqCgOdpL21wY9/9G0fasWHBVG3KCkdtno8
-	KbmPoBJatuimDQT3DaR1lMObXsl2pQM9IV97ZVqmuXSlgREoCb25NCalzDpuYHr5twQddGCkFpb
-	QO/GQzbOtmNb5OK2o6VW76v/XlfRPHgpja59mvqX40Y134Uy5CDTDch2CHbWhxSVSLqv2ZrDeK+
-	YTny1gIT2U3hFwhTLm8frdwzoqikEJSgs8b5hMGCLNELX6dcXLEJlimImiGRZINWrRppAemLUeX
-	ftOQtzu1X89WiKu3cm0CgtY5XJtuXN50nJnonunlvYDLLuC4cNoV4EhTeDTMhGIcuc6hPJm5n6b
-	ekPyiOgMa/5r/E5aHBhhRxKw/Kv8x4BjP70zmkgzhpr7/UuOaJPAv4svTi5tRM2xptJL5MBAtxf
-	D1Ogjc3fXdYw==
-X-Received: by 2002:a05:6a21:e58c:b0:3de:5a00:e248 with SMTP id
- adf61e73a8af0-3e134154c00mr4172366637.76.1791467310506; Thu, 08 Oct 2026
- 06:48:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="R95+pOmj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791468484; x=1823004484;
+  h=from:to:cc:subject:in-reply-to:references:date:
+   message-id:mime-version;
+  bh=s2uVbRXLVOSm9D7G8EeEgzSFVqTdnwqXhdPcnUoc59Q=;
+  b=R95+pOmjXrSn7J+1i5OXRkJxssZ+tbhF6XKl7XvhX8YaIxgzB1KRTECO
+   AwWlI+iL7qAHODrV/xOFSYkPqchPrPQNXiZ30z7uEVI3w75XSVtazBBFe
+   ehiUCpAgV2o2T16tU7aJEYdiI43KOQ6/Qq4KPROAKFysjY5tLQEmQXojz
+   rFsxBMQEfbGlKhhyfrKcd49bHNuxeMMGnSDHS7qp12QJJpIdMOPFjGK7t
+   sS4i+y7htJRWdG9j44BQjGuEWpJsaeCZFox2GZCroDKd4zKQZ3TChVUh2
+   CBBXFM6k/rx4/lcvACc/47Ot1aCPNsblKxjhUV57R1eR++oZoihDz2hDh
+   w==;
+X-CSE-ConnectionGUID: ITvp/uw/S9yeKxCrO205Ow==
+X-CSE-MsgGUID: B6hs65LhQtWH5Fkqg8UCjw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="145852"
+X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
+   d="scan'208";a="145852"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 07:08:03 -0700
+X-CSE-ConnectionGUID: CFfkPoUMSvSb0ENmxv5wBw==
+X-CSE-MsgGUID: 3l4lkhvfQCCuHcrsL4nM6w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
+   d="scan'208";a="377535"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.142])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 07:08:01 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: "Kandpal, Suraj" <suraj.kandpal@intel.com>, "Murthy, Arun R"
+ <arun.r.murthy@intel.com>, "intel-gfx@lists.freedesktop.org"
+ <intel-gfx@lists.freedesktop.org>, "intel-xe@lists.freedesktop.org"
+ <intel-xe@lists.freedesktop.org>
+Cc: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: RE: [PATCH] drm/i915/scaler: Prune YUV420 modes against the max
+ source width
+In-Reply-To: <DS4PPFE901A304F1782FA1CD962D6DDE3BFE3942@DS4PPFE901A304F.namprd11.prod.outlook.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20261007070601.3611674-1-arun.r.murthy@intel.com>
+ <DS4PPFE901A304F1782FA1CD962D6DDE3BFE3942@DS4PPFE901A304F.namprd11.prod.outlook.com>
+Date: Thu, 08 Oct 2026 17:07:59 +0300
+Message-ID: <013890ff0c99723aeb304a0a6997543ba646524d@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAPa5EdCj3v17tB-SF2JNecq5Q8s1Pranr-XzAFWNpNTBPgPG7w@mail.gmail.com>
- <a6193df2-98f3-409f-b73f-5b91835a0107@kernel.org> <CAL4WiirwF6bZwocErCthJ+TUu7wipRfSibRBoKWjjkA2nVSrqQ@mail.gmail.com>
- <CAL4WiiqSmW093PDngLrUNiNA5GVKeM3+tAO7KMDJeyjYZ7GRzg@mail.gmail.com>
- <4c98eff5-c8c7-43ee-b59a-adb833978816@kernel.org> <CAPa5EdDk+HuVP0H1+iqOcHDHZnfdika5WOQcgSaMtfRFWzqZ+Q@mail.gmail.com>
- <CAL4WiipSpufpdo-AWoNEJta-puLQ5hMyPn2xcjwg4vg67PNoyA@mail.gmail.com>
-In-Reply-To: <CAL4WiipSpufpdo-AWoNEJta-puLQ5hMyPn2xcjwg4vg67PNoyA@mail.gmail.com>
-From: =?UTF-8?B?SmFuIMSMZXJtw6Fr?= <sairon@sairon.cz>
-Date: Thu, 8 Oct 2026 15:48:03 +0200
-X-Gm-Features: AclHuK_9cv-O-41xZVfpN6e8qZHktULAqfmGyDPNmDuHK5rePS-wDUMv3tjDuuI
-Message-ID: <CAPa5EdC5+JiLCHdCt4m-sqM1pUs=fG8T7zsmVcheHCG8FFF8Fg@mail.gmail.com>
-Subject: Re: [REGRESSION][BISECTED] r8169: TX stall with checksum offload on
- VLAN frames with inline tag (REORDER_HDR off) since 1517d1996b52
-To: Eric Dumazet <edumazet@kernel.org>
-Cc: Heiner Kallweit <hkallweit1@gmail.com>, netdev@vger.kernel.org, 
-	regressions@lists.linux.dev, stable@vger.kernel.org, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, nic_swsd@realtek.com, 
-	Sasha Levin <sashal@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain
 
-On Thu, 8 Oct 2026 at 14:48, Eric Dumazet <edumazet@kernel.org> wrote:
-> This is the current patch under review :
-> https://lore.kernel.org/netdev/20261008123812.554729-1-edumazet@kernel.org/T/#u
+On Wed, 07 Oct 2026, "Kandpal, Suraj" <suraj.kandpal@intel.com> wrote:
+>> Subject: [PATCH] drm/i915/scaler: Prune YUV420 modes against the max
+>> source width
+>> 
+>> skl_scaler_mode_valid() compares the mode's hdisplay against the pipe scaler
+>> maximum source height instead of the maximum source width, so single pipe
+>> YUV420 modes are pruned against the wrong limit.
+>> 
+>> Commit 3347b55f2c6c ("drm/i915/xe3lpd: Prune modes for YUV420")
+>> intended to reject modes whose hdisplay exceeds the scaler horizontal source
 >
-> Thanks.
+> I think no need to mention  this commit since you already mention this in fixes
+> Also 
+> Cc: stable@vger.kernel.org
 
-Oh, I missed that, as GitHub "protected my privacy" and I ended up in
-CC with its noreply address (which really leads to /dev/null). I've
-applied that patch to our tree and started the build, I'll ask in the
-issue tracker for testing once the build finishes and reply in the
-patch thread if I get any feedback.
+Yeah we have 'dim fixes' for this.
 
-I've disabled the "privacy protection" on GitHub so I hope next time
-it shouldn't happen - but just in case you'll be updating the patch,
-please use my real address I use here.
+$ dim fixes 3347b55f2c6c
+Fixes: 3347b55f2c6c ("drm/i915/xe3lpd: Prune modes for YUV420")
+Cc: Suraj Kandpal <suraj.kandpal@intel.com>
+Cc: Jonathan Cavitt <jonathan.cavitt@intel.com> #v2
+Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Cc: <stable@vger.kernel.org> # v6.18+
 
-Thanks,
-Jan
+Don't put all of it in the trailers, but it gives you an idea who should
+perhaps be Cc'd and what the stable target should be.
+
+
+BR,
+Jani.
+
+
+>
+> Otherwise LGTM,
+> Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
+>
+>> limit, since pipe scaling does not support YUV420 for a source width above
+>> 4096. Comparing against max_h makes the check far too permissive from
+>> display 12 onwards, where max_h is 8192, and too strict on display 11, where
+>> max_h is 4096 while the horizontal limit is 5120.
+>> 
+>> Compare against max_w instead.
+>> 
+>> Fixes: 3347b55f2c6c ("drm/i915/xe3lpd: Prune modes for YUV420")
+>> Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
+>> ---
+>>  drivers/gpu/drm/i915/display/skl_scaler.c | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>> 
+>> diff --git a/drivers/gpu/drm/i915/display/skl_scaler.c
+>> b/drivers/gpu/drm/i915/display/skl_scaler.c
+>> index 7994b983d509..7e65c4fffbc0 100644
+>> --- a/drivers/gpu/drm/i915/display/skl_scaler.c
+>> +++ b/drivers/gpu/drm/i915/display/skl_scaler.c
+>> @@ -145,7 +145,7 @@ skl_scaler_mode_valid(struct intel_display *display,
+>> 
+>>  	if (num_joined_pipes < 2 && output_format ==
+>> INTEL_OUTPUT_FORMAT_YCBCR420) {
+>>  		skl_scaler_max_src_size(display, &max_w, &max_h);
+>> -		if (mode->hdisplay > max_h)
+>> +		if (mode->hdisplay > max_w)
+>>  			return MODE_NO_420;
+>>  	}
+>> 
+>> --
+>> 2.25.1
+>
+
+-- 
+Jani Nikula, Intel
