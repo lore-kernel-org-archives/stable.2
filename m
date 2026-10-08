@@ -1,67 +1,85 @@
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58102491585;
-	Thu,  8 Oct 2026 10:11:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CFE93E765A;
+	Thu,  8 Oct 2026 10:11:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791454278; cv=none; b=lov9OJycIoaKNmBN1Fb/I9Q5J+3OWdzarop6d7nOnVqBWAR2wOw7iavvjcMObe6s7zpTeF4bgHJQyGqVU7g1bMaf1kKU8iaRzbtItWEs79OpyT34UfqH0edkeclvMfhLT/Xua5GhGFSAwVBhSpLAZjypZxXC9RNim1pZwE8DQj0=
+	t=1791454311; cv=none; b=Dl97erHzOqULnilKuyF8XgSNIg49CPx7GWW70zb88fMBFrQK1PtlxusoFB+elUNBk7NgJLmoGY8VyOriSc+vaBGdusCaBGlJK88Oj/K3yV0IhBwIlJCee4P85DLdCzzpIkQHZZixhkOT4YuJaZ0v2j2wIRJ8WmAIrf09eU+ayqM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791454278; c=relaxed/simple;
-	bh=OtpCJsyYuzFAu6mHJXz1/MM96TfBTDXh6SdF0Lli7+s=;
+	s=arc-20240116; t=1791454311; c=relaxed/simple;
+	bh=3lTlAwAe3+aWB2br71hS+34Dz4Y8z2pxSNkDhSK8cjY=;
 	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hflzAB3pynnNFrGVzvMbpSFIZKkLBCj5oyHfYpvK3UpO4H0XeIwgqTEfZajE9TlgY/FQTntjEFdkYjpwhVJSVKMulvsv6mZ7i5HjW6Q6YkUx1EiPC9/uNn05VYQARX8gpG6ItJSNVHgbM+q71OTIiHdJCMvM6ANyJmINHN2dvMU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=fjnFTstk; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=6zUzRAlc; arc=none smtp.client-ip=195.135.223.130
+	 MIME-Version:Content-Type; b=dWjyF8YCRz1UQyldUmE2b01bO7CfCJ7t4liqyr7LPzyR8DYWQGweW81nltplgX+OgqWJAopL8DKP65iBahdcs883fedQqqhMZwaCLULWZhJ7r4SmgVau+xP6MiTctwqIg0xMPf2j9pbg0VYld3pkU91kGuV4fDnn7rIRn8ue5Vc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=feyrRj0J; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Y0geOEBF; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=feyrRj0J; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Y0geOEBF; arc=none smtp.client-ip=195.135.223.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="fjnFTstk";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="6zUzRAlc"
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="feyrRj0J";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Y0geOEBF";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="feyrRj0J";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Y0geOEBF"
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 4F2B021BFB;
-	Thu,  8 Oct 2026 10:11:13 +0000 (UTC)
-Authentication-Results: smtp-out1.suse.de;
-	none
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 23D5921BFB;
+	Thu,  8 Oct 2026 10:11:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791454273; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1791454308; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=xbcwWrM6AuaKZRodfq0Jz9HUSXKnLh4t8oCoouIlbJM=;
-	b=fjnFTstkrnEkO6xBIdH9uj5xsFbLD0qh34v6zoj22+HpozHLngVMhMsymdQIdAM0IyByig
-	Mth4qc5iLOwBgw42+eQUBc37YhO4fOWpH9l6GqOWV+1vzJWEYI0k32E3cJsR8VEX/Zy6iV
-	5HkP89+cnaZtCAJ70zW9eFxHBCkMBSk=
+	bh=EErSkvl1t7wVbt4j458uwqep+EL5PzKNODNrW7hBKD4=;
+	b=feyrRj0JhMP0Bq7erM1hLh1VE9UNyqu3l48zuKSWKRMIBCrO+rLFb0+hB1075EQNNJSKyO
+	nzOhBr47ryV1hVxs4pBem0suqpzxg82/Xk9vEEGUB1wCYNHByYFU1knC+MOBoqbZW1IC02
+	Xzfbs4FSmJbaub/4iuB7nSdlO9ZwOYE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791454273;
+	s=susede2_ed25519; t=1791454308;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=xbcwWrM6AuaKZRodfq0Jz9HUSXKnLh4t8oCoouIlbJM=;
-	b=6zUzRAlc91bAN/nRbKp7+MbTQ5R14r6duf021N4lK4ZcN9If9NyGKxAgxbFIs7YvSYLy1z
-	12qu/5lhGZLdRnDg==
+	bh=EErSkvl1t7wVbt4j458uwqep+EL5PzKNODNrW7hBKD4=;
+	b=Y0geOEBFDSWoyw4innaotiQlxJaDM+cF4H4x+c/BK3puSfEF38/6Ir5Ul4PdwM+0oeL5sa
+	rOsbMhoz52Ps/+Ag==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791454308; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=EErSkvl1t7wVbt4j458uwqep+EL5PzKNODNrW7hBKD4=;
+	b=feyrRj0JhMP0Bq7erM1hLh1VE9UNyqu3l48zuKSWKRMIBCrO+rLFb0+hB1075EQNNJSKyO
+	nzOhBr47ryV1hVxs4pBem0suqpzxg82/Xk9vEEGUB1wCYNHByYFU1knC+MOBoqbZW1IC02
+	Xzfbs4FSmJbaub/4iuB7nSdlO9ZwOYE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791454308;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=EErSkvl1t7wVbt4j458uwqep+EL5PzKNODNrW7hBKD4=;
+	b=Y0geOEBFDSWoyw4innaotiQlxJaDM+cF4H4x+c/BK3puSfEF38/6Ir5Ul4PdwM+0oeL5sa
+	rOsbMhoz52Ps/+Ag==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1BB1E1339F;
-	Thu,  8 Oct 2026 10:11:13 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E52FC1339F;
+	Thu,  8 Oct 2026 10:11:47 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id GiDPOUBsx2pcLgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 08 Oct 2026 10:11:13 +0000
-Date: Thu, 08 Oct 2026 12:11:04 +0200
-Message-ID: <87ld885wp3.wl-tiwai@suse.de>
+	id BaITL2Nsx2oeLwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Thu, 08 Oct 2026 10:11:47 +0000
+Date: Thu, 08 Oct 2026 12:11:43 +0200
+Message-ID: <87jyns5wo0.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Cc: perex@perex.cz,
 	tiwai@suse.com,
 	linux-sound@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] ALSA: hda/hdmi: clamp num_cvts against cvt_nids[] in hdmi_read_pin_conn
-In-Reply-To: <20261008085122.9442-1-peter.ujfalusi@linux.intel.com>
-References: <20261008085122.9442-1-peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH] ALSA: hda/hdmi: clamp sad_count in ELD proc write handler
+In-Reply-To: <20261008085133.9528-1-peter.ujfalusi@linux.intel.com>
+References: <20261008085133.9528-1-peter.ujfalusi@linux.intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -70,36 +88,45 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [0.00 / 50.00]
-X-Spam-Score: 0.00
 X-Spam-Flag: NO
+X-Spam-Score: -3.30
 X-Spam-Level: 
-X-Rspamd-Pre-Result: action=no action;
-	module=Unknown lua;
-	unknown reason
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:email,imap1.dmz-prg2.suse.org:helo]
 
-On Thu, 08 Oct 2026 10:51:22 +0200,
+On Thu, 08 Oct 2026 10:51:33 +0200,
 Peter Ujfalusi wrote:
 > 
-> hdmi_add_cvt() stores each converter's NID into the fixed-size
-> spec->cvt_nids[] array (used only by the Intel Haswell pin-connection
-> fixup), but only when spec->num_cvts is still within
-> ARRAY_SIZE(cvt_nids); the num_cvts counter itself is incremented
-> unconditionally regardless of whether the store happened. A codec
-> that reports more converters than cvt_nids[] can hold therefore ends
-> up with num_cvts > ARRAY_SIZE(cvt_nids).
+> snd_hdmi_write_eld_info() parses a "sad_count N" line from the
+> root-writable ELD proc interface and assigns N directly to
+> e->sad_count with no upper bound, unlike the per-index "sadN_*" lines
+> a few lines below which are already bounded to ELD_MAX_SAD.
 > 
-> hdmi_read_pin_conn(), on the intel_hsw_fixup path, copies num_cvts
-> elements from cvt_nids[] with memcpy(), so once num_cvts exceeds the
-> array size this reads past cvt_nids[] and writes the resulting
-> garbage NIDs into per_pin->mux_nids[].
+> snd_hdmi_eld_update_pcm_info() later iterates
+> "for (i = 0; i < e->sad_count; i++)" over the fixed
+> e->sad[ELD_MAX_SAD] array, so an oversized sad_count read from the
+> proc file causes it to walk past the array.
 > 
-> Clamp the copy length to the actual size of cvt_nids[] instead of
-> trusting num_cvts, which is also used unbounded as the size of the
-> separate, dynamically-sized spec->cvts array and must not be
-> truncated at the source.
+> Reject sad_count values above ELD_MAX_SAD, matching the existing
+> per-index guard.
 > 
-> Fixes: bce0d2a80e42 ("ALSA: hda - Allow unlimited pins and converters in patch_hdmi.c")
+> Fixes: acb059938810 ("ALSA: hda - ELD proc interface write updates")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
