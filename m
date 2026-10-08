@@ -1,156 +1,226 @@
-Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010012.outbound.protection.outlook.com [40.93.198.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A51914F7CD6
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 21:03:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36F7638D6B5;
+	Thu,  8 Oct 2026 21:12:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.12
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791493433; cv=pass; b=tH182BKulnGRjQxLM0/KIhJj/mAZbKmK1zZ+r+PuQeF3wPHikHllWcVFl5OOc95D1R3cu2XKKwxMN64ES4sXFq9O1U2aiuxnYr2UseadTVZnZPxhnrFw3B+0EDNmhTEL7gYOzG1vlQhmnpBdxSgx2HwjaRzmue9n+ro31mbs1rE=
+	t=1791493949; cv=fail; b=nPs1qMTsuyBGavinJEKYTkPGrI4jZ2ZGabzMxil97vRrbuGyEDHeu/IflSJPyIJLw55Lh0Y8tHR4w8j5ZoW7dQO/mstX0ZczURHRVC3fPMGApI3GWSnEDjwyjURNzNC6TLWZU7Pnmyr6sF2gNTYQ3pVMbS1kIjdKuEzgPkXHIaw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791493433; c=relaxed/simple;
-	bh=vl6P2d7bzS5ltJJCjjguAr4o4FboZty4KMxvPMf44as=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ikomK0MYjcKUm0i8Jx3T71b3VurCEGn9xQjNATC7a7eoFJunE8Vj/D5TrBePixQcvj3OKRXIDqVVcPHoTEnZEBn4ZGGftFlFyjncBCdzSwDxvnQ7qFr1G9BnzALVA5Oytu/4Ghy2hTJO08QQW9111LuM/eSSqJ8/v6Io8jWpvqI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UXb/7leP; arc=pass smtp.client-ip=74.125.224.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791493949; c=relaxed/simple;
+	bh=kBj5v6OS4FkPAcWwmZ4KjJH7zZdtKJ1aHJ0H1VpNMQw=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=fI+6vsMD9DykWHop+OExuu3BKFnY2zgqxVqQXVKqyV+7Ycy2b052izKd+08iZzR2TxaBz+uouiLAd1YjqqbAJZCh5UXm3my71lNt2EqOpnKJBtoTonjIrozjzragvgCtywykGkfaAyrYmT0NG6wpJ1XX01y1YoFRmD1MzcPGlfM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=0RGpeFm8; arc=fail smtp.client-ip=40.93.198.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UXb/7leP"
-Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-6711f05fb14so3812950d50.2
-        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 14:03:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791493425; cv=none;
-        d=google.com; s=arc-20260327;
-        b=fGOysnaxZMt5jOXfuuZg1RShoZX6EhprhEJqbLZFjVVE4yfuwKdvgogl1ACgif0OYR
-         RyfDoCUWRn2AthUTTJIB/4htms2BSsZnclwUsu+PjeASkLxWGTknF3YUwwI8z7cBMSYk
-         mFkXWbptmVWZ5sBJHwdt5u0PawicCH1XqlrV/Lc3KquPUXbZ8WMCEhGQXSWiBCLNaZRB
-         vIJI64ajS6HEyan/v15J3t/gRkQP2OdlrAjBLHHCEIRuxWWFxBr6GMyoTmFgMuJcgyon
-         XqLhVanc2XT2U14t/Rs8LtEjtD5smRICQINb0Mw+R7wPrHHeQ/jpw3gOgNVGCBxfaZfm
-         GglQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=vl6P2d7bzS5ltJJCjjguAr4o4FboZty4KMxvPMf44as=;
-        fh=ezPvSe7FFGNPny2QheL9Ij7ntOpGCr295MNnS3ND4cY=;
-        b=Th+XgH2gi+CqDkSNvskAAPXlHxcermv+CclrPzDdVWJoW2UhiXG5QkqSSoR+0t2sJv
-         Vfowy2B4B8rJA5kz6ll91Q6jqUPFRuOiPck4GcZbmyiRlhl0IQ3vzodtFuMgO/AXEgJ7
-         i2wiy2bcqBI9rTga9T5nRj+NDy274x0EJwzFqLOB1gpFjhzGEI4uHYaZIvwqwbwviGm/
-         q1zeCGD41aascbnfDo7yop/cYieuBie8eNX4RtbkiB9t9vwWzxSCIMc/pnp8vFZbCUJg
-         tqF+F8FBFVolzzdrxNijQuLL5PAphVsYOhuiqg485YwFqCxN0/ZDfStib8kQF1mwiB0X
-         1RqA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791493425; x=1792098225; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vl6P2d7bzS5ltJJCjjguAr4o4FboZty4KMxvPMf44as=;
-        b=UXb/7leP6TGNYUifCSK0ZJavuFWdrwXthwZiI6/dWlDhkOz4RHlfPFOujRweRjd/ks
-         OiWVTAmZK3nO0GggLSZfwN8B2gWdsKQnsSA10Ke8dGWQcFCYicp3IP29KG+cTVlhft1w
-         MqB6+615PiU0qCOGJw3Q6YbiFMFan84RlyjV7Yza1ad85M2NkQJjvLH25YMwb4W7MkWm
-         YhFIrndChRBySsVyrWboOrEPjUSAZ5+X4aSujD0WUKIkNPX7+GH6Z6rbyigdR49T1uSW
-         qp6t7DKOC3r4nvc8GB5W9LGamVawPCFTigLsreM+nINugjPbXlzsMQ41BFDXrMOH6PHD
-         SCQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791493425; x=1792098225;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vl6P2d7bzS5ltJJCjjguAr4o4FboZty4KMxvPMf44as=;
-        b=oTVBCQNY5tnSnOKD7pBvA2PIgC6H0P7M+bzNgxhkEbxbU/LnzoEDZBhR4qxQuDSphx
-         X56sfpcH1z407uCMDMrA2+CM1R+gyU4sN34KbleF8Y8odSjFKAgYBentvK8AM8Fqvncr
-         /2RPFjBICCos606pBsb8BayXegs5Fd8ykVH4XBcHwx8UE6IWpSzH4vZAr4KNsA2PJeV5
-         yPVLV5glSw6jk84gb1XKKZCLAFSt65Y57yzUiF223fvStqQuvjmNObQWdzIdNvMHqw/C
-         0UBqgVLRZTZZenkzHBtAS/uMScyfJkMj2PU8ZICc9hbgWzMicBnIzBMULlKpfh3t2Z+l
-         8QuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxApvDsatUgCtBfIcR2VKQzUgeTCQiLK89pQFTpkhcJ70zGcpcfz/WD4p8PlhC+ONZknDMERKI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIuaC5QAXMOWYjzTXOBvcWbL2XMS93Tf2MqixLludcTGMa4OCQz
-	JC3PAewH+fBL5URAChVM3ciW2SIDARzSEOUtGf58PbSQACachxkVqkn5wJ7Sf9q2Ex8yE2oqvWh
-	KjINLmpLIsQ0Rj1V88u3CIZuJRIbvmhk=
-X-Gm-Gg: AYBFou1EMY9c5Z8CcJ2x2Q1jGy/aDzElAXRyszRzDYYluwV1RMzCfRY01nsN0wpZB1O
-	32I2ljKTU/3qfKe1YOxSu5Bsx+nKpNNOO3bDnp9Ur4hK6T5ryWk49Zc/kYq1gyv8Wl3SY49I6Y2
-	gpavdRD4kw2wb2MEePq0cSrPI4Jr8Kqe0Spzp5HgBzoHWQW4knLaJORvG6XTSmpN0WYbUhriEdW
-	isorloyilYEvFdutb9Tvo1ZhF7ZD3JIdCFmfrpCtMnC8gTO1PWyXBknEkvJNbPVLs5KxUTJHzLl
-	GG7M09GPu1w5J9zpPgo1lTpxQjhpOfNiLVkNSv8+O9BOejhaY8IY3p0wyUmL1+RXkWz/L2excst
-	2+oJUM9Y9GoG9QoijwI8JyKyzymOeximLr80PEM0CdBWyeK3lA6Ca
-X-Received: by 2002:a05:690e:11cd:b0:674:1e05:9b81 with SMTP id
- 956f58d0204a3-6793628e483mr25302d50.91.1791493425421; Thu, 08 Oct 2026
- 14:03:45 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="0RGpeFm8"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rU0kSSvGTb2PXdlZE0exP0APYf6aYrCoFkMddb5WAV7Iu0Uv5B6NcoywcswXL/DRaSGVXL8Va3fLkQuK12ogwatxSnl1zhRHKuIOCYgpyqwZegLo9Q/T5an/mY262Tm64N87lHBY4gr1AOkZGNisuJ98UR6jw922+TXpnSEyaLxtUfP99lfGqNArKs5xLijxFjAvil25rQzhv16BiwWwQjY3wl7lnwWuKIYQB7uC6Z5OVPRAiWDRbg/jIqrPwLI0cF+rXwwvD63SXwbq/cKV6FmkO21c6vEnqffwOa/Us9vRzj2bQHc/NFSkJEZbrvjfmk/4TH2j1s5qRwYxFqLQwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hnxFE50ky/APfLOFD5qUvqHJAEkZyyYGbLaXEbLUVy8=;
+ b=KvScUFS4wKpKCCvDWFJDkGnUafDaOnyxcBG0Lf+64Wszza2sCXIkfGp6u2s1+Xxw52GTRXy20qFkkicfqzP6NN1jm862SuWlNzqg4aqQ69H7zVtfFamhjW3xw4sVDoieMTLq0q8O7ZKFzymd8uJpS3vRqlcU2fJf/Y1YsmmzB8A02vfCGJUl5zaKEkg5v+qIIEjElp/qR95xkmPX4K5/6CQPlvktaysl5Ja9ICO2Qh3l9L+YQv5Ituwrgpg2nCxuxnny7KXC+N3avvTXUEsh0P0sjMS6MPFEBOmJfAFPnQDK46Lni2U6Tjh+vyQ2RlaQyV4DKrT3lxX6/48Iccj02A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hnxFE50ky/APfLOFD5qUvqHJAEkZyyYGbLaXEbLUVy8=;
+ b=0RGpeFm8Cp92OD9Tp3eM3ILWbbl26Z7k7NOkx3zpcl4HSMkH0nVNMwiujLUQ7g518duHjXrbwd3V/DzCyZE7PyFGMhtzCJwT0wsu2PsbNMgRLSMYd9LBv3Eq4DTf21to0IkcZQJeTGuVcmOkLNtZZ/V4S6YBY8mbp0zp1TgktHk=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
+ by PH7PR12MB8593.namprd12.prod.outlook.com (2603:10b6:510:1b1::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Thu, 8 Oct
+ 2026 21:12:24 +0000
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0496.010; Thu, 8 Oct 2026
+ 21:12:23 +0000
+Message-ID: <851316da-2cfa-4a22-947c-1838532d05cf@amd.com>
+Date: Thu, 8 Oct 2026 16:12:19 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cpufreq/amd-pstate: Don't fail active mode init on
+ read-only auto_sel
+Content-Language: en-US
+To: Akram Boulahia <akram02st@gmail.com>, Huang Rui <ray.huang@amd.com>,
+ linux-pm@vger.kernel.org
+Cc: Perry Yuan <perry.yuan@amd.com>, K Prateek Nayak
+ <kprateek.nayak@amd.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Marco Scardovi <scardracs@disroot.org>
+References: <20261008040705.10600-1-akram02st@gmail.com>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <20261008040705.10600-1-akram02st@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: CH0PR03CA0358.namprd03.prod.outlook.com
+ (2603:10b6:610:11a::20) To PH8PR12MB6914.namprd12.prod.outlook.com
+ (2603:10b6:510:1cb::21)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261008124106.665014-1-Jason@zx2c4.com> <willemdebruijn.kernel.cf8fec88827c@gmail.com>
- <CAHmME9r+O=3i4JP94P0-gFwghfWtD=vLa1g3KB-LvW+xFbJWHA@mail.gmail.com>
-In-Reply-To: <CAHmME9r+O=3i4JP94P0-gFwghfWtD=vLa1g3KB-LvW+xFbJWHA@mail.gmail.com>
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Date: Thu, 8 Oct 2026 17:03:06 -0400
-X-Gm-Features: AclHuK_qKmc6ZKE8_x2MdYae4trfNS2WogXUatNfjY-lv9_2jJsmiBMEjOiQbLM
-Message-ID: <CAF=yD-LO0u5z8SU_Aktu0-0aeM-1UknYsGc+rCpD3y9bpwxtwg@mail.gmail.com>
-Subject: Re: [PATCH net] udp_tunnel: drop packets when hibernating
-To: "Jason A. Donenfeld" <Jason@zx2c4.com>
-Cc: rafael@kernel.org, lenb@kernel.org, pavel@kernel.org, kuba@kernel.org, 
-	pabeni@redhat.com, linux-pm@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	=?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <jeremy.jean@oss.cyber.gouv.fr>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|PH7PR12MB8593:EE_
+X-MS-Office365-Filtering-Correlation-Id: f34b6298-ff59-4435-4fc6-08df2580d87d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|6133799003|22082099003|18002099003|10067099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	9o/wyQ8kbp+UQtotkEv3R1OQRtxHH3kNt7mi5cIsEcfkD7Ujw4A1exiND6T4fEo9V0lS/GHlvF6/+kRxwMoNUpwSrUuFrG05r0/58QEDIFwcbAsnthwK0qUMn+6ch4PwOR/IxfdhNUJwTszjY+O92ZhxdQq6SYPOzXhhZq933OyA2TlllP1/vYX2Z9HTpAaCyb6Jb2jnpNS1RoSmrofiat0eed++yxqms2jyzWfk1vMpel6PqMzWuW1OPm0YaI0Fg3tzIBZ+d981AFzO5fAJRU6Oi6MLFBp1G/fFQq9yeDSocf6xWqGdPPaxln/nMWt3EXmsEm9OcIQkFzGDslqgPLodT4P6aDYn3CZyRhnL1k3zBwYWCORDqxg2xKMhRDSd4GB9CxdvGW0RvHoWelZx4QtJ3x1L6Ue1eOJ7WCs1+1YHy2q7GJv/MtyUFn5SpXRsbiYTMXzJU01XuV6lrs7VPnANNbY/gCVh5zN20sJ9j1offY6ltw97VX+p4tLgSsYIFe1mSIjgeKi0sA1DWkraqCpFaJunD1y5DxU1o1Pw9yFpEsR6S/r1/XjSVZgg2KfAJFtCLyhF2QNimPSVZ3AhaQ/5B4rEBDZxr2No8kRm+vFoXscvdvw8XZgNIqBFwo4RzBdLVYUKqpB6mYHPCS+NnLMUSvnCSb2EPyEVbHRdWpE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB6914.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(6133799003)(22082099003)(18002099003)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VDNuc3JlTmRNQVpaRXFnUjBoaDd4UjhoWm5lN0FKS3ErcllRZnVEWG1pbVpT?=
+ =?utf-8?B?dkozWTBQTkpHN1NlSlhPV2ZRMUZEV1piQVo1ZlFSTUcva1pwMFBLWGRjZ1FS?=
+ =?utf-8?B?cXN6emsyd1I2VTRncm80dXNGdmZ4UDhWREJZK2Z6blkwZ0ZUa0Q2aW9pSGVy?=
+ =?utf-8?B?VE5rMzU2SmJpWWZxdGd4VUt1aWdOL1NtdTI4cjljMmk3OXVPcExWajFHK2Uw?=
+ =?utf-8?B?VWFnb0ZyNjZRV3NQTmtjYm0wUVM2L1NabXBXUDErTmIxVEFKbmFrdHFXeUR6?=
+ =?utf-8?B?bldLSjRqbS9UaVo2MjM1Q0pNUC9vMWJKSnUwU0pQR1FnWnVtakdWWVF5VUhY?=
+ =?utf-8?B?cU5zNmZyTVpRZER3dENwUjlRVjJ6TVNiaVlyVEhWWFdLc1VvM0tMTTNRTk52?=
+ =?utf-8?B?ZGZieW15SUNKejk2WEhIK00zMXRmbllQc1g5SzA0Uis0WWlqb3Z1WnRPTkJJ?=
+ =?utf-8?B?amJLdG5iSmpTT2pEWEpkVVpZRXVnRVdyeVZOUXRlTXVQcFhWa09Qc0RqQXcw?=
+ =?utf-8?B?V0dFM05uZkRLcTJCbUJuSUFMZE9HVWZzbm1NRjhxZ1VldFpaMnE0UWtaRTlk?=
+ =?utf-8?B?MmU3Z1JRMlhseEloT1NBYitsLzdsd0w2eTJmMWZRTnlCRS9rVTNjOGZIRUh0?=
+ =?utf-8?B?N0FlNzVaWUQ2cjA5aFgyUVpJRkpYNWs3N3dRNjNRK09TNVBQSzI3dTFkL1hJ?=
+ =?utf-8?B?azY1WWdZQXRFSWVzL1VSOStmOXp6cXRSSHZrY2tXYzkvNnp0aVRWQzJyWEIw?=
+ =?utf-8?B?MHJqYldoL3FmNXJGOFlEYUhRczlwY09WNEFuUGZMbTRXbzJkdWg2SkN6VUE0?=
+ =?utf-8?B?bk5wRWd3cDJNRjFxWDlIUjEyaGZNamZvU3dyVGNmcERUQ05ZS2N5OXllcTJm?=
+ =?utf-8?B?UzIvRGxVek1UbkZUa1pwUkJCYkpZUWFWcGdaWnN1UWJVbDFydzV2Mk03K2sw?=
+ =?utf-8?B?dnVZSWxGcjJ6K0hVT3Bjek14M2NxZkNiSmExcGRyVnRtL05jdzZQRlpRVkxW?=
+ =?utf-8?B?MGU3NjhIN0RDcjJSTHRCTDZGZjlBQm9nOXVGS3g4bDFVYldNK21GYm1VQXY2?=
+ =?utf-8?B?Q2NSRXJPUS9WSEVqVFpjL1liQTJnNDZFb0Zya1duTEJKTVIzcWN6UW1kdnhY?=
+ =?utf-8?B?NnBlSkwxVDZmSFE0VDc3cDArcW1XY0FNalR4LzlHb3B4VzUraFFQQ3ZVbUFH?=
+ =?utf-8?B?TGZWZjdpakoxdWhLL3FWY1lPbGtvQTRwWndnMWdDY2tPOGtVdjA5QmlXQ1pI?=
+ =?utf-8?B?eDNIV1lTRGtMRXllcGlQUXdiWGRqQXhTcTFJR3IydXdOV2dnbVErQkZkekdT?=
+ =?utf-8?B?WU9iL1BBNUtaTEtuamU1cUx5NGFLa2d0OWJ5S3BOcVN2S3VtMzBuVkRJVG13?=
+ =?utf-8?B?KzVOQ0xoOGlMOUw5ZGdxMWo2WlZtWFAzMUNZYjFWOXhyanB2dzQ0SVk3TEIy?=
+ =?utf-8?B?Z0cyNjlYSnNyRittTmozWGhnSEt1aU41dU5HcGRuSXN3NGNRTzh2OGNkS0lR?=
+ =?utf-8?B?TCtrRU1KamhQRUtCTzMvSDdaTFBhODNacTEraHg2ZVdFMi82OFB0QU1vUHJE?=
+ =?utf-8?B?bWpEMWFaamx5S1JEK3hheWJYNTFvYlZwY0FxNENXWXN2bDV2VzdGMFNBWVNH?=
+ =?utf-8?B?MTl6OGErU01sWGowdWxwS2tzN2VtdjhneUpvRHpWTG9PVmZMZ29GTElWNDJH?=
+ =?utf-8?B?bUVka0Eyem9tTDNvWHFyM2I5RFZYNDI4Vm9ISGpqWWxPU3gzVVRoMW4zS3Bi?=
+ =?utf-8?B?SWxQRFdFSXFHWXBvbTNhalczdDRDZ3lEZ3ZxYlV0UkhmWElhM3Z1Y3JCcU9r?=
+ =?utf-8?B?WGtJeDcyaEg2Mlk2eUgySjV6dG9MQzF5dlZnd29LY291NWpSbUpRVHdwVU14?=
+ =?utf-8?B?SnoyYjU2MmtXVkFUbVloYU5YL1JBdzBEMlIrOWk4Q1Ewb2xaSEpSMHFOS0to?=
+ =?utf-8?B?bEJOUjBxVzdWNDYwWFRzVTZRbUNKYURmZzNEcnZLb0NUS05uZnZUREVYSGRV?=
+ =?utf-8?B?QVFjeVVjVXY5bVJheVQ1T01lMDV0cHkzRlgwSVJLdUw5bjgwUGxYaXFCcWp2?=
+ =?utf-8?B?amswRDlEWDRCeXhBWklVcHd1WS9sV0d4MzhGUExpYnVWQkg1QTlGak9NQWg5?=
+ =?utf-8?B?MXFlSTVMWWNoOG1MV3BSVDRkSENzTTIwQjZ4MDMvMnI4YnY1b09KSEJDT2h2?=
+ =?utf-8?B?K011L0FjQW81bU5aTUthdFR2THpyZmFnbDExbngxQ0JPc25hcUd6bnMwVUxt?=
+ =?utf-8?B?MFNySDJrNkFxdFBIdUFvVW9MTVZXOCtuOEczK2NhZDcvZXNuR2tjc0lNakwr?=
+ =?utf-8?B?QURzRW9sUU9JRzE1WUtyNTlJN0hYNFFDb1NlRXdWSm9EMzZNZmJUQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f34b6298-ff59-4435-4fc6-08df2580d87d
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 21:12:23.0143
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VqU7wbWvRN6B2akOGX+SHSkfb1pWMY9XBrpM8rIwbldXFfvmQbhPN0Dtye9p7OWWPeeMsx2MA/bfecUa8BpklA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8593
 
-On Thu, Oct 8, 2026 at 3:58=E2=80=AFPM Jason A. Donenfeld <Jason@zx2c4.com>=
- wrote:
->
-> Hi Willem,
->
-> On Thu, Oct 8, 2026 at 8:37=E2=80=AFPM Willem de Bruijn
-> <willemdebruijn.kernel@gmail.com> wrote:
-> > Jason A. Donenfeld wrote:
-> > > The kernel's various networking applications keep churning away after
-> > > userspace is frozen during hibernation, even as a memory snapshot is
-> > > being made. This can lead many network applications to an inconsisten=
-t
-> > > state, replaying packets and cryptographic state changes. For example=
-,
-> > > on wireguard, there's the possibility of this sequence:
-> > >
-> > > 1) hibernating begins
-> > > 2) handshake state cleared
-> > > 3) keypairs cleared
-> > > 4) new handshake round trip completes
-> > > 5) machine memory is snapshotted
-> > > 6) packet is sent using new keypair
-> > > 7) machine is restored to state (5)
-> > > 8) packet is sent using new keypair
-> > >
-> > > The idea is to prevent (6) from happening, especially if (6) and (8)
-> > > contain different data, but the same key and nonce. Presumably the sa=
-me
-> > > issue applies to other users of udp_tunnel too.
-> > >
-> > > Fix this by just dropping sending and receiving packets during the
-> > > hibernation sequence.
-> >
-> > A few high level questions:
-> >
-> > If the issue is reuse of key + nonce during send, why include receive
-> > side functions? Specifically tunnel (encap_rcv) functions.
->
-> Because I suppose (4) probably shouldn't be possible after (1). I
-> explicitly clear the result of (4) in a PM notifier. It seems wrong
-> for that to then be violated after. Similarly, userspace doesn't get
-> packets after that point either.
 
-Since this is an issue specific with security protocols and reuse of
-their state across freeze and restore, is that the more suitable
-location for this check? Drop transmit of packets with that risk
-(unique for that connection nonce) only, if freezing.
 
-> > Is this a problem specific to UDP tunnels?
->
-> The stateless nature makes it more poignant there.
+On 10/7/26 23:07, Akram Boulahia wrote:
+> Since commit 9dfd13f80c85 ("cpufreq/amd-pstate: Toggle auto_sel in active
+> mode on shared memory systems"), shmem_init_perf() no longer returns
+> early in active mode and always calls cppc_set_auto_sel(), which was
+> needed for shared memory systems. However, on firmware where the
+> Autonomous Selection Enable entry of _CPC is a constant integer rather
+> than a register, that write fails with -EOPNOTSUPP. The error is
+> returned, every CPU fails to initialize, cpufreq_register_driver() finds
+> no policy and returns -ENODEV, and the kernel falls back to
+> acpi-cpufreq:
+> 
+>    amd_pstate: failed to set auto_sel, ret: -95
+>    amd_pstate: Failed to initialize CPU 0: -95
+>    ...
+>    amd_pstate: failed to register with return -19
+> 
+> This was seen on an ASUS ROG Zephyrus G14 (GA403UV, Ryzen 9 8945HS, BIOS
+> 308). Its _CPC tables are revision 3 with the entry fixed at 1, and
+> cppc_get_auto_sel() reads back 1 on all CPUs.
+> 
+> If the write returns -EOPNOTSUPP while active mode is requested and
+> auto_sel already reads as enabled, which is what active mode needs, the
+> refused write is harmless and initialization can continue. Any other
+> failure, including a refusal where the current value does not match the
+> requested mode, is still returned as before.
+> 
+> With this change, amd-pstate-epp loads on all 16 CPUs of that machine
+> without warnings. amd_pstate=passive behaves as before: it still falls
+> back to acpi-cpufreq with the same -95 errors, because auto_sel stays at 1
+> and cannot be changed.
+> 
+> Tested on Linux 7.3.0-rc6-00037-g7b63ef2d55f2.
+> 
+> Fixes: 9dfd13f80c85 ("cpufreq/amd-pstate: Toggle auto_sel in active mode on shared memory systems")
+> Cc: stable@vger.kernel.org
+> Cc: Marco Scardovi <scardracs@disroot.org>
+> Signed-off-by: Akram Boulahia <akram02st@gmail.com>
+> ---
 
-udp_queue_rcv_one_skb is the UDP hot path. Since it touches all
-packets, the last resort for adding checks that are relevant too only
-a small subset of packets.
+You're in a really weird path if you have an 8945HS that is using shared 
+memory.  That system has MSR access.
+
+IE this sounds like a severe BIOS bug.  Let's see what happens after you 
+update BIOS.  If it's still failing please share an acpidump somewhere 
+(like a kernel bugzilla).
+
+Need to make sure we understand why your system is behaving this way 
+before making code changes.
+
+>   drivers/cpufreq/amd-pstate.c | 14 ++++++++++++--
+>   1 file changed, 12 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
+> index 8bfd46d60843..05b496946d13 100644
+> --- a/drivers/cpufreq/amd-pstate.c
+> +++ b/drivers/cpufreq/amd-pstate.c
+> @@ -500,6 +500,7 @@ static int shmem_init_perf(struct amd_cpudata *cpudata)
+>   	union perf_cached perf = READ_ONCE(cpudata->perf);
+>   	u64 numerator;
+>   	bool auto_sel;
+> +	bool want;
+>   
+>   	int ret = cppc_get_perf_caps(cpudata->cpu, &cppc_perf);
+>   	if (ret)
+> @@ -518,14 +519,23 @@ static int shmem_init_perf(struct amd_cpudata *cpudata)
+>   	WRITE_ONCE(cpudata->perf, perf);
+>   	WRITE_ONCE(cpudata->prefcore_ranking, cppc_perf.highest_perf);
+>   
+> +	want = (cppc_state != AMD_PSTATE_PASSIVE);
+> +
+>   	ret = cppc_get_auto_sel(cpudata->cpu, &auto_sel);
+>   	if (ret) {
+>   		pr_warn("failed to get auto_sel, ret: %d\n", ret);
+>   		return 0;
+>   	}
+>   
+> -	ret = cppc_set_auto_sel(cpudata->cpu,
+> -			(cppc_state == AMD_PSTATE_PASSIVE) ? 0 : 1);
+> +	ret = cppc_set_auto_sel(cpudata->cpu, want);
+> +
+> +	/*
+> +	 * Firmware may expose Autonomous Selection Enable as a read-only
+> +	 * constant. If it already matches what active mode needs, the
+> +	 * failed write is harmless.
+> +	 */
+> +	if (ret == -EOPNOTSUPP && want && auto_sel)
+> +		return 0;
+>   
+>   	if (ret)
+>   		pr_warn("failed to set auto_sel, ret: %d\n", ret);
+
