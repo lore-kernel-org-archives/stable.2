@@ -1,72 +1,72 @@
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5B492BEC34
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 05:18:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02F903876CD
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 05:24:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791436691; cv=none; b=YiXnU9gpW3FQZB2/S5o55cf4a73aMkkWzwOY4Yu+LjkVgk5ZEjOnM1VFbsoOcp9DMFGK6kDuVxUH7A3MGtZRnIhMJQ3WmL7k8u0OKLLyNYzQPOs8Xhil9OL8v9Qqt1y++gAJ5huSFysWgfKdOuog3UduTAJuGtpYpMpdDoghPIM=
+	t=1791437061; cv=none; b=o2wM4cl0fGeGVx6ez6mVoQrXS8sNCAbhOTogpwAF2TBz12zzxjON1LmSlwwVPzvmDIMbRuMmbs0ZW7IPELA1oRwMj/5vojrkRG7X31+e/7PFoe/9ZmG5B+LovHPYpnxDwB9ZXhrrT0+DUDEt74SSz6GdT8eAf0XaT0YRUgCmpkc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791436691; c=relaxed/simple;
-	bh=K25jnv2p4L1k4pPo64hCRP+kpLFkxyB8fVdBs7e2h8M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D4jA3D+AUIMM0ZsrLqtu7+gaPxOmijXkr+0DKNHDjzUpHutbUyLtDjmClIDHm9PfK+N2kTk0eTIXgV3gbM6lK1LNaBBHkdEtuXMkN+57h5FqP5c+hkHnsVQZarYhv6NHYsRtKs2JmR/BiCxoK1Jp4QCS5vcE2FVvvylbpn+vZ0E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LCtPmrYC; arc=none smtp.client-ip=209.85.215.175
+	s=arc-20240116; t=1791437061; c=relaxed/simple;
+	bh=v0Ax/0GmxO4xVaTCoct4d9rpu8qqhvU/A+t+7Gl3VBQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XO9vWo4oUIs+6ObZs9oYnR17tuDSzLp7pBjR+RO0TLAi9CU6lqMkFN6OABSOmSAlHrvKAPdg0CXu6WaKvex10kdCeX8i2fKfGjyKCLzObP/kamagLp2Y7osYmt1xLYBosKvrpZIgILdiP/eW96VrGMJJ1jl1MZSfKTShWlD4xcU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Cur06KKd; arc=none smtp.client-ip=209.85.216.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LCtPmrYC"
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc1cb472b76so1110217a12.0
-        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 22:18:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cur06KKd"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ab066bef7dso100962a91.1
+        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 22:24:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791436689; x=1792041489; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791437058; x=1792041858; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DpTgnww+452bruhm0n4E4Dy06w8HMJjZi8g9dGEf8PM=;
-        b=LCtPmrYCTZlh9YURxerZZV8fLpdYqv14BdBefV8iyP5XH2sRjImFEFWZthVyTy7D2i
-         J3B+ene6l9qlwP0V5cpeS5DD6dMjfZRPtQuXOXcCt7RuTvIPBI+6FiLfpDUlduYTB2Bk
-         KB9j3KHUed2zlaGLIOYMoRADkqOsz3LvBoBob1w5vWA8Z6nyOnECOi+4JPNlsGuqxuCm
-         08BRrmMyRqATeFd2yXj+GaoN3oKyrNcouOdSUaYBbu50iEwcr+NUCTvlPx8wkVKgla6a
-         td8G5b1O7tYKVHh+OGz6Xn6mwMxaQkCp/AXWfrtQzcWjP9wAcS+kx+8GQNt31HTc0n7t
-         fclA==
+        bh=zfzt/oNw3kBm1sNxgf8XLAw4jjuhyZRC4MKG/SZu2ts=;
+        b=Cur06KKd0ifN+/42Ke0Yn1I8xGooulNIAOqrTP0eiDDG30bDAOoBVRmSXFCPViTtLp
+         Oo7O0cejiVEIvuR8iz41u6rc7IE6dw56fl5HXzbZaAmlrrIPkkJNibV+gFCXHDZZ2Hzi
+         rnhRVzBm5ZfSqj/kBKRnZ+kEGk4iXXqal4TqK92bMGaCkEisTQ+ft79pMKUAz0iQ8Ua9
+         mDHSJemrN+8qg4RrPpfddYgg1OxsZ/a47eUdAJWRfY1WLAKcTtR114UOOMpd3KdJv02v
+         QwR00V/3k97LF2bWP3RHA9hQ8Y01K9VjUrJg91qXvg9h3dh5YRdVB/pfh1G216YwIiyL
+         tznQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791436689; x=1792041489;
+        d=1e100.net; s=20260707; t=1791437058; x=1792041858;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=DpTgnww+452bruhm0n4E4Dy06w8HMJjZi8g9dGEf8PM=;
-        b=wRTCJLrQac8MaEC8kjr2MNrdTltHQTW0kjmAN2e+9IimS6lM092hcxQslgeB/cgRCp
-         65usYIU/GS/2ITFAfD3pw8qGoJO/yUaxpoZ7tFL347z+pt0G5fZLQNlh4KlqajecXc3U
-         bQySWF/cRMfOaVquryHJUo7zLX6Y3d2RPOgZqwb1ViLNnZ+Zgjg/MFLFUJET1ZPZh30K
-         T2TLHSYDAaLNMzR1yNTmdDGrBi9P++6iaxbH1JiO+9cEyjwJNdxsD+cEarmrFOW6uDk0
-         U7iJd7MIoe6LQrE7zZvhDts3PPR6v0s8KMZy6yL3G9rsdtwPORSfliY0W0dRb1Cg1mrz
-         v4Rw==
-X-Forwarded-Encrypted: i=1; AKwUvBw54NmIuVmGugcr6znlpBLVhzrJF+8mY6JPGjk+k0+X61Z6/PvmN3cEz2P3wqCVrJU44cLwvG8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK1irGiED9yL0vGg2ZQpF7WPyF7nGb+3klyGQUA/+ANnMS/UwpM
-	7Y6cTYhi+puOHQTfwbmvn1RlbPHX9d9H4iqNga9a8a6Ht881LFqyIaJd
-X-Gm-Gg: AYBFou1F9eNl6ATn84330UnIh2oZxd2ucgIrWerP64Q9rC7ED3uo4H81d1NAS+iZU/9
-	ItpcZT6/gc2qDKcCtF8fNc+iB9kC6Ws6RgIYpF2E6JZ1a7PDAfX03R2sjooRHrZBNhQQzjseJzW
-	3d3xlTK9SSA+/rOxm0vJzLGu5gJRpyvjrVYWEQAcnsc6ERb0DiSYvWdDWOQVtcrIFSYQhmWry09
-	S1Q/t6oTVMXlNqQKHjt29+zQHPg5VDqoE7Ty9oIO5OYAVw2hFPXl+gwGZSoP3SMrK4XO4Mqz5G7
-	Mjis9M6NO0yAikZr7bgVHV65B1n+2OYEcNNm1fhDzfeEAGt6oBwDTWG8oIF47BjrA41kWtlLkpS
-	3yCWJ+/44z/k/Z3oW3EmJoeGNxWt0aPqvdcu0Vp/conEjj27e4uUwkye5ypXDrpCgC4tqvUHGiN
-	pMWWlRGapCnqBBRD61lbPwgSs6E/R2uSbJkiur+P66mBLSQjxXXJMxksMM63El2EelowU22twBy
-	8zwhg==
-X-Received: by 2002:a17:90b:164d:b0:3ab:413:49b6 with SMTP id 98e67ed59e1d1-3ab04135113mr533585a91.41.1791436689169;
-        Wed, 07 Oct 2026 22:18:09 -0700 (PDT)
+        bh=zfzt/oNw3kBm1sNxgf8XLAw4jjuhyZRC4MKG/SZu2ts=;
+        b=R+aV5o2iX84U8vBPz4a6tAs4fTsC1MNWL5cdSkLNWLG3TBIgEbyepF4oFTlB2gRH1E
+         jb6XfR88epEK9ggbkdtgEbZehVv+5MTIvduHMsmuX29bJ50Aqmuyy23xGGH1MBKVuEcb
+         8DU2Dm5C9ZkwtLIc7e0W93VLxoUm/hLAPxPXRcHdmgH6OfCwBZrTkNoMrBVZRtJkjCjP
+         pa+Q6nh4D0U5RB76R51/7NzjDjk8pPMkRc3X32/aB5dI+Z/huexcvIPGZ9EY0llP+F9R
+         /8Kp9hijPfcxnBUivTsDgexyJ5590rCHyoqW0b1dBGOk5D2Qaah5HXIJH+vr7Flo7VE5
+         zBjw==
+X-Forwarded-Encrypted: i=1; AKwUvByjvIBdcyDg4okjXHeXShN4kCt73CuHhrKpQAX4RdDSYdzn8HAzUt3668i66TONLwmT9ybYjsM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIYmXL5UKlvednUD3JGUkEA66X4PafkH+odinNjUs3eKBiKsPCt
+	GwcQ3cbDY4bIHNb9/ZMLS82g8jZm8GvD2F8DcFyAMmKmabRl+e6x5sDx
+X-Gm-Gg: AYBFou1PkMfiWCaWwqyilA9uqZ5fs6RCCupcmLyKKP63Icu8TYzTo0hvYWwoBgy7g1F
+	JjvWocKiBfcfSgJwcQ8fNzmPFM6GXsbbr05P1sF/UXFvir7VB10opfwhHIUzfQL7uWsYBRcxkWE
+	cdzZbhZMCBTCxVoqqWQVErcGHusZvyzP16S4B/EKrmoCT1HpsLUGy82YOxVPsKeLeVTEomaRI1v
+	jTnyUcH6OSBmXHSw9ksT+DnRxEtBKXvw/7BX6wJ2RBOgoRrBVct4C9ZR6JgH64OzBzJAE2K4YWa
+	JCM1S9aZTnDnMj4PLL5NindluYU/dHTI1j5WTTWEXX4sdddMWVsRKaQrwh+mB8lxeLbL2l/ie5W
+	yUST7cpeK4Mx594xBG8FiDdqNKxgN4cRS2FlynVjivPvFL7i+k+AzNfwe8JgkGht3dnkYDsP1jo
+	g9F2+DdgFpR7vSfpdgW/lDUQjamR+t5WO68bD6jTFsxi7XK0ysL5dkCo0CC0Pj4d7lJYo=
+X-Received: by 2002:a17:90b:28c6:b0:3a7:9e3d:b3 with SMTP id 98e67ed59e1d1-3a8a1ceeb7emr3756258a91.66.1791437058229;
+        Wed, 07 Oct 2026 22:24:18 -0700 (PDT)
 Received: from dungbv.. ([116.98.134.138])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd0a92d6161sm2349155a12.16.2026.10.07.22.18.06
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9ff7a7445sm2464870a91.5.2026.10.07.22.24.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 22:18:08 -0700 (PDT)
+        Wed, 07 Oct 2026 22:24:17 -0700 (PDT)
 From: Bui Viet Dung <dungvn2345@gmail.com>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: linux-bluetooth@vger.kernel.org,
+To: Johannes Berg <johannes@sipsolutions.net>,
+	Miri Korenblit <miriam.rachel.korenblit@intel.com>
+Cc: Ilan Peer <ilan.peer@intel.com>,
+	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Bui Viet Dung <dungvn2345@gmail.com>
-Subject: [PATCH] Bluetooth: selftest: Pin module for selftest debugfs file operations
-Date: Thu,  8 Oct 2026 12:18:03 +0700
-Message-ID: <20261008051803.526248-1-dungvn2345@gmail.com>
+Subject: [PATCH] wifi: mac80211: Pin module for hwflags debugfs file operations
+Date: Thu,  8 Oct 2026 12:24:12 +0700
+Message-ID: <20261008052412.541780-1-dungvn2345@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -77,16 +77,14 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 An open debugfs file retains its file_operations pointer in the
-debugfs proxy state. However, test_smp_fops in net/bluetooth/smp.c and
-test_ecdh_fops in net/bluetooth/selftest.c have no .owner set to
-THIS_MODULE.
+debugfs proxy state. However, hwflags_ops in net/mac80211/debugfs.c
+has no .owner set to THIS_MODULE.
 
 As a result, full_proxy_open_regular() calls fops_get() which succeeds
-without taking a reference to the bluetooth module. When CONFIG_BT=m
-and selftests are enabled, a userspace process can open either
-/sys/kernel/debug/bluetooth/selftest_smp or
-/sys/kernel/debug/bluetooth/selftest_ecdh and keep the file descriptor
-open while the module is unloaded (rmmod bluetooth).
+without taking a reference to the mac80211 module. When CONFIG_MAC80211=m
+and wireless debugfs is enabled, a userspace process can open the
+hwflags debugfs file and keep the file descriptor open while the module
+is unloaded (rmmod mac80211).
 
 When the userspace process subsequently closes the descriptor,
 full_proxy_release() accesses the already unmapped file_operations
@@ -105,45 +103,31 @@ structure, triggering a kernel oops in full_proxy_release():
    entry_SYSCALL_64_after_hwframe+0x77/0x7f
    </TASK>
 
-The issue was discovered via manual code audit of net/bluetooth/smp.c
-and net/bluetooth/selftest.c.
+The issue was discovered via manual code audit of
+net/mac80211/debugfs.c.
 
-Set .owner = THIS_MODULE on test_smp_fops and test_ecdh_fops so that
-debugfs keeps the module pinned until the file descriptors are closed.
+Set .owner = THIS_MODULE on hwflags_ops so that debugfs pins the
+module until all open file descriptors have been closed.
 
-Fixes: 64dd374eac15 ("Bluetooth: Export SMP selftest result in debugfs")
-Fixes: 6de50f9fdb60 ("Bluetooth: Export ECDH selftest result in debugfs")
+Fixes: 3ad4fce66e4f ("wifi: mac80211: add strict mode disabling workarounds")
 Cc: stable@vger.kernel.org
 Signed-off-by: Bui Viet Dung <dungvn2345@gmail.com>
 ---
- net/bluetooth/selftest.c | 1 +
- net/bluetooth/smp.c      | 1 +
- 2 files changed, 2 insertions(+)
+ net/mac80211/debugfs.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/net/bluetooth/selftest.c b/net/bluetooth/selftest.c
-index ae5b44bb9d3d..cdfc40e0016b 100644
---- a/net/bluetooth/selftest.c
-+++ b/net/bluetooth/selftest.c
-@@ -188,6 +188,7 @@ static ssize_t test_ecdh_read(struct file *file, char __user *user_buf,
+diff --git a/net/mac80211/debugfs.c b/net/mac80211/debugfs.c
+index e38631d7cfb4..6a84321cebd6 100644
+--- a/net/mac80211/debugfs.c
++++ b/net/mac80211/debugfs.c
+@@ -529,6 +529,7 @@ static ssize_t hwflags_write(struct file *file, const char __user *user_buf,
  }
  
- static const struct file_operations test_ecdh_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= simple_open,
- 	.read		= test_ecdh_read,
- 	.llseek		= default_llseek,
-diff --git a/net/bluetooth/smp.c b/net/bluetooth/smp.c
-index 2df303f6a38f..81d255525fe0 100644
---- a/net/bluetooth/smp.c
-+++ b/net/bluetooth/smp.c
-@@ -3696,6 +3696,7 @@ static ssize_t test_smp_read(struct file *file, char __user *user_buf,
- }
- 
- static const struct file_operations test_smp_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= simple_open,
- 	.read		= test_smp_read,
- 	.llseek		= default_llseek,
+ static const struct file_operations hwflags_ops = {
++	.owner = THIS_MODULE,
+ 	.open = simple_open,
+ 	.read = hwflags_read,
+ 	.write = hwflags_write,
 -- 
 2.43.0
 
