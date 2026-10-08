@@ -1,63 +1,64 @@
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2A103A5431
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 19:18:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC5533A7F57
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 19:18:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791487110; cv=none; b=Mq4dgijBi8rAX+sdpLeJWLWbO+SJz9bDhGYWp9NvKfTXVl+YQ44/77nAaoMoX2M+qOXa0ugASST+QeAIPhuQOY1zaTmHhMdgykrryAPNzAiFbiAZtNigUvZAWPgov0lBRoL5Au/H/KPdkegOR7qwP0NvpFWdhWb8JZKXUtfH/yM=
+	t=1791487112; cv=none; b=g4stbvA2dKvNRqVT2LYUbOC57hFcB8D7tgrkXAzn3gigFIb4Fih5kqAVWFuSGXEJ8xmeIcRCKww498+B3FkMkNkLLz8M0AOSEyaLaq0VHPg36v4YuBFwSWza4N58OhbolFVdqNbkmflhBlPApy5FNEATyFw9yWwHIPZDa6UktIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791487110; c=relaxed/simple;
-	bh=8sWdTI2zKbvIUpzyNgL4cwCK1Y9JFEfvBdTqcuw7MEs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VZJ3xZ02abO3l/jwODaVRgXCa5Gi1YlNB4ditJSDsRaOkP7vjIeWSNLUjiQyXFIbI8U/Wd2HDATZxHZSP5jSIhK7CYivkFaqeCx1miVpcwbrmoQwq9E5/emv531YF1z3OS5shrxuU5XOIKiI3Xz9j7ul8ZeZsrnsm2mKori7/K8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=f5JsRbsT; arc=none smtp.client-ip=74.125.82.175
+	s=arc-20240116; t=1791487112; c=relaxed/simple;
+	bh=amUxH7dplBRK8duZIHd9DmmDP5zoeolOwFlBY/V0V8E=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=MWqU5lU9Jrr0Hk8fYc7/RF3t+2W2XzTI8NGc8UW28Fv3qmC+KMcT4p/6zBh7G2TR9sYV6iKPeIh5/DWEXb5LmETcfIIbESs6JkvqWHQj2RtyjnRAzsSuHKVWZBqnxqjYVnwi/G/ObRYJjtEPOdXe8YFYbNQ/IKlK+C3oNEMmPfM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=Hs+SSw/p; arc=none smtp.client-ip=74.125.82.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="f5JsRbsT"
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-351775aa1c0so1823809eec.0
-        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 12:18:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="Hs+SSw/p"
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-34ceab2900eso5948908eec.0
+        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 12:18:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1791487109; x=1792091909; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pOSWDS5/Ihvyp+1XM6mV0GAPNEch8iMG3fi5kmx4byo=;
-        b=f5JsRbsTJXog35XU2qcpkVcOiuFL5lyg5RiI4mRsz+Y0IsnQoWQrupXTmMvqZkxopT
-         N1IyC+gLA3WIOTAsmP+JFxCsj5lRoC4TmaqR1PT7D5i1yXAyWAl+KwN6+BwqoDf1DyqA
-         TOcF4x8APuYOXIKjWuvpsCuyyRU6ih0VLJfTwWC09XMe1y4qNSQLKnlKi0rkDOHzONNG
-         EtlYsLOGEmFNO5grjXj/mps/45YzXXs50Le7SCd9+LIjh7YVXjaZCc576vcu/1FYpgUN
-         JVwjkO0Kvg/NInp/xA+Wpe5hRbnXtvGMmK3Xbq+7T7Iury+Y2v5D5SsdS7N694A0QWhV
-         uILA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791487109; x=1792091909;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=trailofbits.com; s=google; t=1791487110; x=1792091910; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pOSWDS5/Ihvyp+1XM6mV0GAPNEch8iMG3fi5kmx4byo=;
-        b=pTuwesbOHUCScuU1IVkFgRNQLK93VJyF64zP5id+hh2WkvpQBbpNXLWYsndRFv1Hzd
-         OQSTeMbMONsoqldMJ336iYYEkYXmIXsZZ4HLPTIlgfN35CcIhjsIc4skTQhKZm9Z8b9K
-         MWzav4xm95mhPCobnu9hAG9d7B8WetBlYu3e5F2tA9AfFKFLKddhbxtS8f7Ppa9BGnWC
-         8n1XYgKOqdrki0+D9y3Gx81vekjQG7+5yD8ifGb+YZlgCJVa1gpdKaLjHHCE7/r6/34I
-         3/lD4W5BROzcS8FrAppze1EtJPeU6IzF3K7lRqDrDTuQfM23DRNmXI1y17CnXUsyK5j8
-         quzw==
-X-Gm-Message-State: AFq9FYIqI2hGtOBd87sL3rsqAxJpuNAjD4ZQWANMdHTGkPFGCjHzKi8w
-	9cID42e+lP7AeGa9lmET4rXAfmffQv9HW3hsaSpPuLFaFnK6iIrLHWcysu7TlIbcK+PUIZwb+ba
-	BPAZF1fL+dA==
-X-Gm-Gg: AYBFou0D+cNM6/RiyxLW6npljfQG7n9rjauB29xGJt/dZlJSMHEz1ImS262n5sDOVE7
-	wCyvkYeUqk2EJg2O/Jrdhm2yjAro6x9DVSWftZy8ViJ2sIDQ7FW1SUFYQjcmcLVLKisQreVRNtf
-	4s+rS9426Y3g9lgpejd2OEczuKAHcp3Sqo1lMKVmjIh5kv/3YuXTVZvcNBUIMIHy12hnGgr5QBc
-	msYtROsux1CjjFGHe7EdPpnYTMYoKIfCJECZgQTifHsXsucWE60ttHlSa0jlxczFX9ibquOetRE
-	zyBt6oJIaei4PGy8BjqUgKdtm10TN80qTa6k4tr3C8m2StEX5k9ArVFoyst+6ugl+ELVvOc/dTZ
-	IowuBEA5McSOXVr8uy/MNDf6OETjxXc361vMcxm624VPSC2aI3GdFZTPPJbNtBkITUu++SHRTfs
-	GsTdkyT0oJMwWhBo4bXKYnlZoYILf+0ZYddIskVhSrRTxE0ihfv/suOZcIGFbVsrAFJb1K4HzpN
-	IdM/W3szRd9klySj7JCQEhXIs5Ju9p+4LGlwdU/S8YkHtoUH8y82bZ7OmMCcXiO4adEH3T1n90E
-	1xtM+w==
-X-Received: by 2002:a05:693c:8941:10b0:351:1f66:469b with SMTP id 5a478bee46e88-3515dc54ec0mr7434477eec.2.1791487108233;
-        Thu, 08 Oct 2026 12:18:28 -0700 (PDT)
+        bh=a14qc72yQKkzCAZ2CAoTwipNnd9qGKItgjyfXX9xZAw=;
+        b=Hs+SSw/p9qwN620ghvtdqdOQg0XSA8oWw6ui4jXXwEzxfjP12jOKkruaq6Y9ZvN86H
+         xEdM05WCjb13YC4A4nyo3GK70Fiwrx2WDkDkDaM0CyrV5DjD1BhywdbcNG1umJGtoeef
+         9CUEZUDUmGE/Da5r+xEsDo6CxdifP7BkyG60fq/Db4pbqCCqqG51RFd1nMPI5OmdpMJl
+         VqmzEb8hUTU2MOIGP/M4jyImzWht+RiVd3EcQ+d5vKzpPJF138/dgFvBXIBFFO3u7fjA
+         fLt9csy1setfzcRuYsReXsxwiRBtXrT+Tzj1jM9Poihw0rHrhvz8kSCnUo0L3m6oFEbZ
+         WaZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791487110; x=1792091910;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=a14qc72yQKkzCAZ2CAoTwipNnd9qGKItgjyfXX9xZAw=;
+        b=PCyxO8+DOs6xy240KMCpRRzGCPiK+M3+5vbhLCYDs/bahU2P93/LKlhV7g/u/Scp8E
+         jPejooptJSw4/zm7wTHi3zXxJjgloPmDDo7xlKoJneRM/vnrRJwwxMuiqpL7zj51htyH
+         k8dl8CmT3pGXJmfSB9yEWG+sOOOpd9DONdYtpSsHWtcK1YBVNVIivJ1/b/PKdDS2PPgG
+         LIJKwv6oMFna+zelvRWnfw1eF1j9phcva6xAv+M/2qdc77z338yBlrFhIr9q/kq0UWmO
+         i5Ls9EKR6zttbm6R04OH5lqDVgNd4HHsd7YIzr00bjBy0dEgob+MyL+LF2u3MmMeoSTV
+         3WEQ==
+X-Gm-Message-State: AFq9FYJEXrIaLS9fy+DeGiDH+oAiZHU0UQbYu61gEl8RnVc+rNjq2HFH
+	9l3S4hYu0Y5NzZoqb2aYhsJ7mIvqyM8TE7lQ23bXF7CTLf1YkmGofykVyXkdxDIcQhWjze8GSrn
+	s/0NWFefdQw==
+X-Gm-Gg: AYBFou3D9QW33fqsmKk5Ls8grlKeyZS94vqrwMT0c9/JSNsadvW+gsRuQMu+5LfXcuq
+	2ZohVxh9u6Jd466Z2zC/wu2QKFteyTOtP0NvEj+EG6y3b/hCft564dsK9nCUxPWBzJqoHP1gJNY
+	ZQKvsPEH6PILDXKIcMl+CHsH8+r6wpcF1vnYGAK8cnql0Bx6DcCSeTo/9POEy8ljb73pbs4wU7B
+	agzvnnaDh9cEQe8WYRjH5/tLNUS6L8mm3i3HtXnqYGRrlkoiyGU8YoU3z0aIJM5qNWQl9xj3PvJ
+	EYmmURJMTOZaf4XRaQBpqmr6ziJUT06jhfn5Sc0OmyVzEutdWerEq8J0ATyDEzi2P0hWx3AvnKu
+	BiERSOi1tXHVathvIGwyBwyaBsijPUwOaJckUmZYFcu6UgkEBuxWQ2xZQGSnN/CUXil8HPchaDl
+	8jRaX1vZ+isr5elVRqZHCWSTHudaHD6wKKriydLAEyHRW2zViU+ZAOO6KhwgXnieb+bJTI8lj+C
+	XT8sez0TECjrbmPouKn+7di9CXHO1nmsgIKKiBBl5ahFbfDRcN7Q1BXkFOoz+CtIYWIfXg=
+X-Received: by 2002:a05:7300:8819:b0:33c:e72:5b3b with SMTP id 5a478bee46e88-3535f3cbcd4mr464739eec.25.1791487109863;
+        Thu, 08 Oct 2026 12:18:29 -0700 (PDT)
 Received: from localhost.localdomain ([2603:8001:5f01:8bab:bc88:5ec1:4f8a:5b23])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537c841579sm117933eec.4.2026.10.08.12.18.26
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537c841579sm117933eec.4.2026.10.08.12.18.28
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 08 Oct 2026 12:18:27 -0700 (PDT)
+        Thu, 08 Oct 2026 12:18:29 -0700 (PDT)
 From: Artem Dinaburg <artem@trailofbits.com>
 To: stable@vger.kernel.org
 Cc: Artem Dinaburg <artem@trailofbits.com>,
@@ -76,10 +77,12 @@ Cc: Artem Dinaburg <artem@trailofbits.com>,
 	Linus Walleij <linusw@kernel.org>,
 	Bartosz Golaszewski <brgl@kernel.org>,
 	jay.xu@rock-chips.com
-Subject: [PATCH 6.6.y 0/2] gpio: backport CVE-2026-53226, CVE-2026-64241
-Date: Thu,  8 Oct 2026 15:18:19 -0400
-Message-ID: <20261008191824.98662-1-artem@trailofbits.com>
+Subject: [PATCH 6.6.y 1/2] gpio: rockchip: teardown bugs and resource leaks
+Date: Thu,  8 Oct 2026 15:18:20 -0400
+Message-ID: <20261008191824.98662-2-artem@trailofbits.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261008191824.98662-1-artem@trailofbits.com>
+References: <20261008191824.98662-1-artem@trailofbits.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -88,23 +91,98 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Greg, Sasha, and maintainers,
+From: Marco Scardovi <scardracs@disroot.org>
 
-I'm working through the smaller CVE backports still missing from 6.6.y.
-These 2 upstream changes belong together for CVE-2026-53226,
-CVE-2026-64241. They must be applied in this order because the later change
-depends on or completes the earlier one.
+[ Upstream commit 9500077678230e36d22bf16d2b9539c13e59a801 ]
 
-The complete series is already present in 6.12.y, 6.18.y, and 7.2.y.
+Address several teardown issues and resource leaks in the driver's remove
+path and error handling:
 
-Could you please consider this series for 6.6.y?
+1. Debounce clock reference leak: The debounce clock (bank->db_clk) is
+   obtained using of_clk_get() which increments the clock's reference
+   count, but clk_put() is never called. Register a devm action to
+   cleanly release it on unbind. Note that of_clk_get(..., 1) remains
+   necessary over devm_clk_get() because the DT binding does not define
+   clock-names, precluding name-based lookup.
 
-Thanks,
-Artem Dinaburg
+2. Unregistered chained IRQ handler: The chained IRQ handler is not
+   disconnected in remove(). If a stray interrupt fires after the driver
+   is removed, the kernel attempts to execute a stale handler, leading
+   to a panic. Fix this by clearing the handler in remove().
 
-Series:
-  1. gpio: rockchip: teardown bugs and resource leaks
-  2. gpio: rockchip: fix generic IRQ chip leak on remove
+3. IRQ domain leak: The linear IRQ domain and its generic chips are
+   allocated manually during probe but never removed. Remove the IRQ
+   domain during driver teardown to free the associated generic chips
+   and mappings.
 
-base: v6.6.157 (79643295eba17affbd16ca97f3ef04c90266b28c) plus stable-queue
-revision 958ddf240a33ef26b1771be944f0ea6c3b597472
+[ Backport to 6.6.y: For 6.6.y, send with 1c1e0fc88d6e (CVE-2026-53226)
+  so generic chips are explicitly removed before irq_domain_remove().
+  6.1.y lacks irq_domain_remove_generic_chips(), so it needs a
+  separately reviewed older generic-chip teardown backport. ]
+
+Fixes: 936ee2675eee ("gpio/rockchip: add driver for rockchip gpio")
+Assisted-by: Antigravity:gemini-3.5-flash
+Signed-off-by: Marco Scardovi <scardracs@disroot.org>
+Link: https://patch.msgid.link/20260526171050.12785-3-scardracs@disroot.org
+[Bartosz: don't emit an error message on devres allocation failure]
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Assisted-by: LLM
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+---
+This is patch 1 of 2 in the ordered 6.6.y backport series.
+This change addresses CVE-2026-64241. Releases the debounce-clock
+reference, disconnects the chained IRQ handler, and removes the IRQ domain
+during driver teardown.
+
+The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not in 6.6.y.
+
+ drivers/gpio/gpio-rockchip.c | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpio/gpio-rockchip.c b/drivers/gpio/gpio-rockchip.c
+index ff9a4b8611d7..e0e4f3ed5fdd 100644
+--- a/drivers/gpio/gpio-rockchip.c
++++ b/drivers/gpio/gpio-rockchip.c
+@@ -629,10 +629,17 @@ static int rockchip_gpiolib_register(struct rockchip_pin_bank *bank)
+ 	return ret;
+ }
+ 
++static void rockchip_clk_put(void *data)
++{
++	struct clk *clk = data;
++
++	clk_put(clk);
++}
++
+ static int rockchip_get_bank_data(struct rockchip_pin_bank *bank)
+ {
+ 	struct resource res;
+-	int id = 0;
++	int id = 0, ret;
+ 
+ 	if (of_address_to_resource(bank->of_node, 0, &res)) {
+ 		dev_err(bank->dev, "cannot find IO resource for bank\n");
+@@ -662,6 +669,11 @@ static int rockchip_get_bank_data(struct rockchip_pin_bank *bank)
+ 			dev_err(bank->dev, "cannot find debounce clk\n");
+ 			return -EINVAL;
+ 		}
++
++		ret = devm_add_action_or_reset(bank->dev, rockchip_clk_put,
++					       bank->db_clk);
++		if (ret)
++			return ret;
+ 	} else {
+ 		bank->gpio_regs = &gpio_regs_v1;
+ 		bank->gpio_type = GPIO_TYPE_V1;
+@@ -773,6 +785,9 @@ static int rockchip_gpio_remove(struct platform_device *pdev)
+ {
+ 	struct rockchip_pin_bank *bank = platform_get_drvdata(pdev);
+ 
++	irq_set_chained_handler_and_data(bank->irq, NULL, NULL);
++	if (bank->domain)
++		irq_domain_remove(bank->domain);
+ 	gpiochip_remove(&bank->gpio_chip);
+ 
+ 	return 0;
+-- 
+2.39.5
