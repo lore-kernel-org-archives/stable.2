@@ -1,86 +1,84 @@
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 880683CA491
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 19:08:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61A543D171C
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 19:11:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791486522; cv=none; b=C1mnW7xxixncyIXeLy6RxaiBZ0N+41BDFsvBv+lYTM2oUmUo3r8VwHA6WVegzYS8HJB0t4p9kuDGVd4tFN5BLmQ8nyvLe3xnlAtH3jM7qaci4Kj6me9qTgrrMFPC0i2sqCQOxGufzMzVx2eWJi/U2Tydg2SSZwpzuXFnjvHcNi0=
+	t=1791486691; cv=none; b=IcQNSAiD8QH9tnDB9CK5UtxqZl73KbXmsKWE0d8A4YD40uFrhJ1TbvYVk+w07ppADPBOtyW9RMjTUUCuI5GVN8dmZdm1vY/iDyyB7UVFIuF3nYuqsG1JXqUvJhcIIHupMIWmwMpKFX9YRHKDL5vK4KirRIEf0fkUVSW4lijfLY4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791486522; c=relaxed/simple;
-	bh=5M6ONwAYQGGzjhALLBWWeXFdEJuST9MXsZw5Ht6qjWM=;
+	s=arc-20240116; t=1791486691; c=relaxed/simple;
+	bh=cbC2XhUsTJLB6BZt5mpJ/2DzTETC0/qixQ2p6zN/2zs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XnNexyUQNBb7qFQKMh1wlOv48CZIgu65Jmc64l+nLf4Zxg//4FkFXZaNo2XQtn83mHOYudBSIKsH9ukyEIr4heN/GOOXQl5RMu4W3ynSBHeSwsol8pJd56y56iYoYrUyR59F1ZxbEEPIzM8ca0JWxFLBhZrZL7stdmKafLxN5ls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=hLKDlfTT; arc=none smtp.client-ip=74.125.82.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	 MIME-Version; b=Av6hY5Lid8wPD1veL08efj1V84QY95+1FarrNE6gLOFelhBlHB44bF/+HpOIh8o7K1zGN84ufGNAC/vjUNayuXgvHKitk/sAUTnxCDHxsMksCd0UApnXKRMxOznc7JFpYIDNAydkMy685mSj7opAF7IoXwgk4v5CKSr9KS1zFZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=otkVz3cm; arc=none smtp.client-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="hLKDlfTT"
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-33e6279a1d7so3232638eec.1
-        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 12:08:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="otkVz3cm"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2d6d28aa26cso27640575ad.2
+        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 12:11:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1791486517; x=1792091317; darn=vger.kernel.org;
+        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1791486686; x=1792091486; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=89nlx+M34LzIrZosb2dO9gI0RPZyt6hlktU5w00KTX8=;
-        b=hLKDlfTTi8wSyzkszQkhy2B98cejuxB/NAGIeUBAThAT3UEZVroGVC1lMXlwlMBuyN
-         +K20O9JUrNlHbXdCEQrTRp2NBej7iTL/AduRzVGmCtH/YYjL7MAhxTDLRArgWV7+IS5R
-         S+GpC3qlRVURDR5EMZj6xF18VnIiXGjalS/nepMXgpK4oJaURRxtjmT8Wb3vVmuf4Snv
-         nVgrg0wZ9ihY1xT870eGQvJcxMhSo8EyCnNWkT/C8aoLxbFZMWXaIVKEeyZGYOjgi6ow
-         ziEGGS9zBO65BUU9eQhfcQxVZf31ST0bfcpADR0ljcOlwkhoYu/9Km+RxRJdsCAm5LFx
-         AfCA==
+        bh=Q4Zz1mpKCSKqZegwUQ0D/3xMtgVn99v1wjaeCbwZBKw=;
+        b=otkVz3cmCwkNBsvGx1tg7bGrIBdHHSKfcsf26FB8VBGsBcWSwljXMztNU3GGSG2rz8
+         8R6zVST94PPpRitPDSpyHkzq2Djq1UPvgFWEkzp9raoPuh52sMYIN3T/sgX1EFvOTJXO
+         UN4DKj169Yrkiss5/+VqzZz/cwL5JBBYAcUVjWrN9kjH1ABC9rc+RwyWKhzIixb68nEh
+         aLW9r9ulC2qBosvXaqvzbmQSeee2IlDzAwuvXFcMXI5jOTGlNWQPiDzZSxL3WOMqTliN
+         hr07VYNuUC5wxUiG6QEwYj3kfm5eLWsAf9MSQUhL0kvRdWYLr2pe89+kdg4ELOc/K/Y8
+         0i/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791486517; x=1792091317;
+        d=1e100.net; s=20260707; t=1791486686; x=1792091486;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=89nlx+M34LzIrZosb2dO9gI0RPZyt6hlktU5w00KTX8=;
-        b=UnS9VccRnX9o6aWc/hTKFEN8uive785ONNoiXpWTQWrvP9cASDwQnt/3pPS7f6RMD1
-         LQcFESuKn4o7bj9IlOLfxFY75vDGzhk534MBFJSOtZOxXqFaffsw/cdsexewCD9st7+1
-         NTFfiSEv1pp6stU/kxnGG2gyCGQ8FXshjpiERg8sYmPeLD4iZbQ0JJCDy9KAHUhOemCU
-         k8swwKaJ3jHFkr+hEb/csyd18fS9PW4BUf46Mjr/Kvv87O9bCU+etv++TGbvhmfsYB0l
-         VJEfahjNf0EJunKNKPQRCmYbywGDVpQY1YNj1whG3hMxRhm7vgobltzcEk2VpwVK9zRQ
-         Uevw==
-X-Gm-Message-State: AFq9FYJMShP5h+YKwgWrWZC5C4jfmFmqGbyZC2/zIMdnNyQ9eCbdDaHN
-	D2oQ0XLM9eWPGM1BnaKWyIggN0pnBV8CsfyXOMHrde/mf/FwYGfpZvUfC7wAeWIAmZ7eW3PmM9W
-	6Xm2ncZCRjQ==
-X-Gm-Gg: AYBFou1aAz1LZCD3nT3sUEIz13hMxu/Ixz/GtQ+tDkAbIecwk7GblsAEkkqmGjnf35/
-	rClBoI3tXgT8RQtKDL/m30IYpciV/oHTUOnuIine1qWQnOB7EpP06WThTqRm6u6s/hmsytnegk5
-	+VaD9yr4WY8rbSsjCGzzUlbXMHAQ2d7KxuV8poMOHDe7ueRqaLO7pWNFe/ZECMl3AgeBCvLVmPk
-	sckxarZxvdeAQ54gGYavH6OLuR/XE1Ys1Tb5vjtDgmLtysh9+NsbIZ3SDfJxtRSQ0i2zk3im3P1
-	rB6TD4NrZyi1OqOfzUCqDA3YvRrgXM6vFzWy08o0O6hXInR1bVaOCTW4Eg8HIW6g9L594VnFY8f
-	wEf9gJaOQ7IlyQYF7Vu/+cS6S0wvjA42bTcJBFo1aakYHuzuthNVj86NSqInzAIL4T/Sh9hk6M1
-	J//cGfOEwjv7yKW+LdRmTCyKxejk+a0Ka4/2Li2n3MGKXJ7lPvgb/gKRknvFAmAe/mro9yjTHDb
-	nTWo/d5J2Aa+HSCdIcXxmYnyEd2QqKobNpHhPZkAdW2bVGRv9ayt5sSKtFlY4tR/e2h39s=
-X-Received: by 2002:a05:693c:88d1:10b0:351:f762:a10c with SMTP id 5a478bee46e88-351f762a25bmr2478155eec.0.1791486516485;
-        Thu, 08 Oct 2026 12:08:36 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:bc88:5ec1:4f8a:5b23])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537c841648sm80561eec.3.2026.10.08.12.08.35
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 08 Oct 2026 12:08:36 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: Artem Dinaburg <artem@trailofbits.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Gao Xiang <hsiangkao@linux.alibaba.com>,
-	Gao Xiang <xiang@kernel.org>,
-	Chao Yu <chao@kernel.org>,
-	Yue Hu <huyue2@coolpad.com>,
-	Jeffle Xu <jefflexu@linux.alibaba.com>,
-	linux-erofs@lists.ozlabs.org,
+        bh=Q4Zz1mpKCSKqZegwUQ0D/3xMtgVn99v1wjaeCbwZBKw=;
+        b=oGbhqJnGdUNcnRLgpBXeqgADTTyjg1fr5zv9uE4jeO80T55Vx2AHOBT/a77ulj7dEI
+         opNuGw9O/pHGxL5iUgvgYs87OKPQ1h/15Y+nnZA5Z9AuR7NMLL5twoMB9lgyd7N2Ew7r
+         PE1sjAsOzWqvsgrFTSB5hsUwhWE+bBFoXsExqQ1GswFUu2gl2p2FQ0xc7TXetjBwvWrV
+         YzyyjfL2xVDw00+46eWXGw8hGCBdN6DC43Me1L260/aztBAnQhEeIXubE2rG5COfhjVS
+         2bduR8LZ189bn0avOM2XQfDoi9prhHL9DoBT/bzH+6RLhXPvA/Gl4PUDBwv8gfqEWm+Q
+         s0Vg==
+X-Forwarded-Encrypted: i=1; AKwUvBwm+e/x1AtvQFXb4bpTtwfKq27mYN8aYJTYTJgODQB8uSIxEVYkR7ihKT0fhZ7B4EFchWtOWzU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI0TjvlHr6naszOuVADAicezhFC+gG1PLazrw4MsHjBHufKbxju
+	5NNtY92IvDSwvCrW4LzRpjLqrkn1iUm0PTuthpufsuXD2RW2Bnw9uCTz/bVtqjpJSUQ=
+X-Gm-Gg: AYBFou2lBAFcnhlxYD0Boglq0dI9EA2TfxRB8tR/opEp5ACwJj6yLOpcMAOig60I25T
+	Imum4e7Wg0CVjS2p5glWwAEYyREZGV5aEKqHjbxqwC/24nvyrlvt/to9oe8T9EwoSzj8NKKlFoW
+	OdLleDZVOxnAm36QDsKkJmvqm09MJz/MjTHlyrUocGXzcz9PlraGVaiQ258ZdCXGJo1fgW9G/la
+	BPHfPPfJ3yKE/oivjOzPARAPSrYLi9VkDG6XPYKqwqK7lfn2IkNkqmM39rhV3LVUgbOULf338vj
+	N+MxApAgQC6tgKn+0A/xBLnmI1gbGWvHc/FZCLI3FOz1azfIGDmZ21QpCBtEKZE/ja6AA6y+k/w
+	YBxv6AQZVFjsr6w4+zSiaQZwr8boIFSNXfLlao8e0tM0k+UD0Bq6/OtN/ONXyfqc873anlO31it
+	BmDnChmb46Dm7zZmRCGRab0IuCUSrxDSLxTVO4IdCqEqH2Ic9fwDl9rE36+waSCtbRuwaZqomcl
+	ix2xUH72t7F
+X-Received: by 2002:a17:903:2984:b0:2df:99e6:9448 with SMTP id d9443c01a7336-2e6005fe110mr46098885ad.61.1791486686444;
+        Thu, 08 Oct 2026 12:11:26 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:5f::])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e83cceadf3sm762855ad.45.2026.10.08.12.11.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 12:11:25 -0700 (PDT)
+From: Joe Damato <joe@dama.to>
+To: netdev@vger.kernel.org,
+	Michael Chan <michael.chan@broadcom.com>,
+	Pavan Chebbi <pavan.chebbi@broadcom.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: edumazet@google.com,
+	horms@kernel.org,
 	linux-kernel@vger.kernel.org,
-	Yue Hu <zbestahu@gmail.com>,
-	Sandeep Dhavale <dhavale@google.com>,
-	Hongbo Li <hongbohbli@tencent.com>,
-	Chunhai Guo <guochunhai@vivo.com>
-Subject: [PATCH 6.6.y 2/2] erofs: unify lcn as u64 for 32-bit platforms
-Date: Thu,  8 Oct 2026 15:08:28 -0400
-Message-ID: <20261008190830.97970-3-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261008190830.97970-1-artem@trailofbits.com>
-References: <20261008190830.97970-1-artem@trailofbits.com>
+	Joe Damato <joe@dama.to>,
+	stable@vger.kernel.org
+Subject: [PATCH net 1/2] bnxt_en: Add helper to fill SW USO payload BDs
+Date: Thu,  8 Oct 2026 12:11:11 -0700
+Message-ID: <20261008191114.3736826-2-joe@dama.to>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261008191114.3736826-1-joe@dama.to>
+References: <20261008191114.3736826-1-joe@dama.to>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -89,148 +87,78 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Gao Xiang <hsiangkao@linux.alibaba.com>
+Move the code that fills a payload BD and its software ring entry in
+bnxt_sw_udp_gso_xmit() into a helper, bnxt_sw_gso_data_bd().
 
-[ Upstream commit 2d8c7edcb661812249469f4a5b62e9339118846f ]
+No functional change. A following patch uses the helper to add a pad BD
+to short SW USO segments.
 
-As sashiko reported [1], `lcn` was typed as `unsigned long` (or
-`unsigned int` sometimes), which is only 32 bits wide on 32-bit
-platforms, which causes `(lcn << lclusterbits)` to be truncated
-at 4 GiB.
-
-In order to consolidate the logic, just use `u64` consistently
-around the codebase.
-
-[1] https://sashiko.dev/r/20260420034612.1899973-1-hsiangkao%40linux.alibaba.com
-
-[ Backport to 6.6.y: rebase after the CVE-2025-68251 compact-index
-  validation change. Widen its new lcn diagnostic along with the
-  recorder, full and compact loader data flow, lookback and compressed-
-  length locals to u64. ]
-
-Fixes: 152a333a5895 ("staging: erofs: add compacted compression indexes support")
-Signed-off-by: Gao Xiang <hsiangkao@linux.alibaba.com>
-Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Joe Damato <joe@dama.to>
 ---
-This is patch 2 of 2 in the ordered 6.6.y backport series.
-This change addresses CVE-2026-53015. The EROFS zmap implementation and the
-preceding compact-index validation fix otherwise retain 32-bit lcn values
-in shifts on 32-bit systems; widening the complete data flow and the
-validation diagnostic to u64 prevents 4-GiB truncation without weakening
-the new loop check.
-This needed a target-specific adjustment; I called it out in the bracketed
-backport note above.
+ drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c | 33 ++++++++++++-------
+ 1 file changed, 22 insertions(+), 11 deletions(-)
 
-The fix is absent from the pinned 6.6.y branch and queue and must follow
-CVE-2025-68251 in this series.
-
- fs/erofs/zmap.c | 23 +++++++++++------------
- 1 file changed, 11 insertions(+), 12 deletions(-)
-
-diff --git a/fs/erofs/zmap.c b/fs/erofs/zmap.c
-index e53d5239f04d..990322b228cb 100644
---- a/fs/erofs/zmap.c
-+++ b/fs/erofs/zmap.c
-@@ -12,7 +12,7 @@ struct z_erofs_maprecorder {
- 	struct erofs_map_blocks *map;
- 	void *kaddr;
- 
--	unsigned long lcn;
-+	u64 lcn;
- 	/* compression extent information gathered */
- 	u8  type, headtype;
- 	u16 clusterofs;
-@@ -22,8 +22,7 @@ struct z_erofs_maprecorder {
- 	bool partialref;
- };
- 
--static int z_erofs_load_full_lcluster(struct z_erofs_maprecorder *m,
--				      unsigned long lcn)
-+static int z_erofs_load_full_lcluster(struct z_erofs_maprecorder *m, u64 lcn)
- {
- 	struct inode *const inode = m->inode;
- 	struct erofs_inode *const vi = EROFS_I(inode);
-@@ -219,7 +218,7 @@ static int unpack_compacted_index(struct z_erofs_maprecorder *m,
+diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c b/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c
+index 6c1060fa2ea5..ef04c9d08066 100644
+--- a/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c
++++ b/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c
+@@ -31,6 +31,26 @@ static u32 bnxt_sw_gso_lhint(unsigned int len)
+ 		return TX_BD_FLAGS_LHINT_2048_AND_LARGER;
  }
  
- static int z_erofs_load_compact_lcluster(struct z_erofs_maprecorder *m,
--					 unsigned long lcn, bool lookahead)
-+					 u64 lcn, bool lookahead)
- {
- 	struct inode *const inode = m->inode;
- 	struct erofs_inode *const vi = EROFS_I(inode);
-@@ -270,7 +269,7 @@ static int z_erofs_load_compact_lcluster(struct z_erofs_maprecorder *m,
- }
++static struct tx_bd *bnxt_sw_gso_data_bd(struct bnxt *bp,
++					 struct bnxt_tx_ring_info *txr,
++					 u16 prod, dma_addr_t addr,
++					 unsigned int len)
++{
++	struct tx_bd *txbd = &txr->tx_desc_ring[TX_RING(bp, prod)][TX_IDX(prod)];
++	struct bnxt_sw_tx_bd *tx_buf = &txr->tx_buf_ring[RING_TX(bp, prod)];
++
++	txbd->tx_bd_haddr = cpu_to_le64(addr);
++	txbd->tx_bd_len_flags_type = cpu_to_le32(len << TX_BD_LEN_SHIFT);
++	txbd->tx_bd_opaque = 0;
++
++	dma_unmap_addr_set(tx_buf, mapping, addr);
++	dma_unmap_len_set(tx_buf, len, 0);
++	tx_buf->skb = NULL;
++	tx_buf->is_sw_gso = 0;
++
++	return txbd;
++}
++
+ /* Transmit an skb requiring software UDP segmentation.
+  *
+  * Returns 1 if the skb was queued and new BDs were produced, 0 if the skb
+@@ -181,15 +201,10 @@ int bnxt_sw_udp_gso_xmit(struct bnxt *bp, struct bnxt_tx_ring_info *txr,
+ 		while (tso_dma_map_next(&map, &dma_addr, &chunk_len,
+ 					&mapping_len, seg_payload)) {
+ 			prod = NEXT_TX(prod);
+-			txbd = &txr->tx_desc_ring[TX_RING(bp, prod)][TX_IDX(prod)];
++			txbd = bnxt_sw_gso_data_bd(bp, txr, prod, dma_addr,
++						   chunk_len);
+ 			tx_buf = &txr->tx_buf_ring[RING_TX(bp, prod)];
  
- static int z_erofs_load_lcluster_from_disk(struct z_erofs_maprecorder *m,
--					   unsigned int lcn, bool lookahead)
-+					   u64 lcn, bool lookahead)
- {
- 	struct erofs_inode *vi = EROFS_I(m->inode);
- 	int err;
-@@ -289,7 +288,7 @@ static int z_erofs_load_lcluster_from_disk(struct z_erofs_maprecorder *m,
- 		return err;
+-			txbd->tx_bd_haddr = cpu_to_le64(dma_addr);
+-			dma_unmap_addr_set(tx_buf, mapping, dma_addr);
+-			dma_unmap_len_set(tx_buf, len, 0);
+-			tx_buf->skb = NULL;
+-			tx_buf->is_sw_gso = 0;
+-
+ 			if (mapping_len) {
+ 				if (last_unmap_buf) {
+ 					dma_unmap_addr_set(last_unmap_buf,
+@@ -204,10 +219,6 @@ int bnxt_sw_udp_gso_xmit(struct bnxt *bp, struct bnxt_tx_ring_info *txr,
+ 			}
+ 			last_unmap_buf = tx_buf;
  
- 	if (m->type >= Z_EROFS_LCLUSTER_TYPE_MAX) {
--		erofs_err(m->inode->i_sb, "unknown type %u @ lcn %u of nid %llu",
-+		erofs_err(m->inode->i_sb, "unknown type %u @ lcn %llu of nid %llu",
- 			  m->type, lcn, vi->nid);
- 		DBG_BUGON(1);
- 		return -EOPNOTSUPP;
-@@ -310,7 +309,7 @@ static int z_erofs_extent_lookback(struct z_erofs_maprecorder *m,
- 	const unsigned int lclusterbits = vi->z_logical_clusterbits;
- 
- 	while (m->lcn >= lookback_distance) {
--		unsigned long lcn = m->lcn - lookback_distance;
-+		u64 lcn = m->lcn - lookback_distance;
- 		int err;
- 
- 		err = z_erofs_load_lcluster_from_disk(m, lcn, false);
-@@ -330,14 +329,14 @@ static int z_erofs_extent_lookback(struct z_erofs_maprecorder *m,
- 			m->map->m_la = (lcn << lclusterbits) | m->clusterofs;
- 			return 0;
- 		default:
--			erofs_err(sb, "unknown type %u @ lcn %lu of nid %llu",
-+			erofs_err(sb, "unknown type %u @ lcn %llu of nid %llu",
- 				  m->type, lcn, vi->nid);
- 			DBG_BUGON(1);
- 			return -EOPNOTSUPP;
+-			flags = chunk_len << TX_BD_LEN_SHIFT;
+-			txbd->tx_bd_len_flags_type = cpu_to_le32(flags);
+-			txbd->tx_bd_opaque = 0;
+-
+ 			seg_payload -= chunk_len;
  		}
- 	}
- err_bogus:
--	erofs_err(sb, "bogus lookback distance %u @ lcn %lu of nid %llu",
-+	erofs_err(sb, "bogus lookback distance %u @ lcn %llu of nid %llu",
- 		  lookback_distance, m->lcn, vi->nid);
- 	DBG_BUGON(1);
- 	return -EFSCORRUPTED;
-@@ -350,7 +349,7 @@ static int z_erofs_get_extent_compressedlen(struct z_erofs_maprecorder *m,
- 	struct erofs_inode *const vi = EROFS_I(m->inode);
- 	struct erofs_map_blocks *const map = m->map;
- 	const unsigned int lclusterbits = vi->z_logical_clusterbits;
--	unsigned long lcn;
-+	u64 lcn;
- 	int err;
  
- 	DBG_BUGON(m->type != Z_EROFS_LCLUSTER_TYPE_PLAIN &&
-@@ -402,7 +401,7 @@ static int z_erofs_get_extent_compressedlen(struct z_erofs_maprecorder *m,
- 			break;
- 		fallthrough;
- 	default:
--		erofs_err(sb, "cannot found CBLKCNT @ lcn %lu of nid %llu", lcn,
-+		erofs_err(sb, "cannot found CBLKCNT @ lcn %llu of nid %llu", lcn,
- 			  vi->nid);
- 		DBG_BUGON(1);
- 		return -EFSCORRUPTED;
-@@ -411,7 +410,7 @@ static int z_erofs_get_extent_compressedlen(struct z_erofs_maprecorder *m,
- 	map->m_plen = erofs_pos(sb, m->compressedblks);
- 	return 0;
- err_bonus_cblkcnt:
--	erofs_err(sb, "bogus CBLKCNT @ lcn %lu of nid %llu", lcn, vi->nid);
-+	erofs_err(sb, "bogus CBLKCNT @ lcn %llu of nid %llu", lcn, vi->nid);
- 	DBG_BUGON(1);
- 	return -EFSCORRUPTED;
- }
 -- 
-2.39.5
+2.53.0-Meta
 
