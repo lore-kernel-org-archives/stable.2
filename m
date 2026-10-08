@@ -1,235 +1,282 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1BF048AE06
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 09:31:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34DA948BD5E
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 09:37:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791451877; cv=none; b=HxuANGGHI8qz6VQV5ndJ8ZyC4w7TFdGxrewOg60KXxBAF0vG0Rijg3+7ZdiC3p9K3TL/JSqNYlttT9IpR5TcfyB9CSKIrDrvHTXieNClQRJpNvbmkSl6yhLgjHP9amQ8+uXkG5qclrMsx6io7aR7KxN6mONl2bwfxwDSTLUapVA=
+	t=1791452268; cv=none; b=SqShlalMnnOJmmxQZtesGONlKHfITQh43lueUAA3i12AFOJJDJ6fAAftvJmvXjZXDsiu1Qfw25n/EnIHlSezQmx3KJthdEThZmti/YpeIE40Ps7eX3EoxYOB+Ri1/aIU9XEuRKIZqErJI2yqraAKmO1WUq8HvXBDXtvbmMVGlCk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791451877; c=relaxed/simple;
-	bh=4K9BvFlMKHfQ+Lv18CAMV9myI5c6fMcJfPP2KtshmTI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=J+r5pIRGFWPBOJxzUmAl1hsyMHBFi6yzL6vFOeBSOpAGc6umlINv/GW97AkVhR3SxR3MAzVPNfG1gWVtZkkI97jb3tJ94wqFgEuiCSP6GQkkoxUHnlPrHwJs/P0wEma31WgLzt7cd4ciNAc86U1Syph4vpM+E8DQhfyjlYp2bNc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SPaHxSBk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Jv2oBvqB; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791452268; c=relaxed/simple;
+	bh=x9ih1pwK+Rgtf6rB4TZu9gSvmKtzp41IWFqJ8da9HNk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=djHdJhFMZfV83wzWYT+hkbWKsLy3RFkOlhjsP1rY+b+pE8LVRXWKe8G8qHk36HcHRRgKdYWZVzgLgQtIhkGKoiVsMVIZC/n7cln7azcHprxfFL4X7S1zN2XVIdcCNQBWaxOK199+RH8q1+fpjrPz9Je5Y2wvEvO4OliHgYTm0TA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i5FcaFHE; arc=none smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SPaHxSBk";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Jv2oBvqB"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6987KdiZ2686707
-	for <stable@vger.kernel.org>; Thu, 8 Oct 2026 09:31:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=w2Kn2Qmc7ugy68f/zjB7Cv
-	OIvn/yO+vxbW0OIAcRWww=; b=SPaHxSBk2mSHlmHyBO9uywimHGGjzd5b0Qyn54
-	39FA1LNxTQ8AmZ7QBxva+ivr22S4bTs0Khu9w5flTc5BS49WS2KjkWeuZRU3M0Wi
-	Qzz1B5DvSYkFjHYQyimps2wQme7KS3HdxsGOaxj25dQGKSrTpq81bXnPdxwWZ0lm
-	zZpeLBgaz3QEF/vR47YHbqMlQtEdm+lw3VtCQ9shJUtjRDP0x2SjLk0RQHJVeZWD
-	tnLHpITjY6dd8rgCFs3rowIRf4W6j4zbQQtKWRKBPan7vxP9k20oGobW8ii4j/Eg
-	Jvv36bM3fdZrZLJ2MYqfBxs6ReLXTGN2glA1VxGBwc5mZzcQ==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe427fx-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Thu, 08 Oct 2026 09:31:09 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93ce7a85f04so977231785a.0
-        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 02:31:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i5FcaFHE"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48b02b1b4cfso350528f8f.0
+        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 02:37:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791451869; x=1792056669; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=w2Kn2Qmc7ugy68f/zjB7CvOIvn/yO+vxbW0OIAcRWww=;
-        b=Jv2oBvqBXPvt8BSBbf7HX3BXMZ6ylEUukSN6Cph0sqlC6KhGx3CZHhMXxDKSoekwbD
-         jDubrbouyfI5K98e+xTIzX4Fi3dBBlomU0wBNUrmlG3/sAW7MqHj2RsR+uUkWinkXl02
-         ts3AupaNhwqXAfgxl3Bf1KOT0fYAcgmwqFBlVTHoriXqSShuPL/AxXIIUt3rEdcNw2Pq
-         U1KO1tjXBh8HDTXYuFRE5Yvd7tdDQabz9T+ZB7bI+CUzEkziUByqBzx9ZVxFWa2YNf1S
-         tiE1ouYelpZFVbaWhtiww79kvuMlTmUugOhqRVYd8v5nrGBlK+wjJjuJ+6u6QRB8MRpv
-         8WFw==
+        d=gmail.com; s=20251104; t=1791452263; x=1792057063; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jyvRN3WPnyDcoToF/7upqd8kG5H4NmdfwqtphB+zdqM=;
+        b=i5FcaFHE651qhQ+ZMIrvxQfmjdHt8Cind4KUQbuJWOq21D76AdhJE0Xm+7/1y0GEtT
+         sY/+8HglKnjfQkwPpLazPv29gn9Kyo4m27F91XGZoQMIxo8mYk78zaUS9fOXFF3NtHmo
+         7+lnZUFG0dduHEbG0m0IsgFY51FoD5jEXG2kIVIode8tQfjQX4aJOpnY8mYGQkEotYwF
+         8ZrbxDMzKpvxRLgPAyse0Wrr+ALqclBvKBqrcFUFfLKC3jhlJPuHDyO/2EkABqWn1p9/
+         eMwJIMPdsbMt05myakTn4DfeA+6zNYkEvONJfn32zE9wn2ULYJRs/ITgokO/7nqYNAdt
+         /iEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791451869; x=1792056669;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=w2Kn2Qmc7ugy68f/zjB7CvOIvn/yO+vxbW0OIAcRWww=;
-        b=d+lXb2fgJVXrvzZbMZqDBwUF0qDvIiEfHzV1eqZGyMAPYvk0HFBDMKe2RINMtdTlH3
-         ZqfvEHGrZEnX5/+E0rCqmAqhXDWFom1dfJyFPCHk2YYkd4IK9tqLIJI+EQ2HReXe4xee
-         SZxvxSu7LosWmMvhMtU3gNRk8NiWEv2xxx7WQUNRt0MJERczTyqWhpHLNRDJfPbPsFbq
-         qXp/dNkqkH4q5f2FE7z3qlkai98Oy4Cj6OGky1SmxphY7ylg6wApTZqE+7GelfICR9hT
-         62rkIF10youYityAhBGrxf3o9OYEltuJBco+pKmJANBzrF2lIDSGpoP8THK4UEpsUURt
-         Vmqg==
-X-Forwarded-Encrypted: i=1; AKwUvBz+jWgYOLzRDcx3kvXmmuxu0sWIcvNOA8/ZUZxJN8Rca5If0E8Y8OPjk5BuLkeO+W8lG0E3WmE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lACTOtVEwfIr6+m3DekctMClTVGwdvANsdIhAt6XOhdX8cMBgT
-	eMgy8voj7nB3gMcc6Prv6Clhov2/wXnm2xSm9u3BANHMxJ7Ettv0TPbxMKCDyEqU8vmGrb0kjUY
-	aa2aeQ4hd/5g7d8MSATO4ereOp2hwA0fxGL6ENcOEvV7/p/LPSprGKTngbtI=
-X-Gm-Gg: AYBFou1M/Py854XNnBOoVspYP23EuFmSy7DXLY3GggQkXT3hQJ2qTh7+CJCwCGfGNa2
-	Ka6bFXUKpwBQSyfNLP/Pfj7Wb4mSC88OHp6NdFRFidkuQUGq1BDw0emZMomWxWhQ/1czMcD9ERs
-	9AOfG1MrJ1M673+TH6RVFbntu1vbsnN0yXk0UiNjguRF1AW55I1jT9gkkbD244efTjZshFnh1dP
-	z9FpTZHATMUjlr3ZSEIvV9nryaAG8hAk0kZkS8RonhvlPz/i1Q+6qJTQrgf2gRxAEy/SRfVvZrn
-	vjHa60xU3jylnliDWLtTeooNnRormbTRuc95Qbs9OwZr+Vlfe6XW0nkSb2i+OXM+1adNb0cBpdO
-	OPAdCBOWNxuXmKPT4KGrqPy9i7pZO397EMepP0eg0WplW4A==
-X-Received: by 2002:a05:620a:4102:b0:93e:5861:34df with SMTP id af79cd13be357-93e9b7e0695mr912771285a.47.1791451868615;
-        Thu, 08 Oct 2026 02:31:08 -0700 (PDT)
-X-Received: by 2002:a05:620a:4102:b0:93e:5861:34df with SMTP id af79cd13be357-93e9b7e0695mr912765985a.47.1791451867903;
-        Thu, 08 Oct 2026 02:31:07 -0700 (PDT)
-Received: from brgl-qcom.local (90-182-211-1.rcp.o2.cz. [90.182.211.1])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1843bd060sm72236575e9.14.2026.10.08.02.31.06
+        d=1e100.net; s=20260707; t=1791452263; x=1792057063;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jyvRN3WPnyDcoToF/7upqd8kG5H4NmdfwqtphB+zdqM=;
+        b=Hwrse+k4q2fq1iFbXuy5ynuy1hXXdtn2kv49FJfVxP3EDsnycZ46mWPAcynTVfJuFn
+         mRri1oIxDqnzxsReghyAftZo1OWtSNq7uHnwqWq4cGwYi3UVN7/v30bybSwmV0yV/dCt
+         B1A1Xm881Ymv4WlaUCTfUSNZ1lS03WLzJSVCQcvwcwnHovaCNCkPoqZdNFdwsfod5Kil
+         3QqqjdZa+eGz26rxDMjbXvM5dCXAQyHkDEto9YEdQHHq8j9XmuB9LV55E1Az4Yifei3Q
+         GKSyle1Uy6QK6EHxeM9PasQ83+6NUYEAIrl1wO5YhfNXpTq9Lqw2mXMP6CBUxqpd+qX1
+         g9ew==
+X-Forwarded-Encrypted: i=1; AKwUvBwGDbFp5IsCaij0kT24zET16KYDB+ndMeIYyMHIgBZCh+dRHTWpXZgLDKnpgFksKfT2BAS5ca8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL1UOoCRMrpExiK8JzDQObKougLDFHGpftq6akyO6brxrUXLgF4
+	tp38J1yYvx2FJ2iBISciKa34xKjY82K4feDJdhH9dv4/I/J0qPc3neo=
+X-Gm-Gg: AYBFou3rgvR4S/+S1uzlCBG9VyXsnSi8gujCRABx5qK54VPNDFFfo5IaPeVTP8e/g3g
+	CJcEk2thvGXkmcEIfdMgiqFBK1W6hlTkSDfz2hN+clcZ7eXRdT7wLSYDKz0e8EZowPnZkEgsAHc
+	kStefV0hX1gNCyEeCJc/qiotlrbgFUruVcOl1sAvGSm/spDi/7/p3BLUBlnlSM4azXFMpw3M4Ib
+	zB61E8whTftqJN0IgMpa91p9scMnD/nfI/ek1Aa/3Amn9PlXLy19Dq4rRHiEXd6KF4wrDEkNypw
+	8/72P7ZlNQhIgJ/dKAX84cjAd+rRFYMzhYiKPM+Qim00qgKGoNC5AO6Ksov0KxESPg7Hcj5mJ7J
+	kc0+b++6n/ESR3ToalUKU5duQ++J7hQHeBMblHpsZ3aTagch0wPr6iCQPWpMh0C455jozX4DWOs
+	BZGcH3GU3VWGRveRudupGvweSZJq4ZKQ3Y/C0lpvo=
+X-Received: by 2002:adf:fe89:0:b0:487:1577:9e33 with SMTP id ffacd0b85a97d-48c7f12523fmr2488555f8f.25.1791452263095;
+        Thu, 08 Oct 2026 02:37:43 -0700 (PDT)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c7af45d94sm3649370f8f.12.2026.10.08.02.37.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 02:31:07 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Thu, 08 Oct 2026 11:30:56 +0200
-Subject: [PATCH v27] dmaengine: qcom: bam_dma: free interrupt before the
- clock in error path
+        Thu, 08 Oct 2026 02:37:42 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+To: Zhu Yanjun <zyjzyj2000@gmail.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>
+Cc: linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH v5 1/2] RDMA/rxe: copy send WQE to kernel buffer before processing
+Date: Thu,  8 Oct 2026 09:37:39 +0000
+Message-ID: <20261008093740.3034881-2-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261008093740.3034881-1-tristmd@gmail.com>
+References: <20261007223222.2342804-1-tristmd@gmail.com>
+ <20261008093740.3034881-1-tristmd@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261008-bam-dma-free-irq-v27-1-660e70223e3c@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAM9ix2oC/33NSw6DIBAG4KsY1sUAKmpXvUfTBcJQSYootKaN8
- e4dXXVhupnkn8c3C0kQHSRyzhYSYXbJhQGDqE8Z0b0a7kCdwQYRTEjOmKCd8tR4RW0EnMWJaqX
- LTshGl7IieDZGsO69m9cb5t6lZ4if/cUsqq39R8MNyqktWmDc8Lbl7BJSyqeXeujgfY6FbOos5
- K8kjySJEoCtdM0L0xT8QFrX9Quvj7UeBAEAAA==
-X-Change-ID: 20261002-bam-dma-free-irq-cac4b268c465
-To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-        Andy Gross <agross@codeaurora.org>
-Cc: linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
-        linux-kernel@vger.kernel.org, brgl@kernel.org, stable@vger.kernel.org,
-        Sashiko <sashiko-bot@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3473;
- i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=4K9BvFlMKHfQ+Lv18CAMV9myI5c6fMcJfPP2KtshmTI=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqx2LV8XwxmUipbG10DNX/knwzlW9TCpiGjbcOA
- qIbJtWPJsGJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCasdi1QAKCRAFnS7L/zaE
- w3NDD/0W4ee5YF3dX7AKjagavsGUi3P6FvO749+FP1JhLtnrPym2cMfNHKH9zrT5cimn9sU+Pqj
- PhTMmT4DSDzK5gR94rmz+Bx6F+6FQ9z2AblM7unV0z1lbhkd9ZoG1K1hYjG9zOe2vpI0UT5Q89f
- PmBwINwCcS6aZ9AeEMXUZ5ljoitaO8Op6SYwlsWgga7nhkjVON8AaXdUmCE6h/GVN45uS4lN8cx
- sn2229cVn5DUGhMEkzv5BRbqYgtTMboefblQeJSEF18CyU7gtuOTGtwZUXKnbMzGMuA/UjYGX4t
- tm8FRHfciPXvsaufR9eNHdpwL4TKrmYfq7YSKHMuk/+IgHsrkZyGCIokWgPY4S7fPZe/N2LBjlQ
- qazHA8TD50mOPPSkLRi7jT8ebLwiQsT8EbVNPQfFf3/sqGp+rp4FHjCk1EGGaZBEPMn+EKrqHDS
- nn4leTKo0fnpgWQnQ/+9QLlWKE9BgogHME1DeSeTouI4SVVW7hKmg6Q9BqQqgu7YmrLQUwrtYBx
- s7kWhV0gwugPX4JY/wG4l7GKQ9vhzMItDBeS3GY3LMVqhCFFQAqEKsb8XtUw9D6ZRvgEukknUa8
- 1BMdzIOGnopZaVIIb3XybZXVrCTk1WBBpxtdcJywLP1dcVnMe1odA+cI4fvQv1d2QZBkkud2i+a
- 4rqYY+8Bs84QBIQ==
-X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
- fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Proofpoint-GUID: cDVUADiYctMBvUPCGR9madaErxPdBn5e
-X-Authority-Analysis: v=2.4 cv=AbwkjHXG c=1 sm=1 tr=0 ts=6ac762dd cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=zRh97aRZNhiOMYVz81Er1w==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=c92rfblmAAAA:8 a=EUspDBNiAAAA:8 a=bC-a23v3AAAA:8 a=VwQbUJbxAAAA:8
- a=sdHaY_b6le-me-Zt7agA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
- a=GvGzcOZaWPEFPQC_NcjD:22 a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDAzNyBTYWx0ZWRfXxdOo74VpumV/
- b7zoo0uR/zwT9yNm28Q9zFIyyt3yClhO228dq5U0J/9p3sd+PNbJjRiyVrwwZWwP/NcsD6DUa6h
- AFnyZkwFxCkfpLFquT5C7P9AKBD6758=
-X-Proofpoint-ORIG-GUID: cDVUADiYctMBvUPCGR9madaErxPdBn5e
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDAzNyBTYWx0ZWRfXzVo6eiBvd5mB
- 0V1xkyY2wo+Kk0h7aGw1/VZb4ryCwzpXiYL7xV2cVRmWZn1twVuAqZqfIU7PIsYZunBHdrcR3SM
- fjZyjAPM521/XhJm5Z0tm98p17iZ5YAx5M8J176dmcokJNS+1vqMVAlwrUS3kY53NBUMPFTP0fx
- pqt1wq4iFQeD+ppkl+3drTPdHmPc7JyPbUvfInn36IYTNLaqWKkzuscSv7KEHHkqWQULBqjB6kh
- X3NtE7xLSLpZeqJxvoXTGAX3E4LqFVlSMTYOpv7Th6aFj8zn82+nl7OvMQ1Hj9O5HkTjUhphgZW
- PhIVXUKXW0s9IIqUHfKMzDfWSwFhtyF7jVJFa7DQSvjhVsainCIrox2o3G3gyMM+nMZrgjq7kwZ
- A1s602RqDBP8kyNbborvt4ePBfhoxEvoKQeq3VgSK0ipvP+huq81oXB9kjgQuP2Q+feElBiMGCm
- FkQCpgpW+EV+nI5DG8w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-08_03,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
- clxscore=1015 suspectscore=0 priorityscore=1501 adultscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080037
+Content-Transfer-Encoding: 8bit
 
-The BAM interrupt is requested with a devres helper and so on error it's
-freed after probe() returns. We disable the clock before freeing or
-masking it so it may still fire and we may end up reading BAM registers
-with clock disabled.
+From: Tristan Madani <tristan@talencesecurity.com>
 
-Stop using devres for interrupts as we free it in remove() manually
-anyway. Add an appropriate label and free the interrupt before disabling
-the clock in error path and in remove().
+The rxe send queue is mapped into userspace via mmap. The requester
+processes Work Queue Entries (WQEs) directly from this shared buffer
+without first copying them to kernel memory. Userspace can modify WQE
+fields (num_sge, sge_offset, SGE entries) between kernel reads,
+leading to inconsistent state in copy_data().
 
+This is the send-path counterpart to the receive-path fixes:
+  - commit 22b8fbded65b8 ("RDMA/rxe: Fix TOCTOU heap overflow in
+    get_srq_wqe")
+  - commit d6ab440240a04 ("RDMA/rxe: Copy WQE to local buffer in
+    non-SRQ receive path")
+
+Fix by copying the send WQE to a kernel-private buffer in req_next_wqe()
+before processing. The copy uses the full queue element data size
+(max_inline bytes) so that inline data, which shares the flex array
+with SGEs, is always captured regardless of num_sge.
+
+The local copy is reused across multi-packet sends to preserve DMA
+progress state (cur_sge, sge_offset, resid). Field updates are written
+back to the shared queue using WRITE_ONCE() for individual fields and
+smp_store_release() for state transitions, so the completer and
+userspace observe consistent values without the tearing risk of bulk
+memcpy().
+
+The copy is invalidated when the WQE index advances (last packet sent,
+error, local ops, UD oversized), when a retry resets WQE state, on QP
+reset, or when the QP enters error state for flush.
+
+Fixes: 8700e3e7c485 ("Soft RoCE driver")
 Cc: stable@vger.kernel.org
-Fixes: e7c0fe2a5c84 ("dmaengine: add Qualcomm BAM dma driver")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260427-qcom-qce-cmd-descr-v16-0-945fd1cafbbc%40oss.qualcomm.com?part=2
-Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 ---
-This used to be part of the larger BAM DMA pipe locking series and never
-got picked up despite months on the list. I'm resending it separately.
----
-Changes in v27:
-- Rabase on top of current dma/next
-- Link to v26: https://patch.msgid.link/20261006-bam-dma-free-irq-v26-1-eef5c713d831@oss.qualcomm.com
+ drivers/infiniband/sw/rxe/rxe_qp.c    |  1 +
+ drivers/infiniband/sw/rxe/rxe_req.c   | 55 +++++++++++++++++++++++++--
+ drivers/infiniband/sw/rxe/rxe_verbs.h |  6 +++
+ 3 files changed, 58 insertions(+), 4 deletions(-)
 
-Changes in v26:
-- Rebased on top of current linux-next to address conflicts
-- Link to v25: https://patch.msgid.link/20261002-bam-dma-free-irq-v25-1-f39e01d19910@oss.qualcomm.com
-
-Changes in v25:
-- Don't touch remove(), it's not wrong in its current version
-- Link to v24: https://patch.msgid.link/20260723-qcom-qce-cmd-descr-v24-0-4f87bb4d9938@oss.qualcomm.com
----
- drivers/dma/qcom/bam_dma.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/dma/qcom/bam_dma.c b/drivers/dma/qcom/bam_dma.c
-index 94cb957d4b187704e207361d629fde00e3e090bf..a626746b5c93496e5c5e885b35a856d38c284448 100644
---- a/drivers/dma/qcom/bam_dma.c
-+++ b/drivers/dma/qcom/bam_dma.c
-@@ -1332,8 +1332,8 @@ static int bam_dma_probe(struct platform_device *pdev)
- 	for (i = 0; i < bdev->num_channels; i++)
- 		bam_channel_init(bdev, &bdev->channels[i], i);
+diff --git a/drivers/infiniband/sw/rxe/rxe_qp.c b/drivers/infiniband/sw/rxe/rxe_qp.c
+index 311f285d78a6b..77606c4a039b1 100644
+--- a/drivers/infiniband/sw/rxe/rxe_qp.c
++++ b/drivers/infiniband/sw/rxe/rxe_qp.c
+@@ -581,6 +581,7 @@ static void rxe_qp_reset(struct rxe_qp *qp)
+ 	qp->req.need_retry = 0;
+ 	qp->req.wait_for_rnr_timer = 0;
+ 	qp->req.noack_pkts = 0;
++	qp->req.send_wqe_valid = false;
+ 	qp->resp.msn = 0;
+ 	qp->resp.opcode = -1;
+ 	qp->resp.drop_msg = 0;
+diff --git a/drivers/infiniband/sw/rxe/rxe_req.c b/drivers/infiniband/sw/rxe/rxe_req.c
+index 24f5c044363f7..ab371f2d7791a 100644
+--- a/drivers/infiniband/sw/rxe/rxe_req.c
++++ b/drivers/infiniband/sw/rxe/rxe_req.c
+@@ -161,6 +161,26 @@ static void req_check_sq_drain_done(struct rxe_qp *qp)
+ 	spin_unlock_irqrestore(&qp->state_lock, flags);
+ }
  
--	ret = devm_request_irq(bdev->dev, bdev->irq, bam_dma_irq,
--			IRQF_TRIGGER_NONE, "bam_dma", bdev);
-+	ret = request_irq(bdev->irq, bam_dma_irq, IRQF_TRIGGER_HIGH,
-+			  "bam_dma", bdev);
- 	if (ret)
- 		goto err_bam_channel_exit;
++/* Write back requester WQE fields to shared memory using targeted
++ * stores so the completer and userspace observe consistent state.
++ */
++static void rxe_req_writeback_wqe(struct rxe_qp *qp)
++{
++	struct rxe_send_wqe *shared = qp->req.shared_wqe;
++	struct rxe_send_wqe *local = &qp->req.send_wqe.wqe;
++
++	if (!qp->req.send_wqe_valid || !shared)
++		return;
++
++	WRITE_ONCE(shared->status, local->status);
++	WRITE_ONCE(shared->first_psn, local->first_psn);
++	WRITE_ONCE(shared->last_psn, local->last_psn);
++	WRITE_ONCE(shared->mask, local->mask);
++	WRITE_ONCE(shared->has_rd_atomic, local->has_rd_atomic);
++	/* State must be last so the completer sees prior updates */
++	smp_store_release(&shared->state, local->state);
++}
++
+ static struct rxe_send_wqe *__req_next_wqe(struct rxe_qp *qp)
+ {
+ 	struct rxe_queue *q = qp->sq.queue;
+@@ -193,6 +213,20 @@ static struct rxe_send_wqe *req_next_wqe(struct rxe_qp *qp)
+ 	}
+ 	spin_unlock_irqrestore(&qp->state_lock, flags);
  
-@@ -1366,7 +1366,7 @@ static int bam_dma_probe(struct platform_device *pdev)
- 	ret = dma_async_device_register(&bdev->common);
- 	if (ret) {
- 		dev_err(bdev->dev, "failed to register dma async device\n");
--		goto err_bam_channel_exit;
-+		goto err_free_irq;
++	/* Reuse the existing kernel-private copy if still valid */
++	if (qp->req.send_wqe_valid && qp->req.shared_wqe == wqe)
++		return &qp->req.send_wqe.wqe;
++
++	/* Copy WQE from userspace-mapped shared queue to kernel-private
++	 * buffer. Use max_inline as copy size since it covers both SGEs
++	 * and inline data, which share the flex array.
++	 */
++	memcpy(&qp->req.send_wqe.wqe, wqe,
++	       sizeof(*wqe) + qp->sq.max_inline);
++	qp->req.shared_wqe = wqe;
++	qp->req.send_wqe_valid = true;
++
++	wqe = &qp->req.send_wqe.wqe;
+ 	wqe->mask = wr_opcode_mask(wqe->wr.opcode, qp);
+ 	return wqe;
+ }
+@@ -582,9 +616,13 @@ static void update_state(struct rxe_qp *qp, struct rxe_pkt_info *pkt)
+ {
+ 	qp->req.opcode = pkt->opcode;
+ 
+-	if (pkt->mask & RXE_END_MASK)
++	rxe_req_writeback_wqe(qp);
++
++	if (pkt->mask & RXE_END_MASK) {
+ 		qp->req.wqe_index = queue_next_index(qp->sq.queue,
+ 						     qp->req.wqe_index);
++		qp->req.send_wqe_valid = false;
++	}
+ 
+ 	qp->need_req_skb = 0;
+ 
+@@ -634,7 +672,9 @@ static int rxe_do_local_ops(struct rxe_qp *qp, struct rxe_send_wqe *wqe)
+ 
+ 	wqe->state = wqe_state_done;
+ 	wqe->status = IB_WC_SUCCESS;
++	rxe_req_writeback_wqe(qp);
+ 	qp->req.wqe_index = queue_next_index(qp->sq.queue, qp->req.wqe_index);
++	qp->req.send_wqe_valid = false;
+ 
+ 	return 0;
+ }
+@@ -666,6 +706,7 @@ int rxe_requester(struct rxe_qp *qp)
+ 		wqe = __req_next_wqe(qp);
+ 		spin_unlock_irqrestore(&qp->state_lock, flags);
+ 		if (wqe) {
++			qp->req.send_wqe_valid = false;
+ 			wqe->status = IB_WC_WR_FLUSH_ERR;
+ 			goto err;
+ 		} else {
+@@ -681,6 +722,7 @@ int rxe_requester(struct rxe_qp *qp)
+ 		qp->req.wait_psn = 0;
+ 		qp->req.need_retry = 0;
+ 		qp->req.wait_for_rnr_timer = 0;
++		qp->req.send_wqe_valid = false;
+ 		spin_unlock_irqrestore(&qp->state_lock, flags);
+ 		goto exit;
+ 	}
+@@ -695,6 +737,7 @@ int rxe_requester(struct rxe_qp *qp)
+ 	if (unlikely(qp->req.need_retry && !qp->req.wait_for_rnr_timer)) {
+ 		req_retry(qp);
+ 		qp->req.need_retry = 0;
++		qp->req.send_wqe_valid = false;
  	}
  
- 	ret = of_dma_controller_register(pdev->dev.of_node, bam_dma_xlate,
-@@ -1385,6 +1385,8 @@ static int bam_dma_probe(struct platform_device *pdev)
+ 	wqe = req_next_wqe(qp);
+@@ -772,10 +815,12 @@ int rxe_requester(struct rxe_qp *qp)
+ 			wqe->last_psn = qp->req.psn;
+ 			qp->req.psn = (qp->req.psn + 1) & BTH_PSN_MASK;
+ 			qp->req.opcode = IB_OPCODE_UD_SEND_ONLY;
+-			qp->req.wqe_index = queue_next_index(qp->sq.queue,
+-						       qp->req.wqe_index);
+ 			wqe->state = wqe_state_done;
+ 			wqe->status = IB_WC_SUCCESS;
++			rxe_req_writeback_wqe(qp);
++			qp->req.wqe_index = queue_next_index(qp->sq.queue,
++						       qp->req.wqe_index);
++			qp->req.send_wqe_valid = false;
+ 			goto done;
+ 		}
+ 		payload = mtu;
+@@ -839,8 +884,10 @@ int rxe_requester(struct rxe_qp *qp)
+ 	goto out;
+ err:
+ 	/* update wqe_index for each wqe completion */
+-	qp->req.wqe_index = queue_next_index(qp->sq.queue, qp->req.wqe_index);
+ 	wqe->state = wqe_state_error;
++	rxe_req_writeback_wqe(qp);
++	qp->req.wqe_index = queue_next_index(qp->sq.queue, qp->req.wqe_index);
++	qp->req.send_wqe_valid = false;
+ 	rxe_qp_error(qp);
+ exit:
+ 	ret = -EAGAIN;
+diff --git a/drivers/infiniband/sw/rxe/rxe_verbs.h b/drivers/infiniband/sw/rxe/rxe_verbs.h
+index 0f5ffd94643f9..a22dfc6e5ae3c 100644
+--- a/drivers/infiniband/sw/rxe/rxe_verbs.h
++++ b/drivers/infiniband/sw/rxe/rxe_verbs.h
+@@ -114,6 +114,12 @@ struct rxe_req_info {
+ 	int			wait_for_rnr_timer;
+ 	int			noack_pkts;
+ 	int			again;
++	struct rxe_send_wqe	*shared_wqe;
++	bool			send_wqe_valid;
++	struct {
++		struct rxe_send_wqe	wqe;
++		struct ib_sge		sge[RXE_MAX_SGE];
++	} send_wqe;
+ };
  
- err_unregister_dma:
- 	dma_async_device_unregister(&bdev->common);
-+err_free_irq:
-+	free_irq(bdev->irq, bdev);
- err_bam_channel_exit:
- 	for (i = 0; i < bdev->num_channels; i++)
- 		tasklet_kill(&bdev->channels[i].vc.task);
-@@ -1410,7 +1412,7 @@ static void bam_dma_remove(struct platform_device *pdev)
- 	/* mask all interrupts for this execution environment */
- 	writel_relaxed(0, bam_addr(bdev, 0,  BAM_IRQ_SRCS_MSK_EE));
- 
--	devm_free_irq(bdev->dev, bdev->irq, bdev);
-+	free_irq(bdev->irq, bdev);
- 
- 	for (i = 0; i < bdev->num_channels; i++) {
- 		bam_dma_terminate_all(&bdev->channels[i].vc.chan);
-
----
-base-commit: 53b32375c9caf793ff392f762236c90f2a062ae5
-change-id: 20261002-bam-dma-free-irq-cac4b268c465
-
-Best regards,
+ struct rxe_comp_info {
 -- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+2.47.3
 
